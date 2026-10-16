@@ -1,3 +1,4 @@
+#include "decls/address.h"
 extern "C" char DAT_00422644[];
 extern "C" char DAT_00422800[];
 extern "C" char DAT_0048e0f0[];
@@ -14,7 +15,6 @@ class ScriptHandler {
     int m20;
     ScriptHandler* Run(const char*, const char*, const char*);
 };
-extern char __cdecl FUN_001d04d0(const char*);
 ScriptHandler* ScriptHandler::Run(const char* a, const char* b, const char* c) {
     Init(a, 1);
     *(int*)this = ((int)DAT_00422644);

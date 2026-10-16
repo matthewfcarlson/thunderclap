@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 typedef unsigned int size_t;
 void* __cdecl operator new(size_t) throw();
 namespace hulkfight {
@@ -16,9 +18,9 @@ class Elem {
     Elem() throw();
     int a, b;
 };
-class VarAssignTrack : public Base {
+class VarAssignTrack_18ec30 : public Base {
   public:
-    VarAssignTrack() throw() : x(0), elem(), p(0), q(0), r(0), v(0) { flag = 1; }
+    VarAssignTrack_18ec30() throw() : x(0), elem(), p(0), q(0), r(0), v(0) { flag = 1; }
     virtual void a();
     virtual void b();
     virtual void c();
@@ -30,16 +32,7 @@ class VarAssignTrack : public Base {
 } // namespace motion
 } // namespace hulkfight
 namespace fight {
-class Factory {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual hulkfight::motion::VarAssignTrack* vfunc_5();
-};
 } // namespace fight
-hulkfight::motion::VarAssignTrack* fight::Factory::vfunc_5() {
-    return new hulkfight::motion::VarAssignTrack;
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::VarAssignTrack>::vfunc_5() {
+    return (void*)(new hulkfight::motion::VarAssignTrack_18ec30);
 }

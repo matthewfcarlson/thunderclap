@@ -1,6 +1,8 @@
+#include "gen/fight.h"
+
 extern void* alloc(unsigned int);
 extern int velocity_vftable;
-class VelocityCondition {
+class VelocityCondition_16d650 {
   public:
     int vt;
     char pad[8];
@@ -8,23 +10,15 @@ class VelocityCondition {
     int b;
     void Init(int);
 };
-class Factory_16d650 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual VelocityCondition* vfunc_5();
-};
-VelocityCondition* Factory_16d650::vfunc_5() {
-    VelocityCondition* p = (VelocityCondition*)alloc(0x14);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAnimatedXZCondition>::vfunc_5() {
+    VelocityCondition_16d650* p = (VelocityCondition_16d650*)alloc(0x14);
     if (p) {
         p->Init(0);
         p->vt = (int)&velocity_vftable;
         p->a = 0;
         p->b = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

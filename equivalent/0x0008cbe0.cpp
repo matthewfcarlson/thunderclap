@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2985 inputs, branch coverage 15/16, incomplete)
 // FUN_0008cbe0 @ 0x0008cbe0
+#include "decls/address.h"
 struct Engine_8cbe0 {
     void FUN_001eb870();
     void FUN_001eb890();
 };
 
-struct Manager_8cbe0 {
+struct Singleton_4dd6ec {
     Engine_8cbe0 *FUN_000862e0();
 };
 
-extern Manager_8cbe0 *DAT_004dd6ec;
 
 void *FUN_0008d690(unsigned int size);
 int __cdecl FUN_00266da0(int mode);

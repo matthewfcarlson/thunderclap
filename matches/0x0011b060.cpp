@@ -1,23 +1,20 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0040eac0[];
 extern void* __cdecl Alloc(unsigned int);
-class LocatorDistanceCondition {
+class LocatorDistanceCondition_11b060 {
   public:
-    LocatorDistanceCondition(int);
+    LocatorDistanceCondition_11b060(int);
 };
-class Factory_11b060 {
-  public:
-    void* vtable;
-    char pad[0x10];
-    LocatorDistanceCondition* vfunc_5();
-};
-LocatorDistanceCondition* Factory_11b060::vfunc_5() {
-    LocatorDistanceCondition* p = (LocatorDistanceCondition*)Alloc(0x14);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::LocatorDistanceCondition>::vfunc_5() {
+    LocatorDistanceCondition_11b060* p = (LocatorDistanceCondition_11b060*)Alloc(0x14);
     if (p) {
-        p->LocatorDistanceCondition::LocatorDistanceCondition(0);
+        p->LocatorDistanceCondition_11b060::LocatorDistanceCondition_11b060(0);
         *(unsigned int*)p = ((int)DAT_0040eac0);
         *(unsigned int*)((char*)p + 0xc) = 0;
         *(unsigned int*)((char*)p + 0x10) = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

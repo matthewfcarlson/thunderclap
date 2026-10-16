@@ -1,6 +1,8 @@
-class CButtonDownCondition {
+#include "gen/fight.h"
+
+class CButtonDownCondition_57230 {
   public:
-    CButtonDownCondition();
+    CButtonDownCondition_57230();
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -10,21 +12,13 @@ class CButtonDownCondition {
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int g_vft_57230;
-class Factory_57230 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual CButtonDownCondition* vfunc_5();
-};
-CButtonDownCondition* Factory_57230::vfunc_5() {
-    CButtonDownCondition* p = (CButtonDownCondition*)FUN_0008d690(0x20);
+
+template <> void* fight::ConditionFactoryTemplate<CButtonDownCondition>::vfunc_5() {
+    CButtonDownCondition_57230* p = (CButtonDownCondition_57230*)FUN_0008d690(0x20);
     if (p) {
-        p->CButtonDownCondition::CButtonDownCondition();
+        p->CButtonDownCondition_57230::CButtonDownCondition_57230();
         *(int*)p = (int)&g_vft_57230;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

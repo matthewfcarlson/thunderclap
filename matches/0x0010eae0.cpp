@@ -1,10 +1,10 @@
 extern "C" char DAT_0040dc14[];
-class HulkActionTrack {
+namespace hulkfight { namespace ai { class HulkActionTrack {
   public:
     unsigned int vf;
     char pad[0x14];
     HulkActionTrack* vfunc_5(unsigned int);
-};
+}; }}
 class Sub_10eae0 {
   public:
     void Destroy();
@@ -13,8 +13,8 @@ class Base_10eae0 {
   public:
     void Destroy();
 };
-extern void __cdecl thunk_FUN_00267090(HulkActionTrack*);
-HulkActionTrack* HulkActionTrack::vfunc_5(unsigned int flags) {
+extern void __cdecl thunk_FUN_00267090(hulkfight::ai::HulkActionTrack*);
+hulkfight::ai::HulkActionTrack* hulkfight::ai::HulkActionTrack::vfunc_5(unsigned int flags) {
     vf = ((int)DAT_0040dc14);
     ((Sub_10eae0*)((char*)this + 0x18))->Destroy();
     ((Base_10eae0*)this)->Destroy();

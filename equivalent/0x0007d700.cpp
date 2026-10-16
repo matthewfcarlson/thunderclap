@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1073 inputs, branch coverage 38/38)
 // FUN_0007d700 @ 0x0007d700
-unsigned __int64 __cdecl FUN_0027b020(const char* s) throw();
+#include "decls/address.h"
 void* __cdecl FUN_00263ea0(unsigned int size) throw();
 
 struct Vec3_7d700 {
@@ -31,7 +31,7 @@ struct Opt_7d700 {
     Flags_7d700* FUN_00086340();
 };
 
-struct Globals_7d700 {
+struct World {
     char pad00[0x54];
     Opt_7d700* opt;
 };
@@ -67,7 +67,6 @@ public:
     void FUN_00083d70(float v);
 };
 
-extern Globals_7d700* DAT_004dd700;
 extern unsigned DAT_004dd060;
 extern unsigned __int64 DAT_004dd058;
 extern unsigned __int64 DAT_004dd050;

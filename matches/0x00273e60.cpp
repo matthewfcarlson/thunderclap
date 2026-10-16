@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 class Inner_273e60 {
   public:
     virtual void a0();
@@ -29,25 +31,14 @@ struct Data_273e60 {
     char pad18[0x15c - 0x18];
     int field;
 };
-class FileCommitRequest {
-  public:
-    virtual void v0();
-    virtual int v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    char pad[4];
-    Data_273e60* volatile data;
-};
-int FileCommitRequest::v1() {
-    Data_273e60* d = data;
+
+int core::FileCommitRequest::vfunc_1() {
+    Data_273e60* d = (*(Data_273e60 *volatile *)&this->f_08);
     Inner_273e60* i = d->inner;
     int x = i->k(d->field, (int)((char*)d + 0x1e));
     int z = i->m();
-    data->sub.a();
-    data->y = z;
-    data->sub.b();
+    (*(Data_273e60 *volatile *)&this->f_08)->sub.a();
+    (*(Data_273e60 *volatile *)&this->f_08)->y = z;
+    (*(Data_273e60 *volatile *)&this->f_08)->sub.b();
     return x;
 }

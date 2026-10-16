@@ -1,6 +1,8 @@
-class GrappleHealthCondition {
+#include "gen/fight.h"
+
+class GrappleHealthCondition_16dc70 {
   public:
-    GrappleHealthCondition();
+    GrappleHealthCondition_16dc70();
     void Init(int x);
     virtual void f0() {}
     virtual void f1() {}
@@ -15,7 +17,7 @@ class GrappleHealthCondition {
     int m20;
 };
 
-GrappleHealthCondition::GrappleHealthCondition() {
+GrappleHealthCondition_16dc70::GrappleHealthCondition_16dc70() {
     m12 = 0;
     m16 = 0;
     m20 = 0;
@@ -23,22 +25,12 @@ GrappleHealthCondition::GrappleHealthCondition() {
 
 void* Alloc(unsigned int);
 
-class ConditionFactoryTemplate {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual GrappleHealthCondition* v5();
-};
-
-GrappleHealthCondition* ConditionFactoryTemplate::v5() {
-    GrappleHealthCondition* p = (GrappleHealthCondition*)Alloc(0x18);
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::GrappleHealthCondition>::vfunc_5() {
+    GrappleHealthCondition_16dc70* p = (GrappleHealthCondition_16dc70*)Alloc(0x18);
     if (p) {
         p->Init(0);
-        p->GrappleHealthCondition::GrappleHealthCondition();
-        return p;
+        p->GrappleHealthCondition_16dc70::GrappleHealthCondition_16dc70();
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct Tgt_182310 {
     void G(int, int, int);
 };
@@ -18,26 +20,20 @@ struct Cfg_182310 {
     int idx;
     float f;
 };
-class Action {
+class Action_182310 {
   public:
     virtual void a();
     virtual void b();
     virtual bool vfunc_2();
 };
-class Prop_182310 : public Action {
-  public:
-    virtual bool vfunc_3(int, int);
-    char pad[0x18];
-    Cfg_182310* cfg;
-    Src_182310* src;
-};
-bool Prop_182310::vfunc_3(int, int) {
-    if (!src)
+
+bool hulkfight::motion::PropDamageAction::vfunc_3(int , int ) {
+    if (!(*(Src_182310 * *)&this->f_20))
         return false;
     {
-        Holder_182310* h = src->Hld();
+        Holder_182310* h = (*(Src_182310 * *)&this->f_20)->Hld();
         Ent_182310* e = h->Find();
-        int i = cfg->idx;
+        int i = (*(Cfg_182310 * *)&this->f_1c)->idx;
         if (e) {
             Tgt_182310* t;
             if (i < 0)
@@ -47,7 +43,7 @@ bool Prop_182310::vfunc_3(int, int) {
             else
                 return false;
             if (t)
-                t->G((int)cfg->f, e->i12c, 0);
+                t->G((int)(*(Cfg_182310 * *)&this->f_1c)->f, e->i12c, 0);
         }
     }
     return false;

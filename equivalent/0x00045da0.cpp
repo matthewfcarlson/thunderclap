@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 24/24)
 // FUN_00045da0 @ 0x00045da0
+#include "decls/address.h"
 struct Key_45da0 {
     unsigned lo;
     unsigned hi;
@@ -52,7 +53,6 @@ struct Manager_45da0 {
     void FUN_001c4190(Key_45da0 *k);
 };
 Manager_45da0 *__cdecl FUN_001c3d90();
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 
 struct Tracker_45da0 {
     char pad0[8];

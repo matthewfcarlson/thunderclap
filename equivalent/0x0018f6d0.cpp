@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 98/98)
 // hulkfight::motion::TankLocomotionAction::vfunc_5 @ 0x0018f6d0
+#include "decls/address.h"
 extern "C" double sqrt(double);
 extern "C" double atan(double);
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
@@ -123,7 +124,6 @@ struct Settings_18f6d0 {
     float f64;
 };
 
-extern World *DAT_004dd700;
 extern Vec3_18f6d0 DAT_004bfc24;
 
 float __cdecl FUN_00224f10(Vec3_18f6d0 *v);

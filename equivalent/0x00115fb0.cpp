@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3073 inputs, branch coverage 90/104, incomplete)
 // hulkfight::ai::ComputeDropZoneCondition::vfunc_6 @ 0x00115fb0
+#include "decls/address.h"
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
@@ -46,7 +47,6 @@ struct World {
     Sys54 *p54;
 };
 
-extern World *DAT_004dd700;
 
 struct Obj8_115fb0 {
     void FUN_000356c0(Vec3_115fb0 *v);

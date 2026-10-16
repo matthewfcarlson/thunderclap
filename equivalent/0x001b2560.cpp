@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3191 inputs, branch coverage 113/118, incomplete)
 // AICollisionSolverAgent::vfunc_5 @ 0x001b2560
+#include "gen/global.h"
+#include "decls/address.h"
+
 struct V3_1b2560 {
     float x, y, z;
 };
@@ -56,11 +59,10 @@ struct Contact_1b2560 {
 struct Pool_1b2560 {
     char FUN_000242d0(void *shape);
 };
-struct Hub_1b2560 {
+struct World {
     char pad0[0x20];
     Pool_1b2560 *f20;
 };
-extern Hub_1b2560 *DAT_004dd700;
 extern unsigned int DAT_004e2198;
 extern unsigned int DAT_004e219c;
 extern float DAT_004c3738;
@@ -79,23 +81,7 @@ union FU_1b2560 {
     unsigned int u;
 };
 
-class AICollisionSolverAgent {
-public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual int v5(Contact_1b2560 *c, int a1);
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    char pad04[4];
-    Listener_1b2560 *f8;
-
+struct AICollisionSolverAgent_nv_1b2560 {
     int FUN_001afb80(Body_1b2560 *b, Body_1b2560 *a);
     int FUN_001afba0(Body_1b2560 *a, Body_1b2560 *b, V3_1b2560 *p, V3_1b2560 *q, float f);
     int FUN_001afdc0(Body_1b2560 *a, Body_1b2560 *b, V3_1b2560 *p, V3_1b2560 *q, float f);
@@ -109,8 +95,8 @@ public:
     int FUN_001aff50(Body_1b2560 *a0, Body_1b2560 *a, Body_1b2560 *b0, Body_1b2560 *b, V3_1b2560 *p, V3_1b2560 *q, V3_1b2560 *r, float f);
 };
 
-int AICollisionSolverAgent::v5(Contact_1b2560 *C, int a1)
-{
+int AICollisionSolverAgent::vfunc_5(void* __p0, void* __p1) { Contact_1b2560 * C = (Contact_1b2560 *)__p0; int a1 = (int)__p1;
+
     Body_1b2560 *A = C->f8->f18;
     Body_1b2560 *B = C->fc->f18;
     int typeA;
@@ -139,38 +125,38 @@ int AICollisionSolverAgent::v5(Contact_1b2560 *C, int a1)
     }
     typeB = B->fc;
     if (typeB == 2)
-        return FUN_001afb80(B, A);
+        return ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001afb80(B, A);
     if (typeA == 3) {
         if (typeB == 5) {
             neg.x = C->v18.x * -1.0f;
             neg.y = C->v18.y * -1.0f;
             neg.z = C->v18.z * -1.0f;
-            return FUN_001afba0(A, B, &C->v38, &neg, C->f24);
+            return ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001afba0(A, B, &C->v38, &neg, C->f24);
         }
     } else if (typeB == 3 && typeA == 5) {
-        return FUN_001afba0(B, A, &C->v2c, &C->v18, C->f24);
+        return ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001afba0(B, A, &C->v2c, &C->v18, C->f24);
     }
     if (typeA == 4) {
         if (typeB == 5) {
             neg.x = C->v18.x * -1.0f;
             neg.y = C->v18.y * -1.0f;
             neg.z = C->v18.z * -1.0f;
-            return FUN_001afdc0(A, B, &C->v38, &neg, C->f24);
+            return ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001afdc0(A, B, &C->v38, &neg, C->f24);
         }
     } else if (typeB == 4 && typeA == 5) {
-        return FUN_001afdc0(B, A, &C->v2c, &C->v18, C->f24);
+        return ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001afdc0(B, A, &C->v2c, &C->v18, C->f24);
     }
     if (typeA == 6) {
         neg.x = C->v18.x * -1.0f;
         neg.y = C->v18.y * -1.0f;
         neg.z = C->v18.z * -1.0f;
-        return FUN_001afe70(A, C->f4, B, &C->v38, &neg, C->f24);
+        return ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001afe70(A, C->f4, B, &C->v38, &neg, C->f24);
     }
     if (typeB == 6)
-        return FUN_001afe70(B, C->f0, A, &C->v2c, &C->v18, C->f24);
+        return ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001afe70(B, C->f0, A, &C->v2c, &C->v18, C->f24);
 
-    if (f8 != 0)
-        f8->notify(C, a1);
+    if ((*(Listener_1b2560 * *)&this->f_08) != 0)
+        (*(Listener_1b2560 * *)&this->f_08)->notify(C, a1);
     res = 0;
     if (A->fc == 5) {
         sub = A->f8;
@@ -202,10 +188,10 @@ int AICollisionSolverAgent::v5(Contact_1b2560 *C, int a1)
             if (flag)
                 return 1;
         }
-        FUN_001b0090(sub, A, B);
+        ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001b0090(sub, A, B);
         Ref_1b2560 *r2 = C->fc;
         if (r2->f8 == DAT_004e2198 && r2->fc == DAT_004e219c) {
-            res = FUN_001b05a0(sub, B, C);
+            res = ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001b05a0(sub, B, C);
             if (res == 1)
                 return 1;
         }
@@ -240,10 +226,10 @@ int AICollisionSolverAgent::v5(Contact_1b2560 *C, int a1)
             if (flag)
                 return 1;
         }
-        FUN_001b0090(sub, B, A);
+        ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001b0090(sub, B, A);
         Ref_1b2560 *r2 = C->f8;
         if (r2->f8 == DAT_004e2198 && r2->fc == DAT_004e219c) {
-            res = FUN_001b05a0(sub, A, C);
+            res = ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001b05a0(sub, A, C);
             if (res == 1)
                 return 1;
         }
@@ -253,7 +239,7 @@ int AICollisionSolverAgent::v5(Contact_1b2560 *C, int a1)
         FU_1b2560 u;
         u.f = C->f24;
         u.u &= 0x7fffffff;
-        return FUN_001b0e30(A, B, &C->v38, &C->v18, u.u);
+        return ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001b0e30(A, B, &C->v38, &C->v18, u.u);
     }
     typeB = B->fc;
     if (typeB == 7) {
@@ -263,37 +249,37 @@ int AICollisionSolverAgent::v5(Contact_1b2560 *C, int a1)
         FU_1b2560 u;
         u.f = C->f24;
         u.u &= 0x7fffffff;
-        return FUN_001b0e30(B, A, &C->v2c, &neg, u.u);
+        return ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001b0e30(B, A, &C->v2c, &neg, u.u);
     }
     s8 = C->f8;
     if (s8->f8 == DAT_004e2198 && s8->fc == DAT_004e219c && typeB == 1) {
         neg.x = C->v18.x * -1.0f;
         neg.y = C->v18.y * -1.0f;
         neg.z = C->v18.z * -1.0f;
-        return FUN_001afea0(C, C->fc->f18, B, A, &C->v2c, &neg, C->f24);
+        return ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001afea0(C, C->fc->f18, B, A, &C->v2c, &neg, C->f24);
     }
     sc = C->fc;
     if (sc->f8 == DAT_004e2198 && sc->fc == DAT_004e219c && A->fc == 1)
-        return FUN_001afea0(C, s8->f18, A, B, &C->v38, &C->v18, C->f24);
+        return ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001afea0(C, s8->f18, A, B, &C->v38, &C->v18, C->f24);
     if (A->fc == 5) {
         if (B->fc == 5)
-            return FUN_001b1e90(A, B, &C->v2c, &C->v38, &C->v18, C->f24);
+            return ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001b1e90(A, B, &C->v2c, &C->v38, &C->v18, C->f24);
         if (B->fc == 1) {
             neg.x = C->v18.x * -1.0f;
             neg.y = C->v18.y * -1.0f;
             neg.z = C->v18.z * -1.0f;
-            return FUN_001b1710(sc->f18, B, A, &C->v2c, &neg, C->f24);
+            return ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001b1710(sc->f18, B, A, &C->v2c, &neg, C->f24);
         }
     }
     {
         int ta = A->fc;
         if (B->fc == 5) {
             if (ta == 1)
-                return FUN_001b1710(s8->f18, A, B, &C->v38, &C->v18, C->f24);
+                return ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001b1710(s8->f18, A, B, &C->v38, &C->v18, C->f24);
             return res;
         }
         if (ta == 1 && B->fc == 1)
-            return FUN_001aff50(s8->f18, A, sc->f18, B, &C->v2c, &C->v38, &C->v18, C->f24);
+            return ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001aff50(s8->f18, A, sc->f18, B, &C->v2c, &C->v38, &C->v18, C->f24);
     }
     return res;
 }

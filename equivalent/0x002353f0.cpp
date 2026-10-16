@@ -24,7 +24,7 @@ public:
     virtual void v7(int a, int b, Key_2353f0 *k);
 };
 
-class ParamValueName {
+namespace fight { class ParamValueName {
 public:
     virtual void v0();
     virtual void v1();
@@ -37,9 +37,9 @@ public:
     int f4;
     int f8;
     int fc;
-};
+}; }
 
-void ParamValueName::vfunc_5(int a1, int a2, Sink_2353f0 *sink)
+void fight::ParamValueName::vfunc_5(int a1, int a2, Sink_2353f0 *sink)
 {
     if ((DAT_004e5bc8 & 1) == 0) {
         DAT_004e5bc8 |= 1;

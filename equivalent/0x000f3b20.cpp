@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 37/38, incomplete)
 // FUN_000f3b20 @ 0x000f3b20
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern char DAT_0049f4f0[];
 extern char DAT_004a1274[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
 
 namespace pure3d {
 class CompositeDrawable {

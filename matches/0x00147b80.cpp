@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct Result_147b80 {
     char pad[0x1e58];
     float value;
@@ -9,15 +11,12 @@ struct HelperA_147b80 {
 struct HelperB_147b80 {
     Result_147b80* g();
 };
-class Action {
+class Action_147b80 {
   public:
     char pad[0x20];
 };
-class GrappleStruggleAction : public Action {
-  public:
-    bool vfunc_3(int, int);
-};
-bool GrappleStruggleAction::vfunc_3(int, int) {
+
+bool hulkfight::motion::GrappleStruggleAction::vfunc_3(int , int ) {
     HelperA_147b80* a = *(HelperA_147b80**)((char*)this + 0x20);
     HelperA_147b80* b = a->f();
     Result_147b80* r = ((HelperB_147b80*)b)->g();

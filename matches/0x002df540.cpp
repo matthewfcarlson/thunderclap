@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Manager_2df540 {
   public:
     virtual void f0();
@@ -35,14 +37,8 @@ class Manager_2df540 {
     virtual void f32(int, int);
 };
 extern Manager_2df540* gManager_2df540;
-struct PrimGroupOptimized {
-    char pad[0x40];
-    void* p;
-    char pad2[0x14];
-    void* q;
-    void vfunc_6();
-};
-void PrimGroupOptimized::vfunc_6() {
-    int a = p ? *(int*)((char*)p + 0x10) : 0;
-    gManager_2df540->f32(a, (int)q);
+
+void pure3d::PrimGroupOptimized::vfunc_6() {
+    int a = (*(void * *)&this->f_40) ? *(int*)((char*)(*(void * *)&this->f_40) + 0x10) : 0;
+    gManager_2df540->f32(a, (int)(*(void * *)&this->f_58));
 }

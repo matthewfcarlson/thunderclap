@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 31/32, incomplete)
 // FUN_001e5980 @ 0x001e5980
+#include "decls/address.h"
 struct V3_1e5980 {
     float x, y, z;
 };
@@ -146,11 +147,10 @@ struct Limits_1e5980 {
     char pad0[0x18];
     float maxY;                     // 0x18
 };
-struct Globals_1e5980 {
+struct World {
     char pad0[0x24];
     Limits_1e5980 *limits;                 // 0x24
 };
-extern Globals_1e5980 *DAT_004dd700;
 
 class Manager_1e5980 {
 public:

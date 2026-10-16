@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3037 inputs, branch coverage 42/42)
 // hulkfight::ai::TargetDistanceCondition::vfunc_6 @ 0x001251f0
+#include "decls/address.h"
 extern "C" double sqrt(double);
 
 extern char DAT_00494b44[];
@@ -73,11 +74,10 @@ struct Reg_1251f0 {
     Obj10_1251f0 *FUN_00024280(int lo, int hi);
 };
 
-struct Globals_1251f0 {
+struct World {
     char pad0[0x20];
     Reg_1251f0 *f20;
 };
-extern Globals_1251f0 *DAT_004dd700;
 
 class TargetDistanceCondition {
 public:

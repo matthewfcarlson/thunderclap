@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001e4ae0 @ 0x001e4ae0
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) { return p; }
 
 class CSPHulkProp;
@@ -34,8 +35,7 @@ public:
 
 struct Holder44_1e4ae0 { Factory_1e4ae0 *FUN_00203d70(); };
 struct Holder28_1e4ae0 { Holder44_1e4ae0 *FUN_000862a0(); };
-struct Manager_1e4ae0 { char pad0[0x54]; Holder28_1e4ae0 *holder; };
-extern Manager_1e4ae0 *DAT_004dd700;
+struct World { char pad0[0x54]; Holder28_1e4ae0 *holder; };
 extern int DAT_004e2748;
 
 struct Mat_1e4ae0 {
@@ -43,7 +43,6 @@ struct Mat_1e4ae0 {
     void FUN_0022b980();
 };
 
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 int __cdecl FUN_000964a0(char *buf, int n, const char *fmt, const char *a, const char *b);
 int __cdecl FUN_00267760(char *buf, int n, const char *fmt, const char *a, int b);
 

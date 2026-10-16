@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 140 inputs, branch coverage 34/34)
 // FUN_00181d30 @ 0x00181d30
+#include "decls/address.h"
 struct Vec3_181d30 {
     float x, y, z;
 };
@@ -100,14 +101,13 @@ struct Ctx20_181d30 {
     Target_181d30 *f124;
 };
 
-struct Game_181d30 {
+struct World {
     char pad00[0xc];
     Mgr0c *f0c;
     char pad10[0x20 - 0x10];
     Ctx20_181d30 *f20;
 };
 
-extern Game_181d30 *DAT_004dd700;
 
 class Thing_181d30 {
 public:

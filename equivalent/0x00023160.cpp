@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1026 inputs, branch coverage 52/54, incomplete)
 // CGrappleLocoStrafe4Action::vfunc_6 @ 0x00023160
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 namespace content {
@@ -74,8 +75,7 @@ public:
 
 struct Holder44_23160 { Factory_23160 *FUN_00203d70(); };
 struct Holder28_23160 { Holder44_23160 *FUN_000862a0(); };
-struct Manager_23160 { char pad0[0x54]; Holder28_23160 *holder; };
-extern Manager_23160 *DAT_004dd700;
+struct World { char pad0[0x54]; Holder28_23160 *holder; };
 
 class Owner_23160 {
 public:

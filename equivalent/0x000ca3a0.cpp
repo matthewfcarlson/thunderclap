@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 566 inputs, branch coverage 29/30, incomplete)
 // FUN_000ca3a0 @ 0x000ca3a0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" double sin(double);
 
@@ -64,7 +65,7 @@ struct Inventory_ca3a0 {
 
 struct Level_ca3a0;
 struct Window_ca3a0 { Level_ca3a0 *FUN_00086310(); };
-struct Game_ca3a0 {
+struct World {
     char pad0[0x54];
     Window_ca3a0 *window;
 };
@@ -89,10 +90,8 @@ struct Marker_ca3a0 {
 };
 
 void *thunk_FUN_0008d690(unsigned int size);
-extern Game_ca3a0 *DAT_004dd700;
 extern Inventory_ca3a0 *DAT_004dd9cc;
 extern float DAT_004de604;
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
 
 struct Frame_ca3a0 {
     union {

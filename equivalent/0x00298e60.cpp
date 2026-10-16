@@ -1,7 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 16/16)
 // pure3d::CompositeDrawable::vfunc_9 @ 0x00298e60
 // pure3d::CompositeDrawable::vfunc_9: run the update hook of every child (in order), then of the two extra drawables
-struct Node {
+#include "gen/pure3d.h"
+
+struct Node_298e60 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -40,7 +42,7 @@ struct Group_298e60 {
 
 struct Slot_298e60 {
     char pad00[8];
-    Node *node;
+    Node_298e60 *node;
 };
 
 struct Alt {
@@ -49,36 +51,24 @@ struct Alt {
     char pad09[0xf];
     unsigned char *order;
     char pad1c[8];
-    Node **nodes;
+    Node_298e60 **nodes;
 };
 
-class CompositeDrawable {
-public:
-    char pad00[0x44];
-    Group_298e60 *group;
-    Alt *alt;
-    Node *extraA;
-    Node *extraB;
-
-    void FUN_00298e60();
-};
-
-void CompositeDrawable::FUN_00298e60()
-{
-    if (alt == 0) {
-        if (group != 0) {
-            group->FUN_00298870();
-            unsigned char n = group->count;
+void pure3d::CompositeDrawable::vfunc_9() {
+    if ((*(Alt * *)&this->f_48) == 0) {
+        if ((*(Group_298e60 * *)&this->f_44) != 0) {
+            (*(Group_298e60 * *)&this->f_44)->FUN_00298870();
+            unsigned char n = (*(Group_298e60 * *)&this->f_44)->count;
             for (unsigned int i = 0; i < n; i++)
-                group->slots[group->order[i]].node->v9();
+                (*(Group_298e60 * *)&this->f_44)->slots[(*(Group_298e60 * *)&this->f_44)->order[i]].node->v9();
         }
-        if (extraA != 0)
-            extraA->v23();
-        if (extraB != 0)
-            extraB->v23();
+        if ((*(Node_298e60 * *)&this->f_4c) != 0)
+            (*(Node_298e60 * *)&this->f_4c)->v23();
+        if ((*(Node_298e60 * *)&this->f_50) != 0)
+            (*(Node_298e60 * *)&this->f_50)->v23();
     } else {
-        unsigned char n = alt->count;
+        unsigned char n = (*(Alt * *)&this->f_48)->count;
         for (unsigned int i = 0; i < n; i++)
-            alt->nodes[alt->order[i]]->v23();
+            (*(Alt * *)&this->f_48)->nodes[(*(Alt * *)&this->f_48)->order[i]]->v23();
     }
 }

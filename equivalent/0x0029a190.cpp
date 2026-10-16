@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 45/50, incomplete)
 // pure3d::CompositeDrawableLoader::vfunc_5 @ 0x0029a190
 // equiv-map: ??0DrawableBase@pure3d@@QAE@XZ = 0x002a3480
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 struct Stream {
@@ -167,8 +168,6 @@ extern Registry_29a190 *DAT_00527c58;
 
 void *FUN_00263ea0(unsigned int size);
 void *FUN_0008d690(unsigned int size);
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
-unsigned __int64 __cdecl FUN_002672f0(const char *s, int a, int b);
 void __cdecl FUN_0028fd70(Inventory_29a190 *inv);
 int __cdecl FUN_00298180(void *p);
 

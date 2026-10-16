@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern void* __cdecl Allocate(unsigned int);
 void* operator new(unsigned int, void* p) {
     return p;
@@ -13,9 +15,9 @@ class Base_132d80 {
     virtual void f4();
 };
 
-class DebugPrintTrack : public Base_132d80 {
+class DebugPrintTrack_132d80 : public Base_132d80 {
   public:
-    DebugPrintTrack();
+    DebugPrintTrack_132d80();
     virtual void f5();
     int unused;
     int x;
@@ -25,7 +27,7 @@ class DebugPrintTrack : public Base_132d80 {
     int d;
 };
 
-DebugPrintTrack::DebugPrintTrack() {
+DebugPrintTrack_132d80::DebugPrintTrack_132d80() {
     a = 0;
     b = 0xbf800000;
     c = 0;
@@ -33,7 +35,7 @@ DebugPrintTrack::DebugPrintTrack() {
     x = 1;
 }
 
-class TrackFactory {
+class TrackFactory_132d80 {
   public:
     virtual void f0();
     virtual void f1();
@@ -42,16 +44,12 @@ class TrackFactory {
     virtual void f4();
     virtual void* f5();
 };
-class Factory_132d80 : public TrackFactory {
-  public:
-    void* f5();
-};
 
-void* Factory_132d80::f5() {
-    DebugPrintTrack* p = (DebugPrintTrack*)Allocate(0x1c);
+template <> void* fight::TrackFactoryTemplate<hulkfight::DebugPrintTrack>::vfunc_5() {
+    DebugPrintTrack_132d80* p = (DebugPrintTrack_132d80*)Allocate(0x1c);
     if (p) {
-        new (p) DebugPrintTrack();
-        return p;
+        new (p) DebugPrintTrack_132d80();
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

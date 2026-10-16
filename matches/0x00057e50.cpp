@@ -1,25 +1,20 @@
 // Same code shape as 0x000521a0 (propagated; names are from that function)
-struct CFightNodeTimeCondition {
-    virtual ~CFightNodeTimeCondition();
+#include "gen/fight.h"
+
+struct CFightNodeTimeCondition_57e50 {
+    virtual ~CFightNodeTimeCondition_57e50();
     char pad[0x10];
     void Initialize();
 };
 extern void* __cdecl operator_new(unsigned int);
 extern void* conditionVtable;
-struct Factory_57e50 {
-    virtual void* a();
-    virtual void* b();
-    virtual void* c();
-    virtual void* d();
-    virtual void* e();
-    virtual CFightNodeTimeCondition* vfunc_5();
-};
-CFightNodeTimeCondition* Factory_57e50::vfunc_5() {
-    CFightNodeTimeCondition* p = (CFightNodeTimeCondition*)operator_new(0x14);
+
+template <> void* fight::ConditionFactoryTemplate<CGrappleAlertStatusCondition>::vfunc_5() {
+    CFightNodeTimeCondition_57e50* p = (CFightNodeTimeCondition_57e50*)operator_new(0x14);
     if (p) {
         p->Initialize();
         *(void**)p = &conditionVtable;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

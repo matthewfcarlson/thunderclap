@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000b9230 @ 0x000b9230
-class Screen_b9230 {
+#include "decls/address.h"
+class Gfx {
   public:
     virtual void v0();
     virtual void v1();
@@ -86,7 +87,6 @@ struct Canvas {
     void FUN_00293d40(float x, float y, float z);
     void FUN_00293da0(float x, float y, float z);
 };
-extern Screen_b9230* DAT_0052c2a8;
 extern Canvas* DAT_0052c2ac;
 extern Viewport_b9230* DAT_0052c2a4;
 

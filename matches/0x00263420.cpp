@@ -1,3 +1,5 @@
+#include "gen/audio.h"
+
 extern "C" char DAT_004e7b50[];
 extern "C" char DAT_004e7b98[];
 namespace audio {
@@ -9,32 +11,13 @@ class Obj_263420 {
 struct Aux_263420 {
     void f();
 };
-class HalRsdFileStream {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
-    virtual void f11();
-    virtual void vfunc_12();
-    char pad[0x1c];
-    Obj_263420* mObj;
-    void* mValue;
-};
 } // namespace audio
 void FUN_00247550(void*, void*);
 void audio::HalRsdFileStream::vfunc_12() {
-    if (mObj)
-        mObj->f1();
-    if (mValue)
-        FUN_00247550((void*)((int)DAT_004e7b50), mValue);
+    if ((*(Obj_263420 * *)&this->f_20))
+        (*(Obj_263420 * *)&this->f_20)->f1();
+    if ((*(void * *)&this->f_24))
+        FUN_00247550((void*)((int)DAT_004e7b50), (*(void * *)&this->f_24));
     ((audio::Aux_263420*)((char*)this + 0x10))->f();
     ((audio::Aux_263420*)((char*)this + 4))->f();
     FUN_00247550((void*)((int)DAT_004e7b98), this);

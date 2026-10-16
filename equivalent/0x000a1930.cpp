@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 8/8)
 // FUN_000a1930 @ 0x000a1930
+#include "decls/address.h"
 struct V3_a1930 {
     float x, y, z;
 };
@@ -63,7 +64,6 @@ struct World {
     Game_a1930* game;
 };
 
-extern World* DAT_004dd700;
 
 void __cdecl FUN_000a04c0(V3_a1930* dir, float* p1, float* p0, float* scratch);
 

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 25/26, incomplete)
 // FUN_000f8500 @ 0x000f8500
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int strlen(const char*);
 extern unsigned int DAT_004d9968;
@@ -20,7 +21,6 @@ class Entry_f8500 {
 };
 
 Manager_f8500* FUN_000fc1b0();
-unsigned long long FUN_0027b020(const char* name);
 int FUN_000dfcc0(char* dst, int size, const char* fmt, ...);
 void* FUN_0008d6d0(unsigned int size);
 void FUN_000fb740(short* dst, const char* src, int count);

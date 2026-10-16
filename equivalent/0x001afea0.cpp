@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001afea0 @ 0x001afea0
+#include "decls/address.h"
 struct Entry_1afea0 {
     char pad0[0x16];
     unsigned char flags;        // 0x16
@@ -46,7 +47,6 @@ struct World {
     char pad0[0x20];
     Focus_1afea0 *focus;               // 0x20
 };
-extern World *DAT_004dd700;
 
 // the original reuses the stack slots of args 1 and 3 as out-parameters
 union LinkArg {

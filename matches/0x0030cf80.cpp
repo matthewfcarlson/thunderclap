@@ -1,4 +1,6 @@
-class PhysicsJoint {
+#include "gen/physics.h"
+
+class PhysicsJoint_30cf80 {
   public:
     virtual void f0();
     virtual void f1();
@@ -25,14 +27,7 @@ class PhysicsJoint {
     virtual void f22();
     virtual void vfunc_23();
 };
-class PhysicsJoint1D : public PhysicsJoint {
-    char pad[0x108 - 4];
 
-  public:
-    float a;
-    float b;
-    void vfunc_23();
-};
-void PhysicsJoint1D::vfunc_23() {
-    b = a + b;
+void physics::PhysicsJoint1D::vfunc_23() {
+    this->f_10c = this->f_108 + this->f_10c;
 }

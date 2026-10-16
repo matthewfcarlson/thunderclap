@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 13/14, incomplete)
 // FUN_000f5130 @ 0x000f5130
+#include "decls/address.h"
 namespace pure3d { struct MultiController { virtual void Activate(); }; struct Scenegraph; }
 namespace content { struct LoadInventory { template<class T> struct DynamicCaster { virtual T* Cast(void*); }; }; }
 typedef unsigned __int64 Key_f5130;
-Key_f5130 __cdecl FUN_0027b020(const char*);
 struct Inventory_f5130 { virtual void Slot0(); virtual void Slot1(); virtual void Slot2(); virtual pure3d::MultiController* Find(void*, Key_f5130); };
 extern Inventory_f5130* DAT_004dd9cc;
 void __cdecl FUN_000f6410(pure3d::MultiController*, void*);

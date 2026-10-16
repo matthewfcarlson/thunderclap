@@ -1,4 +1,5 @@
-class CGrappleMotionTrailTrack;
+#include "gen/global.h"
+
 extern void* FUN_0008d690(unsigned int);
 struct Obj_605f0 {
     char pad[0x104];
@@ -8,10 +9,7 @@ extern Obj_605f0* FUN_0005a430(int);
 struct Alloc_605f0 {
     int invoke(CGrappleMotionTrailTrack*, int);
 };
-class CGrappleMotionTrailTrack {
-  public:
-    int vfunc_12(int);
-};
+
 int CGrappleMotionTrailTrack::vfunc_12(int arg) {
     CGrappleMotionTrailTrack* self = this;
     Alloc_605f0* p = (Alloc_605f0*)FUN_0008d690(0x28);

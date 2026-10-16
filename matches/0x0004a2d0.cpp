@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 struct Obj_4a2d0 {
     char pad[0x330];
     int a;
@@ -10,9 +12,7 @@ struct Helper_4a2d0 {
 struct ObjHelper_4a2d0 {
     Obj_4a2d0* Second();
 };
-struct CGrappleMotionStateCondition {
-    int vfunc_8(int);
-};
+
 int CGrappleMotionStateCondition::vfunc_8(int p) {
     if (!p)
         return 0;

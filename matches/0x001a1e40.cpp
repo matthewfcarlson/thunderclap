@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0041c318[];
-struct LuaTrack {
+struct LuaTrack_1a1e40 {
     void* vf;
     char pad[8];
     int x;
@@ -9,17 +11,9 @@ struct LuaTrack {
     void initialize();
 };
 extern void* alloc(unsigned int);
-class Factory_1a1e40 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual LuaTrack* vfunc_5();
-};
-LuaTrack* Factory_1a1e40::vfunc_5() {
-    LuaTrack* p = (LuaTrack*)alloc(0x1c);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::scenario::LuaTrack>::vfunc_5() {
+    LuaTrack_1a1e40* p = (LuaTrack_1a1e40*)alloc(0x1c);
     if (p) {
         p->initialize();
         p->vf = (void*)((int)DAT_0041c318);
@@ -27,7 +21,7 @@ LuaTrack* Factory_1a1e40::vfunc_5() {
         p->y = (int)0xbf800000;
         p->z = 0;
         p->q = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

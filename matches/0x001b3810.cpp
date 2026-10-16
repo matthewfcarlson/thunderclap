@@ -1,5 +1,5 @@
+#include "decls/address.h"
 extern "C" void __stdcall FUN_001d0480(void*, int);
-extern "C" char FUN_001d04d0(const char*);
 extern char G0, G1, G2, G3;
 extern const int Function4_vftable;
 class Function4 {

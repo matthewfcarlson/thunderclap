@@ -2,10 +2,10 @@
 // pure3d::SkeletonLoader::vfunc_5 @ 0x0027c140
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-conv: FUN_0027b340 eax
+#include "decls/address.h"
 void *thunk_FUN_0008d690(unsigned int size);
 void *FUN_0008d690(unsigned int size);
 void *FUN_0008d6d0(unsigned int size);
-unsigned __int64 FUN_002672f0(const char *s, int a, int b);
 extern "C" int __cdecl FUN_0028fcc0(const char *fmt, ...);
 unsigned int FUN_0027b340(const char *s);
 

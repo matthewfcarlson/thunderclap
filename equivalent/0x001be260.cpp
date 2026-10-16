@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_001be260 @ 0x001be260
+#include "decls/address.h"
 extern float DAT_004c4c4c;
 extern float DAT_003f3db0;
 extern float DAT_003f32f4;
@@ -13,7 +14,7 @@ struct Builder {
     void FUN_0008ef00();
 };
 
-class Renderer_1be260 {
+class Gfx {
 public:
     virtual void v00();
     virtual void v04();
@@ -102,7 +103,6 @@ struct DeviceHolder {
     void FUN_00293d00(char* p);
 };
 
-extern Renderer_1be260* DAT_0052c2a8;
 extern DeviceHolder* DAT_0052c2ac;
 
 struct Layer_1be260 {

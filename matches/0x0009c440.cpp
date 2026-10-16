@@ -1,6 +1,6 @@
+#include "decls/address.h"
 typedef unsigned char u8;
 extern "C" void __stdcall FUN_001d0480(void*, int);
-extern "C" u8 __cdecl FUN_001d04d0(const void*);
 extern int gA_9c440, gB;
 class Parent_9c440 {
   public:

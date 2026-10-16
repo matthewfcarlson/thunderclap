@@ -6,14 +6,14 @@ struct Obj_167620 {
     void f2();
 };
 extern void thunk_FUN_00267090(Obj_167620*);
-class ThreatCondition {
+namespace hulkfight { namespace motion { class RayCastConeCondition {
   public:
     void* vftable;
     char pad[0x0c];
-    ThreatCondition* vfunc_5(unsigned char);
-};
-ThreatCondition* ThreatCondition::vfunc_5(unsigned char param) {
-    ThreatCondition* p = this;
+    RayCastConeCondition* vfunc_5(unsigned char);
+}; }}
+hulkfight::motion::RayCastConeCondition* hulkfight::motion::RayCastConeCondition::vfunc_5(unsigned char param) {
+    hulkfight::motion::RayCastConeCondition* p = this;
     *(char**)p = &threat_vftable_167620;
     ((Obj_167620*)((char*)p + 0x10))->f1();
     ((Obj_167620*)p)->f2();

@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 24/24)
 // FUN_00208210 @ 0x00208210
+#include "decls/address.h"
 class CWorldStreamManager;
 
 extern char DAT_0048e100;
 extern char DAT_0048e0e4;
 extern char DAT_0048e134;
-char FUN_001d04d0(const void* type);
 void* FUN_0008d690(unsigned size);
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 inline void* operator new(unsigned int, void* p) throw() { return p; }

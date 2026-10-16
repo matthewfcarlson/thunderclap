@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 22/22)
 // FUN_001c52f0 @ 0x001c52f0
+#include "decls/address.h"
 struct Clock_1c52f0 {
     float FUN_00085f80();
 };
 
-struct Manager_1c52f0 {
+struct World {
     char pad0[0x58];
     Clock_1c52f0 *clock;
 };
 
-extern Manager_1c52f0 *DAT_004dd700;
 
 class Blender_1c52f0 {
 public:

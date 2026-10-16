@@ -1,7 +1,9 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_004288fc[];
 typedef unsigned int u32_23cae0;
 void* operator_new(unsigned int);
-class Condition {
+class Condition_23cae0 {
   public:
     virtual void a();
     virtual void b();
@@ -12,22 +14,14 @@ class Condition {
 struct Tail_23cae0 {
     void InitTail();
 };
-class Factory_23cae0 {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual Condition* v5();
-};
-Condition* Factory_23cae0::v5() {
-    Condition* p = (Condition*)operator_new(0x10);
+
+template <> void* fight::ConditionFactoryTemplate<fight::SubConditionGroupCondition>::vfunc_5() {
+    Condition_23cae0* p = (Condition_23cae0*)operator_new(0x10);
     if (p) {
         p->Init(0);
         *(u32_23cae0*)p = ((int)DAT_004288fc);
         ((Tail_23cae0*)((char*)p + 12))->InitTail();
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

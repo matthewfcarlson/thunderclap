@@ -1,14 +1,13 @@
 // Same code shape as 0x0012da20 (propagated; names are from that function)
-class Action {
+#include "gen/hulkfight.h"
+
+class Action_12fa30 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
 };
-class PostEvent_StringAction : public Action {
-  public:
-    virtual unsigned char f3(int a, int b);
-};
-unsigned char PostEvent_StringAction::f3(int a, int b) {
-    return 1;
+
+bool hulkfight::StatBeginTrialAction::vfunc_5(int a, int b) {
+    return (bool)(1);
 }

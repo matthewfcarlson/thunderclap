@@ -4,7 +4,9 @@
 // equiv-conv: FUN_002dd760 edi esi
 // equiv-conv: FUN_002dd890 stack ebx esi
 // equiv-conv: FUN_002dd9e0 stack ebx
-struct Stream {
+#include "gen/pure3d.h"
+
+struct Stream_2ddb40 {
     void FUN_00264510(int skip);
 };
 
@@ -19,17 +21,12 @@ struct TgaHeader {
     unsigned char descriptor;
 };
 
-void FUN_002dd760(Stream *stream, TgaHeader *hdr);
-void FUN_002dd890(void *out, Stream *stream, TgaHeader *hdr);
+void FUN_002dd760(Stream_2ddb40 *stream, TgaHeader *hdr);
+void FUN_002dd890(void *out, Stream_2ddb40 *stream, TgaHeader *hdr);
 void FUN_002dd9e0(TgaHeader *hdr, void *out);
 
-class TargaHandler {
-public:
-    void FUN_002ddb40(Stream *stream, void *out);
-};
+void pure3d::TargaHandler::vfunc_9(int __p0, int __p1) { Stream_2ddb40 * stream = (Stream_2ddb40 *)__p0; void * out = (void *)__p1;
 
-void TargaHandler::FUN_002ddb40(Stream *stream, void *out)
-{
     TgaHeader hdr;
     FUN_002dd760(stream, &hdr);
     unsigned char type = hdr.imageType;

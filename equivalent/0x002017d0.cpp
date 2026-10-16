@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 123 inputs, branch coverage 8/8)
 // FUN_002017d0 @ 0x002017d0
 // Looks a property name up in the global key table; outputs its two table values.
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
+#include "decls/address.h"
 
 struct Key_2017d0 {
     unsigned int lo, hi;

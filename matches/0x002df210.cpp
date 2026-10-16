@@ -1,13 +1,10 @@
+#include "gen/pure3d.h"
+
 class Helper_2df210 {
   public:
     void run();
 };
-class ShadowMesh {
-  public:
-    char pad[0x48];
-    Helper_2df210** p;
-    void vfunc_21();
-};
-void ShadowMesh::vfunc_21() {
-    (*p)->run();
+
+void pure3d::ShadowMesh::vfunc_21() {
+    (*(*(Helper_2df210 ** *)&this->f_48))->run();
 }

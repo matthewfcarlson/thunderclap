@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // hulkfight::motion::PropAddToMissileCountAction::vfunc_5 @ 0x00181f90
+#include "gen/hulkfight.h"
+
 struct Slot_181f90 {
     int FUN_001d6c50();
     void FUN_001d6c60(int v);
@@ -15,24 +17,17 @@ struct Game_181f90 {
 struct Holder_181f90 {
     Game_181f90* FUN_000592a0();
 };
-struct Params {
+struct Params_181f90 {
     char pad[0x10];
     int index;
     int bonus;
 };
-class Action {
-  public:
-    virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
-    char pad04[0x18];
-    Params* params;
-    Holder_181f90* holder;
-    char FUN_00181f90(int arg, int unused);
-};
-char Action::FUN_00181f90(int arg, int unused) {
-    if (arg == 0 && holder != 0) {
-        Game_181f90* g = holder->FUN_000592a0();
+
+bool hulkfight::motion::PropAddToMissileCountAction::vfunc_5(int arg, int unused) {
+    if (arg == 0 && (*(Holder_181f90 * *)&this->f_20) != 0) {
+        Game_181f90* g = (*(Holder_181f90 * *)&this->f_20)->FUN_000592a0();
         Player_181f90* p = g->FUN_00059a30();
-        int index = params->index;
+        int index = (*(Params_181f90 * *)&this->f_1c)->index;
         if (p != 0) {
             Slot_181f90* s;
             if (index < 0) {
@@ -40,13 +35,13 @@ char Action::FUN_00181f90(int arg, int unused) {
             } else if (index < 8) {
                 s = p->FUN_00035ef0(index);
             } else {
-                return 0;
+                return (bool)(0);
             }
             if (s != 0) {
                 int cur = s->FUN_001d6c50();
-                s->FUN_001d6c60(params->bonus + cur);
+                s->FUN_001d6c60((*(Params_181f90 * *)&this->f_1c)->bonus + cur);
             }
         }
     }
-    return 0;
+    return (bool)(0);
 }

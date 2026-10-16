@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 typedef unsigned char u8;
 struct Obj_10dee0 {
     char pad[0x14];
@@ -10,17 +12,12 @@ struct H {
     void f4();
 };
 H* g();
-struct TokenSupressAction {
-    char pad0[0x1c];
-    Obj_10dee0* data;
-    H* active;
-    bool vfunc_5(int a, int b);
-};
-bool TokenSupressAction::vfunc_5(int a, int b) {
-    if (!active)
+
+bool hulkfight::ai::TokenSupressAction::vfunc_5(int a, int b) {
+    if (!(*(H * *)&this->f_20))
         return false;
-    active->f1()->f2();
-    if (data->flag)
+    (*(H * *)&this->f_20)->f1()->f2();
+    if ((*(Obj_10dee0 * *)&this->f_1c)->flag)
         g()->f4();
     return true;
 }

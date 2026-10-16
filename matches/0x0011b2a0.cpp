@@ -1,4 +1,6 @@
-struct MotionFleeTrack {
+#include "gen/fight.h"
+
+struct MotionFleeTrack_11b2a0 {
     int vtable;
     char pad4[8];
     int a;
@@ -8,24 +10,16 @@ struct MotionFleeTrack {
 };
 void* __cdecl operator_new(unsigned int);
 extern char MotionFleeVtable;
-class Factory_11b2a0 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual MotionFleeTrack* vfunc_5();
-};
-MotionFleeTrack* Factory_11b2a0::vfunc_5() {
-    MotionFleeTrack* p = (MotionFleeTrack*)operator_new(0x18);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::ai::MotionFleeTrack>::vfunc_5() {
+    MotionFleeTrack_11b2a0* p = (MotionFleeTrack_11b2a0*)operator_new(0x18);
     if (p) {
         p->ctor();
         p->vtable = (int)&MotionFleeVtable;
         p->a = 0;
         p->b = (int)0xbf800000;
         p->c = (int)0x3f800000;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

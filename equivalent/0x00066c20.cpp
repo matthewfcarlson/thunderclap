@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00066c20 @ 0x00066c20
-struct Globals_66c20 {
+#include "decls/address.h"
+struct World {
     char pad0[0x2c];
     int field_2c;
     char pad30[0x58 - 0x30];
@@ -22,7 +23,6 @@ struct Table_66c20 {
     void FUN_00066b60(Pair_66c20 *out, Key_66c20 *key);
 };
 
-extern Globals_66c20 *DAT_004dd700;
 extern int DAT_004dcec8;
 extern int DAT_004dcecc;
 extern int DAT_004dced0;

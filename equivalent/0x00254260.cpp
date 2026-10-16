@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // audio::SeqActionStream::vfunc_1 @ 0x00254260
+#include "gen/audio.h"
+
 struct Voice_254260 {
     char pad0[0x10];
     float volume;           // 0x10
@@ -30,7 +32,7 @@ void __cdecl FUN_0024b080(int handle, float pitch);
 void __cdecl FUN_0024c120(int handle);
 
 namespace audio {
-class SeqAction {
+class SeqAction_254260 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1(Event_254260 *e);
@@ -40,15 +42,15 @@ public:
     void FUN_00253f70(Event_254260 *e);
 };
 
-class SeqActionStream : public SeqAction {
-public:
-    virtual void vfunc_1(Event_254260 *e);
+struct SeqActionStream_nv_254260 {
+    void FUN_00253f70(Event_254260 *e);
 };
 
-void SeqActionStream::vfunc_1(Event_254260 *e)
-{
+}
+void audio::SeqActionStream::vfunc_1(void* __p0) { Event_254260 * e = (Event_254260 *)__p0;
+
     if (e->handle == 0) {
-        state = 0;
+        this->f_20 = 0;
         return;
     }
     int status = FUN_0024afe0(e->handle);
@@ -58,9 +60,8 @@ void SeqActionStream::vfunc_1(Event_254260 *e)
         FUN_0024b040(e->handle, (((v->volume * e->scale) * *c->volumeScale) * c->gain));
         c = e->config;
         FUN_0024b080(e->handle, (((*c->pitchScale * e->voice->pitch) * c->pitchA) * c->pitchB));
-        FUN_00253f70(e);
+        ((SeqActionStream_nv_254260*)this)->FUN_00253f70(e);
         FUN_0024c120(e->handle);
     }
-    state = 3;
-}
+    this->f_20 = 3;
 }

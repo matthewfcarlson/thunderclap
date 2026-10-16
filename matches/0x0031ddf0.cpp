@@ -1,4 +1,6 @@
-class pddiRenderContext {
+#include "gen/pure3d.h"
+
+class pddiRenderContext_31ddf0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -58,17 +60,13 @@ struct Rec_31ddf0 {
     unsigned x, y, z;
     char tail[0x14];
 };
-class pddiBaseContext : public pddiRenderContext {
-  public:
-    char pad[0x4c];
-    Rec_31ddf0* records;
-    void vfunc_51(int, unsigned*, unsigned*, unsigned*);
-};
-void pddiBaseContext::vfunc_51(int i, unsigned* a, unsigned* b, unsigned* c) {
+
+void pure3d::pddiBaseContext::vfunc_51(int i, void* __p1, void* __p2, void* __p3) { unsigned int * a = (unsigned int *)__p1; unsigned int * b = (unsigned int *)__p2; unsigned int * c = (unsigned int *)__p3;
+
     if (i < 8) {
-        *a = records[i].x;
-        *b = records[i].y;
-        *c = records[i].z;
+        *a = (*(Rec_31ddf0 * *)&this->f_50)[i].x;
+        *b = (*(Rec_31ddf0 * *)&this->f_50)[i].y;
+        *c = (*(Rec_31ddf0 * *)&this->f_50)[i].z;
     } else {
         *c = 0;
         *b = 0;

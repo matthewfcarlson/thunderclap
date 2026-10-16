@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_000e0850 @ 0x000e0850
+#include "decls/address.h"
 struct Vec3_e0850 {
     float x, y, z;
 };
@@ -31,7 +32,7 @@ public:
     virtual Texture *vfunc_11(const char *name, int flags);
 };
 
-class Device_e0850 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -69,7 +70,6 @@ public:
 
 extern Texture *DAT_004de954;
 extern Factory_e0850 *DAT_0052c2a0;
-extern Device_e0850 *DAT_0052c2a8;
 
 void __cdecl FUN_000e07c0(Vec3_e0850 a, Vec3_e0850 b, int color);
 

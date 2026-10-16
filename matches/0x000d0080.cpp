@@ -1,5 +1,5 @@
+#include "decls/address.h"
 extern void __stdcall FUN_001d0480(void*, int);
-extern unsigned char __cdecl FUN_001d04d0(const void*);
 extern int g1_d0080;
 extern int g2_d0080;
 class Base_d0080 {

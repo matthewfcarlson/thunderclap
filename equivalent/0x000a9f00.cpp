@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 8/8)
 // CHypnoticCamera::vfunc_36 @ 0x000a9f00
+#include "decls/address.h"
 class Input_a9f00 {
 public:
     char FUN_00092940(int button);
@@ -10,12 +11,12 @@ public:
     Input_a9f00 *FUN_00086340();
 };
 
-struct Globals_a9f00 {
+struct World {
     char pad0[0x54];
     Pad_a9f00 *pad;
 };
 
-class Device_a9f00 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -145,8 +146,6 @@ public:
     void FUN_00293d40(int a, int b, float c);
 };
 
-extern Globals_a9f00 *DAT_004dd700;
-extern Device_a9f00 *DAT_0052c2a8;
 extern Renderer_a9f00 *DAT_0052c2ac;
 extern Clock_a9f00 *DAT_0052c2a4;
 

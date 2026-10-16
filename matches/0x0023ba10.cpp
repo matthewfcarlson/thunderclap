@@ -1,4 +1,6 @@
-class Reader {
+#include "gen/fight.h"
+
+class Reader_23ba10 {
   public:
     virtual void a();
     virtual void b();
@@ -7,12 +9,7 @@ class Reader {
     virtual void e();
     virtual void f();
 };
-class BinReader {
-  public:
-    char pad[8];
-    Reader* reader;
-    void vfunc_4();
-};
-void BinReader::vfunc_4() {
-    reader->f();
+
+void fight::BinReader::vfunc_4() {
+    (*(Reader_23ba10 * *)&this->f_08)->f();
 }

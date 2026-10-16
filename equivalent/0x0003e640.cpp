@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 24/26, incomplete)
 // FUN_0003e640 @ 0x0003e640
+#include "decls/address.h"
 struct Region_3e640 {
     char data[1];
 };
@@ -16,12 +17,11 @@ struct Probe_3e640 {
     float FUN_00029f20(Region_3e640 *r, int target);
 };
 
-struct Globals_3e640 {
+struct World {
     char pad0[0x20];
     Probe_3e640 *probe;
 };
 
-extern Globals_3e640 *DAT_004dd700;
 extern float DAT_0048f5b0[];
 
 struct Detector {

@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_004281f0[];
 extern "C" void* __cdecl Alloc(unsigned int);
 class Obj {
@@ -8,22 +10,14 @@ class Obj {
     int c;
     Obj(int);
 };
-class Factory_238750 {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual Obj* vfunc_5();
-};
-Obj* Factory_238750::vfunc_5() {
+
+template <> void* fight::ConditionFactoryTemplate<fight::MaybeCondition>::vfunc_5() {
     Obj* p = (Obj*)Alloc(0x10);
     if (p) {
         p->Obj::Obj(0);
         p->vf = ((int)DAT_004281f0);
         p->c = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

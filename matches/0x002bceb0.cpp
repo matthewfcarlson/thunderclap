@@ -1,4 +1,6 @@
-struct Chunk {
+#include "gen/pure3d.h"
+
+struct Chunk_2bceb0 {
     int Id();
 };
 extern int g_vt_2bceb0;
@@ -24,20 +26,12 @@ struct BO {
     float f;
 };
 struct Helper_2bceb0 {
-    void Fill(BO*, Chunk*, int);
+    void Fill(BO*, Chunk_2bceb0*, int);
 };
 void* operator new(unsigned);
-struct Loader_2bceb0 {
-    char pad0[0x10];
-    Helper_2bceb0* h;
-    virtual void s0();
-    virtual void s1();
-    virtual void s2();
-    virtual void s3();
-    virtual void s4();
-    virtual void Load(BO**, int*, Chunk*, int);
-};
-void Loader_2bceb0::Load(BO** out, int* info, Chunk* c, int x) {
+
+void pure3d::BillboardObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int x) { BO ** out = (BO **)__p0; int * info = (int *)__p1; Chunk_2bceb0 * c = (Chunk_2bceb0 *)__p2;
+
     if (c->Id() == 0x17006) {
         BO* o = (BO*)operator new(0x60);
         if (o) {
@@ -47,7 +41,7 @@ void Loader_2bceb0::Load(BO** out, int* info, Chunk* c, int x) {
         } else {
             o = 0;
         }
-        h->Fill(o, c, x);
+        (*(Helper_2bceb0 * *)&this->f_14)->Fill(o, c, x);
         o->Init();
         *out = o;
         info[0] = o->b;

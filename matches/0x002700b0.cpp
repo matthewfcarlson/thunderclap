@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 class PoolOther {
   public:
     virtual void f0();
@@ -6,30 +8,18 @@ class PoolOther {
     virtual void f3();
     virtual void f4(void*);
 };
-class MemoryPool {
-  public:
-    char pad0[0x10];
-    unsigned int* head;
-    char pad14[4];
-    unsigned int start;
-    unsigned int stride;
-    unsigned int count;
-    char pad24[4];
-    int live;
-    char pad2c[4];
-    PoolOther* other;
-    void vfunc_4(unsigned int* p);
-};
-void MemoryPool::vfunc_4(unsigned int* p) {
+
+void core::MemoryPool::vfunc_4(void* __p0) { unsigned int * p = (unsigned int *)__p0;
+
     unsigned int a = (unsigned int)p;
-    unsigned int b = start;
-    if (a >= b && a < count * stride + b) {
-        *p = (unsigned int)head;
-        head = p;
-        --live;
+    unsigned int b = this->f_18;
+    if (a >= b && a < (*(unsigned int *)&this->f_20) * (*(unsigned int *)&this->f_1c) + b) {
+        *p = (unsigned int)(*(unsigned int * *)&this->f_10);
+        (*(unsigned int * *)&this->f_10) = p;
+        --this->f_28;
         return;
     }
-    if (other)
-        other->f4(p);
-    --live;
+    if ((*(PoolOther * *)&this->f_30))
+        (*(PoolOther * *)&this->f_30)->f4(p);
+    --this->f_28;
 }

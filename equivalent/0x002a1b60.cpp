@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 46 inputs, branch coverage 16/16)
 // pure3d::TranslucentTraversal::vfunc_4 @ 0x002a1b60
+#include "decls/address.h"
 class Device_2a1b60 {
 public:
     virtual void v0();
@@ -21,7 +22,7 @@ public:
     virtual void v16(int a);
 };
 
-class Device2_2a1b60 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -160,7 +161,6 @@ struct Helper_2a1b60 {
 };
 
 extern Device_2a1b60** DAT_0052c2ac;
-extern Device2_2a1b60* DAT_0052c2a8;
 extern int DAT_004e2314;
 
 class TranslucentTraversal {

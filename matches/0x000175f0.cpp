@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class Obj_175f0 {
   public:
     Obj_175f0* second();
@@ -10,26 +12,12 @@ class Factory_175f0 {
   public:
     Obj_175f0* first();
 };
-class CInvulnerableAction {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void vfunc_4();
-    virtual void e();
-    virtual void f();
-    virtual void g();
-    virtual void h();
-    char pad[0x18];
-    Factory_175f0* member1c;
-    void* member20;
-};
+
 void CInvulnerableAction::vfunc_4() {
-    Obj_175f0* x = member1c->first();
+    Obj_175f0* x = (*(Factory_175f0 * *)&this->f_1c)->first();
     Obj_175f0* s = x->second();
     s->m40(0);
     s->mC0(0);
-    s->m20(member20);
-    s->mA0(member20);
+    s->m20((*(void * *)&this->f_20));
+    s->mA0((*(void * *)&this->f_20));
 }

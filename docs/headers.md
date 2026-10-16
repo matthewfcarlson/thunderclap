@@ -203,3 +203,17 @@ compiled still matched: the generated layouts never changed codegen. The failure
   destructor; the others stay `vfunc_N`.
 - **64-bit:** the headers are 32-bit layouts (`char _pad` sizes assume 4-byte pointers). A port
   build needs real member types before the pads can go.
+
+## Sources on the headers (2026-10-16)
+
+`tools/migrate_gen.py` rewrites `matches/` and `equivalent/` sources onto these headers (rules and numbers in
+[source-tree.md](source-tree.md#includegen-migration-2026-10-16)): about 8,100 sources now `#include "gen/<ns>.h"`
+and define the real member, e.g. `template <> bool fight::ParamFloatConstRange<CFoo>::vfunc_6(int a, int b)` or
+`CCollisionAction::~CCollisionAction() {}` (MSVC generates the matched scalar deleting destructor from it). The
+headers themselves did not change: every rewrite that needed a missing field or slot type was rejected rather than
+the header widened (926 sources, 230 of them in matches/, wait on fields the headers lack; see the next steps there).
+
+`include/decls/address.h` is a separate, hand-maintained header: pinned prototypes of a few address names many
+sources declare (`extern World* DAT_004dd700;`, `unsigned __int64 FUN_0027b020(const char*);`, ...). It declares
+the pointed-to classes only; sources keep defining the members they use. `tools/rename_placeholders.py` never
+renames its class names.

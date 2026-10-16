@@ -1,14 +1,13 @@
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-struct Function {
+#include "gen/global.h"
+
+struct Function_d5600 {
     virtual void f0();
     virtual void f1();
 };
-struct Method6 : Function {
-    char pad[0x18];
-    int value;
-    void f2(const char*, const char*, const char*);
-};
 void FUN_0002cb10(const char*, const char*, const char*, int);
-void Method6::f2(const char* a, const char* b, const char* c) {
-    FUN_0002cb10(a, b, c, value);
+
+template <> void Method7<MessageOverlay, void, const char *, const char *, const char *, const char *, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+
+    FUN_0002cb10(a, b, c, (*(int *)&this->f_1c));
 }

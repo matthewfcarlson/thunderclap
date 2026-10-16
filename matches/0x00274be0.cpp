@@ -22,14 +22,14 @@ extern Manager_274be0* gManager_274be0;
 extern char gLock_274be0;
 extern int gCompletionVtable;
 extern int gRequestVtable;
-class CompletionEventRequest {
+namespace core { class CompletionEventRequest {
   public:
     int* vptr;
     char pad[8];
     Request* mRequest;
     void* vfunc_0(unsigned char);
-};
-void* CompletionEventRequest::vfunc_0(unsigned char param) {
+}; }
+void* core::CompletionEventRequest::vfunc_0(unsigned char param) {
     vptr = &gCompletionVtable;
     mRequest->f1();
     vptr = &gRequestVtable;

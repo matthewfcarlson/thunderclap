@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // pure3d::scenegraph::Scenegraph::vfunc_13 @ 0x00296be0
+#include "gen/pure3d.h"
+
 class RefCounted_296be0 {
 public:
     virtual void AddRef() throw();
@@ -10,13 +12,13 @@ struct Scene;
 
 namespace pure3d {
 namespace scenegraph {
-class ShaderCallbackVisitor {
+class ShaderCallbackVisitor_296be0 {
 public:
-    ShaderCallbackVisitor(RefCounted_296be0 *p) throw() : shader(p) {
+    ShaderCallbackVisitor_296be0(RefCounted_296be0 *p) throw() : shader(p) {
         if (shader != 0)
             shader->AddRef();
     }
-    virtual ~ShaderCallbackVisitor() throw() {
+    virtual ~ShaderCallbackVisitor_296be0() throw() {
         if (shader != 0)
             shader->Release();
     }
@@ -25,27 +27,17 @@ public:
 }
 }
 
-void __cdecl FUN_00296220(Scene *scene, pure3d::scenegraph::ShaderCallbackVisitor *v) throw();
+void __cdecl FUN_00296220(Scene *scene, pure3d::scenegraph::ShaderCallbackVisitor_296be0 *v) throw();
 
-class Scenegraph {
-public:
-    virtual void v0();
-    virtual void vfunc_13(RefCounted_296be0 *shader);
-    char pad04[0x10 - 4];
-    RefCounted_296be0 *shader;
-    char pad14[0x40 - 0x14];
-    Scene *scene;
-};
+void pure3d::scenegraph::Scenegraph::vfunc_13(void* __p0) { RefCounted_296be0 * newShader = (RefCounted_296be0 *)__p0;
 
-void Scenegraph::vfunc_13(RefCounted_296be0 *newShader)
-{
     if (newShader != 0)
         newShader->AddRef();
-    if (shader != 0)
-        shader->Release();
-    shader = newShader;
-    if (scene != 0) {
-        pure3d::scenegraph::ShaderCallbackVisitor visitor(newShader);
-        FUN_00296220(scene, &visitor);
+    if ((*(RefCounted_296be0 * *)&this->f_10) != 0)
+        (*(RefCounted_296be0 * *)&this->f_10)->Release();
+    (*(RefCounted_296be0 * *)&this->f_10) = newShader;
+    if ((*(Scene * *)&this->f_40) != 0) {
+        pure3d::scenegraph::ShaderCallbackVisitor_296be0 visitor(newShader);
+        FUN_00296220((*(Scene * *)&this->f_40), &visitor);
     }
 }

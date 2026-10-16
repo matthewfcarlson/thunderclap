@@ -1,15 +1,12 @@
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-class CActorManager {
+#include "gen/global.h"
+
+class CActorManager_c0390 {
   public:
     void invoke(const char*);
 };
-class Closure_c0390 {
-  public:
-    char pad[0x1c];
-    void (CActorManager::*fn)(const char*);
-    CActorManager* object;
-    void vfunc_2(void*, const char**, void*);
-};
-void Closure_c0390::vfunc_2(void* a, const char** b, void* c) {
-    (object->*fn)(*b);
+
+template <> void Closure1<CFEManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+
+    ((*(CActorManager_c0390 * *)&this->f_20)->*(*(void (CActorManager_c0390::**)(const char *))&this->f_1c))(*b);
 }

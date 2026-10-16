@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0041928c[];
-class SmartPropIsCargoCondition {
+class SmartPropIsCargoCondition_18bc60 {
   public:
     virtual void V0();
     virtual void V1();
@@ -11,22 +13,14 @@ class SmartPropIsCargoCondition {
     void Init(int);
 };
 extern void* __cdecl FUN_0008d690(unsigned int);
-class Factory_18bc60 {
-  public:
-    virtual void A();
-    virtual void B();
-    virtual void C();
-    virtual void D();
-    virtual void E();
-    SmartPropIsCargoCondition* V5();
-};
-SmartPropIsCargoCondition* Factory_18bc60::V5() {
-    SmartPropIsCargoCondition* p = (SmartPropIsCargoCondition*)FUN_0008d690(0x10);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::SmartPropIsCargoCondition>::vfunc_5() {
+    SmartPropIsCargoCondition_18bc60* p = (SmartPropIsCargoCondition_18bc60*)FUN_0008d690(0x10);
     if (p) {
         p->Init(0);
         *(int*)p = ((int)DAT_0041928c);
         p->c = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

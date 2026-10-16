@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 class PhaseObj {
   public:
     virtual void f0();
@@ -9,22 +11,16 @@ class Helper_13b040 {
     void* next();
     void act(void*, int);
 };
-class AnimationPhaseMatchedAction {
-  public:
-    char pad[0x20];
-    void* source;
-    void* a;
-    void vfunc_4();
-};
-void AnimationPhaseMatchedAction::vfunc_4() {
-    if (a) {
-        void* x = ((Helper_13b040*)source)->get();
+
+void hulkfight::motion::AnimationPhaseMatchedAction::vfunc_4() {
+    if ((*(void * *)&this->f_24)) {
+        void* x = ((Helper_13b040*)(*(void * *)&this->f_20))->get();
         x = ((Helper_13b040*)x)->next();
         if (x) {
-            ((Helper_13b040*)x)->act(a, 0);
-            if (a) {
-                ((PhaseObj*)a)->f1();
-                a = 0;
+            ((Helper_13b040*)x)->act((*(void * *)&this->f_24), 0);
+            if ((*(void * *)&this->f_24)) {
+                ((PhaseObj*)(*(void * *)&this->f_24))->f1();
+                (*(void * *)&this->f_24) = 0;
             }
         }
     }

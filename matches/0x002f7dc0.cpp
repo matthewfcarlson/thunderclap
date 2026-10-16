@@ -1,20 +1,5 @@
-class CollisionSolverAgent {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual int vfunc_6(void*, int, void*, int, int, int, int, int*, int*);
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
-    virtual void f11();
-    char pad[4];
-    void* member;
-};
+#include "gen/physics.h"
+
 class Obj_2f7dc0 {
   public:
     char pad[0x6c];
@@ -31,12 +16,14 @@ class Ref_2f7dc0 {
     virtual void f3();
     virtual void f4(void*, int, void*, int, int, int, int);
 };
-int CollisionSolverAgent::vfunc_6(void* a, int b, void* c, int d, int e, int f, int g, int* p, int* q) {
+
+unsigned int physics::CollisionSolverAgent::vfunc_6(unsigned int __p0, unsigned int __p1, unsigned int __p2, unsigned int __p3, unsigned int __p4, unsigned int __p5, unsigned int __p6, unsigned int __p7, unsigned int __p8) { void * a = (void *)__p0; int b = (int)__p1; void * c = (void *)__p2; int d = (int)__p3; int e = (int)__p4; int f = (int)__p5; int g = (int)__p6; int * p = (int *)__p7; int * q = (int *)__p8;
+
     if (*p && !((Ref_2f7dc0*)*p)->state && !((Obj_2f7dc0*)a)->state)
         ((Obj_2f7dc0*)a)->helper(1);
     if (*q && !((Ref_2f7dc0*)*q)->state && !((Obj_2f7dc0*)c)->state)
         ((Obj_2f7dc0*)c)->helper(1);
-    if (member)
-        ((Ref_2f7dc0*)member)->f4(a, b, c, d, e, f, g);
-    return 0;
+    if ((*(void * *)&this->f_08))
+        ((Ref_2f7dc0*)(*(void * *)&this->f_08))->f4(a, b, c, d, e, f, g);
+    return (unsigned int)(0);
 }

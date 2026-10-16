@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 39/40, incomplete)
 // FUN_001cbfe0 @ 0x001cbfe0
+#include "decls/address.h"
 extern "C" void __cdecl qsort(void *base, unsigned int count, unsigned int size,
                               int (__cdecl *cmp)(const void *, const void *));
 
@@ -45,7 +46,7 @@ public:
     char pad[0x28];
 };
 
-class Notifier_1cbfe0 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -141,7 +142,6 @@ public:
     virtual void v91();
 };
 
-extern Notifier_1cbfe0 *DAT_0052c2a8;
 int __cdecl FUN_00266da0(int value);
 void *__cdecl FUN_0008d690(unsigned int size);
 int __cdecl FUN_001cb3a0(const Item_1cbfe0 *a, const Item_1cbfe0 *b);

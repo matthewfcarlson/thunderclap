@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001ca430 @ 0x001ca430
+#include "decls/address.h"
 struct Report { bool FUN_001d2e80(); void FUN_001d1d50(const char*, const char*); void FUN_001d1dd0(const char*, int); void FUN_001d1d10(); };
 struct Actor_1ca430 { const char* FUN_00036d00(); };
 struct Registry_1ca430 { Actor_1ca430* FUN_00059c10(int); };
 struct World { char pad[0x44]; Registry_1ca430* registry; };
-extern World* DAT_004dd700;
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" void __cdecl FUN_00096d50(char*, int, int, int);

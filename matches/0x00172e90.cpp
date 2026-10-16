@@ -4,7 +4,7 @@ class Sub_172e90 {
     void run();
     char pad[8];
 };
-class SyncToLocatorTrack {
+namespace hulkfight { namespace motion { class SyncToLocatorTrack {
   public:
     virtual void v0();
     virtual void v1();
@@ -21,11 +21,11 @@ class SyncToLocatorTrack {
     Sub_172e90 sub;
     void* mThing;
     void step();
-};
+}; }}
 void cleanup(void* p);
-void destroyObj(SyncToLocatorTrack* p);
+void destroyObj(hulkfight::motion::SyncToLocatorTrack* p);
 
-SyncToLocatorTrack* SyncToLocatorTrack::vfunc_5(unsigned char flags) {
+hulkfight::motion::SyncToLocatorTrack* hulkfight::motion::SyncToLocatorTrack::vfunc_5(unsigned char flags) {
     *(unsigned long*)this = ((int)DAT_00417988);
     cleanup(mThing);
     sub.run();

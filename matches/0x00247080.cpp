@@ -3,15 +3,15 @@ extern "C" int __cdecl fclose(FILE*);
 extern "C" void __cdecl destroy(void*);
 extern int stdvt[];
 extern int streamvt_247080[];
-class om_StdStream {
+namespace om { class StdStream {
   public:
     void* vt;
     char pad[0x18];
     FILE* file;
     unsigned char opened;
-    om_StdStream* vfunc_0(unsigned char);
-};
-om_StdStream* om_StdStream::vfunc_0(unsigned char flags) {
+    StdStream* vfunc_0(unsigned char);
+}; }
+om::StdStream* om::StdStream::vfunc_0(unsigned char flags) {
     vt = stdvt;
     if (opened)
         fclose(file);

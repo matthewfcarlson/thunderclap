@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001cd5b0 @ 0x001cd5b0
+#include "decls/address.h"
 struct Target_1cd5b0 {
     void FUN_000d4620(int a, void *buf, int count, int key, float scale);
 };
@@ -13,7 +14,6 @@ struct Owner_1cd5b0 {
 };
 struct Clock_1cd5b0 { int *FUN_00025930(float *out, int n); };
 struct World { char pad[0x20]; Clock_1cd5b0 *clock; };
-extern World *DAT_004dd700;
 
 class Anim_1cd5b0 {
 public:

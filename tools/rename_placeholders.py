@@ -93,7 +93,8 @@ def protected_names():
     """(type names, value names): identifiers that are real names somewhere and are never renamed.
 
     Types: RTTI classes and namespaces (any namespace: a global `struct FaceTargetAction` stands for
-    hulkfight::ai::FaceTargetAction and is the RTTI-stub task's to fix), include/gen/ classes, the class and
+    hulkfight::ai::FaceTargetAction and is the RTTI-stub task's to fix), include/gen/ and include/decls/ classes
+    (World, Gfx, ...: pinned types of address names), the class and
     namespace parts of build/functions.csv names. Values additionally: every identifier of a functions.csv
     name and the XDK symbols."""
     types = set(KEEP)
@@ -103,7 +104,7 @@ def protected_names():
             types.update(ID.findall(n))
     except (OSError, ValueError):
         sys.exit("build/rtti.json is needed")
-    for p in glob.glob(os.path.join(ROOT, "include/gen/*.h")):
+    for p in glob.glob(os.path.join(ROOT, "include/gen/*.h")) + glob.glob(os.path.join(ROOT, "include/decls/*.h")):
         for m in re.finditer(r"\b(?:class|struct|union|enum)\s+([A-Za-z_]\w*)", open(p, encoding="latin1").read()):
             types.add(m.group(1))
     values = set(types)

@@ -1,39 +1,24 @@
+#include "gen/pure3d.h"
+
 class Ref_2b9ee0 {
   public:
     virtual void F0();
     virtual void F1();
 };
-class BillboardQuadGroup {
-  public:
-    virtual void F0();
-    virtual void F1();
-    virtual void F2();
-    virtual void F3();
-    virtual void F4();
-    virtual void F5();
-    virtual void F6();
-    virtual void F7();
-    virtual void F8(Ref_2b9ee0*);
-    virtual void F9();
-    virtual void F10();
-    virtual void F11();
-    char p0[12];
-    int active;
-    char p1[0x70];
-    Ref_2b9ee0* current;
-};
-void BillboardQuadGroup::F8(Ref_2b9ee0* value) {
+
+void pure3d::BillboardQuadGroup::vfunc_8(void* __p0) { Ref_2b9ee0 * value = (Ref_2b9ee0 *)__p0;
+
     if (value)
         value->F0();
-    if (current)
-        current->F1();
-    current = value;
+    if ((*(Ref_2b9ee0 * *)&this->f_84))
+        (*(Ref_2b9ee0 * *)&this->f_84)->F1();
+    (*(Ref_2b9ee0 * *)&this->f_84) = value;
     if (value) {
         int type = *(int*)((char*)value + 0x18);
         if (type == 1 || type == 3 || type == 7 || type == 2 || type == 4 || type == 5 || type == 6) {
-            active = 1;
+            this->f_10 = 1;
             return;
         }
     }
-    active = 0;
+    this->f_10 = 0;
 }

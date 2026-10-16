@@ -1,18 +1,7 @@
 // Same code shape as 0x00048570 (propagated; names are from that function)
-class CAxisPressCondition {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual bool vfunc_10(int* param, int unused);
-};
-bool CAxisPressCondition::vfunc_10(int* param, int unused) {
+#include "gen/global.h"
+
+bool CAxisPressCondition::vfunc_10(void* __p0, int unused) { int * param = (int *)__p0;
+
     return *param == 1;
 }

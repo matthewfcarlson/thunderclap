@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_000f3000 @ 0x000f3000
+#include "decls/address.h"
 extern "C" void* memset(void* dst, int c, unsigned int n);
 namespace pure3d {
 class DrawableHierarchy;
@@ -22,7 +23,6 @@ public:
 }
 
 void* FUN_0008d690(unsigned int size);
-unsigned __int64 __cdecl FUN_0027b020(const char* name);
 
 class Scenegraph {
 public:

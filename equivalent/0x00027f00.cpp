@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 21/22, incomplete)
 // FUN_00027f00 @ 0x00027f00
+#include "decls/address.h"
 typedef unsigned __int64 Key_27f00;
 struct Item_27f00 { char pad[8]; unsigned low; unsigned high; };
 struct Handle_27f00 { Item_27f00* item; bool FUN_00231ee0(); };
@@ -11,8 +12,6 @@ extern void* DAT_0048e060;
 extern Manager_27f00* DAT_004e5af8;
 extern char DAT_0048e090;
 extern char DAT_0048e0ac;
-extern Key_27f00 __cdecl FUN_002672f0(const char*, int, int);
-extern Key_27f00 __cdecl FUN_0027b020(const char*);
 extern Item_27f00* __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
 struct Target_27f00 {
  Object* FUN_00024280(Key_27f00 key);

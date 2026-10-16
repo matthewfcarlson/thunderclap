@@ -1,4 +1,6 @@
-class CTrack {
+#include "gen/global.h"
+
+class CTrack_6ab40 {
   public:
     virtual int vfunc_0(int index);
     virtual void vfunc_1();
@@ -15,11 +17,8 @@ class CTrack {
     virtual void vfunc_12();
     virtual void vfunc_13();
 };
-class CStageTrack : public CTrack {
-  public:
-    virtual int vfunc_0(int index);
-};
 extern int* gTable_6ab40;
+
 int CStageTrack::vfunc_0(int index) {
     return gTable_6ab40[index];
 }

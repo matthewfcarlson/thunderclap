@@ -1,19 +1,13 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00414330[];
 extern "C" void* __cdecl Alloc(unsigned int);
 class TrackBase_159e20 {
   public:
     void Init();
 };
-class TrackFactoryTemplate {
-  public:
-    virtual void A();
-    virtual void B();
-    virtual void C();
-    virtual void D();
-    virtual void E();
-    virtual char* F();
-};
-char* TrackFactoryTemplate::F() {
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::InterruptPriorityTrack>::vfunc_5() {
     char* p = (char*)Alloc(0x18);
     if (p) {
         ((TrackBase_159e20*)p)->Init();
@@ -22,7 +16,7 @@ char* TrackFactoryTemplate::F() {
         *(int*)(p + 0x10) = (int)0xbf800000;
         *(int*)(p + 0x14) = 0;
         *(int*)(p + 8) = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

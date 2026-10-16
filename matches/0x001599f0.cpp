@@ -1,26 +1,20 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_004141b0[];
 extern "C" void* __cdecl Alloc(unsigned int);
 class Cond {
   public:
     Cond(int);
 };
-class Factory_1599f0 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual Cond* Make();
-};
-Cond* Factory_1599f0::Make() {
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionTargetTypeCondition>::vfunc_5() {
     Cond* p = (Cond*)Alloc(20);
     if (p) {
         p->Cond::Cond(0);
         *(unsigned int*)p = ((int)DAT_004141b0);
         *(unsigned int*)((char*)p + 12) = 0;
         *(unsigned int*)((char*)p + 16) = 0;
-        return p;
+        return (void*)(p);
     }
-    return (Cond*)0;
+    return (void*)((Cond*)0);
 }

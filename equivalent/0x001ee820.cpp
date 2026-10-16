@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
 // FUN_001ee820 @ 0x001ee820
+#include "decls/address.h"
 typedef unsigned int size_t;
 void* __cdecl operator new(size_t, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned);
 extern int DAT_0048e100, DAT_0048e0f0, DAT_0048e128, DAT_0048e0e4, DAT_0049cad8;
-unsigned char __cdecl FUN_001d04d0(const void*);
 struct Owner { void FUN_001f2c00(unsigned); };
 class CSoundRealTimeManager { public:
  Owner* owner; unsigned id;

@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3050 inputs, branch coverage 27/30, incomplete)
 // fight::Chunk::vfunc_9 @ 0x0023b570
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int DAT_004d9968;
-extern unsigned __int64 __cdecl FUN_002672f0(const char *s, int a, int b);
 
 extern const char *DAT_004ca254;
 extern const char *DAT_004ca26c;

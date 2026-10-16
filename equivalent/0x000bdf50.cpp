@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 182 inputs, branch coverage 44/46, incomplete)
 // FUN_000bdf50 @ 0x000bdf50
+#include "decls/address.h"
 struct State_bdf50 { int buttons[35]; struct Stick { unsigned int axis[2]; int unused[2]; } sticks[2]; };
 struct Device_bdf50 { void FUN_000af0f0(State_bdf50*); };
 struct Input_bdf50 { Device_bdf50* FUN_000af3a0(int); };
 struct Manager_bdf50 { Input_bdf50* FUN_000862d0(); };
-struct Root_bdf50 { char pad[0x54]; Manager_bdf50* manager; };
-extern Root_bdf50* DAT_004dd700;
+struct World { char pad[0x54]; Manager_bdf50* manager; };
 struct Action { void FUN_000de9a0(int); };
 struct System_bdf50 { char pad[0x182c]; Action* action; };
 System_bdf50* __cdecl FUN_000fc3d0();

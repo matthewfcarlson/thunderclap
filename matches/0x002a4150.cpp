@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 struct Item_2a4150 {
     virtual void slot0();
     virtual void slot1();
@@ -30,30 +32,18 @@ struct Group_2a4150 {
     unsigned capacity;
 };
 namespace pure3d {
-struct DrawableContainer {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual bool vfunc_7();
-    char padding[0x44];
-    Group_2a4150* groupsBegin;
-    Group_2a4150* groupsEnd;
-};
-bool DrawableContainer::vfunc_7() {
-    unsigned count = (unsigned)(((int)groupsEnd - (int)groupsBegin) >> 4);
+
+} // namespace pure3d
+char pure3d::DrawableContainer::vfunc_7() {
+    unsigned count = (unsigned)(((int)(*(Group_2a4150 * *)&this->f_4c) - (int)(*(Group_2a4150 * *)&this->f_48)) >> 4);
     for (unsigned i = 0; i < count; ++i) {
-        Group_2a4150* group = groupsBegin + i;
+        Group_2a4150* group = (*(Group_2a4150 * *)&this->f_48) + i;
         unsigned items = (unsigned)(((int)group->end - (int)group->begin) >> 2);
         for (unsigned j = 0; j < items; ++j) {
             Item_2a4150* item = group->begin[j];
             if (item && !item->slot22())
-                return false;
+                return (char)(false);
         }
     }
-    return true;
+    return (char)(true);
 }
-} // namespace pure3d

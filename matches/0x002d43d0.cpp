@@ -1,3 +1,4 @@
+#include "decls/address.h"
 struct StateHook {
     virtual void slot0();
     virtual void slot1();
@@ -8,7 +9,7 @@ struct StateHook {
 namespace pure3d {
 struct SpriteParticleEmitter;
 }
-struct Renderer_2d43d0 {
+struct Gfx {
     virtual void s0();
     virtual void s1();
     virtual void s2();
@@ -74,7 +75,6 @@ struct Renderer_2d43d0 {
     virtual void setFlag(unsigned char);
     virtual unsigned char getFlag();
 };
-extern Renderer_2d43d0* DAT_0052c2a8;
 struct ParticleDrawer {
     virtual void s0();
     virtual void s1();

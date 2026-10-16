@@ -1,4 +1,6 @@
-class SeqAction {
+#include "gen/audio.h"
+
+class SeqAction_255dc0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -9,19 +11,12 @@ class SeqAction {
     virtual void f6();
 };
 namespace audio {
-class SeqActionClip : public SeqAction {
-  public:
-    char pad[0x10];
-    int mThing;
-    int mState;
-    void vfunc_3(int);
-};
 } // namespace audio
 int __cdecl Check(int);
 void __cdecl DoThing(int);
 void audio::SeqActionClip::vfunc_3(int arg) {
-    int x = mThing;
+    int x = this->f_14;
     if (x != 0 && Check(x) == 1)
-        DoThing(mThing);
-    mState = 4;
+        DoThing(this->f_14);
+    this->f_18 = 4;
 }

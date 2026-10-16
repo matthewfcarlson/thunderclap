@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2747 inputs, branch coverage 12/12)
 // FUN_000d6640 @ 0x000d6640
+#include "decls/address.h"
 typedef unsigned int uint;
 void* __cdecl operator new(unsigned int, void* p) { return p; }
 extern void* __cdecl FUN_0008d690(uint);
 extern void* __cdecl FUN_00263ea0(uint);
-extern unsigned char __cdecl FUN_001d04d0(const void*);
 extern uint DAT_0048e100, DAT_0048e0f0, DAT_0048e0e4, DAT_0048e128;
 struct MessageOverlay;
 extern void FUN_000d45e0(); extern void FUN_000d4600(); extern void FUN_000d4720(); extern void FUN_000d4780(); extern void FUN_000d47d0(); extern void FUN_000d4850(); extern void FUN_000d5440(); extern void thunk_FUN_000d4b60(); extern void FUN_000d5fa0();

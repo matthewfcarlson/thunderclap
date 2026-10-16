@@ -1,17 +1,15 @@
+#include "gen/global.h"
+
 class Worker_e8cb0 {
   public:
     void run(int, int, int);
 };
-class FELayout {
+class FELayout_e8cb0 {
     char pad[0x44];
 };
-class SingleLayout : public FELayout {
-  public:
-    Worker_e8cb0* worker;
-    void vfunc_10(int);
-};
+
 void SingleLayout::vfunc_10(int param) {
-    Worker_e8cb0* p = worker;
+    Worker_e8cb0* p = (*(Worker_e8cb0 * *)&this->f_44);
     if (p)
         p->run(param, -1, -1);
 }

@@ -1,24 +1,18 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_003fe8d8[];
 typedef unsigned int u32_76a70;
 void* operator_new(unsigned int);
-struct Track {
+struct Track_76a70 {
     void Init();
 };
-class TrackFactoryTemplate {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual Track* Create();
-};
-Track* TrackFactoryTemplate::Create() {
-    Track* p = (Track*)operator_new(0x54);
+
+template <> void* fight::TrackFactoryTemplate<CGrappleSoundTrack>::vfunc_5() {
+    Track_76a70* p = (Track_76a70*)operator_new(0x54);
     if (p != 0) {
         p->Init();
         *(u32_76a70*)p = ((int)DAT_003fe8d8);
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

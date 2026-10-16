@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct Obj_12b8e0 {
     int Fn(int);
 };
@@ -11,19 +13,10 @@ struct Outer_12b8e0 {
 };
 extern Outer_12b8e0* gGlobal_12b8e0;
 
-class ThreatBallAction {
-  public:
-    char pad[0x1c];
-    int mValue;
-    int mGuard;
-    int mResult;
-    bool vfunc_3(void*, void*);
-};
-
-bool ThreatBallAction::vfunc_3(void*, void*) {
-    if (!mGuard)
+bool hulkfight::ai::ThreatBallAction::vfunc_3(int __p0, int __p1) {
+    if (!this->f_20)
         return false;
     Obj_12b8e0* o = gGlobal_12b8e0->inner->obj8;
-    mResult = o->Fn(mValue + 0x30);
+    this->f_24 = o->Fn(this->f_1c + 0x30);
     return true;
 }

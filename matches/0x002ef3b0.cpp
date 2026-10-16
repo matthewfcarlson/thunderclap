@@ -1,25 +1,7 @@
-class SimState {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void vfunc_3(char);
-    virtual void d();
-    virtual void e();
-    virtual void f();
-    virtual void g();
-    virtual void h();
-    virtual void i();
-    virtual void j();
-    virtual void k();
-    virtual void l();
-    virtual void m();
-    virtual void n();
-    char pad[0x70];
-    void* p;
-};
-void SimState::vfunc_3(char param) {
-    char* x = (char*)p;
+#include "gen/physics.h"
+
+void physics::SimState::vfunc_3(char param) {
+    char* x = (char*)(*(void * *)&this->f_74);
     if (x) {
         x[0x68] = param;
         if (param)

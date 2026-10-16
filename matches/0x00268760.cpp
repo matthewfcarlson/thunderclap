@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 class Target_268760 {
   public:
     virtual void f0();
@@ -6,13 +8,7 @@ class Target_268760 {
     virtual void f3();
     virtual void f4(unsigned int);
 };
-class ControllerXBox {
-    char pad[0x454];
-    Target_268760* member;
 
-  public:
-    void vfunc_20(unsigned int a, unsigned int b);
-};
-void ControllerXBox::vfunc_20(unsigned int a, unsigned int b) {
-    member->f4(a / b + 2);
+void core::ControllerXBox::vfunc_20(unsigned int a, unsigned int b) {
+    (*(Target_268760 * *)&this->f_454)->f4(a / b + 2);
 }

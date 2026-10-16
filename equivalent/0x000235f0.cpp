@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // CMotionTrailAction::vfunc_6 @ 0x000235f0
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) { return p; }
 
 struct Vec3_235f0 { int x, y, z; };
@@ -33,8 +34,7 @@ public:
 
 struct Holder44_235f0 { Factory_235f0 *FUN_00203d70(); };
 struct Holder28_235f0 { Holder44_235f0 *FUN_000862a0(); };
-struct Manager_235f0 { char pad0[0x54]; Holder28_235f0 *holder; };
-extern Manager_235f0 *DAT_004dd700;
+struct World { char pad0[0x54]; Holder28_235f0 *holder; };
 
 struct Owner_235f0 { char pad[4]; };
 Owner_235f0 *__fastcall FUN_000592a0(void *x);

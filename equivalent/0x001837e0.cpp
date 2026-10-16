@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 111 inputs, branch coverage 26/26)
 // hulkfight::motion::PropMassCondition::vfunc_6 @ 0x001837e0
+#include "decls/address.h"
 struct Scaler_1837e0 {
     float FUN_001dd190(int lo, int hi);
 };
 
-struct Globals_1837e0 {
+struct World {
     char pad0[0xc];
     Scaler_1837e0 *scaler;
 };
@@ -32,7 +33,6 @@ struct Fighter_1837e0 {
     Meter_1837e0 *FUN_00035ef0(int index);
 };
 
-extern Globals_1837e0 *DAT_004dd700;
 
 void *__fastcall FUN_000592a0(void *owner);
 Fighter_1837e0 *__fastcall FUN_00059a30(void *holder);

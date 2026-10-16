@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 115 inputs, branch coverage 32/34, incomplete)
 // FUN_000d3f10 @ 0x000d3f10
+#include "decls/address.h"
 namespace pure3d { class DrawableHierarchy; }
 namespace content {
 class LoadInventory {
@@ -36,7 +37,6 @@ extern "C" int sprintf(char*, const char*, ...);
 extern "C" unsigned int strlen(const char*);
 const char* __cdecl FUN_000b09c0(int a, int b);
 const char* __cdecl FUN_000b08a0(int a, int b);
-__int64 __cdecl FUN_0027b020(const char* s);
 
 struct Finder_d3f10 {
     char pad[4];

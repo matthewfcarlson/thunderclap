@@ -1,4 +1,6 @@
-class IDollyControllerState {
+#include "gen/global.h"
+
+class IDollyControllerState_dd880 {
   public:
     virtual void f0();
     virtual void f1();
@@ -13,12 +15,7 @@ class IDollyControllerState {
     virtual void f10();
     virtual void f11();
 };
-class ControllerState : public IDollyControllerState {
-  public:
-    char pad[12];
-    float* values;
-    float vfunc_5(int index);
-};
+
 float ControllerState::vfunc_5(int index) {
-    return values[index];
+    return (*(float * *)&this->f_10)[index];
 }

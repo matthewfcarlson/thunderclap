@@ -1,4 +1,6 @@
-class FEDoAction {
+#include "gen/global.h"
+
+class FEDoAction_e1830 {
   public:
     virtual void v0();
     virtual void v1();
@@ -13,13 +15,8 @@ class Other_e1830 {
     virtual void c();
     virtual void vfunc_3();
 };
-class FEDoAnimation : public FEDoAction {
-  public:
-    virtual void vfunc_5();
-    char pad[0x30];
-    Other_e1830* mOther;
-};
+
 void FEDoAnimation::vfunc_5() {
-    if (mOther)
-        mOther->vfunc_3();
+    if ((*(Other_e1830 * *)&this->f_34))
+        (*(Other_e1830 * *)&this->f_34)->vfunc_3();
 }

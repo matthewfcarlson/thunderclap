@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 18/18)
 // FUN_00066390 @ 0x00066390
+#include "decls/address.h"
 struct Vec3_66390 {
     float x, y, z;
     float FUN_0022d110();
@@ -27,7 +28,6 @@ struct World {
     TargetTable_66390 *targets;
 };
 
-extern World *DAT_004dd700;
 
 struct Key_66390 {
     int a, b;

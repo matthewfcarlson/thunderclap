@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3039 inputs, branch coverage 74/74)
 // hulkfight::ai::StrafeRunAction::vfunc_5 @ 0x0011ce20
+#include "decls/address.h"
 extern "C" double pow(double, double);
 
 struct Vec3_11ce20 {
@@ -63,7 +64,6 @@ extern "C" float FUN_00224fc0(float from, float to);
 extern "C" void FUN_00224d70(float angle, Vec3_11ce20 *v);
 
 extern Vec3_11ce20 DAT_004a6ac0;
-extern World *DAT_004dd700;
 
 struct Tuning_11ce20 {
     char pad0[0x14];

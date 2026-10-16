@@ -1,4 +1,4 @@
-extern "C" unsigned long long FUN_0027b020(const char*);
+#include "decls/address.h"
 extern unsigned int g_hash_35dab0;
 extern unsigned int g_hash_hi;
 void FUN_0035dab0() {

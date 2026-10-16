@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 152 inputs, branch coverage 62/68, incomplete)
 // hulkfight::ai::PropsToSuckCondition::vfunc_6 @ 0x0010ee40
+#include "decls/address.h"
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -45,7 +46,7 @@ struct Roster_10ee40 {
     Unit_10ee40 *FUN_001dc0b0(int index);
 };
 
-struct Game_10ee40 {
+struct World {
     char pad0[0xc];
     Roster_10ee40 *roster;
 };
@@ -69,7 +70,6 @@ public:
     Body_10ee40 *FUN_000592a0();
 };
 
-extern Game_10ee40 *DAT_004dd700;
 
 namespace hulkfight {
 namespace ai {

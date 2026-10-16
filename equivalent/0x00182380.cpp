@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // hulkfight::motion::GrapplePropDamageAction::vfunc_3 @ 0x00182380
+#include "gen/hulkfight.h"
+
 struct Pad_182380 {
     void FUN_001d6ec0(int a, int b, int c);
 };
@@ -35,29 +37,19 @@ Stats_182380 *__fastcall FUN_00059a30(Owner *ctx);
 namespace hulkfight {
 namespace motion {
 
-class GrapplePropDamageAction {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual bool vfunc_3(int a, int b);
-    char pad04[0x18];
-    Info_182380 *info;     // 0x1c
-    Owner *owner;   // 0x20
-};
-
-bool GrapplePropDamageAction::vfunc_3(int a, int b)
-{
-    if (owner == 0)
+}
+}
+bool hulkfight::motion::GrapplePropDamageAction::vfunc_3(int a, int b) {
+    if ((*(Owner * *)&this->f_20) == 0)
         return false;
-    Stats_182380 *stats = FUN_00059a30(FUN_000592a0(owner));
+    Stats_182380 *stats = FUN_00059a30(FUN_000592a0((*(Owner * *)&this->f_20)));
     Fighter_182380 *fighter = stats->fighterB;
     if (fighter == 0) {
         fighter = stats->fighterA;
         if (fighter == 0)
             return false;
     }
-    int idx = info->padIndex;
+    int idx = (*(Info_182380 * *)&this->f_1c)->padIndex;
     Pad_182380 *pad;
     if (idx < 0) {
         pad = fighter->selfPad;
@@ -68,12 +60,9 @@ bool GrapplePropDamageAction::vfunc_3(int a, int b)
     }
     if (pad == 0)
         return false;
-    float v = info->from;
-    if (v < info->to)
-        v += (info->to - v) * stats->blend;
+    float v = (*(Info_182380 * *)&this->f_1c)->from;
+    if (v < (*(Info_182380 * *)&this->f_1c)->to)
+        v += ((*(Info_182380 * *)&this->f_1c)->to - v) * stats->blend;
     pad->FUN_001d6ec0((int)v, stats->padValue, 0);
     return false;
-}
-
-}
 }

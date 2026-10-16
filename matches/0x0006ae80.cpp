@@ -1,4 +1,6 @@
-class CTrack {
+#include "gen/global.h"
+
+class CTrack_6ae80 {
   public:
     virtual void a0();
     virtual void a1();
@@ -15,10 +17,8 @@ class CTrack {
     virtual void a12();
     virtual void vfunc_13(unsigned int*);
 };
-class CDeathTrack : public CTrack {
-  public:
-    void vfunc_13(unsigned int*);
-};
-void CDeathTrack::vfunc_13(unsigned int* param) {
+
+void CDeathTrack::vfunc_13(void* __p0) { unsigned int * param = (unsigned int *)__p0;
+
     *param = 0xff000000;
 }

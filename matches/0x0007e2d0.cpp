@@ -1,6 +1,6 @@
+#include "decls/address.h"
 class CAmbientsManager;
 extern "C" void __stdcall FUN_001d0480(void*, int);
-extern "C" unsigned char __cdecl FUN_001d04d0(void*);
 extern int gA_7e2d0;
 extern int gB_7e2d0;
 class MethodBase_7e2d0 {

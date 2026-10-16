@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00086630 @ 0x00086630
+#include "decls/address.h"
 struct Target_86630;
 struct Audio_86630 { void FUN_000ae9a0(int); void FUN_000ae980(); };
 struct Stop_86630 { void FUN_000afe80(); };
@@ -23,8 +24,7 @@ struct Resource_86630 { void FUN_00089980(); };
 struct Flag_86630 { char pad[8]; unsigned char enabled; };
 struct Context { char pad0[4]; Flag_86630* flag; char pad8[4]; Sub_86630* sub; char pad10[48]; Item_86630* item; void FUN_00088940(Target_86630*,Resource_86630*); };
 struct GlobalSub { char pad[16]; Audio_86630* audio; char pad14[4]; Stop_86630* stop; };
-struct Global_86630 { char pad[84]; GlobalSub* sub; };
-extern Global_86630* DAT_004dd700;
+struct World { char pad[84]; GlobalSub* sub; };
 struct Target_86630 { char pad0[4]; State_86630* state; char pad8[4]; Context* context; Audio_86630* audio; char pad14[4]; Stop_86630* stop; Handler_86630* handler; Controller_86630* controller; Panel_86630* panel; Renderer_86630* renderer; Loader_86630* loader; Scene_86630* scene; View* view; Resource_86630* resource; char pad3c[20]; unsigned char enabled; void FUN_00086630(); };
 void Target_86630::FUN_00086630() {
  audio->FUN_000ae9a0(0);

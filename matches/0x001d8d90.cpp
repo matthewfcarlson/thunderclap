@@ -1,3 +1,4 @@
+#include "decls/address.h"
 struct Bounds_1d8d90 {
     unsigned int values[4];
 };
@@ -17,11 +18,10 @@ struct Subsystem_1d8d90 {
     char pad[8];
     Manager_1d8d90* manager;
 };
-struct Root_1d8d90 {
+struct World {
     char pad[32];
     Subsystem_1d8d90* subsystem;
 };
-extern Root_1d8d90* DAT_004dd700;
 struct Inner_1d8d90 {
     char pad[16];
     unsigned int* value;

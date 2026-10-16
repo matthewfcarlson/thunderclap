@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_0007de00 @ 0x0007de00
+#include "decls/address.h"
 typedef unsigned __int64 U64_7de00;
 struct Vec3_7de00 { float x,y,z; };
 struct Name_7de00 { void FUN_0027b0e0(const char*); };
 extern Name_7de00 DAT_004dd068;
 extern unsigned DAT_004dd070;
-extern U64_7de00 __cdecl FUN_0027b020(const char*);
 extern void __cdecl FUN_00363c40();
 extern int __cdecl _atexit(void (__cdecl*)());
 struct Loaded_7de00 { void FUN_001dd8e0(int,int); };

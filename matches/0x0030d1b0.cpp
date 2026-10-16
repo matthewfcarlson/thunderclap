@@ -1,4 +1,6 @@
-class PhysicsJoint {
+#include "gen/physics.h"
+
+class PhysicsJoint_30d1b0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -30,13 +32,9 @@ class PhysicsJoint {
     virtual void f27();
     virtual void f28();
 };
-class PhysicsJoint3D : public PhysicsJoint {
-    char pad[0x114 - sizeof(PhysicsJoint)];
 
-  public:
-    void vfunc_19(const unsigned int*);
-};
-void PhysicsJoint3D::vfunc_19(const unsigned int* p) {
+void physics::PhysicsJoint3D::vfunc_19(void* __p0) { const unsigned int * p = (const unsigned int *)__p0;
+
     *(unsigned int*)((char*)this + 0x114) = p[0];
     *(unsigned int*)((char*)this + 0x118) = p[1];
     *(unsigned int*)((char*)this + 0x11c) = p[2];

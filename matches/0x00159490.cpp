@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00414070[];
-class Condition {
+class Condition_159490 {
   public:
     virtual void f0();
     virtual void f1();
@@ -12,22 +14,14 @@ class Condition {
     char flag;
 };
 extern void* __cdecl FUN_0008d690(unsigned int);
-class Factory_159490 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual Condition* vfunc_5();
-};
-Condition* Factory_159490::vfunc_5() {
-    Condition* p = (Condition*)FUN_0008d690(0x10);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionTargetIsTargetCondition>::vfunc_5() {
+    Condition_159490* p = (Condition_159490*)FUN_0008d690(0x10);
     if (p) {
         p->Init(0);
         *((int*)p) = ((int)DAT_00414070);
         p->flag = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

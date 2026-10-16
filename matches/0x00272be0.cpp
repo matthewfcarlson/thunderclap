@@ -1,18 +1,5 @@
-class Drive {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual int vfunc_11(void*, void*);
-};
-int Drive::vfunc_11(void*, void*) {
+#include "gen/core.h"
+
+int core::Drive::vfunc_11(void* __p0, void* __p1) {
     return 1;
 }

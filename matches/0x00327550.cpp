@@ -1,4 +1,6 @@
-class pddiPrimBufferStream {
+#include "gen/pure3d.h"
+
+class pddiPrimBufferStream_327550 {
   public:
     virtual void f0();
     virtual void f1();
@@ -19,14 +21,9 @@ class pddiPrimBufferStream {
     virtual void f16();
     virtual void f17();
 };
-class d3dPrimBufferStream : public pddiPrimBufferStream {
-  public:
-    char pad[0x44];
-    unsigned* slot;
-    void vfunc_3(unsigned, unsigned, unsigned);
-};
-void d3dPrimBufferStream::vfunc_3(unsigned a, unsigned b, unsigned c) {
-    slot[0] = a;
-    slot[1] = b;
-    slot[2] = c;
+
+void pure3d::d3dPrimBufferStream::vfunc_3(unsigned int a, unsigned int b, unsigned int c) {
+    (*(unsigned int * *)&this->f_48)[0] = a;
+    (*(unsigned int * *)&this->f_48)[1] = b;
+    (*(unsigned int * *)&this->f_48)[2] = c;
 }

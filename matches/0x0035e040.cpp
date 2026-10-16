@@ -1,5 +1,5 @@
+#include "decls/address.h"
 extern const char k_string[];
-extern "C" unsigned long long __cdecl FUN_0027b020(const char* s);
 extern unsigned int g_result_lo;
 extern unsigned int g_result_hi;
 

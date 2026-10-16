@@ -1,5 +1,7 @@
-class CStageCondition {};
-class ParamValue {
+#include "gen/fight.h"
+
+class CStageCondition_4df50 {};
+class ParamValue_4df50 {
   public:
     virtual void a();
     virtual void b();
@@ -7,24 +9,14 @@ class ParamValue {
     virtual void d();
     virtual void e();
 };
-class ParamValueEnum : public ParamValue {
+class ParamValueEnum_4df50 : public ParamValue_4df50 {
   public:
     virtual void f();
 };
-class ParamEnumConstList : public ParamValueEnum {
-  public:
-    virtual void g();
-    virtual void h();
-    virtual CStageCondition* i(int, int);
-    virtual void j();
-    virtual void k();
-    char pad[0xc];
-    CStageCondition** items;
-    int count;
-};
-extern CStageCondition zeroCondition;
-CStageCondition* ParamEnumConstList::i(int, int index) {
-    if (index >= 0 && index < count)
-        return items[index];
-    return &zeroCondition;
+extern CStageCondition_4df50 zeroCondition;
+
+template <> void* fight::ParamEnumConstList<CStageCondition>::vfunc_6(int , int index) {
+    if (index >= 0 && index < this->f_14)
+        return (void*)((*(CStageCondition_4df50 ** *)&this->f_10)[index]);
+    return (void*)(&zeroCondition);
 }

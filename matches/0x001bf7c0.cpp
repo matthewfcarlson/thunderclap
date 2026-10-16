@@ -1,3 +1,4 @@
+#include "decls/address.h"
 extern "C" char DAT_00421520[];
 extern "C" char DAT_0048e0f0[];
 extern "C" char DAT_0048e100[];
@@ -16,7 +17,6 @@ class CSubtitleManager {
     void Init(const char*, int);
     CSubtitleManager* Setup(const char*, const char*);
 };
-extern unsigned char __cdecl FUN_001d04d0(const char*);
 CSubtitleManager* CSubtitleManager::Setup(const char* a, const char* b) {
     Init(a, 3);
     vptr = ((int)DAT_00421520);

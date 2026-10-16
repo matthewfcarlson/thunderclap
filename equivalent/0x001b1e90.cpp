@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3063 inputs, branch coverage 96/96)
 // FUN_001b1e90 @ 0x001b1e90
+#include "decls/address.h"
 typedef unsigned __int64 u64_1b1e90;
 
 struct V3_1b1e90 {
@@ -97,7 +98,6 @@ struct World {
     char pad38[0x4c - 0x38];
     Mon *f4c;
 };
-extern World *DAT_004dd700;
 extern u64_1b1e90 DAT_004dc0e0;
 
 union Slot5_1b1e90 {

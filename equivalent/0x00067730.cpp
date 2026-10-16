@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 490 inputs, branch coverage 12/12)
 // FUN_00067730 @ 0x00067730
 // FUN_00067730: once the clock passes the next-update time, refresh every entry's score and schedule the next update
+#include "decls/address.h"
 struct Clock_67730 {
     float FUN_00086080();
 };
@@ -27,7 +28,6 @@ struct List_67730 {
     Entry_67730 *FUN_00230800(Entry_67730 *e);
 };
 
-extern World *DAT_004dd700;
 
 class Ticker {
 public:

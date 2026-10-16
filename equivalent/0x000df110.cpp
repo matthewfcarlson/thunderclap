@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 722 inputs, branch coverage 19/22, incomplete)
 // CGlowDisplayEffect::vfunc_0 @ 0x000df110
+#include "decls/address.h"
 extern "C" double cos(double);
 extern "C" double sin(double);
 
@@ -41,7 +42,7 @@ struct Holder_df110 {
     void FUN_00293d00(Vec3_df110 *v);
 };
 
-class Renderer_df110 {
+class Gfx {
 public:
     virtual void v00();
     virtual void v04();
@@ -105,7 +106,6 @@ public:
     virtual char vec();
 };
 
-extern Renderer_df110 *DAT_0052c2a8;
 extern Holder_df110 *DAT_0052c2ac;
 extern unsigned int DAT_004de944;
 extern float DAT_004de940;

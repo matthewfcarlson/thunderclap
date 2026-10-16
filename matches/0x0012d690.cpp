@@ -1,10 +1,12 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00410bf4[];
 typedef unsigned int u32_12d690;
 extern void* Alloc(unsigned int);
 struct Sub_12d690 {
     void Setup();
 };
-struct ThreatDistanceCondition {
+struct ThreatDistanceCondition_12d690 {
     u32_12d690 vf;
     char pad04[8];
     u32_12d690 mC;
@@ -15,16 +17,9 @@ struct ThreatDistanceCondition {
     char flag;
     void Init(int);
 };
-struct Factory_12d690 {
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void* vfunc_5();
-};
-void* Factory_12d690::vfunc_5() {
-    ThreatDistanceCondition* p = (ThreatDistanceCondition*)Alloc(0x28);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::ThreatDistanceCondition>::vfunc_5() {
+    ThreatDistanceCondition_12d690* p = (ThreatDistanceCondition_12d690*)Alloc(0x28);
     if (p) {
         p->Init(0);
         p->vf = ((int)DAT_00410bf4);
@@ -32,7 +27,7 @@ void* Factory_12d690::vfunc_5() {
         p->mD = 0;
         p->sub.Setup();
         p->flag = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

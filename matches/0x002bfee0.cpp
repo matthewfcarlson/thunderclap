@@ -1,13 +1,5 @@
-class Image8 {
-  public:
-    char pad0[0x10];
-    int width;
-    char pad14[0x10];
-    unsigned char* pixels;
-    char pad28[8];
-    int table[256];
-    unsigned int vfunc_9(int a, int b);
-};
-unsigned int Image8::vfunc_9(int a, int b) {
-    return table[pixels[width * b + a]];
+#include "gen/pure3d.h"
+
+unsigned int pure3d::Image8::vfunc_9(int a, int b) {
+    return (*(int (*)[256])&this->f_30)[(*(unsigned char * *)&this->f_24)[this->f_10 * b + a]];
 }

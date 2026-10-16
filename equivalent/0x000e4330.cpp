@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/9, incomplete)
 // FEContainer::vfunc_47 @ 0x000e4330
+#include "decls/address.h"
 extern "C" char *__cdecl strchr(const char *, int);
 
 union Id64_e4330 {
@@ -27,7 +28,6 @@ struct Found_e4330 {
     unsigned int idHi;       // 0x0c
 };
 
-unsigned __int64 __cdecl FUN_0027b020(const char *name);
 void __cdecl FUN_000f6cb0(const char *name, Found_e4330 *out);
 
 class FEContainer {

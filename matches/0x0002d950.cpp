@@ -1,16 +1,11 @@
-class CActorManager {
+#include "gen/global.h"
+
+class CActorManager_2d950 {
   public:
     void f();
 };
-class Method0 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    char pad[0x1c - 4];
-    void (CActorManager::*mFn)();
-    void vfunc_2(CActorManager*, void*, void*);
-};
-void Method0::vfunc_2(CActorManager* a, void*, void*) {
-    (a->*mFn)();
+
+template <> void Method0<CActorManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2d950 * a = (CActorManager_2d950 *)__p0;
+
+    (a->*(*(void (CActorManager_2d950::**)())&this->f_1c))();
 }

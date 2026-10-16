@@ -1,48 +1,23 @@
-class HSlider {
-  public:
-    virtual void v0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    virtual void vfunc_8();
-    virtual void vfunc_9();
-    virtual void vfunc_10();
-    virtual void vfunc_11();
-    virtual void vfunc_12();
-    virtual void vfunc_13();
-    virtual void vfunc_14();
-    virtual void vfunc_15();
-    virtual void vfunc_16();
-    virtual void vfunc_17();
-    virtual void vfunc_18();
-    char pad[0x14c];
-    float val;
-    int mode;
-    char p[4];
-    float low;
-    float high;
-    char p2[0x14];
-    float accum;
+#include "gen/global.h"
+
+struct HSlider_nv_f19e0 {
     void UpdateA(float);
     void UpdateB(float);
 };
 extern "C" float(__cdecl* RandomValue)();
+
 void HSlider::vfunc_4() {
-    if (mode == 1) {
-        if (val < high) {
-            accum = RandomValue() + accum;
+    if (this->f_154 == 1) {
+        if ((*(float *)&this->f_150) < this->f_160) {
+            this->f_178 = RandomValue() + this->f_178;
             float x = RandomValue();
-            UpdateA(x + x);
+            ((HSlider_nv_f19e0*)this)->UpdateA(x + x);
         }
-    } else if (mode == 2) {
-        if (val > low) {
-            accum = RandomValue() + accum;
+    } else if (this->f_154 == 2) {
+        if ((*(float *)&this->f_150) > this->f_15c) {
+            this->f_178 = RandomValue() + this->f_178;
             float x = RandomValue();
-            UpdateB(x + x);
+            ((HSlider_nv_f19e0*)this)->UpdateB(x + x);
         }
     }
 }

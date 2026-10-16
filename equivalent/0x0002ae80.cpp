@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 81/82, incomplete)
 // FUN_0002ae80 @ 0x0002ae80
+#include "decls/address.h"
 struct Vec_2ae80 { float x,y,z; };
 struct Position_2ae80 { bool FUN_00059a50(Vec_2ae80*); };
 struct Bounds_2ae80 { char pad[8]; unsigned char type; char pad2[7]; Vec_2ae80 center; float radius; float distance; };
@@ -15,8 +16,7 @@ struct Events_2ae80 { void FUN_001e53d0(Actor_2ae80*); };
 struct LevelData { int FUN_00088fa0(); int FUN_00088fb0(); };
 struct Level_2ae80 { char p[0x80]; LevelData data; };
 struct Levels { Level_2ae80* FUN_00086310(); };
-struct Game_2ae80 { char p[12]; Events_2ae80* events; char p2[0x54-16]; Levels* levels; };
-extern Game_2ae80* DAT_004dd700;
+struct World { char p[12]; Events_2ae80* events; char p2[0x54-16]; Levels* levels; };
 struct Debug_2ae80 { void FUN_0023f7b0(Vec_2ae80*,Vec_2ae80*,unsigned,int); void FUN_0023f7d0(Vec_2ae80*,unsigned,float,int); };
 extern Debug_2ae80* DAT_004dd6e8;
 struct Manager_2ae80 {

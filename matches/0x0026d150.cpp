@@ -1,11 +1,5 @@
-class MemoryTwoWayAllocator {
-    char pad[0x10];
-    int a;
-    int b;
+#include "gen/core.h"
 
-  public:
-    int vfunc_11();
-};
-int MemoryTwoWayAllocator::vfunc_11() {
-    return b - a;
+int core::MemoryTwoWayAllocator::vfunc_11() {
+    return this->f_14 - this->f_10;
 }

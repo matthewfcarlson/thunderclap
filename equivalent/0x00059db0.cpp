@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 16/16)
 // FUN_00059db0 @ 0x00059db0
+#include "decls/address.h"
 struct Res_59db0 {
     void FUN_0003b620(int v);
     void FUN_00263e90();
@@ -25,12 +26,11 @@ struct Current_59db0 {
     Res_59db0 *res;           // 0x124
 };
 
-struct Manager_59db0 {
+struct World {
     char pad0[0x20];
     Current_59db0 *current;   // 0x20
 };
 
-extern Manager_59db0 *DAT_004dd700;
 
 class ItemList_59db0 {
 public:

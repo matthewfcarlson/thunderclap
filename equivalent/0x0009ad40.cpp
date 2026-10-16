@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0009ad40 @ 0x0009ad40
+#include "decls/address.h"
 extern "C" char DAT_00404c80[];
 extern "C" char DAT_0048e0e4[];
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e128[];
-extern "C" char __cdecl FUN_001d04d0(const void*);
 
 class Callback_9ad40 {
   public:

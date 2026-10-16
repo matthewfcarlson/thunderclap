@@ -1,6 +1,8 @@
+#include "gen/fight.h"
+
 extern void* __cdecl Alloc(unsigned int);
 extern int shakeVtable;
-class CCameraShakeTrack {
+class CCameraShakeTrack_75e70 {
   public:
     virtual void f0();
     virtual void f1();
@@ -16,17 +18,9 @@ class CCameraShakeTrack {
     int w;
     void Init();
 };
-class Factory_75e70 {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual CCameraShakeTrack* v5();
-};
-CCameraShakeTrack* Factory_75e70::v5() {
-    CCameraShakeTrack* p = (CCameraShakeTrack*)Alloc(0x1c);
+
+template <> void* fight::TrackFactoryTemplate<CCameraShakeTrack>::vfunc_5() {
+    CCameraShakeTrack_75e70* p = (CCameraShakeTrack_75e70*)Alloc(0x1c);
     if (p) {
         p->Init();
         p->x = 0;
@@ -35,7 +29,7 @@ CCameraShakeTrack* Factory_75e70::v5() {
         p->w = 0;
         *(unsigned long*)p = (unsigned long)&shakeVtable;
         p->flag = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

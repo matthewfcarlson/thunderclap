@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00027b50 @ 0x00027b50
-extern unsigned __int64 __cdecl FUN_002672f0(const char *s, int a, int b);
-extern unsigned __int64 __cdecl FUN_0027b020(const char *s);
+#include "decls/address.h"
 extern void __cdecl FUN_00224d70(float angle, struct V3_27b50 *v);
 
 struct V3_27b50 {

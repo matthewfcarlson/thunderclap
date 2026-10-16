@@ -1,24 +1,7 @@
-class Sprite {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual unsigned char v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    char pad[0x4c - 4];
-    void* member;
-    unsigned char vfunc_9();
-};
-unsigned char Sprite::vfunc_9() {
-    if (member)
-        return *((unsigned char*)member + 0x14);
+#include "gen/pure3d.h"
+
+unsigned char pure3d::Sprite::vfunc_9() {
+    if ((*(void * *)&this->f_4c))
+        return *((unsigned char*)(*(void * *)&this->f_4c) + 0x14);
     return 0;
 }

@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 24/24)
 // hulkfight::UnlockableCondition::vfunc_6 @ 0x0012f110
+#include "decls/address.h"
 struct Info_12f110 {
  char pad[8]; unsigned char enabled; char rest[23]; unsigned char state;
  unsigned char FUN_00091f40();
 };
 struct Registry_12f110 { Info_12f110* FUN_00092ad0(int); };
-struct Manager_12f110 { Registry_12f110* FUN_00086340(); };
-extern Manager_12f110* DAT_004dd6ec;
+struct Singleton_4dd6ec { Registry_12f110* FUN_00086340(); };
 extern char DAT_0049dab8, DAT_0049dafc, DAT_0049db1c;
 extern void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 namespace hulkfight {

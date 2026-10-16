@@ -1,9 +1,5 @@
-class d3dTexture {
-    char pad[0xd4];
+#include "gen/pure3d.h"
 
-  public:
-    unsigned int vfunc_5();
-};
-unsigned int d3dTexture::vfunc_5() {
+unsigned int pure3d::d3dTexture::vfunc_5() {
     return *(unsigned int*)((char*)this + 0xd4);
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 29/38, incomplete)
 // FUN_0008a120 @ 0x0008a120
+#include "decls/address.h"
 extern "C" int memcmp(const void *a, const void *b, unsigned n);
 
 struct NameEntry_8a120 {
@@ -10,7 +11,6 @@ struct NameEntry_8a120 {
 extern const char *DAT_003ffde0[35];
 extern const char DAT_003f335c[16];
 
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
 
 class LevelRegistry {
 public:

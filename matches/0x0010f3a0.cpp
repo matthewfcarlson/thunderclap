@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct Pair_10f3a0 {
     unsigned int first, second;
 };
@@ -28,39 +30,29 @@ void __cdecl FUN_00363ec0();
 int __cdecl _atexit(void(__cdecl*)());
 namespace hulkfight {
 namespace ai {
-struct HulkAction {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    char pad[24];
-    Settings_10f3a0* settings;
-    Actor_10f3a0* actor;
-};
-void HulkAction::vfunc_4() {
-    if (!actor)
+
+} // namespace ai
+} // namespace hulkfight
+void hulkfight::ai::HulkAction::vfunc_4() {
+    if (!(*(Actor_10f3a0 * *)&this->f_20))
         return;
     if (!(DAT_004e0bf8 & 1)) {
         DAT_004e0bf8 |= 1;
         DAT_004e0bf0.FUN_0027af00();
         _atexit(FUN_00363ec0);
     }
-    actor->FUN_000592a0()->FUN_00059a30();
+    (*(Actor_10f3a0 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();
     FUN_000678d0()->FUN_00067730();
     float value;
     Pair_10f3a0 pair;
-    if (settings->value == 0.0f)
+    if ((*(Settings_10f3a0 * *)&this->f_1c)->value == 0.0f)
         value = 1.0f;
-    else if (settings->value < 0.0f) {
-        pair = settings->pair;
+    else if ((*(Settings_10f3a0 * *)&this->f_1c)->value < 0.0f) {
+        pair = (*(Settings_10f3a0 * *)&this->f_1c)->pair;
         value = -FUN_000678d0()->FUN_000670e0(&pair);
     } else
-        value = settings->value;
-    pair = settings->pair;
+        value = (*(Settings_10f3a0 * *)&this->f_1c)->value;
+    pair = (*(Settings_10f3a0 * *)&this->f_1c)->pair;
     int result = (int)value;
     FUN_000678d0()->FUN_000670a0(&pair, result);
 }
-} // namespace ai
-} // namespace hulkfight

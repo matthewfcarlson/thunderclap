@@ -1,21 +1,14 @@
-class Image32 {
-  public:
-    char pad0[0x10];
-    int mWidth;
-    int mHeight;
-    char pad18[0x24 - 0x18];
-    unsigned int* mPixels;
-    void vfunc_11(unsigned int);
-};
-void Image32::vfunc_11(unsigned int value) {
-    unsigned int* p = mPixels;
-    int count = mHeight * mWidth;
+#include "gen/pure3d.h"
+
+void pure3d::Image32::vfunc_11(unsigned int value) {
+    unsigned int* p = (*(unsigned int * *)&this->f_24);
+    int count = this->f_14 * this->f_10;
     int i = 0;
     if (count > 0) {
         do {
             *p++ = value;
             ++i;
-            count = mHeight * mWidth;
+            count = this->f_14 * this->f_10;
         } while (i < count);
     }
 }

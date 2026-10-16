@@ -22,7 +22,7 @@ struct Inner_275500 {
 extern void __cdecl FUN_0026d850(void*);
 extern void __cdecl FUN_0026d840(void*);
 extern Owner_275500* gObject_275500;
-struct FileGetSizeRequest {
+namespace core { struct FileGetSizeRequest {
     virtual FileGetSizeRequest* vfunc_0(int);
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -32,8 +32,8 @@ struct FileGetSizeRequest {
     virtual void vfunc_6();
     char pad[4];
     Owner_275500* owner;
-};
-FileGetSizeRequest* FileGetSizeRequest::vfunc_0(int flag) {
+}; }
+core::FileGetSizeRequest* core::FileGetSizeRequest::vfunc_0(int flag) {
     ((int*)this)[0] = ((int)DAT_0042b99c);
     ((Inner_275500*)((char*)owner + 4))->A();
     --(*(int*)((char*)owner + 0x18));

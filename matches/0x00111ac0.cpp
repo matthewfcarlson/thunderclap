@@ -1,18 +1,16 @@
+#include "gen/fight.h"
+
 int Helper(int a, int b, void* c, void* d, int e);
 
-class TrackFactoryCaster {
+class TrackFactoryCaster_111ac0 {
   public:
     virtual void AddRef();
     virtual void Release();
-    virtual ~TrackFactoryCaster();
+    virtual ~TrackFactoryCaster_111ac0();
 };
 
-class TrackFactoryCasterTemplate : public TrackFactoryCaster {
-  public:
-    virtual bool vfunc_0(int arg);
-};
+template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::SemaphoreWaitTrack>::vfunc_0(void* __p0) { int arg = (int)__p0;
 
-bool TrackFactoryCasterTemplate::vfunc_0(int arg) {
     int x = Helper(arg, 0, (void*)0x49850c, (void*)0x4a49d0, 0);
     return (x != 0) ? 1 : 0;
 }

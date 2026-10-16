@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 581 inputs, branch coverage 10/10)
 // FUN_0008f4c0 @ 0x0008f4c0
+#include "decls/address.h"
 struct Vertex_8f4c0 {
     float x, y, z;
 };
@@ -28,7 +29,7 @@ struct Gfx_8f4c0 {
     Res_8f4c0* res;
 };
 
-class Device_8f4c0 {
+class Gfx {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -123,7 +124,6 @@ struct Overlay {
     Label_8f4c0* items[1];
 };
 
-extern Device_8f4c0* DAT_0052c2a8;
 extern Holder_8f4c0** DAT_0052c2ac;
 Gfx_8f4c0* FUN_00085cd0();
 void FUN_00085d30();

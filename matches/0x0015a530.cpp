@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern "C" void* __cdecl alloc(unsigned int);
 extern "C" int CollisionThrownObjectCondition_vftable;
 
@@ -14,18 +16,14 @@ struct Cond_15a530 {
     void Init(int);
 };
 
-struct Factory_15a530 {
-    Cond_15a530* vfunc_5();
-};
-
-Cond_15a530* Factory_15a530::vfunc_5() {
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionThrownObjectCondition>::vfunc_5() {
     Cond_15a530* p = (Cond_15a530*)alloc(0x18);
     if (p) {
         p->Init(0);
         p->vp = (void*)&CollisionThrownObjectCondition_vftable;
         p->flag = 1;
         p->h.Go();
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

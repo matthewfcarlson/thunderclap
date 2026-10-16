@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0041aaa8[];
-struct TimerSetTrack {
+struct TimerSetTrack_18ea10 {
     int vptr;
     int pad4;
     int m8;
@@ -9,17 +11,9 @@ struct TimerSetTrack {
     void Init();
 };
 extern "C" void* __cdecl Allocate(unsigned int);
-class Factory_18ea10 {
-  public:
-    virtual void F0();
-    virtual void F1();
-    virtual void F2();
-    virtual void F3();
-    virtual void F4();
-    virtual void* F5();
-};
-void* Factory_18ea10::F5() {
-    TimerSetTrack* p = (TimerSetTrack*)Allocate(0x18);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::TimerSetTrack>::vfunc_5() {
+    TimerSetTrack_18ea10* p = (TimerSetTrack_18ea10*)Allocate(0x18);
     if (p) {
         p->Init();
         p->vptr = ((int)DAT_0041aaa8);
@@ -27,7 +21,7 @@ void* Factory_18ea10::F5() {
         p->m10 = 0;
         p->m14 = 0;
         p->m8 = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

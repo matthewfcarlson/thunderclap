@@ -1,41 +1,14 @@
-struct Controller_2a83b0 {
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual void a3();
-    virtual void a4();
-    virtual void vfunc_5(void*);
-    virtual void a6();
-    virtual void a7();
-    virtual void a8();
-    virtual void a9();
-    virtual void a10();
-    virtual void a11();
-    virtual void a12();
-    virtual void a13();
-    virtual void a14();
-    virtual void a15();
-    virtual void a16();
-    virtual void a17();
-    virtual void a18();
-    virtual void a19();
-    virtual void a20();
-    virtual void a21();
-    virtual void a22();
-    virtual void a23();
-    virtual void a24();
-    virtual void a25();
-    virtual void a26();
-    char pad[0x3c];
-    void* member;
-};
+#include "gen/pure3d.h"
+
 extern void* __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
 struct Helper_2a83b0 {
     void go();
 };
 extern char Entity_RTTI;
 extern char CompositeDrawable_RTTI;
-void Controller_2a83b0::vfunc_5(void* arg) {
-    member = FUN_00344e74(arg, 0, &Entity_RTTI, &CompositeDrawable_RTTI, 0);
+
+void pure3d::CompDrawVisibilityAnimationController::vfunc_5(void* __p0) { void * arg = (void *)__p0;
+
+    (*(void * *)&this->f_40) = FUN_00344e74(arg, 0, &Entity_RTTI, &CompositeDrawable_RTTI, 0);
     ((Helper_2a83b0*)this)->go();
 }

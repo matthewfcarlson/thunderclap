@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 4/4)
 // FUN_000fa4b0 @ 0x000fa4b0
+#include "decls/address.h"
 typedef unsigned int uint;
 extern "C" int __cdecl sprintf(char*, const char*, ...);
 extern void* __cdecl FUN_00263ea0(uint);
 extern void* __cdecl FUN_0008d6d0(uint);
-extern unsigned __int64 __cdecl FUN_002672f0(const char*,uint,uint);
 extern uint DAT_004d9968;
 extern void __fastcall __security_check_cookie(uint);
 struct Name_fa4b0 { void FUN_0027b040(const char*); };

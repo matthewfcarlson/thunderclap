@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 48/48)
 // FUN_002071e0 @ 0x002071e0
+#include "decls/address.h"
 extern unsigned char DAT_004c91d8;
 
 void *__cdecl FUN_00263ea0(unsigned int size);
@@ -33,13 +34,12 @@ struct Mgr3c {
     int FUN_000d6f50();
     void FUN_000d7030(int v);
 };
-struct Global_2071e0 {
+struct World {
     char pad0[0x3c];
     Mgr3c *mgr3c;          // 0x3c
     char pad40[0x54 - 0x40];
     Mgr54_2071e0 *mgr54;          // 0x54
 };
-extern Global_2071e0 *DAT_004dd700;
 
 struct Slot_2071e0 {
     unsigned char used;            // 0x00

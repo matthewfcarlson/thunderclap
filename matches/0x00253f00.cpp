@@ -1,4 +1,6 @@
-class SeqAction {
+#include "gen/audio.h"
+
+class SeqAction_253f00 {
   public:
     virtual void f0();
     virtual void f1();
@@ -9,19 +11,8 @@ class SeqAction {
     virtual void f6();
 };
 namespace audio {
-class SeqActionStream : public SeqAction {
-  public:
-    char pad[0x20 - 4];
-    int value;
-    virtual void g0();
-    virtual void g1();
-    virtual void g2();
-    virtual void g3();
-    virtual void g4();
-    virtual int vfunc_5(int);
-    virtual void g6();
-};
-int SeqActionStream::vfunc_5(int) {
-    return value;
-}
+
 } // namespace audio
+int audio::SeqActionStream::vfunc_5(int ) {
+    return this->f_20;
+}

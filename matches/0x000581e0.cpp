@@ -1,7 +1,9 @@
 // Same code shape as 0x00057c10 (propagated; names are from that function)
+#include "gen/fight.h"
+
 typedef unsigned int u32_581e0;
 extern "C" void* __cdecl Alloc(unsigned int);
-struct CCollisionPushbackYAngleCondition {
+struct CCollisionPushbackYAngleCondition_581e0 {
     u32_581e0 vptr;
     char pad[8];
     int fieldC;
@@ -9,18 +11,15 @@ struct CCollisionPushbackYAngleCondition {
     void Init(int);
 };
 extern u32_581e0 CCollisionPushbackYAngleCondition_vftable_581e0;
-class ConditionFactoryTemplate {
-  public:
-    void* vfunc_5();
-};
-void* ConditionFactoryTemplate::vfunc_5() {
-    CCollisionPushbackYAngleCondition* p = (CCollisionPushbackYAngleCondition*)Alloc(0x14);
+
+template <> void* fight::ConditionFactoryTemplate<CInactivityTimerCondition>::vfunc_5() {
+    CCollisionPushbackYAngleCondition_581e0* p = (CCollisionPushbackYAngleCondition_581e0*)Alloc(0x14);
     if (p) {
         p->Init(0);
         p->vptr = (u32_581e0)&CCollisionPushbackYAngleCondition_vftable_581e0;
         p->fieldC = 5;
         p->field10 = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 9/10, incomplete)
 // hulkfight::motion::BounceAction::vfunc_3 @ 0x001347c0
+#include "decls/address.h"
 struct Vec3_1347c0 { float x, y, z; };
 
 struct Pose {
@@ -49,12 +50,12 @@ struct BounceData_1347c0 {
     float f30;
 };
 
-struct Globals_1347c0;
+struct World;
 struct Manager_1347c0 {
-    void FUN_00099d20(Globals_1347c0 *g, Stats_1347c0 *s, float a, float b, float c);
+    void FUN_00099d20(World *g, Stats_1347c0 *s, float a, float b, float c);
 };
 
-struct Globals_1347c0 {
+struct World {
     char pad0[8];
     Manager_1347c0 *manager;
 };
@@ -64,7 +65,6 @@ Stats_1347c0 *__fastcall FUN_00059a30(void *x);
 Scene_1347c0 *__fastcall FUN_00059a40(void *x);
 extern "C" void FUN_00224d70(float angle, Vec3_1347c0 *v);
 void *__cdecl FUN_00263ea0(unsigned int size);
-extern Globals_1347c0 *DAT_004dd700;
 extern float DAT_004abf64;
 extern float DAT_004abf68;
 extern float DAT_004abf6c;

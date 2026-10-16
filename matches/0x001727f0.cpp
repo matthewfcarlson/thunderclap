@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct Helper1_1727f0 {
     int f();
 };
@@ -7,20 +9,10 @@ struct Helper2_1727f0 {
 struct Helper3 {
     void f(void*);
 };
-struct MomentumXZAddAction {
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual bool vfunc_3(unsigned int x, unsigned int y);
-    virtual void d();
-    virtual void e();
-    char pad[0x1c];
-    Helper1_1727f0* member;
-    int field24;
-    int field28;
-};
-bool MomentumXZAddAction::vfunc_3(unsigned int x, unsigned int y) {
-    Helper1_1727f0* p = member;
+
+bool hulkfight::motion::MomentumXZAddAction::vfunc_3(int __p0, int __p1) { unsigned int x = (unsigned int)__p0; unsigned int y = (unsigned int)__p1;
+
+    Helper1_1727f0* p = (*(Helper1_1727f0 * *)&this->f_20);
     if (!p)
         return false;
     int q = p->f();
@@ -30,7 +22,7 @@ bool MomentumXZAddAction::vfunc_3(unsigned int x, unsigned int y) {
     int r = z->f();
     if (!r)
         return false;
-    ((Helper3*)r)->f(&field24);
-    field28 = 0;
+    ((Helper3*)r)->f(&this->f_24);
+    this->f_28 = 0;
     return true;
 }

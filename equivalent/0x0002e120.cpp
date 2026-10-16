@@ -1,31 +1,24 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Method2<CActorManager,math::Vector,math::Vector,float>::vfunc_2 @ 0x0002e120
-struct Vector { float x, y, z; };
+#include "gen/global.h"
 
-class CActorManager {
+struct Vector_2e120 { float x, y, z; };
+
+class CActorManager_2e120 {
 public:
-    Vector Call(Vector arg, float scale);
+    Vector_2e120 Call(Vector_2e120 arg, float scale);
 };
 
 struct CallParams {
-    Vector arg;           // 0x00
+    Vector_2e120 arg;           // 0x00
     float scale;          // 0x0c
 };
 
-typedef Vector (CActorManager::*VectorMethod)(Vector, float);
+typedef Vector_2e120 (CActorManager_2e120::*VectorMethod)(Vector_2e120, float);
 
-class Method2 {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(CActorManager* owner, CallParams* params, Vector* out);
-    char pad04[0x18];
-    VectorMethod method;   // 0x1c
-};
+template <> void Method2<CActorManager,math::Vector,math::Vector, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2e120 * owner = (CActorManager_2e120 *)__p0; CallParams * params = (CallParams *)__p1; Vector_2e120 * out = (Vector_2e120 *)__p2;
 
-void Method2::vfunc_2(CActorManager* owner, CallParams* params, Vector* out)
-{
-    Vector result = (owner->*method)(params->arg, params->scale);
+    Vector_2e120 result = (owner->*(*(VectorMethod *)&this->f_1c))(params->arg, params->scale);
     if (out != 0)
         *out = result;
 }

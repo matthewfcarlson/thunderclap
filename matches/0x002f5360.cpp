@@ -1,17 +1,11 @@
-class PhysicsObject {
-  public:
-    char pad[0x148];
-    unsigned char flag;
-    char pad2[3];
-    int c, b, a, f, e, d;
-    void vfunc_27(int);
-};
-void PhysicsObject::vfunc_27(int x) {
-    a = 0;
-    b = 0;
-    c = 0;
-    d = 0;
-    e = 0;
-    f = 0;
-    flag = 1;
+#include "gen/physics.h"
+
+void physics::PhysicsObject::vfunc_27(int x) {
+    this->f_154 = 0;
+    this->f_150 = 0;
+    this->f_14c = 0;
+    this->f_160 = 0;
+    this->f_15c = 0;
+    this->f_158 = 0;
+    this->f_148 = 1;
 }

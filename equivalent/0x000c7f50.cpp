@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 741 inputs, branch coverage 32/32)
 // FUN_000c7f50 @ 0x000c7f50
+#include "decls/address.h"
 struct Item_c7f50 { int FUN_00204200(int, int, int); };
 struct Manager_c7f50 { Item_c7f50* __cdecl FUN_000862a0(int, int, int); };
-struct Global_c7f50 { char pad[0x54]; Manager_c7f50* manager; };
-extern Global_c7f50* DAT_004dd700;
+struct World { char pad[0x54]; Manager_c7f50* manager; };
 struct Entry_c7f50 { int active; int x; int y; int z; char pad[0x24]; int value; char tail[8]; };
 struct Object { char pad[0x258]; Entry_c7f50 entries[128]; int target(unsigned char flag, int value); };
 int Object::target(unsigned char flag, int value) {

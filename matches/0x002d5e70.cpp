@@ -1,48 +1,21 @@
+#include "gen/pure3d.h"
+
 class Obj_2d5e70 {
   public:
     virtual void a();
     virtual void b();
 };
-class pure3d_SpriteParticleEmitter {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual void v13();
-    virtual void v14();
-    virtual void v15();
-    virtual void v16();
-    virtual void v17();
-    virtual void v18();
-    virtual void v19();
-    virtual void v20();
-    virtual void v21();
-    virtual void v22();
-    virtual void v23();
-    virtual void v24();
-    virtual void v25(Obj_2d5e70*);
-    char pad[0x84 - 4];
-    Obj_2d5e70* member;
-};
-void pure3d_SpriteParticleEmitter::v25(Obj_2d5e70* p) {
-    if (p != member) {
-        v15();
-        if (p != member) {
+
+void pure3d::SpriteParticleEmitter::vfunc_25(void* __p0) { Obj_2d5e70 * p = (Obj_2d5e70 *)__p0;
+
+    if (p != (*(Obj_2d5e70 * *)&this->f_84)) {
+        vfunc_15();
+        if (p != (*(Obj_2d5e70 * *)&this->f_84)) {
             if (p)
                 p->a();
-            if (member)
-                member->b();
-            member = p;
+            if ((*(Obj_2d5e70 * *)&this->f_84))
+                (*(Obj_2d5e70 * *)&this->f_84)->b();
+            (*(Obj_2d5e70 * *)&this->f_84) = p;
         }
     }
 }

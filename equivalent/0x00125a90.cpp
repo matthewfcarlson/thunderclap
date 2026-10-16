@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 101 inputs, branch coverage 25/26, incomplete)
 // hulkfight::ai::TargetArcCondition::vfunc_6 @ 0x00125a90
+#include "decls/address.h"
 struct V3_125a90 {
     float x, y, z;
     float FUN_0022d110();
@@ -58,7 +59,7 @@ struct Owner_125a90 {
     Fighter_125a90* current;           // 0x124
 };
 
-struct Globals_125a90 {
+struct World {
     char pad00[0x20];
     Owner_125a90* owner;               // 0x20
 };
@@ -79,7 +80,6 @@ public:
     Handle_125a90* FUN_000592a0();
 };
 
-extern Globals_125a90* DAT_004dd700;
 Singleton_125a90* FUN_001c3d90();
 float FUN_00224f10(V3_125a90* v);
 float FUN_00224fc0(float a, float b);

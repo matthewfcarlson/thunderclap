@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1441 inputs, branch coverage 22/22)
 // FUN_0001a050 @ 0x0001a050
+#include "decls/address.h"
 struct Actor_1a050;
 struct Link_1a050 { Actor_1a050* FUN_00059a30(); };
 struct Owner_1a050 { Link_1a050* FUN_000592a0(); };
@@ -12,8 +13,7 @@ struct Actor_1a050 {
  int FUN_00038f90(int,int,int);
 };
 struct Collection_1a050 { char pad[0xc]; int count; Actor_1a050* FUN_00024190(int); };
-struct Global_1a050 { char pad[0x20]; Collection_1a050* collection; };
-extern Global_1a050* DAT_004dd700;
+struct World { char pad[0x20]; Collection_1a050* collection; };
 struct Config_1a050 { char pad[0x2c]; int value; };
 struct Target_1a050 {
  char pad[0x1c]; Owner_1a050* owner; Config_1a050* config;

@@ -1,3 +1,4 @@
+#include "decls/address.h"
 extern "C" char DAT_00425be4[];
 class InitBase_205600 {
   public:
@@ -14,7 +15,6 @@ class CWorldStreamManager {
     char p3[3];
     int f1c;
 };
-extern char* __cdecl FUN_001d04d0(const char*);
 extern char str1_205600[], str2[], str3[], str4[];
 CWorldStreamManager::CWorldStreamManager(const char* a, int b) {
     ((InitBase_205600*)this)->Init(a, 3);

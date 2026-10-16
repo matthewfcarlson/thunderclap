@@ -1,25 +1,21 @@
 // Same code shape as 0x0008a610 (propagated; names are from that function)
-struct Vector {
+#include "gen/global.h"
+
+struct Vector_9b450 {
     int x, y, z;
 };
-class CGameFlowManager {
+class CGameFlowManager_9b450 {
   public:
-    virtual Vector* Get(Vector*);
+    virtual Vector_9b450* Get(Vector_9b450*);
 };
-typedef Vector* (CGameFlowManager::*Fn_9b450)(Vector*);
-class Method0 {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(CGameFlowManager* mgr, void* unused, Vector* out);
-    char pad[0x18];
-    Fn_9b450 mFn;
-};
-void Method0::vfunc_2(CGameFlowManager* mgr, void*, Vector* out) {
-    Fn_9b450 fn = mFn;
-    Vector temp;
-    volatile Vector r;
-    Vector* p = (mgr->*fn)(&temp);
+typedef Vector_9b450* (CGameFlowManager_9b450::*Fn_9b450)(Vector_9b450*);
+
+template <> void Method0<CCameraManager,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CGameFlowManager_9b450 * mgr = (CGameFlowManager_9b450 *)__p0; Vector_9b450 * out = (Vector_9b450 *)__p2;
+
+    Fn_9b450 fn = (*(Fn_9b450 *)&this->f_1c);
+    Vector_9b450 temp;
+    volatile Vector_9b450 r;
+    Vector_9b450* p = (mgr->*fn)(&temp);
     r.x = p->x;
     r.y = p->y;
     r.z = p->z;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20041 inputs, branch coverage 135/136, incomplete)
 // FUN_000c21b0 @ 0x000c21b0
+#include "decls/address.h"
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
@@ -127,7 +128,7 @@ class Core {
   public:
     Sub* FUN_00086370();
 };
-class App {
+class World {
   public:
     char pad[0x54];
     Core* core;
@@ -137,7 +138,6 @@ class Page {
     char FUN_000893c0();
 };
 
-extern App* DAT_004dd700;
 Manager* __cdecl FUN_000fc1b0();
 FEObject* __cdecl FUN_000fc260(const char* name);
 void __cdecl FUN_000fb690(unsigned short* dst, const unsigned short* src, int count);

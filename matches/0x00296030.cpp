@@ -1,14 +1,6 @@
 // Same code shape as 0x00274850 (propagated; names are from that function)
-class DriveFindFirstRequest {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual unsigned int vfunc_6();
-};
-unsigned int DriveFindFirstRequest::vfunc_6() {
-    return 0x10;
+#include "gen/pure3d.h"
+
+int pure3d::scenegraph::DrawableNode::vfunc_5() {
+    return (int)(0x10);
 }

@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Item_296740 {
   public:
     virtual void a();
@@ -20,23 +22,17 @@ class Item_296740 {
     virtual void r();
     virtual void s();
 };
-class BranchNode {
-    char pad[0x18];
 
-  public:
-    int count;
-    Item_296740** items;
-    void vfunc_18(Item_296740*);
-};
-void BranchNode::vfunc_18(Item_296740* item) {
+void pure3d::scenegraph::BranchNode::vfunc_18(void* __p0) { Item_296740 * item = (Item_296740 *)__p0;
+
     if (item) {
-        Item_296740** slot = items + count;
+        Item_296740** slot = (*(Item_296740 ** *)&this->f_1c) + (*(int *)&this->f_18);
         item->a();
         Item_296740* old = *slot;
         if (old)
             old->b();
         *slot = item;
-        ++count;
+        ++(*(int *)&this->f_18);
         item->o(this);
         item->k(1, 2, 1, 1);
         item->k(1, 6, 2, 1);

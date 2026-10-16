@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 552 inputs, branch coverage 4/4)
 // FUN_002c4360 @ 0x002c4360
+#include "decls/address.h"
 struct V3 { float x, y, z; };
 
 struct VBuf {
@@ -22,7 +23,6 @@ struct Gfx {
     virtual VBuf *v30(void *tex, int prim, int fmt, int count, int z);
     virtual void v31(VBuf *vb);
 };
-extern Gfx *DAT_0052c2a8;
 
 struct Frame {
     V3 P;                            // S+0x10

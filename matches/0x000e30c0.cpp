@@ -1,4 +1,6 @@
-class FEControl {
+#include "gen/global.h"
+
+class FEControl_e30c0 {
   public:
     virtual void a0();
     virtual void a1();
@@ -20,19 +22,13 @@ class FEControl {
     virtual void a17();
     virtual void a18();
 };
-class TextSelector : public FEControl {
-  public:
-    char pad[0x150];
-    int value;
-    char pad2[0x1d94 - 0x158];
-    void vfunc_25(int);
-};
 void __stdcall Notify(int);
+
 void TextSelector::vfunc_25(int p) {
-    if (value != p) {
-        value = p;
+    if (this->f_154 != p) {
+        this->f_154 = p;
         if (*(int*)((char*)this + 0x1d94))
             Notify(p);
-        a0();
+        vfunc_0();
     }
 }

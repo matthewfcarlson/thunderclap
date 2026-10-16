@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_001dd1e0 @ 0x001dd1e0
+#include "decls/address.h"
 typedef unsigned __int64 KeyValue;
-extern KeyValue __cdecl FUN_0027b020(const char* name);
 struct Key_1dd1e0 { unsigned low, high; void FUN_0027b040(const char* name); };
 struct Entry_1dd1e0 { Key_1dd1e0 key; float value; unsigned mode; int priority; unsigned unused; };
 struct Object { char padding[0x1ed60]; Entry_1dd1e0 entries[16]; bool update(const char* name, float value, unsigned mode, int priority); };

@@ -1,4 +1,6 @@
-class Stream {
+#include "gen/fight.h"
+
+class Stream_23bd90 {
   public:
     virtual void a();
     virtual void b();
@@ -6,45 +8,17 @@ class Stream {
     virtual void d();
     virtual int Read(void*, int);
 };
-class BinReader {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual char vfunc_12(int, int, int*);
-    virtual void v13();
-    virtual void v14();
-    virtual void v15();
-    virtual void v16();
-    virtual void v17();
-    virtual void v18();
-    virtual void v19();
-    char p4[4];
-    Stream* stream;
-    unsigned char pC, reverse;
-    char pE[2];
-    int value;
-    char p14[12];
-    unsigned remaining;
-};
-char BinReader::vfunc_12(int a, int b, int* out) {
-    unsigned n = remaining;
+
+char fight::BinReader::vfunc_12(int a, int b, void* __p2) { int * out = (int *)__p2;
+
+    unsigned n = this->f_20;
     if (n > 4)
         n = 4;
-    int got = stream->Read(&value, n);
-    remaining -= n;
+    int got = (*(Stream_23bd90 * *)&this->f_08)->Read(&this->f_10, n);
+    this->f_20 -= n;
     char ok = got == 4;
-    if (reverse) {
-        unsigned char* p = (unsigned char*)&value;
+    if ((*(unsigned char *)&this->f_0d)) {
+        unsigned char* p = (unsigned char*)&this->f_10;
         unsigned char* q = p + 3;
         if (p < q) {
             do {
@@ -56,6 +30,6 @@ char BinReader::vfunc_12(int a, int b, int* out) {
             } while (p < q);
         }
     }
-    *out = value;
+    *out = this->f_10;
     return ok;
 }

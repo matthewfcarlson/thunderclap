@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 8/8)
 // FUN_002e4bd0 @ 0x002e4bd0
+#include "decls/address.h"
 void *__cdecl FUN_00263ea0(unsigned int size);
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
 void __cdecl FUN_0028fcc0(const char *fmt, ...);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 

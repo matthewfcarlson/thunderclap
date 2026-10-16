@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000d9790 @ 0x000d9790
+#include "decls/address.h"
 typedef unsigned short wchar_t;
 extern unsigned int DAT_004d9968;
 extern void __fastcall __security_check_cookie(unsigned int);
@@ -10,8 +11,7 @@ struct UI_d9790 {
  void FUN_000be310(const wchar_t*,const wchar_t*,const void*,const char*,const char*,int,const wchar_t*,const wchar_t*);
 };
 struct State_d9790 { char pad[0x1bc8]; unsigned char flag; };
-struct Manager_d9790 { State_d9790* FUN_00086280(); };
-extern Manager_d9790* DAT_004dd6ec;
+struct Singleton_4dd6ec { State_d9790* FUN_00086280(); };
 extern const wchar_t *DAT_004a0ca8,*DAT_004a0ce0,*DAT_004a0ce4,*DAT_004a0ce8,*DAT_004a0c60;
 extern float DAT_003f335c;
 extern void __cdecl FUN_000fc020(wchar_t*,int,const wchar_t*,const wchar_t*);

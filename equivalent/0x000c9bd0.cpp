@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 28/28)
 // FUN_000c9bd0 @ 0x000c9bd0
+#include "decls/address.h"
 extern "C" void *memset(void *, int, unsigned int);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" int strcmp(const char*, const char*);
 extern "C" unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl FUN_000964a0(char *buf, unsigned int size, const char *fmt, const char *arg);
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
 void *__cdecl FUN_00263ed0(unsigned int a, unsigned int b);
 
 namespace pure3d { class Texture; }
@@ -47,11 +47,10 @@ struct Resource_c9bd0 {
     Inner_c9bd0 *inner;           // 0x10
 };
 
-struct Screen_c9bd0 {
+struct Gfx {
 virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15(); virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19(); virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23(); virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27(); virtual void s28(); virtual void s29(); virtual void s30(); virtual void s31(); virtual void s32(); virtual void s33(); virtual void s34(); virtual void s35(); virtual void s36(); virtual void s37(); virtual void s38(); virtual void s39(); virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43(); virtual void s44(); virtual void s45(); virtual void s46(); virtual void s47(); virtual void s48(); virtual void s49(); virtual void s50(); virtual void s51(); virtual void s52(); virtual void s53(); virtual void s54(); virtual void s55(); virtual void s56(); virtual void s57(); virtual void s58(); virtual void s59(); virtual void s60(); virtual void s61(); virtual void s62(); virtual void s63(); virtual void s64(); virtual void s65(); virtual void s66(); virtual void s67(); virtual void s68(); virtual void s69(); virtual void s70(); virtual void s71(); virtual void s72(); virtual void s73(); virtual void s74(); virtual void s75(); virtual void s76(); virtual void s77(); virtual void s78(); virtual void s79(); virtual void s80(); virtual void s81(); virtual void s82(); virtual void s83(); virtual void s84(); virtual void s85(); virtual void s86(); virtual void s87(); virtual void s88(); virtual void s89(); virtual void s90(); 
     virtual void v91();
 };
-extern Screen_c9bd0 *DAT_0052c2a8;
 
 extern float DAT_0049fbb8;
 extern float DAT_0049fbc0;

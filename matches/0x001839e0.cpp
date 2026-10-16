@@ -1,13 +1,12 @@
-class PropActorToPropAction {
-    char pad[0x1c];
-    void* m;
+#include "gen/hulkfight.h"
 
-  public:
-    bool vfunc_3(void* a, void* b);
+struct PropActorToPropAction_nv_1839e0 {
     bool helper();
 };
-bool PropActorToPropAction::vfunc_3(void* a, void* b) {
-    if (*((unsigned char*)m + 0x15) == 0)
-        return helper();
+
+bool hulkfight::motion::PropActorToPropAction::vfunc_3(int __p0, int __p1) { void * a = (void *)__p0; void * b = (void *)__p1;
+
+    if (*((unsigned char*)(*(void * *)&this->f_1c) + 0x15) == 0)
+        return ((PropActorToPropAction_nv_1839e0*)this)->helper();
     return true;
 }

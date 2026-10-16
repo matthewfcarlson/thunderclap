@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 23/24, incomplete)
 // FUN_00084610 @ 0x00084610
+#include "decls/address.h"
 struct Vec3_84610 {
     float x, y, z;
     void FUN_0022d180();
@@ -24,7 +25,7 @@ struct Cursor_84610 {
     bool FUN_0007c930(Vec3_84610 v, int c);
 };
 
-struct Systems {
+struct World {
     char pad00[0x0c];
     Tracker_84610 *tracker;       // 0x0c
     struct {
@@ -35,7 +36,6 @@ struct Systems {
     Cursor_84610 *cursor;         // 0x4c
 };
 
-extern Systems *DAT_004dd700;
 extern int DAT_004d2a3c;
 extern char DAT_004d2a40;
 extern char DAT_00554c1c;

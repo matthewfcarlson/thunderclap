@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_001e5070 @ 0x001e5070
 // FUN_001e5070 @ 0x001e5070: same as 0x001e5110 with the trailing flag set
+#include "decls/address.h"
 struct Settings_1e5070 {
     int FUN_00088fa0();
     int FUN_00088fb0();
@@ -12,11 +13,10 @@ struct Config_1e5070 {
 struct Manager_1e5070 {
     Config_1e5070 *FUN_00086310();
 };
-struct Global_1e5070 {
+struct World {
     char pad00[0x54];
     Manager_1e5070 *manager;
 };
-extern Global_1e5070 *DAT_004dd700;
 
 struct Triple_1e5070 {
     unsigned a;

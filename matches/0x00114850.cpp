@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0040db84[];
 extern void* __cdecl FUN_0008d690(unsigned int);
 class TrackBase_114850 {
@@ -8,13 +10,8 @@ class TrackTail {
   public:
     void Init();
 };
-class Factory_114850 {
-  public:
-    void* vf;
-    char pad[0x28];
-    void* vfunc_5();
-};
-void* Factory_114850::vfunc_5() {
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::ai::SemaphoreClearTrack>::vfunc_5() {
     char* p = (char*)FUN_0008d690(0x28);
     if (p) {
         ((TrackBase_114850*)p)->Init();
@@ -25,7 +22,7 @@ void* Factory_114850::vfunc_5() {
         p[0x20] = 0;
         p[0x21] = 0;
         *(unsigned int*)(p + 8) = 1;
-        return p;
+        return (void*)(p);
     }
-    return (void*)0;
+    return (void*)((void*)0);
 }

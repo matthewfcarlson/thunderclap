@@ -2,8 +2,7 @@
 // FUN_00029740 @ 0x00029740
 // Group method: look up a named pawn and a named object, and start the pawn's controller on a
 // path between two of the object's points (clears the controller's dirty flag for an empty name).
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
-unsigned __int64 __cdecl FUN_0027b020(const char *name);
+#include "decls/address.h"
 
 struct Vec3_29740 {
     float x, y, z;

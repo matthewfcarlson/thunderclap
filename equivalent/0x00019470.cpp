@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3083 inputs, branch coverage 99/100, incomplete)
 // FUN_00019470 @ 0x00019470
+#include "decls/address.h"
 extern int DAT_004dc0e0;
 extern int DAT_004dc0e4;
 
@@ -187,7 +188,6 @@ struct World {
     char pad00[0x34];
     Fx_19470 *f34;
 };
-extern World *DAT_004dd700;
 
 void *__cdecl FUN_0008d690(unsigned int size);
 void __cdecl FUN_00018810(RefObj_19470 **slot, RefObj_19470 *obj);

@@ -1,25 +1,19 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_003f9754[];
-class CCollisionFlagCondition {
+class CCollisionFlagCondition_58e50 {
   public:
     int vf;
     void Init();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-class ConditionFactoryTemplate {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual CCollisionFlagCondition* vfunc_5();
-};
-CCollisionFlagCondition* ConditionFactoryTemplate::vfunc_5() {
-    CCollisionFlagCondition* p = (CCollisionFlagCondition*)FUN_0008d690(0x18);
+
+template <> void* fight::ConditionFactoryTemplate<CCollisionFlagCondition>::vfunc_5() {
+    CCollisionFlagCondition_58e50* p = (CCollisionFlagCondition_58e50*)FUN_0008d690(0x18);
     if (p) {
         p->Init();
         p->vf = ((int)DAT_003f9754);
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

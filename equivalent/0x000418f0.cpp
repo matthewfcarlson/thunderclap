@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3063 inputs, branch coverage 129/132, incomplete)
 // FUN_000418f0 @ 0x000418f0
+#include "decls/address.h"
 extern "C" double __cdecl sqrt(double);
 
 struct V3_418f0 {
@@ -93,7 +94,6 @@ struct World {
     char pad0[0x24];
     Hit_418f0 *f24;
 };
-extern World *DAT_004dd700;
 
 struct Sub14 {
     float FUN_002220d0();

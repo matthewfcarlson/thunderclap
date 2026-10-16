@@ -1,3 +1,4 @@
+#include "decls/address.h"
 struct Ent_caab0;
 struct Sub_caab0 {
     void Tick();
@@ -20,7 +21,6 @@ struct Self_caab0 {
     char pad[0xc];
     Mid_caab0* p;
 };
-extern "C++" long long __cdecl FUN_002672f0(char*, int, int);
 extern int __fastcall FUN_00024280(void*, long long);
 
 void __fastcall FUN_000caab0(Self_caab0* self) {

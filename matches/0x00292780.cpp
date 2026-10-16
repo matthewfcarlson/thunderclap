@@ -1,19 +1,10 @@
+#include "gen/pure3d.h"
+
 namespace pure3d {
-class Camera {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void f();
-    virtual void vfunc_6(unsigned int*, unsigned int*);
-    char pad[0x0c];
-    unsigned int x;
-    unsigned int y;
-};
-void Camera::vfunc_6(unsigned int* a, unsigned int* b) {
-    *a = x;
-    *b = y;
-}
+
 } // namespace pure3d
+void pure3d::Camera::vfunc_6(void* __p0, void* __p1) { unsigned int * a = (unsigned int *)__p0; unsigned int * b = (unsigned int *)__p1;
+
+    *a = this->f_10;
+    *b = this->f_14;
+}

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20017 inputs, branch coverage 56/58, incomplete)
 // hulkfight::ai::MotionChaseAction::vfunc_5 @ 0x00116cb0
+#include "decls/address.h"
 struct Vec3_116cb0 {
     float x, y, z;
     float FUN_0022d110();
@@ -38,7 +39,7 @@ struct Hub20 {
     Hub124 *p124;
 };
 
-struct Globals {
+struct World {
     char pad0[0x20];
     Hub20 *p20;
 };
@@ -61,7 +62,6 @@ struct Stats {
 void *__fastcall FUN_000592a0(void *owner);
 Stats *__fastcall FUN_00059a30(void *x);
 
-extern Globals *DAT_004dd700;
 
 struct Tuning {
     char pad0[0x14];

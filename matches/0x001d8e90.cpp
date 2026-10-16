@@ -1,3 +1,4 @@
+#include "decls/address.h"
 struct Resource_1d8e90 {
     virtual void slot0();
     virtual void release();
@@ -20,11 +21,10 @@ struct Subsystem_1d8e90 {
     char pad[8];
     Manager_1d8e90* manager;
 };
-struct Global_1d8e90 {
+struct World {
     char pad[0x20];
     Subsystem_1d8e90* subsystem;
 };
-extern Global_1d8e90* DAT_004dd700;
 struct Handle_1d8e90 {
     void FUN_0027af50();
     char bytes[12];

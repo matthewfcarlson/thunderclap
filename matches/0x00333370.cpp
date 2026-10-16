@@ -1,7 +1,7 @@
 struct Data_333370 {
     int a, b, c, d, e;
 };
-class d3dShader {
+namespace pure3d { class d3dShader {
   public:
     virtual void v0();
     virtual void v1();
@@ -30,7 +30,7 @@ class d3dShader {
     virtual void v24();
     char pad[0x4c];
     Data_333370 m;
-};
-void d3dShader::vfunc_21(Data_333370* out) {
+}; }
+void pure3d::d3dShader::vfunc_21(Data_333370* out) {
     *out = m;
 }

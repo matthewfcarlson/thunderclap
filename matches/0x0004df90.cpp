@@ -1,10 +1,5 @@
-class ParamEnumConstList {
-    char pad[0x18];
-    int value;
+#include "gen/fight.h"
 
-  public:
-    bool vfunc_2();
-};
-bool ParamEnumConstList::vfunc_2() {
-    return value == 0;
+template <> bool fight::ParamEnumConstList<CStageCondition>::vfunc_2() {
+    return this->f_18 == 0;
 }

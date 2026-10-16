@@ -1,3 +1,5 @@
+#include "gen/physics.h"
+
 extern "C" void* ALLOC(int);
 extern int PhysicsJoint_vftable;
 extern int PhysicsJoint3D_vftable;
@@ -19,7 +21,7 @@ struct Obj_30d650 {
     void Copy(void*);
 };
 
-class PhysicsJoint {
+class PhysicsJoint_30d650 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -52,12 +54,7 @@ class PhysicsJoint {
     virtual void vfunc_28(Obj_30d650*);
 };
 
-class PhysicsJoint3D : public PhysicsJoint {
-  public:
-    Obj_30d650* vfunc_27();
-};
-
-Obj_30d650* PhysicsJoint3D::vfunc_27() {
+void* physics::PhysicsJoint3D::vfunc_27() {
     Obj_30d650* p = (Obj_30d650*)ALLOC(0x15c);
     if (p != 0) {
         *(void* volatile*)&p->m_vtable = (void*)&PhysicsJoint_vftable;
@@ -72,5 +69,5 @@ Obj_30d650* PhysicsJoint3D::vfunc_27() {
     }
     p->Copy(this);
     this->vfunc_28(p);
-    return p;
+    return (void*)(p);
 }

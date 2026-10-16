@@ -1,19 +1,10 @@
-class CActorManager {
+#include "gen/global.h"
+
+class CActorManager_2f820 {
   public:
     void run();
 };
-class Closure0 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    char pad[0x18];
-    void (CActorManager::*fn)();
-    CActorManager* obj;
-    virtual void v0();
-    virtual void v1();
-    virtual void v2(int, int, int);
-};
-void Closure0::v2(int, int, int) {
-    (obj->*fn)();
+
+template <> void Closure0<CActorManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    ((*(CActorManager_2f820 * *)&this->f_20)->*(*(void (CActorManager_2f820::**)())&this->f_1c))();
 }

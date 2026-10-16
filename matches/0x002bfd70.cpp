@@ -1,12 +1,5 @@
-class Image8 {
-    char pad0[0x10];
-    int a;
-    char pad14[0x10];
-    int b;
+#include "gen/pure3d.h"
 
-  public:
-    unsigned int vfunc_20(int p2, int p3);
-};
-unsigned int Image8::vfunc_20(int p2, int p3) {
-    return *((unsigned char*)(a * p3 + b + p2));
+unsigned int pure3d::Image8::vfunc_20(int p2, int p3) {
+    return *((unsigned char*)(this->f_10 * p3 + (*(int *)&this->f_24) + p2));
 }

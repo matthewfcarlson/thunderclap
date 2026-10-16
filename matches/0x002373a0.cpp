@@ -1,20 +1,13 @@
+#include "gen/fight.h"
+
 extern int gPayload;
 extern void(__cdecl* gUnknown)(int, int, int, int*, int*);
-class OpportunityAction {
-  public:
-    char pad[0x1c];
-    int mFirst;
-    char pad2[0x1c];
-    int mSecond;
-    int mOut1;
-    int mOut2;
-    bool vfunc_3(int value, int unused);
-};
-bool OpportunityAction::vfunc_3(int value, int unused) {
+
+bool fight::OpportunityAction::vfunc_3(int value, int unused) {
     int adjusted = value - 1;
-    mOut1 = adjusted;
-    mOut2 = adjusted;
+    this->f_40 = adjusted;
+    this->f_44 = adjusted;
     if (gUnknown)
-        gUnknown(mFirst, mSecond, gPayload, &mOut1, &mOut2);
+        gUnknown(this->f_1c, this->f_3c, gPayload, &this->f_40, &this->f_44);
     return true;
 }

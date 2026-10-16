@@ -49,7 +49,7 @@ struct Registry_10e040 {
 };
 Registry_10e040 *__cdecl FUN_000678d0();
 
-class FormationReadyCondition {
+namespace hulkfight { namespace ai { class FormationReadyCondition {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -60,9 +60,9 @@ public:
     virtual char vfunc_6(int unused1, Owner_10e040 *owner, int unused3);
     char pad4[8];
     unsigned int mode;
-};
+}; }}
 
-char FormationReadyCondition::vfunc_6(int unused1, Owner_10e040 *owner, int unused3)
+char hulkfight::ai::FormationReadyCondition::vfunc_6(int unused1, Owner_10e040 *owner, int unused3)
 {
     if (!FUN_00344e74(owner, 0, DAT_00494b44, DAT_00494b60, 0))
         return 0;

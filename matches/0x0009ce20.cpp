@@ -1,5 +1,5 @@
+#include "decls/address.h"
 extern int a_9ce20, b, c;
-extern "C" char __cdecl FUN_001d04d0(const void*);
 class Root_9ce20 {
   public:
     Root_9ce20(int, int) throw();

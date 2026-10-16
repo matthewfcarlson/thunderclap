@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 struct Dispatch_277500 {
     virtual void a();
     virtual void b();
@@ -22,10 +24,9 @@ struct Dispatch_277500 {
     virtual void u();
     virtual void v();
 };
-struct CementLibrary {
-    void vfunc_8(int**, int, int, int, int, int);
-};
-void CementLibrary::vfunc_8(int** p, int a, int b, int c, int d, int e) {
+
+void core::CementLibrary::vfunc_8(void* __p0, int a, int b, int c, int d, int e) { int ** p = (int **)__p0;
+
     Dispatch_277500* dsp = (Dispatch_277500*)this;
     dsp->h(p, a, b, c, d, e);
     Dispatch_277500* v = (Dispatch_277500*)*p;

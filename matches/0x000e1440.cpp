@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class Obj_e1440 {
   public:
     virtual void a();
@@ -8,19 +10,8 @@ class Obj_e1440 {
     virtual void f();
     virtual void g(int, int);
 };
-class FEAnimation {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void vfunc_4(int);
-    virtual void f5();
-    virtual void f6();
-    char pad[8];
-    Obj_e1440* mObj;
-};
-void FEAnimation::vfunc_4(int) {
-    if (mObj)
-        mObj->g(0, 0);
+
+void FEAnimation::vfunc_4(int ) {
+    if ((*(Obj_e1440 * *)&this->f_0c))
+        (*(Obj_e1440 * *)&this->f_0c)->g(0, 0);
 }

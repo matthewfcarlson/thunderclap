@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 struct R5;
 struct R4;
 struct R2;
@@ -47,18 +49,10 @@ extern char g1_15370[];
 extern char g2_15370[];
 void* FUN_00344e74(void* e, int a, void* b, void* c, int d);
 
-struct CGrappleLocoStrafe4Action {
-    char pad[0x1c];
-    M_15370* m1c;
-    int m20;
-    T2* m24;
-    bool vfunc_7(int arg);
-};
-
 bool CGrappleLocoStrafe4Action::vfunc_7(int arg) {
-    if (!m24)
+    if (!(*(T2 * *)&this->f_24))
         return false;
-    R1* r1 = m1c->Fn();
+    R1* r1 = (*(M_15370 * *)&this->f_1c)->Fn();
     R2* r2 = r1->Fn();
     R4* r4 = r2->f338;
     if (!r4)
@@ -70,10 +64,10 @@ bool CGrappleLocoStrafe4Action::vfunc_7(int arg) {
         void* e = r3->GetElem(i);
         T2* p = (T2*)FUN_00344e74(e, 0, g1_15370, g2_15370, 0);
         if (p) {
-            m24->f24 = p->f24;
-            m24->f12e4 = p->f12e4;
-            m24->f12e0 = p->f12e0;
-            m24->f12e8 = p->f12e8;
+            (*(T2 * *)&this->f_24)->f24 = p->f24;
+            (*(T2 * *)&this->f_24)->f12e4 = p->f12e4;
+            (*(T2 * *)&this->f_24)->f12e0 = p->f12e0;
+            (*(T2 * *)&this->f_24)->f12e8 = p->f12e8;
             return true;
         }
     }

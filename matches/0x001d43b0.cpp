@@ -1,8 +1,8 @@
+#include "decls/address.h"
 extern "C" char DAT_00422674[];
 extern "C" char DAT_00422830[];
 class ScriptHandler {};
 extern "C" void __stdcall FUN_001d0480(void*, int);
-extern "C" int FUN_001d04d0(const char*);
 extern int gName1;
 extern int gName2;
 class Closure_1d43b0 {

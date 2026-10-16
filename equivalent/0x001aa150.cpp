@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_001aa150 @ 0x001aa150
 // FUN_001aa150 @ 0x001aa150
+#include "decls/address.h"
 struct Placement_1aa150;
 namespace core {
 struct IRefCount {
@@ -108,12 +109,11 @@ struct Handle_1aa150 {
     Finish_1aa150 *FUN_00086290();
 };
 
-struct Manager_1aa150 {
+struct World {
     char pad0[0x54];
     Handle_1aa150 *handle;
 };
 
-extern Manager_1aa150 *DAT_004dd700;
 
 class Controller_1aa150 {
 public:

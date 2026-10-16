@@ -1,27 +1,21 @@
+#include "gen/hulkfight.h"
+
 struct H {
     void* get();
     void* next();
     void invoke(int, int);
 };
-struct HitThrowAction {
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void vfunc_4();
-    virtual void e();
-    char pad[0x20 - 4];
-    H* h;
-    int arg;
+struct HitThrowAction_nv_152450 {
     void finish();
 };
-void HitThrowAction::vfunc_4() {
-    H* x = h;
+
+void hulkfight::motion::HitThrowAction::vfunc_4() {
+    H* x = (*(H * *)&this->f_20);
     void* p = x->get();
     H* q = (H*)p;
     p = q->next();
     if (p) {
-        ((H*)p)->invoke(arg, 0);
-        finish();
+        ((H*)p)->invoke(this->f_24, 0);
+        ((HitThrowAction_nv_152450*)this)->finish();
     }
 }

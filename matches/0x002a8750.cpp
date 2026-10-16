@@ -1,8 +1,10 @@
-class Entity {
+#include "gen/pure3d.h"
+
+class Entity_2a8750 {
   public:
-    virtual ~Entity();
+    virtual ~Entity_2a8750();
 };
-class Shader : public Entity {
+class Shader_2a8750 : public Entity_2a8750 {
   public:
     virtual void v1();
     virtual void v2();
@@ -16,8 +18,8 @@ class Ref_2a8750 {
     virtual void AddRef();
     virtual void Release();
 };
-class Shader2 : public Entity {};
-class DrawablePrimitive : public Entity {
+class Shader2 : public Entity_2a8750 {};
+class DrawablePrimitive_2a8750 : public Entity_2a8750 {
   public:
     virtual void a1();
     virtual void a2();
@@ -28,27 +30,18 @@ class DrawablePrimitive : public Entity {
     virtual Ref_2a8750* GetShader();
 };
 class ShaderRef_2a8750 : public Ref_2a8750 {};
-class ShaderAnimationController {
-  public:
-    virtual void s0();
-    virtual void s1();
-    virtual void s2();
-    virtual void s3();
-    virtual void s4();
-    virtual void SetTarget(Entity* e);
-    char pad[0x40 - 4];
-    Ref_2a8750* mTarget;
-};
-void ShaderAnimationController::SetTarget(Entity* e) {
+
+void pure3d::ShaderAnimationController::vfunc_5(void* __p0) { Entity_2a8750 * e = (Entity_2a8750 *)__p0;
+
     Ref_2a8750* r;
-    DrawablePrimitive* d = dynamic_cast<DrawablePrimitive*>(e);
+    DrawablePrimitive_2a8750* d = dynamic_cast<DrawablePrimitive_2a8750*>(e);
     if (d)
         r = d->GetShader();
     else
         r = dynamic_cast<Ref_2a8750*>(e);
     if (r)
         r->AddRef();
-    if (mTarget)
-        mTarget->Release();
-    mTarget = r;
+    if ((*(Ref_2a8750 * *)&this->f_40))
+        (*(Ref_2a8750 * *)&this->f_40)->Release();
+    (*(Ref_2a8750 * *)&this->f_40) = r;
 }

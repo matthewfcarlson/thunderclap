@@ -1,6 +1,6 @@
+#include "decls/address.h"
 class CSubtitleManager;
 void __stdcall FUN_001d0480(void*, int);
-unsigned char __cdecl FUN_001d04d0(const char*);
 class Base {
   public:
     Base(void*);

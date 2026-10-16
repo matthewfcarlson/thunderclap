@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 29/30, incomplete)
 // FUN_001e3410 @ 0x001e3410
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) { return p; }
 
 class CSPHulkProp;
@@ -71,12 +72,11 @@ struct Holder28_1e3410 {
     Holder44_1e3410 *FUN_000862a0();
 };
 
-struct Manager_1e3410 {
+struct World {
     char pad0[0x54];
     Holder28_1e3410 *holder;
 };
 
-extern Manager_1e3410 *DAT_004dd700;
 
 struct Inventory_1e3410 {
     char pad0[0x608];

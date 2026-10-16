@@ -20,15 +20,15 @@ struct T_275970 {
     char pad[0x10];
     int count;
 };
-struct Drive {
-    virtual Drive* vfunc_0(byte_275970);
+namespace core { struct DriveDestroyDirectoryRequest {
+    virtual DriveDestroyDirectoryRequest* vfunc_0(byte_275970);
     char pad[4];
     T_275970* field8;
-};
+}; }
 extern void FUN_0026d850(void*);
 extern void FUN_0026d840(void*);
 extern O_275970* glob_275970;
-Drive* Drive::vfunc_0(byte_275970 flag) {
+core::DriveDestroyDirectoryRequest* core::DriveDestroyDirectoryRequest::vfunc_0(byte_275970 flag) {
     *(void**)this = (void*)((int)DAT_0042b9bc);
     ((O_275970*)((char*)field8 + 4))->a();
     field8->count--;

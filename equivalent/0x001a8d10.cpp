@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001a8d10 @ 0x001a8d10
+#include "decls/address.h"
 extern char DAT_0041cf24[];
 
 struct RefObj_1a8d10 {
@@ -12,7 +13,6 @@ struct SlotEntry_1a8d10 {
 };
 struct Holder54_1a8d10 { int FUN_000862a0(); };
 struct World { char pad[0x54]; Holder54_1a8d10* holder; };
-extern World* DAT_004dd700;
 
 struct NISAnimationAction;
 extern NISAnimationAction* DAT_004e1760;

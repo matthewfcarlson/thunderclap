@@ -1,21 +1,15 @@
-class ParticlePointGenerator {
-  public:
-    char pad[0x44];
-    int a;
-    int b;
-    int c;
-    void vfunc_7(int x, int y);
-};
-void ParticlePointGenerator::vfunc_7(int x, int y) {
+#include "gen/pure3d.h"
+
+void pure3d::ParticlePointGenerator::vfunc_7(int x, int y) {
     switch (x) {
     case 1:
-        a = y;
+        (*(int *)&this->f_44) = y;
         break;
     case 2:
-        b = y;
+        (*(int *)&this->f_48) = y;
         break;
     case 3:
-        c = y;
+        (*(int *)&this->f_4c) = y;
         break;
     }
 }

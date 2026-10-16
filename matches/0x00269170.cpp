@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 unsigned int GetTime();
 class Pad_269170 {
   public:
@@ -23,41 +25,20 @@ class Pad_269170 {
     bool mActive;
     char pad2[1];
 };
-class ControllerSystemXBox {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void SetTime(unsigned int t);
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void Tick();
-    char pad[0xc];
-    bool mFlag;
-    char pad1[3];
-    unsigned int mOffset;
-    char pad2[8];
-    Pad_269170 mPads[4];
-    unsigned int mInterval;
-    unsigned int mLast;
+struct ControllerSystemXBox_nv_269170 {
     void Poll();
 };
-void ControllerSystemXBox::Tick() {
+
+void core::ControllerSystemXBox::vfunc_12() {
     unsigned int now = GetTime();
-    if (now - mLast >= mInterval) {
-        mLast = now;
-        Poll();
+    if (now - this->f_12a4 >= (*(unsigned int *)&this->f_12a0)) {
+        this->f_12a4 = now;
+        ((ControllerSystemXBox_nv_269170*)this)->Poll();
         for (int i = 0; i < 4; i++) {
-            if (mPads[i].mActive && mPads[i].Ready())
-                mPads[i].Update(mOffset + now);
+            if ((*(Pad_269170 (*)[4])&this->f_20)[i].mActive && (*(Pad_269170 (*)[4])&this->f_20)[i].Ready())
+                (*(Pad_269170 (*)[4])&this->f_20)[i].Update((*(unsigned int *)&this->f_14) + now);
         }
-        if (!mFlag)
-            SetTime(GetTime());
+        if (!(*(bool *)&this->f_10))
+            vfunc_8(GetTime());
     }
 }

@@ -1,5 +1,7 @@
+#include "gen/hulkfight.h"
+
 extern const float gZero_10d7d0;
-class Action {
+class Action_10d7d0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -22,25 +24,14 @@ class Manager_10d7d0 {
     void* First();
     char* Second();
 };
-class ButtonAction {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void vfunc_4();
-    virtual void v5();
-    char pad04[0x18];
-    Action* action;
-    State_10d7d0* state;
-};
-void ButtonAction::vfunc_4() {
-    if (state && (action->m18 == 2 || action->m18 == 1)) {
-        float f = action->Get();
+
+void hulkfight::ai::ButtonAction::vfunc_4() {
+    if ((*(State_10d7d0 * *)&this->f_20) && ((*(Action_10d7d0 * *)&this->f_1c)->m18 == 2 || (*(Action_10d7d0 * *)&this->f_1c)->m18 == 1)) {
+        float f = (*(Action_10d7d0 * *)&this->f_1c)->Get();
         if (f < gZero_10d7d0 || f > gZero_10d7d0) {
-            Manager_10d7d0* m = (Manager_10d7d0*)state;
+            Manager_10d7d0* m = (Manager_10d7d0*)(*(State_10d7d0 * *)&this->f_20);
             char* v = ((Manager_10d7d0*)m->First())->Second() + 0x1f58;
-            *(int*)(v + action->m14 * 12) = 0;
+            *(int*)(v + (*(Action_10d7d0 * *)&this->f_1c)->m14 * 12) = 0;
         }
     }
 }

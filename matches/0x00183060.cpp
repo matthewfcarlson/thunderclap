@@ -3,7 +3,7 @@ class Sub_183060 {
   public:
     void Init();
 };
-class PropStateByNameCondition {
+namespace hulkfight { namespace motion { class PropStateByNameCondition {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -14,9 +14,9 @@ class PropStateByNameCondition {
     virtual void vfunc_6();
     char pad[0x18 - 4];
     void Second();
-};
+}; }}
 extern void thunk_FUN_00267090(void*);
-PropStateByNameCondition* PropStateByNameCondition::vfunc_5(unsigned int flags) {
+hulkfight::motion::PropStateByNameCondition* hulkfight::motion::PropStateByNameCondition::vfunc_5(unsigned int flags) {
     Sub_183060* s = (Sub_183060*)((char*)this + 0x18);
     *(int*)this = (int)&vftable_183060;
     s->Init();

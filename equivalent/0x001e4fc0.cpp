@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 16/16)
 // FUN_001e4fc0 @ 0x001e4fc0
 // FUN_001e4fc0 @ 0x001e4fc0: like 0x001e5070 but skips a missing entry
+#include "decls/address.h"
 struct Settings_1e4fc0 {
     int FUN_00088fa0();
     int FUN_00088fb0();
@@ -12,11 +13,10 @@ struct Config_1e4fc0 {
 struct Manager_1e4fc0 {
     Config_1e4fc0 *FUN_00086310();
 };
-struct Global_1e4fc0 {
+struct World {
     char pad00[0x54];
     Manager_1e4fc0 *manager;
 };
-extern Global_1e4fc0 *DAT_004dd700;
 
 struct Triple_1e4fc0 {
     unsigned a;

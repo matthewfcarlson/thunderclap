@@ -2,6 +2,7 @@
 // pure3d::ShadowMeshBufferLoader::vfunc_5 @ 0x002b6930
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ??0MeshBufferBase@pure3d@@QAE@XZ = 0x002a5060
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
 
@@ -24,7 +25,6 @@ struct Stream {
 };
 
 extern int DAT_00554bb4;
-extern "C" unsigned __int64 __cdecl FUN_002672f0(const char *s, int a, int b);
 
 class Res_2b6930;
 

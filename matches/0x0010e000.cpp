@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 typedef unsigned char u8;
 struct Inner_10e000;
 struct Mid_10e000 {
@@ -17,18 +19,13 @@ struct State_10e000 {
     u8 flag;
 };
 Ret_10e000* FUN_678d0();
-struct TokenAction {
-    char pad[0x1c];
-    State_10e000* state;
-    Obj_10e000* object;
-    void vfunc_4();
-};
-void TokenAction::vfunc_4() {
-    if (object) {
-        Inner_10e000* a = object->getA();
+
+void hulkfight::ai::TokenAction::vfunc_4() {
+    if ((*(Obj_10e000 * *)&this->f_20)) {
+        Inner_10e000* a = (*(Obj_10e000 * *)&this->f_20)->getA();
         Mid_10e000* b = a->getB();
         *((u8*)b + 0x1b84) = 0;
-        if (state->flag) {
+        if ((*(State_10e000 * *)&this->f_1c)->flag) {
             FUN_678d0()->last();
         }
     }

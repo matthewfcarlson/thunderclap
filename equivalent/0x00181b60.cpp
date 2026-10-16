@@ -20,16 +20,16 @@ struct Owner_181b60 {
 Owner_181b60* __fastcall FUN_000592a0(void* obj);
 Fighter_181b60* __fastcall FUN_00059a30(Owner_181b60* o);
 
-class PropCollidedWithWorldCondition {
+namespace hulkfight { namespace motion { class PropCollidedWithWorldCondition {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5();
     virtual bool vfunc_6(int a1, void* subject, int a3);
     char pad04[8];
     int index;      // 0xc
-};
+}; }}
 
-bool PropCollidedWithWorldCondition::vfunc_6(int a1, void* subject, int a3)
+bool hulkfight::motion::PropCollidedWithWorldCondition::vfunc_6(int a1, void* subject, int a3)
 {
     if (FUN_00344e74(subject, 0, DAT_00494b44, DAT_00494b60, 0) == 0)
         return false;

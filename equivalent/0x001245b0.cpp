@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 12028 inputs, branch coverage 34/34; run with --inputs 12000)
 // hulkfight::ai::AcquireTargetCondition::vfunc_6 @ 0x001245b0
+#include "decls/address.h"
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -67,11 +68,10 @@ struct Holder_1245b0 {
     Actor_1245b0 *actor;            // 0x124
 };
 
-struct Root_1245b0 {
+struct World {
     char pad0[0x20];
     Holder_1245b0 *holder;          // 0x20
 };
-extern Root_1245b0 *DAT_004dd700;
 
 class AcquireTargetCondition {
 public:

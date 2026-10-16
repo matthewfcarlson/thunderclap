@@ -1,3 +1,4 @@
+#include "decls/address.h"
 class Base_be840 {
   public:
     Base_be840(void* a, int n);
@@ -15,7 +16,6 @@ class Method7 : public Base_be840 {
     int m1c;
 };
 
-extern "C" char __cdecl FUN_001d04d0(const char*);
 extern const char s0_be840[];
 extern const char s1_be840[];
 

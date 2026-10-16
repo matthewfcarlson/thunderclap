@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00415970[];
 struct InitBase_164fb0 {
     void init(int);
@@ -14,15 +16,8 @@ struct Obj_164fb0 {
     unsigned char flag;
 };
 void* __cdecl Alloc(unsigned int);
-struct Factory_164fb0 {
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual Obj_164fb0* vfunc_5();
-};
-Obj_164fb0* Factory_164fb0::vfunc_5() {
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::JointPlantedCondition>::vfunc_5() {
     Obj_164fb0* p = (Obj_164fb0*)Alloc(0x20);
     if (p) {
         ((InitBase_164fb0*)p)->init(0);
@@ -30,7 +25,7 @@ Obj_164fb0* Factory_164fb0::vfunc_5() {
         p->sub.setup();
         p->x = 0;
         p->flag = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

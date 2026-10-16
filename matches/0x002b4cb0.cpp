@@ -1,5 +1,7 @@
 // Same code shape as 0x0013e710 (propagated; names are from that function)
-struct TrackFactory {
+#include "gen/pure3d.h"
+
+struct TrackFactory_2b4cb0 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -11,12 +13,10 @@ extern "C" void* __cdecl Allocate(unsigned int);
 struct Built_2b4cb0 {
     void* init();
 };
-struct Factory_2b4cb0 : TrackFactory {
-    void* vfunc_5();
-};
-void* Factory_2b4cb0::vfunc_5() {
+
+void* pure3d::ShadowMeshLoader::vfunc_6() {
     void* p = Allocate(0x58);
     if (p)
-        return ((Built_2b4cb0*)p)->init();
-    return 0;
+        return (void*)(((Built_2b4cb0*)p)->init());
+    return (void*)(0);
 }

@@ -1,20 +1,5 @@
-struct BallAndChainShootTrack {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual float GetLength();
-    virtual void vfunc_8();
-    virtual void vfunc_9();
-    virtual void vfunc_10();
-    char pad[8];
-    float mStart;
-    float mEnd;
-};
+#include "gen/hulkfight.h"
 
-float BallAndChainShootTrack::GetLength() {
-    return mEnd - mStart;
+float hulkfight::motion::BallAndChainShootTrack::vfunc_7() {
+    return this->f_10 - this->f_0c;
 }

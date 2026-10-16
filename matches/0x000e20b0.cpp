@@ -1,4 +1,6 @@
-class FELayout {
+#include "gen/global.h"
+
+class FELayout_e20b0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -22,36 +24,9 @@ class FELayout {
     virtual void f19();
     virtual void f20();
 };
-class SingleLayout : public FELayout {
-  public:
-    virtual void g0();
-    virtual void g1();
-    virtual void g2();
-    virtual void g3();
-    virtual void g4();
-    virtual void g5();
-    virtual void g6();
-    virtual void g7();
-    virtual void g8();
-    virtual void g9();
-    virtual void g10();
-    virtual void g11();
-    virtual void g12();
-    virtual void g13();
-    virtual void g14();
-    virtual void g15();
-    virtual void g16();
-    virtual void g17();
-    virtual void g18();
-    virtual void g19();
-    virtual void g20();
-    virtual void g21();
-    virtual int vfunc_22();
-    char pad[0x44 - 4];
-    void* member;
-};
+
 int SingleLayout::vfunc_22() {
-    if (member && *((char*)member + 0x144))
+    if ((*(void * *)&this->f_44) && *((char*)(*(void * *)&this->f_44) + 0x144))
         return 1;
     return 0;
 }

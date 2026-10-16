@@ -1,4 +1,4 @@
-extern "C" unsigned long long __cdecl FUN_0027b020(void*);
+#include "decls/address.h"
 extern char g40048c[];
 extern unsigned int g4de758;
 extern unsigned int g4de75c;

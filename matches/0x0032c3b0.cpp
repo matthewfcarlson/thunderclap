@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 extern unsigned int gState_32c3b0, gState1, gState2;
 extern void __stdcall SetTextureState(int, int);
 class Device_32c3b0 {
@@ -29,30 +31,24 @@ class DevVirtual {
     virtual void p();
     virtual void q(int);
 };
-class Shader {
-  public:
-    char pad0[0x10];
-    DevVirtual* v;
-    Device_32c3b0* dev;
-    void vfunc_13();
-};
-void Shader::vfunc_13() {
-    Device_32c3b0* d = dev;
+
+void pure3d::d3dReflShader::vfunc_13() {
+    Device_32c3b0* d = (*(Device_32c3b0 * *)&this->f_14);
     if (d->stateE4 != 1) {
         d->stateE4 = 1;
         gState_32c3b0 |= 0x800;
         gState1 = 1;
     }
-    d = dev;
+    d = (*(Device_32c3b0 * *)&this->f_14);
     if (d->texCoord != 1) {
         d->texCoord = 1;
         SetTextureState(1, 1);
     }
-    d = dev;
+    d = (*(Device_32c3b0 * *)&this->f_14);
     if (d->stateF8 != 0) {
         d->stateF8 = 0;
         gState_32c3b0 |= 0x400;
         gState2 = 0;
     }
-    v->q(2);
+    (*(DevVirtual * *)&this->f_10)->q(2);
 }

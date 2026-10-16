@@ -1,14 +1,13 @@
 // Same code shape as 0x00048300 (propagated; names are from that function)
+#include "gen/hulkfight.h"
+
 extern int* gTable_10caa0;
-class CCondition {
+class CCondition_10caa0 {
   public:
     virtual int vfunc_0(int);
 };
-class CStageCondition : public CCondition {
-  public:
-    int vfunc_0(int);
-};
-int CStageCondition::vfunc_0(int index) {
+
+int hulkfight::ai::HulkActionRecentCondition::vfunc_0(int index) {
     int* p = gTable_10caa0;
     return p[index];
 }

@@ -1,41 +1,30 @@
+#include "gen/pure3d.h"
+
 extern "C" char DAT_0042fc74[];
 class Ref_2e0710 {
   public:
     virtual void f0();
     virtual void f1();
 };
-class PrimGroupSkinnedPC {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void* vfunc_4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
-    void init(PrimGroupSkinnedPC*);
-    char pad[0x64];
-    Ref_2e0710* child;
+struct PrimGroupSkinnedPC_nv_2e0710 {
+    void init(pure3d::PrimGroupSkinnedPC*);
 };
 extern void* alloc(unsigned int);
-void* PrimGroupSkinnedPC::vfunc_4() {
-    PrimGroupSkinnedPC* p = (PrimGroupSkinnedPC*)alloc(0x70);
+
+void* pure3d::PrimGroupSkinnedPC::vfunc_4() {
+    pure3d::PrimGroupSkinnedPC* p = (pure3d::PrimGroupSkinnedPC*)alloc(0x70);
     if (p) {
-        p->init(this);
+        ((PrimGroupSkinnedPC_nv_2e0710*)(p))->init(this);
         *(unsigned int*)p = ((int)DAT_0042fc74);
         *(unsigned int*)((char*)p + 0x68) = 0;
-        Ref_2e0710* r = child;
+        Ref_2e0710* r = (*(Ref_2e0710 * *)&this->f_68);
         if (r)
             r->f0();
         Ref_2e0710* q = *(Ref_2e0710**)((char*)p + 0x68);
         if (q)
             q->f1();
         *(Ref_2e0710**)((char*)p + 0x68) = r;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 class V {
   public:
     virtual void f0();
@@ -16,17 +18,10 @@ class Q_2737a0 {
     virtual void f2();
     virtual void f3(int);
 };
-class DriveCompletionRequest {
-  public:
-    char pad[12];
-    Obj_2737a0* p;
-    Q_2737a0* q;
-    int arg;
-    void vfunc_7();
-};
-void DriveCompletionRequest::vfunc_7() {
-    p->sub.f0();
-    --p->count;
-    p->sub.f1();
-    q->f3(arg);
+
+void core::DriveCompletionRequest::vfunc_7() {
+    (*(Obj_2737a0 * *)&this->f_0c)->sub.f0();
+    --(*(Obj_2737a0 * *)&this->f_0c)->count;
+    (*(Obj_2737a0 * *)&this->f_0c)->sub.f1();
+    (*(Q_2737a0 * *)&this->f_10)->f3(this->f_14);
 }

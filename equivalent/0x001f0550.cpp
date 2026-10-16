@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // CSoundCommand_StopTunableEvent::vfunc_1 @ 0x001f0550
+#include "decls/address.h"
 struct Key_1f0550 { unsigned int low, high; };
 struct Entry_1f0550 { Key_1f0550 key; unsigned int id; char rest[28]; };
 struct Event_1f0550 { char pad[128]; Entry_1f0550 entries[4]; };
@@ -8,7 +9,6 @@ struct Manager_1f0550 { Event_1f0550* FUN_001f31a0(unsigned int); Playing_1f0550
 struct Lookup_1f0550 { void* FUN_001e98b0(Key_1f0550*); };
 struct SoundSystem_1f0550 { Manager_1f0550* manager; Lookup_1f0550* lookup; };
 extern SoundSystem_1f0550* DAT_004e370c;
-extern unsigned __int64 __cdecl FUN_002672f0(int,int,int);
 extern unsigned int __cdecl FUN_002673a0(int,int);
 struct CSoundCommand_StopTunableEvent {
  virtual void vfunc_0();

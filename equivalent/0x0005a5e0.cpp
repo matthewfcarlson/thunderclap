@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 17/18, incomplete)
 // CGrappleDrainHealthTrack::vfunc_12 @ 0x0005a5e0
 // CGrappleDrainHealthTrack::vfunc_12: spawn the drain effect for the grappled opponent
+#include "gen/global.h"
+
 struct Cfg;
 
 struct Effect_5a5e0 {
@@ -32,46 +34,30 @@ struct Owner_5a5e0 {
 
 void *__cdecl FUN_0008d690(unsigned int size);
 
-class CGrappleDrainHealthTrack {
-public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual float Duration();
-    char pad04[0x10];
-    float rate;
+int CGrappleDrainHealthTrack::vfunc_12(int __p0) { Owner_5a5e0 * owner = (Owner_5a5e0 *)__p0;
 
-    Effect_5a5e0 *FUN_0005a5e0(Owner_5a5e0 *owner);
-};
-
-Effect_5a5e0 *CGrappleDrainHealthTrack::FUN_0005a5e0(Owner_5a5e0 *owner)
-{
-    float duration = Duration();
+    float duration = vfunc_7();
     if (duration <= 0.0f)
-        return 0;
+        return (int)(0);
     if (owner == 0)
-        return 0;
+        return (int)(0);
     Anchor_5a5e0 *anchor = owner->FUN_000592a0();
     if (anchor == 0)
-        return 0;
+        return (int)(0);
     Fighter_5a5e0 *fighter = anchor->FUN_00059a30();
     if (fighter == 0)
-        return 0;
+        return (int)(0);
     Opponent *opp = fighter->b;
     if (opp == 0)
         opp = fighter->a;
     if (opp == 0)
-        return 0;
+        return (int)(0);
     Cfg *cfg = opp->cfg;
     if (cfg == 0)
-        return 0;
-    float r = rate;
+        return (int)(0);
+    float r = this->f_14;
     Effect_5a5e0 *fx = (Effect_5a5e0 *)FUN_0008d690(0x24);
     if (fx == 0)
-        return 0;
-    return fx->FUN_0001db40(cfg, r / duration);
+        return (int)(0);
+    return (int)(fx->FUN_0001db40(cfg, r / duration));
 }

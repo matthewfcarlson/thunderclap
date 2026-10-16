@@ -1,4 +1,6 @@
-class Context {
+#include "gen/physics.h"
+
+class Context_2f7c30 {
   public:
     virtual void f0();
     virtual void f1();
@@ -11,7 +13,7 @@ class Context {
     virtual void f8();
     virtual int Check(int, int);
 };
-class Param {
+class Param_2f7c30 {
   public:
     virtual void f0();
     char pad[12];
@@ -37,21 +39,12 @@ class Param {
     virtual void f18();
     virtual void Apply(int, int, int);
 };
-class physics_ImpulseBasedCollisionSolver_2f7c30 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void vfunc_3(Param*, int, int, int);
-    virtual void f4();
-    Context* ctx;
-    char pad[0x34 - 8];
-    unsigned char flags;
-};
-void physics_ImpulseBasedCollisionSolver_2f7c30::vfunc_3(Param* p, int a, int b, int c) {
-    if (p && !(flags & 1)) {
+
+void physics::ImpulseBasedCollisionSolver::vfunc_3(void* __p0, int a, int b, int c) { Param_2f7c30 * p = (Param_2f7c30 *)__p0;
+
+    if (p && !(this->f_34 & 1)) {
         int val = p->value;
-        if (ctx->Check(val, a) != 1)
+        if ((*(Context_2f7c30 * *)&this->f_04)->Check(val, a) != 1)
             p->Apply(c, a, b);
     }
 }

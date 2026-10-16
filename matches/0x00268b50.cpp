@@ -1,11 +1,7 @@
-class ControllerXBox {
-  public:
-    char pad[0x428];
-    void* vfunc_16(unsigned int index);
-};
+#include "gen/core.h"
 
-void* ControllerXBox::vfunc_16(unsigned int index) {
+void* core::ControllerXBox::vfunc_16(unsigned int index) {
     if (index < 2)
-        return (char*)this + index * 16 + 0x428;
-    return 0;
+        return (void*)((char*)this + index * 16 + 0x428);
+    return (void*)(0);
 }

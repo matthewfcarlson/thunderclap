@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 struct Sink_273da0 {
     virtual void v0();
     virtual void v1();
@@ -36,21 +38,16 @@ struct Ev2 {
     bool Test();
     void Run();
 };
-struct FileCloseRequest {
-    virtual int vfunc_0();
-    virtual int vfunc_1();
-    int pad;
-    Inner_273da0* in;
-};
-int FileCloseRequest::vfunc_1() {
-    Sink_273da0* s = in->sink;
-    if (!((Ev2*)((char*)in + 0x12c))->Test())
-        s->Do(*(int*)((char*)in + 0x15c), (char*)in + 0x1e);
+
+int core::FileCloseRequest::vfunc_1() {
+    Sink_273da0* s = (*(Inner_273da0 * *)&this->f_08)->sink;
+    if (!((Ev2*)((char*)(*(Inner_273da0 * *)&this->f_08) + 0x12c))->Test())
+        s->Do(*(int*)((char*)(*(Inner_273da0 * *)&this->f_08) + 0x15c), (char*)(*(Inner_273da0 * *)&this->f_08) + 0x1e);
     else
-        ((Ev2*)((char*)in + 0x12c))->Run();
-    in->f1c = 0;
-    in->sub.Fin();
-    in->f14 = 0;
-    in->sub.Rel();
+        ((Ev2*)((char*)(*(Inner_273da0 * *)&this->f_08) + 0x12c))->Run();
+    (*(Inner_273da0 * *)&this->f_08)->f1c = 0;
+    (*(Inner_273da0 * *)&this->f_08)->sub.Fin();
+    (*(Inner_273da0 * *)&this->f_08)->f14 = 0;
+    (*(Inner_273da0 * *)&this->f_08)->sub.Rel();
     return 1;
 }

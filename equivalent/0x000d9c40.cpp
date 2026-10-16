@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000d9c40 @ 0x000d9c40
+#include "decls/address.h"
 struct TextTable { const char* FUN_000f7d30(const char*); const char* FUN_000f7220(const char*); };
 extern int __cdecl FUN_000fc020(char*, int, const char*, int);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
@@ -10,9 +11,8 @@ struct Screen_d9c40 {
 };
 extern Screen_d9c40* __cdecl FUN_000fc3d0();
 struct State_d9c40 { char pad[0x1bc8]; unsigned char flag; };
-struct Manager_d9c40 { State_d9c40* FUN_00086280(); };
+struct Singleton_4dd6ec { State_d9c40* FUN_00086280(); };
 struct Control_d9c40 { void FUN_000bc9f0(const char*, int); };
-extern Manager_d9c40* DAT_004dd6ec;
 extern const char *DAT_004a0cc4, *DAT_004a0ce0, *DAT_004a0ce4, *DAT_004a0ce8, *DAT_004a0c60;
 extern float DAT_003f335c;
 struct Target_d9c40 { char p0[0x150]; Control_d9c40* control; char p1[0x21c-0x154]; int value; char p2[0x34c-0x220]; int blocks; char p3[0x3b0-0x350]; unsigned char active; char p4[0x3eb-0x3b1]; unsigned char mode; void run(); };

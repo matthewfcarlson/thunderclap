@@ -1,6 +1,8 @@
 // Same code shape as 0x00113f80 (propagated; names are from that function)
+#include "gen/fight.h"
+
 extern void* __cdecl Alloc(unsigned int);
-class Condition {
+class Condition_132740 {
   public:
     virtual void a();
     virtual void b();
@@ -16,12 +18,9 @@ class Condition {
     int q;
 };
 extern int AIHistoryNameCondition_vftable;
-class Factory_132740 {
-  public:
-    void* vfunc_5();
-};
-void* Factory_132740::vfunc_5() {
-    Condition* p = (Condition*)Alloc(0x18);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::MissionProgressCondition>::vfunc_5() {
+    Condition_132740* p = (Condition_132740*)Alloc(0x18);
     void* result;
     if (p) {
         p->Init(0);
@@ -32,5 +31,5 @@ void* Factory_132740::vfunc_5() {
         result = p;
     } else
         result = 0;
-    return result;
+    return (void*)(result);
 }

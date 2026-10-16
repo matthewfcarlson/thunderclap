@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 43/46, incomplete)
 // CCollisionAction::vfunc_8 @ 0x0001a330
+#include "decls/address.h"
 struct V3_1a330 {
     float x, y, z;
     float FUN_0022d110();
@@ -71,7 +72,6 @@ struct World {
     char pad0[0xc];
     WorldSys_1a330 *f0c;
 };
-extern World *DAT_004dd700;
 
 struct Clock_1a330 {
     Timing_1a330 *FUN_00059a30();

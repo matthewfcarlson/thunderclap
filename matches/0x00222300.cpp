@@ -1,9 +1,5 @@
-class PartitionDriver {
-    char pad[0x1c];
+#include "gen/choreo2.h"
 
-  public:
-    int vfunc_8();
-};
-int PartitionDriver::vfunc_8() {
+int choreo2::PartitionDriver::vfunc_8() {
     return *(int*)((char*)this + 0x1c);
 }

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 18/18)
 // FUN_002080b0 @ 0x002080b0
-class Dev_2080b0 {
+#include "decls/address.h"
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -117,10 +118,10 @@ public:
     int FUN_000d6f50();
     void FUN_000d7030(int v);
 };
-class G_2080b0;
-class Res_2080b0 { public: void FUN_0009a400(G_2080b0 *g); };
+class World;
+class Res_2080b0 { public: void FUN_0009a400(World *g); };
 
-class G_2080b0 {
+class World {
 public:
     char pad0[8];
     Res_2080b0 *res;
@@ -130,8 +131,6 @@ public:
     EntList_2080b0 *ents;
 };
 
-extern Dev_2080b0 *DAT_0052c2a8;
-extern G_2080b0 *DAT_004dd700;
 
 class Obj_2080b0;
 class Aux_2080b0 { public: int FUN_00266710(); };

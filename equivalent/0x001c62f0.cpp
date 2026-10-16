@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 30/30)
 // FUN_001c62f0 @ 0x001c62f0
+#include "decls/address.h"
 struct Mode_1c62f0 { int FUN_000897e0(); };
 struct Manager_1c62f0 { Mode_1c62f0* FUN_00086310(); };
-struct Root_1c62f0 { char pad[0x54]; Manager_1c62f0* manager; };
-extern Root_1c62f0* DAT_004dd700;
+struct World { char pad[0x54]; Manager_1c62f0* manager; };
 extern "C" long __cdecl atol(const char*);
 long __cdecl FUN_001c62c0(const char*, const char*);
 long __cdecl FUN_001c62f0(const char* text, char marker) {

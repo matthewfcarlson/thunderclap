@@ -1,13 +1,12 @@
 // Same code shape as 0x00048300 (propagated; names are from that function)
+#include "gen/global.h"
+
 extern int* gTable_49f10;
-class CCondition {
+class CCondition_49f10 {
   public:
     virtual int vfunc_0(int);
 };
-class CCharacterTemplateCondition : public CCondition {
-  public:
-    int vfunc_0(int);
-};
+
 int CCharacterTemplateCondition::vfunc_0(int index) {
     int* p = gTable_49f10;
     return p[index];

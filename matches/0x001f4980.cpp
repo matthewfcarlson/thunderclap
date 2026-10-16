@@ -1,3 +1,4 @@
+#include "decls/address.h"
 extern "C" char DAT_00424b0c[];
 extern "C" char DAT_0048e0e4[];
 extern "C" char DAT_0048e100[];
@@ -15,7 +16,6 @@ class CSoundVoiceManager {
     int a;
     CSoundVoiceManager* Fn(void*, int);
 };
-extern "C" char __cdecl FUN_001d04d0(void*);
 CSoundVoiceManager* CSoundVoiceManager::Fn(void* p, int v) {
     Init(p, 3);
     vf = ((int)DAT_00424b0c);

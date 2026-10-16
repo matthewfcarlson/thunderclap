@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001bea80 @ 0x001bea80
+#include "decls/address.h"
 extern "C" int sprintf(char *dst, const char *fmt, ...);
 
 extern "C" void __fastcall __security_check_cookie(unsigned int);
@@ -59,7 +60,7 @@ public:
     virtual void v21(int a);
 };
 
-class Engine_1bea80 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -130,7 +131,6 @@ struct Display_1bea80 {
 };
 
 extern Display_1bea80 *DAT_0052c2ac;
-extern Engine_1bea80 *DAT_0052c2a8;
 
 struct Frame_1bea80 {
     Vec3_1bea80 v;

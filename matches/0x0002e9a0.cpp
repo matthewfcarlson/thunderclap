@@ -1,4 +1,4 @@
-extern "C" char FUN_001d04d0(const char*);
+#include "decls/address.h"
 extern const char gA_2e9a0[];
 extern const char gB_2e9a0[];
 struct Base_2e9a0 {

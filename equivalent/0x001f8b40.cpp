@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 21/24, incomplete)
 // FUN_001f8b40 @ 0x001f8b40
+#include "decls/address.h"
 struct V3_1f8b40 {
     float x, y, z;
 };
@@ -31,15 +32,13 @@ struct Obj_1f8b40 {
     virtual void getPos(V3_1f8b40 *out);   // 0x20
 };
 
-struct Global_1f8b40 {
+struct World {
     char pad0[0x28];
     Mgr_1f8b40 *mgr;                       // 0x28
     char pad2c[0x54 - 0x2c];
     Tracker_1f8b40 *tracker;               // 0x54
 };
-extern Global_1f8b40 *DAT_004dd700;
 
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
 
 int __stdcall FUN_001f8b40(int a1, Obj_1f8b40 *obj, float x, float y, float z)
 {

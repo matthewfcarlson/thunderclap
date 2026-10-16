@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_004144b0[];
-class HitPushbackTrack {
+class HitPushbackTrack_15a3b0 {
   public:
     int vptr;
     int x04;
@@ -17,18 +19,10 @@ class HitPushbackTrack {
     int x30;
     void init();
 };
-class Factory_15a3b0 {
-  public:
-    virtual void q0();
-    virtual void q1();
-    virtual void q2();
-    virtual void q3();
-    virtual void q4();
-    virtual HitPushbackTrack* vfunc_5();
-};
-extern HitPushbackTrack* __cdecl alloc(unsigned int);
-HitPushbackTrack* Factory_15a3b0::vfunc_5() {
-    HitPushbackTrack* p = alloc(0x34);
+extern HitPushbackTrack_15a3b0* __cdecl alloc(unsigned int);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitPushbackTrack>::vfunc_5() {
+    HitPushbackTrack_15a3b0* p = alloc(0x34);
     if (p) {
         p->init();
         p->x10 = -1.0f;
@@ -42,7 +36,7 @@ HitPushbackTrack* Factory_15a3b0::vfunc_5() {
         p->vptr = ((int)DAT_004144b0);
         p->x14 = 1.0f;
         p->x28 = -5;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

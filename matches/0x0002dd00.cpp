@@ -1,9 +1,9 @@
+#include "decls/address.h"
 extern "C" char DAT_003f428c[];
 extern "C" char DAT_0048e0f0[];
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e128[];
 extern void __stdcall FUN_001d0480(const char*, int);
-extern char FUN_001d04d0(const char*);
 class CActorManager {
   public:
     int vptr;

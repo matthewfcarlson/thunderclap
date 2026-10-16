@@ -1,6 +1,6 @@
+#include "decls/address.h"
 class CScenarioManager;
 void __stdcall FUN_001d0480(const char*, int);
-unsigned char __cdecl FUN_001d04d0(const char*);
 struct Base {
     Base(const char* a) { FUN_001d0480(a, 1); }
 };

@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/9, incomplete)
 // FEContainer::vfunc_48 @ 0x000e43c0
+#include "decls/address.h"
 struct Result_e43c0 { unsigned a,b,c; };
 extern "C" char* __cdecl _strchr(const char*,int);
 void __cdecl FUN_000f6d10(const char*,Result_e43c0*);
-unsigned __int64 __cdecl FUN_0027b020(const char*);
 struct Dictionary { int FUN_0027b200(unsigned __int64); };
 struct Data_e43c0 { char pad[8]; Dictionary* dictionary; void FUN_002848b0(int,int,Result_e43c0*); };
 struct Child_e43c0 {

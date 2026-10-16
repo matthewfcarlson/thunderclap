@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0002b4f0 @ 0x0002b4f0
 // Distance from a named pawn to an object found by id (-1 when either is missing).
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
+#include "decls/address.h"
 
 struct Vec3_2b4f0 {
     float x, y, z;

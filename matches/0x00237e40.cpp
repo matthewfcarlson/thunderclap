@@ -1,12 +1,8 @@
 // Same code shape as 0x0004dfd0 (propagated; names are from that function)
-class ParamIntConstRange {
-  public:
-    char pad[0x10];
-    bool (ParamIntConstRange::*fn)(int);
-    bool vfunc_6(int a, int b);
-};
-bool ParamIntConstRange::vfunc_6(int a, int b) {
-    if (!fn)
+#include "gen/fight.h"
+
+template <> bool fight::ParamIntConstRange<fight::SequenceTrack>::vfunc_6(int a, int b) {
+    if (!(*(bool (fight::ParamIntConstRange<fight::SequenceTrack>::**)(int))&this->f_10))
         return false;
-    return (((ParamIntConstRange*)a)->*fn)(b);
+    return (((fight::ParamIntConstRange<fight::SequenceTrack>*)a)->*(*(bool (fight::ParamIntConstRange<fight::SequenceTrack>::**)(int))&this->f_10))(b);
 }

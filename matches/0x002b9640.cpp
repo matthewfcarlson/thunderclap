@@ -1,5 +1,7 @@
 // Same code shape as 0x00234f10 (propagated; names are from that function)
-class ParamValue {
+#include "gen/pure3d.h"
+
+class ParamValue_2b9640 {
   public:
     virtual void vfunc_0();
     virtual int vfunc_1();
@@ -7,13 +9,7 @@ class ParamValue {
     virtual void vfunc_3();
     virtual void vfunc_4();
 };
-class ParamValueColour : public ParamValue {
-  public:
-    virtual void vfunc_0();
-    virtual int vfunc_1();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-};
-int ParamValueColour::vfunc_1() {
+
+int pure3d::BillboardObject::vfunc_15() {
     return 8;
 }

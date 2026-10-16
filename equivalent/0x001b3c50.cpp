@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_001b3c50 @ 0x001b3c50
+#include "decls/address.h"
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
-extern "C" char __cdecl FUN_001d04d0(const char*);
 extern "C" void* __cdecl FUN_001d4c90();
 extern "C" const char DAT_0048e100[];
 extern "C" const char DAT_0048e10c[];

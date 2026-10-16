@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern "C" void _ReadWriteBarrier();
 class Child {
   public:
@@ -5,16 +7,8 @@ class Child {
 };
 extern char VT_12af80[];
 extern void* __cdecl FUN_0008d690(unsigned int);
-class Factory_12af80 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void* f();
-};
-void* Factory_12af80::f() {
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::ai::AcquireTargetTrack>::vfunc_5() {
     Child* p = (Child*)FUN_0008d690(0x2c);
     if (p) {
         p->Child::Child();
@@ -30,7 +24,7 @@ void* Factory_12af80::f() {
         _ReadWriteBarrier();
         *(float*)((char*)p + 0x28) = -1.0f;
         *(int*)((char*)p + 0x8) = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

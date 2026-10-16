@@ -1,10 +1,6 @@
 // Same code shape as 0x0032fce0 (propagated; names are from that function)
-class pure3d_d3dToon2VertexShader_2ef350 {
-  public:
-    virtual void vfunc_0();
-    virtual bool IsEnabled();
-};
+#include "gen/physics.h"
 
-bool pure3d_d3dToon2VertexShader_2ef350::IsEnabled() {
+bool physics::SimState::vfunc_11() {
     return true;
 }

@@ -1,3 +1,4 @@
+#include "decls/address.h"
 extern "C" char DAT_00420e84[];
 extern "C" char DAT_0048e0f0[];
 extern "C" char DAT_0048e10c[];
@@ -17,7 +18,6 @@ struct C_1ba090 {
     void Init(const char*, int);
     C_1ba090(const char*, int);
 };
-extern "C" char __cdecl FUN_001d04d0(const char*);
 C_1ba090::C_1ba090(const char* x, int y) {
     Init(x, 4);
     v = ((int)DAT_00420e84);

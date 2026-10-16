@@ -1,9 +1,11 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_004178f8[];
 class Sub_17eeb0 {
   public:
     void Init();
 };
-class RestPoseTrack {
+class RestPoseTrack_17eeb0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -23,18 +25,10 @@ class RestPoseTrack {
     int q;
     void Init();
 };
-class Factory_17eeb0 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void* Make();
-};
 extern void* __cdecl Alloc(unsigned int);
-void* Factory_17eeb0::Make() {
-    RestPoseTrack* p = (RestPoseTrack*)Alloc(0x30);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::RestPoseTrack>::vfunc_5() {
+    RestPoseTrack_17eeb0* p = (RestPoseTrack_17eeb0*)Alloc(0x30);
     if (p) {
         p->Init();
         *(int*)p = ((int)DAT_004178f8);
@@ -44,7 +38,7 @@ void* Factory_17eeb0::Make() {
         p->y = -5;
         p->z = 0;
         p->q = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

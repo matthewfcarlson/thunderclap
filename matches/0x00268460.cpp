@@ -1,4 +1,6 @@
-class IControllerSystem {
+#include "gen/core.h"
+
+class IControllerSystem_268460 {
   public:
     virtual void f0();
     virtual void f1();
@@ -14,14 +16,8 @@ class IControllerSystem {
     virtual void f11();
     virtual void f12();
 };
-class ControllerSystemXBox : public IControllerSystem {
-    char pad[0x18];
-    int value;
 
-  public:
-    virtual void f10(int);
-};
-void ControllerSystemXBox::f10(int x) {
-    if (value == 0)
-        value = x;
+void core::ControllerSystemXBox::vfunc_10(int x) {
+    if (this->f_1c == 0)
+        this->f_1c = x;
 }

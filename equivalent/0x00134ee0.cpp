@@ -84,7 +84,7 @@ union Bits_134ee0 {
     int i;
 };
 
-class FallAction {
+namespace hulkfight { namespace motion { class FallAction {
 public:
     virtual void vf0();
     virtual void vf1();
@@ -99,9 +99,9 @@ public:
     float f28;
     float f2c;
     float f30;
-};
+}; }}
 
-bool FallAction::vfunc_5(Slot_134ee0 a1, Slot_134ee0 a2)
+bool hulkfight::motion::FallAction::vfunc_5(Slot_134ee0 a1, Slot_134ee0 a2)
 {
     struct Frame {
         float s0;

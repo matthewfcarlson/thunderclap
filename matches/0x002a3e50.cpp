@@ -1,27 +1,5 @@
-class ParticleSystem {
-  public:
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual void a3();
-    virtual void a4();
-    virtual void a5();
-    virtual void a6();
-    virtual void a7();
-    virtual void a8();
-    virtual void vfunc_9();
-    virtual void a10();
-    virtual void a11();
-    virtual void a12();
-    virtual void a13();
-    virtual void a14();
-    virtual void a15();
-    virtual void a16();
-    virtual void a17();
-    virtual void a18();
-    char pad[0xa0];
-    class Callback_2a3e50* mCallback;
-};
+#include "gen/pure3d.h"
+
 class Callback_2a3e50 {
   public:
     virtual void b0();
@@ -39,8 +17,9 @@ class Callback_2a3e50 {
     virtual void Invoke(int);
 };
 extern void FUN_002a3b60();
-void ParticleSystem::vfunc_9() {
+
+void pure3d::ParticleSystem::vfunc_9() {
     FUN_002a3b60();
-    if (mCallback)
-        mCallback->Invoke(0);
+    if ((*(class Callback_2a3e50 * *)&this->f_a4))
+        (*(class Callback_2a3e50 * *)&this->f_a4)->Invoke(0);
 }

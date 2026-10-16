@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 30 inputs, branch coverage 8/8)
 // FUN_002c4a20 @ 0x002c4a20
+#include "decls/address.h"
 struct Vec3_2c4a20 {
     float x, y, z;
 };
@@ -41,7 +42,7 @@ public:
     void FUN_0008ef00();
 };
 
-class Device_2c4a20 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -77,7 +78,6 @@ public:
     virtual void v31(Mesh_2c4a20 *m);
 };
 
-extern Device_2c4a20 *DAT_0052c2a8;
 extern Renderer_2c4a20 **DAT_0052c2ac;
 void __cdecl FUN_00356bf0(void *a1, float a, float b, float *x, float *y, float *z);
 

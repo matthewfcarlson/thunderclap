@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000d7af0 @ 0x000d7af0
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) { return p; }
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 
 namespace content {
 namespace LoadInventory {

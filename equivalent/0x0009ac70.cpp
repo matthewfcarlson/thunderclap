@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0009ac70 @ 0x0009ac70
+#include "decls/address.h"
 class CCameraManager;
 extern char DAT_0048e0e4, DAT_0048e0f0, DAT_0048e100, DAT_0048e128, DAT_0048e134;
-char FUN_001d04d0(const void*) throw();
 class Base_9ac70 {
 public:
     virtual void v();

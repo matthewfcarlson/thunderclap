@@ -1,4 +1,6 @@
-class pddiTexture {
+#include "gen/pure3d.h"
+
+class pddiTexture_326260 {
   public:
     virtual void f0();
     virtual void f1();
@@ -22,11 +24,7 @@ class pddiTexture {
     virtual void f19();
     virtual void f20();
 };
-class d3dTexture : public pddiTexture {
-  public:
-    char pad[0xe0 - 4];
-    int vfunc_8();
-};
-int d3dTexture::vfunc_8() {
+
+int pure3d::d3dTexture::vfunc_8() {
     return *(int*)((char*)this + 0xe0);
 }

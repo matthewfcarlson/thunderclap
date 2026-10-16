@@ -1,4 +1,6 @@
-class Track {
+#include "gen/hulkfight.h"
+
+class Track_131e70 {
   public:
     virtual void f0();
     virtual void f1();
@@ -11,15 +13,12 @@ class Track {
     virtual void f8();
     virtual void f9();
 };
-class DialogueTrack : public Track {
-  public:
-    virtual int vfunc_10(int a, int b, int c);
-};
 struct H {
-    int call(DialogueTrack*, int);
+    int call(hulkfight::DialogueTrack*, int);
 };
 extern H* FUN_0008d690(int);
-int DialogueTrack::vfunc_10(int a, int b, int c) {
+
+int hulkfight::DialogueTrack::vfunc_10(int a, int b, int c) {
     H* p = FUN_0008d690(0x24);
     if (p)
         return p->call(this, c);

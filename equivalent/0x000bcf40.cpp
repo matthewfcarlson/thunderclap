@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 118 inputs, branch coverage 20/20)
 // FUN_000bcf40 @ 0x000bcf40
+#include "decls/address.h"
 class Input_bcf40 {
   public:
     char FUN_00099740();
     char FUN_00099790();
     char FUN_00099750();
 };
-class Root_bcf40 {
+class World {
   public:
     char head[8];
     Input_bcf40* input;
@@ -18,7 +19,6 @@ class Widget_bcf40 {
 struct State_bcf40 {
     int id;
 };
-extern Root_bcf40* DAT_004dd700;
 extern char DAT_004ddbe1;
 char __cdecl FUN_000c5ef0(int who, int a, int b, int c, int d, int e);
 char __cdecl FUN_000c5d60(int who, int a);

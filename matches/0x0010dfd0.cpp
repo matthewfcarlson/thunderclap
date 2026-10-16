@@ -1,24 +1,21 @@
 // Same code shape as 0x0010dfa0 (propagated; names are from that function)
-struct Context;
+#include "gen/hulkfight.h"
+
+struct Context_10dfd0;
 struct Inner_10dfd0 {
-    Context* Get();
+    Context_10dfd0* Get();
     void* FUN_00059a30();
 };
-struct Context {
-    Context* FUN_000592a0();
+struct Context_10dfd0 {
+    Context_10dfd0* FUN_000592a0();
     void* FUN_00059a30();
 };
-class TokenAction {
-  public:
-    char pad[0x20];
-    Context* member;
-    bool vfunc_3(void*, void*);
-};
-bool TokenAction::vfunc_3(void*, void*) {
-    Context* c = member;
+
+bool hulkfight::ai::TokenAction::vfunc_5(int __p0, int __p1) {
+    Context_10dfd0* c = (*(Context_10dfd0 * *)&this->f_20);
     if (!c)
         return false;
-    Context* d = c->FUN_000592a0();
+    Context_10dfd0* d = c->FUN_000592a0();
     char* p = (char*)d->FUN_00059a30();
     p[0x1b84] = 1;
     return true;

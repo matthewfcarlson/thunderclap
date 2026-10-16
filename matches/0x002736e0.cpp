@@ -1,12 +1,13 @@
-class FileCompletionRequest;
+#include "gen/core.h"
+
 struct Callee_2736e0 {
-    void f(FileCompletionRequest*);
+    void f(core::FileCompletionRequest*);
 };
 struct Inner_2736e0 {
     char pad[12];
     Callee_2736e0* callee;
 };
-class CompletionCallbackRequest {
+class CompletionCallbackRequest_2736e0 {
   public:
     virtual void v0();
     virtual int v1();
@@ -17,13 +18,8 @@ class CompletionCallbackRequest {
     virtual void v6();
     virtual void v7();
 };
-class FileCompletionRequest : public CompletionCallbackRequest {
-  public:
-    char pad[8];
-    Inner_2736e0* member;
-    int v1();
-};
-int FileCompletionRequest::v1() {
-    member->callee->f(this);
+
+int core::FileCompletionRequest::vfunc_1() {
+    (*(Inner_2736e0 * *)&this->f_0c)->callee->f(this);
     return 3;
 }

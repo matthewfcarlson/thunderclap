@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 536 inputs, branch coverage 16/16)
 // FUN_001e95c0 @ 0x001e95c0
+#include "decls/address.h"
 struct Controller_1e95c0 { bool FUN_00266750(); void FUN_00263e90(); };
 struct Subsystem_1e95c0 { void FUN_000862a0(); };
-struct GlobalState_1e95c0 { char pad[0x54]; Subsystem_1e95c0* subsystem; };
-extern GlobalState_1e95c0* DAT_004dd700;
+struct World { char pad[0x54]; Subsystem_1e95c0* subsystem; };
 extern Controller_1e95c0* DAT_004e3694;
 extern unsigned int DAT_004d9968;
 void __fastcall __security_check_cookie(unsigned int);

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2899 inputs, branch coverage 8/8)
 // FUN_001f9710 @ 0x001f9710
+#include "decls/address.h"
 struct Key {
     int lo, hi;
     Key() throw() {}
@@ -48,11 +49,10 @@ public:
     char FUN_001fcff0(Sub_1f9710 *sub);
 };
 
-struct Game_1f9710 {
+struct World {
     char pad[0x28];
     Factory_1f9710 *factory;
 };
-extern Game_1f9710 *DAT_004dd700;
 
 extern int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 

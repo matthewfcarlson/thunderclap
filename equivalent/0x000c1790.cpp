@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 41/46, incomplete)
 // FUN_000c1790 @ 0x000c1790
+#include "decls/address.h"
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 
 extern "C" int strncmp(const char* a, const char* b, unsigned int n);
@@ -61,7 +62,6 @@ Ui_c1790* __cdecl FUN_000fc1b0();
 const char* __cdecl FUN_000f7120(int index);
 void FUN_000964a0(char* buf, int size, const char* fmt, ...);
 bool __cdecl FUN_000fc1c0(const char* path);
-unsigned __int64 __cdecl FUN_0027b020(const char* name);
 DynamicLabel* __cdecl FUN_000fc260(const char* name);
 
 struct Frame_c1790 {

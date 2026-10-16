@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 struct V {
     virtual void f0();
     virtual void f1();
@@ -20,15 +22,9 @@ struct G_1d6ce0 {
     B_1d6ce0* p;
 };
 extern G_1d6ce0* g_4dd700;
-struct CSPHulkPropInstance {
-    char x[0x9c];
-    V* obj;
-    char pad[0x4c];
-    A_1d6ce0* a;
-    void vfunc_8(int, int);
-};
+
 void CSPHulkPropInstance::vfunc_8(int x, int y) {
-    if (a->run() && g_4dd700->p->run())
+    if ((*(A_1d6ce0 * *)&this->f_ec)->run() && g_4dd700->p->run())
         return;
-    obj->f8(x, y);
+    (*(V * *)&this->f_9c)->f8(x, y);
 }

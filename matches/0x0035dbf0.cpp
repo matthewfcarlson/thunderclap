@@ -1,5 +1,5 @@
+#include "decls/address.h"
 typedef unsigned __int64 int64_35dbf0;
-extern int64_35dbf0 FUN_0027b020(const char*);
 extern int g0;
 extern int g1_35dbf0;
 void FUN_0035dbf0() {

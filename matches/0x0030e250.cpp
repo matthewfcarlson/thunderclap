@@ -1,29 +1,22 @@
+#include "gen/physics.h"
+
 struct Elem_30e250 {
     void process();
 };
-class CollisionAnalyser {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(int, int);
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    unsigned char* begin;
-    unsigned char* end;
-    char pad[4];
-    unsigned char flag;
+struct CollisionAnalyser_nv_30e250 {
     void init();
 };
-void CollisionAnalyser::vfunc_2(int, int) {
-    init();
-    unsigned char* p = begin;
-    flag = 0;
-    if (p <= end) {
+
+void physics::CollisionAnalyser::vfunc_2(int , int ) {
+    ((CollisionAnalyser_nv_30e250*)this)->init();
+    unsigned char* p = (*(unsigned char * *)&this->f_04);
+    this->f_10 = 0;
+    if (p <= (*(unsigned char * *)&this->f_08)) {
         do {
             ((Elem_30e250*)*(void**)(p + 0x10))->process();
             unsigned char* old = p;
             p += 0x14;
-            if (old == end)
+            if (old == (*(unsigned char * *)&this->f_08))
                 break;
         } while (1);
     }

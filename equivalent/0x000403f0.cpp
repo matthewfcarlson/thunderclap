@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 18/22, incomplete)
 // FUN_000403f0 @ 0x000403f0
+#include "decls/address.h"
 struct Vec3_403f0 {
     float x, y, z;
     float FUN_0022d110();
@@ -57,12 +58,11 @@ public:
     void FUN_000403f0();
 };
 
-struct Globals_403f0 {
+struct World {
     char pad0[0x20];
     Roster_403f0 *roster;
 };
 
-extern Globals_403f0 *DAT_004dd700;
 
 void Owner_403f0::FUN_000403f0()
 {

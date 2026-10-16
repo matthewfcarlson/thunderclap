@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 24/24)
 // FUN_00117da0 @ 0x00117da0
+#include "decls/address.h"
 extern unsigned DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned);
 struct Bounds_117da0 { char pad[0x18]; float lowX, highX, lowY, highY; };
@@ -12,8 +13,7 @@ struct Result_117da0 { char pad[0x10]; unsigned* id; char pad2[0x1ca0-0x14]; Pro
 struct Text_117da0 { char data[80]; void FUN_001ca2e0(unsigned); };
 struct Packet_117da0 { char prefix[12]; Text_117da0 text; };
 struct Sink_117da0 { void FUN_001cbc20(Packet_117da0*); };
-struct Manager_117da0 { char pad[0x30]; Sink_117da0* sink; };
-extern Manager_117da0* DAT_004dd700;
+struct World { char pad[0x30]; Sink_117da0* sink; };
 struct Target_117da0 { char pad[0x1c]; Bounds_117da0* bounds; Source_117da0* source; char pad2[0xc]; float magnitude, x, y; char pad3[0xc]; unsigned value; bool run(); };
 bool Target_117da0::run() {
  unsigned cookie = DAT_004d9968;

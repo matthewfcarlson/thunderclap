@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00414190[];
 typedef unsigned int uint;
 extern void* __cdecl Allocate(uint);
@@ -11,16 +13,8 @@ struct Obj_159930 {
     char flag;
     void Init(int);
 };
-class Factory_159930 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual Obj_159930* vfunc5();
-};
-Obj_159930* Factory_159930::vfunc5() {
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionDamageHealthCompareCondition>::vfunc_5() {
     Obj_159930* p = (Obj_159930*)Allocate(0x1c);
     if (p) {
         p->Init(0);
@@ -29,7 +23,7 @@ Obj_159930* Factory_159930::vfunc5() {
         p->d = 0;
         p->e = 0;
         p->flag = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

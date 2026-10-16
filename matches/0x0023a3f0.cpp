@@ -1,4 +1,6 @@
-class StringReader {
+#include "gen/fight.h"
+
+class StringReader_23a3f0 {
   public:
     char pad0[8];
     unsigned char* mBuffer;
@@ -7,13 +9,10 @@ class StringReader {
     unsigned int mPosition;
 };
 namespace fight {
-class BufferStringReader : public StringReader {
-  public:
-    unsigned char vfunc_4();
-};
-unsigned char BufferStringReader::vfunc_4() {
-    if (mPosition >= mLength)
-        return 0;
-    return mBuffer[mPosition];
-}
+
 } // namespace fight
+unsigned char fight::BufferStringReader::vfunc_4() {
+    if (this->f_14 >= this->f_10)
+        return 0;
+    return (*(unsigned char * *)&this->f_08)[this->f_14];
+}

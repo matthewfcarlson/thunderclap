@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 54/62, incomplete)
 // hulkfight::ai::MotionLocatorAction::vfunc_5 @ 0x00117480
+#include "decls/address.h"
 struct V3_117480 {
     float x, y, z;
     float FUN_0022d110();
@@ -21,17 +22,15 @@ class Target_117480 {
 struct Registry_117480 {
     Target_117480 *FUN_001fc8c0(unsigned __int64 id);
 };
-struct Globals_117480 {
+struct World {
     char pad[0x28];
     Registry_117480 *registry;
 };
-extern Globals_117480 *DAT_004dd700;
 
 struct Strings_117480 {
     const char *FUN_001d3030(const char *name);
 };
 Strings_117480 *FUN_001d4c90();
-unsigned __int64 __cdecl FUN_002672f0(const char *s, int a, int b);
 
 struct Info_117480 {
     char pad0[0x14];

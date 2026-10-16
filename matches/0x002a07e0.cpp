@@ -1,13 +1,7 @@
-class Light {
-  public:
-    char pad[0x18];
-    int a;
-    int b;
-    int c;
-    void vfunc_7(int, int, int);
-};
-void Light::vfunc_7(int x, int y, int z) {
-    a = x;
-    b = y;
-    c = z;
+#include "gen/pure3d.h"
+
+void pure3d::Light::vfunc_7(int x, int y, int z) {
+    this->f_18 = x;
+    this->f_1c = y;
+    this->f_20 = z;
 }

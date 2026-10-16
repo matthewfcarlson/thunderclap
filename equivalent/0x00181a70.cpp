@@ -29,7 +29,7 @@ struct Stats_181a70 {
     } *f3a4;
 };
 
-class CSMPropIsCharacterCondition {
+namespace hulkfight { namespace motion { class CSMPropIsCharacterCondition {
 public:
     virtual void v0();
     virtual void v1();
@@ -40,9 +40,9 @@ public:
     virtual bool vfunc_6(int a1, Owner_181a70 *owner, int a3);
     char pad4[8];
     unsigned char fc_flag;
-};
+}; }}
 
-bool CSMPropIsCharacterCondition::vfunc_6(int a1, Owner_181a70 *owner, int a3)
+bool hulkfight::motion::CSMPropIsCharacterCondition::vfunc_6(int a1, Owner_181a70 *owner, int a3)
 {
     if (FUN_00344e74(owner, 0, DAT_00494b44, DAT_00494b60, 0) == 0)
         return false;

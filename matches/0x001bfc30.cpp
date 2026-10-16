@@ -1,19 +1,17 @@
+#include "gen/global.h"
+
 typedef unsigned int u32_1bfc30;
 struct State_1bfc30 {
     char pad[0x58];
     int query(int, int);
 };
-struct sSubtitleCallback {
+struct sSubtitleCallback_1bfc30 {
     virtual void f0();
     virtual void f1(int, int);
 };
-struct sSubtitleManagerCallback : sSubtitleCallback {
-    State_1bfc30* state;
-    virtual void f0();
-    virtual void f1(int, int);
-};
-void sSubtitleManagerCallback::f1(int a, int b) {
-    State_1bfc30* p = state;
+
+void sSubtitleManagerCallback::vfunc_1(int a, int b) {
+    State_1bfc30* p = (*(State_1bfc30 * *)&this->f_04);
     if (p && p->query(a, b) != -1 && *(int*)((char*)p + 0x20) == 2) {
         *(u32_1bfc30*)((char*)p + 4) = 0;
         *(u32_1bfc30*)p = 0xbf800000;

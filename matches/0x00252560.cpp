@@ -1,3 +1,5 @@
+#include "gen/audio.h"
+
 namespace audio {
 class Base {
   public:
@@ -8,27 +10,20 @@ class Base {
     virtual void d();
     int unk;
 };
-class SeqEventVarVolumeRand : public Base {
+class SeqEventVarVolumeRand_252560 : public Base {
   public:
     float x;
     float y;
-    SeqEventVarVolumeRand() : Base(), x(0.5f), y(1.0f) {}
-};
-class SeqEventVarVolumeRandType {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual SeqEventVarVolumeRand* vfunc_3();
+    SeqEventVarVolumeRand_252560() : Base(), x(0.5f), y(1.0f) {}
 };
 } // namespace audio
 extern char bss;
 extern "C" void* __cdecl alloc(void*);
-audio::SeqEventVarVolumeRand* audio::SeqEventVarVolumeRandType::vfunc_3() {
-    audio::SeqEventVarVolumeRand* p = (audio::SeqEventVarVolumeRand*)alloc(&bss);
+void* audio::SeqEventVarVolumeRandType::vfunc_3() {
+    audio::SeqEventVarVolumeRand_252560* p = (audio::SeqEventVarVolumeRand_252560*)alloc(&bss);
     if (p) {
-        p->audio::SeqEventVarVolumeRand::SeqEventVarVolumeRand();
-        return p;
+        p->audio::SeqEventVarVolumeRand_252560::SeqEventVarVolumeRand_252560();
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

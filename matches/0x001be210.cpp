@@ -1,4 +1,6 @@
-class Overlay {
+#include "gen/global.h"
+
+class Overlay_1be210 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -7,12 +9,7 @@ class Overlay {
     virtual void vfunc_4();
     virtual void vfunc_5();
 };
-class CSubtitleOverlay : public Overlay {
-  public:
-    char pad[0x11d - sizeof(void*)];
-    unsigned char field;
-    virtual void vfunc_2();
-};
+
 void CSubtitleOverlay::vfunc_2() {
-    field = 0;
+    this->f_11d = 0;
 }

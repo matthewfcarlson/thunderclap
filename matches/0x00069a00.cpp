@@ -1,14 +1,10 @@
 // Same code shape as 0x00069920 (propagated; names are from that function)
-class CMoveAddTrack {
-  public:
-    char pad[0xc];
-    float a;
-    float b;
-    float vfunc_7();
-};
+#include "gen/global.h"
+
 float zero_69a00 = 0.0f;
+
 float CMoveAddTrack::vfunc_7() {
-    float d = b - a;
+    float d = this->f_10 - this->f_0c;
     if (d < zero_69a00)
         d = zero_69a00;
     return d;

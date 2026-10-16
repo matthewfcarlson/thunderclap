@@ -1,32 +1,5 @@
-class SpriteObject {
-    char pad[0x44];
-    int* value;
+#include "gen/pure3d.h"
 
-  public:
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual void a3();
-    virtual void a4();
-    virtual void a5();
-    virtual void a6();
-    virtual void a7();
-    virtual void a8();
-    virtual void a9();
-    virtual void a10();
-    virtual void a11();
-    virtual void a12();
-    virtual void a13();
-    virtual void a14();
-    virtual void a15();
-    virtual void a16();
-    virtual void a17();
-    virtual void a18();
-    virtual void a19();
-    virtual void a20();
-    virtual int vfunc_21();
-    virtual void a22();
-};
-int SpriteObject::vfunc_21() {
-    return *value;
+int pure3d::SpriteObject::vfunc_21() {
+    return *(*(int * *)&this->f_48);
 }

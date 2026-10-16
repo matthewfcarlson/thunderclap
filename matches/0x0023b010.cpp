@@ -1,5 +1,7 @@
 // Same code shape as 0x0023afb0 (propagated; names are from that function)
-struct Reader {
+#include "gen/fight.h"
+
+struct Reader_23b010 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -14,12 +16,12 @@ struct Reader {
     virtual void l();
     virtual void vfunc_12(int, int, int);
 };
-struct ScriptReader : Reader {
+struct ScriptReader_nv_23b010 {
     int helper(int, int, int);
     int finish(int, int);
-    void vfunc_12(int, int, int);
 };
-void ScriptReader::vfunc_12(int a, int b, int c) {
-    int x = helper(a, b, 4);
-    finish(x, c);
+
+void fight::ScriptReader::vfunc_7(int a, int b, int c) {
+    int x = ((ScriptReader_nv_23b010*)this)->helper(a, b, 4);
+    ((ScriptReader_nv_23b010*)this)->finish(x, c);
 }

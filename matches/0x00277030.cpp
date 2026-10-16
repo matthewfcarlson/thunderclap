@@ -1,4 +1,6 @@
 // Same code shape as 0x002762d0 (propagated; names are from that function)
+#include "gen/core.h"
+
 class Inner_277030 {
   public:
     virtual void f0();
@@ -7,12 +9,7 @@ class Inner_277030 {
     virtual void f3();
     virtual void f4();
 };
-class File {
-  public:
-    char pad[12];
-    Inner_277030* p;
-    void vfunc_26();
-};
-void File::vfunc_26() {
-    p->f4();
+
+void core::InstanceDrive::vfunc_39() {
+    (*(Inner_277030 * *)&this->f_0c)->f4();
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000da660 @ 0x000da660
+#include "decls/address.h"
 extern unsigned int DAT_004d9968;
 void __fastcall __security_check_cookie(unsigned int);
 struct TextSource_da660 {
@@ -12,8 +13,7 @@ struct Menu_da660 {
 };
 struct Formatter_da660 { int FUN_000f83f0(TextSource_da660*, int); };
 struct State_da660 { char pad[0x1bc8]; unsigned char flag; };
-struct Manager_da660 { State_da660* FUN_00086280(); };
-extern Manager_da660* DAT_004dd6ec;
+struct Singleton_4dd6ec { State_da660* FUN_00086280(); };
 extern const char *DAT_004a0cd8, *DAT_004a0ce0, *DAT_004a0ce4, *DAT_004a0ce8, *DAT_004a0c60;
 void __cdecl FUN_000fc020(unsigned short*, int, const unsigned short*, int);
 struct Object {

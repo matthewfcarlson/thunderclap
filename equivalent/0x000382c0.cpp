@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 15/15)
 // FUN_000382c0 @ 0x000382c0
+#include "decls/address.h"
 struct Vec3_382c0 {
     float x, y, z;
 };
@@ -28,7 +29,6 @@ struct Anchor_382c0 {
 extern unsigned int DAT_004d9968;
 extern int DAT_004dc0e0;
 extern int DAT_004dc0e4;
-extern World *DAT_004dd700;
 extern Bias DAT_0048f5d4;
 extern Bias DAT_0048f5e0;
 extern "C" void __fastcall __security_check_cookie(unsigned int);

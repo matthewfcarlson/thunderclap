@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000dc730 @ 0x000dc730
+#include "decls/address.h"
 struct Settings_dc730 {
     char pad00[0xbc0];
     char flag;              // 0xbc0
@@ -24,11 +25,10 @@ struct Label_dc730 {
     void FUN_000bc9f0(const char *name, int id);
 };
 
-struct LabelTable {
+struct Singleton_4dd6ec {
     Label_dc730 *FUN_00086280();
 };
 
-extern LabelTable *DAT_004dd6ec;
 
 class ControlPrompt {
 public:

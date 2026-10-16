@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_001f42d0 @ 0x001f42d0
+#include "decls/address.h"
 extern "C" double sqrt(double);
 struct Id_1f42d0 {
     unsigned int lo;
@@ -21,14 +22,13 @@ struct Node {
     int f78;
 };
 
-struct Settings_1f42d0 {
+struct World {
     char pad0[8];
     struct Gate {
         char FUN_000997a0();
     } *gate;
 };
 
-extern Settings_1f42d0 *DAT_004dd700;
 
 union IdSlot {
     unsigned int raw[3];

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_001be7f0 @ 0x001be7f0
+#include "decls/address.h"
 struct Vec3_1be7f0 { float x, y, z; };
 
 struct Owner;
@@ -23,7 +24,7 @@ struct Blender_1be7f0 {
     void FUN_000f78e0();
 };
 
-class Screen_1be7f0 {
+class Gfx {
   public:
     virtual void v0();
     virtual void v1();
@@ -131,7 +132,6 @@ struct Canvas {
     void FUN_00293da0(float x, float y, float z);
 };
 
-extern Screen_1be7f0* DAT_0052c2a8;
 extern Viewport_1be7f0* DAT_0052c2a4;
 extern Canvas* DAT_0052c2ac;
 extern float DAT_004c4c18;

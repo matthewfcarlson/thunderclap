@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0040d854[];
 extern "C" void* __cdecl alloc(unsigned int);
 class Face {
@@ -9,16 +11,8 @@ class Face {
     int mc;
     float m10;
 };
-class Factory_10c060 {
-  public:
-    void* f0();
-    void* f1();
-    void* f2();
-    void* f3();
-    void* f4();
-    Face* vfunc_5();
-};
-Face* Factory_10c060::vfunc_5() {
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::ai::FaceMotionTrack>::vfunc_5() {
     Face* p = (Face*)alloc(0x14);
     if (p) {
         p->Face::Face();
@@ -26,7 +20,7 @@ Face* Factory_10c060::vfunc_5() {
         p->mc = 0;
         p->m10 = -1.0f;
         p->m8 = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

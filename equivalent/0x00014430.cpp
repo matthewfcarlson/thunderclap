@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 12000 inputs, branch coverage 11/12, incomplete; run with --inputs 12000)
 // CCollisionAction::vfunc_7 @ 0x00014430
+#include "decls/address.h"
 struct Vec3_14430 { float x, y, z; };
 
 struct Mat_14430 {
@@ -16,11 +17,10 @@ struct Registry_14430 {
     Anchor_14430 *FUN_001dee40(int lo, int hi);
 };
 
-struct Manager_14430 {
+struct World {
     char pad0[0xc];
     Registry_14430 *registry;
 };
-extern Manager_14430 *DAT_004dd700;
 
 struct Skeleton {
     char pad0[0x1c];

@@ -3,6 +3,9 @@
 // hulkfight::motion::CivilianThrowAction::vfunc_3 @ 0x00148f40
 // equiv-map: ??0Name@@QAE@ABU0@@Z = 0x0027af30
 // equiv-map: ??1Name@@QAE@XZ = 0x0027af50
+#include "gen/hulkfight.h"
+#include "decls/address.h"
+
 struct Name {
     int lo;
     int hi;
@@ -30,11 +33,10 @@ struct Dispatcher {
     void FUN_001cbc20(Event *m);
 };
 
-struct System {
+struct World {
     char pad0[0x30];
     Dispatcher *dispatcher;
 };
-extern System *DAT_004dd700;
 
 struct Hit {
     int f00, f04, f08, f0c, f10;
@@ -112,7 +114,7 @@ struct Holder {
     Fighter *FUN_00059a30();
 };
 
-struct Params {
+struct Params_148f40 {
     Holder *FUN_000592a0();
 };
 
@@ -122,20 +124,10 @@ extern int FUN_00097a30(float a1, float a2, float a3, Ref *a4, int a5, Vec3 *a6,
 namespace hulkfight {
 namespace motion {
 
-class CivilianThrowAction {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual bool vfunc_3(int a, int b);
-    char pad04[0x18];
-    Shape *shape;           // 0x1c
-    Params *owner;          // 0x20
-};
-
-bool CivilianThrowAction::vfunc_3(int a, int b)
-{
-    Fighter *fighter = owner->FUN_000592a0()->FUN_00059a30();
+}
+}
+bool hulkfight::motion::CivilianThrowAction::vfunc_3(int a, int b) {
+    Fighter *fighter = (*(Params_148f40 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();
     if (fighter == 0)
         return false;
     Target *target = fighter->FUN_00036020();
@@ -151,12 +143,12 @@ bool CivilianThrowAction::vfunc_3(int a, int b)
     pos = target->pos;
     Vec3 zero;
     zero.x = 0; zero.y = 0; zero.z = 0;
-    Vec3 cur = shape->v10;
+    Vec3 cur = (*(Shape * *)&this->f_1c)->v10;
     Vec3 dir;
     if (!cur.FUN_0022d2b0(&zero, 1.0e-5f)) {
         Anchor *an = fighter->body->FUN_00059a40();
         if (an != 0) {
-            cur = shape->v10;
+            cur = (*(Shape * *)&this->f_1c)->v10;
             an->sub.FUN_00221c40()->FUN_0022c3b0(&cur, &dir);
         }
     } else {
@@ -198,7 +190,7 @@ bool CivilianThrowAction::vfunc_3(int a, int b)
     if (h.r84) h.r84->Release();
     h.r84 = held;
 
-    Shape *sh = shape;
+    Shape *sh = (*(Shape * *)&this->f_1c);
     h.f88 = (sh->a20 - sh->a1c) * t + sh->a1c;
     float y = (sh->a28 - sh->a24) * t + sh->a24;
     h.f8c = (sh->a30 - sh->a2c) * t + sh->a2c;
@@ -211,7 +203,4 @@ bool CivilianThrowAction::vfunc_3(int a, int b)
     target->FUN_00081420(&h);
     h.FUN_00059300();
     return true;
-}
-
-}
 }

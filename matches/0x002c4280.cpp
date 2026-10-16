@@ -1,3 +1,4 @@
+#include "decls/address.h"
 struct Desc_2c4280 {
     unsigned char flag;
     char pad[3];
@@ -5,7 +6,7 @@ struct Desc_2c4280 {
     float c, d, e, f, g, h, i, j, k, l, m, n, o;
     void FUN_0029c240(int, void*, void*, float, float, float, float, float, float);
 };
-struct Manager_2c4280 {
+struct Gfx {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -45,7 +46,6 @@ struct Manager_2c4280 {
     virtual void v36();
     virtual void v37(int, Desc_2c4280*, int);
 };
-extern Manager_2c4280* DAT_0052c2a8;
 namespace pure3d {
 struct SpotLight {
     char pad0[16];

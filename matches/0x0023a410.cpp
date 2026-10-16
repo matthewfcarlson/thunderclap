@@ -1,17 +1,10 @@
-class BufferStringReader {
-  public:
-    char pad[8];
-    unsigned char* data;
-    char pad2[4];
-    unsigned int limit;
-    unsigned int pos;
-    unsigned char vfunc_5();
-};
-unsigned char BufferStringReader::vfunc_5() {
-    unsigned int p = pos;
-    if (p >= limit)
+#include "gen/fight.h"
+
+unsigned char fight::BufferStringReader::vfunc_5() {
+    unsigned int p = this->f_14;
+    if (p >= this->f_10)
         return 0;
-    unsigned char c = data[p];
-    pos = p + 1;
+    unsigned char c = (*(unsigned char * *)&this->f_08)[p];
+    this->f_14 = p + 1;
     return c;
 }

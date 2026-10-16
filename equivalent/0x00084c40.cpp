@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 138/142, incomplete)
 // FUN_00084c40 @ 0x00084c40
+#include "decls/address.h"
 struct V3_84c40 {
     float x, y, z;
     float FUN_0022d110();
@@ -77,7 +78,7 @@ struct Manager_84c40 {
     void FUN_0007da40(void *p);
 };
 
-struct Globals_84c40 {
+struct World {
     char pad00[0x0c];
     Registry_84c40 *registry;     // 0x0c
     char pad10[0x20 - 0x10];
@@ -90,7 +91,6 @@ struct Globals_84c40 {
     Holder_84c40 *holder;         // 0x54
 };
 
-extern Globals_84c40 *DAT_004dd700;
 extern float DAT_003ff9ac;
 extern float DAT_003ff9b0;
 extern float DAT_0049bf80;
@@ -172,7 +172,7 @@ public:
 void Mover_84c40::FUN_00084c40(float dt)
 {
     Frame_84c40 fr;
-    Globals_84c40 *g = DAT_004dd700;
+    World *g = DAT_004dd700;
     Probe_84c40 *probe = g->holder->FUN_00086340();
     fr.b13 = probe->FUN_00092940(0x25);
     fr.s38.reg = DAT_004dd700->registry;

@@ -177,11 +177,20 @@ class Block:
         self.defs = []
         self.decls = []          # (key, norm, item)
         self.macros = sorted(set(re.findall(r"^\s*#\s*define\s+(\w+)", text, re.M)))
+        self.gen_includes = []   # include/gen/ headers the source includes (hoisted to the TU)
         try:
             self.items = cxx_items.parse(text)
         except ValueError as e:
             self.wrap("parse: %s" % e)
             return
+        keep = []
+        for it in self.items:
+            m = GEN_INCLUDE.match(it.text) if it.kind == "pp" else None
+            if m:
+                self.gen_includes.append(m.group(1))
+            else:
+                keep.append(it)
+        self.items = keep
         for it in self.items:
             if it.kind == "funcdef" and not it.is_inline and not it.key[0].startswith("template"):
                 self.defs.append(it)
@@ -221,6 +230,52 @@ def key_str(k):
 
 
 TYPE_KINDS = {"class", "template class", "enum", "typedef", "fwd", "template fwd"}
+# shared headers a source may include: include/gen/ (classes, tools/gen_headers.py) and include/decls/ (pinned
+# prototypes of address names); the generator hoists them to the TU and their declarations win in it
+GEN_INCLUDE = re.compile(r'#\s*include\s*[<"]((?:gen|decls)/\w+\.h)[>"]\s*$')
+INCLUDE_ROOT = os.path.join(ROOT, "include")
+_GEN_CACHE = {}
+
+
+def gen_header_items(h):
+    """Declaration items of include/gen/<h> and the gen headers it includes (cached)."""
+    if h in _GEN_CACHE:
+        return _GEN_CACHE[h]
+    _GEN_CACHE[h] = []          # include cycles (there are none) end here
+    p = os.path.join(INCLUDE_ROOT, h)
+    out = []
+    try:
+        items = cxx_items.parse(open(p, encoding="latin1").read())
+    except (OSError, ValueError):
+        items = []
+    for it in items:
+        m = re.match(r'#\s*include\s*"(\w+\.h)"', it.text) if it.kind == "pp" else None
+        if m:
+            out += gen_header_items(os.path.dirname(h) + "/" + m.group(1))
+        elif it.kind in DECL_KINDS:
+            out.append(it)
+    _GEN_CACHE[h] = out
+    return out
+
+
+def decls_body(h):
+    """The declarations of include/<h> (an include/decls/ header) without its include guard."""
+    lines = open(os.path.join(INCLUDE_ROOT, h), encoding="latin1").read().splitlines()
+    return "\n".join(l for l in lines if not re.match(r"\s*#\s*(ifndef|define|endif)\b", l))
+
+
+def gen_variants(headers):
+    """name -> {variants} declared by include/gen/ headers (and what they include)."""
+    out = collections.defaultdict(set)
+    seen = set()
+    for h in headers:
+        for it in gen_header_items(h):
+            if id(it) in seen:
+                continue
+            seen.add(id(it))
+            nk, var = item_variant(it)
+            out[nk].add(var)
+    return dict(out)
 
 
 def item_variant(it, k=None, norm=None):
@@ -450,10 +505,11 @@ def compatible(a, b):
     return False
 
 
-def accept_variants(vs):
-    """Greedy: most-used variants first, each kept if compatible with all kept so far."""
+def accept_variants(vs, forced=()):
+    """Greedy: most-used variants first, each kept if compatible with all kept so far. `forced` variants
+    (the declarations of an include/gen/ header the TU includes) are kept first."""
     order = sorted(vs, key=lambda v: (-len(vs[v]), min(vs[v]), v))
-    kept = []
+    kept = list(forced)
     for v in order:
         if all(compatible(v, k) for k in kept):
             kept.append(v)
@@ -471,6 +527,8 @@ class TU:
         self.placeholders = []      # (addr, size, name)
         self.local = []             # [(key, norm, item)] emitted in this TU
         self.flags = None
+        self.gen = []               # include/gen/ headers the TU includes (gen/<ns>.h)
+        self.gen_vars = {}          # name -> variants those headers declare
 
     @property
     def dir(self):
@@ -556,7 +614,27 @@ class Generator:
                 if t.blocks or t.placeholders:
                     self.tus.append(t)
         for t in self.tus:
-            self.merge_tu(t)
+            if any(b.gen_includes and b.mode == "merged" for b in t.blocks):
+                self.merge_tu_gen(t)
+            else:
+                self.merge_tu(t)
+        # a source on include/gen/ that can't merge gets its own TU: its definition (`void ns::X::f()`,
+        # `template <> ...`) can't go inside a fn_<addr> namespace
+        for t in list(self.tus):
+            if t.tag == "iso":
+                continue
+            # a wrapped source that only includes include/decls/ stays wrapped: write_tu puts the header's
+            # declarations inline in its fn_<addr> namespace
+            for b in [b for b in t.blocks if b.mode == "wrapped"
+                      and any(h.startswith("gen/") for h in b.gen_includes)]:
+                t.blocks.remove(b)
+                b.mode = "isolated"
+                b.reasons.append("on include/gen/ and not mergeable")
+                it = TU(t.obj, "%s.iso_%08x.cpp" % (t.path[:-4].split(".")[0], b.addr), "iso")
+                it.blocks.append(b)
+                it.flags = b.flags
+                self.tus.append(it)
+                self.stats["include/gen/ sources isolated (not mergeable)"] += 1
         self.hoist()
 
     # -- per TU --------------------------------------------------------------------------------
@@ -571,6 +649,8 @@ class Generator:
         for b in tu.blocks:
             if not hasattr(b, "orig_decls"):
                 b.orig_decls = list(b.decls)
+        tu.gen = sorted({h for b in tu.blocks if b.mode == "merged" for h in b.gen_includes})
+        tu.gen_vars = gen_variants(tu.gen) if tu.gen else {}
         for _ in range(12):
             for b in tu.blocks:
                 b.decls = list(b.orig_decls)
@@ -591,6 +671,8 @@ class Generator:
         tu.variants = collections.defaultdict(set)       # name -> variants used by merged blocks (incl. defs)
         tu.local = []
         tu.merged_names = sorted(absorbed) if absorbed else []
+        for nk, vs in tu.gen_vars.items():
+            tu.variants[nk] |= vs           # keeps conflicting stubs out of the headers this TU includes
         for b in tu.blocks:
             if b.mode != "merged":
                 continue
@@ -600,6 +682,39 @@ class Generator:
                 if (k, norm) not in seen:
                     seen.add((k, norm))
                     tu.local.append((k, norm, it, b.addr))
+
+    def merge_tu_gen(self, tu):
+        """A TU with sources on include/gen/ (or include/decls/): the headers' declarations win in the TU, so
+        functions whose own stubs of those names differ are wrapped. Merge both ways, with the headers and
+        without them (the sources on them then go to their own TUs), and keep the one with more merged
+        functions."""
+        start = {b.addr: (b.mode, list(b.reasons)) for b in tu.blocks}
+
+        def reset():
+            for b in tu.blocks:
+                b.mode, b.reasons = start[b.addr][0], list(start[b.addr][1])
+                if hasattr(b, "orig_decls"):
+                    b.decls = list(b.orig_decls)
+
+        def score():
+            # merged functions, minus half a point per source that would go to its own TU (see build())
+            iso = sum(1 for x in tu.blocks if x.mode == "wrapped" and any(h.startswith("gen/") for h in x.gen_includes))
+            return sum(1 for x in tu.blocks if x.mode == "merged") - 0.5 * iso
+
+        self.merge_tu(tu)
+        with_gen = score()
+        reset()
+        for b in tu.blocks:
+            if b.gen_includes and b.mode == "merged":
+                b.wrap("on include/gen/, and its TU merges more functions without the headers")
+        self.merge_tu(tu)
+        without = score()
+        if without > with_gen:
+            self.stats["TUs that merge more without include/gen/"] += 1
+            return
+        reset()
+        self.merge_tu(tu)
+        self.stats["TUs on include/gen/"] += 1
 
     def choose_variants(self, tu):
         """Wrap the TU's blocks whose declarations can't share the TU's scope. Returns the substitutions
@@ -616,7 +731,7 @@ class Generator:
                     raw[nk][cvar][var].add(b.addr)
                     if it is not None:
                         items.setdefault((nk, var), it)
-            accepted = {nk: accept_variants(vs) for nk, vs in users.items()}
+            accepted = {nk: accept_variants(vs, tu.gen_vars.get(nk, ())) for nk, vs in users.items()}
             absorbed = {}
             for nk, vs in users.items():
                 # spellings of one declaration: everyone uses the most-used spelling's item
@@ -628,7 +743,7 @@ class Generator:
                             for v in rv:
                                 if v != best:
                                     absorbed.setdefault(nk, {})[v] = rep
-                if len(accepted[nk]) == len(vs) or not self.merge_classes:
+                if len(accepted[nk]) == len(vs) or not self.merge_classes or nk in tu.gen_vars:
                     continue
                 m = self.merge_name(tu, nk, vs, cand)
                 if m:
@@ -935,6 +1050,10 @@ class Generator:
         rec = {"path": tu.path, "object": o["file"], "layer": layer_of(o), "start": o["start"], "tag": tu.tag,
                "flags": tu.flags or [], "blocks": [], "locals": [], "placeholders": len(tu.placeholders)}
         merged = [b for b in tu.blocks if b.mode == "merged"]
+        gen = sorted({h for b in merged for h in b.gen_includes})
+        for h in gen:
+            lines.append('#include "%s"' % h)
+        rec["gen"] = gen
         if merged:
             hp = os.path.join(TREE, "include", tu.header)
             if os.path.exists(hp):
@@ -979,6 +1098,10 @@ class Generator:
                         emitted_ops.add(sig)
                         lines += emit_item(it)
                     text = text[:it.toks[0].s] + text[it.toks[-1].e:]
+                # an include/decls/ header goes in inline: its declarations belong to the fn_<addr> namespace
+                # with the source's own stubs (`struct World;` + the source's `struct World {...}`)
+                text = re.sub(r'^[ \t]*#\s*include\s*[<"](decls/\w+\.h)[>"][ \t]*$', lambda m: decls_body(m.group(1)),
+                              text, flags=re.M)
                 lines.append("namespace %s {" % b.ns)
                 lines += [l for l in text.rstrip("\n").splitlines()]
                 lines.append("} // namespace %s" % b.ns)

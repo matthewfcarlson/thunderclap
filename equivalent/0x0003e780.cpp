@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 33/34, incomplete)
 // FUN_0003e780 @ 0x0003e780
+#include "decls/address.h"
 extern "C" double sqrt(double);
 extern "C" double cos(double);
 extern "C" double fabs(double);
@@ -76,7 +77,6 @@ struct Actor_3e780 {
     bool FUN_0003e780(void *a1, Vec3_3e780 *target, float maxDist, bool *outA, bool *outB);
 };
 
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
 bool __cdecl FUN_00036b10(void *a1, Vec3_3e780 *p, Vec3_3e780 *target, Vec3_3e780 *z, Vec3_3e780 *tmp, bool *outA, float *ang);
 
 struct Frame_3e780 {

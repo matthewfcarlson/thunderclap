@@ -1,11 +1,10 @@
 // Same code shape as 0x002665a0 (propagated; names are from that function)
-class C_276da0 {
-  public:
-    char pad[12];
-    C_276da0* field;
+#include "gen/core.h"
+
+struct InstanceDrive_nv_276da0 {
     void g();
-    void f();
 };
-void C_276da0::f() {
-    field->g();
+
+void core::InstanceDrive::vfunc_28() {
+    ((InstanceDrive_nv_276da0*)((*(core::InstanceDrive * *)&this->f_0c)))->g();
 }

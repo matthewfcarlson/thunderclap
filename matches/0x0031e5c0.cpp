@@ -1,12 +1,5 @@
 // Same code shape as 0x00306fc0 (propagated; names are from that function)
-struct physics_CollisionRay_31e5c0 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5(int a, int b);
-    virtual void vfunc_6();
-};
+#include "gen/pure3d.h"
 
-void physics_CollisionRay_31e5c0::vfunc_5(int a, int b) {}
+void pure3d::pddiBaseContext::vfunc_96(unsigned int __p0, unsigned int __p1) { int a = (int)__p0; int b = (int)__p1;
+}

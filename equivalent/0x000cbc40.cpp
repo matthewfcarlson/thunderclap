@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 150/150)
 // FUN_000cbc40 @ 0x000cbc40
+#include "decls/address.h"
 extern char DAT_004dde78;
 extern char DAT_0049fd74[];
 extern char DAT_0049fd9c[];
@@ -59,11 +60,10 @@ struct Pawn_cbc40 {
 struct Obj54_cbc40 {
     Probe_cbc40 *FUN_00086340();
 };
-struct Game_cbc40 {
+struct World {
     char pad0[0x54];
     Obj54_cbc40 *f54;
 };
-extern Game_cbc40 *DAT_004dd700;
 
 class Panel_cbc40 {
 public:

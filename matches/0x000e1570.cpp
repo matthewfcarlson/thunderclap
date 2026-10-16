@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class FEThing_e1570 {
   public:
     virtual void a0();
@@ -19,14 +21,10 @@ class FEData {
     char pad[0x4c];
     FEThing_e1570* obj;
 };
-class FEPoseAnimation {
-  public:
-    char pad[0x0c];
-    FEData* data;
-    void vfunc_4(void*);
-};
-void FEPoseAnimation::vfunc_4(void* arg) {
-    FEThing_e1570* p = data->obj;
+
+void FEPoseAnimation::vfunc_4(int __p0) { void * arg = (void *)__p0;
+
+    FEThing_e1570* p = (*(FEData * *)&this->f_0c)->obj;
     if (p)
         p->a12(arg);
 }

@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class Renderer_dedb0 {
   public:
     virtual void f0();
@@ -13,25 +15,17 @@ class Renderer_dedb0 {
     virtual void f10();
     virtual void f11(int, int);
 };
-class CDisplayEffect {
+class CDisplayEffect_dedb0 {
   public:
-    class Drawable {
+    class Drawable_dedb0 {
       public:
         virtual void d0();
         virtual void d1();
         virtual void d2();
         virtual void d3();
     };
-    class DrawableText : public Drawable {
-      public:
-        int value;
-        Renderer_dedb0* renderer;
-        virtual void vfunc_0();
-        virtual void vfunc_1();
-        virtual void vfunc_2();
-        virtual void vfunc_3();
     };
-};
+
 void CDisplayEffect::DrawableText::vfunc_0() {
-    renderer->f11(value, 0);
+    (*(Renderer_dedb0 * *)&this->f_08)->f11(this->f_04, 0);
 }

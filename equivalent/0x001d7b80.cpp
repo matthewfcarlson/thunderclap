@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 38/38)
 // FUN_001d7b80 @ 0x001d7b80
+#include "decls/address.h"
 struct Vec3_1d7b80 {
     float x, y, z;
 };
@@ -54,7 +55,7 @@ struct Recorder {
     void FUN_00066a10();
 };
 
-struct Manager_1d7b80 {
+struct World {
     char pad00[0xc];
     struct Listener_1d7b80 *listener; // 0x0c
 };
@@ -64,7 +65,6 @@ struct Listener_1d7b80 {
     void FUN_001dc170(Actor_1d7b80 *a, int flag);
 };
 
-extern Manager_1d7b80 *DAT_004dd700;
 extern Key_1d7b80 DAT_004e2520;
 extern Key_1d7b80 DAT_004e2528;
 extern Key_1d7b80 DAT_004e2530;

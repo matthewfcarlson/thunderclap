@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3056 inputs, branch coverage 61/62, incomplete)
 // hulkfight::ai::PathFormationAction::vfunc_5 @ 0x0011d2c0
+#include "decls/address.h"
 struct V3_11d2c0 {
     float x, y, z;
     float FUN_0022d110();
@@ -78,11 +79,10 @@ struct Hub1c_11d2c0 {
     char FUN_001ae2c0(V3_11d2c0 *a, V3_11d2c0 *b, V3_11d2c0 *c, float f1, float f2, float f3, int i1, int i2, int i3, int i4, int i5,
                       float t, int i6);
 };
-struct Hub_11d2c0 {
+struct World {
     char pad0[0x1c];
     Hub1c_11d2c0 *f1c;
 };
-extern Hub_11d2c0 *DAT_004dd700;
 extern int DAT_004e0d18;
 extern int DAT_004e0d1c;
 extern int DAT_004e0d28;

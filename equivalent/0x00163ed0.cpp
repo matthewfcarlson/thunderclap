@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 445 inputs, branch coverage 42/42)
 // hulkfight::motion::LocomotionSprintAction::vfunc_3 @ 0x00163ed0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 namespace content {
@@ -97,8 +98,7 @@ public:
 
 struct Holder44_163ed0 { Factory_163ed0 *FUN_00203d70(); };
 struct Holder28_163ed0 { Holder44_163ed0 *FUN_000862a0(); };
-struct Manager_163ed0 { char pad0[0x54]; Holder28_163ed0 *holder; };
-extern Manager_163ed0 *DAT_004dd700;
+struct World { char pad0[0x54]; Holder28_163ed0 *holder; };
 
 struct Config_163ed0 {
     virtual void v0();

@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 185 inputs, branch coverage 16/16)
 // Render::Canvas::HulkShaderCallback::vfunc_3 @ 0x001c1460
+#include "decls/address.h"
 typedef unsigned long U32_1c1460;
 struct Color_1c1460 { U32_1c1460 value; void FUN_00011750(U32_1c1460 from, U32_1c1460 to, float amount); };
-struct Device_1c1460 {
+struct Gfx {
  virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7();
  virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
  virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19(); virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
  virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27(); virtual void s28(); virtual void s29(); virtual void s30(); virtual void s31();
  virtual void s32(); virtual void s33(); virtual int count(); virtual void setColor(U32_1c1460); virtual Color_1c1460* getColor(Color_1c1460*); virtual void s37(); virtual void s38(); virtual bool enabled(int); virtual void s40(); virtual void s41(); virtual void setLight(int,U32_1c1460); virtual Color_1c1460* getLight(Color_1c1460*,int);
 };
-extern Device_1c1460* DAT_0052c2a8;
 struct Shader { virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void setInt(U32_1c1460,int); virtual void setFloat(U32_1c1460,float); };
 struct Object { char pad[16]; Shader* shader; };
 namespace Render { namespace Canvas {

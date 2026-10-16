@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 struct Dev_3326d0 {
     char p0[0x20];
     int tc;
@@ -30,40 +32,21 @@ class Sub_3326d0 {
     virtual void f15();
     virtual void Set(int x);
 };
-class S_3326d0 {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual void v13();
-    char pad[0xc];
-    Sub_3326d0* sub;
-    Dev_3326d0* dev;
-};
-void S_3326d0::v13() {
-    if (dev->s != 1) {
-        dev->s = 1;
+
+void pure3d::d3dBuildingShader::vfunc_13() {
+    if ((*(Dev_3326d0 * *)&this->f_14)->s != 1) {
+        (*(Dev_3326d0 * *)&this->f_14)->s = 1;
         g_dirty |= 0x800;
         g_a_3326d0 = 1;
     }
-    if (dev->tc != 2) {
-        dev->tc = 2;
+    if ((*(Dev_3326d0 * *)&this->f_14)->tc != 2) {
+        (*(Dev_3326d0 * *)&this->f_14)->tc = 2;
         SetTC(2, 2);
     }
-    if (dev->t != 0) {
-        dev->t = 0;
+    if ((*(Dev_3326d0 * *)&this->f_14)->t != 0) {
+        (*(Dev_3326d0 * *)&this->f_14)->t = 0;
         g_dirty |= 0x400;
         g_b_3326d0 = 0;
     }
-    sub->Set(3);
+    (*(Sub_3326d0 * *)&this->f_10)->Set(3);
 }

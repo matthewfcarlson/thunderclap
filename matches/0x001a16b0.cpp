@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct Script_1a16b0 {
     char pad[0x14];
     int arg;
@@ -6,24 +8,18 @@ struct Script_1a16b0 {
 struct Provider_1a16b0 {
     int Make(int, int, int);
 };
-struct LuaAction {
-    char pad[0x1c];
-    Script_1a16b0* script;
-    char pad1[4];
-    int value;
-    bool vfunc_3(int, int);
-};
 int GetThing();
-bool LuaAction::vfunc_3(int a, int b) {
+
+bool hulkfight::scenario::LuaAction::vfunc_3(int a, int b) {
     int x = GetThing();
     if (!x)
         return false;
-    Script_1a16b0* s = script;
+    Script_1a16b0* s = (*(Script_1a16b0 * *)&this->f_1c);
     int edi = s->result;
     if (edi) {
         int edx = s->arg;
-        if (edx && !value) {
-            value = ((Provider_1a16b0*)x)->Make(edx, edi, 0);
+        if (edx && !this->f_24) {
+            this->f_24 = ((Provider_1a16b0*)x)->Make(edx, edi, 0);
             return true;
         }
     }

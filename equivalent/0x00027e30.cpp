@@ -2,6 +2,7 @@
 // FUN_00027e30 @ 0x00027e30
 // Does the named pawn's current item match the item at `path` (or the item with that name hash)?
 // Variant of 0x00027f00 that rejects the pawn's excluded item first.
+#include "decls/address.h"
 typedef unsigned __int64 Key_27e30;
 struct Item_27e30 { char pad[8]; unsigned low; unsigned high; };
 struct Handle_27e30 { Item_27e30* item; bool FUN_00231ee0(); };
@@ -13,8 +14,6 @@ extern void* DAT_0048e060;
 extern Manager_27e30* DAT_004e5af8;
 extern char DAT_0048e090;
 extern char DAT_0048e0ac;
-extern Key_27e30 __cdecl FUN_002672f0(const char*, int, int);
-extern Key_27e30 __cdecl FUN_0027b020(const char*);
 extern Item_27e30* __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
 struct Target_27e30 {
  Object* FUN_00024280(Key_27e30 key);

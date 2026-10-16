@@ -16,7 +16,7 @@ public:
     virtual bool Read(int a, int b, char* dst, int size);
 };
 
-class ParamValueStringList {
+namespace fight { class ParamValueStringList {
 public:
     virtual void f0();
     virtual void f1();
@@ -28,9 +28,9 @@ public:
     int pad[1];
     int key0;
     int key1;
-};
+}; }
 
-bool ParamValueStringList::vfunc_5(void* a, void* unused, Reader* reader) {
+bool fight::ParamValueStringList::vfunc_5(void* a, void* unused, Reader* reader) {
     char text[0x400] = "";
     unsigned int cookie = DAT_004d9968;
     bool ok = reader->Read(key0, key1, text, 0x400);

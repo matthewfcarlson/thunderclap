@@ -1,12 +1,5 @@
-class VectorChannel {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual unsigned int vfunc_2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-};
-unsigned int VectorChannel::vfunc_2() {
+#include "gen/pure3d.h"
+
+unsigned int pure3d::VectorChannel::vfunc_2() {
     return 0x54434556;
 }

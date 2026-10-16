@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0009b930 @ 0x0009b930
+#include "decls/address.h"
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0049cad8[];
 extern "C" char DAT_00404d80[];
 extern "C" void __stdcall FUN_001d0480(void*, int);
-extern "C" char __cdecl FUN_001d04d0(const void*);
 class MethodObj_9b930 {
   public:
     int vptr;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 295 inputs, branch coverage 10/10)
 // FUN_002b4210 @ 0x002b4210
+#include "decls/address.h"
 union FI_2b4210 {
     float f;
     int i;
@@ -33,7 +34,7 @@ public:
     virtual void v1c();
     virtual void v20(unsigned int tag, int color);
 };
-class Renderer_2b4210 {
+class Gfx {
 public:
     virtual void v00();
     virtual void v04();
@@ -73,7 +74,6 @@ struct Holder_2b4210 {
     Layer_2b4210 *layer;
 };
 extern Holder_2b4210 *DAT_00554bb4;
-extern Renderer_2b4210 *DAT_0052c2a8;
 extern unsigned int DAT_0052cba8;
 extern Edge16_2b4210 DAT_00544bb0[];
 extern int DAT_004d06dc;

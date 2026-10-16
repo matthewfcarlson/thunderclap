@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00428afc[];
 class Sub_23d360 {
   public:
@@ -19,17 +21,15 @@ class Caster_23d360 : public FactoryBase {
   public:
     char pad[4];
 };
-class ConditionFactoryCasterTemplate : public Caster_23d360 {
-  public:
-    void* V1(void*);
-};
-void* ConditionFactoryCasterTemplate::V1(void* a) {
+
+template <> void* fight::ConditionFactoryCasterTemplate<fight::FalseCondition>::vfunc_1(void* __p0) { void * a = (void *)__p0;
+
     Obj_23d360* p = (Obj_23d360*)alloc(16);
     if (p) {
         p->Init();
         *((void**)p) = (void*)((int)DAT_00428afc);
         p->sub.Setup(a);
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

@@ -2,12 +2,11 @@
 // pure3d::TextureFontLoader::vfunc_5 @ 0x00295620
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
+#include "decls/address.h"
 extern "C" void *memset(void *dst, int c, unsigned int n);
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 void *thunk_FUN_0008d690(unsigned int size);
 void __cdecl thunk_FUN_00267090(void *p);
-unsigned __int64 FUN_0027b020(const char *s);
-unsigned __int64 FUN_002672f0(const char *s, int a, int b);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 namespace content {

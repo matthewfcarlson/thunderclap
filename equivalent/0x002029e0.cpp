@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 20/22, incomplete)
 // FUN_002029e0 @ 0x002029e0
+#include "decls/address.h"
 extern "C" double sqrt(double);
 
 struct Vec3_2029e0 {
@@ -87,7 +88,6 @@ struct Contact_2029e0 {
     Body_2029e0* body;
 };
 
-extern World* DAT_004dd700;
 extern int DAT_004d2a3c;
 extern char DAT_004d2a40;
 extern char DAT_00554c1c;

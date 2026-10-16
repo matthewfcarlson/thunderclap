@@ -1,12 +1,9 @@
-class ControllerXBox {
-  public:
-    char pad[8];
-    int handle;
-    void vfunc_21(int);
-};
+#include "gen/core.h"
+
 extern void __stdcall XInputClose(int);
-void ControllerXBox::vfunc_21(int p) {
-    if (handle)
-        XInputClose(handle);
-    handle = p;
+
+void core::ControllerXBox::vfunc_21(int p) {
+    if (this->f_08)
+        XInputClose(this->f_08);
+    this->f_08 = p;
 }

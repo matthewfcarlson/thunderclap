@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000c6330 @ 0x000c6330
+#include "decls/address.h"
 struct V3_c6330 {
     float x, y, z;
 };
@@ -33,7 +34,7 @@ public:
 
 class Prim;
 
-class Gfx_c6330 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -71,7 +72,6 @@ public:
 
 extern Shader *DAT_004dde68;
 extern ShaderLib *DAT_0052c2a0;
-extern Gfx_c6330 *DAT_0052c2a8;
 
 void __cdecl FUN_000c5fa0(Prim *prim, V3_c6330 a, V3_c6330 b, unsigned int color);
 

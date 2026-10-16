@@ -1,6 +1,8 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00414150[];
 extern "C" void* __cdecl Alloc(unsigned int);
-class CollisionChargeCondition {
+class CollisionChargeCondition_159880 {
   public:
     virtual void V0();
     virtual void V1();
@@ -14,24 +16,16 @@ class CollisionChargeCondition {
     char c;
     void Init(int);
 };
-class Factory_159880 {
-  public:
-    virtual void V0();
-    virtual void V1();
-    virtual void V2();
-    virtual void V3();
-    virtual void V4();
-    virtual CollisionChargeCondition* V5();
-};
-CollisionChargeCondition* Factory_159880::V5() {
-    CollisionChargeCondition* p = (CollisionChargeCondition*)Alloc(0x18);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionChargeCondition>::vfunc_5() {
+    CollisionChargeCondition_159880* p = (CollisionChargeCondition_159880*)Alloc(0x18);
     if (p) {
         p->Init(0);
         *(unsigned long*)p = ((int)DAT_00414150);
         p->a = 0;
         p->b = 0;
         p->c = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

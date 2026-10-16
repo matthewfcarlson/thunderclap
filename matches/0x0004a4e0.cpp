@@ -1,5 +1,7 @@
 // Same code shape as 0x0004a260 (propagated; names are from that function)
-class CCondition {
+#include "gen/global.h"
+
+class CCondition_4a4e0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -11,14 +13,12 @@ class CCondition {
     virtual void v7();
     virtual void v8(void*);
 };
-class CMotionStateCondition : public CCondition {
-  public:
-    virtual void v8(void*);
-};
 struct H {
     H* first();
     void second();
 };
-void CMotionStateCondition::v8(void* p) {
+
+void CAlertStatusCondition::vfunc_8(void* __p0) { void * p = (void *)__p0;
+
     ((H*)p)->first()->second();
 }

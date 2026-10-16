@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class Child_e4d20 {
   public:
     virtual void f0();
@@ -12,31 +14,14 @@ class Child_e4d20 {
     virtual void f9();
     virtual void f10(int);
 };
-class FEContainer {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual void v13();
-    virtual void vfunc_14();
-    char pad[0x44];
-    Child_e4d20* child;
+struct FEContainer_nv_e4d20 {
     void helper();
 };
+
 void FEContainer::vfunc_14() {
-    helper();
-    if (child) {
-        child->f8(0);
-        child->f10(2);
+    ((FEContainer_nv_e4d20*)this)->helper();
+    if ((*(Child_e4d20 * *)&this->f_48)) {
+        (*(Child_e4d20 * *)&this->f_48)->f8(0);
+        (*(Child_e4d20 * *)&this->f_48)->f10(2);
     }
 }

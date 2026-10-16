@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class Child_e20f0 {
   public:
     virtual void a0();
@@ -16,17 +18,14 @@ class Child_e20f0 {
     virtual void a13();
     virtual void callme(int);
 };
-class FELayout {
+class FELayout_e20f0 {
   public:
     virtual void f0();
     char pad[0x40];
     Child_e20f0* child;
 };
-class SingleLayout : public FELayout {
-  public:
-    void vfunc_9(int);
-};
+
 void SingleLayout::vfunc_9(int x) {
-    if (child)
-        child->callme(x);
+    if ((*(Child_e20f0 * *)&this->f_44))
+        (*(Child_e20f0 * *)&this->f_44)->callme(x);
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 321 inputs, branch coverage 46/48, incomplete)
 // MapThing::vfunc_5 @ 0x000ec360
+#include "decls/address.h"
 typedef unsigned __int64 u64;
 extern "C" double sin(double);
 extern "C" double atan2(double y, double x);
@@ -44,7 +45,6 @@ struct Gfx {
     virtual VBuf *v30(void *a, int b, int c, int d, int e);
     virtual void v31(VBuf *vb);
 };
-extern Gfx *DAT_0052c2a8;
 
 struct Dev {
     virtual void d0(); virtual void d1(); virtual void d2(); virtual void d3(); virtual void d4(); virtual void d5(); virtual void d6(); virtual void d7(); virtual void d8(); virtual void d9(); virtual void d10(); virtual void d11(); virtual void d12(); virtual void d13(); virtual void d14();
@@ -124,10 +124,8 @@ struct World {
     char pad40[0x58 - 0x40];
     Clock *f58;
 };
-extern World *DAT_004dd700;
 extern float DAT_004de988;
 extern float DAT_004de98c;
-u64 __cdecl FUN_0027b020(const char *s);
 
 struct Ent {
     int e0;

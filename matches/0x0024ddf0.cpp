@@ -1,12 +1,5 @@
-class MetaTypeAttribScalarInt_24ddf0 {
-    char pad0[0x14];
-    int offset;
-    char pad1[0x0c];
-    int value;
+#include "gen/om.h"
 
-  public:
-    void vfunc_3(int);
-};
-void MetaTypeAttribScalarInt_24ddf0::vfunc_3(int p) {
-    *(int*)((char*)p + offset) = value;
+template <> void om::MetaTypeAttribScalar<int>::vfunc_3(int p) {
+    *(int*)((char*)p + this->f_14) = this->f_24;
 }

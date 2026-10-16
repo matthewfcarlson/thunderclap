@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 93 inputs, branch coverage 20/20)
 // hulkfight::motion::ImpulseVelocityAction::vfunc_5 @ 0x00190a40
+#include "gen/hulkfight.h"
+
 struct V3_190a40 {
     float x, y, z;
     bool FUN_0022d2b0(const V3_190a40 *other, float eps);
@@ -26,7 +28,7 @@ struct Table_190a40 {
     unsigned int FUN_0027b200(unsigned int lo, unsigned int hi);
 };
 
-struct Skeleton {
+struct Skeleton_190a40 {
     char pad0[8];
     Table_190a40 *table;
     char pad0c[0x10];
@@ -35,7 +37,7 @@ struct Skeleton {
 
 struct Holder_190a40 {
     char pad0[0x120];
-    Skeleton *skel;
+    Skeleton_190a40 *skel;
     char pad124[0x210];
     Prop_190a40 *propB;    // 0x334
     Prop_190a40 *propA;    // 0x338
@@ -50,7 +52,7 @@ struct Source_190a40 {
     char pad34[0xc];
 };
 
-struct Params {
+struct Params_190a40 {
     char pad0[0x10];
     unsigned int idLo;
     unsigned int idHi;
@@ -79,30 +81,16 @@ struct ArgBlock {
     V3_190a40 vel;
 };
 
-class ImpulseVelocityAction {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual bool vfunc_5(int a, int b);
-    char pad4[0x18];
-    Params *params;
-    Owner_190a40 *owner;
-};
-
-bool ImpulseVelocityAction::vfunc_5(int a, int b)
-{
+bool hulkfight::motion::ImpulseVelocityAction::vfunc_5(int a, int b) {
     if (a != 0)
         return true;
-    Holder_190a40 *holder = owner->FUN_000592a0()->FUN_00059a30();
-    Skeleton *skel = holder->skel;
+    Holder_190a40 *holder = (*(Owner_190a40 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();
+    Skeleton_190a40 *skel = holder->skel;
     if (skel == 0)
         return false;
     unsigned int idx = 0;
-    if ((params->idLo | params->idHi) != 0) {
-        idx = skel->table->FUN_0027b200(params->idLo, params->idHi);
+    if (((*(Params_190a40 * *)&this->f_1c)->idLo | (*(Params_190a40 * *)&this->f_1c)->idHi) != 0) {
+        idx = skel->table->FUN_0027b200((*(Params_190a40 * *)&this->f_1c)->idLo, (*(Params_190a40 * *)&this->f_1c)->idHi);
         if (idx == 0xffff)
             idx = 0;
     }
@@ -111,10 +99,10 @@ bool ImpulseVelocityAction::vfunc_5(int a, int b)
     zero.x = 0;
     zero.y = 0;
     zero.z = 0;
-    V3_190a40 t1 = params->anchor;
+    V3_190a40 t1 = (*(Params_190a40 * *)&this->f_1c)->anchor;
     m.FUN_0022c2b0(&t1, &zero);
-    V3_190a40 p = params->start;
-    t1 = params->end;
+    V3_190a40 p = (*(Params_190a40 * *)&this->f_1c)->start;
+    t1 = (*(Params_190a40 * *)&this->f_1c)->end;
     if (t1.z * t1.z + t1.y * t1.y + t1.x * t1.x > 0.0f) {
         float scale = 0;
         if (holder->propA != 0) {
@@ -140,7 +128,7 @@ bool ImpulseVelocityAction::vfunc_5(int a, int b)
     w.y = 0;
     w.z = 0;
     m.FUN_0022c3b0(&p, &w);
-    bool doSet = params->pad3c != 0;
+    bool doSet = (*(Params_190a40 * *)&this->f_1c)->pad3c != 0;
     if (!doSet) {
         t1.x = 0;
         t1.y = 0;
@@ -148,11 +136,11 @@ bool ImpulseVelocityAction::vfunc_5(int a, int b)
         doSet = w.FUN_0022d2b0(&t1, 0.00001f);
     }
     if (doSet) {
-        Source_190a40 *src = owner->GetSource();
+        Source_190a40 *src = (*(Owner_190a40 * *)&this->f_20)->GetSource();
         if (src != 0) {
             zero = src->posA;
             w = ((ArgBlock *)src)->vel;
-            float k = params->factor;
+            float k = (*(Params_190a40 * *)&this->f_1c)->factor;
             w.x = w.x * k;
             w.y = w.y * k;
             w.z = w.z * k;

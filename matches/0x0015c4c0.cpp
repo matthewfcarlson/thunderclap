@@ -1,17 +1,15 @@
+#include "gen/hulkfight.h"
+
 struct Data_15c4c0 {
     char pad[0x14];
     int a;
     int b;
     unsigned char c;
 };
-class LocomotionStrafe4Action {
-  public:
-    char pad[0x44];
-    Data_15c4c0* mData;
-    void vfunc_8(int* p2, int* p3, unsigned char* p4);
-};
-void LocomotionStrafe4Action::vfunc_8(int* p2, int* p3, unsigned char* p4) {
-    *p2 = mData->a;
-    *p3 = mData->b;
-    *p4 = mData->c;
+
+void hulkfight::motion::LocomotionStrafe4Action::vfunc_8(void* __p0, void* __p1, void* __p2) { int * p2 = (int *)__p0; int * p3 = (int *)__p1; unsigned char * p4 = (unsigned char *)__p2;
+
+    *p2 = (*(Data_15c4c0 * *)&this->f_44)->a;
+    *p3 = (*(Data_15c4c0 * *)&this->f_44)->b;
+    *p4 = (*(Data_15c4c0 * *)&this->f_44)->c;
 }

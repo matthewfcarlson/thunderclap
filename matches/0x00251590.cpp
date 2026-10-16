@@ -1,6 +1,8 @@
+#include "gen/audio.h"
+
 typedef unsigned int size_t;
 namespace audio {
-class SeqEvent {
+class SeqEvent_251590 {
   public:
     virtual void a();
     virtual void b();
@@ -15,22 +17,15 @@ class SeqEvent {
       public:
         void init(const char*, int);
     } field;
-    SeqEvent();
+    SeqEvent_251590();
 };
-class SeqEventPlayTrack : public SeqEvent {
+class SeqEventPlayTrack_251590 : public SeqEvent_251590 {
   public:
-    SeqEventPlayTrack();
+    SeqEventPlayTrack_251590();
     virtual void a();
     virtual void b();
     virtual void c();
     virtual void d();
-};
-class SeqEventPlayTrackType {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual SeqEvent* vfunc_3();
 };
 } // namespace audio
 extern char heap;
@@ -38,12 +33,12 @@ extern void* alloc(char*);
 inline void* operator new(size_t n, char* h) {
     return alloc(h);
 }
-audio::SeqEventPlayTrack::SeqEventPlayTrack() {
+audio::SeqEventPlayTrack_251590::SeqEventPlayTrack_251590() {
     x = 0;
     y = 0;
     flag = 0;
     field.init("MySeqTrack", 2);
 }
-audio::SeqEvent* audio::SeqEventPlayTrackType::vfunc_3() {
-    return new (&heap) audio::SeqEventPlayTrack;
+void* audio::SeqEventPlayTrackType::vfunc_3() {
+    return (void*)(new (&heap) audio::SeqEventPlayTrack_251590);
 }

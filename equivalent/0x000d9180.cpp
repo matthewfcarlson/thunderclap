@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_000d9180 @ 0x000d9180
+#include "decls/address.h"
 struct Locale {
     int FUN_000f7d30(const char* key);
     const char* FUN_000f7220(int id);
@@ -63,7 +64,7 @@ struct Settings_d9180 {
     char flag;
 };
 
-struct Singleton_d9180 {
+struct Singleton_4dd6ec {
     Settings_d9180* FUN_00086280();
 };
 
@@ -97,7 +98,6 @@ extern const char* DAT_004a0cc4;
 extern const char* DAT_004a0ce0;
 extern const char* DAT_004a0ce4;
 extern const char* DAT_004a0ce8;
-extern Singleton_d9180* DAT_004dd6ec;
 extern float DAT_003f335c;
 
 void Menu_d9180::run(int idx)

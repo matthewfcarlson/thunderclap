@@ -1,23 +1,17 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_003fc238[];
 extern void* __cdecl Alloc(unsigned int);
-class Track {
+class Track_77900 {
   public:
-    Track();
+    Track_77900();
     virtual void a();
     virtual void b();
     virtual void c();
     virtual void d();
     virtual void e();
 };
-class Factory_77900 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual Track* Make();
-};
-class CWallSlideTrack : public Track {
+class CWallSlideTrack_77900 : public Track_77900 {
   public:
     char pad[8];
     int x0c;
@@ -30,10 +24,11 @@ class CWallSlideTrack : public Track {
     int x28;
     int x2c;
 };
-Track* Factory_77900::Make() {
-    CWallSlideTrack* p = (CWallSlideTrack*)Alloc(0x30);
+
+template <> void* fight::TrackFactoryTemplate<CWallSlideTrack>::vfunc_5() {
+    CWallSlideTrack_77900* p = (CWallSlideTrack_77900*)Alloc(0x30);
     if (p) {
-        p->Track::Track();
+        p->Track_77900::Track_77900();
         p->x0c = 0;
         p->x18 = 0;
         p->x24 = 0;
@@ -44,7 +39,7 @@ Track* Factory_77900::Make() {
         *(unsigned int*)p = ((int)DAT_003fc238);
         p->x10 = -1.0f;
         p->x20 = 1.0f;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

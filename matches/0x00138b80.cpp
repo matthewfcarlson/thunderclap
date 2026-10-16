@@ -1,31 +1,18 @@
+#include "gen/hulkfight.h"
+
 extern int type1_138b80, type2;
 class Built_138b80 {
   public:
     int make(int, int);
 };
-class HoverTrack {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual int vfunc_10(int, int, int);
-    char pad[0x10];
-    int member14;
-};
 extern int __cdecl Check(void*, int, int, int, int);
 extern Built_138b80* __cdecl Allocate(int);
-int HoverTrack::vfunc_10(int a, int b, int c) {
+
+int hulkfight::motion::HoverTrack::vfunc_10(int a, int b, int c) {
     if (Check((void*)c, 0, (int)&type1_138b80, (int)&type2, 0)) {
         Built_138b80* p = Allocate(0x24);
         if (p) {
-            int m = member14;
+            int m = this->f_14;
             return p->make(m, c);
         }
     }

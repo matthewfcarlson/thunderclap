@@ -1,9 +1,9 @@
+#include "decls/address.h"
 class Base {
   public:
     virtual void invoke();
     Base(const char*, int);
 };
-extern unsigned char __cdecl FUN_001d04d0(const char*);
 extern const char a[], b[];
 class Method1 : public Base {
   public:

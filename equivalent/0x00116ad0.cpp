@@ -45,7 +45,7 @@ struct Pose {
     float extra;
 };
 
-class MotionTargetAction {
+namespace hulkfight { namespace ai { class MotionTargetAction {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -57,7 +57,7 @@ public:
     Pose *pose;
     Owner_116ad0 *owner;
     RefTarget *current;
-};
+}; }}
 
 struct Frame_116ad0 {
     Vec3_116ad0 tmp;
@@ -66,7 +66,7 @@ struct Frame_116ad0 {
     Vec3_116ad0 d;
 };
 
-bool MotionTargetAction::vfunc_5(int skip, int unused)
+bool hulkfight::ai::MotionTargetAction::vfunc_5(int skip, int unused)
 {
     if (skip)
         return true;

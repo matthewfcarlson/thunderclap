@@ -6,7 +6,7 @@ struct VFT {
 };
 extern const VFT PathLocatorTestCondition_vftable;
 
-class PathLocatorTestCondition {
+namespace hulkfight { namespace motion { class TargetCharacterTemplateCondition {
   public:
     virtual void vfunc_0();
     virtual void p_vfunc_1();
@@ -18,9 +18,9 @@ class PathLocatorTestCondition {
     void Cleanup();
     char pad[8];
     void* m_p;
-};
+}; }}
 
-void* PathLocatorTestCondition::vfunc_5(unsigned char flag) {
+void* hulkfight::motion::TargetCharacterTemplateCondition::vfunc_5(unsigned char flag) {
     *(const VFT**)this = &PathLocatorTestCondition_vftable;
     ai_free(m_p);
     Cleanup();

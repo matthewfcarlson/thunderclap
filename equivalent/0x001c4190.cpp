@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_001c4190 @ 0x001c4190
+#include "decls/address.h"
 namespace content {
 namespace LoadInventory {
 template <class T>
@@ -39,7 +40,7 @@ struct Holder_1c4190 {
     Holder44_1c4190 *FUN_000862a0();
 };
 
-struct Manager_1c4190 {
+struct World {
     char pad0[0x54];
     Holder_1c4190 *holder;
 };
@@ -56,7 +57,6 @@ struct Entry_1c4190 {
     Entry_1c4190 *FUN_001c5cf0(Key_1c4190 *key, Res_1c4190 *r);
 };
 
-extern Manager_1c4190 *DAT_004dd700;
 extern "C" int __cdecl FUN_00266da0(int mode);
 void *__cdecl FUN_0008d690(unsigned int size);
 

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 18/18)
 // FUN_0003f400 @ 0x0003f400
+#include "decls/address.h"
 struct Vec3_3f400 {
     float x, y, z;
     void FUN_00011160(float amount, Vec3_3f400* dir);
@@ -63,7 +64,6 @@ struct World {
     Manager_3f400* manager;
 };
 
-extern World* DAT_004dd700;
 
 class Controller_3f400 {
 public:

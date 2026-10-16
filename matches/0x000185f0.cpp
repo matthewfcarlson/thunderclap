@@ -1,4 +1,6 @@
-class CAction {
+#include "gen/global.h"
+
+class CAction_185f0 {
   public:
     virtual void a0();
     virtual void a1();
@@ -39,21 +41,15 @@ struct Actor_185f0 {
 struct Obj2_185f0 {
     Obj_185f0* get();
 };
-class CPropActorSetStateAction : public CAction {
-  public:
-    char pad[0x1c - 4];
-    Actor_185f0* actor;
-    struct State_185f0* state;
-    bool vfunc_7(int);
-};
 struct State_185f0 {
     char pad[0x10];
     int value;
 };
-bool CPropActorSetStateAction::vfunc_7(int) {
-    Obj_185f0* o = actor->get();
+
+bool CPropActorSetStateAction::vfunc_7(int ) {
+    Obj_185f0* o = (*(Actor_185f0 * *)&this->f_1c)->get();
     o = ((Obj2_185f0*)o)->get();
     if (o->p)
-        o->p->set(state->value, 1);
+        o->p->set((*(struct State_185f0 * *)&this->f_20)->value, 1);
     return false;
 }

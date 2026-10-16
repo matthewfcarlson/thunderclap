@@ -1,9 +1,5 @@
-class CJumpTrack {
-  public:
-    char pad[0x14];
-    float value;
-    float vfunc_15();
-};
+#include "gen/global.h"
+
 float CJumpTrack::vfunc_15() {
-    return value;
+    return this->f_14;
 }

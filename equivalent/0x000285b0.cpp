@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000285b0 @ 0x000285b0
+#include "decls/address.h"
 typedef unsigned __int64 Key_285b0;
 extern "C" int atexit(void (*)());
 void FUN_00363b50();
-extern Key_285b0 __cdecl FUN_002672f0(const char*, int, int);
 
 struct NameKey_285b0 {
     int lo, hi;

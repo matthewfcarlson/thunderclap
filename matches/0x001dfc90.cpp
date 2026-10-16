@@ -1,4 +1,6 @@
-class Function {
+#include "gen/global.h"
+
+class Function_1dfc90 {
   public:
     virtual void f0();
     virtual void f1();
@@ -7,21 +9,15 @@ struct Pair_1dfc90 {
     int a;
     int b;
 };
-class CSPManager {
+class CSPManager_1dfc90 {
   public:
     int Fn(int, int);
 };
-class Method2 : public Function {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2(int, Pair_1dfc90*, int*);
-    char pad[0x18];
-    int (CSPManager::*mFn)(int, int);
-};
-void Method2::f2(int x, Pair_1dfc90* p, int* out) {
-    int (CSPManager::*fn)(int, int) = mFn;
-    CSPManager* m = (CSPManager*)x;
+
+template <> void Method2<CSPManager, int, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { int x = (int)__p0; Pair_1dfc90 * p = (Pair_1dfc90 *)__p1; int * out = (int *)__p2;
+
+    int (CSPManager_1dfc90::*fn)(int, int) = (*(int (CSPManager_1dfc90::**)(int, int))&this->f_1c);
+    CSPManager_1dfc90* m = (CSPManager_1dfc90*)x;
     int a = p->a;
     int b = p->b;
     int r = (m->*fn)(a, b);

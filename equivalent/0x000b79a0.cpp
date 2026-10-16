@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3045 inputs, branch coverage 34/36, incomplete)
 // FUN_000b79a0 @ 0x000b79a0
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl _sprintf(char*, const char*, ...);
 extern unsigned int DAT_004d9968;
@@ -128,7 +129,6 @@ Widget_b79a0* __cdecl FUN_000fc260(const char* name);
 void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
 UiMgr_b79a0* __cdecl FUN_000fc3d0();
 Manager_b79a0* __cdecl FUN_000fc1b0();
-unsigned __int64 __cdecl FUN_0027b020(const char* s);
 int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, ...);
 
 class Briefing {

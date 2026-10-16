@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0035cec0 @ 0x0035cec0
 // Static init: hash the cow animation names and record whether each loops.
-extern unsigned __int64 FUN_0027b020(const char *name);
+#include "decls/address.h"
 
 struct AnimKey {
     unsigned __int64 key;

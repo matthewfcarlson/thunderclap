@@ -1,17 +1,14 @@
+#include "gen/hulkfight.h"
+
 struct Helper_182490 {
     Helper_182490* first();
     char* second();
 };
-class PropThrowAction {
-  public:
-    char pad[0x20];
-    Helper_182490* member;
-    bool vfunc_3(int, int);
-};
-bool PropThrowAction::vfunc_3(int, int) {
-    if (!member)
+
+bool hulkfight::motion::PropThrowAction::vfunc_3(int , int ) {
+    if (!(*(Helper_182490 * *)&this->f_20))
         return false;
-    Helper_182490* p = member->first();
+    Helper_182490* p = (*(Helper_182490 * *)&this->f_20)->first();
     *(p->second() + 0x1f51) = 1;
     return true;
 }

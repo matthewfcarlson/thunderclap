@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Obj_2961c0 {
   public:
     virtual void f0();
@@ -11,22 +13,8 @@ class Obj_2961c0 {
     virtual void f8();
     virtual void f9();
 };
-class Scenegraph {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    virtual void vfunc_8();
-    virtual void vfunc_9();
-    char pad[0x3c];
-    Obj_2961c0* m;
-};
-void Scenegraph::vfunc_9() {
-    if (m)
-        m->f9();
+
+void pure3d::scenegraph::Scenegraph::vfunc_9() {
+    if ((*(Obj_2961c0 * *)&this->f_40))
+        (*(Obj_2961c0 * *)&this->f_40)->f9();
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3088 inputs, branch coverage 96/97, incomplete)
 // MyDriveErrorCallback::vfunc_0 @ 0x0008e1f0
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 struct Ctl_8e1f0 {
@@ -58,14 +59,13 @@ struct Sys_8e1f0 {
     Pad_8e1f0 *FUN_00086330();
 };
 
-struct Game_8e1f0 {
+struct World {
     char pad[0x54];
     Sys_8e1f0 *f54;
     char pad58[0x9d - 0x58];
     char b9d;
 };
 
-extern Game_8e1f0 *DAT_004dd700;
 
 class MyControllerCallback {
 public:
@@ -196,7 +196,7 @@ char MyDriveErrorCallback::vfunc_0(unsigned int code, int a1, int a2, int a3, in
     }
 
     if (b0c) {
-        Game_8e1f0 *g = DAT_004dd700;
+        World *g = DAT_004dd700;
         if (g) {
             if (g->b9d && g->f54) {
                 if (g->f54->FUN_00086300())
@@ -266,7 +266,7 @@ char MyDriveErrorCallback::vfunc_0(unsigned int code, int a1, int a2, int a3, in
         DAT_004dd7e0 = c;
     }
     if (c->b5) {
-        Game_8e1f0 *g = DAT_004dd700;
+        World *g = DAT_004dd700;
         if (g) {
             if (g->b9d && g->f54) {
                 if (g->f54->FUN_00086300()) {

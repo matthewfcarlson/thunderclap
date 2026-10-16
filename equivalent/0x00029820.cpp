@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 18/18)
 // FUN_00029820 @ 0x00029820
+#include "decls/address.h"
 struct Owner_29820 {
     char pad[0x9e];
     char hasId;
@@ -19,7 +20,6 @@ union Id64_29820 {
 };
 
 Holder_29820 *__stdcall FUN_000259f0(const char *name);
-unsigned __int64 __cdecl FUN_0027b020(const char *name);
 
 bool __stdcall FUN_00029820(const char *a, const char *b)
 {

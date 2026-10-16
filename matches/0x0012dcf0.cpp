@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 extern "C" char DAT_00411110[];
 struct Ref_12dcf0 {
     virtual void f0();
@@ -7,30 +9,9 @@ extern void* Alloc(unsigned int);
 struct Memory_12dcf0 {
     void Init();
 };
-struct PostEvent_StringTrack {
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void* vfunc_10(int, int, Ref_12dcf0*);
-};
-void PostEvent_StringTrack::v0() {}
-void PostEvent_StringTrack::v1() {}
-void PostEvent_StringTrack::v2() {}
-void PostEvent_StringTrack::v3() {}
-void PostEvent_StringTrack::v4() {}
-void PostEvent_StringTrack::v5() {}
-void PostEvent_StringTrack::v6() {}
-void PostEvent_StringTrack::v7() {}
-void PostEvent_StringTrack::v8() {}
-void PostEvent_StringTrack::v9() {}
-void* PostEvent_StringTrack::vfunc_10(int a, int b, Ref_12dcf0* param) {
+
+int hulkfight::PostEvent_StringTrack::vfunc_10(int a, int b, int __p2) { Ref_12dcf0 * param = (Ref_12dcf0 *)__p2;
+
     char* p = (char*)Alloc(0x24);
     if (p) {
         ((Memory_12dcf0*)p)->Init();
@@ -43,7 +24,7 @@ void* PostEvent_StringTrack::vfunc_10(int a, int b, Ref_12dcf0* param) {
         if (old)
             old->f1();
         *(Ref_12dcf0**)(p + 0x20) = param;
-        return p;
+        return (int)(p);
     }
-    return 0;
+    return (int)(0);
 }

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 504 inputs, branch coverage 53/54, incomplete)
 // FUN_0003f090 @ 0x0003f090
 // equiv-map: ?FUN_00232240@SubObj@@QAEXXZ = 0x002325f0
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 class Releasable_3f090 {
@@ -64,7 +65,6 @@ struct World {
     char padx[0xc];
     SlotOwner *f0c;
 };
-extern World *DAT_004dd700;
 
 struct Handle_3f090 {
     void FUN_001c3b30(Id64_3f090 *id);

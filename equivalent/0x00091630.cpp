@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 26/26)
 // FUN_00091630 @ 0x00091630
+#include "decls/address.h"
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* p) { return p; }
 struct CStatsManager;
 typedef void (*Callback)();
 extern void FUN_00090630(); extern void FUN_00090720(); extern void FUN_000906f0(); extern void FUN_00090df0(); extern void FUN_000900a0(); extern void FUN_00090110(); extern void FUN_00090130(); extern void FUN_0008ffb0(); extern void FUN_000901a0(); extern void FUN_00090200(); extern void FUN_0008ffc0(); extern void FUN_00090270(); extern void FUN_00090310(); extern void FUN_000903a0(); extern void FUN_00090430(); extern void FUN_00090440();
 extern int DAT_0048e100, DAT_0048e0f0, DAT_0048e134;
-extern unsigned char __cdecl FUN_001d04d0(void*);
 extern void* __cdecl FUN_0008d690(int);
 struct Binding {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();

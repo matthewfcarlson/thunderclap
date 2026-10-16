@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 40/45, incomplete)
 // hulkfight::scenario::EffectAction::vfunc_3 @ 0x001a5f00
+#include "decls/address.h"
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
 struct V3_1a5f00 {
@@ -83,7 +84,6 @@ struct Mgr_1a5f00 {
     void *FUN_00283be0(void *a, Ctrl_1a5f00 *c, float t, float f60);
 };
 
-extern World *DAT_004dd700;
 struct Registry_1a5f00 {
     Anim_1a5f00 *FUN_001a57d0(unsigned int lo, unsigned int hi);
 };

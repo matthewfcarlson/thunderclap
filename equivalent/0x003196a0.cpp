@@ -4,7 +4,7 @@ struct Vec3_3196a0 {
     float x, y, z;
 };
 
-class SimpleFilter3D {
+namespace physics { class SimpleFilter3D {
 public:
     virtual bool vfunc_0(const Vec3_3196a0* origin, const Vec3_3196a0* extent, int unused);
     virtual void vfunc_1();
@@ -13,10 +13,10 @@ public:
     char pad10[0x1c - 0x10];
     int origin[3];      // 0x1c
     float field28;      // 0x28
-};
+}; }
 
 // Stores the origin and the reciprocal of each extent; fails unless every extent is positive.
-bool SimpleFilter3D::vfunc_0(const Vec3_3196a0* o, const Vec3_3196a0* e, int unused)
+bool physics::SimpleFilter3D::vfunc_0(const Vec3_3196a0* o, const Vec3_3196a0* e, int unused)
 {
     if (e->x > 0.0f && e->y > 0.0f && e->z > 0.0f) {
         const int* src = (const int*)o;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 45/46, incomplete)
 // FUN_001ecda0 @ 0x001ecda0
+#include "decls/address.h"
 extern "C" int strcmp(const char *a, const char *b);
 extern "C" double sqrt(double);
 
@@ -68,7 +69,7 @@ struct Flags_1ecda0 {
     bool FUN_00092de0(int v);
 };
 
-struct Config_1ecda0 {
+struct Singleton_4dd6ec {
     Flags_1ecda0 *FUN_00086340();
 };
 
@@ -88,7 +89,6 @@ struct SpawnGlobals_1ecda0 {
 
 void FUN_001eb440(void *target, Query_1ecda0 *q);
 
-extern Config_1ecda0 *DAT_004dd6ec;
 extern SpawnGlobals_1ecda0 *DAT_004e36d8;
 
 class Handler_1ecda0 {

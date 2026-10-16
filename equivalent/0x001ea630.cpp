@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // CSoundResourceManager::vfunc_3 @ 0x001ea630
+#include "gen/global.h"
+
 extern "C" unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
@@ -19,17 +21,12 @@ struct Frame_1ea630 {
     unsigned int cookie;
 };
 
-class CSoundResourceManager {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3(const char *name, int unused);
+struct CSoundResourceManager_nv_1ea630 {
     void FUN_001ea5a0(int id);
 };
 
-void CSoundResourceManager::vfunc_3(const char *name, int unused)
-{
+void CSoundResourceManager::vfunc_3(int __p0, int unused) { const char * name = (const char *)__p0;
+
     Frame_1ea630 f;
     f.cookie = DAT_004d9968;
     int len = 0;
@@ -37,6 +34,6 @@ void CSoundResourceManager::vfunc_3(const char *name, int unused)
         len++;
     f.text.FUN_00247270(name, len, 0);
     f.handle.FUN_002458f0(&f.text);
-    FUN_001ea5a0(FUN_00246100(&f.handle));
+    ((CSoundResourceManager_nv_1ea630*)this)->FUN_001ea5a0(FUN_00246100(&f.handle));
     __security_check_cookie(f.cookie);
 }

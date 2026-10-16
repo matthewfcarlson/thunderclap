@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 37 inputs, branch coverage 13/14, incomplete)
 // pure3d::ExpressionGroupLoader::vfunc_5 @ 0x002b0170
+#include "decls/address.h"
 struct Item_2b0170 {
     virtual void v0();
 };
@@ -60,8 +61,6 @@ struct Registry_2b0170 {
 extern Registry_2b0170 *DAT_00527c58;
 
 void *FUN_00263ea0(unsigned int size);
-unsigned __int64 FUN_0027b020(const char *s);
-unsigned __int64 FUN_002672f0(const char *s, unsigned int lo, unsigned int hi);
 
 class ExpressionGroupLoader {
 public:

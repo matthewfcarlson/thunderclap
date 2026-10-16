@@ -1,6 +1,8 @@
+#include "gen/fight.h"
+
 extern "C" void* __cdecl Allocate(unsigned int);
 extern "C" int AxisVtable_57080;
-class CAxisSpeedCondition {
+class CAxisSpeedCondition_57080 {
   public:
     virtual void V0();
     virtual void V1();
@@ -9,19 +11,16 @@ class CAxisSpeedCondition {
     int a, b, c, d, e;
     void Initialize(int);
 };
-class ConditionFactoryTemplate {
-  public:
-    CAxisSpeedCondition* vfunc_5();
-};
-CAxisSpeedCondition* ConditionFactoryTemplate::vfunc_5() {
-    CAxisSpeedCondition* p = (CAxisSpeedCondition*)Allocate(0x18);
+
+template <> void* fight::ConditionFactoryTemplate<CAxisSpeedCondition>::vfunc_5() {
+    CAxisSpeedCondition_57080* p = (CAxisSpeedCondition_57080*)Allocate(0x18);
     if (p) {
         p->Initialize(0);
         p->c = 0;
         *(int*)p = (int)&AxisVtable_57080;
         p->d = 4;
         p->e = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

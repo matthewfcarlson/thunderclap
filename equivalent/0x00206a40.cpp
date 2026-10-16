@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1326 inputs, branch coverage 16/16)
 // FUN_00206a40 @ 0x00206a40
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int sprintf(char *buf, const char *fmt, ...);
@@ -100,18 +101,16 @@ struct Target30 {
     void FUN_001cbc20(Tmp_206a40 *t);
 };
 
-struct Game_206a40 {
+struct World {
     char pad00[0x30];
     Target30 *f30;
 };
 
 Single *FUN_001c3d90();
-unsigned __int64 FUN_002672f0(const char *s, int a, int b);
 
 extern unsigned int DAT_004d9968;
 extern char DAT_004c91d8;
 extern char DAT_004e5a58;
-extern Game_206a40 *DAT_004dd700;
 
 class Scene_206a40 {
 public:

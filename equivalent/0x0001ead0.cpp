@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 26/26)
 // CSmartPropAttachAction::vfunc_6 @ 0x0001ead0
+#include "decls/address.h"
 struct Vec3_1ead0 { int x, y, z; };
 
 struct Sub_1ead0 {
@@ -33,7 +34,6 @@ struct World {
     char pad0[0xc];
     Table_1ead0* table;
 };
-extern World* DAT_004dd700;
 
 struct Slot_1ead0 {
     char pad00[0x128];

@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 extern char* strncpy(char*, const char*, int);
 
 class Console2 {
@@ -13,15 +15,9 @@ struct Msg_26e840 {
     char buf[84];
 };
 
-class DebugConsole {
-  public:
-    char pad[0xa4];
-    Console2* mConsole;
-    void vfunc_8(const char* s, unsigned p3, unsigned p4);
-};
+void core::DebugConsole::vfunc_8(void* __p0, unsigned int p3, unsigned int p4) { const char * s = (const char *)__p0;
 
-void DebugConsole::vfunc_8(const char* s, unsigned p3, unsigned p4) {
-    Console2* c = mConsole;
+    Console2* c = (*(Console2 * *)&this->f_a4);
     Msg_26e840 msg;
     msg.tag = 6;
     msg.self = this;

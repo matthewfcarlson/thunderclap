@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 20/20)
 // hulkfight::motion::BallAndChainShootAction::vfunc_3 @ 0x00184940
+#include "decls/address.h"
 struct V3_184940 {
     float x, y, z;
     float FUN_0022d110();
@@ -69,7 +70,6 @@ struct ShootConfig {
     float arg58;        // 0x58
 };
 
-extern World *DAT_004dd700;
 
 void __cdecl FUN_00224d70(float angle, V3_184940 *v);
 int __cdecl FUN_00097a30(float a, float b, float c, Obj_184940 *obj, float d, V3_184940 *pos, float e, V3_184940 *dir,

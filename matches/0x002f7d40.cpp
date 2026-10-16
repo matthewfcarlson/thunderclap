@@ -1,3 +1,5 @@
+#include "gen/physics.h"
+
 typedef unsigned int u32_2f7d40;
 class Ref_2f7d40 {
   public:
@@ -17,23 +19,6 @@ class Wrap_2f7d40 {
     char pad[0x18];
     Ref_2f7d40* obj;
 };
-class Agent_2f7d40 {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual int v5(void*, void*);
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    char pad[4];
-    Ref_2f7d40* ref;
-};
 struct Arg_2f7d40 {
     char x[8];
     Wrap_2f7d40* first;
@@ -41,14 +26,16 @@ struct Arg_2f7d40 {
     u32_2f7d40 a;
     u32_2f7d40 b;
 };
-int Agent_2f7d40::v5(void* p, void* secondArg) {
+
+int physics::CollisionSolverAgent::vfunc_5(void* __p0, void* __p1) { void * p = (void *)__p0; void * secondArg = (void *)__p1;
+
     Arg_2f7d40* q = (Arg_2f7d40*)p;
     int r = 0;
     if (!q->first->obj->check(q->a) && !q->second->obj->check(q->b)) {
-        if (!ref)
+        if (!(*(Ref_2f7d40 * *)&this->f_08))
             r = 1;
     }
-    if (ref)
-        ref->d(p, secondArg);
+    if ((*(Ref_2f7d40 * *)&this->f_08))
+        (*(Ref_2f7d40 * *)&this->f_08)->d(p, secondArg);
     return r;
 }

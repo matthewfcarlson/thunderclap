@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 62/62)
 // FUN_000d2c30 @ 0x000d2c30
+#include "decls/address.h"
 namespace content {
 namespace LoadInventory {
 template <class T>
@@ -43,14 +44,12 @@ struct Holder_d2c30 {
     Flags_d2c30 *FUN_00086340();
 };
 
-struct Manager_d2c30 {
+struct World {
     char pad0[0x54];
     Holder_d2c30 *holder;
 };
 
-extern Manager_d2c30 *DAT_004dd700;
 extern Inventory_d2c30 *DAT_004dd9cc;
-extern "C" unsigned __int64 __cdecl FUN_0027b020(const char *s);
 
 static Res_d2c30 *GetLocator(const char *name)
 {

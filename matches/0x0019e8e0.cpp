@@ -3,7 +3,7 @@ struct Alloc_19e8e0 {
     void f(void*, unsigned int);
 };
 extern Alloc_19e8e0 g_4e2210;
-class ProjectileMissile {
+namespace hulkfight { namespace motion { class ProjectileMissile {
   public:
     void tick();
     virtual void a();
@@ -13,8 +13,8 @@ class ProjectileMissile {
     virtual void e();
     virtual void f();
     virtual void g();
-};
-ProjectileMissile* ProjectileMissile::vfunc_2(byte_19e8e0 param_2) {
+}; }}
+hulkfight::motion::ProjectileMissile* hulkfight::motion::ProjectileMissile::vfunc_2(byte_19e8e0 param_2) {
     tick();
     if (param_2 & 1)
         g_4e2210.f(this, 0xdc);

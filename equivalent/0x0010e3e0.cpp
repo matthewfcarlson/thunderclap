@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 125 inputs, branch coverage 30/30)
 // hulkfight::ai::InActiveCondition::vfunc_6 @ 0x0010e3e0
+#include "decls/address.h"
 class fight_Params_10e3e0 {
 public:
     virtual void vfunc_0();
@@ -24,11 +25,10 @@ struct Holder_10e3e0 {
     Anim_10e3e0 *FUN_00086310();
 };
 
-struct Manager_10e3e0 {
+struct World {
     char pad0[0x54];
     Holder_10e3e0 *holder;
 };
-extern Manager_10e3e0 *DAT_004dd700;
 
 struct Context { char pad[4]; };
 Context *__fastcall FUN_000592a0(void *obj);

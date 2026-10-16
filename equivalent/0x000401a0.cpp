@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 124 inputs, branch coverage 38/38)
 // FUN_000401a0 @ 0x000401a0
+#include "decls/address.h"
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern __int64 DAT_004dc0e0;
@@ -36,7 +37,7 @@ struct PauseHolder {
     Pause* pause;           // 0x08
 };
 
-struct Hub_401a0 {
+struct World {
     char pad00[0x3c];
     PauseHolder* holder;    // 0x3c
     char pad40[0x54 - 0x40];
@@ -47,7 +48,6 @@ struct Registry_401a0 {
     Tuning_401a0* FUN_00086340();
 };
 
-extern Hub_401a0* DAT_004dd700;
 
 class Character_401a0 {
 public:

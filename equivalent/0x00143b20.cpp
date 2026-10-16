@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 16/16)
 // hulkfight::motion::WorldDamageAction::vfunc_5 @ 0x00143b20
+#include "gen/hulkfight.h"
+#include "decls/address.h"
+
 extern float DAT_00412ec0;
 struct V3_143b20 {
     float x, y, z;
@@ -8,21 +11,21 @@ struct V3_143b20 {
 };
 extern V3_143b20 DAT_004ad7b4;
 
-struct Matrix {
+struct Matrix_143b20 {
     float m[16];
     void FUN_0022c2b0(const V3_143b20 *in, V3_143b20 *out);
 };
 
-struct Skeleton {
+struct Skeleton_143b20 {
     char pad0[0x1c];
-    Matrix *mats;
+    Matrix_143b20 *mats;
     unsigned int FUN_002843a0(unsigned int lo, unsigned int hi);
 };
 
-struct Entity {
+struct Entity_143b20 {
     char pad0[0x120];
-    Skeleton *skel;
-    void FUN_00035160(Matrix *out);
+    Skeleton_143b20 *skel;
+    void FUN_00035160(Matrix_143b20 *out);
     void FUN_00035630(V3_143b20 *in, V3_143b20 *out);
     float FUN_000354c0();
 };
@@ -32,7 +35,7 @@ struct Anchor_143b20 {
 };
 
 struct Handle_143b20 {
-    Entity *FUN_00059a30();
+    Entity_143b20 *FUN_00059a30();
 };
 
 struct Caster_143b20 {
@@ -42,7 +45,7 @@ struct Sweeper_143b20 {
     void FUN_001f6cd0(void *p1, void *p2, V3_143b20 *hit, V3_143b20 *normal, V3_143b20 *dir, int n, int a, int b, int *outv, int z);
 };
 struct Sink_143b20 {
-    void FUN_001ecd00(int v, Entity *e);
+    void FUN_001ecd00(int v, Entity_143b20 *e);
 };
 struct World {
     char pad0[0x24];
@@ -51,7 +54,6 @@ struct World {
     Sink_143b20 *sink;         // 0x34
     Sweeper_143b20 *sweeper;   // 0x38
 };
-extern World *DAT_004dd700;
 
 struct Owner_143b20 {
     Handle_143b20 *FUN_000592a0();
@@ -71,21 +73,7 @@ struct Data_143b20 {
 
 void __cdecl FUN_00224d70(float angle, V3_143b20 *v);
 
-class WorldDamageAction {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual bool vfunc_5(int a1, int a2);
-    char pad04[0x18];
-    Data_143b20 *data;         // 0x1c
-    Owner_143b20 *owner;       // 0x20
-};
-
-bool WorldDamageAction::vfunc_5(int a1, int a2)
-{
+bool hulkfight::motion::WorldDamageAction::vfunc_5(int a1, int a2) {
     if (a1 != 1)
         return true;
     struct Frame {
@@ -102,23 +90,23 @@ bool WorldDamageAction::vfunc_5(int a1, int a2)
         V3_143b20 w1;
         V3_143b20 hit;
         V3_143b20 normal;
-        Matrix m;
+        Matrix_143b20 m;
     } f;
-    f.n = data->count;
+    f.n = (*(Data_143b20 * *)&this->f_1c)->count;
     if (f.n <= 0)
         return false;
-    Handle_143b20 *y = owner->FUN_000592a0();
+    Handle_143b20 *y = (*(Owner_143b20 * *)&this->f_20)->FUN_000592a0();
     Handle_143b20 *yy = y;
-    Entity *x = y->FUN_00059a30();
-    Skeleton *skel = x->skel;
-    unsigned int idx = skel->FUN_002843a0(data->idLo, data->idHi);
+    Entity_143b20 *x = y->FUN_00059a30();
+    Skeleton_143b20 *skel = x->skel;
+    unsigned int idx = skel->FUN_002843a0((*(Data_143b20 * *)&this->f_1c)->idLo, (*(Data_143b20 * *)&this->f_1c)->idHi);
     if (idx == 0xffff)
         x->FUN_00035160(&f.m);
     else
         f.m = skel->mats[idx];
-    f.pa = data->posA;
+    f.pa = (*(Data_143b20 * *)&this->f_1c)->posA;
     f.m.FUN_0022c2b0(&f.pa, &f.w1);
-    f.vb = data->vecB;
+    f.vb = (*(Data_143b20 * *)&this->f_1c)->vecB;
     if (f.vb.z * f.vb.z + f.vb.y * f.vb.y + f.vb.x * f.vb.x <= DAT_00412ec0) {
         f.vb.x = 0;
         f.vb.y = 1.0f;
@@ -130,7 +118,7 @@ bool WorldDamageAction::vfunc_5(int a1, int a2)
     f.out14.y = f.out14.y - f.w2.y;
     f.out14.z = f.out14.z - f.w2.z;
     f.out14.FUN_0022d110();
-    Data_143b20 *d = data;
+    Data_143b20 *d = (*(Data_143b20 * *)&this->f_1c);
     f.d3c = d->f3c;
     f.ptr1 = 0;
     f.ptr2 = 0;

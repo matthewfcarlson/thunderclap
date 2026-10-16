@@ -1,4 +1,6 @@
 // Same code shape as 0x00122f30 (propagated; names are from that function)
+#include "gen/fight.h"
+
 void* __cdecl operator new(unsigned int size);
 inline void* __cdecl operator new(unsigned int, void* where) {
     return where;
@@ -14,9 +16,9 @@ struct TrackImpl {
     void setup(void* arg);
 };
 
-class TrackFactoryTemplate {
+class TrackFactoryTemplate_52130 {
   public:
-    TrackFactoryTemplate() {}
+    TrackFactoryTemplate_52130() {}
     virtual void vf0();
     virtual void vf1();
     int mPad;
@@ -25,20 +27,15 @@ class TrackFactoryTemplate {
 
 void postInit();
 
-class TrackFactoryCasterTemplate {
-  public:
-    virtual void cast0();
-    virtual void* vfunc_1(void* arg);
-};
+template <> void* fight::ConditionFactoryCasterTemplate<CFightNodeTimeCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-void* TrackFactoryCasterTemplate::vfunc_1(void* arg) {
     void* mem = operator new(0x10);
     if (mem) {
         ((InitHelper*)mem)->init();
-        TrackFactoryTemplate* t = new (mem) TrackFactoryTemplate();
+        TrackFactoryTemplate_52130* t = new (mem) TrackFactoryTemplate_52130();
         t->mTrack.setup(arg);
         postInit();
-        return t;
+        return (void*)(t);
     }
-    return 0;
+    return (void*)(0);
 }

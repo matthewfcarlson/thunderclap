@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 31/32, incomplete)
 // hulkfight::motion::ProjectileGroundShockwave::vfunc_4 @ 0x00198b30
+#include "decls/address.h"
 extern "C" double sqrt(double);
 extern "C" void *memcpy(void *d, const void *s, unsigned int n);
 
@@ -40,14 +41,13 @@ struct Registry_198b30 {
     void FUN_001ebf50(int handle, void *owner);
 };
 
-struct Mgr_198b30 {
+struct World {
     char pad0[0x24];
     Raycast *ray;       // 0x24
     char pad28[0x34 - 0x28];
     Registry_198b30 *reg;      // 0x34
     Spawner_198b30 *spawn;     // 0x38
 };
-extern Mgr_198b30 *DAT_004dd700;
 
 struct Decal {
     void FUN_0027ffc0(void *what, Mat_198b30 *m);
@@ -151,7 +151,7 @@ void ProjectileGroundShockwave::vfunc_4(float dt)
     f.disp.y = pv->y;
     f.disp.z = pv->z;
     memcpy(&f.mat, &node->mat, 0x40);
-    Mgr_198b30 *mgr = DAT_004dd700;
+    World *mgr = DAT_004dd700;
     double sc = k * dt;
     f.disp.x = (float)(f.disp.x * sc);
     f.disp.y = (float)(f.disp.y * sc);

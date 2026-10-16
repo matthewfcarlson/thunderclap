@@ -1,19 +1,13 @@
-class NamedValueFloat {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    char pad[0x40 - 4];
-    float value40;
-    float value44;
-    void* callback48;
-};
+#include "gen/global.h"
+
 struct Callback_f8da0 {
     virtual void changed(float);
 };
+
 void NamedValueFloat::vfunc_1() {
-    float v = value44;
-    value40 = v;
-    if (callback48)
-        ((Callback_f8da0*)callback48)->changed(v);
+    float v = this->f_44;
+    this->f_40 = v;
+    if ((*(void * *)&this->f_48))
+        ((Callback_f8da0*)(*(void * *)&this->f_48))->changed(v);
     vfunc_0();
 }

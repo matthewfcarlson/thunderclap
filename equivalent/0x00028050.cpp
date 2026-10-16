@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 17/18, incomplete)
 // FUN_00028050 @ 0x00028050
+#include "decls/address.h"
 typedef unsigned __int64 Key_28050;
-extern Key_28050 __cdecl FUN_002672f0(const char*, int, int);
 struct Node { char pad[0x14]; Node* parent; };
 struct Handle_28050 { Node* node; bool FUN_00231ee0(); };
 struct Entry_28050 { char pad[0xb4]; Handle_28050 handle; };

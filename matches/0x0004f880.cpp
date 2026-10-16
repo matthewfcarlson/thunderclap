@@ -1,4 +1,6 @@
-class ParamValue {
+#include "gen/fight.h"
+
+class ParamValue_4f880 {
   public:
     virtual void f0();
     virtual int f1();
@@ -8,16 +10,7 @@ class ParamValue {
     virtual void f5();
     virtual void f6();
 };
-class ParamValueString : public ParamValue {
-  public:
-    virtual void f0();
-    virtual int f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-};
-int ParamValueString::f1() {
+
+int fight::ParamValueString::vfunc_1() {
     return 3;
 }

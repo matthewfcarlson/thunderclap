@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct Thing_171060 {
     int pad[4];
     int value;
@@ -11,23 +13,12 @@ struct ObjB_171060 {
 struct ObjA_171060 {
     ObjB_171060* run();
 };
-class LocomotionStateAction {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual bool vfunc_5(int param, int unused);
-    char pad[0x1c - 4];
-    Thing_171060* field1c;
-    ObjA_171060* field20;
-};
-bool LocomotionStateAction::vfunc_5(int param, int unused) {
+
+bool hulkfight::motion::LocomotionStateAction::vfunc_5(int param, int unused) {
     if (param)
         return true;
-    ObjB_171060* b = field20->run();
+    ObjB_171060* b = (*(ObjA_171060 * *)&this->f_20)->run();
     ObjC_171060* c = b->run();
-    c->run(field1c->value);
+    c->run((*(Thing_171060 * *)&this->f_1c)->value);
     return false;
 }

@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 22 inputs, branch coverage 4/4)
 // FUN_00047890 @ 0x00047890
+#include "decls/address.h"
 typedef unsigned int uint_47890;
 inline void* __cdecl operator new(unsigned int,void* p) { return p; }
 void* __cdecl FUN_0008d6d0(uint_47890);
 void* __cdecl FUN_0008d690(uint_47890);
 extern void* DAT_0048e100;
 extern void* DAT_0048e0f0;
-unsigned char __cdecl FUN_001d04d0(void*);
 struct Registry_47890 { void FUN_001d3b70(const char*,void*); };
 Registry_47890* __cdecl FUN_001d4c90();
 class CCharacterTemplateManager {

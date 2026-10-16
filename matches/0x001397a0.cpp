@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00411ca8[];
-class HoverTrack {
+class HoverTrack_1397a0 {
   public:
     virtual void A();
     virtual void B();
@@ -11,18 +13,10 @@ class HoverTrack {
     int c;
 };
 extern "C" void* __cdecl Alloc(unsigned int);
-void __fastcall Init(HoverTrack*);
-class Factory_1397a0 {
-  public:
-    virtual void A();
-    virtual void B();
-    virtual void C();
-    virtual void D();
-    virtual void E();
-    virtual HoverTrack* Make();
-};
-HoverTrack* Factory_1397a0::Make() {
-    HoverTrack* p = (HoverTrack*)Alloc(0x18);
+void __fastcall Init(HoverTrack_1397a0*);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HoverTrack>::vfunc_5() {
+    HoverTrack_1397a0* p = (HoverTrack_1397a0*)Alloc(0x18);
     if (p) {
         Init(p);
         *(int*)p = ((int)DAT_00411ca8);
@@ -30,7 +24,7 @@ HoverTrack* Factory_1397a0::Make() {
         p->b = (int)0xbf800000;
         p->c = 0;
         p->one = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

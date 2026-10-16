@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 11/12, incomplete)
 // CJumpAction::vfunc_6 @ 0x00013b90
+#include "decls/address.h"
 struct Vec3_13b90 {
     float x, y, z;
 };
@@ -54,10 +55,10 @@ struct Controller_13b90 {
 };
 
 struct Manager_13b90 {
-    void FUN_00099d20(struct Globals_13b90 *g, Stats_13b90 *s, float a, float b, float c);
+    void FUN_00099d20(struct World *g, Stats_13b90 *s, float a, float b, float c);
 };
 
-struct Globals_13b90 {
+struct World {
     char pad0[8];
     Manager_13b90 *manager;
     char pad0c[0x34 - 0xc];
@@ -108,7 +109,6 @@ Stats_13b90 *__fastcall FUN_00059a30(void *x);
 Scene_13b90 *__fastcall FUN_00059a40(void *x);
 extern "C" float FUN_00224f10(Vec3_13b90 *v);
 void *__cdecl FUN_00263ea0(unsigned int size);
-extern Globals_13b90 *DAT_004dd700;
 
 class CJumpAction {
 public:
@@ -164,7 +164,7 @@ char CJumpAction::vfunc_6(int arg)
     f2c = input->FUN_00069210(speed);
     f30 = input->FUN_000692c0(speed);
 
-    Globals_13b90 *g = DAT_004dd700;
+    World *g = DAT_004dd700;
     g->manager->FUN_00099d20(g, stats, f2c, f28, f30);
 
     Vec3_13b90 out;

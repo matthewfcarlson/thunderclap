@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 357 inputs, branch coverage 15/16, incomplete)
 // FUN_00092470 @ 0x00092470
+#include "decls/address.h"
 extern "C" int __cdecl sprintf(char *, const char *, ...);
-extern unsigned __int64 __cdecl FUN_0027b020(const char *);
 extern unsigned long DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned long);
 struct Item_92470 { char pad[8]; unsigned char state; };

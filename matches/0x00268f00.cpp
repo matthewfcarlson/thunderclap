@@ -1,42 +1,21 @@
+#include "gen/core.h"
+
 extern "C" double __cdecl fabs(double);
 class Callback_268f00 {
   public:
     virtual void Call(int, float);
 };
-class ControllerInputPointXBox {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual void v13();
-    virtual void v14(int, int);
-    char pad[4];
-    float mValue, mMin, mMax, mTolerance;
-    int mDelta, mLast;
-    void* pad20[3];
-    Callback_268f00* callback;
-    int context;
-};
 extern float __stdcall Convert(int);
-void ControllerInputPointXBox::v14(int a, int b) {
+
+void core::ControllerInputPointXBox::vfunc_14(int a, int b) {
     float value = Convert(b);
-    if (value == mValue || !((float)fabs(value - mValue) >= mTolerance))
-        mDelta = a - mLast;
+    if (value == this->f_08 || !((float)fabs(value - this->f_08) >= this->f_14))
+        this->f_18 = a - this->f_1c;
     else {
-        mValue = value;
-        mLast = a;
-        mDelta = 0;
-        if (callback)
-            callback->Call(context, (mMax - mMin) * value + mMin);
+        this->f_08 = value;
+        this->f_1c = a;
+        this->f_18 = 0;
+        if ((*(Callback_268f00 * *)&this->f_2c))
+            (*(Callback_268f00 * *)&this->f_2c)->Call(this->f_30, (this->f_10 - this->f_0c) * value + this->f_0c);
     }
 }

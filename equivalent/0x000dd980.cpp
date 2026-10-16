@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 11/12, incomplete)
 // ControllerPoller::vfunc_2 @ 0x000dd980
-struct ControllerPollerBase {
+#include "gen/global.h"
+
+struct ControllerPollerBase_dd980 {
  virtual void vfunc_0();
  virtual void vfunc_1();
  virtual void vfunc_2();
@@ -8,10 +10,10 @@ struct ControllerPollerBase {
  virtual void vfunc_4();
  virtual void vfunc_5();
 };
-struct ControllerPoller : ControllerPollerBase { virtual void vfunc_2(); };
 extern volatile int DAT_004de800[];
 extern volatile int DAT_004de804[];
 extern volatile int DAT_004de8c0;
+
 void ControllerPoller::vfunc_2() {
  if (DAT_004de8c0 >= 24) return;
  DAT_004de800[DAT_004de8c0 * 2] = 4;

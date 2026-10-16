@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 129 inputs, branch coverage 66/78, incomplete)
 // FUN_002bc790 @ 0x002bc790
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 struct Vec3_2bc790 {
     float x, y, z;
@@ -119,7 +120,6 @@ struct Parent_2bc790 {
 
 void *FUN_00263ea0(unsigned int size);
 extern "C" double cos(double);
-unsigned __int64 FUN_0027b020(const char *name);
 void FUN_0028fcc0(const char *fmt, ...);
 
 struct Frame_2bc790 {

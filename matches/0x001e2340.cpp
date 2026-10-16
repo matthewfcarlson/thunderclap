@@ -1,7 +1,7 @@
+#include "decls/address.h"
 class CSPManager;
 extern const char a[];
 extern const char b[];
-extern "C" unsigned char __cdecl FUN_001d04d0(const char*);
 class Base {
   public:
     virtual void f();

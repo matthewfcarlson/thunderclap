@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00029f20 @ 0x00029f20
 // Distance between two named pawns (-1 when either is missing or has no position).
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
+#include "decls/address.h"
 
 struct Vec3_29f20 {
     float x, y, z;

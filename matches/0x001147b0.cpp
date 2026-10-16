@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0040db64[];
-class Condition {
+class Condition_1147b0 {
   public:
     int vt;
     char pad[8];
@@ -7,22 +9,14 @@ class Condition {
     void Init(int);
 };
 extern void* __cdecl Alloc(unsigned int);
-class Factory_1147b0 {
-  public:
-    virtual void A();
-    virtual void B();
-    virtual void C();
-    virtual void D();
-    virtual void E();
-    virtual Condition* Make();
-};
-Condition* Factory_1147b0::Make() {
-    Condition* p = (Condition*)Alloc(0x10);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::FightingOtherNPCCondition>::vfunc_5() {
+    Condition_1147b0* p = (Condition_1147b0*)Alloc(0x10);
     if (p) {
         p->Init(0);
         p->vt = ((int)DAT_0040db64);
         p->m = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

@@ -1,5 +1,7 @@
 // Same code shape as 0x0005bd60 (propagated; names are from that function)
-class ParamValue {
+#include "gen/core.h"
+
+class ParamValue_2744d0 {
   public:
     virtual void f0();
     virtual int f1();
@@ -9,14 +11,7 @@ class ParamValue {
     virtual void f5();
     virtual void f6();
 };
-class ParamValueConditionGroup : public ParamValue {
-  public:
-    virtual void g0();
-    virtual int g1();
-    virtual void g3();
-    virtual void g4();
-    virtual void g5();
-};
-int ParamValueConditionGroup::g1() {
+
+int core::DriveOpenRequest::vfunc_6() {
     return 11;
 }

@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00026c30 @ 0x00026c30
+#include "decls/address.h"
 typedef unsigned __int64 Key_26c30;
-extern Key_26c30 __cdecl FUN_002672f0(const char*, int, int);
 
 struct Vec3_26c30 {
     float x, y, z;

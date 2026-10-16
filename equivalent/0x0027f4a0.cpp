@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1557 inputs, branch coverage 6/6)
 // FUN_0027f4a0 @ 0x0027f4a0
-struct Device_27f4a0 {
+#include "decls/address.h"
+struct Gfx {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -34,7 +35,6 @@ struct Slot_27f4a0 {
     char pad14[8];
 };
 
-extern Device_27f4a0 *DAT_0052c2a8;
 
 class Ring_27f4a0 {
 public:

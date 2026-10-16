@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3080 inputs, branch coverage 98/124, incomplete)
 // FUN_001b1710 @ 0x001b1710
 // equiv-conv: FUN_001b0470 ecx eax stack
+#include "decls/address.h"
 extern "C" unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl _sprintf(char *, const char *, ...);
@@ -97,7 +98,7 @@ struct F34 {
     void FUN_001ebd80(Body_1b1710 *b, const char *name, float v, int z);
 };
 
-struct Hub_1b1710 {
+struct World {
     char pad0[0x20];
     F20_1b1710 *f20;
     char pad24[0x34 - 0x24];
@@ -107,7 +108,6 @@ struct Hub_1b1710 {
     char pad50[0x58 - 0x50];
     F58 *f58;
 };
-extern Hub_1b1710 *DAT_004dd700;
 
 struct Obj5Z {
     int FUN_001d5e80(int a);

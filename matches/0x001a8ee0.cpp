@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct Obj31 {
     char p[0x31];
     char f;
@@ -27,25 +29,16 @@ struct Gl {
     Mgr_1a8ee0* m;
 };
 extern Gl* g_1a8ee0;
-struct A_1a8ee0 {
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    char p[0x20c - 4];
-    Hnd* h;
-    char pad[4];
-    char fl;
+struct NISAnimationAction_nv_1a8ee0 {
     void Inner();
 };
-void A_1a8ee0::v4() {
+
+void hulkfight::scenario::NISAnimationAction::vfunc_4() {
     g_1a8ee0->m->Get()->f = 1;
-    Inner();
-    if (fl) {
-        h->Rel();
-        fl = 0;
+    ((NISAnimationAction_nv_1a8ee0*)this)->Inner();
+    if (this->f_214) {
+        (*(Hnd * *)&this->f_20c)->Rel();
+        this->f_214 = 0;
     }
     Hulk* x = g_1a8ee0->s->h;
     if (x) {

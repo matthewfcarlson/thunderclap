@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_001ea0c0 @ 0x001ea0c0
+#include "decls/address.h"
 struct Key_1ea0c0 { unsigned int low, high; };
-extern "C" unsigned __int64 __cdecl FUN_002672f0(const char*, int, int);
 extern "C" int __cdecl sprintf(char*, const char*, ...);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;

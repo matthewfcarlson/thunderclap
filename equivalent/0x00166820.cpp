@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 104 inputs, branch coverage 27/28, incomplete)
 // hulkfight::motion::RayCastConeCondition::vfunc_6 @ 0x00166820
+#include "decls/address.h"
 struct V3_166820 {
     float x, y, z;
     void FUN_0022d180();
@@ -55,12 +56,11 @@ struct Game20_166820 {
     void* f124;
 };
 
-struct Game_166820 {
+struct World {
     char pad00[0x20];
     Game20_166820* f20;
 };
 
-extern Game_166820* DAT_004dd700;
 
 bool FUN_002027c0(V3_166820* from, V3_166820* to, int a, int notSelf, V3_166820* out1, V3_166820* out2, int b, int c);
 

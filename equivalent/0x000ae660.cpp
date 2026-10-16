@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 46/46)
 // FUN_000ae660 @ 0x000ae660
+#include "decls/address.h"
 struct Snapshot {
     float f[17];
 };
@@ -16,7 +17,7 @@ struct Audio_ae660 {
     void FUN_00086180(int a, int b, int c, int d);
 };
 
-struct AudioHolder {
+struct World {
     char pad00[0x54];
     Audio_ae660* audio;
 };
@@ -29,7 +30,6 @@ struct InputHub {
     char FUN_0023f710();
 };
 
-extern AudioHolder* DAT_004dd700;
 extern InputHub* DAT_004dd6e8;
 
 struct Controls {

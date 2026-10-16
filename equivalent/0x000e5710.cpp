@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3148 inputs, branch coverage 120/133, incomplete)
 // FEScreenBase::vfunc_3 @ 0x000e5710
+#include "decls/address.h"
 extern "C" int memcmp(const void *, const void *, unsigned int);
 int __cdecl FUN_000f6660(int value, int modulus);
 extern char DAT_004de950;
@@ -93,11 +94,10 @@ struct Sub_e5710 {
     State_e5710 *FUN_00086280();
     int *FUN_00086270();
 };
-struct Globals_e5710 {
+struct World {
     char pad[0x54];
     Sub_e5710 *sub;
 };
-extern Globals_e5710 *DAT_004dd700;
 
 union Arg2_e5710 {
     int arg;

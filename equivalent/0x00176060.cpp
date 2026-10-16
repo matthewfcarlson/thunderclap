@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 153 inputs, branch coverage 31/32, incomplete)
 // hulkfight::motion::SuckInPropsAction::vfunc_5 @ 0x00176060
+#include "decls/address.h"
 struct Vec3_176060 {
     float x, y, z;
     float FUN_0022d110();
@@ -90,7 +91,6 @@ struct Config_176060 {
     float range;
 };
 
-extern World* DAT_004dd700;
 
 namespace hulkfight {
 namespace motion {

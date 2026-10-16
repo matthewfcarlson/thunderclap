@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern void* alloc(unsigned int);
 inline void* operator new(unsigned int, void* where) {
     return where;
@@ -29,21 +31,11 @@ class Derived_17e850 : public Base_17e850 {
     int f;
 };
 
-class Factory_17e850 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual Derived_17e850* f5();
-};
-
-Derived_17e850* Factory_17e850::f5() {
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::TargetIconDistanceTrack>::vfunc_5() {
     Derived_17e850* p = (Derived_17e850*)alloc(0x20);
     if (p) {
         new (p) Derived_17e850();
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

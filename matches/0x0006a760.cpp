@@ -1,20 +1,5 @@
-class COrientTargetTrack {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
-    virtual void f11();
-    virtual int vfunc_12(void*);
-    virtual void f13();
-};
+#include "gen/global.h"
+
 class A_6a760 {
   public:
     char pad[0x33c];
@@ -30,7 +15,9 @@ class D {
 };
 extern void* __cdecl FUN_0008d690(unsigned int);
 extern D* __cdecl FUN_0001fc60(void*);
-int COrientTargetTrack::vfunc_12(void* p) {
+
+int COrientTargetTrack::vfunc_12(int __p0) { void * p = (void *)__p0;
+
     B_6a760* b = (B_6a760*)p;
     A_6a760* a = b->Get();
     a = a->Next();

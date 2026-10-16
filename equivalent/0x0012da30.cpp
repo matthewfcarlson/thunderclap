@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // hulkfight::PostEvent_StringAction::vfunc_5 @ 0x0012da30
 // equiv-map: ??0Key@@QAE@ABU0@@Z = 0x0027af30
+#include "decls/address.h"
 struct Key {
     int lo, hi;
     Key() throw() {}
@@ -23,12 +24,11 @@ struct EventBuilder {
     void FUN_001cadf0(Key id);
 };
 
-struct Game_12da30 {
+struct World {
     char pad00[0x2c];
     StatusCheck *status;     // 0x2c
     EventQueue *queue;       // 0x30
 };
-extern Game_12da30 *DAT_004dd700;
 
 struct ActionParams_12da30 {
     char pad00[0x10];
@@ -50,7 +50,7 @@ public:
 };
 
 bool PostEvent_StringAction::vfunc_5(int a, int b) {
-    Game_12da30 *game = DAT_004dd700;
+    World *game = DAT_004dd700;
     if (game) {
         if (params->requireStatus) {
             if (!game->status || !game->status->FUN_001ccff0())

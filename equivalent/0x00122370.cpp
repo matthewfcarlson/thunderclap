@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 12/12)
 // hulkfight::ai::PathAction::vfunc_3 @ 0x00122370
+#include "decls/address.h"
 struct Zone_122370 { char pad[0x380]; int value; };
 struct ZoneRef { char pad[0x11c]; Zone_122370* zone; };
 struct Node { ZoneRef* FUN_00059a30(); };
@@ -17,7 +18,7 @@ struct Listeners {
     Ring_122370 ring;
 };
 
-struct Global_122370 {
+struct World {
     char pad[0x1c];
     Listeners* listeners;
     char pad2[0x28 - 0x20];
@@ -34,7 +35,6 @@ struct Sub_122370 {
     void FUN_0027b040(int id);
 };
 
-extern Global_122370* DAT_004dd700;
 
 class PathAction {
 public:

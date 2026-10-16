@@ -16,7 +16,7 @@ class G_275a30 {
     virtual void e(void*);
 };
 extern G_275a30* globalG;
-class DriveFindFirstRequest {
+namespace core { class DriveFindFirstRequest {
   public:
     virtual DriveFindFirstRequest* vfunc_0(int);
     virtual void v1();
@@ -27,8 +27,8 @@ class DriveFindFirstRequest {
     virtual void v6();
     int pad;
     Elem_275a30* object;
-};
-DriveFindFirstRequest* DriveFindFirstRequest::vfunc_0(int flag) {
+}; }
+core::DriveFindFirstRequest* core::DriveFindFirstRequest::vfunc_0(int flag) {
     ((int*)this)[0] = (int)&vtDrive;
     ((Elem_275a30*)((char*)object + 4))->A();
     --((int*)((char*)object))[5];

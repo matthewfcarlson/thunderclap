@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Obj_298c00 {
   public:
     virtual void a();
@@ -51,40 +53,25 @@ struct Second_298c00 {
     char pad2[8];
     Obj22** objs;
 };
-class CompositeDrawable {
-  public:
-    char pad44[0x44];
-    First_298c00* first;
-    Second_298c00* second;
-    Obj22* third;
-    Obj22* fourth;
-    char a();
-    char b();
-    char c();
-    char d();
-    char e();
-    char f();
-    char g();
-    char v7();
-};
-char CompositeDrawable::v7() {
+
+char pure3d::CompositeDrawable::vfunc_7() {
     unsigned char i = 0;
-    if (!second) {
-        unsigned char n = first->count;
+    if (!(*(Second_298c00 * *)&this->f_48)) {
+        unsigned char n = (*(First_298c00 * *)&this->f_44)->count;
         while (i < n) {
-            Obj_298c00* o = first->objs[first->ids[i] * 3 + 2];
+            Obj_298c00* o = (*(First_298c00 * *)&this->f_44)->objs[(*(First_298c00 * *)&this->f_44)->ids[i] * 3 + 2];
             if (!o->Check())
                 return 0;
             ++i;
         }
-        if (third && !third->Check())
+        if ((*(Obj22 * *)&this->f_4c) && !(*(Obj22 * *)&this->f_4c)->Check())
             return 0;
-        if (fourth && !fourth->Check())
+        if ((*(Obj22 * *)&this->f_50) && !(*(Obj22 * *)&this->f_50)->Check())
             return 0;
     } else {
-        unsigned char n = second->count;
+        unsigned char n = (*(Second_298c00 * *)&this->f_48)->count;
         while (i < n) {
-            Obj22* o = second->objs[second->ids[i]];
+            Obj22* o = (*(Second_298c00 * *)&this->f_48)->objs[(*(Second_298c00 * *)&this->f_48)->ids[i]];
             if (!o->Check())
                 return 0;
             ++i;

@@ -1,4 +1,4 @@
-extern "C" long long FUN_0027b020(const char*);
+#include "decls/address.h"
 extern int g4dd8f0;
 extern int g4dd8f4;
 void FUN_0035d1c0() {

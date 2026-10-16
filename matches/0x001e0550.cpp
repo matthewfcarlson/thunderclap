@@ -1,3 +1,4 @@
+#include "decls/address.h"
 extern "C" char DAT_004233f8[];
 class Obj_1e0550 {
   public:
@@ -13,7 +14,6 @@ class Obj_1e0550 {
 extern char gA_1e0550[];
 extern char gB_1e0550[];
 extern char gC_1e0550[];
-extern char __cdecl FUN_001d04d0(const char*);
 Obj_1e0550* Obj_1e0550::Make(const char* p, int x) {
     Init(p, 5);
     v = ((int)DAT_004233f8);

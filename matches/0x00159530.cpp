@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 typedef unsigned int size_t;
 void* operator new(size_t) throw();
 class Base {
@@ -9,26 +11,18 @@ class Base {
     int a;
     int b;
 };
-class CollisionTargetSizeCondition : public Base {
+class CollisionTargetSizeCondition_159530 : public Base {
   public:
-    CollisionTargetSizeCondition() throw();
+    CollisionTargetSizeCondition_159530() throw();
     virtual void f();
     int x;
     int y;
 };
-CollisionTargetSizeCondition::CollisionTargetSizeCondition() throw() : Base(0) {
+CollisionTargetSizeCondition_159530::CollisionTargetSizeCondition_159530() throw() : Base(0) {
     x = 0;
     y = 0;
 }
-class Factory {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual CollisionTargetSizeCondition* v5();
-};
-CollisionTargetSizeCondition* Factory::v5() {
-    return new CollisionTargetSizeCondition;
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionTargetSizeCondition>::vfunc_5() {
+    return (void*)(new CollisionTargetSizeCondition_159530);
 }

@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0041c5d0[];
 class Base_1aabf0 {
   public:
@@ -29,17 +31,14 @@ class Sub_1aabf0 {
     virtual void f();
     void init();
 };
-class Factory_1aabf0 : public Base_1aabf0 {
-  public:
-    void* vfunc_5();
-};
-void* Factory_1aabf0::vfunc_5() {
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::scenario::Event_PropNameCondition>::vfunc_5() {
     Obj_1aabf0* p = (Obj_1aabf0*)alloc(0x18);
     if (p) {
         p->init(0);
         *((int*)p) = ((int)DAT_0041c5d0);
         ((Sub_1aabf0*)((char*)p + 0x10))->init();
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

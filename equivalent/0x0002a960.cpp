@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 15 inputs, branch coverage 28/32, incomplete)
 // FUN_0002a960 @ 0x0002a960
+#include "decls/address.h"
 struct Vec3_2a960 {
     float x, y, z;
     float FUN_000111f0();
 };
 
-unsigned __int64 FUN_0027b020(const char *name);
 
 struct Body_2a960 {
     char pad00[0x18];

@@ -1,4 +1,6 @@
-class CAction {
+#include "gen/global.h"
+
+class CAction_16ff0 {
   public:
     virtual void a0();
     virtual void a1();
@@ -10,21 +12,9 @@ class CAction {
     virtual void a7();
     virtual void a8();
 };
-class CCameraDramaticAction : public CAction {
-  public:
-    char pad[0x24 - 4];
-    unsigned int value;
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual unsigned char vfunc_7(unsigned int);
-    virtual void v8();
-};
-unsigned char CCameraDramaticAction::vfunc_7(unsigned int x) {
-    value = x;
-    return 1;
+
+bool CCameraDramaticAction::vfunc_7(int __p0) { unsigned int x = (unsigned int)__p0;
+
+    this->f_24 = x;
+    return (bool)(1);
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 43/48, incomplete)
 // MyControllerCallback::vfunc_0 @ 0x0008dbb0
+#include "decls/address.h"
 extern "C" int strcmp(const char *a, const char *b);
 
 struct Item_8dbb0 {
@@ -50,11 +51,10 @@ struct Manager_8dbb0 {
     char pad0[0x10];
 };
 
-struct Holder_8dbb0 {
+struct World {
     char pad0[0x54];
     Manager_8dbb0 *mgr;
 };
-extern Holder_8dbb0 *DAT_004dd700;
 
 Profile_8dbb0 *__fastcall FUN_000862c0(Manager_8dbb0 *m);
 Cam_8dbb0 *__fastcall FUN_00086300(Manager_8dbb0 *m);

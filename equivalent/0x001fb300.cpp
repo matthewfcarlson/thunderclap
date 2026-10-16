@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 682 inputs, branch coverage 6/6)
 // FUN_001fb300 @ 0x001fb300
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 namespace content {
@@ -36,7 +37,6 @@ union InventoryArg_1fb300 {
 
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
-unsigned __int64 __cdecl FUN_002672f0(const char *s, int a, int b);
 int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
 
 class DataLoader_1fb300 {

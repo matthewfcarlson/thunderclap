@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 16/16)
 // hulkfight::ai::AcquireTargetAction::vfunc_5 @ 0x00124a80
+#include "gen/hulkfight.h"
+#include "decls/address.h"
+
 struct V3_124a80 {
     float x, y, z;
     float FUN_0022d110();
@@ -8,7 +11,7 @@ struct V3_124a80 {
 
 void __cdecl FUN_00224d70(float angle, V3_124a80 *v);
 
-struct Camera {
+struct Camera_124a80 {
     char pad0[0x14];
     int field14;                // 0x14
     int field18;                // 0x18
@@ -56,23 +59,12 @@ struct Owner_124a80 {
     Actor_124a80 *current;             // 0x124
 };
 
-struct Global_124a80 {
+struct World {
     char pad0[0x20];
     Owner_124a80 *owner;               // 0x20
 };
-extern Global_124a80 *DAT_004dd700;
 
-class AcquireTargetAction {
-public:
-    void *vptr;
-    char pad4[0x18];
-    Camera *camera;             // 0x1c
-    Pool0 *pool;                // 0x20
-    char FUN_00124a80(int skip, int unused);
-};
-
-char AcquireTargetAction::FUN_00124a80(int skip, int unused)
-{
+bool hulkfight::ai::AcquireTargetAction::vfunc_5(int skip, int unused) {
     struct Frame {
         V3_124a80 a;
         V3_124a80 b;
@@ -80,18 +72,18 @@ char AcquireTargetAction::FUN_00124a80(int skip, int unused)
     } f;
 
     if (skip != 0)
-        return 1;
+        return (bool)(1);
 
-    Actor_124a80 *actor = pool->FUN_000592a0()->FUN_00059a30();
+    Actor_124a80 *actor = (*(Pool0 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();
     if (actor->target == 0) {
-        if (camera->active) {
+        if ((*(Camera_124a80 * *)&this->f_1c)->active) {
             f.a.x = 0; f.a.y = 0; f.a.z = 0;
             actor->FUN_000350c0(&f.a);
-            f.b = camera->offset;
+            f.b = (*(Camera_124a80 * *)&this->f_1c)->offset;
             FUN_00224d70(actor->FUN_000354c0(), &f.b);
             float len = f.b.FUN_0022d110();
             if (len > 0.0f) {
-                Camera *c = camera;
+                Camera_124a80 *c = (*(Camera_124a80 * *)&this->f_1c);
                 actor->FUN_000400e0(&f.a, &f.b, c->field14, c->field18, 0);
             }
         } else if (actor != DAT_004dd700->owner->current) {
@@ -99,7 +91,7 @@ char AcquireTargetAction::FUN_00124a80(int skip, int unused)
             actor->FUN_00035dc0(&f.b);
             f.a.x = 0; f.a.y = 0; f.a.z = 0;
             actor->FUN_000350c0(&f.a);
-            Camera *c = camera;
+            Camera_124a80 *c = (*(Camera_124a80 * *)&this->f_1c);
             actor->FUN_000400e0(&f.a, &f.b, c->field14, c->field18, 0x32);
         } else {
             f.b.x = 0; f.b.y = 0; f.b.z = 0;
@@ -119,7 +111,7 @@ char AcquireTargetAction::FUN_00124a80(int skip, int unused)
                 f.b = *s->FUN_001c39d0();
                 f.a = *s->FUN_001c39c0();
             }
-            Camera *c = camera;
+            Camera_124a80 *c = (*(Camera_124a80 * *)&this->f_1c);
             actor->FUN_000400e0(&f.b, &f.a, c->field14, c->field18, 0x32);
         }
     }
@@ -127,5 +119,5 @@ char AcquireTargetAction::FUN_00124a80(int skip, int unused)
         actor->flag32c = 1;
         actor->flag32d = 1;
     }
-    return 1;
+    return (bool)(1);
 }

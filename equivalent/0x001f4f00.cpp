@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 25 inputs, branch coverage 86/86)
 // FUN_001f4f00 @ 0x001f4f00
+#include "decls/address.h"
 typedef unsigned long U_1f4f00; typedef unsigned __int64 Q_1f4f00;
 struct Pair_1f4f00 { U_1f4f00 a,b; };
-Q_1f4f00 __cdecl FUN_002672f0(int,int,int);
 U_1f4f00 __cdecl FUN_002673a0(int,int);
 void __cdecl FUN_00249a90(U_1f4f00,Pair_1f4f00*);
 void __cdecl FUN_0024a800(U_1f4f00,int);

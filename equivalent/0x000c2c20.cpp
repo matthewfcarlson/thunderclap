@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 66/66)
 // FUN_000c2c20 @ 0x000c2c20
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 extern char DAT_0049dba4[];
@@ -94,11 +95,10 @@ struct Holder54_c2c20 {
 struct Pts {
     int FUN_00090110();
 };
-struct Hub_c2c20 {
+struct World {
     char pad0[0x54];
     Holder54_c2c20 *p54;
 };
-extern Hub_c2c20 *DAT_004dd700;
 
 class MovesMenu {
 public:

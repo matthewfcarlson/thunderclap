@@ -1,25 +1,19 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_003fe6c8[];
 typedef unsigned int u32_76590;
 void* __cdecl Allocate(unsigned int);
-class Track {
+class Track_76590 {
   public:
     void Init();
 };
-class Template_76590 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void* f();
-};
-void* Template_76590::f() {
+
+template <> void* fight::TrackFactoryTemplate<CGrappleAutoTargetTrack>::vfunc_5() {
     void* p = Allocate(0x3c);
     if (p) {
-        ((Track*)p)->Init();
+        ((Track_76590*)p)->Init();
         *(u32_76590*)p = ((int)DAT_003fe6c8);
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

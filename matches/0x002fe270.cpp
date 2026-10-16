@@ -38,13 +38,13 @@ class Owner_2fe270 {
     char flag;
     void Helper(int);
 };
-class SimStateHairclub : public SimState {
+namespace physics { class SimStateHairclub : public SimState {
   public:
     char pad[0x74 - sizeof(SimState)];
     Owner_2fe270* owner;
     void vfunc_14(int);
-};
-void SimStateHairclub::vfunc_14(int x) {
+}; }
+void physics::SimStateHairclub::vfunc_14(int x) {
     SimState::vfunc_14(x);
     Owner_2fe270* o = owner;
     if (o->flag) {

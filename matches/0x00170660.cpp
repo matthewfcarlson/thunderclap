@@ -1,16 +1,5 @@
-class MomentumXZAddTrack {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual float vfunc_6();
-    char pad[8];
-    float mValue;
-};
+#include "gen/hulkfight.h"
 
-float MomentumXZAddTrack::vfunc_6() {
-    return mValue;
+float hulkfight::motion::MomentumXZAddTrack::vfunc_6() {
+    return this->f_0c;
 }

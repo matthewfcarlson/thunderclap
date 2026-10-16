@@ -1,3 +1,5 @@
+#include "gen/Render.h"
+
 class ResultThing {
   public:
     virtual void f0();
@@ -7,22 +9,9 @@ class ResultThing {
     virtual void f4();
     virtual int f5();
 };
-class Object {
-  public:
-    char pad[0x0c];
-    ResultThing* member;
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void* v8();
-};
-void* Object::v8() {
-    if (member->f5() == 4)
-        return member;
-    return 0;
+
+void* Render::Object::vfunc_8() {
+    if ((*(ResultThing * *)&this->f_10)->f5() == 4)
+        return (void*)((*(ResultThing * *)&this->f_10));
+    return (void*)(0);
 }

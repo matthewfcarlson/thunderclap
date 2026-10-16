@@ -1,59 +1,37 @@
+#include "gen/pure3d.h"
+
 struct Vec4_32e400 {
     float x, y, z, w;
 };
-struct Matrix {
+struct Matrix_32e400 {
     float m[16];
-    void FUN_0022ca90(const Matrix* a, const Matrix* b);
-    void FUN_0022cc10(const Matrix* a, const Matrix* b);
+    void FUN_0022ca90(const Matrix_32e400* a, const Matrix_32e400* b);
+    void FUN_0022cc10(const Matrix_32e400* a, const Matrix_32e400* b);
     void FUN_0022c0b0();
 };
 namespace D3D8 {
-void __stdcall D3DDevice_GetTransform(int type, Matrix* out);
+void __stdcall D3DDevice_GetTransform(int type, Matrix_32e400* out);
 void __fastcall D3DDevice_SetVertexShaderConstant1(int reg, const void* data);
 void __fastcall D3DDevice_SetVertexShaderConstant4(int reg, const void* data);
 } // namespace D3D8
 struct Frame_32e400 {
     Vec4_32e400 consts;
-    Matrix worldViewT;
-    Matrix viewT;
-    Matrix view;
-    Matrix world;
-    Matrix worldView;
-    Matrix proj;
-    Matrix worldViewProj;
+    Matrix_32e400 worldViewT;
+    Matrix_32e400 viewT;
+    Matrix_32e400 view;
+    Matrix_32e400 world;
+    Matrix_32e400 worldView;
+    Matrix_32e400 proj;
+    Matrix_32e400 worldViewProj;
 };
 namespace pure3d {
-class d3dLayeredShader {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual void v13();
-    virtual void v14();
-    virtual void v15();
-    virtual void v16();
-    virtual void v17();
-    virtual void v18();
-    virtual void v19();
-    virtual void v20();
-    virtual void v21();
-    virtual void v22();
-    virtual void v23();
-    virtual void vfunc_24();
+struct d3dLayeredShader_nv_32e400 {
     void FUN_0032db00();
     void FUN_0032e0e0();
 };
-void d3dLayeredShader::vfunc_24() {
+
+} // namespace pure3d
+void pure3d::d3dLayeredShader::vfunc_24() {
     Frame_32e400 F;
     F.consts.x = 0.0f;
     F.consts.y = 0.5f;
@@ -71,7 +49,6 @@ void d3dLayeredShader::vfunc_24() {
     F.viewT.FUN_0022c0b0();
     D3D8::D3DDevice_SetVertexShaderConstant4(0x6a, &F.viewT);
     D3D8::D3DDevice_SetVertexShaderConstant4(0x6e, &F.worldViewT);
-    FUN_0032db00();
-    FUN_0032e0e0();
+    ((d3dLayeredShader_nv_32e400*)this)->FUN_0032db00();
+    ((d3dLayeredShader_nv_32e400*)this)->FUN_0032e0e0();
 }
-} // namespace pure3d

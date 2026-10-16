@@ -1,20 +1,16 @@
 // Same code shape as 0x0002c760 (propagated; names are from that function)
-class CActorManager;
-typedef float (CActorManager::*Fn_1fe9a0)(const char*);
-class CActorManager {
+#include "gen/global.h"
+
+class CActorManager_1fe9a0;
+typedef float (CActorManager_1fe9a0::*Fn_1fe9a0)(const char*);
+class CActorManager_1fe9a0 {
   public:
     float Get(const char* s);
 };
-class Method1 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2(CActorManager* a, const char** p, float* out);
-    char pad[0x1c - 4];
-    Fn_1fe9a0 fn;
-};
-void Method1::f2(CActorManager* a, const char** p, float* out) {
-    Fn_1fe9a0 f = fn;
+
+template <> void Method1<CTriggerVolumeManager, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_1fe9a0 * a = (CActorManager_1fe9a0 *)__p0; const char ** p = (const char **)__p1; float * out = (float *)__p2;
+
+    Fn_1fe9a0 f = (*(Fn_1fe9a0 *)&this->f_1c);
     const char* s = *p;
     float x = (a->*f)(s);
     if (out)

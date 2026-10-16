@@ -1,22 +1,11 @@
-class PhysicsObject {
-  public:
-    char pad[0x130];
-    volatile int c;
-    volatile int b;
-    volatile int a;
-    volatile int d;
-    volatile int e;
-    volatile int f;
-    char pad2[0x1d0 - 0x148];
-    volatile char flag;
-    void vfunc_37();
-};
-void PhysicsObject::vfunc_37() {
-    a = 0;
-    b = 0;
-    c = 0;
-    f = 0;
-    e = 0;
-    d = 0;
-    flag = 0;
+#include "gen/physics.h"
+
+void physics::PhysicsObject::vfunc_37() {
+    (*(volatile int *)&this->f_138) = 0;
+    (*(volatile int *)&this->f_134) = 0;
+    (*(volatile int *)&this->f_130) = 0;
+    (*(volatile int *)&this->f_144) = 0;
+    (*(volatile int *)&this->f_140) = 0;
+    (*(volatile int *)&this->f_13c) = 0;
+    (*(volatile char *)&this->f_1d0) = 0;
 }

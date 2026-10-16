@@ -1,15 +1,10 @@
-class HalRsdFileStream {
-  public:
-    char pad[0x3c];
-    int mValue;
-    int mOther;
-    int mState;
-    bool vfunc_8(int* out);
-};
-bool HalRsdFileStream::vfunc_8(int* out) {
-    if (mState == 5)
+#include "gen/audio.h"
+
+bool audio::HalRsdFileStream::vfunc_8(void* __p0) { int * out = (int *)__p0;
+
+    if ((*(int *)&this->f_44) == 5)
         return false;
-    *out = mValue;
-    mState = 4;
+    *out = (*(int *)&this->f_3c);
+    (*(int *)&this->f_44) = 4;
     return true;
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 28/34, incomplete)
 // COccupationAgent::vfunc_3 @ 0x00103830
+#include "decls/address.h"
 extern "C" double sqrt(double);
 
 struct Vec3_103830 {
@@ -58,12 +59,11 @@ struct Clock_103830 {
     float FUN_00086040();
 };
 
-struct Game_103830 {
+struct World {
     char pad0[0x58];
     Clock_103830 *clock;
 };
 
-extern Game_103830 *DAT_004dd700;
 
 class COccupationAgent {
 public:

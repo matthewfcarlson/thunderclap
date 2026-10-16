@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 32/34, incomplete)
 // FUN_0009d1b0 @ 0x0009d1b0
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 namespace pure3d { class Animation; }
 struct Loader_9d1b0;
@@ -45,7 +46,7 @@ struct Sub20 {
     int f124;
 };
 
-struct Game_9d1b0 {
+struct World {
     char pad0[0x20];
     Sub20 *f20;
     char pad1[0x54 - 0x24];
@@ -53,10 +54,9 @@ struct Game_9d1b0 {
 };
 
 struct Tail_9d1b0 {
-    void FUN_00098480(Game_9d1b0 *g);
+    void FUN_00098480(World *g);
 };
 
-extern Game_9d1b0 *DAT_004dd700;
 
 class Node {
 public:
@@ -71,15 +71,15 @@ public:
     char pad3[0xbc - 0xb0];
     Tail_9d1b0 *tail;
 
-    void FUN_0009a1e0(Game_9d1b0 *g);
+    void FUN_0009a1e0(World *g);
     void FUN_0009a220();
-    void FUN_0009a290(Game_9d1b0 *g);
+    void FUN_0009a290(World *g);
     void FUN_0009d1b0(const char *n0, const char *n1, const char *n2, const char *n3);
 };
 
 void Node::FUN_0009d1b0(const char *n0, const char *n1, const char *n2, const char *n3)
 {
-    Game_9d1b0 *g = DAT_004dd700;
+    World *g = DAT_004dd700;
     if (busy)
         return;
     if (g->f20->f124 == 0)

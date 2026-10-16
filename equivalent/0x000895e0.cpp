@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 18/20, incomplete)
 // FUN_000895e0 @ 0x000895e0
+#include "decls/address.h"
 int __cdecl FUN_00267760(char* dest, int size, const char* fmt, ...);
 int __cdecl strncmp(const char*, const char*, unsigned int);
 struct LevelInfo {
@@ -8,11 +9,10 @@ struct LevelInfo {
 struct LevelTable {
     LevelInfo* FUN_00086280(const char* name);
 };
-struct Globals_895e0 {
+struct World {
     char pad[0x54];
     LevelTable* levels;
 };
-extern Globals_895e0* DAT_004dd700;
 struct LevelAbbrev {
     const char* name;
     const char* abbrev;

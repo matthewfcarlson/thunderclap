@@ -118,7 +118,7 @@ void* FUN_00263ed0(int size, int tag);
 void* FUN_00263ea0(unsigned int size);
 void FUN_0028fb20(char* dst, const char* src);
 
-class ImageHandler {
+namespace pure3d { class ImageHandler {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -142,9 +142,9 @@ public:
     char pad0d[3];
     int f10;
     int f14;
-};
+}; }
 
-void ImageHandler::vfunc_3(Request* req, Context* ctx)
+void pure3d::ImageHandler::vfunc_3(Request* req, Context* ctx)
 {
     char name[0x100];
 

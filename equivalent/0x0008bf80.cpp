@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 20/20)
 // FUN_0008bf80 @ 0x0008bf80
+#include "decls/address.h"
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
 extern int DAT_0048e100, DAT_0048e134, DAT_0048e0f0, DAT_0048e0e4;
-unsigned char __cdecl FUN_001d04d0(const void*);
 typedef void (*Callback)();
 #define CB(a) void FUN_##a();
 CB(00023e50) CB(00023e60) CB(000893c0) CB(000895c0) CB(000897e0) CB(00089800) CB(00089820) CB(00089830) CB(000898d0) CB(00089910) CB(00089920) CB(00089a00) CB(00089a10) CB(00089ab0) CB(00089f00) CB(00089f80) CB(0008a060) CB(0008a090) CB(0008a2b0) CB(0008a2d0) CB(0008a310) CB(0008abc0)

@@ -1,21 +1,23 @@
+#include "gen/audio.h"
+
 namespace audio {
-class SeqEventWait;
-class SeqActionWait {
+
+class SeqActionWait_250460 {
   public:
     virtual void v0();
     virtual void v1();
     int pad;
-    SeqEventWait* event;
+    audio::SeqEventWait* event;
     int zero;
-    SeqActionWait(SeqEventWait* e) : event(e), zero(0) {}
+    SeqActionWait_250460(audio::SeqEventWait* e) : event(e), zero(0) {}
 };
 } // namespace audio
 class Target {
   public:
-    void set(audio::SeqActionWait*);
+    void set(audio::SeqActionWait_250460*);
 };
 namespace audio {
-class SeqEvent {
+class SeqEvent_250460 {
   public:
     virtual void v0();
     virtual void v1();
@@ -24,14 +26,11 @@ class SeqEvent {
     virtual void v4();
     virtual void v5();
 };
-class SeqEventWait : public SeqEvent {
-  public:
-    virtual void v2(Target*);
-};
 } // namespace audio
 extern char bss;
 extern "C" void* __cdecl alloc(void*);
-void audio::SeqEventWait::v2(Target* p) {
-    audio::SeqActionWait* a = (audio::SeqActionWait*)alloc(&bss);
-    p->set(a ? (a->audio::SeqActionWait::SeqActionWait(this), a) : 0);
+void audio::SeqEventWait::vfunc_2(int __p0) { Target * p = (Target *)__p0;
+
+    audio::SeqActionWait_250460* a = (audio::SeqActionWait_250460*)alloc(&bss);
+    p->set(a ? (a->audio::SeqActionWait_250460::SeqActionWait_250460(this), a) : 0);
 }

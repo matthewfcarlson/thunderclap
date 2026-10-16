@@ -1,10 +1,5 @@
-class PhysicsJointMatrixModifier {
-    char pad[0x18];
-    void* p;
+#include "gen/physics.h"
 
-  public:
-    int vfunc_5();
-};
-int PhysicsJointMatrixModifier::vfunc_5() {
-    return *(int*)((char*)p + 8);
+int physics::PhysicsJointMatrixModifier::vfunc_5() {
+    return *(int*)((char*)(*(void * *)&this->f_18) + 8);
 }

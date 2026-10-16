@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 28/34, incomplete)
 // FUN_000bf2b0 @ 0x000bf2b0
+#include "decls/address.h"
 extern "C" char *__cdecl strncpy(char *dst, const char *src, unsigned int n);
 
 struct Counter_bf2b0 {
@@ -42,13 +43,12 @@ struct Party {
     Player_bf2b0 *leader;          // 0x124
 };
 
-struct Group_bf2b0 {
+struct World {
     char pad0[0x20];
     Party *party;            // 0x20
     char pad24[0x3c - 0x24];
     Hud_bf2b0 *hud;                // 0x3c
 };
-extern Group_bf2b0 *DAT_004dd700;
 
 struct Game_bf2b0 {
     char FUN_000be230(const char *cls, const char *msg, const char *title, const char *ok,

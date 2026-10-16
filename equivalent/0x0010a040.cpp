@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 83/84, incomplete)
 // CAvoidBehaviour::vfunc_3 @ 0x0010a040
+#include "decls/address.h"
 struct V3_10a040 {
     float x, y, z;
     float FUN_0022d110();
@@ -84,7 +85,6 @@ struct World {
     char pad00[0xc];
     WorldC *fc;
 };
-extern World *DAT_004dd700;
 extern float DAT_004a1eac[4];
 
 V3_10a040 *__cdecl FUN_00083e00(V3_10a040 *out, V3_10a040 *dir, float t);

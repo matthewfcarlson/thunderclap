@@ -3,7 +3,7 @@ class Elem_182fd0 {
   public:
     void Fn();
 };
-class PropMassCondition {
+namespace hulkfight { namespace motion { class PropMassCondition {
   public:
     virtual void v0();
     virtual void v1();
@@ -15,9 +15,9 @@ class PropMassCondition {
     char pad[0x18 - sizeof(void*)];
     Elem_182fd0 elem;
     void BaseFn();
-};
-extern void Cleanup(PropMassCondition*);
-PropMassCondition* PropMassCondition::vfunc_5(char flag) {
+}; }}
+extern void Cleanup(hulkfight::motion::PropMassCondition*);
+hulkfight::motion::PropMassCondition* hulkfight::motion::PropMassCondition::vfunc_5(char flag) {
     *(void**)this = &prop_vftable;
     elem.Fn();
     BaseFn();

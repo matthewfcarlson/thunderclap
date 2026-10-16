@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct Info_182420 {
     char p[0x10];
     int idx;
@@ -17,20 +19,12 @@ struct Sing {
 struct Tgt_182420 {
     Sing* GetSing();
 };
-struct Act_182420 {
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual bool Run(int a, int b);
-    char p[0x18];
-    Info_182420* info;
-    Tgt_182420* tgt;
-};
-bool Act_182420::Run(int a, int b) {
-    if (!tgt)
+
+bool hulkfight::motion::PropDestroyAction::vfunc_3(int a, int b) {
+    if (!(*(Tgt_182420 * *)&this->f_20))
         return false;
-    Mgr_182420* m = tgt->GetSing()->Find();
-    int i = info->idx;
+    Mgr_182420* m = (*(Tgt_182420 * *)&this->f_20)->GetSing()->Find();
+    int i = (*(Info_182420 * *)&this->f_1c)->idx;
     if (m) {
         Hit_182420* h;
         if (i < 0)

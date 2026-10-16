@@ -1,34 +1,23 @@
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
-class FaceTargetTrack {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual int vfunc_10(int a, int b, int c);
-};
-class Params {
+#include "gen/hulkfight.h"
+
+class Params_17b9f0 {
   public:
     int x;
 };
-extern Params TypeA_17b9f0;
-extern Params TypeB_17b9f0;
-int __cdecl Check(void*, int, Params*, Params*, int);
-class Object {
+extern Params_17b9f0 TypeA_17b9f0;
+extern Params_17b9f0 TypeB_17b9f0;
+int __cdecl Check(void*, int, Params_17b9f0*, Params_17b9f0*, int);
+class Object_17b9f0 {
   public:
-    int Init(FaceTargetTrack*, int);
+    int Init(hulkfight::motion::TargetIconDistanceTrack*, int);
 };
-Object* __cdecl Alloc(int);
-int FaceTargetTrack::vfunc_10(int a, int b, int c) {
+Object_17b9f0* __cdecl Alloc(int);
+
+int hulkfight::motion::TargetIconDistanceTrack::vfunc_10(int a, int b, int c) {
     int result = Check((void*)c, 0, &TypeA_17b9f0, &TypeB_17b9f0, 0);
     if (result) {
-        Object* p = Alloc(0x24);
+        Object_17b9f0* p = Alloc(0x24);
         if (p)
             return p->Init(this, c);
     }

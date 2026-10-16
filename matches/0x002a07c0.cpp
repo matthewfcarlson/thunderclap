@@ -1,17 +1,6 @@
-class Light {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7(int, int, int);
-    virtual void f8();
-    virtual void f9();
-    void vfunc_8(int*);
-};
-void Light::vfunc_8(int* p) {
-    f7(p[0], p[1], p[2]);
+#include "gen/pure3d.h"
+
+void pure3d::Light::vfunc_8(void* __p0) { int * p = (int *)__p0;
+
+    vfunc_7(p[0], p[1], p[2]);
 }

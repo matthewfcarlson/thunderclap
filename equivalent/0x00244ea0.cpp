@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 4/4)
 // FUN_00244ea0 @ 0x00244ea0
+#include "decls/address.h"
 struct Region_244ea0 {
     char pad0[0x30];
     int boundsLo;           // 0x30
@@ -24,7 +25,6 @@ struct Index_244ea0 {
 
 extern Index_244ea0 *DAT_004cc08c;
 extern int DAT_004e5f0c;
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 void __cdecl FUN_002448b0(Index_244ea0 *idx, void *item, Query_244ea0 *q);
 
 namespace om {

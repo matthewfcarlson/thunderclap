@@ -1,11 +1,10 @@
-class CHitAnimationTrack {
-  public:
-    int vfunc_12(int);
-};
+#include "gen/global.h"
+
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Helper_5dd70 {
     int FUN_0001cfd0(CHitAnimationTrack*, int);
 };
+
 int CHitAnimationTrack::vfunc_12(int param) {
     Helper_5dd70* p = (Helper_5dd70*)FUN_0008d690(0x28);
     if (p)

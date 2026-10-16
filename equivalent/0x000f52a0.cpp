@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 9/10, incomplete)
 // FUN_000f52a0 @ 0x000f52a0
+#include "decls/address.h"
 namespace pure3d { class LightGroup; }
 namespace content {
 namespace LoadInventory {
@@ -10,7 +11,6 @@ struct DynamicCaster {
 }
 }
 typedef unsigned __int64 Key_f52a0;
-Key_f52a0 __cdecl FUN_0027b020(const char *name);
 
 struct Controller_f52a0 {
     virtual void AddRef();

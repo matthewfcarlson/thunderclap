@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_003f7304[];
-struct CLuaNumberCondition {
+struct CLuaNumberCondition_58340 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -9,23 +11,16 @@ struct CLuaNumberCondition {
     void init(int);
 };
 extern void* __cdecl Allocate(unsigned int);
-struct ConditionFactoryTemplate {
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    void* vfunc_5();
-};
-void* ConditionFactoryTemplate::vfunc_5() {
-    CLuaNumberCondition* p = (CLuaNumberCondition*)Allocate(0x54);
+
+template <> void* fight::ConditionFactoryTemplate<CLuaNumberCondition>::vfunc_5() {
+    CLuaNumberCondition_58340* p = (CLuaNumberCondition_58340*)Allocate(0x54);
     if (p) {
         p->init(0);
         *(unsigned int*)p = ((int)DAT_003f7304);
         *(unsigned int*)((char*)p + 0xc) = 2;
         *(unsigned int*)((char*)p + 0x50) = 0;
         *((unsigned char*)p + 0x10) = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

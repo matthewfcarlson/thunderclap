@@ -1,3 +1,5 @@
+#include "gen/audio.h"
+
 class Device_262ee0 {
   public:
     virtual void f0();
@@ -17,33 +19,12 @@ class Device_262ee0 {
     virtual void f14();
     virtual int Get();
 };
-class audio_HalRsdFileStream {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void vfunc_5(int);
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    char pad[0x1c];
-    Device_262ee0* dev;
-    char gap[8];
-    int pos;
-    int base;
-    int limit;
-};
-void audio_HalRsdFileStream::vfunc_5(int amount) {
-    int end = limit;
+
+void audio::HalRsdFileStream::vfunc_5(int amount) {
+    int end = this->f_34;
     if (!end)
-        end = dev->Get();
-    int off = (end - pos) + amount;
-    pos = end - off;
-    dev->f1(base + off);
+        end = (*(Device_262ee0 * *)&this->f_20)->Get();
+    int off = (end - (*(int *)&this->f_2c)) + amount;
+    (*(int *)&this->f_2c) = end - off;
+    (*(Device_262ee0 * *)&this->f_20)->f1(this->f_30 + off);
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 21/24, incomplete)
 // hulkfight::ai::MotionClosestWaypointAction::vfunc_3 @ 0x00117ab0
+#include "decls/address.h"
 extern "C" double sqrt(double);
 
 struct Vec3_117ab0 { float x, y, z; };
@@ -14,11 +15,10 @@ struct Registry_117ab0 {
     WaypointList *FUN_00106230(int key);
 };
 
-struct Globals_117ab0 {
+struct World {
     char pad[0x18];
     Registry_117ab0 *registry;
 };
-extern Globals_117ab0 *DAT_004dd700;
 
 struct Locator {
     void FUN_00059a50(Vec3_117ab0 *out);

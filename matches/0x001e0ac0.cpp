@@ -1,3 +1,4 @@
+#include "decls/address.h"
 extern "C" char DAT_00423468[];
 class CSPManager {
   public:
@@ -13,7 +14,6 @@ class CSPManager {
     void Init(int, int);
     CSPManager* Run(int, int);
 };
-extern char __cdecl FUN_001d04d0(const char*);
 extern const char s0_1e0ac0[];
 extern const char s1_1e0ac0[];
 extern const char s2_1e0ac0[];

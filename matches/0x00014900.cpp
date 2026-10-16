@@ -1,9 +1,8 @@
-struct CProceduralDurationAnimationAction {
+#include "gen/global.h"
+
+struct CProceduralDurationAnimationAction_14900 {
     char pad[0x1c];
     void* member;
-};
-struct CHitAnimationAction : CProceduralDurationAnimationAction {
-    float vfunc_9();
 };
 struct Queried {
     virtual void a();
@@ -16,8 +15,9 @@ struct Result_14900 {
     float value;
 };
 extern const float zeroValue_14900;
+
 float CHitAnimationAction::vfunc_9() {
-    Result_14900* p = (Result_14900*)((Queried*)member)->get();
+    Result_14900* p = (Result_14900*)((Queried*)(*(void * *)&this->f_1c))->get();
     if (!p)
         return zeroValue_14900;
     return p->value;

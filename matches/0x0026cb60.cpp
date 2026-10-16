@@ -1,33 +1,14 @@
-class MemoryDlAllocator {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual bool f9(int*, int*, int*, int*);
-    virtual void f10();
-    virtual void f11();
-    virtual void f12();
-    char pad[0x10];
-    int a;
-    char pad2[0x490 - 0x18];
-    int c;
-    int b;
-    int d;
-};
-bool MemoryDlAllocator::f9(int* p1, int* p2, int* p3, int* p4) {
+#include "gen/core.h"
+
+bool core::MemoryDlAllocator::vfunc_9(void* __p0, void* __p1, void* __p2, void* __p3) { int * p1 = (int *)__p0; int * p2 = (int *)__p1; int * p3 = (int *)__p2; int * p4 = (int *)__p3;
+
     if (p1)
-        *p1 = a - b;
+        *p1 = this->f_14 - this->f_494;
     if (p2)
         *p2 = 0;
     if (p3)
-        *p3 = c;
+        *p3 = this->f_490;
     if (p4)
-        *p4 = d;
+        *p4 = this->f_498;
     return true;
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 101 inputs, branch coverage 33/34, incomplete)
 // FUN_001cccc0 @ 0x001cccc0
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int DAT_004d9968;
 
@@ -27,18 +28,16 @@ struct Palette_1cccc0 {
     unsigned *FUN_00025930(unsigned *out, int which);
 };
 
-struct Globals_1cccc0 {
+struct World {
     char pad0[0x20];
     Palette_1cccc0 *palette;
 };
 
-struct Names_1cccc0 {
-    Names_1cccc0 *FUN_00086370(const char *name, int flag);
+struct Singleton_4dd6ec {
+    Singleton_4dd6ec *FUN_00086370(const char *name, int flag);
     void FUN_00090720();
 };
 
-extern Globals_1cccc0 *DAT_004dd700;
-extern Names_1cccc0 *DAT_004dd6ec;
 
 void FUN_00267830(char *dst, const char *src, int n);
 

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 15/16, incomplete)
 // CCollisionAction::vfunc_6 @ 0x0001a150
+#include "decls/address.h"
 struct Vec3_1a150 { float x, y, z; };
 
 struct Mat_1a150 {
@@ -101,7 +102,6 @@ struct World {
     char pad0[0xc];
     Table_1a150 *table;                // 0x0c
 };
-extern World *DAT_004dd700;
 
 class CAction {
 public:

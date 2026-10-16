@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // hulkfight::motion::FireBeamAction::vfunc_4 @ 0x00197540
+#include "decls/address.h"
 struct Ref_197540 { virtual void vfunc_0(); virtual void vfunc_1(); };
 struct Beam_197540 { char pad[0x12c]; unsigned int value; };
 struct Lookup_197540 { Beam_197540* FUN_00024280(unsigned int, unsigned int); };
@@ -10,7 +11,6 @@ struct Effects_197540 { void FUN_0027ffb0(unsigned int); };
 Effects_197540* __cdecl FUN_0027f250();
 struct Manager_197540 { void FUN_001e5720(Ref_197540*); };
 struct World { char pad0[0xc]; Manager_197540* manager; char pad1[0x10]; Lookup_197540* lookup; };
-extern World* DAT_004dd700;
 struct Resources_197540 { char pad[8]; unsigned int first; unsigned int second; };
 namespace hulkfight { namespace motion {
 struct FireBeamAction {

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // pure3d::CameraLoader::vfunc_5 @ 0x002c1970
+#include "gen/pure3d.h"
+
 unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
 void *__cdecl FUN_00263ea0(unsigned int size);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
@@ -12,7 +14,7 @@ struct Name_2c1970 {
 struct Vec3_2c1970 { float x, y, z; };
 
 namespace pure3d {
-class __declspec(novtable) Camera {
+class __declspec(novtable) Camera_2c1970 {
 public:
     virtual void c0();
     char pad4[4];
@@ -27,20 +29,20 @@ public:
     virtual void setFov(float a);
     virtual void c8();
     virtual void setAspect(float a);
-    Camera *FUN_002939a0();
+    Camera_2c1970 *FUN_002939a0();
     void FUN_00293a90(Vec3_2c1970 *v);
     void FUN_00293ac0(Vec3_2c1970 *v);
     void FUN_00293af0(Vec3_2c1970 *v);
 };
 }
 
-struct Reader {
+struct Reader_2c1970 {
     void FUN_002647e0(void *dst, int count, int size, int flag);
 };
 
-struct Stream {
+struct Stream_2c1970 {
     char pad0[0x284];
-    Reader *reader;
+    Reader_2c1970 *reader;
 };
 
 struct Frame_2c1970 {
@@ -58,27 +60,17 @@ struct Frame_2c1970 {
     char name[0x100];        // 0x44
 };
 
-class CameraLoader {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5(pure3d::Camera **out, unsigned __int64 *outId, Stream *s, void *ctx);
-};
+void pure3d::CameraLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int __p3) { pure3d::Camera_2c1970 ** out = (pure3d::Camera_2c1970 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Stream_2c1970 * s = (Stream_2c1970 *)__p2; void * ctx = (void *)__p3;
 
-void CameraLoader::vfunc_5(pure3d::Camera **out, unsigned __int64 *outId, Stream *s, void *ctx)
-{
     Frame_2c1970 f;
     s->reader->FUN_002647e0(&f.len, 1, 1, 1);
     s->reader->FUN_002647e0(f.name, f.len, 1, 1);
     f.name[f.len] = 0;
 
     void *mem = FUN_00263ea0(0xf8);
-    pure3d::Camera *cam = 0;
+    pure3d::Camera_2c1970 *cam = 0;
     if (mem)
-        cam = static_cast<pure3d::Camera *>(mem)->FUN_002939a0();
+        cam = static_cast<pure3d::Camera_2c1970 *>(mem)->FUN_002939a0();
     cam->name.FUN_0027b040(f.name);
 
     s->reader->FUN_002647e0(&f.version, 1, 4, 1);

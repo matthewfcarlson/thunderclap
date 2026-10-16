@@ -24,7 +24,7 @@ struct Owner_181ae0 {
 Owner_181ae0 *__fastcall FUN_000592a0(void *obj);
 Fighter_181ae0 *__fastcall FUN_00059a30(Owner_181ae0 *o);
 
-class SmartPropIsCargoCondition {
+namespace hulkfight { namespace motion { class SmartPropIsCargoCondition {
 public:
     virtual void v0();
     virtual void v1();
@@ -35,9 +35,9 @@ public:
     virtual bool vfunc_6(int a1, void *subject, int a3);
     char pad04[8];
     int index;
-};
+}; }}
 
-bool SmartPropIsCargoCondition::vfunc_6(int a1, void *subject, int a3)
+bool hulkfight::motion::SmartPropIsCargoCondition::vfunc_6(int a1, void *subject, int a3)
 {
     if (FUN_00344e74(subject, 0, DAT_00494b44, DAT_00494b60, 0) == 0)
         return false;

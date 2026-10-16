@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 12/12)
 // FUN_000843c0 @ 0x000843c0
+#include "decls/address.h"
 struct Matrix {
     float m[16];
     void FUN_0022b980();
@@ -47,7 +48,6 @@ struct World {
     Controller_843c0* controller;     // 0x34
 };
 
-extern World* DAT_004dd700;
 
 class Mover_843c0 {
 public:

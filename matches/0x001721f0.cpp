@@ -1,16 +1,13 @@
+#include "gen/hulkfight.h"
+
 class Holder_1721f0 {
   public:
     int first();
     int second();
 };
-class SuckInPropsAction {
-  public:
-    char pad[0x20];
-    Holder_1721f0* holder;
-    bool vfunc_3(void*, void*);
-};
-bool SuckInPropsAction::vfunc_3(void*, void*) {
-    int value = holder->first();
+
+bool hulkfight::motion::SuckInPropsAction::vfunc_3(int __p0, int __p1) {
+    int value = (*(Holder_1721f0 * *)&this->f_20)->first();
     if (value == 0)
         return false;
     if (((Holder_1721f0*)value)->second() == 0)

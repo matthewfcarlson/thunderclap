@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 45/52, incomplete)
 // FUN_0008b560 @ 0x0008b560
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" void *__cdecl memset(void *, int, unsigned int);
 
@@ -83,7 +84,7 @@ struct Obj3Src {
 struct Res;
 Obj1_8b560 *__fastcall thunk_FUN_000fc1b0(Res *r);
 
-struct Replay_8b560 {
+struct Singleton_4dd6ec {
     Cfg_8b560 *FUN_000862e0();
     Res *FUN_00086280();
     Ent2 *FUN_000862c0();
@@ -98,7 +99,6 @@ struct Mgr2_8b560 {
     int FUN_0008cbe0(int a1, int a2, Slot_8b560 *slot, int size, unsigned short *name);
 };
 
-extern Replay_8b560 *DAT_004dd6ec;
 extern int DAT_0049c294;
 extern char DAT_004dd83a;
 extern char DAT_004dd83b;
@@ -129,10 +129,10 @@ public:
     void FUN_00089a60(char *out);
     int FUN_00089160();
     void FUN_0008ad90(int *chapter, int *mission);
-    int FUN_0008b560(int a1, int a2, Replay_8b560 *a3);
+    int FUN_0008b560(int a1, int a2, Singleton_4dd6ec *a3);
 };
 
-int SaveMgr::FUN_0008b560(int a1, int a2, Replay_8b560 *a3)
+int SaveMgr::FUN_0008b560(int a1, int a2, Singleton_4dd6ec *a3)
 {
     struct Frame {
         union {

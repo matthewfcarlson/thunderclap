@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 52/52)
 // hulkfight::motion::SurfAction::vfunc_5 @ 0x00176770
+#include "decls/address.h"
 extern "C" double cos(double);
 extern "C" double fabs(double);
 
@@ -64,11 +65,10 @@ struct Lim {
     char pad0[0x18];
     float f18;
 };
-struct Mid_176770 {
+struct World {
     char pad0[0x24];
     Lim *p24;
 };
-extern Mid_176770 *DAT_004dd700;
 
 extern float DAT_004b7d18;
 extern float DAT_004b7d1c;

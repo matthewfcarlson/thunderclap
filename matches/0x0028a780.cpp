@@ -1,21 +1,13 @@
+#include "gen/pure3d.h"
+
 struct V3_28a780 {
     int x, y, z;
 };
-class Vector3DOFChannel {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void vfunc_3(int, float*, V3_28a780*);
-    virtual void f4();
-    virtual void f5();
-    char pad[16];
-    short* mIndices;
-    V3_28a780* mValues;
-};
-void Vector3DOFChannel::vfunc_3(int index, float* outIndex, V3_28a780* outValue) {
-    *outIndex = (float)mIndices[index];
-    V3_28a780* p = mValues + index;
+
+void pure3d::Vector3DOFChannel::vfunc_3(int index, void* __p1, void* __p2) { float * outIndex = (float *)__p1; V3_28a780 * outValue = (V3_28a780 *)__p2;
+
+    *outIndex = (float)(*(short * *)&this->f_14)[index];
+    V3_28a780* p = (*(V3_28a780 * *)&this->f_18) + index;
     int a = p->x;
     V3_28a780* q = p;
     outValue->x = a;

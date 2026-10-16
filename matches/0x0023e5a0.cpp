@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern int gState_23e5a0;
 class Helper_23e5a0 {
   public:
@@ -8,28 +10,14 @@ class Finisher {
     void Finish();
 };
 namespace fight {
-class StopAction {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual bool v5(int, int);
-    char pad[0x18];
-    int m1c;
-    Helper_23e5a0* m20;
-    Finisher* m24;
-    int m28;
-    bool vfunc_5(int value, int unused);
-};
-bool StopAction::vfunc_5(int value, int unused) {
+
+} // namespace fight
+bool fight::StopAction::vfunc_5(int value, int unused) {
     if (value == gState_23e5a0) {
-        if (((char*)m20, ((Helper_23e5a0*)((char*)m20 + 0x14)))->Check(m1c, m28, 0)) {
-            m24->Finish();
+        if (((char*)(*(Helper_23e5a0 * *)&this->f_20), ((Helper_23e5a0*)((char*)(*(Helper_23e5a0 * *)&this->f_20) + 0x14)))->Check(this->f_1c, this->f_28, 0)) {
+            (*(Finisher * *)&this->f_24)->Finish();
             return false;
         }
     }
     return true;
 }
-} // namespace fight

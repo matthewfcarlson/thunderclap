@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 namespace fight {
-class Reader {
+class Reader_23aba0 {
   public:
     virtual void r0();
     virtual void r1();
@@ -22,13 +24,8 @@ class Reader {
     virtual void r18();
     virtual void r19();
 };
-class ScriptReader {
-  public:
-    char pad[8];
-    Reader* mReader;
-    void vfunc_4();
-};
-void ScriptReader::vfunc_4() {
-    mReader->r6();
-}
+
 } // namespace fight
+void fight::ScriptReader::vfunc_4() {
+    (*(Reader_23aba0 * *)&this->f_08)->r6();
+}

@@ -1,5 +1,7 @@
 // Same code shape as 0x00252fe0 (propagated; names are from that function)
-class SeqEvent {
+#include "gen/audio.h"
+
+class SeqEvent_253c70 {
   public:
     bool vfunc_0(void*);
 };
@@ -7,18 +9,10 @@ class PosHelper {
   public:
     bool test(void*);
 };
-class SeqEventVarPosDist {
-  public:
-    virtual int vfunc_0(void*);
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    char pad[4];
-};
-int SeqEventVarPosDist::vfunc_0(void* p) {
-    if (((SeqEvent*)this)->vfunc_0(p)) {
+
+int audio::SeqEventStream::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
+    if (((SeqEvent_253c70*)this)->vfunc_0(p)) {
         if (((PosHelper*)((char*)this + 8))->test(p))
             return 1;
     }

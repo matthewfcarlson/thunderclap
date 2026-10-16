@@ -5,6 +5,9 @@
 // the frame is the volatile slot array L[] at the original offsets, calls are made through the declared
 // virtual slots of the device/context objects reached via DAT_0052c2ac / DAT_0052c2a8.
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "gen/global.h"
+#include "decls/address.h"
+
 extern "C" float __cdecl fabsf(float);
 void *thunk_FUN_0008d690(unsigned int size);
 
@@ -23,7 +26,7 @@ struct Ctx_ee340 {
     void FUN_00293d00(unsigned a);
     void FUN_00293da0(unsigned a, unsigned b, unsigned c);
 };
-struct G2 {
+struct Gfx {
     virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15(); virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19(); virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23(); virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27(); virtual void s28(); virtual void s29();
     virtual unsigned v30(unsigned a, unsigned b, unsigned c, unsigned d, unsigned e);
     virtual void v31(unsigned a);
@@ -63,7 +66,6 @@ struct Fmt8 { void FUN_000f80e0(unsigned a, unsigned b, unsigned c); };
 struct Fmt9 { void FUN_000f78e0(); };
 
 extern Ctx_ee340 *DAT_0052c2ac;
-extern G2 *DAT_0052c2a8;
 extern int DAT_00584554;
 extern int DAT_0040b0a0;
 void FUN_000e11a0(float x, float y, float z, unsigned a, int b);
@@ -71,14 +73,7 @@ void FUN_000e0cc0(float x, float y, float z, unsigned a, int b);
 // equiv-conv: FUN_000e0a90 edx stack stack stack stack stack
 void FUN_000e0a90(unsigned a_edx, float x, float y, float z, float w, unsigned color);
 
-class ImageSelector {
-public:
-    virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
-    virtual void vfunc_5();
-};
-
-void ImageSelector::vfunc_5()
-{
+void ImageSelector::vfunc_5() {
     volatile float *T = (volatile float *)this;
     volatile Wd_ee340 L[74];
     float fa;

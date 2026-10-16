@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000d94e0 @ 0x000d94e0
+#include "decls/address.h"
 extern unsigned int DAT_004d9968;
 void __fastcall __security_check_cookie(unsigned int);
 struct State_d94e0 { char pad[0x1bc8]; unsigned char flag; };
-struct Manager_d94e0 { State_d94e0* FUN_00086280(); };
-extern Manager_d94e0* DAT_004dd6ec;
+struct Singleton_4dd6ec { State_d94e0* FUN_00086280(); };
 extern const char* DAT_004a0ce0;
 extern const char* DAT_004a0ce4;
 extern const char* DAT_004a0ce8;

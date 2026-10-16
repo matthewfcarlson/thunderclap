@@ -1,4 +1,4 @@
-extern "C" unsigned long long __cdecl FUN_0027b020(const char* name);
+#include "decls/address.h"
 extern "C" unsigned int g_mass_multiplier_lo;
 extern "C" unsigned int g_mass_multiplier_hi;
 

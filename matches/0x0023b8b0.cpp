@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 class ReaderInner {
   public:
     virtual void f0();
@@ -23,14 +25,9 @@ class ReaderInner {
     virtual void f20();
     virtual void f21();
 };
-class IFileDataReader {
-  public:
-    char pad[8];
-    ReaderInner* inner;
-    int vfunc_4(int a, int b);
-};
-int IFileDataReader::vfunc_4(int a, int b) {
-    inner->f3(a, b, 1);
-    inner->f21();
+
+int fight::IFileDataReader::vfunc_4(int a, int b) {
+    (*(ReaderInner * *)&this->f_08)->f3(a, b, 1);
+    (*(ReaderInner * *)&this->f_08)->f21();
     return b;
 }

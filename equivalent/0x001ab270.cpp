@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 24/24)
 // hulkfight::scenario::Event_CharacterTemplateVariationCondition::vfunc_6 @ 0x001ab270
+#include "decls/address.h"
 extern "C" { extern char DAT_00494b44; extern char DAT_004c13d0; void* __cdecl FUN_00344e74(void*,int,void*,void*,int); }
 struct Key_1ab270 { char bytes[1]; };
 struct Variation { unsigned __int64 FUN_00044370(); };
@@ -8,7 +9,6 @@ struct Lookup_1ab270 { Found_1ab270* FUN_00059c10(int); };
 struct Registry_1ab270 { Variation* FUN_000238b0(Key_1ab270*); };
 struct Group_1ab270 { char pad[4]; Registry_1ab270* registry; };
 struct World { char pad[0x20]; Group_1ab270* group; char pad2[0x20]; Lookup_1ab270* lookup; };
-extern World* DAT_004dd700;
 struct Character_1ab270 { char pad[4]; int kind; char pad2[0x4c]; Key_1ab270 key; int FUN_001c96e0(int); };
 struct Event_1ab270 { Character_1ab270* FUN_001d03c0(); };
 namespace hulkfight { namespace scenario {

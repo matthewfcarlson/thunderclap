@@ -32,16 +32,16 @@ union ParamArg_2344d0 {
     char flag;
 };
 
-class Condition {
+namespace fight { class Condition {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual bool vfunc_3(unsigned __int64 id, int extra, ParamArg_2344d0 arg);
     virtual void vfunc_4(int extra, Param *param);
-};
+}; }
 
-bool Condition::vfunc_3(unsigned __int64 id, int extra, ParamArg_2344d0 arg)
+bool fight::Condition::vfunc_3(unsigned __int64 id, int extra, ParamArg_2344d0 arg)
 {
     Param *param = arg.param;
 

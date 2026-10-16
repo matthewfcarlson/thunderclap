@@ -1,5 +1,5 @@
+#include "decls/address.h"
 class CRenderManager;
-extern unsigned char __cdecl FUN_001d04d0(const char*);
 extern const char g1[], g2[];
 class Root {
   public:

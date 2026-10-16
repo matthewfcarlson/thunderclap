@@ -1,3 +1,4 @@
+#include "decls/address.h"
 struct Vector {
     float x, y, z;
 };
@@ -11,7 +12,7 @@ struct MatrixSource_2b5410 {
     Matrix* FUN_0028faa0();
 };
 extern MatrixSource_2b5410* DAT_0052c2b4;
-struct Renderer_2b5410 {
+struct Gfx {
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
@@ -88,7 +89,6 @@ struct Renderer_2b5410 {
     virtual void slot73();
     virtual void slot74(int, int, int);
 };
-extern Renderer_2b5410* DAT_0052c2a8;
 namespace pure3d {
 struct ShadowMeshImpl {
     virtual void vfunc_0();

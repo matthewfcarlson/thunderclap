@@ -1,11 +1,6 @@
 // Same code shape as 0x0004df90 (propagated; names are from that function)
-class ParamEnumConstList {
-    char pad[0x18];
-    int value;
+#include "gen/fight.h"
 
-  public:
-    bool vfunc_2();
-};
-bool ParamEnumConstList::vfunc_2() {
-    return value == 0;
+template <> bool fight::ParamEnumConstList<hulkfight::motion::HitWaitTrack>::vfunc_2() {
+    return this->f_18 == 0;
 }

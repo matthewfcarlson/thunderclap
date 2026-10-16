@@ -8,18 +8,18 @@ struct RefCounted_189050 {
 extern char g_vt_189050[];
 extern "C" void opdel(void*);
 
-class FaceTargetAction {
+namespace hulkfight { namespace motion { class ShieldArcAction {
   public:
     void Cleanup();
-    FaceTargetAction* vfunc_2(int flag);
+    ShieldArcAction* vfunc_2(int flag);
 
   private:
     char pad[0x1c];
     int m_1c;
     RefCounted_189050* m_20;
-};
+}; }}
 
-FaceTargetAction* FaceTargetAction::vfunc_2(int flag) {
+hulkfight::motion::ShieldArcAction* hulkfight::motion::ShieldArcAction::vfunc_2(int flag) {
     volatile int* p = (volatile int*)this;
     *p = (int)&g_vt_189050;
     RefCounted_189050* q = (RefCounted_189050*)p[8];

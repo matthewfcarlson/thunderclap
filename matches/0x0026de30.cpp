@@ -1,9 +1,5 @@
-class DebugConsole {
-  public:
-    char pad[0x9c];
-    int field;
-    void vfunc_11(int);
-};
-void DebugConsole::vfunc_11(int value) {
-    field = value;
+#include "gen/core.h"
+
+void core::DebugConsole::vfunc_11(int value) {
+    this->f_9c = value;
 }

@@ -1,4 +1,6 @@
-class FEDoAction {
+#include "gen/global.h"
+
+class FEDoAction_e1760 {
   public:
     virtual void v0();
     virtual void v1();
@@ -16,25 +18,20 @@ class Obj_e1760 {
     virtual void e(float);
     virtual float g();
 };
-class FEDoAnimation : public FEDoAction {
-  public:
-    char pad[0x30];
-    Obj_e1760* mObj;
-    char pad2[4];
-    float mValue;
+struct FEDoAnimation_nv_e1760 {
     void helper();
-    void vfunc_3();
 };
+
 void FEDoAnimation::vfunc_3() {
-    if (mObj) {
-        if (mValue < 0.0f) {
-            mValue = mObj->g();
-            helper();
+    if ((*(Obj_e1760 * *)&this->f_34)) {
+        if (this->f_3c < 0.0f) {
+            this->f_3c = (*(Obj_e1760 * *)&this->f_34)->g();
+            ((FEDoAnimation_nv_e1760*)this)->helper();
             return;
         }
-        if (mValue > -1.0f)
-            mObj->e(mValue);
+        if (this->f_3c > -1.0f)
+            (*(Obj_e1760 * *)&this->f_34)->e(this->f_3c);
         else
-            mObj->e(0.0f);
+            (*(Obj_e1760 * *)&this->f_34)->e(0.0f);
     }
 }

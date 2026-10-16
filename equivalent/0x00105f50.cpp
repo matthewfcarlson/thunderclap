@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 14/14)
 // FUN_00105f50 @ 0x00105f50
+#include "decls/address.h"
 extern float DAT_004a1c80;
 extern __int64 DAT_004dc0c0;
 
@@ -37,12 +38,11 @@ struct Registry_105f50 {
     Ring_105f50 ring;
 };
 
-struct Manager_105f50 {
+struct World {
     char pad0[0x1c];
     Registry_105f50 *registry;
 };
 
-extern Manager_105f50 *DAT_004dd700;
 
 class __declspec(novtable) CCharacterAgent {
 public:

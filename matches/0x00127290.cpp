@@ -1,9 +1,5 @@
-struct ParamEnumConstList {
-    char pad[0x14];
-    int mValue;
-    int GetEnum(int index);
-};
+#include "gen/fight.h"
 
-int ParamEnumConstList::GetEnum(int index) {
-    return mValue;
+template <> int fight::ParamEnumConstList<hulkfight::ai::TargetVelocityCondition>::vfunc_7(int index) {
+    return this->f_14;
 }

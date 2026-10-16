@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 16/16)
 // hulkfight::motion::AccuracyLatencyAction::vfunc_3 @ 0x00194bd0
+#include "decls/address.h"
 struct Vec_194bd0 { float x,y,z; };
 struct Position_194bd0 { void FUN_00059a50(Vec_194bd0*); };
 struct Entry_194bd0 { char pad[16]; Position_194bd0* position; };
@@ -8,8 +9,7 @@ struct Actor_194bd0 { char pad[0x328]; Link_194bd0* link; char pad2[0x1d60-0x32c
 struct Object { Actor_194bd0* FUN_00059a30(); };
 struct Source_194bd0 { Object* FUN_000592a0(); };
 struct Manager_194bd0 { Entry_194bd0* FUN_00024280(unsigned,unsigned); };
-struct Global_194bd0 { char pad[0x20]; Manager_194bd0* manager; };
-extern Global_194bd0* DAT_004dd700;
+struct World { char pad[0x20]; Manager_194bd0* manager; };
 namespace hulkfight { namespace motion {
 struct AccuracyLatencyAction {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual bool vfunc_3(unsigned, float); virtual void vfunc_4(); virtual void vfunc_5();

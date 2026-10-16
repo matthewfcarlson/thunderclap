@@ -39,16 +39,16 @@ struct Info_117980 {
     int value;
 };
 
-struct MotionFleeAction {
+namespace hulkfight { namespace ai { struct MotionFleeAction {
     char pad0[0x1c];
     Info_117980 *info;
     Holder_117980 *holder;
     Refd_117980 *cached;
 
     bool vfunc_5(int skip, int arg);
-};
+}; }}
 
-bool MotionFleeAction::vfunc_5(int skip, int arg)
+bool hulkfight::ai::MotionFleeAction::vfunc_5(int skip, int arg)
 {
     if (skip == 0) {
         if (holder == 0)

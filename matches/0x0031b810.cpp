@@ -1,11 +1,6 @@
 // Same code shape as 0x00098e20 (propagated; names are from that function)
-class A_31b810 {
-    char pad[12];
-    int value;
+#include "gen/pure3d.h"
 
-  public:
-    void Set(int x);
-};
-void A_31b810::Set(int x) {
-    value = x;
+void pure3d::d3dDevice::vfunc_5(int x) {
+    this->f_0c = x;
 }

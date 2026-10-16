@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 class Service_274940 {
   public:
     virtual void a();
@@ -27,26 +29,21 @@ class Inner_274940 {
     virtual void close();
     virtual void done();
 };
-struct Drive {
+struct Drive_274940 {
     virtual void v0();
     char pad[8];
     Service_274940* service;
     char pad2[0x10];
     unsigned char flag;
 };
-class DriveFindCloseRequest {
-  public:
-    char pad[8];
-    Drive* volatile drive;
-    int vfunc_1();
-};
-int DriveFindCloseRequest::vfunc_1() {
-    Drive* d = drive;
+
+int core::DriveFindCloseRequest::vfunc_1() {
+    Drive_274940* d = (*(Drive_274940 *volatile *)&this->f_08);
     Service_274940* s = d->service;
     d->flag = 0;
-    s->u((char*)drive + 0x1c);
-    ((Inner_274940*)((char*)drive + 4))->close();
-    *(int*)((char*)drive + 0x18) = 0;
-    ((Inner_274940*)((char*)drive + 4))->done();
+    s->u((char*)(*(Drive_274940 *volatile *)&this->f_08) + 0x1c);
+    ((Inner_274940*)((char*)(*(Drive_274940 *volatile *)&this->f_08) + 4))->close();
+    *(int*)((char*)(*(Drive_274940 *volatile *)&this->f_08) + 0x18) = 0;
+    ((Inner_274940*)((char*)(*(Drive_274940 *volatile *)&this->f_08) + 4))->done();
     return 1;
 }

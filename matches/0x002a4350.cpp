@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 struct Child_2a4350 {
     virtual void v0();
     virtual void v1();
@@ -30,25 +32,11 @@ struct Group_2a4350 {
     Child_2a4350** end;
     int pad2;
 };
-struct DC_2a4350 {
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    char p[0x44];
-    Group_2a4350* gb;
-    Group_2a4350* ge;
-};
-void DC_2a4350::v9() {
-    unsigned n = ge - gb;
+
+void pure3d::DrawableContainer::vfunc_9() {
+    unsigned n = (*(Group_2a4350 * *)&this->f_4c) - (*(Group_2a4350 * *)&this->f_48);
     for (unsigned i = 0; i < n; i++) {
-        Group_2a4350* g = &gb[i];
+        Group_2a4350* g = &(*(Group_2a4350 * *)&this->f_48)[i];
         unsigned m = g->end - g->begin;
         for (unsigned j = 0; j < m; j++) {
             Child_2a4350* c = g->begin[j];

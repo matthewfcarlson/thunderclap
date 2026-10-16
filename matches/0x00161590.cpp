@@ -1,23 +1,12 @@
 // Same code shape as 0x00161500 (propagated; names are from that function)
-class LocomotionSprintTrack {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual int vfunc_10(int a, int b, int c);
-};
+#include "gen/hulkfight.h"
+
 struct Result_161590 {
-    int Init(LocomotionSprintTrack*, int);
+    int Init(hulkfight::motion::LocomotionSteerTrack*, int);
 };
 extern Result_161590* Alloc(unsigned int);
-int LocomotionSprintTrack::vfunc_10(int a, int b, int c) {
+
+int hulkfight::motion::LocomotionSteerTrack::vfunc_10(int a, int b, int c) {
     Result_161590* p = Alloc(0x30);
     if (p)
         return p->Init(this, c);

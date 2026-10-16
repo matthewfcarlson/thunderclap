@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3022 inputs, branch coverage 24/24)
 // hulkfight::motion::PropGrabbableIsMissileCondition::vfunc_6 @ 0x001949d0
+#include "decls/address.h"
 extern char DAT_00494b44, DAT_00494b60, DAT_004bfe10, DAT_004bfe2c;
 extern void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 struct Held { char pad[8]; void* object; int kind; };
@@ -8,8 +9,7 @@ struct Intermediate_1949d0 { State_1949d0* FUN_00059a30(); };
 struct Actor_1949d0 { Intermediate_1949d0* FUN_000592a0(); };
 struct Entry_1949d0 { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void* slot5(); };
 struct Manager_1949d0 { Entry_1949d0* FUN_001b68e0(int); };
-struct Global_1949d0 { char pad[0x14]; Manager_1949d0* manager; };
-extern Global_1949d0* DAT_004dd700;
+struct World { char pad[0x14]; Manager_1949d0* manager; };
 namespace hulkfight { namespace motion {
 struct PropGrabbableIsMissileCondition {
 virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual bool vfunc_6(void*,Actor_1949d0*,void*);

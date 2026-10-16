@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct Obj_12ba80 {
     void call(int);
     void tail();
@@ -12,14 +14,9 @@ struct Global_12ba80 {
 };
 extern Global_12ba80* g_12ba80;
 extern Obj_12ba80* __cdecl FUN_000678d0();
-class ThreatBallAction {
-  public:
-    char pad[0x24];
-    int field;
-    void vfunc_4();
-};
-void ThreatBallAction::vfunc_4() {
-    g_12ba80->inner->p->call(field);
-    field = 0;
+
+void hulkfight::ai::ThreatBallAction::vfunc_4() {
+    g_12ba80->inner->p->call(this->f_24);
+    this->f_24 = 0;
     FUN_000678d0()->tail();
 }

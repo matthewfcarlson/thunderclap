@@ -1,22 +1,20 @@
+#include "gen/pure3d.h"
+
 namespace pure3d {
 class Ref_2d4e20 {
   public:
     virtual void AddRef();
     virtual void Release();
 };
-class ParticleEmitter {
-  public:
-    char pad[0x90];
-    Ref_2d4e20* mRef;
-    void vfunc_31(Ref_2d4e20*);
-};
-void ParticleEmitter::vfunc_31(Ref_2d4e20* p) {
-    if (p != mRef) {
+
+} // namespace pure3d
+void pure3d::ParticleEmitter::vfunc_31(void* __p0) { Ref_2d4e20 * p = (Ref_2d4e20 *)__p0;
+
+    if (p != (*(Ref_2d4e20 * *)&this->f_90)) {
         if (p)
             p->AddRef();
-        if (mRef)
-            mRef->Release();
-        mRef = p;
+        if ((*(Ref_2d4e20 * *)&this->f_90))
+            (*(Ref_2d4e20 * *)&this->f_90)->Release();
+        (*(Ref_2d4e20 * *)&this->f_90) = p;
     }
 }
-} // namespace pure3d

@@ -1,12 +1,6 @@
-class DefaultFrameControllerHandler {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual char vfunc_3(unsigned int);
-    virtual void f4();
-};
-char DefaultFrameControllerHandler::vfunc_3(unsigned int x) {
+#include "gen/pure3d.h"
+
+char pure3d::DefaultFrameControllerHandler::vfunc_3(unsigned int x) {
     switch (x) {
     case 0x4e525450U:
     case 0x584554U:

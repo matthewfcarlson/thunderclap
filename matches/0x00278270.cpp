@@ -1,4 +1,6 @@
-class Drive {
+#include "gen/core.h"
+
+class Drive_278270 {
   public:
     virtual void f0();
     virtual void f1();
@@ -7,10 +9,7 @@ class Drive {
     virtual void* vfunc_4();
     char pad[0xc8];
 };
-class XboxSaveDrive : public Drive {
-  public:
-    void* vfunc_4();
-};
-void* XboxSaveDrive::vfunc_4() {
-    return (char*)this + 0xcc;
+
+void* core::XboxSaveDrive::vfunc_4() {
+    return (void*)((char*)this + 0xcc);
 }

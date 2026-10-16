@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000c0aa0 @ 0x000c0aa0
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 extern char DAT_0048e100;
@@ -7,7 +8,6 @@ extern char DAT_0048e0e4;
 extern char DAT_0048e0f0;
 extern char DAT_0048e128;
 extern char DAT_0048e134;
-char FUN_001d04d0(const void *type) throw();
 
 template <class T> struct TypeTag;
 template <> struct TypeTag<void> { static const void *get() { return &DAT_0048e100; } };

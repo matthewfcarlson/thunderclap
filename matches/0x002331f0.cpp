@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 typedef unsigned int u32_2331f0;
-struct Node {
+struct Node_2331f0 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -11,25 +13,21 @@ struct Node {
     char a[0x10];
     int field14;
     char b[8];
-    Node* next;
+    Node_2331f0* next;
 };
 struct Helper_2331f0 {
     void go();
 };
-struct Branch {
-    char pad[0x1c];
-    Node* head;
-    void vfunc_7();
-};
-void Branch::vfunc_7() {
+
+void fight::Branch::vfunc_7() {
     ((Helper_2331f0*)((char*)this + 0x18))->go();
-    Node* p = head;
+    Node_2331f0* p = (*(Node_2331f0 * *)&this->f_1c);
     while (p) {
-        Node* c = p;
+        Node_2331f0* c = p;
         p = c->next;
         c->next = 0;
         c->field14 = 0;
         c->f1();
     }
-    head = 0;
+    (*(Node_2331f0 * *)&this->f_1c) = 0;
 }

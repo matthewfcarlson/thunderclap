@@ -1,4 +1,6 @@
-class Param {
+#include "gen/fight.h"
+
+class Param_236ba0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -6,13 +8,8 @@ class Param {
     virtual void f3();
     virtual void f4();
 };
-class Track : public Param {
-  public:
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual int vfunc_8(int, int);
-};
-int Track::vfunc_8(int value, int) {
-    return value;
+
+void* fight::Track::vfunc_8(void* __p0, void* __p1) { int value = (int)__p0;
+
+    return (void*)(value);
 }

@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 2/2)
 // FUN_002f3530 @ 0x002f3530
+#include "decls/address.h"
 typedef unsigned int uint;
 extern char DAT_00554c38, DAT_00555438;
 extern void* DAT_0055543c; extern void* DAT_00555440; extern uint DAT_00555448;
 void* __cdecl operator new(unsigned int);
-extern unsigned __int64 __cdecl FUN_0027b020(const char*);
 extern void* __cdecl FUN_002f2750(unsigned __int64);
 struct Matrix { char bytes[64]; void FUN_0022b980(); };
 struct FUN_003060a0 { virtual void baseVirtual(); char bytes[52]; FUN_003060a0(); };

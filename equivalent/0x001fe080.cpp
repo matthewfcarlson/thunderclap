@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 31/34, incomplete)
 // FUN_001fe080 @ 0x001fe080
+#include "decls/address.h"
 struct V3_1fe080 {
     float x, y, z;
 };
@@ -36,11 +37,10 @@ struct Holder54_1fe080 {
     Zones *FUN_000862a0();
 };
 
-struct Globals_1fe080 {
+struct World {
     char pad[0x54];
     Holder54_1fe080 *holder;        // 0x54
 };
-extern Globals_1fe080 *DAT_004dd700;
 
 class ElemSet {
 public:

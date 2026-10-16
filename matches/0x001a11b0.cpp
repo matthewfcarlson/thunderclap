@@ -1,20 +1,15 @@
+#include "gen/fight.h"
+
 typedef unsigned int u32_1a11b0;
-struct Track {
+struct Track_1a11b0 {
     char x[0x148];
     u32_1a11b0 Init();
 };
-struct Factory_1a11b0 {
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual u32_1a11b0 f();
-};
 void* operator new(unsigned int);
-u32_1a11b0 Factory_1a11b0::f() {
-    Track* p = (Track*)::operator new(0x148);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::FireMissileTrack>::vfunc_5() {
+    Track_1a11b0* p = (Track_1a11b0*)::operator new(0x148);
     if (p)
-        return p->Init();
-    return 0;
+        return (void*)(p->Init());
+    return (void*)(0);
 }

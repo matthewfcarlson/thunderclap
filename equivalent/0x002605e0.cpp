@@ -2,8 +2,8 @@
 // FUN_002605e0 @ 0x002605e0
 // audio::SeqEventType constructor: base type registration, own vtable, then insertion into the global type tree.
 // equiv-map: ??0Type@om@@QAE@PAX0HH@Z = 0x002584d0
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) { return p; }
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 
 struct Key_2605e0 {
     unsigned int lo, hi;

@@ -1,6 +1,8 @@
+#include "gen/global.h"
+
 extern const float zero_e17b0;
 extern const float minusone;
-class FEDoAction {
+class FEDoAction_e17b0 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -8,7 +10,7 @@ class FEDoAction {
     virtual void vfunc_3();
     virtual void vfunc_4();
 };
-class FEDoAnimation;
+
 class Helper_e17b0 {
   public:
     virtual void a();
@@ -20,31 +22,22 @@ class Helper_e17b0 {
     char pad[0x54];
     int done;
 };
-class FEDoAnimation : public FEDoAction {
-  public:
-    virtual void vfunc_1();
-    virtual void vfunc_5();
-    char p[0x30];
-    Helper_e17b0* mHelper;
-    int state;
-    float value;
-    float time;
-    char q[0x0c];
-    char flag;
+struct FEDoAnimation_nv_e17b0 {
     void update();
 };
+
 void FEDoAnimation::vfunc_1() {
-    Helper_e17b0* h = mHelper;
+    Helper_e17b0* h = (*(Helper_e17b0 * *)&this->f_34);
     if (h) {
-        if (time != zero_e17b0) {
-            value = h->f();
-            update();
-        } else if (value > minusone) {
-            h->e(value);
+        if (this->f_40 != zero_e17b0) {
+            this->f_3c = h->f();
+            ((FEDoAnimation_nv_e17b0*)this)->update();
+        } else if (this->f_3c > minusone) {
+            h->e(this->f_3c);
         }
-        int d = (flag == 0);
-        mHelper->done = d;
-        mHelper->b(this);
-        state = 2;
+        int d = (this->f_50 == 0);
+        (*(Helper_e17b0 * *)&this->f_34)->done = d;
+        (*(Helper_e17b0 * *)&this->f_34)->b(this);
+        this->f_38 = 2;
     }
 }

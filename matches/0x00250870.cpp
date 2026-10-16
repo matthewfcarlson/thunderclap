@@ -1,4 +1,6 @@
-class SeqEvent {
+#include "gen/audio.h"
+
+class SeqEvent_250870 {
   public:
     virtual int vfunc_0(void*);
     virtual void v1();
@@ -16,14 +18,10 @@ class Helper_250870 {
   public:
     bool Probe(void*);
 };
-class SeqEventWaitBeat : public SeqEvent {
-  public:
-    char pad[12];
-    int field10;
-    int vfunc_0(void*);
-};
-int SeqEventWaitBeat::vfunc_0(void* arg) {
-    if (((Helper_250870*)this)->Probe(arg) && Check(arg, &field10) && ((Inner_250870*)((char*)this + 8))->CheckBeat(arg))
+
+int audio::SeqEventWaitBeat::vfunc_0(void* __p0) { void * arg = (void *)__p0;
+
+    if (((Helper_250870*)this)->Probe(arg) && Check(arg, &this->f_10) && ((Inner_250870*)((char*)this + 8))->CheckBeat(arg))
         return 1;
     return 0;
 }

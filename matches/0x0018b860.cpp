@@ -1,31 +1,25 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0041918c[];
-class Condition {
+class Condition_18b860 {
   public:
-    Condition(int);
+    Condition_18b860(int);
 };
-class PropGrabbableIsThrownCondition : public Condition {
+class PropGrabbableIsThrownCondition_18b860 : public Condition_18b860 {
   public:
-    PropGrabbableIsThrownCondition(int);
+    PropGrabbableIsThrownCondition_18b860(int);
     char pad[12];
     char flag;
 };
 void* __cdecl Alloc(unsigned int);
-class Factory_18b860 {
-  public:
-    virtual void A();
-    virtual void B();
-    virtual void C();
-    virtual void D();
-    virtual void E();
-    virtual PropGrabbableIsThrownCondition* Create();
-};
-PropGrabbableIsThrownCondition* Factory_18b860::Create() {
-    PropGrabbableIsThrownCondition* p = (PropGrabbableIsThrownCondition*)Alloc(16);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::PropGrabbableIsThrownCondition>::vfunc_5() {
+    PropGrabbableIsThrownCondition_18b860* p = (PropGrabbableIsThrownCondition_18b860*)Alloc(16);
     if (p) {
-        p->PropGrabbableIsThrownCondition::PropGrabbableIsThrownCondition(0);
+        p->PropGrabbableIsThrownCondition_18b860::PropGrabbableIsThrownCondition_18b860(0);
         *(unsigned int*)p = ((int)DAT_0041918c);
         p->flag = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

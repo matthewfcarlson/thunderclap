@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000d9a80 @ 0x000d9a80
+#include "decls/address.h"
 struct TextTable {
  int FUN_000f7d30(const char*);
  const unsigned short* FUN_000f7220(int);
@@ -20,8 +21,7 @@ struct Dialog_d9a80 {
  void FUN_000be310(const char*, const unsigned short*, const float*, const float*, const char*, int, const char*, const char*);
 };
 struct Status_d9a80 { char pad[0x1bc8]; unsigned char active; };
-struct Manager_d9a80 { Status_d9a80* FUN_00086280(); };
-extern Manager_d9a80* DAT_004dd6ec;
+struct Singleton_4dd6ec { Status_d9a80* FUN_00086280(); };
 extern const char* DAT_004a0cb0;
 extern const char* DAT_004a0ce0;
 extern const char* DAT_004a0ce4;

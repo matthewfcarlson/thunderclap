@@ -1,10 +1,5 @@
-class pddiBaseContext {
-    char pad[0x58];
-    void* member;
+#include "gen/pure3d.h"
 
-  public:
-    void vfunc_72(int);
-};
-void pddiBaseContext::vfunc_72(int value) {
-    *(int*)((char*)member + 0x14) = value;
+void pure3d::pddiBaseContext::vfunc_72(int value) {
+    *(int*)((char*)(*(void * *)&this->f_58) + 0x14) = value;
 }

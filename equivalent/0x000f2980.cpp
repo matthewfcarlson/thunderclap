@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 631 inputs, branch coverage 12/12)
 // VScroll::vfunc_0 @ 0x000f2980
+#include "decls/address.h"
 namespace pure3d { struct DrawableHierarchy; }
 namespace content { struct LoadInventory { template<class T> struct DynamicCaster { virtual void vfunc_0(); }; }; }
 struct Item_f2980 {
@@ -8,7 +9,6 @@ struct Item_f2980 {
 struct Entry_f2980 { Item_f2980* item; int unused; float height; int unused2; };
 struct Inventory_f2980 { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual pure3d::DrawableHierarchy* vfunc_3(content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>*, unsigned int, unsigned int); };
 extern Inventory_f2980* DAT_004dd9cc;
-extern unsigned __int64 __cdecl FUN_0027b020(const char*);
 struct Dimensions { float x,y,z; };
 extern void __cdecl FUN_000f69e0(pure3d::DrawableHierarchy*, Dimensions*);
 struct FELayout {

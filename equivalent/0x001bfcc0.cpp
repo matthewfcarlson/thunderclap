@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // CSubtitleOverlay::vfunc_3 @ 0x001bfcc0
+#include "decls/address.h"
 static float Abs(float v)
 {
     union { float f; unsigned int u; } x;
@@ -9,8 +10,7 @@ static float Abs(float v)
 }
 
 struct Clock_1bfcc0 { float FUN_00085f80(); };
-struct Globals_1bfcc0 { char pad0[0x58]; Clock_1bfcc0 *clock; };
-extern Globals_1bfcc0 *DAT_004dd700;
+struct World { char pad0[0x58]; Clock_1bfcc0 *clock; };
 
 class Overlay {
 public:

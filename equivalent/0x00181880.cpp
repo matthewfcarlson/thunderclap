@@ -27,7 +27,7 @@ struct Target_181880 {
     Resolver_181880 *FUN_000592a0();
 };
 
-class PropMissionCriticalCondition {
+namespace hulkfight { namespace motion { class PropMissionCriticalCondition {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -39,9 +39,9 @@ public:
     char pad04[8];
     int partIndex;      // +0x0c
     char wanted;        // +0x10
-};
+}; }}
 
-bool PropMissionCriticalCondition::vfunc_6(int a, void *obj, int c) {
+bool hulkfight::motion::PropMissionCriticalCondition::vfunc_6(int a, void *obj, int c) {
     if (!FUN_00344e74(obj, 0, DAT_00494b44, DAT_00494b60, 0)) {
         return false;
     }

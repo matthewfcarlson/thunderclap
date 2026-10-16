@@ -1,29 +1,23 @@
+#include "gen/fight.h"
+
 extern void* operator new(unsigned int);
 extern void __fastcall InitTrack(void*);
 extern int WaitTrackVtable;
-struct WaitTrack {
+struct WaitTrack_23e460 {
     int* vptr;
     int pad4[2];
     int x, y, z;
 };
-class TrackFactoryTemplate {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void* Create();
-};
-void* TrackFactoryTemplate::Create() {
-    WaitTrack* p = (WaitTrack*)operator new(0x18);
+
+template <> void* fight::TrackFactoryTemplate<fight::WaitTrack>::vfunc_5() {
+    WaitTrack_23e460* p = (WaitTrack_23e460*)operator new(0x18);
     if (p) {
         InitTrack(p);
         p->vptr = (int*)&WaitTrackVtable;
         p->x = 0;
         p->y = 0;
         p->z = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

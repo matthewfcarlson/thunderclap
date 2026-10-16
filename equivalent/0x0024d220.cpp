@@ -69,7 +69,7 @@ struct Frame_24d220 {
     ContentStream cs;
 };
 
-class EntityLoader {
+namespace om { class EntityLoader {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -77,9 +77,9 @@ public:
     virtual void vfunc_3(Entry_24d220 **outEntry, U64_24d220 *outId, void *streamSource, int unused1, int unused2);
     char pad4[4];
     Source_24d220 *source;
-};
+}; }
 
-void EntityLoader::vfunc_3(Entry_24d220 **outEntry, U64_24d220 *outId, void *streamSource, int unused1, int unused2)
+void om::EntityLoader::vfunc_3(Entry_24d220 **outEntry, U64_24d220 *outId, void *streamSource, int unused1, int unused2)
 {
     Frame_24d220 f;
     void *r1 = FUN_00246c50();

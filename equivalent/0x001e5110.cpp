@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_001e5110 @ 0x001e5110
 // FUN_001e5110 @ 0x001e5110: spawns an effect entry for a kind unless suppressed by settings
+#include "decls/address.h"
 struct Settings_1e5110 {
     int FUN_00088fa0();
     int FUN_00088fb0();
@@ -12,11 +13,10 @@ struct Config_1e5110 {
 struct Manager_1e5110 {
     Config_1e5110 *FUN_00086310();
 };
-struct Global_1e5110 {
+struct World {
     char pad00[0x54];
     Manager_1e5110 *manager;
 };
-extern Global_1e5110 *DAT_004dd700;
 
 struct Triple_1e5110 {
     unsigned a;

@@ -1,21 +1,10 @@
-class OmHalStream {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual bool vfunc_8(unsigned int* out);
-    char pad[0x1b0];
-    unsigned int value;
-};
-bool OmHalStream::vfunc_8(unsigned int* out) {
-    *out = value;
-    int v = value;
+#include "gen/audio.h"
+
+bool audio::OmHalStream::vfunc_8(void* __p0) { unsigned int * out = (unsigned int *)__p0;
+
+    *out = this->f_1b4;
+    int v = this->f_1b4;
     *(int*)((char*)this + 8) -= v;
-    value = 0;
+    this->f_1b4 = 0;
     return true;
 }

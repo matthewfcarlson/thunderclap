@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000b47b0 @ 0x000b47b0
 // FUN_000b47b0 @ 0x000b47b0: sets the title and text of the fullscreen message widgets, then raises the screen
+#include "decls/address.h"
 extern char DAT_0049dba4, DAT_0049f48c, DAT_0049f470;
 struct Manager;
 extern Manager *__cdecl FUN_000fc1b0();
@@ -20,11 +21,10 @@ extern Widget_b47b0 *__cdecl FUN_00344e74(void *, int, char *, char *, int);
 struct Screen_b47b0 {
     void FUN_001cc620(int);
 };
-struct Root_b47b0 {
+struct World {
     char pad00[44];
     Screen_b47b0 *screen;
 };
-extern Root_b47b0 *DAT_004dd700;
 
 void __stdcall FUN_000b47b0(const char *title, const char *text)
 {

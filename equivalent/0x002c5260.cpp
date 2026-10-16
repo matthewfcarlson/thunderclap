@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 14/14)
 // FUN_002c5260 @ 0x002c5260
 // equiv-conv: FUN_002c50c0 ebx stack stack stack stack stack stack
+#include "decls/address.h"
 extern "C" double sqrt(double);
 extern "C" double cos(double);
 extern "C" double sin(double);
@@ -53,7 +54,7 @@ struct VertexBuf_2c5260 {
     void FUN_0008ef00();
 };
 
-class Renderer_2c5260 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -90,7 +91,6 @@ public:
 };
 
 extern Layer_2c5260 **DAT_0052c2ac;
-extern Renderer_2c5260 *DAT_0052c2a8;
 
 Matrix *FUN_002c50c0(Matrix *out, V3_2c5260 mid, V3_2c5260 end);
 

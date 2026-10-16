@@ -1,5 +1,5 @@
+#include "decls/address.h"
 extern "C" void __stdcall FUN_001d0480(int, int);
-extern "C" unsigned char FUN_001d04d0(const void*);
 extern int label;
 class Base {
   public:

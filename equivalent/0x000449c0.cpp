@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000449c0 @ 0x000449c0
 // Look up two named entries in the global registry and seed the six handles (reverse order of FUN_00044910).
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
+#include "decls/address.h"
 
 struct Entry_449c0 {
     char pad[0x5c];

@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Item_2826e0 {
   public:
     virtual void a();
@@ -18,29 +20,15 @@ struct Entry_2826e0 {
     Item_2826e0* p;
     char pad[12];
 };
-class Queue_2826e0 {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6(int, int);
-    char pad[0x44];
-    Entry_2826e0* items;
-    char pad2[0x10];
-    char* flags;
-    void run(int, int);
-};
-void Queue_2826e0::run(int arg, int unused) {
+
+void pure3d::prop::CMotionTrailQueue::vfunc_6(int arg, int unused) {
     int i;
     for (i = 0; i < 6; i++) {
-        Item_2826e0* p = items[i].p;
-        if (flags[i * 8 + 4] && p) {
+        Item_2826e0* p = (*(Entry_2826e0 * *)&this->f_48)[i].p;
+        if ((*(char * *)&this->f_5c)[i * 8 + 4] && p) {
             p->call(arg, 0);
             if (p->test())
-                flags[i * 8 + 4] = 0;
+                (*(char * *)&this->f_5c)[i * 8 + 4] = 0;
         }
     }
 }

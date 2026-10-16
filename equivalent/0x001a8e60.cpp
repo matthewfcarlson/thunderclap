@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001a8e60 @ 0x001a8e60
+#include "decls/address.h"
 struct Item_1a8e60 {
     char data[0x18];
     void FUN_001a5d50();
@@ -27,7 +28,6 @@ struct World {
     char pad0[0x54];
     Selector_1a8e60 *f54;
 };
-extern World *DAT_004dd700;
 extern char DAT_004e1764;
 
 struct Owner_1a8e60 {

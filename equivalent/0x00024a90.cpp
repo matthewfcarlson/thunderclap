@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 599 inputs, branch coverage 8/8)
 // FUN_00024a90 @ 0x00024a90
+#include "decls/address.h"
 union Id64_24a90 {
     unsigned __int64 q;
     unsigned int w[2];
 };
 
-unsigned __int64 __cdecl FUN_0027b020(const char *name);
 
 struct Clock_24a90 {
     unsigned __int64 FUN_000443c0();

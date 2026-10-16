@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 struct Manager_2a0770 {
     virtual void f0();
     virtual void f1();
@@ -40,17 +42,11 @@ struct Manager_2a0770 {
     virtual void f38(int, int);
 };
 extern Manager_2a0770* gManager_2a0770;
-struct Light {
-    char pad[0x10];
-    unsigned char flag;
-    char pad2[0x13];
-    int id;
-    void vfunc_6();
-};
-void Light::vfunc_6() {
-    if (id != -1) {
-        gManager_2a0770->f38(id, 0);
-        flag = 0;
-        id = -1;
+
+void pure3d::Light::vfunc_6() {
+    if (this->f_24 != -1) {
+        gManager_2a0770->f38(this->f_24, 0);
+        this->f_10 = 0;
+        this->f_24 = -1;
     }
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 21/22, incomplete)
 // FUN_0003aef0 @ 0x0003aef0
+#include "decls/address.h"
 extern "C" double sqrt(double);
 
 struct V3_3aef0 {
@@ -45,11 +46,10 @@ struct Mgr_3aef0 { void FUN_0027ffb0(void* arg); };
 Mgr_3aef0* __cdecl FUN_0027f250();
 
 struct Inventory_3aef0 { void FUN_001e5bb0(Weapon_3aef0* w, int flag); };
-struct Global_3aef0 {
+struct World {
     char pad0[0xc];
     Inventory_3aef0* inv;             // 0xc
 };
-extern Global_3aef0* DAT_004dd700;
 
 class Actor_3aef0 {
 public:

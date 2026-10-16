@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Obj_2df750 {
   public:
     virtual void s0();
@@ -53,29 +55,12 @@ struct Res_2df750 {
     void* val;
 };
 extern Global_2df750* gGlobal_2df750;
-class Prim_2df750 {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void vfunc_6();
-    char pad0[0x3c];
-    Res_2df750* res;
-    char pad1[0x14];
-    Obj_2df750* obj;
-    int m5c;
-    int m60;
-    int m64;
-    Sub_2df750* sub;
-};
-void Prim_2df750::vfunc_6() {
-    void* r = obj->s4();
-    sub->call(r, m60, m64);
-    obj->s5(r);
-    obj->s6();
-    void* v = res ? res->val : 0;
-    gGlobal_2df750->g32(v, obj);
+
+void pure3d::PrimGroupSkinnedPC::vfunc_6() {
+    void* r = (*(Obj_2df750 * *)&this->f_58)->s4();
+    (*(Sub_2df750 * *)&this->f_68)->call(r, this->f_60, this->f_64);
+    (*(Obj_2df750 * *)&this->f_58)->s5(r);
+    (*(Obj_2df750 * *)&this->f_58)->s6();
+    void* v = (*(Res_2df750 * *)&this->f_40) ? (*(Res_2df750 * *)&this->f_40)->val : 0;
+    gGlobal_2df750->g32(v, (*(Obj_2df750 * *)&this->f_58));
 }

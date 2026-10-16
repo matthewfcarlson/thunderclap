@@ -1,19 +1,16 @@
+#include "gen/pure3d.h"
+
 class Obj_295220 {
   public:
     virtual void First();
     virtual void Release();
 };
-class TextureFont {
-    char pad[0x28];
-    Obj_295220* mObj;
 
-  public:
-    void vfunc_17(Obj_295220* p);
-};
-void TextureFont::vfunc_17(Obj_295220* p) {
+void pure3d::TextureFont::vfunc_17(void* __p0) { Obj_295220 * p = (Obj_295220 *)__p0;
+
     if (p)
         p->First();
-    if (mObj)
-        mObj->Release();
-    mObj = p;
+    if ((*(Obj_295220 * *)&this->f_28))
+        (*(Obj_295220 * *)&this->f_28)->Release();
+    (*(Obj_295220 * *)&this->f_28) = p;
 }

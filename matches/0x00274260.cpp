@@ -1,9 +1,11 @@
+#include "gen/core.h"
+
 class FileOps {
   public:
     virtual void First();
     virtual void Second();
 };
-class File {
+class File_274260 {
   public:
     char pad0[4];
     FileOps ops;
@@ -12,17 +14,11 @@ class File {
     char pad1c[0x128 - 0x18];
     int size;
 };
-class FileGetSizeRequest {
-  public:
-    char pad0[8];
-    File* file;
-    int* out;
-    int vfunc_1();
-};
-int FileGetSizeRequest::vfunc_1() {
-    *out = file->size;
-    file->ops.First();
-    file->state = 0;
-    file->ops.Second();
+
+int core::FileGetSizeRequest::vfunc_1() {
+    *(*(int * *)&this->f_0c) = (*(File_274260 * *)&this->f_08)->size;
+    (*(File_274260 * *)&this->f_08)->ops.First();
+    (*(File_274260 * *)&this->f_08)->state = 0;
+    (*(File_274260 * *)&this->f_08)->ops.Second();
     return 1;
 }

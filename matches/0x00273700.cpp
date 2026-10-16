@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 struct I0 {
     virtual void f();
     virtual void g();
@@ -14,16 +16,10 @@ struct Obj_273700 {
     char pad[0x10];
     int count;
 };
-struct FileCompletionRequest {
-    char pad[0xc];
-    Obj_273700* p;
-    I3* q;
-    int arg;
-    void vfunc_7();
-};
-void FileCompletionRequest::vfunc_7() {
-    p->sub.f();
-    --p->count;
-    p->sub.g();
-    q->d(arg);
+
+void core::FileCompletionRequest::vfunc_7() {
+    (*(Obj_273700 * *)&this->f_0c)->sub.f();
+    --(*(Obj_273700 * *)&this->f_0c)->count;
+    (*(Obj_273700 * *)&this->f_0c)->sub.g();
+    (*(I3 * *)&this->f_10)->d(this->f_14);
 }

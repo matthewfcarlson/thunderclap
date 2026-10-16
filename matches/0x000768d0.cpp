@@ -1,27 +1,20 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_003fe828[];
-class TrackFactoryTemplate {
-  public:
-    virtual void A();
-    virtual void B();
-    virtual void C();
-    virtual void D();
-    virtual void E();
-    virtual void F();
-    void* vfunc_5();
-};
 extern void* __cdecl operator_new(unsigned int);
-class CGrappleInvincibleTrack {
+class CGrappleInvincibleTrack_768d0 {
   public:
     void Init();
 };
-void* TrackFactoryTemplate::vfunc_5() {
-    CGrappleInvincibleTrack* p = (CGrappleInvincibleTrack*)operator_new(0x18);
+
+template <> void* fight::TrackFactoryTemplate<CGrappleInvincibleTrack>::vfunc_5() {
+    CGrappleInvincibleTrack_768d0* p = (CGrappleInvincibleTrack_768d0*)operator_new(0x18);
     if (p) {
         p->Init();
         *(int*)p = ((int)DAT_003fe828);
-        return p;
+        return (void*)(p);
     }
     goto fail;
 fail:
-    return 0;
+    return (void*)(0);
 }

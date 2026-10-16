@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3172 inputs, branch coverage 94/94)
 // FEThingsBase::vfunc_35 @ 0x000f3270
+#include "decls/address.h"
 typedef unsigned __int64 u64_f3270;
 void *FUN_0008d690(unsigned int size);
-u64_f3270 __cdecl FUN_0027b020(const char *s);
 
 namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; } }
 namespace pure3d { class CompositeDrawable; }

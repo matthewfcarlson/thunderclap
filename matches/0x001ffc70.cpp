@@ -1,5 +1,5 @@
+#include "decls/address.h"
 class CTriggerVolumeManager;
-extern unsigned char __cdecl FUN_001d04d0(const char*);
 extern const char a[], b[];
 class Base {
   public:

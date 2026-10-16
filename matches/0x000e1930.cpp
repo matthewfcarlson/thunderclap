@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 typedef unsigned char u8;
 class Callback_e1930 {
   public:
@@ -5,7 +7,7 @@ class Callback_e1930 {
     virtual void b();
 };
 extern "C" float(__cdecl* GetDelta)();
-class FEDoAction {
+class FEDoAction_e1930 {
   public:
     virtual void v0();
     virtual void v1();
@@ -13,23 +15,15 @@ class FEDoAction {
     virtual void v3();
     virtual void v4();
 };
-class FEDoWait : public FEDoAction {
-  public:
-    char pad[0x34 - sizeof(FEDoAction)];
-    float limit;
-    float elapsed;
-    Callback_e1930* callback;
-    u8 done;
-    void vfunc_2();
-};
+
 void FEDoWait::vfunc_2() {
-    if (!done) {
-        if (elapsed >= limit) {
-            done = 1;
-            if (!callback)
+    if (!(*(u8 *)&this->f_40)) {
+        if ((*(float *)&this->f_38) >= this->f_34) {
+            (*(u8 *)&this->f_40) = 1;
+            if (!(*(Callback_e1930 * *)&this->f_3c))
                 return;
-            callback->b();
+            (*(Callback_e1930 * *)&this->f_3c)->b();
         }
-        elapsed += GetDelta();
+        (*(float *)&this->f_38) += GetDelta();
     }
 }

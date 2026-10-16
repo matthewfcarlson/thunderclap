@@ -1,8 +1,8 @@
+#include "decls/address.h"
 extern "C" char DAT_004243b8[];
 extern "C" char DAT_0048e0f0[];
 extern "C" char DAT_0048e100[];
 extern "C" void __stdcall FUN_001d0480(const char*, int);
-extern "C" unsigned char __cdecl FUN_001d04d0(const char*);
 class Obj_1ede10 {
   public:
     Obj_1ede10(const char*, int);

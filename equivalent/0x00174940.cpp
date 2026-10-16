@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 22/22)
 // hulkfight::motion::PushOutAction::vfunc_5 @ 0x00174940
+#include "decls/address.h"
 struct V3_174940 {
     float x, y, z;
     float FUN_0022d110();
@@ -48,7 +49,6 @@ struct World {
     char pad0[0x20];
     Wrap_174940 *wrap;
 };
-extern World *DAT_004dd700;
 
 bool __cdecl FUN_00018960(float a, float b, float eps);
 

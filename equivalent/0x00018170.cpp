@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 21/22, incomplete)
 // CHeliDeathSpiralAction::vfunc_7 @ 0x00018170
+#include "decls/address.h"
 struct Vec3_18170 {
     float x, y, z;
     float FUN_0022d110();
@@ -35,12 +36,11 @@ struct Ground_18170 {
     float FUN_00099b70();
 };
 
-struct Globals_18170 {
+struct World {
     char pad00[8];
     Ground_18170 *ground;
 };
 
-extern Globals_18170 *DAT_004dd700;
 
 struct Anchor_18170;
 

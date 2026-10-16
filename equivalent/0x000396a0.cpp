@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 427 inputs, branch coverage 61/78, incomplete)
 // FUN_000396a0 @ 0x000396a0
 // equiv-conv: FUN_00035e70 eax stack
+#include "decls/address.h"
 extern "C" double sqrt(double);
 extern "C" double atan2(double y, double x);
 
@@ -75,13 +76,12 @@ struct Mid_396a0 {
     char pad0[8];
     ListOwner_396a0 *p8;
 };
-struct Hub_396a0 {
+struct World {
     char pad0[0x10];
     Mid_396a0 *p10;
     char pad14[0x24 - 0x14];
     Ray_396a0 *p24;
 };
-extern Hub_396a0 *DAT_004dd700;
 
 Thing_396a0 *FUN_000969d0(int a);
 char FUN_00035e70(Thing_396a0 *t, float len);

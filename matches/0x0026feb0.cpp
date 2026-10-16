@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 class MemPoolParent {
   public:
     virtual void f0();
@@ -12,28 +14,8 @@ class MemPoolParent {
     virtual char Stats(int* a, int* b, int* c, int* d);
 };
 
-class MemoryPool {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual char vfunc_9(int* a, int* b, int* c, int* d);
-    char pad[0x1c - 4];
-    int m1c;
-    int m20;
-    int m24;
-    int m28;
-    int m2c;
-    MemPoolParent* parent;
-};
+bool core::MemoryPool::vfunc_9(void* __p0, void* __p1, void* __p2, void* __p3) { int * a = (int *)__p0; int * b = (int *)__p1; int * c = (int *)__p2; int * d = (int *)__p3;
 
-char MemoryPool::vfunc_9(int* a, int* b, int* c, int* d) {
     if (a)
         *a = 0;
     if (b)
@@ -42,15 +24,15 @@ char MemoryPool::vfunc_9(int* a, int* b, int* c, int* d) {
         *c = 0;
     if (d)
         *d = 0;
-    if (parent)
-        parent->Stats(a, b, c, d);
+    if ((*(MemPoolParent * *)&this->f_30))
+        (*(MemPoolParent * *)&this->f_30)->Stats(a, b, c, d);
     if (a)
-        *a += (m20 - m28) * m1c;
+        *a += (this->f_20 - this->f_28) * this->f_1c;
     if (b)
-        *b += m1c;
+        *b += this->f_1c;
     if (c)
-        *c += m28;
+        *c += this->f_28;
     if (d)
-        *d += m2c * m1c;
-    return 1;
+        *d += this->f_2c * this->f_1c;
+    return (bool)(1);
 }

@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Base_2d3e60 {
   public:
     virtual void f0();
@@ -11,29 +13,8 @@ class Base_2d3e60 {
     virtual void f8();
     virtual void f9();
 };
-class pure3d_ParticleEmitter_2d3e60 {
-    char pad[0x84];
-    Base_2d3e60* member;
 
-  public:
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual void a3();
-    virtual void a4();
-    virtual void a5();
-    virtual void a6();
-    virtual void a7();
-    virtual void a8();
-    virtual void a9();
-    virtual void a10();
-    virtual void a11();
-    virtual void a12();
-    virtual void a13();
-    virtual void a14();
-    virtual void vfunc_16();
-};
-void pure3d_ParticleEmitter_2d3e60::vfunc_16() {
-    if (member)
-        member->f9();
+void pure3d::ParticleEmitter::vfunc_16() {
+    if ((*(Base_2d3e60 * *)&this->f_88))
+        (*(Base_2d3e60 * *)&this->f_88)->f9();
 }

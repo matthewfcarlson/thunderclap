@@ -1,57 +1,23 @@
+#include "gen/pure3d.h"
+
 extern const float gOne_2859d0;
 extern const float gZero_2859d0;
-struct SimpleFrameController {
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual void a3();
-    virtual void a4();
-    virtual void a5();
-    virtual void a6();
-    virtual void a7();
-    virtual void a8();
-    virtual void a9();
-    virtual void a10();
-    virtual void a11();
-    virtual void a12();
-    virtual void a13();
-    virtual void a14();
-    virtual void a15();
-    virtual void a16();
-    virtual void a17();
-    virtual void a18();
-    virtual void a19();
-    virtual void a20();
-    virtual void a21();
-    virtual void a22();
-    virtual void vfunc_23();
-    char pad[0x18 - 4];
-    unsigned long m18;
-    unsigned long m1c;
-    unsigned long m20;
-    unsigned long m24;
-    unsigned long m28;
-    unsigned long m2c;
-    float m30;
-    unsigned long m34;
-    unsigned char m38[4];
-    void* m3c;
-};
-void SimpleFrameController::vfunc_23() {
-    m20 = 0;
-    m24 = 0;
-    m2c = 0;
+
+void pure3d::SimpleFrameController::vfunc_23() {
+    (*(unsigned long *)&this->f_20) = 0;
+    (*(unsigned long *)&this->f_24) = 0;
+    (*(unsigned long *)&this->f_2c) = 0;
     float f;
-    if (m3c == 0)
+    if ((*(void * *)&this->f_3c) == 0)
         f = gZero_2859d0;
     else {
-        f = *(float*)((char*)m3c + 0x10) - gOne_2859d0;
+        f = *(float*)((char*)(*(void * *)&this->f_3c) + 0x10) - gOne_2859d0;
         if (f < gZero_2859d0)
             f = gZero_2859d0;
     }
-    m30 = f;
-    m34 = 0;
-    m28 = 0x7f7fffff;
-    m38[0] = 1;
-    m18 = 0x3f800000;
+    (*(float *)&this->f_30) = f;
+    (*(unsigned long *)&this->f_34) = 0;
+    (*(unsigned long *)&this->f_28) = 0x7f7fffff;
+    (*(unsigned char (*)[4])&this->f_38)[0] = 1;
+    (*(unsigned long *)&this->f_18) = 0x3f800000;
 }

@@ -1,3 +1,5 @@
+#include "gen/audio.h"
+
 typedef unsigned int size_t;
 extern char bss;
 void* __cdecl Alloc(char*);
@@ -19,21 +21,15 @@ class SeqEventMid : public SeqEventBase {
     int a, b, c;
     SeqEventMid() : a(0), b(0), c(0) {}
 };
-class SeqEventLogicOr : public SeqEventMid {
+class SeqEventLogicOr_255350 : public SeqEventMid {
   public:
     float value;
     virtual void f0();
-    SeqEventLogicOr() : value(0.5f) {}
+    SeqEventLogicOr_255350() : value(0.5f) {}
 };
-class SeqEventLogicOrType {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual SeqEventLogicOr* vfunc_3();
-};
-SeqEventLogicOr* SeqEventLogicOrType::vfunc_3() {
-    void* p = Alloc(&bss);
-    return p ? new (p) SeqEventLogicOr : 0;
-}
+
 } // namespace audio
+void* audio::SeqEventLogicOrType::vfunc_3() {
+    void* p = Alloc(&bss);
+    return (void*)(p ? new (p) SeqEventLogicOr_255350 : 0);
+}

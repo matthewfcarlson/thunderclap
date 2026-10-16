@@ -1,12 +1,8 @@
 // Same code shape as 0x0004dfd0 (propagated; names are from that function)
-class ParamIntConstRange {
-  public:
-    char pad[0x10];
-    bool (ParamIntConstRange::*fn)(int);
-    bool vfunc_6(int a, int b);
-};
-bool ParamIntConstRange::vfunc_6(int a, int b) {
-    if (!fn)
+#include "gen/fight.h"
+
+template <> bool fight::ParamFloatConstRange<hulkfight::ai::SemaphoreClearTrack>::vfunc_6(int a, int b) {
+    if (!(*(bool (fight::ParamFloatConstRange<hulkfight::ai::SemaphoreClearTrack>::**)(int))&this->f_10))
         return false;
-    return (((ParamIntConstRange*)a)->*fn)(b);
+    return (((fight::ParamFloatConstRange<hulkfight::ai::SemaphoreClearTrack>*)a)->*(*(bool (fight::ParamFloatConstRange<hulkfight::ai::SemaphoreClearTrack>::**)(int))&this->f_10))(b);
 }

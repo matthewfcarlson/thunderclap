@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 void* operator new(unsigned int);
 struct Base_1aa4e0 {
     Base_1aa4e0(int) throw();
@@ -19,14 +21,7 @@ struct Cond_1aa4e0 : Base_1aa4e0 {
     virtual void e();
     virtual Base_1aa4e0* f();
 };
-struct Fac_1aa4e0 {
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual Base_1aa4e0* vfunc_5();
-};
-Base_1aa4e0* Fac_1aa4e0::vfunc_5() {
-    return new Cond_1aa4e0;
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::scenario::NodeShouldRunImmediatelyCondition>::vfunc_5() {
+    return (void*)(new Cond_1aa4e0);
 }

@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 38/38)
 // FUN_000a1ca0 @ 0x000a1ca0
+#include "decls/address.h"
 extern unsigned int DAT_004dd9f8;
 extern unsigned __int64 DAT_004dd9f0;
 
-unsigned __int64 __cdecl FUN_0027b020(const char *s) throw();
 float __cdecl FUN_000a0450(void *v) throw();
 
 union Bits_a1ca0 {

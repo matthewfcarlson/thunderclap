@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3070 inputs, branch coverage 60/60)
 // FUN_001d8350 @ 0x001d8350
 // equiv-map: ??0Id64@@QAE@ABU0@@Z = 0x0027af30
+#include "decls/address.h"
 struct V3_1d8350 {
     float x, y, z;
     float FUN_000259c0();
@@ -27,7 +28,7 @@ struct Sound_1d8350 {
     void FUN_00090720(const char *name, int flag);
 };
 
-struct Mgr_1d8350 {
+struct Singleton_4dd6ec {
     char pad0[0x3c];
     Voice_1d8350 *f3c;
     char pad40[8];
@@ -44,10 +45,8 @@ struct World {
     char pad0[0x30];
     Sender *f30;
     char pad34[0x54 - 0x34];
-    Mgr_1d8350 *f54;
+    Singleton_4dd6ec *f54;
 };
-extern World *DAT_004dd700;
-extern Mgr_1d8350 *DAT_004dd6ec;
 extern char DAT_004e2518;
 
 struct Fighter_1d8350 {

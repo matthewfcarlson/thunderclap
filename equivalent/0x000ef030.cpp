@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 12/12)
 // FEContainer::vfunc_5 @ 0x000ef030
+#include "gen/global.h"
+
 struct TypeInfo_ef030 { unsigned int data; }; extern TypeInfo_ef030 DAT_0049dba4; extern TypeInfo_ef030 DAT_0049f470;
 struct Text_ef030 { char pad[0x2c]; int id; };
 extern Text_ef030* __cdecl FUN_00344e74(void*, int, TypeInfo_ef030*, TypeInfo_ef030*, int);
@@ -10,20 +12,23 @@ virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virt
 char pad[0x1758]; Page* page; char pad2[0x98]; int state;
 void* FUN_000e7260(const char*);
 };
-struct FEContainer { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); Owner_ef030* owner; void FUN_000e4ec0(int); };
+struct FEContainer_nv_ef030 {
+    void FUN_000e4ec0(int);
+};
+
 void FEContainer::vfunc_5() {
- FUN_000e4ec0(6);
- Text_ef030* text=FUN_00344e74(owner->FUN_000e7260("fullscreen_message_text"),0,&DAT_0049dba4,&DAT_0049f470,0);
+ ((FEContainer_nv_ef030*)this)->FUN_000e4ec0(6);
+ Text_ef030* text=FUN_00344e74((*(Owner_ef030 * *)&this->f_04)->FUN_000e7260("fullscreen_message_text"),0,&DAT_0049dba4,&DAT_0049f470,0);
  bool special=false;
  if(text) {
  int id=text->id;
- int expected=owner->f44("TBS_MISSION_BRIEF_C7M2")->FUN_000f7d30();
- if(id==expected && owner->page) {
- const char* name=owner->page->f8(); const char* wanted="fullscreen_message";
+ int expected=(*(Owner_ef030 * *)&this->f_04)->f44("TBS_MISSION_BRIEF_C7M2")->FUN_000f7d30();
+ if(id==expected && (*(Owner_ef030 * *)&this->f_04)->page) {
+ const char* name=(*(Owner_ef030 * *)&this->f_04)->page->f8(); const char* wanted="fullscreen_message";
  special=true; for(int i=0;i<19;++i) if(name[i]!=wanted[i]) {special=false;break;}
  }
  }
- if(special) owner->f49("c07m02"); else owner->f48(5);
- if(owner->state==0) FUN_000e4ec0(10);
- if(owner->state==1) FUN_000e4ec0(11);
+ if(special) (*(Owner_ef030 * *)&this->f_04)->f49("c07m02"); else (*(Owner_ef030 * *)&this->f_04)->f48(5);
+ if((*(Owner_ef030 * *)&this->f_04)->state==0) ((FEContainer_nv_ef030*)this)->FUN_000e4ec0(10);
+ if((*(Owner_ef030 * *)&this->f_04)->state==1) ((FEContainer_nv_ef030*)this)->FUN_000e4ec0(11);
 }

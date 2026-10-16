@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3108 inputs, branch coverage 76/76)
 // hulkfight::motion::ProjectileGroundShockwave::vfunc_6 @ 0x00199060
 // equiv-conv: FUN_00195560 ecx eax stack stack stack stack stack stack stack stack stack stack stack
+#include "decls/address.h"
 struct V3_199060 {
     float x, y, z;
     float FUN_0022d110();
@@ -110,7 +111,7 @@ struct Own_199060 {
 struct Pool44 {
     Own_199060 *FUN_00059c10(int id);
 };
-struct Hub_199060 {
+struct World {
     char pad0[0xc];
     Holder_199060 *pc;
     char pad10[0x44 - 0x10];
@@ -118,7 +119,6 @@ struct Hub_199060 {
     char pad48[4];
     Hub4c_199060 *p4c;
 };
-extern Hub_199060 *DAT_004dd700;
 extern unsigned int DAT_004e2198;
 extern unsigned int DAT_004e219c;
 

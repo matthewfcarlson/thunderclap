@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_000bc230 @ 0x000bc230
+#include "decls/address.h"
 extern "C" char *__cdecl strncpy(char *dst, const char *src, unsigned n);
 
 class Manager_bc230 { public: char pad[4]; };
@@ -73,12 +74,11 @@ struct Sys_bc230 {
     void FUN_001cc620(int a);
 };
 
-struct Globals_bc230 {
+struct World {
     char pad[0x2c];
     Sys_bc230 *sys;
 };
 
-extern Globals_bc230 *DAT_004dd700;
 
 class QuestionScreen {
 public:

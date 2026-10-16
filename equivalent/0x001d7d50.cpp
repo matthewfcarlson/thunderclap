@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 32/32)
 // FUN_001d7d50 @ 0x001d7d50
-struct Gate_1d7d50 { bool FUN_000242d0(int); }; struct Mode_1d7d50 { bool FUN_000997a0(); }; struct Globals_1d7d50 { char p[8]; Mode_1d7d50* mode; char q[20]; Gate_1d7d50* gate; }; extern Globals_1d7d50* DAT_004dd700;
+#include "decls/address.h"
+struct Gate_1d7d50 { bool FUN_000242d0(int); }; struct Mode_1d7d50 { bool FUN_000997a0(); }; struct World { char p[8]; Mode_1d7d50* mode; char q[20]; Gate_1d7d50* gate; }; 
 struct State_1d7d50 { char p[8]; int id; int type; };
 struct Resource_1d7d50 { virtual void dummy(); virtual void release(); void FUN_0001b4f0(); };
 struct Flag_1d7d50 { char p[24]; unsigned char active; }; struct Link_1d7d50 { char p[32]; Flag_1d7d50* flag; }; struct Related_1d7d50 { char p[116]; Link_1d7d50* link; };

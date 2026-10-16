@@ -1,4 +1,6 @@
-class CAction {
+#include "gen/global.h"
+
+class CAction_13b70 {
   public:
     virtual void a0();
     virtual void a1();
@@ -10,19 +12,14 @@ class CAction {
     virtual bool vfunc_7(int);
     virtual void a8();
 };
-class CClimbingAction : public CAction {
-  public:
-    char pad[0x1c - 4];
-    void* mThing;
-    bool vfunc_7(int);
-};
 struct X_13b70 {
     X_13b70* f1();
     X_13b70* f2();
     int f3(int);
 };
-bool CClimbingAction::vfunc_7(int) {
-    X_13b70* x = (X_13b70*)mThing;
+
+bool CClimbingAction::vfunc_7(int ) {
+    X_13b70* x = (X_13b70*)(*(void * *)&this->f_1c);
     x = x->f1();
     x = x->f2();
     x->f3(4);

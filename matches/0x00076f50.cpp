@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 void* __cdecl operator new(unsigned int);
 extern "C" void _ReadWriteBarrier();
 class Root_76f50 {
@@ -20,7 +22,7 @@ class Mid_76f50 : public Root_76f50 {
         a = 0;
     }
 };
-class CJumpAttackTrack : public Mid_76f50 {
+class CJumpAttackTrack_76f50 : public Mid_76f50 {
   public:
     virtual void f0();
     virtual void f1();
@@ -33,7 +35,7 @@ class CJumpAttackTrack : public Mid_76f50 {
     float pi;
     float g, h;
     int j, k, l;
-    CJumpAttackTrack() throw() {
+    CJumpAttackTrack_76f50() throw() {
         _ReadWriteBarrier();
         d = -1.0f;
         e = -1.0f;
@@ -47,15 +49,7 @@ class CJumpAttackTrack : public Mid_76f50 {
         pi = 1.5707964f;
     }
 };
-class Factory_76f50 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual Root_76f50* f5();
-};
-Root_76f50* Factory_76f50::f5() {
-    return new CJumpAttackTrack;
+
+template <> void* fight::TrackFactoryTemplate<CJumpAttackTrack>::vfunc_5() {
+    return (void*)(new CJumpAttackTrack_76f50);
 }

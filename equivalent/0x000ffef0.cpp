@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 927 inputs, branch coverage 122/122)
 // CHand2HandAgent::vfunc_14 @ 0x000ffef0
+#include "decls/address.h"
 typedef unsigned __int64 u64;
 extern "C" double sqrt(double);
 
@@ -79,7 +80,6 @@ struct Env {
 
 extern V3 DAT_004a1c24;
 extern u64 DAT_004dc0e0;
-u64 __cdecl FUN_0027b020(const char *s);
 
 #define NAMEHIT(var, str) if (!var) { u64 k_ = ev->id; var = (k_ == FUN_0027b020(str)); }
 

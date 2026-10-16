@@ -1,9 +1,9 @@
+#include "decls/address.h"
 extern "C" char DAT_00404c10[];
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e10c[];
 extern "C" char DAT_0048e128[];
 extern "C" void __stdcall FUN_001d0480(int, int);
-extern "C" unsigned char __cdecl FUN_001d04d0(const char*);
 class CCameraManager {
   public:
     char pad00[0x10];

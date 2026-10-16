@@ -1,4 +1,6 @@
-class Condition {
+#include "gen/fight.h"
+
+class Condition_23d4e0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -8,19 +10,13 @@ class Condition {
     virtual void f5();
     virtual bool vfunc_6(int, int, int);
 };
-class DebugCondition : public Condition {
-  public:
-    int pad[2];
-    int mType;
-    int mValue;
-    bool vfunc_6(int, int, int);
-};
-bool DebugCondition::vfunc_6(int, int, int) {
-    switch (mType) {
+
+bool fight::DebugCondition::vfunc_6(void* __p0, void* __p1, void* __p2) {
+    switch (this->f_0c) {
     case 0:
-        return mValue == 2;
+        return this->f_10 == 2;
     case 1:
-        return mValue != 2;
+        return this->f_10 != 2;
     default:
         return false;
     }

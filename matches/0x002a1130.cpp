@@ -1,6 +1,8 @@
+#include "gen/pure3d.h"
+
 namespace pure3d {
 
-class Entity {
+class Entity_2a1130 {
   public:
     virtual void v0();
     virtual void v1();
@@ -11,14 +13,7 @@ class Entity {
     char pad[0x100];
 };
 
-class LightGroup : public Entity {
-  public:
-    LightGroup* Self();
-    char pad2[0x40];
-};
-
-LightGroup* LightGroup::Self() {
-    return this;
-}
-
 } // namespace pure3d
+void* pure3d::LightGroup::vfunc_4() {
+    return (void*)(this);
+}

@@ -1,19 +1,5 @@
-class PrimGroupStreamed {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual int vfunc_5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
-    virtual void f11();
-    virtual void f12();
-};
-int PrimGroupStreamed::vfunc_5() {
+#include "gen/pure3d.h"
+
+int pure3d::PrimGroupStreamed::vfunc_5() {
     return 0x81;
 }

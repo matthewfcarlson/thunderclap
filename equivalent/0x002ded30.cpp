@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 12/12)
 // pure3d::ImageConverter::vfunc_6 @ 0x002ded30
-struct Image {
+#include "gen/pure3d.h"
+
+struct Image_2ded30 {
     char pad[0x10];
     int width;
     int height;
@@ -17,25 +19,12 @@ struct Surface_2ded30 {
     int cursor;
 };
 
-void __stdcall FUN_002de5a0(Image *img, Surface_2ded30 *s);
-void __stdcall FUN_002de990(Image *img, Surface_2ded30 *s);
-void __stdcall FUN_002de9c0(Image *img, Surface_2ded30 *s);
+void __stdcall FUN_002de5a0(Image_2ded30 *img, Surface_2ded30 *s);
+void __stdcall FUN_002de990(Image_2ded30 *img, Surface_2ded30 *s);
+void __stdcall FUN_002de9c0(Image_2ded30 *img, Surface_2ded30 *s);
 
-class ImageConverter {
-public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void vfunc_6(Image *img, Surface_2ded30 *s, int row);
-    virtual void v7();
-    virtual void v8();
-};
+void pure3d::ImageConverter::vfunc_6(int __p0, int __p1, int row) { Image_2ded30 * img = (Image_2ded30 *)__p0; Surface_2ded30 * s = (Surface_2ded30 *)__p1;
 
-void ImageConverter::vfunc_6(Image *img, Surface_2ded30 *s, int row)
-{
     if (img->width != s->width || img->height != s->height || row >= s->rows)
         return;
     int saved = s->cursor;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001e3360 @ 0x001e3360
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 namespace content {
@@ -34,8 +35,7 @@ public:
 
 struct Holder44_1e3360 { Factory_1e3360 *FUN_00203d70(); };
 struct Holder28_1e3360 { Holder44_1e3360 *FUN_000862a0(); };
-struct Globals_1e3360 { char pad0[0x54]; Holder28_1e3360 *holder; };
-extern Globals_1e3360 *DAT_004dd700;
+struct World { char pad0[0x54]; Holder28_1e3360 *holder; };
 
 struct Slot_1e3360 {
     unsigned char flags;

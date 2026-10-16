@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 37/39, incomplete)
 // CEffectAction::vfunc_6 @ 0x00016680
+#include "decls/address.h"
 struct V3_16680 {
     float x, y, z;
     char FUN_0022d2b0(const V3_16680 *other, float eps);
@@ -95,11 +96,10 @@ public:
 struct Hub20_16680 {
     void FUN_00025590(Obj3_16680 *r, Name_16680 *a, int f58, Name_16680 *b, int f58b, Mat4_16680 *m, float v, int f54);
 };
-struct Hub_16680 {
+struct World {
     char pad0[0x20];
     Hub20_16680 *p20;
 };
-extern Hub_16680 *DAT_004dd700;
 
 class CEffectAction {
 public:

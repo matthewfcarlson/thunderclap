@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
 // FUN_000819f0 @ 0x000819f0
+#include "decls/address.h"
 namespace pure3d { class Animation; }
 namespace content { struct LoadInventory { template<class T> struct DynamicCaster { virtual T* cast(void*); }; }; }
 struct Track { void* FUN_00288960(unsigned, unsigned); };
@@ -7,8 +8,7 @@ namespace pure3d { class Animation { public: Track* FUN_00288a20(int); }; }
 struct Inventory_819f0 { virtual void v0(); virtual void v1(); virtual void v2(); virtual pure3d::Animation* find(content::LoadInventory::DynamicCaster<pure3d::Animation>*, unsigned, unsigned); };
 struct Resource_819f0 { Inventory_819f0* FUN_00203d70(); };
 struct Manager_819f0 { Resource_819f0* FUN_000862a0(); };
-struct Globals_819f0 { char pad[0x54]; Manager_819f0* manager; };
-extern Globals_819f0* DAT_004dd700;
+struct World { char pad[0x54]; Manager_819f0* manager; };
 struct Controller_819f0 {
 virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
 virtual void setValue(unsigned);

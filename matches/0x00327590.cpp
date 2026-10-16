@@ -1,27 +1,6 @@
-class d3dPrimBufferStream {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6(float, float, int);
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
-    virtual void f11();
-    virtual void f12();
-    virtual void f13();
-    virtual void f14();
-    virtual void f15();
-    virtual void f16();
-    virtual void f17();
-    char pad[0x38 - 4];
-    float* data;
-};
-void d3dPrimBufferStream::f6(float a, float b, int i) {
-    data[i * 2] = a;
-    data[i * 2 + 1] = b;
+#include "gen/pure3d.h"
+
+void pure3d::d3dPrimBufferStream::vfunc_6(float a, float b, int i) {
+    (*(float * *)&this->f_38)[i * 2] = a;
+    (*(float * *)&this->f_38)[i * 2 + 1] = b;
 }

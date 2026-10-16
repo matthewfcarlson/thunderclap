@@ -1,27 +1,19 @@
+#include "gen/global.h"
+
 struct Obj_175c0 {
     Obj_175c0* first();
     Obj_175c0* second();
     void third(int);
     void fourth(int);
 };
-struct CAction {
+struct CAction_175c0 {
     virtual void q();
     char pad[0x18];
     Obj_175c0* mObj;
 };
-struct CInvulnerableAction : CAction {
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual bool vfunc_6(int);
-    virtual void v7();
-    virtual void v8();
-};
+
 bool CInvulnerableAction::vfunc_6(int x) {
-    Obj_175c0* a = mObj->first();
+    Obj_175c0* a = (*(Obj_175c0 * *)&this->f_1c)->first();
     Obj_175c0* b = a->second();
     b->third(1);
     b->fourth(1);

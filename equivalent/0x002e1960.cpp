@@ -2,6 +2,7 @@
 // FUN_002e1960 @ 0x002e1960
 // equiv-map: ??0PrimGroupBase@@QAE@XZ = 0x002a5060
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 struct Hdr8;
 
@@ -101,7 +102,7 @@ public:
     virtual void m5(Builder *b, int r);
 };
 
-class Factory2_2e1960 {
+class Gfx {
 public:
     virtual void g0();
     virtual void g1();
@@ -329,7 +330,6 @@ struct Frame_2e1960 {
 };
 
 extern Factory_2e1960 *DAT_0052c2a0;
-extern Factory2_2e1960 *DAT_0052c2a8;
 
 void Hdr_2e1960::Load(int a1, Reader *R, int a3, PalList_2e1960 *a4, unsigned int *a5)
 {

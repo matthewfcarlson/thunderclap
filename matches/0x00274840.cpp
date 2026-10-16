@@ -1,5 +1,7 @@
 // Same code shape as 0x0025c0b0 (propagated; names are from that function)
-class HalStream {
+#include "gen/core.h"
+
+class HalStream_274840 {
   public:
     virtual void a0();
     virtual void a1();
@@ -16,23 +18,8 @@ class HalStream {
     virtual void a12();
 };
 namespace audio {
-class OmHalStream : public HalStream {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual OmHalStream* vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    virtual void vfunc_8();
-    virtual void vfunc_9();
-    virtual void vfunc_10();
-    virtual void vfunc_11();
-    virtual void vfunc_12();
-};
-OmHalStream* OmHalStream::vfunc_2() {
-    return (OmHalStream*)((char*)this + 0xc);
-}
+
 } // namespace audio
+void* core::DriveFindFirstRequest::vfunc_5() {
+    return (void*)((core::DriveFindFirstRequest*)((char*)this + 0xc));
+}

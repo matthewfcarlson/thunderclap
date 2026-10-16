@@ -12,15 +12,15 @@ class Part_235390 {
   public:
     void Init();
 };
-class ParamValueString : public ParamValue {
+namespace fight { class ParamValueString : public ParamValue {
   public:
     virtual ParamValueString* vfunc_0(int);
     virtual void vfunc_1();
     virtual void vfunc_5();
     Part_235390 part;
-};
-extern void thunk_FUN_00267090(ParamValueString*);
-ParamValueString* ParamValueString::vfunc_0(int x) {
+}; }
+extern void thunk_FUN_00267090(fight::ParamValueString*);
+fight::ParamValueString* fight::ParamValueString::vfunc_0(int x) {
     *(int*)this = (int)&base_vtable;
     part.Init();
     if (x & 1)

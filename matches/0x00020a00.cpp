@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class A_20a00 {
   public:
     void* get();
@@ -15,32 +17,15 @@ class Obj_20a00 {
     virtual void f0();
     virtual void f1();
 };
-class CHeadTrackerAction {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void vfunc_4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    char pad[0x1c - 4];
-    A_20a00* m1c;
-    char pad20[4];
-    void* m24;
-    char pad28[0x88 - 0x28];
-    Obj_20a00* m88;
-};
+
 void CHeadTrackerAction::vfunc_4() {
-    B_20a00* b = (B_20a00*)m1c->get();
+    B_20a00* b = (B_20a00*)(*(A_20a00 * *)&this->f_1c)->get();
     void* y = b->next();
     if (y) {
-        ((D*)y)->act(m24, 0);
-        if (m88) {
-            m88->f1();
-            m88 = 0;
+        ((D*)y)->act((*(void * *)&this->f_24), 0);
+        if ((*(Obj_20a00 * *)&this->f_88)) {
+            (*(Obj_20a00 * *)&this->f_88)->f1();
+            (*(Obj_20a00 * *)&this->f_88) = 0;
         }
     }
 }

@@ -1,6 +1,8 @@
+#include "gen/fight.h"
+
 extern void* __cdecl Alloc(int);
 extern void* GrappleVftable;
-class CGrappleDamageTrack {
+class CGrappleDamageTrack_76660 {
   public:
     virtual void a();
     virtual void b();
@@ -8,23 +10,15 @@ class CGrappleDamageTrack {
     virtual void d();
     virtual void e();
     virtual void f();
-    CGrappleDamageTrack();
+    CGrappleDamageTrack_76660();
 };
-class Factory_76660 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual CGrappleDamageTrack* f();
-};
-CGrappleDamageTrack* Factory_76660::f() {
-    CGrappleDamageTrack* p = (CGrappleDamageTrack*)Alloc(0x18);
+
+template <> void* fight::TrackFactoryTemplate<CGrappleDamageTrack>::vfunc_5() {
+    CGrappleDamageTrack_76660* p = (CGrappleDamageTrack_76660*)Alloc(0x18);
     if (p) {
-        p->CGrappleDamageTrack::CGrappleDamageTrack();
+        p->CGrappleDamageTrack_76660::CGrappleDamageTrack_76660();
         *(void**)p = &GrappleVftable;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

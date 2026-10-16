@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // CSmartPropSpawnAction::vfunc_6 @ 0x0001f080
+#include "decls/address.h"
 struct Vec3_1f080 { float x,y,z; };
 struct Ref_1f080 { virtual void vfunc_0(); virtual void vfunc_1(); };
 struct Prop_1f080 : Ref_1f080 { void FUN_001d6630(const void*); };
@@ -9,8 +10,7 @@ struct Actor_1f080 { ActorData* FUN_00059a30(); };
 struct Owner_1f080 { Actor_1f080* FUN_000592a0(); };
 struct Descriptor_1f080 { char pad[16]; char resource[184]; unsigned int flags[2]; };
 struct Manager_1f080 { void FUN_001e5860(char*, const void*, Vec3_1f080); Prop_1f080* FUN_001def30(char*); };
-struct Global_1f080 { char pad[12]; Manager_1f080* manager; };
-extern Global_1f080* DAT_004dd700;
+struct World { char pad[12]; Manager_1f080* manager; };
 extern int DAT_004dc018;
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);

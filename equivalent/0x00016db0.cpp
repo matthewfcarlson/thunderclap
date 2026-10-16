@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // CCameraDramaticAction::vfunc_6 @ 0x00016db0
+#include "decls/address.h"
 struct Vec3_16db0 {
     float x, y, z;
 };
@@ -42,15 +43,14 @@ struct Config_16db0 {
 struct Sub_16db0 {
     void FUN_0009d100(Id_16db0* id, float scale, int value);
     void FUN_00098f50(int a, int b, int c, int d, int e, int f);
-    void FUN_0009bd80(struct Manager_16db0* mgr, Mat_16db0* mat, Vec3_16db0 offset, int count);
+    void FUN_0009bd80(struct World* mgr, Mat_16db0* mat, Vec3_16db0 offset, int count);
 };
 
-struct Manager_16db0 {
+struct World {
     char pad0[8];
     Sub_16db0* sub;
 };
 
-extern Manager_16db0* DAT_004dd700;
 
 Handle_16db0* __fastcall FUN_000592a0(void* owner);
 Scene_16db0* __fastcall FUN_00059a30(Handle_16db0* h);

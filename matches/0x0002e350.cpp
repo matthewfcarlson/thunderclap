@@ -1,3 +1,4 @@
+#include "decls/address.h"
 extern "C" char DAT_003f432c[];
 class Base_2e350 {
   public:
@@ -13,7 +14,6 @@ class Method3 : public Base_2e350 {
     int m1c;
     Method3(int, int);
 };
-extern "C" unsigned char __cdecl FUN_001d04d0(const char*);
 extern const char s1_2e350[];
 extern const char s2_2e350[];
 extern const char DAT_0048e0f0[];

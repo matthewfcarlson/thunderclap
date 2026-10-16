@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 12/12)
 // FUN_0015cfd0 @ 0x0015cfd0
+#include "decls/address.h"
 struct Entry_15cfd0 { char pad[8]; unsigned lo, hi; char rest[24]; }; // 40 bytes
 struct Source_15cfd0 { char pad[0x44]; Entry_15cfd0* begin; Entry_15cfd0* end; };
 struct Pair_15cfd0 { unsigned lo,hi; };
@@ -11,7 +12,6 @@ struct Receiver_15cfd0 {
  virtual void v12(); virtual void v13(); virtual void send(Packet_15cfd0*);
 };
 extern unsigned DAT_004e11a8, DAT_004e11ac, DAT_004e11b0;
-extern unsigned __int64 __cdecl FUN_002672f0(const char*,int,int);
 void __cdecl FUN_0015cfd0(Source_15cfd0* source, Receiver_15cfd0* receiver) {
  if (!source || !receiver) return;
  if (source->end-source->begin != 2) return;

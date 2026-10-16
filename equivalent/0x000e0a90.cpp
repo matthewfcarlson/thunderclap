@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000e0a90 @ 0x000e0a90
+#include "decls/address.h"
 struct Vertices {
     void FUN_0008ef00();
     char pad0[8];
@@ -16,7 +17,7 @@ struct Surface_e0a90 {
     virtual void vfn5();
     virtual void vfn6(unsigned int tag, int flag);
 };
-struct Device_e0a90 {
+struct Gfx {
     virtual void vfn0();
     virtual void vfn1();
     virtual void vfn2();
@@ -51,7 +52,6 @@ struct Device_e0a90 {
     virtual void vfn31(Vertices *v);
 };
 
-extern Device_e0a90 *DAT_0052c2a8;
 extern Surface_e0a90 *DAT_004de954;
 
 // equiv-conv: FUN_000e0a90 edx stack stack stack stack stack

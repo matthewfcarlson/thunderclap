@@ -4,7 +4,7 @@ struct V3_319720 {
     float x, y, z;
 };
 
-class SimpleFilter3D {
+namespace physics { class SimpleFilter3D {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1(const V3_319720 *in, float dt);
@@ -13,9 +13,9 @@ public:
     float alpha[3];    // 0x10
     float out[3];      // 0x1c
     float lastDt;      // 0x28
-};
+}; }
 
-void SimpleFilter3D::vfunc_1(const V3_319720 *in, float dt)
+void physics::SimpleFilter3D::vfunc_1(const V3_319720 *in, float dt)
 {
     if (dt != lastDt) {
         alpha[0] = dt * rate[0];

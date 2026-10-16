@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 8/8)
 // FUN_000831c0 @ 0x000831c0
+#include "decls/address.h"
 struct Handle_831c0 { void FUN_0027b040(unsigned); };
 struct Resource_831c0 {
  virtual void slot0(); virtual void slot1();
@@ -11,8 +12,7 @@ struct Resource_831c0 {
 struct Source_831c0 { virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void s10(); virtual unsigned s11(); };
 struct Entry_831c0 { char pad[0x9c]; Source_831c0* source; };
 struct Manager_831c0 { bool FUN_001dd800(unsigned); Entry_831c0* FUN_001dc0d0(unsigned); };
-struct Global_831c0 { char pad[12]; Manager_831c0* manager; };
-extern Global_831c0* DAT_004dd700;
+struct World { char pad[12]; Manager_831c0* manager; };
 void* __cdecl FUN_00263ea0(unsigned);
 struct FUN_0027b070 { FUN_0027b070(); virtual void v0(); };
 struct CCow : FUN_0027b070 {

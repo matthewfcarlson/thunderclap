@@ -1,5 +1,5 @@
+#include "decls/address.h"
 extern void __stdcall FUN_001d0480(int, int);
-extern unsigned char __cdecl FUN_001d04d0(const char*);
 extern char g1_cfcf0[], g2[], g3[];
 class B_cfcf0 {
   public:

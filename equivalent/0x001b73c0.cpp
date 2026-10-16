@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 12000 inputs, branch coverage 17/18, incomplete; run with --inputs 12000)
 // FUN_001b73c0 @ 0x001b73c0
+#include "decls/address.h"
 struct Language { const char* FUN_000bb670(); };
 struct Manager_1b73c0 { Language* FUN_00086280(); };
-struct Root_1b73c0 { char padding[0x54]; Manager_1b73c0* manager; };
-extern Root_1b73c0* DAT_004dd700;
+struct World { char padding[0x54]; Manager_1b73c0* manager; };
 extern unsigned char DAT_004dd839;
 extern unsigned char DAT_00434250[], DAT_00434270[], DAT_0041dbe8[], DAT_0041dbf0[];
 extern "C" int __cdecl memcmp(const void*, const void*, unsigned int);

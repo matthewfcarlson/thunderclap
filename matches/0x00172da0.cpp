@@ -4,7 +4,7 @@ class Part_172da0 {
     void Init();
 };
 extern void DestroyTrack(void*);
-class JointTrackerTrack {
+namespace hulkfight { namespace motion { class JointTrackerTrack {
   public:
     virtual void* vfunc_0();
     virtual void* vfunc_1();
@@ -20,8 +20,8 @@ class JointTrackerTrack {
     char pad[0x14];
     Part_172da0 part;
     void Init();
-};
-JointTrackerTrack* JointTrackerTrack::vfunc_5(int f) {
+}; }}
+hulkfight::motion::JointTrackerTrack* hulkfight::motion::JointTrackerTrack::vfunc_5(int f) {
     *(int*)this = ((int)DAT_00417898);
     part.Init();
     Init();

@@ -1,10 +1,6 @@
 // Same code shape as 0x001c4e20 (propagated; names are from that function)
-class Object {
-    char pad[0x30];
+#include "gen/pure3d.h"
 
-  public:
-    Object* vfunc_7();
-};
-Object* Object::vfunc_7() {
-    return (Object*)((char*)this + 0x30);
+void* pure3d::Image8::vfunc_18() {
+    return (void*)((pure3d::Image8*)((char*)this + 0x30));
 }

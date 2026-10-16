@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1443 inputs, branch coverage 77/92, incomplete)
 // FUN_00038660 @ 0x00038660
+#include "decls/address.h"
 struct V3_38660 {
     float x, y, z;
     float FUN_0022d110();
@@ -35,11 +36,10 @@ struct Player_38660 {
     char pad0[0x124];
     void *f124;
 };
-struct Hub_38660 {
+struct World {
     char pad0[0x20];
     Player_38660 *p20;
 };
-extern Hub_38660 *DAT_004dd700;
 
 struct Slot_38660 {
     float x0, y0, z0;

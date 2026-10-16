@@ -1,3 +1,4 @@
+#include "decls/address.h"
 class Base {
   public:
     virtual void f();
@@ -11,7 +12,6 @@ class Base {
 };
 extern char g1[];
 extern char g2[];
-extern unsigned char __cdecl FUN_001d04d0(const void*);
 class Method1 : public Base {
   public:
     Method1(const char*, int);

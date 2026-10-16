@@ -1,11 +1,11 @@
+#include "decls/address.h"
 struct Reset_86cb0 {
     void FUN_00024800();
 };
-struct GlobalOwner {
+struct World {
     char pad[0x20];
     Reset_86cb0* reset;
 };
-extern GlobalOwner* DAT_004dd700;
 extern unsigned char DAT_0049c0d8, DAT_0049caa0, DAT_004dd83e, DAT_004dd8e4;
 extern int DAT_0049c108;
 struct UI_86cb0 {

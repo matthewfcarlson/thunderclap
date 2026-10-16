@@ -1,5 +1,5 @@
+#include "decls/address.h"
 extern "C" void __stdcall FUN_001d0480(void*, int);
-extern "C" char __cdecl FUN_001d04d0(const char*);
 extern const char g1[];
 extern const char g2[];
 class Base {

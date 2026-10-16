@@ -5,7 +5,7 @@ class Sub_1832e0 {
   public:
     void Init();
 };
-class BallAndChainReturnTrack {
+namespace hulkfight { namespace motion { class BallAndChainReturnTrack {
   public:
     virtual void v0();
     virtual void v1();
@@ -20,8 +20,8 @@ class BallAndChainReturnTrack {
     virtual void v10();
     void BaseInit();
     char pad[0x60 - 4];
-};
-BallAndChainReturnTrack* BallAndChainReturnTrack::vfunc_5(u8_1832e0 flag) {
+}; }}
+hulkfight::motion::BallAndChainReturnTrack* hulkfight::motion::BallAndChainReturnTrack::vfunc_5(u8_1832e0 flag) {
     Sub_1832e0* a = (Sub_1832e0*)((char*)this + 0x60);
     *(int*)this = ((int)DAT_0041941c);
     a->Init();

@@ -1,18 +1,19 @@
+#include "gen/choreo2.h"
+
 void* __cdecl alloc(unsigned int);
 extern int vt_22a8a0;
-struct RestPoseDriver {
-    int pad;
-    void InitA(RestPoseDriver*);
-    void InitB(RestPoseDriver*);
-    RestPoseDriver* vfunc_5();
+struct RestPoseDriver_nv_22a8a0 {
+    void InitA(choreo2::RestPoseDriver*);
+    void InitB(choreo2::RestPoseDriver*);
 };
-RestPoseDriver* RestPoseDriver::vfunc_5() {
-    RestPoseDriver* p = (RestPoseDriver*)alloc(0x20);
+
+void* choreo2::RestPoseDriver::vfunc_5() {
+    choreo2::RestPoseDriver* p = (choreo2::RestPoseDriver*)alloc(0x20);
     if (p) {
-        p->InitA(this);
+        ((RestPoseDriver_nv_22a8a0*)(p))->InitA(this);
         *(int*)p = (int)&vt_22a8a0;
-        p->InitB(this);
-        return p;
+        ((RestPoseDriver_nv_22a8a0*)(p))->InitB(this);
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

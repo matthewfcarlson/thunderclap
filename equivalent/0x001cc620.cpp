@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 139 inputs, branch coverage 40/40)
 // FUN_001cc620 @ 0x001cc620
+#include "decls/address.h"
 struct Fader_1cc620 {
     void FUN_000d6fb0(char flag);
 };
@@ -27,7 +28,7 @@ struct Hud_1cc620 {
     void FUN_000bc750();
 };
 
-struct Game_1cc620 {
+struct Singleton_4dd6ec {
     char pad0[0xc];
     Panel_1cc620 *panel;
     char pad1[0x20 - 0x10];
@@ -38,7 +39,6 @@ struct Game_1cc620 {
     Stats_1cc620 *FUN_00086310();
 };
 
-extern Game_1cc620 *DAT_004dd6ec;
 
 void __fastcall FUN_001cc600(char flag);
 

@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 19/20, incomplete)
 // FUN_00024f60 @ 0x00024f60
+#include "decls/address.h"
 typedef unsigned __int64 U64_24f60;
-extern U64_24f60 __cdecl FUN_0027b020(const char*);
 struct Detail_24f60 { char pad[0x9e]; unsigned char enabled; char pad9f; unsigned low; unsigned high; };
 struct Item_24f60 { char pad[0x1ca0]; Detail_24f60* detail; };
 struct Manager_24f60 { Item_24f60* FUN_00059c10(unsigned id); };

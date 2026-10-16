@@ -1,10 +1,6 @@
 // Same code shape as 0x000862b0 (propagated; names are from that function)
-class C_24de60 {
-    char pad[0x2c];
+#include "gen/om.h"
 
-  public:
-    unsigned int f();
-};
-unsigned int C_24de60::f() {
+template <> unsigned int om::MetaTypeAttribScalar<float>::vfunc_5() {
     return *(unsigned int*)((char*)this + 0x2c);
 }

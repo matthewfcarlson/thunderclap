@@ -1,41 +1,5 @@
-class Camera {
-  public:
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual void a3();
-    virtual void a4();
-    virtual void a5(int, int);
-    virtual void a6();
-    virtual void a7();
-    virtual void a8();
-    virtual void a9();
-    virtual void a10();
-    virtual void a11();
-    virtual void a12();
-    virtual void a13();
-    virtual void a14();
-    virtual void a15();
-    virtual void a16();
-    virtual void a17();
-    virtual void a18();
-    virtual void a19();
-    virtual void a20();
-    virtual void a21();
-    virtual void a22();
-    virtual void a23();
-    virtual void a24();
-    virtual void a25();
-    virtual void a26();
-    char pad[0x10 - 4];
-    int m10;
-    int m14;
-    int m18;
-    int m1c;
-    int m20;
-    char rest[0xcc - 0x24];
-    unsigned char flag;
-};
+#include "gen/pure3d.h"
+
 class Manager_292b60 {
   public:
     virtual void f0();
@@ -69,9 +33,10 @@ class Manager_292b60 {
     virtual void f28(int, int, int, int);
 };
 extern Manager_292b60* gManager_292b60;
-void Camera::a22() {
-    a5(m10, m14);
-    if (!flag)
-        a26();
-    gManager_292b60->f28(m1c, m20, m10, m18);
+
+void pure3d::Camera::vfunc_22() {
+    vfunc_5((*(int *)&this->f_10), (*(int *)&this->f_14));
+    if (!this->f_cc)
+        vfunc_26();
+    gManager_292b60->f28((*(int *)&this->f_1c), (*(int *)&this->f_20), (*(int *)&this->f_10), this->f_18);
 }

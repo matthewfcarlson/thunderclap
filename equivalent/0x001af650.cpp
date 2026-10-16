@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_001af650 @ 0x001af650
+#include "decls/address.h"
 struct Vec_1af650 { unsigned x,y,z; };
 struct Query_1af650 { void FUN_001b6000(Vec_1af650*, unsigned*, int*); };
-struct Manager_1af650 { char pad[16]; Query_1af650* query; };
-extern Manager_1af650* DAT_004dd700;
+struct World { char pad[16]; Query_1af650* query; };
 struct Result_1af650 { int index; unsigned status; };
 struct Object {
  bool FUN_001af540(Vec_1af650*,Vec_1af650*,unsigned,unsigned,unsigned,Vec_1af650*,unsigned*,int*,unsigned);

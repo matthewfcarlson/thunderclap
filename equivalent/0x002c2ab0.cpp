@@ -2,6 +2,7 @@
 // pure3d::GeometryLoader::vfunc_5 @ 0x002c2ab0
 // pure3d::GeometryLoader::vfunc_5 @ 0x002c2ab0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/address.h"
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 inline void operator delete(void*, void*) throw() {}
 void* thunk_FUN_0008d690(unsigned int size) throw();
@@ -127,7 +128,6 @@ struct SubB_2c2ab0 {
     void FUN_002e4e00(char* dst, Loader_2c2ab0* ld, Ctx* ctx, int z, bool f) throw();
 };
 
-u64_2c2ab0 FUN_002672f0(const char* name, int a, int b) throw();
 
 namespace pure3d {
 class GeometryLoader {

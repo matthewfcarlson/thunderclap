@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 8/8)
 // FUN_000a2430 @ 0x000a2430
+#include "decls/address.h"
 struct ResourceName_a2430 {
     int word;
     void FUN_0027b040(const char *name);
@@ -40,12 +41,11 @@ struct Window_a2430 {
     Level_a2430 *FUN_00086310();
 };
 
-struct Game_a2430 {
+struct World {
     char pad[0x54];
     Window_a2430 *window;
 };
 
-extern Game_a2430 *DAT_004dd700;
 
 class CChaseCamera : public CCameraBase_a2430 {
 public:
@@ -302,7 +302,7 @@ CChaseCamera::CChaseCamera()
     f430 = 0;
     f434 = 0;
     f438 = 0;
-    Game_a2430 *g = DAT_004dd700;
+    World *g = DAT_004dd700;
     if (g != 0) {
         Level_a2430 *lv = g->window->FUN_00086310();
         if (lv != 0) {

@@ -1,6 +1,8 @@
+#include "gen/fight.h"
+
 extern void* __cdecl alloc(unsigned int);
 extern int velocityVtable;
-class VelocityXZAngleCondition {
+class VelocityXZAngleCondition_16de70 {
   public:
     virtual void a();
     virtual void b();
@@ -14,18 +16,15 @@ class VelocityXZAngleCondition {
     float angle;
     void Init(int);
 };
-class Factory_16de70 {
-  public:
-    VelocityXZAngleCondition* vfunc_5();
-};
-VelocityXZAngleCondition* Factory_16de70::vfunc_5() {
-    VelocityXZAngleCondition* p = (VelocityXZAngleCondition*)alloc(0x14);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VelocityXZAngleCondition>::vfunc_5() {
+    VelocityXZAngleCondition_16de70* p = (VelocityXZAngleCondition_16de70*)alloc(0x14);
     if (p) {
         p->Init(0);
         *(int*)p = (int)&velocityVtable;
         p->z = 0;
         p->angle = 1.57079637f;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

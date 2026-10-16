@@ -1,4 +1,6 @@
-class CCameraManager {
+#include "gen/global.h"
+
+class CCameraManager_9c760 {
   public:
     void Set(int, int, int, bool, float);
 };
@@ -7,16 +9,9 @@ union V {
     int n;
     float f;
 };
-class Closure5 {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void vfunc_2(int, V*, int);
-    char pad[0x18];
-    void (CCameraManager::*fn)(int, int, int, bool, float);
-    CCameraManager* obj;
-};
-void Closure5::vfunc_2(int, V* args, int) {
+
+template <> void Closure5<CCameraManager, void, bool, bool, bool, bool, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { V * args = (V *)__p1;
+
     V a, b, c;
     a.b = args->b;
     ++args;
@@ -24,5 +19,5 @@ void Closure5::vfunc_2(int, V* args, int) {
     ++args;
     c.b = args->b;
     ++args;
-    (obj->*fn)(a.n, b.n, c.n, args->b, (args + 1)->f);
+    ((*(CCameraManager_9c760 * *)&this->f_20)->*(*(void (CCameraManager_9c760::**)(int, int, int, bool, float))&this->f_1c))(a.n, b.n, c.n, args->b, (args + 1)->f);
 }

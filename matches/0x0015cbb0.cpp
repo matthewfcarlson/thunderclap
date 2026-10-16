@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct A_15cbb0 {
     void* x;
     void* GetThing();
@@ -8,14 +10,9 @@ struct B_15cbb0 {
 struct C_15cbb0 {
     void DoThing(int);
 };
-class LocomotingAction {
-  public:
-    char pad[0x1c];
-    A_15cbb0* member;
-    void vfunc_4();
-};
-void LocomotingAction::vfunc_4() {
-    A_15cbb0* p = member;
+
+void hulkfight::motion::LocomotingAction::vfunc_4() {
+    A_15cbb0* p = (*(A_15cbb0 * *)&this->f_1c);
     if (p) {
         B_15cbb0* q = (B_15cbb0*)p->GetThing();
         if (q) {

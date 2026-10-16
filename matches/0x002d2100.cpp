@@ -1,10 +1,6 @@
 // Same code shape as 0x00069050 (propagated; names are from that function)
-class CJumpTrack {
-  public:
-    char pad[0x14];
-    float value;
-    float vfunc_15();
-};
-float CJumpTrack::vfunc_15() {
-    return value;
+#include "gen/pure3d.h"
+
+float pure3d::ParticleGenerator::vfunc_11() {
+    return this->f_14;
 }

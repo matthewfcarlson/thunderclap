@@ -1,23 +1,18 @@
-class Param {
-  public:
-    virtual void* first(int);
-    virtual bool vfunc_1(void*);
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-};
+#include "gen/fight.h"
+
 class Item_234270 {
   public:
     virtual void a();
     virtual void b();
     virtual void c();
-    virtual void apply(Param*, void*);
+    virtual void apply(fight::Param*, void*);
 };
-bool Param::vfunc_1(void* arg) {
+
+bool fight::Param::vfunc_1(void* __p0) { void * arg = (void *)__p0;
+
     int i = 0;
     Item_234270* p;
-    while ((p = (Item_234270*)first(i)) != 0) {
+    while ((p = (Item_234270*)vfunc_0(i)) != 0) {
         p->apply(this, arg);
         ++i;
     }

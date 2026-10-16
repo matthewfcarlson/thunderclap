@@ -1,11 +1,7 @@
-class ParamIntConstRange {
-  public:
-    char pad[0x10];
-    bool (ParamIntConstRange::*fn)(int);
-    bool vfunc_6(int a, int b);
-};
-bool ParamIntConstRange::vfunc_6(int a, int b) {
-    if (!fn)
+#include "gen/fight.h"
+
+template <> bool fight::ParamIntConstRange<CStageCondition>::vfunc_6(int a, int b) {
+    if (!(*(bool (fight::ParamIntConstRange<CStageCondition>::**)(int))&this->f_10))
         return false;
-    return (((ParamIntConstRange*)a)->*fn)(b);
+    return (((fight::ParamIntConstRange<CStageCondition>*)a)->*(*(bool (fight::ParamIntConstRange<CStageCondition>::**)(int))&this->f_10))(b);
 }

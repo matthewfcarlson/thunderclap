@@ -8,16 +8,16 @@ class Branch {
     virtual void f4();
     virtual void vfunc_5();
 };
-class Node : public Branch {
+namespace fight { class Reference : public Branch {
     char pad[0x24];
 
   public:
     void vfunc_5();
-};
+}; }
 struct Helper_23c350 {
-    void run(Node*);
+    void run(fight::Reference*);
 };
-void Node::vfunc_5() {
+void fight::Reference::vfunc_5() {
     Branch::vfunc_5();
     ((Helper_23c350*)((char*)this + 0x28))->run(this);
 }

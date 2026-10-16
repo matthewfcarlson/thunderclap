@@ -1,7 +1,7 @@
+#include "decls/address.h"
 extern char g1[];
 extern char g2[];
 extern void __stdcall FUN_001d0480(void*, int);
-extern unsigned char __cdecl FUN_001d04d0(void*);
 class Base {
   public:
     Base(void* x) { FUN_001d0480(x, 1); }

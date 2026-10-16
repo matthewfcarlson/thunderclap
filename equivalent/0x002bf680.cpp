@@ -2,11 +2,11 @@
 // pure3d::ImageFontLoader::vfunc_5 @ 0x002bf680
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
 void *__cdecl FUN_0008d6d0(int size);
 void __cdecl thunk_FUN_00267090(void *p);
-unsigned __int64 __cdecl FUN_002672f0(char *name, int a, int b);
 
 struct Stream {
     void FUN_002647e0(void *dest, unsigned int count, unsigned int size, int flag);

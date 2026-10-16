@@ -1,16 +1,5 @@
-class SeqActionChannelSendVolumes {
-    char pad[8];
-    int field;
+#include "gen/audio.h"
 
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(int, int);
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-};
-void SeqActionChannelSendVolumes::vfunc_2(int, int) {
-    field = 1;
+void audio::SeqActionChannelSendVolumes::vfunc_2(int , int ) {
+    this->f_0c = 1;
 }

@@ -1,20 +1,13 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00428db0[];
 typedef unsigned int uint;
 extern "C" void* __cdecl operator_new(unsigned int);
-class TrackFactoryTemplate {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void* vfunc_5();
-};
 class Inner_23e9a0 {
   public:
     void init();
 };
-class StopTrack {
+class StopTrack_23e9a0 {
   public:
     virtual void dummy();
     char pad4[4];
@@ -24,8 +17,9 @@ class StopTrack {
     Inner_23e9a0 inner;
     void init();
 };
-void* TrackFactoryTemplate::vfunc_5() {
-    StopTrack* p = (StopTrack*)operator_new(0x18);
+
+template <> void* fight::TrackFactoryTemplate<fight::StopTrack>::vfunc_5() {
+    StopTrack_23e9a0* p = (StopTrack_23e9a0*)operator_new(0x18);
     if (p) {
         p->init();
         *(uint*)p = ((int)DAT_00428db0);
@@ -33,7 +27,7 @@ void* TrackFactoryTemplate::vfunc_5() {
         p->value = -1.0f;
         p->inner.init();
         p->flag = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

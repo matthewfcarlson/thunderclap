@@ -1,10 +1,10 @@
+#include "decls/address.h"
 class Base_1df750 {
   public:
     virtual void f();
     char pad[12];
     Base_1df750(const char*, int);
 };
-extern unsigned char __cdecl FUN_001d04d0(const char*);
 extern const char s1[], s2[], s3[];
 class Method3 : public Base_1df750 {
   public:

@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 130 inputs, branch coverage 23/24, incomplete)
 // FUN_001e9bf0 @ 0x001e9bf0
+#include "decls/address.h"
 struct Clock_1e9bf0 { float FUN_001e8730(); };
 struct Entry_1e9bf0 { int state; int unused; unsigned int amount; int blockedC; int blocked10; void FUN_001e8d40(); };
 struct Worker_1e9bf0 { bool FUN_00266750(); void FUN_00263e90(); };
 struct Item_1e9bf0 { void FUN_000bd1b0(int); };
 struct Manager_1e9bf0 { Item_1e9bf0* FUN_00086280(); };
-struct Root_1e9bf0 { char pad[0x54]; Manager_1e9bf0* manager; };
+struct World { char pad[0x54]; Manager_1e9bf0* manager; };
 extern Clock_1e9bf0* DAT_004e3690;
 extern Worker_1e9bf0* DAT_004e3694;
-extern Root_1e9bf0* DAT_004dd700;
 extern float DAT_004e36ac;
 extern const float DAT_003f3f18;
 void __cdecl FUN_002656a0();

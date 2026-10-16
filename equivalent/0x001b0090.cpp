@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 18/18)
 // FUN_001b0090 @ 0x001b0090
+#include "decls/address.h"
 struct Info_1b0090 { char pad[0x6c]; int blocked; };
 struct Mgr_1b0090 { bool FUN_00079950(void* key); };
 struct World { char pad[0x4c]; Mgr_1b0090* mgr; };
-extern World* DAT_004dd700;
 struct Level_1b0090 { char pad[0x50]; char flag; };
 struct Ctx_1b0090 { char pad[0x74]; Level_1b0090* level; };
 struct Unit_1b0090 {

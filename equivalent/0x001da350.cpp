@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 32/32)
 // FUN_001da350 @ 0x001da350
+#include "decls/address.h"
 class RefCounted_1da350 {
 public:
     virtual void addRef();
@@ -50,12 +51,11 @@ struct Reg20_1da350 {
     void FUN_00029b50(unsigned a, unsigned b, unsigned c);
 };
 
-struct Globals_1da350 {
+struct World {
     char pad[0x20];
     Reg20_1da350 *p20;
 };
 
-extern Globals_1da350 *DAT_004dd700;
 
 struct Sub240_1da350 {
     char pad[8];

@@ -1,20 +1,11 @@
 // Same code shape as 0x0002f820 (propagated; names are from that function)
-class CActorManager {
+#include "gen/global.h"
+
+class CActorManager_1ee210 {
   public:
     void run();
 };
-class Closure0 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    char pad[0x18];
-    void (CActorManager::*fn)();
-    CActorManager* obj;
-    virtual void v0();
-    virtual void v1();
-    virtual void v2(int, int, int);
-};
-void Closure0::v2(int, int, int) {
-    (obj->*fn)();
+
+template <> void Closure0<CSoundRealTimeManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    ((*(CActorManager_1ee210 * *)&this->f_20)->*(*(void (CActorManager_1ee210::**)())&this->f_1c))();
 }

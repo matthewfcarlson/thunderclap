@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001dd110 @ 0x001dd110
+#include "decls/address.h"
 struct Slot_1dd110 {
     unsigned int keyLo;
     unsigned int keyHi;
@@ -7,7 +8,6 @@ struct Slot_1dd110 {
     int pad;
 };
 
-extern "C" unsigned __int64 __cdecl FUN_0027b020(const char* name);
 
 class SlotTable_1dd110 {
 public:

@@ -1,11 +1,6 @@
 // Same code shape as 0x00086290 (propagated; names are from that function)
-class Obj_268df0 {
-  public:
-    char pad[0x24];
-    int mValue;
-    int GetValue();
-};
+#include "gen/core.h"
 
-int Obj_268df0::GetValue() {
-    return mValue;
+int core::ControllerInputPointXBox::vfunc_3() {
+    return this->f_24;
 }

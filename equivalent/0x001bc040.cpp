@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001bc040 @ 0x001bc040
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl sprintf(char*, const char*, ...);
 extern "C" char* __cdecl strcpy(char*, const char*);
@@ -13,11 +14,10 @@ struct Profile_1bc040 {
     Controller_1bc040* FUN_000862c0();
 };
 
-struct Globals_1bc040 {
+struct World {
     char pad[0x54];
     Profile_1bc040* profile;
 };
-extern Globals_1bc040* DAT_004dd700;
 
 void __cdecl FUN_001bb0b0(const char* key);
 

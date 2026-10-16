@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 136 inputs, branch coverage 63/63)
 // FUN_00013f20 @ 0x00013f20
+#include "decls/address.h"
 struct Slot_13f20;
 struct Slot_13f20 {
     int FUN_001d5e80(int id);
@@ -73,7 +74,7 @@ struct Flags_13f20 {
 struct Opt_13f20 {
     Flags_13f20 *FUN_00086340();
 };
-struct Game_13f20 {
+struct World {
     char pad0[0x20];
     struct Me_13f20 *me;          // 0x20
     char pad24[0x3c - 0x24];
@@ -88,7 +89,6 @@ struct Me_13f20 {
     int *FUN_00025930(void *out, int a);
 };
 
-extern Game_13f20 *DAT_004dd700;
 
 struct Self_13f20 {
     char pad0[0x1c];
@@ -101,7 +101,7 @@ struct Self_13f20 {
 
 void Self_13f20::FUN_00013f20(float k, Target_13f20 *t, float *outA, float *outB)
 {
-    Game_13f20 *g = DAT_004dd700;
+    World *g = DAT_004dd700;
     Me_13f20 *me = g->me;
     Player_13f20 *p = owner->FUN_000592a0()->FUN_00059a30();
     float r = p->FUN_0003ebb0(1);

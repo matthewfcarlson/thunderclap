@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3080 inputs, branch coverage 83/96, incomplete)
 // FUN_001b93a0 @ 0x001b93a0
+#include "decls/address.h"
 struct Vec3_1b93a0 {
     float x, y, z;
 };
@@ -36,7 +37,7 @@ public:
     virtual void vf9();
 };
 
-class Renderer_1b93a0 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -165,7 +166,7 @@ public:
     Input_1b93a0 *FUN_00086340();
 };
 
-struct Globals_1b93a0 {
+struct World {
     char pad0[0x54];
     Pad_1b93a0 *pad;
 };
@@ -222,10 +223,8 @@ public:
 extern char DAT_004dd8e4;
 extern float DAT_004dd91c;
 extern Probe_1b93a0 *DAT_0052c2a4;
-extern Renderer_1b93a0 *DAT_0052c2a8;
 extern Stats_1b93a0 *DAT_0052c2b4;
 extern Settings_1b93a0 *DAT_004dd6e8;
-extern Globals_1b93a0 *DAT_004dd700;
 extern char DAT_004e2240;
 extern char DAT_004e2241;
 extern float DAT_004e2244;

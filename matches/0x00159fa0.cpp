@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00414390[];
-struct HitFloatTrack {
+struct HitFloatTrack_159fa0 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -12,17 +14,9 @@ struct Initializer_159fa0 {
     void Init();
 };
 extern void* __cdecl Allocate(unsigned int);
-class Factory_159fa0 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual HitFloatTrack* Make();
-};
-HitFloatTrack* Factory_159fa0::Make() {
-    HitFloatTrack* p = (HitFloatTrack*)Allocate(0x28);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitFloatTrack>::vfunc_5() {
+    HitFloatTrack_159fa0* p = (HitFloatTrack_159fa0*)Allocate(0x28);
     if (p) {
         ((Initializer_159fa0*)p)->Init();
         *(int*)((char*)p + 12) = 0;
@@ -33,7 +27,7 @@ HitFloatTrack* Factory_159fa0::Make() {
         *(void**)p = (void*)((int)DAT_00414390);
         *(unsigned int*)((char*)p + 16) = 0xbf800000;
         *(int*)((char*)p + 28) = -5;
-        return p;
+        return (void*)(p);
     }
-    return (HitFloatTrack*)0;
+    return (void*)((HitFloatTrack_159fa0*)0);
 }

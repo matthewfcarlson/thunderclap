@@ -8,6 +8,7 @@
 // equiv-map: ??_R0?AVCUnlockable@@@8 = 0x0049dab8
 // equiv-map: ??_R0?AVCUnlockableMove@@@8 = 0x0049db1c
 // equiv-map: ??_R0?AVCUnlockableCheat@@@8 = 0x0049dafc
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 typedef unsigned short wchar_t;
 
@@ -133,7 +134,6 @@ Dlg *__cdecl FUN_000fc3d0();
 int __cdecl FUN_000fb720(const wchar_t *s);
 void __cdecl FUN_000fb690(wchar_t *dst, const wchar_t *src, int n);
 void __cdecl FUN_000964a0(char *dst, int n, const char *fmt, int v);
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
 extern "C" int strcmp(const char *a, const char *b);
 
 struct Frame {

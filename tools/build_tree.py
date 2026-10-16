@@ -60,7 +60,7 @@ def compile_tu(path, extra_inc=True):
                 if name != "common.h" and os.path.exists(os.path.join(INCLUDE_DIR, "common.h")):
                     incs += open(os.path.join(INCLUDE_DIR, "common.h"), "rb").read()
     flags = compare.DEFAULT_FLAGS + compare.file_flags(src)
-    h = hashlib.sha1(text + incs + repr(flags).encode()).hexdigest()[:20]
+    h = hashlib.sha1(text + incs + gen_digest(text) + repr(flags).encode()).hexdigest()[:20]
     os.makedirs(OBJ_CACHE, exist_ok=True)
     obj = os.path.join(OBJ_CACHE, h + ".obj")
     log = os.path.join(OBJ_CACHE, h + ".log")
@@ -73,7 +73,10 @@ def compile_tu(path, extra_inc=True):
     inc = os.path.relpath(INCLUDE_DIR, src_dir)
     env = dict(os.environ, INCLUDE=os.path.join(compare.MSVC, "Include") + ";" + os.path.join(ROOT, "include"))
     tmp = obj + ".%d.tmp" % os.getpid()
-    cmd = [compare.WIBO, os.path.join(compare.MSVC, "Bin/cl.exe")] + flags + ["/I" + inc, "/Fo" + tmp, name]
+    # include/ is on the path too: sources may `#include "gen/<ns>.h"` (include/gen/, tools/gen_headers.py) and
+    # "decls/<x>.h" (pinned address-name prototypes)
+    cmd = [compare.WIBO, os.path.join(compare.MSVC, "Bin/cl.exe")] + flags + [
+        "/I" + inc, "/I" + os.path.relpath(GEN_INCLUDE_ROOT, src_dir), "/Fo" + tmp, name]
     try:
         r = subprocess.run(cmd, env=env, capture_output=True, text=True, cwd=src_dir, timeout=600,
                            errors="replace")
@@ -92,6 +95,27 @@ def compile_tu(path, extra_inc=True):
     if not errs:
         errs = [(name, 1, "C0000", out.strip().splitlines()[-1] if out.strip() else "unknown failure")]
     return None, errs, out
+
+
+GEN_INCLUDE_ROOT = os.path.join(ROOT, "include")
+_GEN_DIGEST = []
+
+
+def gen_digest(text):
+    """Hash of include/gen/*.h and include/decls/*.h for sources that include them (part of the object cache key)."""
+    if isinstance(text, bytes):
+        text = text.decode("latin1")
+    if "gen/" not in text and "decls/" not in text:
+        return b""
+    if not _GEN_DIGEST:
+        hs = hashlib.sha1()
+        for sub in ("gen", "decls"):
+            d = os.path.join(GEN_INCLUDE_ROOT, sub)
+            for fn in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+                if fn.endswith(".h"):
+                    hs.update(sub.encode() + fn.encode() + open(os.path.join(d, fn), "rb").read())
+        _GEN_DIGEST.append(hs.hexdigest().encode())
+    return _GEN_DIGEST[0]
 
 
 def _headers_used(text):
@@ -245,9 +269,24 @@ MANGLE_OPS = {"operatornew": "??2", "operatordelete": "??3", "operator=": "??4",
 
 def mangle_prefixes(qname, scope, c_linkage):
     """Mangled-name prefixes a definition of qname can have (MSVC), or [] if unsure."""
-    parts = list(scope) + qname.split("::")
+    parts = list(scope) + split_qualified(qname)
     if c_linkage and len(parts) == 1:
         return []          # C names are matched exactly (block "cnames")
+    tpl = [i for i, p in enumerate(parts) if re.fullmatch(r"[A-Za-z_]\w*<.*>", p)]
+    if tpl and not c_linkage:
+        # a member of a class template specialization (`template <> R ns::X<T>::f()`): the mangled name
+        # starts ?f@?$X@ (template arguments not spelled out here: the prefix is enough to find it)
+        i = tpl[-1]
+        last = parts[-1]
+        cls = parts[i].split("<")[0]
+        if i != len(parts) - 2 or not re.fullmatch(r"~?[A-Za-z_]\w*", last):
+            return []
+        if last == "~" + cls:
+            # the destructor, or the deleting destructors generated from it
+            return ["??%s?$%s@" % (op, cls) for op in ("1", "_G", "_E")]
+        if last.startswith("~"):
+            return []
+        return ["?%s@?$%s@" % (last, cls)]
     if any(not re.fullmatch(r"~?[A-Za-z_]\w*", p) and not p.startswith("operator") for p in parts):
         return []
     last, quals = parts[-1], parts[:-1]
@@ -264,6 +303,26 @@ def mangle_prefixes(qname, scope, c_linkage):
     return ["?%s@%s@" % (last, q.rstrip("@")) if q else "?%s@@" % last]
 
 
+def split_qualified(q):
+    """'a::B<x::y>::f' -> ['a', 'B<x::y>', 'f'] (`::` inside template arguments doesn't split)."""
+    out, cur, depth, i = [], "", 0, 0
+    while i < len(q):
+        c = q[i]
+        if c == "<":
+            depth += 1
+        elif c == ">":
+            depth -= 1
+        if depth == 0 and q.startswith("::", i):
+            out.append(cur)
+            cur = ""
+            i += 2
+            continue
+        cur += c
+        i += 1
+    out.append(cur)
+    return [p for p in out if p]
+
+
 def block_names(gen):
     """addr -> mangled-name prefixes / C names of the block's definitions (from the parsed sources)."""
     out = {}
@@ -271,7 +330,7 @@ def block_names(gen):
         for b in tu.blocks:
             pre, cn = [], []
             for d in b.defs:
-                qn = d.key[1].split("::")
+                qn = split_qualified(d.key[1])
                 scope = list(d.scope)
                 q = "::".join(qn[len(scope):]) if qn[:len(scope)] == scope else d.key[1]
                 if "::" not in q:
@@ -287,7 +346,7 @@ def standalone_obj(src):
     """Object of a verified source compiled on its own (cached by content), or None if it doesn't compile."""
     text = open(os.path.join(ROOT, src), "rb").read()
     flags = compare.DEFAULT_FLAGS + compare.file_flags(os.path.join(ROOT, src))
-    h = hashlib.sha1(text + repr(flags).encode()).hexdigest()[:20]
+    h = hashlib.sha1(text + gen_digest(text) + repr(flags).encode()).hexdigest()[:20]
     obj = os.path.join(OBJ_CACHE, "sa-" + h + ".obj")
     err = os.path.join(OBJ_CACHE, "sa-" + h + ".err")
     if os.path.exists(obj):

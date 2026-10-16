@@ -1,26 +1,16 @@
-class JointTrackerTrack {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual int vfunc_10(int, int, void*);
-};
+#include "gen/hulkfight.h"
+
 extern int ParamsRTTI;
 extern int CFightParamsRTTI;
 extern int TypeCheck(void*, int, int*, int*, int);
 extern void* Allocate(int);
 class Obj_17b0c0 {
   public:
-    int Init(JointTrackerTrack*, void*);
+    int Init(hulkfight::motion::JointTrackerTrack*, void*);
 };
-int JointTrackerTrack::vfunc_10(int a, int b, void* p) {
+
+int hulkfight::motion::JointTrackerTrack::vfunc_10(int a, int b, int __p2) { void * p = (void *)__p2;
+
     if (TypeCheck(p, 0, &ParamsRTTI, &CFightParamsRTTI, 0)) {
         void* q = Allocate(0x78);
         if (q)

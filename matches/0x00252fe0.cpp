@@ -1,4 +1,6 @@
-class SeqEvent {
+#include "gen/audio.h"
+
+class SeqEvent_252fe0 {
   public:
     bool vfunc_0(void*);
 };
@@ -6,18 +8,10 @@ class PosHelper {
   public:
     bool test(void*);
 };
-class SeqEventVarPosDist {
-  public:
-    virtual int vfunc_0(void*);
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    char pad[4];
-};
-int SeqEventVarPosDist::vfunc_0(void* p) {
-    if (((SeqEvent*)this)->vfunc_0(p)) {
+
+int audio::SeqEventVarPosDist::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
+    if (((SeqEvent_252fe0*)this)->vfunc_0(p)) {
         if (((PosHelper*)((char*)this + 8))->test(p))
             return 1;
     }

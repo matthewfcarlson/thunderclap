@@ -16,7 +16,7 @@ class H0_305320 {
   public:
     void run0();
 };
-class CollisionObject {
+namespace physics { class CollisionObject {
   public:
     virtual void f0();
     virtual void f1();
@@ -31,10 +31,10 @@ class CollisionObject {
     char pad24[12];
     int field30;
     char pad34[4];
-};
+}; }
 void __cdecl freeA(void*);
 void __cdecl freeB(void*);
-CollisionObject* CollisionObject::vfunc_2(unsigned char p) {
+physics::CollisionObject* physics::CollisionObject::vfunc_2(unsigned char p) {
     *(int*)this = (int)&collisionVtable;
     if (field20) {
         Ref_305320* r = *(Ref_305320**)&field20;

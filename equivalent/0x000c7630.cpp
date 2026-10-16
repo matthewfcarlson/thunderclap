@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 42/42)
 // FUN_000c7630 @ 0x000c7630
 // equiv-map: ?FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/address.h"
 namespace pure3d {
 class DrawableHierarchy {
 public:
@@ -66,10 +67,8 @@ public:
 
 struct Holder44_c7630 { Factory_c7630 *FUN_00203d70(); };
 struct Holder28_c7630 { Holder44_c7630 *FUN_000862a0(); };
-struct Manager_c7630 { char pad0[0x54]; Holder28_c7630 *holder; };
-extern Manager_c7630 *DAT_004dd700;
+struct World { char pad0[0x54]; Holder28_c7630 *holder; };
 
-unsigned __int64 __cdecl FUN_0027b020(const char *name);
 
 class CHudIcons : public pure3d::Entity {
 public:

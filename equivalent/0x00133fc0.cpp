@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 10/10)
 // hulkfight::motion::FallAction::vfunc_3 @ 0x00133fc0
+#include "decls/address.h"
 struct V3_133fc0 {
     float x, y, z;
 };
@@ -68,7 +69,6 @@ struct World {
     char pad0[8];
     Sink_133fc0* sink;
 };
-extern World* DAT_004dd700;
 
 class FallAction {
 public:

@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 class A_15cb80 {
   public:
     int first();
@@ -7,22 +9,12 @@ class B_15cb80 {
     int second();
     void third(int);
 };
-class LocomotingAction {
-  public:
-    char pad[0x18];
-    A_15cb80* mObject;
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual bool vfunc_3(void*, void*);
-    virtual void f4();
-    virtual void f5();
-};
-bool LocomotingAction::vfunc_3(void*, void*) {
+
+bool hulkfight::motion::LocomotingAction::vfunc_3(int __p0, int __p1) {
     int x;
-    if (mObject == 0)
+    if ((*(A_15cb80 * *)&this->f_1c) == 0)
         return false;
-    x = mObject->first();
+    x = (*(A_15cb80 * *)&this->f_1c)->first();
     if (x == 0)
         return false;
     x = ((B_15cb80*)x)->second();

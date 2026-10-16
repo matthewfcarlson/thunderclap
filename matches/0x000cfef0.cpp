@@ -1,6 +1,6 @@
+#include "decls/address.h"
 class HUDOverlay;
 void __stdcall FUN_001d0480(int, int);
-unsigned char __cdecl FUN_001d04d0(const char*);
 extern const char a_cfef0[], b[], c[];
 class Base_cfef0 {
   public:

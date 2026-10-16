@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern int vft_59070;
-class CSmartPropDistanceCondition {
+class CSmartPropDistanceCondition_59070 {
   public:
     int vptr;
     int pad4[2];
@@ -17,17 +19,9 @@ class CSmartPropDistanceCondition {
     void setup(int);
 };
 void* __cdecl alloc(unsigned int);
-class Factory_59070 {
-  public:
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual void a3();
-    virtual void a4();
-    virtual CSmartPropDistanceCondition* create();
-};
-CSmartPropDistanceCondition* Factory_59070::create() {
-    CSmartPropDistanceCondition* p = (CSmartPropDistanceCondition*)alloc(0x30);
+
+template <> void* fight::ConditionFactoryTemplate<CSmartPropDistanceCondition>::vfunc_5() {
+    CSmartPropDistanceCondition_59070* p = (CSmartPropDistanceCondition_59070*)alloc(0x30);
     if (p) {
         p->setup(0);
         p->vptr = (int)&vft_59070;
@@ -37,7 +31,7 @@ CSmartPropDistanceCondition* Factory_59070::create() {
         p->f = 0;
         p->g = 0;
         p->h = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

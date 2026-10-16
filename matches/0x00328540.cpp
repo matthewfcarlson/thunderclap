@@ -1,17 +1,19 @@
+#include "gen/pure3d.h"
+
 namespace pure3d {
 
-class pddiObject {
+class pddiObject_328540 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
 };
 
-class pddiShader {
+class pddiShader_328540 {
   public:
 };
 
-class pddiBaseShader : public pddiShader {
+class pddiBaseShader_328540 : public pddiShader_328540 {
   public:
     virtual void vfunc_5();
     virtual void vfunc_6();
@@ -24,7 +26,7 @@ class pddiBaseShader : public pddiShader {
     virtual void vfunc_20();
 };
 
-class d3dShader : public pddiBaseShader {
+class d3dShader_328540 : public pddiBaseShader_328540 {
   public:
     virtual void vfunc_21();
     virtual void vfunc_22();
@@ -32,21 +34,7 @@ class d3dShader : public pddiBaseShader {
     virtual void vfunc_24();
 };
 
-class d3dFBEffectsShader : public d3dShader {
-  public:
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_11();
-    virtual void vfunc_12();
-    virtual void vfunc_13();
-    virtual void vfunc_14();
-    virtual void vfunc_16();
-    virtual void vfunc_17();
-    virtual void vfunc_18();
-};
-
-void d3dFBEffectsShader::vfunc_12() {
+} // namespace pure3d
+void pure3d::d3dFBEffectsShader::vfunc_12() {
     return;
 }
-
-} // namespace pure3d

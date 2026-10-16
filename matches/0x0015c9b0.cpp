@@ -1,9 +1,6 @@
-class ClimbLocomotion4Action {
-  public:
-    char pad[0x48];
-    void* field;
-    void vfunc_8(void* out);
-};
-void ClimbLocomotion4Action::vfunc_8(void* out) {
-    *(void**)out = *(void**)((char*)this->field + 0x14);
+#include "gen/hulkfight.h"
+
+void hulkfight::motion::ClimbLocomotion4Action::vfunc_8(void* __p0) { void * out = (void *)__p0;
+
+    *(void**)out = *(void**)((char*)(*(void * *)&this->f_48) + 0x14);
 }

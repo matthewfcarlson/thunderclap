@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 class D {
   public:
     virtual int s0();
@@ -25,23 +27,13 @@ class P_2743f0 {
     int pad14;
     int f18;
 };
-class DriveRequest {
-  public:
-    virtual int v0();
-    virtual int v1();
-    virtual int v2();
-    virtual int v3();
-    virtual int vfunc_4();
-    virtual int v5();
-    char pad[4];
-    P_2743f0* mP;
-};
-int DriveRequest::vfunc_4() {
-    D* d = mP->d;
+
+int core::DriveRequest::vfunc_4() {
+    D* d = (*(P_2743f0 * *)&this->f_08)->d;
     int a = d->s7();
     int b = d->Helper();
-    mP->q.s0();
-    mP->f18 = b;
-    mP->q.s1();
+    (*(P_2743f0 * *)&this->f_08)->q.s0();
+    (*(P_2743f0 * *)&this->f_08)->f18 = b;
+    (*(P_2743f0 * *)&this->f_08)->q.s1();
     return a;
 }

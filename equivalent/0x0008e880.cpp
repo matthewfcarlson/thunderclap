@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 39/42, incomplete)
 // FUN_0008e880 @ 0x0008e880
+#include "decls/address.h"
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* p) { return p; }
 struct Stream;
@@ -11,7 +12,6 @@ struct Command_8e880 { void* FUN_0008e6b0(const char*,CPlatformManager*,void(CPl
 struct Registry_8e880 { void FUN_001d3b70(const char*,void*); };
 Registry_8e880* FUN_001d4c90();
 extern int DAT_0048e100,DAT_0048e0f0,DAT_0049ca0c;
-unsigned char FUN_001d04d0(void*);
 template<class T,class R,class A> class Method1 { public: virtual void v0(); char pad[12]; unsigned char a; char pad2[7]; unsigned char b; char pad3[3]; void(T::*method)(A); };
 template<class T,class R,class A> class Closure1 : public Method1<T,R,A> { public: virtual void v0(); T* owner; };
 struct MyControllerCallback { virtual void v0(); unsigned char flags[6]; };

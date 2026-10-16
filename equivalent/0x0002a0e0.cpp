@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0002a0e0 @ 0x0002a0e0
 // Group method: look up a named pawn and run a collision sweep between two points, caching the result.
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
+#include "decls/address.h"
 
 struct Vec3_2a0e0 {
     float x, y, z;

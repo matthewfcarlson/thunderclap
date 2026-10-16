@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // pure3d::OldFrameControllerLoader::vfunc_5 @ 0x00285570
+#include "decls/address.h"
 struct Reader { void FUN_002647e0(void*, unsigned, unsigned, unsigned); };
 struct Chunk { char pad[0x284]; Reader* reader; };
-extern unsigned __int64 __cdecl FUN_002672f0(char*, int, int);
 namespace pure3d {
 struct OldFrameControllerLoader {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4();

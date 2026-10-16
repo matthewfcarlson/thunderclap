@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 20/20)
 // FUN_00025f10 @ 0x00025f10
 // 0x00025f10: set a flag on the controller(s) selected by name ("all" or one named entry)
+#include "decls/address.h"
 int __cdecl FUN_00096600(const char* a, const char* b);
-unsigned __int64 __cdecl FUN_002672f0(const char* name, int a, int b);
 
 struct Pawn_25f10 {
     char pad[0x1ca0];

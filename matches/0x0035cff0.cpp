@@ -1,4 +1,4 @@
-extern "C" __int64 __cdecl FUN_0027b020(const char* arg);
+#include "decls/address.h"
 int gResultLo;
 int gResultHi;
 void __cdecl FUN_0035cff0() {

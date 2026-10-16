@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 36/36)
 // CHand2HandAgent::vfunc_11 @ 0x000ff3b0
+#include "decls/address.h"
 struct NameKey_ff3b0 {
     unsigned lo;
     unsigned hi;
@@ -19,7 +20,6 @@ struct World {
     char pad[8];
     Gate_ff3b0 *gate;
 };
-extern World *DAT_004dd700;
 
 struct RandState_ff3b0 {
     unsigned s0;

@@ -1,9 +1,6 @@
-extern int* g_table_6b090;
+#include "gen/global.h"
 
-class CMotionHitGroundHeightTrack {
-  public:
-    int vfunc_0(int index);
-};
+extern int* g_table_6b090;
 
 int CMotionHitGroundHeightTrack::vfunc_0(int index) {
     return g_table_6b090[index];

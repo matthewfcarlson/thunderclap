@@ -1,21 +1,16 @@
 // Same code shape as 0x002a7540 (propagated; names are from that function)
-class ParticleController {
-  public:
-    virtual int vfunc_0();
-    virtual int vfunc_1();
-    virtual int vfunc_2();
-    virtual int vfunc_3();
-    virtual int vfunc_4();
-};
+#include "gen/pure3d.h"
+
 class Other_2e0a40 {
   public:
-    int helper(ParticleController*);
+    int helper(pure3d::VertexAnimPrimGroup*);
 };
 extern "C" void* __cdecl allocate(int);
-int ParticleController::vfunc_4() {
-    ParticleController* self = this;
+
+void* pure3d::VertexAnimPrimGroup::vfunc_4() {
+    pure3d::VertexAnimPrimGroup* self = this;
     Other_2e0a40* p = (Other_2e0a40*)allocate(0x60);
     if (p)
-        return p->helper(self);
-    return 0;
+        return (void*)(p->helper(self));
+    return (void*)(0);
 }

@@ -1,3 +1,4 @@
+#include "decls/address.h"
 extern "C" char DAT_00425334[];
 extern "C" char DAT_0048e0e4[];
 extern "C" char DAT_0048e0f0[];
@@ -16,7 +17,6 @@ class CTriggerVolumeManager {
     void Init(void*, int);
     CTriggerVolumeManager* Build(void*, void*);
 };
-extern char __cdecl FUN_001d04d0(const char*);
 CTriggerVolumeManager* CTriggerVolumeManager::Build(void* arg1, void* arg2) {
     Init(arg1, 3);
     vftable = ((int)DAT_00425334);

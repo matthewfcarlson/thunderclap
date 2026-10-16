@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 typedef unsigned char u8;
 void* __cdecl Alloc(unsigned int);
 extern char kVtbl[];
@@ -15,15 +17,8 @@ struct Obj_16e5f0 {
     int e, f;
     u8 flag;
 };
-struct Factory_16e5f0 {
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual Obj_16e5f0* v5();
-};
-Obj_16e5f0* Factory_16e5f0::v5() {
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::RayCastConeCondition>::vfunc_5() {
     Obj_16e5f0* p = (Obj_16e5f0*)Alloc(0x38);
     if (p) {
         ((Sub0_16e5f0*)p)->Init(0);
@@ -36,7 +31,7 @@ Obj_16e5f0* Factory_16e5f0::v5() {
         p->f = 0;
         p->d = 1.0f;
         p->flag = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

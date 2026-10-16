@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0035eee0 @ 0x0035eee0
 // Static initialiser: hashes the property names into global keys.
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
+#include "decls/address.h"
 
 extern unsigned __int64 DAT_004e5928;
 extern unsigned __int64 DAT_004e5930;

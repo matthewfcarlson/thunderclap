@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 22/22)
 // FUN_001d6e10 @ 0x001d6e10
+#include "decls/address.h"
 struct Entry_1d6e10;
 struct Owner_1d6e10;
 struct Resource_1d6e10 {
@@ -13,8 +14,7 @@ struct Entry_1d6e10 {
  unsigned int type;
 };
 struct Manager_1d6e10 { bool FUN_000242d0(Resource_1d6e10*); };
-struct Global_1d6e10 { char pad[0x20]; Manager_1d6e10* manager; };
-extern Global_1d6e10* DAT_004dd700;
+struct World { char pad[0x20]; Manager_1d6e10* manager; };
 void __cdecl FUN_00018810(Entry_1d6e10**, Entry_1d6e10*);
 struct Owner_1d6e10 {
  char pad[0x24c];

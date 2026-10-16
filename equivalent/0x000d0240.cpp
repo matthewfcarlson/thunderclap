@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 30/30)
 // HUDOverlay::vfunc_3 @ 0x000d0240
+#include "decls/address.h"
 class Ref_d0240 {
 public:
     virtual void AddRef();
@@ -36,7 +37,7 @@ struct Timer {
     Clock_d0240* FUN_00086370();
 };
 
-struct Globals_d0240 {
+struct World {
     char pad00[0x54];
     Timer* timer;
 };
@@ -45,7 +46,6 @@ struct Updater_d0240 {
     void FUN_000c9810(float dt);
 };
 
-extern Globals_d0240* DAT_004dd700;
 extern float DAT_004de600;
 extern float DAT_004de604;
 extern float DAT_0049fcf0;

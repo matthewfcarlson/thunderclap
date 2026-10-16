@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Receiver_28eea0 {
   public:
     virtual void f0();
@@ -9,22 +11,12 @@ class Receiver_28eea0 {
     virtual void f6();
     virtual void invoke(int, int);
 };
-class ShaderFloatBroadcast {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual int vfunc_3(void*);
-    virtual void d();
-    virtual void e();
-    char pad[4];
-    int x;
-    int y;
-};
-int ShaderFloatBroadcast::vfunc_3(void* p) {
+
+int pure3d::ShaderFloatBroadcast::vfunc_3(void* __p0) { void * p = (void *)__p0;
+
     if (p) {
         Receiver_28eea0* r = *(Receiver_28eea0**)((char*)p + 16);
-        r->invoke(x, y);
+        r->invoke(this->f_08, this->f_0c);
     }
     return (int)p;
 }

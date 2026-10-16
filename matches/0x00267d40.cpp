@@ -1,12 +1,6 @@
-class Timer {
-    char pad[0x18];
+#include "gen/core.h"
 
-  public:
-    int a;
-    int b;
-    void vfunc_3(int x, int y);
-};
-void Timer::vfunc_3(int x, int y) {
-    a = x;
-    b = y;
+void core::Timer::vfunc_3(int x, int y) {
+    this->f_18 = x;
+    this->f_1c = y;
 }

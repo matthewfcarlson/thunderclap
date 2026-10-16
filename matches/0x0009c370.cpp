@@ -1,26 +1,21 @@
+#include "gen/global.h"
+
 namespace math {
-struct Vector {
+struct Vector_9c370 {
     float x, y, z;
 };
 } // namespace math
-class CCameraManager {
+class CCameraManager_9c370 {
   public:
-    void fn(float, float, math::Vector, float);
+    void fn(float, float, math::Vector_9c370, float);
 };
-class Closure4 {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(int, float*, int);
-    char pad[24];
-    void (CCameraManager::*method)(float, float, math::Vector, float);
-    CCameraManager* object;
-};
-void Closure4::vfunc_2(int unused, float* p, int unused2) {
+
+template <> void Closure4<CCameraManager, void, float, float,math::Vector, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { int unused = (int)__p0; float * p = (float *)__p1; int unused2 = (int)__p2;
+
     float a = *p++;
     float b = *p++;
-    math::Vector v = *(math::Vector*)p;
+    math::Vector_9c370 v = *(math::Vector_9c370*)p;
     p += 3;
     float c = *p;
-    (object->*method)(a, b, v, c);
+    ((*(CCameraManager_9c370 * *)&this->f_20)->*(*(void (CCameraManager_9c370::**)(float, float, math::Vector_9c370, float))&this->f_1c))(a, b, v, c);
 }

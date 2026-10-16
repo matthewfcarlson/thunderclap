@@ -1,19 +1,7 @@
+#include "gen/pure3d.h"
+
 extern const float g_2b95e0;
-class BillboardQuadGroup {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void f();
-    virtual void g0();
-    virtual void h();
-    virtual void i();
-    virtual void j();
-    virtual void k();
-    virtual float vfunc_11(int, int);
-};
-float BillboardQuadGroup::vfunc_11(int, int) {
+
+float pure3d::BillboardQuadGroup::vfunc_11(int , int ) {
     return g_2b95e0;
 }

@@ -1,4 +1,6 @@
-class Action {
+#include "gen/hulkfight.h"
+
+class Action_12fa90 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -8,11 +10,6 @@ class Action {
     virtual void vfunc_5();
 };
 
-class StatEndTrialAction : public Action {
-  public:
-    void vfunc_4();
-};
-
-void StatEndTrialAction::vfunc_4() {
+void hulkfight::StatEndTrialAction::vfunc_4() {
     return;
 }

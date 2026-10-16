@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 128 inputs, branch coverage 52/57, incomplete)
 // FEDialog::vfunc_3 @ 0x000e5c20
+#include "gen/global.h"
+
 int __cdecl FUN_000f6660(int value, int modulus);
 
 class Element_e5c20 {
@@ -26,86 +28,23 @@ public:
     virtual char canFocus();
 };
 
-class FEDialog {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual char vfunc_3(int key, int arg);
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    virtual void vfunc_8();
-    virtual void vfunc_9();
-    virtual void vfunc_10();
-    virtual void vfunc_11();
-    virtual void vfunc_12();
-    virtual void vfunc_13();
-    virtual void vfunc_14();
-    virtual void vfunc_15();
-    virtual void vfunc_16();
-    virtual void vfunc_17();
-    virtual void vfunc_18();
-    virtual void vfunc_19();
-    virtual void vfunc_20();
-    virtual void vfunc_21();
-    virtual void vfunc_22();
-    virtual void vfunc_23();
-    virtual void vfunc_24();
-    virtual void vfunc_25();
-    virtual void vfunc_26();
-    virtual void vfunc_27();
-    virtual void vfunc_28();
-    virtual void vfunc_29();
-    virtual void vfunc_30();
-    virtual void vfunc_31();
-    virtual void vfunc_32();
-    virtual void vfunc_33();
-    virtual void vfunc_34();
-    virtual void vfunc_35();
-    virtual void vfunc_36();
-    virtual void vfunc_37();
-    virtual void vfunc_38();
-    virtual void vfunc_39();
-    virtual void vfunc_40();
-    virtual void vfunc_41();
-    virtual void vfunc_42();
-    virtual void vfunc_43();
-    virtual void vfunc_44();
-    virtual void vfunc_45();
-    virtual void vfunc_46();
-    virtual void vfunc_47();
-    virtual void vfunc_48();
-    virtual void vfunc_49();
-    virtual void vfunc_50();
-    virtual void vfunc_51();
-    virtual void setFocus(Element_e5c20 *e, int direction);
-    char pad04[0x48 - 0x4];
-    Element_e5c20 *focus;          // 0x48
-    Element_e5c20 *children[0x80]; // 0x4c
-    char pad24c[0x9a8 - 0x24c];
-    char enabled;            // 0x9a8
-};
-
-char FEDialog::vfunc_3(int key, int arg)
-{
-    if (!enabled)
-        return 0;
-    if (focus) {
-        if (focus->onKey(key, arg))
-            return 1;
+bool FEDialog::vfunc_3(int key, int arg) {
+    if (!(*(char *)&this->f_9a8))
+        return (bool)(0);
+    if ((*(Element_e5c20 * *)&this->f_48)) {
+        if ((*(Element_e5c20 * *)&this->f_48)->onKey(key, arg))
+            return (bool)(1);
     }
     if (key == 8 || key == 0xb) {
-        if (focus)
-            focus->onCancel(0);
+        if ((*(Element_e5c20 * *)&this->f_48))
+            (*(Element_e5c20 * *)&this->f_48)->onCancel(0);
     }
 
     int cur = 0;
     if (key == 0 || key == 4 || key == 2 || key == 6) {
         for (int i = 0; i < 0x80; i++) {
-            Element_e5c20 *c = children[i];
-            if (c && c->canFocus() && children[i] == focus) {
+            Element_e5c20 *c = (*(Element_e5c20 * (*)[128])&this->f_4c)[i];
+            if (c && c->canFocus() && (*(Element_e5c20 * (*)[128])&this->f_4c)[i] == (*(Element_e5c20 * *)&this->f_48)) {
                 cur = i;
                 break;
             }
@@ -117,31 +56,31 @@ char FEDialog::vfunc_3(int key, int arg)
     case 6: {
         int i = FUN_000f6660(cur - 1, 0x80);
         while (i != cur) {
-            Element_e5c20 *c = children[i];
+            Element_e5c20 *c = (*(Element_e5c20 * (*)[128])&this->f_4c)[i];
             if (c && c->canFocus()) {
-                setFocus(children[i], 1);
-                return 1;
+                vfunc_52((*(Element_e5c20 * (*)[128])&this->f_4c)[i], 1);
+                return (bool)(1);
             }
             i = FUN_000f6660(i - 1, 0x80);
         }
-        setFocus(children[cur], 1);
-        return 1;
+        vfunc_52((*(Element_e5c20 * (*)[128])&this->f_4c)[cur], 1);
+        return (bool)(1);
     }
     case 2:
     case 4: {
         int i = (cur + 1) % 0x80;
         while (i != cur) {
-            Element_e5c20 *c = children[i];
+            Element_e5c20 *c = (*(Element_e5c20 * (*)[128])&this->f_4c)[i];
             if (c && c->canFocus()) {
-                setFocus(children[i], 2);
-                return 1;
+                vfunc_52((*(Element_e5c20 * (*)[128])&this->f_4c)[i], 2);
+                return (bool)(1);
             }
             i = (i + 1) % 0x80;
         }
-        setFocus(children[cur], 2);
-        return 1;
+        vfunc_52((*(Element_e5c20 * (*)[128])&this->f_4c)[cur], 2);
+        return (bool)(1);
     }
     default:
-        return 0;
+        return (bool)(0);
     }
 }

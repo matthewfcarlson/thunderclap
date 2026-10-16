@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 struct Inner_2d3e80 {
     virtual void a();
     virtual void b();
@@ -8,30 +10,8 @@ struct Inner_2d3e80 {
     virtual void g();
     virtual void h(int, int);
 };
-class ParticleEmitter {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
-    virtual void f11();
-    virtual void f12();
-    virtual void f13();
-    virtual void f14();
-    virtual void f15();
-    virtual void f16();
-    virtual void vfunc_17(int, int);
-    char pad[0x88 - 4];
-    Inner_2d3e80* ptr;
-};
-void ParticleEmitter::vfunc_17(int a, int b) {
-    if (ptr)
-        ptr->h(a, b);
+
+void pure3d::ParticleEmitter::vfunc_17(int a, int b) {
+    if ((*(Inner_2d3e80 * *)&this->f_88))
+        (*(Inner_2d3e80 * *)&this->f_88)->h(a, b);
 }

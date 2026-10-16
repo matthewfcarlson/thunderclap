@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000365f0 @ 0x000365f0
+#include "decls/address.h"
 typedef unsigned long U32_365f0;
 extern U32_365f0 DAT_004dc2b0, DAT_004dc2b4, DAT_004dc2b8;
-extern unsigned __int64 __cdecl FUN_0027b020(const char*);
 struct Matrix {
  U32_365f0 elements[16];
  void FUN_0022b980();

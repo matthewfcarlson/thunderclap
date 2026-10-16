@@ -1,15 +1,8 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00411284[];
-class ConditionFactoryTemplate {
-  public:
-    virtual void V0();
-    virtual void V1();
-    virtual void V2();
-    virtual void V3();
-    virtual void V4();
-    virtual void* V5();
-};
 extern "C" void* __cdecl Alloc(unsigned int);
-struct DebugPrintCondition {
+struct DebugPrintCondition_132950 {
     unsigned int vptr;
     int a;
     int b;
@@ -17,14 +10,15 @@ struct DebugPrintCondition {
     int d;
     void Init(int);
 };
-void* ConditionFactoryTemplate::V5() {
-    DebugPrintCondition* p = (DebugPrintCondition*)Alloc(0x14);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::DebugPrintCondition>::vfunc_5() {
+    DebugPrintCondition_132950* p = (DebugPrintCondition_132950*)Alloc(0x14);
     if (p) {
         p->Init(0);
         p->vptr = ((int)DAT_00411284);
         p->c = 0;
         p->d = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

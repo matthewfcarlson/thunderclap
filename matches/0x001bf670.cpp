@@ -1,16 +1,12 @@
 // Same code shape as 0x0002d750 (propagated; names are from that function)
-class CActorManager;
-typedef bool(__fastcall* Fn_1bf670)(CActorManager*);
-class Method0 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2(CActorManager* obj, void* a, unsigned char* out);
-    char pad[0x18];
-    Fn_1bf670 mFn;
-};
-void Method0::f2(CActorManager* obj, void* a, unsigned char* out) {
-    Fn_1bf670 fn = mFn;
+#include "gen/global.h"
+
+class CActorManager_1bf670;
+typedef bool(__fastcall* Fn_1bf670)(CActorManager_1bf670*);
+
+template <> void Method0<CSubtitleManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_1bf670 * obj = (CActorManager_1bf670 *)__p0; void * a = (void *)__p1; unsigned char * out = (unsigned char *)__p2;
+
+    Fn_1bf670 fn = (*(Fn_1bf670 *)&this->f_1c);
     bool r = fn(obj);
     if (out)
         *out = r;

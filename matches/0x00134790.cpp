@@ -1,4 +1,6 @@
 // Same code shape as 0x00134160 (propagated; names are from that function)
+#include "gen/hulkfight.h"
+
 struct One {
     void* f();
 };
@@ -8,15 +10,10 @@ struct Two_134790 {
 struct Three {
     void f(void*, int);
 };
-struct FallAction {
-    char pad[0x20];
-    One* a;
-    void* b;
-    void vfunc_4();
-};
-void FallAction::vfunc_4() {
-    void* x = a->f();
+
+void hulkfight::motion::FlyingAutoTargetAction::vfunc_4() {
+    void* x = (*(One * *)&this->f_20)->f();
     void* y = ((Two_134790*)x)->f();
     if (y)
-        ((Three*)y)->f(b, 0);
+        ((Three*)y)->f((*(void * *)&this->f_24), 0);
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000384e0 @ 0x000384e0
+#include "decls/address.h"
 extern "C" int __cdecl _stricmp(const char *a, const char *b);
 
 struct Event_384e0 {
@@ -11,12 +12,11 @@ struct Channel {
     void FUN_001cbc20(Event_384e0 *e);
 };
 
-struct ChannelHolder {
+struct World {
     char pad[0x30];
     Channel *channel;
 };
 
-extern ChannelHolder *DAT_004dd700;
 extern const char *DAT_0048f590[8];
 
 struct Owner_384e0 {

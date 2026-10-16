@@ -1,24 +1,20 @@
-struct Vector {
+#include "gen/global.h"
+
+struct Vector_8a610 {
     int x, y, z;
 };
-class CGameFlowManager {
+class CGameFlowManager_8a610 {
   public:
-    virtual Vector* Get(Vector*);
+    virtual Vector_8a610* Get(Vector_8a610*);
 };
-typedef Vector* (CGameFlowManager::*Fn_8a610)(Vector*);
-class Method0 {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(CGameFlowManager* mgr, void* unused, Vector* out);
-    char pad[0x18];
-    Fn_8a610 mFn;
-};
-void Method0::vfunc_2(CGameFlowManager* mgr, void*, Vector* out) {
-    Fn_8a610 fn = mFn;
-    Vector temp;
-    volatile Vector r;
-    Vector* p = (mgr->*fn)(&temp);
+typedef Vector_8a610* (CGameFlowManager_8a610::*Fn_8a610)(Vector_8a610*);
+
+template <> void Method0<CGameFlowManager,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CGameFlowManager_8a610 * mgr = (CGameFlowManager_8a610 *)__p0; Vector_8a610 * out = (Vector_8a610 *)__p2;
+
+    Fn_8a610 fn = (*(Fn_8a610 *)&this->f_1c);
+    Vector_8a610 temp;
+    volatile Vector_8a610 r;
+    Vector_8a610* p = (mgr->*fn)(&temp);
     r.x = p->x;
     r.y = p->y;
     r.z = p->z;

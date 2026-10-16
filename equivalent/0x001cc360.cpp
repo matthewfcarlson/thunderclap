@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_001cc360 @ 0x001cc360
+#include "decls/address.h"
 extern char DAT_0048e100;
 extern char DAT_0048e0e4;
 extern char DAT_0048e0f0;
-char FUN_001d04d0(const void *type);
 void *FUN_0008d690(unsigned int size);
 void *FUN_0008d6d0(unsigned int size);
 inline void *operator new(unsigned int, void *p) throw() { return p; }

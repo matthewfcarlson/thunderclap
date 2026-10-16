@@ -1,31 +1,21 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00428d24[];
 class Ref_23e330 {
   public:
     virtual void AddRef();
     virtual void Release();
 };
-class Action {
+class Action_23e330 {
   public:
     virtual void v0();
     void Init();
 };
 extern void* Alloc(unsigned int);
-class Track {
-  public:
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual void a3();
-    virtual void a4();
-    virtual void a5();
-    virtual void a6();
-    virtual void a7();
-    virtual void a8();
-    virtual void a9();
-    virtual void* vfunc_10(void*, void*, Ref_23e330*);
-};
-void* Track::vfunc_10(void* p2, void* p3, Ref_23e330* p4) {
-    Action* r = (Action*)Alloc(0x28);
+
+int fight::WaitTrack::vfunc_10(int __p0, int __p1, int __p2) { void * p2 = (void *)__p0; void * p3 = (void *)__p1; Ref_23e330 * p4 = (Ref_23e330 *)__p2;
+
+    Action_23e330* r = (Action_23e330*)Alloc(0x28);
     if (r) {
         r->Init();
         *(void**)((char*)r + 0x1c) = this;
@@ -37,7 +27,7 @@ void* Track::vfunc_10(void* p2, void* p3, Ref_23e330* p4) {
         if (old)
             old->Release();
         *(Ref_23e330**)((char*)r + 0x20) = p4;
-        return r;
+        return (int)(r);
     }
-    return 0;
+    return (int)(0);
 }

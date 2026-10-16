@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2926 inputs, branch coverage 39/40, incomplete)
 // FUN_000cda90 @ 0x000cda90
+#include "decls/address.h"
 struct Batch_cda90 {
     char pad00[8];
     unsigned int *pos;
@@ -8,7 +9,7 @@ struct Batch_cda90 {
     void FUN_0008ef00();
 };
 
-class Device_cda90 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -43,7 +44,6 @@ public:
     virtual Batch_cda90 *Begin(unsigned int id, int a, int b, int c, int d);
     virtual void End(Batch_cda90 *b);
 };
-extern Device_cda90 *DAT_0052c2a8;
 
 class Cam_cda90 {
 public:

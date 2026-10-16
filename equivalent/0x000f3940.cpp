@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 24/24)
 // FUN_000f3940 @ 0x000f3940
-unsigned __int64 FUN_0027b020(const char *name);
+#include "decls/address.h"
 
 class Entity {
 public:

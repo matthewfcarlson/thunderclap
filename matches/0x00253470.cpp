@@ -1,5 +1,7 @@
 // Same code shape as 0x0024ea80 (propagated; names are from that function)
-class SeqAction {
+#include "gen/audio.h"
+
+class SeqAction_253470 {
   public:
     virtual void f0();
     virtual void f1();
@@ -9,11 +11,7 @@ class SeqAction {
     virtual void f5();
     virtual void f6();
 };
-class SeqActionChannelSendVolumes : public SeqAction {
-  public:
-    int pad;
-    void f4(int);
-};
-void SeqActionChannelSendVolumes::f4(int) {
+
+void audio::SeqActionVarPitchRand::vfunc_4(int ) {
     *(int*)((char*)this + 0xc) = 5;
 }

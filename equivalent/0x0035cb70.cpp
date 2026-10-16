@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0035cb70 @ 0x0035cb70
+#include "decls/address.h"
 typedef unsigned __int64 U64_35cb70;
 struct Ent_35cb70 { U64_35cb70 id; bool flag; };
 extern Ent_35cb70 DAT_004dd090;
@@ -31,7 +32,6 @@ extern Ent_35cb70 DAT_004dd220;
 extern Ent_35cb70 DAT_004dd230;
 extern Ent_35cb70 DAT_004dd240;
 extern Ent_35cb70 DAT_004dd250;
-extern U64_35cb70 __cdecl FUN_0027b020(const char*);
 void __cdecl FUN_0035cb70() {
     DAT_004dd090.id = FUN_0027b020("pma_amb_idle");
     DAT_004dd090.flag = true;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_002a3250 @ 0x002a3250
+#include "decls/address.h"
 struct VBuf_2a3250 {
     char pad00[8];
     float *pos;              // 0x08
@@ -8,7 +9,7 @@ struct VBuf_2a3250 {
     void FUN_0008ef00();
 };
 
-class Device_2a3250 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -158,7 +159,6 @@ struct Target_2a3250 {
     int handle;              // 0x10
 };
 
-extern Device_2a3250 *DAT_0052c2a8;
 extern Obj3_2a3250 *DAT_0052c2a4;
 extern Holder_2a3250 *DAT_0052c2ac;
 extern ProbeOwner *DAT_0052c2b4;
@@ -173,7 +173,7 @@ public:
 
 void Quad_2a3250::FUN_002a3250()
 {
-    Device_2a3250 *dev = DAT_0052c2a8;
+    Gfx *dev = DAT_0052c2a8;
     dev->v54(mode);
     dev->v56(1, 1, 1, 1);
     dev->v58(0);

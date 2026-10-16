@@ -1,12 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 10/10)
 // pure3d::LegacySkeletonLoader::vfunc_5 @ 0x0027c720
-struct Stream {
+#include "gen/pure3d.h"
+#include "decls/address.h"
+
+struct Stream_27c720 {
     char FUN_002647e0(void* dest, unsigned count, unsigned size, int flag);
 };
 
-struct Reader {
+struct Reader_27c720 {
     char pad[0x284];
-    Stream* stream;
+    Stream_27c720* stream;
     char FUN_002669f0();
     int FUN_00266a30();
     void FUN_00266be0();
@@ -17,7 +20,7 @@ struct NameField_27c720 {
     void FUN_0027b040(const char* name);
 };
 
-struct Skeleton {
+struct Skeleton_27c720 {
     char pad0[8];
     NameField_27c720 name;
     char pad9[0x18 - 9];
@@ -25,13 +28,12 @@ struct Skeleton {
     char pad1c[8];
     unsigned __int64* hashes;
     unsigned short* parents;
-    Skeleton* FUN_0027bee0(int nJoints, int a, int b);
+    Skeleton_27c720* FUN_0027bee0(int nJoints, int a, int b);
     void FUN_0027b270();
 };
 
 void* FUN_00263ea0(unsigned int size);
 void FUN_0028fcc0(const char* fmt, const char* name);
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);
 
 struct Frame_27c720 {
     char pad0[3];
@@ -48,13 +50,8 @@ struct Frame_27c720 {
     char jointName[0x100];
 };
 
-class LegacySkeletonLoader {
-public:
-    void vfunc_5(Skeleton** out, unsigned __int64* outId, Reader* r, int unused);
-};
+void pure3d::LegacySkeletonLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int unused) { Skeleton_27c720 ** out = (Skeleton_27c720 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Reader_27c720 * r = (Reader_27c720 *)__p2;
 
-void LegacySkeletonLoader::vfunc_5(Skeleton** out, unsigned __int64* outId, Reader* r, int unused)
-{
     Frame_27c720 f;
 
     r->stream->FUN_002647e0(&f.len, 1, 1, 1);
@@ -68,9 +65,9 @@ void LegacySkeletonLoader::vfunc_5(Skeleton** out, unsigned __int64* outId, Read
         FUN_0028fcc0("LegacySkeletonLoader - skipping skeleton: '%s' because nJoints < 1\n", f.name);
 
     void* mem = FUN_00263ea0(0x50);
-    Skeleton* skel = 0;
+    Skeleton_27c720* skel = 0;
     if (mem)
-        skel = ((Skeleton*)mem)->FUN_0027bee0(nJoints, 0, 0);
+        skel = ((Skeleton_27c720*)mem)->FUN_0027bee0(nJoints, 0, 0);
     skel->name.FUN_0027b040(f.name);
 
     if (r->FUN_002669f0()) {

@@ -3,7 +3,7 @@ class Sub_173070 {
   public:
     void Init();
 };
-class PushOutTrack {
+namespace hulkfight { namespace motion { class PushOutTrack {
   public:
     virtual void v0();
     virtual void v1();
@@ -18,9 +18,9 @@ class PushOutTrack {
     virtual void v10();
     char pad[0x14];
     void Middle();
-};
-extern void __cdecl thunk_FUN_00267090(PushOutTrack*);
-PushOutTrack* PushOutTrack::vfunc_5(int flag) {
+}; }}
+extern void __cdecl thunk_FUN_00267090(hulkfight::motion::PushOutTrack*);
+hulkfight::motion::PushOutTrack* hulkfight::motion::PushOutTrack::vfunc_5(int flag) {
     *(int*)this = ((int)DAT_00417b38);
     Sub_173070* p = (Sub_173070*)((char*)this + 0x18);
     p->Init();

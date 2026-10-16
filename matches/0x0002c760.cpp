@@ -1,19 +1,15 @@
-class CActorManager;
-typedef float (CActorManager::*Fn_2c760)(const char*);
-class CActorManager {
+#include "gen/global.h"
+
+class CActorManager_2c760;
+typedef float (CActorManager_2c760::*Fn_2c760)(const char*);
+class CActorManager_2c760 {
   public:
     float Get(const char* s);
 };
-class Method1 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2(CActorManager* a, const char** p, float* out);
-    char pad[0x1c - 4];
-    Fn_2c760 fn;
-};
-void Method1::f2(CActorManager* a, const char** p, float* out) {
-    Fn_2c760 f = fn;
+
+template <> void Method1<CActorManager, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2c760 * a = (CActorManager_2c760 *)__p0; const char ** p = (const char **)__p1; float * out = (float *)__p2;
+
+    Fn_2c760 f = (*(Fn_2c760 *)&this->f_1c);
     const char* s = *p;
     float x = (a->*f)(s);
     if (out)

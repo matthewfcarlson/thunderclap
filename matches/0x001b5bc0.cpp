@@ -1,6 +1,6 @@
+#include "decls/address.h"
 extern "C" char DAT_0041da1c[];
 extern int __stdcall FUN_001d0480(const char*, int);
-extern char FUN_001d04d0(const char*);
 extern char str1_1b5bc0, str2;
 class CCollisionManager {
   public:

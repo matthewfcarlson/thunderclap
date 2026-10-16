@@ -1,20 +1,14 @@
+#include "gen/fight.h"
+
 extern void* operator new(unsigned int);
-class Track {
+class Track_1aa780 {
   public:
     int make();
 };
-class Factory_1aa780 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual int vfunc_5();
-};
-int Factory_1aa780::vfunc_5() {
-    Track* p = (Track*)operator new(0x198);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::scenario::NISAnimationTrack>::vfunc_5() {
+    Track_1aa780* p = (Track_1aa780*)operator new(0x198);
     if (p)
-        return p->make();
-    return 0;
+        return (void*)(p->make());
+    return (void*)(0);
 }

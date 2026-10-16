@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 namespace fight {
-struct Reader {
+struct Reader_23c170 {
     virtual void a0();
     virtual void a1();
     virtual void a2();
@@ -21,21 +23,15 @@ struct Reader {
     virtual void a18();
     virtual void a19();
 };
-struct BinReader : Reader {
-    char pad[0x14];
-    int x18;
-    int x1c;
-    int x20;
-    char pad2[0x0c];
-    unsigned char x30;
-    void a17();
+struct BinReader_nv_23c170 {
     void init();
 };
-void BinReader::a17() {
-    init();
-    x18 = 0;
-    x1c = 0;
-    x20 = 0;
-    x30 = 1;
-}
+
 } // namespace fight
+void fight::BinReader::vfunc_17() {
+    ((BinReader_nv_23c170*)this)->init();
+    this->f_18 = 0;
+    this->f_1c = 0;
+    (*(int *)&this->f_20) = 0;
+    this->f_30 = 1;
+}

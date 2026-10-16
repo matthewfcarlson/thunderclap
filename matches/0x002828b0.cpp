@@ -1,22 +1,18 @@
+#include "gen/pure3d.h"
+
 class Ref_2828b0 {
   public:
     virtual void f0();
     virtual void f1();
 };
-class CMotionTrail {
-  public:
-    char pad[0x40];
-    Ref_2828b0* a;
-    Ref_2828b0* b;
-    void vfunc_13();
-};
-void CMotionTrail::vfunc_13() {
-    if (a) {
-        a->f1();
-        a = 0;
+
+void pure3d::prop::CMotionTrail::vfunc_13() {
+    if ((*(Ref_2828b0 * *)&this->f_40)) {
+        (*(Ref_2828b0 * *)&this->f_40)->f1();
+        (*(Ref_2828b0 * *)&this->f_40) = 0;
     }
-    if (b) {
-        b->f1();
-        b = 0;
+    if ((*(Ref_2828b0 * *)&this->f_44)) {
+        (*(Ref_2828b0 * *)&this->f_44)->f1();
+        (*(Ref_2828b0 * *)&this->f_44) = 0;
     }
 }

@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 class I_274a90 {
   public:
     virtual void f0();
@@ -18,16 +20,11 @@ class P_274a90 {
     char pad14[4];
     int zero;
 };
-class DriveCancelRequest {
-  public:
-    char pad[8];
-    P_274a90* m;
-    int vfunc_1();
-};
-int DriveCancelRequest::vfunc_1() {
-    m->obj->Call(m, m->x10);
-    m->sub.f0();
-    m->zero = 0;
-    m->sub.f1();
+
+int core::DriveCancelRequest::vfunc_1() {
+    (*(P_274a90 * *)&this->f_08)->obj->Call((*(P_274a90 * *)&this->f_08), (*(P_274a90 * *)&this->f_08)->x10);
+    (*(P_274a90 * *)&this->f_08)->sub.f0();
+    (*(P_274a90 * *)&this->f_08)->zero = 0;
+    (*(P_274a90 * *)&this->f_08)->sub.f1();
     return 1;
 }

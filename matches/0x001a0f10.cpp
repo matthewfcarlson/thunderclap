@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0041b2e8[];
 extern void* operator_new(unsigned int);
 struct Sub_1a0f10 {
@@ -13,16 +15,8 @@ struct MPT {
     Sub_1a0f10 sub;
     void BaseInit();
 };
-class Factory_1a0f10 {
-  public:
-    virtual void q0();
-    virtual void q1();
-    virtual void q2();
-    virtual void q3();
-    virtual void q4();
-    virtual MPT* Create();
-};
-MPT* Factory_1a0f10::Create() {
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::MissilePunchTrack>::vfunc_5() {
     MPT* p = (MPT*)operator_new(0x24);
     if (p) {
         p->BaseInit();
@@ -32,7 +26,7 @@ MPT* Factory_1a0f10::Create() {
         p->w = 6.2831855f;
         p->sub.Init();
         p->b = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

@@ -1,21 +1,15 @@
+#include "gen/fight.h"
+
 typedef unsigned int u32_76080;
 extern void* __cdecl Alloc(unsigned int);
 extern int ComboVtable;
-class CComboMessageTrack {
+class CComboMessageTrack_76080 {
   public:
     void Init();
 };
-class TrackFactory {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void* vfunc_5();
-};
-void* TrackFactory::vfunc_5() {
-    CComboMessageTrack* p = (CComboMessageTrack*)Alloc(0x54);
+
+template <> void* fight::TrackFactoryTemplate<CComboMessageTrack>::vfunc_5() {
+    CComboMessageTrack_76080* p = (CComboMessageTrack_76080*)Alloc(0x54);
     if (p) {
         p->Init();
         *(u32_76080*)p = (u32_76080)&ComboVtable;
@@ -23,7 +17,7 @@ void* TrackFactory::vfunc_5() {
         *(u32_76080*)((char*)p + 0x50) = 0;
         *((char*)p + 0x10) = 0;
         *(u32_76080*)((char*)p + 8) = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

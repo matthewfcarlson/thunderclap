@@ -1,4 +1,4 @@
-extern "C" unsigned long long FUN_0027b020(const char*);
+#include "decls/address.h"
 extern char gGlobal_35c800[];
 extern char gGlobal2[];
 void FUN_0035c800() {

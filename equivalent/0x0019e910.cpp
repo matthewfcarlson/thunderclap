@@ -4,6 +4,7 @@
 // (actors, characters, props), trail effect, and the area-damage explosion.
 // The locals live in one Frame struct at the original's stack offsets (sub esp 0x2d8):
 // several out-parameters and event records share slots, as in the original.
+#include "decls/address.h"
 extern "C" double sqrt(double);
 
 struct RefObj_19e910 {
@@ -314,7 +315,7 @@ struct Fxm_19e910 {
     void FUN_001ebea0(int decal, Node_19e910 *who) throw();
 };
 
-struct World_19e910 {
+struct World {
     char pad0[0xc];
     Factory_19e910 *f0c;
     W10_19e910 *f10;
@@ -349,7 +350,7 @@ struct Unlock_19e910 {
 struct UnlockTable_19e910 {
     void *FUN_00092ad0(int id) throw();
 };
-struct Profile_19e910 {
+struct Singleton_4dd6ec {
     UnlockTable_19e910 *FUN_00086340() throw();
 };
 
@@ -400,8 +401,6 @@ struct Cfg_19e910 {
     Vec3 *FUN_001936f0(Vec3 *out) throw();
 };
 
-extern World_19e910 *DAT_004dd700;
-extern Profile_19e910 *DAT_004dd6ec;
 extern int DAT_004d2a3c;
 extern char DAT_004d2a40;
 extern char DAT_00554c1c;
@@ -513,7 +512,7 @@ void ProjectileMissile::vfunc_4(float dt)
         union { float amt; float f; Coll_19e910 *hitObj; } u0c;
         Actor_19e910 *ent;                          // 0x10
         Vec3 hitPos;                                // 0x14
-        union { unsigned int bits; float f; World_19e910 *w; int i; float t; } u20;
+        union { unsigned int bits; float f; World *w; int i; float t; } u20;
         union { int i; CollWorld_19e910 *cw; PtrList_19e910 *list; } u24;
         Vec3 v28;
         Vec3 v34;
@@ -784,7 +783,7 @@ void ProjectileMissile::vfunc_4(float dt)
         f9c = 2;
 
     // collision sweep from the previous position
-    World_19e910 *w = DAT_004dd700;
+    World *w = DAT_004dd700;
     fr.hitThing = 0;
     fr.hitInfo = 0;
     fr.u7c.w24 = w->f24;

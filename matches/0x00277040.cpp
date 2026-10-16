@@ -1,10 +1,5 @@
-class InstanceDrive {
-  public:
-    void* vtable;
-    char pad[8];
-    void* member;
-    void vfunc_40();
-};
+#include "gen/core.h"
+
 class Inner_277040 {
   public:
     virtual void f0();
@@ -14,6 +9,7 @@ class Inner_277040 {
     virtual void f4();
     virtual void f5();
 };
-void InstanceDrive::vfunc_40() {
-    ((Inner_277040*)member)->f5();
+
+void core::InstanceDrive::vfunc_40() {
+    ((Inner_277040*)(*(void * *)&this->f_0c))->f5();
 }

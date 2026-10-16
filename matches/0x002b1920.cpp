@@ -1,11 +1,6 @@
 // Same code shape as 0x00086340 (propagated; names are from that function)
-class A_2b1920 {
-    char pad[0x3c];
+#include "gen/pure3d.h"
 
-  public:
-    unsigned int value;
-    unsigned int f();
-};
-unsigned int A_2b1920::f() {
-    return value;
+unsigned int pure3d::MultiController::vfunc_17() {
+    return (*(unsigned int *)&this->f_3c);
 }

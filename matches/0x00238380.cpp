@@ -1,17 +1,8 @@
-class RandomCondition {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual bool vfunc_6(int, int, float*);
-    char pad[8];
-    float value;
-};
-bool RandomCondition::vfunc_6(int a, int b, float* out) {
+#include "gen/fight.h"
+
+bool fight::RandomCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; int b = (int)__p1; float * out = (float *)__p2;
+
     if (out)
-        *out += value;
+        *out += this->f_0c;
     return true;
 }

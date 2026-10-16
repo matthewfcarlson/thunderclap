@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2139 inputs, branch coverage 28/28)
 // FUN_000c8850 @ 0x000c8850
 // FUN_000c8850 @ 0x000c8850
+#include "decls/address.h"
 extern "C" double atan2(double y, double x);
 
 struct V3 {
@@ -44,7 +45,6 @@ struct Gfx {
     virtual VBuf *v30(void *a, int b, int c, int d, int e);
     virtual void v31(VBuf *vb);
 };
-extern Gfx *DAT_0052c2a8;
 
 struct Dev {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();

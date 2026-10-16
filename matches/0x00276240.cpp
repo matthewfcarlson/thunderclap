@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 namespace core {
 class X_276240 {
   public:
@@ -6,48 +8,11 @@ class X_276240 {
     virtual void c();
     virtual void d();
 };
-class File {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
-    virtual void f11();
-    virtual void f12();
-    virtual void f13();
-    virtual void f14();
-    virtual void f15();
-    virtual void f16();
-    virtual void f17();
-    virtual void f18();
-    virtual void f19();
-    virtual bool f20();
-    virtual void vfunc_21();
-    virtual void f22();
-    virtual void f23();
-    virtual void f24();
-    virtual void f25();
-    virtual void f26();
-    virtual void f27();
-    virtual void f28();
-    virtual void f29();
-    virtual void f30();
-    virtual void f31();
-    char pad[8];
-    X_276240* mX;
-};
 } // namespace core
 extern void FUN_0026d6d0(int);
 void core::File::vfunc_21() {
-    while (!f20()) {
-        mX->d();
+    while (!vfunc_20()) {
+        (*(X_276240 * *)&this->f_0c)->d();
         FUN_0026d6d0(0);
     }
 }

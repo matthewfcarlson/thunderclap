@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3058 inputs, branch coverage 75/78, incomplete)
 // FUN_00040970 @ 0x00040970
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 
@@ -39,7 +40,6 @@ struct Hero_40970 {
     bool FUN_00025d30(void *self);
 };
 
-extern World *DAT_004dd700;
 
 struct Ref_40970 {
     unsigned int *id;

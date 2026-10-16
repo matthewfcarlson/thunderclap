@@ -1,4 +1,6 @@
 // Same code shape as 0x0013b040 (propagated; names are from that function)
+#include "gen/hulkfight.h"
+
 class PhaseObj {
   public:
     virtual void f0();
@@ -10,22 +12,16 @@ class Helper_13b2a0 {
     void* next();
     void act(void*, int);
 };
-class AnimationPhaseMatchedAction {
-  public:
-    char pad[0x20];
-    void* source;
-    void* a;
-    void vfunc_4();
-};
-void AnimationPhaseMatchedAction::vfunc_4() {
-    if (a) {
-        void* x = ((Helper_13b2a0*)source)->get();
+
+void hulkfight::motion::AnimationChargeAction::vfunc_4() {
+    if ((*(void * *)&this->f_24)) {
+        void* x = ((Helper_13b2a0*)(*(void * *)&this->f_20))->get();
         x = ((Helper_13b2a0*)x)->next();
         if (x) {
-            ((Helper_13b2a0*)x)->act(a, 0);
-            if (a) {
-                ((PhaseObj*)a)->f1();
-                a = 0;
+            ((Helper_13b2a0*)x)->act((*(void * *)&this->f_24), 0);
+            if ((*(void * *)&this->f_24)) {
+                ((PhaseObj*)(*(void * *)&this->f_24))->f1();
+                (*(void * *)&this->f_24) = 0;
             }
         }
     }

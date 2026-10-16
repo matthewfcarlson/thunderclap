@@ -1,20 +1,6 @@
-class CJointTrack {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void f();
-    virtual void g();
-    virtual void h();
-    virtual void i();
-    virtual void j();
-    virtual void k();
-    virtual void l();
-    virtual void m();
-    virtual void vfunc_13(unsigned int*);
-};
-void CJointTrack::vfunc_13(unsigned int* out) {
+#include "gen/global.h"
+
+void CJointTrack::vfunc_13(void* __p0) { unsigned int * out = (unsigned int *)__p0;
+
     *out = 0xffff7f7f;
 }

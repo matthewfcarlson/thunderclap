@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0040f500[];
-class StrafeLateralHBTrack {
+class StrafeLateralHBTrack_122f70 {
   public:
     int vf;
     char pad4[8];
@@ -9,17 +11,9 @@ class StrafeLateralHBTrack {
     void init();
 };
 extern void* __cdecl operator_new(unsigned int);
-class TrackFactoryTemplate {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual StrafeLateralHBTrack* vfunc_5();
-};
-StrafeLateralHBTrack* TrackFactoryTemplate::vfunc_5() {
-    StrafeLateralHBTrack* p = (StrafeLateralHBTrack*)operator_new(0x28);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::ai::StrafeLateralHBTrack>::vfunc_5() {
+    StrafeLateralHBTrack_122f70* p = (StrafeLateralHBTrack_122f70*)operator_new(0x28);
     if (p) {
         p->init();
         p->zc = 0;
@@ -30,7 +24,7 @@ StrafeLateralHBTrack* TrackFactoryTemplate::vfunc_5() {
         p->vf = ((int)DAT_0040f500);
         p->x10 = (int)0xbf800000;
         p->x24 = 0x3f800000;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

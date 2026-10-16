@@ -1,3 +1,4 @@
+#include "decls/address.h"
 extern "C" char DAT_00423438[];
 extern "C" char DAT_0048e0e4[];
 extern "C" char DAT_0048e128[];
@@ -13,7 +14,6 @@ class CSPManager {
     CSPManager* Init(void*, int);
 };
 extern "C" void __stdcall FUN_001d0480(void*, int);
-extern unsigned char FUN_001d04d0(const char*);
 CSPManager* CSPManager::Init(void* p, int b) {
     FUN_001d0480(p, 4);
     vtable = ((int)DAT_00423438);

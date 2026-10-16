@@ -1,13 +1,7 @@
-class PhysicsJoint0D {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void vfunc_5(void*);
-};
-void PhysicsJoint0D::vfunc_5(void* p) {
+#include "gen/physics.h"
+
+void physics::PhysicsJoint0D::vfunc_5(void* __p0) { void * p = (void *)__p0;
+
     int* q = (int*)p;
     q[2] = 0;
     q[1] = 0;

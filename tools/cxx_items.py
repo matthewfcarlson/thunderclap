@@ -275,7 +275,7 @@ def _qualified_before(ts, k):
     while j >= 0:
         v = ts[j].v
         if ts[j].t == "id" and v not in KEYWORDS - {"operator"} or v == "~":
-            if parts and parts[-1] not in ("::", "~") and v != "~":
+            if parts and parts[-1] not in ("::", "~") and v != "~" and not parts[-1].startswith("<"):
                 break           # two names in a row: the first one is the return type
             parts.append(v)
             j -= 1
@@ -484,7 +484,13 @@ def classify(it):
     # return type and modifiers without the declarator name; __cdecl is the default for free functions
     rtype = [v for v in prefix if v not in ("__cdecl", "inline", "__inline", "__forceinline", "static")]
     nq = len([x for x in re.split(r"(::)", qname) if x])
-    if "operator" not in hv:
+    if "<" in qname and "operator" not in hv:
+        # template-id in the declarator (an explicit specialization `template <> R X<T>::f(...)`): the
+        # return type is what precedes the qualified name
+        _, qj = _qualified_before(head, paren)
+        rtype = [v for v in hv[:qj + 1] if v not in ("extern", '"C"', "__cdecl", "inline", "__inline",
+                                                    "__forceinline", "static")]
+    elif "operator" not in hv:
         rtype = rtype[:len(rtype) - nq] if nq <= len(rtype) else rtype
     sig = " ".join(rtype) + "(" + params + ")" + " ".join(hv[close + 1:])
     it.sig = sig

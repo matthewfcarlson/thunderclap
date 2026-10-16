@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_000677d0 @ 0x000677d0
+#include "decls/address.h"
 struct Vec3_677d0 {
     float x, y, z;
 };
@@ -16,7 +17,7 @@ public:
     Entity *entity;
 };
 
-class Owner_677d0 {
+class World {
 public:
     char pad0[0x20];
     Sub_677d0 *sub;
@@ -49,7 +50,6 @@ public:
     char active;
 };
 
-extern Owner_677d0 *DAT_004dd700;
 
 void Effect_677d0::FUN_000677d0()
 {

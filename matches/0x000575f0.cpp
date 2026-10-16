@@ -1,4 +1,6 @@
-class CClimbableCondition {
+#include "gen/fight.h"
+
+class CClimbableCondition_575f0 {
   public:
     int vt;
     void Init(int);
@@ -10,24 +12,16 @@ class CClimbableCondition {
 };
 extern int climbVftable;
 extern void* __cdecl FUN_0008d690(unsigned int);
-class Factory_575f0 {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual CClimbableCondition* vfunc_5();
-};
-CClimbableCondition* Factory_575f0::vfunc_5() {
-    CClimbableCondition* p = (CClimbableCondition*)FUN_0008d690(0x18);
+
+template <> void* fight::ConditionFactoryTemplate<CClimbableCondition>::vfunc_5() {
+    CClimbableCondition_575f0* p = (CClimbableCondition_575f0*)FUN_0008d690(0x18);
     if (p) {
         p->Init(0);
         p->vt = (int)&climbVftable;
         p->c = 0;
         p->d = 0x3e860a92;
         p->e = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

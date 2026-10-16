@@ -1,4 +1,6 @@
-class SeqAction {
+#include "gen/audio.h"
+
+class SeqAction_24ea70 {
   public:
     virtual void f0();
     virtual void f1();
@@ -8,10 +10,7 @@ class SeqAction {
     virtual void f5();
     virtual void f6();
 };
-class SeqActionChannelSendVolumes : public SeqAction {
-  public:
-    virtual void vfunc_3(int);
-};
-void SeqActionChannelSendVolumes::vfunc_3(int) {
+
+void audio::SeqActionChannelSendVolumes::vfunc_3(int ) {
     *(int*)((char*)this + 0xc) = 4;
 }

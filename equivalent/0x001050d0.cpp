@@ -2,6 +2,7 @@
 // CPathAgent::vfunc_4 @ 0x001050d0
 // equiv-map: ?Del340@@YAXPAX@Z = 0x0008d340
 // equiv-map: ?Del330@@YAXPAX@Z = 0x0008d330
+#include "decls/address.h"
 extern "C" double __cdecl sqrt(double);
 void __cdecl Del340(void *p);
 void __cdecl Del330(void *p);
@@ -63,7 +64,6 @@ struct World {
     char pad0[0xc];
     Sink0c *f0c;
 };
-extern World *DAT_004dd700;
 
 class Part_1050d0 {
 public:

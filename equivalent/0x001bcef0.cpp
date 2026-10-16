@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3180 inputs, branch coverage 118/140, incomplete)
 // FUN_001bcef0 @ 0x001bcef0
+#include "decls/address.h"
 extern "C" double __cdecl sqrt(double);
 extern "C" void * __cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 
@@ -105,7 +106,7 @@ struct Wrapper_1bcef0 {
     void FUN_00293c20(float a);
 };
 
-struct Dev2 {
+struct Gfx {
     virtual void e0();
     virtual void e1();
     virtual void e2();
@@ -173,7 +174,6 @@ struct Dev2 {
 };
 
 extern Wrapper_1bcef0 *DAT_0052c2ac;
-extern Dev2 *DAT_0052c2a8;
 
 struct Holder_1bcef0 {
     Renderer_1bcef0 *FUN_001c19a0();
@@ -267,7 +267,6 @@ struct World {
     Obj3c_1bcef0 *f3c;
     Obj40 *f40;
 };
-extern World *DAT_004dd700;
 
 struct Frame_1bcef0 {
     char pad00[3];

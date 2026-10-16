@@ -1,4 +1,6 @@
-class ParticleGenerator {
+#include "gen/pure3d.h"
+
+class ParticleGenerator_2d2510 {
   public:
     virtual void a0();
     virtual void a1();
@@ -13,16 +15,9 @@ class ParticleGenerator {
     virtual void a10();
     virtual void a11();
 };
-class ParticlePointGenerator : public ParticleGenerator {
-  public:
-    char pad[0x40];
-    float x;
-    float y;
-    float z;
-    float vfunc_8(int);
-};
 extern const float zero_2d2510;
-float ParticlePointGenerator::vfunc_8(int n) {
+
+float pure3d::ParticlePointGenerator::vfunc_8(int n) {
     --n;
     if (n != 0) {
         --n;
@@ -30,9 +25,9 @@ float ParticlePointGenerator::vfunc_8(int n) {
             --n;
             if (n != 0)
                 return zero_2d2510;
-            return z;
+            return this->f_4c;
         }
-        return y;
+        return this->f_48;
     }
-    return x;
+    return this->f_44;
 }

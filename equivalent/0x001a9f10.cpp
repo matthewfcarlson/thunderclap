@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 8576 inputs, branch coverage 22/22)
 // FUN_001a9f10 @ 0x001a9f10
 // FUN_001a9f10 @ 0x001a9f10
+#include "decls/address.h"
 struct Vec3_1a9f10 {
     float x, y, z;
 };
@@ -19,7 +20,7 @@ struct Pool_1a9f10 {
     RefObj_1a9f10* FUN_00024280(unsigned __int64 id);
 };
 
-struct Manager_1a9f10 {
+struct World {
     char pad0[0x20];
     Pool_1a9f10* pool;
 };
@@ -33,7 +34,6 @@ struct Slot_1a9f10 {
     char pad10[8];
 };
 
-extern Manager_1a9f10* DAT_004dd700;
 extern unsigned int DAT_004d9968;
 
 extern "C" void __fastcall __security_check_cookie(unsigned int);
@@ -43,7 +43,6 @@ const char* FUN_001a4e40(Table_1a9f10* t, unsigned int idx);
 bool FUN_001a5110(Table_1a9f10* t, unsigned int idx);
 bool FUN_001a4fd0(Table_1a9f10* t, unsigned int idx);
 void FUN_00267760(char* buf, int size, const char* fmt, ...);
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);
 
 struct Obj_1a9f10 {
     char pad0[0x1c];

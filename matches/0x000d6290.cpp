@@ -1,5 +1,5 @@
+#include "decls/address.h"
 struct MessageOverlay;
-extern unsigned char __cdecl FUN_001d04d0(const void*);
 extern int g1, g2;
 struct Base {
     virtual void f();

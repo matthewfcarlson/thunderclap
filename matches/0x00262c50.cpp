@@ -1,4 +1,6 @@
-class HalStream {
+#include "gen/audio.h"
+
+class HalStream_262c50 {
   public:
     virtual void vfunc_0();
     virtual int vfunc_1();
@@ -15,15 +17,9 @@ class HalStream {
     virtual void vfunc_12();
     virtual void vfunc_13();
 };
-class HalRadicalAdpcmDecodeStream : public HalStream {
-  public:
-    HalStream* stream;
-    char pad[0x14];
-    int state;
-    void vfunc_0();
-};
-void HalRadicalAdpcmDecodeStream::vfunc_0() {
-    state = 1;
-    if (!stream->vfunc_1())
-        stream->vfunc_0();
+
+void audio::HalRadicalAdpcmDecodeStream::vfunc_0() {
+    this->f_1c = 1;
+    if (!(*(HalStream_262c50 * *)&this->f_04)->vfunc_1())
+        (*(HalStream_262c50 * *)&this->f_04)->vfunc_0();
 }

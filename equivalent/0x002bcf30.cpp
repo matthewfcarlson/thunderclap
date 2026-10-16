@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 210 inputs, branch coverage 34/40, incomplete)
 // FUN_002bcf30 @ 0x002bcf30
+#include "decls/address.h"
 struct Vec3_2bcf30 {
     float x, y, z;
 };
@@ -101,7 +102,6 @@ struct Parent_2bcf30 {
 };
 
 void *FUN_00263ea0(unsigned int size);
-unsigned __int64 FUN_0027b020(const char *name);
 void FUN_0028fcc0(const char *fmt, ...);
 
 struct Frame_2bcf30 {

@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class V {
   public:
     virtual void f0();
@@ -16,12 +18,7 @@ class V {
 struct Wrapper_2beaa0 {
     V* p;
 };
-class SpriteObject {
-  public:
-    char pad[0x48];
-    Wrapper_2beaa0* member;
-    void vfunc_19();
-};
-void SpriteObject::vfunc_19() {
-    member->p->f11();
+
+void pure3d::SpriteObject::vfunc_19() {
+    (*(Wrapper_2beaa0 * *)&this->f_48)->p->f11();
 }

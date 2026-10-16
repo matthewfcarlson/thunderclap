@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 218 inputs, branch coverage 36/36)
 // FUN_00066d50 @ 0x00066d50
+#include "decls/address.h"
 struct Vec3_66d50 {
     float x, y, z;
     float FUN_0022d110();
@@ -25,12 +26,11 @@ struct Registry_66d50 {
     Entity* FUN_00024280(unsigned int lo, unsigned int hi);
 };
 
-struct Globals_66d50 {
+struct World {
     char pad00[0x20];
     Registry_66d50* registry;
 };
 
-extern Globals_66d50* DAT_004dd700;
 
 struct Handle_66d50 {
     int a, b;

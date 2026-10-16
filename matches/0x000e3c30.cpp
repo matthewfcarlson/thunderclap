@@ -1,12 +1,6 @@
-class TextWindow {
-  public:
-    char pad[0x148];
-    int a;
-    int b;
-    int c;
-    void vfunc_13(int);
-};
-void TextWindow::vfunc_13(int) {
+#include "gen/global.h"
+
+void TextWindow::vfunc_13(int ) {
     int x = *(int*)((char*)this + 0x14c);
     *(int*)((char*)this + 0x148) = x;
     int p = *(int*)((char*)this + 0x150);

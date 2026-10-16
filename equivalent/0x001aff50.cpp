@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 24/24)
 // FUN_001aff50 @ 0x001aff50
+#include "decls/address.h"
 struct V3_1aff50 { float x, y, z; };
 
 struct Actor_1aff50;
@@ -32,7 +33,6 @@ struct World {
     Clock_1aff50* clock;
 };
 
-extern World* DAT_004dd700;
 
 int __stdcall FUN_001aff50(int a1, Holder_1aff50* h2, int a3, Holder_1aff50* h4, int a5, int a6, V3_1aff50* dir, int a8)
 {

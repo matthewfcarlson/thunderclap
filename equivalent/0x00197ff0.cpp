@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 44/46, incomplete)
 // FUN_00197ff0 @ 0x00197ff0
+#include "decls/address.h"
 struct V3_197ff0 {
     float x, y, z;
     float FUN_0022d110();
@@ -36,7 +37,6 @@ struct World {
     char pad3c[8];
     List_197ff0 *list;
 };
-extern World *DAT_004dd700;
 
 struct Owner_197ff0 {
     Obj_197ff0 *FUN_001d72e0();

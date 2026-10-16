@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 extern int EntityType, CompositeType, PoseType;
 class Result_288770 {
   public:
@@ -15,22 +17,17 @@ class Result_288770 {
     virtual unsigned int run();
 };
 extern Result_288770* __cdecl resolve(void*, int, const void*, const void*, int);
-class Pose {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void vfunc_5(void*);
+struct PoseAnimationController_nv_288770 {
     void set(unsigned int);
 };
-void Pose::vfunc_5(void* arg) {
+
+void pure3d::PoseAnimationController::vfunc_5(void* __p0) { void * arg = (void *)__p0;
+
     Result_288770* p = resolve(arg, 0, &EntityType, &CompositeType, 0);
     if (p) {
-        set(p->run());
+        ((PoseAnimationController_nv_288770*)this)->set(p->run());
     } else {
         unsigned int x = (unsigned int)resolve(arg, 0, &EntityType, &PoseType, 0);
-        set(x);
+        ((PoseAnimationController_nv_288770*)this)->set(x);
     }
 }

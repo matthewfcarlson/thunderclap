@@ -3,7 +3,7 @@ class Helper_235250 {
   public:
     void Process(int);
 };
-class ParamValueBranch {
+namespace fight { class ParamValueConditionGroup {
   public:
     virtual void f0();
     virtual void f1();
@@ -13,8 +13,8 @@ class ParamValueBranch {
     virtual void f5();
     virtual int Query(int);
     virtual void f7();
-};
-void ParamValueBranch::vfunc_3(int a, int b) {
+}; }
+void fight::ParamValueConditionGroup::vfunc_3(int a, int b) {
     int x = Query(a);
     if (x)
         ((Helper_235250*)x)->Process(b);

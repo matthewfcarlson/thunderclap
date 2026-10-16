@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/12, incomplete)
 // FUN_001b5da0 @ 0x001b5da0
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int DAT_004d9968;
 
@@ -40,13 +41,12 @@ public:
     void FUN_002f9660();
 };
 
-struct Globals_1b5da0 {
+struct World {
     char pad0[0x54];
     Pad_1b5da0 *pad;
 };
 
 extern Settings_1b5da0 *DAT_004dd6e8;
-extern Globals_1b5da0 *DAT_004dd700;
 extern Gravity_1b5da0 *DAT_00554c10;
 extern Timer DAT_0055545c;
 

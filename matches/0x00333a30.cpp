@@ -1,14 +1,10 @@
-class PlayerBink {
-    char pad[0x1c];
-    void* member;
+#include "gen/movie.h"
 
-  public:
-    bool vfunc_13(unsigned int* out);
-};
-bool PlayerBink::vfunc_13(unsigned int* out) {
-    if (member) {
-        out[1] = *(unsigned int*)member;
-        out[0] = *((unsigned int*)member + 1);
+bool movie::PlayerBink::vfunc_13(void* __p0) { unsigned int * out = (unsigned int *)__p0;
+
+    if ((*(void * *)&this->f_1c)) {
+        out[1] = *(unsigned int*)(*(void * *)&this->f_1c);
+        out[0] = *((unsigned int*)(*(void * *)&this->f_1c) + 1);
         return true;
     }
     return false;

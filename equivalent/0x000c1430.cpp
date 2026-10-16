@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 964 inputs, branch coverage 26/26)
 // FUN_000c1430 @ 0x000c1430
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
-extern "C" char __cdecl FUN_001d04d0(const char *);
 extern "C" const char DAT_0048e100[];
 extern "C" const char DAT_0048e0f0[];
 inline void *operator new(unsigned int, void *p) throw() { return p; }

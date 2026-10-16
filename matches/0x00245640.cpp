@@ -1,29 +1,26 @@
+#include "gen/audio.h"
+
 typedef unsigned int u32_245640;
 extern void* __cdecl FUN_00247530(void*);
 extern u32_245640 clipVftable;
 extern char allocatorGlobal;
 namespace audio {
-class Clip {
+class Clip_245640 {
   public:
     u32_245640 vft;
     char pad[0x24];
     u32_245640 field28;
     void init(void*);
 };
-class ClipType {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void* vfunc_2();
-};
-void* ClipType::vfunc_2() {
-    Clip* p = (Clip*)FUN_00247530(&allocatorGlobal);
+
+} // namespace audio
+void* audio::ClipType::vfunc_2() {
+    Clip_245640* p = (Clip_245640*)FUN_00247530(&allocatorGlobal);
     if (p != 0) {
         p->init(&allocatorGlobal);
         p->vft = (u32_245640)&clipVftable;
         p->field28 = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }
-} // namespace audio

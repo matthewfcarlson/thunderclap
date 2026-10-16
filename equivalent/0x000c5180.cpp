@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3106 inputs, branch coverage 70/76, incomplete)
 // FUN_000c5180 @ 0x000c5180
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int strcmp(const char *, const char *);
 extern "C" char *__cdecl strncpy(char *, const char *, unsigned int);
@@ -22,7 +23,7 @@ public:
     virtual const char *vfunc_8();
 };
 
-class Service_c5180 {
+class Gfx {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -108,7 +109,6 @@ Node *FUN_000fc310();
 Flag4 *FUN_0008e090();
 
 extern char DAT_004e222c;
-extern Service_c5180 *DAT_0052c2a8;
 
 struct Frame_c5180 {
     Node *cur;

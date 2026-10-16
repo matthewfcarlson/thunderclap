@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
 // FUN_000c72e0 @ 0x000c72e0
+#include "decls/address.h"
 extern "C" double sqrt(double);
 
 struct Mat_c72e0 {
@@ -76,7 +77,7 @@ struct Me_c72e0 {
     Player_c72e0 *player;         // 0x124
 };
 
-struct Game_c72e0 {
+struct World {
     char pad0[0x20];
     Me_c72e0 *me;                 // 0x20
 };
@@ -92,7 +93,6 @@ struct Entry_c72e0 {
     char pad10[0x10];
 };
 
-extern Game_c72e0 *DAT_004dd700;
 extern Meter_c72e0 *DAT_0052c2a4;
 extern Holder_c72e0 *DAT_0052c2ac;
 extern float DAT_0049fb8c;

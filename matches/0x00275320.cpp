@@ -21,14 +21,14 @@ struct Manager_275320 {
 };
 extern Manager_275320* g_mgr_275320;
 extern char g_lock_275320[];
-class Req_275320 {
+namespace core { class FileWriteRequest {
   public:
     void* vt;
     int pad;
     Inner_275320* inner;
-    Req_275320* vfunc_0(int flags);
-};
-Req_275320* Req_275320::vfunc_0(int flags) {
+    FileWriteRequest* vfunc_0(int flags);
+}; }
+core::FileWriteRequest* core::FileWriteRequest::vfunc_0(int flags) {
     Inner_275320* p = inner;
     vt = g_vftableA;
     ((Inner_275320*)((char*)p + 4))->a();

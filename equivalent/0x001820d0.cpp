@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 10/10)
 // hulkfight::motion::PropSpawnAction::vfunc_3 @ 0x001820d0
+#include "gen/hulkfight.h"
+#include "decls/address.h"
+
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 
@@ -72,24 +75,11 @@ struct World {
     Spawner_1820d0* spawner;
 };
 
-extern World* DAT_004dd700;
 extern int DAT_004e1504;
 
 int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
 
-class PropSpawnAction {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual bool vfunc_3(int a, int b);
-    char pad4[0x1c - 4];
-    Config_1820d0* cfg;
-    Owner_1820d0* owner;
-};
-
-bool PropSpawnAction::vfunc_3(int a, int b)
-{
+bool hulkfight::motion::PropSpawnAction::vfunc_3(int a, int b) {
     volatile unsigned int cookie = DAT_004d9968;
     struct Frame {
         Vec3_1820d0 tmp;
@@ -99,13 +89,13 @@ bool PropSpawnAction::vfunc_3(int a, int b)
         Mat_1820d0 local;
         char name[0x80];
     } fr;
-    if (owner) {
-        Holder_1820d0* h = owner->FUN_000592a0()->FUN_00059a30();
+    if ((*(Owner_1820d0 * *)&this->f_20)) {
+        Holder_1820d0* h = (*(Owner_1820d0 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();
         Skel_1820d0* skel = h->skel;
         BoneTable_1820d0* table = skel->table;
         unsigned int bone = 0;
-        int keyA = cfg->keyA;
-        int keyB = cfg->keyB;
+        int keyA = (*(Config_1820d0 * *)&this->f_1c)->keyA;
+        int keyB = (*(Config_1820d0 * *)&this->f_1c)->keyB;
         if ((keyA | keyB) != 0) {
             bone = table->FUN_0027b200(keyA, keyB);
             if (bone == 0xffff)
@@ -113,11 +103,11 @@ bool PropSpawnAction::vfunc_3(int a, int b)
         }
         Mat_1820d0* parent = skel->matrices + bone;
         fr.local.FUN_0022ba00();
-        fr.tmp = cfg->pos;
+        fr.tmp = (*(Config_1820d0 * *)&this->f_1c)->pos;
         fr.local.m[12] = fr.tmp.x;
         fr.local.m[13] = fr.tmp.y;
         fr.local.m[14] = fr.tmp.z;
-        fr.local.FUN_0022bc20(cfg->rot);
+        fr.local.FUN_0022bc20((*(Config_1820d0 * *)&this->f_1c)->rot);
         fr.world.FUN_0022ca90(&fr.local, parent);
         FUN_00267760(fr.name, 0x80, "propSpawn%d", DAT_004e1504);
         Spawner_1820d0* spawner = DAT_004dd700->spawner;
@@ -126,15 +116,15 @@ bool PropSpawnAction::vfunc_3(int a, int b)
         where.x = fr.world.m[12];
         where.y = fr.world.m[13];
         where.z = fr.world.m[14];
-        spawner->FUN_001e5860(fr.name, cfg->f10, where);
+        spawner->FUN_001e5860(fr.name, (*(Config_1820d0 * *)&this->f_1c)->f10, where);
         Prop_1820d0* prop = (Prop_1820d0*)spawner->FUN_001def30(fr.name);
         if (prop) {
             prop->FUN_001d6b60(fr.world, 0);
             if (prop->FUN_001d72e0()) {
                 prop->FUN_001d7510();
-                fr.tmp = cfg->dir;
+                fr.tmp = (*(Config_1820d0 * *)&this->f_1c)->dir;
                 fr.world.FUN_0022c3b0(&fr.tmp, &fr.dir);
-                fr.tmp = cfg->pt;
+                fr.tmp = (*(Config_1820d0 * *)&this->f_1c)->pt;
                 fr.world.FUN_0022c2b0(&fr.tmp, &fr.pos);
                 prop->FUN_001d86d0(&fr.dir, &fr.pos);
             }

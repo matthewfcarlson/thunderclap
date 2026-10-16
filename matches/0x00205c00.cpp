@@ -1,6 +1,6 @@
+#include "decls/address.h"
 typedef unsigned char byte;
 extern void __stdcall FUN_001d0480(int, int);
-extern byte __cdecl FUN_001d04d0(const char*);
 extern const char g1[], g2[];
 class Base {
   public:

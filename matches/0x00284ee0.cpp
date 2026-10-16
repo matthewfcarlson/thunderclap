@@ -1,12 +1,6 @@
 // Same code shape as 0x000690a0 (propagated; names are from that function)
-class CJumpTrack {
-  public:
-    char pad[0x28];
-    float mHeight;
+#include "gen/pure3d.h"
 
-    float GetHeight();
-};
-
-float CJumpTrack::GetHeight() {
-    return mHeight;
+float pure3d::SimpleFrameController::vfunc_21() {
+    return this->f_28;
 }

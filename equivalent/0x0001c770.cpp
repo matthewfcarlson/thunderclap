@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 24/24)
 // FUN_0001c770 @ 0x0001c770
+#include "decls/address.h"
 struct Vec3_1c770 {
     float x, y, z;
     float FUN_0022d110();
@@ -28,7 +29,7 @@ struct EntityList_1c770 {
     Entity* FUN_00024190(int index);
 };
 
-struct Globals_1c770 {
+struct World {
     char pad0[0x20];
     EntityList_1c770* entities;
 };
@@ -43,7 +44,6 @@ struct Source_1c770 {
     Vec3_1c770 pos;
 };
 
-extern Globals_1c770* DAT_004dd700;
 
 struct Anchor_1c770 { char pad[4]; };
 Anchor_1c770* __fastcall FUN_000592a0(void* owner);

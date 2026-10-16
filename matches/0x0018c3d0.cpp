@@ -1,13 +1,15 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0041956c[];
 extern "C" void* Alloc(unsigned int);
-class Track {
+class Track_18c3d0 {
   public:
-    Track();
+    Track_18c3d0();
     virtual void a();
     virtual void b();
     virtual void c();
 };
-class PropDamageTrack : public Track {
+class PropDamageTrack_18c3d0 : public Track_18c3d0 {
   public:
     int x4;
     int x8;
@@ -15,25 +17,17 @@ class PropDamageTrack : public Track {
     int x10;
     int x14;
 };
-class Factory_18c3d0 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual PropDamageTrack* f5();
-};
-PropDamageTrack* Factory_18c3d0::f5() {
-    PropDamageTrack* p = (PropDamageTrack*)Alloc(0x18);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropDamageTrack>::vfunc_5() {
+    PropDamageTrack_18c3d0* p = (PropDamageTrack_18c3d0*)Alloc(0x18);
     if (p) {
-        p->Track::Track();
+        p->Track_18c3d0::Track_18c3d0();
         *(volatile unsigned int*)p = ((int)DAT_0041956c);
         p->xc = 0;
         p->x10 = 0;
         p->x14 = 0;
         p->x8 = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

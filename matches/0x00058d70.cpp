@@ -1,31 +1,25 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_003f734c[];
 extern "C" void* __cdecl Alloc(int);
-struct Entity {
+struct Entity_58d70 {
     void Init();
 };
-struct Condition {
+struct Condition_58d70 {
     char pad[0xc];
     int value;
-    Entity ent;
+    Entity_58d70 ent;
     void Ctor(int);
 };
-class Factory_58d70 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual Condition* Create();
-};
-Condition* Factory_58d70::Create() {
-    Condition* p = (Condition*)Alloc(0x18);
+
+template <> void* fight::ConditionFactoryTemplate<CCharacterTemplateVariationCondition>::vfunc_5() {
+    Condition_58d70* p = (Condition_58d70*)Alloc(0x18);
     if (p) {
         p->Ctor(0);
         *(void**)p = (void*)((int)DAT_003f734c);
         *(int*)((char*)p + 0xc) = 0;
         p->ent.Init();
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

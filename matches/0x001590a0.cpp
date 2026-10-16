@@ -1,6 +1,8 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00413fb0[];
 extern "C" void* FUN_0008d690(unsigned int);
-class CollisionThrowCondition {
+class CollisionThrowCondition_1590a0 {
   public:
     int vt;
     int a;
@@ -8,22 +10,14 @@ class CollisionThrowCondition {
     unsigned char flag;
     void Init(int);
 };
-class Factory_1590a0 {
-  public:
-    virtual void A();
-    virtual void B();
-    virtual void C();
-    virtual void D();
-    virtual void E();
-    virtual CollisionThrowCondition* vfunc_5();
-};
-CollisionThrowCondition* Factory_1590a0::vfunc_5() {
-    CollisionThrowCondition* p = (CollisionThrowCondition*)FUN_0008d690(0x10);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionThrowCondition>::vfunc_5() {
+    CollisionThrowCondition_1590a0* p = (CollisionThrowCondition_1590a0*)FUN_0008d690(0x10);
     if (p) {
         p->Init(0);
         p->vt = ((int)DAT_00413fb0);
         p->flag = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

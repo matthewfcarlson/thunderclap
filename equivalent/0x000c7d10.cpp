@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 9/10, incomplete)
 // FUN_000c7d10 @ 0x000c7d10
+#include "decls/address.h"
 struct Key_c7d10 {
     int lo, hi;
     void FUN_0027af50();
@@ -31,14 +32,13 @@ struct Lookup_c7d10 {
     bool FUN_001dd7b0(Key_c7d10 *k);
 };
 
-struct Manager_c7d10 {
+struct World {
     char pad0[0xc];
     Lookup_c7d10 *lookup;
     char pad10[0x20 - 0x10];
     Registry_c7d10 *registry;
 };
 
-extern Manager_c7d10 *DAT_004dd700;
 
 void __cdecl FUN_00096e50(Key_c7d10 *k, int name);
 

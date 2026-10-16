@@ -1,4 +1,6 @@
-class DriveRequest {
+#include "gen/core.h"
+
+class DriveRequest_274610 {
   public:
     virtual void v0();
     virtual void v1();
@@ -7,13 +9,7 @@ class DriveRequest {
     virtual void v4();
     virtual void v5();
 };
-class DriveFormatRequest : public DriveRequest {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f4();
-    virtual int vfunc_6();
-};
-int DriveFormatRequest::vfunc_6() {
+
+int core::DriveFormatRequest::vfunc_6() {
     return 0xd;
 }

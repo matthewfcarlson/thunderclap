@@ -1,17 +1,12 @@
-class CStatsManager {
+#include "gen/global.h"
+
+class CStatsManager_90e70 {
   public:
     void Action(const char*, const char*, int, int, int, int);
 };
-class Closure6 {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(int, const int*, int);
-    char pad[0x18];
-    void (CStatsManager::*method)(const char*, const char*, int, int, int, int);
-    CStatsManager* object;
-};
-void Closure6::vfunc_2(int, const int* args, int) {
+
+template <> void Closure6<CStatsManager, void, const char *, const char *, int, int, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { const int * args = (const int *)__p1;
+
     const int* p = args;
     int a = *p++;
     int b = *p++;
@@ -19,5 +14,5 @@ void Closure6::vfunc_2(int, const int* args, int) {
     int d = *p++;
     int e = *p++;
     int f = *p++;
-    (object->*method)((const char*)a, (const char*)b, c, d, e, f);
+    ((*(CStatsManager_90e70 * *)&this->f_20)->*(*(void (CStatsManager_90e70::**)(const char *, const char *, int, int, int, int))&this->f_1c))((const char*)a, (const char*)b, c, d, e, f);
 }

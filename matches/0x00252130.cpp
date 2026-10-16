@@ -1,4 +1,6 @@
-class SeqEvent {
+#include "gen/audio.h"
+
+class SeqEvent_252130 {
   public:
     virtual int vfunc_0(void*);
     virtual void vfunc_1();
@@ -14,11 +16,9 @@ class SeqEventCheck {
 bool Read1(void*, void*);
 bool Read2(void*, void*);
 bool Read3(void*, void*);
-class SeqEventChannelVolumes : public SeqEvent {
-  public:
-    int vfunc_0(void*);
-};
-int SeqEventChannelVolumes::vfunc_0(void* p) {
+
+int audio::SeqEventChannelVolumes::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
     if (((SeqEventCheck*)this)->CheckBase(p)) {
         if (Read1(p, (char*)this + 0x18)) {
             if (Read2(p, (char*)this + 0x1c)) {

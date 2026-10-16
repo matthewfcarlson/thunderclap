@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 29/36, incomplete)
 // hulkfight::motion::FrameReachedCondition::vfunc_6 @ 0x0013ab50
+#include "decls/address.h"
 class fight_Params_13ab50 {
 public:
     virtual void vfunc_0();
@@ -55,7 +56,6 @@ struct World {
     char pad0[0x58];
     Clock_13ab50 *clock;
 };
-extern World *DAT_004dd700;
 
 class FrameReachedCondition {
 public:

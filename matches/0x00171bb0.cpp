@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 class Actor_171bb0;
 class Owner_171bb0 {
     char pad[0x25];
@@ -18,32 +20,16 @@ class Manager_171bb0 {
   public:
     Owner_171bb0* GetOwner();
 };
-class DriftToPositionAction {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void vfunc_4();
-    virtual void f5();
-    char pad1[0x18];
-    Owner_171bb0* owner;
-    Manager_171bb0* manager;
-    char pad24[0x2c];
-    unsigned char a;
-    unsigned char b;
-    unsigned char c;
-    char pad53[0x0b];
-};
-void DriftToPositionAction::vfunc_4() {
-    Owner_171bb0* o = manager->GetOwner();
+
+void hulkfight::motion::DriftToPositionAction::vfunc_4() {
+    Owner_171bb0* o = (*(Manager_171bb0 * *)&this->f_20)->GetOwner();
     if (o) {
         Actor_171bb0* a = o->GetActor();
         if (a) {
-            if (owner->flag && c)
+            if ((*(Owner_171bb0 * *)&this->f_1c)->flag && this->f_52)
                 a->SetPosition((char*)this + 0x40);
-            a->field = b;
-            a->SetFlag(this->a);
+            a->field = this->f_51;
+            a->SetFlag(this->f_50);
         }
     }
 }

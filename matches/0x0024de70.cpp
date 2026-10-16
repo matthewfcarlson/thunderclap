@@ -1,13 +1,6 @@
 // Same code shape as 0x0024ddf0 (propagated; names are from that function)
-class MetaTypeAttribScalarInt_24de70 {
-    char pad0[0x14];
-    int offset;
-    char pad1[0x0c];
-    int value;
+#include "gen/om.h"
 
-  public:
-    void vfunc_3(int);
-};
-void MetaTypeAttribScalarInt_24de70::vfunc_3(int p) {
-    *(int*)((char*)p + offset) = value;
+template <> void om::MetaTypeAttribScalar<float>::vfunc_3(int p) {
+    *(int*)((char*)p + this->f_14) = this->f_24;
 }

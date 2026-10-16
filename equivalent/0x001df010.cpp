@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001df010 @ 0x001df010
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
-unsigned __int64 __cdecl FUN_0027b020(const char *name);
+#include "decls/address.h"
 
 struct Mat4_1df010 {
     float m[12];

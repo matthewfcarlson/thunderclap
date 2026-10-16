@@ -1,4 +1,4 @@
-class AmbientLight {
+namespace pure3d { class AmbientLight {
   public:
     virtual void f0();
     virtual void f1();
@@ -12,7 +12,7 @@ class AmbientLight {
     virtual void vfunc_9(int x);
     char pad[0x10];
     int value;
-};
+}; }
 class Dispatch_2a1280 {
   public:
     virtual void f0();
@@ -53,6 +53,6 @@ class Dispatch_2a1280 {
     virtual void f35(int);
 };
 extern Dispatch_2a1280* g_dispatch;
-void AmbientLight::vfunc_9(int x) {
+void pure3d::AmbientLight::vfunc_9(int x) {
     return g_dispatch->f35(value);
 }

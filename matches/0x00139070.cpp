@@ -1,27 +1,18 @@
 // Same code shape as 0x00119fb0 (propagated; names are from that function)
+#include "gen/hulkfight.h"
+
 typedef unsigned int u32_139070;
 extern int TypeA_139070, TypeB;
-struct MotionBoostTrack {
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual int vfunc_10(u32_139070 a, u32_139070 b, void* p);
-};
-struct Params {
-    int Init(MotionBoostTrack*, void*);
+struct Params_139070 {
+    int Init(hulkfight::motion::AirToGroundTargetTrack*, void*);
 };
 extern int IsKindOf(void*, int, int*, int*, int);
 extern void* Alloc(unsigned int);
-int MotionBoostTrack::vfunc_10(u32_139070 a, u32_139070 b, void* p) {
+
+int hulkfight::motion::AirToGroundTargetTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_139070 a = (u32_139070)__p0; u32_139070 b = (u32_139070)__p1; void * p = (void *)__p2;
+
     if (IsKindOf(p, 0, &TypeA_139070, &TypeB, 0)) {
-        Params* q = (Params*)Alloc(0x34);
+        Params_139070* q = (Params_139070*)Alloc(0x34);
         if (q)
             return q->Init(this, p);
     }

@@ -5,7 +5,8 @@ into a source tree with one translation unit per recovered object file, and chec
 survives the merge. Plan: [shipping.md §1](shipping.md#1-the-source-tree-roadmap-steps-2-and-4). Splits:
 [splits.md](splits.md). Numbers below are from 2026-10-15, after the placeholder rename
 ([below](#placeholder-names-toolsrename_placeholderspy)), the stub reconciliation
-([below](#stub-reconciliation-2026-10-15)) and the [platform layer split](#platform-layers-2026-10-15).
+([below](#stub-reconciliation-2026-10-15)) and the [platform layer split](#platform-layers-2026-10-15); the
+[include/gen/ migration](#includegen-migration-2026-10-16) (2026-10-16) has its own numbers.
 
 ```sh
 build/venv/bin/python tools/infer_splits.py      # config/splits.json + docs/splits.md      (~7 s)
@@ -15,6 +16,7 @@ build/venv/bin/python tools/build_tree.py --equiv 300   # also run equiv.py on 3
 build/venv/bin/python tools/build_tree.py --only src/game/global/CAction.cpp  # one TU, current tree
 build/venv/bin/python tools/seam_inventory.py    # docs/seams.md: what game/engine call in platform/xbox (~30 s)
 build/venv/bin/python tools/reconcile_stubs.py [--apply]   # clone names in matches/ + equivalent/ (re-verify what it changes)
+build/venv/bin/python tools/migrate_gen.py [--family gen|pin|ns] [--equivalent] [--apply]   # sources onto include/gen/, include/decls/
 ```
 
 `build_tree.py` regenerates the tree itself (from an empty fallback state), so it is the one command to
@@ -72,6 +74,9 @@ address). A function that fails either check falls back (merged -> wrapped -> is
 (`--regression-rounds`, default 2). This is what makes the class merges below safe for equivalent/ sources.
 
 ## Current numbers
+
+(Before the include/gen/ migration. Latest: 19,611 / 5,202 / 640 merged / wrapped / isolated, 77.0% merged, 2,499 TUs,
+[below](#includegen-migration-2026-10-16).)
 
 | | before (2026-10-14, 19:00) | after (2026-10-15) |
 |---|---|---|
@@ -251,79 +256,155 @@ function-like macros, and sources that already use the new name. Re-running it p
 1,134 sources changed, all in `matches/`; **all 1,134 still byte-match** (`compare.py`). No equivalent/ source
 qualified, so no `equiv.py` runs were needed. Effect: about +400 merged functions.
 
-**`include/gen/` migration: measured, not started.** `gen_headers.py --swap-test 200` (rewrite a vfunc match to
-use include/gen/ instead of its stub, recompile): 119 of 200 still match, 2 differ, 3 don't compile, 76 can't
-be rewritten (59 destructor slots, 8 multiple/virtual bases, the rest fields or parameters the header lacks).
-96% of the rewritable ones match, so the migration is viable; but a migrated source `#include`s a header, and
-the generator wraps every source with preprocessor lines. The generator needs an include/gen/ mode first
-(treat `#include "gen/…"` as a TU-level include, make the tree's include path see `include/gen/`), then the
-swap can run per function with `build_tree.py` re-verifying. That is the next step below.
+**`include/gen/` migration:** done 2026-10-16, see the [next section](#includegen-migration-2026-10-16). (Before
+it: `gen_headers.py --swap-test 200` had 119 of 200 vfunc matches surviving the rewrite; the generator wrapped
+every source with an `#include`.)
+
+## include/gen/ migration (2026-10-16)
+
+Roadmap step 2: sources stop declaring private stubs of RTTI classes and define the real members on the
+generated headers ([headers.md](headers.md)). Next steps 1-4 of the previous plan, in order.
+
+**Generator (`tools/gen_tree.py`, `tools/build_tree.py`, `tools/cxx_items.py`).**
+
+- A source may `#include "gen/<ns>.h"` or `"decls/<x>.h"`. The include is not a wrap reason any more: it is hoisted
+  to the TU (emitted first, before the directory header), and the header's declarations (with what it includes)
+  become *forced* variants in the TU: kept first, so a function whose own stub of a header class differs is
+  wrapped, and conflicting stubs are kept out of the tree headers a gen TU includes. `build_tree.py` adds
+  `/I include` (it was only on `INCLUDE`), and the object cache key covers `include/gen/` and `include/decls/`.
+- Per TU the generator merges both ways, with the headers and without them (the sources on them then get their own
+  TU), and keeps the better one (merged functions, half a point off per source sent to its own TU): 1,351 TUs are
+  on include/gen/, 27 merge more without it.
+- A source on include/gen/ that can't merge is isolated (`void ns::X::f()` and `template <> ...` can't go inside a
+  `fn_<addr>` namespace): 465 functions. A wrapped source that only includes `decls/` gets the header's
+  declarations inline in its namespace instead.
+- `cxx_items` parses template-id declarators (`template <> bool fight::ParamBool<CFoo>::vfunc_6(int, int)`, key
+  `fight::ParamBool<CFoo>::vfunc_6`; it used to key it `<CFoo>::vfunc_6`), and `build_tree.mangle_prefixes` finds
+  explicit specializations by `?vfunc_6@?$ParamBool@` / `??_G?$Closure1@` / `??1?$...`.
+
+**Sources (`tools/migrate_gen.py`).** Token-level, logged (`build/migrate-gen.log`), list in
+`build/gen-migrated.txt`, originals in `build/gen-orig/`, every rewrite verified before it is kept (matches/:
+`compare.py` MATCH; equivalent/: `equiv.py --inputs 3000` EQUIVALENT, the unchanged source run under the same
+checker when it isn't). Rules and counts (9,159 sources: 8,308 matches/, 851 equivalent/):
+
+| family / rule | what | matches/ | equivalent/ | rejected by verification |
+|---|---|---|---|---|
+| gen / `gen-swap` | stub of the target's class -> the header's class (`gen_headers.swap_transform`: `f_XX` fields, slot names, parameter casts) | 2,720 | 104 | 210 compile errors, 15 DIFF, 4 FAIL (equivalent/) |
+| gen / `clone-template` | template target as an explicit specialization, `template <> bool fight::ParamFloatConstRange<CFoo>::vfunc_6(int a, int b)` (step 2) | 3,403 | 6 | 32 compile errors, 14 DIFF |
+| gen / `gen-dtor` | plain scalar deleting destructor (base dtor, `delete` if `flags & 1`) -> `X::~X() {}`; MSVC generates the matched `??_G` from it | 1,873 | 0 | 13 DIFF |
+| pin / `pin-decl` | own declarations of pinned address names -> `#include "decls/address.h"`; the private class of `DAT_004dd700` & co. renamed to the pinned type (`Global_10aa90` -> `World`) (step 3) | 160 | 745 | 95 compile errors (argument types: `FUN_002672f0(int, ...)`), 1 DIFF, 15 FAIL (4 of them fail unchanged too) |
+| ns / `rtti-ns`, `clone-ns` | the global stub of the target's own namespaced RTTI class moves into its namespace; a clone's donor class becomes the target's (step 4) | 152 | 22 | 2 compile errors |
+
+Not rewritten (skip reasons from the tool): 1,718 destructor slots with more than the plain body (vptr stores,
+inlined base destructors, member releases), 926 sources using a field the header doesn't have, 356 with several
+candidate definitions, 353 stubs with several bases, 160 slots whose header return type is `void`, plus small
+classes. `include/gen/` itself did not change.
+
+Step 4 is narrower than planned: moving a global stub into its namespace makes it collide with the include/gen/
+class in a TU that includes the header (measured over all 879 candidates: -48 merged), so the ns family only touches
+sources whose TU is not on include/gen/ (+83 merged).
+
+**Tree** (`build_tree.py --rounds 16`, log `build/gen-build.log`): **2,499 / 2,499 TUs compile; 20,889 / 20,889
+matches still match; 4,564 / 4,564 equivalent/ functions compile, 4,517 with code identical to their standalone
+build, 47 wrapped ones can't be told (symbol not found standalone), 0 differ.** Fallback rounds converge in 8 plus
+two regression rounds (72, then 2 functions: mostly a `~X() {}` now defined in the TU getting inlined into a
+neighbour's call).
+
+| | baseline (2026-10-15 build) | after (2026-10-16 build) |
+|---|---|---|
+| verified functions in the tree | 24,578 | 25,453 (farm lanes added sources meanwhile) |
+| TU files | 1,997 | 2,499 (more isolated TUs and placement-new siblings) |
+| merged / wrapped / isolated | 15,720 / 8,721 / 137 (64.0%) | **19,611 / 5,202 / 640 (77.0%)** |
+| matches merged / wrapped / isolated | 12,919 / 7,044 / 61 (2026-10-15) | 17,226 / 3,153 / 510 |
+| equivalent/ merged / wrapped / isolated | 2,780 / 1,642 / 81 (2026-10-15) | 2,385 / 2,049 / 130 |
+
+Per step (generator only, `gen_tree` with the last build's fallback state, earlier steps' rewrites applied and
+later ones reverted from `build/gen-orig/`; the build's own fallbacks shift the final numbers a little):
+
+| after step | sources rewritten | merged / wrapped / isolated | merged % | TUs |
+|---|---|---|---|---|
+| 0 (generator change only) | 0 | 16,184 / 9,132 / 137 | 63.6% | 1,997 |
+| 1 `gen-swap` + `gen-dtor` of plain classes | 3,016 | 16,374 / 8,707 / 372 | 64.3% | 2,232 |
+| 2 `clone-template` + template `gen-dtor` | 8,106 | 19,627 / 5,387 / 439 | 77.1% | 2,299 |
+| 3 `pin-decl` | 8,985 | 19,646 / 5,371 / 436 | 77.2% | 2,296 |
+| 4 `rtti-ns` / `clone-ns` | 9,159 | 19,729 / 5,286 / 438 | 77.5% | 2,298 |
+
+Step 1 alone gains little because a plain class's sources share TUs with the template clones and destructor
+clones of the same stubs; step 2 is where the "same definition" wraps (4,111) go (674 left). equivalent/ merged
+goes down (2,790 -> 2,385): 4,060 equivalent/ sources sit in TUs on include/gen/ and keep private stubs of the
+header's classes (`Closure0`, `fight::ParamFloatConstRange`, `Node`, ...), mostly constructors and registration
+functions the headers can't express (no constructors in include/gen/). Step 3 barely moves the count: pinning
+`DAT_004dd700` turns 180 private type names into `World`, and the World stubs only merge where their layouts agree
+(`World` now blocks 191 functions, `DAT_004dd700` none).
 
 ## Why functions still don't merge
 
-Of 8,828 functions that are not merged, the reasons (a function can have more than one):
+After the include/gen/ migration (2026-10-16 build), of 5,842 functions that are not merged, the reasons (a
+function can have more than one):
 
 | reason | functions |
 |---|---|
-| the same definition as another function in the TU: clone-propagated sources whose target is a template instantiation (`Method2<CActorManager,void,const_char_*,math::Vector>::vfunc_0` defined as `CCollisionAction::vfunc_2`, ~3,000; `ParamIntConstRange::vfunc_6`/`vfunc_2` ~1,000 for `fight::ParamIntConstRange<X>`) | 4,113 |
-| a declaration conflicts with the TU's chosen variant | 3,740 |
-| compile errors blamed by the build (a merged class that one user's code can't use, e.g. an inline body naming a member the merged layout spells differently) | 492 |
-| the merged class would differ for this function (validate_tu) | 194 |
-| helper definitions besides the function itself (MSVC 7.1 `/O2` inlines any function defined anywhere in the TU) | 192 |
-| code changed in the tree (36 + 3 caught by the regression rounds) | 38 |
-| macros, using-directives, target defined inside a class | 82 |
+| a declaration conflicts with the TU's chosen variant (in a TU on include/gen/ that includes the header's class: a private stub of it) | 4,042 |
+| the same definition as another function in the TU: mostly destructor-slot clones with more than the plain body, which `gen-dtor` doesn't take (`CSweepTrack`/`CTrack` 390, `TrackFactoryTemplate` 468, ...) | 674 |
+| compile errors blamed by the build (incl. shared declarations) | 623 |
+| on include/gen/ and not mergeable (its own TU) | 465 |
+| helper definitions besides the function itself | 214 |
+| the merged class would differ (validate_tu) | 77 |
+| on include/gen/, but its TU merges more without the headers | 76 |
+| code changed in the tree (regression rounds: an inlined `~X() {}`, a call sequence) | 73 |
+| macros, using-directives, target defined inside a class | 88 |
 
 ## Conflicts
 
-`build/tree/conflicts.json` lists 2,500 names declared incompatibly across the verified sources (raw
-variants; most are now resolved inside the TUs). Names that still blocked a merge somewhere, and the
-functions wrapped because of them:
-
-| class | names blocking (before → after) | wraps (before → after) |
-|---|---|---|
-| RTTI classes (template families, `Closure*`/`Method*`, `FEThingsBase`, …) | 402 → 381 | 3,510 → 1,826 |
-| global-scope stubs of namespaced RTTI classes (`rtti_stub`; counted as "invented" before) | — → 293 | — → 1,103 |
-| invented names (functions like `Alloc`, `cleanup`) | 539 → 138 | 3,152 → 431 |
-| address names | 438 → 292 | 1,868 → 1,179 |
+`build/tree/conflicts.json`: 2,434 names declared incompatibly (raw variants across all sources). Functions wrapped
+because of them, by class (2026-10-15 -> 2026-10-16): RTTI classes 1,826 -> 2,949 (now mostly private stubs of a
+class that include/gen/ declares in the same TU), global stubs of namespaced RTTI classes 1,103 -> 1,003, invented
+names 431 -> 915, address names 1,179 -> 837.
 
 Top remaining:
 
 | symbol | wraps | what |
 |---|---|---|
-| `TrackFactoryTemplate` | 434 | one non-template stub for 245 instantiations of `fight::TrackFactoryTemplate<T>`, written as `struct { void* m_vptr; … }` in some sources and as a polymorphic class in others: the code differs (explicit vs virtual), not mergeable |
-| `DAT_004dd700` | 170 | `extern World*` in 101 sources, a source-private stub type in the rest (`Context*`, `Game*`, `Global_10aa90*`, `unsigned`): a real type question |
-| `Node`, `FaceTargetAction`, `Action`, `Object` | 115, 96, 81, 67 | global stubs of RTTI classes whose variants really differ (different bases or field types at one offset) |
-| `Method0/1`, `Closure0/1/2` | 70–108 each | template families written as non-template stubs |
-| `ParamIntConstRange` | 101 (was 703) | template family; the rest is `vfunc_6`/`vfunc_2` clones |
-| `FUN_0027b020`, `FUN_001d04d0`, `FUN_002672f0` | 51, 45, 28 | return or parameter types really differ (`unsigned __int64` vs `__int64`, `char` vs `unsigned char`, `const char*` vs `unsigned int`), or `throw()` on the declaration (changes caller EH code, so not treated as a spelling) |
-| `Alloc` | 54 | C vs C++ linkage of an invented name (not an address name, so not unified) and `Object*(int)` vs `void*(unsigned)` |
+| `World` | 191 | the pinned type of `DAT_004dd700`: 280 sources' private stubs of the world object, merged only where layouts agree |
+| `Node`, `FaceTargetAction`, `Action`, `Object` | 119, 95, 77, 61 | global stubs of RTTI classes whose variants really differ, mostly in equivalent/ and in functions that are not the class's own vfuncs |
+| `CTrack`, `CSweepTrack`, `pure3d::NonCopyable` | 119, 102, 107 | destructor-slot clones with an inlined base destructor (vptr store + one call): no `~X() {}` form compiles to them on today's headers |
+| `Closure0/1/2`, `Method0/1`, `fight::Param*`, `content::LoadInventory::DynamicCaster`, `FEThingsBase` | 47-82 each | constructors and registration functions (`new (mem) fight::ParamFloatConstRange<CFoo>("timeBegin", &CFoo::f)`) that need constructors the headers don't have |
+| `Alloc`, `Obj`, `Find`, `zeroCondition` | 92, 69, 57, 55 | invented names whose variants really differ (linkage, signatures) |
 
 ## Next steps (ranked)
 
-1. **include/gen/ mode in the generator, then the swap.** Let a source use `include/gen/` (an `#include
-   "gen/<ns>.h"` hoisted to the TU, `include/` on the tree's include path), then run
-   `gen_headers.swap_transform` per function through `tools/reconcile_stubs.py`-style logged rewrites, rebuild,
-   keep what still matches (swap-test: 60% of vfunc matches today, 96% of those it can rewrite). This is
-   roadmap step 2.
-2. **Template clones onto include/gen/ templates** (~4,100 "same definition" + the `TrackFactoryTemplate`,
-   `Method*`, `Closure*`, `Param*ConstRange` conflicts, ~5,000 functions). include/gen/fight.h already declares
-   the families (`template <class T0> class TrackFactoryTemplate`, 245 instantiations). A clone of
-   `fight::TrackFactoryTemplate<CDriftTrack>::vfunc_5` becomes
-   `template<> void* fight::TrackFactoryTemplate<CDriftTrack>::vfunc_5() { … }`: its own mangled name, no stub,
-   no duplicate. Needs step 1 and a `clone-template` rule in `reconcile_stubs.py`.
-3. **Pin the address-name types** (1,179 wraps): `DAT_004dd700` (`World*` in 101 sources; the other 30-odd
-   types are private stubs of the same object and should become `World` fields), `DAT_0052c2a8`,
-   `DAT_004dd6ec`, `FUN_0027b020` (`unsigned __int64(const char*)`, a string hash), `FUN_001d04d0`. Best as
-   prototypes in include/gen/ (or an `include/decls/`) that sources include, re-verified per source.
-4. **Global stubs of namespaced RTTI classes** (1,103 wraps): put them in their namespace and on include/gen/
-   (same as step 1).
-5. **Moving the tree into a committed `src/`** needs: the merged fraction well above today's 64% (steps 1-4), so
-   the tree reads as source rather than namespaces of stubs; a decision on COMDAT strays; `matches/`/
-   `equivalent/` retired or generated from the tree; the build flags per TU recorded (today `// cl-flags:`);
-   and `build_tree.py` in CI. The regression check (matches + equivalent bytes vs standalone) is the CI gate.
+1. **Destructor slots beyond the plain body** (1,718 sources; the `CTrack`/`CSweepTrack`, `TrackFactoryTemplate`
+   and `NonCopyable` clones are most of the remaining "same definition" and RTTI conflicts). Each pattern needs
+   its `~X() { ... }` body: member releases go into the body, the vptr store and inlined base destructor need the
+   base's destructor inline in include/gen/ (a header change, probe-checked) or an explicit body. Pattern-match
+   them in `migrate_gen.dtor_transform` like the plain one, verify per source.
+2. **Fields and constructors in include/gen/** (additively, through `gen_headers.py`): mine equivalent/ sources too
+   (926 sources wait on a field the header lacks), and give the template families their constructors so the
+   `fight::Param*` / `Method*` / `Closure*` registration functions and constructors can drop their stubs (the
+   biggest group of equivalent/ conflicts in gen TUs). Re-run `gen_headers.py --probe` after each change.
+3. **`World` and the other pinned types**: turn the merged World stubs into one `include/decls/` (or gen) class with
+   the fields the sources agree on, then rewrite sources onto it the way `gen-swap` does for RTTI classes.
+   Add casts at call sites for the 95 `pin-decl` compile errors (`FUN_002672f0(int, ...)`).
+4. **Non-owner stubs onto include/gen/**: `swap_transform` only replaces the stub of the function's own class.
+   Stubs of other RTTI classes used through pointers and virtual calls (`Node`, `Object`, ...) can map the same
+   way (slot names by vtable index, `f_XX` fields); that also retires the global stubs step 4 left alone.
+5. **Moving the tree into a committed `src/`**: the merged fraction is 77% now; still needed: a decision on COMDAT
+   strays; `matches/`/`equivalent/` retired or generated from the tree; the build flags per TU recorded (today
+   `// cl-flags:`); `build_tree.py` in CI (the regression check: matches + equivalent bytes vs standalone). Isolated
+   TUs (640, 510 of them matches) should get folded back as their conflicts go.
 6. Later: `.rdata`/`.data` splits, csplit + objdiff per object ([task 05](tasks/05-split-recovery.md)), and an
    `equiv.py` mode for tree objects (namespace-aware prototype lookup for wrapped functions; binding
    same-object neighbours to their original addresses).
+
+**Rule for new sources (include/gen/):** if the function is a vfunc of an RTTI class, write it on the header:
+`#include "gen/<ns>.h"` after the `// STATUS` comment block and define the real member (`void fight::WaitAction::vfunc_4()`,
+`template <> bool fight::ParamBool<CFoo>::vfunc_6(int a, int b)`, `CFoo::~CFoo() {}` for a plain scalar deleting
+destructor), using the header's slot names and `f_XX` fields and casting where your types differ
+(`(*(T*)&this->f_10)`); no stub of that class. Helper types you still need get the placeholder suffix
+(`Thing_1b77e0`). For `DAT_004dd700`, `DAT_0052c2a8`, `DAT_004dd6ec`, `FUN_0027b020`, `FUN_002672f0`, `FUN_001d04d0`
+`#include "decls/address.h"` instead of declaring them, and name the object's type `World` / `Gfx` /
+`Singleton_4dd6ec` in your stub. Don't add other `#include`s or a `using namespace`. If the header lacks a
+field or the slot's signature disagrees, keep the stub (tools/migrate_gen.py can move it later).
 
 **Rule for new sources** (in addition to the placeholder rule above): a clone keeps its donor's code but takes
 the target's own name: `FUN_<own address>` for free functions, the target's class from functions.csv for

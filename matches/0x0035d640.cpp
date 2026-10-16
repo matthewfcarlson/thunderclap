@@ -1,4 +1,4 @@
-extern unsigned long long __cdecl FUN_0027b020(const char*);
+#include "decls/address.h"
 extern unsigned int gMemCardName;
 extern unsigned int gMemCardControl;
 void FUN_0035d640() {

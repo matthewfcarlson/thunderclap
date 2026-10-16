@@ -2,7 +2,7 @@
 // FUN_000296a0 @ 0x000296a0
 // Group method: copy a value taken from a named pawn (or, failing that, a spawned prop)
 // into the first pawn's controller and raise the controller's mode to at least 3.
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
+#include "decls/address.h"
 
 class Controller_296a0 {
 public:

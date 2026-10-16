@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00410bd4[];
 typedef unsigned int u32_12d5e0;
 typedef unsigned char u8;
@@ -15,11 +17,8 @@ struct Threat_12d5e0 {
     u8 flag18;
     void init(int);
 };
-struct Factory_12d5e0 {
-    void* vtable;
-    Threat_12d5e0* vfunc_5();
-};
-Threat_12d5e0* Factory_12d5e0::vfunc_5() {
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::ThreatCondition>::vfunc_5() {
     Threat_12d5e0* p = (Threat_12d5e0*)alloc(0x20);
     if (p) {
         p->init(0);
@@ -27,7 +26,7 @@ Threat_12d5e0* Factory_12d5e0::vfunc_5() {
         p->flagC = 1;
         p->sub.init();
         p->flag18 = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

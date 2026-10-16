@@ -1,25 +1,19 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_003f742c[];
 extern "C" void* __cdecl Alloc(unsigned int);
-class CRageModeCondition {
+class CRageModeCondition_586b0 {
   public:
     void Init(int);
 };
-class ConditionFactoryTemplate {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void* vfunc_5();
-};
-void* ConditionFactoryTemplate::vfunc_5() {
-    CRageModeCondition* p = (CRageModeCondition*)Alloc(0x10);
+
+template <> void* fight::ConditionFactoryTemplate<CRageModeCondition>::vfunc_5() {
+    CRageModeCondition_586b0* p = (CRageModeCondition_586b0*)Alloc(0x10);
     if (p) {
         p->Init(0);
         *(int*)p = ((int)DAT_003f742c);
         *((char*)p + 0xc) = 1;
-        return p;
+        return (void*)(p);
     }
-    return (void*)0;
+    return (void*)((void*)0);
 }

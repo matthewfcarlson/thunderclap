@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // hulkfight::motion::TargetIconDistanceAction::vfunc_5 @ 0x00172220
+#include "gen/hulkfight.h"
+#include "decls/address.h"
+
 struct Player_172220 {
     char pad[0x1e58];
     float scale;
@@ -27,28 +30,20 @@ struct Range_172220 {
     float b;
     int code;
 };
-extern World* DAT_004dd700;
-class Action {
-  public:
-    virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
-    char pad04[0x18];
-    Range_172220* range;
-    Holder_172220* holder;
-    char FUN_00172220(int arg, int unused);
-};
-char Action::FUN_00172220(int arg, int unused) {
+
+bool hulkfight::motion::TargetIconDistanceAction::vfunc_5(int arg, int unused) {
     if (arg != 0)
-        return 1;
-    Game_172220* g = holder->FUN_000592a0();
+        return (bool)(1);
+    Game_172220* g = (*(Holder_172220 * *)&this->f_20)->FUN_000592a0();
     if (g == 0)
-        return 0;
+        return (bool)(0);
     Player_172220* p = g->FUN_00059a30();
     if (p == 0)
-        return 0;
+        return (bool)(0);
     Hero_172220* h = DAT_004dd700->hero;
     if (p != h->player)
-        return 0;
-    h->value = (range->b - range->a) * p->scale + range->a;
-    h->FUN_00025240(range->code);
-    return 1;
+        return (bool)(0);
+    h->value = ((*(Range_172220 * *)&this->f_1c)->b - (*(Range_172220 * *)&this->f_1c)->a) * p->scale + (*(Range_172220 * *)&this->f_1c)->a;
+    h->FUN_00025240((*(Range_172220 * *)&this->f_1c)->code);
+    return (bool)(1);
 }

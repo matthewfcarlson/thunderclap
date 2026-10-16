@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00428330[];
 class Obj_2390f0 {
   public:
@@ -15,7 +17,7 @@ class Obj_2390f0 {
     virtual void F11();
     void Init();
 };
-class Track {
+class Track_2390f0 {
   public:
     virtual void T0();
     virtual void T1();
@@ -31,17 +33,13 @@ class Track {
     virtual void T11();
 };
 extern Obj_2390f0* __cdecl Alloc(int);
-class PrintTrack : public Track {
-  public:
-    char pad[0x1c];
-    Obj_2390f0* member;
-    Obj_2390f0* vfunc_10(Obj_2390f0*, Obj_2390f0*, Obj_2390f0*);
-};
-Obj_2390f0* PrintTrack::vfunc_10(Obj_2390f0* a, Obj_2390f0* b, Obj_2390f0* p) {
+
+int fight::PrintTrack::vfunc_10(int __p0, int __p1, int __p2) { Obj_2390f0 * a = (Obj_2390f0 *)__p0; Obj_2390f0 * b = (Obj_2390f0 *)__p1; Obj_2390f0 * p = (Obj_2390f0 *)__p2;
+
     Obj_2390f0* q = Alloc(0x24);
     if (q) {
         q->Init();
-        *(PrintTrack**)((char*)q + 0x1c) = this;
+        *(fight::PrintTrack**)((char*)q + 0x1c) = this;
         *(unsigned int*)q = ((int)DAT_00428330);
         *(Obj_2390f0**)((char*)q + 0x20) = 0;
         if (p)
@@ -50,7 +48,7 @@ Obj_2390f0* PrintTrack::vfunc_10(Obj_2390f0* a, Obj_2390f0* b, Obj_2390f0* p) {
         if (old)
             old->F1();
         *(Obj_2390f0**)((char*)q + 0x20) = p;
-        return q;
+        return (int)(q);
     }
-    return 0;
+    return (int)(0);
 }

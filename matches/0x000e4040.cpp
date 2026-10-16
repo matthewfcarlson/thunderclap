@@ -1,11 +1,6 @@
-class ImageSelector {
-  public:
-    char pad[0x2a8];
-    int value;
-    int compare;
-    void vfunc_1(int);
-};
+#include "gen/global.h"
+
 void ImageSelector::vfunc_1(int param) {
-    if (param == compare)
-        value = *(int*)(compare + 0x40);
+    if (param == this->f_2ac)
+        this->f_2a8 = *(int*)(this->f_2ac + 0x40);
 }

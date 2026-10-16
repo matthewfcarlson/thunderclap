@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // hulkfight::motion::WallExitAction::vfunc_3 @ 0x0013f1d0
+#include "decls/address.h"
 extern "C" double sqrt(double);
 extern "C" void *__cdecl FUN_00263ea0(unsigned int size) throw();
 
@@ -79,14 +80,13 @@ struct Config_13f1d0 {
 };
 
 struct Sys8 {
-    void FUN_00099d20(struct Sys_13f1d0 *sys, Stats_13f1d0 *st, float a, unsigned int b, float c);
+    void FUN_00099d20(struct World *sys, Stats_13f1d0 *st, float a, unsigned int b, float c);
 };
 
-struct Sys_13f1d0 {
+struct World {
     char pad0[8];
     Sys8 *f8;
 };
-extern Sys_13f1d0 *DAT_004dd700;
 
 namespace hulkfight {
 namespace motion {

@@ -1,14 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 233 inputs, branch coverage 42/47, incomplete)
 // physics::CollisionObjectLoader::vfunc_5 @ 0x00308410
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "gen/physics.h"
+#include "decls/address.h"
 
-struct Stream {
+struct Stream_308410 {
     char FUN_002647e0(void *dest, unsigned int count, unsigned int size, int flag);
 };
 
-struct Reader {
+struct Reader_308410 {
     char pad[0x284];
-    Stream *stream;
+    Stream_308410 *stream;
     char FUN_002669f0();
     int FUN_00266a30();
     void FUN_00266be0();
@@ -40,7 +42,7 @@ struct Target_308410 {
     void FUN_00306300();
 };
 
-class CollisionObject {
+class CollisionObject_308410 {
 public:
     char pad0[8];
     NameField_308410 name;
@@ -66,21 +68,15 @@ public:
     int f78;
     char pad7c[4];
 
-    CollisionObject *FUN_00304ed0();
+    CollisionObject_308410 *FUN_00304ed0();
     void FUN_00305190(int v1, int v2, bool b1, bool b2);
     void FUN_00304b40(int x);
     void FUN_00304740(int x);
 };
 
 void *thunk_FUN_0008d690(unsigned int size);
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
-int __cdecl FUN_003080a0(Reader *r);
+int __cdecl FUN_003080a0(Reader_308410 *r);
 int __cdecl FUN_002f2750(unsigned int lo, unsigned int hi);
-
-class CollisionObjectLoader {
-public:
-    void vfunc_5(CollisionObject **out, NameKey_308410 *outId, Reader *r, int unused);
-};
 
 struct Frame_308410 {
     char pad10[3];
@@ -116,13 +112,13 @@ struct Frame_308410 {
     char name3[0x100];
 };
 
-void CollisionObjectLoader::vfunc_5(CollisionObject **out, NameKey_308410 *outId, Reader *r, int unused)
-{
+void physics::CollisionObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int unused) { CollisionObject_308410 ** out = (CollisionObject_308410 **)__p0; NameKey_308410 * outId = (NameKey_308410 *)__p1; Reader_308410 * r = (Reader_308410 *)__p2;
+
     Frame_308410 f;
     void *mem = thunk_FUN_0008d690(0x80);
-    CollisionObject *obj = 0;
+    CollisionObject_308410 *obj = 0;
     if (mem)
-        obj = ((CollisionObject *)mem)->FUN_00304ed0();
+        obj = ((CollisionObject_308410 *)mem)->FUN_00304ed0();
 
     r->stream->FUN_002647e0(&f.len, 1, 1, 1);
     unsigned int l1 = f.len;

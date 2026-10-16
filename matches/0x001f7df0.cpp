@@ -1,21 +1,16 @@
 // Same code shape as 0x0002fe60 (propagated; names are from that function)
-class CActorManager {
+#include "gen/global.h"
+
+class CActorManager_1f7df0 {
   public:
     float Get();
 };
-typedef float (CActorManager::*Fn_1f7df0)();
-class Closure0 {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(int a, int b, float* out);
-    char pad[0x18];
-    Fn_1f7df0 mFn;
-    CActorManager* mMgr;
-};
-void Closure0::vfunc_2(int a, int b, float* out) {
-    CActorManager* m = mMgr;
-    Fn_1f7df0 fn = mFn;
+typedef float (CActorManager_1f7df0::*Fn_1f7df0)();
+
+template <> void Closure0<CEffectManager, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; int b = (int)__p1; float * out = (float *)__p2;
+
+    CActorManager_1f7df0* m = (*(CActorManager_1f7df0 * *)&this->f_20);
+    Fn_1f7df0 fn = (*(Fn_1f7df0 *)&this->f_1c);
     float v = (m->*fn)();
     if (out)
         *out = v;

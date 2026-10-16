@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000f6b50 @ 0x000f6b50
+#include "decls/address.h"
 typedef unsigned __int64 Key_f6b50;
-extern Key_f6b50 __cdecl FUN_002672f0(const char*, int, int);
 
 namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; } }
 namespace pure3d { class CompositeDrawable; }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2874 inputs, branch coverage 75/78, incomplete)
 // FUN_0001df20 @ 0x0001df20
+#include "decls/address.h"
 struct Vec3 {
     float x, y, z;
 };
@@ -91,7 +92,7 @@ struct Entity {
     char FUN_000360f0() throw();
     int FUN_00036270() throw();
     int FUN_00038f90(Vec3 *p, int a, int z) throw();
-    char FUN_0003a590(struct Globals *g, Entity *e) throw();
+    char FUN_0003a590(struct World *g, Entity *e) throw();
     void FUN_0003a680(Entity *t, int a, int b, int c, void *m, float e5, float e6, float e7) throw();
     void FUN_0003a9d0(int v) throw();
     float FUN_000354c0() throw();
@@ -138,13 +139,12 @@ struct Mgr {
     Prop *FUN_00079280(int i) throw();
 };
 
-struct Globals {
+struct World {
     char pad00[0x20];
     List *list;
     char pad24[0x4c - 0x24];
     Mgr *mgr;
 };
-extern Globals *DAT_004dd700;
 
 struct Owner {
     char pad00[8];
@@ -210,7 +210,7 @@ void Ctrl::FUN_0001df20(Vec3 *a1, Vec3 *a2)
                         if (!(esi->FUN_00036270() > lim)) {
                             r = esi->FUN_00038f90(a1, f20->i2c, 0);
                             if (r != 0) {
-                                if (edi->FUN_0003a590((Globals *)DAT_004dd700, esi)) {
+                                if (edi->FUN_0003a590((World *)DAT_004dd700, esi)) {
                                     found = true;
                                     break;
                                 }

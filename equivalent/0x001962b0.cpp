@@ -2,6 +2,7 @@
 // FUN_001962b0 @ 0x001962b0
 // equiv-map: ?thunk_FUN_0027d410@Node@@QAEXPAUId64@@@Z = 0x001d6630
 // equiv-map: ??0CProjectile@@QAE@XZ = 0x001b6800
+#include "decls/address.h"
 struct V3_1962b0 {
     float x, y, z;
 };
@@ -102,7 +103,6 @@ public:
     virtual void v5();
 };
 
-extern World *DAT_004dd700;
 extern char DAT_004e15d0[];
 extern int DAT_004e16d0;
 Rng_1962b0 *__cdecl FUN_000964d0();

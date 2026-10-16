@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 119 inputs, branch coverage 39/42, incomplete)
 // FUN_001b7d10 @ 0x001b7d10
+#include "decls/address.h"
 class Source_1b7d10 {
 public:
     virtual void vf0();
@@ -25,7 +26,7 @@ public:
     void FUN_001c05d0(float a, float b);
 };
 
-struct Globals_1b7d10 {
+struct World {
     char pad0[0x50];
     Mixer *mixer;
 };
@@ -68,7 +69,6 @@ struct Status_1b7d10 {
     int state;
 };
 
-extern Globals_1b7d10 *DAT_004dd700;
 
 void FUN_00333ef0();
 unsigned int FUN_00267f80();

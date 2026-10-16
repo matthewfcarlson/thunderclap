@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 struct Vec3_10ad90 {
     float x, y, z;
 };
@@ -13,18 +15,8 @@ struct Agent_10ad90 {
 };
 float FUN_0010ac60(int ex, int item, float w, Vec3_10ad90* out);
 
-class CSeparationBehaviour {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    bool v3(Agent_10ad90* a, int ex, Vec3_10ad90* out, int p5, int p6);
-    int pad4;
-    float weight;
-    unsigned char enabled;
-};
+bool CSeparationBehaviour::vfunc_3(int __p0, int ex, void* __p2, int p5, int p6) { Agent_10ad90 * a = (Agent_10ad90 *)__p0; Vec3_10ad90 * out = (Vec3_10ad90 *)__p2;
 
-bool CSeparationBehaviour::v3(Agent_10ad90* a, int ex, Vec3_10ad90* out, int p5, int p6) {
     int n = a->list->count;
     int i = 0;
     out->z = 0.0f;
@@ -43,8 +35,8 @@ bool CSeparationBehaviour::v3(Agent_10ad90* a, int ex, Vec3_10ad90* out, int p5,
             ++i;
         } while (i < n);
     }
-    if (enabled) {
-        float w = weight;
+    if (this->f_0c) {
+        float w = this->f_08;
         out->x = w * out->x;
         out->y = w * out->y;
         out->z = w * out->z;

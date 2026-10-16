@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 957 inputs, branch coverage 74/74)
 // FUN_00042b40 @ 0x00042b40
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/address.h"
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern int DAT_004dc300;
@@ -8,7 +9,6 @@ extern int DAT_004dc300;
 void *thunk_FUN_0008d690(unsigned int size);
 void *__cdecl FUN_0008d690(unsigned int size);
 extern int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
-unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned int lo, unsigned int hi);
 
 struct V3_42b40 { float x, y, z; };
 
@@ -175,7 +175,6 @@ struct Holder_42b40 { Dir_42b40 *FUN_000678d0(); };
 
 struct Mgr_42b40 { Mgr_42b40 *FUN_001b6580(); void FUN_001b4060(Chara_42b40 *c); void FUN_001b4540(Obj128_42b40 *o); void FUN_001b4450(Obj128_42b40 *o, int a); };
 
-extern World *DAT_004dd700;
 Entry_42b40 *__cdecl FUN_002efca0(void *obj, char *name);
 void __cdecl FUN_00018810(RefObj_42b40 **slot, Entry_42b40 *e);
 void __cdecl FUN_00037510(RefObj_42b40 **slot, RefObj_42b40 *r);

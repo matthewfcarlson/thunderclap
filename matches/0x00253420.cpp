@@ -1,27 +1,17 @@
 // Same code shape as 0x0024ea30 (propagated; names are from that function)
-class SeqActionChannelSendVolumes {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void vfunc_6(int);
-    char pad[8];
-    int state;
-};
-void SeqActionChannelSendVolumes::vfunc_6(int) {
-    int i = state;
+#include "gen/audio.h"
+
+void audio::SeqActionVarPitchRand::vfunc_6(int ) {
+    int i = this->f_0c;
     --i;
     if (i != 0) {
         i -= 3;
         if (i != 0) {
             --i;
             if (i == 0)
-                state = 0;
+                this->f_0c = 0;
             return;
         }
     }
-    state = 2;
+    this->f_0c = 2;
 }

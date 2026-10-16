@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00413618[];
 extern "C" void* __cdecl FUN_0008d690(int size);
 
@@ -6,17 +8,7 @@ struct CDTrack {
     void Init();
 };
 
-class TrackFactoryTemplate {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    void* vfunc_5();
-};
-
-void* TrackFactoryTemplate::vfunc_5() {
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::CivilianDetachTrack>::vfunc_5() {
     CDTrack* p = (CDTrack*)FUN_0008d690(0x28);
     if (p != 0) {
         p->Init();
@@ -28,7 +20,7 @@ void* TrackFactoryTemplate::vfunc_5() {
         *(volatile int*)&p->f1c = 0;
         *(volatile int*)&p->f20 = 0;
         *(volatile int*)&p->f24 = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

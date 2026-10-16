@@ -1,4 +1,6 @@
-class Request {
+#include "gen/core.h"
+
+class Request_273650 {
   public:
     virtual void v0();
     virtual void v1();
@@ -8,10 +10,7 @@ class Request {
     virtual void v5();
     virtual int vfunc_6();
 };
-class CompletionEventRequest : public Request {
-  public:
-    int vfunc_6();
-};
-int CompletionEventRequest::vfunc_6() {
+
+int core::CompletionEventRequest::vfunc_6() {
     return 0x16;
 }

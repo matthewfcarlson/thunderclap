@@ -1,8 +1,8 @@
+#include "decls/address.h"
 extern "C" char DAT_003ffb80[];
 extern "C" char DAT_0048e0e4[];
 extern "C" char DAT_0048e10c[];
 extern void __stdcall FUN_001d0480(void*, int);
-extern unsigned char FUN_001d04d0(const char*);
 class Target_86fc0 {
   public:
     int vt;

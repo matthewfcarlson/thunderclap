@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001c7a60 @ 0x001c7a60
+#include "decls/address.h"
 extern "C" double sin(double);
 extern "C" double cos(double);
 
@@ -40,7 +41,7 @@ struct Wrapper1 {
     void FUN_00293d00(Vec3_1c7a60 *origin);
 };
 
-class Device2_1c7a60 {
+class Gfx {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -108,7 +109,6 @@ public:
 };
 
 extern Wrapper1 *DAT_0052c2ac;
-extern Device2_1c7a60 *DAT_0052c2a8;
 
 struct Target_1c7a60 {
     char pad0[0x24];

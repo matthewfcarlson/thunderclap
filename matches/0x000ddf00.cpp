@@ -1,9 +1,11 @@
 // Same code shape as 0x000ddef0 (propagated; names are from that function)
+#include "gen/global.h"
+
 class Receiver_ddf00 {
   public:
     void go();
 };
-class FEThingsBase {
+class FEThingsBase_ddf00 {
   public:
     virtual void v0();
     virtual void v1();
@@ -48,10 +50,7 @@ class FEThingsBase {
     char pad[0x2220];
     Receiver_ddf00* ptr;
 };
-class FEThings : public FEThingsBase {
-  public:
-    virtual void v40();
-};
-void FEThings::v40() {
-    ptr->go();
+
+void FEThings::vfunc_41() {
+    (*(Receiver_ddf00 * *)&this->f_2224)->go();
 }

@@ -1,19 +1,13 @@
-struct TrackFactoryTemplate_CJumpTrack_76ec0 {
-    void* vtable;
-    int vfunc_0();
-    int vfunc_1();
-    int vfunc_2();
-    int vfunc_3();
-    int vfunc_4();
-    int vfunc_5();
-};
+#include "gen/fight.h"
+
 struct Jump {
     int construct();
 };
 extern "C" void* __cdecl alloc_54(unsigned int);
-int TrackFactoryTemplate_CJumpTrack_76ec0::vfunc_5() {
+
+template <> void* fight::TrackFactoryTemplate<CJumpTrack>::vfunc_5() {
     Jump* p = (Jump*)alloc_54(0x54);
     if (p)
-        return p->construct();
-    return 0;
+        return (void*)(p->construct());
+    return (void*)(0);
 }

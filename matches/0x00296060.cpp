@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Obj_296060 {
   public:
     virtual void a();
@@ -19,16 +21,9 @@ class Obj_296060 {
     virtual void q();
     virtual void r();
 };
-class DrawableNode {
-  public:
-    char pad[0x10];
-    unsigned char flags;
-    char pad2[7];
-    Obj_296060* child;
-    bool vfunc_7();
-};
-bool DrawableNode::vfunc_7() {
-    if ((flags & 1) == 0 && child != 0 && !child->h())
+
+bool pure3d::scenegraph::DrawableNode::vfunc_7() {
+    if (((*(unsigned char *)&this->f_10) & 1) == 0 && (*(Obj_296060 * *)&this->f_18) != 0 && !(*(Obj_296060 * *)&this->f_18)->h())
         return false;
     return true;
 }

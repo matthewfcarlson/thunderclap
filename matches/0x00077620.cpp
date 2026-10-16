@@ -1,27 +1,21 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_003fc094[];
 extern void* __cdecl alloc(unsigned int);
-class CStageTrack {
+class CStageTrack_77620 {
   public:
     void Init();
 };
-class TrackFactoryTemplate {
-  public:
-    virtual void A();
-    virtual void B();
-    virtual void C();
-    virtual void D();
-    virtual void E();
-    virtual CStageTrack* Create();
-};
-CStageTrack* TrackFactoryTemplate::Create() {
-    CStageTrack* p = (CStageTrack*)alloc(0x14);
+
+template <> void* fight::TrackFactoryTemplate<CStageTrack>::vfunc_5() {
+    CStageTrack_77620* p = (CStageTrack_77620*)alloc(0x14);
     if (p) {
         p->Init();
         *(int*)p = ((int)DAT_003fc094);
         *(int*)((char*)p + 0xc) = 0;
         *(int*)((char*)p + 0x10) = 0;
         *(int*)((char*)p + 8) = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

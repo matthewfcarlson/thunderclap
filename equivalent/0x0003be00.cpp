@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3051 inputs, branch coverage 20/20)
 // FUN_0003be00 @ 0x0003be00
+#include "decls/address.h"
 struct Vec3_3be00 {
     float x, y, z;
 };
@@ -60,14 +61,13 @@ struct Holder_3be00 {
     void *current;
 };
 
-struct Globals_3be00 {
+struct World {
     char pad00[0x20];
     Holder_3be00 *holder;
     char pad24[0x54 - 0x24];
     Input_3be00 *input;
 };
 
-extern Globals_3be00 *DAT_004dd700;
 
 class Controller_3be00 {
 public:
@@ -80,7 +80,7 @@ public:
 
 void Controller_3be00::FUN_0003be00()
 {
-    Globals_3be00 *g = DAT_004dd700;
+    World *g = DAT_004dd700;
     if (g->holder->current != this) {
         return;
     }

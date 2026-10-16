@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_002c5820 @ 0x002c5820
+#include "decls/address.h"
 struct Vec3_2c5820 {
     float x, y, z;
 };
@@ -12,7 +13,7 @@ struct Prim_2c5820 {
     void FUN_0008ef00();
 };
 
-class Renderer_2c5820 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -48,7 +49,6 @@ public:
     virtual void End(Prim_2c5820 *p);
 };
 
-extern Renderer_2c5820 *DAT_0052c2a8;
 
 class CubeDrawer {
 public:

@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Thing_32c300 {
   public:
     virtual void a0();
@@ -17,18 +19,12 @@ class Thing_32c300 {
     virtual void a14(int, void*);
     virtual void a15(int);
 };
-class Shader {
-    char pad[0x10];
-    Thing_32c300* obj;
-
-  public:
-    void vfunc_12();
-};
 struct Mat_32c300 {
     float x[16];
 };
-void Shader::vfunc_12() {
-    obj->a15(2);
+
+void pure3d::d3dReflShader::vfunc_12() {
+    (*(Thing_32c300 * *)&this->f_10)->a15(2);
     Mat_32c300 m;
     m.x[0] = 0.5f;
     m.x[1] = 0;
@@ -46,5 +42,5 @@ void Shader::vfunc_12() {
     m.x[13] = 0.5f;
     m.x[14] = 0;
     m.x[15] = 1.0f;
-    obj->a14(2, &m);
+    (*(Thing_32c300 * *)&this->f_10)->a14(2, &m);
 }

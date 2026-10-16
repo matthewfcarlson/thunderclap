@@ -1,12 +1,4 @@
 // Same code shape as 0x00306fc0 (propagated; names are from that function)
-struct physics_CollisionRay_fdac0 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5(int a, int b);
-    virtual void vfunc_6();
-};
+#include "gen/global.h"
 
-void physics_CollisionRay_fdac0::vfunc_5(int a, int b) {}
+void CGolem::vfunc_3(int a, int b) {}

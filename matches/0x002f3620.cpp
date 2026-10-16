@@ -1,5 +1,7 @@
 // Same code shape as 0x00055210 (propagated; names are from that function)
-class ParamValue {
+#include "gen/physics.h"
+
+class ParamValue_2f3620 {
   public:
     virtual void f0();
     virtual int f1();
@@ -9,10 +11,7 @@ class ParamValue {
     virtual void f5();
     virtual void f6();
 };
-class ParamValueStringList : public ParamValue {
-  public:
-    int f1();
-};
-int ParamValueStringList::f1() {
+
+int physics::CollisionMesh::vfunc_6() {
     return 4;
 }

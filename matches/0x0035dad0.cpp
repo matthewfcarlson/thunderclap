@@ -1,4 +1,4 @@
-extern "C" unsigned long long __cdecl FUN_0027b020(const char* name);
+#include "decls/address.h"
 extern void* gCursorLocators[2];
 
 void FUN_0035dad0() {

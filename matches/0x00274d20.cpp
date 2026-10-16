@@ -3,7 +3,7 @@ struct Obj_274d20 {
     virtual void f0();
     virtual void f1();
 };
-struct FileCompletionRequest {
+namespace core { struct FileCompletionRequest {
     virtual FileCompletionRequest* vfunc_0(u8_274d20);
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -15,13 +15,13 @@ struct FileCompletionRequest {
     char pad[8];
     Obj_274d20* mAtC;
     Obj_274d20* mAt10;
-};
+}; }
 struct GlobalObj_274d20 {
     virtual void a();
     virtual void b();
     virtual void c();
     virtual void d();
-    virtual void e(FileCompletionRequest*);
+    virtual void e(core::FileCompletionRequest*);
 };
 extern char gLock_274d20[];
 extern GlobalObj_274d20* gObject_274d20;
@@ -29,7 +29,7 @@ extern char vtFile[];
 extern char vtRequest[];
 extern void FUN_0026d850(void*);
 extern void FUN_0026d840(void*);
-FileCompletionRequest* FileCompletionRequest::vfunc_0(u8_274d20 param) {
+core::FileCompletionRequest* core::FileCompletionRequest::vfunc_0(u8_274d20 param) {
     *(void**)this = vtFile;
     mAt10->f1();
     mAtC->f1();

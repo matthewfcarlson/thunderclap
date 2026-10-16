@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 10/10)
 // FUN_002beb20 @ 0x002beb20
+#include "decls/address.h"
 extern "C" double sqrt(double);
 void *FUN_00263ea0(unsigned int size);
 
@@ -31,7 +32,7 @@ struct Desc_2beb20 {
     unsigned char flag;
 };
 
-class Device_2beb20 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -119,7 +120,6 @@ public:
     virtual void v83();
     virtual int v84();
 };
-extern Device_2beb20 *DAT_0052c2a8;
 extern char DAT_004d0894;
 extern int DAT_004d0898;
 

@@ -1,26 +1,17 @@
-class SeqAction {
+#include "gen/audio.h"
+
+class SeqAction_255df0 {
   public:
     virtual void x();
     char pad[0x10];
 };
-class SeqActionClip : public SeqAction {
-  public:
-    int mObj;
-    int mState;
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void vfunc_4(int);
-    virtual void v5();
-    virtual void v6();
-};
 int Check(int);
 void Do(int);
-void SeqActionClip::vfunc_4(int) {
-    if (mObj != 0) {
-        if (Check(mObj) == 1)
-            Do(mObj);
+
+void audio::SeqActionClip::vfunc_4(int ) {
+    if (this->f_14 != 0) {
+        if (Check(this->f_14) == 1)
+            Do(this->f_14);
     }
-    mState = 5;
+    this->f_18 = 5;
 }

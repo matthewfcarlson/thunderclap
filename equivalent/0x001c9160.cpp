@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 141 inputs, branch coverage 26/26)
 // Render::LevelLoader::vfunc_5 @ 0x001c9160
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" int strcmp(const char *, const char *);
 extern "C" int sprintf(char *, const char *, ...);
@@ -81,7 +82,6 @@ public:
 };
 
 extern unsigned int DAT_004d9968;
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
 void __cdecl FUN_0028fcc0(const char *fmt, ...);
 
 namespace Render {

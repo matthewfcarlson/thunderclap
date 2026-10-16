@@ -1,4 +1,6 @@
 // Same code shape as 0x0023b410 (propagated; names are from that function)
+#include "gen/fight.h"
+
 class Inner_23b9c0 {
   public:
     virtual void f0();
@@ -6,31 +8,7 @@ class Inner_23b9c0 {
     virtual void f2();
     virtual void f3();
 };
-class ScriptReader {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
-    virtual void f11();
-    virtual void f12();
-    virtual void f13();
-    virtual void f14();
-    virtual void f15();
-    virtual void f16();
-    virtual void f17();
-    virtual void vfunc_18();
-    virtual void f19();
-    char pad[4];
-    Inner_23b9c0* p;
-};
-void ScriptReader::vfunc_18() {
-    p->f3();
+
+void fight::BinReader::vfunc_18() {
+    (*(Inner_23b9c0 * *)&this->f_08)->f3();
 }

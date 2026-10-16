@@ -1,30 +1,24 @@
+#include "gen/physics.h"
+
 struct Inner_30d8c0 {
     char pad[0x6c];
     unsigned int value;
 };
-struct Param {
+struct Param_30d8c0 {
     char pad0[8];
     Inner_30d8c0* p1;
     Inner_30d8c0* p2;
     char pad1[8];
     unsigned int x, y, z;
 };
-class CollisionAnalyser {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual bool vfunc_3(Param*, int);
-    virtual void vfunc_4();
-    char pad[0x50];
-    unsigned int a, b, c, d, e, f;
-};
-bool CollisionAnalyser::vfunc_3(Param* p, int unused) {
-    a = p->x;
-    b = p->y;
-    c = p->z;
-    d = p->p1->value;
-    e = p->p2->value;
-    f = d | e;
-    return f == 0;
+
+bool physics::CollisionAnalyser::vfunc_3(void* __p0, int unused) { Param_30d8c0 * p = (Param_30d8c0 *)__p0;
+
+    this->f_54 = p->x;
+    this->f_58 = p->y;
+    this->f_5c = p->z;
+    this->f_60 = p->p1->value;
+    this->f_64 = p->p2->value;
+    this->f_68 = this->f_60 | this->f_64;
+    return this->f_68 == 0;
 }

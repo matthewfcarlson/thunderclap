@@ -4,7 +4,7 @@ struct Sub_183350 {
     void Init();
 };
 extern void DeleteObj(void*);
-class BallAndChainShootTrack {
+namespace hulkfight { namespace motion { class BallAndChainShootTrack {
   public:
     virtual void f0();
     virtual void f1();
@@ -19,8 +19,8 @@ class BallAndChainShootTrack {
     virtual void f10();
     void BaseInit();
     char pad[0x78 - 4];
-};
-BallAndChainShootTrack* BallAndChainShootTrack::vfunc_5(u8_183350 x) {
+}; }}
+hulkfight::motion::BallAndChainShootTrack* hulkfight::motion::BallAndChainShootTrack::vfunc_5(u8_183350 x) {
     *(unsigned int*)this = ((int)DAT_0041947c);
     ((Sub_183350*)((char*)this + 0x78))->Init();
     ((Sub_183350*)((char*)this + 0x60))->Init();

@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0002bfd0 @ 0x0002bfd0
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 
 // Components are plain ints: the original copies them with integer moves.
+#include "decls/address.h"
 struct Vec3_2bfd0 {
     int x, y, z;
 };

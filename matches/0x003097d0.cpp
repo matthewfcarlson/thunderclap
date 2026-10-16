@@ -1,4 +1,6 @@
-class PhysicsJoint {
+#include "gen/physics.h"
+
+class PhysicsJoint_3097d0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -32,12 +34,10 @@ class PhysicsJoint {
     char pad[0x138 - 4];
 };
 namespace physics {
-class PhysicsJoint3D : public PhysicsJoint {
-  public:
-    void vfunc_2();
-};
-void PhysicsJoint3D::vfunc_2() {
-    f1();
+
+} // namespace physics
+void physics::PhysicsJoint3D::vfunc_2() {
+    vfunc_1();
     *(int*)((char*)this + 0x140) = 0;
     *(int*)((char*)this + 0x13c) = 0;
     *(int*)((char*)this + 0x138) = 0;
@@ -46,4 +46,3 @@ void PhysicsJoint3D::vfunc_2() {
     *(int*)((char*)this + 0x144) = 0;
     *((char*)this + 0x150) = 1;
 }
-} // namespace physics

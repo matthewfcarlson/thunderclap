@@ -1,21 +1,7 @@
 // Same code shape as 0x0005aa70 (propagated; names are from that function)
-class CPropActorSetStateTrack {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual void vfunc_13(int*);
-};
-void CPropActorSetStateTrack::vfunc_13(int* p) {
+#include "gen/global.h"
+
+void CPropActorSetStateTrack::vfunc_13(void* __p0) { int * p = (int *)__p0;
+
     *p = 0xffff7f00;
 }

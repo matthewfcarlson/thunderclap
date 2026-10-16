@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 30/30)
 // CSPListener::vfunc_0 @ 0x001db230
 // equiv-map: ??0Name@@QAE@ABU0@@Z = 0x0027af30
+#include "decls/address.h"
 extern "C" int __cdecl _sprintf(char *, const char *, ...);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
@@ -118,7 +119,6 @@ struct World {
     char pad10[0x30 - 0x10];
     Sink_1db230 *f30;
 };
-extern World *DAT_004dd700;
 
 const char *__cdecl FUN_001b46f0(void *l, unsigned int *out);
 

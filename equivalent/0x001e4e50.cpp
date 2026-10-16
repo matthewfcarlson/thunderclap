@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 406 inputs, branch coverage 20/20)
 // FUN_001e4e50 @ 0x001e4e50
+#include "decls/address.h"
 struct State_1e4e50 { int FUN_00088fa0(); int FUN_00088fb0(); };
 struct Player_1e4e50 { char pad[0x80]; State_1e4e50 state; };
 struct Manager_1e4e50 { Player_1e4e50* FUN_00086310(); };
-struct Game_1e4e50 { char pad[0x54]; Manager_1e4e50* manager; };
-extern Game_1e4e50* DAT_004dd700;
+struct World { char pad[0x54]; Manager_1e4e50* manager; };
 struct Random_1e4e50 { float FUN_000787e0(float,float); };
 extern Random_1e4e50* DAT_004e5acc;
 struct Vec_1e4e50 { float x,y,z; };

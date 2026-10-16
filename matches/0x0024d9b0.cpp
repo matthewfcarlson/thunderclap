@@ -1,4 +1,4 @@
-class ListenerEffectGc {
+namespace audio { class ListenerEffectGc {
   public:
     virtual void f0();
     virtual void f1();
@@ -9,11 +9,11 @@ class ListenerEffectGc {
     virtual void f6();
     virtual void f7();
     virtual void f8();
-};
+}; }
 extern void FUN_00244f70();
 extern void FUN_00247550(void*, void*);
 char g_4e64d8;
-ListenerEffectGc* ListenerEffectGc::vfunc_2(int flags) {
+audio::ListenerEffectGc* audio::ListenerEffectGc::vfunc_2(int flags) {
     FUN_00244f70();
     if (flags & 1)
         FUN_00247550(&g_4e64d8, this);

@@ -1,6 +1,6 @@
 extern int gBss_24dbb0;
 extern void FUN_00247550(const void*, void*);
-class ListenerEffectWin32 {
+namespace audio { class ListenerEffectWin32 {
   public:
     virtual void a();
     virtual void b();
@@ -12,8 +12,8 @@ class ListenerEffectWin32 {
     virtual void h();
     virtual void i();
     void BaseCall();
-};
-ListenerEffectWin32* ListenerEffectWin32::vfunc_2(int flag) {
+}; }
+audio::ListenerEffectWin32* audio::ListenerEffectWin32::vfunc_2(int flag) {
     BaseCall();
     if (flag & 1)
         FUN_00247550(&gBss_24dbb0, this);

@@ -1,11 +1,6 @@
 // Same code shape as 0x00083d50 (propagated; names are from that function)
-class C_2927b0 {
-    char pad[0x20];
+#include "gen/pure3d.h"
 
-  public:
-    int value;
-    void set(int x);
-};
-void C_2927b0::set(int x) {
-    value = x;
+void pure3d::Camera::vfunc_9(int x) {
+    (*(int *)&this->f_20) = x;
 }

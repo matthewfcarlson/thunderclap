@@ -1,20 +1,14 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_003fbbe8[];
-class CMoveTrack {
+class CMoveTrack_770e0 {
   public:
     void Init();
 };
 extern void* __cdecl Allocate(unsigned int);
-class TrackFactoryTemplate {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual CMoveTrack* Create();
-};
-CMoveTrack* TrackFactoryTemplate::Create() {
-    CMoveTrack* p = (CMoveTrack*)Allocate(0x28);
+
+template <> void* fight::TrackFactoryTemplate<CMoveTrack>::vfunc_5() {
+    CMoveTrack_770e0* p = (CMoveTrack_770e0*)Allocate(0x28);
     if (p) {
         p->Init();
         *(int*)((char*)p + 0x0c) = 0;
@@ -26,7 +20,7 @@ CMoveTrack* TrackFactoryTemplate::Create() {
         *(int*)((char*)p) = ((int)DAT_003fbbe8);
         *(int*)((char*)p + 0x1c) = -1;
         *(int*)((char*)p + 8) = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

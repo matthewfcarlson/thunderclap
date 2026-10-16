@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3038 inputs, branch coverage 29/30, incomplete)
 // hulkfight::ai::MotionBoostAction::vfunc_5 @ 0x00117150
+#include "decls/address.h"
 struct V3_117150 {
     float x, y, z;
     float FUN_0022d110();
@@ -40,12 +41,11 @@ struct Reg20_117150 {
     Reg124_117150 *p124;
 };
 
-struct Globals_117150 {
+struct World {
     char pad[0x20];
     Reg20_117150 *p20;
 };
 
-extern Globals_117150 *DAT_004dd700;
 extern unsigned int DAT_004e0ca4;
 extern V3_117150 DAT_004e0c98;
 

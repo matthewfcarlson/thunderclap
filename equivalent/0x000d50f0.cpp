@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000d50f0 @ 0x000d50f0
+#include "decls/address.h"
 struct V3_d50f0 {
     float x, y, z;
 };
@@ -12,7 +13,7 @@ struct VertexBuf_d50f0 {
     void FUN_0008ef00();
 };
 
-class Renderer_d50f0 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -106,7 +107,6 @@ struct Overlay {
     int f10;
 };
 
-extern Renderer_d50f0 *DAT_0052c2a8;
 extern ProviderRef_d50f0 *DAT_0052c2ac;
 extern char DAT_004ddfc0[];
 

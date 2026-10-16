@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
 // hulkfight::ai::HasGroundPointExtendedCondition::vfunc_6 @ 0x00118050
+#include "decls/address.h"
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -47,14 +48,13 @@ struct Mgr_118050 {
     void FUN_001dcf60(int a);
 };
 
-struct Game_118050 {
+struct World {
     char pad00[0xc];
     Mgr_118050 *mgr;
     char pad10[0x20 - 0x10];
     Slot_118050 *slot;
 };
 
-extern Game_118050 *DAT_004dd700;
 
 extern char __cdecl FUN_00202560(V3_118050 *from, float dist, int flag, V3_118050 *outA, V3_118050 *outB, int p6, int p7, Hit_118050 **outHit);
 extern V3_118050 *__cdecl FUN_00083e00(V3_118050 *out, V3_118050 *in, float s);

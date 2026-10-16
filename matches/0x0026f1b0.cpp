@@ -1,10 +1,5 @@
-class XboxDrive {
-    char pad[0xbc];
-    unsigned int value;
+#include "gen/core.h"
 
-  public:
-    unsigned int vfunc_6();
-};
-unsigned int XboxDrive::vfunc_6() {
-    return value;
+unsigned int core::XboxDrive::vfunc_6() {
+    return this->f_bc;
 }

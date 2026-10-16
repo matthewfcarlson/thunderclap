@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2345 inputs, branch coverage 44/44)
 // CHand2HandAgent::vfunc_23 @ 0x00101a30
+#include "decls/address.h"
 extern "C" double sqrt(double);
 
 struct V3_101a30 {
@@ -30,7 +31,7 @@ public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual int v3(struct Hub_101a30 *hub, struct Arg1_101a30 *a1, V3_101a30 *out, int a3, int z);
+    virtual int v3(struct World *hub, struct Arg1_101a30 *a1, V3_101a30 *out, int a3, int z);
     char pad04[0xc];
     V3_101a30 v10;
 };
@@ -43,18 +44,17 @@ struct Arg1_101a30 {
 struct Hub20_101a30 {
     void FUN_00029250(int a, V3_101a30 *v, int b, int c);
 };
-struct Hub_101a30 {
+struct World {
     char pad0[0x20];
     Hub20_101a30 *p20;
 };
-extern Hub_101a30 *DAT_004dd700;
 extern float DAT_004a1c00;
 extern float DAT_004a1c04;
 extern float DAT_004a1c08;
 extern float DAT_004a1c0c;
 extern char DAT_004e0a99;
 
-float FUN_0010ae50(Hub_101a30 *h, Arg1_101a30 *a, float f, V3_101a30 *v1, V3_101a30 *v2, int z1, int z2);
+float FUN_0010ae50(World *h, Arg1_101a30 *a, float f, V3_101a30 *v1, V3_101a30 *v2, int z1, int z2);
 
 struct Out_101a30 {
     char pad0[0x10c];

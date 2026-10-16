@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 36/36)
 // FUN_001bb990 @ 0x001bb990
+#include "decls/address.h"
 namespace math {
 class Vector {
   public:
@@ -31,7 +32,6 @@ extern char DAT_0048e100;
 extern char DAT_0048e0e4;
 extern char DAT_0048e128;
 extern char DAT_0049b95c;
-char FUN_001d04d0(const void* type);
 void* FUN_0008d690(unsigned size);
 void* FUN_00263ea0(unsigned size);
 inline void* operator new(unsigned int, void* p) throw() { return p; }

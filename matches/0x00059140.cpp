@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern "C" void* __cdecl Allocate(unsigned int);
 extern "C" int CondVtable;
 struct Sub_59140 {
@@ -13,18 +15,15 @@ class Cond_59140 {
     int pad;
     void Initialize(int);
 };
-class Factory_59140 {
-  public:
-    Cond_59140* vfunc_5();
-};
-Cond_59140* Factory_59140::vfunc_5() {
+
+template <> void* fight::ConditionFactoryTemplate<CSmartPropGrabbableNameCondition>::vfunc_5() {
     Cond_59140* p = (Cond_59140*)Allocate(0x18);
     if (p) {
         p->Initialize(0);
         *(int*)p = (int)&CondVtable;
         p->c = 0;
         p->s.Init();
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

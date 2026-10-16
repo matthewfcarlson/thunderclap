@@ -24,7 +24,7 @@ public:
     virtual void v7(int a, int b, Key_2354c0 *k);
 };
 
-class ParamValueNameList {
+namespace fight { class ParamValueNameList {
 public:
     virtual void v0();
     virtual void v1();
@@ -37,9 +37,9 @@ public:
     int f4;
     int f8;
     int fc;
-};
+}; }
 
-void ParamValueNameList::vfunc_5(int a1, int a2, Sink_2354c0 *sink)
+void fight::ParamValueNameList::vfunc_5(int a1, int a2, Sink_2354c0 *sink)
 {
     Key_2354c0 *k = v7(a1);
     if (k == 0) {

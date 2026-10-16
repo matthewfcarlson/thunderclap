@@ -1,27 +1,17 @@
-class SeqEvent {
+#include "gen/audio.h"
+
+class SeqEvent_24f600 {
   public:
     bool vfunc_0(void*);
 };
 extern bool ReadA(void*, void*);
 extern bool ReadB(void*, void*);
 extern bool ReadC(void*, void*);
-class SeqEventChannelSendVolumes {
-  public:
-    virtual int vfunc_0(void* p);
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    char pad0[4];
-    int field8;
-    char pad[0x48 - 0xc];
-    int field48;
-    int field4c;
-};
-int SeqEventChannelSendVolumes::vfunc_0(void* p) {
-    SeqEvent* base = reinterpret_cast<SeqEvent*>(this);
-    if (base->vfunc_0(p) && ReadA(p, &field48) && ReadB(p, &field4c) && ReadC(p, &field8))
+
+int audio::SeqEventChannelSendVolumes::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
+    SeqEvent_24f600* base = reinterpret_cast<SeqEvent_24f600*>(this);
+    if (base->vfunc_0(p) && ReadA(p, &this->f_48) && ReadB(p, &this->f_4c) && ReadC(p, &this->f_08))
         return 1;
     return 0;
 }

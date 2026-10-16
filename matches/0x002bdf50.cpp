@@ -1,28 +1,23 @@
+#include "gen/pure3d.h"
+
 extern "C" char DAT_0042e914[];
 typedef unsigned int size_t;
 typedef unsigned int u32_2bdf50;
 void* __cdecl alloc(size_t);
 namespace pure3d {
-class SpriteObject;
-class Builder {
+
+class Builder_2bdf50 {
   public:
-    void init(SpriteObject*);
+    void init(pure3d::SpriteObject*);
 };
-class SpriteObject {
-  public:
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual void a3();
-    virtual SpriteObject* a4();
-};
-SpriteObject* SpriteObject::a4() {
-    SpriteObject* p = (SpriteObject*)alloc(0x58);
-    if (p) {
-        ((Builder*)p)->init(this);
-        *(u32_2bdf50*)p = ((int)DAT_0042e914);
-        return p;
-    }
-    return 0;
-}
+
 } // namespace pure3d
+void* pure3d::SpriteObject::vfunc_4() {
+    pure3d::SpriteObject* p = (pure3d::SpriteObject*)alloc(0x58);
+    if (p) {
+        ((Builder_2bdf50*)p)->init(this);
+        *(u32_2bdf50*)p = ((int)DAT_0042e914);
+        return (void*)(p);
+    }
+    return (void*)(0);
+}

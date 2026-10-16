@@ -1,54 +1,26 @@
-class Obj_2a9c00 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
-    virtual void f11();
-    virtual void f12();
-    virtual void f13();
-    virtual void f14();
-    virtual void f15();
-    virtual void f16();
-    virtual void f17();
-    virtual void f18();
-    virtual void f19();
-    virtual void f20();
-    virtual void f21();
-    virtual void f22();
-    virtual void f23();
-    virtual void f24();
-    virtual void f25();
-    virtual void f26();
-    char pad[0x40 - sizeof(void*)];
-    Obj_2a9c00* link;
-    void initialize(Obj_2a9c00*);
-    Obj_2a9c00* vfunc_4();
+#include "gen/pure3d.h"
+
+struct BillboardQuadGroupAnimationController_nv_2a9c00 {
+    void initialize(pure3d::BillboardQuadGroupAnimationController*);
 };
 extern "C" int BQVtable;
 extern "C" void* __cdecl alloc(unsigned int);
-Obj_2a9c00* Obj_2a9c00::vfunc_4() {
-    Obj_2a9c00* p = (Obj_2a9c00*)alloc(0x48);
+
+void* pure3d::BillboardQuadGroupAnimationController::vfunc_4() {
+    pure3d::BillboardQuadGroupAnimationController* p = (pure3d::BillboardQuadGroupAnimationController*)alloc(0x48);
     if (p) {
-        p->initialize(this);
+        ((BillboardQuadGroupAnimationController_nv_2a9c00*)(p))->initialize(this);
         *(int*)p = (int)&BQVtable;
         int* z = (int*)((char*)p + 0x40);
         *z = 0;
-        Obj_2a9c00* q = link;
+        pure3d::BillboardQuadGroupAnimationController* q = (*(pure3d::BillboardQuadGroupAnimationController * *)&this->f_40);
         if (q)
-            q->f0();
-        Obj_2a9c00* old = p->link;
+            q->vfunc_0();
+        pure3d::BillboardQuadGroupAnimationController* old = (*(pure3d::BillboardQuadGroupAnimationController * *)&p->f_40);
         if (old)
-            old->f1();
-        p->link = q;
-        return p;
+            old->vfunc_1();
+        (*(pure3d::BillboardQuadGroupAnimationController * *)&p->f_40) = q;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

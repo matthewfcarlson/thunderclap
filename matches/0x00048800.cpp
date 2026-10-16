@@ -1,19 +1,8 @@
 // Same code shape as 0x00048590 (propagated; names are from that function)
-class CAxisDownCondition {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual bool vfunc_10(int* p, int* out);
-};
-bool CAxisDownCondition::vfunc_10(int* p, int* out) {
+#include "gen/global.h"
+
+bool CAxisDownCondition::vfunc_10(void* __p0, int __p1) { int * p = (int *)__p0; int * out = (int *)__p1;
+
     switch (*p) {
     case 1:
         *out = 0;

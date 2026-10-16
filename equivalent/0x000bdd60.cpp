@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 12031 inputs, branch coverage 25/25; run with --inputs 12000)
 // FUN_000bdd60 @ 0x000bdd60
+#include "decls/address.h"
 extern "C" int memcmp(const void *a, const void *b, unsigned int n);
 
 class FEObject {
@@ -27,7 +28,7 @@ public:
     virtual const char *GetName();
 };
 
-class Presenter {
+class Gfx {
 public:
     virtual void p0();
     virtual void p1();
@@ -51,7 +52,6 @@ struct Overlay {
     void FUN_00294080();
 };
 
-extern Presenter *DAT_0052c2a8;
 extern Notifier_bdd60 *DAT_004dd6e8;
 
 void FUN_000fc1a0();

@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 16/16)
 // FUN_0009a500 @ 0x0009a500
+#include "decls/address.h"
 struct Mode_9a500 { int FUN_00088fa0(); };
 struct Context { char pad[0x80]; Mode_9a500 mode; };
 struct Manager_9a500 { Context* FUN_00086310(); };
-struct Global_9a500 { char pad[0x54]; Manager_9a500* manager; };
-extern Global_9a500* DAT_004dd700;
+struct World { char pad[0x54]; Manager_9a500* manager; };
 struct Receiver_9a500 { void FUN_000a2c60(float,float); };
 struct Object { char pad[0xb8]; Receiver_9a500* receiver; void target(float a,float b); };
 void Object::target(float a,float b) {

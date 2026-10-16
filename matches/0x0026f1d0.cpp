@@ -1,32 +1,9 @@
-class XboxDrive {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual int vfunc_10(void*, int);
-    virtual void f11();
-    virtual void f12();
-    virtual void f13();
-    virtual void f14();
-    virtual void f15();
-    virtual void f16();
-    virtual void f17();
-    virtual void f18();
-    virtual void f19();
-    virtual void f20();
-    virtual void f21();
-    char pad[0xBC];
-    int field;
-};
+#include "gen/core.h"
+
 extern void __stdcall FUN_0020bbc2(void*);
-int XboxDrive::vfunc_10(void* p, int q) {
+
+int core::XboxDrive::vfunc_10(void* __p0, int q) { void * p = (void *)__p0;
+
     FUN_0020bbc2(p);
     --(*(int*)((char*)this + 0xc0));
     return 1;

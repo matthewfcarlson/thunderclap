@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3076 inputs, branch coverage 51/52, incomplete)
 // FUN_00107410 @ 0x00107410
+#include "decls/address.h"
 extern "C" double sqrt(double);
 
 struct V3_107410 {
@@ -44,7 +45,6 @@ struct Rng_107410 {
 };
 
 extern Rng_107410 *FUN_000964d0();
-extern unsigned __int64 __cdecl FUN_0027b020(const char *s);
 extern unsigned __int64 DAT_004dc0e0;
 
 struct Self_107410 {

@@ -1,13 +1,14 @@
 // Same code shape as 0x002736e0 (propagated; names are from that function)
-class FileCompletionRequest;
+#include "gen/core.h"
+
 struct Callee_273780 {
-    void f(FileCompletionRequest*);
+    void f(core::DriveCompletionRequest*);
 };
 struct Inner_273780 {
     char pad[12];
     Callee_273780* callee;
 };
-class CompletionCallbackRequest {
+class CompletionCallbackRequest_273780 {
   public:
     virtual void v0();
     virtual int v1();
@@ -18,13 +19,8 @@ class CompletionCallbackRequest {
     virtual void v6();
     virtual void v7();
 };
-class FileCompletionRequest : public CompletionCallbackRequest {
-  public:
-    char pad[8];
-    Inner_273780* member;
-    int v1();
-};
-int FileCompletionRequest::v1() {
-    member->callee->f(this);
+
+int core::DriveCompletionRequest::vfunc_1() {
+    (*(Inner_273780 * *)&this->f_0c)->callee->f(this);
     return 3;
 }

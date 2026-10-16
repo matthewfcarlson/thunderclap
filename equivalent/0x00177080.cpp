@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 48/50, incomplete)
 // hulkfight::motion::SuckAction::vfunc_5 @ 0x00177080
+#include "gen/hulkfight.h"
+#include "decls/address.h"
+
 struct Vec3_177080 {
     float x, y, z;
     double FUN_0022d110();
@@ -24,7 +27,7 @@ struct Mgr1 {
     Mgr2_177080* list;
 };
 
-struct Globals_177080 {
+struct World {
     char pad00[0x10];
     Mgr1* mgr;
 };
@@ -72,7 +75,7 @@ struct Owner_177080 {
     void FUN_00035760(Vec3_177080* v);
 };
 
-struct Entity {
+struct Entity_177080 {
     char pad00[8];
     Owner_177080* obj;
     int type;
@@ -82,7 +85,7 @@ struct Entity {
     Controller_177080* controller;
 };
 
-struct Action {
+struct Action_177080 {
     Owner_177080* FUN_00059a30();
 };
 
@@ -116,36 +119,22 @@ struct Frame_177080 {
     Vec3_177080 y;
 };
 
-extern Globals_177080* DAT_004dd700;
-Entity* FUN_000969d0(int id);
+Entity_177080* FUN_000969d0(int id);
 
 namespace hulkfight {
 namespace motion {
 
-class SuckAction {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual bool vfunc_5(int a, int b);
-
-    char pad04[0x1c - 4];
-    Config_177080* config;
-    Source_177080* source;
-};
-
-bool SuckAction::vfunc_5(int a, int b)
-{
+}
+}
+bool hulkfight::motion::SuckAction::vfunc_5(int a, int b) {
     if (a)
         return true;
-    Source_177080* src = source;
+    Source_177080* src = (*(Source_177080 * *)&this->f_20);
     if (!src)
         return false;
 
     Frame_177080 f;
-    Config_177080* c = config;
+    Config_177080* c = (*(Config_177080 * *)&this->f_1c);
     f.minRange = c->minRange;
     f.maxRange = c->maxRange;
     f.c1 = c->c1;
@@ -153,7 +142,7 @@ bool SuckAction::vfunc_5(int a, int b)
     Handle_177080* h = src->FUN_000592a0();
     if (!h)
         return false;
-    Owner_177080* owner = ((Action*)h)->FUN_00059a30();
+    Owner_177080* owner = ((Action_177080*)h)->FUN_00059a30();
     f.owner = owner;
     if (!owner)
         return false;
@@ -171,7 +160,7 @@ bool SuckAction::vfunc_5(int a, int b)
         Item_177080* item = list->begin[f.i];
         if (!item)
             continue;
-        Entity* e = FUN_000969d0(item->id);
+        Entity_177080* e = FUN_000969d0(item->id);
         if (!e)
             continue;
         f.pos = e->pos;
@@ -251,7 +240,4 @@ bool SuckAction::vfunc_5(int a, int b)
         }
     }
     return true;
-}
-
-}
 }

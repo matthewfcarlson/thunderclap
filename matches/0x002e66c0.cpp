@@ -1,5 +1,5 @@
 extern "C" char DAT_0042fd84[];
-class Language {
+namespace pure3d { class Language {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -11,10 +11,10 @@ class Language {
     void* y;
     void* z;
     void finish();
-};
+}; }
 void release(void*);
 void destroy(void*);
-Language* Language::vfunc_2(int flag) {
+pure3d::Language* pure3d::Language::vfunc_2(int flag) {
     *(void**)this = (void*)((int)DAT_0042fd84);
     release(x);
     release(y);

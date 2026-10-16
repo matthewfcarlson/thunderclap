@@ -1,8 +1,10 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0040ff34[];
 extern void* __cdecl Allocate(unsigned int);
-class TargetInvincibleCondition {
+class TargetInvincibleCondition_12ad90 {
   public:
-    TargetInvincibleCondition(int);
+    TargetInvincibleCondition_12ad90(int);
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -12,22 +14,14 @@ class TargetInvincibleCondition {
     char pad[8];
     unsigned char flag;
 };
-class ConditionFactoryTemplate {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual TargetInvincibleCondition* vfunc_5();
-};
-TargetInvincibleCondition* ConditionFactoryTemplate::vfunc_5() {
-    TargetInvincibleCondition* p = (TargetInvincibleCondition*)Allocate(0x10);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetInvincibleCondition>::vfunc_5() {
+    TargetInvincibleCondition_12ad90* p = (TargetInvincibleCondition_12ad90*)Allocate(0x10);
     if (p) {
-        p->TargetInvincibleCondition::TargetInvincibleCondition(0);
+        p->TargetInvincibleCondition_12ad90::TargetInvincibleCondition_12ad90(0);
         *(unsigned int*)p = ((int)DAT_0040ff34);
         p->flag = 1;
-        return p;
+        return (void*)(p);
     }
-    return (TargetInvincibleCondition*)0;
+    return (void*)((TargetInvincibleCondition_12ad90*)0);
 }

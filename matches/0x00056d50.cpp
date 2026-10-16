@@ -1,6 +1,8 @@
+#include "gen/fight.h"
+
 extern void* __cdecl Alloc(unsigned int);
 extern int AxisVtable_56d50;
-struct CAxisDoubleTapCondition {
+struct CAxisDoubleTapCondition_56d50 {
     int vt;
     int pad0;
     int pad1;
@@ -11,12 +13,9 @@ struct CAxisDoubleTapCondition {
     int x4;
     void Init(int);
 };
-class Factory_56d50 {
-  public:
-    CAxisDoubleTapCondition* vfunc_5();
-};
-CAxisDoubleTapCondition* Factory_56d50::vfunc_5() {
-    CAxisDoubleTapCondition* p = (CAxisDoubleTapCondition*)Alloc(0x20);
+
+template <> void* fight::ConditionFactoryTemplate<CAxisDoubleTapCondition>::vfunc_5() {
+    CAxisDoubleTapCondition_56d50* p = (CAxisDoubleTapCondition_56d50*)Alloc(0x20);
     if (p) {
         p->Init(0);
         p->x0 = 0;
@@ -25,7 +24,7 @@ CAxisDoubleTapCondition* Factory_56d50::vfunc_5() {
         p->x2 = 0x3fc90fdb;
         p->x3 = 0;
         p->x4 = 0x3f000000;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

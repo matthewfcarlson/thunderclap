@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct One {
     void* f();
 };
@@ -7,15 +9,10 @@ struct Two_134160 {
 struct Three {
     void f(void*, int);
 };
-struct FallAction {
-    char pad[0x20];
-    One* a;
-    void* b;
-    void vfunc_4();
-};
-void FallAction::vfunc_4() {
-    void* x = a->f();
+
+void hulkfight::motion::FallAction::vfunc_4() {
+    void* x = (*(One * *)&this->f_20)->f();
     void* y = ((Two_134160*)x)->f();
     if (y)
-        ((Three*)y)->f(b, 0);
+        ((Three*)y)->f((*(void * *)&this->f_24), 0);
 }

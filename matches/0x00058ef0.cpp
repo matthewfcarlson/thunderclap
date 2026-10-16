@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 typedef unsigned int size_t;
 void* operator new(size_t);
 class Base {
@@ -15,23 +17,15 @@ class Member {
     int a;
     int b;
 };
-class CGrappleCharacterTemplateCondition : public Base {
+class CGrappleCharacterTemplateCondition_58ef0 : public Base {
   public:
-    CGrappleCharacterTemplateCondition() throw();
+    CGrappleCharacterTemplateCondition_58ef0() throw();
     virtual void f0();
     int val;
     Member m;
 };
-CGrappleCharacterTemplateCondition::CGrappleCharacterTemplateCondition() throw() : Base(0), val(0), m() {}
-class Factory {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual Base* vfunc_5();
-};
-Base* Factory::vfunc_5() {
-    return new CGrappleCharacterTemplateCondition;
+CGrappleCharacterTemplateCondition_58ef0::CGrappleCharacterTemplateCondition_58ef0() throw() : Base(0), val(0), m() {}
+
+template <> void* fight::ConditionFactoryTemplate<CGrappleCharacterTemplateCondition>::vfunc_5() {
+    return (void*)(new CGrappleCharacterTemplateCondition_58ef0);
 }

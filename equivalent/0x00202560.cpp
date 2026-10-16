@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 20/20)
 // FUN_00202560 @ 0x00202560
+#include "decls/address.h"
 struct Vec3_202560 {
     float x, y, z;
 };
@@ -43,7 +44,7 @@ struct Hud_202560 {
     void FUN_00025260(int a, int b, int c);
 };
 
-struct Globals_202560 {
+struct World {
     char pad0[0x10];
     Bridge *bridge;
     char pad14[0xc];
@@ -51,7 +52,6 @@ struct Globals_202560 {
     Trace *trace;
 };
 
-extern Globals_202560 *DAT_004dd700;
 extern int DAT_004d2a3c;
 extern char DAT_004d2a40;
 extern char DAT_00554c1c;
@@ -63,7 +63,7 @@ void FUN_002f1ce0(Vec3_202560 *from, int tri, Vec3_202560 *normal, float *out);
 char FUN_00202560(Vec3_202560 *start, float depth, int a3, Vec3_202560 *result, Vec3_202560 *normalOut,
                   Vec3_202560 *fallback, int *materialOut, int *c)
 {
-    Globals_202560 *g = DAT_004dd700;
+    World *g = DAT_004dd700;
     Trace *trace = g->trace;
     if (materialOut != 0)
         *materialOut = 0;

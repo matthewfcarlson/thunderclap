@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 356 inputs, branch coverage 12/12)
 // FUN_002b3c70 @ 0x002b3c70
+#include "decls/address.h"
 struct V3_2b3c70 {
     float x, y, z;
     void FUN_0022d180();
@@ -27,7 +28,7 @@ struct Sink_2b3c70 {
     void *f10;
 };
 
-class Renderer_2b3c70 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -63,7 +64,6 @@ public:
     virtual void v31(Batch_2b3c70 *b);
 };
 
-extern Renderer_2b3c70 *DAT_0052c2a8;
 extern Sink_2b3c70 *DAT_00554bb4;
 extern unsigned int DAT_0052cbac;
 extern Tri_2b3c70 DAT_0052cbb0[];

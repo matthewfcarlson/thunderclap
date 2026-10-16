@@ -1,10 +1,6 @@
-class CGolem {
-  public:
-    char pad[0xf0];
-    int value;
-    void vfunc_8(int);
-};
+#include "gen/global.h"
+
 void CGolem::vfunc_8(int x) {
     if (x >= 0 && x <= 4)
-        value = x;
+        this->f_f0 = x;
 }

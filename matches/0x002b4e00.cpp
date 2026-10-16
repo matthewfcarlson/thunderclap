@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Manager_2b4e00 {
   public:
     virtual void m0();
@@ -87,17 +89,12 @@ class Child_2b4e00 {
     virtual void f();
     virtual void g();
 };
-class Shadow {
-  public:
-    char pad[0x40];
-    Child_2b4e00* child;
-    void vfunc_6();
-};
-void Shadow::vfunc_6() {
+
+void pure3d::ShadowMeshBufferImpl::vfunc_6() {
     gManager_2b4e00->m54(2);
     gManager_2b4e00->m74(0, 0, 3);
-    child->g();
+    (*(Child_2b4e00 * *)&this->f_40)->g();
     gManager_2b4e00->m54(1);
     gManager_2b4e00->m74(0, 0, 4);
-    child->g();
+    (*(Child_2b4e00 * *)&this->f_40)->g();
 }

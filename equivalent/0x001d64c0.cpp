@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 24/24)
 // FUN_001d64c0 @ 0x001d64c0
+#include "decls/address.h"
 typedef unsigned int uint;
 extern uint DAT_004e25e8;
 extern uint DAT_004e25e0, DAT_004e25e4, DAT_004e25d8, DAT_004e25dc, DAT_004e25d0, DAT_004e25d4;
 extern unsigned __int64 __cdecl FUN_0027afb0(const char*);
 struct Input_1d64c0 { bool FUN_00092940(int); };
 struct Manager_1d64c0 { Input_1d64c0* FUN_00086340(); };
-struct Root_1d64c0 { char pad[0x54]; Manager_1d64c0* manager; };
-extern Root_1d64c0* DAT_004dd700;
+struct World { char pad[0x54]; Manager_1d64c0* manager; };
 struct Identity { char pad[8]; uint low, high; };
 struct Object { char pad[0x9c]; Identity* identity; char pad2[0x14d-0xa0]; unsigned char flag; int FUN_001d64c0(); };
 int Object::FUN_001d64c0() {

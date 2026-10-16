@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Dev_332620 {
   public:
     virtual void v0();
@@ -18,27 +20,8 @@ class Dev_332620 {
     virtual void SetState(int s);
 };
 
-class Shader {
-  public:
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual void a3();
-    virtual void a4();
-    virtual void a5();
-    virtual void a6();
-    virtual void a7();
-    virtual void a8();
-    virtual void a9();
-    virtual void a10();
-    virtual void a11();
-    virtual void f12();
-    char pad[0x0c];
-    Dev_332620* mDev;
-};
-
-void Shader::f12() {
-    mDev->SetState(3);
+void pure3d::d3dBuildingShader::vfunc_12() {
+    (*(Dev_332620 * *)&this->f_10)->SetState(3);
     float m[16];
     m[0] = 0.5f;
     m[1] = 0;
@@ -56,5 +39,5 @@ void Shader::f12() {
     m[13] = 0.5f;
     m[14] = 0;
     m[15] = 1.0f;
-    mDev->SetTransform(3, m);
+    (*(Dev_332620 * *)&this->f_10)->SetTransform(3, m);
 }

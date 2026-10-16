@@ -1,10 +1,9 @@
-struct Action {
+#include "gen/fight.h"
+
+struct Action_23a290 {
     void target();
 };
-struct QueuedNodeAction {
-    char pad[0x2c];
-    void vfunc_4();
-};
-void QueuedNodeAction::vfunc_4() {
-    ((Action*)((char*)this + 0x2c))->target();
+
+void fight::QueuedNodeAction::vfunc_4() {
+    ((Action_23a290*)((char*)this + 0x2c))->target();
 }

@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 typedef unsigned int size_t;
 void* operator new(size_t) throw();
 class Base {
@@ -9,9 +11,9 @@ class Base {
     int pad;
     int flag;
 };
-class PrintTrack : public Base {
+class PrintTrack_239320 : public Base {
   public:
-    PrintTrack() throw() {
+    PrintTrack_239320() throw() {
         x = 0;
         y = 0;
         z = 0;
@@ -22,15 +24,7 @@ class PrintTrack : public Base {
     int y;
     int z;
 };
-class Factory {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual PrintTrack* vfunc_5();
-};
-PrintTrack* Factory::vfunc_5() {
-    return new PrintTrack;
+
+template <> void* fight::TrackFactoryTemplate<fight::PrintTrack>::vfunc_5() {
+    return (void*)(new PrintTrack_239320);
 }

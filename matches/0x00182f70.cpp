@@ -13,7 +13,7 @@ class Elem_182f70 {
   public:
     void Fn();
 };
-class GrapplePropStateByNameCondition : public Condition {
+namespace hulkfight { namespace motion { class GrapplePropStateByNameCondition : public Condition {
   public:
     virtual void v0();
     virtual void v1();
@@ -25,9 +25,9 @@ class GrapplePropStateByNameCondition : public Condition {
     char pad0[0x14];
     Elem_182f70 elem;
     void Init();
-};
-extern void __cdecl thunk(GrapplePropStateByNameCondition*);
-GrapplePropStateByNameCondition* GrapplePropStateByNameCondition::vfunc_5(int flag) {
+}; }}
+extern void __cdecl thunk(hulkfight::motion::GrapplePropStateByNameCondition*);
+hulkfight::motion::GrapplePropStateByNameCondition* hulkfight::motion::GrapplePropStateByNameCondition::vfunc_5(int flag) {
     *(int*)this = (int)&vftable_182f70;
     elem.Fn();
     Init();

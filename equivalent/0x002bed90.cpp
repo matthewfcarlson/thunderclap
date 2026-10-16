@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 183 inputs, branch coverage 26/26)
 // pure3d::SpriteLoader::vfunc_5 @ 0x002bed90
+#include "decls/address.h"
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* __cdecl FUN_00263ea0(unsigned int size);
 void* __cdecl FUN_0008d6d0(int size);
-unsigned __int64 __cdecl FUN_0027b020(const char* s);
-unsigned __int64 __cdecl FUN_002672f0(char* name, int a, int b);
 
 struct Stream {
     void FUN_002647e0(void* dest, unsigned int count, unsigned int size, int flag);

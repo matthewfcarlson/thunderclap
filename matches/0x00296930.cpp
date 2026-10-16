@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Child_296930 {
   public:
     virtual void f0();
@@ -38,40 +40,11 @@ class Callback_296930 {
     virtual void f22();
     virtual void f23();
 };
-class TransformNode {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual void v13();
-    virtual void v14();
-    virtual void v15();
-    virtual void v16();
-    virtual void v17();
-    virtual void v18();
-    virtual void v19();
-    char p4[0xc];
-    unsigned int flags;
-    char p14[4];
-    unsigned int count;
-    Child_296930** children;
-    char p20[0x88];
-    Callback_296930* cb;
-};
-void TransformNode::v9() {
-    if (cb)
-        cb->f23();
-    flags &= 0xfffffffe;
-    for (unsigned int i = 0; i < count; ++i)
-        children[i]->f9();
+
+void pure3d::scenegraph::TransformNode::vfunc_9() {
+    if ((*(Callback_296930 * *)&this->f_a8))
+        (*(Callback_296930 * *)&this->f_a8)->f23();
+    (*(unsigned int *)&this->f_10) &= 0xfffffffe;
+    for (unsigned int i = 0; i < this->f_18; ++i)
+        (*(Child_296930 ** *)&this->f_1c)[i]->f9();
 }

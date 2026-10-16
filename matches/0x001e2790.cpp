@@ -1,21 +1,18 @@
-class CSPManager {
+#include "gen/global.h"
+
+class CSPManager_1e2790 {
   public:
     void Fn(int, float, float, float, float, int);
 };
-class Function {
+class Function_1e2790 {
   public:
     virtual void v0();
     virtual void v1();
     virtual void v2(int, void*, int);
 };
-class Closure6 : public Function {
-  public:
-    char pad[0x18];
-    void (CSPManager::*fn)(int, float, float, float, float, int);
-    CSPManager* obj;
-    virtual void v2(int, void*, int);
-};
-void Closure6::v2(int x, void* arg, int y) {
+
+template <> void Closure6<CSPManager, void, int, float, float, float, float, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { int x = (int)__p0; void * arg = (void *)__p1; int y = (int)__p2;
+
     int* p = (int*)arg;
     int a = *p++;
     float b = *(float*)p++;
@@ -23,5 +20,5 @@ void Closure6::v2(int x, void* arg, int y) {
     float d = *(float*)p++;
     float e = *(float*)p++;
     int f = *p++;
-    (obj->*fn)(a, b, c, d, e, f);
+    ((*(CSPManager_1e2790 * *)&this->f_20)->*(*(void (CSPManager_1e2790::**)(int, float, float, float, float, int))&this->f_1c))(a, b, c, d, e, f);
 }

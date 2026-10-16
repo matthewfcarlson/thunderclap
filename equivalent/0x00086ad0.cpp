@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 36/38, incomplete)
 // FUN_00086ad0 @ 0x00086ad0
+#include "decls/address.h"
 struct Flags_86ad0 {
     char pad0[4];
     char started;       // +4
@@ -41,7 +42,7 @@ struct Context {
     Fader_86ad0 *fader;
 };
 
-struct Sim_86ad0 {
+struct World {
     char pad[0x54];
     Context *ctx;
 };
@@ -59,7 +60,6 @@ struct Renderer_86ad0 {
 };
 
 extern int DAT_0049c0dc;
-extern Sim_86ad0 *DAT_004dd700;
 extern int DAT_004dda40;
 extern char DAT_004e222c;
 extern char DAT_004ddbe1;

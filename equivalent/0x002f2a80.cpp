@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002f2a80 @ 0x002f2a80
 // physics property table defaults @ 0x002f2a80
+#include "decls/address.h"
 typedef unsigned __int64 Key_2f2a80;
-extern Key_2f2a80 __cdecl FUN_0027b020(const char*);
 struct PhysicsTable_2f2a80 {
     void FUN_002f27c0(Key_2f2a80, float, float, float, float);
     void FUN_002f2a80();

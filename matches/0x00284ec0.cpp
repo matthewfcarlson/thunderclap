@@ -1,14 +1,7 @@
-class SimpleFrameController {
-  public:
-    char pad0[0x20];
-    int a;
-    int b;
-    char pad2[0x14];
-    int c;
-    unsigned int vfunc_19();
-};
-unsigned int SimpleFrameController::vfunc_19() {
-    if (a == 0 && c != 0)
-        return *(unsigned char*)(c + 0x18) == 0;
-    return b;
+#include "gen/pure3d.h"
+
+int pure3d::SimpleFrameController::vfunc_19() {
+    if (this->f_20 == 0 && (*(int *)&this->f_3c) != 0)
+        return (int)(*(unsigned char*)((*(int *)&this->f_3c) + 0x18) == 0);
+    return (int)(this->f_24);
 }

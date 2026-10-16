@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 145 inputs, branch coverage 32/38, incomplete)
 // FUN_001b98e0 @ 0x001b98e0
+#include "decls/address.h"
 class Target_1b98e0 {
 public:
     virtual void v0();
@@ -13,7 +14,7 @@ public:
     virtual int v8(float a0, int color2, float a1, float a2, int color1, float a3, float a4, float a5);
 };
 
-class Manager_1b98e0 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -107,7 +108,6 @@ public:
     virtual Target_1b98e0 *v89(int id);
 };
 
-extern Manager_1b98e0 *DAT_0052c2a8;
 extern int DAT_004c3bf0;
 extern int DAT_004c3bf4;
 extern int DAT_004c3bf8;

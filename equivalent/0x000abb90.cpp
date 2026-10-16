@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 66/66)
 // CHypnoticCamera::vfunc_35 @ 0x000abb90
+#include "decls/address.h"
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int cookie);
 
@@ -42,7 +43,6 @@ struct World {
     char pad0[0x54];
     Reg_abb90 *f54;
 };
-extern World *DAT_004dd700;
 
 struct Snd_abb90 {
     void FUN_001eb560(const char *s);

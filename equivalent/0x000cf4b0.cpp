@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 36/40, incomplete)
 // FUN_000cf4b0 @ 0x000cf4b0
+#include "decls/address.h"
 struct Track {
     int FUN_001d60c0();
 };
@@ -51,7 +52,6 @@ struct Ctl_cf4b0 {
     void FUN_000cf4b0(float dt);
 };
 
-unsigned __int64 __cdecl FUN_002672f0(const char *s, int a, int b);
 // equiv-conv: FUN_000cb7d0 ecx stack
 void __cdecl FUN_000cb7d0(float *obj, float v);
 extern const float DAT_003f32dc;

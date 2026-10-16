@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 extern "C" void* memcpy(void*, const void*, unsigned);
 struct Info_2ae060 {
     char p[0x10];
@@ -5,27 +7,18 @@ struct Info_2ae060 {
     int p14;
     int bpp;
 };
-class IB_2ae060 {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void Put(const unsigned char* src);
-    Info_2ae060* info;
-    unsigned* pal;
-    unsigned char* dst;
-    int idx;
-    int stride;
-};
-void IB_2ae060::Put(const unsigned char* src) {
+
+void pure3d::ImageBuilder::vfunc_2(void* __p0) { const unsigned char * src = (const unsigned char *)__p0;
+
     int n;
-    if (info->bpp == 8) {
-        n = info->count;
-        memcpy(dst, src, n);
+    if ((*(Info_2ae060 * *)&this->f_04)->bpp == 8) {
+        n = (*(Info_2ae060 * *)&this->f_04)->count;
+        memcpy((*(unsigned char * *)&this->f_0c), src, n);
     } else {
-        n = info->count;
+        n = (*(Info_2ae060 * *)&this->f_04)->count;
         for (int i = 0; i < n; i++)
-            ((unsigned*)dst)[i] = pal[src[i]];
+            ((unsigned*)(*(unsigned char * *)&this->f_0c))[i] = (*(unsigned int * *)&this->f_08)[src[i]];
     }
-    dst += stride;
-    idx++;
+    (*(unsigned char * *)&this->f_0c) += (*(int *)&this->f_14);
+    (*(int *)&this->f_10)++;
 }

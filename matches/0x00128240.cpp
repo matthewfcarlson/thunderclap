@@ -1,8 +1,8 @@
+#include "gen/fight.h"
+
 extern "C" int Check(void*, int, int, int, int);
-class CF {
-  public:
-    virtual bool vfunc_0(void* a);
-};
-bool CF::vfunc_0(void* a) {
+
+template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetFirstShotCondition>::vfunc_0(void* __p0) { void * a = (void *)__p0;
+
     return Check(a, 0, 0x491ca8, 0x4a8a50, 0) != 0;
 }

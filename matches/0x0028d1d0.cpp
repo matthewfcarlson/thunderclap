@@ -1,8 +1,10 @@
-struct CompressedQuaternion8 {
+#include "gen/pure3d.h"
+
+struct CompressedQuaternion8_28d1d0 {
     unsigned char data[8];
     float* decode(float*);
 };
-struct RotationChannel {
+struct RotationChannel_28d1d0 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -10,17 +12,11 @@ struct RotationChannel {
 struct Quaternion_28d1d0 {
     float a, b, c, d;
 };
-struct CompressedQuaternionChannel : RotationChannel {
-    char pad[0x10];
-    short* indices;
-    CompressedQuaternion8* values;
-    virtual void f0();
-    virtual void f1();
-    virtual void f3(int, float*, Quaternion_28d1d0*);
-};
-void CompressedQuaternionChannel::f3(int index, float* time, Quaternion_28d1d0* out) {
-    *time = (float)indices[index];
+
+template <> void pure3d::CompressedQuaternionChannel<math::CompressedQuaternion8>::vfunc_3(int index, void* __p1, void* __p2) { float * time = (float *)__p1; Quaternion_28d1d0 * out = (Quaternion_28d1d0 *)__p2;
+
+    *time = (float)(*(short * *)&this->f_14)[index];
     float temp[4];
-    float* p = (values + index)->decode(temp);
+    float* p = ((*(CompressedQuaternion8_28d1d0 * *)&this->f_18) + index)->decode(temp);
     *(Quaternion_28d1d0*)out = *(Quaternion_28d1d0*)p;
 }

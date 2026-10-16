@@ -1,33 +1,5 @@
-class AnimationFrameController {
-    char pad[0x14];
+#include "gen/pure3d.h"
 
-  public:
-    float value;
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual void a3();
-    virtual void a4();
-    virtual void a5();
-    virtual void a6();
-    virtual void a7();
-    virtual void a8();
-    virtual void a9();
-    virtual void a10();
-    virtual void a11();
-    virtual void a12();
-    virtual void a13();
-    virtual void a14();
-    virtual void a15();
-    virtual void a16();
-    virtual void a17();
-    virtual void a18();
-    virtual void a19();
-    virtual void a20();
-    virtual void a21();
-    virtual void a22();
-    virtual void vfunc_23();
-};
-void AnimationFrameController::vfunc_23() {
-    value = 1.0f;
+void pure3d::AnimationFrameController::vfunc_23() {
+    this->f_18 = 1.0f;
 }

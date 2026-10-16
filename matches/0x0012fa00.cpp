@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 typedef unsigned int u32_12fa00;
 class Result_12fa00 {
   public:
@@ -17,17 +19,11 @@ class ActionBase_12fa00 {
     virtual void f4();
     virtual void f5();
 };
-class StatBeginTrialAction : public ActionBase_12fa00 {
-  public:
-    char pad18[0x18];
-    u32_12fa00 m1c;
-    u32_12fa00 m20;
-    bool vfunc_3(void*, void*);
-};
-bool StatBeginTrialAction::vfunc_3(void*, void*) {
-    if (!m20)
+
+bool hulkfight::StatBeginTrialAction::vfunc_3(int __p0, int __p1) {
+    if (!(*(u32_12fa00 *)&this->f_20))
         return false;
-    u32_12fa00 x = *(u32_12fa00*)(m1c + 0x10);
+    u32_12fa00 x = *(u32_12fa00*)((*(u32_12fa00 *)&this->f_1c) + 0x10);
     Result_12fa00* q = gGlobal_12fa00->run(x);
     q->run();
     return true;

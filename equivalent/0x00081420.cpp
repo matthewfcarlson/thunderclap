@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 30/30)
 // FUN_00081420 @ 0x00081420
+#include "decls/address.h"
 extern "C" double sqrt(double);
 struct Vec3_81420 {
     float x, y, z;
@@ -93,7 +94,6 @@ public:
 };
 
 extern Clock_81420* DAT_004e5acc;
-extern World* DAT_004dd700;
 
 float FUN_00224f10(Vec3_81420* v);
 int FUN_000113e0(int lo, int hi);

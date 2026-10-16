@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000be950 @ 0x000be950
 // 0x000be950: Method6 callback object constructor (bool/byte flags from the per-type descriptor words)
+#include "decls/address.h"
 extern char DAT_00409108[];
 extern char DAT_0048e100[];
 extern char DAT_0048e0f0[];
@@ -9,7 +10,6 @@ extern char DAT_0048e0f0[];
 extern char DAT_0048e0f0[];
 extern char DAT_0048e0f0[];
 extern char DAT_0048e0f0[];
-extern char __cdecl FUN_001d04d0(const void*);
 
 class Callback_be950 {
 public:

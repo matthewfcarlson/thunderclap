@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct Sub1_15cb40;
 struct Sub2_15cb40;
 struct Mid_15cb40 {
@@ -14,19 +16,11 @@ struct Sub2_15cb40 {
     void Fin(int a);
 };
 
-class HeliLocomotionAction {
-  public:
-    char pad[0x20];
-    Mgr_15cb40* mMgr;
-    int mVal;
-    void vfunc_4();
-};
-
-void HeliLocomotionAction::vfunc_4() {
-    Mid_15cb40* m = mMgr->Get();
+void hulkfight::motion::HeliLocomotionAction::vfunc_4() {
+    Mid_15cb40* m = (*(Mgr_15cb40 * *)&this->f_20)->Get();
     Sub1_15cb40* s = m->A();
     if (s) {
-        s->Init(mVal, 0);
+        s->Init(this->f_24, 0);
         Sub2_15cb40* t = m->B();
         if (t)
             t->Fin(0);

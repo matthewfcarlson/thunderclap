@@ -1,12 +1,8 @@
+#include "gen/pure3d.h"
+
 extern "C" void* memset(void*, int, unsigned int);
-class ShadowTraversal {
-  public:
-    char pad[0x38];
-    unsigned int count;
-    void* buffer;
-    void vfunc_5();
-};
-void ShadowTraversal::vfunc_5() {
-    memset(buffer, 0, count * 20);
-    count = 0;
+
+void pure3d::ShadowTraversal::vfunc_5() {
+    memset((*(void * *)&this->f_3c), 0, this->f_38 * 20);
+    this->f_38 = 0;
 }

@@ -1,4 +1,6 @@
-class FELayout {
+#include "gen/global.h"
+
+class FELayout_e20d0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -39,21 +41,8 @@ class Child_e20d0 {
     virtual void a12();
     virtual void a13(int);
 };
-class SingleLayout : public FELayout {
-  public:
-    virtual void s0();
-    virtual void s1();
-    virtual void s2();
-    virtual void s3();
-    virtual void s4();
-    virtual void s5();
-    virtual void s6();
-    virtual void s7();
-    virtual void vfunc_8(int);
-    char pad[0x44 - 4];
-    Child_e20d0* child;
-};
+
 void SingleLayout::vfunc_8(int x) {
-    if (child)
-        child->a13(x);
+    if ((*(Child_e20d0 * *)&this->f_44))
+        (*(Child_e20d0 * *)&this->f_44)->a13(x);
 }

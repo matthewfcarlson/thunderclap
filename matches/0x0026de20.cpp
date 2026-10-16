@@ -1,10 +1,5 @@
-class DebugConsole {
-    char pad[0xa0];
-    int field;
+#include "gen/core.h"
 
-  public:
-    void vfunc_10(int);
-};
-void DebugConsole::vfunc_10(int value) {
-    field = value;
+void core::DebugConsole::vfunc_10(int value) {
+    this->f_a0 = value;
 }

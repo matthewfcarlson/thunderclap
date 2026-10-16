@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 24/24)
 // hulkfight::ai::OnBlockedTriangleCondition::vfunc_6 @ 0x0010d9c0
+#include "decls/address.h"
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -45,14 +46,13 @@ struct Mgr_10d9c0 {
     void FUN_001dcf60(int a);
 };
 
-struct Game_10d9c0 {
+struct World {
     char pad00[0xc];
     Mgr_10d9c0 *mgr;
     char pad10[0x20 - 0x10];
     Slot_10d9c0 *slot;
 };
 
-extern Game_10d9c0 *DAT_004dd700;
 
 extern char __cdecl FUN_00202560(Vec3_10d9c0 *from, float dist, int flag, Vec3_10d9c0 *outA, Vec3_10d9c0 *outB, int p6, int p7, Hit_10d9c0 **outHit);
 

@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 struct V {
     virtual void f0();
     virtual void f1();
@@ -32,19 +34,16 @@ struct Inner_2ba840 {
 struct Obj_2ba840 {
     Inner_2ba840* p;
 };
-struct Billboard_2ba840 {
-    char pad[0x48];
-    Obj_2ba840* obj;
-    char pad2[0x0c];
-    unsigned int value;
-    void vfunc_8(unsigned int, unsigned int);
+struct BillboardObject_nv_2ba840 {
     void helper(unsigned int, unsigned int);
 };
 extern V** gObj_2ba840;
-void Billboard_2ba840::vfunc_8(unsigned int a, unsigned int b) {
-    gObj_2ba840[0]->f23(0, (char*)obj->p + 0x40);
-    obj->p->x = value;
-    helper(a, b);
-    obj->p->x = 0x3f800000;
+
+void pure3d::BillboardObject::vfunc_8(int __p0, int __p1) { unsigned int a = (unsigned int)__p0; unsigned int b = (unsigned int)__p1;
+
+    gObj_2ba840[0]->f23(0, (char*)(*(Obj_2ba840 * *)&this->f_48)->p + 0x40);
+    (*(Obj_2ba840 * *)&this->f_48)->p->x = this->f_58;
+    ((BillboardObject_nv_2ba840*)this)->helper(a, b);
+    (*(Obj_2ba840 * *)&this->f_48)->p->x = 0x3f800000;
     gObj_2ba840[0]->f16(0);
 }

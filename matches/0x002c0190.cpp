@@ -1,11 +1,5 @@
-class Image32 {
-  public:
-    char pad0[0x10];
-    int mWidth;
-    char pad14[0x10];
-    unsigned int* mPixels;
-    unsigned int vfunc_9(int x, int y);
-};
-unsigned int Image32::vfunc_9(int x, int y) {
-    return mPixels[mWidth * y + x];
+#include "gen/pure3d.h"
+
+unsigned int pure3d::Image32::vfunc_9(int x, int y) {
+    return (*(unsigned int * *)&this->f_24)[this->f_10 * y + x];
 }

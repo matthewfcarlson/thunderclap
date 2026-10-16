@@ -1,10 +1,10 @@
+#include "decls/address.h"
 extern "C" char DAT_00425384[];
 extern "C" char DAT_0048e0f0[];
 extern "C" char DAT_0048e10c[];
 extern "C" char DAT_0048e128[];
 extern "C" char DAT_0048e134[];
 extern "C" void __stdcall FUN_001d0480(const char*, int);
-extern "C" char __cdecl FUN_001d04d0(const char*);
 class Trigger_1ff360 {
   public:
     void* vft;

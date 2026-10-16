@@ -1,5 +1,7 @@
 // Same code shape as 0x00306f70 (propagated; names are from that function)
-class CollisionVolume {
+#include "gen/physics.h"
+
+class CollisionVolume_306f80 {
   public:
     virtual void v0();
     virtual void v1();
@@ -21,11 +23,7 @@ class CollisionVolume {
     virtual void v17();
     virtual void v18();
 };
-class CollisionRay : public CollisionVolume {
-  public:
-    char pad[0x74 - 4];
-    virtual void* vfunc_16();
-};
-void* CollisionRay::vfunc_16() {
-    return (char*)this + 0x74;
+
+void* physics::CollisionRay::vfunc_15() {
+    return (void*)((char*)this + 0x74);
 }

@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 typedef unsigned int size_t;
 void* __cdecl operator new(size_t);
 class PartA {
@@ -36,15 +38,7 @@ class Child : public Base {
     virtual void f4();
     virtual void f5();
 };
-class Factory {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual Child* f5();
-};
-Child* Factory::f5() {
-    return new Child;
+
+template <> void* fight::TrackFactoryTemplate<fight::SpawnTrack>::vfunc_5() {
+    return (void*)(new Child);
 }

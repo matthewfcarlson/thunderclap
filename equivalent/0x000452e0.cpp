@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 66/66)
 // FUN_000452e0 @ 0x000452e0
+#include "decls/address.h"
 struct Npc {
     char pad0[0x1ca8];
     int v1ca8;
@@ -29,12 +30,11 @@ struct ModeB_452e0 {
     Npc *FUN_000259f0(const char *name);
 };
 
-struct Globals_452e0 {
+struct World {
     char pad0[0x20];
     ModeB_452e0 *modeB;
 };
 
-extern Globals_452e0 *DAT_004dd700;
 int FUN_00096600(const char *a, const char *b);
 
 int FUN_000452e0(const char *id, const char *name, int value)

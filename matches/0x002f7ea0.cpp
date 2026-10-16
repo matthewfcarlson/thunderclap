@@ -1,14 +1,14 @@
 // Same code shape as 0x0012da20 (propagated; names are from that function)
-class Action {
+#include "gen/physics.h"
+
+class Action_2f7ea0 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
 };
-class PostEvent_StringAction : public Action {
-  public:
-    virtual unsigned char f3(int a, int b);
-};
-unsigned char PostEvent_StringAction::f3(int a, int b) {
-    return 1;
+
+bool physics::CollisionSolverAgent::vfunc_10(void* __p0, void* __p1) { int a = (int)__p0; int b = (int)__p1;
+
+    return (bool)(1);
 }

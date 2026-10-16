@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 10/10)
 // CGrappleSwapAction::vfunc_6 @ 0x000157c0
+#include "decls/address.h"
 struct Vec3_157c0 { float x, y, z; };
 
 struct Mat_157c0 {
@@ -30,7 +31,7 @@ struct Registry_157c0 {
     Resource_157c0 *FUN_00059bf0(int id);
 };
 
-struct Globals_157c0 {
+struct World {
     char pad0[0x44];
     Registry_157c0 *registry;
 };
@@ -62,7 +63,6 @@ struct GrappleData_157c0 {
 
 void *__fastcall FUN_000592a0(void *owner);
 Entity *__fastcall FUN_00059a30(void *x);
-extern Globals_157c0 *DAT_004dd700;
 
 class CGrappleSwapAction {
 public:

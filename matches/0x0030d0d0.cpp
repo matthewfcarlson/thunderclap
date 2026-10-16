@@ -1,37 +1,6 @@
-class PhysicsJoint3D {
-  public:
-    char pad[0x120];
-    void vfunc_0();
-    virtual void vfunc_1();
-    void vfunc_2();
-    void vfunc_3();
-    void vfunc_4();
-    void vfunc_5();
-    void vfunc_6();
-    void vfunc_7();
-    void vfunc_8();
-    void vfunc_9();
-    void vfunc_10();
-    void vfunc_11();
-    void vfunc_12();
-    void vfunc_13();
-    void vfunc_14();
-    void vfunc_15();
-    void vfunc_16();
-    void vfunc_17();
-    void vfunc_18();
-    void vfunc_19();
-    void vfunc_20();
-    void vfunc_21();
-    void vfunc_22();
-    void vfunc_23();
-    void vfunc_24();
-    void vfunc_25();
-    void vfunc_26();
-    void vfunc_27();
-    void vfunc_28();
-};
-void PhysicsJoint3D::vfunc_1() {
+#include "gen/physics.h"
+
+void physics::PhysicsJoint3D::vfunc_1() {
     *(int*)((char*)this + 0x128) = 0;
     *(int*)((char*)this + 0x124) = 0;
     *(int*)((char*)this + 0x120) = 0;

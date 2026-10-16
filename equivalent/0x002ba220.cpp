@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 36/36)
 // FUN_002ba220 @ 0x002ba220
+#include "decls/address.h"
 struct Vec3_2ba220 {
     float x, y, z;
     void FUN_0022d240(Vec3_2ba220 *v, void *matrix);
@@ -63,7 +64,7 @@ public:
     virtual int v4();
 };
 
-class Engine_2ba220 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -202,7 +203,6 @@ struct Camera {
     Matrix *FUN_0028faa0();
 };
 
-extern Engine_2ba220 *DAT_0052c2a8;
 extern Display_2ba220 *DAT_0052c2ac;
 extern Camera *DAT_0052c2b4;
 

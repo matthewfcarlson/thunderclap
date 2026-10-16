@@ -1,13 +1,6 @@
-class HSlider {
-    char pad0[0x150];
-    int field150;
-    char pad154[0x2c];
-    int field180;
+#include "gen/global.h"
 
-  public:
-    void vfunc_1(int);
-};
 void HSlider::vfunc_1(int x) {
-    if (x == field180)
-        field150 = *(int*)(field180 + 0x40);
+    if (x == this->f_180)
+        this->f_150 = *(int*)(this->f_180 + 0x40);
 }

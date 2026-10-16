@@ -3,15 +3,15 @@ extern "C" char DAT_004e79d0[];
 extern void* g_ptr;
 extern int g_count_25fc30;
 extern unsigned char g_flag_25fc30;
-class MetaType {
+namespace om { class MetaType {
   public:
     virtual MetaType* vfunc_0(unsigned char);
     virtual void vfunc_1();
     virtual void vfunc_2();
-};
-void Register(void* p, MetaType* self);
-void Cleanup(void* p, MetaType* self);
-MetaType* MetaType::vfunc_0(unsigned char param) {
+}; }
+void Register(void* p, om::MetaType* self);
+void Cleanup(void* p, om::MetaType* self);
+om::MetaType* om::MetaType::vfunc_0(unsigned char param) {
     void* p = g_ptr;
     *(void**)this = (void*)((int)DAT_0042aa40);
     Register(p, this);

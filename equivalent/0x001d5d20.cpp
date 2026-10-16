@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1354 inputs, branch coverage 14/14)
 // FUN_001d5d20 @ 0x001d5d20
+#include "decls/address.h"
 typedef unsigned int uint;
 extern uint DAT_004e23e0;
 extern uint DAT_004e23e4;
 extern uint DAT_004e23e8;
-extern unsigned __int64 __cdecl FUN_0027b020(const char*);
 extern long __cdecl _atol(const char*);
 struct Property_1d5d20 { uint low, high; const char* value; uint extra; };
 struct Item_1d5d20 { char pad[0x3c]; int count; Property_1d5d20* properties; };

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 129 inputs, branch coverage 8/8)
 // pure3d::FrameControllerLoader::vfunc_5 @ 0x00285460
+#include "decls/address.h"
 typedef unsigned int uint;
 typedef unsigned __int64 uint64_285460;
 struct Reader { void FUN_002647e0(void*,uint,uint,uint); };
@@ -9,7 +10,6 @@ struct Handler_285460 {
  virtual unsigned char accepts(uint);
  virtual void* load(char*,uint,uint,Chunk*,void*);
 };
-uint64_285460 __cdecl FUN_002672f0(char*,uint,uint);
 namespace pure3d {
 struct FrameControllerLoader {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4();

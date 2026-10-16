@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2975 inputs, branch coverage 24/24)
 // FUN_001c1a40 @ 0x001c1a40
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/address.h"
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 void* thunk_FUN_0008d690(unsigned int size);
@@ -65,7 +66,7 @@ class Display_1c1a40 {
   public:
     virtual void v0();
 };
-class DisplayHolder {
+class Gfx {
   public:
     virtual void s0();
     virtual void s1();
@@ -158,7 +159,6 @@ class DisplayHolder {
     virtual void s88();
     virtual pure3d::pddiExtension* s89(int id);
 };
-extern DisplayHolder* DAT_0052c2a8;
 
 struct Plane_1c1a40 { float a, b, c, d; };
 

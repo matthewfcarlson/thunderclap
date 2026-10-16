@@ -1,11 +1,5 @@
-class WallExitTrack {
-  public:
-    float GetValue();
+#include "gen/hulkfight.h"
 
-    char pad[0xc];
-    float mValue;
-};
-
-float WallExitTrack::GetValue() {
-    return mValue;
+float hulkfight::motion::WallExitTrack::vfunc_6() {
+    return this->f_0c;
 }

@@ -1,11 +1,5 @@
-class CJumpTrack {
-  public:
-    char pad[0x28];
-    float mHeight;
+#include "gen/global.h"
 
-    float GetHeight();
-};
-
-float CJumpTrack::GetHeight() {
-    return mHeight;
+float CJumpTrack::vfunc_20() {
+    return this->f_28;
 }

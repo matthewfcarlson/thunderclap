@@ -2,6 +2,7 @@
 // FUN_002e22c0 @ 0x002e22c0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ??0PrimGroup@pure3d@@QAE@HHH@Z = 0x002e01d0
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) { return p; }
 
 void *thunk_FUN_0008d690(unsigned int size);
@@ -129,7 +130,7 @@ struct Aux_2e22c0 {
     virtual char a4(int a, int b);
 };
 
-class Hub_2e22c0 {
+class Gfx {
 public:
     virtual void h0();
     virtual void h1();
@@ -236,7 +237,6 @@ struct VecObj {
     int fc;
 };
 
-extern Hub_2e22c0 *DAT_0052c2a8;
 
 struct Frame_2e22c0 {
     void *self;                                 // 0x00

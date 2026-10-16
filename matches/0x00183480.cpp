@@ -7,7 +7,7 @@ class SubObj_183480 {
     void Reset();
 };
 
-class PropSpawnTrack {
+namespace hulkfight { namespace motion { class PropSpawnTrack {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -27,9 +27,9 @@ class PropSpawnTrack {
     char pad_04[0x0c];
     void* field_10;
     char pad_14[0x04];
-};
+}; }}
 
-void* PropSpawnTrack::vfunc_5(unsigned char param) {
+void* hulkfight::motion::PropSpawnTrack::vfunc_5(unsigned char param) {
     void* m = *(void**)((char*)this + 0x10);
     *(void**)this = (void*)&PropSpawnTrack_vftable;
     thunk_FUN_00267090(m);

@@ -1,4 +1,6 @@
-class FELayout {
+#include "gen/global.h"
+
+class FELayout_e21d0 {
   public:
     virtual void a0();
     virtual void a1();
@@ -22,33 +24,7 @@ class FELayout {
     virtual void a19();
     virtual void a20();
 };
-class SingleLayout : public FELayout {
-  public:
-    virtual void b0();
-    virtual void b1();
-    virtual void b2();
-    virtual void b3();
-    virtual void b4();
-    virtual void b5();
-    virtual void b6();
-    virtual void b7();
-    virtual void b8();
-    virtual void b9();
-    virtual void b10();
-    virtual void vfunc_11();
-    virtual void b12();
-    virtual void b13();
-    virtual void b14();
-    virtual void b15();
-    virtual void b16();
-    virtual void b17();
-    virtual void b18();
-    virtual void b19();
-    virtual void b20();
-    virtual void b21();
-    virtual void b22();
-    char pad[0x44 - 4];
-};
+
 void SingleLayout::vfunc_11() {
     if (*(void**)((char*)this + 0x44)) {
         struct Obj {

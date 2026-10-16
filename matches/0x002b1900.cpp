@@ -1,13 +1,7 @@
-class MultiController {
-  public:
-    char pad[0x1c];
-    float scale;
-    char pad20[8];
-    float first;
-    float second;
-    void vfunc_15(float*, float*);
-};
-void MultiController::vfunc_15(float* a, float* b) {
-    *a = first * scale;
-    *b = second * scale;
+#include "gen/pure3d.h"
+
+void pure3d::MultiController::vfunc_15(void* __p0, void* __p1) { float * a = (float *)__p0; float * b = (float *)__p1;
+
+    *a = this->f_28 * this->f_1c;
+    *b = this->f_2c * this->f_1c;
 }

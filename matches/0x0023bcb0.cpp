@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 struct Rd_23bcb0 {
     virtual void v0();
     virtual void v1();
@@ -5,37 +7,18 @@ struct Rd_23bcb0 {
     virtual void v3();
     virtual int Read(char* buf, unsigned n);
 };
-struct B_23bcb0 {
-    virtual void s0();
-    virtual void s1();
-    virtual void s2();
-    virtual void s3();
-    virtual void s4();
-    virtual void s5();
-    virtual void s6();
-    virtual void s7();
-    virtual void s8();
-    virtual void s9();
-    virtual bool V10(int a, int b, char* buf);
-    char p4[4];
-    Rd_23bcb0* rd;
-    char p5[1];
-    char swap;
-    char p6[2];
-    int mark;
-    char p7[0xc];
-    unsigned remain;
-};
-bool B_23bcb0::V10(int a, int b, char* buf) {
-    int* q = &mark;
+
+bool fight::BinReader::vfunc_10(int a, int b, void* __p2) { char * buf = (char *)__p2;
+
+    int* q = &this->f_10;
     *q = -1;
-    unsigned n = remain;
+    unsigned n = this->f_20;
     if (n > 4)
         n = 4;
-    int r = rd->Read(buf, n);
-    remain -= n;
+    int r = (*(Rd_23bcb0 * *)&this->f_08)->Read(buf, n);
+    this->f_20 -= n;
     bool ok = r == 4;
-    if (swap) {
+    if (this->f_0d) {
         char* hi = buf + 3;
         char* lo = buf;
         if (lo < hi) {

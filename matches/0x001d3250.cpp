@@ -1,7 +1,7 @@
+#include "decls/address.h"
 extern "C" char DAT_00422654[];
 extern const char text100[];
 extern const char text0f0[];
-extern char FUN_001d04d0(const char*);
 class ScriptHandler {
   public:
     int vft;

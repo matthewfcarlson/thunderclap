@@ -1,4 +1,6 @@
-class SeqAction {
+#include "gen/audio.h"
+
+class SeqAction_253060 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1(void*);
@@ -8,19 +10,13 @@ class SeqAction {
     virtual void vfunc_5();
     virtual void vfunc_6();
 };
-class SeqActionVarPosDist : public SeqAction {
-  public:
-    char pad4[4];
-    int a;
-    int b;
-    int c;
-    void vfunc_1(void*);
-};
 struct Obj_253060 {
     char pad[0x38];
     int value;
 };
-void SeqActionVarPosDist::vfunc_1(void* param) {
+
+void audio::SeqActionVarPosDist::vfunc_1(void* __p0) { void * param = (void *)__p0;
+
     *(int*)((char*)*(int*)((char*)param + 4) + 0x38) = *(int*)((char*)this + 8) + 8;
     *(int*)((char*)this + 0xc) = 0;
 }

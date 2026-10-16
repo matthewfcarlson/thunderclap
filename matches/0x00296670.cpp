@@ -1,34 +1,8 @@
-class BranchNode {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void vfunc_9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual void v13();
-    virtual void v14();
-    virtual void v15();
-    virtual void v16();
-    virtual void v17();
-    virtual void v18();
-    virtual void v19();
-    char pad[0x10 - 4];
-    unsigned int flags;
-    char pad2[4];
-    unsigned int count;
-    void** children;
-};
-void BranchNode::vfunc_9() {
-    flags &= 0xfffffffe;
-    for (unsigned int i = 0; i < count; ++i) {
+#include "gen/pure3d.h"
+
+void pure3d::scenegraph::BranchNode::vfunc_9() {
+    (*(unsigned int *)&this->f_10) &= 0xfffffffe;
+    for (unsigned int i = 0; i < this->f_18; ++i) {
         struct Child {
             virtual void a();
             virtual void b();
@@ -41,6 +15,6 @@ void BranchNode::vfunc_9() {
             virtual void i();
             virtual void call();
         };
-        ((Child*)children[i])->call();
+        ((Child*)(*(void ** *)&this->f_1c)[i])->call();
     }
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000c8200 @ 0x000c8200
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 
@@ -37,7 +38,6 @@ struct World {
     char pad0[0xc];
     Mgr *mgr;
 };
-extern World *DAT_004dd700;
 
 int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
 

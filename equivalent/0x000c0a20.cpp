@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000c0a20 @ 0x000c0a20
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 extern char DAT_0048e100;
-char FUN_001d04d0(const void*) throw();
 class CFEManager { public: float FUN_dummy(); };
 
 class Base_c0a20 {

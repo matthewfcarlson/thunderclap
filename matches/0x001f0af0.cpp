@@ -1,3 +1,4 @@
+#include "decls/address.h"
 extern "C" char DAT_004246cc[];
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e128[];
@@ -6,7 +7,6 @@ struct Base_1f0af0 {
     unsigned int vt;
     void Init(void*, int);
 };
-extern char FUN_001d04d0(const void*);
 struct Target_1f0af0 : Base_1f0af0 {
     char pad04[0x0c];
     char m10;

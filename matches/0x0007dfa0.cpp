@@ -1,4 +1,4 @@
-extern "C" unsigned char __cdecl FUN_001d04d0(const char*);
+#include "decls/address.h"
 extern const char a_7dfa0[], b[], c[];
 class Base_7dfa0 {
   public:

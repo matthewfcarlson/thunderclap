@@ -1,6 +1,8 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00414240[];
 void* __cdecl Alloc(unsigned int);
-struct HitThrowTrack {
+struct HitThrowTrack_159bf0 {
     int vt;
     char p04[8];
     int f0c;
@@ -14,17 +16,9 @@ struct HitThrowTrack {
     int f28;
     void InitTrack();
 };
-class Factory_159bf0 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void* vfunc_5();
-};
-void* Factory_159bf0::vfunc_5() {
-    HitThrowTrack* p = (HitThrowTrack*)Alloc(0x2c);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitThrowTrack>::vfunc_5() {
+    HitThrowTrack_159bf0* p = (HitThrowTrack_159bf0*)Alloc(0x2c);
     if (p) {
         p->InitTrack();
         p->f0c = 0;
@@ -36,7 +30,7 @@ void* Factory_159bf0::vfunc_5() {
         p->f14 = 1;
         p->f1c = 30.0f;
         p->f20 = -5;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

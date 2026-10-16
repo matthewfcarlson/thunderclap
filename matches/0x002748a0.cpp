@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 class Obj_2748a0 {
   public:
     virtual void s0();
@@ -27,7 +29,7 @@ class Sub_2748a0 {
     virtual void a();
     virtual void b();
 };
-struct Drive {
+struct Drive_2748a0 {
     char p0[4];
     Sub_2748a0 sub;
     char p1[4];
@@ -36,25 +38,13 @@ struct Drive {
     int result;
     char p3[4];
 };
-class DriveFindNextRequest {
-  public:
-    virtual void a();
-    virtual int vfunc_1();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void f();
-    virtual void g();
-    char p[4];
-    Drive* drive;
-    int arg;
-};
-int DriveFindNextRequest::vfunc_1() {
-    Obj_2748a0* o = drive->obj;
-    int r = o->call19((char*)drive + 0x1c, arg);
+
+int core::DriveFindNextRequest::vfunc_1() {
+    Obj_2748a0* o = (*(Drive_2748a0 * *)&this->f_08)->obj;
+    int r = o->call19((char*)(*(Drive_2748a0 * *)&this->f_08) + 0x1c, this->f_0c);
     int v = (int)o->Fetch();
-    drive->sub.a();
-    drive->result = v;
-    drive->sub.b();
+    (*(Drive_2748a0 * *)&this->f_08)->sub.a();
+    (*(Drive_2748a0 * *)&this->f_08)->result = v;
+    (*(Drive_2748a0 * *)&this->f_08)->sub.b();
     return r;
 }

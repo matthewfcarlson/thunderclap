@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 126 inputs, branch coverage 8/10, incomplete)
 // pure3d::SpriteParticleRenderer::vfunc_4 @ 0x002d6790
+#include "decls/address.h"
 extern "C" double cos(double);
 extern "C" double sin(double);
 
@@ -70,7 +71,7 @@ struct Owner2_2d6790 {
 
 class VertexBuffer_2d6790;
 
-class Device_2d6790 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -157,7 +158,6 @@ public:
     Particle_2d6790 **particles;
 };
 
-extern Device_2d6790 *DAT_0052c2a8;
 extern Owner2_2d6790 *DAT_0052c2ac;
 extern Holder_2d6790 *DAT_0052c2b4;
 extern "C" int FUN_0034483c();

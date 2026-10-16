@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 68/68)
 // FUN_00197610 @ 0x00197610
+#include "decls/address.h"
 extern "C" double __cdecl sqrt(double);
 
 struct V3_197610 {
@@ -89,7 +90,6 @@ struct World {
     char pad00[0x20];
     World20_197610 *f20;
 };
-extern World *DAT_004dd700;
 
 class Proj_197610 {
 public:

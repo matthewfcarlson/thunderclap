@@ -12,7 +12,7 @@ class Branch {
     virtual void f();
     virtual void vfunc_6();
 };
-class Node : public Branch {
+namespace fight { class Reference : public Branch {
     char pad[0x24];
     Part_23c370 part;
 
@@ -25,8 +25,8 @@ class Node : public Branch {
     virtual void k();
     virtual void l();
     virtual void m();
-};
-void Node::vfunc_6() {
+}; }
+void fight::Reference::vfunc_6() {
     part.run(this);
     Branch::vfunc_6();
 }

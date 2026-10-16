@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 6/6)
 // FUN_00035020 @ 0x00035020
+#include "decls/address.h"
 struct Vec3 { int x; int y; int z; };
 
 struct BoneEntry {
@@ -18,7 +19,6 @@ struct Handler {
     void FUN_00059a50(Vec3* out);
 };
 
-extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int);
 
 struct Character {
     char pad0[0x10];

@@ -1,25 +1,15 @@
 // Same code shape as 0x00138d00 (propagated; names are from that function)
-struct FlyingBrakeTrack {
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual int vfunc_10(int, int, int);
-};
+#include "gen/hulkfight.h"
+
 struct Maker_1573a0 {
-    int Init(FlyingBrakeTrack*, int);
+    int Init(hulkfight::motion::HitThrowTrack*, int);
 };
 extern int TypeA_1573a0;
 extern int TypeB_1573a0;
 extern int __cdecl IsType(void*, int, int*, int*, int);
 extern void* __cdecl Alloc(int);
-int FlyingBrakeTrack::vfunc_10(int a, int b, int c) {
+
+int hulkfight::motion::HitThrowTrack::vfunc_10(int a, int b, int c) {
     if (IsType((void*)c, 0, &TypeA_1573a0, &TypeB_1573a0, 0)) {
         Maker_1573a0* p = (Maker_1573a0*)Alloc(0x40);
         if (p)

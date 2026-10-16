@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 32/34, incomplete)
 // hulkfight::motion::RayCastCondition::vfunc_6 @ 0x001679c0
+#include "decls/address.h"
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
@@ -54,7 +55,6 @@ struct Obj1_1679c0 {
     Obj2_1679c0* FUN_000592a0();
 };
 
-extern World* DAT_004dd700;
 char FUN_002027c0(Vec3_1679c0* a, Vec3_1679c0* b, int c, int d, Vec3_1679c0* hitPos, Vec3_1679c0* hitNormal, int e, int f);
 char __cdecl FUN_00202560(Vec3_1679c0* origin, float dist, int a, Vec3_1679c0* outB, Vec3_1679c0* outA, int b, int c, float* d);
 

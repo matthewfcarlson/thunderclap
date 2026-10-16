@@ -1,19 +1,13 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_003fc10c[];
 void* __cdecl FUN_0008d690(unsigned int);
-class TrackFactoryTemplate {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void* vfunc_5();
-};
 struct Obj_75c70 {
     int pad0[5];
     void Init();
 };
-void* TrackFactoryTemplate::vfunc_5() {
+
+template <> void* fight::TrackFactoryTemplate<CAlertStatusTrack>::vfunc_5() {
     Obj_75c70* p = (Obj_75c70*)FUN_0008d690(0x14);
     if (p) {
         p->Init();
@@ -21,7 +15,7 @@ void* TrackFactoryTemplate::vfunc_5() {
         *(int*)((char*)p + 0xc) = 0;
         *(int*)((char*)p + 0x10) = 0;
         *(int*)((char*)p + 8) = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

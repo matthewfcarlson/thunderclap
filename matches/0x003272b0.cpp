@@ -1,29 +1,17 @@
+#include "gen/pure3d.h"
+
 typedef unsigned int uint;
-struct Store {
+struct Store_3272b0 {
     char pad[4];
     void* data;
 };
-struct Buffer_3272b0 {
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void f();
-    virtual void g();
-    virtual void h();
-    virtual void i();
-    virtual void j(const void*, int);
-    char pad[0x20];
-    int mCount;
-    char pad2[4];
-    Store* store;
-};
 void FUN_0031c230(int);
 extern "C" void __cdecl memcpy(void*, const void*, unsigned int);
-void Buffer_3272b0::j(const void* src, int count) {
-    void* dst = store->data;
+
+void pure3d::d3dPrimBuffer::vfunc_9(void* __p0, int count) { const void * src = (const void *)__p0;
+
+    void* dst = (*(Store_3272b0 * *)&this->f_2c)->data;
     FUN_0031c230(0);
     memcpy(dst, src, count * 2);
-    mCount = count;
+    this->f_24 = count;
 }

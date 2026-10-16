@@ -1,4 +1,6 @@
-class DriveRequest {
+#include "gen/core.h"
+
+class DriveRequest_274ae0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -8,10 +10,7 @@ class DriveRequest {
     virtual void v5();
     virtual int v6();
 };
-class DriveCancelRequest : public DriveRequest {
-  public:
-    int v6();
-};
-int DriveCancelRequest::v6() {
+
+int core::DriveCancelRequest::vfunc_6() {
     return 0x14;
 }

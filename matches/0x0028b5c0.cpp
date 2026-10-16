@@ -1,38 +1,25 @@
+#include "gen/pure3d.h"
+
 class Ref_28b5c0 {
   public:
     virtual void f0();
     virtual void Release();
 };
 extern void __cdecl thunk(void*);
-class pure3d_Vector1DOFChannel_28b5c0 {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    char pad[8];
-    volatile int m12;
-    char pad10[4];
-    void* m14;
-    char pad18[16];
-    void* m28;
-    void vfunc_1();
-};
-void pure3d_Vector1DOFChannel_28b5c0::vfunc_1() {
-    if (m12 == 0)
-        thunk(m28);
-    m28 = 0;
-    if (m12 == 0) {
-        thunk(m14);
-        m14 = 0;
+
+void pure3d::Vector1DOFChannel::vfunc_1() {
+    if ((*(volatile int *)&this->f_0c) == 0)
+        thunk((*(void * *)&this->f_28));
+    (*(void * *)&this->f_28) = 0;
+    if ((*(volatile int *)&this->f_0c) == 0) {
+        thunk((*(void * *)&this->f_14));
+        (*(void * *)&this->f_14) = 0;
         return;
     }
-    Ref_28b5c0* p = (Ref_28b5c0*)m12;
+    Ref_28b5c0* p = (Ref_28b5c0*)(*(volatile int *)&this->f_0c);
     if (p != 0) {
         p->Release();
-        m12 = 0;
+        (*(volatile int *)&this->f_0c) = 0;
     }
-    m14 = 0;
+    (*(void * *)&this->f_14) = 0;
 }

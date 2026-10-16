@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000b9470 @ 0x000b9470
+#include "decls/address.h"
 struct Vertex_b9470 {
     float x;
     float y;
@@ -18,7 +19,7 @@ class Texture {
     char pad[0x10];
     int handle;
 };
-class Screen_b9470 {
+class Gfx {
   public:
     virtual void v0();
     virtual void v1();
@@ -114,7 +115,6 @@ class Viewport_b9470 {
 struct Canvas {
     Layer_b9470* layer;
 };
-extern Screen_b9470* DAT_0052c2a8;
 extern Canvas* DAT_0052c2ac;
 extern Viewport_b9470* DAT_0052c2a4;
 

@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 typedef unsigned int size_t;
 void* __cdecl operator new(size_t);
 namespace fight {
@@ -20,9 +22,9 @@ class Tail {
   public:
     Tail() throw();
 };
-class ExecuteTrack : public Base {
+class ExecuteTrack_239cc0 : public Base {
   public:
-    ExecuteTrack() throw() : fieldC(0), field10(-1.0f), field20(-1000) {}
+    ExecuteTrack_239cc0() throw() : fieldC(0), field10(-1.0f), field20(-1000) {}
     int fieldC;
     float field10;
     Sub sub;
@@ -30,16 +32,8 @@ class ExecuteTrack : public Base {
     int field20;
     Tail tail;
 };
-class TrackFactoryTemplate {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual ExecuteTrack* vfunc_5();
-};
-ExecuteTrack* TrackFactoryTemplate::vfunc_5() {
-    return new ExecuteTrack;
-}
+
 } // namespace fight
+template <> void* fight::TrackFactoryTemplate<fight::ExecuteTrack>::vfunc_5() {
+    return (void*)(new ExecuteTrack_239cc0);
+}

@@ -1,4 +1,6 @@
-class FEThingsBase {
+#include "gen/global.h"
+
+class FEThingsBase_ddf40 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -41,18 +43,7 @@ class FEThingsBase {
     virtual void vfunc_38();
     virtual void vfunc_39();
 };
-class FEThings : public FEThingsBase {
-  public:
-    virtual void f40();
-    virtual void f41();
-    virtual void f42();
-    virtual void f43();
-    virtual void f44();
-    virtual void f45();
-    virtual void vfunc_46(unsigned long);
-    virtual void f47();
-    char pad[0x2238 - 4];
-};
+
 void FEThings::vfunc_46(unsigned long x) {
     *(unsigned long*)((char*)this + 0x2238) = x;
 }

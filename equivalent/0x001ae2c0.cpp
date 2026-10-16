@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 12/12)
 // FUN_001ae2c0 @ 0x001ae2c0
+#include "decls/address.h"
 struct Vec3_1ae2c0 {
     float x, y, z;
 };
@@ -27,7 +28,6 @@ struct World {
     Locator *locator;
 };
 
-extern World *DAT_004dd700;
 
 struct Recent {
     char pad[8];

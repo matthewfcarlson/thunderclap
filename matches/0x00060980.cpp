@@ -1,4 +1,6 @@
-class CEffectStopTrack {
+#include "gen/global.h"
+
+class CEffectStopTrack_60980 {
   public:
     virtual int f0();
     virtual int f1();
@@ -15,10 +17,6 @@ class CEffectStopTrack {
     virtual int vfunc_12(int);
     virtual int f13();
 };
-class CGrappleEffectStopTrack : public CEffectStopTrack {
-  public:
-    virtual int vfunc_12(int);
-};
 struct Obj_60980 {
     char pad[0x104];
     int field;
@@ -30,6 +28,7 @@ struct Tgt_60980 {
 };
 extern void* FUN_0008d690(int);
 extern Obj_60980* FUN_0005a430(int);
+
 int CGrappleEffectStopTrack::vfunc_12(int arg) {
     Tgt_60980* p = (Tgt_60980*)FUN_0008d690(0x24);
     if (p) {

@@ -1,25 +1,16 @@
+#include "gen/hulkfight.h"
+
 typedef unsigned int u32_1a0ca0;
-struct FireBeamTrack {
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual int f10(u32_1a0ca0 a, u32_1a0ca0 b, void* p);
-};
 extern int __cdecl Check(void*, int, const void*, const void*, int);
 extern void* __cdecl Alloc(unsigned int);
 struct NewThing {
-    int Init(FireBeamTrack*, void*);
+    int Init(hulkfight::motion::FireBeamTrack*, void*);
 };
 extern int rttiA_1a0ca0;
 extern int rttiB;
-int FireBeamTrack::f10(u32_1a0ca0 a, u32_1a0ca0 b, void* p) {
+
+int hulkfight::motion::FireBeamTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_1a0ca0 a = (u32_1a0ca0)__p0; u32_1a0ca0 b = (u32_1a0ca0)__p1; void * p = (void *)__p2;
+
     if (Check(p, 0, &rttiA_1a0ca0, &rttiB, 0)) {
         NewThing* q = (NewThing*)Alloc(0x98);
         if (q)

@@ -9,14 +9,14 @@ class Obj_2345e0 {
     virtual void s5(int);
     virtual void s6();
 };
-struct Condition {
+namespace fight { struct Condition {
     unsigned vptr;
     Obj_2345e0* mRef;
     Condition* vfunc_5(unsigned char flags);
     void reset();
-};
-void Destroy(Condition*);
-Condition* Condition::vfunc_5(unsigned char flags) {
+}; }
+void Destroy(fight::Condition*);
+fight::Condition* fight::Condition::vfunc_5(unsigned char flags) {
     Obj_2345e0* p = mRef;
     vptr = ((int)DAT_004279ac);
     if (p)

@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 27 inputs, branch coverage 12/12)
 // FUN_000879c0 @ 0x000879c0
 // FUN_000879c0 @ 0x000879c0
+#include "decls/address.h"
 struct Screen_879c0 { void FUN_00086da0(); };
-struct State_879c0 { char pad0[0x54]; Screen_879c0* screen; char pad1[0x45]; unsigned char active; };
-extern State_879c0* DAT_004dd700;
+struct World { char pad0[0x54]; Screen_879c0* screen; char pad1[0x45]; unsigned char active; };
 extern char DAT_004dd8d4[];
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
@@ -18,7 +18,7 @@ void __cdecl FUN_000879c0() {
  unsigned int start = FUN_00267f80();
  while (start + 3000u > FUN_00267f80()) {
   unsigned int before = FUN_00267f80();
-  State_879c0* state = DAT_004dd700;
+  World* state = DAT_004dd700;
   if (state && state->active && state->screen) state->screen->FUN_00086da0();
   else { thunk_FUN_00270a50(); FUN_002656a0(); }
   _sprintf(buffer, "copyright-%s", DAT_004dd8d4);

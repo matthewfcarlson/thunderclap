@@ -1,9 +1,6 @@
-class pddiViewState {
-  public:
-    virtual void vfunc_0(void*);
-    int a, b, c, d, e, f, g, h, i, j, k, l;
-};
-class View {
+#include "gen/pure3d.h"
+
+class View_31c940 {
   public:
     virtual void x0();
     virtual void x1();
@@ -35,12 +32,14 @@ class View {
     virtual void xxx();
     virtual void F(int, int, int, int);
 };
-void pddiViewState::vfunc_0(void* p) {
-    View* v = (View*)p;
-    v->A(a);
-    v->B(b);
-    v->C(c);
-    v->D(d);
-    v->E(e, f, g, h);
-    v->F(i, j, k, l);
+
+void pure3d::pddiViewState::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
+    View_31c940* v = (View_31c940*)p;
+    v->A(this->f_04);
+    v->B(this->f_08);
+    v->C(this->f_0c);
+    v->D(this->f_10);
+    v->E(this->f_14, this->f_18, this->f_1c, this->f_20);
+    v->F(this->f_24, this->f_28, this->f_2c, this->f_30);
 }

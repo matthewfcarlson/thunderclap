@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class M_e8420 {
   public:
     virtual void f0();
@@ -38,33 +40,15 @@ struct Holder_e8420 {
     void exec(float, float, float);
 };
 extern Holder_e8420* gHolder_e8420;
-class FEThingsBase {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void vfunc_10();
-    char pad[0x1760 - 4];
-    Item_e8420* item;
-    char pad2[0x1830 - 0x1764];
-    int active;
-    float value;
-};
+
 void FEThingsBase::vfunc_10() {
-    if (item) {
-        if (active) {
+    if ((*(Item_e8420 * *)&this->f_1760)) {
+        if (this->f_1830) {
             gHolder_e8420->m->start(0);
-            gHolder_e8420->exec(value, value, value);
+            gHolder_e8420->exec((*(float *)&this->f_1834), (*(float *)&this->f_1834), (*(float *)&this->f_1834));
         }
-        item->run();
-        if (active)
+        (*(Item_e8420 * *)&this->f_1760)->run();
+        if (this->f_1830)
             gHolder_e8420->m->end(0);
     }
 }

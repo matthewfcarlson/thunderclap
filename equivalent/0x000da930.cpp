@@ -2,6 +2,7 @@
 // FEMemCardControl::vfunc_4 @ 0x000da930
 // FEMemCardControl::vfunc_4 @ 0x000da930
 // FEMemCardControl::vfunc_4 @ 0x000da930
+#include "decls/address.h"
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" double sin(double);
@@ -25,10 +26,9 @@ struct Item_da930 {
     void FUN_000f83c0(Item_da930* other);
 };
 
-struct Manager_da930 {
+struct Singleton_4dd6ec {
     void FUN_00086310();
 };
-extern Manager_da930* DAT_004dd6ec;
 
 struct Stage2_da930 {
     void FUN_0008ca30(int a);
@@ -39,7 +39,7 @@ struct Stage2_da930 {
 struct Stage1_da930 {
     Stage2_da930* FUN_00089a50();
     char FUN_0008b4b0(int idx, unsigned char* active, char* buf, int len, char* extra, int* out);
-    void FUN_0008a8f0(int a, Manager_da930* m);
+    void FUN_0008a8f0(int a, Singleton_4dd6ec* m);
     void FUN_00089830(const char* s);
     void FUN_000895e0(void* p);
     void FUN_00089810(const char* s);

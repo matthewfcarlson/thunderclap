@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct A_10d770 {
     A_10d770* f0();
     int f1();
@@ -9,29 +11,18 @@ struct B_10d770 {
     int a1c;
     int a20;
 };
-class ButtonAction {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual char vfunc_5(int, int);
-    char pad[0x18];
-    B_10d770* mB;
-    A_10d770* mA;
-};
-char ButtonAction::vfunc_5(int p, int q) {
+
+bool hulkfight::ai::ButtonAction::vfunc_5(int p, int q) {
     if (p == 0) {
-        if (!mA)
-            return 0;
-        A_10d770* r = mA->f0();
+        if (!(*(A_10d770 * *)&this->f_20))
+            return (bool)(0);
+        A_10d770* r = (*(A_10d770 * *)&this->f_20)->f0();
         int base = r->f1();
         int* d = (int*)(base + 0x1f58);
-        d = d + mB->a14 * 3;
-        d[0] = mB->a18;
-        d[1] = mB->a1c;
-        d[2] = mB->a20;
+        d = d + (*(B_10d770 * *)&this->f_1c)->a14 * 3;
+        d[0] = (*(B_10d770 * *)&this->f_1c)->a18;
+        d[1] = (*(B_10d770 * *)&this->f_1c)->a1c;
+        d[2] = (*(B_10d770 * *)&this->f_1c)->a20;
     }
-    return 1;
+    return (bool)(1);
 }

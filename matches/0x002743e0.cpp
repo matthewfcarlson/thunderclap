@@ -1,5 +1,7 @@
 // Same code shape as 0x00273880 (propagated; names are from that function)
-class Request {
+#include "gen/core.h"
+
+class Request_2743e0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -9,12 +11,7 @@ class Request {
     virtual void v5();
     virtual void v6();
 };
-class FileRequest : public Request {
-  public:
-    int pad4;
-    int* mThing;
-    virtual int vfunc_3();
-};
-int FileRequest::vfunc_3() {
-    return *(int*)((char*)mThing + 12);
+
+int core::DriveRequest::vfunc_3() {
+    return *(int*)((char*)(*(int * *)&this->f_08) + 12);
 }

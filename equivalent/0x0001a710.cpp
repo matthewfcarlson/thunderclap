@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3177 inputs, branch coverage 103/108, incomplete)
 // FUN_0001a710 @ 0x0001a710
+#include "decls/address.h"
 typedef unsigned __int64 u64;
 
 struct V3 {
@@ -197,7 +198,6 @@ struct JudgeCfg {
     char FUN_00024540(Player *y);
 };
 
-extern World *DAT_004dd700;
 extern u64 DAT_004dc030;
 
 int __cdecl FUN_00266da0(int v);

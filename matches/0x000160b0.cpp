@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class Obj_160b0 {
   public:
     virtual void a();
@@ -34,27 +36,14 @@ struct Data_160b0 {
     char pad[16];
     int value;
 };
-class CSmartPropSetStateAction {
-  public:
-    char pad[24];
-    A_160b0* first;
-    Data_160b0* second;
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual bool vfunc_7(int);
-};
+
 bool CSmartPropSetStateAction::vfunc_7(int arg) {
-    Obj_160b0* a = first->get();
+    Obj_160b0* a = (*(A_160b0 * *)&this->f_1c)->get();
     B_160b0* b = (B_160b0*)a;
     a = b->next();
     C_160b0* c = (C_160b0*)a;
     Obj_160b0* p = c->find(0);
     if (p)
-        p->h(second->value, 1);
+        p->h((*(Data_160b0 * *)&this->f_20)->value, 1);
     return false;
 }

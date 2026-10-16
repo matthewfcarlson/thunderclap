@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 189 inputs, branch coverage 48/48)
 // FUN_00096b50 @ 0x00096b50
+#include "decls/address.h"
 struct Vec3_96b50 { float x, y, z; };
 struct Part_96b50 { char pad[0x1b0]; int f1b0; };
 struct Prop_96b50 {
@@ -32,7 +33,7 @@ struct Checker_96b50 {
     char pad[0x20];
     bool FUN_00024540(Actor_96b50 *a);
 };
-struct Globals_96b50 {
+struct World {
     char pad[0x20];
     Checker_96b50 *checker;
 };
@@ -44,7 +45,6 @@ struct Event_96b50 {
     } target;
     int type;
 };
-extern Globals_96b50 *DAT_004dd700;
 
 bool FUN_00096b50(Event_96b50 *ev, Vec3_96b50 *out, int *result)
 {

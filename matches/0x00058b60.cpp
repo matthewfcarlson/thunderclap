@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_003f7154[];
-class CSmartPropWeaponTypeCondition {
+class CSmartPropWeaponTypeCondition_58b60 {
   public:
     virtual void F0();
     virtual void F1();
@@ -14,24 +16,15 @@ class CSmartPropWeaponTypeCondition {
     void Init(int);
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-class ConditionFactoryTemplate {
-  public:
-    virtual void V0();
-    virtual void V1();
-    virtual void V2();
-    virtual void V3();
-    virtual void V4();
-    virtual void* V5();
-    void* Vfunc5();
-};
-void* ConditionFactoryTemplate::Vfunc5() {
-    CSmartPropWeaponTypeCondition* p = (CSmartPropWeaponTypeCondition*)FUN_0008d690(0x14);
+
+template <> void* fight::ConditionFactoryTemplate<CSmartPropWeaponTypeCondition>::vfunc_5() {
+    CSmartPropWeaponTypeCondition_58b60* p = (CSmartPropWeaponTypeCondition_58b60*)FUN_0008d690(0x14);
     if (p) {
         p->Init(0);
         *(int*)p = ((int)DAT_003f7154);
         p->value = 0;
         p->type = -1;
-        return p;
+        return (void*)(p);
     }
-    return (void*)0;
+    return (void*)((void*)0);
 }

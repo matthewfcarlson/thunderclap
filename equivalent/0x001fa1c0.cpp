@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 14593 inputs, branch coverage 28/28)
 // FUN_001fa1c0 @ 0x001fa1c0
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned);
 extern unsigned int DAT_004d9968;
 
@@ -30,7 +31,6 @@ struct World {
     char pad00[0x30];
     Queue_1fa1c0 *queue;             // 0x30
 };
-extern World *DAT_004dd700;
 Selector_1fa1c0 *FUN_001d4c90();
 
 struct Item_1fa1c0 {

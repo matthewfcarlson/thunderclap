@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 24/24)
 // FUN_001f4010 @ 0x001f4010
+#include "decls/address.h"
 struct Handle_1f4010 { unsigned a,b; void FUN_0027af70(unsigned); };
 struct Object { char pad[0x18]; unsigned ready; };
 struct Entry_1f4010 { Handle_1f4010 first,second; Object* objects[4]; unsigned results[4]; char pad30[0x44]; int type; char pad78[8]; struct Block { unsigned low,high,value; char pad[0x1c]; } blocks[4]; };
-extern unsigned __int64 __cdecl FUN_002672f0(unsigned,unsigned,unsigned);
 extern unsigned __cdecl FUN_002673a0(unsigned,unsigned);
 extern void __cdecl FUN_001f3040(Entry_1f4010*,unsigned);
 struct Owner_1f4010 { char pad[0xd4]; Entry_1f4010* entries[148]; int count; unsigned FUN_001f3ec0(Object*,Entry_1f4010*,Entry_1f4010*,unsigned,unsigned); Entry_1f4010* target(unsigned,unsigned,unsigned); };

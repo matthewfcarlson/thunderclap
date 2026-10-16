@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3060 inputs, branch coverage 127/134, incomplete)
 // FUN_001b05a0 @ 0x001b05a0
+#include "decls/address.h"
 extern unsigned int DAT_004dc0e0;
 extern unsigned int DAT_004dc0e4;
 extern float DAT_004c3754;
@@ -149,7 +150,6 @@ struct Dummy964 {
 };
 Dummy964 *__cdecl FUN_000964d0();
 
-extern World *DAT_004dd700;
 
 struct Entity {
     char pad00[8];

@@ -1,29 +1,19 @@
+#include "gen/fight.h"
+
 class Source_23a550 {
   public:
     void helper(char*, int, int, int);
 };
-class StreamStringReader {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual bool vfunc_4();
-    virtual void f();
-    virtual bool next();
-    char pad[12];
-    bool value;
-    bool done;
-};
-bool StreamStringReader::vfunc_4() {
-    if (done)
-        return value;
-    value = false;
-    if (next()) {
-        done = false;
-        return value;
+
+unsigned char fight::StreamStringReader::vfunc_4() {
+    if (this->f_11)
+        return (unsigned char)(this->f_10);
+    this->f_10 = false;
+    if (vfunc_6()) {
+        this->f_11 = false;
+        return (unsigned char)(this->f_10);
     }
     ((Source_23a550*)*(void**)((char*)this + 12))->helper((char*)this + 16, 1, 1, 1);
-    done = true;
-    return value;
+    this->f_11 = true;
+    return (unsigned char)(this->f_10);
 }

@@ -1,4 +1,6 @@
-struct ChargeTrack {
+#include "gen/fight.h"
+
+struct ChargeTrack_17e070 {
     int vt;
     int pad4;
     int enabled;
@@ -12,17 +14,9 @@ struct ChargeTrack {
 };
 extern int chargeVtable;
 void* operator new(unsigned int);
-class Factory_17e070 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual ChargeTrack* vfunc_5();
-};
-ChargeTrack* Factory_17e070::vfunc_5() {
-    ChargeTrack* p = (ChargeTrack*)operator new(0x20);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::ChargeTrack>::vfunc_5() {
+    ChargeTrack_17e070* p = (ChargeTrack_17e070*)operator new(0x20);
     if (p) {
         p->Init();
         p->vt = (int)&chargeVtable;
@@ -32,7 +26,7 @@ ChargeTrack* Factory_17e070::vfunc_5() {
         p->flag18 = 0;
         p->value1c = 1.0f;
         p->enabled = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

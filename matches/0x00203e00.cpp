@@ -1,4 +1,5 @@
-struct Global_203e00 {
+#include "decls/address.h"
+struct Gfx {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -92,7 +93,6 @@ struct Global_203e00 {
     virtual void cm();
     virtual void cn();
 };
-extern Global_203e00* DAT_0052c2a8;
 struct Item_203e00 {
     void run();
 };

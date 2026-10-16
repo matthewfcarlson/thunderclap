@@ -1,10 +1,5 @@
-class File {
-    char pad[0x160];
-    unsigned char value;
+#include "gen/core.h"
 
-  public:
-    unsigned char vfunc_29();
-};
-unsigned char File::vfunc_29() {
-    return value;
+unsigned char core::File::vfunc_29() {
+    return this->f_160;
 }

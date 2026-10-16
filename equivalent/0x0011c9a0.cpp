@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 9/10, incomplete)
 // hulkfight::ai::PathAction::vfunc_4 @ 0x0011c9a0
+#include "decls/address.h"
 extern unsigned int DAT_004d9968;
 void __fastcall __security_check_cookie(unsigned int);
 struct Token_11c9a0 {};
@@ -8,8 +9,7 @@ struct Event_11c9a0 { char prefix[12]; EventPart part; };
 struct Listener_11c9a0 { void FUN_001cbc20(Event_11c9a0*); };
 struct PathPoint_11c9a0 {};
 struct Navigation { void FUN_001ae150(PathPoint_11c9a0*); };
-struct Manager_11c9a0 { char pad[0x1c]; Navigation* navigation; char pad2[0x10]; Listener_11c9a0* listener; };
-extern Manager_11c9a0* DAT_004dd700;
+struct World { char pad[0x1c]; Navigation* navigation; char pad2[0x10]; Listener_11c9a0* listener; };
 struct Request { char pad[0xb4]; int previous; int current; Token_11c9a0* FUN_001034d0(int,int,int); };
 struct RequestOwner { Request* FUN_000fdc40(); };
 struct ActorState_11c9a0 { char pad[0x1f1]; unsigned char active; void FUN_00060170(); };
@@ -30,7 +30,7 @@ void PathAction::vfunc_4() {
  if(actor->state.active) {
  Request* request=actor->owner->FUN_000fdc40();
  if(request) {
- Manager_11c9a0* manager=DAT_004dd700;
+ World* manager=DAT_004dd700;
  Token_11c9a0* token=request->FUN_001034d0(*actor->identity,value,1);
  Event_11c9a0 event;
  event.part.FUN_001ca2e0(token);

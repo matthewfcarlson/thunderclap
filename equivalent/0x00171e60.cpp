@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 32/32)
 // hulkfight::motion::SyncToLocatorAction::vfunc_3 @ 0x00171e60
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/address.h"
 struct V3_171e60 {
     float x, y, z;
     void FUN_00011220(V3_171e60 *v);
@@ -115,7 +116,6 @@ struct World {
     char pad0[0x28];
     Finder_171e60 *f28;
 };
-extern World *DAT_004dd700;
 
 void *thunk_FUN_0008d690(unsigned int size);
 float __cdecl FUN_00224fc0(float a, float b);

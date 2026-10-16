@@ -1,8 +1,10 @@
+#include "gen/global.h"
+
 class Receiver_ddef0 {
   public:
     void go();
 };
-class FEThingsBase {
+class FEThingsBase_ddef0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -47,10 +49,7 @@ class FEThingsBase {
     char pad[0x2220];
     Receiver_ddef0* ptr;
 };
-class FEThings : public FEThingsBase {
-  public:
-    virtual void v40();
-};
-void FEThings::v40() {
-    ptr->go();
+
+void FEThings::vfunc_40() {
+    (*(Receiver_ddef0 * *)&this->f_2224)->go();
 }

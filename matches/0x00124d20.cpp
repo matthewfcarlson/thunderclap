@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 class Obj_124d20;
 class Actor_124d20 {
   public:
@@ -12,26 +14,17 @@ class Obj_124d20 {
     char pad[0x32c];
     char flag;
 };
-class TargetClearAction {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    bool vfunc_3(int a, int b);
-    char pad[0x1c - 4];
-    Actor_124d20* actor;
-    Obj_124d20* target;
-};
-bool TargetClearAction::vfunc_3(int a, int b) {
-    if (!target)
+
+bool hulkfight::ai::TargetClearAction::vfunc_3(int a, int b) {
+    if (!(*(Obj_124d20 * *)&this->f_20))
         return false;
-    Obj_124d20* r = target->Resolve();
+    Obj_124d20* r = (*(Obj_124d20 * *)&this->f_20)->Resolve();
     if (!r)
         return false;
     Obj_124d20* r2 = r->Check();
     if (!r2)
         return false;
-    if (actor->flag != 0 || r2->flag == 0)
+    if ((*(Actor_124d20 * *)&this->f_1c)->flag != 0 || r2->flag == 0)
         r2->Apply(0, 0);
     return true;
 }

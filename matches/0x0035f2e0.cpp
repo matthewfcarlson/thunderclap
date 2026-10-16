@@ -1,4 +1,4 @@
-extern "C" unsigned __int64 __cdecl FUN_002672f0(const char*, int, int);
+#include "decls/address.h"
 extern int g_lo;
 extern int g_hi;
 void FUN_0035f2e0() {

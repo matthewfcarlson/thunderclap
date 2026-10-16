@@ -1,16 +1,5 @@
-class SeqActionWaitBeat {
-    char pad[8];
-    int value;
+#include "gen/audio.h"
 
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void vfunc_4(int);
-    virtual void f5();
-    virtual void f6();
-};
-void SeqActionWaitBeat::vfunc_4(int) {
-    value = 0;
+void audio::SeqActionWaitBeat::vfunc_4(int ) {
+    this->f_0c = 0;
 }

@@ -1,6 +1,8 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_003fe778[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-class CGrappleDrainHealthTrack {
+class CGrappleDrainHealthTrack_76730 {
   public:
     void Init();
     virtual void v0();
@@ -10,21 +12,13 @@ class CGrappleDrainHealthTrack {
     virtual void v4();
     virtual void v5();
 };
-class Factory_76730 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual CGrappleDrainHealthTrack* vfunc_5();
-};
-CGrappleDrainHealthTrack* Factory_76730::vfunc_5() {
-    CGrappleDrainHealthTrack* p = (CGrappleDrainHealthTrack*)FUN_0008d690(0x18);
+
+template <> void* fight::TrackFactoryTemplate<CGrappleDrainHealthTrack>::vfunc_5() {
+    CGrappleDrainHealthTrack_76730* p = (CGrappleDrainHealthTrack_76730*)FUN_0008d690(0x18);
     if (p) {
         p->Init();
         *(unsigned int*)p = ((int)DAT_003fe778);
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

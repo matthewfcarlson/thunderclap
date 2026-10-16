@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 171 inputs, branch coverage 76/76)
 // HUDOverlay::vfunc_4 @ 0x000d05f0
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" double floor(double);
 extern "C" double sqrt(double);
 extern unsigned int DAT_004d9968;
 extern int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
-extern unsigned __int64 __cdecl FUN_002672f0(const void *name, int a, int b);
 
 struct V3_d05f0 {
     float x, y, z;
@@ -47,7 +47,7 @@ struct Layout_d05f0 {
     void FUN_000f78e0();
 };
 
-class Screen_d05f0 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -175,7 +175,6 @@ struct Part_d05f0 {
     void FUN_000c8850();
 };
 
-extern Screen_d05f0 *DAT_0052c2a8;
 extern Canvas *DAT_0052c2ac;
 extern V3_d05f0 DAT_004ddf00;
 extern V3_d05f0 DAT_004dde98;

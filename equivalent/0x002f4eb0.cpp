@@ -1,9 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 275 inputs, branch coverage 30/30)
 // physics::ExportInfoLoader::vfunc_5 @ 0x002f4eb0
+#include "gen/physics.h"
+
 extern "C" int sprintf(char* dst, const char* fmt, ...);
 extern "C" int memcmp(const void* a, const void* b, unsigned int n);
 
-struct Stream {
+struct Stream_2f4eb0 {
     char pad0[0xc];
     char open;
     char pad1;
@@ -11,9 +13,9 @@ struct Stream {
     char FUN_002647e0(void* dest, unsigned count, unsigned size, int flag);
 };
 
-struct Reader {
+struct Reader_2f4eb0 {
     char pad[0x284];
-    Stream* stream;
+    Stream_2f4eb0* stream;
     char FUN_002669f0();
     int FUN_00266a30();
     void FUN_00266be0();
@@ -34,12 +36,8 @@ struct Frame_2f4eb0 {
     char msg[0x64];
 };
 
-struct ExportInfoLoader {
-    void vfunc_5(int a0, int a1, Reader* r, int a3);
-};
+void physics::ExportInfoLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int a3) { int a0 = (int)__p0; int a1 = (int)__p1; Reader_2f4eb0 * r = (Reader_2f4eb0 *)__p2;
 
-void ExportInfoLoader::vfunc_5(int a0, int a1, Reader* r, int a3)
-{
     Frame_2f4eb0 f;
     int units;
     bool found;

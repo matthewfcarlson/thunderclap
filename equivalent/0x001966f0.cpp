@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 116/116)
 // hulkfight::motion::FireBeamAction::vfunc_3 @ 0x001966f0
 // equiv-map: ?thunk_FUN_0027d410@Obj64@@QAEXPAUKey@@@Z = 0x001d6630
+#include "decls/address.h"
 extern "C" int atexit(void (*)());
 int __cdecl FUN_00267760(char *buf, int n, const char *fmt, ...);
 extern "C" int __cdecl FUN_0034483c();
@@ -85,7 +86,6 @@ struct World {
     char pad10[0x20 - 0x10];
     struct Obj20 *f20;
 };
-extern World *DAT_004dd700;
 
 struct Other_1966f0 {
     char pad0[0x8];

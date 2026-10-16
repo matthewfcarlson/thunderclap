@@ -1,15 +1,11 @@
-class CActorManager;
-typedef bool(__fastcall* Fn_2d750)(CActorManager*);
-class Method0 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2(CActorManager* obj, void* a, unsigned char* out);
-    char pad[0x18];
-    Fn_2d750 mFn;
-};
-void Method0::f2(CActorManager* obj, void* a, unsigned char* out) {
-    Fn_2d750 fn = mFn;
+#include "gen/global.h"
+
+class CActorManager_2d750;
+typedef bool(__fastcall* Fn_2d750)(CActorManager_2d750*);
+
+template <> void Method0<CActorManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2d750 * obj = (CActorManager_2d750 *)__p0; void * a = (void *)__p1; unsigned char * out = (unsigned char *)__p2;
+
+    Fn_2d750 fn = (*(Fn_2d750 *)&this->f_1c);
     bool r = fn(obj);
     if (out)
         *out = r;

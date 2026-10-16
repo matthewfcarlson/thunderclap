@@ -1,4 +1,6 @@
-class Request {
+#include "gen/core.h"
+
+class Request_273890 {
   public:
     virtual void a();
 };
@@ -27,18 +29,13 @@ struct Data_273890 {
     char pad3[4];
     int value;
 };
-class FileRequest : public Request {
-  public:
-    char pad[4];
-    Data_273890* data;
-    int vfunc_4();
-};
-int FileRequest::vfunc_4() {
-    Inner_273890* p = data->inner;
+
+int core::FileRequest::vfunc_4() {
+    Inner_273890* p = (*(Data_273890 * *)&this->f_08)->inner;
     int first = p->h();
     int second = p->helper();
-    data->obj.a();
-    data->value = second;
-    data->obj.b();
+    (*(Data_273890 * *)&this->f_08)->obj.a();
+    (*(Data_273890 * *)&this->f_08)->value = second;
+    (*(Data_273890 * *)&this->f_08)->obj.b();
     return first;
 }

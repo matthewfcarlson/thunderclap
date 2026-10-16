@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_00103640 @ 0x00103640
-struct Game_103640;
+#include "decls/address.h"
+struct World;
 struct Vec3_103640 {
     float x, y, z;
 };
@@ -48,7 +49,7 @@ public:
     char pad_[0x7c - 4];
     Vec3_103640 home;
     void FUN_001048d0(Marker_103640 *m);
-    void FUN_00104c60(Game_103640 *g, Vec3_103640 *a, Vec3_103640 *b, int bc, unsigned int c0, int c4, int zero);
+    void FUN_00104c60(World *g, Vec3_103640 *a, Vec3_103640 *b, int bc, unsigned int c0, int c4, int zero);
 };
 
 class Locator {
@@ -73,12 +74,11 @@ struct Index_103640 {
     Locator *FUN_001fd780(const char *name);
 };
 
-struct Game_103640 {
+struct World {
     char pad0[0x28];
     Index_103640 *index;
 };
 
-extern Game_103640 *DAT_004dd700;
 
 int FUN_000964a0(char *buf, int size, const char *fmt, ...);
 

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 44/44)
 // CProceduralDurationAnimationAction::vfunc_6 @ 0x00022990
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/address.h"
 
 namespace content {
 namespace LoadInventory {
@@ -101,8 +102,7 @@ public:
 
 struct Holder44_22990 { Factory_22990 *FUN_00203d70(); };
 struct Holder28_22990 { Holder44_22990 *FUN_000862a0(); };
-struct Manager_22990 { char pad0[0x54]; Holder28_22990 *holder; };
-extern Manager_22990 *DAT_004dd700;
+struct World { char pad0[0x54]; Holder28_22990 *holder; };
 
 class Owner_22990 {
 public:

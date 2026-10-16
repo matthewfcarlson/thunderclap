@@ -1,6 +1,8 @@
+#include "gen/fight.h"
+
 extern void* __cdecl Alloc(unsigned int);
 extern char statVftable[];
-class TrackFactory {
+class TrackFactory_132e40 {
   public:
     virtual void* v0();
     virtual void* v1();
@@ -9,25 +11,22 @@ class TrackFactory {
     virtual void* v4();
     virtual void* v5();
 };
-class StatEndTrialTrack {
+class StatEndTrialTrack_132e40 {
   public:
     int pad[3];
     int a;
     int b;
-    StatEndTrialTrack();
+    StatEndTrialTrack_132e40();
 };
-class Factory_132e40 : public TrackFactory {
-  public:
-    StatEndTrialTrack* vfunc5();
-};
-StatEndTrialTrack* Factory_132e40::vfunc5() {
-    StatEndTrialTrack* p = (StatEndTrialTrack*)Alloc(0x14);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::StatEndTrialTrack>::vfunc_5() {
+    StatEndTrialTrack_132e40* p = (StatEndTrialTrack_132e40*)Alloc(0x14);
     if (p) {
-        p->StatEndTrialTrack::StatEndTrialTrack();
+        p->StatEndTrialTrack_132e40::StatEndTrialTrack_132e40();
         *(int*)p = (int)statVftable;
         p->a = 0;
         p->b = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

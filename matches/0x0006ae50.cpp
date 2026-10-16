@@ -1,7 +1,4 @@
-class CDeathTrack {
-  public:
-    virtual int vfunc_0(int arg);
-};
+#include "gen/global.h"
 
 extern int* g_table_6ae50;
 

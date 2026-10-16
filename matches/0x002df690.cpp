@@ -1,13 +1,10 @@
+#include "gen/pure3d.h"
+
 class Obj_2df690 {
   public:
     void FUN(int, int, int);
 };
-class PrimGroupStreamed {
-  public:
-    char pad[0x5c];
-    Obj_2df690* mObj;
-    void vfunc_12(int a);
-};
-void PrimGroupStreamed::vfunc_12(int a) {
-    mObj->FUN(a, 0, 0);
+
+void pure3d::PrimGroupStreamed::vfunc_12(int a) {
+    (*(Obj_2df690 * *)&this->f_5c)->FUN(a, 0, 0);
 }

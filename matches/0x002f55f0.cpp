@@ -1,10 +1,5 @@
-class PhysicsObject {
-    char pad[0x148];
+#include "gen/physics.h"
 
-  public:
-    char flag;
-    void vfunc_17(int, int, int, int, int);
-};
-void PhysicsObject::vfunc_17(int, int, int, int, int) {
-    flag = 1;
+void physics::PhysicsObject::vfunc_17(int , int , int , int , int ) {
+    (*(char *)&this->f_148) = 1;
 }

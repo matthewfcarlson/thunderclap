@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000872a0 @ 0x000872a0
+#include "decls/address.h"
 struct Vec3_872a0 {
     float x, y, z;
 };
@@ -41,7 +42,7 @@ struct Display_872a0 {
     Body_872a0 *b;
 };
 
-struct Globals_872a0 {
+struct World {
     char pad1[0x54];
     Display_872a0 *display;
 };
@@ -80,7 +81,6 @@ public:
     Camera *camera;
 };
 
-extern Globals_872a0 *DAT_004dd700;
 
 void Tracker_872a0::FUN_000872a0()
 {

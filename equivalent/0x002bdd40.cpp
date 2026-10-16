@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // pure3d::Sprite::vfunc_6 @ 0x002bdd40
+#include "decls/address.h"
 struct Vec3_2bdd40 {
     float x, y, z;
 };
@@ -29,7 +30,7 @@ struct Batch_2bdd40 {
     float *uv;
 };
 
-class Device_2bdd40 {
+class Gfx {
 public:
     virtual void d0();
     virtual void d1();
@@ -65,7 +66,6 @@ public:
     virtual void Submit(Batch_2bdd40 *b);
 };
 
-extern Device_2bdd40 *DAT_0052c2a8;
 
 struct Texture {
     char pad0[0x10];

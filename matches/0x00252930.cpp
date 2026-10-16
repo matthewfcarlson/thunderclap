@@ -1,34 +1,32 @@
+#include "gen/audio.h"
+
 extern "C" char DAT_00429fac[];
 typedef unsigned int u32_252930;
 extern char g_seqVarVolumeHeap[];
 namespace audio {
-class SeqEventType {
+class SeqEventType_252930 {
   public:
-    virtual ~SeqEventType();
+    virtual ~SeqEventType_252930();
     virtual void f1();
     virtual void f2();
     virtual void f3();
 };
-class SeqEventVarVolume {
+class SeqEventVarVolume_252930 {
   public:
     void* vptr;
     u32_252930 pad;
     float volume;
     void Init();
 };
-class SeqEventVarVolumeType : public SeqEventType {
-  public:
-    virtual SeqEventVarVolume* vfunc_3();
-};
 } // namespace audio
-extern "C" audio::SeqEventVarVolume* FUN_00247530(void*);
-audio::SeqEventVarVolume* audio::SeqEventVarVolumeType::vfunc_3() {
-    audio::SeqEventVarVolume* p = FUN_00247530((void*)g_seqVarVolumeHeap);
+extern "C" audio::SeqEventVarVolume_252930* FUN_00247530(void*);
+void* audio::SeqEventVarVolumeType::vfunc_3() {
+    audio::SeqEventVarVolume_252930* p = FUN_00247530((void*)g_seqVarVolumeHeap);
     if (p) {
         p->Init();
         p->vptr = (void*)((int)DAT_00429fac);
         p->volume = 1.0f;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

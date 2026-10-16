@@ -1,25 +1,21 @@
 // Same code shape as 0x0008a610 (propagated; names are from that function)
-struct Vector {
+#include "gen/global.h"
+
+struct Vector_1ba270 {
     int x, y, z;
 };
-class CGameFlowManager {
+class CGameFlowManager_1ba270 {
   public:
-    virtual Vector* Get(Vector*);
+    virtual Vector_1ba270* Get(Vector_1ba270*);
 };
-typedef Vector* (CGameFlowManager::*Fn_1ba270)(Vector*);
-class Method0 {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(CGameFlowManager* mgr, void* unused, Vector* out);
-    char pad[0x18];
-    Fn_1ba270 mFn;
-};
-void Method0::vfunc_2(CGameFlowManager* mgr, void*, Vector* out) {
-    Fn_1ba270 fn = mFn;
-    Vector temp;
-    volatile Vector r;
-    Vector* p = (mgr->*fn)(&temp);
+typedef Vector_1ba270* (CGameFlowManager_1ba270::*Fn_1ba270)(Vector_1ba270*);
+
+template <> void Method0<CRenderManager,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CGameFlowManager_1ba270 * mgr = (CGameFlowManager_1ba270 *)__p0; Vector_1ba270 * out = (Vector_1ba270 *)__p2;
+
+    Fn_1ba270 fn = (*(Fn_1ba270 *)&this->f_1c);
+    Vector_1ba270 temp;
+    volatile Vector_1ba270 r;
+    Vector_1ba270* p = (mgr->*fn)(&temp);
     r.x = p->x;
     r.y = p->y;
     r.z = p->z;

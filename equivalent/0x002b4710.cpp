@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 49 inputs, branch coverage 4/4)
 // FUN_002b4710 @ 0x002b4710
+#include "decls/address.h"
 struct Stream {
     char pad0[0x8];
     float *pos;
@@ -18,7 +19,7 @@ public:
     MeshB *b;
     void FUN_002b4710();
 };
-class Device_2b4710 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -53,7 +54,6 @@ public:
     virtual Stream *v30(int a, int b, int c, int d, int e);
     virtual void v31(Stream *s);
 };
-extern Device_2b4710 *DAT_0052c2a8;
 
 void Obj_2b4710::FUN_002b4710()
 {

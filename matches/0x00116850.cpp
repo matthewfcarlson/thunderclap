@@ -14,11 +14,11 @@ class Track {
     virtual void v10();
 };
 class Param {};
-class MotionLocatorTrack : public Track, public Param {
+namespace hulkfight { namespace ai { class MotionLocatorTrack : public Track, public Param {
   public:
     virtual MotionLocatorTrack* vfunc_5(u8_116850);
     char pad[0x30 - sizeof(Track)];
-};
+}; }}
 class Sub_116850 {
   public:
     void f();
@@ -27,9 +27,9 @@ class Main_116850 {
   public:
     void f();
 };
-void __cdecl Destroy(MotionLocatorTrack*);
+void __cdecl Destroy(hulkfight::ai::MotionLocatorTrack*);
 extern void* vf_116850;
-MotionLocatorTrack* MotionLocatorTrack::vfunc_5(u8_116850 flag) {
+hulkfight::ai::MotionLocatorTrack* hulkfight::ai::MotionLocatorTrack::vfunc_5(u8_116850 flag) {
     ((void**)this)[0] = &vf_116850;
     ((Sub_116850*)((char*)this + 0x30))->f();
     ((Main_116850*)this)->f();

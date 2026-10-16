@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2746 inputs, branch coverage 18/18)
 // FUN_001e9960 @ 0x001e9960
+#include "decls/address.h"
 extern "C" char *strcpy(char *, const char *);
 extern "C" char *strcat(char *, const char *);
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 
 struct IdPair_1e9960 {
     unsigned int lo;

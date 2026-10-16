@@ -2,6 +2,9 @@
 // hulkfight::motion::CivilianDetachAction::vfunc_3 @ 0x00147e50
 // hulkfight::motion::CivilianDetachAction::vfunc_3 @ 0x00147e50
 // equiv-map: ??0Name@@QAE@ABU0@@Z = 0x0027af30
+#include "gen/hulkfight.h"
+#include "decls/address.h"
+
 struct Name {
     int lo;
     int hi;
@@ -30,11 +33,10 @@ struct Dispatcher_147e50 {
     void FUN_001cbc20(Msg_147e50 *m);
 };
 
-struct System_147e50 {
+struct World {
     char pad0[0x30];
     Dispatcher_147e50 *dispatcher;
 };
-extern System_147e50 *DAT_004dd700;
 
 struct Names_147e50 {
     int FUN_0027b200(__int64 key);
@@ -78,7 +80,6 @@ struct Xform_147e50 {
     Vec3_147e50 rot;
 };
 
-__int64 FUN_002672f0(const char *s, int a, int b);
 
 struct Frame_147e50 {
     Vec3_147e50 tmp;
@@ -90,20 +91,10 @@ struct Frame_147e50 {
 namespace hulkfight {
 namespace motion {
 
-class CivilianDetachAction {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual bool vfunc_3(int a, int b);
-    char pad04[0x18];
-    Xform_147e50 *xform;  // 0x1c
-    Params_147e50 *owner;  // 0x20
-};
-
-bool CivilianDetachAction::vfunc_3(int a, int b)
-{
-    Fighter_147e50 *fighter = owner->FUN_000592a0()->FUN_00059a30();
+}
+}
+bool hulkfight::motion::CivilianDetachAction::vfunc_3(int a, int b) {
+    Fighter_147e50 *fighter = (*(Params_147e50 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();
     if (fighter == 0)
         return false;
     Target_147e50 *target = fighter->FUN_00036020();
@@ -124,14 +115,11 @@ bool CivilianDetachAction::vfunc_3(int a, int b)
     Mat_147e50 *joint = fighter->skel->joints + idx;
 
     fr.a.FUN_0022ba00();
-    Xform_147e50 *xf = xform;
+    Xform_147e50 *xf = (*(Xform_147e50 * *)&this->f_1c);
     fr.tmp = xf->pos;
     fr.a.trans = fr.tmp;
     fr.a.FUN_0022bc20(xf->rot.x, xf->rot.y, xf->rot.z);
     fr.b.FUN_0022ca90(&fr.a, joint);
     target->FUN_00080e50(&fr.b);
     return true;
-}
-
-}
 }

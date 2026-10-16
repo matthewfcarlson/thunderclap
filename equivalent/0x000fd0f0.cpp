@@ -4,6 +4,8 @@
 // original code with work/cq/x87c3.py; `this` is addressed through the volatile float view T, the frame is the
 // volatile slot array L[] at the original offsets, FPU-resident values are recomputed inline from volatile
 // reads. FUN_000fce60 takes an implicit edi (equiv-conv).
+#include "gen/global.h"
+
 extern "C" double sqrt(double);
 extern "C" double sin(double);
 extern "C" double cos(double);
@@ -33,18 +35,12 @@ float FUN_00018a20(float x);
 void FUN_000fce60(unsigned a_edi, unsigned s1, unsigned s2, unsigned s3, unsigned s4, unsigned s5, unsigned s6, unsigned s7);
 void FUN_000fd010(unsigned s1, unsigned s2, unsigned s3, unsigned s4, unsigned s5, unsigned s6);
 
-class CControllerAgent {
-public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void vfunc_4(unsigned a1, unsigned a2, unsigned a3);
+struct CControllerAgent_nv_fd0f0 {
     void FUN_000fc550(unsigned a, unsigned b, unsigned c);
 };
 
-void CControllerAgent::vfunc_4(unsigned a1, unsigned a2, unsigned a3)
-{
+void CControllerAgent::vfunc_4(int __p0, int __p1, int __p2) { unsigned int a1 = (unsigned int)__p0; unsigned int a2 = (unsigned int)__p1; unsigned int a3 = (unsigned int)__p2;
+
     volatile float *T = (volatile float *)this;
     volatile Wd L[58];
     double A2;
@@ -73,7 +69,7 @@ void CControllerAgent::vfunc_4(unsigned a1, unsigned a2, unsigned a3)
     volatile float * r10_edx;
     volatile float * r6_ecx;
     volatile float ARGfc;
-    FUN_000fc550(a1, a2, a3);
+    ((CControllerAgent_nv_fd0f0*)this)->FUN_000fc550(a1, a2, a3);
     fgt = (unsigned)((VFight *)*(volatile unsigned *)&T[22])->v6();
     if (*(volatile unsigned *)((char *)fgt + 0x140) == 4) {
         L[17].u = *(volatile unsigned *)((char *)fgt + 0x1af8);

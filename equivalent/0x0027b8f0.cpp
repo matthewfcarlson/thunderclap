@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 3/4, incomplete)
 // FUN_0027b8f0 @ 0x0027b8f0
+#include "decls/address.h"
 struct Bitset { unsigned int bits; unsigned int words[17]; };
 extern "C" unsigned int DAT_0052c288;
 extern "C" unsigned int DAT_004ce408;
 extern "C" unsigned int DAT_004ce40c;
 extern "C" Bitset* DAT_004ce410;
-extern "C" long long __cdecl FUN_002672f0(const char*, unsigned int, unsigned int);
 extern "C" Bitset* __cdecl FUN_0008d6d0(unsigned int);
 void FUN_0027b8f0(){
   if (DAT_0052c288 == 0) {

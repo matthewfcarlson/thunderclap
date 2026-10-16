@@ -1,16 +1,11 @@
 // Same code shape as 0x002df6f0 (propagated; names are from that function)
+#include "gen/pure3d.h"
+
 class Helper_2df710 {
   public:
     void go(int, int, int);
 };
-class PrimGroupSkinnedStreamed {
-  public:
-    char pad[0x5c];
-    int a;
-    int b;
-    int c;
-    void vfunc_12(int);
-};
-void PrimGroupSkinnedStreamed::vfunc_12(int arg) {
-    ((Helper_2df710*)a)->go(arg, b, c);
+
+void pure3d::PrimGroupSkinnedStreamed::vfunc_11(int arg) {
+    ((Helper_2df710*)(*(int *)&this->f_5c))->go(arg, this->f_60, this->f_64);
 }

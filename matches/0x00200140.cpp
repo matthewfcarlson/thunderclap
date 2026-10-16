@@ -1,29 +1,24 @@
+#include "gen/global.h"
+
 namespace math {
-struct Vector {
+struct Vector_200140 {
     float x, y, z;
 };
 } // namespace math
-class CTriggerVolumeManager {
+class CTriggerVolumeManager_200140 {
   public:
-    bool method(math::Vector, const char*, bool);
+    bool method(math::Vector_200140, const char*, bool);
 };
 struct Args {
-    math::Vector v;
+    math::Vector_200140 v;
     const char* str;
     bool flag;
 };
-class Closure3 {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void vfunc_2(void*, Args*, bool*);
-    char pad[0x18];
-    bool (CTriggerVolumeManager::*fn)(math::Vector, const char*, bool);
-    CTriggerVolumeManager* obj;
-};
-void Closure3::vfunc_2(void*, Args* args, bool* out) {
-    CTriggerVolumeManager* p = obj;
-    bool (CTriggerVolumeManager::*f)(math::Vector, const char*, bool) = fn;
+
+template <> void Closure3<CTriggerVolumeManager, bool,math::Vector, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { Args * args = (Args *)__p1; bool * out = (bool *)__p2;
+
+    CTriggerVolumeManager_200140* p = (*(CTriggerVolumeManager_200140 * *)&this->f_20);
+    bool (CTriggerVolumeManager_200140::*f)(math::Vector_200140, const char*, bool) = (*(bool (CTriggerVolumeManager_200140::**)(math::Vector_200140, const char *, bool))&this->f_1c);
     Args* a = args;
     bool b = a->flag;
     const char* s = a->str;

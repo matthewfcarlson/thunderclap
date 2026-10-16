@@ -1,4 +1,6 @@
-class FELayout {
+#include "gen/global.h"
+
+class FELayout_e2060 {
   public:
     virtual void a0();
     virtual void a1();
@@ -38,16 +40,9 @@ class Inner_e2060 {
     virtual void a11();
     virtual bool a12(int, int);
 };
-class SingleLayout : public FELayout {
-  public:
-    char pad[0x40];
-    Inner_e2060* inner;
-    virtual void g5();
-    virtual void g6();
-    virtual bool g7(int, int);
-};
-bool SingleLayout::g7(int a, int b) {
-    if (!inner)
+
+bool SingleLayout::vfunc_7(int a, int b) {
+    if (!(*(Inner_e2060 * *)&this->f_44))
         return false;
-    return inner->a12(a, b);
+    return (*(Inner_e2060 * *)&this->f_44)->a12(a, b);
 }

@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 class Pad_2693f0 {
   public:
     virtual void f0();
@@ -6,17 +8,11 @@ class Pad_2693f0 {
     virtual bool f3();
     char rest[0x49c];
 };
-class ControllerSystemXBox {
-    char pad[0x20];
-    Pad_2693f0 controllers[4];
 
-  public:
-    int vfunc_3();
-};
-int ControllerSystemXBox::vfunc_3() {
+int core::ControllerSystemXBox::vfunc_3() {
     int n = 0;
     for (int i = 0; i < 4; ++i)
-        if (controllers[i].f3())
+        if ((*(Pad_2693f0 (*)[4])&this->f_20)[i].f3())
             ++n;
     return n;
 }

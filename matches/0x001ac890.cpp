@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0041d3cc[];
-class Condition {
+class Condition_1ac890 {
   public:
     virtual void a();
     virtual void b();
@@ -12,25 +14,21 @@ class Sub_1ac890 {
   public:
     void Init();
 };
-class Event_TriggerVolumeNameCondition : public Condition {
+class Event_TriggerVolumeNameCondition_1ac890 : public Condition_1ac890 {
   public:
     void Init(int);
     char pad[0x0c];
     Sub_1ac890 sub;
 };
 extern void* __cdecl Allocate(int);
-class Factory_1ac890 {
-  public:
-    void* v[6];
-    void* vfunc_5();
-};
-void* Factory_1ac890::vfunc_5() {
-    Event_TriggerVolumeNameCondition* p = (Event_TriggerVolumeNameCondition*)Allocate(0x18);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::scenario::Event_TriggerVolumeNameCondition>::vfunc_5() {
+    Event_TriggerVolumeNameCondition_1ac890* p = (Event_TriggerVolumeNameCondition_1ac890*)Allocate(0x18);
     if (p) {
         p->Init(0);
         *(unsigned int*)p = ((int)DAT_0041d3cc);
         p->sub.Init();
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

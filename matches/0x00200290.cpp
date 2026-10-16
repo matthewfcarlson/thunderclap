@@ -1,4 +1,6 @@
-class CTriggerVolumeManager {
+#include "gen/global.h"
+
+class CTriggerVolumeManager_200290 {
   public:
     bool Fire(const char*, int, int, bool);
 };
@@ -7,18 +9,11 @@ struct Args {
     int b, c;
     bool d;
 };
-class Closure4 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void vfunc_2(int, Args*, bool*);
-    char pad[0x18];
-    bool (CTriggerVolumeManager::*method)(const char*, int, int, bool);
-    CTriggerVolumeManager* obj;
-};
-void Closure4::vfunc_2(int n, Args* args, bool* out) {
-    CTriggerVolumeManager* o = obj;
-    bool (CTriggerVolumeManager::*fn)(const char*, int, int, bool) = method;
+
+template <> void Closure4<CTriggerVolumeManager, bool, const char *, int, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { int n = (int)__p0; Args * args = (Args *)__p1; bool * out = (bool *)__p2;
+
+    CTriggerVolumeManager_200290* o = (*(CTriggerVolumeManager_200290 * *)&this->f_20);
+    bool (CTriggerVolumeManager_200290::*fn)(const char*, int, int, bool) = (*(bool (CTriggerVolumeManager_200290::**)(const char *, int, int, bool))&this->f_1c);
     char* p = (char*)args;
     const char* a = *(const char**)p;
     int b = *(int*)(p += 4);

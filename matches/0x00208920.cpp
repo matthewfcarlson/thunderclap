@@ -1,3 +1,4 @@
+#include "decls/address.h"
 struct Transition_208920 {
     char data[28];
     void FUN_001cac80(int oldState, int newState);
@@ -5,11 +6,10 @@ struct Transition_208920 {
 struct Queue_208920 {
     void FUN_001cbc20(Transition_208920*);
 };
-struct Global_208920 {
+struct World {
     char pad[0x30];
     Queue_208920* queue;
 };
-extern Global_208920* DAT_004dd700;
 struct Item_208920 {
     void FUN_000bd1b0(int);
 };

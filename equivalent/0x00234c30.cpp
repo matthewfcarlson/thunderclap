@@ -12,7 +12,7 @@ public:
     virtual void s9(); virtual void s10(); virtual void s11();
     virtual bool Measure(int a, int b, int* len);
 };
-class ParamValueScript {
+namespace fight { class ParamValueScript {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -23,8 +23,8 @@ public:
     virtual void vfunc_6(int a1, char* text, int len);
     char pad[4];
     int f8, fc;
-};
-bool ParamValueScript::vfunc_5(int a1, int, Stream* in) {
+}; }
+bool fight::ParamValueScript::vfunc_5(int a1, int, Stream* in) {
     int len = 0;
     if (!in->Measure(f8, fc, &len)) return false;
     char* buf = FUN_00266e00(FUN_00238190(1), len + 1);

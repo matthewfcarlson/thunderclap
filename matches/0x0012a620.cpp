@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0040fdd4[];
 typedef unsigned int u32_12a620;
 typedef unsigned char u8;
@@ -6,7 +8,7 @@ class InitBase_12a620 {
   public:
     void Init(int);
 };
-struct TargetDistanceYCondition : InitBase_12a620 {
+struct TargetDistanceYCondition_12a620 : InitBase_12a620 {
     u32_12a620 vptr;
     u32_12a620 pad1;
     u32_12a620 pad2;
@@ -14,17 +16,9 @@ struct TargetDistanceYCondition : InitBase_12a620 {
     int b;
     u8 c, d, e;
 };
-class ConditionFactoryTemplate {
-  public:
-    virtual void q0();
-    virtual void q1();
-    virtual void q2();
-    virtual void q3();
-    virtual void q4();
-    virtual TargetDistanceYCondition* vfunc_5();
-};
-TargetDistanceYCondition* ConditionFactoryTemplate::vfunc_5() {
-    TargetDistanceYCondition* p = (TargetDistanceYCondition*)Alloc(0x18);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetDistanceYCondition>::vfunc_5() {
+    TargetDistanceYCondition_12a620* p = (TargetDistanceYCondition_12a620*)Alloc(0x18);
     if (p != 0) {
         p->Init(0);
         p->a = 0;
@@ -33,7 +27,7 @@ TargetDistanceYCondition* ConditionFactoryTemplate::vfunc_5() {
         p->d = 0;
         p->e = 0;
         p->vptr = ((int)DAT_0040fdd4);
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

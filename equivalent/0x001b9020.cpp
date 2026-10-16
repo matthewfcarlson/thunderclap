@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2987 inputs, branch coverage 4/4)
 // FUN_001b9020 @ 0x001b9020
 // Screen/menu activation: bring up the HUD handles, flag the UI as active and reset the player's counter once.
+#include "decls/address.h"
 class Cursor_1b9020 {
 public:
     int FUN_000d6f50();
@@ -35,7 +36,7 @@ public:
     Player_1b9020* player;
 };
 
-class Game_1b9020 {
+class World {
 public:
     char pad0[0x20];
     PlayerHolder_1b9020* holder;
@@ -45,7 +46,6 @@ public:
     Panel_1b9020* panel;
 };
 
-extern Game_1b9020* DAT_004dd700;
 extern char DAT_004e222c;
 
 Fader_1b9020* __cdecl FUN_001c3d90();

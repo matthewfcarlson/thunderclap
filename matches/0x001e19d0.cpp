@@ -1,6 +1,6 @@
+#include "decls/address.h"
 class CSPManager;
 extern "C" void __stdcall FUN_001d0480(void*, int);
-extern "C" char __cdecl FUN_001d04d0(const char*);
 extern const char a[];
 extern const char b[];
 class Base {

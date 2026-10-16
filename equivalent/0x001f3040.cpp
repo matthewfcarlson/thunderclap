@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001f3040 @ 0x001f3040
 // FUN_001f3040: look up an entry and fetch two sound handles from it (or default to "hulk")
+#include "decls/address.h"
 typedef unsigned __int64 u64_1f3040;
 
 struct Node {
@@ -32,7 +33,6 @@ struct Sound_1f3040 {
 extern Sound_1f3040 *DAT_004e3690;
 
 Node *__cdecl FUN_001f2ff0(Key_1f3040 *k);
-u64_1f3040 __cdecl FUN_0027b020(const char *name);
 
 void __cdecl FUN_001f3040(Dest_1f3040 *d, Key_1f3040 *k)
 {

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 20/20)
 // pure3d::BillboardQuadGroup::vfunc_6 @ 0x002bc1b0
+#include "decls/address.h"
 struct Matrix {
     float m[16];
 };
@@ -11,7 +12,7 @@ struct Handle_2bc1b0 {
 
 struct Lock;
 
-class Engine_2bc1b0 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -139,7 +140,6 @@ struct Camera {
     Matrix *FUN_0028faa0();
 };
 
-extern Engine_2bc1b0 *DAT_0052c2a8;
 extern Display_2bc1b0 *DAT_0052c2ac;
 extern Camera *DAT_0052c2b4;
 

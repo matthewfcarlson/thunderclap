@@ -1,4 +1,6 @@
-class Node {
+#include "gen/fight.h"
+
+class Node_2333c0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -8,19 +10,14 @@ class Node {
     virtual void f5();
     virtual void f6();
     char pad[0x1c];
-    Node* next;
+    Node_2333c0* next;
 };
 struct Helper_2333c0 {
     void f(void*);
 };
-class Branch {
-  public:
-    char pad[0x1c];
-    Node* head;
-    void vfunc_6();
-};
-void Branch::vfunc_6() {
-    Node* p = head;
+
+void fight::Branch::vfunc_6() {
+    Node_2333c0* p = (*(Node_2333c0 * *)&this->f_1c);
     while (p) {
         p->f6();
         p = p->next;

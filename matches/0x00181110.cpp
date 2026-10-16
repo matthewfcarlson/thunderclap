@@ -1,14 +1,13 @@
 // Same code shape as 0x00048300 (propagated; names are from that function)
+#include "gen/hulkfight.h"
+
 extern int* gTable_181110;
-class CCondition {
+class CCondition_181110 {
   public:
     virtual int vfunc_0(int);
 };
-class CStageCondition : public CCondition {
-  public:
-    int vfunc_0(int);
-};
-int CStageCondition::vfunc_0(int index) {
+
+int hulkfight::motion::PropSetStateByIndexTrack::vfunc_0(int index) {
     int* p = gTable_181110;
     return p[index];
 }

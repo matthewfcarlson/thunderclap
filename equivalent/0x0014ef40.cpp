@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 343 inputs, branch coverage 14/14)
 // hulkfight::motion::HitPauseAction::vfunc_3 @ 0x0014ef40
+#include "gen/hulkfight.h"
+
 struct Fighter_14ef40 {
     char pad[4];
 };
@@ -38,7 +40,7 @@ struct Stats_14ef40 {
 };
 Stats_14ef40 *__fastcall FUN_00059a30(Fighter_14ef40 *f);
 
-class Action {
+class Action_14ef40 {
 public:
     virtual void vfunc_0();
 };
@@ -46,22 +48,14 @@ public:
 namespace hulkfight {
 namespace motion {
 
-class HitPauseAction {
-public:
-    virtual void vfunc_0();
-    char pad04[0x18];
-    Key_14ef40 *key;
-    void *owner;
-    bool vfunc_3(int a, int b);
-};
-
-bool HitPauseAction::vfunc_3(int a, int b)
-{
-    Stats_14ef40 *stats = FUN_00059a30(FUN_000592a0(owner));
+}
+}
+bool hulkfight::motion::HitPauseAction::vfunc_3(int a, int b) {
+    Stats_14ef40 *stats = FUN_00059a30(FUN_000592a0((*(void * *)&this->f_20)));
     int count = stats->slotCount;
     if (count > 0) {
-        unsigned int lo = key->lo;
-        unsigned int hi = key->hi;
+        unsigned int lo = (*(Key_14ef40 * *)&this->f_1c)->lo;
+        unsigned int hi = (*(Key_14ef40 * *)&this->f_1c)->hi;
         for (int i = 0; i < count; i++) {
             SlotHolder *holder = stats->slots[i];
             if (holder == 0)
@@ -80,7 +74,4 @@ bool HitPauseAction::vfunc_3(int a, int b)
         }
     }
     return false;
-}
-
-}
 }

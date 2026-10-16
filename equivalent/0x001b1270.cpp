@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3064 inputs, branch coverage 50/56, incomplete)
 // FUN_001b1270 @ 0x001b1270
+#include "decls/address.h"
 struct Vec3_1b1270 {
     float x, y, z;
 };
@@ -31,12 +32,11 @@ struct Sink_1b1270 {
     void FUN_001cbd10(const char* name);
 };
 
-struct Game_1b1270 {
+struct World {
     char pad00[0x30];
     Sink_1b1270* sink;
 };
 
-extern Game_1b1270* DAT_004dd700;
 extern unsigned __int64 DAT_004e1828;
 
 struct Actor_1b1270 {

@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00417ad8[];
-class MomentumXZAddTrack {
+class MomentumXZAddTrack_17e5a0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -13,17 +15,9 @@ class MomentumXZAddTrack {
     void Init();
 };
 extern "C" void* __cdecl Alloc(unsigned int);
-class Factory_17e5a0 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual MomentumXZAddTrack* f5();
-};
-MomentumXZAddTrack* Factory_17e5a0::f5() {
-    MomentumXZAddTrack* p = (MomentumXZAddTrack*)Alloc(0x18);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::MomentumXZAddTrack>::vfunc_5() {
+    MomentumXZAddTrack_17e5a0* p = (MomentumXZAddTrack_17e5a0*)Alloc(0x18);
     if (p) {
         p->Init();
         p->x = -1.0f;
@@ -31,7 +25,7 @@ MomentumXZAddTrack* Factory_17e5a0::f5() {
         *(volatile int*)p = ((int)DAT_00417ad8);
         p->d = 0;
         p->c = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 8/8)
 // hulkfight::motion::ChargeAction::vfunc_3 @ 0x00171860
 // Charge action update: track which action step is running and publish its progress ratio.
+#include "gen/hulkfight.h"
+
 class ActionDef {
 public:
     virtual void v0();
@@ -35,34 +37,23 @@ public:
     FighterRef_171860* FUN_000592a0();
 };
 
-class ChargeAction {
-public:
-    char pad0[0x1c];
-    ActionDef* def;
-    Owner_171860* owner;
-    float progress;
-
-    bool FUN_00171860(int a, int b);
-};
-
-bool ChargeAction::FUN_00171860(int a, int b)
-{
-    Fighter_171860* fighter = owner->FUN_000592a0()->FUN_00059a30();
-    int step = def->step;
-    if (def->restart != 0 || step != fighter->lastStep) {
+bool hulkfight::motion::ChargeAction::vfunc_3(int a, int b) {
+    Fighter_171860* fighter = (*(Owner_171860 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();
+    int step = (*(ActionDef * *)&this->f_1c)->step;
+    if ((*(ActionDef * *)&this->f_1c)->restart != 0 || step != fighter->lastStep) {
         fighter->baseline = 0;
     }
     fighter->lastStep = step;
 
-    float length = def->GetLength();
-    float elapsed = def->elapsed;
+    float length = (*(ActionDef * *)&this->f_1c)->GetLength();
+    float elapsed = (*(ActionDef * *)&this->f_1c)->elapsed;
     if (length > 0.0f) {
         if (elapsed < 1.0f) {
             elapsed -= fighter->baseline;
         }
-        progress = elapsed / length;
+        this->f_24 = elapsed / length;
     } else {
-        progress = elapsed;
+        this->f_24 = elapsed;
     }
     return true;
 }

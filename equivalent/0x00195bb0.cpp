@@ -50,16 +50,16 @@ unsigned FUN_0027f250();
 float FUN_000964e0();
 void FUN_00224db0(unsigned a, unsigned b, unsigned c);
 
-class ProjectileEffect {
+namespace hulkfight { namespace motion { class ProjectileEffect {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
     virtual void vfunc_4(float dt);
-};
+}; }}
 
-void ProjectileEffect::vfunc_4(float dt)
+void hulkfight::motion::ProjectileEffect::vfunc_4(float dt)
 {
     volatile float *T = (volatile float *)this;
     volatile Wd_195bb0 L[35];

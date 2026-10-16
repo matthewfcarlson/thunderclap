@@ -1,20 +1,13 @@
-class CFightNodeCondition {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual int vfunc_7(void*);
-};
+#include "gen/global.h"
+
 class Helper_52010 {
   public:
     int first();
     int second();
 };
-int CFightNodeCondition::vfunc_7(void* arg) {
+
+int CFightNodeCondition::vfunc_7(void* __p0) { void * arg = (void *)__p0;
+
     int x = ((Helper_52010*)arg)->first();
     return ((Helper_52010*)x)->second() + 0xdc;
 }

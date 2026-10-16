@@ -1,9 +1,11 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00417b68[];
 class TeleportTrackBase {
   public:
     void Ctor();
 };
-struct TeleportTrack {
+struct TeleportTrack_17e700 {
     void* vt;
     int pad;
     int one;
@@ -13,17 +15,9 @@ struct TeleportTrack {
     float last;
 };
 extern void* Alloc(unsigned int);
-class Factory_17e700 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual TeleportTrack* vfunc_5();
-};
-TeleportTrack* Factory_17e700::vfunc_5() {
-    TeleportTrack* p = (TeleportTrack*)Alloc(0x1c);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::TeleportTrack>::vfunc_5() {
+    TeleportTrack_17e700* p = (TeleportTrack_17e700*)Alloc(0x1c);
     if (p) {
         ((TeleportTrackBase*)p)->Ctor();
         p->vt = (void*)((int)DAT_00417b68);
@@ -32,7 +26,7 @@ TeleportTrack* Factory_17e700::vfunc_5() {
         p->z3 = 0;
         p->last = -1.0f;
         p->one = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

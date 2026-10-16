@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 typedef unsigned int size_t;
 void* operator new(size_t) throw();
 extern "C" void _ReadWriteBarrier();
@@ -23,13 +25,13 @@ struct Values {
     int c, d;
     float f;
 };
-class TeleportToLocatorTrack : public MidTrack {
+class TeleportToLocatorTrack_17ec00 : public MidTrack {
   public:
-    TeleportToLocatorTrack() throw() { ref = 1; }
+    TeleportToLocatorTrack_17ec00() throw() { ref = 1; }
     virtual void v0();
     Values v;
 };
-class TrackFactory {
+class TrackFactory_17ec00 {
   public:
     virtual void v0();
     virtual void v1();
@@ -38,10 +40,7 @@ class TrackFactory {
     virtual void v4();
     virtual BaseTrack* vfunc_5();
 };
-class TeleportFactory : public TrackFactory {
-  public:
-    virtual BaseTrack* vfunc_5();
-};
-BaseTrack* TeleportFactory::vfunc_5() {
-    return new TeleportToLocatorTrack;
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::TeleportToLocatorTrack>::vfunc_5() {
+    return (void*)(new TeleportToLocatorTrack_17ec00);
 }

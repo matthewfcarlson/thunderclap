@@ -1,5 +1,5 @@
+#include "decls/address.h"
 extern "C" char DAT_003ff014[];
-extern "C" char FUN_001d04d0(const char*);
 extern const char s0_7d380[], s1[], s2[], s3[];
 class Base_7d380 {
   public:

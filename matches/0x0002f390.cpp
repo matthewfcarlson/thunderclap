@@ -1,19 +1,15 @@
 // Same code shape as 0x0002ebc0 (propagated; names are from that function)
-class Function {
+#include "gen/global.h"
+
+class Function_2f390 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
 };
 void __cdecl invoke(int, int, int, int);
-class Closure_2f390 : public Function {
-  public:
-    char pad[0x18];
-    int a;
-    int b;
-    virtual void f0();
-    virtual void f2(int, int, int);
-};
-void Closure_2f390::f2(int x, int y, int z) {
-    invoke(b, y, z, a);
+
+template <> void Closure7<CActorManager, void, const char *, float, float, float, float, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { int x = (int)__p0; int y = (int)__p1; int z = (int)__p2;
+
+    invoke(this->f_20, y, z, (*(int *)&this->f_1c));
 }

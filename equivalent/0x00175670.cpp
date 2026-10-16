@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3037 inputs, branch coverage 26/26)
 // hulkfight::motion::DriftToHulkAction::vfunc_5 @ 0x00175670
+#include "decls/address.h"
 struct Vec3_175670 {
     float x, y, z;
     float FUN_0022d110();
@@ -57,12 +58,11 @@ struct Scene_175670 {
     Rival *rival;
 };
 
-struct Game_175670 {
+struct World {
     char pad00[0x20];
     Scene_175670 *scene;
 };
 
-extern Game_175670 *DAT_004dd700;
 
 namespace hulkfight {
 namespace motion {
@@ -100,7 +100,7 @@ bool hulkfight::motion::DriftToHulkAction::vfunc_5(int mode, float dt)
     if (mode != 0 || dt == 0.0f)
         return true;
 
-    Game_175670 *game = DAT_004dd700;
+    World *game = DAT_004dd700;
     Body_175670 *body = owner->FUN_000592a0();
     if (body == 0)
         return false;

@@ -1,4 +1,6 @@
-class FELayout {
+#include "gen/global.h"
+
+class FELayout_e9010 {
   public:
     virtual void f0();
     virtual void f1();
@@ -10,30 +12,9 @@ class Obj_e9010 {
   public:
     void run(int, int, int);
 };
-class VScroll : public FELayout {
-  public:
-    virtual void g5();
-    virtual void g6();
-    virtual void g7();
-    virtual void g8();
-    virtual void g9();
-    virtual void vfunc_10(int);
-    virtual void g11();
-    virtual void g12();
-    virtual void g13();
-    virtual void g14();
-    virtual void g15();
-    virtual void g16();
-    virtual void g17();
-    virtual void g18();
-    virtual void g19();
-    virtual void g20();
-    virtual void g21();
-    char pad[0x240];
-    Obj_e9010* member;
-};
+
 void VScroll::vfunc_10(int param_2) {
-    Obj_e9010* p = member;
+    Obj_e9010* p = (*(Obj_e9010 * *)&this->f_244);
     if (p && param_2 == 0)
         p->run(0, -1, -1);
 }

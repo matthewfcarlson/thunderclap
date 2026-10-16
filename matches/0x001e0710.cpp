@@ -1,3 +1,4 @@
+#include "decls/address.h"
 extern "C" char DAT_00423418[];
 extern "C" char DAT_0048e0f0[];
 extern "C" char DAT_0048e100[];
@@ -14,7 +15,6 @@ class Target_1e0710 {
     Target_1e0710(const char*, CSPManager*);
 };
 extern void __stdcall FUN_001d0480(const char*, int);
-extern unsigned char FUN_001d04d0(const char*);
 Target_1e0710::Target_1e0710(const char* s, CSPManager* m) {
     FUN_001d0480(s, 4);
     *(int*)this = ((int)DAT_00423418);

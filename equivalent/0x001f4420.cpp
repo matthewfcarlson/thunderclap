@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 28/28)
 // FUN_001f4420 @ 0x001f4420
+#include "decls/address.h"
 struct Name_1f4420 {
     unsigned int lo, hi;
     void FUN_0027b040(const char *s);
@@ -56,7 +57,6 @@ struct Obj_1f4420 {
     Entry_1f4420 entries[4];
 };
 
-unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned int lo, unsigned int hi);
 void *__cdecl FUN_002673a0(int a, int b);
 Item_1f4420 *__cdecl FUN_0024a370(Ptr_1f4420 *p, void *key);
 void __cdecl FUN_00249bd0(Ptr_1f4420 *p, Item_1f4420 *item, Params *params);

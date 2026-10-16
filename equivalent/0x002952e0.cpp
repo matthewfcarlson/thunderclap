@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 43/46, incomplete)
 // pure3d::TextureFont::vfunc_19 @ 0x002952e0
+#include "decls/address.h"
 struct Glyph_2952e0 {
     float x;
     int f4;
@@ -54,7 +55,7 @@ struct Context {
     void FUN_00293d40(float a, float b, int c);
 };
 
-struct Renderer_2952e0 {
+struct Gfx {
     virtual void r0();
     virtual void r1();
     virtual void r2();
@@ -90,7 +91,6 @@ struct Renderer_2952e0 {
 };
 
 extern Context* DAT_0052c2ac;
-extern Renderer_2952e0* DAT_0052c2a8;
 extern int DAT_0052c318[32];
 extern Glyph_2952e0* DAT_0052c398[];
 

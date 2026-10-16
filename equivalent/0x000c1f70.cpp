@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 18/18)
 // FUN_000c1f70 @ 0x000c1f70
+#include "decls/address.h"
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
@@ -103,7 +104,6 @@ extern Inventory_c1f70* DAT_004dd9cc;
 
 void* __cdecl FUN_00263ea0(int size);
 int __cdecl FUN_000964a0(char* dst, int size, const char* fmt, ...);
-unsigned __int64 __cdecl FUN_0027b020(const char* s);
 
 struct Frame_c1f70 {
     char path[0x100];

@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class Child_e2020 {
   public:
     virtual void f0();
@@ -12,7 +14,7 @@ class Child_e2020 {
     virtual void f9();
     virtual bool f10(int, int);
 };
-class FELayout {
+class FELayout_e2020 {
   public:
     virtual void v0();
     virtual void v1();
@@ -36,35 +38,9 @@ class FELayout {
     virtual void v19();
     virtual void v20();
 };
-class SingleLayout : public FELayout {
-  public:
-    char pad[0x40];
-    Child_e2020* child;
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual void a3();
-    virtual void a4();
-    virtual bool vfunc_5(int, int);
-    virtual void a6();
-    virtual void a7();
-    virtual void a8();
-    virtual void a9();
-    virtual void a10();
-    virtual void a11();
-    virtual void a12();
-    virtual void a13();
-    virtual void a14();
-    virtual void a15();
-    virtual void a16();
-    virtual void a17();
-    virtual void a18();
-    virtual void a19();
-    virtual void a21();
-    virtual void a22();
-};
+
 bool SingleLayout::vfunc_5(int a, int b) {
-    if (!child)
+    if (!(*(Child_e2020 * *)&this->f_44))
         return false;
-    return child->f10(a, b);
+    return (*(Child_e2020 * *)&this->f_44)->f10(a, b);
 }

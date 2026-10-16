@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 44/44)
 // CAutoTargetAction::vfunc_7 @ 0x0001d570
+#include "decls/address.h"
 struct V3_1d570 {
     float x, y, z;
     bool FUN_0022d2b0(V3_1d570 *other, float eps);
@@ -60,7 +61,6 @@ struct World {
     char pad0[0x28];
     Registry_1d570 *registry;              // 0x28
 };
-extern World *DAT_004dd700;
 
 struct Part18_1d570 {
     void FUN_00221d20(float h);

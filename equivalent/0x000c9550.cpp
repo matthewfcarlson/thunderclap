@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 14/14)
 // FUN_000c9550 @ 0x000c9550
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" char* strncpy(char* dst, const char* src, unsigned int n);
 
@@ -42,7 +43,7 @@ struct Scene_c9550 {
     Item_c9550* FUN_000862e0();
 };
 
-struct Sys_c9550 {
+struct World {
     char pad00[0x54];
     Scene_c9550* scene;
 };
@@ -55,7 +56,6 @@ void thunk_FUN_00271230(Handle_c9550** out, const char* name, int a, int b, int 
 void FUN_002656a0();
 extern unsigned int DAT_004d9968;
 extern Mgr_c9550* DAT_00527c58;
-extern Sys_c9550* DAT_004dd700;
 
 void __stdcall FUN_000c9550(const char* name, Target_c9550* target, int arg)
 {

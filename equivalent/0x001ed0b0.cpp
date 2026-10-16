@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 34/34)
 // FUN_001ed0b0 @ 0x001ed0b0
+#include "decls/address.h"
 extern "C" double sqrt(double);
 extern "C" char * __cdecl strcat(char *, const char *);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
@@ -9,7 +10,6 @@ extern __int64 DAT_004dc068;
 extern __int64 DAT_004dc0a8;
 extern __int64 DAT_004dc0c8;
 
-__int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 
 struct V3_1ed0b0 {
     float x, y, z;

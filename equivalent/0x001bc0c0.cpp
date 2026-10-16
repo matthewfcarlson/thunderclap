@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 14/14)
 // FUN_001bc0c0 @ 0x001bc0c0
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" char * __cdecl strncpy(char *, const char *, unsigned int);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
@@ -20,7 +21,6 @@ struct DynamicCaster {
 
 int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
 void __cdecl FUN_00087990();
-ID __cdecl FUN_0027b020(const char *s);
 
 struct LoadArgs {
     char path[0x100];       // 0x00
@@ -82,7 +82,7 @@ struct Display_1bc0c0 {
     virtual float Aspect();
 };
 
-struct Renderer_1bc0c0 {
+struct Gfx {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -180,7 +180,6 @@ struct Pipe {
 
 extern Loader_1bc0c0 *DAT_00527c58;
 extern Display_1bc0c0 *DAT_0052c2a4;
-extern Renderer_1bc0c0 *DAT_0052c2a8;
 extern View *DAT_0052c2ac;
 extern Pipe *DAT_0052c2b4;
 

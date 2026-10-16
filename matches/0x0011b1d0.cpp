@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 typedef unsigned int size_t;
 void* operator new(size_t);
 extern "C" void _ReadWriteBarrier();
@@ -19,11 +21,11 @@ class IntermediateCondition : public BaseCondition {
         f = 0;
     }
 };
-class HasGroundPointExtendedCondition : public IntermediateCondition {
+class HasGroundPointExtendedCondition_11b1d0 : public IntermediateCondition {
   public:
     float x, y;
     int p, q, r;
-    HasGroundPointExtendedCondition() throw() : IntermediateCondition() {
+    HasGroundPointExtendedCondition_11b1d0() throw() : IntermediateCondition() {
         _ReadWriteBarrier();
         x = 1.0f;
         y = 2.0f;
@@ -34,15 +36,7 @@ class HasGroundPointExtendedCondition : public IntermediateCondition {
     }
     virtual void v0();
 };
-class ConditionFactoryTemplate {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual BaseCondition* vfunc_5();
-};
-BaseCondition* ConditionFactoryTemplate::vfunc_5() {
-    return new HasGroundPointExtendedCondition;
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::HasGroundPointExtendedCondition>::vfunc_5() {
+    return (void*)(new HasGroundPointExtendedCondition_11b1d0);
 }

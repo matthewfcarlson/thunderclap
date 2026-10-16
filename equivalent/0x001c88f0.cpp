@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 110 inputs, branch coverage 83/92, incomplete)
 // FUN_001c88f0 @ 0x001c88f0
+#include "decls/address.h"
 extern "C" double sqrt(double);
 
 struct Vec3_1c88f0 {
@@ -17,7 +18,7 @@ struct Mode_1c88f0 {
     char *FUN_000897f0();
 };
 
-struct ModeSrc {
+struct Singleton_4dd6ec {
     Mode_1c88f0 *FUN_00086310();
 };
 
@@ -42,7 +43,7 @@ public:
     virtual void vfunc_16(int a);
 };
 
-class Gfx2 {
+class Gfx {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -164,9 +165,7 @@ struct Mgr_1c88f0 {
 };
 
 extern Profiler_1c88f0 *DAT_004dd6e8;
-extern ModeSrc *DAT_004dd6ec;
 extern Gfx_1c88f0 **DAT_0052c2ac;
-extern Gfx2 *DAT_0052c2a8;
 extern int DAT_004e2314;
 extern int DAT_004c5470;
 extern char DAT_004c53b8;

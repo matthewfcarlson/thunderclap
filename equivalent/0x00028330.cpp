@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00028330 @ 0x00028330
 // Group method: is the named pawn's ground position in front of the given heading, within the given arc?
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
+#include "decls/address.h"
 float __cdecl FUN_00224ea0(float x, float z);
 float __cdecl FUN_00224fc0(float a, float b);
 

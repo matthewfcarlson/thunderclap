@@ -36,16 +36,16 @@ class fight_Param {
     virtual void pfunc_2();
 };
 
-class CollisionDevastatorCondition : public fight_Condition, public fight_Param {
+namespace hulkfight { namespace motion { class CollisionDevastatorCondition : public fight_Condition, public fight_Param {
   public:
     virtual void dfunc_0();
     virtual void dfunc_1();
     virtual void dfunc_2();
     virtual bool vfunc_6(int a, FightObject* p, int c);
     char mByte;
-};
+}; }}
 
-bool CollisionDevastatorCondition::vfunc_6(int a, FightObject* p, int c) {
+bool hulkfight::motion::CollisionDevastatorCondition::vfunc_6(int a, FightObject* p, int c) {
     if (RTDynamicCast(p, 0, &gSrcTD, &gDstTD, 0) == 0)
         return false;
     BattleObj* o = p->GetBattleObj();

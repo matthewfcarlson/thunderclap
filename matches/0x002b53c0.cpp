@@ -1,21 +1,15 @@
 // Same code shape as 0x00224c60 (propagated; names are from that function)
-class JointDriver {
-  public:
-    int vfunc_0();
-    int vfunc_1();
-    int vfunc_2();
-    int vfunc_3();
-    int vfunc_4();
-    int vfunc_5();
-};
+#include "gen/pure3d.h"
+
 class Helper_2b53c0 {
   public:
-    int run(JointDriver*);
+    int run(pure3d::ShadowMeshImpl*);
 };
 extern void* thunk_FUN_0008d690(int);
-int JointDriver::vfunc_5() {
+
+void* pure3d::ShadowMeshImpl::vfunc_4() {
     Helper_2b53c0* p = (Helper_2b53c0*)thunk_FUN_0008d690(0x70);
     if (p)
-        return p->run(this);
-    return 0;
+        return (void*)(p->run(this));
+    return (void*)(0);
 }

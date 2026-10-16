@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 56/56)
 // FUN_000cc7e0 @ 0x000cc7e0
 // FUN_000cc7e0: debug/HUD gauge drawer (builds quads through the vertex-handle API)
+#include "decls/address.h"
 struct Vec3_cc7e0 {
     float x, y, z;
 };
@@ -21,7 +22,7 @@ struct Handle_cc7e0 {
     void FUN_0008ef90(const Vec3_cc7e0 *p, unsigned int color);
 };
 
-struct Device_cc7e0 {
+struct Gfx {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -84,7 +85,6 @@ extern float FUN_000186b0(const float &v, const float &lo, const float &hi);
 extern float FUN_000186f0(const float &a, const float &b);
 extern float FUN_00018710(const float &a, const float &b);
 
-extern Device_cc7e0 *DAT_0052c2a8;
 extern PassHolder_cc7e0 *DAT_0052c2ac;
 extern Vec3_cc7e0 DAT_004ddf0c;
 

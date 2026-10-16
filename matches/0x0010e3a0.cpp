@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct Owner {
     char pad[0x18];
     int sem;
@@ -13,22 +15,13 @@ class Agent {
 };
 namespace hulkfight {
 namespace ai {
-class SemaphoreClearAction {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void vfunc_4();
-    virtual void f5();
-    char pad[0x18];
-    Owner* owner;
-    Agent* agent;
-};
-void SemaphoreClearAction::vfunc_4() {
-    if (agent) {
-        Agent* a = agent->Get()->Next();
-        Owner* o = owner;
+
+} // namespace ai
+} // namespace hulkfight
+void hulkfight::ai::SemaphoreClearAction::vfunc_4() {
+    if ((*(Agent * *)&this->f_20)) {
+        Agent* a = (*(Agent * *)&this->f_20)->Get()->Next();
+        Owner* o = (*(Owner * *)&this->f_1c);
         if (o->active) {
             a->Clear();
             return;
@@ -36,5 +29,3 @@ void SemaphoreClearAction::vfunc_4() {
         a->Clear2((Owner*)((char*)o + 0x18), 0, 1);
     }
 }
-} // namespace ai
-} // namespace hulkfight

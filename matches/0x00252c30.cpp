@@ -1,4 +1,6 @@
-class SeqAction {
+#include "gen/audio.h"
+
+class SeqAction_252c30 {
   public:
     virtual void f0();
     virtual void f1();
@@ -8,15 +10,10 @@ class SeqAction {
     virtual void f5();
     virtual void f6();
 };
-class SeqActionVarTempo : public SeqAction {
-  public:
-    void f1(void*);
-    char pad[4];
-    int field8;
-    int fieldC;
-};
-void SeqActionVarTempo::f1(void* param) {
-    *(int*)(*(int*)((char*)param + 4) + 0x28) = field8 + 0x10;
-    *(int*)(*(int*)((char*)param + 4) + 0x30) = field8 + 8;
-    fieldC = 0;
+
+void audio::SeqActionVarTempo::vfunc_1(void* __p0) { void * param = (void *)__p0;
+
+    *(int*)(*(int*)((char*)param + 4) + 0x28) = this->f_08 + 0x10;
+    *(int*)(*(int*)((char*)param + 4) + 0x30) = this->f_08 + 8;
+    this->f_0c = 0;
 }

@@ -1,3 +1,5 @@
+#include "gen/physics.h"
+
 typedef unsigned int u32_2f2ff0;
 struct Obj_2f2ff0 {
     virtual void a();
@@ -17,20 +19,15 @@ struct Obj_2f2ff0 {
     virtual void o();
 };
 namespace physics {
-class CollisionCylinder : public Obj_2f2ff0 {
-  public:
-    char pad[0x40];
-    float x;
-    void vfunc_11(void*);
-};
 } // namespace physics
 struct Helper_2f2ff0 {
     void first(void*, void*);
     void second(u32_2f2ff0, u32_2f2ff0);
 };
-void physics::CollisionCylinder::vfunc_11(void* p) {
+void physics::CollisionCylinder::vfunc_11(void* __p0) { void * p = (void *)__p0;
+
     Helper_2f2ff0* h = (Helper_2f2ff0*)p;
-    h->first(&x, &x);
-    u32_2f2ff0 a = e();
-    h->second(e(), a);
+    h->first(&this->f_44, &this->f_44);
+    u32_2f2ff0 a = vfunc_4();
+    h->second(vfunc_4(), a);
 }

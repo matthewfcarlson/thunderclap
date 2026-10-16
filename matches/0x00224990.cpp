@@ -1,10 +1,6 @@
 // Same code shape as 0x0032fce0 (propagated; names are from that function)
-class pure3d_d3dToon2VertexShader_224990 {
-  public:
-    virtual void vfunc_0();
-    virtual bool IsEnabled();
-};
+#include "gen/choreo2.h"
 
-bool pure3d_d3dToon2VertexShader_224990::IsEnabled() {
+bool choreo2::JointDriver::vfunc_3() {
     return true;
 }

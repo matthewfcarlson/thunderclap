@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 287 inputs, branch coverage 119/144, incomplete)
 // pure3d::OldCompositeDrawableLoader::vfunc_5 @ 0x0029a630
+#include "decls/address.h"
 typedef unsigned __int64 UID;
 inline void* operator new(unsigned int,void* p) { return p; }
 struct Reader { void FUN_002647e0(void*,int,int,int); }; struct Chunk { char pad[0x284]; Reader* reader; bool FUN_002669f0(); int FUN_00266a30(); void FUN_00266be0(); };
@@ -9,7 +10,7 @@ struct Name { void FUN_0027b040(char*); char bytes[0x38]; };
 struct Object { virtual void add(); virtual void release(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void attach(Object*); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual int kind(); char pad[0x3c]; float visibility; void* owner; Object* FUN_0027b240(); };
 struct Entry { int unused; int joint; Object* object; }; struct Group { virtual void add(); char p4[4]; unsigned char* starts; char pc[8]; unsigned char* counts; char p18[0x24]; Entry* entries; Group* FUN_00299cd0(int); void FUN_00298870(); };
 namespace pure3d { struct CompositeDrawable { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void done(); char p4[4]; Name name; Object* skeleton; Group* group; int a,b,c; void FUN_002a3480(); }; struct OldCompositeDrawableLoader { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void vfunc_5(CompositeDrawable**,UID*,Chunk*,content::LoadInventory*); }; }
-void* __cdecl FUN_00263ea0(int); void* __cdecl FUN_0008d690(int); void* __cdecl FUN_0008d6d0(int); void __cdecl FUN_0008d340(void*); UID __cdecl FUN_002672f0(char*,int,int); UID __cdecl FUN_0027b020(char*);
+void* __cdecl FUN_00263ea0(int); void* __cdecl FUN_0008d690(int); void* __cdecl FUN_0008d6d0(int); void __cdecl FUN_0008d340(void*);  
 void pure3d::OldCompositeDrawableLoader::vfunc_5(CompositeDrawable** result,UID* uid,Chunk* chunk,content::LoadInventory* inventory) {
  struct Workspace {
  char unused[3]; unsigned char length; int geometryJoint; int remaining; float skinVisibility; Object** skins; char unused24[2]; unsigned char skinLength, geometryLength; int temporary; unsigned ng,ns; int* geometryJoints; unsigned nb; Object** geometries; int* particleJoints; Object** particles; int* billboardJoints; Object** billboards; unsigned np; CompositeDrawable* composite; char caster[4]; int skinCaster; int particleCount,skinCount; float particleVisibility; char fallback[4]; float geometryVisibility; int geometryCount,particleJoint,offset; int particleIgnored,skinIgnored,geometryIgnored; char name[128],skeleton[128]; } w;

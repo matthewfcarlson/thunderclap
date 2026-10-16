@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 300 inputs, branch coverage 68/86, incomplete)
 // FUN_002acd70 @ 0x002acd70
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) { return p; }
 
 
@@ -35,7 +36,6 @@ public:
 void *thunk_FUN_0008d690(unsigned int size);
 void *__cdecl FUN_0008d690(unsigned int size);
 void *__cdecl FUN_0008d6d0(unsigned int size);
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
 void *__cdecl FUN_002aa300(int a, int b, int c, int d, int e);
 
 struct Stream {

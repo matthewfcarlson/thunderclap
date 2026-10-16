@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0040dd04[];
-class SemaphoreWaitTrack {
+class SemaphoreWaitTrack_114e20 {
   public:
     virtual void a();
     virtual void b();
@@ -15,17 +17,9 @@ struct BaseInit {
 struct MemberInit {
     void go();
 };
-class Factory_114e20 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual SemaphoreWaitTrack* f();
-};
-SemaphoreWaitTrack* Factory_114e20::f() {
-    SemaphoreWaitTrack* p = (SemaphoreWaitTrack*)alloc(0x28);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::ai::SemaphoreWaitTrack>::vfunc_5() {
+    SemaphoreWaitTrack_114e20* p = (SemaphoreWaitTrack_114e20*)alloc(0x28);
     if (p != 0) {
         ((BaseInit*)p)->go();
         *(unsigned int*)p = ((int)DAT_0040dd04);
@@ -35,7 +29,7 @@ SemaphoreWaitTrack* Factory_114e20::f() {
         *((char*)p + 0x20) = 1;
         *((char*)p + 0x21) = 1;
         *(unsigned int*)((char*)p + 0x24) = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

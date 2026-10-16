@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 14/14)
 // FUN_001b4620 @ 0x001b4620
+#include "decls/address.h"
 struct Vec3_1b4620 { float x,y,z; };
 struct State_1b4620 { int FUN_00088fa0(); int FUN_00088fb0(); };
 struct ContextResult { char pad[0x80]; State_1b4620 state; };
 struct Context { ContextResult* FUN_00086310(); };
-struct Global_1b4620 { char pad[0x54]; Context* context; };
-extern Global_1b4620* DAT_004dd700;
+struct World { char pad[0x54]; Context* context; };
 struct Slot_1b4620 { char pad[0xc]; int status; char rest[0x128]; void FUN_001b3040(Vec3_1b4620 position, unsigned int a); void FUN_001b3760(unsigned int b); void FUN_001b32e0(unsigned int b); };
 struct Owner_1b4620 { char pad[0x10]; Slot_1b4620 slots[4]; bool FUN_001b4620(Vec3_1b4620 position, unsigned int a, unsigned int b, unsigned int c); };
 bool Owner_1b4620::FUN_001b4620(Vec3_1b4620 position, unsigned int a, unsigned int b, unsigned int c) {

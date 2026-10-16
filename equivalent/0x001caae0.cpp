@@ -2,8 +2,8 @@
 // FUN_001caae0 @ 0x001caae0
 // equiv-map: ??1Name@@QAE@XZ = 0x0027af50
 // 0x001caae0: fill a 0x38-byte request record from two names and several values
+#include "decls/address.h"
 extern "C" void* __cdecl memset(void*, int, unsigned int) throw();
-unsigned __int64 __cdecl FUN_0027b020(const char* s) throw();
 
 struct Name {
     int lo;

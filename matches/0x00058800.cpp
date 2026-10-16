@@ -1,6 +1,8 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_003f710c[];
 extern "C" void* __cdecl Allocate(unsigned int);
-struct Condition {
+struct Condition_58800 {
     void* vptr;
     unsigned char pad4[8];
     unsigned char enabled;
@@ -9,23 +11,16 @@ struct Condition {
     int last;
     void Initialize(int);
 };
-struct ConditionFactoryTemplate {
-    void* vptr;
-    void* v1;
-    void* v2;
-    void* v3;
-    void* v4;
-    Condition* vfunc_5();
-};
-Condition* ConditionFactoryTemplate::vfunc_5() {
-    Condition* p = (Condition*)Allocate(0x18);
+
+template <> void* fight::ConditionFactoryTemplate<CSmartPropAttachedCondition>::vfunc_5() {
+    Condition_58800* p = (Condition_58800*)Allocate(0x18);
     if (p) {
         p->Initialize(0);
         p->vptr = (void*)((int)DAT_003f710c);
         p->enabled = 1;
         p->value = 0;
         p->last = -1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

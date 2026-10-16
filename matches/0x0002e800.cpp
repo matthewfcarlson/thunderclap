@@ -1,20 +1,15 @@
-class CActorManager {
+#include "gen/global.h"
+
+class CActorManager_2e800 {
   public:
     float Method(const char*);
 };
-typedef float (CActorManager::*Fn_2e800)(const char*);
-class Closure1 {
-  public:
-    char pad[0x18];
-    Fn_2e800 mFn;
-    CActorManager* mObject;
-    virtual void f0();
-    virtual void f1();
-    virtual void f2(int, const char**, float*);
-};
-void Closure1::f2(int ignored, const char** arg, float* out) {
-    CActorManager* obj = mObject;
-    Fn_2e800 fn = mFn;
+typedef float (CActorManager_2e800::*Fn_2e800)(const char*);
+
+template <> void Closure1<CActorManager, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { int ignored = (int)__p0; const char ** arg = (const char **)__p1; float * out = (float *)__p2;
+
+    CActorManager_2e800* obj = (*(CActorManager_2e800 * *)&this->f_20);
+    Fn_2e800 fn = (*(Fn_2e800 *)&this->f_1c);
     float value = (obj->*fn)(*arg);
     if (out)
         *out = value;

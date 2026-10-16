@@ -1,3 +1,4 @@
+#include "decls/address.h"
 class HUDOverlay {
   public:
     HUDOverlay(int, int);
@@ -16,7 +17,6 @@ template <class T, class U, class V, class W, class X> class Method3 : public HU
     char pad3[3];
     int id;
 };
-extern "C" unsigned char __cdecl FUN_001d04d0(const char*);
 extern const char g1_ceb80[], g2[], g3[];
 template <>
 Method3<HUDOverlay, int, const char*, const char*, float>::Method3(int x, const char* y) : HUDOverlay(x, 3) {

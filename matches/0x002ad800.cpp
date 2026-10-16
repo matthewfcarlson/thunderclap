@@ -1,4 +1,6 @@
-class ImageHandler {
+#include "gen/pure3d.h"
+
+class ImageHandler_2ad800 {
   public:
     virtual void v0();
     virtual void v1();
@@ -10,10 +12,7 @@ class ImageHandler {
     virtual void v7();
     virtual void v8();
 };
-class PNGHandler : public ImageHandler {
-  public:
-    virtual bool vfunc_8(int);
-};
-bool PNGHandler::vfunc_8(int x) {
+
+bool pure3d::PNGHandler::vfunc_8(int x) {
     return x == 1;
 }

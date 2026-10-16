@@ -1,3 +1,4 @@
+#include "decls/address.h"
 extern "C" char DAT_00404c00[];
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e128[];
@@ -11,7 +12,6 @@ class CCameraManager {
     void Init(int, int);
     CCameraManager* Run(int, int);
 };
-extern "C" unsigned char __cdecl FUN_001d04d0(const char*);
 CCameraManager* CCameraManager::Run(int a, int b) {
     Init(a, 6);
     v = ((int)DAT_00404c00);

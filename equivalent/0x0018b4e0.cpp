@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 30/30)
 // hulkfight::motion::PropAnimationAction::vfunc_3 @ 0x0018b4e0
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *FUN_00263ea0(unsigned int size);
 
@@ -76,7 +77,7 @@ struct Mgr54_18b4e0 {
     Mid_18b4e0 *FUN_000862a0();
 };
 
-struct Game_18b4e0 {
+struct World {
     char pad0[0x54];
     Mgr54_18b4e0 *f54;
 };
@@ -102,7 +103,6 @@ struct Owner;
 Owner *__fastcall FUN_000592a0(void *p);
 Stats_18b4e0 *__fastcall FUN_00059a30(Owner *o);
 
-extern Game_18b4e0 *DAT_004dd700;
 
 class PropAnimationAction {
 public:

@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class Base_e18d0 {
   public:
     virtual void f0();
@@ -5,7 +7,7 @@ class Base_e18d0 {
     virtual void f2();
     virtual void f3();
 };
-class FEDoAction {
+class FEDoAction_e18d0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -20,15 +22,7 @@ class Inner_e18d0 {
     virtual void c();
     virtual void d();
 };
-class FEDoParticleSystem : public FEDoAction {
-  public:
-    char pad[0x34 - sizeof(FEDoAction)];
-    Inner_e18d0* mInner;
-    virtual void p0();
-    virtual void p1();
-    virtual void p2();
-    void vfunc_5();
-};
+
 void FEDoParticleSystem::vfunc_5() {
-    mInner->d();
+    (*(Inner_e18d0 * *)&this->f_34)->d();
 }

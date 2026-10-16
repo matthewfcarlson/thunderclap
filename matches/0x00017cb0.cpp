@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 struct ThingB {};
 struct ThingA {
     ThingB* next();
@@ -5,16 +7,11 @@ struct ThingA {
 struct Start {
     ThingA* get();
 };
-class CMotionHitGroundHeightAction {
-  public:
-    char pad[0x1c];
-    Start* member1c;
-    void* member20;
-    bool vfunc_7(unsigned int);
-};
-bool CMotionHitGroundHeightAction::vfunc_7(unsigned int arg) {
-    ThingA* a = member1c->get();
+
+bool CMotionHitGroundHeightAction::vfunc_7(int __p0) { unsigned int arg = (unsigned int)__p0;
+
+    ThingA* a = (*(Start * *)&this->f_1c)->get();
     ThingB* b = a->next();
-    *(void**)((char*)b + 0x148) = member20;
+    *(void**)((char*)b + 0x148) = (*(void * *)&this->f_20);
     return true;
 }

@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class Obj_e21c0 {
   public:
     virtual void a0();
@@ -18,7 +20,7 @@ class Obj_e21c0 {
     virtual void a15();
     virtual void go();
 };
-class FELayout {
+class FELayout_e21c0 {
   public:
     virtual void a0();
     virtual void a1();
@@ -42,13 +44,8 @@ class FELayout {
     virtual void a19();
     virtual void a20();
 };
-class SingleLayout : public FELayout {
-  public:
-    char pad[0x40];
-    Obj_e21c0* m;
-    virtual void vfunc_12();
-};
+
 void SingleLayout::vfunc_12() {
-    if (m)
-        m->go();
+    if ((*(Obj_e21c0 * *)&this->f_44))
+        (*(Obj_e21c0 * *)&this->f_44)->go();
 }

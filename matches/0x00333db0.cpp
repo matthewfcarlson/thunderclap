@@ -1,17 +1,13 @@
-class PlayerBink {
-  public:
-    char pad[0x18];
-    int state;
-    int value;
-    void vfunc_9();
-};
+#include "gen/movie.h"
+
 extern void __stdcall FUN_00366b40(int, int);
-void PlayerBink::vfunc_9() {
-    if (state == 4) {
-        FUN_00366b40(value, 1);
-        state = 3;
+
+void movie::PlayerBink::vfunc_9() {
+    if (this->f_18 == 4) {
+        FUN_00366b40((*(int *)&this->f_1c), 1);
+        this->f_18 = 3;
         return;
     }
-    if (state == 2)
-        state = 1;
+    if (this->f_18 == 2)
+        this->f_18 = 1;
 }

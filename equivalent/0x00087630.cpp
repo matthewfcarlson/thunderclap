@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 287 inputs, branch coverage 36/36)
 // FUN_00087630 @ 0x00087630
+#include "decls/address.h"
 struct Target_87630;
 struct Queue_87630 { void FUN_0008db00(); bool FUN_0008db20(Target_87630*); };
 bool __cdecl FUN_0008db80(); void __cdecl FUN_0008db90();
@@ -8,12 +9,12 @@ struct Clock_87630 { char pad[32]; unsigned __int64 ticks; void FUN_00086450(); 
 struct Sim_87630 { char pad[44]; void* item; void FUN_00088c30(State_87630*,float); int FUN_00088e40(); };
 struct Notify_87630 { void FUN_000afe80(); };
 struct Sub_87630 { char pad[24]; Notify_87630* notify; };
-struct Root_87630 { char pad[84]; Sub_87630* sub; }; extern Root_87630* DAT_004dd700;
+struct World { char pad[84]; Sub_87630* sub; }; 
 struct Stop_87630 { void FUN_001b7970(); };
 struct Update_87630 { void FUN_001eb2a0(float,int); };
 struct Check_87630 { bool FUN_00089e80(void*,unsigned int); };
 struct UI_87630 { void FUN_0023f6b0(); void FUN_0023f720(int*,int); bool FUN_0023f760(const char*,int,int); void FUN_0023f740(); void FUN_0023f6c0(); }; extern UI_87630* DAT_004dd6e8; extern int DAT_0049c218;
-struct Gate_87630 { unsigned int FUN_000b4f20(); }; struct GateRoot { char pad[32]; Gate_87630* gate; }; extern GateRoot* DAT_004dd6ec;
+struct Gate_87630 { unsigned int FUN_000b4f20(); }; struct Singleton_4dd6ec { char pad[32]; Gate_87630* gate; }; 
 struct Audio_87630 { void FUN_001d1160(float); void FUN_001d15d0(int); }; Audio_87630* __cdecl FUN_001d4c90();
 unsigned int __cdecl FUN_00267f80(); unsigned int __cdecl FUN_00267f00(); float __cdecl FUN_00085e60(unsigned int,int); void __cdecl FUN_00240bb0();
 extern unsigned char DAT_004dd8e4, DAT_0049caa0; extern float DAT_004dd914;

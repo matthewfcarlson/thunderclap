@@ -1,12 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // hulkfight::motion::CivilianAnimationAction::vfunc_3 @ 0x00147f90
 // hulkfight::motion::CivilianAnimationAction::vfunc_3
+#include "gen/hulkfight.h"
+
 union FlagWord {
     unsigned char b;
     unsigned int w;
 };
 
-struct Params {
+struct Params_147f90 {
     int f2c;
     FlagWord flag;
     int f24;
@@ -48,25 +50,15 @@ struct Owner_147f90 {
     Anchor_147f90 *FUN_000592a0();
 };
 
-class CivilianAnimationAction {
-public:
-    char pad00[0x1c];
-    Source_147f90 *src;
-    Owner_147f90 *owner;
-
-    char FUN_00147f90(int unused1, int unused2);
-};
-
-char CivilianAnimationAction::FUN_00147f90(int unused1, int unused2)
-{
-    Player_147f90 *p = owner->FUN_000592a0()->FUN_00059a30();
+bool hulkfight::motion::CivilianAnimationAction::vfunc_3(int unused1, int unused2) {
+    Player_147f90 *p = (*(Owner_147f90 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();
     if (p == 0)
-        return 0;
+        return (bool)(0);
     Target_147f90 *t = p->FUN_00036020();
     if (t == 0)
-        return 0;
-    Source_147f90 *s = src;
-    Params q;
+        return (bool)(0);
+    Source_147f90 *s = (*(Source_147f90 * *)&this->f_1c);
+    Params_147f90 q;
     q.f2c = s->f2c;
     q.flag.b = s->b28;
     q.f24 = s->f24;
@@ -75,5 +67,5 @@ char CivilianAnimationAction::FUN_00147f90(int unused1, int unused2)
     int b = s->f1c;
     int c = s->f20;
     t->FUN_000819f0(a, b, c, start - s->v6(), q.f24, q.flag.w, q.f2c);
-    return 1;
+    return (bool)(1);
 }

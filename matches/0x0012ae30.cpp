@@ -1,6 +1,8 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0040ff54[];
 typedef unsigned char u8;
-class CanSeeTargetCondition {
+class CanSeeTargetCondition_12ae30 {
   public:
     int vt;
     char pad[8];
@@ -9,23 +11,15 @@ class CanSeeTargetCondition {
     void Init(int);
 };
 extern void* __cdecl alloc(unsigned int);
-class Factory_12ae30 {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual CanSeeTargetCondition* v5();
-};
-CanSeeTargetCondition* Factory_12ae30::v5() {
-    CanSeeTargetCondition* p = (CanSeeTargetCondition*)alloc(16);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::CanSeeTargetCondition>::vfunc_5() {
+    CanSeeTargetCondition_12ae30* p = (CanSeeTargetCondition_12ae30*)alloc(16);
     if (p) {
         p->Init(0);
         p->a = 1;
         p->b = 1;
         p->vt = ((int)DAT_0040ff54);
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

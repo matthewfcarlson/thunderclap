@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Ref_2b6f30 {
   public:
     virtual void f0();
@@ -8,23 +10,18 @@ class Provider_2b6f30 {
     char pad[0x70];
     Ref_2b6f30* getObj();
 };
-class ShadowSkinImpl {
-  public:
-    char pad[0x70];
-    Provider_2b6f30* provider;
-    char gap[8];
-    Ref_2b6f30* p;
+struct ShadowSkinImpl_nv_2b6f30 {
     void helper(Ref_2b6f30*);
-    void vfunc_6();
 };
-void ShadowSkinImpl::vfunc_6() {
-    if (!p) {
-        Ref_2b6f30* r = provider->getObj();
+
+void pure3d::ShadowSkinImpl::vfunc_6() {
+    if (!(*(Ref_2b6f30 * *)&this->f_7c)) {
+        Ref_2b6f30* r = (*(Provider_2b6f30 * *)&this->f_70)->getObj();
         if (r)
             r->f0();
-        if (p)
-            p->f1();
-        p = r;
+        if ((*(Ref_2b6f30 * *)&this->f_7c))
+            (*(Ref_2b6f30 * *)&this->f_7c)->f1();
+        (*(Ref_2b6f30 * *)&this->f_7c) = r;
     }
-    helper(p);
+    ((ShadowSkinImpl_nv_2b6f30*)this)->helper((*(Ref_2b6f30 * *)&this->f_7c));
 }

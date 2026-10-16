@@ -1,13 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 589 inputs, branch coverage 117/118, incomplete)
 // FUN_000464c0 @ 0x000464c0
+#include "decls/address.h"
 inline void* operator new(unsigned int, void* p) { return p; }
 extern "C" int __cdecl strcmp(const char*, const char*);
 extern "C" long __cdecl atol(const char*);
 extern "C" int __cdecl _atexit(void (__cdecl*)());
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
-unsigned __int64 __cdecl FUN_0027b020(const char* s);
-unsigned __int64 __cdecl FUN_002672f0(const char* s, int a, int b);
 extern void __cdecl FUN_00363bc0();
 
 extern unsigned int DAT_004d9968;
@@ -57,8 +56,7 @@ public:
 };
 struct Holder44_464c0 { Factory_464c0* FUN_00203d70(); };
 struct Holder28_464c0 { Holder44_464c0* FUN_000862a0(); };
-struct Manager_464c0 { char pad0[0x54]; Holder28_464c0* holder; };
-extern Manager_464c0* DAT_004dd700;
+struct World { char pad0[0x54]; Holder28_464c0* holder; };
 
 struct Finder_464c0 { int FUN_0027b200(unsigned int lo, unsigned int hi); };
 struct Skel_464c0 { char pad0[8]; Finder_464c0* finder; };

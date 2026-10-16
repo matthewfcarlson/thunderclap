@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 113 inputs, branch coverage 40/42, incomplete)
 // FUN_001afba0 @ 0x001afba0
+#include "decls/address.h"
 struct Vec3_1afba0 {
     float x, y, z;
 };
@@ -88,7 +89,7 @@ struct Slot20_1afba0 {
     int id;
 };
 
-struct Game_1afba0 {
+struct World {
     char pad0[0x20];
     Slot20_1afba0 *slot20;
     char pad24[0x34 - 0x24];
@@ -99,7 +100,6 @@ struct Game_1afba0 {
     Clock_1afba0 *clock;
 };
 
-extern Game_1afba0 *DAT_004dd700;
 
 struct Body_1afba0 {
     char pad0[0x11c];

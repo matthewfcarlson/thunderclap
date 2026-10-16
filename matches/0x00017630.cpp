@@ -1,4 +1,6 @@
-class CAction {
+#include "gen/global.h"
+
+class CAction_17630 {
   public:
     virtual void a0();
     virtual void a1();
@@ -16,16 +18,10 @@ class Obj_17630 {
     void* second();
     void third(int);
 };
-class CRageModeAction : public CAction {
-  public:
-    char pad[0x1c - 4];
-    Obj_17630* member1;
-    int member2;
-    bool vfunc_6(int);
-};
+
 bool CRageModeAction::vfunc_6(int arg) {
-    Obj_17630* x = (Obj_17630*)member1->first();
+    Obj_17630* x = (Obj_17630*)(*(Obj_17630 * *)&this->f_1c)->first();
     x = (Obj_17630*)x->second();
-    x->third(member2);
+    x->third(this->f_20);
     return true;
 }

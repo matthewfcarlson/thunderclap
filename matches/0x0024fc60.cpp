@@ -1,18 +1,14 @@
-class SeqEventCondition {
-  public:
-    virtual int vfunc_0(void*);
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
+#include "gen/audio.h"
+
+struct SeqEventCondition_nv_24fc60 {
     bool Base0(void*);
     bool Base1(void*);
-    char pad[0x14];
 };
 bool Check(void*, void*);
-int SeqEventCondition::vfunc_0(void* arg) {
-    if (Base0(arg) && Base1(arg) && Check(arg, (char*)this + 0x14))
+
+int audio::SeqEventCondition::vfunc_0(void* __p0) { void * arg = (void *)__p0;
+
+    if (((SeqEventCondition_nv_24fc60*)this)->Base0(arg) && ((SeqEventCondition_nv_24fc60*)this)->Base1(arg) && Check(arg, (char*)this + 0x14))
         return 1;
     return 0;
 }

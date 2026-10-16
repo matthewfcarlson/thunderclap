@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Ref_2d44e0 {
   public:
     virtual void a();
@@ -12,14 +14,8 @@ class Ref_2d44e0 {
     virtual void j();
     virtual void k();
 };
-class SpriteParticleEmitter {
-  public:
-    char pad0[0x88];
-    Ref_2d44e0* ptr;
-    char pad1[0xcc];
-    void vfunc_16();
-};
-void SpriteParticleEmitter::vfunc_16() {
+
+void pure3d::SpriteParticleEmitter::vfunc_16() {
     *(unsigned int*)(reinterpret_cast<char*>(this) + 0x158) = 0x3f800000;
     *(unsigned int*)(reinterpret_cast<char*>(this) + 0x168) = 0x3f800000;
     *(unsigned int*)(reinterpret_cast<char*>(this) + 0x174) = 0x3f800000;
@@ -28,6 +24,6 @@ void SpriteParticleEmitter::vfunc_16() {
     *(unsigned int*)(reinterpret_cast<char*>(this) + 0x1a0) = 0x3f800000;
     *(unsigned int*)(reinterpret_cast<char*>(this) + 0x1a8) = 0x3f800000;
     *(unsigned int*)(reinterpret_cast<char*>(this) + 0x1b0) = 0x3f800000;
-    if (ptr)
-        ptr->j();
+    if ((*(Ref_2d44e0 * *)&this->f_88))
+        (*(Ref_2d44e0 * *)&this->f_88)->j();
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 201 inputs, branch coverage 14/14)
 // FUN_001fe280 @ 0x001fe280
+#include "decls/address.h"
 struct Vec_1fe280 { float x,y,z; };
 struct Item_1fe280 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual Vec_1fe280* position(Vec_1fe280*);
@@ -10,8 +11,7 @@ struct List_1fe280 { int count; Item_1fe280* items; };
 struct Lookup_1fe280 { void FUN_00026c30(Vec_1fe280*, const char*); };
 struct State_1fe280 { char pad[0x59c]; int key; };
 struct Manager_1fe280 { State_1fe280* FUN_000862a0(); };
-struct Globals_1fe280 { char pad[0x20]; Lookup_1fe280* lookup; char gap[0x30]; Manager_1fe280* manager; };
-extern Globals_1fe280* DAT_004dd700;
+struct World { char pad[0x20]; Lookup_1fe280* lookup; char gap[0x30]; Manager_1fe280* manager; };
 extern "C" double __cdecl sqrt(double);
 struct Target_1fe280 {
  char pad[0x20c]; List_1fe280 fallback; List_1fe280* lists[6]; int* keys;

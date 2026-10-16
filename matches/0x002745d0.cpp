@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 class Req_2745d0 {
   public:
     virtual void v0();
@@ -30,24 +32,13 @@ struct Ctx_2745d0 {
     char pad2[8];
     unsigned value;
 };
-class DriveFormatRequest {
-  public:
-    virtual void vfunc_0();
-    virtual unsigned vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    char pad[4];
-    Ctx_2745d0* drive;
-};
-unsigned DriveFormatRequest::vfunc_1() {
-    Dev_2745d0* d = drive->dev;
+
+int core::DriveFormatRequest::vfunc_1() {
+    Dev_2745d0* d = (*(Ctx_2745d0 * *)&this->f_08)->dev;
     unsigned x = d->g();
     unsigned y = d->MakeValue();
-    drive->sub.v0();
-    drive->value = y;
-    drive->sub.v1();
-    return x;
+    (*(Ctx_2745d0 * *)&this->f_08)->sub.v0();
+    (*(Ctx_2745d0 * *)&this->f_08)->value = y;
+    (*(Ctx_2745d0 * *)&this->f_08)->sub.v1();
+    return (int)(x);
 }

@@ -1,11 +1,6 @@
 // Same code shape as 0x00284ad0 (propagated; names are from that function)
-class C_2fc0f0 {
-    char pad[0x10];
+#include "gen/physics.h"
 
-  public:
-    unsigned char value;
-    void Set(unsigned char x);
-};
-void C_2fc0f0::Set(unsigned char x) {
-    value = x;
+void physics::PoseDriver::vfunc_7(unsigned char x) {
+    this->f_10 = x;
 }

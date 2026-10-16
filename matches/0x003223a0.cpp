@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Base_3223a0 {
   public:
     virtual void f0();
@@ -18,11 +20,7 @@ struct Inner_3223a0 {
     char pad[0x204];
     Data_3223a0* data;
 };
-class pure3d_d3dExtVertexProgram : public Base_3223a0 {
-  public:
-    Inner_3223a0* ptr;
-    virtual void f6(unsigned int);
-};
-void pure3d_d3dExtVertexProgram::f6(unsigned int x) {
-    ptr->data->field = x;
+
+void pure3d::d3dExtVertexProgram::vfunc_6(unsigned int x) {
+    (*(Inner_3223a0 * *)&this->f_04)->data->field = x;
 }

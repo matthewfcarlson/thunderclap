@@ -1,4 +1,5 @@
-struct Renderer_1b7970 {
+#include "decls/address.h"
+struct Gfx {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -118,13 +119,11 @@ struct Simulation {
 struct Provider_1b7970 {
     Simulation* FUN_000862e0();
 };
-struct Globals_1b7970 {
+struct World {
     char pad[0x50];
     Manager_1b7970* manager;
     Provider_1b7970* provider;
 };
-extern Globals_1b7970* DAT_004dd700;
-extern Renderer_1b7970* DAT_0052c2a8;
 extern unsigned char DAT_004e222c, DAT_004e222d;
 void __cdecl thunk_FUN_00267090(void*);
 struct Owner_1b7970 {

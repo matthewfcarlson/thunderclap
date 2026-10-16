@@ -1,4 +1,6 @@
-class CGameCamera {
+#include "gen/global.h"
+
+class CGameCamera_a0be0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -39,15 +41,9 @@ class CGameCamera {
     virtual void f36();
     virtual void f37();
 };
-class CChaseCamera : public CGameCamera {
-  public:
-    char pad[0x350 - sizeof(CGameCamera)];
-    int field350;
-    char pad2[0x3cc - 0x354];
-    int field3cc;
-    virtual void vfunc_38(void*, int, void*);
-};
-void CChaseCamera::vfunc_38(void*, int p3, void* p4) {
-    if (field350 != 0 && p3 == field350)
-        field3cc = (int)p4;
+
+void CChaseCamera::vfunc_38(void* __p0, int p3, void* __p2) { void * p4 = (void *)__p2;
+
+    if (this->f_350 != 0 && p3 == this->f_350)
+        this->f_3cc = (int)p4;
 }

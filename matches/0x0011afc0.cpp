@@ -1,29 +1,24 @@
+#include "gen/fight.h"
+
 struct Init_11afc0 {
     void init(int);
 };
 extern char g_hgpc_vftable;
-struct HasGroundPointCondition {
+struct HasGroundPointCondition_11afc0 {
     char pad[12];
     unsigned char x;
     unsigned char y;
 };
 void* __cdecl alloc(unsigned int);
-struct Factory_11afc0 {
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual HasGroundPointCondition* create();
-};
-HasGroundPointCondition* Factory_11afc0::create() {
-    HasGroundPointCondition* p = (HasGroundPointCondition*)alloc(0x10);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::HasGroundPointCondition>::vfunc_5() {
+    HasGroundPointCondition_11afc0* p = (HasGroundPointCondition_11afc0*)alloc(0x10);
     if (p) {
         ((Init_11afc0*)p)->init(0);
         *(void**)p = (void*)&g_hgpc_vftable;
         p->x = 1;
         p->y = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

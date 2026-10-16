@@ -1,21 +1,18 @@
-class CSPManager {
+#include "gen/global.h"
+
+class CSPManager_1e2020 {
   public:
     void Act(const char*, const char*, float, float, float);
 };
-class Function {
+class Function_1e2020 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
 };
-class Closure5 : public Function {
-  public:
-    char pad[0x18];
-    void (CSPManager::*fn)(const char*, const char*, float, float, float);
-    CSPManager* obj;
-    virtual void vfunc_2(void*, void*, void*);
-};
-void Closure5::vfunc_2(void* a, void* b, void* c) {
+
+template <> void Closure5<CSPManager, void, const char *, const char *, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; void * c = (void *)__p2;
+
     char* p = (char*)b;
     const char* x = *(const char**)p;
     p += 4;
@@ -26,5 +23,5 @@ void Closure5::vfunc_2(void* a, void* b, void* c) {
     float w = *(float*)p;
     p += 4;
     float v = *(float*)p;
-    (obj->*fn)(x, y, z, w, v);
+    ((*(CSPManager_1e2020 * *)&this->f_20)->*(*(void (CSPManager_1e2020::**)(const char *, const char *, float, float, float))&this->f_1c))(x, y, z, w, v);
 }

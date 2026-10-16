@@ -145,7 +145,7 @@ struct TrackerData_173ca0 {
     int i5c;
 };
 
-class JointPivotTrackerAction {
+namespace hulkfight { namespace motion { class JointPivotTrackerAction {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -161,7 +161,7 @@ public:
     V3_173ca0 axis;
     Mat4_173ca0 mat;
     Tracker_173ca0 *tracker;
-};
+}; }}
 
 static inline float AbsF(float f)
 {
@@ -196,7 +196,7 @@ struct Frame_173ca0 {
     Mat4_173ca0 m218;                      // 0x218
 };
 
-bool JointPivotTrackerAction::vfunc_5(int a, float dt)
+bool hulkfight::motion::JointPivotTrackerAction::vfunc_5(int a, float dt)
 {
     if (a != 0 || dt == 0.0f)
         return true;

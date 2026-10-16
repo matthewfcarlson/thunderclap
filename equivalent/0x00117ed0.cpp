@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 98 inputs, branch coverage 18/20, incomplete)
 // hulkfight::ai::LocatorDistanceCondition::vfunc_6 @ 0x00117ed0
+#include "decls/address.h"
 extern "C" double sqrt(double);
 
 struct Vec3_117ed0 {
@@ -57,12 +58,11 @@ struct Registry_117ed0 {
 
 struct Owner_117ed0 { char pad[4]; };
 
-struct Manager_117ed0 {
+struct World {
     char pad0[0x28];
     Finder_117ed0 *finder;
 };
 
-extern Manager_117ed0 *DAT_004dd700;
 
 Owner_117ed0 *__fastcall FUN_000592a0(void *x);
 Registry_117ed0 *__fastcall FUN_00059a30(Owner_117ed0 *o);

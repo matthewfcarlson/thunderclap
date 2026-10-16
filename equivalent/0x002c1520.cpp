@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 8/8)
 // pure3d::LightGroupLoader::vfunc_5 @ 0x002c1520
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) { return p; }
 
 namespace pure3d { class Light; }
@@ -71,8 +72,6 @@ struct LightGroup {
 };
 
 void *FUN_00263ea0(unsigned int size);
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
-unsigned __int64 __cdecl FUN_0027b020(const char *name);
 
 namespace pure3d {
 

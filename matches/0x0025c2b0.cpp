@@ -1,4 +1,6 @@
-class HalStream {
+#include "gen/audio.h"
+
+class HalStream_25c2b0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -15,12 +17,8 @@ class HalStream {
     virtual void f12();
 };
 namespace audio {
-class OmHalStream : public HalStream {
-  public:
-    char pad[0xb0];
-    void* vfunc_9(int);
-};
-void* OmHalStream::vfunc_9(int param_2) {
-    return (char*)this + param_2 * 16 + 0xb4;
-}
+
 } // namespace audio
+void* audio::OmHalStream::vfunc_9(int param_2) {
+    return (void*)((char*)this + param_2 * 16 + 0xb4);
+}

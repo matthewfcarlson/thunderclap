@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 struct Obj8_274520 {
     virtual void v0();
     virtual void v1();
@@ -13,7 +15,7 @@ struct Obj2_274520 {
     virtual void v0();
     virtual void v1();
 };
-struct Drive {
+struct Drive_274520 {
     int x;
     Obj2_274520 b;
     int pad;
@@ -24,20 +26,14 @@ struct Drive {
 struct Data_274520 {
     unsigned int v[21];
 };
-class DriveMediaRequest {
-  public:
-    char pad[8];
-    Drive* d;
-    Data_274520* dst;
-    int vfunc_1();
-};
-int DriveMediaRequest::vfunc_1() {
-    Obj8_274520* a = d->a;
+
+int core::DriveMediaRequest::vfunc_1() {
+    Obj8_274520* a = (*(Drive_274520 * *)&this->f_08)->a;
     a->v7();
     Data_274520* p = (Data_274520*)a->Get();
-    *dst = *p;
-    d->b.v0();
-    d->z = 0;
-    d->b.v1();
+    *(*(Data_274520 * *)&this->f_0c) = *p;
+    (*(Drive_274520 * *)&this->f_08)->b.v0();
+    (*(Drive_274520 * *)&this->f_08)->z = 0;
+    (*(Drive_274520 * *)&this->f_08)->b.v1();
     return 1;
 }

@@ -1,29 +1,27 @@
+#include "gen/global.h"
+
 namespace math {
-struct Vector {
+struct Vector_1e07a0 {
     float x, y, z;
 };
 } // namespace math
-struct CAmbientsManager {
-    void f(const char*, int, const math::Vector, const math::Vector);
+struct CAmbientsManager_1e07a0 {
+    void f(const char*, int, const math::Vector_1e07a0, const math::Vector_1e07a0);
 };
-struct Function {
+struct Function_1e07a0 {
     virtual void v0();
     virtual void v1();
 };
-struct M4_1e07a0 : Function {
-    char pad[0x18];
-    void (CAmbientsManager::*fn)(const char*, int, const math::Vector, const math::Vector);
-    virtual void v0();
-    virtual void v2(CAmbientsManager* o, char* a, int u);
-};
-void M4_1e07a0::v2(CAmbientsManager* o, char* a, int u) {
+
+template <> void Method4<CSPManager, void, const char *, const char *,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CAmbientsManager_1e07a0 * o = (CAmbientsManager_1e07a0 *)__p0; char * a = (char *)__p1; int u = (int)__p2;
+
     char* p = a;
     const char* s = *(const char**)p;
     p += 4;
     int i = *(int*)p;
     p += 4;
-    math::Vector va = *(math::Vector*)p;
+    math::Vector_1e07a0 va = *(math::Vector_1e07a0*)p;
     p += 12;
-    math::Vector vb = *(math::Vector*)p;
-    (o->*fn)(s, i, va, vb);
+    math::Vector_1e07a0 vb = *(math::Vector_1e07a0*)p;
+    (o->*(*(void (CAmbientsManager_1e07a0::**)(const char *, int, const math::Vector_1e07a0, const math::Vector_1e07a0))&this->f_1c))(s, i, va, vb);
 }

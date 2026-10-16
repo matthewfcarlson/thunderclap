@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // CCameraShakeAction::vfunc_6 @ 0x00016d30
+#include "decls/address.h"
 class Shake_16d30 {
 public:
     virtual void vfunc_0();
@@ -20,12 +21,11 @@ struct CameraManager_16d30 {
     void FUN_00099320(int mode, float remaining, float amplitude, float frequency);
 };
 
-struct Game_16d30 {
+struct World {
     char pad0[8];
     CameraManager_16d30 *camera;
 };
 
-extern Game_16d30 *DAT_004dd700;
 
 class CCameraShakeAction {
 public:

@@ -5,13 +5,13 @@ class X_272f70 {
     virtual void g();
     int n;
 };
-class Drive {
+namespace core { class DriveThread {
   public:
     virtual void vfunc_0();
     char pad[8];
     X_272f70 x;
-};
-void Drive::vfunc_0() {
+}; }
+void core::DriveThread::vfunc_0() {
     X_272f70* p = &x;
     p->f();
     ++p->n;

@@ -1,4 +1,6 @@
-class SeqAction {
+#include "gen/audio.h"
+
+class SeqAction_255560 {
   public:
     virtual void f0();
     virtual void f1();
@@ -9,17 +11,12 @@ class SeqAction {
     virtual void f6();
     char pad[8];
 };
-class SeqActionCrossFade : public SeqAction {
-  public:
-    int fieldC;
-    int field10;
-    virtual void f4(int);
-};
 void ReleaseThing(int);
-void SeqActionCrossFade::f4(int unused) {
-    if (field10) {
-        ReleaseThing(field10);
-        field10 = 0;
+
+void audio::SeqActionCrossFade::vfunc_4(int unused) {
+    if (this->f_10) {
+        ReleaseThing(this->f_10);
+        this->f_10 = 0;
     }
-    fieldC = 0;
+    this->f_0c = 0;
 }

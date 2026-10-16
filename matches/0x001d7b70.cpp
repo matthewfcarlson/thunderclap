@@ -9,7 +9,7 @@ class Inner_1d7b70 {
     virtual void f6();
     virtual void f7();
 };
-class StateProp {
+namespace pure3d { namespace prop { class StateProp {
   public:
     virtual void f0();
     virtual void f1();
@@ -31,7 +31,7 @@ class StateProp {
     char pad[0x98];
     Inner_1d7b70* mInner;
     void vfunc_7();
-};
-void StateProp::vfunc_7() {
+}; }}
+void pure3d::prop::StateProp::vfunc_7() {
     mInner->f7();
 }

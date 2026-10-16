@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern void* FUN_0008d690(unsigned int);
 extern void* PostEvent_StringTrack_vtable;
 struct Helper_12df70 {
@@ -6,15 +8,8 @@ struct Helper_12df70 {
 struct SubHelper {
     void FUN_0027af00();
 };
-struct Track {
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void* f5();
-};
-void* Track::f5() {
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::PostEvent_StringTrack>::vfunc_5() {
     char* p = (char*)FUN_0008d690(0x20);
     if (p) {
         ((Helper_12df70*)p)->FUN_00236d40();
@@ -23,7 +18,7 @@ void* Track::f5() {
         ((SubHelper*)(p + 0x10))->FUN_0027af00();
         p[0x18] = 0;
         p[0x19] = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

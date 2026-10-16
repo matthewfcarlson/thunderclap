@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0041944c[];
-class PropSetStateByIndexTrack {
+class PropSetStateByIndexTrack_18c060 {
   public:
     int a;
     int b;
@@ -9,18 +11,10 @@ class PropSetStateByIndexTrack {
     int f;
     void Init();
 };
-class Factory_18c060 {
-  public:
-    virtual void x0();
-    virtual void x1();
-    virtual void x2();
-    virtual void x3();
-    virtual void x4();
-    virtual PropSetStateByIndexTrack* vfunc_5();
-};
 extern void* __cdecl Allocate(unsigned int);
-PropSetStateByIndexTrack* Factory_18c060::vfunc_5() {
-    PropSetStateByIndexTrack* p = (PropSetStateByIndexTrack*)Allocate(0x18);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropSetStateByIndexTrack>::vfunc_5() {
+    PropSetStateByIndexTrack_18c060* p = (PropSetStateByIndexTrack_18c060*)Allocate(0x18);
     if (p) {
         p->Init();
         p->a = ((int)DAT_0041944c);
@@ -28,7 +22,7 @@ PropSetStateByIndexTrack* Factory_18c060::vfunc_5() {
         p->e = -1;
         p->f = 0;
         p->c = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

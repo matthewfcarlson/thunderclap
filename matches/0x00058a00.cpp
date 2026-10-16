@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_003f7178[];
-class CSmartPropTypeCondition {
+class CSmartPropTypeCondition_58a00 {
   public:
     virtual void V0();
     virtual void V1();
@@ -12,24 +14,16 @@ class CSmartPropTypeCondition {
     int a;
     int b;
 };
-extern "C" CSmartPropTypeCondition* Alloc(unsigned int);
-class Factory_58a00 {
-  public:
-    virtual void F0();
-    virtual void F1();
-    virtual void F2();
-    virtual void F3();
-    virtual void F4();
-    CSmartPropTypeCondition* Create();
-};
-CSmartPropTypeCondition* Factory_58a00::Create() {
-    CSmartPropTypeCondition* p = Alloc(0x14);
+extern "C" CSmartPropTypeCondition_58a00* Alloc(unsigned int);
+
+template <> void* fight::ConditionFactoryTemplate<CSmartPropTypeCondition>::vfunc_5() {
+    CSmartPropTypeCondition_58a00* p = Alloc(0x14);
     if (p) {
         p->Init(0);
         *(int*)p = ((int)DAT_003f7178);
         p->a = 0;
         p->b = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

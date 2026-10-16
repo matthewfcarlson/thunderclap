@@ -1,34 +1,14 @@
-class TransformNode {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual int vfunc_4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual void v13();
-    virtual void v14();
-    virtual void v15();
-    virtual void v16();
-    virtual void v17();
-    virtual void v18();
-    virtual void v19();
-};
+#include "gen/pure3d.h"
+
 class Helper_2974d0 {
   public:
-    int call(TransformNode*);
+    int call(pure3d::scenegraph::TransformNode*);
 };
 extern void* __cdecl alloc(int);
-int TransformNode::vfunc_4() {
+
+void* pure3d::scenegraph::TransformNode::vfunc_4() {
     void* p = alloc(0xb0);
     if (p)
-        return ((Helper_2974d0*)p)->call(this);
-    return 0;
+        return (void*)(((Helper_2974d0*)p)->call(this));
+    return (void*)(0);
 }

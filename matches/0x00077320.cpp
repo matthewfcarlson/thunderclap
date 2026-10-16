@@ -1,17 +1,10 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_003fbf68[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class Helper_77320 {
   public:
     void Init();
-};
-class Factory_77320 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void* vfunc_5();
 };
 struct Orient_77320 {
     void* vptr;
@@ -27,7 +20,8 @@ struct Orient_77320 {
     int x24;
     int x28;
 };
-void* Factory_77320::vfunc_5() {
+
+template <> void* fight::TrackFactoryTemplate<COrientTrack>::vfunc_5() {
     Orient_77320* p = (Orient_77320*)FUN_0008d690(0x2c);
     if (p) {
         ((Helper_77320*)p)->Init();
@@ -41,7 +35,7 @@ void* Factory_77320::vfunc_5() {
         p->x10 = 0xbf800000;
         p->x14 = 0xbc8efa35;
         p->x8 = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

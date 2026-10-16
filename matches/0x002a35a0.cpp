@@ -1,19 +1,17 @@
 // Same code shape as 0x00059790 (propagated; names are from that function)
+#include "gen/pure3d.h"
+
 class Item_2a35a0 {
   public:
     virtual void First();
     virtual void Second();
 };
-class Owner_2a35a0 {
-  public:
-    char pad[0x10];
-    Item_2a35a0* item;
-    void Set(Item_2a35a0* p);
-};
-void Owner_2a35a0::Set(Item_2a35a0* p) {
+
+void pure3d::DrawableHierarchy::vfunc_13(void* __p0) { Item_2a35a0 * p = (Item_2a35a0 *)__p0;
+
     if (p)
         p->First();
-    if (item)
-        item->Second();
-    item = p;
+    if ((*(Item_2a35a0 * *)&this->f_10))
+        (*(Item_2a35a0 * *)&this->f_10)->Second();
+    (*(Item_2a35a0 * *)&this->f_10) = p;
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 30/30)
 // FUN_0003b1c0 @ 0x0003b1c0
+#include "decls/address.h"
 extern "C" unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
@@ -12,12 +13,11 @@ struct Dispatcher_3b1c0 {
     void FUN_001cbc20(Msg_3b1c0 *m);
 };
 
-struct System_3b1c0 {
+struct World {
     char pad0[0x30];
     Dispatcher_3b1c0 *dispatcher;
 };
 
-extern System_3b1c0 *DAT_004dd700;
 
 struct Source_3b1c0 {
     int id;
@@ -60,7 +60,7 @@ bool Timer::FUN_0003b1c0(float dt, bool force)
     }
 
     bool wasZero = (value <= 0.0f);
-    System_3b1c0 *sys = DAT_004dd700;
+    World *sys = DAT_004dd700;
     value = dt;
     if (dt < 0.0f)
         value = 0.0f;

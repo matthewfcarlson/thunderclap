@@ -1,9 +1,9 @@
+#include "decls/address.h"
 extern "C" char DAT_004234c8[];
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e128[];
 extern "C" char DAT_0048e134[];
 extern "C" void __stdcall FUN_001d0480(void*, int);
-extern char FUN_001d04d0(const char*);
 class CSPManager {
   public:
     int vp;

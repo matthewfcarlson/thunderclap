@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001ae1f0 @ 0x001ae1f0
+#include "decls/address.h"
 struct Vec3_1ae1f0 { float x,y,z; };
 struct Item_1ae1f0 { Vec3_1ae1f0* FUN_001b5a20(Vec3_1ae1f0* result, unsigned int index); };
 struct Manager_1ae1f0 { void FUN_001b6000(Vec3_1ae1f0* position, Item_1ae1f0** item, unsigned int* count); };
-struct Global_1ae1f0 { char pad[16]; Manager_1ae1f0* manager; };
-extern Global_1ae1f0* DAT_004dd700;
+struct World { char pad[16]; Manager_1ae1f0* manager; };
 struct Query_1ae1f0 { Item_1ae1f0* item; unsigned int type; unsigned int size; unsigned int option; unsigned int FUN_001adeb0(unsigned int argument, unsigned int count, int a, int b); };
 bool __stdcall FUN_001ae1f0(const Vec3_1ae1f0* position, unsigned int argument, Vec3_1ae1f0* output, unsigned int option) {
  Vec3_1ae1f0 copy = *position;

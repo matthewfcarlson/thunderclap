@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 4/4)
 // FUN_001c9750 @ 0x001c9750
+#include "decls/address.h"
 struct Details_1c9750 { char pad[0x118]; unsigned value1; unsigned value2; };
 struct Texts_1c9750 { const char* FUN_000443b0(); const char* FUN_00044360(); };
 struct Entry_1c9750 { char pad[0x11c]; Texts_1c9750* texts; char pad2[0x1ca0-0x120]; Details_1c9750* details; const char* FUN_00036d00(); };
 struct Handle_1c9750 { void FUN_00059a50(); };
 struct Manager_1c9750 { Entry_1c9750* FUN_00059c10(unsigned); Handle_1c9750* FUN_00059ba0(unsigned, void*); };
-struct Globals_1c9750 { char pad[0x44]; Manager_1c9750* manager; };
-extern Globals_1c9750* DAT_004dd700;
+struct World { char pad[0x44]; Manager_1c9750* manager; };
 extern "C" void __cdecl FUN_00267830(char*, const char*, unsigned);
 struct Object {
  unsigned size; unsigned arg; char pad0[8]; unsigned id; char name[0x40]; char text1[0x20]; char text2[0x20]; char pad1[4]; unsigned value1; unsigned value2; unsigned extra;

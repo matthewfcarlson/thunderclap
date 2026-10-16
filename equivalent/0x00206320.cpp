@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 180 inputs, branch coverage 42/42)
 // FUN_00206320 @ 0x00206320
+#include "decls/address.h"
 struct Obj_206320 {
   virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5();
   void FUN_00263e90(); void FUN_002660a0(Obj_206320*);
@@ -16,7 +17,7 @@ struct Link_206320 { virtual void slot0(); virtual void slot1(); virtual void sl
 struct Node { char pad[0x5c]; Link_206320* link; };
 struct Registry_206320 { void FUN_001d3600(const char*, int); };
 struct Fig { Obj_206320* FUN_00024400(const char*, int); };
-struct Game_206320 { char pad[0x20]; Fig* fig; };
+struct World { char pad[0x20]; Fig* fig; };
 struct Timer { void FUN_00265ad0(); void FUN_00264860(int); };
 struct Nodes_206320 {
   Node* FUN_00232840(long long); int FUN_002327c0(); Node* FUN_00232810(int);
@@ -34,14 +35,12 @@ struct W_206320 {
 };
 extern "C" unsigned int DAT_004d9968;
 extern "C" Timer* DAT_00527c58;
-extern "C" Game_206320* DAT_004dd700;
 extern "C" Nodes_206320* DAT_004e5af8;
 extern "C" const char* DAT_004c91cc;
 extern "C" const char* DAT_004c91d4;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" Registry_206320* __cdecl FUN_001d4c90();
 extern "C" Rand* __cdecl FUN_000964d0();
-extern "C" long long __cdecl FUN_002672f0(const char*, unsigned int, unsigned int);
 extern "C" int __cdecl FUN_00266da0(int);
 extern "C" int __cdecl FUN_002381a0(int, int);
 extern "C" void* __cdecl FUN_00263ea0(int);

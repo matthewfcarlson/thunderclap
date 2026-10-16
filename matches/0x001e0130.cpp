@@ -1,7 +1,7 @@
+#include "decls/address.h"
 extern "C" char DAT_00423398[];
 class CSPManager {};
 extern "C" void __stdcall FUN_001d0480(const char*, int);
-extern "C" unsigned char FUN_001d04d0(const char*);
 extern const char s0_1e0130[], s1[], s2[], s3[];
 class Target_1e0130 {
   public:

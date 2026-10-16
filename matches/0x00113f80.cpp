@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern void* __cdecl Alloc(unsigned int);
-class Condition {
+class Condition_113f80 {
   public:
     virtual void a();
     virtual void b();
@@ -15,12 +17,9 @@ class Condition {
     int q;
 };
 extern int AIHistoryNameCondition_vftable;
-class Factory_113f80 {
-  public:
-    void* vfunc_5();
-};
-void* Factory_113f80::vfunc_5() {
-    Condition* p = (Condition*)Alloc(0x18);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::AIHistoryNameCondition>::vfunc_5() {
+    Condition_113f80* p = (Condition_113f80*)Alloc(0x18);
     void* result;
     if (p) {
         p->Init(0);
@@ -31,5 +30,5 @@ void* Factory_113f80::vfunc_5() {
         result = p;
     } else
         result = 0;
-    return result;
+    return (void*)(result);
 }

@@ -1,18 +1,11 @@
 // Same code shape as 0x0010d280 (propagated; names are from that function)
+#include "gen/hulkfight.h"
+
 namespace hulkfight {
 namespace ai {
 
-class HulkActionTrack {
-  public:
-    char pad0[0xc];
-    float mValue;
-
-    float vfunc_6();
-};
-
-float HulkActionTrack::vfunc_6() {
-    return mValue;
-}
-
 } // namespace ai
 }; // namespace hulkfight
+float hulkfight::motion::FireGroundShockwaveTrack::vfunc_6() {
+    return this->f_0c;
+}

@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000944d0 @ 0x000944d0
+#include "decls/address.h"
 class CUnlockablesManager;
 extern char DAT_0048e0e4, DAT_0048e0f0, DAT_0048e100, DAT_0048e128, DAT_0048e134;
-char FUN_001d04d0(const void*) throw();
 class Base_944d0 {
 public:
     virtual void v();

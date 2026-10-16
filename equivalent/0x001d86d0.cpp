@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3040 inputs, branch coverage 62/62)
 // FUN_001d86d0 @ 0x001d86d0
+#include "decls/address.h"
 extern "C" double sqrt(double);
 
 struct V3_1d86d0 {
@@ -83,11 +84,10 @@ struct Req_1d86d0 {
 struct Hub4c_1d86d0 {
     Req_1d86d0 *FUN_0007ad00(void *p);
 };
-struct Hub_1d86d0 {
+struct World {
     char pad0[0x4c];
     Hub4c_1d86d0 *p4c;
 };
-extern Hub_1d86d0 *DAT_004dd700;
 
 extern unsigned __int64 DAT_004dc0c0;
 extern unsigned __int64 DAT_004dc098;

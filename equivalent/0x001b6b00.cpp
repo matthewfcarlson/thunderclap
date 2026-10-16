@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 113 inputs, branch coverage 33/36, incomplete)
 // FUN_001b6b00 @ 0x001b6b00
+#include "decls/address.h"
 struct V3_1b6b00 {
     float x, y, z;
 };
@@ -37,12 +38,11 @@ struct Reg20_1b6b00 {
     Reg124_1b6b00 *p124;
 };
 
-struct Globals_1b6b00 {
+struct World {
     char pad[0x20];
     Reg20_1b6b00 *p20;
 };
 
-extern Globals_1b6b00 *DAT_004dd700;
 
 class SlotTable_1b6b00 {
 public:

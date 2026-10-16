@@ -1,13 +1,9 @@
-class Visitor {
+#include "gen/pure3d.h"
+
+class Visitor_296290 {
   public:
     virtual void a();
     virtual void b();
-};
-class DrawableCounter : public Visitor {
-  public:
-    int count;
-    virtual bool vfunc_0(Visitor*);
-    virtual void vfunc_1();
 };
 class Item_296290 {
   public:
@@ -18,8 +14,10 @@ class Item_296290 {
     virtual void e();
     virtual int type();
 };
-bool DrawableCounter::vfunc_0(Visitor* p) {
+
+bool pure3d::scenegraph::DrawableCounter::vfunc_0(void* __p0) { Visitor_296290 * p = (Visitor_296290 *)__p0;
+
     if (p && ((Item_296290*)p)->type() == 16)
-        ++count;
+        ++this->f_04;
     return true;
 }

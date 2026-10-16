@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0040db44[];
 typedef unsigned char u8;
 typedef unsigned int u32_114710;
@@ -5,23 +7,15 @@ void* __cdecl Allocate(unsigned int);
 struct InitObj_114710 {
     void Init(int);
 };
-class ConditionFactoryTemplate {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void* vfunc_5();
-};
-void* ConditionFactoryTemplate::vfunc_5() {
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TokenCondition>::vfunc_5() {
     void* p = Allocate(0x10);
     if (p) {
         ((InitObj_114710*)p)->Init(0);
         ((u8*)p)[0xc] = 1;
         ((u8*)p)[0xd] = 1;
         *(u32_114710*)p = ((int)DAT_0040db44);
-        return p;
+        return (void*)(p);
     }
-    return (void*)0;
+    return (void*)((void*)0);
 }

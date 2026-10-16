@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 112 inputs, branch coverage 47/48, incomplete)
 // CCharacterGolem::vfunc_3 @ 0x000fe680
+#include "decls/address.h"
 extern float DAT_0040d0f4;
 extern float DAT_0040d0e8;
 extern bool DAT_004e0a98;
@@ -14,7 +15,6 @@ struct Rng_fe680 {
     float FUN_00078780();
 };
 Rng_fe680 *FUN_000964d0();
-unsigned __int64 __cdecl FUN_002672f0(const char *s, int a, int b);
 
 struct Slot_fe680 {
     char pad0[8];

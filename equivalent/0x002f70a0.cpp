@@ -2,6 +2,9 @@
 // physics::PhysicsObjectLoader::vfunc_5 @ 0x002f70a0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
+#include "gen/physics.h"
+#include "decls/address.h"
+
 struct Vec3_2f70a0 {
     float x, y, z;
 };
@@ -12,7 +15,7 @@ struct Key_2f70a0 {
     void FUN_0027b040(const char *name);
 };
 
-struct SymMatrix {
+struct SymMatrix_2f70a0 {
     int vptr;
     float m[6];
     void FUN_002fca90();
@@ -20,14 +23,14 @@ struct SymMatrix {
     void FUN_002fd0a0();
 };
 
-struct Stream {
+struct Stream_2f70a0 {
     char pad[0xc];
     char FUN_002647e0(void *dst, int count, int size, int flag);
 };
 
-struct Reader {
+struct Reader_2f70a0 {
     char pad000[0x284];
-    Stream *stream;                  // 0x284
+    Stream_2f70a0 *stream;                  // 0x284
     char FUN_002669f0();
     void FUN_00266a30();
     int FUN_00266c30();
@@ -50,7 +53,7 @@ public:
     short f6;
     char pad08[0xe4 - 8];
     unsigned int fe4;
-    void FUN_00309940(SymMatrix *sm);
+    void FUN_00309940(SymMatrix_2f70a0 *sm);
 };
 
 struct Props;
@@ -68,14 +71,13 @@ struct Composite_2f70a0 : SimObject {
 };
 
 struct Articulated : SimObject {
-    Articulated *FUN_002f6220(Props *props, Vec3_2f70a0 *center, SymMatrix *sm, unsigned int c);
+    Articulated *FUN_002f6220(Props *props, Vec3_2f70a0 *center, SymMatrix_2f70a0 *sm, unsigned int c);
 };
 
 extern void *DAT_00554c10;
 
-void __cdecl FUN_002f5fe0(Reader *r, SymMatrix *sm);
+void __cdecl FUN_002f5fe0(Reader_2f70a0 *r, SymMatrix_2f70a0 *sm);
 Part_2f70a0 *__cdecl FUN_0030d4f0(unsigned int a, Vec3_2f70a0 *v, unsigned int b, unsigned int c);
-unsigned __int64 __cdecl FUN_0027b020(const char *name);
 Props *__cdecl FUN_002f2750(unsigned __int64 key);
 int __cdecl FUN_00266da0(int sel);
 void *__cdecl FUN_0008d6d0(unsigned int size);
@@ -83,18 +85,8 @@ void __cdecl thunk_FUN_00267090(void *p);
 void *thunk_FUN_0008d690(unsigned int size);
 int __cdecl FUN_00267760(char *buf, int n, const char *fmt, ...);
 
-class PhysicsObjectLoader {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5(void **outObj, Key_2f70a0 *outKey, Reader *r, int unused);
-};
+void physics::PhysicsObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int unused) { void ** outObj = (void **)__p0; Key_2f70a0 * outKey = (Key_2f70a0 *)__p1; Reader_2f70a0 * r = (Reader_2f70a0 *)__p2;
 
-void PhysicsObjectLoader::vfunc_5(void **outObj, Key_2f70a0 *outKey, Reader *r, int unused)
-{
     struct Frame {
         char pad00[3];
         unsigned char len;           // 0x03
@@ -108,7 +100,7 @@ void PhysicsObjectLoader::vfunc_5(void **outObj, Key_2f70a0 *outKey, Reader *r, 
         unsigned int v3;             // 0x20
         unsigned int v5;             // 0x24
         Vec3_2f70a0 zero;                   // 0x28
-        SymMatrix sm;                // 0x34
+        SymMatrix_2f70a0 sm;                // 0x34
         Vec3_2f70a0 center;                 // 0x50
         char name1[0x100];           // 0x5c
         char name2[0x100];           // 0x15c

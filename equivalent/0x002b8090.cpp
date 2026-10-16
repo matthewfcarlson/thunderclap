@@ -199,7 +199,7 @@ public:
 }
 using pure3d::PolySkin;
 
-class PolySkinLoader {
+namespace pure3d { class PolySkinLoader {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -215,9 +215,9 @@ public:
     Helper2 *h2;
     int f24;
     int f28;
-};
+}; }
 
-void PolySkinLoader::vfunc_5(PolySkin **out, unsigned __int64 *outId, Stream *stream, Ctx *ctx)
+void pure3d::PolySkinLoader::vfunc_5(PolySkin **out, unsigned __int64 *outId, Stream *stream, Ctx *ctx)
 {
     struct Frame {
         char pad10[3];

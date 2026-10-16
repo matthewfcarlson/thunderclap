@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 void* operator new(unsigned int);
 extern "C" void _ReadWriteBarrier();
 struct B_11b580 {
@@ -44,14 +46,7 @@ struct T_11b580 : B_11b580, S1_11b580 {
     virtual void f4();
     virtual B_11b580* f5();
 };
-struct Fac_11b580 {
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual B_11b580* f5();
-};
-B_11b580* Fac_11b580::f5() {
-    return new T_11b580;
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::ai::MotionTargetTrack>::vfunc_5() {
+    return (void*)(new T_11b580);
 }

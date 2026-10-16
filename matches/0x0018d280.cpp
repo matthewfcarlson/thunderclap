@@ -1,15 +1,5 @@
-class TimerSetAction {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual unsigned char d(int, int);
-    virtual void e();
-    virtual void f();
-    char pad[0x18];
-    void* mTimer;
-    void* mThing;
-};
+#include "gen/hulkfight.h"
+
 class HelperA_18d280 {
   public:
     void* run();
@@ -18,12 +8,13 @@ class HelperB_18d280 {
   public:
     void* run();
 };
-unsigned char TimerSetAction::d(int, int) {
-    int i = *(int*)((char*)mTimer + 0x10);
+
+bool hulkfight::motion::TimerSetAction::vfunc_3(int , int ) {
+    int i = *(int*)((char*)(*(void * *)&this->f_1c) + 0x10);
     if (i >= 0 && i < 14) {
-        void* x = ((HelperA_18d280*)mThing)->run();
+        void* x = ((HelperA_18d280*)(*(void * *)&this->f_20))->run();
         x = ((HelperB_18d280*)x)->run();
-        *(int*)((char*)x + 0x1e60 + i * 4) = *(int*)((char*)mTimer + 0x14);
+        *(int*)((char*)x + 0x1e60 + i * 4) = *(int*)((char*)(*(void * *)&this->f_1c) + 0x14);
     }
-    return 0;
+    return (bool)(0);
 }

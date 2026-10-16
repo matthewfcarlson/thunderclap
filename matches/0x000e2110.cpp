@@ -1,4 +1,6 @@
-class FELayout {
+#include "gen/global.h"
+
+class FELayout_e2110 {
   public:
     virtual void f0();
     virtual void f1();
@@ -21,34 +23,6 @@ class FELayout {
     virtual void f18();
     virtual void f19();
     virtual void f20();
-};
-class SingleLayout : public FELayout {
-  public:
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual void a3();
-    virtual void a4();
-    virtual void a5();
-    virtual void a6();
-    virtual void a7();
-    virtual void a8();
-    virtual void a9();
-    virtual void a10();
-    virtual void a11();
-    virtual void a12();
-    virtual bool a13(int);
-    virtual void a14();
-    virtual void a15();
-    virtual void a16();
-    virtual void a17();
-    virtual void a18();
-    virtual void a19();
-    virtual void a20();
-    virtual void a21();
-    virtual void a22();
-    char pad[4];
-    void* member;
 };
 class Other_e2110 {
   public:
@@ -88,6 +62,7 @@ class Other_e2110 {
     virtual void v33();
     virtual SingleLayout* v34();
 };
-bool SingleLayout::a13(int) {
-    return ((Other_e2110*)member)->v34() == this;
+
+bool SingleLayout::vfunc_13(int ) {
+    return ((Other_e2110*)(*(void * *)&this->f_08))->v34() == this;
 }

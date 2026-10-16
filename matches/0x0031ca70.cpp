@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Device_31ca70 {
   public:
     virtual void m0();
@@ -82,16 +84,9 @@ class Device_31ca70 {
     virtual void f79();
     virtual void f80(int, int, int);
 };
-class pure3d_pddiFogState {
-  public:
-    virtual void vfunc_0(Device_31ca70* d);
-    unsigned char mode;
-    char pad1[3];
-    int a;
-    int b;
-    int c;
-};
-void pure3d_pddiFogState::vfunc_0(Device_31ca70* d) {
-    d->f78(mode);
-    d->f80(a, b, c);
+
+void pure3d::pddiFogState::vfunc_0(void* __p0) { Device_31ca70 * d = (Device_31ca70 *)__p0;
+
+    d->f78(this->f_04);
+    d->f80(this->f_08, this->f_0c, this->f_10);
 }

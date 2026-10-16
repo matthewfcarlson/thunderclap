@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00411344[];
-class DialogueTrack {
+class DialogueTrack_132cc0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -13,12 +15,9 @@ class DialogueTrack {
     void Init();
 };
 void* __cdecl FUN_0008d690(unsigned int);
-class Factory_132cc0 {
-  public:
-    void* Create();
-};
-void* Factory_132cc0::Create() {
-    DialogueTrack* p = (DialogueTrack*)FUN_0008d690(0x28);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::DialogueTrack>::vfunc_5() {
+    DialogueTrack_132cc0* p = (DialogueTrack_132cc0*)FUN_0008d690(0x28);
     int z = 0;
     if (p != 0) {
         p->Init();
@@ -31,7 +30,7 @@ void* Factory_132cc0::Create() {
         p->g = (char)z;
         *(void**)p = (void*)((int)DAT_00411344);
         *((int*)p + 2) = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

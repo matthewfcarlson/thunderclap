@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 class Obj_136d60 {
   public:
     virtual void a();
@@ -9,22 +11,15 @@ class Source_136d60 {
   public:
     Obj_136d60* get();
 };
-class AirToGroundTargetAction {
-  public:
-    char pad[0x20];
-    Source_136d60* a;
-    void* b;
-    Obj_136d60* c;
-    void vfunc_4();
-};
-void AirToGroundTargetAction::vfunc_4() {
-    Obj_136d60* x = a->get();
+
+void hulkfight::motion::AirToGroundTargetAction::vfunc_4() {
+    Obj_136d60* x = (*(Source_136d60 * *)&this->f_20)->get();
     x = x->query();
     if (x) {
-        x->act(b, 0);
-        if (c) {
-            c->b();
-            c = 0;
+        x->act((*(void * *)&this->f_24), 0);
+        if ((*(Obj_136d60 * *)&this->f_28)) {
+            (*(Obj_136d60 * *)&this->f_28)->b();
+            (*(Obj_136d60 * *)&this->f_28) = 0;
         }
     }
 }

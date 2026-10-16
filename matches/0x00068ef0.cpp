@@ -1,7 +1,4 @@
-class CClimbingTrack {
-  public:
-    virtual int vfunc_0(int index);
-};
+#include "gen/global.h"
 
 extern int* gTable_68ef0;
 

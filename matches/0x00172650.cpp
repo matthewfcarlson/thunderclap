@@ -1,10 +1,5 @@
-class SurfAction {
-  public:
-    char pad[0x20];
-    void* mFirst;
-    void* mSecond;
-    void vfunc_4();
-};
+#include "gen/hulkfight.h"
+
 class A_172650 {
   public:
     A_172650* step();
@@ -14,12 +9,13 @@ class B_172650 {
     B_172650* next();
     void finish(void*, int);
 };
-void SurfAction::vfunc_4() {
-    A_172650* a = (A_172650*)mFirst;
+
+void hulkfight::motion::SurfAction::vfunc_4() {
+    A_172650* a = (A_172650*)(*(void * *)&this->f_20);
     if (a) {
         B_172650* b = (B_172650*)a->step();
         b = b->next();
         if (b)
-            b->finish(mSecond, 0);
+            b->finish((*(void * *)&this->f_24), 0);
     }
 }

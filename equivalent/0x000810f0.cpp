@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 18/18)
 // FUN_000810f0 @ 0x000810f0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/address.h"
 struct Vec3_810f0 {
     float x, y, z;
 };
@@ -72,7 +73,6 @@ struct World {
     Camera* camera;
 };
 
-extern World* DAT_004dd700;
 
 void* FUN_0008d690(unsigned int size);
 void* thunk_FUN_0008d690(unsigned int size);

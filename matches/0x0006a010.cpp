@@ -1,16 +1,14 @@
+#include "gen/global.h"
+
 extern "C" void* __cdecl FUN_0008d690(int);
 struct Worker_6a010 {
     int go(unsigned int, unsigned int);
 };
-class CComboTimerTrack {
-  public:
-    char pad[0x14];
-    unsigned int field14;
-    int vfunc_12(unsigned int);
-};
-int CComboTimerTrack::vfunc_12(unsigned int param) {
+
+int CComboTimerTrack::vfunc_12(int __p0) { unsigned int param = (unsigned int)__p0;
+
     void* p = FUN_0008d690(0x24);
     if (p)
-        return ((Worker_6a010*)p)->go(param, field14);
+        return ((Worker_6a010*)p)->go(param, this->f_14);
     return 0;
 }

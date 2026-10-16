@@ -1,20 +1,6 @@
-class CExplosionTrack {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual void vfunc_13(unsigned int*);
-};
-void CExplosionTrack::vfunc_13(unsigned int* param) {
+#include "gen/global.h"
+
+void CExplosionTrack::vfunc_13(void* __p0) { unsigned int * param = (unsigned int *)__p0;
+
     *param = 0xffbfff00;
 }

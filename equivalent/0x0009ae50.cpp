@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0009ae50 @ 0x0009ae50
 // Method7 registration constructor: base init, vftable, then the seven result/argument type tags.
+#include "decls/address.h"
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e0e4[];
 extern "C" char DAT_0048e128[];
 extern "C" char DAT_00404c90[];
-extern "C" char __cdecl FUN_001d04d0(const void*);
 
 class Callback_9ae50 {
   public:

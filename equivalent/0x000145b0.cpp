@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 134 inputs, branch coverage 43/44, incomplete)
 // FUN_000145b0 @ 0x000145b0
+#include "decls/address.h"
 void *FUN_0008d690(unsigned int size);
 
 struct Vec3_145b0 {
@@ -80,12 +81,11 @@ struct Roster_145b0 {
     Actor_145b0 *FUN_00024190(int index);
 };
 
-struct Game_145b0 {
+struct World {
     char pad00[0x20];
     Roster_145b0 *roster;
 };
 
-extern Game_145b0 *DAT_004dd700;
 
 struct Owner_145b0 {
     char pad00[8];

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 22/24, incomplete)
 // FUN_001c04e0 @ 0x001c04e0
+#include "decls/address.h"
 struct Listener_1c04e0 {
     virtual void vf0();
     virtual void vf1();
@@ -12,11 +13,10 @@ struct StateHolder {
 struct Clock_1c04e0 {
     float FUN_00085f80();
 };
-struct ClockOwner {
+struct World {
     char pad[0x58];
     Clock_1c04e0* clock;
 };
-extern ClockOwner* DAT_004dd700;
 struct Fader_1c04e0 {
     float timer;
     int pending;

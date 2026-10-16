@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 34/34)
 // FUN_001a9b10 @ 0x001a9b10
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
 
@@ -137,11 +138,10 @@ struct ModeB_1a9b10 {
     Item_1a9b10 *FUN_00024280(unsigned __int64 key);
 };
 
-struct Globals_1a9b10 {
+struct World {
     char pad0[0x20];
     ModeB_1a9b10 *modeB;
 };
-extern Globals_1a9b10 *DAT_004dd700;
 
 class Inventory_1a9b10 {
 public:
@@ -192,7 +192,6 @@ struct Out_1a9b10 {
     pure3d::scenegraph::DrawableNode *node;
 };
 
-unsigned __int64 FUN_002672f0(const char *s, int a, int b);
 void FUN_0013a790(Driver **slot, Driver *v);
 void FUN_00059c50(LayerSet_1a9b10 **slot, LayerSet_1a9b10 *v);
 void FUN_00081070(pure3d::CompositeDrawable **slot, pure3d::CompositeDrawable *v);

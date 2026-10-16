@@ -1,17 +1,14 @@
+#include "gen/pure3d.h"
+
 class Obj_2a35d0 {
   public:
     virtual void f0();
     virtual void f1();
 };
-class DrawableHierarchy {
-  public:
-    char pad[0x10];
-    Obj_2a35d0* member;
-    void vfunc_14();
-};
-void DrawableHierarchy::vfunc_14() {
-    if (member) {
-        member->f1();
-        member = 0;
+
+void pure3d::DrawableHierarchy::vfunc_14() {
+    if ((*(Obj_2a35d0 * *)&this->f_10)) {
+        (*(Obj_2a35d0 * *)&this->f_10)->f1();
+        (*(Obj_2a35d0 * *)&this->f_10) = 0;
     }
 }

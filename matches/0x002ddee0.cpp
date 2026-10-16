@@ -1,17 +1,7 @@
-class RawImageHandler {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual unsigned char vfunc_8(int);
-};
-unsigned char RawImageHandler::vfunc_8(int x) {
+#include "gen/pure3d.h"
+
+bool pure3d::RawImageHandler::vfunc_8(int x) {
     if (x >= 11 && (x <= 19 || x == 23))
-        return 1;
-    return 0;
+        return (bool)(1);
+    return (bool)(0);
 }

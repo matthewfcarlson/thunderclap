@@ -1,3 +1,4 @@
+#include "decls/address.h"
 extern "C" char DAT_003f424c[];
 extern "C" char DAT_0048e0e4[];
 extern "C" char DAT_0048e0f0[];
@@ -16,7 +17,6 @@ class CActorManager {
     void Init(void*, int);
     CActorManager(void*, int);
 };
-extern "C" char __cdecl FUN_001d04d0(const char*);
 CActorManager::CActorManager(void* p, int x) {
     Init(p, 3);
     vf = ((int)DAT_003f424c);

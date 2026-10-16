@@ -1,24 +1,18 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_003f9098[];
-class CAxisDownCondition {
+class CAxisDownCondition_56e40 {
   public:
-    CAxisDownCondition();
+    CAxisDownCondition_56e40();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-class ConditionFactoryTemplate {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void* vfunc_5();
-};
-void* ConditionFactoryTemplate::vfunc_5() {
-    CAxisDownCondition* p = (CAxisDownCondition*)FUN_0008d690(0x20);
+
+template <> void* fight::ConditionFactoryTemplate<CAxisDownCondition>::vfunc_5() {
+    CAxisDownCondition_56e40* p = (CAxisDownCondition_56e40*)FUN_0008d690(0x20);
     if (p) {
-        p->CAxisDownCondition::CAxisDownCondition();
+        p->CAxisDownCondition_56e40::CAxisDownCondition_56e40();
         *(void**)p = (void*)((int)DAT_003f9098);
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

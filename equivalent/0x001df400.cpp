@@ -2,6 +2,7 @@
 // FUN_001df400 @ 0x001df400
 // Arg is passed by value as a union: the original reuses the dead first argument slot as a
 // bool local and pushes the whole dword (stale high bytes) to the final call.
+#include "decls/address.h"
 union Arg_1df400 {
     int id;
     unsigned char flag;
@@ -18,11 +19,10 @@ public:
     int FUN_00106230(int a);
 };
 
-struct Globals_1df400 {
+struct World {
     char pad0[0x18];
     Registry_1df400* registry;
 };
-extern Globals_1df400* DAT_004dd700;
 
 class Manager_1df400 {
 public:

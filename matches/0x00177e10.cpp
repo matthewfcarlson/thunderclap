@@ -1,6 +1,8 @@
 // Same code shape as 0x0004dff0 (propagated; names are from that function)
-class CStageCondition;
-class ParamValue {
+#include "gen/fight.h"
+
+class CStageCondition_177e10;
+class ParamValue_177e10 {
   public:
     virtual void v0();
     virtual void v1();
@@ -8,16 +10,11 @@ class ParamValue {
     virtual void v3();
     virtual void v4();
 };
-class ParamValueInt : public ParamValue {
+class ParamValueInt_177e10 : public ParamValue_177e10 {
   public:
     int pad;
 };
-class ParamIntConstRange : public ParamValueInt {
-  public:
-    char padding[8];
-    int value;
-    bool vfunc_2();
-};
-bool ParamIntConstRange::vfunc_2() {
-    return value == 0;
+
+template <> bool fight::ParamFloatConstRange<hulkfight::motion::LocomotionStateTrack>::vfunc_2() {
+    return this->f_10 == 0;
 }

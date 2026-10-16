@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 151 inputs, branch coverage 43/44, incomplete)
 // pure3d::ParticleSystemLoader::vfunc_5 @ 0x002ab030
 // pure3d::ParticleSystemLoader::vfunc_5 @ 0x002ab030
+#include "decls/address.h"
 typedef unsigned __int64 Key_2ab030;
 extern char DAT_0049c7dc[];
 extern char DAT_004ce770[];
@@ -8,7 +9,6 @@ extern char DAT_0049fd74[];
 extern char DAT_0049fd9c[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 extern void *__cdecl FUN_00263ea0(unsigned int size);
-extern Key_2ab030 __cdecl FUN_002672f0(const char *, int, int);
 
 struct V3_2ab030 {
     float x, y, z;

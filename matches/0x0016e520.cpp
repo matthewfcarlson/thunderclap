@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern "C" void _ReadWriteBarrier();
 class Child {
   public:
@@ -9,16 +11,8 @@ class Sub {
 };
 extern char VT_16e520[];
 extern void* __cdecl FUN_0008d690(unsigned int);
-class Factory_16e520 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void* f();
-};
-void* Factory_16e520::f() {
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::RayCastTargetCondition>::vfunc_5() {
     Child* p = (Child*)FUN_0008d690(0x38);
     if (p) {
         p->Child::Child(0);
@@ -33,7 +27,7 @@ void* Factory_16e520::f() {
         _ReadWriteBarrier();
         *(float*)((char*)p + 0x30) = 1.0f;
         *(char*)((char*)p + 0x34) = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

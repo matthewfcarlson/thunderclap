@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 14/14)
 // FUN_000ce280 @ 0x000ce280
+#include "decls/address.h"
 struct Vec3_ce280 {
     float x, y, z;
 };
@@ -22,7 +23,7 @@ struct Handle_ce280 {
     void FUN_0008ef90(const Vec3_ce280 *pos, int color);
 };
 
-struct Device_ce280 {
+struct Gfx {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -76,7 +77,6 @@ struct Builder {
 
 extern float DAT_0049fd14;
 extern int DAT_0049fd18;
-extern Device_ce280 *DAT_0052c2a8;
 extern PassHolder_ce280 *DAT_0052c2ac;
 extern Vec3_ce280 DAT_004ddea4;
 

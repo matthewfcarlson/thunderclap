@@ -1,32 +1,26 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_004166d8[];
 extern void* __cdecl FUN_0008d690(unsigned int);
-class VelocityYCondition {
+class VelocityYCondition_16d5a0 {
   public:
     virtual void dummy();
     int pad1;
     int pad2;
     int b;
     int c;
-    VelocityYCondition(int);
+    VelocityYCondition_16d5a0(int);
 };
-class ConditionFactory {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual VelocityYCondition* vfunc_5();
-};
-VelocityYCondition* ConditionFactory::vfunc_5() {
-    VelocityYCondition* p = (VelocityYCondition*)FUN_0008d690(0x14);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VelocityYCondition>::vfunc_5() {
+    VelocityYCondition_16d5a0* p = (VelocityYCondition_16d5a0*)FUN_0008d690(0x14);
     if (p) {
-        p->VelocityYCondition::VelocityYCondition(0);
+        p->VelocityYCondition_16d5a0::VelocityYCondition_16d5a0(0);
         *(int*)p = ((int)DAT_004166d8);
         p->b = 0;
         p->c = 0;
-        return p;
+        return (void*)(p);
     } else {
-        return (VelocityYCondition*)0;
+        return (void*)((VelocityYCondition_16d5a0*)0);
     }
 }

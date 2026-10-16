@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 28/28)
 // hulkfight::motion::HitThrowAction::vfunc_3 @ 0x00151fd0
+#include "decls/address.h"
 struct V3_151fd0 {
     float x, y, z;
     float FUN_0022d110();
@@ -86,12 +87,11 @@ struct Hook_151fd0 {
     void FUN_00029b50(int a, RefObj_151fd0 *b, int c);
 };
 
-struct Sys_151fd0 {
+struct World {
     char pad0[0x20];
     Hook_151fd0 *hook;
 };
 
-extern Sys_151fd0 *DAT_004dd700;
 
 void *__cdecl FUN_00263ea0(unsigned int size);
 Fighter_151fd0 *__fastcall FUN_000592a0(void *owner);

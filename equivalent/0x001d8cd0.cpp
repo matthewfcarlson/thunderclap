@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001d8cd0 @ 0x001d8cd0
+#include "decls/address.h"
 struct Resource_1d8cd0 { virtual void slot0(); virtual void release(); };
 struct Manager_1d8cd0 { void FUN_00029c00(unsigned int handle); };
-struct Globals_1d8cd0 { char pad[0x20]; Manager_1d8cd0* manager; };
-extern Globals_1d8cd0* DAT_004dd700;
+struct World { char pad[0x20]; Manager_1d8cd0* manager; };
 struct Handle_1d8cd0 { char pad[0x10]; unsigned int value; };
 struct Object {
  char pad0[0xa0]; Handle_1d8cd0* handle;

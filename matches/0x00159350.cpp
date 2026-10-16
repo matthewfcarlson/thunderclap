@@ -1,28 +1,22 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00414030[];
 extern void* __cdecl Allocate(unsigned int);
-class CollisionDevastatorCondition {
+class CollisionDevastatorCondition_159350 {
   public:
     int vptr;
     char pad[8];
     char flag;
-    CollisionDevastatorCondition(int);
+    CollisionDevastatorCondition_159350(int);
 };
-class Factory_159350 {
-  public:
-    virtual void A();
-    virtual void B();
-    virtual void C();
-    virtual void D();
-    virtual void E();
-    virtual CollisionDevastatorCondition* F();
-};
-CollisionDevastatorCondition* Factory_159350::F() {
-    CollisionDevastatorCondition* p = (CollisionDevastatorCondition*)Allocate(0x10);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionDevastatorCondition>::vfunc_5() {
+    CollisionDevastatorCondition_159350* p = (CollisionDevastatorCondition_159350*)Allocate(0x10);
     if (p) {
-        p->CollisionDevastatorCondition::CollisionDevastatorCondition(0);
+        p->CollisionDevastatorCondition_159350::CollisionDevastatorCondition_159350(0);
         p->vptr = ((int)DAT_00414030);
         p->flag = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

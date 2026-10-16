@@ -1,17 +1,12 @@
 // Same code shape as 0x0026d420 (propagated; names are from that function)
-class MemoryTwoWayAllocator {
-  public:
-    char pad[0x1c];
-    unsigned int mLimit;
-    int mFirst;
-    int mSecond;
-    void vfunc_4(unsigned int);
-};
-void MemoryTwoWayAllocator::vfunc_4(unsigned int n) {
+#include "gen/core.h"
+
+void core::MemoryTwoWayAllocator::vfunc_7(void* __p0) { unsigned int n = (unsigned int)__p0;
+
     if (n) {
-        if (n < mLimit)
-            --mFirst;
+        if (n < (*(unsigned int *)&this->f_1c))
+            --this->f_20;
         else
-            --mSecond;
+            --this->f_24;
     }
 }

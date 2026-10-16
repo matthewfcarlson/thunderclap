@@ -1,19 +1,14 @@
-struct CEffectManager {
+#include "gen/global.h"
+
+struct CEffectManager_1f7f20 {
     bool run(bool);
 };
-class Closure1 {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(int unused, bool* arg, bool* out);
-    char pad[0x1c - 4];
-    bool (CEffectManager::*fn)(bool);
-    CEffectManager* obj;
-};
-void Closure1::vfunc_2(int unused, bool* arg, bool* out) {
-    CEffectManager* o = obj;
+
+template <> void Closure1<CEffectManager, bool, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { int unused = (int)__p0; bool * arg = (bool *)__p1; bool * out = (bool *)__p2;
+
+    CEffectManager_1f7f20* o = (*(CEffectManager_1f7f20 * *)&this->f_20);
     bool b = *arg;
-    bool (CEffectManager::*f)(bool) = fn;
+    bool (CEffectManager_1f7f20::*f)(bool) = (*(bool (CEffectManager_1f7f20::**)(bool))&this->f_1c);
     bool value = (o->*f)(b);
     if (out)
         *out = value;

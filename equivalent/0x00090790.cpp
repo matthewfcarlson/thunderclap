@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 12/12)
 // FUN_00090790 @ 0x00090790
 // FUN_00090790 @ 0x00090790: measures the player's distance or height from a start point and keeps the best value
+#include "decls/address.h"
 extern "C" double sqrt(double);
 
 struct Vec3_90790 {
@@ -22,7 +23,6 @@ struct World {
     char pad00[0x20];
     Actor_90790 *actor;
 };
-extern World *DAT_004dd700;
 
 class Measure {
 public:

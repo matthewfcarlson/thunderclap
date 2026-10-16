@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 116 inputs, branch coverage 38/42, incomplete)
 // hulkfight::motion::DriftToPositionAction::vfunc_3 @ 0x00175060
+#include "decls/address.h"
 extern "C" double sqrt(double);
 
 struct Vec3_175060 {
@@ -70,12 +71,11 @@ struct Registry_175060 {
     Path_175060 *FUN_00106230(int key);
 };
 
-struct Globals_175060 {
+struct World {
     char pad0[0x18];
     Registry_175060 *registry;
 };
 
-extern Globals_175060 *DAT_004dd700;
 extern __int64 DAT_004e13c0;
 extern __int64 DAT_004e13d0;
 extern __int64 DAT_004e13e0;

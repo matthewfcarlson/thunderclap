@@ -1,10 +1,5 @@
-class EffectAction {
-  public:
-    char pad[0x24];
-    int a;
-    void* b;
-    void vfunc_4();
-};
+#include "gen/hulkfight.h"
+
 struct Helper_1a63d0 {
     void apply(int);
 };
@@ -15,11 +10,12 @@ class Ref_1a63d0 {
     virtual void f0();
     virtual void f1();
 };
-void EffectAction::vfunc_4() {
+
+void hulkfight::scenario::EffectAction::vfunc_4() {
     Helper_1a63d0* x = FUN_0027f250();
-    x->apply(a);
-    if (b) {
-        ((Ref_1a63d0*)b)->f1();
-        b = 0;
+    x->apply(this->f_24);
+    if ((*(void * *)&this->f_28)) {
+        ((Ref_1a63d0*)(*(void * *)&this->f_28))->f1();
+        (*(void * *)&this->f_28) = 0;
     }
 }

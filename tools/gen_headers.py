@@ -1535,9 +1535,16 @@ def _ptr_to(qt):
     return qt + " *"
 
 
-def swap_transform(g, path, fname):
+def _re_rename(text, old, new):
+    return re.sub(r"\b%s\b" % re.escape(old), new, text)
+
+
+def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
     """Rewrite match file `path` (target `fname` = Owner::vfunc_N) to use include/gen instead of its
-    stub for the owner class. Returns (new source, mangled-name substring of the target)."""
+    stub for the owner class. Returns (new source, mangled-name substring of the target).
+
+    rename(text, old, new) renames identifiers (default: a regex, which also hits comments; tools/migrate_gen.py
+    passes a token-level one); stub_suffix is appended to other stubs whose names collide with generated ones."""
     m = re.match(r"(.*)::vfunc_(\d+)$", fname)
     C = g.by_csv[m.group(1)]
     slot = int(m.group(2))
@@ -1762,8 +1769,8 @@ def swap_transform(g, path, fname):
         cur = e
     pieces.append(raw[cur:])
     rest = "".join(pieces)
-    rest = re.sub(r"\b%s\b" % re.escape(sname), "__Self", rest)
-    btxt = re.sub(r"\b%s\b" % re.escape(sname), "__Self", btxt)
+    rest = rename(rest, sname, "__Self")
+    btxt = rename(btxt, sname, "__Self")
     # other stubs whose names collide with a generated name (lookup from inside the real class
     # reaches its namespaces, so compare short names)
     taken = {u.short for u in g.units.values()} | {split_top(q, "::")[-1] for q in g.extra_fwd}
@@ -1771,8 +1778,8 @@ def swap_transform(g, path, fname):
     for rid, rn in list(records.items()) + [(n["id"], n) for n, _ in fwds]:
         nm = rn["name"]
         if rid != sid and nm != sname and nm in taken:
-            rest = re.sub(r"\b%s\b" % re.escape(nm), nm + "_stub", rest)
-            btxt = re.sub(r"\b%s\b" % re.escape(nm), nm + "_stub", btxt)
+            rest = rename(rest, nm, nm + stub_suffix)
+            btxt = rename(btxt, nm, nm + stub_suffix)
     sns = nsof.get(sid, [])
     text = ("#include <gen/all.h>\ntypedef %s __Self;\n" % g.cpp_name(C) + rest + "\n"
             + "".join("using namespace %s;\n" % "::".join(sns[:i + 1]) for i in range(len(sns)))

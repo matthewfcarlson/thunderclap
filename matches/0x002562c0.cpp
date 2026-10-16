@@ -1,3 +1,5 @@
+#include "gen/audio.h"
+
 extern "C" void* __cdecl alloc(void*);
 extern char pool_2562c0;
 class Part {
@@ -25,26 +27,20 @@ class Base_2562c0 {
     char pad[4];
     Base_2562c0();
 };
-class Clip : public Base_2562c0 {
+class Clip_2562c0 : public Base_2562c0 {
   public:
     unsigned char flag;
     char pad[7];
     Part part;
-    Clip() : Base_2562c0(), part(&flag) {}
+    Clip_2562c0() : Base_2562c0(), part(&flag) {}
 };
-class ClipType {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual Clip* f3();
-};
-Clip* ClipType::f3() {
+
+void* audio::SeqEventClipType::vfunc_3() {
     void* p = alloc(&pool_2562c0);
     if (p) {
-        Clip* q = (Clip*)p;
-        q->Clip::Clip();
-        return q;
+        Clip_2562c0* q = (Clip_2562c0*)p;
+        q->Clip_2562c0::Clip_2562c0();
+        return (void*)(q);
     }
-    return 0;
+    return (void*)(0);
 }

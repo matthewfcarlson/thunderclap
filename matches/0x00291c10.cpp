@@ -1,9 +1,5 @@
-class ImageHandler {
-  public:
-    char pad[0xc];
-    unsigned char field;
-    void vfunc_13(unsigned char);
-};
-void ImageHandler::vfunc_13(unsigned char value) {
-    field = value;
+#include "gen/pure3d.h"
+
+void pure3d::ImageHandler::vfunc_13(unsigned char value) {
+    this->f_0c = value;
 }

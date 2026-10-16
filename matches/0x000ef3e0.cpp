@@ -1,4 +1,6 @@
-class FEContainer {
+#include "gen/global.h"
+
+class FEContainer_ef3e0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -54,12 +56,7 @@ class FEContainer {
     virtual void f51();
     virtual void f52();
 };
-class FEScreenBase : public FEContainer {
-    char pad[0x98c];
 
-  public:
-    int vfunc_35();
-};
 int FEScreenBase::vfunc_35() {
     return *(int*)((char*)this + 0x990);
 }

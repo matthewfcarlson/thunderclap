@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 30/30)
 // FUN_001bf0c0 @ 0x001bf0c0
+#include "decls/address.h"
 extern float DAT_003f32e0;
 extern float DAT_0040a4b4;
 extern float DAT_0042144c;
@@ -23,8 +24,7 @@ struct Sink_1bf0c0 {
     void FUN_000d6dd0();
 };
 struct Holder_1bf0c0 { Sink_1bf0c0 *FUN_000862b0(void *who); };
-struct Game_1bf0c0 { char pad[0x54]; Holder_1bf0c0 *holder; };
-extern Game_1bf0c0 *DAT_004dd700;
+struct World { char pad[0x54]; Holder_1bf0c0 *holder; };
 
 union FBits_1bf0c0 { float f; unsigned u; };
 

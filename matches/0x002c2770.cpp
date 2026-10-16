@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Obj_2c2770 {
   public:
     virtual void f0();
@@ -25,39 +27,15 @@ class Obj_2c2770 {
     virtual void f22();
     virtual void f23();
 };
-class Geometry {
-  public:
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual void a3();
-    virtual void a4();
-    virtual void a5();
-    virtual void a6();
-    virtual void a7();
-    virtual void a8();
-    virtual void vfunc_9();
-    virtual void a10();
-    virtual void a11();
-    virtual void a12();
-    virtual void a13();
-    virtual void a14();
-    virtual void a15();
-    virtual void a16();
-    virtual void a17();
-    virtual void a18();
-    char pad[0x60 - 4];
-    Obj_2c2770* p;
-    Obj_2c2770* q;
-};
-class DrawableContainer {
+class DrawableContainer_2c2770 {
   public:
     void vfunc_9();
 };
-void Geometry::vfunc_9() {
-    if (p)
-        p->f23();
-    if (q)
-        q->f23();
-    ((DrawableContainer*)this)->vfunc_9();
+
+void pure3d::Geometry::vfunc_9() {
+    if ((*(Obj_2c2770 * *)&this->f_60))
+        (*(Obj_2c2770 * *)&this->f_60)->f23();
+    if ((*(Obj_2c2770 * *)&this->f_64))
+        (*(Obj_2c2770 * *)&this->f_64)->f23();
+    ((DrawableContainer_2c2770*)this)->vfunc_9();
 }

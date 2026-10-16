@@ -1,10 +1,5 @@
-class ChargeClearAction {
-  public:
-    char pad[0x1c];
-    void* mObj;
-    void* mNext;
-    void vfunc_4();
-};
+#include "gen/hulkfight.h"
+
 struct A_1719f0 {
     char pad[0x14];
     unsigned char flag;
@@ -19,9 +14,10 @@ struct First_1719f0 {
 struct Second_1719f0 {
     B_1719f0* g();
 };
-void ChargeClearAction::vfunc_4() {
-    if (!((A_1719f0*)mObj)->flag) {
-        B_1719f0* x = ((First_1719f0*)mNext)->f();
+
+void hulkfight::motion::ChargeClearAction::vfunc_4() {
+    if (!((A_1719f0*)(*(void * *)&this->f_1c))->flag) {
+        B_1719f0* x = ((First_1719f0*)(*(void * *)&this->f_20))->f();
         B_1719f0* y = ((Second_1719f0*)x)->g();
         y->value = 0;
     }

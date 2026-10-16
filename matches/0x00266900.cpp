@@ -5,7 +5,7 @@ class Ref_266900 {
 };
 extern char vtLoad_266900[];
 extern char vtRef_266900[];
-class LoadRequest {
+namespace content { class LoadRequest {
   public:
     int vt;
     char p[0x14];
@@ -14,9 +14,9 @@ class LoadRequest {
     char q[0x104];
     Ref_266900* b;
     LoadRequest* vfunc_2(bool);
-};
-void thunk(LoadRequest*);
-LoadRequest* LoadRequest::vfunc_2(bool d) {
+}; }
+void thunk(content::LoadRequest*);
+content::LoadRequest* content::LoadRequest::vfunc_2(bool d) {
     vt = (int)vtLoad_266900;
     if (a)
         a->f1();

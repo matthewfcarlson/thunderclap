@@ -1,43 +1,12 @@
+#include "gen/pure3d.h"
+
 class Inner_2df240 {
   public:
     void f();
 };
 
-class ShadowSkin {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
-    virtual void f11();
-    virtual void f12();
-    virtual void f13();
-    virtual void f14();
-    virtual void f15();
-    virtual void f16();
-    virtual void f17();
-    virtual void f18();
-    virtual void f19();
-    virtual void f20();
-    virtual void f21();
-    virtual void f22();
-    virtual void f23();
-    virtual void vfunc_24();
-    virtual void f25();
-    virtual void f26();
-    char pad[0x44];
-    Inner_2df240* member;
-};
-
-void ShadowSkin::vfunc_24() {
-    Inner_2df240* p = member;
+void pure3d::ShadowSkin::vfunc_24() {
+    Inner_2df240* p = (*(Inner_2df240 * *)&this->f_48);
     Inner_2df240* q = (Inner_2df240*)*(volatile void* const volatile*)p;
     q->f();
 }

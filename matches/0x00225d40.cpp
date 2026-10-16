@@ -1,10 +1,7 @@
-class AnimationDriver {
-  public:
-    char pad[0x23c];
-    float value;
-    void vfunc_9(int);
-};
+#include "gen/choreo2.h"
+
 extern float __stdcall GetValue(int);
-void AnimationDriver::vfunc_9(int x) {
-    value = GetValue(x);
+
+void choreo2::AnimationDriver::vfunc_9(int x) {
+    this->f_23c = GetValue(x);
 }

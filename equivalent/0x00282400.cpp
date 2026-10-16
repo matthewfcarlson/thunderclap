@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 13/14, incomplete)
 // FUN_00282400 @ 0x00282400
+#include "decls/address.h"
 struct V3_282400 {
     float x, y, z;
 };
@@ -68,7 +69,7 @@ class Factory_282400 {
     virtual Stream* v10(Desc_282400* d);
 };
 
-class Screen_282400 {
+class Gfx {
   public:
     virtual void v0();
     virtual void v1();
@@ -199,7 +200,6 @@ void __cdecl FUN_00280d90(Elem_282400* out, int n3, int cap, int* outCount, V3_2
 int __cdecl FUN_00266da0(int mode);
 
 extern Factory_282400* DAT_0052c2a0;
-extern Screen_282400* DAT_0052c2a8;
 
 class Builder {
   public:

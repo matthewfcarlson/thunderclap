@@ -1,12 +1,14 @@
+#include "gen/fight.h"
+
 class Base_77570 {
   public:
     Base_77570();
     virtual void bv();
     int bx;
 };
-class CSoundTrack : public Base_77570 {
+class CSoundTrack_77570 : public Base_77570 {
   public:
-    CSoundTrack() : Base_77570() {
+    CSoundTrack_77570() : Base_77570() {
         zero = 0;
         flag = 0;
         flag2 = 0;
@@ -25,20 +27,12 @@ class CSoundTrack : public Base_77570 {
     unsigned char flag2;
 };
 void* operator_new(unsigned int);
-class TrackFactoryTemplate {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual CSoundTrack* make();
-};
-CSoundTrack* TrackFactoryTemplate::make() {
-    CSoundTrack* p = (CSoundTrack*)operator_new(0x54);
+
+template <> void* fight::TrackFactoryTemplate<CSoundTrack>::vfunc_5() {
+    CSoundTrack_77570* p = (CSoundTrack_77570*)operator_new(0x54);
     if (p) {
-        p->CSoundTrack::CSoundTrack();
-        return p;
+        p->CSoundTrack_77570::CSoundTrack_77570();
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

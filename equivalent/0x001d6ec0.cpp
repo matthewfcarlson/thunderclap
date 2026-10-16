@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 152 inputs, branch coverage 53/54, incomplete)
 // FUN_001d6ec0 @ 0x001d6ec0
+#include "decls/address.h"
 unsigned __int64 FUN_0027afb0(const char* s) throw();
 extern unsigned __int64 DAT_004e25f0;
 extern unsigned int DAT_004e25f8;
@@ -64,7 +65,7 @@ struct Rules {
     bool FUN_000997a0();
 };
 
-struct Globals_1d6ec0 {
+struct World {
     char pad0[8];
     Rules* rules;
     char pad0c[0x14];
@@ -73,7 +74,6 @@ struct Globals_1d6ec0 {
     Level_1d6ec0* level;
 };
 
-extern Globals_1d6ec0* DAT_004dd700;
 
 struct Hit;
 
@@ -162,7 +162,7 @@ bool Receiver_1d6ec0::FUN_001d6ec0(int amount, Ref_1d6ec0* victim, bool forced)
             if (ft->body->kind == kindMatch)
                 dmg = (int)(amount * kindScale);
         }
-        Globals_1d6ec0* g = DAT_004dd700;
+        World* g = DAT_004dd700;
         if (ft == g->roster->player) {
             if (g->level->FUN_00086340()->FUN_00092940(0x14))
                 dmg += dmg;

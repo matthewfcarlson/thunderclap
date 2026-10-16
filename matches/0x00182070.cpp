@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct A_182070 {
     void* f();
 };
@@ -10,23 +12,13 @@ struct C_182070 {
 struct D {
     int f(int*);
 };
-class PropSetStateByNameAction {
-  public:
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual void a3();
-    virtual void a4();
-    virtual bool vfunc_5(unsigned int, unsigned int);
-    char pad4[0x18];
-    int* mData;
-    A_182070* mThing;
-};
-bool PropSetStateByNameAction::vfunc_5(unsigned int param, unsigned int) {
-    if (param == 0 && mThing != 0) {
-        A_182070* p = (A_182070*)mThing->f();
+
+bool hulkfight::motion::PropSetStateByNameAction::vfunc_5(int __p0, int __p1) { unsigned int param = (unsigned int)__p0;
+
+    if (param == 0 && (*(A_182070 * *)&this->f_20) != 0) {
+        A_182070* p = (A_182070*)(*(A_182070 * *)&this->f_20)->f();
         int x = ((B_182070*)p)->f();
-        int index = mData[4];
+        int index = (*(int * *)&this->f_1c)[4];
         if (x != 0) {
             if (index < 0)
                 x = *(int*)((char*)x + 0x128);
@@ -36,7 +28,7 @@ bool PropSetStateByNameAction::vfunc_5(unsigned int param, unsigned int) {
                 x = ((C_182070*)x)->f(index);
             }
             if (x != 0)
-                ((D*)x)->f((int*)((char*)mData + 0x18));
+                ((D*)x)->f((int*)((char*)(*(int * *)&this->f_1c) + 0x18));
         }
     }
     return false;

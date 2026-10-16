@@ -1,10 +1,5 @@
-class Timer {
-    char pad[0x10];
-    unsigned char value;
+#include "gen/core.h"
 
-  public:
-    bool vfunc_11();
-};
-bool Timer::vfunc_11() {
-    return value == 0;
+bool core::Timer::vfunc_11() {
+    return this->f_10 == 0;
 }

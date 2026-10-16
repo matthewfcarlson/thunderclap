@@ -1,7 +1,7 @@
+#include "decls/address.h"
 extern "C" char DAT_003f42cc[];
 extern "C" char DAT_003f45ec[];
 extern "C" void __stdcall FUN_001d0480(void*, int);
-extern "C" char __cdecl FUN_001d04d0(const char*);
 extern const char g1_2fd70[];
 extern const char g2_2fd70[];
 class Target_2fd70 {

@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2359 inputs, branch coverage 23/24, incomplete)
 // FUN_00025010 @ 0x00025010
+#include "decls/address.h"
 typedef unsigned __int64 U64_25010;
 extern char DAT_003f335c[];
-extern U64_25010 __cdecl FUN_0027b020(const char*);
 struct Info_25010 { char pad[0x9e]; unsigned char enabled; char pad2; U64_25010 key; };
 struct Item_25010 { char pad[0x1ca0]; Info_25010* info; const char* FUN_00036d00(); };
 struct Registry_25010 { Item_25010* FUN_00059c10(int); };

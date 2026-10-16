@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_001f8f70 @ 0x001f8f70
+#include "decls/address.h"
 struct Key {
     int lo, hi;
     Key() throw() {}
@@ -16,11 +17,10 @@ struct Factory_1f8f70 {
     Item_1f8f70* FUN_001fc8c0(int lo, int hi);
 };
 
-struct Game_1f8f70 {
+struct World {
     char pad[0x28];
     Factory_1f8f70* factory;       // 0x28
 };
-extern Game_1f8f70* DAT_004dd700;
 
 class Registry_1f8f70 {
 public:

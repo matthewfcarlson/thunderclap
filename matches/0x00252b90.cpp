@@ -1,4 +1,6 @@
-class SeqEvent {
+#include "gen/audio.h"
+
+class SeqEvent_252b90 {
   public:
     virtual int vfunc_0(void*);
     virtual void vfunc_1();
@@ -16,12 +18,9 @@ class TempoCheck {
     bool check(void*);
 };
 bool __cdecl CheckTempoData(void*, void*);
-class SeqEventVarTempo : public SeqEvent {
-  public:
-    char pad[4];
-    virtual int vfunc_0(void*);
-};
-int SeqEventVarTempo::vfunc_0(void* p) {
+
+int audio::SeqEventVarTempo::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
     if (((SeqEventB*)this)->SeqEventB::vfunc_0(p) && ((TempoCheck*)((char*)this + 8))->check(p) &&
         CheckTempoData(p, (char*)this + 0x10))
         return 1;

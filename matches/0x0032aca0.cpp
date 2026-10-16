@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 namespace pure3d {
 struct Matrix4_32aca0 {
     float m[16];
@@ -5,7 +7,7 @@ struct Matrix4_32aca0 {
     void FUN_0022cc10(const Matrix4_32aca0* a, const Matrix4_32aca0* b);
     void FUN_0022c0b0();
 };
-class d3dShader {
+class d3dShader_32aca0 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -33,11 +35,9 @@ class d3dShader {
     virtual void vfunc_23();
     virtual void vfunc_24();
 };
-class d3dSimpleShader : public d3dShader {
-  public:
+struct d3dSimpleShader_nv_32aca0 {
     void FUN_0032a5a0();
     void FUN_0032a600();
-    void vfunc_24();
 };
 } // namespace pure3d
 namespace D3D8 {
@@ -64,6 +64,6 @@ void pure3d::d3dSimpleShader::vfunc_24() {
     g.FUN_0022c0b0();
     D3D8::D3DDevice_SetVertexShaderConstant4(0x6a, &g);
     D3D8::D3DDevice_SetVertexShaderConstant4(0x6e, &f);
-    FUN_0032a5a0();
-    FUN_0032a600();
+    ((d3dSimpleShader_nv_32aca0*)this)->FUN_0032a5a0();
+    ((d3dSimpleShader_nv_32aca0*)this)->FUN_0032a600();
 }

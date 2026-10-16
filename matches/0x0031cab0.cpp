@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Dev_31cab0 {
   public:
     virtual void p0();
@@ -76,17 +78,13 @@ class Dev_31cab0 {
     virtual void x5();
     virtual void s5(int, int, int);
 };
-class St_31cab0 {
-  public:
-    virtual void v0(Dev_31cab0*);
-    unsigned char a;
-    int b, c, d, pad, e, f, g;
-};
-void St_31cab0::v0(Dev_31cab0* dev) {
-    dev->s0(a);
-    dev->s1(b);
-    dev->s2(c);
-    dev->s3(d);
-    dev->s4(d);
-    dev->s5(e, f, g);
+
+void pure3d::pddiStencilState::vfunc_0(void* __p0) { Dev_31cab0 * dev = (Dev_31cab0 *)__p0;
+
+    dev->s0(this->f_04);
+    dev->s1(this->f_08);
+    dev->s2(this->f_0c);
+    dev->s3(this->f_10);
+    dev->s4(this->f_10);
+    dev->s5(this->f_18, this->f_1c, this->f_20);
 }

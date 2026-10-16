@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0041935c[];
-class PropDropTrack {
+class PropDropTrack_18bf00 {
   public:
     void Init();
     int vt;
@@ -9,24 +11,16 @@ class PropDropTrack {
     int d;
 };
 extern void* operator_new(unsigned int);
-class Factory_18bf00 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    PropDropTrack* vfunc_5();
-};
-PropDropTrack* Factory_18bf00::vfunc_5() {
-    PropDropTrack* p = (PropDropTrack*)operator_new(0x14);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropDropTrack>::vfunc_5() {
+    PropDropTrack_18bf00* p = (PropDropTrack_18bf00*)operator_new(0x14);
     if (p) {
         p->Init();
         p->vt = ((int)DAT_0041935c);
         p->c = 0;
         p->d = -1;
         p->e = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

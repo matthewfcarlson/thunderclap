@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3053 inputs, branch coverage 164/172, incomplete)
 // FUN_00081b20 @ 0x00081b20
+#include "decls/address.h"
 extern "C" double sqrt(double);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 namespace pure3d { class Animation; }
@@ -242,7 +243,6 @@ struct EntryRec {
     char pad9[7];
 };
 
-extern World *DAT_004dd700;
 extern Gravity_81b20 *DAT_00554c10;
 extern Vec3_81b20 DAT_0049bf1c;
 extern float DAT_00421894;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000f2b10 @ 0x000f2b10
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 namespace content {
 namespace LoadInventory {
@@ -33,7 +34,6 @@ public:
     virtual Ref_f2b10 *v3(content::LoadInventory::DynamicCasterBase *caster, unsigned int lo, unsigned int hi);
 };
 extern Loader_f2b10 *DAT_004dd9cc;
-unsigned __int64 __cdecl FUN_0027b020(const char *name);
 
 class Owner_f2b10 {
 public:

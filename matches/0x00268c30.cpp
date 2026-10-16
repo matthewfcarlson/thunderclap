@@ -1,4 +1,6 @@
-class IControllerOutputPoint {
+#include "gen/core.h"
+
+class IControllerOutputPoint_268c30 {
   public:
     virtual void f0();
     virtual void f1();
@@ -8,17 +10,12 @@ class IControllerOutputPoint {
     virtual void f5();
     virtual void vfunc_6(float);
 };
-class ControllerOutputPointXBox : public IControllerOutputPoint {
-  public:
-    char pad[0x0c - sizeof(void*)];
-    float value;
-    void vfunc_6(float);
-};
-void ControllerOutputPointXBox::vfunc_6(float x) {
+
+void core::ControllerOutputPointXBox::vfunc_6(float x) {
     if (x < 0.0f)
-        value = 0.0f;
+        this->f_0c = 0.0f;
     else if (x > 1.0f)
-        value = 1.0f;
+        this->f_0c = 1.0f;
     else
-        value = x;
+        this->f_0c = x;
 }

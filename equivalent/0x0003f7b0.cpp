@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3031 inputs, branch coverage 71/72, incomplete)
 // FUN_0003f7b0 @ 0x0003f7b0
+#include "decls/address.h"
 extern "C" double __cdecl sin(double);
 extern "C" double __cdecl cos(double);
 
@@ -50,7 +51,6 @@ struct World {
     Player_3f7b0 *player;
 };
 
-extern World *DAT_004dd700;
 extern float DAT_0048f690;
 extern float DAT_0048f694;
 extern unsigned int DAT_004dc2e8;

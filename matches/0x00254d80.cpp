@@ -1,3 +1,5 @@
+#include "gen/audio.h"
+
 extern "C" void _ReadWriteBarrier();
 inline void* operator new(unsigned int, void* p) {
     return p;
@@ -24,15 +26,10 @@ struct Repeat : Base_254d80, Init_254d80 {
     Repeat() throw() {}
     virtual void f0();
 };
-struct Type {
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual Base_254d80* vfunc_3();
-};
-Base_254d80* Type::vfunc_3() {
+
+void* audio::SeqEventLogicRepeatType::vfunc_3() {
     Repeat* r = (Repeat*)PoolAlloc(gPool_254d80);
     if (r)
-        return new (r) Repeat;
-    return 0;
+        return (void*)(new (r) Repeat);
+    return (void*)(0);
 }

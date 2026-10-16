@@ -3,10 +3,10 @@
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ??_R0?AVAnimationLoader@pure3d@@@8 = 0x004ce974
 // equiv-map: ??_R0?AVObjectLoader@content@@@8 = 0x0049c7dc
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
 void *FUN_0008d690(unsigned int size);
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
 struct Stream;
 struct Ctx_2ac610;
 namespace pure3d { class Shader; }

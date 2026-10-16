@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 23251 inputs, branch coverage 184/187, incomplete)
 // FUN_0001b510 @ 0x0001b510
+#include "decls/address.h"
 typedef unsigned __int64 u64;
 
 struct V3 {
@@ -276,7 +277,6 @@ struct World {
     Runner *f34;
 };
 
-extern World *DAT_004dd700;
 extern u64 DAT_004dc030;
 
 int __cdecl FUN_00266da0(int v);

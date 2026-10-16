@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_000b50d0 @ 0x000b50d0
+#include "decls/address.h"
 class FEObject {
 public:
     virtual void v0();
@@ -32,11 +33,10 @@ struct Sink_b50d0 {
     void FUN_001cbc20(Message_b50d0 *msg);
 };
 
-struct Globals_b50d0 {
+struct World {
     char pad0[0x30];
     Sink_b50d0 *sink;               // 0x30
 };
-extern Globals_b50d0 *DAT_004dd700;
 
 FEObject *__cdecl FUN_000fc260(const char *name);
 void __cdecl FUN_000fc300();

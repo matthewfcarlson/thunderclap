@@ -1,4 +1,6 @@
 // Same code shape as 0x0012fa00 (propagated; names are from that function)
+#include "gen/hulkfight.h"
+
 typedef unsigned int u32_12fa50;
 class Result_12fa50 {
   public:
@@ -18,17 +20,11 @@ class ActionBase_12fa50 {
     virtual void f4();
     virtual void f5();
 };
-class StatBeginTrialAction : public ActionBase_12fa50 {
-  public:
-    char pad18[0x18];
-    u32_12fa50 m1c;
-    u32_12fa50 m20;
-    bool vfunc_3(void*, void*);
-};
-bool StatBeginTrialAction::vfunc_3(void*, void*) {
-    if (!m20)
+
+bool hulkfight::StatEndTrialAction::vfunc_3(int __p0, int __p1) {
+    if (!(*(u32_12fa50 *)&this->f_20))
         return false;
-    u32_12fa50 x = *(u32_12fa50*)(m1c + 0x10);
+    u32_12fa50 x = *(u32_12fa50*)((*(u32_12fa50 *)&this->f_1c) + 0x10);
     Result_12fa50* q = gGlobal_12fa50->run(x);
     q->run();
     return true;

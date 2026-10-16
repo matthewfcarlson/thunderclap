@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3051 inputs, branch coverage 78/80, incomplete)
 // FUN_000bd1b0 @ 0x000bd1b0
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int strcmp(const char *, const char *);
 extern "C" int memcmp(const void *, const void *, unsigned int);
@@ -61,7 +62,7 @@ struct Style {
     void FUN_000dee10();
 };
 
-class Screen_bd1b0 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -229,7 +230,7 @@ struct Obj86 {
     Probe_bd1b0 *FUN_00086350();
     Sink_bd1b0 *FUN_00086330();
 };
-struct Game_bd1b0 {
+struct World {
     char pad0[0x54];
     Obj86 *f54;
 };
@@ -247,8 +248,6 @@ struct TblEntry {
 };
 
 extern TblEntry DAT_004061e8[];
-extern Game_bd1b0 *DAT_004dd700;
-extern Screen_bd1b0 *DAT_0052c2a8;
 extern Canvas *DAT_0052c2ac;
 extern Viewport_bd1b0 *DAT_0052c2a4;
 extern Sys52 *DAT_0052c2b4;

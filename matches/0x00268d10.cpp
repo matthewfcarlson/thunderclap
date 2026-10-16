@@ -1,27 +1,11 @@
+#include "gen/core.h"
+
 typedef unsigned int u32_268d10;
 extern float __stdcall GetPointX(u32_268d10);
 namespace core {
-class ControllerInputPointXBox {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void vfunc_12(u32_268d10);
-    virtual void v13();
-    virtual void v14();
-    char pad[4];
-    float value;
-};
-void ControllerInputPointXBox::vfunc_12(u32_268d10 arg) {
-    value = GetPointX(arg);
-}
+
 } // namespace core
+void core::ControllerInputPointXBox::vfunc_12(int __p0) { u32_268d10 arg = (u32_268d10)__p0;
+
+    this->f_08 = GetPointX(arg);
+}

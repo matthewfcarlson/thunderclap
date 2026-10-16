@@ -1,5 +1,7 @@
+#include "gen/physics.h"
+
 namespace physics {
-class PhysicsJoint {
+class PhysicsJoint_30aea0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -11,42 +13,15 @@ class PhysicsJoint {
     virtual void f7();
     virtual void f8();
 };
-class PhysicsJoint1D : public PhysicsJoint {
-  public:
-    virtual void vfunc_9(float, float);
-    virtual void f10();
-    virtual void f11();
-    virtual void f12();
-    virtual void f13();
-    virtual void f14();
-    virtual void f15();
-    virtual void f16();
-    virtual void f17();
-    virtual void f18();
-    virtual void f19();
-    virtual void f20();
-    virtual void f21();
-    virtual void f22();
-    virtual void f23();
-    virtual void f24();
-    virtual void f25();
-    virtual void f26();
-    virtual void f27();
-    virtual void f28();
-    char pad[0x10 - sizeof(PhysicsJoint)];
-    float a;
-    float b;
-    char pad2[0xf8 - 0x18];
-    unsigned char flag;
-};
-void PhysicsJoint1D::vfunc_9(float x, float y) {
-    a = x;
-    b = y;
+
+} // namespace physics
+void physics::PhysicsJoint1D::vfunc_9(float x, float y) {
+    (*(float *)&this->f_10) = x;
+    (*(float *)&this->f_14) = y;
     if (y == x && y > 0.0f) {
-        flag = 0;
-        a = -y;
+        this->f_f8 = 0;
+        (*(float *)&this->f_10) = -y;
         return;
     }
-    flag = 1;
+    this->f_f8 = 1;
 }
-} // namespace physics

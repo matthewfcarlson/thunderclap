@@ -1,11 +1,6 @@
 // Same code shape as 0x00086290 (propagated; names are from that function)
-class Obj_e1650 {
-  public:
-    char pad[0x24];
-    int mValue;
-    int GetValue();
-};
+#include "gen/global.h"
 
-int Obj_e1650::GetValue() {
-    return mValue;
+int FEParticleSystem::vfunc_4() {
+    return this->f_24;
 }

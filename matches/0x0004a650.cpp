@@ -1,13 +1,12 @@
 // Same code shape as 0x00048300 (propagated; names are from that function)
+#include "gen/global.h"
+
 extern int* gTable_4a650;
-class CCondition {
+class CCondition_4a650 {
   public:
     virtual int vfunc_0(int);
 };
-class CGrappleTimerCondition : public CCondition {
-  public:
-    int vfunc_0(int);
-};
+
 int CGrappleTimerCondition::vfunc_0(int index) {
     int* p = gTable_4a650;
     return p[index];

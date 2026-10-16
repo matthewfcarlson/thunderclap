@@ -1,9 +1,5 @@
-class CFightParamsCollision {
-    char pad[0x18];
+#include "gen/global.h"
 
-  public:
-    CFightParamsCollision* vfunc_3();
-};
-CFightParamsCollision* CFightParamsCollision::vfunc_3() {
-    return (CFightParamsCollision*)((char*)this + 0x18);
+void* CFightParamsCollision::vfunc_3() {
+    return (void*)((CFightParamsCollision*)((char*)this + 0x18));
 }

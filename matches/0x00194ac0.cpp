@@ -1,3 +1,4 @@
+#include "decls/address.h"
 extern char DAT_00494b44, DAT_00494b60, DAT_004bfe10, DAT_004bfe2c;
 extern "C" void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 struct Prop_194ac0 {};
@@ -21,11 +22,10 @@ struct Entry_194ac0 {
 struct Registry_194ac0 {
     Entry_194ac0* FUN_001b68e0(int);
 };
-struct Global_194ac0 {
+struct World {
     char pad[0x14];
     Registry_194ac0* registry;
 };
-extern Global_194ac0* DAT_004dd700;
 namespace hulkfight {
 namespace motion {
 struct PropIsMissileCondition {

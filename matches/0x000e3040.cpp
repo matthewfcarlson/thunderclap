@@ -1,10 +1,6 @@
-class TextSelector {
-  public:
-    char pad[0x1d58];
-    int count;
-    void vfunc_21(int index, unsigned char value);
-};
+#include "gen/global.h"
+
 void TextSelector::vfunc_21(int index, unsigned char value) {
-    if (index >= 0 && index < count)
+    if (index >= 0 && index < this->f_1d58)
         ((char*)this)[index * 0x38 + 0x18c] = value;
 }

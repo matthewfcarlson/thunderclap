@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 12/12)
 // FUN_00027c90 @ 0x00027c90
 // Group method: look up a named pawn and a node by path, then register the pawn's slot with it.
+#include "decls/address.h"
 typedef unsigned __int64 Key_27c90;
-extern Key_27c90 __cdecl FUN_002672f0(const char *name, int a, int b);
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, const void *srcType, const void *dstType, int isRef);
 extern char DAT_0048e090;
 extern char DAT_0048e0ac;

@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 class Helper_124ce0 {
   public:
     Helper_124ce0* Get();
@@ -5,25 +7,14 @@ class Helper_124ce0 {
     int Check();
     void Act();
 };
-class ClearProjectileDistanceAction {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual bool vfunc_5(int, int);
-    char pad[0x18];
-    char* mData;
-    Helper_124ce0* mHelper;
-};
-bool ClearProjectileDistanceAction::vfunc_5(int a, int b) {
+
+bool hulkfight::ai::ClearProjectileDistanceAction::vfunc_5(int a, int b) {
     if (a != 0)
         goto done;
     {
-        Helper_124ce0* x = mHelper->Get();
+        Helper_124ce0* x = (*(Helper_124ce0 * *)&this->f_20)->Get();
         x = x->Next();
-        if (mData[0x14] && x->Check())
+        if ((*(char * *)&this->f_1c)[0x14] && x->Check())
             x->Act();
     }
 done:

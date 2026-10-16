@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // FUN_00025a90 @ 0x00025a90
+#include "decls/address.h"
 void *FUN_0008d690(unsigned int size);
 
 struct Name_25a90 {
@@ -45,7 +46,6 @@ extern const char *DAT_0048e064;
 extern const char *DAT_0048e068;
 extern float DAT_004dc0d8;
 
-unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned int lo, unsigned int hi);
 void __cdecl FUN_00232d70(void (*fn)(), int arg);
 void FUN_00024120();
 void __cdecl FUN_000553d0(void *p);

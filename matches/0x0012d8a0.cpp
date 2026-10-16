@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00410c84[];
-class ThreatDodgeTrack {
+class ThreatDodgeTrack_12d8a0 {
   public:
     int a[2];
     int b;
@@ -15,17 +17,9 @@ struct Base {
 struct Tail {
     Tail();
 };
-class Factory_12d8a0 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual ThreatDodgeTrack* Create();
-};
-ThreatDodgeTrack* Factory_12d8a0::Create() {
-    ThreatDodgeTrack* p = (ThreatDodgeTrack*)Alloc(0x28);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::ai::ThreatDodgeTrack>::vfunc_5() {
+    ThreatDodgeTrack_12d8a0* p = (ThreatDodgeTrack_12d8a0*)Alloc(0x28);
     if (p) {
         Base* b = (Base*)p;
         b->Base::Base();
@@ -36,7 +30,7 @@ ThreatDodgeTrack* Factory_12d8a0::Create() {
         *((char*)p + 0x18) = 1;
         Tail* t = (Tail*)((char*)p + 0x20);
         t->Tail::Tail();
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

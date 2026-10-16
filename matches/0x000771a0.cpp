@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_003fbc24[];
-struct CMoveAddTrack {
+struct CMoveAddTrack_771a0 {
     unsigned int vf;
     unsigned int x4;
     unsigned int x8;
@@ -10,17 +12,9 @@ struct CMoveAddTrack {
     void Init();
 };
 extern void* Alloc(unsigned int);
-class TrackFactoryTemplate {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual CMoveAddTrack* v5();
-};
-CMoveAddTrack* TrackFactoryTemplate::v5() {
-    CMoveAddTrack* p = (CMoveAddTrack*)Alloc(0x1c);
+
+template <> void* fight::TrackFactoryTemplate<CMoveAddTrack>::vfunc_5() {
+    CMoveAddTrack_771a0* p = (CMoveAddTrack_771a0*)Alloc(0x1c);
     if (p != 0) {
         p->Init();
         p->x10 = 1.0f;
@@ -29,7 +23,7 @@ CMoveAddTrack* TrackFactoryTemplate::v5() {
         p->xc = 0;
         p->x18 = 0;
         p->x8 = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 class TimerBase {
   public:
     virtual void a();
@@ -20,21 +22,12 @@ struct List_267ca0 {
     unsigned int count;
     int* items;
 };
-class Timer : public TimerBase {
-  public:
-    char pad04[0x0c];
-    unsigned char mFlag;
-    char pad11[3];
-    int mState;
-    char pad18[8];
-    List_267ca0* volatile mList;
-    void vfunc_9();
-};
-void Timer::vfunc_9() {
-    if (!mFlag) {
-        mState = 0;
-        mFlag = 1;
-        List_267ca0* p = mList;
+
+void core::Timer::vfunc_9() {
+    if (!this->f_10) {
+        this->f_14 = 0;
+        this->f_10 = 1;
+        List_267ca0* p = (*(List_267ca0 *volatile *)&this->f_20);
         unsigned int n = p->count;
         unsigned int i = 0;
         if (n > 0) {
@@ -47,7 +40,7 @@ void Timer::vfunc_9() {
                 }
                 ++i;
                 ++cur;
-            } while (i < mList->count);
+            } while (i < (*(List_267ca0 *volatile *)&this->f_20)->count);
         }
     }
 }

@@ -1,4 +1,6 @@
-class FELayout {
+#include "gen/global.h"
+
+class FELayout_e24e0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -40,23 +42,8 @@ class Child_e24e0 {
     virtual void n();
     virtual void o(int);
 };
-class VScroll : public FELayout {
-    char pad[0x244 - sizeof(FELayout)];
 
-  public:
-    Child_e24e0* child;
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9(int);
-};
-void VScroll::v9(int x) {
-    if (child)
-        child->o(x);
+void VScroll::vfunc_9(int x) {
+    if ((*(Child_e24e0 * *)&this->f_244))
+        (*(Child_e24e0 * *)&this->f_244)->o(x);
 }

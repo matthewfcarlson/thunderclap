@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 32/32)
 // hulkfight::motion::BallAndChainShootAction::vfunc_5 @ 0x00184b00
 // hulkfight::motion::BallAndChainShootAction::vfunc_5 @ 0x00184b00
+#include "decls/address.h"
 struct V3_184b00 {
     float x, y, z;
     bool FUN_0022d2b0(const V3_184b00 *other, float eps);
@@ -107,7 +108,7 @@ struct Player_184b00 {
     void FUN_00029bb0(unsigned a, Obj_184b00 *b, float c);
 };
 
-struct World_184b00 {
+struct World {
     char pad0[0x20];
     Player_184b00 *player;  // 0x20
     Ray_184b00 *ray;        // 0x24
@@ -115,7 +116,6 @@ struct World_184b00 {
     Sink_184b00 *sink;      // 0x34
     Spawn_184b00 *spawn;    // 0x38
 };
-extern World_184b00 *DAT_004dd700;
 extern float DAT_003f32e0;
 
 struct Decal_184b00 {

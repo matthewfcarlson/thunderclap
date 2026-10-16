@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 141 inputs, branch coverage 4/4)
 // FUN_00089d30 @ 0x00089d30
+#include "decls/address.h"
 struct Control_89d30 { void FUN_00090130(int); };
 struct Entries_89d30 { void FUN_00093600(int,int); void FUN_00092870(int,float); void FUN_000929a0(int,float); };
 struct Final_89d30 { void FUN_000c3ea0(); };
 struct Manager_89d30 { Control_89d30* FUN_00086370(); Entries_89d30* FUN_00086340(); Final_89d30* FUN_00086280(); };
-struct Root_89d30 { char pad[0x54]; Manager_89d30* manager; };
-extern Root_89d30* DAT_004dd700;
+struct World { char pad[0x54]; Manager_89d30* manager; };
 extern "C" void __cdecl FUN_00267760(char*,int,const char*,int,int);
 struct Item_89d30 { int first,second; char pad[16]; };
 struct Target_89d30 {

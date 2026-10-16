@@ -1,4 +1,6 @@
-class HalStream {
+#include "gen/audio.h"
+
+class HalStream_263050 {
   public:
     virtual void v0();
     virtual void v1();
@@ -21,27 +23,16 @@ class Device_263050 {
     virtual void v2();
     virtual void v3(int, unsigned, int);
 };
-class HalRsdFileStream : public HalStream {
-  public:
-    char pad04[0x20 - 4];
-    Device_263050* device;
-    char pad24[8];
-    unsigned length;
-    char pad30[0x3c - 0x30];
-    unsigned amount;
-    char pad40[4];
-    unsigned state;
-    void vfunc_6(int, int, unsigned);
-};
-void HalRsdFileStream::vfunc_6(int a, int b, unsigned n) {
-    if (length < n)
-        amount = length;
+
+void audio::HalRsdFileStream::vfunc_6(int a, int b, unsigned int n) {
+    if (this->f_2c < n)
+        this->f_3c = this->f_2c;
     else
-        amount = n;
-    if (amount > 0) {
-        device->v3(a, amount, b);
-        state = 5;
+        this->f_3c = n;
+    if (this->f_3c > 0) {
+        (*(Device_263050 * *)&this->f_20)->v3(a, this->f_3c, b);
+        this->f_44 = 5;
         return;
     }
-    state = 6;
+    this->f_44 = 6;
 }

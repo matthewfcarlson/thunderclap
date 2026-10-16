@@ -1,40 +1,29 @@
 // Same code shape as 0x0005adb0 (propagated; names are from that function)
+#include "gen/global.h"
+
 struct Obj_5afb0 {
     char pad[0x330];
     int* p330;
     int* p334;
 };
-struct Context {
+struct Context_5afb0 {
     Obj_5afb0* first();
     Obj_5afb0* second();
 };
-class CGrappleSequenceTrack {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    virtual int* vfunc_8(void*, void*);
-    virtual void vfunc_9();
-    virtual void vfunc_10();
-    virtual void vfunc_11();
-};
-int* CGrappleSequenceTrack::vfunc_8(void*, void* p) {
+
+void* CGrappleSequenceTrack::vfunc_8(void* __p0, void* __p1) { void * p = (void *)__p1;
+
     if (!p)
-        return 0;
-    Obj_5afb0* a = ((Context*)p)->first();
+        return (void*)(0);
+    Obj_5afb0* a = ((Context_5afb0*)p)->first();
     if (!a)
-        return 0;
-    Obj_5afb0* b = ((Context*)a)->second();
+        return (void*)(0);
+    Obj_5afb0* b = ((Context_5afb0*)a)->second();
     if (!b)
-        return 0;
+        return (void*)(0);
     if (b->p334)
-        return (int*)((char*)b->p334 + 0xdc);
+        return (void*)((int*)((char*)b->p334 + 0xdc));
     if (b->p330)
-        return (int*)((char*)b->p330 + 0xdc);
-    return 0;
+        return (void*)((int*)((char*)b->p330 + 0xdc));
+    return (void*)(0);
 }

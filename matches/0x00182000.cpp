@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct Act_182000 {
     void Run(void* o, unsigned char b);
 };
@@ -22,22 +24,12 @@ struct Reg2 {
 struct Owner_182000 {
     Reg2* GetReg2();
 };
-class A_182000 {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual bool v5(unsigned p, int q);
-    char pad[0x1c - 4];
-    Cfg_182000* cfg;
-    Owner_182000* m20;
-};
-bool A_182000::v5(unsigned p, int q) {
-    if (p == 0 && m20 != 0) {
-        Ent_182000* e = m20->GetReg2()->Lookup();
-        int i = cfg->idx;
+
+bool hulkfight::motion::PropAddToCollisionAction::vfunc_5(int __p0, int q) { unsigned int p = (unsigned int)__p0;
+
+    if (p == 0 && (*(Owner_182000 * *)&this->f_20) != 0) {
+        Ent_182000* e = (*(Owner_182000 * *)&this->f_20)->GetReg2()->Lookup();
+        int i = (*(Cfg_182000 * *)&this->f_1c)->idx;
         if (e) {
             void* o;
             if (i < 0)
@@ -48,7 +40,7 @@ bool A_182000::v5(unsigned p, int q) {
                 o = e->Get(i);
             }
             if (o)
-                gG_182000->act->Run(o, cfg->b);
+                gG_182000->act->Run(o, (*(Cfg_182000 * *)&this->f_1c)->b);
         }
     }
     return false;

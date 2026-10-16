@@ -21,14 +21,14 @@ struct Manager_2750a0 {
     virtual void add(void*);
 };
 extern Manager_2750a0* g_mgr_2750a0;
-class SaveGameOpenRequest {
+namespace core { class SaveGameOpenRequest {
   public:
     void* vt;
     int pad;
     Inner_2750a0* inner;
     SaveGameOpenRequest* vfunc_0(int flags);
-};
-SaveGameOpenRequest* SaveGameOpenRequest::vfunc_0(int flags) {
+}; }
+core::SaveGameOpenRequest* core::SaveGameOpenRequest::vfunc_0(int flags) {
     Inner_2750a0* p = inner;
     *(void**)this = (void*)((int)DAT_0042b99c);
     ((Inner_2750a0*)((char*)p + 4))->a();

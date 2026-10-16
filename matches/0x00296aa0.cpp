@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 struct Obj_296aa0 {
     virtual void f0();
     virtual void f1();
@@ -24,30 +26,11 @@ struct Obj_296aa0 {
     virtual void f22();
     virtual void f23();
 };
-struct VisibilityNode {
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    char pad[0xc];
-    unsigned flags;
-    char p14[4];
-    unsigned count;
-    Obj_296aa0** items;
-    char p20[0xc];
-    Obj_296aa0* ref;
-    void vfunc_9();
-};
-void VisibilityNode::vfunc_9() {
-    if (ref)
-        ref->f23();
-    flags &= 0xfffffffe;
-    for (unsigned i = 0; i < count; ++i)
-        items[i]->f9();
+
+void pure3d::scenegraph::VisibilityNode::vfunc_9() {
+    if ((*(Obj_296aa0 * *)&this->f_2c))
+        (*(Obj_296aa0 * *)&this->f_2c)->f23();
+    (*(unsigned int *)&this->f_10) &= 0xfffffffe;
+    for (unsigned i = 0; i < this->f_18; ++i)
+        (*(Obj_296aa0 ** *)&this->f_1c)[i]->f9();
 }

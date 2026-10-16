@@ -1,3 +1,4 @@
+#include "decls/address.h"
 class CActorManager;
 class Base {
   public:
@@ -5,7 +6,6 @@ class Base {
     char pad[12];
     Base(CActorManager*, int);
 };
-extern unsigned char __cdecl FUN_001d04d0(const void*);
 extern char g1, g2;
 class Method1 : public Base {
   public:

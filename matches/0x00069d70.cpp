@@ -1,13 +1,12 @@
 // Same code shape as 0x000694c0 (propagated; names are from that function)
-class CAutoTargetTrack {
-  public:
-    int vfunc_12(int);
-};
+#include "gen/global.h"
+
 extern void* __cdecl FUN_0008d690(unsigned int);
 class Helper_69d70 {
   public:
     int FUN_000190a0(CAutoTargetTrack*, int);
 };
+
 int CAutoTargetTrack::vfunc_12(int param) {
     void* p = FUN_0008d690(0x30);
     if (p)

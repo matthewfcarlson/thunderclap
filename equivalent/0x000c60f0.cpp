@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_000c60f0 @ 0x000c60f0
+#include "decls/address.h"
 struct Vec3_c60f0 {
     float x, y, z;
 };
@@ -34,7 +35,7 @@ public:
     virtual void v6(unsigned int tag, int flag);
 };
 
-class Device_c60f0 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -71,7 +72,6 @@ public:
 };
 
 extern Factory_c60f0 *DAT_0052c2a0;
-extern Device_c60f0 *DAT_0052c2a8;
 extern Resource_c60f0 *DAT_004dde68;
 
 void FUN_000c5fa0(Handle *h, Vec3_c60f0 a, Vec3_c60f0 b, unsigned int color);

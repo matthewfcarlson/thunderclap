@@ -1,37 +1,14 @@
-class MemoryTwoWayAllocator {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual bool vfunc_9(int*, int*, int*, int*);
-    virtual void f10();
-    virtual void f11();
-    virtual void f12();
-    virtual void f13();
-    virtual void f14();
-    virtual void f15();
-    char pad[12];
-    int a0;
-    int a1;
-    int a2;
-    int a3;
-    int a4;
-    int a5;
-};
-bool MemoryTwoWayAllocator::vfunc_9(int* p, int* q, int* r, int* s) {
+#include "gen/core.h"
+
+bool core::MemoryTwoWayAllocator::vfunc_9(void* __p0, void* __p1, void* __p2, void* __p3) { int * p = (int *)__p0; int * q = (int *)__p1; int * r = (int *)__p2; int * s = (int *)__p3;
+
     if (p)
-        *p = a3 - a2;
+        *p = this->f_1c - this->f_18;
     if (q)
-        *q = a3 - a2;
+        *q = this->f_1c - this->f_18;
     if (r)
-        *r = a5 + a4;
+        *r = this->f_24 + this->f_20;
     if (s)
-        *s = ((a2 - a3) - a0) + a1;
+        *s = ((this->f_18 - this->f_1c) - this->f_10) + this->f_14;
     return true;
 }

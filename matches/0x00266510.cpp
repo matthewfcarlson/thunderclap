@@ -1,3 +1,5 @@
+#include "gen/content.h"
+
 class Arg_266510 {
   public:
     virtual void run();
@@ -6,20 +8,10 @@ class Helper_266510 {
   public:
     void call(void*, void*, Arg_266510*);
 };
-class LoadObject {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e(void*, void*, Arg_266510*);
-    virtual void f();
-    int x;
-    int y;
-    Helper_266510* member;
-};
-void LoadObject::e(void* a, void* b, Arg_266510* arg) {
-    Helper_266510* h = member;
+
+void content::LoadInventory::vfunc_4(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; Arg_266510 * arg = (Arg_266510 *)__p2;
+
+    Helper_266510* h = (*(Helper_266510 * *)&this->f_0c);
     arg->run();
     h->call(a, b, arg);
 }

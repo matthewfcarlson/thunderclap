@@ -1,7 +1,9 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0040feb4[];
 typedef unsigned int u32_12aae0;
 typedef unsigned char u8;
-struct AcquireTargetCondition {
+struct AcquireTargetCondition_12aae0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -15,23 +17,16 @@ struct AcquireTargetCondition {
     void Initialize(int);
 };
 void* __cdecl alloc(unsigned int);
-struct Factory_12aae0 {
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    AcquireTargetCondition* make();
-};
-AcquireTargetCondition* Factory_12aae0::make() {
-    AcquireTargetCondition* p = (AcquireTargetCondition*)alloc(0x18);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::AcquireTargetCondition>::vfunc_5() {
+    AcquireTargetCondition_12aae0* p = (AcquireTargetCondition_12aae0*)alloc(0x18);
     if (p) {
         p->Initialize(0);
         *(u32_12aae0*)p = ((int)DAT_0040feb4);
         p->a = 1.57079637f;
         p->b = 100.0f;
         p->c = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

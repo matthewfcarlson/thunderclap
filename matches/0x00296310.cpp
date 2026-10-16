@@ -1,4 +1,6 @@
-class Node {
+#include "gen/pure3d.h"
+
+class Node_296310 {
   public:
     virtual void f0();
     virtual void f1();
@@ -7,7 +9,7 @@ class Node {
     virtual void f4();
     virtual int Type();
     char pad[0x18 - 4];
-    Node* child;
+    Node_296310* child;
 };
 class Callback_296310 {
   public:
@@ -32,16 +34,14 @@ class pure3d_scenegraph_Traversal_Visitor {
     int pad;
     int callback;
 };
-class pure3d_scenegraph_ShaderCallbackVisitor : public pure3d_scenegraph_Traversal_Visitor {
-  public:
-    bool vfunc_0(Node*);
-};
-bool pure3d_scenegraph_ShaderCallbackVisitor::vfunc_0(Node* p) {
+
+bool pure3d::scenegraph::ShaderCallbackVisitor::vfunc_0(void* __p0) { Node_296310 * p = (Node_296310 *)__p0;
+
     if (p) {
         if (p->Type() == 0x10 && p->child) {
             Callback_296310* c = (Callback_296310*)p->child;
-            if (callback)
-                c->f13(callback);
+            if (this->f_04)
+                c->f13(this->f_04);
             else
                 c->f14();
         }

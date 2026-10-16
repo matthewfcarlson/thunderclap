@@ -1,4 +1,6 @@
-class PhysicsJoint {
+#include "gen/physics.h"
+
+class PhysicsJoint_30ce60 {
   public:
     virtual void v0();
     virtual void v1();
@@ -30,20 +32,11 @@ class PhysicsJoint {
     virtual void v27();
     virtual void vfunc_28();
 };
-class PhysicsJoint1D : public PhysicsJoint {
-    char pad[0xfc - sizeof(PhysicsJoint)];
 
-  public:
-    float a;
-    float b;
-    float c;
-    char pad2[0x114 - 0x108];
-    float scale;
-    void vfunc_5(float*);
-};
-void PhysicsJoint1D::vfunc_5(float* out) {
-    float v = scale;
-    out[0] = v * a;
-    out[1] = v * b;
-    out[2] = v * c;
+void physics::PhysicsJoint1D::vfunc_5(void* __p0) { float * out = (float *)__p0;
+
+    float v = this->f_114;
+    out[0] = v * this->f_fc;
+    out[1] = v * this->f_100;
+    out[2] = v * this->f_104;
 }

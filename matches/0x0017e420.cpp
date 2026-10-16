@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00417a78[];
 class DriftTrack {
   public:
@@ -8,16 +10,8 @@ class InitObj_17e420 {
   public:
     void Init();
 };
-class TrackFactory {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual DriftTrack* f5();
-};
-DriftTrack* TrackFactory::f5() {
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::DriftToHulkTrack>::vfunc_5() {
     DriftTrack* p = (DriftTrack*)Alloc(0x20);
     if (p) {
         ((InitObj_17e420*)p)->Init();
@@ -28,7 +22,7 @@ DriftTrack* TrackFactory::f5() {
         p->a[6] = 0;
         p->a[7] = 0;
         p->a[2] = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

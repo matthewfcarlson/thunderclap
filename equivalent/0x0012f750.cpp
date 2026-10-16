@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2355 inputs, branch coverage 36/36)
 // hulkfight::DialogueAction::vfunc_3 @ 0x0012f750
+#include "gen/hulkfight.h"
+#include "decls/address.h"
+
 struct Item_12f750 { char pad[0x1c]; int f1c; };
 struct Info_12f750 {
     char pad0[0x10];
@@ -23,44 +26,31 @@ struct Player_12f750 {
 struct Mgr_12f750 { Player_12f750 *FUN_00059a30(); };
 struct Obj3_12f750 { char FUN_00092de0(); };
 struct Holder_12f750 { char pad[8]; int f8; Mgr_12f750 *FUN_000592a0(); };
-struct Svc_12f750 { Obj3_12f750 *FUN_00086340(int n); };
+struct Singleton_4dd6ec { Obj3_12f750 *FUN_00086340(int n); };
 struct Target_12f750 { void FUN_001ecda0(char *a, int b, char *c, int d); };
-struct Sink2 { char pad[0x34]; Target_12f750 *t34; };
-extern Svc_12f750 *DAT_004dd6ec;
-extern Sink2 *DAT_004dd700;
+struct World { char pad[0x34]; Target_12f750 *t34; };
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 struct Name64 { char c[0x40]; };
-class DialogueAction {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual char vfunc_3(int a, int b);
-    char pad[0x1c - 4];
-    Info_12f750 *info;
-    Holder_12f750 *f20;
-};
 
-char DialogueAction::vfunc_3(int a, int b)
-{
+bool hulkfight::DialogueAction::vfunc_3(int a, int b) {
     unsigned int cookie0 = DAT_004d9968;
-    if (f20 == 0) {
+    if ((*(Holder_12f750 * *)&this->f_20) == 0) {
         __security_check_cookie(cookie0);
-        return 0;
+        return (bool)(0);
     }
     Player_12f750 *pl = 0;
-    Mgr_12f750 *mgr = f20->FUN_000592a0();
+    Mgr_12f750 *mgr = (*(Holder_12f750 * *)&this->f_20)->FUN_000592a0();
     if (mgr)
         pl = mgr->FUN_00059a30();
-    Info_12f750 *inf = info;
+    Info_12f750 *inf = (*(Info_12f750 * *)&this->f_1c);
     if (inf->flag24) {
         if (pl && pl->f334)
             pl = pl->f334;
     }
     if (pl && pl->f20b0) {
         __security_check_cookie(cookie0);
-        return 0;
+        return (bool)(0);
     }
     char nameB[0x40] = "";
     char nameA[0x44] = "";
@@ -98,7 +88,7 @@ char DialogueAction::vfunc_3(int a, int b)
             }
         }
     }
-    DAT_004dd700->t34->FUN_001ecda0(nameA, info->f1c, nameB, info->f10);
+    DAT_004dd700->t34->FUN_001ecda0(nameA, (*(Info_12f750 * *)&this->f_1c)->f1c, nameB, (*(Info_12f750 * *)&this->f_1c)->f10);
     __security_check_cookie(*cookie);
-    return 1;
+    return (bool)(1);
 }

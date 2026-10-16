@@ -2,6 +2,7 @@
 // CPatrolPathManager::vfunc_1 @ 0x001065b0
 // CPatrolPathManager::vfunc_1 @ 0x001065b0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/address.h"
 
 struct V3_1065b0 {
     float x, y, z;
@@ -80,11 +81,10 @@ struct Sub_1065b0 {
     char FUN_001cd010();
 };
 
-struct Globals_1065b0 {
+struct World {
     char pad[0x2c];
     Sub_1065b0 *sub;
 };
-extern Globals_1065b0 *DAT_004dd700;
 
 class CPatrolPathManager {
 public:

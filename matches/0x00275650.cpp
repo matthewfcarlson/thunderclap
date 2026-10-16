@@ -20,15 +20,15 @@ struct T_275650 {
     char pad[0x10];
     int count;
 };
-struct Drive {
-    virtual Drive* vfunc_0(byte_275650);
+namespace core { struct DriveRequest {
+    virtual DriveRequest* vfunc_0(byte_275650);
     char pad[4];
     T_275650* field8;
-};
+}; }
 extern void FUN_0026d850(void*);
 extern void FUN_0026d840(void*);
 extern O_275650* glob_275650;
-Drive* Drive::vfunc_0(byte_275650 flag) {
+core::DriveRequest* core::DriveRequest::vfunc_0(byte_275650 flag) {
     *(void**)this = (void*)((int)DAT_0042b9bc);
     ((O_275650*)((char*)field8 + 4))->a();
     field8->count--;

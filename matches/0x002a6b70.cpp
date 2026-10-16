@@ -1,15 +1,13 @@
-class ProceduralVertexAnimController {
-  public:
-    char pad[0x40];
-    int a;
-    int b;
+#include "gen/pure3d.h"
+
+struct ProceduralVertexAnimController_nv_2a6b70 {
     void h1();
     void h2();
-    void vfunc_7();
 };
-void ProceduralVertexAnimController::vfunc_7() {
-    if (a)
-        h1();
-    else if (b)
-        h2();
+
+void pure3d::ProceduralVertexAnimController::vfunc_7() {
+    if (this->f_40)
+        ((ProceduralVertexAnimController_nv_2a6b70*)this)->h1();
+    else if (this->f_44)
+        ((ProceduralVertexAnimController_nv_2a6b70*)this)->h2();
 }

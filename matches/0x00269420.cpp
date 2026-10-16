@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 class Pad_269420 {
   public:
     virtual void f0();
@@ -6,20 +8,15 @@ class Pad_269420 {
     virtual bool IsConnected();
     char data[0x49c];
 };
-class ControllerSystemXBox {
-  public:
-    char pad[0x20];
-    Pad_269420 pads[4];
-    Pad_269420* vfunc_4(int);
-};
-Pad_269420* ControllerSystemXBox::vfunc_4(int param) {
+
+void* core::ControllerSystemXBox::vfunc_4(int param) {
     int count = 0;
     for (unsigned int i = 0; i < 4; i++) {
-        if (pads[i].IsConnected()) {
+        if ((*(Pad_269420 (*)[4])&this->f_20)[i].IsConnected()) {
             if (count == param)
-                return &pads[i];
+                return (void*)(&(*(Pad_269420 (*)[4])&this->f_20)[i]);
             ++count;
         }
     }
-    return 0;
+    return (void*)(0);
 }

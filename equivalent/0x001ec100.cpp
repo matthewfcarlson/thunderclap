@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 20/20)
 // FUN_001ec100 @ 0x001ec100
+#include "decls/address.h"
 extern "C" int strcmp(const char *a, const char *b);
 extern "C" char *strcpy(char *dst, const char *src);
 extern unsigned int DAT_004d9968;
@@ -25,7 +26,7 @@ struct Info_1ec100 {
 struct Flags_1ec100 {
     bool FUN_00092de0(int v);
 };
-struct Config_1ec100 {
+struct Singleton_4dd6ec {
     Flags_1ec100 *FUN_00086340();
 };
 struct Logic_1ec100 {
@@ -48,7 +49,6 @@ struct SpawnGlobals_1ec100 {
 };
 void FUN_001eb440(void *target, Query_1ec100 *q);
 
-extern Config_1ec100 *DAT_004dd6ec;
 extern int DAT_004dc0e0;
 extern int DAT_004dc0e4;
 extern SpawnGlobals_1ec100 *DAT_004e36d8;

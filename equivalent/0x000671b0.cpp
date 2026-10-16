@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_000671b0 @ 0x000671b0
 // 0x000671b0: record a target position and re-arm the timer once the cooldown has passed or it moved
+#include "decls/address.h"
 struct Vec3_671b0 {
     float x, y, z;
     bool FUN_0022d2b0(const Vec3_671b0* other, float eps);
@@ -10,11 +11,10 @@ struct Clock_671b0 {
     float FUN_00086080();
 };
 
-struct Game_671b0 {
+struct World {
     char pad[0x2c];
     int link;
 };
-extern Game_671b0* DAT_004dd700;
 
 class Tracker_671b0 {
 public:

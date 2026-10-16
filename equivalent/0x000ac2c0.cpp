@@ -1,16 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000ac2c0 @ 0x000ac2c0
+#include "decls/address.h"
 struct Ref_ac2c0 { virtual void retain(); virtual void release(); };
 struct Filter_ac2c0 : Ref_ac2c0 { Filter_ac2c0* FUN_00292eb0(); void FUN_00293100(Ref_ac2c0*); };
 struct Other_ac2c0 : Ref_ac2c0 { Other_ac2c0* FUN_002939a0(); };
 struct Property_ac2c0 { void FUN_0027b040(unsigned); };
 struct Inventory_ac2c0;
 struct Access_ac2c0 { Inventory_ac2c0* FUN_00203d70(); };
-struct Manager_ac2c0 { Access_ac2c0* FUN_000862a0(); };
-extern Manager_ac2c0* DAT_004dd6ec;
+struct Singleton_4dd6ec { Access_ac2c0* FUN_000862a0(); };
 extern unsigned DAT_0049ed9c;
 extern void* __cdecl FUN_00263ea0(unsigned);
-extern unsigned __int64 __cdecl FUN_002672f0(const char*,int,int);
 namespace pure3d { struct DrawableHierarchy; }
 namespace content { struct LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; }; }
 struct Inventory_ac2c0 { virtual void a(); virtual void b(); virtual void c(); virtual Ref_ac2c0* find(content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>*,unsigned __int64); };

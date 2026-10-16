@@ -2,6 +2,7 @@
 // FUN_0019b460 @ 0x0019b460
 // hulkfight::motion::ProjectileMissile::~ProjectileMissile body @ 0x0019b460
 // equiv-map: ??1CProjectile@@UAE@XZ = 0x001b6820
+#include "decls/address.h"
 struct Id64_19b460 {
     int lo;
     int hi;
@@ -34,7 +35,6 @@ struct Pool_19b460 {
     void FUN_002834e0(int v);
 };
 
-extern World *DAT_004dd700;
 Pool_19b460 *FUN_0027f250();
 
 class CProjectile {

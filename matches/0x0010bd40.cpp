@@ -1,33 +1,22 @@
-class FaceTargetTrack {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual int vfunc_10(int a, int b, int c);
-};
-class Params {
+#include "gen/hulkfight.h"
+
+class Params_10bd40 {
   public:
     int x;
 };
-extern Params TypeA_10bd40;
-extern Params TypeB_10bd40;
-int __cdecl Check(void*, int, Params*, Params*, int);
-class Object {
+extern Params_10bd40 TypeA_10bd40;
+extern Params_10bd40 TypeB_10bd40;
+int __cdecl Check(void*, int, Params_10bd40*, Params_10bd40*, int);
+class Object_10bd40 {
   public:
-    int Init(FaceTargetTrack*, int);
+    int Init(hulkfight::ai::FaceTargetTrack*, int);
 };
-Object* __cdecl Alloc(int);
-int FaceTargetTrack::vfunc_10(int a, int b, int c) {
+Object_10bd40* __cdecl Alloc(int);
+
+int hulkfight::ai::FaceTargetTrack::vfunc_10(int a, int b, int c) {
     int result = Check((void*)c, 0, &TypeA_10bd40, &TypeB_10bd40, 0);
     if (result) {
-        Object* p = Alloc(0x24);
+        Object_10bd40* p = Alloc(0x24);
         if (p)
             return p->Init(this, c);
     }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 2/2)
 // pure3d::PointLight::vfunc_9 @ 0x002c3f70
+#include "decls/address.h"
 struct LightDescription {
  unsigned char flags; char padding[3]; int type; unsigned int color;
  float value0,value1,value2;
@@ -7,7 +8,7 @@ struct LightDescription {
  float positionX,positionY,positionZ;
  float attenuation0,attenuation1,attenuation2,range;
 };
-struct Renderer_2c3f70 {
+struct Gfx {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
  virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7();
  virtual void slot8(); virtual void slot9(); virtual void slot10(); virtual void slot11();
@@ -19,7 +20,6 @@ struct Renderer_2c3f70 {
  virtual void slot32(); virtual void slot33(); virtual void slot34(); virtual void slot35();
  virtual void slot36(); virtual void slot37(unsigned int,LightDescription *,unsigned int);
 };
-extern Renderer_2c3f70 *DAT_0052c2a8;
 namespace pure3d {
 struct PointLight {
  char prefix[16]; unsigned char enabled,flags; char padding[2];

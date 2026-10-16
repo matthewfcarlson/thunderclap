@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 160 inputs, branch coverage 29/30, incomplete)
 // pure3d::MultiController::vfunc_20 @ 0x002b1c40
+#include "gen/pure3d.h"
+
 struct Controller_2b1c40 {
     virtual void v0();
     virtual void v1();
@@ -23,57 +25,39 @@ struct Controller_2b1c40 {
     virtual int v19();
 };
 
-struct MultiController {
-    char pad0[0x18];
-    float scale;
-    char pad1[0x4];
-    float t_d;
-    float t_a;
-    float t_b;
-    char pad1b[0x8];
-    unsigned count;
-    int mode;
-    char pad2[0x4];
-    unsigned numChildren;
-    Controller_2b1c40 **children;
+float pure3d::MultiController::vfunc_20() {
+    float a = this->f_28 * this->f_1c;
+    float dur = this->f_2c * this->f_1c - a;
 
-    virtual float vfunc_20();
-};
-
-float MultiController::vfunc_20()
-{
-    float a = t_a * scale;
-    float dur = t_b * scale - a;
-
-    switch (mode) {
+    switch (this->f_3c) {
     case 0: {
-        for (unsigned i = 0; i < numChildren; i++) {
-            if (!children[i]->v19())
+        for (unsigned i = 0; i < (*(unsigned int *)&this->f_44); i++) {
+            if (!(*(Controller_2b1c40 ** *)&this->f_48)[i]->v19())
                 return 3.4028235e+38f;
         }
         return dur;
     }
     case 2:
-        if (count == 0)
+        if ((*(unsigned int *)&this->f_38) == 0)
             return 3.4028235e+38f;
-        return (float)count * dur - (t_d - a);
+        return (float)(*(unsigned int *)&this->f_38) * dur - (this->f_24 - a);
     case 3:
-        if (count == 0)
+        if ((*(unsigned int *)&this->f_38) == 0)
             return 3.4028235e+38f;
-        return (float)count * dur - (t_b * scale - t_d);
+        return (float)(*(unsigned int *)&this->f_38) * dur - (this->f_2c * this->f_1c - this->f_24);
     case 4:
-        if (count == 0)
+        if ((*(unsigned int *)&this->f_38) == 0)
             return 3.4028235e+38f;
         {
-            float v = (float)count * dur;
-            return (v + v) - (t_d - a);
+            float v = (float)(*(unsigned int *)&this->f_38) * dur;
+            return (v + v) - (this->f_24 - a);
         }
     case 5:
-        if (count == 0)
+        if ((*(unsigned int *)&this->f_38) == 0)
             return 3.4028235e+38f;
         {
-            float v = (float)count * dur;
-            return (v + v) - (t_b * scale - t_d);
+            float v = (float)(*(unsigned int *)&this->f_38) * dur;
+            return (v + v) - (this->f_2c * this->f_1c - this->f_24);
         }
     default:
         return 0.0f;

@@ -1,8 +1,5 @@
-class ProjectileMissile {
-  public:
-    char pad[0x60];
-    ProjectileMissile* vfunc_3();
-};
-ProjectileMissile* ProjectileMissile::vfunc_3() {
-    return (ProjectileMissile*)((char*)this + 0x60);
+#include "gen/hulkfight.h"
+
+void* hulkfight::motion::ProjectileMissile::vfunc_3() {
+    return (void*)((hulkfight::motion::ProjectileMissile*)((char*)this + 0x60));
 }

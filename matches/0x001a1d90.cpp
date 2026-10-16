@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 typedef unsigned int size_t;
 void* operator new(size_t) throw();
 class Base {
@@ -8,9 +10,9 @@ class Base {
     virtual void f2();
     char pad[8];
 };
-class LuaCondition : public Base {
+class LuaCondition_1a1d90 : public Base {
   public:
-    LuaCondition() throw() : Base(0) {
+    LuaCondition_1a1d90() throw() : Base(0) {
         a = 0;
         b = 0;
     }
@@ -20,15 +22,7 @@ class LuaCondition : public Base {
     int a;
     int b;
 };
-class Factory {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual Base* vfunc_5();
-};
-Base* Factory::vfunc_5() {
-    return new LuaCondition;
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::scenario::LuaCondition>::vfunc_5() {
+    return (void*)(new LuaCondition_1a1d90);
 }

@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct Vec_183d30 {
     int* b;
     int* e;
@@ -39,22 +41,12 @@ struct Info_183d30 {
 };
 extern void* __fastcall FUN_000592a0(void*);
 extern Mgr_183d30* __fastcall FUN_00059a30(void*);
-struct A_183d30 {
-    char p[0x18];
-    Info_183d30* info;
-    void* h;
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual void a3();
-    virtual void a4();
-    virtual void a5();
-    bool F(int* x, int y);
-};
-bool A_183d30::F(int* x, int y) {
-    if (!x && h) {
-        Mgr_183d30* m = FUN_00059a30(FUN_000592a0(h));
-        int a = info->a;
+
+bool hulkfight::motion::PropSetStateByIndexAction::vfunc_5(int __p0, int y) { int * x = (int *)__p0;
+
+    if (!x && (*(void * *)&this->f_20)) {
+        Mgr_183d30* m = FUN_00059a30(FUN_000592a0((*(void * *)&this->f_20)));
+        int a = (*(Info_183d30 * *)&this->f_1c)->a;
         if (m) {
             Prop_183d30* r;
             if (a < 0)
@@ -65,7 +57,7 @@ bool A_183d30::F(int* x, int y) {
                 r = m->Get(a);
             if (r) {
                 Vec_183d30* v = &r->v->vec;
-                int i = info->b;
+                int i = (*(Info_183d30 * *)&this->f_1c)->b;
                 if (i >= 0 && i < (v->e - v->b))
                     r->Do(i, 1);
             }

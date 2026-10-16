@@ -1,4 +1,6 @@
-struct File {
+#include "gen/global.h"
+
+struct File_1fada0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -22,27 +24,20 @@ struct File {
     virtual void v20();
     virtual void Sync();
 };
-struct S_1fada0 {
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual int Read(void* buf, int len);
-    File* f;
-    int pos;
-    int end;
-};
-int S_1fada0::Read(void* buf, int len) {
-    int n = end - pos;
+
+int MyFileStream::vfunc_3(void* __p0, int len) { void * buf = (void *)__p0;
+
+    int n = this->f_0c - this->f_08;
     if (n < len)
         len = n;
     int p0;
-    f->GetPos(&p0);
-    f->Sync();
-    f->Read(buf, len, 1);
-    f->Sync();
+    (*(File_1fada0 * *)&this->f_04)->GetPos(&p0);
+    (*(File_1fada0 * *)&this->f_04)->Sync();
+    (*(File_1fada0 * *)&this->f_04)->Read(buf, len, 1);
+    (*(File_1fada0 * *)&this->f_04)->Sync();
     int p1;
-    f->GetPos(&p1);
-    f->Sync();
-    pos += p1 - p0;
+    (*(File_1fada0 * *)&this->f_04)->GetPos(&p1);
+    (*(File_1fada0 * *)&this->f_04)->Sync();
+    this->f_08 += p1 - p0;
     return p1 - p0;
 }

@@ -1,8 +1,8 @@
+#include "decls/address.h"
 extern "C" char DAT_00425374[];
 struct Base_1ff2c0 {
     void Init(const char*, int);
 };
-extern unsigned char __cdecl FUN_001d04d0(const char*);
 extern char g0_1ff2c0, g1, g2, g3;
 class CTriggerVolumeManager : public Base_1ff2c0 {
   public:

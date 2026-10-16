@@ -1,4 +1,6 @@
-class AnimationTrack {
+#include "gen/hulkfight.h"
+
+class AnimationTrack_13ae40 {
   public:
     virtual int f0();
     virtual int f1();
@@ -12,18 +14,15 @@ class AnimationTrack {
     virtual int f9();
     virtual int f10();
 };
-class GrappleAnimationTrack;
+
 class NewObject {
   public:
-    int Init(GrappleAnimationTrack*, int);
-};
-class GrappleAnimationTrack : public AnimationTrack {
-  public:
-    int f10(int a, int b, int c);
+    int Init(hulkfight::motion::GrappleAnimationTrack*, int);
 };
 extern int __cdecl Find(int);
 extern NewObject* __cdecl Alloc(int);
-int GrappleAnimationTrack::f10(int a, int b, int c) {
+
+int hulkfight::motion::GrappleAnimationTrack::vfunc_10(int a, int b, int c) {
     int v = Find(c);
     if (v) {
         NewObject* p = Alloc(0x28);

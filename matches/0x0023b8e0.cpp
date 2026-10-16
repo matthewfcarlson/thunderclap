@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 class Inner_23b8e0 {
   public:
     virtual void f0();
@@ -24,17 +26,12 @@ class Inner_23b8e0 {
     virtual void f21();
     virtual void f22();
 };
-class IFileDataReader {
-  public:
-    char pad[8];
-    Inner_23b8e0* p;
-    bool vfunc_5();
-};
-bool IFileDataReader::vfunc_5() {
+
+bool fight::IFileDataReader::vfunc_5() {
     unsigned int b, a;
-    p->f21();
-    p->f6(&a);
-    p->f7(&b);
-    p->f21();
+    (*(Inner_23b8e0 * *)&this->f_08)->f21();
+    (*(Inner_23b8e0 * *)&this->f_08)->f6(&a);
+    (*(Inner_23b8e0 * *)&this->f_08)->f7(&b);
+    (*(Inner_23b8e0 * *)&this->f_08)->f21();
     return a >= b;
 }

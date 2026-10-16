@@ -1,3 +1,4 @@
+#include "decls/address.h"
 struct State_10aa90 {
     void FUN_00025260(int, int, int);
     void FUN_000253c0(int);
@@ -25,11 +26,10 @@ struct Object {
 struct Manager_10aa90 {
     void FUN_001dcf60(int);
 };
-struct Global_10aa90 {
+struct World {
     char pad[0xc];
     Manager_10aa90* manager;
 };
-extern Global_10aa90* DAT_004dd700;
 struct Target_10aa90 {
     unsigned char FUN_00109df0(Input_10aa90*, int, int, int, int, int, int, int);
     unsigned char run(Input_10aa90*, int, int, int, int, int, int, Object*, int, int, int);

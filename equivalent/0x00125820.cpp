@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 104 inputs, branch coverage 27/30, incomplete)
 // hulkfight::ai::TargetDistanceYCondition::vfunc_6 @ 0x00125820
+#include "decls/address.h"
 extern "C" double sqrt(double);
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
@@ -40,12 +41,11 @@ struct Slot_125820 {
     Locator *locator;
 };
 
-struct Scene_125820 {
+struct World {
     char pad0[0x20];
     Slot_125820 *slot;
 };
 
-extern Scene_125820 *DAT_004dd700;
 
 struct Position_125820 {
     void FUN_00059a50(Vec3_125820 *out);

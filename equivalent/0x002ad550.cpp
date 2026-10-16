@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 16/18, incomplete)
 // pure3d::OldParticleSystemLoader::vfunc_5 @ 0x002ad550
+#include "decls/address.h"
 extern "C" char *strstr(const char *, const char *);
 
 struct StrField_2ad550 {
@@ -103,7 +104,6 @@ struct Reader {
 };
 
 void *FUN_00263ea0(unsigned int size);
-unsigned __int64 FUN_002672f0(const char *s, unsigned int lo, unsigned int hi);
 
 namespace pure3d {
 class OldParticleSystemLoader {

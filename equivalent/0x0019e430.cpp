@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 61/62, incomplete)
 // hulkfight::motion::FireMissileAction::vfunc_5 @ 0x0019e430
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
@@ -36,7 +37,7 @@ struct Holder28_19e430 { Holder44_19e430 *FUN_000862a0(); };
 struct FlagSrc {
     char FUN_00092940(int id);
 };
-struct Manager_19e430 {
+struct World {
     char pad0[0x14];
     void *pool;
     char pad18[0x54 - 0x18];
@@ -153,7 +154,6 @@ struct Cfg_19e430 {
 
 struct Owner_19e430 { char pad[8]; void *f8; };
 
-extern Manager_19e430 *DAT_004dd700;
 extern Allocator DAT_004e2210;
 extern unsigned __int64 DAT_004e16e8;
 extern unsigned int DAT_004e16f0;

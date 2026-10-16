@@ -1,4 +1,6 @@
-class SimpleChunkHandler {
+#include "gen/pure3d.h"
+
+class SimpleChunkHandler_285650 {
   public:
     virtual void f0();
     virtual void f1();
@@ -9,11 +11,8 @@ class SimpleChunkHandler {
     virtual char vfunc_6(unsigned int);
     virtual void f7();
 };
-class OldFrameControllerLoader : public SimpleChunkHandler {
-  public:
-    virtual char vfunc_6(unsigned int);
-};
-char OldFrameControllerLoader::vfunc_6(unsigned int x) {
+
+char pure3d::OldFrameControllerLoader::vfunc_6(unsigned int x) {
     switch (x) {
     case 0x4554494c:
     case 0x584554:

@@ -33,7 +33,7 @@ struct Target_175e00 {
 
 float __cdecl FUN_00224fc0(float from, float to);
 
-class SyncToLocatorAction {
+namespace hulkfight { namespace motion { class SyncToLocatorAction {
 public:
     virtual void v0();
     virtual void v1();
@@ -49,9 +49,9 @@ public:
     V3_175e00 goal;
     float rate;
     V3_175e00 vel;
-};
+}; }}
 
-bool SyncToLocatorAction::vfunc_5(int skip, float dt)
+bool hulkfight::motion::SyncToLocatorAction::vfunc_5(int skip, float dt)
 {
     if (owner == 0)
         return false;

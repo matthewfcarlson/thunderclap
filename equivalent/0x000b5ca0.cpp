@@ -2,6 +2,7 @@
 // FUN_000b5ca0 @ 0x000b5ca0
 // equiv-map: ??_R0?AVFEObject@@@8 = 0x0049dba4
 // equiv-map: ??_R0?AVTextSelector@@@8 = 0x0049dbbc
+#include "decls/address.h"
 
 class FEObject {
 public:
@@ -57,7 +58,6 @@ struct World {
     char pad0[0x54];
     Reg *f54;
 };
-extern World *DAT_004dd700;
 
 FEObject *__cdecl FUN_000fc260(const char *name);
 

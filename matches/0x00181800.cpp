@@ -8,12 +8,12 @@ class Condition {
     virtual void v5();
     virtual char vfunc_6(void*, void*, void*);
 };
-class PropAtRestCondition : public Condition {
+namespace hulkfight { namespace motion { class PropAtRestCondition : public Condition {
   public:
     char pad[8];
     char value;
     char vfunc_6(void*, void*, void*);
-};
+}; }}
 struct Item_181800 {
     virtual void f0();
     virtual void f1();
@@ -41,7 +41,7 @@ struct S_181800 {
 extern "C" int __cdecl Check(void*, void*, void*, void*, void*);
 extern char G1[];
 extern char G2[];
-char PropAtRestCondition::vfunc_6(void* a, void* c, void* d) {
+char hulkfight::motion::PropAtRestCondition::vfunc_6(void* a, void* c, void* d) {
     if (!Check(c, 0, G1, G2, 0))
         return 0;
     char result = 0;

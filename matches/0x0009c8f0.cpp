@@ -1,18 +1,13 @@
 // Same code shape as 0x0002f6a0 (propagated; names are from that function)
-class CActorManager;
-typedef bool(__fastcall* Fn_9c8f0)(CActorManager*);
-class Closure0ActorBool_9c8f0 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2(void*, void*, bool* out);
-    char pad[0x1c - 4];
-    Fn_9c8f0 mFn;
-    CActorManager* mObj;
-};
-void Closure0ActorBool_9c8f0::f2(void*, void*, bool* out) {
-    CActorManager* o = mObj;
-    Fn_9c8f0 fn = mFn;
+#include "gen/global.h"
+
+class CActorManager_9c8f0;
+typedef bool(__fastcall* Fn_9c8f0)(CActorManager_9c8f0*);
+
+template <> void Closure0<CCameraManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { bool * out = (bool *)__p2;
+
+    CActorManager_9c8f0* o = (*(CActorManager_9c8f0 * *)&this->f_20);
+    Fn_9c8f0 fn = (*(Fn_9c8f0 *)&this->f_1c);
     bool b = fn(o);
     if (out)
         *out = b;

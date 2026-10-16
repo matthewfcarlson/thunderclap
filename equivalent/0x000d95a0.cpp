@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000d95a0 @ 0x000d95a0
+#include "decls/address.h"
 extern unsigned int DAT_004d9968;
 void __fastcall __security_check_cookie(unsigned int);
 struct TextBank { int FUN_000f7d30(void*); const unsigned short* FUN_000f7220(int); };
@@ -8,8 +9,7 @@ struct Menu_d95a0 {
  void FUN_000be310(const char*, unsigned short*, const float*, const float*, const char*, int, void*, void*);
 };
 struct State_d95a0 { char pad[0x1bc8]; unsigned char flag; };
-struct Manager_d95a0 { State_d95a0* FUN_00086280(); };
-extern Manager_d95a0* DAT_004dd6ec;
+struct Singleton_4dd6ec { State_d95a0* FUN_00086280(); };
 extern void* DAT_004de648;
 extern const char* DAT_004a0ce0;
 extern const char* DAT_004a0ce4;

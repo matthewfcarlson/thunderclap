@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3092 inputs, branch coverage 76/86, incomplete)
 // pure3d::OldFrameControllerLoader::vfunc_7 @ 0x002870d0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) { return p; }
 
 namespace pure3d {
@@ -20,7 +21,6 @@ template<class T> struct DynamicCaster { virtual void cast(); };
 } }
 
 void *thunk_FUN_0008d690(unsigned int size);
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
 
 struct Stream {
     int FUN_002647e0(void *buf, int count, int size, int flag);

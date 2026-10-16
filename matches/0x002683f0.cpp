@@ -1,23 +1,5 @@
-class ControllerSystemXBox {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void vfunc_7(int, int);
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    char pad[16];
-    int mDiff;
-    char gap[8];
-    char data[4 * 0x4a0];
-};
+#include "gen/core.h"
+
 int helper();
 class Pad_2683f0 {
   public:
@@ -41,14 +23,15 @@ class Pad_2683f0 {
     virtual void f17();
     virtual void f18(int);
 };
-void ControllerSystemXBox::vfunc_7(int a, int b) {
-    mDiff = b - a;
-    char* p = data;
+
+void core::ControllerSystemXBox::vfunc_7(int a, int b) {
+    this->f_14 = b - a;
+    char* p = (*(char (*)[4736])&this->f_20);
     int i = 4;
     do {
         if (p[0x49e]) {
             Pad_2683f0* q = (Pad_2683f0*)p;
-            q->f18(helper() + mDiff);
+            q->f18(helper() + this->f_14);
         }
         p += 0x4a0;
         --i;

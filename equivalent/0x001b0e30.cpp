@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 22/22)
 // FUN_001b0e30 @ 0x001b0e30
+#include "decls/address.h"
 extern int DAT_004e2198;
 extern int DAT_004e219c;
 
@@ -18,8 +19,7 @@ struct Handler_1b0e30 {
 
 struct Chain3_1b0e30 { char pad0[0x12c]; void *f12c; };
 struct Chain2_1b0e30 { char pad0[0x124]; Chain3_1b0e30 *next; };
-struct Chain1_1b0e30 { char pad0[0x20]; Chain2_1b0e30 *next; };
-extern Chain1_1b0e30 *DAT_004dd700;
+struct World { char pad0[0x20]; Chain2_1b0e30 *next; };
 
 class Owner_1b0e30 {
 public:

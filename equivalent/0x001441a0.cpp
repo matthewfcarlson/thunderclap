@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // hulkfight::motion::SlowMotionAction::vfunc_5 @ 0x001441a0
+#include "decls/address.h"
 extern "C" double __cdecl sin(double);
 
 class Clock_1441a0 {
@@ -7,11 +8,10 @@ public:
     void FUN_00086100(float v);
 };
 
-struct Manager_1441a0 {
+struct World {
     char pad0[0x58];
     Clock_1441a0 *clock;
 };
-extern Manager_1441a0 *DAT_004dd700;
 
 class Curve_1441a0 {
 public:

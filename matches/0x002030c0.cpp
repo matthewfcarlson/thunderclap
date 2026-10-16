@@ -1,6 +1,6 @@
+#include "decls/address.h"
 class CWorldCollisionManager;
 extern void __stdcall FUN_001d0480(const char*, int);
-extern unsigned char __cdecl FUN_001d04d0(const void*);
 extern int g1, g2;
 class Base {
   public:

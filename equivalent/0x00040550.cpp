@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 57/60, incomplete)
 // FUN_00040550 @ 0x00040550
 // equiv-map: ??0Key@@QAE@ABU0@@Z = 0x0027af30
+#include "decls/address.h"
 struct V3_40550 {
     float x, y, z;
     bool FUN_0022d2b0(V3_40550 *other, float eps);
@@ -47,7 +48,6 @@ struct World {
     Sink_40550 *sink;                      // 0x30
     Hud_40550 *hud;                        // 0x34
 };
-extern World *DAT_004dd700;
 extern char DAT_004dc290;
 
 struct Mgr_40550 {

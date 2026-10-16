@@ -10,11 +10,11 @@ struct Manager_274b60 {
 extern Manager_274b60* g_manager_274b60;
 extern char g_lock_274b60[1];
 extern void* request_vftable[];
-struct Request {
+namespace core { struct Request {
     void** vt;
     Request* vfunc_0(unsigned char);
-};
-Request* Request::vfunc_0(unsigned char param) {
+}; }
+core::Request* core::Request::vfunc_0(unsigned char param) {
     vt = request_vftable;
     if (param & 1) {
         FUN_0026d850(g_lock_274b60);

@@ -1,4 +1,4 @@
-extern "C" unsigned char FUN_001d04d0(const char*);
+#include "decls/address.h"
 extern const char S1[], S2[], S3[];
 extern int VTable_2dc60;
 struct Base_2dc60 {

@@ -1,6 +1,8 @@
+#include "gen/Render.h"
+
 const float gZero_1c1580 = 0.0f;
 const float gOne_1c1580 = 1.0f;
-class Shader {
+class Shader_1c1580 {
   public:
     virtual void f0();
     virtual void f1();
@@ -14,7 +16,7 @@ class Shader {
 class Arg_1c1580 {
   public:
     char pad[16];
-    Shader* shader;
+    Shader_1c1580* shader;
 };
 class Manager_1c1580 {
   public:
@@ -56,23 +58,15 @@ class Manager_1c1580 {
     virtual void f35(int);
 };
 extern Manager_1c1580* gManager_1c1580;
-class HulkShaderCallback {
-  public:
-    char pad[8];
-    float a;
-    float c;
-    float b;
-    char pad2[4];
-    int value;
-    int vfunc_4(Arg_1c1580*);
-};
-int HulkShaderCallback::vfunc_4(Arg_1c1580* p) {
+
+int Render::Canvas::HulkShaderCallback::vfunc_4(void* __p0) { Arg_1c1580 * p = (Arg_1c1580 *)__p0;
+
     int result = (int)p;
-    if (a > 0.0f && p)
+    if (this->f_08 > 0.0f && p)
         p->shader->f7(0x45444146, 0);
-    if (b > 0.0f)
-        gManager_1c1580->f35(value);
-    if (c < 1.0f && p)
+    if (this->f_10 > 0.0f)
+        gManager_1c1580->f35(this->f_18);
+    if (this->f_0c < 1.0f && p)
         p->shader->f6(0x4153524c, 0);
     return result;
 }

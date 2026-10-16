@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 39/39)
 // pure3d::ShadowMeshLoader::vfunc_5 @ 0x002b6170
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *FUN_0008d690(unsigned int size);
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
-extern "C" unsigned __int64 __cdecl FUN_002672f0(const char *s, int a, int b);
 
 struct V3_2b6170 { float x, y, z; };
 

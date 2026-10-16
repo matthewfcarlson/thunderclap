@@ -1,4 +1,6 @@
-class IDollyControllerState {
+#include "gen/global.h"
+
+class IDollyControllerState_dd8d0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -17,13 +19,8 @@ struct Pair_dd8d0 {
     int a, b;
 };
 extern Pair_dd8d0 table_dd8d0[];
-class ControllerState : public IDollyControllerState {
-  public:
-    char pad[12];
-    float* data;
-    float vfunc_8(int);
-};
+
 float ControllerState::vfunc_8(int i) {
-    float* p = data;
+    float* p = (*(float * *)&this->f_10);
     return p[table_dd8d0[i].a] - p[table_dd8d0[i].b];
 }

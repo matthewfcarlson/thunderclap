@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 struct Item_2a1550 {
     float key;
     void* owner;
@@ -19,31 +21,19 @@ struct Geom_2a1550 {
 };
 
 namespace pure3d {
-class ShadowTraversal {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6(Geom_2a1550* g, unsigned idx, float key);
-    char pad[0x38 - 4];
-    int count;
-    Item_2a1550* items;
-};
 
-void ShadowTraversal::f6(Geom_2a1550* g, unsigned idx, float key) {
+} // namespace pure3d
+void pure3d::ShadowTraversal::vfunc_6(void* __p0, unsigned int idx, float key) { Geom_2a1550 * g = (Geom_2a1550 *)__p0;
+
     Sub_2a1550* s = g->sub;
     if (!s)
         return;
     if (idx >= (unsigned)((s->end - s->begin) >> 4))
         return;
-    items[count].key = key;
-    items[count].owner = g;
-    items[count].ptr = g->sub->begin + (idx << 4);
-    items[count].sub = g->sub;
-    items[count].extra = g->extra;
-    count++;
+    (*(Item_2a1550 * *)&this->f_3c)[(*(int *)&this->f_38)].key = key;
+    (*(Item_2a1550 * *)&this->f_3c)[(*(int *)&this->f_38)].owner = g;
+    (*(Item_2a1550 * *)&this->f_3c)[(*(int *)&this->f_38)].ptr = g->sub->begin + (idx << 4);
+    (*(Item_2a1550 * *)&this->f_3c)[(*(int *)&this->f_38)].sub = g->sub;
+    (*(Item_2a1550 * *)&this->f_3c)[(*(int *)&this->f_38)].extra = g->extra;
+    (*(int *)&this->f_38)++;
 }
-} // namespace pure3d

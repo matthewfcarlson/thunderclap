@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 397 inputs, branch coverage 97/102, incomplete)
 // FUN_001f5c20 @ 0x001f5c20
+#include "decls/address.h"
 extern "C" double sqrt(double);
 extern "C" void __cdecl qsort(void *base, unsigned int count, unsigned int size,
                               int (__cdecl *cmp)(const void *, const void *));
@@ -86,7 +87,6 @@ extern int DAT_004c7df8[];
 extern int DAT_004c7e10[];
 
 int __cdecl FUN_001f2e80(const void *a, const void *b);
-__int64 FUN_002672f0(int a, int b, int c);
 Resource_1f5c20 *FUN_0024a370(void *voice, int *hash);
 void FUN_0024ac40(void *voice, void *r2, int a, int b, int c);
 char FUN_00249b40(void *voice);

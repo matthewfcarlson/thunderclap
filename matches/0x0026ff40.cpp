@@ -1,4 +1,6 @@
-class IMemoryPool {
+#include "gen/core.h"
+
+class IMemoryPool_26ff40 {
   public:
     virtual int f0();
     virtual int f1();
@@ -16,13 +18,7 @@ class IMemoryPool {
     virtual int f13();
     virtual int f14();
 };
-class MemoryPool : public IMemoryPool {
-  public:
-    char pad[0x1c - 4];
-    int mA;
-    int mB;
-    int vfunc_11();
-};
-int MemoryPool::vfunc_11() {
-    return mB * mA;
+
+int core::MemoryPool::vfunc_11() {
+    return this->f_20 * this->f_1c;
 }

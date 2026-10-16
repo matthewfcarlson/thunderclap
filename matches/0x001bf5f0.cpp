@@ -1,4 +1,6 @@
-class CSubtitleManager {
+#include "gen/global.h"
+
+class CSubtitleManager_1bf5f0 {
   public:
     void V0();
     void V1();
@@ -9,20 +11,16 @@ class CSubtitleManager {
     void V6();
     void V7(int, int);
 };
-class Function {
+class Function_1bf5f0 {
   public:
     virtual void V0();
     virtual void V1();
 };
-class Method2 : public Function {
-  public:
-    char pad[0x18];
-    void (CSubtitleManager::*fn)(int, int);
-    void vfunc_2(int, int*, int);
-};
-void Method2::vfunc_2(int manager, int* pair, int a) {
+
+template <> void Method2<CSubtitleManager, void, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { int manager = (int)__p0; int * pair = (int *)__p1; int a = (int)__p2;
+
     int x = pair[0];
     int y = pair[1];
-    CSubtitleManager* m = (CSubtitleManager*)manager;
-    (m->*fn)(x, y);
+    CSubtitleManager_1bf5f0* m = (CSubtitleManager_1bf5f0*)manager;
+    (m->*(*(void (CSubtitleManager_1bf5f0::**)(int, int))&this->f_1c))(x, y);
 }

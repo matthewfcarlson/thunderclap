@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 16899 inputs, branch coverage 39/40, incomplete)
 // FUN_0003acf0 @ 0x0003acf0
 // equiv-map: ??0Key@@QAE@ABU0@@Z = 0x0027af30
+#include "decls/address.h"
 struct Key {
     int lo;
     int hi;
@@ -23,7 +24,7 @@ struct Sink_3acf0 {
     void FUN_001cbc20(Event_3acf0 *e);
 };
 
-struct Global_3acf0 {
+struct World {
     char pad0[0x30];
     Sink_3acf0 *sink;
 };
@@ -72,11 +73,10 @@ struct Fighter_3acf0 {
     char FUN_0003acf0(int slot, Obj_3acf0 *newObj, int a3, int a4, int a5, Matrix *m);
 };
 
-extern Global_3acf0 *DAT_004dd700;
 
 char Fighter_3acf0::FUN_0003acf0(int slot, Obj_3acf0 *newObj, int a3, int a4, int a5, Matrix *m)
 {
-    Global_3acf0 *g = DAT_004dd700;
+    World *g = DAT_004dd700;
     if (slot < 0 || slot >= 8)
         return 0;
     Slot_3acf0 *s = &slots[slot];

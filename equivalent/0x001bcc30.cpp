@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 104 inputs, branch coverage 29/30, incomplete)
 // FUN_001bcc30 @ 0x001bcc30
+#include "decls/address.h"
 struct V3_1bcc30 {
     float x, y, z;
 };
@@ -66,7 +67,7 @@ struct Scene_1bcc30 {
     bool active;
 };
 
-struct Engine_1bcc30 {
+struct World {
     char pad0[0x20];
     Scene_1bcc30 *scene;
 };
@@ -80,7 +81,6 @@ struct Holder2_1bcc30 {
     Sub *sub10;
 };
 
-extern Engine_1bcc30 *DAT_004dd700;
 extern unsigned int DAT_004e22d0;
 extern __int64 DAT_004e22a0;
 extern __int64 DAT_004e22a8;
@@ -90,7 +90,6 @@ extern __int64 DAT_004e22c0;
 extern __int64 DAT_004e22c8;
 
 Cursor_1bcc30 **FUN_001c3d90();
-__int64 FUN_002672f0(const char *s, int a, int b);
 // equiv-conv: FUN_001bc530 esi stack
 void FUN_001bc530(V4_1bcc30 *q, V3_1bcc30 *v);
 void FUN_001bc8a0(Sub *sub, V4_1bcc30 *q);

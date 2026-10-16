@@ -1,4 +1,6 @@
-class Reader {
+#include "gen/fight.h"
+
+class Reader_23a4d0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -23,22 +25,15 @@ class Reader {
     virtual void v20();
     virtual void v21();
 };
-class IFileStringReader {
-  public:
-    char pad0[8];
-    Reader* reader;
-    char padc[1];
-    bool done;
-    bool vfunc_6();
-};
-bool IFileStringReader::vfunc_6() {
-    if (done)
+
+bool fight::IFileStringReader::vfunc_6() {
+    if (this->f_0d)
         return false;
-    reader->v21();
+    (*(Reader_23a4d0 * *)&this->f_08)->v21();
     unsigned int a;
     unsigned int b;
-    reader->v6(&a);
-    reader->v7(&b);
-    reader->v21();
+    (*(Reader_23a4d0 * *)&this->f_08)->v6(&a);
+    (*(Reader_23a4d0 * *)&this->f_08)->v7(&b);
+    (*(Reader_23a4d0 * *)&this->f_08)->v21();
     return a >= b;
 }

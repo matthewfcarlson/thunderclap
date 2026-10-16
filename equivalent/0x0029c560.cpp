@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 487 inputs, branch coverage 12/12)
 // FUN_0029c560 @ 0x0029c560
+#include "decls/address.h"
 struct Rec_29c560 { char flag; char pad[0x3f]; };
-struct Device_29c560 {
+struct Gfx {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -17,7 +18,6 @@ struct Device_29c560 {
     virtual void Release(int i, int mode);
     virtual bool IsValid(int i);
 };
-extern Device_29c560 *DAT_0052c2a8;
 
 class Bank {
 public:

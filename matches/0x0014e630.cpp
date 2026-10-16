@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct Tgt_14e630 {
     char pad[0x4c];
     struct Q {
@@ -5,7 +7,7 @@ struct Tgt_14e630 {
         int d;
     }* q;
 };
-class Params {
+class Params_14e630 {
   public:
     virtual void a0();
     virtual void a1();
@@ -15,20 +17,9 @@ class Params {
 extern char typeA_14e630;
 extern char typeB_14e630;
 extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-class Cond_14e630 {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual bool vfunc_6(int, Params*, int);
-    int pad[2];
-    int source;
-    int mode;
-};
-bool Cond_14e630::vfunc_6(int, Params* p, int) {
+
+bool hulkfight::motion::CollisionSourceTypeCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { Params_14e630 * p = (Params_14e630 *)__p1;
+
     if (!FUN_00344e74(p, 0, &typeA_14e630, &typeB_14e630, 0))
         return false;
     Tgt_14e630* t = p->Get();
@@ -38,7 +29,7 @@ bool Cond_14e630::vfunc_6(int, Params* p, int) {
         return false;
     int d = t->q->d;
     int c = 0;
-    switch (mode) {
+    switch (this->f_10) {
     case 0:
         c = 1;
         break;
@@ -46,7 +37,7 @@ bool Cond_14e630::vfunc_6(int, Params* p, int) {
         c = 5;
         break;
     }
-    switch (source) {
+    switch (this->f_0c) {
     case 0:
         return c == d;
     case 1:

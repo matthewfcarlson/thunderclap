@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Obj_296620 {
   public:
     virtual void f0();
@@ -10,27 +12,11 @@ class Obj_296620 {
     virtual void f7();
     virtual void f8(int, int, int);
 };
-class BranchNode {
-  public:
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual void a3();
-    virtual void a4();
-    virtual void a5();
-    virtual void a6();
-    virtual void a7();
-    virtual void vfunc_8(int, int, int);
-    char pad[0x10 - 4];
-    unsigned int flags;
-    char pad2[4];
-    unsigned int count;
-    Obj_296620** items;
-};
-void BranchNode::vfunc_8(int a, int b, int c) {
-    if ((flags & 1) == 0) {
-        for (unsigned int i = 0; i < count; ++i)
-            items[i]->f8(a, b, c);
-        flags &= 0xfffffff9;
+
+void pure3d::scenegraph::BranchNode::vfunc_8(int a, int b, int c) {
+    if (((*(unsigned int *)&this->f_10) & 1) == 0) {
+        for (unsigned int i = 0; i < this->f_18; ++i)
+            (*(Obj_296620 ** *)&this->f_1c)[i]->f8(a, b, c);
+        (*(unsigned int *)&this->f_10) &= 0xfffffff9;
     }
 }

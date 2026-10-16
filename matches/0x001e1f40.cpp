@@ -1,5 +1,5 @@
+#include "decls/address.h"
 class CSPManager;
-extern "C" unsigned char __cdecl FUN_001d04d0(const char*);
 extern const char s1[], s2[];
 struct Base {
     virtual void run();

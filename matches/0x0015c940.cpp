@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct Sub_15c940 {
     void setA(int a, int b, float c);
     void setB(int a, int b);
@@ -15,31 +17,19 @@ struct Mgr_15c940 {
 
 namespace hulkfight {
 namespace motion {
-class ClimbLocomotionAction {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    char pad[0x18];
-    Mgr_15c940* m1c;
-    int m20;
-    int m24;
-};
 
-void ClimbLocomotionAction::vfunc_4() {
-    if (m20) {
-        Obj_15c940* o = m1c->get();
+} // namespace motion
+} // namespace hulkfight
+void hulkfight::motion::ClimbLocomotionAction::vfunc_4() {
+    if (this->f_20) {
+        Obj_15c940* o = (*(Mgr_15c940 * *)&this->f_1c)->get();
         Sub_15c940* s = o->make();
         if (s) {
-            s->setA(m20, 0, -1.0f);
-            s->setB(m24, 0);
+            s->setA(this->f_20, 0, -1.0f);
+            s->setB(this->f_24, 0);
             Child_15c940* c = o->child();
             if (c)
                 c->doIt(0);
         }
     }
 }
-} // namespace motion
-} // namespace hulkfight

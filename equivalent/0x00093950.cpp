@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 98 inputs, branch coverage 51/58, incomplete)
 // FUN_00093950 @ 0x00093950
+#include "decls/address.h"
 class CUnlockable {
 public:
     virtual void v0();
@@ -46,7 +47,6 @@ struct Menu_93950 {
     void FUN_00093950(const char *name, char wait, unsigned char *outFound, char *outLinked, unsigned char *outPicked, int *outPos);
 };
 
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
 FEObject *__cdecl FUN_000fc260(void *name);
 
 void Menu_93950::FUN_00093950(const char *name, char wait, unsigned char *outFound, char *outLinked, unsigned char *outPicked, int *outPos)

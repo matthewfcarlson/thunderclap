@@ -1,9 +1,11 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_004112e4[];
 typedef unsigned int u32_132b60;
 extern "C" void* __cdecl alloc(unsigned int);
-class Track {
+class Track_132b60 {
   public:
-    Track();
+    Track_132b60();
     virtual void a();
     virtual void b();
     virtual void c();
@@ -11,18 +13,15 @@ class Track {
     virtual void e();
     virtual void f();
 };
-class Factory_132b60 {
-  public:
-    Track* vfunc_5();
-};
-Track* Factory_132b60::vfunc_5() {
-    Track* p = (Track*)alloc(0x14);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::StatBeginTrialTrack>::vfunc_5() {
+    Track_132b60* p = (Track_132b60*)alloc(0x14);
     if (p) {
-        p->Track::Track();
+        p->Track_132b60::Track_132b60();
         *(u32_132b60*)p = ((int)DAT_004112e4);
         *(u32_132b60*)((char*)p + 0xc) = 0;
         *(u32_132b60*)((char*)p + 0x10) = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

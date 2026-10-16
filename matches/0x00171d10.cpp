@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct B_171d10 {
     int go();
 };
@@ -10,17 +12,11 @@ struct C_171d10 {
 struct D {
     void go(void*, int);
 };
-class TeleportRelativeAction {
-  public:
-    char pad[0x20];
-    A_171d10* mTarget;
-    char pad2[4];
-    bool vfunc_3(void*, int);
-};
-bool TeleportRelativeAction::vfunc_3(void*, int) {
-    int r = mTarget->go()->go();
+
+bool hulkfight::motion::TeleportRelativeAction::vfunc_3(int __p0, int ) {
+    int r = (*(A_171d10 * *)&this->f_20)->go()->go();
     ((C_171d10*)((char*)this + 0x28))->go("teleport_failed");
-    if (!mTarget)
+    if (!(*(A_171d10 * *)&this->f_20))
         return false;
     if (r)
         ((D*)r)->go((char*)this + 0x28, 0);

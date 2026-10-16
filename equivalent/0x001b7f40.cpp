@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 28/28)
 // FUN_001b7f40 @ 0x001b7f40
+#include "decls/address.h"
 extern unsigned int DAT_004d9968;
 extern void __fastcall __security_check_cookie(unsigned int);
 struct Movie {
@@ -11,8 +12,7 @@ struct Movie {
 struct Audio_1b7f40 { void FUN_001eb870(); void FUN_001eb2a0(float,int); float FUN_001eba20(); };
 struct Other_1b7f40 { void FUN_000bb670(); };
 struct Manager_1b7f40 { Audio_1b7f40* FUN_000862e0(); Other_1b7f40* FUN_00086280(); };
-struct Global_1b7f40 { char pad[0x54]; Manager_1b7f40* manager; };
-extern Global_1b7f40* DAT_004dd700;
+struct World { char pad[0x54]; Manager_1b7f40* manager; };
 extern unsigned char DAT_004dd839;
 struct Resource_1b7f40 { void FUN_002078d0(); void FUN_0008db60(int); };
 extern int __cdecl FUN_00266da0(int);

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 111 inputs, branch coverage 27/28, incomplete)
 // hulkfight::ai::CanSeeTargetCondition::vfunc_6 @ 0x001247d0
+#include "decls/address.h"
 struct V3_1247d0 { float x, y, z; };
 
 class fight_Params_1247d0 {
@@ -51,7 +52,7 @@ struct Clock_1247d0 {
 struct Ctl_1247d0 {
     void FUN_001dcf60(int a);
 };
-struct Sys_1247d0 {
+struct World {
     char pad[0xc];
     Ctl_1247d0* ctl;
 };
@@ -61,7 +62,6 @@ class Context { public: char pad[4]; };
 Context* __fastcall FUN_000592a0(void* obj);
 Owner_1247d0* __fastcall FUN_00059a30(Context* ctx);
 Clock_1247d0* FUN_000678d0();
-extern Sys_1247d0* DAT_004dd700;
 bool __cdecl FUN_00203190(V3_1247d0* a1, V3_1247d0* a2, int a3, Body_1247d0* a4, int a5, Owner_1247d0* a6);
 
 class CanSeeTargetCondition {

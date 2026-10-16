@@ -3,7 +3,7 @@ class Elem_23c4d0 {
   public:
     void Fn();
 };
-class Reference {
+namespace fight { class Reference {
   public:
     virtual void A();
     virtual void B();
@@ -17,9 +17,9 @@ class Reference {
     virtual void J();
     char pad[0x28 - 4];
     void Init();
-};
-extern void __cdecl FUN_00267090(Reference*);
-Reference* Reference::vfunc_2(int flag) {
+}; }
+extern void __cdecl FUN_00267090(fight::Reference*);
+fight::Reference* fight::Reference::vfunc_2(int flag) {
     *(int*)this = ((int)DAT_00428824);
     ((Elem_23c4d0*)((char*)this + 0x28))->Fn();
     Init();

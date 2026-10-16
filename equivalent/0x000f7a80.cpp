@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 37/46, incomplete)
 // FUN_000f7a80 @ 0x000f7a80
+#include "decls/address.h"
 extern "C" void *memset(void *dst, int c, unsigned int n);
 extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int cookie);
 
 void *__cdecl FUN_00263ea0(unsigned int size);
-unsigned long long __cdecl FUN_0027b020(const char *s);
 
 class File {
 public:

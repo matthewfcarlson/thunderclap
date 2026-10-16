@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 119 inputs, branch coverage 99/99)
 // pure3d::ShadowSkinLoader::vfunc_5 @ 0x002b7020
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) { return p; }
 
 class Ref_2b7020 {
@@ -22,8 +23,6 @@ template<class T> struct DynamicCaster { virtual void cast(); };
 
 void *__cdecl FUN_0008d690(unsigned int size);
 void *__cdecl FUN_0008d6d0(unsigned int size);
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
-unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned int lo, unsigned int hi);
 void *__cdecl FUN_00266e00(int a, int b);
 void __cdecl FUN_00267090(void *a);
 

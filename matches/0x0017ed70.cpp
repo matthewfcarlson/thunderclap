@@ -1,6 +1,8 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00417d48[];
 extern void* __cdecl alloc(unsigned int);
-struct Track {
+struct Track_17ed70 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -12,24 +14,17 @@ struct Track {
     int y;
     unsigned char z;
 };
-extern void __fastcall init(Track*);
-struct Factory_17ed70 {
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual Track* vfunc_5();
-};
-Track* Factory_17ed70::vfunc_5() {
-    Track* p = (Track*)alloc(0x14);
+extern void __fastcall init(Track_17ed70*);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::VisibilityTrack>::vfunc_5() {
+    Track_17ed70* p = (Track_17ed70*)alloc(0x14);
     if (p) {
         init(p);
         p->z = 1;
         p->x = 1;
         *(unsigned int*)p = ((int)DAT_00417d48);
         p->y = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

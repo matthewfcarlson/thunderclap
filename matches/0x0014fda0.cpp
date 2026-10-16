@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 class Mid_14fda0 {
   public:
     Mid_14fda0* Touch();
@@ -26,25 +28,14 @@ class Ref_14fda0 {
     virtual Thing_14fda0* d();
     Mid_14fda0* GetSub();
 };
-class HitDamageAction {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual unsigned char v3(int, int);
-    virtual void v4();
-    virtual void v5();
-    char pad1[0x1c - 4];
-    void* p1c;
-    Ref_14fda0* p20;
-};
-unsigned char HitDamageAction::v3(int, int) {
-    if (p20) {
-        Thing_14fda0* t = p20->d();
+
+bool hulkfight::motion::HitDamageAction::vfunc_3(int , int ) {
+    if ((*(Ref_14fda0 * *)&this->f_20)) {
+        Thing_14fda0* t = (*(Ref_14fda0 * *)&this->f_20)->d();
         if (t) {
-            Mid_14fda0* m = p20->GetSub()->Touch();
-            m->Draw(*(float*)((char*)p1c + 0x10) * t->x78, t->x4c, t->x48, t->x7c, 0, t->x91);
+            Mid_14fda0* m = (*(Ref_14fda0 * *)&this->f_20)->GetSub()->Touch();
+            m->Draw(*(float*)((char*)(*(void * *)&this->f_1c) + 0x10) * t->x78, t->x4c, t->x48, t->x7c, 0, t->x91);
         }
     }
-    return 0;
+    return (bool)(0);
 }

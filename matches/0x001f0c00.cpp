@@ -1,3 +1,4 @@
+#include "decls/address.h"
 extern "C" char DAT_004246ec[];
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e128[];
@@ -6,7 +7,6 @@ class Base_1f0c00 {
   public:
     Base_1f0c00(char*, int);
 };
-unsigned char FUN_001d04d0(void*);
 class CSoundSystem : public Base_1f0c00 {
   public:
     char pad0[0x10];

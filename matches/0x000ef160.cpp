@@ -1,13 +1,5 @@
-struct FEContainer {
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void vfunc_7();
-};
+#include "gen/global.h"
+
 void __stdcall FUN_000e4ec0(int);
 struct Obj_ef160 {
     virtual void a0();
@@ -60,6 +52,7 @@ struct Obj_ef160 {
     virtual void a47();
     virtual void call(int);
 };
+
 void FEContainer::vfunc_7() {
     FUN_000e4ec0(9);
     ((Obj_ef160*)*(void**)((char*)this + 4))->call(6);

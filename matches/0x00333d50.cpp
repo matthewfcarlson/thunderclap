@@ -1,15 +1,11 @@
-class PlayerBink {
-  public:
-    char pad[0x18];
-    int mFlag;
-    void* mHandle;
-    void vfunc_7();
-};
+#include "gen/movie.h"
+
 void __stdcall ReleaseHandle(void*);
-void PlayerBink::vfunc_7() {
-    if (mFlag) {
-        ReleaseHandle(mHandle);
-        mHandle = 0;
-        mFlag = 0;
+
+void movie::PlayerBink::vfunc_7() {
+    if (this->f_18) {
+        ReleaseHandle((*(void * *)&this->f_1c));
+        (*(void * *)&this->f_1c) = 0;
+        this->f_18 = 0;
     }
 }

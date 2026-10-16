@@ -1,6 +1,8 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_003f73bc[];
 extern "C" void* __cdecl Allocate(unsigned int);
-struct CMotionHitCondition {
+struct CMotionHitCondition_584a0 {
     unsigned int vtable;
     unsigned int pad1;
     unsigned int pad2;
@@ -8,22 +10,15 @@ struct CMotionHitCondition {
     unsigned int value2;
     void Init(int);
 };
-struct Factory_584a0 {
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void* vfunc_5();
-};
-void* Factory_584a0::vfunc_5() {
-    CMotionHitCondition* p = (CMotionHitCondition*)Allocate(0x14);
+
+template <> void* fight::ConditionFactoryTemplate<CMotionHitCondition>::vfunc_5() {
+    CMotionHitCondition_584a0* p = (CMotionHitCondition_584a0*)Allocate(0x14);
     if (p) {
         p->Init(0);
         p->vtable = ((int)DAT_003f73bc);
         p->value = 0;
         p->value2 = 2;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

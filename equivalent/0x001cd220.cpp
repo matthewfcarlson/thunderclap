@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 18/18)
 // FUN_001cd220 @ 0x001cd220
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 extern int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
@@ -27,12 +28,11 @@ struct Child_1cd220 {
     Visibility *vis;
 };
 
-struct Holder_1cd220 {
+struct Singleton_4dd6ec {
     char pad00[0xc];
     Child_1cd220 *child;
 };
 
-extern Holder_1cd220 *DAT_004dd6ec;
 
 struct Obj24_1cd220 {
     int FUN_001b9130(int v);
@@ -48,12 +48,11 @@ struct Obj54_1cd220 {
     Obj28_1cd220 *FUN_000862a0();
 };
 
-struct Game_1cd220 {
+struct World {
     char pad00[0x54];
     Obj54_1cd220 *f54;
 };
 
-extern Game_1cd220 *DAT_004dd700;
 
 extern Loader_1cd220 *__cdecl FUN_001d4c90();
 
@@ -113,7 +112,7 @@ void Mission_1cd220::FUN_001cd220(char flag)
     }
     Loader_1cd220 *loader = FUN_001d4c90();
     if (loader) {
-        Holder_1cd220 *h = DAT_004dd6ec;
+        Singleton_4dd6ec *h = DAT_004dd6ec;
         if (h && h->child && h->child->vis)
             h->child->vis->FUN_000d6fb0(0);
         DAT_004dd700->f54->FUN_00086290()->FUN_001b9130(0);

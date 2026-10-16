@@ -1,20 +1,13 @@
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
+#include "gen/global.h"
+
 class Dummy_1f1030 {
   public:
     void Call(void*);
 };
 
-class Method1 {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void* a, void** b, void* c);
+template <> void Method1<CSoundSystem, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
-    char pad[0x18];
-    void (Dummy_1f1030::*m_fn)(void*);
-};
-
-void Method1::vfunc_2(void* a, void** b, void* c) {
     Dummy_1f1030* d = (Dummy_1f1030*)a;
-    (d->*m_fn)(*b);
+    (d->*(*(void (Dummy_1f1030::**)(void *))&this->f_1c))(*b);
 }

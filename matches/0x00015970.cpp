@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class Obj_15970 {
   public:
     void Fn(int a, int b, int c, int d, int e, int e2, float f, int g);
@@ -29,30 +31,18 @@ class Ctx_15970 {
     Mgr_15970* Get();
 };
 
-class CGrappleDetachAction {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    char pad[0x1c - 4];
-    Ctx_15970* mCtx;
-    Mid_15970* mMid;
-};
-
-void CGrappleDetachAction::v4() {
-    Obj_15970* o = mCtx->Get()->Get();
+void CGrappleDetachAction::vfunc_4() {
+    Obj_15970* o = (*(Ctx_15970 * *)&this->f_1c)->Get()->Get();
     Obj_15970* p = o->mA;
     if (p) {
-        p->Fn(0, -1, 0, 0, 0, 0, 1.0f, mMid->mVal);
+        p->Fn(0, -1, 0, 0, 0, 0, 1.0f, (*(Mid_15970 * *)&this->f_20)->mVal);
         p->mA = 0;
     }
     p = o->mB;
     if (p) {
-        p->Fn(0, -1, 0, 0, 0, 0, 1.0f, mMid->mVal);
+        p->Fn(0, -1, 0, 0, 0, 0, 1.0f, (*(Mid_15970 * *)&this->f_20)->mVal);
         p->mA = 0;
     }
-    o->Fn(0, -1, 0, 0, 0, 0, 1.0f, mMid->mVal);
+    o->Fn(0, -1, 0, 0, 0, 0, 1.0f, (*(Mid_15970 * *)&this->f_20)->mVal);
     o->mA = 0;
 }

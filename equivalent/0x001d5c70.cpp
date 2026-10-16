@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1304 inputs, branch coverage 14/14)
 // FUN_001d5c70 @ 0x001d5c70
+#include "decls/address.h"
 typedef unsigned long U32_1d5c70;
 typedef unsigned __int64 U64_1d5c70;
 extern U32_1d5c70 DAT_004e23d0, DAT_004e23d4, DAT_004e23d8;
-extern U64_1d5c70 __cdecl FUN_0027b020(const char*);
 extern long __cdecl _atol(const char*);
 struct Attribute { U32_1d5c70 low, high; const char* text; U32_1d5c70 unused; };
 struct Item_1d5c70 { char pad[0x3c]; int count; Attribute* attributes; };

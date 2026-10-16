@@ -1,3 +1,5 @@
+#include "gen/audio.h"
+
 extern "C" char DAT_0042a2b0[];
 typedef unsigned char u8;
 struct Sub_254520 {
@@ -8,7 +10,7 @@ struct Sub_254520 {
     unsigned int bits;
     unsigned int zero;
 };
-class Stream {
+class Stream_254520 {
   public:
     int vf;
     void BaseInit();
@@ -17,15 +19,9 @@ class Stream {
 };
 extern void* Alloc(void*);
 extern int gPool_254520;
-class Type {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual Stream* vfunc_3();
-};
-Stream* Type::vfunc_3() {
-    Stream* p = (Stream*)Alloc(&gPool_254520);
+
+void* audio::SeqEventStreamType::vfunc_3() {
+    Stream_254520* p = (Stream_254520*)Alloc(&gPool_254520);
     if (p) {
         p->BaseInit();
         Sub_254520* s = &p->sub;
@@ -34,7 +30,7 @@ Stream* Type::vfunc_3() {
         s->flags &= 0xfe;
         s->bits &= 0x80000000;
         s->zero = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

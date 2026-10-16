@@ -1,18 +1,17 @@
-struct Vector {
+#include "gen/global.h"
+
+struct Vector_9b740 {
     int x, y, z;
 };
-struct CCameraManager {
-    void f(Vector, unsigned char);
+struct CCameraManager_9b740 {
+    void f(Vector_9b740, unsigned char);
 };
-struct Function {
+struct Function_9b740 {
     virtual void a();
     virtual void b();
 };
-struct Method2 : Function {
-    char pad[0x18];
-    void (CCameraManager::*fn)(Vector, unsigned char);
-    virtual void f2(int a, Vector* p, int c);
-};
-void Method2::f2(int a, Vector* p, int c) {
-    ((CCameraManager*)a->*fn)(*p, *((unsigned char*)p + 12));
+
+template <> void Method2<CCameraManager, void,math::Vector, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; Vector_9b740 * p = (Vector_9b740 *)__p1; int c = (int)__p2;
+
+    ((CCameraManager_9b740*)a->*(*(void (CCameraManager_9b740::**)(Vector_9b740, unsigned char))&this->f_1c))(*p, *((unsigned char*)p + 12));
 }

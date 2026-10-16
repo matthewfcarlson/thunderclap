@@ -1,4 +1,6 @@
-class Param {
+#include "gen/fight.h"
+
+class Param_236bb0 {
   public:
     virtual void f0();
     virtual void vfunc_1();
@@ -7,17 +9,8 @@ class Param {
     virtual void vfunc_4();
 };
 namespace fight {
-class Track : public Param {
-  public:
-    virtual void vfunc_3();
-    virtual void vfunc_5();
-    virtual void f6();
-    virtual void f7();
-    virtual void vfunc_8();
-    virtual int vfunc_9(int, int, int);
-    virtual void f10();
-};
-int Track::vfunc_9(int, int, int) {
+
+} // namespace fight
+int fight::Track::vfunc_9(int , int , int ) {
     return 1;
 }
-} // namespace fight

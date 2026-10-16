@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 13/14, incomplete)
 // FUN_00203190 @ 0x00203190
+#include "decls/address.h"
 struct V3_203190 {
     float x, y, z;
 };
@@ -28,10 +29,10 @@ struct Actor_203190 {
     void FUN_000368d0(int a);
 };
 
-struct Game_203190;
+struct World;
 
 struct Tracer_203190 {
-    bool FUN_0010aa90(Game_203190 *g, V3_203190 *a, V3_203190 *b, float scale, V3_203190 *o3, V3_203190 *o2, V3_203190 *o1,
+    bool FUN_0010aa90(World *g, V3_203190 *a, V3_203190 *b, float scale, V3_203190 *o3, V3_203190 *o2, V3_203190 *o1,
                       Actor_203190 *actor, Target_203190 *t, int zero0, int zero1);
 };
 
@@ -54,7 +55,7 @@ struct Holder10_203190 {
     Exec *exec;
 };
 
-struct Game_203190 {
+struct World {
     char pad0[0x10];
     Holder10_203190 *holder;
     char pad14[0x20 - 0x14];
@@ -62,7 +63,6 @@ struct Game_203190 {
     Probe_203190 *probe;
 };
 
-extern Game_203190 *DAT_004dd700;
 
 bool __cdecl FUN_00202c30(V3_203190 *a, V3_203190 *b, float c, int one, V3_203190 *o3, V3_203190 *o2, int p3, Target_203190 *t, int p5, Actor_203190 *actor);
 
@@ -76,7 +76,7 @@ struct Frame_203190 {
 bool FUN_00203190(V3_203190 *a1, V3_203190 *a2, int a3, Target_203190 *a4, int a5, Actor_203190 *a6)
 {
     Frame_203190 f;
-    Game_203190 *game = DAT_004dd700;
+    World *game = DAT_004dd700;
 
     if (a4 && a4->kind != 1) {
         f.diff.x = a2->x - a1->x;

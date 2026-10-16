@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 class Service_274670 {
   public:
     virtual void a0();
@@ -33,18 +35,13 @@ struct Data_274670 {
     char pad3[8];
     int stored;
 };
-class core_DriveCreateDirectoryRequest {
-  public:
-    char pad[8];
-    Data_274670* base;
-    int vfunc_1();
-};
-int core_DriveCreateDirectoryRequest::vfunc_1() {
-    Service_274670* svc = base->service;
+
+int core::DriveCreateDirectoryRequest::vfunc_1() {
+    Service_274670* svc = (*(Data_274670 * *)&this->f_08)->service;
     int value = svc->a15((int*)((char*)this + 12));
     int result = ((Helper_274670*)svc)->Run();
-    base->manager.Reset();
-    base->stored = result;
-    base->manager.Finish();
+    (*(Data_274670 * *)&this->f_08)->manager.Reset();
+    (*(Data_274670 * *)&this->f_08)->stored = result;
+    (*(Data_274670 * *)&this->f_08)->manager.Finish();
     return value;
 }

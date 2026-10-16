@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1479 inputs, branch coverage 6/6)
 // FUN_002c59f0 @ 0x002c59f0
 // Immediate-mode line list: draws n lines from a[i] to b[i], optionally colouring each from colors[i].
+#include "decls/address.h"
 struct Vec3_2c59f0 {
     float x, y, z;
 };
@@ -15,7 +16,7 @@ struct Buffer_2c59f0 {
 
 class Shader;
 
-class Renderer_2c59f0 {
+class Gfx {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
@@ -29,7 +30,6 @@ public:
     virtual void End(Buffer_2c59f0 *buffer);                                                          // slot 31
 };
 
-extern Renderer_2c59f0 *DAT_0052c2a8;
 
 struct LineDrawer {
     Shader *shader;                 // 0

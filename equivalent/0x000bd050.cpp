@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_000bd050 @ 0x000bd050
-class Screen_bd050 {
+#include "decls/address.h"
+class Gfx {
   public:
     virtual void v0();
     virtual void v1();
@@ -162,7 +163,6 @@ class MenuScreen_bd050 {
 };
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
-extern Screen_bd050* DAT_0052c2a8;
 extern Canvas* DAT_0052c2ac;
 extern Viewport_bd050* DAT_0052c2a4;
 TextManager_bd050* FUN_000fc3d0();

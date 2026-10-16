@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 32/32)
 // FUN_001bdb90 @ 0x001bdb90
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 namespace content {
@@ -50,12 +51,11 @@ struct Holder_1bdb90 {
     Flags_1bdb90 *FUN_00086290();
 };
 
-struct Manager_1bdb90 {
+struct World {
     char pad0[0x54];
     Holder_1bdb90 *holder;
 };
 
-extern Manager_1bdb90 *DAT_004dd700;
 extern const char *DAT_004c4bfc;
 extern const char *DAT_004c4bf8;
 extern const char *DAT_004c4bf4;
@@ -63,7 +63,6 @@ extern const char *DAT_004c4bf0;
 extern const char *DAT_004c4bec;
 extern const char *DAT_004c4be8;
 extern "C" int __cdecl FUN_00266da0(int mode);
-unsigned __int64 __cdecl FUN_002672f0(const char *s, int a, int b);
 
 class Widget_1bdb90 {
 public:

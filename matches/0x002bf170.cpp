@@ -1,10 +1,6 @@
 // Same code shape as 0x00222300 (propagated; names are from that function)
-class PartitionDriver {
-    char pad[0x1c];
+#include "gen/pure3d.h"
 
-  public:
-    int vfunc_8();
-};
-int PartitionDriver::vfunc_8() {
+int pure3d::ImageFont::vfunc_8() {
     return *(int*)((char*)this + 0x1c);
 }

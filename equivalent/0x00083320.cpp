@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 30/34, incomplete)
 // FUN_00083320 @ 0x00083320
+#include "decls/address.h"
 struct Vec3_83320 {
     float x, y, z;
     void FUN_00011220(Vec3_83320* delta);
@@ -50,7 +51,6 @@ struct World {
     Registry_83320* registry;             // 0x0c
 };
 
-extern World* DAT_004dd700;
 
 // equiv-conv: FUN_00082d30 esi
 void FUN_00082d30(Xform_83320* pose);

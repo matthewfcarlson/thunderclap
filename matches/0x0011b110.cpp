@@ -1,19 +1,13 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0040eae0[];
 extern void* Alloc(unsigned int);
 class Obj_11b110 {
   public:
     void Init(int);
 };
-class Factory_11b110 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual Obj_11b110* f();
-};
-Obj_11b110* Factory_11b110::f() {
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::ComputeDropZoneCondition>::vfunc_5() {
     Obj_11b110* p = (Obj_11b110*)Alloc(0x24);
     if (p) {
         p->Init(0);
@@ -24,7 +18,7 @@ Obj_11b110* Factory_11b110::f() {
         *(float*)((char*)p + 24) = 2.0f;
         *((char*)p + 28) = 0;
         *(int*)((char*)p + 32) = 0;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

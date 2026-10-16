@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3051 inputs, branch coverage 42/42)
 // CClimbEdgeCondition::vfunc_7 @ 0x0004a9d0
+#include "decls/address.h"
 struct Vec3_4a9d0 {
     float x, y, z;
     float FUN_0022d110();
@@ -51,12 +52,11 @@ struct Holder_4a9d0 {
     void *current;
 };
 
-struct Globals_4a9d0 {
+struct World {
     char pad00[0x20];
     Holder_4a9d0 *holder;
 };
 
-extern Globals_4a9d0 *DAT_004dd700;
 
 class CClimbEdgeCondition {
 public:

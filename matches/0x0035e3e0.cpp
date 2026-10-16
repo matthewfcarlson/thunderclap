@@ -1,4 +1,4 @@
-extern "C" unsigned long long FUN_0027b020(const char*);
+#include "decls/address.h"
 struct Hash_35e3e0 {
     unsigned int lo;
     unsigned int hi;

@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 struct A_16540 {
     A_16540* get();
     int find(void*);
@@ -11,22 +13,11 @@ struct Manager_16540 {
     A_16540* obj;
 };
 extern Manager_16540* volatile gManager_16540;
-struct CSmartPropRemoveInstanceAction {
-    char pad[0x18];
-    B_16540* owner;
-    void* instance;
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual bool vfunc_6(int);
-};
-bool CSmartPropRemoveInstanceAction::vfunc_6(int) {
-    A_16540* a = owner->get();
+
+bool CSmartPropRemoveInstanceAction::vfunc_6(int ) {
+    A_16540* a = (*(B_16540 * *)&this->f_1c)->get();
     a = a->get();
-    int x = a->find(instance);
+    int x = a->find((*(void * *)&this->f_20));
     if (x)
         gManager_16540->obj->remove((void*)x, 1);
     return false;

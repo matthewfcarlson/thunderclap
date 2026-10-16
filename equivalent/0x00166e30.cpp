@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 15/16, incomplete)
 // hulkfight::motion::ShoreNearCondition::vfunc_6 @ 0x00166e30
+#include "decls/address.h"
 struct V3_166e30 {
     float x, y, z;
     float FUN_000111f0();
@@ -29,14 +30,13 @@ struct Nav28 {
     bool FUN_001fe380(V3_166e30 *from, V3_166e30 *out);
 };
 
-struct Game_166e30 {
+struct World {
     char pad0[0x28];
     Nav28 *nav;
     char pad2c[0x54 - 0x2c];
     Mgr54_166e30 *mgr;
 };
 
-extern Game_166e30 *DAT_004dd700;
 extern unsigned DAT_004e12d4;
 extern float DAT_004e12d0;
 
@@ -81,7 +81,7 @@ char ShoreNearCondition::FUN_00166e30(int a1, fight::Params *params, int a3)
     pos.z = 0.0f;
     holder->FUN_00059a50(&pos);
 
-    Game_166e30 *game = DAT_004dd700;
+    World *game = DAT_004dd700;
     if (game->mgr->FUN_000862a0()->FUN_00204350(pos.x, pos.y, pos.z))
         return flag;
 

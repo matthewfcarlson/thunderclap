@@ -1,35 +1,19 @@
+#include "gen/pure3d.h"
+
 class Obj_2bea10 {
   public:
     virtual void f0();
     virtual void f1();
 };
-class Sprite {
-  public:
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual void a3();
-    virtual void a4();
-    virtual void a5();
-    virtual void a6();
-    virtual void a7();
-    virtual void vfunc_8(Obj_2bea10*);
-    virtual void a9();
-    virtual void a10();
-    virtual void a11();
-    virtual void a12();
-    char pad[0x0c];
-    int flag;
-    char pad2[0x38];
-    Obj_2bea10* member;
-};
-void Sprite::vfunc_8(Obj_2bea10* p) {
+
+void pure3d::Sprite::vfunc_8(void* __p0) { Obj_2bea10 * p = (Obj_2bea10 *)__p0;
+
     if (p)
         p->f0();
-    if (member)
-        member->f1();
-    member = p;
+    if ((*(Obj_2bea10 * *)&this->f_4c))
+        (*(Obj_2bea10 * *)&this->f_4c)->f1();
+    (*(Obj_2bea10 * *)&this->f_4c) = p;
     int x = *(int*)((char*)p + 0x18);
     if (x == 2 || x == 4 || x == 5 || x == 6 || x == 1 || x == 3 || x == 7)
-        flag = 1;
+        this->f_10 = 1;
 }

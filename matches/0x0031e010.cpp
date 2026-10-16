@@ -1,9 +1,5 @@
-class pddiBaseContext {
-  public:
-    char pad[0x58];
-    char* member;
-    int vfunc_67();
-};
-int pddiBaseContext::vfunc_67() {
-    return *(int*)(member + 8);
+#include "gen/pure3d.h"
+
+int pure3d::pddiBaseContext::vfunc_67() {
+    return *(int*)((*(char * *)&this->f_58) + 8);
 }

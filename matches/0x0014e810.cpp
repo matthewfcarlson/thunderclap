@@ -13,7 +13,7 @@ class Param {
     virtual void h();
     virtual void i();
 };
-class CollisionSourceIsMissileCondition : public Condition, public Param {
+namespace hulkfight { namespace motion { class CollisionSourceIsMissileCondition : public Condition, public Param {
   public:
     virtual void v0();
     virtual void v1();
@@ -24,7 +24,7 @@ class CollisionSourceIsMissileCondition : public Condition, public Param {
     virtual bool vfunc_6(int, void*, int);
     char pad[4];
     unsigned char value;
-};
+}; }}
 extern int helper(void*, int, void*, void*, int);
 extern int typeA_14e810;
 extern int typeB_14e810;
@@ -34,7 +34,7 @@ struct Source_14e810 {
     virtual void c();
     virtual int get();
 };
-bool CollisionSourceIsMissileCondition::vfunc_6(int, void* p, int) {
+bool hulkfight::motion::CollisionSourceIsMissileCondition::vfunc_6(int, void* p, int) {
     if (helper(p, 0, &typeA_14e810, &typeB_14e810, 0) == 0)
         return false;
     int x = ((Source_14e810*)p)->get();

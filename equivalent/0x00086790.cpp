@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 21/26, incomplete)
 // FUN_00086790 @ 0x00086790
+#include "decls/address.h"
 struct Switch_86790 { void FUN_0008db60(int); };
 struct Item_86790 { void FUN_000af0f0(void*); };
 struct Source_86790 { void FUN_000ae840(); };
@@ -12,11 +13,10 @@ bool FUN_0008db80();
 struct Renderer_86790 { char pad[0xd8]; int state; void FUN_0028f9a0(); void FUN_0028faf0(int); };
 struct Manager_86790 { void FUN_000afe80(); };
 struct Subsystem_86790 { char pad[0x18]; Manager_86790* manager; };
-struct Root_86790 { char pad[0x54]; Subsystem_86790* subsystem; };
+struct World { char pad[0x54]; Subsystem_86790* subsystem; };
 struct Animation { void FUN_001ec480(const char*,const char*); void FUN_001eb2a0(float,int); };
 extern unsigned char DAT_004dd890, DAT_004dd841, DAT_004e222c, DAT_004e222d;
 extern Renderer_86790* DAT_0052c2b4;
-extern Root_86790* DAT_004dd700;
 struct Object { char pad0[4]; int* result; char pad8[8]; Source_86790* source; Input_86790* input; char pad18[4]; Switch_86790* gate; Pump_86790* pump; char pad24[12]; Animation* animation; void FUN_00086790(); };
 void Object::FUN_00086790() {
  gate->FUN_0008db60(1);

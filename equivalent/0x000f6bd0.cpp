@@ -2,10 +2,9 @@
 // FUN_000f6bd0 @ 0x000f6bd0
 // Look up a drawable in the inventory by name, find the entry named `joint` in its table
 // and hand the entry's value to FUN_000f69e0.
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
-unsigned __int64 __cdecl FUN_0027b020(const char *name);
 void __cdecl FUN_000f69e0(int value, int arg);
 
 namespace pure3d { class CompositeDrawable; }

@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000b5030 @ 0x000b5030
+#include "decls/address.h"
 struct Slot_b5030 { void FUN_00086420(); };
 struct Holder_b5030 { Slot_b5030 *FUN_00086270(int a); };
-struct Globals_b5030 {
+struct World {
     char pad00[0x54];
     Holder_b5030 *holder;
 };
-extern Globals_b5030 *DAT_004dd700;
 
 struct Target_b5030 { void FUN_0008ffe0(); };
 

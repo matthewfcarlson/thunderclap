@@ -1,7 +1,9 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_004167d8[];
-class TargetingCondition {
+class TargetingCondition_16d9c0 {
   public:
-    TargetingCondition(int);
+    TargetingCondition_16d9c0(int);
     virtual void a();
     virtual void b();
     virtual void c();
@@ -13,17 +15,9 @@ class TargetingCondition {
     char flag;
 };
 extern void* operator_new(unsigned int);
-class ConditionFactoryTemplate {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual TargetingCondition* vfunc_5();
-};
-TargetingCondition* ConditionFactoryTemplate::vfunc_5() {
-    TargetingCondition* p = (TargetingCondition*)operator_new(0x10);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::TargetingCondition>::vfunc_5() {
+    TargetingCondition_16d9c0* p = (TargetingCondition_16d9c0*)operator_new(0x10);
     if (p) {
         p->Init(0);
         *(void**)p = (void*)((int)DAT_004167d8);
@@ -31,5 +25,5 @@ TargetingCondition* ConditionFactoryTemplate::vfunc_5() {
     } else {
         p = 0;
     }
-    return p;
+    return (void*)(p);
 }

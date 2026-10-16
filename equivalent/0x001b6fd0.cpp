@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_001b6fd0 @ 0x001b6fd0
+#include "decls/address.h"
 struct Surface;
 struct Vertices {
     void FUN_0008ef00();
@@ -18,7 +19,7 @@ struct Screen_1b6fd0 {
     virtual int vfn6();
     virtual int vfn7();
 };
-struct Device_1b6fd0 {
+struct Gfx {
     virtual void vfn0();
     virtual void vfn1();
     virtual void vfn2();
@@ -100,7 +101,6 @@ struct Stage_1b6fd0 {
 };
 
 extern Screen_1b6fd0 *DAT_0052c2a4;
-extern Device_1b6fd0 *DAT_0052c2a8;
 extern Stage_1b6fd0 **DAT_0052c2ac;
 
 struct Holder_1b6fd0 {

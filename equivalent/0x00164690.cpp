@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 38/38)
 // hulkfight::motion::GrappleLocomotionSteerAction::vfunc_3 @ 0x00164690
+#include "decls/address.h"
 namespace content {
 namespace LoadInventory {
 class __declspec(novtable) DynamicCasterBase {
@@ -43,8 +44,7 @@ public:
 
 struct Holder44_164690 { Factory_164690 *FUN_00203d70(); };
 struct Holder28_164690 { Holder44_164690 *FUN_000862a0(); };
-struct Manager_164690 { char pad0[0x54]; Holder28_164690 *holder; };
-extern Manager_164690 *DAT_004dd700;
+struct World { char pad0[0x54]; Holder28_164690 *holder; };
 
 struct Sub_164690 { char pad[4]; };
 

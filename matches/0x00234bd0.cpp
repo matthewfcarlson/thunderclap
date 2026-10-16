@@ -10,15 +10,15 @@ class ParamValueString {
     virtual void f6();
     virtual void* get(void*);
 };
-class ParamValueName : public ParamValueString {
+namespace fight { class ParamValueNameList : public ParamValueString {
   public:
     bool vfunc_6(void*, void*);
-};
+}; }
 class Receiver_234bd0 {
   public:
     void run(void*);
 };
-bool ParamValueName::vfunc_6(void* a, void* b) {
+bool fight::ParamValueNameList::vfunc_6(void* a, void* b) {
     void* x = get(a);
     if (!x)
         return false;

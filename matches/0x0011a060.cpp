@@ -1,29 +1,20 @@
+#include "gen/hulkfight.h"
+
 typedef unsigned int u32_11a060;
-struct MotionLocatorTrack {
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual u32_11a060 vfunc_10(u32_11a060 a, u32_11a060 b, u32_11a060 c);
-};
-struct Object {
-    u32_11a060 init(MotionLocatorTrack*, u32_11a060);
+struct Object_11a060 {
+    u32_11a060 init(hulkfight::ai::MotionLocatorTrack*, u32_11a060);
 };
 extern int MatchType(u32_11a060, int, const void*, const void*, int);
-extern Object* Alloc(unsigned int);
+extern Object_11a060* Alloc(unsigned int);
 extern const char ParamDesc[];
 extern const char FightParamsDesc[];
-u32_11a060 MotionLocatorTrack::vfunc_10(u32_11a060 a, u32_11a060 b, u32_11a060 c) {
+
+int hulkfight::ai::MotionLocatorTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_11a060 a = (u32_11a060)__p0; u32_11a060 b = (u32_11a060)__p1; u32_11a060 c = (u32_11a060)__p2;
+
     if (MatchType(c, 0, ParamDesc, FightParamsDesc, 0)) {
-        Object* p = Alloc(0x30);
+        Object_11a060* p = Alloc(0x30);
         if (p)
-            return p->init(this, c);
+            return (int)(p->init(this, c));
     }
-    return 0;
+    return (int)(0);
 }

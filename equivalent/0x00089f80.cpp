@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 13/14, incomplete)
 // FUN_00089f80 @ 0x00089f80
+#include "decls/address.h"
 extern unsigned int DAT_004d9968;
 void __fastcall __security_check_cookie(unsigned int);
 struct InfoReader {
@@ -8,7 +9,6 @@ struct InfoReader {
  void FUN_001d19d0(int);
 };
 InfoReader* __cdecl FUN_001d4c90();
-unsigned __int64 __cdecl FUN_0027b020(const char*);
 void __cdecl FUN_000964a0(char*, int, const char*, ...);
 struct Entry_89f80 { unsigned int low, high; char text[16]; };
 struct Manager_89f80 {

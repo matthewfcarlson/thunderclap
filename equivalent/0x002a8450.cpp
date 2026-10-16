@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 141 inputs, branch coverage 18/22, incomplete)
 // pure3d::ShaderAnimationController::vfunc_7 @ 0x002a8450
+#include "gen/pure3d.h"
+
 namespace pure3d {
 
 struct Vec3_2a8450 {
@@ -10,14 +12,14 @@ struct Quat_2a8450 {
     float x, y, z, w;
 };
 
-class Entity {
+class Entity_2a8450 {
 public:
     virtual void e0();
     virtual void e1();
     virtual void e2();
 };
 
-class Texture : public Entity {
+class Texture_2a8450 : public Entity_2a8450 {
 public:
     char pad04[0x10 - 4];
     int handle;               // 0x10
@@ -45,7 +47,7 @@ struct SinkHolder_2a8450 {
 };
 
 // One animated channel of the shader animation; the vtable slot 2 returns a fourcc type tag.
-class Channel {
+class Channel_2a8450 {
 public:
     virtual void c0();
     virtual void c1();
@@ -57,7 +59,7 @@ public:
     char pad04[4];
     int paramId;              // 0x08
     void FUN_0028a0b0(float frame, int *out);
-    void FUN_0028ac00(float frame, Entity **out);
+    void FUN_0028ac00(float frame, Entity_2a8450 **out);
     void FUN_0028ad20(float frame, int *out);
     void FUN_0028ac90(float frame, unsigned char *out);
     void FUN_0028a1c0(float frame, float *out);
@@ -66,88 +68,68 @@ public:
 struct ChannelList_2a8450 {
     char pad00[0x14];
     int count;                // 0x14
-    Channel *FUN_00288950(int index);
+    Channel_2a8450 *FUN_00288950(int index);
 };
 
-struct Animation {
+struct Animation_2a8450 {
     ChannelList_2a8450 *FUN_00288a10(int index);
 };
 
-class ShaderAnimationController {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    char pad04[0x34 - 4];
-    float frame;              // 0x34
-    char pad38[4];
-    Animation *anim;          // 0x3c
-    SinkHolder_2a8450 *target;       // 0x40
-
-};
-
-void ShaderAnimationController::vfunc_7()
-{
-    ChannelList_2a8450 *list = anim->FUN_00288a10(0);
+}
+void pure3d::ShaderAnimationController::vfunc_7() {
+    ChannelList_2a8450 *list = (*(Animation_2a8450 * *)&this->f_3c)->FUN_00288a10(0);
     for (int i = 0; i < list->count; i++) {
-        Channel *ch = list->FUN_00288950(i);
+        Channel_2a8450 *ch = list->FUN_00288950(i);
         switch (ch->type()) {
         case 0x544f52: {
             Quat_2a8450 q;
-            ch->sampleQuat(frame, &q);
-            target->sink->s10(ch->paramId, &q);
+            ch->sampleQuat(this->f_34, &q);
+            (*(SinkHolder_2a8450 * *)&this->f_40)->sink->s10(ch->paramId, &q);
             break;
         }
         case 0x524c43: {
             int color;
-            ch->FUN_0028ad20(frame, &color);
-            target->sink->s8(ch->paramId, color);
+            ch->FUN_0028ad20(this->f_34, &color);
+            (*(SinkHolder_2a8450 * *)&this->f_40)->sink->s8(ch->paramId, color);
             break;
         }
         case 0x544e45: {
-            Entity *e;
-            ch->FUN_0028ac00(frame, &e);
+            Entity_2a8450 *e;
+            ch->FUN_0028ac00(this->f_34, &e);
             int id = ch->paramId;
-            Texture *t = dynamic_cast<Texture *>(e);
+            Texture_2a8450 *t = dynamic_cast<Texture_2a8450 *>(e);
             if (t)
-                target->sink->s5(id, t->handle);
+                (*(SinkHolder_2a8450 * *)&this->f_40)->sink->s5(id, t->handle);
             else
-                target->sink->s5(id, 0);
+                (*(SinkHolder_2a8450 * *)&this->f_40)->sink->s5(id, 0);
             break;
         }
         case 0x544e49: {
             int value;
-            ch->FUN_0028a0b0(frame, &value);
-            target->sink->s6(ch->paramId, value);
+            ch->FUN_0028a0b0(this->f_34, &value);
+            (*(SinkHolder_2a8450 * *)&this->f_40)->sink->s6(ch->paramId, value);
             break;
         }
         case 0x31544c46: {
             float f;
-            ch->FUN_0028a1c0(frame, &f);
-            target->sink->s7(ch->paramId, f);
+            ch->FUN_0028a1c0(this->f_34, &f);
+            (*(SinkHolder_2a8450 * *)&this->f_40)->sink->s7(ch->paramId, f);
             break;
         }
         case 0x4c4f4f42: {
             unsigned char b;
-            ch->FUN_0028ac90(frame, &b);
-            target->sink->s6(ch->paramId, b);
+            ch->FUN_0028ac90(this->f_34, &b);
+            (*(SinkHolder_2a8450 * *)&this->f_40)->sink->s6(ch->paramId, b);
             break;
         }
         case 0x54434556: {
             Vec3_2a8450 v;
-            ch->sampleVec3(frame, &v);
-            target->sink->s9(ch->paramId, &v);
+            ch->sampleVec3(this->f_34, &v);
+            (*(SinkHolder_2a8450 * *)&this->f_40)->sink->s9(ch->paramId, &v);
             break;
         }
         default:
             break;
         }
     }
-}
-
 }

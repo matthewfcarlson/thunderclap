@@ -1,5 +1,7 @@
 // Same code shape as 0x00131e70 (propagated; names are from that function)
-class Track {
+#include "gen/hulkfight.h"
+
+class Track_132070 {
   public:
     virtual void f0();
     virtual void f1();
@@ -12,15 +14,12 @@ class Track {
     virtual void f8();
     virtual void f9();
 };
-class DialogueTrack : public Track {
-  public:
-    virtual int vfunc_10(int a, int b, int c);
-};
 struct H {
-    int call(DialogueTrack*, int);
+    int call(hulkfight::StatEndTrialTrack*, int);
 };
 extern H* FUN_0008d690(int);
-int DialogueTrack::vfunc_10(int a, int b, int c) {
+
+int hulkfight::StatEndTrialTrack::vfunc_10(int a, int b, int c) {
     H* p = FUN_0008d690(0x24);
     if (p)
         return p->call(this, c);

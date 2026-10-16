@@ -1,4 +1,6 @@
-class CAction {
+#include "gen/global.h"
+
+class CAction_160f0 {
   public:
     virtual void a0();
     virtual void a1();
@@ -10,16 +12,12 @@ class CAction {
     virtual void a7();
     virtual void a8();
 };
-class CSmartPropDetachAction : public CAction {
-  public:
-    char pad[0x18];
-    bool vfunc_6(int);
-};
 struct Obj_160f0 {
     Obj_160f0* f592a0();
     Obj_160f0* f59a30();
     unsigned int f40140(int, int, int, int, int);
 };
+
 bool CSmartPropDetachAction::vfunc_6(int unused) {
     Obj_160f0* o = *(Obj_160f0**)((char*)this + 0x1c);
     o = o->f592a0();

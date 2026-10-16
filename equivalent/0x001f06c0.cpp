@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001f06c0 @ 0x001f06c0
+#include "decls/address.h"
 typedef unsigned __int64 Key_1f06c0;
-extern Key_1f06c0 __cdecl FUN_002672f0(const char*, int, int);
 extern int __cdecl FUN_002673a0(const char*, int);
 
 class CSoundCommand_PlayFightDialogueEvent {

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 70/74, incomplete)
 // hulkfight::ai::PathLocatorTestCondition::vfunc_6 @ 0x0011fa30
+#include "decls/address.h"
 extern "C" int atexit(void (*)());
 
 struct Key_11fa30 {
@@ -87,7 +88,6 @@ struct World {
     Registry_11fa30 *registry;
 };
 
-extern World *DAT_004dd700;
 
 namespace fight {
 class Params {
@@ -107,7 +107,6 @@ public:
 struct Owner_11fa30 { char pad[4]; };
 Owner_11fa30 *__fastcall FUN_000592a0(void *x);
 Stats_11fa30 *__fastcall FUN_00059a30(Owner_11fa30 *o);
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
 char __cdecl FUN_00018960(float a, float b, float eps);
 
 union ArgSlot_11fa30 {

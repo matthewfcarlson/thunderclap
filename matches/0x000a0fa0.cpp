@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class Ref {
   public:
     virtual void f0();
@@ -6,20 +8,14 @@ class Ref {
     int a;
     int b;
 };
-class CChaseCamera {
-    char pad[0x350];
-    Ref* volatile m;
 
-  public:
-    void vfunc_32(int a, int b);
-};
 void CChaseCamera::vfunc_32(int a, int b) {
-    Ref* q = m;
+    Ref* q = (*(Ref *volatile *)&this->f_350);
     if (q && q->a == a && q->b == b) {
-        Ref* r = m;
+        Ref* r = (*(Ref *volatile *)&this->f_350);
         if (r) {
             r->release();
-            m = 0;
+            (*(Ref *volatile *)&this->f_350) = 0;
         }
     }
 }

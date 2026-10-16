@@ -1,4 +1,6 @@
-class pddiPrimBufferStream {
+#include "gen/pure3d.h"
+
+class pddiPrimBufferStream_327570 {
   public:
     virtual void f0();
     virtual void f1();
@@ -19,12 +21,7 @@ class pddiPrimBufferStream {
     virtual void f16();
     virtual void f17();
 };
-class d3dPrimBufferStream : public pddiPrimBufferStream {
-  public:
-    char pad[0x30 - sizeof(pddiPrimBufferStream)];
-    int* ptr;
-    void f4(int a, int b);
-};
-void d3dPrimBufferStream::f4(int a, int b) {
-    ptr[b] = a;
+
+void pure3d::d3dPrimBufferStream::vfunc_4(int a, int b) {
+    (*(int * *)&this->f_30)[b] = a;
 }

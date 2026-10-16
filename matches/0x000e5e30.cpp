@@ -1,4 +1,6 @@
-class Object {
+#include "gen/global.h"
+
+class Object_e5e30 {
   public:
     virtual void f0();
     virtual void f1();
@@ -37,7 +39,7 @@ class Object {
     virtual void f34();
     virtual int f35();
 };
-class FEContainer {
+class FEContainer_e5e30 {
   public:
     virtual void a0();
     virtual void a1();
@@ -76,14 +78,9 @@ class FEContainer {
     virtual void a34();
     virtual int a35();
 };
-class FEDialog {
-  public:
-    char pad[4];
-    void* ptr;
-    int vfunc_35();
-};
+
 int FEDialog::vfunc_35() {
-    Object* p = *(Object**)((char*)ptr + 0x175c);
+    Object_e5e30* p = *(Object_e5e30**)((char*)(*(void * *)&this->f_04) + 0x175c);
     if (p)
         return p->f35();
     return 0;

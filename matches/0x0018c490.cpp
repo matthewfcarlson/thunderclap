@@ -1,22 +1,21 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_004195cc[];
 void* __cdecl FUN_0008d690(unsigned int);
-class Track {
+class Track_18c490 {
   public:
     void Init();
 };
-class Factory_18c490 {
-  public:
-    void* vfunc_5();
-};
-void* Factory_18c490::vfunc_5() {
-    Track* p = (Track*)FUN_0008d690(0x14);
+
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropDestroyTrack>::vfunc_5() {
+    Track_18c490* p = (Track_18c490*)FUN_0008d690(0x14);
     if (p) {
         p->Init();
         *(int*)p = ((int)DAT_004195cc);
         *(int*)((char*)p + 0xc) = 0;
         *(int*)((char*)p + 0x10) = 0;
         *(int*)((char*)p + 8) = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

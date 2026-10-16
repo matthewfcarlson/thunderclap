@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class Child_e8fc0 {
   public:
     virtual void f0();
@@ -15,7 +17,7 @@ class Child_e8fc0 {
     virtual void f12();
     virtual void f13(int);
 };
-class FELayout {
+class FELayout_e8fc0 {
   public:
     virtual void a0();
     virtual void a1();
@@ -23,48 +25,23 @@ class FELayout {
     virtual void a3();
     virtual void a4();
 };
-class VScroll : public FELayout {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8(int);
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual void v13();
-    virtual void v14();
-    virtual void v15();
-    virtual void v16();
-    virtual void v17();
-    virtual void v18();
-    virtual void v19();
-    virtual void v20();
-    virtual void v21();
+struct VScroll_nv_e8fc0 {
     void helper(int, int);
-    char pad[0x240];
-    Child_e8fc0* child;
-    int val248;
-    char pad3[0x1c];
-    int val268;
 };
-void VScroll::v8(int p) {
+
+void VScroll::vfunc_8(int p) {
     switch (p) {
     case 1: {
-        int x = val268;
-        if (val248 != x)
-            helper(x, 1);
+        int x = this->f_268;
+        if (this->f_248 != x)
+            ((VScroll_nv_e8fc0*)this)->helper(x, 1);
         break;
     }
     case 2:
-        if (val248 != 0)
-            helper(0, 2);
+        if (this->f_248 != 0)
+            ((VScroll_nv_e8fc0*)this)->helper(0, 2);
         break;
     }
-    if (child)
-        child->f13(p);
+    if ((*(Child_e8fc0 * *)&this->f_244))
+        (*(Child_e8fc0 * *)&this->f_244)->f13(p);
 }

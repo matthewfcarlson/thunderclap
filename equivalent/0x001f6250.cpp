@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 32/32)
 // FUN_001f6250 @ 0x001f6250
+#include "decls/address.h"
 struct Source_1f6250 { char pad0[4]; void *handle; };
 
 struct Slot_1f6250 {
@@ -27,7 +28,6 @@ struct Current_1f6250 {
     unsigned __int64 FUN_001f57e0();
 };
 
-unsigned __int64 __cdecl FUN_002672f0(int a, int b, int c);
 int __cdecl FUN_002673a0(int a, int b);
 int __cdecl FUN_0024a370(void *handle, int *hash);
 void __cdecl FUN_00249bd0(void *handle, int x, Params *p);

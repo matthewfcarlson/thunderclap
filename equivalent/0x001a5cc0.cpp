@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 12/12)
 // hulkfight::scenario::Event_PropStateNameCondition::vfunc_6 @ 0x001a5cc0
+#include "decls/address.h"
 namespace fight {
 class Params {
 public:
@@ -51,12 +52,11 @@ public:
     Prop_1a5cc0 *FUN_001dee40(int lo, int hi);
 };
 
-class Game_1a5cc0 {
+class World {
 public:
     char pad0[0xc];
     PropRegistry *props;
 };
-extern Game_1a5cc0 *DAT_004dd700;
 
 namespace hulkfight {
 namespace scenario {

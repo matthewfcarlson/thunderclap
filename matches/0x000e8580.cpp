@@ -1,4 +1,6 @@
-class Drawable {
+#include "gen/global.h"
+
+class Drawable_e8580 {
   public:
     virtual void f0();
     virtual void f1();
@@ -10,14 +12,7 @@ class Drawable {
     virtual void f7();
     virtual void f8(int, int);
 };
-class DrawableCompositeDrawable {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    Drawable* mDrawable;
-};
-void DrawableCompositeDrawable::vfunc_0() {
-    mDrawable->f8(0, 0);
+
+void CDisplayEffect::DrawableCompositeDrawable::vfunc_0() {
+    (*(Drawable_e8580 * *)&this->f_04)->f8(0, 0);
 }

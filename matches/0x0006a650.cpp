@@ -1,13 +1,11 @@
-class CJumpAttackTrack;
+#include "gen/global.h"
+
 class Alloc_6a650 {
   public:
     int method(CJumpAttackTrack*, int);
 };
-class CJumpAttackTrack {
-  public:
-    int vfunc_12(int);
-};
 extern Alloc_6a650* FUN_0008d690(int);
+
 int CJumpAttackTrack::vfunc_12(int param) {
     Alloc_6a650* p = FUN_0008d690(0x34);
     if (p)

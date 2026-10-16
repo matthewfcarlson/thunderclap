@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 typedef unsigned int size_t;
 void* operator new(size_t) throw();
 namespace fight {
@@ -13,23 +15,20 @@ class BaseCond {
     virtual void f();
     char pad[4];
 };
-class CIsInvincibleCondition : public BaseCond {
+class CIsInvincibleCondition_52680 : public BaseCond {
   public:
-    CIsInvincibleCondition(Arg* a) throw() : BaseCond(), part(a) {}
+    CIsInvincibleCondition_52680(Arg* a) throw() : BaseCond(), part(a) {}
     virtual void f();
     Part part;
 };
-class ConditionFactoryCaster {
+class ConditionFactoryCaster_52680 {
   public:
     virtual void vfunc_0();
-    virtual CIsInvincibleCondition* vfunc_1(Arg*);
+    virtual CIsInvincibleCondition_52680* vfunc_1(Arg*);
 };
-class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
-  public:
-    virtual void vfunc_0();
-    virtual CIsInvincibleCondition* vfunc_1(Arg*);
-};
-CIsInvincibleCondition* ConditionFactoryCasterTemplate::vfunc_1(Arg* a) {
-    return new CIsInvincibleCondition(a);
-}
+
 } // namespace fight
+template <> void* fight::ConditionFactoryCasterTemplate<CIsInvincibleCondition>::vfunc_1(void* __p0) { Arg * a = (Arg *)__p0;
+
+    return (void*)(new CIsInvincibleCondition_52680(a));
+}

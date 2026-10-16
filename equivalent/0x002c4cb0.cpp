@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 27 inputs, branch coverage 8/8)
 // FUN_002c4cb0 @ 0x002c4cb0
+#include "decls/address.h"
 extern float DAT_0042ef28;   // pi
 extern float DAT_0042ef48;   // 2 * pi
 
@@ -50,7 +51,7 @@ struct VertexBuf_2c4cb0 {
     void FUN_0008ef00();
 };
 
-class Renderer_2c4cb0 {
+class Gfx {
 public:
     virtual void v0();
     virtual void v1();
@@ -87,7 +88,6 @@ public:
 };
 
 extern Device_2c4cb0 **DAT_0052c2ac;
-extern Renderer_2c4cb0 *DAT_0052c2a8;
 
 void __cdecl FUN_00356bf0(float r, float az, float pol, float *x, float *y, float *z);
 
@@ -97,7 +97,7 @@ void __cdecl FUN_002c4cb0(float a1, V3_2c4cb0 *a2, int a3, int a4, float a5, flo
     m.FUN_0022b980();
     m.FUN_0022be40(a2);
     (*DAT_0052c2ac)->v23(0, &m);
-    Renderer_2c4cb0 *rend = DAT_0052c2a8;
+    Gfx *rend = DAT_0052c2a8;
     VertexBuf_2c4cb0 *vb = rend->v30(a3, 2, 0x2020, (int)((a6 + a6 + 1.0f) * (a5 + 1.0f) * 4.0f), 0);
     V3_2c4cb0 v;
     FUN_00356bf0(a1, 0, 0, &v.x, &v.y, &v.z);

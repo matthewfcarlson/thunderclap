@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 typedef unsigned int uint;
 void* __cdecl Alloc(uint);
 class Base_591f0 {
@@ -27,20 +29,12 @@ class Derived : public Base_591f0 {
     int m1;
     char pad2[4];
 };
-class Factory_591f0 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual Derived* vfunc_5();
-};
-Derived* Factory_591f0::vfunc_5() {
+
+template <> void* fight::ConditionFactoryTemplate<CSmartPropNameCondition>::vfunc_5() {
     Derived* p = (Derived*)Alloc(0x20);
     if (p) {
         p->Derived::Derived();
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

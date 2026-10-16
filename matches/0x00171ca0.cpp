@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct Vec_171ca0 {
     int x, y, z;
 };
@@ -7,25 +9,14 @@ class Obj_171ca0 {
     Obj_171ca0* next();
     void set(Vec_171ca0*);
 };
-class TeleportAction {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual char vfunc_5(int, int);
-    char pad[0x18];
-    char* src;
-    Obj_171ca0* obj;
-};
-char TeleportAction::vfunc_5(int a, int b) {
+
+bool hulkfight::motion::TeleportAction::vfunc_5(int a, int b) {
     if (!a) {
-        if (!obj)
-            return 0;
-        Obj_171ca0* p = obj->get()->next();
-        Vec_171ca0 v = *(Vec_171ca0*)(src + 0x10);
+        if (!(*(Obj_171ca0 * *)&this->f_20))
+            return (bool)(0);
+        Obj_171ca0* p = (*(Obj_171ca0 * *)&this->f_20)->get()->next();
+        Vec_171ca0 v = *(Vec_171ca0*)((*(char * *)&this->f_1c) + 0x10);
         p->set(&v);
     }
-    return 1;
+    return (bool)(1);
 }

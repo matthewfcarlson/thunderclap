@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // CSnapToWallAction::vfunc_6 @ 0x00017a80
+#include "gen/global.h"
+
 struct V3_17a80 {
     float x, y, z;
     float FUN_0022d110();
@@ -62,35 +64,19 @@ void *FUN_00263ea0(unsigned int);
 float FUN_00224f10(const V3_17a80 *v);
 void FUN_00224d70(float angle, V3_17a80 *v);
 
-class CSnapToWallAction {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual bool vfunc_6(int arg);
-    char pad[0x1c - 4];
-    Holder_17a80 *f1c;
-    Cfg_17a80 *f20;
-    Obj70_17a80 *f24;
-};
-
-bool CSnapToWallAction::vfunc_6(int arg)
-{
+bool CSnapToWallAction::vfunc_6(int arg) {
     struct Frame {
         V3_17a80 w;
         V3_17a80 u;
         V3_17a80 v;
         V3_17a80 t;
     } fr;
-    Mgr_17a80 *mgr = f1c->FUN_000592a0();
+    Mgr_17a80 *mgr = (*(Holder_17a80 * *)&this->f_1c)->FUN_000592a0();
     Player_17a80 *pl = mgr->FUN_00059a30();
     Tracker_17a80 *tr = mgr->FUN_00059a40();
     if (tr == 0)
         return false;
-    Cfg_17a80 *c0 = f20;
+    Cfg_17a80 *c0 = (*(Cfg_17a80 * *)&this->f_20);
     float cf28 = c0->f28;
     float cf2c = c0->f2c;
     float cf30 = c0->f30;
@@ -98,24 +84,24 @@ bool CSnapToWallAction::vfunc_6(int arg)
     Obj70_17a80 *o = 0;
     if (mem)
         o = ((Obj70_17a80 *)mem)->FUN_002248f0(0);
-    f24 = o;
+    (*(Obj70_17a80 * *)&this->f_24) = o;
     o->name.FUN_0027b040("snapToWall");
-    f24->v0();
-    tr->FUN_00222890(f24, -1.0f, cf28, 1.0f, cf2c, cf30, -1.0f);
+    (*(Obj70_17a80 * *)&this->f_24)->v0();
+    tr->FUN_00222890((*(Obj70_17a80 * *)&this->f_24), -1.0f, cf28, 1.0f, cf2c, cf30, -1.0f);
 
     fr.v = pl->f1ac4;
     fr.v.y = 0.0f;
     fr.v.FUN_0022d110();
     float ang = FUN_00224f10(&fr.v);
-    f24->s18.FUN_00221d20(ang + f20->f14);
+    (*(Obj70_17a80 * *)&this->f_24)->s18.FUN_00221d20(ang + (*(Cfg_17a80 * *)&this->f_20)->f14);
 
     fr.w = pl->f1ab8;
-    fr.u = f20->f18;
+    fr.u = (*(Cfg_17a80 * *)&this->f_20)->f18;
     FUN_00224d70(ang, &fr.u);
     fr.w.x = fr.u.x + fr.w.x;
     fr.w.y = fr.u.y + fr.w.y;
     fr.w.z = fr.u.z + fr.w.z;
-    if (f20->flag24) {
+    if ((*(Cfg_17a80 * *)&this->f_20)->flag24) {
         fr.w.y = pl->f1a64;
     } else {
         fr.t.x = 0.0f;
@@ -124,6 +110,6 @@ bool CSnapToWallAction::vfunc_6(int arg)
         mgr->FUN_00059a50(&fr.t);
         fr.w.y = fr.t.y;
     }
-    f24->s18.FUN_0022be40(&fr.w);
+    (*(Obj70_17a80 * *)&this->f_24)->s18.FUN_0022be40(&fr.w);
     return true;
 }

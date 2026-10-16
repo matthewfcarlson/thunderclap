@@ -1,8 +1,8 @@
+#include "decls/address.h"
 extern "C" char DAT_00404d20[];
 extern "C" char DAT_0048e0e4[];
 extern "C" char DAT_0048e128[];
 extern "C" void __stdcall FUN_001d0480(void*, int);
-extern "C" char __cdecl FUN_001d04d0(const void*);
 class CCameraManager {
   public:
     int vptr;

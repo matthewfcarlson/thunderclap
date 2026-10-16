@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 12 inputs, branch coverage 15/18, incomplete)
 // FUN_0028ea80 @ 0x0028ea80
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 namespace pure3d { class Entity; }
@@ -62,7 +63,6 @@ struct Reader {
 
 void *FUN_0008d690(unsigned size);
 extern char DAT_00121110;
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
 
 struct Frame_28ea80 {
     char pad[3];

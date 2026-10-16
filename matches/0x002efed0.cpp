@@ -1,5 +1,7 @@
 // Same code shape as 0x0004f4b0 (propagated; names are from that function)
-class ParamValue {
+#include "gen/physics.h"
+
+class ParamValue_2efed0 {
   public:
     virtual void vfunc_0();
     virtual int vfunc_1();
@@ -7,12 +9,7 @@ class ParamValue {
     virtual void vfunc_3();
     virtual void vfunc_4();
 };
-class ParamValueVector : public ParamValue {
-  public:
-    virtual void vfunc_0();
-    virtual int vfunc_1();
-    virtual void vfunc_5();
-};
-int ParamValueVector::vfunc_1() {
+
+int physics::CollisionSphere::vfunc_6() {
     return 7;
 }

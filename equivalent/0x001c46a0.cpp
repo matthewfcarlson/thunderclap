@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 12/12)
 // FUN_001c46a0 @ 0x001c46a0
+#include "decls/address.h"
 struct Vertex_1c46a0 {
     char pad0[8];
     float *pos;
@@ -21,7 +22,7 @@ public:
     virtual int Width();
 };
 
-class Renderer_1c46a0 {
+class Gfx {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
@@ -57,7 +58,6 @@ public:
 };
 
 extern Device_1c46a0 *DAT_0052c2a4;
-extern Renderer_1c46a0 *DAT_0052c2a8;
 extern Stage_1c46a0 **DAT_0052c2ac;
 void __cdecl FUN_000b3c80(int flag);
 

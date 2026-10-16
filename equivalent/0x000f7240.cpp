@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 75 inputs, branch coverage 12/12)
 // FUN_000f7240 @ 0x000f7240
 // Finds a key in the table, preferring the platform-hashed variant ("_XBOX") over the plain key.
-unsigned __int64 __cdecl FUN_002672f0(const char *name, unsigned int lo, unsigned int hi);
+#include "decls/address.h"
 
 struct KeyEntry {
     unsigned int lo, hi;

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 56/56)
 // hulkfight::motion::WallJumpAction::vfunc_3 @ 0x00140650
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/address.h"
 extern "C" double __cdecl sqrt(double);
 extern "C" double __cdecl sin(double);
 
@@ -83,7 +84,6 @@ struct World {
     char pad0c[0x34 - 0xc];
     Fx34_140650 *f34;
 };
-extern World *DAT_004dd700;
 extern float DAT_004ad77c;
 extern float DAT_004ad780;
 extern float DAT_004ad784;

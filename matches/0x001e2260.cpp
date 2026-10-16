@@ -1,23 +1,20 @@
-class CSPManager {
+#include "gen/global.h"
+
+class CSPManager_1e2260 {
   public:
     bool invoke(float, float, float, float);
 };
-class Function {
+class Function_1e2260 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2(void*, float*, bool*);
 };
-class Closure4 : public Function {
-  public:
-    char pad[0x1c - 4];
-    bool (CSPManager::*method)(float, float, float, float);
-    CSPManager* obj;
-    virtual void f2(void*, float*, bool*);
-};
-void Closure4::f2(void*, float* a, bool* result) {
-    CSPManager* o = obj;
-    bool (CSPManager::*m)(float, float, float, float) = method;
+
+template <> void Closure4<CSPManager, bool, float, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { float * a = (float *)__p1; bool * result = (bool *)__p2;
+
+    CSPManager_1e2260* o = (*(CSPManager_1e2260 * *)&this->f_20);
+    bool (CSPManager_1e2260::*m)(float, float, float, float) = (*(bool (CSPManager_1e2260::**)(float, float, float, float))&this->f_1c);
     float v0 = *a++;
     float v1 = *a++;
     float v2 = *a++;

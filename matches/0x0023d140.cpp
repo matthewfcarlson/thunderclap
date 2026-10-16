@@ -1,13 +1,10 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_00428a98[];
-class ConditionFactoryCaster {
+class ConditionFactoryCaster_23d140 {
   public:
     virtual void A();
     virtual void B();
-};
-class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
-  public:
-    virtual void V0();
-    virtual void* V1(void*);
 };
 class Helper_23d140 {
   public:
@@ -15,13 +12,15 @@ class Helper_23d140 {
     void Setup(void*);
 };
 extern "C" void* __cdecl alloc(unsigned int);
-void* ConditionFactoryCasterTemplate::V1(void* p) {
+
+template <> void* fight::ConditionFactoryCasterTemplate<fight::OrCondition>::vfunc_1(void* __p0) { void * p = (void *)__p0;
+
     void* q = alloc(0x10);
     if (q) {
         ((Helper_23d140*)q)->Init();
         *(unsigned int*)q = ((int)DAT_00428a98);
         ((Helper_23d140*)((char*)q + 8))->Setup(p);
-        return q;
+        return (void*)(q);
     }
-    return 0;
+    return (void*)(0);
 }

@@ -11,11 +11,11 @@ struct Manager_274c60 {
 extern Manager_274c60* g_manager_274c60;
 extern char g_lock_274c60[1];
 extern void* request_vftable[];
-struct Request {
+namespace core { struct CompletionCallbackRequest {
     void** vt;
-    Request* vfunc_0(unsigned char);
-};
-Request* Request::vfunc_0(unsigned char param) {
+    CompletionCallbackRequest* vfunc_0(unsigned char);
+}; }
+core::CompletionCallbackRequest* core::CompletionCallbackRequest::vfunc_0(unsigned char param) {
     vt = request_vftable;
     if (param & 1) {
         FUN_0026d850(g_lock_274c60);

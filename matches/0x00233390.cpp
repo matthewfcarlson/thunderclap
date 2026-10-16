@@ -1,9 +1,10 @@
-class Branch;
+#include "gen/fight.h"
+
 class Sub_233390 {
   public:
-    void helper(Branch*);
+    void helper(fight::Branch*);
 };
-class Node {
+class Node_233390 {
   public:
     virtual void f0();
     virtual void f1();
@@ -12,16 +13,11 @@ class Node {
     virtual void f4();
     virtual void f5();
     char pad[0x1c];
-    Node* next;
+    Node_233390* next;
 };
-class Branch {
-  public:
-    char pad[0x1c];
-    Node* first;
-    void vfunc_5();
-};
-void Branch::vfunc_5() {
+
+void fight::Branch::vfunc_5() {
     ((Sub_233390*)((char*)this + 0x18))->helper(this);
-    for (Node* p = first; p; p = p->next)
+    for (Node_233390* p = (*(Node_233390 * *)&this->f_1c); p; p = p->next)
         p->f5();
 }

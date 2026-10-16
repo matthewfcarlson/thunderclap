@@ -2,6 +2,7 @@
 // FUN_000b64f0 @ 0x000b64f0
 // equiv-map: ??_R0?AVFEObject@@@8 = 0x0049dba4
 // equiv-map: ??_R0?AVTextSelector@@@8 = 0x0049dbbc
+#include "decls/address.h"
 extern "C" int strcmp(const char *, const char *);
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
@@ -70,12 +71,11 @@ struct Player {
     Costume *FUN_000862a0();
 };
 
-struct Game {
+struct World {
     char pad0[0x54];
     Player *f54;
 };
 
-extern Game *DAT_004dd700;
 
 FEObject *__cdecl FUN_000fc260(const char *name);
 Language *__cdecl FUN_000fc1b0();

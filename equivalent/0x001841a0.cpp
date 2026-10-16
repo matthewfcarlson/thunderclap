@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 40/42, incomplete)
 // hulkfight::motion::PropThrowAction::vfunc_4 @ 0x001841a0
+#include "gen/hulkfight.h"
+
 struct V3_1841a0 {
     float x, y, z;
     float FUN_0022d110();
@@ -12,7 +14,7 @@ Cam_1841a0 *FUN_001c3d90();
 
 struct Thing;
 
-struct Params {
+struct Params_1841a0 {
     char pad0[0x14];
     int f14;
     char b18;
@@ -89,19 +91,10 @@ char FUN_00018960(float a, float b, float eps);
 void FUN_00224d70(float angle, V3_1841a0 *v);
 float FUN_00224f10(V3_1841a0 *v);
 
-class PropThrowAction {
-public:
-    char pad0[0x1c];
-    Params *p1c;
-    Top_1841a0 *p20;
-    void F();
-};
-
-void PropThrowAction::F()
-{
-    Agent_1841a0 *ag = p20->FUN_000592a0()->FUN_00059a30();
+void hulkfight::motion::PropThrowAction::vfunc_4() {
+    Agent_1841a0 *ag = (*(Top_1841a0 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();
     ag->b1f51 = 0;
-    int slot = p1c->f14;
+    int slot = (*(Params_1841a0 * *)&this->f_1c)->f14;
     Ent_1841a0 *ent;
     if (slot < 0) {
         ent = ag->p128;
@@ -118,12 +111,12 @@ void PropThrowAction::F()
     ag->FUN_0003acf0(slot, 0, -1, 0, 0, 0);
     ag->FUN_00036c20(ev);
     float t;
-    if (*((char *)p1c + 0x80))
+    if (*((char *)(*(Params_1841a0 * *)&this->f_1c) + 0x80))
         t = ag->FUN_0003ec00(2);
     else
         t = ag->FUN_0003ebb0(2);
     volatile float tv = t;
-    Params *q = p1c;
+    Params_1841a0 *q = (*(Params_1841a0 * *)&this->f_1c);
     float *qf = (float *)q;
     volatile float L0 = (qf[0x2c / 4] - qf[0x28 / 4]) * tv + qf[0x28 / 4];
     int hi = q->i4c;
@@ -160,18 +153,18 @@ void PropThrowAction::F()
         fr.pos.y = p->y;
         fr.pos.z = p->z;
     }
-    fr.dir.x = p1c->v1c.x;
-    fr.dir.y = p1c->v1c.y;
-    fr.dir.z = p1c->v1c.z;
+    fr.dir.x = (*(Params_1841a0 * *)&this->f_1c)->v1c.x;
+    fr.dir.y = (*(Params_1841a0 * *)&this->f_1c)->v1c.y;
+    fr.dir.z = (*(Params_1841a0 * *)&this->f_1c)->v1c.z;
     FUN_00224d70(f, &fr.dir);
-    if (p1c->b18) {
+    if ((*(Params_1841a0 * *)&this->f_1c)->b18) {
         V3_1841a0 *o = FUN_001c3d90()->FUN_001c39c0();
         fr.dir.x = fr.dir.x + o->x;
         fr.dir.y = fr.dir.y + o->y;
         fr.dir.z = fr.dir.z + o->z;
     }
     fr.dir.FUN_0022d110();
-    int i50 = p1c->i50;
+    int i50 = (*(Params_1841a0 * *)&this->f_1c)->i50;
     if (FUN_00097a30(L1, L3, -1.0f, th, 0, &fr.pos, i50, &fr.dir, 0, 0, 0, 1))
         ent->FUN_001d8c70(th);
     fr.S.x = fr.dir.x * L1;
@@ -238,7 +231,7 @@ void PropThrowAction::F()
         float g = FUN_00224f10(&fr.dir);
         FUN_00224d70(g, &fr.R);
     }
-    Params *q2 = p1c;
+    Params_1841a0 *q2 = (*(Params_1841a0 * *)&this->f_1c);
     ent->FUN_001da350(ag->i12c, &fr.S, &fr.R, L0, ag->p328, L3, v, t, L4, L5, *(float *)((char *)q2 + 0x64),
                       *(float *)((char *)q2 + 0x68), (char *)q2 + 0x78);
     ent->FUN_001d71e0(ag->i12c);

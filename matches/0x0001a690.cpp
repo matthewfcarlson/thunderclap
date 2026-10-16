@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 struct Game_1a690 {
     bool Ready();
     void Go(int a, int b, int c);
@@ -28,38 +30,25 @@ struct Owner_1a690 {
     Mid_1a690* Get();
 };
 Sess* Lookup();
-struct CCollisionAction {
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void Fn();
-    char pad[0x18];
-    Owner_1a690* owner;
-    Info_1a690* info;
-    char pad2[0x18];
-    Ref_1a690* r3c;
-    char pad3[8];
-    Ref_1a690* r48;
-};
-void CCollisionAction::Fn() {
-    Game_1a690* g = owner->Get()->Get();
-    if (r3c) {
-        Tgt_1a690* t = (Tgt_1a690*)Conv(r3c);
+
+void CCollisionAction::vfunc_4() {
+    Game_1a690* g = (*(Owner_1a690 * *)&this->f_1c)->Get()->Get();
+    if ((*(Ref_1a690 * *)&this->f_3c)) {
+        Tgt_1a690* t = (Tgt_1a690*)Conv((*(Ref_1a690 * *)&this->f_3c));
         t->Fn();
-        if (r3c) {
-            r3c->Release();
-            r3c = 0;
+        if ((*(Ref_1a690 * *)&this->f_3c)) {
+            (*(Ref_1a690 * *)&this->f_3c)->Release();
+            (*(Ref_1a690 * *)&this->f_3c) = 0;
         }
     }
-    if (info->flag) {
+    if ((*(Info_1a690 * *)&this->f_20)->flag) {
         if (g->Ready())
             g->Go(0, 0, 0);
     }
     g->f1b49 = 0;
     g->f1e48 = 0;
-    if (r48) {
-        r48->Release();
-        r48 = 0;
+    if ((*(Ref_1a690 * *)&this->f_48)) {
+        (*(Ref_1a690 * *)&this->f_48)->Release();
+        (*(Ref_1a690 * *)&this->f_48) = 0;
     }
 }

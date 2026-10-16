@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_0008d0a0 @ 0x0008d0a0
+#include "decls/address.h"
 extern "C" int sprintf(char* dst, const char* fmt, ...);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
@@ -20,7 +21,7 @@ class Heap_8d0a0 {
     virtual void v10();
     virtual int v11();
 };
-class Screen_8d0a0 {
+class Gfx {
   public:
     virtual void v0();
     virtual void v1();
@@ -68,7 +69,6 @@ class MemoryDisplay {
     int pad_00;
     Heap_8d0a0* heaps[19];
 };
-extern Screen_8d0a0* DAT_0052c2a8;
 extern HeapEntry_8d0a0 DAT_00400520[];
 extern char DAT_00400604[];
 

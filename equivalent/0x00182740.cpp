@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // hulkfight::motion::BallAndChainReturnAction::vfunc_5 @ 0x00182740
 // hulkfight::motion::BallAndChainReturnAction::vfunc_5 @ 0x00182740
+#include "decls/address.h"
 struct V3_182740 {
     float x, y, z;
     float FUN_0022d110();
@@ -97,11 +98,10 @@ struct Ray_182740 {
     bool FUN_00201e00(V3_182740 *a, V3_182740 *b, int c, V3_182740 *d, V3_182740 *e, int f, int g);
 };
 
-struct World_182740 {
+struct World {
     char pad0[0x24];
     Ray_182740 *ray;        // 0x24
 };
-extern World_182740 *DAT_004dd700;
 
 struct Decal_182740 {
     unsigned FUN_00283ca0(void *a, V3_182740 *b, V3_182740 *c, float d);

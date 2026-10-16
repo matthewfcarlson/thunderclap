@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1269 inputs, branch coverage 32/32)
 // hulkfight::motion::FireProjectileAction::vfunc_5 @ 0x0019ae50
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
@@ -29,11 +30,10 @@ struct Pool_19ae50 {
     void FUN_001b6d00(int id, class Projectile_19ae50 *p);
 };
 
-struct Manager_19ae50 {
+struct World {
     char pad0[0x14];
     Pool_19ae50 *pool;
 };
-extern Manager_19ae50 *DAT_004dd700;
 
 struct Allocator {
     void *FUN_0008fe90(unsigned int size);

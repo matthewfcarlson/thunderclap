@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 217 inputs, branch coverage 79/96, incomplete)
 // FUN_00039440 @ 0x00039440
+#include "decls/address.h"
 struct Fighter_39440;
 
 struct Event_39440 {
@@ -29,7 +30,7 @@ struct Control_39440 {
     Event_39440 *current;
 };
 
-struct Globals_39440 {
+struct World {
     char pad0[0x20];
     struct Mode_39440 *mode;
 };
@@ -39,7 +40,6 @@ struct Mode_39440 {
     Fighter_39440 *fighter;
 };
 
-extern Globals_39440 *DAT_004dd700;
 
 bool __cdecl FUN_00096b50(Event_39440 *ev, void *out, int *result);
 

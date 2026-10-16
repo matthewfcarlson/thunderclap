@@ -1,17 +1,13 @@
-struct PolySkin {
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual int vfunc_4();
-};
+#include "gen/pure3d.h"
+
 struct Helper_2b8020 {
-    int f(PolySkin*);
+    int f(pure3d::PolySkin*);
 };
 extern void* __cdecl thunk_FUN_0008d690(unsigned int);
-int PolySkin::vfunc_4() {
+
+void* pure3d::PolySkin::vfunc_4() {
     Helper_2b8020* p = (Helper_2b8020*)thunk_FUN_0008d690(0x78);
     if (p)
-        return p->f(this);
-    return 0;
+        return (void*)(p->f(this));
+    return (void*)(0);
 }

@@ -1,3 +1,4 @@
+#include "decls/address.h"
 extern "C" char DAT_00420e24[];
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e134[];
@@ -5,7 +6,6 @@ class Base_1b9c50 {
   public:
     void Init(void*, int);
 };
-extern "C" char __cdecl FUN_001d04d0(const char*);
 class Target_1b9c50 : public Base_1b9c50 {
   public:
     int pad0;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 971 inputs, branch coverage 39/40, incomplete)
 // FUN_000b9bf0 @ 0x000b9bf0
+#include "decls/address.h"
 extern char DAT_0049dba4[];          // FEObject type descriptor
 extern char DAT_0049dbbc[];          // TextSelector type descriptor
 extern char DAT_0049f4a4[];          // TextButton type descriptor
@@ -72,7 +73,6 @@ void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType,
 int __cdecl FUN_000964a0(char *dst, int size, const char *fmt, ...);
 int __cdecl FUN_00267760(char *dst, int size, const char *fmt, ...);
 int __cdecl FUN_00345804(const char *s, const char *fmt, int *a, int *b);
-unsigned __int64 __cdecl FUN_0027b020(const char *name);
 Registry_b9bf0 *__cdecl FUN_001d4c90();
 
 class SideMissionMenu {

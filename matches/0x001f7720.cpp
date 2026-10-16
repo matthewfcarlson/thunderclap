@@ -1,3 +1,4 @@
+#include "decls/address.h"
 extern "C" char DAT_00424d4c[];
 class Base_1f7720 {
   public:
@@ -16,7 +17,6 @@ class Obj_1f7720 : public Base_1f7720 {
     char pad19[3];
     int m1c;
 };
-extern char FUN_001d04d0(const char*);
 Obj_1f7720::Obj_1f7720(int a, int b) : Base_1f7720(a, 3) {
     *(int*)this = ((int)DAT_00424d4c);
     m1c = b;

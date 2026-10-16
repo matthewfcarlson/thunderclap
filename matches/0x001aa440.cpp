@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 extern "C" void* __cdecl Alloc(unsigned int);
 extern "C" int NodeVtable;
 class Factory_1aa440 {
@@ -9,21 +11,18 @@ class Factory_1aa440 {
     virtual void V4();
     virtual void* V5();
 };
-class Node {
+class Node_1aa440 {
   public:
     void Init(int);
 };
-class Template_1aa440 : public Factory_1aa440 {
-  public:
-    void* V5();
-};
-void* Template_1aa440::V5() {
-    Node* p = (Node*)Alloc(0x10);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::scenario::NodeIsNotRunningCondition>::vfunc_5() {
+    Node_1aa440* p = (Node_1aa440*)Alloc(0x10);
     if (p) {
         p->Init(0);
         *(unsigned int*)p = (unsigned int)&NodeVtable;
         *((unsigned char*)p + 0xc) = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

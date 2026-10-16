@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001c9aa0 @ 0x001c9aa0
+#include "decls/address.h"
 struct Actor_1c9aa0 { const char* FUN_00036d00(); };
 struct ActorTable_1c9aa0 { Actor_1c9aa0* FUN_00059c10(int id); };
 struct World { char pad[0x44]; ActorTable_1c9aa0* actors; };
-extern World* DAT_004dd700;
 struct Writer_1c9aa0 {
  bool FUN_001d2e80();
  void FUN_001d1dd0(const char* key, int value);

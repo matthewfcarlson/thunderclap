@@ -1,12 +1,9 @@
-class ParticleSphereGenerator {
-  public:
-    char pad[0x40];
-    float value;
-    float vfunc_8(int);
-};
+#include "gen/pure3d.h"
+
 extern const float zero_2d2fa0;
-float ParticleSphereGenerator::vfunc_8(int arg) {
+
+float pure3d::ParticleSphereGenerator::vfunc_8(int arg) {
     if (arg != 6)
         return zero_2d2fa0;
-    return value;
+    return this->f_40;
 }

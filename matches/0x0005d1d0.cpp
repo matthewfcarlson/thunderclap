@@ -1,9 +1,5 @@
-class CHapticTrack {
-  public:
-    char pad[0x10];
-    float value;
-    float vfunc_14();
-};
+#include "gen/global.h"
+
 float CHapticTrack::vfunc_14() {
-    return value;
+    return this->f_10;
 }

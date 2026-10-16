@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 121 inputs, branch coverage 43/46, incomplete)
 // FUN_000665e0 @ 0x000665e0
+#include "decls/address.h"
 struct V3_665e0 {
     float x, y, z;
     float FUN_0022d110();
@@ -45,7 +46,7 @@ struct Roster_665e0 {
     Unit_665e0 *FUN_001dee40(int lo, int hi);
 };
 
-struct Game_665e0 {
+struct World {
     char pad0[0xc];
     Roster_665e0 *roster;
 };
@@ -64,7 +65,6 @@ struct Ref_665e0 {
     void FUN_00059a50(V3_665e0 *out);
 };
 
-extern Game_665e0 *DAT_004dd700;
 
 class Squad {
 public:

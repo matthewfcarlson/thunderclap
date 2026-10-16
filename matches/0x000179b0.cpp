@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 struct Manager_179b0;
 struct Ctx_179b0 {
     Manager_179b0* f();
@@ -17,26 +19,12 @@ class X_179b0 {
     virtual void f7();
     virtual void f8(int);
 };
-class CAlertStatusAction {
-  public:
-    virtual void a0();
-    virtual void a1();
-    virtual void a2();
-    virtual void a3();
-    virtual void a4();
-    virtual void a5();
-    virtual bool vfunc_6(int);
-    virtual void a7();
-    virtual void a8();
-    char pad[0x18];
-    Ctx_179b0* member;
-    int arg;
-};
-bool CAlertStatusAction::vfunc_6(int) {
-    Manager_179b0* p = member->f();
+
+bool CAlertStatusAction::vfunc_6(int ) {
+    Manager_179b0* p = (*(Ctx_179b0 * *)&this->f_1c)->f();
     p = p->g();
     X_179b0* x = *(X_179b0**)((char*)p + 0x1ca0);
     if (x)
-        x->f8(arg);
+        x->f8(this->f_20);
     return false;
 }

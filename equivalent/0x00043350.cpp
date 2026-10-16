@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3042 inputs, branch coverage 64/76, incomplete)
 // FUN_00043350 @ 0x00043350
+#include "decls/address.h"
 struct Unit_43350;
 struct Target_43350;
 
@@ -52,7 +53,7 @@ struct Listener_43350 {
     void FUN_000fe4d0(void *target, int flag);
 };
 
-struct Mgr_43350 {
+struct World {
     char pad0[0x20];
     Unit_43350 *player;               // 0x20
     char pad24[0x2c - 0x24];
@@ -117,14 +118,13 @@ struct Unit_43350 {
     char FUN_00043350(float dt, Arg2_43350 p2, int a, float one, char c, Arg6 p6);
 };
 
-extern Mgr_43350 *DAT_004dd700;
 extern float DAT_004dc304;
 extern float DAT_004dc308;
 float __cdecl FUN_00045670();
 
 struct Frame_43350 {
     Unit_43350 *player;               // R-8
-    Mgr_43350 *mgr;                   // R-4
+    World *mgr;                   // R-4
 };
 
 
@@ -166,7 +166,7 @@ char Unit_43350::FUN_00043350(float dt, Arg2_43350 p2, int a, float one, char c,
     }
     FUN_000385a0(t, 0);
     double v;
-    Mgr_43350 *mgr = f.mgr;
+    World *mgr = f.mgr;
     if (f.player->link124 == this) {
         Check_43350 *chk = mgr->holder->FUN_00086340();
         if (chk->FUN_00092940(0x2e4))

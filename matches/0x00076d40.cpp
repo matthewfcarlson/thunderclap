@@ -1,4 +1,6 @@
-class CInvincibleTrack {
+#include "gen/fight.h"
+
+class CInvincibleTrack_76d40 {
   public:
     virtual void v0();
     virtual void v1();
@@ -13,20 +15,12 @@ class CInvincibleTrack {
     int tail;
     void Init();
 };
-class TrackFactory {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual CInvincibleTrack* vfunc_5();
-};
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int cvtable_76d40;
-CInvincibleTrack* TrackFactory::vfunc_5() {
-    CInvincibleTrack* p = (CInvincibleTrack*)FUN_0008d690(0x18);
-    CInvincibleTrack* r;
+
+template <> void* fight::TrackFactoryTemplate<CInvincibleTrack>::vfunc_5() {
+    CInvincibleTrack_76d40* p = (CInvincibleTrack_76d40*)FUN_0008d690(0x18);
+    CInvincibleTrack_76d40* r;
     if (p) {
         p->Init();
         *(int*)p = (int)&cvtable_76d40;
@@ -37,5 +31,5 @@ CInvincibleTrack* TrackFactory::vfunc_5() {
         r = p;
     } else
         r = 0;
-    return r;
+    return (void*)(r);
 }

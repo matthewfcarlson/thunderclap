@@ -1,5 +1,7 @@
+#include "gen/global.h"
+
 typedef unsigned int u32_e2130;
-struct FELayout {
+struct FELayout_e2130 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -24,16 +26,12 @@ struct FELayout {
     virtual void v21();
     virtual void v22();
 };
-struct SingleLayout : FELayout {
-    char pad[0x40 - 4];
-    u32_e2130 field40;
-    u32_e2130 field44;
-    virtual void vfunc18(u32_e2130);
-};
 extern "C" u32_e2130 __cdecl helper(u32_e2130, int, const void*, const void*, int);
 extern const char typeA_e2130[];
 extern const char typeB_e2130[];
-void SingleLayout::vfunc18(u32_e2130 x) {
-    field40 = x;
-    field44 = helper(x, 0, typeA_e2130, typeB_e2130, 0);
+
+void SingleLayout::vfunc_18(void* __p0) { u32_e2130 x = (u32_e2130)__p0;
+
+    (*(u32_e2130 *)&this->f_40) = x;
+    (*(u32_e2130 *)&this->f_44) = helper(x, 0, typeA_e2130, typeB_e2130, 0);
 }

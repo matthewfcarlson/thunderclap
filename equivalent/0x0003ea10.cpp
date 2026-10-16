@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 18/18)
 // FUN_0003ea10 @ 0x0003ea10
+#include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 struct Actor_3ea10 {
@@ -26,13 +27,12 @@ struct EventSink_3ea10 {
     char FUN_001cbc20(Event_3ea10 *e);
 };
 
-struct Manager_3ea10 {
+struct World {
     char pad0[0x20];
     Group_3ea10 *group;            // 0x20
     char pad24[0x30 - 0x24];
     EventSink_3ea10 *sink;         // 0x30
 };
-extern Manager_3ea10 *DAT_004dd700;
 
 void *__cdecl FUN_001b46f0(void *key, int *out);
 

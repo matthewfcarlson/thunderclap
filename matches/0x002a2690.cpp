@@ -1,22 +1,10 @@
+#include "gen/pure3d.h"
+
 namespace pure3d {
-class TranslucentTraversal {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    char p[0x14];
-    int mCount;
-    char q[0x0c];
-    int* mBegin;
-};
 } // namespace pure3d
 extern void FUN_002a2560(int*, int*, int, const void*);
-void pure3d::TranslucentTraversal::v3() {
-    int* eax = mBegin;
-    int* ecx = eax + mCount;
+void pure3d::TranslucentTraversal::vfunc_3() {
+    int* eax = (*(int * *)&this->f_28);
+    int* ecx = eax + this->f_18;
     FUN_002a2560(eax, ecx, (int)((char*)ecx - (char*)eax) >> 2, (void*)0x2a18a0);
 }

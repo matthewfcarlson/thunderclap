@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 194 inputs, branch coverage 67/84, incomplete)
 // CSPHulkPropLoader::vfunc_5 @ 0x001d57d0
+#include "gen/global.h"
+#include "decls/address.h"
+
 struct NameKey_1d57d0 {
     unsigned lo;
     unsigned hi;
@@ -22,7 +25,7 @@ struct Entry_1d57d0 {
     int pad;
 };
 
-struct Channel {
+struct Channel_1d57d0 {
     char pad[0x3c];
     int count;
     Entry_1d57d0 *entries;
@@ -32,14 +35,14 @@ struct PropData {
     char pad0[8];
     NameKey_1d57d0 name;
     char pad10[0x1c - 0x10];
-    Channel **channels;
-    Channel **channelsEnd;
+    Channel_1d57d0 **channels;
+    Channel_1d57d0 **channelsEnd;
     char pad24[4];
     Item_1d57d0 *items;
     Item_1d57d0 *itemsEnd;
 };
 
-struct Reader;
+struct Reader_1d57d0;
 
 struct Z {
     int FUN_00023e80(const char *s);
@@ -74,7 +77,6 @@ struct World {
     char pad[0xc];
     Curves_1d57d0 *curves;
 };
-extern World *DAT_004dd700;
 extern NameKey_1d57d0 DAT_004e2430;
 extern NameKey_1d57d0 DAT_004e2438;
 extern NameKey_1d57d0 DAT_004e2448;
@@ -129,21 +131,20 @@ struct PropObj {
     void FUN_001d5730(PropData *d);
 };
 
-class StatePropDataLoader {
+class StatePropDataLoader_1d57d0 {
 public:
-    void FUN_00290bf0(PropData **out, NameKey_1d57d0 *id, Reader *r, int unused);
+    void FUN_00290bf0(PropData **out, NameKey_1d57d0 *id, Reader_1d57d0 *r, int unused);
 };
 
-class CSPHulkPropLoader : public StatePropDataLoader {
-public:
-    void vfunc_5(PropObj **out, NameKey_1d57d0 *outId, Reader *r, int unused);
+struct CSPHulkPropLoader_nv_1d57d0 {
+    void FUN_00290bf0(PropData **out, NameKey_1d57d0 *id, Reader_1d57d0 *r, int unused);
 };
 
-void CSPHulkPropLoader::vfunc_5(PropObj **out, NameKey_1d57d0 *outId, Reader *r, int unused)
-{
+void CSPHulkPropLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int unused) { PropObj ** out = (PropObj **)__p0; NameKey_1d57d0 * outId = (NameKey_1d57d0 *)__p1; Reader_1d57d0 * r = (Reader_1d57d0 *)__p2;
+
     PropData *data;
     NameKey_1d57d0 id;
-    FUN_00290bf0(&data, &id, r, unused);
+    ((CSPHulkPropLoader_nv_1d57d0*)this)->FUN_00290bf0(&data, &id, r, unused);
 
     PropObj *obj = (PropObj *)FUN_00263ea0(0xc8);
     PropObj *n = 0;

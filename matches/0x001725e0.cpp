@@ -1,9 +1,5 @@
-class TargetBreakAction {
-  public:
-    char pad[0x1c];
-    void* mThing;
-    void vfunc_4();
-};
+#include "gen/hulkfight.h"
+
 struct Obj_1725e0 {
     char pad[0x12c];
     int id;
@@ -35,8 +31,9 @@ extern A_1725e0* aFn;
 extern B_1725e0* bFn;
 extern E_1725e0* eFn;
 extern Root_1725e0* gRoot_1725e0;
-void TargetBreakAction::vfunc_4() {
-    void* a = ((A_1725e0*)mThing)->call();
+
+void hulkfight::motion::TargetBreakAction::vfunc_4() {
+    void* a = ((A_1725e0*)(*(void * *)&this->f_1c))->call();
     if (a) {
         Obj_1725e0* b = (Obj_1725e0*)a;
         b = (Obj_1725e0*)((B_1725e0*)a)->call();

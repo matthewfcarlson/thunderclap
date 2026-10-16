@@ -1,5 +1,7 @@
+#include "gen/fight.h"
+
 extern "C" char DAT_0040d9a4[];
-struct AIFightNodeCondition {
+struct AIFightNodeCondition_113e40 {
     int v;
 };
 extern void* __cdecl operator_new(unsigned int);
@@ -9,22 +11,14 @@ struct InitObj_113e40 {
 struct EntityObj {
     void InitEntity();
 };
-class ConditionFactoryTemplate {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual AIFightNodeCondition* vfunc_5();
-};
-AIFightNodeCondition* ConditionFactoryTemplate::vfunc_5() {
-    AIFightNodeCondition* p = (AIFightNodeCondition*)operator_new(0x18);
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::AIFightNodeCondition>::vfunc_5() {
+    AIFightNodeCondition_113e40* p = (AIFightNodeCondition_113e40*)operator_new(0x18);
     if (p) {
         ((InitObj_113e40*)p)->InitCondition(0);
         *(int*)p = ((int)DAT_0040d9a4);
         ((EntityObj*)((char*)p + 0xc))->InitEntity();
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }

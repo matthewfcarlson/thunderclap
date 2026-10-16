@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 11/12, incomplete)
 // FUN_000b4e30 @ 0x000b4e30
+#include "decls/address.h"
 typedef unsigned __int64 U64_b4e30;
-extern U64_b4e30 __cdecl FUN_0027b020(const char*);
 struct Key_b4e30 { unsigned lo, hi; void FUN_0027b040(const char*); };
 struct Entry_b4e30 { Key_b4e30 first, second, third, fourth; unsigned a,b; };
 struct Object { char pad[0x470]; Entry_b4e30 entries[128]; void target(const char*,const char*,const char*,const char*,unsigned,unsigned); };

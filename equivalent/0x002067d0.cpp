@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2143 inputs, branch coverage 12/12)
 // FUN_002067d0 @ 0x002067d0
+#include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" int __cdecl sprintf(char *, const char *, ...);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
@@ -80,7 +81,7 @@ struct Queue_2067d0 {
     void FUN_001cbc20(Event_2067d0 *e);
 };
 
-struct Globals_2067d0 {
+struct World {
     char pad0[0x30];
     Queue_2067d0 *queue;           // 0x30
 };
@@ -95,11 +96,9 @@ struct Registry2 {
 };
 
 Registry2 *FUN_001c3d90();
-ID __cdecl FUN_002672f0(const char *s, int a, int b);
 
 extern char DAT_004c91d8;
 extern char DAT_004e5a58;
-extern Globals_2067d0 *DAT_004dd700;
 
 struct Loader_2067d0 {
     char pad0[0x24];

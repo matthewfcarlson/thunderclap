@@ -1,15 +1,12 @@
 // Same code shape as 0x00030040 (propagated; names are from that function)
+#include "gen/global.h"
+
 class Actor_d7380 {
   public:
     void fn(unsigned char);
 };
-class Closure1 {
-  public:
-    char pad[0x1c];
-    void (Actor_d7380::*mFn)(unsigned char);
-    Actor_d7380* mObject;
-    void vfunc_2(void*, unsigned char*, void*);
-};
-void Closure1::vfunc_2(void*, unsigned char* arg, void*) {
-    (mObject->*mFn)(*arg);
+
+template <> void Closure1<CSimOverlayManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * arg = (unsigned char *)__p1;
+
+    ((*(Actor_d7380 * *)&this->f_20)->*(*(void (Actor_d7380::**)(unsigned char))&this->f_1c))(*arg);
 }

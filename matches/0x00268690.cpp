@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 class Dispatch_268690 {
   public:
     virtual void a();
@@ -27,35 +29,9 @@ class Item_268690 {
     virtual void m();
     virtual void call(int);
 };
-class ControllerXBox {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
-    virtual void f11();
-    virtual void f12();
-    virtual void f13();
-    virtual void f14();
-    virtual void f15();
-    virtual void f16();
-    virtual void f17();
-    virtual void vfunc_18(int);
-    char pad14[0x14 - sizeof(void*)];
-    unsigned int count;
-    char pad18[4];
-    char pad1c[0x454 - 0x1c];
-    Dispatch_268690* dispatch;
-};
-void ControllerXBox::vfunc_18(int arg) {
-    dispatch->i();
-    for (unsigned int i = 0; i < count; ++i)
+
+void core::ControllerXBox::vfunc_18(int arg) {
+    (*(Dispatch_268690 * *)&this->f_454)->i();
+    for (unsigned int i = 0; i < this->f_14; ++i)
         ((Item_268690*)((char*)this + 0x18 + i * 0x34))->call(arg);
 }

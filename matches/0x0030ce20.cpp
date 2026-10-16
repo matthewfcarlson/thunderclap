@@ -1,5 +1,7 @@
+#include "gen/physics.h"
+
 namespace physics {
-class PhysicsJoint {
+class PhysicsJoint_30ce20 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -32,12 +34,9 @@ class PhysicsJoint {
     virtual void vfunc_28();
     char pad[0x10c - 4];
 };
-class PhysicsJoint1D : public PhysicsJoint {
-  public:
-    void vfunc_1();
-};
-void PhysicsJoint1D::vfunc_1() {
+
+} // namespace physics
+void physics::PhysicsJoint1D::vfunc_1() {
     *(int*)((char*)this + 0x110) = 0;
     *(int*)((char*)this + 0x10c) = 0;
 }
-} // namespace physics

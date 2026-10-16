@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // hulkfight::motion::GrappleHitReactionTrack::vfunc_9 @ 0x00148730
+#include "gen/hulkfight.h"
+
 extern char DAT_00494b44, DAT_00494b60;
 extern "C" void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 struct Local_148730 { char data[0x98]; void FUN_00059820(); void FUN_00059300(); };
@@ -9,18 +11,18 @@ struct Link2_148730 { Manager_148730* FUN_000392e0(); };
 struct Link1_148730 { Link2_148730* FUN_00059a30(); };
 struct Actor_148730 { Link1_148730* FUN_000592a0(Item_148730*); void FUN_00059760(Manager_148730*); };
 struct Source_148730 { char pad[16]; void** value; };
-struct Builder {};
+struct Builder_148730 {};
 // equiv-conv: FUN_00148580 ecx esi
-void FUN_00148580(Builder*, Local_148730*);
-extern "C" Builder* __cdecl FUN_0005a470(Actor_148730*);
+void FUN_00148580(Builder_148730*, Local_148730*);
+extern "C" Builder_148730* __cdecl FUN_0005a470(Actor_148730*);
 extern "C" Source_148730* __cdecl FUN_0005a430(Actor_148730*);
 extern "C" void* __cdecl FUN_0005a3f0(Actor_148730*);
 extern "C" void* __cdecl FUN_0008d690(unsigned);
 namespace hulkfight { namespace motion {
-struct GrappleHitReactionTrack {
-virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual int vfunc_9(int, int, Actor_148730*); virtual void vfunc_10();
-};
-int GrappleHitReactionTrack::vfunc_9(int, int, Actor_148730* actor) {
+
+}}
+int hulkfight::motion::GrappleHitReactionTrack::vfunc_9(int , int , int __p2) { Actor_148730 * actor = (Actor_148730 *)__p2;
+
 if (!FUN_00344e74(actor,0,&DAT_00494b44,&DAT_00494b60,0)) return 1;
 Local_148730 local; local.FUN_00059820();
 FUN_00148580(FUN_0005a470(actor), &local);
@@ -33,4 +35,3 @@ if (!manager) { item->v1(); local.FUN_00059300(); return 1; }
 unsigned char result = manager->FUN_00231a40(FUN_0005a3f0(actor),item);
 item->v1(); local.FUN_00059300(); return result == 0;
 }
-}}

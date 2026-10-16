@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 class Base_23f570 {
   public:
     void init();
@@ -15,17 +17,7 @@ struct Obj_23f570 {
 extern int breakpoint_vftable;
 extern "C" void* __cdecl alloc(unsigned int);
 
-class Factory_23f570 {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    Obj_23f570* make();
-};
-
-Obj_23f570* Factory_23f570::make() {
+template <> void* fight::TrackFactoryTemplate<fight::BreakPointTrack>::vfunc_5() {
     Obj_23f570* p = (Obj_23f570*)alloc(0x14);
     if (p) {
         ((Base_23f570*)p)->init();
@@ -33,7 +25,7 @@ Obj_23f570* Factory_23f570::make() {
         p->c = 0;
         ((Sub_23f570*)((char*)p + 0x10))->init2();
         p->b = 1;
-        return p;
+        return (void*)(p);
     }
-    return 0;
+    return (void*)(0);
 }
