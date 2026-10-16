@@ -17,6 +17,7 @@ build/venv/bin/python tools/build_tree.py --only src/game/global/CAction.cpp  # 
 build/venv/bin/python tools/seam_inventory.py    # docs/seams.md: what game/engine call in platform/xbox (~30 s)
 build/venv/bin/python tools/reconcile_stubs.py [--apply]   # clone names in matches/ + equivalent/ (re-verify what it changes)
 build/venv/bin/python tools/migrate_gen.py [--family gen|pin|ns] [--equivalent] [--apply]   # sources onto include/gen/, include/decls/
+build/venv/bin/python tools/data_inventory.py && build/venv/bin/python tools/data_gen.py   # data inventory + data TUs (docs/data.md)
 ```
 
 `build_tree.py` regenerates the tree itself (from an empty fallback state), so it is the one command to
@@ -392,7 +393,9 @@ Top remaining:
    strays; `matches/`/`equivalent/` retired or generated from the tree; the build flags per TU recorded (today
    `// cl-flags:`); `build_tree.py` in CI (the regression check: matches + equivalent bytes vs standalone). Isolated
    TUs (640, 510 of them matches) should get folded back as their conflicts go.
-6. Later: `.rdata`/`.data` splits, csplit + objdiff per object ([task 05](tasks/05-split-recovery.md)), and an
+6. Data: the `.rdata`/`.data`/`.bss` inventory, per-object data TUs and the plan to move sources from `extern DAT_x`
+   to named declarations are in [data.md](data.md) (`tools/build_tree.py --data` builds and checks them next to the tree).
+   Later: csplit + objdiff per object ([task 05](tasks/05-split-recovery.md)), and an
    `equiv.py` mode for tree objects (namespace-aware prototype lookup for wrapped functions; binding
    same-object neighbours to their original addresses).
 

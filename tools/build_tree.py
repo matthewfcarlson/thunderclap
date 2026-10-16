@@ -618,6 +618,25 @@ def run_equiv(checks, results, limit):
     return dict(st)
 
 
+def run_data(manifest, results, jobs):
+    """Data TUs next to the tree (docs/data.md): their own verification, then a link check of the tree's objects."""
+    import data_gen
+    model = data_gen.Model()
+    tus = data_gen.generate(model)
+    with ThreadPoolExecutor(jobs) as ex:
+        res = list(ex.map(lambda t: data_gen.compile_tu(t[0]), tus))
+    st = collections.Counter()
+    for (p, items, _), (obj, err) in zip(tus, res):
+        st["tus"] += 1
+        st["tus_compiled"] += obj is not None
+        for r in data_gen.verify_tu(model, p, items, obj, err):
+            st["items"] += 1
+            st["items_verified"] += r["status"] == "match"
+    out = dict(st)
+    out["link"] = data_gen.link_check({t["path"]: results[t["path"]][0] for t in manifest["tus"]}, model)
+    return out
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--jobs", type=int, default=4)
@@ -628,6 +647,8 @@ def main(argv=None):
     ap.add_argument("--only", help="compile one TU of the current tree and print its errors")
     ap.add_argument("--equiv", type=int, metavar="N", help="also run tools/equiv.py (64 inputs) on the merged "
                     "object for the first N equivalent/ functions (0 = all; slow: 1-5 s each)")
+    ap.add_argument("--data", action="store_true", help="also build the data TUs (tools/data_gen.py: generate, "
+                    "compile, byte-check every item) and check how the tree's DAT_ references resolve against them")
     a = ap.parse_args(argv)
     if a.only:
         obj, errs, out = compile_tu(a.only)
@@ -656,6 +677,8 @@ def main(argv=None):
     rep = summarize(manifest, results, checks, history, gen, state)
     if a.equiv is not None:
         rep["equiv_on_merged_objects"] = run_equiv(checks, results, a.equiv)
+    if a.data:
+        rep["data"] = run_data(manifest, results, a.jobs)
     with open(os.path.join(TREE, "report.json"), "w") as f:
         json.dump(dict(rep, checks=checks), f, indent=1)
     rep.pop("generator")
