@@ -1,0 +1,13 @@
+class Caster {
+  public:
+    virtual void cast();
+};
+class Obj {
+  public:
+    void set(void*);
+};
+void* __cdecl lookup(const char*, Caster*);
+void __cdecl target(Obj* obj, const char* name) {
+    Caster caster;
+    obj->set(lookup(name, &caster));
+}
