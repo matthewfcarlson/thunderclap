@@ -9,7 +9,7 @@ equivalent/).
 |---|---|---|
 | lift | machine-generated from the asm (frame array, register variables) | 7 |
 | goto | control flow copied from the asm with goto | 48 |
-| volatile | 20+ volatile declarations pinning x87 rounding | 10 |
+| volatile | 20+ volatile declarations pinning x87 rounding | 11 |
 
 | Source | Size | Name | Flags | gotos | volatiles |
 |---|---|---|---|---|---|
@@ -47,6 +47,7 @@ equivalent/).
 | `equivalent/0x000e70d0.cpp` | 391 |  | goto | 6 | 0 |
 | `equivalent/0x00337700.cpp` | 360 |  | goto | 1 | 0 |
 | `equivalent/0x00217830.cpp` | 331 |  | goto | 1 | 0 |
+| `equivalent/0x000dd980.cpp` | 267 | ControllerPoller::vfunc_2 | volatile | 0 | 36 |
 | `matches/0x0033d6e0.cpp` | 184 |  | goto | 3 | 0 |
 | `matches/0x000e7b90.cpp` | 148 |  | goto | 3 | 0 |
 | `matches/0x000e7c30.cpp` | 148 |  | goto | 3 | 0 |
