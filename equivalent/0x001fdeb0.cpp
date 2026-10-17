@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// FUN_001fdeb0 @ 0x001fdeb0
+struct Entry { char pad[0x458]; int active; char rest[0xc70-0x45c]; void FUN_001fa500(int mode); }; struct Game { char pad[0x234]; Entry *entries; bool FUN_001fdeb0(int id, bool flag); int FUN_001fcff0(int id); }; bool Game::FUN_001fdeb0(int id, bool flag) { int index = FUN_001fcff0(id); if (index == -1 || !entries[index].active) return false; entries[index].FUN_001fa500(flag ? 2 : 1); return true; }
