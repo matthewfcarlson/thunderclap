@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 12/12)
+// FUN_00255980 @ 0x00255980
+struct Node { char pad[0x34]; Node* nextLink; }; struct Holder { char pad[0x48]; Node* firstLink; }; int __cdecl FUN_00247930(void* item, Node* node); bool __stdcall FUN_00255980(void* item, Holder* holder) { Node* node = holder->firstLink ? (Node*)((char*)holder->firstLink - 0x34) : 0; bool found = false; while (node) { int result = FUN_00247930(item,node); found = found || result == 3 || result == 4; Node* link = node->nextLink; node = link ? (Node*)((char*)link - 0x34) : 0; } return found; }
