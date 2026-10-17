@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/8, incomplete)
+// FUN_000c8490 @ 0x000c8490
+struct Entry { int active; char pad[0x2c]; int handle; char rest[4]; }; struct Owner { char pad[0x2258]; Entry entries[32]; void FUN_000c8490(int index); }; struct Manager { void FUN_001e5bc0(int); }; struct Context { char pad[12]; Manager *manager; }; extern Context *DAT_004dd700; void Owner::FUN_000c8490(int index) { if (index >= 0 && index < 32) { Entry *entry = &entries[index]; if (entry->active && entry) { DAT_004dd700->manager->FUN_001e5bc0(entry->handle); entry->handle = -1; entry->active = 0; } } }

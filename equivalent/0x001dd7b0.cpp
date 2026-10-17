@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 857 inputs, branch coverage 7/8, incomplete)
+// FUN_001dd7b0 @ 0x001dd7b0
+struct Key { int first; int second; }; struct Entry { int first; int second; char rest[0x20]; }; struct Table { char pad[0x608]; Entry entries[0x800]; bool FUN_001dd7b0(const Key *key); }; bool Table::FUN_001dd7b0(const Key *key) { for (int i = 0; i < 0x800; ++i) { if (entries[i].first == key->first && entries[i].second == key->second) return true; } return false; }

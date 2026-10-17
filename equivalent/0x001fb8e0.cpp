@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2254 inputs, branch coverage 8/8)
+// CTriggerVolume::vfunc_10 @ 0x001fb8e0
+struct CTriggerVolume { char pad[0x10]; struct Pair { int first; int second; } pairs[24]; int count; bool vfunc_10(int first, int second); }; bool CTriggerVolume::vfunc_10(int first, int second) { for (int i = 0; i < count; ++i) { if (pairs[i].first == first && pairs[i].second == second) return true; } return false; }

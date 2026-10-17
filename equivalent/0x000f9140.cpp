@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2341 inputs, branch coverage 8/8)
+// FUN_000f9140 @ 0x000f9140
+struct Entry { int key1; int key2; int value; int reserved; }; struct Table { int count; int unused; Entry entries[1]; int FUN_000f9140(int key1, int key2); }; int Table::FUN_000f9140(int key1, int key2) { for (int i = 0; i < count; ++i) { if (entries[i].key1 == key1 && entries[i].key2 == key2) return entries[i].value; } return -1; }

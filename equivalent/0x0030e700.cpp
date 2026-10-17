@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_0030e700 @ 0x0030e700
+struct FUN_003060a0 { virtual void slot0(); FUN_003060a0(); char pad[0x30]; }; struct CollisionWall : FUN_003060a0 { int id; float x,y,z,w; float x2,y2,z2; int a,b,c; CollisionWall(); }; CollisionWall::CollisionWall() { a=0; b=0; c=0; x=0.0f; z=0.0f; y=1.0f; x2=0.0f; y2=y; z2=z; w=0.0f; id=0x4e6e6b28; }

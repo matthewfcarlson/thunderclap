@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2987 inputs, branch coverage 2/2)
+// FUN_001c37a0 @ 0x001c37a0
+struct Buffer { unsigned x,y,z; void FUN_001c4390(unsigned a,unsigned b,unsigned c,unsigned d,unsigned e); }; struct Obj { char pad[0x18]; Buffer* buffer; void FUN_001c37a0(unsigned a,unsigned b,unsigned c,unsigned d,unsigned e,char enabled); }; void Obj::FUN_001c37a0(unsigned a,unsigned b,unsigned c,unsigned d,unsigned e,char enabled) { unsigned value=enabled ? 255 : 0; buffer->x=value; buffer->y=value; buffer->z=value; buffer->FUN_001c4390(a,b,c,d,e); }
