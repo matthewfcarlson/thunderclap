@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 13/14, incomplete)
+// FUN_00280630 @ 0x00280630
+struct Resource { virtual void unused(); virtual void release(); }; struct Entry { Resource* first; Resource* second; int key1; int key2; char pad10[4]; int active; char pad18[0x48]; }; struct Manager { char pad[0x60]; Entry entries[100]; void FUN_00280630(int key1, int key2, char remove); }; void Manager::FUN_00280630(int key1, int key2, char remove) { for (int i=0;i<100;++i) { Entry& e=entries[i]; if (e.first && e.key1==key1 && e.key2==key2) { if (remove) { if (e.first) { e.first->release(); e.first=0; } if (e.second) { e.second->release(); e.second=0; } } else e.active=0; } } }

@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
+// FUN_00089450 @ 0x00089450
+struct Entry { unsigned int first; unsigned int second; char unused[16]; }; struct Obj { char pad[0x158]; Entry entries[100]; int FUN_00089450(); }; int Obj::FUN_00089450() { int count = 0; Entry* entry = entries; for (int group = 0; group < 20; ++group) { for (int slot = 0; slot < 5; ++slot) { if (entry->first == 0 && entry->second == 0) break; ++entry; ++count; } } return count; }

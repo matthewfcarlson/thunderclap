@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2945 inputs, branch coverage 6/6)
+// FUN_0027de50 @ 0x0027de50
+struct Values { char pad[0x38]; volatile int first; volatile int second; }; struct Entry { char pad[0x10]; Values * volatile values; }; struct Range { char pad[0x1c]; volatile int begin; volatile int end; }; struct Owner { char pad0[0x98]; Range * volatile range; char pad1[0x10]; Entry ** volatile entries; int *FUN_0027de50(int a,int b); }; int *Owner::FUN_0027de50(int a,int b) { int i=0; Range *r=range; if (((r->end-r->begin)&~3)>0) { do { Entry *e=entries[i]; if(e) { Values *v=e->values; v->first=a; v->second=b; } r=range; int end=r->end; int begin=r->begin; ++i; if (!(i < (end-begin)>>2)) break; } while (true); } return (int *)&r->begin; }

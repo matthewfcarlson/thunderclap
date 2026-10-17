@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// FUN_001f15a0 @ 0x001f15a0
+struct Item { Item *FUN_001f01c0(void *a, void *b, void *c); }; struct Manager { void FUN_001ef260(Item *item); }; extern Manager *DAT_004e3710; void *__cdecl FUN_0008d710(unsigned int size, unsigned int type); void __stdcall FUN_001f15a0(void *a, void *b, void *c) { if (!a || !b) return; Manager *manager = DAT_004e3710; if (!manager) return; Item *item = (Item *)FUN_0008d710(0x20, 6); if (item) item = item->FUN_001f01c0(a, b, c); manager->FUN_001ef260(item); }
