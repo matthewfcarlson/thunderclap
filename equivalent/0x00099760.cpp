@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// FUN_00099760 @ 0x00099760
+struct Callee { unsigned char FUN_000aca40(int); }; struct Object { char pad0[4]; unsigned int flags; char pad8[8]; Callee* value; char pad14[0xb0]; Callee* other; int FUN_00099760(); }; int Object::FUN_00099760() { if ((flags & 0x10) && value == other && !other->FUN_000aca40(0)) return 1; return 0; }

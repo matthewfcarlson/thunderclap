@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_002507c0 @ 0x002507c0
+struct FUN_0025fd00 { FUN_0025fd00(); virtual void slot0(); int dummy; }; struct SeqEventWaitBeat : FUN_0025fd00 { virtual void slot0(); int field8; int fieldC; int field10; SeqEventWaitBeat(); }; int __cdecl FUN_002673a0(const char *, int); SeqEventWaitBeat::SeqEventWaitBeat() { field8=0; fieldC=0; field10=FUN_002673a0("stitched",0); }

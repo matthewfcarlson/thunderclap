@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// FUN_00232840 @ 0x00232840
+struct Entry { char pad[8]; unsigned int first; unsigned int second; Entry *next; }; struct Collection { Entry *head; Entry *FUN_00232840(unsigned int first, unsigned int second); }; Entry *Collection::FUN_00232840(unsigned int first, unsigned int second) { for (Entry *entry = head; entry; entry = entry->next) { if (entry->first == first && entry->second == second) return entry; } return 0; }

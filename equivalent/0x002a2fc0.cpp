@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_002a2fc0 @ 0x002a2fc0
+struct Point { float x,y,z; void FUN_0022d180(); }; struct Obj { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(int); char pad[0x58-4]; Point position; void FUN_002a2fc0(const Point* p); }; void Obj::FUN_002a2fc0(const Point* p) { position = *p; position.FUN_0022d180(); v9(1); }

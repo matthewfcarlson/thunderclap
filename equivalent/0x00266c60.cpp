@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_00266c60 @ 0x00266c60
+struct Counter { int FUN_00263fc0(); }; struct Object { char pad0[0x8c]; struct Entry { int value; char pad[12]; } entries[31]; char pad1[0x280 - 0x8c - 31*16]; int index; Counter* counter; int FUN_00266c60(); }; int Object::FUN_00266c60() { int result = counter->FUN_00263fc0(); return result - 12 - entries[index].value; }
