@@ -203,7 +203,13 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   ecx` with `ecx = &tree.nil`, `test ebp, ebp` on a link) get the sentinel planted into the link they just
   loaded after one to three links, in every epoch. A loop that still runs away behind counted loops whose
   bound no load feeds (a pair loop over the points 80 counted lists collected) gets one more round with counts
-  of 0 or 1 at every count load, and once that has got two inputs through, small counts start that way. A
+  of 0 or 1 at every count load, and once that has got two inputs through, small counts start that way. (Round 11.)
+  One difference plant in four is 5-12 elements rather than 1-4. A stub's float result that bounds a runaway loop
+  through `__ftol2` (`end = (int)(pow(x, e) * n)`, a new call in each outer round) is drawn in [0, 1] for that callee
+  in three inputs in four. Many walks at one compare (127 circular bins, each with its own sentinel, over nodes the
+  bins share; heads in the zero page when the object pointer is null-ish) plant no link some other walk already loaded,
+  end a walk at the link before one loaded before, and empty a walk at its top test (the same compare before the loop,
+  `cmp eax, edx; je out`) when its first node's link was loaded before; a node linked to itself counts as a walk. A
   run that writes as it runs away (`do { top->tt = 0; top++; } while (--n)`, out of pages rather than steps)
   counts as running away here. A discovery run that returned while the input with its plants didn't (fuzzed
   nodes alias, so a planted link was also read as a key) gets up to two more discovery runs from its plants.
@@ -271,6 +277,15 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   - a loop's bound (patched for one or two more rounds, in every memory epoch when it is re-read after a
     call).
 
+  - (round 11) instruction words: a word loaded from an array by index (`mov eax, [edx + eax*4]`) that at least three
+    compares test through different field extractions (`and 0x3f`, `shr 24`, `shr 6; and 0x3ffff`), one of them a
+    switch or four in all, is an interpreter's instruction stream. Directed inputs plant runs of 1-8 words from the
+    first word a completed input read there, in every memory epoch, each made of field values the compares name
+    (every case of the switch, up to a small bound, around a constant, below a value from memory). A word another
+    compare of that input read before the loop keeps the field value it had (`code[sizecode - 1] & 0x3f == RETURN`), a
+    loop bound in a stack argument below the number of words is raised to it, and half of them have every stub return
+    a normal value or 1 (a checker callee that returns 0 ends the loop at the first word). At most 30% of the time
+    budget;
   - string compares against a literal in `.rdata`: `repe cmpsb/w/d` (one operand in `.rdata`, `ecx`
     elements), calls to the CRT `strcmp`/`_stricmp`/`strncmp` (executed for real), and inline byte-pair
     loops (`mov dl, [ecx]; cmp dl, [esi]`). Fuzzed bytes never spell `"Millimeters"`, so the original's
@@ -323,7 +338,14 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     frame, the call fails (`writes 0x40 bytes through ecx ... but ours has only 0x20 bytes there`): our
     local is smaller than the callee's object;
   - leaves `ecx`/`edx`/`eax` alone when the callee never writes them (callers may rely on that);
-  - pops the callee's argument bytes. Pops over 252 bytes (a struct passed by value) are done directly.
+  - pops the callee's argument bytes. Pops over 252 bytes (a struct passed by value) are done directly. A call through
+  a fixed function pointer (`call [0x4de948]`, a global whose value is fuzzed) takes its stack use from the pointer's
+  call sites across the image: when some site passes it no words (nothing pending on any path from its function's
+  entry) it takes none and pops none, so `push 0; call [g]; push ecx; call [esi+0x18]` passes both words to the
+  virtual call; when some site releases the words right after it (`add esp, N`), it is caller-cleaned;
+- a callee that takes x87 register arguments (`fld x; fld e; call __CIpow`: its first instructions read st0 and st1
+  below the stack it found) has them replaced by its float result, as the real one does: they are not values the
+  caller keeps across the call;
 - A `push` of an untouched callee-saved register counts as a save (not an argument) only if the function
   pops that register somewhere; otherwise it passes on a register argument (LTCG `esi`). A register the
   function wrote itself is never a save, even when it holds its entry value again (`xor edi, edi; push edi`
@@ -445,7 +467,14 @@ faulting inputs don't stop the search (up to 192 of them). The step budget isn't
 timeouts come from a `rep` string instruction with an absurd (fuzzed) count or from a loop that a stubbed
 callee keeps going (hundreds of calls). Then input 0 is run once with 8M steps: if it returns, the code is long but finite (100 objects with 66 stub calls each, a 2048-slot scan)
 and the rest get twice the steps it took (at least 1M) and 3x the time budget; and an input where such a fill or copy got through in the original
-but our semantic copy hit the page limit is inconclusive.
+but our semantic copy hit the page limit is inconclusive. (Round 11.) While every input that ran out of steps did so in
+a loop over a constant count, inputs whose original returns within 256 steps (`if (start == 0) return`) don't count
+toward those first 4: the budget is decided at the 4th other input. When three of
+the first four ran out of steps, each in a loop that counts down from a constant (`mov ebx, 0x800; ... dec ebx; jne`),
+and the fourth returned through a stub result that skips the loops, the 8M-step probe runs too. Long code the probe
+proved finite gets up to 8x the time budget (not 3x) while fewer than 50 inputs have completed and the original
+returns on at least four in five. When the first four ran out of steps in walks over fuzzed links (below), the long
+budget is skipped: they are runaway walks.
 
 **Return type** comes from our mangled name. For a C name it is inferred from the original's call sites.
 If ours returns `void` but the original's direct callers read `eax` (or `st0`) after the call, the return
@@ -501,7 +530,13 @@ Mismatch strings are written for a model to act on. Examples:
 
 ## Validation
 
-Latest run (2026-10-15, checker round 9; details in [tasks/equiv-round9.md](tasks/equiv-round9.md)):
+Latest run (2026-10-16, checker round 11; details in [tasks/equiv-round11.md](tasks/equiv-round11.md)):
+`regress.py` 145/145 (the 10 new cases all fail under round 10); selftest 297/300 (three unresolved-destructor
+failures, identical under round 10); mutation suite identical to round 10 mutant by mutant on the pinned 120;
+`equivalent/` random 300 (seed 2035) at 3000 inputs: 296 promotable, no newly failing file. 6 of 7 work-list
+sources newly promotable (0x0026bac0 with a by-value return).
+
+Previous run (2026-10-15, checker round 9; details in [tasks/equiv-round9.md](tasks/equiv-round9.md)):
 `regress.py` 125/125; selftest 298/300 (the 2 fail identically under round 8); mutation suite identical to
 round 8 on the pinned 120; `equivalent/` random 300 at 3000 inputs: 299 (0x0028e160 as under round 8). 12 of
 26 work-list sources newly promotable.

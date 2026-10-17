@@ -68,6 +68,7 @@ ARRAY_WINDOW = 16          # most bytes compared behind a scalar or unknown poin
 POINTEE_WINDOW = 4096        # most bytes of a stack local passed by pointer that are compared at a call
 LONG_STEPS = 1000000        # step budget once every early input of the original ran out of 50k steps
 PROBE_STEPS = 8000000       # round 7: one input run this long tells long but finite code from runaway loops
+EARLY_STEPS = 256           # round 11: an original that returns within this many steps returned early
 MIN_CONCLUSIVE = 8          # fewer completed inputs than this (or less coverage than MIN_COVERAGE): inconclusive
 MIN_COVERAGE = 0.25
 ACCEPT_COVERAGE = 0.75      # the bar for promotion to equivalent/ (promote-remote.sh, farm.ts, clone_equivalent.py):
@@ -758,6 +759,148 @@ class Program:
                 a += i.size
         cache[target] = best if ok and steps < 3000 and not work else None
         return cache[target]
+
+    def x87_args(self, target, depth=0):
+        """(round 11, x87args) x87 registers a callee takes as arguments: what its first instructions read below
+        the stack it found (`__CIpow`: `fxch st(1); fstp qword [esp]; fst qword [esp+8]` takes st0 and st1 and
+        leaves its result in their place). 0 for ordinary callees."""
+        cache = self.__dict__.setdefault("_x87a", {})
+        if target in cache:
+            return cache[target]
+        cache[target] = 0
+        if not self.is_code(target) or depth > 3:
+            return 0
+        view = CodeView(self.read, target, None, self)
+        a, d, need = target, 0, 0
+        for _ in range(24):
+            i = view.decode(a)
+            if i is None:
+                break
+            if i.kind == "jmp" and i.target is not None:
+                if a == target:
+                    cache[target] = self.x87_args(i.target, depth + 1)
+                    return cache[target]
+                a = i.target
+                continue
+            if i.kind != "other":
+                break
+            req, delta = i.x87
+            need = max(need, req - d)
+            d += delta
+            a += i.size
+        cache[target] = min(need, 3)
+        return cache[target]
+
+    def containing_func(self, va):
+        """(entry, size) of the listed function whose body holds va, or None."""
+        starts = self.__dict__.get("_starts")
+        if starts is None:
+            starts = self._starts = sorted(self.funcs)
+        import bisect
+        k = bisect.bisect_right(starts, va) - 1
+        if k < 0:
+            return None
+        e = starts[k]
+        return (e, self.funcs[e][0]) if va < e + self.funcs[e][0] else None
+
+    def pending_at(self, entry, size, site):
+        """(round 11) The words pushed for calls but not yet taken at `site`, on every path from the entry of the
+        function (entry, size) that holds it: a set of byte counts (None in it: unknown on some path). Pushes
+        of untouched callee-saved registers and the prologue's are saves, not arguments; a call takes what its
+        callee pops (unknown for an indirect call with words pending), `add esp` and `pop` release."""
+        view = CodeView(self.read, entry, (entry, entry + size), self)
+        prologue = view.prologue()
+        out = set()
+        work = [(entry, 0, frozenset())]
+        seen = set()
+        steps = 0
+        while work and steps < 4000:
+            a, pend, wr = work.pop()
+            while steps < 4000:
+                if (a, pend, wr) in seen:
+                    break
+                seen.add((a, pend, wr))
+                steps += 1
+                i = view.decode(a)
+                if i is None:
+                    out.add(None)
+                    break
+                if a == site:
+                    out.add(pend)
+                m, ops = i.mnemonic, i.op_str
+                if pend is not None and a not in prologue:
+                    if m == "push" and not (
+                            i.ops and i.ops[0][0] == "reg" and i.ops[0][1] in CALLEE_SAVED and i.ops[0][1] not in wr):
+                        pend += 4
+                    elif m == "pop" and pend:
+                        pend -= 4
+                    elif m == "add" and ops.startswith("esp,") and i.imms:
+                        pend = max(0, pend - i.imms[0])
+                    elif m == "sub" and ops.startswith("esp,") and i.imms:
+                        pend += i.imms[0]           # (`sub esp, 8; fstp qword [esp]`: a double argument)
+                    elif m == "leave" or (m == "mov" and ops == "esp, ebp"):
+                        pend = 0
+                    elif i.ops and i.ops[0] == ("reg", "esp") and m not in ("cmp", "test", "push", "pop"):
+                        pend = None
+                if i.ops and i.ops[0][0] == "reg" and i.ops[0][1] in CALLEE_SAVED and m not in ("push", "cmp", "test"):
+                    wr = wr | {i.ops[0][1]}
+                if i.kind in ("ret", "stop"):
+                    break
+                if i.kind == "call":
+                    pop = self.callee_pop(i.target) if i.target is not None else (0 if pend == 0 else None)
+                    if pend is not None:
+                        pend = None if pop is None else max(0, pend - pop)
+                    a += i.size
+                    continue
+                if i.kind == "jcc":
+                    if i.target is not None and view.internal_target(i.target):
+                        work.append((i.target, pend, wr))
+                elif i.kind == "jmp":
+                    if i.target is not None and view.internal_target(i.target):
+                        a = i.target
+                        continue
+                    if i.target is None and i.mem is not None and i.mem[2]:
+                        for t in view._table(i):
+                            work.append((t, pend, wr))
+                    break
+                a += i.size
+        if work:
+            out.add(None)
+        return out
+
+    def ptr_call_pop(self, ea):
+        """(round 11, ptrpop) How a callee reached through the fixed function pointer at `ea` (`call [ea]`)
+        treats the stack, from the pointer's call sites across the image: "noargs" when some site passes it no
+        words (nothing pending on any path: the pointer type takes no stack arguments, whatever its
+        convention, so it pops nothing and pending words belong to a later call), "caller" when some site
+        releases the words right after the call (`call [ea]; add esp, 8`: caller-cleaned, pops nothing).
+        None when no site tells."""
+        cache = self.__dict__.setdefault("_ptr_pop", {})
+        if ea in cache:
+            return cache[ea]
+        res = None
+        lo, hi = self.text
+        data = self.__dict__.get("_text_bytes")
+        if data is None:
+            data = self._text_bytes = self.read(lo, hi - lo)
+        pat = b"\xff\x15" + struct.pack("<I", ea)
+        k = data.find(pat)
+        n = 0
+        while k >= 0 and n < 64 and res is None:
+            site = lo + k
+            n += 1
+            f = self.containing_func(site)
+            if f is not None:
+                view = CodeView(self.read, f[0], (f[0], f[0] + f[1]), self)
+                i = view.decode(site)
+                if i is not None and i.kind == "call" and i.mem == (None, None, None, 1, ea, 4):
+                    if view.immediate_cleanup(site):
+                        res = "caller"
+                    elif self.pending_at(f[0], f[1], site) == {0}:
+                        res = "noargs"
+            k = data.find(pat, k + 1)
+        cache[ea] = res
+        return res
 
     def call_sites(self, target):
         """Addresses of direct `call target` instructions in .text."""
@@ -2294,6 +2437,11 @@ class Run:
         self.count_walks = {}       # (round 10) compare of a runaway walk -> the operand holding the sentinel (or "zero")
         self.count_tiny = False     # (round 10) discovery runs plant counts of 0 or 1 (a pair loop over everything collected)
         self.walk_rounds = Counter()    # (round 10) compare -> rounds since its last plant (discovery runs)
+        self.walk_heads = {}        # (round 11, walkheads) the top test of a walk (`cmp eax, edx; je` before it) -> its compare
+        self.walk_seen = {}         # (round 11) (epoch, address) of every link a walk compare loaded -> the walk that did
+        self.walk_inst = Counter()  # (round 11) walk compare -> walks it ran so far (a new one at its top test or a plant)
+        self.walk_prev = {}         # (round 11) walk compare -> the node its link register held at the last round
+        self.walk_disp = {}         # (round 11) walk compare -> offset of the link in a node (`mov eax, [eax+0xc]`)
         self.const_src = {}         # (round 9) register -> the compare that decided the constant it holds (`mov bl, 1` after a jne)
         self.last_jcc_obs = None    # (round 9) the compare the latest jcc branched on
         self.since_jcc = 99         # (round 9) instructions since the latest jcc
@@ -2358,6 +2506,9 @@ class Run:
                 struct.pack("<H", 4 * k)
             tr[0x800 + k * 16:0x800 + k * 16 + 9] = b"\xd9\x05" + struct.pack("<I", FSLOT) + b"\xc2" + \
                 struct.pack("<H", 4 * k)
+        # (round 11, x87args) [0xC00 + 2 * (3 - n)]: n x `fstp st(0)` (a callee's x87 register arguments), then on
+        # to the trampoline whose address is at FSLOT + 0x10
+        tr[0xC00:0xC0C] = b"\xdd\xd8" * 3 + b"\xff\x25" + struct.pack("<I", FSLOT + 0x10)
         uc.mem_map(TRAMP, PAGE)
         uc.mem_write(TRAMP, bytes(tr))
         if self.ours_image is not None:
@@ -2686,13 +2837,24 @@ class Run:
             else:
                 self.cdecl_site = False
             semantic = self.prog.callee_stack_args(target) if known else None
+            # (round 11, ptrpop) a call through a fixed function pointer (`call [0x4de948]`) whose target is not
+            # code (a fuzzed global): the pointer's other call sites tell its stack use. With `push 0; call
+            # [g]; push ecx; ...; call [esi+0x18]` the 0 is the virtual call's second argument when g takes none
+            ptrkind = None
+            if known and p is None and insn.target is None and insn.mem is not None and \
+                    "ptrpop" not in EQUIV_OFF:
+                ptrkind = self.prog.ptr_call_pop(insn.mem[4])
+                if ptrkind is not None:
+                    p = 0
             # unknown arity: what the caller does with the pushed words afterwards decides (released by a
             # later `add esp`: caller-cleaned; popped or read by a later call they were pushed for)
             pu = None
             if p is None and tracked:
                 pu = (self.view.join_balance(insn.addr, len(tracked)) if "join" not in EQUIV_OFF else None) or \
                     self.view.pending_use(insn.addr, len(tracked))
-            if p is not None and p > 0:
+            if ptrkind == "noargs":
+                nargs = 0
+            elif p is not None and p > 0:
                 nargs = p // 4
             elif p == 0 or (cleanup and pu is None):
                 p = 0
@@ -2844,7 +3006,10 @@ class Run:
         fdepth = 0
         if "fdepth" not in EQUIV_OFF:
             fdepth = (8 - ((uc.reg_read(u.UC_X86_REG_FPSW) >> 11) & 7)) % 8
-        fret = self.view.float_ret_after(insn.addr, self.own_float_ret, fdepth)
+        # (round 11, x87args) a callee that takes x87 register arguments (`fld x; fld e; call __CIpow`) replaces
+        # them with its result: they were not values kept across the call, and the code after it uses the result
+        x87n = min(self.prog.x87_args(target), fdepth) if known and not tail and "x87args" not in EQUIV_OFF else 0
+        fret = True if x87n else self.view.float_ret_after(insn.addr, self.own_float_ret, fdepth)
         h = mix(self.inp["seed"], 0xCA11, k)
         d = self.inp.get("dictionary")
         mode = self.inp.get("stub_mode")
@@ -2869,6 +3034,9 @@ class Run:
         fv = FLOATS[mix(self.inp["seed"], 0xCA13, k) % len(FLOATS)]
         if self.inp.get("stub_floats") is not None:
             fv = _stub_float(self.inp["stub_floats"], k)
+        elif target in self.inp.get("fret_unit", ()):
+            h_ = mix(self.inp["seed"], 0xF7A1, k)       # (round 11, ftolunit) a fraction: 0, 1 or in between
+            fv = (0.0, 1.0)[h_ & 1] if h_ % 8 == 0 else (h_ >> 8) % 1000 / 1000.0
         if k in self.inp.get("fret_override", {}):
             fv = self.inp["fret_override"][k]        # a directed input's float result for this call
         self.calls.append({"target": target, "args": args, "regs": {r: self.reg(r) for r in Program._REGS},
@@ -3005,6 +3173,8 @@ class Run:
             raise Fault("odd_pop_%d" % p)
         if fret:
             uc.mem_write(FSLOT, struct.pack("<f", fv))
+            if x87n and self.coverage is not None:
+                del self.fstack[:x87n]
             if self.coverage is not None:
                 # the float result lands in st0: a float comparison on it can be steered (directed inputs)
                 self.fstack.insert(0, {"val": struct.unpack("<f", struct.pack("<f", fv))[0],
@@ -3017,6 +3187,10 @@ class Run:
             uc.mem_write(esp + p, struct.pack("<I", ret_addr))
             uc.reg_write(u.UC_X86_REG_ESP, esp + p)
             p = 0
+        if x87n:
+            uc.mem_write(FSLOT + 0x10, struct.pack("<I", TRAMP + 0x800 + (p // 4) * 16))
+            uc.reg_write(u.UC_X86_REG_EIP, TRAMP + 0xC00 + 2 * (3 - x87n))
+            return
         uc.reg_write(u.UC_X86_REG_EIP, TRAMP + (0x800 if fret else 0) + (p // 4) * 16)
 
     def _check_readback(self, insn):
@@ -3820,16 +3994,25 @@ class Run:
         """(round 10, walkend) A discovery run at the compare of a runaway list or tree walk (`mov eax, [ebp]; cmp eax,
         ecx; jne` with ecx = &tree.nil, or `mov ebp, [ebp]; test ebp, ebp; jne`): after one to three rounds the link
         just loaded (a plain load, in this memory epoch) is planted as the sentinel the compare waits for, and the
-        register follows, so each walk ends after a few links, in every epoch it runs in."""
+        register follows, so each walk ends after a few links, in every epoch it runs in.
+
+        (round 11, walkheads) Many walks at one compare (127 circular bins `for (c = bin->next; c != bin; c =
+        c->next)`, each with its own sentinel): fuzzed nodes alias, so a link one walk got planted with its
+        sentinel is another walk's path, and the input with the plants ran away where the discovery run did not. A
+        link some walk already loaded is never planted (the input then reads what the discovery run read); a
+        walk's first node whose link was loaded before ends the walk at its head instead (the top test, `cmp eax,
+        edx; je` before the loop, gets the sentinel: an empty bin), and a walk ends at the latest at the link
+        before one loaded before."""
         A = Program._ALIAS
-        side = self.count_walks[insn.addr]
+        pc = insn.addr
+        heads = "walkheads" not in EQUIV_OFF
+        head_of = self.walk_heads.get(pc) if heads else None
+        side = self.count_walks[pc]
         ops = insn.ops
         if len(ops) != 2:
             return
-        self.walk_rounds[insn.addr] += 1
-        want = 1 + mix(self.inp["seed"], insn.addr, len(self.count_plants), 0x3A1) % 3
-        if self.walk_rounds[insn.addr] < want:
-            return
+        if head_of is None:
+            self.walk_rounds[pc] += 1
         try:
             if side == "zero":
                 if insn.mnemonic != "test" or ops[0] != ops[1] or ops[0][0] != "reg":
@@ -3860,6 +4043,43 @@ class Run:
                 return
         else:
             return
+        if heads:
+            cur = int.from_bytes(self.uc.mem_read(ea, 4), "little")
+            key = (self.epoch, ea)
+            wpc = head_of if head_of is not None else pc
+            if head_of is not None:
+                self.walk_inst[wpc] += 1
+            inst = (wpc, self.walk_inst[wpc])
+            # (a link this same walk loaded before is fine: planting it only ends the walk sooner in the input)
+            seen_before = self.walk_seen.get(key, inst) != inst
+            self.walk_seen.setdefault(key, inst)
+            ok_at = lambda a: not (STACK_LO <= a < STACK_HI or _reserved(a) or self.prog.is_code(a) or
+                                   not _patchable(a, False))
+            if head_of is not None:
+                # the top test: a new walk starts at this node
+                self.walk_prev[head_of] = cur
+                self.walk_rounds[head_of] = 0
+                disp = self.walk_disp.get(head_of)
+                if seen_before or disp is None or cur == (sv & M32) or not ok_at(ea):
+                    return
+                nxt = (cur + disp) & M32
+                if (self.epoch, nxt) not in self.walk_seen and ok_at(nxt):
+                    return          # its first link is fresh: the walk runs, and ends at the compare
+            else:
+                prev = self.walk_prev.get(pc)
+                if prev is not None and pc not in self.walk_disp and 0 <= ea - prev < 0x1000:
+                    self.walk_disp[pc] = ea - prev
+                self.walk_prev[pc] = cur
+                if seen_before:
+                    return          # another walk (or this one) loaded it before: planting it changes that walk
+                want = 1 + mix(self.inp["seed"], pc, len(self.count_plants), 0x3A1) % 3
+                disp = self.walk_disp.get(pc)
+                nxt = (cur + disp) & M32 if disp is not None else None
+                last = nxt is not None and ((self.epoch, nxt) in self.walk_seen or not ok_at(nxt))
+                if self.walk_rounds[pc] < want and not last:
+                    return
+        elif self.walk_rounds[pc] < 1 + mix(self.inp["seed"], pc, len(self.count_plants), 0x3A1) % 3:
+            return
         if STACK_LO <= ea < STACK_HI or _reserved(ea) or self.prog.is_code(ea) or not _patchable(ea, False):
             return
         bs = (sv & M32).to_bytes(4, "little")
@@ -3867,7 +4087,9 @@ class Run:
         if reg32 is not None:
             self.uc.reg_write(_uc_regs()[reg32], sv & M32)
         self.count_plants[(self.epoch, ea)] = bs
-        self.walk_rounds[insn.addr] = 0
+        if head_of is None:
+            self.walk_rounds[pc] = 0
+            self.walk_inst[pc] += 1
 
     def _plant_diff(self, insn):
         """(round 10, diffcount) A discovery run at `sub end, begin` of a runaway loop's bound: one of the two words is
@@ -3898,7 +4120,12 @@ class Run:
             c = _apply_xf(op, c)
         if c <= (1 if self.count_tiny else 16):
             return              # (already a small count)
-        k = 1 + mix(self.inp["seed"], insn.addr, len(self.count_plants), 0x5C1) % 4
+        h_ = mix(self.inp["seed"], insn.addr, len(self.count_plants), 0x5C1)
+        k = 1 + h_ % 4
+        if "diffwide" not in EQUIV_OFF and (h_ >> 8) % 4 == 0:
+            # (round 11, diffwide) one plant in four is 5-12 elements: a tie-break network over the elements of a
+            # vector (0x00039c60) needs more than four of them in a row to reach its later compares
+            k = 5 + (h_ >> 16) % 8
         if self.count_tiny:
             k = 1 if mix(self.inp["seed"], insn.addr, len(self.count_plants), 0x5C2) % 4 == 0 else 0
         d = _invert_xf(xa, (e - b) & M32, k)
@@ -6125,8 +6352,18 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     count_diffs = {}           # (round 10) `sub end, begin` instructions among them -> the transforms after the sub
     index_fills = set()        # (round 10) (call, argument, offset) of stub fills the original indexed a frame array with
     count_walks = {}           # (round 10) compares of runaway walks -> the operand holding the sentinel ("zero": a null link)
+    walk_heads = {}            # (round 11) top tests of those walks -> the walk's compare
+    unit_targets = set()       # (round 11, ftolunit) callees whose float result bounded a runaway loop through __ftol2
     small_left = [512, 0, 0, 0, 0.0]   # (round 9) small-count rounds: budget, tried, completed, (round 10) completed tiny, CPU seconds
     probed = [None]            # the step-budget probe: None (not run), or the budget it settled on (0: no help)
+    early_rets = [0]           # (round 11, earlyret) random inputs whose original returned within EARLY_STEPS
+    first_to = [None]          # (round 11) the first random input whose original ran out of steps
+    const_to = [0, 0]          # (round 11, constloop) random inputs that ran out of steps: all, in a constant-bound loop
+    walk_to = [0]              # (round 11, walknolong) random inputs that ran out of steps in a walk over fuzzed links
+    walk_to_seen = {}
+    wreads = {}                # (round 11, opwords) completed input -> (load pc, address, transforms, value) its compares read
+    budget_seed = [None]       # (round 11) the input at which the step budget was decided
+    long_seed = [None]         # (round 11) the input at which the long budget was given
     stuck = []                 # inputs whose original ran too long: (seed, overlay, patch, hot comparisons)
     last_status = [None]
     loop_limits = {}           # runaway loops seen so far: later runs stop there early
@@ -6212,6 +6449,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                     continue
                 if isinstance(k, tuple) and k[0] == "sentinel":      # walk sentinels planted in memory
                     continue
+                if isinstance(k, tuple) and k[0] == "stubmode":      # (round 11) every stub's result
+                    continue
                 if isinstance(k, tuple) and k[0] == "sbyte":         # bytes of a stack argument word
                     _, wi, bo, bn = k
                     if target_conv or wi >= len(inp["stack"]):
@@ -6267,6 +6506,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             pointers = sorted({r + d for r in roots for d in ptr_offsets})
         inp["dictionary"] = dictionary
         inp["stub_mode"] = ("normal", "normal", "normal", "zero", "one", "normal")[seed % 6]
+        if stack_patch and ("stubmode",) in stack_patch:
+            inp["stub_mode"] = stack_patch[("stubmode",)]
         mach = Machine(prog, seed, globals_, pristine=(seed == 0), dictionary=dictionary, pointers=pointers,
                        overlay=overlay, sentinels=(stack_patch or {}).get(("sentinel",), ()))
         # Callee write extents the original's run learns must reach our run too: create the dict
@@ -6280,6 +6521,11 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             for k_, j_, off_ in sorted(index_fills):
                 if not any(x[:3] == (k_, j_, off_) for x in fo_):
                     fo_[(k_, j_, off_, 0, 4)] = mix(seed, k_, j_, off_, 0x1D8) % 2
+        if unit_targets and seed % 4 != 3:
+            # (round 11, ftolunit) the float results of those callees are drawn in [0, 1] (pow of a fraction), for
+            # every call: each outer round's bound is then a fraction of its scale (`(int)(pow(...) * n)`), not
+            # 1000 * n. An input choice, the same on both sides; a directed input's own result for a call wins
+            inp["fret_unit"] = frozenset(unit_targets)
         inp.setdefault("wext_by_call", {})
         inp.setdefault("extra_by_call", {})
         inp.setdefault("tail_arity", {})
@@ -6366,6 +6612,24 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             index_fills.update(sorted(orun.idx_fills)[:16 - len(index_fills)])
         obs_run = {j: (dict(ob, next=orun.cmp_obs2[j]) if j in orun.cmp_obs2 else ob)
                    for j, ob in orun.cmp_obs.items()}
+        if o["status"] == "ret" and len(wreads) < 8192 and "opwords" not in EQUIV_OFF:
+            wr_ = set()
+            for ob_ in obs_run.values():
+                for o_ in ob_.get("ops") or ():
+                    sr_ = o_.get("src")
+                    if sr_ and isinstance(sr_[0], int) and sr_[1] == 4 and o_.get("pc") and isinstance(o_.get("val"), int) \
+                            and len(wr_) < 64:
+                        wr_.add((o_["pc"], sr_[0], tuple(o_.get("xf") or ()), o_["val"]))
+            # (and the stack arguments the loops' exit compares test: `for (pc = 0; pc < lastpc; pc++)`)
+            wb_ = set()
+            for j_, ob_ in obs_run.items():
+                if j_ in loop_exits:
+                    for o_ in ob_.get("ops") or ():
+                        sr_ = o_.get("src")
+                        if sr_ and isinstance(sr_[0], int) and sr_[1] == 4 and not o_.get("xf") and \
+                                ENTRY_ESP + 4 <= sr_[0] < ENTRY_ESP + 0x84 and isinstance(o_.get("val"), int):
+                            wb_.add((sr_, o_["val"]))
+            wreads[(seed, repr(overlay), repr(stack_patch))] = (tuple(wr_), tuple(wb_), overlay, stack_patch)
         if o["status"] == "ret":
             directed_ = bool(overlay) or bool(stack_patch)
             for j, ob in obs_run.items():
@@ -6413,12 +6677,36 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                     wk_ = _walk_side(ob) if j in loop_exits and "walkend" not in EQUIV_OFF else None
                     if wk_ is not None and ob.get("addr") is not None:
                         # (round 10, walkend) a list or tree walk: its links end at the sentinel, not at a count
+                        if label is None and overlay is None and stack_patch is None and \
+                                not walk_to_seen.get(seed):
+                            walk_to_seen[seed] = True
+                            walk_to[0] += 1
                         count_pcs.add(ob["addr"])
                         count_walks[ob["addr"]] = wk_
+                        if "walkheads" not in EQUIV_OFF:
+                            # (round 11, walkheads) its top test: the same compare a little before it, whose jump
+                            # leaves forward past the loop (`cmp eax, edx; je out` ... `cmp eax, edx; jne top`)
+                            ci_ = oview.insns.get(ob["addr"])
+                            for a_, i_ in oview.insns.items():
+                                if ci_ is None or not ob["addr"] - 0x60 <= a_ < ob["addr"] or \
+                                        (i_.mnemonic, i_.op_str) != (ci_.mnemonic, ci_.op_str) or a_ in count_walks:
+                                    continue
+                                jx_ = oview.insns.get(a_ + i_.size)
+                                if jx_ is not None and jx_.kind == "jcc" and jx_.target is not None and jx_.target > j:
+                                    count_walks[a_] = wk_
+                                    walk_heads[a_] = ob["addr"]
                         continue
                     if j in loop_exits:
                         for o_ in ob.get("ops") or ():
                             sr_ = o_.get("src")
+                            if sr_ and isinstance(sr_[0], tuple) and sr_[0][0] == "ftol" and isinstance(sr_[0][1], tuple) \
+                                    and isinstance(sr_[0][1][0], tuple) and sr_[0][1][0][0] == "fret" and \
+                                    sr_[0][1][0][1] < len(orun.calls) and "ftolunit" not in EQUIV_OFF and \
+                                    len(unit_targets) < 8:
+                                # (round 11, ftolunit) `end = (int)(pow(x, e) * n)` bounds the loop: a stub's float
+                                # result through __ftol2, a new call in every outer round (256 rows of a table)
+                                unit_targets.add(orun.calls[sr_[0][1][0][1]]["target"])
+                                continue
                             if sr_ and o_.get("dpc") and "diffcount" not in EQUIV_OFF:
                                 # (round 10, diffcount) the bound is `(end - begin) >> 2`: planted at the sub
                                 count_pcs.add(o_["dpc"][0])
@@ -6428,8 +6716,23 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             for j, c in orun.jcc_count.most_common(1):
                 if c > 1000 and o["status"] == "timeout" and not orun.loop_abort and repair_on[0]:
                     loop_limits[j] = 256
+            if o["status"] == "timeout" and label is None and overlay is None and stack_patch is None:
+                # (round 11, constloop) the loop the run spent most rounds in counts down from a constant (`mov ebx,
+                # 0x800; ... dec ebx; jne`: 2048 slots with two constructor calls each): nothing in the input sizes it
+                const_to[0] += 1
+                top_ = max(orun.jcc_count.values(), default=0)
+                hot_ = [j_ for j_, c_ in orun.jcc_count.items() if j_ in loop_exits and 2 * c_ >= top_]
+                # (every loop exit that ran at least half as often as the hottest compare)
+                if hot_ and all(j_ in obs_run and (obs_run[j_].get("ops") or ()) and
+                                all(o_.get("src") is None for o_ in obs_run[j_].get("ops") or ()) for j_ in hot_):
+                    const_to[1] += 1
         last_status[0] = o["status"]
         last_steps[0] = o.get("steps", 0)
+        if label is None and overlay is None and stack_patch is None:
+            if o["status"] == "ret" and last_steps[0] < EARLY_STEPS:
+                early_rets[0] += 1
+            elif o["status"] == "timeout" and first_to[0] is None:
+                first_to[0] = seed
         last_sentinels[0] = _walk_sentinels(obs_run, orun.jcc_count) \
             if o["status"] == "timeout" and "sentinel" not in EQUIV_OFF else ()
         res["statuses"][o["status"]] += 1
@@ -6520,8 +6823,15 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
 
     def out_of_time():
         el = time.process_time() - t_start
-        if (el > time_budget * 3 and steps[0] >= LONG_STEPS) or \
-                (el > time_budget * (3 if steps[0] >= LONG_STEPS else 1) and res["inputs_run"] >= 8):
+        lm = 3
+        if steps[0] >= LONG_STEPS and "longmore" not in EQUIV_OFF and res["inputs_run"] < 50 and \
+                res["statuses"].get("ret", 0) >= 8 and res["statuses"].get("ret", 0) >= 4 * nrun_away():
+            # (round 11, longmore) long but finite code (the original returns on four in five inputs at the long
+            # budget: 2048 slots with two constructor calls each, 10,000 stub calls an input) gets up to 8x the time
+            # budget while fewer than the 50 inputs promotion asks for have completed
+            lm = 8
+        if (el > time_budget * lm and steps[0] >= LONG_STEPS) or \
+                (el > time_budget * (lm if steps[0] >= LONG_STEPS else 1) and res["inputs_run"] >= 8):
             res["time_budget_hit"] = True
             return True
         return False
@@ -6620,6 +6930,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             drun.count_pcs = set(count_pcs)
             drun.count_diffs = dict(count_diffs)
             drun.count_walks = dict(count_walks)
+            drun.walk_heads = dict(walk_heads)
             drun.count_tiny = tiny[0]
             drun.loop_limits = loop_limits
             dst_ = drun.run(oview.entry)["status"]
@@ -6656,12 +6967,13 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             del stuck[n0:]
         return None
 
-    def probe_steps():
-        """Re-run input 0 with PROBE_STEPS. If its original returns, the code is long but finite: every
-        later input gets twice the steps it took (at least LONG_STEPS) and 3x the time budget."""
+    def probe_steps(seed0=0):
+        """Re-run input 0 (round 11: the first that ran out of steps) with PROBE_STEPS. If its original returns,
+        the code is long but finite: every later input gets twice the steps it took (at least LONG_STEPS) and
+        3x the time budget."""
         old = steps[0]
         steps[0] = PROBE_STEPS
-        run_input(0, label="0+steps")
+        run_input(seed0, label="%d+steps" % seed0)
         if last_status[0] == "ret":
             steps[0] = min(PROBE_STEPS, max(LONG_STEPS, 2 * last_steps[0]))
             res["long_steps"] = probed[0] = steps[0]
@@ -6682,29 +6994,53 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 return
             if stop_frac is not None and seed >= 3000 and time_frac() > stop_frac:
                 return      # (round 9, morein) past what --inputs 3000 runs: leave time for the directed inputs
-            if seed == 4 and steps[0] < LONG_STEPS and res["statuses"].get("timeout") == 4 and not res.get("huge_rep") \
+            # (round 11, earlyret) inputs whose original returned at once (`if (start == 0) return`, 6 steps)
+            # say nothing about how long the code runs: the step budget is decided at the 4th other input
+            # (only while every input that ran out of steps did so in a loop over a constant count: an early return
+            # next to runaway loops over fuzzed counts is a fuzzed input like any other)
+            early = early_rets[0] if "earlyret" not in EQUIV_OFF and const_to[1] == const_to[0] else 0
+            at_budget = budget_seed[0] is None and seed >= 4 and (seed - early >= 4 or seed >= 16)
+            if at_budget:
+                budget_seed[0] = seed
+            all_out = at_budget and seed - early == 4 and res["statuses"].get("timeout") == 4
+            if all_out and walk_to[0] >= 4 and "walknolong" not in EQUIV_OFF:
+                # (round 11, walknolong) every one ran out of steps walking fuzzed links that never reach the walk's
+                # sentinel: runaway walks (the walk sentinels end them), not long code. A million steps each would only
+                # spend the time budget going round the same cycle
+                all_out = False
+                res["long_skipped"] = "walks"
+            if all_out and steps[0] < LONG_STEPS and not res.get("huge_rep") \
                     and timeout_calls[0] < 500:
                 # every input so far ran out of steps: long-running code (string building, big loops), not
                 # fuzzed sizes (no rep string instruction with an absurd count) or a loop that runs until a
                 # stubbed callee says stop (thousands of calls). Give the remaining inputs a much bigger budget (and 3x the time).
                 steps[0] = LONG_STEPS
                 res["long_steps"] = LONG_STEPS
-            elif seed == 4 and steps[0] < LONG_STEPS and res["statuses"].get("timeout") == 4 and \
-                    probed[0] is None and "probe" not in EQUIV_OFF and not only_seeds:
+                long_seed[0] = seed
+                if early:
+                    res["early_returns"] = early
+            elif (all_out or (at_budget and "constloop" not in EQUIV_OFF and const_to[0] >= 3 and
+                              const_to[1] == const_to[0])) and \
+                    steps[0] < LONG_STEPS and probed[0] is None and "probe" not in EQUIV_OFF and not only_seeds:
+                # (round 11, constloop: also when three of the first four ran out of steps, every one of them in a
+                # loop over a constant count, and the fourth returned through a stub result that skips the loops)
                 # (round 7) thousands of stub calls or a big rep: a fixed loop with many calls per round (100
                 # objects x 66 calls) runs long but ends; a loop a stubbed callee keeps going never does.
                 # One input (the pristine one) with a huge budget tells them apart
-                if count_pcs and "smallcount" not in EQUIV_OFF and small_retry(0) is not None:
+                s0_ = first_to[0] or 0
+                if count_pcs and "smallcount" not in EQUIV_OFF and small_retry(s0_) is not None:
                     # (round 9) ... unless small counts at the loads that fed the runaway loops already got an input
                     # through: fuzzed counts, not long code (the 8M-step probe took 100 s of the 120 s budget)
                     probed[0] = 0
                     res["probe_skipped"] = True
                 else:
-                    probe_steps()
-            if seed == 8 and steps[0] >= LONG_STEPS and res["statuses"].get("timeout", 0) >= 6 and not probed[0]:
+                    probe_steps(s0_)
+            if long_seed[0] is not None and seed == long_seed[0] + 4 and steps[0] >= LONG_STEPS and \
+                    res["statuses"].get("timeout", 0) >= 6 and not probed[0]:
                 steps[0] = max_steps          # the bigger budget didn't help: fuzzed loop bounds after all
                 res.pop("long_steps", None)
-            if not repair_on[0] and steps[0] < LONG_STEPS and (seed == 4 or seed == 8):
+            if not repair_on[0] and steps[0] < LONG_STEPS and budget_seed[0] is not None and \
+                    (seed == budget_seed[0] or seed == budget_seed[0] + 4):
                 # the step budget is settled (it isn't long-running code): repair the runaway inputs so far
                 repair_on[0] = True
                 for st_ in list(stuck):
@@ -6766,6 +7102,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     tried = set()
     dstate = {"budget": directed}
     refund = [0]
+    word_left = [8192]         # (round 11, opwords) planted instruction-word runs left
+    word_time = [0.0]          # (round 11) CPU seconds they took (at most 30% of the time budget)
 
     def directed_run(seed0, overlay, patch, label):
         """A directed input; one whose original runs away in a loop (a switch case's loop over a fuzzed
@@ -6860,6 +7198,46 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                         if refund[0] < 3 * directed:
                             dstate["budget"] += 4
                             refund[0] += 4
+            if missing and word_left[0] > 0 and "opwords" not in EQUIV_OFF:
+                # (round 11, opwords) an interpreter loop over instruction words from fuzzed memory: random words
+                # rarely get past the per-field checks (`op < 0x24`, `a < maxstacksize`, `b < sizek`) to the case
+                # of each opcode. Plant runs of words made of field values the compares name
+                models = _word_models(observations, wreads, oview.insns)
+                if models:
+                    import random
+                    rnd = random.Random(mix(len(edges), word_left[0], 0x0B5))
+                    miss_run = 0
+                    for _ in range(min(word_left[0], 1024)):
+                        if out_of_time() or res["inputs_failed"] >= 3 or miss_run >= 256 or \
+                                word_time[0] > 0.3 * time_budget:
+                            break
+                        t_w = time.process_time()
+                        model, bases_ = models[rnd.choice(sorted(models))]
+                        seed0, ov0, sp0, ea1, ea2, keep_, bnd_ = rnd.choice(bases_)
+                        stride = ea2 - ea1 if ea2 is not None and 0 < ea2 - ea1 <= 16 else 4
+                        nw_ = rnd.randint(1, 8)
+                        ov_ = _merge_ov(ov0, _word_plant(model, ea1, stride, nw_, rnd, keep_))
+                        sp_ = dict(sp0 or {})
+                        if rnd.random() < 0.5:
+                            # (stub results that let the per-word checks pass: a checker callee returning 0 ends the
+                            # loop at the first word in a zero-stub input)
+                            sp_[("stubmode",)] = rnd.choice(("normal", "one"))
+                        nst_ = len(make_input(seed0, sig, globals_, min_words=own_words)["stack"])
+                        for src_, val_ in bnd_:
+                            # (a loop bound in a stack argument below the words planted: raised to their number)
+                            if _sx(val_) < nw_:
+                                _int_plant_into(src_, nw_ + rnd.randint(0, 2), ov_, sp_, nst_)
+                        sp0 = sp_
+                        word_left[0] -= 1
+                        res["inputs_directed"] += 1
+                        res["inputs_words"] = res.get("inputs_words", 0) + 1
+                        if directed_run(seed0, ov_, sp0, "%d+words" % seed0):
+                            progress = True
+                            miss_run = 0
+                            word_left[0] += 4
+                        else:
+                            miss_run += 1
+                        word_time[0] += time.process_time() - t_w
             if not missing:
                 # everything reached: spend what is left on sides that few inputs took (path diversity)
                 rare = [j for j in oview.jcc for t in (oview.insns[j].target, j + oview.insns[j].size)
@@ -7176,7 +7554,8 @@ def _walk_side(ob):
         s1, s2 = o1[0].get("src"), o2[0].get("src")
         v1, v2 = o1[0].get("val"), o2[0].get("val")
         if s1 and s2 and isinstance(s1[0], int) and isinstance(s2[0], int) and not o1[0].get("xf") and \
-                isinstance(v1, int) and v1 != v2 and HEAP <= v1 < HEAP + HEAP_SIZE:
+                isinstance(v1, int) and (v1 != v2 or (s1[0] == s2[0] and "walkheads" not in EQUIV_OFF)) and \
+                HEAP <= v1 < HEAP + HEAP_SIZE:
             return "zero"
         return None
     if ob.get("mnemonic") != "cmp":
@@ -7184,11 +7563,17 @@ def _walk_side(ob):
     for k in (0, 1):
         v = o1[k].get("val")
         if v is None or o1[k].get("imm") is not None or not isinstance(v, int) or not (
-                HEAP <= v < HEAP + HEAP_SIZE or STACK_LO <= v < STACK_HI or IMAGE_LO <= v < IMAGE_HI):
+                HEAP <= v < HEAP + HEAP_SIZE or STACK_LO <= v < STACK_HI or IMAGE_LO <= v < IMAGE_HI or
+                # (round 11) a list head in an object a fuzzed null-ish pointer put in the zero page (`&heap->bins[i]`
+                # with heap = 0): its links read 0 until planted
+                (0 < v < NULL_HI and o1[k].get("src") is not None and "walkheads" not in EQUIV_OFF)):
             continue
         ln1, ln2 = o1[1 - k], o2[1 - k]
         if v == o2[k].get("val") and ln1.get("src") and isinstance(ln1["src"][0], int) and not ln1.get("xf") and \
-                ln1.get("val") != ln2.get("val"):
+                (ln1.get("val") != ln2.get("val") or (
+                    # (round 11) a node linked to itself (`c->next == c`: in the null page every link is 0) moves no more
+                    "walkheads" not in EQUIV_OFF and ln2.get("src") and ln1["src"][0] == ln2["src"][0] and
+                    ln1.get("val") != v)):
             return k
     return None
 
@@ -7270,6 +7655,110 @@ def _pt_plants(patch0, plants):
     out = dict(patch0 or {})
     out.update(st)
     return out
+
+
+_FIELD_OPS = ("and", "shr", "sar", "add", "btab")
+
+
+def _word_models(observations, wreads=None, insns=None):
+    """(round 11, opwords) Words a loop decodes into fields (an interpreter's instruction words: `op = i & 0x3f;
+    a = i >> 24; b = (i >> 15) & 0x1ff`, each field checked against limits before a switch on op): for each load
+    whose word at least three compares test through different field extractions, {extraction: values worth
+    planting} (the values each compare's other side gives: up to a small bound, around a constant, below a value
+    read from memory; every case of a switch) and the inputs that reached those compares, with the address each
+    word was read at (and the next round's, for the stride). {load pc: (fields, [(seed, overlay, patch, address,
+    next address)])}."""
+    by_pc = defaultdict(lambda: defaultdict(set))
+    bases = defaultdict(list)
+    reads = defaultdict(set)        # input -> (load pc, address, transforms, value) of the words its compares read
+    for j, lst in observations.items():
+        for seed0, ob, ov0, sp0 in lst:
+            ops = ob.get("ops") or ()
+            for k, o_ in enumerate(ops):
+                src = o_.get("src")
+                xf = tuple(o_.get("xf") or ())
+                if src and isinstance(src[0], int) and src[1] == 4 and o_.get("pc") and isinstance(o_.get("val"), int):
+                    reads[(seed0, repr(ov0), repr(sp0))].add((o_["pc"], src[0], xf, o_["val"]))
+                if not src or not isinstance(src[0], int) or src[1] != 4 or not o_.get("pc") or not xf or \
+                        not all(x[0] in _FIELD_OPS for x in xf) or not any(x[0] in ("and", "shr", "sar") for x in xf):
+                    continue
+                cands = by_pc[o_["pc"]][xf]
+                other = ops[1 - k] if len(ops) == 2 else None
+                if ob.get("mnemonic") == "table":
+                    cands.update(range(len(ob.get("cases") or ())))
+                elif other is not None and other.get("same"):
+                    pass
+                elif other is not None and other.get("imm") is not None:
+                    c = other["imm"] & M32
+                    if _sx(c) <= 64:
+                        cands.update(range(0, max(0, _sx(c)) + 2))
+                    else:
+                        cands.update({(c - 1) & M32, c, (c + 1) & M32})
+                elif other is not None and isinstance(other.get("val"), int):
+                    v = other["val"] & M32
+                    cands.update({0, 1, (v - 1) & M32 if v else 0, v})
+                cands.update((0, 1, 2, 3))
+                nx = (ob.get("next") or {}).get("ops") or ()
+                ea2 = nx[k]["src"][0] if k < len(nx) and nx[k].get("src") and isinstance(nx[k]["src"][0], int) and \
+                    nx[k].get("pc") == o_["pc"] else None
+                if len(bases[o_["pc"]]) < 256:
+                    bases[o_["pc"]].append((seed0, ov0, sp0, src[0], ea2))
+    out = {}
+    for pc, f in by_pc.items():
+        # (a decoded instruction stream: a switch on one field or four fields, of a word read from an array by index,
+        # `mov eax, [edx + eax*4]`. Not a flags word tested with three masks)
+        tabled = any(x[-1][0] == "btab" for x in f) or len(f) >= 4
+        li = (insns or {}).get(pc)
+        stepped = li is not None and li.mem is not None and li.mem[2] is not None and li.mem[3] == 4
+        if len(f) < 3 or not bases[pc] or not tabled or not stepped:
+            continue
+        bl = []
+        # every completed input whose compares read words at this load is a base (diverse stub results, sizes and
+        # limits), not just the few kept per compare; the first word it read there starts the run
+        for (seed0, _, _), (wr_, wb_, ov0, sp0) in sorted((wreads or {}).items(), key=lambda kv: kv[0][0]):
+            at = sorted(a for p_, a, _, _ in wr_ if p_ == pc)
+            if at and len(bl) < 512:
+                # (a word of the run that another load's compare read in the same input, `code[sizecode - 1] & 0x3f
+                # == RETURN` before the loop, keeps the field value that compare saw: the input got past it)
+                keep = sorted((a, x, v) for p_, a, x, v in wr_ if p_ != pc)
+                bl.append((seed0, ov0, sp0, at[0], at[1] if len(at) > 1 else None, keep, wb_))
+        if not bl:
+            bl = [b + ((), ()) for b in bases[pc]]
+        out[pc] = (dict(f), bl)
+    return out
+
+
+def _word_plant(fields, base, stride, n, rnd, keep=()):
+    """(round 11, opwords) n words from `base` on, each made of a random choice of field values (every memory
+    epoch alike: the loop re-reads its words after each call). keep: (address, transforms, value) that other
+    compares need to keep seeing."""
+    ov = {}
+    items = sorted(fields.items(), key=lambda f: repr(f[0]))
+    for k in range(n):
+        raw = rnd.getrandbits(32) if rnd.random() < 0.5 else 0
+        order = items[:]
+        rnd.shuffle(order)
+        if rnd.random() < 0.5:
+            order.sort(key=lambda f: len(f[1]))      # (the field with most values, the opcode, last: it stays)
+        for xf, cands in order:
+            if rnd.random() < 0.25:
+                continue
+            want = rnd.choice(sorted(cands))
+            r2 = _invert_xf(xf, raw, want)
+            if r2 is None:
+                continue
+            v = r2
+            for op in xf:
+                v = _apply_xf(op, v)
+            if v == want & M32:
+                raw = r2 & M32
+        a = (base + stride * k) & M32
+        for a_, xf, val in keep:
+            if a_ == a:
+                r2 = _invert_xf(xf, raw, val)
+                raw = r2 & M32 if r2 is not None else raw
+        ov[("*", a)] = struct.pack("<I", raw)
+    return ov
 
 
 def _merge_ov(a, b):

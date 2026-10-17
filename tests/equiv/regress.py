@@ -373,6 +373,36 @@ CASES = {
     # pair loop's result is caught
     "0x001fe380_tiny_counts": ("equivalent", None, 0.8, {"n_inputs": 3000}),
     "0x001fe380_tiny_counts_wrong": ("fail", None, 0, {"n_inputs": 3000}),
+    # round 11. `push 0; call [0x4de948]; ...; push ecx; call [esi+0x18]`: the global function pointer takes no
+    # arguments (its other call sites push nothing), so the 0 is the virtual call's second argument. The stub had the
+    # pointer pop it, the original's `mov [esp+0x10], eax` then hit its return address and every deep input went
+    # wild (inconclusive 7/38 -> 38/38); a wrong second argument of that virtual call is caught
+    "0x000e8790_ptr_noargs": ("equivalent", None, 0.95, {"n_inputs": 3000}),
+    "0x000e8790_ptr_noargs_wrong": ("fail", "argument 2 is 0x00000001", 0, {"n_inputs": 3000}),
+    # `if (start == 0) return;` then ~65k straight-line steps (Perlin tables): inputs 0 and 1 return in 6 steps, so
+    # the four timeouts the long budget waited for never came (20 early returns, 1/22). Early returns don't count
+    # (inconclusive -> equivalent 21/22); a wrong gradient offset in the newly reached tables is caught
+    "0x003572b0_early_returns": ("equivalent", None, 0.9, {"n_inputs": 3000}),
+    "0x003572b0_early_returns_wrong": ("fail", None, 0, {"n_inputs": 3000}),
+    # libpng build_gamma_table: `fld x; fld e; call __CIpow` takes its arguments in x87 registers; the stub left them
+    # there, so `end = (int)(pow(...) * n)` was the exponent times n (65536) and the 0x480 path never ended. The stub
+    # now replaces them with its result, and a stub float that bounds a runaway loop through __ftol2 is drawn in
+    # [0, 1] for that callee (48/80 -> 62/80); a wrong table value in the newly reached 0x480 path is caught
+    "0x002dbd90_ftol_unit": ("equivalent", None, 0.72, {"n_inputs": 3000}),
+    "0x002dbd90_ftol_unit_wrong": ("fail", None, 0, {"n_inputs": 3000}),
+    # dlmalloc mallinfo: 10 null-terminated fastbins and 127 circular bins walked at one compare (`for (c =
+    # bin->next; c != bin; c = c->next)`), fuzzed nodes shared between bins, heap often in the zero page. Links a
+    # walk already loaded are never planted, a bin whose first node's link was loaded before is emptied at its top
+    # test, and the long budget isn't spent on walks (unsupported -> 14/14, 116 inputs; the source returns the
+    # struct by value, as mallinfo does); a wrong chunk count in the bin walks is caught
+    "0x0026bac0_walk_heads": ("equivalent", None, 1.0, {"n_inputs": 3000}),
+    "0x0026bac0_walk_heads_wrong": ("fail", None, 0, {"n_inputs": 3000}),
+    # Lua luaG_symbexec: instruction words from fuzzed memory rarely pass `op < 0x24`, `a < maxstacksize` and the
+    # per-mode checks before the switch on op. Runs of words made of field values the compares name (every case of
+    # the switch, below each limit) are planted (45/120 -> 92/120); a wrong pc passed to the newly reached
+    # FUN_00214250 check is caught
+    "0x002142d0_op_words": ("equivalent", None, 0.72, {"n_inputs": 3000}),
+    "0x002142d0_op_words_wrong": ("fail", "to 0x00214250: argument 2", 0, {"n_inputs": 3000}),
 }
 
 # cases that must also complete this many inputs (the promotion bar is 50)
