@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 6/6)
+// FUN_002497e0 @ 0x002497e0
+struct Flags { char pad[0x44]; unsigned char bits; unsigned short FUN_00249750(); }; struct Owner { char pad[0x1c]; Flags* flags; }; struct Item { char pad0[4]; Owner* owner; char pad1[4]; void* link; char pad2[0x2c]; unsigned short count; }; unsigned short __cdecl FUN_002497e0(Item* item) { --item->count; if (item->count != 0) return item->count; if (item->link != 0) return (unsigned short)(unsigned int)item->link; Owner* owner = item->owner; Flags* flags = owner->flags; if (flags->bits & 2) return (unsigned short)(unsigned int)owner; unsigned short result = flags->FUN_00249750(); volatile unsigned short saved = result; return saved; }
