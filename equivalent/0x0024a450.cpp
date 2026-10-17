@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 7/8, incomplete)
+// FUN_0024a450 @ 0x0024a450
+struct Link { Link* next; }; struct Node { virtual void destroy(unsigned int); Link link; }; struct List { Link* first; Link sentinel; }; void __cdecl FUN_00249c20(List*, Node*); void __cdecl FUN_0024a450(List* list) { Link* end = &list->sentinel; while (list->first != end) { Link* cur = list->first; while (cur->next != end) cur = cur->next; Node* node = (Node*)((char*)cur - 4); if (!node) break; FUN_00249c20(list,node); node->destroy(1); } }
