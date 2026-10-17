@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// FUN_001efd60 @ 0x001efd60
+struct Item { int FUN_001ef730(int, int, int); }; struct Manager { void FUN_001ef260(int); }; extern Manager *DAT_004e3710; extern "C" void * __cdecl FUN_0008d710(int, int); void __stdcall FUN_001efd60(int a, int b, int c) { if (a != 0 && DAT_004e3710 != 0) { Manager *manager = DAT_004e3710; Item *p = (Item*)FUN_0008d710(0x34,6); manager->FUN_001ef260(p ? p->FUN_001ef730(a,b,c) : 0); } }

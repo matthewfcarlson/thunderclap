@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 104 inputs, branch coverage 9/10, incomplete)
+// FUN_000f99d0 @ 0x000f99d0
+struct Reader { char pad[0x10]; char *begin; int length; char *cursor; bool FUN_000f99d0(char *output); }; bool Reader::FUN_000f99d0(char *output) { char *dest=output; if ((int)(cursor-begin)<length) { do { *dest++=*cursor; ++cursor; if (*cursor=='\n') { ++cursor; break; } } while ((int)(cursor-begin)<length); } *dest=0; return dest!=output; }

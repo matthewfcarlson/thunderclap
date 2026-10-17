@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2824 inputs, branch coverage 0/0)
+// FUN_00011380 @ 0x00011380
+struct Random { unsigned int low; unsigned int high; int FUN_00011380(int minimum, int maximum); }; int Random::FUN_00011380(int minimum, int maximum) { low = (low & 0xffffu) * 0x9069u + (low >> 16); high = (high & 0xffffu) * 0x4650u + (high >> 16); unsigned int value = (high & 0xffffu) + (low << 16); unsigned int range = (unsigned int)(maximum - minimum + 1); return minimum + value % range; }

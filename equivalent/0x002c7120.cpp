@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// FUN_002c7120 @ 0x002c7120
+struct ItemBuffer { char pad0[8]; unsigned flags; unsigned count; void* items; void FUN_002c7120(); }; extern "C" void* __cdecl FUN_0008d6d0(unsigned); extern "C" void __stdcall FUN_00011520(void*, unsigned, unsigned, void*); extern "C" char DAT_00011090; void ItemBuffer::FUN_002c7120() { if (!items) { unsigned savedCount = count; void* p = FUN_0008d6d0(savedCount * 12); if (p) FUN_00011520(p, 12, savedCount, &DAT_00011090); items = p; flags |= 0x10; } }

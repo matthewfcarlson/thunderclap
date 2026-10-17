@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 12/12)
+// FUN_0025e2b0 @ 0x0025e2b0
+struct Node { char pad[4]; unsigned count; Node* next; }; struct Buffer { char pad0[4]; unsigned capacity; char pad8[8]; unsigned char full; char pad11[3]; unsigned read; unsigned write; char pad1c[12]; Node* tail; }; unsigned __cdecl FUN_0025e2b0(Buffer* b) { unsigned used=0; Node* p=b->tail; while (p && p!=(Node*)8) { Node* node=(Node*)((char*)p-8); used+=node->count; p=node->next; } if (b->full) return b->capacity-used; if (b->write>b->read) return b->capacity-b->write+b->read-used; return b->read-b->write-used; }
