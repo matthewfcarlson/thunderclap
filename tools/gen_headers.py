@@ -857,8 +857,14 @@ class Gen:
     def nested_decls(self, u):
         out = []
         for n in u.nested:
-            if isinstance(n, tuple):
-                out.append("    %s %s%s;" % (n[1], "HULK_SINGLE_INHERITANCE " if n[1] != "enum" else "", n[2]))
+            if isinstance(n, tuple) and n[1] == "enum":
+                # an enum named only in template arguments: an empty definition (underlying type int, as MSVC's
+                # opaque `enum X;` extension has). `enum X : int;` is C++11 and MSVC 7.1 rejects it; a plain
+                # `enum X;` has no underlying type and every non-MSVC clang target rejects it
+                # (docs/native-build.md fix 1)
+                out.append("    enum %s { };" % n[2])
+            elif isinstance(n, tuple):
+                out.append("    %s HULK_SINGLE_INHERITANCE %s;" % (n[1], n[2]))
             elif n.template:
                 out.append("    template <%s> %s %s;" % (", ".join(n.params), n.keyword, n.short))
             else:

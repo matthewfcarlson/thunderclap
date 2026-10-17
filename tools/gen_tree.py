@@ -54,6 +54,16 @@ directories and declared the same way everywhere goes to `build/tree/include/com
 only hoisted together with the declarations it depends on.
 
 Conflicts (one symbol declared differently by different sources) are listed in build/tree/conflicts.json.
+
+Native spelling (docs/native-build.md fixes 1-2; the MSVC 7.1 code does not change, build_tree.py checks it):
+
+  * every TU that names size_t includes `build/tree/include/tree_prelude.h` first: the tree's one `size_t`;
+    sources' own `typedef unsigned int size_t;` become comments, `operator new/delete` parameters spell
+    `size_t`, and the non-placement `operator new(size_t) throw()` spells `HULK_NEW_THROW` (throw() under MSVC, nothing off MS);
+  * a wrapped source's `extern "C"` declaration that would clash in the TU (another type of the same C name,
+    or an invented name such as `Lookup`) gets C++ linkage, `extern "C++"`, so it becomes fn_<addr>::name
+    (CLinkage); merged declarations that overload one C name keep C linkage only on the first (emit_item).
+    tools/native_link.py binds the resulting names by address for the native link.
 """
 import argparse
 import bisect
@@ -1030,6 +1040,9 @@ class Generator:
             if os.path.isdir(p):
                 shutil.rmtree(p)
         manifest = {"tus": [], "headers": {}}
+        write_file(os.path.join(TREE, "include", PRELUDE), PRELUDE_LINES)
+        self.c_seen = {}        # header -> {C function name: shape} declared by it and what it includes
+        self.prelude_use = {}   # header -> it (or common.h) names size_t / HULK_NEW_THROW
         for h, entries in sorted(self.headers.items()):
             lines = [HEADER]
             guard = "TREE_" + re.sub(r"\W", "_", h).upper()
@@ -1037,11 +1050,14 @@ class Generator:
             if h != "common.h":
                 lines.append('#include "common.h"')
             spans = []
+            seen = self.c_seen[h] = dict(self.c_seen.get("common.h", {}))
             for k, norm, it, addr in self.order(entries):
                 s = len(lines) + 1
-                lines += emit_item(it)
+                lines += emit_item(it, seen)
                 spans.append([s, len(lines), list(map(str, k)), norm])
             lines.append("#endif")
+            self.prelude_use[h] = bool(PRELUDE_USE.search(native_spelling("\n".join(lines)))) or \
+                self.prelude_use.get("common.h", False)
             write_file(os.path.join(TREE, "include", h), lines)
             manifest["headers"][h] = spans
         for tu in self.tus:
@@ -1059,6 +1075,8 @@ class Generator:
         lines.append("// object %s..%s (kind %s, layer %s, confidence %s)%s" % (o["start"], o["end"], o["kind"], layer_of(o),
                                                                              o["confidence"],
                                                                    ", dominant class " + o["dominant"] if o.get("dominant") else ""))
+        prelude_at = len(lines)
+        lines.append('#include "%s"' % PRELUDE)
         rec = {"path": tu.path, "object": o["file"], "layer": layer_of(o), "start": o["start"], "tag": tu.tag,
                "flags": tu.flags or [], "blocks": [], "locals": [], "placeholders": len(tu.placeholders)}
         merged = [b for b in tu.blocks if b.mode == "merged"]
@@ -1076,12 +1094,17 @@ class Generator:
         if tu.local:
             lines.append("")
             lines.append("// ---- declarations shared by the functions below")
+            # C names the TU's headers declared, and the C definitions of its functions (a definition can't change)
+            seen = dict(self.c_seen.get(tu.header, self.c_seen.get("common.h", {}))) if merged else {}
+            seen.update({it.name: _c_shape(it)[0] for b in tu.blocks if b.mode in ("merged", "wrapped")
+                         for it in b.items if it.kind == "funcdef" and it.c_linkage and it.name and not it.is_inline})
             for k, norm, it, addr in self.order(tu.local):
                 s = len(lines) + 1
-                lines += emit_item(it)
+                lines += emit_item(it, seen)
                 rec["locals"].append([s, len(lines), list(map(str, k)), norm,
                                       sorted(b.addr for b in merged if any(kk == k and nn == norm for kk, nn, _ in b.decls))])
         emitted_ops = {(it.name, it.params) for _, _, it, _ in tu.local if it.name and it.name.startswith("operator")}
+        clink = CLinkage(self, tu, gen, merged)
         events = [(b.addr, 1, b) for b in tu.blocks] + [(a, 0, (a, s, n)) for a, s, n in tu.placeholders]
         events.sort(key=lambda e: (e[0], e[1]))
         lines.append("")
@@ -1115,6 +1138,10 @@ class Generator:
                 text = re.sub(r'^[ \t]*#\s*include\s*[<"](decls/\w+\.h)[>"][ \t]*$', lambda m: decls_body(m.group(1)),
                               text, flags=re.M)
                 text = DATA_INCLUDE.sub("", text)        # hoisted to the TU (tu_data_headers)
+                text, local_c = clink.rewrite(b, text)
+                if local_c:
+                    self.stats["C-linkage declarations made namespace-local in wrapped sources"] += len(local_c)
+                    b.c_local = local_c
                 lines.append("namespace %s {" % b.ns)
                 lines += [l for l in text.rstrip("\n").splitlines()]
                 lines.append("} // namespace %s" % b.ns)
@@ -1126,6 +1153,13 @@ class Generator:
             rec["blocks"].append({"addr": "0x%08x" % b.addr, "name": b.name, "src": b.path, "kind": b.kind,
                                   "mode": b.mode, "reasons": b.reasons, "lines": [s, len(lines)],
                                   "ns": b.ns if b.mode == "wrapped" else None})
+            if getattr(b, "c_local", None):
+                rec["blocks"][-1]["c_local"] = b.c_local
+        if not PRELUDE_USE.search(native_spelling("\n".join(lines))) and not (
+                merged and self.prelude_use.get(tu.header, self.prelude_use.get("common.h"))):
+            # only TUs that name size_t or HULK_NEW_THROW include the prelude: one more typedef in MSVC 7.1's
+            # symbol table is enough to swap two commutative operands in a large function (seen once)
+            lines[prelude_at] = "// (%s: not needed)" % PRELUDE
         write_file(os.path.join(TREE, tu.path), lines)
         return rec
 
@@ -1183,6 +1217,140 @@ def rtti_names():
         return set()
 
 
+# ---------------------------------------------------------------------------------------------
+# C-linkage declarations in wrapped sources (docs/native-build.md fix 2)
+# C names that keep C linkage whatever: compiler intrinsics and the C runtime (MSVC expands `sqrt`, `sin`,
+# `memcpy`, `_ReadWriteBarrier` ... inline only for the C declaration), and reserved `_names`
+C_RUNTIME = CRT_NAMES | set("""memmove strncpy strcat strncmp stricmp strnicmp strchr strrchr strstr strtok sprintf
+_snprintf vsprintf sscanf printf atoi atof atol strtol strtoul strtod toupper tolower isspace isdigit isalpha malloc
+free calloc realloc sqrt sin sinf cos cosf tan tanf atan atanf atan2 atan2f asin asinf acos acosf exp expf log logf
+log10 pow powf fabsf floor floorf ceil ceilf fmod fmodf ldexp frexp modf abs labs rand srand qsort bsearch time
+clock wcslen wcscpy itoa""".split())
+
+
+def keeps_c_linkage(name):
+    return name.startswith("_") or name in C_RUNTIME
+BUILTIN_WORDS = cxx_items.TYPE_WORDS | {"extern", "static", "inline", "__inline", "__forceinline", "__cdecl", "_cdecl",
+                                        "__stdcall", "__fastcall", "__thiscall", "__declspec", "noreturn", "throw"}
+
+
+def _c_shape(it):
+    """(kind, normalized type) of a C-linkage declaration or definition, and whether it uses only builtin types."""
+    if it.kind in ("func", "funcdef") and it.sig is not None:
+        parts = _norm_sig_parts(it)
+        shape = ("f",) + ((parts[0], tuple(parts[1]), parts[2]) if parts else (it.sig,))
+        words = re.findall(r"[A-Za-z_]\w*", it.sig or "")
+    else:
+        vs = [t.v for t in it.toks if t.v not in ("extern", '"C"', ";")]
+        shape = ("v", " ".join(vs))
+        words = [t.v for t in it.toks if t.t == "id" and t.v != it.name]
+    return shape, all(w in BUILTIN_WORDS for w in words)
+
+
+class CLinkage:
+    """Makes a wrapped source's `extern "C"` declarations namespace-local where they would clash in the TU.
+
+    MSVC 7.1 accepts one C-linkage name declared with different types in different namespaces (each wrapped
+    source in its namespace fn_<addr> declares its callees with its own stub types); clang does not (79 TUs).
+    For a declaration (never a definition) in a wrapped source, the C linkage is replaced by C++ linkage
+    (`extern "C++"`), so the name becomes fn_<addr>::name, unique to that source:
+
+      * never compiler intrinsics, C runtime names or reserved `_names` (keeps_c_linkage: MSVC expands `sqrt` or
+        `_ReadWriteBarrier` inline only for the C declaration);
+      * invented names (no address in the name): always, so that a name like `Lookup` means
+        one address per symbol, which the native link binds by address (tools/native_link.py);
+      * address names (FUN_/DAT_...): when the TU already has a declaration of that C name (in an
+        included header, a shared declaration, an earlier wrapped source, any C definition) of another type,
+        or one whose types are not all builtin (a stub class of another namespace is another type), or a
+        global variable / C++ function of that name.
+
+    The code does not change: a call or a load is the same instruction whatever the callee's linkage; only the
+    relocation's symbol name differs (compare.py masks relocations; build_tree.same_code compares them by the
+    address in the name). Functions get `__declspec(nothrow)`, because /GX (= /EHsc) assumes C functions never
+    throw and C++ ones may, which would add EH state stores around calls in functions with unwinding.
+    build_tree.py's regression rounds would catch any change anyway."""
+
+    def __init__(self, gen, tu, headers, merged):
+        self.seen = {}          # C name -> (shape, builtin_only) of the first declaration in the TU
+        self.defs = {}          # C name -> (shape, builtin_only) of a C definition anywhere in the TU
+        self.globals_cpp = set()    # names of global-scope C++ variables / functions declared before
+        items = []
+        for h in headers:
+            items += gen_header_items(h)
+        if merged:
+            for h in ("common.h", tu.header):
+                items += [it for _, _, it, _ in gen.headers.get(h, ())]
+            items += [it for _, _, it, _ in tu.local]
+        for it in items:
+            self.note(it)
+        for b in tu.blocks:
+            if b.mode in ("merged", "wrapped"):
+                for it in b.items:
+                    if it.kind == "funcdef" and it.c_linkage and it.name and not it.is_inline:
+                        self.defs.setdefault(it.name, _c_shape(it))
+                    elif b.mode == "merged" and it in b.defs:
+                        self.note(it)      # a global C++ definition of that name
+
+    def note(self, it):
+        if it.kind not in ("func", "var", "funcdef") or not it.name:
+            return
+        if it.c_linkage:
+            self.seen.setdefault(it.name, _c_shape(it))
+        elif not it.scope and "::" not in (it.key[1] if it.key else ""):
+            self.globals_cpp.add(it.name)
+
+    def clashes(self, it):
+        n = it.name
+        if keeps_c_linkage(n):
+            return False
+        if not ADDR_NAME.search(n):
+            return True
+        shape, builtin = _c_shape(it)
+        if n in self.globals_cpp:
+            return True
+        for prev in (self.defs.get(n), self.seen.get(n)):
+            if prev is not None and (prev[0] != shape or not (builtin and prev[1])):
+                return True
+        return False
+
+    def rewrite(self, b, text):
+        """(text, [names made namespace-local]) for a wrapped block's final source text."""
+        try:
+            items = cxx_items.parse(text)
+        except ValueError:
+            return text, []
+        own = {it.name for it in items if it.kind == "funcdef" and it.name}
+        edits, names = [], []
+        for it in items:
+            if not (it.c_linkage and it.kind in ("func", "var") and it.name):
+                continue       # (C++ names here are inside fn_<addr>: they clash with nothing)
+            vs = [t.v for t in it.toks]
+            if it.name in own or it.kind == "var" and "extern" not in vs:
+                self.note(it)      # its own definition, or a variable definition
+                continue
+            if not self.clashes(it) and not (it.kind == "var" and "," in vs):    # (several declarators: always)
+                self.note(it)
+                continue
+            names.append(it.name)
+            if len(vs) > 1 and vs[0] == "extern" and vs[1] == '"C"':
+                t = it.toks[1]
+                if it.kind == "func":
+                    # `extern "C" R f(...);` -> `extern "C++" __declspec(nothrow) R f(...);`
+                    edits.append((t.s, t.e, '"C++" __declspec(nothrow)'))
+                else:
+                    # `extern "C" T x;` -> `extern "C++" { extern T x; }`
+                    edits.append((t.s, t.e, '"C++" { extern'))
+                    edits.append((it.toks[-1].e, it.toks[-1].e, " }"))
+            else:
+                ns = "__declspec(nothrow) " if it.kind == "func" else ""
+                # inside an `extern "C" { ... }` block
+                edits.append((it.toks[0].s, it.toks[0].s, 'extern "C++" { ' + ns))
+                edits.append((it.toks[-1].e, it.toks[-1].e, " }"))
+        for s, e, rep in sorted(edits, reverse=True):
+            text = text[:s] + rep + text[e:]
+        return text, names
+
+
 def placement_new(b):
     """'throw' / 'plain' for a block that declares the placement `operator new(unsigned int, void*)` with or
     without an exception specification, else None."""
@@ -1200,16 +1368,30 @@ def global_operators(b):
             and re.match(r"operator(new|delete)", it.name) and "::" not in it.key[1]]
 
 
-def emit_item(it):
-    """Source lines for an item, re-wrapped in its namespaces and extern "C" block."""
+def emit_item(it, c_seen=None):
+    """Source lines for an item, re-wrapped in its namespaces and extern "C" block.
+
+    c_seen ({C function name: shape} of the file so far): the merge treats C and C++ linkage of an address name
+    as one spelling, so a TU can declare two overloads of FUN_x with C linkage, which MSVC 7.1 accepts and clang
+    does not; the second and later ones are emitted with C++ linkage (see CLinkage: same code)."""
     opens, closes = [], []
     for ns in it.scope:
         opens.append("namespace %s {" % ("" if ns == "<anon>" else ns))
         closes.insert(0, "}")
-    if it.linkage == "C":
+    text = it.text
+    linkage = it.linkage
+    if c_seen is not None and it.kind == "func" and it.c_linkage and it.name and not keeps_c_linkage(it.name):
+        shape = _c_shape(it)[0]
+        if c_seen.setdefault(it.name, shape) != shape:
+            if linkage == "C":
+                linkage = None
+                text = 'extern "C++" __declspec(nothrow) ' + text
+            else:
+                text = re.sub(r'^(\s*extern\s*)"C"', r'\1"C++" __declspec(nothrow)', text, count=1)
+    if linkage == "C":
         opens.append('extern "C" {')
         closes.insert(0, "}")
-    body = it.text.splitlines()
+    body = text.splitlines()
     if opens:
         return [" ".join(opens)] + body + [" ".join(closes)]
     return body
@@ -1218,7 +1400,56 @@ def emit_item(it):
 def write_file(path, lines):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="latin1") as f:
-        f.write("\n".join(lines) + "\n")
+        f.write(native_spelling("\n".join(lines) + "\n"))
+
+
+# ---------------------------------------------------------------------------------------------
+# One size_t and one spelling of the global operator new (docs/native-build.md fix 1). Sources declare
+# `typedef unsigned int size_t;` and `operator new(unsigned int, ...)` themselves; that is size_t under MSVC
+# and on every 32-bit target, but not on 64-bit ones, and `void* operator new(size_t) throw();` contradicts
+# the implicit declaration on non-MS targets. Every TU that names size_t includes tree_prelude.h first, which
+# declares size_t once; the tree spells size_t in operator new/delete parameters and HULK_NEW_THROW for the non-placement
+# operator new's `throw()`. Under MSVC 7.1 the types and the expansion are the same tokens' meaning as before
+# (size_t is unsigned int; HULK_NEW_THROW is throw()), so the verification build's code does not change.
+# The rewrite never changes the number of lines (the manifest's line spans stay right).
+PRELUDE = "tree_prelude.h"
+PRELUDE_LINES = [
+    HEADER,
+    "// Included first by every TU of the tree (docs/native-build.md fix 1).",
+    "#ifndef TREE_PRELUDE_H",
+    "#define TREE_PRELUDE_H",
+    "#if defined(__SIZE_TYPE__)",
+    "typedef __SIZE_TYPE__ size_t;          /* clang, any target */",
+    "#else",
+    "typedef unsigned int size_t;           /* MSVC 7.1 (predeclares the same type) */",
+    "#endif",
+    "/* the exception specification of the global `operator new(size_t)` a TU declares: MSVC null-checks the",
+    "   result of a throw() new (codegen depends on it); non-MS targets declare it implicitly without one, so",
+    "   the native build drops it there and compiles with -fcheck-new instead */",
+    "#if defined(_MSC_VER)",
+    "#define HULK_NEW_THROW throw()",
+    "#else",
+    "#define HULK_NEW_THROW",
+    "#endif",
+    "#endif",
+]
+PRELUDE_USE = re.compile(r"\b(?:size_t|HULK_NEW_THROW)\b")
+SIZE_T_TYPEDEF = re.compile(r"\btypedef[ \t]+unsigned(?:[ \t]+int)?[ \t]+size_t[ \t]*;")
+NEW_UNSIGNED = re.compile(r"\b(operator[ \t]*(?:new|delete)(?:[ \t]*\[[ \t]*\])?[ \t]*\([^()\n]*?)"
+                          r"\bunsigned(?:[ \t]+int)?\b(?![ \t]*(?:long|short|char|__int64|int)\b)")
+NEW_THROW = re.compile(r"\b(operator[ \t]*new(?:[ \t]*\[[ \t]*\])?[ \t]*\([ \t]*size_t(?:[ \t]+\w+)?[ \t]*\))"
+                       r"[ \t]*throw[ \t]*\([ \t]*\)")
+
+
+def native_spelling(text):
+    """The tree's spelling of size_t and the global operator new (see PRELUDE). Line count unchanged."""
+    text = SIZE_T_TYPEDEF.sub("/* size_t: tree_prelude.h */", text)
+    while True:
+        t = NEW_UNSIGNED.sub(r"\1size_t", text)
+        if t == text:
+            break
+        text = t
+    return NEW_THROW.sub(r"\1 HULK_NEW_THROW", text)
 
 
 def generate(state=None, write=True):

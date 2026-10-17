@@ -52,6 +52,13 @@ include/seams/        the seam interfaces both platform directories implement
 - **Pointer size:** the first native build is 32-bit x86 (roadmap step 4), because `.p3d` chunks, Lua
   bytecode and saves bake in 32-bit pointers and sizes. 64-bit (Apple Silicon, modern Windows) comes later
   with widening loaders.
+- **First native target (decided 2026-10-17): `i686-pc-windows-msvc`, built with clang-cl and linked with
+  lld-link**, run on Windows x86 or under Wine. The verified code is MS-ABI code (stub classes whose vftable
+  slots assume one slot per virtual destructor, hand-written vptr stores and slot calls, `__thiscall`), and the
+  link binds calls by MS-mangled name aliases ([native-build.md](native-build.md) fixes 0 and 5a). Linux and
+  macOS (Itanium ABI) follow once callers use the real include/gen classes (fix 5b). Native flags:
+  `-fms-extensions -fno-strict-aliasing -fwrapv -fno-delete-null-pointer-checks`, x87 math on 32-bit
+  (`-mno-sse -mfpmath=387`), `include/compat/native.h` force-included.
 - Each recovered object in `config/splits.json` carries a `layer` (`game`, `engine`, `platform/xbox`,
   `library`); `tools/gen_tree.py` places files by layer. Done 2026-10-15: link order splits game from engine
   cleanly (`fight` and `physics` are linked with Radical's libraries, so they are `engine`), and

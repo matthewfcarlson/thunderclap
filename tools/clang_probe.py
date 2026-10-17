@@ -26,10 +26,14 @@ Configurations (all 32-bit x86 unless named 64; see docs/native-build.md):
           Itanium-ABI / non-Windows differences.
   gnu64   the same for x86_64: what additionally breaks with 8-byte pointers (pointer <-> int casts, ...).
           The silent layout half of the 64-bit gap (char _pad[N], 4-byte offsets) is sized by the scans.
-  *-poc   the three above on build/clang-probe/poc/, a patched copy of the snapshot: a force-included
-          compatibility header (size_t, type_info), `enum script_state : int;` in include/gen/global.h, and every
-          `operator new/delete(unsigned int ...)` / `typedef unsigned int size_t;` respelled. Syntax only.
-          Measures the cheap fixes of docs/native-build.md (fix 1).
+  All three carry the native build's flags (NATIVE / X87 below: include/compat/native.h force-included,
+  -fno-strict-aliasing -fwrapv -fno-delete-null-pointer-checks, x87 math on 32-bit, -fcheck-new off MS).
+  *-poc   (not run by default) the three above on build/clang-probe/poc/, a patched copy of the snapshot: the
+          2026-10-17 proof of concept of fix 1, which tools/gen_tree.py (tree_prelude.h, size_t spelling) and
+          tools/gen_headers.py now do in the tree itself.
+
+The link probe's undefined symbols before binding; tools/native_link.py binds them by address (fix 5a) and
+reports what is left with the same groups (Grouper below).
 
 The compiler is Homebrew LLVM (/opt/homebrew/opt/llvm/bin/clang++) if present, else `clang++` on PATH.
 At most --jobs (default 4) compiler processes run at once.
@@ -63,13 +67,20 @@ COMMON = ["-fno-color-diagnostics", "-fno-caret-diagnostics", "-fdiagnostics-sho
           # warnings that point at behaviour clang may change (UB it exploits, lost bits)
           "-Wreturn-type", "-Wuninitialized", "-Wshift-overflow", "-Wnull-dereference", "-Wint-to-pointer-cast",
           "-Wpointer-to-int-cast", "-Wdangling", "-Wtautological-undefined-compare"]
+# The native build's flags (docs/native-build.md fix 1), on every configuration: the compatibility header, no
+# strict aliasing (`*(T*)&x` punning everywhere), wrapping signed overflow and kept null checks (lifted code
+# relies on both), and on 32-bit x87 math (what the `volatile` rounding pins and the replay checkpoints
+# assume; clang refuses -mfpmath=387 while SSE is enabled, hence -mno-sse). Non-MS targets null-check every
+# `new` (-fcheck-new) because tree_prelude.h drops the `throw()` of operator new there.
+NATIVE = ["-include", "compat/native.h", "-fno-strict-aliasing", "-fwrapv", "-fno-delete-null-pointer-checks"]
+X87 = ["-mno-sse", "-mfpmath=387"]
 CONFIGS = {
     "msvc": dict(flags=["--target=i686-pc-windows-msvc", "-fms-extensions", "-fms-compatibility",
-                        "-fms-compatibility-version=13.10", "-std=c++14", "-O0", "-c"], obj=True),
-    "gnu": dict(flags=["--target=i686-unknown-linux-gnu", "-fms-extensions", "-std=gnu++17", "-fsyntax-only"],
-                obj=False),
+                        "-fms-compatibility-version=13.10", "-std=c++14", "-O0", "-c"] + NATIVE + X87, obj=True),
+    "gnu": dict(flags=["--target=i686-unknown-linux-gnu", "-fms-extensions", "-std=gnu++17", "-fsyntax-only"]
+                + NATIVE + X87 + ["-fcheck-new"], obj=False),
     "gnu64": dict(flags=["--target=x86_64-unknown-linux-gnu", "-fms-extensions", "-std=gnu++17",
-                         "-fsyntax-only"], obj=False),
+                         "-fsyntax-only"] + NATIVE + ["-fcheck-new"], obj=False),
 }
 # Proof-of-concept fixes (build/clang-probe/poc/, a patched copy of the snapshot; nothing in the repo changes):
 #   compat.h, force-included: size_t, the placement operator new, type_info (what MSVC predeclares or <new> /
@@ -517,7 +528,7 @@ def nm(objs):
             parts = line.split()
             if len(parts) == 2 and parts[0] == "U":
                 out[cur][1].add(parts[1])
-            elif len(parts) == 3 and parts[1] in "TDBRCVWtdbr" and parts[1] not in "a":
+            elif len(parts) == 3 and parts[1] in "TDBRCVW":      # external definitions only (lowercase = local)
                 out[cur][0].add(parts[2])
         if len(batch) == 1 and batch[0] not in out:
             out[batch[0]] = (set(), set())
@@ -545,6 +556,113 @@ def undname(names):
     return res
 
 
+G_CRT = "CRT / C++ runtime"
+G_PLAT = "platform import (XDK / kernel / D3D / DSound / XPP / Bink)"
+G_LIBADDR = "library code by address (CRT/XAPI span, unnamed)"
+G_BIND = "function: verified and compiled, referenced under another symbol (bind by address)"
+G_FAIL = "function: verified, but its TU fails under clang"
+G_UNVER = "function: not yet verified"
+G_STUB = "function by invented/stub name, no address in the symbol (bound by relocation only)"
+G_VT = "vftable / RTTI by address (hand-written vptr stores, RTTI descriptors)"
+G_DCPP = "data: emitted item referenced under a C++ (namespaced/typed) name"
+G_DLIB = "data: library (CRT/XDK) data"
+G_DOUT = "data: not an emitted item (outside the inventory / interior)"
+
+
+class Grouper:
+    """The link probe's groups for undefined symbols (also used by tools/native_link.py)."""
+
+    def __init__(self, man, ok_tus):
+        self.man, self.ok_tus = man, ok_tus
+        funcs = {}
+        with open(os.path.join(ROOT, "build/functions.csv")) as f:
+            for r in csv.DictReader(f):
+                funcs[int(r["address"], 16)] = r["name"]
+        self.by_name = collections.defaultdict(list)
+        for a, n in funcs.items():
+            self.by_name[n].append(a)
+        self.plat = {}
+        pc = os.path.join(ROOT, "build/port/platform_calls.json")
+        if os.path.exists(pc):
+            for k, v in json.load(open(pc))["targets"].items():
+                crt = v["subsystem"].startswith(("CRT", "C++"))
+                self.plat[int(v["address"], 16)] = "crt" if crt else "platform"
+                self.plat[k.split("!")[-1]] = "crt" if crt else "platform"
+        self.inv = {}
+        dj = os.path.join(ROOT, "config/data.json")
+        if os.path.exists(dj):
+            for it in json.load(open(dj))["items"]:
+                self.inv[int(it["addr"], 16)] = it
+        self.inv_addrs = sorted(self.inv)
+
+    def data_item(self, a):
+        import bisect
+        i = bisect.bisect_right(self.inv_addrs, a) - 1
+        if i >= 0:
+            it = self.inv[self.inv_addrs[i]]
+            if a < self.inv_addrs[i] + it["size"] + it.get("pad", 0):
+                return it
+        return None
+
+    @staticmethod
+    def base_name(s, d):
+        if not s.startswith("?"):
+            b = s[1:] if s.startswith(("_", "@")) else s
+            return re.sub(r"@\d+$", "", b)
+        q = re.search(r"([\w:<>~,` ]+?)\(", d)
+        qn = q.group(1).split()[-1] if q else s
+        return re.sub(r"^fn_[0-9a-f]{8}::", "", qn)
+
+    def func_group(self, a):
+        if any(lo <= a < hi for lo, hi in LIB_SPANS):
+            return {"platform": G_PLAT, "crt": G_CRT}.get(self.plat.get(a), G_LIBADDR)
+        if a in self.man.verified:
+            return G_FAIL if self.man.verified[a][0] not in self.ok_tus else G_BIND
+        return G_UNVER
+
+    def group(self, s, d):
+        """(group, address match or None) of one undefined symbol s (demangled d)."""
+        b = self.base_name(s, d)
+        short = b.split("::")[-1]
+        m = ADDR_RX.search(s if s.startswith("?") else "_" + s.lstrip("_@"))
+        plat = self.plat
+        if short in CRT_NAMES or "_" + short in CRT_NAMES or plat.get(short) == "crt" or s.startswith((
+                "??2@", "??3@", "??_U@", "??_V@", "??_7type_info", "??_Etype_info", "?terminate@@", "??1type_info")):
+            g = G_CRT
+        elif plat.get(short) == "platform" or (PLATFORM_RX.match(short) and not m):
+            g = G_PLAT
+        elif re.search(r"vftable|Vtable|vtbl", s, re.I) and not (m and m.group(1) in ("FUN", "thunk_FUN")):
+            g = G_VT
+        elif m and m.group(1) in ("FUN", "thunk_FUN", "LAB"):
+            g = self.func_group(int(m.group(2), 16))
+        elif m:
+            it = self.data_item(int(m.group(2), 16))
+            if it is None:
+                g = G_DOUT
+            elif it["kind"].startswith(("vtable", "rtti")):
+                g = G_VT
+            elif (it.get("object") or "").startswith("library/") or it["kind"] in ("kernel_thunks", "library_section"):
+                g = G_DLIB
+            elif s.startswith("?"):
+                g = G_DCPP
+            else:
+                g = G_DOUT
+        else:
+            hit = self.by_name.get(b)
+            if hit:
+                g = self.func_group(next((a for a in hit if a in self.man.verified), hit[0]))
+            else:
+                g = G_STUB
+        return g, m
+
+
+def group_undefined(undef, refs, man, ok_tus, dem=None):
+    """{symbol: group} for undefined symbols."""
+    gr = Grouper(man, ok_tus)
+    dem = dem or undname(sorted(undef))
+    return {s: gr.group(s, dem.get(s, s))[0] for s in undef}
+
+
 def link_probe(results, man, tus):
     res = results.get("msvc")
     if not res:
@@ -559,103 +677,18 @@ def link_probe(results, man, tus):
         for s in u:
             refs[s] += 1
     undef = {s for s in refs if s not in defined and not s.startswith(("@feat", "__imp_"))}
-    funcs = {}
-    with open(os.path.join(ROOT, "build/functions.csv")) as f:
-        for r in csv.DictReader(f):
-            funcs[int(r["address"], 16)] = r["name"]
-    by_name = collections.defaultdict(list)
-    for a, n in funcs.items():
-        by_name[n].append(a)
-    plat = {}
-    pc = os.path.join(ROOT, "build/port/platform_calls.json")
-    if os.path.exists(pc):
-        for k, v in json.load(open(pc))["targets"].items():
-            crt = v["subsystem"].startswith(("CRT", "C++"))
-            plat[int(v["address"], 16)] = "crt" if crt else "platform"
-            plat[k.split("!")[-1]] = "crt" if crt else "platform"
-    inv = {}
-    dj = os.path.join(ROOT, "config/data.json")
-    if os.path.exists(dj):
-        for it in json.load(open(dj))["items"]:
-            inv[int(it["addr"], 16)] = it
-    inv_addrs = sorted(inv)
-    import bisect
-
-    def data_item(a):
-        i = bisect.bisect_right(inv_addrs, a) - 1
-        if i >= 0:
-            it = inv[inv_addrs[i]]
-            if a < inv_addrs[i] + it["size"] + it.get("pad", 0):
-                return it
-        return None
-
     ok_tus = {p for p in tus if res[p]["rc"] == 0}
     dem = undname(sorted(undef))
+    gr = Grouper(man, ok_tus)
     groups = collections.defaultdict(lambda: {"symbols": 0, "references": 0, "examples": []})
     rows = []
-    G_CRT = "CRT / C++ runtime"
-    G_PLAT = "platform import (XDK / kernel / D3D / DSound / XPP / Bink)"
-    G_LIBADDR = "library code by address (CRT/XAPI span, unnamed)"
-    G_BIND = "function: verified and compiled, referenced under another symbol (bind by address)"
-    G_FAIL = "function: verified, but its TU fails under clang"
-    G_UNVER = "function: not yet verified"
-    G_STUB = "function by invented/stub name, no address in the symbol (bound by relocation only)"
-    G_VT = "vftable / RTTI by address (hand-written vptr stores, RTTI descriptors)"
-    G_DCPP = "data: emitted item referenced under a C++ (namespaced/typed) name"
-    G_DLIB = "data: library (CRT/XDK) data"
-    G_DOUT = "data: not an emitted item (outside the inventory / interior)"
-
-    def base_name(s, d):
-        if not s.startswith("?"):
-            b = s[1:] if s.startswith(("_", "@")) else s
-            return re.sub(r"@\d+$", "", b)
-        q = re.search(r"([\w:<>~,` ]+?)\(", d)
-        qn = q.group(1).split()[-1] if q else s
-        return re.sub(r"^fn_[0-9a-f]{8}::", "", qn)
-
-    def func_group(a):
-        if any(lo <= a < hi for lo, hi in LIB_SPANS):
-            return {"platform": G_PLAT, "crt": G_CRT}.get(plat.get(a), G_LIBADDR)
-        if a in man.verified:
-            return G_FAIL if man.verified[a][0] not in ok_tus else G_BIND
-        return G_UNVER
-
     bind_why = collections.Counter()
     bind_named = 0
     def_addrs = {m.group(2).lower() for x in defined for m in [ADDR_RX.search(x if x.startswith("?") else "_" + x.lstrip("_@"))]
                  if m and m.group(1) in ("FUN", "thunk_FUN")}
     for s in sorted(undef):
         d = dem[s]
-        b = base_name(s, d)
-        short = b.split("::")[-1]
-        m = ADDR_RX.search(s if s.startswith("?") else "_" + s.lstrip("_@"))
-        if short in CRT_NAMES or "_" + short in CRT_NAMES or plat.get(short) == "crt" or s.startswith((
-                "??2@", "??3@", "??_U@", "??_V@", "??_7type_info", "??_Etype_info", "?terminate@@", "??1type_info")):
-            g = G_CRT
-        elif plat.get(short) == "platform" or (PLATFORM_RX.match(short) and not m):
-            g = G_PLAT
-        elif re.search(r"vftable|Vtable|vtbl", s, re.I) and not (m and m.group(1) in ("FUN", "thunk_FUN")):
-            g = G_VT
-        elif m and m.group(1) in ("FUN", "thunk_FUN", "LAB"):
-            g = func_group(int(m.group(2), 16))
-        elif m:
-            it = data_item(int(m.group(2), 16))
-            if it is None:
-                g = G_DOUT
-            elif it["kind"].startswith(("vtable", "rtti")):
-                g = G_VT
-            elif (it.get("object") or "").startswith("library/") or it["kind"] in ("kernel_thunks", "library_section"):
-                g = G_DLIB
-            elif s.startswith("?"):
-                g = G_DCPP
-            else:
-                g = G_DOUT
-        else:
-            hit = by_name.get(b)
-            if hit:
-                g = func_group(next((a for a in hit if a in man.verified), hit[0]))
-            else:
-                g = G_STUB
+        g, m = gr.group(s, d)
         G = groups[g]
         G["symbols"] += 1
         if m:
@@ -728,7 +761,8 @@ def summary(rep):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--snapshot", action="store_true")
-    ap.add_argument("--configs", default="msvc,gnu,gnu64,msvc-poc,gnu-poc,gnu64-poc")
+    ap.add_argument("--configs", default="msvc,gnu,gnu64",
+                    help="also msvc-poc,gnu-poc,gnu64-poc (the 2026-10-17 proof of concept; fix 1 is in the tree now)")
     ap.add_argument("--jobs", type=int, default=4)
     ap.add_argument("--only")
     a = ap.parse_args(argv)

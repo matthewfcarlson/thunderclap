@@ -6,14 +6,126 @@ the first native build is 32-bit x86 under clang. This page measures how far the
 prioritized fix list. Measured 2026-10-17.
 
 ```sh
-build/venv/bin/python tools/clang_probe.py              # snapshot (if missing), compile 6 configurations, classify, link probe
+build/venv/bin/python tools/clang_probe.py              # snapshot (if missing), compile msvc/gnu/gnu64, classify, link probe
 build/venv/bin/python tools/clang_probe.py --snapshot   # refresh the snapshot after a complete tools/build_tree.py run
 build/venv/bin/python tools/clang_probe.py --only src/game/global/CAction.cpp   # one TU's diagnostics, every configuration
+build/venv/bin/python tools/native_link.py              # binding map (fix 5a), link inventory, lld-link attempt
 ```
+
+**Status 2026-10-17 (evening): fixes 0, 1, 2 and 5a are done; the first 32-bit image links** (with
+`/force:multiple` and a stub for every symbol still undefined). See [After fixes 0-2 and 5a](#after-fixes-0-2-and-5a)
+for the numbers; the sections from "What was measured" on are the morning's baseline.
 
 Cold, the first run takes 10-15 minutes (4 compiler processes); a warm run takes 30 s. Everything goes to `build/clang-probe/`:
 `report.json` (counts, categories with example sites, scans, link probe), `undefined.txt` (every undefined symbol with
 its group and demangled name), `cache/` (per-TU results and objects) and `snap/` (the tree being probed).
+
+## After fixes 0-2 and 5a
+
+**What changed** (nothing in `matches/` or `equivalent/`):
+
+- **Fix 0:** the first native target is `i686-pc-windows-msvc`, clang-cl + lld-link ([shipping.md §1](shipping.md#1-the-source-tree-roadmap-steps-2-and-4)).
+- **Fix 1:** `include/compat/native.h` (force-included by native builds only: `size_t`, `type_info`); the native
+  flags in `tools/clang_probe.py` (`NATIVE`, `X87`): `-include compat/native.h -fno-strict-aliasing -fwrapv
+  -fno-delete-null-pointer-checks`, `-mno-sse -mfpmath=387` on 32-bit (clang refuses `-mfpmath=387` while SSE is
+  on), `-fcheck-new` off MS. `gen_headers.py`: `enum ScriptHandler::script_state { };` instead of the opaque
+  `enum script_state;` (MSVC 7.1 rejects `enum X : int;`; an empty enum is `int`-sized like the opaque one). `gen_tree.py`:
+  `build/tree/include/tree_prelude.h` declares the tree's one `size_t` (`__SIZE_TYPE__` under clang, `unsigned int`
+  under MSVC) and `HULK_NEW_THROW` (`throw()` under MSVC, empty off MS); sources' `typedef unsigned int size_t;`
+  become comments, `operator new/delete(unsigned int ...)` spell `size_t`, `operator new(size_t) throw()` spells
+  `HULK_NEW_THROW`. Only TUs that name `size_t` include the prelude: one extra typedef in MSVC 7.1's symbol table
+  swapped two commutative operands in a 5 KB function (`0x000ba040`, `add`/`lea` operand order), which the
+  regression check caught.
+- **Fix 2, done differently from the plan:** no forwarders. A wrapped source's `extern "C"` declaration that would
+  clash gets C++ linkage instead (`extern "C++" __declspec(nothrow) ...`; `gen_tree.CLinkage`), so it becomes
+  `fn_<addr>::name`. A call or load is the same instruction whatever the callee's linkage; only the relocation's
+  symbol changes, and fix 5a binds it by address. `__declspec(nothrow)` keeps /GX's "C functions don't throw"
+  (otherwise functions with unwinding get EH state stores around the call). Rules: never for compiler intrinsics,
+  CRT names and `_names` (MSVC expands `sqrt`, `sin`, `memcpy`, `_ReadWriteBarrier` inline only for the C
+  declaration: the first try made 263 functions regress, all intrinsics); always for invented names (`Lookup`,
+  `Find`: one address per symbol); for address names when the TU already has that C name with another type, with
+  non-builtin types (a stub class of another namespace), or as a global C++ name. 3,708 declarations change.
+  Merged declarations that overload one C name (`FUN_0021add0` declared four ways in one TU, which clang and
+  even MSVC's C2733 reject) keep C linkage only on the first (`emit_item`); this also lets 9 functions merge
+  that MSVC used to wrap.
+- **Fix 5a:** `tools/native_link.py` (below).
+
+**MSVC 7.1 verification build: unchanged.** Same inputs (frozen copies of `matches/` and `equivalent/`), HEAD
+generator vs this one, both `build_tree.py --resume` from the same fallback state, on mac1 (`~/hulk-native`, same
+MSVC 7.1 + wibo binaries):
+
+| | HEAD generator | fixes 1-2 |
+|---|---|---|
+| TUs compiled | 2,523 / 2,523 | 2,522 / 2,522 |
+| matches byte-matching | 21,817 / 21,817 | 21,817 / 21,817 |
+| equivalent/ compiled, same code as standalone | 5,607 (5,557 same, 49 no_symbol, 1 standalone_compile_error) | 5,607 (same split) |
+| equivalent/ differing | 0 | 0 |
+| merged / wrapped / isolated | 20,327 / 6,435 / 662 | 20,337 / 6,426 / 661 |
+| fallbacks wrapped / isolated by the build | 594 / 195 | 584 / 194 |
+
+Per function the verdicts are identical (27,424 / 27,424). The only fallback differences are 9 C2733 wraps and one
+regression fallback (`0x001a9b10`) that the new generator no longer needs. A local run on the live inputs agrees
+(21,817 / 21,817, 5,607 compiled, 0 differing).
+
+**Compiling** (`clang_probe.py` on the tree of a complete fresh `build_tree.py` run at 16:50, 2,556 TUs; the
+morning's tree had 2,498, so the TU sets differ a little):
+
+| config | morning | now |
+|---|---|---|
+| `msvc` (`i686-pc-windows-msvc`, objects) | 2,378 / 2,498 (95.2%) | **2,496 / 2,556 (97.7%)** |
+| `gnu` (`i686-unknown-linux-gnu`) | 1,676 (67.1%) | **2,467 (96.5%)** |
+| `gnu64` (`x86_64-unknown-linux-gnu`) | 797 (31.9%) | **2,456 (96.1%)** |
+
+The 60 TUs still failing under `msvc`, by category (TUs; only this category): duplicate-definition 22 (18, fix 3),
+msvc-template-spec-syntax 17 (15), other-error 8 (5), extern-c-redeclared 6 (5: CRT names such as `sprintf`,
+`sin`, `__security_check_cookie` declared two ways, which keep C linkage on purpose), dependent-base-lookup 4,
+address-of-temporary 4, for-scope / case-narrowing / type-in-return-type 2 each, calling convention 1. Removing
+the declaration clashes also exposed errors clang had suppressed behind them (an ambiguous call between a merged C
+overload and a C++ one in `unk_212bb0.cpp`, stubs used before declaration in `unk_0240b0.cpp`): fix 4 material.
+
+**Binding map** (`tools/native_link.py`, from the verification build's objects): for matches the original bytes at
+each relocation's offset (21,817 functions), for equivalent/ the address `equiv.py` level 2 binds (5,607
+functions; run on mac1, cached in `build/native/cache/`). 47,385 referenced symbols: 47,056 bound to one
+address, **329 ambiguous** (one symbol, two addresses: an invented name or a stub member reused by two sources),
+33,501 bound to a verified definition, 33,418 aliases (`build/native/alternatename.rsp`). How: name in the symbol
+26,587, position (matches) 19,646, alignment 420, explicit `equiv-map` 56, other 347.
+
+**Undefined symbols of the clang `msvc` objects** (2,496 code TUs + 1,078 data TUs), before and after the aliases
+(26,872 aliases whose target the clang objects define; 26,708 from relocations, 164 from an address in the name):
+
+| group | before: symbols / refs | after: symbols / refs |
+|---|---|---|
+| function verified and compiled, referenced under another symbol | 18,381 / 20,079 | **501** / 549 |
+| function under an invented/stub name | 17,032 / 21,470 | **8,452** / 12,229 |
+| &nbsp;&nbsp; of which: virtual member of a stub class (only in a clang-emitted stub vftable) | | 5,960 / 6,662 |
+| &nbsp;&nbsp; bound to an address with no verified definition (unverified, data, vftable) | | 2,227 / 2,393 |
+| &nbsp;&nbsp; ambiguous (two addresses) | | 215 / 3,123 |
+| &nbsp;&nbsp; named by no relocation | | 50 / 51 |
+| vftable / RTTI by address | 2,339 / 2,847 | 2,332 / 2,840 |
+| function verified, but its TU fails under clang | 1,704 / 1,744 | 1,656 / 1,696 |
+| data under a C++ name | 349 / 365 | 10 / 10 |
+| CRT / C++ runtime | 283 / 3,932 | 279 / 3,927 |
+| platform imports | 228 / 232 | 216 / 220 |
+| function not yet verified | 177 / 266 | 176 / 265 |
+| library data | 146 / 206 | 146 / 206 |
+| data outside the inventory, library code by address | 36 / 36 | 35 / 35 |
+| **total** | **40,675 / 51,177** | **13,803 / 21,977** |
+
+(The morning's probe counted 30,130 undefined symbols: fewer TUs compiled, and wrapped declarations that are now
+`fn_<addr>::` names were shared C names then. The "before" column is today's tree.)
+
+**Link** (`build/native/link/`): `lld-link /machine:x86 /subsystem:console /nodefaultlib /safeseh:no` over the 3,574
+objects, the aliases, and `stubs.obj` (an `int3` or 16 zero bytes for each of the 13,803 symbols still undefined):
+
+- strict: **1,211 duplicate symbols**, nothing else. They are definitions with the same name in several TUs:
+  `TrackFactoryTemplate::scalar_dtor` 350, `ThreatBallTrack::GetExtent` 81, `pure3d::NonCopyable::f2` 72,
+  `gNegOne` 60, `CSweepTrack::vfunc_5` 56, `target` 47, `FUN_00025410` 45, `Action::~Action` 36. Mostly merged
+  functions whose definition is a member of an invented stub class (`Action::~Action` is 43 different
+  destructors in 43 TUs), constants that sources define rather than declare (`float gNegOne = -1.0f;` in 60 TUs),
+  and clone sources that define their donor's name (fix 3). The verification build never links, so MSVC never
+  saw these.
+- `/force:multiple`: **links, a 5.6 MB PE32 image**. It doesn't run (stubs, no CRT, no platform layer, and with
+  duplicates the linker picks one definition for every reference to that name), but it's a complete link inventory.
 
 ## What was measured
 
@@ -136,7 +248,7 @@ plus 81 library data symbols (D3D state words, CRT globals), to be implemented i
 
 The order is set by what unblocks a linkable 32-bit image soonest. Sizes are estimates.
 
-**0. Choose the first native target: `i686-pc-windows-msvc` (clang-cl + lld-link).** The verified code is
+**0. Choose the first native target: `i686-pc-windows-msvc` (clang-cl + lld-link).** *Done 2026-10-17.* The verified code is
 MS-ABI code: 82k virtual declarations in stub classes, 753 hand-written vftable calls and 2,115 vptr stores rely on
 MSVC's vftable layout (one slot per virtual destructor, no offset-to-top), on `__thiscall`, and on MS mangling (which
 fixes 5 and 6 below use to alias by name). Compiling for Itanium (Linux, macOS) works after fix 1, but it silently
@@ -144,7 +256,8 @@ changes the slot numbers of every stub with a virtual destructor. So the first l
 natively or under Wine. Linux and macOS come after fix 5b, once calls go through the real include/gen classes. This
 narrows the "Linux or Windows" choice in roadmap step 6.1 rather than reversing it.
 
-**1. Compatibility header + three generator one-liners** (half a day; proven in `build/clang-probe/poc/`):
+**1. Compatibility header + three generator one-liners** (half a day; proven in `build/clang-probe/poc/`). *Done
+2026-10-17; see [After fixes 0-2 and 5a](#after-fixes-0-2-and-5a).*
 - `include/compat/native.h` (force-included by the native build only): `typedef __SIZE_TYPE__ size_t;` off MSVC,
   `type_info` / `std::type_info`, later the CRT bits the shim provides.
 - `gen_headers.py`: emit `enum script_state : int;` (or an empty definition) for enums named only in declarations
@@ -159,7 +272,7 @@ narrows the "Linux or Windows" choice in roadmap step 6.1 rather than reversing 
 
 Measured: gnu 1,676 → 2,316 TUs, gnu64 797 → 2,307, msvc 2,378 → 2,382.
 
-**2. `extern "C"` redeclarations in wrapped namespaces** (gen_tree, about 150 lines plus a tree build; 79 TUs, 60 of
+**2. `extern "C"` redeclarations in wrapped namespaces** (*done 2026-10-17 by C++ linkage instead of forwarders*) (gen_tree, about 150 lines plus a tree build; 79 TUs, 60 of
 them fail on nothing else). For a wrapped source whose declaration of a C-linkage function or global differs from the
 TU's canonical one, gen_tree emits a namespace-local forwarder instead of the declaration:
 `static inline R name(A a) { return ((R (__cdecl*)(A))&::name)(a); }`, or for data `static T& DAT_x = *(T*)&::DAT_x;`.
@@ -179,7 +292,8 @@ specializations (mechanical; extend migrate_gen's `clone-template`), `typename M
 `compare.py` or `equiv.py`. Most of them are wrapped or isolated today, so the edits also help the MSVC tree merge.
 
 **5. Callee binding: the link gap** (23,721 of 30,130 undefined symbols).
-- **5a. A binding map from the verification build** (a new tool, about 500 lines, 2-3 days). `build_tree.py`
+- **5a. A binding map from the verification build** (a new tool, about 500 lines, 2-3 days). *Done 2026-10-17:
+  `tools/native_link.py`.* `build_tree.py`
   already compiles every TU with MSVC and checks it against the XBE. Record each relocation's symbol and the XBE
   address it must resolve to (`verify_relocs.py` does this for matches; for equivalent/ use the address `equiv.py`
   binds), map each address to the symbol of its definition in the tree (`build_tree.mangle_prefixes`), and emit a
@@ -215,6 +329,31 @@ roadmap step 3; the link probe lists exactly the ones a linked image needs (`und
 889 pads and 589 pointer fields in include/gen, mixed `DataLayout_` data structs ([data.md](data.md#what-the-native-clang-build-needs-from-data)),
 loaders of 32-bit file formats. After fix 1, 64-bit *compiles* as well as 32-bit (2,307 TUs). The gap is silent layout,
 which only real types close (5b, 6b, typed globals).
+
+### Next fixes (after 2026-10-17), toward a link without `/force` and stubs
+
+1. **Duplicate definitions (1,211 symbols, strict link's only error).** Merged functions defined as members of
+   invented stub classes collide across TUs. Cheapest: gen_tree emits each TU's invented stub classes inside a
+   per-TU namespace (`namespace tu_<object> { ... }`; the names are placeholders, `rename_placeholders.py`), so
+   `Action::~Action` becomes 43 distinct symbols; the verification build is unaffected for the same reason as fix
+   2 (only relocation names change; mangled-name lookup in `build_tree.mangle_prefixes` needs the namespace).
+   Data defined in sources (`float gNegOne = -1.0f;`) goes to `static` or to the data TUs. Then fix 3 (clones).
+2. **Stub-class vftables (5,960 symbols).** clang emits a vftable for every stub class whose constructor or
+   destructor it compiles, and its slots name stub virtual members nobody defines. Either alias them through
+   include/gen (slot N of the class whose vftable address the stub stores) or stop clang emitting them
+   (`__declspec(novtable)` on stubs that never construct a real object). Overlaps fix 6.
+3. **Fix 6a (vftables / RTTI by address, 2,332 symbols)**, and the **329 ambiguous symbols** (one invented name, two
+   callees): per-object renaming (`llvm-objcopy --redefine-sym` on the objects of one of the users) or a
+   gen_tree rule that makes such a C++ declaration namespace-local too.
+4. **Fixes 3 and 4** (the 60 TUs still failing; 1,656 undefined symbols are definitions in them), and a canonical
+   CRT header in `include/compat/` so `sprintf`/`sin`/`__security_check_cookie` are declared once.
+5. **Fix 7 (CRT and platform: 279 + 216 + 146 symbols)** and fix 8 (176 unverified functions plus the 2,227
+   stub-name references whose address has no verified definition). Then the image can start.
+
+Caveats of fix 5a: equivalent/ bindings are `equiv.py`'s level-2 mapping (50 of 5,607 functions have level-2
+issues; their mappings are still used). An `equiv-map:` line naming a C symbol that gen_tree now spells
+`fn_<addr>::name` isn't renamed by `equiv._tree_names` (only C++ names are), which matters only for
+`build_tree.py --equiv` runs on the tree.
 
 ## How this feeds header reconciliation and typed globals
 

@@ -4178,7 +4178,7 @@ public:
 // .?AVScriptHandler@@  vftable 0x422684 (1)
 class ScriptHandler {
 public:
-    enum script_state;
+    enum script_state { };
     virtual ~ScriptHandler(); // slot 0
 };
 

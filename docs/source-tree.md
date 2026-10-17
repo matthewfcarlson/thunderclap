@@ -48,8 +48,20 @@ into top-level items (`tools/cxx_items.py`: classes, forward declarations, typed
   coexist with those already kept (C++ overloads can; two different `class Obj` definitions can't; a
   function named like a class hides it, so types and values share one name space).
 - **wrapped**: the original source verbatim inside `namespace fn_<addr> { ... }`. MSVC 7.1 accepts
-  differing declarations, even of `extern "C"` names, in different namespaces. Global `operator new` /
-  `delete` are pulled out in front of the namespace, because `new (p) T` never looks inside one.
+  differing declarations, even of `extern "C"` names, in different namespaces; clang doesn't, so an
+  `extern "C"` declaration that would clash (another type of a name the TU already declares, or an invented
+  name such as `Lookup`) is given C++ linkage (`extern "C++"`, plus `__declspec(nothrow)` so /GX still treats
+  the callee as not throwing) and becomes `fn_<addr>::name`: same code, another relocation symbol, which
+  `tools/native_link.py` binds by address for the native link ([native-build.md](native-build.md) fix 2).
+  Global `operator new` / `delete` are pulled out in front of the namespace, because `new (p) T` never looks
+  inside one.
+
+Every TU that names `size_t` starts with `#include "tree_prelude.h"` (written by gen_tree): the tree's one
+`size_t` (`unsigned int` under MSVC, `__SIZE_TYPE__` under clang) and `HULK_NEW_THROW` (`throw()` under MSVC,
+empty off MS). The generator rewrites sources' own `typedef unsigned int size_t;`, `operator new(unsigned int,
+...)` and `operator new(size_t) throw()` onto it, line count unchanged ([native-build.md](native-build.md)
+fix 1). Other TUs get a comment instead: one extra typedef in MSVC 7.1's symbol table swapped two commutative
+operands in one 5 KB function (`0x000ba040`), so the prelude stays out of TUs that don't need it.
 - **isolated**: the original source verbatim in its own TU `<File>.iso_<addr>.cpp`. Used when a wrapped
   function still fails to compile (it can see the TU's global declarations: an elaborated `struct Manager*`
   finds `::Manager` before declaring its own).
