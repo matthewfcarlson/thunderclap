@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// FUN_00029c00 @ 0x00029c00
+struct Resource { virtual void slot0(); virtual void slot1(); }; struct Owner { char pad[0x344]; Resource *primary; Resource *secondary; int state; void FUN_00029c00(Resource *item); }; void Owner::FUN_00029c00(Resource *item) { if (item == primary) { if (primary) { primary->slot1(); primary = 0; } if (secondary) { secondary->slot1(); secondary = 0; } state = 0; } }
