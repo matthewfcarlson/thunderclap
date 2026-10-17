@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// FUN_000b4b00 @ 0x000b4b00
+struct Temp { char bytes[32]; void FUN_001cae40(char *); }; struct Service { void FUN_001cbc20(Temp *); }; struct Holder { char pad[0x30]; Service *field; }; extern Holder *DAT_004dd700; extern void __cdecl FUN_000fc300(); struct Obj { char pad[0x1c0c]; char first[0x40]; char second[0x40]; void FUN_000b4b00(int); }; void Obj::FUN_000b4b00(int choice) { Temp temp; char *s; if (choice == 1) s = first; else if (choice == 2) s = second; else return; if (*s != '\0') { temp.FUN_001cae40(s); DAT_004dd700->field->FUN_001cbc20(&temp); } FUN_000fc300(); }

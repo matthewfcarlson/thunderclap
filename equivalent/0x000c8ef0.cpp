@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 11/12, incomplete)
+// FUN_000c8ef0 @ 0x000c8ef0
+struct Slot { int id; char pad[0x38]; unsigned char active; char tail[3]; }; struct Manager { char pad[0x258]; Slot slots[128]; void FUN_000c8ef0(int index); }; void Manager::FUN_000c8ef0(int index) { if (index < 0 || index >= 128) return; Slot *slot = &slots[index]; if (slot->id == -1 || !slot) return; for (int i = 0; i < 128; ++i) { if (slots[i].active == 1) { slots[i].active = 0; slot->active = 1; return; } } slot->active = 1; }
