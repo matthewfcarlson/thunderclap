@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// FUN_002ae9d0 @ 0x002ae9d0
+struct Item { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual bool matches(void* value); }; struct Collection { int count; Item* items[1]; Item* FUN_002ae9d0(void* value); }; Item* Collection::FUN_002ae9d0(void* value) { for (int i = 0; i < count; ++i) { if (items[i]->matches(value)) return items[i]; } return 0; }

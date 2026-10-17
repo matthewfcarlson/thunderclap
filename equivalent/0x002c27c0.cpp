@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
+// pure3d::Geometry::vfunc_17 @ 0x002c27c0
+namespace pure3d { struct Item { char pad[8]; int x; int y; }; struct DrawableContainer { void vfunc_17(int, int); }; struct Geometry : DrawableContainer { char pad[0x60 - sizeof(DrawableContainer)]; Item* first; Item* second; void vfunc_17(int, int); }; void Geometry::vfunc_17(int x, int y) { if (first && first->x == x && first->y == y) return; if (second && second->x == x && second->y == y) return; DrawableContainer::vfunc_17(x, y); } }
