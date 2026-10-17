@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// audio::HalRsdFileStream::vfunc_1 @ 0x00262f20
+namespace audio { class HalStream { public: virtual void vfunc_0(); virtual int vfunc_1(); }; class HalRsdFileStream : public HalStream { public: char pad[0x40]; unsigned int state; virtual void vfunc_0(); virtual int vfunc_1(); }; int HalRsdFileStream::vfunc_1() { switch (state) { case 0: return 0; case 1: case 3: return 1; case 4: case 5: case 6: return 2; default: return 3; } } }
