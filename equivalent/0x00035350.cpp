@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// FUN_00035350 @ 0x00035350
+struct Point { unsigned x,y,z; }; struct Entry { char pad[0x30]; Point point; char rest[0x40-0x30-12]; }; struct Table { char pad0[12]; unsigned count; char pad1[12]; Entry *entries; }; struct Selection { char pad[0x28]; unsigned index; }; struct Object { char pad[0x11c]; Selection *selection; Table *table; unsigned char FUN_00035350(Point *out); }; unsigned char Object::FUN_00035350(Point *out) { if (table && selection && selection->index != 0xffff && selection->index < table->count) { *out = table->entries[selection->index].point; return 1; } return 0; }

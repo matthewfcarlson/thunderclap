@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2984 inputs, branch coverage 8/8)
+// FUN_00249bd0 @ 0x00249bd0
+struct Node { Node *next; char pad04[8]; int state; char pad10[8]; int value0; int value1; int other; char pad24[4]; int finalValue; }; struct Container { char pad00[16]; Node *head; }; struct Pair { int first; int second; }; void __cdecl FUN_00249bd0(int unused, Container *container, Pair *pair) { Node *node = container->head; while (node && (node->state == 5 || node->state == 0)) node = node->next; if (!node) return; node->state = 5; if (pair) { node->value0 = pair->first; node->value1 = pair->second; } else { node->value0 = 0; node->value1 = 0; } node->finalValue = 0; node->other = 0; }
