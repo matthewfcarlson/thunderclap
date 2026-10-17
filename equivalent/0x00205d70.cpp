@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// Closure3<CWorldStreamManager,int,float,float,float>::vfunc_2 @ 0x00205d70
+struct CWorldStreamManager { int dummy; }; struct Closure3 { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(int unused, const float* args, int* result); char pad[0x18]; int (CWorldStreamManager::*method)(float,float,float); CWorldStreamManager* object; }; void Closure3::vfunc_2(int unused, const float* args, int* result) { int value = (object->*method)(args[0], args[1], args[2]); if (result) *result = value; }
