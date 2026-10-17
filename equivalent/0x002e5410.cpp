@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 121 inputs, branch coverage 6/6)
+// FUN_002e5410 @ 0x002e5410
+struct Triple { unsigned int a,b,c; }; Triple* __cdecl FUN_002e5410(Triple* destination, int count, const Triple* source) { if (count == 0) return destination; do { if (destination) { destination->a = source->a; destination->b = source->b; destination->c = source->c; } ++destination; --count; } while (count != 0); return destination; }

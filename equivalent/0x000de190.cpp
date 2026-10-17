@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// FUN_000de190 @ 0x000de190
+struct Other { virtual void slot0(); virtual void slot1(); }; struct Obj { virtual void slot0(); virtual void slot1(); virtual void slot2(); char pad[12]; Other* other; int fields[6]; int tail; int state; int extra; void FUN_000de190(); }; void Obj::FUN_000de190() { state = 14; if (other) other->slot1(); for (int i=0;i<6;i++) fields[i]=0; extra=0; tail=0; slot2(); }
