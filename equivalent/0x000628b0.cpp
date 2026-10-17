@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_000628b0 @ 0x000628b0
+struct FUN_00236d40 { virtual void slot0(); char pad[8]; int fieldC; FUN_00236d40(); }; struct CSmartPropThrowTrack : FUN_00236d40 { int field10,field14; float field18; int field1c,field20,field24; float field28; int field2c; float field30,field34,field38; unsigned char field3c; char pad3d[3]; int field40; CSmartPropThrowTrack(); }; CSmartPropThrowTrack::CSmartPropThrowTrack() { fieldC=0; field10=0; field14=0; field18=-1.0f; field1c=0; field20=0; field24=0; field2c=0; field40=0; field28=1.5707964f; field30=10.0f; field34=20.0f; field38=10.0f; field3c=1; }
