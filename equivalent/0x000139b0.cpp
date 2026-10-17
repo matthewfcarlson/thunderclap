@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// FUN_000139b0 @ 0x000139b0
+struct Pair { int first; int second; }; struct Worker { int FUN_0027b670(int, int); }; struct Mid { char pad[8]; Worker *worker; }; struct Obj { char pad[0x120]; Mid *mid; }; struct Context { struct Obj2 *FUN_000592a0(); }; struct Obj2 { Obj *FUN_00059a30(); }; struct Receiver { void FUN_002224a0(int); }; void __cdecl FUN_000139b0(Pair *p, Context *context, Receiver *receiver) { int a=p->first; int b=p->second; if(a || b) { Obj2 *intermediate=context->FUN_000592a0(); Obj *obj=intermediate->FUN_00059a30(); int result=obj->mid->worker->FUN_0027b670(a,b); if(result) receiver->FUN_002224a0(result); } }

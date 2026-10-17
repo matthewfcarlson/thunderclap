@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 1712 inputs, branch coverage 8/8)
+// FUN_00079220 @ 0x00079220
+struct Entry { char pad[8]; int first; int second; }; struct Owner { char pad[0x354c]; Entry* entries[20]; int count; int FUN_00079220(int first, int second); }; int Owner::FUN_00079220(int first, int second) { for (int i = 0; i < count; ++i) { if (entries[i]->first == first && entries[i]->second == second) return i; } return -1; }

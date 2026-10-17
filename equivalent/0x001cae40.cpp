@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_001cae40 @ 0x001cae40
+struct Result { unsigned int first, second, a, b, c, d, low, high; Result* FUN_001cae40(unsigned int value); }; struct Pair { unsigned int low, high; }; Pair __cdecl FUN_0027b020(unsigned int value); Result* Result::FUN_001cae40(unsigned int value) { first=0; second=0; a=0; b=0; c=0; d=0; low=0; high=0; first=0x20; second=0x1b; Pair p=FUN_0027b020(value); low=p.low; high=p.high; return this; }

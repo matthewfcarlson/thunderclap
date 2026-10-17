@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 763 inputs, branch coverage 8/8)
+// FUN_002a43c0 @ 0x002a43c0
+struct Entry { int *object; char padding[12]; }; struct Owner { char padding[0x48]; Entry *begin; Entry *end; int FUN_002a43c0(int key1, int key2); }; int Owner::FUN_002a43c0(int key1, int key2) { unsigned count = (unsigned)(end - begin); for (unsigned i = 0; i < count; ++i) { int *object = begin[i].object; if (object[2] == key1 && object[3] == key2) return i; } return -1; }
