@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2246 inputs, branch coverage 4/4)
+// FUN_002ff910 @ 0x002ff910
+struct Item { char data[0x6c]; void FUN_002ff3f0(int); }; struct Container { Item* items; char pad4[4]; int* begin; int* end; char pad10[0x218c]; int value; void FUN_002ff910(); }; void Container::FUN_002ff910() { for (unsigned int i=0; i<(unsigned int)((int)((char*)end-(char*)begin)>>2); ++i) items[begin[i]].FUN_002ff3f0(value); }

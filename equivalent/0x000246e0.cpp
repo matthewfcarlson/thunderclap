@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2188 inputs, branch coverage 8/8)
+// FUN_000246e0 @ 0x000246e0
+struct Pair { int first; int second; }; struct Object { char pad[0x228]; Pair entries[32]; int count; int FUN_000246e0(int first, int second); }; int Object::FUN_000246e0(int first, int second) { for (int i=0; i<count; ++i) { if (entries[i].first==first && entries[i].second==second) return i; } return -1; }
