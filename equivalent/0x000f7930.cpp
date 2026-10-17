@@ -1,0 +1,28 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_000f7930 @ 0x000f7930
+extern float DAT_004a1734;
+struct State {
+    int value;
+    bool flag;
+    char pad5[3];
+    float scale;
+    int fieldC;
+    int field10;
+    int field14;
+    bool flag18;
+    char pad19[3];
+    float amount;
+    int field20;
+    void FUN_000f7930();
+};
+void State::FUN_000f7930() {
+    scale = DAT_004a1734;
+    field10 = 0;
+    field14 = -1;
+    value = 0;
+    flag = false;
+    fieldC = 0;
+    field20 = -1;
+    amount = 20.0f;
+    flag18 = false;
+}

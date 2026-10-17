@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 700 inputs, branch coverage 8/8)
+// FUN_0024a390 @ 0x0024a390
+struct Node { Node* left; Node* right; char pad[8]; unsigned int key; }; struct Tree { char pad[0x48]; Node* root; Node sentinel; }; Node* __cdecl FUN_0024a390(Tree* tree, const unsigned int* key) { Node* node = tree->root; Node* end = &tree->sentinel; while (node != end) { if (*key < node->key) node = node->left; else if (*key == node->key) return node; else node = node->right; } return 0; }

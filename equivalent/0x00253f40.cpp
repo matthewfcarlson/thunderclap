@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_00253f40 @ 0x00253f40
+struct Source { char pad0[0x1c]; float *value; float scale2; float scale1; }; struct Factor { char pad[0x14]; float value; }; struct Context { char pad0[4]; Source *source; char pad1[0x2c]; void *destination; char pad2[4]; Factor *factor; }; void __cdecl FUN_0024b080(void *, float); void __stdcall FUN_00253f40(Context *context) { Source *source = context->source; float result = *source->value * context->factor->value * source->scale1 * source->scale2; FUN_0024b080(context->destination, result); }
