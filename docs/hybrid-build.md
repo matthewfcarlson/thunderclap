@@ -241,6 +241,11 @@ build/venv/bin/python tools/trace_gate.py --session s3 --script build/replays/my
 build/venv/bin/python tools/hybrid_test.py salvage OLD.json NEW.json   # a version-1 recording made with two pads
 ```
 
+With `--snap-every MIN` (default 5) the recording runs on its own overlay of the base HDD
+(`NAME.disk.qcow2`) and saves a VM snapshot into it every few minutes (or on `s` + Enter). `replay --from-snapshot
+K` / `--from-frame F` and `trace_gate.py --from-snapshot/--from-frame [--shard K/N]` start from one, and
+`trace_gate.py --merge` joins parallel shards (docs/tasks/record-replay.md, "VM snapshots").
+
 `replay` runs the same build with the recording as input and compares its checkpoints with the recorded ones.
 Recordings longer than the 8,192-entry ring are fed in over the GDB stub while the game runs (`ReplayFeeder`).
 `trace_capture.py` does the same while the guest is stopped at a breakpoint (`feed_ring`, tested with an

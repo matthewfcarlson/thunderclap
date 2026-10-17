@@ -153,14 +153,119 @@ def _toml_dump(d, prefix=""):
     return text
 
 
-def write_config(pad="keyboard"):
+# ---------------------------------------------------------------------------------------------
+# The base HDD image and per-recording overlays (docs/tasks/record-replay.md, "Snapshots")
+BASE_HDD = os.path.join(FILES, "hdd/xbox_hdd.qcow2")
+BASE_SHA256 = "38dcb8f1716abc8b99dcc7a2e88b0ced7292b7aa3b64e48a974ee5691d2cd42f"
+BASE_SIZE = 1033109504
+_base_ok = {}
+
+
+def check_base(full=True):
+    """Refuse to start xemu unless the base image is the one we know (it is the only copy here). full: also its
+    sha256 (about 2 s; cached per size/mtime/inode for this process)."""
+    try:
+        st = os.stat(BASE_HDD)
+    except OSError as e:
+        raise SystemExit("base HDD image missing: %s (%s); stopping" % (BASE_HDD, e))
+    if st.st_size != BASE_SIZE:
+        raise SystemExit("base HDD image changed size (%d bytes); stopping" % st.st_size)
+    key = (st.st_size, st.st_mtime_ns, st.st_ino)
+    if full and key not in _base_ok:
+        import hashlib
+        h = hashlib.sha256()
+        with open(BASE_HDD, "rb") as f:
+            for chunk in iter(lambda: f.read(1 << 22), b""):
+                h.update(chunk)
+        if h.hexdigest() != BASE_SHA256:
+            raise SystemExit("base HDD image sha256 changed (%s); stopping" % h.hexdigest())
+        _base_ok[key] = True
+
+
+def qcow2_info(path):
+    """{version, size, backing, snapshots: [{id, name, vm_state_size, date, vm_clock_ns}]} from a qcow2 header."""
+    with open(path, "rb") as f:
+        hdr = f.read(104)
+        if hdr[:4] != b"QFI\xfb":
+            raise ValueError("%s is not qcow2" % path)
+        ver, boff, bsize, cbits, size = struct.unpack_from(">IQIIQ", hdr, 4)
+        nsnap, soff = struct.unpack_from(">IQ", hdr, 60)
+        backing = None
+        if boff:
+            f.seek(boff)
+            backing = f.read(bsize).decode()
+        snaps = []
+        f.seek(soff)
+        for _ in range(nsnap):
+            e = f.read(40)
+            l1off, l1size, idlen, namelen, dsec, dnsec, clk, vmsz, extra = struct.unpack(">QIHHIIQII", e)
+            ex = f.read(extra)
+            sid = f.read(idlen).decode()
+            name = f.read(namelen).decode()
+            if len(ex) >= 8:
+                vmsz = struct.unpack_from(">Q", ex, 0)[0]
+            snaps.append({"id": sid, "name": name, "vm_state_size": vmsz, "date": dsec, "vm_clock_ns": clk})
+            pos = f.tell()
+            f.seek((pos + 7) & ~7)
+    return {"version": ver, "size": size, "backing": backing, "snapshots": snaps}
+
+
+def make_overlay(path, backing=None):
+    """A new, empty qcow2 (version 3, 64 KB clusters) whose backing file is the base image (read-only to QEMU:
+    a backing file is only ever opened for reading). No qemu-img on this Mac, so it is written here."""
+    backing = os.path.abspath(backing or BASE_HDD)
+    with open(backing, "rb") as f:
+        bh = f.read(32)
+    if bh[:4] != b"QFI\xfb":
+        raise ValueError("backing %s is not qcow2" % backing)
+    vsize = struct.unpack_from(">Q", bh, 24)[0]
+    cs = 1 << 16
+    l1_entries = -(-vsize // (cs * (cs // 8)))
+    # clusters: 0 header (+ extensions, backing name), 1 refcount table, 2 refcount block, 3.. L1 table
+    l1_clusters = max(1, -(-l1_entries * 8 // cs))
+    nclusters = 3 + l1_clusters
+    hdr = bytearray(cs)
+    exts = struct.pack(">II", 0xE2792ACA, 5) + b"qcow2" + b"\0" * 3 + struct.pack(">II", 0, 0)
+    boff = 104 + len(exts)
+    name = backing.encode()
+    struct.pack_into(">4sIQIIQIIQQIIQ", hdr, 0, b"QFI\xfb", 3, boff, len(name), 16, vsize, 0, l1_entries,
+                     3 * cs, 1 * cs, 1, 0, 0)
+    struct.pack_into(">QQQII", hdr, 72, 0, 0, 0, 4, 104)     # features, refcount_order 4 (16-bit), header_length
+    hdr[104:104 + len(exts)] = exts
+    hdr[boff:boff + len(name)] = name
+    rtab = bytearray(cs)
+    struct.pack_into(">Q", rtab, 0, 2 * cs)
+    rblk = bytearray(cs)
+    for i in range(nclusters):
+        struct.pack_into(">H", rblk, 2 * i, 1)
+    if os.path.exists(path):
+        raise FileExistsError(path)
+    with open(path, "wb") as f:
+        f.write(bytes(hdr) + bytes(rtab) + bytes(rblk) + b"\0" * (cs * l1_clusters))
+    info = qcow2_info(path)
+    assert info["backing"] == backing and info["size"] == vsize, info
+    return path
+
+
+def assert_overlay(path):
+    """xemu may run without -snapshot only on an overlay of the base image (never on the base itself)."""
+    if os.path.realpath(path) == os.path.realpath(BASE_HDD):
+        raise SystemExit("refusing to run xemu without -snapshot on the base image")
+    info = qcow2_info(path)
+    if not info["backing"] or os.path.realpath(info["backing"]) != os.path.realpath(BASE_HDD):
+        raise SystemExit("%s is not an overlay of the base image (backing %r)" % (path, info["backing"]))
+    return info
+
+
+def write_config(pad="keyboard", hdd=None):
     """Copy the user's xemu.toml (never modified) and point it at build/ files. pad: what port 1 is bound to
     ("keyboard", or a gamepad's SDL GUID as xemu writes it; None keeps the user's own binding)."""
     cfg = tomllib.load(open(USER_CFG, "rb")) if os.path.exists(USER_CFG) else {}
     files = cfg.setdefault("sys", {}).setdefault("files", {})
     files["bootrom_path"] = os.path.join(FILES, "mcpx/mcpx_1.0.bin")
     files["flashrom_path"] = os.path.join(FILES, "bios/Complex_4627.bin")
-    files["hdd_path"] = os.path.join(FILES, "hdd/xbox_hdd.qcow2")
+    # hdd: a snapshot's disk (a qcow2 whose backing file is the base image); -snapshot keeps it unwritten too
+    files["hdd_path"] = hdd or BASE_HDD
     eeprom = os.path.join(OUT_DIR, "eeprom%s.bin" % _SFX)
     user_eeprom = files.get("eeprom_path")
     if not os.path.exists(eeprom) and user_eeprom and os.path.exists(user_eeprom):
@@ -223,14 +328,19 @@ def png_write(path, w, h, rgb):
 class Xemu:
     """A running xemu with QMP. Reads guest memory through the HMP monitor (x / xp / pmemsave)."""
 
-    def __init__(self, tag="run", gdb=False, extra=(), pad="keyboard"):
+    def __init__(self, tag="run", gdb=False, extra=(), pad="keyboard", hdd=None, snapshot=True):
+        """snapshot=False (VM snapshots are saved into the disk): only on an overlay of the base (assert_overlay);
+        every other run keeps -snapshot, so no disk is ever written."""
+        check_base()
+        if not snapshot:
+            assert_overlay(hdd)
         ensure_instance_iso()
-        write_config(pad)
+        write_config(pad, hdd)
         if os.path.exists(QMP):
             os.unlink(QMP)
         self.outdir = os.path.join(SHOTS, tag)
         os.makedirs(self.outdir, exist_ok=True)
-        cmd = [XEMU, "-config_path", CFG, "-dvd_path", ISO, "-snapshot",
+        cmd = [XEMU, "-config_path", CFG, "-dvd_path", ISO] + (["-snapshot"] if snapshot else []) + [
                "-qmp", "unix:%s,server,nowait" % QMP] + (["-gdb", "tcp::%d" % GDB_PORT] if gdb else []) \
             + (["-display", DISPLAY] if DISPLAY else []) + list(extra)
         self.log = open(os.path.join(self.outdir, "xemu.log"), "w")

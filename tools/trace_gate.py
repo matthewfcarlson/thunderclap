@@ -5,6 +5,8 @@
   tools/trace_gate.py --session g1 --script build/replays/play2.json [--minutes 10] [--until-polls N]
                       [--per-func 30] [--burst 5] [--spread-polls 1800] [--matches-sample 300] [--also FILE]
   tools/trace_gate.py --census-only --session c1 ...      # only count which targets run, and when (no captures)
+  tools/trace_gate.py --session g2 --script R.json --from-frame 9000 [--shard 0/2]   # start from a VM snapshot
+  tools/trace_gate.py --session g2 --merge g2a g2b         # one session from parallel shards
 
 tools/trace_capture.py arms a GDB breakpoint on each target's entry, at most --window (96) at a time, because
 QEMU slows down with every breakpoint set; a function that runs only briefly is recorded only if it happens to
@@ -48,6 +50,60 @@ from trace_capture import Abort, CallCapture, CapGdb, MAX_DEPTH, SYNC_TIMEOUT  #
 
 ROOT = equiv.ROOT
 NEVER = patch_xbe.NEVER
+
+
+def default_targets(matches_sample=300, also=None):
+    """The targets a default run arms (Capture.targets without a session): for recording builds that carry the
+    trampolines (tools/hybrid_test.py record)."""
+    class _A:
+        pass
+    a = _A()
+    a.matches_sample, a.also, a.shard = matches_sample, also, None
+    o = tc.Capture.__new__(tc.Capture)
+    o.a, o.prog = a, equiv.Program.get()
+    return tc.Capture.targets(o)
+
+
+def merge_sessions(out, sessions):
+    """One session from several (e.g. parallel --shard runs): calls, pages, per-function stats; the configs and
+    censuses side by side. equiv_replay.py reads the result like any session."""
+    dst_dir = os.path.join(er.TRACES, out)
+    if os.path.exists(os.path.join(dst_dir, "trace.sqlite")):
+        raise SystemExit("%s exists" % dst_dir)
+    os.makedirs(dst_dir, exist_ok=True)
+    dst = er.TraceStore(dst_dir, create=True)
+    configs, census, totals = [], {}, Counter()
+    for sname in sessions:
+        sdir = sname if os.path.isdir(sname) else os.path.join(er.TRACES, sname)
+        src = er.TraceStore(sdir)
+        for sha, data in src.db.execute("SELECT sha, data FROM pages"):
+            dst.db.execute("INSERT OR IGNORE INTO pages VALUES (?, ?)", (sha, data))
+        for row in src.db.execute("SELECT func, n, ok, data FROM calls"):
+            if dst.db.execute("SELECT 1 FROM calls WHERE func = ? AND n = ?", row[:2]).fetchone():
+                # (the demoted/wanted targets are in every shard): number its calls on after the others
+                n = dst.db.execute("SELECT MAX(n) FROM calls WHERE func = ?", row[:1]).fetchone()[0] + 1
+                row = (row[0], n) + tuple(row[2:])
+            dst.db.execute("INSERT INTO calls VALUES (?, ?, ?, ?)", row)
+            totals["calls"] += 1
+        for row in src.db.execute("SELECT * FROM funcs"):
+            old = dst.db.execute("SELECT hits, captured, failed FROM funcs WHERE func = ?", row[:1]).fetchone()
+            if old:
+                row = (row[0], row[1] + old[0], row[2] + old[1], row[3] + old[2], row[4])
+            dst.db.execute("INSERT OR REPLACE INTO funcs VALUES (?, ?, ?, ?, ?)", row)
+        configs.append(dict(src.meta("config") or {}, session=os.path.basename(os.path.normpath(sdir))))
+        for f, v in (src.meta("census") or {}).items():
+            c = census.get(f)
+            census[f] = v if not c else [c[0] + v[0], min(c[1], v[1]), min(c[2], v[2])]
+        targets = dict(dst.meta("targets") or {})
+        targets.update(src.meta("targets") or {})
+        dst.meta("targets", targets)
+    dst.meta("config", {"recorder": "gate", "merged": configs})
+    dst.meta("census", census)
+    dst.commit()
+    rep = {"session": out, "from": sessions, "calls": totals["calls"],
+           "functions": len(dst.funcs()), "census_reached": len(census)}
+    json.dump(rep, open(os.path.join(dst_dir, "session.json"), "w"), indent=1)
+    return rep
 
 
 class GateCapture(tc.Capture):
@@ -304,6 +360,8 @@ class GateCapture(tc.Capture):
         if a.only:
             keep = patch_xbe.read_addr_file(a.only)
             self.tgt = {f: k for f, k in self.tgt.items() if f in keep}
+        if a.from_snapshot is not None or a.from_frame is not None:
+            return self.run_resumed()
         hooks = hybrid_test.hooks_cfg(a.script, vclock=True)
         if "pollkey" not in hooks["flags"]:
             hooks["flags"].append("pollkey")
@@ -336,6 +394,59 @@ class GateCapture(tc.Capture):
         self.t0 = time.time()
         self.x = hybrid_run.Xemu("trace-" + a.session, True, ["-S"])
         self.g = CapGdb()
+        return self.loop(tr)
+
+    def run_resumed(self):
+        """Start from one of the recording's VM snapshots (tools/hybrid_test.py record --snap-every): its build
+        carries a trampoline for every default target with the entry left alone; arm this run's targets by writing
+        their entry jmps and table entries, then go on as usual."""
+        a = self.a
+        doc = json.load(open(a.script))
+        snap = hybrid_test.find_snapshot(doc, a.from_snapshot, a.from_frame)
+        self.t0 = time.time()
+        self.resumed = hybrid_test.resume_snapshot(doc, snap, "trace-" + a.session, gdb_cls=CapGdb)
+        self.x, self.g, self.man = self.resumed["x"], self.resumed["g"], self.resumed["man"]
+        tr = self.man["trace"]
+        if tr.get("entries_patched", True):
+            raise SystemExit("this recording's build has its trampolines armed already")
+        self.gate = tr["gate"]
+        entry = {e[0]: e for e in tr["functions"]}
+        self.funcs = [e[0] for e in tr["functions"]]
+        self.index = {f: i for i, f in enumerate(self.funcs)}
+        self.tgt = {f: k for f, k in self.tgt.items() if f in entry}
+        first = NEVER if a.census_only else 0
+        self.next_state = {f: NEVER for f in self.funcs}
+        # the table: next for this run's targets (the others stay NEVER and keep their original entries)
+        raw = bytearray(self.g.read_pages(tr["table"], tr["entry_bytes"] * len(self.funcs)))
+        for f in self.tgt:
+            struct.pack_into("<I", raw, tr["entry_bytes"] * self.index[f] + 4, first & 0xFFFFFFFF)
+            self.next_state[f] = first
+        for o in range(0, len(raw), 2040):
+            self.g.write(tr["table"] + o, bytes(raw[o:o + 2040]))
+        for f in sorted(self.tgt):                       # entry -> trampoline (QEMU drops the stale translations)
+            tva = entry[f][2]
+            self.g.write(f, b"\xe9" + struct.pack("<i", tva - (f + 5)))
+        n = len(doc["inputs"])
+        self.feed = {"entries": doc["inputs"], "avail": self.resumed["avail"]} if n > self.resumed["avail"] else None
+        self.want_ck = {f: h for f, h in doc.get("checkpoints", []) if f > snap["frame"]}
+        self.end_polls = a.until_polls or doc.get("polls")
+        self.store.meta("config", {"recorder": "gate", "script": os.path.relpath(a.script, ROOT),
+                                   "snapshot": {k: snap.get(k) for k in ("tag", "frame", "polls", "ckpt")},
+                                   "shard": a.shard, "per_func": a.per_func, "burst": a.burst,
+                                   "spread_polls": a.spread_polls, "minutes": a.minutes,
+                                   "census_only": a.census_only, "targets": dict(Counter(self.tgt.values())),
+                                   "not_trampolined": tr["rejected"]})
+        self.store.meta("targets", {"0x%08x" % f: k for f, k in self.tgt.items()})
+        self.say("resumed snapshot %s (frame %d) in %.1f s; armed %d targets" % (
+            snap["tag"], snap["frame"], self.resumed["resume_s"], len(self.tgt)))
+        try:
+            return self.loop(tr)
+        finally:
+            if os.path.exists(self.resumed["clone"]):
+                os.unlink(self.resumed["clone"])
+
+    def loop(self, tr):
+        a = self.a
         self.armed = set()              # (trace_capture's entry breakpoints: none here)
         self.parked = set()
         self.armed_at = {}
@@ -448,9 +559,17 @@ def main(argv):
                     "build/traces/capture-wanted.txt)")
     ap.add_argument("--log-gates", action="store_true", help="log every gate stop to capture.log (diagnostics)")
     ap.add_argument("--census-only", action="store_true", help="no captures: only count which targets run, and when")
+    ap.add_argument("--from-snapshot", type=int, help="start from the --script recording's VM snapshot K "
+                    "(tools/hybrid_test.py record --snap-every; negative: from the end)")
+    ap.add_argument("--from-frame", type=int, help="start from the recording's latest snapshot at or before this frame")
+    ap.add_argument("--shard", help="K/N: a disjoint slice of the targets, for parallel runs (HULK_XEMU_INSTANCE)")
+    ap.add_argument("--merge", nargs="+", metavar="SESSION", help="merge these sessions into --session and exit")
     a = ap.parse_args(argv)
+    if a.merge:
+        print(json.dumps(merge_sessions(a.session, a.merge), indent=1))
+        return 0
     # (Capture.targets reads these)
-    a.shard, a.unseen, a.window, a.rotate, a.shot_every = None, False, 0, 0, 0
+    a.unseen, a.window, a.rotate, a.shot_every = False, 0, 0, 0
     port = "tcp::%d" % hybrid_run.GDB_PORT
     if any("xemu" in l and port in l.split() for l in os.popen("ps -axo command").read().splitlines()):
         raise SystemExit("another xemu is using this instance's GDB port %s (set HULK_XEMU_INSTANCE)" % port)

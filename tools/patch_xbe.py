@@ -787,7 +787,7 @@ def _displace(prog, f, patched):
     return n, relocate, ends
 
 
-def trace_stubs(x, base, sec, g_hybrid, targets, nxt=0, original=None):
+def trace_stubs(x, base, sec, g_hybrid, targets, nxt=0, original=None, patch_entries=True):
     """Append the trace gate (header, common routine, entry table, trampolines) to section image `sec` (at VA
     base) and point each target's entry at its trampoline in XBE image x. targets: [addr]. original: the
     unpatched XBE bytes (entries whose first bytes the build already changed are refused).
@@ -829,17 +829,20 @@ def trace_stubs(x, base, sec, g_hybrid, targets, nxt=0, original=None):
         t = bytearray(b"\x68" + struct.pack("<I", ent) + b"\xe8" + struct.pack("<i", common_va - (tva + 10)))
         t += relocate(tva + len(t))
         sec.extend(t)
-        x.write(f, b"\xe9" + struct.pack("<i", tva - (f + 5)))
+        if patch_entries:   # (else the entry keeps its bytes until a host writes the jmp: snapshot recordings)
+            x.write(f, b"\xe9" + struct.pack("<i", tva - (f + 5)))
         entries.append([f, n, tva])
     return {"hdr": hdr, "hdr_fields": list(TRACE_HDR), "common": common_va, "gate": gate, "table": table,
-            "entry_bytes": TRACE_ENTRY, "functions": entries, "rejected": rejected, "next_init": nxt}
+            "entry_bytes": TRACE_ENTRY, "functions": entries, "rejected": rejected, "next_init": nxt,
+            "entries_patched": bool(patch_entries)}
 
 
 def build(records, out, pad=PAD_SIZE, empty_section=False, tweaks=(), hooks=None, trace=None):
     """hooks: None, or {"seed": int|None, "flags": [...], "dt_us": int, "ckpt_interval": int,
     "replay": [(frame, buttons, analog, thumbs)], "regions": [(addr, size)]}.
-    trace: None, or {"targets": [addr], "next": initial `next` of every entry} (the in-guest trace gate,
-    trace_stubs; needs hooks)."""
+    trace: None, or {"targets": [addr], "next": initial `next` of every entry, "patch_entries": True} (the
+    in-guest trace gate, trace_stubs; needs hooks). patch_entries=False lays out the trampolines but leaves every
+    entry as it was: a recording build whose VM snapshots trace_gate can resume and arm (hybrid_test.py record)."""
     data = open(XBE_PATH, "rb").read()
     x = XbeImage(data)
     for t in tweaks:
@@ -856,7 +859,7 @@ def build(records, out, pad=PAD_SIZE, empty_section=False, tweaks=(), hooks=None
         tinfo = None
         if trace:
             tinfo = trace_stubs(x, va, sec, hook_syms["_g_hybrid"], [t for t in trace["targets"] if t not in entries],
-                                trace.get("next", 0), data)
+                                trace.get("next", 0), data, trace.get("patch_entries", True))
         got = x.add_section(SECTION_NAME, bytes(sec) or b"\xcc" * 16)
         assert got == va
         for a, e in entries.items():

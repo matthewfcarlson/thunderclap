@@ -13,6 +13,8 @@
         save the pad input and checkpoints to tests/replays/NAME.json. Stop with Ctrl-C (or --minutes).
   tools/hybrid_test.py replay tests/replays/NAME.json [--until-frame N]
         replay a recording on the same build and compare its checkpoints with the recorded ones.
+  tools/hybrid_test.py replay NAME.json --from-snapshot K | --from-frame F
+        start from one of the recording's VM snapshots (record --snap-every, default every 5 min).
   tools/hybrid_test.py salvage OLD.json NEW.json
         rewrite a version-1 recording made with several pads bound (interleaved by poll) as one pad's.
 
@@ -210,30 +212,68 @@ def record(args):
         hooks["replay"] = json.load(open(args.script))
         hooks["flags"] += ["autostart"]
     os.makedirs(TEST_DIR, exist_ok=True)
-    out = os.path.join(TEST_DIR, "record.xbe")
-    man = patch_xbe.build([], out, tweaks=TWEAKS, hooks=hooks)
-    hybrid_run.install(out)
     path = args.out or os.path.join(ROOT, "tests/replays", args.name + ".json")
     os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)   # a missing --out dir killed the first save
+    snaps_on = args.snap_every > 0 and not args.v1
+    sp = snapshot_paths(os.path.abspath(path))
+    trace = None
+    out = os.path.join(TEST_DIR, "record.xbe")
+    if snaps_on:
+        for k in ("disk", "xbe"):
+            if os.path.exists(sp[k]):
+                raise SystemExit("%s exists (a recording's snapshots are never overwritten): pick another --out"
+                                 % os.path.relpath(sp[k], ROOT))
+        trace = {"targets": sorted(trace_targets()), "next": patch_xbe.NEVER, "patch_entries": False}
+        out = sp["xbe"]
+    t_build = time.time()
+    man = patch_xbe.build([], out, tweaks=TWEAKS, hooks=hooks, trace=trace)
+    print("  built %s in %.0f s" % (os.path.relpath(out, ROOT), time.time() - t_build), file=sys.stderr)
+    hybrid_run.install(out)
+    if snaps_on:
+        hybrid_run.make_overlay(sp["disk"])
     rec = {"version": 1 if args.v1 else RECORDING_VERSION, "key": "polls", "flags": hooks["flags"], "seed": SEED,
            "tweaks": list(TWEAKS),
            "mask": hooks.get("mask", []), "skip": hooks.get("skip", []), "inputs": [], "checkpoints": {},
            "frames": 0, "polls": 0}
+    if snaps_on:
+        rec["snapshot_files"] = {k: os.path.relpath(v, ROOT) for k, v in sp.items()}
+        rec["snapshots"] = []
+        rec["snap_every_min"] = args.snap_every
     seen = {"inputs": 0}
 
     def save():
         doc = dict(rec, checkpoints=sorted([f, h] for f, h in rec["checkpoints"].items()))
         json.dump(doc, open(path, "w"), separators=(",", ":"))
 
-    x = hybrid_run.Xemu("record-" + args.name, pad=args.pad)
+    x = hybrid_run.Xemu("record-" + args.name, pad=args.pad, hdd=sp["disk"] if snaps_on else None,
+                        snapshot=not snaps_on)
     seen["t0"] = x.t0
     print("recording to %s: play, then press Ctrl-C here (closing the xemu window loses the last 2 s)" % path,
           file=sys.stderr)
+    want_snap = []
+    if snaps_on:
+        import signal
+        import threading
+        signal.signal(signal.SIGUSR1, lambda *_: want_snap.append("request"))
+        print("  VM snapshot every %g min; type s + Enter here (or kill -USR1 %d) for one now"
+              % (args.snap_every, os.getpid()), file=sys.stderr)
+        if sys.stdin and sys.stdin.isatty():
+            def keys():
+                for line in sys.stdin:
+                    if line.strip().lower().startswith("s"):
+                        want_snap.append("request")
+            threading.Thread(target=keys, daemon=True).start()
+    next_snap = x.t0 + 60 * args.snap_every
     try:
         while x.alive() and time.time() - x.t0 < args.minutes * 60:
             time.sleep(2)
             try:
-                _drain(x, man, rec, seen)
+                st = _drain(x, man, rec, seen)
+                if snaps_on and st["frame"] > 0 and (want_snap or time.time() >= next_snap):
+                    take_snapshot(x, man, rec, seen, sp["disk"], want_snap.pop() if want_snap else "every")
+                    want_snap.clear()
+                    next_snap = time.time() + 60 * args.snap_every
+                    save()
             except RuntimeError:             # g_hybrid not mapped yet (booting)
                 continue
             except OSError as e:             # xemu closed, or its monitor stopped answering
@@ -255,8 +295,12 @@ def record(args):
     finally:
         x.close()
     save()
-    return {"recording": os.path.relpath(path, ROOT), "frames": rec["frames"], "polls": rec["polls"],
-            "inputs": len(rec["inputs"]), "checkpoints": len(rec["checkpoints"])}
+    out = {"recording": os.path.relpath(path, ROOT), "frames": rec["frames"], "polls": rec["polls"],
+           "inputs": len(rec["inputs"]), "checkpoints": len(rec["checkpoints"])}
+    if snaps_on:
+        out["snapshots"] = [{k: sn[k] for k in ("tag", "frame", "pause_s", "disk_bytes")} for sn in rec["snapshots"]]
+        os.chmod(sp["disk"], 0o444)      # finished: resumes work on copies
+    return out
 
 
 class ReplayFeeder:
@@ -264,16 +308,16 @@ class ReplayFeeder:
     over the GDB stub (QMP can't write guest memory). Stopping the VM for a write is harmless: game time is
     virtual."""
 
-    def __init__(self, man, entries):
+    def __init__(self, man, entries, g=None, avail=None):
         from xemu_gdb import Gdb
         self.man, self.entries = man, entries
-        self.g = Gdb()
-        self.g._send("c")                    # the stub stops the VM when it attaches
+        self.g = g or Gdb()
+        self.g._send("c")                    # the stub stops the VM when it attaches (a resumed VM: it starts here)
         lay = man["g_hybrid_layout"]
         self.base, self.max, self.pad = man["g_hybrid"], lay["input_max"], lay["pad_bytes"]
         self.avail_va = self.base + lay["ext"] + 4 * lay["ext_fields"].index("replay_avail")
         self.ring_va = self.base + patch_xbe.CTL_REPLAY
-        self.avail = min(len(entries), self.max)
+        self.avail = min(len(entries), self.max) if avail is None else avail
 
     def feed(self, st):
         if self.avail >= len(self.entries):
@@ -302,6 +346,8 @@ def replay(args):
     """Replay a recording on the record build (same hooks, minus recording) and compare checkpoints."""
     import time
     data = json.load(open(args.recording))
+    if args.from_snapshot is not None or args.from_frame is not None:
+        return replay_from_snapshot(args, data)
     hooks = {"seed": data.get("seed", SEED), "flags": [f for f in data["flags"] if f != "record"] + ["replay"],
              "dt_us": 33333, "ckpt_interval": 30, "replay": data["inputs"], "mask": data.get("mask", []),
              "skip": data.get("skip", []), "vpad_count": data.get("vpad_count", 0)}
@@ -344,6 +390,205 @@ def replay(args):
             "checkpoints": [[f, h] for f, h in b], "polls": rec["polls"], "pads": rec.get("pads"),
             "timeline": rec.get("timeline", []),
             "identical": d is None and common_frames(a, b, 0) > 0}
+
+
+def replay_from_snapshot(args, data):
+    """Resume the recording's VM snapshot (on a throwaway copy of its disk) and replay from there to the end."""
+    snap = find_snapshot(data, args.from_snapshot, args.from_frame)
+    want = data["frames"]
+    res = resume_snapshot(data, snap, "replay-snap")
+    x, man = res["x"], res["man"]
+    rec = {"inputs": [], "checkpoints": {}, "frames": snap["frame"], "polls": snap["polls"]}
+    seen = {"inputs": 0, "t0": x.t0, "ckpts": res["ckpt_count"]}
+    feeder = ReplayFeeder(man, data["inputs"], g=res["g"], avail=res["avail"])        # (this starts the VM)
+    t_run = time.time()
+    limit = args.seconds or ((want - snap["frame"]) / 20 + 120)
+    try:
+        stop = min(want, args.until_frame or want)
+        while x.alive() and time.time() - t_run < limit and rec["frames"] < stop:
+            time.sleep(5)
+            try:
+                st = _drain(x, man, rec, seen)
+                feeder.feed(st)
+            except RuntimeError:
+                continue
+            except OSError as e:
+                print("  monitor: %r" % e, file=sys.stderr)
+                break
+            print("  %4ds frame %d / %d" % (time.time() - x.t0, rec["frames"], want), file=sys.stderr)
+    finally:
+        feeder.close()
+        close_resumed(res)
+    a = [tuple(c) for c in data["checkpoints"] if c[0] > snap["frame"]]
+    b = sorted((f, h) for f, h in rec["checkpoints"].items() if f > snap["frame"])
+    d = first_divergence(a, b, 0)
+    ma = dict(a)
+    return {"recording": args.recording, "snapshot": {k: snap.get(k) for k in ("tag", "frame", "polls", "ckpt")},
+            "resume_s": res["resume_s"], "recorded_frames": want, "replayed_frames": rec["frames"],
+            "common": common_frames(a, b, 0), "divergence": d, "matching": sum(1 for f, h in b if ma.get(f) == h),
+            "checkpoints": [[f, h] for f, h in b], "timeline": rec.get("timeline", []),
+            "identical": d is None and common_frames(a, b, 0) > 0}
+
+
+# ---------------------------------------------------------------------------------------------
+# VM snapshots of a recording (docs/tasks/record-replay.md, "Snapshots"). The recording runs on its own qcow2
+# overlay of the read-only base HDD, without -snapshot; `savevm` stores each snapshot (machine state, ~60 MB)
+# inside that overlay. Resuming copies the overlay (an APFS clone: instant), boots xemu paused on the copy, waits
+# for xemu's pad, `loadvm`s the snapshot and turns the recording build into a replay over the GDB stub (flags, the
+# replay ring from the snapshot's poll on). The recording build also carries the trace_gate trampolines with every
+# entry left alone, so tools/trace_gate.py can resume the same snapshots and arm what it wants.
+SNAP_EVERY = 5.0
+
+
+def snapshot_paths(path):
+    b = path[:-5] if path.endswith(".json") else path
+    return {"disk": b + ".disk.qcow2", "xbe": b + ".rec.xbe", "manifest": b + ".rec.json"}
+
+
+def trace_targets():
+    """The trace_gate target set (as a default trace_gate run would arm it), for the recording build."""
+    import trace_gate
+    return trace_gate.default_targets()
+
+
+def _usb_pads(info):
+    """[(port, id)] of the Xbox pads in HMP `info usb`, and the set of hub ports."""
+    pads, hubs = [], set()
+    for line in info.splitlines():
+        m = __import__("re").search(r"Port ([\d.]+),.*Product (.*?)(?:, ID: (\S+))?\s*$", line.strip())
+        if not m:
+            continue
+        if "Hub" in m.group(2):
+            hubs.add(m.group(1))
+        elif m.group(3):
+            pads.append((m.group(1), m.group(3)))
+    return pads, hubs
+
+
+def take_snapshot(x, man, rec, seen, disk, why):
+    """Pause, drain, savevm into the overlay, resume. Returns the timeline entry."""
+    t = time.time()
+    x.q.cmd("stop")
+    try:
+        st = _drain(x, man, rec, seen)
+        tag = "s%d" % len(rec["snapshots"])
+        r = x.hmp("savevm %s" % tag)
+        if r.strip():
+            raise RuntimeError("savevm: %s" % r.strip())
+        usb = x.hmp("info usb")
+    finally:
+        x.q.cmd("cont")
+    cks = [f for f in rec["checkpoints"] if f <= st["frame"]]
+    ck = max(cks) if cks else None
+    ent = {"tag": tag, "frame": st["frame"], "polls": st["polls"], "inputs": st["record_count"],
+           "ckpt": [ck, rec["checkpoints"][ck]] if ck is not None else None, "t": round(t - x.t0, 1),
+           "pause_s": round(time.time() - t, 3), "disk_bytes": os.path.getsize(disk), "why": why,
+           "usb": _usb_pads(usb)[0]}
+    rec["snapshots"].append(ent)
+    print("  snapshot %s at frame %d (poll %d): %.2f s paused, disk %.0f MB" % (
+        tag, ent["frame"], ent["polls"], ent["pause_s"], ent["disk_bytes"] / 1e6), file=sys.stderr)
+    return ent
+
+
+def find_snapshot(data, k=None, frame=None):
+    snaps = data.get("snapshots") or []
+    if not snaps:
+        raise SystemExit("this recording has no VM snapshots (record it with --snap-every)")
+    if k is not None:
+        if not -len(snaps) <= k < len(snaps):
+            raise SystemExit("snapshot %d: the recording has %d" % (k, len(snaps)))
+        return snaps[k]
+    cand = [sn for sn in snaps if sn["frame"] <= frame]
+    if not cand:
+        raise SystemExit("no snapshot at or before frame %d (the first is at %d)" % (frame, snaps[0]["frame"]))
+    return max(cand, key=lambda sn: sn["frame"])
+
+
+def resume_snapshot(data, snap, tag, gdb_cls=None):
+    """Boot xemu paused on a copy of the recording's disk, loadvm the snapshot, attach GDB, and turn the recording
+    build into a replay from there. Returns {x, g, man, avail, ckpt_count, clone, resume_s}; the VM is still
+    stopped (the caller continues it through g)."""
+    import shutil
+    import subprocess
+    from xemu_gdb import Gdb
+    files = {k: os.path.join(ROOT, v) for k, v in data["snapshot_files"].items()}
+    man = json.load(open(files["manifest"]))
+    t0 = time.time()
+    hybrid_run.install(files["xbe"])            # (sections the game loads later come from the disc's default.xbe)
+    clone = os.path.join(patch_xbe.OUT_DIR, "resume%s.qcow2" % hybrid_run._SFX)
+    if os.path.exists(clone):
+        os.unlink(clone)
+    if subprocess.run(["cp", "-c", files["disk"], clone]).returncode:
+        shutil.copy(files["disk"], clone)
+    os.chmod(clone, 0o644)                      # (the recording's disk is read-only once recorded)
+    x = hybrid_run.Xemu(tag, gdb=True, extra=["-S"], hdd=clone, snapshot=False)
+    try:
+        # xemu attaches its pads (and their hubs) after QEMU starts; loadvm needs the snapshot's device set
+        want = [tuple(p) for p in snap.get("usb") or []]
+        have = []
+        t1 = time.time()
+        while time.time() - t1 < 20:
+            have, hubs = _usb_pads(x.hmp("info usb"))
+            if len(have) >= max(1, len(want)) or (have and time.time() - t1 > 5):
+                break
+            time.sleep(0.25)
+        for port, pid in want:
+            if (port, pid) in have:
+                continue
+            hub = port.rsplit(".", 1)[0]
+            if hub not in hubs:
+                x.q.cmd("device_add", driver="usb-hub", port=hub)
+                hubs.add(hub)
+            x.q.cmd("device_add", driver="usb-xbox-gamepad", id=pid, port=port)
+        r = x.hmp("loadvm %s" % snap["tag"])
+        if r.strip():
+            raise RuntimeError("loadvm %s: %s" % (snap["tag"], r.strip()))
+        g = (gdb_cls or Gdb)()
+        base, lay = man["g_hybrid"], man["g_hybrid_layout"]
+        hdr = struct.unpack("<%dI" % len(hybrid_run.CTL_FIELDS), g.read(base, 4 * len(hybrid_run.CTL_FIELDS)))
+        st = dict(zip(hybrid_run.CTL_FIELDS, hdr))
+        if (st["frame"], st["polls"]) != (snap["frame"], snap["polls"]):
+            raise RuntimeError("snapshot %s loaded at frame %d poll %d, recorded %d/%d" % (
+                snap["tag"], st["frame"], st["polls"], snap["frame"], snap["polls"]))
+        # the recording build becomes the replay build: the flags replay() would use, the replay ring from here
+        flags = 0
+        for f in [f for f in data["flags"] if f != "record"] + ["replay"]:
+            flags |= patch_xbe.HF[f]
+        entries = data["inputs"]
+        pos = 0
+        for i, e in enumerate(entries):
+            if e[0] > st["polls"]:
+                break
+            pos = i
+        end = min(len(entries), pos + lay["input_max"])
+        ring, n, pad = base + patch_xbe.CTL_REPLAY, lay["input_max"], lay["pad_bytes"]
+        i = pos
+        while i < end:
+            j = min(end, (i // n + 1) * n)
+            raw = patch_xbe.pack_replay(entries[i:j])
+            for o in range(0, len(raw), 2040):
+                g.write(ring + pad * (i % n) + o, raw[o:o + 2040])
+            i = j
+        ext = lambda k: base + lay["ext"] + 4 * lay["ext_fields"].index(k)
+        g.write(ext("replay_avail"), struct.pack("<I", end))
+        g.write(base + 4 * 8, struct.pack("<II", len(entries), pos))     # replay_count, replay_pos
+        g.write(base + 4 * 1, struct.pack("<I", flags))
+    except BaseException:
+        x.close()
+        os.unlink(clone)
+        raise
+    return {"x": x, "g": g, "man": man, "avail": end, "ckpt_count": st["ckpt_count"], "clone": clone,
+            "resume_s": round(time.time() - t0, 2)}
+
+
+def close_resumed(res):
+    try:
+        res["g"].close()
+    except OSError:
+        pass
+    res["x"].close()
+    if os.path.exists(res["clone"]):
+        os.unlink(res["clone"])          # (the throwaway copy; the recording's own disk is never written again)
 
 
 def _zero(e):
@@ -468,6 +713,8 @@ def main(argv):
     r.add_argument("--out", help="default tests/replays/NAME.json")
     r.add_argument("--no-quant", action="store_true", help="record raw analog values (by default sticks and pressure "
                    "buttons are snapped to coarse steps, which the game is given too, so pad changes stay rare)")
+    r.add_argument("--snap-every", type=float, default=SNAP_EVERY, help="minutes between VM snapshots (0: none; "
+                   "they need the recording's own disk overlay, NAME.disk.qcow2, ~60 MB each)")
     r.add_argument("--v1", action="store_true", help="the old format: no virtual pad (the game polls every pad xemu "
                    "has bound) and the host's date; for comparisons only")
     r.add_argument("--script", help="test the pipeline without a player: feed this pad script (keyed by polls); "
@@ -476,6 +723,8 @@ def main(argv):
     p.add_argument("recording")
     p.add_argument("--seconds", type=float, default=0)
     p.add_argument("--until-frame", type=int, default=0, help="stop once the game reaches this frame")
+    p.add_argument("--from-snapshot", type=int, help="resume the recording's VM snapshot K (negative: from the end)")
+    p.add_argument("--from-frame", type=int, help="resume the latest snapshot at or before this frame")
     sv = sub.add_parser("salvage")
     sv.add_argument("recording")
     sv.add_argument("out")

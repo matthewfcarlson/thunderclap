@@ -191,3 +191,106 @@ build/venv/bin/python tools/hybrid_test.py replay build/replays/play3.json      
 - Press START at the loading screens yourself.
 - The terminal prints the frame and fps every 30 s (0 fps on a loading screen is normal). If gameplay shows well
   under 25 fps, the host is busy.
+
+## VM snapshots: start a replay or a trace part-way through a recording
+
+```sh
+build/venv/bin/python tools/hybrid_test.py record play3 --out build/replays/play3.json [--snap-every 5]
+#   a snapshot every 5 min; type s + Enter in the terminal (or kill -USR1 PID) for one now
+build/venv/bin/python tools/hybrid_test.py replay build/replays/play3.json --from-snapshot 3     # or --from-frame F
+HULK_XEMU_INSTANCE=0 build/venv/bin/python tools/trace_gate.py --session g3a --script build/replays/play3.json \
+    --from-frame 9000 --shard 0/2 &
+HULK_XEMU_INSTANCE=1 build/venv/bin/python tools/trace_gate.py --session g3b --script build/replays/play3.json \
+    --from-frame 9000 --shard 1/2 &
+build/venv/bin/python tools/trace_gate.py --session g3 --merge g3a g3b
+build/venv/bin/python tools/equiv_replay.py --session build/traces/g3 --equivalent
+```
+
+### Design
+
+**The disk is an overlay.** Each recording gets its own qcow2 file, `NAME.disk.qcow2`, with the read-only base
+image as its backing file. `hybrid_run.make_overlay` writes it: qcow2 version 3, 64 KB clusters, a backing-format
+extension. There is no qemu-img on this Mac.
+- The recording runs xemu on the overlay **without `-snapshot`**. `Xemu(snapshot=False)` refuses any disk that is
+  not an overlay of the base (`assert_overlay`).
+- QEMU only ever opens a backing file read-only, so the base is never written.
+- `hybrid_run.check_base` checks the base's size and sha256 before every xemu start, and stops if either changed.
+  The base itself is `chmod a-w`.
+
+**Snapshots are `savevm` into the overlay.** HMP `savevm sK` is run while the VM is stopped. It stores the
+machine state (~60 MB) as an internal snapshot of the overlay, and the disk state at that moment is included.
+- Each snapshot is tagged in the recording's `snapshots`:
+
+  ```
+  {tag, frame, polls, inputs (record entries so far), ckpt: [frame, hash] (the last checkpoint),
+   t, pause_s, disk_bytes, why ("every" or "request"), usb (xemu's pads)}
+  ```
+
+- When the recording ends, the overlay is made read-only.
+- Not used, and never to be used:
+  - `drive-backup`. On a `-snapshot` drive it deleted the base image (2026-10-17): the overlay's "temporary"
+    open flag is passed on to the new image's backing file;
+  - migrate-to-file. It works (61 MB, 0.4 s), but it leaves the disk state to be saved some other way.
+
+**Resuming** (`hybrid_test.resume_snapshot`):
+1. `install` the recording's own XBE (`NAME.rec.xbe`), so any section the game reads from the disc later is the
+   same.
+2. Clone the overlay to a throwaway copy (`cp -c`, an APFS clone: instant; deleted afterwards).
+3. Start xemu on the copy, paused (`-S`), without `-snapshot`.
+4. Wait for xemu to attach its pad, then `loadvm`.
+
+   `-loadvm` at startup fails ("Unknown section … usb-hub"), because xemu adds its pads and their hubs only after
+   QEMU starts. If the snapshot had pads that this host doesn't bind, they are `device_add`ed at their recorded
+   ports first. This was tested with a second pad (hub `1.4`, `gamepad_1`) added while recording, standing in
+   for an auto-bound gamepad. The resume added it back, and all 45 later checkpoints matched.
+5. Attach GDB and turn the recording build into a replay:
+   - the flags `replay` would use;
+   - the replay ring from the snapshot's poll on (`replay_pos`, `replay_avail`, `replay_count`);
+   - longer recordings are then fed as usual (`ReplayFeeder`, or trace_gate's `feed_ring`).
+
+**One build for record, replay and trace.** The recording build carries the trace_gate trampolines for the default
+target set (`trace_gate.default_targets()`: `equivalent/`, the demoted ones, 300 matches), but **every entry is
+left alone** (`trace={"patch_entries": False}`).
+- With the entries left alone, the build behaves like the plain recording build. A replay from boot of a
+  recording made with it was identical (514 of 514 checkpoints).
+- `trace_gate.py --from-snapshot/--from-frame` arms only its own targets: it writes their table entries (`next`)
+  and the 5-byte entry `jmp`s over GDB. QEMU drops the stale translations of written code.
+- Targets added to `equivalent/` after the recording aren't in its build, so they can't be armed from its
+  snapshots. A trace from boot, or a new recording, covers them.
+
+### Results (`build/replays/snaprec.json`)
+
+The recording is a stand-in run: 10 min, 15,408 frames, a snapshot every 1.5 min plus one on request (SIGUSR1),
+7 in all.
+
+| | |
+|---|---|
+| a snapshot | 0.06–0.08 s paused, about 60 MB in the overlay (423 MB for 7) |
+| recording speed | 15,408 frames in 600 s, against 14,053 for the same stand-in without snapshots (`final2`): no measurable cost |
+| build with the trampolines | 7 s (cached objects) |
+| resume (copy, boot, loadvm, convert) | 1.2–1.3 s after xemu starts |
+
+| Replay | Checkpoints after the snapshot |
+|---|---|
+| from boot | 514 of 514, identical |
+| from s0 (frame 2,058) | 445 of 445 |
+| from s2 (frame 5,398) | 334 of 334 |
+| from s3 (frame 7,990) | 247 of 247 |
+| from s6 (frame 14,837, the last) | 19 of 19 |
+
+**Two trace_gate shards in parallel from s4 (frame 10,308), 6 min each.** `HULK_XEMU_INSTANCE` was 0 and 1, and
+the shards used `--shard 0/2` and `1/2`.
+- Both stayed on the recorded path: 126 of 126 and 145 of 145 checkpoints matched.
+- Shard 0 captured 891 good calls of 471 equivalent functions (11 failed); shard 1 captured 1,177 good calls of
+  466 functions (23 failed).
+- `--merge` gave one session: 2,148 calls, 974 functions.
+- `equiv_replay.py --equivalent --max-calls 5` on it: 860 agreed, 1 mismatch, 22 no_replay, 55 unsupported,
+  14 not_reached. The mismatch is `0x1f9710` ("argument 4 is an address in ours"), which was already a known one.
+
+### Costs and caveats
+- **Disk:** ~60 MB per snapshot, so about 1.4 GB for a 2-hour recording at the default 5 minutes. The overlay
+  and the `.rec.xbe` stay in `build/replays/` (untracked).
+- **Old recordings:** recordings made before this have no snapshots. `--snap-every 0` records without them, on
+  `-snapshot` as before.
+- **Host:** snapshots are tied to this xemu (0.8.136) and to the machine setup (64 MB, the pad topology).
+- **Trace targets:** a recording's trampolines cover the trace targets as of recording time.
