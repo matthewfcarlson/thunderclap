@@ -596,7 +596,8 @@ states recorded once from the real game, and replays them on every build.
 
 ```sh
 PY=build/venv/bin/python
-$PY tools/trace_capture.py --session s2 --minutes 30 --per-func 30    # record (one xemu, ~30 min)
+$PY tools/trace_gate.py --session g2 --script build/replays/play2.json --minutes 150   # record: every target armed
+$PY tools/trace_capture.py --session s2 --minutes 30 --per-func 30    # record, the older way (96 breakpoints)
 $PY tools/equiv_replay.py --session build/traces/s2 --equivalent      # replay every captured equivalent/
 $PY tools/equiv_replay.py --src OLD.cpp 0xADDR                        # any source against the recording
 $PY tools/equiv_replay.py --matches all                               # control: matches must all agree
@@ -606,6 +607,20 @@ $PY tools/bisect_hybrid.py ...      # orders candidates by tier, lowest first, w
 ```
 
 Captures live in `build/traces/SESSION/trace.sqlite`. They hold game memory, so never commit them.
+
+**Two recorders, one format.**
+- `tools/trace_gate.py` (preferred): the build arms every target itself. Each target's entry jumps to a
+  trampoline that counts the call in a per-function table in the guest. When the host has asked for that
+  call, the trampoline stops at a single shared gate address, the only permanent breakpoint, with the
+  function's entry registers. The host then records the call exactly as below.
+  - Which calls: the first call of every target is always recorded. After that the default is one call
+    (`--burst`), then one more each time the game has moved `--spread-polls` 1,800 polls on, within a `--duty`
+    share of wall time, up to `--per-func`.
+  - The table also gives a census of every target: call count, and the poll and frame of its first call.
+  - Design and numbers: [tasks/ingame-trace.md](tasks/ingame-trace.md).
+- `tools/trace_capture.py`: a GDB breakpoint per target, at most `--window` at a time (below).
+
+Both write the same `trace.sqlite`, and `equiv_replay.py` reads either.
 
 **Capture.**
 - The game is the original XBE plus only the test hooks: fixed frame time, constant seed, `skip-intro`,
@@ -635,8 +650,11 @@ Captures live in `build/traces/SESSION/trace.sqlite`. They hold game memory, so 
   memory written since the last call must equal the game's. A callee that changes frame bytes the
   function wrote itself, with no pointer reaching them, aborts the capture. Failed captures are kept but
   never replayed.
-- QEMU slows down with every breakpoint set: 800 never-hit ones make it 6x slower. So at most 96
-  functions are armed at a time (`--window`):
+- No screenshots by default (`--shot-every 0`): the QMP `pmemsave` of the framebuffer wedges xemu's main loop
+  during level loads. The GDB stub runs on that loop too, so the session ended with `gdb connection lost:
+  TimeoutError`. Reproduced at play2's new-game load, poll ~47,815, every time.
+- (trace_capture.py) QEMU slows down with every breakpoint set: 800 never-hit ones make it 6x slower. So at
+  most 96 functions are armed at a time (`--window`):
   - a queue rotates through the targets;
   - a function idle for 20 s, or captured 5 times in a row, makes room;
   - functions in `hybrid/exclude.txt` and `build/farm/equiv-demoted/` stay armed.

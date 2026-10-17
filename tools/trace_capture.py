@@ -436,7 +436,7 @@ class Capture:
         dem = os.path.join(ROOT, "build/farm/equiv-demoted")
         if os.path.isdir(dem):
             for f in os.listdir(dem):
-                if f.startswith("0x") and f.endswith(".cpp"):
+                if len(f) == 14 and f.startswith("0x") and f.endswith(".cpp"):     # (not 0x...pass-wrong.cpp notes)
                     out.setdefault(int(f[:-4], 16), "demoted")
         if self.a.also:                      # extra targets (e.g. unverified functions only replay can check)
             for w in open(self.a.also).read().split():
@@ -652,7 +652,7 @@ class Capture:
                 self.say("  stepped over: %s" % ", ".join("%s x%d" % (k if isinstance(k, str) else "%#x" % k, v)
                                                          for k, v in self.stepped.most_common(5)))
             self.flush_stats()
-        if self.x and (force or now - self.last_shot >= self.a.shot_every):
+        if self.x and self.a.shot_every and (force or now - self.last_shot >= self.a.shot_every):
             self.last_shot = now
             try:
                 path = os.path.join(self.session, "shots", "%04ds-p%s.png" % (now - self.t0, self.polls))
@@ -825,7 +825,11 @@ def main(argv):
                     "makes room")
     ap.add_argument("--max-fail", type=int, default=10, help="give up on a function after this many failed captures")
     ap.add_argument("--matches-sample", type=int, default=300, help="matched functions to capture as controls")
-    ap.add_argument("--shot-every", type=float, default=30)
+    # (0: none. The screenshot's QMP pmemsave of the framebuffer wedges xemu's main loop during level loads, and
+    # the GDB stub runs on that loop too: that was the "gdb connection lost: TimeoutError" that ended sessions;
+    # reproduced at the new-game load, poll ~47,815 of play2, every time. docs/tasks/ingame-trace.md)
+    ap.add_argument("--shot-every", type=float, default=0, help="seconds between screenshots (0: none; they can "
+                    "wedge xemu during loads)")
     ap.add_argument("--script", default=DEFAULT_SCRIPT)
     ap.add_argument("--also", default=None, help="file of extra addresses to capture (any source can then be replayed "
                     "against them with equiv_replay.py --src); kept armed, in every shard")

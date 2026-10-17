@@ -524,9 +524,239 @@ def apply_hooks(x, image, base, syms, hooks, records=()):
         put(CTL["nregions"], len(regions[:8]))
 
 
-def build(records, out, pad=PAD_SIZE, empty_section=False, tweaks=(), hooks=None):
+# ---------------------------------------------------------------------------------------------
+# In-guest trace gate (tools/trace_gate.py; docs/tasks/ingame-trace.md). Every target function's entry becomes
+# `jmp tramp_f`; the trampoline counts the call in a per-function entry and, when the host asked for this call
+# (count >= next), stops at one shared gate address (the only permanent GDB breakpoint) with every register as
+# it was at the function's entry. The host then co-simulates the call exactly as tools/trace_capture.py does
+# and resumes the guest at the trampoline's copy of the displaced entry instructions.
+#
+#   header  (TRACE_HDR words): busy, gate_fn (the entry's address), gate_cont, gates, busy_skips
+#   entry i (16 bytes): count, next (gate when count >= next; 0 = the next call, 0xffffffff = never),
+#                       polls at the first call, frame at the first call
+#   tramp_f: push entry_f; call common; <displaced instructions, relocated>; jmp f+len
+TRACE_HDR = ("busy", "gate_fn", "gate_cont", "gates", "busy_skips")
+TRACE_ENTRY = 16
+NEVER = 0xFFFFFFFF
+
+
+class _Asm:
+    """A tiny x86 assembler: raw bytes plus rel8/rel32 fixups to labels."""
+
+    def __init__(self, va):
+        self.va, self.b, self.labels, self.fix = va, bytearray(), {}, []
+
+    def here(self):
+        return self.va + len(self.b)
+
+    def label(self, name):
+        self.labels[name] = self.here()
+
+    def raw(self, *parts):
+        for p in parts:
+            self.b += p if isinstance(p, (bytes, bytearray)) else bytes([p])
+
+    def u32(self, v):
+        self.b += struct.pack("<I", v & 0xFFFFFFFF)
+
+    def jcc8(self, op, name):
+        self.raw(op, 0)
+        self.fix.append((len(self.b) - 1, name, 1))
+
+    def jcc32(self, op2, name):            # 0F op2 rel32
+        self.raw(0x0F, op2)
+        self.b += b"\0\0\0\0"
+        self.fix.append((len(self.b) - 4, name, 4))
+
+    def done(self):
+        for o, name, n in self.fix:
+            rel = self.labels[name] - (self.va + o + n)
+            if n == 1:
+                assert -128 <= rel < 128, name
+                self.b[o] = rel & 0xFF
+            else:
+                struct.pack_into("<i", self.b, o, rel)
+        return bytes(self.b)
+
+
+def _trace_common(va, hdr, polls, frame):
+    """The shared bookkeeping routine and the gate. Returns (bytes, gate VA). Stack at entry:
+    [ret into tramp_f][entry_f][the function's return address]."""
+    H = {k: hdr + 4 * i for i, k in enumerate(TRACE_HDR)}
+    a = _Asm(va)
+    a.raw(0x9C, 0x50, 0x52)                         # pushfd; push eax; push edx
+    a.raw(b"\x8b\x54\x24\x10")                      # mov edx, [esp+16]     (entry_f)
+    a.raw(b"\x8b\x02")                              # mov eax, [edx]        (count)
+    a.raw(b"\x85\xc0")                              # test eax, eax
+    a.jcc8(0x75, "counted")                         # jnz counted
+    a.raw(0xA1); a.u32(polls)                       # mov eax, [g_hybrid.polls]
+    a.raw(b"\x89\x42\x08")                          # mov [edx+8], eax
+    a.raw(0xA1); a.u32(frame)                       # mov eax, [g_hybrid.frame]
+    a.raw(b"\x89\x42\x0c")                          # mov [edx+12], eax
+    a.raw(b"\x31\xc0")                              # xor eax, eax
+    a.label("counted")
+    a.raw(0x40)                                     # inc eax
+    a.raw(b"\x89\x02")                              # mov [edx], eax
+    a.raw(b"\x3b\x42\x04")                          # cmp eax, [edx+4]      (next)
+    a.jcc8(0x72, "pass")                            # jb pass
+    a.raw(0xB8); a.u32(1)                           # mov eax, 1
+    a.raw(b"\x87\x05"); a.u32(H["busy"])            # xchg [busy], eax
+    a.raw(b"\x85\xc0")                              # test eax, eax
+    a.jcc8(0x75, "busy")                            # jnz busy: another gate is between taking and the host
+    a.raw(b"\x8b\x44\x24\x10")                      # mov eax, [esp+16]     (entry_f)
+    a.raw(0xA3); a.u32(H["gate_fn"])                # mov [gate_fn], eax
+    a.raw(b"\x8b\x44\x24\x0c")                      # mov eax, [esp+12]     (the displaced code in tramp_f)
+    a.raw(0xA3); a.u32(H["gate_cont"])              # mov [gate_cont], eax
+    a.raw(b"\xff\x05"); a.u32(H["gates"])           # inc dword [gates]
+    a.raw(0x5A, 0x58, 0x9D)                         # pop edx; pop eax; popfd
+    a.raw(b"\x8d\x64\x24\x08")                      # lea esp, [esp+8]      (flags untouched)
+    a.label("gate")                                 # every register as at the function's entry
+    a.raw(0x90)                                     # nop   <- the host's breakpoint; it sets eip = gate_cont
+    a.raw(b"\xc7\x05"); a.u32(H["busy"]); a.u32(0)  # (no host: carry on) mov dword [busy], 0
+    a.raw(b"\xff\x25"); a.u32(H["gate_cont"])       # jmp dword [gate_cont]
+    a.label("busy")
+    a.raw(b"\xff\x05"); a.u32(H["busy_skips"])      # inc dword [busy_skips]
+    a.label("pass")
+    a.raw(0x5A, 0x58, 0x9D)                         # pop edx; pop eax; popfd
+    a.raw(b"\xc2\x04\x00")                          # ret 4  -> the displaced code, entry_f popped
+    return a.done(), a.labels["gate"]
+
+
+def _displace(prog, f, patched):
+    """Relocate the instructions covering f's first 5 bytes. Returns (length, relocate(va) -> bytes, ends) or a
+    rejection string. ends: the copy ends in a transfer (no jmp back needed)."""
+    size = prog.funcs.get(f, (0,))[0]
+    if size < 5:
+        return "shorter than a jmp"
+    code = prog.read(f, 32)
+    ins = []
+    n = 0
+    for ci in prog.md.disasm(code, f):
+        ins.append(ci)
+        n += ci.size
+        if n >= 5:
+            break
+    if n < 5:
+        return "undecodable entry"
+    if n > size:
+        return "entry instructions run past the function"
+    hits = [p for p in patched if f <= p < f + n]
+    if hits:
+        return "entry bytes already patched (%#x)" % hits[0]
+    view = equiv.CodeView(prog.read, f, (f, f + size), prog).build()
+    for i in view.insns.values():
+        if i.target is not None and f < i.target < f + n:
+            return "branch at %#x into the entry bytes" % i.addr
+        if f < i.addr < f + n and i.addr not in {c.address for c in ins}:
+            return "instruction at %#x overlaps the entry bytes" % i.addr
+    for tg in view.tables.values():
+        if any(f < t < f + n for t in tg):
+            return "jump table into the entry bytes"
+    parts = []
+    ends = False
+    for k, ci in enumerate(ins):
+        last = k == len(ins) - 1
+        b = bytes(ci.bytes)
+        mn = ci.mnemonic
+        rel = mn in ("call", "jmp") or (mn.startswith("j") and mn not in ("jmp",))
+        tgt = None
+        if rel and len(ci.operands) == 1 and ci.operands[0].type == 2:     # an immediate: a relative branch
+            tgt = ci.operands[0].imm & 0xFFFFFFFF
+        if mn.startswith("loop") or mn in ("jecxz", "jcxz"):
+            return "relative %s in the entry bytes" % mn
+        if mn in ("int3", "hlt", "ud2", "int", "into", "iret", "iretd", "retf", "sysenter", "ljmp", "lcall"):
+            return "%s in the entry bytes" % mn
+        if mn in ("ret", "retn", "jmp") and not last:
+            return "%s before the end of the entry bytes" % mn
+        if mn == "call" and tgt is None:
+            # (it would return into the copy, not to f+n where the co-simulation waits for it)
+            return "indirect call in the entry bytes"
+        if mn == "call":
+            parts.append(("call", tgt, ci.address + ci.size))     # push the original return address; jmp
+            ends = True
+        elif mn == "jmp" and tgt is not None:
+            parts.append(("jmp", tgt))
+            ends = True
+        elif tgt is not None:                                       # jcc
+            cc = b[0] & 0x0F if b[0] != 0x0F else b[1] & 0x0F
+            parts.append(("jcc", cc, tgt))
+        else:
+            parts.append(("raw", b))
+            ends = ends or mn in ("ret", "retn", "jmp")
+
+    def relocate(va):
+        out = bytearray()
+        for p in parts:
+            here = va + len(out)
+            if p[0] == "raw":
+                out += p[1]
+            elif p[0] == "call":
+                out += b"\x68" + struct.pack("<I", p[2])
+                out += b"\xe9" + struct.pack("<i", p[1] - (here + 10))
+            elif p[0] == "jmp":
+                out += b"\xe9" + struct.pack("<i", p[1] - (here + 5))
+            else:
+                out += bytes([0x0F, 0x80 | p[1]]) + struct.pack("<i", p[2] - (here + 6))
+        if not ends:
+            here = va + len(out)
+            out += b"\xe9" + struct.pack("<i", (f + n) - (here + 5))
+        return bytes(out)
+    return n, relocate, ends
+
+
+def trace_stubs(x, base, sec, g_hybrid, targets, nxt=0, original=None):
+    """Append the trace gate (header, common routine, entry table, trampolines) to section image `sec` (at VA
+    base) and point each target's entry at its trampoline in XBE image x. targets: [addr]. original: the
+    unpatched XBE bytes (entries whose first bytes the build already changed are refused).
+    Returns the manifest's "trace" dict."""
+    prog = equiv.Program.get()
+    patched = set()
+    if original is not None:
+        xo = XbeImage(original)
+        for f in targets:
+            try:
+                a, b = x.d[x.va_to_file(f):x.va_to_file(f) + 16], xo.d[xo.va_to_file(f):xo.va_to_file(f) + 16]
+            except ValueError:
+                continue
+            patched.update(f + i for i in range(16) if a[i] != b[i])
+    plan, rejected = [], {}
+    for f in sorted(set(targets)):
+        r = _displace(prog, f, patched)
+        if isinstance(r, str):
+            rejected["0x%08x" % f] = r
+        elif r is not None:
+            plan.append((f,) + r)
+    while len(sec) % 16:
+        sec.append(0xCC)
+    hdr = base + len(sec)
+    sec.extend(b"\0" * (4 * len(TRACE_HDR) + 12))
+    common_va = base + len(sec)
+    polls, frame = g_hybrid + 4 * 11, g_hybrid + 4 * 3
+    code, gate = _trace_common(common_va, hdr, polls, frame)
+    sec.extend(code)
+    while len(sec) % 16:
+        sec.append(0xCC)
+    table = base + len(sec)
+    for _ in plan:
+        sec.extend(struct.pack("<4I", 0, nxt, 0, 0))
+    entries = []
+    for i, (f, n, relocate, _ends) in enumerate(plan):
+        ent = table + TRACE_ENTRY * i
+        tva = base + len(sec)
+        t = bytearray(b"\x68" + struct.pack("<I", ent) + b"\xe8" + struct.pack("<i", common_va - (tva + 10)))
+        t += relocate(tva + len(t))
+        sec.extend(t)
+        x.write(f, b"\xe9" + struct.pack("<i", tva - (f + 5)))
+        entries.append([f, n, tva])
+    return {"hdr": hdr, "hdr_fields": list(TRACE_HDR), "common": common_va, "gate": gate, "table": table,
+            "entry_bytes": TRACE_ENTRY, "functions": entries, "rejected": rejected, "next_init": nxt}
+
+
+def build(records, out, pad=PAD_SIZE, empty_section=False, tweaks=(), hooks=None, trace=None):
     """hooks: None, or {"seed": int|None, "flags": [...], "dt_us": int, "ckpt_interval": int,
-    "replay": [(frame, buttons, analog, thumbs)], "regions": [(addr, size)]}."""
+    "replay": [(frame, buttons, analog, thumbs)], "regions": [(addr, size)]}.
+    trace: None, or {"targets": [addr], "next": initial `next` of every entry} (the in-guest trace gate,
+    trace_stubs; needs hooks)."""
     data = open(XBE_PATH, "rb").read()
     x = XbeImage(data)
     for t in tweaks:
@@ -540,10 +770,16 @@ def build(records, out, pad=PAD_SIZE, empty_section=False, tweaks=(), hooks=None
         sec, entries, hook_syms = link_section(ok, va, hooks)
         if hooks is not None:
             apply_hooks(x, sec, va, hook_syms, hooks, ok)
+        tinfo = None
+        if trace:
+            tinfo = trace_stubs(x, va, sec, hook_syms["_g_hybrid"], [t for t in trace["targets"] if t not in entries],
+                                trace.get("next", 0), data)
         got = x.add_section(SECTION_NAME, bytes(sec) or b"\xcc" * 16)
         assert got == va
         for a, e in entries.items():
             x.write(a, b"\xe9" + struct.pack("<i", e - (a + 5)))
+    else:
+        tinfo = None
     if ok or empty_section or tweaks or hooks is not None:
         x.fix_digests()
     d = bytes(x.d)
@@ -558,6 +794,8 @@ def build(records, out, pad=PAD_SIZE, empty_section=False, tweaks=(), hooks=None
                                "input_max": INPUT_MAX, "pad_bytes": PAD_BYTES, "wide": CTL_WIDE,
                                "wide_pages": WIDE_PAGES, "ext": CTL_EXT, "ext_fields": list(EXT_FIELDS)},
            "functions": [{k: r.get(k) for k in ("addr", "name", "src", "class", "ours", "sym")} for r in ok]}
+    if tinfo is not None:
+        man["trace"] = tinfo
     json.dump(man, open(os.path.splitext(out)[0] + ".json", "w"), indent=1)
     return man
 

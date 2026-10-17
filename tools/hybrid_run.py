@@ -232,7 +232,10 @@ class Xemu:
                "-qmp", "unix:%s,server,nowait" % QMP] + (["-gdb", "tcp::%d" % GDB_PORT] if gdb else []) \
             + (["-display", DISPLAY] if DISPLAY else []) + list(extra)
         self.log = open(os.path.join(self.outdir, "xemu.log"), "w")
-        self.p = subprocess.Popen(cmd, stdout=self.log, stderr=subprocess.STDOUT)
+        env = dict(os.environ)
+        if not env.get("HULK_XEMU_SOUND"):      # muted unless asked for (SDL's null audio device)
+            env.setdefault("SDL_AUDIODRIVER", "dummy")
+        self.p = subprocess.Popen(cmd, stdout=self.log, stderr=subprocess.STDOUT, env=env)
         self.t0 = time.time()
         self.q = Qmp(QMP)
 
