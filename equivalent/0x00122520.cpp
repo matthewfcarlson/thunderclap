@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3056 inputs, branch coverage 49/52, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 12481 inputs, branch coverage 50/51, incomplete)
 // hulkfight::ai::RoutAction::vfunc_5 @ 0x00122520
 extern "C" int atexit(void (*)());
 extern "C" double sqrt(double);
@@ -8,6 +8,7 @@ struct Vec3_122520 {
     float FUN_000111f0() throw();
     float FUN_0022d110() throw();
     float FUN_00018990() throw();
+    void FUN_000344b0(float s) throw();   // scale in place
 };
 
 struct Key_122520 {
@@ -30,10 +31,6 @@ struct Ent_122520 {
     char pad00[0x10];
     Fighter_122520 *f10;
     void FUN_00035660(Vec3_122520 *out) throw();
-};
-
-struct Misc {
-    void FUN_000344b0(float x) throw();
 };
 
 class RefObj_122520 {
@@ -248,8 +245,9 @@ bool RoutAction::vfunc_5(Arg1_122520 a1, float dt)
             f.W.FUN_0022d110();
             f.u8.q = (f.thr - f.u4.r) / f.thr;
             f.u4.one = 1.0f;
-            float rr = FUN_000186f0(&f.u4.one, &f.u8.q);
-            ((Misc *)&f.W.y)->FUN_000344b0(rr);
+            // The scale factor is pushed before ecx is set, so it is one expression: the
+            // receiver is the whole vector W (the shifted lea made it look like &W.y).
+            f.W.FUN_000344b0(FUN_000186f0(&f.u4.one, &f.u8.q));
         }
     }
     Cfg_122520 *cfg = f34;

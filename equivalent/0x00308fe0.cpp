@@ -1,7 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 211 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 440 inputs, branch coverage 18/18)
 // FUN_00308fe0 @ 0x00308fe0
 struct V3_308fe0 {
     float x, y, z;
+    void Scale(float s) { x = s * x; y = s * y; z = s * z; }
+    void Sub(const V3_308fe0 &a, const V3_308fe0 &b) { x = a.x - b.x; y = a.y - b.y; z = a.z - b.z; }
 };
 
 struct Matrix4_308fe0 {
@@ -68,61 +70,61 @@ public:
     void FUN_00308fe0();
 };
 
+// The original's frame, in slot order: one transformed point, the part's rotated inertia,
+// the centre offset, the point-mass inertia, and one matrix copy reused for both inversions.
+struct Frame_308fe0 {
+    V3_308fe0 a;
+    SymMatrix s1;
+    V3_308fe0 b;
+    SymMatrix s2;
+    Matrix4_308fe0 mt;
+};
+
 void Hairclub::FUN_00308fe0()
 {
     if (!(f40 > 0.0f))
         return;
 
-    V3_308fe0 a;
+    Frame_308fe0 fr;
     center.z = 0;
     center.y = 0;
     center.x = 0;
     for (int i = 0; i < count; i++) {
         if (parts[i].mass > 0.0f && parts[i].active) {
-            body->mat.FUN_0022c2b0(&parts[i].pos, &a);
+            body->mat.FUN_0022c2b0(&parts[i].pos, &fr.a);
             float m = parts[i].mass;
-            center.x = a.x * m + center.x;
-            center.y = a.y * m + center.y;
-            center.z = a.z * m + center.z;
+            center.x = fr.a.x * m + center.x;
+            center.y = fr.a.y * m + center.y;
+            center.z = fr.a.z * m + center.z;
         }
     }
 
-    float s = f44;
-    center.x = s * center.x;
-    center.y = s * center.y;
-    center.z = s * center.z;
-
-    const float *t = &body->mat.m[12];
-    V3_308fe0 b;
-    Matrix4_308fe0 mt = mat;
-    b.x = center.x - t[0];
-    b.y = center.y - t[1];
-    b.z = center.z - t[2];
-    mt.FUN_0022c0b0();
-    mt.FUN_0022c3b0(&b, &va8);
+    center.Scale(f44);
+    fr.b.Sub(center, *(const V3_308fe0 *)&body->mat.m[12]);
+    fr.mt = mat;
+    fr.mt.FUN_0022c0b0();
+    fr.mt.FUN_0022c3b0(&fr.b, &va8);
     flagA4 = 0;
 
-    SymMatrix s2;
-    SymMatrix s1;
-    s2.FUN_002fca90();
-    s1.FUN_002fca90();
+    fr.s2.FUN_002fca90();
+    fr.s1.FUN_002fca90();
     symF8.FUN_002fd0a0();
     for (int i = 0; i < count; i++) {
         if (parts[i].mass > 0.0f && parts[i].active) {
-            body->mat.FUN_0022c2b0(&parts[i].pos, &a);
-            a.x = a.x - center.x;
-            a.y = a.y - center.y;
-            a.z = a.z - center.z;
-            FUN_00305b00(&s2, &a, parts[i].mass);
-            s1.m[0] = parts[i].inertia.m[0];
-            s1.m[1] = parts[i].inertia.m[1];
-            s1.m[2] = parts[i].inertia.m[2];
-            s1.m[3] = parts[i].inertia.m[3];
-            s1.m[4] = parts[i].inertia.m[4];
-            s1.m[5] = parts[i].inertia.m[5];
-            s1.FUN_002fcd60(body->GetRotation(i));
-            s2.FUN_002fcaf0(&s1);
-            symF8.FUN_002fcaf0(&s2);
+            body->mat.FUN_0022c2b0(&parts[i].pos, &fr.a);
+            fr.a.x = fr.a.x - center.x;
+            fr.a.y = fr.a.y - center.y;
+            fr.a.z = fr.a.z - center.z;
+            FUN_00305b00(&fr.s2, &fr.a, parts[i].mass);
+            fr.s1.m[0] = parts[i].inertia.m[0];
+            fr.s1.m[1] = parts[i].inertia.m[1];
+            fr.s1.m[2] = parts[i].inertia.m[2];
+            fr.s1.m[3] = parts[i].inertia.m[3];
+            fr.s1.m[4] = parts[i].inertia.m[4];
+            fr.s1.m[5] = parts[i].inertia.m[5];
+            fr.s1.FUN_002fcd60(body->GetRotation(i));
+            fr.s2.FUN_002fcaf0(&fr.s1);
+            symF8.FUN_002fcaf0(&fr.s2);
         }
     }
 
@@ -132,14 +134,14 @@ void Hairclub::FUN_00308fe0()
     symDC.m[3] = symF8.m[3];
     symDC.m[4] = symF8.m[4];
     symDC.m[5] = symF8.m[5];
-    Matrix4_308fe0 mt2 = mat;
-    mt2.FUN_0022c0b0();
-    symDC.FUN_002fcd60(&mt2);
+    fr.mt = mat;
+    fr.mt.FUN_0022c0b0();
+    symDC.FUN_002fcd60(&fr.mt);
     sym114.FUN_002fd0c0(&symF8);
-    mat.FUN_0022c3b0(&vb4, &a);
-    center.x = a.x + center.x;
-    center.y = a.y + center.y;
-    center.z = a.z + center.z;
-    s1.FUN_002fcaa0();
-    s2.FUN_002fcaa0();
+    mat.FUN_0022c3b0(&vb4, &fr.a);
+    center.x = fr.a.x + center.x;
+    center.y = fr.a.y + center.y;
+    center.z = fr.a.z + center.z;
+    fr.s1.FUN_002fcaa0();
+    fr.s2.FUN_002fcaa0();
 }

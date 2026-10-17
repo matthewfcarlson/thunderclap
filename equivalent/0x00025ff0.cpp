@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 230 inputs, branch coverage 123/146, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 1306 inputs, branch coverage 143/146, incomplete)
 // FUN_00025ff0 @ 0x00025ff0
 extern "C" double __cdecl sqrt(double);
 
@@ -138,15 +138,17 @@ void Selector_25ff0::Update(float unusedA, float dt)
         me->FUN_000359e0(&f.q0);
         f.q0.f[3] = f.q0.f[3] * 0.5f;
         if (f.sink->FUN_001c4010(&f.q0)) {
-            V3_25ff0 pos;
-            pos.x = 0;
-            pos.y = 0;
-            pos.z = 0;
-            me->f10->FUN_00059a50(&pos);
+            // Our own position goes in the same slot the loop later uses for each entity's
+            // position (just past the query): the loop's first query sees it there.
+            V3_25ff0 *pos = (V3_25ff0 *)&f.qe.f[4];
+            pos->x = 0;
+            pos->y = 0;
+            pos->z = 0;
+            me->f10->FUN_00059a50(pos);
             V3_25ff0 *c = f.sink->FUN_001c39d0();
-            f.d.x = pos.x - c->x;
-            f.d.y = pos.y - c->y;
-            f.d.z = pos.z - c->z;
+            f.d.x = pos->x - c->x;
+            f.d.y = pos->y - c->y;
+            f.d.z = pos->z - c->z;
             *mat = *f.sink->FUN_001c3990();
             r = (float)(sqrt((double)(f.d.z * f.d.z + f.d.y * f.d.y + f.d.x * f.d.x)) * 0.5f);
         } else {
