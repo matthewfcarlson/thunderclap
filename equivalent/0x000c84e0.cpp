@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 9/12, incomplete)
+// FUN_000c84e0 @ 0x000c84e0
+struct Entry { int active; char pad[0x2c]; int handle; int key; }; struct Backend { void FUN_001e5bc0(int); }; struct Manager { char pad[12]; Backend* backend; }; extern Manager* DAT_004dd700; struct Owner { char pad[0x2258]; Entry entries[32]; void FUN_000c84e0(int key); }; void Owner::FUN_000c84e0(int key) { for (int i = 0; i < 32; ++i) { Entry& entry = entries[i]; if (entry.active && entry.key == key) { DAT_004dd700->backend->FUN_001e5bc0(entry.handle); entry.handle = -1; entry.active = 0; } } }

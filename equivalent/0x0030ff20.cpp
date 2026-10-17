@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 11/12, incomplete)
+// FUN_0030ff20 @ 0x0030ff20
+struct Table { char pad[16]; int count; char pad2[4]; int *sizes; int **items; unsigned char FUN_0030fea0(int index, int position); unsigned char FUN_0030ff20(int index, int value); }; unsigned char Table::FUN_0030ff20(int index, int value) { if (index < 0 || index >= count) return FUN_0030fea0(index, 0); int n = sizes[index]; if (n > 0) { int *list = items[index]; for (int i = 0; i < n; ++i) if (list[i] == value) return FUN_0030fea0(index, i); } return 0; }

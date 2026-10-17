@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 63 inputs, branch coverage 13/14, incomplete)
+// FUN_002f9bc0 @ 0x002f9bc0
+struct Buffer { char pad[4]; unsigned short *end; unsigned short *limit; void FUN_002f9bc0(unsigned short *position, unsigned int count, unsigned short *source); }; void Buffer::FUN_002f9bc0(unsigned short *position, unsigned int count, unsigned short *source) { unsigned short *oldEnd=end; unsigned short *newEnd=oldEnd+count; if ((unsigned long)newEnd <= (unsigned long)limit) { end=newEnd; while (oldEnd != position) { --oldEnd; --newEnd; if (newEnd) *newEnd=*oldEnd; } while (count--) { if (position) *position=*source; ++position; } } }
