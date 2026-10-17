@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_0006a5d0 @ 0x0006a5d0
+struct FUN_00236d40 { FUN_00236d40(); virtual void unused(); }; struct CJumpAttackTrack : FUN_00236d40 { char pad[8]; float a; float b; float c; float d; float e; float f; float g; float h; float i; float j; float k; CJumpAttackTrack(); }; CJumpAttackTrack::CJumpAttackTrack() { a=0.0f; b=-1.0f; c=0.0f; d=-1.0f; e=-1.0f; f=1.57079637f; g=10.0f; h=10.0f; i=0.0f; j=0.0f; k=0.0f; }

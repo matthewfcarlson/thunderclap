@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// FUN_00028f80 @ 0x00028f80
+struct Result { char pad[0xb8]; int value; }; struct Object { Result* FUN_000fdc40(); }; struct Item { char pad[0x1ca0]; Object *object; }; struct Handler { Item* FUN_00024280(unsigned int, unsigned int); int FUN_00028f80(int); }; extern "C" __int64 __cdecl FUN_002672f0(int, int, int); int Handler::FUN_00028f80(int arg) { __int64 id = FUN_002672f0(arg,0,0); Item* item = FUN_00024280((unsigned int)id, (unsigned int)(id >> 32)); if (item && item->object) { Result* result = item->object->FUN_000fdc40(); if (result) return result->value; } return -1; }

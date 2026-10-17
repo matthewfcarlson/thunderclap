@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/7)
+// pure3d::ParticlePlaneGenerator::vfunc_7 @ 0x002d2ae0
+namespace pure3d { struct ParticlePlaneGenerator { char padding[0x4c]; unsigned int field4c, field50, field54, field58, field5c; void vfunc_7(unsigned int index, unsigned int value); }; void ParticlePlaneGenerator::vfunc_7(unsigned int index, unsigned int value) { switch (index) { case 1: field54 = value; break; case 2: field58 = value; break; case 3: field5c = value; break; case 4: field4c = value; break; case 5: field50 = value; break; } } }
