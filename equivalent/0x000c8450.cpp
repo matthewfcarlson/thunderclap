@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/8, incomplete)
+// FUN_000c8450 @ 0x000c8450
+struct Entry { int active; char pad[0x20]; int x; int y; int z; char tail[8]; }; struct Manager { char pad[0x9d * 0x38]; Entry entries[32]; void FUN_000c8450(int index, int x, int y, int z); }; void Manager::FUN_000c8450(int index, int x, int y, int z) { if (index >= 0 && index < 32) { Entry *entry = &entries[index]; if (entry->active && entry) { entry->x = x; entry->y = y; entry->z = z; } } }

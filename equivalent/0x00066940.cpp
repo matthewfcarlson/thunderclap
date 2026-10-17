@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 11/12, incomplete)
+// FUN_00066940 @ 0x00066940
+struct Value { char pad[16]; unsigned int low; unsigned int high; }; int __cdecl FUN_00066940(const Value* a, const Value* b) { if (a->high < b->high || (a->high == b->high && a->low < b->low)) return -1; if (b->high < a->high || (b->high == a->high && b->low < a->low)) return 1; return 0; }

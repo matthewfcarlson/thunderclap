@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_00251bc0 @ 0x00251bc0
+struct FUN_0025fd00 { virtual void dummy(); FUN_0025fd00(); }; struct SeqEventChannelVolumes : FUN_0025fd00 { char pad[4]; int a,b,c,d; int duration; int stitched; SeqEventChannelVolumes(); }; int __cdecl FUN_002673a0(const char *, int); SeqEventChannelVolumes::SeqEventChannelVolumes() { duration=1000; stitched=FUN_002673a0("stitched",0); a=b=c=d=0; }

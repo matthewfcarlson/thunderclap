@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// pure3d::ImageFont::vfunc_9 @ 0x002bf1f0
+namespace pure3d { struct ImageFont { char pad[0x18]; int base; char pad2[4]; int line; int vfunc_9(const unsigned short *text); }; int ImageFont::vfunc_9(const unsigned short *text) { if (!text) return 0; int result = base; int increment = line + result; while (*text) { if (*text == 10) result += increment; ++text; } return result; } }

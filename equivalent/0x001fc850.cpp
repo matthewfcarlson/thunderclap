@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 8/8)
+// FUN_001fc850 @ 0x001fc850
+struct Entry { char padding[8]; int first; int second; }; struct Table { char padding[12]; Entry* entries[128]; Entry* FUN_001fc850(int first, int second); }; Entry* Table::FUN_001fc850(int first, int second) { for (int i = 0; i < 128; ++i) { Entry* entry = entries[i]; if (entry && entry->first == first && entry->second == second) return entry; } return 0; }

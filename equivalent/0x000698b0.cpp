@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_000698b0 @ 0x000698b0
+struct FUN_00236d40 { FUN_00236d40(); virtual void virtual0(); int field4; int field8; int fieldC; float field10; float field14; int field18; int field1C; int field20; int field24; }; struct CMoveTrack : FUN_00236d40 { virtual void virtual0(); CMoveTrack(); }; CMoveTrack::CMoveTrack() : FUN_00236d40() { fieldC = 0; field18 = 0; field20 = 0; field24 = 0; field10 = 1.0f; field14 = 1.0f; field1C = -1; field8 = 1; }
