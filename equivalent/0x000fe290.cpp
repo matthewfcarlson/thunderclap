@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 5/6, incomplete)
+// CGolem::vfunc_7 @ 0x000fe290
+struct GolemItem { virtual void vfunc_0(); virtual void vfunc_1(); }; class CGolem { public: virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(); char unknown[4]; int count; GolemItem* items[16]; }; void CGolem::vfunc_7() { for (int i = 0; i < 16; ++i) { GolemItem* item = items[i]; if (item) { item->vfunc_1(); items[i] = 0; --count; } } }

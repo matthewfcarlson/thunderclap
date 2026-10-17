@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_001fbb30 @ 0x001fbb30
+struct FUN_0027b070 { virtual void baseVirtual(); char pad[0xc8]; FUN_0027b070(); }; struct CTriggerVolume : FUN_0027b070 { unsigned char stateCC, stateCD, stateCE, stateCF; unsigned int valueD0; CTriggerVolume(); }; CTriggerVolume::CTriggerVolume() { stateCC=0; valueD0=0; stateCE=0; stateCD=1; stateCF=1; }

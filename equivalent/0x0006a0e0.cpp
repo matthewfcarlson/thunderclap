@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// CInvincibleTrack::vfunc_12 @ 0x0006a0e0
+struct Object { int FUN_0001f4e0(int, int); }; Object* __cdecl FUN_0008d690(int); struct CInvincibleTrack { virtual void vfunc_0(); char pad[0x10]; int value; int vfunc_12(int arg); }; int CInvincibleTrack::vfunc_12(int arg) { Object* p = FUN_0008d690(0x24); if (p) return p->FUN_0001f4e0(arg, value); return 0; }
