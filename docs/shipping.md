@@ -112,6 +112,7 @@ all 1,436 `.p3d` files parse, with Hulk and a downtown room exported correctly (
 
 The hash scheme is the best route for HD texture packs: modders never need to understand `.p3d`, and
 it keeps working as the renderer changes.
+Existing Dolphin (GameCube) packs map onto the Xbox textures by p3d path and name (2,325 of 2,334 for the one tested); key scheme, Dolphin hash and converter in [texture-packs.md](texture-packs.md).
 
 **Extracted data, not RCFs (decided 2026-10-14).** The native port's first run unpacks every RCF into a
 plain folder tree (`data/art/…`, `data/misc/…`), and the radcore file shim reads files from that folder;
