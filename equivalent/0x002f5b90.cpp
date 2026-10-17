@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// physics::PhysicsObject::vfunc_33 @ 0x002f5b90
+namespace physics { struct PhysicsObject { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual bool vfunc_11(); virtual void vfunc_12(); virtual void vfunc_13(); char pad[0x13c-4]; float x,y,z; char pad2[0x1d0-0x148]; unsigned char dirty; void vfunc_33(const float *delta); }; void PhysicsObject::vfunc_33(const float *delta) { x += delta[0]; y += delta[1]; z += delta[2]; dirty = 1; if (vfunc_11()) vfunc_13(); } }
