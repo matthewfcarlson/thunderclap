@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 18/24, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 7101 inputs, branch coverage 23/24, incomplete)
 // fight::ParamValueEnum::vfunc_5 @ 0x00234cf0
+extern "C" void *__cdecl memset(void *, int, unsigned int);
 extern "C" int strcmp(const char *a, const char *b);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int DAT_004d9968;
@@ -38,44 +39,52 @@ public:
 
 char fight::ParamValueEnum::vfunc_5(void *a1, int a2, Context *ctx)
 {
-    unsigned int cookie = DAT_004d9968;
-    char name[1024];
-    for (int k = 0; k < 1024; k++)
-        name[k] = 0;
-    int index = -1;
-    char ok = ctx->vf6(key0, key1, &index, name, 1024);
-    if (!ok) {
-        __security_check_cookie(cookie);
-        return ok;
+    struct Frame {
+        char pad[3];
+        char ok;
+        int index;
+        int n;
+        char name[1024];
+        int pad2;               // (a dead word between the buffer and the cookie)
+        unsigned int cookie;
+    } f;
+    f.cookie = DAT_004d9968;
+    f.name[0] = 0;
+    memset(f.name + 1, 0, 1023);
+    f.index = -1;
+    f.ok = ctx->vf6(key0, key1, &f.index, f.name, 1024);
+    if (!f.ok) {
+        __security_check_cookie(f.cookie);
+        return f.ok;
     }
-    if (index >= 0) {
-        if (index < vfunc_7(a1)) {
-            vfunc_8(a1, index);
-            __security_check_cookie(cookie);
-            return ok;
+    if (f.index >= 0) {
+        if (f.index < vfunc_7(a1)) {
+            vfunc_8(a1, f.index);
+            __security_check_cookie(f.cookie);
+            return f.ok;
         }
-        FUN_00232cc0(ctx, "%d is not a valid enumerated value.", index);
-        __security_check_cookie(cookie);
+        FUN_00232cc0(ctx, "%d is not a valid enumerated value.", f.index);
+        __security_check_cookie(f.cookie);
         return 0;
     }
-    if (name[0] == 0) {
-        __security_check_cookie(cookie);
-        return ok;
+    if (f.name[0] == 0) {
+        __security_check_cookie(f.cookie);
+        return f.ok;
     }
-    char result = ok;
-    int n = vfunc_7(a1);
+    f.n = vfunc_7(a1);
     int i;
-    for (i = 0; i < n; i++) {
-        const char *s = vfunc_6(a1, i);
-        if (strcmp(name, s) == 0) {
+    char result;
+    for (i = 0; i < f.n; i++) {
+        if (strcmp(f.name, vfunc_6(a1, i)) == 0) {
             result = vfunc_8(a1, i);
+            if (i < f.n) {
+                __security_check_cookie(f.cookie);
+                return result;
+            }
             break;
         }
     }
-    if (i >= n) {
-        FUN_00232cc0(ctx, "\"%s\" is not a valid enumerated value.", name);
-        result = 0;
-    }
-    __security_check_cookie(cookie);
-    return result;
+    FUN_00232cc0(ctx, "\"%s\" is not a valid enumerated value.", f.name);
+    __security_check_cookie(f.cookie);
+    return 0;
 }

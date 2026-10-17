@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2972 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 10263 inputs, branch coverage 12/12)
 // FUN_001f4c50 @ 0x001f4c50
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -6,6 +6,7 @@ typedef unsigned __int64 ID;
 
 struct Name_1f4c50 {
     unsigned int lo, hi;
+    unsigned int tail[2];   // (the constructor writes up to 0xb bytes; the original reuses the tail as the ID temporary)
     void FUN_0027b0e0(const char *s);
     void FUN_0027af50();
 };
@@ -87,7 +88,8 @@ void Sound_1f4c50::FUN_001f4c50()
     f90 = -1;
     f94 = 0;
     vcc = vc;
-    ID h = FUN_002672f0("front_end", 0, 0);
+    ID &h = *(ID *)nm.tail;
+    h = FUN_002672f0("front_end", 0, 0);
     vcc->FUN_001f32b0(mixer->FUN_001e98b0(&h), 0, 0);
     if (vcc->f4 != 0)
         FUN_00247890(vcc->f4, DAT_004c7df8 * 0.01f * volume);

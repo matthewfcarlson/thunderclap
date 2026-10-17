@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 242 inputs, branch coverage 52/52)
+// STATUS: equivalent (tools/equiv.py level 3: 2134 inputs, branch coverage 52/52)
 // FUN_000dd350 @ 0x000dd350
 #include "decls/data/game/global.h"
 
@@ -143,11 +143,13 @@ public:
 
 bool Config_dd350::FUN_000dd350(Parser_dd350* parser, Handler_dd350* handler, Sink_dd350* sink)
 {
-    unsigned int cookie = DAT_004d9968;
     struct Frame {
+        const char *name;       // (the name pointer kept across the snprintf loop)
         char bufA[0x40];
-        char bufB[0x40];
+        char bufB[0x40];        // (bufA is not always terminated: the length scan runs on into bufB)
+        unsigned int cookie;
     } f;
+    f.cookie = DAT_004d9968;
     if (parser->FUN_000f9ef0()) {
         parser->FUN_000f9f30();
         while (parser->FUN_000f9e50()) {
@@ -161,9 +163,9 @@ bool Config_dd350::FUN_000dd350(Parser_dd350* parser, Handler_dd350* handler, Si
                 }
                 FUN_000dc810(atol(name));
             } else if (key == (*(unsigned __int64*)&DAT_004de700)) {
-                const char* name = parser->FUN_000fad90();
+                f.name = parser->FUN_000fad90();
                 for (int i = 0; i < count; i++) {
-                    FUN_000964a0(f.bufA, 0x40, "%s_%02d", name, i + 1);
+                    FUN_000964a0(f.bufA, 0x40, "%s_%02d", f.name, i + 1);
                     if (namesA[i] != 0) {
                         FUN_0008d340(namesA[i]);
                         namesA[i] = 0;
@@ -181,9 +183,9 @@ bool Config_dd350::FUN_000dd350(Parser_dd350* parser, Handler_dd350* handler, Si
                     sink->Store(f.bufA, (char*)slotsA + i * 12);
                 }
             } else if (key == (*(unsigned __int64*)&DAT_004de708)) {
-                const char* name = parser->FUN_000fad90();
+                f.name = parser->FUN_000fad90();
                 for (int i = 0; i < count; i++) {
-                    FUN_000964a0(f.bufB, 0x40, "%s_%02d", name, i + 1);
+                    FUN_000964a0(f.bufB, 0x40, "%s_%02d", f.name, i + 1);
                     if (namesB[i] != 0) {
                         FUN_0008d340(namesB[i]);
                         namesB[i] = 0;
@@ -217,6 +219,6 @@ bool Config_dd350::FUN_000dd350(Parser_dd350* parser, Handler_dd350* handler, Si
         }
         parser->FUN_000f9fb0();
     }
-    __security_check_cookie(cookie);
+    __security_check_cookie(f.cookie);
     return true;
 }
