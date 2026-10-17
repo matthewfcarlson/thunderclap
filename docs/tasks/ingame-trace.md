@@ -181,7 +181,9 @@ Options:
   of parking it, and allow more nesting depth for gates (trace_capture's `MAX_DEPTH` 3).
 - **Replay `g-play2`** (13k calls) and merge it through `equiv_confidence.py`.
 - **play2 doesn't replay** past frame 90 even hooks-only (above). Every capture of it records the off-path
-  game.
+  game. Found (docs/tasks/record-replay.md): it was recorded with two pads bound, interleaved by poll, and the
+  audio sequencer drew from the gameplay RNG in real time. Version-2 recordings (virtual pad, `seq-rng`) replay
+  exactly. play2 is salvageable only to frame 330 (`build/replays/play2-salvaged.json`); re-record it.
 - Functions under 5 bytes (153) aren't trampolined. The gdb recorder could take them as permanent
   breakpoints.
 - Cheaper captures: page reads cost 2 GDB packets each (QEMU caps `m` at 2 KB), and decode/Unicorn hooks in

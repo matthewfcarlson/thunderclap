@@ -110,6 +110,9 @@ and in our copy of any patched function that contains them), and patches two ins
 | `0x260ae2` (audio sequencing) | `call _rand` | `hybrid_sound_rand`: with `sound-rng`, its own `rand()` state |
 | `0x8668e` in `0x86630` (new game) | `call GetMicroseconds` (the RNG seed) | `mov eax, seed` |
 | `0x26918b` in `ControllerSystemXBox::vfunc_12` (with `vclock`) | `jb` (skip the pad poll if less than the poll interval has passed) | `nop nop`: the pad is read on every call, which is once per frame |
+| `0x269210`, `0x269241`, `0x269389`, `0x26867a`, `0x268531`/`0x26878b`/`0x2695e7` (with `vpad`) | `XGetDeviceChanges`, `XInputOpen`, the pad-init `XInputGetState`, `XInputSetState`, `XInputClose` | `hybrid_get_device_changes` etc.: one virtual pad in port 1 (docs/tasks/record-replay.md) |
+| `0x267ad7` in core `0x267ad0` (with `vdate`) | `call GetLocalTime` | `hybrid_get_local_time`: the date follows the virtual clock |
+| `0x2526cc`, `0x25369c`, `0x254ed0`, `0x25527f`; `0x2548f8`, `0x2549c9`, `0x254ca8` (with `seq-rng`) | `mov ecx, [0x4e5acc]` (the game's RNG); `call RandInt` | the sound code's generator (`g_hybrid.seq_rng_ptr`, `hybrid_seq_randint`) |
 
 Flags (`g_hybrid.flags`, `tools/patch_xbe.py` `HF`); with every flag off the hooks call the original:
 
@@ -119,6 +122,10 @@ Flags (`g_hybrid.flags`, `tools/patch_xbe.py` `HF`); with every flag off the hoo
 | `vclock` | every game timer read is virtual (below) |
 | `sound-rng` | the sound code draws from its own random generators |
 | `iosync` | each frame first waits for the drive threads (opt-in; no requests were ever pending at that point in the tutorial, so it is not in the default set) |
+| `vpad` | the game sees one virtual pad in port 1, whatever xemu has bound; recording merges every real pad into it (recording version 2) |
+| `vdate` | `GetLocalTime` returns 2006-01-02 12:00 plus the virtual clock (save timestamps, audio event ids) |
+| `seq-rng` | the audio sequencer's random actions (volume/pitch variation, random branches, silence and repeat lengths) draw from the sound generator, not the game's (build-time patch) |
+| `rng-log` | diagnostic: the game's RNG accessors and the functions that step it inline log (caller, frame) to `g_hybrid.rnglog` |
 
 - **RNG.** Gameplay randomness is a Marsaglia multiply-with-carry generator (multipliers 36969/18000,
   float in [0,1) via the mantissa trick). Its state is `0x4e5ad0`, pointed to by `0x4e5acc`, constructed
@@ -171,6 +178,13 @@ Flags (`g_hybrid.flags`, `tools/patch_xbe.py` `HF`); with every flag off the hoo
    emulated audio hardware decides in real time, and voice selection draws from the game's MWC generator
    (`0x964d0` from `0x1ef2a0`, `0x1efe20`, `0x1f7320`), so each run's gameplay RNG sequence shifted at a
    different moment. `sound-rng` gives the sound code its own MWC state and its own `rand()`.
+4. **The audio sequencer draws from the gameplay RNG too** (2026-10-17; docs/tasks/record-replay.md). The
+   `audio::Seq*` actions (volume/pitch variation, random branches, silence and repeat lengths) read `[0x4e5acc]` or
+   call `RandInt` directly, and `sound-rng` didn't catch them. A recording made at ~5 fps parted from its
+   full-speed replays at frame 600 by one RNG step. `seq-rng` moves them to the sound generator. Since then, a
+   throttled and a full-speed replay of the same recording agree to the end, and so does a ~3 fps recording with
+   its full-speed replays. It is in recording version 2; the older flag sets (`determinism`, `compare`) don't
+   have it yet.
 
 Results (capture-gameplay.json, frame-keyed, through the junkyard tutorial; checkpoints = RNG, camera position,
 `GameClock`, boot step every 30 frames):
@@ -198,35 +212,40 @@ allocator's pointers (`0x4e5f9c`, `0x4e61ec`), and XAPI/DirectSound state at the
 ## Recording a session (play once, replay forever)
 
 ```sh
-build/venv/bin/python tools/hybrid_test.py record my-session
+build/venv/bin/python tools/hybrid_test.py record my-session --out build/replays/my-session.json
 ```
 
-builds the unmodified game with only the hooks (`fixed-dt`, `vclock`, `sound-rng`, constant seed,
-`skip-intro`, `no-fmv`, checkpoints, `record`), starts xemu with your own controller binding (`--pad
-keyboard` or `--pad <GUID>` to choose), and saves every pad change, keyed by pad poll, plus the checkpoints to
-`tests/replays/my-session.json` (`--out build/...` to keep it out of git). Play normally from the title
-(press START at the loading screen yourself); press Ctrl-C in the terminal when done (closing the xemu window
-also works but loses the last 2 s). Game time is frames × 33 ms, so if xemu renders slower than 30 fps the
-game runs slower too, and movies are skipped.
+builds the unmodified game with only the hooks (`fixed-dt`, `vclock`, `sound-rng`, constant seed, `skip-intro`,
+`no-fmv`, checkpoints, `record`, and the version-2 pins `vpad`, `vdate`, `seq-rng`: docs/tasks/record-replay.md),
+starts xemu, and saves every pad change, keyed by pad poll, plus the checkpoints (default
+`tests/replays/NAME.json`; use `--out build/...` to keep it out of git). Play from the title with **any pad**: the
+keyboard, or a gamepad xemu binds to any port. The game sees one virtual pad, so it doesn't matter which. Press
+START at the loading screen yourself, and press Ctrl-C in the terminal when done (closing the xemu window also
+works but loses the last 2 s). Game time is frames × 33 ms, so if xemu renders slower than 30 fps the game runs in
+slow motion. The recording still replays exactly at any speed. Movies are skipped.
 
-By default the recording build also quantizes the analog inputs the game is given (`quant`; `--no-quant`
-records raw values): sticks snap to 1/32 of their travel with a centre dead zone, pressure buttons and triggers
-to 1/8 steps, each with hysteresis (a value moves to a new step only once the raw reading is a full step away).
+By default the recording build also quantizes the analog inputs the game is given (`quant`; `--no-quant` records
+raw values):
+- sticks snap to 1/32 of their travel, with a centre dead zone;
+- pressure buttons and triggers snap to 1/8 steps;
+- each has hysteresis: a value moves to a new step only once the raw reading is a full step away.
+
 Analog noise would otherwise log a pad change on nearly every poll. The game sees the snapped values, so the
-recording still replays exactly. A 32,768-entry ring was tried instead and slowed the game to a crawl (the
-extra 1.2 MB in the patched image starves the game of memory), so the ring stays at 8,192 and long recordings
-are streamed in.
+recording still replays exactly. A 32,768-entry ring was tried instead and slowed the game to a crawl (the extra
+1.2 MB in the patched image starves the game of memory), so the ring stays at 8,192, and long recordings are
+streamed in. The host reads only the new ring entries and checkpoints every 2 s.
 
 ```sh
-build/venv/bin/python tools/hybrid_test.py replay tests/replays/my-session.json
-build/venv/bin/python tools/trace_capture.py --session s2 --script tests/replays/my-session.json
+build/venv/bin/python tools/hybrid_test.py replay build/replays/my-session.json [--until-frame N]
+build/venv/bin/python tools/trace_gate.py --session s3 --script build/replays/my-session.json
+build/venv/bin/python tools/hybrid_test.py salvage OLD.json NEW.json   # a version-1 recording made with two pads
 ```
 
-`replay` runs the same build with the recording as input and compares its checkpoints with the recorded
-ones. Recordings longer than the 8,192-entry ring are fed in over the GDB stub while the game runs
-(`ReplayFeeder`); `trace_capture.py` does the same while the guest is stopped at a breakpoint (`feed_ring`,
-tested with an 8,647-change recording that wraps the ring at poll ~275). `determinism --replay` still replays
-only the first 8,192 pad changes.
+`replay` runs the same build with the recording as input and compares its checkpoints with the recorded ones.
+Recordings longer than the 8,192-entry ring are fed in over the GDB stub while the game runs (`ReplayFeeder`).
+`trace_capture.py` does the same while the guest is stopped at a breakpoint (`feed_ring`, tested with an
+8,647-change recording that wraps the ring at poll ~275). `determinism --replay` still replays only the first 8,192
+pad changes.
 
 ## Driving xemu (`tools/hybrid_run.py`, `tools/xemu_gdb.py`)
 

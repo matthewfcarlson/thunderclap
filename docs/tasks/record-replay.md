@@ -1,0 +1,193 @@
+# Record/replay: why play2 didn't replay, and the fix
+
+`build/replays/play2.json` (tutorial, saves, loads: 8,514 frames, 10,705 pad changes, 284 checkpoints) left its
+recorded checkpoints at frame 90 on every replay. Every trace capture of it recorded a different game from the one
+the user played. Two causes were found, plus a third (host clock) that was pinned without being needed.
+
+## 1. Two pads, interleaved by poll
+
+`hybrid_test.py record` binds the keyboard to port 1 (the user's xemu.toml has no bindings). xemu also auto-binds
+any gamepad it sees to the next free port. The user played on a gamepad, so the game saw **two pads**: the idle
+keyboard in port 1 and the gamepad in port 2. `ControllerSystemXBox::vfunc_12` polls every connected pad once per
+round, and `g_hybrid.polls`, which recordings are keyed by, counted both.
+
+Evidence in the file: every non-zero entry has an even poll number and every zero entry an odd one (10,705 of
+10,705). Port 1 was always idle. A replay has only the keyboard (no gamepad is connected here), so it reads one pad
+per round and runs the stream at twice the speed, onto the wrong pad.
+
+The suspected cause in the task (failed `XInputGetState` calls not recorded) can't be seen in play2. The parity
+would show a pad that went missing, and it never does. The keyboard pad returned no errors in 24,000 polls (the new
+`poll_errors` counter). The virtual pad (below) rules it out for future recordings anyway: every read the game
+makes succeeds, in both record and replay.
+
+**Fix (vpad).** With `HF_VPAD` the game sees one virtual pad in port 1 on every host. It is inserted at the first
+device check, whatever xemu has bound and whenever USB enumerates. The device calls are redirected to
+`hybrid/hooks.cpp` (`patch_xbe.py VPAD_CALLS`): `XGetDeviceChanges`, `XInputOpen/Close/SetState`, and the pad-init
+`XInputGetState`. When recording, the hooks open every real pad themselves and give the game their merged state, so
+any pad plays (keyboard or gamepad, any port). Rumble is forwarded to the real pads and completes at once for the
+game, so the rumble status no longer depends on hardware timing. When replaying, no real pad is touched.
+
+**Salvage.** `hybrid_test.py salvage IN OUT` finds the pad that played and rewrites the stream as that pad's, keyed
+by poll round. Because the idle pad was all zero and an entry is only written on a change, the stream is exact.
+
+## 2. The audio sequencer drew from the gameplay RNG
+
+The collapsed play2 then replayed to frame 330, deterministically: four replays (fast, render scale 6, two
+virtual pads) gave the same wrong hash at 360. A dump at frame 360 matched the recorded hash once the gameplay RNG
+(`0x4e5ad0`) was stepped **2 more times**. The camera and GameClock were already identical. So the recording drew the
+gameplay RNG twice more than the replay did, and nothing else differed.
+
+One replay throttled to ~6.5 fps (SIGSTOP/SIGCONT, 70% of the time stopped) matched the recording through frame
+720. play2 itself was recorded at about that speed. Two other throttled replays didn't match: the extra draws
+depend on timing, not simply on speed.
+
+`sound-rng` had already moved the sound code's draws (`0x964d0` callers in the voice manager) and audio
+sequencing's `rand()` off the gameplay generator. The audio *sequencer* (`audio::Seq*`) still used it, through two
+other paths:
+
+| Site | What | How it read the game's RNG |
+|---|---|---|
+| `0x2526cc` | `audio::SeqActionVarVolumeRand::vfunc_1` | `mov ecx, [0x4e5acc]`, inline MWC step |
+| `0x25369c` | `audio::SeqActionVarPitchRand::vfunc_1` | same |
+| `0x254ed0` | `audio::SeqEventLogicOr::vfunc_3` | same |
+| `0x25527f` | `audio::SeqCommandLogicOr::vfunc_0` | same |
+| `0x2548f8`, `0x2549c9` | `audio::SeqEventSilence::vfunc_1/2` (silence length) | `call 0x113e0` (RandInt) |
+| `0x254ca8` | `0x254c80`, `audio::SeqEventLogicRepeat`'s state (repeat count) | `call 0x113e0` |
+
+These run when the emulated audio hardware finishes a sound, in real time. How many draws fell into a frame depended
+on how fast xemu ran.
+
+How they were found:
+- A fresh recording made while throttled (`slow2-v2`, ~5 fps) and replayed at full speed parted at frame 600.
+- A replay at full speed and a throttled one of the same recording, halted at frame 601 (`halt_frame`), differed
+  by one RNG step.
+- The `rng-log` diagnostic build logged every call into the RNG accessors (`0x964d0`, `0x964e0`) and every entry
+  of the functions that step the RNG inline (`RNGLOG_FUNCS`), with caller and frame. The diff between the two runs
+  was one extra `RandInt` call, from `0x254c80` at frame 579.
+- The first four sites read `[0x4e5acc]` directly. They were found by listing every reference to it.
+
+(GDB write watchpoints on `0x4e5ad0` wedge xemu's stub, so the logging is done in the guest.)
+
+**Fix (seq-rng).** These sites now read the sound code's generator. The `mov`s are pointed at
+`g_hybrid.seq_rng_ptr` (= `&snd_rng`), and the RandInt calls go to `hybrid_seq_randint`.
+
+After the fix, a full-speed and a throttled replay of the same recording give identical checkpoints through the
+end (1,547 frames). Before, they parted at frame 600.
+
+## 3. The host's date (pinned, wasn't the cause)
+
+xemu's RTC follows the host. The game's only `GetLocalTime` (`0x355364`) caller is core `0x267ad0`, used by:
+- the save-slot metadata (`0x8b560` via `0x89a60`, next to the `TBS_C%dM%d_NAME` save names);
+- the audio sequencer's 64-bit event ids (`0x263c90`: date bits | `GetMicroseconds`, used as keys in `0x4cd4cc`).
+
+Replays run on different days already agreed with each other, so this wasn't a cause. It is still a host input:
+`HF_VDATE` makes the date 2006-01-02 12:00 plus the virtual clock.
+
+Other `KeQuerySystemTime` readers are XAPI internals: file times, the utility drive, and `XboxSaveDrive::vfunc_9`
+→ `0x35618d`. A game-visible save timestamp could still come from FATX file times. Nothing in the paths checked
+reads them back.
+
+## Saves and the HDD
+
+- The HDD image (`build/xemu/.../xbox_hdd.qcow2`, unchanged since Oct 10) holds **no Hulk data**. TDATA/UDATA
+  contain only title `55530008`. There is no `56550039` (Hulk) directory.
+- Every run uses `-snapshot`, so record and replay both start from that disk, with no saves and the same cache
+  partitions. The game mounts its utility drive at start (`XapiInitProcess` → `XMountUtilityDrive`).
+- Saves made during a session go to the run's temporary overlay. A later load in the same session reads them back,
+  so a replay re-creates them itself. The one save field that came from the host clock (the slot timestamp) is
+  pinned by `vdate`.
+- How long a save or load takes still follows host I/O. The poll-keyed input stream absorbs this where the game
+  waits for a button (the load screen's `PRESSSTART` loop exits on the recorded press). The trace replays of play2
+  reached the same poll count at the end of the first load (47,8xx) as the recording.
+
+## Recording format
+
+`hybrid_test.py record` writes:
+
+```
+{"version": 2, "key": "polls", "flags": [... "vpad", "vdate", "seq-rng", "record", "quant"],
+ "seed", "tweaks", "inputs": [[poll, buttons, [8 analog], [4 thumbs]], ...], "checkpoints": [[frame, hash]],
+ "frames", "polls", "timeline": [[wall s, frame, polls], ...], "pads": {...diagnostics}}
+```
+
+- **Version 1** (no `version` field) is what play1/play2 are. They replay as before, with neither the virtual pad
+  nor the new pins.
+- Replay and the trace tools (`hooks_cfg`) turn on whatever the recording's flags say.
+- Optional keys:
+  - `vpad_count`: several virtual pads, for replaying an interleaved version-1 recording unchanged;
+  - `salvaged`: where a salvaged file came from.
+- `timeline` records how polls ran ahead of frames (load screens), which play2 lacked when it was being
+  diagnosed.
+
+## Results
+
+All runs are on this Mac (M3), one xemu at a time. "Throttled" means xemu was SIGSTOPped 70 ms of every 100 ms,
+which gives about 3–7 fps instead of ~26. The stand-in player is play2's own input (collapsed to one pad, with the
+first load shortened), fed through `record --script`.
+
+| Recording | Made at | Replays | Checkpoints |
+|---|---|---|---|
+| play2 (version 1), as is | user, ~5–7 fps | full speed | diverges at **frame 90** (3 of 17 match) |
+| play2 salvaged (`salvage`) | — | full speed ×4, render scale 6, 2 virtual pads, throttled ×3 | diverges at **frame 360** in 6 of 7 runs; one throttled run matched through 720 |
+| `slow2-v1` (old flags) | throttled, ~5 fps | full speed ×2 | diverge at 600 (both) |
+| `slow2-v2` (vpad, vdate, seq-rng without the RandInt sites) | throttled | full speed ×2 | diverge at 600 (RNG +1 step: `0x254c80`) |
+| `slow3-v2` (all fixes) | throttled, ~3 fps, 2,239 frames | full speed ×2, then once more on the final build | **75 of 75, identical to the end** (all three) |
+| `final1` (final code) | ~6 fps (host under load), 2,779 frames | full speed, then throttled (~7.5 fps) | **93 of 93, identical to the end** (both) |
+| `final2` (final code) | ~23 fps, 10 min, 14,053 frames | full speed ×2 | **469 of 469, identical to the end** (both) |
+
+Also checked:
+- builds with every function around the new sites replaced, equivalents included, link and redirect them
+  correctly;
+- trace builds (`trace_gate.py`) build from both version-1 and version-2 recordings;
+- without the new flags, a build differs from the previous code only inside `.hybrid` and in the rel32 of the
+  existing hook calls (the hooks moved inside the section).
+
+What wasn't tested: the real-pad half of the virtual pad, with a person on a gamepad. It opens the bound pad
+(`real_pad0` set) and reads it without errors, but no key or pad input could be injected here. QMP has no key
+handler in xemu, and CGEvents posted to xemu's pid don't reach SDL. The stand-in runs go through the same record
+path from the pad state on.
+
+play2 can't be salvaged past frame 330. Two attempts were made:
+- Its audio sequencer drew the gameplay RNG at host-timed moments, and nothing in the recording says when.
+- A replay with `seq-rng` plus fitted RNG offsets got further only to frame 210. The draws can be fitted at the
+  checkpoints only while no gameplay draw falls between them. By frame 120 the recording had already made 23
+  more audio draws than the replay. That tool was dropped.
+- A replay without `seq-rng` reproduces most of the draws by chance and gets further (330), but not reliably.
+
+`build/replays/play2-salvaged.json` (collapsed, frames 0–330: the title, the menus, the new-game load and the first
+150 frames of the tutorial) is what is left.
+
+### Speed of the recording build (stand-in input, 150 s each, gameplay from 60 s)
+
+| Build | fps | host drain per 2 s |
+|---|---|---|
+| record (version 2, new incremental drain) | 25.5 | 4.9 ms |
+| record + the old full-ring drain (230 KB memsave) | 26.6 | 10.6 ms |
+| record with sound on (`HULK_XEMU_SOUND=1`) | 26.2 | 4.9 ms |
+| replay | 27.2 | 4.1 ms |
+| real-time game (no fixed dt or virtual clock: closest to plain xemu with a frame counter) | 25.7 | 4.2 ms |
+
+The hooks, the drain, sound, and the checkpoints don't slow the game: about 26 fps is what xemu gives on this Mac
+in the tutorial, with or without them. play2 was recorded much slower. 8,514 frames took about 15 minutes, against
+about 6 for its replays, and only a ~6.5 fps replay ever reproduced its audio timing. The likely reason is the
+host: other jobs running, battery or Low Power Mode, or a second xemu. A ~6 fps recording now replays exactly too,
+but the game runs in slow motion for the player (game time is frames × 33 ms), which is what makes slow sessions
+painful.
+
+## What to do for the next recording
+
+```sh
+build/venv/bin/python tools/hybrid_test.py record play3 --out build/replays/play3.json
+#   play; Ctrl-C in the terminal when done
+build/venv/bin/python tools/hybrid_test.py replay build/replays/play3.json      # check it: "identical": true
+```
+
+- Use any pad: the gamepad (xemu binds it to whatever port) or the keyboard. The game sees one virtual pad.
+- Make the Mac fast:
+  - run on AC power, with Low Power Mode off;
+  - run no other xemu, trace capture, compile or lane job;
+  - keep the xemu window on screen.
+  The recording replays at any speed, but at under ~25 fps the game is in slow motion while you play.
+- Press START at the loading screens yourself.
+- The terminal prints the frame and fps every 30 s (0 fps on a loading screen is normal). If gameplay shows well
+  under 25 fps, the host is busy.

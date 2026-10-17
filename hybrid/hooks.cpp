@@ -8,6 +8,10 @@
 //   ControllerXBox::vfunc_17:   call XInputGetState     @0x2685d9 -> hybrid_xinput_get_state (replay / record)
 //   CGame::Tick 0x87630:        call GameClock::Update @0x876e5 -> hybrid_game_tick (notes CGame for the state)
 //   0x86630 (new-game reseed):  call GetMicroseconds    @0x8668e -> mov eax, seed       (byte patch, no code)
+//   with vpad:  ControllerSystemXBox/ControllerXBox device calls (patch_xbe.py VPAD_CALLS) -> hybrid_get_device_changes,
+//               hybrid_xinput_open/_close/_set_state/_get_state_init (one virtual pad; docs/tasks/record-replay.md)
+//   with vdate: core 0x267ad0's call GetLocalTime @0x267ad7 -> hybrid_get_local_time
+//   with seq-rng: the audio sequencer's `mov ecx, [0x4e5acc]` (patch_xbe.py SEQ_RNG_SITES) -> &seq_rng_ptr
 //
 // All state lives in one struct, g_hybrid, whose address is in the build manifest. The host reads the
 // checkpoint ring and the record buffer through QMP memsave (tools/hybrid_test.py) and writes the replay
@@ -19,6 +23,7 @@
 #define REGION_MAX 8
 #define WIDE_PAGES 256
 #define SKIP_MAX 32
+#define RNGLOG_MAX 2048
 
 struct Pad {                          // XINPUT_GAMEPAD plus the frame it applies from
     unsigned int frame;
@@ -90,6 +95,22 @@ struct HybridCtl {
     unsigned int snd_rng_calls;       // diagnostic
     unsigned int nskip;               // HF_WIDE: byte ranges hashed as zeros (host-dependent words, wide-mask.json)
     Region skip[SKIP_MAX];
+    // Second extension (tools/patch_xbe.py CTL_EXT2, EXT2_FIELDS): pad diagnostics and the virtual pad
+    unsigned int poll_errors;         // polls where the real XInputGetState failed (the game was told so)
+    unsigned int last_error;          // ... and the last such result
+    unsigned int nhandles;            // distinct device handles the game polled (> 1: several pads, interleaved)
+    unsigned int handles[4];
+    unsigned int vpad_given;          // HF_VPAD: the virtual pad's insertion has been reported
+    unsigned int real_pads[4];        // HF_VPAD, recording: the real pads the hooks opened, per port
+    unsigned int real_errors;         // HF_VPAD, recording: failed reads of a real pad
+    unsigned int real_active;         // HF_VPAD, recording: bit p = port p's pad has given input
+    unsigned int vpad_count;          // HF_VPAD: virtual pads (ports 1..n; 0 = 1). Only port 1 plays when recording;
+                                      // more replay the old recordings made with several pads bound
+    unsigned int rumble[4][18];       // HF_VPAD, recording: XINPUT_FEEDBACK per real pad (rumble is forwarded)
+    unsigned int seq_rng_ptr;         // seq-rng (a build-time patch, tools/patch_xbe.py SEQ_RNG_SITES): the audio
+                                      // sequencer's random actions read their generator through this, = &snd_rng
+    unsigned int rnglog_count;        // rng-log (diagnostic build patch): calls of the game's RNG accessors
+    unsigned int rnglog[RNGLOG_MAX][2];   // ring of (return address | 0x80000000 for 0x964e0, frame)
 };
 
 #define HF_FIXED_DT 1
@@ -102,6 +123,8 @@ struct HybridCtl {
 #define HF_IOSYNC   256              // each frame first waits until every DriveThread has no requests pending
 #define HF_SOUND_RNG 512             // the sound code draws from its own random generators, not the game's
 #define HF_QUANT    1024             // record mode: quantize the analog inputs the game is given (fewer pad changes)
+#define HF_VDATE    4096             // the date (GetLocalTime) follows the virtual clock (hybrid_get_local_time)
+#define HF_VPAD     2048             // the game sees one virtual pad in port 1 (see hybrid_get_device_changes)
 #define HF_POLLKEY  64               // replay entries are keyed by pad polls instead of frames (tools/trace_capture.py:
                                      // after the new-game load the frame counter races, polls stay ~1 per frame)
 
@@ -381,11 +404,183 @@ extern "C" unsigned __int64 __cdecl hybrid_clock_tick()
     return virtual_now();
 }
 
+// ---------------------------------------------------------------------------------------------
+// HF_VPAD: a virtual pad. Without it the game polls every pad xemu has bound, one ControllerXBox::vfunc_17
+// call each per round, and the poll counter that recordings are keyed by counts them all. A recording made with
+// the keyboard in port 1 and a gamepad auto-bound to port 2 then interleaves the two pads poll by poll, and
+// replays on a host with another set of pads (or one that enumerates them later) are off from the first input.
+// With HF_VPAD the game sees exactly one pad (vpad_count), in port 1, inserted at its first device check, on every host:
+// XGetDeviceChanges/XInputOpen/XInputClose/XInputSetState and the XInputGetState calls are redirected here.
+// Recording, the hooks open every real pad themselves and give the game their merged state (any pad plays);
+// rumble is forwarded to them. Replaying, no real pad is touched. Every read succeeds.
+#define VPAD_BASE 0x56504144u             // 'DAPV': the virtual pads' handles are VPAD_BASE + port
+#define VPAD ((void*)VPAD_BASE)
+static bool is_vpad(void* h)
+{
+    return (unsigned int)h - VPAD_BASE < 4;
+}
+
+static unsigned int vpad_count()
+{
+    unsigned int n = g_hybrid.vpad_count;
+    return n == 0 ? 1 : n > 4 ? 4 : n;
+}
+#define XINPUT_STATE_BYTES 22
+#define ERROR_IO_PENDING 997
+typedef int (__stdcall *XGetDeviceChangesFn)(void* type, unsigned long* ins, unsigned long* rem);
+typedef void* (__stdcall *XInputOpenFn)(void* type, unsigned long port, unsigned long slot, void* params);
+typedef void (__stdcall *XInputCloseFn)(void* h);
+typedef unsigned long (__stdcall *XInputSetStateFn)(void* h, void* feedback);
+#define XGetDeviceChanges ((XGetDeviceChangesFn)0x003EBAA3)
+#define XInputOpen ((XInputOpenFn)0x003EB6E5)
+#define XInputClose ((XInputCloseFn)0x003EB73B)
+#define XInputSetState ((XInputSetStateFn)0x003EB992)
+
+static bool vpad_real()                   // recording a person: the hooks read the real pads
+{
+    return (g_hybrid.flags & (HF_VPAD | HF_REPLAY)) == HF_VPAD;
+}
+
+// ControllerSystemXBox (0x2691f0), every pad update: XGetDeviceChanges(XDEVICE_TYPE_GAMEPAD, &ins, &rem)
+extern "C" int __stdcall hybrid_get_device_changes(void* type, unsigned long* ins, unsigned long* rem)
+{
+    if (!(g_hybrid.flags & HF_VPAD))
+        return XGetDeviceChanges(type, ins, rem);
+    if (vpad_real()) {
+        unsigned long ri = 0, rr = 0;
+        if (XGetDeviceChanges(type, &ri, &rr)) {
+            for (unsigned int p = 0; p < 4; p++) {
+                unsigned long bit = 1ul << p;
+                if (((ri | rr) & bit) && g_hybrid.real_pads[p]) {
+                    XInputClose((void*)g_hybrid.real_pads[p]);
+                    g_hybrid.real_pads[p] = 0;
+                }
+                if (ri & bit) {
+                    g_hybrid.real_pads[p] = (unsigned int)XInputOpen(type, p, 0, 0);
+                    for (int i = 0; i < 18; i++)
+                        g_hybrid.rumble[p][i] = 0;
+                }
+            }
+        }
+    }
+    *ins = g_hybrid.vpad_given ? 0 : (1ul << vpad_count()) - 1;
+    *rem = 0;
+    g_hybrid.vpad_given = 1;
+    return *ins != 0;
+}
+
+extern "C" void* __stdcall hybrid_xinput_open(void* type, unsigned long port, unsigned long slot, void* params)
+{
+    if (!(g_hybrid.flags & HF_VPAD))
+        return XInputOpen(type, port, slot, params);
+    return port < vpad_count() ? (void*)(VPAD_BASE + port) : 0;
+}
+
+extern "C" void __stdcall hybrid_xinput_close(void* h)
+{
+    if (!is_vpad(h))
+        XInputClose(h);
+}
+
+// Rumble (ControllerXBox::vfunc_17). The game waits while a request's status is ERROR_IO_PENDING, which real
+// hardware clears in real time; the virtual pad completes at once and passes the motor speeds on to the real
+// pads when they are free.
+extern "C" unsigned long __stdcall hybrid_xinput_set_state(void* h, unsigned char* feedback)
+{
+    if (!is_vpad(h))
+        return XInputSetState(h, feedback);
+    *(unsigned int*)feedback = 0;                     // Header.dwStatus: done
+    if (vpad_real() && h == VPAD) {
+        for (unsigned int p = 0; p < 4; p++) {
+            unsigned int* fb = g_hybrid.rumble[p];
+            if (!g_hybrid.real_pads[p] || *(volatile unsigned int*)fb == ERROR_IO_PENDING)
+                continue;
+            for (int i = 0; i < 18; i++)
+                fb[i] = 0;
+            unsigned char* b = (unsigned char*)fb;
+            for (int i = 0; i < 4; i++)                       // XINPUT_RUMBLE at +66: left, right motor
+                b[66 + i] = feedback[66 + i];
+            XInputSetState((void*)g_hybrid.real_pads[p], fb);
+        }
+    }
+    return 0;
+}
+
+static short abs16(short v)
+{
+    return v < 0 ? (short)-v : v;
+}
+
+// The virtual pad's state: zero when replaying (the replay fills it in), else every real pad merged.
+static unsigned long vpad_read(void* device, unsigned char* state)
+{
+    for (int i = 0; i < XINPUT_STATE_BYTES; i++)
+        state[i] = 0;
+    if (!vpad_real() || device != VPAD)
+        return 0;
+    unsigned char* pad = state + 4;
+    for (unsigned int p = 0; p < 4; p++) {
+        if (!g_hybrid.real_pads[p])
+            continue;
+        unsigned char s[XINPUT_STATE_BYTES + 2];
+        for (int i = 0; i < XINPUT_STATE_BYTES; i++)
+            s[i] = 0;
+        if (XInputGetState((void*)g_hybrid.real_pads[p], s) != 0) {
+            g_hybrid.real_errors++;
+            continue;
+        }
+        unsigned char* q = s + 4;
+        bool any = q[0] || q[1];
+        *(unsigned short*)pad |= *(unsigned short*)q;
+        for (int i = 2; i < 10; i++) {
+            if (q[i] > pad[i])
+                pad[i] = q[i];
+            any = any || q[i] > 32;
+        }
+        short* th = (short*)(pad + 10);
+        short* qt = (short*)(q + 10);
+        for (int i = 0; i < 4; i++) {
+            if (abs16(qt[i]) > abs16(th[i]))
+                th[i] = qt[i];
+            any = any || abs16(qt[i]) > 8000;
+        }
+        if (any)
+            g_hybrid.real_active |= 1u << p;
+    }
+    return 0;
+}
+
+// ControllerSystemXBox's pad init (0x2692c0) reads the new pad once
+extern "C" unsigned long __stdcall hybrid_xinput_get_state_init(void* device, unsigned char* state)
+{
+    if (!is_vpad(device))
+        return XInputGetState(device, state);
+    for (int i = 0; i < XINPUT_STATE_BYTES; i++)
+        state[i] = 0;
+    return 0;
+}
+
+static void note_handle(void* device)
+{
+    unsigned int h = (unsigned int)device;
+    for (unsigned int i = 0; i < g_hybrid.nhandles && i < 4; i++)
+        if (g_hybrid.handles[i] == h)
+            return;
+    if (g_hybrid.nhandles < 4)
+        g_hybrid.handles[g_hybrid.nhandles] = h;
+    g_hybrid.nhandles++;
+}
+
 // core::ControllerXBox::vfunc_17's pad read. Replay overrides the gamepad; record logs changes.
 extern "C" unsigned long __stdcall hybrid_xinput_get_state(void* device, unsigned char* state)
 {
-    unsigned long r = XInputGetState(device, state);
+    unsigned long r = is_vpad(device) ? vpad_read(device, state) : XInputGetState(device, state);
     g_hybrid.polls++;
+    note_handle(device);
+    if (r != 0) {
+        g_hybrid.poll_errors++;
+        g_hybrid.last_error = r;
+    }
     unsigned char* pad = state + 4;          // XINPUT_STATE.Gamepad (22 bytes total, 18 of pad)
     if (g_hybrid.flags & HF_REPLAY) {
         // replay[] is a ring: entries past INPUT_MAX are written by the host while the game runs
@@ -520,6 +715,121 @@ extern "C" int __cdecl hybrid_sound_rand()
         return ((RandFn)0x0034774C)();
     g_hybrid.snd_rand = g_hybrid.snd_rand * 214013 + 2531011;
     return (g_hybrid.snd_rand >> 16) & 0x7FFF;
+}
+
+// HF_VDATE: the wall-clock date. core 0x267ad0 is the game's only GetLocalTime (0x355364) caller: save-slot
+// timestamps (0x8b560 via 0x89a60) and the audio sequencer's 64-bit event ids (0x263c90: date bits | microseconds).
+// xemu's RTC follows the host, so these differed between a recording and its replays. With the flag the date is
+// 2006-01-02 12:00 plus the virtual clock (hybrid_qpc), so a replay sees the same dates as its recording.
+struct SystemTime { unsigned short year, month, dow, day, hour, minute, second, ms; };
+typedef void (__stdcall *GetLocalTimeFn)(SystemTime* t);
+#define GetLocalTime ((GetLocalTimeFn)0x00355364)
+extern "C" void __stdcall hybrid_get_local_time(SystemTime* t)
+{
+    if (!(g_hybrid.flags & HF_VDATE)) {
+        GetLocalTime(t);
+        return;
+    }
+    // seconds and milliseconds of the virtual clock (64-bit / 1,000,000 without CRT helpers)
+    unsigned int lo = g_hybrid.vt_lo, hi = g_hybrid.vt_hi, secs, rem;
+    __asm {
+        mov ecx, 1000000
+        xor edx, edx
+        mov eax, hi
+        div ecx
+        mov eax, lo
+        div ecx
+        mov secs, eax
+        mov rem, edx
+    }
+    // 2006-01-02 (a Monday) 12:00:00 plus secs (the day wraps after four weeks of game time)
+    unsigned int s = 12 * 3600 + secs;
+    unsigned int days = s / 86400;
+    s %= 86400;
+    t->year = 2006;
+    t->month = 1;
+    t->day = (unsigned short)(2 + days % 28);
+    t->dow = (unsigned short)((1 + days) % 7);
+    t->hour = (unsigned short)(s / 3600);
+    t->minute = (unsigned short)(s / 60 % 60);
+    t->second = (unsigned short)(s % 60);
+    t->ms = (unsigned short)(rem / 1000);
+}
+
+// rng-log (a diagnostic build, tools/patch_xbe.py RNGLOG_ENTRIES): the entries of the game's RNG accessors 0x964d0
+// (returns the MWC state; callers step it inline) and 0x964e0 (a float in [0,1)) jump here; each call's return
+// address and frame go to a ring, then the original runs.
+extern "C" __declspec(naked) void hybrid_rnglog_get()
+{
+    __asm {
+        push ecx
+        mov eax, g_hybrid.rnglog_count
+        and eax, RNGLOG_MAX - 1
+        mov ecx, [esp + 4]
+        mov dword ptr g_hybrid.rnglog[eax * 8], ecx
+        mov ecx, g_hybrid.frame
+        mov dword ptr g_hybrid.rnglog[eax * 8 + 4], ecx
+        inc g_hybrid.rnglog_count
+        pop ecx
+        mov eax, dword ptr ds:[0x004E5ACC]
+        ret
+    }
+}
+
+extern "C" __declspec(naked) void hybrid_rnglog_float()
+{
+    __asm {
+        push eax
+        push ecx
+        mov eax, g_hybrid.rnglog_count
+        and eax, RNGLOG_MAX - 1
+        mov ecx, [esp + 8]
+        or ecx, 0x80000000
+        mov dword ptr g_hybrid.rnglog[eax * 8], ecx
+        mov ecx, g_hybrid.frame
+        mov dword ptr g_hybrid.rnglog[eax * 8 + 4], ecx
+        inc g_hybrid.rnglog_count
+        pop ecx
+        pop eax
+        push ecx                              // 0x964e0's first two instructions, then the rest of it
+        mov ecx, dword ptr ds:[0x004E5ACC]
+        push 0x000964E7
+        ret
+    }
+}
+
+// rng-log: the entry trampolines of the functions that step the game's RNG inline (patch_xbe.py RNGLOG_FUNCS) call
+// this with `push id; call`: log (caller's return address, frame | id << 24), drop the id, back to the trampoline.
+extern "C" __declspec(naked) void hybrid_rnglog_fn()
+{
+    __asm {
+        push eax
+        push ecx
+        mov eax, g_hybrid.rnglog_count
+        and eax, RNGLOG_MAX - 1
+        mov ecx, [esp + 16]
+        mov dword ptr g_hybrid.rnglog[eax * 8], ecx
+        mov ecx, [esp + 12]
+        shl ecx, 24
+        or ecx, g_hybrid.frame
+        mov dword ptr g_hybrid.rnglog[eax * 8 + 4], ecx
+        inc g_hybrid.rnglog_count
+        pop ecx
+        pop eax
+        ret 4
+    }
+}
+
+// seq-rng: audio::SeqEventSilence (0x254850, 0x2549a0: silence length) and SeqEventLogicRepeat's state (0x254c80:
+// repeat count) call the game's RandInt (0x113e0); with the patch they draw from the sound code's generator instead
+// (the same MWC step and result).
+extern "C" unsigned int __cdecl hybrid_seq_randint(unsigned int lo, unsigned int hi)
+{
+    unsigned int* st = g_hybrid.snd_rng;
+    st[0] = 36969 * (st[0] & 0xFFFF) + (st[0] >> 16);
+    st[1] = 18000 * (st[1] & 0xFFFF) + (st[1] >> 16);
+    unsigned int r = (st[0] << 16) + (st[1] & 0xFFFF);
+    return r % (hi - lo + 1) + lo;
 }
 
 // CGame::Tick's call to GameClock::Update (0x876e5): note CGame (esi), then GameClock::Update as before.

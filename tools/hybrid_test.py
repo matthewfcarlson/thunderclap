@@ -11,8 +11,13 @@
   tools/hybrid_test.py record NAME [--minutes 30] [--pad GUID]
         play the unmodified game in xemu (hooks: virtual clock, constant seed, input recording, checkpoints) and
         save the pad input and checkpoints to tests/replays/NAME.json. Stop with Ctrl-C (or --minutes).
-  tools/hybrid_test.py replay tests/replays/NAME.json
+  tools/hybrid_test.py replay tests/replays/NAME.json [--until-frame N]
         replay a recording on the same build and compare its checkpoints with the recorded ones.
+  tools/hybrid_test.py salvage OLD.json NEW.json
+        rewrite a version-1 recording made with several pads bound (interleaved by poll) as one pad's.
+
+Recordings are version 2 (docs/tasks/record-replay.md): the game sees one virtual pad whatever xemu has bound, the
+date follows the virtual clock, and the audio sequencer no longer draws from the gameplay RNG.
 
 Every run uses the tweaks skip-intro and no-fmv (movies stall the frame counter that replays are keyed on)
 and writes build/hybrid/test/<name>.json.
@@ -22,6 +27,7 @@ import json
 import os
 import struct
 import sys
+import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import hybrid_run  # noqa: E402
@@ -53,6 +59,10 @@ def hooks_cfg(replay, wide=False, snap_frame=0, vclock=False):
                 print("  %s: replaying the first %d of %d pad changes (use `hybrid_test.py replay` for all)"
                       % (replay, patch_xbe.INPUT_MAX, len(data["inputs"])), file=sys.stderr)
             h["flags"] = [f for f in h["flags"] if f != "autostart"] + ["pollkey"]
+            # version 2: the input pinning the recording was made with (virtual pad, virtual date)
+            h["flags"] += [f for f in RECORDING_PINS if f in data.get("flags", ()) and f not in h["flags"]]
+            if data.get("vpad_count"):
+                h["vpad_count"] = data["vpad_count"]
         else:
             h["replay"] = data
     if wide:
@@ -136,26 +146,66 @@ def determinism(args):
 # no autostart: START is in the recording. No wide: .data holds heap and stack pointers, and the memory layout
 # isn't the same from run to run (thread stacks, heap base), so its page hashes would never match.
 RECORD_FLAGS = ["fixed-dt", "ckpt", "pollkey"] + PIN_FLAGS
+# Recording format version 2 (docs/tasks/record-replay.md): the game sees one virtual pad in port 1 whatever xemu
+# has bound (vpad), and the date follows the virtual clock (vdate). Version 1 recordings (no "version") were made
+# without them and replay without them.
+RECORDING_PINS = ["vpad", "vdate", "seq-rng"]
+RECORDING_VERSION = 2
+
+
+PAD_DIAG = ("nhandles", "poll_errors", "last_error", "real_errors", "real_active", "vpad_given", "real_pad0", "real_pad1",
+            "real_pad2", "real_pad3")
+
+
+def _pad_entry(raw, o):
+    f, b, *rest = struct.unpack_from("<IH8B4hH", raw, o)
+    return [f, b, list(rest[:8]), list(rest[8:12])]
+
+
+def _read_ring(x, va, size, n, i0, i1, parse):
+    """Entries i0..i1-1 of a guest ring of n entries of `size` bytes at va (at most two memsaves)."""
+    out = []
+    i = i0
+    while i < i1:
+        j = min(i1, (i // n + 1) * n)
+        raw = x.read(va + size * (i % n), size * (j - i))
+        out += [parse(raw, size * k) for k in range(j - i)]
+        i = j
+    return out
 
 
 def _drain(x, man, rec, seen):
     """Read g_hybrid; append record-ring entries not seen yet and merge the checkpoint ring into rec."""
-    st = hybrid_run.read_hybrid(x, man, full=True)
+    # Only what is new since the last drain: the header, then the new record entries and checkpoints (the whole
+    # rings were 230 KB of memsave every drain).
+    st = hybrid_run.read_hybrid(x, man)
+    lay = man["g_hybrid_layout"]
+    base = man["g_hybrid"]
     new = st["record_count"] - seen["inputs"]
-    if new > len(st["record"]):
-        print("  WARNING: %d inputs lost (drain slower than the ring)" % (new - len(st["record"])), file=sys.stderr)
+    if new > lay["input_max"]:
+        print("  WARNING: %d inputs lost (drain slower than the ring)" % (new - lay["input_max"]), file=sys.stderr)
     if new > 0:
-        rec["inputs"] += st["record"][-new:] if new <= len(st["record"]) else st["record"]
+        rec["inputs"] += _read_ring(x, base + lay["record"], lay["pad_bytes"], lay["input_max"],
+                                    st["record_count"] - min(new, lay["input_max"]), st["record_count"], _pad_entry)
     seen["inputs"] = st["record_count"]
-    rec["checkpoints"].update({f: h for f, h in st["checkpoints"]})
+    c0 = max(seen.get("ckpts", 0), st["ckpt_count"] - lay["ckpt_ring"])
+    if st["ckpt_count"] > c0:
+        rec["checkpoints"].update(_read_ring(x, base + lay["ckpt"], 8, lay["ckpt_ring"], c0, st["ckpt_count"],
+                                             lambda raw, o: struct.unpack_from("<II", raw, o)))
+    seen["ckpts"] = st["ckpt_count"]
     rec["frames"], rec["polls"] = st["frame"], st["polls"]
+    tl = rec.setdefault("timeline", [])            # [wall s, frame, polls]: where polls ran ahead of frames
+    if not tl or tl[-1][1:] != [st["frame"], st["polls"]]:
+        tl.append([round(time.time() - seen.get("t0", time.time()), 1), st["frame"], st["polls"]])
+    rec["pads"] = {k: st[k] for k in PAD_DIAG if k in st}
     return st
 
 
 def record(args):
     import time
     hooks = hooks_cfg(None, vclock=True)
-    hooks["flags"] = RECORD_FLAGS + ["record"] + ([] if args.no_quant else ["quant"])
+    hooks["flags"] = RECORD_FLAGS + ([] if args.v1 else RECORDING_PINS) + ["record"] \
+        + ([] if args.no_quant else ["quant"])
     if args.script:         # a stand-in player: drive the recording build with a pad script (keyed by polls)
         hooks["replay"] = json.load(open(args.script))
         hooks["flags"] += ["autostart"]
@@ -165,7 +215,8 @@ def record(args):
     hybrid_run.install(out)
     path = args.out or os.path.join(ROOT, "tests/replays", args.name + ".json")
     os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)   # a missing --out dir killed the first save
-    rec = {"key": "polls", "flags": hooks["flags"], "seed": SEED, "tweaks": list(TWEAKS),
+    rec = {"version": 1 if args.v1 else RECORDING_VERSION, "key": "polls", "flags": hooks["flags"], "seed": SEED,
+           "tweaks": list(TWEAKS),
            "mask": hooks.get("mask", []), "skip": hooks.get("skip", []), "inputs": [], "checkpoints": {},
            "frames": 0, "polls": 0}
     seen = {"inputs": 0}
@@ -175,6 +226,7 @@ def record(args):
         json.dump(doc, open(path, "w"), separators=(",", ":"))
 
     x = hybrid_run.Xemu("record-" + args.name, pad=args.pad)
+    seen["t0"] = x.t0
     print("recording to %s: play, then press Ctrl-C here (closing the xemu window loses the last 2 s)" % path,
           file=sys.stderr)
     try:
@@ -188,8 +240,12 @@ def record(args):
                 print("  monitor: %r" % e, file=sys.stderr)
                 break
             if int(time.time() - x.t0) % 30 < 2:
-                print("  %4ds frame %d, %d inputs" % (time.time() - x.t0, rec["frames"], len(rec["inputs"])),
-                      file=sys.stderr)
+                # the game runs at full speed at ~25-30 fps: much less and it plays in slow motion (game time is
+                # frames x 33 ms), though the recording still replays exactly
+                tl = [e for e in rec.get("timeline", []) if e[0] >= time.time() - x.t0 - 30]
+                fps = (tl[-1][1] - tl[0][1]) / max(1e-3, tl[-1][0] - tl[0][0]) if len(tl) > 1 else 0
+                print("  %4ds frame %d (%.0f fps), %d inputs" % (time.time() - x.t0, rec["frames"], fps,
+                                                               len(rec["inputs"])), file=sys.stderr)
                 save()
     except KeyboardInterrupt:
         try:
@@ -248,7 +304,7 @@ def replay(args):
     data = json.load(open(args.recording))
     hooks = {"seed": data.get("seed", SEED), "flags": [f for f in data["flags"] if f != "record"] + ["replay"],
              "dt_us": 33333, "ckpt_interval": 30, "replay": data["inputs"], "mask": data.get("mask", []),
-             "skip": data.get("skip", [])}
+             "skip": data.get("skip", []), "vpad_count": data.get("vpad_count", 0)}
     os.makedirs(TEST_DIR, exist_ok=True)
     out = os.path.join(TEST_DIR, "replay.xbe")
     man = patch_xbe.build([], out, tweaks=data.get("tweaks", TWEAKS), hooks=hooks)
@@ -259,9 +315,11 @@ def replay(args):
     limit = args.seconds or (want / 20 + 180)          # xemu runs gameplay at 25-30 fps
     long = len(data["inputs"]) > patch_xbe.INPUT_MAX
     x = hybrid_run.Xemu("replay", gdb=long)
+    seen["t0"] = x.t0
     feeder = ReplayFeeder(man, data["inputs"]) if long else None
     try:
-        while x.alive() and time.time() - x.t0 < limit and rec["frames"] < want:
+        stop = min(want, args.until_frame or want)
+        while x.alive() and time.time() - x.t0 < limit and rec["frames"] < stop:
             time.sleep(5)
             try:
                 st = _drain(x, man, rec, seen)
@@ -283,8 +341,59 @@ def replay(args):
     return {"recording": args.recording, "recorded_frames": want, "replayed_frames": rec["frames"],
             "common": common_frames(a, b, 0), "divergence": d,
             "matching": sum(1 for f, h in b if ma.get(f) == h),
-            "checkpoints": [[f, h] for f, h in b],
+            "checkpoints": [[f, h] for f, h in b], "polls": rec["polls"], "pads": rec.get("pads"),
+            "timeline": rec.get("timeline", []),
             "identical": d is None and common_frames(a, b, 0) > 0}
+
+
+def _zero(e):
+    return not e[1] and not any(e[2]) and not any(e[3])
+
+
+def interleaved_pads(inputs):
+    """A version-1 recording made with several pads bound (e.g. the keyboard in port 1 and a gamepad xemu
+    auto-bound to port 2): the poll counter counts every pad, so pad j of N owns polls p with (p - 1) % N == j.
+    Returns (N, j) when every non-zero entry falls on one pad's polls, else None."""
+    live = [e[0] for e in inputs if not _zero(e)]
+    if not live:
+        return None
+    for n in (2, 3, 4):
+        res = {(p - 1) % n for p in live}
+        if len(res) == 1:
+            return n, res.pop()
+    return None
+
+
+def collapse_pads(inputs, n, j):
+    """Inputs as one pad's stream keyed by poll round. The other pads were idle (all zero), and an entry is only
+    written when the pad state differs from the last entry, so pad j's state at its poll in round q is the last
+    entry at or before that poll: the entry at poll p applies from the first round whose pad-j poll is >= p."""
+    out = []
+    for e in inputs:
+        q = (e[0] - j - 1 + n - 1) // n + 1
+        if out and out[-1][0] == q:
+            out[-1] = [q] + list(e[1:])
+        else:
+            out.append([q] + list(e[1:]))
+    dedup = []
+    for e in out:
+        if not dedup or dedup[-1][1:] != e[1:]:
+            dedup.append(e)
+    return dedup
+
+
+def salvage(args):
+    """Rewrite an old recording made with several pads bound as a single-pad recording (a new file)."""
+    data = json.load(open(args.recording))
+    il = interleaved_pads(data["inputs"])
+    if not il:
+        raise SystemExit("%s: not an interleaved multi-pad recording" % args.recording)
+    n, j = il
+    doc = dict(data, inputs=collapse_pads(data["inputs"], n, j), polls=data.get("polls", 0) // n,
+               salvaged={"from": os.path.relpath(os.path.abspath(args.recording), ROOT), "pads": n, "port": j + 1})
+    json.dump(doc, open(args.out, "w"), separators=(",", ":"))
+    return {"recording": args.out, "pads": n, "port": j + 1, "inputs": len(doc["inputs"]),
+            "was": len(data["inputs"])}
 
 
 def select_records(args):
@@ -359,11 +468,17 @@ def main(argv):
     r.add_argument("--out", help="default tests/replays/NAME.json")
     r.add_argument("--no-quant", action="store_true", help="record raw analog values (by default sticks and pressure "
                    "buttons are snapped to coarse steps, which the game is given too, so pad changes stay rare)")
+    r.add_argument("--v1", action="store_true", help="the old format: no virtual pad (the game polls every pad xemu "
+                   "has bound) and the host's date; for comparisons only")
     r.add_argument("--script", help="test the pipeline without a player: feed this pad script (keyed by polls); "
                    "what the game was given is recorded")
     p = sub.add_parser("replay")
     p.add_argument("recording")
     p.add_argument("--seconds", type=float, default=0)
+    p.add_argument("--until-frame", type=int, default=0, help="stop once the game reaches this frame")
+    sv = sub.add_parser("salvage")
+    sv.add_argument("recording")
+    sv.add_argument("out")
     c = sub.add_parser("compare")
     add_selection_args(c)
     c.add_argument("--coverage", action="store_true")
@@ -372,7 +487,8 @@ def main(argv):
         p.add_argument("--replay", default=DEFAULT_REPLAY if os.path.exists(DEFAULT_REPLAY) else None)
         p.add_argument("--seconds", type=float, default=60)
     a = ap.parse_args(argv)
-    res = {"determinism": determinism, "compare": compare, "record": record, "replay": replay}[a.cmd](a)
+    res = {"determinism": determinism, "compare": compare, "record": record, "replay": replay,
+           "salvage": salvage}[a.cmd](a)
     print(json.dumps(res, indent=1))
     json.dump(res, open(os.path.join(TEST_DIR, a.cmd + "-result.json"), "w"), indent=1)
     return 0 if res.get("deterministic", res.get("pass", res.get("identical", True))) else 1

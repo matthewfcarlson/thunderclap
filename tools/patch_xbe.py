@@ -335,6 +335,35 @@ HOOK_CALLS = [
 )]
 SEED_SITE = (0x0008668E, 0x00267F00)                         # 0x86630: Seed(GetMicroseconds()) on new game
 COOKIE_CHECK = 0x0034502E                                    # __security_check_cookie (__fastcall)
+# With vpad (hooks.cpp HF_VPAD) the game sees one virtual pad in port 1 on every host: the device calls of
+# ControllerSystemXBox/ControllerXBox go to the hooks too. Only redirected in builds with the flag, so other builds
+# keep these bytes.
+VPAD_CALLS = [
+    (0x00269210, 0x003EBAA3, "_hybrid_get_device_changes@12"),   # 0x2691f0 -> XGetDeviceChanges(gamepad)
+    (0x00269241, 0x003EB6E5, "_hybrid_xinput_open@16"),          # 0x2691f0 -> XInputOpen
+    (0x00269389, 0x003EB91F, "_hybrid_xinput_get_state_init@8"), # pad init 0x2692c0 -> XInputGetState
+    (0x0026867A, 0x003EB992, "_hybrid_xinput_set_state@8"),      # ControllerXBox::vfunc_17 -> XInputSetState
+    (0x00268531, 0x003EB73B, "_hybrid_xinput_close@4"),          # ControllerXBox dtor 0x268520 -> XInputClose
+    (0x0026878B, 0x003EB73B, "_hybrid_xinput_close@4"),          # ControllerXBox::vfunc_21
+    (0x002695E7, 0x003EB73B, "_hybrid_xinput_close@4"),          # ControllerSystemXBox
+]
+# With seq-rng the audio sequencer's random actions (volume/pitch variation, random branches) read the sound code's
+# generator instead of the game's: `mov ecx, [0x4e5acc]` (the game's MWC state pointer) is pointed at
+# g_hybrid.seq_rng_ptr (= &snd_rng). They run when the emulated audio hardware finishes a sound, in real time, so
+# each draw shifted the gameplay sequence by a host-dependent amount (docs/tasks/record-replay.md).
+SEQ_RNG_SITES = [
+    0x002526CC,     # audio::SeqActionVarVolumeRand::vfunc_1
+    0x0025369C,     # audio::SeqActionVarPitchRand::vfunc_1
+    0x00254ED0,     # audio::SeqEventLogicOr::vfunc_3
+    0x0025527F,     # audio::SeqCommandLogicOr::vfunc_0
+]
+SEQ_RANDINT_CALLS = [(site, 0x000113E0, "_hybrid_seq_randint") for site in (
+    0x002548F8,     # audio::SeqEventSilence::vfunc_1 -> RandInt
+    0x002549C9,     # audio::SeqEventSilence::vfunc_2 -> RandInt
+    0x00254CA8,     # 0x254c80 (audio::SeqEventLogicRepeat's state: the repeat count) -> RandInt
+)]
+# With vdate (hooks.cpp HF_VDATE) the date follows the virtual clock: save timestamps, audio event ids.
+VDATE_CALLS = [(0x00267AD7, 0x00355364, "_hybrid_get_local_time@4")]     # core 0x267ad0 -> GetLocalTime
 # With vclock the clock stands still between game-loop updates (loops outside it, like the loading screens, run a
 # number of times that depends on the host's I/O). The pad poll's rate limit (ControllerSystemXBox::vfunc_12:
 # `if (GetMilliseconds() - last < interval) return`) would then never pass in the PRESSSTART loop, so it goes:
@@ -354,8 +383,22 @@ EXT_FIELDS = ("cgame", "main_thread", "game_state", "vt_lo", "vt_hi", "step_us",
               "drive3", "io_waits", "io_timeouts", "io_timeout_ms", "replay_avail", "replay_starved", "snd_rng0", "snd_rng1", "snd_rng2", "snd_rng3", "snd_rand",
               "snd_rng_calls", "nskip")      # then skip[SKIP_MAX]
 SKIP_MAX = 32
+CTL_EXT2 = CTL_EXT + 4 * len(EXT_FIELDS) + 8 * SKIP_MAX    # struct HybridCtl's second extension
+EXT2_FIELDS = ("poll_errors", "last_error", "nhandles", "handle0", "handle1", "handle2", "handle3", "vpad_given",
+               "real_pad0", "real_pad1", "real_pad2", "real_pad3", "real_errors", "real_active", "vpad_count")   # then rumble[4][18], seq_rng_ptr
+CTL_SEQ_RNG_PTR = CTL_EXT2 + 4 * len(EXT2_FIELDS) + 4 * 18 * 4
+CTL_RNGLOG = CTL_SEQ_RNG_PTR + 4                  # rnglog_count, then rnglog[RNGLOG_MAX][2]
+RNGLOG_MAX = 2048
+# rng-log: functions that step the RNG inline (read [0x4e5acc] themselves); their entries are logged with id = index + 1
+RNGLOG_FUNCS = [0x000113E0, 0x002382A0, 0x00080BA0, 0x0007A230, 0x0007A420, 0x0007DB80, 0x00081420, 0x00097A30,
+                0x001E4E50, 0x003572B0, 0x0035EF90, 0x0035EFA0]
+# rng-log (diagnostic): the game's RNG accessors jump to loggers in hooks.cpp (original bytes, our symbol)
+RNGLOG_ENTRIES = [(0x000964D0, b"\xa1\xcc\x5a\x4e\x00", "_hybrid_rnglog_get"),
+                  (0x000964E0, b"\x51\x8b\x0d\xcc\x5a", "_hybrid_rnglog_float")]
 HF = {"fixed-dt": 1, "replay": 2, "record": 4, "ckpt": 8, "autostart": 16, "wide": 32, "pollkey": 64,
-      "vclock": 128, "iosync": 256, "sound-rng": 512, "quant": 1024}
+      "vclock": 128, "iosync": 256, "sound-rng": 512, "quant": 1024,
+      "vpad": 2048, "vdate": 4096,
+      "seq-rng": 0, "rng-log": 0}      # seq-rng: a build-time patch only (SEQ_RNG_SITES), no runtime bit
 
 
 def link_hooks(base):
@@ -456,7 +499,10 @@ def _redirect_in_copies(image, base, records, site, callee, replacement):
 
 def apply_hooks(x, image, base, syms, hooks, records=()):
     """Redirect the hook call sites (in the original and in our copies) and configure g_hybrid."""
-    for site, callee, name in HOOK_CALLS:
+    fl = hooks.get("flags", ())
+    calls = HOOK_CALLS + (VPAD_CALLS if "vpad" in fl else []) + (VDATE_CALLS if "vdate" in fl else []) \
+        + (SEQ_RANDINT_CALLS if "seq-rng" in fl else [])
+    for site, callee, name in calls:
         _redirect_in_copies(image, base, records, site, callee,
                             lambda va, t=syms[name]: b"\xe8" + struct.pack("<i", t - (va + 5)))
         o = x.va_to_file(site)
@@ -513,6 +559,43 @@ def apply_hooks(x, image, base, syms, hooks, records=()):
                         raise ValueError("vclock patch %#x is inside replaced non-identical %#x" % (site, r["addr"]))
                     o = r["ours"] - base + (site - r["addr"])
                     image[o:o + len(new)] = new
+    if "seq-rng" in hooks.get("flags", ()):
+        snd = base + ctl + CTL_EXT + 4 * EXT_FIELDS.index("snd_rng0")
+        struct.pack_into("<I", image, ctl + CTL_SEQ_RNG_PTR, snd)
+        for site in SEQ_RNG_SITES:
+            old = b"\x8b\x0d" + struct.pack("<I", 0x004E5ACC)
+            if x.d[x.va_to_file(site):x.va_to_file(site) + 6] != old:
+                raise ValueError("seq-rng site %#x is not mov ecx, [0x4e5acc]" % site)
+            x.write(site + 2, struct.pack("<I", base + ctl + CTL_SEQ_RNG_PTR))
+            for r in records:          # our copy of the function, if it's replaced: every reference to the pointer
+                size = equiv.Program.get().funcs.get(r["addr"], (0,))[0]
+                if "ours" in r and r["addr"] <= site < r["addr"] + size:
+                    o0 = r["ours"] - base
+                    seg = bytes(image[o0:o0 + r["ours_len"]])
+                    k = seg.find(struct.pack("<I", 0x004E5ACC))
+                    if k < 0:
+                        raise ValueError("seq-rng: our copy of %#x doesn't read [0x4e5acc]" % r["addr"])
+                    while k >= 0:
+                        image[o0 + k:o0 + k + 4] = struct.pack("<I", base + ctl + CTL_SEQ_RNG_PTR)
+                        k = seg.find(struct.pack("<I", 0x004E5ACC), k + 4)
+    if "rng-log" in hooks.get("flags", ()):
+        for site, old, name in RNGLOG_ENTRIES:
+            if x.d[x.va_to_file(site):x.va_to_file(site) + 5] != old:
+                raise ValueError("rng-log site %#x changed" % site)
+            x.write(site, b"\xe9" + struct.pack("<i", syms[name] - (site + 5)))
+        prog = equiv.Program.get()
+        for fid, f in enumerate(RNGLOG_FUNCS, 1):
+            r = _displace(prog, f, set())
+            if isinstance(r, str):
+                raise ValueError("rng-log %#x: %s" % (f, r))
+            n, relocate, _ = r
+            tva = base + len(image)
+            tramp = b"\x6a" + bytes([fid]) + b"\xe8" + struct.pack("<i", syms["_hybrid_rnglog_fn"] - (tva + 7))
+            tramp += relocate(tva + len(tramp))
+            image.extend(tramp)
+            x.write(f, b"\xe9" + struct.pack("<i", tva - (f + 5)))
+    if hooks.get("vpad_count"):
+        struct.pack_into("<I", image, ctl + CTL_EXT2 + 4 * EXT2_FIELDS.index("vpad_count"), hooks["vpad_count"])
     if hooks.get("snap_frame"):
         struct.pack_into("<I", image, ctl + CTL_WIDE + 8, hooks["snap_frame"])
     for i, w in enumerate(hooks.get("mask", [])[:WIDE_PAGES // 32]):
@@ -792,7 +875,8 @@ def build(records, out, pad=PAD_SIZE, empty_section=False, tweaks=(), hooks=None
            "g_hybrid": hook_syms.get("_g_hybrid"),
            "g_hybrid_layout": {"ckpt": CTL_CKPT, "ckpt_ring": CKPT_RING, "record": CTL_RECORD,
                                "input_max": INPUT_MAX, "pad_bytes": PAD_BYTES, "wide": CTL_WIDE,
-                               "wide_pages": WIDE_PAGES, "ext": CTL_EXT, "ext_fields": list(EXT_FIELDS)},
+                               "wide_pages": WIDE_PAGES, "ext": CTL_EXT, "ext_fields": list(EXT_FIELDS),
+                               "ext2": CTL_EXT2, "ext2_fields": list(EXT2_FIELDS)},
            "functions": [{k: r.get(k) for k in ("addr", "name", "src", "class", "ours", "sym")} for r in ok]}
     if tinfo is not None:
         man["trace"] = tinfo

@@ -170,6 +170,8 @@ def write_config(pad="keyboard"):
     cfg.setdefault("general", {})["show_welcome"] = False
     cfg["general"]["skip_boot_anim"] = True
     cfg.setdefault("net", {})["enable"] = False
+    if os.environ.get("HULK_XEMU_SCALE"):       # render scale (experiments: a slower host)
+        cfg.setdefault("display", {}).setdefault("quality", {})["surface_scale"] = int(os.environ["HULK_XEMU_SCALE"])
     # a pad in port 1 (the keyboard), so the game opens a controller; hooks.cpp replays input into it
     bind = cfg.setdefault("input", {}).setdefault("bindings", {})
     bind["port1_driver"] = "usb-xbox-gamepad"
@@ -302,6 +304,9 @@ def read_hybrid(x, man, full=False):
     if "ext" in lay:
         ef = lay["ext_fields"]
         st.update(zip(ef, struct.unpack("<%dI" % len(ef), x.read(base + lay["ext"], 4 * len(ef)))))
+    if "ext2" in lay:
+        ef = lay["ext2_fields"]
+        st.update(zip(ef, struct.unpack("<%dI" % len(ef), x.read(base + lay["ext2"], 4 * len(ef)))))
     if full:
         n = min(st["ckpt_count"], lay["ckpt_ring"])
         raw = x.read(base + lay["ckpt"], 8 * lay["ckpt_ring"])
