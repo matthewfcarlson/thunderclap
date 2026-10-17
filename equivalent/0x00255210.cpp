@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // audio::SeqEventLogicOr::vfunc_2 @ 0x00255210
+#include "decls/data/engine/audio.h"
+
 typedef unsigned int size_t;
 inline void* __cdecl operator new(size_t, void* ptr) { return ptr; }
-extern char DAT_004e7410;
 void* __cdecl FUN_00247530(void*);
 struct SeqEventLogicOr;
 struct SeqCommandLogicOr {
@@ -18,7 +19,7 @@ struct SeqEventLogicOr {
     virtual void vfunc_2(Context* context);
 };
 void SeqEventLogicOr::vfunc_2(Context* context) {
-    SeqCommandLogicOr* command = (SeqCommandLogicOr*)FUN_00247530(&DAT_004e7410);
+    SeqCommandLogicOr* command = (SeqCommandLogicOr*)FUN_00247530(((char*)&DAT_004e7410));
     if (command) {
         new(command) SeqCommandLogicOr;
         command->event = this;

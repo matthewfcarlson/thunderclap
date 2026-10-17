@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 4477 inputs, branch coverage 92/120, incomplete)
 // FUN_002142d0 @ 0x002142d0
+#include "decls/data/engine/unknown.h"
+
 struct TValue {
     int tt;
     int value;
@@ -21,7 +23,6 @@ struct Proto {
     unsigned char maxstacksize;
 };
 
-extern unsigned char DAT_00426ba4[36];
 
 // equiv-conv: FUN_00214280 eax ecx edx
 int FUN_00214280(int mode, int r, Proto *pt);
@@ -58,7 +59,7 @@ unsigned int __cdecl FUN_002142d0(Proto *pt, int lastpc, int reg)
         maxs = maxstack;
         if (a >= maxs)
             return 0;
-        m = DAT_00426ba4[op];
+        m = ((unsigned char*)&DAT_00426ba4)[op];
         switch (m & 3) {
         case 0:
             b = (i >> 15) & 0x1ff;
@@ -85,7 +86,7 @@ unsigned int __cdecl FUN_002142d0(Proto *pt, int lastpc, int reg)
             break;
         }
 
-        m = DAT_00426ba4[op];
+        m = ((unsigned char*)&DAT_00426ba4)[op];
         if (m & 0x40) {
             if (a == reg)
                 last = pc;

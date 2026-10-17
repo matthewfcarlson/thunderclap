@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // audio::SeqEventChannelVolumesType::vfunc_3 @ 0x00252070
+#include "decls/data/engine/audio.h"
+
 typedef unsigned int size_t;
 inline void* __cdecl operator new(size_t, void* p) { return p; }
-extern char DAT_004e6d30;
 void* __cdecl FUN_00247530(void*);
 int __cdecl FUN_002673a0(const char*, int);
 namespace audio {
@@ -23,7 +24,7 @@ struct SeqEventChannelVolumesType {
     virtual SeqEventChannelVolumes* vfunc_3();
 };
 SeqEventChannelVolumes* SeqEventChannelVolumesType::vfunc_3() {
-    SeqEventChannelVolumes* result = (SeqEventChannelVolumes*)FUN_00247530(&DAT_004e6d30);
+    SeqEventChannelVolumes* result = (SeqEventChannelVolumes*)FUN_00247530(((char*)((char*)&DAT_004e6d28 + 8)));
     if (!result) return 0;
     result->FUN_0025fd00();
     new (result) SeqEventChannelVolumes;

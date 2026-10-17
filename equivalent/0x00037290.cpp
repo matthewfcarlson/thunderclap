@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2412 inputs, branch coverage 8/8)
 // FUN_00037290 @ 0x00037290
-extern const float DAT_003f3388;
+#include "decls/data/game/hulkfight.h"
+
 struct Object {
     char pad[0x1ba8];
     struct Entry { int first; int second; float value; int unused; } entries[14];

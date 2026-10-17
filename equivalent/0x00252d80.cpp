@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // audio::SeqEventVarTempoType::vfunc_3 @ 0x00252d80
+#include "decls/data/engine/audio.h"
+
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* p) throw() { return p; }
-extern char DAT_004e6f88;
 void* __cdecl FUN_00247530(void*);
 namespace audio {
 struct SeqEventVarTempo {
@@ -24,7 +25,7 @@ struct SeqEventVarTempoType {
     virtual void vfunc_4();
 };
 SeqEventVarTempo* SeqEventVarTempoType::vfunc_3() {
-    void* memory = FUN_00247530(&DAT_004e6f88);
+    void* memory = FUN_00247530(((char*)&DAT_004e6f88));
     if (!memory) return 0;
     ((SeqEventVarTempo*)memory)->FUN_0025fd00();
     SeqEventVarTempo* event = new(memory) SeqEventVarTempo;

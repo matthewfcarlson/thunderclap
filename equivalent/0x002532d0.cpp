@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // audio::SeqEventVarPosDist::vfunc_2 @ 0x002532d0
+#include "decls/data/engine/audio.h"
+
 namespace audio {
 class SeqEventVarPosDist;
 class SeqActionVarPosDist {
@@ -23,10 +25,9 @@ public:
 }
 extern "C" void * __cdecl FUN_00247530(void *);
 struct ActionList { int FUN_0025dc20(audio::SeqActionVarPosDist *); };
-extern char DAT_004e6ff0;
 inline void * __cdecl operator new(unsigned int, void *p) { return p; }
 int audio::SeqEventVarPosDist::vfunc_2(void *list) {
-    void *memory = FUN_00247530(&DAT_004e6ff0);
+    void *memory = FUN_00247530(((char*)&DAT_004e6ff0));
     audio::SeqActionVarPosDist *action = 0;
     if (memory) {
         action = new (memory) audio::SeqActionVarPosDist;

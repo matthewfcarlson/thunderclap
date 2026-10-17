@@ -1,11 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 24/24)
 // FUN_0024ad20 @ 0x0024ad20
-extern char DAT_004e5f98;
-extern char DAT_004e5ff0;
-extern char DAT_004e6080;
-extern char DAT_004e60c8;
-extern char DAT_004e6110;
-extern char DAT_004e6158;
+#include "decls/data/engine/audio.h"
 
 struct Child;
 
@@ -94,7 +89,7 @@ void Registry::FUN_0024ad20()
         while ((c = n->children) != 0)
             FUN_00249750(c);
         FUN_00248ac0(&list1, n);
-        FUN_00247550(&DAT_004e5ff0, n);
+        FUN_00247550(((char*)&DAT_004e5ff0), n);
     }
 
     for (;;) {
@@ -105,14 +100,14 @@ void Registry::FUN_0024ad20()
         while (n->next != end)
             n = n->next;
         FUN_00249ec0(&list2, n);
-        FUN_00247550(&DAT_004e6158, (void *)n->value40);
-        FUN_00247550(&DAT_004e6110, (void *)n->value3c);
+        FUN_00247550(((char*)((char*)&DAT_004e6110 + 72)), (void *)n->value40);
+        FUN_00247550(((char*)&DAT_004e6110), (void *)n->value3c);
         FUN_0024a450(&n->sub50.inner);
         FUN_0024a4a0(&n->sub50);
-        FUN_00247550(&DAT_004e60c8, n);
+        FUN_00247550(((char*)&DAT_004e60c8), n);
     }
 
-    FUN_00257f00(&DAT_004e5f98, this);
+    FUN_00257f00(((char*)&DAT_004e5f98), this);
 
     SNode *s;
     while ((s = head) != 0) {
@@ -131,7 +126,7 @@ void Registry::FUN_0024ad20()
             prev->next = s->next;
         if (s->next == 0)
             tail = prev;
-        FUN_00247550(&DAT_004e6080, s);
+        FUN_00247550(((char*)&DAT_004e6080), s);
     }
 
     owner->count--;

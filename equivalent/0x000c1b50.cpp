@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2254 inputs, branch coverage 45/46, incomplete)
 // FUN_000c1b50 @ 0x000c1b50
+#include "decls/data/game/global.h"
+
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
@@ -32,7 +34,6 @@ struct TextEntry {
     void FUN_000f79a0(const unsigned short* text, int flag);
 };
 
-extern char DAT_003f335c[];
 
 class FEObject {
 public:
@@ -128,7 +129,6 @@ struct Inventory {
     virtual void* find(content::LoadInventory::DynamicCaster<pure3d::Texture>* caster, unsigned __int64 key);
 };
 
-extern Inventory* DAT_004dd9cc;
 
 unsigned short* __cdecl FUN_000fb690(unsigned short* dst, const unsigned short* src, int n);
 unsigned short* __cdecl FUN_000fb790(unsigned short* dst, const unsigned short* src, int n);
@@ -181,7 +181,7 @@ void GalleryScreen::FUN_000c1b50(int kind, int first, int last)
     f.cookie = DAT_004d9968;
     f.self = this;
     f.entry1.FUN_000f7930();
-    f.entry1.FUN_000f8500(DAT_003f335c, FUN_000fc1b0(), 1);
+    f.entry1.FUN_000f8500(((char*)&DAT_003f335c), FUN_000fc1b0(), 1);
 
     if ((kind >= 0x248 && kind <= 0x257) || (kind >= 0x258 && kind <= 0x260)) {
         const char* name = items->FUN_00092bc0(kind);
@@ -201,7 +201,7 @@ void GalleryScreen::FUN_000c1b50(int kind, int first, int last)
                     if (id == -1)
                         continue;
                     f.entry2.FUN_000f7930();
-                    f.entry2.FUN_000f8500(DAT_003f335c, FUN_000fc1b0(), 1);
+                    f.entry2.FUN_000f8500(((char*)&DAT_003f335c), FUN_000fc1b0(), 1);
                     FUN_000fb690(f.buf, FUN_000fc1b0()->FUN_000f7220(id), 0x80);
                     if (items->FUN_00092a40(i))
                         FUN_000fb790(f.buf, L"\x0820\x756e", 0x80);
@@ -241,7 +241,7 @@ void GalleryScreen::FUN_000c1b50(int kind, int first, int last)
             if (gal == 0)
                 continue;
             Id64* key = gal->FUN_00092340(&f.pr.id);
-            Inventory* inv = DAT_004dd9cc;
+            Inventory* inv = (*(Inventory**)&DAT_004dd9cc);
             void* tex = inv->find(new (f.pr.caster) content::LoadInventory::DynamicCaster<pure3d::Texture>, *(unsigned __int64*)key);
             f.pr.id.FUN_0027af50();
             if (tex == 0)

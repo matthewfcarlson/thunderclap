@@ -1,3 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 8/8)
 // FUN_00240190 @ 0x00240190
-struct Text { char *data; short kind; Text *FUN_00240090(const Text *other); Text *FUN_00240190(const Text *other); }; extern char *DAT_004cc02c; void __cdecl FUN_00247570(void *p); Text *Text::FUN_00240190(const Text *other) { if (other != this) { if (kind == 2) { short *count = (short *)(data - 4); if (*count == 1) { if (data != DAT_004cc02c) FUN_00247570(data - 8); } else --*count; } FUN_00240090(other); } return this; }
+#include "decls/data/engine/audio.h"
+
+struct Text { char *data; short kind; Text *FUN_00240090(const Text *other); Text *FUN_00240190(const Text *other); };  void __cdecl FUN_00247570(void *p); Text *Text::FUN_00240190(const Text *other) { if (other != this) { if (kind == 2) { short *count = (short *)(data - 4); if (*count == 1) { if (data != (*(char**)&DAT_004cc02c)) FUN_00247570(data - 8); } else --*count; } FUN_00240090(other); } return this; }

@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // audio::SeqEventChannelVolumes::vfunc_2 @ 0x00252190
+#include "decls/data/engine/audio.h"
+
 struct AllocationPool { char byte; };
-extern AllocationPool DAT_004e6ce0;
 void* __cdecl FUN_00247530(AllocationPool*);
 namespace audio {
 struct SeqEventChannelVolumes;
@@ -23,7 +24,7 @@ struct SeqEventChannelVolumes {
 }
 struct Context { void FUN_0025dc20(audio::SeqActionChannelVolumes*); };
 void audio::SeqEventChannelVolumes::vfunc_2(void* context) {
-    void* memory = FUN_00247530(&DAT_004e6ce0);
+    void* memory = FUN_00247530(((AllocationPool*)&DAT_004e6ce0));
     audio::SeqActionChannelVolumes* action = (audio::SeqActionChannelVolumes*)memory;
     if (action) {
         action->audio::SeqActionChannelVolumes::SeqActionChannelVolumes();

@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // audio::SequenceType::vfunc_2 @ 0x00257980
+#include "decls/data/engine/audio.h"
+
 typedef unsigned int size_t;
-extern char DAT_004e7620;
 void* __cdecl FUN_00247530(void*);
 namespace om { struct EntityType { virtual void vfunc_0(); virtual void vfunc_1(); }; }
 namespace audio {
@@ -26,9 +27,9 @@ struct SequenceType : om::EntityType { virtual Sequence* vfunc_2(); };
 struct ConstructorBase { void FUN_00244ea0(void*); };
 __forceinline void* operator new(size_t, void* p) { return p; }
 audio::Sequence* audio::SequenceType::vfunc_2() {
-    audio::Sequence* result = (audio::Sequence*)FUN_00247530(&DAT_004e7620);
+    audio::Sequence* result = (audio::Sequence*)FUN_00247530(((char*)((char*)&DAT_004e75b8 + 104)));
     if (result) {
-        ((ConstructorBase*)result)->FUN_00244ea0(&DAT_004e7620);
+        ((ConstructorBase*)result)->FUN_00244ea0(((char*)((char*)&DAT_004e75b8 + 104)));
         result = new (result) audio::Sequence;
         result->firstCount = 0;
         result->firstHead = &result->firstAnchor;

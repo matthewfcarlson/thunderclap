@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_000caa60 @ 0x000caa60
-extern int DAT_0049fcb0;
+#include "decls/data/game/global.h"
+
 void __stdcall FUN_000caa60(char *state, int *value)
 {
     if (value && state) {

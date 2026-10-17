@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000f7930 @ 0x000f7930
-extern float DAT_004a1734;
+#include "decls/data/game/global.h"
+
 struct State {
     int value;
     bool flag;
@@ -16,7 +17,7 @@ struct State {
     void FUN_000f7930();
 };
 void State::FUN_000f7930() {
-    scale = DAT_004a1734;
+    scale = (*(float*)&DAT_004a1734);
     field10 = 0;
     field14 = -1;
     value = 0;

@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00339ad0 @ 0x00339ad0
-extern const char DAT_0043469c[];
+#include "decls/data/engine/core.h"
+#include "decls/data/engine/unknown.h"
+
 extern const char DAT_00428328[];
-extern int DAT_004d9a30;
 extern "C" void __cdecl FUN_002135a0(int session, int code, const char *message);
 extern "C" int __cdecl FUN_00212f00(int session, int code);
 extern "C" void __cdecl FUN_00212e20(int session, int code);
@@ -21,7 +22,7 @@ void FUN_00339ad0(int active, int session)
         FUN_002139a0(session, 1, 0);
     } else {
         const char *message = FUN_00213190(session, -2);
-        FID_conflict__fwprintf(&DAT_004d9a30, DAT_00428328, message);
+        FID_conflict__fwprintf(((int*)&DAT_004d9a30), DAT_00428328, message);
         FUN_00212d80(session, -3);
     }
 }

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001a2060 @ 0x001a2060
-extern const float DAT_003f32b8;
+#include "decls/data/game/unknown.h"
+
 struct Angles { float x,y,z; };
 struct Obj { char pad[0x44]; float x,y,z; unsigned int FUN_001a2060(const Angles *angles); };
 unsigned int Obj::FUN_001a2060(const Angles *angles) {

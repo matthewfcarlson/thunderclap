@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 9/9)
 // FUN_001b46f0 @ 0x001b46f0
+#include "decls/data/game/global.h"
+
 struct Data {
     char reserved[8];
     unsigned int first;
@@ -12,7 +14,6 @@ struct Node {
     Data* data;
     unsigned int type;
 };
-extern char DAT_004e21a0[64];
 extern void __cdecl FUN_00096d50(char*, unsigned int, unsigned int, unsigned int);
 char* __cdecl FUN_001b46f0(Node* node, unsigned int* output)
 {
@@ -25,8 +26,8 @@ char* __cdecl FUN_001b46f0(Node* node, unsigned int* output)
         return result;
     }
     case 5:
-        FUN_00096d50(DAT_004e21a0, 64, node->data->first, node->data->second);
-        return DAT_004e21a0;
+        FUN_00096d50(((char*)&DAT_004e21a0), 64, node->data->first, node->data->second);
+        return ((char*)&DAT_004e21a0);
     case 6: return "projectile";
     case 7: return "civilian";
     default: return 0;

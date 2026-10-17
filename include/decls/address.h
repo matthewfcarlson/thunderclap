@@ -8,6 +8,7 @@
 #define HULK_DECLS_ADDRESS_H
 
 struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
+extern "C" {
 extern World* DAT_004dd700;
 
 struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
@@ -15,6 +16,7 @@ extern Gfx* DAT_0052c2a8;
 
 struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
 extern Singleton_4dd6ec* DAT_004dd6ec;
+}
 
 unsigned __int64 FUN_0027b020(const char* s);                 // string hash
 unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length

@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2969 inputs, branch coverage 0/0)
 // FUN_002382a0 @ 0x002382a0
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 typedef unsigned int uint;
 struct RandomState { uint low; uint high; };
-extern RandomState* DAT_004e5acc;
-extern const float DAT_003f32dc;
 float FUN_002382a0()
 {
-    RandomState* state = DAT_004e5acc;
+    RandomState* state = (*(RandomState**)&DAT_004e5acc);
     uint a = state->low;
     state->low = (a & 0xffff) * 0x9069 + (a >> 16);
     uint b = state->high;

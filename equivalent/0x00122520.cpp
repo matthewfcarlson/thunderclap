@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20040 inputs, branch coverage 50/51, incomplete)
 // hulkfight::ai::RoutAction::vfunc_5 @ 0x00122520
+#include "decls/data/game/hulkfight/ai.h"
+
 extern "C" int atexit(void (*)());
 extern "C" double sqrt(double);
 
@@ -94,8 +96,6 @@ struct Cfg_122520 {
 };
 
 extern World *DAT_004dd700;
-extern unsigned int DAT_004e0d60;
-extern Key_122520 DAT_004e0d58;
 void FUN_00363f20();
 float __cdecl FUN_0010b1c0(World *w, Stats_122520 *s, float thr, Vec3_122520 *out) throw();
 float __cdecl FUN_000186f0(float *a, float *b) throw();
@@ -161,7 +161,7 @@ bool RoutAction::vfunc_5(Arg1_122520 a1, float dt)
     f.u8.world = DAT_004dd700;
     if (!(DAT_004e0d60 & 1)) {
         DAT_004e0d60 |= 1;
-        DAT_004e0d58.FUN_0027af00();
+        (*(Key_122520*)((char*)&DAT_004e0d50 + 8)).FUN_0027af00();
         atexit(FUN_00363f20);
     }
     f6c = dt + f6c;

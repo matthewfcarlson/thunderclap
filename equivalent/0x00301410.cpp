@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00301410 @ 0x00301410
-extern float DAT_003f3388;
+#include "decls/data/game/hulkfight.h"
+
 struct Receiver {
     virtual void slot0();
     virtual void slot1();
@@ -15,9 +16,9 @@ struct Object {
     void FUN_00301410(int a, Receiver* receiver, int value);
 };
 void Object::FUN_00301410(int a, Receiver* receiver, int value) {
-    x *= DAT_003f3388;
-    y *= DAT_003f3388;
-    z *= DAT_003f3388;
+    x *= (*(float*)&DAT_003f3388);
+    y *= (*(float*)&DAT_003f3388);
+    z *= (*(float*)&DAT_003f3388);
     int result = receiver->slot4(value);
     FUN_00317610(a, receiver, result, value);
 }

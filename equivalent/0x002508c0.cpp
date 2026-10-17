@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // audio::SeqEventWaitBeat::vfunc_2 @ 0x002508c0
+#include "decls/data/engine/audio.h"
+
 typedef unsigned int size_t;
 __forceinline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace audio {
@@ -22,11 +24,10 @@ struct SeqEventWaitBeat {
  virtual void vfunc_5();
 };
 }
-extern char DAT_004e6a18;
 extern "C" audio::SeqActionWaitBeat* __cdecl FUN_00247530(void*);
 struct Sequence { void FUN_0025dc20(audio::SeqActionWaitBeat*); };
 void audio::SeqEventWaitBeat::vfunc_2(void* sequence) {
- audio::SeqActionWaitBeat* action = FUN_00247530(&DAT_004e6a18);
+ audio::SeqActionWaitBeat* action = FUN_00247530(((char*)&DAT_004e6a18));
  if (action) {
   new (action) audio::SeqActionWaitBeat;
   action->unknown10 = 0;

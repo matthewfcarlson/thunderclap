@@ -167,7 +167,7 @@ back to integer words: none occur), scalars and tables with the sources' primiti
 `unsigned int[]` / `unsigned char[]`, pointers `const void* const p = (const void*)((const char*)&target + off);`,
 mixed items as a `#pragma pack(1)` struct of byte runs and pointer words, BSS `extern "C" { T x[N]; }`. `const`
 for `.rdata`, non-const for `.data`. A pointer names its target by its C name (`FUN_<addr>` for code). The three variables pinned in
-`include/decls/address.h` are defined with that declaration (`World* DAT_004dd700;`, C++ linkage).
+`include/decls/address.h` are defined with that declaration (`extern "C" { World* DAT_004dd700; }`, C linkage).
 
 **Verification**, per item: compile the TU with `compare.py`'s MSVC 7.1 under wibo, flags `/O2 /GR /GX /Gy`; find
 the item's symbol; compare its bytes with the XBE outside relocations; each relocation must be `DIR32` and resolve
@@ -235,7 +235,7 @@ This is the "per-address alias" option, chosen over renaming sources to the inve
    is lost.
 
 The three variables pinned in `include/decls/address.h` (`DAT_004dd700` World, `DAT_0052c2a8` Gfx,
-`DAT_004dd6ec`) keep that declaration (C++ linkage, typed): their data TU definition is `World* DAT_004dd700;`
+`DAT_004dd6ec`) keep that declaration (C linkage, typed): their data TU definition is `extern "C" { World* DAT_004dd700; }`
 and `include/decls/data/` leaves them out, so a source can include both headers.
 
 ### The rewrite
@@ -369,15 +369,23 @@ the two by-address rows; the numbers above are from that build's report file.)
 
 ### What is left
 
-- **The pinned names in wrapped sources** (406 references): `include/decls/address.h` declares `DAT_004dd700`,
-  `DAT_0052c2a8`, `DAT_004dd6ec` with C++ linkage, and gen_tree inlines the header into a wrapped source's
-  namespace, so those references are `?DAT_004dd700@fn_<addr>@@...`. Declaring the three `extern "C"` in
-  address.h (and in their data TU definitions) would resolve all of them by name; it changes only relocation
-  symbol names in ~900 verified sources (compare.py masks them, equiv.py binds `DAT_` by address), so it is a
-  one-line change plus a tree build.
-- **157 other by-address references**: the 28 sources refused or rejected above, the 7 on batch lists, and farm
-  sources committed after the run. Re-run `tools/migrate_data.py --apply --equivalent` after promotions land.
-- `equivalent/0x00088600.cpp`'s definition of `DAT_004dd700` (owners, above).
+Re-run of 2026-10-17 (mop-up): the three pinned names are `extern "C"` in `include/decls/address.h` and in their data
+TU definitions (`tools/data_gen.py`); `equivalent/0x00088600.cpp` includes the header and names its class `World`
+instead of defining `DAT_004dd700` itself; `tools/migrate_data.py --apply --equivalent` moved 145 more sources
+(of 149 candidates; 4 rejected and left unchanged: 2 FAIL, 1 compile error, 1 inconclusive). Tree
+(`build_tree.py --rounds 16 --data`): 2,557 / 2,557 TUs compile, 21,817 / 21,817 matches byte-match, no equivalent
+differs from its standalone build; link check 6,477 references, **4,238 by name** (was 4,028), 620 by address
+(was 563; 354 of them pinned names, was 406), 10 interior.
+
+- **The pinned names in wrapped sources** (354 references): the `extern "C"` change resolves the pinned names in
+  merged and isolated sources only. gen_tree's `CLinkage` (native-build fixes 1-2) turns a wrapped source's C
+  declaration into `extern "C++"` when its type is not builtin-only (`World*` points to the source's own
+  `fn_<addr>::World` stub), so these stay `?DAT_004dd700@fn_<addr>@@...`. Resolving them by name needs the stubs to
+  agree (one `World`) or an exemption for the three names in `CLinkage.clashes` (MSVC 7.1 accepts one C name with
+  different types in different namespaces; clang does not, the 79 TUs).
+- **Other by-address references** (256): sources refused or rejected by the migration (25 declarator is not
+  `T NAME[...]`, 10 used in a preprocessor line, 1 in a namespace, 21 on batch lists, the 4 rejected) and farm
+  sources committed since. Re-run `tools/migrate_data.py --apply --equivalent` after promotions land.
 - Typed headers: BSS objects are `unsigned char[N]` in the headers, so most casts are `(*(Stub*)&DAT_x)`; a typed
   declaration (a stub class per global in include/decls/, like `World`) would remove them.
 - Interior references fail equiv.py's level 2 in one case (`0x001b3c50`): equiv.py reads `DAT_x + 64` as a

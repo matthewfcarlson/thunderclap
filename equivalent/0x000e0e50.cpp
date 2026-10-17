@@ -2,6 +2,8 @@
 // FUN_000e0e50 @ 0x000e0e50
 // FUN_000e0e50 @ 0x000e0e50
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 struct Vec3_e0e50 {
     float x, y, z;
 };
@@ -69,8 +71,6 @@ public:
     virtual void vfunc_31(int handle);
 };
 
-extern Texture *DAT_004de954;
-extern Factory_e0e50 *DAT_0052c2a0;
 
 void __cdecl FUN_000e07c0(Vec3_e0e50 a, Vec3_e0e50 b, int color);
 
@@ -78,13 +78,13 @@ void __cdecl FUN_000e07c0(Vec3_e0e50 a, Vec3_e0e50 b, int color);
 void __cdecl FUN_000e0e50(Vec3_e0e50 c0, Vec3_e0e50 c1, Vec3_e0e50 c2, Vec3_e0e50 c3,
                           Vec3_e0e50 c4, Vec3_e0e50 c5, Vec3_e0e50 c6, Vec3_e0e50 c7, int color, int arg)
 {
-    if (DAT_004de954 == 0) {
-        DAT_004de954 = DAT_0052c2a0->vfunc_11("simple", 0);
-        DAT_004de954->vfunc_0();
-        DAT_004de954->vfunc_6(0x444d4c42, 1);
+    if ((*(Texture**)&DAT_004de954) == 0) {
+        (*(Texture**)&DAT_004de954) = (*(Factory_e0e50**)&DAT_0052c2a0)->vfunc_11("simple", 0);
+        (*(Texture**)&DAT_004de954)->vfunc_0();
+        (*(Texture**)&DAT_004de954)->vfunc_6(0x444d4c42, 1);
     }
 
-    int handle = DAT_0052c2a8->vfunc_30(DAT_004de954, arg, 0x2020, 0x18, 0);
+    int handle = DAT_0052c2a8->vfunc_30((*(Texture**)&DAT_004de954), arg, 0x2020, 0x18, 0);
     if (handle) {
         FUN_000e07c0(c0, c1, color);
         FUN_000e07c0(c1, c3, color);

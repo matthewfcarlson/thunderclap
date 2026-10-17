@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 10/10)
 // pure3d::SimpleFrameController::vfunc_16 @ 0x00284df0
-extern const float DAT_0042c5b0;
+#include "decls/data/engine/pure3d.h"
+
 namespace pure3d {
 struct SimpleFrameController {
     virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2();

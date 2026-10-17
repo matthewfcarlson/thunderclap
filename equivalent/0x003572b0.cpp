@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2975 inputs, branch coverage 21/22, incomplete)
 // FUN_003572b0 @ 0x003572b0
+#include "decls/data/engine/pure3d.h"
+#include "decls/data/game/unknown.h"
+
 extern "C" double __cdecl sqrt(double);
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
@@ -10,17 +13,15 @@ struct NoiseTables {
     float g3[0x202][3];
     float g2[0x202][2];
 };
-extern NoiseTables DAT_0056b7c0;
 
 struct RandState {
     unsigned int s0;
     unsigned int s1;
 };
-extern RandState *DAT_004e5acc;
 
 static unsigned int Next()
 {
-    RandState *r = DAT_004e5acc;
+    RandState *r = (*(RandState**)&DAT_004e5acc);
     r->s0 = (r->s0 & 0xffff) * 0x9069 + (r->s0 >> 16);
     r->s1 = (r->s1 & 0xffff) * 0x4650 + (r->s1 >> 16);
     return (r->s0 << 16) + (r->s1 & 0xffff);
@@ -35,7 +36,7 @@ void NoiseInit::FUN_003572b0()
 {
     if (start == 0)
         return;
-    NoiseTables &t = DAT_0056b7c0;
+    NoiseTables &t = (*(NoiseTables*)&DAT_0056b7c0);
     int i = 0;
     do {
         t.p[i] = i;

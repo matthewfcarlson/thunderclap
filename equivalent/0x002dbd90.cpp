@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 62/80, incomplete)
 // FUN_002dbd90 @ 0x002dbd90
+#include "decls/data/engine/pure3d.h"
+
 extern "C" double __cdecl pow(double, double);
-extern unsigned int DAT_004d1164[];
 
 struct Gamma {
     char pad00[0x68];
@@ -118,7 +119,7 @@ void FUN_002dbd90(Gamma *g)
             int i = 0;
             do {
                 g->ptabA[i] = (unsigned short *)FUN_002e6c00(g, 0x200);
-                unsigned int base = (DAT_004d1164[bits] * i) >> 4;
+                unsigned int base = (((unsigned int*)&DAT_004d1164)[bits] * i) >> 4;
                 unsigned int k = 0;
                 do {
                     g->ptabA[i][k / 2] = (unsigned short)(int)(pow((double)base * 1.5259021896696422e-05, d) * 65535.0 + 0.5);
@@ -137,7 +138,7 @@ void FUN_002dbd90(Gamma *g)
         int i = 0;
         do {
             g->ptabC[i] = (unsigned short *)FUN_002e6c00(g, 0x200);
-            unsigned int base = (DAT_004d1164[bits] * i) >> 4;
+            unsigned int base = (((unsigned int*)&DAT_004d1164)[bits] * i) >> 4;
             unsigned int k = 0;
             do {
                 g->ptabC[i][k / 2] = (unsigned short)(int)(pow((double)base * 1.5259021896696422e-05, e4) * 65535.0 + 0.5);
@@ -157,7 +158,7 @@ void FUN_002dbd90(Gamma *g)
         int i = 0;
         do {
             g->ptabB[i] = (unsigned short *)FUN_002e6c00(g, 0x200);
-            unsigned int base = (DAT_004d1164[bits] * i) >> 4;
+            unsigned int base = (((unsigned int*)&DAT_004d1164)[bits] * i) >> 4;
             unsigned int k = 0;
             do {
                 g->ptabB[i][k / 2] = (unsigned short)(int)(pow((double)base * 1.5259021896696422e-05, e5) * 65535.0 + 0.5);

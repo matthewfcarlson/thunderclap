@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 116 inputs, branch coverage 14/14)
 // FUN_0026bac0 @ 0x0026bac0
+#include "decls/data/engine/core.h"
+
 struct Bucket {
     int unused;
     unsigned int size;
@@ -36,12 +38,11 @@ struct HeapStats {
     unsigned int firstSize;
 };
 
-extern Heap *DAT_0052839c;
 extern void __cdecl FUN_0026b970(Heap *heap);
 
 HeapStats FUN_0026bac0()
 {
-    Heap *heap = DAT_0052839c;
+    Heap *heap = (*(Heap**)&DAT_0052839c);
     if (!heap->first)
         FUN_0026b970(heap);
     unsigned int firstSize = heap->first->size & ~3u;

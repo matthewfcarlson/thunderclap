@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_001eb4f0 @ 0x001eb4f0
-extern unsigned char DAT_004e36e0;
+#include "decls/data/game/global.h"
+
 struct Inner { void FUN_001f46a0(); };
 struct Outer { Inner* inner; void FUN_001ef9c0(int); };
 struct Thing {
@@ -11,7 +12,7 @@ struct Thing {
     void FUN_001eb4f0(int unused);
 };
 void Thing::FUN_001eb4f0(int unused) {
-    DAT_004e36e0 = 0;
+    (*(unsigned char*)&DAT_004e36e0) = 0;
     if (active) {
         if (flagged) {
             flagged = 0;

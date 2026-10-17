@@ -322,8 +322,8 @@ class TUWriter:
                 continue
             tag = "// %08x %s %d B%s" % (it["addr"], it["kind"], it["size"], " " + it["type"] if it.get("type") else "")
             if form == "pinned":
-                # include/decls/address.h's declaration (C++ linkage, the pinned type): the sources include it
-                body.append("struct %s;\n%s;  %s (include/decls/address.h)" % (decl.split("*")[0], decl, tag))
+                # include/decls/address.h's declaration (C linkage, the pinned type): the sources include it
+                body.append('struct %s;\nextern "C" { %s; }  %s (include/decls/address.h)' % (decl.split("*")[0], decl, tag))
                 continue
             self.decls.append((it["cname"], decl))
             if init is None:

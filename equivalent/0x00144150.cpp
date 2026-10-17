@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // hulkfight::motion::SlowMotionAction::vfunc_3 @ 0x00144150
+#include "decls/data/game/global.h"
+
 struct MotionSource {
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -11,8 +13,6 @@ struct MotionSource {
     char pad[0x1c - 4];
     float value;
 };
-extern const float DAT_003f3358;
-extern const float DAT_003f32dc;
 struct SlowMotionAction {
     char pad[0x1c];
     MotionSource *source;

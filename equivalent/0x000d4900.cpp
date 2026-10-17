@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000d4900 @ 0x000d4900
+#include "decls/data/game/global.h"
+
 struct Curve {
     virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
     virtual void slot4(); virtual void slot5(); virtual void slot6();
@@ -15,7 +17,6 @@ struct Player {
     int activeSample;
     float FUN_000d4900(float input, int index);
 };
-extern const float DAT_0040cc38;
 float Player::FUN_000d4900(float input, int index)
 {
     void **table = *(void ***)this;

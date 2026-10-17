@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 6/6)
 // FUN_00220480 @ 0x00220480
-extern const char DAT_004271a8[];
 // equiv-conv: FUN_00220310 eax
+#include "decls/data/engine/unknown.h"
+
 void FUN_00220310(void *);
 void __cdecl FUN_00220050(void *, int);
 struct Arguments { unsigned int first, second, third; const char *text; };
