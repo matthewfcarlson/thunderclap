@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 9/10, incomplete)
+// CGrappleFightNodeParentCondition::vfunc_7 @ 0x000523c0
+struct Actor { char pad[0x330]; char *alternate; char *primary; char *fallback; }; struct Context { Actor * FUN_00059a30(); }; struct Input { Context * FUN_000592a0(); }; struct CGrappleFightNodeParentCondition { void * vfunc_7(Input *input); }; void * CGrappleFightNodeParentCondition::vfunc_7(Input *input) { if (!input) return 0; Actor *actor = input->FUN_000592a0()->FUN_00059a30(); char *result = actor->primary; if (!result) result = actor->alternate; if (!result) result = actor->fallback; return result ? result + 0xdc : 0; }

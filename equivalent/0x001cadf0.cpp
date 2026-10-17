@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_001cadf0 @ 0x001cadf0
+struct Args { unsigned int x,y; void FUN_0027af50(); }; struct Item { unsigned int a,b,c,d,e,f,g,h; Item * FUN_001cadf0(unsigned int x, unsigned int y); }; Item * Item::FUN_001cadf0(unsigned int x, unsigned int y) { a=0; b=0; c=0; d=0; e=0; f=0; g=0; h=0; a=0x20; b=0x1b; g=x; h=y; ((Args *)&x)->FUN_0027af50(); return this; }

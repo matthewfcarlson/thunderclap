@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// ControllerPollerBase::vfunc_0 @ 0x000de4e0
+struct Device { virtual void vfunc_0(); virtual void vfunc_1(); }; struct ControllerPollerBase { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual Device* vfunc_5(int); char pad[12]; Device* device; int values[6]; int other; int state; int flag; }; void ControllerPollerBase::vfunc_0() { device = vfunc_5(0); state = 14; if (device) device->vfunc_1(); for (int i=0;i<6;++i) values[i]=0; flag=0; other=0; vfunc_2(); }

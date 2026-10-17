@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 13/16, incomplete)
+// FUN_001b6a40 @ 0x001b6a40
+struct Item { virtual void unused(); virtual void release(); int unknown; int index; }; struct Manager { Item* entries[32]; void FUN_001b6a40(); }; void Manager::FUN_001b6a40() { for (int i=0; i<32; ++i) { Item* item=entries[i]; if (item) { int index=item->index; if (index>=0 && index<32) { Item* other=entries[index]; if (other) { other->release(); entries[index]=0; } } } } }
