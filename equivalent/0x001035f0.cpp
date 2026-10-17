@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 2/2)
+// FUN_001035f0 @ 0x001035f0
+struct Child { char pad[0x8c]; int value; unsigned char flag; char pad2[3]; int other; int otherCopy; }; struct Object { char pad[0x5c]; Child *child; char pad2[0x5c]; int value; unsigned char flag; char pad3[3]; int other; void FUN_001035f0(int v, unsigned char f, int o); }; void Object::FUN_001035f0(int v, unsigned char f, int o) { value=v; flag=f; other=o; Child *c=child; if(c) { c->flag=f; c->value=v; c->other=o; c->otherCopy=o; } }

@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 7/8, incomplete)
+// hulkfight::motion::AnimationVelocityScaledAction::vfunc_5 @ 0x0013a6a0
+struct Actor { void* FUN_000592a0(); }; struct Animation { void* FUN_00059a40(); }; struct State { bool FUN_00222a00(void*); }; namespace hulkfight { namespace motion { struct AnimationVelocityScaledAction { char pad[0x20]; Actor* actor; void* value; bool vfunc_5(int, int); }; } } bool hulkfight::motion::AnimationVelocityScaledAction::vfunc_5(int type, int unused) { if(type != 1) return true; Animation* anim = (Animation*)actor->FUN_000592a0(); State* state = (State*)anim->FUN_00059a40(); if (!state) return false; return !state->FUN_00222a00(value); }

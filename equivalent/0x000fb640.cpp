@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_000fb640 @ 0x000fb640
+struct Dest; struct Source { unsigned int a,b,c,d,e,f; void FUN_000fb640(Dest *dest, unsigned int x, unsigned int y); }; struct Dest { unsigned int type; unsigned int pad4; unsigned int a,b; unsigned int pad10; unsigned int c,d,e; char pad20[12]; unsigned int f; void FUN_000fb3b0(unsigned int x,unsigned int y); void FUN_000fb4b0(unsigned int x); }; void Source::FUN_000fb640(Dest *dest,unsigned int x,unsigned int y) { dest->FUN_000fb3b0(x,y); dest->a=a; dest->b=b; dest->c=c; dest->d=d; dest->e=e; dest->f=f; dest->type=2; dest->FUN_000fb4b0(0); }
