@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_000f6530 @ 0x000f6530
 struct Triple_f6530 { unsigned x,y,z; };
 struct Object {
@@ -24,13 +24,13 @@ struct Object {
 void __cdecl FUN_000f6530(Object* source, Object* dest) {
  dest->setFirst(source->getFirst());
  dest->setSecond(source->getSecond());
- unsigned a,b;
- source->getPair(&a,&b);
- dest->setPair(a,b);
- Triple_f6530 t=source->atDC;
- dest->FUN_00293a90(&t);
- t=source->atE8;
- dest->FUN_00293ac0(&t);
- t=source->atD0;
- dest->FUN_00293af0(&t);
+ struct Frame { unsigned a, b; Triple_f6530 t; } f;   // (the original's slot order)
+ source->getPair(&f.a,&f.b);
+ dest->setPair(f.a,f.b);
+ f.t=source->atDC;
+ dest->FUN_00293a90(&f.t);
+ f.t=source->atE8;
+ dest->FUN_00293ac0(&f.t);
+ f.t=source->atD0;
+ dest->FUN_00293af0(&f.t);
 }

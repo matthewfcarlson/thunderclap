@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 62/64, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 64/64)
 // CHeadTrackerAction::vfunc_7 @ 0x000202f0
 #include "decls/data/game/global.h"
 
@@ -150,8 +150,13 @@ struct Frame_202f0 {
     FS_202f0 s24;                          // 0x24
     V3_202f0 v28;                          // 0x28
     V3_202f0 t34;                          // 0x34
-    V3_202f0 v40;                          // 0x40
-    int s4c;                         // 0x4c
+    union {
+        struct {
+            V3_202f0 v40;                  // 0x40
+            int s4c;                       // 0x4c
+        } a;
+        V4_202f0 w;                        // 0x40: the quaternion copied for FUN_0022c2b0
+    } u40;
     XBlk *X;                         // 0x50
     V3_202f0 boneT;                        // 0x54
     YBlk *Y;                         // 0x60
@@ -249,8 +254,8 @@ char CHeadTrackerAction::vfunc_7(float dt)
             } else if (o2->f11c != 0) {
                 Q2 *q = o2->f11c->v8();
                 if (q != 0) {
-                    V4_202f0 w = q->f2c;
-                    o2->v15()->FUN_0022c2b0(&w, &f.t34);
+                    f.u40.w = q->f2c;
+                    o2->v15()->FUN_0022c2b0(&f.u40.w, &f.t34);
                 }
             }
         }
@@ -262,17 +267,17 @@ char CHeadTrackerAction::vfunc_7(float dt)
     } else {
         f.s10.f = f.t34.x;
         f.s10.i &= 0x7fffffff;
-        if (!(f.s10.f < 5000.0f)) {
+        if (f.s10.f >= 5000.0f) {
             bad = true;
         } else {
             f.s10.f = f.t34.y;
             f.s10.i &= 0x7fffffff;
-            if (!(f.s10.f < 5000.0f)) {
+            if (f.s10.f >= 5000.0f) {
                 bad = true;
             } else {
                 f.s10.f = f.t34.z;
                 f.s10.i &= 0x7fffffff;
-                if (!(f.s10.f < 5000.0f))
+                if (f.s10.f >= 5000.0f)
                     bad = true;
             }
         }
@@ -293,19 +298,18 @@ char CHeadTrackerAction::vfunc_7(float dt)
     f.Y->f1c[f.bone].FUN_0022c3b0(&v28, &f.v70);
     CfgA *cfg = f20;
     if (cfg->f38 > 0.0f || cfg->f38 != cfg->f38) {
-        float dot = f.v70.z * f.v28.z + f.v70.y * f.v28.y + f.v70.x * f.v28.x;
-        f.s24.f = FUN_00018a20(dot);
+        f.s24.f = FUN_00018a20(f.v70.z * f.v28.z + f.v70.y * f.v28.y + f.v70.x * f.v28.x);
         f.s14.f = dt * cfg->f38;
         f.s10.f = f.s24.f;
         f.s10.i &= 0x7fffffff;
         if (f.s10.f <= f.s14.f) {
             f.v18 = f.v28;
         } else {
-            f.v40.FUN_000111b0(&f.v28, &f.v70);
+            f.u40.a.v40.FUN_000111b0(&f.v28, &f.v70);
             if (f.s24.f < 0.0f)
-                f.m80.FUN_0022baf0(&f.v40, -f.s14.f);
+                f.m80.FUN_0022baf0(&f.u40.a.v40, -f.s14.f);
             else
-                f.m80.FUN_0022baf0(&f.v40, f.s14.f);
+                f.m80.FUN_0022baf0(&f.u40.a.v40, f.s14.f);
             f.m80.FUN_0022c3b0(&f.v70, &f.v18);
         }
     } else {
@@ -321,15 +325,15 @@ char CHeadTrackerAction::vfunc_7(float dt)
         f.v64.y = 0.0f;
         f.v64.z = -f.v18.x;
         f.m80.FUN_0022baf0(&f.v64, f.s24.f - f.s10.f);
-        f.v40 = f.v18;
-        f.m80.FUN_0022c3b0(&f.v40, &f.v18);
+        f.u40.a.v40 = f.v18;
+        f.m80.FUN_0022c3b0(&f.u40.a.v40, &f.v18);
     } else if (f.s10.f > cfg->f40) {
         f.s24.f = cfg->f40;
         f.m80.FUN_0022b980();
-        f.v40.x = f.v18.z;
-        f.v40.y = 0.0f;
-        f.v40.z = -f.v18.x;
-        f.m80.FUN_0022baf0(&f.v40, f.s24.f - f.s10.f);
+        f.u40.a.v40.x = f.v18.z;
+        f.u40.a.v40.y = 0.0f;
+        f.u40.a.v40.z = -f.v18.x;
+        f.m80.FUN_0022baf0(&f.u40.a.v40, f.s24.f - f.s10.f);
         f.v64 = f.v18;
         f.m80.FUN_0022c3b0(&f.v64, &f.v18);
     }
@@ -349,10 +353,10 @@ char CHeadTrackerAction::vfunc_7(float dt)
     }
 
     f.mc0.FUN_0022b980();
-    f.v40.x = 0.0f;
-    f.v40.y = 1.0f;
-    f.v40.z = 0.0f;
-    f.mc0.FUN_0022bec0(&f.v18, &f.v40);
+    f.u40.a.v40.x = 0.0f;
+    f.u40.a.v40.y = 1.0f;
+    f.u40.a.v40.z = 0.0f;
+    f.mc0.FUN_0022bec0(&f.v18, &f.u40.a.v40);
     f.m140.FUN_0022ca90(&m34, &f.mc0);
     f.m100 = f.Y->f1c[f.Y->f8->parent[f.bone]];
     f.m100.FUN_0022c0b0();

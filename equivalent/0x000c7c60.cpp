@@ -1,7 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 10/10)
 // FUN_000c7c60 @ 0x000c7c60
 #include "decls/address.h"
-struct Value_c7c60 { unsigned int low, high; bool FUN_0027af90(const void* other); void FUN_0027af50(); };
+struct __declspec(align(8)) Value_c7c60 { unsigned int low, high; bool FUN_0027af90(const void* other); void FUN_0027af50(); };
 void __cdecl FUN_00096e50(Value_c7c60* result, const void* input);
 struct Lookup_c7c60 { int FUN_00024280(unsigned int low, unsigned int high); };
 struct Checker_c7c60 { bool FUN_001dd7b0(Value_c7c60* value); };

@@ -1,7 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
 // fight::ParamValueString::vfunc_5 @ 0x00234a10
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
+extern "C" void *__cdecl memset(void *, int, unsigned int);
 
 class Reader {
 public:
@@ -31,11 +32,17 @@ public:
 }; }
 
 bool fight::ParamValueString::vfunc_5(void* a, void* unused, Reader* reader) {
-    char text[0x400] = "";
-    unsigned int cookie = DAT_004d9968;
-    bool ok = reader->Read(key0, key1, text, 0x400);
+    struct Frame {
+        char text[0x400];
+        int pad;                // (the original leaves a word between the buffer and the cookie)
+        unsigned int cookie;
+    } f;
+    f.cookie = DAT_004d9968;
+    f.text[0] = 0;
+    memset(f.text + 1, 0, sizeof(f.text) - 1);
+    bool ok = reader->Read(key0, key1, f.text, 0x400);
     if (ok)
-        f6(a, text);
-    __security_check_cookie(cookie);
+        f6(a, f.text);
+    __security_check_cookie(f.cookie);
     return ok;
 }

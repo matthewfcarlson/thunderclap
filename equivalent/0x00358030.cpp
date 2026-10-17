@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 18/18)
 // FUN_00358030 @ 0x00358030
 #include "decls/data/game/global.h"
 
@@ -14,19 +14,21 @@ char FUN_00357be0(V3_358030 *s, V3_358030 *dir, V3_358030 *a, V3_358030 *b, floa
 
 // Local frame laid out like the original's 0x94-byte frame: the callees see the neighbours of pr[],
 // and the per-edge lengths and unit directions are read back even when their edge was skipped.
+// The partial results the original stores as floats and reloads are volatile: MSVC otherwise keeps them
+// unrounded on the x87 stack, and a nearest-edge tie then goes the other way (trace p4-1).
 struct Frame_358030 {
     volatile float inv;
-    float rx;
-    float qzp;
-    float rz;
+    volatile float rx;
+    volatile float qzp;
+    volatile float rz;
     float pr[6];      // (ray t, edge t) for each of the three edges
-    float t38, t3c, t40;
+    volatile float t38, t3c, t40;
     V3_358030 dn;
     V3_358030 target;
     float dist[3];
-    float qx;
+    volatile float qx;
     float rzp;
-    float t70;
+    volatile float t70;
     float len[3];
     V3_358030 n[3];
 };
@@ -68,8 +70,11 @@ void FUN_00358030(V3_358030 *S, V3_358030 *D, char useSegment, V3_358030 *P1, V3
         f.rz = f.t40 + S->z;
         f.t38 = f.rx - f.qx;
         f.t3c = (f.dn.y * f.pr[0] + S->y) - (f.n[0].y * f.pr[1] + P0->y);
-        float dz = f.rz - (f.qzp + P0->z);
-        f.dist[0] = (float)sqrt(f.t38 * f.t38 + dz * dz + f.t3c * f.t3c);
+        double dz = f.rz - (f.qzp + P0->z);
+        double sq = f.t38 * f.t38;      // (summed in the original's order: x, z, y)
+        sq += dz * dz;
+        sq += f.t3c * f.t3c;
+        f.dist[0] = (float)sqrt(sq);
     }
     if (doEdge1) {
         float dx = P0->x - P2->x;
@@ -91,8 +96,11 @@ void FUN_00358030(V3_358030 *S, V3_358030 *D, char useSegment, V3_358030 *P1, V3
         f.rz = f.t70 + S->z;
         f.t38 = f.rx - f.qx;
         f.t3c = (f.dn.y * f.pr[2] + S->y) - (f.n[1].y * f.pr[3] + P2->y);
-        float dz = f.rz - (f.qzp + P2->z);
-        f.dist[1] = (float)sqrt(f.t38 * f.t38 + dz * dz + f.t3c * f.t3c);
+        double dz = f.rz - (f.qzp + P2->z);
+        double sq = f.t38 * f.t38;      // (summed in the original's order: x, z, y)
+        sq += dz * dz;
+        sq += f.t3c * f.t3c;
+        f.dist[1] = (float)sqrt(sq);
     }
     if (doEdge2) {
         float dx = P2->x - P1->x;
@@ -114,8 +122,11 @@ void FUN_00358030(V3_358030 *S, V3_358030 *D, char useSegment, V3_358030 *P1, V3
         f.rz = f.t70 + S->z;
         f.t38 = f.rx - f.qx;
         f.t3c = (f.dn.y * f.pr[4] + S->y) - (f.n[2].y * f.pr[5] + P1->y);
-        float dz = f.rz - (f.qzp + P1->z);
-        f.dist[2] = (float)sqrt(dz * dz + f.t3c * f.t3c + f.t38 * f.t38);
+        double dz = f.rz - (f.qzp + P1->z);
+        double sq = dz * dz;            // (summed in the original's order: z, y, x)
+        sq += f.t3c * f.t3c;
+        sq += f.t38 * f.t38;
+        f.dist[2] = (float)sqrt(sq);
     }
     if (f.dist[0] <= f.dist[1] && f.dist[0] <= f.dist[2]) {
         *outRay = f.pr[0];

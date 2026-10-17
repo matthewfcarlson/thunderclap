@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 186 inputs, branch coverage 20/22, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 16486 inputs, branch coverage 22/22)
 // FUN_00201850 @ 0x00201850
 extern "C" void *memset(void *dst, int c, unsigned int n);
 extern unsigned int DAT_004d9968;
@@ -42,8 +42,11 @@ int __cdecl FUN_00201780(const char *name);
 void *__cdecl FUN_00266e00(int a, int bytes);
 void __cdecl FUN_00266f00(int a, void *p);
 
+// The original's frame (and esp,-8; sub esp,0x234), laid out from the 8-aligned top down; the comments give
+// [esp+N] in the original after its three register pushes.
 struct Frame_201850 {
-    char pad0[0xe];
+    char pad0[6];          // 0x8 (MSVC aligns this frame struct at 8: the top four bytes of it are the
+                           //  original's saved ebx)
     unsigned char len2;    // 0xe
     unsigned char len1;    // 0xf
     unsigned int c;        // 0x10
@@ -69,12 +72,14 @@ struct Frame_201850 {
     int b;                 // 0x34
     char buf[0x100];       // 0x38
     char buf2[0x100];      // 0x138
+    int pad238;            // 0x238 (unused)
+    unsigned int cookie;   // 0x23c
 };
 
 void FUN_00201850(Loader_201850 *l, Ctx_201850 *ctx)
 {
-    unsigned int cookie = DAT_004d9968;
     Frame_201850 f;
+    f.cookie = DAT_004d9968;
     l->file->FUN_002647e0(&f.u18.a, 1, 4, 1);
     l->file->FUN_002647e0(&f.u18.a, 1, 4, 1);
     while (l->FUN_002669f0()) {
@@ -143,5 +148,5 @@ void FUN_00201850(Loader_201850 *l, Ctx_201850 *ctx)
         }
         l->FUN_00266be0();
     }
-    __security_check_cookie(cookie);
+    __security_check_cookie(f.cookie);
 }

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 12481 inputs, branch coverage 50/51, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20040 inputs, branch coverage 50/51, incomplete)
 // hulkfight::ai::RoutAction::vfunc_5 @ 0x00122520
 extern "C" int atexit(void (*)());
 extern "C" double sqrt(double);
@@ -253,16 +253,13 @@ bool RoutAction::vfunc_5(Arg1_122520 a1, float dt)
     Cfg_122520 *cfg = f34;
     f.u8.c34 = cfg->f34;
     Vec3_122520 *res = FUN_00083e00(&f.R, &edi->v10c, cfg->f34);
-    float pzr = f.P.z + res->z;
-    f.u4.pz = pzr;
-    float pyr = f.P.y + res->y;
-    float pxr = f.P.x + res->x;
+    f.u4.pz = f.P.z + res->z;
     f.B.y = f.P.y;
+    f.A.z = f.u4.pz;
+    f.A.x = f.P.x + res->x;
     f.B.z = f.P.z;
+    f.A.y = (f.P.y + res->y) + 1.0f;
     f.B.x = f.P.x;
-    f.A.z = pzr;
-    f.A.x = pxr;
-    f.A.y = pyr + 1.0f;
     f.B.y = f.B.y + 1.0f;
     f.u8.c18 = cfg->f18;
     if (edi->f118 != 0.0f && f5c->f1ca4 != 0 && cfg->b28 != 0) {

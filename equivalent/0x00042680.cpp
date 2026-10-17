@@ -1,7 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 873 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 19969 inputs, branch coverage 22/22)
 // FUN_00042680 @ 0x00042680
 struct Vec3_42680 {
     float x, y, z;
+    void Sub(const Vec3_42680 &b) { x = x - b.x; y = y - b.y; z = z - b.z; }
+    void Scale(float s) { x = s * x; y = s * y; z = s * z; }
 };
 
 struct Matrix {
@@ -144,12 +146,8 @@ void Mover_42680::FUN_00042680(float a, float dt)
         mgr->FUN_00059a50(&pos);
         float invDt = 1.0f / dt;
         vel = pos;
-        vel.x = vel.x - prev.x;
-        vel.y = vel.y - prev.y;
-        vel.z = vel.z - prev.z;
-        vel.x = invDt * vel.x;
-        vel.y = invDt * vel.y;
-        vel.z = invDt * vel.z;
+        vel.Sub(prev);
+        vel.Scale(invDt);
 
         Tracker_42680* t = mgr->FUN_00059a40();
         float target;
@@ -157,8 +155,7 @@ void Mover_42680::FUN_00042680(float a, float dt)
             target = 0.0f;
         else
             target = t->xf.FUN_002220d0();
-        float current = xf14.FUN_002220d0();
-        angVel = FUN_00224fc0(current, target) * invDt;
+        angVel = FUN_00224fc0(xf14.FUN_002220d0(), target) * invDt;
     }
 
     FUN_0003dd70(a, dt);

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3060 inputs, branch coverage 127/134, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20074 inputs, branch coverage 133/134, incomplete)
 // FUN_001b05a0 @ 0x001b05a0
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -86,7 +86,7 @@ struct Sparks {
 };
 
 struct Grid38 {
-    void FUN_001f6cd0(Tri_1b05a0 *tri, void *hit, V3_1b05a0 *q, V3_1b05a0 *n, V3_1b05a0 *dir, int mode, float r1, float r2, int *out, int z);
+    void FUN_001f6cd0(Tri_1b05a0 *tri, struct Geo *geo, V3_1b05a0 *q, V3_1b05a0 *n, V3_1b05a0 *dir, int mode, float r1, float r2, int *out, int z);
 };
 struct Grid34 {
     void FUN_001ebea0(int a, Entity *e);
@@ -195,27 +195,39 @@ struct Entity {
 char __stdcall FUN_001b05a0(Entity *self, HitObj_1b05a0 *hit, Contact_1b05a0 *c)
 {
 #define world DAT_004dd700
-    float tmpf;
+    // The original's frame (sub esp,0x34), slot for slot: locals the callee gets by pointer are compared
+    // together with their neighbours, so each value lives where the original keeps it.
+    struct Frame {
+        float lo;               // E-0x34: minV, then the clamp's upper bound
+        union {
+            unsigned int A;     // E-0x30: triangle index (first block)
+            int out;            //         FUN_001f6cd0's result
+        } w;
+        float hi;               // E-0x2c: the clamp's lower bound, then the clamped radius
+        float rr;               // E-0x28: the radius, then the random angle
+        V3_1b05a0 v;            // E-0x24: movement, contact normal (other), direction
+        V3_1b05a0 m;            // E-0x18: vertex / velocity / point / normal / position scratch
+        V3_1b05a0 qv;           // E-0xc: contact point, zero vector
+    } f;
 
     if (AbsF(c->n.y) <= 1e-05f) {
         if (c->q.y <= 0.2f) {
             Geo *B = 0;
-            unsigned int A = 0;
-            if (!c->FUN_002f8e10(&B, &A))
+            f.w.A = 0;
+            if (!c->FUN_002f8e10(&B, &f.w.A))
                 return 1;
-            Tri_1b05a0 *tri = &B->f44->tris[(unsigned short)A];
-            float minV = 1000.0f;
+            Tri_1b05a0 *tri = &B->f44->tris[(unsigned short)f.w.A];
+            f.lo = 1000.0f;
             float maxV = -1000.0f;
             unsigned short *idx = (unsigned short *)((char *)tri + 0x10);
             for (int k = 0; k < 3; k++) {
-                V3_1b05a0 out;
-                B->FUN_001af890(&out, idx[k]);
-                if (out.y < minV)
-                    minV = out.y;
-                if (out.y > maxV)
-                    maxV = out.y;
+                B->FUN_001af890(&f.m, idx[k]);
+                if (f.m.y < f.lo)
+                    f.lo = f.m.y;
+                if (f.m.y > maxV)
+                    maxV = f.m.y;
             }
-            if (!(maxV - minV > 1.0f))
+            if (!(maxV - f.lo > 1.0f))
                 return 1;
         } else {
             self->FUN_001d6ac0(1);
@@ -246,17 +258,16 @@ char __stdcall FUN_001b05a0(Entity *self, HitObj_1b05a0 *hit, Contact_1b05a0 *c)
         }
     }
     if (other != 0 && other->FUN_000373d0()) {
-        V3_1b05a0 p, n;
         if (hit != c->info->f18) {
-            n.x = c->n.x * -1.0f;
-            n.y = c->n.y * -1.0f;
-            n.z = c->n.z * -1.0f;
-            p = c->q;
+            f.v.x = c->n.x * -1.0f;
+            f.v.y = c->n.y * -1.0f;
+            f.v.z = c->n.z * -1.0f;
+            f.m = c->q;
         } else {
-            p = c->p;
-            n = c->n;
+            f.m = c->p;
+            f.v = c->n;
         }
-        other->FUN_00038e80(other->f12c, hit, c->f14, &p, &n, c->f24);
+        other->FUN_00038e80(other->f12c, hit, c->f14, &f.m, &f.v, c->f24);
         return 1;
     }
 
@@ -292,16 +303,14 @@ char __stdcall FUN_001b05a0(Entity *self, HitObj_1b05a0 *hit, Contact_1b05a0 *c)
 
         V3_1b05a0 *edi = self->FUN_001d6b40();
         V3_1b05a0 *eax = self->FUN_001d6b30();
-        V3_1b05a0 v;
-        v.x = eax->x - edi->x;
-        v.y = eax->y - edi->y;
-        v.z = eax->z - edi->z;
+        f.v.x = eax->x - edi->x;
+        f.v.y = eax->y - edi->y;
+        f.v.z = eax->z - edi->z;
         float thr = 15.0f;
         double lenSq;
         if (ebx != 0) {
-            V3_1b05a0 t;
-            ((Entity *)ebx)->FUN_00035660(&t);
-            lenSq = t.z * t.z + t.y * t.y + t.x * t.x;
+            ((Entity *)ebx)->FUN_00035660(&f.m);
+            lenSq = f.m.z * f.m.z + f.m.y * f.m.y + f.m.x * f.m.x;
             thr = 64.0f;
         } else {
             Obj1d72_1b05a0 *o = self->FUN_001d72e0();
@@ -310,7 +319,7 @@ char __stdcall FUN_001b05a0(Entity *self, HitObj_1b05a0 *hit, Contact_1b05a0 *c)
         }
         if (!(lenSq > thr))
             goto L5cb;
-        if (!(v.z * v.z + v.y * v.y + v.x * v.x > 2.0f))
+        if (!(f.v.z * f.v.z + f.v.y * f.v.y + f.v.x * f.v.x > 2.0f))
             goto L5cb;
         {
             Geo *B = 0;
@@ -323,31 +332,30 @@ char __stdcall FUN_001b05a0(Entity *self, HitObj_1b05a0 *hit, Contact_1b05a0 *c)
             if (tri->b16 & 8)
                 goto L5cb;
             self->FUN_001d6ad0(self->FUN_001d6b40());
-            float lo = 2.0f;
-            float hi = 0.5f;
-            float rr = self->FUN_001d8160() * 0.01f;
-            rr = FUN_000186b0(&rr, &hi, &lo);
-            V3_1b05a0 qv = c->q;
-            V3_1b05a0 nv = c->n;
-            V3_1b05a0 dir;
+            f.lo = 2.0f;
+            f.hi = 0.5f;
+            f.rr = self->FUN_001d8160() * 0.01f;
+            f.hi = FUN_000186b0(&f.rr, &f.hi, &f.lo);
+            f.qv = c->q;
+            f.m = c->n;
             if (self->fec->FUN_001d5e80(self->f40) == 3) {
-                float ang = FUN_000964d0()->FUN_000787e0(0, 180.0f);
-                dir.x = (*(float*)&DAT_004c3754);
-                dir.y = (*(float*)&DAT_004c3758);
-                dir.z = (*(float*)&DAT_004c375c);
-                FUN_00224d70(ang, &dir);
+                f.rr = FUN_000964d0()->FUN_000787e0(0, 360.0f);
+                f.v.x = (*(float*)&DAT_004c3754);
+                f.v.y = (*(float*)&DAT_004c3758);
+                f.v.z = (*(float*)&DAT_004c375c);
+                FUN_00224d70(f.rr, &f.v);
             } else {
                 if (ebx != 0) {
-                    ((Entity *)ebx)->FUN_00035660(&dir);
+                    ((Entity *)ebx)->FUN_00035660(&f.v);
                 } else {
                     Obj1d72_1b05a0 *o = self->FUN_001d72e0();
-                    dir = o->v50;
+                    f.v = o->v50;
                 }
-                dir.FUN_0022d180();
+                f.v.FUN_0022d180();
             }
-            int out = 0;
-            world->f38->FUN_001f6cd0(tri, hit, &qv, &nv, &dir, 8, rr, rr, &out, 0);
-            world->f34->FUN_001ebea0(out, self);
+            f.w.out = 0;
+            world->f38->FUN_001f6cd0(tri, B, &f.qv, &f.m, &f.v, 8, f.hi, f.hi, &f.w.out, 0);
+            world->f34->FUN_001ebea0(f.w.out, self);
         }
     }
 
@@ -367,14 +375,13 @@ L5cb:
                 doIt = true;
             } else {
                 Obj1d72_1b05a0 *edi = self->FUN_001d72e0();
-                V3_1b05a0 tv;
-                tv.x = 0;
-                tv.y = 0;
-                tv.z = 0;
+                f.m.x = 0;
+                f.m.y = 0;
+                f.m.z = 0;
                 if (edi->f70)
-                    edi->f70->FUN_0016fc60(&tv);
+                    edi->f70->FUN_0016fc60(&f.m);
                 else
-                    self->FUN_001d69f0(&tv);
+                    self->FUN_001d69f0(&f.m);
                 float h = 0.0f;
                 if (edi->f74 && edi->f74->f20)
                     h = edi->f74->f20->f34;
@@ -383,7 +390,7 @@ L5cb:
                     P = c->q.y;
                 else
                     P = c->p.y;
-                float D = P - (tv.y - h);
+                float D = P - (f.m.y - h);
                 if (!(h * 0.75f > D)) {
                     if (!(AbsF(c->n.y) > 0.3f))
                         doIt = true;
@@ -413,18 +420,16 @@ L5cb:
 
     if (self->b14d) {
         void *edi = c->info->f18;
-        V3_1b05a0 qq;
         if ((void *)self->FUN_001d72e0() == edi)
-            qq = c->q;
+            f.m = c->q;
         else
-            qq = c->p;
+            f.m = c->p;
         Sparks *sp = world->f4c->FUN_0007ad00(&self->pos8);
         if (sp) {
-            V3_1b05a0 z;
-            z.x = 0;
-            z.y = 0;
-            z.z = 0;
-            sp->FUN_00083320(&qq, &c->n, c->f24, 0, &z, 0);
+            f.qv.x = 0;
+            f.qv.y = 0;
+            f.qv.z = 0;
+            sp->FUN_00083320(&f.m, &c->n, c->f24, 0, &f.qv, 0);
             if (self->FUN_001d72e0()->f6c == 0)
                 return 1;
         }

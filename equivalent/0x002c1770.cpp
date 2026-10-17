@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 61 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 15928 inputs, branch coverage 8/8)
 // pure3d::LocatorLoader::vfunc_5 @ 0x002c1770
 #include "gen/pure3d.h"
 
@@ -53,11 +53,16 @@ struct Stream_2c1770 {
     void FUN_00266be0();
 };
 
+// The original's frame (sub esp,0x134), slot for slot.
 struct Frame_2c1770 {
     char pad[3];
     unsigned char len;
-    float pos[3];
-    float quat[4];
+    union {                         // copy temporaries
+        Vec3_2c1770 pos;
+        Quat_2c1770 quat;
+    } tmp;
+    Vec3_2c1770 pos;
+    Quat_2c1770 quat;
     int count;
     char name[0x100];
 };
@@ -70,19 +75,21 @@ void pure3d::LocatorLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int __p3
     s->reader->FUN_002647e0(f.name, f.len, 1, 1);
     s->reader->FUN_002647e0(&f.count, 1, 4, 1);
     f.name[f.len] = 0;
-    s->reader->FUN_002647e0(f.pos, 3, 4, 1);
+    s->reader->FUN_002647e0(&f.pos, 3, 4, 1);
 
     void *mem = FUN_00263ea0(0x30);
     pure3d::Locator_2c1770 *loc = 0;
     if (mem)
         loc = new (mem) pure3d::Locator_2c1770();
     loc->name.FUN_0027b040(f.name);
-    loc->position = *(Vec3_2c1770 *)f.pos;
+    f.tmp.pos = f.pos;
+    loc->position = f.tmp.pos;
 
     while (s->FUN_002669f0()) {
         if (s->FUN_00266a30() == 0x14001) {
-            s->reader->FUN_002647e0(f.quat, 4, 4, 1);
-            loc->rotation = *(Quat_2c1770 *)f.quat;
+            s->reader->FUN_002647e0(&f.quat, 4, 4, 1);
+            f.tmp.quat = f.quat;
+            loc->rotation = f.tmp.quat;
         }
         s->FUN_00266be0();
     }

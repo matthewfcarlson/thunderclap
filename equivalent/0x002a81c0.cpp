@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 212 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 16583 inputs, branch coverage 16/16)
 // FUN_002a81c0 @ 0x002a81c0
 struct Key_2a81c0 { unsigned a,b; };
 struct Item_2a81c0 { char pad[8]; Key_2a81c0 key; unsigned FUN_00288960(unsigned, unsigned); };
@@ -11,20 +11,26 @@ struct WordArray { unsigned* data; unsigned size; void FUN_002a8000(int, unsigne
 struct Object { char pad[0x3c]; Source_2a81c0* source; Context* context; WordArray words; unsigned unused; ByteArray bytes; void target(); };
 void Object::target() {
  if (source && context) {
-  int count=source->count;
+  struct Frame {          // (the original's slot order)
+   char pad[3];
+   unsigned char zeroByte;
+   union { unsigned zeroWord; Key_2a81c0 key; } u;
+   int count;
+  } f;
+  f.count=source->count;
   if(bytes.data) FUN_0008d340(bytes.data);
   bytes.data=0; bytes.size=0;
-  unsigned char zeroByte=0;
-  bytes.FUN_002a8060(count,&zeroByte);
+  f.zeroByte=0;
+  bytes.FUN_002a8060(f.count,&f.zeroByte);
   if(words.data) FUN_0008d340(words.data);
   words.data=0; words.size=0;
-  unsigned zeroWord=0;
-  words.FUN_002a8000(count,&zeroWord);
-  for(int i=0;i<count;++i) {
+  f.u.zeroWord=0;
+  words.FUN_002a8000(f.count,&f.u.zeroWord);
+  for(int i=0;i<f.count;++i) {
    Item_2a81c0* item=source->FUN_00288a10(i);
-   Key_2a81c0 key=item->key;
+   f.u.key=item->key;
    unsigned char* dest=bytes.data+i;
-   unsigned char result=context->lookup->FUN_00298960(&key);
+   unsigned char result=context->lookup->FUN_00298960(&f.u.key);
    *dest=result;
    unsigned* out=words.data+i;
    item=source->FUN_00288a10(i);

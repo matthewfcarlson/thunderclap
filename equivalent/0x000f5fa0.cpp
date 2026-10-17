@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 24 inputs, branch coverage 19/20, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 16741 inputs, branch coverage 20/20)
 // FUN_000f5fa0 @ 0x000f5fa0
 #include "decls/data/engine/content.h"
 #include "decls/data/game/global.h"
@@ -161,10 +161,10 @@ void Runner_f5fa0::FUN_000f5fa0(const char *src, int arg)
     if (!active)
         f220c = arg;
     DollyScript::CScriptParser *p = (DollyScript::CScriptParser *)f.parser;
-    for (int i = 0; i < 0x80; i++) {
-        p->table.slots[i].a = 0;
-        p->table.slots[i].b = 0;
-        p->table.slots[i].c = 0;
+    for (Slot_f5fa0 *slot = p->table.slots; slot != p->table.slots + 0x80; slot++) {
+        slot->a = 0;
+        slot->b = 0;
+        slot->c = 0;
     }
     p->tail.f10 = 0;
     p->tail.f00 = 0;
