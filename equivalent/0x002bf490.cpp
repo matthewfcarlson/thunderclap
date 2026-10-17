@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 12/12)
+// pure3d::ImageFont::vfunc_16 @ 0x002bf490
+namespace pure3d { struct ImageFont { char pad0[0x2c]; int fallback; char pad30[4]; struct Glyph { char pad[8]; unsigned short width; char rest[2]; }; Glyph *glyphs; int FUN_002bf350(unsigned int); int vfunc_16(const unsigned short *text); }; int ImageFont::vfunc_16(const unsigned short *text) { if (!text || !*text || *text == 10) return 0; int total = 0; while (*text && *text != 10) { int index = FUN_002bf350(*text); if (index < 0) index = fallback; total += glyphs[index].width; ++text; } return total; } }
