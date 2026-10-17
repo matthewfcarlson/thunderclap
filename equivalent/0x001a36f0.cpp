@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
+// FUN_001a36f0 @ 0x001a36f0
+struct Object { char pad[0x24]; char *text; unsigned char FUN_001a36f0(const char *value); }; int __cdecl FUN_0008d340(void *); void *__cdecl FUN_0008d6d0(unsigned int); unsigned char Object::FUN_001a36f0(const char *value) { FUN_0008d340(text); if (!value) { text = 0; return 1; } unsigned int length = 0; while (value[length]) ++length; char *copy = (char *)FUN_0008d6d0(length + 1); text = copy; do { *copy++ = *value; } while (*value++); return 1; }

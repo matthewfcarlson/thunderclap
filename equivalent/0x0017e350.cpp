@@ -1,0 +1,47 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
+// fight::TrackFactoryTemplate<hulkfight::motion::DriftToPositionTrack>::vfunc_5 @ 0x0017e350
+void* __cdecl FUN_0008d690(unsigned int);
+inline void* __cdecl operator new(unsigned int, void* p) { return p; }
+struct DriftToPositionTrack {
+    virtual void vfunc_0();
+    char pad04[4];
+    int count;
+    int field0c;
+    float field10;
+    unsigned char field14;
+    char pad15[3];
+    int field18;
+    int field1c;
+    int field20;
+    unsigned char field24;
+    unsigned char field25;
+    char pad26[2];
+    int field28;
+    void FUN_00236d40();
+};
+struct TrackFactoryTemplate {
+    virtual void vfunc_0();
+    virtual void vfunc_1();
+    virtual void vfunc_2();
+    virtual void vfunc_3();
+    virtual void vfunc_4();
+    DriftToPositionTrack* vfunc_5();
+};
+DriftToPositionTrack* TrackFactoryTemplate::vfunc_5() {
+    DriftToPositionTrack* track = (DriftToPositionTrack*)FUN_0008d690(0x2c);
+    if (track) {
+        track->FUN_00236d40();
+        new(track) DriftToPositionTrack;
+        track->field0c = 0;
+        track->field14 = 0;
+        track->field10 = -1.0f;
+        track->field18 = 0;
+        track->field1c = 0;
+        track->field20 = 0;
+        track->field24 = 1;
+        track->count = 1;
+        track->field25 = 0;
+        track->field28 = 0;
+    }
+    return track;
+}
