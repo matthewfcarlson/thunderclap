@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 195 inputs, branch coverage 15/16, incomplete)
+// FUN_00248c50 @ 0x00248c50
+struct Node { Node *left; Node *parent; Node *right; }; struct Tree { Node *root; Node sentinel; }; Node* __cdecl FUN_00248c50(Tree* tree, Node* node) { Node* nil = &tree->sentinel; Node* p = node->parent; if (p != nil) { Node* q = p->left; while (q != nil) { p = q; q = p->left; } return p == nil ? 0 : p; } p = node->right; if (p != nil) { while (node == p->parent) { node = p; p = p->right; if (p == nil) break; } } return p == nil ? 0 : p; }

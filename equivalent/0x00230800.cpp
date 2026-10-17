@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 471 inputs, branch coverage 15/16, incomplete)
+// FUN_00230800 @ 0x00230800
+struct Node { Node* left; Node* parent; Node* right; }; struct Tree { char pad[4]; Node root; Node* FUN_00230800(Node* node); }; Node* Tree::FUN_00230800(Node* node) { Node* sentinel=&root; Node* next=node->parent; if(next==sentinel) { next=node->right; while(next!=sentinel && node==next->parent) { node=next; next=next->right; } } else { if(next->left!=sentinel) { next=next->left; while(next->left!=sentinel) next=next->left; } } return next==sentinel ? 0 : next; }
