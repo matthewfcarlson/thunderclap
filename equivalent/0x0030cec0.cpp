@@ -1,0 +1,4 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// physics::PhysicsJoint1D::vfunc_16 @ 0x0030cec0
+namespace physics { struct PhysicsJoint { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(); virtual void vfunc_13(); virtual void vfunc_14(); virtual void vfunc_15(); }; struct PhysicsJoint1D : PhysicsJoint { char pad[0xf8]; float x,y,z; virtual void vfunc_16(const float* input,float* output); }; }
+void physics::PhysicsJoint1D::vfunc_16(const float* input,float* output) { float projection = -(z*input[2]+y*input[1]+x*input[0]); output[0]=projection*x+input[0]; output[1]=projection*y+input[1]; output[2]=projection*z+input[2]; }

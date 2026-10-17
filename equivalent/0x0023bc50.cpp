@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// fight::BinReader::vfunc_11 @ 0x0023bc50
+struct Stream { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual int read(void *, unsigned int); }; namespace fight { struct BinReader { void *vptr; char pad4[4]; Stream *stream; char padC[4]; int status; char pad14[12]; unsigned int remaining; bool vfunc_11(int a, int b, unsigned char *out); }; } bool fight::BinReader::vfunc_11(int a, int b, unsigned char *out) { status = -1; unsigned int value = *out; unsigned int count = remaining; if (count > 4) count = 4; int result = stream->read(&value, count); remaining -= count; *out = value != 0; return result == 4; }

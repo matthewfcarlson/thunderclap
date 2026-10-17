@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 798 inputs, branch coverage 6/6)
+// FUN_002ff1b0 @ 0x002ff1b0
+struct Entry { char pad[0x10]; char active; }; struct Owner { char pad[0x40]; Entry entry; }; struct Helper { void FUN_002f8020(void*, unsigned int, int); }; struct Controller { Owner* owner; char pad0[4]; int* begin; int* end; char pad1[0x58]; Helper helper; void FUN_002ff1b0(unsigned int value); }; void Controller::FUN_002ff1b0(unsigned int value) { for (unsigned int i = 0; i < (unsigned int)(end - begin); ++i) { char* entry = (char*)owner + begin[i] * 0x6c; if (entry[0x50]) helper.FUN_002f8020(entry + 0x40, value, 0); } }

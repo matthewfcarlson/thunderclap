@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_002efe50 @ 0x002efe50
+struct Vec3 { float x,y,z; }; namespace physics { struct FUN_003060a0 { virtual void method(); char padding[0x18]; FUN_003060a0(); }; struct CollisionSphere : FUN_003060a0 { Vec3 position; float values[5]; Vec3 otherPosition; CollisionSphere(const Vec3* position, float value); }; } physics::CollisionSphere::CollisionSphere(const Vec3* position, float value) { this->position = *position; otherPosition = *position; for (int i=0;i<5;++i) values[i]=value; }
