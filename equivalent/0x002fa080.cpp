@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// FUN_002fa080 @ 0x002fa080
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int); extern "C" void __cdecl FUN_002f9ff0(void*, unsigned int, void*); struct Buffer { char* start; char* end; bool FUN_002fa080(unsigned int count, void* value); }; bool Buffer::FUN_002fa080(unsigned int count, void* value) { if (start) return false; if (count) { start = (char*)FUN_0008d6d0(count * 80); if (start) { end = start + count * 80; FUN_002f9ff0(start, count, value); return true; } } start = 0; end = 0; return false; }
