@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/8, incomplete)
+// FUN_000c9090 @ 0x000c9090
+struct Entry { int id; int a; int b; int c; char padding[48]; }; struct Holder { char padding[0x258]; Entry entries[128]; void FUN_000c9090(int index, int a, int b, int c); }; void Holder::FUN_000c9090(int index, int a, int b, int c) { if (index >= 0 && index < 128 && entries[index].id != -1) { entries[index].a = a; entries[index].b = b; entries[index].c = c; } }

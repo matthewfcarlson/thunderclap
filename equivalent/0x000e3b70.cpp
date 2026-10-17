@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// FUN_000e3b70 @ 0x000e3b70
+struct Node { char pad0[0x40]; unsigned char active; char pad41[3]; void* link; unsigned char enabled; char pad49[3]; void* owner; }; struct Object { char pad0[0x4c]; void* owner; char pad50[0xf8]; void* link; char pad14c[4]; Node* node; void FUN_000e3b70(Node* value); }; void Object::FUN_000e3b70(Node* value) { node = value; if (value) { value->active = 1; node->enabled = 1; node->link = link; node->owner = owner; } }

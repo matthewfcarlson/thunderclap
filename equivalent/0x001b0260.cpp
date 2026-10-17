@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 5/5)
+// FUN_001b0260 @ 0x001b0260
+struct Detail { char pad[0x14]; int value; }; struct Object { char pad[0x11c]; Detail* detail; }; extern "C" int __cdecl FUN_00044500(int); int __stdcall FUN_001b0260(Object* object, int kind) { switch (kind) { case 1: case 5: return 1; case 2: case 3: case 4: case 6: case 7: case 10: case 12: return FUN_00044500(object->detail->value); default: return (kind - 1) & ~255; } }

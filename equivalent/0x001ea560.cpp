@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// FUN_001ea560 @ 0x001ea560
+struct Caster { virtual void f0(); virtual void f1(); virtual void f2(); virtual char* f3(void* type, int a, int b); }; struct Obj { char pad[0x518]; Caster* caster; void FUN_001ea560(int a,int b); }; struct DynamicCaster { virtual void f(); }; namespace content { namespace LoadInventory { struct DynamicCasterListenerEffectXBox { virtual void f(); }; } } void __cdecl FUN_00241280(void*,int,int); void Obj::FUN_001ea560(int a,int b) { content::LoadInventory::DynamicCasterListenerEffectXBox marker; char* result=caster->f3(&marker,a,b); if(result) FUN_00241280(result+0x28,0,0); }
