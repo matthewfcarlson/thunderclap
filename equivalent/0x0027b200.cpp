@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 153 inputs, branch coverage 8/8)
+// FUN_0027b200 @ 0x0027b200
+struct Entry { unsigned int first; unsigned int second; }; struct Table { char pad0[0x10]; unsigned int count; char pad1[0x10]; Entry *entries; unsigned int FUN_0027b200(unsigned int first, unsigned int second); }; unsigned int Table::FUN_0027b200(unsigned int first, unsigned int second) { for (unsigned int i = 0; i < count; ++i) { if (entries[i].first == first && entries[i].second == second) return i; } return 0xffff; }

@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/8, incomplete)
+// FUN_000c8410 @ 0x000c8410
+struct Entry { int active; char pad[20]; int x; int y; int z; char tail[20]; }; struct Object { char pad[0x9d * 0x38]; Entry entries[32]; void FUN_000c8410(int index, int x, int y, int z); }; void Object::FUN_000c8410(int index, int x, int y, int z) { if (index >= 0 && index < 32 && entries[index].active != 0) { entries[index].x = x; entries[index].y = y; entries[index].z = z; } }

@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 5/6, incomplete)
+// FUN_000ac560 @ 0x000ac560
+struct Ref { virtual void FUN_00000000(); virtual void FUN_00000004(); }; struct Owner { char pad[0x170]; Ref* ref; void FUN_000ac560(Ref* value); }; void Owner::FUN_000ac560(Ref* value) { if (ref) { ref->FUN_00000004(); ref = 0; } ref = value; if (value) value->FUN_00000000(); }

@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_002a1140 @ 0x002a1140
+struct Base { Base(); virtual void unused(); }; struct Items { int third; int fourth; void FUN_002a10a0(int, int *); }; namespace pure3d { struct LightGroup : Base { char pad[12]; int first; int second; Items items; LightGroup(int value); }; } pure3d::LightGroup::LightGroup(int value) { first=value; second=value; items.third=0; items.fourth=0; int zero=0; items.FUN_002a10a0(value,&zero); }

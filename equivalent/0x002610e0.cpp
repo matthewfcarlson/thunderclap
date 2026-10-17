@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 702 inputs, branch coverage 10/10)
+// FUN_002610e0 @ 0x002610e0
+struct Node { Node* left; Node* right; char pad[8]; unsigned key; unsigned value; }; struct Tree { Node* root; Node sentinel; }; void* __cdecl FUN_002610e0(Tree* tree, const unsigned* key) { Node* node = tree->root; Node* end = &tree->sentinel; while (node != end) { if (*key < node->key) node = node->left; else if (*key > node->key) node = node->right; else { if (node == reinterpret_cast<Node*>(sizeof(Node*))) return 0; return &node->value; } } return 0; }
