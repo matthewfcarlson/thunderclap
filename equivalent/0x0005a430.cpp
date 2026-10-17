@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// FUN_0005a430 @ 0x0005a430
+struct Result { char pad[0x330]; void* fallback; void* preferred; }; struct Input { void* FUN_000592a0(); }; struct Middle { Result* FUN_00059a30(); }; void* __cdecl FUN_0005a430(Input* input) { if (!input) return 0; Middle* middle = (Middle*)input->FUN_000592a0(); if (!middle) return 0; Result* result = middle->FUN_00059a30(); if (!result) return 0; return result->preferred ? result->preferred : result->fallback; }

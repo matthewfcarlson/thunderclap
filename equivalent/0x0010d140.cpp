@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_0010d140 @ 0x0010d140
+extern void *DAT_0040dbb4[]; struct TokenSupressTrack { void *vptr; char pad4[4]; int enabled; int target; float limit; unsigned char active; char pad15[3]; float value; unsigned char flag1, flag2; void FUN_00236d40(); TokenSupressTrack *FUN_0010d140(); }; TokenSupressTrack *TokenSupressTrack::FUN_0010d140() { FUN_00236d40(); target = 0; flag1 = 0; flag2 = 0; vptr = DAT_0040dbb4; limit = -1.0f; active = 1; value = -1.0f; enabled = 1; return this; }

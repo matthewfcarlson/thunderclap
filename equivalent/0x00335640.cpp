@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// FUN_00335640 @ 0x00335640
+struct Entry { char pad[8]; int type; }; struct Manager { char pad[0x44]; int count; Entry* FUN_00337090(int index); }; struct Object { char pad[4]; Manager* manager; int* values; int FUN_00335640(int index); }; int Object::FUN_00335640(int index) { if (index >= 0 && index < manager->count && manager->FUN_00337090(index)->type == 4) return values[index]; return 0; }
