@@ -12,16 +12,16 @@ struct MotionState_144310 {
     char pad[0x1c - 4];
     float value;
 };
-struct Ret_144310 {
-    void f();
+struct Registry_144310 {
+    void FUN_001c3840(void*, void*);
 };
-void* __stdcall FUN_001c3d90(void*, void*);
+// the 0-argument singleton getter; the two pushed values are arguments of the method call
+Registry_144310* FUN_001c3d90();
 
 bool hulkfight::motion::MotionBlurAction::vfunc_3(int a, int b) {
     this->f_20 = (*(MotionState_144310 * *)&this->f_1c)->f6();
     if ((*(MotionState_144310 * *)&this->f_1c)->value < g_zero_144310)
         return false;
-    Ret_144310* r = (Ret_144310*)FUN_001c3d90((char*)this + 0x24, (char*)this + 0x28);
-    r->f();
+    FUN_001c3d90()->FUN_001c3840((char*)this + 0x24, (char*)this + 0x28);
     return true;
 }

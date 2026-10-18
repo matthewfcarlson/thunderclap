@@ -13,11 +13,11 @@ class A_1fba00 {
 struct S_1fba00 {
     unsigned a, b, c, d, e, f, g;
 };
-extern S_1fba00* __stdcall FUN_001c3d90(unsigned*);
-class B_1fba00 {
-  public:
-    void g();
+// FUN_001c3d90 is the 0-argument singleton getter; the pushed pointer is the argument of FUN_001c4010.
+struct Registry_1fba00 {
+    void FUN_001c4010(unsigned*);
 };
+Registry_1fba00* FUN_001c3d90();
 void __fastcall FUN_001fba00(A_1fba00* p) {
     S_1fba00 x;
     p->f8(&x.a);
@@ -25,6 +25,5 @@ void __fastcall FUN_001fba00(A_1fba00* p) {
     x.e = x.b;
     x.f = x.c;
     x.g = 0x3f800000;
-    S_1fba00* y = FUN_001c3d90(&x.d);
-    ((B_1fba00*)y)->g();
+    FUN_001c3d90()->FUN_001c4010(&x.d);
 }

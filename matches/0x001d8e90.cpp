@@ -33,11 +33,11 @@ struct A_1d8e90 {
     void FUN_001b4540();
 };
 struct B_1d8e90 {
-    void FUN_001c3b80();
+    void FUN_001c3b80(void*);
 };
 struct CSPHulkPropInstance;
 A_1d8e90* __stdcall FUN_001b6580(CSPHulkPropInstance*);
-B_1d8e90* __stdcall FUN_001c3d90(void*);
+B_1d8e90* FUN_001c3d90();  // 0-argument singleton getter
 struct CSPHulkPropInstance {
     virtual void slot0();
     virtual void slot1();
@@ -90,7 +90,7 @@ CSPHulkPropInstance::~CSPHulkPropInstance() {
             c->FUN_002fd8a0(0);
     }
     FUN_001b6580(this)->FUN_001b4540();
-    FUN_001c3d90((char*)this + 8)->FUN_001c3b80();
+    FUN_001c3d90()->FUN_001c3b80((char*)this + 8);
     if (r11c) {
         r11c->release();
         r11c = 0;
