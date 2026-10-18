@@ -63,7 +63,12 @@ Native spelling (docs/native-build.md fixes 1-2; the MSVC 7.1 code does not chan
   * a wrapped source's `extern "C"` declaration that would clash in the TU (another type of the same C name,
     or an invented name such as `Lookup`) gets C++ linkage, `extern "C++"`, so it becomes fn_<addr>::name
     (CLinkage); merged declarations that overload one C name keep C linkage only on the first (emit_item).
-    tools/native_link.py binds the resulting names by address for the native link.
+    tools/native_link.py binds the resulting names by address for the native link;
+  * a TU's own declarations and merged definitions live in its TU namespace `fn_f<7 hex>` (see TU_NS_GLOBAL),
+    so stubs and helpers of different TUs don't collide in the native link; TU-local variable definitions
+    become declarations (as_declaration), wrapped sources' declarations of the pinned globals become typed
+    views of one C name (PINNED), the repeated placement operator new is HULK_NATIVE_INLINE (docs/native-build.md
+    "After the next fixes 1-3").
 """
 import argparse
 import bisect
@@ -160,14 +165,16 @@ def load_state():
         s = {}
     return {"wrap": {int(k, 16): v for k, v in s.get("wrap", {}).items()},
             "isolate": {int(k, 16): v for k, v in s.get("isolate", {}).items()},
-            "local_only": {tuple(k) for k in s.get("local_only", [])}}
+            "local_only": {tuple(k) for k in s.get("local_only", [])},
+            "iso_plain": {int(k, 16): v for k, v in s.get("iso_plain", {}).items()}}
 
 
 def save_state(state):
     os.makedirs(TREE, exist_ok=True)
     s = {"wrap": {"0x%08x" % k: v for k, v in sorted(state["wrap"].items())},
          "isolate": {"0x%08x" % k: v for k, v in sorted(state["isolate"].items())},
-         "local_only": sorted(list(k) for k in state["local_only"])}
+         "local_only": sorted(list(k) for k in state["local_only"]),
+         "iso_plain": {"0x%08x" % k: v for k, v in sorted(state.get("iso_plain", {}).items())}}
     with open(STATE, "w") as f:
         json.dump(s, f, indent=1)
 
@@ -1043,18 +1050,61 @@ class Generator:
         write_file(os.path.join(TREE, "include", PRELUDE), PRELUDE_LINES)
         self.c_seen = {}        # header -> {C function name: shape} declared by it and what it includes
         self.prelude_use = {}   # header -> it (or common.h) names size_t / HULK_NEW_THROW
+        self.header_globals = {}    # header -> top-level names it (and common.h) emits outside the TU namespace
+        self.header_declared = {}   # header -> top-level names it (and common.h) declares
+        self.header_gen_tops = {}   # header -> include/gen names whose items it emits under #ifdef TREE_LOCAL_<name>
+        self.tu_ns_taken = set()
         for h, entries in sorted(self.headers.items()):
             lines = [HEADER]
             guard = "TREE_" + re.sub(r"\W", "_", h).upper()
             lines += ["#ifndef " + guard, "#define " + guard]
+            # the TU namespace (see TU_NS_GLOBAL): a TU defines these before including its headers
+            lines += ["#ifndef " + TU_BEGIN, "#define " + TU_BEGIN, "#define " + TU_END, "#endif"]
             if h != "common.h":
                 lines.append('#include "common.h"')
             spans = []
             seen = self.c_seen[h] = dict(self.c_seen.get("common.h", {}))
+            glob = self.header_globals[h] = set(self.header_globals.get("common.h", set()))
+            declared = self.header_declared[h] = set(self.header_declared.get("common.h", set()))
+            gnames = self.header_gen_tops[h] = set(self.header_gen_tops.get("common.h", set()))
+            ns = NsLines(lines, {"tu": (TU_BEGIN, TU_END)})
+
+            def local_if(nm, body):
+                # an include/gen name: TU-local in the TUs whose include/gen headers don't declare it
+                gnames.add(nm)
+                ns.at(None)
+                lines.extend(["#ifdef %s%s" % (TU_LOCAL, nm), TU_BEGIN, "#endif"] + body +
+                             ["#ifdef %s%s" % (TU_LOCAL, nm), TU_END, "#endif"])
             for k, norm, it, addr in self.order(entries):
+                cls = ns_class(it)
+                top = item_top(it)
+                if cls is None:
+                    glob.add(top)
+                if cls != "tu":
+                    # TU-local stubs a global item names by `struct X` before their declaration
+                    for ck, nm in elaborated_refs(it):
+                        ncls = name_class(nm)
+                        if nm in declared or ncls is None:
+                            continue
+                        fwd = "%s %s;   // (declared here for the next declaration)" % (ck, nm)
+                        if ncls == "tu":
+                            ns.at("tu")
+                            lines.append(fwd)
+                        else:
+                            local_if(nm, [fwd])
+                        declared.add(nm)
+                        self.stats["stub classes forward-declared for a global declaration"] += 1
+                declared.add(top)
+                if cls == "gen":
+                    s = len(lines) + 4
+                    local_if(top, emit_item(it, seen))
+                    spans.append([s, len(lines) - 3, list(map(str, k)), norm])
+                    continue
+                ns.at(cls)
                 s = len(lines) + 1
                 lines += emit_item(it, seen)
                 spans.append([s, len(lines), list(map(str, k)), norm])
+            ns.close()
             lines.append("#endif")
             self.prelude_use[h] = bool(PRELUDE_USE.search(native_spelling("\n".join(lines)))) or \
                 self.prelude_use.get("common.h", False)
@@ -1084,13 +1134,29 @@ class Generator:
         for h in gen:
             lines.append('#include "%s"' % h)
         rec["gen"] = gen
+        tu_ns = ns = None
         if merged:
+            # the TU namespace (TU_NS_GLOBAL): TU-local declarations and merged definitions go inside it
+            tu_ns = tu_namespace(tu.path, self.tu_ns_taken)
+            rec["tu_ns"] = tu_ns
+            lines += ["#define %s namespace %s {" % (TU_BEGIN, tu_ns), "#define %s }" % TU_END]
+            hdr = tu.header if os.path.exists(os.path.join(TREE, "include", tu.header)) else "common.h"
+            # include/gen names: TU-local where this TU's include/gen headers don't declare them (a stub of the
+            # same name would hide the real class or namespace)
+            gen_decl = header_tops(gen)
+            for nm in sorted(self.header_gen_tops.get(hdr, set()) - gen_decl):
+                lines.append("#define %s%s" % (TU_LOCAL, nm))
+            lines.append("namespace %s {} using namespace %s;" % (tu_ns, tu_ns))
             hp = os.path.join(TREE, "include", tu.header)
             if os.path.exists(hp):
                 lines.append('#include "%s"' % tu.header)
+                hg = self.header_globals.get(tu.header, set())
             else:
                 lines.append('#include "common.h"') if os.path.exists(os.path.join(TREE, "include", "common.h")) else None
+                hg = self.header_globals.get("common.h", set())
             rec["header"] = tu.header
+            glob = TU_NS_GLOBAL | gen_decl | hg | include_tops()[1]
+            ns = NsLines(lines, {True: ("namespace %s {" % tu_ns, "} // namespace %s" % tu_ns)})
         if tu.local:
             lines.append("")
             lines.append("// ---- declarations shared by the functions below")
@@ -1098,13 +1164,30 @@ class Generator:
             seen = dict(self.c_seen.get(tu.header, self.c_seen.get("common.h", {}))) if merged else {}
             seen.update({it.name: _c_shape(it)[0] for b in tu.blocks if b.mode in ("merged", "wrapped")
                          for it in b.items if it.kind == "funcdef" and it.c_linkage and it.name and not it.is_inline})
+            declared = set(self.header_declared.get(tu.header if merged and os.path.exists(
+                os.path.join(TREE, "include", tu.header)) else "common.h", set())) if merged else set()
             for k, norm, it, addr in self.order(tu.local):
+                if ns is not None:
+                    local = not (always_global(it) or item_top(it) in glob)
+                    if not local:
+                        for ck, nm in elaborated_refs(it):
+                            if nm not in declared and nm not in glob and not keeps_c_linkage(nm):
+                                ns.at(True)
+                                lines.append("%s %s;   // (declared here for the next declaration)" % (ck, nm))
+                                declared.add(nm)
+                                self.stats["stub classes forward-declared for a global declaration"] += 1
+                    ns.at(True if local else None)
+                    declared.add(item_top(it))
                 s = len(lines) + 1
-                lines += emit_item(it, seen)
+                d = as_declaration(it)
+                if d is not None:
+                    self.stats["variable definitions of merged sources emitted as declarations"] += 1
+                lines += emit_item(d or it, seen)
                 rec["locals"].append([s, len(lines), list(map(str, k)), norm,
                                       sorted(b.addr for b in merged if any(kk == k and nn == norm for kk, nn, _ in b.decls))])
         emitted_ops = {(it.name, it.params) for _, _, it, _ in tu.local if it.name and it.name.startswith("operator")}
         clink = CLinkage(self, tu, gen, merged)
+        pin_declared = set()
         events = [(b.addr, 1, b) for b in tu.blocks] + [(a, 0, (a, s, n)) for a, s, n in tu.placeholders]
         events.sort(key=lambda e: (e[0], e[1]))
         lines.append("")
@@ -1114,6 +1197,11 @@ class Generator:
                 lines.append("// 0x%08x %s (%d B): not yet verified" % (a, n, s))
                 continue
             b = x
+            b.tu_ns = None
+            if ns is not None:
+                if b.mode == "merged" and not (always_global(b.defs[0]) or item_top(b.defs[0]) in glob):
+                    b.tu_ns = tu_ns
+                ns.at(True if b.tu_ns is not None else None)
             s = len(lines) + 1
             lines.append("")
             lines.append("// 0x%08x %s (%d B): %s%s" % (b.addr, b.name, b.size, b.path,
@@ -1131,13 +1219,24 @@ class Generator:
                     sig = (it.name, it.params)
                     if sig not in emitted_ops:
                         emitted_ops.add(sig)
-                        lines += emit_item(it)
+                        lines += emit_item(native_inline(it))
                     text = text[:it.toks[0].s] + text[it.toks[-1].e:]
                 # an include/decls/ header goes in inline: its declarations belong to the fn_<addr> namespace
                 # with the source's own stubs (`struct World;` + the source's `struct World {...}`)
                 text = re.sub(r'^[ \t]*#\s*include\s*[<"](decls/\w+\.h)[>"][ \t]*$', lambda m: decls_body(m.group(1)),
                               text, flags=re.M)
                 text = DATA_INCLUDE.sub("", text)        # hoisted to the TU (tu_data_headers)
+                text, pinned = pin_views(text)
+                text, n_cdefs = c_var_declarations(text)
+                if n_cdefs:
+                    self.stats["C-linkage variable definitions in wrapped sources emitted as declarations"] += n_cdefs
+                for nm in pinned:
+                    if nm not in clink.global_names and nm not in pin_declared:
+                        # the one global C declaration the source's typed views read (see pin_views)
+                        lines.append('extern "C" { extern void* %s; }   // (pinned global: one C name for every view)' % nm)
+                        pin_declared.add(nm)
+                if pinned:
+                    self.stats["pinned global declarations in wrapped sources made views of the C name"] += len(pinned)
                 text, local_c = clink.rewrite(b, text)
                 if local_c:
                     self.stats["C-linkage declarations made namespace-local in wrapped sources"] += len(local_c)
@@ -1145,16 +1244,23 @@ class Generator:
                 lines.append("namespace %s {" % b.ns)
                 lines += [l for l in text.rstrip("\n").splitlines()]
                 lines.append("} // namespace %s" % b.ns)
-                for m in b.macros:
+                for m in b.macros + sorted(pinned):
                     lines.append("#undef " + m)
             else:
-                lines += b.text.rstrip("\n").splitlines()
+                text, b.tu_ns = self.iso_text(tu, b)
+                lines += text
+                if b.tu_ns:
+                    rec["tu_ns"] = b.tu_ns
             lines.append("")
             rec["blocks"].append({"addr": "0x%08x" % b.addr, "name": b.name, "src": b.path, "kind": b.kind,
                                   "mode": b.mode, "reasons": b.reasons, "lines": [s, len(lines)],
                                   "ns": b.ns if b.mode == "wrapped" else None})
+            if b.tu_ns:
+                rec["blocks"][-1]["tu_ns"] = b.tu_ns
             if getattr(b, "c_local", None):
                 rec["blocks"][-1]["c_local"] = b.c_local
+        if ns is not None:
+            ns.close()
         if not PRELUDE_USE.search(native_spelling("\n".join(lines))) and not (
                 merged and self.prelude_use.get(tu.header, self.prelude_use.get("common.h"))):
             # only TUs that name size_t or HULK_NEW_THROW include the prelude: one more typedef in MSVC 7.1's
@@ -1162,6 +1268,45 @@ class Generator:
             lines[prelude_at] = "// (%s: not needed)" % PRELUDE
         write_file(os.path.join(TREE, tu.path), lines)
         return rec
+
+    def iso_text(self, tu, b):
+        """(lines, TU namespace or None) of an isolated source. The source goes into a TU namespace like a
+        merged TU's declarations (its stubs and helpers would otherwise collide with other isolated TUs' in the
+        native link): the include/decls/data/ headers go first, global operator new/delete stay global where
+        they are (the namespace closes around them; `using namespace` makes the source's typedefs visible to
+        them), an include/decls/ header goes in inline. Not for sources on include/gen/ (their definitions are
+        members of the real classes), with other preprocessor includes, using-directives, `::name`
+        qualifiers or type_info, or that build_tree.py found failing or changed that way (state `iso_plain`)."""
+        text = b.text
+        ops = sorted(global_operators(b), key=lambda it: -it.toks[0].s)
+        plain_text = text
+        for it in ops:
+            if is_native_inline(it):
+                plain_text = plain_text[:it.toks[0].s] + NATIVE_INLINE + " " + plain_text[it.toks[0].s:]
+        plain = (plain_text.rstrip("\n").splitlines(), None)
+        if (b.addr in self.state.get("iso_plain", {}) or not b.items or any(h.startswith("gen/") for h in b.gen_includes)
+                or any(it.kind == "using" for it in b.items) or re.search(r"(?<![\w>)\]])::\s*[A-Za-z_]", text)
+                or re.search(r"\b(type_info|typeid)\b", text)):
+            return plain
+        incs = re.findall(r'^[ \t]*#\s*include\b.*$', text, re.M)
+        if any(not (DATA_INCLUDE.match(l + "\n") or re.match(r'\s*#\s*include\s*[<"]decls/\w+\.h[>"]', l))
+               for l in incs):
+            return plain
+        ns = tu_namespace(tu.path, self.tu_ns_taken)
+        # global operators in place: close the namespace around them
+        for it in ops:
+            text = "%s\n} // namespace %s\n%s%s\nnamespace %s {\n%s" % (
+                text[:it.toks[0].s], ns, NATIVE_INLINE + " " if is_native_inline(it) else "",
+                text[it.toks[0].s:it.toks[-1].e], ns, text[it.toks[-1].e:])
+        pre = [l.strip() for l in DATA_INCLUDE.findall(text)]
+        text = DATA_INCLUDE.sub("", text)
+        text = re.sub(r'^[ \t]*#\s*include\s*[<"](decls/\w+\.h)[>"][ \t]*$', lambda m: decls_body(m.group(1)),
+                      text, flags=re.M)
+        text, pinned = pin_views(text)          # (see PINNED)
+        pre += ['extern "C" { extern void* %s; }   // (pinned global: one C name for every view)' % n for n in sorted(pinned)]
+        self.stats["isolated sources in a TU namespace"] += 1
+        return pre + ["namespace %s {} using namespace %s;" % (ns, ns), "namespace %s {" % ns] + \
+            text.rstrip("\n").splitlines() + ["} // namespace %s" % ns] + ["#undef " + n for n in sorted(pinned)], ns
 
     # -- conflicts ------------------------------------------------------------------------------
     def conflicts(self):
@@ -1290,11 +1435,13 @@ class CLinkage:
                         self.defs.setdefault(it.name, _c_shape(it))
                     elif b.mode == "merged" and it in b.defs:
                         self.note(it)      # a global C++ definition of that name
+        # names the TU declares at global scope (headers, shared declarations, merged definitions)
+        self.global_names = set(self.seen) | set(self.globals_cpp)
 
     def note(self, it):
         if it.kind not in ("func", "var", "funcdef") or not it.name:
             return
-        if it.c_linkage:
+        if it.c_linkage or it.kind == "var" and it.name in PINNED:
             self.seen.setdefault(it.name, _c_shape(it))
         elif not it.scope and "::" not in (it.key[1] if it.key else ""):
             self.globals_cpp.add(it.name)
@@ -1351,6 +1498,275 @@ class CLinkage:
         return text, names
 
 
+# ---------------------------------------------------------------------------------------------
+# The TU namespace (docs/native-build.md "Next fixes" 1): a TU's own declarations and merged definitions
+# live in `namespace fn_f<7 hex>` (one per TU), so the invented stub classes, helper functions and
+# variables of different TUs get different symbols (`Action::~Action` was 43 different destructors under
+# one name, which the native link reports as duplicates). The name has the shape of a wrapped block's
+# `fn_<addr>` namespace on purpose: tools/equiv.py and tools/clang_probe.py already look through
+# `fn_<8 hex>::` (fn_f... is never a function address, which all start 00). The MSVC 7.1 code does not
+# change: only symbol names do (compare.py masks relocations; build_tree.same_code compares relocation
+# targets by the address in the name), and build_tree.py's regression rounds would catch anything else.
+#
+# What stays global (outside the namespace), decided by an item's top-level name (its first namespace or
+# its name; `pure3d::X::f` -> pure3d, `Action::~Action` -> Action):
+#   * names declared by include/gen/ and include/decls/ (the real classes, pinned prototypes and data):
+#     for a TU-local item, those of the headers this TU includes; for an item of a tree header (shared by
+#     many TUs), those of all of include/; and then, in the TU, every top-level name its tree headers
+#     emit globally, so that one name is never both global and TU-local in a TU;
+#   * global operator new/delete (`new (p) T` only looks at global scope), the C runtime and `_names`
+#     (keeps_c_linkage), anonymous namespaces, type_info / std / size_t;
+#   * wrapped blocks (already unique by their fn_<addr> namespace) and isolated TUs (verbatim sources).
+# A global definition (a member of an include/gen class) still sees the TU's stubs: every TU says
+# `using namespace fn_f...;` before its declarations.
+TU_NS_GLOBAL = {"type_info", "std", "size_t", "ptrdiff_t", "wchar_t", "va_list", "<anon>", "__type_info_node"}
+TU_BEGIN, TU_END, TU_LOCAL = "TREE_TU_BEGIN", "TREE_TU_END", "TREE_LOCAL_"
+_INCLUDE_TOPS = []
+
+
+def tu_namespace(path, taken):
+    """`fn_f<7 hex>` for a TU path, unique among `taken` (which it joins)."""
+    salt = 0
+    while True:
+        h = hashlib.sha1(("%s#%d" % (path, salt)).encode()).hexdigest()[:7]
+        ns = "fn_f" + h
+        if ns not in taken:
+            taken.add(ns)
+            return ns
+        salt += 1
+
+
+def item_top(it):
+    """The top-level name an item declares or defines in (see above)."""
+    if it.scope:
+        return it.scope[0]
+    q = it.key[1] if it.key and len(it.key) > 1 else (it.name or "")
+    q = str(q).lstrip(":")
+    first = split_qualified_name(q)[0] if q else ""
+    return re.sub(r"<.*", "", first).strip() or "<anon>"
+
+
+def split_qualified_name(q):
+    """'a::B<x::y>::f' -> ['a', 'B<x::y>', 'f']."""
+    out, cur, depth, i = [], "", 0, 0
+    while i < len(q):
+        c = q[i]
+        if c == "<":
+            depth += 1
+        elif c == ">":
+            depth -= 1
+        if depth == 0 and q.startswith("::", i):
+            out.append(cur)
+            cur = ""
+            i += 2
+            continue
+        cur += c
+        i += 1
+    out.append(cur)
+    return [p for p in out if p] or [""]
+
+
+def always_global(it):
+    """Items that never go into the TU namespace, whatever their name."""
+    if it.kind in ("pp", "define", "undef", "using", "macro", "other"):
+        return True
+    n = it.name or ""
+    if re.match(r"operator\s*(new|delete)", n) and not it.scope and "::" not in str(it.key[1] if it.key else ""):
+        return True
+    if it.c_linkage and n and keeps_c_linkage(n):
+        return True
+    if it.scope and it.scope[0] == "<anon>":
+        return True
+    return False
+
+
+def header_tops(headers):
+    """Top-level names the include/ headers declare (include/gen/, include/decls/, include/decls/data/)."""
+    out = set()
+    for h in headers:
+        for it in gen_header_items(h):
+            out.add(item_top(it))
+    return out
+
+
+def include_tops():
+    """(top-level names declared by include/gen/, by include/decls/ (and include/decls/data/)), cached."""
+    if not _INCLUDE_TOPS:
+        hs = {"gen": [], "decls": []}
+        for dp, dns, fns in os.walk(INCLUDE_ROOT):
+            dns.sort()
+            rel = os.path.relpath(dp, INCLUDE_ROOT)
+            top = rel.split(os.sep)[0]
+            if top in hs:
+                hs[top] += [os.path.join(rel, fn).replace(os.sep, "/") for fn in sorted(fns) if fn.endswith(".h")]
+        _INCLUDE_TOPS.append((header_tops(hs["gen"]), header_tops(hs["decls"]) | TU_NS_GLOBAL))
+    return _INCLUDE_TOPS[0]
+
+
+def name_class(nm):
+    """ns_class for a bare top-level name."""
+    gen_tops, decls_tops = include_tops()
+    if nm in decls_tops or keeps_c_linkage(nm):
+        return None
+    if nm in gen_tops:
+        return "gen" if re.fullmatch(r"[A-Za-z_]\w*", nm) else None
+    return "tu"
+
+
+def ns_class(it):
+    """Where an item of a tree header goes: 'tu' (the TU namespace), 'gen' (an include/gen name: the TU
+    namespace in the TUs whose include/gen headers don't declare it, `#ifdef TREE_LOCAL_<name>`), or None
+    (global: always_global, or an include/decls/ name)."""
+    if always_global(it):
+        return None
+    return name_class(item_top(it))
+
+
+def elaborated_refs(it):
+    """[(class key, name)] of the unqualified `struct X` / `class X` / `union X` an item mentions (not its own
+    name). Where X is not declared yet, such a mention declares X in the item's namespace, so a global item
+    naming a TU-local stub that way would declare a second, global X; the generator declares it first."""
+    out, toks = [], it.toks
+    own = it.name if it.kind in ("class", "template class", "fwd") else None
+    for i in range(len(toks) - 1):
+        if toks[i].v in ("struct", "class", "union") and toks[i + 1].t == "id":
+            nm = toks[i + 1].v
+            nxt = toks[i + 2].v if i + 2 < len(toks) else ""
+            if nm == own or nxt in ("::", "{", ":") or nm in cxx_items.KEYWORDS:
+                continue
+            if i and toks[i - 1].v in ("<", ",", "template", "typename", "enum", "friend"):
+                continue        # template parameters, `enum class`, friend declarations
+            out.append((toks[i].v, nm))
+    return out
+
+
+def as_declaration(it):
+    """A TU-local variable definition of a merged source (`float gNegOne = -1.0f;`, `int g_4dd834;`) as a
+    declaration (`extern float gNegOne;`), or None to keep it. The data TUs (tools/data_gen.py) own the
+    game's data; tools/native_link.py binds the declaration by the address the verification build proves
+    for it. A definition gave every TU its own copy (the native link's duplicates), and a mutable global
+    defined in two TUs would be two variables. The MSVC 7.1 code is the same: a load or store of a
+    non-const global is the same instruction whether the TU defines it or not (no inter-procedural
+    assumptions under /O2 without /GL). Kept as definitions: const objects (internal linkage, and MSVC
+    folds their values), `static` ones, and anything unusual (a class type, braces, several declarators
+    with initializers)."""
+    if it.kind != "var" or not it.name or it.text.lstrip().startswith("extern") or it.scope[:1] == ("<anon>",):
+        return None
+    vs = [t.v for t in it.toks]
+    if any(v in ("static", "const", "__declspec", "typedef", "{", "(", "operator", "template") for v in vs):
+        return None
+    if vs[-1:] != [";"]:
+        return None
+    # drop each top-level initializer (`= ...` up to the next top-level `,` or the `;`)
+    base = it.toks[0].s
+    text, depth, skip, prev = "", 0, False, None
+    for t in it.toks:
+        if t.v in ("(", "[", "<"):
+            depth += 1
+        elif t.v in (")", "]", ">"):
+            depth -= 1
+        if depth == 0 and t.v == "=":
+            skip = True
+        elif depth == 0 and t.v in (",", ";"):
+            skip = False
+        if skip:
+            prev = None
+            continue
+        if prev is not None:
+            text += it.text[prev.e - base:t.s - base]
+        text += it.text[t.s - base:t.e - base]
+        prev = t
+    import copy
+    d = copy.copy(it)
+    d.text = "extern " + text
+    return d
+
+
+class NsLines:
+    """Appends to `lines`, with begin/end lines around runs of entries of one namespace class (None: global)."""
+
+    def __init__(self, lines, marks):
+        self.lines, self.marks, self.cur = lines, marks, None      # marks: class -> (begin, end)
+
+    def at(self, cls):
+        if cls != self.cur:
+            if self.cur is not None:
+                self.lines.append(self.marks[self.cur][1])
+            if cls is not None:
+                self.lines.append(self.marks[cls][0])
+            self.cur = cls
+
+    def close(self):
+        self.at(None)
+
+
+# ---------------------------------------------------------------------------------------------
+# The pinned globals (docs/native-build.md "Next fixes" 2, docs/data.md "What is left"): DAT_004dd700 & co. are
+# declared by include/decls/address.h as pointers to `struct World` etc., and every source defines its own
+# `World` stub. In a wrapped source that stub is fn_<addr>::World, so the declaration had to become
+# fn_<addr>::DAT_004dd700 (CLinkage: one C name can't have two types in one TU under clang) and the native
+# link could only bind it by address. Instead, a wrapped source's declaration of a pinned name becomes a typed
+# view of the TU's one C declaration: `#define DAT_004dd700 (*(World* *)&::DAT_004dd700)` inside its namespace
+# (#undef after it), where World is the source's own stub. The access is the same lvalue (a load of
+# [_DAT_004dd700]), so the MSVC 7.1 code does not change; every reference is to `_DAT_004dd700`, the data TU's
+# definition. The TU's global declaration is the merged one (forced to C linkage, emit_item) or, if the TU has
+# none, `extern "C" void* DAT_004dd700;`.
+PINNED = ("DAT_004dd700", "DAT_0052c2a8", "DAT_004dd6ec")
+
+
+def c_var_declarations(text):
+    """(text, count): a wrapped source's C-linkage variable definitions (`extern "C" { void* g_anim_vtable; }`) as
+    declarations (as_declaration). C names ignore the fn_<addr> namespace, so two clones defining one are a
+    redefinition under clang and a duplicate in the native link; the data (or vftable) is the game's, which
+    tools/native_link.py binds by address. The MSVC 7.1 code is the same (a load, store or address of a global)."""
+    if "extern" not in text:
+        return text, 0
+    try:
+        items = cxx_items.parse(text)
+    except ValueError:
+        return text, 0
+    edits = []
+    for it in items:
+        if it.kind == "var" and it.c_linkage and not it.scope:
+            d = as_declaration(it)
+            if d is not None:
+                edits.append((it.toks[0].s, it.toks[-1].e, d.text))
+    for s_, e_, rep in sorted(edits, reverse=True):
+        text = text[:s_] + rep + text[e_:]
+    return text, len(edits)
+
+
+def pin_views(text):
+    """(text, {names}) with a wrapped source's declarations of the pinned names replaced by typed views."""
+    if not any(n in text for n in PINNED):
+        return text, set()
+    try:
+        items = cxx_items.parse(text)
+    except ValueError:
+        return text, set()
+    edits, names = [], set()
+    for it in items:
+        if it.kind == "fwd" and len(it.toks) >= 5 and it.toks[-2].v in PINNED and \
+                re.fullmatch(r'extern\s+(?:"C"\s+)?(?:class|struct|union)\s+\w+\s*\*\s*\w+\s*;', it.text):
+            it.name = it.toks[-2].v          # `extern class X* DAT_x;` (parsed as a class declaration)
+        elif it.kind != "var" or it.name not in PINNED:
+            continue
+        vs = [t.v for t in it.toks]
+        if not (vs[0] == "extern" or it.linkage == "C") or any(v in vs for v in ("=", "[", "(", ",")) \
+                or vs[-1] != ";" or vs[-2] != it.name:
+            return text, set()             # a definition or an unusual declarator: leave the source as it is
+        ty = [t for t in it.toks[:-2] if t.v not in ("extern", '"C"')]
+        if not ty:
+            return text, set()
+        tytext = text[ty[0].s:ty[-1].e]
+        line = "" if it.name in names else "#define %s (*(%s *)&::%s)" % (it.name, tytext, it.name)
+        edits.append((it.toks[0].s, it.toks[-1].e, "\n" + line + "\n"))
+        names.add(it.name)
+    for s_, e_, rep in sorted(edits, reverse=True):
+        text = text[:s_] + rep + text[e_:]
+    return text, names
+
+
 def placement_new(b):
     """'throw' / 'plain' for a block that declares the placement `operator new(unsigned int, void*)` with or
     without an exception specification, else None."""
@@ -1368,6 +1784,27 @@ def global_operators(b):
             and re.match(r"operator(new|delete)", it.name) and "::" not in it.key[1]]
 
 
+NATIVE_INLINE = "HULK_NATIVE_INLINE"
+
+
+def is_native_inline(it):
+    """Only operator new definitions (they name size_t, so their TU includes tree_prelude.h anyway: a TU that
+    didn't must not start including it)."""
+    return it.kind == "funcdef" and not it.is_inline and (it.name or "").startswith("operatornew")
+
+
+def native_inline(it):
+    """A global operator new/delete definition, `inline` off MSVC 7.1 (tree_prelude.h's HULK_NATIVE_INLINE):
+    several TUs define the same placement new, which the native link would report as duplicates; under
+    MSVC 7.1 the macro is empty (/O2 = /Ob1: `inline` would let callers inline it)."""
+    if not is_native_inline(it):
+        return it
+    import copy
+    d = copy.copy(it)
+    d.text = NATIVE_INLINE + " " + it.text
+    return d
+
+
 def emit_item(it, c_seen=None):
     """Source lines for an item, re-wrapped in its namespaces and extern "C" block.
 
@@ -1380,6 +1817,9 @@ def emit_item(it, c_seen=None):
         closes.insert(0, "}")
     text = it.text
     linkage = it.linkage
+    if it.kind == "var" and it.name in PINNED and not it.c_linkage and not it.scope:
+        if text.lstrip().startswith("extern"):
+            text = 'extern "C" { %s }' % text.strip()      # one C name in every TU (see PINNED)
     if c_seen is not None and it.kind == "func" and it.c_linkage and it.name and not keeps_c_linkage(it.name):
         shape = _c_shape(it)[0]
         if c_seen.setdefault(it.name, shape) != shape:
@@ -1431,9 +1871,16 @@ PRELUDE_LINES = [
     "#else",
     "#define HULK_NEW_THROW",
     "#endif",
+    "/* global operator new/delete definitions that several TUs repeat (the placement new): `inline` for the",
+    "   native build, so its link keeps one; nothing under MSVC 7.1 (/Ob1 would inline them into callers) */",
+    "#if defined(_MSC_VER) && !defined(__clang__)",
+    "#define HULK_NATIVE_INLINE",
+    "#else",
+    "#define HULK_NATIVE_INLINE inline",
+    "#endif",
     "#endif",
 ]
-PRELUDE_USE = re.compile(r"\b(?:size_t|HULK_NEW_THROW)\b")
+PRELUDE_USE = re.compile(r"\b(?:size_t|HULK_NEW_THROW|HULK_NATIVE_INLINE)\b")
 SIZE_T_TYPEDEF = re.compile(r"\btypedef[ \t]+unsigned(?:[ \t]+int)?[ \t]+size_t[ \t]*;")
 NEW_UNSIGNED = re.compile(r"\b(operator[ \t]*(?:new|delete)(?:[ \t]*\[[ \t]*\])?[ \t]*\([^()\n]*?)"
                           r"\bunsigned(?:[ \t]+int)?\b(?![ \t]*(?:long|short|char|__int64|int)\b)")
@@ -1495,7 +1942,7 @@ def main(argv=None):
     ap.add_argument("--stats", action="store_true", help="print numbers, write nothing")
     ap.add_argument("--fresh", action="store_true", help="ignore build/tree/state.json (no fallbacks)")
     a = ap.parse_args(argv)
-    state = {"wrap": {}, "isolate": {}, "local_only": set()} if a.fresh else None
+    state = {"wrap": {}, "isolate": {}, "local_only": set(), "iso_plain": {}} if a.fresh else None
     g = generate(state, write=not a.stats)
     s = summary(g)
     hs = s.pop("headers")

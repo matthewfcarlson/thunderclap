@@ -377,13 +377,18 @@ instead of defining `DAT_004dd700` itself; `tools/migrate_data.py --apply --equi
 differs from its standalone build; link check 6,477 references, **4,238 by name** (was 4,028), 620 by address
 (was 563; 354 of them pinned names, was 406), 10 interior.
 
-- **The pinned names in wrapped sources** (354 references): the `extern "C"` change resolves the pinned names in
-  merged and isolated sources only. gen_tree's `CLinkage` (native-build fixes 1-2) turns a wrapped source's C
-  declaration into `extern "C++"` when its type is not builtin-only (`World*` points to the source's own
-  `fn_<addr>::World` stub), so these stay `?DAT_004dd700@fn_<addr>@@...`. Resolving them by name needs the stubs to
-  agree (one `World`) or an exemption for the three names in `CLinkage.clashes` (MSVC 7.1 accepts one C name with
-  different types in different namespaces; clang does not, the 79 TUs).
-- **Other by-address references** (256): sources refused or rejected by the migration (25 declarator is not
+- **The pinned names in wrapped sources: done 2026-10-17 (night).** Were 354 references by address: gen_tree's
+  `CLinkage` turned a wrapped source's `extern "C" World* DAT_004dd700` into `fn_<addr>::DAT_004dd700` (its
+  `World` is the source's own stub). Now a wrapped or isolated source's declaration of a pinned name becomes a
+  typed view of the TU's one C declaration, `#define DAT_004dd700 (*(World* *)&::DAT_004dd700)` inside its
+  namespace, and a merged C++ declaration of one gets C linkage (`gen_tree.PINNED`, `pin_views`;
+  [native-build.md](native-build.md#after-the-next-fixes-1-3-2026-10-17) says why this and not an exemption or
+  an alias). Same code under MSVC 7.1 (`build_tree.py`: 21,817 / 21,817, no equivalent differs). Link check
+  (`build_tree.py --resume --data` on the live tree: 6,171 references, **4,283 by name**, 917 C++ linkage, 1,342
+  code-owned, 267 library, **266 by address**, 11 interior): pinned by address **0** (was 354); all references to the three names are
+  `_DAT_004dd700` / `_DAT_0052c2a8` / `_DAT_004dd6ec` (references count once per object and symbol, so the
+  views of one TU now count once: hence 6,171 references, not 6,477).
+- **Other by-address references** (266 on 2026-10-17 night; were 256 + the pinned ones): sources refused or rejected by the migration (25 declarator is not
   `T NAME[...]`, 10 used in a preprocessor line, 1 in a namespace, 21 on batch lists, the 4 rejected) and farm
   sources committed since. Re-run `tools/migrate_data.py --apply --equivalent` after promotions land.
 - Typed headers: BSS objects are `unsigned char[N]` in the headers, so most casts are `(*(Stub*)&DAT_x)`; a typed

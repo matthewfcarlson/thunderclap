@@ -1,1 +1,1 @@
-extern "C" void __stdcall Target(int x) {}
+extern "C" void __stdcall FUN_001cb550(int x) {}

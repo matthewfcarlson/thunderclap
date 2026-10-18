@@ -1,5 +1,5 @@
-extern "C" char Match(const char*, const char*);
-extern "C" char Match(const char* pattern, const char* text) {
+extern "C" char FUN_002674f0(const char*, const char*);
+extern "C" char FUN_002674f0(const char* pattern, const char* text) {
     const signed char* s = (const signed char*)pattern;
     const signed char* p = (const signed char*)text;
     int c = *s, a = *p;
@@ -15,7 +15,7 @@ extern "C" char Match(const char* pattern, const char* text) {
             if (!*p)
                 return 1;
             do {
-                if (Match((const char*)s, (const char*)p))
+                if (FUN_002674f0((const char*)s, (const char*)p))
                     return 1;
                 if (!*s)
                     return 0;

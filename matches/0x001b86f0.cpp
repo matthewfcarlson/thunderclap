@@ -9,7 +9,7 @@ struct Ctl_1b86f0 {
 extern Renderer_1b86f0* gRenderer;
 extern int gFlag_1b86f0;
 extern unsigned char gCurrentVsync;
-extern "C" void __stdcall Target(Ctl_1b86f0* ctl) {
+extern "C" void __stdcall FUN_001b86f0(Ctl_1b86f0* ctl) {
     gRenderer->Setup(&gFlag_1b86f0, "Rendering");
     unsigned char value = gRenderer->GetBool("Lock to VSync", 0x60, 1);
     if (value != gCurrentVsync) {

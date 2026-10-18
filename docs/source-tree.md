@@ -66,6 +66,22 @@ operands in one 5 KB function (`0x000ba040`), so the prelude stays out of TUs th
   function still fails to compile (it can see the TU's global declarations: an elaborated `struct Manager*`
   finds `::Manager` before declaring its own).
 
+**The TU namespace** (2026-10-17, [native-build.md](native-build.md#after-the-next-fixes-1-3-2026-10-17)): a TU's own
+declarations, its tree headers' TU-local items and its merged definitions live in `namespace fn_f<7 hex>` (one per
+TU, from a hash of its path; the `fn_<8 hex>` shape lets `equiv.py` and `clang_probe.py` look through it like a
+wrapped block's namespace). Invented stubs (`Action`, `Obj`), helper functions and variables of different TUs then
+have different symbols, which the native link needs (they were 1,211 duplicate-definition errors). Global stay:
+names declared by `include/gen/` (when this TU's include/gen headers declare them; in the tree headers such items
+sit inside `#ifdef TREE_LOCAL_<name>`, which the TU defines for the names its gen headers don't declare) and by
+`include/decls/`, global `operator new/delete`, CRT names, anonymous namespaces, wrapped blocks; each TU says `using
+namespace fn_f...;` so a global definition still sees the stubs, and a stub a global declaration names by `struct X`
+before X is declared is declared in the namespace first. TU-local variable definitions (`float gNegOne = -1.0f;`)
+become `extern` declarations (the data TUs own the data). Isolated sources without `#include` of include/gen,
+`::name` or `type_info` also go into a TU namespace (state `iso_plain` falls one back). A wrapped (or isolated)
+source's declaration of a pinned global (`DAT_004dd700`, `DAT_0052c2a8`, `DAT_004dd6ec`) becomes a typed view of
+the TU's one C declaration, `#define DAT_004dd700 (*(World* *)&::DAT_004dd700)` inside its namespace. The MSVC 7.1
+code does not change (only symbol names); `build_tree.py` proves it.
+
 Functions with a `// cl-flags:` line that differs from the defaults go to a sibling TU per flag set
 (`CFoo.O1.cpp`, whose first line repeats the `// cl-flags:` comment so `compare.compile_obj` picks it up).
 10 such TUs exist; the 119 verified functions inside the XDK/CRT library objects are not in the tree.
@@ -263,6 +279,14 @@ lines untouched), logged to `build/reconcile-stubs.log`, list in `build/stubs-ch
 - `clone-class`: the source's stub class `A` becomes the target's class `B` when functions.csv names the
   function `B::m` with the same member name and a plain global `B` (444 sources, e.g. `CJointAction` ->
   `CJumpAction` in `matches/0x00013d40.cpp`).
+
+- on request only (`--rule clone-c`, `--rule clone-stub`, with `--only` on the sources the native link
+  reports as duplicate definitions; `--apply --verify` writes a rewrite only after `compare.py` MATCH or `equiv.py
+  --inputs 3000` EQUIVALENT, and skips files changed meanwhile): `clone-c` gives a C-linkage definition under
+  another name its own address name (`extern "C" int* FUN_0008ceb0()` in `matches/0x0024ea10.cpp` becomes
+  `FUN_0024ea10`; C names ignore namespaces), `clone-stub` gives a reused donor stub class the source's own
+  placeholder name (`CSweepTrack` -> `CSweepTrack_23c870`). Run 2026-10-17: 71 sources (46 clone-c, 25
+  clone-stub), all in `matches/`, all MATCH ([native-build.md](native-build.md) fix 3).
 
 It skips template targets (`Method1<CActorManager,bool,math::Vector>::vfunc_0`: 5,788 sources, no source
 spelling for them yet), namespaced targets, names on `// equiv-*` or preprocessor lines, files with

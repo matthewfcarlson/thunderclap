@@ -10,15 +10,169 @@ build/venv/bin/python tools/clang_probe.py              # snapshot (if missing),
 build/venv/bin/python tools/clang_probe.py --snapshot   # refresh the snapshot after a complete tools/build_tree.py run
 build/venv/bin/python tools/clang_probe.py --only src/game/global/CAction.cpp   # one TU's diagnostics, every configuration
 build/venv/bin/python tools/native_link.py              # binding map (fix 5a), link inventory, lld-link attempt
+build/venv/bin/python tools/native_link.py --reuse-map  # inventory + link with build/native/bindings.json as it is
 ```
 
-**Status 2026-10-17 (evening): fixes 0, 1, 2 and 5a are done; the first 32-bit image links** (with
-`/force:multiple` and a stub for every symbol still undefined). See [After fixes 0-2 and 5a](#after-fixes-0-2-and-5a)
-for the numbers; the sections from "What was measured" on are the morning's baseline.
+**Status 2026-10-17 (night): the strict link succeeds.** `lld-link` without `/force` links the 3,594 clang objects
+(2,516 code TUs + 1,078 data TUs), the aliases, the game's vftables/RTTI and a stub object for the 9,613 symbols still
+undefined into a 6.6 MB PE32 image: no duplicate definitions left (were 1,211). See [After the next fixes
+1-3](#after-the-next-fixes-1-3-2026-10-17); [After fixes 0-2 and 5a](#after-fixes-0-2-and-5a) is the evening before
+(fixes 0, 1, 2, 5a; link only with `/force:multiple`), and the sections from "What was measured" on are the
+morning's baseline.
 
 Cold, the first run takes 10-15 minutes (4 compiler processes); a warm run takes 30 s. Everything goes to `build/clang-probe/`:
 `report.json` (counts, categories with example sites, scans, link probe), `undefined.txt` (every undefined symbol with
 its group and demangled name), `cache/` (per-TU results and objects) and `snap/` (the tree being probed).
+
+## After the next fixes 1-3 (2026-10-17)
+
+**What changed** (generator, tools, and 169 `matches/` sources renamed by a verified rewrite):
+
+- **Fix 1, duplicate definitions: the TU namespace** (`gen_tree.py`, [source-tree.md](source-tree.md#how-a-tu-is-built)).
+  A TU's own declarations, its tree headers' TU-local items and its merged definitions live in `namespace
+  fn_f<7 hex>` (one per TU, a hash of its path; `fn_<8 hex>` on purpose, so `equiv.py`'s and `clang_probe.py`'s
+  existing look-through for wrapped namespaces applies, and it is never a function address). Global stay: names
+  that this TU's `include/gen/` headers declare (in the shared tree headers such items sit inside `#ifdef
+  TREE_LOCAL_<name>`, defined by each TU for the include/gen names its own gen headers don't declare, so a stub
+  `CSweepTrack` is TU-local where no real `CSweepTrack` exists), `include/decls/` names, global `operator
+  new/delete`, the CRT, anonymous namespaces, and wrapped blocks (already unique). `using namespace fn_f...;`
+  lets a global definition (a member of an include/gen class) see the stubs, and a stub that a global declaration
+  names by `struct X` before X is declared is declared in the namespace first (else it would declare a second,
+  global X). Isolated TUs get the same namespace when the source has no include/gen header, `::name` or
+  `type_info` (207 sources; state `iso_plain` falls one back if MSVC disagrees: used once). `build_tree.block_names` adds the
+  namespace to the mangled-name prefixes and `standalone_symbol` finds the standalone build's symbol without it
+  (back-references shift, so the name is compared without digits).
+  **Data defined in sources** goes to the data TUs: a merged source's `float gNegOne = -1.0f;` (120 such
+  definitions, 65 of them `gNegOne`) and a wrapped source's C-linkage `void* g_anim_vtable;` (9) become `extern`
+  declarations; `native_link.py` binds them by address like any other reference. const and static ones stay.
+  The repeated placement `operator new` definitions are `HULK_NATIVE_INLINE` (`inline` under clang, empty under
+  MSVC 7.1, `tree_prelude.h`).
+- **Fix 3, clones defining their donor's name** (`reconcile_stubs.py --rule clone-c --rule clone-stub --apply
+  --verify`): `clone-c` renames a C-linkage definition under another name to its own address name (`extern "C"
+  int* FUN_0008ceb0()` in `matches/0x0024ea10.cpp` -> `FUN_0024ea10`: 144 sources, `FUN_0008ceb0` 116 times),
+  `clone-stub` renames a reused donor stub to the source's placeholder (`CSweepTrack` -> `CSweepTrack_23c870`: 25
+  sources). `--verify` writes a rewrite only after compare.py MATCH (equiv.py --inputs 3000 for equivalent/;
+  none were needed) and only if the file didn't change meanwhile: 169 sources, all MATCH, list in
+  `build/native/fix3-sources.txt`, log in `build/reconcile-stubs.log`. The clang `duplicate-definition`
+  compile errors (68 sites, 22 TUs) went with them: 19 more TUs compile.
+- **Fix 2 of the list above, the pinned globals** ([data.md](data.md#what-is-left)): a wrapped or isolated
+  source's declaration of `DAT_004dd700` / `DAT_0052c2a8` / `DAT_004dd6ec` becomes a typed view of the TU's one
+  C declaration, `#define DAT_004dd700 (*(World* *)&::DAT_004dd700)` inside its namespace (`#undef` after; 1,930
+  views, `World` being the source's own stub). Why not the alternatives: an exemption in `CLinkage.clashes`
+  alone would put `extern "C" fn_A::World* DAT_004dd700` and `extern "C" fn_B::World* DAT_004dd700` in one TU,
+  which clang rejects (the 79 TUs of fix 2); one shared opaque class would need every source's member accesses
+  rewritten; a per-TU alias (`/alternatename` in a `#pragma comment`) would hard-code mangled names. The view is
+  the same lvalue (a load of `[_DAT_004dd700]`), so MSVC's code is the same, and every reference is the data
+  TU's `_DAT_004dd700`. The TU's global declaration is the merged one (forced to C linkage) or, if it has none,
+  `extern "C" void* DAT_004dd700;`. Pinned by-address references 354 -> **0**.
+- **Fix 3a, stub-class vftables** (`native_link.py`): clang emits a stub class's vftable when it compiles the
+  stub's constructor, and its slots name stub virtual members nobody defines. The verification build says which
+  game vftable the stub stands for (a match stores `??_7Stub@...@6B@` where the original stores the real
+  vftable's address: the binding map now records those defined vftable symbols too), so slot N of the stub is
+  aliased to the tree's definition of the function in slot N of the real vftable (read from the XBE).
+- **Fix 6a, vftables and RTTI by address** (`native_link.py`, `build/native/link/vtables.s`): the 25,513
+  `vtable`/`rtti_*` items of `config/data.json` as data: the XBE's bytes, every dword holding an image address as a
+  relocation (to the tree's definition of a function, to another of these items, or to a `_hulk_x_<addr>`
+  stub), a label `_hulk_d_<addr>` per item and interior address. By-address names (`g_vftable_<addr>`,
+  `DAT_<vtable>`, stub vftable names bound by relocation, `??_7X@@6B@` that no TU emits) bind to the labels.
+- **Ambiguous symbols** (one invented name, two callees): with the TU namespace most became one symbol per TU
+  (329 -> 236 in the map). For the rest, the binding map now keeps the callee per TU, and where each TU has one,
+  the link renames the symbol in that TU's object (`llvm-objcopy --redefine-syms`, copies in
+  `build/native/link/objs/`) and aliases the new name: 23 symbols in all their objects, 18 in some.
+- `build_tree.py`: the regression rounds default to 4 (one fallback can expose the next), and a merged function
+  that regresses takes along the blocks wrapped only for having the same definition (they would merge in its
+  place next round with the same problem: one round per clone). The TU namespace made the verifier stricter: a
+  merged block's name prefix used to match a wrapped block's identical function in the same object
+  (`?GetExtent@ThreatBallTrack@` also matches `...@fn_0015ba40@@`), which hid a wrongly merged clone of
+  `ThreatBallTrack::GetExtent` (`0x0015b920`; the merged `Track` stub has another layout). Wrapped, its three
+  twins would have merged in its place one round after another: hence the twin rule.
+- `native_link.py --reuse-map` (the inventory and link from an existing `bindings.json`); the equivalent/ binding
+  cache key ignores the COFF time stamp.
+
+**MSVC 7.1 verification build: unchanged.** Same inputs (frozen copies of `matches/` and `equivalent/` after the
+169 renames), HEAD generator (`gen_tree.py` + `build_tree.py` of HEAD) vs this one, both `build_tree.py --resume
+--regression-rounds 4` from the same fallback state, local (the mac1 runs were abandoned: see the caveat below):
+
+| | HEAD generator | this one |
+|---|---|---|
+| TUs compiled | 2,557 / 2,557 | 2,557 / 2,557 |
+| matches byte-matching | 21,817 / 21,817 | 21,817 / 21,817 |
+| equivalent/ compiled, same code as standalone | 5,607 (5,557 same, 49 no_symbol, 1 standalone_compile_error) | 5,607 (same split) |
+| equivalent/ differing | 0 | 0 |
+| merged / wrapped / isolated | 20,496 / 6,232 / 696 | 20,494 / 6,234 / 696 |
+| fallbacks wrapped / isolated / isolated without TU namespace | 489 / 234 / - | 497 / 234 / 1 |
+
+Per function the verdicts are identical (27,424 / 27,424). Two functions are wrapped instead of merged: `0x0015b920`
+(a `ThreatBallTrack::GetExtent` clone whose merge was wrong all along, see the verifier note above: HEAD's verifier
+counted it as a match on the wrapped twin's bytes; its three twins were wrapped already) and `0x00269550` (an
+adjustor thunk `C_269550::f` whose merged code changed in the TU: the regression round falls it back, as with the
+`size_t` typedef of fix 1). (The 169 renames alone already let HEAD's generator merge 83
+more functions than before them: 20,413 -> 20,496.)
+
+A local run on the live inputs (20 matches promoted meanwhile) agrees: 21,837 / 21,837 match, 5,607 compiled, 0
+differing, merged / wrapped / isolated 20,504 / 6,244 / 696.
+
+**Compiling** (`clang_probe.py --snapshot` on the final tree):
+
+| config | after fixes 0-2, 5a | now |
+|---|---|---|
+| `msvc` | 2,496 / 2,556 (97.7%) | **2,516 / 2,557 (98.4%)** |
+| `gnu` | 2,467 | **2,487 (97.3%)** |
+| `gnu64` | 2,456 | **2,476 (96.8%)** |
+
+**Link** (`native_link.py` on the final tree; binding map rebuilt: 54,410 referenced symbols, 54,174 bound to one
+address, 236 ambiguous, 37,306 aliases):
+
+| | after fixes 0-2, 5a | now |
+|---|---|---|
+| strict `lld-link` (no `/force`) | 1,211 duplicate-symbol errors (161 symbols) | **links (0 errors), 6.6 MB image** |
+| undefined symbols / references before aliases | 40,675 / 51,177 | 46,680 / 52,106 (more names: one per TU now) |
+| undefined symbols / references after (stubbed) | 13,803 / 21,977 | **9,613 / 12,972** |
+
+Undefined after, by group (symbols / references):
+
+| group | after fixes 0-2, 5a | now |
+|---|---|---|
+| stub name: virtual member of a stub class (only in a clang-emitted stub vftable) | 5,960 / 6,662 | **4,012** / 4,566 |
+| stub name: bound to an address with no verified definition | 2,227 / 2,393 | **1,803** / 1,856 |
+| function verified, but its TU fails under clang | 1,656 / 1,696 | 1,703 / 1,708 |
+| function verified and compiled, referenced under another symbol | 501 / 549 | 685 / 689 |
+| platform imports | 216 / 220 | 340 / 341 |
+| CRT / C++ runtime | 279 / 3,927 | 332 / 2,834 |
+| function not yet verified | 176 / 265 | 244 / 266 |
+| library data | 146 / 206 | 189 / 206 |
+| data outside the inventory / interior | 35 / 35 | 127 / 127 |
+| stub name: ambiguous (two addresses) | 215 / 3,123 | **74** / 271 |
+| stub name: named by no relocation | 50 / 51 | 64 / 64 |
+| vftable / RTTI by address | 2,332 / 2,840 | **27** / 31 |
+| data under a C++ name | 10 / 10 | 10 / 10 |
+
+(Some groups grew because names are per TU now: a CRT or platform function declared in five TUs' namespaces
+is five symbols, all bound to one stub. The 6,170 vftable slots and RTTI pointers whose function or structure
+has no definition point at `_hulk_x_<addr>` stubs, not counted above.) Of the stub vftables' 6,085 virtual
+members, 2,182 are bound to the game vftable's slot; 4,222 slot references come from stub vftables whose game
+address no verified match reveals (the stub's vftable is stored only in equivalent/ or unverified code, or nowhere),
+329 slots of the game vftable have no verified definition, 51 disagree between two vftables.
+
+**Next** (sizes from the table):
+
+1. **The 41 TUs still failing under clang** (fix 4: 17 `template <>` clone specializations, `typename` in the
+   Closure stubs, `case` narrowing, for-scope, ...) and a canonical CRT header in `include/compat/`: 1,703
+   undefined symbols are definitions in them.
+2. **Stub vftables whose game address is unknown** (4,222 slot references): take the address from equiv.py's
+   level-2 mapping of defined `??_7` symbols too (`_equiv_job` maps only undefined ones), or, better, put the
+   stubs on include/gen classes (fix 5b), whose vftables are the game's.
+3. **Fix 7, CRT and platform** (332 + 340 + 189 symbols) and **fix 8** (244 unverified functions, 1,803 stub-name
+   references to unverified addresses, 6,170 `_hulk_x_` vftable/RTTI targets): then the image can start.
+4. The 74 ambiguous symbols left (a TU with two callees under one name: needs a source rename) and the 685
+   "referenced under another symbol" (bound to an address whose definition clang doesn't emit under that name).
+
+Caveats: the TU namespace needs `#include` order to stay as gen_tree writes it (the `TREE_TU_BEGIN` /
+`TREE_LOCAL_<name>` macros are defined before the tree headers). `equiv._tree_names` and the RTTI look-ups in
+equiv.py see the TU namespace as a wrapped one (by design). The mac1 runs of this round were discarded: the
+"HEAD generator" run imported the working tree's `gen_tree.py` (compare.py puts `tools/` first on `sys.path`, so
+`build_tree.py` from another directory picks up `tools/gen_tree.py`); the local base run imports HEAD's
+`gen_tree` before `build_tree` (`runbase.py` in the work directory), as the previous round's `runbuild.py` did.
 
 ## After fixes 0-2 and 5a
 
@@ -331,6 +485,9 @@ loaders of 32-bit file formats. After fix 1, 64-bit *compiles* as well as 32-bit
 which only real types close (5b, 6b, typed globals).
 
 ### Next fixes (after 2026-10-17), toward a link without `/force` and stubs
+
+*Items 1-3 done the same night; see [After the next fixes 1-3](#after-the-next-fixes-1-3-2026-10-17) for what was
+done and what is next.*
 
 1. **Duplicate definitions (1,211 symbols, strict link's only error).** Merged functions defined as members of
    invented stub classes collide across TUs. Cheapest: gen_tree emits each TU's invented stub classes inside a

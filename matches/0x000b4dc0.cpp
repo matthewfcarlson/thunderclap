@@ -3,7 +3,7 @@
 extern "C" int strcmp(const char*, const char*);
 const char* words[3];
 
-extern "C" bool __stdcall Check(const char* s) {
+extern "C" bool __stdcall FUN_000b4dc0(const char* s) {
     const char** p = words;
     do {
         const char* q = *p;

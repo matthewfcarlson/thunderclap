@@ -694,7 +694,7 @@ def link_probe(results, man, tus):
         if m:
             G.setdefault("addresses", set()).add(m.group(2).lower())
         if g == G_BIND:
-            why = ("declared inside a wrapped namespace fn_<addr>" if re.search(r"@fn_[0-9a-f]{8}@", s) else
+            why = ("declared inside a wrapped namespace fn_<addr>" if re.search(r"@fn_00[0-9a-f]{6}@", s) else
                    "C linkage, defined with C++ linkage or another name" if not s.startswith("?") else
                    "free C++ function, signature or linkage differs" if re.match(r"\?[^@?]+@@[YJ]", s) else
                    "declared as a member of a caller's stub class")
@@ -702,7 +702,7 @@ def link_probe(results, man, tus):
             if m and (m.group(2).lower() in def_addrs):
                 bind_named += 1
         G["references"] += refs[s]
-        if re.search(r"@fn_[0-9a-f]{8}@", s):
+        if re.search(r"@fn_00[0-9a-f]{6}@", s):
             G["in_wrapped_namespace"] = G.get("in_wrapped_namespace", 0) + 1
         if len(G["examples"]) < 6:
             G["examples"].append(d if d != s else s)

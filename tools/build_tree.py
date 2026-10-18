@@ -149,6 +149,7 @@ def compile_all(paths, jobs):
 def blame(manifest, results, state):
     """Turn compile errors into fallback decisions. Returns number of new decisions."""
     new = 0
+    state.setdefault("iso_plain", {})
     header_spans = manifest["headers"]
     for rec in manifest["tus"]:
         obj, errs, _ = results[rec["path"]]
@@ -189,6 +190,9 @@ def blame(manifest, results, state):
                     elif b["mode"] == "wrapped" and a not in state["isolate"]:
                         state["isolate"][a] = why
                         new += 1
+                    elif b["mode"] == "isolated" and b.get("tu_ns") and a not in state["iso_plain"]:
+                        state["iso_plain"][a] = why       # its own TU without the TU namespace
+                        new += 1
                     acted = True
         if not acted:
             # nothing attributable: wrap every merged function of this TU
@@ -196,6 +200,9 @@ def blame(manifest, results, state):
                 a = int(b["addr"], 16)
                 if b["mode"] == "merged" and a not in state["wrap"]:
                     state["wrap"][a] = "unattributed compile error in TU"
+                    new += 1
+                elif b["mode"] == "isolated" and b.get("tu_ns") and a not in state["iso_plain"]:
+                    state["iso_plain"][a] = "unattributed compile error in TU"
                     new += 1
     return new
 
@@ -236,7 +243,8 @@ class Verifier:
              or re.sub(r"@\d+$", "", s[0]) in cn]
         if c:
             return c, "name"
-        return [s for s in syms if s[0] not in claimed and "@fn_" not in s[0]], "loose"
+        # (not a wrapped block's fn_<addr> names; gen_tree's TU namespace fn_f<7 hex> is fine)
+        return [s for s in syms if s[0] not in claimed and not WRAPPED_NS.search(s[0])], "loose"
 
     def check(self, obj, block, claimed):
         r = self._check(obj, block, claimed)
@@ -331,11 +339,14 @@ def split_qualified(q):
 
 
 def block_names(gen):
-    """addr -> mangled-name prefixes / C names of the block's definitions (from the parsed sources)."""
+    """addr -> (mangled-name prefixes in the tree, C names, prefixes in the standalone source) of the block's
+    definitions (from the parsed sources). A merged definition inside its TU's namespace (gen_tree's TU
+    namespace, `fn_f<7 hex>`) has that namespace in the tree's names but not in the standalone object's."""
     out = {}
     for tu in gen.tus:
         for b in tu.blocks:
-            pre, cn = [], []
+            pre, cn, sa = [], [], []
+            tu_ns = getattr(b, "tu_ns", None)
             for d in b.defs:
                 qn = split_qualified(d.key[1])
                 scope = list(d.scope)
@@ -344,8 +355,10 @@ def block_names(gen):
                     # C linkage can come from an earlier extern "C" declaration: cdecl/stdcall, fastcall
                     # names (the @N suffix is dropped before comparing)
                     cn += ["_" + q, "@" + q]
-                pre += mangle_prefixes(q, scope, d.c_linkage)
-            out[b.addr] = (pre, cn)
+                sa += mangle_prefixes(q, scope, d.c_linkage)
+                pre += mangle_prefixes(q, [tu_ns] + scope, d.c_linkage) if tu_ns and not d.c_linkage else \
+                    mangle_prefixes(q, scope, d.c_linkage)
+            out[b.addr] = (pre, cn, sa)
     return out
 
 
@@ -382,6 +395,8 @@ def standalone(src, addr, verifier):
     return verifier.check(obj, blk, set())
 
 
+TU_NS = re.compile(r"@fn_f[0-9a-f]{7}@")            # gen_tree's TU namespace
+WRAPPED_NS = re.compile(r"@fn_00[0-9a-f]{6}@")      # a wrapped block's namespace (gen_tree: fn_<addr>)
 ADDR_IN_NAME = re.compile(r"(?<![0-9A-Fa-f])([0-9A-Fa-f]{8})(?![0-9A-Fa-f])")
 
 
@@ -394,7 +409,7 @@ def code_of(coff, sym):
         if off >= len(raw):
             continue
         n = tsym[0] if tsym else ""
-        m = ADDR_IN_NAME.search(n)
+        m = ADDR_IN_NAME.search(TU_NS.sub("@", n))      # (a TU namespace's hex is not an address)
         key = ("addr", m.group(1).lower()) if m else ("const", n) if n.startswith(("__real@", "??_C@")) else ("sym", "")
         rel.append((off, typ, key))
     return raw, sorted(rel)
@@ -415,12 +430,28 @@ def same_code(c1, s1, c2, s2):
     return True
 
 
+def _loose_key(name):
+    """A mangled name without the TU namespace and without digits (back-references shift when the
+    namespace is removed: `?f@A@fn_f1234567@@QAEPAV12@XZ` vs `?f@A@@QAEPAV1@XZ`)."""
+    return re.sub(r"\d", "", TU_NS.sub("@", name))
+
+
 def standalone_symbol(coff, tree_name, addr, prefixes, cnames):
     syms = coff.function_symbols()
     plain = tree_name.replace("fn_%08x@" % addr, "") if tree_name else None
     for s in syms:
         if s[0] == plain:
             return s
+    if plain and TU_NS.search(plain):
+        # a merged definition in its TU's namespace (gen_tree): the standalone source has no namespace
+        naive = TU_NS.sub("@", plain)
+        for s in syms:
+            if s[0] == naive:
+                return s
+        k = _loose_key(plain)
+        c = [s for s in syms if _loose_key(s[0]) == k]
+        if len(c) == 1:
+            return c[0]
     c = [s for s in syms if any(s[0].startswith(p) for p in prefixes) or s[0] in cnames
          or re.sub(r"@\d+$", "", s[0]) in cnames]
     return c[0] if len(c) == 1 else None
@@ -434,7 +465,8 @@ def compare_with_standalone(verifier, tree_obj, tree_sym, block, addr):
         return "standalone_compile_error"
     tc, sc = verifier.coff(tree_obj), verifier.coff(sa)
     tsym = next((s for s in tc.function_symbols() if s[0] == tree_sym), None)
-    ssym = standalone_symbol(sc, tree_sym, addr, block.get("prefixes", []), block.get("cnames", []))
+    ssym = standalone_symbol(sc, tree_sym, addr, block.get("sa_prefixes", block.get("prefixes", [])),
+                             block.get("cnames", []))
     if tsym is None or ssym is None:
         return "no_symbol"
     return "same" if same_code(tc, tsym, sc, ssym) else "differs"
@@ -455,7 +487,7 @@ def diff_reason(tree_rows, sa_rows):
 
 # ---------------------------------------------------------------------------------------------
 def run(jobs=4, rounds=8, fresh=True):
-    state = {"wrap": {}, "isolate": {}, "local_only": set()} if fresh else gen_tree.load_state()
+    state = {"wrap": {}, "isolate": {}, "local_only": set(), "iso_plain": {}} if fresh else gen_tree.load_state()
     history = []
     for rnd in range(1, rounds + 1):
         gen = gen_tree.generate(state)
@@ -478,6 +510,9 @@ def run(jobs=4, rounds=8, fresh=True):
                         if a not in state["isolate"]:
                             state["isolate"][a] = "TU still failing after %d rounds" % rnd
                             new += 1
+                        elif b.get("tu_ns") and b["mode"] == "isolated" and a not in state["iso_plain"]:
+                            state["iso_plain"][a] = "TU still failing after %d rounds" % rnd
+                            new += 1
             if not new:
                 break
     gen_tree.save_state(state)
@@ -496,10 +531,11 @@ def regressions(checks):
     (and matches standalone), or an equivalent/ function whose bytes differ from its standalone build."""
     out = {}
     for c in checks:
+        mode = "isolated+ns" if c["mode"] == "isolated" and c.get("tu_ns") else c["mode"]
         if c["kind"] == "matches" and c["status"] != "match" and c.get("standalone") == "match":
-            out[int(c["addr"], 16)] = (c["mode"], "lost its match in the tree (%s)" % c.get("why", c["status"]))
+            out[int(c["addr"], 16)] = (mode, "lost its match in the tree (%s)" % c.get("why", c["status"]))
         elif c["kind"] == "equivalent" and c.get("vs_standalone") == "differs":
-            out[int(c["addr"], 16)] = (c["mode"], "code differs from its standalone build")
+            out[int(c["addr"], 16)] = (mode, "code differs from its standalone build")
     return out
 
 
@@ -513,10 +549,12 @@ def verify(gen, manifest, results, jobs=4):
         claimed = set()
         for b in rec["blocks"]:
             a = int(b["addr"], 16)
-            pre, cn = names.get(a, ([], []))
-            b["prefixes"], b["cnames"] = pre, cn
+            pre, cn, sa = names.get(a, ([], [], []))
+            b["prefixes"], b["cnames"], b["sa_prefixes"] = pre, cn, sa
             r = {"addr": b["addr"], "name": b["name"], "src": b["src"], "kind": b["kind"], "mode": b["mode"],
                  "tu": rec["path"]}
+            if b.get("tu_ns"):
+                r["tu_ns"] = b["tu_ns"]
             if obj is None:
                 r["status"] = "tu_failed"
             elif b["kind"] == "equivalent":
@@ -577,7 +615,8 @@ def summarize(manifest, results, checks, history, gen, state):
         "regressions_left": len(regressions(checks)),
         "by_layer": by_layer(tus, results, checks),
         "fallbacks": {"wrapped_by_build": len(state["wrap"]), "isolated_by_build": len(state["isolate"]),
-                      "header_symbols_kept_local": len(state["local_only"])},
+                      "header_symbols_kept_local": len(state["local_only"]),
+                      "isolated_without_tu_namespace": len(state.get("iso_plain", {}))},
         "generator": gen_tree.summary(gen),
     }
 
@@ -650,8 +689,8 @@ def main(argv=None):
     ap.add_argument("--jobs", type=int, default=4)
     ap.add_argument("--rounds", type=int, default=8)
     ap.add_argument("--resume", action="store_true", help="start from build/tree/state.json instead of empty")
-    ap.add_argument("--regression-rounds", type=int, default=2, metavar="N",
-                    help="rebuild up to N times, falling back functions whose code changed in the tree (default 2)")
+    ap.add_argument("--regression-rounds", type=int, default=4, metavar="N",
+                    help="rebuild up to N times, falling back functions whose code changed in the tree (default 4)")
     ap.add_argument("--only", help="compile one TU of the current tree and print its errors")
     ap.add_argument("--equiv", type=int, metavar="N", help="also run tools/equiv.py (64 inputs) on the merged "
                     "object for the first N equivalent/ functions (0 = all; slow: 1-5 s each)")
@@ -668,12 +707,29 @@ def main(argv=None):
         # a function whose code changed in the tree falls back: merged -> wrapped -> isolated
         reg = regressions(checks)
         new = 0
+        # blocks wrapped only because a regressed merged function had the same definition would merge next
+        # round in its place, usually with the same problem (one round per clone): wrap them now
+        twins = collections.defaultdict(list)
+        for rec in manifest["tus"]:
+            for b in rec["blocks"]:
+                for r in b["reasons"]:
+                    m = re.match(r"same definition as (0x[0-9a-f]{8}) in this TU", r)
+                    if m:
+                        twins[int(m.group(1), 16)].append(int(b["addr"], 16))
         for addr, (mode, why) in reg.items():
+            if mode == "merged":
+                for t in twins.get(addr, ()):
+                    if t not in state["wrap"]:
+                        state["wrap"][t] = "same definition as 0x%08x, which %s" % (addr, why)
+                        new += 1
             if mode == "merged" and addr not in state["wrap"]:
                 state["wrap"][addr] = why
                 new += 1
             elif mode == "wrapped" and addr not in state["isolate"]:
                 state["isolate"][addr] = why
+                new += 1
+            elif mode == "isolated+ns" and addr not in state.setdefault("iso_plain", {}):
+                state["iso_plain"][addr] = why
                 new += 1
         print("regressions: %d (%d new fallbacks)" % (len(reg), new), flush=True)
         if not new:

@@ -1,7 +1,7 @@
 extern "C" int helper(void*, void*);
 extern void* g_context;
 extern int g_enabled;
-extern "C" int target(unsigned int* a, unsigned int* b) {
+extern "C" int FUN_00244fa0(unsigned int* a, unsigned int* b) {
     if (!g_enabled)
         return 0;
     unsigned int local[4];
