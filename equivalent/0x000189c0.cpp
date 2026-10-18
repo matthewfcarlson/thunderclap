@@ -1,11 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000189c0 @ 0x000189c0
-void __cdecl FUN_003442bc(); // equiv-conv: FUN_003442bc st0
-float __cdecl FUN_000189c0(float value)
+// Clamping asin: the argument is limited to [-1, 1] (NaN becomes -1) before the CRT's __CIasin.
+extern "C" double asin(double);
+
+// equiv-map: __CIasin = 0x003442bc
+float __cdecl FUN_000189c0(float x)
 {
-    volatile float clamped = value;
-    if (clamped < -1.0f) clamped = -1.0f;
-    else if (clamped > 1.0f) clamped = 1.0f;
-    FUN_003442bc();
-    return clamped;
+    if (!(x >= -1.0f && x <= 1.0f))
+        x = (x > 1.0f) ? 1.0f : -1.0f;
+    double r = asin(x);
+    return (float)r;
 }
