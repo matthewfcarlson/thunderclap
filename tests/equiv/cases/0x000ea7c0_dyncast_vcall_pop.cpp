@@ -347,7 +347,7 @@ void TextSelector::vfunc_5()
             F.style = &owner->hold->o978;
         }
         F.t130.i = c1d9c.b[3] * c3c.b[3];
-        int a = (int)(F.t130.i * 0.00392157f);
+        int a = (int)(F.t130.i * 0.00392156886f);
         b.cells[b.cursor].d.u = (a << 24) | (c1d9c.b[2] << 16) | (c1d9c.b[1] << 8) | c1d9c.b[0];
     }
 
@@ -403,7 +403,7 @@ void TextSelector::vfunc_5()
                     b.FUN_000f87f0(&items[index], o978);
                     o978->col10 = F.u13c;
                     F.t130.i = c1da0.b[3] * c3c.b[3];
-                    int a = (int)(F.t130.i * 0.00392157f);
+                    int a = (int)(F.t130.i * 0.00392156886f);
                     col = F.cp138.FUN_000115c0(c1da0.b[2], c1da0.b[1], c1da0.b[0], a)->v;
                     b.cells[b.cursor].d.u = col;
                     b.FUN_000f87f0(&items[index], F.o958);
@@ -413,7 +413,7 @@ void TextSelector::vfunc_5()
                 b.FUN_000f87f0(&items[index], F.style);
             } else {
                 F.t130.i = c1d9c.b[3] * c3c.b[3];
-                int a = (int)(F.t130.i * 0.00392157f);
+                int a = (int)(F.t130.i * 0.00392156886f);
                 unsigned int col = F.cp138.FUN_000115c0(c1d9c.b[2], c1d9c.b[1], c1d9c.b[0], a)->v;
                 b.cells[b.cursor].d.u = col;
                 b.FUN_000f87f0(&items[index], F.style);
@@ -479,7 +479,7 @@ void TextSelector::vfunc_5()
                                 b.cells[b.cursor].d.u = 0xff000000;
                             } else {
                                 F.u13c = c1da0.b[3] * c3c.b[3];
-                                int a = (int)((int)F.u13c * 0.00392157f);
+                                int a = (int)((int)F.u13c * 0.00392156886f);
                                 b.cells[b.cursor].d.u =
                                     F.cpk.FUN_000115c0(c1da0.b[2], c1da0.b[1], c1da0.b[0], a)->v;
                             }
@@ -520,12 +520,12 @@ void TextSelector::vfunc_5()
                         if (w64 != 0)
                             w64->v8(0, 0);
                         F.i138 = c1d9c.b[3] * c3c.b[3];
-                        int a = (int)(F.i138 * 0.00392157f);
+                        int a = (int)(F.i138 * 0.00392156886f);
                         b.cells[b.cursor].d.u =
                             (a << 24) | (c1d9c.b[2] << 16) | (c1d9c.b[1] << 8) | c1d9c.b[0];
                         if (!e->b34) {
                             F.i138 = c1d9c.b[3] * c3c.b[3];
-                            int a2 = (int)(F.i138 * 0.00392157f);
+                            int a2 = (int)(F.i138 * 0.00392156886f);
                             b.cells[b.cursor].d.u = (a2 << 24) | 0xc0c000;
                         }
                         b.FUN_000f87f0(e, F.style);
@@ -620,7 +620,7 @@ void TextSelector::vfunc_5()
                             b.FUN_000f87f0(&items[index], o978);
                             o978->col10 = F.u13c;
                             F.i138 = c1da0.b[3] * c3c.b[3];
-                            int a = (int)(F.i138 * 0.00392157f);
+                            int a = (int)(F.i138 * 0.00392156886f);
                             b.cells[b.cursor].d.u =
                                 F.cpk.FUN_000115c0(c1da0.b[2], c1da0.b[1], c1da0.b[0], a)->v;
                             b.FUN_000f87f0(&items[index], op);
@@ -632,7 +632,7 @@ void TextSelector::vfunc_5()
                         }
                     } else {
                         F.i138 = c1d9c.b[3] * c3c.b[3];
-                        int a = (int)(F.i138 * 0.00392157f);
+                        int a = (int)(F.i138 * 0.00392156886f);
                         b.cells[b.cursor].d.u =
                             (a << 24) | (c1d9c.b[2] << 16) | (c1d9c.b[1] << 8) | c1d9c.b[0];
                         b.FUN_000f87f0(e, F.style);

@@ -70,8 +70,11 @@ CASES = {
     # its arguments: the original faulted on every input when it was taken for cdecl cleanup
     "0x0028d2a0_frame_epilogue": ("equivalent", None),
     "0x002fb440_hoisted_push": ("equivalent", None),
-    # a stdcall import (NtClose) after a self-recursive call: the import's pop isn't guessed from later code
-    "0x00212641_import_pop": ("equivalent", None),
+    # stdcall imports through their kernel slots (`call [0x3f2c8c]`, RtlEnterCriticalSection) after other calls: the
+    # import's pop isn't guessed from later code (round 13: radcore's job teardown replaces XAPILIB's 0x00212641,
+    # library code that is never checked; pending_use's import-slot rule is taken at the same shape of calls)
+    "0x0026dad0_import_pop": ("equivalent", None, 1.0),
+    "0x0026dad0_import_pop_wrong": ("fail", "argument 1 is 0x0052a18c"),
     # string compares against .rdata literals: directed inputs plant the literal in the compared buffer
     # (`repe cmpsb` against "jp"-style literals; CRT strncmp called with a literal; a chain of
     # strcmp/strncmp where the second compare is only reached once the first matches)
@@ -280,11 +283,8 @@ CASES = {
     # an input that times out inside a CRT helper run for real (no jcc of the function counted): the loop
     # repair's candidate list crashed with `max()` of an empty sequence
     "0x0028ff00_helper_timeout": ("equivalent", None, 0.9, {"seeds": list(range(32)) + [105]}),
-    # strncat(d, d, n) and strncat(d, d + 12, n): overlapping copies are undefined behaviour (the original
-    # reads the source a word at a time, a byte loop sees its own writes): inconclusive; a missing
-    # terminator still fails
-    "0x003468c0_overlap_ub": ("equivalent", None, 0.75, {"seeds": list(range(32)) + [1101, 1197, 1205]}),
-    "0x003468c0_overlap_ub_wrong": ("fail", "missing write to arg0", 0, {"seeds": list(range(32)) + [1101, 1197, 1205]}),
+    # (round 13: the overlap_ub cases on LIBCMT's strncat, 0x003468c0, are gone: library code is never checked, and
+    # the rule only applies to a CRT copy routine under test; test_equiv.py's test_copy_overlap tests it)
     # `buf[len] = 0` with a fuzzed len lands on the original's saved ebx: a buffer overrun into saved
     # registers or the return address is undefined behaviour, so the input is inconclusive; a wrong bound
     # still fails
@@ -424,6 +424,26 @@ CASES = {
     "0x0030e0a0_float_tie_wrong": ("fail", "extra call #2 to 0x00319ef0", 0, {"n_inputs": 3000}),
     # a tie never plants a stack address (the other side's frame is elsewhere: Lua gsub's buffer end)
     "0x0033cff0_tie_stack_addr": ("equivalent", None, 0.9, {"n_inputs": 3000}),
+    # round 13. `push [eax+4]; call [eax]; pop ecx; ret 4` with no frame: the pop is the cdecl cleanup (it lands on
+    # the return-address slot with the call's word left), not an epilogue; the call was taken to pop its word and
+    # every input went wild (unsupported -> equivalent); a wrong argument of that call is caught (popret)
+    "0x0026dc20_pop_ret_cleanup": ("equivalent", None, 1.0),
+    "0x0026dc20_pop_ret_cleanup_wrong": ("fail", "call #2 to", 0),
+    # `// cl-flags: /GS` (compare.py now passes it on): a plain `char name[0x20]` gets the compiler's cookie
+    # (MATCH 33/34; before, the token was dropped: missing __security_check_cookie); a wrong argument still fails
+    "0x000c6d90_gs_flag": ("equivalent", None),
+    "0x000c6d90_gs_flag_wrong": ("fail", "argument 2 is"),
+    # a struct reached only through a pointer a constructor stub's object holds (`D = B->f5c`, B the allocator
+    # stub's result): in the null page, `[D+0x18]` and `[D+0x1c]` both read 0. A directed input points such a
+    # pointer at an object whose words all differ (objptr); fx15's pre-fix source reads every field of D 4 bytes
+    # too high (round 12: equivalent at 3000 inputs) and fails: `argument 1 is 0x00000808, expected 0x00000707`
+    "0x002e22c0_objptr": ("equivalent", None, 0.95, {"n_inputs": 3000}),
+    "0x002e22c0_objptr_wrong": ("fail", "to 0x002647e0: argument 1 is", 0, {"n_inputs": 3000}),
+    # a float constant a few ulps off the original's (`0.0174533f` = 0x3c8efa39 where the original has pi/180 =
+    # 0x3c8efa35): byte-identical code, and level 3's float tolerance passes every input; level 2 compares it with
+    # the original's unshared constants (fconst). equivalent/0x000d6b20.cpp as is, and with `0.017453292f`
+    "0x000d6b20_float_const": ("equivalent", None),
+    "0x000d6b20_float_const_wrong": ("fail", "L2 float_constant_differs __real@3c8efa39"),
 }
 
 # cases that must also complete this many inputs (the promotion bar is 50)
@@ -446,6 +466,9 @@ def job(name):
     else:
         r = equiv.verify(os.path.join(CASES_DIR, name + ".cpp"), addr, **kw)
     diffs = [d for m in (r.get("level3") or {}).get("mismatches", []) for d in m["diffs"]]
+    # (level-2 issues too, as "L2 kind symbol": round 13's float constants fail there)
+    diffs += ["L2 %s %s" % (i.get("kind"), i.get("symbol") or i.get("target") or "")
+              for i in (r.get("level2") or {}).get("issues", [])]
     cov = (r.get("level3") or {}).get("coverage") or {}
     ratio = cov["edges_covered"] / cov["edges_total"] if cov.get("edges_total") else 1.0
     return name, r["status"], diffs, ratio, (r.get("level3") or {}).get("inputs_run") or 0

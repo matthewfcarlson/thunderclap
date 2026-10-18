@@ -39,7 +39,11 @@ def file_flags(src):
                 line = f.readline()
                 m = re.match(r"\s*//\s*cl-flags:\s*(.+)", line)
                 if m:
-                    allowed = {"/Oy-", "/Oy", "/O1", "/O2", "/Ox", "/Os", "/Ot", "/Og", "/Oi", "/Ob0", "/Ob1", "/Ob2", "/GX", "/GX-", "/GR", "/GR-", "/Gy"}
+                    # (/GS, /GS-: the game was built with /GS; MSVC 7.1 adds the cookie to a function with a
+                    # string buffer by itself, so a source can keep a plain `char buf[N]` local. Keep
+                    # tools/gen_tree.py's ALLOWED_FLAGS the same)
+                    allowed = {"/Oy-", "/Oy", "/O1", "/O2", "/Ox", "/Os", "/Ot", "/Og", "/Oi", "/Ob0", "/Ob1", "/Ob2", "/GX", "/GX-", "/GR", "/GR-", "/Gy",
+                               "/GS", "/GS-"}
                     return [t for t in m.group(1).split() if t in allowed]
     except OSError:
         pass

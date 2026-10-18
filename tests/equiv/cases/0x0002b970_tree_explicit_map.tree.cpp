@@ -237,7 +237,7 @@ char Spawner::F(const char *defName, V3 pos, float angle, const char *name2, con
         ch->FUN_00035fa0(1);
     }
     ch->FUN_0003f400(&pos);
-    ch->FUN_000354e0(angle * 0.0174533f);
+    ch->FUN_000354e0(angle * 0.0174532924f);
     bool doTail = false;
     if (ch->p128 == 0) {
         Ent *ent = ch->p1ca0;

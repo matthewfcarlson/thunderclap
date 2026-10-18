@@ -114,7 +114,7 @@ char CSmartPropCSMableCondition::vfunc_7(void *owner)
             } bits;
             bits.f = d;
             bits.u &= 0x7fffffff;
-            if (!(bits.f < 0.785398f))
+            if (!(bits.f < 0.785398185f))
                 return 0;
         }
         return 1;

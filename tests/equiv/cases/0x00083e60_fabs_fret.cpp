@@ -79,7 +79,7 @@ void Rig::FUN_00083e60(Vec3 U, Vec3 V, Vec3 P)
     float len0 = (float)sqrt(dz80 * D.z + D.y * D.y + D.x * D.x);
     double a80 = FUN_00018a20(-dm);
     ang = (float)a80;
-    t.f = (float)(a80 - 1.5708f);
+    t.f = (float)(a80 - 1.57079637f);
     t.u &= 0x7fffffff;
     if (t.f <= 1e-05f) {
         D.FUN_0022d180();
@@ -125,7 +125,7 @@ void Rig::FUN_00083e60(Vec3 U, Vec3 V, Vec3 P)
         sign = -1;
     Mat M;
     M.FUN_0022b980();
-    M.FUN_0022ba70(sign * 1.5708f);
+    M.FUN_0022ba70(sign * 1.57079637f);
     Vec3 Uc = U;
     Uc.FUN_0022d260(&M);
     Uc.FUN_0022d180();

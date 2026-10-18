@@ -67,6 +67,9 @@ class Logic(unittest.TestCase):
     @unittest.skipUnless(hasattr(equiv, "_copy_overlap"), "round 8")
     def test_copy_overlap(self):
         # (round 8, overlap) memory: "abc\0" at 0x40000000, "xy\0" at 0x40000100, zeros elsewhere
+        # (round 13: the only test of the rule since the regress cases on LIBCMT's strncat, 0x003468c0, are gone:
+        # library code is never checked, and the rule applies only to a CRT copy routine under test)
+        self.assertIn("_strncat", equiv.UB_COPY)
         mem = {0x40000000: b"abc\0", 0x40000100: b"xy\0"}
 
         def byte(a):

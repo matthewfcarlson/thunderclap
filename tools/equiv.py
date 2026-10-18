@@ -1663,6 +1663,21 @@ class CodeView:
             a += j.size
         return None
 
+    def pop_ret_cleanup(self, call_addr):
+        """(round 13, popret) Bytes `pop ecx` (once or twice) right after a call releases when a `ret` follows
+        them, else None. Whether they are the call's cleanup or the frame's release is for the caller to tell
+        (cleanup_after leaves this shape alone)."""
+        i = self.decode(call_addr)
+        if i is None:
+            return None
+        a, n = call_addr + i.size, 0
+        j = self.decode(a)
+        while j is not None and j.mnemonic == "pop" and j.regs == ["ecx"] and n < 8:
+            n += 4
+            a += j.size
+            j = self.decode(a)
+        return n if n and j is not None and j.kind == "ret" else None
+
     def immediate_cleanup(self, call_addr):
         """(round 8) Bytes an `add esp, N` releases right after a call, with only plain instructions in
         between (no push, pop, call, jump or other esp change), when it isn't part of an epilogue (the next
@@ -2426,6 +2441,7 @@ class Run:
         self.cmp_obs = {}           # jcc -> observation of the comparison that fed it
         self.cmp_obs2 = {}          # ... the second time (a loop's next iteration)
         self.str_obs = []           # compares of a buffer with a literal in .rdata (directed inputs plant it)
+        self.deref_obs = []         # (round 13, objptr) [(pointer key, its source, disp)] (directed inputs)
         self.byte_bufs = {}         # byte compare site -> (address, epoch) of the first byte it compared
         self.byte_seq = []          # constants chars were compared with, in order
         self.copy_src = {}          # stack byte -> (heap/global byte it was copied from, epoch, stack byte)
@@ -2833,6 +2849,16 @@ class Run:
         else:
             argbase = esp
             cleanup = self.view.cleanup_after(insn.addr)
+            if cleanup is None and "popret" not in EQUIV_OFF:
+                # (round 13, popret) `call [eax]; pop ecx; ret 4` (fx14 0x0026dc20): cleanup_after takes
+                # `pop ecx` before a ret for an epilogue, and an unknown-arity call was then assumed to pop its
+                # words, so the pop took the return address and every input went wild. When the pops land
+                # exactly on this run's return-address slot with the call's words left on the stack, they
+                # are the cdecl cleanup (a callee-popped call would leave the pops short of it: a `push ecx`
+                # frame released by the same pop)
+                n_ = self.view.pop_ret_cleanup(insn.addr)
+                if n_ and esp + n_ == ENTRY_ESP:
+                    cleanup = n_
             tracked = sorted(s for s in self.tracked if s >= esp)
             if not known and tracked and "ccall" not in EQUIV_OFF:
                 # (round 8) an indirect call whose caller releases every word pushed for it right after the
@@ -3774,6 +3800,42 @@ class Run:
         for r in self.view.write_widths(insn.addr):
             cs.pop(r, None)
 
+    def _note_deref(self, insn):
+        """(round 13, objptr) A field access `[reg + disp]` through a pointer loaded as is from an input (memory, a
+        stub's fill or result, a stack argument) where the words beside the field hold the same value (the null
+        page, a run of zeros): reading a neighbouring field instead reads the same thing, so an offset error in
+        the source can't show (fx15's 0x002e22c0: `D->f18` read at +0x1c, D a constructor stub's field in the null
+        page). Recorded for a directed input that points the pointer at an object whose words all differ."""
+        mem = insn.mem
+        base = mem[1]
+        if not base or mem[2] or base in ("esp", "ebp") or len(self.deref_obs) >= 16 or insn.mnemonic == "lea":
+            return
+        disp = mem[4]
+        if not 0 <= disp < OBJ_SIZE - 8:
+            return
+        cur = self.loads.get(base)
+        if cur is None or cur[3] != base or cur[4] or cur[1] != 4 or \
+                (isinstance(cur[0], tuple) and cur[0][0] not in ("ret", "fill")):
+            return
+        v = self.reg(base)
+        # (one per pointer: where it was loaded, else the stub result or fill it is; every field read through it
+        # then reads the object)
+        lp = self.load_pc.get(base)
+        key = ("pc", lp[0]) if lp is not None and lp[1] == cur[0] else cur[0]
+        if OBJ_BASE <= v < OBJ_BASE + OBJ_SIZE * OBJ_DEPTH or any(x[0] == key for x in self.deref_obs):
+            return
+        ea = (v + disp) & M32
+        if ea < 4 or ea > M32 - 8 or any(_reserved(x) for x in (ea - 4, ea, ea + 4)) or STACK_LO <= ea < STACK_HI:
+            return
+        try:
+            w = [struct.unpack("<I", self.uc.mem_read(x, 4))[0] for x in (ea - 4, ea, ea + 4)]
+        except Exception:
+            w = [struct.unpack("<I", bytes(self.m.byte(x + i, self.epoch) for i in range(4)))[0]
+                 for x in (ea - 4, ea, ea + 4)]
+        if w[1] != w[0] and w[1] != w[2]:
+            return
+        self.deref_obs.append((key, cur[:3], disp))
+
     def _observe(self, insn):
         """Track where registers were loaded from and what each cmp/test compared (for directed inputs).
 
@@ -4403,6 +4465,8 @@ class Run:
                         pass
                 if insn.mnemonic.startswith(("repe cmps", "repz cmps")):
                     self._note_rep_cmps(insn)
+                if insn.mem is not None and "objptr" not in EQUIV_OFF:
+                    self._note_deref(insn)
                 self._observe(insn)
             if insn.ops and insn.ops[0][0] == "reg" and insn.ops[0][1] in ("ecx", "cx", "cl", "ch") and \
                     insn.mnemonic not in ("cmp", "test", "push"):
@@ -5153,7 +5217,49 @@ def level2(prog, orefs, oview, ours, resolved, how, rview):
                        "target": "0x%08x" % t, "symbol": n[0] if n else None})
     for t in sorted(o_imm - r_data - imms - o_data):
         issues.append({"kind": "missing_address_constant", "target": "0x%08x" % t, "section": prog.section_name(t)})
+    if "fconst" not in EQUIV_OFF:
+        issues += _float_const_diffs(prog, oview, refs, o_float - r_data)
     return issues
+
+
+FCONST_TOL = 1e-4       # (round 13, fconst) relative: what a mistyped literal looks like (3-7 digits right)
+
+
+def _float_const_diffs(prog, oview, refs, o_left):
+    """(round 13, fconst) A float constant of ours the original doesn't have, when the original reads a constant
+    it doesn't share with us that is nearly the same value: `0.0174533f` (0x3c8efa39) where the original has
+    pi/180 = 0x3c8efa35, `0.003921569f` for 1/255 (0x3b808081). Level 3 compares floats with a relative
+    tolerance, so these pass every input (equivalent/0x000d6b20, 0x001c52f0, 0x001fbd00 byte-match the original
+    but for the constant's bits). Values compare as the loads read them (a float, or a double), so a double of
+    the same value isn't a difference."""
+    sizes = {}
+    for i in oview.insns.values():
+        if i.mem is not None and i.mnemonic.startswith("f") and not i.mem[1] and not i.mem[2] and i.mem[4] in o_left:
+            sizes.setdefault(i.mem[4], set()).add(i.mem[5])
+    orig = []
+    for t in sorted(o_left):
+        for sz in sorted(sizes.get(t) or (4,)):
+            if sz in (4, 8):
+                w = struct.unpack("<f" if sz == 4 else "<d", prog.read(t, sz))[0]
+                if math.isfinite(w):
+                    orig.append((t, sz, w))
+    out = []
+    for k, t, n in refs:
+        if t is not None or not n.startswith("__real@"):
+            continue
+        hx = n[len("__real@"):]
+        if len(hx) not in (8, 16):
+            continue
+        v = struct.unpack("<f" if len(hx) == 8 else "<d", bytes.fromhex(hx)[::-1])[0]
+        if not math.isfinite(v) or any(w == v for _, _, w in orig) or any(x["symbol"] == n for x in out):
+            continue
+        near = [(abs(w - v) / max(abs(w), abs(v)), t_, sz, w) for t_, sz, w in orig if w and v]
+        near = [x for x in near if x[0] <= FCONST_TOL]
+        if near:
+            _, t_, sz, w = min(near)
+            out.append({"kind": "float_constant_differs", "symbol": n, "ours": repr(v), "original": repr(w),
+                        "target": "0x%08x" % t_, "size": sz})
+    return out
 
 
 # ---------------------------------------------------------------------------------------------
@@ -6432,6 +6538,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     observations = {}          # jcc addr -> [(seed, cmp observation, ...)] from the original's runs
     missing_now = [set()]      # (round 9) compares with a side still missing (as of the directed pass)
     str_queue = []             # [(seed, string-compare observation, overlay, patch)] to plant (directed)
+    objptr_queue = []          # (round 13) [(seed, pc, base pointer source, disp, overlay, patch)] (objptr_phase)
+    objptr_seen = Counter()    # pc -> times queued
     str_seen = Counter()       # (site, literal) -> times queued
     str_popped = Counter()     # (round 9) site -> plants run
     t_start = time.process_time()      # CPU time: a loaded machine doesn't change the result
@@ -6650,6 +6758,12 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             edges.update(orun.edges)
             for e in orun.edges:
                 hits[e] += 1
+        if o["status"] == "ret":
+            for pc_, src_, disp_ in orun.deref_obs:
+                # (round 13, objptr) twice per access, from different inputs (chains of plants included)
+                if objptr_seen[pc_] < 2 and len(objptr_queue) < 256:
+                    objptr_seen[pc_] += 1
+                    objptr_queue.append((seed, pc_, src_, disp_, overlay, stack_patch))
         for sob in orun.str_obs:
             sk = (sob["site"], sob["lit"])
             if str_seen[sk] < 2 and len(str_queue) < 512:
@@ -7438,11 +7552,39 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 directed_run(seed0, overlay, patch, "%d+tie" % seed0)
                 break
 
+    def objptr_phase():
+        # (round 13, objptr) a pointer the code loads and reads a field through, where the words beside that field
+        # read the same (a null-page pointer from a constructor stub's fill): one input per access points it at an
+        # object whose words all differ, so reading the wrong field reads another value. An input choice, the same
+        # on both sides; the plants of the input it came from stay (a chain of objects, OBJ_DEPTH deep)
+        n_o = 0
+        while objptr_queue and n_o < OBJ_INPUTS and not out_of_time() and res["inputs_failed"] < 3:
+            seed0, pc, src, disp, ov0, sp0 = objptr_queue.pop(0)
+            ov, pt = dict(ov0 or {}), dict(sp0 or {})
+            depth = sum(1 for k_ in ov if k_[0] == "*" and isinstance(k_[1], int) and
+                        OBJ_BASE <= k_[1] < OBJ_BASE + OBJ_SIZE * OBJ_DEPTH)
+            if depth >= OBJ_DEPTH:
+                continue
+            obj = OBJ_BASE + OBJ_SIZE * depth
+            if not _int_plant_into(src, obj, ov, pt, len(make_input(seed0, sig, globals_, min_words=own_words)["stack"])):
+                continue
+            ov[("*", obj)] = _obj_words(depth)
+            key = ("obj", pc, seed0, tuple(sorted(map(repr, ov.items()))), tuple(sorted(map(repr, pt.items()))))
+            if key in tried:
+                continue
+            tried.add(key)
+            n_o += 1
+            res["inputs_directed"] += 1
+            res["inputs_objptr"] = res.get("inputs_objptr", 0) + 1
+            directed_run(seed0, ov, pt, "%d+obj" % seed0)
+
     directed_repair = [64]
     random_phase(soft=True)
     directed_phase()
     if "ties" not in EQUIV_OFF and not out_of_time() and res["inputs_failed"] < 3:
         tie_phase()
+    if "objptr" not in EQUIV_OFF and not out_of_time() and res["inputs_failed"] < 3:
+        objptr_phase()
     if not rs["done"] and not out_of_time() and res["inputs_failed"] < 3:
         # (round 9, morein) with --inputs over 3000, the random inputs past 3000 stop at 80% of the time, so the
         # directed inputs after them still run (they ran out of time before: 12000 inputs covered less than 3000)
@@ -7590,6 +7732,19 @@ def _invert_fxf(fxf, want):
 
 
 TIE_INPUTS = 48             # (round 12, ties) at most this many tie inputs per function
+# (round 13, objptr) objects with distinct words that directed inputs point loaded pointers at: OBJ_DEPTH of them,
+# OBJ_SIZE bytes each, at the top of the heap (a chain of plants takes the next one)
+OBJ_SIZE = 0x400
+OBJ_DEPTH = 4
+OBJ_BASE = HEAP + HEAP_SIZE - OBJ_SIZE * OBJ_DEPTH
+OBJ_INPUTS = 24             # at most this many such inputs per function
+
+
+def _obj_words(n):
+    """(round 13, objptr) The content of the n-th planted object: every word different, and every byte of a
+    word's low half (a field read at +1 or as a byte differs too). Small values (counts stay small): word i is
+    0x101 * (i + 1) + 0x10000 * n, so `[p+0x18]` is 0x707, `[p+0x1c]` 0x808, the byte at +0x19 is 7."""
+    return b"".join(struct.pack("<I", (0x101 * (i + 1) + 0x10000 * n) & M32) for i in range(OBJ_SIZE // 4))
 VEXT_SHARED = 3             # (round 12, vext) implementations of a vtable slot that must share an extent
 
 

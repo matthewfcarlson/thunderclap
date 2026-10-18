@@ -23,7 +23,7 @@ input cap to at least N.
 | Level | Check | Fails on |
 |---|---|---|
 | 1 | compiles with MSVC 7.1 (`compare.py` flags; `--clang` adds a host-clang syntax check, warning only) | compile errors |
-| 2 | same references: callees, globals, vftables, strings | a missing or extra callee or global, an unresolvable symbol |
+| 2 | same references: callees, globals, vftables, strings, float constants | a missing or extra callee or global, an unresolvable symbol, a float constant a few ulps off the original's |
 | 3 | differential execution in Unicorn on fuzzed inputs | any difference in calls, memory writes, return value, callee-saved registers or stack balance |
 
 `status` is `equivalent` (levels 1–3 pass), `fail`, `inconclusive` (no difference, but fewer than 8 inputs
@@ -43,6 +43,14 @@ immediate that only looks like an address, a float constant loaded another way (
 instead of a float; the 2^32 bias of an unsigned-to-float conversion isn't even warned about), a string or global read in pieces, another element of a global the original
 references too (a loop's induction base at a different field of the same object), and CRT calls the
 original inlined. Level 3 still checks the behaviour behind them.
+
+(round 13, `fconst`) A float constant of ours that the original doesn't have is a level-2 **failure**
+(`float_constant_differs`), not a warning, when the original reads a constant we don't share that is within
+1e-4 of it (relative) without being the same value as the loads read it (`0.0174533f` = 0x3c8efa39 where the
+original has pi/180 = 0x3c8efa35; `57.2958f` for 0x42652ee0; `0.00392157f * 255.0f` folded to 1.0000003 where
+the original has 1.0). Level 3's float tolerance passes such a source on every input, and a byte match masks the
+constant's bits; the native build would carry the wrong value. A double constant of exactly the float's value is
+not a difference. Write the original's value with 9 significant digits (`0.0174532924f`).
 
 ## Binding our symbols to original addresses
 
@@ -128,7 +136,10 @@ then our side pops per our declaration. When a callee reads a register that our 
 annotation.
 
 `__security_check_cookie` is `__fastcall`: the cookie must arrive in `ecx`
-(`extern "C" void __fastcall __security_check_cookie(unsigned int)`).
+(`extern "C" void __fastcall __security_check_cookie(unsigned int)`). Better (round 13): `// cl-flags: /GS` (the
+game was built with it) and a plain `char buf[N]` local; MSVC 7.1 then emits the cookie load and check itself
+(0x000c6d90 matches 33/34 that way). `compare.py` passes `/GS` and `/GS-` on; `tools/gen_tree.py` keeps its own
+copy of the allowed flags.
 
 ## Level 3 design
 
@@ -309,6 +320,14 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   `fabs(m[0][0]) > eps` against `>=` (or `cmp eax, [ebx+0xc]; jl` against `jle`) differed only on inputs that never
   ran. After the first directed phase, one input per compare (at most 48 a function) makes an input operand
   equal to the other one (`inputs_tie`).
+- (round 13, objptr) Objects behind loaded pointers. A field read `[reg + d]` through a pointer the code loaded as
+  is from an input (memory, a stub's result or fill, a stack argument), where the word read equals a neighbouring
+  word (the null page, a run of zeros), can't show a wrong field offset: fx15's 0x002e22c0 read `D->f18` at +0x1c,
+  D a constructor stub's field in the null page on every input that got there. Up to two directed inputs per such
+  pointer (keyed by where it was loaded; at most 24 a function, after the tie inputs) plants the address of an object whose
+  words all differ (word i = 0x101 * (i + 1) + 0x10000 * depth: small, so counts stay small, and the bytes of a
+  word's low half differ too) into the pointer's source; a pointer loaded from that object in turn gets the next
+  of four such objects (`inputs_objptr`, labels `N+obj`). Only inputs change; both sides read the same object.
 
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check
@@ -368,7 +387,11 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   function. For cdecl, it comes from the caller's `add esp, N` or `pop ecx` cleanup, including one
   deferred over several calls (looked for up to 48 instructions on: four writer-callback calls share one
   `add esp, 0x40` 31 instructions later). An `add esp, N` in an epilogue (followed by `ret` or a callee-saved `pop`)
-  counts only beyond the frame the prologue reserved with `sub esp`. A caller-cleaned callee takes only the words it reads; pushes above them
+  counts only beyond the frame the prologue reserved with `sub esp`. (round 13, `popret`) `pop ecx` (once or
+  twice) right before a `ret` is the call's cleanup when, with the call's words left on the stack, the pops end
+  exactly at the run's return-address slot (`push [eax+4]; call [eax]; pop ecx; ret 4`, fx14's 0x0026dc20); with a
+  `push ecx` frame (`push ecx; ...; push x; call [edx+0x1c]; pop ecx; ret`, 15 such functions) they end one word
+  short, so the call popped its word and the `pop ecx` releases the frame, as before. A caller-cleaned callee takes only the words it reads; pushes above them
   are pending for a later call.
 - A call of unknown arity (virtual, a `jmp [vtable]` thunk) is decided first by a branch taken before its
   pushes that joins the code after it: both paths reach the join with the same stack depth (`je L; push x5;
@@ -547,7 +570,20 @@ Mismatch strings are written for a model to act on. Examples:
 
 ## Validation
 
-Latest run (2026-10-17, checker round 12; details in [tasks/equiv-round12.md](tasks/equiv-round12.md)):
+Latest run (2026-10-18, checker round 13; details in [tasks/equiv-round13.md](tasks/equiv-round13.md)):
+`regress.py` 164/164 (the library-span cases 0x00212641 and 0x003468c0 replaced or dropped; every new `_wrong` case
+is `equivalent` under round 12); `replay_regress.py` 16/16; selftest 292/300 (all 8 fail the same under round 12);
+mutation suite identical to round 12 mutant by mutant; `equivalent/` random 300 (seed 2041, library excluded) at
+3000 inputs: 298 promotable, no newly failing file. `fconst` fails 43 `equivalent/` sources at level 2 (a float
+literal a few ulps off: `build/equiv/fconst-failing.tsv`). 0x0026dc20 newly promotable (`popret`).
+
+**Recipes for batch agents (round 13).** `float_constant_differs`: write the original's value (`original=`) with 9
+significant digits, not one derived from the math (the game's 180/pi is 0x42652ee0). Use `// cl-flags: /GS` and a
+plain buffer instead of a hand-written cookie (candidates: `build/equiv/gs-candidates.tsv`). An `N+obj` failure
+(`argument 1 is 0x00000808, expected 0x00000707`) is a wrong field offset behind a pointer: 0x707 is word 7 (+0x18),
+0x808 word 8 (+0x1c).
+
+Previous run (2026-10-17, checker round 12; details in [tasks/equiv-round12.md](tasks/equiv-round12.md)):
 `regress.py` 157/157 (every new `_wrong` case is `equivalent` under round 11); the new `replay_regress.py` 16/16
 (the 11 non-guard cases all fail under round 11); selftest 290/300 (ten template scalar deleting destructors with
 an unresolved destructor, identical under round 11); mutation suite identical to round 11 mutant by mutant;

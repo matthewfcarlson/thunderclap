@@ -145,8 +145,8 @@ bool FaceTargetAction::vfunc_5(int a, int b)
         float a1 = FUN_00224ea0(d.x, d.z);
         V3 vf;
         p->FUN_00035550(&vf);
-        float a1deg = a1 * 57.2958f;
-        double bdeg = FUN_00224ea0(vf.x, vf.z) * 57.2958f;
+        float a1deg = a1 * 57.2957764f;
+        double bdeg = FUN_00224ea0(vf.x, vf.z) * 57.2957764f;
         Ctl *pc = p->ctl;
         double dd = a1deg - bdeg;
         float delta = (float)dd;
