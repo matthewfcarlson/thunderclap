@@ -42,7 +42,7 @@ class IRefCount {};
 
 extern "C" void* __cdecl Allocator(unsigned int size);
 
-hulkfight::motion::AccuracyLatencyTrack*
+template <> hulkfight::motion::AccuracyLatencyTrack*
 fight::TrackFactoryTemplate<hulkfight::motion::AccuracyLatencyTrack>::vfunc_5() {
     hulkfight::motion::AccuracyLatencyTrack* track =
         (hulkfight::motion::AccuracyLatencyTrack*)Allocator(0x1c);

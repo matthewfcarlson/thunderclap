@@ -17,6 +17,6 @@ class AnimationTrack;
 extern int FUN_00344e74(void*, int, void*, void*, int);
 extern int a;
 extern int b;
-int fight::TrackFactoryCasterTemplate<hulkfight::motion::AnimationTrack>::vfunc_0(void* p) {
+template <> int fight::TrackFactoryCasterTemplate<hulkfight::motion::AnimationTrack>::vfunc_0(void* p) {
     return FUN_00344e74(p, 0, &a, &b, 0) != 0;
 }

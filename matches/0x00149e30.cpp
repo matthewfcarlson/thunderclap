@@ -17,6 +17,6 @@ namespace motion {
 class GrappleThrowTrack {};
 } // namespace motion
 } // namespace hulkfight
-int fight::TrackFactoryCasterTemplate<hulkfight::motion::GrappleThrowTrack>::vfunc_0(void* p) {
+template <> int fight::TrackFactoryCasterTemplate<hulkfight::motion::GrappleThrowTrack>::vfunc_0(void* p) {
     return Check(p, 0, &g1, &g2, 0) != 0;
 }

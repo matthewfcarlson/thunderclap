@@ -17,6 +17,6 @@ namespace ai {
 class PropsToSuckCondition;
 }
 } // namespace hulkfight
-bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::PropsToSuckCondition>::vfunc_0(void* p) {
+template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::PropsToSuckCondition>::vfunc_0(void* p) {
     return __RTDynamicCast(p, 0, &sourceType, &targetType, 0) != 0;
 }

@@ -14,6 +14,6 @@ template <typename T> struct MetaTypeAttrib : MetaTypeAttribBase {
 };
 }
 int __cdecl FUN_0025ac10(void*, void*);
-int om::MetaTypeAttrib<float>::vfunc_2(void* source, void* destination) {
+template <> int om::MetaTypeAttrib<float>::vfunc_2(void* source, void* destination) {
     return FUN_0025ac10(source, data + (unsigned int)destination);
 }

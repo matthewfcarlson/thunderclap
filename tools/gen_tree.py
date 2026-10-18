@@ -69,6 +69,9 @@ Native spelling (docs/native-build.md fixes 1-2; the MSVC 7.1 code does not chan
     become declarations (as_declaration), wrapped sources' declarations of the pinned globals become typed
     views of one C name (PINNED), the repeated placement operator new is HULK_NATIVE_INLINE (docs/native-build.md
     "After the next fixes 1-3").
+  * sources' declarations of the C runtime functions include/compat/crt.h declares go inside
+    `#if !defined(HULK_COMPAT_CRT)` (crt_guard_text / emit_item): native builds see only crt.h's declaration,
+    MSVC 7.1 the source's (docs/native-build.md "After fix 4").
 """
 import argparse
 import bisect
@@ -1238,6 +1241,7 @@ class Generator:
                 if pinned:
                     self.stats["pinned global declarations in wrapped sources made views of the C name"] += len(pinned)
                 text, local_c = clink.rewrite(b, text)
+                text = crt_guard_text(text)
                 if local_c:
                     self.stats["C-linkage declarations made namespace-local in wrapped sources"] += len(local_c)
                     b.c_local = local_c
@@ -1283,7 +1287,7 @@ class Generator:
         for it in ops:
             if is_native_inline(it):
                 plain_text = plain_text[:it.toks[0].s] + NATIVE_INLINE + " " + plain_text[it.toks[0].s:]
-        plain = (plain_text.rstrip("\n").splitlines(), None)
+        plain = (crt_guard_text(plain_text).rstrip("\n").splitlines(), None)
         if (b.addr in self.state.get("iso_plain", {}) or not b.items or any(h.startswith("gen/") for h in b.gen_includes)
                 or any(it.kind == "using" for it in b.items) or re.search(r"(?<![\w>)\]])::\s*[A-Za-z_]", text)
                 or re.search(r"\b(type_info|typeid)\b", text)):
@@ -1303,6 +1307,7 @@ class Generator:
         text = re.sub(r'^[ \t]*#\s*include\s*[<"](decls/\w+\.h)[>"][ \t]*$', lambda m: decls_body(m.group(1)),
                       text, flags=re.M)
         text, pinned = pin_views(text)          # (see PINNED)
+        text = crt_guard_text(text)
         pre += ['extern "C" { extern void* %s; }   // (pinned global: one C name for every view)' % n for n in sorted(pinned)]
         self.stats["isolated sources in a TU namespace"] += 1
         return pre + ["namespace %s {} using namespace %s;" % (ns, ns), "namespace %s {" % ns] + \
@@ -1805,7 +1810,71 @@ def native_inline(it):
     return d
 
 
+# ---------------------------------------------------------------------------------------------
+# One declaration of each C runtime function for the native build (docs/native-build.md "After fix 4"):
+# include/compat/crt.h declares them (native builds force-include it through compat/native.h) and defines
+# HULK_COMPAT_CRT. A source's own C-linkage declaration of one of those names goes inside
+# `#if !defined(HULK_COMPAT_CRT)`: MSVC 7.1 sees the same tokens as before (only line numbers move: no source
+# uses __LINE__), clang sees only the canonical declaration (sources declare `float sin(float)`,
+# `__security_check_cookie(unsigned long)`, `void _atexit(...)` and MSVC 7.1 accepts the differing C
+# declarations in different namespaces; clang rejects them). Done while the lines are emitted, so the
+# manifest's line spans include the guard lines.
+CRT_H = os.path.join(ROOT, "include/compat/crt.h")
+CRT_GUARD = ("#if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)", "#endif")
+_CRT_NAMES = None
+
+
+def crt_names():
+    """The function names include/compat/crt.h declares (between its `-- crt names` markers)."""
+    global _CRT_NAMES
+    if _CRT_NAMES is None:
+        _CRT_NAMES = set()
+        try:
+            t = open(CRT_H).read()
+            body = t.split("// -- crt names begin", 1)[1].split("// -- crt names end", 1)[0]
+            for line in body.splitlines():
+                m = re.match(r"[^(/]*?\b([A-Za-z_]\w*)\s*\(", line)
+                if m:
+                    _CRT_NAMES.add(m.group(1))
+        except (OSError, IndexError):
+            pass
+    return _CRT_NAMES
+
+
+def is_crt_declaration(it):
+    """A declaration (not a definition) of a crt.h name: with C linkage anywhere, or with C++ linkage outside
+    any namespace of the source's own (`void __fastcall __security_check_cookie(unsigned int);` in a wrapped
+    source: under clang an overload of the C one, and the call is ambiguous)."""
+    return (it.kind == "func" and it.name in crt_names() and (it.c_linkage or not it.scope)
+            and "::" not in (it.key[1] if it.key else ""))
+
+
+def crt_guard_text(text):
+    """A source text with each declaration of a crt.h name (is_crt_declaration) inside CRT_GUARD."""
+    names = crt_names()
+    if not names or not any(n in text for n in names):
+        return text
+    try:
+        items = cxx_items.parse(text)
+    except ValueError:
+        return text
+    edits = []
+    for it in items:
+        if is_crt_declaration(it):
+            edits.append((it.toks[0].s, it.toks[-1].e))
+    for s, e in sorted(edits, reverse=True):
+        text = text[:s] + "\n" + CRT_GUARD[0] + "\n" + text[s:e] + "\n" + CRT_GUARD[1] + "\n" + text[e:]
+    return text
+
+
 def emit_item(it, c_seen=None):
+    out = _emit_item(it, c_seen)
+    if is_crt_declaration(it):
+        return [CRT_GUARD[0]] + out + [CRT_GUARD[1]]
+    return out
+
+
+def _emit_item(it, c_seen=None):
     """Source lines for an item, re-wrapped in its namespaces and extern "C" block.
 
     c_seen ({C function name: shape} of the file so far): the merge treats C and C++ linkage of an address name

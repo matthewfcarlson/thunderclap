@@ -62,6 +62,9 @@ empty off MS). The generator rewrites sources' own `typedef unsigned int size_t;
 ...)` and `operator new(size_t) throw()` onto it, line count unchanged ([native-build.md](native-build.md)
 fix 1). Other TUs get a comment instead: one extra typedef in MSVC 7.1's symbol table swapped two commutative
 operands in one 5 KB function (`0x000ba040`), so the prelude stays out of TUs that don't need it.
+A source's own declaration of a C runtime function that `include/compat/crt.h` declares (`extern "C" float
+sin(float)`, `__security_check_cookie`) is emitted inside `#if !defined(HULK_COMPAT_CRT)` ... `#endif`: MSVC 7.1
+compiles the source's declaration, a native build only crt.h's ([native-build.md](native-build.md#after-fix-4-and-the-binding-fixes-2026-10-18)).
 - **isolated**: the original source verbatim in its own TU `<File>.iso_<addr>.cpp`. Used when a wrapped
   function still fails to compile (it can see the TU's global declarations: an elaborated `struct Manager*`
   finds `::Manager` before declaring its own).

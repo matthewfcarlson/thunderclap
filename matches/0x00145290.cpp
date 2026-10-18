@@ -17,6 +17,6 @@ namespace motion {
 class SlowMotionTrack;
 }
 } // namespace hulkfight
-int fight::TrackFactoryCasterTemplate<hulkfight::motion::SlowMotionTrack>::vfunc_0(void* p) {
+template <> int fight::TrackFactoryCasterTemplate<hulkfight::motion::SlowMotionTrack>::vfunc_0(void* p) {
     return Lookup(p, 0, &gA, &gB, 0) != 0;
 }

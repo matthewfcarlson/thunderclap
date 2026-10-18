@@ -18,7 +18,7 @@ namespace motion {
 class CivilianAttachTrack {};
 } // namespace motion
 } // namespace hulkfight
-int fight::TrackFactoryCasterTemplate<hulkfight::motion::CivilianAttachTrack>::vfunc_0(void* p) {
+template <> int fight::TrackFactoryCasterTemplate<hulkfight::motion::CivilianAttachTrack>::vfunc_0(void* p) {
     return Search(p, 0, &a, &b, 0) != 0;
 }
 template class fight::TrackFactoryCasterTemplate<hulkfight::motion::CivilianAttachTrack>;

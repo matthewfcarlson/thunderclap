@@ -8,5 +8,5 @@ class CTriggerVolumeManager {
 };
 
 char* CTriggerVolumeManager::vfunc_3(int x) {
-    return x ? "Volume" : "Locator";
+    return (char*)(x ? "Volume" : "Locator");
 }

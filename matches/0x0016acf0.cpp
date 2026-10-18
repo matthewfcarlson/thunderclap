@@ -18,6 +18,6 @@ namespace motion {
 class VelocityAnimatedCondition {};
 } // namespace motion
 } // namespace hulkfight
-int fight::ConditionFactoryCasterTemplate<hulkfight::motion::VelocityAnimatedCondition>::vfunc_0(void* p) {
+template <> int fight::ConditionFactoryCasterTemplate<hulkfight::motion::VelocityAnimatedCondition>::vfunc_0(void* p) {
     return Check(p, 0, &a, &b, 0) != 0;
 }

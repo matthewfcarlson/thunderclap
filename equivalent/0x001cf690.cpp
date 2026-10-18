@@ -43,7 +43,7 @@ public:
 template <class T, class R, class A, class B>
 class Closure2 : public Method2<T, R, A, B> {
 public:
-    Closure2(const char *name, T *o, Fn f) : Method2<T, R, A, B>(name, f), owner(o) {}
+    Closure2(const char *name, T *o, typename Method2<T, R, A, B>::Fn f) : Method2<T, R, A, B>(name, f), owner(o) {}
     T *owner;
 };
 

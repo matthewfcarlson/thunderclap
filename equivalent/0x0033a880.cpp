@@ -26,7 +26,7 @@ State* source = state;
 if (FUN_00212f00(state,1)==8) source=FUN_00213290(state,1);
 int flags=FUN_00213fa0(source);
 Hook_33a880 hook=FUN_00213f90(source);
-if(hook && hook != FUN_0033a620) {
+if(hook && hook != (Hook_33a880)FUN_0033a620) {
 FUN_00213380(state,"external hook",13);
 } else {
 FUN_0033a740();

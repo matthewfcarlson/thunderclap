@@ -19,7 +19,7 @@ struct CFEManager { virtual void slot(); unsigned f4; unsigned char f8; char p9[
 #define MAKE(T,N,F,D) b=(Binding*)FUN_0008d690(36); if(b) { b->FUN_001d0480(N,1); new(b) Method1<CFEManager,void,T>; b->callback=FUN_##F; b->resultType=FUN_001d04d0(DAT_0048e100); b->argumentType=FUN_001d04d0(D); new(b) Closure1<CFEManager,void,T>; b->owner=this; } r->FUN_001d3b70(N,b)
 #define SIMPLE(F,N,C) b=(Binding*)FUN_0008d690(36); if(b) b=b->F(N,this,FUN_##C); r->FUN_001d3b70(N,b)
 CFEManager::CFEManager() {
-for(int i=0;i<128;++i) { records[i].items[0].FUN_0027af00(); records[i].items[1].FUN_0027af00(); records[i].items[2].FUN_0027af00(); records[i].items[3].FUN_0027af00(); }
+int i; for(i=0;i<128;++i) { records[i].items[0].FUN_0027af00(); records[i].items[1].FUN_0027af00(); records[i].items[2].FUN_0027af00(); records[i].items[3].FUN_0027af00(); }
 f1cec=f1cf0=-1; f1d04=f1d08=f1d0c=255;
 f10=f14=f18=f1c=0; f8=0; f24=f60=f68=f30=f34=f38=f3c=f48=f54=0; f28=0; f2c=f58=f4c=f5c=f1880=0; f1a06=f1bc8=f1a04=f1a05=f1c8c=f1cac=0; f1cf4=f1cfc=0; f1d00=0; f1d10=f1d14=f1d18=128; f1d1c=0; f1d20=1.0f; f1d24=f1d28=f1d2c=f1d30=f1d34=0;
 for(i=0;i<128;++i) arrayA[i]=0; for(i=0;i<128;++i) arrayB[i]=0; for(i=0;i<128;++i) { for(int j=0;j<4;++j) records[i].items[j].words[0]=records[i].items[j].words[1]=0; records[i].tail[0]=records[i].tail[1]=0; }

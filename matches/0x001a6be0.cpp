@@ -17,6 +17,6 @@ namespace scenario {
 class Event_PropTypeCondition;
 }
 } // namespace hulkfight
-int fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Event_PropTypeCondition>::vfunc_0(void* p) {
+template <> int fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Event_PropTypeCondition>::vfunc_0(void* p) {
     return check(p, 0, &a, &b, 0) != 0;
 }

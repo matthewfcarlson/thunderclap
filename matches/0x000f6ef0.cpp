@@ -4,7 +4,7 @@ struct T_f6ef0 {
     int f88;
     int pad[1];
     int i[1];
-    X_f6ef0();
+    int X_f6ef0();
     int m[0x100];
 };
 struct X_f6ef0 {

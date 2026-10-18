@@ -15,6 +15,6 @@ template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster 
 namespace hulkfight {
 class DialogueTrack {};
 } // namespace hulkfight
-bool fight::TrackFactoryCasterTemplate<hulkfight::DialogueTrack>::vfunc_0(void* p) {
+template <> bool fight::TrackFactoryCasterTemplate<hulkfight::DialogueTrack>::vfunc_0(void* p) {
     return Check(p, 0, &a, &b, 0) != 0;
 }

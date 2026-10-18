@@ -10,4 +10,4 @@ template <class T> class TrackFactoryCasterTemplate {
     virtual void dummy();
 };
 } // namespace fight
-fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionClosestWaypointTrack>::TrackFactoryCasterTemplate() {}
+template <> fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionClosestWaypointTrack>::TrackFactoryCasterTemplate() {}

@@ -199,6 +199,10 @@ from public documentation (xboxdevwiki, xemu, Cxbx-Reloaded).
 
 ## Full call inventory
 
+What the native link still imports from these (by function, with what each needs on SDL3):
+[native-build.md, platform-shim inventory](native-build.md#start-up-milestone-what-is-left-2026-10-18)
+(`tools/native_shim.py`).
+
 Generated from `build/port/platform_calls.json`. "Called from" counts calling functions per seam;
 `LEAK` is a game function outside the seams. "Library" is where the callee lives (`XAPI`,
 `LIBC+XAPI` and `LIBC` are the spans inside `.text`).

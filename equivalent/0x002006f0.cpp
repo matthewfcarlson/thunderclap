@@ -32,7 +32,7 @@ class Method0 : public MethodBase_2006f0 {
 template <class T, class R>
 class Closure0 : public Method0<T, R> {
   public:
-    Closure0(const char* name, T* o, Fn f) : Method0<T, R>(name, f), owner(o) {}
+    Closure0(const char* name, T* o, typename Method0<T, R>::Fn f) : Method0<T, R>(name, f), owner(o) {}
     T* owner;
 };
 

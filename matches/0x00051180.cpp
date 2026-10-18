@@ -14,6 +14,6 @@ template <class T> class ConditionFactoryCasterTemplate : public ConditionFactor
 };
 } // namespace fight
 class CPropActorStateCondition {};
-int fight::ConditionFactoryCasterTemplate<CPropActorStateCondition>::vfunc_0(void* p) {
+template <> int fight::ConditionFactoryCasterTemplate<CPropActorStateCondition>::vfunc_0(void* p) {
     return Check(p, 0, &a, &b, 0) != 0;
 }

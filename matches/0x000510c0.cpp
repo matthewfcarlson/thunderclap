@@ -12,7 +12,7 @@ template <class T> class ConditionFactoryCasterTemplate : public ConditionFactor
     virtual bool vfunc_0(void*);
     virtual void vfunc_1();
 };
-bool ConditionFactoryCasterTemplate<CMotionHitCondition>::vfunc_0(void* p) {
+template <> bool ConditionFactoryCasterTemplate<CMotionHitCondition>::vfunc_0(void* p) {
     return Check(p, 0, &a, &b, 0) != 0;
 }
 template class ConditionFactoryCasterTemplate<CMotionHitCondition>;

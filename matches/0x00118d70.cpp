@@ -18,6 +18,6 @@ namespace ai {
 class MotionChaseTrack;
 }
 } // namespace hulkfight
-bool fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionChaseTrack>::vfunc_0(void* p) {
+template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionChaseTrack>::vfunc_0(void* p) {
     return FindTrack(p, 0, &gOne, &gTwo, 0) != 0;
 }

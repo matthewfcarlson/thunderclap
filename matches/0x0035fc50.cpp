@@ -1,7 +1,8 @@
-extern "C" struct Pair {
+struct Pair {
     unsigned int a;
     unsigned int b;
-} __cdecl Hash(const char*, unsigned int, unsigned int);
+};
+extern "C" Pair __cdecl Hash(const char*, unsigned int, unsigned int);
 extern unsigned int gA;
 extern unsigned int gB;
 void __cdecl FUN_0035fc50() {

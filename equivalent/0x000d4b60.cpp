@@ -75,7 +75,8 @@ extern char DAT_004de300[0x200];
 extern int DAT_004ddf98;
 extern char DAT_004dd8e8;
 extern unsigned int DAT_004ddfc0, DAT_004ddfc4, DAT_004ddfc8;
-extern union { float f; unsigned int u; } DAT_004a06b4;
+union U_4a06b4 { float f; unsigned int u; };
+extern U_4a06b4 DAT_004a06b4;
 
 int __cdecl FUN_000fc020(char *buf, int n, const void *fmt, ...) throw();
 int __cdecl FUN_000fc000(char *buf, int n, const void *fmt, ...) throw();

@@ -14,6 +14,6 @@ template <class T> class ConditionFactoryCasterTemplate : public ConditionFactor
 };
 } // namespace fight
 class CGrappleSizeCondition {};
-bool fight::ConditionFactoryCasterTemplate<CGrappleSizeCondition>::vfunc_0(void* p) {
+template <> bool fight::ConditionFactoryCasterTemplate<CGrappleSizeCondition>::vfunc_0(void* p) {
     return Check(p, 0, &gA, &gB, 0) != 0;
 }

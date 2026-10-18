@@ -108,7 +108,9 @@ def _equiv_job(args):
     obj, symbol, src, addr = args
     raw = open(obj, "rb").read()
     # (the COFF header's time stamp, bytes 4-8, left out: the same object built on another machine hits the cache)
-    key = hashlib.sha1(raw[:4] + raw[8:] + symbol.encode() + src.encode()).hexdigest()[:24]
+    # (v2: the map also keeps the vftables the object defines itself, `??_7Stub@fn_...@@6B@`: where the
+    # function stores a stub's vftable, equiv.py binds it to the game's, which fix 3a needs for the stub's slots)
+    key = hashlib.sha1(raw[:4] + raw[8:] + symbol.encode() + src.encode() + b"v2").hexdigest()[:24]
     p = os.path.join(CACHE, "equiv", key + ".json")
     if os.path.exists(p):
         return json.load(open(p))
@@ -118,7 +120,8 @@ def _equiv_job(args):
         rep = equiv.verify(os.path.join(ROOT, src), addr, symbol=symbol, obj_path=obj, max_level=2)
         m = rep.get("level2", {}).get("mapping", {})
         res = {"status": rep.get("status"),
-               "map": {n: [v["addr"], v["how"]] for n, v in m.items() if n in undefined and v.get("addr")},
+               "map": {n: [v["addr"], v["how"]] for n, v in m.items()
+                       if (n in undefined or n.startswith("??_7")) and v.get("addr")},
                "unresolved": sorted(n for n, v in m.items() if n in undefined and not v.get("addr"))}
     except Exception as e:  # noqa: BLE001 - one function's failure must not stop the map
         res = {"status": "error: %s" % type(e).__name__, "map": {}, "unresolved": []}
@@ -207,6 +210,17 @@ def bind(defs, data_defs, refs):
     return out, amb
 
 
+def jmp_target(a, hops=3):
+    """The final target of a chain of `jmp rel32` thunks at a (None if a is not one)."""
+    x, t = xbe(), None
+    for _ in range(hops):
+        o = x.offset(a)
+        if o is None or x.data[o] != 0xE9:
+            break
+        a = t = (a + 5 + struct.unpack_from("<i", x.data, o + 1)[0]) & 0xFFFFFFFF
+    return t
+
+
 def name_address(s):
     m = ADDR_RX.search(s if s.startswith("?") else "_" + s.lstrip("_@"))
     return int(m.group(1), 16) if m else None
@@ -243,6 +257,18 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None)
     for a, s in list(defs.items()) + list(data_defs.items()):
         if s in defined:
             by_addr_def.setdefault(a, s)
+    # a verified definition whose MSVC 7.1 symbol clang spells differently (MSVC mangles a parameter `Matrix*` by
+    # the class key of the declaration it saw first, `PAUMatrix`, clang by the definition's, `PAVMatrix`): the
+    # one clang definition with that address in its name
+    by_name_addr = collections.defaultdict(set)
+    for s in defined:
+        a = name_address(s)
+        if a is not None and a in defs:
+            by_name_addr[a].add(s)
+    for a, ss in by_name_addr.items():
+        if a not in by_addr_def and len(ss) == 1:
+            by_addr_def[a] = next(iter(ss))
+            how["definition under clang's spelling of its name"] += 1
     # fix 6a: the game's vftables and RTTI structures as data (build/native/link/vtables.s), named by address
     vt = code_owned_data(by_addr_def)
     for a, lab in vt["labels"].items():
@@ -259,6 +285,11 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None)
         if a is None:
             continue
         d = by_addr_def.get(a)
+        if not d and b:
+            # the verified call goes to a thunk (`jmp FUN_x`, the source calls it thunk_FUN_x or FUN_x): its target
+            t = jmp_target(a)
+            if t is not None and by_addr_def.get(t):
+                d, src = by_addr_def[t], "relocation to a thunk, bound to its jump target"
         if d and d != s:
             aliases[s] = d
             how["bound by %s" % src] += 1

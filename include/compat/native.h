@@ -1,7 +1,7 @@
 // Native (clang) build compatibility header. Force-included by the native build only
 // (clang: -include compat/native.h, clang-cl: /FIcompat/native.h); the MSVC 7.1 verification build never sees it.
 // What MSVC 7.1 predeclares or what <new> / <typeinfo> would bring, for a tree that includes no system headers.
-// See docs/native-build.md (fix 1). Later: the CRT declarations the platform shim provides.
+// See docs/native-build.md (fix 1). compat/crt.h: the one declaration of each C runtime function (fix 4).
 #ifndef HULK_COMPAT_NATIVE_H
 #define HULK_COMPAT_NATIVE_H
 
@@ -17,5 +17,7 @@ namespace std { using ::type_info; }
 #else
 namespace std { class type_info; }
 #endif
+
+#include "compat/crt.h"
 
 #endif

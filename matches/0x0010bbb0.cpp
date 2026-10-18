@@ -18,6 +18,6 @@ namespace ai {
 class FaceMotionTrack;
 }
 } // namespace hulkfight
-int fight::TrackFactoryCasterTemplate<hulkfight::ai::FaceMotionTrack>::vfunc_0(void* p) {
+template <> int fight::TrackFactoryCasterTemplate<hulkfight::ai::FaceMotionTrack>::vfunc_0(void* p) {
     return check(p, 0, &gA, &gB, 0) != 0;
 }

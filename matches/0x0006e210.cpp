@@ -13,7 +13,7 @@ template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster 
 };
 } // namespace fight
 class COrientTargetTrack {};
-bool fight::TrackFactoryCasterTemplate<COrientTargetTrack>::vfunc_0(void* p) {
+template <> bool fight::TrackFactoryCasterTemplate<COrientTargetTrack>::vfunc_0(void* p) {
     return Find(p, 0, &gA, &gB, 0) != 0;
 }
 template class fight::TrackFactoryCasterTemplate<COrientTargetTrack>;

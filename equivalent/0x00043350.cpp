@@ -43,7 +43,8 @@ struct Check_43350 {
 
 struct Holder54_43350 {
     Check_43350 *FUN_00086340();
-    struct W { void FUN_000d6e00(int v); } *FUN_000862b0();
+    struct W { void FUN_000d6e00(int v); };
+    W *FUN_000862b0();
 };
 
 struct Hook_43350 {

@@ -14,6 +14,6 @@ template <class T> class ConditionFactoryCasterTemplate : public ConditionFactor
 } // namespace fight
 extern void* a;
 extern void* b;
-bool fight::ConditionFactoryCasterTemplate<CGrappleFightNodeCondition>::vfunc_0(void* p) {
+template <> bool fight::ConditionFactoryCasterTemplate<CGrappleFightNodeCondition>::vfunc_0(void* p) {
     return CastCheck(p, 0, &a, &b, 0) != 0;
 }

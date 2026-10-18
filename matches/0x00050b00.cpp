@@ -11,6 +11,6 @@ template <class T> class ConditionFactoryCasterTemplate : public ConditionFactor
     int vfunc_0(void* obj);
 };
 
-int ConditionFactoryCasterTemplate<void>::vfunc_0(void* obj) {
+template <> int ConditionFactoryCasterTemplate<void>::vfunc_0(void* obj) {
     return (CastCheck(obj, 0, (void*)0x491ca8, (void*)0x492c90, 0) != 0);
 }

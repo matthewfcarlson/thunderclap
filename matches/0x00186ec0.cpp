@@ -18,6 +18,6 @@ namespace motion {
 class PropAnimationTrack {};
 } // namespace motion
 } // namespace hulkfight
-int fight::TrackFactoryCasterTemplate<hulkfight::motion::PropAnimationTrack>::vfunc_0(void* p) {
+template <> int fight::TrackFactoryCasterTemplate<hulkfight::motion::PropAnimationTrack>::vfunc_0(void* p) {
     return castCheck(p, 0, &gType1, &gType2, 0) != 0;
 }

@@ -72,7 +72,13 @@ COMMON = ["-fno-color-diagnostics", "-fno-caret-diagnostics", "-fdiagnostics-sho
 # relies on both), and on 32-bit x87 math (what the `volatile` rounding pins and the replay checkpoints
 # assume; clang refuses -mfpmath=387 while SSE is enabled, hence -mno-sse). Non-MS targets null-check every
 # `new` (-fcheck-new) because tree_prelude.h drops the `throw()` of operator new there.
-NATIVE = ["-include", "compat/native.h", "-fno-strict-aliasing", "-fwrapv", "-fno-delete-null-pointer-checks"]
+# MSVC 7.1's dialect where clang has a switch for it (docs/native-build.md "After fix 4"): wchar_t is not a
+# keyword (/Zc:wchar_t-, MSVC 7.1's default: sources `typedef unsigned short wchar_t;`; clang-cl /Zc:wchar_t-),
+# `and`/`or`/`not` are identifiers (a stub's `virtual void or();`), `case 0xce85a963:` on an int converts as
+# MSVC does instead of being a narrowing error, and `&T()` (the address of a temporary, which lives to the end
+# of the full expression as under MSVC) is accepted.
+DIALECT = ["-Xclang", "-fno-wchar", "-fno-operator-names", "-Wno-c++11-narrowing", "-Wno-address-of-temporary"]
+NATIVE = ["-include", "compat/native.h", "-fno-strict-aliasing", "-fwrapv", "-fno-delete-null-pointer-checks"] + DIALECT
 X87 = ["-mno-sse", "-mfpmath=387"]
 CONFIGS = {
     "msvc": dict(flags=["--target=i686-pc-windows-msvc", "-fms-extensions", "-fms-compatibility",

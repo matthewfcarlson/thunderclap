@@ -13,6 +13,6 @@ template <class T> class ConditionFactoryCasterTemplate : public ConditionFactor
 };
 } // namespace fight
 class CAxisArcCondition {};
-bool fight::ConditionFactoryCasterTemplate<CAxisArcCondition>::vfunc_0(void* p) {
+template <> bool fight::ConditionFactoryCasterTemplate<CAxisArcCondition>::vfunc_0(void* p) {
     return check(p, 0, &g1, &g2, 0) != 0;
 }

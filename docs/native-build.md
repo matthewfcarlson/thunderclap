@@ -11,18 +11,191 @@ build/venv/bin/python tools/clang_probe.py --snapshot   # refresh the snapshot a
 build/venv/bin/python tools/clang_probe.py --only src/game/global/CAction.cpp   # one TU's diagnostics, every configuration
 build/venv/bin/python tools/native_link.py              # binding map (fix 5a), link inventory, lld-link attempt
 build/venv/bin/python tools/native_link.py --reuse-map  # inventory + link with build/native/bindings.json as it is
+build/venv/bin/python tools/native_shim.py              # platform-shim / CRT inventory of the link (build/native/shim-inventory.json)
+build/venv/bin/python tools/native_fix.py               # fix 4 source edits: plan; --apply --verify rewrites verified sources
 ```
 
-**Status 2026-10-17 (night): the strict link succeeds.** `lld-link` without `/force` links the 3,594 clang objects
-(2,516 code TUs + 1,078 data TUs), the aliases, the game's vftables/RTTI and a stub object for the 9,613 symbols still
-undefined into a 6.6 MB PE32 image: no duplicate definitions left (were 1,211). See [After the next fixes
-1-3](#after-the-next-fixes-1-3-2026-10-17); [After fixes 0-2 and 5a](#after-fixes-0-2-and-5a) is the evening before
-(fixes 0, 1, 2, 5a; link only with `/force:multiple`), and the sections from "What was measured" on are the
-morning's baseline.
+**Status 2026-10-18: 2,556 of 2,557 TUs compile under clang and the strict link succeeds with 5,429 symbols
+stubbed** (were 9,613). `lld-link` without `/force` links the 3,634 clang objects (2,556 code TUs + 1,078 data TUs),
+the aliases, the game's vftables/RTTI and the stub object into a 7.6 MB PE32 image. See [After fix 4 and the
+binding fixes](#after-fix-4-and-the-binding-fixes-2026-10-18) and, for what the image still needs before it can
+start, [Start-up milestone](#start-up-milestone-what-is-left-2026-10-18). [After the next fixes
+1-3](#after-the-next-fixes-1-3-2026-10-17) is the night before (first strict link), [After fixes 0-2 and
+5a](#after-fixes-0-2-and-5a) the evening before, and the sections from "What was measured" on are the
+2026-10-17 morning's baseline.
 
 Cold, the first run takes 10-15 minutes (4 compiler processes); a warm run takes 30 s. Everything goes to `build/clang-probe/`:
 `report.json` (counts, categories with example sites, scans, link probe), `undefined.txt` (every undefined symbol with
 its group and demangled name), `cache/` (per-TU results and objects) and `snap/` (the tree being probed).
+
+## After fix 4 and the binding fixes (2026-10-18)
+
+**What changed:**
+
+- **Fix 4a, MSVC 7.1's dialect by switch** (`tools/clang_probe.py` `DIALECT`, part of the native flags):
+  `-Xclang -fno-wchar` (clang-cl `/Zc:wchar_t-`: MSVC 7.1's default; sources `typedef unsigned short wchar_t;`
+  and pass `L"..."` as `unsigned short*`), `-fno-operator-names` (a stub's `virtual void or();`),
+  `-Wno-c++11-narrowing` (`case 0xce85a963:` on an `int` switch converts as under MSVC),
+  `-Wno-address-of-temporary` (`&FUN_002672f0("Clip", 0, 0)`: the temporary lives to the end of the full
+  expression, as under MSVC). 7 TUs.
+- **Fix 4b, one CRT declaration** (`include/compat/crt.h`, included by `compat/native.h`; `gen_tree.py`
+  `crt_guard_text` / `emit_item`): the header declares the 82 C runtime functions the tree calls with MSVC 7.1's
+  x86 types and defines `HULK_COMPAT_CRT`. gen_tree puts every source declaration of one of those names (C linkage
+  anywhere, or C++ linkage outside the source's own namespaces) inside `#if !defined(HULK_COMPAT_CRT)` ...
+  `#endif`. MSVC 7.1 sees the same tokens (only line numbers move; no source uses `__LINE__`), clang sees only
+  the canonical declaration: `extern "C" float sin(float)`, `__security_check_cookie(unsigned long)` (also
+  declared `__fastcall` and `__cdecl` in one TU), `void _atexit(...)`, `sprintf` and a C++-linkage
+  `__security_check_cookie` in a wrapped source (an ambiguous overload under clang) are gone. gen_tree reads the
+  names from the header (`crt_names()`), so adding a declaration there guards it tree-wide. 901 guarded
+  declarations in the tree.
+- **Fix 4c, per-source edits through a verified rewrite** (`tools/native_fix.py --apply --verify`: the rewritten
+  text must pass compare.py MATCH / equiv.py --inputs 3000 EQUIVALENT, and the file must not have changed
+  meanwhile; log `build/native-fix.log`, list `build/native/fix4-sources.txt`, originals in
+  `build/native/fix4-orig/`). 102 sources (46 matches, 56 equivalent), all re-verified:
+  - `template-spec` (39 sources): `template <> ` before a member definition of an implicitly instantiated class
+    template specialization (`int om::MetaTypeAttrib<float>::vfunc_2(...)`, the clone families
+    `fight::*FactoryCasterTemplate<X>::vfunc_0`, `Store<Room>::vfunc_1`);
+  - `dependent-base` (50): `typename Method0<T, R>::Fn` in the `Closure0/2` stubs (two-phase lookup; in
+    `CActorManager.cpp` the unqualified `Fn` found another TU-level `Fn`). `equivalent/0x001b84f0.cpp`
+    (`Closure4`) was refused: the rewrite doesn't compile under MSVC 7.1 there, so it was left alone;
+  - `return-struct` (5): `extern "C" struct Pair {...} __cdecl Hash(...);` -> the struct, then the function;
+  - `patch` (8, each with its reason in the tool): two for-scope loops (`equivalent/0x000c0e40.cpp`,
+    `0x00322cd0.cpp`), a `char*` return of string literals (`matches/0x001ff730.cpp`), an extern variable of an
+    unnamed union (`equivalent/0x000d4b60.cpp`), a comparison with an overloaded function name
+    (`equivalent/0x0033a880.cpp`), a block-scope `extern` inside an `extern "C"` function
+    (`matches/0x00238190.cpp`), an implicit-int member (`matches/0x000f6ef0.cpp`), `extern "C" struct X f()`
+    (`matches/0x0035c720.cpp`).
+- **Fix 5b-lite, stub vftables by equiv.py's mapping** (`native_link._equiv_job`, cache key `v2`): the
+  equivalent/ bindings now keep the vftables an object defines itself (`??_7CAction@fn_00019380@@6B@` ->
+  `0x003f3390`, equiv.py's `vftable` binding), so fix 3a finds the game vftable of stubs that only equivalent/
+  code constructs. Stub-vftable slots bound: 2,182 -> **4,227**.
+- **Thunks** (`native_link.jmp_target`): a verified call whose target is a `jmp rel32` thunk (the source calls
+  `thunk_FUN_0008d690` or names the thunk's target) binds to the thunk's final target when that is defined:
+  2,014 references.
+- **clang's spelling of a definition** (`native_link.link_inventory`): MSVC 7.1 mangles `Matrix*` by the class key
+  it saw first (`PAUMatrix`), clang by the definition's (`PAVMatrix`); when the MSVC symbol of a verified
+  definition is missing from the clang objects, the one clang definition with that address in its name stands in.
+- `tools/native_shim.py`: the shim / CRT inventory below (`build/native/shim-inventory.json`).
+
+**MSVC 7.1 verification build: unchanged.** Frozen copies of `matches/` and `equivalent/` (after the 102
+rewrites; 2026-10-18 01:00, before fx14's three new matches arrived) and of `build/functions.csv` (fx14's
+corrections already in), HEAD's `gen_tree.py` + `build_tree.py` (imported first, `runbase.py`) vs this
+generator, both `build_tree.py --resume --jobs 3 --regression-rounds 4` from the same fallback state, local:
+
+| | HEAD generator | this one |
+|---|---|---|
+| TUs compiled | 2,557 / 2,557 | 2,557 / 2,557 |
+| matches byte-matching | 21,837 / 21,837 | 21,837 / 21,837 |
+| equivalent/ compiled, same code as standalone | 5,630 (5,578 same, 51 no_symbol, 1 standalone_compile_error) | 5,630 (same split) |
+| equivalent/ differing | 0 | 0 |
+| merged / wrapped / isolated | 20,514 / 6,257 / 696 | 20,514 / 6,257 / 696 |
+| fallbacks wrapped / isolated / isolated without TU namespace | 497 / 234 / 1 | 497 / 234 / 1 |
+
+Per function the verdicts and modes are identical (27,467 / 27,467). (`build/native/native3/msvc-proof.txt`.)
+
+**Compiling** (`clang_probe.py --snapshot` on the tree of the run above):
+
+| config | 2026-10-17 night | now |
+|---|---|---|
+| `msvc` | 2,516 / 2,557 (98.4%) | **2,556 / 2,557 (99.96%)** |
+| `gnu` | 2,487 (97.3%) | **2,539 (99.3%)** |
+| `gnu64` | 2,476 (96.8%) | **2,532 (99.0%)** |
+
+The one `msvc` failure is `src/engine/pure3d/pddiBaseContext.cpp`: `q->pddiRenderState::pddiRenderState();` in
+`matches/0x0031ee00.cpp` (an explicit constructor call through the injected class name, which clang rejects even
+standalone; placement new is the portable spelling, but it doesn't match yet: left for a source fix). Its 21
+definitions are the "TU fails" group below.
+
+**Link** (`native_link.py`; binding map rebuilt: 56,983 referenced symbols, 56,748 bound to one address, 235
+ambiguous, 37,440 aliases):
+
+| | 2026-10-17 night | now |
+|---|---|---|
+| strict `lld-link` (no `/force`) | links, 6.6 MB | **links (0 errors), 7.6 MB** |
+| undefined symbols / references before aliases | 46,680 / 52,106 | 57,510 / 63,464 (40 more TUs, names per TU) |
+| undefined symbols / references after (stubbed) | 9,613 / 12,972 | **5,429 / 9,049** |
+
+Undefined after, by group (symbols / references):
+
+| group | 2026-10-17 night | now |
+|---|---|---|
+| stub name: virtual member of a stub class (only in a clang-emitted stub vftable) | 4,012 / 4,566 | **2,994** / 3,620 |
+| stub name: bound to an address with no verified definition | 1,803 / 1,856 | **724** / 747 |
+| function verified, but its TU fails under clang | 1,703 / 1,708 | **21** / 21 |
+| function verified and compiled, referenced under another symbol | 685 / 689 | **24** / 24 |
+| platform imports | 340 / 341 | 451 / 454 |
+| CRT / C++ runtime | 332 / 2,834 | 425 / 3,198 |
+| function not yet verified | 244 / 266 | **21** / 21 |
+| library data | 189 / 206 | 288 / 306 |
+| data outside the inventory / interior | 127 / 127 | 206 / 206 |
+| stub name: ambiguous (two addresses) | 74 / 271 | 114 / 287 |
+| stub name: named by no relocation | 64 / 64 | 108 / 108 |
+| vftable / RTTI by address | 27 / 31 | 29 / 33 |
+| data under a C++ name | 10 / 10 | 13 / 13 |
+| library code by address | | 11 / 11 |
+
+(Platform, CRT and data groups grew because 40 more TUs compile and names are per TU: a CRT or platform function
+declared in five TUs' namespaces is five symbols bound to one stub. By function they barely moved; see the
+inventory below.) Stub vftables: 6,939 virtual members found, 4,227 bound to the game vftable's slot, 1,838 slots
+whose game function has no definition in the clang objects, 1,143 slots of stub vftables whose game address is
+still unknown, 85 that disagree between two vftables. The 74 -> 114 ambiguous symbols (one invented name, two
+callees in one TU) still need a source rename; not done.
+
+## Start-up milestone: what is left (2026-10-18)
+
+Sizes for an image that gets through `main`'s start-up (the groups above, by distinct address where it matters):
+
+| what | size | how it gets done |
+|---|---|---|
+| **scalar deleting destructors clang doesn't emit** | 1,872 of the 2,084 `_hulk_x_` vftable/RTTI targets are verified `??_G` functions (`??_G?$ParamBool@VUnlockableCondition@...`), 111 more verified `vfunc_N` | clang emits `??_G` only in a TU that emits the class's vftable; MSVC emitted them as COMDATs where the source defined them. Synthesize them (`this->~X(); if (flags & 1) operator delete(this); return this;` in `vtables.s` or a generated TU) or make the defining TU emit the vftable. Largest single item; probably also most of the 1,838 unbound stub-vftable slots (slot 0 is the deleting destructor) |
+| CRT / C++ runtime | 89 functions (425 symbols): `memcpy`/`memset`/`sqrt`/`sprintf`..., `__CxxFrameHandler3`, `type_info`'s vftable, `terminate`, `_purecall`, `__fltused` | the host's MSVC CRT on `i686-pc-windows-msvc` (same names); `__security_check_cookie` and the `/GS` cookie data (`DAT_004d9968`, 147 symbols) map onto the host's |
+| platform imports | 167 functions (451 symbols, 454 references), table below | the shim (`src/platform/sdl`), not implemented |
+| library data | 42 addresses (288 symbols): the `/GS` cookie, 2 kernel import slots, D3D state words, CRT globals | shim data + host CRT |
+| stub names at unverified addresses | 724 symbols -> **180 addresses: 161 in library code** (CRT/XAPI/D3D, i.e. more shim and CRT), 5 game functions (2,111 B), 3 not a function start | the library ones join the shim list; 5 functions to verify |
+| unverified game functions | 21 symbols; with the vftable targets, **72 game functions (2,446 B; median 5 B)** | roadmap step 3 (most are 5-byte stubs and thunks) |
+| data outside the inventory / interior | 206 symbols | data.md: interior labels and items the inventory lacks |
+| the last failing TU, ambiguous names, unnamed references | 21 + 114 + 108 symbols | source fixes |
+
+**Platform-shim inventory** (`tools/native_shim.py` -> `build/native/shim-inventory.json`: one row per library
+function by address, the names the tree calls it by, symbols, references; subsystems from
+`tools/platform_map.py`, as in [platform-boundary.md](platform-boundary.md#full-call-inventory)). What the
+image imports, and what each needs on SDL3:
+
+| subsystem | functions (symbols) | imports | on SDL3 |
+|---|---|---|---|
+| graphics: D3D8 (Xbox) | 72 (282) | `D3DDevice_*` (Create*/Draw*/Set*/Get* state, shaders, palettes, `BlockUntilVerticalBlank`, `CopyRects`, `Swap`), `D3DResource_*`, `D3DSurface/Texture/VolumeTexture_Lock*`, the `D3D__DirtyFlags` state words (data) | the pddi seam: pddi on SDL_gpu (Metal / Vulkan / D3D12); push-buffer and NV2A register writes in platform/xbox are replaced, not emulated; vertex/pixel shader microcode needs a translator or per-shader rewrites |
+| graphics: XGraphics | 6 (11) | `XGSwizzleRect/Box`, `XGIsSwizzledFormat`, `XGAssembleShader`, `XGBuffer_*` | CPU (un)swizzle in the texture loader; shader assembly at build time |
+| audio: DirectSound (Xbox) | 18 (19) | `DirectSoundCreate`, `DirectSoundDoWork`, `IDirectSound_*` (buffers, I3DL2 listener, effects image), `IDirectSoundBuffer_*` (play/stop, position, frequency, headroom, mix-bin volumes) | the radsound HAL seam on `SDL_AudioStream`s with our mixer; I3DL2 reverb and the DSP effects image need a software reverb |
+| audio: soundtracks | 3 | `XFindFirstSoundtrack`, `XFindNextSoundtrack`, `XOpenSoundtrackSong` | stub (no user soundtracks) |
+| movies: Bink | 10 | `BinkOpen`... (unnamed `FUN_00364da0`...) | an FFmpeg/libbink-free decoder or pre-converted movies; the movie seam |
+| input: XPP | 7 (12) | `XInitDevices`, `XGetDevices`, `XGetDeviceChanges`, `XInputOpen/Close/GetState/SetState` | `SDL_Gamepad` (state, rumble), hot-plug events |
+| file I/O | 10 (33) | `CreateFileA`, `ReadFile`, `WriteFile`, `SetFilePointer`, `GetFileSize`, `SetEndOfFile`, `CloseHandle`, `GetDiskFreeSpaceExA`, `XGetDiskSectorSizeA`, `XapiOpenDirectory` | `SDL_IOStream` over the extracted game data (`D:\` -> data dir, `T:`/`U:` -> pref path) |
+| saves/storage | 12 (19) | `XCreateSaveGame`, `XFind*SaveGame`, `XDeleteSaveGame`, `XCalculateSignature*`, `XMountMUA`, `XUnmountMU`, `XFormatUtilityDrive`, `XMUNameFromDriveLetter` | directories under `SDL_GetPrefPath`; signatures as a plain hash; no memory units |
+| threads/sync | 13 (16) | `CreateThread`, `ExitThread`, `ResumeThread`, `SetThreadPriority`, `GetCurrentThreadId`, `Sleep`, `WaitForSingleObject`, `CreateSemaphoreA`, `ReleaseSemaphore`, fibers (`ConvertThreadToFiber`, `CreateFiber`, `SwitchToFiber`, `DeleteFiber`) | `SDL_Thread`, `SDL_Semaphore`, `SDL_Delay`; fibers: host fibers on Windows, a ucontext/asm switch elsewhere |
+| timing | 3 (10) | `QueryPerformanceCounter/Frequency`, `GetLocalTime` | `SDL_GetPerformanceCounter/Frequency`, `SDL_GetDateTime` |
+| memory | 5 (6) | `HeapCreate`, `HeapAlloc`, `HeapFree`, `HeapSize`, `GlobalMemoryStatus` | malloc-backed heaps; a fixed 64 MB report |
+| process/system | 6 (24) | `XGetLanguage`, `XGetVideoFlags`, `XGetAudioFlags`, `XGetLaunchInfo`, `XLaunchNewImageA`, `GetLastError` | settings / `SDL_GetPreferredLocales`; relaunch = return to menu |
+| debug | 1 (2) | `OutputDebugStringA` | `SDL_Log` |
+| unsorted | 1 | `D3DVolumeTexture_LockBox` (a D3D function outside platform_map's list) | graphics |
+
+167 platform functions in all (the full table is the JSON). No kernel function is called directly, only through
+these XAPI wrappers; two kernel import slots are read as data. (The 161 library addresses behind stub names
+above come on top of this list once they are named.)
+
+**Next** (in order):
+
+1. The scalar deleting destructors (above): turns most of the 2,084 `_hulk_x_` targets and probably most of the
+   1,838 unbound stub-vftable slots into definitions.
+2. The platform shim (`src/platform/sdl`) for the 167 functions above, and the host CRT for the 89 CRT functions:
+   then the image can be run under Wine/Windows with a start-up trace.
+3. The 72 unverified game functions (2.4 KB), the 1,143 stub vftables with unknown game address, the 114
+   ambiguous names (source renames), `matches/0x0031ee00.cpp`'s constructor call, the 206 data symbols outside the
+   inventory.
+
+Caveats: the MSVC comparison ran on frozen inputs; the live tree has fx14's three new matches and one replaced
+equivalent since. `native_fix.py`'s `patch` list is exact text: a source changed later no longer matches and is
+reported, not edited. The CRT guard relies on line numbers not mattering to MSVC 7.1 codegen (no `__LINE__`, no
+debug info), which the identical verdicts confirm for this tree.
 
 ## After the next fixes 1-3 (2026-10-17)
 
@@ -154,7 +327,8 @@ members, 2,182 are bound to the game vftable's slot; 4,222 slot references come 
 address no verified match reveals (the stub's vftable is stored only in equivalent/ or unverified code, or nowhere),
 329 slots of the game vftable have no verified definition, 51 disagree between two vftables.
 
-**Next** (sizes from the table):
+**Next** (sizes from the table; items 1 and 2 and the cheap part of 4 done 2026-10-18, see [After fix 4 and the
+binding fixes](#after-fix-4-and-the-binding-fixes-2026-10-18)):
 
 1. **The 41 TUs still failing under clang** (fix 4: 17 `template <>` clone specializations, `typename` in the
    Closure stubs, `case` narrowing, for-scope, ...) and a canonical CRT header in `include/compat/`: 1,703

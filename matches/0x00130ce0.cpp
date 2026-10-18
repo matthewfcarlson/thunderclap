@@ -15,6 +15,6 @@ template <class T> class ConditionFactoryCasterTemplate : public ConditionFactor
 namespace hulkfight {
 class UnlockableCondition {};
 } // namespace hulkfight
-int fight::ConditionFactoryCasterTemplate<hulkfight::UnlockableCondition>::vfunc_0(void* p) {
+template <> int fight::ConditionFactoryCasterTemplate<hulkfight::UnlockableCondition>::vfunc_0(void* p) {
     return FUN_00344e74(p, 0, &a, &b, 0) != 0;
 }

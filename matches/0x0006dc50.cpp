@@ -13,6 +13,6 @@ template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster 
 };
 } // namespace fight
 class CGrappleSequenceTrack {};
-int fight::TrackFactoryCasterTemplate<CGrappleSequenceTrack>::vfunc_0(void* p) {
+template <> int fight::TrackFactoryCasterTemplate<CGrappleSequenceTrack>::vfunc_0(void* p) {
     return Check(p, 0, &a, &b, 0) != 0;
 }

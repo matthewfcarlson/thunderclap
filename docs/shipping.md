@@ -58,7 +58,10 @@ include/seams/        the seam interfaces both platform directories implement
   link binds calls by MS-mangled name aliases ([native-build.md](native-build.md) fixes 0 and 5a). Linux and
   macOS (Itanium ABI) follow once callers use the real include/gen classes (fix 5b). Native flags:
   `-fms-extensions -fno-strict-aliasing -fwrapv -fno-delete-null-pointer-checks`, x87 math on 32-bit
-  (`-mno-sse -mfpmath=387`), `include/compat/native.h` force-included.
+  (`-mno-sse -mfpmath=387`), `include/compat/native.h` force-included (it brings `compat/crt.h`, the one
+  declaration of each CRT function), and MSVC 7.1's dialect where clang has a switch: `-Xclang -fno-wchar`
+  (`/Zc:wchar_t-`), `-fno-operator-names`, `-Wno-c++11-narrowing`, `-Wno-address-of-temporary`
+  ([native-build.md](native-build.md#after-fix-4-and-the-binding-fixes-2026-10-18)).
 - Each recovered object in `config/splits.json` carries a `layer` (`game`, `engine`, `platform/xbox`,
   `library`); `tools/gen_tree.py` places files by layer. Done 2026-10-15: link order splits game from engine
   cleanly (`fight` and `physics` are linked with Radical's libraries, so they are `engine`), and
