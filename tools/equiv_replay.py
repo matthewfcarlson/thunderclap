@@ -37,6 +37,25 @@ TRACES = os.path.join(ROOT, "build/traces")
 STACK_WORDS = 64            # stack words recorded above the return address (arguments and some caller frame)
 FRAME_BELOW = 0x10000       # guest addresses this far below the entry esp are the function's own frame
 BASE_REACH = 0x1000         # a callee's write into the frame is located relative to a pointer this close below it
+# (round 12) A/B switches, like equiv.py's EQUIV_OFF: REPLAY_OFF=x87arg,scratchkey,... turns the named changes off
+REPLAY_OFF = set(os.environ.get("REPLAY_OFF", "").split(","))
+# Captures made before b566e0d3 ("read ST(0) as xemu sends it", 2026-10-12 13:41:58 -0500) recorded the physical
+# x87 register instead of ST(0): their callee float results are wrong (sessions s1, t1, t2)
+ST0_FIX_TIME = 1791830518
+PRE_ST0_FIX = {"s1", "t1", "t2"}
+MAX_STEPS_REPLAY = 16000000     # (round 12, steps) the original's step budget when the default one runs out
+
+
+def pre_st0_fix(path):
+    """Was this session captured before the ST(0) fix? (by name, else by the capture's own files' times)"""
+    d = path if os.path.isdir(path) else os.path.dirname(path)
+    if os.path.basename(os.path.normpath(d)) in PRE_ST0_FIX:
+        return True
+    for f in ("session.json", "capture.json"):
+        q = os.path.join(d, f)
+        if os.path.exists(q):
+            return os.path.getmtime(q) < ST0_FIX_TIME
+    return False
 
 
 DEFAULT_ENTRY_ESP = equiv.ENTRY_ESP
@@ -60,6 +79,7 @@ class TraceStore:
             raise FileNotFoundError(path)
         os.makedirs(os.path.dirname(path), exist_ok=True)
         self.path = path
+        self.pre_st0_fix = pre_st0_fix(path)
         self.db = sqlite3.connect(path, timeout=60, check_same_thread=False)   # (nested captures run in threads, one at a time)
         self.db.execute("PRAGMA journal_mode=WAL")
         self.db.executescript("""
@@ -227,7 +247,7 @@ class TraceRun(Run):
     """One run (original or ours) on one recorded call. `trace` is the call record; in capture mode `syncer`
     drives the real game alongside (tools/trace_capture.py) and fills the record's results as calls happen."""
 
-    def __init__(self, *a, trace=None, side="orig", syncer=None, **kw):
+    def __init__(self, *a, trace=None, side="orig", syncer=None, skip_unknown=None, **kw):
         super().__init__(*a, **kw)
         self.trace = trace
         self.side = side
@@ -236,6 +256,16 @@ class TraceRun(Run):
         self.beyond_trace = False       # more calls than the recording has
         self.seg_stack_w = set()        # capture: stack bytes written in the current segment
         self.ended_by_tail = False
+        self.st0_used = 0               # recorded x87 results this run took (pre-fix sessions: unreliable)
+        # (round 12, unknown) None, or the recorded bytes to keep among those that may not be callee writes: the
+        # others are left out (a set of (call, piece, byte))
+        self.skip_unknown = skip_unknown
+        self.unknown_placed = 0         # recorded bytes placed that lay below the stack pointer since the last call
+        self.unk_live = {}              # (orig) such a byte's address -> (call, piece, byte), until the code writes it
+        self.unk_read = set()           # (orig) such bytes the original's own code read
+        self.prefix_hi = None           # the highest esp since the last call returned (or since entry)
+        self.arg_access = {}            # (orig) incoming argument byte -> [(calls made so far, "r"/"w")]
+        self.dropped = {"xlate": 0, "scratchkey": 0}
 
     def _setup(self):
         super()._setup()
@@ -252,11 +282,54 @@ class TraceRun(Run):
             # capture: Unicorn runs on the game's own stack contents (uninitialised locals included), so it
             # repeats the game exactly. Replay gives both sides STACK_FILL, as in level 3
             self.uc.mem_write(equiv.ENTRY_ESP - len(below), below)
+        if self.syncer is None:
+            if "unknown" not in REPLAY_OFF and self.side == "orig":
+                # (the original's run decides which recorded bytes may not be callee writes)
+                self.prefix_hi = equiv.ENTRY_ESP
+                from unicorn import UC_HOOK_MEM_READ
+                self.uc.hook_add(UC_HOOK_MEM_READ, self._on_frame_read, begin=STACK_LO, end=equiv.ENTRY_ESP - 1)
+            if self.side == "orig" and "deadarg" not in REPLAY_OFF and self.inp["stack"]:
+                from unicorn import UC_HOOK_MEM_READ
+                self.uc.hook_add(UC_HOOK_MEM_READ, self._on_arg_read, begin=equiv.ENTRY_ESP + 4,
+                                 end=self.stack_top() - 1)
 
     def _on_write(self, uc, access, addr, size, value, _):
         super()._on_write(uc, access, addr, size, value, _)
         if self.syncer is not None and STACK_LO <= addr < STACK_HI:
             self.seg_stack_w.update(range(addr, addr + size))
+        if self.unk_live:
+            for x in range(addr, addr + size):
+                self.unk_live.pop(x, None)
+        if self.syncer is None and self.side == "orig" and equiv.ENTRY_ESP + 4 <= addr < self.stack_top():
+            for x in range(addr, addr + size):
+                self.arg_access.setdefault(x, []).append((len(self.calls), "w"))
+
+    def _on_frame_read(self, uc, access, addr, size, value, _):
+        if self.unk_live:
+            for x in range(addr, addr + size):
+                w = self.unk_live.pop(x, None)
+                if w is not None:
+                    self.unk_read.add(w)
+
+    def _on_arg_read(self, uc, access, addr, size, value, _):
+        for x in range(addr, addr + size):
+            self.arg_access.setdefault(x, []).append((len(self.calls), "r"))
+
+    def arg_dead_after(self, k, lo, hi):
+        """(orig) Does the original leave its incoming argument bytes lo..hi alone after call k returns (no read
+        before a write of its own)?"""
+        for x in range(lo, hi):
+            ev = [e for n, e in self.arg_access.get(x, ()) if n > k]
+            if ev and ev[0] == "r":
+                return False
+        return True
+
+    def _on_code(self, uc, addr, size, _):
+        if self.prefix_hi is not None and not TRAMP <= addr < TRAMP + PAGE:
+            esp = uc.reg_read(self.u.UC_X86_REG_ESP)
+            if esp > self.prefix_hi:
+                self.prefix_hi = esp
+        return super()._on_code(uc, addr, size, _)
 
     def stack_top(self):
         return equiv.ENTRY_ESP + 4 + 4 * len(self.inp["stack"])
@@ -327,55 +400,171 @@ class TraceRun(Run):
             # arguments (identical layout on both sides) goes to the same slot in ours; one into the frame goes
             # relative to its pointer, and must stay in our frame; one the original can't place is skipped.
             place = self.trace.setdefault("_place", {})
-            entry = equiv.ENTRY_ESP
-            for i, (key, off, data) in enumerate(list(res.get("delta", ())) + list(res.get("fills", ()))):
-                n = len(data)
-                if self.side == "orig":
-                    b = None if key[0] == "entry" and off < 0 else self.base_value(key, k)
-                    a = None if b is None else b + off
-                    if a is None or (a < entry + 4 and a + n > entry) or not (STACK_LO <= a and a + n <= STACK_HI):
-                        place[(k, i)] = a = None
-                    else:
-                        # (a pointer the capture keyed by a register, `mov ecx, edi` left over, that the call
-                        # also passes as a stack argument: ours may not have it in that register)
-                        alt = None
-                        if key[0] == "reg":
-                            alt = next((("arg", j) for j, (v, _) in enumerate(self.calls[k]["args"]) if v == b), None)
-                        place[(k, i)] = ("args", a - entry, b - entry) if a >= entry + 4 else ("frame", alt)
-                else:
-                    how = place.get((k, i))
-                    if how is None:
-                        a = None
-                    elif how[0] == "args":
-                        a = entry + how[1]
-                        b = self.base_value(key, k) if key[0] != "entry" else None
-                        if b is not None and b != entry + how[2] and not (b + off < entry + 4 and b + off + n > entry):
-                            # the original passed a pointer into its incoming argument slots (a dead parameter
-                            # reused as a local) and ours a local of its own: the write goes behind ours
-                            a = b + off
-                    else:
-                        if len(how) > 1 and how[1] is not None:
-                            key = how[1]
-                        b = self.base_value(key, k)
-                        a = None if b is None or key[0] == "entry" else b + off
-                        if a is not None:
-                            room, what = self._frame_room(b)
-                            if 0 <= off < room < off + n:
-                                # the game's callee wrote one run of bytes starting inside the object it was
-                                # given and going past where ours has room (a smaller local; equiv.py's
-                                # undersized-local check, with the real write)
-                                loc = key[1]
-                                self.calls[k].setdefault("overflow", []).append((loc, off + n, room, what))
-                                n = room - off
-                                data = data[:n]
-                            if a + n > entry:
-                                a = None
-                if a is None:
+            if self.side == "orig":
+                place[k] = self._pieces(res, k, insn)
+            for pi, pc in enumerate(place.get(k, ())):
+                self._place_piece(pc, k, pi)
+        if self.prefix_hi is not None:
+            self.prefix_hi = 0                  # (the next instruction after the return sets it)
+        self._apply_regs(insn, target, res, k)
+
+    def _pieces(self, res, k, insn):
+        """(orig) The recorded frame writes of call k as placement decisions, made once for both runs: a list of
+        dicts {key, off, data, how, keep (bytes to place), unk (bytes that may not be callee writes)}."""
+        entry = equiv.ENTRY_ESP
+        uc = self.uc
+        c = self.calls[k]
+        frame = res.get("frame")
+        esp_g = self.trace["entry"].get("esp_g")
+        fbase = entry + frame[0] if frame else None
+        g = frame[1] if frame else b""
+        tgt = c["target"]
+        # (round 12, scratchkey) a write the capture keyed to a register the callee doesn't take (eax after
+        # `fnstsw ax` holding (&R & 0xffff0000) | fpsw, a loop's end pointer, `mov al, ..` over a pointer): the
+        # callee can't have written through it. It goes behind the nearest pointer argument below it, else
+        # nowhere (on both sides)
+        allowed = None
+        if "scratchkey" not in REPLAY_OFF:
+            allowed = self.prog.reg_inputs(tgt) if c.get("known") and tgt in self.prog.funcs else None
+            allowed = set(allowed) if allowed is not None else {"ecx", "edx"}
+        items = [(key, off, data, False) for key, off, data in res.get("delta", ())] + \
+                [(key, off, data, True) for key, off, data in res.get("fills", ())]
+        out = []
+        for key, off, data, is_fill in items:
+            n = len(data)
+            if key[0] == "reg" and allowed is not None and key[1] not in allowed:
+                b0 = self.base_value(key, k)
+                key = None
+                if b0 is not None:
+                    a0 = b0 + off
+                    best = None
+                    for j, (v, _) in enumerate(c["args"]):
+                        if STACK_LO <= v <= a0 and a0 - v < BASE_REACH and (best is None or v > best[1]):
+                            best = (j, v)
+                    if best is not None:
+                        key, off = ("arg", best[0]), a0 - best[1]
+                if key is None:
+                    self.dropped["scratchkey"] += 1
                     self.base_misses += 1
                     continue
-                uc.mem_write(a, data)
-                self.stack_written.update(range(a, a + n))
-        self._apply_regs(insn, target, res, k)
+            b = None if key[0] == "entry" and off < 0 else self.base_value(key, k)
+            a = None if b is None else b + off
+            if a is None or (a < entry + 4 and a + n > entry) or not (STACK_LO <= a and a + n <= STACK_HI):
+                self.base_misses += 1
+                continue
+            data = bytearray(data)
+            keep = [True] * n
+            if fbase is not None and esp_g is not None and a < entry:
+                gat = lambda x: g[x - fbase] if 0 <= x - fbase < len(g) else None
+                if not is_fill and "widen" not in REPLAY_OFF:
+                    # (round 12, widen) a delta that leaves part of a word alone assumed both sides had the
+                    # game's bytes there; bytes the original never wrote itself get the game's too (a stale return
+                    # address in a by-value struct's padding: 0x60.. in ours, 0x00.. in the original)
+                    for lo, hi in ((a & ~3, a), (a + n, (a + n + 3) & ~3)):
+                        if lo < hi and all(gat(x) is not None and x not in self.func_stack_written for x in range(lo, hi)):
+                            ext = bytearray(gat(x) for x in range(lo, hi))
+                            if lo < a:
+                                data, keep, a, off = ext + data, [True] * (hi - lo) + keep, lo, off - (hi - lo)
+                            else:
+                                data, keep = data + ext, keep + [True] * (hi - lo)
+                    n = len(data)
+                if "xlate" not in REPLAY_OFF:
+                    for w in range(a & ~3, a + n, 4):
+                        if any(gat(x) is None for x in range(w, w + 4)):
+                            continue
+                        gw = struct.unpack("<I", bytes(gat(x) for x in range(w, w + 4)))[0]
+                        if not esp_g - FRAME_BELOW <= gw < esp_g:
+                            continue        # (only the function's own frame is Unicorn's: words above are recorded pages)
+                        tu = (entry + (gw - esp_g)) & M32
+                        ow = struct.unpack("<I", bytes(uc.mem_read(w, 4)))[0]
+                        j0 = w - a
+                        if tu == ow:
+                            # (round 12, xlate) the game's stack address where Unicorn holds its own for the same
+                            # word (a pushed &local: 0xd004.. against 0x7eff..): no callee wrote it
+                            for x in range(max(0, j0), min(n, j0 + 4)):
+                                keep[x] = False
+                            self.dropped["xlate"] += 1
+                        # (a stack address the callee stored stays the game's on both sides: equal, and reads
+                        # through it see the recorded game pages; translated, it would differ by frame layout)
+            unk = [False] * n
+            if not is_fill and self.prefix_hi is not None:
+                # (round 12, unknown) bytes that were below the stack pointer at some point since the last call
+                # returned (or since entry): an interrupt frame or the gate trampoline may have left them, so
+                # they may not be callee writes
+                for i in range(n):
+                    if a + i < self.prefix_hi:
+                        unk[i] = True
+            how = ("args", a - entry, b - entry) if a >= entry + 4 else None
+            if how is None:
+                alt = None
+                if key[0] == "reg":
+                    # (a pointer the capture keyed by a register, `mov ecx, edi` left over, that the call also
+                    # passes as a stack argument: ours may not have it in that register)
+                    alt = next((("arg", j) for j, (v, _) in enumerate(c["args"]) if v == b), None)
+                how = ("frame", alt)
+            pieces = [dict(key=key, off=off, data=bytes(data), how=how, keep=keep, unk=unk, a=a, b=b)]
+            out.extend(pieces)
+        return out
+
+    def _place_piece(self, pc, k, pi):
+        uc = self.uc
+        entry = equiv.ENTRY_ESP
+        key, off, data, how = pc["key"], pc["off"], bytearray(pc["data"]), pc["how"]
+        n = len(data)
+        keep = list(pc["keep"])
+        if self.skip_unknown is not None:
+            keep = [kp and (not u or (k, pi, i) in self.skip_unknown) for i, (kp, u) in enumerate(zip(keep, pc["unk"]))]
+        if self.side == "orig":
+            a = pc["a"]
+        elif how[0] == "args":
+            a = entry + how[1]
+            b = self.base_value(key, k) if key[0] != "entry" else None
+            if b is not None and b != entry + how[2] and not (b + off < entry + 4 and b + off + n > entry):
+                # the original passed a pointer into its incoming argument slots (a dead parameter
+                # reused as a local) and ours a local of its own: the write goes behind ours
+                a = b + off
+        else:
+            if len(how) > 1 and how[1] is not None:
+                key = how[1]
+            b = self.base_value(key, k)
+            a = None if b is None or key[0] == "entry" else b + off
+            if a is not None:
+                last = max((i for i in range(n) if keep[i]), default=-1) + 1
+                room, what = self._frame_room(b)
+                if 0 <= off < room < off + last:
+                    # the game's callee wrote one run of bytes starting inside the object it was
+                    # given and going past where ours has room (a smaller local; equiv.py's
+                    # undersized-local check, with the real write)
+                    self.calls[k].setdefault("overflow", []).append((key[1], off + last, room, what))
+                    n = room - off
+                    data, keep = data[:n], keep[:n]
+                if a + n > entry:
+                    # (round 12, deadarg) ours keeps the object in a dead parameter slot: the real callee writes
+                    # there, as long as the write stays within our incoming arguments and the original's own
+                    # slots there are dead after the call
+                    orun = self.trace.get("_orun")
+                    if "deadarg" in REPLAY_OFF or orun is None or a < entry + 4 or a + n > self.stack_top() or \
+                            not orun.arg_dead_after(k, a, a + n):
+                        a = None
+        if a is None:
+            self.base_misses += 1
+            return
+        i = 0
+        while i < n:
+            if not keep[i]:
+                i += 1
+                continue
+            j = i
+            while j < n and keep[j]:
+                j += 1
+            uc.mem_write(a + i, bytes(data[i:j]))
+            self.stack_written.update(range(a + i, a + j))
+            for x in range(i, j):
+                if pc["unk"][x]:
+                    self.unknown_placed += 1
+                    if self.side == "orig":
+                        self.unk_live[a + x] = (k, pi, x)
+            i = j
 
     def _apply_regs(self, insn, target, res, k):
         uc = self.uc
@@ -393,6 +582,16 @@ class TraceRun(Run):
                 # the stub returns through `fld dword [FSLOT]`: use the qword variant with the real result
                 uc.reg_write(self.u.UC_X86_REG_EIP, eip - 0x400)
                 uc.mem_write(FSLOT, struct.pack("<d", res["st0"]))
+                self.st0_used += 1
+            elif TRAMP + 0xC00 <= eip < TRAMP + 0xC10 and "x87arg" not in REPLAY_OFF:
+                # (round 12, x87arg) a callee with x87 register arguments (`fld x; call __CIasin`): the stub pops
+                # them, then jumps through [FSLOT + 0x10] to the float-load trampoline: point that at the qword
+                # variant with the real result too
+                t = struct.unpack("<I", bytes(uc.mem_read(FSLOT + 0x10, 4)))[0]
+                if TRAMP + 0x800 <= t < TRAMP + 0xC00:
+                    uc.mem_write(FSLOT + 0x10, struct.pack("<I", t - 0x400))
+                    uc.mem_write(FSLOT, struct.pack("<d", res["st0"]))
+                    self.st0_used += 1
 
 
 def make_input(entry):
@@ -417,18 +616,20 @@ class TraceNamer(equiv.Namer):
 
 
 def run_original(prog, oview, trace, store, helpers, ours_image=None, psizes=None, convs=None, varargs=(),
-                 own_float=False, max_steps=2000000):
+                 own_float=False, max_steps=2000000, skip_unknown=None):
     set_entry_esp(trace["entry"].get("esp_g"))
     trace.pop("_place", None)
     inp = make_input(trace["entry"])
     mach = TraceMemory(prog, trace["pages"], store)
     orun = TraceRun(prog, oview, mach, inp, ours_image=ours_image, sig=None, max_steps=max_steps,
-                    own_float_ret=own_float, coverage=True, helpers=helpers, trace=trace, side="orig")
+                    own_float_ret=own_float, coverage=True, helpers=helpers, trace=trace, side="orig",
+                    skip_unknown=skip_unknown)
     orun.pointee_sizes = psizes or {}
     orun.convs = convs or {}
     orun.slot_arity = {}
     orun.loop_limits = {}
     orun.varargs = set(varargs)
+    trace["_orun"] = orun
     return inp, mach, orun, orun.run(oview.entry)
 
 
@@ -471,23 +672,16 @@ def replay_level3(store, addr, max_calls=None, max_steps=2000000, time_budget=12
         caller_cleans = equiv.caller_cleaned(prog, oview)
         edges = set()
         t0 = time.process_time()
-        for tr in traces:
-            if time.process_time() - t0 > time_budget:
-                res["time_budget_hit"] = True
-                break
-            inp, mach, orun, o = run_original(prog, oview, tr, store, helpers, (equiv.OURS, ours.image), psizes,
-                                              convs, varargs, own_float, max_steps)
-            why = selfcheck(o, orun, mach, tr)
-            if why:
-                res["incomplete"] += 1
-                if len(res["incomplete_reasons"]) < 3:
-                    res["incomplete_reasons"].append({"call": tr["n"], "why": why})
-                continue
-            if o["status"] == "ret":
-                edges.update(orun.edges)
+        pre_fix = getattr(store, "pre_st0_fix", False) and "st0fix" not in REPLAY_OFF
+        res["st0fix"] = True            # (round 12: results of this version drop pre-fix x87 results)
+        if pre_fix:
+            res["pre_st0_fix"] = 0
+
+        def run_ours(tr, inp, skip_unknown, steps):
             rmach = TraceMemory(prog, tr["pages"], store)
             rrun = TraceRun(prog, rview, rmach, inp, ours_image=(equiv.OURS, ours.image), sig=sig,
-                            max_steps=max_steps * 2, own_float_ret=own_float, helpers=helpers, trace=tr, side="ours")
+                            max_steps=steps * 2, own_float_ret=own_float, helpers=helpers, trace=tr, side="ours",
+                            skip_unknown=skip_unknown)
             rrun.pointee_sizes = psizes or {}
             rrun.intrinsics = {a: n for a, n in ours.poison.items() if n in equiv.INTRINSIC_NAMES}
             rrun.local_code = (equiv.OURS, ours.end)
@@ -497,11 +691,62 @@ def replay_level3(store, addr, max_calls=None, max_steps=2000000, time_budget=12
             rrun.varargs = varargs
             rrun.caller_cleans = caller_cleans
             rrun.slot_arity = {}
-            r = rrun.run(rview.entry)
+            return rmach, rrun, rrun.run(rview.entry)
+
+        for tr in traces:
+            if time.process_time() - t0 > time_budget:
+                res["time_budget_hit"] = True
+                break
+            steps = max_steps
+            inp, mach, orun, o = run_original(prog, oview, tr, store, helpers, (equiv.OURS, ours.image), psizes,
+                                              convs, varargs, own_float, steps)
+            if o["status"] == "timeout" and tr["outcome"]["status"] == "ret" and "steps" not in REPLAY_OFF and \
+                    steps < MAX_STEPS_REPLAY and time.process_time() - t0 < time_budget / 2:
+                # (round 12, steps) the recording returned: give the original's replay a bigger budget
+                steps = MAX_STEPS_REPLAY
+                inp, mach, orun, o = run_original(prog, oview, tr, store, helpers, (equiv.OURS, ours.image), psizes,
+                                                  convs, varargs, own_float, steps)
+                res["long_steps"] = res.get("long_steps", 0) + 1
+            why = selfcheck(o, orun, mach, tr)
+            if not why and pre_fix and orun.st0_used:
+                # (round 12, st0fix) captured before b566e0d3: the x87 results this call took are the physical
+                # register, not ST(0) (s1's 0x00042680: cos(angle) recorded where the game returned the angle)
+                why = "captured before the ST(0) fix (b566e0d3): %d x87 callee result(s) unreliable" % orun.st0_used
+                res["pre_st0_fix"] += 1
+            if why:
+                res["incomplete"] += 1
+                if len(res["incomplete_reasons"]) < 3:
+                    res["incomplete_reasons"].append({"call": tr["n"], "why": why})
+                tr.pop("_orun", None)
+                continue
+            if o["status"] == "ret":
+                edges.update(orun.edges)
+            rmach, rrun, r = run_ours(tr, inp, None, steps)
             # compare against the original's memory as recorded (both runs read the same pages)
             diffs = equiv.compare_runs(o, r, ret_kind, mach, TraceNamer(inp, sig, prog), prog, void_eax=void_eax)
-            res["replayed"] += 1
             note = []
+            if diffs and orun.unknown_placed > len(orun.unk_read) and "unknown" not in REPLAY_OFF:
+                # (round 12, unknown) the difference may come from recorded bytes no callee wrote: they lay below
+                # the stack pointer since the last call (an interrupt frame, the gate trampoline's words) and
+                # the original's own code never read them. Both sides again without those: if the original still
+                # reproduces the recording and ours then agrees, the call is inconclusive, not a mismatch
+                keep_ = set(orun.unk_read)
+                inp2, mach2, orun2, o2 = run_original(prog, oview, tr, store, helpers, (equiv.OURS, ours.image),
+                                                      psizes, convs, varargs, own_float, steps, skip_unknown=keep_)
+                if not selfcheck(o2, orun2, mach2, tr):
+                    _, rrun2, r2 = run_ours(tr, inp2, keep_, steps)
+                    if not equiv.compare_runs(o2, r2, ret_kind, mach2, TraceNamer(inp2, sig, prog), prog,
+                                              void_eax=void_eax):
+                        res["incomplete"] += 1
+                        res["unknown_bytes"] = res.get("unknown_bytes", 0) + 1
+                        if len(res["incomplete_reasons"]) < 3:
+                            res["incomplete_reasons"].append({"call": tr["n"], "why": (
+                                "differs only through recorded stack bytes that were below the stack pointer "
+                                "since the last call and the original never read (%d; maybe not callee writes): %s" % (
+                                    orun.unknown_placed - len(orun.unk_read), diffs[0]))})
+                        tr.pop("_orun", None)
+                        continue
+            res["replayed"] += 1
             if rmach.unrecorded:
                 note.append("ours read %d page(s) the original never touched (%s)" % (
                     len(rmach.unrecorded), ", ".join("%#x" % p for p in sorted(rmach.unrecorded)[:3])))
@@ -516,6 +761,7 @@ def replay_level3(store, addr, max_calls=None, max_steps=2000000, time_budget=12
                 res["agreed"] += 1
                 if note and len(res["notes"]) < 3:
                     res["notes"].append({"call": tr["n"], "notes": note})
+            tr.pop("_orun", None)
         res["coverage"] = equiv.coverage_of(oview, edges)
         res["coverage"].pop("uncovered", None)
         if res["replayed"] == 0:
@@ -548,6 +794,9 @@ def replay_level3_multi(stores, addr, max_calls=None, time_budget=120):
             tot["incomplete_reasons"] += r["incomplete_reasons"][:1]
             tot["per_session"][name] = {k: r[k] for k in ("captured", "replayed", "agreed", "mismatched", "incomplete",
                                                           "status")}
+            for k in ("st0fix", "pre_st0_fix", "unknown_bytes"):
+                if k in r:
+                    tot["per_session"][name][k] = r[k]
             tot["coverage"] = r.get("coverage")
         tot["t_replay"] = round(time.time() - t0, 2)
         tot["status"] = ("no_replay" if not tot["replayed"] else "mismatch" if tot["mismatched"] else "agreed") \

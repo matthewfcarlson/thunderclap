@@ -301,8 +301,14 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   Directed inputs never patch code (a switch's byte table: ours has its own), nor a float constant read
   at a fixed address in `.rdata` (ours may load it from its own constant, or as `fld1`), nor plant an
   address that wraps around (`lea ecx, [ebx + 0xb4]; test ecx, ecx` and `add eax, 0x58; je` are the null
-  checks of a base-class conversion, not value tests). Exact float ties are planted only against a plain
-  loaded value: against a computed one, the tie depends on the precision each side computes in.
+  checks of a base-class conversion, not value tests). Exact float ties are planted only where the planted
+  value comes back as exactly the other side's: against a plain loaded value, or through `fabs`/`fchs` and
+  constant arithmetic checked forward in the loaded precision (round 12); against a value computed in 80 bits
+  that no loaded float equals, never.
+- (round 12, ties) Ties. Random values never tie, and directed inputs only go after sides not yet taken, so
+  `fabs(m[0][0]) > eps` against `>=` (or `cmp eax, [ebx+0xc]; jl` against `jle`) differed only on inputs that never
+  ran. After the first directed phase, one input per compare (at most 48 a function) makes an input operand
+  equal to the other one (`inputs_tie`).
 
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check
@@ -337,6 +343,13 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     register below `esp` is dead, so it no longer bounds the room either. If ours has less room before a saved register, the return address or the caller's
     frame, the call fails (`writes 0x40 bytes through ecx ... but ours has only 0x20 bytes there`): our
     local is smaller than the callee's object;
+  - (round 12, vext) for a virtual call (`call [eax+0x14]`, eax = ecx's vptr, target fuzzed) takes that extent from
+    the functions in that vtable slot (all RTTI vtables) that pop the same bytes: per frame local passed, the
+    biggest extent three implementations share that fits the original's free room there (up to
+    the next word it wrote, another address-taken local, a saved register or the return address). Ours must
+    have that room before a saved register, its return address or a local it set before the call (pure3d's
+    loaders' `create` write a 64-bit id: a 4-byte local fails), and the stub fills that far on both sides. A
+    real target (trace replay) uses its own extent;
   - leaves `ecx`/`edx`/`eax` alone when the callee never writes them (callers may rely on that);
   - pops the callee's argument bytes. Pops over 252 bytes (a struct passed by value) are done directly. A call through
   a fixed function pointer (`call [0x4de948]`, a global whose value is fuzzed) takes its stack use from the pointer's
@@ -422,6 +435,10 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
 - Bytes of `eax` that last came from `fnstsw ax` (a float branch's status word, `fnstsw ax; test ah, 0x41;
   ...; mov al, 1; ret`) aren't compared: no source produces them. What was written after them (`al`) is.
 - The x87 stack depth, `ebx/esi/edi/ebp` and `esp` after return.
+- (round 12, x87cmp) The x87 registers a callee takes as arguments (`fld x; call __CIasin`; `Program.x87_args`),
+  with the float tolerance; an empty slot is `empty` (`call #2 to 0x003442bc: x87 argument st(0) is empty,
+  expected 2`). A call that takes an x87 argument right after another call counts as using that call's float
+  result.
 - An argument pushed from a register whose last write set only its low byte(s) (`setcc al; push eax`, a
   `bool`) compares on those bytes only. A register argument of an `equiv-conv` callee compares on the bits
   the real callee reads before overwriting it (a byte flag in `cl` over leftover high bytes: `test cl, cl`).
@@ -530,7 +547,25 @@ Mismatch strings are written for a model to act on. Examples:
 
 ## Validation
 
-Latest run (2026-10-16, checker round 11; details in [tasks/equiv-round11.md](tasks/equiv-round11.md)):
+Latest run (2026-10-17, checker round 12; details in [tasks/equiv-round12.md](tasks/equiv-round12.md)):
+`regress.py` 157/157 (every new `_wrong` case is `equivalent` under round 11); the new `replay_regress.py` 16/16
+(the 11 non-guard cases all fail under round 11); selftest 290/300 (ten template scalar deleting destructors with
+an unresolved destructor, identical under round 11); mutation suite identical to round 11 mutant by mutant;
+`equivalent/` random 300 (seed 2036) at 3000 inputs: 297 promotable, one newly failing file, 0x0030e0a0, a real
+`<=`/`<` bug found by the tie inputs. Replay over every local session (on mac1): 10 mismatching functions -> 1
+(0x002e22c0, newly comparable), 14,227 -> 14,258 agreed; confidence tier 0 12 -> 6, tier 3 1,945 -> 1,963.
+
+**Recipes for batch agents (round 12).** Re-run the replay (`tools/equiv_replay_fn.py --changed`) before
+rewriting a source for a replay mismatch: upper-half register diffs (0xd004xxxx), stale partial words and pad
+garbage are no longer reported. `no_replay` "differs only through recorded stack bytes ... the original never
+read" is inconclusive (a pad in the original, a live value in ours): matching the original's frame turns it into
+`agreed`, but promotion doesn't need it. Ignore `incomplete` "captured before the ST(0) fix" (s1, t1, t2). A
+`__CI*` intrinsic written as a plain call fails with `x87 argument st(0) is empty`: write the libm call with an
+`equiv-map`. `writes 0x8 bytes through argument 2 ... ours has only 0x4` at a virtual call: make the local as big as
+the slot's implementations' object. A failure on an `N+tie` input is a `<`/`<=` difference: read the original's
+`test ah, ...` to choose.
+
+Previous run (2026-10-16, checker round 11; details in [tasks/equiv-round11.md](tasks/equiv-round11.md)):
 `regress.py` 145/145 (the 10 new cases all fail under round 10); selftest 297/300 (three unresolved-destructor
 failures, identical under round 10); mutation suite identical to round 10 mutant by mutant on the pinned 120;
 `equivalent/` random 300 (seed 2035) at 3000 inputs: 296 promotable, no newly failing file. 6 of 7 work-list
@@ -588,6 +623,9 @@ The harnesses:
 - `tests/equiv/test_equiv.py`: quick unit and end-to-end tests.
 - `tests/equiv/regress.py`: sources a checker bug once got wrong (`tests/equiv/cases/`), each with the
   status it must get and the mismatch that shows why.
+- `tests/equiv/replay_regress.py` (round 12): sources a replay artifact once got wrong
+  (`tests/equiv/replay_cases/`), each replayed on a local capture session (skipped when that session is absent)
+  with the status it must get; `EQUIV_REPLAY_MODULE=path` and `EQUIV_MODULE=name` pick the versions.
 
 ## Trace replay (`tools/trace_capture.py`, `tools/equiv_replay.py`)
 
@@ -676,6 +714,24 @@ Both write the same `trace.sqlite`, and `equiv_replay.py` reads either.
   - a write the original can't place is skipped on both sides.
 - A real callee write that starts inside our local and runs past its end fails, as equiv.py's
   undersized-local check does ("writes 0x40 bytes through ecx ... ours has only 0x20").
+- Round 12 (details in [tasks/equiv-round12.md](tasks/equiv-round12.md); `REPLAY_OFF=name` switches each off):
+  - `x87arg`: a callee with x87 register arguments gets the recorded ST(0) too.
+  - `scratchkey`: a write keyed to a register the callee doesn't take (eax after `fnstsw ax`, after `mov al, ..`,
+    a loop's end pointer) goes behind the nearest stack-argument pointer below it, else nowhere.
+  - `xlate`: a recorded word of the function's own frame holding a game stack address that translates to
+    exactly what the original holds there (a pushed `&local`, 0xd004.. vs 0x7eff..) is no write at all. Other
+    stack-looking words stay the game's (bytes of a string can spell 0xd004....).
+  - `widen`: a run that changes part of a word gets the game's other bytes where the original's code never
+    wrote them (stale return-address bytes in padding).
+  - `unknown`: bytes that were below the stack pointer since the last call (interrupt frames, the gate
+    trampoline's words) may not be callee writes. A mismatching call is re-run on both sides without those of
+    them the original's code never read; if the original still reproduces the recording and ours agrees, the
+    call is `incomplete` ("differs only through recorded stack bytes ..."), never agreed.
+  - `deadarg`: a frame-keyed write into our incoming-argument slots (ours keeps a local in a dead
+    parameter) is placed when the original's own slots there are dead after the call.
+  - `st0fix`: sessions captured before b566e0d3 (s1, t1, t2): a call whose original takes a recorded x87
+    result is `incomplete`; `equiv_confidence.py` drops their results made by older replays (no `st0fix` mark).
+  - `steps`: an original that runs out of the 2M steps where the recording returned gets 16M once.
 - The comparison is `compare_runs`, the level-3 rules.
 - The original's replay must reproduce the recorded outcome: status, call targets, eax/edx and the final
   memory writes. Otherwise that call is counted `incomplete`, not compared.

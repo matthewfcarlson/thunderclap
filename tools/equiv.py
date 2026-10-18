@@ -123,6 +123,7 @@ class Program:
                 self.funcs[a] = (int(r["size"]), r["name"])
                 self.names[r["name"]].append(a)
         self.vftables = {}
+        self.vt_slots = []          # every vtable's slot list (round 12, vext)
         self.rtti = {}
         # functions reached through a vtable: their callers can't be found by scanning for `call`
         self.virtual_funcs = {a for a, (_, n) in self.funcs.items() if "vfunc_" in n}
@@ -135,6 +136,7 @@ class Program:
                     self.typedescs.setdefault(b["name"], b.get("td"))
                 for v in c["vtables"]:
                     self.vftables[v["address"]] = c["mangled"]
+                    self.vt_slots.append(v.get("slots") or [])
                     self.virtual_funcs.update(v.get("slots") or ())
         self.xbsyms = {}
         if os.path.exists(XBSYMS):
@@ -760,6 +762,23 @@ class Program:
         cache[target] = best if ok and steps < 3000 and not work else None
         return cache[target]
 
+    def vslot_writes(self, disp, pop):
+        """(round 12, vext) What the functions in vtable slot `disp` that pop `pop` bytes write through each
+        stack argument: {argument index: sorted [bytes written, one per implementation that writes]}."""
+        cache = self.__dict__.setdefault("_vsw", {})
+        if (disp, pop) in cache:
+            return cache[(disp, pop)]
+        out = {}
+        if disp % 4 == 0 and 0 <= disp < 0x1000:
+            for t in sorted({sl[disp // 4] for sl in self.vt_slots if disp // 4 < len(sl)}):
+                if not self.is_code(t) or self.callee_pop(t) != pop:
+                    continue
+                for loc, w in (self.callee_writes(t) or {}).items():
+                    if isinstance(loc, int) and w:
+                        out.setdefault(loc, []).append(w)
+        cache[(disp, pop)] = out = {j: sorted(ws) for j, ws in out.items()}
+        return out
+
     def x87_args(self, target, depth=0):
         """(round 11, x87args) x87 registers a callee takes as arguments: what its first instructions read below
         the stack it found (`__CIpow`: `fxch st(1); fstp qword [esp]; fst qword [esp+8]` takes st0 and st1 and
@@ -1315,6 +1334,10 @@ class CodeView:
                     continue
                 if i.kind == "call" and HELPERS.get(i.target) == "__ftol2" and d < 1 and "ftolret" not in EQUIV_OFF:
                     res = True      # (round 9) `call f; call __ftol2`: the helper converts f's float result
+                    break
+                if i.kind == "call" and i.target is not None and "x87cmp" not in EQUIV_OFF and \
+                        d < self.prog.x87_args(i.target):
+                    res = True      # (round 12) `call f; call __CIasin`: f's float result is the next call's x87 argument
                     break
                 if i.kind in ("call", "stop"):
                     break
@@ -3010,6 +3033,11 @@ class Run:
         # them with its result: they were not values kept across the call, and the code after it uses the result
         x87n = min(self.prog.x87_args(target), fdepth) if known and not tail and "x87args" not in EQUIV_OFF else 0
         fret = True if x87n else self.view.float_ret_after(insn.addr, self.own_float_ret, fdepth)
+        # (round 12, x87cmp) the x87 register arguments themselves (`fld x; call __CIasin`): inputs of the call like
+        # its stack words, compared with the float tolerance; an argument the caller never loaded is None
+        x87a = []
+        if known and not tail and "x87cmp" not in EQUIV_OFF:
+            x87a = [self._st_val(i) if i < fdepth else None for i in range(self.prog.x87_args(target))]
         h = mix(self.inp["seed"], 0xCA11, k)
         d = self.inp.get("dictionary")
         mode = self.inp.get("stub_mode")
@@ -3043,7 +3071,8 @@ class Run:
                            "float_ret": fret, "at": insn.addr, "tail": tail, "pointees": pointees, "known": known,
                            "ret_to": insn.addr + insn.size,
                            "conv": bool(conv), "argw": argw, "esp": esp,
-                           "via_object": self._is_virtual_on_ecx(insn), "cdecl_site": self.cdecl_site})
+                           "via_object": self._is_virtual_on_ecx(insn), "cdecl_site": self.cdecl_site,
+                           "x87args": x87a})
         self._close_segment()
         self._perturb()
         if not tail:
@@ -3056,10 +3085,13 @@ class Run:
             # memory can't be live data, so this never clobbers a neighbour, whatever the frame layout.
             # Values depend only on (call, argument, offset), so both sides agree.
             declared = self.pointee_sizes.get(target, {})
+            vext = self._vslot_room(insn, k, p, args, in_frame, sp) if "vext" not in EQUIV_OFF else {}
             outs = []
             for j, (v, _) in enumerate(args):
                 if in_frame(v) and v % 4 == 0:
                     sz = declared.get(j, 4)
+                    if j in vext and not isinstance(sz, tuple):
+                        sz = max(sz, vext[j])
                     exact_size = isinstance(sz, tuple)        # a class: its sizeof is the whole object
                     sz = sz[0] if exact_size else max(sz, ARRAY_WINDOW)
                     top = ENTRY_ESP if v < ENTRY_ESP else arg_hi
@@ -3192,6 +3224,56 @@ class Run:
             uc.reg_write(u.UC_X86_REG_EIP, TRAMP + 0xC00 + 2 * (3 - x87n))
             return
         uc.reg_write(u.UC_X86_REG_EIP, TRAMP + (0x800 if fret else 0) + (p // 4) * 16)
+
+    def _vslot_room(self, insn, k, p, args, in_frame, sp):
+        """(round 12, vext) A virtual call (`call [eax+0x14]`, eax = ecx's vptr) whose target is fuzzed: the
+        implementations in that vtable slot with the same stack use write up to N bytes through a pointer
+        argument (pure3d's loaders' `create` write a 64-bit id). The original's run takes, per local passed, the
+        biggest extent VEXT_SHARED implementations share that fits the original's free room there
+        (bytes up to the next word it wrote itself, another local whose address it took, a saved register or
+        the return address); ours must have that much room before a saved register or its return address.
+        {argument index: bytes}, for the out-parameter fill."""
+        learned = self.inp.setdefault("vext_by_call", {})
+        if self.coverage is not None:
+            rec = {}
+            m = insn.mem
+            if insn.target is None and m is not None and m[1] not in (None, "esp", "ebp") and m[2] is None and \
+                    p and self.calls[-1].get("via_object"):
+                tgt = self.calls[-1]["target"]
+                if tgt in self.prog.funcs:
+                    # (a real target, as in trace replay: its own extent, not the slot's)
+                    vs = {j: [w] * VEXT_SHARED for j, w in (self.prog.callee_writes(tgt) or {}).items()
+                          if isinstance(j, int) and w}
+                else:
+                    vs = self.prog.vslot_writes(m[4], p)
+                for j, ws in vs.items():
+                    if j >= len(args) or not in_frame(args[j][0]) or args[j][0] >= ENTRY_ESP:
+                        continue
+                    v = args[j][0]
+                    room, _ = self._frame_room(v)
+                    room = min([room] + [x - v for x in self.addr_taken if x > v] + [x - v for x in sp if x > v])
+                    for o in range(4, room, 4):
+                        if any(x in self.func_stack_written for x in range(v + o, v + o + 4)):
+                            room = o
+                            break
+                    ok = [w for w in ws if w <= room]
+                    shared = [w for w in ok if ok.count(w) >= VEXT_SHARED]
+                    if shared and max(shared) > 4:
+                        rec[j] = max(shared)
+            learned[k] = rec
+            return rec
+        rec = learned.get(k, {})
+        for j, need in rec.items():
+            if j < len(args) and in_frame(args[j][0]) and args[j][0] < ENTRY_ESP:
+                v = args[j][0]
+                room, what = self._frame_room(v)
+                for o in range(4, min(room, need), 4):
+                    if any(x in self.func_stack_written for x in range(v + o, v + o + 4)):
+                        room, what = o, "a local it set before the call"
+                        break
+                if room < need:
+                    self.calls[-1].setdefault("overflow", []).append((j, need, room, what))
+        return rec
 
     def _check_readback(self, insn):
         """A read of a stack word whose own earlier value a callee-extent fill replaced (fill_watch)."""
@@ -5262,6 +5344,16 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
             break
         if bad:
             break
+        xa, xb = a.get("x87args") or [], b.get("x87args") or []
+        for j in range(min(len(xa), len(xb))):
+            if not _feq(xa[j], xb[j]):
+                out.append("call #%d to %s: x87 argument st(%d) is %s, expected %s" % (
+                    k + 1, _fmt(a["target"]), j, "empty" if xb[j] is None else "%.7g" % xb[j],
+                    "empty" if xa[j] is None else "%.7g" % xa[j]))
+                bad = True
+                break
+        if bad:
+            break
         if b.get("overflow"):
             loc, need, room, what = b["overflow"][0]
             out.append("call #%d to %s writes 0x%x bytes through %s (the original's local has room for them), "
@@ -7323,9 +7415,34 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                         if not found:
                             break
 
+    def tie_phase():
+        # (round 12, ties) a compare of two inputs (`fabs(m[0][0]) > eps`, `cmp eax, [ebx+0xc]`) whose sides were
+        # both taken: random values never tie, and `>` against `>=` differs only there. One input per compare
+        # makes the two equal (where a transform maps the planted value onto the other exactly)
+        n_t = 0
+        for j in sorted(observations):
+            if n_t >= TIE_INPUTS or out_of_time() or res["inputs_failed"] >= 3:
+                break
+            for seed0, ob, ov0, sp0 in observations[j]:
+                pl = _tie_plants(ob, ov0, sp0, len(make_input(seed0, sig, globals_, min_words=own_words)["stack"]))
+                if not pl:
+                    continue
+                overlay, patch = pl[0]
+                key = (j, seed0, tuple(sorted(map(repr, overlay.items()))), tuple(sorted(map(repr, patch.items()))))
+                if key in tried:
+                    break
+                tried.add(key)
+                n_t += 1
+                res["inputs_directed"] += 1
+                res["inputs_tie"] = res.get("inputs_tie", 0) + 1
+                directed_run(seed0, overlay, patch, "%d+tie" % seed0)
+                break
+
     directed_repair = [64]
     random_phase(soft=True)
     directed_phase()
+    if "ties" not in EQUIV_OFF and not out_of_time() and res["inputs_failed"] < 3:
+        tie_phase()
     if not rs["done"] and not out_of_time() and res["inputs_failed"] < 3:
         # (round 9, morein) with --inputs over 3000, the random inputs past 3000 stop at 80% of the time, so the
         # directed inputs after them still run (they ran out of time before: 12000 inputs covered less than 3000)
@@ -7470,6 +7587,73 @@ def _invert_fxf(fxf, want):
         else:
             return None
     return w if not (math.isnan(w) or math.isinf(w)) else None
+
+
+TIE_INPUTS = 48             # (round 12, ties) at most this many tie inputs per function
+VEXT_SHARED = 3             # (round 12, vext) implementations of a vtable slot that must share an extent
+
+
+def _tie_plants(ob, overlay0, patch0, nstack):
+    """(round 12, ties) Plants that make a compare's two input operands equal (none if a side isn't an input, or
+    no planted value comes back as exactly the other side's)."""
+    ops = ob.get("ops") or []
+    out = []
+    if len(ops) != 2 or not all(isinstance(o, dict) for o in ops):
+        return out
+    if ob["mnemonic"] == "fcmp":
+        for x, y in ((ops[0], ops[1]), (ops[1], ops[0])):
+            src, yv = x.get("src"), y.get("val")
+            if not src or not isinstance(yv, float) or math.isnan(yv) or math.isinf(yv):
+                continue
+            fxf = tuple(x.get("fxf") or ())
+            if not _fxf_exact_tie(fxf, yv, src):
+                continue        # (the other side computed in 80 bits: no loaded value equals it exactly)
+            pl = _float_plant(x, _invert_fxf(fxf, yv) if fxf else yv, overlay0, patch0, nstack)
+            if pl is not None:
+                out.append(pl)
+    elif ob["mnemonic"] == "cmp":
+        for x, y in ((ops[0], ops[1]), (ops[1], ops[0])):
+            if not x.get("src") or not isinstance(y.get("val"), int) or x.get("xf") or x.get("val") == y.get("val"):
+                continue
+            if STACK_LO <= y["val"] < STACK_HI or OURS <= y["val"] < OURS + OURS_SIZE:
+                continue        # (an address in one side's own frame or code: the other side's differs)
+            ov, pt = dict(overlay0 or {}), dict(patch0 or {})
+            if _int_plant_into(x["src"], y["val"], ov, pt, nstack):
+                out.append((ov, pt))
+    return out
+
+
+def _fxf_exact_tie(fxf, want, src):
+    """(round 12, ftie) Does the value _invert_fxf plants come back as exactly `want` through fxf (in the loaded
+    word's precision, then as the x87 computes, in doubles here)?"""
+    v = _invert_fxf(fxf, want) if fxf else want
+    if v is None:
+        return False
+    if src[1] == 4:
+        v = struct.unpack("<f", struct.pack("<f", v))[0] if abs(v) <= 3.4028234663852886e38 else None
+        if v is None:
+            return False
+    w = v
+    for m, c in fxf:
+        if m == "fadd":
+            w = w + c
+        elif m == "fsub":
+            w = w - c
+        elif m == "fsubr":
+            w = c - w
+        elif m == "fmul":
+            w = w * c
+        elif m == "fchs":
+            w = -w
+        elif m == "fdiv" and c:
+            w = w / c
+        elif m == "fdivr" and w:
+            w = c / w
+        elif m == "fabs":
+            w = abs(w)
+        else:
+            return False
+    return w == want
 
 
 def _invert_xf(xf, raw, want):
@@ -7941,6 +8125,10 @@ def _patches(ob, overlay0, patch0, nstack, depth=0, via=False):
             # (exactly equal only to a plain loaded value: against a computed one, a tie depends on the x87
             # precision each side computes it in)
             tie = bool(y.get("src")) and not fxf
+            if not tie and fxf and y.get("src") and "ftie" not in EQUIV_OFF and _fxf_exact_tie(fxf, yv, src):
+                # (round 12, ftie) a transformed load against another input (`fabs(m[0][0]) > eps`): a tie when the
+                # transform maps the planted value onto the other one exactly (fabs, fchs, or checked forward)
+                tie = True
             fvs = [yv + d, yv, yv - d] if tie else [yv + d, yv - d]
             if yv:
                 # (round 9) |x - c| < eps against a small eps: +-1 lands on the far side both times; halfway and

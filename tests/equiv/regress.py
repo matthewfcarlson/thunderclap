@@ -403,6 +403,27 @@ CASES = {
     # FUN_00214250 check is caught
     "0x002142d0_op_words": ("equivalent", None, 0.72, {"n_inputs": 3000}),
     "0x002142d0_op_words_wrong": ("fail", "to 0x00214250: argument 2", 0, {"n_inputs": 3000}),
+    # round 12. x87 register arguments of a callee (`fld x; call __CIasin`) are compared like stack arguments;
+    # the wrong source drops luaL_checknumber's result and calls asin on an empty x87 stack (x87cmp)
+    "0x0033b6d0_x87_arg": ("equivalent", None),
+    "0x0033b6d0_x87_arg_wrong": ("fail", "x87 argument st(0) is empty"),
+    # a virtual call whose slot's implementations write 8 (16) bytes through a pointer argument: ours must have
+    # that room where the original has it (vext); the wrong sources have a 4-byte id and a 12-byte vector
+    "0x002a4b00_vslot_room": ("equivalent", None, 0.9, {"n_inputs": 3000}),
+    "0x002a4b00_vslot_room_wrong": ("fail", "writes 0x8 bytes through argument 2", 0, {"n_inputs": 3000}),
+    "0x002251d0_vslot_room": ("equivalent", None, 0.9, {"n_inputs": 3000}),
+    "0x002251d0_vslot_room_wrong": ("fail", "writes 0x10 bytes through argument 2", 0, {"n_inputs": 3000}),
+    # slot 0x54 (pop 4): only two implementations write 0x14 bytes through argument 1 (another hierarchy's);
+    # pure3d::Camera::vfunc_21 writes nothing there: not an extent to demand
+    "0x000a75d0_vslot_unrelated": ("equivalent", None, 0.9, {"n_inputs": 3000}),
+    # both sides of `fabs(m[0][0]) > eps` taken by random inputs, never a tie: `>=` differs only there (ties)
+    "0x002fbf20_fabs_tie": ("equivalent", None, 0.95, {"n_inputs": 3000}),
+    "0x002fbf20_fabs_tie_wrong": ("fail", "this+0x4c", 0, {"n_inputs": 3000}),
+    # found by the tie inputs in equivalent/: `time + k <= cutoff` where the original's `test ah, 5; jp` is `<`
+    "0x0030e0a0_float_tie": ("equivalent", None, 0.9, {"n_inputs": 3000}),
+    "0x0030e0a0_float_tie_wrong": ("fail", "extra call #2 to 0x00319ef0", 0, {"n_inputs": 3000}),
+    # a tie never plants a stack address (the other side's frame is elsewhere: Lua gsub's buffer end)
+    "0x0033cff0_tie_stack_addr": ("equivalent", None, 0.9, {"n_inputs": 3000}),
 }
 
 # cases that must also complete this many inputs (the promotion bar is 50)

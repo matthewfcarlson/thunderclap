@@ -10,7 +10,11 @@ Evidence per function:
   replay  tools/equiv_replay.py results of every capture session (build/traces/*/replay-equivalent.json) and
           tools/equiv_replay_fn.py per-function results (build/traces/replay-fn*.json), newest per (function,
           session): calls replayed and agreed, mismatches. A mismatch in any session wins. Results older than
-          the source (committed later / different hash) are dropped.
+          the source (committed later / different hash) are dropped, and so are results from sessions captured
+          before the ST(0) fix (s1, t1, t2: wrong x87 callee results) made by a replay that predates round 12
+          (no `st0fix` mark; round 12's replay counts those calls incomplete itself).
+
+  tools/equiv_confidence.py --replays 'DIR/*.json' --out FILE   # whole-session results from elsewhere
 
 Tiers (higher = more trusted; patch_xbe.py --confidence/--tier-min and bisect_hybrid.py use them):
   0  replay mismatch, or listed in hybrid/exclude.txt
@@ -94,25 +98,51 @@ def run_fuzz(todo, n, jobs):
             print("  fuzz %d/%d %s %s" % (i + 1, len(work), r["addr"], r["status"]), file=sys.stderr)
 
 
-def load_replays(sha_of=None, commit_time=None):
+def _pre_fix(sess):
+    """Was SESSION captured before the ST(0) fix (equiv_replay.pre_st0_fix)?"""
+    if "st0fix" in os.environ.get("REPLAY_OFF", "").split(","):
+        return False
+    import equiv_replay as er
+    d = os.path.join(ROOT, "build/traces", sess)
+    return sess in er.PRE_ST0_FIX or (os.path.isdir(d) and er.pre_st0_fix(d))
+
+
+def load_replays(sha_of=None, commit_time=None, replays=None, dropped=None):
     """{addr: merged replay result}, one evidence entry per (function, session), newest wins:
     - build/traces/*/replay-equivalent.json: whole-session replays; dropped when the source was committed after
       the file was written (the source changed since: stale, counted in `stale_dropped`).
     - build/traces/replay-fn*.json: tools/equiv_replay_fn.py per-function replays (this machine and mac1);
       dropped when their source hash is not the current one.
-    sha_of/commit_time: {addr: current sha} / {addr: last commit unix time} of the equivalent/ sources."""
+    - (round 12) either kind from a session captured before the ST(0) fix, made by a replay without the
+      `st0fix` mark: dropped (counted in dropped["pre_st0_fix"]).
+    sha_of/commit_time: {addr: current sha} / {addr: last commit unix time} of the equivalent/ sources.
+    replays: the glob of whole-session result files (default build/traces/*/replay-equivalent.json)."""
     sha_of, commit_time = sha_of or {}, commit_time or {}
+    dropped = dropped if dropped is not None else {}
+    dropped.setdefault("pre_st0_fix", 0)
     ent = {}        # (addr, session) -> (ts, record)
+    prefix = {}
+
+    def pre(sess):
+        if sess not in prefix:
+            prefix[sess] = _pre_fix(sess)
+        return prefix[sess]
 
     def put(addr, sess, ts, rec):
         if (addr, sess) not in ent or ent[(addr, sess)][0] < ts:
             ent[(addr, sess)] = (ts, rec)
     stale = {}
-    for path in sorted(glob.glob(os.path.join(ROOT, "build/traces/*/replay-equivalent.json"))):
-        sess = os.path.basename(os.path.dirname(path))
+    for path in sorted(glob.glob(replays or os.path.join(ROOT, "build/traces/*/replay-equivalent.json"))):
+        doc = json.load(open(path))
+        sess = os.path.basename(os.path.normpath(doc["session"])) if replays and doc.get("session") else \
+            os.path.basename(os.path.dirname(path))
         mt = os.path.getmtime(path)
-        for r in json.load(open(path))["results"]:
-            if r.get("src") and not r["src"].startswith("equivalent/"):
+        for r in doc["results"]:
+            if r.get("src") and not (r["src"].startswith("equivalent/") or "/equivalent/" in r["src"] or
+                                     (replays and r["src"].endswith(r["addr"] + ".cpp"))):
+                continue
+            if pre(sess) and not r.get("st0fix") and r.get("status") not in ("not_reached", None):
+                dropped["pre_st0_fix"] += 1
                 continue
             if commit_time.get(r["addr"], 0) > mt:
                 stale.setdefault(r["addr"], []).append(sess)
@@ -125,6 +155,9 @@ def load_replays(sha_of=None, commit_time=None):
             if sha_of.get(addr) and f.get("sha") != sha_of[addr]:
                 continue
             for sess, v in (f.get("sessions") or {}).items():
+                if pre(sess) and not v.get("st0fix"):
+                    dropped["pre_st0_fix"] += 1
+                    continue
                 rec = dict(v, addr=addr)
                 mm = [m for m in f.get("mismatches") or [] if m.get("session") == sess]
                 if mm:
@@ -169,7 +202,7 @@ def tier_of(rec):
     return 3 if rp["agreed"] >= MIN_AGREED else 2
 
 
-def build(fuzz=False, n_inputs=256, jobs=3):
+def build(fuzz=False, n_inputs=256, jobs=3, replays=None, out=OUT):
     import equiv_replay as er
     srcs = er.sources("equivalent")
     excl = {}
@@ -190,7 +223,8 @@ def build(fuzz=False, n_inputs=256, jobs=3):
             run_fuzz(todo, n_inputs, jobs)
             cache = load_fuzz()
     sha_of = {"0x%08x" % a: _sha(os.path.join(ROOT, src)) for src, a in srcs}
-    replays = load_replays(sha_of, _commit_times())
+    dropped = {}
+    replays = load_replays(sha_of, _commit_times(), replays, dropped)
     funcs = {}
     for src, a in srcs:
         addr = "0x%08x" % a
@@ -213,11 +247,12 @@ def build(fuzz=False, n_inputs=256, jobs=3):
     summary = {"tiers": {"%d %s" % (t, TIER_NAMES[t]): n for t, n in sorted(Counter(r["tier"] for r in funcs.values()).items())},
                "replay": dict(Counter(r["replay_status"] for r in funcs.values())),
                "fuzz_known": sum(1 for r in funcs.values() if r["fuzz"]),
-               "replay_stale": sum(1 for r in funcs.values() if r.get("replay_stale"))}
+               "replay_stale": sum(1 for r in funcs.values() if r.get("replay_stale")),
+               "pre_st0_fix_dropped": dropped.get("pre_st0_fix", 0)}
     doc = {"generated": time.strftime("%Y-%m-%d %H:%M"), "min_agreed": MIN_AGREED, "tier_names": TIER_NAMES,
            "summary": summary, "functions": funcs}
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    json.dump(doc, open(OUT, "w"), indent=1)
+    os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
+    json.dump(doc, open(out, "w"), indent=1)
     return doc
 
 
@@ -232,10 +267,13 @@ def main(argv):
     ap.add_argument("--fuzz", action="store_true", help="run equiv.py for functions without a cached fuzz result")
     ap.add_argument("--inputs", type=int, default=256)
     ap.add_argument("--jobs", type=int, default=3)
+    ap.add_argument("--replays", help="glob of whole-session replay results to use instead of "
+                                      "build/traces/*/replay-equivalent.json (e.g. equiv_replay.py --out files)")
+    ap.add_argument("--out", default=OUT, help="where to write (default build/equiv-confidence.json)")
     a = ap.parse_args(argv)
-    doc = build(a.fuzz, a.inputs, a.jobs)
+    doc = build(a.fuzz, a.inputs, a.jobs, a.replays, a.out)
     print(json.dumps(doc["summary"], indent=1))
-    print("wrote %s" % os.path.relpath(OUT, ROOT))
+    print("wrote %s" % os.path.relpath(a.out, ROOT))
     return 0
 
 
