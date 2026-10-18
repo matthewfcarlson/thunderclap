@@ -117,11 +117,11 @@ practice:
    with their notices shipped; nothing is copied from other ports (e.g. OpenCE, see
    [web-port.md](web-port.md)).
 
-Open item: 119 library sources (108 in `matches/`, 11 in `equivalent/`: 71 inside `.text`, 48 after it in BINK, D3D,
-DSOUND, XGRPH and XPP; `build/libdrop/list.txt`, listing the in-`.text` spans XAPILIB 15, LIBCMT+XAPILIB 54, EH 2) predate this
-rule. They are not in the generated tree (`config/splits.json` marks those objects `library`) and the native
-build already binds their addresses to the shim and host CRT, so they are only to be deleted from the repo. The
-queue filters that stop them coming back are in place (see above).
+Closed 2026-10-18: the library sources that predated this rule (108 in `matches/`, 9 tracked in `equivalent/`: 71
+inside `.text` in XAPILIB 15, LIBCMT+XAPILIB 54, EH 2, and 48 after it in BINK, D3D, DSOUND, XGRPH and XPP) were
+deleted from the repo. They were never in the generated tree (`config/splits.json` marks those objects `library`),
+the native build binds their addresses to the shim and host CRT, and the queue filters (see above) stop them coming
+back.
 
 Not legal advice: these rules keep the tree to our own code and the game's interfaces. The larger question,
 publishing decompiled game code at all, is separate and unchanged (no game data is ever distributed).
