@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 14/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 15/16, incomplete)
+// FUN_0030e0a0 @ 0x0030e0a0
 // FUN_0030e0a0 @ 0x0030e0a0
 #include "decls/data/game/global.h"
 
@@ -26,7 +27,7 @@ void Manager_30e0a0::target() {
  if(!count) { last=0; first=(Entry_30e0a0*)20; return; }
  p=storage; first=p; last=p+count-1;
  for(;;) {
-  if((double)p->item->time+(double)(*(float*)&DAT_003f5d00) <= (double)cutoff) p->item->FUN_00319ef0();
+  if((double)p->item->time+(double)(*(float*)&DAT_003f5d00) < (double)cutoff) p->item->FUN_00319ef0();
   Entry_30e0a0* prev=p; p=(Entry_30e0a0*)((unsigned)p+20);
   if(prev==last) break;
  }
