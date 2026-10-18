@@ -1,11 +1,13 @@
 extern int a;
 extern int b;
-extern int __stdcall first(int);
-extern void __cdecl second(int, int, int*, int*, int);
+struct This_first {
+    int first(int);
+};
+extern int __cdecl second(int, int, int*, int*, int);
 class Obj {
   public:
-    void fn(int);
+    int fn(int);
 };
-void Obj::fn(int x) {
-    second(first(x), 0, &a, &b, 0);
+int Obj::fn(int x) {
+    return second(((This_first*)this)->first(x), 0, &a, &b, 0);
 }

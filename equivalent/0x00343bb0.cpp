@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 14/14)
+// FUN_00343bb0 @ 0x00343bb0
 // FUN_00343bb0 @ 0x00343bb0
 // Forward complex FFT driver (Ooura-style cftfsub, float): w (twiddle table) in eax, the data in ecx,
 // then n, the bit-reversal table ip and the twiddle count nw on the stack.
@@ -11,8 +12,8 @@ void __cdecl FUN_003431d0(int n, float *a, int nw, float *w);
 void FUN_003430f0(int n, float *a, float *w, int nw);
 // equiv-conv: FUN_0033ef80 ecx stack eax
 void FUN_0033ef80(int n, int *ip, float *a);
-// equiv-conv: FUN_00341bd0 ecx eax
-void FUN_00341bd0(float *w, float *a);
+// equiv-conv: FUN_00341bd0 eax ecx
+void FUN_00341bd0(float *a, float *w);
 // equiv-conv: FUN_00342800 ecx eax
 void FUN_00342800(float *w, float *a);
 // equiv-conv: FUN_0033fed0 eax
@@ -41,7 +42,7 @@ void __cdecl FUN_00343bb0(float *w, float *a, int n, int *ip, int nw)
         FUN_0033ef80(n, ip, a);
     } else if (n > 8) {
         if (n == 0x20) {
-            FUN_00341bd0(&w[nw - 8], a);
+            FUN_00341bd0(a, &w[nw - 8]);
             FUN_0033fed0(a);
         } else {
             FUN_00342800(w, a);

@@ -4,12 +4,12 @@ class Temp {
     char data[12];
 
   public:
-    Temp(const char*, int, const U64&, int, int) throw();
+    Temp* Init(const char*, int) throw();
     ~Temp() throw();
 };
 class Base {
   public:
-    Base(const Temp&) throw();
+    Base(Temp*, const U64&, int, int) throw();
     virtual void v();
 };
 class audioSeqEventVarVolumeType : public Base {
@@ -18,4 +18,4 @@ class audioSeqEventVarVolumeType : public Base {
     virtual void v();
 };
 audioSeqEventVarVolumeType::audioSeqEventVarVolumeType() throw()
-    : Base(Temp("Vol", 0, MakeValue("SeqEventVarVolume", 0, 0), 12, 4)) {}
+    : Base(Temp().Init("Vol", 0), MakeValue("SeqEventVarVolume", 0, 0), 12, 4) {}

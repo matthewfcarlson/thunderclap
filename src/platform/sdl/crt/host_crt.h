@@ -94,6 +94,32 @@ int HULK_HOST_STDCALL hulk_host_QueryPerformanceFrequency(void* freq);
 void HULK_HOST_STDCALL hulk_host_Sleep(hulk_u32 ms);
 hulk_u32 HULK_HOST_STDCALL hulk_host_GetCurrentThreadId(void);
 void HULK_HOST_STDCALL hulk_host_GetLocalTime(void* system_time);
+void* HULK_HOST_STDCALL hulk_host_CreateThread(void* sa, hulk_u32 stack, void* start, void* param, hulk_u32 flags,
+                                              hulk_u32* tid);
+void HULK_HOST_STDCALL hulk_host_ExitThread(hulk_u32 code);
+int HULK_HOST_STDCALL hulk_host_SetThreadPriority(void* thread, int priority);
+void* HULK_HOST_STDCALL hulk_host_CreateSemaphoreA(void* sa, int initial, int maximum, const char* name);
+int HULK_HOST_STDCALL hulk_host_ReleaseSemaphore(void* sem, int count, int* previous);
+void* HULK_HOST_STDCALL hulk_host_ConvertThreadToFiber(void* param);
+void* HULK_HOST_STDCALL hulk_host_CreateFiber(hulk_u32 stack, void* start, void* param);
+void HULK_HOST_STDCALL hulk_host_SwitchToFiber(void* fiber);
+void HULK_HOST_STDCALL hulk_host_DeleteFiber(void* fiber);
+void HULK_HOST_STDCALL hulk_host_InitializeCriticalSection(void* cs);
+void HULK_HOST_STDCALL hulk_host_EnterCriticalSection(void* cs);
+void HULK_HOST_STDCALL hulk_host_LeaveCriticalSection(void* cs);
+void* HULK_HOST_STDCALL hulk_host_CreateFileA(const char* path, hulk_u32 access, hulk_u32 share, void* sa,
+                                             hulk_u32 disposition, hulk_u32 flags, void* templ);
+int HULK_HOST_STDCALL hulk_host_ReadFile(void* h, void* buf, hulk_u32 n, hulk_u32* done, void* overlapped);
+int HULK_HOST_STDCALL hulk_host_WriteFile(void* h, const void* buf, hulk_u32 n, hulk_u32* done, void* overlapped);
+hulk_u32 HULK_HOST_STDCALL hulk_host_SetFilePointer(void* h, int lo, int* hi, hulk_u32 method);
+hulk_u32 HULK_HOST_STDCALL hulk_host_GetFileSize(void* h, hulk_u32* hi);
+int HULK_HOST_STDCALL hulk_host_SetEndOfFile(void* h);
+int HULK_HOST_STDCALL hulk_host_CloseHandle(void* h);
+int HULK_HOST_STDCALL hulk_host_GetDiskFreeSpaceExA(const char* path, void* avail, void* total, void* free_);
+hulk_u32 HULK_HOST_STDCALL hulk_host_GetLastError(void);
+void HULK_HOST_STDCALL hulk_host_SetLastError(hulk_u32 code);
+int HULK_HOST_STDCALL hulk_host_CreateDirectoryA(const char* path, void* sa);
+hulk_u32 HULK_HOST_STDCALL hulk_host_GetFileAttributesA(const char* path);
 
 // ---------------------------------------------------------------------------------------------------------------
 // Our own runtime pieces (crt_glue.cpp) that other platform files use.

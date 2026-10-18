@@ -5,8 +5,8 @@ struct Obj_220d70 {
     u32_220d70 b;
     char tail[4];
 };
-void helper(Obj_220d70*, void*, u32_220d70);
-void target(Obj_220d70* p, u32_220d70 x) {
+int helper(Obj_220d70*, void*, u32_220d70);
+int target(Obj_220d70* p, u32_220d70 x) {
     p->b = p->a;
-    helper(p, &p->tail, x);
+    return helper(p, &p->tail, x);
 }

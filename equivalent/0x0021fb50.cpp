@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 55 inputs, branch coverage 17/18, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 17/18, incomplete)
+// FUN_0021fb50 @ 0x0021fb50
 // FUN_0021fb50 @ 0x0021fb50
 struct State;
 struct Zio;
@@ -24,10 +25,10 @@ struct Reader {
     Buffer *buf;
 };
 
-// equiv-conv: FUN_0021f8c0 eax ecx edx
-void FUN_0021f8c0(int size, void *dst, Reader *r);
-// equiv-conv: FUN_0021f800 stack esi
-void FUN_0021f800(const char *msg, Reader *r);
+// equiv-conv: FUN_0021f8c0 ecx eax edx
+void FUN_0021f8c0(void *dst, int size, Reader *r);
+// equiv-conv: FUN_0021f800 esi stack
+void FUN_0021f800(Reader *r, const char *msg);
 void *FUN_0021add0(State *L, void *block, unsigned int oldSize, unsigned int newSize);
 char *FUN_0021a6b0(State *L, Buffer *buf, unsigned int n);
 int FUN_0021a610(Zio *z, char *dst, unsigned int n);
@@ -46,9 +47,9 @@ struct Frame_21fb50 {
 void FUN_0021fb50(Reader *r, Proto_21fb50 *p)
 {
     Frame_21fb50 f;
-    FUN_0021f8c0(4, &f.v, r);
+    FUN_0021f8c0(&f.v, 4, r);
     if (f.v < 0) {
-        FUN_0021f800("bad integer", r);
+        FUN_0021f800(r, "bad integer");
     }
     int n = f.v;
     p->locvars = (LocVar_21fb50 *)FUN_0021add0(r->L, 0, 0, n * 12);
@@ -58,22 +59,22 @@ void FUN_0021fb50(Reader *r, Proto_21fb50 *p)
         p->locvars[i].name = 0;
     f.count = n;
     for (i = 0; i < n; i++) {
-        FUN_0021f8c0(4, &f.size, r);
+        FUN_0021f8c0(&f.size, 4, r);
         Str *name = (Str *)f.size;
         if (f.size != 0) {
             f.s = FUN_0021a6b0(r->L, r->buf, f.size);
             if (FUN_0021a610(r->zio, f.s, f.size))
-                FUN_0021f800("unexpected end of file", r);
+                FUN_0021f800(r, "unexpected end of file");
             name = FUN_00219430(r->L, f.s, f.size - 1);
         }
         p->locvars[i].name = name;
-        FUN_0021f8c0(4, &f.v, r);
+        FUN_0021f8c0(&f.v, 4, r);
         if (f.v < 0)
-            FUN_0021f800("bad integer", r);
+            FUN_0021f800(r, "bad integer");
         p->locvars[i].startpc = f.v;
-        FUN_0021f8c0(4, &f.w, r);
+        FUN_0021f8c0(&f.w, 4, r);
         if (f.w < 0)
-            FUN_0021f800("bad integer", r);
+            FUN_0021f800(r, "bad integer");
         p->locvars[i].endpc = f.w;
     }
 }

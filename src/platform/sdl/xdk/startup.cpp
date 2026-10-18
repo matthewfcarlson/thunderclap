@@ -198,7 +198,7 @@ extern "C" void HULK_CDECL hulk_native_entry(void) {
     hulk_host_SetUnhandledExceptionFilter((void*)hulk_crash_filter);
     hulk_map_xbe_window();
     hulk_trace_line("start initializers=%u", hulk_game_initializer_count);
-    char phase[32];
+    static char phase[32];  // (static: a smashed stack must not take the crash report's phase with it)
     // clang's own dynamic initializers: the isolated `.text$yc` sources define their global with its constructor
     // and are themselves the function that constructs it (the XBE's table below calls them), so these would
     // construct the same globals a second time. Counted, not run.

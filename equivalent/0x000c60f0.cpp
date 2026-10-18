@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 16394 inputs, branch coverage 4/4)
+// FUN_000c60f0 @ 0x000c60f0
 // FUN_000c60f0 @ 0x000c60f0
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
@@ -70,13 +71,13 @@ public:
     virtual void v28();
     virtual void v29();
     virtual Handle *v30(Resource_c60f0 *r, int count, int a, int b, int c);
-    virtual void v31(Handle *h);
+    virtual int v31(Handle *h);
 };
 
 
 void FUN_000c5fa0(Handle *h, Vec3_c60f0 a, Vec3_c60f0 b, unsigned int color);
 
-void FUN_000c60f0(Vec3_c60f0 a, Vec3_c60f0 b, Vec3_c60f0 c, Vec3_c60f0 d, unsigned int color, int count)
+int FUN_000c60f0(Vec3_c60f0 a, Vec3_c60f0 b, Vec3_c60f0 c, Vec3_c60f0 d, unsigned int color, int count)
 {
     if ((*(Resource_c60f0**)&DAT_004dde68) == 0) {
         (*(Resource_c60f0**)&DAT_004dde68) = (*(Factory_c60f0**)&DAT_0052c2a0)->v11("simple", 0);
@@ -90,5 +91,5 @@ void FUN_000c60f0(Vec3_c60f0 a, Vec3_c60f0 b, Vec3_c60f0 c, Vec3_c60f0 d, unsign
         FUN_000c5fa0(h, d, c, color);
         FUN_000c5fa0(h, c, a, color);
     }
-    DAT_0052c2a8->v31(h);
+    return DAT_0052c2a8->v31(h);
 }

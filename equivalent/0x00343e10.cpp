@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 14/14)
+// FUN_00343e10 @ 0x00343e10
 // FUN_00343e10 @ 0x00343e10
 struct TwiddleTable_343e10 {
     int size0;
@@ -14,10 +15,10 @@ void FUN_0033eef0(TwiddleTable_343e10 *t, int n, float *w);
 void __cdecl FUN_00343bb0(float *w, float *pair, int n, float *tw, int off);
 // equiv-conv: FUN_00343ce0 eax ecx stack stack stack
 void __cdecl FUN_00343ce0(float *w, float *pair, int n, float *tw, int off);
-// equiv-conv: FUN_00342d90 eax stack stack esi
-void __cdecl FUN_00342d90(float *w, int n, int x, float *pair);
-// equiv-conv: FUN_00342e50 eax stack stack esi
-void __cdecl FUN_00342e50(float *w, int n, int x, float *pair);
+// equiv-conv: FUN_00342d90 eax esi stack stack
+void __cdecl FUN_00342d90(float *w, float *pair, int n, int x);
+// equiv-conv: FUN_00342e50 eax esi stack stack
+void __cdecl FUN_00342e50(float *w, float *pair, int n, int x);
 
 void __stdcall FUN_00343e10(int n, int sign, float *pair, TwiddleTable_343e10 *t, float *w)
 {
@@ -34,7 +35,7 @@ void __stdcall FUN_00343e10(int n, int sign, float *pair, TwiddleTable_343e10 *t
     if (sign >= 0) {
         if (n > 4) {
             FUN_00343bb0(w, pair, n, t->data, off);
-            FUN_00342d90(w + off, n, half, pair);
+            FUN_00342d90(w + off, pair, n, half);
         } else if (n == 4) {
             FUN_00343bb0(w, pair, 4, t->data, off);
         }
@@ -46,7 +47,7 @@ void __stdcall FUN_00343e10(int n, int sign, float *pair, TwiddleTable_343e10 *t
         pair[1] = d;
         pair[0] = pair[0] - d;
         if (n > 4) {
-            FUN_00342e50(w + off, n, half, pair);
+            FUN_00342e50(w + off, pair, n, half);
             FUN_00343ce0(w, pair, n, t->data, off);
         } else if (n == 4) {
             FUN_00343ce0(w, pair, 4, t->data, off);

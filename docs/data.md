@@ -415,6 +415,10 @@ differs from its standalone build; link check 6,477 references, **4,238 by name*
 - **No absolute addresses.** Every `DAT_xxxxxxxx` becomes a named object defined in a data TU; every pointer
   word inside data becomes a pointer initializer (`&target + off`), which is what `data_gen.py` already emits.
   Pointer tables are real pointer arrays, relocated by the native linker.
+- **The XBE's layout** (done 2026-10-18, [native-build.md](native-build.md#start-up-continued-2026-10-18-evening)):
+  the native link doesn't link the data TU objects as they are; it copies each item (bytes and relocations) into
+  one block per XBE section at the XBE's distances, so items the inventory split out of one structure stay
+  adjacent (open problem 2 no longer breaks the native image; the item boundaries still matter for typed data).
 - **32-bit first** (as the code): the tables keep their byte layout, and `#pragma pack(1)` structs keep pointers
   at 4-byte offsets. For 64-bit, pointer-containing items need their real types (a `const void*` grows to 8 bytes
   and shifts every later field), so mixed `DataLayout_` structs have to become typed structs first.

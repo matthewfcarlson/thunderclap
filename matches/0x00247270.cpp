@@ -1,3 +1,8 @@
+extern "C" void __cdecl FUN_00246ab0();
+extern "C" void __cdecl FUN_00246b00();
+extern "C" void __cdecl FUN_00246b50();
+extern "C" void __cdecl FUN_00246b70();
+extern "C" void __cdecl FUN_00246b90();
 extern "C" char DAT_00429224[];
 class MemoryStream {
   public:
@@ -17,11 +22,11 @@ class MemoryStream {
 };
 MemoryStream::MemoryStream(int a, int b, unsigned char c) {
     x1 = b;
-    p1 = (void (*)())0x246ab0;
-    p2 = (void (*)())0x246b00;
-    p3 = (void (*)())0x246b50;
-    p4 = (void (*)())0x246b70;
-    p5 = (void (*)())0x246b90;
+    p1 = FUN_00246ab0;
+    p2 = FUN_00246b00;
+    p3 = FUN_00246b50;
+    p4 = FUN_00246b70;
+    p5 = FUN_00246b90;
     b18 = 0;
     vp = ((int)DAT_00429224);
     x2 = a;

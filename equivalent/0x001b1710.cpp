@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3080 inputs, branch coverage 98/124, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20114 inputs, branch coverage 121/124, incomplete)
 // FUN_001b1710 @ 0x001b1710
-// equiv-conv: FUN_001b0470 ecx eax stack
+// FUN_001b1710 @ 0x001b1710
+// equiv-conv: FUN_001b0470 eax ecx stack
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -188,7 +189,7 @@ struct Handler_1b1710 {
 };
 
 
-float FUN_001b0470(Body_1b1710 *d, Body_1b1710 *s, V3_1b1710 *w);
+float FUN_001b0470(Body_1b1710 *s, Body_1b1710 *d, V3_1b1710 *w);
 
 struct Frame_1b1710 {
     char pad0[3];
@@ -369,7 +370,7 @@ int Handler_1b1710::FUN_001b1710(Thing_1b1710 *a0, Thing_1b1710 *a1, Thing_1b171
                             f.u.z = a2->f50.z;
                         }
                         f.w.FUN_00011160(-1.0f, &f.u);
-                        f.f1c = FUN_001b0470(D, S, &f.w);
+                        f.f1c = FUN_001b0470(S, D, &f.w);
                         if (f.f1c > 0.0f)
                             S->FUN_001d66b0(a3, a4);
                         if (D->f11c->f14) {

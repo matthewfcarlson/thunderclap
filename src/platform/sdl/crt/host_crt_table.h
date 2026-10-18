@@ -91,6 +91,7 @@
     I(msvcrt, floor, -1, "") \
     I(msvcrt, ceil, -1, "") \
     I(msvcrt, frexp, -1, "") \
+    I(msvcrt, ldexp, -1, "") \
     I(msvcrt, _isnan, -1, "") \
     I(msvcrt, _CIpow, -1, "") \
     I(msvcrt, _CIfmod, -1, "") \
@@ -136,7 +137,31 @@
     I(kernel32, QueryPerformanceFrequency, 4, "") \
     I(kernel32, Sleep, 4, "") \
     I(kernel32, GetCurrentThreadId, 0, "") \
-    I(kernel32, GetLocalTime, 4, "")
+    I(kernel32, GetLocalTime, 4, "") \
+    I(kernel32, CreateThread, 24, "") \
+    I(kernel32, ExitThread, 4, "") \
+    I(kernel32, SetThreadPriority, 8, "") \
+    I(kernel32, CreateSemaphoreA, 16, "") \
+    I(kernel32, ReleaseSemaphore, 12, "") \
+    I(kernel32, ConvertThreadToFiber, 4, "") \
+    I(kernel32, CreateFiber, 12, "") \
+    I(kernel32, SwitchToFiber, 4, "") \
+    I(kernel32, DeleteFiber, 4, "") \
+    I(kernel32, InitializeCriticalSection, 4, "") \
+    I(kernel32, EnterCriticalSection, 4, "") \
+    I(kernel32, LeaveCriticalSection, 4, "") \
+    I(kernel32, CreateFileA, 28, "") \
+    I(kernel32, ReadFile, 20, "") \
+    I(kernel32, WriteFile, 20, "") \
+    I(kernel32, SetFilePointer, 16, "") \
+    I(kernel32, GetFileSize, 8, "") \
+    I(kernel32, SetEndOfFile, 4, "") \
+    I(kernel32, CloseHandle, 4, "") \
+    I(kernel32, GetDiskFreeSpaceExA, 16, "") \
+    I(kernel32, GetLastError, 0, "") \
+    I(kernel32, SetLastError, 4, "") \
+    I(kernel32, CreateDirectoryA, 8, "") \
+    I(kernel32, GetFileAttributesA, 4, "")
 
 // C(xbe address or 0, host import or hulk_crt_ glue function, "tree names"). The address rows are the library
 // functions the game calls (LIBCMT inside .text); the reason for each identification is the call sites' use.
@@ -205,7 +230,7 @@
     C(0x00347e67, hulk_crt_fgets, "_fgets fgets") \
     C(0x00347eed, puts, "puts") \
     C(0x00347f64, frexp, "frexp") \
-    C(0x00348010, _CIexp, "_CIexp") \
+    C(0x00348010, ldexp, "ldexp") \
     C(0x00348290, memchr, "_memchr memchr") \
     C(0x00348340, strpbrk, "_strpbrk strpbrk") \
     C(0x00348380, _strupr, "_strupr") \

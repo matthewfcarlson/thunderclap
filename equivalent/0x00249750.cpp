@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 52 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 171 inputs, branch coverage 14/14)
+// FUN_00249750 @ 0x00249750
 // FUN_00249750 @ 0x00249750
 #include "decls/data/engine/audio.h"
 
@@ -8,10 +9,10 @@ struct Link_249750 { Link_249750* next; Link_249750* prev; };
 struct ListOwner_249750 { char pad[72]; Link_249750* head; Link_249750* tail; };
 struct Payload_249750 { void FUN_0025def0(); };
 extern void* __cdecl FUN_0025d3d0(Payload_249750*);
-extern void __cdecl FUN_00247550(void*, void*);
+extern int __cdecl FUN_00247550(void*, void*);
 struct Node { Node* next; Owner_249750* owner; Payload_249750* payload; char pad[36]; ListOwner_249750* list; Link_249750* forward; Link_249750* backward; };
 // equiv-conv: FUN_00249750 esi
-void FUN_00249750(Node* node) {
+int FUN_00249750(Node* node) {
  --node->owner->count;
  Owner_249750* owner = node->owner;
  Node* previous = 0;
@@ -31,5 +32,5 @@ void FUN_00249750(Node* node) {
   void* pool = FUN_0025d3d0(payload);
   FUN_00247550(pool,payload);
  }
- FUN_00247550(((char*)((char*)&DAT_004e5ff0 + 72)),node);
+ return FUN_00247550(((char*)((char*)&DAT_004e5ff0 + 72)),node);
 }

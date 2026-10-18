@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 16/20, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 13744 inputs, branch coverage 17/20, incomplete)
+// FUN_0021ea60 @ 0x0021ea60
 // FUN_0021ea60 @ 0x0021ea60
 struct Token_21ea60 {
     int token;
@@ -55,8 +56,8 @@ void FUN_0021c240(FuncState_21ea60* fs, const char* what, int limit);
 void FUN_0021c2e0(LexState_21ea60* ls, int token);
 // equiv-conv: FUN_0021d5c0 esi edi
 int FUN_0021d5c0(LexState_21ea60* ls, Exp_21ea60* e);
-// equiv-conv: FUN_0021c8b0 eax edx ecx stack
-void FUN_0021c8b0(LexState_21ea60* ls, int nexps, Exp_21ea60* e, int nvars);
+// equiv-conv: FUN_0021c8b0 eax ecx edx stack
+void FUN_0021c8b0(LexState_21ea60* ls, Exp_21ea60* e, int nexps, int nvars);
 // equiv-conv: FUN_0021e700 eax stack stack stack stack
 void FUN_0021e700(LexState_21ea60* ls, int base, int line, int nvars, int isnum);
 
@@ -128,7 +129,7 @@ void FUN_0021ea60(LexState_21ea60* ls, int indexname)
     FUN_0021c2e0(ls, 0x10b);
     int line = ls->linenumber;
     int nexps = FUN_0021d5c0(ls, &e);
-    FUN_0021c8b0(ls, nexps, &e, 3);
+    FUN_0021c8b0(ls, &e, nexps, 3);
     FUN_00220810(fs0, 3);
     FUN_0021e700(ls, base, line, nvars - 3, 0);
 }

@@ -7,11 +7,11 @@ class Obj {
     virtual void a();
     virtual void b();
     virtual void c();
-    virtual void d(Caster*, __int64);
+    virtual int d(Caster*, __int64);
 };
 extern "C" __int64 FUN_0027b020(void*);
-void target(Obj* obj, void* input) {
+int target(Obj* obj, void* input) {
     __int64 p = FUN_0027b020(input);
     Caster caster;
-    obj->d(&caster, p);
+    return obj->d(&caster, p);
 }

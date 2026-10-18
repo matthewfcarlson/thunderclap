@@ -18,16 +18,16 @@ class Inner_1c1310 {
     virtual void f15();
     virtual void f16();
     virtual void f17();
-    virtual void f18(void*, unsigned);
+    virtual int f18(void*, unsigned);
 };
 class Outer_1c1310 {
     char pad[8];
 
   public:
     Inner_1c1310* p;
-    void target(void* arg);
+    int target(void* arg);
 };
-void Outer_1c1310::target(void* arg) {
+int Outer_1c1310::target(void* arg) {
     Inner_1c1310* q = p;
-    q->f18(arg, *(unsigned*)((char*)arg + 12));
+    return q->f18(arg, *(unsigned*)((char*)arg + 12));
 }

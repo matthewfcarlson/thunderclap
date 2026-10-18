@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 20028 inputs, branch coverage 30/30)
+// FUN_001958c0 @ 0x001958c0
 // FUN_001958c0 @ 0x001958c0
 #include "decls/address.h"
 struct V3_1958c0 {
@@ -62,8 +63,8 @@ struct Holder_1958c0 {
 };
 
 
-// equiv-conv: FUN_00195560 eax ecx ebx stack stack stack stack stack stack stack stack stack stack stack
-extern bool FUN_00195560(int a0, V3_1958c0 *a6, int a4, int id, int a2, int a3, int a5, float a7, float a8, int a9, int a10, int z0, float one, int z1);
+// equiv-conv: FUN_00195560 ecx eax ebx stack stack stack stack stack stack stack stack stack stack stack
+extern bool FUN_00195560(V3_1958c0 *a6, int a0, int a4, int id, int a2, int a3, int a5, float a7, float a8, int a9, int a10, int z0, float one, int z1);
 
 // equiv-conv: FUN_001958c0 eax stack stack stack stack stack stack stack stack stack stack
 bool FUN_001958c0(int id, Holder_1958c0 *h, int a2, int a3, int a4, int a5, V3_1958c0 *a6, float a7, float a8, int a9, int a10)
@@ -72,7 +73,7 @@ bool FUN_001958c0(int id, Holder_1958c0 *h, int a2, int a3, int a4, int a5, V3_1
     if (!e)
         return false;
     if (e->f148)
-        return FUN_00195560(e->f148->id, a6, a4, id, a2, a3, a5, a7, a8, a9, a10, 0, 1.0f, 0);
+        return FUN_00195560(a6, e->f148->id, a4, id, a2, a3, a5, a7, a8, a9, a10, 0, 1.0f, 0);
 
     Info_1958c0 *p = DAT_004dd700->mgr->FUN_00059c10(id);
     if (p) {

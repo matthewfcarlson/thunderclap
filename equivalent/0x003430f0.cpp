@@ -1,10 +1,11 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
+// FUN_003430f0 @ 0x003430f0
 // FUN_003430f0 @ 0x003430f0
 // Post-twiddle butterfly pass of a split-radix transform: dispatches on the block size (0x80 or not).
-// equiv-conv: FUN_00341bd0 ecx eax
-void FUN_00341bd0(float *tw, float *data);
-// equiv-conv: FUN_00342180 ecx eax
-void FUN_00342180(float *tw, float *data);
+// equiv-conv: FUN_00341bd0 eax ecx
+void FUN_00341bd0(float *data, float *tw);
+// equiv-conv: FUN_00342180 eax ecx
+void FUN_00342180(float *data, float *tw);
 // equiv-conv: FUN_00342800 ecx eax
 void FUN_00342800(float *tw, float *data);
 // equiv-conv: FUN_003429f0 ecx eax
@@ -15,10 +16,10 @@ void FUN_003430f0(int n, float *data, float *table, int index)
 {
     if (n == 0x80) {
         float *tw = table + index - 8;
-        FUN_00341bd0(tw, data);
-        FUN_00342180(table + index - 32, data + 32);
-        FUN_00341bd0(tw, data + 64);
-        FUN_00341bd0(tw, data + 96);
+        FUN_00341bd0(data, tw);
+        FUN_00342180(data + 32, table + index - 32);
+        FUN_00341bd0(data + 64, tw);
+        FUN_00341bd0(data + 96, tw);
     } else {
         float *tw = table + index - 16;
         FUN_00342800(tw, data);

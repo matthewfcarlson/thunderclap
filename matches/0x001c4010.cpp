@@ -1,7 +1,7 @@
 class Engine_1c4010 {
   public:
     void Init(void*, int, int, int, int);
-    void Finish(int);
+    int Finish(int);
 };
 class Thing_1c4010 {
   public:
@@ -11,12 +11,12 @@ class Thing_1c4010 {
     int c;
     int d;
     char done;
-    void Run(int);
+    int Run(int);
 };
-void Thing_1c4010::Run(int x) {
+int Thing_1c4010::Run(int x) {
     if (!done) {
         (*(Engine_1c4010**)pad)->Init(pad + 0x1c, a, b, c, d);
         done = 1;
     }
-    (*(Engine_1c4010**)pad)->Finish(x);
+    return (*(Engine_1c4010**)pad)->Finish(x);
 }

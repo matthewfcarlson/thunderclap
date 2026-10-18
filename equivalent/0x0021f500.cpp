@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 20028 inputs, branch coverage 14/14)
+// FUN_0021f500 @ 0x0021f500
 // FUN_0021f500 @ 0x0021f500
 // Lua 5.0 lparser statement(): returns 1 when the statement must be the last of its block.
 struct LexState_21f500 {
@@ -10,8 +11,8 @@ struct LexState_21f500 {
 
 // equiv-conv: FUN_0021c190 esi
 void FUN_0021c190(LexState_21f500 *ls);
-// equiv-conv: FUN_0021c290 ecx esi
-int FUN_0021c290(int token, LexState_21f500 *ls);
+// equiv-conv: FUN_0021c290 esi ecx
+int FUN_0021c290(LexState_21f500 *ls, int token);
 // equiv-conv: FUN_0021c340 eax esi edi stack
 void FUN_0021c340(int line, LexState_21f500 *ls, int what, int who);
 // equiv-conv: FUN_0021e080 eax
@@ -63,7 +64,7 @@ int FUN_0021f500(LexState_21f500 *ls)
         return 0;
     case 0x10c:     // local
         FUN_0021c190(ls);
-        if (FUN_0021c290(0x109, ls))
+        if (FUN_0021c290(ls, 0x109))
             FUN_0021ef60(ls);
         else
             FUN_0021f0a0(ls);

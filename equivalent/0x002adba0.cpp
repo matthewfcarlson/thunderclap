@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3062 inputs, branch coverage 32/32)
+// STATUS: equivalent (tools/equiv.py level 3: 20085 inputs, branch coverage 32/32)
+// pure3d::PNGHandler::vfunc_9 @ 0x002adba0
 // pure3d::PNGHandler::vfunc_9 @ 0x002adba0
 #include "gen/pure3d.h"
 
@@ -45,8 +46,8 @@ void __cdecl FUN_002d6ed0(png_struct *png, png_info **info);
 void FUN_002ad820(png_info *info, png_struct *png, ImageSink_2adba0 *sink);
 // equiv-conv: FUN_002ad9d0 esi eax ebx
 void FUN_002ad9d0(png_struct *png, png_info *info, ImageSink_2adba0 *sink);
-// equiv-conv: FUN_002adb10 esi eax edi
-void FUN_002adb10(png_struct *png, png_info *info, ImageSink_2adba0 *sink);
+// equiv-conv: FUN_002adb10 eax esi edi
+void FUN_002adb10(png_info *info, png_struct *png, ImageSink_2adba0 *sink);
 
 void pure3d::PNGHandler::vfunc_9(int __p0, int __p1) { void * io = (void *)__p0; ImageSink_2adba0 * sink = (ImageSink_2adba0 *)__p1;
 
@@ -87,7 +88,7 @@ void pure3d::PNGHandler::vfunc_9(int __p0, int __p1) { void * io = (void *)__p0;
         else if (bitDepth == 8 && colorType == 3)
             FUN_002ad9d0(f.png, f.info, sink);
         else
-            FUN_002adb10(f.png, f.info, sink);
+            FUN_002adb10(f.info, f.png, sink);
     }
     FUN_002d6ed0(f.png, &f.info);
     FUN_002d7df0(&f.png, 0, 0);

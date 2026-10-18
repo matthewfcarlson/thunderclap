@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 6/6)
+// FUN_0021d790 @ 0x0021d790
 // FUN_0021d790 @ 0x0021d790
 // Lua 5.0 lparser primaryexp (with luaX_next inlined)
 struct expdesc_21d790 {
@@ -30,8 +31,8 @@ struct LexState_21d790 {
 int __cdecl FUN_0021bbc0(LexState_21d790 *ls, int *seminfo);                       // llex
 void __cdecl FUN_0021b060(LexState_21d790 *ls, const char *msg);                   // luaX_syntaxerror
 void __cdecl FUN_0021ded0(LexState_21d790 *ls, expdesc_21d790 *v, int limit);             // subexpr
-// equiv-conv: FUN_0021c340 esi edi stack eax
-void FUN_0021c340(LexState_21d790 *ls, int what, int who, int line);               // check_match
+// equiv-conv: FUN_0021c340 eax esi edi stack
+void FUN_0021c340(int line, LexState_21d790 *ls, int what, int who);               // check_match
 // equiv-conv: FUN_0021c3d0 esi
 int FUN_0021c3d0(LexState_21d790 *ls);                                             // str_checkname
 void __cdecl FUN_0021c790(FuncState_21d790 *fs, int name, expdesc_21d790 *v, int base);   // singlevar
@@ -52,7 +53,7 @@ void FUN_0021d790(LexState_21d790 *ls, expdesc_21d790 *v)
             ls->t.token = FUN_0021bbc0(ls, &ls->t.seminfo);
         }
         FUN_0021ded0(ls, v, 0);
-        FUN_0021c340(ls, ')', '(', line);
+        FUN_0021c340(line, ls, ')', '(');
         FUN_00220d90(ls->fs, v);
         return;
     }

@@ -4,17 +4,17 @@ class Caster {
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    virtual void f3();
+    virtual int f3();
 };
 class Obj {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    virtual void f3(Caster*, __int64);
+    virtual int f3(Caster*, __int64);
 };
-void Test(Obj* o, int x) {
+int Test(Obj* o, int x) {
     __int64 v = Convert(x);
     Caster c;
-    o->f3(&c, v);
+    return o->f3(&c, v);
 }

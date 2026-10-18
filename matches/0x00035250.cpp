@@ -13,10 +13,10 @@ class C_35250 {
   public:
     char pad[0x10];
     Source_35250* member;
-    void Run(unsigned int* p);
-    void Finish(Blk_35250* b);
+    int Run(unsigned int* p);
+    int Finish(Blk_35250* b);
 };
-void C_35250::Run(unsigned int* p) {
+int C_35250::Run(unsigned int* p) {
     Blk_35250 local;
     void* x = member->Get();
     if (x) {
@@ -27,5 +27,5 @@ void C_35250::Run(unsigned int* p) {
     local.d[12] = p[0];
     local.d[13] = p[1];
     local.d[14] = p[2];
-    Finish(&local);
+    return Finish(&local);
 }

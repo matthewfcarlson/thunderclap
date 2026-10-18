@@ -1,8 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3051 inputs, branch coverage 21/22, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20045 inputs, branch coverage 21/22, incomplete)
+// pure3d::TargaHandler::vfunc_9 @ 0x002ddb40
 // pure3d::TargaHandler::vfunc_9 @ 0x002ddb40
 // pure3d::TargaHandler::vfunc_9: validate a TGA header and dispatch to the colour-mapped or true-colour reader
-// equiv-conv: FUN_002dd760 edi esi
-// equiv-conv: FUN_002dd890 stack ebx esi
+// equiv-conv: FUN_002dd760 esi edi
+// equiv-conv: FUN_002dd890 esi ebx stack
 // equiv-conv: FUN_002dd9e0 stack ebx
 #include "gen/pure3d.h"
 
@@ -21,14 +22,14 @@ struct TgaHeader {
     unsigned char descriptor;
 };
 
-void FUN_002dd760(Stream_2ddb40 *stream, TgaHeader *hdr);
-void FUN_002dd890(void *out, Stream_2ddb40 *stream, TgaHeader *hdr);
+void FUN_002dd760(TgaHeader *hdr, Stream_2ddb40 *stream);
+void FUN_002dd890(TgaHeader *hdr, Stream_2ddb40 *stream, void *out);
 void FUN_002dd9e0(TgaHeader *hdr, void *out);
 
 void pure3d::TargaHandler::vfunc_9(int __p0, int __p1) { Stream_2ddb40 * stream = (Stream_2ddb40 *)__p0; void * out = (void *)__p1;
 
     TgaHeader hdr;
-    FUN_002dd760(stream, &hdr);
+    FUN_002dd760(&hdr, stream);
     unsigned char type = hdr.imageType;
     if (type != 1 && type != 2)
         return;
@@ -40,7 +41,7 @@ void pure3d::TargaHandler::vfunc_9(int __p0, int __p1) { Stream_2ddb40 * stream 
         return;
     stream->FUN_00264510(hdr.idLength);
     if (type == 1)
-        FUN_002dd890(out, stream, &hdr);
+        FUN_002dd890(&hdr, stream, out);
     else if (type == 2)
         FUN_002dd9e0(&hdr, out);
 }

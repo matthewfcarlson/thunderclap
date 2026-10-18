@@ -12,15 +12,15 @@ class C_2a2ef0 {
     virtual void f6();
     virtual void f7();
     virtual void f8();
-    virtual void f9(int);
+    virtual int f9(int);
     char pad[0x54];
     H h;
-    void target(int x, int y, int z);
+    int target(int x, int y, int z);
 };
-void C_2a2ef0::target(int x, int y, int z) {
+int C_2a2ef0::target(int x, int y, int z) {
     *(int*)((char*)this + 0x58) = x;
     *(int*)((char*)this + 0x5c) = y;
     *(int*)((char*)this + 0x60) = z;
     h.run();
-    f9(1);
+    return f9(1);
 }

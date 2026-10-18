@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 34/34)
+// STATUS: equivalent (tools/equiv.py level 3: 122 inputs, branch coverage 34/34)
+// FUN_0021fe20 @ 0x0021fe20
 // FUN_0021fe20 @ 0x0021fe20
 struct Proto_21fe20;
 
@@ -32,8 +33,8 @@ struct Proto_21fe20 {
 };
 
 void __cdecl FUN_0021f800(const char *fmt, ...);
-// equiv-conv: FUN_0021f8c0 edx ecx eax
-void FUN_0021f8c0(LoadState_21fe20 *S, void *out, int size);
+// equiv-conv: FUN_0021f8c0 ecx eax edx
+void FUN_0021f8c0(void *out, int size, LoadState_21fe20 *S);
 void *__cdecl FUN_0021add0(void *L, void *block, int oldsize, int newsize);
 int __cdecl FUN_0021a550(Zio_21fe20 *z);
 void *__cdecl FUN_0021a6b0(void *L, void *buff, int size);
@@ -52,7 +53,7 @@ void FUN_0021fe20(LoadState_21fe20 *S, Proto_21fe20 *f)
         int num;
     } fr;
 
-    FUN_0021f8c0(S, &fr.n, 4);
+    FUN_0021f8c0(&fr.n, 4, S);
     if (fr.n < 0)
         FUN_0021f800("bad integer");
 
@@ -81,12 +82,12 @@ void FUN_0021fe20(LoadState_21fe20 *S, Proto_21fe20 *f)
             o->tt = 0;
             break;
         case 3:
-            FUN_0021f8c0(S, &fr.num, 4);
+            FUN_0021f8c0(&fr.num, 4, S);
             o->value = (void *)fr.num;
             o->tt = 3;
             break;
         case 4:
-            FUN_0021f8c0(S, &fr.size, 4);
+            FUN_0021f8c0(&fr.size, 4, S);
             if (fr.size == 0) {
                 n = fr.n;
                 o->value = 0;
@@ -107,7 +108,7 @@ void FUN_0021fe20(LoadState_21fe20 *S, Proto_21fe20 *f)
         }
     }
 
-    FUN_0021f8c0(S, &fr.index, 4);
+    FUN_0021f8c0(&fr.index, 4, S);
     if (fr.index < 0)
         FUN_0021f800("bad integer");
 

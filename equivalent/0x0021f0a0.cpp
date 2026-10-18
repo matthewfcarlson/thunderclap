@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 128 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 20033 inputs, branch coverage 13/16, incomplete)
+// FUN_0021f0a0 @ 0x0021f0a0
 // FUN_0021f0a0 @ 0x0021f0a0
 struct Token_21f0a0 {
     int token;
@@ -47,8 +48,8 @@ void FUN_0021afd0(LexState_21f0a0* ls, const char* msg, int token);
 unsigned short FUN_0021c490(LexState_21f0a0* ls, int name);
 // equiv-conv: FUN_0021d5c0 esi edi
 int FUN_0021d5c0(LexState_21f0a0* ls, Exp_21f0a0* e);
-// equiv-conv: FUN_0021c8b0 eax edx ecx stack
-void FUN_0021c8b0(LexState_21f0a0* ls, int nexps, Exp_21f0a0* e, int nvars);
+// equiv-conv: FUN_0021c8b0 eax ecx edx stack
+void FUN_0021c8b0(LexState_21f0a0* ls, Exp_21f0a0* e, int nexps, int nvars);
 // equiv-conv: FUN_0021c570 eax edx
 void FUN_0021c570(LexState_21f0a0* ls, int nvars);
 
@@ -98,6 +99,6 @@ void FUN_0021f0a0(LexState_21f0a0* ls)
         e.k = 0;
         nexps = 0;
     }
-    FUN_0021c8b0(ls, nexps, &e, nvars);
+    FUN_0021c8b0(ls, &e, nexps, nvars);
     FUN_0021c570(ls, nvars);
 }

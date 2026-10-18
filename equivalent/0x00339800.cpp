@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 131 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 20037 inputs, branch coverage 24/24)
 // FUN_00339800 @ 0x00339800
-// equiv-conv: FUN_003397c0 ebx edi
+// FUN_00339800 @ 0x00339800
+// equiv-conv: FUN_003397c0 edi ebx
 struct lua_State;
 
 struct File {
@@ -27,7 +28,7 @@ const char *__cdecl FUN_00213470(lua_State *L, const char *fmt, ...);
 int __cdecl FUN_00213b20(lua_State *L, const char *(__cdecl *reader)(lua_State *, void *, unsigned int *),
                          void *data, const char *chunkname);
 const char *__cdecl FUN_00339770(lua_State *L, void *ud, unsigned int *size);
-int __cdecl FUN_003397c0(int fnameindex, lua_State *L);
+int __cdecl FUN_003397c0(lua_State *L, int fnameindex);
 File *__cdecl FUN_003465b3(const char *name, const char *mode);
 int *__cdecl FUN_00347ba4();
 const char *__cdecl FUN_00347b53(int err);
@@ -74,7 +75,7 @@ int luaL_loadfile(lua_State *L, const char *filename)
         _fclose(lf.f);
         lf.f = FUN_003465b3(filename, "rb");
         if (lf.f == 0) {
-            status = FUN_003397c0(fnameindex, L);
+            status = FUN_003397c0(L, fnameindex);
             __security_check_cookie(cookie);
             return status;
         }

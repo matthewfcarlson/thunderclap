@@ -1,5 +1,5 @@
 struct C_13ec0 {
-    void second();
+    int second();
 };
 struct B_13ec0 {
     C_13ec0* first();
@@ -7,8 +7,8 @@ struct B_13ec0 {
 struct Obj_13ec0 {
     char pad[0x1c];
     B_13ec0* member;
-    void target();
+    int target();
 };
-void Obj_13ec0::target() {
-    member->first()->second();
+int Obj_13ec0::target() {
+    return member->first()->second();
 }

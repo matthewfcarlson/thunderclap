@@ -15,19 +15,21 @@ build/venv/bin/python tools/native_shim.py              # platform-shim / CRT in
 build/venv/bin/python tools/native_shim.py --skeleton   # write src/platform/sdl/xdk/ files that don't exist yet (pre-shim inventory)
 build/venv/bin/python tools/native_fix.py               # fix 4 source edits: plan; --apply --verify rewrites verified sources
 build/venv/bin/python tools/native_conv_check.py        # calling conventions of library imports and register-convention callers
+build/venv/bin/python tools/native_conv_check.py --returns --pops --tree-report build/tree/report.json   # checks 6-8 (below)
 build/venv/bin/python tools/native_run.py --hello       # Wine runs a trivial i686 PE? (our own prefix: build/native/wineprefix)
 build/venv/bin/python tools/native_run.py               # run the image under Wine: build/native/run/ (trace, summary)
 # beside another agent's runs: HULK_CLANG_PROBE_DIR=build/native5/clang-probe HULK_CLANG_PROBE_CACHE=build/clang-probe/cache
 #   HULK_NATIVE_DIR=build/native5 ... clang_probe.py --snapshot --configs msvc; native_link.py --tree build/native5/clang-probe/snap
 ```
 
-**Status 2026-10-18 (start-up): the image starts.** Linked against the host C runtime (msvcrt.dll through our own
-import libraries), with our own entry point, it runs under Wine, maps the XBE's data, and runs **308 of the game's
-466 C++ dynamic initializers** before it stops on a data-layout bug (a verified structure split into data-TU items
-that the native link doesn't keep adjacent). `main` is not reached yet. See [Start-up](#start-up-2026-10-18) for
-the trace, the five classes of verified-source bugs it found and what comes next. The evening before: all 2,558 TUs
-compiled under clang and the strict link succeeded with 3,253 symbols stubbed (were 5,429 in the morning, 9,613 the
-night before); see [Deleting destructors, the last TU and the platform
+**Status 2026-10-18 evening: `main` runs.** The image runs all **457 game C++ dynamic initializers** and gets
+into `main` (0x0008ee30): the memory and thread systems start (host threads, fibers, semaphores), the drive layer
+opens, reads and closes game files under `D:\`, and the game object's constructor starts the Lua VM, where it
+stops on a register-convention call the sources get wrong (`matches/0x0033eb30.cpp`, run 20). See [Start-up,
+continued](#start-up-continued-2026-10-18-evening): the data layout fix, seven classes of verified-source bugs (263
+sources rewritten, all re-verified), four new link-time repairs, the shim's first real stand-ins and what is left.
+The morning: [Start-up](#start-up-2026-10-18) (308 of 466 initializers). The evening before: all 2,558 TUs
+compiled under clang and the strict link succeeded with 3,253 symbols stubbed; see [Deleting destructors, the last TU and the platform
 shim](#deleting-destructors-the-last-tu-and-the-platform-shim-2026-10-18).
 [After fix 4 and the binding fixes](#after-fix-4-and-the-binding-fixes-2026-10-18) is the same morning, [After the
 next fixes 1-3](#after-the-next-fixes-1-3-2026-10-17) the night before (first strict link), [After fixes 0-2 and
@@ -37,6 +39,103 @@ next fixes 1-3](#after-the-next-fixes-1-3-2026-10-17) the night before (first st
 Cold, the first run takes 10-15 minutes (4 compiler processes); a warm run takes 30 s. Everything goes to `build/clang-probe/`:
 `report.json` (counts, categories with example sites, scans, link probe), `undefined.txt` (every undefined symbol with
 its group and demangled name), `cache/` (per-TU results and objects) and `snap/` (the tree being probed).
+
+## Start-up, continued (2026-10-18 evening)
+
+From init 308 to the Lua VM inside `main`. Inputs: the tree `tools/build_tree.py` builds from the live sources plus
+this round's 263 rewrites (frozen copies, see the MSVC proof below), `clang_probe.py --snapshot --configs msvc`, the
+binding map rebuilt from that tree.
+
+**1. Data layout** (`native_host.data_block`, `native_link.py`: `build/native/link/data.s`). The data TUs
+(`tools/data_gen.py`, unchanged; still byte-verified under MSVC 7.1) are compiled by clang as before, but their
+objects no longer go into the link: each item is copied out of its object (its bytes and its DIR32 relocations, so
+exactly the verified data TU's contents) and placed in one assembly block per XBE section (`.rdata`, `.data`, the
+`.bss` tail) at the XBE's distance from its neighbours (gaps up to 64 KB zero-filled; vftables, RTTI and library
+data are elsewhere in the image), each block starting at its first item's address modulo 16. A structure the
+inventory split into several items (the `om` type tree's header at 0x004e79b8: root, then the nil node at +4) is
+contiguous again, and so is any structure whose owner object was guessed wrong. 18,832 items from 1,078 objects,
+3 blocks, 0 items whose bytes differ from the XBE outside relocations (checked at link time). Run 9's crash is gone.
+
+**2. The trace, run by run** (Wine 7.7, `native_run.py`; each source fix through `native_fix.py --apply --verify`):
+
+| run | stopped at | cause | fixed where |
+|---|---|---|---|
+| 10 | init 329 (0x0035fd90, `audio::SeqEventChannelSendVolumesType`) | `matches/0x0024ed10.cpp` passes five arguments to a `Data(...)` constructor; the callee 0x0023fc40 pops two (`ret 8`, a string init), the base constructor 0x002605e0 after it reads the other three: natively the stack is 12 bytes off | **source** (patch), and the same shape in 12 more audio type constructors (rule `split-temp`) |
+| 11 | init 349 (0x003604d0) | `equivalent/0x00251b40.cpp`: the same family, written with an equiv-conv note claiming five stack words | **source** (patch) |
+| 12 | `main` → 0x00270f10 → ... → `XboxDrive::vfunc_21` | `equivalent/0x00277260.cpp` tail-calls 0x0026fcf0 with three arguments; the original's `jmp` hands on all four of its own | **source** (patch) |
+| 13 | `main` → 0x00265b70 → 0x0026dbf0 | `matches/0x0026dbb0.cpp` defines `LockFn EnterPtr = 0;` where the original calls through the kernel thunk slot 0x003f2c8c: natively the source's own null pointer | **link**: source-defined globals pointed at the game's item (below) |
+| 14 | `main` → 0x0008fca0 → file open | `matches/0x00275db0.cpp` `sub.F0()` on a member object: MSVC 7.1 calls through the vftable, clang devirtualizes to the stub class's `F0`, which nothing defines | **link**: virtual-dispatch stubs (below) |
+| 15 | same | an ambiguous name rebound per calling function lost its alias (`native_link`: a stub was emitted for a symbol an alias covers) | **link** (our bug) |
+| 16 | same, `A_272b60::run` | `return p->f();` whose original `jmp`s to f (`ret 0xc`) passing its callers' three arguments on | **source** (rule `pass-through`, 48 sources) |
+| 17 | same, `Drive::vfunc_3` | `lock.acquire()` devirtualized; the stub class lives in a wrapped block's namespace | **link** (the slot reader now finds wrapped blocks' classes) |
+| 18 | `main` → 0x0008fca0 → `FileCloseRequest` | `matches/0x00275110.cpp` declares the thiscall constructor 0x00274e60 as `void __stdcall FUN_00274e60(void*)`; ecx held `this` in the original | **source** (patch, and rule `this-call`: 19 sources) |
+| 19 | `main` → `T_8ee30` constructor → Lua `luaH_new` (0x00219cc0) | calls two register-convention functions (`esi edi stack`, `ebx esi stack`) with only their stack word and no equiv-conv note | **source** (patch) |
+| 20 | **`main` → `T_8ee30` constructor → 0x001d3c90 → `matches/0x0033eb30.cpp` → 0x0033ea90** | 0x0033eb30 calls the register-convention function 0x0033ea90 (`esi`) as a plain call: MSVC happened to have the argument in esi, clang doesn't (check 5, callers without a note); a match, so the fix is a rewrite to an equivalent/ source | open: where this round stops | |
+
+**3. Verified-source bugs: the classes and the checks** (`tools/native_conv_check.py`; all invisible to the byte
+match and, where equiv.py maps arguments to the original's registers or stack words, to equiv.py):
+
+| class | check | found | fixed this round | left |
+|---|---|---|---|---|
+| register-convention parameter order (callers list the callee's parameters in another order than its own note) | 5 | 166 callers in 98 files | 76 callers (rule `register-order`: 53 sources) | 90: 85 callers don't pass a register the definition reads (the value the original has there needs per-site reading), 1 varargs declaration, 1 whose unedited source no longer passes equiv.py, 3 other |
+| register-convention callee called with no equiv-conv note at all | 5 (new) | 66 | 1 (`0x00219cc0`) | 64, mostly the Lua VM (0x00214000-0x00222000) and `0x00035ab0` |
+| `void` definition whose original callers use eax | 6 (new, `--returns`) | 222 definitions (3,336 call sites) | 118 sources (rule `void-return`: the body ends in a call, now returned) | 105 definitions not of that shape |
+| x87-argument CRT helpers (`_ftol`, `_CIacos`, `_CIasin`) called by a plain name without their argument | 6 | 5 sources | 5 (0x00011000/0x00011010 now byte-match through MSVC's `acos`/`asin` intrinsics; 0x0033b700, 0x001d06a0, 0x000e8070 name the call whose x87 result they convert) | 0 |
+| declared callee-pops bytes differ from the callee's `ret N` (arguments left on the stack for the next call; tail calls passing arguments on) | 7 (new, `--pops`) | 298 symbols, 197 addresses | 13 audio constructors, 48 pass-through wrappers, 1 tail call | 223 symbols / 160 addresses (13 pass-through wrappers are include/gen members: a header change) |
+| caller symbol in another convention than its definition | 8 (new) | 1,516 cdecl/stdcall callers of a thiscall definition (and benign pairs: a one-argument fastcall called as a thiscall member, ...) | 20 (rule `this-call`, patch) | 1,497; the byte match decides each rewrite (ecx must really be `this`) |
+| a function passed by its XBE address (`atexit((void (*)())0x364490)`) | rule `code-literal` | 12 | 12 | 0 (the 54 data-address literals of the morning's finding 1 are still mapped by the data window) |
+
+Also found in our own tables: XBE 0x00348010 is `ldexp` (its callers push a double and an int), not `_CIexp`
+(`host_crt_table.h`).
+
+**4. Link-time repairs** (`tools/native_link.py`; no source or MSVC input changes):
+
+- *Source-defined globals* (`local_data_bindings`): a byte-matching function whose relocation names data its own
+  object defines (`EnterPtr`, `gFlag_24400`, `g_obj_265c40`, ...) where the original's word is an XBE data address:
+  every reference is pointed at the game's item (a `data.s` label, a library slot, or an offset into an item).
+  56 symbols. (Constants the sources define, `gNegOne`, `kRadiansToDegrees`, become the game's items too.)
+- *Virtual-dispatch stubs*: a virtual member of a stub class that clang calls directly (devirtualized: a member
+  object or a local of class type) and nothing defines gets a stub that loads `this`'s vftable and jumps to the
+  member's slot, as the original's call did (slot from clang's emitted stub vftable or, for a class without bases,
+  the declaration order in its TU); 1,230 stubs. A slot pointing back at the stub reports itself.
+- The per-function rebinding of ambiguous names no longer stubs a symbol an alias covers.
+
+**5. The platform shim's first real stand-ins** (`src/platform/sdl/`, Windows / Wine host functions until the SDL3
+backends): threads, semaphores, waits, sleeps and fibers forward to the host's kernel32 functions of the same
+public shape (fiber stacks at least 256 KB for clang's frames); the kernel critical-section slots map each game
+section to a host `CRITICAL_SECTION` of its own (an address-keyed table, created on first use, so the game's
+28-byte Xbox layout is never interpreted); files: `CreateFileA`/`ReadFile`/`WriteFile`/`SetFilePointer`/
+`GetFileSize`/`SetEndOfFile`/`CloseHandle` on host files with the Xbox paths mapped (`D:\` -> `isos/extracted`,
+`T:\` -> `build/native/tdata` via `HULK_TDATA_DIR`, created on demand for writes; `U:`/`Z:` -> the save dir),
+`GetDiskFreeSpaceExA` (a fixed 1 GB free), `XGetDiskSectorSizeA` (2048 for the disc, 512 otherwise),
+`GetLastError` (the host's), `XGetLanguage` (English). The start-up trace's phase buffer is static (a smashed stack
+no longer garbles the crash line).
+
+**Start-up trace summary** (`build/native/run/summary.txt` of the last run): xbe-window mapped; 466 initializers, 457 game ones run, 9 library ones skipped; first calls during init 216 as in the morning (`QueryPerformanceFrequency`, `GlobalMemoryStatus`, the kernel critical sections, `GetCurrentThreadId`, `ConvertThreadToFiber`, `SetThreadPriority`), then in `main`: `XGetLaunchInfo` (0x0008ed60), `XInitDevices`, `CreateSemaphoreA`, `CreateThread`, `ResumeThread`, `CreateFiber` (the radcore thread and fiber system), `ReleaseSemaphore`, `WaitForSingleObject`, `Sleep`, `GetDiskFreeSpaceExA`, `XGetDiskSectorSizeA` (the drive), `CreateFileA`, `GetFileSize`, `SetFilePointer`, `ReadFile`, `CloseHandle` (0x0008fca0 reads a game file from `D:\`), then the game object's constructor: the Lua VM creates its first table and stops in run 20 above. No graphics call yet.)
+
+**6. MSVC 7.1 verification build: unchanged** (`build/native6/msvc-proof.txt`). Frozen copies of the live `matches/` (22,127 after the three new matches and fx16's commit), `equivalent/`, `build/functions.csv`, `config/`, `include/` and `tools/`; "HEAD" = HEAD's `gen_tree.py`/`build_tree.py` (imported first, `runbase.py`) with HEAD's version of the 263 sources, "this" = this round's tools (including `gen_tree.py`'s `/GS` and `/GS-` in `ALLOWED_FLAGS`, which round 13's compare.py accepts; no source uses them yet) with the rewritten sources; both `build_tree.py --resume --jobs 3 --regression-rounds 4` from the same fallback state, local:
+
+| | HEAD | this |
+|---|---|---|
+| TUs compiled | 2,723 / 2,723 | 2,723 / 2,723 |
+| matches byte-matching | 22,127 / 22,127 | 22,127 / 22,127 |
+| equivalent/ compiled, same code as standalone | 5,345 (5,293 same, 51 no_symbol, 1 standalone_compile_error) | 5,345 (same split) |
+| equivalent/ differing | 0 | 0 |
+| merged / wrapped / isolated | 20,477 / 6,132 / 863 | 20,473 / 6,136 / 863 |
+| fallbacks wrapped / isolated / without TU namespace | 431 / 401 / 1 | 432 / 401 / 1 |
+
+Per function the verdicts are identical (27,472 / 27,472). Eight functions changed mode (six merged -> wrapped, two wrapped -> merged: `0x000e0e50`, `0x00249750`, `0x0025ab30`, `0x002e9c60`, `0x00342d90`, `0x00342e50` / `0x0025aaf0`, `0x0025c430`): rewritten declarations (a callee's return type, a parameter order) now conflict, or no longer conflict, with another source's declaration in the same TU; each still matches or compiles to its standalone code.
+
+**Compiling and link**: `msvc` **2,723 / 2,723**; data TUs 1,078 / 1,078. Binding map: 56,881 referenced symbols, 56,647 bound, 234 ambiguous. Strict `lld-link`: **links (0 errors)**, 7.5 MB; undefined after binding 1,690 symbols / 2,892 references (1,691 / 2,893 in the morning: the groups are unchanged, the stubs for virtual members now dispatch).
+
+**Next** (in order):
+
+1. The Lua VM's register-convention calls (checks 5: ~50 call sites in 0x00214000-0x00222000, each needing the
+   value the original has in the register: read from the original's code at the call site), then re-run.
+2. Checks 6-8's remaining findings by the same verified-rewrite route, starting with what the trace reaches;
+   the pass-through wrappers that are include/gen members need their header's prototype to change.
+3. Graphics: the D3D device and the pddi layer are next after the game object's construction; real rendering is
+   out of scope until the SDL_gpu backend.
 
 ## After fix 4 and the binding fixes (2026-10-18)
 

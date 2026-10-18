@@ -1,9 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 62 inputs, branch coverage 23/24, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3074 inputs, branch coverage 23/24, incomplete)
+// FUN_0027a160 @ 0x0027a160
 // FUN_0027a160 @ 0x0027a160
 typedef unsigned int U_27a160;
 struct Table_27a160 { U_27a160 size; U_27a160 *entries; };
-// equiv-conv: FUN_0027a0f0 esi ecx eax
-U_27a160 FUN_0027a0f0(unsigned char *dst, U_27a160 count, U_27a160 tag);
+// equiv-conv: FUN_0027a0f0 ecx eax esi
+U_27a160 FUN_0027a0f0(U_27a160 count, U_27a160 tag, unsigned char *dst);
 // equiv-conv: FUN_00279f80 ecx stack stack stack stack stack
 U_27a160 FUN_00279f80(U_27a160 length, const unsigned char *src, U_27a160 position, U_27a160 *distance, U_27a160 *run, Table_27a160 *table);
 // equiv-conv: FUN_0027a050 ecx stack stack stack stack
@@ -17,13 +18,13 @@ void __cdecl FUN_0027a160(const unsigned char *src, U_27a160 length, unsigned ch
  for (;;) {
   if (run>4 && (distance&15)!=0) {
    if (literals) {
-    output+=FUN_0027a0f0(dst+output,literals,state&~255U);
+    output+=FUN_0027a0f0(literals, state&~255U, dst+output);
     U_27a160 j=0;
     for (;j+4<=literals;j+=4) *(U_27a160 *)(dst+output+j)=*(const U_27a160 *)(src+start+j);
     for (;j<literals;++j) dst[output+j]=src[start+j];
     output+=literals; state=literals;
    }
-   output+=FUN_0027a0f0(dst+output,run,(state&~255U)|((distance<<4)&255));
+   output+=FUN_0027a0f0(run, (state&~255U)|((distance<<4)&255), dst+output);
    dst[output++]=(unsigned char)(distance>>4);
    state=run;
    if (fast) position+=run;
@@ -38,7 +39,7 @@ void __cdecl FUN_0027a160(const unsigned char *src, U_27a160 length, unsigned ch
   if (position>=length) break;
  }
  if(literals) {
-  U_27a160 n=literals; output+=FUN_0027a0f0(dst+output,n,n&~255U);
+  U_27a160 n=literals; output+=FUN_0027a0f0(n, n&~255U, dst+output);
   U_27a160 j=0;
   for(;j+4<=n;j+=4) *(U_27a160 *)(dst+output+j)=*(const U_27a160 *)(src+start+j);
   for(;j<n;++j) dst[output+j]=src[start+j];

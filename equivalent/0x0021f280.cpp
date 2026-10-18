@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 2/2)
+// FUN_0021f280 @ 0x0021f280
 // FUN_0021f280 @ 0x0021f280
 // Lua 5.0 luaX_next followed by an expression-parsing step
 struct expdesc_21f280 {
@@ -28,8 +29,8 @@ struct LexState_21f280 {
 };
 
 int __cdecl FUN_0021bbc0(LexState_21f280* ls, int* seminfo);                       // llex
-// equiv-conv: FUN_0021f220 eax ecx
-expdesc_21f280* FUN_0021f220(expdesc_21f280* out, LexState_21f280* ls);
+// equiv-conv: FUN_0021f220 ecx eax
+expdesc_21f280* FUN_0021f220(LexState_21f280* ls, expdesc_21f280* out);
 void __cdecl FUN_0021d4b0(expdesc_21f280* dst, expdesc_21f280* src, int arg);
 void __cdecl FUN_00221280(FuncState_21f280* fs, expdesc_21f280* a, expdesc_21f280* b);
 void __cdecl FUN_00220b00(FuncState_21f280* fs, int arg);
@@ -51,7 +52,7 @@ void FUN_0021f280(LexState_21f280* ls, int arg)
     } else {
         ls->t.token = FUN_0021bbc0(ls, &ls->t.seminfo);
     }
-    expdesc_21f280* r = FUN_0021f220(&f.first, ls);
+    expdesc_21f280* r = FUN_0021f220(ls, &f.first);
     FUN_0021d4b0(&f.second, r, arg);
     FUN_00221280(ls->fs, &f.first, &f.second);
     FUN_00220b00(ls->fs, arg);

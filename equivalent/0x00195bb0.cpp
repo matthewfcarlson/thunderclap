@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 57/58, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20070 inputs, branch coverage 58/58)
+// hulkfight::motion::ProjectileEffect::vfunc_4 @ 0x00195bb0
 // hulkfight::motion::ProjectileEffect::vfunc_4 @ 0x00195bb0
 // hulkfight::motion::ProjectileEffect::vfunc_4: per-frame projectile update (steer toward the target direction,
 // integrate position, hit test via the usercall helpers FUN_00195290/001958c0/00195560, spawn/despawn effects).
@@ -40,12 +41,12 @@ struct Cls1f6 { void FUN_001f6cd0(unsigned a, unsigned b, unsigned c, unsigned d
 
 extern unsigned DAT_004dd700;
 unsigned FUN_00098190(float dt, unsigned f4c, unsigned v, unsigned z1, unsigned f24, unsigned z2, unsigned p34, unsigned p40, unsigned z3, unsigned z4, unsigned z5, unsigned one);
-// equiv-conv: FUN_00195290 eax edx ecx edi stack stack stack stack stack stack stack
-char FUN_00195290(unsigned a_eax, unsigned a_edx, unsigned a_ecx, unsigned a_edi, unsigned s1, unsigned s2, unsigned s3, unsigned s4, unsigned s5, unsigned s6, unsigned s7);
+// equiv-conv: FUN_00195290 ecx eax edx edi stack stack stack stack stack stack stack
+char FUN_00195290(unsigned a_ecx, unsigned a_eax, unsigned a_edx, unsigned a_edi, unsigned s1, unsigned s2, unsigned s3, unsigned s4, unsigned s5, unsigned s6, unsigned s7);
 // equiv-conv: FUN_001958c0 eax stack stack stack stack stack stack stack stack stack stack
 char FUN_001958c0(unsigned a_eax, unsigned s1, unsigned s2, unsigned s3, unsigned s4, unsigned s5, unsigned s6, unsigned s7, unsigned s8, unsigned s9, unsigned s10);
-// equiv-conv: FUN_00195560 eax ecx ebx stack stack stack stack stack stack stack stack stack stack stack
-char FUN_00195560(unsigned a_eax, unsigned a_ecx, unsigned a_ebx, unsigned s1, unsigned s2, unsigned s3, unsigned s4, unsigned s5, unsigned s6, unsigned s7, unsigned s8, unsigned s9, unsigned s10, unsigned s11);
+// equiv-conv: FUN_00195560 ecx eax ebx stack stack stack stack stack stack stack stack stack stack stack
+char FUN_00195560(unsigned a_ecx, unsigned a_eax, unsigned a_ebx, unsigned s1, unsigned s2, unsigned s3, unsigned s4, unsigned s5, unsigned s6, unsigned s7, unsigned s8, unsigned s9, unsigned s10, unsigned s11);
 unsigned FUN_0027f250();
 float FUN_000964e0();
 void FUN_00224db0(unsigned a, unsigned b, unsigned c);
@@ -168,7 +169,7 @@ void hulkfight::motion::ProjectileEffect::vfunc_4(float dt)
     tmpi = (unsigned)((Reg59 *)r14_eax)->FUN_00059c10(*(volatile unsigned *)((char *)T + 0x20));
     if (tmpi != 0)
         L[1].u = *(volatile unsigned *)((char *)tmpi + 0x12c);
-    ok = FUN_00195290((unsigned)&L[9].f, (unsigned)&L[14].f, (unsigned)&L[11].f, (unsigned)(T + 10), (unsigned)(T + 13), (unsigned)&L[5].f, (unsigned)&L[8].f, L[1].u, 0, (unsigned)&((volatile unsigned char *)&L[0])[3], 0);
+    ok = FUN_00195290((unsigned)&L[11].f, (unsigned)&L[9].f, (unsigned)&L[14].f, (unsigned)(T + 10), (unsigned)(T + 13), (unsigned)&L[5].f, (unsigned)&L[8].f, L[1].u, 0, (unsigned)&((volatile unsigned char *)&L[0])[3], 0);
     ((volatile unsigned char *)&L[0])[3] = (unsigned char)ok;
     r15_edx = *(volatile unsigned*)&(T + 13)[0];
     *(volatile unsigned*)&T[10] = r15_edx;
@@ -191,7 +192,7 @@ void hulkfight::motion::ProjectileEffect::vfunc_4(float dt)
             L[1].u = *(volatile unsigned *)((char *)O + 0xb8);
             edxv = *(volatile unsigned *)((char *)O + 0xa8);
             eaxv = *(volatile unsigned *)((char *)O + 0x9c);
-            ok = FUN_00195560(ediv, (unsigned)(T + 16), (unsigned)&L[11].f, *(volatile unsigned *)((char *)T + 0x20), eaxv, edxv, (unsigned)&L[5].f, L[1].u, L[8].u, 0, tmpi, 0, 0x3f800000, 0);
+            ok = FUN_00195560((unsigned)(T + 16), ediv, (unsigned)&L[11].f, *(volatile unsigned *)((char *)T + 0x20), eaxv, edxv, (unsigned)&L[5].f, L[1].u, L[8].u, 0, tmpi, 0, 0x3f800000, 0);
             if (ok == 0)
                 ((volatile unsigned char *)&L[0])[3] = 0;
             break;

@@ -3,9 +3,9 @@ class C_27ffd0 {
   public:
     char pad[12];
     C_27ffd0* field;
-    void g();
-    void f();
+    void g(int, int);
+    void f(int, int);
 };
-void C_27ffd0::f() {
-    field->g();
+void C_27ffd0::f(int a0, int a1) {
+    field->g(a0, a1);
 }

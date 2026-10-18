@@ -1,8 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 20021 inputs, branch coverage 12/12)
 // FUN_000e8070 @ 0x000e8070
-struct Input_e8070 { void FUN_000fa0a0(); void FUN_000fad30(); unsigned int FUN_000fad90(); };
+// FUN_000e8070 @ 0x000e8070
+struct Input_e8070 { void FUN_000fa0a0(); float FUN_000fad30(); unsigned int FUN_000fad90(); };
 struct Token_e8070 { virtual void slot0(); virtual unsigned int slot1(); };
-unsigned int __cdecl FUN_0034483c();
 struct Object;
 struct FEThingsBase {
  struct ParseFunctor {
@@ -29,7 +29,7 @@ void FEThingsBase::FUN_000e8070(Input_e8070* input,unsigned int context,Object* 
  unsigned int kind=token->slot1();
  if(kind==0x887d4b38) { object->s16(input->FUN_000fad90()); }
  else if(kind==0x16b6f665) { object->s53(input->FUN_000fad90()); }
- else if(kind==0x3752e43c) { input->FUN_000fad30(); object->stamp=FUN_0034483c(); }
+ else if(kind==0x3752e43c) { object->stamp=(int)input->FUN_000fad30(); }
  else if(!s39(input,&object->sub,token) && !s37(input,object,token)) {
  ParseFunctor functor; functor.owner=this; functor.function=&FEThingsBase::FUN_000e8070; functor.context=context; functor.object=object;
  if(!s34(input,token,&functor)) input->FUN_000fa0a0();

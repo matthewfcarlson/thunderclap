@@ -24,8 +24,8 @@ struct Proto {
 };
 
 
-// equiv-conv: FUN_00214280 eax ecx edx
-int FUN_00214280(int mode, int r, Proto *pt);
+// equiv-conv: FUN_00214280 ecx edx eax
+int FUN_00214280(int r, Proto *pt, int mode);
 // equiv-conv: FUN_00214250 eax edx
 int FUN_00214250(Proto *pt, int pc);
 
@@ -64,9 +64,9 @@ unsigned int __cdecl FUN_002142d0(Proto *pt, int lastpc, int reg)
         case 0:
             b = (i >> 15) & 0x1ff;
             c = (i >> 6) & 0x1ff;
-            if (!FUN_00214280((m >> 4) & 3, b, pt))
+            if (!FUN_00214280(b, pt, (m >> 4) & 3))
                 return 0;
-            if (!FUN_00214280((m >> 2) & 3, c, pt))
+            if (!FUN_00214280(c, pt, (m >> 2) & 3))
                 return 0;
             break;
         case 1:

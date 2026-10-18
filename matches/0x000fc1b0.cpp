@@ -44,7 +44,7 @@ class A_fc1b0 {
     virtual void f41();
     virtual void f42();
     virtual void f43();
-    virtual void f44();
+    virtual int f44();
     virtual void f45();
     virtual void f46();
     virtual void f47();
@@ -179,6 +179,6 @@ class A_fc1b0 {
     virtual void f176();
 };
 A_fc1b0* g_fc1b0;
-void FUN_000fc1b0() {
-    g_fc1b0->f44();
+int FUN_000fc1b0() {
+    return g_fc1b0->f44();
 }

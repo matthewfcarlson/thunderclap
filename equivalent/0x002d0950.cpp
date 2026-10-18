@@ -1,15 +1,16 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 20/20)
+// FUN_002d0950 @ 0x002d0950
 // FUN_002d0950 @ 0x002d0950
 struct Item_2d0950 { char pad[8]; unsigned flags; };
 struct Object;
-// equiv-conv: FUN_002c96e0 eax esi edx
-void FUN_002c96e0(Object*, void*, unsigned);
-// equiv-conv: FUN_002cb2b0 ecx esi stack
-void FUN_002cb2b0(Object*, void*, int);
+// equiv-conv: FUN_002c96e0 eax edx esi
+void FUN_002c96e0(Object*, unsigned, void*);
+// equiv-conv: FUN_002cb2b0 ecx stack esi
+void FUN_002cb2b0(Object*, int, void*);
 // equiv-conv: FUN_002c7690 eax esi stack
 void FUN_002c7690(Object*, void*, int);
-// equiv-conv: FUN_002c7a50 eax esi ecx
-void FUN_002c7a50(Object*, void*, unsigned);
+// equiv-conv: FUN_002c7a50 ecx eax esi
+void FUN_002c7a50(unsigned, Object*, void*);
 struct Object {
  char pad0[0x14]; void* field14; char pad18[0x38]; void* field50; char pad54[4]; Item_2d0950* item;
  unsigned __int64 FUN_002c8a80(void*, void*);
@@ -27,10 +28,10 @@ void target(Object* self, void* arg1, void* arg2, void* arg3, unsigned incomingE
   special = self->item != 0 && (self->item->flags & 0xffffffcfU) != 0;
  } else special = self->item != 0;
  if (special) {
-  if (self->field14) FUN_002c96e0(self,arg1,(incomingEdx & 0xffffff00U) | (enabled ? 1 : 0));
-  else FUN_002cb2b0(self,arg1,enabled ? 1 : 0);
+  if (self->field14) FUN_002c96e0(self, (incomingEdx & 0xffffff00U) | (enabled ? 1 : 0), arg1);
+  else FUN_002cb2b0(self, enabled ? 1 : 0, arg1);
  } else {
   if (self->field14) FUN_002c7690(self,arg1,enabled ? 1 : 0);
-  else FUN_002c7a50(self,arg1,(remainingEcx & 0xffffff00U) | (enabled ? 1 : 0));
+  else FUN_002c7a50((remainingEcx & 0xffffff00U) | (enabled ? 1 : 0), self, arg1);
  }
 }

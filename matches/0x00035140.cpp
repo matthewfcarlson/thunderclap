@@ -1,10 +1,10 @@
 struct Callee_35140 {
-    void Run();
+    int Run(int);
 };
 struct Obj_35140 {
     char pad[0x1d68];
-    void Target();
+    int Target(int);
 };
-void Obj_35140::Target() {
-    ((Callee_35140*)((char*)this + 0x1d68))->Run();
+int Obj_35140::Target(int a0) {
+    return ((Callee_35140*)((char*)this + 0x1d68))->Run(a0);
 }

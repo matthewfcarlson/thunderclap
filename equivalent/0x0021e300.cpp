@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 26/26)
+// STATUS: equivalent (tools/equiv.py level 3: 670 inputs, branch coverage 26/26)
+// FUN_0021e300 @ 0x0021e300
 // FUN_0021e300 @ 0x0021e300
 struct LocVar_21e300 {
     int varname;
@@ -74,8 +75,8 @@ void __cdecl FUN_00220d70(FuncState_21e300 *fs, int list);
 void __cdecl FUN_00221ae0(FuncState_21e300 *fs, int list, int target);
 int __cdecl FUN_00220b20(FuncState_21e300 *fs, unsigned int instr, int line);
 int __cdecl FUN_00220bd0(FuncState_21e300 *fs, int op, int a, int b, int c);
-// equiv-conv: FUN_0021c340 esi edi stack eax
-void FUN_0021c340(LexState_21e300 *ls, int what, int who, int line);
+// equiv-conv: FUN_0021c340 eax esi edi stack
+void FUN_0021c340(int line, LexState_21e300 *ls, int what, int who);
 
 static inline void Next(LexState_21e300 *ls)
 {
@@ -142,7 +143,7 @@ void FUN_0021e300(LexState_21e300 *ls, int line)
         v.f += fs->pc - expinit;
     for (i = 0; i < sizeexp; i++)
         FUN_00220b20(fs, codeexp[i], lineexp);
-    FUN_0021c340(ls, 0x106, 0x115, line);
+    FUN_0021c340(line, ls, 0x106, 0x115);
 
     BlockCnt_21e300 *b = fs->bl;
     fs->bl = b->previous;

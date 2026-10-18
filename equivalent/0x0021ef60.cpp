@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 122 inputs, branch coverage 2/2)
+// FUN_0021ef60 @ 0x0021ef60
 // FUN_0021ef60 @ 0x0021ef60
 extern "C" unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
@@ -53,15 +54,15 @@ void *FUN_0021c3d0(LexState_21ef60 *ls);
 void FUN_0021c240(const char *what, int limit);
 unsigned short __cdecl FUN_0021c490(LexState_21ef60 *ls, void *name);
 void __cdecl FUN_00220850(FuncState_21ef60 *fs, int n);
-// equiv-conv: FUN_0021cac0 eax ecx
-void FUN_0021cac0(FuncState_21ef60 *newfs, LexState_21ef60 *ls);
+// equiv-conv: FUN_0021cac0 ecx eax
+void FUN_0021cac0(LexState_21ef60 *ls, FuncState_21ef60 *newfs);
 // equiv-conv: FUN_0021c2e0 esi eax
 void FUN_0021c2e0(LexState_21ef60 *ls, int token);
 // equiv-conv: FUN_0021d210 eax
 void FUN_0021d210(LexState_21ef60 *ls);
 void __cdecl FUN_0021f640(LexState_21ef60 *ls);
-// equiv-conv: FUN_0021c340 esi edi stack eax
-void FUN_0021c340(LexState_21ef60 *ls, int what, int who, int line);
+// equiv-conv: FUN_0021c340 eax esi edi stack
+void FUN_0021c340(int line, LexState_21ef60 *ls, int what, int who);
 void __cdecl FUN_0021cb80(LexState_21ef60 *ls);
 void __cdecl FUN_0021c9b0(LexState_21ef60 *ls, FuncState_21ef60 *newfs, ExpDesc_21ef60 *e);
 void __cdecl FUN_00221280(FuncState_21ef60 *fs, ExpDesc_21ef60 *var, ExpDesc_21ef60 *e);
@@ -90,13 +91,13 @@ void FUN_0021ef60(LexState_21ef60 *ls)
     cur->f->locvars[cur->actvar[cur->nactvar - 1]].startpc = cur->pc;
 
     int line = ls->linenumber;
-    FUN_0021cac0(&f.newfs, ls);
+    FUN_0021cac0(ls, &f.newfs);
     f.newfs.f->lineDefined = line;
     FUN_0021c2e0(ls, '(');
     FUN_0021d210(ls);
     FUN_0021c2e0(ls, ')');
     FUN_0021f640(ls);
-    FUN_0021c340(ls, 0x106, 0x109, line);
+    FUN_0021c340(line, ls, 0x106, 0x109);
     FUN_0021cb80(ls);
     FUN_0021c9b0(ls, &f.newfs, &f.b);
     FUN_00221280(fs, &f.v, &f.b);

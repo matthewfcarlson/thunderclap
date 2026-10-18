@@ -122,6 +122,34 @@ def match_bindings(obj, symbol, addr):
     return out
 
 
+def local_data_bindings(obj, symbol, addr):
+    """{data symbol the object defines itself: XBE address} of a byte-matching function: a source that defines a
+    global (`LockFn EnterPtr = 0;`, `int gFlag;`) where the original reads the game's (the kernel thunk slot at
+    0x003f2c8c, a .data word). MSVC emits the same `[abs32]` for both; natively the source's own copy is another
+    variable. The link points those relocations at the game's item (link_inventory)."""
+    coff = compare.Coff(obj)
+    sym = next((s for s in coff.function_symbols() if s[0] == symbol), None)
+    out = {}
+    if sym is None:
+        return out
+    x = xbe()
+    for off, t, typ, ab in coff.function_relocs(sym):
+        if typ != DIR32 or t is None or t[2] <= 0 or t[4] != 2:
+            continue
+        if t[0].startswith(("??_C", "__real", "??_7", "??_R", "$")):
+            continue
+        if coff.sections[t[2] - 1][0].startswith(".text"):
+            continue
+        o = x.offset(addr + off)
+        if o is None:
+            continue
+        v = (struct.unpack_from("<I", x.data, o)[0] - struct.unpack("<i", ab)[0]) & 0xFFFFFFFF
+        sec = x.section_of(v)
+        if sec is not None and sec.name in (".data", ".rdata"):
+            out[t[0]] = v
+    return out
+
+
 def _equiv_job(args):
     obj, symbol, src, addr = args
     raw = open(obj, "rb").read()
@@ -174,6 +202,7 @@ def build_map(jobs):
     users = collections.Counter()
     stats = collections.Counter()
     todo, todo_tu = [], []
+    local_data = collections.defaultdict(set)
     for c in checks:
         obj = objs.get(c["tu"])
         if not obj or not c.get("symbol"):
@@ -181,6 +210,8 @@ def build_map(jobs):
             continue
         a = int(c["addr"], 16)
         if c["kind"] == "matches" and c["status"] == "match":
+            for s, v in local_data_bindings(obj, c["symbol"], a).items():
+                local_data[s].add(v)
             for s, ts in match_bindings(obj, c["symbol"], a).items():
                 for t, n in ts.items():
                     refs[s][t]["position"] += n
@@ -203,6 +234,7 @@ def build_map(jobs):
                 stats["equivalent: symbols equiv.py could not bind"] += 1
             if i % 500 == 0 and sys.stderr.isatty():
                 print("  equivalent bindings %d/%d" % (i, len(todo)), file=sys.stderr, flush=True)
+    build_map.local_data = {s: "0x%08x" % next(iter(v)) for s, v in local_data.items() if len(v) == 1}
     return defs, refs, users, stats, per_tu, per_fn
 
 
@@ -273,7 +305,7 @@ def clang_objects():
     return cp, tus, res
 
 
-def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None, amb_fn=None):
+def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None, amb_fn=None, local_data=None):
     cp, tus, res = clang_objects()
     man = cp.Manifest()
     objs = {p: r["obj"] for p, r in res.items() if r.get("obj")}
@@ -374,7 +406,9 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
     # fix 3a: virtual members of stub classes, named only by a clang-emitted stub vftable: slot N of the
     # game's vftable the stub stands for (its address: where the verified code stores the stub's vftable)
     slot_how = collections.Counter()
-    for s, d in stub_slot_aliases(sorted(objs.values()), binding, by_addr_def, undef - set(aliases), slot_how).items():
+    slot_of = {}
+    for s, d in stub_slot_aliases(sorted(objs.values()), binding, by_addr_def, undef - set(aliases), slot_how,
+                                  slot_of).items():
         aliases[s] = d
         how["stub vftable slot"] += 1
     # the 329-style ambiguous symbols: one callee per TU -> the symbol is renamed in that TU's object
@@ -470,6 +504,25 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
         for s in (d_ | u) & set(vt_map):
             vt_rebind[o][s] = vt_map[s]
     how["stub vftable references pointed at the game's vftable"] += len(vt_map)
+    # data a verified source defines itself where the original uses the game's item (local_data_bindings): every
+    # reference is pointed at the game's item (data.s label, a library slot, or an interior offset of an item)
+    ld_map = {}
+    for s_, a_ in (local_data or {}).items():
+        if s_ not in defined:
+            continue
+        a_ = int(a_, 16)
+        d = by_addr_def.get(a_) or defined_at.get(a_)
+        if d and d != s_:
+            ld_map[s_] = (d, 0)
+            continue
+        c = next(((sym, a_ - s0) for s0, sym, n in own_rows if s0 <= a_ < s0 + n), None) or \
+            native_host.container(a_, items, starts, defined_at)
+        if c:
+            ld_map[s_] = c
+    for o, (d_, u) in syms.items():
+        for s_ in (d_ | u) & set(ld_map):
+            vt_rebind[o][s_] = ld_map[s_]
+    how["source-defined globals pointed at the game's item"] += len(ld_map)
     # a game initializer whose source is the dynamic initializer itself (an isolated `.text$yc` source defining a
     # global with a constructor: MSVC's `$E1`): clang's equivalent is the TU's local `__GLOBAL__sub_I_<file>`, made
     # global in a copy of the object so the start-up table can call it in the XBE's order
@@ -526,7 +579,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
            "undefined_after": {"symbols": len(after), "references": sum(refs[s] for s in after),
                                "groups": tally(after_g, after)}}
     if do_link:
-        link_objs = []
+        link_objs, data_objs = [], []
         for o in sorted(objs.values()):
             o2 = rename_object(o, renames[o]) if renames.get(o) else o
             if globalize.get(o):
@@ -539,7 +592,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
                 os.makedirs(os.path.dirname(out_o), exist_ok=True)
                 left = native_host.rebind_object(o2, rebind[o], out_o)
                 o2 = out_o
-                after |= left - defined     # relocations in functions the plan doesn't know keep the old name
+                after |= left - defined - set(aliases)     # relocations the plan leaves keep the old name (an alias may cover it)
             if vt_rebind.get(o):
                 out_o = os.path.join(OUT, "link", "objs", "vt_" + os.path.basename(o))
                 os.makedirs(os.path.dirname(out_o), exist_ok=True)
@@ -550,9 +603,26 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
                 os.makedirs(os.path.dirname(out_o), exist_ok=True)
                 native_host.retarget_object(o2, retarget[o], out_o)
                 o2 = out_o
+            if obj_tu.get(o, "").startswith("data/src/"):
+                data_objs.append(o2)
+                continue
             link_objs.append(o2)
+        # the data TUs' items at the XBE's distances (build/native/link/data.s) instead of the data TU objects
+        blk = native_host.data_block(xbe(), data_objs)
+        link_objs += [o for o in data_objs if o not in set(blk["objects_used"])]
+        inv["data_block"] = blk["stats"]
+        if blk["mismatch"]:
+            inv["data_block_mismatch"] = blk["mismatch"]
         link_objs += shim["objects"] + host["objects"]
-        inv["lld_link"] = lld_link(link_objs, aliases, after | vt["undefined"], vt["asm"], dd["asm"], startup, host["libs"])
+        # a virtual member of a stub class that clang calls directly (`sub.F0()` on a member object: clang
+        # devirtualizes, MSVC 7.1 called through the vftable) and that nothing defines: its stub dispatches through
+        # the object's vftable at the member's slot, as the original's call did
+        vthunks = {s_: n for s_, n in slot_of.items() if s_ in after}
+        for s_, n in source_slots(after - set(vthunks), man).items():
+            vthunks[s_] = n
+        inv["virtual_dispatch_stubs"] = len(vthunks)
+        inv["lld_link"] = lld_link(link_objs, aliases, after | vt["undefined"], vt["asm"], dd["asm"], startup, host["libs"],
+                                   data_asm=blk["asm"], vthunks=vthunks)
     return inv
 
 
@@ -724,7 +794,55 @@ def code_owned_data(by_addr_def):
     return {"labels": labels, "names": names, "undefined": undefined, "asm": "\n".join(out) + "\n", "stats": dict(st)}
 
 
-def stub_slot_aliases(objects, binding, by_addr_def, undef, how):
+def source_slots(symbols, man):
+    """{virtual member symbol: vftable slot} read from the stub class's definition in its TU, for stub classes no
+    clang object emits a vftable for: a class without bases whose virtual functions are all declared in its body
+    (MS ABI: slots in declaration order, a virtual destructor taking one). Unique definitions only."""
+    want = collections.defaultdict(list)       # (ns, class) -> [(symbol, member)]
+    for s in symbols:
+        m = re.match(r"\?(\w+)@(\w+)@(fn_[0-9a-f]{8})@@[UM][AB]E", s)
+        if m:
+            want[(m.group(3), m.group(2))].append((s, m.group(1)))
+    if not want:
+        return {}
+    import clang_probe
+    tu_of = {t.get("tu_ns"): p for p, t in man.tus.items()}
+    for p, t in man.tus.items():          # (a wrapped block's own namespace, fn_<addr>)
+        for b in t.get("blocks", []):
+            if b.get("ns"):
+                tu_of.setdefault(b["ns"], p)
+    out = {}
+    texts = {}
+    for (ns, cls), members in want.items():
+        tu = tu_of.get(ns)
+        if not tu:
+            continue
+        if tu not in texts:
+            try:
+                texts[tu] = open(os.path.join(clang_probe.SNAP, tu), errors="replace").read()
+            except OSError:
+                texts[tu] = ""
+        bodies = set()
+        for m in re.finditer(r"\b(?:class|struct)\s+%s\s*\{" % re.escape(cls), texts[tu]):
+            i, depth = m.end() - 1, 0
+            for j in range(i, len(texts[tu])):
+                depth += {"{": 1, "}": -1}.get(texts[tu][j], 0)
+                if depth == 0:
+                    break
+            bodies.add(texts[tu][i + 1:j])
+        if len(bodies) != 1:
+            continue
+        body = re.sub(r"\{[^{}]*\}", ";", bodies.pop())          # inline bodies
+        virt = re.findall(r"\bvirtual\b[^;(]*?(~?\w+)\s*\(", body)
+        if len(virt) != len(set(virt)):
+            continue          # overloads: the order is MSVC's grouping, not the declaration's
+        for sym, name in members:
+            if name in virt:
+                out[sym] = virt.index(name)
+    return out
+
+
+def stub_slot_aliases(objects, binding, by_addr_def, undef, how, slot_of=None):
     """{undefined virtual member: definition} from the clang objects' own stub vftables (see link_inventory)."""
     want = set(undef)
     slots = collections.defaultdict(set)        # symbol -> {(vftable symbol, slot)}
@@ -741,6 +859,11 @@ def stub_slot_aliases(objects, binding, by_addr_def, undef, how):
                 t = c.by_index.get(si)
                 if t and t[0] in want and va >= value and (va - value) % 4 == 0:
                     slots[t[0]].add((name, (va - value) // 4))
+    if slot_of is not None:
+        for s, refs in slots.items():
+            ns = {n for _v, n in refs}
+            if len(ns) == 1:
+                slot_of[s] = ns.pop()
     x = xbe()
     out = {}
     for s, refs in slots.items():
@@ -769,10 +892,10 @@ def stub_slot_aliases(objects, binding, by_addr_def, undef, how):
 DATA_LIKE = re.compile(r"^\?\?_[78R]|^\?[^@]+@.*@@[0-9]|^_(?:DAT|g|s|PTR|tbl|flt|dbl|unk)_|^\?\?_C@|^__real@")
 
 
-def lld_link(objects, aliases, undefined, vt_asm=None, dd_asm=None, startup_asm=None, libs=()):
+def lld_link(objects, aliases, undefined, vt_asm=None, dd_asm=None, startup_asm=None, libs=(), data_asm=None, vthunks=None):
     d = os.path.join(OUT, "link")
     os.makedirs(d, exist_ok=True)
-    for name, text in (("vtables", vt_asm), ("deleting", dd_asm), ("startup", startup_asm)):
+    for name, text in (("vtables", vt_asm), ("deleting", dd_asm), ("startup", startup_asm), ("data", data_asm)):
         if not text:
             continue
         with open(os.path.join(d, name + ".s"), "w") as f:
@@ -790,7 +913,7 @@ def lld_link(objects, aliases, undefined, vt_asm=None, dd_asm=None, startup_asm=
         return {"status": "lld-link not found"}
     # one stub per symbol still undefined: 16 zero bytes for data; code reports its name (src/platform/sdl/xdk/
     # startup.cpp hulk_native_missing). Without the start-up object (no shim), the old int3 entry.
-    text = native_host.stubs_asm(undefined, DATA_LIKE)
+    text = native_host.stubs_asm(undefined, DATA_LIKE, vthunks)
     if not startup_asm:
         text = '\t.text\n\t.globl\t"_hulk_native_entry"\n"_hulk_native_entry":\n\tint3\n' + text
     with open(os.path.join(d, "stubs.s"), "w") as f:
@@ -865,7 +988,7 @@ def main(argv=None):
         defs = {int(k, 16): v for k, v in bj["definitions"].items()}
         rep = json.load(open(os.path.join(OUT, "report.json")))
         rep["link"] = link_inventory(binding, defs, {}, not a.no_link, set(amb), bj.get("ambiguous_by_tu"),
-                                     bj.get("ambiguous_by_function"))
+                                     bj.get("ambiguous_by_function"), bj.get("local_data"))
         rep["conv_check"] = conv_check()
         with open(os.path.join(OUT, "report.json"), "w") as f:
             json.dump(rep, f, indent=1)
@@ -905,7 +1028,8 @@ def main(argv=None):
             amb_fn.setdefault(s_, {}).update(wrong)
     how = collections.Counter("+".join(b["how"]) for b in binding.values())
     with open(os.path.join(OUT, "bindings.json"), "w") as f:
-        json.dump({"bindings": binding, "ambiguous": amb, "ambiguous_by_tu": amb_tu, "ambiguous_by_function": amb_fn, "definitions": {"0x%08x" % k: v for k, v in sorted(defs.items())},
+        json.dump({"bindings": binding, "ambiguous": amb, "ambiguous_by_tu": amb_tu, "ambiguous_by_function": amb_fn,
+                   "local_data": getattr(build_map, "local_data", {}), "definitions": {"0x%08x" % k: v for k, v in sorted(defs.items())},
                    "references": dict(users)}, f, indent=0)
     with open(os.path.join(OUT, "alternatename.rsp"), "w") as f:
         for s, b in sorted(binding.items()):
@@ -916,7 +1040,8 @@ def main(argv=None):
            "aliases": sum(1 for s, b in binding.items() if b["def"] and b["def"] != s),
            "how": dict(how.most_common())}
     if not a.no_inventory:
-        rep["link"] = link_inventory(binding, defs, {}, not a.no_link, set(amb), amb_tu, amb_fn)
+        rep["link"] = link_inventory(binding, defs, {}, not a.no_link, set(amb), amb_tu, amb_fn,
+                                     getattr(build_map, "local_data", {}))
     rep["conv_check"] = conv_check()
     with open(os.path.join(OUT, "report.json"), "w") as f:
         json.dump(rep, f, indent=1)

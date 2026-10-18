@@ -305,14 +305,21 @@ def retarget_object(obj, mapping, out):
 
 
 # ---------------------------------------------------------------------------------------------
-def stubs_asm(undefined, data_like):
+def stubs_asm(undefined, data_like, vthunks=None):
     """The stub object for the symbols still undefined: data stubs are 16 zero bytes; a code stub calls
-    hulk_native_missing with its own name (startup.cpp: logs the caller and ends the run)."""
+    hulk_native_missing with its own name (startup.cpp: logs the caller and ends the run). A virtual member of a
+    stub class with a known slot (vthunks {symbol: slot}) dispatches through `this`'s vftable instead (thiscall:
+    `this` in ecx), unless that slot is the stub itself (a clang stub vftable: then it reports itself)."""
     code, data, names = ["\t.text"], [], []
     for k, s in enumerate(sorted(undefined)):
         q = '"%s"' % s.replace('"', '\\"')
         if data_like.match(s):
             data += ["\t.globl\t%s" % q, "%s:" % q, "\t.zero\t16"]
+        elif vthunks and s in vthunks:
+            code += ["\t.globl\t%s" % q, "%s:" % q, "\tmovl\t(%ecx), %eax", "\tmovl\t%d(%%eax), %%eax" % (4 * vthunks[s]),
+                     "\tcmpl\t$%s, %%eax" % q, "\tje\tLself%d" % k, "\tjmpl\t*%eax", "Lself%d:" % k,
+                     "\tpushl\t$Lname%d" % k, "\tcalll\t_hulk_native_missing", "\tint3"]
+            names += ["Lname%d:" % k, '\t.asciz\t"%s"' % s.replace("\\", "\\\\").replace('"', '\\"')]
         else:
             code += ["\t.globl\t%s" % q, "%s:" % q, "\tpushl\t$Lname%d" % k, "\tcalll\t_hulk_native_missing", "\tint3"]
             names += ["Lname%d:" % k, '\t.asciz\t"%s"' % s.replace("\\", "\\\\").replace('"', '\\"')]
@@ -459,3 +466,143 @@ def globalize_object(obj, names, out):
     with open(out, "wb") as f:
         f.write(d)
     return n
+
+
+# ---------------------------------------------------------------------------------------------
+# Data layout: the data TUs' items at the XBE's distances
+DATA_SYM_RX = re.compile(r"^(?:_|\?)DAT_(00[0-9a-f]{6})(?:$|@@)")
+GAP_LIMIT = 0x10000         # a larger gap between two items starts a new block
+
+
+def data_block(x, objs):
+    """build/native/link/data.s: every item the data TUs (tools/data_gen.py, compiled by clang) define, placed at
+    the XBE's distances from its neighbours, instead of the data TU objects themselves.
+
+    Why: the inventory splits one structure into several items where the code addresses its fields separately (the
+    `om` type tree's header at 0x004e79b8: root, then the nil node at +4, each a 4-byte item); as separate C variables
+    the native link places them wherever the compiler and linker like (clang put `DAT_004cd384` between the two),
+    so `&root + 4` is not the nil node. Here each item is copied from its object (bytes and DIR32 relocations, i.e.
+    exactly the verified data TU's contents: no MSVC input changes) and laid out in address order, one block per
+    run of items in one XBE section (gaps up to 64 KB zero-filled: vftables, RTTI and library data live elsewhere in
+    the image), each block starting at the item's address modulo 16. Labels keep each item's symbol.
+
+    objs: the data TU objects (after any relocation patches). Returns {"asm", "defined", "objects_used", "stats"}."""
+    import compare
+    st = collections.Counter()
+    sizes = {int(it["addr"], 16): it["size"] for it in json.load(open(os.path.join(ROOT, "config/data.json")))["items"]}
+    rdata = next(s for s in x.sections if s.name == ".rdata")
+    data = next(s for s in x.sections if s.name == ".data")
+
+    def region(a):
+        if rdata.va <= a < rdata.va + rdata.vsize:
+            return ".rdata"
+        if data.va <= a < data.va + data.rsize:
+            return ".data"
+        if data.va + data.rsize <= a < data.va + data.vsize:
+            return ".bss"
+        return None
+    items = {}                  # addr -> (symbol, bytes, {offset: (target, addend)})
+    defined, used, mismatch = set(), [], []
+    for o in objs:
+        c = compare.Coff(o)
+        d = c.data
+        _, nsec, _, symoff, nsym, opthdr, _ = struct.unpack_from("<HHIIIHH", d, 0)
+        secsize = [struct.unpack_from("<I", d, 20 + opthdr + k * 40 + 16)[0] for k in range(nsec)]
+        by_sec = collections.defaultdict(list)          # secnum -> [(value, addr, symbol)]
+        others = []
+        for name, value, secnum, typ, cls in c.symbols:
+            if secnum <= 0 or cls != 2:
+                continue
+            m = DATA_SYM_RX.match(name)
+            if not m:
+                others.append(name)
+                continue
+            by_sec[secnum].append((value, int(m.group(1), 16), name))
+        if others:
+            st["data objects defining other symbols (kept as objects)"] += 1
+            continue
+        used.append(o)
+        for secnum, syms in by_sec.items():
+            _, raw, relocs = c.sections[secnum - 1]
+            for value, a, name in syms:
+                n = sizes.get(a)
+                if n is None:
+                    st["items not in config/data.json (skipped)"] += 1
+                    continue
+                if value + n > secsize[secnum - 1]:
+                    st["items larger than their section (skipped)"] += 1
+                    continue
+                b = bytes(raw[value:value + n]) if raw else bytes(n)
+                rel = {}
+                for va, si, typ in relocs:
+                    if value <= va < value + n:
+                        t = c.by_index.get(si)
+                        add, = struct.unpack_from("<i", raw, va)
+                        if typ != 0x06 or t is None:
+                            st["relocations other than DIR32 (item skipped)"] += 1
+                            rel = None
+                            break
+                        if t[4] != 2:   # a section symbol of this object: the item at that offset
+                            tgt = next(((nm, t[1] + add - v) for v, aa, nm in by_sec.get(t[2], [])
+                                        if v <= t[1] + add < v + sizes.get(aa, 0)), None)
+                            if tgt is None:
+                                rel = None
+                                st["relocations to an unknown local (item skipped)"] += 1
+                                break
+                            rel[va - value] = tgt
+                        else:
+                            rel[va - value] = (t[0], add)
+                if rel is None:
+                    continue
+                if a in items:
+                    st["items defined twice (second dropped)"] += 1
+                    continue
+                if region(a) is None:
+                    st["items outside .rdata/.data (skipped)"] += 1
+                    continue
+                items[a] = (name, b, rel)
+                defined.add(name)
+                # (sanity: the bytes outside relocations equal the XBE's; .bss has none)
+                xo = x.offset(a)
+                if xo is not None:
+                    orig = x.data[xo:xo + n]
+                    if any(orig[k] != b[k] for k in range(n) if not any(r <= k < r + 4 for r in rel)):
+                        mismatch.append(name)
+    st["items"] = len(items)
+    st["data objects replaced by the block"] = len(used)
+    st["items whose bytes differ from the XBE outside relocations"] = len(mismatch)
+    out, prev, prev_reg, blocks = [], None, None, 0
+    sec_dir = {".rdata": '\t.section\t.rdata,"dr"', ".data": "\t.data", ".bss": "\t.bss"}
+    for a in sorted(items):
+        name, b, rel = items[a]
+        reg = region(a)
+        if prev is None or reg != prev_reg or a - prev > GAP_LIMIT or a < prev:
+            if prev is not None and a < prev:
+                st["overlapping items (new block)"] += 1
+            blocks += 1
+            out += [sec_dir[reg], "\t.p2align\t4"]
+            if a & 15:
+                out.append("\t.zero\t%d" % (a & 15))
+        elif a > prev:
+            out.append("\t.zero\t%d" % (a - prev))
+        q = '"%s"' % name
+        out += ["\t.globl\t%s" % q, "%s:" % q]
+        if reg == ".bss":
+            out.append("\t.zero\t%d" % len(b))
+        else:
+            pos = 0
+            while pos < len(b):
+                if pos in rel:
+                    t, add = rel[pos]
+                    out.append('\t.long\t"%s"%s' % (t, "%+d" % add if add else ""))
+                    pos += 4
+                    continue
+                k = pos
+                while k < len(b) and k - pos < 32 and not any(r <= k < r + 4 for r in rel):
+                    k += 1
+                out.append("\t.byte\t" + ",".join(str(v) for v in b[pos:k]))
+                pos = k
+        prev, prev_reg = a + len(b), reg
+    st["blocks"] = blocks
+    return {"asm": "\n".join(out) + "\n", "defined": defined, "objects_used": used, "stats": dict(st),
+            "mismatch": mismatch[:20]}

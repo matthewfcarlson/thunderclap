@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 20/20)
+// FUN_0033cc10 @ 0x0033cc10
 // FUN_0033cc10 @ 0x0033cc10
 struct MatchState_33cc10 { const char* begin; const char* end; void* state; unsigned depth; char captures[256]; };
 struct Locals_33cc10 { unsigned length; const char* pattern; unsigned patternLength; int anchored; MatchState_33cc10 match; };
@@ -11,7 +12,7 @@ extern "C" const char* __cdecl FUN_0033c7e0(MatchState_33cc10*, const char*, con
 extern "C" const char* __cdecl FUN_0033caa0(const char*, unsigned, const char*, unsigned);
 extern "C" void __cdecl FUN_00213360(void*, unsigned);
 extern "C" void __cdecl FUN_00213320(void*);
-// equiv-conv: FUN_0033cb70 esi eax ecx
+// equiv-conv: FUN_0033cb70 esi ecx eax
 extern "C" int __cdecl FUN_0033cb70(MatchState_33cc10*, int, int);
 int __cdecl FUN_0033cc10(void* state) {
  Locals_33cc10 local;
@@ -35,7 +36,7 @@ int __cdecl FUN_0033cc10(void* state) {
    if(end) {
     FUN_00213360(state,(unsigned)(position-text)+1);
     FUN_00213360(state,(unsigned)(end-text));
-    return FUN_0033cb70(&local.match,0,0)+2;
+    return FUN_0033cb70(&local.match, 0, 0)+2;
    }
    const char* previous=position++;
    if(previous >= local.match.end || local.anchored) break;

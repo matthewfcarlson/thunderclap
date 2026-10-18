@@ -1,6 +1,6 @@
 struct Core_1c3fd0 {
     void Init(void*, int, int, int, int);
-    void Finish();
+    int Finish();
 };
 class Obj_1c3fd0 {
   public:
@@ -14,10 +14,10 @@ class Obj_1c3fd0 {
     int field68;
     unsigned char flag6c;
 };
-void __fastcall Target(Obj_1c3fd0* self) {
+int __fastcall Target(Obj_1c3fd0* self) {
     if (!self->flag6c) {
         self->core->Init(&self->field1, self->field5c, self->field60, self->field64, self->field68);
         self->flag6c = 1;
     }
-    self->core->Finish();
+    return self->core->Finish();
 }

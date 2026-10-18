@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 19915 inputs, branch coverage 2/2)
+// FUN_002172c0 @ 0x002172c0
 // FUN_002172c0 @ 0x002172c0
 struct Node;
 struct Node2_2172c0 { unsigned char pad4; unsigned char flags; };
@@ -18,8 +19,8 @@ struct State_2172c0 {
     Marker_2172c0 *marker;
 };
 
-// equiv-conv: FUN_00216e10 ebx stack stack
-int __cdecl FUN_00216e10(Object *object, int flag, int amount);
+// equiv-conv: FUN_00216e10 stack stack ebx
+int __cdecl FUN_00216e10(int flag, int amount, Object *object);
 Node **__cdecl FUN_002171c0(Object *object, Node **link, int mode, int *budget, int *count);
 void __cdecl FUN_002164b0(State_2172c0 *state, Marker_2172c0 *marker);
 
@@ -27,7 +28,7 @@ void __cdecl FUN_002172c0(Object *object)
 {
     State_2172c0 *s = object->state;
     int budget = 0x7fffffff;
-    FUN_00216e10(object, 0, 0x7fffffff);
+    FUN_00216e10(0, 0x7fffffff, object);
     FUN_002171c0(object, &s->head, 0, &budget, 0);
     Marker_2172c0 *marker = s->marker;
     if (marker->flags & 3)
@@ -35,6 +36,6 @@ void __cdecl FUN_002172c0(Object *object)
     s->mode ^= 3;
     s->tail = &s->head;
     s->f24 = 0;
-    FUN_00216e10(object, 0, 0x7fffffff);
+    FUN_00216e10(0, 0x7fffffff, object);
     FUN_002171c0(object, &s->head, 0, &budget, 0);
 }

@@ -96,7 +96,7 @@ STATE = os.path.join(TREE, "state.json")
 SOURCE_DIRS = ("matches", "equivalent")     # earlier wins
 DEFAULT_FLAGS = ["/nologo", "/c", "/O2", "/GR", "/GX", "/Gy"]
 ALLOWED_FLAGS = {"/Oy-", "/Oy", "/O1", "/O2", "/Ox", "/Os", "/Ot", "/Og", "/Oi", "/Ob0", "/Ob1", "/Ob2",
-                 "/GX", "/GX-", "/GR", "/GR-", "/Gy"}
+                 "/GX", "/GX-", "/GR", "/GR-", "/Gy", "/GS", "/GS-"}
 
 # Item kinds whose symbol may have only one variant in a scope.
 SINGLE = {"class", "template class", "enum", "typedef", "var", "cfunc", "macro", "funcdef", "template func",

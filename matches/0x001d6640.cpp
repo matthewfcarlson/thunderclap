@@ -4,9 +4,9 @@ class C_1d6640 {
     int a;
     char pad44[0xa8];
     C_1d6640* p;
-    void g(int);
-    void target();
+    int g(int);
+    int target();
 };
-void C_1d6640::target() {
-    p->g(a);
+int C_1d6640::target() {
+    return p->g(a);
 }

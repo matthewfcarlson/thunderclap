@@ -9,14 +9,16 @@ struct Pair_1ae9e0 {
     Node* n;
     void* o;
 };
-void* __stdcall FUN_00230be0(void* a, const Src_1ae9e0* b);
+struct This_FUN_00230be0 {
+    void* FUN_00230be0(void* a, const Src_1ae9e0* b);
+};
 void* FUN_0008d6d0(unsigned n);
 struct O_1ae9e0 {
     void F(Pair_1ae9e0* out, const Src_1ae9e0* s);
     void G(Node* n, void* a, void* b);
 };
 void O_1ae9e0::F(Pair_1ae9e0* out, const Src_1ae9e0* s) {
-    void* p = FUN_00230be0((void*)0x1ad4f0, s);
+    void* p = ((This_FUN_00230be0*)this)->FUN_00230be0((void*)0x1ad4f0, s);
     if (!p) {
         out->n = 0;
         out->o = 0;

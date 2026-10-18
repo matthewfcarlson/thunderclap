@@ -1,14 +1,15 @@
-// STATUS: equivalent (tools/equiv.py level 3: 207 inputs, branch coverage 31/36, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 982 inputs, branch coverage 31/36, incomplete)
+// FUN_003435d0 @ 0x003435d0
 // FUN_003435d0 @ 0x003435d0
 // split-radix float FFT pass (Ooura-style cftrec4 middle): n in eax, then (a, nw, w) on the stack
 // equiv-conv: FUN_00341290 eax stack stack
 extern void __cdecl FUN_00341290(float *a, int l, float *w);
 // equiv-conv: FUN_00341660 eax stack stack
 extern void __cdecl FUN_00341660(float *a, int l, float *w);
-// equiv-conv: FUN_00341bd0 ecx eax
-extern void __cdecl FUN_00341bd0(float *w, float *a);
-// equiv-conv: FUN_00342180 ecx eax
-extern void __cdecl FUN_00342180(float *w, float *a);
+// equiv-conv: FUN_00341bd0 eax ecx
+extern void __cdecl FUN_00341bd0(float *a, float *w);
+// equiv-conv: FUN_00342180 eax ecx
+extern void __cdecl FUN_00342180(float *a, float *w);
 // equiv-conv: FUN_00342800 ecx eax
 extern void __cdecl FUN_00342800(float *w, float *a);
 // equiv-conv: FUN_003429f0 ecx eax
@@ -39,10 +40,10 @@ void __cdecl FUN_003435d0(int n, float *a, int nw, float *w)
             float *p = &a[j];
             FUN_00341290(p, l, &w[nw - (l >> 1)]);
             if (l == 0x80) {
-                FUN_00341bd0(&w[nw - 8], p);
-                FUN_00342180(&w[nw - 0x20], p + 0x20);
-                FUN_00341bd0(&w[nw - 8], p + 0x40);
-                FUN_00341bd0(&w[nw - 8], p + 0x60);
+                FUN_00341bd0(p, &w[nw - 8]);
+                FUN_00342180(p + 0x20, &w[nw - 0x20]);
+                FUN_00341bd0(p + 0x40, &w[nw - 8]);
+                FUN_00341bd0(p + 0x60, &w[nw - 8]);
             } else {
                 FUN_00342800(&w[nw - 0x10], p);
                 FUN_003429f0(&w[nw - 0x10], p + 0x10);
@@ -52,10 +53,10 @@ void __cdecl FUN_003435d0(int n, float *a, int nw, float *w)
             p = &a[j + m];
             FUN_00341290(p, l, &w[nw - (l >> 1)]);
             if (l == 0x80) {
-                FUN_00341bd0(&w[nw - 8], p);
-                FUN_00342180(&w[nw - 0x20], p + 0x20);
-                FUN_00341bd0(&w[nw - 8], p + 0x40);
-                FUN_00341bd0(&w[nw - 8], p + 0x60);
+                FUN_00341bd0(p, &w[nw - 8]);
+                FUN_00342180(p + 0x20, &w[nw - 0x20]);
+                FUN_00341bd0(p + 0x40, &w[nw - 8]);
+                FUN_00341bd0(p + 0x60, &w[nw - 8]);
             } else {
                 FUN_00342800(&w[nw - 0x10], p);
                 FUN_003429f0(&w[nw - 0x10], p + 0x10);
@@ -67,10 +68,10 @@ void __cdecl FUN_003435d0(int n, float *a, int nw, float *w)
             float *p = &a[j];
             FUN_00341660(p, l, &w[nw - l]);
             if (l == 0x80) {
-                FUN_00341bd0(&w[nw - 8], p);
-                FUN_00342180(&w[nw - 0x20], p + 0x20);
-                FUN_00341bd0(&w[nw - 8], p + 0x40);
-                FUN_00342180(&w[nw - 0x20], p + 0x60);
+                FUN_00341bd0(p, &w[nw - 8]);
+                FUN_00342180(p + 0x20, &w[nw - 0x20]);
+                FUN_00341bd0(p + 0x40, &w[nw - 8]);
+                FUN_00342180(p + 0x60, &w[nw - 0x20]);
             } else {
                 FUN_00342800(&w[nw - 0x10], p);
                 FUN_003429f0(&w[nw - 0x10], p + 0x10);
@@ -80,10 +81,10 @@ void __cdecl FUN_003435d0(int n, float *a, int nw, float *w)
             p = &a[j + m];
             FUN_00341660(p, l, &w[nw - l]);
             if (l == 0x80) {
-                FUN_00341bd0(&w[nw - 8], p);
-                FUN_00342180(&w[nw - 0x20], p + 0x20);
-                FUN_00341bd0(&w[nw - 8], p + 0x40);
-                FUN_00342180(&w[nw - 0x20], p + 0x60);
+                FUN_00341bd0(p, &w[nw - 8]);
+                FUN_00342180(p + 0x20, &w[nw - 0x20]);
+                FUN_00341bd0(p + 0x40, &w[nw - 8]);
+                FUN_00342180(p + 0x60, &w[nw - 0x20]);
             } else {
                 FUN_00342800(&w[nw - 0x10], p);
                 FUN_003429f0(&w[nw - 0x10], p + 0x10);

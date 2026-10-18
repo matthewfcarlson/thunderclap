@@ -18,13 +18,13 @@ class Param {
 };
 class Helper_23c920 {
   public:
-    void f();
+    void f(int, int, int);
 };
 class SubConditionGroupCondition : public Condition, public Param {
   public:
     virtual void vfunc_5();
-    virtual void vfunc_6();
+    virtual void vfunc_6(int, int, int);
 };
-void SubConditionGroupCondition::vfunc_6() {
-    ((Helper_23c920*)((char*)this + 0xc))->f();
+void SubConditionGroupCondition::vfunc_6(int a0, int a1, int a2) {
+    ((Helper_23c920*)((char*)this + 0xc))->f(a0, a1, a2);
 }

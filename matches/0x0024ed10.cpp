@@ -10,12 +10,12 @@ class Data {
     char pad[12];
 
   public:
-    Data(const char*, int, void*, int, int) throw();
+    Data* Init(const char*, int) throw();
     ~Data() throw();
 };
 class Base {
   public:
-    Base(const Data&) throw();
+    Base(Data*, void*, int, int) throw();
     virtual void f();
 };
 class audio_SeqEventChannelSendVolumesType : public Base {
@@ -24,4 +24,4 @@ class audio_SeqEventChannelSendVolumesType : public Base {
     virtual void f();
 };
 audio_SeqEventChannelSendVolumesType::audio_SeqEventChannelSendVolumesType() throw()
-    : Base(Data("ChSendVol", 0, Key(Lookup("SeqEventChannelSendVolumes", 0, 0)), 0x50, 4)) {}
+    : Base(Data().Init("ChSendVol", 0), Key(Lookup("SeqEventChannelSendVolumes", 0, 0)), 0x50, 4) {}

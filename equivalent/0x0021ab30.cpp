@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 9773 inputs, branch coverage 8/8)
+// FUN_0021ab30 @ 0x0021ab30
 // FUN_0021ab30 @ 0x0021ab30
 struct Dump {
     void* L;
@@ -27,12 +28,12 @@ struct Proto {
 
 // equiv-conv: FUN_0021a790 eax esi
 void __stdcall FUN_0021a790(Proto* s, Dump* D);
-// equiv-conv: FUN_0021a830 stack esi
-void __stdcall FUN_0021a830(Proto* f, Dump* D);
-// equiv-conv: FUN_0021a960 stack esi
-void __stdcall FUN_0021a960(Proto* f, Dump* D);
-// equiv-conv: FUN_0021aa00 stack esi
-void __stdcall FUN_0021aa00(Proto* f, Dump* D);
+// equiv-conv: FUN_0021a830 esi stack
+void __stdcall FUN_0021a830(Dump* D, Proto* f);
+// equiv-conv: FUN_0021a960 esi stack
+void __stdcall FUN_0021a960(Dump* D, Proto* f);
+// equiv-conv: FUN_0021aa00 esi stack
+void __stdcall FUN_0021aa00(Dump* D, Proto* f);
 
 static void put(Dump* D, const void* p, int n)
 {
@@ -72,15 +73,15 @@ void FUN_0021ab30(Proto* f, Proto* p, Dump* D)
         v.i = 0;
         put(D, &v, 4);
     } else {
-        FUN_0021a830(f, D);
+        FUN_0021a830(D, f);
     }
     if (D->strip) {
         v.i = 0;
         put(D, &v, 4);
     } else {
-        FUN_0021a960(f, D);
+        FUN_0021a960(D, f);
     }
-    FUN_0021aa00(f, D);
+    FUN_0021aa00(D, f);
     v.i = f->sizek;
     put(D, &v, 4);
     put(D, f->k, f->sizek * 4);

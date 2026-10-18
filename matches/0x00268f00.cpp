@@ -5,10 +5,12 @@ class Callback_268f00 {
   public:
     virtual void Call(int, float);
 };
-extern float __stdcall Convert(int);
+struct This_Convert {
+    float Convert(int);
+};
 
 void core::ControllerInputPointXBox::vfunc_14(int a, int b) {
-    float value = Convert(b);
+    float value = ((This_Convert*)this)->Convert(b);
     if (value == this->f_08 || !((float)fabs(value - this->f_08) >= this->f_14))
         this->f_18 = a - this->f_1c;
     else {

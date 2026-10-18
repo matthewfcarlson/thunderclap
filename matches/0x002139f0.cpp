@@ -9,9 +9,9 @@ struct Pair_2139f0 {
     int z;
 };
 int __fastcall calc(int x, Obj_2139f0* o);
-void __cdecl process(Obj_2139f0*, void*, Pair_2139f0*, int, int);
+int __cdecl process(Obj_2139f0*, void*, Pair_2139f0*, int, int);
 extern "C" char marker;
-void __cdecl target(Obj_2139f0* o, int n, int v, int x) {
+int __cdecl target(Obj_2139f0* o, int n, int v, int x) {
     int t;
     if (x == 0)
         t = 0;
@@ -20,5 +20,5 @@ void __cdecl target(Obj_2139f0* o, int n, int v, int x) {
     Pair_2139f0 p;
     p.a = o->a - (n * 8 + 8);
     p.z = v;
-    process(o, &marker, &p, p.a - o->b, t);
+    return process(o, &marker, &p, p.a - o->b, t);
 }

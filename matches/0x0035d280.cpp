@@ -1,3 +1,4 @@
+extern "C" void __cdecl FUN_00363d00();
 extern "C" int atexit(void (*)(void));
 struct G {
     void Init(const char*, int);
@@ -5,5 +6,5 @@ struct G {
 extern G g;
 void Init() {
     g.Init("sound/rsd", 0);
-    atexit((void (*)(void))0x363d00);
+    atexit(FUN_00363d00);
 }

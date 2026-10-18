@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 125 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 11901 inputs, branch coverage 24/24)
+// FUN_00220050 @ 0x00220050
 // FUN_00220050 @ 0x00220050
 struct Str;
 
@@ -39,10 +40,10 @@ Proto_220050 *FUN_002196d0(State_220050 *L);
 void FUN_00215460(State_220050 *L, int n);
 // equiv-conv: FUN_0021fa80 eax
 Str *FUN_0021fa80(Reader *S);
-// equiv-conv: FUN_0021f8c0 eax ecx edx
-void FUN_0021f8c0(int size, void *dst, Reader *r);
-// equiv-conv: FUN_0021f800 stack esi
-void FUN_0021f800(const char *msg, Reader *r);
+// equiv-conv: FUN_0021f8c0 ecx eax edx
+void FUN_0021f8c0(void *dst, int size, Reader *r);
+// equiv-conv: FUN_0021f800 esi stack
+void FUN_0021f800(Reader *r, const char *msg);
 int FUN_0021a550(Zio_220050 *z);
 // equiv-conv: FUN_0021fcb0 eax ebx
 void FUN_0021fcb0(Reader *S, Proto_220050 *f);
@@ -71,7 +72,7 @@ static int LoadByte(Reader *S)
         ch = FUN_0021a550(z);
     }
     if (ch == -1)
-        FUN_0021f800("unexpected end of file", S);
+        FUN_0021f800(S, "unexpected end of file");
     return ch;
 }
 
@@ -90,9 +91,9 @@ Proto_220050 *FUN_00220050(Reader *S, Str *parent)
     f->source = FUN_0021fa80(S);
     if (f->source == 0)
         f->source = parent;
-    FUN_0021f8c0(4, &v, S);
+    FUN_0021f8c0(&v, 4, S);
     if (v < 0)
-        FUN_0021f800("bad integer", S);
+        FUN_0021f800(S, "bad integer");
     f->lineDefined = v;
     f->b44 = (unsigned char)LoadByte(S);
     f->b45 = (unsigned char)LoadByte(S);
@@ -104,7 +105,7 @@ Proto_220050 *FUN_00220050(Reader *S, Str *parent)
     FUN_0021fe20(S, f);
     FUN_0021faf0(S, f);
     if (FUN_002146a0(f) == 0)
-        FUN_0021f800("bad code", S);
+        FUN_0021f800(S, "bad code");
     S->L->top--;
     return f;
 }

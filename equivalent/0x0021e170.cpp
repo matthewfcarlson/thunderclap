@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 83 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 20023 inputs, branch coverage 14/14)
+// FUN_0021e170 @ 0x0021e170
 // FUN_0021e170 @ 0x0021e170
 struct ExpDesc_21e170 {
     int k;
@@ -36,12 +37,12 @@ int __cdecl FUN_0021bbc0(LexState_21e170 *ls, int *seminfo);
 void FUN_0021d830(ExpDesc_21e170 *v, LexState_21e170 *ls);
 // equiv-conv: FUN_0021e110 ecx eax edi
 void FUN_0021e110(LexState_21e170 *ls, LHSAssign *lh, ExpDesc_21e170 *v);
-// equiv-conv: FUN_0021c2e0 eax esi
-void FUN_0021c2e0(int token, LexState_21e170 *ls);
+// equiv-conv: FUN_0021c2e0 esi eax
+void FUN_0021c2e0(LexState_21e170 *ls, int token);
 // equiv-conv: FUN_0021d5c0 esi edi
 int FUN_0021d5c0(LexState_21e170 *ls, ExpDesc_21e170 *e);
-// equiv-conv: FUN_0021c8b0 eax stack edx ecx
-void FUN_0021c8b0(LexState_21e170 *ls, int nvars, int nexps, ExpDesc_21e170 *e);
+// equiv-conv: FUN_0021c8b0 eax ecx edx stack
+void FUN_0021c8b0(LexState_21e170 *ls, ExpDesc_21e170 *e, int nexps, int nvars);
 void __cdecl FUN_00220a50(FuncState_21e170 *fs, ExpDesc_21e170 *e, int nresults);
 void __cdecl FUN_00221280(FuncState_21e170 *fs, ExpDesc_21e170 *var, ExpDesc_21e170 *e);
 
@@ -66,14 +67,14 @@ void __cdecl FUN_0021e170(LexState_21e170 *ls, LHSAssign *lh, int nvars)
             FUN_0021e110(ls, lh, &f.nv.v);
         FUN_0021e170(ls, &f.nv, nvars + 1);
     } else {
-        FUN_0021c2e0('=', ls);
+        FUN_0021c2e0(ls, '=');
         int nexps = FUN_0021d5c0(ls, &f.e);
         if (nexps == nvars) {
             FUN_00220a50(ls->fs, &f.e, 1);
             FUN_00221280(ls->fs, &lh->v, &f.e);
             return;
         }
-        FUN_0021c8b0(ls, nvars, nexps, &f.e);
+        FUN_0021c8b0(ls, &f.e, nexps, nvars);
         if (nexps > nvars)
             ls->fs->freereg += nvars - nexps;
     }

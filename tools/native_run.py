@@ -7,7 +7,8 @@
 
 Wine: Whisky's Wine (WINE env var to override), always in our own prefix, build/native/wineprefix (WINEPREFIX is
 set by this tool; the user's bottles are never touched). The image reads the extracted game files from
-isos/extracted (HULK_DATA_DIR) and writes saves under build/native/run/save (HULK_SAVE_DIR).
+isos/extracted (HULK_DATA_DIR) and writes saves under build/native/run/save (HULK_SAVE_DIR) and title storage
+(`T:\\`) under build/native/tdata (HULK_TDATA_DIR).
 
 Outputs (build/native/run/, not tracked): trace.txt (the image's own trace: src/platform/sdl/xdk/startup.cpp),
 stdout.txt / stderr.txt (Wine's), summary.json and summary.txt: the trace with every code address turned into the
@@ -170,8 +171,10 @@ def main(argv=None):
     if os.path.exists(trace):
         os.remove(trace)
     os.makedirs(os.path.join(rundir, "save"), exist_ok=True)
+    os.makedirs(os.path.join(a.out, "tdata"), exist_ok=True)     # T:\ (title storage), kept between runs
     env = {"HULK_TRACE_FILE": to_wine_path(trace), "HULK_DATA_DIR": to_wine_path(os.path.join(ROOT, "isos/extracted")),
-           "HULK_SAVE_DIR": to_wine_path(os.path.join(rundir, "save"))}
+           "HULK_SAVE_DIR": to_wine_path(os.path.join(rundir, "save")),
+           "HULK_TDATA_DIR": to_wine_path(os.path.join(a.out, "tdata"))}
     r = run(exe, prefix, a.timeout, env, rundir)
     sym = Symbolizer(os.path.splitext(exe)[0] + ".map", os.path.join(a.out, "bindings.json"))
     s, nice = summarize(trace, sym)

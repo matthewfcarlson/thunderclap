@@ -1,15 +1,15 @@
 class Sub_1c3b20 {
   public:
-    void Fn();
+    int Fn(int, int);
 };
 
 class C_1c3b20 {
   public:
     char pad[8];
     Sub_1c3b20* mSub;
-    void Forward();
+    int Forward(int, int);
 };
 
-void C_1c3b20::Forward() {
-    mSub->Fn();
+int C_1c3b20::Forward(int a0, int a1) {
+    return mSub->Fn(a0, a1);
 }

@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 17/20, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20032 inputs, branch coverage 18/20, incomplete)
+// FUN_00220310 @ 0x00220310
 // FUN_00220310 @ 0x00220310
 struct State;
 
@@ -18,8 +19,8 @@ struct Reader {
 void FUN_00220220(Reader *S);
 // equiv-conv: FUN_002202a0 eax edi stack
 void FUN_002202a0(Reader *S, int size, const char *name);
-// equiv-conv: FUN_0021f8c0 eax ecx edx
-void FUN_0021f8c0(int size, void *dst, Reader *r);
+// equiv-conv: FUN_0021f8c0 ecx eax edx
+void FUN_0021f8c0(void *dst, int size, Reader *r);
 // equiv-conv: FUN_0021f800 stack esi
 void FUN_0021f800(const char *msg, Reader *r, ...);
 int __cdecl FUN_0021a550(Zio_220310 *z);
@@ -76,7 +77,7 @@ void FUN_00220310(Reader *S)
     FUN_002202a0(S, 4, "instruction");
     FUN_002202a0(S, 4, "number");
 
-    FUN_0021f8c0(4, &x, S);
+    FUN_0021f8c0(&x, 4, S);
     if ((int)x != 0x1df5e76)
         FUN_0021f800("unknown number format", S);
 }

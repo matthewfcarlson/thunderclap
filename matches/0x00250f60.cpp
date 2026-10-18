@@ -6,12 +6,12 @@ struct Arg {
 class Name {
   public:
     char pad[12];
-    Name(const char*, int, const Arg&, int, int) throw();
+    Name* Init(const char*, int) throw();
     ~Name() throw();
 };
 class Base {
   public:
-    Base(const Name&) throw();
+    Base(Name*, const Arg&, int, int) throw();
     virtual void f();
 };
 class audioSeq : public Base {
@@ -19,4 +19,4 @@ class audioSeq : public Base {
     audioSeq();
     virtual void f();
 };
-audioSeq::audioSeq() : Base(Name("Stop", 0, Arg(), 32, 4)) {}
+audioSeq::audioSeq() : Base(Name().Init("Stop", 0), Arg(), 32, 4) {}

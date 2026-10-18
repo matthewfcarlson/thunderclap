@@ -4,12 +4,12 @@ class Arg {
     char pad[12];
 
   public:
-    Arg(const char*, int, const __int64&, int, int) throw();
+    Arg* Init(const char*, int) throw();
     ~Arg() throw();
 };
 class Base {
   public:
-    Base(const Arg&) throw();
+    Base(Arg*, const __int64&, int, int) throw();
     virtual void f();
 };
 class audioSeqEventLogicOrType : public Base {
@@ -18,4 +18,4 @@ class audioSeqEventLogicOrType : public Base {
     virtual void g();
 };
 audioSeqEventLogicOrType::audioSeqEventLogicOrType() throw()
-    : Base(Arg(&data, 0, make("SeqEventLogicOr", 0, 0), 0x18, 4)) {}
+    : Base(Arg().Init(&data, 0), make("SeqEventLogicOr", 0, 0), 0x18, 4) {}

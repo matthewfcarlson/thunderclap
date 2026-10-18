@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 137 inputs, branch coverage 15/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20022 inputs, branch coverage 15/16, incomplete)
+// FUN_0021d630 @ 0x0021d630
 // FUN_0021d630 @ 0x0021d630
 struct FuncState_21d630 {
     char pad0[0x24];
@@ -33,8 +34,8 @@ void __cdecl FUN_0021b060(LexState_21d630 *ls, const char *msg);
 int __cdecl FUN_0021bbc0(LexState_21d630 *ls, int *seminfo);
 // equiv-conv: FUN_0021c190 esi
 void FUN_0021c190(LexState_21d630 *ls);
-// equiv-conv: FUN_0021c340 esi edi stack eax
-void FUN_0021c340(LexState_21d630 *ls, int what, int who, int line);
+// equiv-conv: FUN_0021c340 eax esi edi stack
+void FUN_0021c340(int line, LexState_21d630 *ls, int what, int who);
 // equiv-conv: FUN_0021cf70 ecx eax
 void FUN_0021cf70(LexState_21d630 *ls, void *e);
 // equiv-conv: FUN_0021d5c0 esi edi
@@ -75,7 +76,7 @@ void FUN_0021d630(LexState_21d630 *ls, ExpDesc_21d630 *f)
             FUN_0021d5c0(ls, &fr.args);
             FUN_00220a50(fs, &fr.args, -1);
         }
-        FUN_0021c340(ls, ')', '(', line);
+        FUN_0021c340(line, ls, ')', '(');
         break;
     case '{':
         FUN_0021cf70(ls, &fr.args);

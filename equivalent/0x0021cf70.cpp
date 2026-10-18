@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 164 inputs, branch coverage 24/28, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 12371 inputs, branch coverage 24/28, incomplete)
+// FUN_0021cf70 @ 0x0021cf70
 // FUN_0021cf70 @ 0x0021cf70
 struct Proto_21cf70 {
     char pad00[0xc];
@@ -56,8 +57,8 @@ int FUN_00215f50(unsigned int x);
 int FUN_00215f70(unsigned int x);
 // equiv-conv: FUN_0021c2e0 esi eax
 void FUN_0021c2e0(LexState_21cf70* ls, int token);
-// equiv-conv: FUN_0021c340 esi edi stack eax
-void FUN_0021c340(LexState_21cf70* ls, int what, int who, int line);
+// equiv-conv: FUN_0021c340 eax esi edi stack
+void FUN_0021c340(int line, LexState_21cf70* ls, int what, int who);
 // equiv-conv: FUN_0021cec0 esi edi
 void FUN_0021cec0(ConsControl* cc, FuncState_21cf70* fs);
 void __cdecl FUN_0021cd90(LexState_21cf70* ls, ConsControl* cc);
@@ -149,7 +150,7 @@ void FUN_0021cf70(LexState_21cf70* ls, Exp_21cf70* t)
         }
     }
 
-    FUN_0021c340(ls, 0x7d, 0x7b, line);
+    FUN_0021c340(line, ls, 0x7d, 0x7b);
     FUN_0021cec0(&cc, fs);
     unsigned int* ip = &fs->f->code[pc];
     int fb = FUN_00215f50(cc.na);

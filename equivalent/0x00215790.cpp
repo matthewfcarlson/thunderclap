@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 22/22)
+// FUN_00215790 @ 0x00215790
 // FUN_00215790 @ 0x00215790
 struct lua_State_215790;
 
@@ -51,8 +52,8 @@ struct lua_State_215790 {
 
 // equiv-conv: FUN_00215710 esi edi
 TObject_215790* FUN_00215710(lua_State_215790* L, TObject_215790* func);
-// equiv-conv: FUN_002155f0 esi edx stack
-void FUN_002155f0(lua_State_215790* L, TObject_215790* base, int numparams);
+// equiv-conv: FUN_002155f0 edx esi stack
+void FUN_002155f0(TObject_215790* base, lua_State_215790* L, int numparams);
 void FUN_002152b0(lua_State_215790* L, int code);
 void FUN_00215410(lua_State_215790* L, int newsize);
 void FUN_00214a90(lua_State_215790* L, const char* fmt, ...);
@@ -76,7 +77,7 @@ TObject_215790* FUN_00215790(lua_State_215790* L, TObject_215790* func)
     if (!cl->isC) {
         Proto_215790* p = cl->u.p;
         if (p->is_vararg)
-            FUN_002155f0(L, func + 1, p->numparams);
+            FUN_002155f0(func + 1, L, p->numparams);
         int n = p->maxstacksize;
         if ((char*)L->stack_last - (char*)L->top <= n * 8)
             FUN_00215460(L, n);

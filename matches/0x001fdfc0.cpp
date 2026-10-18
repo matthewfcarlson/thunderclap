@@ -3,7 +3,9 @@ class Item {
     void Act();
     char pad[0xc70];
 };
-int __stdcall Lookup(int);
+struct This_Lookup {
+    int Lookup(int);
+};
 class Obj {
     char pad[0x234];
     Item* items;
@@ -12,7 +14,7 @@ class Obj {
     bool Go(int);
 };
 bool Obj::Go(int id) {
-    int i = Lookup(id);
+    int i = ((This_Lookup*)this)->Lookup(id);
     if (i == -1)
         return false;
     items[i].Act();

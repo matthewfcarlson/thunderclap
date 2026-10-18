@@ -3,6 +3,7 @@
 // tools/native_shim.py --skeleton; real implementations replace these one by one (docs/native-build.md
 // "Platform shim"). Native builds only: tools/native_link.py compiles and links this directory.
 #include "imports.h"
+#include "../crt/host_crt.h"
 
 extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XLaunchNewImageA(hulk_u32 a0, hulk_u32 a1) {
     (void)a0; (void)a1;
@@ -18,12 +19,12 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XGetLaunchInfo(hulk_u32 a0, hulk_u32 a
 
 extern "C" hulk_u32 HULK_CDECL hulk_xdk_XGetLanguage(void) {
     HULK_XDK_TRACE("XGetLanguage");
-    return 0;
+    return 1;  // English (the Xbox dashboard's language numbering starts at 1)
 }
 
 extern "C" hulk_u32 HULK_STDCALL hulk_xdk_GetLastError(void) {
     HULK_XDK_TRACE("GetLastError");
-    return 0;
+    return hulk_host_GetLastError();  // (the file and thread stand-ins call the host's functions)
 }
 
 extern "C" hulk_u32 HULK_CDECL hulk_xdk_XGetAudioFlags(void) {

@@ -62,14 +62,16 @@ static int hulk_starts(const char* s, const char* prefix) {
     return 1;
 }
 
-// `D:\x\y` (the game disc: the extracted game files, HULK_DATA_DIR) and `T:\` / `U:\` / `Z:\` (title / user / cache
-// storage: HULK_SAVE_DIR) -> host paths; anything else is left alone (0).
+// `D:\x\y` (the game disc: the extracted game files, HULK_DATA_DIR), `T:\` (title storage: HULK_TDATA_DIR, else
+// HULK_SAVE_DIR) and `U:\` / `Z:\` (user / cache storage: HULK_SAVE_DIR) -> host paths; anything else is left alone (0).
 char* hulk_crt_host_path(const char* p, char* buf, hulk_u32 size) {
     const char* root = 0;
     const char* rest = 0;
     if (hulk_starts(p, "d:\\") || hulk_starts(p, "d:/")) {
         root = hulk_host_getenv("HULK_DATA_DIR");
         rest = p + 3;
+    } else if (hulk_starts(p, "t:\\") && (root = hulk_host_getenv("HULK_TDATA_DIR")) != 0 && *root) {
+        rest = p + 3;      // title storage: a writable directory of its own (HULK_TDATA_DIR)
     } else if (hulk_starts(p, "t:\\") || hulk_starts(p, "u:\\") || hulk_starts(p, "z:\\")) {
         root = hulk_host_getenv("HULK_SAVE_DIR");
         rest = p + 3;

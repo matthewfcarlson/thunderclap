@@ -1,4 +1,4 @@
-void __cdecl Target(int, int, int);
-void __cdecl Wrapper(int a) {
-    Target(a, 0, 0);
+int __cdecl Target(int, int, int);
+int __cdecl Wrapper(int a) {
+    return Target(a, 0, 0);
 }

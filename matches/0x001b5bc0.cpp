@@ -1,6 +1,8 @@
 #include "decls/address.h"
 extern "C" char DAT_0041da1c[];
-extern int __stdcall FUN_001d0480(const char*, int);
+struct This_FUN_001d0480 {
+    int FUN_001d0480(const char*, int);
+};
 extern char str1_1b5bc0, str2;
 class CCollisionManager {
   public:
@@ -14,7 +16,7 @@ class CCollisionManager {
     CCollisionManager(int, int);
 };
 CCollisionManager::CCollisionManager(int a, int b) {
-    FUN_001d0480((const char*)a, 3);
+    ((This_FUN_001d0480*)this)->FUN_001d0480((const char*)a, 3);
     vtable = ((int)DAT_0041da1c);
     value1c = b;
     value18 = FUN_001d04d0(&str1_1b5bc0);

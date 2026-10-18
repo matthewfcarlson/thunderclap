@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 123 inputs, branch coverage 37/38, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20035 inputs, branch coverage 38/38)
+// FUN_003265f0 @ 0x003265f0
 // FUN_003265f0 @ 0x003265f0
 typedef unsigned long DWORD;
 struct Texture;
@@ -109,8 +110,8 @@ struct Ctx_3265f0 {
     virtual void v83();
     virtual int GetMaxTextureSize();
 };
-// equiv-conv: FUN_00325fd0 eax edx ecx stack
-int FUN_00325fd0(int a4, int a5, int a7, Ctx_3265f0* ctx);
+// equiv-conv: FUN_00325fd0 ecx edx eax stack
+int FUN_00325fd0(int a7, int a5, int a4, Ctx_3265f0* ctx);
 struct TextureBuilder {
     virtual void v0();
     virtual void v1();
@@ -165,7 +166,7 @@ bool TextureBuilder::Create(int w, int h, int d, int a4, int a5, int lvls, int a
         error = 0xc9;
         return false;
     }
-    int fmt = FUN_00325fd0(a4, a5, a7, ctx);
+    int fmt = FUN_00325fd0(a7, a5, a4, ctx);
     format = fmt;
     if (fmt == -1) {
         error = 0xca;

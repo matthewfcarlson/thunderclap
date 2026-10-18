@@ -10,10 +10,10 @@ class Inventory {
     virtual void a();
     virtual void b();
     virtual void c();
-    virtual void load(Caster*, U64);
+    virtual int load(Caster*, U64);
 };
-void __cdecl FUN_00286750(Inventory* inv, void* p) {
+int __cdecl FUN_00286750(Inventory* inv, void* p) {
     U64 v = getValue(p);
     Caster caster;
-    inv->load(&caster, v);
+    return inv->load(&caster, v);
 }

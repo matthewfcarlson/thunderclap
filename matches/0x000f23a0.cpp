@@ -6,11 +6,11 @@ struct Object {
     virtual void a();
     virtual void b();
     virtual void c();
-    virtual void Load(Caster*, U64);
+    virtual int Load(Caster*, U64);
 };
 extern U64 hash(void*);
-void work(Object* obj, void* name) {
+int work(Object* obj, void* name) {
     U64 h = hash(name);
     Caster caster;
-    obj->Load(&caster, h);
+    return obj->Load(&caster, h);
 }

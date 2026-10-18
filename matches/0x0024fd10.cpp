@@ -4,14 +4,14 @@ class Temp {
     char pad[12];
 
   public:
-    Temp(const char*, int, const __int64*, int, int) throw();
+    Temp* Init(const char*, int) throw();
     ~Temp() throw();
 };
 namespace audio {
 class Base {
   public:
     virtual void V();
-    Base(const Temp&) throw();
+    Base(Temp*, const __int64*, int, int) throw();
 };
 class SeqEventConditionType : public Base {
   public:
@@ -20,4 +20,4 @@ class SeqEventConditionType : public Base {
 };
 } // namespace audio
 audio::SeqEventConditionType::SeqEventConditionType() throw()
-    : Base(Temp(name2, 0, &(__int64 const&)MakeKey(name1, 0, 0), 32, 4)) {}
+    : Base(Temp().Init(name2, 0), &(__int64 const&)MakeKey(name1, 0, 0), 32, 4) {}

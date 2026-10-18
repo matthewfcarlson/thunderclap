@@ -1,3 +1,4 @@
+extern "C" void __cdecl FUN_00363fc0();
 extern "C" int __cdecl atexit(void (*)());
 
 struct Reg {
@@ -8,5 +9,5 @@ extern Reg gReg;
 
 void Target() {
     gReg.RegFunc("sound/rsd", 0);
-    atexit((void (*)())0x363fc0);
+    atexit(FUN_00363fc0);
 }

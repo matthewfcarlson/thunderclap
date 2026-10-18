@@ -1,11 +1,11 @@
 struct Inner_1c5b00 {
-    void Helper();
+    int Helper(int);
 };
 struct Outer_1c5b00 {
     char pad[0x128];
     Inner_1c5b00 inner;
-    void Target();
+    int Target(int);
 };
-void Outer_1c5b00::Target() {
-    inner.Helper();
+int Outer_1c5b00::Target(int a0) {
+    return inner.Helper(a0);
 }

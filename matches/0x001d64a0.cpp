@@ -1,13 +1,13 @@
 class B_1d64a0 {
   public:
-    void G();
+    int G();
 };
 class A_1d64a0 {
   public:
     char pad[0xec];
     B_1d64a0* p;
-    void F();
+    int F();
 };
-void A_1d64a0::F() {
-    p->G();
+int A_1d64a0::F() {
+    return p->G();
 }

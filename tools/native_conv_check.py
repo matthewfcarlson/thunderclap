@@ -385,6 +385,25 @@ def check_register_orders(roots=("matches", "equivalent")):
                 else:
                     notes[a].append(("%s/%s" % (root, fn), locs))
     bad = []
+    # callers without a note: a source that calls FUN_<addr> of a register-convention function and doesn't say how
+    # (equivalent/0x00219cc0 called 0x00219be0 `(owner)` where the original passes esi, edi and a stack word)
+    noted = {(f, a) for a, lst in notes.items() for f, _l in lst}
+    for root in roots:
+        rd = os.path.join(ROOT, root)
+        for fn in sorted(os.listdir(rd)):
+            m = re.fullmatch(r"0x([0-9a-fA-F]{8})\.cpp", fn)
+            if not m:
+                continue
+            txt = None
+            for a, (f0, l0) in own.items():
+                if a == int(m.group(1), 16) or ("%s/%s" % (root, fn), a) in noted:
+                    continue
+                if txt is None:
+                    txt = strip_comments(open(os.path.join(rd, fn), errors="replace").read())
+                if re.search(r"\b(?:thunk_)?FUN_%08x\s*\(" % a, txt) and all(l == "stack" for l in l0) is False:
+                    bad.append(dict(addr="0x%08x" % a, file="%s/%s" % (root, fn), conv="(no note)", definition=f0,
+                                    definition_conv=" ".join(l0),
+                                    why="calls a register-convention function without an equiv-conv note"))
     for a, (f0, l0) in sorted(own.items()):
         for f, l in notes.get(a, []):
             if l != l0:
@@ -393,7 +412,360 @@ def check_register_orders(roots=("matches", "equivalent")):
     return len(own), bad
 
 
-def run(sources=True, bindings=True, xbe=True, tails=False, roots=("matches", "equivalent"), bindings_path=BINDINGS):
+TREE_REPORT = os.path.join(ROOT, "build/tree/report.json")
+X87_PUSH = {"fld", "fild", "fldz", "fld1", "fldpi", "fldl2e", "fldl2t", "fldlg2", "fldln2", "fbld"}
+X87_NEUTRAL = {"fldcw", "fnstcw", "fstcw", "fnstsw", "fstsw", "fwait", "wait", "fnclex", "fclex", "finit", "fninit",
+               "ffree", "fincstp", "fdecstp", "fnop", "fnstenv", "fldenv", "fnsave", "frstor"}
+EAX_PARTS = {"eax", "ax", "al", "ah"}
+# library functions whose argument is on the x87 stack (st0), not on the call stack: the CRT's float-to-int and
+# the `_CI` math helpers (host_crt_table.h rows by XBE address)
+X87_ARG_ADDRS = {0x0034483c: "_ftol", 0x003441f0: "_CIacos", 0x003442bc: "_CIasin", 0x00346672: "_CIpow",
+                 0x0034777a: "_CIfmod"}
+# (0x00348010 is ldexp: its callers push a double and an int, host_crt_table.h)
+
+
+def return_kind(demangled):
+    """'void', 'float' or 'int' (anything in eax / eax:edx) of an undname'd function; None if not a function."""
+    m = re.search(r"\b(__cdecl|__stdcall|__thiscall|__fastcall)\b", demangled)
+    if not m:
+        return None
+    ret = re.sub(r"\b(public|private|protected|virtual|static|struct|class|union|enum)\b|:", " ", demangled[:m.start()]).strip()
+    if not ret:
+        return "int"        # constructors (MSVC and clang's MS ABI return `this`) and conversion operators
+    if ret == "void":
+        return "void"
+    if ret in ("float", "double", "long double"):
+        return "float"
+    return "int"
+
+
+def c_return_kind(path, name):
+    """The return kind of a C-linkage definition `<type> [conv] name(...) {` in its source; None if not found."""
+    try:
+        src = strip_comments(open(path, errors="replace").read())
+    except OSError:
+        return None
+    m = re.search(r"(?:^|[;{}\n])\s*(?:extern\s+\"C\"\s+)?((?:[\w:]+[\s*&]+)+?)(?:__cdecl\s+|__stdcall\s+|__fastcall\s+)?"
+                  r"%s\s*\([^;{]*\)\s*(?:throw\s*\([^)]*\)\s*)?\{" % re.escape(name), src)
+    if not m:
+        return None
+    ret = re.sub(r"\b(static|inline|extern|__inline|__forceinline)\b", " ", m.group(1)).strip()
+    if "*" in ret or "&" in ret:
+        return "int"
+    ret = " ".join(ret.split())
+    return "void" if ret == "void" else "float" if ret in ("float", "double", "long double") else "int"
+
+
+def caller_uses(md, xbe, va, limit=16):
+    """What the instructions after the call at va (the next instruction's address) do with the call's results:
+    ({'eax', 'st0', 'eax-ret', 'st0-ret'} uses, before the register is written / pushed over)."""
+    import capstone.x86 as cx
+    uses, eax_live, st_live = set(), True, True
+    o = xbe.offset(va)
+    if o is None:
+        return uses
+    for n, insn in enumerate(md.disasm(xbe.data[o:o + 96], va)):
+        if n >= limit or not (eax_live or st_live):
+            break
+        mn = insn.mnemonic
+        if mn == "ret":
+            if eax_live:
+                uses.add("eax-ret")
+            if st_live:
+                uses.add("st0-ret")
+            break
+        if mn == "call":
+            t = int(insn.op_str, 16) if insn.op_str.startswith("0x") else None
+            if st_live and t in X87_ARG_ADDRS:
+                uses.add("st0")
+            # (a call's own arguments were pushed before it: a `push eax` is seen as a read above)
+            break
+        if mn.startswith("j") or mn.startswith("loop"):
+            break
+        if st_live and mn.startswith("f") and mn not in X87_NEUTRAL:
+            if mn in X87_PUSH:
+                st_live = False
+            else:
+                uses.add("st0")
+                st_live = False
+        if eax_live:
+            try:
+                rd, wr = insn.regs_access()
+            except Exception:  # noqa: BLE001
+                break
+            rn = {insn.reg_name(r) for r in rd}
+            wn = {insn.reg_name(r) for r in wr}
+            ops = insn.operands
+            self_zero = mn in ("xor", "sub") and len(ops) == 2 and ops[0].type == cx.X86_OP_REG and \
+                ops[1].type == cx.X86_OP_REG and ops[0].reg == ops[1].reg
+            if rn & EAX_PARTS and not self_zero:
+                uses.add("eax")
+                eax_live = False
+            elif wn & EAX_PARTS:
+                eax_live = False        # (`fnstsw ax` then `test ah, 0x44`: the status word, not the result)
+    return uses
+
+
+def check_returns(roots=("matches", "equivalent"), tree_report=TREE_REPORT, callers_of=None):
+    """Check 6: results the original's callers use that a verified definition doesn't return (fx: matches/0x0008d690,
+    the game's operator new, was `void` and its callers read eax), and calls to the x87-argument library helpers
+    (`_ftol`, `_CIacos`, ...) under a plain name, whose argument the source doesn't pass (equivalent/0x00011000: a
+    `float FUN_003441f0()` call; MSVC loaded the argument onto the x87 stack for another reason, natively nothing
+    does).
+
+    For every verified function of the tree build (tree report: symbol and address), its declared return kind
+    (demangled C++ symbol; a C-linkage definition from its source) against every call site of it in the original's
+    game code (each function of build/functions.csv disassembled; `jmp` thunks followed): a `void` definition whose
+    caller reads eax before writing it, or a non-float one whose caller consumes st0 (`fstp`, `fcomp`, a call to
+    `_ftol`...), is a finding. `eax-ret` / `st0-ret` (the caller returns right after the call) count only when the
+    caller's own definition returns that kind. Returns (definitions checked, [findings], [x87-helper calls])."""
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    import capstone
+    from xbe import Xbe
+    xbe = Xbe(XBE)
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    md.detail = True
+    rep = json.load(open(tree_report))
+    checks = [c for c in rep["checks"] if c.get("symbol") and c["status"] in ("match", "compiled")]
+    syms = sorted({c["symbol"] for c in checks if c["symbol"].startswith("?")})
+    dem = {}
+    try:
+        exe = "/opt/homebrew/opt/llvm/bin/llvm-undname"
+        out = subprocess.run([exe], input="\n".join(syms) + "\n", capture_output=True, text=True, errors="replace").stdout
+        lines = out.splitlines()
+        for i in range(0, len(lines) - 1):
+            if lines[i] in syms and lines[i] not in dem:
+                dem[lines[i]] = lines[i + 1]
+    except OSError:
+        pass
+    kind = {}
+    for c in checks:
+        a = int(c["addr"], 16)
+        s = c["symbol"]
+        if s.startswith("?"):
+            k = return_kind(dem.get(s, ""))
+        else:
+            k = c_return_kind(os.path.join(ROOT, c["src"]), re.sub(r"^[_@]|@\d+$", "", s))
+        if k:
+            kind[a] = (k, c["src"], s)
+    # call sites in the original's game code
+    funcs = sorted((int(r["address"], 16), int(r["size"])) for r in csv.DictReader(open(os.path.join(ROOT, "build/functions.csv"))))
+    thunk = {}
+    for a, n in funcs:
+        o = xbe.offset(a)
+        if o is not None and n == 5 and xbe.data[o] == 0xE9:
+            thunk[a] = (a + 5 + struct.unpack_from("<i", xbe.data, o + 1)[0]) & 0xFFFFFFFF
+    md_plain = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    sites = collections.defaultdict(list)       # callee -> [(caller, address after the call)]
+    for a, n in funcs:
+        o = xbe.offset(a)
+        if o is None or n <= 0 or n > 0x20000:
+            continue
+        for insn in md_plain.disasm(xbe.data[o:o + n], a):
+            if insn.mnemonic == "call" and insn.op_str.startswith("0x"):
+                t = int(insn.op_str, 16)
+                t = thunk.get(t, t)
+                sites[t].append((a, insn.address + insn.size))
+    bad = []
+    for a, (k, src, sym) in sorted(kind.items()):
+        if k == "float":
+            continue
+        for caller, va in sites.get(a, []):
+            u = caller_uses(md, xbe, va)
+            ck = kind.get(caller, (None,))[0]
+            eax = "eax" in u or ("eax-ret" in u and ck == "int")
+            st0 = "st0" in u or ("st0-ret" in u and ck == "float")
+            if (k == "void" and eax) or st0:
+                bad.append(dict(addr="0x%08x" % a, file=src, symbol=sym, declared=k, caller="0x%08x" % caller,
+                                caller_file=kind.get(caller, (None, None))[1], site="0x%08x" % va,
+                                why="declared %s; the original caller 0x%08x uses %s after the call" % (
+                                    k, caller, "st0" if st0 else "eax")))
+    # calls to the x87-argument helpers by a plain name (the compiler's own `__ftol2`/`__CIacos` are fine)
+    helpers = []
+    names = {}
+    for a, nm in X87_ARG_ADDRS.items():
+        names["FUN_%08x" % a] = nm
+    for root in roots:
+        rd = os.path.join(ROOT, root)
+        for fn in sorted(os.listdir(rd)):
+            if not fn.endswith(".cpp"):
+                continue
+            txt = strip_comments(open(os.path.join(rd, fn), errors="replace").read())
+            for nm in names:
+                calls = 0
+                for m in re.finditer(r"\b%s\s*\(" % nm, txt):
+                    k = max(txt.rfind(";", 0, m.start()), txt.rfind("{", 0, m.start()), txt.rfind("}", 0, m.start()))
+                    prefix = txt[k + 1:m.start()]
+                    if re.search(r"\b(extern|int|void|float|double|unsigned|char|long|short|__cdecl)\b", prefix) and \
+                            not re.search(r"=|\breturn\b|\(", prefix):
+                        continue        # a declaration
+                    calls += 1
+                if calls:
+                    helpers.append(dict(file="%s/%s" % (root, fn), name=nm, helper=names[nm],
+                                        why="calls %s (%s: argument on the x87 stack) by a plain name" % (nm, names[nm])))
+    return len(kind), bad, helpers
+
+
+def declared_pops(sym, demangled):
+    """(convention, stack bytes the callee pops as the symbol declares it) of a function symbol; None if unknown.
+    cdecl pops 0; thiscall/stdcall their stack parameters; fastcall is left out (its first two dwords travel in
+    registers and the type sizes decide which)."""
+    m = re.match(r"_(\w+)@(\d+)$", sym)
+    if m:
+        return "STDCALL", int(m.group(2))
+    if re.match(r"_\w+$", sym):
+        return "CDECL", 0
+    if not sym.startswith("?"):
+        return None
+    m = re.search(r"\b(__cdecl|__stdcall|__thiscall|__fastcall)\b", demangled)
+    if not m:
+        return None
+    conv = CONV_WORDS[m.group(1)]
+    if conv == "FASTCALL":
+        return None
+    if conv == "CDECL":
+        return conv, 0
+    rest = demangled[m.end():]
+    i = rest.find("(")
+    if i < 0:
+        return None
+    depth, j = 0, i
+    for j in range(i, len(rest)):
+        depth += {"(": 1, ")": -1}.get(rest[j], 0)
+        if depth == 0:
+            break
+    params = rest[i + 1:j]
+    # a class passed by value has a size the name doesn't say: not counted
+    for p in re.split(r",(?![^<]*>)", params):
+        if re.match(r"\s*(struct|class|union)\b", p) and "*" not in p and "&" not in p:
+            return None
+    nb, _n = param_bytes(params)
+    if nb is None:
+        return None
+    return conv, nb
+
+
+def rel32_symbols(objects_rsp):
+    """Symbols some REL32 relocation (a call or jump) names in the link's objects (native_link's objects.rsp)."""
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    import compare
+    out = set()
+    for line in open(objects_rsp):
+        o = line.strip().strip('"')
+        if not o:
+            continue
+        if not os.path.isabs(o):
+            o = os.path.join(ROOT, o)
+        try:
+            c = compare.Coff(o)
+        except Exception:  # noqa: BLE001
+            continue
+        for _name, _raw, relocs in c.sections:
+            for va, si, typ in relocs:
+                if typ == 0x14:
+                    t = c.by_index.get(si)
+                    if t:
+                        out.add(t[0])
+    return out
+
+
+def check_pops(path=BINDINGS, objects_rsp=None):
+    """Check 7: every symbol the verified code calls (bindings.json: symbol -> XBE address) whose declared
+    convention pops another number of argument bytes than the callee's `ret N` in the XBE. MSVC compiles such a
+    call to the original's bytes when the next call reads what the callee left on the stack (matches/0x0024ed10:
+    a five-argument `Data(...)` constructor declared over a two-argument init that pops 8, the base constructor
+    after it reading the other three) or when the caller cleans up later; natively the stack is off by the
+    difference. Returns (symbols checked, [disagreements])."""
+    if not os.path.exists(path):
+        return 0, []
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    import capstone
+    from xbe import Xbe
+    xbe = Xbe(XBE)
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    bj = json.load(open(path))
+    b = bj["bindings"]
+    syms = sorted(s for s in b if s.startswith("?"))
+    dem = {}
+    out = subprocess.run(["/opt/homebrew/opt/llvm/bin/llvm-undname"], input="\n".join(syms) + "\n",
+                         capture_output=True, text=True, errors="replace").stdout.splitlines()
+    for i in range(len(out) - 1):
+        if out[i] in b and out[i] not in dem:
+            dem[out[i]] = out[i + 1]
+    text = next(sec for sec in xbe.sections if sec.name == ".text")
+    # only symbols that are called (a REL32 relocation in the native link's objects): a function's address taken
+    # for a stub vftable or a callback is no call (needs native_link's objects.rsp next to bindings.json)
+    objects_rsp = objects_rsp or os.path.join(os.path.dirname(path), "link", "objects.rsp")
+    called = rel32_symbols(objects_rsp) if os.path.exists(objects_rsp) else None
+    rets_cache, bad, seen = {}, [], 0
+    for s in sorted(b):
+        a = int(b[s]["addr"], 16)
+        if not (text.va <= a < text.va + text.vsize):
+            continue
+        if s.startswith("?") and ("@@6B" in s or re.match(r"\?\?_[78R]", s) or "@@3" in s):
+            continue          # data (vftables, variables)
+        if called is not None and s not in called:
+            continue
+        if re.match(r"__(all|aull)\w+$|__ftol|__CI", s):
+            continue          # the compiler's own helpers (callee-pops by their own convention, not a declaration)
+        d = declared_pops(s, dem.get(s, ""))
+        if d is None:
+            continue
+        conv, nb = d
+        if a not in rets_cache:
+            rets_cache[a] = xbe_rets(xbe, md, a)
+        rets, tails = rets_cache[a]
+        if not rets:
+            continue
+        seen += 1
+        pops = max(rets)
+        if pops != nb or len(rets) > 1:
+            bad.append(dict(symbol=s, addr="0x%08x" % a, conv=conv, declared=nb, callee=sorted(rets),
+                            refs=bj.get("references", {}).get(s), demangled=dem.get(s, s)[:160],
+                            why="declared %s popping %d, the callee returns with %s" % (
+                                conv.lower(), nb, "/".join("ret %d" % r for r in sorted(rets)))))
+    return seen, bad
+
+
+def symbol_conv(s):
+    """'cdecl' / 'stdcall' / 'fastcall' / 'thiscall' of a function symbol (C decoration or MS mangling), or None."""
+    if not s:
+        return None
+    if s.startswith("?"):
+        m = re.search(r"@@Y([AGIE])", s) or re.search(r"@@[QAIUMESC][AB]?([AEGI])", s)
+        return {"A": "cdecl", "G": "stdcall", "I": "fastcall", "E": "thiscall"}[m.group(1)] if m else None
+    if re.match(r"_\w+@\d+$", s):
+        return "stdcall"
+    if re.match(r"@\w+@\d+$", s):
+        return "fastcall"
+    return "cdecl" if re.match(r"_\w+$", s) else None
+
+
+def check_definition_convs(path=BINDINGS):
+    """Check 8: a caller's symbol in another calling convention than the definition the link aliases it to
+    (matches/0x00275110 called the thiscall constructor 0x00274e60 as `void __stdcall FUN_00274e60(void*)`: ecx
+    happened to hold `this` in the original, natively it doesn't). Some pairs are the same machine call (a
+    fastcall definition whose only argument is in ecx, called as a thiscall member without arguments); the report
+    counts each pair, the details list the ones that need ecx and don't set it (a cdecl/stdcall caller of a
+    thiscall definition) first. Returns ({pair: count}, [details])."""
+    if not os.path.exists(path):
+        return {}, []
+    b = json.load(open(path))["bindings"]
+    pairs, bad = collections.Counter(), []
+    for s, v in sorted(b.items()):
+        d = v.get("def")
+        if not d or d == s or "@@6B" in s or "@@3" in s:
+            continue
+        a, c = symbol_conv(s), symbol_conv(d)
+        if a and c and a != c:
+            pairs["%s caller, %s definition" % (a, c)] += 1
+            if c == "thiscall" and a in ("cdecl", "stdcall"):
+                bad.append(dict(symbol=s, definition=d, addr=v["addr"], why="%s caller of a thiscall definition" % a))
+    return dict(pairs.most_common()), bad
+
+
+def run(sources=True, bindings=True, xbe=True, tails=False, roots=("matches", "equivalent"), bindings_path=BINDINGS,
+        returns=False, tree_report=TREE_REPORT, pops=False):
     """All checks; a JSON-able summary (counts and findings)."""
     imps = parse_imports()
     rep = {"imports": len(imps)}
@@ -408,6 +780,15 @@ def run(sources=True, bindings=True, xbe=True, tails=False, roots=("matches", "e
         rep["xbe"] = {"checked": len(imps), "disagreeing": bad, "no_ret_reachable": noret}
     n, bad = check_register_orders(roots)
     rep["register_orders"] = {"functions": n, "disagreeing": bad}
+    if pops:
+        pairs, dbad = check_definition_convs(bindings_path)
+        rep["definition_convs"] = {"pairs": pairs, "disagreeing": dbad}
+        n, bad = check_pops(bindings_path)
+        rep["pops"] = {"symbols": n, "disagreeing": bad}
+    if returns and os.path.exists(tree_report):
+        n, bad, helpers = check_returns(roots, tree_report)
+        rep["returns"] = {"definitions": n, "disagreeing": bad}
+        rep["x87_helpers"] = {"disagreeing": helpers}
     if tails:
         bad, n = check_tails(imps, roots)
         rep["tails"] = {"candidates": n, "disagreeing": bad}
@@ -420,9 +801,16 @@ def main(argv=None):
     ap.add_argument("--roots", nargs="+", default=["matches", "equivalent"])
     ap.add_argument("--no-xbe", action="store_true", help="skip the check against the callees' `ret N`")
     ap.add_argument("--tails", action="store_true", help="also compile functions that tail-jump to an import")
+    ap.add_argument("--returns", action="store_true", help="check 6: results the original's callers use that a "
+                    "verified definition doesn't return, and x87-argument helpers called by plain name (~1 min)")
+    ap.add_argument("--pops", action="store_true", help="check 7: callee-pops bytes of every bound symbol against "
+                    "the callee's `ret N`")
+    ap.add_argument("--bindings", default=BINDINGS)
+    ap.add_argument("--tree-report", default=TREE_REPORT, help="the tree build's report.json for --returns")
     ap.add_argument("--json")
     a = ap.parse_args(argv)
-    rep = run(xbe=not a.no_xbe, tails=a.tails, roots=a.roots)
+    rep = run(xbe=not a.no_xbe, tails=a.tails, roots=a.roots, returns=a.returns, tree_report=a.tree_report,
+              pops=a.pops, bindings_path=a.bindings)
     print("stand-ins with a prototype: %d" % rep["imports"])
     s = rep["sources"]
     print("declarations of imports in the sources: %d; disagreeing with the tables: %d" % (s["declarations"], len(s["disagreeing"])))
@@ -443,6 +831,26 @@ def main(argv=None):
           "order: %d" % (s["functions"], len(s["disagreeing"])))
     for x in s["disagreeing"]:
         print("  %s %s: %s (definition %s: %s)" % (x["addr"], x["file"], x["conv"], x["definition"], x["definition_conv"]))
+    if "pops" in rep:
+        s = rep["pops"]
+        print("bound symbols with a declared callee-pops count: %d; disagreeing with the callee's ret N: %d" % (
+            s["symbols"], len(s["disagreeing"])))
+        for x in s["disagreeing"]:
+            print("  %s %s  [%s]" % (x["addr"], x["symbol"], x["why"]))
+    if "definition_convs" in rep:
+        s = rep["definition_convs"]
+        print("caller symbols in another convention than their definition: %s; cdecl/stdcall callers of a thiscall "
+              "definition: %d" % (s["pairs"], len(s["disagreeing"])))
+    if "returns" in rep:
+        s = rep["returns"]
+        print("verified definitions with a return kind: %d; whose original callers use a result they don't return: %d"
+              % (s["definitions"], len(s["disagreeing"])))
+        for x in s["disagreeing"]:
+            print("  %s %s  %s  [%s]" % (x["addr"], x["file"], x["symbol"], x["why"]))
+        s = rep["x87_helpers"]
+        print("sources calling an x87-argument helper by a plain name: %d" % len(s["disagreeing"]))
+        for x in s["disagreeing"]:
+            print("  %s  %s (%s)" % (x["file"], x["name"], x["helper"]))
     if "tails" in rep:
         s = rep["tails"]
         print("functions tail-jumping to an import: %d; declared __cdecl though the import pops: %d" % (s["candidates"], len(s["disagreeing"])))

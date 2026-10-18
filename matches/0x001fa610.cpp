@@ -9,8 +9,10 @@ class C_1fa610 {
     void target();
 };
 void cb();
-void __stdcall helper(void*, void*);
+struct This_helper {
+    void helper(void*, void*);
+};
 void C_1fa610::target() {
-    helper((void*)cb, this);
+    ((This_helper*)this)->helper((void*)cb, this);
     p->f1();
 }

@@ -4,15 +4,15 @@ class B_d8170 {
 };
 class C_d8170 {
   public:
-    void g();
+    int g();
 };
 class Obj_d8170 {
   public:
     char pad[0x150];
     B_d8170* member;
-    void target(int a, int b);
+    int target(int a, int b);
 };
-void Obj_d8170::target(int a, int b) {
+int Obj_d8170::target(int a, int b) {
     int x = member->f(a, b);
-    ((C_d8170*)x)->g();
+    return ((C_d8170*)x)->g();
 }

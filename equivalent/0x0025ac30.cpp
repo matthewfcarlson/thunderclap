@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 191 inputs, branch coverage 8/10, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 4853 inputs, branch coverage 8/10, incomplete)
+// FUN_0025ac30 @ 0x0025ac30
 // FUN_0025ac30 @ 0x0025ac30
 struct Stream;
 
@@ -8,7 +9,7 @@ struct Writer_25ac30 {
 
 char __cdecl FUN_00246f50(Stream *s, const char *format, ...);
 
-void FUN_0025ac30(Writer_25ac30 *w, unsigned __int64 value)
+char FUN_0025ac30(Writer_25ac30 *w, unsigned __int64 value)
 {
     char out[0x100];
     char digits[0x100];
@@ -20,5 +21,5 @@ void FUN_0025ac30(Writer_25ac30 *w, unsigned __int64 value)
     for (int i = 0; i < n; i++)
         out[i] = digits[n - 1 - i];
     out[n] = 0;
-    FUN_00246f50(w->stream, "%s", out);
+    return FUN_00246f50(w->stream, "%s", out);
 }

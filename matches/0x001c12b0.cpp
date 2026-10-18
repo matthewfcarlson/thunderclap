@@ -14,7 +14,7 @@ class A_1c12b0 {
     virtual void f11();
     virtual void f12();
     virtual void f13();
-    virtual void f14();
+    virtual int f14();
     virtual void f15();
 };
 class B_1c12b0 {
@@ -22,6 +22,6 @@ class B_1c12b0 {
     char pad[8];
     A_1c12b0* p;
 };
-void __fastcall target(B_1c12b0* self) {
-    self->p->f14();
+int __fastcall target(B_1c12b0* self) {
+    return self->p->f14();
 }

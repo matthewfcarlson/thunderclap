@@ -1,6 +1,6 @@
 namespace physics {
 struct Part_2f55b0 {
-    void work();
+    void work(int);
 };
 class PhysicsObject {
   public:
@@ -13,12 +13,12 @@ class PhysicsObject {
     virtual void a6();
     virtual void a7();
     virtual void a8();
-    virtual void vfunc_9();
+    virtual void vfunc_9(int);
     char pad[0x1c4 - 4];
     char flag;
 };
-void PhysicsObject::vfunc_9() {
+void PhysicsObject::vfunc_9(int a0) {
     flag = 1;
-    ((Part_2f55b0*)((char*)this + 0x168))->work();
+    ((Part_2f55b0*)((char*)this + 0x168))->work(a0);
 }
 } // namespace physics

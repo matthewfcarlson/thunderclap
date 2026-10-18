@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 6799 inputs, branch coverage 224/228, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 824 inputs, branch coverage 227/228, incomplete)
+// FUN_00218350 @ 0x00218350
 // FUN_00218350 @ 0x00218350
 struct Table;
 struct lua_State;
@@ -124,7 +125,7 @@ struct lua_State {
             ra->tt = 3; \
             ra->value.n = expr; \
         } else \
-            base = FUN_00218170(rb_, rc_, pc, L, ra, tm); \
+            base = FUN_00218170(rc_, rb_, pc, L, ra, tm); \
     }
 
 void __cdecl FUN_00215520(lua_State *L, int event, int line);
@@ -135,8 +136,8 @@ void __cdecl FUN_00217980(lua_State *L, TObject *t, TObject *key, TObject *val);
 void __cdecl FUN_00217100(lua_State *L, GCHeader *p, GCHeader *v);
 void *__cdecl FUN_00219cc0(lua_State *L, int narray, int nhash);
 void __cdecl FUN_00217440(lua_State *L);
-// equiv-conv: FUN_00218170 ecx eax edx stack stack stack
-StkId FUN_00218170(TObject *rb, TObject *rc, const Instruction *pc, lua_State *L, StkId ra, int op);
+// equiv-conv: FUN_00218170 eax ecx edx stack stack stack
+StkId FUN_00218170(TObject *rc, TObject *rb, const Instruction *pc, lua_State *L, StkId ra, int op);
 int __cdecl FUN_00215ff0(const char *s, float *result);
 TObject *__cdecl FUN_002175b0(lua_State *L, const TObject *o, int event);
 // equiv-conv: FUN_00217790 ecx eax
@@ -145,8 +146,8 @@ void __cdecl FUN_00214d40(lua_State *L, const TObject *p1, const TObject *p2);
 void __cdecl FUN_00217f20(lua_State *L, int total, int last);
 int __cdecl FUN_00217e20(lua_State *L, const TObject *t1, const TObject *t2);
 int __cdecl FUN_00217cf0(lua_State *L, const TObject *l, const TObject *r);
-// equiv-conv: FUN_00217d80 stack edi esi
-int FUN_00217d80(lua_State *L, const TObject *l, const TObject *r);
+// equiv-conv: FUN_00217d80 edi esi stack
+int FUN_00217d80(const TObject *l, const TObject *r, lua_State *L);
 StkId __cdecl FUN_00215790(lua_State *L, StkId func);
 void __cdecl FUN_00215970(lua_State *L, int nresults, StkId firstResult);
 void __cdecl FUN_00214a90(lua_State *L, const char *msg);
@@ -278,7 +279,7 @@ retentry:
             break;
         }
         case 16: { /* OP_POW */
-            base = FUN_00218170(RKB(i), RKC(i), pc, L, ra, 9);
+            base = FUN_00218170(RKC(i), RKB(i), pc, L, ra, 9);
             break;
         }
         case 17: { /* OP_UNM */
@@ -346,7 +347,7 @@ retentry:
         }
         case 23: { /* OP_LE */
             L->ci->savedpc = pc;
-            if (FUN_00217d80(L, RKB(i), RKC(i)) != GETARG_A(i))
+            if (FUN_00217d80(RKB(i), RKC(i), L) != GETARG_A(i))
                 pc++;
             else
                 pc += GETARG_sBx(*pc) + 1;

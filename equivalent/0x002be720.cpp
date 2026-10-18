@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 56 inputs, branch coverage 36/36)
+// STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 36/36)
+// FUN_002be720 @ 0x002be720
 // FUN_002be720 @ 0x002be720
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/data/engine/pure3d.h"
@@ -69,7 +70,7 @@ public:
 void *thunk_FUN_0008d690(unsigned int size);
 void *FUN_00266e00(int pool, int size);
 void *FUN_0008d6d0(unsigned int size);
-void FUN_00267090(void *p);
+int FUN_00267090(void *p);
 void FUN_003647b0();
 
 class Loader_2be720 {
@@ -89,10 +90,10 @@ public:
     void FUN_002bd790(int idx, Rec_2be720 *rec, int lo, int hi, Source_2be720 *src, Obj_2be720 *obj, Aux_2be720 *aux);
     void FUN_002bdaf0(int idx, Rec_2be720 *rec, int lo, int hi);
 
-    void Load(Source_2be720 *src, Aux_2be720 *aux);
+    int Load(Source_2be720 *src, Aux_2be720 *aux);
 };
 
-void Loader_2be720::Load(Source_2be720 *src, Aux_2be720 *aux)
+int Loader_2be720::Load(Source_2be720 *src, Aux_2be720 *aux)
 {
     int rowCount;
     int recCount;
@@ -169,5 +170,5 @@ void Loader_2be720::Load(Source_2be720 *src, Aux_2be720 *aux)
     obj->v1();
     for (int i = 0; i < rowCount; i++)
         FUN_00267090(rows[i]);
-    FUN_00267090(rows);
+    return FUN_00267090(rows);
 }
