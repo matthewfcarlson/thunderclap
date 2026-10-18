@@ -1,5 +1,8 @@
 # 11: The functions over 4 KB
 
+**Status (2026-10-18): done.** Every function this task lists is now in `matches/` or `equivalent/`; they were
+proven by the big-function batches (big2–big5, bigq, bigr) before the scheduled start. Nothing below needs running.
+
 **When:** after the weekly Claude usage window resets (Sunday 2026-10-18, 09:00 local). It needs Claude
 agents, which are paused until then.
 
