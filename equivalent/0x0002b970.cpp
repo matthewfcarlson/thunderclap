@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3100 inputs, branch coverage 100/100)
+// STATUS: equivalent (tools/equiv.py level 3: 20077 inputs, branch coverage 100/100)
 // FUN_0002b970 @ 0x0002b970
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
@@ -230,7 +230,7 @@ char Spawner_2b970::F(const char *defName, V3_2b970 pos, float angle, const char
         ch->FUN_00035fa0(1);
     }
     ch->FUN_0003f400(&pos);
-    ch->FUN_000354e0(angle * 0.0174533f);
+    ch->FUN_000354e0(angle * 0.0174532924f);
     bool doTail = false;
     if (ch->p128 == 0) {
         Ent_2b970 *ent = ch->p1ca0;

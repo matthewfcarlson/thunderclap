@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 104 inputs, branch coverage 19/22, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20018 inputs, branch coverage 22/22)
 // CChaseCamera::vfunc_34 @ 0x000a1520
 extern "C" double atan2(double y, double x);
 
@@ -90,7 +90,7 @@ void CChaseCamera::vfunc_34(int a1, int a2, float a3, float a4, float a5)
     double inv = 1.0f / a5;
     float ratio = a4 * inv;
     float energy = inv * a4 * a4 * 0.5f;
-    float angle = atan2(a4, a3) * 57.2958f;
+    float angle = atan2(a4, a3) * 57.2957764f;
 
     if (mode == 3 && (ratio < 0.5f || angle < 60.0f)) {
         FUN_000a0c40(1);

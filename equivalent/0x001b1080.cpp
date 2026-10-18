@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 17/20, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 18811 inputs, branch coverage 18/20, incomplete)
 // FUN_001b1080 @ 0x001b1080
 #include "decls/data/game/global.h"
 
@@ -61,7 +61,7 @@ int __stdcall FUN_001b1080(Obj_1b1080 *obj, Mover_1b1080 *mover, V3_1b1080 *out,
         if (!(c > 1.0f))
             s.d = -1.0f;
     }
-    if (!(FUN_00018a20(s.d) < 1.5708f))
+    if (!(FUN_00018a20(s.d) < 1.57079637f))
         return 0;
     if (obj->blocked) {
         out->x = 0.0f;

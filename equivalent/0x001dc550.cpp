@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 6/6)
 // FUN_001dc550 @ 0x001dc550
 struct Matrix {
  float m[16];
@@ -27,11 +27,11 @@ bool Object::target(int key,float x,float y,float z) {
   Matrix transform;
   transform.FUN_0022b980();
   transform.FUN_0022be40(record->node->FUN_001d6b40());
-  transform.FUN_0022bc20(x*0.0174533f,y*0.0174533f,z*0.0174533f);
+  transform.FUN_0022bc20(x*0.0174532924f,y*0.0174532924f,z*0.0174532924f);
   record->node->FUN_001d6b60(transform,0);
  } else {
   Vector angles;
-  angles.FUN_0022b220(x*0.0174533f,y*0.0174533f,z*0.0174533f);
+  angles.FUN_0022b220(x*0.0174532924f,y*0.0174532924f,z*0.0174532924f);
   record->rotation.FUN_001db780(&angles);
  }
  return true;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 6/6)
 // FUN_00028330 @ 0x00028330
 // Group method: is the named pawn's ground position in front of the given heading, within the given arc?
 #include "decls/address.h"
@@ -41,5 +41,5 @@ bool Group_28330::FUN_00028330(const char *name, float heading, float arc)
     AbsFloat diff;
     diff.f = FUN_00224fc0(heading, bearing);
     diff.bits &= 0x7fffffff;
-    return arc * 0.00872665f > diff.f;
+    return arc * 0.00872664619f > diff.f;
 }

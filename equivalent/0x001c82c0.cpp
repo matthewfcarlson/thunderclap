@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 19/22, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20039 inputs, branch coverage 20/22, incomplete)
 // FUN_001c82c0 @ 0x001c82c0
 #include "decls/data/game/global.h"
 
@@ -136,7 +136,7 @@ void Renderer_1c82c0::FUN_001c82c0(Scene_1c82c0 *scene, View *view, int unused)
         if (x < 0.0f)
             t = (x - 0.2588f) * slope;
         double tb = t * view->scale;
-        double base = (double)((light->color >> 16) & 0xff) * 0.00392157f * 255.0f;
+        double base = (double)((light->color >> 16) & 0xff) * 1.0;
         int c0 = (int)base;
         int c1 = (int)((255 - c0) * tb + c0);
         unsigned color = (((0xffffff00u | c1) << 8) | c1) << 8 | c1;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 993 inputs, branch coverage 74/76, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 75/76, incomplete)
 // FUN_000de9a0 @ 0x000de9a0
 #include "decls/data/game/global.h"
 
@@ -117,7 +117,7 @@ void InputMapper::FUN_000de9a0(char skip)
             f.ang = -DAT_004a0e68;
             if (f.x > DAT_004a0e68 || f.x < f.ang || f.y > DAT_004a0e68 || f.y < f.ang) {
                 FUN_000de1f0(1);
-                f.ang = 6.28318548f - FUN_000de800(f.x, f.y) * 0.0174533f;
+                f.ang = 6.28318548f - FUN_000de800(f.x, f.y) * 0.0174532924f;
                 while (f.ang < 0.0f)
                     f.ang = f.ang + 6.28318548f;
                 while (f.ang > 6.28318548f)

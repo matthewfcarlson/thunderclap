@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 32/32)
+// STATUS: equivalent (tools/equiv.py level 3: 20015 inputs, branch coverage 32/32)
 // hulkfight::motion::FlyingAttackAction::vfunc_5 @ 0x00135760
 #include "decls/data/game/hulkfight.h"
 
@@ -142,7 +142,7 @@ bool FlyingAttackAction::vfunc_5(int a, float dt)
             double m2 = fr.mag.f * dt;
             fr.acc = m2;
             double cv;
-            if (m2 < 0.0 || fr.acc > 3.14159f)
+            if (m2 < 0.0 || fr.acc > 3.14159274f)
                 cv = -1.0f;
             else
                 cv = cos(fr.acc);

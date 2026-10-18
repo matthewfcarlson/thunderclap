@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 8/8)
 // FUN_0007f450 @ 0x0007f450
 typedef unsigned __int64 Key_7f450;
 extern Key_7f450 __cdecl FUN_0027b020(int);
@@ -28,7 +28,7 @@ void Owner_7f450::target(int name,int arg,int flags,Vec3_7f450 position,float x,
    Matrix matrix;
    matrix.FUN_0022b980();
    matrix.FUN_0022be40(&position);
-   matrix.FUN_0022bc20(x*0.0174533f,y*0.0174533f,z*0.0174533f);
+   matrix.FUN_0022bc20(x*0.0174532924f,y*0.0174532924f,z*0.0174532924f);
    object->FUN_00080e50(&matrix);
    object->FUN_00080c60(flags);
    object->FUN_00080c80(1);

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 12/12)
 // FUN_00098190 @ 0x00098190
 #include "decls/data/game/hulkfight.h"
 
@@ -28,7 +28,7 @@ int FUN_00098190(float a1, int a2, float a3, int a4, int a5, int a6, int a7, V3_
 
     float p = a1 * a3;
     float c;
-    if (p < 0.0f || p > 3.14159f)
+    if (p < 0.0f || p > 3.14159274f)
         c = -1.0f;
     else
         c = (float)cos(p);

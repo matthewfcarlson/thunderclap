@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 7465 inputs, branch coverage 6/6)
 // FUN_000d6c70 @ 0x000d6c70
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -16,7 +16,7 @@ void Target_d6c70::run() {
 union { float f; unsigned int bits; unsigned char bytes[4]; } saved;
 saved.f=(*(Clock_d6c70**)&DAT_0052c2a4)->v16();
 float a,b; FUN_0009f790(90.0f,saved.f,&a,&b);
-shape->v5(a*0.0174533f,1.0f);
+shape->v5(a*0.0174532924f,1.0f);
 scene->FUN_00294980(shape);
 DAT_004de600=22.3f;
 DAT_004de600=(*(Clock_d6c70**)&DAT_0052c2a4)->v16()*DAT_004de600*0.75f;

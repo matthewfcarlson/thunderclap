@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 339 inputs, branch coverage 30/32, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 417 inputs, branch coverage 30/32, incomplete)
 // FUN_0007bbd0 @ 0x0007bbd0
 struct Mat4_7bbd0;
 
@@ -128,14 +128,14 @@ void HexBoard::FUN_0007bbd0(int idx)
     f.l1c = rem;
     f.l14 = -((rem % 2) != 0) - quot * 2;
     int tileId = tiles[idx].id;
-    f.pos.x = (float)f.l14 * 77.9423f;
+    f.pos.x = (float)f.l14 * 77.9422836f;
     f.l14 = tileId;
     f.pos.y = 0;
     f.axis.x = 0;
     f.axis.y = 1.0f;
     f.axis.z = 0;
     f.pos.z = ((float)f.l1c - 0.5f) * -135.0f;
-    f.mat.FUN_0022baf0(&f.axis, (float)f.l14 * 1.0472f);
+    f.mat.FUN_0022baf0(&f.axis, (float)f.l14 * 1.04719758f);
     f.mat.FUN_0022be40(&f.pos);
 
     if (f.count > 0) {

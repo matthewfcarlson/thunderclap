@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20021 inputs, branch coverage 6/6)
 // CDramaticCamera::vfunc_35 @ 0x000a8520
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
@@ -133,7 +133,7 @@ void CDramaticCamera::vfunc_35(Event_a8520 *e, float dt, int a, int b)
             result.FUN_0022ca90(&cam, &offset);
             cam = result;
             vfunc_21(&cam);
-            FUN_000a9090(source->angle * 57.2958f);
+            FUN_000a9090(source->angle * 57.2957764f);
             CGameCamera::vfunc_35(e, dt, a, b);
         } else {
             timer = timer - dt;

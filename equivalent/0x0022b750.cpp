@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 4/4)
 // FUN_0022b750 @ 0x0022b750
 extern "C" float __cdecl FUN_00018a20(float);
 extern "C" double __cdecl sin(double);
@@ -9,7 +9,7 @@ void Quaternion_22b750::interpolate(const Quaternion_22b750* a,const Quaternion_
  float sign=1.0f;
  if(dot<0.0f) { sign=-1.0f; d=-d; dot=d; }
  double first, second;
- if(dot>=0.997222f) { first=1.0-t; second=(double)sign*t; }
+ if(dot>=0.997222245f) { first=1.0-t; second=(double)sign*t; }
  else { float angle=FUN_00018a20(d); float inv=(float)(1.0/sin((double)angle)); first=sin((1.0-t)*angle)*inv; second=sin((double)angle*t)*inv*sign; }
  x=(float)(first*a->x+second*b->x);
  y=(float)(first*a->y+second*b->y);

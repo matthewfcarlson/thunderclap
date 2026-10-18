@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20017 inputs, branch coverage 6/6)
 // FUN_000a04c0 @ 0x000a04c0
 struct Vec_a04c0 { float x,y,z; };
 extern "C" double __cdecl sqrt(double);
@@ -13,6 +13,6 @@ void __cdecl FUN_000a04c0(Vec_a04c0* v, float* yaw, float* pitch, float* length)
  a.f=v->x; a.u &= 0x7fffffff;
  b.f=v->z; b.u &= 0x7fffffff;
  if (a.f <= 0.00001f && b.f <= 0.00001f) *yaw=0.0f;
- else *yaw=FUN_000a02a0((float)(atan2(v->x,v->z)*57.2958f));
- *pitch=FUN_000189c0(v->y/len)*57.2958f;
+ else *yaw=FUN_000a02a0((float)(atan2(v->x,v->z)*57.2957764f));
+ *pitch=FUN_000189c0(v->y/len)*57.2957764f;
 }

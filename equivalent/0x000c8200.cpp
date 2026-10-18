@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 11882 inputs, branch coverage 6/6)
 // FUN_000c8200 @ 0x000c8200
 #include "decls/address.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
@@ -82,7 +82,7 @@ int Obj_c8200::FUN_000c8200(int a0, unsigned int *a1, float a2, float a3, float 
         f.tmp.z = a7 + a4;
         f.m.FUN_0022b980();
         f.m.FUN_0022be40(&f.tmp);
-        f.m.FUN_0022bc20(a8 * 0.0174533f, a9 * 0.0174533f, a10 * 0.0174533f);
+        f.m.FUN_0022bc20(a8 * 0.0174532924f, a9 * 0.0174532924f, a10 * 0.0174532924f);
         Mgr *mgr = DAT_004dd700->mgr;
         s->f30 = mgr->FUN_001dd330(f.keyB.FUN_0027b0e0(f.name),
                                    f.keyA.FUN_0027b0e0("markerObjective_markerObjective"),

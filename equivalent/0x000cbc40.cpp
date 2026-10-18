@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 150/150)
+// STATUS: equivalent (tools/equiv.py level 3: 5746 inputs, branch coverage 150/150)
 // FUN_000cbc40 @ 0x000cbc40
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -259,7 +259,7 @@ void Panel_cbc40::FUN_000cbc40(float dt)
             for (int i = 0; i < *n; i++) {
                 UiObj_cbc40 *o = p19c->begin[(unsigned char)i];
                 o->v6(*ms, 1);
-                *val = (o->v13() - 120.0f) * 0.0666667f;
+                *val = (o->v13() - 120.0f) * 0.0666666701f;
                 f17c = FUN_000186b0(val, lo, hi);
                 if (o->v22())
                     (*(int *)&dt)++;
@@ -296,7 +296,7 @@ void Panel_cbc40::FUN_000cbc40(float dt)
             for (int i = 0; i < *n; i++) {
                 UiObj_cbc40 *o = p19c->begin[(unsigned char)i];
                 o->v6(*ms, 1);
-                *val = o->v13() * 0.0666667f;
+                *val = o->v13() * 0.0666666701f;
                 f17c = 1.0f - FUN_000186b0(val, lo, hi);
                 if (o->v22() || FUN_00344e74(o, 0, DAT_0049fd74, DAT_0049fd9c, 0) != 0)
                     (*(int *)&dt)++;
@@ -342,12 +342,12 @@ void Panel_cbc40::FUN_000cbc40(float dt)
                 UiObj_cbc40 *o = p19c->begin[(unsigned char)i];
                 o->v6(*ms, 1);
                 if (st == 5) {
-                    *val = (o->v13() - 120.0f) * 0.0666667f;
+                    *val = (o->v13() - 120.0f) * 0.0666666701f;
                     f17c = FUN_000186b0(val, lo, hi);
                     if (o->v22())
                         (*(int *)&dt)++;
                 } else {
-                    *val = o->v13() * 0.0666667f;
+                    *val = o->v13() * 0.0666666701f;
                     f17c = 1.0f - FUN_000186b0(val, lo, hi);
                     if (o->v22() || FUN_00344e74(o, 0, DAT_0049fd74, DAT_0049fd9c, 0) != 0)
                         (*(int *)&dt)++;

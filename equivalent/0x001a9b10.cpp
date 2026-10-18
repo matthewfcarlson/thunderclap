@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 34/34)
+// STATUS: equivalent (tools/equiv.py level 3: 10073 inputs, branch coverage 34/34)
 // FUN_001a9b10 @ 0x001a9b10
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
@@ -322,7 +322,7 @@ bool AnimSetup::FUN_001a9b10(Out_1a9b10 *out, const char *animName, const char *
         float r = owner->f2c;
         FUN_001a54a0(&pos, &angle);
         if (d) {
-            r += 3.55339f;
+            r += 3.55338573f;
             pos.x = pos.x + 0.01f;
         }
         item->FUN_000354e0(angle + r);

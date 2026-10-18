@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3180 inputs, branch coverage 118/140, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 17897 inputs, branch coverage 136/140, incomplete)
 // FUN_001bcef0 @ 0x001bcef0
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
@@ -352,7 +352,7 @@ void Fx_1bcef0::FUN_001bcef0()
             f.v.z = 0.0f;
             f.v.FUN_0022d110();
             f.u8.r = FUN_00018a20(f.v.y);
-            f.u4.f = f.u8.r * 0.63662f - 1.0f;
+            f.u4.f = f.u8.r * 0.636619747f - 1.0f;
             f.u4.f = f.u4.f < 0.0f ? -f.u4.f : f.u4.f;
             float s = 1.0f - f.u4.f * 0.25f;
             f.v.x = f.v.x * s;

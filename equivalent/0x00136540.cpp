@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 12/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 16/16)
 // hulkfight::motion::BounceAction::vfunc_5 @ 0x00136540
 #include "decls/data/game/hulkfight/motion.h"
 
@@ -117,7 +117,7 @@ bool hulkfight::motion::BounceAction::vfunc_5(Slot_136540 a1, float dt)
         float tb = a1.f;
         f.absr.f = FUN_00224fc0(tb, angb);
         f.absr.u &= 0x7fffffff;
-        if (f.absr.f < 2.35619f) {
+        if (f.absr.f < 2.3561945f) {
             f.lim = data->f24;
             if (f.lim < 0.0f) {
                 a1.f = angb;

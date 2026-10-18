@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3075 inputs, branch coverage 94/98, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 18524 inputs, branch coverage 96/98, incomplete)
 // hulkfight::motion::JointPivotTrackerAction::vfunc_5 @ 0x00173ca0
 extern "C" int __cdecl _isnan(double);
 
@@ -302,7 +302,7 @@ bool hulkfight::motion::JointPivotTrackerAction::vfunc_5(int a, float dt)
     d = data;
     F.lo = d->lo;
     F.s10 = d->hi;
-    bool narrow = (F.s10 - F.lo) < 6.28319f;
+    bool narrow = (F.s10 - F.lo) < 6.28318548f;
     F.u18.angle = 0.0f;
     if (narrow) {
         F.m158.FUN_0022c3b0(&side, &F.t48);

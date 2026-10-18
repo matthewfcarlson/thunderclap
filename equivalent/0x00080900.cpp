@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 351 inputs, branch coverage 39/42, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 6470 inputs, branch coverage 42/42)
 // FUN_00080900 @ 0x00080900
 #include "decls/data/game/global.h"
 
@@ -101,7 +101,7 @@ void PropList_80900::FUN_00080900(int arg)
         unsigned int flags = p->flags;
         float d2 = dir.x * dir.x + dz * dz;
 
-        if (!((flags >> 8) & 1) && (d2 > 4900.0f || p->pos.y < -100.0f)) {
+        if (!((flags >> 8) & 1) && (d2 > DAT_0049b8e8 || p->pos.y < -100.0f)) {
             FUN_0007b3e0(i);
             i--;
             continue;
@@ -112,9 +112,9 @@ void PropList_80900::FUN_00080900(int arg)
             b.u &= 0x7fffffff;
             if (b.f < 3.0f) {
                 bool push = false;
-                if (d2 < 225.0f) {
+                if (d2 < DAT_0049b8a4) {
                     push = true;
-                } else if (d2 < 625.0f) {
+                } else if (d2 < DAT_0049b8a8) {
                     Vec3_80900 *r = p->FUN_00080c10(&axis);
                     if (dir.z * r->z + dir.y * r->y + dir.x * r->x > 0.0f)
                         push = true;

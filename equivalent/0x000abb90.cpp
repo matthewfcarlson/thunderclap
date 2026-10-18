@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 66/66)
+// STATUS: equivalent (tools/equiv.py level 3: 12898 inputs, branch coverage 66/66)
 // CHypnoticCamera::vfunc_35 @ 0x000abb90
 #include "decls/address.h"
 extern unsigned int DAT_004d9968;
@@ -240,7 +240,7 @@ void CHypnoticCamera::vfunc_35(Ev_abb90 *e, float dt, int c, int d)
         f.R.FUN_0022ca90(&f.M, &m42c);
         f.M = f.R;
         v21(&f.M);
-        FUN_000a9090(f428->f10 * 57.29578f);
+        FUN_000a9090(f428->f10 * 57.2957764f);
     } else {
         int ci = cur;
         int si = ci;

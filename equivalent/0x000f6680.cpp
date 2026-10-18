@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 11542 inputs, branch coverage 8/8)
 // FUN_000f6680 @ 0x000f6680
 extern "C" double sqrt(double);
 
@@ -52,7 +52,7 @@ void FUN_000f6680(Obj_f6680 *p, float angle, float k)
     float r = FUN_00018a20((float)(dot / la * lb));
     f.b.FUN_0022d180();
 
-    if ((k < 0.0f && r > 0.19635f) || (k > 0.0f && r < 2.94524f)) {
+    if ((k < 0.0f && r > 0.196349546f) || (k > 0.0f && r < 2.94524312f)) {
         f.m.FUN_0022b980();
         f.m.FUN_0022baf0(&f.c, k);
         f.b.FUN_0022d260(&f.m);

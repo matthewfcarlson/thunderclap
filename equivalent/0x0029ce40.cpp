@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 30/32, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 9439 inputs, branch coverage 32/32)
 // FUN_0029ce40 @ 0x0029ce40
 struct Vec3_29ce40 {
     float x, y, z;
@@ -100,7 +100,7 @@ void Lighting::FUN_0029ce40(Vec3_29ce40* out, Vec3_29ce40* p)
         double len = d.FUN_0022d110();
         double lenSq = len * len * falloff;
         double w = item->strength;
-        double lit = w * w * falloff * 0.0588235f;
+        double lit = w * w * falloff * 0.0588235296f;
         if (lit > 1.0f)
             lit = 1.0f;
         if (lenSq > 0.0) {

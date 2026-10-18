@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 9/12, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 12/12)
 // FUN_001a54a0 @ 0x001a54a0
 struct Vec3_1a54a0 {
     float x, y, z;
@@ -63,7 +63,7 @@ void Component_1a54a0::FUN_001a54a0(Vec3_1a54a0 *outVec, float *outScalar)
 
     if (mode == 0) {
         *outVec = *DAT_004dd700->modeC->FUN_001fd7d0(&tmp, id);
-        *outScalar = DAT_004dd700->modeC->FUN_001fd830(id) * 0.0174533f;
+        *outScalar = DAT_004dd700->modeC->FUN_001fd830(id) * 0.0174532924f;
     } else if (mode == 1) {
         ModeB_1a54a0 *b = DAT_004dd700->modeB;
         unsigned __int64 key = FUN_002672f0(id, 0, 0);

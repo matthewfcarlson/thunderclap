@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 30/30)
 // HUDOverlay::vfunc_3 @ 0x000d0240
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -184,7 +184,7 @@ void HUDOverlay::vfunc_3(float dt)
                 b4 = delta;
             f.hi = 0.5f;
             f.lo = 0;
-            f.v = b4 * 0.00166667f;
+            f.v = b4 * 0.00166666671f;
             b0 = FUN_000186b0((float*)&f.v, (float*)&f.lo, (float*)&f.hi) + 0.5f;
         }
     } else {

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 44/44)
+// STATUS: equivalent (tools/equiv.py level 3: 19902 inputs, branch coverage 44/44)
 // hulkfight::motion::WallRunAction::vfunc_5 @ 0x0013fa80
 #include "decls/data/game/hulkfight/motion.h"
 
@@ -155,7 +155,7 @@ char WallRunAction::vfunc_5(Arg1_13fa80 a1, Arg2_13fa80 a2)
     f.V.FUN_0022d110();
     float d1 = f.V.z * f.U.z + f.V.x * f.U.x + f.V.y * f.U.y;
     if (DAT_004e0f78 - 1.0f < d1) {
-        if (f.U.z * v38.z + f.U.y * v38.y + f.U.x * v38.x < -0.707107f) {
+        if (f.U.z * v38.z + f.U.y * v38.y + f.U.x * v38.x < -0.707106769f) {
             ok = false;
         } else {
             double c = cos(f1c->f34);
@@ -171,7 +171,7 @@ char WallRunAction::vfunc_5(Arg1_13fa80 a1, Arg2_13fa80 a2)
         float diff = FUN_00224fc0(stats->f2008, f54);
         a1.f = diff;
         a1.u &= 0x7fffffff;
-        if (a1.f > 0.0872665f)
+        if (a1.f > 0.0872664675f)
             b50 = 1;
     }
     if (b50 != 0) {

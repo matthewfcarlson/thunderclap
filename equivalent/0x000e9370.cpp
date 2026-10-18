@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 962 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 3694 inputs, branch coverage 24/24)
 // TextButton::vfunc_5 @ 0x000e9370
 #include "decls/data/engine/pure3d/prop.h"
 
@@ -228,7 +228,7 @@ void TextButton::vfunc_5()
         if (w60 != 0) {
             if (!b68)
                 w60->v8(0, 0);
-            int a = (int)(c158.b[3] * alpha * 0.00392157f);
+            int a = (int)(c158.b[3] * alpha * 0.00392156886f);
             f.x.cells[f.x.cursor].d.u = (a << 24) | (c158.b[2] << 16) | (c158.b[1] << 8) | c158.b[0];
             f.x.FUN_000f87f0(&str18, 0);
         } else {
@@ -241,7 +241,7 @@ void TextButton::vfunc_5()
             o978->col10 = (255 - (int)t) << 24;
             f.x.FUN_000f87f0(&str18, &owner->hold->o978);
             o978->col10 = saved;
-            int a = (int)(c154.b[3] * alpha * 0.00392157f);
+            int a = (int)(c154.b[3] * alpha * 0.00392156886f);
             f.x.cells[f.x.cursor].d.u = (a << 24) | (c154.b[2] << 16) | (c154.b[1] << 8) | c154.b[0];
             f.x.FUN_000f87f0(&str18, &h1->o958);
         }
@@ -249,10 +249,10 @@ void TextButton::vfunc_5()
         if (w64 != 0)
             w64->v8(0, 0);
         f.x.cells[f.x.cursor].d.u = c150.u;
-        int a = (int)(c150.b[3] * alpha * 0.00392157f);
+        int a = (int)(c150.b[3] * alpha * 0.00392156886f);
         f.x.cells[f.x.cursor].d.u = (a << 24) | (c150.b[2] << 16) | (c150.b[1] << 8) | c150.b[0];
         if (!b141) {
-            int a2 = (int)(c150.b[3] * alpha * 0.00392157f);
+            int a2 = (int)(c150.b[3] * alpha * 0.00392156886f);
             f.x.cells[f.x.cursor].d.u = (a2 << 24) | 0x808080;
         }
         f.x.FUN_000f87f0(&str18, &owner->hold->o978);

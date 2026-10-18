@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 427 inputs, branch coverage 61/78, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 4020 inputs, branch coverage 69/78, incomplete)
 // FUN_000396a0 @ 0x000396a0
 // equiv-conv: FUN_00035e70 eax stack
 #include "decls/address.h"
@@ -195,7 +195,7 @@ Thing_396a0 *Picker::F(float x, float z, int minScore)
         fr.dA = (float)atan2(fr.W.x, fr.W.z) - fr.A;
         fr.dB = (float)atan2(fr.W.y, fr.W.z) - fr.B;
         fr.d = (float)sqrt(fr.dB * fr.dB + fr.dA * fr.dA);
-        if (fr.d > 4.71239f) {
+        if (fr.d > 4.71238899f) {
             if (!bl)
                 continue;
         }

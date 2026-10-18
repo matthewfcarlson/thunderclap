@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 15/20, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20059 inputs, branch coverage 17/20, incomplete)
 // FUN_000970f0 @ 0x000970f0
 extern "C" double sqrt(double);
 extern "C" double fabs(double);
@@ -30,7 +30,7 @@ float FUN_000970f0(float x, float z)
     if (fabs(m - 1.0f) <= 1e-5f)
         angle = 90.0f;
     else
-        angle = FUN_000189c0(m) * 57.2958f;
+        angle = FUN_000189c0(m) * 57.2957764f;
 
     if (x >= 0.0f) {
         if (z >= 0.0f)
