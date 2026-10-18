@@ -108,6 +108,8 @@ practice:
 3. **Shapes, not bodies.** An import stand-in may carry a name, a calling convention, argument bytes and a
    return register. Its body is our own (today: count the call, return a safe default). Constants and
    structure layouts the game itself depends on are recovered from the game's code, not from SDK headers.
+   The same holds for LIBCMT: the native build links the host's C runtime (`src/platform/sdl/crt/`, msvcrt.dll
+   by name, no code copied) and decides which standard function each LIBCMT address is from the game's call sites.
 4. **The XDK-shaped layer is temporary.** `src/platform/sdl/xdk/` exists to get the native image to start.
    The target design puts SDL3 backends behind the game's own seams (`pddi`, sound, input, files; see
    below), so the shipped port carries as little XDK-shaped API as possible.

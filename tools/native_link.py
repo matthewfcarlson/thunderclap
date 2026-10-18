@@ -35,7 +35,17 @@ Outputs (build/native/, not tracked):
                      vtables.s/.obj (the game's vftables and RTTI as data, code_owned_data: fix 6a),
                      platform/ (src/platform/sdl/xdk/ compiled: the platform-import stand-ins, fix 7),
                      deleting.s/.obj (the scalar deleting destructors clang doesn't emit: fix 6b),
-                     objs/ (objects with ambiguous symbols renamed per TU)
+                     objs/ (objects with ambiguous symbols renamed per TU, rb_ rebound per calling function,
+                     vt_ stub-vftable references pointed at the game's vftable, rt_ interior data references
+                     retargeted to their item, gl_ clang dynamic initializers made global),
+                     host/ (msvcrt/ntdll/kernel32 import libraries from src/platform/sdl/crt/host_crt_table.h),
+                     crt/ (src/platform/sdl/crt/ compiled), startup.s/.obj (the game's initializer table, type_info's
+                     vftable), hulk-strict.exe/.map (the image and its map: tools/native_run.py runs it under Wine)
+
+The start-up milestone (docs/native-build.md "Start-up"; tools/native_host.py): the host C runtime and our CRT glue,
+the library code and data the tree reaches by address (src/platform/sdl/xdk/library.h), the entry point
+(src/platform/sdl/xdk/startup.cpp) with the XBE's C++ initializer table, and the tools/native_conv_check.py report
+(`conv_check` in report.json).
 
 Beyond the binding map, the inventory aliases a stub class's virtual members to slot N of the game vftable the
 stub stands for (stub_slot_aliases: fix 3a) and renames an ambiguous symbol per object where each TU has one
@@ -45,6 +55,7 @@ callee (`ambiguous_by_tu`). `--reuse-map` runs the inventory and link on an exis
   unbound.txt        every symbol still undefined after binding: group, references, symbol, demangled
 """
 import argparse
+import bisect
 import collections
 import hashlib
 import json
@@ -57,11 +68,16 @@ from concurrent.futures import ProcessPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import compare  # noqa: E402
+import native_host  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-OUT = os.path.join(ROOT, "build/native")
-CACHE = os.path.join(OUT, "cache")
-TREE = os.path.join(ROOT, "build/tree")
+# HULK_NATIVE_DIR: another output directory (bindings, link, report), e.g. for a run beside another agent's;
+# --tree (or HULK_TREE_DIR): the verification tree to bind from, e.g. tools/clang_probe.py's snapshot of it, so the
+# binding map and the clang objects come from one tree while build/tree/ is being rebuilt. The equiv.py binding
+# cache is content-keyed and shared (HULK_NATIVE_CACHE to move it).
+OUT = os.environ.get("HULK_NATIVE_DIR") or os.path.join(ROOT, "build/native")
+CACHE = os.environ.get("HULK_NATIVE_CACHE") or os.path.join(ROOT, "build/native/cache")
+TREE = os.environ.get("HULK_TREE_DIR") or os.path.join(ROOT, "build/tree")
 REL32, DIR32 = 0x14, 0x06
 ADDR_RX = re.compile(r"(?:^|[^0-9A-Za-z])(?:FUN|DAT|thunk_FUN|PTR|LAB)_(00[0-9a-fA-F]{6})(?![0-9a-fA-F])")
 
@@ -141,6 +157,7 @@ def tree_checks():
 
 def tree_objects(tus):
     import build_tree
+    build_tree.TREE, build_tree.INCLUDE_DIR = TREE, os.path.join(TREE, "include")
     return {t: build_tree.compile_tu(t)[0] for t in sorted(tus)}
 
 
@@ -153,6 +170,7 @@ def build_map(jobs):
             defs[int(c["addr"], 16)] = c["symbol"]
     refs = collections.defaultdict(lambda: collections.defaultdict(collections.Counter))   # sym -> addr -> how
     per_tu = collections.defaultdict(lambda: collections.defaultdict(set))                 # sym -> TU -> addrs
+    per_fn = collections.defaultdict(lambda: collections.defaultdict(set))                 # sym -> function -> addrs
     users = collections.Counter()
     stats = collections.Counter()
     todo, todo_tu = [], []
@@ -167,23 +185,25 @@ def build_map(jobs):
                 for t, n in ts.items():
                     refs[s][t]["position"] += n
                     per_tu[s][c["tu"]].add(t)
+                    per_fn[s][c["symbol"]].add(t)
                 users[s] += 1
             stats["matches bound by position"] += 1
         elif c["kind"] == "equivalent" and c["status"] == "compiled":
             todo.append((obj, c["symbol"], c["src"], a))
             todo_tu.append(c["tu"])
     with ProcessPoolExecutor(jobs) as ex:
-        for i, (res, tu) in enumerate(zip(ex.map(_equiv_job, todo, chunksize=8), todo_tu), 1):
+        for i, (res, tu, job) in enumerate(zip(ex.map(_equiv_job, todo, chunksize=8), todo_tu, todo), 1):
             stats["equivalent: equiv.py level 2 %s" % ("ok" if res["status"] in ("draft", "pass") else res["status"])] += 1
             for s, (t, how) in res["map"].items():
                 refs[s][int(t, 16)]["equiv:" + how] += 1
                 per_tu[s][tu].add(int(t, 16))
+                per_fn[s][job[1]].add(int(t, 16))
                 users[s] += 1
             for s in res["unresolved"]:
                 stats["equivalent: symbols equiv.py could not bind"] += 1
             if i % 500 == 0 and sys.stderr.isatty():
                 print("  equivalent bindings %d/%d" % (i, len(todo)), file=sys.stderr, flush=True)
-    return defs, refs, users, stats, per_tu
+    return defs, refs, users, stats, per_tu, per_fn
 
 
 def data_definitions(objs_syms):
@@ -197,11 +217,25 @@ def data_definitions(objs_syms):
     return out
 
 
+def final_target(a):
+    """a, or the function a chain of `jmp rel32` thunks at a ends in."""
+    return jmp_target(a) or a
+
+
 def bind(defs, data_defs, refs):
-    """referenced symbol -> binding record; and the ambiguous ones."""
+    """referenced symbol -> binding record; and the ambiguous ones.
+
+    Two addresses that are one function (a `jmp` thunk and its target: `operator delete` called at 0x0008d330 in
+    one source and through thunk 0x00263f30 in another) are one callee: bound to the thunks' final target."""
     out, amb = {}, {}
     for s, by_addr in refs.items():
         addrs = sorted(by_addr)
+        if len(addrs) > 1 and len({final_target(a) for a in addrs}) == 1:
+            t = final_target(addrs[0])
+            how = sorted({h for a in addrs for h in by_addr[a]} | {"thunks of one function"})
+            d = defs.get(t) or data_defs.get(t)
+            out[s] = {"addr": "0x%08x" % t, "how": how, "def": d}
+            continue
         if len(addrs) > 1:
             amb[s] = {"0x%08x" % a: dict(by_addr[a]) for a in addrs}
             continue
@@ -239,7 +273,7 @@ def clang_objects():
     return cp, tus, res
 
 
-def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None):
+def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None, amb_fn=None):
     cp, tus, res = clang_objects()
     man = cp.Manifest()
     objs = {p: r["obj"] for p, r in res.items() if r.get("obj")}
@@ -287,6 +321,21 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None)
     for a, s in shim["by_addr"].items():
         by_addr_def.setdefault(a, s)
     defined |= shim["defined"]
+    # start-up (docs/native-build.md "Start-up"): the host C runtime (src/platform/sdl/crt/: import libraries and our
+    # glue), the library code and data the tree reaches by address (src/platform/sdl/xdk/library.h)
+    host = native_host.host_crt(cp, os.path.join(OUT, "link"))
+    defined |= host["defined"]
+    lib = native_host.library_shim(cp, shim["objects"])
+    # what the platform code itself still needs (clang's own libcalls in it: _aulldiv, memcpy): by name like the tree's
+    for d_, u in cp.nm(shim["objects"] + host["objects"]).values():
+        for s in u:
+            if s not in defined and not s.startswith(("_hulk_host_", "__imp_", "_hulk_game_", "_hulk_clang_xc_", "@feat")):
+                refs[s] += 1
+                undef.add(s)
+    for a, s in list(lib["by_addr"].items()) + list(host["by_addr"].items()):
+        if by_addr_def.get(a) and by_addr_def[a] != s and a not in host["by_addr"]:
+            continue
+        by_addr_def[a] = s
     # fix 6a: the game's vftables and RTTI structures as data (build/native/link/vtables.s), named by address
     vt = code_owned_data(by_addr_def)
     for a, lab in vt["labels"].items():
@@ -302,6 +351,13 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None)
             a, src = vt["names"][s], "MSVC vftable/RTTI name (config/data.json)"
         if a is None and shim_key(s) in shim["by_name"]:
             a, src = shim["by_name"][shim_key(s)], "XDK import name (src/platform/sdl/xdk/imports.h)"
+        if (a is None or (not by_addr_def.get(a) and not b)) and s not in ambiguous:
+            # a CRT function the tree (or clang's own lowering: memcpy, _alldiv, __CxxFrameHandler3) names directly
+            hn = host["by_name"].get(native_host.plain_name(s) or "")
+            if hn and hn != s:
+                aliases[s] = hn
+                how["bound by CRT name (src/platform/sdl/crt/host_crt_table.h)"] += 1
+                continue
         if a is None:
             continue
         d = by_addr_def.get(a)
@@ -343,7 +399,99 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None)
             how["ambiguous: renamed per object"] += 1
         elif done:
             how["ambiguous: renamed in some objects"] += 1
+    # the rest: one callee per calling function -> each relocation is rebound by the function it is in
+    rebind = collections.defaultdict(dict)
+    for s in sorted(set(amb_fn or {}) - renamed_all):
+        per = (amb_fn or {}).get(s)
+        if not per:
+            continue
+        plan = {}
+        for fn, a_ in per.items():
+            d = by_addr_def.get(int(a_, 16))
+            if d:
+                if d == s or d == aliases.get(s):
+                    continue
+                new = "%s$%s" % (s, a_[2:])
+                plan[fn] = new
+                aliases[new] = d
+        if not plan:
+            continue
+        for o, (d_, u) in syms.items():
+            if s in u or s in d_:
+                rebind[o][s] = plan
+        how["rebound per calling function (%s)" % ("ambiguous" if s in undef else "name means another address")] += 1
     after = undef - set(aliases) - renamed_all
+    # an address inside a data item another object defines (a global at +0x4c of a data TU's `DAT_<start>`, an
+    # interior label of a vftable item): the referencing objects are patched to name the item, offset in the addend
+    items, starts = native_host.data_items()
+    defined_at = {a: s for a, s in data_defs.items() if s in defined}
+    for a, lab in vt["labels"].items():
+        defined_at.setdefault(a, lab)
+    interior = {}
+    own_rows = native_host.host_tables()[2] + native_host.library_table()[1]
+    for s in sorted(after):
+        b = binding.get(s)
+        a = int(b["addr"], 16) if b else name_address(s)
+        if a is None or by_addr_def.get(a):
+            continue
+        c = next(((sym, a - s0) for s0, sym, n in own_rows if s0 < a < s0 + n), None) or \
+            native_host.container(a, items, starts, defined_at)
+        if c:
+            interior[s] = c
+    after -= set(interior)
+    after -= defined          # (defined by the platform objects: __fltused, the sized operator delete, ...)
+    retarget = collections.defaultdict(dict)
+    for o, (d_, u) in syms.items():
+        for s in u & set(interior):
+            retarget[o][s] = interior[s]
+    # clang's own vftables of stub classes (`??_7MemoryDlAllocator@core@fn_0026ce90@@6B@`, emitted where verified
+    # code constructs the stub): the verification proved which game vftable each vptr store writes (the binding
+    # map's address), so the stores and other references are pointed at the game's vftable (vtables.s; its slots
+    # are the tree's definitions) instead of the stub's, whose slots name members nobody defines
+    vitems = [(int(it["addr"], 16), it["size"]) for it in items if it["kind"] == "vtable"]
+    vstarts = [a for a, _ in vitems]
+    vt_map = {}
+    for s in defined:
+        if not s.startswith("??_7"):
+            continue
+        b = binding.get(s)
+        if not b:
+            continue
+        a = int(b["addr"], 16)
+        lab = vt["labels"].get(a)
+        if lab:
+            vt_map[s] = (lab, 0)
+            continue
+        k = bisect.bisect_right(vstarts, a) - 1
+        if k >= 0 and a < vitems[k][0] + vitems[k][1] and vt["labels"].get(vitems[k][0]):
+            vt_map[s] = (vt["labels"][vitems[k][0]], a - vitems[k][0])
+    vt_rebind = collections.defaultdict(dict)
+    for o, (d_, u) in syms.items():
+        for s in (d_ | u) & set(vt_map):
+            vt_rebind[o][s] = vt_map[s]
+    how["stub vftable references pointed at the game's vftable"] += len(vt_map)
+    # a game initializer whose source is the dynamic initializer itself (an isolated `.text$yc` source defining a
+    # global with a constructor: MSVC's `$E1`): clang's equivalent is the TU's local `__GLOBAL__sub_I_<file>`, made
+    # global in a copy of the object so the start-up table can call it in the XBE's order
+    globalize = collections.defaultdict(list)
+    for c in tree_checks():
+        if not re.fullmatch(r"_\$E\d+", c.get("symbol") or "") or c["status"] != "match" or c["tu"] not in objs:
+            continue
+        o = objs[c["tu"]]
+        name = "__GLOBAL__sub_I_" + os.path.basename(c["tu"])
+        try:
+            have = any(sy[0] == name for sy in compare.Coff(o).symbols)
+        except Exception:  # noqa: BLE001
+            have = False
+        if have:
+            globalize[o].append(name)
+            by_addr_def[int(c["addr"], 16)] = name
+            defined.add(name)
+            how["game initializer bound to clang's own dynamic initializer"] += 1
+    # the start-up table (build/native/link/startup.s) and the game's main
+    startup, start_st = native_host.startup_asm(xbe(), by_addr_def)
+    if by_addr_def.get(native_host.MAIN_ADDR):
+        aliases["_hulk_game_main"] = by_addr_def[native_host.MAIN_ADDR]
     ok_tus = {p for p in tus if res[p]["rc"] == 0}
     before_g = cp.group_undefined(undef, refs, man, ok_tus)
     after_g = cp.group_undefined(after, refs, man, ok_tus)
@@ -373,11 +521,38 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None)
                                 "groups": tally(before_g, undef)},
            "aliases": len(aliases), "aliases_by_source": dict(how), "stub_vftable_slots": dict(slot_how),
            "code_owned_data": vt["stats"], "deleting_destructors": dd["stats"], "platform_shim": shim["stats"],
+           "host_crt": dict(host["stats"]), "library_shim": lib["stats"], "startup": start_st,
+           "interior_retargeted_objects": len(retarget),
            "undefined_after": {"symbols": len(after), "references": sum(refs[s] for s in after),
                                "groups": tally(after_g, after)}}
     if do_link:
-        link_objs = [rename_object(o, renames[o]) if renames.get(o) else o for o in sorted(objs.values())] + shim["objects"]
-        inv["lld_link"] = lld_link(link_objs, aliases, after | vt["undefined"], vt["asm"], dd["asm"])
+        link_objs = []
+        for o in sorted(objs.values()):
+            o2 = rename_object(o, renames[o]) if renames.get(o) else o
+            if globalize.get(o):
+                out_o = os.path.join(OUT, "link", "objs", "gl_" + os.path.basename(o))
+                os.makedirs(os.path.dirname(out_o), exist_ok=True)
+                if native_host.globalize_object(o2, set(globalize[o]), out_o):
+                    o2 = out_o
+            if rebind.get(o):
+                out_o = os.path.join(OUT, "link", "objs", "rb_" + os.path.basename(o))
+                os.makedirs(os.path.dirname(out_o), exist_ok=True)
+                left = native_host.rebind_object(o2, rebind[o], out_o)
+                o2 = out_o
+                after |= left - defined     # relocations in functions the plan doesn't know keep the old name
+            if vt_rebind.get(o):
+                out_o = os.path.join(OUT, "link", "objs", "vt_" + os.path.basename(o))
+                os.makedirs(os.path.dirname(out_o), exist_ok=True)
+                native_host.retarget_relocs(o2, vt_rebind[o], out_o)
+                o2 = out_o
+            if retarget.get(o):
+                out_o = os.path.join(OUT, "link", "objs", "rt_" + os.path.basename(o))
+                os.makedirs(os.path.dirname(out_o), exist_ok=True)
+                native_host.retarget_object(o2, retarget[o], out_o)
+                o2 = out_o
+            link_objs.append(o2)
+        link_objs += shim["objects"] + host["objects"]
+        inv["lld_link"] = lld_link(link_objs, aliases, after | vt["undefined"], vt["asm"], dd["asm"], startup, host["libs"])
     return inv
 
 
@@ -391,7 +566,7 @@ def shim_key(sym):
     return m.group(1) if m else None
 
 
-def platform_shim(cp):
+def platform_shim(cp):  # noqa: C901
     """Compile src/platform/sdl/xdk/ (the XDK import stand-ins; native builds only) for i686-pc-windows-msvc.
 
     imports.h's HULK_XDK_IMPORT table gives each stand-in's XBE address; every symbol the tree calls that address
@@ -402,22 +577,7 @@ def platform_shim(cp):
     if not os.path.exists(hdr):
         return out
     table = [(int(m.group(1), 16), m.group(2)) for m in map(SHIM_RX.match, open(hdr)) if m]
-    d = os.path.join(OUT, "link", "platform")
-    os.makedirs(d, exist_ok=True)
-    clang = cp.tool("clang++")
-    for fn in sorted(os.listdir(SHIM_DIR)):
-        if not fn.endswith(".cpp"):
-            continue
-        obj = os.path.join(d, fn[:-4] + ".obj")
-        r = subprocess.run([clang, "--target=i686-pc-windows-msvc", "-fms-extensions", "-std=c++14", "-O1", "-mno-sse",
-                            "-mfpmath=387", "-Werror", "-c", os.path.join(SHIM_DIR, fn), "-o", obj],
-                           capture_output=True, text=True)
-        if r.returncode != 0:
-            st["files failing to compile"] += 1
-            print(r.stderr[-2000:], file=sys.stderr)
-            continue
-        out["objects"].append(obj)
-        st["files"] += 1
+    out["objects"] = native_host.compile_dir(cp, SHIM_DIR, os.path.join(OUT, "link", "platform"), st)
     for dset, _u in cp.nm(out["objects"]).values():
         out["defined"] |= dset
     by_key = {shim_key(s)[len("hulk_xdk_"):]: s for s in out["defined"] if (shim_key(s) or "").startswith("hulk_xdk_")}
@@ -609,10 +769,10 @@ def stub_slot_aliases(objects, binding, by_addr_def, undef, how):
 DATA_LIKE = re.compile(r"^\?\?_[78R]|^\?[^@]+@.*@@[0-9]|^_(?:DAT|g|s|PTR|tbl|flt|dbl|unk)_|^\?\?_C@|^__real@")
 
 
-def lld_link(objects, aliases, undefined, vt_asm=None, dd_asm=None):
+def lld_link(objects, aliases, undefined, vt_asm=None, dd_asm=None, startup_asm=None, libs=()):
     d = os.path.join(OUT, "link")
     os.makedirs(d, exist_ok=True)
-    for name, text in (("vtables", vt_asm), ("deleting", dd_asm)):
+    for name, text in (("vtables", vt_asm), ("deleting", dd_asm), ("startup", startup_asm)):
         if not text:
             continue
         with open(os.path.join(d, name + ".s"), "w") as f:
@@ -628,18 +788,13 @@ def lld_link(objects, aliases, undefined, vt_asm=None, dd_asm=None):
         (subprocess.run(["which", "lld-link"], capture_output=True, text=True).stdout.strip() or None)
     if not lld:
         return {"status": "lld-link not found"}
-    # one stub per symbol still undefined: int3 for code, 16 zero bytes for data
-    lines = ['\t.text', '\t.globl\t"_hulk_native_entry"', '"_hulk_native_entry":', "\tint3"]
-    data = []
-    for s in sorted(undefined):
-        q = '"%s"' % s.replace('"', '\\"')
-        if DATA_LIKE.match(s):
-            data += ["\t.globl\t%s" % q, "%s:" % q, "\t.zero\t16"]
-        else:
-            lines += ["\t.globl\t%s" % q, "%s:" % q, "\tint3"]
-    lines += ["\t.data"] + data
+    # one stub per symbol still undefined: 16 zero bytes for data; code reports its name (src/platform/sdl/xdk/
+    # startup.cpp hulk_native_missing). Without the start-up object (no shim), the old int3 entry.
+    text = native_host.stubs_asm(undefined, DATA_LIKE)
+    if not startup_asm:
+        text = '\t.text\n\t.globl\t"_hulk_native_entry"\n"_hulk_native_entry":\n\tint3\n' + text
     with open(os.path.join(d, "stubs.s"), "w") as f:
-        f.write("\n".join(lines) + "\n")
+        f.write(text)
     stub = os.path.join(d, "stubs.obj")
     r = subprocess.run([os.path.join(llvm, "clang"), "--target=i686-pc-windows-msvc", "-c", os.path.join(d, "stubs.s"),
                         "-o", stub], capture_output=True, text=True)
@@ -652,8 +807,8 @@ def lld_link(objects, aliases, undefined, vt_asm=None, dd_asm=None):
     out = {}
     for tag, extra in (("strict", []), ("force", ["/force:multiple"])):
         cmd = [lld, "/nologo", "/machine:x86", "/subsystem:console", "/entry:hulk_native_entry", "/nodefaultlib", "/safeseh:no",
-               "/errorlimit:0", "/out:" + os.path.join(d, "hulk-%s.exe" % tag),
-               "@" + os.path.join(d, "objects.rsp"), "@" + os.path.join(d, "aliases.rsp")] + extra
+               "/errorlimit:0", "/out:" + os.path.join(d, "hulk-%s.exe" % tag), "/map:" + os.path.join(d, "hulk-%s.map" % tag),
+               "/base:0x10000000", "@" + os.path.join(d, "objects.rsp"), "@" + os.path.join(d, "aliases.rsp")] + list(libs) + extra
         r = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
         log = r.stdout + r.stderr
         with open(os.path.join(d, "lld-link-%s.log" % tag), "w") as f:
@@ -669,6 +824,25 @@ def lld_link(objects, aliases, undefined, vt_asm=None, dd_asm=None):
     return out
 
 
+def conv_check():
+    """tools/native_conv_check.py (report only): calling conventions of the sources' and the binding map's
+    declarations of library imports against the stand-in tables and the XBE's `ret N`."""
+    import native_conv_check
+    try:
+        r = native_conv_check.run(bindings_path=os.path.join(OUT, "bindings.json"))
+    except Exception as e:  # noqa: BLE001 - a report, never a reason to fail the link
+        return {"error": "%s: %s" % (type(e).__name__, e)}
+    return {"findings": r["findings"], "imports": r["imports"],
+            "sources": {"declarations": r["sources"]["declarations"], "disagreeing": len(r["sources"]["disagreeing"])},
+            "bindings": {"symbols": r["bindings"]["symbols"], "disagreeing": len(r["bindings"]["disagreeing"])},
+            "xbe": {"checked": r["xbe"]["checked"], "disagreeing": len(r["xbe"]["disagreeing"])},
+            "register_orders": {"functions": r["register_orders"]["functions"],
+                                "disagreeing": len(r["register_orders"]["disagreeing"])},
+            "details": ([d.get("symbol") or "%s:%s" % (d.get("file"), d.get("line")) if "why" in d or "symbol" in d
+                        else d.get("import_") for k in ("sources", "bindings", "xbe") for d in r[k]["disagreeing"]] +
+                       ["%s %s" % (d["addr"], d["file"]) for d in r["register_orders"]["disagreeing"]])[:40]}
+
+
 # ---------------------------------------------------------------------------------------------
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -678,29 +852,60 @@ def main(argv=None):
     ap.add_argument("--reuse-map", action="store_true",
                     help="take the binding map from build/native/bindings.json (e.g. built on another machine) "
                          "instead of rebuilding it; only the link inventory and the link run")
+    ap.add_argument("--tree", help="the verification tree to bind from (default build/tree, or HULK_TREE_DIR): e.g. "
+                    "build/clang-probe/snap, the snapshot tools/clang_probe.py compiled")
     a = ap.parse_args(argv)
+    global TREE
+    if a.tree:
+        TREE = os.path.abspath(a.tree)
     os.makedirs(OUT, exist_ok=True)
     if a.reuse_map:
         bj = json.load(open(os.path.join(OUT, "bindings.json")))
         binding, amb = bj["bindings"], bj["ambiguous"]
         defs = {int(k, 16): v for k, v in bj["definitions"].items()}
         rep = json.load(open(os.path.join(OUT, "report.json")))
-        rep["link"] = link_inventory(binding, defs, {}, not a.no_link, set(amb), bj.get("ambiguous_by_tu"))
+        rep["link"] = link_inventory(binding, defs, {}, not a.no_link, set(amb), bj.get("ambiguous_by_tu"),
+                                     bj.get("ambiguous_by_function"))
+        rep["conv_check"] = conv_check()
         with open(os.path.join(OUT, "report.json"), "w") as f:
             json.dump(rep, f, indent=1)
         print(json.dumps(rep["link"], indent=1))
         return 0
-    defs, refs, users, stats, per_tu = build_map(a.jobs)
+    defs, refs, users, stats, per_tu, per_fn = build_map(a.jobs)
     binding, amb = bind(defs, {}, refs)
     # an ambiguous symbol (one name, two callees) is often one callee per TU: the link renames it per object
     amb_tu = {}
     for s_ in amb:
-        by = {tu: sorted(ad) for tu, ad in per_tu[s_].items()}
+        by = {tu: sorted({final_target(x) for x in ad}) for tu, ad in per_tu[s_].items()}
         if all(len(v) == 1 for v in by.values()):
             amb_tu[s_] = {tu: "0x%08x" % v[0] for tu, v in by.items()}
+    # otherwise one callee per calling function (two sources merged into one TU, each naming its own `Obj::Init`):
+    # the link rebinds each relocation by the function it is in
+    amb_fn = {}
+    for s_ in amb:
+        if s_ in amb_tu:
+            continue
+        by = {fn: sorted({final_target(x) for x in ad}) for fn, ad in per_fn[s_].items()}
+        if by and all(len(v) == 1 for v in by.values()):
+            amb_fn[s_] = {fn: "0x%08x" % v[0] for fn, v in by.items()}
+    # a name with an address that some verified function uses for another callee (a clone source calling
+    # `FUN_0008ed50` where its original calls 0x00270540: the byte match masks the relocation): the name is defined,
+    # so no alias would ever apply; those functions' relocations are rebound like the ambiguous ones
+    for s_, fns in per_fn.items():
+        n = name_address(s_)
+        if n is None or n not in defs:
+            continue
+        own = final_target(n)
+        wrong = {}
+        for fn, ad in fns.items():
+            tt = {final_target(x) for x in ad}
+            if len(tt) == 1 and own not in tt:
+                wrong[fn] = "0x%08x" % tt.pop()
+        if wrong:
+            amb_fn.setdefault(s_, {}).update(wrong)
     how = collections.Counter("+".join(b["how"]) for b in binding.values())
     with open(os.path.join(OUT, "bindings.json"), "w") as f:
-        json.dump({"bindings": binding, "ambiguous": amb, "ambiguous_by_tu": amb_tu, "definitions": {"0x%08x" % k: v for k, v in sorted(defs.items())},
+        json.dump({"bindings": binding, "ambiguous": amb, "ambiguous_by_tu": amb_tu, "ambiguous_by_function": amb_fn, "definitions": {"0x%08x" % k: v for k, v in sorted(defs.items())},
                    "references": dict(users)}, f, indent=0)
     with open(os.path.join(OUT, "alternatename.rsp"), "w") as f:
         for s, b in sorted(binding.items()):
@@ -711,7 +916,8 @@ def main(argv=None):
            "aliases": sum(1 for s, b in binding.items() if b["def"] and b["def"] != s),
            "how": dict(how.most_common())}
     if not a.no_inventory:
-        rep["link"] = link_inventory(binding, defs, {}, not a.no_link, set(amb), amb_tu)
+        rep["link"] = link_inventory(binding, defs, {}, not a.no_link, set(amb), amb_tu, amb_fn)
+    rep["conv_check"] = conv_check()
     with open(os.path.join(OUT, "report.json"), "w") as f:
         json.dump(rep, f, indent=1)
     print(json.dumps(rep, indent=1))

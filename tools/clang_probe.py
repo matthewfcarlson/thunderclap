@@ -51,9 +51,11 @@ import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(ROOT, "build/clang-probe")
+# HULK_CLANG_PROBE_DIR: another output directory (its own snapshot, report and undefined.txt), e.g. for a run beside
+# another agent's; HULK_CLANG_PROBE_CACHE: the per-TU cache to use (content-keyed, so it can be shared)
+OUT = os.environ.get("HULK_CLANG_PROBE_DIR") or os.path.join(ROOT, "build/clang-probe")
 SNAP = os.path.join(OUT, "snap")
-CACHE = os.path.join(OUT, "cache")
+CACHE = os.environ.get("HULK_CLANG_PROBE_CACHE") or os.path.join(OUT, "cache")
 LLVM = "/opt/homebrew/opt/llvm/bin"
 
 
@@ -524,6 +526,10 @@ def nm(objs):
         batch = objs[i:i + 200]
         p = subprocess.run([exe, "--no-sort"] + batch, capture_output=True, text=True, errors="replace")
         cur = None
+        if len(batch) == 1:
+            # (llvm-nm prints no `path:` header for a single file: the last object of a run used to lose its symbols)
+            cur = batch[0]
+            out[cur] = (set(), set())
         for line in p.stdout.splitlines():
             if line.endswith(":") and line[:-1] in batch:
                 cur = line[:-1]

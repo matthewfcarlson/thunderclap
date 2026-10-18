@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 797 inputs, branch coverage 72/94, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 714 inputs, branch coverage 92/94, incomplete)
+// FUN_0026c040 @ 0x0026c040
 // FUN_0026c040 @ 0x0026c040
 // dlmalloc 2.7.0 malloc (mALLOc): the allocator's public entry
 #include "decls/data/engine/core.h"
@@ -20,8 +21,8 @@ struct MState {
 };
 
 extern void __cdecl FUN_0026b970(MState *av);
-// equiv-conv: FUN_0026be70 stack eax
-extern void *FUN_0026be70(unsigned nb, MState *av);
+// equiv-conv: FUN_0026be70 eax stack
+extern void *FUN_0026be70(MState *av, unsigned nb);
 
 static inline Chunk *bin_at(MState *av, unsigned i)
 {
@@ -227,7 +228,7 @@ void *__cdecl FUN_0026c040(unsigned bytes)
             return (char *)victim + 8;
         }
         if (av->max_fast & 1)
-            return FUN_0026be70(nb, av);
+            return FUN_0026be70(av, nb);
         FUN_0026b970(av);
         idx = nb >> 3;
     }

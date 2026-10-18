@@ -66,6 +66,24 @@ PATCHES = [
      "an explicit constructor call (MSVC extension, which clang accepts too) through a pointer of dependent type "
      "`T*`: clang can't resolve the injected class name there; the cast makes the object expression non-dependent "
      "(placement new would add MSVC 7.1's null check)"),
+    ("equivalent/0x0008d480.cpp", "int bounds[4]; FUN_00209f01(bounds);", "int bounds[8]; FUN_00209f01(bounds);",
+     "GlobalMemoryStatus fills a 32-byte MEMORYSTATUS (the original reserves 0x20 bytes for it): natively the "
+     "16-byte array let it overwrite the saved registers and return address (start-up trace, init 216)"),
+    ("matches/0x0008d690.cpp",
+     "int __cdecl first(int);\nvoid __cdecl second(int);\nvoid __cdecl FUN_0008d690(int x) {",
+     "int __cdecl first();\nvoid* __cdecl second(int, int);\nvoid* __cdecl FUN_0008d690(int x) {",
+     "the game's operator new: `push size; call first; push eax; call second` is second(first(), size) (MSVC "
+     "pushes the right-hand argument first), not second(first(size)) with the size left on the stack, and it "
+     "returns second's pointer: natively the old text passed second a garbage size and returned nothing"),
+    ("matches/0x0008d690.cpp", "    second(first(x));\n    _ReadWriteBarrier();\n", "    return second(first(), x);\n",
+     "(the same edit, second part)"),
+    ("equivalent/0x0026c040.cpp", "// equiv-conv: FUN_0026be70 stack eax\nextern void *FUN_0026be70(unsigned nb, MState *av);",
+     "// equiv-conv: FUN_0026be70 eax stack\nextern void *FUN_0026be70(MState *av, unsigned nb);",
+     "a register-convention callee declared with its parameters in another order than its own source "
+     "(equivalent/0x0026be70.cpp: `eax stack`, (arena, size)): equiv.py maps each side to the original's registers, "
+     "natively both are __cdecl and the callee read the size as its arena (start-up trace, init 216)"),
+    ("equivalent/0x0026c040.cpp", "            return FUN_0026be70(nb, av);", "            return FUN_0026be70(av, nb);",
+     "(the same edit, the call)"),
 ]
 
 

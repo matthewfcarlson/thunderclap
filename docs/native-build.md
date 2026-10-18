@@ -14,14 +14,21 @@ build/venv/bin/python tools/native_link.py --reuse-map  # inventory + link with 
 build/venv/bin/python tools/native_shim.py              # platform-shim / CRT inventory of the link (build/native/shim-inventory.json)
 build/venv/bin/python tools/native_shim.py --skeleton   # write src/platform/sdl/xdk/ files that don't exist yet (pre-shim inventory)
 build/venv/bin/python tools/native_fix.py               # fix 4 source edits: plan; --apply --verify rewrites verified sources
+build/venv/bin/python tools/native_conv_check.py        # calling conventions of library imports and register-convention callers
+build/venv/bin/python tools/native_run.py --hello       # Wine runs a trivial i686 PE? (our own prefix: build/native/wineprefix)
+build/venv/bin/python tools/native_run.py               # run the image under Wine: build/native/run/ (trace, summary)
+# beside another agent's runs: HULK_CLANG_PROBE_DIR=build/native5/clang-probe HULK_CLANG_PROBE_CACHE=build/clang-probe/cache
+#   HULK_NATIVE_DIR=build/native5 ... clang_probe.py --snapshot --configs msvc; native_link.py --tree build/native5/clang-probe/snap
 ```
 
-**Status 2026-10-18 (evening): all 2,558 TUs compile under clang and the strict link succeeds with 3,253 symbols
-stubbed** (were 5,429 in the morning, 9,613 the night before). `lld-link` without `/force` links the 3,636 clang
-objects (2,558 code TUs + 1,078 data TUs), the aliases, the game's vftables/RTTI, the synthesized scalar deleting
-destructors, the platform-import shim (`src/platform/sdl/xdk/`) and the stub object into a 7.6 MB PE32 image. See
-[Deleting destructors, the last TU and the platform shim](#deleting-destructors-the-last-tu-and-the-platform-shim-2026-10-18)
-and, for what the image still needs before it can start, [Start-up milestone](#start-up-milestone-what-is-left-2026-10-18).
+**Status 2026-10-18 (start-up): the image starts.** Linked against the host C runtime (msvcrt.dll through our own
+import libraries), with our own entry point, it runs under Wine, maps the XBE's data, and runs **308 of the game's
+466 C++ dynamic initializers** before it stops on a data-layout bug (a verified structure split into data-TU items
+that the native link doesn't keep adjacent). `main` is not reached yet. See [Start-up](#start-up-2026-10-18) for
+the trace, the five classes of verified-source bugs it found and what comes next. The evening before: all 2,558 TUs
+compiled under clang and the strict link succeeded with 3,253 symbols stubbed (were 5,429 in the morning, 9,613 the
+night before); see [Deleting destructors, the last TU and the platform
+shim](#deleting-destructors-the-last-tu-and-the-platform-shim-2026-10-18).
 [After fix 4 and the binding fixes](#after-fix-4-and-the-binding-fixes-2026-10-18) is the same morning, [After the
 next fixes 1-3](#after-the-next-fixes-1-3-2026-10-17) the night before (first strict link), [After fixes 0-2 and
 5a](#after-fixes-0-2-and-5a) the evening before, and the sections from "What was measured" on are the
@@ -290,11 +297,8 @@ above come on top of this list once they are named.)
 **Next** (in order):
 
 1. ~~The scalar deleting destructors~~ (done the same evening, fix 6b).
-2. The host CRT for the 90 CRT functions (426 symbols) and the 42 library-data addresses (the `/GS` cookie, CRT
-   globals, D3D state words, 2 kernel import slots), the 139 library addresses behind stub names as more
-   `imports.h` stand-ins, and an entry point that runs the CRT start-up and `main`: then the image can be run under
-   Wine/Windows with a start-up trace (`hulk_xdk_called`). The shim skeleton for the 167 imports exists
-   (`src/platform/sdl/xdk/`).
+2. ~~The host CRT, the library data and code behind stub names, an entry point and a start-up trace~~ (done the
+   next morning: [Start-up](#start-up-2026-10-18)).
 3. The unverified game functions, the 1,143 stub vftables with unknown game address, the 114 ambiguous names
    (source renames), the 207 data symbols outside the inventory, and a convention check between each aliased
    caller symbol and its definition (`D3DDevice_SetRenderState_FillMode` above).
@@ -303,6 +307,173 @@ Caveats: the MSVC comparison ran on frozen inputs; the live tree has fx14's thre
 equivalent since. `native_fix.py`'s `patch` list is exact text: a source changed later no longer matches and is
 reported, not edited. The CRT guard relies on line numbers not mattering to MSVC 7.1 codegen (no `__LINE__`, no
 debug info), which the identical verdicts confirm for this tree.
+
+## Start-up (2026-10-18)
+
+The milestone: an image that starts and writes a start-up trace. Done; it gets through 308 of the 466 C++ dynamic
+initializers (the `.text$yc` functions the XBE's CRT start-up runs before `main`). Inputs: a snapshot of the tree
+`tools/build_tree.py` built at 08:36 (2,723 TUs, all compile under clang `msvc`), the binding map rebuilt from it.
+
+**1. Host C runtime and library data.** Decision: the C runtime every Windows has, **msvcrt.dll** (plus ntdll's
+64-bit arithmetic helpers `_allmul`/`_aulldiv`/... and a few kernel32 functions for the start-up code), through import
+libraries that `tools/native_host.py` builds at link time with `llvm-dlltool` from our own `.def` files. Why: the
+first target is i686 Windows / Wine, where msvcrt.dll is always present and exports almost everything the tree
+calls with MSVC's names and ABI (`_ftol`, `_CIpow`, `_CIacos`, `__CxxFrameHandler3`, `_CxxThrowException`,
+`__RTDynamicCast`, `_setjmp3`, `type_info::operator==`, the stdio and math functions); nothing has to be installed
+(no MSVC CRT, xwin/msvc-wine sysroot or MinGW is on this Mac, and none is needed); no Microsoft code is linked into
+the image. Our own code (`src/platform/sdl/crt/crt_glue.cpp`) covers what msvcrt doesn't export or what must know
+about the game: the `/GS` cookie word and `__security_check_cookie` (fastcall, or a thiscall member in one source),
+`__fltused`, `atexit` (the initializers' destructors), the sized `operator delete` clang calls (forwarded to the
+game's own), the stdio functions that take the XBE's `_iob` entries (a 96-byte proxy for stdin/stdout/stderr), and
+`fopen` with the game's paths mapped (`D:\` -> `HULK_DATA_DIR`, the extracted game files; `T:`/`U:`/`Z:` ->
+`HULK_SAVE_DIR`). Every host function is imported as `hulk_host_<name>` (`.def`: `hulk_host_strncpy == strncpy`), so
+a host export can never satisfy one of the tree's own symbols ahead of its alias (the tree's `_free` is the game's
+operator delete thunk at 0x0008d340). `src/platform/sdl/crt/host_crt_table.h` lists the 132 imports, 105 CRT rows
+(by XBE address: which standard function each LIBCMT address is, decided from the game's call sites, e.g.
+`0x003465c6` is `strtok` (called `(line, " \t\n\r")` then `(0, ...)`), not the `_nh_malloc` platform_map.py
+guessed; `0x003441f0`/`0x003442bc` are `_CIacos`/`_CIasin`, the helpers of the game's clamped acos/asin; by name:
+`memcpy`, `sqrt`, clang's own `_alldiv`...) and 3 data rows. Library data in `src/platform/sdl/xdk/library.h`: the
+three kernel import slots the game calls through (`RtlInitialize/Enter/LeaveCriticalSection`: our functions), D3D's
+state block at 0x0039db00 (1,136 bytes: `D3D__RenderState`, `D3D__TextureState`, `D3D__DirtyFlags`...), two DSOUND
+words, XPP's two device-type descriptors. A reference into one of these (or into any data-TU item: a global at +0x4c
+of `DAT_004e7a2c`) is retargeted in the referencing object: the relocation names the item and the offset goes into
+the inline addend (`native_host.retarget_object`; 55 objects).
+
+**2. Library code behind stub names.** `library.h` stands in for the 9 library functions with game call sites
+(XAPI save/soundtrack helpers, two Bink internals, D3D `CreateIndexBuffer2`, `SetRenderState_FogColor` /
+`StencilFail`, the D3D object maker), shaped from the callers (stdcall, argument bytes, result use); counted and
+returning 0 like imports.h's. The other library addresses still behind stub names (about 10, plus `malloc`/`ceil`
+added to the CRT rows) have no call site in the original's game code: equiv.py's alignment bound an equivalent/
+source's helper call to them, so they are left as stubs that report themselves if reached. When the library-cleanup
+agent drops the 47 library-span sources from the tree, their addresses resolve the same way (the host/library rows
+take precedence over any tree definition at a library address already).
+
+**3. The entry point** (`src/platform/sdl/xdk/startup.cpp`, `build/native/link/startup.s`). The XBE's entry is
+XAPI's; after its own set-up it runs the C initializers, then the C++ initializers between the `.CRT$XCA` and
+`.CRT$XCZ` markers (XBE 0x0048ca90..0x0048d4f4: 457 game `.text$yc` functions and 9 library ones), then `main`
+(0x0008ee30, matched). `hulk_native_entry` does the same with the tree's definitions, in the XBE's order, skipping
+the library initializers (D3D, DSOUND, XGRAPHICS, XPP, LIBCMT: the shim stands in for those libraries). Four game
+initializers are isolated sources that *are* MSVC's `$E1` dynamic initializer of a global; for those the table
+calls clang's `__GLOBAL__sub_I_<file>` (made global in a copy of the object); clang's own `.CRT$XCU` table (6
+entries, the same four plus duplicates) is counted, not run. The trace (`HULK_TRACE_FILE`) gets every initializer,
+every stand-in's first call with its caller (`hulk_xdk_first_call_sink`; library stand-ins log as `lib:`/`kernel:`),
+and how the run ended: `main` returning, a call to a symbol the image lacks (the stub object now calls
+`hulk_native_missing` with the stub's name), or a crash (unhandled-exception filter: code, address, registers,
+frame-pointer chain). `tools/native_run.py` symbolizes it with the link map (`/map`) and the binding map's
+definitions (XBE addresses).
+
+*The XBE data window.* Verified sources pass XBE data addresses as integer literals: strings
+(`FUN_0027b020((const char*)0x3f3fd8)`) and the RTTI descriptors of every dynamic cast (`(void*)0x491ca8`; clang_probe
+counts 75 casts and 802 `__RTDynamicCast` sites by address). MSVC emits the same immediate whether the source names
+the item or casts its address, so the byte match can't see it. Until those sources name their data, the image maps
+a copy of the XBE's data sections (0x003f0000-0x0058a000), read from the player's own `default.xbe` at run time, at
+their original addresses: the image is linked at `/base:0x10000000`, and since Wine's (and Windows') start-up puts
+heaps in that range, the image starts itself a second time, suspended, reserves the range in the child first, then
+lets it run (`HULK_NATIVE_CHILD`; `HULK_NO_WINDOW` skips it). Reads of constants then work; a write there would miss
+the tree's own copy.
+
+**4. First start under Wine** (Whisky's Wine 7.7, our own prefix `build/native/wineprefix`; a trivial i686 PE from the
+same toolchain runs: `native_run.py --hello`). The image, from first run to now:
+
+| run | stopped at | cause | fixed where |
+|---|---|---|---|
+| 1 | clang initializer 6 | clang's own `.CRT$XCU` duplicates of the game's initializers | startup: not run |
+| 2 | init 18 (0x0035c900) | `(const char*)0x3f3fd8`: an XBE string address in a verified source | the data window |
+| 3 | init 38 | an ambiguous stub name (`Obj::Init`, two sources in one TU, two callees) | link: relocations rebound per calling function (`native_host.rebind_object`, 94 symbols) |
+| 4 | init 216 (0x0035e6b0, the memory manager) | `equivalent/0x0008d480.cpp`: `int bounds[4]` for GlobalMemoryStatus's 32-byte MEMORYSTATUS (the original reserves 0x20): the stand-in overwrote the saved registers | **source fix** (native_fix `patch`, verified) |
+| 5 | init 216 | `matches/0x00267210.cpp` calls `FUN_0008ed50` where its original calls 0x00270540 (a clone's donor name; the byte match masks the relocation) and the name is *defined*, so no alias applied | link: rebound per calling function for names that mean another address (18) |
+| 6 | init 216 | `IMemoryAllocator::unknownAllocator`: a stub class's clang vftable | link: every reference to a stub vftable the verification bound to a game vftable now names the game's (vtables.s), 4,156 vftables |
+| 7 | init 216 | `matches/0x0008d690.cpp` (the game's `operator new`): `second(first(x))` byte-matches `push size; call first; push eax; call second` but is `second(first(), size)`, and it returned nothing | **source fix** (MATCH either way) |
+| 8 | init 216 | `equivalent/0x0026c040.cpp` (dlmalloc's malloc) declares the register-convention callee 0x0026be70 `(size, arena)`, its own source `(arena, size)`: equiv.py maps both to the original's registers, natively both are cdecl | **source fix** (EQUIVALENT); and a new check, below |
+| 9 | **init 308 (0x0035fa20)** | `om::MetaType` registers into a red-black tree whose header (root + nil node, XBE 0x004e79b8..) the data inventory split into 4-byte items; the data TU's `DAT_004cd384` landed between `DAT_004e79b8` and `DAT_004e79bc`, so `&root + 4` is not the nil node | open: data layout (next steps) |
+
+**Start-up trace summary** (`build/native5/run/summary.txt`): xbe-window mapped (1,061,700 bytes); 466
+initializers, 457 game ones bound, 9 library ones skipped; initializers 0..307 run; first calls, all during init 216
+(the radcore memory manager and the thread system): `QueryPerformanceFrequency` (the 733 MHz constant, kept by the
+stand-in), `GlobalMemoryStatus`, `kernel:RtlInitializeCriticalSection`, `GetCurrentThreadId`,
+`ConvertThreadToFiber`, `kernel:RtlEnterCriticalSection`, `kernel:RtlLeaveCriticalSection`, `SetThreadPriority`;
+then the crash in init 308 (`strcmp(NULL, ...)` in `om` type registration). Real stand-ins this round: memory
+(XAPI heaps on the host heap, a 64 MB `MEMORYSTATUS` with 56 MB free), timing (the host counter scaled to the
+Xbox's 733,333,333 Hz), `GetLocalTime`; everything else still counts and returns 0.
+
+**Verified-source bugs found** (the native build is the first that executes them as written; all invisible to the
+byte match and to equiv.py's register-mapped stubs):
+
+1. *XBE data addresses as integer literals* (54 sources, 75 casts; 802 dynamic casts by descriptor address): worked
+   around by the data window; the fix is a source rewrite naming the item (a relocation, which compare.py masks).
+2. *A caller's buffer smaller than what the callee writes*: `equivalent/0x0008d480.cpp` (fixed).
+3. *Arguments left on the stack by MSVC and read by the next call*: `matches/0x0008d690.cpp` (fixed; `0x0008d6d0`,
+   operator new[]'s twin, has the same pattern in its equivalent/ source and returns `void`).
+4. *Register-convention parameter order*: `tools/native_conv_check.py` check 5 (equiv-conv notes) finds **166 caller
+   declarations in 98 files** listing a register-convention callee's parameters in another order (79), with
+   another count (82) or in other registers (5) than the callee's own source, all open (counted after fixing `equivalent/0x0026c040.cpp`).
+5. *Return values carried in eax by `void` declarations*: `matches/0x0008d690.cpp` returned operator new's pointer
+   that way (fixed); `equivalent/0x00011000.cpp`/`0x00011010.cpp` (`float` wrappers that call `_CIacos`/`_CIasin`
+   without loading the argument on the x87 stack) and `equivalent/0x0033b700.cpp` are the same class for x87.
+
+Also found in the tools: `clang_probe.nm` dropped the symbols of a batch's single object (llvm-nm prints no header for
+one file): fixed; it hid one TU's undefined symbols.
+
+**5. `tools/native_conv_check.py`** (fx15's sweep_conv.py as a tool; native_link runs checks 1-3 and 5 and writes
+`conv_check` into report.json, report only): 476 declarations of the 176 stand-ins (imports.h + library.h) in the
+sources, 0 disagreeing; 483 symbols bound to them, 0 disagreeing; 176 checked against the XBE's `ret N`, 0
+disagreeing; register orders: 323 functions with their own note, 166 disagreeing callers (above). `--tails` (slow:
+compiles) is check 4.
+
+**6. MSVC 7.1 verification build: unchanged.** `gen_tree.py`/`build_tree.py` are HEAD's (this round changes
+neither); the three source edits are the difference. Frozen copies of the live `matches/`, `equivalent/`,
+`build/functions.csv`, `config/`, `include/` and `tools/` in two directories, one with HEAD's three sources, one with
+the rewritten ones, both `build_tree.py --resume --jobs 3 --regression-rounds 4` from the same fallback state, local
+(`build/native5/msvc-proof.txt`):
+
+| | HEAD sources | edited |
+|---|---|---|
+| TUs compiled | 2,723 / 2,723 | 2,723 / 2,723 |
+| matches byte-matching | 22,118 / 22,118 | 22,118 / 22,118 |
+| equivalent/ compiled, same code as standalone | 5,353 (5,301 same, 51 no_symbol, 1 standalone_compile_error) | 5,353 (same split) |
+| equivalent/ differing | 0 | 0 |
+| merged / wrapped / isolated | 20,476 / 6,132 / 863 | 20,476 / 6,132 / 863 |
+| fallbacks wrapped / isolated / without TU namespace | 431 / 401 / 1 | 431 / 401 / 1 |
+
+Per function the verdicts and modes are identical (27,471 / 27,471; `0x0008d690` matches in both, under its new
+symbol `?FUN_0008d690@...@YAPAXH@Z`).
+
+**Compiling and link** (`clang_probe.py --snapshot --configs msvc`; `native_link.py --tree <snapshot>`; the snapshot
+carries the three edits): `msvc` **2,723 / 2,723**. Binding map: 56,866 referenced symbols, 56,631 bound, 235
+ambiguous. Strict `lld-link`: **links (0 errors)**, a 6.7 MB image with an entry point. Undefined after binding:
+
+| group | evening | now |
+|---|---|---|
+| stub name: virtual member of a stub class | 1,346 / 1,972 | 1,346 / 1,972 (the clang stub vftables that keep them are no longer referenced where the game vftable is known) |
+| stub name: bound to an address with no verified definition | 679 / 702 | **7** / 7 |
+| CRT / C++ runtime | 426 / 3,207 | **1** / 454 (`operator new` where a TU names both of the game's allocators) |
+| library data | 289 / 307 | **39** / 40 |
+| data outside the inventory / interior | 207 / 207 | **16** / 16 |
+| stub name: ambiguous | 114 / 287 | 104 / 222 |
+| stub name: named by no relocation | 108 / 108 | 108 / 108 |
+| vftable / RTTI by address | 29 / 33 | 29 / 33 |
+| verified, referenced under another symbol | 17 / 17 | 17 / 17 |
+| not yet verified | 15 / 15 | 15 / 15 |
+| library code by address | 10 / 10 | 9 / 9 |
+| **total** | **3,253 / 6,878** | **1,691 / 2,893** |
+
+**Next** (in order):
+
+1. **Data layout**: emit the data items of one original object (or of each contiguous run) as one block that keeps
+   the XBE's distances, e.g. a `data.s` like vtables.s generated from config/data.json, the XBE and the data TUs'
+   relocations, instead of one C variable per item. Without it every structure the inventory split (run 9) breaks.
+2. The register-order findings (166) and the other verified-source classes above: native_fix rewrites, each
+   verified (and the MSVC proof again); then equiv.py could check declared parameter order against each callee's own
+   note so new sources can't reintroduce it.
+3. Re-run the start-up and continue: the rest of the initializers, then `main` (0x0008ee30): the thread system
+   (fibers: `ConvertThreadToFiber` is the first real one), files (`CreateFileA` & co on the host C runtime with the
+   path map), then graphics, where the stand-ins end.
+4. The literal XBE addresses (finding 1) as source rewrites, so the data window can go; the 1,142 stub vftables with
+   unknown game address; the 104 ambiguous names.
+
+Caveats: the run used a snapshot of the tree with the three source edits applied to its TU text (what the next tree
+build produces); the library-cleanup agent's deletion of the library-span sources was not in that tree yet. The
+data window and the start-up child process are Windows/Wine mechanisms of this first image only.
 
 ## After the next fixes 1-3 (2026-10-17)
 
