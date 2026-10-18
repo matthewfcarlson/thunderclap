@@ -1,8 +1,0 @@
-extern "C" unsigned long __readfsdword(unsigned long);
-struct ThreadData {
-    char pad[0x12c];
-    int value;
-};
-extern "C" int __cdecl FUN_0020c14b(void) {
-    return ((int*)(__readfsdword(0x28)))[0x12c / 4];
-}
