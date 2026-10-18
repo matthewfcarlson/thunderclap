@@ -21,6 +21,10 @@ def main():
     has = lambda d, r: os.path.exists(os.path.join(ROOT, d, "0x%08x.cpp" % int(r["address"], 16)))
     equiv = [r for r in game if has("equivalent", r) and not has("matches", r)]
     eb = sum(int(r["size"]) for r in equiv)
+    # Library code (XAPILIB, LIBCMT, D3D, DSOUND, ...): never queued, never in the tree; reported apart.
+    # Its sources were dropped from matches/ and equivalent/ (docs/platform-boundary.md, "Rules").
+    lib = [r for r in db.funcs.values() if db.is_library(r)]
+    lb = sum(int(r["size"]) for r in lib)
     spent = 0.0
     for p in [os.path.join(ROOT, "build/farm/results.jsonl")]:
         if os.path.exists(p):
@@ -34,7 +38,8 @@ def main():
     ).format(len(game), total / 1e6, len(matched), 100 * len(matched) / len(game), mb / 1e3, 100 * mb / total,
              len(equiv), 100 * len(equiv) / len(game), eb / 1e3, 100 * eb / total,
              len(matched) + len(equiv), 100 * (len(matched) + len(equiv)) / len(game), (mb + eb) / 1e3, 100 * (mb + eb) / total)
-    print(table + "farm spend (ledger): $%.2f" % spent)
+    print(table + "library code, not counted above: {:,} functions, {:.0f} KB\n".format(len(lib), lb / 1e3)
+          + "farm spend (ledger): $%.2f" % spent)
     if "--readme" in sys.argv:
         p = os.path.join(ROOT, "README.md")
         s = open(p).read()

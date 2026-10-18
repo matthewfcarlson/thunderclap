@@ -62,9 +62,10 @@ The XBE's `.text` (`0x11000`–`0x364840`) is not all game code. Three library s
 `0x35be88`–`0x364840` is `.text$yc`/`.text$yd` (dynamic initializers and `atexit` thunks of game
 translation units): also game. Everything after `.text` (BINK*, D3D, XGRPH, DSOUND, XPP) is library.
 
-The three library spans hold 753 functions (106 KB) that the farm queue treats as game code; 47 of
-them are already matched. They are replaced, never decompiled, so they can be dropped from the
-queue (a change to `tools/packet.py` `is_game`, left to the owner of that tool).
+`tools/packet.py`'s `is_game` excludes the three spans and everything after `.text` (`Db.is_library` is
+the complement), so library functions are never queued, never counted as unverified game code, and
+`tools/progress.py` reports them on a separate line. `farm/src/farm.ts` also skips library addresses, because
+older queue files in `build/farm/` still list them. The library spans are replaced, never decompiled.
 
 The kernel thunk table is at `0x3f2be0` (159 imports; the XBE header's address XOR the retail key).
 Names come from the ghidra-xbe loader's ordinal table, read out of its jar at run time.
@@ -116,9 +117,11 @@ practice:
    with their notices shipped; nothing is copied from other ports (e.g. OpenCE, see
    [web-port.md](web-port.md)).
 
-Open item: the library spans' 47 already-matched functions (see above) predate this rule. They stay out of
-the native build (the shim and host CRT replace them) and should be dropped from `matches/` when
-`tools/packet.py`'s `is_game` excludes the spans.
+Open item: 119 library sources (108 in `matches/`, 11 in `equivalent/`: 71 inside `.text`, 48 after it in BINK, D3D,
+DSOUND, XGRPH and XPP; `build/libdrop/list.txt`, listing the in-`.text` spans XAPILIB 15, LIBCMT+XAPILIB 54, EH 2) predate this
+rule. They are not in the generated tree (`config/splits.json` marks those objects `library`) and the native
+build already binds their addresses to the shim and host CRT, so they are only to be deleted from the repo. The
+queue filters that stop them coming back are in place (see above).
 
 Not legal advice: these rules keep the tree to our own code and the game's interfaces. The larger question,
 publishing decompiled game code at all, is separate and unchanged (no game data is ever distributed).

@@ -56,9 +56,17 @@ class Db:
         r = self.funcs.get(va)
         return r["name"] if r else None
 
+    @staticmethod
+    def is_library_va(va):
+        """XDK / CRT / Bink code: the library spans inside .text, and every section after .text."""
+        return va >= GAME_TEXT_END or any(a <= va < b for a, b in LIB_SPANS)
+
+    def is_library(self, r):
+        return self.is_library_va(int(r["address"], 16))
+
     def is_game(self, r):
         va = int(r["address"], 16)
-        if va >= GAME_TEXT_END or r["is_thunk"] == "1" or any(a <= va < b for a, b in LIB_SPANS):
+        if self.is_library_va(va) or r["is_thunk"] == "1":
             return False
         n = r["name"]
         # XDK/CRT symbols identified by XbSymbolDatabase keep their library names.

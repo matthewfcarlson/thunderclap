@@ -509,10 +509,14 @@ async function main() {
 		const size = sizes.get(a) ?? 0;
 		return size >= (tier.minSize ?? 0) && size <= (tier.maxSize ?? Infinity);
 	};
+	// Library code (XAPILIB/LIBCMT spans inside .text, everything after .text) is replaced by the port, never
+	// decompiled (docs/platform-boundary.md). Older queue files still list it, so skip it here as well.
+	const LIB_SPANS: [number, number][] = [[0x208b9c, 0x212bb0], [0x3440e0, 0x356bf0], [0x35a7b0, 0x35be88], [0x364840, 0x100000000]];
+	const isLibrary = (a: string) => LIB_SPANS.some(([lo, hi]) => parseInt(a, 16) >= lo && parseInt(a, 16) < hi);
 	let queue = values.only
 		? values.only.split(",")
 		: readFileSync(values.queue!, "utf8").split("\n").filter(Boolean);
-	queue = queue.map((a) => "0x" + parseInt(a, 16).toString(16).padStart(8, "0")).filter((a) => !isDone(a));
+	queue = queue.map((a) => "0x" + parseInt(a, 16).toString(16).padStart(8, "0")).filter((a) => !isLibrary(a) && !isDone(a));
 	queue = queue.slice(0, Number(values.limit));
 
 	const models = createModels({ credentials: piCredentials as any });
