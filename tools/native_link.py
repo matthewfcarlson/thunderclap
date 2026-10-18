@@ -33,6 +33,8 @@ Outputs (build/native/, not tracked):
   link/              the link attempt: objects.rsp, aliases.rsp (bindings restricted to symbols the clang
                      objects define), stubs.s/.obj (one stub per symbol still undefined), lld-link.log,
                      vtables.s/.obj (the game's vftables and RTTI as data, code_owned_data: fix 6a),
+                     platform/ (src/platform/sdl/xdk/ compiled: the platform-import stand-ins, fix 7),
+                     deleting.s/.obj (the scalar deleting destructors clang doesn't emit: fix 6b),
                      objs/ (objects with ambiguous symbols renamed per TU)
 
 Beyond the binding map, the inventory aliases a stub class's virtual members to slot N of the game vftable the
@@ -269,6 +271,22 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None)
         if a not in by_addr_def and len(ss) == 1:
             by_addr_def[a] = next(iter(ss))
             how["definition under clang's spelling of its name"] += 1
+    # fix 6b: the verified scalar deleting destructors clang doesn't emit (build/native/link/deleting.s)
+    dd = deleting_destructors(defs, defined)
+    for s, addrs in dd["symbols"].items():
+        defined.add(s)
+        for a in addrs:
+            by_addr_def.setdefault(a, s)
+    for s in dd["references"]:
+        if s not in defined:
+            refs[s] += 1
+            undef.add(s)
+    # fix 7 (first part): the XDK import shim (src/platform/sdl/xdk/), whose stand-ins define the platform imports
+    # by address and name
+    shim = platform_shim(cp)
+    for a, s in shim["by_addr"].items():
+        by_addr_def.setdefault(a, s)
+    defined |= shim["defined"]
     # fix 6a: the game's vftables and RTTI structures as data (build/native/link/vtables.s), named by address
     vt = code_owned_data(by_addr_def)
     for a, lab in vt["labels"].items():
@@ -282,6 +300,8 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None)
             src = "name" if a is not None else None
         if a is None and s in vt["names"]:
             a, src = vt["names"][s], "MSVC vftable/RTTI name (config/data.json)"
+        if a is None and shim_key(s) in shim["by_name"]:
+            a, src = shim["by_name"][shim_key(s)], "XDK import name (src/platform/sdl/xdk/imports.h)"
         if a is None:
             continue
         d = by_addr_def.get(a)
@@ -352,13 +372,116 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None)
            "undefined_before": {"symbols": len(undef), "references": sum(refs[s] for s in undef),
                                 "groups": tally(before_g, undef)},
            "aliases": len(aliases), "aliases_by_source": dict(how), "stub_vftable_slots": dict(slot_how),
-           "code_owned_data": vt["stats"],
+           "code_owned_data": vt["stats"], "deleting_destructors": dd["stats"], "platform_shim": shim["stats"],
            "undefined_after": {"symbols": len(after), "references": sum(refs[s] for s in after),
                                "groups": tally(after_g, after)}}
     if do_link:
-        link_objs = [rename_object(o, renames[o]) if renames.get(o) else o for o in sorted(objs.values())]
-        inv["lld_link"] = lld_link(link_objs, aliases, after | vt["undefined"], vt["asm"])
+        link_objs = [rename_object(o, renames[o]) if renames.get(o) else o for o in sorted(objs.values())] + shim["objects"]
+        inv["lld_link"] = lld_link(link_objs, aliases, after | vt["undefined"], vt["asm"], dd["asm"])
     return inv
+
+
+SHIM_DIR = os.path.join(ROOT, "src/platform/sdl/xdk")
+SHIM_RX = re.compile(r"^\s*X\((0x[0-9a-fA-F]{8}), (\w+), ")
+
+
+def shim_key(sym):
+    """The bare function name of a C or MS-mangled symbol (`_CreateFileA@28`, `?CreateFileA@XAPILIB@fn_x@@YG...`)."""
+    m = re.match(r"^[?_@]?([A-Za-z_]\w*?)(?:@|$)", sym)
+    return m.group(1) if m else None
+
+
+def platform_shim(cp):
+    """Compile src/platform/sdl/xdk/ (the XDK import stand-ins; native builds only) for i686-pc-windows-msvc.
+
+    imports.h's HULK_XDK_IMPORT table gives each stand-in's XBE address; every symbol the tree calls that address
+    by (bindings) or that function's name by is aliased to the stand-in `hulk_xdk_<name>`."""
+    st = collections.Counter()
+    out = {"objects": [], "defined": set(), "by_addr": {}, "by_name": {}, "stats": st}
+    hdr = os.path.join(SHIM_DIR, "imports.h")
+    if not os.path.exists(hdr):
+        return out
+    table = [(int(m.group(1), 16), m.group(2)) for m in map(SHIM_RX.match, open(hdr)) if m]
+    d = os.path.join(OUT, "link", "platform")
+    os.makedirs(d, exist_ok=True)
+    clang = cp.tool("clang++")
+    for fn in sorted(os.listdir(SHIM_DIR)):
+        if not fn.endswith(".cpp"):
+            continue
+        obj = os.path.join(d, fn[:-4] + ".obj")
+        r = subprocess.run([clang, "--target=i686-pc-windows-msvc", "-fms-extensions", "-std=c++14", "-O1", "-mno-sse",
+                            "-mfpmath=387", "-Werror", "-c", os.path.join(SHIM_DIR, fn), "-o", obj],
+                           capture_output=True, text=True)
+        if r.returncode != 0:
+            st["files failing to compile"] += 1
+            print(r.stderr[-2000:], file=sys.stderr)
+            continue
+        out["objects"].append(obj)
+        st["files"] += 1
+    for dset, _u in cp.nm(out["objects"]).values():
+        out["defined"] |= dset
+    by_key = {shim_key(s)[len("hulk_xdk_"):]: s for s in out["defined"] if (shim_key(s) or "").startswith("hulk_xdk_")}
+    for a, name in table:
+        s = by_key.get(name)
+        if s is None:
+            st["imports without a definition"] += 1
+            continue
+        out["by_addr"][a] = s
+        out["by_name"][name] = a
+        st["imports"] += 1
+    return out
+
+
+def deleting_destructors(defs, defined):
+    """Fix 6b: the scalar deleting destructors (`??_GX@@UAEPAXI@Z`) the verification build defines and clang doesn't.
+
+    MSVC 7.1 emits `??_G` as a COMDAT wherever the source defines a virtual destructor; clang (MS ABI) emits it
+    only with the class's vftable, i.e. in a TU that constructs the class. The game's vftables (vtables.s) and
+    the stub vftables' slot 0 point at it. Each is synthesized here from MSVC's own definition of the function:
+    in the verification build it calls exactly the complete destructor `??1X` and the global `operator delete`
+    (checked per function from the MSVC object's relocations; anything else is left alone), so it is
+
+        X* __thiscall X::`scalar deleting destructor'(unsigned flags)
+        { this->X::~X(); if (flags & 1) ::operator delete(this); return this; }
+
+    with `??1X` the clang-compiled destructor from the same source. No source or MSVC input changes; MS-ABI only
+    (Itanium emits its deleting destructor D0 with the vtable)."""
+    want = {a: s for a, s in defs.items() if s.startswith("??_G") and s.endswith("PAXI@Z") and s not in defined}
+    st = collections.Counter({"verified ??_G missing from the clang objects": len(want)})
+    out, asm, refs = {}, ["\t.text"], set()
+    if not want:
+        return {"symbols": out, "references": refs, "asm": None, "stats": dict(st)}
+    by_sym = {c["symbol"]: c for c in tree_checks() if c.get("symbol") in set(want.values())}
+    objs = tree_objects({c["tu"] for c in by_sym.values()})
+    delete = "??3@YAXPAX@Z"
+    for a, s in sorted(want.items()):
+        dtor = "??1" + s[4:-len("PAXI@Z")] + "@XZ"
+        c = by_sym.get(s)
+        if c is None or c["kind"] != "matches" or c["status"] != "match" or not objs.get(c["tu"]):
+            st["skipped: not a byte-matching function of the verification build"] += 1
+            continue
+        coff = compare.Coff(objs[c["tu"]])
+        sym = next((x for x in coff.function_symbols() if x[0] == s), None)
+        called = sorted({t[0] for off, t, typ, ab in coff.function_relocs(sym) if t}) if sym else None
+        if called != sorted({dtor, delete}):
+            st["skipped: MSVC's definition calls something else (%s)" % ("no symbol" if sym is None else "relocations")] += 1
+            continue
+        if dtor not in defined:
+            st["skipped: the destructor is not in the clang objects"] += 1
+            continue
+        if s in out:
+            # one symbol at two addresses (the same template instance or class verified in two TUs): one definition
+            out[s].append(a)
+            st["same symbol at another address"] += 1
+            continue
+        q, qd = '"%s"' % s, '"%s"' % dtor
+        asm += ["\t.globl\t%s" % q, "\t.p2align\t4", "%s:" % q, "\tpushl\t%esi", "\tmovl\t%ecx, %esi",
+                "\tcalll\t%s" % qd, "\ttestb\t$1, 8(%esp)", "\tje\t1f", "\tpushl\t%esi",
+                '\tcalll\t"%s"' % delete, "\tpopl\t%ecx", "1:", "\tmovl\t%esi, %eax", "\tpopl\t%esi", "\tretl\t$4"]
+        out[s] = [a]
+        refs |= {dtor, delete}
+        st["synthesized"] += 1
+    return {"symbols": out, "references": refs, "asm": "\n".join(asm) + "\n", "stats": dict(st)}
 
 
 def rename_object(obj, pairs):
@@ -486,17 +609,19 @@ def stub_slot_aliases(objects, binding, by_addr_def, undef, how):
 DATA_LIKE = re.compile(r"^\?\?_[78R]|^\?[^@]+@.*@@[0-9]|^_(?:DAT|g|s|PTR|tbl|flt|dbl|unk)_|^\?\?_C@|^__real@")
 
 
-def lld_link(objects, aliases, undefined, vt_asm=None):
+def lld_link(objects, aliases, undefined, vt_asm=None, dd_asm=None):
     d = os.path.join(OUT, "link")
     os.makedirs(d, exist_ok=True)
-    if vt_asm:
-        with open(os.path.join(d, "vtables.s"), "w") as f:
-            f.write(vt_asm)
-        vobj = os.path.join(d, "vtables.obj")
+    for name, text in (("vtables", vt_asm), ("deleting", dd_asm)):
+        if not text:
+            continue
+        with open(os.path.join(d, name + ".s"), "w") as f:
+            f.write(text)
+        vobj = os.path.join(d, name + ".obj")
         r = subprocess.run([os.path.join("/opt/homebrew/opt/llvm/bin", "clang"), "--target=i686-pc-windows-msvc", "-c",
-                            os.path.join(d, "vtables.s"), "-o", vobj], capture_output=True, text=True)
+                            os.path.join(d, name + ".s"), "-o", vobj], capture_output=True, text=True)
         if r.returncode != 0:
-            return {"status": "vtables object failed", "log": r.stderr[-2000:]}
+            return {"status": "%s object failed" % name, "log": r.stderr[-2000:]}
         objects = objects + [vobj]
     llvm = "/opt/homebrew/opt/llvm/bin"
     lld = os.path.join(llvm, "lld-link") if os.path.exists(os.path.join(llvm, "lld-link")) else \

@@ -61,6 +61,11 @@ PATCHES = [
      "`extern \"C\" struct X f()` is read as a declaration of the struct, so gen_tree can't give f C++ linkage"),
     ("matches/0x000f6ef0.cpp", "    X_f6ef0();\n    int m[0x100];", "    int X_f6ef0();\n    int m[0x100];",
      "a member function declared without a return type (implicit int)"),
+    ("matches/0x0031ee00.cpp", "            q->pddiRenderState::pddiRenderState();",
+     "            ((pddiRenderState*)q)->pddiRenderState::pddiRenderState();",
+     "an explicit constructor call (MSVC extension, which clang accepts too) through a pointer of dependent type "
+     "`T*`: clang can't resolve the injected class name there; the cast makes the object expression non-dependent "
+     "(placement new would add MSVC 7.1's null check)"),
 ]
 
 

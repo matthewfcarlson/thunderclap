@@ -41,6 +41,8 @@ src/game/…            portable game code (global C* classes, hulkfight, game-s
 src/engine/…          portable Pure3D / radcore / radsound / Lua / choreo2 / fight / physics (sim) code
 src/platform/xbox/    our decomp of the Xbox seam implementations: pddi D3D8, radcore Xbox layer, radsound HAL, Bink player
 src/platform/sdl/     native backends: SDL3 input, audio and files; pddi on Metal / Vulkan / D3D12 (SDL_gpu or bgfx)
+src/platform/sdl/xdk/ the first of them: stand-ins for the 167 XDK/XAPI/Bink imports, so the native build can run
+                      platform/xbox before the seams have SDL3 backends (started 2026-10-18, native-build.md)
 include/seams/        the seam interfaces both platform directories implement
 ```
 

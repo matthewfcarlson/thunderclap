@@ -20,7 +20,7 @@ template <class T> pddiStack<T>::pddiStack(int cnt) {
     if (a) {
         T* q = a;
         for (int i = cnt - 1; i >= 0; i--) {
-            q->pddiRenderState::pddiRenderState();
+            ((pddiRenderState*)q)->pddiRenderState::pddiRenderState();
             q++;
         }
         b = a;
