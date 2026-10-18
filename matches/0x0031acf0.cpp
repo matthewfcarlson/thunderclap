@@ -1,7 +1,7 @@
 extern "C" char DAT_004323e4[];
 extern "C" char DAT_0043242c[];
 typedef unsigned int u32_31acf0;
-extern void __cdecl D3DDevice_Release();
+extern void __stdcall D3DDevice_Release();
 extern void __stdcall D3DResource_Release(u32_31acf0);
 struct Display_31acf0 {
     u32_31acf0 vptr;

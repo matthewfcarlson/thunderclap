@@ -1,6 +1,6 @@
 typedef unsigned int DWORD;
 extern int __stdcall FindThing(DWORD, int);
-extern DWORD __cdecl GetLastError();
+extern DWORD __stdcall GetLastError();
 class Obj_278a00 {
   public:
     char pad[0xb4];

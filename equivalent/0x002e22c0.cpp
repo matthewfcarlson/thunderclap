@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 298 inputs, branch coverage 106/115, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 4223 inputs, branch coverage 115/115)
 // FUN_002e22c0 @ 0x002e22c0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ??0PrimGroup@pure3d@@QAE@HHH@Z = 0x002e01d0
@@ -83,7 +83,8 @@ public:
 }
 
 struct Dest_2e22c0 {
-    char pad0[0xc];
+    // (the vftable pointer is the first 4 bytes; the fields below are at the original's offsets)
+    char pad4[8];
     int fc;
     char pad10[4];
     unsigned short *f14;

@@ -22,7 +22,7 @@ class XboxDrive {
     unsigned int helper(unsigned int);
 };
 extern int XFormatUtilityDrive();
-extern unsigned int GetLastError();
+extern unsigned int __stdcall GetLastError();
 int XboxDrive::vfunc_14() {
     if ((flags & 8) != 0) {
         if (XFormatUtilityDrive() == 0)
