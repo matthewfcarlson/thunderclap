@@ -89,6 +89,40 @@ imports, constants and strings. The ones that matter:
 | `0x20e1a1`, `0x20c79c`, `0x20c731`, `0x20d7ff` | `HeapAlloc`, `HeapFree`, `HeapCreate`, `HeapSize` | `RtlAllocateHeap` etc. |
 | `0x37d8e0` | `D3D_SetPushBufferSize` | XbSymbolDatabase put this name on `0x244c0`, which is game code |
 
+## Rules for library and platform code (decided 2026-10-18)
+
+The port reimplements the *interfaces* the game uses (function names, calling conventions, argument sizes,
+behaviour), the way Wine, ReactOS, xemu and nxdk do. It never contains Microsoft's or RAD's *code*. In
+practice:
+
+1. **No Microsoft or RAD code in the tree, in any form.** Don't decompile, lift, translate or byte-match the
+   library spans above or anything after `.text` (XAPILIB, LIBCMT, `xboxkrnl` stubs, D3D8, XGRAPHICS,
+   DSOUND, XPP, BINK). The hybrid build runs the player's own copy of that code; the native build replaces
+   it with our own implementations, from scratch. Batch agents log such functions `unsupported`.
+2. **No leaked material.** Never use or look at leaked XDKs, XDK headers or samples, Microsoft internal
+   documentation, or the Bink SDK (the same rule as the leaked Simpsons Hit & Run source). Allowed
+   references: Microsoft's public Direct3D 8 / DirectSound / Win32 documentation, open projects (nxdk,
+   xemu, Cxbx-Reloaded, XbSymbolDatabase names, FFmpeg's Bink decoder), and the game's own code: how it
+   calls a function (pushes, cleanup, registers) is evidence we may use, as `src/platform/sdl/xdk/` does.
+3. **Shapes, not bodies.** An import stand-in may carry a name, a calling convention, argument bytes and a
+   return register. Its body is our own (today: count the call, return a safe default). Constants and
+   structure layouts the game itself depends on are recovered from the game's code, not from SDK headers.
+4. **The XDK-shaped layer is temporary.** `src/platform/sdl/xdk/` exists to get the native image to start.
+   The target design puts SDL3 backends behind the game's own seams (`pddi`, sound, input, files; see
+   below), so the shipped port carries as little XDK-shaped API as possible.
+5. **Movies:** decode Bink 1 with FFmpeg's decoder or transcode on the player's machine at first run; never
+   ship RAD code or converted game movies.
+6. **Third-party libraries** (SDL3, bgfx, FFmpeg parts, …) come from upstream under licenses that allow it,
+   with their notices shipped; nothing is copied from other ports (e.g. OpenCE, see
+   [web-port.md](web-port.md)).
+
+Open item: the library spans' 47 already-matched functions (see above) predate this rule. They stay out of
+the native build (the shim and host CRT replace them) and should be dropped from `matches/` when
+`tools/packet.py`'s `is_game` excludes the spans.
+
+Not legal advice: these rules keep the tree to our own code and the game's interfaces. The larger question,
+publishing decompiled game code at all, is separate and unchanged (no game data is ever distributed).
+
 ## The seams
 
 Pure3D, radcore and radsound keep each library's translation units together, so each seam is an
