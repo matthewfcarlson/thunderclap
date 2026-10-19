@@ -111,9 +111,9 @@
     X(0x003c9ea7, IDirectSound_CreateSoundBuffer, "audio: DirectSound (Xbox)") \
     X(0x003ca02f, IDirectSound_SetI3DL2Listener, "audio: DirectSound (Xbox)") \
     X(0x003ca1f5, DirectSoundCreate, "audio: DirectSound (Xbox)") \
-    X(0x00355791, XFindNextSoundtrack, "audio: user soundtracks") \
+    X(0x00355791, XFindNextSoundtrack, "audio: user soundtracks (a song-info query, 6 words; sa1)") \
     X(0x003559b9, XOpenSoundtrackSong, "audio: user soundtracks") \
-    X(0x00355ab5, XFindFirstSoundtrack, "audio: user soundtracks") \
+    X(0x00355ab5, XFindFirstSoundtrack, "XAPI find-first file (mapped path, find data): core::XboxDrive::vfunc_18; the name is historical (sa1)") \
     X(0x00364da0, Bink_364da0, "movies: Bink") \
     X(0x00364dc0, Bink_364dc0, "movies: Bink") \
     X(0x00364fe0, Bink_364fe0, "movies: Bink") \

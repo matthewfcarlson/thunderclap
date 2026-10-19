@@ -1,3 +1,8 @@
+extern "C" void __cdecl FUN_002469e0();
+extern "C" void __cdecl FUN_002469f0();
+extern "C" void __cdecl FUN_00246a10();
+extern "C" void __cdecl FUN_00246a40();
+extern "C" void __cdecl FUN_00246a60();
 extern "C" char DAT_0042921c[];
 struct Base_247220 {
     virtual void F();
@@ -11,11 +16,11 @@ class ContentStream {
     ContentStream* Make(Base_247220*);
 };
 ContentStream* ContentStream::Make(Base_247220* arg) {
-    a = 0x2469e0;
-    b = 0x2469f0;
-    c = 0x246a10;
-    d = 0x246a40;
-    e = 0x246a60;
+    a = ((int)(void (__cdecl*)())&FUN_002469e0);
+    b = ((int)(void (__cdecl*)())&FUN_002469f0);
+    c = ((int)(void (__cdecl*)())&FUN_00246a10);
+    d = ((int)(void (__cdecl*)())&FUN_00246a40);
+    e = ((int)(void (__cdecl*)())&FUN_00246a60);
     flag = 0;
     vptr = ((int)DAT_0042921c);
     source = arg;

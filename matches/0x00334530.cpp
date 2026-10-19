@@ -19,5 +19,4 @@ class RenderStrategyBink : public RenderStrategy, public Secondary {
     virtual void vfunc_2();
 };
 RenderStrategyBink instance;
-void RenderStrategyBink::vfunc_2() {}
 } // namespace movie

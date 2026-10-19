@@ -1,6 +1,6 @@
 class d3dVertexProgram {
   public:
-    virtual void Fn();
+    virtual void hulk_slot_Fn(); void Fn();
     virtual ~d3dVertexProgram();
     d3dVertexProgram();
 };

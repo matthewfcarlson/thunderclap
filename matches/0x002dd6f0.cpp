@@ -1,3 +1,4 @@
+extern "C" void __cdecl FUN_002dd6b0();
 typedef unsigned int u32_2dd6f0;
 struct Obj_2dd6f0 {
     char pad0[0x4c];
@@ -14,7 +15,7 @@ void Target(Obj_2dd6f0* p, u32_2dd6f0 value, void* fn) {
     if (fn)
         p->field50 = (u32_2dd6f0)fn;
     else
-        p->field50 = 0x02dd6b0;
+        p->field50 = ((int)(void (__cdecl*)())&FUN_002dd6b0);
     if (p->field4c) {
         p->field4c = 0;
         Report(p, "It's an error to set both read_data_fn and write_data_fn in the ");

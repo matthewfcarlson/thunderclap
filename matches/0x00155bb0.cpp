@@ -1,5 +1,6 @@
 #include "decls/data/engine/unknown.h"
 
+extern "C" void __cdecl FUN_0014c730();
 extern "C" char DAT_00414ad0[];
 extern "C" void* __cdecl Alloc(unsigned int);
 class Param {
@@ -24,7 +25,7 @@ void FUN_00155bb0() {
         *(int*)((char*)p + 0x14) = v;
         *(int*)p = ((int)DAT_00414ad0);
         *(int*)((char*)p + 0x10) = ((int)((char*)&DAT_0042773c));
-        *(int*)((char*)p + 0x18) = 0x14c730;
+        *(int*)((char*)p + 0x18) = ((int)(void (__cdecl*)())&FUN_0014c730);
         tmp = p;
     } else
         tmp = 0;

@@ -23,9 +23,6 @@ class XboxDrive : public Drive, public IBase {
     virtual void v2();
 };
 
-void XboxDrive::v0() {}
-void XboxDrive::v1() {}
-void XboxDrive::v2() {}
 XboxDrive* MakeXboxDrive() {
     return new XboxDrive();
 }

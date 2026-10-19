@@ -1,3 +1,10 @@
+extern "C" void __cdecl FUN_0011bd30();
+extern "C" void __cdecl FUN_0011bd40();
+extern "C" void __cdecl FUN_0011bd50();
+extern "C" void __cdecl FUN_0011bd60();
+extern "C" void __cdecl FUN_0011bd90();
+extern "C" void __cdecl FUN_0011bdb0();
+extern "C" void __cdecl FUN_0011bdd0();
 extern "C" char DAT_0040f848[];
 void* __cdecl alloc(unsigned int);
 struct Param {
@@ -17,7 +24,7 @@ void target() {
         if (p) {
             p->Init("timeBegin");
             p->vft = ((int)DAT_0040f848);
-            p->value = 0x11bd30;
+            p->value = ((int)(void (__cdecl*)())&FUN_0011bd30);
             list[0] = p;
         } else
             list[0] = 0;
@@ -25,7 +32,7 @@ void target() {
         if (p) {
             p->Init("timeEnd");
             p->vft = ((int)DAT_0040f848);
-            p->value = 0x11bd40;
+            p->value = ((int)(void (__cdecl*)())&FUN_0011bd40);
             list[1] = p;
         } else
             list[1] = 0;
@@ -33,7 +40,7 @@ void target() {
         if (p) {
             p->Init("distance");
             p->vft = ((int)DAT_0040f848);
-            p->value = 0x11bd50;
+            p->value = ((int)(void (__cdecl*)())&FUN_0011bd50);
             list[2] = p;
         } else
             list[2] = 0;
@@ -41,7 +48,7 @@ void target() {
         if (p) {
             p->Init("turnRate");
             p->vft = ((int)DAT_0040f848);
-            p->value = 0x11bd60;
+            p->value = ((int)(void (__cdecl*)())&FUN_0011bd60);
             list[3] = p;
         } else
             list[3] = 0;
@@ -49,7 +56,7 @@ void target() {
         if (p) {
             p->Init("heightMin");
             p->vft = ((int)DAT_0040f848);
-            p->value = 0x11bd90;
+            p->value = ((int)(void (__cdecl*)())&FUN_0011bd90);
             list[4] = p;
         } else
             list[4] = 0;
@@ -57,7 +64,7 @@ void target() {
         if (p) {
             p->Init("heightMax");
             p->vft = ((int)DAT_0040f848);
-            p->value = 0x11bdb0;
+            p->value = ((int)(void (__cdecl*)())&FUN_0011bdb0);
             list[5] = p;
         } else
             list[5] = 0;
@@ -65,7 +72,7 @@ void target() {
         if (p) {
             p->Init("speed");
             p->vft = ((int)DAT_0040f848);
-            p->value = 0x11bdd0;
+            p->value = ((int)(void (__cdecl*)())&FUN_0011bdd0);
             list[6] = p;
         } else
             list[6] = 0;

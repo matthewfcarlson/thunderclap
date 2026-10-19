@@ -1,3 +1,4 @@
+extern "C" void __cdecl FUN_001d22a0();
 extern "C" char DAT_00422810[];
 struct Closure4 {
     void* vftable;
@@ -31,6 +32,6 @@ void Handler_1d46d0::target(int a, int b, int c) {
     list.attach(p);
     int x = x8;
     taskC(x, p);
-    taskD(x, (void*)0x1d22a0, 1);
+    taskD(x, (void*)((int)(void (__cdecl*)())&FUN_001d22a0), 1);
     taskE(x, 0xffffd8ef, a);
 }

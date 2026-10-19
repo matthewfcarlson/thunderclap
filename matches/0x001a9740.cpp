@@ -1,13 +1,13 @@
-class Caster {
+class Caster_1a9740 {
   public:
     virtual void Cast();
 };
-extern Caster* __cdecl Lookup(void*, Caster*);
+extern Caster_1a9740* __cdecl Lookup(void*, Caster_1a9740*);
 class Obj {
   public:
-    void* Get(Caster*);
+    void* Get(Caster_1a9740*);
 };
 void* fn(Obj* o, void* p) {
-    Caster c;
+    Caster_1a9740 c;
     return o->Get(Lookup(p, &c));
 }

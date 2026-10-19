@@ -15,6 +15,5 @@ class XboxDrive : public Drive, public IRefCount {
     void vfunc_2();
 };
 
-void XboxDrive::vfunc_2() {}
 
 XboxDrive g_xbox;

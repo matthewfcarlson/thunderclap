@@ -1,5 +1,11 @@
 #include "decls/data/game/hulkfight/motion.h"
 
+extern "C" void __cdecl FUN_00143610();
+extern "C" void __cdecl FUN_00143630();
+extern "C" void __cdecl FUN_00143650();
+extern "C" void __cdecl FUN_00143670();
+extern "C" void __cdecl FUN_00143690();
+extern "C" void __cdecl FUN_001436b0();
 extern "C" char DAT_0041324c[];
 extern int gCounter_145990;
 extern int gArray_145990;
@@ -21,7 +27,7 @@ void FUN_00145990() {
         if (p) {
             p->Init("timeBegin");
             p->vf = (void*)((int)DAT_0041324c);
-            p->v = 0x143610;
+            p->v = ((int)(void (__cdecl*)())&FUN_00143610);
             a[0] = p;
         } else
             a[0] = 0;
@@ -29,7 +35,7 @@ void FUN_00145990() {
         if (p) {
             p->Init("timeOn");
             p->vf = (void*)((int)DAT_0041324c);
-            p->v = 0x143630;
+            p->v = ((int)(void (__cdecl*)())&FUN_00143630);
             a[1] = p;
         } else
             a[1] = 0;
@@ -37,7 +43,7 @@ void FUN_00145990() {
         if (p) {
             p->Init("timeOff");
             p->vf = (void*)((int)DAT_0041324c);
-            p->v = 0x143650;
+            p->v = ((int)(void (__cdecl*)())&FUN_00143650);
             a[2] = p;
         } else
             a[2] = 0;
@@ -45,7 +51,7 @@ void FUN_00145990() {
         if (p) {
             p->Init("timeEnd");
             p->vf = (void*)((int)DAT_0041324c);
-            p->v = 0x143670;
+            p->v = ((int)(void (__cdecl*)())&FUN_00143670);
             a[3] = p;
         } else
             a[3] = 0;
@@ -53,7 +59,7 @@ void FUN_00145990() {
         if (p) {
             p->Init("motionBlur");
             p->vf = (void*)((int)DAT_0041324c);
-            p->v = 0x143690;
+            p->v = ((int)(void (__cdecl*)())&FUN_00143690);
             a[4] = p;
         } else
             a[4] = 0;
@@ -61,7 +67,7 @@ void FUN_00145990() {
         if (p) {
             p->Init("motionBlurParallax");
             p->vf = (void*)((int)DAT_0041324c);
-            p->v = 0x1436b0;
+            p->v = ((int)(void (__cdecl*)())&FUN_001436b0);
             a[5] = p;
         } else
             a[5] = 0;

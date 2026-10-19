@@ -1,3 +1,4 @@
+extern "C" void __cdecl FUN_000c7920();
 extern "C" void* __cdecl Alloc(unsigned int);
 extern "C" void __stdcall Init(void*, int, int, const float*);
 class Obj_2c7240 {
@@ -14,7 +15,7 @@ void Obj_2c7240::Run(int index) {
         int n = count;
         void* p = Alloc(n * 8);
         if (p)
-            Init(p, 8, n, (const float*)0xc7920);
+            Init(p, 8, n, (const float*)((int)(void (__cdecl*)())&FUN_000c7920));
         else
             p = 0;
         entries[index] = p;

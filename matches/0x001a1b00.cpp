@@ -1,5 +1,6 @@
 #include "decls/data/game/hulkfight/scenario.h"
 
+extern "C" void __cdecl FUN_001a1350();
 extern "C" char DAT_0041c3ac[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern "C" void FUN_002347b0(void*, void**, int);
@@ -22,7 +23,7 @@ void FUN_001a1b00() {
         if (p) {
             p->Init((const char*)((int)((char*)&DAT_0041c420)));
             *(unsigned int*)p = ((int)DAT_0041c3ac);
-            *(unsigned int*)((char*)p + 0x10) = 0x1a1350;
+            *(unsigned int*)((char*)p + 0x10) = ((int)(void (__cdecl*)())&FUN_001a1350);
             tmp = p;
         } else
             tmp = 0;

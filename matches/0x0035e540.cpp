@@ -1,3 +1,4 @@
+extern "C" char hulk_at_004e1768[];
 extern "C" void _atexit(void (*)());
 extern char g_s2[];
 class C {
@@ -6,6 +7,6 @@ class C {
 };
 void __cdecl Cleanup() throw();
 void __cdecl Hook() {
-    ((C*)0x4e1768)->Reg(g_s2, 0);
+    ((C*)((int)hulk_at_004e1768))->Reg(g_s2, 0);
     _atexit(Cleanup);
 }

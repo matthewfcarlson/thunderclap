@@ -68,7 +68,7 @@ public:
     virtual void vfunc_7();
     virtual void vfunc_8();
     virtual void vfunc_9();
-    virtual void vfunc_10(void *clock);
+    virtual void hulk_slot_vfunc_10(void *clock); void vfunc_10(void *clock);
     virtual void vfunc_11();
     virtual void vfunc_12();
     Clock_29a010 *clock;

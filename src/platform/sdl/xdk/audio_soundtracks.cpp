@@ -32,9 +32,16 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XOpenSoundtrackSong(hulk_u32 a0, hulk_
     return HULK_INVALID_HANDLE;
 }
 
+#if defined(HULK_NATIVE_SDL) && !defined(HULK_NATIVE_NO_FS)
+extern "C" hulk_u32 HULK_STDCALL hulk_fs_xdk_FindFirst(hulk_u32, hulk_u32);  // fs1: the drive's find-first-file
+#endif
 extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XFindFirstSoundtrack(hulk_u32 a0, hulk_u32 a1) {
-    (void)a0; (void)a1;
     HULK_XDK_TRACE("XFindFirstSoundtrack");
+#if defined(HULK_NATIVE_SDL) && !defined(HULK_NATIVE_NO_FS)
+    return hulk_fs_xdk_FindFirst(a0, a1);
+#else
+    (void)a0; (void)a1;
     hulk_host_SetLastError(HULK_ERROR_FILE_NOT_FOUND);
     return HULK_INVALID_HANDLE;
+#endif
 }

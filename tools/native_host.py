@@ -99,7 +99,7 @@ def build_import_libs(outdir, imports):
     return libs
 
 
-def compile_dir(cp, src_dir, out_dir, st):
+def compile_dir(cp, src_dir, out_dir, st, defines=()):
     """Compile every .cpp of a platform directory (clang, i686-pc-windows-msvc, -Werror); [objects]."""
     os.makedirs(out_dir, exist_ok=True)
     clang = cp.tool("clang++")
@@ -109,7 +109,8 @@ def compile_dir(cp, src_dir, out_dir, st):
             continue
         obj = os.path.join(out_dir, fn[:-4] + ".obj")
         r = subprocess.run([clang, "--target=i686-pc-windows-msvc", "-fms-extensions", "-std=c++14", "-O1",
-                            "-mno-sse", "-mfpmath=387", "-fno-builtin", "-Werror", "-c", os.path.join(src_dir, fn),
+                            "-mno-sse", "-mfpmath=387", "-fno-builtin", "-Werror"] + ["-D" + d for d in defines] +
+                           ["-c", os.path.join(src_dir, fn),
                             "-o", obj], capture_output=True, text=True)
         if r.returncode != 0:
             st["files failing to compile"] += 1
@@ -389,10 +390,11 @@ def rebind_object(obj, plans, out):
     return left
 
 
-def retarget_relocs(obj, mapping, out):
+def retarget_relocs(obj, mapping, out, own=False):
     """Copy of a COFF object where every DIR32 / REL32 relocation naming a symbol in mapping {name: (new name,
     offset)} names a new undefined symbol instead, with the offset added to the inline addend; relocations inside
-    the section that defines the old symbol (a vftable's own COMDAT) are left alone. Returns the count rebound."""
+    the section that defines the old symbol (a vftable's own COMDAT) are left alone unless `own` (native9: a stand-in
+    body's callers in the same .text). Returns the count rebound."""
     d = bytes(open(obj, "rb").read())
     _, nsec, _, symoff, nsym, opthdr, _ = struct.unpack_from("<HHIIIHH", d, 0)
     strtab = symoff + nsym * 18
@@ -420,7 +422,7 @@ def retarget_relocs(obj, mapping, out):
         for j in range(nrel):
             va, si, typ = struct.unpack_from("<IIH", d, relptr + j * 10)
             s = names.get(si)
-            if s not in mapping or own_sec.get(s) == k + 1 or typ not in REL_PATCHABLE or not raw:
+            if s not in mapping or (own_sec.get(s) == k + 1 and not own) or typ not in REL_PATCHABLE or not raw:
                 continue
             new, off = mapping[s]
             if new not in new_idx:

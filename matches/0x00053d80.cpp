@@ -1,5 +1,7 @@
 #include "decls/data/engine/unknown.h"
 
+extern "C" void __cdecl FUN_00047f80();
+extern "C" void __cdecl FUN_00047f90();
 extern "C" char DAT_003f7d48[];
 extern "C" char DAT_003f7d70[];
 extern "C" void* __cdecl Alloc(unsigned int);
@@ -31,7 +33,7 @@ void FUN_00053d80() {
         a->field14 = k;
         a->pad[0] = ((int)DAT_003f7d48);
         a->pad[4] = ((int)((char*)&DAT_0042773c));
-        a->field18 = 0x47f80;
+        a->field18 = ((int)(void (__cdecl*)())&FUN_00047f80);
         slots[0] = a;
     } else
         slots[0] = 0;
@@ -39,7 +41,7 @@ void FUN_00053d80() {
     if (b) {
         b->Init("state");
         b->pad[0] = ((int)DAT_003f7d70);
-        b->field10 = 0x47f90;
+        b->field10 = ((int)(void (__cdecl*)())&FUN_00047f90);
         slots[1] = b;
     } else
         slots[1] = 0;

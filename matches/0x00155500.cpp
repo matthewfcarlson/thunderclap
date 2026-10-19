@@ -1,3 +1,4 @@
+extern "C" void __cdecl FUN_0014c550();
 extern "C" char DAT_00414838[];
 extern "C" void* FUN_0008d690(unsigned int);
 extern "C" void FUN_002347b0(void*, void**, int);
@@ -19,7 +20,7 @@ void FUN_00155500() {
         if (p) {
             p->Init("hasHitPushback");
             *(int*)p = ((int)DAT_00414838);
-            *(int*)((char*)p + 0x10) = 0x14c550;
+            *(int*)((char*)p + 0x10) = ((int)(void (__cdecl*)())&FUN_0014c550);
             temp = p;
         } else
             temp = 0;

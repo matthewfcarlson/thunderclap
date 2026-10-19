@@ -1,13 +1,13 @@
-typedef void(__cdecl* ReadFn_2dd690)(void*);
+typedef void(__cdecl* ReadFn_2dd690)(void*, void*, unsigned int);
 extern "C" void __cdecl Fail(void*, const char*);
 struct Obj_2dd690 {
     char pad[0x50];
     ReadFn_2dd690 fn;
 };
-void __cdecl Target(Obj_2dd690* p) {
+void __cdecl Target(Obj_2dd690* p, void* data, unsigned int length) {
     ReadFn_2dd690 fn = p->fn;
     if (fn)
-        fn(p);
+        fn(p, data, length);
     else
         Fail(p, "Call to NULL read function");
 }

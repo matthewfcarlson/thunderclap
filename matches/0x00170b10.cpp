@@ -1,3 +1,4 @@
+extern "C" char hulk_at_00417c24[];
 class Base {
   public:
     Base();
@@ -17,6 +18,6 @@ class Track : public Base {
 Track::Track() : Base() {
     mC = 0;
     m10 = 0;
-    *(int*)this = 0x417c28;
+    *(int*)this = ((int)(hulk_at_00417c24 + 0x4));
     mBase8 = 1;
 }

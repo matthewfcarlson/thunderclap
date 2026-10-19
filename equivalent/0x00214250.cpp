@@ -2,7 +2,7 @@
 // FUN_00214250 @ 0x00214250
 struct EntryList { char pad[12]; unsigned int* entries; };
 // equiv-conv: FUN_00214250 eax edx
-bool FUN_00214250(EntryList* list, int index) {
+int FUN_00214250(EntryList* list, int index) {
     unsigned int value = list->entries[index + 1];
     unsigned int type = value & 0x3f;
     if (type >= 0x19 && type <= 0x1b)

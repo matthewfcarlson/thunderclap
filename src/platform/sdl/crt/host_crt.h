@@ -97,6 +97,9 @@ void HULK_HOST_STDCALL hulk_host_GetLocalTime(void* system_time);
 void* HULK_HOST_STDCALL hulk_host_CreateThread(void* sa, hulk_u32 stack, void* start, void* param, hulk_u32 flags,
                                               hulk_u32* tid);
 void HULK_HOST_STDCALL hulk_host_ExitThread(hulk_u32 code);
+void* HULK_HOST_STDCALL hulk_host_OpenThread(hulk_u32 access, int inherit, hulk_u32 tid);
+hulk_u32 HULK_HOST_STDCALL hulk_host_SuspendThread(void* thread);
+int HULK_HOST_STDCALL hulk_host_GetThreadContext(void* thread, void* context);
 int HULK_HOST_STDCALL hulk_host_SetThreadPriority(void* thread, int priority);
 void* HULK_HOST_STDCALL hulk_host_CreateSemaphoreA(void* sa, int initial, int maximum, const char* name);
 int HULK_HOST_STDCALL hulk_host_ReleaseSemaphore(void* sem, int count, int* previous);

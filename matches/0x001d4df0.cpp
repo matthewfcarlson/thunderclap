@@ -3,8 +3,8 @@ class Target_1d4df0 {
 
   public:
     int value;
-    bool Check();
+    int Check();
 };
-bool Target_1d4df0::Check() {
+int Target_1d4df0::Check() {
     return value != 0;
 }

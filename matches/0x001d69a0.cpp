@@ -3,8 +3,8 @@ class Target_1d69a0 {
     int value;
 
   public:
-    bool f();
+    int f();
 };
-bool Target_1d69a0::f() {
+int Target_1d69a0::f() {
     return value != 0;
 }

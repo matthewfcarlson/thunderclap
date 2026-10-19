@@ -1,5 +1,18 @@
 #include "decls/data/game/global.h"
 
+extern "C" void __cdecl FUN_000683b0();
+extern "C" void __cdecl FUN_000683c0();
+extern "C" void __cdecl FUN_000683d0();
+extern "C" void __cdecl FUN_00068410();
+extern "C" void __cdecl FUN_00068440();
+extern "C" void __cdecl FUN_00068470();
+extern "C" void __cdecl FUN_00068480();
+extern "C" void __cdecl FUN_000684a0();
+extern "C" void __cdecl FUN_000684c0();
+extern "C" void __cdecl FUN_000684d0();
+extern "C" void __cdecl FUN_000684e0();
+extern "C" void __cdecl FUN_00069cf0();
+extern "C" void __cdecl FUN_00069d10();
 extern "C" char DAT_003fc624[];
 extern "C" char DAT_003fc644[];
 extern "C" char DAT_003fc664[];
@@ -26,19 +39,19 @@ void Target() {
     } else {                                                                                                 \
         a[i] = 0;                                                                                            \
     }
-        M(0, "timeBegin", InitFloat, ((int)DAT_003fc624), 0x683b0)
-        M(1, "timeEnd", InitFloat, ((int)DAT_003fc624), 0x683c0)
-        M(2, "turningVelocity", InitFloat, ((int)DAT_003fc624), 0x69cf0)
-        M(3, "arc", InitFloat, ((int)DAT_003fc624), 0x69d10)
-        M(4, "distance", InitFloat, ((int)DAT_003fc624), 0x683d0)
-        M(5, "checkDistance", InitBool, ((int)DAT_003fc644), 0x68410)
-        M(6, "pickupPropTarget", InitBool, ((int)DAT_003fc644), 0x68440)
-        M(7, "locator", InitBool, ((int)DAT_003fc644), 0x68470)
-        M(8, "orientOffset", InitFloat, ((int)DAT_003fc624), 0x68480)
-        M(9, "orientOffsetFromTarget", InitFloat, ((int)DAT_003fc624), 0x684a0)
-        M(10, "priority", InitInt, ((int)DAT_003fc664), 0x684c0)
-        M(11, "blendInTime", InitFloat, ((int)DAT_003fc624), 0x684d0)
-        M(12, "blendOutTime", InitFloat, ((int)DAT_003fc624), 0x684e0)
+        M(0, "timeBegin", InitFloat, ((int)DAT_003fc624), ((int)(void (__cdecl*)())&FUN_000683b0))
+        M(1, "timeEnd", InitFloat, ((int)DAT_003fc624), ((int)(void (__cdecl*)())&FUN_000683c0))
+        M(2, "turningVelocity", InitFloat, ((int)DAT_003fc624), ((int)(void (__cdecl*)())&FUN_00069cf0))
+        M(3, "arc", InitFloat, ((int)DAT_003fc624), ((int)(void (__cdecl*)())&FUN_00069d10))
+        M(4, "distance", InitFloat, ((int)DAT_003fc624), ((int)(void (__cdecl*)())&FUN_000683d0))
+        M(5, "checkDistance", InitBool, ((int)DAT_003fc644), ((int)(void (__cdecl*)())&FUN_00068410))
+        M(6, "pickupPropTarget", InitBool, ((int)DAT_003fc644), ((int)(void (__cdecl*)())&FUN_00068440))
+        M(7, "locator", InitBool, ((int)DAT_003fc644), ((int)(void (__cdecl*)())&FUN_00068470))
+        M(8, "orientOffset", InitFloat, ((int)DAT_003fc624), ((int)(void (__cdecl*)())&FUN_00068480))
+        M(9, "orientOffsetFromTarget", InitFloat, ((int)DAT_003fc624), ((int)(void (__cdecl*)())&FUN_000684a0))
+        M(10, "priority", InitInt, ((int)DAT_003fc664), ((int)(void (__cdecl*)())&FUN_000684c0))
+        M(11, "blendInTime", InitFloat, ((int)DAT_003fc624), ((int)(void (__cdecl*)())&FUN_000684d0))
+        M(12, "blendOutTime", InitFloat, ((int)DAT_003fc624), ((int)(void (__cdecl*)())&FUN_000684e0))
         Register((void**)((int)DAT_004dcf68), a, 13);
     }
     ++gCount;

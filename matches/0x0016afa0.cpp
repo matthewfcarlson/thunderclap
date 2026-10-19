@@ -1,3 +1,4 @@
+extern "C" void __cdecl FUN_001653d0();
 extern "C" char DAT_00416a88[];
 extern "C" int gCount_16afa0 = 0;
 extern "C" void* gSlot_16afa0 = 0;
@@ -22,7 +23,7 @@ void FUN_0016afa0() {
     if (p) {
         ((Init_16afa0*)p)->InitName(gName_16afa0);
         p->vptr = (void*)((int)DAT_00416a88);
-        p->field10 = (void*)0x1653d0;
+        p->field10 = (void*)((int)(void (__cdecl*)())&FUN_001653d0);
         local = p;
     } else
         local = 0;

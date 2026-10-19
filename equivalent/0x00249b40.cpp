@@ -20,7 +20,7 @@ struct Tree_249b40 {
     TreeNode_249b40 nil;
 };
 
-bool FUN_00249b40(Tree_249b40 *tree)
+int FUN_00249b40(Tree_249b40 *tree)
 {
     TreeNode_249b40 *end = &tree->nil;
     char found = 0;

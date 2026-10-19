@@ -65,11 +65,16 @@ static void hulk_first_call(const char* name, const void* caller) {
 }
 
 static void hulk_frames(hulk_u32 ebp) {
-    // the frame-pointer chain (the tree is compiled with frame pointers: -O0), within 1 MB of the first frame
+    // the frame-pointer chain (the tree is compiled with frame pointers: -O0), within 1 MB of the first frame;
+    // HULK_FRAME_LOCALS=1: also the 8 words below each frame pointer (clang -O0 keeps `this` and the arguments there)
     hulk_u32 first = ebp;
+    const char* locals = hulk_host_getenv("HULK_FRAME_LOCALS");
     for (int i = 0; i < 24 && ebp >= 0x10000 && (ebp & 3) == 0 && ebp - first < 0x100000; i++) {
         hulk_u32* f = (hulk_u32*)ebp;
         hulk_trace_line("frame %d ret=0x%08x", i, f[1]);
+        if (locals)
+            hulk_trace_line("locals %d ebp-0x20 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x", i, f[-8], f[-7],
+                            f[-6], f[-5], f[-4], f[-3], f[-2], f[-1]);
         if (f[0] <= ebp)
             break;
         ebp = f[0];
@@ -101,6 +106,8 @@ extern "C" void HULK_CDECL hulk_native_missing(const char* name) {
 // Windows' EXCEPTION_POINTERS / EXCEPTION_RECORD / x86 CONTEXT, as far as the report needs them (public layouts).
 struct hulk_exception_record { hulk_u32 code, flags, record, address, nparams, info[15]; };
 struct hulk_exception_pointers { hulk_exception_record* record; unsigned char* context; };
+
+static void hulk_peek(const char* peek);
 
 static hulk_u32 HULK_STDCALL hulk_crash_filter(hulk_exception_pointers* ep) {
     static int busy;
@@ -154,7 +161,15 @@ static hulk_u32 HULK_STDCALL hulk_crash_filter(hulk_exception_pointers* ep) {
         }
     }
     // HULK_CRASH_PEEK=addr[,addr...]: the same for addresses from an earlier run's dump (heap layouts repeat)
-    if (const char* peek = hulk_host_getenv("HULK_CRASH_PEEK")) {
+    if (const char* peek = hulk_host_getenv("HULK_CRASH_PEEK"))
+        hulk_peek(peek);
+    hulk_summary("crash", ep->record->code);
+    hulk_host_ExitProcess(4);
+    return 0;
+}
+
+static void hulk_peek(const char* peek) {
+    {
         while (*peek) {
             hulk_u32 v = 0;
             if (peek[0] == '0' && (peek[1] == 'x' || peek[1] == 'X'))
@@ -169,8 +184,93 @@ static hulk_u32 HULK_STDCALL hulk_crash_filter(hulk_exception_pointers* ep) {
                                 k * 4, m[k], m[k + 1], m[k + 2], m[k + 3], m[k + 4], m[k + 5], m[k + 6], m[k + 7]);
         }
     }
-    hulk_summary("crash", ep->record->code);
-    hulk_host_ExitProcess(4);
+}
+
+// tools/native_link.py HULK_TRACE_FUNCS probe wrappers: one `fcall` line per call (frame: saved eax, ecx, edx, the
+// return address, the stack arguments), at most HULK_TRACE_MAX (default 64) per function.
+extern "C" void HULK_CDECL hulk_trace_func(hulk_u32 addr, const hulk_u32* f) {
+    static hulk_u32 seen_addr[64], seen_n[64];
+    static hulk_u32 limit = 0;
+    if (!limit) {
+        const char* v = hulk_host_getenv("HULK_TRACE_MAX");
+        limit = 64;
+        if (v && *v) {
+            limit = 0;
+            for (; *v >= '0' && *v <= '9'; v++)
+                limit = limit * 10 + (hulk_u32)(*v - '0');
+        }
+    }
+    int k = 0;
+    while (k < 64 && seen_addr[k] && seen_addr[k] != addr)
+        k++;
+    if (k < 64) {
+        seen_addr[k] = addr;
+        if (seen_n[k]++ >= limit)
+            return;
+    }
+    hulk_trace_line("fcall 0x%08x ecx=0x%08x edx=0x%08x ret=0x%08x args 0x%08x 0x%08x 0x%08x 0x%08x tid=%u", addr, f[1],
+                    f[2], f[3], f[4], f[5], f[6], f[7], hulk_host_GetCurrentThreadId());
+}
+
+// HULK_HANG=n (seconds): a watchdog thread that, n seconds into the run, samples the main thread (its current fiber)
+// HULK_HANG_SAMPLES times (default 4, 250 ms apart): registers, frame chain and stack scan as for a crash, then
+// ends the run (summary "hang"). For runs that stop making progress without crashing.
+static hulk_u32 hulk_main_tid_;
+
+static hulk_u32 hulk_env_u32(const char* name, hulk_u32 dflt) {
+    const char* v = hulk_host_getenv(name);
+    if (!v || !*v)
+        return dflt;
+    hulk_u32 n = 0;
+    for (; *v >= '0' && *v <= '9'; v++)
+        n = n * 10 + (hulk_u32)(*v - '0');
+    return n;
+}
+
+extern "C" hulk_u32 hulk_xdk_game_tids[8], hulk_xdk_game_ntids;  // threads.cpp: the game's own threads
+
+static hulk_u32 HULK_STDCALL hulk_watchdog(void* arg) {
+    hulk_host_Sleep((hulk_u32)arg * 1000);
+    hulk_u32 samples = hulk_env_u32("HULK_HANG_SAMPLES", 4);
+    static hulk_u32 ctx[0x2cc / 4 + 4];
+    for (hulk_u32 s = 0; s < samples; s++)
+      for (hulk_u32 t = 0; t <= hulk_xdk_game_ntids && t < 9; t++) {
+        hulk_u32 tid = t ? hulk_xdk_game_tids[t - 1] : hulk_main_tid_;
+        void* h = hulk_host_OpenThread(0x1fffff /* THREAD_ALL_ACCESS */, 0, tid);
+        if (!h)
+            continue;
+        hulk_host_SuspendThread(h);
+        ctx[0] = 0x10007;  // CONTEXT_i386 | CONTROL | INTEGER | SEGMENTS
+        if (hulk_host_GetThreadContext(h, ctx)) {
+            const hulk_u32* c = ctx;
+            hulk_trace_line("hang sample %u thread %u%s phase=%s", s, t, t ? " (game)" : " (main)", hulk_phase_);
+            hulk_trace_line("regs eip=0x%08x esp=0x%08x ebp=0x%08x eax=0x%08x ebx=0x%08x ecx=0x%08x edx=0x%08x "
+                            "esi=0x%08x edi=0x%08x", c[0xb8 / 4], c[0xc4 / 4], c[0xb4 / 4], c[0xb0 / 4], c[0xa4 / 4],
+                            c[0xac / 4], c[0xa8 / 4], c[0xa0 / 4], c[0x9c / 4]);
+            hulk_frames(c[0xb4 / 4]);
+            hulk_u32 esp = c[0xc4 / 4];
+            int shown = 0;
+            hulk_u32 mbi[7] = {0};  // MEMORY_BASIC_INFORMATION: base, allocation base, protect, size, ...
+            hulk_u32 top = esp;
+            if (esp >= 0x10000 && hulk_host_VirtualQuery((const void*)esp, mbi, sizeof(mbi)))
+                top = mbi[0] + mbi[3];
+            for (int i = 0; esp >= 0x10000 && esp + i * 4 + 4 <= top && i < 256 && shown < 24; i++) {
+                hulk_u32 v = ((hulk_u32*)esp)[i];
+                if (v >= 0x10001000u && v < 0x10900000u) {
+                    hulk_trace_line("scan esp+0x%03x 0x%08x", i * 4, v);
+                    shown++;
+                }
+            }
+        }
+        hulk_host_ResumeThread(h);
+        hulk_host_CloseHandle(h);
+        if (t == hulk_xdk_game_ntids)
+            hulk_host_Sleep(250);
+    }
+    if (const char* peek = hulk_host_getenv("HULK_CRASH_PEEK"))
+        hulk_peek(peek);
+    hulk_summary("hang", 0);
+    hulk_host_ExitProcess(6);
     return 0;
 }
 
@@ -261,6 +361,9 @@ extern "C" void HULK_CDECL hulk_native_entry(void) {
     hulk_xdk_first_call_sink = hulk_first_call;
     hulk_host_SetUnhandledExceptionFilter((void*)hulk_crash_filter);
     hulk_map_xbe_window();
+    hulk_main_tid_ = hulk_host_GetCurrentThreadId();
+    if (hulk_u32 hang = hulk_env_u32("HULK_HANG", 0))
+        hulk_host_CreateThread(0, 0, (void*)hulk_watchdog, (void*)hang, 0, 0);
     hulk_trace_line("start initializers=%u", hulk_game_initializer_count);
     static char phase[32];  // (static: a smashed stack must not take the crash report's phase with it)
     // clang's own dynamic initializers: the isolated `.text$yc` sources define their global with its constructor

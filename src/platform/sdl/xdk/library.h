@@ -12,7 +12,7 @@
 
 // X(xbe address, name, "what the call sites say") per function; the stand-in is hulk_lib_<name>.
 #define HULK_LIB_FUNCTIONS(X) \
-    X(0x00355bc2, XapiConvertTime, "XAPI (saves/soundtracks): stdcall (int, int* out) -> int; core::Drive::vfunc_19") \
+    X(0x00355bc2, DriveFindNextFile, "XAPI find-next file: stdcall (handle, find data 0x140) -> 0 = no more; core::Drive::vfunc_19 (sa1: was named XapiConvertTime)") \
     X(0x00355c13, XapiCreatePath, "XAPI (saves/soundtracks): stdcall (char* path, int flag) -> int, 0 then GetLastError") \
     X(0x00355c7f, XapiCheckPath, "XAPI (saves/soundtracks): stdcall (const char* path) -> int") \
     X(0x00367610, Bink_367610, "Bink: stdcall (void*, void*, unsigned) from movie::PlayerBink") \
@@ -28,12 +28,12 @@
     D(0x003f2c8c, _hulk_lib_slot_RtlEnterCriticalSection, 4) \
     D(0x003f2d38, _hulk_lib_slot_RtlInitializeCriticalSection, 4) \
     D(0x0039db00, _hulk_lib_d3d_state, 1136) \
-    D(0x003d5e68, _hulk_lib_dsound_words, 8) \
+    D(0x003d5e68, _hulk_lib_dsound_words, 48) \
     D(0x003ea774, _hulk_lib_xpp_gamepad_type, 4) \
     D(0x003ea820, _hulk_lib_xpp_mu_type, 4)
 
 extern "C" {
-hulk_u32 HULK_STDCALL hulk_lib_XapiConvertTime(hulk_u32, hulk_u32);                        // 0x00355bc2
+hulk_u32 HULK_STDCALL hulk_lib_DriveFindNextFile(hulk_u32, hulk_u32);                        // 0x00355bc2
 hulk_u32 HULK_STDCALL hulk_lib_XapiCreatePath(hulk_u32, hulk_u32);                         // 0x00355c13
 hulk_u32 HULK_STDCALL hulk_lib_XapiCheckPath(hulk_u32);                                    // 0x00355c7f
 hulk_u32 HULK_STDCALL hulk_lib_Bink_367610(hulk_u32, hulk_u32, hulk_u32);                  // 0x00367610

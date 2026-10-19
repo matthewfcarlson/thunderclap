@@ -24,14 +24,25 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_ExitThread(hulk_u32 code) {
     return 0;
 }
 
+extern "C" {
+hulk_u32 hulk_xdk_game_tids[8];
+hulk_u32 hulk_xdk_game_ntids;
+}
+
 extern "C" hulk_u32 HULK_STDCALL hulk_xdk_CreateThread(hulk_u32 sa, hulk_u32 stack, hulk_u32 start, hulk_u32 param,
                                                       hulk_u32 flags, hulk_u32 tid) {
     HULK_XDK_TRACE("CreateThread");
     (void)sa;
     // (flags: CREATE_SUSPENDED 4 is the one the game uses; the Xbox's own stack sizes are small, the host's default
     // is used when the game asks for less than 64 KB)
-    return (hulk_u32)hulk_host_CreateThread(0, stack < 0x10000 ? 0 : stack, (void*)start, (void*)param, flags & 4,
-                                            (hulk_u32*)tid);
+    hulk_u32 own = 0;
+    hulk_u32 h = (hulk_u32)hulk_host_CreateThread(0, stack < 0x10000 ? 0 : stack, (void*)start, (void*)param, flags & 4,
+                                                 &own);
+    if (tid)
+        *(hulk_u32*)tid = own;
+    if (hulk_xdk_game_ntids < 8)  // (the start-up trace's hang watchdog samples these: startup.cpp HULK_HANG)
+        hulk_xdk_game_tids[hulk_xdk_game_ntids++] = own;
+    return h;
 }
 
 extern "C" hulk_u32 HULK_CDECL hulk_xdk_GetCurrentThreadId(void) {

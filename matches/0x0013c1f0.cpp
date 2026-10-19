@@ -1,9 +1,9 @@
-class Caster {
+class Caster_13c1f0 {
   public:
     virtual void cast();
 };
-void __cdecl use(void*, Caster*);
+void __cdecl use(void*, Caster_13c1f0*);
 void __cdecl target(void* p) {
-    Caster c;
+    Caster_13c1f0 c;
     use(p, &c);
 }

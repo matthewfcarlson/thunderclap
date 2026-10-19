@@ -598,6 +598,13 @@ def caller_uses(md, xbe, va, limit=16):
                 uses.add("st0")
             # (a call's own arguments were pushed before it: a `push eax` is seen as a read above)
             break
+        if mn == "jmp" and insn.op_str.startswith("0x") and limit - n > 1:
+            # (native9: `call X; jmp L` / L: `mov ebx, eax`: the use is after an unconditional jump, forward only)
+            t = int(insn.op_str, 16)
+            if va < t < va + 0x400:
+                uses |= {u for u in caller_uses(md, xbe, t, limit - n - 1)
+                         if (eax_live and u.startswith("eax")) or (st_live and u.startswith("st0"))}
+            break
         if mn.startswith("j") or mn.startswith("loop"):
             break
         if st_live and mn.startswith("f") and mn not in X87_NEUTRAL:
@@ -681,6 +688,8 @@ def check_returns(roots=("matches", "equivalent"), tree_report=TREE_REPORT, call
             thunk[a] = (a + 5 + struct.unpack_from("<i", xbe.data, o + 1)[0]) & 0xFFFFFFFF
     md_plain = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
     sites = collections.defaultdict(list)       # callee -> [(caller, address after the call)]
+    tails = collections.defaultdict(set)        # native9: tail-jump target -> {function jumping there}
+    starts = {a for a, _n in funcs}
     for a, n in funcs:
         o = xbe.offset(a)
         if o is None or n <= 0 or n > 0x20000:
@@ -690,6 +699,10 @@ def check_returns(roots=("matches", "equivalent"), tree_report=TREE_REPORT, call
                 t = int(insn.op_str, 16)
                 t = thunk.get(t, t)
                 sites[t].append((a, insn.address + insn.size))
+            elif insn.mnemonic.startswith("j") and insn.op_str.startswith("0x"):
+                t = int(insn.op_str, 16)
+                if t in starts and not a <= t < a + n:
+                    tails[thunk.get(t, t)].add(a)
     bad = []
     uses_cache = {}
 
@@ -732,6 +745,16 @@ def check_returns(roots=("matches", "equivalent"), tree_report=TREE_REPORT, call
                                 caller_file=kind.get(caller, (None, None))[1], site="0x%08x" % va,
                                 why="declared %s; the original caller 0x%08x uses %s after the call" % (
                                     k, caller, "st0" if st0 else "eax")))
+        # native9: a function that tail-jumps here returns this one's eax (0x00278010 -> 0x00277d00): its direct
+        # callers' uses count (its own declared return type alone doesn't: destructors tail-jumping to their base's)
+        if k == "void":
+            for f in sorted(tails.get(a, ())):
+                used = [va for c, va in sites.get(f, []) if "eax" in uses(va)]
+                if used:
+                    bad.append(dict(addr="0x%08x" % a, file=src, symbol=sym, declared=k, caller="0x%08x" % f,
+                                    caller_file=kind.get(f, (None, None))[1], site="0x%08x" % used[0],
+                                    why="declared void; 0x%08x tail-jumps to it and its caller uses eax "
+                                        "after the call" % f))
     # calls to the x87-argument helpers by a plain name (the compiler's own `__ftol2`/`__CIacos` are fine)
     helpers = []
     names = {}
@@ -1072,6 +1095,56 @@ def classify_definition_convs(path=BINDINGS, objects_rsp=None):
     return dict(counts), {k: dict(v) for k, v in by_pair.items()}, bad
 
 
+def _return_bits(demangled):
+    """Width of a demangled function's return value in bits (0 void, None unknown / class / float)."""
+    d = re.sub(r"^(public|private|protected): ", "", demangled or "")
+    d = re.sub(r"^(virtual|static) ", "", d)
+    m = re.match(r"(.*?)\s*(__thiscall|__cdecl|__stdcall|__fastcall)", d)
+    if not m:
+        return None
+    r = m.group(1).strip()
+    if r in ("bool", "char", "unsigned char", "signed char"):
+        return 8
+    if r in ("short", "unsigned short", "wchar_t"):
+        return 16
+    if r in ("int", "unsigned int", "long", "unsigned long") or r.endswith("*") or r.endswith("&"):
+        return 32
+    return 0 if r == "void" else None
+
+
+def check_return_widths(path=BINDINGS):
+    """Check 10 (native9): a caller symbol that declares a 32-bit result (int, unsigned, a pointer) bound to a
+    definition declared bool / char / short (directly, bindings.json, or as a stub class's virtual member bound to
+    the game vftable's slot, native_link's slot_aliases.json). MSVC 7.1 sets the whole eax in such definitions where
+    the original does (`xor eax, eax; sete al`), so the byte match holds for both declarations; clang defines only
+    al / ax and the caller reads eax (XboxSaveDrive::vfunc_7 0x00279160 `bool` vs DriveOpenRequest::vfunc_1's
+    `int a = d->s7()`: the U: drive never opened). Returns (pairs checked, [findings by definition])."""
+    b = json.load(open(path))
+    defs = {v: k for k, v in b.get("definitions", {}).items()}
+    pairs = [(s_, v["def"], v["addr"]) for s_, v in b["bindings"].items() if v.get("def") and v["def"] != s_]
+    sp = os.path.join(os.path.dirname(path), "slot_aliases.json")
+    if os.path.exists(sp):
+        for s_, d in json.load(open(sp)).items():
+            pairs.append((s_, d, defs.get(d)))
+    names = sorted({x for s_, d, _a in pairs for x in (s_, d) if x.startswith("?")})
+    dem = {}
+    try:
+        out = subprocess.run(["/opt/homebrew/opt/llvm/bin/llvm-undname"], input="\n".join(names) + "\n",
+                             capture_output=True, text=True, errors="replace").stdout.splitlines()
+        for i in range(len(out) - 1):
+            if out[i] in names and out[i] not in dem:
+                dem[out[i]] = out[i + 1]
+    except OSError:
+        pass
+    by = collections.defaultdict(list)
+    for s_, d, a in pairs:
+        if _return_bits(dem.get(s_)) == 32 and _return_bits(dem.get(d)) in (8, 16):
+            by[(a, d)].append(s_)
+    bad = [dict(addr=a, definition=d, callers=sorted(v), why="defined %s-bit, %d caller symbol(s) read eax" % (
+        _return_bits(dem.get(d)), len(v))) for (a, d), v in sorted(by.items(), key=lambda kv: str(kv[0][0]))]
+    return len(pairs), bad
+
+
 def run(sources=True, bindings=True, xbe=True, tails=False, roots=("matches", "equivalent"), bindings_path=BINDINGS,
         returns=False, tree_report=TREE_REPORT, pops=False):
     """All checks; a JSON-able summary (counts and findings)."""
@@ -1093,6 +1166,8 @@ def run(sources=True, bindings=True, xbe=True, tails=False, roots=("matches", "e
         rep["definition_convs"] = {"pairs": pairs, "disagreeing": dbad}
         n, bad = check_pops(bindings_path)
         rep["pops"] = {"symbols": n, "disagreeing": bad}
+        n, bad = check_return_widths(bindings_path)
+        rep["return_widths"] = {"pairs": n, "disagreeing": bad}
     if returns and os.path.exists(tree_report):
         n, bad = check_note_conventions(roots, tree_report)
         rep["note_convs"] = {"notes": n, "disagreeing": bad}

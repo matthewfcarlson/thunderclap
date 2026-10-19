@@ -1,3 +1,4 @@
+extern "C" void __cdecl FUN_001d22a0();
 typedef unsigned int u32_1d3b70;
 class A_1d3b70 {
   public:
@@ -22,6 +23,6 @@ void Obj_1d3b70::run(u32_1d3b70 a, u32_1d3b70 b) {
     ((B_1d3b70*)((char*)this + 0xc))->f(b);
     void* x = field8;
     F3(x, b);
-    F4(x, (void*)0x1d22a0, 1);
+    F4(x, (void*)((int)(void (__cdecl*)())&FUN_001d22a0), 1);
     F5(x, 0xffffd8ef, a);
 }

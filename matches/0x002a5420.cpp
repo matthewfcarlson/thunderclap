@@ -1,3 +1,4 @@
+extern "C" void __cdecl FUN_002a5260();
 extern "C" char DAT_0042d9dc[];
 class Controller_2a5420 {
   public:
@@ -16,6 +17,6 @@ Controller_2a5420* __fastcall Target(Controller_2a5420* self) {
     *(int*)((char*)self + 0x48) = 0;
     *(int*)((char*)self + 0x4c) = 0;
     *(int*)self = ((int)DAT_0042d9dc);
-    *(int*)((char*)self + 0x50) = 0x2a5260;
+    *(int*)((char*)self + 0x50) = ((int)(void (__cdecl*)())&FUN_002a5260);
     return self;
 }

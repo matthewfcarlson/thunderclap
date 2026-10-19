@@ -60,6 +60,18 @@ Rules:
                   v->M();`): the extra words are M's - `X(a)->M(b)` (MSVC 7.1 pushes M's arguments before it
                   evaluates the object expression: the original's push order). Several next callees per source are
                   allowed. Only with --apply --verify.
+  code-literal    A function passed by its XBE address as an integer literal (`CreateFiber(d, (void*)0x26dc20, p)`):
+                  named (`((int)(void (__cdecl*)())&FUN_0026dc20)`, declared extern "C"), see code_literal.
+  data-literal    A data item passed by its XBE address as an integer literal (`((T*)0x4e6a68)->Run()`): named
+                  `hulk_at_<item>` + offset (data_literal).
+  stub-body       An adjustor-thunk source's empty body for the virtual its thunk jumps to: removed (stub_body).
+  unique-class    A class several sources of one TU declare alike, each storing another game vftable: renamed per
+                  source (HULK_UNIQUE_CLASS; unique_class).
+  ctor-virt       A constructor / destructor calling a virtual member of its own class: MSVC 7.1 calls it directly,
+                  clang through the (game's) vftable; the member becomes non-virtual, a stand-in virtual keeps its
+                  slot (ctor_virt).
+  ret-widen       A definition declared bool/char/short whose callers declare a 32-bit result (check 10; HULK_RET_WIDEN
+                  names them): the definition's type becomes int (or unsigned int) when that still verifies.
   reg-call        Calls of register-convention functions (native_conv_check check 5), each read from the
                   original's call site: the edit groups in tools/native_calls.py (every occurrence of each old
                   text is replaced; a group applies only if all its texts are present). A matches/ source listed
@@ -206,6 +218,50 @@ PATCHES = [
     ("equivalent/0x000e8070.cpp", "unsigned int __cdecl FUN_0034483c();\n", "", "(the same edit)"),
     ("equivalent/0x000e8070.cpp", "{ input->FUN_000fad30(); object->stamp=FUN_0034483c(); }",
      "{ object->stamp=(int)input->FUN_000fad30(); }", "(the same edit, the call)"),
+    # native9 (docs/native-build.md "native9"): run-time stops
+    ("equivalent/0x00277d00.cpp",
+     " virtual void slot12(unsigned int a, unsigned int b, unsigned int c, unsigned int offset, unsigned int d, unsigned int e, unsigned int* result, unsigned int f);",
+     " virtual int slot12(unsigned int a, unsigned int b, unsigned int c, unsigned int offset, unsigned int d, unsigned int e, unsigned int* result, unsigned int f);",
+     "the archive reader's read 0x00277d00 returns the device read's status (eax untouched after the call; "
+     "0x00278010 tail-jumps to it and FileReadRequest::vfunc_1 0x00273f00 tests `== 1`): void natively left garbage, "
+     "the request was never disposed and File::vfunc_21 waited forever (check 6 through a tail jump)"),
+    ("equivalent/0x00277d00.cpp",
+     " void FUN_00277d00(Interface_277d00* target, unsigned int a, unsigned int b, unsigned int c, unsigned int offset, unsigned int d, unsigned int e, unsigned int* result, unsigned int f);\n};",
+     " int FUN_00277d00(Interface_277d00* target, unsigned int a, unsigned int b, unsigned int c, unsigned int offset, unsigned int d, unsigned int e, unsigned int* result, unsigned int f);\n};",
+     "(the same edit, the declaration)"),
+    ("equivalent/0x00277d00.cpp",
+     "void Object::FUN_00277d00(Interface_277d00* target, unsigned int a, unsigned int b, unsigned int c, unsigned int offset, unsigned int d, unsigned int e, unsigned int* result, unsigned int f) {\n target->slot12(a,b,c,base+offset,d,e,result,f);",
+     "int Object::FUN_00277d00(Interface_277d00* target, unsigned int a, unsigned int b, unsigned int c, unsigned int offset, unsigned int d, unsigned int e, unsigned int* result, unsigned int f) {\n int status = target->slot12(a,b,c,base+offset,d,e,result,f);",
+     "(the same edit, the definition)"),
+    ("equivalent/0x00277d00.cpp", " state = 0;\n}", " state = 0;\n return status;\n}", "(the same edit, the return)"),
+    ("matches/0x002dd690.cpp", "typedef void(__cdecl* ReadFn_2dd690)(void*);",
+     "typedef void(__cdecl* ReadFn_2dd690)(void*, void*, unsigned int);",
+     "png_read_data 0x002dd690 (`mov [esp+4], ecx; jmp eax`) hands its buffer and length on to the read callback "
+     "(the pass-through class through a function pointer); the source called fn(p) alone and the game's callback "
+     "0x002ad790 read garbage for both: the stream copied the whole file again and again over the heap"),
+    ("matches/0x002dd690.cpp", "void __cdecl Target(Obj_2dd690* p) {", "void __cdecl Target(Obj_2dd690* p, void* data, unsigned int length) {",
+     "(the same edit, the parameters)"),
+    ("matches/0x002dd690.cpp", "        fn(p);", "        fn(p, data, length);", "(the same edit, the call)"),
+    ("matches/0x00266220.cpp", "    U64 FUN_00231530(Node* node);", "    U64 FUN_00231530();",
+     "the iterator's current-id getter 0x00231530 takes no argument (plain `ret`): the node pushed before its call is "
+     "OnEntry's second argument (check 7, the next call's words): natively the getter's caller popped a word the "
+     "callee never took and `this` was read from the wrong slot"),
+    ("matches/0x00266220.cpp", "    virtual void OnEntry(U64 id);", "    virtual void OnEntry(U64 id, Node* node);",
+     "(the same edit, OnEntry)"),
+    ("matches/0x00266220.cpp", "            OnEntry(it.FUN_00231530(n));", "            OnEntry(it.FUN_00231530(), n);",
+     "(the same edit, the call)"),
+    ("equivalent/0x0025c7c0.cpp", "// equiv-conv: FUN_0025c7c0 ecx stack stack\nint __cdecl FUN_0025c7c0(unsigned int initial, void* source, unsigned int* destination)\n{\n    unsigned int value = initial;",
+     "int __cdecl FUN_0025c7c0(void* source, unsigned int* destination)\n{\n    unsigned int value;",
+     "the read-four-words helper 0x0025c7c0: its `push ecx` only makes room for the local the first read fills "
+     "(the caller's ecx, `this` of SeqEventChannelSends::vfunc_0, is never used); its callers pass (source, "
+     "destination) on the stack, so natively the 3-parameter declaration read source from the destination's slot "
+     "and the next word as the destination (check 5's register-note class)"),
+    ("matches/0x001b46d0.cpp", "    void Other(int a, float b);", "    void Other(int a, float b, float c);",
+     "cm_SetGravity's target 0x001b46d0 takes the script's three floats and tail-jumps to 0x002ece90 (`ret 0xc`) "
+     "with them (check 7): declared with two, natively it popped 8 of the 12 bytes its Closure3 caller pushed"),
+    ("matches/0x001b46d0.cpp", "    void Fn(int a, float b);", "    void Fn(int a, float b, float c);", "(the same edit)"),
+    ("matches/0x001b46d0.cpp", "void Target::Fn(int a, float b) {", "void Target::Fn(int a, float b, float c) {", "(the same edit)"),
+    ("matches/0x001b46d0.cpp", "    g->Other(a, b);", "    g->Other(a, b, c);", "(the same edit, the call)"),
 ]
 
 
@@ -750,23 +806,270 @@ def split_temp(text):
 
 # ---------------------------------------------------------------------------------------------
 # code-literal: a function passed by its XBE address as an integer literal
-CODE_LITERAL = re.compile(r"\(void\s*\(\*\)\((?:void)?\)\)\s*0x([0-9a-fA-F]{6,8})\b")
+CODE_LITERAL = re.compile(r"\b0x([0-9a-fA-F]{5,8})\b")
+# literals that are function addresses by coincidence (read at each site, native9): P3D chunk ids (0x11000 the
+# first code address, 0x13000, 0x120100), flag words (0x200000: UTF-8 lengths, png transformations), pad sizes
+CODE_LITERAL_NOT = {0x11000, 0x13000, 0x120100, 0x200000, 0x1ed60, 0x1e820}
+_FUNCS = {}
+
+
+def _function_starts():
+    if not _FUNCS:
+        import csv
+        for r in csv.DictReader(open(os.path.join(ROOT, "build/functions.csv"))):
+            _FUNCS[int(r["address"], 16)] = r["name"]
+    return _FUNCS
 
 
 def code_literal(text):
-    """`atexit((void (*)())0x364490)`: an initializer registering its global's destructor by the XBE address of
-    the `$E` cleanup function. MSVC emits the same `push imm32` for the literal as for the name (a relocation the
-    byte match masks), natively the image registers 0x00364490, which is no function of the image (it runs at
-    exit). Named: `FUN_00364490`, declared `extern "C" void __cdecl FUN_00364490();` (bound by address)."""
-    names = []
-    for m in CODE_LITERAL.finditer(text):
-        names.append("FUN_%08x" % int(m.group(1), 16))
-    if not names:
+    """A function named by its XBE address as an integer literal: `CreateFiber(d, (void*)0x26dc20, p)` (the fiber
+    procedure), `atexit((void (*)())0x364490)` (an initializer's `$E` cleanup), `p->value = 0x11bd30;` (a functor's
+    function), `FUN_00013420(p, 8, n, (void*)0xb0ff0)` (the element constructor of an array helper). MSVC emits the
+    same `push imm32` / `mov [m], imm32` for the literal as for the name (a relocation the byte match masks;
+    equiv.py binds it by address), natively the image passes 0x0026dc20, which is no code of the image. Each
+    literal that is a function start in build/functions.csv (outside comments and strings, CODE_LITERAL_NOT
+    excepted: read at every site) becomes `((int)(void (__cdecl*)())&FUN_<addr>)` (the cast picks this declaration
+    among the TU's overloads of the name), declared `extern "C" void __cdecl FUN_<addr>();`
+    unless the source already declares the name (bound by address)."""
+    funcs = _function_starts()
+    blank = blank_comments(text)
+    # (the first native9 form, `((int)&FUN_x)`, is ambiguous where the tree's TU declares other overloads of the
+    # name: the cast to the declared type picks the extern "C" one)
+    first = re.compile(r"\(\(int\)&(FUN_[0-9a-f]{8})\)")
+    olds = [m.group(1) for m in first.finditer(blank) if 'extern "C" void __cdecl %s();' % m.group(1) in text]
+    if olds:
+        text = first.sub(lambda m: "((int)(void (__cdecl*)())&%s)" % m.group(1) if m.group(1) in olds else m.group(0),
+                         text)
+        blank = blank_comments(text)
+    hits = []
+    for m in CODE_LITERAL.finditer(blank):
+        v = int(m.group(1), 16)
+        if v in funcs and v >= 0x11000 and v not in CODE_LITERAL_NOT:
+            if re.match(r"\s*\]", blank[m.end():]) or re.search(r"\[\s*$", blank[:m.start()]):
+                continue            # an array size or index
+            hits.append((m.start(), m.end(), v))
+    if not hits:
+        return text, ["%s: the cast picks the extern \"C\" declaration" % n for n in sorted(set(olds))]
+    out = text
+    for a, b, v in reversed(hits):
+        out = out[:a] + "((int)(void (__cdecl*)())&FUN_%08x)" % v + out[b:]
+    names = sorted({"FUN_%08x" % v for _a, _b, v in hits})
+    decls = "".join('extern "C" void __cdecl %s();\n' % n for n in names if not re.search(r"\b%s\b" % n, blank))
+    if decls:
+        # after the leading comment block and #include lines (the STATUS header stays first)
+        k = 0
+        for line in out.splitlines(True):
+            if line.startswith(("//", "#")) or not line.strip():
+                k += len(line)
+                continue
+            break
+        out = out[:k] + decls + out[k:]
+    return out, ["%s by name, not by address" % n for n in names]
+
+
+# ---------------------------------------------------------------------------------------------
+# data-literal (native9): a data item named by its XBE address as an integer literal
+DATA_LITERAL_KINDS = {"bss", "string", "vtable", "struct", "float", "scalar", "double", "pointer", "wstring",
+                      "array", "char[]", "data"}
+_ITEMS = {}
+
+
+def _data_items():
+    if not _ITEMS:
+        from xbe import Xbe
+        x = Xbe(os.path.join(ROOT, "isos/extracted/default.xbe"))
+        sec = {s_.name: s_ for s_ in x.sections}
+        _ITEMS["range"] = (sec[".rdata"].va, sec[".data"].va + sec[".data"].vsize)
+        its = sorted((int(i["addr"], 16), max(i["size"], 1), i["kind"]) for i in
+                     json.load(open(os.path.join(ROOT, "config/data.json")))["items"])
+        _ITEMS["items"] = its
+        _ITEMS["starts"] = [i[0] for i in its]
+    return _ITEMS
+
+
+def data_literal(text):
+    """`((Helper_360170*)0x4e6a68)->Run();` (the initializer constructing the audio type registry), `(const
+    char*)0x400488`, `vptr = (void*)0x3f9a90`: a game data item named by its XBE address. MSVC emits the same
+    immediate as for the item's name (a relocation the byte match masks); natively the literal is the XBE window's
+    copy of the item (src/platform/sdl/xdk/startup.cpp maps the XBE there), not the image's (data.s, vtables.s), so
+    the initializer constructed one object and the getters returned the other. Each such literal in .rdata/.data
+    (an item of config/data.json of a data kind; FourCC constants in `case` labels and comparisons excepted) becomes
+    `((int)(hulk_at_<item> + off))`, declared `extern "C" char hulk_at_<item>[];` (native_link.py binds `hulk_at_`
+    names by address, like `DAT_`)."""
+    import bisect
+    d = _data_items()
+    lo, hi = d["range"]
+    blank = blank_comments(text)
+    hits = []
+    for m in CODE_LITERAL.finditer(blank):
+        v = int(m.group(1), 16)
+        if not lo <= v < hi or 0x500000 <= v < 0x500100:
+            continue            # (0x5000xx: pddi extension ids, `GetExtension(0x500002)`)
+        before = blank[max(0, m.start() - 12):m.start()]
+        if re.search(r"(\bcase\s*|[=!<>]=\s*|[<>]\s*)$", before) or re.match(r"\s*(?:==|!=|:)", blank[m.end():]):
+            continue
+        if re.search(r"\[\s*$", blank[:m.start()]) or re.match(r"\s*\]", blank[m.end():]):
+            continue
+        tag = all(chr((v >> sh) & 0xFF) in "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_ " for sh in (0, 8, 16))
+        if tag and not re.search(r"\*\s*\)\s*$", before):
+            continue            # (a P3D chunk / attribute FourCC: 0x544f52 'ROT', 0x54494c 'LIT')
+        k = bisect.bisect_right(d["starts"], v) - 1
+        if k < 0:
+            continue
+        a, n, kind = d["items"][k]
+        if not a <= v < a + n or kind not in DATA_LITERAL_KINDS:
+            continue
+        hits.append((m.start(), m.end(), a, v - a))
+    if not hits:
         return text, []
-    out = CODE_LITERAL.sub(lambda m: "FUN_%08x" % int(m.group(1), 16), text)
-    decls = "".join('extern "C" void __cdecl %s();\n' % n for n in sorted(set(names))
-                    if not re.search(r"\b%s\s*\(" % n, text))
-    return decls + out, ["%s by name, not by address" % n for n in sorted(set(names))]
+    out = text
+    for s_, e_, a, off in reversed(hits):
+        out = out[:s_] + ("((int)(hulk_at_%08x + 0x%x))" % (a, off) if off else "((int)hulk_at_%08x)" % a) + out[e_:]
+    names = sorted({"hulk_at_%08x" % a for _s, _e, a, _o in hits})
+    decls = "".join('extern "C" char %s[];\n' % n for n in names if not re.search(r"\b%s\b" % n, blank))
+    k = 0
+    for line in out.splitlines(True):
+        if line.startswith(("//", "#")) or not line.strip():
+            k += len(line)
+            continue
+        break
+    out = out[:k] + decls + out[k:]
+    return out, ["%s by name, not by address" % n for n in names]
+
+
+# stub-body (native9): an adjustor-thunk source defining an empty body for the virtual its thunk jumps to
+_THUNK_ADDRS = {}
+
+
+def _is_adjustor_thunk(addr):
+    if addr not in _THUNK_ADDRS:
+        from xbe import Xbe
+        if "x" not in _THUNK_ADDRS:
+            _THUNK_ADDRS["x"] = Xbe(os.path.join(ROOT, "isos/extracted/default.xbe"))
+        x = _THUNK_ADDRS["x"]
+        o = x.offset(addr)
+        b = bytes(x.data[o:o + 16]) if o is not None else b""
+        n = 3 if b[:1] == b"\x83" else 6 if b[:1] == b"\x81" else 0
+        _THUNK_ADDRS[addr] = bool(n) and b[1:2] in (b"\xe9", b"\xc1") and b[n:n + 1] == b"\xe9"
+    return _THUNK_ADDRS[addr]
+
+
+def stub_body(rel, text):
+    """matches/0x002777c0.cpp: `void CementLibrary::vfunc_0() {}` next to the adjustor thunk the source exists for
+    (`sub ecx, 4; jmp 0x00277790`): the byte match masks the thunk's jump, and natively it jumped to the source's
+    empty stand-in instead of the game's 0x00277790 (the CementLibrary's AddRef was lost). The empty out-of-line
+    definitions of virtual members (not constructors or destructors) are removed, leaving the declaration: MSVC
+    still emits the thunk (the vftable is emitted where the class is constructed), and the jump is an unresolved
+    reference the link binds to the game's function. Only for sources whose original is an adjustor thunk."""
+    m = re.search(r"0x([0-9a-f]{8})\.cpp$", rel)
+    if not m or not _is_adjustor_thunk(int(m.group(1), 16)):
+        return text, []
+    blank = blank_comments(text)
+    virt = set(re.findall(r"\bvirtual\b[^;(]*?\b(\w+)\s*\(", blank))
+    out, why = text, []
+    for d in reversed(list(re.finditer(r"(?m)^[ \t]*(?:void|int|bool|unsigned\s+int)\s+(?:\w+::)*(\w+)::(\w+)\s*\(\s*\)\s*\{\s*\}[ \t]*\n",
+                                       blank))):
+        cls, name = d.group(1), d.group(2)
+        if name in (cls, "~" + cls) or name not in virt:
+            continue
+        out = out[:d.start()] + out[d.end():]
+        why.append("%s::%s: the stand-in body removed (the thunk's jump goes to the game's)" % (cls, name))
+    return out, why
+
+
+# unique-class (native9): one class name, several sources of a TU, several vftables
+def unique_class(rel, text):
+    """`class Caster { virtual void _m_vf0(); };` in each of the fight factories' cast helpers (0x0023d420,
+    0x0023d710, ...): every source stores another game vftable in its local `Caster`, the tree build merges the
+    identical declarations into one class of the TU, and natively its one constructor stored one (stub) vftable for
+    all of them (bindings.json lists `??_7Caster@fn_...@@6B@` as ambiguous). The class gets the source's address
+    as a suffix, so each source keeps its own class and vftable (names don't reach the bytes: compare.py MATCH).
+    Sources and names from HULK_UNIQUE_CLASS (JSON {rel: [class]}: the ambiguous `??_7` symbols of a TU namespace
+    whose class two or more of its sources declare)."""
+    p = os.environ.get("HULK_UNIQUE_CLASS")
+    names = (json.load(open(p)) if p and os.path.exists(p) else {}).get(rel)
+    m = re.search(r"0x00([0-9a-f]{6})\.cpp$", rel)
+    if not names or not m:
+        return text, []
+    out, why = text, []
+    for cls in names:
+        new = "%s_%s" % (cls, m.group(1))
+        if re.search(r"\b%s\b" % re.escape(new), out):
+            continue
+        out = re.sub(r"(?<![\w:])%s\b" % re.escape(cls), new, out)
+        why.append("%s -> %s" % (cls, new))
+    return out, why
+
+
+# ctor-virt: a constructor or destructor calling a virtual member of its own class
+def _brace_end(t, i):
+    d = 0
+    for j in range(i, len(t)):
+        if t[j] == "{":
+            d += 1
+        elif t[j] == "}":
+            d -= 1
+            if d == 0:
+                return j
+    return len(t)
+
+
+def ctor_virt(text):
+    """`LoadStream::LoadStream(int a, int b) { field04 = 0; FUN_00263f50(); ... }` with `virtual void FUN_00263f50();`
+    (the class's only virtual function, declared so that the constructor stores the vftable): inside a constructor or
+    destructor MSVC 7.1 knows the dynamic type and calls the member directly (`call 0x263f50`, the byte match), clang
+    -O0 calls through the vftable the constructor has just stored, which natively is the game's (native_link points
+    the stub vftable there): slot 0 of 0x0042ae9c is 0x00038290, not the member. The member becomes non-virtual and a
+    stand-in virtual `hulk_slot_<name>` takes its place in the declaration (the class keeps its vftable and every other
+    slot its index): MSVC still calls directly, and so does clang. Calls unqualified or through `this->`, members of
+    the class or of a base declared in the same source; overloaded names are left alone."""
+    blank = blank_comments(text)
+    classes = {}
+    for m in re.finditer(r"\b(?:class|struct)\s+(\w+)\s*(?::\s*([^{;]*))?\{", blank):
+        e = _brace_end(blank, m.end() - 1)
+        b = re.sub(r"\{[^{}]*\}", lambda x: " " * len(x.group(0)), blank[m.end():e])
+        decls = [(d.start() + m.end(), d.group(1)) for d in re.finditer(r"\bvirtual\b[^;(]*?\b(\w+)\s*\(", b)]
+        bases = re.findall(r"(\w+)\s*(?:,|$)", (m.group(2) or "").strip())
+        classes.setdefault(m.group(1), []).append((decls, bases, b))
+
+    def owner(cls, name, seen=()):
+        for decls, bases, b in classes.get(cls, []):
+            ds = [d for d in decls if d[1] == name]
+            if ds:
+                n_all = len(re.findall(r"\b%s\s*\(" % re.escape(name), b))
+                return (ds[0][0], cls) if len(ds) == 1 and n_all == 1 and len(classes[cls]) == 1 else None
+            for base in bases:
+                if base not in seen:
+                    r = owner(base, name, seen + (cls,))
+                    if r:
+                        return r
+        return None
+    edits, why = {}, []
+    for m in re.finditer(r"(~?)(\w+)\s*::\s*(~?)(\w+)\s*\(([^)]*)\)\s*(?::[^{;]*)?\{", blank):
+        cls, name = m.group(2), m.group(4)
+        if name != cls or cls not in classes:
+            continue
+        e = _brace_end(blank, m.end() - 1)
+        body = blank[m.end():e]
+        for c in re.finditer(r"(?<![\w.>:~])(?:this\s*->\s*)?(\w+)\s*\(", body):
+            r = owner(cls, c.group(1))
+            if r and c.group(1) != cls:
+                edits[r[0]] = (c.group(1), r[1])
+    if not edits:
+        return text, []
+    out = text
+    for pos in sorted(edits, reverse=True):
+        name, cls = edits[pos]
+        # `virtual <ret> NAME(<params>)<cv> [= 0];` -> `virtual <ret> hulk_slot_NAME(<params>)<cv> [= 0]; <ret> NAME(<params>)<cv>;`
+        semi = blank.index(";", pos)
+        decl = out[pos:semi]
+        dm = re.match(r"virtual\s+(.*?)\b%s(\s*\(.*)$" % re.escape(name), decl, re.S)
+        if not dm:
+            continue
+        rest = re.sub(r"\s*=\s*0\s*$", "", dm.group(2))
+        out = out[:pos] + "virtual %shulk_slot_%s%s; %s%s%s" % (dm.group(1), name, dm.group(2), dm.group(1), name, rest) + out[semi:]
+        why.append("%s::%s called directly (a stand-in virtual keeps its slot)" % (cls, name))
+    return out, why
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1676,15 +1979,54 @@ def in_class(blank, pos):
     return depth > 0
 
 
+# ret-widen (native9): a definition declared bool / char / short whose callers declare a 32-bit result
+NARROW = r"(?:bool|char|signed\s+char|unsigned\s+char|short|unsigned\s+short)"
+
+
+def ret_widen_findings():
+    """{rel: [plain names]} from HULK_RET_WIDEN (a JSON file of that shape: native_conv_check check 10's findings
+    mapped to their sources, plus the virtual ones read off a run)."""
+    p = os.environ.get("HULK_RET_WIDEN")
+    return json.load(open(p)) if p and os.path.exists(p) else {}
+
+
+def ret_widen_candidates(rel, text):
+    """[(new text, why)] for ret-widen: XboxSaveDrive::vfunc_7 0x00279160 is `bool` (`xor eax, eax; sete al` in the
+    original), DriveOpenRequest::vfunc_1 calls it through the vftable as `int a = d->s7(); ... return a;`: clang's
+    bool definition sets al only, the caller returns the whole eax and the drive thread saw a garbage status (check
+    10). The definition and its declarations in this source get `int`, then `unsigned int`: a byte match (or
+    equiv.py) proves MSVC 7.1 sets eax the same way for the wider type, i.e. the original returns the whole
+    register."""
+    names = ret_widen_findings().get(rel)
+    if not names:
+        return []
+    blank = blank_comments(text)
+    spans = []
+    for name in names:
+        d = [m for m in re.finditer(r"(?<![\w:])(" + NARROW + r")(\s+" + CONV_WORD + r"(?:\w+::)+" + re.escape(name)
+                                    + r"\s*\()", blank)]
+        d += [m for m in re.finditer(r"(?<![\w:])(" + NARROW + r")(\s+" + CONV_WORD + re.escape(name) + r"\s*\()", blank)]
+        if not d:
+            return []
+        spans += [(m.start(1), m.end(1)) for m in d]
+    out = []
+    for t in ("int", "unsigned int"):
+        new = text
+        for a_, b_ in sorted(set(spans), reverse=True):
+            new = new[:a_] + t + new[b_:]
+        out.append((new, "%s returns %s (callers read eax)" % ("/".join(names), t)))
+    return out
+
+
 RULES = {"template-spec": lambda rel, t: template_spec(t), "dependent-base": lambda rel, t: dependent_base(t),
          "return-struct": lambda rel, t: return_struct(t), "patch": patch, "register-order": register_order,
          "void-return": void_return, "split-temp": lambda rel, t: split_temp(t),
-         "code-literal": lambda rel, t: code_literal(t), "pass-through": None,
+         "code-literal": lambda rel, t: code_literal(t), "ctor-virt": lambda rel, t: ctor_virt(t), "data-literal": lambda rel, t: data_literal(t), "stub-body": stub_body, "unique-class": unique_class, "pass-through": None,
          "this-call": this_call, "reg-call": reg_call, "this-note": this_note, "return-param": None, "base-ctor": None, "this-cand": None,
-         "ret-cand": None, "arg-shift": None}
+         "ret-cand": None, "arg-shift": None, "ret-widen": None}
 
 
-CANDIDATE_RULES = ("return-param", "base-ctor", "this-cand", "ret-cand", "arg-shift")
+CANDIDATE_RULES = ("return-param", "base-ctor", "this-cand", "ret-cand", "arg-shift", "ret-widen")
 
 
 def main(argv=None):
@@ -1707,6 +2049,8 @@ def main(argv=None):
         return return_param_main(a, ret_cand_candidates, "ret-cand")
     if rules == ["arg-shift"]:
         return return_param_main(a, arg_shift_candidates, "arg-shift")
+    if rules == ["ret-widen"]:
+        return return_param_main(a, ret_widen_candidates, "ret-widen")
     srcs = load_sources()
     in_matches = {addr for rel, addr, _ in srcs if rel.startswith("matches/")}
     planned = []

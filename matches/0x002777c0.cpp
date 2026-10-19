@@ -14,6 +14,5 @@ class CementLibrary : public ICementLibrary, public IRefCount {
   public:
     virtual void vfunc_0();
 };
-void CementLibrary::vfunc_0() {}
 CementLibrary g;
 } // namespace core

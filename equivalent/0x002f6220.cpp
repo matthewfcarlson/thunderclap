@@ -88,8 +88,8 @@ public:
     virtual void vfunc_3() throw();
     virtual void vfunc_4() throw();
     virtual void vfunc_5() throw();
-    virtual void vfunc_6(int v) throw();
-    virtual void vfunc_7() throw();
+    virtual void hulk_slot_vfunc_6(int v) throw(); void vfunc_6(int v) throw();
+    virtual void hulk_slot_vfunc_7() throw(); void vfunc_7() throw();
     virtual void vfunc_8() throw();
     virtual void vfunc_9() throw();
     virtual void vfunc_10() throw();
@@ -121,7 +121,7 @@ public:
     virtual void vfunc_36() throw();
     virtual void vfunc_37() throw();
     virtual void vfunc_38() throw();
-    virtual void vfunc_39() throw();
+    virtual void hulk_slot_vfunc_39() throw(); void vfunc_39() throw();
     Id64_2f6220 id30;
     int f38;
     int f3c;

@@ -368,7 +368,10 @@ HOST_FLAGS = ["/usr/bin/clang++", "-arch", "arm64", "-mmacosx-version-min=11.0",
 
 # the image's own flags for src/platform/sdl/xdk (tools/native_host.py compile_dir) + the backend switch
 SHIM_CXX = [os.path.join(LLVM, "clang++"), "--target=i686-pc-windows-msvc", "-fms-extensions", "-std=c++14", "-O1",
-            "-mno-sse", "-mfpmath=387", "-fno-builtin", "-Werror", "-DHULK_NATIVE_SDL=1"]
+            "-mno-sse", "-mfpmath=387", "-fno-builtin", "-Werror", "-DHULK_NATIVE_SDL=1",
+            # (native9: the drive's find-first in audio_soundtracks.cpp forwards to fs1's file_io.cpp in the image;
+            # these tests link the audio/input stand-ins alone and keep its stand-in answer, "nothing there")
+            "-DHULK_NATIVE_NO_FS=1"]
 
 
 def win32_cxx():

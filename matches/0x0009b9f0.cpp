@@ -1,3 +1,4 @@
+extern "C" char hulk_at_0048e128[];
 class Base {
   public:
     Base(int, int);
@@ -15,5 +16,5 @@ class Camera : public Base {
 unsigned char __cdecl fun2(int);
 Camera::Camera(int a, int b) : Base(a, 0) {
     value = b;
-    flag = fun2(0x48e128);
+    flag = fun2(((int)hulk_at_0048e128));
 }

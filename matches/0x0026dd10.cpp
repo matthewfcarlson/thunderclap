@@ -1,3 +1,4 @@
+extern "C" void __cdecl FUN_0026dc20();
 typedef unsigned int U_26dd10;
 struct Node {
     U_26dd10 a, b;
@@ -31,7 +32,7 @@ void __cdecl FUN_0026dd10(Node* p, U_26dd10 a, U_26dd10 b, U_26dd10 c, U_26dd10 
     }
     l->last = p;
     p->prev = 0;
-    U_26dd10 r = CreateFiber(d, (void*)0x26dc20, p);
+    U_26dd10 r = CreateFiber(d, (void*)((int)(void (__cdecl*)())&FUN_0026dc20), p);
     p->state2 = 0;
     p->state1 = 0;
     p->fiber = r;

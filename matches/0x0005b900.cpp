@@ -1,3 +1,4 @@
+extern "C" char hulk_at_003f9a8c[];
 extern void* vA[];
 struct ThisCall_00234960 {
     void FUN_00234960(void*);
@@ -11,6 +12,6 @@ class CGrappleLocoStrafe4Track {
 };
 CGrappleLocoStrafe4Track::CGrappleLocoStrafe4Track(void* a, void* b) {
     ((ThisCall_00234960*)(this))->FUN_00234960(a);
-    vptr = (void*)0x3f9a90;
+    vptr = (void*)((int)(hulk_at_003f9a8c + 0x4));
     m10 = b;
 }

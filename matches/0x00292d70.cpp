@@ -10,7 +10,7 @@ class Camera : public Base_292d70 {
     virtual void v2() = 0;
     virtual void v3() = 0;
     virtual void v4() = 0;
-    virtual void vfunc_5(float, float) = 0;
+    virtual void hulk_slot_vfunc_5(float, float) = 0; void vfunc_5(float, float);
     char p0[0x18];
     float a;
     float b;

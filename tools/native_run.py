@@ -39,6 +39,8 @@ def wine_env(prefix):
     # renderer on Whisky's own MoltenVK (D3D11 presents, but Wine 7.7's d3dcompiler can't build the shaders);
     # Wine's winevulkan finds libMoltenVK.dylib through the dynamic loader's fallback path
     env.setdefault("HULK_GFX_RENDERER", "vulkan")
+    # sa1's SDL3 audio backend: muted by default in agent runs (the mixer still runs on SDL's dummy device)
+    env.setdefault("SDL_AUDIO_DRIVER", "dummy")
     lib = os.path.join(os.path.dirname(os.path.dirname(WINE)), "lib")
     if os.path.exists(os.path.join(lib, "libMoltenVK.dylib")) and "DYLD_FALLBACK_LIBRARY_PATH" not in env:
         env["DYLD_FALLBACK_LIBRARY_PATH"] = lib + ":/usr/lib"
@@ -175,6 +177,14 @@ def main(argv=None):
         print(json.dumps(r, indent=1))
         return 0 if r["rc"] == 7 else 1
     exe = a.exe or os.path.join(a.out, "link", "hulk-strict.exe")
+    # the DLLs the backends load, next to the image (Wine's loader finds them there): SDL3 (sa1), and the movie
+    # decoder (mv1: hulkmovie.dll + FFmpeg's, loaded when the first movie opens; without them movies are skipped)
+    out3 = os.environ.get("HULK_SDL_OUT") or os.path.join(ROOT, "build/third_party/out")
+    for dll in ("sdl-win32/SDL3.dll", "ffmpeg-win32/movies/hulkmovie.dll", "ffmpeg-win32/dll/avutil-60.dll",
+                "ffmpeg-win32/dll/avcodec-62.dll", "ffmpeg-win32/dll/avformat-62.dll"):
+        if os.path.exists(os.path.join(out3, dll)):
+            import shutil
+            shutil.copy2(os.path.join(out3, dll), os.path.join(os.path.dirname(os.path.abspath(exe)), os.path.basename(dll)))
     trace = os.path.join(rundir, "trace.txt")
     if os.path.exists(trace):
         os.remove(trace)

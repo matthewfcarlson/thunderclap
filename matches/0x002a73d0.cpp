@@ -29,7 +29,7 @@ struct PC_2a73d0 : Base_2a73d0 {
     virtual void f20();
     virtual void f21();
     virtual void f22();
-    virtual void vfunc_23();
+    virtual void hulk_slot_vfunc_23(); void vfunc_23();
     char m40;
     float m44;
     float m48;

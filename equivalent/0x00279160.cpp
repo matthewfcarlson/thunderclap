@@ -17,10 +17,10 @@ struct XboxSaveDrive {
  char reservedD5[9];
  unsigned char mode;
  void FUN_00278b50();
- bool vfunc_7();
+ int vfunc_7();
 };
 }
-bool core::XboxSaveDrive::vfunc_7() {
+int core::XboxSaveDrive::vfunc_7() {
  FUN_00278b50();
  if (mode != 0x55) {
   int portIndex = -1;

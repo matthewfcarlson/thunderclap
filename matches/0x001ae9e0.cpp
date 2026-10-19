@@ -1,3 +1,5 @@
+extern "C" void __cdecl FUN_001ad4d0();
+extern "C" void __cdecl FUN_001ad4f0();
 struct Src_1ae9e0 {
     int d[10];
 };
@@ -18,7 +20,7 @@ struct O_1ae9e0 {
     void G(Node* n, void* a, void* b);
 };
 Pair_1ae9e0* O_1ae9e0::F(Pair_1ae9e0* out, const Src_1ae9e0* s) {
-    void* p = ((This_FUN_00230be0*)this)->FUN_00230be0((void*)0x1ad4f0, s);
+    void* p = ((This_FUN_00230be0*)this)->FUN_00230be0((void*)((int)(void (__cdecl*)())&FUN_001ad4f0), s);
     if (!p) {
         out->n = 0;
         out->o = 0;
@@ -31,7 +33,7 @@ Pair_1ae9e0* O_1ae9e0::F(Pair_1ae9e0* out, const Src_1ae9e0* s) {
         n = r;
     } else
         n = 0;
-    G(n, (void*)0x1ad4d0, p);
+    G(n, (void*)((int)(void (__cdecl*)())&FUN_001ad4d0), p);
     out->n = n;
     out->o = this;
     return out;

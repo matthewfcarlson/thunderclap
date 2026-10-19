@@ -13,6 +13,5 @@ class C_269550 : public A_269550, public B_269550 {
     virtual void f();
 };
 
-void C_269550::f() {}
 
 C_269550 gC_269550;

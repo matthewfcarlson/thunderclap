@@ -60,6 +60,7 @@ callee (`ambiguous_by_tu`). `--reuse-map` runs the inventory and link on an exis
 import argparse
 import bisect
 import collections
+import csv
 import hashlib
 import json
 import os
@@ -82,7 +83,7 @@ OUT = os.environ.get("HULK_NATIVE_DIR") or os.path.join(ROOT, "build/native")
 CACHE = os.environ.get("HULK_NATIVE_CACHE") or os.path.join(ROOT, "build/native/cache")
 TREE = os.environ.get("HULK_TREE_DIR") or os.path.join(ROOT, "build/tree")
 REL32, DIR32 = 0x14, 0x06
-ADDR_RX = re.compile(r"(?:^|[^0-9A-Za-z])(?:FUN|DAT|thunk_FUN|PTR|LAB)_(00[0-9a-fA-F]{6})(?![0-9a-fA-F])")
+ADDR_RX = re.compile(r"(?:^|[^0-9A-Za-z])(?:FUN|DAT|thunk_FUN|PTR|LAB|hulk_at|vtbl|rttiTD)_(00[0-9a-fA-F]{6})(?![0-9a-fA-F])")
 
 
 def is_undefined(sym):
@@ -101,8 +102,10 @@ def xbe():
     return _X["x"]
 
 
-def match_bindings(obj, symbol, addr):
-    """{undefined symbol: Counter(address)} of a byte-matching function, by position."""
+def match_bindings(obj, symbol, addr, local=None):
+    """{undefined symbol: Counter(address)} of a byte-matching function, by position. With `local` (a dict of
+    Counters): also the calls and jumps to code the object defines itself (native9: a source's own stand-in body for
+    its callee, `pure3d::Sprite::~Sprite() {}` matched as the scalar deleting destructor whose call goes to 0x002bd430)."""
     coff = compare.Coff(obj)
     sym = next((s for s in coff.function_symbols() if s[0] == symbol), None)
     out = collections.defaultdict(collections.Counter)
@@ -110,6 +113,14 @@ def match_bindings(obj, symbol, addr):
         return out
     x = xbe()
     for off, tsym, typ, addend_bytes in coff.function_relocs(sym):
+        if local is not None and typ == REL32 and tsym is not None and tsym[2] > 0 and tsym[4] == 2 and \
+                tsym[0] != symbol and coff.sections[tsym[2] - 1][0].startswith(".text"):
+            o = x.offset(addr + off)
+            if o is not None:
+                orig, = struct.unpack("<i", x.data[o:o + 4])
+                addend, = struct.unpack("<i", addend_bytes)
+                local[tsym[0]][(addr + off + 4 + orig - addend) & 0xFFFFFFFF] += 1
+            continue
         if typ not in (REL32, DIR32) or tsym is None or not (is_undefined(tsym) or tsym[0].startswith("??_7")):
             continue      # (a stub's own vftable is defined in the object: its address names the real one, fix 3a)
         o = x.offset(addr + off)
@@ -206,7 +217,42 @@ def build_map(jobs):
     stats = collections.Counter()
     todo, todo_tu = [], []
     local_data = collections.defaultdict(set)
+    local_code = collections.defaultdict(collections.Counter)
+    vt_src = collections.defaultdict(lambda: collections.defaultdict(set))     # ??_7 symbol -> source -> addresses
+    # native9: checks of one TU sharing a symbol whose source doesn't name it (build_tree's loose lookup took a
+    # same-named function: 0x0023d710 as 0x0023d420's `Func`): their positions would bind the other source's
+    # relocations to this address's bytes, so they bind nothing
+    groups = collections.defaultdict(list)
     for c in checks:
+        if c.get("symbol") and c["kind"] == "matches" and c["status"] == "match":
+            groups[(c["tu"], c["symbol"])].append(c)
+    skip = set()
+    multi = sorted(sym for (tu, sym), cs in groups.items() if len(cs) > 1 and sym.startswith("?"))
+    dem = {}
+    if multi:
+        out_ = subprocess.run(["/opt/homebrew/opt/llvm/bin/llvm-undname"], input="\n".join(multi) + "\n",
+                              capture_output=True, text=True, errors="replace").stdout.splitlines()
+        for i in range(len(out_) - 1):
+            if out_[i] in multi and out_[i] not in dem:
+                dem[out_[i]] = out_[i + 1]
+    keywords = {"public", "private", "protected", "virtual", "static", "void", "int", "char", "bool", "short", "long",
+                "unsigned", "signed", "float", "double", "const", "struct", "class", "union", "enum", "__thiscall",
+                "__cdecl", "__stdcall", "__fastcall", "__ptr64", "__int64", "volatile", "operator", "wchar_t"}
+    for (tu, sym), cs in groups.items():
+        if len(cs) < 2 or sym not in dem:
+            continue
+        words = {w for w in re.findall(r"[A-Za-z_]\w*", dem[sym]) if w not in keywords and not re.fullmatch(r"fn_[0-9a-f]{8}", w)}
+        for c in cs:
+            try:
+                txt = open(os.path.join(ROOT, c["src"]), errors="replace").read()
+            except OSError:
+                continue
+            if not all(re.search(r"\b%s\b" % re.escape(w), txt) for w in words):
+                skip.add(c["addr"])
+    stats["checks sharing a symbol their source doesn't name (not bound)"] = len(skip)
+    for c in checks:
+        if c["addr"] in skip:
+            continue
         obj = objs.get(c["tu"])
         if not obj or not c.get("symbol"):
             stats["functions without an object or symbol"] += 1
@@ -215,7 +261,9 @@ def build_map(jobs):
         if c["kind"] == "matches" and c["status"] == "match":
             for s, v in local_data_bindings(obj, c["symbol"], a).items():
                 local_data[s].add(v)
-            for s, ts in match_bindings(obj, c["symbol"], a).items():
+            for s, ts in match_bindings(obj, c["symbol"], a, local_code).items():
+                if s.startswith("??_7"):
+                    vt_src[s][c["src"]] |= set(ts)
                 for t, n in ts.items():
                     refs[s][t]["position"] += n
                     per_tu[s][c["tu"]].add(t)
@@ -238,6 +286,9 @@ def build_map(jobs):
             if i % 500 == 0 and sys.stderr.isatty():
                 print("  equivalent bindings %d/%d" % (i, len(todo)), file=sys.stderr, flush=True)
     build_map.local_data = {s: "0x%08x" % next(iter(v)) for s, v in local_data.items() if len(v) == 1}
+    build_map.vt_src = vt_src
+    build_map.local_code = {s: "0x%08x" % next(iter(v)) for s, v in local_code.items()
+                            if len({final_target(t) for t in v}) == 1}
     return defs, refs, users, stats, per_tu, per_fn
 
 
@@ -308,7 +359,8 @@ def clang_objects():
     return cp, tus, res
 
 
-def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None, amb_fn=None, local_data=None):
+def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None, amb_fn=None, local_data=None,
+                   local_code=None):
     cp, tus, res = clang_objects()
     man = cp.Manifest()
     objs = {p: r["obj"] for p, r in res.items() if r.get("obj")}
@@ -353,6 +405,15 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
     # fix 7 (first part): the XDK import shim (src/platform/sdl/xdk/), whose stand-ins define the platform imports
     # by address and name
     shim = platform_shim(cp)
+    if SDL_LIBS:        # (the backends' and SDL3's own symbols: never stubbed, the libraries define them)
+        r_ = subprocess.run(["/opt/homebrew/opt/llvm/bin/llvm-nm", "--defined-only", "-g"] + SDL_LIBS,
+                            capture_output=True, text=True)
+        shim["defined"] |= {l.split()[-1] for l in r_.stdout.splitlines() if len(l.split()) >= 3}
+        r_ = subprocess.run(["/opt/homebrew/opt/llvm/bin/llvm-nm", "--undefined-only", "-g"] + SDL_LIBS,
+                            capture_output=True, text=True)
+        sdl_undef = {l.split()[-1] for l in r_.stdout.splitlines() if l.strip().startswith("U ")}
+    else:
+        sdl_undef = set()
     for a, s in shim["by_addr"].items():
         by_addr_def.setdefault(a, s)
     defined |= shim["defined"]
@@ -362,7 +423,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
     defined |= host["defined"]
     lib = native_host.library_shim(cp, shim["objects"])
     # what the platform code itself still needs (clang's own libcalls in it: _aulldiv, memcpy): by name like the tree's
-    for d_, u in cp.nm(shim["objects"] + host["objects"]).values():
+    for d_, u in list(cp.nm(shim["objects"] + host["objects"]).values()) + [(set(), sdl_undef)]:
         for s in u:
             if s not in defined and not s.startswith(("_hulk_host_", "__imp_", "_hulk_game_", "_hulk_clang_xc_", "@feat")):
                 refs[s] += 1
@@ -381,12 +442,78 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
             undef.add(s)
         defined |= gfx["defined"]
         by_addr_def[GFX_DEVICE_ADDR] = GFX_DEVICE_ENTRY
+    # native9: adjustor thunks and pure forwarders re-emitted from the original's bytes (jump_shapes), in place of
+    # whatever the tree defines at their addresses (a thunk named by bytes can jump to a source's own stand-in)
+    js = jump_shapes(by_addr_def)
+    for a, lab in js["labels"].items():
+        by_addr_def[a] = lab
+        defined.add(lab)
+    # --gfx (G3, build/g3/for-native9.md): GameClock::Update 0x00086450 ticks the backend's draw-log frame counter
+    # first (the hybrid build hooks the same function), so native draw-log frames are numbered like the hybrid's
+    clock_asm = ""
+    if gfx and gfx["objects"] and by_addr_def.get(GFX_CLOCK_ADDR) and GFX_CLOCK_TICK in gfx["defined"]:
+        clock_asm = ("\t.text\n\t.globl\t_hulk_clock_update\n\t.p2align\t4\n_hulk_clock_update:\n\tpushl\t%%eax\n"
+                     "\tpushl\t%%ecx\n\tpushl\t%%edx\n\tcalll\t%s\n\tpopl\t%%edx\n\tpopl\t%%ecx\n\tpopl\t%%eax\n"
+                     '\tjmp\t"%s"\n' % (GFX_CLOCK_TICK, by_addr_def[GFX_CLOCK_ADDR]))
+        by_addr_def[GFX_CLOCK_ADDR] = "_hulk_clock_update"
+        how["GameClock::Update wrapped: hulk_pddi_clock_tick (--gfx)"] += 1
+        defined.add("_hulk_clock_update")
+    # HULK_TRACE_FUNCS=addr,addr,...: a probe wrapper in front of each of these functions (every caller bound by
+    # address and every vftable slot goes through it): it logs `fcall` with ecx, edx, the return address and four
+    # stack words (src/platform/sdl/xdk/startup.cpp hulk_trace_func), then jumps to the definition. Probe builds only.
+    for t in [int(v, 16) for v in os.environ.get("HULK_TRACE_FUNCS", "").replace(",", " ").split()]:
+        d = by_addr_def.get(t)
+        if not d:
+            continue
+        lab = "_hulk_tr_%08x" % t
+        clock_asm += ("\t.text\n\t.globl\t%s\n\t.p2align\t4\n%s:\n\tpushl\t%%edx\n\tpushl\t%%ecx\n\tpushl\t%%eax\n"
+                      "\tmovl\t%%esp, %%eax\n\tpushl\t%%eax\n\tpushl\t$%d\n\tcalll\t_hulk_trace_func\n\taddl\t$8, %%esp\n"
+                      "\tpopl\t%%eax\n\tpopl\t%%ecx\n\tpopl\t%%edx\n\tjmp\t\"%s\"\n" % (lab, lab, t, d))
+        by_addr_def[t] = lab
+        defined.add(lab)
+        how["probe wrapper (HULK_TRACE_FUNCS)"] += 1
     # fix 6a: the game's vftables and RTTI structures as data (build/native/link/vtables.s), named by address
     vt = code_owned_data(by_addr_def)
+    vt["asm"] += js["asm"] + clock_asm
     for a, lab in vt["labels"].items():
         by_addr_def.setdefault(a, lab)
+    # native9: stand-in bodies. A verified source that defines its callee itself (`pure3d::Sprite::~Sprite() {}`
+    # matched as the scalar deleting destructor 0x002be420, whose call is to the real destructor 0x002bd430): the
+    # byte match masks the call, so natively it ran the empty stand-in (here: then called a base destructor nobody
+    # defines). Every such symbol (bindings.json local_code: the address each verified call of it goes to) that is
+    # not itself the tree's definition of some address is renamed away in the objects defining it, their own calls
+    # are pointed at the definition of that address, and every other reference is aliased to it.
+    standin = {}
+    def_values = set(by_addr_def.values())
+    for s_, a_ in (local_code or {}).items():
+        if s_ not in defined or s_ in def_values:
+            continue
+        a_ = int(a_, 16)
+        d = by_addr_def.get(a_) or by_addr_def.get(final_target(a_))
+        if d and d != s_:
+            standin[s_] = d
+    standin_objs = collections.defaultdict(dict)
+    for o, (d_, u) in syms.items():
+        for s_ in d_ & set(standin):
+            standin_objs[o][s_] = standin[s_]
+    for s_, d in standin.items():
+        aliases[s_] = d
+        defined.discard(s_)
+    how["stand-in bodies replaced by the callee's definition"] = len(standin)
+    # native9: a symbol of a wrapped TU (`??0PrimGroupBase@fn_fcb4ee90@@QAE@XZ`) that no relocation bound, whose
+    # equivalents in other TUs (the same name without the TU namespace) are all bound to one address: that address
+    # (equivalent/0x002e1960's `equiv-map: ??0PrimGroupBase@@QAE@XZ = 0x002a5060` names the standalone symbol)
+    by_key = collections.defaultdict(set)
+    for s_, b_ in binding.items():
+        if "@fn_" in s_:
+            by_key[re.sub(r"@fn_[0-9a-f]{8}@", "@", s_)].add(b_["addr"])
     for s in sorted(undef):
         b = binding.get(s)
+        if not b and "@fn_" in s and s not in ambiguous:
+            k = by_key.get(re.sub(r"@fn_[0-9a-f]{8}@", "@", s), set())
+            if len(k) == 1:
+                b = {"addr": next(iter(k))}
+                how["bound like the same name in other TUs"] += 1
         a = int(b["addr"], 16) if b else None
         src = "relocation" if b else None
         if a is None:
@@ -420,10 +547,12 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
     # game's vftable the stub stands for (its address: where the verified code stores the stub's vftable)
     slot_how = collections.Counter()
     slot_of = {}
-    for s, d in stub_slot_aliases(sorted(objs.values()), binding, by_addr_def, undef - set(aliases), slot_how,
-                                  slot_of).items():
+    slot_aliases = stub_slot_aliases(sorted(objs.values()), binding, by_addr_def, undef - set(aliases), slot_how, slot_of)
+    for s, d in slot_aliases.items():
         aliases[s] = d
         how["stub vftable slot"] += 1
+    with open(os.path.join(OUT, "slot_aliases.json"), "w") as f:      # (native_conv_check check 10 reads it)
+        json.dump(slot_aliases, f, indent=0)
     # the 329-style ambiguous symbols: one callee per TU -> the symbol is renamed in that TU's object
     renames, renamed_all = collections.defaultdict(list), set()
     obj_tu = {o: p for p, o in objs.items()}
@@ -448,6 +577,11 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
             how["ambiguous: renamed in some objects"] += 1
     # the rest: one callee per calling function -> each relocation is rebound by the function it is in
     rebind = collections.defaultdict(dict)
+    rebind_interior = {}        # native9: a rebound name whose address lies inside a data item: (item, offset)
+    items0, starts0 = native_host.data_items()
+    defined_at0 = {a: s for a, s in data_defs.items() if s in defined}
+    for a, lab in vt["labels"].items():
+        defined_at0.setdefault(a, lab)
     for s in sorted(set(amb_fn or {}) - renamed_all):
         per = (amb_fn or {}).get(s)
         if not per:
@@ -461,12 +595,20 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
                 new = "%s$%s" % (s, a_[2:])
                 plan[fn] = new
                 aliases[new] = d
+            else:
+                c = native_host.container(int(a_, 16), items0, starts0, defined_at0)
+                if c:
+                    new = "%s$%s" % (s, a_[2:])
+                    plan[fn] = new
+                    rebind_interior[new] = c
+                    aliases[new] = c[0]     # (the name stays in the symbol table, unreferenced once retargeted)
         if not plan:
             continue
         for o, (d_, u) in syms.items():
             if s in u or s in d_:
                 rebind[o][s] = plan
         how["rebound per calling function (%s)" % ("ambiguous" if s in undef else "name means another address")] += 1
+    how["rebound to an address inside a data item"] = len(rebind_interior)
     after = undef - set(aliases) - renamed_all
     # an address inside a data item another object defines (a global at +0x4c of a data TU's `DAT_<start>`, an
     # interior label of a vftable item): the referencing objects are patched to name the item, offset in the addend
@@ -512,11 +654,36 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
         k = bisect.bisect_right(vstarts, a) - 1
         if k >= 0 and a < vitems[k][0] + vitems[k][1] and vt["labels"].get(vitems[k][0]):
             vt_map[s] = (vt["labels"][vitems[k][0]], a - vitems[k][0])
+    # native9: clang's RTTI type descriptors (`??_R0?AVObjectLoader@content@fn_f638de75@@@8`: a wrapped source's
+    # class carries the TU's namespace in its decorated name) pointed at the game's descriptor of the same class
+    # (config/data.json `??_R0.?AVObjectLoader@content@@@8`): __RTDynamicCast and typeid compare decorated names,
+    # and the objects' vftables are the game's, whose hierarchies name the game's classes; with the TU namespace
+    # every dynamic_cast in a wrapped source failed (P3DFileHandler 0x00265cd0: no SimpleChunkHandler)
+    n_td = 0
+    leaf = collections.defaultdict(set)     # `?AVTextureLoader@` -> game TD names (a source's class without its namespace)
+    for g in vt["names"]:
+        m = re.match(r"\?\?_R0\.(\?A[UV]\w+@)", g)
+        if m:
+            leaf[m.group(1)].add(g)
+    for s in defined:
+        if not s.startswith("??_R0?") or s in vt_map:
+            continue
+        g = "??_R0." + re.sub(r"fn_[0-9a-f]{8}@", "", s[5:])
+        if g not in vt["names"]:
+            m = re.match(r"\?\?_R0(\?A[UV]\w+@)", s)
+            cands = {x for k in ("?AU", "?AV") for x in leaf.get(k + m.group(1)[3:], ())} if m else set()
+            if len(cands) == 1:
+                g = cands.pop()
+        a = vt["names"].get(g)
+        if a is not None and vt["labels"].get(a):
+            vt_map[s] = (vt["labels"][a], 0)
+            n_td += 1
+    how["RTTI type descriptors pointed at the game's (by decorated name)"] += n_td
     vt_rebind = collections.defaultdict(dict)
     for o, (d_, u) in syms.items():
         for s in (d_ | u) & set(vt_map):
             vt_rebind[o][s] = vt_map[s]
-    how["stub vftable references pointed at the game's vftable"] += len(vt_map)
+    how["stub vftable references pointed at the game's vftable"] += len(vt_map) - n_td
     # data a verified source defines itself where the original uses the game's item (local_data_bindings): every
     # reference is pointed at the game's item (data.s label, a library slot, or an interior offset of an item)
     ld_map = {}
@@ -586,7 +753,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
            "undefined_before": {"symbols": len(undef), "references": sum(refs[s] for s in undef),
                                 "groups": tally(before_g, undef)},
            "aliases": len(aliases), "aliases_by_source": dict(how), "stub_vftable_slots": dict(slot_how),
-           "code_owned_data": vt["stats"], "deleting_destructors": dd["stats"], "platform_shim": shim["stats"],
+           "code_owned_data": vt["stats"], "jump_shapes": js["stats"], "deleting_destructors": dd["stats"], "platform_shim": shim["stats"],
            "host_crt": dict(host["stats"]), "library_shim": lib["stats"], "startup": start_st,
            "graphics": dict(gfx["stats"], unresolved=gfx["unresolved"],
                             game_refs_unbound=sorted(s for s in gfx["game_refs"] if s not in aliases))
@@ -597,7 +764,15 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
     if do_link:
         link_objs, data_objs = [], []
         for o in sorted(objs.values()):
+            if standin_objs.get(o):
+                renames[o] = renames[o] + [(s_, s_ + "$standin") for s_ in sorted(standin_objs[o])]
             o2 = rename_object(o, renames[o]) if renames.get(o) else o
+            if standin_objs.get(o):
+                out_o = os.path.join(OUT, "link", "objs", "si_" + os.path.basename(o))
+                os.makedirs(os.path.dirname(out_o), exist_ok=True)
+                native_host.retarget_relocs(o2, {s_ + "$standin": (d, 0) for s_, d in standin_objs[o].items()}, out_o,
+                                            own=True)
+                o2 = out_o
             if globalize.get(o):
                 out_o = os.path.join(OUT, "link", "objs", "gl_" + os.path.basename(o))
                 os.makedirs(os.path.dirname(out_o), exist_ok=True)
@@ -609,6 +784,12 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
                 left = native_host.rebind_object(o2, rebind[o], out_o)
                 o2 = out_o
                 after |= left - defined - set(aliases)     # relocations the plan leaves keep the old name (an alias may cover it)
+                inner = {n_: rebind_interior[n_] for pl in rebind[o].values() for n_ in pl.values() if n_ in rebind_interior}
+                if inner:
+                    out_o = os.path.join(OUT, "link", "objs", "ri_" + os.path.basename(o))
+                    native_host.retarget_relocs(o2, inner, out_o)
+                    o2 = out_o
+                    after -= set(inner)
             if vt_rebind.get(o):
                 out_o = os.path.join(OUT, "link", "objs", "vt_" + os.path.basename(o))
                 os.makedirs(os.path.dirname(out_o), exist_ok=True)
@@ -641,7 +822,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
         inv["virtual_dispatch_stubs"] = len(vthunks)
         inv["lld_link"] = lld_link(link_objs, aliases, after | vt["undefined"] | set(gfx["unresolved"] if gfx else ()),
                                    vt["asm"], dd["asm"], startup,
-                                   host["libs"] + (gfx["libs"] if gfx and gfx["objects"] else []),
+                                   host["libs"] + (gfx["libs"] if gfx and gfx["objects"] else []) + SDL_LIBS,
                                    data_asm=blk["asm"], vthunks=vthunks)
     return inv
 
@@ -652,6 +833,8 @@ GFX = os.environ.get("HULK_NATIVE_GFX") == "1"
 GFX_OUT = os.environ.get("HULK_GFX_OUT") or os.path.join(ROOT, "build/third_party/out")   # tools/native_gfx.py
 GFX_DEVICE_ADDR = 0x0031ba60            # d3dCreateDevice (pure3d::InitPlatform 0x00292560, its only caller)
 GFX_DEVICE_ENTRY = "_hulk_pddi_create_device"
+GFX_CLOCK_ADDR = 0x00086450             # GameClock::Update (build/g3/for-native9.md: the draw log's frame numbers)
+GFX_CLOCK_TICK = "_hulk_pddi_clock_tick"
 GFX_KEEP = {"__fltused", "@feat.00"}    # the image's own (src/platform/sdl/crt/crt_glue.cpp)
 # Which DLL each Windows function bgfx/bx and the pddi backend import comes from (stdcall names; everything cdecl is
 # msvcrt.dll's, the compiler helpers ntdll.dll's). A name missing here is reported, not guessed.
@@ -779,6 +962,18 @@ def graphics_backend(outdir):
 
 
 SHIM_DIR = os.path.join(ROOT, "src/platform/sdl/xdk")
+# sa1 (docs/native-audio-input.md, build/sa1/for-native9.md): the SDL3 audio/input backends, when tools/native_sdl.py
+# has built them; xdk/ is then compiled with HULK_NATIVE_SDL=1 (both or neither). HULK_NATIVE_SDL=0 turns them off.
+SDL_OUT = os.environ.get("HULK_SDL_OUT") or os.path.join(ROOT, "build/third_party/out")
+SDL_LIBS = [os.path.join(SDL_OUT, "sdl-backends/win32/hulk_sdl.lib"), os.path.join(SDL_OUT, "sdl-win32/SDL3.lib")]
+if os.environ.get("HULK_NATIVE_SDL") == "0" or not all(os.path.exists(x) for x in SDL_LIBS):
+    SDL_LIBS = []
+else:
+    # fs1 (build/fs1/for-native9.md): files and saves on SDL3 (tools/native_fs.py backends --target win32); mv1
+    # (build/mv1/for-native9.md): the movie player (tools/native_ffmpeg.py movies; FFmpeg is loaded at run time)
+    for extra in ("fs1/win32/hulk_fs.lib", "ffmpeg-win32/movies/hulk_movies.lib"):
+        if os.path.exists(os.path.join(SDL_OUT, extra)):
+            SDL_LIBS.insert(len(SDL_LIBS) - 1, os.path.join(SDL_OUT, extra))
 SHIM_RX = re.compile(r"^\s*X\((0x[0-9a-fA-F]{8}), (\w+), ")
 
 
@@ -799,7 +994,9 @@ def platform_shim(cp):  # noqa: C901
     if not os.path.exists(hdr):
         return out
     table = [(int(m.group(1), 16), m.group(2)) for m in map(SHIM_RX.match, open(hdr)) if m]
-    out["objects"] = native_host.compile_dir(cp, SHIM_DIR, os.path.join(OUT, "link", "platform"), st)
+    out["objects"] = native_host.compile_dir(cp, SHIM_DIR, os.path.join(OUT, "link", "platform"), st,
+                                             ("HULK_NATIVE_SDL=1",) if SDL_LIBS else ())
+    st["SDL3 audio/input backends (HULK_NATIVE_SDL)"] = 1 if SDL_LIBS else 0
     for dset, _u in cp.nm(out["objects"]).values():
         out["defined"] |= dset
     by_key = {shim_key(s)[len("hulk_xdk_"):]: s for s in out["defined"] if (shim_key(s) or "").startswith("hulk_xdk_")}
@@ -946,6 +1143,92 @@ def code_owned_data(by_addr_def):
     return {"labels": labels, "names": names, "undefined": undefined, "asm": "\n".join(out) + "\n", "stats": dict(st)}
 
 
+SHAPE_OPS = {"sub", "add", "mov", "lea"}
+
+
+def jump_shapes(by_addr_def):
+    """native9: the XBE's adjustor thunks and pure forwarders as our own code (build/native/link/vtables.s, .text).
+
+    A function whose original is only register/stack adjustments ending in a jump (`sub ecx, 4; jmp X`: MSVC's
+    adjustor thunks in the vftables of classes with several bases; `mov ecx, [ecx+0xc]; jmp X`, `mov eax, [ecx];
+    jmp [eax+8]`: forwarders) is re-emitted from its own bytes, the `jmp rel32` pointed at the tree's definition of
+    its target. Why: the verification build names such a thunk by bytes, and its clang counterpart can jump
+    elsewhere (matches/0x002777c0.cpp defines `CementLibrary::vfunc_0() {}` next to the thunk it matched, so clang's
+    thunk ran that empty body instead of 0x00277790: the IFileCompletionCallback AddRef was lost and the
+    CementLibrary freed under its request). The copy is the original instruction for instruction, so it is exact
+    whatever the source's thunk says. Candidates: build/functions.csv entries (the shape must end at the entry's
+    end) and every vftable slot's target. Returns {addr: label}, the asm, stats."""
+    import capstone
+    x = xbe()
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    md.detail = True
+    lo, hi = x.base, max(sec.va + sec.vsize for sec in x.sections)
+    cands = {}
+    for r in csv.DictReader(open(os.path.join(ROOT, "build/functions.csv"))):
+        cands[int(r["address"], 16)] = int(r["size"])
+    for it in json.load(open(os.path.join(ROOT, "config/data.json")))["items"]:
+        if it["kind"] != "vtable":
+            continue
+        a0 = int(it["addr"], 16)
+        for k in range(it["size"] // 4):
+            v = x.u32(a0 + 4 * k) or 0
+            if lo <= v < hi and v not in cands:
+                cands[v] = None
+    st = collections.Counter()
+    shapes = {}
+    for a, size in sorted(cands.items()):
+        o = x.offset(a)
+        if o is None:
+            continue
+        code = bytes(x.data[o:o + (size or 24)])
+        pro, end, ok = [], None, False
+        for ins in md.disasm(code, a):
+            if ins.mnemonic == "jmp":
+                op = ins.operands[0]
+                if op.type == capstone.x86.X86_OP_IMM and ins.bytes[0] in (0xE9, 0xEB):
+                    end = ("rel", op.imm & 0xFFFFFFFF)
+                elif op.type == capstone.x86.X86_OP_MEM and op.mem.base and not op.mem.index:
+                    end = ("raw", bytes(ins.bytes))
+                ok = end is not None and (size is None or ins.address + ins.size == a + size)
+                break
+            if ins.mnemonic not in SHAPE_OPS or len(pro) >= 4:
+                break
+            good = True
+            for op in ins.operands:
+                if op.type == capstone.x86.X86_OP_MEM and (not op.mem.base or op.mem.index or lo <= op.mem.disp < hi):
+                    good = False
+                if op.type == capstone.x86.X86_OP_IMM and lo <= (op.imm & 0xFFFFFFFF) < hi:
+                    good = False
+            if not good:
+                break
+            pro.append(bytes(ins.bytes))
+        if not ok or (not pro and end[0] == "rel" and by_addr_def.get(a)):
+            continue           # (a bare `jmp X` with a definition is bound to its target already: jmp_target; one
+                               # without, in a vftable slot like 0x00255d00, gets its own)
+        shapes[a] = (b"".join(pro), end)
+    labels = {a: "_hulk_j_%08x" % a for a in shapes}
+    out = ["\t.text"]
+    for a, (pro, end) in sorted(shapes.items()):
+        if end[0] == "rel":
+            t = end[1]
+            d = labels.get(t) or by_addr_def.get(t) or by_addr_def.get(final_target(t))
+            if not d:
+                st["target has no definition (left as it was)"] += 1
+                labels.pop(a)
+                continue
+        out += ["\t.globl\t%s" % labels[a], "\t.p2align\t4", "%s:" % labels[a]]
+        if pro:
+            out.append("\t.byte\t" + ",".join(str(b) for b in pro))
+        if end[0] == "rel":
+            out.append('\tjmp\t"%s"' % d)
+            st["adjust + jmp" if pro else "jmp"] += 1
+        else:
+            out.append("\t.byte\t" + ",".join(str(b) for b in end[1]))
+            st["adjust + jmp [reg+d]"] += 1
+        st["replaced a definition" if by_addr_def.get(a) else "had no definition"] += 1
+    return {"labels": labels, "asm": "\n".join(out) + "\n", "stats": dict(st)}
+
+
 def source_slots(symbols, man):
     """{virtual member symbol: vftable slot} read from the stub class's definition in its TU, for stub classes no
     clang object emits a vftable for: a class without bases whose virtual functions are all declared in its body
@@ -1042,7 +1325,7 @@ def stub_slot_aliases(objects, binding, by_addr_def, undef, how, slot_of=None):
     return out
 
 
-DATA_LIKE = re.compile(r"^\?\?_[78R]|^\?[^@]+@.*@@[0-9]|^_(?:DAT|g|s|PTR|tbl|flt|dbl|unk)_|^\?\?_C@|^__real@")
+DATA_LIKE = re.compile(r"^\?\?_[78R]|^\?[^@]+@.*@@[0-9]|^_(?:DAT|g|s|PTR|tbl|flt|dbl|unk|hulk_at|vtbl|rttiTD)_|^\?\?_C@|^__real@")
 
 
 def lld_link(objects, aliases, undefined, vt_asm=None, dd_asm=None, startup_asm=None, libs=(), data_asm=None, vthunks=None):
@@ -1145,7 +1428,7 @@ def main(argv=None):
         defs = {int(k, 16): v for k, v in bj["definitions"].items()}
         rep = json.load(open(os.path.join(OUT, "report.json")))
         rep["link"] = link_inventory(binding, defs, {}, not a.no_link, set(amb), bj.get("ambiguous_by_tu"),
-                                     bj.get("ambiguous_by_function"), bj.get("local_data"))
+                                     bj.get("ambiguous_by_function"), bj.get("local_data"), bj.get("local_code"))
         rep["conv_check"] = conv_check()
         with open(os.path.join(OUT, "report.json"), "w") as f:
             json.dump(rep, f, indent=1)
@@ -1153,6 +1436,18 @@ def main(argv=None):
         return 0
     defs, refs, users, stats, per_tu, per_fn = build_map(a.jobs)
     binding, amb = bind(defs, {}, refs)
+    # native9: a stub class's vftable bound to two addresses because a check took a same-named function of the TU
+    # (build_tree's loose symbol lookup: 0x0023d710 was compared as 0x0023d420's `Func`): the address from the one
+    # source that declares the class is the vftable
+    for s_ in [x for x in amb if x.startswith("??_7")]:
+        m = re.match(r"\?\?_7(\w+)@", s_)
+        srcs = getattr(build_map, "vt_src", {}).get(s_, {})
+        own = {tuple(sorted(v)) for src, v in srcs.items() if m and os.path.exists(os.path.join(ROOT, src)) and
+               re.search(r"\b(?:class|struct)\s+%s\b" % re.escape(m.group(1)), open(os.path.join(ROOT, src), errors="replace").read())}
+        if len(own) == 1 and len(next(iter(own))) == 1:
+            t = next(iter(own))[0]
+            binding[s_] = {"addr": "0x%08x" % t, "how": ["position", "declaring source"], "def": defs.get(t)}
+            del amb[s_]
     # an ambiguous symbol (one name, two callees) is often one callee per TU: the link renames it per object
     amb_tu = {}
     for s_ in amb:
@@ -1166,14 +1461,19 @@ def main(argv=None):
         if s_ in amb_tu:
             continue
         by = {fn: sorted({final_target(x) for x in ad}) for fn, ad in per_fn[s_].items()}
-        if by and all(len(v) == 1 for v in by.values()):
-            amb_fn[s_] = {fn: "0x%08x" % v[0] for fn, v in by.items()}
+        # (native9: the functions with one callee each, even when another one has two: a check that took a
+        # same-named function of its TU, build_tree's loose lookup, must not cost every other caller its binding)
+        one = {fn: "0x%08x" % v[0] for fn, v in by.items() if len(v) == 1}
+        if one:
+            amb_fn[s_] = one
     # a name with an address that some verified function uses for another callee (a clone source calling
     # `FUN_0008ed50` where its original calls 0x00270540: the byte match masks the relocation): the name is defined,
     # so no alias would ever apply; those functions' relocations are rebound like the ambiguous ones
     for s_, fns in per_fn.items():
         n = name_address(s_)
-        if n is None or n not in defs:
+        # (native9: data names too: `extern "C" int* FUN_00256660() { return &DAT_004dd780; }`, a source propagated
+        # from another function's shape, whose original returns 0x004e7620)
+        if n is None or (n not in defs and not re.search(r"(?:^|[^0-9A-Za-z])DAT_00[0-9a-fA-F]{6}", s_)):
             continue
         own = final_target(n)
         wrong = {}
@@ -1186,7 +1486,8 @@ def main(argv=None):
     how = collections.Counter("+".join(b["how"]) for b in binding.values())
     with open(os.path.join(OUT, "bindings.json"), "w") as f:
         json.dump({"bindings": binding, "ambiguous": amb, "ambiguous_by_tu": amb_tu, "ambiguous_by_function": amb_fn,
-                   "local_data": getattr(build_map, "local_data", {}), "definitions": {"0x%08x" % k: v for k, v in sorted(defs.items())},
+                   "local_data": getattr(build_map, "local_data", {}), "local_code": getattr(build_map, "local_code", {}),
+                   "definitions": {"0x%08x" % k: v for k, v in sorted(defs.items())},
                    "references": dict(users)}, f, indent=0)
     with open(os.path.join(OUT, "alternatename.rsp"), "w") as f:
         for s, b in sorted(binding.items()):
@@ -1198,7 +1499,7 @@ def main(argv=None):
            "how": dict(how.most_common())}
     if not a.no_inventory:
         rep["link"] = link_inventory(binding, defs, {}, not a.no_link, set(amb), amb_tu, amb_fn,
-                                     getattr(build_map, "local_data", {}))
+                                     getattr(build_map, "local_data", {}), getattr(build_map, "local_code", {}))
     rep["conv_check"] = conv_check()
     with open(os.path.join(OUT, "report.json"), "w") as f:
         json.dump(rep, f, indent=1)

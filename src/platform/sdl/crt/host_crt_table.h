@@ -16,6 +16,7 @@
     I(msvcrt, memcmp, -1, "") \
     I(msvcrt, memchr, -1, "") \
     I(msvcrt, strlen, -1, "") \
+    I(msvcrt, wcslen, -1, "") \
     I(msvcrt, strcmp, -1, "") \
     I(msvcrt, strncmp, -1, "") \
     I(msvcrt, strcpy, -1, "") \
@@ -140,6 +141,9 @@
     I(kernel32, GetLocalTime, 4, "") \
     I(kernel32, CreateThread, 24, "") \
     I(kernel32, ExitThread, 4, "") \
+    I(kernel32, OpenThread, 12, "") \
+    I(kernel32, SuspendThread, 4, "") \
+    I(kernel32, GetThreadContext, 8, "") \
     I(kernel32, SetThreadPriority, 8, "") \
     I(kernel32, CreateSemaphoreA, 16, "") \
     I(kernel32, ReleaseSemaphore, 12, "") \
@@ -202,7 +206,9 @@
     C(0x00345e70, strstr, "_strstr strstr") \
     C(0x00345f90, qsort, "_qsort qsort") \
     C(0x0034625f, hulk_crt_fclose, "_fclose fclose") \
+    C(0x003463c7, hulk_crt_fwrite, "fwrite") \
     C(0x0034650b, hulk_crt_fread, "fread") \
+    C(0x00347d7a, realloc, "") \
     C(0x003465b3, hulk_crt_fopen, "fopen") \
     C(0x003465c6, strtok, "strtok") \
     C(0x00346890, strrchr, "_strrchr strrchr") \
@@ -216,6 +222,7 @@
     C(0x003472cb, strtod, "strtod") \
     C(0x00347380, strcspn, "_strcspn strcspn") \
     C(0x003473c6, strcmp, "strcmp") \
+    C(0x0034773f, srand, "_srand srand") \
     C(0x0034774c, rand, "_rand rand") \
     C(0x00347792, hulk_crt_fprintf, "_fwprintf fprintf") \
     C(0x003479aa, malloc, "") \
@@ -240,6 +247,7 @@
     C(0, memcpy, "memcpy") \
     C(0, memset, "memset") \
     C(0, memcmp, "memcmp") \
+    C(0, wcslen, "wcslen") \
     C(0, strlen, "strlen") \
     C(0, strcpy, "strcpy") \
     C(0, strcat, "strcat") \

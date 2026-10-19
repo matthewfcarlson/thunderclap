@@ -105,6 +105,10 @@ hulk_u32 HULK_HOST_CDECL hulk_crt_fread(void* p, hulk_u32 size, hulk_u32 n, void
     return hulk_host_fread(p, size, n, hulk_stream(f));
 }
 
+hulk_u32 HULK_HOST_CDECL hulk_crt_fwrite(const void* p, hulk_u32 size, hulk_u32 n, void* f) {
+    return hulk_host_fwrite(p, size, n, hulk_stream(f));
+}
+
 int HULK_HOST_CDECL hulk_crt_getc(void* f) { return hulk_host_getc(hulk_stream(f)); }
 int HULK_HOST_CDECL hulk_crt_ungetc(int c, void* f) { return hulk_host_ungetc(c, hulk_stream(f)); }
 char* HULK_HOST_CDECL hulk_crt_fgets(char* s, int n, void* f) { return hulk_host_fgets(s, n, hulk_stream(f)); }

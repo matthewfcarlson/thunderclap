@@ -1,3 +1,5 @@
+extern "C" char hulk_at_0048e0f0[];
+extern "C" char hulk_at_0048e100[];
 class Base {
   public:
     virtual void f();
@@ -15,8 +17,8 @@ class Middle : public Base {
     virtual void f();
     Middle(const char* s, int n) : Base(s, 1) {
         x = n;
-        b = get(0x48e100);
-        a = get(0x48e0f0);
+        b = get(((int)hulk_at_0048e100));
+        a = get(((int)hulk_at_0048e0f0));
     }
 };
 class Derived : public Middle {

@@ -1,4 +1,6 @@
 #include "decls/address.h"
+extern "C" char hulk_at_0048e100[];
+extern "C" char hulk_at_0048e134[];
 class CSubtitleManager;
 struct CtorV_001d0480 {
     CtorV_001d0480(void*, int);
@@ -29,8 +31,8 @@ class Closure1 : public Method1 {
 };
 Method1::Method1(void* p, CSubtitleManager* o) : Base(p) {
     owner = o;
-    b = FUN_001d04d0((const char*)0x48e100);
-    a = FUN_001d04d0((const char*)0x48e134);
+    b = FUN_001d04d0((const char*)((int)hulk_at_0048e100));
+    a = FUN_001d04d0((const char*)((int)hulk_at_0048e134));
 }
 Closure1::Closure1(void* p, void* f, CSubtitleManager* o) : Method1(p, o) {
     fn = f;

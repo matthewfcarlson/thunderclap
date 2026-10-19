@@ -1,3 +1,5 @@
+extern "C" void __cdecl FUN_0016f880();
+extern "C" void __cdecl FUN_0016f8a0();
 extern "C" char DAT_0041872c[];
 struct Param {
     char pad[0x18];
@@ -24,7 +26,7 @@ void FUN_0017a9a0() {
         if (a) {
             a->Init("timeBegin");
             *(int*)a = ((int)DAT_0041872c);
-            *(int*)((char*)a + 0x10) = 0x16f880;
+            *(int*)((char*)a + 0x10) = ((int)(void (__cdecl*)())&FUN_0016f880);
             arr[0] = a;
         } else {
             arr[0] = 0;
@@ -33,7 +35,7 @@ void FUN_0017a9a0() {
         if (b) {
             b->Init("power");
             *(int*)b = ((int)DAT_0041872c);
-            *(int*)((char*)b + 0x10) = 0x16f8a0;
+            *(int*)((char*)b + 0x10) = ((int)(void (__cdecl*)())&FUN_0016f8a0);
             arr[1] = b;
         } else {
             arr[1] = 0;

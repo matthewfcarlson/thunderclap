@@ -24,6 +24,5 @@ class TextBible : public Entity, public content::LoadObject {
   public:
     virtual void vfunc_1();
 };
-void TextBible::vfunc_1() {}
 TextBible globalTextBible;
 } // namespace pure3d

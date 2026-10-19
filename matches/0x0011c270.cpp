@@ -4,7 +4,7 @@ class PathLocatorTestCondition {
     int a, b;
     virtual ~PathLocatorTestCondition();
     int d;
-    virtual void F();
+    virtual void hulk_slot_F(); void F();
 };
 PathLocatorTestCondition::~PathLocatorTestCondition() {
     Cleanup(d);

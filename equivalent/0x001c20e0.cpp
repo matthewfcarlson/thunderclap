@@ -7,8 +7,8 @@ struct Object { virtual void s0(); virtual void s1(); virtual void s2(); virtual
 extern "C" double __cdecl sqrt(double);
 extern "C" double __cdecl atan(double);
 float __cdecl FUN_00018a20(float);
-struct Target_1c20e0 { char pad[8]; Object* object; char pad2[0xa4]; float horizontalLimit,verticalLimit; bool FUN_001c20e0(const Input_1c20e0*); };
-bool Target_1c20e0::FUN_001c20e0(const Input_1c20e0* input) {
+struct Target_1c20e0 { char pad[8]; Object* object; char pad2[0xa4]; float horizontalLimit,verticalLimit; int FUN_001c20e0(const Input_1c20e0*); };
+int Target_1c20e0::FUN_001c20e0(const Input_1c20e0* input) {
  Matrix matrix=*object->s13(); Vec_1c20e0 position; matrix.FUN_0022c2b0(input,&position);
  if (object->s8()>position.z) return false;
  if (object->s10()<position.z) return false;

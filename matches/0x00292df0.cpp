@@ -31,7 +31,7 @@ struct Camera : Base_292df0 {
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void Set(int a, int b);
+    virtual void hulk_slot_Set(int a, int b); void Set(int a, int b);
     Camera(Src_292df0* s);
     float f1c, f20;
     char p[0x28];

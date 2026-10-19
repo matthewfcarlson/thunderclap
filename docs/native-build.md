@@ -25,6 +25,11 @@ build/venv/bin/python tools/native_link.py --reuse-map --gfx   # with the pddi/b
 #   HULK_NATIVE_DIR=build/native5 ... clang_probe.py --snapshot --configs msvc; native_link.py --tree build/native5/clang-probe/snap
 ```
 
+**Status 2026-10-19 (native9): the game's own frame loop runs.** The native image gets through start-up and loading
+into `Main::update`, which presents frames through the pddi/bgfx device (256+ frames of the copyright screen, drawn
+by the game) and runs the Lua scripts; it stops later in the loader fiber (a game heap runs out). See
+[native9](#native9-from-the-rcf-mount-toward-the-first-frame-2026-10-19).
+
 **Status 2026-10-19 (G1): the graphics boundary is crossed.** With `native_link.py --gfx` the device the engine
 creates is the pddi/bgfx backend's ([graphics-backend.md section 8](graphics-backend.md#8-g1-the-backend-in-the-native-image-2026-10-19)):
 no D3D import is called, bgfx draws through Vulkan (MoltenVK) under Wine, and start-up goes on through
@@ -53,6 +58,104 @@ next fixes 1-3](#after-the-next-fixes-1-3-2026-10-17) the night before (first st
 Cold, the first run takes 10-15 minutes (4 compiler processes); a warm run takes 30 s. Everything goes to `build/clang-probe/`:
 `report.json` (counts, categories with example sites, scans, link probe), `undefined.txt` (every undefined symbol with
 its group and demangled name), `cache/` (per-TU results and objects) and `snap/` (the tree being probed).
+
+## native9: from the RCF mount toward the first frame (2026-10-19)
+
+Inputs: HEAD 32bafa21's tree (the gen_tree fix: the tree builds again; treefix's ws9) plus this round's verified
+rewrites (`build/native9/sources.txt`), rebuilt with `build_tree.py --resume --jobs 3 --regression-rounds 4`, probed
+(`clang_probe.py --snapshot --configs msvc`), linked (`native_link.py --gfx`, the binding map rebuilt), run under Wine
+(`native_run.py`). Every source edit went through `native_fix.py --apply --verify` (compare.py MATCH / equiv.py
+--inputs 3000 EQUIVALENT); every tree build in this round: all TUs compiled, every match matching, 0 equivalents
+differing from standalone.
+
+**1. The stops, run by run** (each fixed as a class, then the run repeated):
+
+| # | stop | cause | class and fix |
+|---|---|---|---|
+| 0 | RCF mount: `FileCompletionRequest::vfunc_7` 0x273700 calls slot 3 of IRefCount's base vftable on a freed CementLibrary | the adjustor thunk 0x2777c0 (`sub ecx, 4; jmp 0x277790`, the IFileCompletionCallback AddRef) was matches/0x002777c0.cpp's clang thunk, which jumped to that source's own `CementLibrary::vfunc_0() {}` | **link**: `jump_shapes` re-emits every adjustor thunk and pure forwarder from the XBE's bytes (207 replaced definitions, 120 bare `jmp` slots without one); **source**: rule `stub-body` (10 sources) |
+| 1 | `SwitchToFiber` -> eip 0x0026dc20 | `CreateFiber(d, (void*)0x26dc20, p)`: a function by its XBE address | **source**: rule `code-literal` generalized (35 sources: `((int)(void (__cdecl*)())&FUN_x)`) |
+| 2 | hang (new watchdog: `HULK_HANG`) in `File::vfunc_21`'s wait | (a) `LoadStream`'s constructor calls its only virtual `FUN_00263f50`: MSVC 7.1 calls it directly in a constructor, clang through the game vftable's slot 0 (0x00038290); (b) `equivalent/0x00277d00` was `void`, 0x00278010 tail-jumps to it and `FileReadRequest::vfunc_1` tests the read status | **source**: rule `ctor-virt` (12 sources); patch (check 6 now follows `jmp` after a call and tail jumps) |
+| 3 | P3D load: a loader's `reader` garbage | `dynamic_cast` in wrapped TUs: clang's type descriptors carry the TU namespace (`.?AVObjectLoader@content@fn_f638de75@@`) | **link**: clang TDs pointed at the game's TD of the same decorated name, or of the one game class with that leaf name (2,731) |
+| 4 | PNG sprite: the heap overwritten | png_read_data matches/0x002dd690 (`mov [esp+4], ecx; jmp eax`) passed 1 of the callback's 3 arguments | **source**: patch (the 133 indirect tail calls scanned: no other cdecl one) |
+| 5 | missing base destructor of `pure3d::DrawablePrimitive` | stand-in bodies: `pure3d::Sprite::~Sprite() {}` matched as the deleting destructor 0x2be420, whose call goes to 0x2bd430 | **link**: `local_code` (calls to code the object defines itself, by position): 1,187 stand-ins renamed `$standin`, their callers pointed at the address's definition |
+| 6 | hang: the U: drive never opens | XboxSaveDrive::vfunc_7 is `bool` (`xor eax, eax; sete al`), `DriveOpenRequest::vfunc_1` calls it as `int` and returns eax | **check 10** (bound caller symbols declaring a 32-bit result for a bool/char/short definition) + rule `ret-widen` (11 of 57 verified as int; the rest set only al in the original: caller side, left) |
+| 7 | sound init: a vptr 0 | singleton getters propagated from another function's shape (`return &DAT_004dd780;`, the original returns 0x4e7620) | **link**: per-function rebinding for data names, and into data items with an offset (31) |
+| 8 | the same, next getter | two copies of one object: an initializer constructs `((Helper_360170*)0x4e6a68)` (the XBE window's copy), the getter returns the image's | **source**: rule `data-literal` (54 sources: `((int)(hulk_at_<item> + off))`, bound by address) |
+| 9 | `TextureFontLoader` | a TD of a source class without the game's namespace (`TextureLoader` vs `pure3d::TextureLoader`) | (row 3, the leaf-name match) |
+| 10 | 0x266220: `this` read from the wrong slot | `U64 FUN_00231530(Node*)`: the getter takes nothing, the node is OnEntry's second argument (check 7) | **source**: patch |
+| 11 | missing `Caster::_m_vf0` (the fight factories' cast helpers) | one class name in many sources of a TU, each storing another game vftable; the tree merges the declarations, clang's one constructor stores one stub vftable | **source**: rule `unique-class` (117 sources); **link**: an ambiguous stub vftable resolved by the source that declares the class; checks whose source doesn't name their symbol (build_tree's loose lookup took a same-named function: 0x0023d710 compared as 0x0023d420's `Func`) bind nothing |
+| 12 | missing `EnergyDoorSetParams` 0x000244c0 (a script binding target) | no source at that address (build/functions.csv names it `D3D8::D3D_SetPushBufferSize`) | **new match** matches/0x000244c0.cpp (MATCH) |
+| 13 | missing `PrimGroupBase()` | a wrapped TU's symbol no relocation bound (the source's `equiv-map` names the standalone symbol) | **link**: bound like the same name in other TUs when they agree (20) |
+| 14 | `SeqEventChannelSends::vfunc_0` -> 0x25c7c0 -> 0x25abd0: null `this` | `equivalent/0x0025c7c0` declared an `ecx` parameter that is only the `push ecx` making room for a local: its callers' two stack words were read one slot off | **source**: patch (EQUIVALENT) |
+| 15 | Lua `cm_SetGravity`: eip 0 | 0x001b46d0 takes three floats and tail-jumps with them to 0x002ece90 (`ret 0xc`); declared with two (check 7) | **source**: patch (MATCH) |
+| 16 | `math.randomseed`: missing 0x0034773f; a data TU's `_vtbl_00400888` stubbed as code | srand had no host row; data TUs name vftables `vtbl_<addr>` / TDs `rttiTD_<addr>` | **CRT rows** srand, fwrite, realloc; **link**: `vtbl_`/`rttiTD_` names bound by address |
+| 17 (open) | loading geometry in the loader fiber: `operator new` -> the game allocator's out-of-memory handler `FUN_0008d320` (`jmp $`) | a game heap is exhausted: not read yet | - |
+
+
+**2. How far the game gets** (the final link, `--gfx`, Wine 7.7, Vulkan on MoltenVK): all 457 initializers, `main`,
+the game object, the D3D/pddi device (ours), physics, the RCF mount, the drives (incl. U:), sound init on sa1's mixer
+(`audio mixer up: ... device open (dummy)`), the script registry and every binding, the loader fiber reading P3D
+files (copyright, sprites, PNGs, fonts, audio sequences, geometry), and **the game's own frame loop**:
+`T_8ee30::Init` -> `Thing_87940::Target` -> `Target_87630::run` -> `Main::update` 0x000873a0, presenting through the
+pddi device's BeginFrame/EndFrame and the display's swap: **256+ frames presented, 8 draws each** (the copyright
+screen, drawn by the game from `art\copyright-en.p3d`: a screenshot at frame 200 shows the full legal text), Lua
+scripts running from the main loop (`scripts/physics.lua`). The native draw log works (`HULK_GFX_DRAWLOG=1:10:200`:
+160 records). The run stops in the loader fiber after ~60 s (stop 17). The hybrid reference log has no copyright-screen
+frames, so `drawlog_diff.py` finds nothing to align yet (as expected: the hybrid replay starts later).
+
+**3. Counts** (the final tree): rewrites **244 sources** (`build/native9/sources.txt`: 234 matches/, 10 equivalent/,
+one of them the new match 0x000244c0): unique-class 117, code-literal 35, data-literal 54, ctor-virt 12, ret-widen 11,
+stub-body 10, patches 5. Conv checks (`native_conv_check.py --returns --pops`, `classify_definition_convs`): check 5
+**1**, check 6 **20 definitions / 25 sites** (the jmp-following refinement finds 4 more than native8's 16), check 7
+**40 symbols / 37 addresses** (native8 34/33: two fixed here, 8 newly visible through the better binding), check 8
+changing **2**, check 9 **1**, check 10 (new) **52** definitions (the 46 the original sets only `al` for are caller
+side). Binding map: stand-ins 940, ambiguous names rebound per function 98 (+31 into data items), RTTI TDs 2,731,
+checks skipped for sharing a symbol their source doesn't name 1,884. Strict `lld-link`: **0 errors** plain (7.52 MB)
+and `--gfx` (10.34 MB, with sa1's/fs1's/mv1's SDL3 backends); 1,596 symbols still stubbed, 1,217 dispatch stubs.
+
+**4. MSVC 7.1 proof** (`build/native9/msvc-proof.txt`): base = treefix's inputs + HEAD's tools, mine = + the 244
+sources, both `build_tree.py --resume --jobs 3 --regression-rounds 4` from the same state: TUs 2,810 / 2,810 in both,
+matches 22,196 / 22,196 (base) and 22,197 / 22,197 (mine: + 0x000244c0), **0 equivalents differing** from their
+standalone code, per-function verdicts identical for every function in both (27,473); 35 functions changed mode
+(wrapped <-> merged: renamed classes no longer conflict, or newly do).
+
+**5. Left**: stop 17; check 7's 37 addresses (the main loop will meet them: each a per-site reading); check 10's caller
+side; the 2 untracked thunk sources; the `Derived` pair (matches/0x0006c740, 0x0006c790: the rename doesn't compile).
+build_tree's loose symbol lookup (bcc61ada) attributes a same-named function of the TU to a check (0x0023d710 as
+0x0023d420's `Func`, 1,884 checks share a symbol their source doesn't name): those checks' verdicts are the other
+function's; reported, not mine to change.
+
+**6. Tools.** `native_link.py`: `jump_shapes`, `local_code` stand-ins, RTTI TD redirection, data names and
+interior addresses in the per-function rebinding, `hulk_at_` names, ambiguous-vftable resolution, the
+loose-lookup filter, `HULK_TRACE_FUNCS` probe wrappers (`fcall` lines in the trace: ecx, edx, return address, four
+stack words; `HULK_TRACE_MAX`), `slot_aliases.json` (check 10), `--gfx` wraps GameClock::Update 0x00086450 to call
+`hulk_pddi_clock_tick` first (G3: draw-log frames numbered like the hybrid's), the SDL3 audio/input backends when
+`tools/native_sdl.py` has built them (sa1: xdk/ compiled with `HULK_NATIVE_SDL=1`, hulk_sdl.lib and SDL3.lib
+linked; `HULK_NATIVE_SDL=0` turns them off). `startup.cpp`: `HULK_HANG=n` (a watchdog sampling the main and the
+game's threads after n s: registers, frames, stack scan), `HULK_FRAME_LOCALS=1` (8 words below each frame
+pointer), `HULK_CRASH_PEEK` on hangs too. `native_run.py`: SDL3.dll next to the image, `SDL_AUDIO_DRIVER=dummy`.
+`native_fix.py`: rules `code-literal` (generalized), `ctor-virt`, `ret-widen`, `data-literal`, `stub-body`,
+`unique-class`, native9 patches. `native_conv_check.py`: check 6 through tail jumps and unconditional `jmp`s,
+check 10 (return widths). Host CRT rows: srand 0x0034773f, fwrite 0x003463c7, realloc 0x00347d7a, wcslen (fs1's
+library); library.h: 0x003d5e68 is 48 bytes (sa1), 0x00355bc2 is the drive's find-next (`DriveFindNextFile`).
+fs1's and mv1's libraries are linked when built (hulk_fs.lib, hulk_movies.lib), their DLLs copied by native_run.py;
+`tools/native_sdl.py wine-test` compiles the stand-ins with `HULK_NATIVE_NO_FS` (the find-first forwarder to fs1's
+file_io.cpp is the image's).
+
+### Bridges to remove
+
+Build-time bridges that take game code or layout from the user's XBE, or that patch over a source's declarations,
+instead of compiling our own source as written. Accepted as tech debt (2026-10-19) on the condition that they go:
+
+| bridge | count | why it exists | what removes it |
+|---|---|---|---|
+| `jump_shapes` (native_link.py): adjustor thunks and pure forwarders re-emitted from the XBE's bytes | 207 definitions replaced, 120 bare `jmp` slots, 48 `jmp [reg+d]` forwarders | byte-matched thunk sources name the wrong virtual (matches/0x002777c0 & co.); the multiple-inheritance layout the thunks adjust for is only in the XBE | correct class declarations in include/gen with the real base order, so the compiler emits its own thunks (any architecture); then the thunk sources become those classes' overrides |
+| RTTI TD redirection (native_link.py): clang's `??_R0` pointed at the game's TDs | 2,731 | wrapped sources' classes carry the TU namespace or no namespace | the real class names and namespaces in the sources (include/gen), so clang's own RTTI matches |
+| stand-in bodies (`local_code`): sources' own bodies for callees renamed away | 940 | "same code shape" and other byte-matched sources define a callee's body (`~Sprite() {}`) where the original calls another function | declare, don't define: each such source rewritten to declare the callee (the `stub-body` rule did this for 10 thunk sources) |
+| stub vftables pointed at the game's (`vt_` objects, fix 6a), ambiguous ones resolved by declaring source | all stub classes | stub classes stand for the game's classes | the real classes (include/gen) |
+| `hulk_at_` / `DAT_` by address, data in the XBE window | 54 sources + the window mapping | sources name data by XBE address | named data (include/decls/data) everywhere |
+| `ctor-virt` stand-in virtuals `hulk_slot_<name>` | 12 sources | stub classes made polymorphic by the wrong member | the real class declaration (the member is not virtual) |
+| the empty stubs for a virtual the original doesn't own (the 0x002777c0 class) | 14 sources with an adjustor thunk and an empty out-of-line body: 10 fixed (`stub-body`), 2 are other sessions' untracked files (matches/0x002777e0, 0x002777f0), 2 are constructor/destructor bodies the vftable emission needs (0x00268010, 0x0026e350) | — | (the 2 untracked ones: the same rewrite once they are committed) |
 
 ## Graphics boundary crossed (G1, 2026-10-19)
 

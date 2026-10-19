@@ -1,4 +1,4 @@
-class Caster {
+class Caster_1582c0 {
   public:
     virtual void cast();
 };
@@ -6,8 +6,8 @@ class Track {
   public:
     void apply(void*);
 };
-extern "C" void* find(void*, Caster*);
+extern "C" void* find(void*, Caster_1582c0*);
 void fun(Track* t, void* name) {
-    Caster caster;
+    Caster_1582c0 caster;
     t->apply(find(name, &caster));
 }
