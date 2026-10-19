@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 6/6)
+// FUN_0033c4d0 @ 0x0033c4d0
 // FUN_0033c4d0 @ 0x0033c4d0
 // equiv-conv: FUN_0033c320 eax edi
 unsigned int FUN_0033c320(unsigned int value, int character);

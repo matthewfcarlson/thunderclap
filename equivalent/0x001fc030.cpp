@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 15681 inputs, branch coverage 14/14)
+// CTriggerVolume::vfunc_8 @ 0x001fc030
 // CTriggerVolume::vfunc_8 @ 0x001fc030
 struct Vec_1fc030 { float x,y,z; };
 void FUN_00224d70(float angle, Vec_1fc030* output);

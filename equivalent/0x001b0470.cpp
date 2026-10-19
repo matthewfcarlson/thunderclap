@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 11/11)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 11/11)
+// FUN_001b0470 @ 0x001b0470
 // FUN_001b0470 @ 0x001b0470
 struct Item_1b0470 {
     int FUN_001d72e0();

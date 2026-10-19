@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 15657 inputs, branch coverage 12/12)
+// FUN_00221430 @ 0x00221430
 // FUN_00221430 @ 0x00221430
 struct Proto_221430 {
     char pad0[0xc];

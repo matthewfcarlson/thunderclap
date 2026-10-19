@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 122 inputs, branch coverage 34/34)
 // FUN_0021fe20 @ 0x0021fe20
 // FUN_0021fe20 @ 0x0021fe20
+// FUN_0021fe20 @ 0x0021fe20
 struct Proto_21fe20;
 
 struct Zio_21fe20 {

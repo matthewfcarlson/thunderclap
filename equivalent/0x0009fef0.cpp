@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 19772 inputs, branch coverage 0/0)
+// FUN_0009fef0 @ 0x0009fef0
 // FUN_0009fef0 @ 0x0009fef0
 struct Vec_9fef0 { float x,y,z; float FUN_0022d110(); };
 extern "C" double __cdecl sin(double);

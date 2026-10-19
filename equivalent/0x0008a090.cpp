@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 8/8)
+// FUN_0008a090 @ 0x0008a090
 // FUN_0008a090 @ 0x0008a090
 struct Session_8a090 {
     bool FUN_001d1cb0();

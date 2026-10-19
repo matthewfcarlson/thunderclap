@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 15/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20031 inputs, branch coverage 15/16, incomplete)
+// FUN_00213e50 @ 0x00213e50
 // FUN_00213e50 @ 0x00213e50
 // FUN_00213e50 @ 0x00213e50
 // Lua 5.0 lua_setupvalue: aux_upvalue inlined, then pops the stack top into the upvalue

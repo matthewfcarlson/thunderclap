@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 13/14, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 17400 inputs, branch coverage 14/14)
+// FUN_00221700 @ 0x00221700
 // FUN_00221700 @ 0x00221700
 struct Constant_221700 { int type; float value; };
 struct Pool_221700 { char pad[8]; Constant_221700* constants; };

@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19947 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 8353 inputs, branch coverage 4/4)
+// FUN_0021cd90 @ 0x0021cd90
 // FUN_0021cd90 @ 0x0021cd90
 // FUN_0021cd90 @ 0x0021cd90
 struct Context { char pad[0x24]; int saved; };

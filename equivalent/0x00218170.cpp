@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 112 inputs, branch coverage 23/23)
+// STATUS: equivalent (tools/equiv.py level 3: 14126 inputs, branch coverage 23/23)
+// FUN_00218170 @ 0x00218170
 // FUN_00218170 @ 0x00218170
 struct Str_218170 {
     char pad[0x10];

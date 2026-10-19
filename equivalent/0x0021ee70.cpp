@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 12244 inputs, branch coverage 8/8)
+// FUN_0021ee70 @ 0x0021ee70
 // FUN_0021ee70 @ 0x0021ee70
 struct State_21ee70 { int unknown; int position; int previous; int token; int value; int savedToken; int savedValue; void* context; };
 // equiv-conv: FUN_0021ede0 eax

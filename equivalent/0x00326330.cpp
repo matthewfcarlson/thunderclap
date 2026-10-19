@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 119 inputs, branch coverage 43/46, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 4904 inputs, branch coverage 46/46)
+// FUN_00326330 @ 0x00326330
 // FUN_00326330 @ 0x00326330
 namespace D3D8 {
 int __stdcall D3DDevice_CreateTexture2(unsigned long w, unsigned long h, unsigned long depth, unsigned long levels, unsigned long usage, unsigned long format, unsigned long type);

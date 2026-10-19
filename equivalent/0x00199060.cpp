@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3108 inputs, branch coverage 76/76)
+// STATUS: equivalent (tools/equiv.py level 3: 12597 inputs, branch coverage 76/76)
+// hulkfight::motion::ProjectileGroundShockwave::vfunc_6 @ 0x00199060
 // hulkfight::motion::ProjectileGroundShockwave::vfunc_6 @ 0x00199060
 // equiv-conv: FUN_00195560 ecx eax ebx stack stack stack stack stack stack stack stack stack stack stack
 #include "decls/address.h"

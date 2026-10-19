@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 6310 inputs, branch coverage 16/16)
+// FUN_00025a90 @ 0x00025a90
 // FUN_00025a90 @ 0x00025a90
 #include "decls/address.h"
 #include "decls/data/engine/fight.h"

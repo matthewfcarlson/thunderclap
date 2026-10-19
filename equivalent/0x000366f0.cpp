@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 26/28, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 28/28)
+// FUN_000366f0 @ 0x000366f0
 // FUN_000366f0 @ 0x000366f0
 #include "decls/data/game/hulkfight.h"
 

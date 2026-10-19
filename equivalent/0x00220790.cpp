@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 18290 inputs, branch coverage 0/0)
+// FUN_00220790 @ 0x00220790
 // FUN_00220790 @ 0x00220790
 struct Object { char pad[0x18]; int value; char pad2[4]; int state; };
 // equiv-conv: FUN_00220650 edx ebx stack stack stack stack stack

@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 16319 inputs, branch coverage 12/12)
+// FUN_002138e0 @ 0x002138e0
 // FUN_002138e0 @ 0x002138e0
 // Lua 5.0 lua_setmetatable
 struct GCObject_2138e0 {

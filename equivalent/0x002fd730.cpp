@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
+// FUN_002fd730 @ 0x002fd730
 // FUN_002fd730 @ 0x002fd730
 struct Temp { unsigned int FUN_0030f100(); };
 struct Obj { void* context; char data[24]; unsigned char flag; char pad1[3]; char output[64]; unsigned int value; void FUN_002fd730(); };

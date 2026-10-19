@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 11158 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 4674 inputs, branch coverage 4/4)
+// FUN_0021d4b0 @ 0x0021d4b0
 // FUN_0021d4b0 @ 0x0021d4b0
 // FUN_0021d4b0 @ 0x0021d4b0
 struct Item_21d4b0 { char pad[0x3c]; int value; };

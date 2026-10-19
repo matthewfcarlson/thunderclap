@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3016 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 15585 inputs, branch coverage 6/6)
+// FUN_0021f220 @ 0x0021f220
 // FUN_0021f220 @ 0x0021f220
 struct Parser { char pad0[12]; int character; char pad1[12]; int value; }; // equiv-conv: FUN_0021f220 ecx eax
 // equiv-conv: FUN_0021c3d0 esi

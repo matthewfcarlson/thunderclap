@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2568 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 2199 inputs, branch coverage 2/2)
+// FUN_002151e0 @ 0x002151e0
 // FUN_002151e0 @ 0x002151e0
 extern "C" void _ReadWriteBarrier();
 extern "C" {

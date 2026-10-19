@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20045 inputs, branch coverage 21/22, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19366 inputs, branch coverage 21/22, incomplete)
+// pure3d::TargaHandler::vfunc_9 @ 0x002ddb40
 // pure3d::TargaHandler::vfunc_9 @ 0x002ddb40
 // pure3d::TargaHandler::vfunc_9 @ 0x002ddb40
 // pure3d::TargaHandler::vfunc_9: validate a TGA header and dispatch to the colour-mapped or true-colour reader

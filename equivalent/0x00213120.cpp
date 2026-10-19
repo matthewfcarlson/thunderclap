@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 17679 inputs, branch coverage 4/4)
+// FUN_00213120 @ 0x00213120
 // FUN_00213120 @ 0x00213120
 // Lua 5.0 lua_tointeger
 struct lua_State;

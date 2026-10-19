@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2599 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 8440 inputs, branch coverage 4/4)
+// FUN_00220b20 @ 0x00220b20
 // FUN_00220b20 @ 0x00220b20
 struct Storage_220b20 {
  char pad0[12];

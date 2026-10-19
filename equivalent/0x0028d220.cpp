@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 15723 inputs, branch coverage 0/0)
+// FUN_0028d220 @ 0x0028d220
 // FUN_0028d220 @ 0x0028d220
 struct Quat16 {
     short x, y, z, w;

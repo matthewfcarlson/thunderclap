@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2421 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 7435 inputs, branch coverage 0/0)
+// FUN_00214e80 @ 0x00214e80
 // FUN_00214e80 @ 0x00214e80
 struct State_214e80;
 struct Node { char pad0[5]; unsigned char flags; char pad6[2]; unsigned int a; unsigned int b; };

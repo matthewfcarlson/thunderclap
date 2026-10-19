@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 191 inputs, branch coverage 41/42, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 13003 inputs, branch coverage 41/42, incomplete)
+// FUN_002218d0 @ 0x002218d0
 // FUN_002218d0 @ 0x002218d0
 struct Operand_2218d0 {
     int kind;

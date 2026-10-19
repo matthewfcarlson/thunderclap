@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 14752 inputs, branch coverage 4/4)
+// FUN_00339270 @ 0x00339270
 // FUN_00339270 @ 0x00339270
 typedef unsigned int U_339270;
 extern int FUN_00212d70(void*);

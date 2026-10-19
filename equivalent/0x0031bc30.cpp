@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/7)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 7/7)
+// FUN_0031bc30 @ 0x0031bc30
 // FUN_0031bc30 @ 0x0031bc30
 // equiv-conv: FUN_0031bc30 eax ecx
 int FUN_0031bc30(int mode, int value) {

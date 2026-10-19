@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 18259 inputs, branch coverage 0/0)
+// FUN_00220a10 @ 0x00220a10
 // FUN_00220a10 @ 0x00220a10
 // FUN_00220a10 @ 0x00220a10
 struct Request { int command; int value; int result; };

@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20035 inputs, branch coverage 38/38)
+// STATUS: equivalent (tools/equiv.py level 3: 10590 inputs, branch coverage 38/38)
+// FUN_003265f0 @ 0x003265f0
 // FUN_003265f0 @ 0x003265f0
 // FUN_003265f0 @ 0x003265f0
 typedef unsigned long DWORD;

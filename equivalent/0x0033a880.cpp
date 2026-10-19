@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 10073 inputs, branch coverage 12/12)
+// FUN_0033a880 @ 0x0033a880
 // FUN_0033a880 @ 0x0033a880
 struct State;
 typedef void (__cdecl *Hook_33a880)();

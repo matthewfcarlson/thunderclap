@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 18536 inputs, branch coverage 0/0)
+// FUN_00214a90 @ 0x00214a90
 // FUN_00214a90 @ 0x00214a90
 int __cdecl FUN_002160c0(int, int, void*);
 // equiv-conv: FUN_00214900 ebx stack

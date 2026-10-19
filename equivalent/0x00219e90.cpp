@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 6/6)
+// FUN_00219e90 @ 0x00219e90
 // FUN_00219e90 @ 0x00219e90
 struct Value { int type; union { float real; int integer; } data; };
 extern int* __cdecl FUN_00219dc0(int, int);

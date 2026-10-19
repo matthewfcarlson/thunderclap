@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 18514 inputs, branch coverage 30/30)
+// FUN_001f4140 @ 0x001f4140
 // FUN_001f4140 @ 0x001f4140
 struct Sound;
 struct Voice_1f4140 {

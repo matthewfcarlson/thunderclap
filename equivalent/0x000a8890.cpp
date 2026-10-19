@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 6/6)
+// FUN_000a8890 @ 0x000a8890
 // FUN_000a8890 @ 0x000a8890
 extern "C" double __cdecl sqrt(double);
 struct Sphere_a8890 { float x,y,z,radius; };

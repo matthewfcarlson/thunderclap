@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 18946 inputs, branch coverage 8/8)
+// FUN_00212e60 @ 0x00212e60
 // FUN_00212e60 @ 0x00212e60
 struct TObject_212e60 {
     int tt;

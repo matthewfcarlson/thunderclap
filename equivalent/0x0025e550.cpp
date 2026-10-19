@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 16562 inputs, branch coverage 0/0)
+// FUN_0025e550 @ 0x0025e550
 // FUN_0025e550 @ 0x0025e550
 struct Object { int first; int fourth; int third; float half; unsigned char flag; char pad[3]; int a,b,c,d,e; };
 // equiv-conv: FUN_0025e230 edi

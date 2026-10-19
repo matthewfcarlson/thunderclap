@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 16/16)
+// FUN_00214280 @ 0x00214280
 // FUN_00214280 @ 0x00214280
 struct Data { char pad0[0x28]; int length; char pad1[0x47-0x2c]; unsigned char minimum; };
 // equiv-conv: FUN_00214280 ecx edx eax

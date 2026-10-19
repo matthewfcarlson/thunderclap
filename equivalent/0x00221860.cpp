@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 15646 inputs, branch coverage 6/6)
+// FUN_00221860 @ 0x00221860
 // FUN_00221860 @ 0x00221860
 // Lua 5.0 code generation for a binary operator (arithmetic, or comparison with swapped operands)
 #include "decls/data/engine/unknown.h"

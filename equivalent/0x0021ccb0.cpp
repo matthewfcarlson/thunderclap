@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 11158 inputs, branch coverage 2/2)
+// FUN_0021ccb0 @ 0x0021ccb0
 // FUN_0021ccb0 @ 0x0021ccb0
 struct FuncState;
 

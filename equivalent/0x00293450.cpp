@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 43 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 123 inputs, branch coverage 20/20)
+// pure3d::CameraAnimationController::vfunc_28 @ 0x00293450
 // pure3d::CameraAnimationController::vfunc_28 @ 0x00293450
 struct Vec3_293450 {
     float x, y, z;

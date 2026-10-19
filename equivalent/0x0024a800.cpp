@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 59 inputs, branch coverage 52/56, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 55/56, incomplete)
+// FUN_0024a800 @ 0x0024a800
 // FUN_0024a800 @ 0x0024a800
 struct Context;
 

@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 61/62, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20037 inputs, branch coverage 61/62, incomplete)
+// hulkfight::motion::FireMissileAction::vfunc_5 @ 0x0019e430
 // hulkfight::motion::FireMissileAction::vfunc_5 @ 0x0019e430
 #include "decls/address.h"
 #include "decls/data/game/global.h"

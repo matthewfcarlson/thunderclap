@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 14531 inputs, branch coverage 2/2)
+// FUN_0021cd30 @ 0x0021cd30
 // FUN_0021cd30 @ 0x0021cd30
 struct State { int unknown; int value4; int value8; int valueC; int value10; int value14; int value18; int value1C; };
 int __cdecl FUN_0021bbc0(State *, int *);

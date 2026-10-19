@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 16/16)
+// FUN_0021f940 @ 0x0021f940
 // FUN_0021f940 @ 0x0021f940
 struct Stream { unsigned int remaining; unsigned char *cursor; };
 struct Reader { int unused; Stream *stream; int unused2; int reversed; };

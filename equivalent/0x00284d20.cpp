@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 15029 inputs, branch coverage 8/8)
+// pure3d::SimpleFrameController::vfunc_6 @ 0x00284d20
 // pure3d::SimpleFrameController::vfunc_6 @ 0x00284d20
 namespace pure3d {
 struct SimpleFrameController {

@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 12294 inputs, branch coverage 10/10)
+// FUN_00214bd0 @ 0x00214bd0
 // FUN_00214bd0 @ 0x00214bd0
 struct Value_214bd0 { int type; unsigned int data; };
 struct CallInfo_214bd0 { Value_214bd0 *base; char pad[12]; };

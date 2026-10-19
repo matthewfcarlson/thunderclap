@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 18271 inputs, branch coverage 0/0)
+// FUN_0021ad80 @ 0x0021ad80
 // FUN_0021ad80 @ 0x0021ad80
 struct Values { unsigned int a,b,c,d; };
 // equiv-conv: FUN_0021acc0 esi

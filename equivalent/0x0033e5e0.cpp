@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3037 inputs, branch coverage 23/24, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19682 inputs, branch coverage 23/24, incomplete)
+// FUN_0033e5e0 @ 0x0033e5e0
 // FUN_0033e5e0 @ 0x0033e5e0
 struct LuaState;
 extern "C" {

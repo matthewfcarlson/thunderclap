@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 10855 inputs, branch coverage 2/2)
+// FUN_0021f280 @ 0x0021f280
 // FUN_0021f280 @ 0x0021f280
 // FUN_0021f280 @ 0x0021f280
 // Lua 5.0 luaX_next followed by an expression-parsing step

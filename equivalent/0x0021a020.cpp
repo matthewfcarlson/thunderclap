@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1113 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 534 inputs, branch coverage 12/12)
+// FUN_0021a020 @ 0x0021a020
 // FUN_0021a020 @ 0x0021a020
 struct Value_21a020 { int type; union { int bits; float number; } data; };
 struct Entry_21a020 { Value_21a020 key; Value_21a020 value; int extra; };

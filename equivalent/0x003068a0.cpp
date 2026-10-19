@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 14802 inputs, branch coverage 4/4)
+// physics::CollisionVolume::vfunc_12 @ 0x003068a0
 // physics::CollisionVolume::vfunc_12 @ 0x003068a0
 namespace physics {
 struct CollisionVolume {

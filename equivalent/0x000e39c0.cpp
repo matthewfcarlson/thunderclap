@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 7/8, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 16273 inputs, branch coverage 7/8, incomplete)
+// MapThing::vfunc_13 @ 0x000e39c0
 // MapThing::vfunc_13 @ 0x000e39c0
 // cl-flags: /GS
 #include "decls/address.h"

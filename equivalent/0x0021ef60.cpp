@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 122 inputs, branch coverage 2/2)
 // FUN_0021ef60 @ 0x0021ef60
 // FUN_0021ef60 @ 0x0021ef60
+// FUN_0021ef60 @ 0x0021ef60
 extern "C" unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 

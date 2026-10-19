@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 16306 inputs, branch coverage 2/2)
+// FUN_00339ba0 @ 0x00339ba0
 // FUN_00339ba0 @ 0x00339ba0
 struct CallbackData { int first; int second; };
 void FUN_00339a40();

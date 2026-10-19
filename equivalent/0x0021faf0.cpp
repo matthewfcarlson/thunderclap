@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 14398 inputs, branch coverage 2/2)
+// FUN_0021faf0 @ 0x0021faf0
 // FUN_0021faf0 @ 0x0021faf0
 // FUN_0021faf0 @ 0x0021faf0
 struct Source { int data; };

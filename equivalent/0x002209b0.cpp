@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 19904 inputs, branch coverage 0/0)
+// FUN_002209b0 @ 0x002209b0
 // FUN_002209b0 @ 0x002209b0
 // FUN_002209b0 @ 0x002209b0
 struct Args { int kind; int value; };

@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 11558 inputs, branch coverage 12/12)
+// FUN_0021e110 @ 0x0021e110
 // FUN_0021e110 @ 0x0021e110
 struct Resource { char pad[0x24]; int replacement; };
 struct Owner { char pad[0x1c]; Resource* resource; };

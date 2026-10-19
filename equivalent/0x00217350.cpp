@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 19135 inputs, branch coverage 14/14)
+// FUN_00217350 @ 0x00217350
 // FUN_00217350 @ 0x00217350
 struct Node { int value; }; struct State_217350 { char pad0[8]; int limit; char padC[12]; Node fallback; int pad1C; Node* cursor; int count; int active; char pad2C[8]; int pending; unsigned mode; }; struct Object { char pad[16]; State_217350* state; };
 // equiv-conv: FUN_00216ac0 eax stack

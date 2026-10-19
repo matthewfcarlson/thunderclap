@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 284 inputs, branch coverage 11/11)
+// STATUS: equivalent (tools/equiv.py level 3: 2612 inputs, branch coverage 11/11)
+// FUN_0024a3c0 @ 0x0024a3c0
 // FUN_0024a3c0 @ 0x0024a3c0
 struct Link_24a3c0 {
     void FUN_0025dd00(int a);

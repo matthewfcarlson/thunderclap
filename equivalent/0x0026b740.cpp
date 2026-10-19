@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 15/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 16/16)
+// FUN_0026b740 @ 0x0026b740
 // FUN_0026b740 @ 0x0026b740
 // equiv-conv: FUN_0026af70 eax stack stack
 extern "C" int __cdecl FUN_0026af70(int c, int a, int limit);

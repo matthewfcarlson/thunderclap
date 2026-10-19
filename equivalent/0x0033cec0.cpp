@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 156 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 1899 inputs, branch coverage 22/22)
+// FUN_0033cec0 @ 0x0033cec0
 // FUN_0033cec0 @ 0x0033cec0
 struct Capture_33cec0 { int value; int index; };
 struct Context { char pad[8]; void* state; int count; Capture_33cec0 captures[1]; };

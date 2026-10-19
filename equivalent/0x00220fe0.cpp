@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 15902 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 6908 inputs, branch coverage 10/10)
+// FUN_00220fe0 @ 0x00220fe0
 // FUN_00220fe0 @ 0x00220fe0
 // FUN_00220fe0 @ 0x00220fe0
 struct Record_220fe0 { int type; int value; int unused; int left; int right; };

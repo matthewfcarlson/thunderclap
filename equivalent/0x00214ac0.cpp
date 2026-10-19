@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 6610 inputs, branch coverage 18/18)
+// FUN_00214ac0 @ 0x00214ac0
 // FUN_00214ac0 @ 0x00214ac0
 // Lua 5.0 auxgetinfo: fills a lua_Debug according to the option letters in `what`.
 // what arrives in eax, ar in esi and ci in edi; L and f are on the stack.

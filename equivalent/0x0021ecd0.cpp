@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 13066 inputs, branch coverage 10/10)
+// FUN_0021ecd0 @ 0x0021ecd0
 // FUN_0021ecd0 @ 0x0021ecd0
 struct Frame_21ecd0 { Frame_21ecd0* previous; int value; unsigned char saved, flag, active; };
 struct State_21ecd0 { char pad0[12]; void* resource; char pad1[4]; Frame_21ecd0* frame; char pad2[12]; int level; char pad3[12]; unsigned char mode; };

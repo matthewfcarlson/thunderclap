@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 18664 inputs, branch coverage 2/2)
+// FUN_002de9c0 @ 0x002de9c0
 // FUN_002de9c0 @ 0x002de9c0
 struct Item { char reserved0[0x18]; int type; char reserved1[8]; void* data; };
 struct Context { char reserved[0x50]; void* value; };

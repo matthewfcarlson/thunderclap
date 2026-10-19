@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 21/22, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 4583 inputs, branch coverage 21/22, incomplete)
+// FUN_0021c790 @ 0x0021c790
 // FUN_0021c790 @ 0x0021c790
 struct Entry_21c790 { unsigned key; unsigned a,b; };
 struct Table_21c790 { char pad[24]; Entry_21c790* entries; };

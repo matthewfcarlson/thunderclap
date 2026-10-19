@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 11/12, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 13434 inputs, branch coverage 12/12)
+// movie::BinkCallback::vfunc_3_adj8 @ 0x00335010
 // movie::BinkCallback::vfunc_3_adj8 @ 0x00335010
 struct FileStream_335010 {
     virtual void vf0();

@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 15774 inputs, branch coverage 18/18)
+// FUN_0021fd10 @ 0x0021fd10
 // FUN_0021fd10 @ 0x0021fd10
 // FUN_0021fd10 @ 0x0021fd10
 struct Reader { void* context; void* input; void* allocator; };

@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 14141 inputs, branch coverage 10/10)
+// FUN_00220220 @ 0x00220220
 // FUN_00220220 @ 0x00220220
 struct ZIO_220220 {
     unsigned int n;

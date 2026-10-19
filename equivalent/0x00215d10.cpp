@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 14847 inputs, branch coverage 12/12)
+// FUN_00215d10 @ 0x00215d10
 // FUN_00215d10 @ 0x00215d10
 struct Entry_215d10 { unsigned int a,b; };
 struct Frame_215d10 { Entry_215d10* base; char pad[12]; };

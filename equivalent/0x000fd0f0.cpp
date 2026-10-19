@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19928 inputs, branch coverage 32/32)
+// STATUS: equivalent (tools/equiv.py level 3: 6840 inputs, branch coverage 28/32, incomplete)
+// CControllerAgent::vfunc_4 @ 0x000fd0f0
 // CControllerAgent::vfunc_4 @ 0x000fd0f0
 // CControllerAgent::vfunc_4 (ret 0xc, three stack args): controller facing/aim update. Generated from the
 // original code with work/cq/x87c3.py; `this` is addressed through the volatile float view T, the frame is the

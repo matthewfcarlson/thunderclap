@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 14508 inputs, branch coverage 2/2)
+// FUN_0021fcb0 @ 0x0021fcb0
 // FUN_0021fcb0 @ 0x0021fcb0
 // FUN_0021fcb0 @ 0x0021fcb0
 struct Source { unsigned int value; };

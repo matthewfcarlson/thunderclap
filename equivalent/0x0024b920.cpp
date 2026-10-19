@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 25/26, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 17486 inputs, branch coverage 25/26, incomplete)
+// FUN_0024b920 @ 0x0024b920
 // FUN_0024b920 @ 0x0024b920
 class Sink_24b920 {
 public:

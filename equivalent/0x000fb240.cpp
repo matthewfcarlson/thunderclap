@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
+// FUN_000fb240 @ 0x000fb240
 // FUN_000fb240 @ 0x000fb240
 #include "decls/data/game/global.h"
 

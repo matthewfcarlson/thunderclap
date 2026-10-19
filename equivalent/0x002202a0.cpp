@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 14807 inputs, branch coverage 6/6)
+// FUN_002202a0 @ 0x002202a0
 // FUN_002202a0 @ 0x002202a0
 struct InputBuffer { int remaining; unsigned char *cursor; };
 struct Reader { int unused; InputBuffer *buffer; };

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 7/8, incomplete)
 // FUN_002207c0 @ 0x002207c0
+// FUN_002207c0 @ 0x002207c0
 struct NodeList { char pad[12]; unsigned int *entries; };
 // equiv-conv: FUN_002204e0 eax ecx ebx
 void FUN_002204e0(int item, int index, NodeList **list);

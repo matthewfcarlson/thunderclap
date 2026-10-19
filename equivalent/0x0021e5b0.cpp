@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 6659 inputs, branch coverage 6/6)
+// FUN_0021e5b0 @ 0x0021e5b0
 // FUN_0021e5b0 @ 0x0021e5b0
 struct Scope_21e5b0 { Scope_21e5b0* previous; int saved; unsigned char mode, changed, active; };
 struct Context { char p0[12]; int device; char p10[4]; Scope_21e5b0* scope; char p18[12]; int modeValue; char p28[12]; unsigned char mode; };

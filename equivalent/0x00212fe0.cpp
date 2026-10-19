@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
+// FUN_00212fe0 @ 0x00212fe0
 // FUN_00212fe0 @ 0x00212fe0
 int* __fastcall FUN_00212bb0(int first, int second);
 int __cdecl FUN_00212fe0(int second, int first)

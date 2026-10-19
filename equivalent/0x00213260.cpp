@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 4/4)
+// FUN_00213260 @ 0x00213260
 // FUN_00213260 @ 0x00213260
 struct Result { int kind; int value; };
 Result* __fastcall FUN_00212bb0(int second, int first);
