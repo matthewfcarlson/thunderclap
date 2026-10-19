@@ -448,6 +448,9 @@ def standalone_symbol(coff, tree_name, addr, prefixes, cnames):
         for s in syms:
             if s[0] == naive:
                 return s
+    if plain:
+        # (a wrapped block's own namespace is gone from `plain`, but the types its source declares still carry
+        # it: `PAUFrame_14210@1@` in the tree is `PAUFrame_14210@@` standalone, and the back-references shift)
         k = _loose_key(plain)
         c = [s for s in syms if _loose_key(s[0]) == k]
         if len(c) == 1:

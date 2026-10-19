@@ -3473,7 +3473,7 @@ class Run:
             out["eq"] = self.eq_links[out["src"]]
         return out
 
-    def _note_str(self, site, lit, buf, n=None):
+    def _note_str(self, site, lit, buf, n=None, psrc=None):
         """Record a compare of the buffer at `buf` with a literal in read-only data at `lit` (n bytes, or
         up to its NUL). A directed input re-runs the input with the literal written over the buffer, in the
         memory epoch it was read in (or, for a stack buffer a stub filled, as that stub's fill)."""
@@ -3482,10 +3482,12 @@ class Run:
             return
         if not (IMAGE_LO <= lit < IMAGE_HI) or prog.section_name(lit) != ".rdata" or lit in prog.vftables:
             return
-        if buf < NULL_HI or prog.is_code(buf) or (IMAGE_LO <= buf < IMAGE_HI and prog.section_name(buf) == ".rdata"):
+        if (buf < NULL_HI and (psrc is None or "strnull" in EQUIV_OFF)) or prog.is_code(buf) or (IMAGE_LO <= buf < IMAGE_HI and prog.section_name(buf) == ".rdata"):
             return
         fills = {}
-        if STACK_LO <= buf < STACK_HI:
+        if buf < NULL_HI:
+            pass            # (a null-page pointer the code loaded: `_plants` points its source at a buffer)
+        elif STACK_LO <= buf < STACK_HI:
             fills = {w: self.fill_src[w] for w in range(buf & ~3, buf + 256, 4) if w in self.fill_src}
             if (buf & ~3) not in fills:
                 return
@@ -3505,7 +3507,15 @@ class Run:
             return          # the same two strings, further along (an inline loop's next byte pair)
         self._str_walks.append((lit, lit + len(data), buf - lit))
         self._str_seen[(site, lit)] = True
-        self.str_obs.append({"site": site, "lit": data, "buf": buf, "epoch": self.epoch, "fills": fills})
+        self.str_obs.append({"site": site, "lit": data, "buf": buf, "epoch": self.epoch, "fills": fills,
+                             "psrc": psrc})
+
+    def _null_psrc(self, reg, v):
+        """Where a null-page pointer in `reg` was loaded from (a plain word, no arithmetic), else None."""
+        if not 0 <= v < NULL_HI:
+            return None
+        info = self._reg_info(reg)
+        return info["src"] if info["src"] and not info["xf"] else None
 
     def _note_rep_cmps(self, insn):
         """`repe cmpsb` of a buffer against a literal (once per execution: Unicorn may re-enter the hook
@@ -3517,8 +3527,8 @@ class Run:
         if last and 0 < last[2] - ecx and esi - last[0] == edi - last[1] == (last[2] - ecx) * size:
             return
         if 0 < ecx <= 256:
-            self._note_str(insn.addr, edi, esi, ecx * size)
-            self._note_str(insn.addr, esi, edi, ecx * size)
+            self._note_str(insn.addr, edi, esi, ecx * size, self._null_psrc("esi", esi))
+            self._note_str(insn.addr, esi, edi, ecx * size, self._null_psrc("edi", edi))
 
     def _observe_x87(self, insn):
         """Where the x87 stack's values were loaded from, and float comparisons (for directed inputs)."""
@@ -7390,6 +7400,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                     qi = min(range(min(len(str_queue), 256)), key=lambda i_: (str_popped[skey(str_queue[i_])], i_))
                     str_popped[skey(str_queue[qi])] += 1
                 seed0, sob, ov0, sp0 = str_queue.pop(qi)
+                if sob.get("psrc") is not None:
+                    sob = dict(sob, nstack=len(make_input(seed0, sig, globals_, min_words=own_words)["stack"]))
                 for overlay, patch in _plants(sob, ov0, sp0):
                     key = (sob["site"], seed0, tuple(sorted(map(repr, overlay.items()))),
                            tuple(sorted(map(repr, patch.items()))))
@@ -7860,6 +7872,19 @@ def _plants(sob, overlay0, patch0):
     out = []
     for v in variants:
         ov, pt = dict(overlay0 or {}), dict(patch0 or {})
+        if sob.get("psrc") is not None and buf < NULL_HI:
+            # (strnull) the buffer pointer is a null-page value the code loaded (an argv entry nobody
+            # filled): point its source at an object-sized heap slot that holds the literal
+            depth = sum(1 for k_ in ov if k_[0] == "*" and isinstance(k_[1], int) and
+                        OBJ_BASE <= k_[1] < OBJ_BASE + OBJ_SIZE * OBJ_DEPTH)
+            if depth >= OBJ_DEPTH:
+                continue
+            obj = OBJ_BASE + OBJ_SIZE * depth
+            if not _int_plant_into(sob["psrc"], obj, ov, pt, sob.get("nstack", 16)):
+                continue
+            ov[("*", obj)] = v if v.endswith(b"\0") else v + b"~"
+            out.append((ov, pt))
+            continue
         if fills:
             ok = True
             for w in range(buf & ~3, buf + len(v), 4):

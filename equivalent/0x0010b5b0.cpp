@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19997 inputs, branch coverage 38/43, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20013 inputs, branch coverage 39/43, incomplete)
 // hulkfight::ai::FaceTargetAction::vfunc_5 @ 0x0010b5b0
+extern "C" double fabs(double);
 
 struct V3 {
     float x, y, z;
