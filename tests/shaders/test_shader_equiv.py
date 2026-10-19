@@ -110,6 +110,32 @@ class GameProofs(unittest.TestCase):
         rep = self.run_one(os.path.join(VP, "vs_vp_skin_onebone.sc"))
         self.assertEqual(rep["status"], "equivalent", se.text_report(rep))
 
+    def test_skin(self):
+        rep = self.run_one(os.path.join(VP, "vs_vp_skin.sc"))
+        self.assertEqual(rep["status"], "equivalent", se.text_report(rep))
+
+    def test_refract(self):
+        rep = self.run_one(os.path.join(VP, "vs_vp_refract.sc"))
+        self.assertEqual(rep["status"], "equivalent", se.text_report(rep))
+
+    def test_wrong_skin_fails(self):
+        rep = self.run_one(os.path.join(FIX, "vs_wrong_skin.sc"))
+        self.assertEqual(rep["status"], "fail")
+
+    def test_wrong_refract_fails(self):
+        rep = self.run_one(os.path.join(FIX, "vs_wrong_refract.sc"))
+        self.assertEqual(rep["status"], "fail")
+        self.assertTrue(rep["level3"]["mismatches"][0]["diffs"][0]["output"].startswith("oT0"))
+
+    def test_skin_refract(self):
+        rep = self.run_one(os.path.join(VP, "vs_vp_skin_refract.sc"))
+        self.assertEqual(rep["status"], "equivalent", se.text_report(rep))
+
+    def test_wrong_skin_refract_fails(self):
+        rep = self.run_one(os.path.join(FIX, "vs_wrong_skin_refract.sc"))
+        self.assertEqual(rep["status"], "fail")
+        self.assertTrue(rep["level3"]["mismatches"][0]["diffs"][0]["output"].startswith("oT0"))
+
     def test_wrong_simple_proximity_fails(self):
         rep = self.run_one(os.path.join(FIX, "vs_wrong_simple_proximity.sc"))
         self.assertEqual(rep["status"], "fail")

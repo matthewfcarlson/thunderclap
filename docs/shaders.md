@@ -13,7 +13,7 @@ $PY tools/nv2a_vp.py dis skin                   # a listing, on this machine onl
 $PY tools/nv2a_vp.py asm prog.vp -o prog.bin    # our own text form back into microcode
 $PY tools/shader_equiv.py src/platform/sdl/pddi/shaders/vp/vs_vp_skin_onebone.sc            # prove a shader
 $PY tools/shader_equiv.py SRC.sc PROGRAM --inputs 3000 --json                              # for a batch
-$PY -m unittest discover -s tests/shaders -v    # 36 tests (verdict tests need shaderc; game ones the XBE)
+$PY -m unittest discover -s tests/shaders -v    # 42 tests (verdict tests need shaderc; game ones the XBE)
 ```
 
 Prerequisites: bgfx's sources and shaderc (`tools/native_gfx.py fetch`, `tools/native_gfx.py shaderc`) and the
@@ -251,9 +251,9 @@ A component passes when |shader - reference| <= 4 x bound + 2^-100, with the bou
   computes an undefined value only to discard it passes, which matters because spirv-opt turns
   `ndl > 0.0 && ndh > 0.0 ? pow(ndh, p) : 0.0` into a select that evaluates `pow` on every vertex.
 
-## Two proofs
+## Five proofs
 
-Both under [`src/platform/sdl/pddi/shaders/vp/`](../src/platform/sdl/pddi/shaders/vp/) (own `varying.def.sc`: the
+All under [`src/platform/sdl/pddi/shaders/vp/`](../src/platform/sdl/pddi/shaders/vp/) (own `varying.def.sc`: the
 vertex-program shaders need normals, blend indices, two colours, fog and four texture sets). 3,000 vertices,
 all five profiles:
 
@@ -261,8 +261,11 @@ all five profiles:
 |---|---|---|---|---|
 | `vs_vp_simple_proximity.sc` | `simple_proximity` (30 instr.) | **equivalent**, 1.4 s | 39,026 components on 3,002 vertices; oT0 bit-exact; every colour component inside (0, 1) on about 1,500 vertices | transform, world position, four inverse-square point lights added to the vertex colour (D3DCOLOR swizzle), fog from world z |
 | `vs_vp_skin_onebone.sc` | `skin_onebone` (43 instr.) | **equivalent**, 2.1 s | 87,058 components; oT0-oT3 bit-exact; oD1 inside (0, 1) on about 420 vertices | bone from a relative constant index, four directional lights, Blinn specular with the `lit` rule, fog from view z |
+| `vs_vp_skin.sc` | `skin` (68 instr.; the one the data needs) | **equivalent**, 3.4 s | 87,058 components on 3,002 vertices; oT0-oT3 and both alphas bit-exact; oD0 inside (0, 1) on about 1,150 vertices, oD1 on about 470 | three-bone blended position (third weight 1 - w0 - w1), normal from bones 0 and 1 only, renormalised (zero normal stays zero), four lights as `skin_onebone`, fog from view z |
+| `vs_vp_refract.sc` | `refract` (54 instr.; 43 prim groups) | **equivalent**, about 1 s | 63,042 components on 3,002 vertices; worst 1.6% of the allowance; oFog, oT1 bit-exact; oD0 inside (0, 1) on about 1,150 vertices, oD1 on about 310 | view-dependent factor k from the transformed normal and screen position scales every light term (the program's "n.l" is k times the sum of -direction); oT0 = projected normal times scale plus screen position times viewport; alpha is k |
+| `vs_vp_skin_refract.sc` | `skin_refract` (72 instr.; run-time case) | **equivalent**, about 3 s | 63,021 components on 3,001 vertices (1 skipped: a zero normal makes oT0 infinite); oD0 inside (0, 1) on about 1,150 vertices | `skin`'s blend and lighting, `refract`'s oT0 built from the blended normal; alpha is c191.w |
 
-Both follow the program's order of operations, so in practice every component is bit-identical (worst 0% of the
+All follow the program's order of operations, so in practice every component is bit-identical (worst 0% of the
 allowance). Deliberately wrong variants in `tests/shaders/fixtures/` fail:
 
 - `vs_wrong_simple_proximity.sc` (the D3DCOLOR byte order not undone): `fail` at the first structured vertex,
@@ -270,6 +273,8 @@ allowance). Deliberately wrong variants in `tests/shaders/fixtures/` fail:
 - `vs_wrong_skin_onebone.sc` (`lit`'s n.h > 0 test dropped, so a power <= 0 evaluates pow(0, p)): `fail` on the
   fuzzed vertices that reach it (4 of 600 vertices, 12 of 3,000), `oD1.x = nan, expected 0`, with `pow(0.0, -1.67)` listed as
   the undefined operation. The structured set alone (powers 0..16) does not see it: the fuzzed half earns its keep.
+- `vs_wrong_skin.sc` (the normal blended by 1 - w1 instead of 1 - w0): `fail` at the first structured vertex.
+- `vs_wrong_refract.sc` and `vs_wrong_skin_refract.sc` (oT0's v not flipped): `fail` on `oT0.y` at the first directed/structured vertex.
 - `vs_synth_wrong.sc` (`>` for `sge`'s `>=`): fails only on fuzzed vertices whose u is exactly 0.5.
 
 Writing the first proof also caught a slip of ours (a constant offset of 11 instead of 10) at the first
@@ -295,8 +300,7 @@ structured vertex.
 
 ## Plan
 
-**Vertex programs.** Order by need: `skin` (68 instructions; all skinned characters), `refract` (54); then
-`skin_refract` and `skin_onebone` (done) if the hybrid lookup log shows them; then, only if the log shows them,
+**Vertex programs.** Order by need: `skin`, `refract`, `skin_refract` and `skin_onebone` are done (see above); then, only if the hybrid lookup log shows them,
 `simple_multicbv`, `layered_multicbv`, `layered_proximity` (`simple_proximity` is done). The other nine are for
 classes no data uses. Each is a single batch item with this tool as its acceptance test. Backend work that goes
 with them (not done here): add `shaders/vp/` to `tools/native_gfx.py shaders` (it compiles only the top-level
