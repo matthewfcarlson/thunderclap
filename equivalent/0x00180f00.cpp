@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_00180f00 @ 0x00180f00
 inline void *operator new(unsigned int, void *p) { return p; }
 
@@ -61,8 +61,8 @@ hulkfight::motion::PropThrowTrack *hulkfight::motion::PropThrowTrack::FUN_00180f
     f60 = 100.0f;
     f28 = 10.0f;
     f30 = 10.0f;
-    f38 = 0.17453292f;
-    f3c = 1.7453292f;
+    f38 = 0.17453294f;
+    f3c = 1.7453293f;
     f40 = 1.5707964f;
     f44 = 0;
     f48 = 0;
