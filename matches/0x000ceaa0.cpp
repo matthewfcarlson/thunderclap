@@ -4,7 +4,9 @@
 #include "decls/data/game/unknown.h"
 extern "C" char DAT_0048e10c[];
 extern "C" char DAT_0040a500[];
-extern "C" void __stdcall FUN_001d0480(void*, int);
+struct ThisCall_001d0480 {
+    void FUN_001d0480(void*, int);
+};
 class MethodObj_ceaa0 {
   public:
     int vptr;
@@ -17,7 +19,7 @@ class MethodObj_ceaa0 {
     MethodObj_ceaa0* FUN_000ceaa0(void*, void*);
 };
 MethodObj_ceaa0* MethodObj_ceaa0::FUN_000ceaa0(void* name, void* f) {
-    FUN_001d0480(name, 4);
+    ((ThisCall_001d0480*)(this))->FUN_001d0480(name, 4);
     vptr = (int)DAT_0040a500;
     fn = f;
     result = FUN_001d04d0(((char*)&DAT_0048e100));

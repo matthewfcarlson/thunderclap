@@ -4,7 +4,7 @@
 
 struct Vec3_2b4990 {
     float x, y, z;
-    void FUN_0022c3b0();
+    void FUN_0022c3b0(const Vec3_2b4990*, Vec3_2b4990*);
     void FUN_0022d180();
 };
 
@@ -27,7 +27,7 @@ public:
     virtual void vfunc_10();
     virtual void vfunc_11();
     virtual void vfunc_12();
-    virtual Vec3_2b4990 *vfunc_13(const Vec3_2b4990 *from, Vec3_2b4990 *out);
+    virtual Vec3_2b4990 *vfunc_13();
     virtual void vfunc_14();
     virtual void vfunc_15();
     virtual char vfunc_16(Vec3_2b4990 *pos, float w);
@@ -78,7 +78,7 @@ void Mover_2b4990::FUN_002b4990()
     Vec3_2b4990 dir;
     scene->FUN_00294500(*(Vec3_2b4990 *)&origin, (Vec3_2b4990 *)&pos);
     if (useScene == 0) {
-        probe->vfunc_13(&goal, &dir)->FUN_0022c3b0();
+        probe->vfunc_13()->FUN_0022c3b0(&goal, &dir);
     } else {
         Vec3_2b4990 from;
         scene->FUN_002940d0(&goal, &from);

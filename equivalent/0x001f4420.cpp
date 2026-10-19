@@ -64,11 +64,13 @@ void __cdecl FUN_002497e0(void *buf);
 void __cdecl FUN_00249a90(Ptr_1f4420 *p, int x);
 void __cdecl FUN_0024a800(Ptr_1f4420 *p, int x);
 void __cdecl FUN_0024af00(Ptr_1f4420 *p);
-Obj_1f4420 *__stdcall FUN_001f31a0(int arg);
+struct ThisWrap_001f4420 {
+    Obj_1f4420 * FUN_001f31a0(int arg);
+    void FUN_001f4420(int arg);
+};
 
-void __stdcall FUN_001f4420(int arg)
-{
-    Obj_1f4420 *obj = FUN_001f31a0(arg);
+void ThisWrap_001f4420::FUN_001f4420(int arg) {
+    Obj_1f4420 *obj = this->FUN_001f31a0(arg);
     if (!obj)
         return;
 

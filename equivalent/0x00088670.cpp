@@ -24,12 +24,12 @@ struct N_88670 { N_88670 *FUN_001bceb0(); };
 struct O_88670 { O_88670 *FUN_00059ad0(); };
 struct P_88670 { P_88670 *FUN_001fae80(); void FUN_001fb1e0(); };
 struct Q_88670 { Q_88670 *FUN_0007f950(); void FUN_00078c50(Sim_88670 *s); };
-struct R_88670 { void FUN_00066c20(); };
+struct R_88670 { void FUN_00066c20(Sim_88670 *s); };
 
 extern void *__cdecl FUN_0008d690(unsigned int n);
 Sys10 *__cdecl FUN_001b6580();
 void *__cdecl FUN_001b6990();
-R_88670 *__stdcall FUN_000678d0(Sim_88670 *s);
+R_88670 *__stdcall FUN_000678d0();
 
 struct Sim_88670 {
     void FUN_00088670(Ctx_88670 *ctx, int arg1);
@@ -171,6 +171,6 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, int arg1)
     q = tq;
     tq->FUN_00078c50(this);
 
-    FUN_000678d0(this)->FUN_00066c20();
+    FUN_000678d0()->FUN_00066c20(this);
     ready = 1;
 }

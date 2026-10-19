@@ -1,5 +1,7 @@
 extern int gCount_59820;
-extern void Init();
+struct ThisCall_00059510 {
+    void Init();
+};
 class Obj_59820 {
   public:
     char pad[0x48];
@@ -21,7 +23,7 @@ Obj_59820* __fastcall Target(Obj_59820* self) {
     self->a6c = 0;
     self->a70 = 0;
     self->a84 = 0;
-    Init();
+    ((ThisCall_00059510*)(self))->Init();
     self->id = gCount_59820;
     ++gCount_59820;
     if (gCount_59820 == 0)

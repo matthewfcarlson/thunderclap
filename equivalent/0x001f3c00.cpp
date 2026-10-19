@@ -48,7 +48,7 @@ struct Slot_1f3c00 {
 bool __cdecl FUN_00249b40(Sound_1f3c00* s);
 void __cdecl FUN_0024af00(Sound_1f3c00* s);
 void __cdecl FUN_00247890(Sound_1f3c00* s, float volume);
-void __stdcall FUN_001f32b0(Voice_1f3c00* voice, bool active, int flag);
+struct Init_1f3c00 { void FUN_001f32b0(Voice_1f3c00* voice, bool active, int flag); };
 
 class Player_1f3c00 {
 public:
@@ -110,7 +110,7 @@ bool Player_1f3c00::FUN_001f3c00(Voice_1f3c00* voice, int* value, Id_1f3c00* id,
     }
 
     if (channel->voice != voice)
-        FUN_001f32b0(voice, found != 0, flag);
+        ((Init_1f3c00*)channel)->FUN_001f32b0(voice, found != 0, flag);
     channel->f10 = found;
     if (channel->sound)
         FUN_00247890(channel->sound, DAT_004c7df4 * volume * 0.01f);

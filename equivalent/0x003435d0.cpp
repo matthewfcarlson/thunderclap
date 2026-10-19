@@ -10,10 +10,14 @@ extern void __cdecl FUN_00341660(float *a, int l, float *w);
 extern void __cdecl FUN_00341bd0(float *a, float *w);
 // equiv-conv: FUN_00342180 eax ecx
 extern void __cdecl FUN_00342180(float *a, float *w);
-// equiv-conv: FUN_00342800 ecx eax
-extern void __cdecl FUN_00342800(float *w, float *a);
-// equiv-conv: FUN_003429f0 ecx eax
-extern void __cdecl FUN_003429f0(float *w, float *a);
+struct ThisNote_00342800 {
+    // equiv-conv: FUN_00342800 ecx eax
+    void FUN_00342800(float *a);
+};
+struct ThisNote_003429f0 {
+    // equiv-conv: FUN_003429f0 ecx eax
+    void FUN_003429f0(float *a);
+};
 
 // equiv-conv: FUN_003435d0 eax stack stack stack
 void __cdecl FUN_003435d0(int n, float *a, int nw, float *w)
@@ -45,10 +49,10 @@ void __cdecl FUN_003435d0(int n, float *a, int nw, float *w)
                 FUN_00341bd0(p + 0x40, &w[nw - 8]);
                 FUN_00341bd0(p + 0x60, &w[nw - 8]);
             } else {
-                FUN_00342800(&w[nw - 0x10], p);
-                FUN_003429f0(&w[nw - 0x10], p + 0x10);
-                FUN_00342800(&w[nw - 0x10], p + 0x20);
-                FUN_00342800(&w[nw - 0x10], p + 0x30);
+                ((ThisNote_00342800*)(&w[nw - 0x10]))->FUN_00342800(p);
+                ((ThisNote_003429f0*)(&w[nw - 0x10]))->FUN_003429f0(p + 0x10);
+                ((ThisNote_00342800*)(&w[nw - 0x10]))->FUN_00342800(p + 0x20);
+                ((ThisNote_00342800*)(&w[nw - 0x10]))->FUN_00342800(p + 0x30);
             }
             p = &a[j + m];
             FUN_00341290(p, l, &w[nw - (l >> 1)]);
@@ -58,10 +62,10 @@ void __cdecl FUN_003435d0(int n, float *a, int nw, float *w)
                 FUN_00341bd0(p + 0x40, &w[nw - 8]);
                 FUN_00341bd0(p + 0x60, &w[nw - 8]);
             } else {
-                FUN_00342800(&w[nw - 0x10], p);
-                FUN_003429f0(&w[nw - 0x10], p + 0x10);
-                FUN_00342800(&w[nw - 0x10], p + 0x20);
-                FUN_00342800(&w[nw - 0x10], p + 0x30);
+                ((ThisNote_00342800*)(&w[nw - 0x10]))->FUN_00342800(p);
+                ((ThisNote_003429f0*)(&w[nw - 0x10]))->FUN_003429f0(p + 0x10);
+                ((ThisNote_00342800*)(&w[nw - 0x10]))->FUN_00342800(p + 0x20);
+                ((ThisNote_00342800*)(&w[nw - 0x10]))->FUN_00342800(p + 0x30);
             }
         }
         for (j = 2 * k - l; j < m; j += 4 * k) {
@@ -73,10 +77,10 @@ void __cdecl FUN_003435d0(int n, float *a, int nw, float *w)
                 FUN_00341bd0(p + 0x40, &w[nw - 8]);
                 FUN_00342180(p + 0x60, &w[nw - 0x20]);
             } else {
-                FUN_00342800(&w[nw - 0x10], p);
-                FUN_003429f0(&w[nw - 0x10], p + 0x10);
-                FUN_00342800(&w[nw - 0x10], p + 0x20);
-                FUN_003429f0(&w[nw - 0x10], p + 0x30);
+                ((ThisNote_00342800*)(&w[nw - 0x10]))->FUN_00342800(p);
+                ((ThisNote_003429f0*)(&w[nw - 0x10]))->FUN_003429f0(p + 0x10);
+                ((ThisNote_00342800*)(&w[nw - 0x10]))->FUN_00342800(p + 0x20);
+                ((ThisNote_003429f0*)(&w[nw - 0x10]))->FUN_003429f0(p + 0x30);
             }
             p = &a[j + m];
             FUN_00341660(p, l, &w[nw - l]);
@@ -86,10 +90,10 @@ void __cdecl FUN_003435d0(int n, float *a, int nw, float *w)
                 FUN_00341bd0(p + 0x40, &w[nw - 8]);
                 FUN_00342180(p + 0x60, &w[nw - 0x20]);
             } else {
-                FUN_00342800(&w[nw - 0x10], p);
-                FUN_003429f0(&w[nw - 0x10], p + 0x10);
-                FUN_00342800(&w[nw - 0x10], p + 0x20);
-                FUN_003429f0(&w[nw - 0x10], p + 0x30);
+                ((ThisNote_00342800*)(&w[nw - 0x10]))->FUN_00342800(p);
+                ((ThisNote_003429f0*)(&w[nw - 0x10]))->FUN_003429f0(p + 0x10);
+                ((ThisNote_00342800*)(&w[nw - 0x10]))->FUN_00342800(p + 0x20);
+                ((ThisNote_003429f0*)(&w[nw - 0x10]))->FUN_003429f0(p + 0x30);
             }
         }
     }

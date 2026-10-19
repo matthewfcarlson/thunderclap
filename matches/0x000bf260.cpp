@@ -3,7 +3,7 @@
 
 class D {
   public:
-    void Init();
+    void Init(int, int, int, int, int, int, int, int);
 };
 class C_bf260 {
   public:
@@ -13,11 +13,10 @@ class C_bf260 {
     int m30, m34;
     void Next();
 };
-extern D* __stdcall Make(int, int, int, int, int, int, int, int);
+extern D* __stdcall Make();
 void __fastcall Target(C_bf260* self) {
     if (self->m34 && self->m30) {
-        D* x = Make(((int)((char*)&DAT_0040914c)), ((int)((char*)&DAT_0040915c)), ((int)((char*)&DAT_003f335c)), ((int)((char*)&DAT_00408ee8)), ((int)((char*)&DAT_00408fa0)), 2, 0, 0);
-        x->Init();
+        Make()->Init(((int)((char*)&DAT_0040914c)), ((int)((char*)&DAT_0040915c)), ((int)((char*)&DAT_003f335c)), ((int)((char*)&DAT_00408ee8)), ((int)((char*)&DAT_00408fa0)), 2, 0, 0);
         self->state = 0x13;
         self->Next();
     }

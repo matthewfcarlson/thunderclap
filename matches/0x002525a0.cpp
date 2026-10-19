@@ -15,11 +15,11 @@ class SeqEventVarVolumeRand : public SeqEvent {
     virtual void vfunc_3();
     virtual SeqEventVarVolumeRand* vfunc_4(int);
 };
-extern void FUN_0025fd10();
+extern void __fastcall FUN_0025fd10(void*);
 extern void FUN_00247550(void*, SeqEventVarVolumeRand*);
 extern char data_4e6e28;
 SeqEventVarVolumeRand* SeqEventVarVolumeRand::vfunc_4(int x) {
-    FUN_0025fd10();
+    FUN_0025fd10((void*)(this));
     if (x & 1)
         FUN_00247550(&data_4e6e28, this);
     return this;

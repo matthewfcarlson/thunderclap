@@ -18,14 +18,14 @@ class Inner_e2850 {
     virtual void f14();
     virtual void f15();
     virtual void f16();
-    virtual void f17(Outer_e2850*);
+    virtual float f17(Outer_e2850*);
 };
 class Outer_e2850 {
   public:
     char pad[0x14];
     Inner_e2850* p;
-    void call();
+    float call();
 };
-void Outer_e2850::call() {
-    p->f17(this);
+float Outer_e2850::call() {
+    return p->f17(this);
 }

@@ -14,11 +14,11 @@ public:
 };
 
 struct Skeleton {
-    int FUN_0027b200();
+    int FUN_0027b200(int a, int b);
 };
 
 struct Binding_5b1a0 {
-    Skeleton *FUN_002226b0(int a, int b);
+    Skeleton *FUN_002226b0();
 };
 
 struct Table_5b1a0 {
@@ -61,7 +61,7 @@ GrabAction *CGrabTrack::vfunc_10(int a1, int a2, fight::Params *params)
     Binding_5b1a0 *binding = table->FUN_00059a40();
     if (binding == 0)
         return 0;
-    int index = binding->FUN_002226b0(key0, key1)->FUN_0027b200();
+    int index = binding->FUN_002226b0()->FUN_0027b200(key0, key1);
     if (index < 0)
         return 0;
     GrabAction *mem = (GrabAction *)FUN_0008d690(0x40);

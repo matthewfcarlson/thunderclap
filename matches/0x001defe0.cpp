@@ -6,9 +6,12 @@ struct Holder {
     char pad[0x11c];
     Obj* obj;
 };
-Holder* __stdcall get(int);
-void __stdcall FUN_001defe0(int id, char v) {
-    Holder* h = get(id);
+struct ThisWrap_001defe0 {
+    Holder* get(int);
+    void FUN_001defe0(int id, char v);
+};
+void ThisWrap_001defe0::FUN_001defe0(int id, char v) {
+    Holder* h = this->get(id);
     if (h) {
         Obj* o = h->obj;
         if (o)

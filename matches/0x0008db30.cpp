@@ -4,9 +4,11 @@ class CSPHulkPropLoader {
     virtual ~CSPHulkPropLoader();
     CSPHulkPropLoader* Init();
 };
-extern void Initialize();
+struct ThisCall_00290740 {
+    void Initialize();
+};
 CSPHulkPropLoader* CSPHulkPropLoader::Init() {
-    Initialize();
+    ((ThisCall_00290740*)(this))->Initialize();
     *(void**)this = (void*)((int)DAT_00400854);
     return this;
 }

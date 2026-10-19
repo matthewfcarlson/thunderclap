@@ -3,13 +3,13 @@
 // cl-flags: /GS
 #include "decls/address.h"
 struct Token_11c9a0 {};
-struct EventPart { void FUN_001ca2e0(Token_11c9a0*); char storage[0x50]; };
-struct Event_11c9a0 { char prefix[12]; EventPart part; };
+struct EventPart { void FUN_001ca2e0(Token_11c9a0*, int, int, int); char storage[0x5c]; };
+struct Event_11c9a0 { EventPart part; };
 struct Listener_11c9a0 { void FUN_001cbc20(Event_11c9a0*); };
 struct PathPoint_11c9a0 {};
 struct Navigation { void FUN_001ae150(PathPoint_11c9a0*); };
 struct World { char pad[0x1c]; Navigation* navigation; char pad2[0x10]; Listener_11c9a0* listener; };
-struct Request { char pad[0xb4]; int previous; int current; Token_11c9a0* FUN_001034d0(int,int,int); };
+struct Request { char pad[0xb4]; int previous; int current; Token_11c9a0* FUN_001034d0(); };
 struct RequestOwner { Request* FUN_000fdc40(); };
 struct ActorState_11c9a0 { char pad[0x1f1]; unsigned char active; void FUN_00060170(); };
 struct Actor_11c9a0 { char pad[0x10]; int* identity; char pad2[0x1ca0-0x14]; RequestOwner* owner; char pad3[0x1f58-0x1ca4]; ActorState_11c9a0 state; };
@@ -29,9 +29,11 @@ void PathAction::vfunc_4() {
  Request* request=actor->owner->FUN_000fdc40();
  if(request) {
  World* manager=DAT_004dd700;
- Token_11c9a0* token=request->FUN_001034d0(*actor->identity,value,1);
+ int v=value;
+ int identity=*actor->identity;
+ Token_11c9a0* token=request->FUN_001034d0();
  Event_11c9a0 event;
- event.part.FUN_001ca2e0(token);
+ event.part.FUN_001ca2e0(token,identity,v,1);
  manager->listener->FUN_001cbc20(&event);
  request->current=value;
  request->previous=value;

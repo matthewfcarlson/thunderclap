@@ -5,7 +5,7 @@ extern "C" char DAT_0042af64[];
 extern "C" char DAT_0042b474[];
 extern "C" char DAT_0042b47c[];
 typedef unsigned int u32_26ea50;
-extern "C" void init_console();
+extern "C" void __fastcall init_console(void*);
 extern "C" void cleanup_console(u32_26ea50, void*);
 class ConsoleClient {
   public:
@@ -19,7 +19,7 @@ class ConsoleClient {
 ConsoleClient* ConsoleClient::vfunc_2(unsigned char flag) {
     *(u32_26ea50*)this = ((int)DAT_0042b47c);
     *(u32_26ea50*)((char*)this + 4) = ((int)DAT_0042b474);
-    init_console();
+    init_console((void*)(this));
     *(u32_26ea50*)((int)((char*)&DAT_004cdbb0)) = field8;
     *(u32_26ea50*)((char*)this + 4) = ((int)DAT_0042af64);
     *(u32_26ea50*)((int)DAT_005283b0) = 0;

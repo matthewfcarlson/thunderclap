@@ -15,9 +15,12 @@ class Obj {
     char pad[0xc9];
     unsigned char flag;
 };
-Obj* __stdcall Find(int);
-unsigned char __stdcall Target(int a, int b, int c, int id, unsigned char enabled) {
-    Obj* p = Find(id);
+struct ThisWrap_001fce50 {
+    Obj* Find(int);
+    unsigned char Target(int a, int b, int c, int id, unsigned char enabled);
+};
+unsigned char ThisWrap_001fce50::Target(int a, int b, int c, int id, unsigned char enabled) {
+    Obj* p = this->Find(id);
     if (!p)
         return 0;
     if (enabled && !p->flag)

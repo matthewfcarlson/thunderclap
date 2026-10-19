@@ -9,13 +9,15 @@ class ShaderBase_32a9f0 {
     char d;
     int e;
 };
-void __stdcall BaseInit(int);
+struct ThisCall_00333520 {
+    void BaseInit(int);
+};
 class SimpleShader : public ShaderBase_32a9f0 {
   public:
     SimpleShader* Init(int);
 };
 SimpleShader* SimpleShader::Init(int x) {
-    BaseInit(x);
+    ((ThisCall_00333520*)(this))->BaseInit(x);
     a = 0;
     b = 0;
     c = 0;

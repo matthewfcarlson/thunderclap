@@ -363,6 +363,45 @@ def check_tails(imps, roots=("matches", "equivalent")):
 CONV_NOTE = re.compile(r"//[ \t]*equiv-conv:[ \t]*(\S+)[ \t]+([^\n]*)")
 
 
+_OWN_NOTES = {}
+
+
+def _declared_fastcall(path, a):
+    """Every declaration of FUN_<a> in the file is __fastcall (and there is one)."""
+    try:
+        ds = source_decls(path, ["FUN_%08x" % a])
+    except OSError:
+        return False
+    return bool(ds) and all(d["conv"] == "FASTCALL" for d in ds)
+
+
+def _struct_by_value_words(rel, a, l, l0):
+    """A caller's note listing a structure passed by value as one `stack` entry where the definition's note lists
+    one per word (equivalent/0x000e0850 passes `Vec3` by value to 0x000e07c0): the same registers in the same
+    order, and the caller's declaration has by-value class parameters making up the difference."""
+    regs = [x for x in l if x != "stack"]
+    regs0 = [x for x in l0 if x != "stack"]
+    if regs != regs0 or len(l) >= len(l0) or l[:len(regs)] != l0[:len(regs)]:
+        return False
+    try:
+        txt = open(os.path.join(ROOT, rel), errors="replace").read()
+    except OSError:
+        return False
+    m = re.search(r"//[ \t]*equiv-conv:[ \t]*\S*FUN_%08x[^\n]*\n[^\n(]*\(([^)]*)\)" % a, txt)
+    if not m:
+        return False
+    structs = {n: f for n, f in re.findall(r"\bstruct\s+(\w+)\s*\{([^{}]*)\}", txt)}
+    extra = 0
+    for prm in m.group(1).split(","):
+        prm = prm.strip()
+        tm = re.match(r"(?:const\s+)?(\w+)\b(?!\s*[*&])", prm)
+        if tm and tm.group(1) in structs:
+            fields = len(re.findall(r"\b(?:float|int|unsigned|long)\b[^;]*;", structs[tm.group(1)]))
+            words = sum(len(x.split(",")) for x in re.findall(r"\b(?:float|int|unsigned|long)\s+([^;]*);", structs[tm.group(1)]))
+            extra += max(0, words - 1) if fields else 0
+    return extra and len(l) + extra == len(l0)
+
+
 def check_register_orders(roots=("matches", "equivalent")):
     """Check 5: functions with a register calling convention (`// equiv-conv: FUN_0026be70 eax stack`: the
     parameters in declaration order and where the original passes each). equiv.py maps every declaration to the
@@ -408,11 +447,20 @@ def check_register_orders(roots=("matches", "equivalent")):
                 if txt is None:
                     txt = strip_comments(open(os.path.join(rd, fn), errors="replace").read())
                 if re.search(r"\b(?:thunk_)?FUN_%08x\s*\(" % a, txt) and all(l == "stack" for l in l0) is False:
+                    # a __fastcall definition (note `ecx [edx] stack...`) that the caller declares __fastcall too:
+                    # natively the same registers (equivalent/0x00271b70 -> 0x002719a0)
+                    if l0[:2] in (("ecx",), ("ecx", "edx")) or (l0[:2] == ("ecx", "edx") and all(x == "stack" for x in l0[2:])):
+                        if _declared_fastcall(os.path.join(ROOT, f0), a) and _declared_fastcall(os.path.join(rd, fn), a):
+                            continue
                     bad.append(dict(addr="0x%08x" % a, file="%s/%s" % (root, fn), conv="(no note)", definition=f0,
                                     definition_conv=" ".join(l0),
                                     why="calls a register-convention function without an equiv-conv note"))
+    _OWN_NOTES.clear()
+    _OWN_NOTES.update({a: l0 for a, (f0, l0) in own.items()})
     for a, (f0, l0) in sorted(own.items()):
         for f, l in notes.get(a, []):
+            if l != l0 and _struct_by_value_words(f, a, l, l0):
+                continue
             if l != l0:
                 bad.append(dict(addr="0x%08x" % a, file=f, conv=" ".join(l), definition=f0, definition_conv=" ".join(l0),
                                 why="parameter order %s, the definition's %s" % (" ".join(l), " ".join(l0))))
@@ -430,7 +478,7 @@ def check_note_conventions(roots=("matches", "equivalent"), tree_report=TREE_REP
     for c in rep["checks"]:
         if c.get("symbol") and c["status"] in ("match", "compiled"):
             defs[int(c["addr"], 16)] = (c["symbol"], c["src"])
-    own, notes, pos_in_class = set(), [], {}
+    own, notes, pos_in_class, member_decl = set(), [], {}, {}
     for root in roots:
         rd = os.path.join(ROOT, root)
         for fn in sorted(os.listdir(rd)):
@@ -451,6 +499,12 @@ def check_note_conventions(roots=("matches", "equivalent"), tree_report=TREE_REP
                 else:
                     notes.append((a, "%s/%s" % (root, fn), mm.group(2).split(), mm.group(3).strip()))
                     pos_in_class[("%s/%s" % (root, fn), a)] = in_class_body(strip_comments(txt[:mm.end()]) + " ", len(strip_comments(txt[:mm.end()])))
+                    # a note before a struct whose body declares the function as a member (the note names the
+                    # member, not a free declaration on the next line): the call is a member call
+                    if ("%s/%s" % (root, fn), a) not in member_decl:
+                        member_decl[("%s/%s" % (root, fn), a)] = any(
+                            d["member"] and not re.search(r"\b(?:extern|static|__cdecl|__stdcall|__fastcall)\b", d["text"])
+                            for d in source_decls(os.path.join(rd, fn), ["FUN_%08x" % a]))
     bad, n = [], 0
     for a, f, locs, nxt in notes:
         if a in own or a not in defs:
@@ -462,6 +516,9 @@ def check_note_conventions(roots=("matches", "equivalent"), tree_report=TREE_REP
         why = None
         member = bool(re.match(r"\s*(?:virtual\s+)?[\w:<>*&\s]*\b(?:FUN|thunk_FUN)_%08x\s*\(" % a, nxt)) and \
             not re.search(r"\b(?:extern|__cdecl|__stdcall|static)\b", nxt) and pos_in_class.get((f, a))
+        if not member and conv == "thiscall" and member_decl.get((f, a)) and \
+                not re.match(r"\s*(?:extern\s+(?:\"C\"\s+)?)?[\w:<>*&\s]*\b(?:FUN|thunk_FUN)_%08x\s*\(" % a, nxt):
+            member = True
         if conv == "fastcall" and "__fastcall" in nxt or conv == "thiscall" and member:
             continue
         if conv in ("fastcall", "thiscall"):
@@ -559,6 +616,10 @@ def caller_uses(md, xbe, va, limit=16):
             ops = insn.operands
             self_zero = mn in ("xor", "sub") and len(ops) == 2 and ops[0].type == cx.X86_OP_REG and \
                 ops[1].type == cx.X86_OP_REG and ops[0].reg == ops[1].reg
+            # `or eax, -1` / `and eax, 0` set eax without depending on it
+            if mn in ("or", "and") and len(ops) == 2 and ops[0].type == cx.X86_OP_REG and ops[1].type == cx.X86_OP_IMM and \
+                    insn.reg_name(ops[0].reg) == "eax" and ((ops[1].imm & 0xffffffff) == 0xffffffff if mn == "or" else ops[1].imm == 0):
+                self_zero = True
             if rn & EAX_PARTS and not self_zero:
                 uses.add("eax")
                 eax_live = False
@@ -579,7 +640,9 @@ def check_returns(roots=("matches", "equivalent"), tree_report=TREE_REPORT, call
     game code (each function of build/functions.csv disassembled; `jmp` thunks followed): a `void` definition whose
     caller reads eax before writing it, or a non-float one whose caller consumes st0 (`fstp`, `fcomp`, a call to
     `_ftol`...), is a finding. `eax-ret` / `st0-ret` (the caller returns right after the call) count only when the
-    caller's own definition returns that kind. Returns (definitions checked, [findings], [x87-helper calls])."""
+    caller's own definition returns that kind and something uses that caller's result in turn (a caller without
+    direct call sites counts as used); `or eax, -1` / `and eax, 0` write eax. Returns (definitions checked,
+    [findings], [x87-helper calls])."""
     sys.path.insert(0, os.path.join(ROOT, "tools"))
     import capstone
     from xbe import Xbe
@@ -628,13 +691,41 @@ def check_returns(roots=("matches", "equivalent"), tree_report=TREE_REPORT, call
                 t = thunk.get(t, t)
                 sites[t].append((a, insn.address + insn.size))
     bad = []
+    uses_cache = {}
+
+    def uses(va):
+        if va not in uses_cache:
+            uses_cache[va] = caller_uses(md, xbe, va)
+        return uses_cache[va]
+
+    used_memo = {}
+
+    def result_used(f, depth=0):
+        """Does anything use f's eax result? A direct caller reading eax, or one returning it whose own result is
+        used; a function without direct call sites (reached through a vftable or a pointer) counts as used."""
+        if f in used_memo:
+            return used_memo[f]
+        if depth > 8:
+            return True
+        used_memo[f] = False          # (recursion guard)
+        ss = sites.get(f, [])
+        res = not ss
+        for c, va in ss:
+            u = uses(va)
+            if "eax" in u or ("eax-ret" in u and result_used(c, depth + 1)):
+                res = True
+                break
+        used_memo[f] = res
+        return res
+
     for a, (k, src, sym) in sorted(kind.items()):
         if k == "float":
             continue
         for caller, va in sites.get(a, []):
-            u = caller_uses(md, xbe, va)
+            u = uses(va)
             ck = kind.get(caller, (None,))[0]
-            eax = "eax" in u or ("eax-ret" in u and ck == "int")
+            # (a caller that only returns the callee's eax matters when its own result is used by someone)
+            eax = "eax" in u or ("eax-ret" in u and ck == "int" and result_used(caller))
             st0 = "st0" in u or ("st0-ret" in u and ck == "float")
             if (k == "void" and eax) or st0:
                 bad.append(dict(addr="0x%08x" % a, file=src, symbol=sym, declared=k, caller="0x%08x" % caller,
@@ -736,7 +827,8 @@ def check_pops(path=BINDINGS, objects_rsp=None):
     call to the original's bytes when the next call reads what the callee left on the stack (matches/0x0024ed10:
     a five-argument `Data(...)` constructor declared over a two-argument init that pops 8, the base constructor
     after it reading the other three) or when the caller cleans up later; natively the stack is off by the
-    difference. Returns (symbols checked, [disagreements])."""
+    difference. Definitions with a register-convention note of their own are left out (their `ret N` counts no
+    register parameters; check 5 checks those). Returns (symbols checked, [disagreements])."""
     if not os.path.exists(path):
         return 0, []
     sys.path.insert(0, os.path.join(ROOT, "tools"))
@@ -759,6 +851,8 @@ def check_pops(path=BINDINGS, objects_rsp=None):
     objects_rsp = objects_rsp or os.path.join(os.path.dirname(path), "link", "objects.rsp")
     called = rel32_symbols(objects_rsp) if os.path.exists(objects_rsp) else None
     rets_cache, bad, seen = {}, [], 0
+    if not _OWN_NOTES:
+        check_register_orders()
     for s in sorted(b):
         a = int(b[s]["addr"], 16)
         if not (text.va <= a < text.va + text.vsize):
@@ -771,6 +865,10 @@ def check_pops(path=BINDINGS, objects_rsp=None):
             continue          # the compiler's own helpers (callee-pops by their own convention, not a declaration)
         d = declared_pops(s, dem.get(s, ""))
         if d is None:
+            continue
+        # a definition with a register-convention note (`equiv-conv: FUN_x ecx eax`): its parameters travel in
+        # registers in the original, so its `ret N` says nothing about the native call (check 5 checks those)
+        if any(l != "stack" for l in _OWN_NOTES.get(a, ())):
             continue
         conv, nb = d
         if a not in rets_cache:
@@ -863,7 +961,19 @@ def _call_shape(sym, dem):
     if conv == "thiscall":
         return conv, 1, nb
     if conv == "fastcall":
-        return conv, min(2, n), max(0, nb - 4 * min(2, n))
+        # the first two parameters of at most 4 bytes go in ecx/edx (a member's `this` first); __int64, double
+        # and structures by value travel on the stack
+        regs, stack = 0, 0
+        plist = [] if params.strip() in ("", "void") else [x.strip() for x in re.split(r",(?![^<]*>)", params)]
+        if re.match(r"\s*(?:public|private|protected):", d):
+            plist = ["this*"] + plist
+        for prm in plist:
+            pb = 8 if ("*" not in prm and "&" not in prm and re.search(r"\bdouble\b|__int64", prm)) else 4
+            if pb == 4 and regs < 2:
+                regs += 1
+            else:
+                stack += pb
+        return conv, regs, stack
     return conv, 0, nb
 
 
@@ -927,7 +1037,10 @@ def classify_definition_convs(path=BINDINGS, objects_rsp=None):
             cls = "unknown"
             # the definition's own shape alone can still prove a difference (it reads ecx, the caller can't set it)
             if cd and cd[1] and cs is None and symbol_conv(s) in ("cdecl", "stdcall"):
-                cls = "changing"
+                reads = _def_reads(int(addr, 16))
+                # (a definition that reads no ecx/edx, `mov eax, 1; ret`, is the same call whatever the caller sets)
+                if reads is None or reads & {"ecx", "edx"}:
+                    cls = "changing"
         else:
             conv_s, regs_s, st_s = cs
             conv_d, regs_d, st_d = cd

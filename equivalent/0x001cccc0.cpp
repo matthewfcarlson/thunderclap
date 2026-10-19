@@ -33,8 +33,8 @@ struct World {
 };
 
 struct Singleton_4dd6ec {
-    Singleton_4dd6ec *FUN_00086370(const char *name, int flag);
-    void FUN_00090720();
+    Singleton_4dd6ec *FUN_00086370();
+    void FUN_00090720(const char *name, int flag);
 };
 
 
@@ -81,7 +81,7 @@ void ComboTracker::FUN_001cccc0()
                     overlay->FUN_000d4620(1, f.text, -1, *c, -1.0f);
                 }
             }
-            DAT_004dd6ec->FUN_00086370("action_combo", 1)->FUN_00090720();
+            DAT_004dd6ec->FUN_00086370()->FUN_00090720("action_combo", 1);
         }
     }
 }

@@ -18,18 +18,17 @@ struct Datum {
 };
 class Result {
   public:
-    void Apply();
+    void Apply(const char*, int);
 };
 class Manager {
   public:
-    Result* Find(const char*, int);
+    Result* Find();
 };
 extern Manager* gManager;
 char hulkfight::XPAction::vfunc_3(int, int) {
     if (!enabled)
         return 0;
     int n = (int)((Datum*)value)->value;
-    Result* p = gManager->Find("xp", n);
-    p->Apply();
+    gManager->Find()->Apply("xp", n);
     return 1;
 }

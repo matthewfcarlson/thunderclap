@@ -1,6 +1,6 @@
 extern void* g_name;
 void __cdecl FUN_00247550(void*, void*);
-void __cdecl FUN_0025fd10();
+void __fastcall FUN_0025fd10(void*);
 class SeqEvent {
   public:
     virtual void v0();
@@ -20,7 +20,7 @@ class SeqEventVarVolume : public SeqEvent {
     virtual void v5();
 };
 class SeqEventVarVolume* SeqEventVarVolume::vfunc_4(unsigned char flags) {
-    FUN_0025fd10();
+    FUN_0025fd10((void*)(this));
     if (flags & 1)
         FUN_00247550(&g_name, this);
     return this;

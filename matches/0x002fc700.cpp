@@ -6,13 +6,14 @@ class Inner_2fc700 {
     virtual void f3();
     virtual void f4();
     virtual void f5();
-    virtual void f6();
+    virtual void f6(int, int);
 };
 class Outer_2fc700 {
   public:
     char pad[0x10];
     Inner_2fc700* p;
+    void target(int a, int b);
 };
-void __fastcall target(Outer_2fc700* self) {
-    self->p->f6();
+void Outer_2fc700::target(int a, int b) {
+    p->f6(a, b);
 }

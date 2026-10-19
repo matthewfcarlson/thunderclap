@@ -1,10 +1,13 @@
-extern "C" void __stdcall Init(void*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(void*, int);
+    virtual void v_001d0480();
+};
 extern "C" unsigned char Check(const void*);
 extern char gA[];
 extern char gB[];
-class Root {
+class Root : public CtorV_001d0480 {
   public:
-    Root(void* p) { Init(p, 1); }
+    Root(void* p) : CtorV_001d0480(p, 1) { }
 };
 class Method1 : public Root {
   public:

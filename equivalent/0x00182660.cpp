@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // hulkfight::motion::BallAndChainReturnAction::vfunc_3 @ 0x00182660
-struct Vec_182660 { float x,y,z; Vec_182660* FUN_0022c2b0(); float FUN_0022d110(); };
-struct Transform_182660 { Vec_182660* FUN_00221c40(Vec_182660*, Vec_182660*); };
+struct Vec_182660 { float x,y,z; Vec_182660* FUN_0022c2b0(Vec_182660*, Vec_182660*); float FUN_0022d110(); };
+struct Transform_182660 { Vec_182660* FUN_00221c40(); };
 struct TransformHolder { char pad[16]; Transform_182660 transform; };
 struct Item_182660 { Vec_182660* FUN_001d6b40(); };
 struct Lookup_182660 { Item_182660* FUN_00035ef0(unsigned); };
@@ -23,7 +23,7 @@ bool BallAndChainReturnAction::vfunc_3(unsigned,unsigned) {
  Vec_182660 position=settings->position;
  Vec_182660 result;
  TransformHolder* holder=actor->FUN_00059a40();
- holder->transform.FUN_00221c40(&position,&result)->FUN_0022c2b0();
+ holder->transform.FUN_00221c40()->FUN_0022c2b0(&position, &result);
  direction=result;
  direction.x-=origin.x; direction.y-=origin.y; direction.z-=origin.z;
  length=direction.FUN_0022d110();

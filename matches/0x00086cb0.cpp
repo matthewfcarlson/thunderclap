@@ -26,9 +26,9 @@ struct Draw {
     void FUN_001b93a0(Mode_86cb0*, int, int, int, int, int);
 };
 struct Memory_86cb0 {
-    void FUN_0008d0a0();
+    void FUN_0008d0a0(int);
 };
-extern Memory_86cb0* __stdcall FUN_0008ceb0(int);
+extern Memory_86cb0* __stdcall FUN_0008ceb0();
 extern void __cdecl FUN_000969c0(int);
 extern void __cdecl FUN_00096740();
 struct Target_86cb0 {
@@ -63,7 +63,7 @@ void Target_86cb0::FUN_00086cb0() {
     } else {
         (*(UI_86cb0**)&DAT_004dd6e8)->FUN_0023f720(&DAT_0049c108, 0);
         if ((*(unsigned char*)&DAT_004dd83e) || (*(UI_86cb0**)&DAT_004dd6e8)->FUN_0023f760("Display Memory Usage", 0x4d, 0)) {
-            FUN_0008ceb0(0)->FUN_0008d0a0();
+            FUN_0008ceb0()->FUN_0008d0a0(0);
         }
         (*(UI_86cb0**)&DAT_004dd6e8)->FUN_0023f740();
         draw->FUN_001b93a0(mode, fieldc, field20, field2c, field38, field28);

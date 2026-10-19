@@ -11,9 +11,9 @@ struct Obj_104c60 {
  int v94, v98;
  char pad4[0xd8 - 0x9c];
  int vd8, vdc, ve0, ve4;
- void Reset(int a, int b, const Vec_104c60* pos, int c, char d, int e, int unused);
+ int Reset(int a, int b, const Vec_104c60* pos, int c, char d, int e, int unused);
 };
-void Obj_104c60::Reset(int, int, const Vec_104c60* pos, int c, char d, int e, int) {
+int Obj_104c60::Reset(int, int, const Vec_104c60* pos, int c, char d, int e, int) {
  v6c = 0;
  sub->v75 = 0;
  v68 = 0;
@@ -26,4 +26,5 @@ void Obj_104c60::Reset(int, int, const Vec_104c60* pos, int c, char d, int e, in
  v94 = e;
  v98 = e;
  ve0 = 0; vdc = 0; vd8 = 0; ve4 = 0;
+    return e;
 }

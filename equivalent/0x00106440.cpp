@@ -8,11 +8,13 @@ struct Path_106440 {
     void FUN_00106170(int idx, Vec3_106440 pos);
     void FUN_001061a0(int from, int to, int a, int b, int c, int d, float e);
 };
-Path_106440* __stdcall FUN_00106230(int id);
+struct ThisWrap_00106440 {
+    Path_106440* FUN_00106230(int id);
+    bool FUN_00106440(int id, int idx, Vec3_106440 pos);
+};
 
-bool __stdcall FUN_00106440(int id, int idx, Vec3_106440 pos)
-{
-    Path_106440* p = FUN_00106230(id);
+bool ThisWrap_00106440::FUN_00106440(int id, int idx, Vec3_106440 pos) {
+    Path_106440* p = this->FUN_00106230(id);
     if (p == 0)
         return false;
     int n = p->count;

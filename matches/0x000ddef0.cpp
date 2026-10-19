@@ -2,7 +2,7 @@
 
 class Receiver_ddef0 {
   public:
-    void go();
+    void go(int);
 };
 class FEThingsBase_ddef0 {
   public:
@@ -50,6 +50,6 @@ class FEThingsBase_ddef0 {
     Receiver_ddef0* ptr;
 };
 
-void FEThings::vfunc_40() {
-    (*(Receiver_ddef0 * *)&this->f_2224)->go();
+void FEThings::vfunc_40(int a0) {
+    (*(Receiver_ddef0 * *)&this->f_2224)->go(a0);
 }

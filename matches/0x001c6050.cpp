@@ -9,14 +9,14 @@ struct Holder_1c6050 {
 struct Obj_1c6050 {
     char pad[12];
     Holder_1c6050* h;
-    void Poke();
+    void Poke(int a, int b);
 };
 struct Sub_1c6050 {
     char pad[8];
     void Init();
     void Set(int);
 };
-Obj_1c6050* __stdcall Make2(int a, int b);
+Obj_1c6050* __stdcall Make2();
 Obj_1c6050* __stdcall Make0();
 struct Owner_1c6050 {
     void* vf;
@@ -29,8 +29,7 @@ Owner_1c6050* Owner_1c6050::Target(int arg1, int arg2) {
     vf = (void*)((int)DAT_00421990);
     s.Init();
     s.Set(arg1);
-    Obj_1c6050* o = Make2(arg1, arg2);
-    o->Poke();
+    Make2()->Poke(arg1, arg2);
     Obj_1c6050* p = Make0();
     Holder_1c6050* h = p->h;
     Item_1c6050* it = h->Find(arg1);

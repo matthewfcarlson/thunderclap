@@ -13,7 +13,7 @@ struct Src_29f840 {
     unsigned mCount; // 0x14
     Item** mItems;   // 0x18
 };
-int __stdcall Grow(int n); // FUN_002a1180
+struct Grow_29f840 { int Grow(int n); }; // FUN_002a1180
 
 struct Owner_29f840 {
     char pad[0x24];
@@ -35,7 +35,7 @@ void Owner_29f840::Run(Src_29f840* s) {
         if (!e)
             continue;
         int c = *(int*)((char*)e->mInner + 0x14);
-        Grow(c + 1);
+        ((Grow_29f840*)e->mInner)->Grow(c + 1);
         e->Set(c, it);
         mTotal++;
     }

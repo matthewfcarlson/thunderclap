@@ -4,9 +4,11 @@ class Obj {
     void* value;
     void Set(int);
 };
-extern "C" void* __stdcall FUN_001e9960(int);
+struct ThisCall_001e9960 {
+    void* FUN_001e9960(int);
+};
 void Obj::Set(int x) {
-    void* p = FUN_001e9960(x);
+    void* p = ((ThisCall_001e9960*)(this))->FUN_001e9960(x);
     if (p)
         value = p;
 }

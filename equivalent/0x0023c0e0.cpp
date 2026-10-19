@@ -15,8 +15,10 @@ public:
     int field2c;
 };
 }
-void __cdecl FUN_0023bb90();
+struct ThisCall_0023bb90 {
+    void FUN_0023bb90();
+};
 int fight::BinReader::vfunc_13() {
-    FUN_0023bb90();
+    ((ThisCall_0023bb90*)(this))->FUN_0023bb90();
     return (field28 | field2c) != 0;
 }

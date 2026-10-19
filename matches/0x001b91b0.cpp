@@ -1,9 +1,8 @@
 class Obj {
   public:
-    void run();
+    void run(int, int, int, int);
 };
-Obj* __stdcall make(int, int, int, int);
+Obj* __stdcall make();
 void __stdcall FUN_001b91b0(int x) {
-    Obj* p = make(0, 0, 1, x);
-    p->run();
+    make()->run(0, 0, 1, x);
 }

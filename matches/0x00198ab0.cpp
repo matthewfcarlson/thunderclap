@@ -9,10 +9,10 @@ struct Mgr_198ab0 {
     void Remove(void* p);
 };
 struct Reg_198ab0 {
-    void Fn();
+    void Fn(void* p);
 };
 Mgr_198ab0* GetMgr();
-Reg_198ab0* __stdcall GetReg(void* p);
+Reg_198ab0* __stdcall GetReg();
 class Base_198ab0 {
   public:
     void* vptr;
@@ -46,7 +46,7 @@ Obj_198ab0::~Obj_198ab0() throw() {
         Mgr_198ab0* g = GetMgr();
         g->Remove(m34);
     }
-    GetReg(m24)->Fn();
+    GetReg()->Fn(m24);
     if (m24) {
         m24->Release();
         m24 = 0;

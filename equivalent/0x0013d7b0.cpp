@@ -45,8 +45,7 @@ struct Part_13d7b0 {
 struct Holder_13d7b0 {
     Part_13d7b0 *FUN_00059a40();
 };
-// equiv-conv: FUN_00225b30 ecx stack stack stack stack stack
-float FUN_00225b30(Instance_13d7b0 *self, int a, float one, int b, int c, float minusOne);
+struct Target_13d7b0 { float FUN_00225b30(); };
 struct Params_13d7b0 {
     Holder_13d7b0 *FUN_000592a0();
 };
@@ -122,7 +121,7 @@ bool hulkfight::motion::AnimationPhaseMatchedAction::vfunc_3(int unused0, int un
     float v = s->vfn7(1.0f, a24, a28);
     (*(Instance_13d7b0 * *)&this->f_24)->FUN_00225e00(v, 1.0f, a24, a28);
     (*(Instance_13d7b0 * *)&this->f_24)->FUN_00225cf0((*(Spec_13d7b0 * *)&this->f_1c)->f20);
-    float w = FUN_00225b30((*(Instance_13d7b0 * *)&this->f_24), a38, 1.0f, a3c, a40, -1.0f);
+    float w = ((Target_13d7b0*)(*(Instance_13d7b0 * *)&this->f_24))->FUN_00225b30();
     part->FUN_00222890((*(Instance_13d7b0 * *)&this->f_24), w, a38, 1.0f, a3c, a40, -1.0f);
     return true;
 }

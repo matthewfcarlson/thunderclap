@@ -8,11 +8,13 @@ struct Actor_1fcab0 {
     Vec3_1fcab0 b;
     void FUN_001fbb80(Vec3_1fcab0 *a, Vec3_1fcab0 *b, float angle);
 };
-Actor_1fcab0 *__stdcall FUN_001fc7f0(int id);
+struct ThisWrap_001fcab0 {
+    Actor_1fcab0 * FUN_001fc7f0(int id);
+    bool FUN_001fcab0(int id, float degrees);
+};
 
-bool __stdcall FUN_001fcab0(int id, float degrees)
-{
-    Actor_1fcab0 *actor = FUN_001fc7f0(id);
+bool ThisWrap_001fcab0::FUN_001fcab0(int id, float degrees) {
+    Actor_1fcab0 *actor = this->FUN_001fc7f0(id);
     if (actor == 0)
         return false;
     Vec3_1fcab0 a = actor->a;

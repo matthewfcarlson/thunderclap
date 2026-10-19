@@ -27,13 +27,13 @@ struct Proto {
 };
 
 // equiv-conv: FUN_0021a790 eax esi
-void __stdcall FUN_0021a790(Proto* s, Dump* D);
+void FUN_0021a790(Proto* s, Dump* D);
 // equiv-conv: FUN_0021a830 esi stack
-void __stdcall FUN_0021a830(Dump* D, Proto* f);
+void FUN_0021a830(Dump* D, Proto* f);
 // equiv-conv: FUN_0021a960 esi stack
-void __stdcall FUN_0021a960(Dump* D, Proto* f);
+void FUN_0021a960(Dump* D, Proto* f);
 // equiv-conv: FUN_0021aa00 esi stack
-void __stdcall FUN_0021aa00(Dump* D, Proto* f);
+void FUN_0021aa00(Dump* D, Proto* f);
 
 static void put(Dump* D, const void* p, int n)
 {

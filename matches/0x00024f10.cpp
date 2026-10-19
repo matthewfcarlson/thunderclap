@@ -1,11 +1,10 @@
 extern "C" void _ReadWriteBarrier();
-void* __stdcall Get(int);
+void* __stdcall Get();
 class Obj {
   public:
-    void Run();
+    void Run(int);
 };
 void FUN_00024f10() {
-    Obj* p = (Obj*)Get(1);
-    p->Run();
+    ((Obj*)Get())->Run(1);
     _ReadWriteBarrier();
 }

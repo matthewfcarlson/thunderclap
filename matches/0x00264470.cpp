@@ -16,12 +16,14 @@ class LoadStream {
     void* b;
 };
 extern int streamvt_264470, refvt;
-void Init();
+struct ThisCall_002640f0 {
+    void Init();
+};
 void Free(void*);
 void Destroy(LoadStream*);
 LoadStream* LoadStream::f2(unsigned char flag) {
     *(int*)this = (int)&streamvt_264470;
-    Init();
+    ((ThisCall_002640f0*)(this))->Init();
     if (mRef)
         mRef->f1();
     if (a)

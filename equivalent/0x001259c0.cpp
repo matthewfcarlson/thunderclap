@@ -10,8 +10,7 @@ extern float __cdecl FUN_00224fc0(float, float);
 struct Target_1259c0 { char pad[16]; Vec_1259c0 position; };
 struct Link_1259c0 { char pad[0x12c]; Target_1259c0* target; };
 struct Actor_1259c0 { char pad[0x328]; Target_1259c0* fallback; char gap[4]; Link_1259c0* link; };
-// equiv-conv: FUN_000354c0 ecx stack
-extern float __cdecl FUN_000354c0(Actor_1259c0*, float);
+struct Heading_1259c0 { float FUN_000354c0(); };
 struct Context { Actor_1259c0* FUN_00059a30(); };
 struct Input_1259c0 { Context* FUN_000592a0(); };
 namespace hulkfight { namespace ai {
@@ -29,7 +28,7 @@ bool TargetOrientationCondition::vfunc_6(int, Input_1259c0* input, int) {
  Vec_1259c0 direction;
  target->position.FUN_0022c3b0(((Vec_1259c0*)&DAT_004a6ae4),&direction);
  float angle=FUN_00224f10(&direction);
- float delta=FUN_00224fc0(FUN_000354c0(actor,angle)+offset,angle);
+ float delta=FUN_00224fc0(((Heading_1259c0*)actor)->FUN_000354c0()+offset,angle);
  union { float f; unsigned int u; } absolute;
  absolute.f=delta; absolute.u &= 0x7fffffff;
  return range*0.5f > absolute.f;

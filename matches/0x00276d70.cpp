@@ -2,9 +2,9 @@
 #include "gen/core.h"
 
 struct InstanceDrive_nv_276d70 {
-    void g();
+    void g(int);
 };
 
-void core::InstanceDrive::vfunc_25() {
-    ((InstanceDrive_nv_276d70*)((*(core::InstanceDrive * *)&this->f_0c)))->g();
+void core::InstanceDrive::vfunc_25(int a0) {
+    ((InstanceDrive_nv_276d70*)((*(core::InstanceDrive * *)&this->f_0c)))->g(a0);
 }

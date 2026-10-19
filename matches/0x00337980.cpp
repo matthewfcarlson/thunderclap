@@ -7,9 +7,9 @@ struct S_337980 {
     char pad[4];
     int value;
     Obj_337980* obj;
-    void run();
+    int run();
 };
-void S_337980::run() {
+int S_337980::run() {
     int r;
     int x;
     do {
@@ -17,6 +17,7 @@ void S_337980::run() {
         x = obj->result;
         value = x;
         if (r != 0)
-            return;
+            return r;
     } while (x == 0);
+    return r;
 }

@@ -5,7 +5,7 @@ class Ref_2061e0 {
     virtual void F0();
     virtual void Release();
 };
-extern void FUN_00263e90();
+extern void __fastcall FUN_00263e90(Ref_2061e0*);
 extern void FUN_00267110(int);
 extern void FUN_00267090(void*);
 struct Pool_2061e0 {
@@ -24,7 +24,7 @@ struct Pool_2061e0 {
 void Pool_2061e0::Fini() throw() {
     vf = vPool;
     if (p38) {
-        ((void(__fastcall*)(Ref_2061e0*))FUN_00263e90)(p38);
+        FUN_00263e90(p38);
         p38 = 0;
     }
     if (p30)

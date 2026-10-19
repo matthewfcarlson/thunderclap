@@ -13,7 +13,7 @@ struct Temporary_14f470 {
  void FUN_00059300();
 };
 struct Controller_14f470 { unsigned char FUN_00231a40(void*, Reaction_14f470*); };
-struct Link_14f470 { Controller_14f470* FUN_000392e0(); };
+struct Link_14f470 { Controller_14f470* FUN_000392e0(Reaction_14f470*); };
 struct Result_14f470 { Link_14f470* FUN_00059a30(); };
 struct Reaction_14f470 {
  virtual void slot0();
@@ -23,7 +23,7 @@ struct Reaction_14f470 {
 struct Context_14f470 {
  char padding[8];
  void* owner;
- Result_14f470* FUN_000592a0(Reaction_14f470*);
+ Result_14f470* FUN_000592a0();
  void FUN_00059760(Controller_14f470*);
 };
 extern void* __cdecl FUN_00344e74(Context_14f470*, int, void*, void*, int);
@@ -42,9 +42,9 @@ int hulkfight::motion::HitReactionFloatTrack::vfunc_9(int __p0, int __p1, int __
  Reaction_14f470* allocation = (Reaction_14f470*)FUN_0008d690(0xb0);
  Reaction_14f470* reaction = allocation ? allocation->FUN_000598e0(context->owner, &temporary) : 0;
  reaction->slot0();
- Result_14f470* result = context->FUN_000592a0(reaction);
+ Result_14f470* result = context->FUN_000592a0();
  Link_14f470* link = result->FUN_00059a30();
- Controller_14f470* controller = link->FUN_000392e0();
+ Controller_14f470* controller = link->FUN_000392e0(reaction);
  context->FUN_00059760(controller);
  if (!controller) {
  reaction->slot1();

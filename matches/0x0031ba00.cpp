@@ -7,10 +7,12 @@ struct Device_31ba00 {
     u32_31ba00 field10;
     Device_31ba00* Init(u32_31ba00 value);
 };
-extern void FUN_0031bac0();
+struct ThisCall_0031bac0 {
+    void FUN_0031bac0();
+};
 extern void FUN_00328130();
 Device_31ba00* Device_31ba00::Init(u32_31ba00 value) {
-    FUN_0031bac0();
+    ((ThisCall_0031bac0*)(this))->FUN_0031bac0();
     vftable = ((int)DAT_004324e4);
     field10 = value;
     fieldC = 0;

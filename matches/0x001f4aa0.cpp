@@ -15,10 +15,12 @@ class Obj_1f4aa0 {
     int m1c;
     Obj_1f4aa0(char*, char*);
 };
-extern "C" void __stdcall Init(void*, int);
+struct ThisCall_001d0480 {
+    void Init(void*, int);
+};
 extern "C" char __cdecl Get(void*);
 Obj_1f4aa0::Obj_1f4aa0(char* a, char* b) {
-    Init(a, 4);
+    ((ThisCall_001d0480*)(this))->Init(a, 4);
     vptr = ((int)DAT_00424b2c);
     m1c = (int)b;
     b18 = Get((void*)((int)((char*)&DAT_0048e100)));

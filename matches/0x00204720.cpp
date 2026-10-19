@@ -1,12 +1,12 @@
 struct Item {
-    void Go();
+    void Go(void*);
 };
 class Obj {
     char a[0x44];
     void* m;
     char b[0x570 - 0x48];
     void* slots[2];
-    Item* Fetch(void*, void*);
+    Item* Fetch(void*);
 
   public:
     void Add(void* p);
@@ -22,5 +22,5 @@ void Obj::Add(void* p) {
         ++i;
         ++q;
     } while (i < 2);
-    Fetch(p, m)->Go();
+    Fetch(p)->Go(m);
 }

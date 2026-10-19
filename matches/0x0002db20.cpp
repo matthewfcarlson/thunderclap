@@ -2,7 +2,9 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 extern "C" char DAT_003f425c[];
-extern void __stdcall FUN_001d0480(void*, int);
+struct ThisCall_001d0480 {
+    void FUN_001d0480(void*, int);
+};
 class CActorManager {
   public:
     int vftable;
@@ -15,7 +17,7 @@ class CActorManager {
     CActorManager* Init(void*, void*);
 };
 CActorManager* CActorManager::Init(void* arg1, void* arg2) {
-    FUN_001d0480(arg1, 3);
+    ((ThisCall_001d0480*)(this))->FUN_001d0480(arg1, 3);
     vftable = ((int)DAT_003f425c);
     member1c = arg2;
     flag18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e100)));

@@ -1,5 +1,5 @@
 // Same code shape as 0x00222050 (propagated; names are from that function)
-void Init();
+void __fastcall Init(void*);
 class Obj_30f3a0 {
   public:
     char pad[0x40];
@@ -7,7 +7,7 @@ class Obj_30f3a0 {
     Obj_30f3a0();
 };
 Obj_30f3a0::Obj_30f3a0() {
-    Init();
+    Init((void*)(this));
     c = 0;
     b = 0;
     a = 0;

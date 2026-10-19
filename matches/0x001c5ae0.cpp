@@ -1,8 +1,8 @@
 struct Sub_1c5ae0 {
-    void Set(unsigned int v);
+    void Set(unsigned int v, int x);
 };
 struct Helper {
-    unsigned int Get(int x);
+    unsigned int Get();
 };
 struct Owner_1c5ae0 {
     char pad[0x128];
@@ -10,5 +10,5 @@ struct Owner_1c5ae0 {
     void Run(int x);
 };
 void Owner_1c5ae0::Run(int x) {
-    sub.Set(((Helper*)x)->Get(x));
+    sub.Set(((Helper*)x)->Get(), x);
 }

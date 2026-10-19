@@ -5,11 +5,11 @@ class JointDriver {
     void Init();
     JointDriver(int arg);
 };
-extern void BaseInit();
+extern void __fastcall BaseInit(void*);
 extern int gCount_2248f0;
 extern int gMax_2248f0;
 JointDriver::JointDriver(int arg) {
-    BaseInit();
+    BaseInit((void*)(this));
     *(int*)this = ((int)DAT_004272f0);
     *(int*)((char*)this + 0x10) = arg;
     *(int*)((char*)this + 0x14) = 3;

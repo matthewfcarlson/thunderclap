@@ -8,10 +8,10 @@ class Obj_1eecb0 {
     float value;
 };
 
-void BaseInit();
+void __fastcall BaseInit(void*);
 
 Obj_1eecb0* __fastcall FUN_001eecb0(Obj_1eecb0* self) {
-    BaseInit();
+    BaseInit((void*)(self));
     self->a = 0;
     self->b = 0;
     self->c = 0;

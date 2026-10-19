@@ -2,8 +2,8 @@
 // FUN_00224f10 @ 0x00224f10
 struct Vec3_224f10 { float x,y,z; };
 extern "C" double __cdecl sqrt(double);
-extern void __cdecl FUN_00224ea0(float x, float z);
-void __cdecl FUN_00224f10(const Vec3_224f10* v) {
+extern float __cdecl FUN_00224ea0(float x, float z);
+float __cdecl FUN_00224f10(const Vec3_224f10* v) {
     float x=v->x, z=v->z;
     union { float f; unsigned int u; } a;
     a.f=v->y; a.u &= 0x7fffffff;
@@ -16,5 +16,5 @@ void __cdecl FUN_00224f10(const Vec3_224f10* v) {
             z=(float)(z*scale);
         } else { x=0.0f; z=0.0f; }
     }
-    FUN_00224ea0(x,z);
+    return FUN_00224ea0(x,z);
 }

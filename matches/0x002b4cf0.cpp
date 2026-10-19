@@ -4,9 +4,11 @@ class ShadowMeshBufferImpl {
     int x[17];
     ShadowMeshBufferImpl* InitSelf();
 };
-void Init();
+struct ThisCall_002a5060 {
+    void Init();
+};
 ShadowMeshBufferImpl* ShadowMeshBufferImpl::InitSelf() {
-    Init();
+    ((ThisCall_002a5060*)(this))->Init();
     *(int*)this = ((int)DAT_0042e584);
     *(int*)((char*)this + 0x40) = 0;
     *(int*)((char*)this + 0x10) = 2;

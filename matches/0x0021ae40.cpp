@@ -1,6 +1,6 @@
 void Grow(int a, int b);
-void Move(int a, int b, int c, int d);
-void Resize(int a, int b, int* cnt, int size, int cap, int e) {
+void* Move(int a, int b, int c, int d);
+void* Resize(int a, int b, int* cnt, int size, int cap, int e) {
     int c = *cnt;
     int n = cap;
     if (c >= cap / 2) {
@@ -11,6 +11,7 @@ void Resize(int a, int b, int* cnt, int size, int cap, int e) {
         if (n < 4)
             n = 4;
     }
-    Move(a, b, *cnt * size, n * size);
+    void* r_ret = Move(a, b, *cnt * size, n * size);
     *cnt = n;
+    return r_ret;
 }

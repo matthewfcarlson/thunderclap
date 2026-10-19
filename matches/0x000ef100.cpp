@@ -51,8 +51,10 @@ class FEContainer {
     virtual void f48(int);
     char* child;
 };
-void __stdcall FUN_000e4ec0(int);
+struct ThisCall_000e4ec0 {
+    void FUN_000e4ec0(int);
+};
 void FEContainer::vfunc_4() {
-    FUN_000e4ec0(7);
+    ((ThisCall_000e4ec0*)(this))->FUN_000e4ec0(7);
     ((FEContainer*)child)->f48(6);
 }

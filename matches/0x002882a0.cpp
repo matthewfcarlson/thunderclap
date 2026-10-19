@@ -1,7 +1,7 @@
 namespace pure3d {
 struct Sub {
-    float calc(float, float);
-    int convert(float);
+    float calc();
+    int convert();
 };
 class PoseAnimationController {
   public:
@@ -13,12 +13,12 @@ class PoseAnimationController {
     char pad3[4];
     float other;
     void pre();
-    void post(int);
+    void post(int, float, float, float);
 };
 void PoseAnimationController::vfunc_27() {
     if (!(value < 1e-5f)) {
         pre();
-        post(sub.convert(sub.calc(value, other)));
+        post(sub.convert(), sub.calc(), value, other);
     }
 }
 } // namespace pure3d

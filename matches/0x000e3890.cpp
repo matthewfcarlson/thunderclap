@@ -1,4 +1,4 @@
-extern void __stdcall Notify(int);
+struct Notifier_e3890 { void Notify(int); };
 inline void Copy(char* d, const char* s) {
     char c;
     do {
@@ -30,7 +30,7 @@ void Obj_e3890::Target(const char* s, char flag) {
             m154 = n;
             m150 = n;
             if (callback)
-                Notify(n);
+                ((Notifier_e3890*)callback)->Notify(n);
             Fn();
         }
         ++count;

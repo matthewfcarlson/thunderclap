@@ -1,10 +1,10 @@
 class B_d8170 {
   public:
-    int f(int, int);
+    int f();
 };
 class C_d8170 {
   public:
-    int g();
+    int g(int, int);
 };
 class Obj_d8170 {
   public:
@@ -13,6 +13,5 @@ class Obj_d8170 {
     int target(int a, int b);
 };
 int Obj_d8170::target(int a, int b) {
-    int x = member->f(a, b);
-    return ((C_d8170*)x)->g();
+    return ((C_d8170*)member->f())->g(a, b);
 }

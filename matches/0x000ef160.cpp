@@ -1,6 +1,8 @@
 #include "gen/global.h"
 
-void __stdcall FUN_000e4ec0(int);
+struct ThisCall_000e4ec0 {
+    void FUN_000e4ec0(int);
+};
 struct Obj_ef160 {
     virtual void a0();
     virtual void a1();
@@ -54,6 +56,6 @@ struct Obj_ef160 {
 };
 
 void FEContainer::vfunc_7() {
-    FUN_000e4ec0(9);
+    ((ThisCall_000e4ec0*)(this))->FUN_000e4ec0(9);
     ((Obj_ef160*)*(void**)((char*)this + 4))->call(6);
 }

@@ -7,9 +7,11 @@ class HairclubPhysicsObject {
     char pad28[0x1d0];
     int field1f8;
 };
-extern void BaseCtor();
+struct ThisCall_002f5480 {
+    void BaseCtor();
+};
 HairclubPhysicsObject* __fastcall FUN_00308da0(HairclubPhysicsObject* self) {
-    BaseCtor();
+    ((ThisCall_002f5480*)(self))->BaseCtor();
     self->vftable = ((int)DAT_00431d1c);
     self->field1f8 = 0;
     self->field24 = 2;

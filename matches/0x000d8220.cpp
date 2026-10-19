@@ -1,8 +1,8 @@
 class B_d8220 {
   public:
-    void F1();
-    int F2();
-    void F3();
+    void F1(int);
+    int F2(int);
+    void F3(int);
 };
 class A_d8220 {
   public:
@@ -10,7 +10,7 @@ class A_d8220 {
 };
 class M_d8220 {
   public:
-    A_d8220* Get(int);
+    A_d8220* Get();
 };
 class C_d8220 {
   public:
@@ -19,8 +19,8 @@ class C_d8220 {
     M_d8220* m;
 };
 int C_d8220::Run(int x) {
-    m->Get(x)->Inner()->F1();
-    int r = m->Get(x)->Inner()->F2();
-    m->Get(x)->Inner()->F3();
+    m->Get()->Inner()->F1(x);
+    int r = m->Get()->Inner()->F2(x);
+    m->Get()->Inner()->F3(x);
     return r;
 }

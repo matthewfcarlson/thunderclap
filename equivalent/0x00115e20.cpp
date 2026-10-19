@@ -7,8 +7,7 @@ struct Actor_115e20 { char pad[0x2064]; Vector_115e20 facing; float rate; };
 struct HandleResult_115e20 { Actor_115e20* FUN_00059a30(); };
 struct Handle_115e20 { HandleResult_115e20* FUN_000592a0(); };
 struct Settings_115e20 { char pad[0x14]; float angle; Vector_115e20 direction; float rate; };
-// equiv-conv: FUN_000354c0 ecx stack
-float __cdecl FUN_000354c0(Actor_115e20*, Vector_115e20*);
+struct Heading_115e20 { float FUN_000354c0(); };
 void __cdecl FUN_00224d70(float, Vector_115e20*);
 namespace hulkfight { namespace ai {
 
@@ -19,7 +18,7 @@ if (!(*(Handle_115e20 * *)&this->f_20)) return false;
 Actor_115e20* actor = (*(Handle_115e20 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();
 Vector_115e20 direction = (*(Settings_115e20 * *)&this->f_1c)->direction;
 float angle = (*(Settings_115e20 * *)&this->f_1c)->angle;
-FUN_00224d70(FUN_000354c0(actor, &direction) + angle, &direction);
+FUN_00224d70(((Heading_115e20*)actor)->FUN_000354c0() + angle, &direction);
 direction.FUN_0022d110();
 actor->facing = direction;
 actor->rate = (*(Settings_115e20 * *)&this->f_1c)->rate;

@@ -6,9 +6,11 @@ class Obj_f83c0 {
     char pad18[8];
     int field20;
 };
-extern void __stdcall Init(int, int);
+struct ThisCall_000f79a0 {
+    void Init(int, int);
+};
 Obj_f83c0* __fastcall Copy(Obj_f83c0* self, void*, Obj_f83c0* src) {
-    Init(src->initArg, 0);
+    ((ThisCall_000f79a0*)(self))->Init(src->initArg, 0);
     self->field14 = src->field14;
     *(int*)self = *(int*)src;
     self->field20 = -1;

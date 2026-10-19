@@ -1,10 +1,13 @@
-extern "C" void __stdcall init(const char*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(const char*, int);
+    virtual void v_001d0480();
+};
 extern "C" unsigned char read(const char*);
 extern const char a[];
 extern const char b[];
-class Storage {
+class Storage : public CtorV_001d0480 {
   public:
-    Storage(const char* s) { init(s, 1); }
+    Storage(const char* s) : CtorV_001d0480(s, 1) { }
     char pad[0xc];
     unsigned char f10;
     char pad2[7];

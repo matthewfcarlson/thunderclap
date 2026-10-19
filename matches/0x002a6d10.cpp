@@ -2,10 +2,10 @@
 
 struct Track_2a6d10;
 struct Channel_2a6d10 {
-    Track_2a6d10* FUN_00288960();
+    Track_2a6d10* FUN_00288960(unsigned int, unsigned int);
 };
 struct Animation_2a6d10 {
-    Channel_2a6d10* FUN_00288a10(int, unsigned int, unsigned int);
+    Channel_2a6d10* FUN_00288a10(int);
 };
 struct Track_2a6d10 {
     int unused;
@@ -21,7 +21,7 @@ namespace pure3d {
 
 } // namespace pure3d
 void pure3d::VertexAnimController::vfunc_7() {
-    Track_2a6d10* track = (*(Animation_2a6d10 * *)&this->f_3c)->FUN_00288a10(0, 0x58545256, 0x544e49)->FUN_00288960();
+    Track_2a6d10* track = (*(Animation_2a6d10 * *)&this->f_3c)->FUN_00288a10(0)->FUN_00288960(0x58545256, 0x544e49);
     if (track) {
         int first, second;
         float firstTime, secondTime;

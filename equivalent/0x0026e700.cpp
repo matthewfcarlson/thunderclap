@@ -4,11 +4,11 @@ namespace core {
 struct DebugConsole {
     virtual void vfunc_0();
     virtual void vfunc_1();
-    virtual void vfunc_2();
-    void vfunc_0_adj4();
+    virtual void vfunc_2(unsigned flags);
+    void vfunc_0_adj4(unsigned flags);
 };
-void DebugConsole::vfunc_0_adj4() {
+void DebugConsole::vfunc_0_adj4(unsigned flags) {
     DebugConsole* object = reinterpret_cast<DebugConsole*>(reinterpret_cast<char*>(this) - 4);
-    object->DebugConsole::vfunc_2();
+    object->DebugConsole::vfunc_2(flags);
 }
 }

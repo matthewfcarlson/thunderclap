@@ -3,10 +3,13 @@ struct Obj_1fcc40 {
     char flag;
 };
 
-Obj_1fcc40* __stdcall Helper(void*);
+struct ThisWrap_001fcc40 {
+    Obj_1fcc40* Helper(void*);
+    void FUN_001fcc40(void* p);
+};
 
-void __stdcall FUN_001fcc40(void* p) {
-    Obj_1fcc40* r = Helper(p);
+void ThisWrap_001fcc40::FUN_001fcc40(void* p) {
+    Obj_1fcc40* r = this->Helper(p);
     if (r) {
         r->flag = 0;
     }

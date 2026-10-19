@@ -4,7 +4,7 @@
 
 struct Vec3_2b4b40 {
     float x, y, z;
-    void FUN_0022c3b0();
+    void FUN_0022c3b0(const Vec3_2b4b40*, Vec3_2b4b40*);
     void FUN_0022d180();
 };
 
@@ -25,7 +25,7 @@ public:
     virtual void v10();
     virtual void v11();
     virtual void v12();
-    virtual Vec3_2b4b40 *Direction(const Vec3_2b4b40 *point, Vec3_2b4b40 *out);
+    virtual Vec3_2b4b40 *Direction();
     virtual void v14();
     virtual void v15();
     virtual bool Step(Vec4_2b4b40 *pos, float w);
@@ -89,7 +89,7 @@ void Tracer_2b4b40::FUN_002b4b40(Node *node)
     f.pos.z = f.pos.z + shift->z;
     space->FUN_002940d0((Vec3_2b4b40 *)&f.pos, (Vec3_2b4b40 *)&f.pos);
     if (!useOffset) {
-        probe->Direction(&point, &f.dir)->FUN_0022c3b0();
+        probe->Direction()->FUN_0022c3b0(&point, &f.dir);
     } else {
         space->FUN_002940d0(&point, &f.tmp);
         f.dir.x = f.pos.x - f.tmp.x;

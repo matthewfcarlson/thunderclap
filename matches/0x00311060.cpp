@@ -11,10 +11,12 @@ class C_311060 {
   public:
     void f();
 };
-void FUN_00310550();
+struct ThisCall_00310550 {
+    void FUN_00310550();
+};
 void C_311060::f() {
     a = b;
-    FUN_00310550();
+    ((ThisCall_00310550*)(this))->FUN_00310550();
     b = 0x4e6e6b28;
     Sub_311060* p = (Sub_311060*)((char*)this + 0x168);
     p->second(0x3c83126f);

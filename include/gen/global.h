@@ -5408,7 +5408,7 @@ public:
     virtual void vfunc_37(int, int, int); // slot 37
     virtual void vfunc_38(void*, void*); // slot 38
     virtual void vfunc_39(int, int, int); // slot 39
-    virtual void vfunc_40() = 0; // slot 40
+    virtual void vfunc_40(int) = 0; // slot 40
     virtual void vfunc_41() = 0; // slot 41
     virtual void vfunc_42(int) = 0; // slot 42
     virtual unsigned int vfunc_43() = 0; // slot 43
@@ -5465,7 +5465,7 @@ public:
 // .?AVFEThings@@  vftable 0x40bd24 (68)
 class FEThings : public ::FEThingsBase {
 public:
-    virtual void vfunc_40(); // overrides FEThingsBase slot 40
+    virtual void vfunc_40(int); // overrides FEThingsBase slot 40
     virtual void vfunc_41(); // overrides FEThingsBase slot 41
     virtual void vfunc_42(int); // overrides FEThingsBase slot 42
     virtual unsigned int vfunc_43(); // overrides FEThingsBase slot 43

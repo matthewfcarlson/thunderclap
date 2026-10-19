@@ -3,7 +3,7 @@ extern "C" char DAT_0042af64[];
 extern "C" char DAT_0042b474[];
 extern "C" char DAT_0042b47c[];
 typedef unsigned int u32_26e360;
-extern void Init();
+extern void __fastcall Init(void*);
 extern u32_26e360 gSaved;
 extern u32_26e360 gState_26e360;
 class ConsoleClient {
@@ -14,7 +14,7 @@ class ConsoleClient {
 void ConsoleClient::Run() {
     a = ((int)DAT_0042b47c);
     b = ((int)DAT_0042b474);
-    Init();
+    Init((void*)(this));
     gSaved = c;
     b = ((int)DAT_0042af64);
     a = ((int)DAT_003f6098);

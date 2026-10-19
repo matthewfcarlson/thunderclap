@@ -15,7 +15,9 @@ extern V3 DAT_004e21e0;
 
 void __cdecl FUN_002f1ce0(V3 *pos, void *thing, V3 *outDir, float *outDist);
 void __cdecl FUN_00083e00(V3 *out, V3 *dir, float t);
-void __stdcall FUN_00080cd0(V3 *d, int z);
+struct ThisCall_00080cd0 {
+    void FUN_00080cd0(V3 *d, int z);
+};
 
 struct Ent;
 struct Obj;
@@ -203,7 +205,7 @@ void Combat::FUN_001b4d00(Ctx1f4 *ctx, int arg2)
                 d.y = slot->pos.y - E7->v64.y;
                 d.z = slot->pos.z - E7->v64.z;
                 if (d.x * d.x + d.z * d.z + d.y * d.y < 500.0f)
-                    FUN_00080cd0(&d, 0);
+                    ((ThisCall_00080cd0*)(this))->FUN_00080cd0(&d, 0);
                 continue;
             }
             slot->FUN_001b32e0(obj);

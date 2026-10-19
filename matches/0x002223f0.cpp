@@ -3,7 +3,7 @@ class Base_2223f0 {
   public:
     virtual void Init();
 };
-void InitPartition();
+void __fastcall InitPartition(void*);
 class PartitionDriver {
   public:
     virtual void V0();
@@ -13,7 +13,7 @@ class PartitionDriver {
     PartitionDriver* Run(Base_2223f0* source);
 };
 PartitionDriver* PartitionDriver::Run(Base_2223f0* source) {
-    InitPartition();
+    InitPartition((void*)(this));
     *(int*)this = ((int)DAT_00427260);
     mSource = source;
     mSource->Init();

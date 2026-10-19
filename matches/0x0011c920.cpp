@@ -19,8 +19,8 @@ struct Pair_11c920 {
 };
 struct Obj_11c920 {
     Info_11c920* G();
-    void P1();
-    void P2();
+    void P1(Pair_11c920*);
+    void P2(Pair_11c920*);
 };
 struct Mid_11c920 {
     Obj_11c920* H();
@@ -33,7 +33,7 @@ struct Root_11c920 {
     Manager_11c920* m;
 };
 extern Root_11c920* gRoot_11c920;
-Obj_11c920* __stdcall Conv(Pair_11c920*);
+Obj_11c920* __stdcall Conv();
 struct PathFormationAction : V {
     char pad[0x80 - 4];
     Mid_11c920* mid;
@@ -42,8 +42,8 @@ struct PathFormationAction : V {
 void PathFormationAction::vfunc_4() {
     if (mid) {
         Info_11c920* i = mid->H()->G();
-        Conv(&Pair_11c920(i->x, i->y))->P1();
-        Conv(&Pair_11c920(i->x, i->y))->P2();
+        Conv()->P1(&Pair_11c920(i->x, i->y));
+        Conv()->P2(&Pair_11c920(i->x, i->y));
         gRoot_11c920->m->Reg((char*)this + 0x1c);
     }
 }

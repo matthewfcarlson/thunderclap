@@ -1,5 +1,8 @@
-extern "C" void __stdcall sink(void*, const char*, const char*, const char*, const char*, const char*,
+struct ThisWrap_000d5fa0 {
+    void sink(void*, const char*, const char*, const char*, const char*, const char*,
                                const char*);
-extern "C" void __stdcall FUN_000d5fa0(void* p) {
-    sink(p, "FIXME", "FIXME", "FIXME", "FIXME", "FIXME", "FIXME");
+    void FUN_000d5fa0(void* p);
+};
+void ThisWrap_000d5fa0::FUN_000d5fa0(void* p) {
+    this->sink(p, "FIXME", "FIXME", "FIXME", "FIXME", "FIXME", "FIXME");
 }

@@ -88,7 +88,7 @@ Cursor_1bcc30 **FUN_001c3d90();
 void FUN_001bc530(V4_1bcc30 *q, V3_1bcc30 *v);
 void FUN_001bc8a0(Sub *sub, V4_1bcc30 *q);
 void FUN_00096a90(Ctl_1bcc30 *ctl, V3_1bcc30 *out);
-Holder2_1bcc30 *__stdcall FUN_001d75c0(int handle);
+struct Lookup_1bcc30 { Holder2_1bcc30 *FUN_001d75c0(int handle); };
 
 class Rig_1bcc30 {
 public:
@@ -159,7 +159,7 @@ void Rig_1bcc30::FUN_001bcc30()
     } else if (f.ctl->mode == 5) {
         Child_1bcc30 *child = f.ctl->child;
         if (child != 0) {
-            Holder2_1bcc30 *h = FUN_001d75c0(child->handle);
+            Holder2_1bcc30 *h = ((Lookup_1bcc30*)child)->FUN_001d75c0(child->handle);
             if (h != 0)
                 FUN_001bc8a0(h->sub10, &f.q);
         }

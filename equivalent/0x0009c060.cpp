@@ -5,8 +5,8 @@ struct Details_9c060 { char pad[0x124]; Node* node; };
 struct State_9c060 { char pad[8]; unsigned char active; };
 struct Input_9c060 { char pad0[4]; State_9c060* state; char pad1[0x18]; Details_9c060* details; };
 struct Worker_9c060 { char pad[0x2cc]; unsigned char active; void FUN_000ac9c0(unsigned, unsigned, unsigned, unsigned, unsigned, unsigned); };
-struct Result_9c060 { void FUN_00086100(); };
-struct Lookup_9c060 { Result_9c060* FUN_00086320(unsigned); };
+struct Result_9c060 { void FUN_00086100(unsigned); };
+struct Lookup_9c060 { Result_9c060* FUN_00086320(); };
 struct Helper_9c060 { void FUN_00098480(Input_9c060*); };
 struct Object {
  char pad0[4]; unsigned flags; char pad1[4]; Lookup_9c060* lookup; unsigned current; unsigned previous; unsigned char disabled; char pad2[0xa3]; Helper_9c060* helper; char pad3[4]; Worker_9c060* worker;
@@ -22,7 +22,7 @@ void Object::target(Input_9c060* input, unsigned a2, unsigned a3, unsigned a4, u
  previous = current;
  flags &= ~0x20u;
  worker->FUN_000ac9c0(a2,a3,a4,a5,a6,a7);
- lookup->FUN_00086320(a8)->FUN_00086100();
+ lookup->FUN_00086320()->FUN_00086100(a8);
  input->state->active = worker->active;
  Node* node = input->details->node;
  if (node) { node->FUN_000361c0(1); node->FUN_00036140(1); }

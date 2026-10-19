@@ -41,14 +41,16 @@ struct PlayerBink {
     void FUN_00333970();
 };
 } // namespace movie
-void __stdcall FUN_00333ab0(int);
+struct ThisCall_00333ab0 {
+    void FUN_00333ab0(int);
+};
 void __stdcall FUN_00364dc0(unsigned int, void*);
 void __cdecl FUN_00334fa0();
 void __stdcall FUN_00364da0(void(__cdecl*)());
 void* __stdcall FUN_00364fe0(int, int);
 void __stdcall FUN_00366b40(void*, int);
 void movie::PlayerBink::vfunc_5(int a, int b, int c, int d) {
-    FUN_00333ab0(b);
+    ((ThisCall_00333ab0*)(this))->FUN_00333ab0(b);
     field24 = 0;
     if (field28 > 0)
         FUN_00364dc0(field28, &field2c);

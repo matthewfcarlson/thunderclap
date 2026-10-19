@@ -3,7 +3,7 @@
 namespace physics {
 struct WallResult {
     virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3();
-    virtual void *vfunc_4(unsigned int, void *, void *);
+    virtual void *vfunc_4(unsigned int);
 };
 struct WallOwner { char pad[0x18]; WallResult *result; };
 struct CollisionWall {
@@ -16,6 +16,6 @@ struct CollisionWall {
 struct WallResponse { void FUN_0022c3b0(void *, void *); };
 void physics::CollisionWall::vfunc_13() {
     active = 1;
-    WallResponse *response = (WallResponse *)owner->result->vfunc_4(value, output, bounds);
+    WallResponse *response = (WallResponse *)owner->result->vfunc_4(value);
     response->FUN_0022c3b0(output, bounds);
 }

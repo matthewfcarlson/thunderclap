@@ -1,5 +1,7 @@
 extern float Zero_1cd650;
-void Stop();
+struct ThisCall_001cccc0 {
+    void Stop();
+};
 class Thing_1cd650 {
   public:
     char pad[0x11a8];
@@ -13,7 +15,7 @@ void Thing_1cd650::Update(float dt) {
         timer = timer - dt;
         if (timer <= Zero_1cd650) {
             timer = 0.0f;
-            Stop();
+            ((ThisCall_001cccc0*)(this))->Stop();
             b = 0;
             a = 0;
         }

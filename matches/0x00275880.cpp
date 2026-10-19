@@ -1,6 +1,8 @@
 extern "C" char DAT_0042bbc0[];
 typedef unsigned int u32_275880;
-extern void __stdcall FUN_00275600(int);
+struct ThisCall_00275600 {
+    void FUN_00275600(int);
+};
 extern void FUN_002705f0();
 extern char* _strncpy(char*, const char*, unsigned int);
 class DriveCreateDirectoryRequest {
@@ -11,7 +13,7 @@ class DriveCreateDirectoryRequest {
     DriveCreateDirectoryRequest* Create(int a, char* p);
 };
 DriveCreateDirectoryRequest* DriveCreateDirectoryRequest::Create(int a, char* p) {
-    FUN_00275600(a);
+    ((ThisCall_00275600*)(this))->FUN_00275600(a);
     vptr = (void*)((int)DAT_0042bbc0);
     FUN_002705f0();
     _strncpy(path, p, 0x10);

@@ -17,15 +17,15 @@ class Inner_e2840 {
     virtual void f13();
     virtual void f14();
     virtual void f15();
-    virtual void invoke(Outer_e2840*);
+    virtual float invoke(Outer_e2840*);
 };
 class Outer_e2840 {
   public:
     char pad[0x14];
     Inner_e2840* p;
-    void call();
+    float call();
 };
-void Outer_e2840::call() {
+float Outer_e2840::call() {
     Outer_e2840* self = this;
-    p->invoke(self);
+    return p->invoke(self);
 }

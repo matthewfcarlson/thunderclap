@@ -4,11 +4,11 @@
 typedef unsigned int u32_12fa50;
 class Result_12fa50 {
   public:
-    void run();
+    void run(u32_12fa50);
 };
 class Helper_12fa50 {
   public:
-    Result_12fa50* run(u32_12fa50);
+    Result_12fa50* run();
 };
 extern Helper_12fa50* gGlobal_12fa50;
 class ActionBase_12fa50 {
@@ -25,7 +25,6 @@ bool hulkfight::StatEndTrialAction::vfunc_3(int __p0, int __p1) {
     if (!(*(u32_12fa50 *)&this->f_20))
         return false;
     u32_12fa50 x = *(u32_12fa50*)((*(u32_12fa50 *)&this->f_1c) + 0x10);
-    Result_12fa50* q = gGlobal_12fa50->run(x);
-    q->run();
+    gGlobal_12fa50->run()->run(x);
     return true;
 }

@@ -37,12 +37,13 @@ class A_99320 {
     virtual void f34();
     virtual void f35();
     virtual void f36();
-    virtual void f37();
+    virtual void f37(int, float, float, float);
 };
 struct B_99320 {
     char pad[0x10];
     A_99320* p;
+    void target(int mode, float a, float b, float c);
 };
-void __fastcall target(B_99320* self) {
-    self->p->f37();
+void B_99320::target(int mode, float a, float b, float c) {
+    p->f37(mode, a, b, c);
 }

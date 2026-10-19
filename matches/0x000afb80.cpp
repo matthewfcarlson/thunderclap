@@ -1,4 +1,6 @@
-void Refresh();
+struct ThisCall_000afaf0 {
+    void Refresh();
+};
 class Thing_afb80 {
     char pad[8];
 
@@ -8,6 +10,6 @@ class Thing_afb80 {
 };
 void Thing_afb80::Update(char x) {
     if (value != x)
-        Refresh();
+        ((ThisCall_000afaf0*)(this))->Refresh();
     value = x;
 }

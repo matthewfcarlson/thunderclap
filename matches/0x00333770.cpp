@@ -6,8 +6,10 @@ class C_333770 {
   public:
     void set(int);
 };
-void called();
+struct ThisCall_003335e0 {
+    void called();
+};
 void C_333770::set(int x) {
     value = x;
-    called();
+    ((ThisCall_003335e0*)(this))->called();
 }

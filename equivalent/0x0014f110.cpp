@@ -8,9 +8,9 @@ extern void* __cdecl FUN_0008d690(unsigned int);
 struct Reaction_14f110;
 struct Settings_14f110 { char data[0x98]; void FUN_00059820(); void FUN_00059300(); };
 struct Controller_14f110 { unsigned char FUN_00231a40(void*, Reaction_14f110*); };
-struct Handle_14f110 { Controller_14f110* FUN_000392e0(); };
+struct Handle_14f110 { Controller_14f110* FUN_000392e0(Reaction_14f110*); };
 struct Link_14f110 { Handle_14f110* FUN_00059a30(); };
-struct Owner_14f110 { char pad[8]; void* field8; Link_14f110* FUN_000592a0(Reaction_14f110*); void FUN_00059760(Controller_14f110*); };
+struct Owner_14f110 { char pad[8]; void* field8; Link_14f110* FUN_000592a0(); void FUN_00059760(Controller_14f110*); };
 struct Reaction_14f110 { virtual void vfunc_0(); virtual void vfunc_1(); Reaction_14f110* FUN_000598e0(void*, Settings_14f110*); };
 namespace hulkfight { namespace motion {
 struct HitReactionTrack {
@@ -27,7 +27,7 @@ int hulkfight::motion::HitReactionTrack::vfunc_9(void* unused, void* argument, O
  Reaction_14f110* reaction = (Reaction_14f110*)FUN_0008d690(0xb0);
  if (reaction) reaction = reaction->FUN_000598e0(owner->field8,&settings);
  reaction->vfunc_0();
- Controller_14f110* controller = owner->FUN_000592a0(reaction)->FUN_00059a30()->FUN_000392e0();
+ Controller_14f110* controller = owner->FUN_000592a0()->FUN_00059a30()->FUN_000392e0(reaction);
  owner->FUN_00059760(controller);
  if (!controller) { reaction->vfunc_1(); settings.FUN_00059300(); return 1; }
  unsigned char result = controller->FUN_00231a40(argument,reaction);

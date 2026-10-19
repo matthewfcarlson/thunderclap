@@ -14,8 +14,10 @@ void FUN_003430f0(int n, float *a, float *w, int nw);
 void FUN_0033f6d0(int n, float *a, int *ip);
 // equiv-conv: FUN_00341bd0 eax ecx
 void FUN_00341bd0(float *a, float *w);
-// equiv-conv: FUN_00342800 ecx eax
-void FUN_00342800(float *w, float *a);
+struct ThisNote_00342800 {
+    // equiv-conv: FUN_00342800 ecx eax
+    void FUN_00342800(float *a);
+};
 // equiv-conv: FUN_0033ffb0 eax
 void FUN_0033ffb0(float *a);
 // equiv-conv: FUN_00340130 eax
@@ -45,7 +47,7 @@ void __cdecl FUN_00343ce0(float *w, float *a, int n, int *ip, int nw)
             FUN_00341bd0(a, &w[nw - 8]);
             FUN_0033ffb0(a);
         } else {
-            FUN_00342800(w, a);
+            ((ThisNote_00342800*)(w))->FUN_00342800(a);
             FUN_00340130(a);
         }
     } else if (n == 8) {

@@ -7,9 +7,11 @@ class CMotionStateCondition {
     int fieldC;
     int field10;
 };
-extern void __stdcall FUN_00234590(int);
+struct ThisCall_00234590 {
+    void FUN_00234590(int);
+};
 CMotionStateCondition* __fastcall FUN_0004a220(CMotionStateCondition* p) {
-    FUN_00234590(0);
+    ((ThisCall_00234590*)(p))->FUN_00234590(0);
     p->vptr = ((int)DAT_003f7394);
     p->fieldC = 0;
     p->field10 = 1;

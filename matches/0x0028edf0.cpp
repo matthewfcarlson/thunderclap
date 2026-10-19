@@ -29,9 +29,11 @@ class Factory_28edf0 {
     virtual Obj_28edf0* Get(int a, int b);
 };
 extern Factory_28edf0* gFactory_28edf0;
-void BaseInit();
+struct ThisCall_0027b070 {
+    void BaseInit();
+};
 Shader* Shader::Ctor(int a, int b) {
-    BaseInit();
+    ((ThisCall_0027b070*)(this))->BaseInit();
     vft = ((int)DAT_0042cb44);
     flag = 0;
     field18 = 0;

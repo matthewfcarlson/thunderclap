@@ -7,9 +7,11 @@ class CAlertStatusCondition {
     int mC;
     int m10;
 };
-void __stdcall Init(int);
+struct ThisCall_00234590 {
+    void Init(int);
+};
 CAlertStatusCondition* __fastcall FUN_0004a4a0(CAlertStatusCondition* self, void*) {
-    Init(0);
+    ((ThisCall_00234590*)(self))->Init(0);
     self->vptr = ((int)DAT_003f7404);
     self->mC = 0;
     self->m10 = 0;

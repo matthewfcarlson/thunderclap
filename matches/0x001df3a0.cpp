@@ -6,9 +6,12 @@ class Obj {
     Obj* link;
     Obj* get();
 };
-Obj* __stdcall findObj(int);
-char __stdcall target(int id, char value) {
-    Obj* a = findObj(id);
+struct ThisWrap_001df3a0 {
+    Obj* findObj(int);
+    char target(int id, char value);
+};
+char ThisWrap_001df3a0::target(int id, char value) {
+    Obj* a = this->findObj(id);
     if (!a)
         return 0;
     Obj* b = a->get();

@@ -14,10 +14,13 @@ class Obj {
     char pad[0xc9];
     char enabled;
 };
-Obj* __stdcall lookup(int);
+struct ThisWrap_001fcc00 {
+    Obj* lookup(int);
+    char FUN_001fcc00(int a, int b);
+};
 extern "C" __int64 __cdecl convert(int);
-char __stdcall FUN_001fcc00(int a, int b) {
-    Obj* o = lookup(b);
+char ThisWrap_001fcc00::FUN_001fcc00(int a, int b) {
+    Obj* o = this->lookup(b);
     if (!o)
         return 0;
     if (!o->enabled)

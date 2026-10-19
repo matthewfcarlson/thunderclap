@@ -6,9 +6,11 @@ class SeqEventVarVolumeRand {
     float a;
     float b;
 };
-void Init();
+struct ThisCall_0025fd00 {
+    void Init();
+};
 SeqEventVarVolumeRand* __fastcall FUN_00252380(SeqEventVarVolumeRand* self) {
-    Init();
+    ((ThisCall_0025fd00*)(self))->Init();
     self->vf = &vtable_252380;
     self->a = 0.5f;
     self->b = 1.0f;

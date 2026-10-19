@@ -44,14 +44,14 @@ class Manager_d7e60 {
     virtual void f41();
     virtual void f42();
     virtual void f43();
-    virtual int f44(int);
+    virtual int f44();
 };
 Manager_d7e60* getManager();
 extern char* name_d7e60;
 class Field_d7e60 {
   public:
     int val;
-    void set(char*, int);
+    void set(char*, int, int);
 };
 class FEObject {
   public:
@@ -85,7 +85,7 @@ void FEMemCardControl::vfunc_3() {
     x1d0 = 0;
     x18 = 0;
     Manager_d7e60* m = getManager();
-    field.set(name_d7e60, m->f44(1));
+    field.set(name_d7e60, m->f44(), 1);
     field.val = 0;
     x220 = 0;
     x25c = 0;

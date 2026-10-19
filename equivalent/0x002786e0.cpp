@@ -3,11 +3,11 @@
 namespace core {
 class XboxSaveDrive {
 public:
-    int vfunc_2();
-    int vfunc_0_adj4();
+    int vfunc_2(unsigned flags);
+    int vfunc_0_adj4(unsigned flags);
 };
-int XboxSaveDrive::vfunc_0_adj4() {
+int XboxSaveDrive::vfunc_0_adj4(unsigned flags) {
     XboxSaveDrive* drive = reinterpret_cast<XboxSaveDrive*>(reinterpret_cast<char*>(this) - 4);
-    return drive->vfunc_2();
+    return drive->vfunc_2(flags);
 }
 }

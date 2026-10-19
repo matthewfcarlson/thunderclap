@@ -11,10 +11,12 @@ class CActorManager {
     int m1c;
     CActorManager(const char*, int);
 };
-extern "C" void __stdcall FUN_001d0480(const char*, int);
+struct ThisCall_001d0480 {
+    void FUN_001d0480(const char*, int);
+};
 extern const char s0_2d770[], s1[], s2[], s3[];
 CActorManager::CActorManager(const char* p, int q) {
-    FUN_001d0480(p, 4);
+    ((ThisCall_001d0480*)(this))->FUN_001d0480(p, 4);
     vt = ((int)DAT_003f420c);
     m1c = q;
     b18 = FUN_001d04d0(s0_2d770);

@@ -1,5 +1,5 @@
 void* Alloc(int n);
-void* __stdcall AllocAlign(int n, int a);
+struct Allocator_28bd40 { void* AllocAlign(int n, int a); };
 class Base_28bd40 {
   public:
     Base_28bd40(int a, int b);
@@ -27,5 +27,5 @@ Vector1DOFChannel::Vector1DOFChannel(int a, int b) : Base_28bd40(a, b) {
     if (c == 0)
         m28 = Alloc(m10 << 2);
     else
-        m28 = AllocAlign(m10 << 2, 3);
+        m28 = ((Allocator_28bd40*)c)->AllocAlign(m10 << 2, 3);
 }

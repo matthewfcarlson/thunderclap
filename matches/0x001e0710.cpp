@@ -13,9 +13,11 @@ class Target_1e0710 {
     CSPManager* mgr;
     Target_1e0710(const char*, CSPManager*);
 };
-extern void __stdcall FUN_001d0480(const char*, int);
+struct ThisCall_001d0480 {
+    void FUN_001d0480(const char*, int);
+};
 Target_1e0710::Target_1e0710(const char* s, CSPManager* m) {
-    FUN_001d0480(s, 4);
+    ((ThisCall_001d0480*)(this))->FUN_001d0480(s, 4);
     *(int*)this = ((int)DAT_00423418);
     mgr = m;
     b18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e100)));

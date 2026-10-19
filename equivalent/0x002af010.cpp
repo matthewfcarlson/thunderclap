@@ -33,11 +33,13 @@ public:
     virtual void v8();
     virtual void v9(int a, TextureBuilder *tb);
 };
-Builder *__stdcall FUN_002ae9d0(int a);
+struct ThisWrap_002af010 {
+    Builder * FUN_002ae9d0(int a);
+    void FUN_002af010(int a1, int a2, int a3, int a4);
+};
 
-void __stdcall FUN_002af010(int a1, int a2, int a3, int a4)
-{
-    Builder *b = FUN_002ae9d0(a3);
+void ThisWrap_002af010::FUN_002af010(int a1, int a2, int a3, int a4) {
+    Builder *b = this->FUN_002ae9d0(a3);
     if (b != 0) {
         TextureBuilder tb(a2, a4);
         b->v9(a1, &tb);

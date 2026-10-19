@@ -33,10 +33,10 @@ extern int __cdecl FindName(const char*);
 extern int __cdecl LookupThing(int, int, int*, int*, int);
 extern int __cdecl GetFlagThing(int);
 struct Result_b5b90 {
-    char Check();
+    char Check(int);
 };
 struct Ctx_b5b90 {
-    Result_b5b90* Get(int);
+    Result_b5b90* Get();
 };
 struct Global_b5b90 {
     char pad[0x54];
@@ -47,8 +47,7 @@ void FUN_000b5b90() {
     FEObject* p = (FEObject*)LookupThing(FindName("cheat_invulnerability_selector"), 0, (int*)((int)DAT_0049dba4),
                                          (int*)((int)DAT_0049dbbc), 0);
     if (p) {
-        Result_b5b90* r = gGlobal_b5b90->ctx->Get(0x2e4);
-        int flag = r->Check() == 0;
+        int flag = gGlobal_b5b90->ctx->Get()->Check(0x2e4) == 0;
         p->Set(flag);
     }
 }

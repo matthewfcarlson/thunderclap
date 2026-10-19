@@ -24,13 +24,13 @@ struct Global_1b90b0 {
 };
 extern Global_1b90b0* g_1b90b0;
 struct Item_1b90b0 {
-    void Act();
+    void Act(int, float, int, int);
 };
-Item_1b90b0* __stdcall Make(int, float, int, int);
+Item_1b90b0* __stdcall Make();
 void Thing_1b90b0::Fn() {
     unsigned x = g_1b90b0->part->Get();
     g_1b90b0->part->Set(flags | x);
-    Make(1, 0.5f, 0, 0)->Act();
+    Make()->Act(1, 0.5f, 0, 0);
     Engine_1b90b0* e = g_1b90b0->sub->p;
     if (e && active) {
         active = 0;

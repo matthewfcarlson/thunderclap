@@ -16,10 +16,12 @@ class Callback_2a3e50 {
     virtual void b11();
     virtual void Invoke(int);
 };
-extern void FUN_002a3b60();
+struct ThisCall_002a3b60 {
+    void FUN_002a3b60();
+};
 
 void pure3d::ParticleSystem::vfunc_9() {
-    FUN_002a3b60();
+    ((ThisCall_002a3b60*)(this))->FUN_002a3b60();
     if ((*(class Callback_2a3e50 * *)&this->f_a4))
         (*(class Callback_2a3e50 * *)&this->f_a4)->Invoke(0);
 }

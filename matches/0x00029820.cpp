@@ -18,13 +18,15 @@ union Id64_29820 {
     unsigned int w[2];
 };
 
-Holder_29820 *__stdcall FUN_000259f0(const char *name);
+struct ThisWrap_00029820 {
+    Holder_29820 * FUN_000259f0(const char *name);
+    bool FUN_00029820(const char *a, const char *b);
+};
 
-bool __stdcall FUN_00029820(const char *a, const char *b)
-{
+bool ThisWrap_00029820::FUN_00029820(const char *a, const char *b) {
     if (a == 0 || a[0] == 0 || b == 0 || b[0] == 0)
         return false;
-    Holder_29820 *h = FUN_000259f0(a);
+    Holder_29820 *h = this->FUN_000259f0(a);
     if (h == 0)
         return false;
     Owner_29820 *o = h->owner;

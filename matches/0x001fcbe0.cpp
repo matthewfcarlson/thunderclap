@@ -14,10 +14,13 @@ class Obj {
     virtual char V11();
 };
 
-extern "C" Obj* __stdcall FUN_001fc7f0(int);
+struct ThisWrap_001fcbe0 {
+    Obj* FUN_001fc7f0(int);
+    char FUN_001fcbe0(int a);
+};
 
-char __stdcall FUN_001fcbe0(int a) {
-    Obj* r = FUN_001fc7f0(a);
+char ThisWrap_001fcbe0::FUN_001fcbe0(int a) {
+    Obj* r = this->FUN_001fc7f0(a);
     if (!r)
         return 1;
     return r->V11();

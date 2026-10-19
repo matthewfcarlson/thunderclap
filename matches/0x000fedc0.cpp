@@ -15,12 +15,14 @@ class CActorGolem : public CGolem {
     virtual void f8();
     virtual void f9();
 };
-void FUN_000fe1e0();
+struct ThisCall_000fe1e0 {
+    void FUN_000fe1e0();
+};
 void thunk_FUN_00267090(CActorGolem*);
 CActorGolem* CActorGolem::vfunc_2(unsigned char param_2) {
     *(void**)this = (void*)((int)DAT_0040d164);
     *(int*)((char*)this + 0xf8) = 0;
-    FUN_000fe1e0();
+    ((ThisCall_000fe1e0*)(this))->FUN_000fe1e0();
     if (param_2 & 1)
         thunk_FUN_00267090(this);
     return this;

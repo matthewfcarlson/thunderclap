@@ -1,6 +1,6 @@
 extern "C" void* memset(void*, int, unsigned);
 void* Alloc(unsigned n);
-void* __stdcall Alloc2(unsigned n, int f);
+struct Allocator_28c370 { void* Alloc2(unsigned n, int f); };
 class Base_28c370 {
   public:
     Base_28c370(int a, int b);
@@ -22,6 +22,6 @@ BoolChannel::BoolChannel(int a, int b) : Base_28c370(a, b) {
     if (m0 == 0)
         bits = (unsigned*)Alloc(n * 4);
     else
-        bits = (unsigned*)Alloc2(n * 4, 3);
+        bits = (unsigned*)((Allocator_28c370*)m0)->Alloc2(n * 4, 3);
     memset(bits, 0, n * 4);
 }

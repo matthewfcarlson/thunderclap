@@ -1,14 +1,16 @@
 extern "C" char f(const char*);
-extern "C" void __stdcall init(void*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(void*, int);
+    virtual void v_001d0480();
+};
 extern char label1[];
 extern char label2[];
-class Root {
+class Root : public CtorV_001d0480 {
   public:
     Root(const char*, int);
     char pad[12];
 };
-Root::Root(const char* p, int n) {
-    init((void*)p, n);
+Root::Root(const char* p, int n) : CtorV_001d0480((void*)p, n) {
 }
 class Method1 : public Root {
   public:

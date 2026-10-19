@@ -4,9 +4,12 @@ class Obj {
     int value;
     int Check();
 };
-extern "C" Obj* __stdcall Find(int);
-int __stdcall FUN_001df2e0(int key, int value) {
-    Obj* p = Find(key);
+struct ThisWrap_001df2e0 {
+    Obj* Find(int);
+    int FUN_001df2e0(int key, int value);
+};
+int ThisWrap_001df2e0::FUN_001df2e0(int key, int value) {
+    Obj* p = this->Find(key);
     if (!p || !p->Check())
         return -1;
     p->value = value;

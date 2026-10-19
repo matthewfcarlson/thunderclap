@@ -1,7 +1,7 @@
 // FUN_000b5030 @ 0x000b5030
 #include "decls/address.h"
-struct Slot_b5030 { void FUN_00086420(); };
-struct Holder_b5030 { Slot_b5030 *FUN_00086270(int a); };
+struct Slot_b5030 { void FUN_00086420(int a); };
+struct Holder_b5030 { Slot_b5030 *FUN_00086270(); };
 struct World {
     char pad00[0x54];
     Holder_b5030 *holder;
@@ -42,5 +42,5 @@ void Screen_b5030::FUN_000b5030(int a)
     panel->FUN_000895e0(item);
     panel->FUN_00089810("c00m01");
     panel->FUN_00089300("story");
-    DAT_004dd700->holder->FUN_00086270(1)->FUN_00086420();
+    DAT_004dd700->holder->FUN_00086270()->FUN_00086420(1);
 }

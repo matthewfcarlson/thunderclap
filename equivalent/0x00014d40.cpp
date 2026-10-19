@@ -4,8 +4,7 @@
 
 struct Vec_14d40 { float x,y,z; void FUN_0022be40(const Vec_14d40*); };
 struct Heading;
-// equiv-conv: FUN_000354c0 ecx stack
-float __cdecl FUN_000354c0(Heading*,Vec_14d40*);
+struct Heading { float FUN_000354c0(); };
 struct Actor_14d40 { Heading* FUN_00059a30(); void FUN_00059a50(Vec_14d40*); };
 struct Owner_14d40 { Actor_14d40* FUN_000592a0(); };
 struct Motion_14d40 { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual float slot7(); char pad[16]; float speed; float angle; };
@@ -23,7 +22,7 @@ bool CMoveAction::vfunc_7(float dt) {
  double scale=((double)motion->speed/duration)*dt;
  delta.x=(float)(delta.x*scale); delta.y=(float)(delta.y*scale); delta.z=(float)(delta.z*scale);
  float angle=motion->angle;
- float turn=FUN_000354c0(heading,&delta);
+ float turn=heading->FUN_000354c0();
  FUN_00224d70((float)((double)turn+angle),&delta);
  Vec_14d40 position; position.x=0;position.y=0;position.z=0;
  actor->FUN_00059a50(&position);

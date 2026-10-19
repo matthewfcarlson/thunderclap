@@ -1,10 +1,10 @@
 class Result_99050 {
   public:
-    void Finish();
+    void Finish(int);
 };
 class Aux_99050 {
   public:
-    Result_99050* Create(int);
+    Result_99050* Create();
 };
 class Anim_99050 {
   public:
@@ -49,8 +49,7 @@ class Obj_99050 {
 void Obj_99050::F(Arg_99050* arg) {
     bool on = ((flags >> 2) & 1) != 0;
     if (on) {
-        Result_99050* r = a->Create(0);
-        r->Finish();
+        a->Create()->Finish(0);
         arg->t3c->Do(p98);
         arg->f4->flag = 1;
         Anim_99050* an = arg->h20->anim;

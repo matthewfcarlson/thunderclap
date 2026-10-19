@@ -19,10 +19,10 @@ struct Sink_1a8e60 {
     void FUN_00203e00(int value);
 };
 struct Inner_1a8e60 {
-    void FUN_001b92c0();
+    void FUN_001b92c0(int arg);
 };
 struct Selector_1a8e60 {
-    Inner_1a8e60 *FUN_00086290(int arg);
+    Inner_1a8e60 *FUN_00086290();
 };
 struct World {
     char pad0[0x54];
@@ -42,7 +42,7 @@ struct Owner_1a8e60 {
 
 void Owner_1a8e60::FUN_001a8e60()
 {
-    DAT_004dd700->f54->FUN_00086290(0)->FUN_001b92c0();
+    DAT_004dd700->f54->FUN_00086290()->FUN_001b92c0(0);
     for (int i = 0; i < 20; i++)
         items[i].FUN_001a5d50();
     if (f28) {

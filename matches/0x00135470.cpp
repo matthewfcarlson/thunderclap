@@ -3,7 +3,9 @@ struct Ref_135470 {
     virtual void AddRef();
     virtual void Release();
 };
-void BaseCtor();
+struct ThisCall_00232660 {
+    void BaseCtor();
+};
 class FlyingAttackAction {
   public:
     void* volatile vft;
@@ -19,7 +21,7 @@ class FlyingAttackAction {
     FlyingAttackAction* Run(void*, Ref_135470*);
 };
 FlyingAttackAction* FlyingAttackAction::Run(void* a, Ref_135470* r) {
-    BaseCtor();
+    ((ThisCall_00232660*)(this))->BaseCtor();
     vft = (void*)((int)DAT_00411dc4);
     arg = 0;
     ref = 0;

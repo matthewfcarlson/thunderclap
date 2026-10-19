@@ -4,9 +4,12 @@ class Obj {
   public:
     unsigned char flag;
 };
-Obj* __stdcall lookup(int);
-unsigned char __stdcall FUN_001df350(int id) {
-    Obj* p = lookup(id);
+struct ThisWrap_001df350 {
+    Obj* lookup(int);
+    unsigned char FUN_001df350(int id);
+};
+unsigned char ThisWrap_001df350::FUN_001df350(int id) {
+    Obj* p = this->lookup(id);
     unsigned char r = 0;
     if (p)
         r = p->flag;

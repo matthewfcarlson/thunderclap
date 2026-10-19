@@ -2,7 +2,9 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 extern "C" char DAT_00404d20[];
-extern "C" void __stdcall FUN_001d0480(void*, int);
+struct ThisCall_001d0480 {
+    void FUN_001d0480(void*, int);
+};
 class CCameraManager {
   public:
     int vptr;
@@ -15,7 +17,7 @@ class CCameraManager {
     CCameraManager* Run(void*, void*);
 };
 CCameraManager* CCameraManager::Run(void* arg, void* value) {
-    FUN_001d0480(arg, 6);
+    ((ThisCall_001d0480*)(this))->FUN_001d0480(arg, 6);
     vptr = ((int)DAT_00404d20);
     p1c = value;
     b18 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e0e4)));

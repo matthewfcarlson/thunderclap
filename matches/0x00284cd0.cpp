@@ -3,9 +3,11 @@ class SimpleFrameController {
   public:
     char pad[0x40];
 };
-void Init();
+struct ThisCall_0027b070 {
+    void Init();
+};
 SimpleFrameController* __fastcall FUN_00284cd0(SimpleFrameController* p) {
-    Init();
+    ((ThisCall_0027b070*)(p))->Init();
     p->pad[0x10] = 0;
     *(int*)(p->pad + 0x20) = 0;
     *(int*)(p->pad + 0x24) = 0;

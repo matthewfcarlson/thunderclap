@@ -5,7 +5,9 @@ class Ref_18b90 {
     virtual void AddRef();
     virtual void Release();
 };
-void BaseInit();
+struct ThisCall_00232660 {
+    void BaseInit();
+};
 class CJointAction {
   public:
     virtual void V();
@@ -16,7 +18,7 @@ class CJointAction {
     CJointAction* Init(int, Ref_18b90*);
 };
 CJointAction* CJointAction::Init(int v, Ref_18b90* r) {
-    BaseInit();
+    ((ThisCall_00232660*)(this))->BaseInit();
     *(int*)this = ((int)DAT_003f3390);
     ref = 0;
     if (r)

@@ -1,7 +1,9 @@
 extern "C" char DAT_003f408c[];
 typedef unsigned char u8;
 typedef unsigned int u32_2c810;
-void __stdcall setup(void*, int);
+struct ThisCall_001d0480 {
+    void setup(void*, int);
+};
 u8 __cdecl getval(const void*);
 extern char g1_2c810[];
 extern char g2_2c810[];
@@ -19,7 +21,7 @@ class Method3 {
     Method3* target(void*, u32_2c810);
 };
 Method3* Method3::target(void* a, u32_2c810 c) {
-    setup(a, 3);
+    ((ThisCall_001d0480*)(this))->setup(a, 3);
     vf = ((int)DAT_003f408c);
     value = c;
     b18 = getval(g1_2c810);

@@ -45,7 +45,9 @@ struct Frame_318910 {
     Vec3_318910 out2;
 };
 
-void __cdecl FUN_002f7a90(Elem44 *e);
+struct ThisCall_002f7a90 {
+    void FUN_002f7a90(Elem44 *e);
+};
 
 class Solver_318910 {
 public:
@@ -107,7 +109,7 @@ void Solver_318910::FUN_00318910(Probe_318910 *a1, Probe_318910 *a2)
                 Elem44 *newEnd = list->end - 1;
                 list->end = newEnd;
                 if (oldEnd - 1 < newEnd)
-                    FUN_002f7a90(newEnd);
+                    ((ThisCall_002f7a90*)(this))->FUN_002f7a90(newEnd);
                 count--;
             }
             FUN_00314be0(y, &fr.out2, x, &fr.out1, lenSq, &fr.d);

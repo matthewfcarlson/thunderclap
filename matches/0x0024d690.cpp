@@ -2,12 +2,14 @@
 
 extern "C" char DAT_00429434[];
 typedef unsigned int u32_24d690;
-extern void __stdcall Init(void*, void*, int, int);
+struct ThisCall_002584d0 {
+    void Init(void*, void*, int, int);
+};
 struct Obj_24d690 {
     void* vf;
 };
 Obj_24d690* __fastcall Target(Obj_24d690* self) {
-    Init((void*)((int)DAT_004e6328), (void*)((int)DAT_004e6320), 0x30, 4);
+    ((ThisCall_002584d0*)(self))->Init((void*)((int)DAT_004e6328), (void*)((int)DAT_004e6320), 0x30, 4);
     self->vf = (void*)((int)DAT_00429434);
     return self;
 }

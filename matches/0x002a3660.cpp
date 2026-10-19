@@ -1,5 +1,7 @@
 extern "C" char DAT_0042d88c[];
-void* __stdcall FUN_002a4e10(void*);
+struct ThisCall_002a4e10 {
+    void* FUN_002a4e10(void*);
+};
 void FUN_0022b980();
 struct Sub_2a3660 {
     void Init();
@@ -19,7 +21,7 @@ class ParticleSystem {
     ParticleSystem* Build(void* arg);
 };
 ParticleSystem* ParticleSystem::Build(void* arg) {
-    FUN_002a4e10(arg);
+    ((ThisCall_002a4e10*)(this))->FUN_002a4e10(arg);
     vt = ((int)DAT_0042d88c);
     flag = 1;
     x = 100.0f;

@@ -9,9 +9,12 @@ class Mid {
     Obj* obj;
     Mid* Get();
 };
-extern "C" Mid* __stdcall Find(int);
-char __stdcall Target(int id) {
-    Mid* p = Find(id);
+struct ThisWrap_001df370 {
+    Mid* Find(int);
+    char Target(int id);
+};
+char ThisWrap_001df370::Target(int id) {
+    Mid* p = this->Find(id);
     if (!p)
         return 0;
     p = p->Get();

@@ -53,7 +53,7 @@ struct Matched {
 };
 
 struct Recorder {
-    void FUN_00066a10();
+    void FUN_00066a10(Key_1d7b80 *key);
 };
 
 struct World {
@@ -67,7 +67,7 @@ struct Listener_1d7b80 {
 };
 
 
-Recorder *__stdcall FUN_000678d0(Key_1d7b80 *key);
+Recorder *__stdcall FUN_000678d0();
 
 class Actor_1d7b80 {
 public:
@@ -153,7 +153,7 @@ void Actor_1d7b80::FUN_001d7b80(int a, int b)
             Key_1d7b80 k;
             k.lo = key.lo;
             k.hi = key.hi;
-            FUN_000678d0(&k)->FUN_00066a10();
+            FUN_000678d0()->FUN_00066a10(&k);
             fired = 1;
             Listener_1d7b80 *l = DAT_004dd700->listener;
             if (l)

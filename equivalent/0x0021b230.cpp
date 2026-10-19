@@ -34,7 +34,7 @@ void FUN_0021afd0(LexState* LS, const char* msg, int token);
 
 // save_and_next out of line: the lexer state arrives in edi
 // equiv-conv: FUN_0021b1c0 edi
-void __stdcall FUN_0021b1c0(LexState* LS);
+void FUN_0021b1c0(LexState* LS);
 
 // grow the token buffer when full, then append one character
 #define SAVE(LS, c)                                                                          \

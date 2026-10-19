@@ -42,7 +42,7 @@ public:
 
 class Result_1d7360 {
 public:
-    void FUN_0022c2b0();
+    void FUN_0022c2b0(void*, void*);
 };
 
 class Node {
@@ -62,7 +62,7 @@ public:
     virtual void v12();
     virtual void v13();
     virtual void v14();
-    virtual Result_1d7360* Transform(Vec3Bits* local, Vec4Bits* out);
+    virtual Result_1d7360* Transform();
     char pad4[0x9c - 4];
     Source_1d7360* source;
     Parent_1d7360* parent;
@@ -93,6 +93,6 @@ bool Node::FUN_001d7360(Vec4Bits* out)
     local.x = out->x;
     local.y = out->y;
     local.z = out->z;
-    Transform(&local, out)->FUN_0022c2b0();
+    Transform()->FUN_0022c2b0(&local, out);
     return true;
 }

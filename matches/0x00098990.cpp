@@ -42,12 +42,14 @@ struct CBlendCamera {
     void call29();
     void call9620();
 };
-void __stdcall FUN_00098480(int);
+struct ThisCall_00098480 {
+    void FUN_00098480(int);
+};
 void __cdecl thunk_FUN_00267090(CBlendCamera*);
 CBlendCamera* CBlendCamera::vfunc_2(byte_98990 param) {
     CBlendCamera* self = this;
     *(int*)self = ((int)DAT_00404b3c);
-    FUN_00098480(0);
+    ((ThisCall_00098480*)(this))->FUN_00098480(0);
     self->call29();
     self->call9620();
     if (param & 1)

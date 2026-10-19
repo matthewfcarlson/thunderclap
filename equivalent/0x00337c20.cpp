@@ -7,7 +7,7 @@ struct Buffer_337c20 {
     unsigned int field12;
     void FUN_003352a0();
     void FUN_003352b0();
-    void* FUN_00336f00(int size);
+    void* FUN_00336f00();
     void FUN_00336ee0(int size);
     void FUN_00336d90();
     void FUN_00336dd0();
@@ -31,7 +31,7 @@ bool __stdcall FUN_00337c20(Stream* stream, void* arg, Converter* converter, Out
             buffer.FUN_003352b0();
             return false;
         }
-        if (stream->read(buffer.FUN_00336f00(size),size) < size) {
+        if (stream->read(buffer.FUN_00336f00(),size) < size) {
             buffer.FUN_003352b0();
             return false;
         }

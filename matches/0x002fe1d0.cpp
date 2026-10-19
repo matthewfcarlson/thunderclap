@@ -5,9 +5,11 @@ class PhysicsThing {
     int b;
     unsigned char c;
 };
-extern void BaseCtor();
+struct ThisCall_0027b070 {
+    void BaseCtor();
+};
 PhysicsThing* __fastcall Target(PhysicsThing* self) {
-    BaseCtor();
+    ((ThisCall_0027b070*)(self))->BaseCtor();
     *(int*)self = ((int)DAT_00431968);
     self->b = 0;
     self->c = 1;

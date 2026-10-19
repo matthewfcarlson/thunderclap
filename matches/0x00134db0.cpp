@@ -3,7 +3,9 @@ class Ref_134db0 {
     virtual void AddRef();
     virtual void Release();
 };
-void BaseCtor();
+struct ThisCall_00232660 {
+    void BaseCtor();
+};
 extern int hoverVftable;
 class HoverAction {
   public:
@@ -14,7 +16,7 @@ class HoverAction {
     HoverAction* Init(int a, Ref_134db0* r);
 };
 HoverAction* HoverAction::Init(int a, Ref_134db0* r) {
-    BaseCtor();
+    ((ThisCall_00232660*)(this))->BaseCtor();
     *(int*)this = (int)&hoverVftable;
     field1c = a;
     field20 = 0;

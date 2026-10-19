@@ -11,9 +11,11 @@ class CButtonValueCondition {
     int x6;
     int x7;
 };
-extern void __stdcall FUN_00234590(int);
+struct ThisCall_00234590 {
+    void FUN_00234590(int);
+};
 CButtonValueCondition* __fastcall FUN_00048790(CButtonValueCondition* self) {
-    FUN_00234590(0);
+    ((ThisCall_00234590*)(self))->FUN_00234590(0);
     self->x4 = 4;
     self->x6 = 4;
     self->x3 = 0;

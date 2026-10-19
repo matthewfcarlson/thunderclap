@@ -11,10 +11,12 @@ class Thing_3ffa0 {
     unsigned char state;
     void Set(Ref_3ffa0*, unsigned char);
 };
-void Missing();
+struct ThisCall_000393c0 {
+    void Missing();
+};
 void Thing_3ffa0::Set(Ref_3ffa0* value, unsigned char flag) {
     if (value == 0) {
-        Missing();
+        ((ThisCall_000393c0*)(this))->Missing();
         return;
     }
     state = flag;

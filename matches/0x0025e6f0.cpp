@@ -4,10 +4,12 @@ class RestPoseDriver {
     virtual void f();
     RestPoseDriver* construct(void*);
 };
-extern void __stdcall InitRestPose(void*);
+struct ThisCall_00244ea0 {
+    void InitRestPose(void*);
+};
 extern void* RestPoseVtable;
 RestPoseDriver* RestPoseDriver::construct(void* arg) {
-    InitRestPose(arg);
+    ((ThisCall_00244ea0*)(this))->InitRestPose(arg);
     *(void**)this = &RestPoseVtable;
     return this;
 }

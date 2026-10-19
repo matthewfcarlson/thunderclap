@@ -5,9 +5,9 @@ class Obj_69370 {
     int b;
     int c;
     int d;
-    void f(int);
+    float f(int);
 };
-void callee(int, int, int, int, int);
-void Obj_69370::f(int x) {
-    callee(b, a, d, c, x);
+float callee(int, int, int, int, int);
+float Obj_69370::f(int x) {
+    return callee(b, a, d, c, x);
 }

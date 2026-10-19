@@ -28,7 +28,7 @@ struct World {
 };
 
 struct Strings_117480 {
-    const char *FUN_001d3030(const char *name);
+    const char *FUN_001d3030(const char *name, const char *tag);
 };
 Strings_117480 *FUN_001d4c90();
 
@@ -70,7 +70,7 @@ struct Owner_117480 {
     char pad1d78[0x2064 - 0x1d78];
     V3_117480 dir;
     float strength;
-    const char *FUN_00036d00(const char *name);
+    const char *FUN_00036d00();
 };
 
 struct Source_117480 {
@@ -118,7 +118,7 @@ char MotionLocatorAction::v5(Arg1_117480 a1, int a2)
     } else if (inf->flag29) {
         id = owner->id1d70;
     } else if (inf->flag28) {
-        id = FUN_002672f0(FUN_001d4c90()->FUN_001d3030(owner->FUN_00036d00("locator")), 0, 0);
+        id = FUN_002672f0(FUN_001d4c90()->FUN_001d3030(owner->FUN_00036d00(), "locator"), 0, 0);
         if (id == 0) {
             id = owner->id1d70;
             if (id == 0)

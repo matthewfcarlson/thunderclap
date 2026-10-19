@@ -3,9 +3,12 @@ struct Info {
     float value;
 };
 extern float DEFAULT_VALUE;
-extern Info* __stdcall GetInfo(int);
-float __stdcall FUN_001fca90(int arg) {
-    Info* p = GetInfo(arg);
+struct ThisWrap_001fca90 {
+    Info* GetInfo(int);
+    float FUN_001fca90(int arg);
+};
+float ThisWrap_001fca90::FUN_001fca90(int arg) {
+    Info* p = this->GetInfo(arg);
     if (!p)
         return DEFAULT_VALUE;
     return p->value;

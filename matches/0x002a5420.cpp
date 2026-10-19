@@ -9,9 +9,9 @@ class Controller_2a5420 {
     int d;
     int e;
 };
-void Init();
+void __fastcall Init(void*);
 Controller_2a5420* __fastcall Target(Controller_2a5420* self) {
-    Init();
+    Init((void*)(self));
     *(int*)((char*)self + 0x40) = 0;
     *(int*)((char*)self + 0x48) = 0;
     *(int*)((char*)self + 0x4c) = 0;

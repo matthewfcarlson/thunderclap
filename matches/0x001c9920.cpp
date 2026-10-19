@@ -1,6 +1,8 @@
 typedef unsigned char u8_1c9920;
 __int64 Make(int);
-void __stdcall Init(int, int, int);
+struct ThisCall_001c9750 {
+    void Init(int, int, int);
+};
 class Obj_1c9920 {
   public:
     char pad[0xC];
@@ -12,7 +14,7 @@ class Obj_1c9920 {
     Obj_1c9920* Build(int, int, int, u8_1c9920);
 };
 Obj_1c9920* Obj_1c9920::Build(int p2, int p3, int p4, u8_1c9920 p5) {
-    Init(1, 0xc0, p2);
+    ((ThisCall_001c9750*)(this))->Init(1, 0xc0, p2);
     union U {
         __int64 q;
         struct {

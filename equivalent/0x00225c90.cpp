@@ -8,9 +8,9 @@ struct Object {
  int valueA;
  int valueB;
  char pad3[8]; float offset;
- void FUN_00225c90(float amount);
+ float FUN_00225c90(float amount);
 };
-void __cdecl FUN_00225be0(float, int, int, unsigned char, unsigned char, int, int);
-void Object::FUN_00225c90(float amount) {
- FUN_00225be0(data->scale * factor * amount + offset, valueA, valueB, flag, flag, valueB, valueA);
+float __cdecl FUN_00225be0(float, int, int, unsigned char, unsigned char, int, int);
+float Object::FUN_00225c90(float amount) {
+ return FUN_00225be0(data->scale * factor * amount + offset, valueA, valueB, flag, flag, valueB, valueA);
 }

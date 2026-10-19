@@ -1,14 +1,13 @@
 class Chain_d81c0 {
   public:
     Chain_d81c0* A();
-    void B();
-    int C();
-    void D();
+    void B(int);
+    int C(int, int);
+    void D(int);
 };
 class Manager_d81c0 {
   public:
-    Chain_d81c0* Get(int);
-    Chain_d81c0* Get2(int, int);
+    Chain_d81c0* Get();
 };
 class Obj_d81c0 {
   public:
@@ -16,13 +15,8 @@ class Obj_d81c0 {
     Manager_d81c0* m;
 };
 int __fastcall target(Obj_d81c0* self, void*, int x, int y) {
-    Chain_d81c0* a = self->m->Get(x);
-    a = a->A();
-    a->B();
-    Chain_d81c0* b = self->m->Get2(x, y);
-    int r = b->C();
-    a = self->m->Get(x);
-    a = a->A();
-    a->D();
+    self->m->Get()->A()->B(x);
+    int r = self->m->Get()->C(x, y);
+    self->m->Get()->A()->D(x);
     return r;
 }

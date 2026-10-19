@@ -7,10 +7,12 @@ class CFightParams {
     int y;
     CFightParams* Init(int);
 };
-extern "C" void BaseInit();
+struct ThisCall_00236a60 {
+    void BaseInit();
+};
 extern "C" int fightvftable;
 CFightParams* CFightParams::Init(int v) {
-    BaseInit();
+    ((ThisCall_00236a60*)(this))->BaseInit();
     value = v;
     x = 0;
     y = 0;

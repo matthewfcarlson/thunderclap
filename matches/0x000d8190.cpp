@@ -1,9 +1,9 @@
 extern int g_d8190;
 struct R_d8190 {
-    int finish();
+    int finish(int, int, int);
 };
 struct A_d8190 {
-    R_d8190* call(int, int, int);
+    R_d8190* call();
 };
 struct Obj_d8190 {
     char pad[0x150];
@@ -11,6 +11,5 @@ struct Obj_d8190 {
     int target(int, int);
 };
 int Obj_d8190::target(int a, int b) {
-    R_d8190* r = ptr->call(a, b, g_d8190);
-    return r->finish();
+    return ptr->call()->finish(a, b, g_d8190);
 }

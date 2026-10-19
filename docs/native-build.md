@@ -76,6 +76,95 @@ report: a scan of the stack top for return addresses into the image (the frame c
 imbalance: `scan esp+... ` lines, symbolized by native_run.py; `HULK_CRASH_BELOW=n` starts n words lower),
 `HULK_CRASH_DUMP=1` (0x40 bytes at each register) and `HULK_CRASH_PEEK=addr,...` (heap layouts repeat between runs).
 
+## native8: the native-only bug classes, batch by batch (2026-10-19)
+
+Checks 5-9 of [Start-up, part 3](#start-up-part-3-2026-10-18-night) worked through as batches, each fix through
+`native_fix.py --apply --verify` (compare.py MATCH / equiv.py --inputs 3000 EQUIVALENT, file unchanged meanwhile),
+counts re-measured after every batch on a full tree build + clang probe + link. **423 verified rewrites, 409
+sources and 3 `include/gen` headers** (`build/native8/sources.txt`); 3 matches became equivalent/ sources.
+
+**Inputs.** HEAD's own MSVC tree build currently fails 590 of 2,808 TUs (since 4dfc66ea: gen_tree hoists the
+`TypeTag<...>` specializations of fx17's new /GS match `matches/0x000c0aa0` & co. into the shared
+`build/tree/include/game/global.h`, which the `.GS` TUs see without `decls/data/game/unknown.h`: `DAT_0048e100`
+undeclared). So the measurements and the proof use the last buildable state (native7's final tree: the 18:18
+frozen copies + native7's 308 sources) with this round's sources on top. The generator needs the fix, not the sources.
+
+**1. Counts per batch** (`native_conv_check.py --returns --pops` + `classify_definition_convs`; checks 5 and 9 with
+this round's check refinements, see 3.):
+
+| after | check 5 | check 6 defs / sites | check 7 symbols / addrs | check 8 changing (defs) | check 9 |
+|---|---|---|---|---|---|
+| start (native7 final) | 4 (1 after refinement) | 72 / 386 | 221 / 158 | 309 (197) | 10 (8 after refinement) |
+| batch 1 (check 8: this-cand, arg-shift, hand groups) | 1 | 72 / 386 | 159 / 120 | 79 (60) | 2 |
+| batch 1b (base-ctor, this-cand/this-wrap, C-linkage callers, hand groups) | 1 | 72 / 386 | 159 / 119 | 40 (32) | 1 |
+| batch 2 (check 6: ret-cand, hand groups; G1's 3 probe fixes) | 1 | 34 / 70 | 120 / 92 | 9 (9) | 1 |
+| batch 3 (check 7: closures, include/gen pass-through, getters, demotes) | 1 | 24 / 42 | 71 / 52 | 2 (2) | 1 |
+| batch 4 (check 7/6 leftovers by hand) | **1** | **16 / 21** | **34 / 33** | **2 (2)** | **1** |
+
+Strict `lld-link` links after every batch (1,726 undefined symbols, 1,276 dispatch stubs).
+
+**2. What the bugs were** (all byte- or equiv-verified, all invisible to the MSVC match):
+
+- *Thiscall callees called as free functions* (check 8, 230 rewrites by `this-cand`): member functions whose
+  first call passes the incoming `this` on (`FUN_00019420()` in the "same code shape" sources), base constructors
+  called by name, and **this-wrap**: free `__stdcall` wrappers whose original never touches ecx and passes it on
+  (`bool FUN_001fc9d0(int x) { return FUN_001fc7f0(x); }`, the `Table::FUN_001fc7f0` and `Registry_e7260`
+  families): the wrapper itself becomes a member, its callers the next level. Hand-read ones where ecx was a field
+  (`m0`, the notifier at +0x1d94, the channel at +0x8c, the allocator word).
+- *Arguments that belong to the next call* (checks 7 and 8, `arg-shift` 39 + ~40 by hand): a getter that takes
+  nothing (`mov eax, [ecx+0x34]; ret`; the singleton getter 0x001c3d90) declared with the words MSVC pushed early
+  for the call after it: `Make(1, 0.5f, 0, 0)->Act()` is `Make()->Act(1, 0.5f, 0, 0)`; natively the getter
+  popped words it never got. Two of them (0x00117da0, 0x0011c9a0) also overran their local: the init 0x001ca2e0
+  writes 0x5c bytes at the packet's start, the source had a 12-byte "prefix" plus an 80-byte text.
+- *Pass-through wrappers* (check 7): `mov ecx, [ecx+d]; jmp callee` forwarding the callers' words. MSVC 7.1 keeps
+  the tail `jmp` when the wrapper declares and passes them (byte-identical, also through a vftable slot). 13 of them
+  are `include/gen` virtuals: `core::IDrive`/`InstanceDrive::vfunc_24..32`, `pure3d::ShadowSkin::vfunc_24`,
+  `pddiExtGammaControl`/`d3dExtGammaControl::vfunc_1,2`, `pddiExtVertexProgram`/`d3dExtVertexProgram::vfunc_1`,
+  `FEThingsBase`/`FEThings::vfunc_40`: the headers changed and **every source that includes a gen header and names
+  those classes (68) re-verified** with them. The 11 script-binding `Closure2<...>::vfunc_2` overwrite their first
+  word and pass two on to `Method2::vfunc_2` (`ret 0xc`); the deleting-destructor thunks pass the flags word.
+- *Void definitions whose callers use the result* (check 6, `ret-cand` 28 + by hand): tail calls of float helpers
+  (`atan2`-style 0x00224ea0, the angle wrap 0x0004af40: 151 of the 386 sites), `int Run() { ... return r; }`
+  loops, luaH_setnum (`return the slot`), luaM_growaux (`return the block` past the stores), `_vsnprintf`'s count.
+- *Register-convention leftovers*: Lua's DumpFunction declared its `equiv-conv` callees `__stdcall`; the heading
+  getter 0x000354c0 and 0x00225b30 took stack words from the next call; 0x002d0950 is a thiscall member with three
+  words (its note had made it a five-argument `__cdecl` function; the edx word only fed the upper bytes of a bool).
+- *Demoted* (MSVC 7.1 can't keep the original's register): 0x00087990 (jumps with ecx = the tested field),
+  0x001bc710 (call; jmp forwarding a word), 0x00334c00 (the movie owner's member takes `this` in esi).
+
+**3. Tools.** `native_fix.py`: candidate rules `ret-cand` and `arg-shift`; `this-cand` extended (constructors with
+`HULK_THIS_CAND_CTORS=1`, one-register `__fastcall` definitions, members after an `ecx ...` note, this-wrap,
+C-linkage caller symbols mapped through `extern "C"` declarations); `HULK_FIX_SKIP` (sources no rule may touch:
+`build/native8/protected.txt`). `native_calls.py`: the native8 hand groups (each with its call-site reading).
+`native_conv_check.py`: check 5 accepts a `__fastcall` caller of a `__fastcall` definition with an `ecx [edx]`
+note and structures passed by value; check 9 sees a note's member declaration further down; check 7 leaves out
+definitions with a register note; check 6 treats `or eax, -1` as a write and counts a caller that only returns the
+callee's eax when its own result is used; check 8's call shape knows fastcall members and `__int64` parameters, and
+a C-linkage caller of a definition that reads no ecx/edx is no longer "changing".
+
+**4. Left** (the after-batch-4 row):
+
+- check 5 (1): `equivalent/0x0033d400` (str_format) still fails equiv.py unedited (native7 5.).
+- check 9 (1) / check 8 (2): `equivalent/0x000e07c0` -> 0x0008ef00 (a thiscall reading nothing from the stack;
+  equiv.py models the original's tail `jmp` as passing arguments and refuses the member call); 0x002ad7f0
+  (`Obj::Target` sets the word where a `__cdecl` member's `this` sits and jumps to the cdecl 0x00266f00: a vftable
+  slot of `__cdecl` shape, no direct caller).
+- check 7 (34 symbols): mostly single sites of the same "next call's words" shape inside larger equivalents
+  (0x001dd330 / 0x0027b0e0 request builders, 0x0027a370 / 0x0027a460 save writers, the `B`/`C` pair 0x002843a0 /
+  0x002848b0), and the `ThisNote` callers of 0x0025d740/0x0025d780 (equiv.py needs the forwarded word).
+- check 6 (16 / 21): callers (mostly equivalent/) that use an incidental eax of the callee (a loop index, the
+  last pointer): per-site, the value has to be named in the callee or computed in the caller.
+- Not this round: CementLibrary 0x00277a70 hands `this` as `IFileCompletionCallback*` (+4, correct in the source);
+  FileCompletionRequest 0x00274d20 then calls back through the game's vftable at 0x0042bf98, whose adjustor thunks
+  are the native link's (vftable / thunk binding), not a source bug.
+
+**5. MSVC 7.1 proof** (`build/native8/msvc-proof.txt`, local): base = the frozen inputs above + HEAD's generator,
+mine = + this round's 409 sources and 3 headers, both `build_tree.py --resume --jobs 3 --regression-rounds 4`:
+TUs 2,726 / 2,730 all compiled; matches 22,124 / 22,122 all matching; equivalent/ 5,348 / 5,350 compiled, **0
+differing** from their standalone code in either. Per function the verdicts are identical (27,468 / 27,472) except
+the 3 demotes (match -> compiled, by design) and `0x000d8030` (its match is newer than the frozen inputs: the
+overlay brings it in). 19 functions changed mode (13 wrapped -> merged: fewer conflicting declarations).
+
 ## Start-up, part 3 (2026-10-18 night)
 
 From the Lua VM to the D3D device. Inputs: frozen copies of the live tree at 18:18 (HEAD d3c0fb15 plus the

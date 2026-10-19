@@ -43,10 +43,10 @@ struct Provider_be310 {
     virtual void slot41();
     virtual void slot42();
     virtual void slot43();
-    virtual unsigned int slot44(int);
+    virtual unsigned int slot44();
 };
 struct Binding_be310 {
-    void FUN_000f8500(void*, unsigned int);
+    void FUN_000f8500(void*, unsigned int, int);
 };
 struct Channel {
     char pad[0x18];
@@ -78,18 +78,15 @@ bool Owner_be310::FUN_000be310(unsigned int id, void* setup, void* a, void* b, v
         item->FUN_000bb970(setup, x, y);
     if (a) {
         Binding_be310* binding = &item->first->binding;
-        unsigned int value = item->provider->slot44(1);
-        binding->FUN_000f8500(a, value);
+        binding->FUN_000f8500(a, item->provider->slot44(), 1);
     }
     if (b) {
         Binding_be310* binding = &item->second->binding;
-        unsigned int value = item->provider->slot44(1);
-        binding->FUN_000f8500(b, value);
+        binding->FUN_000f8500(b, item->provider->slot44(), 1);
     }
     if (c) {
         Binding_be310* binding = &item->third->binding;
-        unsigned int value = item->provider->slot44(1);
-        binding->FUN_000f8500(c, value);
+        binding->FUN_000f8500(c, item->provider->slot44(), 1);
     }
     item->FUN_000e5f70();
     item->FUN_000e5f00(mode);

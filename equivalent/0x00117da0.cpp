@@ -6,11 +6,11 @@ struct Bounds_117da0 { char pad[0x18]; float lowX, highX, lowY, highY; };
 struct Result_117da0;
 struct Link_117da0 { Result_117da0* FUN_00059a30(); };
 struct Source_117da0 { Link_117da0* FUN_000592a0(); };
-struct Item_117da0 { char pad[0xb4]; unsigned valueB4, valueB8; unsigned FUN_001034d0(unsigned, unsigned, int); };
+struct Item_117da0 { char pad[0xb4]; unsigned valueB4, valueB8; unsigned FUN_001034d0(); };
 struct Provider_117da0 { Item_117da0* FUN_000fdc40(); };
 struct Result_117da0 { char pad[0x10]; unsigned* id; char pad2[0x1ca0-0x14]; Provider_117da0* provider; };
-struct Text_117da0 { char data[80]; void FUN_001ca2e0(unsigned); };
-struct Packet_117da0 { char prefix[12]; Text_117da0 text; };
+struct Text_117da0 { char data[0x5c]; void FUN_001ca2e0(unsigned, unsigned, unsigned, int); };
+struct Packet_117da0 { Text_117da0 text; };
 struct Sink_117da0 { void FUN_001cbc20(Packet_117da0*); };
 struct World { char pad[0x30]; Sink_117da0* sink; };
 struct Target_117da0 { char pad[0x1c]; Bounds_117da0* bounds; Source_117da0* source; char pad2[0xc]; float magnitude, x, y; char pad3[0xc]; unsigned value; bool run(); };
@@ -27,9 +27,11 @@ bool Target_117da0::run() {
    Item_117da0* item = result->provider->FUN_000fdc40();
    if (item) {
     Sink_117da0* sink = DAT_004dd700->sink;
-    unsigned token = item->FUN_001034d0(*result->id, value, 1);
+    unsigned v = value;
+    unsigned id = *result->id;
+    unsigned token = item->FUN_001034d0();
     Packet_117da0 packet;
-    packet.text.FUN_001ca2e0(token);
+    packet.text.FUN_001ca2e0(token, id, v, 1);
     sink->FUN_001cbc20(&packet);
     item->valueB8 = value;
     item->valueB4 = value;

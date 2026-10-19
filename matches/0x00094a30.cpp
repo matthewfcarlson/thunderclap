@@ -1,10 +1,13 @@
-extern "C" void __stdcall init(const char*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(const char*, int);
+    virtual void v_001d0480();
+};
 extern "C" unsigned char readFlag(const char*);
 extern char flagA[];
 extern char flagB[];
-class InitBase {
+class InitBase : public CtorV_001d0480 {
   public:
-    InitBase(const char* s) { init(s, 1); }
+    InitBase(const char* s) : CtorV_001d0480(s, 1) { }
 };
 class Method1 : public InitBase {
   public:

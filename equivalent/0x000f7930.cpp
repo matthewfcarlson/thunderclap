@@ -14,9 +14,9 @@ struct State {
     char pad19[3];
     float amount;
     int field20;
-    void FUN_000f7930();
+    State* FUN_000f7930();
 };
-void State::FUN_000f7930() {
+State* State::FUN_000f7930() {
     scale = (*(float*)&DAT_004a1734);
     field10 = 0;
     field14 = -1;
@@ -26,4 +26,5 @@ void State::FUN_000f7930() {
     field20 = -1;
     amount = 20.0f;
     flag18 = false;
+    return this;
 }

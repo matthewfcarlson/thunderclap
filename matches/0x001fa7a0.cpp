@@ -7,8 +7,8 @@ class Obj_1fa7a0 {
     };
     V* member;
     Obj_1fa7a0* target(unsigned char flag);
+    void FUN_00230f50(void (*)(), Obj_1fa7a0*);
 };
-extern void __stdcall FUN_00230f50(void (*)(), Obj_1fa7a0*);
 extern void FUN_00267090(Obj_1fa7a0*);
 extern void FUN_001f9f80();
 Obj_1fa7a0* Obj_1fa7a0::target(unsigned char flag) {

@@ -9,9 +9,9 @@ class Obj_337460 {
     char pad[0x5108];
     int result;
     Child_337460* child;
-    void Run();
+    int Run();
 };
-void Obj_337460::Run() {
+int Obj_337460::Run() {
     int r;
     int v;
     do {
@@ -19,4 +19,5 @@ void Obj_337460::Run() {
         v = child->value;
         result = v;
     } while (r == 0 && v == 0);
+    return r;
 }

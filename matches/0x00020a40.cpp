@@ -5,7 +5,9 @@ class Param {
     virtual void Add();
     virtual void Drop();
 };
-void BaseInit();
+struct ThisCall_00232660 {
+    void BaseInit();
+};
 class Obj_20a40 {
   public:
     void* v;
@@ -15,7 +17,7 @@ class Obj_20a40 {
     Obj_20a40* ctor(int value, Param* p);
 };
 Obj_20a40* Obj_20a40::ctor(int value, Param* p) {
-    BaseInit();
+    ((ThisCall_00232660*)(this))->BaseInit();
     v = (void*)((int)DAT_003f3390);
     this->p = 0;
     if (p)

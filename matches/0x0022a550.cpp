@@ -1,7 +1,9 @@
 struct V3_22a550 {
     float x, y, z;
 };
-void __stdcall GetVel(V3_22a550* out);
+struct ThisCall_00228720 {
+    void GetVel(V3_22a550* out);
+};
 struct D {
     virtual void v0();
     virtual void v1();
@@ -22,7 +24,7 @@ struct D {
 void D::Update(float dt) {
     if (enabled && *(int*)((char*)this + 0x18) == 0) {
         V3_22a550 v;
-        GetVel(&v);
+        ((ThisCall_00228720*)(this))->GetVel(&v);
         v.x *= dt;
         v.y *= dt;
         v.z *= dt;

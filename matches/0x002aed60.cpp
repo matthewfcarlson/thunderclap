@@ -28,7 +28,9 @@ class Iface_2aed60 {
     virtual void Process(void* param2, ImageBuilder* builder) {}
 };
 
-extern "C" Iface_2aed60* __stdcall FUN_002ae9d0(void* param);
+struct ThisCall_002ae9d0 {
+    Iface_2aed60* FUN_002ae9d0(void* param);
+};
 
 class SomeClass {
   public:
@@ -39,7 +41,7 @@ class SomeClass {
 };
 
 int SomeClass::Method(void* param2, void* param3) {
-    Iface_2aed60* iface = FUN_002ae9d0(param3);
+    Iface_2aed60* iface = ((ThisCall_002ae9d0*)(this))->FUN_002ae9d0(param3);
     if (!iface)
         return 0;
 

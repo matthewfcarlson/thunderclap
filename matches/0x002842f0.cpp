@@ -31,10 +31,10 @@ struct Source_2842f0 {
 
 class Frames_2842f0 : public Source_2842f0 {
 public:
-    void FUN_002842f0();
+    Clone * FUN_002842f0();
 };
 
-void Frames_2842f0::FUN_002842f0()
+Clone * Frames_2842f0::FUN_002842f0()
 {
     Clone *dst = maker->FUN_0027b240();
     for (unsigned int i = 0; i < count; i++) {
@@ -44,4 +44,5 @@ void Frames_2842f0::FUN_002842f0()
         if (extraRows != 0)
             dst->extraRows[i] = extraRows[i];
     }
+    return dst;
 }

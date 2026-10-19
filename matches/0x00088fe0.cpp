@@ -8,10 +8,10 @@ struct CO {
 extern CO gCheckObj;
 extern void __cdecl StopMsg(const char*);
 struct Res_88fe0 {
-    void Done();
+    void Done(unsigned int);
 };
 struct Svc_88fe0 {
-    Res_88fe0* Run(unsigned int);
+    Res_88fe0* Run();
 };
 struct Glob_88fe0 {
     char pad[0x54];
@@ -27,7 +27,7 @@ struct Obj_88fe0 {
 void Obj_88fe0::target(unsigned int arg) {
     Scan(arg, "c%dm%d", &a, &b);
     Fmt(buf, 32, "c%02dm%02d", a, b);
-    gGlob_88fe0->svc->Run(arg)->Done();
+    gGlob_88fe0->svc->Run()->Done(arg);
     if (a > 1) {
         if (Check(&gCheckObj) != gCheckObj.val) {
             do {

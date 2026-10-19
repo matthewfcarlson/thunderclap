@@ -19,10 +19,12 @@ public:
     void FUN_0030be90();
 };
 
-void __stdcall FUN_0030ad10(int mode, float *out);
+struct ThisCall_0030ad10 {
+    void FUN_0030ad10(int mode, float *out);
+};
 
 void Contact_30be90::FUN_0030be90() {
-    FUN_0030ad10(flagF8, &f154);
+    ((ThisCall_0030ad10*)(this))->FUN_0030ad10(flagF8, &f154);
     f158 = aa0 * n140 + a9c * n13c + a98 * n138;
     if (flagF8) {
         float d = b104 * n140 + b100 * n13c + b0fc * n138;

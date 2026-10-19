@@ -3,8 +3,8 @@
 // cl-flags: /GS
 #include "decls/data/game/global.h"
 
-struct Label_d8030 { void FUN_000bc9f0(const char*, int); struct Stage1_d8030* FUN_000b5000(int); };
-struct Stage2_d8030 { void FUN_0008c870(); };
+struct Label_d8030 { void FUN_000bc9f0(const char*, int); struct Stage1_d8030* FUN_000b5000(); };
+struct Stage2_d8030 { void FUN_0008c870(int); };
 struct Stage1_d8030 { Stage2_d8030* FUN_00089a50(); };
 struct Child_d8030 { char pad[0xab9]; unsigned char flag; };
 struct Parent_d8030 { char pad[0x175c]; Child_d8030* child; };
@@ -27,7 +27,7 @@ void FEMemCardControl::vfunc_13(int) {
    state=15;
   } else state=0;
   b=0; a=0;
-  label->FUN_000b5000(0)->FUN_00089a50()->FUN_0008c870();
+  label->FUN_000b5000()->FUN_00089a50()->FUN_0008c870(0);
   d=4; e=4; c=0; flag380=0;
   int v=FUN_000fc3d0()->s44();
   timer.value=0;

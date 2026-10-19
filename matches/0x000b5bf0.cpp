@@ -15,11 +15,11 @@ public:
 };
 
 struct Flags_b5bf0 {
-    bool FUN_00092de0();
+    bool FUN_00092de0(int id);
 };
 
 struct Reg_b5bf0 {
-    Flags_b5bf0 *FUN_00086340(int id);
+    Flags_b5bf0 *FUN_00086340();
 };
 
 struct World {
@@ -33,9 +33,9 @@ void FUN_000b5bf0()
 {
     TextSelector *sel = dynamic_cast<TextSelector *>(FUN_000fc260("cheat_gray_hulk_selector"));
     if (sel != 0)
-        sel->f25(!DAT_004dd700->f54->FUN_00086340(2)->FUN_00092de0());
+        sel->f25(!DAT_004dd700->f54->FUN_00086340()->FUN_00092de0(2));
 
     sel = dynamic_cast<TextSelector *>(FUN_000fc260("cheat_invulnerability_selector"));
     if (sel != 0)
-        sel->f25(!DAT_004dd700->f54->FUN_00086340(0x2e4)->FUN_00092de0());
+        sel->f25(!DAT_004dd700->f54->FUN_00086340()->FUN_00092de0(0x2e4));
 }

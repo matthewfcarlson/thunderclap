@@ -1,6 +1,6 @@
 // Same code shape as 0x002960e0 (propagated; names are from that function)
 extern void* scenegraph_vftable;
-void Init();
+void __fastcall Init(void*);
 class Scenegraph {
   public:
     void* vptr;
@@ -9,7 +9,7 @@ class Scenegraph {
     Scenegraph();
 };
 Scenegraph::Scenegraph() {
-    Init();
+    Init((void*)(this));
     vptr = &scenegraph_vftable;
     field40 = 0;
 }

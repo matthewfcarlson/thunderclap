@@ -31,12 +31,14 @@ class SceneGraphVisibilityAnimationController {
     char pad[0x44 - 4];
 };
 extern void* visibilityVtable;
-extern void FUN_00285800();
+struct ThisCall_00285800 {
+    void FUN_00285800();
+};
 extern void thunk_FUN_00267090(SceneGraphVisibilityAnimationController*);
 SceneGraphVisibilityAnimationController* SceneGraphVisibilityAnimationController::f2(byte_2a7e60 param) {
     *(void**)this = &visibilityVtable;
     *(int*)((char*)this + 0x44) = 0;
-    FUN_00285800();
+    ((ThisCall_00285800*)(this))->FUN_00285800();
     if (param & 1)
         thunk_FUN_00267090(this);
     return this;

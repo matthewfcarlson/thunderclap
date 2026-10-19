@@ -1,4 +1,7 @@
-int __stdcall GetThing(int);
+struct ThisWrap_001e9a90 {
+    int GetThing(int);
+    void FUN_001e9a90(int a, unsigned int b);
+};
 int CheckThing();
 void ApplyThing(int, int, float);
 struct Obj_1e9a90 {
@@ -7,8 +10,8 @@ struct Obj_1e9a90 {
     void Reset(int);
 };
 extern Obj_1e9a90* gCurrent;
-void __stdcall FUN_001e9a90(int a, unsigned int b) {
-    Obj_1e9a90* p = (Obj_1e9a90*)GetThing(a);
+void ThisWrap_001e9a90::FUN_001e9a90(int a, unsigned int b) {
+    Obj_1e9a90* p = (Obj_1e9a90*)this->GetThing(a);
     if (p && p != gCurrent) {
         if (gCurrent)
             gCurrent->Reset(b);

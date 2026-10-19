@@ -1,11 +1,13 @@
 extern "C" char DAT_0042886c[];
-void __stdcall BaseInit(int);
+struct ThisCall_0023c640 {
+    void BaseInit(int);
+};
 class Store {
   public:
     void* vptr;
 };
 Store* __fastcall target(Store* self) {
-    BaseInit(2);
+    ((ThisCall_0023c640*)(self))->BaseInit(2);
     self->vptr = (void*)((int)DAT_0042886c);
     return self;
 }

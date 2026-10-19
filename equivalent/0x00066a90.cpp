@@ -15,11 +15,11 @@ struct Result_66a90 {
     Node *node;
     void *owner;
 };
-void *__stdcall FUN_00230be0(void (*match)(), const Key_66a90 *key);
 
 struct Owner_66a90 {
     void FUN_00230c30(Node *node, void (*notify)(), void *found);
     void FUN_00066a90(Result_66a90 *out, const Key_66a90 *key);
+    void *FUN_00230be0(void (*match)(), const Key_66a90 *key);
 };
 
 void Owner_66a90::FUN_00066a90(Result_66a90 *out, const Key_66a90 *key)

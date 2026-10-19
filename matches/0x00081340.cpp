@@ -36,9 +36,9 @@ struct Sub_81340 {
     void F1b43f0(Civ*);
 };
 struct Tmp_81340 {
-    void F1c3b80();
+    void F1c3b80(void*);
 };
-Tmp_81340* __stdcall F1c3d90(void*);
+Tmp_81340* __stdcall F1c3d90();
 extern Mgr_81340* g_mgr_81340;
 class Civ : public Base_81340 {
   public:
@@ -68,7 +68,7 @@ Civ::~Civ() {
         }
     }
     g_mgr_81340->m10->F1b43f0(this);
-    F1c3d90(&pad[4])->F1c3b80();
+    F1c3d90()->F1c3b80(&pad[4]);
     if (mb8) {
         mb8->Release();
         mb8 = 0;

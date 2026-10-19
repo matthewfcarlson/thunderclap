@@ -2,9 +2,9 @@ class Thing {
   public:
     char pad[8];
     int value;
-    void helper(int, int);
-    void run(int x);
+    float helper(int, int);
+    float run(int x);
 };
-void Thing::run(int x) {
-    helper(x, value);
+float Thing::run(int x) {
+    return helper(x, value);
 }

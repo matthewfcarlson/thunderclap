@@ -11,13 +11,13 @@ struct Out_1aecb0 {
     Obj_1aecb0* o;
     void* t;
 };
-extern int __stdcall Make(void (*)(), Src_1aecb0*);
 extern void* __cdecl Alloc(unsigned int);
 void CallbackA();
 void CallbackB();
 class T_1aecb0 {
   public:
     void Reg(Obj_1aecb0*, void (*)(), int);
+    int Make(void (*)(), Src_1aecb0*);
     void Run(Out_1aecb0* out, Src_1aecb0* s);
 };
 void T_1aecb0::Run(Out_1aecb0* out, Src_1aecb0* s) {

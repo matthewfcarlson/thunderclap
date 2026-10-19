@@ -6,12 +6,15 @@ typedef unsigned int uint_1efe20;
 struct Key_1efe20 { uint_1efe20 a,b; void FUN_0027b0e0(const char*); void FUN_0027af50(); };
 struct Entry_1efe20 { char pad[24]; float probability; void FUN_001ef2a0(uint_1efe20,uint_1efe20); };
 struct Group_1efe20 { Entry_1efe20* FUN_001ef1e0(Key_1efe20*); };
-extern Group_1efe20* __stdcall FUN_001efb80(uint_1efe20);
+struct ThisWrap_001efe20 {
+    Group_1efe20* FUN_001efb80(uint_1efe20);
+    bool FUN_001efe20(uint_1efe20 group,uint_1efe20 arg,const char* name,uint_1efe20 last);
+};
 struct RandomState_1efe20 { uint_1efe20 a,b; };
 extern RandomState_1efe20* __cdecl FUN_000964d0();
-bool __stdcall FUN_001efe20(uint_1efe20 group,uint_1efe20 arg,const char* name,uint_1efe20 last) {
+bool ThisWrap_001efe20::FUN_001efe20(uint_1efe20 group,uint_1efe20 arg,const char* name,uint_1efe20 last) {
  ++(*(uint_1efe20*)&DAT_004e3728);
- Group_1efe20* g=FUN_001efb80(group);
+ Group_1efe20* g=this->FUN_001efb80(group);
  if (!g) { ++(*(uint_1efe20*)&DAT_004e372c); return false; }
  Key_1efe20 key; key.FUN_0027b0e0(name);
  Entry_1efe20* e=g->FUN_001ef1e0(&key);

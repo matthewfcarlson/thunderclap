@@ -7,9 +7,11 @@ struct CAxisTimeCondition {
     int field14;
     CAxisTimeCondition();
 };
-extern void __stdcall Init(int);
+struct ThisCall_00234590 {
+    void Init(int);
+};
 CAxisTimeCondition::CAxisTimeCondition() {
-    Init(0);
+    ((ThisCall_00234590*)(this))->Init(0);
     fieldC = 0;
     vtable = (void*)((int)DAT_003f6e4c);
     field10 = 4;

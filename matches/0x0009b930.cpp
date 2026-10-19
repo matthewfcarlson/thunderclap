@@ -2,7 +2,9 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" char DAT_00404d80[];
-extern "C" void __stdcall FUN_001d0480(void*, int);
+struct ThisCall_001d0480 {
+    void FUN_001d0480(void*, int);
+};
 class MethodObj_9b930 {
   public:
     int vptr;
@@ -15,7 +17,7 @@ class MethodObj_9b930 {
     MethodObj_9b930* FUN_0009b930(void*, void*);
 };
 MethodObj_9b930* MethodObj_9b930::FUN_0009b930(void* name, void* f) {
-    FUN_001d0480(name, 4);
+    ((ThisCall_001d0480*)(this))->FUN_001d0480(name, 4);
     vptr = (int)DAT_00404d80;
     fn = f;
     result = FUN_001d04d0(((char*)&DAT_0048e100));

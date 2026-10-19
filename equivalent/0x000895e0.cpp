@@ -4,10 +4,10 @@
 int __cdecl FUN_00267760(char* dest, int size, const char* fmt, ...);
 int __cdecl strncmp(const char*, const char*, unsigned int);
 struct LevelInfo {
-    bool FUN_000b4c80();
+    bool FUN_000b4c80(const char* name);
 };
 struct LevelTable {
-    LevelInfo* FUN_00086280(const char* name);
+    LevelInfo* FUN_00086280();
 };
 struct World {
     char pad[0x54];
@@ -36,7 +36,7 @@ void LevelName::SetName(const char* levelName) {
         shortName[0] = 0;
         return;
     }
-    if (!DAT_004dd700->levels->FUN_00086280(levelName)->FUN_000b4c80())
+    if (!DAT_004dd700->levels->FUN_00086280()->FUN_000b4c80(levelName))
         return;
     LevelAbbrev table[16] = {
         { "downtown", "dt" },

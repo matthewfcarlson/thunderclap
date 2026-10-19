@@ -2,7 +2,8 @@
 struct C_1c7f70 {
     char pad[0x18];
 };
-extern int __fastcall FUN_0027af50(C_1c7f70*);
-int __fastcall FUN_001c7f70(C_1c7f70* self) {
-    return FUN_0027af50((C_1c7f70*)((char*)self + 0x18));
+struct Cache_1c7f70 { int FUN_0027af50(int); };
+struct Mgr_1c7f70 { char pad[0x18]; Cache_1c7f70 cache; int FUN_001c7f70(int a); };
+int Mgr_1c7f70::FUN_001c7f70(int a) {
+    return cache.FUN_0027af50(a);
 }

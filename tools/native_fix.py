@@ -40,10 +40,26 @@ Rules:
                   nothing sets it. The declaration becomes a base class `Ctor_<addr>` (empty, or with a virtual
                   function when the object's vftable pointer comes first) and the call its mem-initializer;
                   candidates verified in turn (as return-param). Only with --apply --verify.
-  this-cand       A thiscall definition (not a constructor) that a caller declares as a free __stdcall/__cdecl
-                  function (check 8, behaviour-changing): the call becomes `((ThisCall_<addr>*)X)->f(args)` for X
-                  in `this` and the enclosing function's parameters, each candidate verified in turn (MSVC 7.1 must
-                  still emit the original's bytes: ecx already held X there). Only with --apply --verify.
+  this-cand       A thiscall definition (not a constructor; constructors too with HULK_THIS_CAND_CTORS=1) that a
+                  caller declares as a free __stdcall/__cdecl function (check 8, behaviour-changing): the call becomes
+                  `((ThisCall_<addr>*)X)->f(args)` for X in `this` and the enclosing function's parameters, each
+                  candidate verified in turn (MSVC 7.1 must still emit the original's bytes: ecx already held X
+                  there). Also: a one-register __fastcall definition called without arguments gets X in ecx; a
+                  declaration after an `ecx ...` register note becomes a member of its first argument with the note
+                  kept on the member; and this-wrap: when the enclosing function is the source's own free function
+                  and its original passes its incoming ecx on (`bool __stdcall FUN_001fc9d0(int x) { return
+                  FUN_001fc7f0(x); }`), the wrapper becomes a member itself (its callers are check 8's next level).
+                  C-linkage caller symbols (`_FUN_000e7260@4`, no namespace) map to every source declaring the name
+                  `extern "C"`. Only with --apply --verify.
+  ret-cand        A void definition whose original callers use its eax / st0 result (check 6) after void-return:
+                  candidates in turn: the last call returned (callee declaration retyped, a trailing
+                  `_ReadWriteBarrier();` kept or dropped, `float` for st0), the last call's result returned past
+                  the stores after it, `return <parameter | this | local>;`. Only with --apply --verify.
+  arg-shift       A call declared popping more words than its callee's `ret N` (check 7; the callee reads no more
+                  stack words than it pops), chained into the next call (`X(a, b)->M()`, `T* v = X(a, b);
+                  v->M();`): the extra words are M's - `X(a)->M(b)` (MSVC 7.1 pushes M's arguments before it
+                  evaluates the object expression: the original's push order). Several next callees per source are
+                  allowed. Only with --apply --verify.
   reg-call        Calls of register-convention functions (native_conv_check check 5), each read from the
                   original's call site: the edit groups in tools/native_calls.py (every occurrence of each old
                   text is replaced; a group applies only if all its texts are present). A matches/ source listed
@@ -53,6 +69,7 @@ Rules:
                   and promotable, and the match is removed (kept in build/native/fix4-orig/).
 
 equivalent/ sources shadowed by a matches/ source of the same address are skipped (the tree uses the match).
+HULK_FIX_SKIP names a file of sources no rule may rewrite (another session's untracked work).
 """
 import argparse
 import json
@@ -237,12 +254,24 @@ def demote_verify(rel, addr, text):
     return "EQUIVALENT", head + text
 
 
+def skipped_sources():
+    """Sources no rule may rewrite: the paths listed in the file HULK_FIX_SKIP names (one per line; another
+    session's untracked work)."""
+    p = os.environ.get("HULK_FIX_SKIP")
+    if not p or not os.path.exists(p):
+        return set()
+    return {l.strip() for l in open(p) if l.strip() and not l.startswith("#")}
+
+
 def load_sources():
     out = []
+    skip = skipped_sources()
     for d in ("matches", "equivalent"):
         for fn in sorted(os.listdir(os.path.join(ROOT, d))):
             if re.fullmatch(r"0x[0-9a-fA-F]{8}\.cpp", fn):
                 rel = "%s/%s" % (d, fn)
+                if rel in skip:
+                    continue
                 out.append((rel, int(fn[2:10], 16), open(os.path.join(ROOT, rel), encoding="latin1", newline="").read()))
     return out
 
@@ -991,7 +1020,425 @@ def return_param_candidates(rel, text):
     return out
 
 
+_RC = {}
+
+
+def ret_findings():
+    """{definition file: {symbol: 'int' | 'float'}} of check 6's void definitions: 'int' when an original caller
+    reads eax after the call, 'float' when one consumes st0 (and none reads eax)."""
+    if "f" not in _RC:
+        import native_conv_check
+        _n, bad, _h = native_conv_check.check_returns(tree_report=TREE_REPORT)
+        out = {}
+        for b in bad:
+            if b["declared"] != "void":
+                continue
+            k = "float" if b["why"].endswith("uses st0 after the call") else "int"
+            d = out.setdefault(b["file"], {})
+            d[b["symbol"]] = "int" if k == "int" or d.get(b["symbol"]) == "int" else "float"
+        _RC["f"] = out
+    return _RC["f"]
+
+
+SCALAR_T = re.compile(r"^(?:const\s+|volatile\s+|unsigned\s+|signed\s+|struct\s+|class\s+)*[\w:]+(?:\s+(?:int|long|char|short))?\s*\**$")
+
+
+def ret_cand_candidates(rel, text):
+    """[(new text, why)] for the ret-cand rule: a void definition whose original callers use its eax (or st0) result
+    (check 6) after the void-return / return-param rules: candidates in turn, each verified (compare.py MATCH /
+    equiv.py EQUIVALENT; a byte match proves the returned expression is the original's eax there, equiv.py compares
+    the result):
+      - the body's last call returned (with the callee's declaration in this source given that return type when it
+        was void), also when a `_ReadWriteBarrier();` follows it (`T r = call; _ReadWriteBarrier(); return r;`);
+        `float` for an st0 result (the callee returns on the x87 stack: atan2-style helpers, wrap-angle);
+      - `return <parameter>;`, `return this;`, `return <local>;` for each pointer/int parameter and local,
+        and the last assigned lvalue.
+    Bare `return;` statements return the same expression."""
+    finds = ret_findings().get(rel)
+    if not finds:
+        return []
+    out = []
+    for sym, kind in sorted(finds.items()):
+        name = _plain_name(sym)
+        if not name:
+            continue
+        blank = blank_comments(text)
+        defs = []
+        for m in re.finditer(r"\bvoid\s+" + CONV_WORD + r"((?:\w+::)*)" + re.escape(name) + r"\s*\(", blank):
+            i, depth = m.end(), 1
+            while i < len(blank) and depth:
+                depth += {"(": 1, ")": -1}.get(blank[i], 0)
+                i += 1
+            rest = re.match(r"\s*(?:const\s*)?(?:throw\s*\([^)]*\)\s*)?\{", blank[i:])
+            if rest:
+                defs.append((m, m.end(), i - 1, i + rest.end() - 1))
+        if len(defs) != 1:
+            continue
+        m, p0, p1, b0 = defs[0]
+        depth, j = 0, b0
+        while j < len(blank):
+            depth += {"{": 1, "}": -1}.get(blank[j], 0)
+            if depth == 0:
+                break
+            j += 1
+        qual = m.group(1).rstrip(":").split("::")[-1] if m.group(1) else None
+        member = bool(qual) or in_class(blank, m.start())
+        cls = qual
+        if not cls and member:
+            # an inline member: the innermost class head before the definition
+            for hm in re.finditer(r"\b(?:class|struct)\s+(\w+)\b[^;{()]*\{", blank[:m.start()]):
+                d_, e_ = 0, hm.end() - 1
+                while e_ < len(blank):
+                    d_ += {"{": 1, "}": -1}.get(blank[e_], 0)
+                    if d_ == 0:
+                        break
+                    e_ += 1
+                if e_ > m.start():
+                    cls = hm.group(1)
+        body = blank[b0 + 1:j]
+        cands = []                       # (return type, expression, body edit or None)
+
+        def retype_decls(new, rtype):
+            """the definition's other declarations (class body / forward declarations) get the return type"""
+            decl_rx = re.compile(r"\bvoid(\s+" + CONV_WORD + re.escape(name) + r"\s*\([^;{]*\)\s*(?:const\s*)?(?:throw\s*\([^)]*\)\s*)?;)")
+            bl = blank_comments(new)
+            dm = re.search(r"\bvoid\s+" + CONV_WORD + r"(?:\w+::)*" + re.escape(name) + r"\s*\([^;{]*\)\s*(?:const\s*)?(?:throw\s*\([^)]*\)\s*)?\{", bl)
+            if not dm:
+                return None
+            new = new[:dm.start()] + rtype + new[dm.start() + 4:]
+            head = new[:dm.start()]
+            return decl_rx.sub(lambda mm: rtype + mm.group(1), head) + new[dm.start():]
+
+        # 1. the last call statement (optionally before a barrier)
+        tail = body.rstrip()
+        stmts = []
+        t = tail
+        for _ in range(2):
+            if not t.endswith(";"):
+                break
+            k = max(t.rfind(";", 0, len(t) - 1), t.rfind("{", 0, len(t) - 1), t.rfind("}", 0, len(t) - 1))
+            stmts.append((k + 1, len(t) - 1))
+            t = t[:k + 1]
+        call_stmt, barrier = None, False
+        if stmts:
+            s0, s1 = stmts[0]
+            st = tail[s0:s1].strip()
+            if re.fullmatch(r"_ReadWriteBarrier\s*\(\s*\)", st) and len(stmts) > 1:
+                barrier = True
+                s0, s1 = stmts[1]
+                st = tail[s0:s1].strip()
+            if st.endswith(")") and not re.match(r"(return|if|while|for|switch|do|else|delete)\b", st) and \
+                    not re.search(r"(?<![=!<>])=(?!=)", st):
+                call_stmt = (s0, s1, st)
+        if call_stmt:
+            s0, s1, st = call_stmt
+            q, depth = len(st) - 1, 0
+            while q >= 0:
+                depth += {")": 1, "(": -1}.get(st[q], 0)
+                if depth == 0:
+                    break
+                q -= 1
+            cm = re.search(r"(\w+)\s*$", st[:q])
+            callee = cm.group(1) if cm else None
+            if callee and callee != "_ReadWriteBarrier":
+                cdecls = list(re.finditer(r"(?m)(^|[;{}(,]|\b(?:virtual|static|inline)\b|\bextern\b(?!\s+\"))\s*" +
+                                          r"(?:extern\s+\"[^\"]*\"\s+)?" + DECL_WORDS + r"([\w:<>\s\*&]+?)\s+" + CONV_WORD +
+                                          r"(?:\w+::)*" + re.escape(callee) + r"\s*\(", blank))
+                types = {" ".join(re.sub(r"^(?:public|private|protected)\s*:\s*", "", c.group(2).strip()).split())
+                         for c in cdecls if c.group(2).strip() not in ("return", "else", "new", "delete")}
+                types.discard("")
+                want = "float" if kind == "float" else "int"
+                rtype = None
+                if types == {"void"}:
+                    rtype = want
+                elif len(types) == 1:
+                    t0 = next(iter(types))
+                    isf = bool(re.search(r"\b(float|double)\b", t0)) and "*" not in t0
+                    if isf == (kind == "float") and "void" != t0:
+                        rtype = t0
+                if rtype:
+                    cands.append((rtype, None, (s0, s1, callee, types == {"void"}, barrier)))
+        # 1b. the last call statement followed only by stores (`void* r = Move(...); *cnt = n; return r;`: luaM_growaux
+        # returns the realloc'd block, the stores after it don't touch eax)
+        inner = None
+        for im in re.finditer(r"(?:^|(?<=[;{}]))(\s*)((?:[\w\[\]]+\s*(?:->|\.)\s*)*(\w+)\s*\([^;{}]*\))\s*;", body):
+            d_ = sum({"{": 1, "}": -1}.get(ch, 0) for ch in body[:im.start(2)])
+            if d_ == 0:
+                inner = im
+        if inner and inner.group(3) != "_ReadWriteBarrier":
+            rest = body[inner.end():]
+            if "(" not in rest and not re.search(r"\breturn\b", rest) and rest.strip():
+                callee = inner.group(3)
+                cdecls = list(re.finditer(r"(?m)(^|[;{}(,]|\b(?:virtual|static|inline)\b|\bextern\b(?!\s+\"))\s*" +
+                                          r"(?:extern\s+\"[^\"]*\"\s+)?" + DECL_WORDS + r"([\w:<>\s\*&]+?)\s+" + CONV_WORD +
+                                          r"(?:\w+::)*" + re.escape(callee) + r"\s*\(", blank))
+                types = {" ".join(re.sub(r"^(?:public|private|protected)\s*:\s*", "", c.group(2).strip()).split())
+                         for c in cdecls if c.group(2).strip() not in ("return", "else", "new", "delete")}
+                types.discard("")
+                rt = None
+                if types == {"void"}:
+                    rt = "float" if kind == "float" else "void*"
+                elif len(types) == 1 and next(iter(types)) != "void":
+                    rt = next(iter(types))
+                if rt:
+                    a0, a1 = b0 + 1 + inner.start(2), b0 + 1 + inner.end(2)
+                    new = text[:a0] + "%s r_ret = %s" % (rt, text[a0:a1]) + text[a1:j] + "    return r_ret;\n" + text[j:]
+                    if types == {"void"}:
+                        bl = blank_comments(new)
+                        cds = list(re.finditer(r"(?m)(^|[;{}(,]|\b(?:virtual|static|inline)\b|\bextern\b(?!\s+\"))\s*" +
+                                               r"(?:extern\s+\"[^\"]*\"\s+)?" + DECL_WORDS + r"([\w:<>\s\*&]+?)\s+" + CONV_WORD +
+                                               r"(?:\w+::)*" + re.escape(callee) + r"\s*\(", bl))
+                        for c in sorted(cds, key=lambda c: -c.start(2)):
+                            seg = new[c.start(2):c.end(2)]
+                            if re.search(r"\bvoid\b", seg):
+                                new = new[:c.start(2)] + re.sub(r"\bvoid\b", rt, seg) + new[c.end(2):]
+                    new = retype_decls(new, rt)
+                    if new:
+                        out.append((new, "%s returns %s's %s result (stores after it)" % (name, callee, rt)))
+        # 2. parameters, this, locals, the last assigned lvalue
+        params = [text[a:b].strip() for a, b in split_args(text, p0, p1, angle=True)]
+        for prm in params:
+            pm = re.match(r"(.*?[\w\*&])\s*\b(\w+)$", prm.replace("volatile ", ""))
+            if not pm or "(" in prm or "[" in prm:
+                continue
+            ty = pm.group(1).strip()
+            isf = re.search(r"\b(float|double)\b", ty) and "*" not in ty
+            if bool(isf) != (kind == "float") or "&" in ty or not SCALAR_T.match(ty):
+                continue
+            cands.append((ty, pm.group(2), None))
+        if member and cls and kind == "int":
+            cands.append(("%s*" % cls, "this", None))
+        for lm in re.finditer(r"(?:^|(?<=[;{}]))\s*((?:const\s+|unsigned\s+|signed\s+|struct\s+|class\s+)*[A-Za-z_][\w:]*(?:\s+(?:int|long|char|short))?(?:\s*\*+\s*|\s+))([A-Za-z_]\w*)\s*(?:=[^;]*)?;", body):
+            ty, nm = " ".join(lm.group(1).split()), lm.group(2)
+            if re.sub(r"\W.*", "", ty) in ("return", "delete", "goto", "else", "case", "break", "continue", "do") or nm in ("return",):
+                continue
+            isf = re.search(r"\b(float|double)\b", ty) and "*" not in ty
+            if bool(isf) != (kind == "float") or ty == "void" or not SCALAR_T.match(ty):
+                continue
+            cands.append((ty, nm, "local"))
+        seen = set()
+        for rtype, expr, how in cands:
+            key = (rtype, expr, how if not isinstance(how, tuple) else "call")
+            if key in seen:
+                continue
+            seen.add(key)
+            if isinstance(how, tuple):
+                s0, s1, callee, retype_callee, barrier = how
+                a0, a1 = b0 + 1 + s0, b0 + 1 + s1
+                st_txt = text[a0:a1]
+                lead = st_txt[:len(st_txt) - len(st_txt.lstrip())]
+                call_txt = st_txt.strip()
+                variants = []
+                if barrier:
+                    variants.append(lead + "%s r_ret = %s;\n    _ReadWriteBarrier();\n    return r_ret" % (rtype, call_txt))
+                    # drop the barrier too (the tail call then is the original's call; ret)
+                    variants.append(lead + "return " + call_txt)
+                else:
+                    variants.append(lead + "return " + call_txt)
+                for vi, v in enumerate(variants):
+                    if barrier:
+                        # replace the call statement and the barrier statement after it
+                        bm = re.search(r"_ReadWriteBarrier\s*\(\s*\)\s*;", text[a1:b0 + 1 + len(tail) + 1])
+                        if not bm:
+                            continue
+                        end = a1 + bm.end()
+                        new = text[:a0] + v + ";" + text[end:]
+                    else:
+                        new = text[:a0] + v + text[a1:]
+                    if retype_callee:
+                        bl = blank_comments(new)
+                        cds = list(re.finditer(r"(?m)(^|[;{}(,]|\b(?:virtual|static|inline)\b|\bextern\b(?!\s+\"))\s*" +
+                                               r"(?:extern\s+\"[^\"]*\"\s+)?" + DECL_WORDS + r"([\w:<>\s\*&]+?)\s+" + CONV_WORD +
+                                               r"(?:\w+::)*" + re.escape(callee) + r"\s*\(", bl))
+                        for c in sorted(cds, key=lambda c: -c.start(2)):
+                            seg = new[c.start(2):c.end(2)]
+                            if re.search(r"\bvoid\b", seg):
+                                new = new[:c.start(2)] + re.sub(r"\bvoid\b", rtype, seg) + new[c.end(2):]
+                    new = retype_decls(new, rtype)
+                    if new:
+                        out.append((new, "%s returns %s's %s result%s" % (name, callee, rtype,
+                                                                          " (barrier kept)" if barrier and vi == 0 else " (barrier dropped)" if barrier else "")))
+                continue
+            new = text[:b0 + 1] + re.sub(r"\breturn\s*;", "return %s;" % expr, text[b0 + 1:j]) + \
+                "    return %s;\n" % expr + text[j:]
+            new = retype_decls(new, rtype)
+            if new:
+                out.append((new, "%s returns %s (%s)" % (name, expr, rtype)))
+    return out
+
+
+_AS = {}
+
+
+def arg_shift_pairs():
+    """{source: {(plain name, address, declared pops, callee pops)}} of check 7's symbols declared popping more
+    than the callee's single `ret N` (callee-pops conventions), mapped to their TU's sources."""
+    if "p" not in _AS:
+        import native_conv_check
+        _n, bad = native_conv_check.check_pops(os.environ.get("HULK_BINDINGS") or os.path.join(ROOT, "build/native/bindings.json"))
+        out = {}
+        native_conv_check._def_reads(0)          # loads equiv.Program
+        prog = native_conv_check._PROG.get("p")
+        for b in bad:
+            if len(b["callee"]) != 1 or b["declared"] <= b["callee"][0]:
+                continue
+            # the callee must read no more stack words than it pops (a cdecl-style member reading its arguments
+            # without popping them is another shape)
+            try:
+                nread = prog.callee_stack_args(int(b["addr"], 16)) if prog else None
+            except Exception:  # noqa: BLE001
+                nread = None
+            if nread is None or nread * 4 > b["callee"][0]:
+                continue
+            name = _plain_name(b["symbol"])
+            for src in _symbol_sources(b["symbol"]):
+                out.setdefault(src, set()).add((name, int(b["addr"], 16), b["declared"], b["callee"][0]))
+        _AS["p"] = out
+    return _AS["p"]
+
+
+def _close_paren(blank, i):
+    """index of the `)` matching the `(` at blank[i - 1]"""
+    depth = 1
+    while i < len(blank) and depth:
+        depth += {"(": 1, ")": -1}.get(blank[i], 0)
+        i += 1
+    return i - 1
+
+
+def _is_decl_prefix(blank, pos):
+    """Is the name at pos declared (a type or calling convention before it), not called?"""
+    k = max(blank.rfind(";", 0, pos), blank.rfind("{", 0, pos), blank.rfind("}", 0, pos))
+    pre = blank[k + 1:pos].strip()
+    pre = re.sub(r"^(?:public|private|protected)\s*:", "", pre).strip()
+    if not pre or re.search(r"[=(,!?:]$|\breturn$|\belse$", pre) or "=" in pre or "(" in pre:
+        return False
+    return bool(re.search(r"[\w*&]$", pre))
+
+
+def arg_shift_candidates(rel, text):
+    """[(new text, why)] for the arg-shift rule: a call `X(a1, ..., an)` declared popping more words than X's callee
+    pops (check 7: `Get(int)` over a getter that reads only ecx, `Make(1, 0.5f, 0, 0)` over the singleton getter
+    0x001c3d90 that takes nothing), chained into the next call `->M(b...)` that the original's leftover words feed:
+    MSVC 7.1 pushes M's arguments before it evaluates the object expression, so `X(a1..ak)->M(b..., ak+1..an)` is
+    the original's push order. X's declaration keeps its first k parameters, M's gets the moved ones appended. Only
+    when every call of X in the source is chained the same way; verified (compare.py / equiv.py)."""
+    pairs = arg_shift_pairs().get(rel)
+    if not pairs:
+        return []
+    out = []
+    for name, a, decl_b, ret_b in sorted(pairs):
+        if not name or decl_b % 4 or ret_b % 4:
+            continue
+        keep = ret_b // 4
+        blank = blank_comments(text)
+        dm = [x for x in re.finditer(r"(?<![\w:.>])%s\s*\(([^()]*)\)\s*(?:const\s*)?;" % re.escape(name), blank)
+              if _is_decl_prefix(blank, x.start())]
+        if len(dm) != 1:
+            continue
+        d = dm[0]
+        pspans = split_args(text, d.start(1), d.end(1), angle=True)
+        params = [text[s0:e0].strip() for s0, e0 in pspans]
+        if any("..." in p or re.search(r"\b(double|__int64)\b", p) and "*" not in p for p in params) or \
+                len(params) * 4 != decl_b or keep >= len(params):
+            continue
+        calls = [m for m in re.finditer(r"(?<![\w:])%s\s*\(" % re.escape(name), blank) if m.start() != d.start()]
+        if not calls:
+            continue
+        plan, ok, mname = [], True, None
+        for m in calls:
+            e = _close_paren(blank, m.end())
+            cm = re.match(r"\s*->\s*(\w+)\s*\(", blank[e + 1:])
+            base, var = e + 1, None
+            if not cm:
+                # `T* v = X(...); v->M(...);` (the next statement calls through the result)
+                vm = re.search(r"(\w+)\s*=\s*(?:\(\s*[\w:]+\s*\*\s*\)\s*)?((?:[\w\[\]]+\s*(?:->|\.)\s*)*)$", blank[:m.start()])
+                if vm:
+                    cm = re.match(r"\s*;\s*%s\s*->\s*(\w+)\s*\(" % re.escape(vm.group(1)), blank[e + 1:])
+                    if cm:
+                        st0 = max(blank.rfind(";", 0, m.start()), blank.rfind("{", 0, m.start()), blank.rfind("}", 0, m.start())) + 1
+                        var = (vm.group(1), st0, vm.start(2))
+            if not cm:
+                ok = False
+                break
+            mname = cm.group(1)
+            ms = base + cm.end()
+            me = _close_paren(blank, ms)
+            args = split_args(blank, m.end(), e)
+            if len(args) != len(params):
+                ok = False
+                break
+            plan.append((m.end(), e, args, ms, me, var, mname))
+        if not ok or not plan:
+            continue
+        mdecls = {}
+        for mn in sorted({p_[6] for p_ in plan}):
+            mdm = [x for x in re.finditer(r"(?<![\w:.>])%s\s*\(([^()]*)\)\s*(?:const\s*)?;" % re.escape(mn), blank)
+                   if _is_decl_prefix(blank, x.start())]
+            if len(mdm) != 1 or "..." in text[mdm[0].start(1):mdm[0].end(1)]:
+                ok = False
+                break
+            mdecls[mn] = mdm[0]
+        if not ok:
+            continue
+        mname = "/".join(sorted(mdecls))
+        moved = params[keep:]
+        for chain in (False, True):
+            if chain and not all(p_[5] and len(re.findall(r"\b%s\b" % re.escape(p_[5][0]), blank)) == 2 for p_ in plan):
+                continue        # (`v = X(); v->M();` written as `X()->M();` when v has no other use)
+            new = text
+            # edits from the end backwards (the declarations come before the calls)
+            edits = []
+            for c0, c1, args, ms, me, var, mn in plan:
+                kept = ", ".join(text[s0:e0].strip() for s0, e0 in args[:keep])
+                mv = [text[s0:e0].strip() for s0, e0 in args[keep:]]
+                margs = ", ".join(([text[ms:me].strip()] if text[ms:me].strip() else []) + mv)
+                if chain:
+                    lead = text[var[1]:]
+                    lead = var[1] + len(lead) - len(lead.lstrip())
+                    edits.append((lead, me, "%s%s(%s)->%s(%s" % (text[var[2]:text.rfind(name, 0, c0)], name, kept, mn, margs)))
+                else:
+                    edits.append((ms, me, margs))
+                    edits.append((c0, c1, kept))
+            for mn, md_ in mdecls.items():
+                mparams = text[md_.start(1):md_.end(1)].strip()
+                mp = mparams if mparams not in ("", "void") else ""
+                edits.append((md_.start(1), md_.end(1), ", ".join(([mp] if mp else []) + moved)))
+            edits.append((d.start(1), d.end(1), ", ".join(params[:keep])))
+            for s0, e0, rep in sorted(edits, key=lambda t: -t[0]):
+                new = new[:s0] + rep + new[e0:]
+            out.append((new, "%s pops %d of its %d words: the rest are %s's (%s)" % (
+                name, keep, len(params), mname, "chained" if chain else "next call")))
+    return out
+
+
 _BC = {}
+
+
+def _symbol_sources(sym):
+    """The sources a caller symbol can come from: its TU / block namespace's sources (`fn_...`), or, for a C-linkage
+    symbol (`_FUN_000e7260@4`, no namespace), every source that declares its name `extern "C"`."""
+    m = re.search(r"@(fn_[0-9a-f]{8})@@", sym)
+    if m:
+        return _ns_sources().get(m.group(1), [])
+    if sym.startswith("?"):
+        return []
+    name = _plain_name(sym)
+    if not name:
+        return []
+    if "cnames" not in _BC:
+        idx = {}
+        for d in ("matches", "equivalent"):
+            for fn in os.listdir(os.path.join(ROOT, d)):
+                if not fn.endswith(".cpp"):
+                    continue
+                t = open(os.path.join(ROOT, d, fn), encoding="latin1").read()
+                if 'extern "C"' not in t:
+                    continue
+                for nm in set(re.findall(r'extern\s+"C"[^;{(]*?\b(\w+)\s*\(', t)):
+                    idx.setdefault(nm, []).append("%s/%s" % (d, fn))
+        _BC["cnames"] = idx
+    return _BC["cnames"].get(name, [])
 
 
 def _ns_sources():
@@ -1024,8 +1471,7 @@ def base_ctor_addrs():
                 continue
             a = int(b["addr"], 16)
             name = _plain_name(b["symbol"])
-            m = re.search(r"@(fn_[0-9a-f]{8})@@", b["symbol"])
-            for src in _ns_sources().get(m.group(1), []) if m else []:
+            for src in _symbol_sources(b["symbol"]):
                 out.setdefault(src, set()).add((name, a))
             out.setdefault("*", set()).add(("FUN_%08x" % a, a))
         _BC["a"] = out
@@ -1089,26 +1535,33 @@ def this_cand_pairs():
         _c, _p, bad = native_conv_check.classify_definition_convs(
             os.environ.get("HULK_BINDINGS") or os.path.join(ROOT, "build/native/bindings.json"))
         out = {}
+        ctors = os.environ.get("HULK_THIS_CAND_CTORS") == "1"
         for b in bad:
-            if b["definition"].startswith("??0") or native_conv_check.symbol_conv(b["definition"]) != "thiscall" or \
-                    native_conv_check.symbol_conv(b["symbol"]) not in ("cdecl", "stdcall"):
+            dconv = native_conv_check.symbol_conv(b["definition"])
+            if native_conv_check.symbol_conv(b["symbol"]) not in ("cdecl", "stdcall"):
+                continue
+            if dconv == "thiscall" and (ctors or not b["definition"].startswith("??0")):
+                kind = "thiscall"
+            elif dconv == "fastcall" and b.get("definition_shape") and list(b["definition_shape"][1:]) == [1, 0] and \
+                    b.get("caller") and list(b["caller"][1:]) == [0, 0]:
+                kind = "fastcall"          # a one-register fastcall definition called without arguments
+            else:
                 continue
             a = int(b["addr"], 16)
             name = _plain_name(b["symbol"])
-            m = re.search(r"@(fn_[0-9a-f]{8})@@", b["symbol"])
-            for src in _ns_sources().get(m.group(1), []) if m else []:
-                out.setdefault(src, set()).add((name, a))
+            for src in _symbol_sources(b["symbol"]):
+                out.setdefault(src, set()).add((name, a, kind))
         _BC["t"] = out
     return _BC["t"]
 
 
 def this_cand_candidates(rel, text):
     out = []
-    for name, a in sorted(this_cand_pairs().get(rel, set())):
+    for name, a, kind in sorted(this_cand_pairs().get(rel, set())):
         if not name:
             continue
         blank = blank_comments(text)
-        dm = list(re.finditer(r"(?m)^[ \t]*(?:extern\s+(?:\"[^\"]*\"\s+)?)?([\w:\*& ]+?)\s*(?:__stdcall\s+|__cdecl\s+)?%s\s*\(([^()]*)\)\s*;[ \t]*\n" % re.escape(name), blank))
+        dm = list(re.finditer(r"(?m)^[ \t]*(?:extern\s+(?:\"[^\"]*\"\s+)?)?(?!return\b|else\b)([\w:][\w:\*& ]*?)\s*(?:__stdcall\s+|__cdecl\s+)?%s\s*\(([^()]*)\)\s*;[ \t]*\n" % re.escape(name), blank))
         if len(dm) != 1 or in_class(blank, dm[0].start()):
             continue
         d = dm[0]
@@ -1129,13 +1582,91 @@ def this_cand_candidates(rel, text):
         ret = re.sub(r"^(?:extern\s+)", "", ret)
         params = text[d.start(2):d.end(2)]
         struct = "ThisCall_%08x" % a
+        # a register-convention note `ecx ...` right before the declaration (the definition is a thiscall member
+        # with its own note, `this` in ecx and the rest where the note says): the member of the first argument,
+        # the note kept on the member declaration for equiv.py
+        nm_ = re.search(r"(?m)^[ \t]*//[ \t]*equiv-conv:[ \t]*%s[ \t]+ecx((?:[ \t]+\w+)*)[ \t]*\n\Z" % re.escape(name), text[:d.start()])
+        if kind == "thiscall" and nm_:
+            prm = [text[s0:e0].strip() for s0, e0 in split_args(text, d.start(2), d.end(2), angle=True)]
+            if prm and "..." not in prm:
+                new, ok = text, True
+                for m in sorted(calls, key=lambda m: -m.start()):
+                    e = _close_paren(blank, m.end())
+                    args = split_args(blank, m.end(), e)
+                    if not args:
+                        ok = False
+                        break
+                    a0 = new[args[0][0]:args[0][1]].strip()
+                    rest = new[args[1][0]:e].strip() if len(args) > 1 else ""
+                    new = new[:m.start()] + "((%s*)(%s))->%s(%s)" % ("ThisNote_%08x" % a, a0, name, rest) + new[e + 1:]
+                if ok:
+                    note = text[nm_.start():nm_.end()].strip()
+                    new = new[:nm_.start()] + "struct ThisNote_%08x {\n    %s\n    %s %s(%s);\n};\n" % (
+                        a, note, ret, name, ", ".join(prm[1:])) + new[d.end():]
+                    out.append((new, "%s (thiscall 0x%08x, note ecx%s) called as a member of its first argument" % (
+                        name, a, nm_.group(1))))
+            continue
+        if re.search(r"(?m)^[ \t]*//[ \t]*equiv-conv:[ \t]*%s\b[^\n]*\n\Z" % re.escape(name), text[:d.start()]):
+            continue        # a register note of another shape: read by hand
+        if kind == "fastcall":
+            # `void FUN(void);` called `FUN();` -> `void __fastcall FUN(void*);` called `FUN((void*)(x));`
+            if params.strip() not in ("", "void"):
+                continue
+            if any(not re.match(r"\s*\)", blank[m.end():m.end() + 8]) for m in calls):
+                continue
+            for x in xs:
+                new = text
+                for m in sorted(calls, key=lambda m: -m.start()):
+                    new = new[:m.end()] + "(void*)(%s)" % x + new[m.end():]
+                new = new[:d.start()] + text[d.start():d.end()].replace(
+                    text[d.start(2) - 1:d.end(2) + 1], "(void*)").replace(name, "__fastcall " + name, 1) + new[d.end():]
+                new = re.sub(r"__cdecl\s+__fastcall|__stdcall\s+__fastcall", "__fastcall", new)
+                out.append((new, "%s (fastcall 0x%08x) passed %s in ecx" % (name, a, x)))
+            continue
         for x in xs:
             new = text
             for m in sorted(calls, key=lambda m: -m.start()):
                 new = new[:m.start()] + "((%s*)(%s))->%s(" % (struct, x, name) + new[m.end():]
             new = new[:d.start()] + "struct %s {\n    %s %s(%s);\n};\n" % (struct, ret, name, params) + new[d.end():]
             out.append((new, "%s (thiscall 0x%08x) called on %s" % (name, a, x)))
+        # this-wrap: the enclosing function is the source's own free function and its original passes its incoming
+        # ecx on to the call (`bool __stdcall FUN_001fc9d0(int x) { return FUN_001fc7f0(x); }`, ecx untouched):
+        # the wrapper is itself a thiscall member; it becomes one (its own callers are then check 8's next level)
+        if kind == "thiscall" and not member and not fm.group(1):
+            w = _wrap_member(rel, text, blank, fm, name, a, ret, params, d, calls)
+            if w:
+                out.append(w)
     return out
+
+
+def _wrap_member(rel, text, blank, fm, name, a, ret, params, d, calls):
+    import native_conv_check
+    own = int(re.search(r"0x([0-9a-fA-F]{8})", rel).group(1), 16)
+    reads = native_conv_check._def_reads(own)
+    if not reads or "ecx" not in reads:
+        return None
+    wname = fm.group(2)
+    # the definition's head: `[extern "C"] RET [conv] wname(params) {` on its own line(s)
+    hm = None
+    for h in re.finditer(r"(?m)^[ \t]*(extern\s+\"[^\"]*\"\s+)?([\w:<>\*& ]+?)\s*(__stdcall\s+|__cdecl\s+)?%s\s*\(" % re.escape(wname), blank):
+        if h.end() - 1 <= fm.start(3) <= h.end():
+            hm = h
+    if hm is None or in_class(blank, hm.start()):
+        return None
+    if re.search(r"(?<![\w:>.])%s\s*\(" % re.escape(wname), blank[:hm.start()] + blank[fm.end():]):
+        return None          # declared or called elsewhere in the source: by hand
+    wret = text[hm.start(2):hm.end(2)].strip()
+    wparams = text[fm.start(3):fm.end(3)]
+    ws = "ThisWrap_%08x" % own
+    new = text
+    for m in sorted(calls, key=lambda m: -m.start()):
+        new = new[:m.start()] + "this->%s(" % name + new[m.end():]
+    head_end = fm.end()          # the `{` of the definition
+    new = new[:hm.start()] + "%s %s::%s(%s) {" % (wret, ws, wname, wparams) + new[head_end:]
+    new = new[:d.start()] + new[d.end():]
+    decl = "struct %s {\n    %s %s(%s);\n    %s %s(%s);\n};\n" % (ws, ret, name, params, wret, wname, wparams)
+    new = new[:d.start()] + decl + new[d.start():]
+    return new, "%s is a thiscall wrapper (its original passes ecx on to %s): a member of %s" % (wname, name, ws)
 
 
 def in_class(blank, pos):
@@ -1149,7 +1680,11 @@ RULES = {"template-spec": lambda rel, t: template_spec(t), "dependent-base": lam
          "return-struct": lambda rel, t: return_struct(t), "patch": patch, "register-order": register_order,
          "void-return": void_return, "split-temp": lambda rel, t: split_temp(t),
          "code-literal": lambda rel, t: code_literal(t), "pass-through": None,
-         "this-call": this_call, "reg-call": reg_call, "this-note": this_note, "return-param": None, "base-ctor": None, "this-cand": None}
+         "this-call": this_call, "reg-call": reg_call, "this-note": this_note, "return-param": None, "base-ctor": None, "this-cand": None,
+         "ret-cand": None, "arg-shift": None}
+
+
+CANDIDATE_RULES = ("return-param", "base-ctor", "this-cand", "ret-cand", "arg-shift")
 
 
 def main(argv=None):
@@ -1161,13 +1696,17 @@ def main(argv=None):
     ap.add_argument("--jobs", type=int, default=3, help="verifications at once (default 3)")
     a = ap.parse_args(argv)
     # (the candidate rules, return-param / base-ctor / this-cand, run alone: --rule NAME)
-    rules = a.rule or sorted(r for r in RULES if r not in ("return-param", "base-ctor", "this-cand"))
+    rules = a.rule or sorted(r for r in RULES if r not in CANDIDATE_RULES)
     if rules == ["return-param"]:
         return return_param_main(a)
     if rules == ["base-ctor"]:
         return return_param_main(a, base_ctor_candidates, "base-ctor")
     if rules == ["this-cand"]:
         return return_param_main(a, this_cand_candidates, "this-cand")
+    if rules == ["ret-cand"]:
+        return return_param_main(a, ret_cand_candidates, "ret-cand")
+    if rules == ["arg-shift"]:
+        return return_param_main(a, arg_shift_candidates, "arg-shift")
     srcs = load_sources()
     in_matches = {addr for rel, addr, _ in srcs if rel.startswith("matches/")}
     planned = []

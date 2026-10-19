@@ -120,7 +120,7 @@ struct Unit_43350 {
     char FUN_00043350(float dt, Arg2_43350 p2, int a, float one, char c, Arg6 p6);
 };
 
-float __cdecl FUN_00045670();
+struct Scale_43350 { float FUN_00045670(); };
 
 struct Frame_43350 {
     Unit_43350 *player;               // R-8
@@ -187,7 +187,7 @@ char Unit_43350::FUN_00043350(float dt, Arg2_43350 p2, int a, float one, char c,
             sel = o->f188;
         dt = (float)(sel * o->f310 * v);
     }
-    dt = FUN_00045670() * dt;
+    dt = ((Scale_43350*)o)->FUN_00045670() * dt;
     char ok = FUN_0003b1c0(f1b0c - dt, (char)c);
     p2.result = 0;
     if (ok && dt > 0.0f && f20b0 == 0) {

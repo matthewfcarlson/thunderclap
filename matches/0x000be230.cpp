@@ -43,10 +43,10 @@ struct Provider_be230 {
     virtual void slot41();
     virtual void slot42();
     virtual void slot43();
-    virtual int slot44(int);
+    virtual int slot44();
 };
 struct Binding_be230 {
-    void FUN_000f8500(void*, int);
+    void FUN_000f8500(void*, int, int);
 };
 struct Channel {
     char pad[0x18];
@@ -77,18 +77,15 @@ bool Manager_be230::FUN_000be230(int id, void* setup, void* a, void* b, void* c,
         item->FUN_000bb820(setup, x, y);
     if (a) {
         Binding_be230* dest = &item->first->binding;
-        int value = item->provider->slot44(1);
-        dest->FUN_000f8500(a, value);
+        dest->FUN_000f8500(a, item->provider->slot44(), 1);
     }
     if (b) {
         Binding_be230* dest = &item->second->binding;
-        int value = item->provider->slot44(1);
-        dest->FUN_000f8500(b, value);
+        dest->FUN_000f8500(b, item->provider->slot44(), 1);
     }
     if (c) {
         Binding_be230* dest = &item->third->binding;
-        int value = item->provider->slot44(1);
-        dest->FUN_000f8500(c, value);
+        dest->FUN_000f8500(c, item->provider->slot44(), 1);
     }
     item->FUN_000e5f70();
     item->FUN_000e5f00(mode);

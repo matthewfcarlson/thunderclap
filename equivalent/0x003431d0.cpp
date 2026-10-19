@@ -9,10 +9,14 @@ void FUN_00341660(float *a, int n, float *w);
 void FUN_00341bd0(float *a, float *w);
 // equiv-conv: FUN_00342180 eax ecx
 void FUN_00342180(float *a, float *w);
-// equiv-conv: FUN_00342800 ecx eax
-void FUN_00342800(float *w, float *a);
-// equiv-conv: FUN_003429f0 ecx eax
-void FUN_003429f0(float *w, float *a);
+struct ThisNote_00342800 {
+    // equiv-conv: FUN_00342800 ecx eax
+    void FUN_00342800(float *a);
+};
+struct ThisNote_003429f0 {
+    // equiv-conv: FUN_003429f0 ecx eax
+    void FUN_003429f0(float *a);
+};
 
 void FUN_003431d0(int n, float *b, int nw, float *w)
 {
@@ -69,10 +73,10 @@ void FUN_003431d0(int n, float *b, int nw, float *w)
                         FUN_00341bd0(d0 + 0x40, w8);
                         FUN_00341bd0(d0 + 0x60, w8);
                     } else {
-                        FUN_00342800(w16, d0);
-                        FUN_003429f0(w16, d0 + 0x10);
-                        FUN_00342800(w16, d0 + 0x20);
-                        FUN_00342800(w16, d0 + 0x30);
+                        ((ThisNote_00342800*)(w16))->FUN_00342800(d0);
+                        ((ThisNote_003429f0*)(w16))->FUN_003429f0(d0 + 0x10);
+                        ((ThisNote_00342800*)(w16))->FUN_00342800(d0 + 0x20);
+                        ((ThisNote_00342800*)(w16))->FUN_00342800(d0 + 0x30);
                     }
                     FUN_00341660(d1, l, t1);
                     if (l == 0x80) {
@@ -81,10 +85,10 @@ void FUN_003431d0(int n, float *b, int nw, float *w)
                         FUN_00341bd0(d1 + 0x40, w8);
                         FUN_00342180(d1 + 0x60, w32);
                     } else {
-                        FUN_00342800(w16, d1);
-                        FUN_003429f0(w16, d1 + 0x10);
-                        FUN_00342800(w16, d1 + 0x20);
-                        FUN_003429f0(w16, d1 + 0x30);
+                        ((ThisNote_00342800*)(w16))->FUN_00342800(d1);
+                        ((ThisNote_003429f0*)(w16))->FUN_003429f0(d1 + 0x10);
+                        ((ThisNote_00342800*)(w16))->FUN_00342800(d1 + 0x20);
+                        ((ThisNote_003429f0*)(w16))->FUN_003429f0(d1 + 0x30);
                     }
                     FUN_00341290(d2, l, t2);
                     if (l == 0x80) {
@@ -93,10 +97,10 @@ void FUN_003431d0(int n, float *b, int nw, float *w)
                         FUN_00341bd0(d2 + 0x40, w8);
                         FUN_00341bd0(d2 + 0x60, w8);
                     } else {
-                        FUN_00342800(w16, d2);
-                        FUN_003429f0(w16, d2 + 0x10);
-                        FUN_00342800(w16, d2 + 0x20);
-                        FUN_00342800(w16, d2 + 0x30);
+                        ((ThisNote_00342800*)(w16))->FUN_00342800(d2);
+                        ((ThisNote_003429f0*)(w16))->FUN_003429f0(d2 + 0x10);
+                        ((ThisNote_00342800*)(w16))->FUN_00342800(d2 + 0x20);
+                        ((ThisNote_00342800*)(w16))->FUN_00342800(d2 + 0x30);
                     }
                     idx += 4 * m;
                     d0 += 4 * m;
@@ -116,9 +120,9 @@ void FUN_003431d0(int n, float *b, int nw, float *w)
         FUN_00341bd0(e + 0x40, &w[nw - 8]);
         FUN_00341bd0(e + 0x60, &w[nw - 8]);
     } else {
-        FUN_00342800(&w[nw - 16], e);
-        FUN_003429f0(&w[nw - 16], e + 0x10);
-        FUN_00342800(&w[nw - 16], e + 0x20);
-        FUN_00342800(&w[nw - 16], e + 0x30);
+        ((ThisNote_00342800*)(&w[nw - 16]))->FUN_00342800(e);
+        ((ThisNote_003429f0*)(&w[nw - 16]))->FUN_003429f0(e + 0x10);
+        ((ThisNote_00342800*)(&w[nw - 16]))->FUN_00342800(e + 0x20);
+        ((ThisNote_00342800*)(&w[nw - 16]))->FUN_00342800(e + 0x30);
     }
 }

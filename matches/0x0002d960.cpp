@@ -1,5 +1,7 @@
 extern "C" char DAT_003f423c[];
-extern "C" void __stdcall Init(void*, int);
+struct ThisCall_001d0480 {
+    void Init(void*, int);
+};
 extern "C" unsigned char __cdecl Get(void*);
 extern char gA_2d960;
 extern char gB_2d960;
@@ -20,7 +22,7 @@ class Method5 {
     Method5* Build(void* p2, int p3);
 };
 Method5* Method5::Build(void* p2, int p3) {
-    Init(p2, 5);
+    ((ThisCall_001d0480*)(this))->Init(p2, 5);
     *(void**)this = (void*)((int)DAT_003f423c);
     arg = p3;
     x18 = Get(&gA_2d960);

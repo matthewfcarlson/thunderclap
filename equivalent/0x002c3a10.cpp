@@ -1,3 +1,3 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // pure3d::TextBible::vfunc_4_adj10 @ 0x002c3a10
-namespace pure3d { struct TextBible { void vfunc_2(); void vfunc_4_adj10(); }; void TextBible::vfunc_4_adj10() { TextBible *object = reinterpret_cast<TextBible *>(reinterpret_cast<char *>(this) - 16); object->vfunc_2(); } }
+namespace pure3d { struct TextBible { void vfunc_2(unsigned flags); void vfunc_4_adj10(unsigned flags); }; void TextBible::vfunc_4_adj10(unsigned flags) { TextBible *object = reinterpret_cast<TextBible *>(reinterpret_cast<char *>(this) - 16); object->vfunc_2(flags); } }

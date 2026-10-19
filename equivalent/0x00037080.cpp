@@ -23,10 +23,10 @@ public:
     char pad229e[2];
     char buf[4];
     void FUN_000350c0(Vec4_37080 *v);
-    void FUN_00037080(int a, char useSaved);
+    char FUN_00037080(int a, char useSaved);
 };
 
-void Tracker_37080::FUN_00037080(int a, char useSaved)
+char Tracker_37080::FUN_00037080(int a, char useSaved)
 {
     Planner *planner = DAT_004dd700->holder->planner;
     Vec4_37080 v;
@@ -41,4 +41,5 @@ void Tracker_37080::FUN_00037080(int a, char useSaved)
     active = 1;
     if (ok)
         saved = cur;
+    return ok;
 }

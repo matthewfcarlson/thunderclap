@@ -1,5 +1,7 @@
 extern void* vA[];
-void __stdcall FUN_00234960(void*);
+struct ThisCall_00234960 {
+    void FUN_00234960(void*);
+};
 class CGrappleLocoStrafe4Track {
   public:
     void* vptr;
@@ -8,7 +10,7 @@ class CGrappleLocoStrafe4Track {
     CGrappleLocoStrafe4Track(void* a, void* b);
 };
 CGrappleLocoStrafe4Track::CGrappleLocoStrafe4Track(void* a, void* b) {
-    FUN_00234960(a);
+    ((ThisCall_00234960*)(this))->FUN_00234960(a);
     vptr = (void*)0x3f9a90;
     m10 = b;
 }

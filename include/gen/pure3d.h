@@ -2178,7 +2178,7 @@ public:
     virtual void vfunc_21(); // overrides pure3d::Shadow slot 21
     virtual void vfunc_22(); // overrides pure3d::Shadow slot 22
     virtual void vfunc_23(unsigned int); // overrides pure3d::Shadow slot 23
-    virtual void vfunc_24(); // slot 24
+    virtual void vfunc_24(int); // slot 24
     virtual int vfunc_25(); // slot 25
     virtual unsigned int vfunc_26(); // slot 26
 };
@@ -3216,16 +3216,16 @@ public:
 class pddiExtGammaControl : public ::pure3d::pddiExtension {
 public:
     virtual ~pddiExtGammaControl(); // overrides pure3d::pddiExtension slot 0
-    virtual void vfunc_1() = 0; // slot 1
-    virtual void vfunc_2() = 0; // slot 2
+    virtual void vfunc_1(int, int, int) = 0; // slot 1
+    virtual void vfunc_2(int, int, int) = 0; // slot 2
 };
 
 // .?AVd3dExtGammaControl@pure3d@@  vftable 0x433324 (3)
 class d3dExtGammaControl : public ::pure3d::pddiExtGammaControl {
 public:
     virtual ~d3dExtGammaControl(); // overrides pure3d::pddiExtension slot 0
-    virtual void vfunc_1(); // overrides pure3d::pddiExtGammaControl slot 1
-    virtual void vfunc_2(); // overrides pure3d::pddiExtGammaControl slot 2
+    virtual void vfunc_1(int, int, int); // overrides pure3d::pddiExtGammaControl slot 1
+    virtual void vfunc_2(int, int, int); // overrides pure3d::pddiExtGammaControl slot 2
     void* f_04;
 };
 
@@ -3288,7 +3288,7 @@ public:
 class pddiExtVertexProgram : public ::pure3d::pddiExtension {
 public:
     virtual ~pddiExtVertexProgram(); // overrides pure3d::pddiExtension slot 0
-    virtual void vfunc_1() = 0; // slot 1
+    virtual void vfunc_1(int, int) = 0; // slot 1
     virtual void vfunc_2(int, int, int, int, int) = 0; // slot 2
     virtual void vfunc_3() = 0; // slot 3
     virtual void vfunc_4(void*, char) = 0; // slot 4
@@ -3302,7 +3302,7 @@ public:
 class d3dExtVertexProgram : public ::pure3d::pddiExtVertexProgram {
 public:
     virtual ~d3dExtVertexProgram(); // overrides pure3d::pddiExtension slot 0
-    virtual void vfunc_1(); // overrides pure3d::pddiExtVertexProgram slot 1
+    virtual void vfunc_1(int, int); // overrides pure3d::pddiExtVertexProgram slot 1
     virtual void vfunc_2(int, int, int, int, int); // overrides pure3d::pddiExtVertexProgram slot 2
     virtual void vfunc_3(); // overrides pure3d::pddiExtVertexProgram slot 3
     virtual void vfunc_4(void*, char); // overrides pure3d::pddiExtVertexProgram slot 4

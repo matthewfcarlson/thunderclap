@@ -10,11 +10,13 @@ namespace audio { class ListenerEffectGc {
     virtual void f7();
     virtual void f8();
 }; }
-extern void FUN_00244f70();
+struct ThisCall_00244f70 {
+    void FUN_00244f70();
+};
 extern void FUN_00247550(void*, void*);
 char g_4e64d8;
 audio::ListenerEffectGc* audio::ListenerEffectGc::vfunc_2(int flags) {
-    FUN_00244f70();
+    ((ThisCall_00244f70*)(this))->FUN_00244f70();
     if (flags & 1)
         FUN_00247550(&g_4e64d8, this);
     return this;

@@ -3,7 +3,9 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 extern "C" char DAT_003f5d3c[];
-extern "C" void __stdcall FUN_001d0480(void*, int);
+struct ThisCall_001d0480 {
+    void FUN_001d0480(void*, int);
+};
 class MethodCtor7_3eea0 {
   public:
     int vptr;
@@ -16,7 +18,7 @@ class MethodCtor7_3eea0 {
     MethodCtor7_3eea0* Init(void* name, void* fn);
 };
 MethodCtor7_3eea0* MethodCtor7_3eea0::Init(void* name, void* fn) {
-    FUN_001d0480(name, 7);
+    ((ThisCall_001d0480*)(this))->FUN_001d0480(name, 7);
     vptr = (int)DAT_003f5d3c;
     func = fn;
     result = FUN_001d04d0((void*)((int)((char*)&DAT_0048e100)));

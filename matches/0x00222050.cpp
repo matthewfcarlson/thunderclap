@@ -1,4 +1,4 @@
-void Init();
+void __fastcall Init(void*);
 class Obj_222050 {
   public:
     char pad[0x40];
@@ -6,7 +6,7 @@ class Obj_222050 {
     Obj_222050();
 };
 Obj_222050::Obj_222050() {
-    Init();
+    Init((void*)(this));
     c = 0;
     b = 0;
     a = 0;

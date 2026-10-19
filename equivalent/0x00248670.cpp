@@ -5,10 +5,14 @@ struct Sound_248670 {
  float volume;
  unsigned FUN_0025d3e0();
 };
-// equiv-conv: FUN_0025d740 ecx stack
-void __cdecl FUN_0025d740(Sound_248670* sound, unsigned ticks);
-// equiv-conv: FUN_0025d780 ecx stack
-void __cdecl FUN_0025d780(Sound_248670* sound, unsigned ticks);
+struct ThisNote_0025d740 {
+    // equiv-conv: FUN_0025d740 ecx stack
+    void FUN_0025d740(unsigned ticks);
+};
+struct ThisNote_0025d780 {
+    // equiv-conv: FUN_0025d780 ecx stack
+    void FUN_0025d780(unsigned ticks);
+};
 struct Owner_248670 { char reserved[48]; unsigned active; };
 struct Fade_248670 {
  char reserved[8];
@@ -51,10 +55,10 @@ void __cdecl FUN_00248670(Owner_248670* owner, Fade_248670* fade, unsigned ticks
  switch (state) {
  case 2:
  case 4:
-  if (fade->phase && owner->active) FUN_0025d740(fade->sound, ticks);
+  if (fade->phase && owner->active) ((ThisNote_0025d740*)(fade->sound))->FUN_0025d740(ticks);
   break;
  case 3:
-  if (!owner->active) FUN_0025d780(fade->sound, ticks);
+  if (!owner->active) ((ThisNote_0025d780*)(fade->sound))->FUN_0025d780(ticks);
   break;
  case 0:
  case 5:

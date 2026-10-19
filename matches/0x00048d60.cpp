@@ -11,9 +11,11 @@ class CNameFlagConditionBase {
     Sub_48d60 sub;
     CNameFlagConditionBase();
 };
-extern void __stdcall FUN_00234590(int);
+struct ThisCall_00234590 {
+    void FUN_00234590(int);
+};
 CNameFlagConditionBase::CNameFlagConditionBase() {
-    FUN_00234590(0);
+    ((ThisCall_00234590*)(this))->FUN_00234590(0);
     m0 = ((int)DAT_003f7010);
     mC = 0;
     sub.Init();

@@ -9,10 +9,12 @@ namespace audio { class SeqEventLogicRepeat {
     virtual SeqEventLogicRepeat* vfunc_4(int);
     virtual void f5();
 }; }
-extern void FUN_002607a0();
+struct ThisCall_002607a0 {
+    void FUN_002607a0();
+};
 extern void __cdecl FUN_00247550(void*, void*);
 audio::SeqEventLogicRepeat* audio::SeqEventLogicRepeat::vfunc_4(int flag) {
-    FUN_002607a0();
+    ((ThisCall_002607a0*)(this))->FUN_002607a0();
     if (flag & 1)
         FUN_00247550(((char*)&DAT_004e73a8), this);
     return this;

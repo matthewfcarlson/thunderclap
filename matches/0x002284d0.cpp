@@ -24,12 +24,14 @@ public:
     void FUN_00228120(float dt);
 };
 
-void __stdcall FUN_00226250(Vec3_2284d0* out);
+struct ThisCall_00226250 {
+    void FUN_00226250(Vec3_2284d0* out);
+};
 
 void LocomotionStrafeDriver::vfunc_9(float dt) {
     if (applyMotion && blocked == 0) {
         Vec3_2284d0 d;
-        FUN_00226250(&d);
+        ((ThisCall_00226250*)(this))->FUN_00226250(&d);
         volatile float* scaledZ = &d.z;
         float x = d.x * dt;
         float y = d.y * dt;

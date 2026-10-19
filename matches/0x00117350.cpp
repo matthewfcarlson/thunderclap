@@ -3,7 +3,9 @@ struct Ref_117350 {
     virtual void Add();
     virtual void Release();
 };
-void Init();
+struct ThisCall_00232660 {
+    void Init();
+};
 class MotionLocatorAction {
   public:
     char pad[0x1c];
@@ -15,7 +17,7 @@ class MotionLocatorAction {
     MotionLocatorAction* Build(unsigned int a, Ref_117350* r);
 };
 MotionLocatorAction* MotionLocatorAction::Build(unsigned int a, Ref_117350* r) {
-    Init();
+    ((ThisCall_00232660*)(this))->Init();
     mMin1 = 0x7f7fffff;
     mMin2 = 0x7f7fffff;
     *(volatile unsigned int*)this = ((int)DAT_0040ed2c);

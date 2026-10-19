@@ -3,7 +3,9 @@ class Obj_1c5cf0 {
     virtual void A();
     virtual void B();
 };
-void __stdcall Init(int);
+struct ThisCall_0027af30 {
+    void Init(int);
+};
 class Thing_1c5cf0 {
   public:
     char pad[8];
@@ -12,7 +14,7 @@ class Thing_1c5cf0 {
     Thing_1c5cf0* Set(int, Obj_1c5cf0*);
 };
 Thing_1c5cf0* Thing_1c5cf0::Set(int arg, Obj_1c5cf0* value) {
-    Init(arg);
+    ((ThisCall_0027af30*)(this))->Init(arg);
     p = 0;
     if (value) {
         value->A();
