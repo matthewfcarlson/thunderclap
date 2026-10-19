@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 6/6)
 // FUN_00214250 @ 0x00214250
 struct EntryList { char pad[12]; unsigned int* entries; };
 // equiv-conv: FUN_00214250 eax edx

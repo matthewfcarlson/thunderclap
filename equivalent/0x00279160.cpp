@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 105 inputs, branch coverage 18/24, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 24/24)
 // core::XboxSaveDrive::vfunc_7 @ 0x00279160
 #include "decls/data/platform/xbox/core.h"
 

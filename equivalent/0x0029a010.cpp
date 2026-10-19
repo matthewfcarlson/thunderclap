@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 18724 inputs, branch coverage 30/30)
 // FUN_0029a010 @ 0x0029a010
 void *__cdecl FUN_0008d690(unsigned int size);
 

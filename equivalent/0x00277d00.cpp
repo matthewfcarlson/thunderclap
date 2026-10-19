@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // FUN_00277d00 @ 0x00277d00
 struct Interface_277d00 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
