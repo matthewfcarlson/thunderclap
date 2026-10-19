@@ -302,17 +302,28 @@ structured vertex.
 
 **Vertex programs.** Order by need: `skin`, `refract`, `skin_refract` and `skin_onebone` are done (see above); then, only if the hybrid lookup log shows them,
 `simple_multicbv`, `layered_multicbv`, `layered_proximity` (`simple_proximity` is done). The other nine are for
-classes no data uses. Each is a single batch item with this tool as its acceptance test. Backend work that goes
-with them (not done here): add `shaders/vp/` to `tools/native_gfx.py shaders` (it compiles only the top-level
-directory with the top-level varying file), a 192-register constant file per draw uploaded as `u_vc`, the vertex
-layouts from the declaration builder (`FUN_003290e0`'s flags word: which attributes, how many components,
-normalised bytes for colours and indices), and the D3D-style clip depth (z in [0, w]) on the GL backends
-(`bgfx::getCaps()->homogeneousDepth`).
+classes no data uses. Each is a single batch item with this tool as its acceptance test.
+
+**Wired into the backend (G3, 2026-10-19; [graphics-backend.md](graphics-backend.md) section 9).** `tools/native_gfx.py
+shaders` compiles `shaders/vp/` with its own varying file and embeds the results; a draw's program is the prim
+buffer's (FUN_00327860: the name it was created with, else `skin`/`skin_onebone` for skinned vertex flags); the
+backend keeps a 192-register constant file and uploads c96..c191 as `u_vc`, exactly the mapping the annotations
+state, so the proven shaders run unchanged; the vertex the shaders read is converted from the game's packed layout
+(FUN_00326e90 / FUN_003290e0: 11:11:10 normals and weights unpacked, the bone-index bytes reordered so `a_indices.x`
+is the NV2A's `v15.x`, D3DCOLORs left as they are for the shaders' own swizzles); Direct3D's [0, w] clip depth is
+remapped on the CPU where bgfx wants [-w, w]. `skin` and `skin_onebone` get their constants from the skinning
+extension (bones) and FUN_00324270 (material, lights, projection): drawn and checked by the self-test (bones blended,
+lit) on Metal and on Vulkan under Wine. `refract`/`skin_refract` wait for d3dRefractVertexShader's constant upload
+(G4) and `simple_proximity` for d3dSimpleShader's (unused by the data); until then those draws use the
+fixed-function program, logged once. bgfx only pairs a vertex shader with a fragment shader whose inputs are exactly
+its outputs, so the stage fragment shader exists per output set (`fs_vp_stage`, `fs_vp_stage5`, `fs_vp_stage3`).
 
 **Fixed function.** The default path (no program) is D3D8 fixed-function T&L; it is specified by public
-documentation, not by game microcode. The same harness can prove it: write the fixed-function equations once as
-a `.vp` program of ours per variant (`nv2a_vp.assemble`), check the interpreter against hand-computed cases, then
-prove `vs_pddi_ff.sc`'s variants against those programs.
+documentation, not by game microcode. `shaders/vp/vs_vp_ff.sc` (G3) implements it (transform, up to four
+directional/point lights with Blinn specular, vertex colour as material, fog depth) and is checked by the backend's
+self-test pixels, not yet by this harness. The same harness can prove it: write the fixed-function equations once
+as a `.vp` program of ours per variant (`nv2a_vp.assemble`; the light-type branches make one variant per
+combination), check the interpreter against hand-computed cases, then prove `vs_vp_ff.sc` against those programs.
 
 **Pixel side.** Two parts, both without vendor material:
 

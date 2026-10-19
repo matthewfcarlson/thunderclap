@@ -68,6 +68,7 @@ void stubReport();
 typedef void (*LogSink)(const char* line);
 void setLogSink(LogSink sink);
 void logf(const char* fmt, ...);
+void logLine(char* buf, unsigned size, const char* fmt, ...);   // snprintf (the image's CRT name differs)
 
 // The value a stub returns: zero of whatever the slot returns.
 struct Default {
@@ -95,6 +96,10 @@ void drawlogAppend(const DrawRecord& r);
 uint32_t drawlogCount();
 const DrawRecord* drawlogAt(uint32_t i);      // i < drawlogCount(), oldest kept first
 bool drawlogWants(uint32_t frame);
+// The frame number draw records carry: the game-clock frame when the image reports GameClock updates
+// (hulk_pddi_clock_tick, the hybrid build's g_hybrid.frame definition), else the display's present count.
+uint32_t drawlogFrame(uint32_t presents);
+bool drawlogGameFrames();                     // true once hulk_pddi_clock_tick has been called
 uint32_t drawlogTexture(const void* texture);  // first-seen ordinal (1-based; 0 for none), as the hybrid log's
 bool drawlogDump(const char* path);           // binary: "PDL1", count, records
 unsigned drawCount();                         // draws submitted since start

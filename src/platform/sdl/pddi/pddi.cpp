@@ -51,6 +51,15 @@ void logf(const char* fmt, ...)
     s_sink(buf);
 }
 
+void logLine(char* buf, unsigned size, const char* fmt, ...)
+{
+    va_list ap;
+    va_start(ap, fmt);
+    HULK_VSNPRINTF(buf, size - 1, fmt, ap);
+    va_end(ap);
+    buf[size - 1] = 0;
+}
+
 void stubHit(int cls, int slot, const char* fn)
 {
     if (cls < 0 || cls >= kClassCount || slot < 0 || slot >= kMaxSlots)
@@ -156,12 +165,23 @@ static unsigned s_draws;
 unsigned drawCount() { return s_draws; }
 void countDraw() { s_draws++; }
 
+// Frame numbering (tools/drawlog_diff.py aligns logs by frame): the hybrid build numbers frames by GameClock
+// updates (g_hybrid.frame: 0 before the game loop, then incremented at the top of every main-loop iteration, so a
+// loop iteration's draws carry the count of updates so far). The native image numbers them the same way when it
+// calls hulk_pddi_clock_tick from GameClock::Update; until it does, records carry the display's present count and
+// the log says so (PDL2 flags bit 0 clear), and drawlog_diff aligns the two by an offset.
+static uint32_t s_clockTicks;
+static bool s_clockSeen;
+uint32_t drawlogFrame(uint32_t presents) { return s_clockSeen ? s_clockTicks : presents; }
+bool drawlogGameFrames() { return s_clockSeen; }
+
 bool drawlogDump(const char* path)
 {
     FILE* f = fopen(path, "wb");
     if (!f)
         return false;
-    uint32_t hdr[2] = {0x314c4450u /* 'PDL1' */, drawlogCount()};
+    // PDL2: magic, count, flags (bit 0: frames are game-clock updates), then the 24-word records (as PDL1's)
+    uint32_t hdr[3] = {0x324c4450u /* 'PDL2' */, drawlogCount(), s_clockSeen ? 1u : 0u};
     fwrite(hdr, sizeof(hdr), 1, f);
     for (uint32_t i = 0; i < hdr[1]; i++)
         fwrite(drawlogAt(i), sizeof(DrawRecord), 1, f);
@@ -175,6 +195,14 @@ bool drawlogDump(const char* path)
 #if HULK_PDDI_GAME && defined(_WIN32)
 extern "C" void hulk_pddi_run_initializers(void);     // win32_glue.cpp
 #endif
+
+// GameClock::Update in the native image (one call per main-loop iteration, where the hybrid build counts
+// g_hybrid.frame): the draw log's frame numbers follow the game clock from then on.
+extern "C" void hulk_pddi_clock_tick(void)
+{
+    hulk::pddi::s_clockSeen = true;
+    hulk::pddi::s_clockTicks++;
+}
 
 // d3dCreateDevice (0x31ba60): only version 0x12/0xb; one device for the process. Returns 1, or 100 (and null).
 extern "C" int hulk_pddi_create_device(int major, int minor, void** out)

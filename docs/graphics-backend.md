@@ -2,6 +2,7 @@
 
 Planning document, written 2026-10-18. Stage G0 (the harness) is built: see [section 7](#7-g0-the-harness-built-2026-10-18).
 Stage G1 (the backend in the native image, first frames and draws) is [section 8](#8-g1-the-backend-in-the-native-image-2026-10-19).
+G3's draw path (prim buffers, vertex programs, render state) is [section 9](#9-g3-the-draw-path-prim-buffers-vertex-programs-render-state-2026-10-19).
 The small prototypes and the scripts that produced the planning numbers were under `build/gfx-proto/` (not tracked). Inputs: [platform-boundary.md](platform-boundary.md),
 [seams.md](seams.md), [web-port.md](web-port.md), [native-build.md](native-build.md), [subsystems.md](subsystems.md),
 [formats/p3d.md](formats/p3d.md), [texture-packs.md](texture-packs.md), `src/platform/sdl/xdk/`,
@@ -338,7 +339,7 @@ graphics (today's state: it links and starts, [native-build.md](native-build.md)
 | G0 Harness | bgfx (bx, bimg) built by `tools/native_gfx.py` for i686-pc-windows-msvc (D3D11) and macOS (Metal); `src/platform/sdl/pddi/` skeleton; the native link swaps `platform/xbox/pure3d` + `graphics_*.cpp` for it; SDL3 window; hybrid `drawlog` hook + record reader + diff tool. **Built 2026-10-18 except the link swap (section 7)** | 1 to 2 weeks | the drawlog hook and the bgfx build are independent |
 | G1 First triangle | `bgfxDisplay` (init, reset, swap, sizes, aspect), `bgfxDevice` (factories), `bgfxContext` clear + transforms + fixed-function vertex shader + one texture stage, `bgfxPrimStream` immediate draws, `bgfxTexture` for DXT1/3/5 and RGBA, `error` shader. **Linked and drawing in the native image 2026-10-19 (section 8): Vulkan under Wine; the game's own first frame waits for the native build** | 1 to 2 weeks | display/device vs texture vs prim stream |
 | G2 Menus and front end | the `simple` shader with its 1-3 stage combiners, texture-stage state key + shader cache, blend/z/cull/alpha test, 2D mode (`pddiBaseContext`), PNG/P8 textures, fonts, the copyright and title screens, movies' render strategy (frames as textures). Compare draw logs and screenshots for title → main menu → options | 2 to 3 weeks | combiner ops, state mapping, P8/palette, screenshot tooling |
-| G3 A level | `bgfxPrimBuffer` static meshes, vertex declarations from the flags word, `skin`/`skin_onebone`/`simple_*` programs (NV2A interpreter first), hardware-skinning extension, `layered` (+ lightmap pair) and `layeredReflect`, fog, stencil (shadows/decals), `environment`, lights from `pddiLightingState`. Target: the junkyard tutorial replay with matching draw logs | 3 to 5 weeks | one batch per shader class; one per vertex program (interpreter-checked); state/fog/stencil |
+| G3 A level | `bgfxPrimBuffer` static meshes, vertex declarations from the flags word, `skin`/`skin_onebone`/`simple_*` programs (NV2A interpreter first), hardware-skinning extension, `layered` (+ lightmap pair) and `layeredReflect`, fog, stencil (shadows/decals), `environment`, lights from `pddiLightingState`. Target: the junkyard tutorial replay with matching draw logs. **Draw path done 2026-10-19 (section 9): prim buffers, the skin programs through the skinning extension, the fixed-function program with lights, render-state slots 54-80, views; self-test 19/19 probes on Metal and on Vulkan under Wine. The level waits for the native build; the shader classes' combiners are G2's** | 3 to 5 weeks | one batch per shader class; one per vertex program (interpreter-checked); state/fog/stencil |
 | G4 Effects | `d3dExtFramebufferEffects` (114 functions: glow levels, blur, colour passes, the 17 `xps` shaders), render targets, `CopyRects`, `refract` (+`skin_refract`), visibility tests, gamma, read pixels, antialias | 2 to 3 weeks | the 17 `xps` translations as one batch; targets/copies; queries/gamma |
 | G5 Web and polish | WebGL2 via the same backend (Emscripten bgfx build, `BGFX_CONFIG_MULTITHREADED=0`, blit fallback), HD textures + dump mode, resolution independence (640/480 literal), MSAA/anisotropy options; the unused shader classes only if a factory log shows them | 1 to 3 weeks | HD textures independent of everything after G1 |
 
@@ -566,6 +567,121 @@ buffers (device slot 10, context slot 32: G3), vertex programs, the context's re
 stencil, fill, fog reach bgfx state only through the base's blocks, which the draw log reads), clear-by-quad and
 mid-frame clears, the combiner modes of the simple shader beyond stage 0 modulate, D3D bytecode (Windows or a newer
 Wine), the second-screenshot assertion under winevulkan, bgfx::reset for mode changes.
+
+## 9. G3: the draw path: prim buffers, vertex programs, render state (2026-10-19)
+
+```sh
+PY=build/venv/bin/python
+$PY tools/native_gfx.py shaders && $PY tools/native_gfx.py pddi    # shaders/ and shaders/vp/, host lib + win32
+$PY tools/native_gfx.py smoke     # Metal: the self-test scene, 19 probes checked on a screenshot
+$PY tools/native_gfx.py slots     # 23 classes, every vfunc_N at index N (still ok)
+HULK_GFX_SELFTEST=30 HULK_GFX_SHOT=10 HULK_GFX_SHOT_DIR='Z:/abs/dir' $PY tools/native_run.py   # the same in the game
+$PY tools/drawlog_diff.py HYBRID.jsonl NATIVE.pdl --align auto   # present-count native logs: the offset is found
+```
+
+Specification throughout: the verified `platform/xbox/pure3d` sources (the d3dContext overrides live in the tree's
+`d3dExtFramebufferEffects.cpp`, the prim buffer and its stream in `d3dPrimBufferStream.cpp`), the game's own data
+tables read from the XBE by address (only their values are used), and public Direct3D 8 documentation for what
+the D3D states mean. New files: `bgfx_draw.cpp` (the draw path), `selftest_scene.cpp` (the scene), `shaders/vp/
+vs_vp_ff.sc` and the stage fragment shaders `fs_vp_stage{,5,3}.sc` + `fs_vp_stage.sh`.
+
+**One draw path.** Prim streams (context slots 30/31) and prim buffers (slot 32, the skinning extension) end in
+`bgfxContext::draw`: the drawlog record, the program, the constants, the stage-0 texture, the fragment uniforms,
+the bgfx state and stencil words, submit. Every draw uses one backend vertex (80 bytes: position, normal, blend
+weights, bone indices, two colours, four uv sets) converted from what the game wrote, with Direct3D's defaults for
+what the vertex lacks, so one bgfx layout serves every program (a per-format layout is a later memory saving).
+
+**Prim buffers** (`bgfxPrimBuffer`, `bgfxPrimBufferStream`):
+
+| piece | what | from |
+|---|---|---|
+| creation (device slot 10) | parameter block words 0 kind, 1 vertex flags, 4 vertex count, 5 index count, 7 program name; the D3D primitive type from 0x4d3ea8; the program: the name, else `skin` (flags 0x180) / `skin_onebone` (0x80) | 0x31b960, FUN_00327860 |
+| the vertex | the game's *packed* layout (FUN_003290e0 with its packed flag, as FUN_00327860 asks): position; 0x100 blend weights and 0x10 normal as 11:11:10 (NORMPACKED3); 0x80 three bone indices x3 as D3DCOLOR bytes; 0x20 a colour or 0x4000 colour sets; 0x40 a second colour; uv sets; 0x200/0x400/0x800/0x1000 extras (kept, not read). The CPU copy holds exactly what the Xbox vertex buffer would | FUN_00326e90 (offsets), FUN_003290e0 (stride) |
+| the stream (slot 4/5) | the record keeps the game's field offsets (+0x24 position .. +0x50 weights); slots 0-17: position, normal (packed with the game's 1/(length x 1.001) scale), the vectors, colour sets, uv sets, the second colour, bone indices, packed weights, whole vertices; FUN_00326f90's advance | 0x327450..0x3277a0 |
+| indices | slot 7/8 lock/unlock (count in use), slot 9 copy, 16-bit | 0x327200..0x3272b0 |
+| raw access | slot 11/12 lock/unlock the packed vertices | 0x327250, 0x327280 |
+| draw count | slot 14: an override count; whole primitives only (FUN_00326dc0 + the table at 0x3f3260) | 0x3270a0, 0x3272f0 |
+| bgfx buffers | converted at the first draw after a change: a static vertex/index buffer the first time, a dynamic one once the buffer is written again (animated geometry) | ours |
+
+**Prim streams** now keep d3dPrimStream's whole header: `+0x18` the batch limit (a multiple of 6 vertices),
+`+0x1c` vertices written, `+0x20` what a full batch carries over (0x4d3664: 2 for strips, 1 for line strips) and
+the carry area at `+0x24`. That matters because the engine advances with **its own** FUN_0008ef00 (tree code):
+at the limit it copies the carried vertices to +0x24, calls slot 1 (draw) and slot 0 with carry. G1's stream left
+the limit 0, so a long batch would have run past the buffer. Slot 30 now does what 0x31bd30 does besides: the
+shader's program constants (slots 22/24), the skin constants for skinned flags, and the pass (0x327d20).
+
+**Vertex programs.** The six proven shaders of `shaders/vp/` are compiled and embedded with the others
+(`native_gfx.py` compiles `shaders/vp/` with its own varying file). A draw's program is the prim buffer's (prim
+streams: fixed function); the constant file is `bgfxContext::m_vc` (192 registers, hardware numbering), uploaded as
+`u_vc` = c96..c191, which is what the shaders' annotations already said. Where the constants come from:
+
+| program | constants | state |
+|---|---|---|
+| `skin`, `skin_onebone` | `d3dExtHardwareSkinning` slot 5: bone x the modelview (the base's matrix stack 0), transposed, three rows to c113 + 3i (25 bones, slot 1); slot 6: FUN_00324270 (c96 fixed, c98-c101 the projection's columns, c102 diffuse, c103 specular + power, c104 emissive + ambient light x ambient, with the game's alpha swap; up to four enabled directional lights at c105..c112), the shader marked skinned, every pass | **wired; drawn in the self-test (bones blended 50/50, lit)** |
+| `refract`, `skin_refract` | d3dRefractVertexShader slot 24 (0x32f3b0) needs the refraction shader's own parameters and samples the frame-buffer copy | G4 (drawn with the fixed-function program meanwhile, logged once) |
+| `simple_proximity`, `*_multicbv` | d3dSimpleShader/d3dLayeredShader slot 24 | CBVP/MCBV are 0 in all data (docs/shaders.md): fixed function |
+| fixed function | `vs_vp_ff.sc`: D3D8 T&L from the backend's D3D-side state, through the same uniform (layout in the shader: modelview and projection columns, the material, the ambient light, four lights) | **done**: directional and point lights (a spot is lit as a point, no cone), local-viewer Blinn specular, vertex colour as the diffuse/ambient material, fog depth |
+
+Depth: Direct3D's [0, w] clip depth is remapped on the CPU (the projection's z column: 2z - w) where bgfx reports
+`homogeneousDepth` (OpenGL), so the proven shaders stay untouched. **bgfx pairs a vertex and a fragment shader
+only when the fragment shader's inputs are exactly the vertex shader's outputs** (`createProgram` compares the two
+interface hashes and returns an invalid handle otherwise, silently in a release build), so the stage fragment
+shader exists once per output set of the vertex programs: seven outputs (ff, skin, skin_onebone), five (refract,
+skin_refract), three (simple_proximity).
+
+**The D3D-side state** (`bgfxContext`): every override calls the base's setter first, as the game's do, so the
+portable blocks the draw log compares stay identical, then keeps the D3D meaning:
+
+| slots | state | bgfx |
+|---|---|---|
+| 54 | cull: 0 none, 1 counter-clockwise (D3D's default), 2 clockwise (0x4d3a48) | `BGFX_STATE_CULL_*` |
+| 56 | colour write mask r, g, b, a | `BGFX_STATE_WRITE_R/G/B/A` |
+| 58, 60, 62 | z enable, compare (pddi compare: 0 never 1 always 2 less 3 lequal 4 greater 5 gequal 6 equal 7 notequal; 0x4d3a6c), z write | depth test / `WRITE_Z` (z disabled: neither) |
+| 64-74 | stencil enable, compare, reference, read mask, write mask, ops fail / z fail / pass (0 keep 1 zero 2 replace 3 incr (wrap) 4 decr (wrap) 5 invert; 0x4d3a54) | the stencil word; **bgfx has no stencil write mask** (anything but 0xff is logged) |
+| 76 | fill 0 solid 1 wireframe 2 points (0x4d3a8c) | solid only (logged) |
+| 78, 80 | fog enable; colour, start, end (the game sets linear table fog: 0x39de84 = 3) | the stage shader: k = (end - d) / (end - start) on the vertex output's fog depth |
+| 35 | the ambient light | the programs' constants |
+| 96 | the viewport's depth range | not per view in bgfx (logged unless 0..1) |
+| 108 | stack n top -> D3DTS_WORLD (n = 0: the modelview; D3D's VIEW stays the identity), TEXTURE0..2 (0x4d3a34) | the programs' constants |
+| 109 | the projection and viewport from the base's view block: mode 0 perspective, 1 orthographic, 2 pixels | `m_proj`, the viewport |
+| 110 | light n changed (+ the modelview it is placed with); FUN_00321310 moves the marked lights to camera space from the base's light set (+0x50, 8 x 0x7c bytes) at the next draw | the lights |
+| 84, 90, 91 | 0x800; the extensions it supports; nothing (as the game) | |
+| 4, 12 | begin frame (+ the base's 0x31d470); clear | views (below) |
+
+Blend (BLMD), alpha test (ATST/ACMP/ACTH) and the material stay the shader's, read at the draw. **Views:** each
+frame's draws go to bgfx view 0 in sequential mode; a clear or a viewport change after draws opens the next view
+(bgfx clears a view at its start and has one rectangle per view), so mid-frame clears and viewports work.
+
+**Self-test** (`selftest_scene.cpp`, the same scene for the host smoke test and `HULK_GFX_SELFTEST`): a 4 x 3 grid,
+each cell one test, 19 probes checked on the screenshot: a fixed-function triangle; the texture through device slot
+9 (TEX through the base's slot 5 in the game image); z LEQUAL and z ALWAYS; alpha and additive blend; stencil (write
+1 with colour writes off, draw where 1); cull; a 12-vertex strip through a 6-vertex batch (the FUN_0008ef00 carry,
+two seams probed; the seam probe fails with the carry disabled); a lit indexed prim buffer (packed normal, one
+directional light, fixed function); a **skinned prim buffer through `d3dExtHardwareSkinning` slots 5/6: the `skin`
+program with three bones blended 50/50 + 50/50 + 0 moving the quad half a screen into its cell, lit by the skin
+program's light** (the probe where the unskinned quad would be shows the cell underneath); linear fog; the colour
+write mask. **Metal (host): 19 of 19. Vulkan under Whisky's Wine, in the game image (native7 tree + G3, linked
+--gfx, strict 0 errors): 19 of 19** (`build/g3/selftest-vulkan-shot10.tga`; one screenshot per run, the winevulkan
+assertion still applies). After the self-test the game image stops where its tree does (the native7 snapshot:
+physics init, `CollisionVolume`; the same without the self-test), so there are still no game frames to diff.
+
+**Draw-log frame numbering.** The hybrid build numbers frames by GameClock updates; the native backend now does too
+once the image calls `hulk_pddi_clock_tick()` (requested from native9: `build/g3/for-native9.md`), and says which
+numbering a log has (`PDL2`: magic, count, flags bit 0 = game-clock frames; PDL1 still reads). For present-count
+logs `drawlog_diff.py --align auto` finds the offset that gives the most frames the same draw signature (primitive,
+count, shader kind per draw) and reports how many frames it explains; `--offset N` sets it. Checked on the hybrid
+boot log against a copy of itself shifted by 37 frames as a native PDL2: offset +37 found, 29 of 29 frames,
+IDENTICAL. Log the native side every frame over the range (`HULK_GFX_DRAWLOG=first:1:last`) so the offset can land
+on the hybrid's every-10th frames.
+
+**Stubbed or open after G3:** the shader classes' texture-stage combiners beyond stage 0 modulate (+ specular, alpha
+test, fog), i.e. layered/lightmap/reflection stages and the fade modes (G2's state key); `refract`/`skin_refract`
+constants and the frame-buffer texture (G4); `simple_proximity`/`*_multicbv` constants (unused by the data); spot
+cones; texture matrices (stacks 1-3 are kept, not applied); stencil write masks, wireframe, depth range (bgfx);
+render targets and the clear-by-quad path (G4); the frame timer slots 106/107; the extensions other than skinning;
+D3D bytecode (unchanged: Windows or a newer Wine); a proof of `vs_vp_ff.sc` in the shader_equiv style (the plan in
+docs/shaders.md: the fixed-function equations as a `.vp` of ours; branches on light type make that a set of
+variants).
 
 ## Open questions
 

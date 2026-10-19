@@ -1,7 +1,8 @@
-// The pddi skeleton's smoke test (host macOS build, outside the game): an SDL3 window, bgfx through bgfxDisplay,
-// and per frame the context API as the engine drives it: begin frame (slot 4), clear (12), begin prims (30), three
-// vertices written through the prim stream's pointers, end prims (31), end frame (5), swap (display slot 14). Takes a
-// screenshot near the end and checks two pixels: the clear colour in a corner, the triangle's colour in the middle.
+// The pddi backend's smoke test (host macOS build, outside the game): an SDL3 window, bgfx through bgfxDisplay,
+// and per frame the context API as the engine drives it: begin frame (slot 4), the self-test scene
+// (selftest_scene.cpp: prim streams, a texture, prim buffers, the skinning extension and the "skin" vertex program,
+// z / blend / stencil / cull / fog / colour-mask state through the context's slots), end frame (5), swap (display
+// slot 14). Takes a screenshot near the end and checks every probe of the scene.
 //
 //   build/third_party/out/pddi-host/pddi_smoke [--frames 120] [--capture out.tga] [--drawlog out.pdl]
 #include "bgfx_pddi.h"
@@ -15,18 +16,24 @@
 
 using namespace hulk::pddi;
 
-static const unsigned kClear = 0xff203040u;         // D3DCOLOR: dark blue-grey
-static const unsigned kTriangle = 0xffff8000u;      // D3DCOLOR: orange
+
+static void printLine(const char* line) { fputs(line, stdout); }
 
 struct Shot : bgfx::CallbackI {
     bool done = false, ok = false;
-    unsigned corner[3] = {0, 0, 0}, centre[3] = {0, 0, 0};
+    int probes = 0, passed = 0;
     void fatal(const char* f, uint16_t l, bgfx::Fatal::Enum c, const char* s) override
     {
         fprintf(stderr, "bgfx fatal %s:%u %d %s\n", f, l, (int)c, s);
         abort();
     }
-    void traceVargs(const char*, uint16_t, const char*, va_list) override {}
+    void traceVargs(const char*, uint16_t, const char* fmt, va_list ap) override
+    {
+        char buf[1024];
+        vsnprintf(buf, sizeof(buf), fmt, ap);
+        if (strstr(buf, "rror") || strstr(buf, "ailed") || getenv("PDDI_SMOKE_TRACE"))   // errors only by default
+            fprintf(stderr, "bgfx: %s", buf);
+    }
     void profilerBegin(const char*, uint32_t, const char*, uint16_t) override {}
     void profilerBeginLiteral(const char*, uint32_t, const char*, uint16_t) override {}
     void profilerEnd() override {}
@@ -41,15 +48,9 @@ struct Shot : bgfx::CallbackI {
     {
         const unsigned char* px = (const unsigned char*)data;
         bool bgra = fmt != bgfx::TextureFormat::RGBA8;
-        auto at = [&](uint32_t x, uint32_t y, unsigned* rgb) {
-            uint32_t row = yflip ? h - 1 - y : y;
-            const unsigned char* p = px + row * pitch + x * 4;
-            rgb[0] = bgra ? p[2] : p[0];
-            rgb[1] = p[1];
-            rgb[2] = bgra ? p[0] : p[2];
-        };
-        at(4, 4, corner);
-        at(w / 2, h / 2, centre);
+        const SelfTestProbe* p;
+        probes = selfTestProbes(&p);
+        passed = selfTestCheck(px, w, h, pitch, bgra, yflip, printLine);
         // TGA, 32-bit BGRA, top-left origin
         FILE* f = fopen(path, "wb");
         if (f) {
@@ -68,15 +69,6 @@ struct Shot : bgfx::CallbackI {
         done = true;
     }
 };
-
-static bool near(const unsigned* rgb, unsigned d3dcolour)
-{
-    int want[3] = {(int)(d3dcolour >> 16) & 255, (int)(d3dcolour >> 8) & 255, (int)d3dcolour & 255};
-    for (int i = 0; i < 3; i++)
-        if (abs((int)rgb[i] - want[i]) > 2)
-            return false;
-    return true;
-}
 
 int main(int argc, char** argv)
 {
@@ -113,24 +105,15 @@ int main(int argc, char** argv)
     if (!display->hostInit(nwh, 0, 640, 480, bgfx::RendererType::Count, &shot))
         return 4;
     bgfxContext* ctx = (bgfxContext*)device->vfunc_8(display);
-    ctx->hostSetClear(kClear, 1.0f, 0);
     drawlogEnable(0, 1, 0xffffffffu);
 
-    static const float tri[3][3] = {{-0.5f, -0.5f, 0.5f}, {0.5f, -0.5f, 0.5f}, {0.0f, 0.5f, 0.5f}};
     for (int f = 0; f < frames; f++) {
         SDL_Event e;
         while (SDL_PollEvent(&e))
             if (e.type == SDL_EVENT_QUIT)
                 f = frames;
         ctx->vfunc_4();                                   // begin frame
-        ctx->vfunc_12(1 | 2);                             // clear colour + depth
-        bgfxPrimStream* s = (bgfxPrimStream*)ctx->vfunc_30(0, kPrimTriList, kVertexColour, 3, 0);
-        for (int v = 0; v < 3; v++) {                     // as the engine's inline prim-stream writes do
-            memcpy(s->posPtr, tri[v], 12);
-            *(unsigned*)s->colorPtr = kTriangle;
-            s->vertex();
-        }
-        ctx->vfunc_31(s);                                 // end prims: the draw
+        selfTestScene(ctx);                               // clears, then every cell's draws
         ctx->vfunc_5();                                   // end frame
         if (f == frames - 4)
             bgfx::requestScreenShot(BGFX_INVALID_HANDLE, capture);
@@ -138,11 +121,10 @@ int main(int argc, char** argv)
     }
     for (int i = 0; i < 4 && !shot.done; i++)
         display->vfunc_14();
-    bool ok = shot.done && near(shot.corner, kClear) && near(shot.centre, kTriangle);
-    printf("smoke: renderer %s, %d frames, %u draws logged, screenshot %s: corner %u,%u,%u centre %u,%u,%u -> %s\n",
+    bool ok = shot.done && shot.probes > 0 && shot.passed == shot.probes;
+    printf("smoke: renderer %s, %d frames, %u draws logged, screenshot %s: %d of %d probes -> %s\n",
            bgfx::getRendererName(bgfx::getRendererType()), frames, drawlogCount(), shot.done ? capture : "(none)",
-           shot.corner[0], shot.corner[1], shot.corner[2], shot.centre[0], shot.centre[1], shot.centre[2],
-           ok ? "PASS" : "FAIL");
+           shot.passed, shot.probes, ok ? "PASS" : "FAIL");
     if (dl)
         drawlogDump(dl);
     stubReport();

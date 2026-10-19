@@ -104,8 +104,24 @@ struct GameBase {
     bool FUN_00327b60(int, int);
     bool FUN_00327bc0(int, int);
     // base implementations our overrides call first, as the game's do
+    void FUN_0031d470();                             // pddiBaseContext slot 4 (frame count, timer)
     void FUN_0031d4c0();                             // pddiBaseContext slot 5
+    bool FUN_0031e2f0(int);                          // pddiBaseContext slot 90
     void FUN_0031def0(int);                          // pddiBaseContext slot 54
+    void FUN_0031d910(void*);                        // slot 35: ambient light (the lighting block +0x3e4)
+    void FUN_0031df10(char, char, char, char);       // slot 56: colour write mask (*(this+0x4c)+0x18..0x1b)
+    void FUN_0031df80(unsigned char);                // slot 58: z enable (+8)
+    void FUN_0031dfa0(int);                          // slot 60: z compare (+0xc)
+    void FUN_0031dfc0(unsigned char);                // slot 62: z write (+0x10)
+    void FUN_0031dfe0(int);                          // slot 64: stencil enable (*(this+0x58)+4)
+    void FUN_0031e000(int);                          // slot 66: stencil compare (+8)
+    void FUN_0031e020(int);                          // slot 68: stencil reference (+0xc)
+    void FUN_0031e040(int);                          // slot 70: stencil mask (+0x10)
+    void FUN_0031e060(int);                          // slot 72: stencil write mask (+0x14)
+    void FUN_0031e080(int, int, int);                // slot 74: stencil ops (+0x18..+0x20)
+    void FUN_0031e0e0(unsigned long);                // slot 76: fill mode (*(this+0x4c)+0x14)
+    void FUN_0031e100(unsigned int);                 // slot 78: fog enable (*(this+0x54)+4)
+    void FUN_0031e120(int, int, int);                // slot 80: fog colour, start, end (+8..+0x10)
     // constructors and destructors of the portable bases
     void FUN_0031f410(void* display, void* device);  // pddiBaseContext::pddiBaseContext (equivalent/0x0031f410.cpp)
     void* FUN_0031ece0(unsigned int flags);          // pddiBaseContext's scalar deleting destructor (flags 0: no free)

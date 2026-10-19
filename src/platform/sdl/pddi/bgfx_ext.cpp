@@ -35,12 +35,47 @@ void bgfxExtGlobalProjectedTexture::vfunc_1(int a0, void* a1, void* a2) { PDDI_S
 bool bgfxExtGlobalProjectedTexture::vfunc_2(int a0, void* a1, void* a2) { PDDI_STUB(2); return false; }
 
 // ---- bgfxExtHardwareSkinning
-unsigned int bgfxExtHardwareSkinning::vfunc_1(unsigned int a0) { PDDI_STUB(1); return 0; }
-void bgfxExtHardwareSkinning::vfunc_2() { PDDI_STUB(2); }
-void bgfxExtHardwareSkinning::vfunc_3() { PDDI_STUB(3); }
-void bgfxExtHardwareSkinning::vfunc_4(int a0) { PDDI_STUB(4); }
-void bgfxExtHardwareSkinning::vfunc_5(int a0, int a1) { PDDI_STUB(5); }
-void bgfxExtHardwareSkinning::vfunc_6(int a0, int a1) { PDDI_STUB(6); }
+// slot 1 (0x3221e0): the most bones a draw can have: 25 (c113.. three rows each, up to c187)
+unsigned int bgfxExtHardwareSkinning::vfunc_1(unsigned int) { return 0x19; }
+void bgfxExtHardwareSkinning::vfunc_2() {}                 // empty in the game (0x322260)
+void bgfxExtHardwareSkinning::vfunc_3() {}                 // empty (0x322270)
+void bgfxExtHardwareSkinning::vfunc_4(int) {}              // empty (0x3221f0)
+// slot 5 (0x322200): bone i's matrix: bone x the modelview (the base's stack 0 top, slot 18), transposed, three rows
+// to c113 + 3i (the skin programs' relative constants)
+void bgfxExtHardwareSkinning::vfunc_5(int bone, const float* matrix)
+{
+    if (!matrix || bone < 0 || bone >= 0x19)
+        return;
+    const float* mv = m_context->worldMatrix();
+#if HULK_PDDI_GAME
+    const uint32_t* stack = *(const uint32_t* const*)((const char*)m_context + 0x20);
+    if (stack)
+        mv = (const float*)(uintptr_t)stack[3] + 16 * stack[2];
+#endif
+    float r[16], t[12];
+    for (int i = 0; i < 4; i++)
+        for (int j = 0; j < 4; j++)
+            r[i * 4 + j] = matrix[i * 4 + 0] * mv[0 * 4 + j] + matrix[i * 4 + 1] * mv[1 * 4 + j] +
+                           matrix[i * 4 + 2] * mv[2 * 4 + j] + matrix[i * 4 + 3] * mv[3 * 4 + j];
+    for (int row = 0; row < 3; row++)
+        for (int k = 0; k < 4; k++)
+            t[row * 4 + k] = r[k * 4 + row];
+    m_context->setVertexConstants(0x71 + 3 * bone, t, 3);
+}
+// slot 6 (0x3245d0): draw a skinned prim buffer: the skin programs' constants (FUN_00324270), the shader marked
+// skinned during the draw (+0x7d: the refraction shader picks skin_refract), every pass
+void bgfxExtHardwareSkinning::vfunc_6(bgfxShader* shader, bgfxPrimBuffer* buffer)
+{
+    if (!shader || !buffer)
+        return;
+    m_context->skinConstants(shader);
+    shader->m_skinned = true;
+    const char* program = buffer->m_program;
+    if (shader->m_kind == kShaderRefract)
+        program = "skin_refract";
+    m_context->drawPrimBuffer(shader, buffer, program);
+    shader->m_skinned = false;
+}
 
 // ---- bgfxExtReadPixels
 void bgfxExtReadPixels::vfunc_1(void* a0, void* a1, void* a2) { PDDI_STUB(1); }

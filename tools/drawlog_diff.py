@@ -8,11 +8,25 @@ DrawRecord). Sources:
 
   - the hybrid build in xemu: `tools/hybrid_test.py replay REC.json --drawlog EVERY[:FIRST[:LAST]]` writes JSON lines
     (a header object, then one object per draw);
-  - the native backend: `hulk::pddi::drawlogDump` writes "PDL1" binaries (the same 24 words per draw).
+  - the native backend: `hulk::pddi::drawlogDump` writes "PDL2" binaries (the same 24 words per draw; "PDL1", the
+    G1 format, is read too).
+
+Frame numbers. The hybrid build numbers frames by GameClock updates (`g_hybrid.frame`: 0 before the game loop, then
+one per main-loop iteration, counted at its top, so an iteration's draws carry the updates so far). The native
+backend numbers them the same way once the image calls `hulk_pddi_clock_tick` from GameClock::Update (PDL2 flags
+bit 0: "game-clock frames"); before that its records carry the display's present count, which runs ahead of the
+game clock by the presents made before the loop (loading screens). So:
+
+  - both logs in game-clock frames: compared as they are;
+  - a native log in present counts: `--offset N` (native frame = hybrid frame + N) or `--align auto` (the default
+    for that case), which picks the offset that lines up the most frames with the same draw signature (the sequence
+    of primitive type, count and shader kind), and says how many frames that offset explains.
 
   build/venv/bin/python tools/drawlog_diff.py A.jsonl B.jsonl                 # first mismatches, per-frame counts
   build/venv/bin/python tools/drawlog_diff.py A.jsonl B.pdl --ignore shader_id      # hybrid vs native: the shader
                                                                                    # field compared as a kind
+  build/venv/bin/python tools/drawlog_diff.py A.jsonl B.pdl --offset 37      # B's frame = A's frame + 37
+  build/venv/bin/python tools/drawlog_diff.py A.jsonl B.pdl --align auto      # find that offset
   build/venv/bin/python tools/drawlog_diff.py A.jsonl --summary              # one log: what it holds
 
 Records are aligned by (frame, draw index); the exit status is 0 when every compared field of every aligned draw is
@@ -36,11 +50,13 @@ def load(path):
     """(meta, [record dict]) from a JSONL draw log or a PDL1 binary."""
     with open(path, "rb") as f:
         head = f.read(4)
-    if head == b"PDL1":
+    if head in (b"PDL1", b"PDL2"):
         data = open(path, "rb").read()
         _magic, n = struct.unpack_from("<4sI", data, 0)
-        recs = [dict(zip(FIELDS, struct.unpack_from("<24I", data, 8 + 96 * i))) for i in range(n)]
-        return {"source": "native", "format": "PDL1"}, recs
+        flags, base = (struct.unpack_from("<I", data, 8)[0], 12) if head == b"PDL2" else (0, 8)
+        recs = [dict(zip(FIELDS, struct.unpack_from("<24I", data, base + 96 * i))) for i in range(n)]
+        return {"source": "native", "format": head.decode(),
+                "frames": "game-clock" if flags & 1 else "presents"}, recs
     meta, recs = {}, []
     for i, line in enumerate(open(path)):
         if not line.strip():
@@ -115,6 +131,40 @@ def summary(meta, recs, names):
                                                                                 r["tex3"]) if t}))
 
 
+def signature(recs):
+    """{frame: the frame's draws as (prim, count, shader kind) in order} (shader as a kind when it is one)."""
+    out = collections.defaultdict(list)
+    for r in sorted(recs, key=key):
+        out[r["frame"]].append((r["prim"], r["count"], r["shader"]))
+    return {f: tuple(v) for f, v in out.items()}
+
+
+def best_offset(a, b):
+    """The offset d (b's frame = a's frame + d) that the most frames with equal, non-empty signatures agree on:
+    (d, frames explained, frames of a). None if no frame matches."""
+    sa, sb = signature(a), signature(b)
+    by_sig = collections.defaultdict(list)
+    for f, s in sb.items():
+        by_sig[s].append(f)
+    votes = collections.Counter()
+    for f, s in sa.items():
+        for g in by_sig.get(s, ()):
+            votes[g - f] += 1
+    if not votes:
+        return None
+    d, n = max(votes.items(), key=lambda kv: (kv[1], -abs(kv[0])))
+    return d, n, len(sa)
+
+
+def shift(recs, d):
+    out = []
+    for r in recs:
+        r = dict(r)
+        r["frame"] = r["frame"] - d
+        out.append(r)
+    return out
+
+
 def diff(a, b, fields, names, limit):
     ia = {key(r): r for r in a}
     ib = {key(r): r for r in b}
@@ -152,6 +202,10 @@ def main(argv):
     ap.add_argument("--ignore", default="", help="comma list of fields not to compare")
     ap.add_argument("--limit", type=int, default=10, help="mismatching draws to print")
     ap.add_argument("--summary", action="store_true", help="describe each log")
+    ap.add_argument("--offset", type=int, help="B's frame = A's frame + OFFSET (B's frames are shifted back)")
+    ap.add_argument("--align", choices=("none", "auto"),
+                    help="auto: find the offset by draw signatures (default when exactly one log is native and "
+                         "numbered by presents)")
     args = ap.parse_args(argv)
     names = class_names()
     ma, a = load(args.a)
@@ -165,6 +219,20 @@ def main(argv):
     if (ma.get("source") == "native") != (mb.get("source") == "native"):
         # hybrid vs native: the shader as a kind on both sides
         a, b = (a, to_native_kinds(b, names)) if ma.get("source") == "native" else (to_native_kinds(a, names), b)
+    presents = (ma.get("frames") == "presents") != (mb.get("frames") == "presents")
+    align = args.align or ("auto" if presents and args.offset is None else "none")
+    if args.offset is not None:
+        b = shift(b, args.offset)
+        print("frames: B shifted by %+d (--offset)" % args.offset)
+    elif align == "auto":
+        found = best_offset(a, b)
+        if found is None:
+            print("frames: --align auto found no frame with the same draws in both logs: compared unshifted")
+        else:
+            d, n, total = found
+            b = shift(b, d)
+            print("frames: B = A %+d (--align auto: %d of A's %d logged frames have the same draw signature at "
+                  "that offset)" % (d, n, total))
     fields = args.fields.split(",") if args.fields else [f for f in FIELDS if f not in ("frame", "seq")]
     ign = set(filter(None, args.ignore.split(",")))
     fields = [f for f in fields if f not in ign]

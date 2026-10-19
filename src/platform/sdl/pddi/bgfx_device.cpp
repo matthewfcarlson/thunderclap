@@ -82,10 +82,18 @@ void* bgfxDevice::vfunc_9(const void* a0)
 {
     return bgfxTexture::create(m_context, (const int*)a0, &m_lastError);
 }
+// slot 10 (0x31b960): a prim buffer from the parameter block {prim kind, vertex flags, ?, ?, vertex count, index
+// count, ?, vertex program name} (FUN_00327860 gets words 0, 1, 4, 5 and 7; pointer-sized words, so a 64-bit host
+// test can pass the name too). The new buffer's word at +8 (slot 2) is the status the game copies to the device.
 void* bgfxDevice::vfunc_10(void* a0)
 {
-    PDDI_STUB(10);    // G1/G3: the prim buffer parameter block -> static buffers
-    return new bgfxPrimBuffer(m_context);
+    const intptr_t* p = (const intptr_t*)a0;
+    if (!p)
+        return 0;
+    bgfxPrimBuffer* b = new bgfxPrimBuffer(m_context, (int)p[0], (unsigned)p[1], (int)p[4], (int)p[5],
+                                           (const char*)p[7]);
+    m_lastError = b->vfunc_2();
+    return b;
 }
 void* bgfxDevice::vfunc_11(const char* name, int a1) { return newShader(name); }
 void bgfxDevice::vfunc_12(int a0, int a1) {}       // empty in the game too (0x31b9f0)

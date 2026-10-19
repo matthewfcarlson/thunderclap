@@ -27,6 +27,7 @@ class bgfxDisplay;
 class bgfxContext;
 class bgfxPrimStream;
 class bgfxShader;
+class bgfxPrimBuffer;
 
 // pddiObject's three slots and the virtual destructor (slot 3): every class below that the game derives from
 // pddiObject. In the game, slots 0-2 are pddiObject's inline functions (emitted into the Xbox objects, so they are
@@ -230,24 +231,96 @@ class bgfxContext : public bgfxObject {
         float depth;
         unsigned stencil;
     };
+    // The render state the d3dContext's overrides of slots 35 and 54-80 hand to D3D (each calls the base's setter
+    // first, which keeps the portable blocks the draw log reads; the D3D state is ours: bgfx state per draw).
+    // pddi enums (the game's tables): compare 0 never 1 always 2 less 3 lequal 4 greater 5 gequal 6 equal
+    // 7 notequal (0x4d3a6c); stencil op 0 keep 1 zero 2 replace 3 incr (wrap) 4 decr (wrap) 5 invert (0x4d3a54);
+    // fill 0 solid 1 wireframe 2 points (0x4d3a8c); cull 0 none 1 counter-clockwise 2 clockwise (0x4d3a48).
+    struct RenderState {
+        unsigned cull;                        // 54
+        bool colourMask[4];                   // 56: r g b a
+        bool zEnable;                         // 58
+        unsigned zFunc;                       // 60
+        bool zWrite;                          // 62
+        bool stencil;                         // 64
+        unsigned stencilFunc;                 // 66
+        unsigned stencilRef;                  // 68
+        unsigned stencilMask;                 // 70 (read mask)
+        unsigned stencilWriteMask;            // 72 (bgfx has none: logged when not 0xff)
+        unsigned stencilOp[3];                // 74: fail, depth fail, pass
+        unsigned fill;                        // 76 (bgfx: solid only; logged)
+        bool fog;                             // 78
+        unsigned fogColour;                   // 80 (D3DCOLOR)
+        float fogStart, fogEnd;               // 80 (passed as float bits)
+        unsigned ambient;                     // 35: the ambient light (D3DCOLOR)
+    };
+    // One light as D3D gets it (FUN_00321310 from the base's light set at +0x50): already in camera space.
+    struct Light {
+        int type;                             // D3D: 1 point, 2 spot, 3 directional (0x4d3a10: pddi 0 dir, 1 point,
+                                              // 2 spot, 3 point)
+        bool on;
+        float diffuse[4];                     // the light colour (also its specular, as the game sets it)
+        float position[3], direction[3];
+        float range, att[3];
+    };
+    enum { kLights = 8 };
     ClearInfo* clearInfo();
     void hostSetClear(unsigned colour, float depth, unsigned stencil);
-    void setViewTransform(const float* view, const float* proj);
+    void setViewTransform(const float* view, const float* proj);   // the modelview (D3D world) and projection
+    void hostSetLight(int i, const Light& l);   // host builds and the self-test: a light in camera space
     void submit(bgfxPrimStream* stream);
+    // A draw of either source (bgfx_draw.cpp): what the prim stream and the prim buffer hand to the common path.
+    struct DrawSource {
+        int kind;                             // pddi prim kind
+        uint32_t count;                       // vertices (no indices) or indices to draw
+        uint32_t vertexCount;
+        bool transient;
+        void* tvb;                            // bgfx::TransientVertexBuffer* when transient
+        unsigned vb, ib;                      // bgfx handles (vb: static or dynamic, see dynamic)
+        bool dynamicVb, dynamicIb;
+        unsigned flags;                       // the vertex flags (what the program may read)
+        const char* program;                  // vertex program name ("" or 0: fixed function)
+    };
+    void draw(bgfxShader* shader, const DrawSource& src);
+    // the per-pass loop of slot 32 / d3dExtHardwareSkinning::vfunc_6: activate the shader (0x327d20), pass, draw
+    void drawPrimBuffer(bgfxShader* shader, bgfxPrimBuffer* buffer, const char* program);
+    void beginPass(bgfxShader* shader, int pass);
+    // the D3D-side state the draws read
+    void updateLights();                      // FUN_00321310: the dirty lights from the base's set
+    int directionalLights(int* ids);          // FUN_00321dc0(ids, 0): up to 4 enabled directional lights
+    void setVertexConstants(int reg, const float* v, int count);   // SetVertexShaderConstant (hardware numbering)
+    void skinConstants(bgfxShader* shader);  // FUN_00324270: the skin programs' material, light, projection
+    const float* worldMatrix();               // the modelview (D3D world: the base's matrix stack 0)
+    // the viewport changed (clearFlags < 0) or a clear (bgfx flags): a new bgfx view when the current one has draws
+    void viewChanged(int clearFlags);
+    uint64_t stateBits(const bgfxShader* shader, int kind, uint32_t* stencil);
+    void drawlogState(DrawRecord& r);
+    static uint64_t blendState(int pddiBlendMode);
     int m_base[(0x14c - 8) / 4];              // +8..+0x14c: the portable base's data (see above)
     bgfxDisplay* m_display;
     bgfxDevice* m_device;
     bgfxPrimStream* m_stream;
     bgfxShader* m_defaultShader;
     ClearInfo m_hostClear;
-    unsigned m_cull;                          // slot 54
     unsigned m_drawIndex;                     // draws in this frame (drawlog)
-    unsigned m_program;                       // bgfx::ProgramHandle of the fixed-function stand-in
-    unsigned m_texProgram, m_uTex, m_uAlpha;  // the textured one and its uniforms
-    uint32_t ensureTexProgram();
-    void drawlogState(DrawRecord& r);
-    static uint64_t blendState(int pddiBlendMode);
-    float m_view[16], m_proj[16];
+    RenderState m_rs;
+    float m_world[16], m_proj[16];            // D3DTS_WORLD (the modelview) and D3DTS_PROJECTION, row-vector
+    float m_texMatrix[3][16];                 // stacks 1..3 (D3DTS_TEXTURE0..2): kept, not applied yet
+    Light m_lights[kLights];
+    bool m_lightDirty[kLights], m_anyLightDirty, m_hostLights;
+    float m_lightMatrix[kLights][16];         // slot 110: the modelview when the light was set
+    float m_vc[192][4];                       // the vertex constant file (hardware numbering; programs read c96..)
+    unsigned m_viewport[4];                   // x, y, w, h (FUN_00321520)
+    unsigned m_viewId;                        // the bgfx view draws go to now
+    bool m_viewUsed;                          // a draw went to m_viewId (a clear/viewport change opens a new view)
+    unsigned m_clearFlags, m_clearRgba;       // what the pending view clears
+    float m_clearDepth;
+    unsigned m_clearStencil;
+    // bgfx objects (handles as unsigned: bgfx headers stay out of this file)
+    unsigned m_uVc, m_uFrag, m_uTex0;
+    unsigned m_whiteTex;
+    unsigned m_programs[8];                   // per vertex program (kPrograms in bgfx_draw.cpp); 0xffff: not made
+    bool ensureResources();
     // slot 89 (GetExtension): the d3dContext's extension objects by id, in the game's order (+0x424..+0x448):
     // 0x101 gamma, 0x500001 antialias, 0x500004 projected texture, 0x500005 read pixels, 0x102 hardware skinning,
     // 0x500002 visibility test, 0x106 vertex program, 0x103 framebuffer effects, 0x104 framebuffer texture, 0x105 none
@@ -311,12 +384,68 @@ class bgfxTexture : public bgfxObject {
     uint32_t m_palette[256];
 };
 
-// Stands in for pure3d::d3dPrimBuffer (vftable 0x4334b4, 15 slots): a static vertex (+ index) buffer, filled
-// through a pddiPrimBufferStream (slot 7 or so) and drawn by bgfxContext::vfunc_32.
+// Stands in for pure3d::d3dPrimBufferStream (vftable 0x4334f4, 18 slots; no pddiObject base): what a prim buffer's
+// lock (slot 4) hands out to write vertices with. The fields keep the game's record layout (FUN_00326e90 fills
+// it: pointers into the locked vertices per attribute, the stride, the vertices written), in case engine code
+// reads them; the slots are ours. 0: position + next vertex, 1: normal (packed 11:11:10 when the layout packs it),
+// 2/3: the 0x800/0x1000 vectors, 4: colour (value, set), 6: uv (u, v, set), 9: the second colour, 10: three bone
+// indices (x3, D3DCOLOR order), 11: packed blend weights, 12-16: whole vertices (+ next), 17: next vertex.
+class bgfxPrimBufferStream final {      // final: no virtual destructor (the game class has no slot for one)
+  public:
+    enum { kClass = kClassPrimBufferStream };
+    bgfxPrimBufferStream();
+    virtual void vfunc_0(float, float, float); // slot 0: d3dPrimBufferStream 0x327450 (pure3d/d3dPrimBufferStream.cpp)
+    virtual void vfunc_1(float, float, float); // slot 1: d3dPrimBufferStream 0x327480 (pure3d/d3dPrimBufferStream.cpp)
+    virtual void vfunc_2(unsigned long, unsigned long, unsigned long); // slot 2: d3dPrimBufferStream 0x327530 (pure3d/d3dPrimBufferStream.cpp)
+    virtual void vfunc_3(unsigned int, unsigned int, unsigned int); // slot 3: d3dPrimBufferStream 0x327550 (pure3d/d3dPrimBufferStream.cpp)
+    virtual void vfunc_4(int, int);           // slot 4: d3dPrimBufferStream 0x327570 (pure3d/d3dPrimBufferStream.cpp)
+    virtual void vfunc_5(int, int);           // slot 5: d3dPrimBufferStream 0x327420 (pure3d/d3dPrimBufferStream.cpp)
+    virtual void vfunc_6(float, float, int);  // slot 6: d3dPrimBufferStream 0x327590 (pure3d/d3dPrimBufferStream.cpp)
+    virtual void vfunc_7(int, int, int, int); // slot 7: d3dPrimBufferStream 0x327430 (pure3d/d3dPrimBufferStream.cpp)
+    virtual void vfunc_8(int, int, int, int, int); // slot 8: d3dPrimBufferStream 0x327440 (pure3d/d3dPrimBufferStream.cpp)
+    virtual void vfunc_9(unsigned int);       // slot 9: d3dPrimBufferStream 0x3275b0 (pure3d/d3dPrimBufferStream.cpp)
+    virtual void vfunc_10(char, char, char, char); // slot 10: d3dPrimBufferStream 0x3275c0 (pure3d/d3dPrimBufferStream.cpp)
+    virtual void vfunc_11(float, float, float); // slot 11: d3dPrimBufferStream 0x327600 (pure3d/d3dPrimBufferStream.cpp)
+    virtual void vfunc_12(const float*, const float*, const float*); // slot 12: d3dPrimBufferStream 0x327750 (pure3d/d3dPrimBufferStream.cpp)
+    virtual void vfunc_13(const float*, unsigned int, const float*); // slot 13: d3dPrimBufferStream 0x327710 (pure3d/d3dPrimBufferStream.cpp)
+    virtual void vfunc_14(const float*, const float*); // slot 14: d3dPrimBufferStream 0x3276d0 (pure3d/d3dPrimBufferStream.cpp)
+    virtual void vfunc_15(const float*, const float*); // slot 15: d3dPrimBufferStream 0x327690 (pure3d/d3dPrimBufferStream.cpp)
+    virtual void vfunc_16(const float*, unsigned int); // slot 16: d3dPrimBufferStream 0x327660 (pure3d/d3dPrimBufferStream.cpp)
+    virtual void vfunc_17();                  // slot 17: d3dPrimBufferStream 0x3277a0 (jumps to 0x326f90)
+
+    // the game's record (offsets from the vftable pointer)
+    unsigned char active;                     // +4
+    char pad5[3];
+    void* format;                             // +8 (the game: the vertex format; here our prim buffer)
+    char* base;                               // +0xc the first vertex
+    int written;                              // +0x10 vertices written
+    int arg;                                  // +0x14
+    int stride;                               // +0x18
+    int texCount, colourSets;                 // +0x1c, +0x20
+    char* position;                           // +0x24
+    float* normal;                            // +0x28 (unpacked normals; 0: this layout packs them)
+    unsigned* packedNormal;                   // +0x2c
+    unsigned* colours;                        // +0x30 (0x20 / 0x4000 sets)
+    unsigned* colour2;                        // +0x34 (0x40)
+    float* uv;                                // +0x38
+    char* extra[4];                           // +0x3c 0x200, 0x400, 0x800, 0x1000
+    unsigned char* indices;                   // +0x4c (0x80)
+    unsigned* weights;                        // +0x50 (0x100, packed)
+    void layout(char* data, unsigned flags, int stride);   // FUN_00326e90 (the packed layout)
+    void next();                              // FUN_00326f90
+};
+
+// Stands in for pure3d::d3dPrimBuffer (vftable 0x4334b4, 15 slots): a vertex (+ index) buffer made by device slot 10
+// from a parameter block (prim kind, vertex flags, vertex count, index count, vertex program name), filled through
+// the stream its slot 4 hands out (or raw, slots 11/12) and indices (slots 7/8 or 9), drawn by context slot 32 and
+// d3dExtHardwareSkinning::vfunc_6. The vertices are kept in the game's packed layout (FUN_00326e90: normals and
+// blend weights 11:11:10, bone indices as D3DCOLOR bytes) and converted to the backend's vertex at the next draw
+// after a change: a static bgfx buffer the first time, a dynamic one when the buffer is rewritten.
 class bgfxPrimBuffer : public bgfxObject {
   public:
     enum { kClass = kClassPrimBuffer };
-    explicit bgfxPrimBuffer(bgfxContext* context);
+    bgfxPrimBuffer(bgfxContext* context, int kind, unsigned flags, int vertexCount, int indexCount,
+                   const char* program);
     virtual ~bgfxPrimBuffer();
     virtual void* vfunc_4();                  // slot 4: d3dPrimBuffer 0x327190 (pure3d/d3dPrimBufferStream.cpp)
     virtual void vfunc_5(void*);              // slot 5: d3dPrimBuffer 0x3271f0 (pure3d/d3dPrimBufferStream.cpp)
@@ -330,68 +459,63 @@ class bgfxPrimBuffer : public bgfxObject {
     virtual void vfunc_13(int, int);          // slot 13: d3dPrimBuffer 0x3272a0 (pure3d/d3dPrimBufferStream.cpp)
     virtual void vfunc_14(int);               // slot 14: d3dPrimBuffer 0x3270a0 (pure3d/d3dPrimBufferStream.cpp)
 
-    bgfxContext* m_context;
-    unsigned m_vb, m_ib;                      // bgfx handles
-};
-
-// Stands in for pure3d::d3dPrimBufferStream (vftable 0x4334f4, 18 slots; no pddiObject base): writes vertices into
-// a prim buffer. 0: position (x, y, z; floats passed as words) and next vertex, 1: normal, 2/3: two more vectors,
-// 4: colour (value, set), 6: uv (u, v, set), 9/10: skin index/weights, 11: packed normal, 12-16: whole vertices
-// (position + normal/colour/uv in the combinations the engine uses).
-class bgfxPrimBufferStream final {      // final: no virtual destructor (the game class has no slot for one)
-  public:
-    enum { kClass = kClassPrimBufferStream };
-    explicit bgfxPrimBufferStream(bgfxPrimBuffer* buffer);
-    virtual void vfunc_0(int, int, int);      // slot 0: d3dPrimBufferStream 0x327450 (pure3d/d3dPrimBufferStream.cpp)
-    virtual void vfunc_1(int, int, int);      // slot 1: d3dPrimBufferStream 0x327480 (pure3d/d3dPrimBufferStream.cpp)
-    virtual void vfunc_2(unsigned long, unsigned long, unsigned long); // slot 2: d3dPrimBufferStream 0x327530 (pure3d/d3dPrimBufferStream.cpp)
-    virtual void vfunc_3(unsigned int, unsigned int, unsigned int); // slot 3: d3dPrimBufferStream 0x327550 (pure3d/d3dPrimBufferStream.cpp)
-    virtual void vfunc_4(int, int);           // slot 4: d3dPrimBufferStream 0x327570 (pure3d/d3dPrimBufferStream.cpp)
-    virtual void vfunc_5(int, int);           // slot 5: d3dPrimBufferStream 0x327420 (pure3d/d3dPrimBufferStream.cpp)
-    virtual void vfunc_6(float, float, int);  // slot 6: d3dPrimBufferStream 0x327590 (pure3d/d3dPrimBufferStream.cpp)
-    virtual void vfunc_7(int, int, int, int); // slot 7: d3dPrimBufferStream 0x327430 (pure3d/d3dPrimBufferStream.cpp)
-    virtual void vfunc_8(int, int, int, int, int); // slot 8: d3dPrimBufferStream 0x327440 (pure3d/d3dPrimBufferStream.cpp)
-    virtual void vfunc_9(unsigned int);       // slot 9: d3dPrimBufferStream 0x3275b0 (pure3d/d3dPrimBufferStream.cpp)
-    virtual void vfunc_10(char, char, char, char); // slot 10: d3dPrimBufferStream 0x3275c0 (pure3d/d3dPrimBufferStream.cpp)
-    virtual void vfunc_11(int, int, int);     // slot 11: d3dPrimBufferStream 0x327600 (pure3d/d3dPrimBufferStream.cpp)
-    virtual void vfunc_12(int, int, int);     // slot 12: d3dPrimBufferStream 0x327750 (pure3d/d3dPrimBufferStream.cpp)
-    virtual void vfunc_13(int, int, int);     // slot 13: d3dPrimBufferStream 0x327710 (pure3d/d3dPrimBufferStream.cpp)
-    virtual void vfunc_14(int, int);          // slot 14: d3dPrimBufferStream 0x3276d0 (pure3d/d3dPrimBufferStream.cpp)
-    virtual void vfunc_15(void*, void*);      // slot 15: d3dPrimBufferStream 0x327690 (pure3d/d3dPrimBufferStream.cpp)
-    virtual void vfunc_16(int, int);          // slot 16: d3dPrimBufferStream 0x327660 (pure3d/d3dPrimBufferStream.cpp)
-    virtual void vfunc_17();                  // slot 17: d3dPrimBufferStream 0x3277a0 (pure3d/d3dPrimBufferStream.cpp)
-
-    bgfxPrimBuffer* m_buffer;
+    // the game's layout from +8 (d3dPrimBuffer: FUN_003277b0, FUN_00327860, FUN_003270c0, FUN_00327130, 0x3272f0)
+    int m_base8, m_baseC;                     // +8, +0xc
+    unsigned m_d3dPrim;                       // +0x10 D3D primitive type (0x4d3ea8[kind])
+    int m_kind;                               // +0x14 pddi prim kind
+    unsigned m_flags;                         // +0x18 vertex flags
+    int m_vertexCount;                        // +0x1c
+    int m_indexCapacity;                      // +0x20
+    int m_indexCount;                         // +0x24 indices in use (slots 8, 9)
+    int m_overrideCount;                      // +0x28 slot 14: draw only this many (0: all)
+    unsigned short* m_indices;                // +0x2c (the game: the index buffer)
+    char* m_vertices;                         // +0x30 (the game: the vertex buffer), the packed layout
+    unsigned char m_locked, m_indexLocked, m_rawLocked, pad37;  // +0x34..+0x36
+    bgfxContext* m_context;                   // +0x38
+    const char* m_program;                    // +0x3c (the game: the vertex format the program lookup made)
+    // ours
+    int m_stride;                             // of the packed layout
+    bgfxPrimBufferStream m_stream;
+    bool m_vertsDirty, m_indicesDirty;
+    int m_uploads;                            // vertex conversions so far (the second makes the buffer dynamic)
+    unsigned m_vb, m_ib;                      // bgfx handles (0xffff: none)
+    bool m_dynamicVb, m_dynamicIb;
+    bool prepare();                           // the bgfx buffers up to date with the CPU copy (draw time)
 };
 
 // Stands in for pure3d::d3dPrimStream (vftable 0x432578: d3dBasePrimStream's 2 slots), what bgfxContext::vfunc_30
-// returns. Portable code writes vertices inline through the pointers below and calls FUN_0008ef00 (game code) to
-// advance, so the first fields keep d3dPrimStream's layout: slot 0 = (re)start a batch (lock; bool: carry the
-// pending vertices over), slot 1 = draw what was written.
+// returns. Portable code writes vertices inline through the pointers below and advances with FUN_0008ef00 (game
+// code that stays in the native image), so the first fields keep d3dPrimStream's layout (0x31bd30, 0x31be40,
+// 0x31c080 and 0x8ef00 read and write them): the attribute pointers, the batch's vertex limit, the vertices
+// written, how many a full batch hands on to the next (2 for strips, 1 for line strips: 0x4d3664) and, at +0x24,
+// where FUN_0008ef00 copies those before it calls slot 1 (draw) and slot 0 with carry (start the next batch).
 class bgfxPrimStream final {            // final: no virtual destructor (2 slots, as the game's)
   public:
     enum { kClass = kClassPrimStream };
     explicit bgfxPrimStream(bgfxContext* context);
     virtual void vfunc_0(bool carry);         // slot 0: d3dPrimStream 0x31be40
     virtual void vfunc_1();                   // slot 1: d3dPrimStream 0x31c080
-    int stride;                               // +4 (game layout from here to +0x24)
+    int stride;                               // +4 (game layout from here to +0x130)
     char* posPtr;                             // +8
     char* normalPtr;                          // +0xc
     char* colorPtr;                           // +0x10
     char* uvPtr;                              // +0x14
-    int pad18;
-    int vertCount;                            // +0x1c
-    int pendingCount;                         // +0x20
+    int limit;                                // +0x18 vertices a batch holds (a multiple of 6)
+    int vertCount;                            // +0x1c vertices written in this batch
+    int retained;                             // +0x20 vertices a full batch carries over
+    char m_carry[0x10c];                      // +0x24 the carried vertices (FUN_0008ef00 copies them here)
     // ours
     void begin(bgfxShader* shader, int kind, unsigned flags, int count);
-    void vertex();                            // what the engine's FUN_0008ef00 does after writing one vertex
+    void vertex();                            // FUN_0008ef00 (for the backend's own callers: tests, the scene)
     bgfxContext* m_context;
     bgfxShader* m_shader;
     int m_kind;                               // pddi prim kind (0 tri list, 1 tri strip, 2 line list, 3 line strip, 4 points)
     unsigned m_flags;                         // vertex flags: 0x10 normal, 0x20 colour, 0x4000 colour sets, low 4 bits uv sets
     int m_uvCount;
+    int m_colourSets;
+    int m_pendingTotal;                       // the vertex count begin announced, less what was drawn
     enum { kMaxVerts = 4096 };
-    char m_data[kMaxVerts * 64];
+    char m_data[kMaxVerts * 64];              // the batch (the game: one of its rotating vertex buffers)
 };
 
 // Stands in for pure3d::d3dShader (vftable 0x433ffc, 25 slots): pddiBaseShader's slots are base, d3dShader's own
@@ -445,7 +569,15 @@ class bgfxShader : public bgfxObject {
     bool m_alphaTest, m_lit, m_twoSided;      // ATST, LIT, 2SID
     float m_alphaRef;                         // ACTH
     uint32_t m_diffuse, m_ambient, m_emissive, m_specular;   // DIFF, AMBI, EMIS, SPEC (D3DCOLOR)
+    float m_shininess;                        // SHIN (the specular power)
+    bool m_skinned;                           // d3dExtHardwareSkinning::vfunc_6 sets it around its draw (+0x7d)
     void setTexture(int which, bgfxObject* t);
+};
+
+// What slot 21 hands out (d3dShader's five words at +0x50, as FUN_00324270 reads them): the material.
+struct ShaderMaterial {
+    uint32_t diffuse, specular, ambient, emissive;   // D3DCOLOR
+    uint32_t shininessBits;                   // the specular power (float bits)
 };
 
 // Stands in for pure3d::d3dSimpleShader (25 slots; pddi shader name: simple, lightweight). Only the slots d3dSimpleShader overrides.
@@ -598,8 +730,8 @@ class bgfxExtHardwareSkinning : public bgfxExtension {
     virtual void vfunc_2();                   // slot 2: d3dExtHardwareSkinning 0x322260 (pure3d/d3dExtFramebufferEffects.cpp)
     virtual void vfunc_3();                   // slot 3: d3dExtHardwareSkinning 0x322270 (pure3d/d3dExtFramebufferEffects.cpp)
     virtual void vfunc_4(int);                // slot 4: d3dExtHardwareSkinning 0x3221f0 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_5(int, int);           // slot 5: d3dExtHardwareSkinning 0x322200 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_6(int, int);           // slot 6: d3dExtHardwareSkinning 0x3245d0 (pure3d/d3dExtFramebufferEffects.cpp)
+    virtual void vfunc_5(int bone, const float* matrix); // slot 5: d3dExtHardwareSkinning 0x322200: bone matrix
+    virtual void vfunc_6(bgfxShader* shader, bgfxPrimBuffer* buffer); // slot 6: d3dExtHardwareSkinning 0x3245d0: draw skinned
     bgfxContext* m_context;
 };
 
@@ -639,6 +771,25 @@ class bgfxExtVisibilityTest : public bgfxExtension {
     virtual unsigned int vfunc_4(int);        // slot 4: d3dExtVisibilityTest 0x3222f0 (pure3d/d3dExtFramebufferEffects.cpp)
     bgfxContext* m_context;
 };
+
+// bgfx_draw.cpp: the packed prim-buffer layout (FUN_00326e90 / FUN_003290e0) and the active-shader bookkeeping
+int packedStride(unsigned flags);
+void packedOffsets(unsigned flags, int* weights, int* indices, int* normal, int* colours, int* colour2, int* uv,
+                   int* extra);
+void shaderDestroyed(bgfxShader* shader);
+void releaseBuffers(unsigned vb, bool dynamicVb, unsigned ib, bool dynamicIb);
+
+// selftest_scene.cpp: the self-test scene (host smoke test, HULK_GFX_SELFTEST) and its expected pixels
+struct SelfTestProbe {
+    int x, y;                                 // pixel, top-left origin
+    unsigned rgb;                             // expected 0xRRGGBB
+    int tolerance;                            // per channel
+    const char* what;
+};
+int selfTestScene(bgfxContext* ctx);          // one frame's draws (between begin and end frame) -> probes
+int selfTestProbes(const SelfTestProbe** out);
+int selfTestCheck(const unsigned char* px, unsigned w, unsigned h, unsigned pitch, bool bgra, bool yflip,
+                  void (*out)(const char* line));   // -> probes that pass
 
 } // namespace pddi
 } // namespace hulk

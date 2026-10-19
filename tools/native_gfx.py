@@ -521,16 +521,19 @@ if os.environ.get("HULK_GFX_DXBC") == "1":
 
 
 def compile_shaders(out_dir=None):
-    """Compile every src/platform/sdl/pddi/shaders/{vs,fs}_*.sc for each profile into out/shaders/<profile>/."""
+    """Compile every src/platform/sdl/pddi/shaders/{vs,fs}_*.sc and shaders/vp/{vs,fs}_*.sc (the vertex-program
+    shaders, the fixed-function path and the stage shader that pairs with them: their own varying.def.sc) for each
+    profile into out/shaders/<profile>/ (one flat namespace: the file names are unique)."""
     sc = os.path.join(TP, "tools/shaderc")
     if not os.path.exists(sc):
         raise SystemExit("no shaderc: run `tools/native_gfx.py shaderc` first")
-    sd = os.path.join(PDDI, "shaders")
     out_dir = out_dir or os.path.join(OUT, "shaders")
     res = {}
-    for fn in sorted(os.listdir(sd)):
-        if not fn.endswith(".sc") or fn.startswith("varying"):
-            continue
+    units = []
+    for sd in (os.path.join(PDDI, "shaders"), os.path.join(PDDI, "shaders", "vp")):
+        units += [(sd, fn) for fn in sorted(os.listdir(sd))
+                  if fn.endswith(".sc") and fn[:3] in ("vs_", "fs_")]
+    for sd, fn in units:
         kind = {"vs": "vertex", "fs": "fragment"}[fn[:2]]
         for prof, (plat, p) in SHADER_PROFILES.items():
             od = os.path.join(out_dir, prof)

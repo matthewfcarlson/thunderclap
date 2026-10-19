@@ -10,9 +10,11 @@
 //                       file (PDL1, tools/drawlog_diff.py), written after the last logged frame and at exit
 //   HULK_GFX_FRAMES     exit the process after this many presented frames (test runs)
 //   HULK_GFX_HIDDEN     1: don't show the window (it still exists: D3D11 needs one)
-//   HULK_GFX_SELFTEST   N: when the context is created, drive N frames through the same slots the engine uses (begin
-//                       frame, clear colour + clear, one triangle through the prim stream, end frame, swap), then
-//                       go on with the game: the present path and the draw path, independent of how far the game gets
+//   HULK_GFX_SELFTEST   N: when the context is created, drive N frames of the self-test scene (selftest_scene.cpp:
+//                       prim streams, a texture, prim buffers, the skinning extension and its vertex program, z /
+//                       blend / stencil / cull / fog / colour-mask state, all through the slots the engine uses)
+//                       and check the HULK_GFX_SHOT screenshot against the scene's probes ("pddi: self-test probes
+//                       N of M"), then go on with the game: independent of how far the game gets
 #include "bgfx_pddi.h"
 
 #if HULK_PDDI_GAME && defined(_WIN32)
@@ -95,6 +97,12 @@ struct Callback : bgfx::CallbackI {
         const unsigned char* c = px + (yflip ? h - 1 - h / 2 : h / 2) * pitch + (w / 2) * 4;
         logf("pddi: screenshot %s %ux%u centre rgb %u,%u,%u\n", path, w, h, bgra ? c[2] : c[0], c[1],
              bgra ? c[0] : c[2]);
+        const SelfTestProbe* probes;
+        int n = selfTestProbes(&probes);
+        if (n) {
+            int ok = selfTestCheck(px, w, h, pitch, bgra, yflip, traceSink);
+            logf("pddi: self-test probes %d of %d -> %s\n", ok, n, ok == n ? "PASS" : "FAIL");
+        }
     }
 };
 
@@ -232,7 +240,7 @@ void platformAfterFrame(unsigned frame)
     }
 }
 
-// HULK_GFX_SELFTEST (see the top): what the engine does per frame, through the context's and display's slots
+// HULK_GFX_SELFTEST (see the top): the self-test scene, frame after frame, through the context's and display's slots
 void platformSelfTest(bgfxContext* ctx, bgfxDisplay* display)
 {
     const char* s = getenv("HULK_GFX_SELFTEST");
@@ -240,52 +248,15 @@ void platformSelfTest(bgfxContext* ctx, bgfxDisplay* display)
     if (frames <= 0)
         return;
     logf("pddi: self-test: %d frames\n", frames);
-    // a 64x64 checker texture through the device (slot 9), lock (13) and unlock (14), and a "simple" shader (device
-    // slot 11) with its TEX parameter set through pddiBaseShader's slot 5 (the tree's code walking our key table)
-    bgfxDevice* dev = ctx->m_device;
-    int params[9] = {64, 64, 0, 32, 8, 0, 0, 0, 0};
-    bgfxTexture* tex = (bgfxTexture*)dev->vfunc_9(params);
-    bgfxShader* simple = (bgfxShader*)dev->vfunc_11("simple", 0);
-    if (tex) {
-        bgfxTexture::LockInfo* li = (bgfxTexture::LockInfo*)tex->vfunc_13(0, 0);
-        for (int y = 0; y < li->height; y++) {
-            unsigned* row = (unsigned*)((char*)li->bits + y * li->stride);
-            for (int x = 0; x < li->width; x++)
-                row[x] = ((x >> 3) ^ (y >> 3)) & 1 ? 0xffffffffu : 0xff0040c0u;    // A8R8G8B8
-        }
-        tex->vfunc_14(0);
-    }
-    bool set = simple && tex && simple->vfunc_5(0x584554 /* "TEX" */, (int)(intptr_t)tex);
-    logf("pddi: self-test: texture %s, simple shader %s, TEX set through the base: %s\n", tex ? "ok" : "FAILED",
-         simple ? simple->vfunc_4() : "FAILED", set ? "yes" : "no");
-    static const float tri[3][3] = {{-0.9f, -0.5f, 0.5f}, {-0.1f, -0.5f, 0.5f}, {-0.5f, 0.5f, 0.5f}};
-    static const float quad[4][5] = {{0.1f, -0.5f, 0.5f, 0, 1}, {0.1f, 0.5f, 0.5f, 0, 0}, {0.9f, -0.5f, 0.5f, 1, 1},
-                                     {0.9f, 0.5f, 0.5f, 1, 0}};
+    int probes = 0;
     for (int f = 0; f < frames; f++) {
         ctx->vfunc_4();                                         // begin frame
-        ctx->vfunc_6(0xff203040u);                              // clear colour (the base's clear block)
-        ctx->vfunc_12(1 | 2);                                   // clear colour + depth
-        bgfxPrimStream* p = (bgfxPrimStream*)ctx->vfunc_30(0, kPrimTriList, kVertexColour, 3, 0);
-        for (int v = 0; v < 3; v++) {                           // as the engine's inline prim-stream writes do
-            memcpy(p->posPtr, tri[v], 12);
-            *(unsigned*)p->colorPtr = 0xffff8000u;
-            p->vertex();
-        }
-        ctx->vfunc_31(p);                                       // end prims: the draw
-        if (simple) {                                           // the textured quad: a strip, colour + one uv set
-            p = (bgfxPrimStream*)ctx->vfunc_30(simple, kPrimTriStrip, kVertexColour | 1, 4, 0);
-            for (int v = 0; v < 4; v++) {
-                memcpy(p->posPtr, quad[v], 12);
-                *(unsigned*)p->colorPtr = 0xffffffffu;
-                memcpy(p->uvPtr, quad[v] + 3, 8);
-                p->vertex();
-            }
-            ctx->vfunc_31(p);
-        }
+        probes = selfTestScene(ctx);                            // clears, then every cell's draws
         ctx->vfunc_5();                                         // end frame
-        display->vfunc_14();                                    // swap
+        display->vfunc_14();                                    // swap (screenshots of HULK_GFX_SHOT frames)
     }
-    logf("pddi: self-test done (%u draws)\n", drawCount());
+    ctx->vfunc_99();                                            // the base's state reset again: the game's defaults
+    logf("pddi: self-test done (%u draws, %d probes per frame)\n", drawCount(), probes);
 }
 
 } // namespace pddi
