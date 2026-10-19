@@ -431,9 +431,11 @@ def same_code(c1, s1, c2, s2):
 
 
 def _loose_key(name):
-    """A mangled name without the TU namespace and without digits (back-references shift when the
-    namespace is removed: `?f@A@fn_f1234567@@QAEPAV12@XZ` vs `?f@A@@QAEPAV1@XZ`)."""
-    return re.sub(r"\d", "", TU_NS.sub("@", name))
+    """A mangled name without the TU namespace and without the digits of its signature (back-references
+    shift when the namespace is removed: `?f@A@fn_f1234567@@QAEPAV12@XZ` vs `?f@A@@QAEPAV1@XZ`). The
+    qualified name before the first `@@` keeps its digits, so `FUN_0023d710` never matches `FUN_0023d420`."""
+    head, sep, tail = TU_NS.sub("@", name).partition("@@")
+    return head + sep + re.sub(r"\d", "", tail)
 
 
 def standalone_symbol(coff, tree_name, addr, prefixes, cnames):
