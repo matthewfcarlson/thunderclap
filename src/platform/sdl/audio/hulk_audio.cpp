@@ -48,6 +48,11 @@ struct HulkVoice {
     long long block_index[2];       // ADPCM: two decoded blocks
     short block[2][HULK_XADPCM_SAMPLES * 2];
     unsigned char block_next;
+    // streaming voices (hulk_audio_stream_*): a ring of 16-bit PCM the caller appends to; the mixer consumes it
+    int stream;
+    short* sring;
+    unsigned scap, shead, scount;   // ring capacity, first queued frame, queued frames
+    unsigned long long splayed;     // frames consumed so far
 };
 
 static struct {
@@ -215,12 +220,17 @@ static void voice_length(HulkVoice* v)
         v->cursor = 0;
 }
 
-HulkVoice* hulk_audio_voice_create(const HulkAudioFormat* format, const HulkMixBin* bins, unsigned count)
+static HulkVoice* voice_create(const HulkAudioFormat* format, const HulkMixBin* bins, unsigned count,
+                               unsigned stream_frames)
 {
     hulk_audio_init();
     HulkVoice* v = (HulkVoice*)SDL_calloc(1, sizeof(HulkVoice));
     if (!v)
         return 0;
+    if (stream_frames) {
+        v->stream = 1;
+        v->scap = stream_frames;
+    }
     v->fmt = *format;
     if (v->fmt.channels < 1)
         v->fmt.channels = 1;
@@ -239,6 +249,15 @@ HulkVoice* hulk_audio_voice_create(const HulkAudioFormat* format, const HulkMixB
         v->bins[0].bin = HULK_BIN_FRONT_LEFT;
         v->bins[1].bin = HULK_BIN_FRONT_RIGHT;
     }
+    if (v->stream) {
+        v->fmt.codec = HULK_CODEC_PCM;
+        v->fmt.bits = 16;
+        v->sring = (short*)SDL_calloc((size_t)v->scap * v->fmt.channels, sizeof(short));
+        if (!v->sring) {
+            SDL_free(v);
+            return 0;
+        }
+    }
     voice_length(v);
     voice_gains(v);
     lock();
@@ -247,6 +266,63 @@ HulkVoice* hulk_audio_voice_create(const HulkAudioFormat* format, const HulkMixB
     g_audio.nvoices++;
     unlock();
     return v;
+}
+
+HulkVoice* hulk_audio_voice_create(const HulkAudioFormat* format, const HulkMixBin* bins, unsigned count)
+{
+    return voice_create(format, bins, count, 0);
+}
+
+HulkVoice* hulk_audio_stream_create(const HulkAudioFormat* format, const HulkMixBin* bins, unsigned count,
+                                    unsigned capacity_frames)
+{
+    return voice_create(format, bins, count, capacity_frames ? capacity_frames : 1);
+}
+
+unsigned hulk_audio_stream_write(HulkVoice* v, const short* pcm, unsigned frames)
+{
+    if (!v || !v->stream)
+        return 0;
+    lock();
+    unsigned room = v->scap - v->scount;
+    if (frames > room)
+        frames = room;
+    unsigned ch = (unsigned)v->fmt.channels;
+    unsigned tail = (v->shead + v->scount) % v->scap;
+    unsigned first = v->scap - tail < frames ? v->scap - tail : frames;
+    SDL_memcpy(v->sring + (size_t)tail * ch, pcm, (size_t)first * ch * sizeof(short));
+    if (frames > first)
+        SDL_memcpy(v->sring, pcm + (size_t)first * ch, (size_t)(frames - first) * ch * sizeof(short));
+    v->scount += frames;
+    unlock();
+    return frames;
+}
+
+unsigned hulk_audio_stream_queued(HulkVoice* v)
+{
+    lock();
+    unsigned n = v->stream ? v->scount : 0;
+    unlock();
+    return n;
+}
+
+unsigned long long hulk_audio_stream_played(HulkVoice* v)
+{
+    lock();
+    unsigned long long n = v->splayed;
+    unlock();
+    return n;
+}
+
+void hulk_audio_stream_flush(HulkVoice* v)
+{
+    lock();
+    if (v->stream) {
+        v->splayed += v->scount;
+        v->shead = v->scount = 0;
+        v->cursor = 0;
+    }
+    unlock();
 }
 
 void hulk_audio_voice_release(HulkVoice* v)
@@ -261,11 +337,14 @@ void hulk_audio_voice_release(HulkVoice* v)
             break;
         }
     unlock();
+    SDL_free(v->sring);
     SDL_free(v);
 }
 
 void hulk_audio_voice_set_data(HulkVoice* v, const void* data, unsigned bytes)
 {
+    if (v->stream)
+        return;
     lock();
     v->data = (const unsigned char*)data;
     v->bytes = data ? bytes : 0;
@@ -279,7 +358,7 @@ int hulk_audio_voice_play(HulkVoice* v, int loop)
 {
     lock();
     v->looping = loop != 0;
-    v->playing = v->frames != 0;
+    v->playing = v->frames != 0 || v->stream;
     unlock();
     return 0;
 }
@@ -409,8 +488,42 @@ static float sample_at(HulkVoice* v, unsigned long long frame, int c)
     return s * (1.0f / 32768.0f);
 }
 
+// a streaming voice: the queued frames, resampled to the mixer's rate; no data -> silence, and the voice waits
+static void mix_stream(HulkVoice* v, float* out, float* send, unsigned n)
+{
+    unsigned long long step = ((unsigned long long)v->freq << 32) / HULK_AUDIO_RATE;
+    unsigned ch = (unsigned)v->fmt.channels;
+    for (unsigned f = 0; f < n; f++) {
+        unsigned long long i = v->cursor >> 32;
+        if (i >= v->scount)
+            break;                  // underrun
+        float frac = (float)(unsigned)(v->cursor & 0xffffffffu) * (1.0f / 4294967296.0f);
+        const short* a = v->sring + (size_t)((v->shead + i) % v->scap) * ch;
+        const short* b = i + 1 < v->scount ? v->sring + (size_t)((v->shead + i + 1) % v->scap) * ch : a;
+        for (unsigned c = 0; c < ch; c++) {
+            float s = (a[c] + (b[c] - a[c]) * frac) * (1.0f / 32768.0f);
+            out[2 * f] += s * v->gain_l[c];
+            out[2 * f + 1] += s * v->gain_r[c];
+            send[f] += s * v->gain_send[c];
+        }
+        v->cursor += step;
+    }
+    unsigned long long used = v->cursor >> 32;
+    if (used > v->scount)
+        used = v->scount;
+    v->shead = (unsigned)((v->shead + used) % v->scap);
+    v->scount -= (unsigned)used;
+    v->splayed += used;
+    v->cursor -= used << 32;
+}
+
 static void mix_voice(HulkVoice* v, float* out, float* send, unsigned n)
 {
+    if (v->stream) {
+        if (v->playing)
+            mix_stream(v, out, send, n);
+        return;
+    }
     if (!v->playing || !v->data || v->frames == 0)
         return;
     unsigned long long step = ((unsigned long long)v->freq << 32) / HULK_AUDIO_RATE;

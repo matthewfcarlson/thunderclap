@@ -79,6 +79,17 @@ void hulk_audio_voice_set_volume(HulkVoice* v, int mb);
 // Volumes of the listed bins; a bin the voice wasn't created with is added.
 void hulk_audio_voice_set_bins(HulkVoice* v, const HulkMixBin* bins, unsigned count);
 
+// Streaming voices (the movie player, src/platform/sdl/movies/): a voice that owns a ring of 16-bit PCM
+// (HulkAudioFormat codec PCM, bits 16, 1 or 2 channels; `capacity_frames` deep) which the caller appends to while
+// the mixer consumes it. The mixer waits (silence, position held) when the ring runs dry. Play / stop / bins /
+// volume / frequency are the ordinary voice calls (hulk_audio_voice_play ignores `loop`).
+HulkVoice* hulk_audio_stream_create(const HulkAudioFormat* format, const HulkMixBin* bins, unsigned count,
+                                    unsigned capacity_frames);
+unsigned hulk_audio_stream_write(HulkVoice* v, const short* pcm, unsigned frames);   // frames accepted (ring room)
+unsigned hulk_audio_stream_queued(HulkVoice* v);              // frames waiting
+unsigned long long hulk_audio_stream_played(HulkVoice* v);    // frames the mixer has consumed (at the stream's rate)
+void hulk_audio_stream_flush(HulkVoice* v);                   // drops the queue (counted as played)
+
 void hulk_audio_set_listener(const HulkI3DL2* l);
 void hulk_audio_do_work(void);
 
