@@ -92,7 +92,10 @@ Functions with a `// cl-flags:` line that differs from the defaults go to a sibl
 Headers: a declaration that at least two TUs of a directory use, and that is compatible with every variant
 of its name used by merged functions in that directory, goes to `include/<dir>.h`. One that is used by two
 or more directories and compatible everywhere goes to `common.h` (included by every directory header). A
-declaration moves only together with the declarations it mentions.
+declaration moves only together with the declarations it mentions. A declaration that names a data item its
+source gets from an `include/decls/data/` header (not from a declaration of its own) stays in the TU: those
+headers come to a TU only with the sources that include them, so a shared header can't rely on them (treefix:
+the `TypeTag<>` specializations of matches/0x000c0aa0 in `game/global.h` broke 510 TUs of game/global).
 
 `build_tree.py` then compiles every TU (4 `cl` processes at most, `compare.py`'s flags plus
 `/I build/tree/include`) and blames each compile error on the line's owner: a merged definition is

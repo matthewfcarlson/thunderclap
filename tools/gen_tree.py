@@ -296,6 +296,26 @@ def decls_body(h):
     return "\n".join(l for l in lines if not re.match(r"\s*#\s*(ifndef|define|endif)\b", l))
 
 
+_DATA_NAMES = None
+
+
+def data_names():
+    """Names the include/decls/data/ headers declare. A TU gets those headers only with the sources that include
+    them (tu_data_headers), so a declaration that names one can't go to a shared header (hoist)."""
+    global _DATA_NAMES
+    if _DATA_NAMES is None:
+        _DATA_NAMES = set()
+        for dp, _, fs in os.walk(os.path.join(INCLUDE_ROOT, "decls", "data")):
+            for f in fs:
+                if f.endswith(".h"):
+                    try:
+                        items = cxx_items.parse(open(os.path.join(dp, f), encoding="latin1").read())
+                    except ValueError:
+                        items = []
+                    _DATA_NAMES |= {it.name for it in items if it.kind in DECL_KINDS and it.name}
+    return _DATA_NAMES
+
+
 def gen_variants(headers):
     """name -> {variants} declared by include/gen/ headers (and what they include)."""
     out = collections.defaultdict(set)
@@ -928,12 +948,16 @@ class Generator:
         live in their own namespace). Likewise for common.h across all directories. A declaration moves
         only together with the declarations it depends on."""
         deps = collections.defaultdict(set)
+        on_data = set()     # declarations naming a data item that their source gets from include/decls/data/
         for tu in self.tus:
             for b in tu.blocks:
                 if b.mode != "merged":
                     continue
+                own = {it.name for _, _, it in b.decls if it.name}
                 prior = []
                 for k, norm, it in b.decls:
+                    if (it.ids & data_names()) - own:
+                        on_data.add((k, norm))
                     for pk, pnorm, pit in prior:
                         if pit.name and pit.name in it.ids:
                             deps[(k, norm)].add((pk, pnorm))
@@ -960,7 +984,9 @@ class Generator:
                 lv = 0
                 nk, var = item_variant(it, k, norm)
                 dir_ok[(tu.dir, kn)] = False
-                if self.hoistable(nk, k, it):
+                if kn in on_data:
+                    self.stats["declarations kept in the TU: they name include/decls/data/ items"] += 1
+                elif self.hoistable(nk, k, it):
                     if len(dir_users[tu.dir][kn]) >= 2 and all(compatible(var, v) for v in dir_vars[tu.dir][nk]):
                         lv = 1
                         dir_ok[(tu.dir, kn)] = True
