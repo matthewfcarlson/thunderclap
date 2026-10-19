@@ -4,6 +4,7 @@ Planning document, written 2026-10-18. Stage G0 (the harness) is built: see [sec
 Stage G1 (the backend in the native image, first frames and draws) is [section 8](#8-g1-the-backend-in-the-native-image-2026-10-19).
 G3's draw path (prim buffers, vertex programs, render state) is [section 9](#9-g3-the-draw-path-prim-buffers-vertex-programs-render-state-2026-10-19).
 G2's shader-class combiners, 2D mode, linear textures and movie strategy are [section 10](#10-g2-the-shader-classes-combiners-2d-textures-and-movies-2026-10-19).
+The window and the event pump moved to SDL3 in [section 11](#11-sdlwin-the-window-and-the-event-pump-on-sdl3-2026-10-19).
 The small prototypes and the scripts that produced the planning numbers were under `build/gfx-proto/` (not tracked). Inputs: [platform-boundary.md](platform-boundary.md),
 [seams.md](seams.md), [web-port.md](web-port.md), [native-build.md](native-build.md), [subsystems.md](subsystems.md),
 [formats/p3d.md](formats/p3d.md), [texture-packs.md](texture-packs.md), `src/platform/sdl/xdk/`,
@@ -461,7 +462,7 @@ $PY tools/drawlog_diff.py build/g1/drawlog-boot-hybrid.jsonl x.pdl --ignore shad
 $PY tools/native_gfx.py d3d4linux && $PY tools/native_gfx.py shaderc   # HLSL route (HULK_GFX_DXBC=1 shaders): see below
 ```
 
-Run-time options (environment, `src/platform/sdl/pddi/win32_platform.cpp`): `HULK_GFX_RENDERER` (d3d11, the default
+Run-time options (environment, `src/platform/sdl/pddi/sdl_platform.cpp`): `HULK_GFX_RENDERER` (d3d11, the default
 on Windows; `tools/native_run.py` sets vulkan under Wine), `HULK_GFX_SIZE` (640x480), `HULK_GFX_SHOT` /
 `HULK_GFX_SHOT_DIR` (TGA screenshots of given frames), `HULK_GFX_DRAWLOG` / `HULK_GFX_DRAWLOG_OUT`,
 `HULK_GFX_FRAMES` (exit after N presents), `HULK_GFX_HIDDEN`, `HULK_GFX_SELFTEST`. Backend log lines go to the
@@ -506,7 +507,7 @@ d3d objects (the text drawer 0x328270, `FUN_00328250`/`60`, `FUN_0031c180`): the
 | piece | what | specification |
 |---|---|---|
 | device | layout `+8` error, `+0xc` current context (slots 5/6), slot 4 version block (18, 11, 56, "bgfx ..."), slot 8 runs the base's state reset (slot 99) as 0x320d30 does, slot 9 textures, slot 11 the factory | 0x31b7d0..0x31b9f0 |
-| display | slot 4: a Win32 window + `bgfx::init` (size from `HULK_GFX_SIZE`; the game asks 1280x720), slot 14: `bgfx::frame` + message pump + screenshots/draw log | 0x31ae70, 0x31b190 |
+| display | slot 4: an SDL3 window (section 11) + `bgfx::init` (size from `HULK_GFX_SIZE`; the game asks 1280x720), slot 14: `bgfx::frame` + message pump + screenshots/draw log | 0x31ae70, 0x31b190 |
 | context | slot 89 (GetExtension) returns our nine extensions by id (0x101 gamma, 0x500001 antialias, 0x500004 projected texture, 0x500005 read pixels, 0x102 skinning, 0x500002 visibility, 0x106 vertex program, 0x103 framebuffer effects, 0x104 framebuffer texture); prim streams drawn with the stage-0 texture, alpha test and BLMD blend | 0x321ea0, 0x324e00 |
 | shaders | slot 4 the name; slots 15-20 return key -> setter tables for the base's Set* slots 5-10 (the base, tree code, calls our `__thiscall` setters): TEX/TTEX/REFL, UVMD FIMD SHMD LIT BLMD ATST ACMP 2SID, SHIN ACTH FADE, AMBI DIFF EMIS SPEC and each kind's own keys (accepted, kept for G2) | the keys from the game's tables (0x4d7988.., filled by 0x361a90 & co.), the fields from d3dShader's setters 0x3333a0.. |
 | textures | create (power-of-two check for format 0), lock returns the game's level description (size, bpp, type, ARGB masks/starts/shifts, stride, bits: bottom-up with a negative stride for the uncompressed formats, as the Xbox lock), unlock uploads; uncompressed formats stored A8R8G8B8 (the engine converts into the masks it is handed), DXT1/3/5 as BC1/2/3 | 0x326330, 0x326900, 0x31c570, 0x31c290, 0x325fd0 |
@@ -821,6 +822,64 @@ refract samples (G4); projected texture coordinates (D3DTTFF_PROJECTED; unused);
 (unused by the data's classes); a proof of `vs_vp_ff.sc` in the shader_equiv style (it would need the
 fixed-function equations as `.vp` programs of ours, one per light-type and texgen mix: not done); the front end's
 real draws and their draw-log diff, which wait for the native build to reach the game's first frame.
+
+## 11. sdlwin: the window and the event pump on SDL3 (2026-10-19)
+
+```sh
+PY=build/venv/bin/python
+$PY tools/native_gfx.py pddi && $PY tools/native_gfx.py smoke          # host (Metal): the window is SDL3's; 464 probes
+$PY tools/native_gfx.py window-test [--target win32]                   # window + event pump + sa1's pad backend (host / Wine)
+$PY tools/native_sdl.py build --target win32                           # SDL3.dll (one local patch, below)
+$PY tools/native_link.py --reuse-map --gfx && HULK_GFX_SELFTEST=30 HULK_GFX_SELFTEST_PAGE=N ... $PY tools/native_run.py
+```
+
+The Win32 window class, `WM_CLOSE` handler and `PeekMessage` loop of `win32_platform.cpp` are gone (the file is retired,
+not kept as a fallback: nothing needs it); `pddi/sdl_platform.cpp` has the same run-time options and per-frame hooks and
+no Win32 window code. `HULK_GFX_RENDERER`, `HULK_GFX_SIZE`, `HULK_GFX_SHOT*`, `HULK_GFX_DRAWLOG*`, `HULK_GFX_FRAMES`,
+`HULK_GFX_HIDDEN`, `HULK_GFX_SELFTEST*` behave as before; new: `HULK_GFX_FULLSCREEN=1` starts in desktop-size
+fullscreen.
+
+| piece | what |
+|---|---|
+| `src/platform/sdl/platform_events.{h,cpp}` | the program's **one** SDL event pump, a small C API without SDL types: `hulk_platform_video_init` (reference counted), `create_window`, `native_handles` (HWND on Windows, `NSWindow` on macOS, X11 display + window number or Wayland display + surface elsewhere, as bgfx's `swapChain.nwh/ndt` and `platformData.type` want them), `pump`, `quit_requested`, `has_focus`, `toggle_fullscreen` (F11 and Alt+Enter do it from the pump), a resize handler, and listeners. Every event goes to the listeners first, then the hub handles close/quit, focus, the window's pixel-size changes and the fullscreen keys; the rest is dropped. |
+| `src/platform/sdl/hulk_sdl_api.h` | the ~15 SDL entry points the window code uses as a table: direct on the host, resolved from `SDL3.dll` with `LoadLibrary`/`GetProcAddress` in the i686 image. A direct `_SDL_CreateWindow` reference from the pddi objects would be renamed by `native_link`'s graphics step (every host import of the graphics objects becomes `hulk_gfx_<name>` bound to msvcrt/kernel32/user32/gdi32) to a name no DLL exports. `SDL3.dll` is one module in the process, so the table and sa1's audio/input backends (direct imports of `SDL3.lib`) share one SDL: one video subsystem, one event queue. |
+| `pddi/sdl_platform.cpp` | slot 4 of the display on SDL: video init, a resizable window (`HULK_GFX_SIZE`, hidden with `HULK_GFX_HIDDEN`), the native handle to `bgfxDisplay::hostInit`; `platformPump` is the hub's pump and ends the process when the window is closed (as `WM_CLOSE` did). Called once per present (display slot 14). |
+| `bgfxDisplay::hostResize` | the hub reports the window's pixel size changing (resize, fullscreen); the main swap chain is reset to it (`bgfx::reset` with a `SwapChain` carrying only the size) and the display's size slots follow. The probes run at a fixed size and see no resize. |
+
+**Coordination with sa1's gamepad backend.** `hulk_input.cpp` reads pads with `SDL_UpdateGamepads` and
+`SDL_GetGamepadAxis` (state, not events) and flushes only the joystick/gamepad event range
+(`SDL_EVENT_JOYSTICK_AXIS_MOTION` .. +0xff) itself. The hub never leaves window events for it to find: the window code
+polls the queue (and drops what nobody listens to, joystick events included), the pad code never polls it. Rule for new
+code: **no `SDL_PollEvent` anywhere else**; register a listener. `window-test` proves it in one process, host and i686
+under Wine: a window, `hulk_input_init`, a virtual gamepad plugged in while the window pumps (appears in port 0, buttons
+and axes arrive), a pushed close request (hub and listener see it), a joystick event ahead of a focus-lost event (the
+focus event still arrives), fullscreen on and off (Wine: 0 -> 1 -> 0 with one resize callback; on the host the request
+is accepted but macOS completes it only for a foreground app, which a command-line run is not), and the pad state still
+updating after all of it.
+
+**One local fix to SDL (tools/native_sdl.py `PATCHES`).** `WIN_UpdateDarkModeForHWND` runs on every window creation
+and calls uxtheme's undocumented ordinals 104/132/133/135 (their Windows 10 meanings). Wine's uxtheme has other
+functions there: ordinal 104 is `IsThemePartDefined` (stdcall, 3 arguments) called with none, so `SDL_CreateWindow`
+returned to garbage (eip 0x0000000a) under Wine. It now returns early when SDL's own `WIN_IsWine()` is true; Wine has no
+dark mode to switch on. Real Windows is untouched.
+
+**Results (2026-10-19).**
+
+- Host, Metal, `tools/native_gfx.py smoke`: 5 pages, **464 of 464 probes**, through the hub's window and pump.
+- i686 game image under Wine (Whisky 7.7) + Vulkan (MoltenVK), SDL3 window, `HULK_GFX_SELFTEST=30`, one page per run:
+  page 0 19/19, page 1 13/13, page 2 13/13, page 3 19/19, page 4 400/400 = **464 of 464**. Direct3D 11 on the SDL
+  window presents (clear colour correct) and draws nothing, as before (no DXBC under Wine 7.7).
+- sa1: `native_sdl.py test` host native_audio 34, native_input 73; `wine-test` i686 native_audio 58, native_input 75, all
+  passing; `window-test`: 13 checks on the host and under Wine.
+- After the self-test the game runs on and stops later in physics code (`Node::run` 0x306510), the native build's own
+  state, not the window's.
+
+**Open.** Resizing and fullscreen change the back buffer, but the game's viewports and 2D layouts are in the pixel
+sizes it asked for at start-up; scaling the 4:3/16:9 game frame into a larger window (a blit with letterboxing) is a
+display-layer feature for later, as is a mode list/option screen. Linux (X11/Wayland) handles are written and
+compile-checked but not run. The pump runs once per present: a long load without presents leaves the window
+unserviced (Wine marks it not responding after several seconds); if loads show that, call `platformPump` from the
+loading loop's yield.
 
 ## Open questions
 

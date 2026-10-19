@@ -98,10 +98,12 @@ class bgfxDisplay : public bgfxObject {
     bool hostInit(void* nativeWindow, void* nativeDisplay, unsigned width, unsigned height, int renderer,
                   void* callback = 0);     // callback: a bgfx::CallbackI (screenshots, traces) or 0
     void hostShutdown();
+    void hostResize(unsigned width, unsigned height);   // the window's pixel size changed: the back buffer follows
     bgfxDevice* m_device;
     unsigned m_width, m_height, m_depth;
     bool m_initialised;
     unsigned m_frame;
+    int m_nativeType;         // set before hostInit: 1 = the handles are a Wayland display/surface
 };
 
 // Stands in for pure3d::d3dContext (vftable 0x433164, 111 slots). 33 slots are the D3D backend's overrides

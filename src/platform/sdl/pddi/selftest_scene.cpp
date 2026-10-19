@@ -1,6 +1,6 @@
 // The backend's self-test scene: pages of one frame of draws each, through the same slots the engine uses, laid out
 // as a 4 x 3 grid of cells, each testing one thing, with the pixel each should produce (probes). The host smoke test
-// (smoke/smoke_main.cpp, Metal: every page) and the native image's HULK_GFX_SELFTEST (win32_platform.cpp, under
+// (smoke/smoke_main.cpp, Metal: every page) and the native image's HULK_GFX_SELFTEST (sdl_platform.cpp, under
 // Wine: Vulkan; HULK_GFX_SELFTEST_PAGE picks the page) draw them and check a screenshot against the probes.
 //
 // Page 0 (G3: the draw path):

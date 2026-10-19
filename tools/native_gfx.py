@@ -9,6 +9,7 @@
   build/venv/bin/python tools/native_gfx.py shaders          # compile src/platform/sdl/pddi/shaders/*.sc
   build/venv/bin/python tools/native_gfx.py pddi             # the pddi skeleton: host library + smoke test, win32 objects
   build/venv/bin/python tools/native_gfx.py smoke            # run the host smoke test (a window, clear + one triangle)
+  build/venv/bin/python tools/native_gfx.py window-test [--target win32]   # SDL3 window + event pump + sa1's pad backend
   build/venv/bin/python tools/native_gfx.py slots            # check the skeleton's MS-ABI vtable slots against rtti.json
   build/venv/bin/python tools/native_gfx.py combiners        # regenerate shaders/vp/combiners.txt (then `pddi` again)
   build/venv/bin/python tools/native_gfx.py status           # pins, what is fetched and built
@@ -699,10 +700,31 @@ def combiners():
 PDDI_HOST_DIR = os.path.join(OUT, "pddi-host")
 SDL3 = "/opt/homebrew/opt/sdl3"          # the smoke test's window (Homebrew's SDL3, already a port dependency)
 PDDI_WIN_DIR = os.path.join(OUT, "pddi-win32")
+PLATFORM_EVENTS = os.path.join(ROOT, "src/platform/sdl/platform_events.cpp")
 
 
 def pddi_sources():
-    return sorted(os.path.join(PDDI, f) for f in os.listdir(PDDI) if f.endswith(".cpp"))
+    """The backend's units plus the program's window/event code (src/platform/sdl/platform_events.cpp)."""
+    return sorted(os.path.join(PDDI, f) for f in os.listdir(PDDI) if f.endswith(".cpp")) + [PLATFORM_EVENTS]
+
+
+def drop_stale(objdir, srcs, suffix):
+    """Objects of units that no longer exist (win32_platform.cpp became sdl_platform.cpp): native_link links every
+    object in the directory."""
+    keep = {os.path.basename(s)[:-4] + suffix for s in srcs}
+    for f in os.listdir(objdir) if os.path.isdir(objdir) else []:
+        if f.endswith(suffix) and f not in keep and f != "smoke_main" + suffix:
+            os.unlink(os.path.join(objdir, f))
+
+
+def sdl_headers(target):
+    """-I for SDL3's headers: Homebrew's for the host smoke test, the pinned source's for the i686 build (the
+    window code only calls SDL; tools/native_sdl.py fetch unpacks it)."""
+    inc = os.path.join(SDL3, "include") if target == "host" else os.path.join(SRC, "SDL/include")
+    if not os.path.isdir(os.path.join(inc, "SDL3")):
+        raise SystemExit("SDL3 headers missing (%s): build/venv/bin/python tools/native_sdl.py fetch" % inc)
+    # (mingw-w64's sal.h lacks the scanf annotation SDL's headers use on Windows: empty, as tools/native_sdl.py)
+    return ["-I" + inc, "-I" + os.path.dirname(PDDI)] + (["-D_Scanf_format_string_impl_="] if target == "win32" else [])
 
 
 def pddi_host():
@@ -718,13 +740,13 @@ def pddi_host():
            "-DHULK_PDDI_HOST=1", "-Wall", "-Wno-unused-parameter", "-Wno-unused-private-field", "-Werror"]
     objs = []
     os.makedirs(os.path.join(PDDI_HOST_DIR, "obj"), exist_ok=True)
+    drop_stale(os.path.join(PDDI_HOST_DIR, "obj"), pddi_sources(), ".o")
     logf = os.path.join(PDDI_HOST_DIR, "build.log")
     open(logf, "w").close()
     jobs = []
     for s in pddi_sources() + [os.path.join(PDDI, "smoke/smoke_main.cpp")]:
         o = os.path.join(PDDI_HOST_DIR, "obj", os.path.basename(s)[:-4] + ".o")
-        extra = ["-I" + os.path.join(SDL3, "include")] if s.endswith("smoke_main.cpp") else []
-        jobs.append((s, o, cxx + inc + extra + ["-c", s, "-o", o]))
+        jobs.append((s, o, cxx + inc + sdl_headers("host") + ["-c", s, "-o", o]))
     with ThreadPoolExecutor(JOBS) as ex:
         for (s, o, _c), r in zip(jobs, ex.map(lambda j: run(j[2], logf), jobs)):
             if r.returncode:
@@ -789,8 +811,9 @@ def pddi_win32():
     embed_shaders(gen, ["dxbc", "spirv"])     # Direct3D 11 (Wine, Windows) and Vulkan; the backend picks by renderer
     inc = ["-I" + PDDI, "-I" + gen, "-I" + _bx("include"), "-I" + _bgfx("include"), "-I" + _bimg("include"),
            "-DHULK_PDDI_GAME=1", "-DHULK_PDDI_EMBED_SHADERS=1", "-Wall", "-Wno-unused-parameter", "-Wno-unused-private-field", "-Werror",
-           "-fno-threadsafe-statics"]
+           "-fno-threadsafe-statics"] + sdl_headers("win32")
     os.makedirs(os.path.join(PDDI_WIN_DIR, "obj"), exist_ok=True)
+    drop_stale(os.path.join(PDDI_WIN_DIR, "obj"), pddi_sources(), ".obj")
     logf = os.path.join(PDDI_WIN_DIR, "build.log")
     open(logf, "w").close()
     objs = []
@@ -808,6 +831,64 @@ def pddi_win32():
         raise SystemExit("pddi win32 archive failed: " + r.stderr[-2000:])
     log("pddi win32: %s" % os.path.relpath(lib, ROOT))
     return {"lib": lib, "objects": objs}
+
+
+def window_test(target):
+    """The window + one event pump + sa1's gamepad backend in one process (pddi/smoke/window_test.cpp):
+    host (Homebrew SDL3, Metal machine) or win32 (SDL3.dll, i686 under Wine, the build the game image loads)."""
+    import native_sdl      # (imports this module back: kept lazy)
+    smoke_dir = os.path.join(PDDI, "smoke")
+    plat = os.path.dirname(PDDI)
+    inputs = [os.path.join(plat, "input/hulk_input.cpp")]
+    test = os.path.join(smoke_dir, "window_test.cpp")
+    d = os.path.join(OUT, "window-test-" + target)
+    os.makedirs(d, exist_ok=True)
+    logf = os.path.join(d, "build.log")
+    open(logf, "w").close()
+    srcs = [test, PLATFORM_EVENTS] + inputs
+    if target == "host":
+        flags = ["/usr/bin/clang++", "-arch", "arm64", "-mmacosx-version-min=11.0", "-std=c++17", "-O1", "-g",
+                 "-fno-exceptions", "-fno-rtti", "-Wall", "-Wno-unused-parameter", "-Werror"] + sdl_headers("host")
+        objs = []
+        for s_ in srcs:
+            o = os.path.join(d, os.path.basename(s_)[:-4] + ".o")
+            r = run(flags + ["-c", s_, "-o", o], logf)
+            if r.returncode:
+                raise SystemExit("window-test: %s failed:\n%s" % (os.path.relpath(s_, ROOT), (r.stdout + r.stderr)[-3000:]))
+            objs.append(o)
+        exe = os.path.join(d, "window_test")
+        r = run(["/usr/bin/clang++", "-arch", "arm64", "-o", exe] + objs + [
+                "-framework", "Cocoa", "-framework", "IOKit", "-framework", "CoreHaptics", "-framework", "GameController",
+                "-L" + os.path.join(SDL3, "lib"), "-lSDL3", "-Wl,-rpath," + os.path.join(SDL3, "lib")], logf)
+        if r.returncode:
+            raise SystemExit("window-test link failed:\n" + (r.stdout + r.stderr)[-3000:])
+        p = subprocess.run([exe], capture_output=True, text=True, timeout=300)
+    else:
+        flags = native_sdl.win32_cxx() + sdl_headers("win32") + native_sdl.mingw_inc() + ["-DHULK_TEST_RT=1"]
+        rt = os.path.join(ROOT, "tests/native_audio/test_runtime_win32.cpp")
+        objs = []
+        for s_ in srcs + [rt]:
+            o = os.path.join(d, os.path.basename(s_)[:-4] + ".obj")
+            r = run(flags + ["-c", s_, "-o", o], logf)
+            if r.returncode:
+                raise SystemExit("window-test: %s failed:\n%s" % (os.path.relpath(s_, ROOT), (r.stdout + r.stderr)[-3000:]))
+            objs.append(o)
+        imp = os.path.join(d, "imports")
+        os.makedirs(imp, exist_ok=True)
+        libs, _by, unresolved = native_sdl.import_libs(objs, imp, logf, extra_defined=native_sdl._sdl_exports())
+        exe = os.path.join(d, "window_test.exe")
+        r = run([native_sdl.LLD_LINK, "/nologo", "/machine:x86", "/subsystem:console", "/entry:hulk_test_entry",
+                 "/nodefaultlib", "/out:" + exe] + objs + [os.path.join(native_sdl.WIN_DIR, "SDL3.lib")] + libs, logf)
+        if r.returncode:
+            raise SystemExit("window-test link failed:\n" + (r.stdout + r.stderr)[-3000:])
+        shutil.copy2(os.path.join(native_sdl.WIN_DIR, "SDL3.dll"), os.path.join(d, "SDL3.dll"))
+        env = native_sdl.native_gfx_wine_env(os.path.join(ROOT, "build/native/wineprefix"))
+        env.update(SDL_AUDIO_DRIVER="dummy", SDL_JOYSTICK_HIDAPI="0")
+        p = subprocess.run([WINE, exe], capture_output=True, text=True, timeout=300, env=env, cwd=d)
+    sys.stdout.write(p.stdout)
+    sys.stderr.write(p.stderr[-3000:])
+    log("window-test (%s): exit %d" % (target, p.returncode))
+    return p.returncode
 
 
 def smoke(frames=60, png=None, page=None):
@@ -853,7 +934,7 @@ def slots():
     want = {c["name"]: len(c["vtables"][0]["slots"]) for c in rt["classes"] if c.get("vtables")}
     cxx, _ar, _ = target_cfg("win32")
     inc = ["-I" + PDDI, "-I" + os.path.join(PDDI_WIN_DIR, "gen"), "-I" + _bx("include"), "-I" + _bgfx("include"),
-           "-DHULK_PDDI_GAME=1", "-DHULK_PDDI_EMBED_SHADERS=1"]
+           "-DHULK_PDDI_GAME=1", "-DHULK_PDDI_EMBED_SHADERS=1"] + sdl_headers("win32")
     if not os.path.exists(os.path.join(PDDI_WIN_DIR, "gen", "pddi_shaders.h")):
         embed_shaders(os.path.join(PDDI_WIN_DIR, "gen"), ["dxbc", "spirv"])
     got, bad = {}, []
@@ -918,6 +999,8 @@ def main(argv):
     s.add_argument("--frames", type=int, default=60, help="frames per page")
     s.add_argument("--capture", help="where to write the captured frame (TGA; page N: name-pageN.tga)")
     s.add_argument("--page", type=int, help="one page of the self-test scene (default: all)")
+    w = sub.add_parser("window-test")
+    w.add_argument("--target", choices=["host", "win32"], default="host")
     sub.add_parser("slots")
     sub.add_parser("status")
     sub.add_parser("combiners")
@@ -940,6 +1023,8 @@ def main(argv):
             pddi_host()
         if a.target in ("win32", "all"):
             pddi_win32()
+    elif a.cmd == "window-test":
+        return window_test(a.target)
     elif a.cmd == "smoke":
         return smoke(a.frames, a.capture, a.page)
     elif a.cmd == "slots":

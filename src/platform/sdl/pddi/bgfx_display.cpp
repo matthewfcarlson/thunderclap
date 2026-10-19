@@ -7,7 +7,7 @@ namespace hulk {
 namespace pddi {
 
 bgfxDisplay::bgfxDisplay(bgfxDevice* device)
-    : m_device(device), m_width(640), m_height(480), m_depth(32), m_initialised(false), m_frame(0)
+    : m_device(device), m_width(640), m_height(480), m_depth(32), m_initialised(false), m_frame(0), m_nativeType(0)
 {
 }
 
@@ -24,6 +24,7 @@ bool bgfxDisplay::hostInit(void* nativeWindow, void* nativeDisplay, unsigned wid
     bgfx::Init init;
     init.callback = (bgfx::CallbackI*)callback;
     init.type = (bgfx::RendererType::Enum)renderer;
+    init.platformData.type = m_nativeType ? bgfx::NativeWindowHandleType::Wayland : bgfx::NativeWindowHandleType::Default;
     init.swapChain.nwh = nativeWindow;            // bgfx (2026): the window is the init swap chain's
     init.swapChain.ndt = nativeDisplay;
     init.swapChain.width = width;
@@ -38,6 +39,21 @@ bool bgfxDisplay::hostInit(void* nativeWindow, void* nativeDisplay, unsigned wid
     m_initialised = true;
     logf("pddi: bgfx %s, %ux%u\n", bgfx::getRendererName(bgfx::getRendererType()), width, height);
     return true;
+}
+
+// The window's size in pixels changed (resized, fullscreen): reset the main swap chain to it. The engine reads the
+// size back through slots 6/7/11/12 (the mode it asked for at start-up is not kept).
+void bgfxDisplay::hostResize(unsigned width, unsigned height)
+{
+    if (!m_initialised || (width == m_width && height == m_height))
+        return;
+    m_width = width;
+    m_height = height;
+    bgfx::SwapChain sc;
+    sc.width = width;
+    sc.height = height;
+    bgfx::reset(BGFX_RESET_VSYNC, &sc);
+    logf("pddi: back buffer %ux%u (window resized)\n", width, height);
 }
 
 void bgfxDisplay::hostShutdown()

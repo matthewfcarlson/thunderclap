@@ -10,6 +10,7 @@
 //   build/third_party/out/pddi-host/pddi_smoke --combiner-keys out.txt   (no window: every combiner key the shader
 //                                                                classes make; tools/native_gfx.py combiners)
 #include "bgfx_pddi.h"
+#include "../../platform_events.h"
 
 #include <SDL3/SDL.h>
 #include <bgfx/bgfx.h>
@@ -118,16 +119,22 @@ int main(int argc, char** argv)
         printf("combiner keys: %d -> %s\n", n, keys);
         return 0;
     }
-    if (!SDL_Init(SDL_INIT_VIDEO)) {
-        fprintf(stderr, "SDL_Init: %s\n", SDL_GetError());
+    // the window and the event pump are platform_events.cpp's, as in the native image
+    if (!hulk_platform_video_init()) {
+        fprintf(stderr, "SDL video: %s\n", hulk_platform_error());
         return 2;
     }
-    SDL_Window* win = SDL_CreateWindow("pddi smoke (G0)", 640, 480, 0);
+    void* win = hulk_platform_create_window("pddi smoke", 640, 480, getenv("PDDI_SMOKE_HIDDEN") != 0, 0);
     if (!win) {
-        fprintf(stderr, "SDL_CreateWindow: %s\n", SDL_GetError());
+        fprintf(stderr, "SDL window: %s\n", hulk_platform_error());
         return 2;
     }
-    void* nwh = SDL_GetPointerProperty(SDL_GetWindowProperties(win), SDL_PROP_WINDOW_COCOA_WINDOW_POINTER, 0);
+    void *nwh, *ndt;
+    int wayland;
+    if (!hulk_platform_native_handles(win, &nwh, &ndt, &wayland)) {
+        fprintf(stderr, "SDL window: no native handle\n");
+        return 2;
+    }
 
     // what pure3d::InitPlatform does: the device, a display, the context
     void* dev = 0;
@@ -136,8 +143,9 @@ int main(int argc, char** argv)
     bgfxDevice* device = (bgfxDevice*)dev;
     bgfxDisplay* display = (bgfxDisplay*)device->vfunc_7(0);
     device->vfunc_5(display);
+    display->m_nativeType = wayland;
     Shot shot;
-    if (!display->hostInit(nwh, 0, 640, 480, bgfx::RendererType::Count, &shot))
+    if (!display->hostInit(nwh, ndt, 640, 480, bgfx::RendererType::Count, &shot))
         return 4;
     bgfxContext* ctx = (bgfxContext*)device->vfunc_8(display);
     drawlogEnable(0, 1, 0xffffffffu);
@@ -155,10 +163,8 @@ int main(int argc, char** argv)
         shot.done = false;
         shot.probes = shot.passed = 0;
         for (int f = 0; f < frames + 8 && !shot.done; f++) {
-            SDL_Event e;
-            while (SDL_PollEvent(&e))
-                if (e.type == SDL_EVENT_QUIT)
-                    quit = true;
+            hulk_platform_pump();
+            quit = hulk_platform_quit_requested() != 0;
             if (quit)
                 break;
             ctx->vfunc_4();                               // begin frame
@@ -188,7 +194,6 @@ int main(int argc, char** argv)
     stubReport();
     delete ctx;
     display->hostShutdown();
-    SDL_DestroyWindow(win);
-    SDL_Quit();
+    hulk_platform_video_quit();
     return ok ? 0 : 1;
 }

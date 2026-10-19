@@ -74,6 +74,15 @@ PATCHES = [
      "void __declspec(naked) _ftoul2_legacy()\n{\n    static const Uint64 LLONG_MAX_PLUS_ONE = 0x43e0000000000000ULL;\n",
      "static const Uint64 LLONG_MAX_PLUS_ONE = 0x43e0000000000000ULL; /* hulk: tools/native_sdl.py PATCHES */\n"
      "void __declspec(naked) _ftoul2_legacy()\n{\n"),
+    #  - SDL_windows.c WIN_UpdateDarkModeForHWND (every window creation) calls uxtheme's undocumented ordinals 104, 132,
+    #    133 and 135 (Windows 10 names). Wine's uxtheme has other functions at those ordinals (104 is IsThemePartDefined,
+    #    stdcall with 3 arguments, called here with none: the stack is off and SDL_CreateWindow returns to garbage).
+    #    Wine has no dark mode to switch on: skipped there (sdlwin, build/sdlwin/RESUME.md).
+    ("src/core/windows/SDL_windows.c",
+     "        // Too old to support dark mode\n        return;\n    }\n    HMODULE uxtheme",
+     "        // Too old to support dark mode\n        return;\n    }\n"
+     "    if (WIN_IsWine()) { /* hulk: Wine's uxtheme ordinals differ (tools/native_sdl.py PATCHES) */\n        return;\n    }\n"
+     "    HMODULE uxtheme"),
 ]
 
 JOBS = 3            # a shared machine: at most three compiler processes

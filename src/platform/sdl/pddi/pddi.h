@@ -107,7 +107,7 @@ void countDraw();
 
 class bgfxDisplay;
 #if HULK_PDDI_GAME && defined(_WIN32)
-// The native image's window and run-time options (win32_platform.cpp)
+// The native image's window and run-time options (sdl_platform.cpp)
 void platformInit();
 bool platformDisplayInit(bgfxDisplay* display, unsigned width, unsigned height);
 void platformPump();

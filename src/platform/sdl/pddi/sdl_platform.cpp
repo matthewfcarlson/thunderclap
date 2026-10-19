@@ -1,5 +1,6 @@
-// The native image's side of the display (HULK_PDDI_GAME on Windows / Wine): the window, bgfx's callback (fatal
-// errors, screenshots), the run-time options and the per-frame hooks (screenshots, the draw log dump).
+// The native image's side of the display (HULK_PDDI_GAME on Windows / Wine): an SDL3 window (platform_events.h owns
+// the event pump; the window's native handle goes to bgfx), bgfx's callback (fatal errors, screenshots), the run-time
+// options and the per-frame hooks (screenshots, the draw log dump).
 //
 // Options (environment, read once when the display is initialised):
 //   HULK_GFX_RENDERER   d3d11 (default) | d3d12 | gl | vulkan | noop
@@ -10,6 +11,8 @@
 //                       file (PDL1, tools/drawlog_diff.py), written after the last logged frame and at exit
 //   HULK_GFX_FRAMES     exit the process after this many presented frames (test runs)
 //   HULK_GFX_HIDDEN     1: don't show the window (it still exists: D3D11 needs one)
+//   HULK_GFX_FULLSCREEN 1: start in desktop-size fullscreen (F11 / Alt+Enter toggle it; the window is resizable and
+//                       the back buffer follows its pixel size)
 //   HULK_GFX_SELFTEST   N: when the context is created, drive N frames of the self-test scene (selftest_scene.cpp:
 //                       prim streams, a texture, prim buffers, the skinning extension and its vertex program, z /
 //                       blend / stencil / cull / fog / colour-mask state, all through the slots the engine uses)
@@ -29,6 +32,8 @@
 #include <string.h>
 #include <windows.h>
 
+#include "../platform_events.h"
+
 extern "C" void __cdecl hulk_native_log(const char* line);      // src/platform/sdl/xdk/startup.cpp: the trace
 
 namespace hulk {
@@ -37,15 +42,6 @@ namespace pddi {
 static void traceSink(const char* line)
 {
     hulk_native_log(line);
-}
-
-static LRESULT CALLBACK wndproc(HWND h, UINT m, WPARAM w, LPARAM l)
-{
-    if (m == WM_CLOSE) {
-        logf("pddi: window closed\n");
-        ExitProcess(0);
-    }
-    return DefWindowProcA(h, m, w, l);
 }
 
 struct Callback : bgfx::CallbackI {
@@ -111,7 +107,8 @@ struct Callback : bgfx::CallbackI {
 };
 
 static Callback s_callback;
-static HWND s_hwnd;
+static void* s_window;
+static bgfxDisplay* s_display;
 static unsigned s_shots[16], s_shotCount, s_drawlogLast, s_exitAfter;
 static char s_shotDir[260] = ".";
 static char s_drawlogOut[260];
@@ -170,38 +167,51 @@ void platformInit()
     setLogSink(traceSink);
 }
 
-// display slot 4 on Windows: our window, bgfx on it. Returns false if bgfx can't start.
+// the window's pixel size changed (resize, fullscreen): the back buffer follows
+static void onResize(int w, int h, void*)
+{
+    if (s_display)
+        s_display->hostResize((unsigned)w, (unsigned)h);
+}
+
+// display slot 4 on Windows: our SDL3 window, bgfx on it. Returns false if SDL or bgfx can't start.
 bool platformDisplayInit(bgfxDisplay* d, unsigned width, unsigned height)
 {
     readOptions(&width, &height);
-    WNDCLASSA wc;
-    memset(&wc, 0, sizeof(wc));
-    wc.lpfnWndProc = wndproc;
-    wc.hInstance = GetModuleHandleA(0);
-    wc.hCursor = LoadCursorA(0, (LPCSTR)IDC_ARROW);
-    wc.lpszClassName = "hulk_pddi";
-    RegisterClassA(&wc);
-    RECT r = {0, 0, (LONG)width, (LONG)height};
-    DWORD style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
-    AdjustWindowRect(&r, style, FALSE);
-    const char* hidden = getenv("HULK_GFX_HIDDEN");
-    s_hwnd = CreateWindowExA(0, "hulk_pddi", "The Incredible Hulk: Ultimate Destruction (native)",
-                             style | (hidden && *hidden == '1' ? 0 : WS_VISIBLE), CW_USEDEFAULT, CW_USEDEFAULT,
-                             r.right - r.left, r.bottom - r.top, 0, 0, wc.hInstance, 0);
-    if (!s_hwnd) {
-        logf("pddi: CreateWindowExA failed (%lu)\n", GetLastError());
+    if (!hulk_platform_video_init()) {
+        logf("pddi: SDL video init failed: %s\n", hulk_platform_error());
         return false;
     }
+    const char* hidden = getenv("HULK_GFX_HIDDEN");
+    s_window = hulk_platform_create_window("The Incredible Hulk: Ultimate Destruction (native)", (int)width, (int)height,
+                                           hidden && *hidden == '1', 1);
+    if (!s_window) {
+        logf("pddi: SDL window failed: %s\n", hulk_platform_error());
+        return false;
+    }
+    void *nwh, *ndt;
+    int wayland;
+    if (!hulk_platform_native_handles(s_window, &nwh, &ndt, &wayland)) {
+        logf("pddi: the SDL window has no native handle\n");
+        return false;
+    }
+    s_display = d;
+    d->m_nativeType = wayland;
+    hulk_platform_set_resize_handler(onResize, 0);
+    const char* fs = getenv("HULK_GFX_FULLSCREEN");
+    if (fs && *fs == '1')
+        hulk_platform_toggle_fullscreen();
     platformPump();
-    return d->hostInit(s_hwnd, 0, width, height, rendererFromEnv(), &s_callback);
+    return d->hostInit(nwh, ndt, width, height, rendererFromEnv(), &s_callback);
 }
 
+// the one event pump (platform_events.h): window close ends the process as the old window's WM_CLOSE did
 void platformPump()
 {
-    MSG msg;
-    while (PeekMessageA(&msg, 0, 0, 0, PM_REMOVE)) {
-        TranslateMessage(&msg);
-        DispatchMessageA(&msg);
+    hulk_platform_pump();
+    if (hulk_platform_quit_requested()) {
+        logf("pddi: window closed\n");
+        ExitProcess(0);
     }
 }
 
