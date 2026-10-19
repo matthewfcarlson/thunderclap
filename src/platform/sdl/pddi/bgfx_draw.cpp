@@ -244,8 +244,10 @@ bool bgfxContext::ensureResources()
         return false;
     if (m_uVc == kNone) {
         m_uVc = bgfx::createUniform("u_vc", bgfx::UniformType::Vec4, 96).idx;
-        m_uFrag = bgfx::createUniform("u_pddiFrag", bgfx::UniformType::Vec4, 3).idx;
-        m_uTex0 = bgfx::createUniform("s_pddiTex0", bgfx::UniformType::Sampler).idx;
+        m_uFrag = bgfx::createUniform("u_pddiFrag", bgfx::UniformType::Vec4, 14).idx;
+        static const char* const kSamplers[4] = {"s_pddiTex0", "s_pddiTex1", "s_pddiTex2", "s_pddiTex3"};
+        for (int i = 0; i < 4; i++)
+            m_uTex[i] = bgfx::createUniform(kSamplers[i], bgfx::UniformType::Sampler).idx;
         static const uint32_t white = 0xffffffffu;
         m_whiteTex = bgfx::createTexture2D(1, 1, false, 1, bgfx::TextureFormat::BGRA8, 0,
                                            bgfx::copy(&white, 4)).idx;
@@ -273,6 +275,87 @@ static uint16_t programHandle(unsigned* cache, int index)
         }
     }
     return (uint16_t)cache[index];
+}
+
+// The program for a vertex program and a combiner key: the generated fragment program of the key
+// (fs_cmb_<hash>, shaders/vp/combiners.txt) for the vertex programs with all seven outputs, else the generic
+// combiner of the program's output set (the stages as uniforms). Cached per (vertex program, key hash).
+static bool hasShader(const char* name)
+{
+#if HULK_PDDI_HOST || HULK_PDDI_EMBED_SHADERS
+    const char* prof = rendererProfile();
+    for (const PddiEmbeddedShader* s = g_pddi_shaders; s->name; s++)
+        if (!strcmp(s->name, name) && !strcmp(s->profile, prof))
+            return true;
+#endif
+    (void)name;
+    return false;
+}
+
+uint16_t bgfxContext::combinerProgram(int vp, const char* key, uint32_t hash, bool* generic)
+{
+    if (m_forceGeneric) {
+        *generic = true;
+        return programHandle(m_programs, vp);
+    }
+    if (!hash)
+        hash = 1;
+    unsigned slot = (hash + (unsigned)vp * 0x9e3779b1u) & (kProgramSlots - 1);
+    for (int probe = 0; probe < kProgramSlots; probe++, slot = (slot + 1) & (kProgramSlots - 1)) {
+        ProgramSlot& e = m_programCache[slot];
+        if (e.hash == hash && e.vp == (uint16_t)vp) {
+            *generic = e.generic;
+            return e.generic ? programHandle(m_programs, vp) : e.program;
+        }
+        if (e.hash)
+            continue;
+        e.hash = hash;
+        e.vp = (uint16_t)vp;
+        e.generic = true;
+        e.program = kNone;
+        char name[24] = "fs_cmb_";
+        static const char kHex[] = "0123456789abcdef";
+        for (int i = 0; i < 8; i++)
+            name[7 + i] = kHex[(hash >> (28 - 4 * i)) & 15];
+        name[15] = 0;
+        if (!strcmp(kPrograms[vp].fs, "fs_vp_stage") && hasShader(name)) {
+            bgfx::ShaderHandle vs = loadShader(kPrograms[vp].vs);
+            bgfx::ShaderHandle fs = loadShader(name);
+            if (bgfx::isValid(vs) && bgfx::isValid(fs)) {
+                bgfx::ProgramHandle ph = bgfx::createProgram(vs, fs, true);
+                if (bgfx::isValid(ph)) {
+                    e.program = ph.idx;
+                    e.generic = false;
+                } else {
+                    logf("pddi: program %s + %s: bgfx refused it (generic combiner instead)\n", kPrograms[vp].vs, name);
+                }
+            } else {
+                if (bgfx::isValid(vs))
+                    bgfx::destroy(vs);
+                if (bgfx::isValid(fs))
+                    bgfx::destroy(fs);
+            }
+        } else if (!strcmp(kPrograms[vp].fs, "fs_vp_stage")) {
+            static int s_logged;
+            if (s_logged++ < 32)
+                logf("pddi: combiner %s (%s) has no generated program: the generic combiner draws it "
+                     "(tools/native_gfx.py combiners)\n", key, name);
+        }
+        *generic = e.generic;
+        return e.generic ? programHandle(m_programs, vp) : e.program;
+    }
+    *generic = true;
+    return programHandle(m_programs, vp);
+}
+
+void bgfxContext::combinerStats(int* generated, int* generic, int* draws)
+{
+    *generated = *generic = 0;
+    for (int i = 0; i < kProgramSlots; i++)
+        if (m_programCache[i].hash)
+            ++*(m_programCache[i].generic ? generic : generated);
+    draws[0] = (int)m_generatedDraws;
+    draws[1] = (int)m_genericDraws;
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -415,26 +498,23 @@ void bgfxContext::skinConstants(bgfxShader* shader)
     setVertexConstants(102, c[6], 11);
 }
 
-// The fixed-function program's constants (vs_vp_ff.sc has the layout)
-static void ffConstants(bgfxContext* ctx, const bgfxShader* sh, unsigned flags, float (*c)[4])
+// The fixed-function program's constants (vs_vp_ff.sc has the layout) from the D3D-side state: the transforms, the
+// material and lighting the shader's pass set (FUN_00329f70), the lights, each stage's texture coordinates
+static void ffConstants(bgfxContext* ctx, unsigned flags, float (*c)[4])
 {
-    memset(c, 0, 32 * 16);
+    const bgfxContext::DeviceState& d = ctx->m_d3d;
+    memset(c, 0, 52 * 16);
     columns(ctx->m_world, &c[0], false);
     columns(ctx->m_proj, &c[4], homogeneousDepth());
-    if (sh) {
-        colour4(sh->m_diffuse, c[8]);
-        colour4(sh->m_ambient, c[9]);
-        colour4(sh->m_emissive, c[10]);
-        colour4(sh->m_specular, c[11]);
-        c[11][3] = sh->m_shininess;
-    } else {
-        c[8][0] = c[8][1] = c[8][2] = c[8][3] = 1.0f;
-    }
+    colour4(d.material[0], c[8]);
+    colour4(d.material[2], c[9]);
+    colour4(d.material[3], c[10]);
+    colour4(d.material[1], c[11]);
+    c[11][3] = d.power;
     colour4(ctx->m_rs.ambient, c[12]);
-    bool lit = sh && sh->m_lit;
-    c[13][0] = lit ? 1.0f : 0.0f;
+    c[13][0] = d.lighting ? 1.0f : 0.0f;
     c[13][1] = (flags & (kVertexColour | kVertexColourSets)) ? 1.0f : 0.0f;
-    c[13][2] = (lit && (sh->m_specular & 0xffffffu)) ? 1.0f : 0.0f;
+    c[13][2] = (d.lighting && d.specular) ? 1.0f : 0.0f;
     int n = 0;
     for (int i = 0; i < bgfxContext::kLights && n < 4; i++) {
         const bgfxContext::Light& l = ctx->m_lights[i];
@@ -450,6 +530,14 @@ static void ffConstants(bgfxContext* ctx, const bgfxShader* sh, unsigned flags, 
         q[13] = l.att[1];
         q[14] = l.att[2];
         n++;
+    }
+    static const float kIdentity[16] = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1};
+    for (int s = 0; s < 4; s++) {
+        const bgfxContext::Stage& st = d.stage[s];
+        uint32_t gen = st.texCoordIndex >> 16;
+        c[48 + s][0] = gen == 0 ? (float)(st.texCoordIndex & 3) : gen == 1 ? 10.0f : gen == 2 ? 11.0f : 12.0f;
+        c[48 + s][1] = (float)(st.transformFlags & 0xff);
+        columns(s < 3 ? ctx->m_texMatrix[s] : kIdentity, &c[32 + 4 * s], false);
     }
 }
 
@@ -477,21 +565,38 @@ static const uint32_t kOpPassZ[6] = {BGFX_STENCIL_OP_PASS_Z_KEEP, BGFX_STENCIL_O
                                      BGFX_STENCIL_OP_PASS_Z_REPLACE, BGFX_STENCIL_OP_PASS_Z_INCR,
                                      BGFX_STENCIL_OP_PASS_Z_DECR, BGFX_STENCIL_OP_PASS_Z_INVERT};
 
-// pddi blend modes (BLMD; the order d3dShader's colour fade 0x3335e0 treats them in: 1/7 alpha-like, 2/3 add and
-// subtract, 4/5 modulate): none, alpha, add, subtract, modulate, modulate2x, add-modulate-alpha, sub-modulate-alpha
-uint64_t bgfxContext::blendState(int mode)
+// The D3D blend state (what FUN_0032a0c0 left: enable, operation, factors) as bgfx's
+static uint64_t blendFactor(uint32_t f)
 {
-    switch (mode) {
-    case 1: return BGFX_STATE_BLEND_ALPHA;
-    case 2: return BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_SRC_ALPHA, BGFX_STATE_BLEND_ONE);
-    case 3: return BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_SRC_ALPHA, BGFX_STATE_BLEND_ONE) |
-                   BGFX_STATE_BLEND_EQUATION(BGFX_STATE_BLEND_EQUATION_REVSUB);
-    case 4: return BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_DST_COLOR, BGFX_STATE_BLEND_ZERO);
-    case 5: return BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_DST_COLOR, BGFX_STATE_BLEND_SRC_COLOR);
-    case 6: return BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_ONE, BGFX_STATE_BLEND_SRC_ALPHA);
-    case 7: return BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_ZERO, BGFX_STATE_BLEND_INV_SRC_ALPHA);
-    default: return 0;
+    switch (f) {
+    case 0: return BGFX_STATE_BLEND_ZERO;
+    case 1: return BGFX_STATE_BLEND_ONE;
+    case 0x300: return BGFX_STATE_BLEND_SRC_COLOR;
+    case 0x301: return BGFX_STATE_BLEND_INV_SRC_COLOR;
+    case 0x302: return BGFX_STATE_BLEND_SRC_ALPHA;
+    case 0x303: return BGFX_STATE_BLEND_INV_SRC_ALPHA;
+    case 0x304: return BGFX_STATE_BLEND_DST_ALPHA;
+    case 0x305: return BGFX_STATE_BLEND_INV_DST_ALPHA;
+    case 0x306: return BGFX_STATE_BLEND_DST_COLOR;
+    case 0x307: return BGFX_STATE_BLEND_INV_DST_COLOR;
+    case 0x308: return BGFX_STATE_BLEND_SRC_ALPHA_SAT;
+    default: return BGFX_STATE_BLEND_ONE;
     }
+}
+
+uint64_t bgfxContext::blendState(const DeviceState& d)
+{
+    if (!d.blend)
+        return 0;
+    uint64_t eq = BGFX_STATE_BLEND_EQUATION_ADD;
+    switch (d.blendOp) {
+    case 0x800a: eq = BGFX_STATE_BLEND_EQUATION_SUB; break;
+    case 0x800b: eq = BGFX_STATE_BLEND_EQUATION_REVSUB; break;
+    case 0x8007: eq = BGFX_STATE_BLEND_EQUATION_MIN; break;
+    case 0x8008: eq = BGFX_STATE_BLEND_EQUATION_MAX; break;
+    default: break;
+    }
+    return BGFX_STATE_BLEND_FUNC(blendFactor(d.srcBlend), blendFactor(d.dstBlend)) | BGFX_STATE_BLEND_EQUATION(eq);
 }
 
 // The render state of a draw: the context's (slots 54-80) and the shader's blend mode, as bgfx's state and
@@ -509,11 +614,11 @@ uint64_t bgfxContext::stateBits(const bgfxShader* sh, int kind, uint32_t* stenci
         if (rs.zWrite)
             st |= BGFX_STATE_WRITE_Z;
     }
-    if (rs.cull == 1)
+    if (m_d3d.cull == 1)                      // D3D's cull: slot 54's, or none under a two-sided shader
         st |= BGFX_STATE_CULL_CCW;
-    else if (rs.cull == 2)
+    else if (m_d3d.cull == 2)
         st |= BGFX_STATE_CULL_CW;
-    st |= blendState(sh ? sh->m_blendMode : 0);
+    st |= blendState(m_d3d);
     *stencil = BGFX_STENCIL_NONE;
     if (rs.stencil) {
         *stencil = kStencilTest[rs.stencilFunc & 7] | BGFX_STENCIL_FUNC_REF(rs.stencilRef & 255) |
@@ -607,8 +712,8 @@ void bgfxContext::draw(bgfxShader* sh, const DrawSource& src)
         r.count = src.count;
         r.shader = 0x8000u | (uint32_t)(sh ? sh->m_kind : kShaderError);
         r.shaderId = sh ? (uint32_t)sh->m_base[1] : 0;     // pddiBaseShader's word at +0xc
-        for (int t = 0; t < 3; t++)
-            r.tex[t] = sh ? drawlogTexture(sh->m_texture[t]) : 0;
+        for (int t = 0; t < 4; t++)                     // the stage textures, as the hybrid log's
+            r.tex[t] = drawlogTexture(m_d3d.stage[t].texture);
         drawlogState(r);
         drawlogAppend(r);
     }
@@ -630,34 +735,88 @@ void bgfxContext::draw(bgfxShader* sh, const DrawSource& src)
             logf("pddi: vertex program '%s' not wired yet: fixed-function program instead\n", src.program);
         }
     }
-    uint16_t prog = programHandle(m_programs, pi);
-    if (prog == kNoProgram)
+    char key[160];
+    combinerKey(m_d3d, key, sizeof(key));
+    bool generic;
+    uint16_t prog = combinerProgram(pi, key, combinerHash(key), &generic);
+    if (prog == kNoProgram || prog == kNone)
         return;
+    if (generic)
+        m_genericDraws++;
+    else
+        m_generatedDraws++;
 
     // constants
     if (pi == 0) {
-        float c[32][4];
-        ffConstants(this, sh, src.flags, c);
-        bgfx::setUniform(bgfx::UniformHandle{(uint16_t)m_uVc}, c, 32);
+        float c[52][4];
+        ffConstants(this, src.flags, c);
+        bgfx::setUniform(bgfx::UniformHandle{(uint16_t)m_uVc}, c, 52);
     } else {
         bgfx::setUniform(bgfx::UniformHandle{(uint16_t)m_uVc}, m_vc[96], 96);
     }
-    // stage 0 texture (an untextured draw samples white), alpha test, specular, fog
-    const bgfxTexture* tex = sh ? (const bgfxTexture*)sh->m_texture[0] : 0;
-    uint16_t th = (uint16_t)m_whiteTex;
-    if (tex && tex->m_handle != bgfx::kInvalidHandle && (src.flags & kVertexUvMask))
-        th = (uint16_t)tex->m_handle;
-    bgfx::setTexture(0, bgfx::UniformHandle{(uint16_t)m_uTex0}, bgfx::TextureHandle{th});
-    float frag[3][4];
+    // the stage textures (an empty stage samples white), with the stage's addressing and filtering
+    float frag[14][4];
     memset(frag, 0, sizeof(frag));
-    frag[0][0] = sh ? sh->m_alphaRef : 0.0f;
-    frag[0][1] = (sh && sh->m_alphaTest) ? (float)(sh->m_alphaCompare & 7) : -1.0f;
-    frag[0][2] = (sh && sh->m_lit) ? 1.0f : 0.0f;
+    for (int i = 0; i < 4; i++) {
+        const Stage& stg = m_d3d.stage[i];
+        const bgfxTexture* tex = stg.texture;
+        uint16_t th = (uint16_t)m_whiteTex;
+        if (tex && tex->m_handle != bgfx::kInvalidHandle)
+            th = (uint16_t)tex->m_handle;
+        uint32_t flags = 0;
+        switch (stg.address) {
+        case 2: flags |= BGFX_SAMPLER_U_MIRROR | BGFX_SAMPLER_V_MIRROR; break;
+        case 3: case 5: flags |= BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP; break;
+        case 4: flags |= BGFX_SAMPLER_U_BORDER | BGFX_SAMPLER_V_BORDER; break;
+        default: break;
+        }
+        if (stg.minFilter <= 1)
+            flags |= BGFX_SAMPLER_MIN_POINT;
+        if (stg.magFilter <= 1)
+            flags |= BGFX_SAMPLER_MAG_POINT;
+        if (stg.mipFilter <= 1)
+            flags |= BGFX_SAMPLER_MIP_POINT;
+        bgfx::setTexture((uint8_t)i, bgfx::UniformHandle{(uint16_t)m_uTex[i]}, bgfx::TextureHandle{th}, flags);
+        // linear textures take texel coordinates
+        float sx = 1.0f, sy = 1.0f;
+        if (tex && tex->m_linear && tex->m_width && tex->m_height) {
+            sx = 1.0f / (float)tex->m_width;
+            sy = 1.0f / (float)tex->m_height;
+        }
+        frag[4 + i / 2][(i & 1) * 2] = sx;
+        frag[4 + i / 2][(i & 1) * 2 + 1] = sy;
+    }
+    // the alpha test (D3D compare -> pddi order), the specular add, fog, the texture factor
+    static const int kCmp[8] = {0, 2, 6, 3, 4, 7, 5, 1};       // D3DCMP 0x200.. -> pddi compare
+    frag[0][0] = (float)(m_d3d.alphaRef & 255);
+    frag[0][1] = m_d3d.alphaTest ? (float)kCmp[(m_d3d.alphaFunc - 0x200) & 7] : -1.0f;
+    frag[0][2] = m_d3d.specular ? 1.0f : 0.0f;
     colour4(m_rs.fogColour, frag[1]);
     frag[1][3] = m_rs.fog ? 1.0f : 0.0f;
     frag[2][0] = m_rs.fogStart;
     frag[2][1] = m_rs.fogEnd;
-    bgfx::setUniform(bgfx::UniformHandle{(uint16_t)m_uFrag}, frag, 3);
+    colour4(m_d3d.textureFactor, frag[3]);
+    // the generic combiner's stages (as the key has them)
+    bool on = true;
+    for (int i = 0; i < 4; i++) {
+        const Stage& stg = m_d3d.stage[i];
+        float* k = frag[6 + 2 * i];
+        float* l = frag[7 + 2 * i];
+        on = on && stg.colorOp > 1 && stg.colorOp <= 26;
+        if (!on) {
+            k[0] = 1.0f;
+            continue;
+        }
+        bool alphaOff = stg.alphaOp <= 1 || stg.alphaOp > 26;
+        k[0] = (float)stg.colorOp;
+        k[1] = (float)stg.colorArg1;
+        k[2] = (float)stg.colorArg2;
+        k[3] = alphaOff ? 2.0f : (float)stg.alphaOp;
+        l[0] = alphaOff ? 1.0f : (float)stg.alphaArg1;
+        l[1] = (float)stg.alphaArg2;
+        l[2] = stg.resultArg == 5 ? 5.0f : 1.0f;
+    }
+    bgfx::setUniform(bgfx::UniformHandle{(uint16_t)m_uFrag}, frag, 14);
 
     uint32_t stencil;
     uint64_t st = stateBits(sh, src.kind, &stencil);

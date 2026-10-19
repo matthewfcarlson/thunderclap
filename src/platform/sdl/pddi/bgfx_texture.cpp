@@ -19,7 +19,7 @@ static unsigned s_textures;     // first-seen ordinals
 bgfxTexture::bgfxTexture(bgfxContext* context)
     : m_context(context), m_handle(bgfx::kInvalidHandle), m_width(0), m_height(0), m_format(0), m_mips(0),
       m_pddiFormat(0), m_bits(32), m_alphaBits(8), m_usage(0), m_type(6), m_lockedLevel(-1), m_priority(0xf),
-      m_ordinal(++s_textures)
+      m_ordinal(++s_textures), m_linear(false)
 {
     memset(&m_info, 0, sizeof(m_info));
     memset(m_levels, 0, sizeof(m_levels));
@@ -52,12 +52,17 @@ bgfxTexture* bgfxTexture::create(bgfxContext* context, const int* p, int* error)
     return t;
 }
 
-// pddi formats (0x325fd0): 0/1 RGB(A) by bits and alpha depth, 2/3 one-channel, 4 DXT1, 5/6 DXT2/3, 7/8 DXT4/5,
-// 11/12 linear. The game refuses a non-power-of-two size for format 0 only.
+// pddi formats (0x326330 / 0x325fd0): 0/1 RGB(A) by bits and alpha depth, 2/3 one-channel, 4 DXT1, 5/6 DXT2/3,
+// 7/8 DXT4/5, 11 linear (12: linear, made as 11), the D3D LIN_ formats: any size, unswizzled, and sampled with
+// texel coordinates (the movie player's tiles, RenderStrategyBink::vfunc_6, are format 11). The game refuses a
+// non-power-of-two size for format 0 only. No pddi format reaches D3DFMT_P8: format 1, the table's palettised
+// entry, is folded into 0 before the lookup (0x326330), so the game never makes a palette (its slots 11/12 only act
+// on one) and the engine's 8-bit images arrive converted to the 32-bit layout the lock describes.
 bool bgfxTexture::init(int width, int height, int bits, int alphaDepth, int mips, int format)
 {
     if (format == 0 && (!pow2(width) || !pow2(height)))
         return false;
+    m_linear = format == 11 || format == 12;
     m_width = (unsigned)width;
     m_height = (unsigned)height;
     m_mips = (unsigned)(mips < 0 ? 0 : mips > 12 ? 12 : mips);   // extra levels beyond the top one
@@ -107,6 +112,20 @@ void bgfxTexture::upload(int level)
                           bgfx::copy(m_levels[level], pitch * rows), (uint16_t)pitch);
 }
 
+bool bgfxTexture::writeFrame(const unsigned char* frame, int frameWidth, int frameHeight, int pitch, int srcX,
+                             int srcY)
+{
+    if (compressed(m_type) || !frame)
+        return false;
+    LockInfo* li = (LockInfo*)vfunc_13(0, 0);
+    int w = frameWidth - srcX < li->width ? frameWidth - srcX : li->width;
+    int h = frameHeight - srcY < li->height ? frameHeight - srcY : li->height;
+    for (int y = 0; y < h; y++)
+        memcpy((char*)li->bits + y * li->stride, frame + (srcY + y) * pitch + srcX * 4, (size_t)(w > 0 ? w : 0) * 4);
+    vfunc_14(0);
+    return true;
+}
+
 // ---- slots
 unsigned int bgfxTexture::vfunc_4() { return (unsigned)m_type; }
 unsigned int bgfxTexture::vfunc_5() { return m_width; }
@@ -115,8 +134,8 @@ unsigned int bgfxTexture::vfunc_7() { return compressed(m_type) ? 0 : 32; }
 int bgfxTexture::vfunc_8() { return (int)m_alphaBits; }
 unsigned int bgfxTexture::vfunc_9() { return m_mips; }
 unsigned int bgfxTexture::vfunc_10() { return 0x100; }
-// slot 11: write the palette (count D3DCOLOR entries). Our textures are never palettised (see init); kept so a
-// palettised path can expand on unlock later.
+// slot 11: write the palette (count D3DCOLOR entries). The game's acts only on a texture with a palette, which no
+// pddi format makes (see init); kept as a plain copy.
 void bgfxTexture::vfunc_11(unsigned int count, void* src)
 {
     if (count > 256)

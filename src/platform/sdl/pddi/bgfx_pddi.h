@@ -28,6 +28,7 @@ class bgfxContext;
 class bgfxPrimStream;
 class bgfxShader;
 class bgfxPrimBuffer;
+class bgfxTexture;
 
 // pddiObject's three slots and the virtual destructor (slot 3): every class below that the game derives from
 // pddiObject. In the game, slots 0-2 are pddiObject's inline functions (emitted into the Xbox objects, so they are
@@ -295,13 +296,11 @@ class bgfxContext : public bgfxObject {
     void viewChanged(int clearFlags);
     uint64_t stateBits(const bgfxShader* shader, int kind, uint32_t* stencil);
     void drawlogState(DrawRecord& r);
-    static uint64_t blendState(int pddiBlendMode);
     int m_base[(0x14c - 8) / 4];              // +8..+0x14c: the portable base's data (see above)
     bgfxDisplay* m_display;
     bgfxDevice* m_device;
     bgfxPrimStream* m_stream;
     bgfxShader* m_defaultShader;
-    ClearInfo m_hostClear;
     unsigned m_drawIndex;                     // draws in this frame (drawlog)
     RenderState m_rs;
     float m_world[16], m_proj[16];            // D3DTS_WORLD (the modelview) and D3DTS_PROJECTION, row-vector
@@ -317,10 +316,94 @@ class bgfxContext : public bgfxObject {
     float m_clearDepth;
     unsigned m_clearStencil;
     // bgfx objects (handles as unsigned: bgfx headers stay out of this file)
-    unsigned m_uVc, m_uFrag, m_uTex0;
+    unsigned m_uVc, m_uFrag, m_uTex[4];
     unsigned m_whiteTex;
-    unsigned m_programs[8];                   // per vertex program (kPrograms in bgfx_draw.cpp); 0xffff: not made
+    unsigned m_programs[8];                   // per vertex program with the generic combiner (kPrograms); 0xffff: none
     bool ensureResources();
+
+    // ---- the device state the shaders' pass set-up writes (bgfx_combiner.cpp)
+    // What the game's shader classes write in their slot 14 (pass set-up) through its d3dContext state cache
+    // (+0x150) into D3D's texture-stage and render states, kept as D3D values: the draw turns them into a combiner
+    // key (a fragment program), sampler flags, bgfx blend state and uniforms. Xbox D3D values: D3DTOP 1 disable,
+    // 2 selectarg1, 3 selectarg2, 4 modulate, 5 modulate2x, 6 modulate4x, 7 add, 8 addsigned, 9 addsigned2x,
+    // 10 subtract, 11 addsmooth, 12 blenddiffusealpha, 13 blendcurrentalpha, 14 blendtexturealpha, 15
+    // blendfactoralpha, 16 blendtexturealphapm, 17 premodulate, 18 modulatealpha_addcolor, 19
+    // modulatecolor_addalpha, 20 modulateinvalpha_addcolor, 21 modulateinvcolor_addalpha, 22 dotproduct3, 23
+    // multiplyadd, 24 lerp (25/26 bump: unused); D3DTA 0 diffuse, 1 current, 2 texture, 3 tfactor, 4 specular,
+    // 5 temp, +0x10 complement, +0x20 alpha replicate; blend factors/ops and compare functions as their GL-style
+    // values (0x302 src alpha, 0x8006 add, 0x204 greater, ...).
+    struct Stage {
+        uint32_t colorOp, colorArg1, colorArg2, alphaOp, alphaArg1, alphaArg2, resultArg;
+        uint32_t texCoordIndex;               // low bits: the uv set; 0x10000 normal, 0x20000 position, 0x30000
+                                              // reflection vector (camera space)
+        uint32_t transformFlags;              // D3DTTFF: 0 off, 2/3/4 components through D3DTS_TEXTUREn
+        uint32_t address;                     // D3DTADDRESS: 1 wrap, 2 mirror, 3 clamp, 4 border
+        uint32_t magFilter, minFilter, mipFilter;   // D3DTEXF: 0 none, 1 point, 2 linear
+        bgfxTexture* texture;                 // what the cache's +8.. has bound to the stage
+    };
+    struct DeviceState {
+        Stage stage[4];
+        uint32_t textureFactor;               // D3DCOLOR
+        bool blend;                           // ALPHABLENDENABLE, BLENDOP, SRCBLEND, DESTBLEND
+        uint32_t blendOp, srcBlend, dstBlend;
+        bool alphaTest;                       // ALPHATESTENABLE, ALPHAFUNC, ALPHAREF (0..255)
+        uint32_t alphaFunc, alphaRef;
+        uint32_t shadeMode;                   // 0x1d00 flat, 0x1d01 gouraud
+        bool lighting, specular, twoSidedLighting;   // LIGHTING, SPECULARENABLE, TWOSIDEDLIGHTING
+        uint32_t material[4];                 // SetMaterial: diffuse, specular, ambient, emissive (D3DCOLOR)
+        float power;
+        unsigned cull;                        // the cull mode D3D has (pddi enum): slot 54's, none under 2SID
+        bool cacheLit, cacheTwoSided;         // FUN_00329f70's cache (+0x104, +0x105)
+    };
+    DeviceState m_d3d;
+    static uint64_t blendState(const DeviceState& d);   // the D3D blend state as bgfx's
+    void resetDeviceState();                  // Direct3D's defaults (stage 0 modulate texture, the rest disabled)
+    // the game's state-cache helpers the shaders call (d3dSimpleShader.cpp / d3dVertexProgram.cpp of the tree)
+    void stageDisable(int stage);                                   // FUN_00329bb0: colour and alpha op disable
+    void stageColour(int stage, uint32_t op, uint32_t arg1);        // FUN_00329cf0
+    void stageColour(int stage, uint32_t op, uint32_t arg1, uint32_t arg2);   // FUN_00329d50
+    void stageAlpha(int stage, uint32_t op, uint32_t arg1);         // FUN_00329da0
+    void stageAlpha(int stage, uint32_t op, uint32_t arg1, uint32_t arg2);    // FUN_00329e00
+    void stageBoth(int stage, uint32_t op, uint32_t arg1, uint32_t arg2);     // FUN_00329e50
+    void stageTexture(int stage, bgfxObject* texture);              // the inline bind (FUN_00326b00 / unbind)
+    void stageTextures(int disableFrom, bgfxObject* t0, bgfxObject* t1, bgfxObject* t2, bgfxObject* t3);  // 0x32a920
+    void stageAddress(int stage, int uvMode);                       // FUN_00329c40 (pddi UVMD -> 0x4d4efc)
+    void stageFilter(int stage, int filterMode);                    // FUN_00329c90 (pddi FIMD -> 0x4d4e10)
+    void stageCoords(int stage, uint32_t texCoordIndex, uint32_t transformFlags, int uvMode, int filterMode);
+                                                                    // FUN_0032a320 / FUN_0032b530
+    void setTextureFactor(uint32_t c);                              // FUN_00329f20
+    void setShadeMode(int shmd);                                    // the inline 0x4037c write (0x4d4f24)
+    void lightingMaterial(bool lit, bool twoSided, const uint32_t* material, float power);   // FUN_00329f70
+    void alphaBlend(bool enable, uint32_t op, int src, int dst);    // FUN_0032a0c0 (pddi factor -> 0x4d4ed0)
+    void alphaTest(bool enable, int compare, uint32_t ref);         // FUN_0032a190 (pddi compare -> 0x4d4f04)
+    // The draw's combiner: the canonical key of the active stages ("c4.0.2a4.0.2r1|..."), its hash, the fragment
+    // program for (vertex program, key): one generated per key the shader classes can produce
+    // (shaders/vp/combiners.txt, made by `native_gfx.py combiners`), else the generic combiner with the stages as
+    // uniforms (logged once per key)
+    static int combinerKey(const DeviceState& d, char* out, int size);
+    static uint32_t combinerHash(const char* key);
+    uint16_t combinerProgram(int vpIndex, const char* key, uint32_t hash, bool* generic);
+    unsigned m_generatedDraws, m_genericDraws;
+    struct ProgramSlot { uint32_t hash; uint16_t vp, program; bool generic; };
+    enum { kProgramSlots = 512 };
+    ProgramSlot m_programCache[kProgramSlots];
+    bool m_forceGeneric;                      // the self-test: every draw through the generic combiner
+    void combinerStats(int* generated, int* generic, int* draws);   // keys seen with/without a program; draws
+    // host builds: the base's matrix stacks 1..3 and its view block, which the game image has in the base's data
+    // (slots 14-16, 24 and 109 use them there); the self-test drives these slots on the host too
+    struct ViewBlock {                        // *(context+0x48) in the game: the clear values, then the view
+        int pad0;
+        unsigned colour;
+        float depth;
+        unsigned stencil;
+        int mode;                             // +0x10: 0 perspective, 1 orthographic, 2 pixels
+        float x0, y0, x1, y1, nearZ, farZ, fov, aspect;
+    };
+    ViewBlock* viewBlock();
+    ViewBlock m_hostView;
+    float m_hostStack[4][8][16];
+    int m_hostDepth[4];
+    void hostSetView(int mode, float nearZ, float farZ, float fov, float aspect);   // as the engine's camera sets it
     // slot 89 (GetExtension): the d3dContext's extension objects by id, in the game's order (+0x424..+0x448):
     // 0x101 gamma, 0x500001 antialias, 0x500004 projected texture, 0x500005 read pixels, 0x102 hardware skinning,
     // 0x500002 visibility test, 0x106 vertex program, 0x103 framebuffer effects, 0x104 framebuffer texture, 0x105 none
@@ -369,6 +452,13 @@ class bgfxTexture : public bgfxObject {
     // device slot 9: the parameter block (width, height, ?, bits, alpha depth, mip count, pddi format, usage;
     // byte +0x20: volume). Returns 0 with *error set when the game's checks would fail (non-power-of-two, ...).
     static bgfxTexture* create(bgfxContext* context, const int* params, int* error);
+    // A movie frame into this texture (G2's movie render strategy): what the game's movie player does with the
+    // tiles RenderStrategyBink makes (linear 32-bit pddi textures of at most 1024 x 1024, vfunc_6) and hands out
+    // locked (vfunc_4: the lock's bits and stride): the decoder writes the frame's rows, top row first, at bits,
+    // bits + stride, ... (the lock's stride is negative: the engine's bottom-up layout), then the unlock uploads.
+    // `frame` is B, G, R, A bytes (D3DCOLOR order), `pitch` bytes a row, read from (srcX, srcY) on: the tile's part
+    // of a larger frame. The decoder itself (Bink's replacement) is a separate task; this is its seam.
+    bool writeFrame(const unsigned char* frame, int frameWidth, int frameHeight, int pitch, int srcX, int srcY);
     bool init(int width, int height, int bits, int alphaDepth, int mips, int format);
     void upload(int level);
     bgfxContext* m_context;
@@ -379,6 +469,8 @@ class bgfxTexture : public bgfxObject {
     int m_lockedLevel;                        // -1: not locked
     unsigned m_priority;                      // slots 18/19
     unsigned m_ordinal;                       // first-seen order (the drawlog's texture key)
+    bool m_linear;                            // pddi format 11/12: a linear (unswizzled) texture: any size, and
+                                              // texture coordinates in texels (the NV2A's rule for them)
     LockInfo m_info;
     unsigned char* m_levels[16];              // CPU copies per mip level (bgfx gets them on unlock)
     uint32_t m_palette[256];
@@ -562,16 +654,39 @@ class bgfxShader : public bgfxObject {
     };
     const Param* m_tables[6];                 // slots 15..20: textures, ints, floats, colours, (vectors, matrices)
     const char* m_name;                       // slot 4
-    bgfxObject* m_texture[3];                 // TEX, TTEX (layered), REFL
-    int m_blendMode;                          // BLMD (pddi blend mode)
-    int m_alphaCompare;                       // ACMP
-    int m_uvMode, m_filter, m_shadeMode;      // UVMD, FIMD, SHMD
-    bool m_alphaTest, m_lit, m_twoSided;      // ATST, LIT, 2SID
-    float m_alphaRef;                         // ACTH
-    uint32_t m_diffuse, m_ambient, m_emissive, m_specular;   // DIFF, AMBI, EMIS, SPEC (D3DCOLOR)
-    float m_shininess;                        // SHIN (the specular power)
+    // The d3dShader fields the game's setters write (offsets in the game's object, the setters 0x3333a0.. and
+    // 0x333770..; the constructor 0x333520 gives the defaults). FUN_003335e0 (fade()) derives the faded ones.
+    bgfxObject* m_texture[3];                 // TEX (+0x80), TTEX (layered +0x84, building +0x88), REFL (+0x84)
+    int m_blendMode;                          // BLMD (+0x18): pddi blend mode
+    int m_activeMode;                         // +0x1c: BLMD, or alpha (1) when BLMD is none and the shader fades
+    bool m_alphaTest;                         // ATST (+0x28)
+    int m_alphaCompare;                       // ACMP (+0x2c): pddi compare (default 5: gequal)
+    float m_alphaRef;                         // ACTH (+0x30)
+    float m_alphaRefFaded;                    // +0x34: ACTH x (255 - fade) / 255, clamped (the alpha reference used)
+    int m_fade;                               // FADE (+0x38): 0..255 (255: faded out)
+    int m_uvMode, m_filter;                   // UVMD (+0x40: 0 wrap, 1 clamp), FIMD (+0x44: 0x4d4e10's 5 filters)
+    bool m_lit;                               // LIT (+0x48)
+    int m_shadeMode;                          // SHMD (+0x4c: 0 flat, 1 gouraud)
+    uint32_t m_matFaded[4];                   // +0x50: diffuse, specular, ambient, emissive after the fade
+    float m_shininess;                        // SHIN (+0x60: the specular power)
+    uint32_t m_diffuse, m_specular, m_ambient, m_emissive;   // DIFF, SPEC, AMBI, EMIS (+0x64..+0x70; D3DCOLOR)
+    uint32_t m_savedFog;                      // +0x74: the fog colour d3dShader::vfunc_12 put aside
+    bool m_twoSided;                          // 2SID (+0x7c)
     bool m_skinned;                           // d3dExtHardwareSkinning::vfunc_6 sets it around its draw (+0x7d)
+    // the kinds' own parameters
+    int m_layerMode;                          // layered TBLM (+0x88, default 4: modulate)
+    int m_layerPath;                          // layered CLYR (+0x8c)
+    bool m_noLayer;                           // layeredReflect LRSA (+0x8c): leave the TTEX layer out
+    uint32_t m_envColour;                     // environment ENVB (+0x88), refract REFC (+0x90)
+    float m_refractBlend;                     // refract REFB (+0x8c)
+    int m_savedMode;                          // refract: what its pass set-up put aside (+0x94, +0x98)
+    bool m_savedAlphaTest;
     void setTexture(int which, bgfxObject* t);
+    void fade();                              // FUN_003335e0: the faded material, mode and alpha reference
+    void applyBlendAndTest();                 // FUN_0032a260: blend from the mode, the alpha test
+    // A parameter by key, as the base's slots 5-8 set it (walks our tables): for the backend's own callers
+    // (the self-test on the host, where the base slots are stubs). Returns false for an unknown key.
+    bool setParam(int table, uint32_t key, const void* value);
 };
 
 // What slot 21 hands out (d3dShader's five words at +0x50, as FUN_00324270 reads them): the material.
@@ -779,6 +894,9 @@ void packedOffsets(unsigned flags, int* weights, int* indices, int* normal, int*
 void shaderDestroyed(bgfxShader* shader);
 void releaseBuffers(unsigned vb, bool dynamicVb, unsigned ib, bool dynamicIb);
 
+// bgfx_combiner.cpp: every combiner key the shader classes can produce (tools/native_gfx.py combiners)
+int enumerateCombinerKeys(bgfxContext* ctx, void (*out)(const char* key, const char* example));
+
 // selftest_scene.cpp: the self-test scene (host smoke test, HULK_GFX_SELFTEST) and its expected pixels
 struct SelfTestProbe {
     int x, y;                                 // pixel, top-left origin
@@ -786,7 +904,8 @@ struct SelfTestProbe {
     int tolerance;                            // per channel
     const char* what;
 };
-int selfTestScene(bgfxContext* ctx);          // one frame's draws (between begin and end frame) -> probes
+int selfTestPages();                          // pages of the scene (0: G3's draw path, 1-3: G2's)
+int selfTestScene(bgfxContext* ctx, int page);   // one frame's draws (between begin and end frame) -> probes
 int selfTestProbes(const SelfTestProbe** out);
 int selfTestCheck(const unsigned char* px, unsigned w, unsigned h, unsigned pitch, bool bgra, bool yflip,
                   void (*out)(const char* line));   // -> probes that pass

@@ -1,8 +1,9 @@
-// The backend's self-test scene (G3): one frame of draws through the same slots the engine uses, laid out as a 4 x 3
-// grid of cells, each testing one thing, with the pixel each should produce (probes). The host smoke test
-// (smoke/smoke_main.cpp, Metal) and the native image's HULK_GFX_SELFTEST (win32_platform.cpp, under Wine: Vulkan)
-// draw it and check a screenshot against the probes.
+// The backend's self-test scene: pages of one frame of draws each, through the same slots the engine uses, laid out
+// as a 4 x 3 grid of cells, each testing one thing, with the pixel each should produce (probes). The host smoke test
+// (smoke/smoke_main.cpp, Metal: every page) and the native image's HULK_GFX_SELFTEST (win32_platform.cpp, under
+// Wine: Vulkan; HULK_GFX_SELFTEST_PAGE picks the page) draw them and check a screenshot against the probes.
 //
+// Page 0 (G3: the draw path):
 //   row 0: fixed-function triangle (prim stream) | texture through device slot 9 + the simple shader | z test
 //          (LEQUAL keeps the nearer quad drawn first) | z compare ALWAYS (the farther quad drawn last wins)
 //   row 1: alpha blend (BLMD 1) | additive blend (BLMD 2) | stencil (write 1 with colour writes off, then draw
@@ -10,10 +11,34 @@
 //   row 2: lit prim buffer (indexed, packed normal, one directional light, fixed-function program) | skinned prim
 //          buffer through d3dExtHardwareSkinning (slots 5/6: the "skin" vertex program, bones blended 50/50,
 //          lit by the skin program's light) | linear fog | colour write mask (red only)
-// Everything is in clip space (identity modelview and projection, z in [0, 1]); D3DCOLORs are 0xAARRGGBB.
+// Page 1 (G2: the shader classes' texture-stage combiners, each from its pass set-up; generated programs):
+//   row 0: simple TEX x vertex colour | simple unlit FADE (alpha mode: the factor scales alpha) | simple FADE +
+//          BLMD 2 (the factor scales colour, added) | simple LIT FADE + BLMD 2 (the faded material)
+//   row 1: layered CLYR 0 TBLM 1 (blendtexturealpha) | TBLM 2 (add, then x diffuse) | TBLM 3 (subtract) | CLYR 2
+//          (TTEX, TEX blended by the diffuse alpha)
+//   row 2: layeredReflect TEX + TTEX + REFL (modulateinvalpha_addcolor twice) | environment (temp, factor x
+//          reflection, modulatealpha_addcolor) | alpha test ATST/ACMP/ACTH | layered TBLM 7 (subtract, own blend)
+// Page 2: page 1 again with the generic combiner (the stages as uniforms) for every draw: the same pixels.
+// Page 3 (G2: 2D, textures, movies, state):
+//   row 0: pixel projection (slot 24 mode 2: the 2D mode) | orthographic projection (mode 1) | a linear texture
+//          (format 11, 6 x 3: texel coordinates) | a movie tile as RenderStrategyBink draws it (a frame written
+//          through the lock: upright)
+//   row 1: UVMD 0 wrap | UVMD 1 clamp | FIMD 0 point | FIMD 1 linear
+//   row 2: 2SID (a culled winding drawn) | additive + fog (fog to black while active, then restored) | environment
+//          reflection through the sphere map (texgen + texture matrix) | FADE scales the alpha reference
+// Page 4 (G2: the combiner sweep): every key of combiners.txt through its generated program and the generic
+//   combiner, colour and alpha, against a CPU reference of the texture-stage operations (4 cells a key)
+// Everything is in clip space (identity modelview and projection, z in [0, 1]) unless a cell says otherwise;
+// D3DCOLORs are 0xAARRGGBB.
 #include "bgfx_pddi.h"
 
 #include <string.h>
+
+#if HULK_PDDI_HOST || HULK_PDDI_EMBED_SHADERS
+#include "pddi_combiners.h"     // the combiner keys (tools/native_gfx.py, from shaders/vp/combiners.txt)
+#else
+static const char* const g_pddi_combiner_keys[] = {0};
+#endif
 
 namespace hulk {
 namespace pddi {
@@ -34,12 +59,13 @@ struct SceneState {
     bool made;
 };
 static SceneState s_scene;
-static SelfTestProbe s_probes[24];
+enum { kMaxProbes = 512 };
+static SelfTestProbe s_probes[kMaxProbes];
 static int s_nprobes;
 
 static void probe(int x, int y, unsigned rgb, int tol, const char* what)
 {
-    if (s_nprobes < 24) {
+    if (s_nprobes < kMaxProbes) {
         SelfTestProbe& p = s_probes[s_nprobes++];
         p.x = x;
         p.y = y;
@@ -84,13 +110,61 @@ static void quad(bgfxContext* ctx, bgfxShader* sh, const Rect& q, float z, unsig
     ctx->vfunc_31(p);
 }
 
+// A shader parameter by its key, as the engine sets it: pddiBaseShader's slots 5-8 (tree code walking our key
+// tables) in the game image; the same tables through setParam on the host, where the base slots are stubs
+static uint32_t K4(const char* s)
+{
+    return (uint32_t)(unsigned char)s[0] | (uint32_t)(unsigned char)s[1] << 8 | (uint32_t)(unsigned char)s[2] << 16 |
+           (s[2] ? (uint32_t)(unsigned char)s[3] << 24 : 0u);
+}
+static void setI(bgfxShader* sh, const char* k, int v)
+{
+#if HULK_PDDI_GAME
+    sh->vfunc_6((int)K4(k), v);
+#else
+    sh->setParam(1, K4(k), &v);
+#endif
+}
+static void setF(bgfxShader* sh, const char* k, float v)
+{
+#if HULK_PDDI_GAME
+    int bits;
+    memcpy(&bits, &v, 4);
+    sh->vfunc_7((int)K4(k), bits);              // the float travels as its bits in the same stack slot
+#else
+    sh->setParam(2, K4(k), &v);
+#endif
+}
+static void setC(bgfxShader* sh, const char* k, unsigned v)
+{
+#if HULK_PDDI_GAME
+    sh->vfunc_8((int)K4(k), (int)v);
+#else
+    sh->setParam(3, K4(k), &v);
+#endif
+}
+static void setT(bgfxShader* sh, const char* k, bgfxObject* t)
+{
+#if HULK_PDDI_GAME
+    sh->vfunc_5((int)K4(k), (int)(intptr_t)t);
+#else
+    sh->setParam(0, K4(k), &t);
+#endif
+}
+
+static bgfxShader* makeShader(bgfxDevice* dev, const char* name)
+{
+    bgfxShader* s = (bgfxShader*)dev->vfunc_11(name, 0);
+    if (s)
+        s->vfunc_0();          // AddRef: the scene keeps it
+    return s;
+}
+
 static bgfxShader* simpleShader(bgfxDevice* dev, int blend)
 {
-    bgfxShader* s = (bgfxShader*)dev->vfunc_11("simple", 0);
-    if (s) {
-        s->vfunc_0();          // AddRef: the scene keeps it
-        s->m_blendMode = blend;
-    }
+    bgfxShader* s = makeShader(dev, "simple");
+    if (s)
+        setI(s, "BLMD", blend);
     return s;
 }
 
@@ -132,10 +206,14 @@ static void setup(bgfxContext* ctx)
     S.add = simpleShader(dev, 2);
     S.lit = simpleShader(dev, 0);
     S.skin = simpleShader(dev, 0);
-    if (S.lit)
-        S.lit->m_lit = true;
-    if (S.skin)
-        S.skin->m_lit = true;
+    bgfxShader* lits[2] = {S.lit, S.skin};
+    for (int i = 0; i < 2; i++)
+        if (lits[i]) {
+            setI(lits[i], "LIT", 1);
+            setC(lits[i], "DIFF", 0xffffffffu);   // the game's default diffuse is black (0x333520)
+            setC(lits[i], "AMBI", 0xff000000u);   // and its ambient white: x the ambient light the state reset
+                                                  // sets in the game image; the probes want the light alone
+        }
     // a 4x4 A8R8G8B8 texture: left half magenta, right half cyan (device slot 9, lock 13, unlock 14)
     int params[9] = {4, 4, 0, 32, 8, 0, 0, 0, 0};
     S.texture = (bgfxTexture*)dev->vfunc_9(params);
@@ -147,14 +225,8 @@ static void setup(bgfxContext* ctx)
                 row[x] = x < li->width / 2 ? 0xffff00ffu : 0xff00ffffu;
         }
         S.texture->vfunc_14(0);
-        if (S.textured) {
-#if HULK_PDDI_GAME
-            // TEX through pddiBaseShader's slot 5 (tree code walking our key table), as the engine sets it
-            S.textured->vfunc_5(0x584554 /* "TEX" */, (int)(intptr_t)S.texture);
-#else
-            S.textured->setTexture(0, S.texture);
-#endif
-        }
+        if (S.textured)
+            setT(S.textured, "TEX", S.texture);     // through pddiBaseShader's slot 5 in the game image
     }
     S.litQuad = makeQuadBuffer(dev, cell(0, 2, 16), 0x10, "");
     // skinned: bit 7 (bone indices) and bit 8 (weights) select "skin" (FUN_00327860); the quad is placed half a
@@ -188,8 +260,14 @@ static void resetState(bgfxContext* ctx)
     ctx->vfunc_78(0);
 }
 
-// One frame of the scene (between the caller's begin frame and end frame). Returns the number of probes.
-int selfTestScene(bgfxContext* ctx)
+static void page1(bgfxContext* ctx, bool generic);
+static void page3(bgfxContext* ctx);
+static void page4(bgfxContext* ctx);
+
+int selfTestPages() { return 5; }
+
+// One frame of a page of the scene (between the caller's begin frame and end frame). Returns the number of probes.
+int selfTestScene(bgfxContext* ctx, int page)
 {
     SceneState& S = s_scene;
     S.w = ctx->m_display ? ctx->m_display->m_width : 640;
@@ -197,6 +275,21 @@ int selfTestScene(bgfxContext* ctx)
     if (!S.made)
         setup(ctx);
     s_nprobes = 0;
+    ctx->m_forceGeneric = false;
+    if (page == 1 || page == 2) {
+        page1(ctx, page == 2);
+        ctx->m_forceGeneric = false;
+        return s_nprobes;
+    }
+    if (page == 3) {
+        page3(ctx);
+        return s_nprobes;
+    }
+    if (page == 4) {
+        page4(ctx);
+        ctx->m_forceGeneric = false;
+        return s_nprobes;
+    }
     float I[16];
     identity(I);
 #if HULK_PDDI_GAME
@@ -354,6 +447,726 @@ int selfTestScene(bgfxContext* ctx)
     ctx->vfunc_56(1, 1, 1, 1);
     probe(cx(3), cy(2), 0xff3040, 2, "colour write mask: red only");
     return s_nprobes;
+}
+
+// ---------------------------------------------------------------------------------------------
+// G2 pages
+static void beginPage(bgfxContext* ctx)
+{
+    float I[16];
+    identity(I);
+#if HULK_PDDI_GAME
+    ctx->vfunc_14(0, I);
+#endif
+    ctx->setViewTransform(I, I);
+    ctx->vfunc_6(kClearColour);
+    ctx->hostSetClear(kClearColour, 1.0f, 0);
+    ctx->vfunc_12(1 | 2 | 4);
+    resetState(ctx);
+    ctx->vfunc_78(0);
+}
+
+// A texture through device slot 9 + lock (13) / unlock (14): `image` row-major, top row first, written as the
+// engine writes (row y at bits + y * stride)
+static bgfxTexture* makeTexture(bgfxDevice* dev, int w, int h, int format, const unsigned* image)
+{
+    int params[9] = {w, h, 0, 32, 8, 0, format, 0, 0};
+    bgfxTexture* t = (bgfxTexture*)dev->vfunc_9(params);
+    if (!t)
+        return 0;
+    t->vfunc_0();
+    bgfxTexture::LockInfo* li = (bgfxTexture::LockInfo*)t->vfunc_13(0, 0);
+    for (int y = 0; y < li->height; y++)
+        memcpy((char*)li->bits + y * li->stride, image + y * w, 4 * (size_t)w);
+    t->vfunc_14(0);
+    return t;
+}
+static bgfxTexture* solid(bgfxDevice* dev, unsigned c)
+{
+    unsigned px[4] = {c, c, c, c};
+    return makeTexture(dev, 2, 2, 0, px);
+}
+
+// A quad as a strip through the prim stream: vertices bottom-left, top-left, bottom-right, top-right (clockwise on
+// screen), each with its colour and uv (both uv sets the same), an optional normal facing the camera
+struct QuadSpec {
+    unsigned colour[4];
+    float uv[4][2];
+    int uvSets;
+    bool colours, normal, ccw;
+};
+static QuadSpec spec(unsigned c, int uvSets = 1)
+{
+    QuadSpec q;
+    for (int i = 0; i < 4; i++)
+        q.colour[i] = c;
+    static const float uv[4][2] = {{0, 1}, {0, 0}, {1, 1}, {1, 0}};
+    memcpy(q.uv, uv, sizeof(uv));
+    q.uvSets = uvSets;
+    q.colours = true;
+    q.normal = false;
+    q.ccw = false;
+    return q;
+}
+static void quadEx(bgfxContext* ctx, bgfxShader* sh, const Rect& q, float z, const QuadSpec& s)
+{
+    float pos[4][3] = {{q.x0, q.y1, z}, {q.x0, q.y0, z}, {q.x1, q.y1, z}, {q.x1, q.y0, z}};
+    int order[4] = {0, 1, 2, 3};
+    if (s.ccw) {
+        order[1] = 2;
+        order[2] = 1;
+    }
+    unsigned flags = (s.colours ? kVertexColour : 0) | (s.normal ? kVertexNormal : 0) | (unsigned)s.uvSets;
+    bgfxPrimStream* p = (bgfxPrimStream*)ctx->vfunc_30(sh, kPrimTriStrip, (int)flags, 4, 0);
+    for (int k = 0; k < 4; k++) {
+        int i = order[k];
+        memcpy(p->posPtr, pos[i], 12);
+        if (s.normal) {
+            const float n[3] = {0.0f, 0.0f, -1.0f};
+            memcpy(p->normalPtr, n, 12);
+        }
+        if (s.colours)
+            *(unsigned*)p->colorPtr = s.colour[i];
+        for (int u = 0; u < s.uvSets; u++)
+            memcpy(p->uvPtr + 8 * u, s.uv[i], 8);
+        p->vertex();
+    }
+    ctx->vfunc_31(p);
+}
+static Rect half(const Rect& r, bool top)
+{
+    Rect q = r;
+    float mid = (r.y0 + r.y1) * 0.5f;
+    if (top)
+        q.y1 = mid;
+    else
+        q.y0 = mid;
+    return q;
+}
+static void directionalLight(bgfxContext* ctx, float r, float g, float b)
+{
+    bgfxContext::Light l;
+    memset(&l, 0, sizeof(l));
+    for (int i = 1; i < bgfxContext::kLights; i++)
+        ctx->hostSetLight(i, l);
+    l.type = 3;
+    l.on = true;
+    l.direction[2] = 1.0f;
+    l.range = 1e30f;
+    l.att[0] = 1.0f;
+    l.diffuse[0] = r;
+    l.diffuse[1] = g;
+    l.diffuse[2] = b;
+    l.diffuse[3] = 1.0f;
+    ctx->hostSetLight(0, l);
+}
+
+struct Page1 {
+    bool made;
+    bgfxTexture *t1, *t2, *t5, *t6, *t7, *t8;
+    bgfxShader *tex, *fadeAlpha, *fadeAdd, *litFade, *lay1, *lay2, *lay3, *layPath2, *building, *env, *test, *lay7;
+};
+static Page1 s_p1;
+
+static bgfxShader* layered(bgfxDevice* dev, bgfxTexture* a, bgfxTexture* b, int tblm, int clyr)
+{
+    bgfxShader* s = makeShader(dev, "layered");
+    if (s) {
+        setT(s, "TEX", a);
+        setT(s, "TTEX", b);
+        setI(s, "TBLM", tblm);
+        setI(s, "CLYR", clyr);
+    }
+    return s;
+}
+
+static void setupPage1(bgfxContext* ctx)
+{
+    Page1& P = s_p1;
+    P.made = true;
+    bgfxDevice* dev = ctx->m_device;
+    P.t1 = solid(dev, 0xff804020u);             // 128, 64, 32, opaque
+    P.t2 = solid(dev, 0x8000ff00u);             // green, alpha 128
+    P.t5 = solid(dev, 0x80404040u);             // grey 64, alpha 128
+    P.t6 = solid(dev, 0xffff0000u);             // red
+    P.t7 = solid(dev, 0xff0000ffu);             // blue
+    P.t8 = solid(dev, 0x80202020u);             // grey 32, alpha 128
+    P.tex = simpleShader(dev, 0);
+    P.fadeAlpha = simpleShader(dev, 0);
+    P.fadeAdd = simpleShader(dev, 2);
+    P.litFade = simpleShader(dev, 2);
+    if (P.tex)
+        setT(P.tex, "TEX", P.t1);
+    if (P.fadeAlpha) {
+        setT(P.fadeAlpha, "TEX", P.t1);
+        setF(P.fadeAlpha, "FADE", 0.5f);
+    }
+    if (P.fadeAdd) {
+        setT(P.fadeAdd, "TEX", P.t1);
+        setF(P.fadeAdd, "FADE", 0.5f);
+    }
+    if (P.litFade) {
+        setI(P.litFade, "LIT", 1);
+        setC(P.litFade, "DIFF", 0xffffffffu);
+        setC(P.litFade, "AMBI", 0xff000000u);
+        setF(P.litFade, "FADE", 0.5f);
+    }
+    P.lay1 = layered(dev, P.t1, P.t2, 1, 0);
+    P.lay2 = layered(dev, P.t1, P.t2, 2, 0);
+    P.lay3 = layered(dev, P.t1, P.t2, 3, 0);
+    P.layPath2 = layered(dev, P.t1, P.t2, 4, 2);
+    P.lay7 = layered(dev, P.t1, P.t8, 7, 0);
+    P.building = makeShader(dev, "layeredReflect");
+    if (P.building) {
+        setT(P.building, "TEX", P.t5);
+        setT(P.building, "TTEX", P.t6);
+        setT(P.building, "REFL", P.t7);
+    }
+    P.env = makeShader(dev, "environment");
+    if (P.env) {
+        setT(P.env, "TEX", P.t1);
+        setT(P.env, "REFL", P.t7);
+        setC(P.env, "ENVB", 0xff808080u);
+    }
+    P.test = simpleShader(dev, 0);
+    if (P.test) {
+        setI(P.test, "ATST", 1);
+        setI(P.test, "ACMP", 4);                // greater
+        setF(P.test, "ACTH", 0.5f);
+    }
+}
+
+static void page1(bgfxContext* ctx, bool generic)
+{
+    Page1& P = s_p1;
+    if (!P.made)
+        setupPage1(ctx);
+    beginPage(ctx);
+    ctx->m_forceGeneric = generic;
+    // row 0
+    if (P.tex) {
+        quadEx(ctx, P.tex, cell(0, 0, 16), 0.5f, spec(0xff808080u));
+        probe(cx(0), cy(0), 0x402010, 3, generic ? "simple TEX x diffuse [generic]" : "simple TEX x diffuse");
+    }
+    quad(ctx, s_scene.plain, cell(1, 0, 16), 0.5f, 0xffffffffu);
+    if (P.fadeAlpha) {
+        ctx->vfunc_62(0);
+        quadEx(ctx, P.fadeAlpha, cell(1, 0, 16), 0.4f, spec(0xffffffffu));
+        ctx->vfunc_62(1);
+        probe(cx(1), cy(0), 0xbf9f8f, 4, generic ? "simple FADE alpha mode [generic]" : "simple FADE: alpha x factor");
+    }
+    quad(ctx, s_scene.plain, cell(2, 0, 16), 0.5f, 0xff404040u);
+    if (P.fadeAdd) {
+        ctx->vfunc_62(0);
+        quadEx(ctx, P.fadeAdd, cell(2, 0, 16), 0.4f, spec(0xffffffffu));
+        ctx->vfunc_62(1);
+        probe(cx(2), cy(0), 0x806050, 4, generic ? "simple FADE add [generic]" : "simple FADE + BLMD 2: colour x factor, added");
+    }
+    quad(ctx, s_scene.plain, cell(3, 0, 16), 0.5f, 0xff000040u);
+    if (P.litFade) {
+        directionalLight(ctx, 1.0f, 1.0f, 1.0f);
+        QuadSpec q = spec(0, 0);
+        q.colours = false;
+        q.normal = true;
+        ctx->vfunc_62(0);
+        quadEx(ctx, P.litFade, cell(3, 0, 16), 0.4f, q);
+        ctx->vfunc_62(1);
+        probe(cx(3), cy(0), 0x7f7fbf, 4, generic ? "simple LIT FADE add [generic]" : "simple LIT FADE + BLMD 2: the faded material");
+    }
+    // row 1: layered (TTEX on uv set 1)
+    if (P.lay1) {
+        quadEx(ctx, P.lay1, cell(0, 1, 16), 0.5f, spec(0xffffffffu, 2));
+        probe(cx(0), cy(1), 0x40a010, 4, generic ? "layered TBLM 1 [generic]" : "layered CLYR 0 TBLM 1: blendtexturealpha");
+    }
+    if (P.lay2) {
+        quadEx(ctx, P.lay2, cell(1, 1, 16), 0.5f, spec(0xff808080u, 2));
+        probe(cx(1), cy(1), 0x408010, 4, generic ? "layered TBLM 2 [generic]" : "layered TBLM 2: add, then x diffuse");
+    }
+    if (P.lay3) {
+        quadEx(ctx, P.lay3, cell(2, 1, 16), 0.5f, spec(0xffffffffu, 2));
+        probe(cx(2), cy(1), 0x800020, 4, generic ? "layered TBLM 3 [generic]" : "layered TBLM 3: subtract");
+    }
+    if (P.layPath2) {
+        quadEx(ctx, P.layPath2, cell(3, 1, 16), 0.5f, spec(0x40ffffffu, 2));
+        probe(cx(3), cy(1), 0x607018, 4, generic ? "layered CLYR 2 [generic]" : "layered CLYR 2: blenddiffusealpha");
+    }
+    // row 2
+    if (P.building) {
+        quadEx(ctx, P.building, cell(0, 2, 16), 0.5f, spec(0xffffffffu, 2));
+        probe(cx(0), cy(2), 0xbf40bf, 4, generic ? "layeredReflect [generic]" : "layeredReflect: TEX, TTEX and REFL by inverse alpha");
+    }
+    if (P.env) {
+        quadEx(ctx, P.env, cell(1, 2, 16), 0.5f, spec(0xffffffffu));
+        probe(cx(1), cy(2), 0x8040a0, 4, generic ? "environment [generic]" : "environment: temp + temp alpha x factor x REFL");
+    }
+    if (P.test) {
+        QuadSpec q = spec(0xffffffffu, 0);
+        q.colour[0] = q.colour[1] = 0x00ffffffu;   // alpha 0 on the left, 1 on the right
+        Rect r = cell(2, 2, 16);
+        quadEx(ctx, P.test, r, 0.5f, q);
+        int x0 = (int)(2 * s_scene.w / 4.0f + 16), x1 = (int)(3 * s_scene.w / 4.0f - 16);
+        probe(x0 + (x1 - x0) / 4, cy(2), kClearColour & 0xffffff, 2,
+              generic ? "alpha test, left [generic]" : "alpha test GREATER 0.5: alpha 0.25 discarded");
+        probe(x0 + 3 * (x1 - x0) / 4, cy(2), 0xffffff, 2,
+              generic ? "alpha test, right [generic]" : "alpha test GREATER 0.5: alpha 0.75 drawn");
+    }
+    if (P.lay7) {
+        quadEx(ctx, P.lay7, cell(3, 2, 16), 0.5f, spec(0xffffffffu, 2));
+        probe(cx(3), cy(2), 0x301000, 4, generic ? "layered TBLM 7 [generic]" : "layered TBLM 7: subtract, src x src alpha");
+    }
+}
+
+struct Page3 {
+    bool made;
+    bgfxTexture *linear, *movie, *bw, *black, *refl;
+    bgfxShader *plain, *linearSh, *movieSh, *wrap, *clamp, *point, *bilinear, *twoSided, *add, *env, *fadeTest;
+};
+static Page3 s_p3;
+
+static void setupPage3(bgfxContext* ctx)
+{
+    Page3& P = s_p3;
+    P.made = true;
+    bgfxDevice* dev = ctx->m_device;
+    unsigned lin[18];
+    for (int y = 0; y < 3; y++)
+        for (int x = 0; x < 6; x++)
+            lin[y * 6 + x] = x < 3 ? 0xffff0000u : 0xff0000ffu;
+    P.linear = makeTexture(dev, 6, 3, 11, lin);
+    // the movie tile: a 16 x 8 linear texture (format 11, as RenderStrategyBink::vfunc_6 makes them), its frame
+    // written through the lock as the movie player does
+    int tparams[9] = {16, 8, 0, 32, 0, 0, 11, 0, 0};
+    P.movie = (bgfxTexture*)dev->vfunc_9(tparams);
+    if (P.movie) {
+        P.movie->vfunc_0();
+        unsigned char frame[16 * 8 * 4];
+        for (int y = 0; y < 8; y++)
+            for (int x = 0; x < 16; x++) {
+                unsigned c = y < 4 ? 0xffff0000u : 0xff00ff00u;     // top half red, bottom half green
+                memcpy(frame + (y * 16 + x) * 4, &c, 4);
+            }
+        P.movie->writeFrame(frame, 16, 8, 16 * 4, 0, 0);
+    }
+    unsigned bw[2] = {0xff000000u, 0xffffffffu};
+    P.bw = makeTexture(dev, 2, 1, 0, bw);
+    P.black = solid(dev, 0xff000000u);
+    unsigned refl[4] = {0xff00ff00u, 0xff00ff00u, 0xff00ff00u, 0xffff00ffu};   // image row 1, right: magenta
+    P.refl = makeTexture(dev, 2, 2, 0, refl);
+    P.plain = simpleShader(dev, 0);
+    P.linearSh = simpleShader(dev, 0);
+    if (P.linearSh) {
+        setT(P.linearSh, "TEX", P.linear);
+        setI(P.linearSh, "UVMD", 1);
+        setI(P.linearSh, "FIMD", 0);
+    }
+    P.movieSh = simpleShader(dev, 0);
+    if (P.movieSh)
+        setT(P.movieSh, "TEX", P.movie);
+    P.wrap = simpleShader(dev, 0);
+    P.clamp = simpleShader(dev, 0);
+    P.point = simpleShader(dev, 0);
+    P.bilinear = simpleShader(dev, 0);
+    bgfxShader* bws[4] = {P.wrap, P.clamp, P.point, P.bilinear};
+    static const int kUv[4] = {0, 1, 1, 1}, kFi[4] = {0, 0, 0, 1};
+    for (int i = 0; i < 4; i++)
+        if (bws[i]) {
+            setT(bws[i], "TEX", P.bw);
+            setI(bws[i], "UVMD", kUv[i]);
+            setI(bws[i], "FIMD", kFi[i]);
+        }
+    P.twoSided = simpleShader(dev, 0);
+    if (P.twoSided)
+        setI(P.twoSided, "2SID", 1);
+    P.add = simpleShader(dev, 2);
+    P.env = makeShader(dev, "environment");
+    if (P.env) {
+        setT(P.env, "TEX", P.black);
+        setT(P.env, "REFL", P.refl);
+        setC(P.env, "ENVB", 0xffffffffu);
+        setI(P.env, "FIMD", 0);
+    }
+    P.fadeTest = simpleShader(dev, 0);
+    if (P.fadeTest) {
+        setI(P.fadeTest, "ATST", 1);
+        setI(P.fadeTest, "ACMP", 4);
+        setF(P.fadeTest, "ACTH", 0.5f);
+        setF(P.fadeTest, "FADE", 0.5f);
+    }
+}
+
+// pixel rectangle of a cell (top-left origin, y down), shrunk
+struct PixRect { float x0, y0, x1, y1; };
+static PixRect pixCell(int c, int r, float inset)
+{
+    float cw = s_scene.w / 4.0f, ch = s_scene.h / 3.0f;
+    PixRect p = {c * cw + inset, r * ch + inset, (c + 1) * cw - inset, (r + 1) * ch - inset};
+    return p;
+}
+
+static void page3(bgfxContext* ctx)
+{
+    Page3& P = s_p3;
+    if (!P.made)
+        setupPage3(ctx);
+    beginPage(ctx);
+    float W = (float)s_scene.w, H = (float)s_scene.h, aspect = W / H;
+    float I[16];
+    identity(I);
+    // (0, 0): the pixel projection (slot 24 mode 2, as the 2D text and HUD draw): a quad in the cell's top half,
+    // in pixels
+    if (P.plain) {
+        ctx->hostSetView(2, 0.0f, 1.0f, 1.0f, aspect);
+        PixRect p = pixCell(0, 0, 16);
+        Rect q = {p.x0, p.y0, p.x1, (p.y0 + p.y1) * 0.5f};      // pixel coordinates: y down
+        quadEx(ctx, P.plain, q, 0.5f, spec(0xff00ff80u, 0));
+        probe(cx(0), (int)(p.y0 + (p.y1 - p.y0) * 0.25f), 0x00ff80, 2, "2D (mode 2): a pixel-space quad, top half");
+        probe(cx(0), (int)(p.y0 + (p.y1 - p.y0) * 0.75f), kClearColour & 0xffffff, 2, "2D (mode 2): nothing below");
+        // (1, 0): the orthographic projection (mode 1: x over [-0.5, 0.5], y over [-0.5, 0.5] / aspect, y up)
+        ctx->hostSetView(1, 0.0f, 1.0f, 1.0f, aspect);
+        Rect c = half(cell(1, 0, 16), true);
+        Rect o = {c.x0 * 0.5f, c.y0 / (2.0f * aspect), c.x1 * 0.5f, c.y1 / (2.0f * aspect)};
+        quadEx(ctx, P.plain, o, 0.5f, spec(0xff8000ffu, 0));
+        PixRect pc = pixCell(1, 0, 16);
+        probe(cx(1), (int)(pc.y0 + (pc.y1 - pc.y0) * 0.25f), 0x8000ff, 2, "orthographic (mode 1): top half");
+        probe(cx(1), (int)(pc.y0 + (pc.y1 - pc.y0) * 0.75f), kClearColour & 0xffffff, 2,
+              "orthographic (mode 1): nothing below");
+        ctx->setViewTransform(I, I);
+    }
+    // (2, 0): a linear texture (format 11, 6 x 3, left half red, right half blue) with texel coordinates
+    if (P.linearSh) {
+        QuadSpec q = spec(0xffffffffu);
+        float uv[4][2] = {{0, 3}, {0, 0}, {6, 3}, {6, 0}};
+        memcpy(q.uv, uv, sizeof(uv));
+        quadEx(ctx, P.linearSh, cell(2, 0, 16), 0.5f, q);
+        PixRect p = pixCell(2, 0, 16);
+        probe((int)(p.x0 + (p.x1 - p.x0) * 0.25f), cy(0), 0xff0000, 2, "linear texture, texel u 1.5: red");
+        probe((int)(p.x0 + (p.x1 - p.x0) * 0.75f), cy(0), 0x0000ff, 2, "linear texture, texel u 4.5: blue");
+    }
+    // (3, 0): a movie tile drawn as RenderStrategyBink::vfunc_7 draws it: the pixel projection, BLMD 0, UVMD 1,
+    // FIMD 1 (scaled), a 6-vertex list with texel coordinates (+0.5), the tile 4x
+    if (P.movieSh && P.movie) {
+        ctx->hostSetView(2, 0.0f, 1.0f, 1.0f, aspect);
+        setI(P.movieSh, "BLMD", 0);
+        setI(P.movieSh, "UVMD", 1);
+        setI(P.movieSh, "FIMD", 1);
+        PixRect pc = pixCell(3, 0, 0);
+        float left = pc.x0 + 40, top = pc.y0 + 30, tw = 16, th = 8, sx = 4, sy = 4;
+        float u = tw + 0.5f, v = th + 0.5f, right = tw * sx + left, bottom = th * sy + top;
+        bgfxPrimStream* s = (bgfxPrimStream*)ctx->vfunc_30(P.movieSh, kPrimTriList, 0x2021, 6, 0);
+        for (int j = 0; j < 6; j++) {
+            *(unsigned*)s->colorPtr = 0xffffffffu;
+            float t[2] = {(j == 1 || j == 2 || j == 4) ? u : 0.5f, (j == 2 || j == 4 || j == 5) ? v : 0.5f};
+            memcpy(s->uvPtr, t, 8);
+            float p[3] = {(j == 1 || j == 2 || j == 4) ? right : left, (j == 0 || j == 1 || j == 3) ? bottom : top, 0.5f};
+            memcpy(s->posPtr, p, 12);
+            s->vertex();
+        }
+        ctx->vfunc_31(s);
+        probe((int)(left + 32), (int)(top + 6), 0xff0000, 3, "movie tile: the frame's top rows at the top");
+        probe((int)(left + 32), (int)(top + 26), 0x00ff00, 3, "movie tile: its bottom rows at the bottom");
+        ctx->setViewTransform(I, I);
+    }
+    // row 1: addressing and filtering of a 2 x 1 texture (black, white)
+    {
+        bgfxShader* sh[4] = {P.wrap, P.clamp, P.point, P.bilinear};
+        float umax[4] = {2.0f, 2.0f, 1.0f, 1.0f};
+        for (int i = 0; i < 4; i++) {
+            if (!sh[i])
+                continue;
+            QuadSpec q = spec(0xffffffffu);
+            float uv[4][2] = {{0, 1}, {0, 0}, {umax[i], 1}, {umax[i], 0}};
+            memcpy(q.uv, uv, sizeof(uv));
+            quadEx(ctx, sh[i], cell(i, 1, 16), 0.5f, q);
+        }
+        PixRect p = pixCell(0, 1, 16);
+        int px = (int)(p.x0 + (p.x1 - p.x0) * 0.625f);
+        probe(px, cy(1), 0x000000, 2, "UVMD 0 wrap: u 1.25 -> texel 0");
+        p = pixCell(1, 1, 16);
+        px = (int)(p.x0 + (p.x1 - p.x0) * 0.625f);
+        probe(px, cy(1), 0xffffff, 2, "UVMD 1 clamp: u 1.25 -> texel 1");
+        p = pixCell(2, 1, 16);
+        px = (int)(p.x0 + (p.x1 - p.x0) * 0.45f);
+        probe(px, cy(1), 0x000000, 2, "FIMD 0 point: u 0.45 -> texel 0");
+        p = pixCell(3, 1, 16);
+        px = (int)(p.x0 + (p.x1 - p.x0) * 0.45f);
+        float u = ((float)px + 0.5f - p.x0) / (p.x1 - p.x0), t = u * 2.0f - 0.5f;
+        int g = (int)(255.0f * (t < 0 ? 0 : t > 1 ? 1 : t) + 0.5f);
+        probe(px, cy(1), (unsigned)(g << 16 | g << 8 | g), 6, "FIMD 1 linear: u 0.45 between the texels");
+    }
+    // (0, 2): two-sided: culling is off while a 2SID shader draws (FUN_00329f70), so the culled winding shows
+    if (P.twoSided) {
+        ctx->vfunc_54(1);
+        QuadSpec q = spec(0xffff8000u, 0);
+        q.ccw = true;
+        quadEx(ctx, P.twoSided, cell(0, 2, 16), 0.5f, q);
+        QuadSpec q2 = q;
+        for (int i = 0; i < 4; i++)
+            q2.colour[i] = 0xff0000ffu;
+        quadEx(ctx, P.plain, half(cell(0, 2, 16), false), 0.4f, q2);    // the plain shader culls again
+        ctx->vfunc_54(0);
+        PixRect p = pixCell(0, 2, 16);
+        probe(cx(0), (int)(p.y0 + (p.y1 - p.y0) * 0.25f), 0xff8000, 2, "2SID: a counter-clockwise quad drawn");
+        probe(cx(0), (int)(p.y0 + (p.y1 - p.y0) * 0.75f), 0xff8000, 2,
+              "2SID left behind: the next shader culls (the 2SID quad shows)");
+    }
+    // (1, 2): additive with fog: fogging goes to black while the shader is active (d3dShader::vfunc_12), the
+    // colour comes back when another shader is activated (vfunc_13)
+    if (P.add && P.plain) {
+        Rect c = cell(1, 2, 16);
+        quad(ctx, P.plain, half(c, true), 0.5f, 0xff404040u);
+        ctx->vfunc_78(1);
+        float start = 0.0f, end = 1.0f;
+        int a, b;
+        memcpy(&a, &start, 4);
+        memcpy(&b, &end, 4);
+        ctx->vfunc_80((int)0xffff0000u, a, b);
+        ctx->vfunc_62(0);
+        quad(ctx, P.add, half(c, true), 0.5f, 0xff808080u);
+        ctx->vfunc_62(1);
+        quad(ctx, P.plain, half(c, false), 0.5f, 0xffffffffu);
+        ctx->vfunc_78(0);
+        PixRect p = pixCell(1, 2, 16);
+        probe(cx(1), (int)(p.y0 + (p.y1 - p.y0) * 0.25f), 0x808080, 4, "additive + fog: fogged to black, added");
+        probe(cx(1), (int)(p.y0 + (p.y1 - p.y0) * 0.75f), 0xff8080, 4, "fog colour back for the next shader");
+    }
+    // (2, 2): the environment shader's reflection: camera-space reflection vector (texgen), the sphere map in
+    // texture stack 2 (its activation), clamped, point filtered: the centre's vector lands on texel (1, row 0)
+    if (P.env) {
+        QuadSpec q = spec(0xffffffffu);
+        q.normal = true;
+        quadEx(ctx, P.env, cell(2, 2, 16), 0.5f, q);
+        probe(cx(2), cy(2), 0xff00ff, 4, "environment: reflection vector through the sphere map");
+    }
+    // (3, 2): FADE scales the alpha reference with the alpha: ACTH 0.5 still cuts at half the vertex alpha
+    if (P.fadeTest) {
+        Rect c = cell(3, 2, 16);
+        quad(ctx, P.plain, c, 0.5f, 0xff000000u);
+        QuadSpec q = spec(0xffffffffu, 0);
+        q.colour[0] = q.colour[1] = 0x00ffffffu;
+        ctx->vfunc_62(0);
+        quadEx(ctx, P.fadeTest, c, 0.4f, q);
+        ctx->vfunc_62(1);
+        PixRect p = pixCell(3, 2, 16);
+        probe((int)(p.x0 + (p.x1 - p.x0) * 0.25f), cy(2), 0x000000, 3, "FADE + alpha test: alpha 0.25 x fade cut");
+        probe((int)(p.x0 + (p.x1 - p.x0) * 0.75f), cy(2), 0x606060, 5, "FADE + alpha test: 0.75 x fade kept, blended");
+    }
+}
+
+// ---------------------------------------------------------------------------------------------
+// Page 4: every combiner key of combiners.txt, drawn through its generated program and through the generic
+// combiner, its colour and its alpha, each against a CPU reference of the D3D texture-stage operations (written
+// from Direct3D 8's documentation, separately from the shader): 4 cells per key (colour generated, colour generic,
+// alpha generated, alpha generic; the alpha shown as grey by blending a white cell by it). Inputs: solid textures
+// per stage, the diffuse colour, the texture factor; the stages set straight into the device state and drawn with
+// the framebuffer-effects shader (whose pass set-up is empty, so the state stays as set).
+struct V4 {
+    float c[4];
+};
+static V4 v4(unsigned d3dcolor)
+{
+    V4 v = {{((d3dcolor >> 16) & 255) / 255.0f, ((d3dcolor >> 8) & 255) / 255.0f, (d3dcolor & 255) / 255.0f,
+             (d3dcolor >> 24) / 255.0f}};
+    return v;
+}
+static float sat(float x) { return x < 0.0f ? 0.0f : x > 1.0f ? 1.0f : x; }
+
+static V4 refArg(unsigned a, const V4& diff, const V4& cur, const V4& tex, const V4& tf, const V4& temp)
+{
+    V4 v;
+    switch (a & 15) {
+    case 0: v = diff; break;
+    case 1: v = cur; break;
+    case 2: v = tex; break;
+    case 3: v = tf; break;
+    case 5: v = temp; break;
+    default: v = V4{{0, 0, 0, 0}}; break;      // specular: none in the sweep
+    }
+    if (a & 0x10)
+        for (int i = 0; i < 4; i++)
+            v.c[i] = 1.0f - v.c[i];
+    if (a & 0x20)
+        for (int i = 0; i < 3; i++)
+            v.c[i] = v.c[3];
+    return v;
+}
+
+// D3DTOP (Xbox numbering) on one channel k of the arguments; `alpha` channel 3
+static float refOp(unsigned op, const V4& a1, const V4& a2, const V4& a0, int k, const V4& diff, const V4& cur,
+                   const V4& tex, const V4& tf)
+{
+    float x = a1.c[k], y = a2.c[k];
+    switch (op) {
+    case 2: return x;
+    case 3: return y;
+    case 4: return x * y;
+    case 5: return 2 * x * y;
+    case 6: return 4 * x * y;
+    case 7: return x + y;
+    case 8: return x + y - 0.5f;
+    case 9: return 2 * (x + y - 0.5f);
+    case 10: return x - y;
+    case 11: return x + y - x * y;
+    case 12: return x * diff.c[3] + y * (1 - diff.c[3]);
+    case 13: return x * cur.c[3] + y * (1 - cur.c[3]);
+    case 14: return x * tex.c[3] + y * (1 - tex.c[3]);
+    case 15: return x * tf.c[3] + y * (1 - tf.c[3]);
+    case 16: return x + y * (1 - tex.c[3]);
+    case 18: return k == 3 ? a1.c[3] : x + a1.c[3] * y;
+    case 19: return k == 3 ? a1.c[3] : x * y + a1.c[3];
+    case 20: return k == 3 ? a1.c[3] : x + (1 - a1.c[3]) * y;
+    case 21: return k == 3 ? a1.c[3] : (1 - x) * y + a1.c[3];
+    case 22: {
+        float d = 0;
+        for (int i = 0; i < 3; i++)
+            d += (a1.c[i] - 0.5f) * (a2.c[i] - 0.5f);
+        return sat(4 * d);
+    }
+    case 23: return a0.c[k] + x * y;
+    case 24: return a0.c[k] * x + (1 - a0.c[k]) * y;
+    default: return x;
+    }
+}
+
+static int parseKey(const char* key, unsigned (*st)[7])
+{
+    if (!strcmp(key, "-"))
+        return 0;
+    int n = 0;
+    const char* p = key;
+    while (*p && n < 4) {
+        unsigned v[7] = {0, 0, 0, 0, 0, 0, 0};
+        for (int f = 0; f < 7; f++) {
+            while (*p && (*p < '0' || *p > '9'))
+                p++;
+            while (*p >= '0' && *p <= '9')
+                v[f] = v[f] * 10 + (unsigned)(*p++ - '0');
+        }
+        memcpy(st[n++], v, sizeof(v));
+        while (*p && *p != '|')
+            p++;
+        if (*p == '|')
+            p++;
+    }
+    return n;
+}
+
+static const unsigned kSweepTex[4] = {0xb4c86432u, 0x5a28dc78u, 0xc8963ce6u, 0xff5aaa1eu};
+static const unsigned kSweepDiffuse = 0xa0b48c64u, kSweepFactor = 0x783c82d2u;
+
+static V4 refCombine(unsigned (*st)[7], int n)
+{
+    V4 diff = v4(kSweepDiffuse), tf = v4(kSweepFactor), cur = diff, temp = {{0, 0, 0, 0}};
+    for (int i = 0; i < n; i++) {
+        V4 tex = v4(kSweepTex[i]);
+        V4 c1 = refArg(st[i][1], diff, cur, tex, tf, temp), c2 = refArg(st[i][2], diff, cur, tex, tf, temp);
+        V4 a1 = refArg(st[i][4], diff, cur, tex, tf, temp), a2 = refArg(st[i][5], diff, cur, tex, tf, temp);
+        V4 r;
+        for (int k = 0; k < 3; k++)
+            r.c[k] = sat(refOp(st[i][0], c1, c2, cur, k, diff, cur, tex, tf));
+        r.c[3] = sat(refOp(st[i][3], a1, a2, cur, 3, diff, cur, tex, tf));
+        if (st[i][6] == 5)
+            temp = r;
+        else
+            cur = r;
+    }
+    return cur;
+}
+
+struct Page4 {
+    bool made;
+    bgfxTexture* tex[4];
+    bgfxShader* raw;
+};
+static Page4 s_p4;
+
+static void sweepState(bgfxContext* ctx, unsigned (*st)[7], int n, Page4& P)
+{
+    bgfxContext::DeviceState& d = ctx->m_d3d;
+    for (int i = 0; i < 4; i++) {
+        bgfxContext::Stage& s = d.stage[i];
+        if (i < n) {
+            s.colorOp = st[i][0];
+            s.colorArg1 = st[i][1];
+            s.colorArg2 = st[i][2];
+            s.alphaOp = st[i][3];
+            s.alphaArg1 = st[i][4];
+            s.alphaArg2 = st[i][5];
+            s.resultArg = st[i][6];
+        } else {
+            s.colorOp = s.alphaOp = 1;
+        }
+        s.texCoordIndex = 0;
+        s.transformFlags = 0;
+        s.address = 1;
+        s.magFilter = s.minFilter = 1;
+        s.mipFilter = 0;
+        s.texture = P.tex[i];
+    }
+    d.textureFactor = kSweepFactor;
+    d.blend = false;
+    d.alphaTest = false;
+    d.lighting = d.specular = false;
+    d.cull = 0;
+}
+
+static void page4(bgfxContext* ctx)
+{
+    Page4& P = s_p4;
+    bgfxDevice* dev = ctx->m_device;
+    if (!P.made) {
+        P.made = true;
+        for (int i = 0; i < 4; i++)
+            P.tex[i] = solid(dev, kSweepTex[i]);
+        P.raw = makeShader(dev, "fbeffectsshader");
+    }
+    beginPage(ctx);
+    if (!P.raw)
+        return;
+    int nkeys = 0;
+    while (g_pddi_combiner_keys[nkeys])
+        nkeys++;
+    if (!nkeys)
+        return;
+    const int perRow = 5, cols = perRow * 4, rows = (nkeys + perRow - 1) / perRow;
+    float cw = s_scene.w / (float)cols, ch = s_scene.h / (float)rows;
+    ctx->beginPass(P.raw, 0);               // active now: the draws below switch no shader (no slot 12/13 runs)
+    for (int k = 0; k < nkeys; k++) {
+        unsigned st[4][7];
+        int n = parseKey(g_pddi_combiner_keys[k], st);
+        V4 want = refCombine(st, n);
+        int r8 = (int)(want.c[0] * 255.0f + 0.5f), g8 = (int)(want.c[1] * 255.0f + 0.5f),
+            b8 = (int)(want.c[2] * 255.0f + 0.5f), a8 = (int)(want.c[3] * 255.0f + 0.5f);
+        for (int cell4 = 0; cell4 < 4; cell4++) {
+            int col = (k % perRow) * 4 + cell4, row = k / perRow;
+            float px0 = col * cw + 2, px1 = (col + 1) * cw - 2, py0 = row * ch + 2, py1 = (row + 1) * ch - 2;
+            Rect q = {2.0f * px0 / s_scene.w - 1.0f, 1.0f - 2.0f * py0 / s_scene.h, 2.0f * px1 / s_scene.w - 1.0f,
+                      1.0f - 2.0f * py1 / s_scene.h};
+            bool alpha = cell4 >= 2;
+            ctx->m_forceGeneric = (cell4 & 1) != 0;
+            if (alpha) {                        // a white cell, then the key's alpha multiplies it
+                unsigned none[1][7];
+                sweepState(ctx, none, 0, P);
+                quadEx(ctx, P.raw, q, 0.5f, spec(0xffffffffu));
+            }
+            sweepState(ctx, st, n, P);
+            if (alpha) {
+                ctx->m_d3d.blend = true;
+                ctx->m_d3d.blendOp = 0x8006;
+                ctx->m_d3d.srcBlend = 0;        // zero
+                ctx->m_d3d.dstBlend = 0x302;    // source alpha
+            }
+            quadEx(ctx, P.raw, q, 0.5f, spec(kSweepDiffuse));
+            unsigned rgb = alpha ? (unsigned)(a8 << 16 | a8 << 8 | a8) : (unsigned)(r8 << 16 | g8 << 8 | b8);
+            static char s_what[512][96];
+            static const char* const kCell[4] = {"colour, generated", "colour, generic", "alpha, generated",
+                                                 "alpha, generic"};
+            char* w = s_what[s_nprobes < 512 ? s_nprobes : 511];
+            logLine(w, 96, "sweep %s: %s", kCell[cell4], g_pddi_combiner_keys[k]);
+            probe((int)((px0 + px1) * 0.5f), (int)((py0 + py1) * 0.5f), rgb, 3, w);
+        }
+    }
+    ctx->m_forceGeneric = false;
+    ctx->resetDeviceState();
 }
 
 // A screenshot's pixel against the probes: the number that pass (each logged through `out`)

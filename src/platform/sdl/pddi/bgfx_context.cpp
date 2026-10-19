@@ -22,19 +22,32 @@ static void identity(float* m)
 bgfxContext::bgfxContext(bgfxDisplay* display, bgfxDevice* device)
     : m_display(display), m_device(device), m_stream(0), m_defaultShader(0), m_drawIndex(0), m_anyLightDirty(false),
       m_hostLights(false), m_viewId(0), m_viewUsed(false), m_clearFlags(0), m_clearRgba(0), m_clearDepth(1.0f),
-      m_clearStencil(0), m_uVc(kNone), m_uFrag(kNone), m_uTex0(kNone), m_whiteTex(kNone)
+      m_clearStencil(0), m_uVc(kNone), m_uFrag(kNone), m_whiteTex(kNone)
 {
     memset(m_base, 0, sizeof(m_base));
+    for (int i = 0; i < 4; i++)
+        m_uTex[i] = kNone;
+    memset(m_programCache, 0, sizeof(m_programCache));
+    m_forceGeneric = false;
+    m_generatedDraws = m_genericDraws = 0;
+    memset(&m_hostView, 0, sizeof(m_hostView));
+    m_hostView.colour = 0xff000000u;
+    m_hostView.depth = 1.0f;
+    m_hostView.x1 = m_hostView.y1 = 1.0f;
+    m_hostView.nearZ = 0.1f;
+    m_hostView.farZ = 1000.0f;
+    m_hostView.fov = 1.0f;
+    m_hostView.aspect = 4.0f / 3.0f;
+    for (int i = 0; i < 4; i++) {
+        m_hostDepth[i] = 0;
+        identity(m_hostStack[i][0]);
+    }
 #if HULK_PDDI_GAME
     // the portable base lays out its data at +4..+0x14c (and sets its own vftable, which we put back)
     void* vft = *(void**)this;
     reinterpret_cast<GameBase*>(this)->FUN_0031f410(display, device);
     *(void**)this = vft;
 #endif
-    m_hostClear.pad0 = 0;
-    m_hostClear.colour = 0xff000000u;
-    m_hostClear.depth = 1.0f;
-    m_hostClear.stencil = 0;
     // Direct3D's defaults until the base's state reset (slot 99) pushes the game's through the slots
     memset(&m_rs, 0, sizeof(m_rs));
     for (int i = 0; i < 4; i++)
@@ -64,6 +77,7 @@ bgfxContext::bgfxContext(bgfxDisplay* display, bgfxDevice* device)
     m_viewport[3] = display ? display->m_height : 480;
     for (int i = 0; i < 8; i++)
         m_programs[i] = kNone;
+    resetDeviceState();
     m_stream = new bgfxPrimStream(this);
     m_defaultShader = new bgfxErrorShader(this);
     m_ext[0] = new bgfxExtGammaControl(this);
@@ -84,10 +98,15 @@ bgfxContext::~bgfxContext()
         for (int i = 0; i < 8; i++)
             if (m_programs[i] != kNone && m_programs[i] != 0xfffe)
                 bgfx::destroy(bgfx::ProgramHandle{(uint16_t)m_programs[i]});
+        for (int i = 0; i < kProgramSlots; i++)
+            if (m_programCache[i].hash && !m_programCache[i].generic && m_programCache[i].program != kNone &&
+                m_programCache[i].program != 0xfffe)
+                bgfx::destroy(bgfx::ProgramHandle{m_programCache[i].program});
         if (m_uVc != kNone) {
             bgfx::destroy(bgfx::UniformHandle{(uint16_t)m_uVc});
             bgfx::destroy(bgfx::UniformHandle{(uint16_t)m_uFrag});
-            bgfx::destroy(bgfx::UniformHandle{(uint16_t)m_uTex0});
+            for (int i = 0; i < 4; i++)
+                bgfx::destroy(bgfx::UniformHandle{(uint16_t)m_uTex[i]});
             bgfx::destroy(bgfx::TextureHandle{(uint16_t)m_whiteTex});
         }
     }
@@ -99,11 +118,33 @@ bgfxContext::~bgfxContext()
 
 bgfxContext::ClearInfo* bgfxContext::clearInfo()
 {
+    return (ClearInfo*)viewBlock();
+}
+
+// the base's block at *(this+0x48): the clear values (+4..), the view (+0x10..); ours on the host
+bgfxContext::ViewBlock* bgfxContext::viewBlock()
+{
 #if HULK_PDDI_GAME
-    return *(ClearInfo**)((char*)this + 0x48);
+    return *(ViewBlock**)((char*)this + 0x48);
 #else
-    return &m_hostClear;
+    return &m_hostView;
 #endif
+}
+
+// What the engine's camera puts in the view block before slot 24 / 109 (host builds and the self-test; the game's
+// camera writes the base's block itself): the projection's parameters, the whole target as the viewport
+void bgfxContext::hostSetView(int mode, float nearZ, float farZ, float fov, float aspect)
+{
+    ViewBlock* v = viewBlock();
+    if (!v)
+        return;
+    v->x0 = v->y0 = 0.0f;
+    v->x1 = v->y1 = 1.0f;
+    v->nearZ = nearZ;
+    v->farZ = farZ;
+    v->fov = fov;
+    v->aspect = aspect;
+    vfunc_24(mode);
 }
 
 void bgfxContext::hostSetClear(unsigned colour, float depth, unsigned stencil)
@@ -152,6 +193,8 @@ void bgfxContext::vfunc_4()
 // slot 5)
 void bgfxContext::vfunc_5()
 {
+    for (int i = 0; i < 4; i++)
+        m_d3d.stage[i].texture = 0;
 #if HULK_PDDI_GAME
     reinterpret_cast<GameBase*>(this)->FUN_0031d4c0();
 #endif
@@ -181,9 +224,36 @@ void bgfxContext::vfunc_12(int a0)
     viewChanged(f | (m_viewUsed ? 0 : (int)m_clearFlags));
 }
 void bgfxContext::vfunc_13(int a0) { PDDI_BASE_V(13, FUN_0031d560(a0)); }
+// slots 14-16 (0x31d590, 0x31e810, 0x31e840): load the top of matrix stack n (then slot 108 hands it to the
+// device), push (copy the top), pop (then slot 108). The base's in the game; the host keeps small stacks of its own
+// so the shaders' activation (the sphere map) and the self-test take the same path.
+#if HULK_PDDI_GAME
 void bgfxContext::vfunc_14(int a0, void* a1) { PDDI_BASE_V(14, FUN_0031d590(a0, a1)); }
 void bgfxContext::vfunc_15(int a0) { PDDI_BASE_V(15, FUN_0031e810(a0)); }
 void bgfxContext::vfunc_16(int a0) { PDDI_BASE_V(16, FUN_0031e840(a0)); }
+#else
+void bgfxContext::vfunc_14(int n, void* m)
+{
+    if (n < 0 || n > 3 || !m)
+        return;
+    memcpy(m_hostStack[n][m_hostDepth[n]], m, 64);
+    vfunc_108(n);
+}
+void bgfxContext::vfunc_15(int n)
+{
+    if (n < 0 || n > 3 || m_hostDepth[n] >= 7)
+        return;
+    memcpy(m_hostStack[n][m_hostDepth[n] + 1], m_hostStack[n][m_hostDepth[n]], 64);
+    m_hostDepth[n]++;
+}
+void bgfxContext::vfunc_16(int n)
+{
+    if (n < 0 || n > 3 || m_hostDepth[n] <= 0)
+        return;
+    m_hostDepth[n]--;
+    vfunc_108(n);
+}
+#endif
 void bgfxContext::vfunc_17(int a0, int a1) { PDDI_BASE_V(17, FUN_0031d5d0(a0, a1)); }
 int bgfxContext::vfunc_18(int a0) { PDDI_BASE(18, FUN_0031e860(a0)); }
 void bgfxContext::vfunc_19(void* a0) { PDDI_BASE_V(19, FUN_0031d6c0(a0)); }
@@ -191,7 +261,17 @@ void* bgfxContext::vfunc_20() { PDDI_BASE(20, FUN_0031d6e0()); }
 void bgfxContext::vfunc_21(int a0) { PDDI_BASE_V(21, FUN_0031e880(a0)); }
 void bgfxContext::vfunc_22(int a0, int a1) { PDDI_BASE_V(22, FUN_0031e8d0(a0, a1)); }
 void bgfxContext::vfunc_23(int a0, void* a1) { PDDI_BASE_V(23, FUN_0031e930(a0, a1)); }
+// slot 24 (0x31d6f0): the projection mode (0 perspective, 1 orthographic, 2 pixels: the 2D mode) into the view
+// block, then slot 109
+#if HULK_PDDI_GAME
 void bgfxContext::vfunc_24(int a0) { PDDI_BASE_V(24, FUN_0031d6f0(a0)); }
+#else
+void bgfxContext::vfunc_24(int a0)
+{
+    m_hostView.mode = a0;
+    vfunc_109();
+}
+#endif
 unsigned int bgfxContext::vfunc_25() { PDDI_BASE(25, FUN_0031d710()); }
 void bgfxContext::vfunc_26(unsigned int a0, unsigned int a1, unsigned int a2, unsigned int a3) { PDDI_BASE_V(26, FUN_0031d720(a0, a1, a2, a3)); }
 void bgfxContext::vfunc_27(void* a0, void* a1, void* a2, void* a3) { PDDI_BASE_V(27, FUN_0031d750(a0, a1, a2, a3)); }
@@ -267,6 +347,7 @@ void bgfxContext::vfunc_54(int a0)
     reinterpret_cast<GameBase*>(this)->FUN_0031def0(a0);
 #endif
     m_rs.cull = (unsigned)a0;
+    m_d3d.cull = (unsigned)a0;
 }
 unsigned int bgfxContext::vfunc_55() { PDDI_BASE(55, FUN_0031df00()); }
 // slot 56 (0x321a30): colour write mask (red, green, blue, alpha)
@@ -385,7 +466,12 @@ void bgfxContext::vfunc_78(unsigned int a0)
 #endif
     m_rs.fog = (unsigned char)a0 != 0;
 }
+// slots 79/81 (0x31e110, 0x31e150): fog enabled, the fog colour/start/end (the base's; the host answers from ours)
+#if HULK_PDDI_GAME
 bool bgfxContext::vfunc_79() { PDDI_BASE(79, FUN_0031e110()); }
+#else
+bool bgfxContext::vfunc_79() { return m_rs.fog; }
+#endif
 // slot 80 (0x321ce0): fog colour, start, end (floats as words); the game sets linear table fog
 void bgfxContext::vfunc_80(int a0, int a1, int a2)
 {
@@ -396,7 +482,19 @@ void bgfxContext::vfunc_80(int a0, int a1, int a2)
     memcpy(&m_rs.fogStart, &a1, 4);
     memcpy(&m_rs.fogEnd, &a2, 4);
 }
+#if HULK_PDDI_GAME
 void bgfxContext::vfunc_81(void* a0, void* a1, void* a2) { PDDI_BASE_V(81, FUN_0031e150(a0, a1, a2)); }
+#else
+void bgfxContext::vfunc_81(void* a0, void* a1, void* a2)
+{
+    if (a0)
+        *(unsigned*)a0 = m_rs.fogColour;
+    if (a1)
+        memcpy(a1, &m_rs.fogStart, 4);
+    if (a2)
+        memcpy(a2, &m_rs.fogEnd, 4);
+}
+#endif
 int bgfxContext::vfunc_82(int a0) { PDDI_BASE(82, FUN_0031e180(a0)); }
 float bgfxContext::vfunc_83(int a0) { PDDI_BASE(83, FUN_0031e1a0(a0)); }
 unsigned int bgfxContext::vfunc_84() { return 0x800; }      // 0x321d90
@@ -453,15 +551,17 @@ float bgfxContext::vfunc_107() { PDDI_STUB(107); return 0.0f; }
 // D3D's VIEW stays the identity), 1..3 the texture transforms (0x4d3a34: 6, 2, 3, 4)
 void bgfxContext::vfunc_108(int n)
 {
+    if (n < 0 || n > 3)
+        return;
 #if HULK_PDDI_GAME
     const uint32_t* stack = *(const uint32_t* const*)((const char*)this + 0x20 + 4 * n);
-    if (!stack || n < 0 || n > 3)
+    if (!stack)
         return;
     const float* m = (const float*)(uintptr_t)stack[3] + 16 * stack[2];
-    memcpy(n == 0 ? m_world : m_texMatrix[n - 1], m, 64);
 #else
-    (void)n;
+    const float* m = m_hostStack[n][m_hostDepth[n]];
 #endif
+    memcpy(n == 0 ? m_world : m_texMatrix[n - 1], m, 64);
 }
 // slot 109 (0x323ee0): the projection and viewport from the base's view block (*(this+0x48): +0x10 mode, +0x14
 // the viewport's x0, y0, x1, y1 as fractions, +0x24 near, far, field of view, aspect): mode 0 a perspective
@@ -469,9 +569,7 @@ void bgfxContext::vfunc_108(int n)
 // pixels of the target (FUN_00321520)
 void bgfxContext::vfunc_109()
 {
-#if HULK_PDDI_GAME
-    struct View { char pad[0x10]; int mode; float x0, y0, x1, y1, nearZ, farZ, fov, aspect; };
-    View* k = *(View**)((char*)this + 0x48);
+    ViewBlock* k = viewBlock();
     if (!k)
         return;
     float W = (float)(m_display ? m_display->m_width : 640), H = (float)(m_display ? m_display->m_height : 480);
@@ -528,7 +626,6 @@ void bgfxContext::vfunc_109()
         memcpy(m_viewport, vp, sizeof(vp));
         viewChanged(-1);
     }
-#endif
 }
 // slot 110 (0x3212d0): light n changed; with b, the modelview now (the base's current matrix, slot 20) is the one
 // it is placed with. FUN_00321310 (updateLights) moves the marked lights to camera space at the next draw.

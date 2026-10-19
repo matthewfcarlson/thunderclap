@@ -327,12 +327,19 @@ combination), check the interpreter against hand-computed cases, then prove `vs_
 
 **Pixel side.** Two parts, both without vendor material:
 
-- *Combiner states.* The texture-stage state the shaders set (`d3dVertexProgram.cpp`'s cache, `FUN_00328bf0`) is
-  D3D8 texture-stage operations, defined in public documentation. Plan: a state key (ops and arguments for stages
-  0-3, alpha test, fog) recorded per draw by the drawlog; a CPU reference of each `D3DTOP_*` and argument in
-  Python; and a fragment-shader counterpart of this tool, `fs` mode: interpret the fragment SPIR-V on fuzzed
-  interpolants and texel values (texture fetches replaced by given values), compare per output channel with the
-  same bound tracking (combiner math is mostly mul/add/lerp at 8-bit inputs).
+- *Combiner states* (**done in G2**, [graphics-backend.md](graphics-backend.md) section 10). The texture-stage state
+  the shaders set is D3D8 texture-stage operations, defined in public documentation. Each data-used shader class's
+  pass set-up is ported onto a model of the D3D device state (`bgfx_combiner.cpp`); the draw makes a canonical key
+  of the active stages, and each of the 100 keys the classes can produce (`shaders/vp/combiners.txt`, listed by
+  running the classes) has a generated fragment program (`fs_cmb_<hash>`: `fs_vp_stage.sh` with the stages as
+  constants); `fs_vp_stage{,5,3}.sc` are the same combiner with the stages as uniforms, for other keys and for the
+  vertex programs with fewer outputs. Checked on the GPU rather than by an `fs` mode of this tool: the self-test's
+  sweep page draws every key through both programs, colour and alpha, against a CPU reference of the operations
+  (written separately from the shader) on Metal and on Vulkan under Wine. An `fs` mode (the fragment SPIR-V on
+  fuzzed interpolants and texel values, with the bound tracking) would still add fuzzed inputs; not done.
+  `vs_vp_ff.sc` now also generates each stage's texture coordinates (a uv set, or the camera-space normal,
+  position or reflection vector) and applies D3DTS_TEXTUREn under D3DTTFF, which a `.vp` proof of it would have to
+  cover too.
 - *The 17 `xps.1.1` effect shaders* (`d3dExtFramebufferEffects` set-up, 8 glow levels x 2 passes + 1), whose text
   is in our verified C: translate each by hand to a bgfx fragment shader and prove it against a small `xps.1.1`
   interpreter of ours (`tex`, `dp3`, `mad`, `mul_x2`, `_bx2`, co-issue, c0-c7; the semantics are in the public D3D8

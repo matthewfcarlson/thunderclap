@@ -5,6 +5,10 @@
 // slot 14). Takes a screenshot near the end and checks every probe of the scene.
 //
 //   build/third_party/out/pddi-host/pddi_smoke [--frames 120] [--capture out.tga] [--drawlog out.pdl]
+//                                               [--page N]      (one self-test page; default: every page, a
+//                                                                screenshot each: out.tga, out-page1.tga, ...)
+//   build/third_party/out/pddi-host/pddi_smoke --combiner-keys out.txt   (no window: every combiner key the shader
+//                                                                classes make; tools/native_gfx.py combiners)
 #include "bgfx_pddi.h"
 
 #include <SDL3/SDL.h>
@@ -18,6 +22,15 @@ using namespace hulk::pddi;
 
 
 static void printLine(const char* line) { fputs(line, stdout); }
+
+static FILE* s_keys;
+static void keyLine(const char* key, const char* example)
+{
+    uint32_t h = 2166136261u;
+    for (const unsigned char* p = (const unsigned char*)key; *p; p++)
+        h = (h ^ *p) * 16777619u;
+    fprintf(s_keys, "%s\t%08x\t%s\n", key, h, example);
+}
 
 struct Shot : bgfx::CallbackI {
     bool done = false, ok = false;
@@ -75,6 +88,8 @@ int main(int argc, char** argv)
     int frames = 120;
     const char* capture = "pddi_smoke.tga";
     const char* dl = 0;
+    const char* keys = 0;
+    int onlyPage = -1;
     for (int i = 1; i + 1 < argc; i += 2) {
         if (!strcmp(argv[i], "--frames"))
             frames = atoi(argv[i + 1]);
@@ -82,6 +97,26 @@ int main(int argc, char** argv)
             capture = argv[i + 1];
         else if (!strcmp(argv[i], "--drawlog"))
             dl = argv[i + 1];
+        else if (!strcmp(argv[i], "--combiner-keys"))
+            keys = argv[i + 1];
+        else if (!strcmp(argv[i], "--page"))
+            onlyPage = atoi(argv[i + 1]);
+    }
+    if (keys) {
+        void* dev = 0;
+        if (hulk_pddi_create_device(0x12, 0xb, &dev) != 1)
+            return 3;
+        bgfxDevice* device = (bgfxDevice*)dev;
+        bgfxDisplay* display = (bgfxDisplay*)device->vfunc_7(0);
+        device->vfunc_5(display);
+        bgfxContext* ctx = (bgfxContext*)device->vfunc_8(display);
+        s_keys = fopen(keys, "w");
+        if (!s_keys)
+            return 2;
+        int n = enumerateCombinerKeys(ctx, keyLine);
+        fclose(s_keys);
+        printf("combiner keys: %d -> %s\n", n, keys);
+        return 0;
     }
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         fprintf(stderr, "SDL_Init: %s\n", SDL_GetError());
@@ -107,24 +142,47 @@ int main(int argc, char** argv)
     bgfxContext* ctx = (bgfxContext*)device->vfunc_8(display);
     drawlogEnable(0, 1, 0xffffffffu);
 
-    for (int f = 0; f < frames; f++) {
-        SDL_Event e;
-        while (SDL_PollEvent(&e))
-            if (e.type == SDL_EVENT_QUIT)
-                f = frames;
-        ctx->vfunc_4();                                   // begin frame
-        selfTestScene(ctx);                               // clears, then every cell's draws
-        ctx->vfunc_5();                                   // end frame
-        if (f == frames - 4)
-            bgfx::requestScreenShot(BGFX_INVALID_HANDLE, capture);
-        display->vfunc_14();                              // swap
+    int pages = selfTestPages(), first = onlyPage >= 0 ? onlyPage : 0, last = onlyPage >= 0 ? onlyPage : pages - 1;
+    int probes = 0, passed = 0, shots = 0;
+    bool quit = false;
+    for (int page = first; page <= last && !quit; page++) {
+        char path[1024];
+        const char* dot = strrchr(capture, '.');
+        if (page == 0 || !dot)
+            snprintf(path, sizeof(path), "%s", capture);
+        else
+            snprintf(path, sizeof(path), "%.*s-page%d%s", (int)(dot - capture), capture, page, dot);
+        shot.done = false;
+        shot.probes = shot.passed = 0;
+        for (int f = 0; f < frames + 8 && !shot.done; f++) {
+            SDL_Event e;
+            while (SDL_PollEvent(&e))
+                if (e.type == SDL_EVENT_QUIT)
+                    quit = true;
+            if (quit)
+                break;
+            ctx->vfunc_4();                               // begin frame
+            selfTestScene(ctx, page);                     // clears, then every cell's draws
+            ctx->vfunc_5();                               // end frame
+            if (f == frames - 4)
+                bgfx::requestScreenShot(BGFX_INVALID_HANDLE, path);
+            display->vfunc_14();                          // swap
+        }
+        bool ok = shot.done && shot.probes > 0 && shot.passed == shot.probes;
+        printf("smoke: page %d: screenshot %s: %d of %d probes -> %s\n", page, shot.done ? path : "(none)",
+               shot.passed, shot.probes, ok ? "PASS" : "FAIL");
+        probes += shot.probes;
+        passed += shot.passed;
+        shots += shot.done;
     }
-    for (int i = 0; i < 4 && !shot.done; i++)
-        display->vfunc_14();
-    bool ok = shot.done && shot.probes > 0 && shot.passed == shot.probes;
-    printf("smoke: renderer %s, %d frames, %u draws logged, screenshot %s: %d of %d probes -> %s\n",
-           bgfx::getRendererName(bgfx::getRendererType()), frames, drawlogCount(), shot.done ? capture : "(none)",
-           shot.passed, shot.probes, ok ? "PASS" : "FAIL");
+    bool ok = shots == last - first + 1 && probes > 0 && passed == probes;
+    printf("smoke: renderer %s, %d pages, %u draws logged: %d of %d probes -> %s\n",
+           bgfx::getRendererName(bgfx::getRendererType()), last - first + 1, drawlogCount(), passed, probes,
+           ok ? "PASS" : "FAIL");
+    int gen, generic, draws[2];
+    ctx->combinerStats(&gen, &generic, draws);
+    printf("smoke: combiners: %d keys with a generated program, %d through the generic one; draws %d generated, "
+           "%d generic\n", gen, generic, draws[0], draws[1]);
     if (dl)
         drawlogDump(dl);
     stubReport();

@@ -15,6 +15,10 @@
 //                       blend / stencil / cull / fog / colour-mask state, all through the slots the engine uses)
 //                       and check the HULK_GFX_SHOT screenshot against the scene's probes ("pddi: self-test probes
 //                       N of M"), then go on with the game: independent of how far the game gets
+//   HULK_GFX_SELFTEST_PAGE  which page of the scene (default 0: G3's draw path; 1 G2's combiners, 2 the same through
+//                       the generic combiner, 3 2D / linear textures / movie tile / state, 4 every combiner key
+//                       against a CPU reference); one screenshot per run
+//                       under Wine's winevulkan, so one page per run
 #include "bgfx_pddi.h"
 
 #if HULK_PDDI_GAME && defined(_WIN32)
@@ -247,11 +251,15 @@ void platformSelfTest(bgfxContext* ctx, bgfxDisplay* display)
     int frames = s ? atoi(s) : 0;
     if (frames <= 0)
         return;
-    logf("pddi: self-test: %d frames\n", frames);
+    const char* pg = getenv("HULK_GFX_SELFTEST_PAGE");
+    int page = pg ? atoi(pg) : 0;
+    if (page < 0 || page >= selfTestPages())
+        page = 0;
+    logf("pddi: self-test: %d frames of page %d\n", frames, page);
     int probes = 0;
     for (int f = 0; f < frames; f++) {
         ctx->vfunc_4();                                         // begin frame
-        probes = selfTestScene(ctx);                            // clears, then every cell's draws
+        probes = selfTestScene(ctx, page);                      // clears, then every cell's draws
         ctx->vfunc_5();                                         // end frame
         display->vfunc_14();                                    // swap (screenshots of HULK_GFX_SHOT frames)
     }

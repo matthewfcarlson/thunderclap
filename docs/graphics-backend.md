@@ -3,6 +3,7 @@
 Planning document, written 2026-10-18. Stage G0 (the harness) is built: see [section 7](#7-g0-the-harness-built-2026-10-18).
 Stage G1 (the backend in the native image, first frames and draws) is [section 8](#8-g1-the-backend-in-the-native-image-2026-10-19).
 G3's draw path (prim buffers, vertex programs, render state) is [section 9](#9-g3-the-draw-path-prim-buffers-vertex-programs-render-state-2026-10-19).
+G2's shader-class combiners, 2D mode, linear textures and movie strategy are [section 10](#10-g2-the-shader-classes-combiners-2d-textures-and-movies-2026-10-19).
 The small prototypes and the scripts that produced the planning numbers were under `build/gfx-proto/` (not tracked). Inputs: [platform-boundary.md](platform-boundary.md),
 [seams.md](seams.md), [web-port.md](web-port.md), [native-build.md](native-build.md), [subsystems.md](subsystems.md),
 [formats/p3d.md](formats/p3d.md), [texture-packs.md](texture-packs.md), `src/platform/sdl/xdk/`,
@@ -338,7 +339,7 @@ graphics (today's state: it links and starts, [native-build.md](native-build.md)
 |---|---|---|---|
 | G0 Harness | bgfx (bx, bimg) built by `tools/native_gfx.py` for i686-pc-windows-msvc (D3D11) and macOS (Metal); `src/platform/sdl/pddi/` skeleton; the native link swaps `platform/xbox/pure3d` + `graphics_*.cpp` for it; SDL3 window; hybrid `drawlog` hook + record reader + diff tool. **Built 2026-10-18 except the link swap (section 7)** | 1 to 2 weeks | the drawlog hook and the bgfx build are independent |
 | G1 First triangle | `bgfxDisplay` (init, reset, swap, sizes, aspect), `bgfxDevice` (factories), `bgfxContext` clear + transforms + fixed-function vertex shader + one texture stage, `bgfxPrimStream` immediate draws, `bgfxTexture` for DXT1/3/5 and RGBA, `error` shader. **Linked and drawing in the native image 2026-10-19 (section 8): Vulkan under Wine; the game's own first frame waits for the native build** | 1 to 2 weeks | display/device vs texture vs prim stream |
-| G2 Menus and front end | the `simple` shader with its 1-3 stage combiners, texture-stage state key + shader cache, blend/z/cull/alpha test, 2D mode (`pddiBaseContext`), PNG/P8 textures, fonts, the copyright and title screens, movies' render strategy (frames as textures). Compare draw logs and screenshots for title → main menu → options | 2 to 3 weeks | combiner ops, state mapping, P8/palette, screenshot tooling |
+| G2 Menus and front end | the `simple` shader with its 1-3 stage combiners, texture-stage state key + shader cache, blend/z/cull/alpha test, 2D mode (`pddiBaseContext`), PNG/P8 textures, fonts, the copyright and title screens, movies' render strategy (frames as textures). Compare draw logs and screenshots for title → main menu → options. **Combiners done 2026-10-19 (section 10): every data-used class's pass set-up ported onto a D3D device-state model, 100 combiner keys with a generated program each (+ a generic combiner), the fade, blend table fixed, four stage samplers, texgen + texture matrices, linear textures (texel coordinates), 2D modes, the movie tile path; P8 is unreachable in this game. Self-test 464 probes on Metal and under Wine/Vulkan. The front end's own frames wait for the native build** | 2 to 3 weeks | combiner ops, state mapping, P8/palette, screenshot tooling |
 | G3 A level | `bgfxPrimBuffer` static meshes, vertex declarations from the flags word, `skin`/`skin_onebone`/`simple_*` programs (NV2A interpreter first), hardware-skinning extension, `layered` (+ lightmap pair) and `layeredReflect`, fog, stencil (shadows/decals), `environment`, lights from `pddiLightingState`. Target: the junkyard tutorial replay with matching draw logs. **Draw path done 2026-10-19 (section 9): prim buffers, the skin programs through the skinning extension, the fixed-function program with lights, render-state slots 54-80, views; self-test 19/19 probes on Metal and on Vulkan under Wine. The level waits for the native build; the shader classes' combiners are G2's** | 3 to 5 weeks | one batch per shader class; one per vertex program (interpreter-checked); state/fog/stencil |
 | G4 Effects | `d3dExtFramebufferEffects` (114 functions: glow levels, blur, colour passes, the 17 `xps` shaders), render targets, `CopyRects`, `refract` (+`skin_refract`), visibility tests, gamma, read pixels, antialias | 2 to 3 weeks | the 17 `xps` translations as one batch; targets/copies; queries/gamma |
 | G5 Web and polish | WebGL2 via the same backend (Emscripten bgfx build, `BGFX_CONFIG_MULTITHREADED=0`, blit fallback), HD textures + dump mode, resolution independence (640/480 literal), MSAA/anisotropy options; the unused shader classes only if a factory log shows them | 1 to 3 weeks | HD textures independent of everything after G1 |
@@ -682,6 +683,144 @@ render targets and the clear-by-quad path (G4); the frame timer slots 106/107; t
 D3D bytecode (unchanged: Windows or a newer Wine); a proof of `vs_vp_ff.sc` in the shader_equiv style (the plan in
 docs/shaders.md: the fixed-function equations as a `.vp` of ours; branches on light type make that a set of
 variants).
+
+## 10. G2: the shader classes' combiners, 2D, textures and movies (2026-10-19)
+
+```sh
+PY=build/venv/bin/python
+$PY tools/native_gfx.py pddi && $PY tools/native_gfx.py smoke   # Metal: 5 self-test pages, 464 probes
+$PY tools/native_gfx.py combiners    # regenerate shaders/vp/combiners.txt from the shader classes (then pddi again)
+HULK_GFX_SELFTEST=30 HULK_GFX_SELFTEST_PAGE=N HULK_GFX_SHOT=10 HULK_GFX_SHOT_DIR='Z:/abs/dir' $PY tools/native_run.py
+```
+
+Specification: the verified sources of each shader class's slots 12-14 (`d3dSimpleShader::vfunc_14` 0x32aa70,
+`d3dLayeredShader::vfunc_14` 0x32dc40, `d3dBuildingShader` 0x332310/0x332620/0x3326d0, `d3dReflShader`
+0x32c520/0x32c300/0x32c3b0, `d3dRefractVertexShader` 0x32efa0/0x32f280, `d3dErrorShader` 0x32b120, `d3dShader`
+0x333420/0x3334a0), of the state-cache helpers they call (0x329bb0-0x32a320, 0x32b530, 0x32a920, 0x32a0c0,
+0x32a190, 0x32a260), of `d3dShader`'s setters and constructor (0x3333a0.., 0x333770.., 0x333520) and its fade
+(0x3335e0); the game's tables they index, read from the XBE by address (only the values are used: blend modes
+0x4d4e50, blend factors 0x4d4ed0, compares 0x4d4f04, UVMD 0x4d4efc, FIMD 0x4d4e10, SHMD 0x4d4f24); public
+Direct3D 8 documentation for what the texture-stage operations compute. New files: `bgfx_combiner.cpp`,
+`shaders/vp/fs_vp_stage.sh` (the combiner) and `shaders/vp/combiners.txt`.
+
+**What the shaders write, and where it goes.** On the Xbox each class's pass set-up writes D3D's texture-stage
+registers (`D3D__TextureState[stage][n]` at 0x39db10, 32 words a stage: n = 0-2 addressing, 3-5 filtering, 12-15
+colour op and arguments, 16-19 alpha op and arguments, 20 the result register, 21 the texture transform flags;
+read off the helpers' stores), the texture factor, alpha blending and test, the shade mode and the lighting
+material. Our classes are ports of those slots writing the same values (Xbox D3D numbering) into
+`bgfxContext::m_d3d` through the same helpers; the draw turns that into a fragment program, sampler flags, bgfx
+blend state and uniforms. Activation (slots 12/13, called by the pass loop when the shader changes) is ported
+too: the reflective kinds push the sphere map (scale 0.5, offset 0.5) on texture matrix stack 2 or 3 through the
+context's slots 15/14 and pop it on deactivation; the base `d3dShader` turns fog to black while an additive shader
+is active and puts the colour back after; refract swaps its mode and alpha test for its pass.
+
+| class (pddi name) | stages (Xbox D3DTOP: 2 selectarg1, 3 selectarg2, 4 modulate, 12 blenddiffusealpha, 14 blendtexturealpha, 15 blendfactoralpha, 18 modulatealpha_addcolor, 20 modulateinvalpha_addcolor) |
+|---|---|
+| `simple` / `lightweight` | TEX x diffuse (colour and alpha) when there is a TEX; the fade stage; the rest off. No TEX, no fade: the diffuse colour |
+| `layered` CLYR 0 (all data) | TEX; TTEX (uv set 1) over it by TBLM (0x32da40: 0 selectarg1, 1 blendtexturealpha keeping the current alpha, 2 add, 3 subtract, 5 modulate2x, 6 modulatealpha_addcolor, else modulate); x diffuse; fade |
+| `layered` CLYR 1 / other | diffuse x TEX, the layer / TTEX, TEX blended by the diffuse alpha, x diffuse (colour only) |
+| `layered` TBLM 7 | the layer stage subtracts, its alpha is TTEX's, blending src x src alpha + 0 (and the shader's own blend and alpha test are skipped, as the game's early return) |
+| `layeredReflect` | TEX x diffuse (TEX's alpha); TTEX added where that is not opaque (20; LRSA leaves it out); REFL through the camera-space reflection vector and the sphere map in D3DTS_TEXTURE2, clamped, added the same way; fade (alpha modes: the factor's alpha) |
+| `environment` | TEX x diffuse into temp; REFL (reflection vector, sphere map in D3DTS_TEXTURE1, clamped) x the factor (ENVB, alpha faded); temp + temp alpha x that (18), the factor's alpha |
+| `refract` | the frame-buffer copy x the factor (REFC, REFB) into temp (the copy is G4's: the stage samples white until then); TEX (x diffuse when lit); temp over it by the factor's alpha (15), the diffuse alpha; alpha blend, no alpha test |
+| `error` | no textures, stage 0 off (the diffuse colour); blend and alpha test stay as they were |
+| `fbeffectsshader` | nothing (its slots 12-14 are empty; its draws are the effects extension's, G4) |
+
+The fade (`FADE`, 0..1 -> 0..255 faded out; set at run time by game code, in no `.p3d`): FUN_003335e0 makes the
+mode the blend uses (alpha when BLMD is none and the shader fades), scales the alpha test reference by what is
+left, and for lit shaders fades the material (alpha modes: the diffuse alpha; add/subtract: every colour to black;
+modulate: the emissive to white); unlit shaders get a fade stage instead (alpha modes: alpha x factor (255 - fade);
+add/subtract: colour x (255 - fade); modulate: colour x fade). FUN_0032a260 then sets blending from the mode
+through 0x4d4e50 and the alpha test (ATST, ACMP, the faded ACTH x 255).
+
+**Blend modes fixed.** G1's blend table guessed four of the eight pddi blend modes wrong. From 0x4d4e50 (enable,
+operation, source, destination): 0 off; 1 src alpha, inv src alpha; **2 one, one** (G1: src alpha, one); **3 one,
+one, reverse subtract** (G1: src alpha); 4 dst colour, zero; 5 dst colour, src colour; **6 dst colour, src alpha**
+(G1: one, src alpha); **7 src alpha, src alpha, reverse subtract** (G1: zero, inv src alpha). The data uses 0, 1
+and 2 (census below).
+
+**Defaults fixed.** The `d3dShader` constructor's: DIFF, SPEC, EMIS opaque black, AMBI white, ACMP 5 (gequal), ACTH
+0.5, UVMD 1 (clamp), FIMD 1 (linear), SHMD 1 (gouraud), SHIN 0 (G1 had a white diffuse, a black ambient, wrap).
+
+**The combiner key and its programs.** The draw writes the active stages (up to the first disabled colour op) as a
+canonical key, `c<op>.<arg1>.<arg2>a<op>.<arg1>.<arg2>r<result>` per stage, arguments an op doesn't read as 0
+(`-`: no stage). One fragment program per key: `tools/native_gfx.py combiners` runs every class's slots 12/14/13
+in the host build over the parameters that change its stages (the textures present, LIT, BLMD, a fade, TBLM, CLYR,
+LRSA: `enumerateCombinerKeys`) and lists the keys, **100**, in `shaders/vp/combiners.txt` (tracked); the build
+writes `fs_cmb_<FNV-1a of the key>.sc` for each (the stages as constants for `fs_vp_stage.sh`), compiles it for
+every profile (multi-threaded, skipped when up to date: ~17 s for the host build from scratch) and embeds it. At
+run time the program for (vertex program, key) is cached; a key with no generated program (or a vertex program
+with fewer outputs: bgfx pairs a vertex and fragment shader only when the inputs equal the outputs, so the
+refract programs' five and simple_proximity's three outputs have their own) is drawn by the **generic combiner**,
+the same code with the stages as uniforms (logged once per key). After the stages: the specular colour when
+SPECULARENABLE (lit with a power above 0, as FUN_00329f70 sets it), the alpha test on the 8-bit alpha (ALPHAREF
+0..255), linear table fog.
+
+**Texture stages.** Four samplers; each stage's addressing (UVMD: wrap/clamp; mirror/border mapped too) and
+filtering (FIMD: point/linear, mip none/point/linear) become bgfx sampler flags. The fixed-function program now
+generates each stage's coordinates as D3D does: TEXCOORDINDEX picks a uv set or a camera-space vector (normal,
+position, reflection vector: the reflective shaders' `0x30000`), and with D3DTTFF a count the coordinates go
+through D3DTS_TEXTUREn (a uv set as (u, v, 1, 0), D3D's rule for 2D coordinates; a vector as (x, y, z, 1)), the
+matrices the base's stacks 1-3 hand to slot 108. Drawn by a vertex program (skin), stage n reads its oTn.
+
+**Two-sided** (2SID): FUN_00329f70's cache turns D3D's culling off while a two-sided shader draws and gives back
+the context's cull mode when one that isn't comes (so the draw's cull is D3D's, `m_d3d.cull`, not slot 54's).
+Two-sided *lighting* (back faces lit with the flipped normal) is not done: the fixed-function program has no back
+colour outputs (adding them changes every program's interface).
+
+**The draw log** now records the four stage textures (what the hybrid hook records: the state cache's bound
+textures), not the shader's TEX/TTEX/REFL.
+
+**2D mode.** `pddiBaseContext` has no separate 2D path: the engine's 2D (text, HUD, front end, movies) selects the
+projection with slot 24 (mode into the view block, then slot 109: 0 perspective, 1 orthographic of the aspect,
+2 pixel coordinates, y down) and draws prim streams through the simple shader, fonts as textured quads. G3 ported
+slot 109's three modes; the host build now keeps the base's view block and matrix stacks itself (slots 14-16, 24
+are the base's in the game image), so the self-test drives the same slots in both.
+
+**Textures: linear formats, and no palettes.** pddi formats 11 and 12 (12 is made as 11) are D3D's `LIN_` formats
+(0x325fd0's table: LIN_R5G6B5 .. LIN_A8R8G8B8): any size, unswizzled, and the NV2A samples them with **texel
+coordinates**. The movie player's tiles are format 11 and draw with texel coordinates (u from 0.5 to width + 0.5),
+so the backend scales a stage's coordinates by 1/size when its texture is linear. **P8 is never made**: the format
+table's palettised entry (D3DFMT_P8, index 6) belongs to pddi format 1, which `0x326330` folds into format 0
+before the lookup, so no texture gets a palette (slots 11/12 act only on one) and the engine's 8-bit images
+(`ImageConverter::vfunc_2`, `Image8`) arrive converted into the 32-bit layout the lock describes. All uncompressed
+locks are bottom-up, linear ones included (FUN_0031c570 flips every format but DXT), as G1 had it.
+
+**Movies: the render strategy.** `movie::RenderStrategyBink` (the game's, unchanged) makes linear 32-bit pddi
+textures of at most 1024 x 1024 per tile (vfunc_6), hands each tile's lock to the player (vfunc_4: bits, stride),
+and draws the tiles with the pixel projection, the simple shader (BLMD 0, UVMD 1, FIMD 0 at 1:1 else 1) and texel
+coordinates (vfunc_7). So the backend needs nothing movie-specific beyond linear textures: the decoder (Bink's
+replacement, a separate FFmpeg/transcode task) writes each frame's rows, top row first, at the lock's bits, bits +
+stride, ... (the stride is negative: the engine's bottom-up layout; PlayerBink 0x333de0 does the same with Bink's
+copy). `bgfxTexture::writeFrame` is that seam for our own callers; the self-test draws a tile exactly as vfunc_7
+does and checks it is upright.
+
+**What the data uses** (all 8,787 Shader chunks of the `.p3d` files, `$S/g2/census.py`): simple BLMD 0/1/2, LIT 0/1,
+ATST 0/1 with ACMP 4 (greater) or 3/0, UVMD 0/1, FIMD 0/1/4, 2SID 0/1; layered always CLYR 0, TBLM 1 (1,381) or 0
+(2); layeredReflect TEX + TTEX + REFL (LRSA 0 in 45); environment TEX + REFL with BLMD 0/2; refract (41) and
+fbeffects (6) in `art`; no FADE (run time only). The boot replay's draw log (`build/g1/drawlog-boot-hybrid.jsonl`)
+has simple (6,871 draws), layered (935) and layeredReflect (264) draws.
+
+**Self-test** (`selftest_scene.cpp`, pages; `HULK_GFX_SELFTEST_PAGE` in the game image, one screenshot per run):
+
+| page | what | probes | Metal (host) | Vulkan (Wine, game image) |
+|---|---|---|---|---|
+| 0 | G3's draw path (unchanged scene; lit shaders now set DIFF/AMBI as data does) | 19 | 19 | 19 |
+| 1 | combiners: simple TEX, FADE alpha, FADE add, LIT FADE (faded material); layered TBLM 1/2/3, CLYR 2, TBLM 7; layeredReflect; environment; alpha test | 13 | 13 | 13 |
+| 2 | page 1 through the generic combiner | 13 | 13 | 13 |
+| 3 | 2D (mode 2), orthographic (mode 1), a linear texture with texel coordinates, a movie tile as RenderStrategyBink draws it, UVMD wrap/clamp, FIMD point/linear, 2SID, additive + fog (to black and back), the environment reflection through texgen + the sphere matrix, FADE scaling the alpha reference | 19 | 19 | 19 |
+| 4 | the sweep: all 100 keys of combiners.txt, generated and generic, colour and alpha, against a CPU reference of the stage operations (written separately from the shader) | 400 | 400 | 400 |
+
+Vulkan: the native7 tree + G2 linked `--gfx` (strict, 0 errors), one page per run (`build/g2/selftest-vulkan-page*`:
+screenshots and probe lines; Metal's: `build/g2/metal-*.png`), every key drawn by its generated program (no
+"no generated program" line). A deliberate error in one operation (modulateinvalpha_addcolor) fails 24 of the
+sweep's probes. Shader proofs: `tests/shaders` 42/42; `native_gfx.py slots` ok.
+
+**Open after G2:** two-sided lighting; flat shading (SHMD 0, logged; no data uses it); the frame-buffer copy
+refract samples (G4); projected texture coordinates (D3DTTFF_PROJECTED; unused); the bump-mapping operations
+(unused by the data's classes); a proof of `vs_vp_ff.sc` in the shader_equiv style (it would need the
+fixed-function equations as `.vp` programs of ours, one per light-type and texgen mix: not done); the front end's
+real draws and their draw-log diff, which wait for the native build to reach the game's first frame.
 
 ## Open questions
 
