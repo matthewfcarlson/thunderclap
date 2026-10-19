@@ -363,7 +363,7 @@ def replay(args):
     rec = {"inputs": [], "checkpoints": {}, "frames": 0, "polls": 0}
     seen = {"inputs": 0}
     want = data["frames"]
-    limit = args.seconds or (want / 20 + 180)          # xemu runs gameplay at 25-30 fps
+    limit = args.seconds or (want / 8 + 180)           # gameplay can drop to ~10 fps on a loaded host
     long = len(data["inputs"]) > patch_xbe.INPUT_MAX
     x = hybrid_run.Xemu("replay", gdb=long)
     seen["t0"] = x.t0
@@ -443,7 +443,7 @@ def replay_from_snapshot(args, data):
     seen = {"inputs": 0, "t0": x.t0, "ckpts": res["ckpt_count"]}
     feeder = ReplayFeeder(man, data["inputs"], g=res["g"], avail=res["avail"])        # (this starts the VM)
     t_run = time.time()
-    limit = args.seconds or ((want - snap["frame"]) / 20 + 120)
+    limit = args.seconds or ((want - snap["frame"]) / 8 + 120)
     try:
         stop = min(want, args.until_frame or want)
         while x.alive() and time.time() - t_run < limit and rec["frames"] < stop:
