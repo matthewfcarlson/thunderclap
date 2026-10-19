@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 62 inputs, branch coverage 57/60, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 430 inputs, branch coverage 60/60)
 // FUN_0025b970 @ 0x0025b970
 struct Str_25b970 {
     char data[12];
