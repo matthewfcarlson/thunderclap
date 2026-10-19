@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 38/42, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 16310 inputs, branch coverage 40/42, incomplete)
 // FUN_002bd570 @ 0x002bd570
 struct Tile_2bd570 {
     int x0;
@@ -82,10 +82,10 @@ int Mosaic::FUN_002bd570(Tile_2bd570 **tiles, int *rows, int *cols)
         int x1 = x + w;
         if (tiles != 0) {
             for (rowCount = 0; rowCount < *rows; rowCount++) {
-                Tile_2bd570 *t = (Tile_2bd570 *)((char *)tiles[rowCount] + offset);
-                t->x0 = x;
-                t->x1 = x1;
-                t->w = w;
+                // the original reloads tiles[rowCount] before each store (a store may alias the pointer array)
+                ((Tile_2bd570 *)((char *)tiles[rowCount] + offset))->x0 = x;
+                ((Tile_2bd570 *)((char *)tiles[rowCount] + offset))->x1 = x1;
+                ((Tile_2bd570 *)((char *)tiles[rowCount] + offset))->w = w;
             }
         }
         x = x1;

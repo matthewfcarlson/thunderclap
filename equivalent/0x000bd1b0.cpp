@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3051 inputs, branch coverage 78/80, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20098 inputs, branch coverage 78/80, incomplete)
 // FUN_000bd1b0 @ 0x000bd1b0
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
@@ -426,12 +426,12 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
 
             f.s0.f = (float)f.dt * 0.001f;
             {
-                float v = DAT_004dde20 + f.s0.f;
+                float v = DAT_004dde20 + *(volatile float *)&f.s0.f;
                 DAT_004dde20 = v;
-                if (v > 3.0f) {
+                if (v > DAT_0049f5e0) {
                     do {
-                        v = v - 3.0f;
-                    } while (v > 3.0f);
+                        v = v - DAT_0049f5e0;
+                    } while (v > DAT_0049f5e0);
                     DAT_004dde20 = v;
                 }
             }

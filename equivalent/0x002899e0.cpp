@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 54/56, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20031 inputs, branch coverage 56/56)
 // FUN_002899e0 @ 0x002899e0
 double __cdecl FUN_00047970(float x);
 extern "C" double fmod(double, double);
@@ -76,8 +76,8 @@ float FUN_002899e0(float *p, char *st, float v, float step, float lo, float hi, 
         if (!(vp > hi))
             return vp;
         step = range + range;
-        t = (float)((vp - hi) / step);
-        double fr = (double)t - FUN_00047970(t);
+        volatile float tt = (float)((vp - hi) / step);
+        double fr = (double)tt - FUN_00047970(tt);
         if (!(fr > 0.5f)) {
             *st = 0;
             return hi - fr * step;
@@ -88,10 +88,10 @@ float FUN_002899e0(float *p, char *st, float v, float step, float lo, float hi, 
     if (!(vp < lo))
         return vp;
     step = range + range;
-    t = (float)((vp - lo) / step);
-    if (t < 0)
-        t = -t;
-    double fr = (double)t - FUN_00047970(t);
+    volatile float tt = (float)((vp - lo) / step);
+    if (tt < 0)
+        tt = -tt;
+    double fr = (double)tt - FUN_00047970(tt);
     if (fr > 0.5f)
         return hi - (fr - 0.5f) * step;
     *st = 1;

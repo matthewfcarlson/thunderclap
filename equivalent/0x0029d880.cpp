@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2712 inputs, branch coverage 50/54, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 17928 inputs, branch coverage 51/54, incomplete)
 // FUN_0029d880 @ 0x0029d880
+// checked with equiv.py --time-budget 1500 at 20000 inputs (the default budget stops early)
 extern "C" double __cdecl cos(double);
 extern "C" double __cdecl pow(double, double);
 
@@ -148,7 +149,7 @@ float LightMgr::FUN_0029d880(V3 *pos, unsigned int mask)
 
         unsigned int color;
         bool useColor;
-        if (f.fac <= 0.0f) {
+        if (!(f.fac > 0.0f)) {
             color = DAT_004cf730;
             useColor = false;
         } else {

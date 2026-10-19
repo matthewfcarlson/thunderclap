@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 24/28, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19593 inputs, branch coverage 28/28)
 // FUN_00204c10 @ 0x00204c10
 extern "C" double sqrt(double);
 
@@ -82,7 +82,7 @@ int Finder_204c10::FUN_00204c10(char wantNear)
     Items_204c10 *items = FUN_001c3d90()->items;
     int count = items->counter.FUN_001c7520();
     int bestIndex = -1;
-    float bestDist = wantNear ? 1000000.0f : -1000000.0f;
+    float bestDist = wantNear ? 999999.0f : -999999.0f;
     for (int i = 0; i < count; i++) {
         Item_204c10 *item = items->FUN_001c7f80(i);
         int idx = item->index;

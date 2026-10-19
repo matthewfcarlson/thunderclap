@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 158 inputs, branch coverage 47/48, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 14295 inputs, branch coverage 47/48, incomplete)
 // FUN_0021b720 @ 0x0021b720
+// checked with equiv.py --time-budget 1500 at 20000 inputs (the default budget stops early)
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int isdigit(int c);
@@ -77,9 +78,8 @@ void FUN_0021b0d0(LexState *ls);
 
 #define NEXT()                                                                            \
     do {                                                                                  \
-        ZIO *z = ls->z;                                                                   \
-        if (z->n-- > 0)                                                                   \
-            ls->current = *z->p++;                                                        \
+        if (ls->z->n-- > 0)                                                               \
+            ls->current = *ls->z->p++;                                                    \
         else                                                                              \
             ls->current = FUN_0021a550(ls->z);                                            \
     } while (0)
