@@ -6,7 +6,7 @@
 //   results go to equivalent/<addr>.cpp, and byte-matches found along the way still go to matches/.
 
 import { execFile } from "node:child_process";
-import { appendFileSync, copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { appendFileSync, copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import { promisify } from "node:util";
@@ -55,6 +55,7 @@ let MODE: "match" | "equiv" = "match";
 // --rewrite (equiv mode): readability pass over proven equivalent/ sources (docs/tech-debt.md). The new source must
 // drop tools/tech_debt.py's flags (no goto, no lifted frame array, under half the volatiles) and stay equivalent.
 let REWRITE = false;
+let UPGRADE = false;
 const debt = (code: string) => ({
 	gotos: (code.match(/\bgoto\s+\w+\s*;/g) ?? []).length,
 	vol: (code.match(/\bvolatile\b/g) ?? []).length,
@@ -301,6 +302,9 @@ const submitCpp = defineTool({
 			copyFileSync(src, dest);
 			// clang-format the saved match; the formatter re-verifies and keeps the original on any failure.
 			await run(PY, [join(ROOT, "tools/format_matches.py"), dest, "--jobs", "1"], { timeout: 120_000 }).catch(() => {});
+			// --upgrade: the match replaces the function's equivalent/ copy (no duplicates; git history keeps it)
+			const eqCopy = join(EQUIV_DIR, `${job.addr}.cpp`);
+			if (UPGRADE && existsSync(eqCopy)) unlinkSync(eqCopy);
 			return { content: [{ type: "text", text: "MATCH. Done." }], control: { terminate: true } };
 		}
 		if (lowCoverage) {
@@ -505,6 +509,7 @@ async function main() {
 	if (values.mode !== "match" && values.mode !== "equiv") throw new Error(`--mode must be match or equiv`);
 	MODE = values.mode;
 	REWRITE = !!values.rewrite;
+	UPGRADE = !!values.upgrade;
 	if (REWRITE && MODE !== "equiv") throw new Error("--rewrite needs --mode equiv");
 	EQUIV_DIR = bench ? join(BUILD, "bench", bench, "equivalent") : join(ROOT, "equivalent");
 	WORK_TAG = bench ?? (lane ? `lane-${lane}` : "main");

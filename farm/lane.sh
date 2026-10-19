@@ -16,7 +16,8 @@ while :; do
     # Stage only this lane's own results: other agents leave files in matches/ and equivalent/ that
     # they commit themselves, and sweeping them in mislabels the commit.
     for a in $(tail -n "$BATCH" "build/farm/lanes/$LANE.jsonl" 2>/dev/null | grep -E '"status":"(match|equivalent)"' | grep -oE '"addr":"0x[0-9a-f]+"' | cut -d'"' -f4); do
-        for f in "matches/$a.cpp" "equivalent/$a.cpp"; do [ -e "$f" ] && git add "$f"; done
+        # (git add -A also stages an equivalent/ copy that --upgrade removed after a match)
+        for f in "matches/$a.cpp" "equivalent/$a.cpp"; do { [ -e "$f" ] || git ls-files --error-unmatch "$f" >/dev/null 2>&1; } && git add -A -- "$f"; done
     done
     git add README.md
     if git diff --cached --quiet; then
