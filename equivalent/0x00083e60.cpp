@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3040 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 15598 inputs, branch coverage 10/10)
 // FUN_00083e60 @ 0x00083e60
 extern "C" double sin(double);
 extern "C" double cos(double);
@@ -74,14 +74,15 @@ void Rig::FUN_00083e60(Vec3 U, Vec3 V, Vec3 P)
         return;
     }
     Vec3 D;
-    D.x = dxr;
+    volatile float dxs = dxr;
+    D.x = dxs;
     D.y = P.y - center.y;
     double dz80 = P.z - center.z;
     D.z = (float)dz80;
-    float len0 = (float)sqrt(dz80 * D.z + D.y * D.y + D.x * D.x);
+    float len0 = (float)sqrt(dz80 * D.z + D.y * D.y + dxs * dxs);
     double a80 = FUN_00018a20(-dm);
     ang = (float)a80;
-    t.f = (float)(a80 - 1.5708f);
+    t.f = (float)(a80 - 1.57079637f);
     t.u &= 0x7fffffff;
     if (t.f <= 1e-05f) {
         D.FUN_0022d180();
@@ -127,7 +128,7 @@ void Rig::FUN_00083e60(Vec3 U, Vec3 V, Vec3 P)
         sign = -1;
     Mat M;
     M.FUN_0022b980();
-    M.FUN_0022ba70(sign * 1.5708f);
+    M.FUN_0022ba70(sign * 1.57079637f);
     Vec3 Uc = U;
     Uc.FUN_0022d260(&M);
     Uc.FUN_0022d180();

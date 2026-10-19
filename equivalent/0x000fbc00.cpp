@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 105 inputs, branch coverage 40/41, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 18083 inputs, branch coverage 40/41, incomplete)
 // FUN_000fbc00 @ 0x000fbc00
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 
 int FUN_000fbc00(unsigned short *buf, unsigned int count, const char *fmt, char *ap)
 {
@@ -9,13 +8,10 @@ int FUN_000fbc00(unsigned short *buf, unsigned int count, const char *fmt, char 
         int c;
         char *savedAp;
         char tmp[20];
-        unsigned int cookie;
     } fr;
-    fr.cookie = DAT_004d9968;
     unsigned short *out = buf;
     if (fmt == 0) {
         *buf = 0;
-        __security_check_cookie(fr.cookie);
         return 0;
     }
     fr.c = (signed char)*fmt;
@@ -96,6 +92,5 @@ int FUN_000fbc00(unsigned short *buf, unsigned int count, const char *fmt, char 
     }
     *out = 0;
     int n = out - buf;
-    __security_check_cookie(fr.cookie);
     return n;
 }

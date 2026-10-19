@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 75/76, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 282 inputs, branch coverage 75/76, incomplete)
 // FUN_000b7cd0 @ 0x000b7cd0
+// cl-flags: /GS
 extern "C" int strcmp(const char* a, const char* b);
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 struct Text_b7cd0 {
     char pad[0x24];
@@ -119,7 +118,6 @@ struct Frame_b7cd0 {
     Text_b7cd0 text;
     char header[0x40];
     unsigned short label[0x80];
-    unsigned int cookie;
 };
 
 class HintMenu_b7cd0 {
@@ -134,7 +132,6 @@ public:
 void HintMenu_b7cd0::FUN_000b7cd0()
 {
     Frame_b7cd0 f;
-    f.cookie = DAT_004d9968;
     f.self = this;
     f.menu = dynamic_cast<TextSelector*>(FUN_000fc260("hint_selector"));
     if (f.menu != 0) {
@@ -204,5 +201,4 @@ void HintMenu_b7cd0::FUN_000b7cd0()
         } while (f.cur != 0);
         f.menu->v3();
     }
-    __security_check_cookie(f.cookie);
 }

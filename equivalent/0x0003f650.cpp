@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 7202 inputs, branch coverage 4/4)
 // FUN_0003f650 @ 0x0003f650
+// cl-flags: /GS
 extern "C" int FUN_00267760(char *buf, int size, const char *fmt, int n);
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern "C" unsigned int DAT_004d9968;
 
 class Src_3f650 {
 public:
@@ -71,10 +70,8 @@ public:
 
 void Entity::FUN_0003f650()
 {
-    unsigned int cookie = DAT_004d9968;
     Src_3f650 *s = src;
     if (s == 0) {
-        __security_check_cookie(cookie);
         return;
     }
     d0 = s->s0;
@@ -102,5 +99,4 @@ void Entity::FUN_0003f650()
         float v = s->FUN_00045f90(name);
         FUN_0003ed40(name, v);
     }
-    __security_check_cookie(cookie);
 }

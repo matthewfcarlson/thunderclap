@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 111 inputs, branch coverage 36/38, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 17050 inputs, branch coverage 37/38, incomplete)
 // FUN_00233650 @ 0x00233650
+// cl-flags: /GS
 #include "decls/data/engine/fight.h"
 
 extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern "C" unsigned int DAT_004d9968;
 
 unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
 
@@ -26,11 +25,8 @@ Node *Node::FUN_00233650(const char *path)
 {
     struct {
         char name[0x40];
-        unsigned int cookie;
     } f;
-    f.cookie = DAT_004d9968;
     if (path == 0 || *path == 0) {
-        __security_check_cookie(f.cookie);
         return this;
     }
     char sep = *(*(const char**)&DAT_004ca248);
@@ -41,7 +37,6 @@ Node *Node::FUN_00233650(const char *path)
         Node *r = 0;
         if (root != 0)
             r = root->FUN_00233580(path);
-        __security_check_cookie(f.cookie);
         return r;
     }
     const char *end = path;
@@ -73,6 +68,5 @@ Node *Node::FUN_00233650(const char *path)
             }
         }
     }
-    __security_check_cookie(f.cookie);
     return r;
 }

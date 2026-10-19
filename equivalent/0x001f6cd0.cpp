@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 8509 inputs, branch coverage 8/8)
 // FUN_001f6cd0 @ 0x001f6cd0
+// cl-flags: /GS
 #include "decls/data/game/hulkfight.h"
 
-extern "C" unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl _sprintf(char *buf, const char *fmt, ...);
 
 
@@ -28,7 +27,6 @@ Library_1f6cd0 *__cdecl FUN_001d4c90();
 struct Frame_1f6cd0 {
     char name[0x80];
     HitInfo_1f6cd0 info;
-    unsigned int cookie;
 };
 
 class Reaction_1f6cd0 {
@@ -51,7 +49,6 @@ void Reaction_1f6cd0::FUN_001f6cd0(Source_1f6cd0 *src, int a1, const Vec3_1f6cd0
                             int a5, int a6, int a7, const char **outName, int a9)
 {
     Frame_1f6cd0 f;
-    f.cookie = DAT_004d9968;
     unsigned short kind = (src->bits >> 5) & 0x1f;
     if (kind < 0x13) {
         if (outName)
@@ -74,5 +71,4 @@ void Reaction_1f6cd0::FUN_001f6cd0(Source_1f6cd0 *src, int a1, const Vec3_1f6cd0
             }
         }
     }
-    __security_check_cookie(f.cookie);
 }

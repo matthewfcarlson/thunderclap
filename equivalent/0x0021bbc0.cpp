@@ -2,7 +2,7 @@
 // FUN_0021bbc0 @ 0x0021bbc0
 // equiv-conv: FUN_0021b0d0 esi
 // equiv-conv: FUN_0021b480 eax
-// equiv-conv: FUN_0021b520 ecx stack
+// equiv-conv: FUN_0021b520 ecx eax stack
 // equiv-conv: FUN_0021b230 eax stack
 // equiv-conv: FUN_0021b1c0 edi
 // equiv-conv: FUN_0021b720 ecx stack stack
@@ -36,7 +36,7 @@ struct LexState_21bbc0 {
 extern "C" int __cdecl FUN_0021a550(Zio_21bbc0 *z);
 void FUN_0021b0d0(LexState_21bbc0 *ls);
 int FUN_0021b480(LexState_21bbc0 *ls);
-void FUN_0021b520(LexState_21bbc0 *ls, SemInfo_21bbc0 *seminfo);
+void FUN_0021b520(LexState_21bbc0 *ls, int sep, SemInfo_21bbc0 *seminfo);
 void FUN_0021b230(LexState_21bbc0 *ls, SemInfo_21bbc0 *seminfo);
 void FUN_0021b1c0(LexState_21bbc0 *ls);
 void FUN_0021b720(LexState_21bbc0 *ls, int del, SemInfo_21bbc0 *seminfo);
@@ -80,7 +80,7 @@ int FUN_0021bbc0(LexState_21bbc0 *ls, SemInfo_21bbc0 *seminfo)
                 int sep = FUN_0021b480(ls);
                 ls->buff->n = 0;
                 if (sep >= 0) {
-                    FUN_0021b520(ls, 0);
+                    FUN_0021b520(ls, sep, 0);
                     ls->buff->n = 0;
                     continue;
                 }
@@ -101,7 +101,7 @@ int FUN_0021bbc0(LexState_21bbc0 *ls, SemInfo_21bbc0 *seminfo)
         case '[': {
             int sep = FUN_0021b480(ls);
             if (sep >= 0) {
-                FUN_0021b520(ls, seminfo);
+                FUN_0021b520(ls, sep, seminfo);
                 return 0x11e;
             }
             if (sep == -1)

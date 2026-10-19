@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 180 inputs, branch coverage 42/42)
+// STATUS: equivalent (tools/equiv.py level 3: 1125 inputs, branch coverage 42/42)
 // FUN_00206320 @ 0x00206320
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/engine/fight.h"
@@ -36,8 +37,6 @@ struct W_206320 {
   Obj_206320* FUN_00203e90(const char*, int, int, int, Obj_206320*, Obj_206320*, int);
   void FUN_00206320(Ctx_206320*);
 };
-extern "C" unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" Registry_206320* __cdecl FUN_001d4c90();
 extern "C" Rand* __cdecl FUN_000964d0();
 extern "C" int __cdecl FUN_00266da0(int);
@@ -47,7 +46,6 @@ extern "C" void __cdecl FUN_000964a0(char*, int, const char*, ...);
 extern "C" char* __cdecl _strncpy(char*, const char*, unsigned int);
 extern "C" int __cdecl _strncmp(const char*, const char*, unsigned int);
 void W_206320::FUN_00206320(Ctx_206320* g){
-  unsigned int cookie = DAT_004d9968;
   char buf[0x100];
   const char* s = prov->FUN_00086310()->FUN_000897e0();
   char* d = name1;
@@ -123,5 +121,4 @@ void W_206320::FUN_00206320(Ctx_206320* g){
   FUN_00203e90(buf, 0, 1, 0, f44, f44, 0xb)->FUN_00263e90();
   FUN_000964a0(buf, 0x100, "art/missions/%s/%s.p3d", g->FUN_0008a2d0(), g->FUN_0008a2d0());
   FUN_00203e90(buf, 0, 1, 0, f44, f44, 0xb)->FUN_00263e90();
-  __security_check_cookie(cookie);
 }

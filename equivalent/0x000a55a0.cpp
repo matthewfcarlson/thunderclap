@@ -34,7 +34,9 @@ union Slot_a55a0 {
 };
 
 
-void __stdcall FUN_000a0dc0(int a, int b, int c);
+struct ThisCall_000a0dc0 {
+    void FUN_000a0dc0(int a, int b, int c);
+};
 void __cdecl FUN_000a04c0(V3_a55a0 *v, float *p1, float *p2, float *p3);
 double __cdecl FUN_000a00e0(int a, int b, int c, int d, int e);
 double __cdecl FUN_000186b0(float *v, float *lo, float *hi);
@@ -101,7 +103,7 @@ void Camera::FUN_000a55a0(int a1, Slot_a55a0 a2)
     } f;
 
     int dt = a2.i;
-    FUN_000a0dc0(0, *(int *)&DAT_0049ec7c, dt);
+    ((ThisCall_000a0dc0*)(this))->FUN_000a0dc0(0, *(int *)&DAT_0049ec7c, dt);
     f.d.x = v26c.x - pos.x;
     f.d.y = v26c.y - pos.y;
     f.d.z = v26c.z - pos.z;

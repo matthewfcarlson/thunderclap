@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 56 inputs, branch coverage 123/130, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 125 inputs, branch coverage 123/130, incomplete)
 // FUN_000d3170 @ 0x000d3170
+// cl-flags: /GS
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -19,13 +20,11 @@ class Geometry;
 }
 
 extern "C" int sprintf(char *, const char *, ...);
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl FUN_00266da0(int mode);
 void *__cdecl FUN_0008d690(unsigned int size);
 void *thunk_FUN_0008d690(unsigned int size);
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 
-extern unsigned int DAT_004d9968;
 extern char DAT_0049fd74[];
 extern char DAT_004a0520[];
 
@@ -267,13 +266,11 @@ struct Frame_d3170 {
     int s4c;
     int saved;
     char buf[0x40];
-    unsigned int cookie;
 };
 
 void Hud_d3170::FUN_000d3170(A1 *a1, int a2, A3 *a3)
 {
     Frame_d3170 f;
-    f.cookie = DAT_004d9968;
     f.saved = FUN_00266da0(0xe);
     f7c = a2;
     f0c = a1;
@@ -530,5 +527,4 @@ void Hud_d3170::FUN_000d3170(A1 *a1, int a2, A3 *a3)
     f4c = 0;
     a3->FUN_000d6d90(this);
     FUN_00266da0(f.saved);
-    __security_check_cookie(f.cookie);
 }

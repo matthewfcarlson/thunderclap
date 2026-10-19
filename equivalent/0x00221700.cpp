@@ -9,10 +9,10 @@ void __cdecl FUN_00221190(Context*,Node*);
 void __cdecl FUN_00220d90(Context*,Node*);
 int __cdecl FUN_002209e0(Context*,float);
 int __cdecl FUN_00220b20(Context*,int,int);
-// equiv-conv: FUN_00221610 edi eax esi
-void FUN_00221610(Context*,int,Node*);
+// equiv-conv: FUN_00221610 esi edi
+void FUN_00221610(Node*,Context*);
 void __cdecl FUN_00221700(Context* context,int flag,Node* node) {
- if(flag) { FUN_00221610(context,flag,node); return; }
+ if(flag) { FUN_00221610(node,context); return; }
  if(node->left != node->right) FUN_00221190(context,node); else FUN_00220d90(context,node);
  if(node->type==4) {
   Constant_221700* constant=&context->pool->constants[node->value];

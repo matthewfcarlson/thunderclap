@@ -17,9 +17,9 @@ struct GrappleHealthCondition {
 }}
 struct GrappleTarget;
 GrappleTarget* __cdecl FUN_00048260(void*);
-// equiv-conv: FUN_001687a0 ecx stack stack
-void __cdecl FUN_001687a0(GrappleTarget*, int, int);
+// equiv-conv: FUN_001687a0 ecx esi stack stack
+void __cdecl FUN_001687a0(GrappleTarget*, int, int, int);
 void hulkfight::motion::GrappleHealthCondition::vfunc_6(void* arg1, void* arg2, void* arg3) {
     GrappleTarget* target = FUN_00048260(arg2);
-    FUN_001687a0(target, field_14, field_10);
+    FUN_001687a0(target, field_c, field_14, field_10);
 }

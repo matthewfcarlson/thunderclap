@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 957 inputs, branch coverage 74/74)
+// STATUS: equivalent (tools/equiv.py level 3: 1608 inputs, branch coverage 74/74)
 // FUN_00042b40 @ 0x00042b40
+// cl-flags: /GS
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 void *thunk_FUN_0008d690(unsigned int size);
 void *__cdecl FUN_0008d690(unsigned int size);
@@ -220,10 +219,8 @@ struct Chara_42b40 {
 
 char Chara_42b40::Setup(Rig_42b40 *r)
 {
-    unsigned int cookie = DAT_004d9968;
     World *world = DAT_004dd700;
     if (rig == r) {
-        __security_check_cookie(cookie);
         return 1;
     }
     Mat_42b40 m44;
@@ -260,7 +257,6 @@ char Chara_42b40::Setup(Rig_42b40 *r)
         rig->Release();
     rig = r;
     if (!r) {
-        __security_check_cookie(cookie);
         return 1;
     }
     Skel_42b40 *sk = r->FUN_00044410();
@@ -437,6 +433,5 @@ char Chara_42b40::Setup(Rig_42b40 *r)
         ps.b = fc;
         FUN_000678d0()->FUN_00065cb0(&ps);
     }
-    __security_check_cookie(cookie);
     return 1;
 }

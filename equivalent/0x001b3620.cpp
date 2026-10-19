@@ -2,7 +2,9 @@
 // FUN_001b3620 @ 0x001b3620
 #include "decls/data/game/global.h"
 
-int __stdcall FUN_001b3250(float value);
+struct ThisCall_001b3250 {
+    int FUN_001b3250(float value);
+};
 
 struct SampleTable {
     char padding[12];
@@ -20,6 +22,6 @@ float SampleTable::FUN_001b3620(float value) {
         value = 0.02f;
     if (value >= limit)
         return (*(float*)&DAT_003f32e0);
-    int column = FUN_001b3250(value);
+    int column = ((ThisCall_001b3250*)(this))->FUN_001b3250(value);
     return ((float*)((char*)&DAT_004e1830 + 160))[column + index * 45];
 }

@@ -1,14 +1,13 @@
-// STATUS: equivalent (tools/equiv.py level 3: 971 inputs, branch coverage 39/40, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 464 inputs, branch coverage 40/40)
 // FUN_000b9bf0 @ 0x000b9bf0
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern char DAT_0049dba4[];          // FEObject type descriptor
 extern char DAT_0049dbbc[];          // TextSelector type descriptor
 extern char DAT_0049f4a4[];          // TextButton type descriptor
 extern char DAT_0049f4f0[];          // FEControl type descriptor
-extern unsigned int DAT_004d9968;
    // zero-terminated list of "cNmM" side mission names
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl memcmp(const void *, const void *, unsigned int);
 
 class FEObject {
@@ -100,9 +99,7 @@ void SideMissionMenu::FUN_000b9bf0()
         } u;                         // 0x60
         char pad80[4];
         Args_b9bf0 args;                   // 0x84
-        unsigned int cookie;         // 0x33c
     } f;
-    f.cookie = DAT_004d9968;
     f.self = this;
 
     char done = 0;
@@ -197,5 +194,4 @@ void SideMissionMenu::FUN_000b9bf0()
         }
         f.u.story.FUN_000f7960();
     }
-    __security_check_cookie(f.cookie);
 }

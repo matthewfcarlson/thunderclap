@@ -1,10 +1,13 @@
 #include "decls/address.h"
-extern "C" void __stdcall FUN_001d0480(int, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(int, int);
+    virtual void v_001d0480();
+};
 extern const char g1[];
 extern const char g2[];
-class Base {
+class Base : public CtorV_001d0480 {
   public:
-    Base(int x) { FUN_001d0480(x, 1); }
+    Base(int x) : CtorV_001d0480(x, 1) { }
 };
 class Method1 : public Base {
   public:

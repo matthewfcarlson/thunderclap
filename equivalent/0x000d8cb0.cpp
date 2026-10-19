@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 16996 inputs, branch coverage 6/6)
 // FUN_000d8cb0 @ 0x000d8cb0
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct TextStore_d8cb0 { int FUN_000f7d30(const char*); const char* FUN_000f7220(int); };
@@ -9,8 +10,6 @@ struct UI_d8cb0 {
 };
 UI_d8cb0* __cdecl FUN_000fc3d0();
 void __cdecl FUN_000fc020(unsigned short*, int, const char*);
-extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
 struct State_d8cb0 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d8cb0* FUN_00086280(); };
 struct Widget_d8cb0 { void FUN_000bc9f0(const char*, int); };
@@ -19,7 +18,6 @@ struct Object {
  void target(unsigned char unused, int mode);
 };
 void Object::target(unsigned char unused, int mode) {
- unsigned int cookie=DAT_004d9968;
  unsigned short text[512];
  TextStore_d8cb0* store = FUN_000fc3d0()->v44();
  const char* common = (*(const char**)&DAT_004a0c60);
@@ -35,5 +33,4 @@ void Object::target(unsigned char unused, int mode) {
  active=1;
  value=0;
  w->FUN_000bc9f0("DynamicControlButtonLabel",0);
- __security_check_cookie(cookie);
 }

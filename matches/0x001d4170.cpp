@@ -1,9 +1,12 @@
 #include "decls/address.h"
-extern "C" void __stdcall FUN_001d0480(void*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(void*, int);
+    virtual void v_001d0480();
+};
 extern int g1, g2;
-class Parent {
+class Parent : public CtorV_001d0480 {
   public:
-    Parent(void* x) { FUN_001d0480(x, 1); }
+    Parent(void* x) : CtorV_001d0480(x, 1) { }
 };
 class Method : public Parent {
   public:

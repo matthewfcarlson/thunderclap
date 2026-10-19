@@ -1,10 +1,13 @@
-extern "C" void __stdcall Init(const char*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(const char*, int);
+    virtual void v_001d0480();
+};
 extern "C" unsigned char Get(const char*);
 extern const char a[];
 extern const char b[];
-class InitBase {
+class InitBase : public CtorV_001d0480 {
   public:
-    InitBase(const char* name) { Init(name, 1); }
+    InitBase(const char* name) : CtorV_001d0480(name, 1) { }
 };
 class Method1 : public InitBase {
   public:

@@ -1,8 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 2/2)
 // FUN_000bc900 @ 0x000bc900
+// cl-flags: /GS
 typedef unsigned short WideChar;
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int cookie);
 extern "C" unsigned int __cdecl FUN_00294b80(const WideChar* text);
 struct Entry_bc900 { WideChar text[64]; };
 struct Object {
@@ -11,9 +10,8 @@ struct Object {
  int FUN_000bc900(WideChar* output, int position, int key, int entryIndex);
 };
 int Object::FUN_000bc900(WideChar* output, int position, int key, int entryIndex) {
- struct Workspace { WideChar buffer[64]; unsigned int cookie; } workspace;
- workspace.cookie = DAT_004d9968;
- if (!FUN_000b77c0(key, workspace.buffer, 64, 1)) { __security_check_cookie(workspace.cookie); return 0; }
+ struct Workspace { WideChar buffer[64];  } workspace;
+ if (!FUN_000b77c0(key, workspace.buffer, 64, 1)) { return 0; }
  output[position++] = 32; output[position++] = 32;
  const WideChar* text = entries[entryIndex].text;
  unsigned int count = FUN_00294b80(text);
@@ -30,5 +28,5 @@ int Object::FUN_000bc900(WideChar* output, int position, int key, int entryIndex
  for (unsigned int j = 0; j < (bytes >> 2); ++j) dest[j] = src[j];
  if (bytes & 2) output[position + (bytes >> 1) - 1] = workspace.buffer[(bytes >> 1) - 1];
  position += count; output[position] = 0;
- __security_check_cookie(workspace.cookie); return position;
+  return position;
 }

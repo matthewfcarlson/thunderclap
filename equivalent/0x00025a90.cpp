@@ -51,8 +51,9 @@ void __cdecl FUN_00055d80(void *p);
 void __cdecl FUN_00074790(void *p);
 void __cdecl FUN_00056460(void *p);
 void __cdecl FUN_000749e0(void *p);
-// equiv-conv: FUN_00031310 ecx eax edi
-void FUN_00031310(Thing_25a90 *t, int n, void *p);
+struct ThisNote_00031310 {
+    void FUN_00031310();
+};
 
 struct Thing_25a90 {
     int f00;
@@ -181,7 +182,7 @@ Thing_25a90 *Thing_25a90::FUN_00025a90()
             FUN_000749e0(p);
         }
     }
-    FUN_00031310(this, 0x40, f94);
+    ((ThisNote_00031310*)this)->FUN_00031310();
     f128 = 0;
     (*(float*)&DAT_004dc0d8) = 8.0f;
     f580 = 0;

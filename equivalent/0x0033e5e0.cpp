@@ -16,7 +16,8 @@ void __cdecl FUN_00213380(LuaState*,const char*,unsigned);
 // equiv-conv: FUN_0033e570 ebx
 void __cdecl FUN_0033e570(LuaState*);
 int __cdecl FUN_00339800(LuaState*,const char*);
-const char* __cdecl FUN_0033e4d0();
+// equiv-conv: FUN_0033e4d0 esi
+const char* __cdecl FUN_0033e4d0(LuaState*);
 void __cdecl FUN_00212e20(LuaState*,int);
 void __cdecl FUN_00213790(LuaState*,int,const char*);
 void __cdecl FUN_002139a0(LuaState*,int,int);
@@ -52,7 +53,7 @@ int __cdecl FUN_0033e5e0(LuaState* state) {
  } while(status==2);
  if(status!=0) {
   const char* detail;
-  if(status==2) detail=FUN_0033e4d0();
+  if(status==2) detail=FUN_0033e4d0(state);
   else detail=FUN_00213190(state,-1);
   const char* package=FUN_00213190(state,1);
   if(status==2) return FUN_00338e20(state,"could not load package `%s' from path `%s'",package,detail);

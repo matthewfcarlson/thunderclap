@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
 // FUN_0033c1d0 @ 0x0033c1d0
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
+// cl-flags: /GS
 
 // Lua 5.0 str_dump
 struct lua_State;
@@ -21,17 +20,14 @@ extern "C" void __cdecl FUN_00339540(luaL_Buffer_33c1d0* B);                    
 
 struct Frame_33c1d0 {
     luaL_Buffer_33c1d0 b;
-    unsigned int cookie;
 };
 
 int FUN_0033c1d0(lua_State* L) {
     Frame_33c1d0 fr;
-    fr.cookie = DAT_004d9968;
     FUN_00339d70(L, 1, 6);
     FUN_00339630(L, &fr.b);
     if (!FUN_00213b60(L, FUN_0033c1b0, &fr.b))
         FUN_00338e20(L, "unable to dump given function");
     FUN_00339540(&fr.b);
-    __security_check_cookie(fr.cookie);
     return 1;
 }

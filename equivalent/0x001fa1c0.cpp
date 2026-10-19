@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 14593 inputs, branch coverage 28/28)
+// STATUS: equivalent (tools/equiv.py level 3: 16676 inputs, branch coverage 28/28)
 // FUN_001fa1c0 @ 0x001fa1c0
+// cl-flags: /GS
 #include "decls/address.h"
-extern "C" void __fastcall __security_check_cookie(unsigned);
-extern unsigned int DAT_004d9968;
 
 struct Msg_1fa1c0 {
     int size;                 // 0x00
@@ -88,9 +87,7 @@ public:
 
 void Panel_1fa1c0::FUN_001fa1c0(Target_1fa1c0 *target, Item_1fa1c0 *item)
 {
-    unsigned int cookie = DAT_004d9968;
     if (count >= 16 || !item) {
-        __security_check_cookie(cookie);
         return;
     }
 
@@ -135,5 +132,4 @@ void Panel_1fa1c0::FUN_001fa1c0(Target_1fa1c0 *target, Item_1fa1c0 *item)
         m.FUN_001ca020(label, item->FUN_001fba60());
         q->FUN_001cbc20(&m);
     }
-    __security_check_cookie(cookie);
 }

@@ -1,11 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1405 inputs, branch coverage 96/104, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 903 inputs, branch coverage 104/104)
 // FUN_000b64f0 @ 0x000b64f0
+// cl-flags: /GS
 // equiv-map: ??_R0?AVFEObject@@@8 = 0x0049dba4
 // equiv-map: ??_R0?AVTextSelector@@@8 = 0x0049dbbc
 #include "decls/address.h"
 extern "C" int strcmp(const char *, const char *);
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 struct String {
     char b[12];
@@ -86,7 +85,6 @@ struct Frame {
     char pad156[24];
     char buf[0x40];
     char pad68[0x40];
-    unsigned int cookie;
 };
 
 class CheatMenu {
@@ -133,7 +131,6 @@ public:
 void CheatMenu::FUN_000b64f0()
 {
     Frame f;
-    f.cookie = DAT_004d9968;
     TextSelector *menu = dynamic_cast<TextSelector *>(FUN_000fc260("unlocked_cheats"));
     if (menu) {
         int i = 0;
@@ -210,5 +207,4 @@ void CheatMenu::FUN_000b64f0()
         menu->Finish();
         f.s.FUN_000f7960();
     }
-    __security_check_cookie(f.cookie);
 }

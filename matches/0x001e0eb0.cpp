@@ -2,8 +2,10 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 extern "C" char DAT_004234c8[];
-extern "C" void __stdcall FUN_001d0480(void*, int);
-class CSPManager {
+struct Ctor_001d0480 {
+    Ctor_001d0480(void*, int);
+};
+class CSPManager : public Ctor_001d0480 {
   public:
     int vp;
     char p04[0xc];
@@ -19,8 +21,7 @@ class CSPManager {
     int m1c;
     CSPManager(int, int);
 };
-CSPManager::CSPManager(int a, int b) {
-    FUN_001d0480((void*)a, 6);
+CSPManager::CSPManager(int a, int b) : Ctor_001d0480((void*)a, 6) {
     vp = ((int)DAT_004234c8);
     m1c = b;
     m18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e100)));

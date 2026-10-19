@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3050 inputs, branch coverage 27/30, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20052 inputs, branch coverage 30/30)
 // fight::Chunk::vfunc_9 @ 0x0023b570
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/engine/fight.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern "C" unsigned int DAT_004d9968;
 
 
 namespace fight { class Chunk; }
@@ -68,7 +67,6 @@ struct Frame_23b570 {
     int gap;                // 0x14
     int out1;               // 0x18
     char buf[0x400];        // 0x1c
-    unsigned int cookie;    // 0x41c
 };
 
 namespace fight {
@@ -94,9 +92,7 @@ public:
 char fight::Chunk::vfunc_9(void *a1, Writer_23b570 *w, int a3)
 {
     Frame_23b570 f;
-    f.cookie = DAT_004d9968;
     if (!w->HasToken() || w->TokenType() != (*(unsigned __int64*)&DAT_004e5b18)) {
-        __security_check_cookie(f.cookie);
         return 0;
     }
     w->Begin((*(unsigned __int64*)&DAT_004e5b18));
@@ -142,6 +138,5 @@ char fight::Chunk::vfunc_9(void *a1, Writer_23b570 *w, int a3)
     FUN_002337c0((int)this, w, -1);
     w->End();
     f.id.FUN_0027af50();
-    __security_check_cookie(f.cookie);
     return 1;
 }

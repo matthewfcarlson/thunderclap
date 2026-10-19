@@ -3,8 +3,8 @@
 struct Node { char pad[0x47]; unsigned char complexity; };
 struct Context { Node *node; char pad04[8]; int errorContext; char pad10[0x14]; int count; };
 void __cdecl FUN_0021b060(int context, const char *message);
-// equiv-conv: FUN_00220e90 eax ebx esi
-void FUN_00220e90(int newCount, int *expression, int previousCount);
+// equiv-conv: FUN_00220e90 ebx esi edi
+void FUN_00220e90(int *expression, int reg, Context *context);
 // equiv-conv: FUN_00220f80 eax stack
 void __cdecl FUN_00220f80(Context *context, int *expression)
 {
@@ -16,6 +16,6 @@ void __cdecl FUN_00220f80(Context *context, int *expression)
             context->node->complexity = (unsigned char)next;
         }
         context->count = context->count + 1;
-        FUN_00220e90(context->count, expression, context->count - 1);
+        FUN_00220e90(expression, context->count - 1, context);
     }
 }

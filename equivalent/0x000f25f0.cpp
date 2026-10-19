@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 17954 inputs, branch coverage 6/6)
 // FUN_000f25f0 @ 0x000f25f0
+// cl-flags: /GS
 // FEBillboardAnimation constructor: look the billboard object up by name when the name is short enough.
 #include "decls/data/game/global.h"
 
@@ -18,8 +19,6 @@ public:
 }
 namespace pure3d { class BillboardObject; }
 
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 class Ref_f25f0 {
 public:
@@ -54,7 +53,7 @@ public:
 
 FEBillboardAnimation::FEBillboardAnimation(int a, const char *name) : FEBase(a, name)
 {
-    unsigned int cookie = DAT_004d9968;
+    char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     const char *start = name + 1;
     const char *end = name;
     while (*end++) {
@@ -69,5 +68,4 @@ FEBillboardAnimation::FEBillboardAnimation(int a, const char *name) : FEBase(a, 
             p0c = 0;
         }
     }
-    __security_check_cookie(cookie);
 }

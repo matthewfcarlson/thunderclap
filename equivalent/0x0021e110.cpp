@@ -7,7 +7,7 @@ struct Source { int unused; int value; };
 void __cdecl FUN_00220bd0(Resource*, int, int, int, int);
 void __cdecl FUN_00220850(Resource*, int);
 // equiv-conv: FUN_0021e110 ecx eax edi
-void __fastcall FUN_0021e110(Owner* owner, Entry* entry, Source* source)
+void FUN_0021e110(Owner* owner, Entry* entry, Source* source)
 {
     Resource* resource = owner->resource;
     int replacement = resource->replacement;

@@ -37,8 +37,8 @@ struct GroupNode : TreeLink {
 
 struct Scene;
 
-// equiv-conv: FUN_00249630 stack edi
-void __cdecl FUN_00249630(Context *ctx, Scene *scene);
+// equiv-conv: FUN_00249630 edi stack
+void __cdecl FUN_00249630(Scene *scene, Context *ctx);
 // equiv-conv: FUN_0024a3c0 eax ecx stack stack
 char __cdecl FUN_0024a3c0(Entry *entry, Scene *scene, GroupNode *group, Context *ctx);
 // equiv-conv: FUN_00249750 esi
@@ -75,7 +75,7 @@ static TreeLink *Successor(TreeLink *n, TreeLink *nil)
 void FUN_0024a800(Scene *scene, Context *ctx)
 {
     scene->sub.FUN_0024a280(ctx);
-    FUN_00249630(ctx, scene);
+    FUN_00249630(scene, ctx);
 
     TreeLink *childNil = &scene->childNil;
     TreeLink *node = scene->childRoot;

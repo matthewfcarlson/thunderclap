@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 116 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 2893 inputs, branch coverage 10/10)
 // FUN_001f0090 @ 0x001f0090
+// cl-flags: /GS
 extern "C" char* __cdecl strchr(const char*, int);
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 struct Name {
     unsigned int lo, hi;
     void FUN_0027af00();
@@ -17,9 +16,7 @@ struct NamePath {
 NamePath::NamePath(const char* path) {
     struct {
         char buf[0x40];
-        unsigned int cookie;
     } fr;
-    fr.cookie = DAT_004d9968;
     for (int i = 0; i < 8; i++)
         names[i].FUN_0027af00();
     count = 0;
@@ -40,5 +37,4 @@ NamePath::NamePath(const char* path) {
         names[count].FUN_0027b040(segment);
         count++;
     }
-    __security_check_cookie(fr.cookie);
 }

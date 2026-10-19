@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 55 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 3566 inputs, branch coverage 8/8)
 // FUN_000bc3c0 @ 0x000bc3c0
+// cl-flags: /GS
 #include "decls/data/engine/content.h"
 
 extern "C" char* strncpy(char*, const char*, unsigned int);
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 class Request {
   public:
@@ -36,10 +35,8 @@ void __cdecl FUN_00087990();
 void __stdcall FUN_000bc3c0(const char* src, Target_bc3c0* target, int arg) {
     struct Frame {
         RequestState st;
-        volatile unsigned int cookie;
     } frame;
     RequestState& st = frame.st;
-    frame.cookie = DAT_004d9968;
     st.request = 0;
     st.name[0] = 0;
     st.field104 = 0;
@@ -63,5 +60,4 @@ void __stdcall FUN_000bc3c0(const char* src, Target_bc3c0* target, int arg) {
     Request* r = st.request;
     if (r != 0)
         r->Release();
-    __security_check_cookie(frame.cookie);
 }

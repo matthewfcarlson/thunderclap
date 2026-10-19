@@ -12,8 +12,8 @@ struct Link1_148730 { Link2_148730* FUN_00059a30(); };
 struct Actor_148730 { Link1_148730* FUN_000592a0(Item_148730*); void FUN_00059760(Manager_148730*); };
 struct Source_148730 { char pad[16]; void** value; };
 struct Builder_148730 {};
-// equiv-conv: FUN_00148580 ecx esi
-void FUN_00148580(Builder_148730*, Local_148730*);
+// equiv-conv: FUN_00148580 ecx esi edi
+void FUN_00148580(Builder_148730*, Local_148730*, void*);
 extern "C" Builder_148730* __cdecl FUN_0005a470(Actor_148730*);
 extern "C" Source_148730* __cdecl FUN_0005a430(Actor_148730*);
 extern "C" void* __cdecl FUN_0005a3f0(Actor_148730*);
@@ -25,7 +25,7 @@ int hulkfight::motion::GrappleHitReactionTrack::vfunc_9(int , int , int __p2) { 
 
 if (!FUN_00344e74(actor,0,&DAT_00494b44,&DAT_00494b60,0)) return 1;
 Local_148730 local; local.FUN_00059820();
-FUN_00148580(FUN_0005a470(actor), &local);
+FUN_00148580(FUN_0005a470(actor), &local, this);
 Item_148730* item = (Item_148730*)FUN_0008d690(0xb0);
 if (item) item = item->FUN_000598e0(*FUN_0005a430(actor)->value,&local);
 item->v0();

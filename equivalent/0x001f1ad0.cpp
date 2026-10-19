@@ -1,11 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2853 inputs, branch coverage 11/12, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19025 inputs, branch coverage 11/12, incomplete)
 // FUN_001f1ad0 @ 0x001f1ad0
+// cl-flags: /GS
 #include "decls/data/game/unknown.h"
 
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" void * __cdecl memset(void *, int, unsigned int);
 extern "C" char * __cdecl strcat(char *, const char *);
-extern unsigned int DAT_004d9968;
 
 class Mgr_1f1ad0 {
 public:
@@ -23,13 +22,11 @@ void *__cdecl FUN_0008d710(int size, int tag);
 struct Frame_1f1ad0 {
     Mgr_1f1ad0 *mgr;
     char buf[0x40];
-    unsigned int cookie;
 };
 
 void __stdcall FUN_001f1ad0(const char *name, int b, int c)
 {
     Frame_1f1ad0 f;
-    f.cookie = DAT_004d9968;
     if (name != 0) {
         if (b != 0) {
             f.mgr = (*(Mgr_1f1ad0**)&DAT_004e3710);
@@ -41,5 +38,4 @@ void __stdcall FUN_001f1ad0(const char *name, int b, int c)
             }
         }
     }
-    __security_check_cookie(f.cookie);
 }

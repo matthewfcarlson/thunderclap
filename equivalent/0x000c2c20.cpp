@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 66/66)
+// STATUS: equivalent (tools/equiv.py level 3: 20017 inputs, branch coverage 66/66)
 // FUN_000c2c20 @ 0x000c2c20
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 extern char DAT_0049dba4[];
 extern char DAT_0049dab8[];
 extern char DAT_0049db1c[];
@@ -122,25 +121,20 @@ void MovesMenu::F()
     Name_c2c20 *nameDesc;
     const char *image;
     __declspec(align(8)) char buf[0x100];
-    unsigned int cookie = DAT_004d9968;
 
     if (!p4c) {
-        __security_check_cookie(cookie);
         return;
     }
     Unlockable *unl = (Unlockable *)FUN_00344e74(p4c->FUN_00092ad0(0x266), 0, DAT_0049dab8, DAT_0049db1c, 0);
     if (!unl) {
-        __security_check_cookie(cookie);
         return;
     }
     const char *name = unl->FUN_00092040();
     if (!name) {
-        __security_check_cookie(cookie);
         return;
     }
     Widget_c2c20 *sel = (Widget_c2c20 *)FUN_00344e74(FUN_000fc260(name), 0, DAT_0049dba4, DAT_0049dbbc, 0);
     if (!sel || !sel->p1d58 || sel->sel == -1) {
-        __security_check_cookie(cookie);
         return;
     }
     int idx = sel->sel;
@@ -151,7 +145,6 @@ void MovesMenu::F()
         idx--;
     }
     if (!FUN_00344e74(FUN_000fc260(name), 0, DAT_0049dba4, DAT_0049dbbc, 0)) {
-        __security_check_cookie(cookie);
         return;
     }
     A.FUN_0027af00();
@@ -175,7 +168,6 @@ void MovesMenu::F()
             C.FUN_0027af50();
             B.FUN_0027af50();
             A.FUN_0027af50();
-            __security_check_cookie(cookie);
             return;
         }
         combo = u2->FUN_00092050();
@@ -272,5 +264,4 @@ void MovesMenu::F()
     C.FUN_0027af50();
     B.FUN_0027af50();
     A.FUN_0027af50();
-    __security_check_cookie(cookie);
 }

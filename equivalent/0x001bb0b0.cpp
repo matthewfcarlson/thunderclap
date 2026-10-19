@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2676 inputs, branch coverage 44/44)
+// STATUS: equivalent (tools/equiv.py level 3: 4913 inputs, branch coverage 44/44)
 // FUN_001bb0b0 @ 0x001bb0b0
+// cl-flags: /GS
 // FUN_001bb0b0 @ 0x001bb0b0: draw an error / status message on the screen
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/data/engine/pure3d/prop.h"
@@ -7,7 +8,6 @@
 #include "decls/data/game/unknown.h"
 #include "decls/data/platform/xbox/core.h"
 
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl sprintf(char *, const char *, ...);
 extern "C" unsigned int __cdecl strlen(const char *);
 void *thunk_FUN_0008d690(unsigned int size);
@@ -194,7 +194,6 @@ struct Globals_1bb0b0 {
     Replay_1bb0b0 *replay;
 };
 
-extern unsigned int DAT_004d9968;
 extern Globals_1bb0b0 *DAT_004dd700;
 extern Device_1bb0b0 *DAT_0052c2a8;
 
@@ -210,7 +209,6 @@ struct Frame_1bb0b0 {
     char msg[0x100];               // 0x14
     unsigned short text[0x200];    // 0x114
     unsigned short line[0x200];    // 0x514
-    unsigned int cookie;           // 0x914
 };
 
 inline void *operator new(unsigned int, void *p) throw() { return p; }
@@ -218,7 +216,6 @@ inline void *operator new(unsigned int, void *p) throw() { return p; }
 void __cdecl FUN_001bb0b0(const char *code)
 {
     Frame_1bb0b0 f;
-    f.cookie = DAT_004d9968;
     if (DAT_004dd700 && DAT_004dd700->replay && DAT_004dd700->replay->FUN_00086330()) {
         DAT_004dd700->replay->FUN_00086330()->FUN_000afe80();
         FUN_002684c0();
@@ -302,5 +299,4 @@ void __cdecl FUN_001bb0b0(const char *code)
     DAT_0052c2a8->v54(1);
     DAT_0052c2a8->v58(1);
     (*(Banner**)&DAT_0052c2b4)->FUN_0028faf0(1);
-    __security_check_cookie(f.cookie);
 }

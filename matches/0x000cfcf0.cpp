@@ -1,9 +1,12 @@
 #include "decls/address.h"
-extern void __stdcall FUN_001d0480(int, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(int, int);
+    virtual void v_001d0480();
+};
 extern char g1_cfcf0[], g2[], g3[];
-class B_cfcf0 {
+class B_cfcf0 : public CtorV_001d0480 {
   public:
-    B_cfcf0(int x) { FUN_001d0480(x, 2); }
+    B_cfcf0(int x) : CtorV_001d0480(x, 2) { }
 };
 class Method2 : public B_cfcf0 {
   public:

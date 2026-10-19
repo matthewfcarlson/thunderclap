@@ -23,7 +23,8 @@ struct ExpDesc_21ccb0 {
 
 void __cdecl FUN_00221190(FuncState* fs, int x);
 int __cdecl FUN_0021bbc0(LexState_21ccb0* ls, int* seminfo);
-int __cdecl FUN_0021c3d0();
+// equiv-conv: FUN_0021c3d0 esi
+int __cdecl FUN_0021c3d0(LexState_21ccb0* ls);
 int __cdecl FUN_002209b0(FuncState* fs, int v);
 int __cdecl FUN_002216e0(FuncState* fs, int x, ExpDesc_21ccb0* e, FuncState* fs2, int v);
 
@@ -41,7 +42,7 @@ int FUN_0021ccb0(LexState_21ccb0* ls, int x)
         ls->token = FUN_0021bbc0(ls, &ls->seminfo);
     }
     ExpDesc_21ccb0 e;
-    int v = FUN_0021c3d0();
+    int v = FUN_0021c3d0(ls);
     e.info = FUN_002209b0(ls->fs, v);
     e.k = 4;
     e.t = -1;

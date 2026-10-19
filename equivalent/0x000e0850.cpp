@@ -72,7 +72,8 @@ public:
 };
 
 
-void __cdecl FUN_000e07c0(Vec3_e0850 a, Vec3_e0850 b, int color);
+// equiv-conv: FUN_000e07c0 esi stack stack stack
+void __cdecl FUN_000e07c0(int handle, Vec3_e0850 a, Vec3_e0850 b, int color);
 
 /* Draws the outline of a quad in debug lines. */
 int __cdecl FUN_000e0850(Vec3_e0850 p0, Vec3_e0850 p1, Vec3_e0850 p2, Vec3_e0850 p3, int color, int arg)
@@ -85,10 +86,10 @@ int __cdecl FUN_000e0850(Vec3_e0850 p0, Vec3_e0850 p1, Vec3_e0850 p2, Vec3_e0850
 
     int handle = DAT_0052c2a8->vfunc_30((*(Texture**)&DAT_004de954), arg, 0x2020, 8, 0);
     if (handle) {
-        FUN_000e07c0(p0, p1, color);
-        FUN_000e07c0(p1, p3, color);
-        FUN_000e07c0(p3, p2, color);
-        FUN_000e07c0(p2, p0, color);
+        FUN_000e07c0(handle, p0, p1, color);
+        FUN_000e07c0(handle, p1, p3, color);
+        FUN_000e07c0(handle, p3, p2, color);
+        FUN_000e07c0(handle, p2, p0, color);
     }
     return DAT_0052c2a8->vfunc_31(handle);
 }

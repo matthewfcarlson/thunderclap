@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 41/46, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 6070 inputs, branch coverage 43/46, incomplete)
 // FUN_000c1790 @ 0x000c1790
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 inline void* operator new(unsigned int, void* p) throw() { return p; }
@@ -7,8 +8,6 @@ inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" int strncmp(const char* a, const char* b, unsigned int n);
 extern "C" int strcmp(const char* a, const char* b);
 extern "C" char* strncpy(char* d, const char* s, unsigned int n);
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 namespace pure3d { class TextureFont; }
 
@@ -69,7 +68,6 @@ struct Frame_c1790 {
     int oldMode;
     char path[0x40];
     unsigned short text[0x100];
-    unsigned int cookie;
 };
 
 class FrontEnd_c1790 {
@@ -86,7 +84,6 @@ public:
 bool FrontEnd_c1790::FUN_000c1790(const char* code)
 {
     Frame_c1790 f;
-    f.cookie = DAT_004d9968;
     f.self = this;
     f.oldMode = FUN_00266da0(0xe);
     f.ui = FUN_000fc1b0();
@@ -169,6 +166,5 @@ bool FrontEnd_c1790::FUN_000c1790(const char* code)
         }
     }
     FUN_00266da0(f.oldMode);
-    __security_check_cookie(f.cookie);
     return true;
 }

@@ -1,11 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 34/34)
+// STATUS: equivalent (tools/equiv.py level 3: 11838 inputs, branch coverage 34/34)
 // FUN_001ed0b0 @ 0x001ed0b0
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/hulkfight.h"
 extern "C" double sqrt(double);
 extern "C" char * __cdecl strcat(char *, const char *);
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 
 
@@ -49,7 +48,6 @@ struct Frame_1ed0b0 {
     float ground;           // 0x20
     float groundCopy;       // 0x24
     char buf[16];           // 0x28
-    unsigned int cookie;    // 0x38
 };
 
 class Footsteps {
@@ -61,7 +59,6 @@ public:
 void Footsteps::FUN_001ed0b0(Actor_1ed0b0 *a)
 {
     Frame_1ed0b0 f;
-    f.cookie = DAT_004d9968;
     f.self = this;
     f.scale = 2.0f;
     __int64 id = a->anim->FUN_000443c0();
@@ -115,5 +112,4 @@ void Footsteps::FUN_001ed0b0(Actor_1ed0b0 *a)
     } else if (ry > thr) {
         a->rightDown = 0;
     }
-    __security_check_cookie(f.cookie);
 }

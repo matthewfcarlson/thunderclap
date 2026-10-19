@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 8/8)
 // FUN_00205860 @ 0x00205860
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl _sprintf(char *buf, const char *fmt, ...);
 
 struct Marker_205860 {
@@ -25,9 +24,7 @@ void District_205860::FUN_00205860(int id)
 {
     struct Frame {
         char label[0x100];
-        unsigned int cookie;
     } fr;
-    fr.cookie = DAT_004d9968;
     for (int i = 0; i < 2; i++) {
         if (ids[i] != id)
             continue;
@@ -39,5 +36,4 @@ void District_205860::FUN_00205860(int id)
         }
         break;
     }
-    __security_check_cookie(fr.cookie);
 }

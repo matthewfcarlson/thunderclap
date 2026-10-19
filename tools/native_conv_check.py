@@ -24,6 +24,12 @@ code the tree calls by address) say each import's convention and argument bytes.
   5. register orders: functions the original calls in registers (`// equiv-conv: FUN_x eax stack` notes, read by
                equiv.py) must list their parameters in the same order in every caller as in their own source:
                natively all of them are __cdecl (fx: 0x0026c040 called 0x0026be70 with (size, arena)).
+  9. note conventions (with --returns): a caller's `// equiv-conv` note for a function whose verified definition has
+               no note of its own: the definition's real convention (its symbol in the tree build's report) decides
+               what the native call must be. A __fastcall or thiscall definition takes ecx/edx natively, so a caller
+               declaring it __cdecl with a register note pushes the words the definition reads from registers (and a
+               thiscall/stdcall callee pops them again): fx native7, index2adr 0x00212bb0 called from lua_type. A
+               __cdecl definition with a register note in a caller reads its parameters from the stack.
   4. --tails:  a function whose original tail-jumps (`jmp rel32`) to a callee-popping import pops those bytes
                itself, so its source must declare a callee-pops convention; compiles each candidate with
                tools/compare.py and reads its mangled name (slow: off by default).
@@ -354,7 +360,7 @@ def check_tails(imps, roots=("matches", "equivalent")):
     return bad, len(cands)
 
 
-CONV_NOTE = re.compile(r"//\s*equiv-conv:\s*(\S+)\s+([^\n]*)")
+CONV_NOTE = re.compile(r"//[ \t]*equiv-conv:[ \t]*(\S+)[ \t]+([^\n]*)")
 
 
 def check_register_orders(roots=("matches", "equivalent")):
@@ -376,9 +382,10 @@ def check_register_orders(roots=("matches", "equivalent")):
                 continue
             for name, locs in CONV_NOTE.findall(txt):
                 am = re.search(r"(?:FUN|thunk_FUN)_(00[0-9a-fA-F]{6})", name)
-                if not am:
+                if not am and not re.fullmatch(r"(?:\w+::)*(?:target|run|vfunc_\d+|\w+_[0-9a-fA-F]{5,6})", name):
                     continue
-                a = int(am.group(1), 16)
+                # a note naming no address (`target`, `run`: the source's own function) is the file's own
+                a = int(am.group(1), 16) if am else int(m.group(1), 16)
                 locs = tuple(locs.split())
                 if a == int(m.group(1), 16):
                     own[a] = ("%s/%s" % (root, fn), locs)
@@ -413,6 +420,60 @@ def check_register_orders(roots=("matches", "equivalent")):
 
 
 TREE_REPORT = os.path.join(ROOT, "build/tree/report.json")
+
+
+def check_note_conventions(roots=("matches", "equivalent"), tree_report=TREE_REPORT):
+    """Check 9: callers' equiv-conv notes for definitions without a note of their own, against the definition's
+    convention (tree report symbol). Returns (notes checked, [findings])."""
+    rep = json.load(open(tree_report))
+    defs = {}
+    for c in rep["checks"]:
+        if c.get("symbol") and c["status"] in ("match", "compiled"):
+            defs[int(c["addr"], 16)] = (c["symbol"], c["src"])
+    own, notes, pos_in_class = set(), [], {}
+    for root in roots:
+        rd = os.path.join(ROOT, root)
+        for fn in sorted(os.listdir(rd)):
+            m = re.fullmatch(r"0x([0-9a-fA-F]{8})\.cpp", fn)
+            if not m:
+                continue
+            txt = open(os.path.join(rd, fn), errors="replace").read()
+            if "equiv-conv" not in txt:
+                continue
+            me = int(m.group(1), 16)
+            for mm in re.finditer(r"//[ \t]*equiv-conv:[ \t]*(\S+)[ \t]+([^\n]*)\n([^\n]*)", txt):
+                am = re.search(r"(?:FUN|thunk_FUN)_(00[0-9a-fA-F]{6})", mm.group(1))
+                if not am and not re.fullmatch(r"(?:\w+::)*(?:target|run)", mm.group(1)):
+                    continue
+                a = int(am.group(1), 16) if am else me
+                if a == me:
+                    own.add(a)
+                else:
+                    notes.append((a, "%s/%s" % (root, fn), mm.group(2).split(), mm.group(3).strip()))
+                    pos_in_class[("%s/%s" % (root, fn), a)] = in_class_body(strip_comments(txt[:mm.end()]) + " ", len(strip_comments(txt[:mm.end()])))
+    bad, n = [], 0
+    for a, f, locs, nxt in notes:
+        if a in own or a not in defs:
+            continue
+        n += 1
+        sym, src = defs[a]
+        conv = symbol_conv(sym)
+        regs = [l for l in locs if l != "stack"]
+        why = None
+        member = bool(re.match(r"\s*(?:virtual\s+)?[\w:<>*&\s]*\b(?:FUN|thunk_FUN)_%08x\s*\(" % a, nxt)) and \
+            not re.search(r"\b(?:extern|__cdecl|__stdcall|static)\b", nxt) and pos_in_class.get((f, a))
+        if conv == "fastcall" and "__fastcall" in nxt or conv == "thiscall" and member:
+            continue
+        if conv in ("fastcall", "thiscall"):
+            why = "%s definition (%s), the caller declares a note (%s)" % (conv, sym[:60], " ".join(locs))
+        elif conv in ("cdecl", "stdcall") and regs:
+            why = "%s definition (%s) reads the stack, the caller's note passes %s" % (conv, sym[:60], " ".join(regs))
+        if why:
+            bad.append(dict(addr="0x%08x" % a, file=f, definition=src, conv=" ".join(locs), definition_conv=conv,
+                            decl=nxt[:120], why=why))
+    return n, bad
+
+
 X87_PUSH = {"fld", "fild", "fldz", "fld1", "fldpi", "fldl2e", "fldl2t", "fldlg2", "fldln2", "fbld"}
 X87_NEUTRAL = {"fldcw", "fnstcw", "fstcw", "fnstsw", "fstsw", "fwait", "wait", "fnclex", "fclex", "finit", "fninit",
                "ffree", "fincstp", "fdecstp", "fnop", "fnstenv", "fldenv", "fnsave", "frstor"}
@@ -764,6 +825,140 @@ def check_definition_convs(path=BINDINGS):
     return dict(pairs.most_common()), bad
 
 
+def _call_shape(sym, dem):
+    """(convention, register words, stack bytes) of a function symbol as the native call passes it; None if the
+    parameter bytes can't be told (a C name without decoration, a class by value). A thiscall passes `this` in ecx,
+    a fastcall its first two dword parameters in ecx/edx."""
+    conv = symbol_conv(sym)
+    if not conv:
+        return None
+    m = re.match(r"[_@](\w+)@(\d+)$", sym)
+    if m:
+        nb = int(m.group(2))
+        if conv == "fastcall":
+            return conv, min(2, nb // 4), max(0, nb - 8)
+        return conv, 0, nb
+    if not sym.startswith("?"):
+        return None
+    d = dem.get(sym, "")
+    mm = re.search(r"\b(__cdecl|__stdcall|__thiscall|__fastcall)\b", d)
+    if not mm:
+        return None
+    rest = d[mm.end():]
+    i = rest.find("(")
+    if i < 0:
+        return None
+    depth, j = 0, i
+    for j in range(i, len(rest)):
+        depth += {"(": 1, ")": -1}.get(rest[j], 0)
+        if depth == 0:
+            break
+    params = rest[i + 1:j]
+    for prm in re.split(r",(?![^<]*>)", params):
+        if re.match(r"\s*(struct|class|union)\b", prm) and "*" not in prm and "&" not in prm:
+            return None
+    nb, n = param_bytes(params)
+    if nb is None:
+        return None
+    if conv == "thiscall":
+        return conv, 1, nb
+    if conv == "fastcall":
+        return conv, min(2, n), max(0, nb - 4 * min(2, n))
+    return conv, 0, nb
+
+
+_PROG = {}
+
+
+def _def_reads(addr):
+    """The caller-saved registers the original function at addr reads before writing them (equiv.py's analysis,
+    imported read-only); None if unknown."""
+    if "p" not in _PROG:
+        try:
+            sys.path.insert(0, os.path.join(ROOT, "tools"))
+            import equiv
+            _PROG["p"] = equiv.Program.get()
+        except Exception:  # noqa: BLE001
+            _PROG["p"] = None
+    p = _PROG["p"]
+    if p is None:
+        return None
+    try:
+        r = p.reg_inputs(addr)
+    except Exception:  # noqa: BLE001
+        return None
+    return set(r) if r is not None else None
+
+
+def classify_definition_convs(path=BINDINGS, objects_rsp=None):
+    """Check 8, split: each caller symbol whose convention differs from its definition's, as the machine call:
+    `identical` (same registers, same stack words, same cleanup: a cdecl caller of a stdcall definition without
+    stack arguments, a thiscall caller of a one-dword fastcall, ...), `changing` (natively the definition reads a
+    register the caller doesn't set, or the stack is cleaned up twice / not at all), `unknown` (parameter bytes not
+    in the names). Only symbols some call relocates (objects.rsp next to bindings.json) count.
+    Returns ({class: count}, {pair: {class: count}}, [changing details])."""
+    if not os.path.exists(path):
+        return {}, {}, []
+    bj = json.load(open(path))
+    b = bj["bindings"]
+    objects_rsp = objects_rsp or os.path.join(os.path.dirname(path), "link", "objects.rsp")
+    called = rel32_symbols(objects_rsp) if os.path.exists(objects_rsp) else None
+    todo = []
+    for s, v in sorted(b.items()):
+        d = v.get("def")
+        if not d or d == s or "@@6B" in s or "@@3" in s:
+            continue
+        a, c = symbol_conv(s), symbol_conv(d)
+        if a and c and a != c and (called is None or s in called):
+            todo.append((s, d, v["addr"]))
+    names = sorted({x for s, d, _a in todo for x in (s, d) if x.startswith("?")})
+    dem = {}
+    if names:
+        out = subprocess.run(["/opt/homebrew/opt/llvm/bin/llvm-undname"], input="\n".join(names) + "\n",
+                             capture_output=True, text=True, errors="replace").stdout.splitlines()
+        for i in range(len(out) - 1):
+            if out[i] in names and out[i] not in dem:
+                dem[out[i]] = out[i + 1]
+    counts, by_pair, bad = collections.Counter(), collections.defaultdict(collections.Counter), []
+    for s, d, addr in todo:
+        cs, cd = _call_shape(s, dem), _call_shape(d, dem)
+        pair = "%s caller, %s definition" % (symbol_conv(s), symbol_conv(d))
+        if cs is None or cd is None:
+            cls = "unknown"
+            # the definition's own shape alone can still prove a difference (it reads ecx, the caller can't set it)
+            if cd and cd[1] and cs is None and symbol_conv(s) in ("cdecl", "stdcall"):
+                cls = "changing"
+        else:
+            conv_s, regs_s, st_s = cs
+            conv_d, regs_d, st_d = cd
+            # the machine call: the caller sets regs_s of (ecx, edx) and pushes st_s bytes; the definition reads
+            # regs_d registers and st_d stack bytes. Both sides were verified against the original, so the same
+            # words at the same places are the same values; what differs natively is a register the caller
+            # doesn't set, stack words it doesn't push, or a cleanup the other side doesn't expect.
+            pops_s = st_s if conv_s != "cdecl" else 0        # what the caller expects the callee to pop
+            pops_d = st_d if conv_d != "cdecl" else 0        # what the callee pops
+            reads = _def_reads(int(addr, 16))
+            if reads is not None:
+                # the definition's register parameters it really reads (the original's code): an unnamed
+                # `void*` second fastcall parameter (Normalize) is never read
+                order = ["ecx", "edx"]
+                regs_d = max([order.index(r) + 1 for r in reads if r in order] or [0])
+            if regs_d > regs_s:
+                cls = "changing"            # it reads a register the caller doesn't set (ecx: `this`)
+            elif st_d > st_s:
+                cls = "changing"            # it reads stack words the caller doesn't push
+            elif pops_s != pops_d:
+                cls = "changing"            # the stack is cleaned up twice, or not at all
+            else:
+                cls = "identical"
+        counts[cls] += 1
+        by_pair[pair][cls] += 1
+        if cls == "changing":
+            bad.append(dict(symbol=s, definition=d, addr=addr, caller=cs, definition_shape=cd,
+                            demangled=dem.get(s, s)[:140], definition_demangled=dem.get(d, d)[:140]))
+    return dict(counts), {k: dict(v) for k, v in by_pair.items()}, bad
+
+
 def run(sources=True, bindings=True, xbe=True, tails=False, roots=("matches", "equivalent"), bindings_path=BINDINGS,
         returns=False, tree_report=TREE_REPORT, pops=False):
     """All checks; a JSON-able summary (counts and findings)."""
@@ -786,6 +981,8 @@ def run(sources=True, bindings=True, xbe=True, tails=False, roots=("matches", "e
         n, bad = check_pops(bindings_path)
         rep["pops"] = {"symbols": n, "disagreeing": bad}
     if returns and os.path.exists(tree_report):
+        n, bad = check_note_conventions(roots, tree_report)
+        rep["note_convs"] = {"notes": n, "disagreeing": bad}
         n, bad, helpers = check_returns(roots, tree_report)
         rep["returns"] = {"definitions": n, "disagreeing": bad}
         rep["x87_helpers"] = {"disagreeing": helpers}
@@ -841,6 +1038,12 @@ def main(argv=None):
         s = rep["definition_convs"]
         print("caller symbols in another convention than their definition: %s; cdecl/stdcall callers of a thiscall "
               "definition: %d" % (s["pairs"], len(s["disagreeing"])))
+    if "note_convs" in rep:
+        s = rep["note_convs"]
+        print("callers' notes for definitions without one: %d; whose definition's convention disagrees: %d" % (
+            s["notes"], len(s["disagreeing"])))
+        for x in s["disagreeing"]:
+            print("  %s %s: %s  [%s]" % (x["addr"], x["file"], x["conv"], x["why"]))
     if "returns" in rep:
         s = rep["returns"]
         print("verified definitions with a return kind: %d; whose original callers use a result they don't return: %d"

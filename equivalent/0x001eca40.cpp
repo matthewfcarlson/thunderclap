@@ -1,13 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 16/16)
 // FUN_001eca40 @ 0x001eca40
-extern unsigned int DAT_004d9968;
-// equiv-conv: __security_check_cookie ecx
-void __security_check_cookie(unsigned int);
+// cl-flags: /GS
 struct Detail_1eca40 { char pad[0x14]; int type; };
 struct Object { char pad[0x11c]; Detail_1eca40* detail; };
 struct Controller_1eca40 { void FUN_001ec980(Object*, const char*); void FUN_001eca40(Object*,Object*,const char*); };
 void Controller_1eca40::FUN_001eca40(Object* first, Object* second, const char* sound) {
- unsigned int cookie = DAT_004d9968;
  if (first && first->detail && second && second->detail) {
  FUN_001ec980(first,sound);
  char selected[16] = {0};
@@ -24,5 +21,4 @@ void Controller_1eca40::FUN_001eca40(Object* first, Object* second, const char* 
  do { selected[i]=source[i]; } while(source[i++] != 0);
  FUN_001ec980(second,selected);
  }
- __security_check_cookie(cookie);
 }

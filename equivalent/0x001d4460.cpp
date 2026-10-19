@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 10265 inputs, branch coverage 0/0)
 // FUN_001d4460 @ 0x001d4460
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 struct Request {
     int kind;
     char first[64];
@@ -18,7 +17,6 @@ struct Owner_1d4460 {
     void target(int id, const char* a, const char* b, const char* c);
 };
 void Owner_1d4460::target(int id, const char* a, const char* b, const char* c) {
-    unsigned int cookie = DAT_004d9968;
     Request request;
     request.FUN_001d1630();
     request.kind = 3;
@@ -26,5 +24,4 @@ void Owner_1d4460::target(int id, const char* a, const char* b, const char* c) {
     FUN_000964a0(request.second, 64, "%s", b);
     FUN_000964a0(request.third, 64, "%s", c);
     FUN_001d2190(id, request, context);
-    __security_check_cookie(cookie);
 }

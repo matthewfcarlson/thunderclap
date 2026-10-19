@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 12/12)
 // FUN_00271b70 @ 0x00271b70
-// equiv-conv: FUN_002719a0 ecx edx
 #include "decls/data/engine/core.h"
 
-extern unsigned __int64 FUN_002719a0(int length, const unsigned char *text);
+extern unsigned __int64 __fastcall FUN_002719a0(int length, const unsigned char *text);
 int __cdecl FUN_00271b70(const unsigned char *text, int *length, int *value)
 {
     unsigned int first = *text;

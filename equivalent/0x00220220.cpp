@@ -9,7 +9,8 @@ struct LoadState_220220 {
     ZIO_220220 *Z;
 };
 int __cdecl FUN_0021a550(ZIO_220220 *z);
-void __cdecl FUN_0021f800(const char *msg);
+// equiv-conv: FUN_0021f800 esi stack
+void __cdecl FUN_0021f800(LoadState_220220 *S, const char *msg);
 
 // equiv-conv: FUN_00220220 eax
 void FUN_00220220(LoadState_220220 *S)
@@ -22,7 +23,7 @@ void FUN_00220220(LoadState_220220 *S)
         else
             c = FUN_0021a550(S->Z);
         if (c == -1)
-            FUN_0021f800("unexpected end of file");
+            FUN_0021f800(S, "unexpected end of file");
         if (c != *s)
             break;
         s++;
@@ -30,5 +31,5 @@ void FUN_00220220(LoadState_220220 *S)
             return;
     }
     if (*s != 0)
-        FUN_0021f800("bad signature");
+        FUN_0021f800(S, "bad signature");
 }

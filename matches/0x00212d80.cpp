@@ -6,7 +6,7 @@ struct Buf {
     Item* cur;
     Item* start;
 };
-void __cdecl FUN_00212d80(Buf* p, int n) {
+Buf* __cdecl FUN_00212d80(Buf* p, int n) {
     if (n >= 0) {
         n <<= 3;
         while ((unsigned)p->cur < (unsigned)((char*)p->start + n)) {
@@ -14,7 +14,8 @@ void __cdecl FUN_00212d80(Buf* p, int n) {
             p->cur = (Item*)((char*)p->cur + 8);
         }
         p->cur = (Item*)((char*)p->start + n);
-        return;
+        return p;
     }
     p->cur += n + 1;
+    return p;
 }

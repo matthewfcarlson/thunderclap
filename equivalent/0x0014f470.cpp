@@ -27,8 +27,8 @@ struct Context_14f470 {
 };
 extern void* __cdecl FUN_00344e74(Context_14f470*, int, void*, void*, int);
 extern void* __cdecl FUN_0008d690(unsigned int);
-// equiv-conv: FUN_0014f2f0 eax edi
-extern void FUN_0014f2f0(Context_14f470*, Temporary_14f470*);
+// equiv-conv: FUN_0014f2f0 eax esi edi
+extern void FUN_0014f2f0(Context_14f470*, void*, Temporary_14f470*);
 namespace hulkfight { namespace motion {
 
 }}
@@ -37,7 +37,7 @@ int hulkfight::motion::HitReactionFloatTrack::vfunc_9(int __p0, int __p1, int __
  if (!FUN_00344e74(context, 0, &DAT_00494b44, &DAT_00494b60, 0)) return 1;
  Temporary_14f470 temporary;
  temporary.FUN_00059820();
- FUN_0014f2f0(context, &temporary);
+ FUN_0014f2f0(context, (void*)this, &temporary);
  Reaction_14f470* allocation = (Reaction_14f470*)FUN_0008d690(0xb0);
  Reaction_14f470* reaction = allocation ? allocation->FUN_000598e0(context->owner, &temporary) : 0;
  reaction->slot0();

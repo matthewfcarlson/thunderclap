@@ -10,7 +10,8 @@ int __cdecl FUN_00213fa0(State*);
 Hook_33a880 __cdecl FUN_00213f90(State*);
 void __cdecl FUN_0033a620();
 void __cdecl FUN_00213380(State*, const char*, int);
-void __cdecl FUN_0033a740();
+// equiv-conv: FUN_0033a740 esi
+void __cdecl FUN_0033a740(State*);
 void __cdecl FUN_00213550(State*, State*);
 void __cdecl FUN_00213600(State*, int);
 void __cdecl FUN_00212de0(State*, int);
@@ -29,7 +30,7 @@ Hook_33a880 hook=FUN_00213f90(source);
 if(hook && hook != (Hook_33a880)FUN_0033a620) {
 FUN_00213380(state,"external hook",13);
 } else {
-FUN_0033a740();
+FUN_0033a740(source);
 FUN_00213550(source,source);
 FUN_00213600(source,-2);
 FUN_00212de0(source,-2);

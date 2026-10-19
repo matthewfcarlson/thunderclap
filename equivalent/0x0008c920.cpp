@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 15/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19964 inputs, branch coverage 15/16, incomplete)
 // FUN_0008c920 @ 0x0008c920
-extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 struct Object {
  virtual void v0(); virtual void release();
  virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10();
@@ -14,8 +13,7 @@ struct Object {
 struct State_8c920 { Object* object; char pad[0x58]; int state; char pad2[0x54]; int values[5]; };
 struct Manager_8c920 { char pad[8]; State_8c920* data; int FUN_0008c590(int, unsigned, int*); void target(); };
 void Manager_8c920::target() {
- struct Workspace { Object* item; int status; char buffer[260]; unsigned int cookie; } work;
- work.cookie = DAT_004d9968;
+ struct Workspace { Object* item; int status; char buffer[260];  } work;
  Object* root = data->object;
  if(root) {
  root->getState(&data->state);
@@ -40,5 +38,4 @@ void Manager_8c920::target() {
  }
  }
  }
- __security_check_cookie(work.cookie);
 }

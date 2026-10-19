@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 16486 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 4343 inputs, branch coverage 22/22)
 // FUN_00201850 @ 0x00201850
+// cl-flags: /GS
 extern "C" void *memset(void *dst, int c, unsigned int n);
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int cookie);
 
 class File {
 public:
@@ -73,13 +72,11 @@ struct Frame_201850 {
     char buf[0x100];       // 0x38
     char buf2[0x100];      // 0x138
     int pad238;            // 0x238 (unused)
-    unsigned int cookie;   // 0x23c
 };
 
 void FUN_00201850(Loader_201850 *l, Ctx_201850 *ctx)
 {
     Frame_201850 f;
-    f.cookie = DAT_004d9968;
     l->file->FUN_002647e0(&f.u18.a, 1, 4, 1);
     l->file->FUN_002647e0(&f.u18.a, 1, 4, 1);
     while (l->FUN_002669f0()) {
@@ -148,5 +145,4 @@ void FUN_00201850(Loader_201850 *l, Ctx_201850 *ctx)
         }
         l->FUN_00266be0();
     }
-    __security_check_cookie(f.cookie);
 }

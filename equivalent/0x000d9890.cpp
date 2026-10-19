@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 16480 inputs, branch coverage 4/4)
 // FUN_000d9890 @ 0x000d9890
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct View;
@@ -10,8 +11,6 @@ struct State_d9890 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d9890* FUN_00086280(); };
 struct Control_d9890 { void FUN_000bc9f0(const char*,int); };
     
-extern unsigned int DAT_004d9968;
-extern void __fastcall __security_check_cookie(unsigned int);
 extern void __cdecl FUN_000fc020(char*,int,int,int);
 struct Target_d9890 { char p0[0x150]; Control_d9890* control; char p1[0x21c-0x154]; int field21c; char p2[0x35c-0x220]; Item_d9890 items[2]; char p3[0x3eb-0x3cc]; unsigned char flag; Manager_d9890* FUN_000fc3d0(); void run(int); };
-void Target_d9890::run(int index) { char buffer[1024]; unsigned int cookie=DAT_004d9968; Manager_d9890* manager=FUN_000fc3d0(); View* view=manager->v44(); int a=view->FUN_000f7d30((*(const char**)&DAT_004a0cac)); int b=view->FUN_000f7220(a); int c=items[index].FUN_000f83f0(view,0); FUN_000fc020(buffer,512,b,c); const char* label; if(flag) label=(*(const char**)&DAT_004a0ce8); else { State_d9890* state=DAT_004dd6ec->FUN_00086280(); label=state->flag?(*(const char**)&DAT_004a0ce4):(*(const char**)&DAT_004a0ce0); } const char* value=(*(const char**)&DAT_004a0c60); manager->FUN_000be310(label,buffer,&DAT_003f335c,&DAT_003f335c,&DAT_003f335c,3,value,value); items[1].active=1; field21c=0; control->FUN_000bc9f0("DynamicControlButtonLabel",0); __security_check_cookie(cookie); }
+void Target_d9890::run(int index) { char buffer[1024];  Manager_d9890* manager=FUN_000fc3d0(); View* view=manager->v44(); int a=view->FUN_000f7d30((*(const char**)&DAT_004a0cac)); int b=view->FUN_000f7220(a); int c=items[index].FUN_000f83f0(view,0); FUN_000fc020(buffer,512,b,c); const char* label; if(flag) label=(*(const char**)&DAT_004a0ce8); else { State_d9890* state=DAT_004dd6ec->FUN_00086280(); label=state->flag?(*(const char**)&DAT_004a0ce4):(*(const char**)&DAT_004a0ce0); } const char* value=(*(const char**)&DAT_004a0c60); manager->FUN_000be310(label,buffer,&DAT_003f335c,&DAT_003f335c,&DAT_003f335c,3,value,value); items[1].active=1; field21c=0; control->FUN_000bc9f0("DynamicControlButtonLabel",0);  }

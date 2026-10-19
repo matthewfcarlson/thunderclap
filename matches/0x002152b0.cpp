@@ -19,7 +19,7 @@ struct lua_State {
 extern "C" __declspec(noreturn) void __cdecl _longjmp(void* env, int value);
 __declspec(noreturn) void __cdecl FUN_003471a3(int code);
 
-void __cdecl FUN_002152b0(lua_State* L, int errcode)
+lua_State* __cdecl FUN_002152b0(lua_State* L, int errcode)
 {
     if (L->errorJmp) {
         L->errorJmp->status = errcode;
@@ -28,4 +28,5 @@ void __cdecl FUN_002152b0(lua_State* L, int errcode)
     if (L->l_G->panic)
         L->l_G->panic(L);
     FUN_003471a3(1);
+    return L;
 }

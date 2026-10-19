@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 4/4)
 // CNISCamera::vfunc_35 @ 0x000ac420
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 
 class Lens {
 public:
@@ -51,11 +50,10 @@ public:
 
 void CNISCamera::vfunc_35(int a, int b, int c, int d)
 {
-    unsigned int cookie = DAT_004d9968;
+    char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     if (!locked && lens != 0) {
         SetMode(lens->Mode());
         FUN_000a9090(lens->fov * 57.2957764f);
         CGameCamera::vfunc_35(a, b, c, d);
     }
-    __security_check_cookie(cookie);
 }

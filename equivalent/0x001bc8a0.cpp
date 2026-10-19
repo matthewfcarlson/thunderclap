@@ -63,8 +63,8 @@ extern "C" void __stdcall FUN_00011520(void *arr, unsigned int size, int count, 
 
 // equiv-conv: FUN_001bc530 esi stack
 void FUN_001bc530(V4_1bc8a0 *q, V3_1bc8a0 *v);
-// equiv-conv: FUN_001bc5b0 edi stack
-void FUN_001bc5b0(V3_1bc8a0 *pos, float a);
+// equiv-conv: FUN_001bc5b0 eax edi stack
+void FUN_001bc5b0(V4_1bc8a0 *q, V3_1bc8a0 *pos, float a);
 
 void FUN_001bc8a0(Obj_1bc8a0 *obj, V4_1bc8a0 *q)
 {
@@ -78,10 +78,10 @@ void FUN_001bc8a0(Obj_1bc8a0 *obj, V4_1bc8a0 *q)
             t = t - obj->c.f54;
         p = obj->pos;
         p.FUN_00011160(t, (V3_1bc8a0 *)&obj->dx);
-        FUN_001bc5b0(&p, obj->c.f54);
+        FUN_001bc5b0(q, &p, obj->c.f54);
         p = obj->pos;
         p.FUN_00011160(-t, (V3_1bc8a0 *)&obj->dx);
-        FUN_001bc5b0(&p, obj->c.f54);
+        FUN_001bc5b0(q, &p, obj->c.f54);
         break;
     }
     case 5: {
@@ -95,7 +95,7 @@ void FUN_001bc8a0(Obj_1bc8a0 *obj, V4_1bc8a0 *q)
     case 7: {
         float a = obj->f34;
         V3_1bc8a0 *pos = obj->v4();
-        FUN_001bc5b0(pos, a);
+        FUN_001bc5b0(q, pos, a);
         break;
     }
     case 4: {

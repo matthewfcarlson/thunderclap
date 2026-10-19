@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 181 inputs, branch coverage 67/68, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20036 inputs, branch coverage 68/68)
 // FUN_000b7ff0 @ 0x000b7ff0
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 
 class Manager_b7ff0 { public: char pad[4]; };
 
@@ -45,7 +44,6 @@ public:
 
 void HintMenu_b7ff0::FUN_000b7ff0()
 {
-    unsigned int cookie = DAT_004d9968;
     char buf[0x40];
 
     TextWindow* text = dynamic_cast<TextWindow*>(FUN_000fc260("hint_text"));
@@ -81,5 +79,4 @@ void HintMenu_b7ff0::FUN_000b7ff0()
             }
         }
     }
-    __security_check_cookie(cookie);
 }

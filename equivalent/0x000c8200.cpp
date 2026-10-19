@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 11882 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 11572 inputs, branch coverage 6/6)
 // FUN_000c8200 @ 0x000c8200
+// cl-flags: /GS
 #include "decls/address.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 struct Vec3 { float x, y, z; };
 
@@ -67,9 +66,7 @@ int Obj_c8200::FUN_000c8200(int a0, unsigned int *a1, float a2, float a3, float 
         Key keyA;
         Matrix m;
         char name[0x40];
-        unsigned int cookie;
     } f;
-    f.cookie = DAT_004d9968;
     int r = -1;
     int i;
     for (i = 0; i < 32; i++) {
@@ -108,6 +105,5 @@ int Obj_c8200::FUN_000c8200(int a0, unsigned int *a1, float a2, float a3, float 
         r = i;
         break;
     }
-    __security_check_cookie(f.cookie);
     return r;
 }

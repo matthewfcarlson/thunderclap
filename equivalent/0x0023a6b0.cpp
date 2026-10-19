@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2538 inputs, branch coverage 85/102, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 1656 inputs, branch coverage 84/102, incomplete)
 // FUN_0023a6b0 @ 0x0023a6b0
-extern "C" unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 extern "C" int isalpha(int c);
 extern "C" int isalnum(int c);
 extern "C" int isdigit(int c);
@@ -63,7 +62,6 @@ public:
 
 void Tokenizer::FUN_0023a6b0()
 {
-    unsigned int cookie = DAT_004d9968;
     char buf[256];
     int old = FUN_00266da0(FUN_00238190(1));
 
@@ -157,7 +155,6 @@ void Tokenizer::FUN_0023a6b0()
                     name120.FUN_0027b040(buf);
                     f128 = ws;
                     FUN_00266da0(old);
-                    __security_check_cookie(cookie);
                     return;
                 } else {
                     int idx = FUN_0023a660(buf);
@@ -205,5 +202,4 @@ void Tokenizer::FUN_0023a6b0()
         } while (!stream->eof());
     }
     FUN_00266da0(old);
-    __security_check_cookie(cookie);
 }

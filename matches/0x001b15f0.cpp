@@ -1,11 +1,14 @@
 typedef unsigned char u8;
-void __stdcall init(int, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(int, int);
+    virtual void v_001d0480();
+};
 u8 __cdecl query(const char*);
 extern const char a[];
 extern const char b[];
-class Base {
+class Base : public CtorV_001d0480 {
   public:
-    Base(int n) { init(n, 2); }
+    Base(int n) : CtorV_001d0480(n, 2) { }
 };
 class Function2 : public Base {
   public:

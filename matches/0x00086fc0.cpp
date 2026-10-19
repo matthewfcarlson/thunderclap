@@ -2,8 +2,10 @@
 #include "decls/data/game/global.h"
 extern "C" char DAT_003ffb80[];
 extern "C" char DAT_0048e10c[];
-extern void __stdcall FUN_001d0480(void*, int);
-class Target_86fc0 {
+struct Ctor_001d0480 {
+    Ctor_001d0480(void*, int);
+};
+class Target_86fc0 : public Ctor_001d0480 {
   public:
     int vt;
     char pad04[12];
@@ -12,8 +14,7 @@ class Target_86fc0 {
     void* member1c;
     Target_86fc0(void*, void*);
 };
-Target_86fc0::Target_86fc0(void* a, void* b) {
-    FUN_001d0480(a, 4);
+Target_86fc0::Target_86fc0(void* a, void* b) : Ctor_001d0480(a, 4) {
     vt = ((int)DAT_003ffb80);
     member1c = b;
     b18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0e4)));

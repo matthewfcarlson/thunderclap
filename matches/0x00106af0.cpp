@@ -1,9 +1,12 @@
-extern "C" void __stdcall fun(const char*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(const char*, int);
+    virtual void v_001d0480();
+};
 extern "C" unsigned char __cdecl look(const char*);
 extern const char s1_106af0[], s2[], s3[], s4[];
-class Base_106af0 {
+class Base_106af0 : public CtorV_001d0480 {
   public:
-    Base_106af0(const char* name) { fun(name, 3); }
+    Base_106af0(const char* name) : CtorV_001d0480(name, 3) { }
 };
 class Method3 : public Base_106af0 {
   public:

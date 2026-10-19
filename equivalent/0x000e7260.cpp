@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 33 inputs, branch coverage 38/44, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 120 inputs, branch coverage 44/44)
 // FUN_000e7260 @ 0x000e7260
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 extern "C" char *strchr(const char *s, int c);
 extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
 
@@ -66,13 +65,11 @@ public:
 
 struct Frame_e7260 {
     char buf[0x40];
-    unsigned int cookie;
 };
 
 int Registry_e7260::FUN_000e7260(const char *name)
 {
     Frame_e7260 f;
-    f.cookie = DAT_004d9968;
     int result;
     if (name == 0) {
         result = 0;
@@ -115,6 +112,5 @@ int Registry_e7260::FUN_000e7260(const char *name)
             }
         }
     }
-    __security_check_cookie(f.cookie);
     return result;
 }

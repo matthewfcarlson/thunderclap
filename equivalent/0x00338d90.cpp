@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_00338d90 @ 0x00338d90
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
 struct lua_State;
@@ -17,8 +18,6 @@ struct lua_Debug_338d90 {
     int i_ci;
 };
 
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 int __cdecl FUN_00213fc0(lua_State *L, int level, lua_Debug_338d90 *ar);
 void __cdecl FUN_00213380(lua_State *L, const char *s, unsigned int len);
@@ -30,18 +29,14 @@ void luaL_where(lua_State *L, int level)
 {
     struct Frame {
         lua_Debug_338d90 ar;
-        unsigned int cookie;
     } f;
-    f.cookie = DAT_004d9968;
 
     if (FUN_00213fc0(L, level, &f.ar)) {
         FUN_00214bd0(L, "Sl", &f.ar);
         if (f.ar.currentline > 0) {
             FUN_00213470(L, "%s:%d: ", f.ar.short_src, f.ar.currentline);
-            __security_check_cookie(f.cookie);
             return;
         }
     }
     FUN_00213380(L, ((char*)&DAT_003f335c), 0);
-    __security_check_cookie(f.cookie);
 }

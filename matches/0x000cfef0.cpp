@@ -1,10 +1,13 @@
 #include "decls/address.h"
 class HUDOverlay;
-void __stdcall FUN_001d0480(int, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(int, int);
+    virtual void v_001d0480();
+};
 extern const char a_cfef0[], b[], c[];
-class Base_cfef0 {
+class Base_cfef0 : public CtorV_001d0480 {
   public:
-    Base_cfef0(int n) { FUN_001d0480(n, 2); }
+    Base_cfef0(int n) : CtorV_001d0480(n, 2) { }
 };
 class Method2 : public Base_cfef0 {
   public:

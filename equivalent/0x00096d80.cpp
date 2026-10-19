@@ -1,13 +1,11 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 6/6)
 // FUN_00096d80 @ 0x00096d80
+// cl-flags: /GS
 #include "decls/address.h"
 extern "C" int __cdecl FUN_00267760(char*, unsigned int, const char*, ...);
 extern "C" unsigned long __cdecl FUN_00345d81(const char*, char**, int);
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 unsigned __int64 __cdecl FUN_00096d80(const char* text)
 {
-    unsigned int cookie = DAT_004d9968;
     unsigned __int64 result;
     if (!text) {
         result = 0;
@@ -23,6 +21,5 @@ unsigned __int64 __cdecl FUN_00096d80(const char* text)
     } else {
         result = FUN_0027b020(text);
     }
-    __security_check_cookie(cookie);
     return result;
 }

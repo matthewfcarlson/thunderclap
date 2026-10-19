@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 32/32)
+// STATUS: equivalent (tools/equiv.py level 3: 13486 inputs, branch coverage 32/32)
 // FUN_001e4c40 @ 0x001e4c40
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
@@ -74,8 +75,6 @@ struct Factory_1e4c40 {
     Node *FUN_001e4c40(const char *key, Vec3_1e4c40 *pos, int type, char *name, Vec3_1e4c40 *dir, int c);
 };
 
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
 extern "C" int __cdecl sprintf(char *, const char *, ...);
@@ -88,14 +87,12 @@ Node *Factory_1e4c40::FUN_001e4c40(const char *key, Vec3_1e4c40 *pos, int type, 
         Mat4_1e4c40 m;
         char buf[0x80];
     } f;
-    unsigned int cookie = DAT_004d9968;
     f.self = this;
 
     int a = DAT_004dd700->holder->FUN_00086310()->counter.FUN_00088fa0();
     int v = DAT_004dd700->holder->FUN_00086310()->counter.FUN_00088fb0();
     if (a == 0 && (v == 1 || v == 10)) {
         if (type == 1 || type == 2 || type == 3 || type == 4) {
-            __security_check_cookie(cookie);
             return 0;
         }
     }
@@ -131,6 +128,5 @@ Node *Factory_1e4c40::FUN_001e4c40(const char *key, Vec3_1e4c40 *pos, int type, 
                 node->f1c4 = (*(float*)&DAT_004c617c);
         }
     }
-    __security_check_cookie(cookie);
     return node;
 }

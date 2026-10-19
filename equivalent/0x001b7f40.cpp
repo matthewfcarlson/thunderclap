@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 28/28)
+// STATUS: equivalent (tools/equiv.py level 3: 9675 inputs, branch coverage 28/28)
 // FUN_001b7f40 @ 0x001b7f40
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-extern unsigned int DAT_004d9968;
-extern void __fastcall __security_check_cookie(unsigned int);
 struct Movie {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4();
  virtual void open(const char*, const char*, int, float);
@@ -23,7 +22,6 @@ struct Target_1b7f40 {
  void run(const char* name, unsigned char useName);
 };
 void Target_1b7f40::run(const char* name, unsigned char useName) {
- unsigned int cookie=DAT_004d9968;
  bool skip=false;
  if(movie) { int s=movie->state(); if(s==4 || s==3) skip=true; }
  if(!skip && movie) { int s=movie->state(); if(s==1 || s==2) skip=true; }
@@ -55,5 +53,4 @@ void Target_1b7f40::run(const char* name, unsigned char useName) {
  }
  FUN_00266da0(previous);
  }
- __security_check_cookie(cookie);
 }

@@ -3,7 +3,8 @@
 struct InputBuffer { int remaining; unsigned char *cursor; };
 struct Reader { int unused; InputBuffer *buffer; };
 extern int __cdecl FUN_0021a550(InputBuffer *buffer);
-extern void __cdecl FUN_0021f800(const char *format, ...);
+// equiv-conv: FUN_0021f800 esi stack
+extern void __cdecl FUN_0021f800(Reader *reader, const char *format, ...);
 // equiv-conv: FUN_002202a0 eax edi stack
 void __cdecl FUN_002202a0(Reader *reader, unsigned int expected, const char *name)
 {
@@ -19,8 +20,8 @@ void __cdecl FUN_002202a0(Reader *reader, unsigned int expected, const char *nam
         reader->buffer->cursor = cursor + 1;
     }
     if (value == -1)
-        FUN_0021f800("unexpected end of file");
+        FUN_0021f800(reader, "unexpected end of file");
     unsigned int byteValue = (unsigned char)value;
     if (byteValue != expected)
-        FUN_0021f800("bad size of %s (read %d; expected %d)", name, byteValue, expected);
+        FUN_0021f800(reader, "bad size of %s (read %d; expected %d)", name, byteValue, expected);
 }

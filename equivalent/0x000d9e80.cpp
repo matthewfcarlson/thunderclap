@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 17625 inputs, branch coverage 4/4)
 // FUN_000d9e80 @ 0x000d9e80
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
 struct Item_d9e80 { char data[0x38]; int FUN_000f83f0(void*, int); };
 struct Save { int FUN_000f7d30(int); int FUN_000f7220(int); };
 struct Menu_d9e80 {
@@ -19,7 +18,6 @@ struct Target_d9e80 {
  void FUN_000d9e80(int index);
 };
 void Target_d9e80::FUN_000d9e80(int index) {
- unsigned int cookie=DAT_004d9968;
  char buffer[1024];
  Menu_d9e80* menu=FUN_000fc3d0();
  Save* save=menu->v44();
@@ -34,5 +32,4 @@ void Target_d9e80::FUN_000d9e80(int index) {
  menu->FUN_000be310(text,buffer,"TBS_MENU_ITEM_CONTINUE_WITHOUT_SAVE","TBS_MENU_ITEM_RETRY","TBS_INSTRUCTION_DELETE",1,extra,extra);
  flag3b0=1;
  field21c=0;
- __security_check_cookie(cookie);
 }

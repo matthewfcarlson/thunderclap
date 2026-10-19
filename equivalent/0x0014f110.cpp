@@ -16,13 +16,13 @@ struct HitReactionTrack {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual int vfunc_9(void*, void*, Owner_14f110*);
 };
 }}
-// equiv-conv: FUN_0014efd0 esi edi
-extern void FUN_0014efd0(hulkfight::motion::HitReactionTrack*, Settings_14f110*);
+// equiv-conv: FUN_0014efd0 ebx esi edi
+extern void FUN_0014efd0(Owner_14f110*, hulkfight::motion::HitReactionTrack*, Settings_14f110*);
 int hulkfight::motion::HitReactionTrack::vfunc_9(void* unused, void* argument, Owner_14f110* owner) {
  if (!FUN_00344e74(owner,0,&DAT_00494b44,&DAT_00494b60,0)) return 1;
  Settings_14f110 settings;
  settings.FUN_00059820();
- FUN_0014efd0(this,&settings);
+ FUN_0014efd0(owner,this,&settings);
  Reaction_14f110* reaction = (Reaction_14f110*)FUN_0008d690(0xb0);
  if (reaction) reaction = reaction->FUN_000598e0(owner->field8,&settings);
  reaction->vfunc_0();

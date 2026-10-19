@@ -20,8 +20,8 @@ struct ExpDesc_221430 {
     int info;
 };
 
-// equiv-conv: FUN_00220d10 eax stack stack stack
-int FUN_00220d10(int a, int op, int b, int c);
+// equiv-conv: FUN_00220d10 eax esi stack stack stack
+int FUN_00220d10(int a, FuncState_221430* fs, int op, int b, int c);
 // equiv-conv: FUN_00220f80 eax stack
 void FUN_00220f80(FuncState_221430* fs, ExpDesc_221430* e);
 
@@ -33,7 +33,7 @@ int FUN_00221430(FuncState_221430* fs, ExpDesc_221430* e, int cond)
         unsigned int i = fs->f->code[e->info];
         if ((i & 0x3f) == 0x12) {
             fs->pc--;
-            return FUN_00220d10(0xff, 0x18, (i >> 15) & 0x1ff, cond == 0);
+            return FUN_00220d10(0xff, fs, 0x18, (i >> 15) & 0x1ff, cond == 0);
         }
     }
     FUN_00220f80(fs, e);
@@ -41,5 +41,5 @@ int FUN_00221430(FuncState_221430* fs, ExpDesc_221430* e, int cond)
         if (e->info >= fs->nactvar && e->info < 0xfa)
             fs->freereg--;
     }
-    return FUN_00220d10(0xff, 0x18, e->info, cond);
+    return FUN_00220d10(0xff, fs, 0x18, e->info, cond);
 }

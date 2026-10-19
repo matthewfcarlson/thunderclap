@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 12898 inputs, branch coverage 66/66)
+// STATUS: equivalent (tools/equiv.py level 3: 9617 inputs, branch coverage 66/66)
 // CHypnoticCamera::vfunc_35 @ 0x000abb90
+// cl-flags: /GS
 #include "decls/address.h"
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int cookie);
 
 struct V3_abb90 { float x, y, z; };
 
@@ -146,15 +145,13 @@ struct Frame_abb90 {
     float f88;                     // E-0x88
     Mat4_abb90 M;                        // E-0x84
     Mat4_abb90 R;                        // E-0x44
-    unsigned int cookie;           // E-0x4
 };
 
 void CHypnoticCamera::vfunc_35(Ev_abb90 *e, float dt, int c, int d)
 {
     Frame_abb90 f;
-    f.cookie = DAT_004d9968;
+    char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     if (bf1 != 0) {
-        __security_check_cookie(f.cookie);
         return;
     }
     if (b47d == 0) {
@@ -186,7 +183,6 @@ void CHypnoticCamera::vfunc_35(Ev_abb90 *e, float dt, int c, int d)
                 sn->FUN_001eb560("hypnotic_off");
                 sn->FUN_001eb8d0("hypnotic_off");
                 sn->FUN_001eb6b0();
-                __security_check_cookie(f.cookie);
                 return;
             }
         }
@@ -304,5 +300,4 @@ void CHypnoticCamera::vfunc_35(Ev_abb90 *e, float dt, int c, int d)
         FUN_000a9090(f470);
     }
     CGameCamera::vfunc_35(e, dt, c, d);
-    __security_check_cookie(f.cookie);
 }

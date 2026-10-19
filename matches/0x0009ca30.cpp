@@ -1,10 +1,13 @@
 #include "decls/address.h"
 class CCameraManager;
-extern "C" void __stdcall FUN_001d0480(void*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(void*, int);
+    virtual void v_001d0480();
+};
 extern int g1_9ca30, g2;
-class Base_9ca30 {
+class Base_9ca30 : public CtorV_001d0480 {
   public:
-    Base_9ca30(void* a) { FUN_001d0480(a, 2); }
+    Base_9ca30(void* a) : CtorV_001d0480(a, 2) { }
 };
 class Method2 : public Base_9ca30 {
   public:

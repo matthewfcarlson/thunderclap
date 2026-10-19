@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 18320 inputs, branch coverage 4/4)
 // FUN_000da830 @ 0x000da830
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct Context;
@@ -8,8 +9,6 @@ struct Context { int FUN_000f7d30(const char*); const char* FUN_000f7220(int); }
 struct Item_da830 { char pad[0x38]; const char* FUN_000f83f0(Context*,int); };
 struct State_da830 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_da830* FUN_00086280(); };
-extern unsigned int DAT_004d9968;
-extern void __fastcall __security_check_cookie(unsigned int);
 extern void __cdecl FUN_000fc020(char*,int,const char*,const char*);
 struct Target_da830 { char pad0[0x21c]; int field21c; char pad1[0x13c]; Item_da830 items[1]; char pad2[0x1c]; unsigned char active; char pad3[0x3a]; unsigned char mode; Manager_da830* FUN_000fc3d0(); void run(int index); };
-void Target_da830::run(int index) { unsigned int cookie=DAT_004d9968; char buffer[1024]; Manager_da830* manager=FUN_000fc3d0(); Context* context=manager->v44(); const char* format=context->FUN_000f7220(context->FUN_000f7d30((*(const char**)&DAT_004a0cdc))); const char* value=items[index].FUN_000f83f0(context,0); FUN_000fc020(buffer,512,format,value); const char* text; if(mode) text=(*(const char**)&DAT_004a0ce8); else { State_da830* state=DAT_004dd6ec->FUN_00086280(); text=state->flag?(*(const char**)&DAT_004a0ce4):(*(const char**)&DAT_004a0ce0); } const char* option=(*(const char**)&DAT_004a0c60); manager->FUN_000be310(text,buffer,((float*)&DAT_003f335c),((float*)&DAT_003f335c),"TBS_MENU_ITEM_OK",2,option,option); active=1; field21c=0; __security_check_cookie(cookie); }
+void Target_da830::run(int index) { char buffer[1024]; Manager_da830* manager=FUN_000fc3d0(); Context* context=manager->v44(); const char* format=context->FUN_000f7220(context->FUN_000f7d30((*(const char**)&DAT_004a0cdc))); const char* value=items[index].FUN_000f83f0(context,0); FUN_000fc020(buffer,512,format,value); const char* text; if(mode) text=(*(const char**)&DAT_004a0ce8); else { State_da830* state=DAT_004dd6ec->FUN_00086280(); text=state->flag?(*(const char**)&DAT_004a0ce4):(*(const char**)&DAT_004a0ce0); } const char* option=(*(const char**)&DAT_004a0c60); manager->FUN_000be310(text,buffer,((float*)&DAT_003f335c),((float*)&DAT_003f335c),"TBS_MENU_ITEM_OK",2,option,option); active=1; field21c=0;  }

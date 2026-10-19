@@ -7,7 +7,8 @@ struct DebugInfo_214bd0 { char pad[0x5c]; unsigned int frameIndex; };
 extern void __cdecl FUN_00214a90(State_214bd0 *, const char *);
 // equiv-conv: FUN_00214ac0 eax esi edi stack stack
 extern int __cdecl FUN_00214ac0(const char *, DebugInfo_214bd0 *, CallInfo_214bd0 *, State_214bd0 *, Value_214bd0 *);
-extern void __cdecl FUN_002141d0(State_214bd0 *);
+// equiv-conv: FUN_002141d0 esi stack
+extern void __cdecl FUN_002141d0(DebugInfo_214bd0 *, State_214bd0 *);
 extern void __cdecl FUN_00215460(State_214bd0 *, int);
 extern "C" char * __cdecl strchr(const char *, int);
 int __cdecl FUN_00214bd0(State_214bd0 *state, const char *options, DebugInfo_214bd0 *info)
@@ -23,7 +24,7 @@ int __cdecl FUN_00214bd0(State_214bd0 *state, const char *options, DebugInfo_214
         CallInfo_214bd0 *frame = state->frames + info->frameIndex;
         result = FUN_00214ac0(options, info, frame, state, frame->base - 1);
     } else {
-        FUN_002141d0(state);
+        FUN_002141d0(info, state);
     }
     if (strchr(options, 'f')) {
         if ((int)((char *)state->limit - (char *)state->top) <= 8)

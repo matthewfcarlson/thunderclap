@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 124 inputs, branch coverage 38/38)
+// STATUS: equivalent (tools/equiv.py level 3: 19195 inputs, branch coverage 38/38)
 // FUN_000401a0 @ 0x000401a0
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 struct Tuning_401a0 {
     bool FUN_00092940(int id);
@@ -67,7 +66,7 @@ public:
 
 void Character_401a0::FUN_000401a0()
 {
-    unsigned int cookie = DAT_004d9968;
+    char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     if (rig == 0) {
         f20b0 = 0;
     } else {
@@ -117,5 +116,4 @@ void Character_401a0::FUN_000401a0()
                 pause->FUN_000d2c30();
         }
     }
-    __security_check_cookie(cookie);
 }

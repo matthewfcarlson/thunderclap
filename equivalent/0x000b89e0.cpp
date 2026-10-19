@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 41/42, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 4135 inputs, branch coverage 42/42)
 // FUN_000b89e0 @ 0x000b89e0
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int memcmp(const void* a, const void* b, unsigned n);
-extern unsigned int DAT_004d9968;
 extern char DAT_0049dba4[];
 extern char DAT_0049f470[];
 extern char DAT_0049f48c[];
@@ -79,9 +78,7 @@ void MissionFailMenu::FUN_000b89e0()
 {
     struct Frame {
         ScriptArgs args;
-        unsigned int cookie;
     } f;
-    f.cookie = DAT_004d9968;
 
     hint[0] = 0;
     const char* id = mission->FUN_0008a2d0();
@@ -151,5 +148,4 @@ void MissionFailMenu::FUN_000b89e0()
         freeroam->enabled = show;
         freeroam->FUN_000e2a60(defeated ? "TBS_CHPT_GEN_57" : "TBS_MENU_ITEM_RETURN_TO_FREEROAM");
     }
-    __security_check_cookie(f.cookie);
 }

@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1322 inputs, branch coverage 50/52, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 4234 inputs, branch coverage 48/52, incomplete)
 // FUN_000ecf10 @ 0x000ecf10
+// cl-flags: /GS
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 extern "C" void *__cdecl memset(void *, int, unsigned int);
-extern unsigned int DAT_004d9968;
 
 union Word_ecf10 {
     float f;
@@ -177,9 +176,7 @@ void TextBox_ecf10::FUN_000ecf10(float maxWidth)
         Builder x;                   // 0x1c
         unsigned short line[0x80];          // 0xac
         char gap[4];
-        unsigned int cookie;         // 0x1b0
     } f;
-    f.cookie = DAT_004d9968;
 
     f.x.FUN_000f7fe0(owner->p8->level2->v44());
     f.src_.t14 = owner->v17(this);
@@ -197,7 +194,6 @@ void TextBox_ecf10::FUN_000ecf10(float maxWidth)
     const unsigned short *text = strings.FUN_000f83f0(f.x.face, 0);
     if (text == 0) {
         f.x.FUN_000f78e0();
-        __security_check_cookie(f.cookie);
         return;
     }
 
@@ -210,7 +206,6 @@ void TextBox_ecf10::FUN_000ecf10(float maxWidth)
         buf = (unsigned short *)FUN_0008d6d0(need * 2);
         if (buf == 0) {
             f.x.FUN_000f78e0();
-            __security_check_cookie(f.cookie);
             return;
         }
     }
@@ -306,5 +301,4 @@ void TextBox_ecf10::FUN_000ecf10(float maxWidth)
     lastLine = count > 0 ? count - 1 : 0;
 
     f.x.FUN_000f78e0();
-    __security_check_cookie(f.cookie);
 }

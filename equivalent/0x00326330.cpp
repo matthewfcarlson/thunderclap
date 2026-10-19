@@ -105,8 +105,7 @@ public:
 void __cdecl FUN_0031c230(unsigned long code);
 void __cdecl FUN_0031c570(SurfaceDesc_326330* desc, int a, void* out, int b);
 void __cdecl FUN_0031e1f0(int tex, int bytes);
-// equiv-conv: FUN_00325fb0 edx
-int __cdecl FUN_00325fb0(int field);
+int __fastcall FUN_00325fb0(int ignored, int field);
 // equiv-conv: FUN_00325fd0 ecx edx eax stack
 int __cdecl FUN_00325fd0(int fmt, int a3, int a2, GfxDevice* dev);
 
@@ -216,7 +215,7 @@ bool TextureResource::Create(int w, int h, int a2, int a3, int mips, int fmt, in
     field0d0 = field80;
     unsigned int bitsPerPixel = field78;
     field0dc = bitsPerPixel;
-    field0e0 = FUN_00325fb0(field0b4);
+    field0e0 = FUN_00325fb0(0, field0b4);
     totalBytes = 0;
     float bytesPer;
     if (isCompressed)

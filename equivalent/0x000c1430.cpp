@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 964 inputs, branch coverage 26/26)
+// STATUS: equivalent (tools/equiv.py level 3: 1176 inputs, branch coverage 26/26)
 // FUN_000c1430 @ 0x000c1430
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void __cdecl FUN_0008d340(void *p);
 
@@ -144,7 +143,6 @@ void FUN_000fc3e0();
 
 void CFEManager::FUN_000c1430()
 {
-    unsigned int cookie = DAT_004d9968;
     new (this) CFEManager;
     Registry_c1430 *reg = FUN_001d4c90();
     if (reg) {
@@ -227,5 +225,4 @@ void CFEManager::FUN_000c1430()
         ids[i].b.FUN_0027af50();
         ids[i].a.FUN_0027af50();
     }
-    __security_check_cookie(cookie);
 }

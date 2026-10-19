@@ -38,8 +38,9 @@ struct Obj000366f0 {
 extern void __fastcall FUN_0022b980(Matrix* m);
 extern void* __fastcall FUN_00059a40(void* o);
 extern Matrix* __fastcall FUN_00221c40(void* p);
-// equiv-conv: FUN_001c5080 ecx stack stack
-extern void __stdcall FUN_001c5080(Attach_366f0* inner, float a, float b);
+struct ThisNote_001c5080 {
+    void FUN_001c5080(float a, float b);
+};
 
 void Obj000366f0::FUN_000366f0(int unused, float dt)
 {
@@ -75,7 +76,7 @@ void Obj000366f0::FUN_000366f0(int unused, float dt)
         attach->FUN_001c5ef0(mode == 3);
         if (flag20b0 == 1) {
             if (attach->inner != 0) {
-                FUN_001c5080(attach->inner, (*(float*)&DAT_00421894), 1.5f);
+                ((ThisNote_001c5080*)(attach->inner))->FUN_001c5080((*(float*)&DAT_00421894), 1.5f);
             }
         }
     }

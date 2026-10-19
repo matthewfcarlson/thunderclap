@@ -1,16 +1,15 @@
-// STATUS: equivalent (tools/equiv.py level 3: 589 inputs, branch coverage 117/118, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 586 inputs, branch coverage 118/118)
 // FUN_000464c0 @ 0x000464c0
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 inline void* operator new(unsigned int, void* p) { return p; }
 extern "C" int __cdecl strcmp(const char*, const char*);
 extern "C" long __cdecl atol(const char*);
 extern "C" int __cdecl _atexit(void (__cdecl*)());
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
 extern void __cdecl FUN_00363bc0();
 
-extern unsigned int DAT_004d9968;
 
 struct Vec3_464c0 { float x, y, z; };
 struct Key_464c0 {
@@ -121,7 +120,6 @@ struct Frame_464c0 {
     char pad9c[8];
     char buf[0x80];                                         // 0xa4
     char nbuf[0x20];                                        // 0x124
-    unsigned int cookie;                                    // 0x144
 };
 
 class CharDef {
@@ -266,7 +264,6 @@ public:
 
 bool CharDef::FUN_000464c0(int unused, Reader* props) {
     Frame_464c0 fr;
-    fr.cookie = DAT_004d9968;
     fr.u20.inv = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
     fr.s1 = 0;
     props->FUN_0027aac0("VariationName", &fr.s1);
@@ -587,6 +584,5 @@ bool CharDef::FUN_000464c0(int unused, Reader* props) {
         }
         sc->FUN_001d19d0(1);
     }
-    __security_check_cookie(fr.cookie);
     return true;
 }

@@ -1,12 +1,11 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 9/9)
+// STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 9/9)
 // FUN_00203a80 @ 0x00203a80
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
 extern "C" char *strncpy(char *, const char *, unsigned int);
 extern "C" long atol(const char *);
 extern "C" int sprintf(char *, const char *, ...);
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 struct Source_203a80 {
     char *FUN_002666f0();
@@ -34,11 +33,8 @@ char *Holder_203a80::FUN_00203a80()
 {
     struct Frame {
         char buf[0x100];
-        volatile unsigned int cookie;
     } fr;
-    fr.cookie = DAT_004d9968;
     if (!source || disabled) {
-        __security_check_cookie(fr.cookie);
         return 0;
     }
     strncpy(fr.buf, source->FUN_002666f0(), 0x100);
@@ -68,6 +64,5 @@ char *Holder_203a80::FUN_00203a80()
             dot++;
         *dot = 0;
     }
-    __security_check_cookie(fr.cookie);
     return ((char*)&DAT_004e5a68);
 }

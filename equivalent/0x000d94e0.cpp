@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // FUN_000d94e0 @ 0x000d94e0
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
 struct State_d94e0 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d94e0* FUN_00086280(); };
 struct Label_d94e0 { void FUN_000bc9f0(const char*, int); };
@@ -17,7 +16,6 @@ Service_d94e0* FUN_000fc3d0();
 void target(int);
 };
 void Target_d94e0::target(int) {
-unsigned int cookie=DAT_004d9968;
 char buffer[1024];
 Service_d94e0* service=FUN_000fc3d0();
 service->v44();
@@ -31,5 +29,4 @@ service->FUN_000be310(text,buffer,&zero,&zero,&zero,3,setting,setting);
 active=1;
 value=0;
 label->FUN_000bc9f0("DynamicControlButtonLabel",0);
-__security_check_cookie(cookie);
 }

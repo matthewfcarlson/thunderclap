@@ -1,12 +1,11 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 28/28)
+// STATUS: equivalent (tools/equiv.py level 3: 4289 inputs, branch coverage 28/28)
 // FUN_000c9bd0 @ 0x000c9bd0
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" void *memset(void *, int, unsigned int);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" int strcmp(const char*, const char*);
-extern "C" unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl FUN_000964a0(char *buf, unsigned int size, const char *fmt, const char *arg);
 void *__cdecl FUN_00263ed0(unsigned int a, unsigned int b);
 
@@ -65,7 +64,6 @@ struct Frame_c9bd0 {
     Entry_c9bd0 t[16];            // 0x08
     char png[0x40];         // 0x188
     char path[0x100];       // 0x1c8
-    unsigned int cookie;    // 0x2c8
 };
 
 class CHudMap {
@@ -88,7 +86,6 @@ public:
 void CHudMap::FUN_000c9bd0(char *name)
 {
     Frame_c9bd0 f;
-    f.cookie = DAT_004d9968;
     memset(f.t, 0, sizeof f.t);
     f.pad04 = (int)0xc5064000;
     f.t[0].name = "downtown_night";
@@ -186,7 +183,6 @@ void CHudMap::FUN_000c9bd0(char *name)
         unsigned __int64 k = FUN_0027b020(f.png);
         Loaded_c9bd0 *t = tex;
         if ((unsigned int)k == t->idLo && (unsigned int)(k >> 32) == t->idHi) {
-            __security_check_cookie(f.cookie);
             return;
         }
         DAT_0052c2a8->v91();
@@ -232,5 +228,4 @@ void CHudMap::FUN_000c9bd0(char *name)
     }
     f218 = DAT_0049fbb8;
     f210 = DAT_0049fbc0 * DAT_0049fbb8;
-    __security_check_cookie(f.cookie);
 }

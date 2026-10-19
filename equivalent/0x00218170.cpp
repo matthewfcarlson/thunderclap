@@ -42,12 +42,12 @@ struct Frame_218170 {
 int FUN_00215ff0(const char *str, int *out);
 TV *FUN_00219e50(int a, int b);
 void FUN_00214a90(Ctx_218170 *ctx, const char *msg);
-// equiv-conv: FUN_00217750 eax ecx edx stack
-void FUN_00217750(TV *lhs, Ctx_218170 *ctx, TV *rhs, TV *fn);
-// equiv-conv: FUN_00217790 eax ecx
-void FUN_00217790(TV *res, ...);
-// equiv-conv: FUN_00217af0 stack stack ebx esi edi
-int FUN_00217af0(TV *res, int op, TV *lhs, Ctx_218170 *ctx, TV *rhs);
+// equiv-conv: FUN_00217750 ecx stack eax edx
+void FUN_00217750(Ctx_218170 *ctx, TV *fn, TV *lhs, TV *rhs);
+// equiv-conv: FUN_00217790 ecx eax
+void FUN_00217790(Ctx_218170 *ctx, TV *res);
+// equiv-conv: FUN_00217af0 esi ebx edi stack stack
+int FUN_00217af0(Ctx_218170 *ctx, TV *lhs, TV *rhs, TV *res, int op);
 void FUN_00214d40(Ctx_218170 *ctx, TV *lhs, TV *rhs);
 
 // equiv-conv: FUN_00218170 eax ecx edx stack stack stack
@@ -110,8 +110,8 @@ int FUN_00218170(TV *rhs, TV *lhs, int line, Ctx_218170 *ctx, TV *res, int op)
         TV *h = FUN_00219e50(ctx->f44, ctx->f10->f98);
         if (h->tag != 6)
             FUN_00214a90(ctx, "`__pow' (`^' operator) is not a function");
-        FUN_00217750(b, ctx, a, h);
-        FUN_00217790(res, ctx);
+        FUN_00217750(ctx, h, b, a);
+        FUN_00217790(ctx, res);
         return ctx->f0c;
     }
     default:
@@ -119,7 +119,7 @@ int FUN_00218170(TV *rhs, TV *lhs, int line, Ctx_218170 *ctx, TV *res, int op)
     }
 
 fallback:
-    if (FUN_00217af0(res, op, lhs, ctx, rhs) == 0)
+    if (FUN_00217af0(ctx, lhs, rhs, res, op) == 0)
         FUN_00214d40(ctx, lhs, rhs);
     return ctx->f0c;
 }

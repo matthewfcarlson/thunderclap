@@ -1,8 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 14864 inputs, branch coverage 14/14)
 // FUN_000c9550 @ 0x000c9550
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" char* strncpy(char* dst, const char* src, unsigned int n);
 
 class Handle_c9550 {
@@ -55,11 +55,9 @@ struct Target_c9550 {
 
 void thunk_FUN_00271230(Handle_c9550** out, const char* name, int a, int b, int c, int d, int e, int f);
 void FUN_002656a0();
-extern unsigned int DAT_004d9968;
 
 void __stdcall FUN_000c9550(const char* name, Target_c9550* target, int arg)
 {
-    unsigned int cookie = DAT_004d9968;
     struct Frame {
         Handle_c9550* l2;
         Handle_c9550* l1;
@@ -69,7 +67,6 @@ void __stdcall FUN_000c9550(const char* name, Target_c9550* target, int arg)
     if (!f.l1->v23()) {
         if (f.l1)
             f.l1->Release();
-        __security_check_cookie(cookie);
         return;
     }
     if (f.l1) {
@@ -98,5 +95,4 @@ void __stdcall FUN_000c9550(const char* name, Target_c9550* target, int arg)
     target->FUN_00266220(f.l2->FUN_00266700());
     if (f.l2)
         f.l2->Release();
-    __security_check_cookie(cookie);
 }

@@ -1,9 +1,11 @@
 #include "decls/address.h"
 extern "C" char DAT_00423398[];
 class CSPManager {};
-extern "C" void __stdcall FUN_001d0480(const char*, int);
+struct Ctor_001d0480 {
+    Ctor_001d0480(const char*, int);
+};
 extern const char s0_1e0130[], s1[], s2[], s3[];
-class Target_1e0130 {
+class Target_1e0130 : public Ctor_001d0480 {
   public:
     void* vf;
     char p4[12];
@@ -14,8 +16,7 @@ class Target_1e0130 {
     CSPManager* mgr;
     Target_1e0130(const char*, CSPManager*);
 };
-Target_1e0130::Target_1e0130(const char* a, CSPManager* c) {
-    FUN_001d0480(a, 3);
+Target_1e0130::Target_1e0130(const char* a, CSPManager* c) : Ctor_001d0480(a, 3) {
     vf = (void*)((int)DAT_00423398);
     mgr = c;
     b18 = FUN_001d04d0(s0_1e0130);

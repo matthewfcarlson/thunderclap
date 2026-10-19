@@ -63,11 +63,11 @@ void FUN_0024b170(Player_24bc70 *p);
 void FUN_0024b480(Player_24bc70 *p);
 // equiv-conv: FUN_0024b550 esi
 void FUN_0024b550(Player_24bc70 *p);
-// equiv-conv: FUN_0024b920 esi ebx
-void FUN_0024b920(Player_24bc70 *p, unsigned int live);
+// equiv-conv: FUN_0024b920 esi
+void FUN_0024b920(Player_24bc70 *p);
 
-// equiv-conv: FUN_0024bc70 eax ebx
-void FUN_0024bc70(Player_24bc70 *p, unsigned int live)
+// equiv-conv: FUN_0024bc70 eax
+void FUN_0024bc70(Player_24bc70 *p)
 {
     int state = p->state;
     if (state == 1) {
@@ -112,5 +112,5 @@ void FUN_0024bc70(Player_24bc70 *p, unsigned int live)
     }
     FUN_0024b480(p);
     FUN_0024b550(p);
-    FUN_0024b920(p, live);
+    FUN_0024b920(p);
 }

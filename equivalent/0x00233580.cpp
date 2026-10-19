@@ -1,11 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 18441 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 18200 inputs, branch coverage 22/22)
 // FUN_00233580 @ 0x00233580
+// cl-flags: /GS
 // FUN_00233580 @ 0x00233580
 #include "decls/data/engine/fight.h"
 
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
-extern unsigned int DAT_004d9968;
 
 struct HashKey {
     int lo, hi;
@@ -29,10 +28,8 @@ PathNode* PathNode::FUN_00233580(const char* path)
     // The /GS cookie sits directly above the buffer, as in the original.
     struct Frame {
         char buf[0x40];
-        unsigned int cookie;
     } f;
     char* buf = f.buf;
-    f.cookie = DAT_004d9968;
     char delim = *(*(char**)&DAT_004ca248);
     if (*path == delim)
         path++;
@@ -59,6 +56,5 @@ PathNode* PathNode::FUN_00233580(const char* path)
             }
         }
     }
-    __security_check_cookie(f.cookie);
     return result;
 }

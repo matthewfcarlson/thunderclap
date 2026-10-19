@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 14063 inputs, branch coverage 18/18)
 // FUN_001cd220 @ 0x001cd220
+// cl-flags: /GS
 #include "decls/address.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 extern int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 
 struct Msg_1cd220 {
@@ -70,7 +69,6 @@ struct Target4 {
 struct Frame_1cd220 {
     Msg_1cd220 msg;
     char buf[0x80];
-    unsigned int cookie;
 };
 
 struct Slot_1cd220 {
@@ -100,7 +98,6 @@ public:
 void Mission_1cd220::FUN_001cd220(char flag)
 {
     Frame_1cd220 f;
-    f.cookie = DAT_004d9968;
     f0c = 0;
     f1198 = 0;
     b11a0 = 0;
@@ -140,5 +137,4 @@ void Mission_1cd220::FUN_001cd220(char flag)
             }
         }
     }
-    __security_check_cookie(f.cookie);
 }

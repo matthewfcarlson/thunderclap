@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 184 inputs, branch coverage 223/250, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 164 inputs, branch coverage 225/250, incomplete)
 // FUN_000ba040 @ 0x000ba040
+// cl-flags: /GS
 // FUN_000ba040 @ 0x000ba040
 // Collection screen: counts unlocked/available items per category, then fills in the gallery buttons.
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 class CUnlockable {
 public:
@@ -93,7 +92,6 @@ struct Frame {
     char nameBuf[0x80];
     char labelBuf[0x80];
     ScriptArgs args;
-    unsigned int cookie;
 };
 
 class CollectionScreen {
@@ -131,7 +129,6 @@ static __forceinline void SetupGalleryButton(Frame& f, TextStore* texts, const c
 void CollectionScreen::FUN_000ba040()
 {
     Frame f;
-    f.cookie = DAT_004d9968;
     f.total4 = f.total2 = f.total1 = 0;
     f.have3 = f.have7 = f.have1 = f.have8 = 0;
     f.total5 = f.total7 = f.total3 = f.total8 = 0;
@@ -328,5 +325,4 @@ void CollectionScreen::FUN_000ba040()
     button = FIND_BUTTON("story_recap_list_screen_button");
     if (button)
         SET_ENABLED(button, hasStory);
-    __security_check_cookie(f.cookie);
 }

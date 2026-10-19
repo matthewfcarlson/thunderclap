@@ -25,11 +25,12 @@ struct SimpleFrameController {
     int animation;
 };
 }
-// equiv-conv: FUN_00289db0 ecx stack stack stack stack stack stack stack stack
-float __stdcall FUN_00289db0(int animation, float *, int *, float, float, int, int, int, int);
+struct ThisNote_00289db0 {
+    float FUN_00289db0(float *, int *, float, float, int, int, int, int);
+};
 void pure3d::SimpleFrameController::vfunc_6(float delta, char force) {
     if (animation) {
-        time = FUN_00289db0(animation, &frame, &otherFrame, time, delta * speed, range, end, state == 0, mode);
+        time = ((ThisNote_00289db0*)(animation))->FUN_00289db0(&frame, &otherFrame, time, delta * speed, range, end, state == 0, mode);
         if (flag == 1 || force == 1)
             vfunc_7();
     }

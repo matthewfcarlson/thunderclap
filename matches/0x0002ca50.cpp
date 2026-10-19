@@ -1,8 +1,10 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" char DAT_003f40cc[];
-extern "C" void __stdcall FUN_001d0480(const char*, int);
-class Method6 {
+struct Ctor_001d0480 {
+    Ctor_001d0480(const char*, int);
+};
+class Method6 : public Ctor_001d0480 {
   public:
     char* vt;
     char pad4[0x0c];
@@ -13,8 +15,7 @@ class Method6 {
     int m1c;
     Method6(const char*, int);
 };
-Method6::Method6(const char* a, int b) {
-    FUN_001d0480(a, 6);
+Method6::Method6(const char* a, int b) : Ctor_001d0480(a, 6) {
     vt = (char*)((int)DAT_003f40cc);
     m1c = b;
     b18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0e4)));

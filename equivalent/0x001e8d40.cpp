@@ -1,12 +1,11 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 11/12, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20019 inputs, branch coverage 11/12, incomplete)
 // FUN_001e8d40 @ 0x001e8d40
+// cl-flags: /GS
 #include "decls/data/engine/content.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
 extern "C" int __cdecl sprintf(char *, const char *, ...);
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 struct Manager_1e8d40 { void FUN_00265920(char *, int *, int); };
 struct Clip {
  int active;
@@ -17,7 +16,6 @@ struct Clip {
  void FUN_001e8d40();
 };
 void Clip::FUN_001e8d40() {
- unsigned int cookie = DAT_004d9968;
  if (active == 0 && (*(int*)&DAT_004e3694) == 0) {
  char name[16];
  sprintf(name, "%d.%s", this, "clips");
@@ -29,5 +27,4 @@ void Clip::FUN_001e8d40() {
  if (type > 0) DAT_004e369c = amount + DAT_004e369c;
  else DAT_004e36a0 = amount + DAT_004e36a0;
  }
- __security_check_cookie(cookie);
 }

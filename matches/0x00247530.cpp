@@ -1,8 +1,8 @@
 struct V {
     void* a;
-    void(__cdecl* b)(void*, int);
+    int(__cdecl* b)(void*, int);
 };
 extern V* g_247530;
-void target(int x) {
-    g_247530->b(g_247530, x);
+int target(int x) {
+    return g_247530->b(g_247530, x);
 }

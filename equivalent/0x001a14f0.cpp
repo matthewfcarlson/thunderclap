@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 14900 inputs, branch coverage 18/18)
 // hulkfight::scenario::LuaCondition::vfunc_6 @ 0x001a14f0
+// cl-flags: /GS
 namespace fight {
 class Params {
 public:
@@ -45,8 +46,6 @@ void FUN_00212d80(void *L, int idx);
 unsigned int FUN_001d0440();
 void FUN_001d0430(unsigned int v);
 
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 class LuaCondition {
 public:
@@ -69,12 +68,9 @@ bool LuaCondition::vfunc_6(int a, fight::Params *params, int c)
         char buf[0x100];
         Blob_1a14f0 copy;
         int pad1f8;
-        unsigned int cookie;
     } fr;
-    fr.cookie = DAT_004d9968;
     LuaMgr *mgr = FUN_001d4c90();
     if (mgr == 0) {
-        __security_check_cookie(fr.cookie);
         return false;
     }
     fr.buf[0] = 0;
@@ -97,7 +93,6 @@ bool LuaCondition::vfunc_6(int a, fight::Params *params, int c)
     }
     const char *chunk = script;
     if (chunk == 0) {
-        __security_check_cookie(fr.cookie);
         return false;
     }
     int len = scriptLen;
@@ -116,12 +111,10 @@ bool LuaCondition::vfunc_6(int a, fight::Params *params, int c)
     if (allocated)
         FUN_0008d340((void *)chunk);
     if (rc != 3) {
-        __security_check_cookie(fr.cookie);
         return false;
     }
     void *L = mgr->L;
     bool ok = FUN_00213160(L, -1) == 1;
     FUN_00212d80(L, -2);
-    __security_check_cookie(fr.cookie);
     return ok;
 }

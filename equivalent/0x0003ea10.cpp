@@ -1,7 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 20042 inputs, branch coverage 18/18)
 // FUN_0003ea10 @ 0x0003ea10
+// cl-flags: /GS
 #include "decls/address.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 struct Actor_3ea10 {
     char pad0[0x328];
@@ -51,18 +51,15 @@ public:
     void FUN_0003ea10(int newMode);
 };
 
-extern unsigned int DAT_004d9968;
 
 struct Frame_3ea10 {
     int arg;
     Event_3ea10 ev;
-    unsigned int cookie;
 };
 
 void Controller_3ea10::FUN_0003ea10(int newMode)
 {
     Frame_3ea10 f;
-    f.cookie = DAT_004d9968;
     if (mode == 0) {
         if (newMode == 1) {
             FUN_0003b1c0(0, newMode);
@@ -87,5 +84,4 @@ void Controller_3ea10::FUN_0003ea10(int newMode)
         }
     }
     mode = newMode;
-    __security_check_cookie(f.cookie);
 }

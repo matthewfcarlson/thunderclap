@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 75/76, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3191 inputs, branch coverage 75/76, incomplete)
 // FUN_000de9a0 @ 0x000de9a0
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 
 struct KeyBinding {
@@ -52,7 +51,6 @@ struct Frame_de9a0 {
     int axis;
     int spill;
     unsigned char flags[8];
-    volatile unsigned int cookie;
 };
 
 class InputMapper {
@@ -73,7 +71,6 @@ public:
 void InputMapper::FUN_000de9a0(char skip)
 {
     Frame_de9a0 f;
-    f.cookie = DAT_004d9968;
     unsigned char (*prevRow)[8] = prev;
     f.padSlot = &pads[0];
     for (f.p = 0; f.p < 1; f.p++) {
@@ -155,5 +152,4 @@ void InputMapper::FUN_000de9a0(char skip)
         }
         f.padSlot++;
     }
-    __security_check_cookie(f.cookie);
 }

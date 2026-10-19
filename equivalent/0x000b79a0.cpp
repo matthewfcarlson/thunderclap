@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3045 inputs, branch coverage 34/36, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 6565 inputs, branch coverage 35/36, incomplete)
 // FUN_000b79a0 @ 0x000b79a0
+// cl-flags: /GS
 #include "decls/address.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl _sprintf(char*, const char*, ...);
-extern unsigned int DAT_004d9968;
 extern char DAT_0049dba4[];
 extern char DAT_0049dbbc[];
 extern char DAT_0049f470[];
@@ -146,10 +145,8 @@ public:
 
 void Briefing::FUN_000b79a0(Slot_b79a0 a1, Slot_b79a0 a2)
 {
-    unsigned int cookie = DAT_004d9968;
     Panel_b79a0* menu = (Panel_b79a0*)FUN_00344e74(FUN_000fc260(a1.name), 0, DAT_0049dba4, DAT_0049f470, 0);
     if (menu == 0) {
-        __security_check_cookie(cookie);
         return;
     }
     Selector_b79a0* sel = (Selector_b79a0*)FUN_00344e74(FUN_000fc260(a2.name), 0, DAT_0049dba4, DAT_0049dbbc, 0);
@@ -211,5 +208,4 @@ void Briefing::FUN_000b79a0(Slot_b79a0 a1, Slot_b79a0 a2)
         menu->label.FUN_000f8500(ns->FUN_0027b010(), FUN_000fc1b0(), 1);
     }
     menu->v3();
-    __security_check_cookie(cookie);
 }

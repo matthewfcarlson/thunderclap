@@ -1,12 +1,14 @@
 #include "decls/address.h"
 class CSubtitleManager;
-void __stdcall FUN_001d0480(void*, int);
-class Base {
+struct CtorV_001d0480 {
+    CtorV_001d0480(void*, int);
+    virtual void v_001d0480();
+};
+class Base : public CtorV_001d0480 {
   public:
     Base(void*);
 };
-Base::Base(void* p) {
-    FUN_001d0480(p, 1);
+Base::Base(void* p) : CtorV_001d0480(p, 1) {
 }
 class Method1 : public Base {
   public:

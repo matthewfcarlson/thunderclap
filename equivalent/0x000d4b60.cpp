@@ -1,6 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2808 inputs, branch coverage 59/62, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 7165 inputs, branch coverage 62/62)
 // FUN_000d4b60 @ 0x000d4b60
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 extern "C" char *__cdecl strncpy(char *, const char *, unsigned int);
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
@@ -69,7 +69,6 @@ struct Hud_d4b60 {
     void FUN_001ebd00(const char *a, const char *b) throw();
 };
 
-extern unsigned int DAT_004d9968;
 extern char DAT_004de500[0x100];
 extern char DAT_004de300[0x200];
 extern int DAT_004ddf98;
@@ -120,17 +119,13 @@ void HudMgr::FUN_000d4b60(const char *a1, const void *a2, const void *a3, const 
         } b;
         Lay_d4b60 L;
         char tmp[0x100];
-        unsigned int cookie;
     } f;
 
-    f.cookie = DAT_004d9968;
     if (a1 == 0) {
-        __security_check_cookie(f.cookie);
         return;
     }
     Slot_d4b60 *ns = FUN_000d4390();
     if (ns == 0) {
-        __security_check_cookie(f.cookie);
         return;
     }
     strncpy(DAT_004de500, a1, 0xff);
@@ -269,5 +264,4 @@ void HudMgr::FUN_000d4b60(const char *a1, const void *a2, const void *a3, const 
     f10->FUN_001ebd00("Message", "HUD_new_message");
 done:
     f.L.FUN_000f78e0();
-    __security_check_cookie(f.cookie);
 }

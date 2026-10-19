@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 15/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 14041 inputs, branch coverage 16/16)
 // FUN_000c4020 @ 0x000c4020
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 struct Label_c4020 {
     int f00;
@@ -182,7 +181,6 @@ class MissionMenu {
 
 void MissionMenu::FUN_000c4020(int a, int b)
 {
-    volatile unsigned int cookie = DAT_004d9968;
     struct Frame {
         int mission;
         int chapter;
@@ -234,5 +232,4 @@ void MissionMenu::FUN_000c4020(int a, int b)
     }
     f1880 = 0;
     FUN_00266da0(fr.prev);
-    __security_check_cookie(cookie);
 }

@@ -1,13 +1,12 @@
-// STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 104 inputs, branch coverage 14/14)
 // FUN_001bc0c0 @ 0x001bc0c0
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" char * __cdecl strncpy(char *, const char *, unsigned int);
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 typedef unsigned __int64 ID;
 
@@ -195,13 +194,11 @@ struct Frame_1bc0c0 {
     LoadArgs args;          // 0x0c
     char buf1[0x100];       // 0x11c
     char buf2[0x100];       // 0x21c
-    unsigned int cookie;    // 0x31c
 };
 
 void FUN_001bc0c0(const char *name, int count, const char *dir)
 {
     Frame_1bc0c0 f;
-    f.cookie = DAT_004d9968;
     if (dir == 0)
         FUN_000964a0(f.buf1, 0x100, "art/%s.p3d", name);
     else
@@ -251,5 +248,4 @@ void FUN_001bc0c0(const char *name, int count, const char *dir)
     }
     if (f.handle != 0)
         f.handle->Release();
-    __security_check_cookie(f.cookie);
 }

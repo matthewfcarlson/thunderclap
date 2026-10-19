@@ -1,11 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 8226 inputs, branch coverage 22/22)
 // FUN_0033cff0 @ 0x0033cff0
+// cl-flags: /GS
 struct State;
 struct Capture_33cff0 { const char* start; int length; };
 struct MatchState_33cff0 { const char* start; const char* end; State* state; int level; Capture_33cff0 captures[32]; };
 struct Buffer_33cff0 { char* cursor; int level; State* state; char data[512]; };
-extern unsigned DAT_004d9968;
-extern void __fastcall __security_check_cookie(unsigned);
 extern const char* __cdecl FUN_00339df0(State*,int,unsigned*);
 extern int __cdecl FUN_00339fe0(State*,int,unsigned);
 extern int __cdecl FUN_00212d70(State*);
@@ -21,7 +20,6 @@ extern void __cdecl FUN_003394b0(Buffer_33cff0*,const char*,unsigned);
 extern void __cdecl FUN_00339540(Buffer_33cff0*);
 extern void __cdecl FUN_00213360(State*,int);
 int __cdecl FUN_0033cff0(State* state) {
- unsigned cookie=DAT_004d9968;
  unsigned length;
  const char* source=FUN_00339df0(state,1,&length);
  const char* pattern=FUN_00339df0(state,2,0);
@@ -52,6 +50,5 @@ int __cdecl FUN_0033cff0(State* state) {
  FUN_003394b0(&buffer,source,(unsigned)(match.end-source));
  FUN_00339540(&buffer);
  FUN_00213360(state,count);
- __security_check_cookie(cookie);
  return 2;
 }

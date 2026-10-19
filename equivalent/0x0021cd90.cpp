@@ -6,8 +6,8 @@ struct Node { char pad[0xc]; int kind; char pad2[0xc]; Context* context; };
 struct Info_21cd90 { int unused; int value; };
 struct State_21cd90 { char pad[0x14]; Info_21cd90* info; int count; };
 struct Value_21cd90 { int type; int value; int extra; int a; int b; };
-// equiv-conv: FUN_0021c240 ecx esi
-void FUN_0021c240(const char*, Context*);
+// equiv-conv: FUN_0021c240 esi ecx edx
+void FUN_0021c240(Context*, const char*, int);
 // equiv-conv: FUN_0021c3d0 esi
 int FUN_0021c3d0(Node*);
 int __cdecl FUN_002209b0(Context*, int);
@@ -23,7 +23,7 @@ int __cdecl target(Node* node, State_21cd90* state) {
  int saved = context->saved;
  Value_21cd90 left, right;
  if(node->kind == 0x116) {
-  if(state->count > 0x7ffffffd) FUN_0021c240("items in a constructor", context);
+  if(state->count > 0x7ffffffd) FUN_0021c240(context, "items in a constructor", 0x7ffffffd);
   ++state->count;
   int v = FUN_0021c3d0(node);
   int result = FUN_002209b0(node->context,v);

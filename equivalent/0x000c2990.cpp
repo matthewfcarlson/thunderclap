@@ -1,13 +1,12 @@
-// STATUS: equivalent (tools/equiv.py level 3: 12000 inputs, branch coverage 26/26; run with --inputs 12000)
+// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 26/26)
 // FUN_000c2990 @ 0x000c2990
+// cl-flags: /GS
 struct Track { const char* FUN_00092330(); int FUN_00092310(); void FUN_00092360(int); };
 struct Lookup_c2990 { Track* FUN_00092ad0(int); };
 struct Manager_c2990 { void FUN_001d3600(const char*,int); };
 struct Group_c2990 { void FUN_001bdff0(const char*); };
 struct Output_c2990 { void FUN_001b7310(const char*,int,int); };
 extern int DAT_0049dab8, DAT_0049db80;
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" Track* __cdecl FUN_00344e74(Track*,int,const void*,const void*,int);
 extern "C" Manager_c2990* __cdecl FUN_001d4c90();
 extern "C" int __cdecl FUN_000964a0(char*,int,const char*,...);
@@ -17,7 +16,6 @@ struct Target_c2990 {
  void run(Output_c2990* out);
 };
 void Target_c2990::run(Output_c2990* out) {
- unsigned int cookie = DAT_004d9968;
  Track* track = FUN_00344e74(lookup->FUN_00092ad0(id),0,&DAT_0049dab8,&DAT_0049db80,0);
  if (track) {
   if (!active) {
@@ -48,5 +46,4 @@ void Target_c2990::run(Output_c2990* out) {
    state=0;
   }
  }
- __security_check_cookie(cookie);
 }

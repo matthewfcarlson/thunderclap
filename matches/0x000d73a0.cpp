@@ -1,10 +1,13 @@
-extern "C" void __stdcall setup(int, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(int, int);
+    virtual void v_001d0480();
+};
 extern "C" unsigned char __cdecl lookup(const char*);
 extern const char keyA[];
 extern const char keyB[];
-class SetupBase {
+class SetupBase : public CtorV_001d0480 {
   public:
-    SetupBase(int a) { setup(a, 1); }
+    SetupBase(int a) : CtorV_001d0480(a, 1) { }
 };
 class Method1 : public SetupBase {
   public:

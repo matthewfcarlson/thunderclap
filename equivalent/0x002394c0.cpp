@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 37/44, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20022 inputs, branch coverage 43/44, incomplete)
 // fight::ExecuteAction::vfunc_3 @ 0x002394c0
-extern "C" void __fastcall __security_check_cookie(unsigned);
-extern unsigned DAT_004d9968;
+// cl-flags: /GS
 
 struct Item_2394c0 {
     char pad0[0xc];
@@ -84,7 +83,6 @@ public:
 
 char ExecuteAction::FUN_002394c0(int a1, int a2)
 {
-    unsigned cookie = DAT_004d9968;
     Part_2394c0 *seen[8];
     char mark[8];
     int handle = FUN_00266da0(FUN_00238190(3));
@@ -92,14 +90,12 @@ char ExecuteAction::FUN_002394c0(int a1, int a2)
 
     if (owner == 0 || (field2c != 0 && !field2c->FUN_00236f40(field1c, field34, 0))) {
         FUN_00266da0(handle);
-        __security_check_cookie(cookie);
         return 0;
     }
 
     Owner_2394c0 *found = owner->find(field34, 0);
     if (found == 0) {
         FUN_00266da0(handle);
-        __security_check_cookie(cookie);
         return 0;
     }
 
@@ -149,6 +145,5 @@ char ExecuteAction::FUN_002394c0(int a1, int a2)
     done = 1;
     char res = sub.FUN_00231ee0();
     FUN_00266da0(handle);
-    __security_check_cookie(cookie);
     return res;
 }

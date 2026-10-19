@@ -7,7 +7,9 @@ struct Session_8a090 {
     void FUN_001d1d50(const char *name, void *entry);
     void FUN_001d19d0(int flag);
 };
-int __stdcall FUN_00089400(void *item);
+struct ThisCall_00089400 {
+    int FUN_00089400(void *item);
+};
 Session_8a090 *FUN_001d4c90();
 
 struct Entry_8a090 {
@@ -23,7 +25,7 @@ public:
 
 bool Holder_8a090::Run(void *item)
 {
-    int index = FUN_00089400(item);
+    int index = ((ThisCall_00089400*)(this))->FUN_00089400(item);
     if (index == -1)
         return false;
     Session_8a090 *s = FUN_001d4c90();

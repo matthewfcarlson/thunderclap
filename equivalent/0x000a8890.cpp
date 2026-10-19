@@ -2,8 +2,8 @@
 // FUN_000a8890 @ 0x000a8890
 extern "C" double __cdecl sqrt(double);
 struct Sphere_a8890 { float x,y,z,radius; };
-struct Box_a8890 { float minX,minY,minZ,maxX,maxY,maxZ; void FUN_000a8890(Sphere_a8890* out); };
-void Box_a8890::FUN_000a8890(Sphere_a8890* out) {
+struct Box_a8890 { float minX,minY,minZ,maxX,maxY,maxZ; Sphere_a8890* FUN_000a8890(Sphere_a8890* out); };
+Sphere_a8890* Box_a8890::FUN_000a8890(Sphere_a8890* out) {
  float x,y,z,r;
  if (!(minX > maxX) && !(minY > maxY) && !(minZ > maxZ)) {
   float hx = (maxX-minX)*0.5f;
@@ -14,4 +14,5 @@ void Box_a8890::FUN_000a8890(Sphere_a8890* out) {
   r = (float)sqrt(hz*hz+hy*hy+(double)hx*hx);
  } else { x=y=z=r=0.0f; }
  out->radius=r; out->x=x; out->y=y; out->z=z;
+    return out;
 }

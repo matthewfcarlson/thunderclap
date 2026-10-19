@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 23/24, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 24/24)
 // FUN_0033a080 @ 0x0033a080
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
+// cl-flags: /GS
 
 struct lua_State;
 
@@ -38,7 +37,6 @@ void FUN_00213790(lua_State *L, int idx, const char *k);
 
 int FUN_0033a080(lua_State *L)
 {
-    unsigned int cookie = DAT_004d9968;
     lua_Debug_33a080 ar;
     lua_State *L1;
     int arg;
@@ -53,7 +51,6 @@ int FUN_0033a080(lua_State *L)
     if (FUN_00212f70(L, arg + 1)) {
         if (!FUN_00213fc0(L1, FUN_00213120(L, arg + 1), &ar)) {
             FUN_00213320(L);
-            __security_check_cookie(cookie);
             return 1;
         }
     } else if (FUN_00212f00(L, arg + 1) == 6) {
@@ -63,12 +60,10 @@ int FUN_0033a080(lua_State *L)
         FUN_00212cb0(L, L1, 1);
     } else {
         int r = FUN_00339c30(L, arg + 1, "function or level expected");
-        __security_check_cookie(cookie);
         return r;
     }
     if (!FUN_00214bd0(L1, options, &ar)) {
         int r = FUN_00339c30(L, arg + 2, "invalid option");
-        __security_check_cookie(cookie);
         return r;
     }
     FUN_00213680(L, 0, 0);
@@ -109,6 +104,5 @@ int FUN_0033a080(lua_State *L)
             break;
         }
     }
-    __security_check_cookie(cookie);
     return 1;
 }

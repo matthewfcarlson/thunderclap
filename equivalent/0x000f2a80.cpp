@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 4866 inputs, branch coverage 4/4)
 // FUN_000f2a80 @ 0x000f2a80
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
@@ -19,8 +20,6 @@ public:
 namespace pure3d { class CompositeDrawable; }
 
 extern "C" int sprintf(char *, const char *, ...);
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 class Ref_f2a80 {
 public:
@@ -44,7 +43,6 @@ public:
 
 void Owner_f2a80::LoadDrawables(const char *prefix)
 {
-    unsigned int cookie = DAT_004d9968;
     char name[0x20];
     for (int i = 1; i <= 10; i++) {
         sprintf(name, "%s_%d", prefix, i);
@@ -56,5 +54,4 @@ void Owner_f2a80::LoadDrawables(const char *prefix)
         if (r != 0)
             r->AddRef();
     }
-    __security_check_cookie(cookie);
 }

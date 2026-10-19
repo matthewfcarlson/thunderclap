@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2746 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 9159 inputs, branch coverage 18/18)
 // FUN_001e9960 @ 0x001e9960
+// cl-flags: /GS
 #include "decls/address.h"
 extern "C" char *strcpy(char *, const char *);
 extern "C" char *strcat(char *, const char *);
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 struct IdPair_1e9960 {
     unsigned int lo;
@@ -34,12 +33,9 @@ Slot_1e9960 *Registry_1e9960::FUN_001e9960(const char *name)
 {
     struct Frame {
         char buf[0x20];
-        unsigned int cookie;
     } fr = { "" };
-    fr.cookie = DAT_004d9968;
     Registry_1e9960 *self = this;
     if (!name || *name == 0) {
-        __security_check_cookie(fr.cookie);
         return 0;
     }
     strcpy(fr.buf, name);
@@ -49,11 +45,9 @@ Slot_1e9960 *Registry_1e9960::FUN_001e9960(const char *name)
             unsigned __int64 id = FUN_002672f0(fr.buf, 0, 0);
             IdPair_1e9960 *found = slots[i]->resource->FUN_00243390();
             if (found->lo == (unsigned int)id && found->hi == (unsigned int)(id >> 32)) {
-                __security_check_cookie(fr.cookie);
                 return self->slots[i];
             }
         }
     }
-    __security_check_cookie(fr.cookie);
     return 0;
 }

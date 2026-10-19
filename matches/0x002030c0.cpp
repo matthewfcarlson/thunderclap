@@ -1,10 +1,13 @@
 #include "decls/address.h"
 class CWorldCollisionManager;
-extern void __stdcall FUN_001d0480(const char*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(const char*, int);
+    virtual void v_001d0480();
+};
 extern int g1, g2;
-class Base {
+class Base : public CtorV_001d0480 {
   public:
-    Base(const char* s) { FUN_001d0480(s, 1); }
+    Base(const char* s) : CtorV_001d0480(s, 1) { }
 };
 class Method1 : public Base {
   public:

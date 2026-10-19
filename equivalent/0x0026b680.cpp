@@ -2,18 +2,18 @@
 // FUN_0026b680 @ 0x0026b680
 // equiv-conv: FUN_0026ab60 eax stack stack
 extern "C" int __cdecl FUN_0026ab60(int c, int a, int limit);
-// equiv-conv: FUN_0026abf0 eax ecx stack
-extern "C" int __cdecl FUN_0026abf0(int c, int a, int p2);
-// equiv-conv: FUN_0026ac80 eax ecx stack
-extern "C" int __cdecl FUN_0026ac80(int c, int a, int p2);
-// equiv-conv: FUN_0026ad10 eax ecx stack
-extern "C" int __cdecl FUN_0026ad10(int c, int a, int p2);
-// equiv-conv: FUN_0026adb0 eax ecx stack
-extern "C" int __cdecl FUN_0026adb0(int c, int a, int p2);
-// equiv-conv: FUN_0026ae50 eax ecx stack
-extern "C" int __cdecl FUN_0026ae50(int c, int a, int p2);
-// equiv-conv: FUN_0026aee0 eax ecx stack
-extern "C" int __cdecl FUN_0026aee0(int c, int a, int p2);
+// equiv-conv: FUN_0026abf0 eax ecx stack stack stack
+extern "C" int __cdecl FUN_0026abf0(int c, int a, int p2, int p3, int p4);
+// equiv-conv: FUN_0026ac80 eax ecx stack stack stack
+extern "C" int __cdecl FUN_0026ac80(int c, int a, int p2, int p3, int p4);
+// equiv-conv: FUN_0026ad10 eax ecx stack stack stack
+extern "C" int __cdecl FUN_0026ad10(int c, int a, int p2, int p3, int p4);
+// equiv-conv: FUN_0026adb0 eax ecx stack stack stack
+extern "C" int __cdecl FUN_0026adb0(int c, int a, int p2, int p3, int p4);
+// equiv-conv: FUN_0026ae50 eax ecx stack stack stack
+extern "C" int __cdecl FUN_0026ae50(int c, int a, int p2, int p3, int p4);
+// equiv-conv: FUN_0026aee0 eax ecx stack stack stack
+extern "C" int __cdecl FUN_0026aee0(int c, int a, int p2, int p3, int p4);
 
 // equiv-conv: FUN_0026b680 stack stack stack ebx edx esi edi
 int __cdecl FUN_0026b680(int a, int fromMode, int c, int toMode, int edxArg, int esiArg, int ediArg) {
@@ -23,12 +23,12 @@ int __cdecl FUN_0026b680(int a, int fromMode, int c, int toMode, int edxArg, int
         return (r >= esiArg) ? 0 : -1;
     }
     switch (toMode) {
-    case 0: return FUN_0026abf0(c, a, ediArg);
-    case 1: return FUN_0026ac80(c, a, ediArg);
-    case 2: return FUN_0026ad10(c, a, ediArg);
-    case 3: return FUN_0026adb0(c, a, ediArg);
-    case 4: return FUN_0026ae50(c, a, ediArg);
-    case 5: return FUN_0026aee0(c, a, ediArg);
+    case 0: return FUN_0026abf0(c, a, ediArg, esiArg, edxArg);
+    case 1: return FUN_0026ac80(c, a, ediArg, esiArg, edxArg);
+    case 2: return FUN_0026ad10(c, a, ediArg, esiArg, edxArg);
+    case 3: return FUN_0026adb0(c, a, ediArg, esiArg, edxArg);
+    case 4: return FUN_0026ae50(c, a, ediArg, esiArg, edxArg);
+    case 5: return FUN_0026aee0(c, a, ediArg, esiArg, edxArg);
     }
     return -2;
 }

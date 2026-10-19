@@ -1,8 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 316 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 9174 inputs, branch coverage 30/30)
 // FUN_00203e90 @ 0x00203e90
+// cl-flags: /GS
 #include "decls/data/engine/content.h"
 
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" char* strncpy(char* dst, const char* src, unsigned int n);
 
 class Handle_203e90 {
@@ -55,7 +55,6 @@ struct Actor_203e90 {
 int FUN_00266da0(int v);
 unsigned int FUN_00267f80();
 void FUN_00087990();
-extern unsigned int DAT_004d9968;
 
 class Owner_203e90 {
 public:
@@ -71,7 +70,6 @@ public:
 
 Handle_203e90* Owner_203e90::Run(const char* name, bool a2, bool a3, Actor_203e90* actor, Target_203e90* target, int a6, int a7)
 {
-    unsigned int cookie = DAT_004d9968;
     struct Frame {
         Handle_203e90* out;
         int saved;
@@ -114,6 +112,5 @@ Handle_203e90* Owner_203e90::Run(const char* name, bool a2, bool a3, Actor_203e9
     }
     FUN_00266da0(f.prev);
     Handle_203e90* result = f.out;
-    __security_check_cookie(cookie);
     return result;
 }

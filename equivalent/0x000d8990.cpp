@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 17513 inputs, branch coverage 4/4)
 // FUN_000d8990 @ 0x000d8990
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-extern unsigned int DAT_004d9968;
-extern void __fastcall __security_check_cookie(unsigned int);
 struct Manager_d8990;
 struct Entry_d8990 {
  char prefix[0x1c]; unsigned char marked; char suffix[0x1b];
@@ -35,7 +34,6 @@ struct Screen_d8990 {
  void FUN_000d8990(int index);
 };
 void Screen_d8990::FUN_000d8990(int index) {
- unsigned int cookie = DAT_004d9968;
  char text[1024];
  Manager_d8990* manager = FUN_000fc3d0()->slot44();
  int key = manager->FUN_000f7d30((*(const char**)&DAT_004a0cb8));
@@ -51,5 +49,4 @@ void Screen_d8990::FUN_000d8990(int index) {
  ui->FUN_000be310(title,text,&DAT_003f335c,"TBS_MENU_ITEM_LS_OVERWRITE","TBS_CANCEL",2,callback,callback);
  entries[1].marked = 1;
  state = 0;
- __security_check_cookie(cookie);
 }

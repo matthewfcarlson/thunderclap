@@ -49,7 +49,8 @@ public:
     void FUN_00293ac0(const Vec3_293450 *v);
 };
 
-void __cdecl FUN_00292f60(float *t);
+// equiv-conv: FUN_00292f60 esi edi stack
+void __cdecl FUN_00292f60(Channel *tran, Channel *look, float *t);
 
 class CameraAnimationController {
 public:
@@ -125,7 +126,7 @@ int CameraAnimationController::FUN_00293450()
             fr.fov = grp->FUN_00288960(0x31544c4600564f46ui64);
             fr.nclp = grp->FUN_00288960(0x31544c46504c434eui64);
             Channel *fclp = grp->FUN_00288960(0x31544c46504c4346ui64);
-            FUN_00292f60(&fr.A);
+            FUN_00292f60(tran, look, &fr.A);
 
             if (tran) {
                 fr.U.x = fr.U.x * fr.C;

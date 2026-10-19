@@ -1,9 +1,12 @@
-extern "C" void __stdcall setup(const char*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(const char*, int);
+    virtual void v_001d0480();
+};
 extern "C" unsigned char lookup(const void*);
 extern int a, b;
-class Base {
+class Base : public CtorV_001d0480 {
   public:
-    Base(const char* n) { setup(n, 1); }
+    Base(const char* n) : CtorV_001d0480(n, 1) { }
 };
 class Method1 : public Base {
   public:

@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 4/4)
 // FUN_00207080 @ 0x00207080
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl _sprintf(char *buf, const char *fmt, ...);
 
 class Locator {
@@ -71,9 +70,7 @@ void District_207080::FUN_00207080(int id)
 {
     struct Frame {
         char label[0x100];
-        unsigned int cookie;
     } fr;
-    fr.cookie = DAT_004d9968;
     DAT_0052c2a8->v91();
     _sprintf(fr.label, "%s_r%03d", name, id);
     FUN_00206a40(id);
@@ -82,5 +79,4 @@ void District_207080::FUN_00207080(int id)
     int room = FUN_001c3d90()->index->FUN_001c7f10(id)->id;
     if (!FUN_002046b0(room))
         FUN_00205860(room);
-    __security_check_cookie(fr.cookie);
 }

@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 25/26, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 26/26)
 // FUN_000f8500 @ 0x000f8500
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int strlen(const char*);
-extern unsigned int DAT_004d9968;
 
 class Manager_f8500 {
   public:
@@ -27,17 +26,14 @@ void FUN_000fb740(short* dst, const char* src, int count);
 void FUN_0008d340(void* p);
 
 void Entry_f8500::FUN_000f8500(const char* name, Manager_f8500* manager, char flag) {
-    volatile unsigned int cookie = DAT_004d9968;
     char prefix[0x20];
     char full[0x100];
     if (name == 0) {
-        __security_check_cookie(cookie);
         return;
     }
     if (manager == 0) {
         manager = FUN_000fc1b0();
         if (manager == 0) {
-            __security_check_cookie(cookie);
             return;
         }
     }
@@ -49,7 +45,6 @@ void Entry_f8500::FUN_000f8500(const char* name, Manager_f8500* manager, char fl
             FUN_0008d340(text);
             text = 0;
         }
-        __security_check_cookie(cookie);
         return;
     }
     if (text != 0) {
@@ -67,5 +62,4 @@ void Entry_f8500::FUN_000f8500(const char* name, Manager_f8500* manager, char fl
         FUN_000fb740(text, full, count);
         id = -1;
     }
-    __security_check_cookie(cookie);
 }

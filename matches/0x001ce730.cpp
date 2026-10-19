@@ -1,8 +1,11 @@
 #include "decls/address.h"
 class CScenarioManager;
-void __stdcall FUN_001d0480(const char*, int);
-struct Base {
-    Base(const char* a) { FUN_001d0480(a, 1); }
+struct CtorV_001d0480 {
+    CtorV_001d0480(const char*, int);
+    virtual void v_001d0480();
+};
+struct Base : public CtorV_001d0480 {
+    Base(const char* a) : CtorV_001d0480(a, 1) { }
 };
 class Method1 : public Base {
   public:

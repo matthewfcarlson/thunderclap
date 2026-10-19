@@ -4,8 +4,10 @@ class Ref_1364a0 {
     virtual void Fn();
     virtual void Release();
 };
-void BaseInit();
-class BounceAction {
+struct Ctor_00232660 {
+    Ctor_00232660();
+};
+class BounceAction : public Ctor_00232660 {
   public:
     int vptr;
     int pad04[6];
@@ -17,8 +19,7 @@ class BounceAction {
     int m30;
     BounceAction(int, Ref_1364a0*);
 };
-BounceAction::BounceAction(int a, Ref_1364a0* r) {
-    BaseInit();
+BounceAction::BounceAction(int a, Ref_1364a0* r) : Ctor_00232660() {
     vptr = ((int)DAT_00411e18);
     int* q = &m1c;
     *q = 0;

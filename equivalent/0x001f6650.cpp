@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 20018 inputs, branch coverage 30/30)
 // FUN_001f6650 @ 0x001f6650
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
-extern "C" unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 struct Voice_1f6650 {
     int pad0;
@@ -37,7 +36,7 @@ public:
 
 void Mixer::FUN_001f6650()
 {
-    unsigned int cookie = DAT_004d9968;
+    char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     if (--countdown == 0) {
         FUN_001f46a0();
         countdown = 0;
@@ -64,5 +63,4 @@ void Mixer::FUN_001f6650()
             ((Channel*)items[k])->FUN_001f5860(0.016666668f);
         FUN_00240bb0();
     }
-    __security_check_cookie(cookie);
 }

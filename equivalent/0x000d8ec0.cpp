@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 18277 inputs, branch coverage 4/4)
 // FUN_000d8ec0 @ 0x000d8ec0
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct Menu_d8ec0;
@@ -10,8 +11,6 @@ struct Provider_d8ec0 {
 struct Menu_d8ec0 { int FUN_000f7d30(const char*); const char* FUN_000f7220(int); };
 extern Provider_d8ec0* __cdecl FUN_000fc3d0();
 extern void __cdecl FUN_000fc020(char*, int, const char*);
-extern unsigned int DAT_004d9968;
-extern void __fastcall __security_check_cookie(unsigned int);
 struct State_d8ec0 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d8ec0* FUN_00086280(); };
 struct Target_d8ec0 {
@@ -19,7 +18,6 @@ struct Target_d8ec0 {
  void FUN_000d8ec0(int, int);
 };
 void Target_d8ec0::FUN_000d8ec0(int, int) {
- unsigned int cookie = DAT_004d9968;
  char buffer[1024];
  Menu_d8ec0* menu = FUN_000fc3d0()->v44();
  int id = menu->FUN_000f7d30((*(const char**)&DAT_004a0c94));
@@ -33,5 +31,4 @@ void Target_d8ec0::FUN_000d8ec0(int, int) {
  provider->FUN_000be310(message, buffer, ((const char*)&DAT_003f335c), ((const char*)&DAT_003f335c), "TBS_MENU_ITEM_OK", 2, (*(const char**)&DAT_004a0c60), (*(const char**)&DAT_004a0c60));
  active = 1;
  state = 0;
- __security_check_cookie(cookie);
 }

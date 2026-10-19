@@ -1,12 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20114 inputs, branch coverage 121/124, incomplete)
 // FUN_001b1710 @ 0x001b1710
+// cl-flags: /GS
 // FUN_001b1710 @ 0x001b1710
 // equiv-conv: FUN_001b0470 eax ecx stack
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
-extern "C" unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl _sprintf(char *, const char *, ...);
 
 struct V3_1b1710 {
@@ -201,7 +200,6 @@ struct Frame_1b1710 {
     V3_1b1710 w;               // 0x20
     Handler_1b1710 *self;      // 0x2c
     char buf[0x80];     // 0x30
-    unsigned int cookie; // 0xb0
 };
 
 int Handler_1b1710::FUN_001b1710(Thing_1b1710 *a0, Thing_1b1710 *a1, Thing_1b1710 *a2, V3_1b1710 *a3, V3_1b1710 *a4, float a5)
@@ -209,10 +207,8 @@ int Handler_1b1710::FUN_001b1710(Thing_1b1710 *a0, Thing_1b1710 *a1, Thing_1b171
     Frame_1b1710 f;
     int i;
 
-    f.cookie = DAT_004d9968;
     f.self = this;
     if ((*(char*)&DAT_004e1804) && a5 > 0.0f) {
-        __security_check_cookie(f.cookie);
         return 0;
     }
     Body_1b1710 *S = a2->f8;
@@ -220,17 +216,14 @@ int Handler_1b1710::FUN_001b1710(Thing_1b1710 *a0, Thing_1b1710 *a1, Thing_1b171
     if (DAT_004dd700)
         D->f1b88 = DAT_004dd700->f58->FUN_00086080();
     if (D->f128 && a0 != D->f128->FUN_001d72e0()) {
-        __security_check_cookie(f.cookie);
         return 1;
     }
     D->FUN_000373d0();
     unsigned __int64 id = D->f11c->FUN_000443c0();
     if ((unsigned int)id == (*(unsigned int*)&DAT_004dc060) && (unsigned int)(id >> 32) == (*(unsigned int*)((char*)&DAT_004dc060 + 4))) {
-        __security_check_cookie(f.cookie);
         return 1;
     }
     if (S->FUN_001d6a80()) {
-        __security_check_cookie(f.cookie);
         return 1;
     }
 
@@ -282,7 +275,6 @@ int Handler_1b1710::FUN_001b1710(Thing_1b1710 *a0, Thing_1b1710 *a1, Thing_1b171
                         unsigned int r = q->f8->FUN_0027b200(f.id.lo, f.id.hi);
                         D->FUN_0003acf0(D->FUN_00035f40() + 1, S, r, 0, 0, 0);
                         f.id.FUN_0027af50();
-                        __security_check_cookie(f.cookie);
                         return 1;
                     }
                 }
@@ -311,11 +303,9 @@ int Handler_1b1710::FUN_001b1710(Thing_1b1710 *a0, Thing_1b1710 *a1, Thing_1b171
         }
         if (S->f134 != 0) {
             S->f134->FUN_0001b510(ebx, a3, a4, 2);
-            __security_check_cookie(f.cookie);
             return 1;
         }
         if (p114 != 0 && p114->fc == 1 && p114->f8->f8 == (*(unsigned int*)&DAT_004dc0e0) && p114->f8->fc == (*(unsigned int*)((char*)&DAT_004dc0e0 + 4))) {
-            __security_check_cookie(f.cookie);
             return 1;
         }
     }
@@ -400,10 +390,8 @@ int Handler_1b1710::FUN_001b1710(Thing_1b1710 *a0, Thing_1b1710 *a1, Thing_1b171
                 goto ret1;
         }
         S->FUN_0027d4f0(7);
-        __security_check_cookie(f.cookie);
         return f.id.lo;
     }
 ret1:
-    __security_check_cookie(f.cookie);
     return 1;
 }

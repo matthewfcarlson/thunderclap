@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 100 inputs, branch coverage 31/32, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20025 inputs, branch coverage 31/32, incomplete)
 // FUN_000bc9f0 @ 0x000bc9f0
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
+// cl-flags: /GS
 
 struct Label_bc9f0 {
     char pad0[0x10];
@@ -23,7 +22,6 @@ class MenuScreen_bc9f0 {
 
 void MenuScreen_bc9f0::FUN_000bc9f0(int id, int code)
 {
-    volatile unsigned int cookie = DAT_004d9968;
     unsigned short text[0x100];
     Owner_bc9f0* owner = FUN_000fc260(id);
     if (owner) {
@@ -66,5 +64,4 @@ void MenuScreen_bc9f0::FUN_000bc9f0(int id, int code)
             label->FUN_000f79a0(text, 0);
         }
     }
-    __security_check_cookie(cookie);
 }

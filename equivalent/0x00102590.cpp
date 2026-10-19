@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 56/56)
+// STATUS: equivalent (tools/equiv.py level 3: 9937 inputs, branch coverage 56/56)
 // CHand2HandAgent::vfunc_4 @ 0x00102590
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
-extern "C" unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" double sqrt(double);
 
 struct RandState_102590 {
@@ -116,7 +115,7 @@ public:
 
 void CHand2HandAgent::vfunc_4(int a0, float dt, int a2)
 {
-    unsigned int cookie = DAT_004d9968;
+    char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     FUN_000fc550(a0, dt, a2);
     if ((char)a2) {
         va.x = va.y = va.z = 0.0f;
@@ -127,7 +126,6 @@ void CHand2HandAgent::vfunc_4(int a0, float dt, int a2)
     Sub_102590 *sub = &pl->sub;
     if (ctrl) {
         if (ctrl->v9() == 4) {
-            __security_check_cookie(cookie);
             return;
         }
     }
@@ -208,5 +206,4 @@ void CHand2HandAgent::vfunc_4(int a0, float dt, int a2)
     cur.x = sub->v.x;
     cur.y = sub->v.y;
     cur.z = sub->v.z;
-    __security_check_cookie(cookie);
 }

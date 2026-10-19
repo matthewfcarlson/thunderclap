@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002e69a0 @ 0x002e69a0
 struct Item { char pad[0x40]; void (__cdecl *callback)(Item *, void *); };
-// equiv-conv: FUN_002e6930 eax stack
-void FUN_002e6930(void *context, Item *item);
+void FUN_002e6930(Item *item);
 void __cdecl FUN_002e69a0(Item *item, void *context) {
     if (item->callback) item->callback(item, context);
-    FUN_002e6930(context, item);
+    FUN_002e6930(item);
 }

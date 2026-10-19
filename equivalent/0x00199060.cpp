@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3108 inputs, branch coverage 76/76)
 // hulkfight::motion::ProjectileGroundShockwave::vfunc_6 @ 0x00199060
-// equiv-conv: FUN_00195560 ecx eax stack stack stack stack stack stack stack stack stack stack stack
+// equiv-conv: FUN_00195560 ecx eax ebx stack stack stack stack stack stack stack stack stack stack stack
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct V3_199060 {
@@ -167,7 +167,7 @@ public:
 int FUN_00266da0(int mode);
 void FUN_00224d70(float angle, V3_199060 *v);
 float FUN_00224f10(V3_199060 *v);
-char FUN_00195560(V3_199060 *pn, void *own, int f1c, int f98, int z0, int a4, int Tbits, int f78, int f20, int f74,
+char FUN_00195560(V3_199060 *pn, void *own, V3_199060 *b, int f1c, int f98, int z0, int a4, int Tbits, int f78, int f20, int f74,
                   int z1, float one, int z2);
 extern "C" int __cdecl FUN_0034483c();
 
@@ -317,7 +317,7 @@ char ProjectileGroundShockwave::F(Thing_199060 *a1, Other_199060 *a2, V3_199060 
             float ang = FUN_00224f10(&v28);
             FUN_00224d70(ang, &fr.Q);
             Obj18_199060 *o = p18;
-            char r = FUN_00195560(&fr.Q, ((Carried *)carriedObj)->f12c, f1c, o->f98, 0, a4, *(int *)&fr.T,
+            char r = FUN_00195560(&fr.Q, ((Carried *)carriedObj)->f12c, a3, f1c, o->f98, 0, a4, *(int *)&fr.T,
                                   *(int *)&o->f78, *(int *)&f20, o->f74, 0, 1.0f, 0);
             if (r)
                 PlayEffect(this, fr.M, a3);

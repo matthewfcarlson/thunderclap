@@ -24,6 +24,33 @@ Rules:
                   __cdecl Hash(const char*);`, `struct W {...} *f();`): the struct is defined first, then the
                   function declared with it (and the same linkage).
   patch           One-off edits listed in PATCHES below (exact text, each with its reason).
+  this-note       A thiscall definition (a member: `this` in ecx) that a caller declares as a free __cdecl/__stdcall
+                  function with an equiv-conv note `ecx stack...` (native_conv_check check 9): natively the caller
+                  pushed `this` and the definition read ecx (and, popping its stack words, unbalanced the stack). The
+                  declaration becomes a member of a struct of its own, each call `((ThisNote_X*)(a0))->X(a1, ...)`.
+  return-param    A void definition whose original callers use eax (check 6) that the void-return rule can't
+                  rewrite (the body doesn't end in a call): candidates `return <pointer parameter>;` (vector ops
+                  storing through `out`: the original's eax is still `out`) and `return <the last assigned
+                  lvalue>;` (singleton getters: eax holds the stored pointer), with the return type changed and bare
+                  `return;` statements returning the same; each candidate is verified in turn (compare.py MATCH /
+                  equiv.py EQUIVALENT) and the first that verifies is written. Only with --apply --verify.
+  base-ctor       A base-class constructor (a thiscall `??0` definition, check 8) that a constructor calls through a
+                  free __stdcall/__cdecl declaration as its first statement (`Base(const char* s) {
+                  FUN_001d0480(s, 1); }`, the Lua binding objects): MSVC 7.1 had `this` in ecx by chance, natively
+                  nothing sets it. The declaration becomes a base class `Ctor_<addr>` (empty, or with a virtual
+                  function when the object's vftable pointer comes first) and the call its mem-initializer;
+                  candidates verified in turn (as return-param). Only with --apply --verify.
+  this-cand       A thiscall definition (not a constructor) that a caller declares as a free __stdcall/__cdecl
+                  function (check 8, behaviour-changing): the call becomes `((ThisCall_<addr>*)X)->f(args)` for X
+                  in `this` and the enclosing function's parameters, each candidate verified in turn (MSVC 7.1 must
+                  still emit the original's bytes: ecx already held X there). Only with --apply --verify.
+  reg-call        Calls of register-convention functions (native_conv_check check 5), each read from the
+                  original's call site: the edit groups in tools/native_calls.py (every occurrence of each old
+                  text is replaced; a group applies only if all its texts are present). A matches/ source listed
+                  in native_calls.DEMOTE becomes an equivalent/ source (the call can't be written so that MSVC
+                  7.1 still emits the original bytes: the argument travels in esi/edi/ebx): it is written to
+                  equivalent/ with equiv.py's STATUS header only if equiv.py --inputs 3000 finds it equivalent
+                  and promotable, and the match is removed (kept in build/native/fix4-orig/).
 
 equivalent/ sources shadowed by a matches/ source of the same address are skipped (the tree uses the match).
 """
@@ -163,6 +190,51 @@ PATCHES = [
     ("equivalent/0x000e8070.cpp", "{ input->FUN_000fad30(); object->stamp=FUN_0034483c(); }",
      "{ object->stamp=(int)input->FUN_000fad30(); }", "(the same edit, the call)"),
 ]
+
+
+def reg_call(rel, text):
+    """(new text, [why]) for the reg-call rule (groups in tools/native_calls.py)."""
+    import native_calls
+    out, names = text, []
+    for g_rel, why, edits in native_calls.REG_CALLS:
+        if g_rel != rel:
+            continue
+        if any(old not in out for old, _new in edits):
+            if any(old in out for old, _new in edits):
+                names.append("SKIP (not every text present): %s" % why)
+            continue
+        for old, new in edits:
+            out = out.replace(old, new)
+        names.append(why)
+    return out, names
+
+
+def demote_verify(rel, addr, text):
+    """(verdict, equivalent/ text with equiv.py's STATUS header) for a matches/ source rewritten for reg-call."""
+    import subprocess
+    import tempfile
+    d = tempfile.mkdtemp(prefix="demote-", dir=os.path.join(ROOT, "build"))
+    p = os.path.join(d, os.path.basename(rel))
+    with open(p, "w", encoding="latin1", newline="") as f:
+        f.write(text)
+    try:
+        r = subprocess.run([sys.executable, os.path.join(ROOT, "tools/equiv.py"), p, "0x%08x" % addr, "--inputs", "3000",
+                            "--json"], capture_output=True, text=True, errors="replace", cwd=ROOT)
+        try:
+            rep = json.loads(r.stdout.strip().splitlines()[-1])
+        except (ValueError, IndexError):
+            return "equiv.py: no result", None
+    finally:
+        import shutil
+        shutil.rmtree(d, ignore_errors=True)
+    if rep.get("status") != "equivalent" or not rep.get("promotable"):
+        return "equiv.py: %s%s" % (rep.get("status"), "" if rep.get("promotable") else " (not promotable)"), None
+    l3 = rep["level3"]
+    c = l3["coverage"]
+    head = ("// STATUS: equivalent (tools/equiv.py level 3: %d inputs, branch coverage %d/%d%s)\n"
+            "// %s @ 0x%08x\n" % (l3["inputs_run"], c["edges_covered"], c["edges_total"],
+                                  "" if c["complete"] else ", incomplete", rep.get("target") or "FUN_%08x" % addr, addr))
+    return "EQUIVALENT", head + text
 
 
 def load_sources():
@@ -515,9 +587,12 @@ def void_return(rel, text):
             names.append("SKIP %s: no callee name" % name)
             continue
         callee = cm.group(1)
+        if callee in ("_ReadWriteBarrier",):
+            names.append("SKIP %s: the last call is a compiler barrier" % name)
+            continue
         ret_type = "int"
         new = text
-        cdecls = list(re.finditer(r"(?m)(^|[;{}(,]|\b(?:virtual|static|extern|inline)\b)\s*" + r"(?:extern\s+\"C\"\s+)?" + DECL_WORDS +
+        cdecls = list(re.finditer(r"(?m)(^|[;{}(,]|\b(?:virtual|static|inline)\b|\bextern\b(?!\s+\"))\s*" + r"(?:extern\s+\"[^\"]*\"\s+)?" + DECL_WORDS +
                                   r"([\w:<>\s\*&]+?)\s+" + CONV_WORD + r"(?:\w+::)*" + re.escape(callee) + r"\s*\(",
                                   blank_comments(new)))
         def ctype(c):
@@ -534,6 +609,12 @@ def void_return(rel, text):
             ret_type = next(iter(types))
         elif not types and callee in ("_isnan",):
             ret_type = "int"
+        elif not types and len(re.findall(r"\bvoid\s*\(\s*(?:__cdecl\s*|__stdcall\s*)?\*\s*%s\s*\)" % re.escape(callee),
+                                          blank_comments(new))) == 1:
+            # a call through a function-pointer member (`void (__cdecl* write)(Writer*, const char*, int)`): the
+            # pointer's type returns int
+            fp = re.search(r"\bvoid(\s*\(\s*(?:__cdecl\s*|__stdcall\s*)?\*\s*%s\s*\))" % re.escape(callee), blank_comments(new))
+            new = new[:fp.start()] + "int" + new[fp.start() + 4:]
         elif not types:
             names.append("SKIP %s: no declaration of %s in the source" % (name, callee))
             continue
@@ -792,6 +873,271 @@ def this_call(rel, text):
     return text, done
 
 
+# this-note: a free declaration with an `ecx stack...` note of a thiscall definition (check 9)
+_TN = {}
+
+
+def this_note_findings():
+    """{caller file: {address}} of check 9's thiscall-definition findings whose note is `ecx` + stack words."""
+    if "f" not in _TN:
+        import native_conv_check
+        _n, bad = native_conv_check.check_note_conventions(tree_report=TREE_REPORT)
+        out = {}
+        for b in bad:
+            locs = b["conv"].split()
+            if b["definition_conv"] == "thiscall" and locs and locs[0] == "ecx" and all(l == "stack" for l in locs[1:]):
+                out.setdefault(b["file"], set()).add(int(b["addr"], 16))
+        _TN["f"] = out
+    return _TN["f"]
+
+
+def this_note(rel, text):
+    addrs = this_note_findings().get(rel)
+    if not addrs:
+        return text, []
+    done = []
+    for a in sorted(addrs):
+        name = "FUN_%08x" % a
+        blank = blank_comments(text)
+        dm = list(re.finditer(r"(?m)^[ \t]*//[ \t]*equiv-conv:[ \t]*%s[ \t]+ecx(?:[ \t]+stack)*[ \t]*\n"
+                              r"[ \t]*(?:extern\s+(?:\"C\"\s+)?)?([\w:\*& ]+?)\s*(?:__stdcall\s+|__cdecl\s+)?%s\s*\(([^()]*)\)\s*;[ \t]*\n"
+                              % (name, name), text))
+        if len(dm) != 1 or in_class(blank, dm[0].start()):
+            continue
+        d = dm[0]
+        params = [text[s0:e0].strip() for s0, e0 in split_args(text, d.start(2), d.end(2), angle=True)]
+        if not params or "..." in params:
+            continue        # (a varargs member is __cdecl under MSVC: those stay for a hand-written fix)
+        struct = "ThisNote_%08x" % a
+        calls = [m for m in re.finditer(r"(?<![\w:>.])%s\s*\(" % name, blank) if m.start() > d.end()]
+        if not calls:
+            continue
+        new, ok = text, True
+        for m in sorted(calls, key=lambda m: -m.start()):
+            depth, j = 1, m.end()
+            while j < len(blank) and depth:
+                depth += {"(": 1, ")": -1}.get(blank[j], 0)
+                j += 1
+            args = split_args(blank, m.end(), j - 1, angle=False)
+            if not args:
+                ok = False
+                break
+            a0 = new[args[0][0]:args[0][1]].strip()
+            rest = new[args[1][0]:j - 1].strip() if len(args) > 1 else ""
+            new = new[:m.start()] + "((%s*)(%s))->%s(%s)" % (struct, a0, name, rest) + new[j:]
+        if not ok:
+            continue
+        ret = d.group(1).strip()
+        new = new[:d.start()] + "struct %s {\n    %s %s(%s);\n};\n" % (struct, ret, name, ", ".join(params[1:])) + new[d.end():]
+        text = new
+        done.append("%s (thiscall) called as a member of its first argument" % name)
+    return text, done
+
+
+def return_param_candidates(rel, text):
+    """[(new text, why)] candidates for the return-param rule (see the module doc)."""
+    syms = void_return_findings().get(rel)
+    if not syms:
+        return []
+    out = []
+    for sym in sorted(syms):
+        name = _plain_name(sym)
+        if not name:
+            continue
+        blank = blank_comments(text)
+        defs = []
+        for m in re.finditer(r"\bvoid\s+" + CONV_WORD + r"((?:\w+::)*)" + re.escape(name) + r"\s*\(", blank):
+            i, depth = m.end(), 1
+            while i < len(blank) and depth:
+                depth += {"(": 1, ")": -1}.get(blank[i], 0)
+                i += 1
+            rest = re.match(r"\s*(?:const\s*)?(?:throw\s*\([^)]*\)\s*)?\{", blank[i:])
+            if rest:
+                defs.append((m, m.end(), i - 1, i + rest.end() - 1))
+        if len(defs) != 1:
+            continue
+        m, p0, p1, b0 = defs[0]
+        depth, j = 0, b0
+        while j < len(blank):
+            depth += {"{": 1, "}": -1}.get(blank[j], 0)
+            if depth == 0:
+                break
+            j += 1
+        params = [text[a:b].strip() for a, b in split_args(text, p0, p1, angle=True)]
+        exprs = []
+        for prm in params:
+            pm = re.match(r"(.*?[\*&])\s*(\w+)$", prm.replace("volatile ", ""))
+            if pm and "(" not in prm:
+                exprs.append((pm.group(1).strip(), pm.group(2)))
+        body = blank[b0 + 1:j]
+        lm = None
+        for lm in re.finditer(r"([^;{}]*?)(?<![=!<>+\-*/&|^])=(?!=)[^;{}]*;", body):
+            pass
+        if lm:
+            lv = " ".join(text[b0 + 1 + lm.start(1):b0 + 1 + lm.end(1)].split())
+            lv = re.sub(r"^(?:(?:unsigned|signed|const|volatile|struct|class)\s+)*[\w:]+\s*\**\s*(?=\w+$)", "", lv) \
+                if re.match(r"^[\w:]+(?:\s+[\w:]+)*\s*\**\s*\w+$", lv) and not re.match(r"^\w+$", lv) else lv
+            if lv and not re.search(r"[;{}]|\breturn\b", lv):
+                exprs.append(("int", "(int)(%s)" % lv))
+        for rtype, expr in exprs:
+            new = text[:b0 + 1] + re.sub(r"\breturn\s*;", "return %s;" % expr, text[b0 + 1:j]) + \
+                "    return %s;\n" % expr + text[j:]
+            new = new[:m.start()] + rtype + new[m.start() + 4:]
+            # a member's declaration in its class body / a free function's forward declarations
+            decl_rx = re.compile(r"\bvoid(\s+" + CONV_WORD + re.escape(name) + r"\s*\([^;{]*\)\s*(?:const\s*)?(?:throw\s*\([^)]*\)\s*)?;)")
+            head = new[:m.start()]
+            new = decl_rx.sub(lambda mm: rtype + mm.group(1), head) + new[m.start():]
+            out.append((new, "%s returns %s" % (name, expr)))
+    return out
+
+
+_BC = {}
+
+
+def _ns_sources():
+    """{TU or block namespace (`fn_...`): [sources]} of the tree build (HULK_TREE_MANIFEST, default build/tree)."""
+    if "ns" not in _BC:
+        man = json.load(open(os.environ.get("HULK_TREE_MANIFEST") or os.path.join(ROOT, "build/tree/manifest.json")))
+        by_ns = {}
+        for t in man["tus"]:
+            srcs = [b["src"] for b in t["blocks"] if b.get("src")]
+            if t.get("tu_ns"):
+                by_ns.setdefault(t["tu_ns"], []).extend(srcs)
+            for b in t["blocks"]:
+                if b.get("ns") and b.get("src"):
+                    by_ns.setdefault(b["ns"], []).append(b["src"])
+        _BC["ns"] = by_ns
+    return _BC["ns"]
+
+
+def base_ctor_addrs():
+    """{source: {(plain name, definition address)}} of check 8's behaviour-changing cdecl/stdcall callers of a
+    thiscall constructor (the caller symbol's TU namespace gives its sources; FUN_<addr> names everywhere)."""
+    if "a" not in _BC:
+        import native_conv_check
+        _c, _p, bad = native_conv_check.classify_definition_convs(
+            os.environ.get("HULK_BINDINGS") or os.path.join(ROOT, "build/native/bindings.json"))
+        out = {}
+        for b in bad:
+            if not b["definition"].startswith("??0") or \
+                    native_conv_check.symbol_conv(b["symbol"]) not in ("cdecl", "stdcall"):
+                continue
+            a = int(b["addr"], 16)
+            name = _plain_name(b["symbol"])
+            m = re.search(r"@(fn_[0-9a-f]{8})@@", b["symbol"])
+            for src in _ns_sources().get(m.group(1), []) if m else []:
+                out.setdefault(src, set()).add((name, a))
+            out.setdefault("*", set()).add(("FUN_%08x" % a, a))
+        _BC["a"] = out
+    return _BC["a"]
+
+
+def base_ctor_candidates(rel, text):
+    out = []
+    pairs = base_ctor_addrs()
+    for name, a in sorted(pairs.get(rel, set()) | pairs.get("*", set())):
+        if not name or name not in text:
+            continue
+        blank = blank_comments(text)
+        dm = list(re.finditer(r"(?m)^[ \t]*(?:extern\s+(?:\"[^\"]*\"\s+)?)?void\s+(?:__stdcall\s+|__cdecl\s+)?%s\s*\(([^()]*)\)\s*;[ \t]*\n" % name, blank))
+        if len(dm) != 1 or in_class(blank, dm[0].start()):
+            continue
+        d = dm[0]
+        params = text[d.start(1):d.end(1)]
+        base = "Ctor_%08x" % a
+        # the constructor whose first statement is the call: inline `C(...) { FUN(...); ...}` or `C::C(...) {`
+        cm = list(re.finditer(r"\b((?:(\w+)::)?(\w+))\s*\(([^()]*)\)\s*\{\s*%s\s*\(([^;]*)\)\s*;" % name, blank))
+        if len(cm) != 1:
+            continue
+        c = cm[0]
+        cls = c.group(3)
+        if c.group(2) and c.group(2) != cls:
+            continue
+        args = text[c.start(5):c.end(5)]
+        # the class head
+        hm = list(re.finditer(r"\b(class|struct)\s+%s\b\s*(:[^{;]*)?\{" % re.escape(cls), blank))
+        if len(hm) != 1:
+            continue
+        h = hm[0]
+        for poly in (False, True):
+            # (the polymorphic variant has a name of its own: two sources merged into one TU must not define one
+            # struct two ways)
+            base = "%s_%08x" % ("CtorV" if poly else "Ctor", a)
+            body = "struct %s {\n    %s(%s);%s\n};\n" % (base, base, params, "\n    virtual void v_%08x();" % a if poly else "")
+            new = text
+            # (edits from the end backwards: the call, the class head, the declaration)
+            cs, ce = c.start(), c.end()
+            ctor_head = text[c.start(1):c.end(4) + 1]
+            rest_after_call = text[ce:]
+            new = text[:c.start(1)] + ctor_head + " : %s(%s) {" % (base, args) + rest_after_call
+            if h.group(2):
+                bases = text[h.start(2) + 1:h.end(2)].strip()
+                head = "%s %s : public %s, %s {" % (h.group(1), cls, base, bases)
+            else:
+                head = "%s %s : public %s {" % (h.group(1), cls, base)
+            new = new[:h.start()] + head + new[h.end():]
+            new = new[:d.start()] + body + new[d.end():]
+            out.append((new, "%s called as the base constructor %s of %s%s" % (name, base, cls, " (polymorphic)" if poly else "")))
+    return out
+
+
+def this_cand_pairs():
+    """{source: {(plain name, definition address)}} of check 8's behaviour-changing cdecl/stdcall callers of a
+    thiscall definition that is no constructor."""
+    if "t" not in _BC:
+        import native_conv_check
+        _c, _p, bad = native_conv_check.classify_definition_convs(
+            os.environ.get("HULK_BINDINGS") or os.path.join(ROOT, "build/native/bindings.json"))
+        out = {}
+        for b in bad:
+            if b["definition"].startswith("??0") or native_conv_check.symbol_conv(b["definition"]) != "thiscall" or \
+                    native_conv_check.symbol_conv(b["symbol"]) not in ("cdecl", "stdcall"):
+                continue
+            a = int(b["addr"], 16)
+            name = _plain_name(b["symbol"])
+            m = re.search(r"@(fn_[0-9a-f]{8})@@", b["symbol"])
+            for src in _ns_sources().get(m.group(1), []) if m else []:
+                out.setdefault(src, set()).add((name, a))
+        _BC["t"] = out
+    return _BC["t"]
+
+
+def this_cand_candidates(rel, text):
+    out = []
+    for name, a in sorted(this_cand_pairs().get(rel, set())):
+        if not name:
+            continue
+        blank = blank_comments(text)
+        dm = list(re.finditer(r"(?m)^[ \t]*(?:extern\s+(?:\"[^\"]*\"\s+)?)?([\w:\*& ]+?)\s*(?:__stdcall\s+|__cdecl\s+)?%s\s*\(([^()]*)\)\s*;[ \t]*\n" % re.escape(name), blank))
+        if len(dm) != 1 or in_class(blank, dm[0].start()):
+            continue
+        d = dm[0]
+        calls = [m for m in re.finditer(r"(?<![\w:>.])%s\s*\(" % re.escape(name), blank) if m.start() > d.end()]
+        if not calls:
+            continue
+        # the enclosing function of the first call: its parameter names, and whether it is a member
+        k = calls[0].start()
+        fm = None
+        for fm_ in re.finditer(r"((?:\w+::)*)(~?\w+)\s*\(([^()]*)\)\s*(?:const\s*)?(?::[^{;]*)?\{", blank[:k]):
+            fm = fm_
+        if fm is None:
+            continue
+        pnames = [p.split()[-1].strip("*&") for p in fm.group(3).split(",") if p.strip() and p.strip() != "void"]
+        member = bool(fm.group(1)) or in_class(blank, fm.start())
+        xs = (["this"] if member else []) + [p for p in pnames if re.fullmatch(r"\w+", p)]
+        ret = text[d.start(1):d.end(1)].strip()
+        ret = re.sub(r"^(?:extern\s+)", "", ret)
+        params = text[d.start(2):d.end(2)]
+        struct = "ThisCall_%08x" % a
+        for x in xs:
+            new = text
+            for m in sorted(calls, key=lambda m: -m.start()):
+                new = new[:m.start()] + "((%s*)(%s))->%s(" % (struct, x, name) + new[m.end():]
+            new = new[:d.start()] + "struct %s {\n    %s %s(%s);\n};\n" % (struct, ret, name, params) + new[d.end():]
+            out.append((new, "%s (thiscall 0x%08x) called on %s" % (name, a, x)))
+    return out
+
+
 def in_class(blank, pos):
     depth = 0
     for ch in blank[:pos]:
@@ -803,7 +1149,7 @@ RULES = {"template-spec": lambda rel, t: template_spec(t), "dependent-base": lam
          "return-struct": lambda rel, t: return_struct(t), "patch": patch, "register-order": register_order,
          "void-return": void_return, "split-temp": lambda rel, t: split_temp(t),
          "code-literal": lambda rel, t: code_literal(t), "pass-through": None,
-         "this-call": this_call}
+         "this-call": this_call, "reg-call": reg_call, "this-note": this_note, "return-param": None, "base-ctor": None, "this-cand": None}
 
 
 def main(argv=None):
@@ -814,7 +1160,14 @@ def main(argv=None):
     ap.add_argument("--only", nargs="*")
     ap.add_argument("--jobs", type=int, default=3, help="verifications at once (default 3)")
     a = ap.parse_args(argv)
-    rules = a.rule or sorted(RULES)
+    # (the candidate rules, return-param / base-ctor / this-cand, run alone: --rule NAME)
+    rules = a.rule or sorted(r for r in RULES if r not in ("return-param", "base-ctor", "this-cand"))
+    if rules == ["return-param"]:
+        return return_param_main(a)
+    if rules == ["base-ctor"]:
+        return return_param_main(a, base_ctor_candidates, "base-ctor")
+    if rules == ["this-cand"]:
+        return return_param_main(a, this_cand_candidates, "this-cand")
     srcs = load_sources()
     in_matches = {addr for rel, addr, _ in srcs if rel.startswith("matches/")}
     planned = []
@@ -842,9 +1195,19 @@ def main(argv=None):
     if a.verify:
         from concurrent.futures import ThreadPoolExecutor
         with ThreadPoolExecutor(a.jobs) as ex:
-            futs = {p[0]: ex.submit(reconcile_stubs.verify_rewrite, p[0], p[1], p[3]) for p in planned}
+            import native_calls
+            futs = {p[0]: ex.submit(demote_verify, p[0], p[1], p[3]) if p[0] in native_calls.DEMOTE
+                    else ex.submit(reconcile_stubs.verify_rewrite, p[0], p[1], p[3]) for p in planned}
             verdicts = {rel: f.result() for rel, f in futs.items()}
+            demoted = {rel: v[1] for rel, v in verdicts.items() if isinstance(v, tuple)}
+            verdicts = {rel: v[0] if isinstance(v, tuple) else v for rel, v in verdicts.items()}
     written = 0
+    if not a.verify:
+        import native_calls
+        if any(p[0] in native_calls.DEMOTE for p in planned):
+            print("a demote (matches/ -> equivalent/) needs --verify")
+            return 1
+        demoted = {}
     with open(LOG, "a") as log, open(CHANGED, "a") as ch:
         for rel, addr, text, new, why in planned:
             v = None
@@ -862,12 +1225,82 @@ def main(argv=None):
                 os.makedirs(os.path.dirname(keep), exist_ok=True)
                 with open(keep, "w", encoding="latin1", newline="") as f:
                     f.write(text)
+            if rel in demoted:
+                eq = "equivalent/" + os.path.basename(rel)
+                if os.path.exists(os.path.join(ROOT, eq)):
+                    log.write(json.dumps({"file": rel, "edits": why, "skipped": eq + " exists"}) + "\n")
+                    continue
+                with open(os.path.join(ROOT, eq), "w", encoding="latin1", newline="") as f:
+                    f.write(demoted[rel])
+                os.remove(os.path.join(ROOT, rel))
+                log.write(json.dumps({"file": eq, "demoted_from": rel, "edits": why, "verified": v}) + "\n")
+                ch.write(rel + "\n" + eq + "\n")
+                written += 1
+                continue
             with open(os.path.join(ROOT, rel), "w", encoding="latin1", newline="") as f:
                 f.write(new)
             log.write(json.dumps(dict({"file": rel, "edits": why}, **({"verified": v} if v else {}))) + "\n")
             ch.write(rel + "\n")
             written += 1
     print("rewrote %d of %d planned sources (log: %s)" % (written, len(planned), os.path.relpath(LOG, ROOT)))
+    return 0
+
+
+def return_param_main(a, candidates=None, tag="return-param"):
+    """--rule return-param (base-ctor): each source's candidates verified in turn; the first that verifies is
+    written."""
+    candidates = candidates or return_param_candidates
+    import reconcile_stubs
+    from concurrent.futures import ThreadPoolExecutor
+    srcs = load_sources()
+    in_matches = {rel_addr for rel, rel_addr, _ in srcs if rel.startswith("matches/")}
+    jobs = []
+    for rel, addr, text in srcs:
+        if a.only and rel not in a.only:
+            continue
+        if rel.startswith("equivalent/") and addr in in_matches:
+            continue
+        c = candidates(rel, text)
+        if c:
+            jobs.append((rel, addr, text, c))
+    print("planned: %d sources, %d candidates" % (len(jobs), sum(len(j[3]) for j in jobs)))
+    if not (a.apply and a.verify):
+        for rel, addr, text, c in jobs:
+            print("  %s  %s" % (rel, " | ".join(w for _n, w in c)[:200]))
+        return 0
+
+    def first(job):
+        rel, addr, text, c = job
+        tried = []
+        for new, why in c:
+            v = reconcile_stubs.verify_rewrite(rel, addr, new)
+            tried.append("%s: %s" % (why, v))
+            if v in ("MATCH", "EQUIVALENT"):
+                return new, why, v, tried
+        return None, None, None, tried
+    with ThreadPoolExecutor(a.jobs) as ex:
+        res = list(ex.map(first, jobs))
+    written = 0
+    with open(LOG, "a") as log, open(CHANGED, "a") as ch:
+        for (rel, addr, text, c), (new, why, v, tried) in zip(jobs, res):
+            cur = open(os.path.join(ROOT, rel), encoding="latin1", newline="").read()
+            if new is None or cur != text:
+                log.write(json.dumps({"file": rel, "edits": [tag + ": " + t for t in tried],
+                                      "skipped": "changed meanwhile" if new is not None else "no candidate verified"}) + "\n")
+                print("  %-26s %-11s %s" % (rel, "skipped", " | ".join(tried)[:150]), flush=True)
+                continue
+            keep = os.path.join(ORIG, rel)
+            if not os.path.exists(keep):
+                os.makedirs(os.path.dirname(keep), exist_ok=True)
+                with open(keep, "w", encoding="latin1", newline="") as f:
+                    f.write(text)
+            with open(os.path.join(ROOT, rel), "w", encoding="latin1", newline="") as f:
+                f.write(new)
+            log.write(json.dumps({"file": rel, "edits": [tag + ": " + why], "verified": v}) + "\n")
+            ch.write(rel + "\n")
+            written += 1
+            print("  %-26s %-11s %s" % (rel, v, why), flush=True)
+    print("rewrote %d of %d planned sources (log: %s)" % (written, len(jobs), os.path.relpath(LOG, ROOT)))
     return 0
 
 

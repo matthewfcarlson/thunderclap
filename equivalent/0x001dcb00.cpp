@@ -22,7 +22,7 @@ struct Frame_1dcb00 {
 };
 
 // Nudges a half-unit box around a position in +-x / +-z steps until both corners test clear.
-void __stdcall FUN_001dcb00(V3_1dcb00* out, const V3_1dcb00* in)
+V3_1dcb00* __stdcall FUN_001dcb00(V3_1dcb00* out, const V3_1dcb00* in)
 {
     Frame_1dcb00 f;
     float y1 = in->y + 1.0f;
@@ -83,4 +83,5 @@ void __stdcall FUN_001dcb00(V3_1dcb00* out, const V3_1dcb00* in)
     out->x = f.pos.x;
     out->y = y1;
     out->z = f.pos.z;
+    return out;
 }

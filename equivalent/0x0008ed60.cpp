@@ -1,13 +1,11 @@
-// STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 13/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3785 inputs, branch coverage 13/16, incomplete)
 // FUN_0008ed60 @ 0x0008ed60
+// cl-flags: /GS
 namespace XAPILIB { int __stdcall XGetLaunchInfo(unsigned long* launchType, void* launchData); }
 extern "C" void __cdecl FUN_0008f880(int argc, char** argv);
-extern "C" unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int cookie);
 struct LaunchData_8ed60 { char bytes[0xc00]; };
 void __cdecl FUN_0008ed60()
 {
-    unsigned int cookie = DAT_004d9968;
     unsigned long launchType = 0;
     char* args[32];
     LaunchData_8ed60 commandLine;
@@ -26,5 +24,4 @@ void __cdecl FUN_0008ed60()
         }
     }
     FUN_0008f880(count, args);
-    __security_check_cookie(cookie);
 }

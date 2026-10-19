@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_001ca730 @ 0x001ca730
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 struct Reporter_1ca730 {
  bool FUN_001d2e80();
  void FUN_001d1d50(const char*, const char*);
@@ -20,10 +19,8 @@ struct Object {
  bool target();
 };
 bool Object::target() {
- unsigned int cookie = DAT_004d9968;
  Reporter_1ca730* r = FUN_001d4c90();
  if (!r || !r->FUN_001d2e80()) {
- __security_check_cookie(cookie);
  return false;
  }
  char buffer[32];
@@ -37,6 +34,5 @@ bool Object::target() {
  r->FUN_001d1d50("prop_DANGEROUS", "prop_DANGEROUS is not defined in RELEASE!");
  r->FUN_001d1d50("prop_type_DANGEROUS", "prop_type_DANGEROUS is not defined in RELEASE!");
  r->FUN_001d1d10();
- __security_check_cookie(cookie);
  return true;
 }

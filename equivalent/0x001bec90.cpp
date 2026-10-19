@@ -1,12 +1,11 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 12891 inputs, branch coverage 2/2)
 // FUN_001bec90 @ 0x001bec90
+// cl-flags: /GS
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
 
 extern "C" int sprintf(char *dst, const char *fmt, ...);
 
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 struct Vec3_1bec90 { float x, y, z; };
 
@@ -62,7 +61,6 @@ struct Frame_1bec90 {
     Vec3_1bec90 v;
     Blender_1bec90 b;
     char buf[32];
-    unsigned int cookie;
 };
 
 class Overlay {
@@ -76,9 +74,7 @@ public:
 void Overlay::FUN_001bec90()
 {
     Frame_1bec90 f;
-    f.cookie = DAT_004d9968;
     if (owner == 0) {
-        __security_check_cookie(f.cookie);
         return;
     }
     f.b.FUN_000f7fe0(owner);
@@ -103,5 +99,4 @@ void Overlay::FUN_001bec90()
     (*(Display_1bec90**)&DAT_0052c2ac)->renderer->v16(0);
     (*(Display_1bec90**)&DAT_0052c2ac)->renderer->v16(0);
     f.b.FUN_000f78e0();
-    __security_check_cookie(f.cookie);
 }

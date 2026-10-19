@@ -1,3 +1,4 @@
+#include "decls/data/game/global.h"
 struct State;
 typedef int(__cdecl* Callback_1d3c90)(State*);
 extern int __cdecl FUN_001d0990(State*);
@@ -37,7 +38,7 @@ int Object::target(State** state) {
     FUN_0033ac90(*state);
     FUN_00212d80(*state, 0);
     FUN_00212ed0(*state, -10001);
-    FUN_003390d0(*state, 0, "h$B", 0);
+    FUN_003390d0(*state, 0, (const char*)DAT_00422458, 0);
     FUN_00212d80(*state, -2);
     FUN_001d07b0(*state);
     State* saved = *state;

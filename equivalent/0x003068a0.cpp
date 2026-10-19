@@ -19,10 +19,10 @@ struct CollisionVolume {
     unsigned char dirty;
 };
 }
-// equiv-conv: FUN_00306790 eax stack
-void __cdecl FUN_00306790(physics::CollisionVolume*, void*);
+// equiv-conv: FUN_00306790 eax ebx stack
+void __cdecl FUN_00306790(physics::CollisionVolume*, physics::CollisionVolume*, void*);
 void physics::CollisionVolume::vfunc_12(CollisionVolume* other, void* arg) {
     if (!dirty) vfunc_10();
     if (!other->dirty) other->vfunc_10();
-    FUN_00306790(this, arg);
+    FUN_00306790(this, other, arg);
 }

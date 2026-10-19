@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 7101 inputs, branch coverage 23/24, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 5195 inputs, branch coverage 23/24, incomplete)
 // fight::ParamValueEnum::vfunc_5 @ 0x00234cf0
+// cl-flags: /GS
 extern "C" void *__cdecl memset(void *, int, unsigned int);
 extern "C" int strcmp(const char *a, const char *b);
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern "C" unsigned int DAT_004d9968;
 
 class Context {
 public:
@@ -46,29 +45,23 @@ char fight::ParamValueEnum::vfunc_5(void *a1, int a2, Context *ctx)
         int n;
         char name[1024];
         int pad2;               // (a dead word between the buffer and the cookie)
-        unsigned int cookie;
     } f;
-    f.cookie = DAT_004d9968;
     f.name[0] = 0;
     memset(f.name + 1, 0, 1023);
     f.index = -1;
     f.ok = ctx->vf6(key0, key1, &f.index, f.name, 1024);
     if (!f.ok) {
-        __security_check_cookie(f.cookie);
         return f.ok;
     }
     if (f.index >= 0) {
         if (f.index < vfunc_7(a1)) {
             vfunc_8(a1, f.index);
-            __security_check_cookie(f.cookie);
             return f.ok;
         }
         FUN_00232cc0(ctx, "%d is not a valid enumerated value.", f.index);
-        __security_check_cookie(f.cookie);
         return 0;
     }
     if (f.name[0] == 0) {
-        __security_check_cookie(f.cookie);
         return f.ok;
     }
     f.n = vfunc_7(a1);
@@ -78,13 +71,11 @@ char fight::ParamValueEnum::vfunc_5(void *a1, int a2, Context *ctx)
         if (strcmp(f.name, vfunc_6(a1, i)) == 0) {
             result = vfunc_8(a1, i);
             if (i < f.n) {
-                __security_check_cookie(f.cookie);
                 return result;
             }
             break;
         }
     }
     FUN_00232cc0(ctx, "\"%s\" is not a valid enumerated value.", f.name);
-    __security_check_cookie(f.cookie);
     return 0;
 }

@@ -1,9 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1326 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 10099 inputs, branch coverage 16/16)
 // FUN_00206a40 @ 0x00206a40
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int sprintf(char *buf, const char *fmt, ...);
 
 namespace pure3d { class LightGroup; }
@@ -109,7 +109,6 @@ struct World {
 
 Single *FUN_001c3d90();
 
-extern unsigned int DAT_004d9968;
 
 class Scene_206a40 {
 public:
@@ -126,7 +125,6 @@ public:
 
 void Scene_206a40::Load(int idx)
 {
-    unsigned int cookie = DAT_004d9968;
     struct Frame {
         Lists_206a40 *lists;
         union {
@@ -175,5 +173,4 @@ void Scene_206a40::Load(int idx)
         f.tmp.FUN_001cad80(idx);
         DAT_004dd700->f30->FUN_001cbc20(&f.tmp);
     }
-    __security_check_cookie(cookie);
 }

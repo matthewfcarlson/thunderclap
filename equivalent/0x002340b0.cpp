@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 8461 inputs, branch coverage 2/2)
 // FUN_002340b0 @ 0x002340b0
-extern unsigned int DAT_004d9968;
+// cl-flags: /GS
 extern "C" void *__cdecl memset(void *, int, unsigned int);
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 class Reader {
 public:
@@ -30,9 +29,7 @@ bool Parser_2340b0::FUN_002340b0(int a, int b, Reader *reader)
     struct Frame {
         char buf[0x400];
         int pad;                // (the original leaves a word between the buffer and the cookie)
-        unsigned int cookie;
     } f;
-    f.cookie = DAT_004d9968;
     f.buf[0] = 0;
     memset(f.buf + 1, 0, sizeof(f.buf) - 1);
     reader->Read(a, b, f.buf, sizeof(f.buf));
@@ -41,6 +38,5 @@ bool Parser_2340b0::FUN_002340b0(int a, int b, Reader *reader)
         state = -1;
         reader->Finish(a, b, &state);
     }
-    __security_check_cookie(f.cookie);
     return true;
 }

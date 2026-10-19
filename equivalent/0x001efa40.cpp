@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 1096 inputs, branch coverage 6/6)
 // FUN_001efa40 @ 0x001efa40
+// cl-flags: /GS
 extern "C" int sprintf(char *buf, const char *fmt, ...);
-extern "C" unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 void *__cdecl FUN_0008d710(unsigned int size, int tag);
 
 struct StrTable {
@@ -48,7 +47,6 @@ public:
 
 void SoundObjects::FUN_001efa40(char load, int id1, int id2)
 {
-    unsigned int cookie = DAT_004d9968;
     if (load) {
         Pool_1efa40 *p = (Pool_1efa40 *)FUN_0008d710(0x18, 6);
         if (p) {
@@ -80,5 +78,4 @@ void SoundObjects::FUN_001efa40(char load, int id1, int id2)
         s->f24 = 0;
         s->name.FUN_0027b040(0);
     }
-    __security_check_cookie(cookie);
 }

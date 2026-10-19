@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20037 inputs, branch coverage 24/24)
 // FUN_00339800 @ 0x00339800
+// cl-flags: /GS
 // FUN_00339800 @ 0x00339800
 // equiv-conv: FUN_003397c0 edi ebx
 struct lua_State;
@@ -16,8 +17,6 @@ struct LoadF {
 };
 
 extern File DAT_004d99f0;
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 int __cdecl FUN_00212d70(lua_State *L);
 void __cdecl FUN_00212d80(lua_State *L, int idx);
@@ -43,7 +42,6 @@ int luaL_loadfile(lua_State *L, const char *filename)
     int status;
     int readstatus;
     int c;
-    unsigned int cookie = DAT_004d9968;
     int fnameindex = FUN_00212d70(L) + 1;
 
     lf.extraline = 0;
@@ -58,7 +56,6 @@ int luaL_loadfile(lua_State *L, const char *filename)
             const char *serr = FUN_00347b53(*FUN_00347ba4());
             FUN_00213470(L, "cannot read %s: %s", fname, serr);
             FUN_00212de0(L, fnameindex);
-            __security_check_cookie(cookie);
             return 2;
         }
     }
@@ -76,7 +73,6 @@ int luaL_loadfile(lua_State *L, const char *filename)
         lf.f = FUN_003465b3(filename, "rb");
         if (lf.f == 0) {
             status = FUN_003397c0(L, fnameindex);
-            __security_check_cookie(cookie);
             return status;
         }
         while ((c = _getc(lf.f)) != -1 && c != 0x1b) {
@@ -95,10 +91,8 @@ int luaL_loadfile(lua_State *L, const char *filename)
         const char *serr = FUN_00347b53(*FUN_00347ba4());
         FUN_00213470(L, "cannot read %s: %s", fname, serr);
         FUN_00212de0(L, fnameindex);
-        __security_check_cookie(cookie);
         return 2;
     }
     FUN_00212de0(L, fnameindex);
-    __security_check_cookie(cookie);
     return status;
 }

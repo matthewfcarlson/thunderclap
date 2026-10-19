@@ -2,10 +2,12 @@ extern void* VT_Method1[2];
 extern void* VT_Closure1[2];
 extern void* TAB_48e0f0;
 
-void __stdcall RegisterMethod(void* a1, int b);
+struct Ctor_001d0480 {
+    Ctor_001d0480(void* a1, int b);
+};
 char __cdecl LookupFlag(const void* tbl);
 
-class Closure1 {
+class Closure1 : public Ctor_001d0480 {
   public:
     void* vfptr;
     char pad04[12];
@@ -19,8 +21,7 @@ class Closure1 {
     Closure1(void* a1, int a2, int a3);
 };
 
-Closure1::Closure1(void* a1, int a2, int a3) {
-    RegisterMethod(a1, 1);
+Closure1::Closure1(void* a1, int a2, int a3) : Ctor_001d0480(a1, 1) {
     vfptr = (void*)VT_Method1;
     mA3 = a3;
     mFlag18 = LookupFlag(&TAB_48e0f0);

@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 9091 inputs, branch coverage 2/2)
 // fight::ParamValueStringList::vfunc_5 @ 0x00234b20
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
+// cl-flags: /GS
 
 class Reader {
 public:
@@ -32,10 +31,8 @@ public:
 
 bool fight::ParamValueStringList::vfunc_5(void* a, void* unused, Reader* reader) {
     char text[0x400] = "";
-    unsigned int cookie = DAT_004d9968;
     bool ok = reader->Read(key0, key1, text, 0x400);
     if (ok)
         f6(a, text);
-    __security_check_cookie(cookie);
     return ok;
 }

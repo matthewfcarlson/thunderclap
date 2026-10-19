@@ -1,12 +1,11 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3106 inputs, branch coverage 70/76, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20048 inputs, branch coverage 71/76, incomplete)
 // FUN_000c5180 @ 0x000c5180
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int strcmp(const char *, const char *);
 extern "C" char *__cdecl strncpy(char *, const char *, unsigned int);
 
-extern unsigned int DAT_004d9968;
 
 class Menu_c5180;
 
@@ -113,7 +112,6 @@ Flag4 *FUN_0008e090();
 struct Frame_c5180 {
     Node *cur;
     char name[0x40];
-    unsigned int cookie;
 };
 
 class Menu_c5180 {
@@ -161,7 +159,6 @@ public:
 void Menu_c5180::FUN_000c5180(Source_c5180 *src, void *a1, float dt, int a3, Aux54 *a4)
 {
     Frame_c5180 f;
-    f.cookie = DAT_004d9968;
     Block4_c5180 *blk = f40;
     f30 = a1;
     f3c = a3;
@@ -329,5 +326,4 @@ void Menu_c5180::FUN_000c5180(Source_c5180 *src, void *a1, float dt, int a3, Aux
         FUN_000be100();
         break;
     }
-    __security_check_cookie(f.cookie);
 }

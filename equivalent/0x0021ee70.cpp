@@ -9,8 +9,8 @@ void __cdecl FUN_00220d70(void* context, int value);
 // equiv-conv: FUN_0021e080 eax
 void FUN_0021e080(State_21ee70* state);
 int __cdecl FUN_0021bbc0(State_21ee70* state, int* value);
-// equiv-conv: FUN_0021c340 eax edi stack
-int FUN_0021c340(int argument, int token, int mode);
+// equiv-conv: FUN_0021c340 eax esi edi stack
+int FUN_0021c340(int argument, State_21ee70* state, int token, int mode);
 // equiv-conv: FUN_0021ee70 eax stack
 int __cdecl FUN_0021ee70(State_21ee70* state, int argument) {
  void* context = state->context;
@@ -41,5 +41,5 @@ int __cdecl FUN_0021ee70(State_21ee70* state, int argument) {
   FUN_002207c0(context, &result, value);
  }
  FUN_00220d70(context, result);
- return FUN_0021c340(argument, 0x106, 0x10a);
+ return FUN_0021c340(argument, state, 0x106, 0x10a);
 }

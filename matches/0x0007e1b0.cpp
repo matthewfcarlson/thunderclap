@@ -1,9 +1,12 @@
-extern "C" void __stdcall Setup(void*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(void*, int);
+    virtual void v_001d0480();
+};
 extern "C" unsigned char Decode(const void*);
 extern int key1, key2;
-class Seed {
+class Seed : public CtorV_001d0480 {
   public:
-    Seed(void* p) { Setup(p, 1); }
+    Seed(void* p) : CtorV_001d0480(p, 1) { }
 };
 class Method1 : public Seed {
   public:

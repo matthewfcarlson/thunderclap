@@ -1,15 +1,14 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 116/116)
+// STATUS: equivalent (tools/equiv.py level 3: 6052 inputs, branch coverage 116/116)
 // hulkfight::motion::FireBeamAction::vfunc_3 @ 0x001966f0
+// cl-flags: /GS
 // equiv-map: ?thunk_FUN_0027d410@Obj64@@QAEXPAUKey@@@Z = 0x001d6630
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"
 extern "C" int atexit(void (*)());
 int __cdecl FUN_00267760(char *buf, int n, const char *fmt, ...);
 extern "C" int __cdecl FUN_0034483c();
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 void FUN_00363fa0();
 
-extern unsigned int DAT_004d9968;
 
 struct Key {
     unsigned int lo, hi;
@@ -190,7 +189,6 @@ struct Frame_1966f0 {
     V3_1966f0 p3;
     Mat_1966f0 M;
     char buf[0x80];
-    unsigned int cookie;
 };
 
 static __forceinline void Step(float &w, float d, float t)
@@ -254,10 +252,8 @@ public:
 char FireBeamAction::vfunc_3(int a1, int a2)
 {
     Frame_1966f0 f;
-    f.cookie = DAT_004d9968;
     char result = Body(f);
     f50 = 0;
-    __security_check_cookie(f.cookie);
     return result;
 }
 

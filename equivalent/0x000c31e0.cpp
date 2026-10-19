@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20140 inputs, branch coverage 147/148, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 2545 inputs, branch coverage 147/148, incomplete)
 // FUN_000c31e0 @ 0x000c31e0
+// cl-flags: /GS
 // FUN_000c31e0 @ 0x000c31e0
 // equiv-map: ??_R0?AVFEObject@@@8 = 0x0049dba4
 // equiv-map: ??_R0?AVTextSelector@@@8 = 0x0049dbbc
@@ -13,8 +14,6 @@
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 typedef unsigned short wchar_t;
 
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int cookie);
 
 namespace pure3d { class CompositeDrawable; }
 namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; } }
@@ -143,7 +142,6 @@ struct Frame {
     int caster;                      // E-0x148
     char buf[0x40];                  // E-0x144
     wchar_t wide[0x80];              // E-0x104
-    unsigned int cookie;             // E-4
 };
 
 #define DIALOG_OK(KEY) FUN_000fc3d0()->FUN_000be230("FEGenericDialog", KEY, "", "", "TBS_MENU_ITEM_OK", 2, 0, 0)
@@ -188,7 +186,6 @@ public:
 void Env::FUN_000c31e0(const char *name)
 {
     Frame f;
-    f.cookie = DAT_004d9968;
     TextSelector *ts = dynamic_cast<TextSelector *>(FUN_000fc260(name));
     ImageSelector *is = dynamic_cast<ImageSelector *>(FUN_000fc260(name));
     int idx;
@@ -370,5 +367,4 @@ void Env::FUN_000c31e0(const char *name)
             FUN_000b64f0();
         FUN_000c2c20();
     } while (0);
-    __security_check_cookie(f.cookie);
 }

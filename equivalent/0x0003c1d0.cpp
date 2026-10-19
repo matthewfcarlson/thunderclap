@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 17827 inputs, branch coverage 208/224, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 206/224, incomplete)
 // FUN_0003c1d0 @ 0x0003c1d0
-extern "C" unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 
 struct V3_3c1d0 {
     float x, y, z;
@@ -148,7 +147,6 @@ struct Frame_3c1d0 {
     V3_3c1d0 up;                  // 0x118
     Mtx mtx;                // 0x124
     char flags[0x80];       // 0x164
-    unsigned int cookie;    // 0x1e4
 };
 
 class Character_3c1d0 {
@@ -193,7 +191,6 @@ public:
 void Character_3c1d0::FUN_0003c1d0(int unused, float dt)
 {
     Frame_3c1d0 fr;
-    fr.cookie = DAT_004d9968;
     Body_3c1d0 *body = part->FUN_00059a40();
     fr.body = body;
     if (f128 != 0) {
@@ -572,5 +569,4 @@ void Character_3c1d0::FUN_0003c1d0(int unused, float dt)
             fr.body->FUN_00222720(&fr.n2);
         }
     }
-    __security_check_cookie(fr.cookie);
 }

@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3080 inputs, branch coverage 12/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20083 inputs, branch coverage 12/16, incomplete)
 // FUN_00214900 @ 0x00214900
+// cl-flags: /GS
 // Lua 5.0 luaG addinfo: prefixes "chunk:line: " to the message when the running function is a Lua function
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 struct Proto_214900 {
     char pad0[0xc];
@@ -45,9 +44,7 @@ void FUN_00214900(lua_State_214900 *L, const char *msg)
 {
     struct Frame {
         char buff[60];
-        unsigned int cookie;
     } fr;
-    fr.cookie = DAT_004d9968;
     CallInfo_214900 *ci = L->ci;
     TObject_214900 *func = ci->base - 1;
     if (func->tt == 6 && func->value->isC == 0) {
@@ -63,5 +60,4 @@ void FUN_00214900(lua_State_214900 *L, const char *msg)
         FUN_00216340(fr.buff, p->source + 0x10, 60);
         FUN_00216320(L, "%s:%d: %s", fr.buff, line, msg);
     }
-    __security_check_cookie(fr.cookie);
 }

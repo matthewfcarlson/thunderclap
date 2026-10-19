@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 31/32, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 31/32, incomplete)
 // FUN_001fd9a0 @ 0x001fd9a0
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 struct Reader {
     bool FUN_001d2ba0(const char*, int, int);
     bool FUN_001d2c60(const char*, char*, int);
@@ -53,9 +52,7 @@ bool Manager_1fd9a0::FUN_001fd9a0(const char* file) {
         float tick;
         char line[256];
         char name[256];
-        unsigned int cookie;
     } f;
-    f.cookie = DAT_004d9968;
     int slot = 0;
     Entry_1fd9a0* e = entries;
     for (; slot < 8; slot++, e++) {
@@ -63,20 +60,16 @@ bool Manager_1fd9a0::FUN_001fd9a0(const char* file) {
             break;
     }
     if (slot == 8) {
-        __security_check_cookie(f.cookie);
         return false;
     }
     if (slot == -1) {
-        __security_check_cookie(f.cookie);
         return false;
     }
     Reader* reader = FUN_001d4c90();
     if (!reader) {
-        __security_check_cookie(f.cookie);
         return false;
     }
     if (!reader->FUN_001d2ba0(file, 1, 0)) {
-        __security_check_cookie(f.cookie);
         return false;
     }
     f.script = -1;
@@ -125,6 +118,5 @@ bool Manager_1fd9a0::FUN_001fd9a0(const char* file) {
         reader->FUN_001d1900(f.script);
         reader->FUN_001d1900(f.onActivate);
     }
-    __security_check_cookie(f.cookie);
     return ok;
 }

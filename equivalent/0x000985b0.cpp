@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 5700 inputs, branch coverage 20/20)
 // CBlendCamera::vfunc_35 @ 0x000985b0
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern "C" unsigned int DAT_004d9968;
+// cl-flags: /GS
 
 struct Vec3_985b0 {
     float x, y, z;
@@ -84,7 +83,7 @@ public:
 
 void CBlendCamera::vfunc_35(int a1, float a2, int a3, int a4)
 {
-    unsigned int cookie = DAT_004d9968;
+    char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     if (blendA) {
         camA->vfunc_35(a1, a2, 0, 0);
         FUN_00098500(camA, &stateA);
@@ -158,5 +157,4 @@ void CBlendCamera::vfunc_35(int a1, float a2, int a3, int a4)
     vfunc_7(r.f[8]);
     vfunc_9(r.f[9]);
     CGameCamera::vfunc_35(a1, a2, a3, a4);
-    __security_check_cookie(cookie);
 }

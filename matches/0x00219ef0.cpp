@@ -2,10 +2,10 @@
 
 extern int Find(void*, void*);
 extern void Error(void*, const char*);
-extern void Finish(void*, void*, void*);
+extern void* Finish(void*, void*, void*);
 extern const float Zero_219ef0;
 
-void Target(void* a, void* b, int* c) {
+void* Target(void* a, void* b, int* c) {
     int r = Find(b, c);
     ((char*)b)[6] = 0;
     if (r == ((int)((char*)&DAT_00426824))) {
@@ -16,6 +16,7 @@ void Target(void* a, void* b, int* c) {
             if (x != x)
                 Error(a, "table index is NaN");
         }
-        Finish(a, b, c);
+        return Finish(a, b, c);
     }
+    return (void*)r;
 }

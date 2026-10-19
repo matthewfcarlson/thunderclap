@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 745 inputs, branch coverage 62/64, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 6250 inputs, branch coverage 62/64, incomplete)
 // FUN_0002a4b0 @ 0x0002a4b0
+// cl-flags: /GS
 struct Pair_2a4b0 {
     int x, y;
 };
@@ -124,8 +125,6 @@ Sink_2a4b0 *FUN_0027f250();
 unsigned int FUN_00036c80();
 HX *FUN_001b6580();
 
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 class Mgr_2a4b0 {
 public:
@@ -144,15 +143,12 @@ public:
 struct Frame_2a4b0 {
     Pair_2a4b0 pair;          // 0x10
     Buf_2a4b0 buf;            // 0x18
-    unsigned int cookie;  // 0xb8
 };
 
 char Mgr_2a4b0::FUN_0002a4b0(int index, char flag)
 {
     Frame_2a4b0 f;
-    f.cookie = DAT_004d9968;
     if (index < 0 || index >= count) {
-        __security_check_cookie(f.cookie);
         return 0;
     }
     Obj_2a4b0 *o = ctx->list->FUN_00059c10(ids[index]);
@@ -240,6 +236,5 @@ char Mgr_2a4b0::FUN_0002a4b0(int index, char flag)
         c30->FUN_001cbc20(&f.buf);
     }
     ctx->list->FUN_00059e50(*o->f10);
-    __security_check_cookie(f.cookie);
     return 1;
 }

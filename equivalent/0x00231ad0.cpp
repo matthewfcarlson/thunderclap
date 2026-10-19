@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 31/32, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 16404 inputs, branch coverage 31/32, incomplete)
 // FUN_00231ad0 @ 0x00231ad0
+// cl-flags: /GS
 struct Owner_231ad0;
 struct Item_231ad0;
 struct Node {
@@ -11,11 +12,8 @@ struct Node {
 struct Item_231ad0 { void FUN_00232060(Owner_231ad0*,Item_231ad0*,int,unsigned); void FUN_002320d0(Owner_231ad0*,Item_231ad0*,int); };
 extern int __cdecl FUN_00238190(int);
 extern int __cdecl FUN_00266da0(int);
-extern unsigned DAT_004d9968;
-extern void __fastcall __security_check_cookie(unsigned);
 struct Owner_231ad0 { char pad[0x28]; Node* head; void FUN_00231ad0(Item_231ad0* input,int arg,unsigned flags); };
 void Owner_231ad0::FUN_00231ad0(Item_231ad0* input,int arg,unsigned flags) {
- unsigned cookie=DAT_004d9968;
  int previous=FUN_00266da0(FUN_00238190(3));
  Item_231ad0* items[8]; unsigned char active[8]; int count=0;
  for(Node* node=head;node;node=node->next) {
@@ -33,5 +31,4 @@ void Owner_231ad0::FUN_00231ad0(Item_231ad0* input,int arg,unsigned flags) {
   else items[i]->FUN_002320d0(this,input,arg);
  }
  FUN_00266da0(previous);
- __security_check_cookie(cookie);
 }

@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_001c9840 @ 0x001c9840
-extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 struct Vec3_1c9840 { float x,y,z; };
 struct Writer_1c9840 {
  bool FUN_001d2e80();
@@ -22,10 +21,8 @@ struct Actor_1c9840 {
  bool target();
 };
 bool Actor_1c9840::target() {
- unsigned int cookie = DAT_004d9968;
  Writer_1c9840* writer = FUN_001d4c90();
  if (!writer || !writer->FUN_001d2e80()) {
- __security_check_cookie(cookie);
  return false;
  }
  writer->FUN_001d1d50("actor", actor);
@@ -36,6 +33,5 @@ bool Actor_1c9840::target() {
  FUN_00096d50(team,32,teamLow,teamHigh);
  writer->FUN_001d1d50("team",team);
  writer->FUN_001d1d10();
- __security_check_cookie(cookie);
  return true;
 }

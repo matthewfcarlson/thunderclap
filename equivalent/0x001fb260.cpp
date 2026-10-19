@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 682 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 4502 inputs, branch coverage 6/6)
 // FUN_001fb260 @ 0x001fb260
+// cl-flags: /GS
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
@@ -35,8 +36,6 @@ union InventoryArg_1fb260 {
     char caster[4];
 };
 
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
 
 class DataLoader_1fb260 {
@@ -52,9 +51,7 @@ bool DataLoader_1fb260::FUN_001fb260(InventoryArg_1fb260 arg)
 {
     struct Frame {
         char buf[0x40];
-        unsigned int cookie;
     } f;
-    f.cookie = DAT_004d9968;
     if (cur < end) {
         Inventory_1fb260 *inv = arg.inv;
         for (int i = cur; i < end; i++) {
@@ -68,6 +65,5 @@ bool DataLoader_1fb260::FUN_001fb260(InventoryArg_1fb260 arg)
         }
     }
     cur = end;
-    __security_check_cookie(f.cookie);
     return true;
 }

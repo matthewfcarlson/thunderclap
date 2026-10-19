@@ -14,14 +14,14 @@ void FUN_0021cac0(Context*, Buffer_21d4b0*);
 // equiv-conv: FUN_0021c2e0 esi eax
 void FUN_0021c2e0(Context*, int);
 int __cdecl FUN_0021b080(Context*, const char*, int);
-// equiv-conv: FUN_0021c240 ecx edx
-void FUN_0021c240(const char*, int);
+// equiv-conv: FUN_0021c240 esi ecx edx
+void FUN_0021c240(State_21d4b0*, const char*, int);
 unsigned short __cdecl FUN_0021c490(Context*, int);
 // equiv-conv: FUN_0021d210 eax
 void FUN_0021d210(Context*);
 void __cdecl FUN_0021f640(Context*);
-// equiv-conv: FUN_0021c340 eax edi stack
-void __cdecl FUN_0021c340(int, int, int);
+// equiv-conv: FUN_0021c340 eax esi edi stack
+void __cdecl FUN_0021c340(int, Context*, int, int);
 void __cdecl FUN_0021cb80(Context*);
 void __cdecl FUN_0021c9b0(Context*, Buffer_21d4b0*, int);
 // equiv-conv: FUN_0021d4b0 ebx stack stack stack
@@ -34,7 +34,7 @@ void __cdecl FUN_0021d4b0(Context* ctx, int arg1, int arg2, int arg3) {
  if (arg2) {
   int id = FUN_0021b080(ctx, "self", 4);
   State_21d4b0* state = ctx->state;
-  if ((int)state->count + 1 > 200) FUN_0021c240("local variables", 200);
+  if ((int)state->count + 1 > 200) FUN_0021c240(state, "local variables", 200);
   unsigned short index = FUN_0021c490(ctx, id);
   state->indices[(unsigned int)state->count + 1] = index;
   state = ctx->state;
@@ -44,7 +44,7 @@ void __cdecl FUN_0021d4b0(Context* ctx, int arg1, int arg2, int arg3) {
  FUN_0021d210(ctx);
  FUN_0021c2e0(ctx, 0x29);
  FUN_0021f640(ctx);
- FUN_0021c340(arg3, 0x106, 0x109);
+ FUN_0021c340(arg3, ctx, 0x106, 0x109);
  FUN_0021cb80(ctx);
  FUN_0021c9b0(ctx, &buffer, arg1);
  __security_check_cookie(cookie);

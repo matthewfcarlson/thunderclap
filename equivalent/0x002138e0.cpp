@@ -22,13 +22,12 @@ struct lua_State_2138e0 {
 };
 
 // index2adr
-// equiv-conv: FUN_00212bb0 edx ecx
-TObject_2138e0* FUN_00212bb0(lua_State_2138e0* L, int idx);
+TObject_2138e0* __fastcall FUN_00212bb0(int idx, lua_State_2138e0* L);
 void __cdecl FUN_00217100(lua_State_2138e0* L, void* o, void* v);
 
 int FUN_002138e0(lua_State_2138e0* L, int objindex)
 {
-    TObject_2138e0* obj = FUN_00212bb0(L, objindex);
+    TObject_2138e0* obj = FUN_00212bb0(objindex, L);
     GCObject_2138e0* mt = 0;
     if (L->top[-1].tt != 0)
         mt = L->top[-1].gc;

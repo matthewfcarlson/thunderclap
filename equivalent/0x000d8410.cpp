@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 282 inputs, branch coverage 77/78, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 18263 inputs, branch coverage 77/78, incomplete)
 // FUN_000d8410 @ 0x000d8410
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
-extern "C" unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 struct Dummy_d8410 {
     int FUN_0008c740(int zero, unsigned int *out1, int *out2);
@@ -108,7 +107,7 @@ public:
 
 void MemCardControl::FUN_000d8410()
 {
-    unsigned int cookie = DAT_004d9968;
+    char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     unsigned int o1;
     int o2;
 
@@ -127,7 +126,6 @@ void MemCardControl::FUN_000d8410()
     int old = prevState;
     int next = state;
     if (old == next && started) {
-        __security_check_cookie(cookie);
         return;
     }
     started = 1;
@@ -136,12 +134,10 @@ void MemCardControl::FUN_000d8410()
     if (m == 0x1d)
         check = altMode;
     if (check == 4 || check == 5 || check == 6 || check == 0x1c || check == 7 || check == 0x10 || check == 0x1f) {
-        __security_check_cookie(cookie);
         return;
     }
     if (flag3eb) {
         if (old != 4 || next == old) {
-            __security_check_cookie(cookie);
             return;
         }
         for (;;) {
@@ -154,11 +150,9 @@ void MemCardControl::FUN_000d8410()
             altMode = 0xf;
         else
             mode = 0xf;
-        __security_check_cookie(cookie);
         return;
     }
     if (pending != 0) {
-        __security_check_cookie(cookie);
         return;
     }
     if (m == 8 || m == 9 || m == 0xb || m == 0xc || m == 0xd || m == 0x19 || m == 0x12 || m == 0x1e || m == 0x14) {
@@ -173,5 +167,4 @@ void MemCardControl::FUN_000d8410()
         altMode = 0;
     else
         mode = 0;
-    __security_check_cookie(cookie);
 }

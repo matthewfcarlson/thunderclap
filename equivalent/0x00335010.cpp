@@ -48,6 +48,7 @@ struct BinkRequest {
     unsigned int remaining;
     int pendingB;
     unsigned int startTime;
+    // equiv-conv: FUN_00334b00 esi
     void FUN_00334b00();
 };
 struct BinkCallback {

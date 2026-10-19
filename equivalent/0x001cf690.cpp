@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 7663 inputs, branch coverage 2/2)
 // FUN_001cf690 @ 0x001cf690
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 template <class T> struct Tid;
@@ -108,7 +107,6 @@ Registry_1cf690 *FUN_001d4c90();
 
 void CScenarioManager::FUN_001cf690()
 {
-    unsigned int cookie = DAT_004d9968;
     new (this) CScenarioManager;
     FUN_001cced0();
     Registry_1cf690 *reg = FUN_001d4c90();
@@ -168,5 +166,4 @@ void CScenarioManager::FUN_001cf690()
         reg->FUN_001cebb0("sm_SetTutorialMode", this, &CScenarioManager::FUN_001ccfe0);
         reg->FUN_001cec40("sm_GetTutorialMode", this, &CScenarioManager::FUN_001ccff0);
     }
-    __security_check_cookie(cookie);
 }

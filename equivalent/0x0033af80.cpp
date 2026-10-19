@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 119 inputs, branch coverage 10/10)
 // FUN_0033af80 @ 0x0033af80
-extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 extern "C" {
 int __cdecl FUN_00339e60(void*, int, const char*, int*);
 int __cdecl FUN_00339fe0(void*, int, int);
@@ -16,7 +15,6 @@ void __cdecl FUN_003394b0(void*, int, int);
 void __cdecl FUN_00339540(void*);
 }
 int __cdecl FUN_0033af80(void* state) {
- unsigned int cookie=DAT_004d9968;
  int separatorLength;
  char buffer[0x20c];
  int separator=FUN_00339e60(state,2,"",&separatorLength);
@@ -32,6 +30,5 @@ int __cdecl FUN_0033af80(void* state) {
   if(i!=last) FUN_003394b0(buffer,separator,separatorLength);
  }
  FUN_00339540(buffer);
- __security_check_cookie(cookie);
  return 1;
 }

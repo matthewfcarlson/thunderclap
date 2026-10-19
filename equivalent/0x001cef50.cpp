@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_001cef50 @ 0x001cef50
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 template <class T> struct TypeTag;
 template <> struct TypeTag<void> { static const void *get() { return ((char*)&DAT_0048e100); } };
@@ -55,9 +54,7 @@ typedef Closure1<CScenarioManager, const char *, int> Closure_1cef50;
 
 struct Frame_1cef50 {
     Closure_1cef50 closure;
-    unsigned int cookie;
     Frame_1cef50(const char *n, CScenarioManager *o, Closure_1cef50::Fn f) throw() : closure(n, o, f) {
-        cookie = DAT_004d9968;
     }
 };
 
@@ -71,5 +68,4 @@ void Registry_1cef50::FUN_001cef50(const char *name, CScenarioManager *owner, Cl
     Frame_1cef50 fr(name, owner, f);
     FUN_001d26d0(name, &fr.closure);
     fr.closure.FUN_001d04a0();
-    __security_check_cookie(fr.cookie);
 }

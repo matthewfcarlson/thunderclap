@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 17/20, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 7688 inputs, branch coverage 17/20, incomplete)
 // FUN_001d3960 @ 0x001d3960
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern "C" unsigned int DAT_004d9968;
+// cl-flags: /GS
 
 struct LuaState;
 
@@ -26,7 +25,6 @@ public:
 
 int ScriptHandler::FUN_001d3960()
 {
-    unsigned int cookie = DAT_004d9968;
     const char *text = "__RESUME_RC__, __RESUME_ERR__ = coroutine.resume( __THE_SCENARIO_COROUTINE__ )";
     char script[79];
     for (int i = 0; i < 79; i++)
@@ -73,6 +71,5 @@ int ScriptHandler::FUN_001d3960()
     } else {
         FUN_001d10e0("__RESUME_ERR__", L);
     }
-    __security_check_cookie(cookie);
     return resumeState;
 }

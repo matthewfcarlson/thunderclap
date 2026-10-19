@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 104 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 8/8)
 // FUN_0033c0f0 @ 0x0033c0f0
+// cl-flags: /GS
 struct Buffer_33c0f0 { unsigned char* current; unsigned char storage[520]; };
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl FUN_00212d70(void*);
 extern "C" void __cdecl FUN_00339630(void*, Buffer_33c0f0*);
 extern "C" int __cdecl FUN_00339f70(void*, int);
@@ -10,7 +9,6 @@ extern "C" void __cdecl FUN_00339c30(void*, int, const char*);
 extern "C" void __cdecl FUN_00339470(Buffer_33c0f0*);
 extern "C" void __cdecl FUN_00339540(Buffer_33c0f0*);
 int __cdecl FUN_0033c0f0(void* input) {
- unsigned int cookie = DAT_004d9968;
  Buffer_33c0f0 buffer;
  int count = FUN_00212d70(input);
  FUN_00339630(input, &buffer);
@@ -22,6 +20,5 @@ int __cdecl FUN_0033c0f0(void* input) {
   ++buffer.current;
  }
  FUN_00339540(&buffer);
- __security_check_cookie(cookie);
  return 1;
 }

@@ -5,8 +5,10 @@ class Ref_1de50 {
     virtual void A();
     virtual void B();
 };
-extern void Init();
-class CGrabAction {
+struct Ctor_00232660 {
+    Ctor_00232660();
+};
+class CGrabAction : public Ctor_00232660 {
   public:
     int* vptr;
     char pad04[0x18];
@@ -20,8 +22,7 @@ class CGrabAction {
     Ref_1de50* second;
     CGrabAction(Ref_1de50*, int, Ref_1de50*, int);
 };
-CGrabAction::CGrabAction(Ref_1de50* a, int b, Ref_1de50* c, int d) {
-    Init();
+CGrabAction::CGrabAction(Ref_1de50* a, int b, Ref_1de50* c, int d) : Ctor_00232660() {
     vptr = (int*)((int)DAT_003f3390);
     first = 0;
     if (c)

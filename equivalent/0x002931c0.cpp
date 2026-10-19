@@ -51,7 +51,8 @@ public:
     void FUN_00293ac0(const Vec3_2931c0 *v);
 };
 
-void __cdecl FUN_00292f60(float *t);
+// equiv-conv: FUN_00292f60 esi edi stack
+void __cdecl FUN_00292f60(Channel *tran, Channel *look, float *t);
 
 class Camera;
 struct Frame_2931c0 {
@@ -92,7 +93,7 @@ void CameraAnimationController::FUN_002931c0()
     Channel *tran = grp->FUN_00288960(0x544345564e415254ui64);
     Channel *look = grp->FUN_00288960(0x544345564b4f4f4cui64);
     fr.up = grp->FUN_00288960(0x5443455600005055ui64);
-    FUN_00292f60(&fr.t);
+    FUN_00292f60(tran, look, &fr.t);
 
     if (mode == 0) {
         fr.cam = camera;

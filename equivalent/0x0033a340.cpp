@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 6/6)
 // FUN_0033a340 @ 0x0033a340
+// cl-flags: /GS
 struct State;
-extern "C" unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl FUN_00212f00(State*, int);
 extern "C" State* __cdecl FUN_00213290(State*, int);
 extern "C" int __cdecl FUN_00339f70(State*, int);
@@ -14,7 +13,6 @@ extern "C" void __cdecl FUN_002133d0(State*, int);
 extern "C" void __cdecl FUN_00212ed0(State*, int);
 extern "C" void __cdecl FUN_00213320(State*);
 int __cdecl target(State* state) {
- unsigned int cookie=DAT_004d9968;
  char buffer[96];
  State* other = state;
  int base = 0;
@@ -36,6 +34,5 @@ int __cdecl target(State* state) {
  ret=1;
  }
  }
- __security_check_cookie(cookie);
  return ret;
 }

@@ -2,8 +2,10 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 extern "C" char DAT_003f428c[];
-extern void __stdcall FUN_001d0480(const char*, int);
-class CActorManager {
+struct Ctor_001d0480 {
+    Ctor_001d0480(const char*, int);
+};
+class CActorManager : public Ctor_001d0480 {
   public:
     int vptr;
     char pad04[0x0c];
@@ -14,8 +16,7 @@ class CActorManager {
     int m1c;
     CActorManager(const char*, int);
 };
-CActorManager::CActorManager(const char* a, int b) {
-    FUN_001d0480(a, 4);
+CActorManager::CActorManager(const char* a, int b) : Ctor_001d0480(a, 4) {
     vptr = ((int)DAT_003f428c);
     m1c = b;
     m18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e100)));

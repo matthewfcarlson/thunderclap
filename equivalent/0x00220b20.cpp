@@ -18,13 +18,13 @@ struct Context {
  char pad1c[4];
  int marker;
 };
-// equiv-conv: FUN_00220650 edx stack stack stack stack stack
-void FUN_00220650(int marker, int a, int b, int c, int d, int e);
+// equiv-conv: FUN_00220650 edx ebx stack stack stack stack stack
+void FUN_00220650(int marker, Context* context, int a, int b, int c, int d, int e);
 void* __cdecl FUN_0021ae40(void* allocator, void* oldBuffer, int* capacity, int elementSize, int limit, const char* error);
 int __cdecl FUN_00220b20(Context* context, unsigned int firstValue, unsigned int secondValue) {
  Storage_220b20* storage = context->storage;
  int count = context->count;
- FUN_00220650(context->marker, count, 255, count, 255, count);
+ FUN_00220650(context->marker, context, count, 255, count, 255, count);
  context->marker = -1;
  if (context->count + 1 > storage->firstCapacity)
   storage->first = (unsigned int*)FUN_0021ae40(context->allocator, storage->first, &storage->firstCapacity, 4, 0x7ffffffd, "code size overflow");

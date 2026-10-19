@@ -5,8 +5,10 @@ class Arg_1d420 {
 };
 extern int vtableAction;
 extern int vtableSweep;
-void __cdecl FUN_00232660();
-class CSweepAction {
+struct Ctor_00232660 {
+    Ctor_00232660();
+};
+class CSweepAction : public Ctor_00232660 {
   public:
     CSweepAction(int value, Arg_1d420* arg);
     char pad[0x1c];
@@ -15,8 +17,7 @@ class CSweepAction {
     int mA;
     int mB;
 };
-CSweepAction::CSweepAction(int value, Arg_1d420* arg) {
-    FUN_00232660();
+CSweepAction::CSweepAction(int value, Arg_1d420* arg) : Ctor_00232660() {
     *(int*)this = (int)&vtableAction;
     mThing = 0;
     if (arg)

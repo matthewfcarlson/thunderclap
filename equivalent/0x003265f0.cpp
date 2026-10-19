@@ -13,8 +13,7 @@ Palette* __stdcall D3DDevice_CreatePalette2(DWORD size);
 }
 void __stdcall thunk_FUN_0038acb0(Texture* tex, DWORD level, SurfaceDesc_3265f0* out);
 void FUN_0031c230(long hr);
-// equiv-conv: FUN_00325fb0 edx
-int FUN_00325fb0(int mask);
+int __fastcall FUN_00325fb0(int ignored, int mask);
 void FUN_0031e1f0(Texture* tex, int size);
 struct Layout_3265f0 {
     int f0, f4, f8, fc, f10;
@@ -192,7 +191,7 @@ bool TextureBuilder::Create(int w, int h, int d, int a4, int a5, int lvls, int a
     int stride = layout.f8;
     field_d0 = layout.f10;
     field_dc = stride;
-    field_e0 = FUN_00325fb0(layout.mask);
+    field_e0 = FUN_00325fb0(0, layout.mask);
     totalSize = 0;
     float scale;
     if (hasAlpha)

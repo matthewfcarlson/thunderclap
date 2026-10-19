@@ -8,11 +8,14 @@ struct Obj_24a3c0 {
     Link_24a3c0 *link;
     int state;
 };
-void __cdecl FUN_00249810(int x);
+// equiv-conv: FUN_00249810 esi stack
+void __cdecl FUN_00249810(Obj_24a3c0 *o, int x);
 // equiv-conv: FUN_002498d0 ebx
 void FUN_002498d0(Obj_24a3c0 *o);
-void __cdecl FUN_00248670(int a);
-void __cdecl FUN_00248780(int a);
+// equiv-conv: FUN_00248670 edi esi stack
+void __cdecl FUN_00248670(int x, Obj_24a3c0 *o, int a);
+// equiv-conv: FUN_00248780 esi stack
+void __cdecl FUN_00248780(Obj_24a3c0 *o, int a);
 
 // equiv-conv: FUN_0024a3c0 eax ecx stack stack
 bool FUN_0024a3c0(Obj_24a3c0 *o, int x, int unused, int a)
@@ -22,16 +25,16 @@ bool FUN_0024a3c0(Obj_24a3c0 *o, int x, int unused, int a)
         s = o->state;
         switch (s) {
         case 1:
-            FUN_00249810(x);
+            FUN_00249810(o, x);
             break;
         case 3:
             FUN_002498d0(o);
             break;
         case 4:
-            FUN_00248670(a);
+            FUN_00248670(x, o, a);
             break;
         case 5:
-            FUN_00248780(a);
+            FUN_00248780(o, a);
             break;
         }
         o->link->FUN_0025dd00(a);

@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 3/3)
+// STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 3/3)
 // FUN_000b5670 @ 0x000b5670
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
+// cl-flags: /GS
 
 struct Label_b5670 {
     void FUN_000f79a0(const char *text, int flag);
@@ -31,9 +30,7 @@ void __stdcall FUN_000b5670(int amount)
     struct Frame {
         char pad[4];
         char text[0xfc];
-        unsigned int cookie;
     } f;
-    f.cookie = DAT_004d9968;
 
     Panel_b5670 *panel = FUN_000fc260("side_mission_success_smash_award");
     if (panel != 0) {
@@ -42,5 +39,4 @@ void __stdcall FUN_000b5670(int amount)
         panel->label.FUN_000f79a0(f.text, 0);
         panel->vfunc_3();
     }
-    __security_check_cookie(f.cookie);
 }

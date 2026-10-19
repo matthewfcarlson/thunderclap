@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2985 inputs, branch coverage 15/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 10398 inputs, branch coverage 15/16, incomplete)
 // FUN_0008cbe0 @ 0x0008cbe0
+// cl-flags: /GS
 #include "decls/address.h"
 struct Engine_8cbe0 {
     void FUN_001eb870();
@@ -15,8 +16,6 @@ void *FUN_0008d690(unsigned int size);
 int __cdecl FUN_00266da0(int mode);
 void __cdecl FUN_0026b800(char *buf, int a, int b, int c, int d, int e, int f);
 void __cdecl FUN_0008d330(void *p);
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 class SubObj_8cbe0 {
 public:
@@ -80,7 +79,6 @@ public:
 
 void *Loader_8cbe0::FUN_0008cbe0(int index, int a, int b, int c, int d)
 {
-    unsigned int cookie = DAT_004d9968;
     char buf[0x100];
     DAT_004dd6ec->FUN_000862e0()->FUN_001eb870();
     Slot_8cbe0 *slot = entries[index].slot;
@@ -122,6 +120,5 @@ void *Loader_8cbe0::FUN_0008cbe0(int index, int a, int b, int c, int d)
         }
     }
     DAT_004dd6ec->FUN_000862e0()->FUN_001eb890();
-    __security_check_cookie(cookie);
     return result;
 }

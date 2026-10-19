@@ -1,7 +1,9 @@
-extern void init();
+struct Ctor_0027b070 {
+    Ctor_0027b070();
+};
 extern void* alloc(unsigned int);
 extern int CPatrolPath_vtable;
-class CPatrolPath {
+class CPatrolPath : public Ctor_0027b070 {
   public:
     int vt;
     char pad4[12];
@@ -10,8 +12,7 @@ class CPatrolPath {
     char pad18[4];
     CPatrolPath(int count);
 };
-CPatrolPath::CPatrolPath(int count) {
-    init();
+CPatrolPath::CPatrolPath(int count) : Ctor_0027b070() {
     unsigned int size = count * 0x24;
     vt = (int)&CPatrolPath_vtable;
     *(char*)((char*)this + 0x18) = 0;

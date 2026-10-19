@@ -1,8 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20095 inputs, branch coverage 85/94, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20123 inputs, branch coverage 85/94, incomplete)
 // FUN_001f9810 @ 0x001f9810
+// cl-flags: /GS
+// equiv-map: ___security_cookie = 0x004d9968
 typedef unsigned __int64 u64;
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int cookie);
 extern "C" int memcmp(const void *a, const void *b, unsigned int n);
 
 struct V3 {
@@ -186,7 +186,6 @@ struct Frame {
     Q1 q;                            // 0x180
     char buf1[256];                  // 0x1d8
     int pad2d8;
-    unsigned int cookie;             // 0x2dc
 };
 
 class Self {
@@ -210,7 +209,6 @@ public:
 void Self::FUN_001f9810(float dt)
 {
     Frame f;
-    f.cookie = DAT_004d9968;
     f48 = dt + f48;
     f.self = this;
     do {
@@ -379,5 +377,4 @@ void Self::FUN_001f9810(float dt)
             f.off += 0x28;
         } while (f.i < f8->count);
     } while (0);
-    __security_check_cookie(f.cookie);
 }

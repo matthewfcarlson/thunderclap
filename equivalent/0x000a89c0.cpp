@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2233 inputs, branch coverage 79/82, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 952 inputs, branch coverage 66/82, incomplete)
 // FUN_000a89c0 @ 0x000a89c0
-extern "C" unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 
 struct V3 {
     float x, y, z;
@@ -126,13 +125,10 @@ int Picker::F(Arg1 *a1, int *ids, float *weights, int n, float bias, Mat4 *m, V3
         V3 buf[8][8];
         char flags[8];
         Sph sph;
-        unsigned int cookie;
     } fr;
-    fr.cookie = DAT_004d9968;
     int valid = 0;
     int i;
     if (n <= 0) {
-        __security_check_cookie(fr.cookie);
         return -1;
     }
     for (i = 0; i < n; i++) {
@@ -161,7 +157,6 @@ int Picker::F(Arg1 *a1, int *ids, float *weights, int n, float bias, Mat4 *m, V3
         }
     }
     if (valid <= 0) {
-        __security_check_cookie(fr.cookie);
         return -1;
     }
     fr.bb.mn[0] = 1.0e12f;
@@ -178,7 +173,6 @@ int Picker::F(Arg1 *a1, int *ids, float *weights, int n, float bias, Mat4 *m, V3
         }
     }
     if (fr.bb.mn[0] > fr.bb.mx[0] || fr.bb.mn[1] > fr.bb.mx[1] || fr.bb.mn[2] > fr.bb.mx[2]) {
-        __security_check_cookie(fr.cookie);
         return -1;
     }
     fr.bb.FUN_000a87f0(pt);
@@ -241,7 +235,6 @@ int Picker::F(Arg1 *a1, int *ids, float *weights, int n, float bias, Mat4 *m, V3
     }
     float sumf = (float)sum;
     if (sum == 0.0) {
-        __security_check_cookie(fr.cookie);
         return -1;
     }
     unsigned int *rng = FUN_000964d0();
@@ -259,10 +252,8 @@ int Picker::F(Arg1 *a1, int *ids, float *weights, int n, float bias, Mat4 *m, V3
         if (fr.flags[i])
             acc += weights[i];
         if (acc >= target) {
-            __security_check_cookie(fr.cookie);
             return i;
         }
     }
-    __security_check_cookie(fr.cookie);
     return -1;
 }

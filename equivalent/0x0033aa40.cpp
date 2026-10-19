@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 150 inputs, branch coverage 32/32)
+// STATUS: equivalent (tools/equiv.py level 3: 1519 inputs, branch coverage 32/32)
 // FUN_0033aa40 @ 0x0033aa40
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 
 struct lua_State;
 
@@ -32,7 +31,6 @@ struct Frame_33aa40 {
     int arg;
     int firstpart;
     lua_Debug_33aa40 ar;
-    unsigned int cookie;
 };
 
 // Lua 5.0 errorfb (stack traceback builder)
@@ -42,7 +40,6 @@ int FUN_0033aa40(lua_State* L)
     int level = 1;
     lua_State* L1;
 
-    f.cookie = DAT_004d9968;
     f.firstpart = 1;
     if (FUN_00212f00(L, 1) == 8) {
         f.arg = 1;
@@ -56,7 +53,6 @@ int FUN_0033aa40(lua_State* L)
         FUN_00213380(L, "", 0);
     } else {
         if (!FUN_00212fb0(L, f.arg + 1)) {
-            __security_check_cookie(f.cookie);
             return 1;
         }
         FUN_00213380(L, "\n", 1);
@@ -99,6 +95,5 @@ int FUN_0033aa40(lua_State* L)
         FUN_00213c90(L, FUN_00212d70(L) - f.arg);
     }
     FUN_00213c90(L, FUN_00212d70(L) - f.arg);
-    __security_check_cookie(f.cookie);
     return 1;
 }

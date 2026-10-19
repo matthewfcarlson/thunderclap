@@ -47,7 +47,9 @@ public:
                       IdSlot a12, int a15);
 };
 
-Node * __stdcall FUN_001f4010(void *owner, const Id_1f42d0 *id, int limit);
+struct ThisCall_001f4010 {
+    Node * FUN_001f4010(void *owner, const Id_1f42d0 *id, int limit);
+};
 
 void Manager_1f42d0::FUN_001f42d0(const Id_1f42d0 *id, void *owner, float px, float py, float pz,
                            unsigned int a6, unsigned int a7, unsigned int a8,
@@ -56,7 +58,7 @@ void Manager_1f42d0::FUN_001f42d0(const Id_1f42d0 *id, void *owner, float px, fl
 {
     Node *n = FUN_001f31a0(id);
     if (n == 0) {
-        n = FUN_001f4010(owner, id, a15);
+        n = ((ThisCall_001f4010*)(this))->FUN_001f4010(owner, id, a15);
         if (n == 0)
             return;
     }

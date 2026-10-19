@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 859 inputs, branch coverage 10/10)
 // FUN_0008d0a0 @ 0x0008d0a0
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
 extern "C" int sprintf(char* dst, const char* fmt, ...);
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 class Heap_8d0a0 {
   public:
@@ -71,7 +70,6 @@ class MemoryDisplay {
 };
 
 void MemoryDisplay::FUN_0008d0a0(bool dim) {
-    volatile unsigned int cookie = DAT_004d9968;
     char text[0x80];
     DAT_0052c2a8->v33("Pool", 0x32, 0x32, 0xffff8000);
     DAT_0052c2a8->v33("Used", 0xf0, 0x32, 0xffff8000);
@@ -104,5 +102,4 @@ void MemoryDisplay::FUN_0008d0a0(bool dim) {
         sprintf(text, "%.2fk", peak * 0.0009765625f);
         DAT_0052c2a8->v33(text, 0x1cc, y, color);
     }
-    __security_check_cookie(cookie);
 }

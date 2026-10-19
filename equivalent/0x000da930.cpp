@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3346 inputs, branch coverage 305/312, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 16477 inputs, branch coverage 305/312, incomplete)
 // FEMemCardControl::vfunc_4 @ 0x000da930
+// cl-flags: /GS
 // FEMemCardControl::vfunc_4 @ 0x000da930
 // FEMemCardControl::vfunc_4 @ 0x000da930
 #include "decls/address.h"
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" double sin(double);
 extern float (__cdecl *DAT_004de948)();
 extern unsigned char DAT_004dd841;
@@ -114,7 +113,6 @@ struct Frame_da930 {
     int kind0;
     int pad[1];
     char buf[0x40];
-    unsigned int cookie;
 };
 
 struct Entry_da930 {
@@ -214,7 +212,6 @@ public:
 void FEMemCardControl::vfunc_4()
 {
     Frame_da930 fr;
-    fr.cookie = DAT_004d9968;
     char& gotA = fr.gotA;
     char& gotB = fr.gotB;
     int& outv = fr.outv;
@@ -728,5 +725,4 @@ void FEMemCardControl::vfunc_4()
     default:
         break;
     }
-    __security_check_cookie(fr.cookie);
 }

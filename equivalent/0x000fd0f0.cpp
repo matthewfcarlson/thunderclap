@@ -30,8 +30,7 @@ struct VFight {
 
 unsigned FUN_001c3d90();
 float FUN_00018a20(float x);
-// equiv-conv: FUN_000fce60 edi stack stack stack stack stack stack stack
-void FUN_000fce60(unsigned a_edi, unsigned s1, unsigned s2, unsigned s3, unsigned s4, unsigned s5, unsigned s6, unsigned s7);
+void FUN_000fce60(unsigned s1, unsigned s2, unsigned s3, unsigned s4, unsigned s5, unsigned s6, unsigned s7);
 void FUN_000fd010(unsigned s1, unsigned s2, unsigned s3, unsigned s4, unsigned s5, unsigned s6);
 
 struct CControllerAgent_nv_fd0f0 {
@@ -119,8 +118,8 @@ void CControllerAgent::vfunc_4(int __p0, int __p1, int __p2) { unsigned int a1 =
     }
     if (*(volatile unsigned char *)((char *)this + 0xa0) != 0) {
         esiv = (unsigned)(T + 54);
-        FUN_000fce60(infov, esiv, (unsigned)&L[17].f, *(volatile unsigned *)((char *)this + 0x118), *(volatile unsigned *)((char *)this + 0x11c), L[4].u, L[3].u, (unsigned)&L[13].f);
-        FUN_000fce60(infov, esiv, (unsigned)&L[17].f, *(volatile unsigned *)((char *)this + 0x118), *(volatile unsigned *)((char *)this + 0x11c), L[11].u, L[1].u, (unsigned)&L[27].f);
+        FUN_000fce60(esiv, (unsigned)&L[17].f, *(volatile unsigned *)((char *)this + 0x118), *(volatile unsigned *)((char *)this + 0x11c), L[4].u, L[3].u, (unsigned)&L[13].f);
+        FUN_000fce60(esiv, (unsigned)&L[17].f, *(volatile unsigned *)((char *)this + 0x118), *(volatile unsigned *)((char *)this + 0x11c), L[11].u, L[1].u, (unsigned)&L[27].f);
         FUN_000fd010(esiv, *(volatile unsigned *)((char *)this + 0x118), *(volatile unsigned *)((char *)this + 0x11c), L[4].u, L[3].u, (unsigned)&L[30].f);
         FUN_000fd010(esiv, *(volatile unsigned *)((char *)this + 0x118), *(volatile unsigned *)((char *)this + 0x11c), L[11].u, L[1].u, (unsigned)&L[33].f);
     L[16].f = (sqrt((((T[41] * T[41]) + (T[42] * T[42])) + (T[43] * T[43]))) * sqrt((((L[15].f * L[15].f) + (L[14].f * L[14].f)) + (L[13].f * L[13].f))));
@@ -159,8 +158,8 @@ void CControllerAgent::vfunc_4(int __p0, int __p1, int __p2) { unsigned int a1 =
         memcpy((void *)&L[36].f, (const void *)tmpi, 64);
         ((Cls1c3950 *)objb)->FUN_001c3950((unsigned)&L[0].f, (unsigned)&L[26].f);
         esiv = L[3].u; ediv = L[4].u;
-        FUN_000fce60(ediv, (unsigned)&L[36].f, (unsigned)&L[17].f, L[2].u, L[0].u, ediv, esiv, (unsigned)&L[20].f);
-        FUN_000fce60(ediv, (unsigned)&L[36].f, (unsigned)&L[17].f, L[2].u, L[0].u, L[11].u, L[1].u, (unsigned)&L[23].f);
+        FUN_000fce60((unsigned)&L[36].f, (unsigned)&L[17].f, L[2].u, L[0].u, ediv, esiv, (unsigned)&L[20].f);
+        FUN_000fce60((unsigned)&L[36].f, (unsigned)&L[17].f, L[2].u, L[0].u, L[11].u, L[1].u, (unsigned)&L[23].f);
         FUN_000fd010((unsigned)&L[36].f, L[2].u, L[0].u, ediv, esiv, (unsigned)&L[52].f);
         FUN_000fd010((unsigned)&L[36].f, L[2].u, L[0].u, L[11].u, L[1].u, (unsigned)&L[55].f);
     r14_esi = 0x7fffffff;
@@ -206,9 +205,9 @@ void CControllerAgent::vfunc_4(int __p0, int __p1, int __p2) { unsigned int a1 =
         memcpy((void *)&L[36].f, (const void *)tmpi, 64);
         ((Cls1c3950 *)objb)->FUN_001c3950((unsigned)&L[0].f, (unsigned)&L[26].f);
         esiv = L[3].u; ediv = L[4].u;
-        FUN_000fce60(ediv, (unsigned)&L[36].f, (unsigned)&L[17].f, L[2].u, L[0].u, ediv, esiv, (unsigned)&L[13].f);
+        FUN_000fce60((unsigned)&L[36].f, (unsigned)&L[17].f, L[2].u, L[0].u, ediv, esiv, (unsigned)&L[13].f);
         ebpv = L[11].u; ebxv = L[1].u;
-        FUN_000fce60(ediv, (unsigned)&L[36].f, (unsigned)&L[17].f, L[2].u, L[0].u, ebpv, ebxv, (unsigned)&L[27].f);
+        FUN_000fce60((unsigned)&L[36].f, (unsigned)&L[17].f, L[2].u, L[0].u, ebpv, ebxv, (unsigned)&L[27].f);
         FUN_000fd010((unsigned)&L[36].f, L[2].u, L[0].u, ediv, esiv, (unsigned)&L[30].f);
         FUN_000fd010((unsigned)&L[36].f, L[2].u, L[0].u, ebpv, ebxv, (unsigned)&L[33].f);
         ediv = L[16].u;

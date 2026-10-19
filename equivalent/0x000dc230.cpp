@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 157 inputs, branch coverage 51/52, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 1893 inputs, branch coverage 52/52)
 // FUN_000dc230 @ 0x000dc230
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 
 struct Node {
@@ -91,7 +90,6 @@ public:
 
 bool Config_dc230::FUN_000dc230(Parser_dc230 *parser, Handler_dc230 *handler, Sink_dc230 *sink)
 {
-    unsigned int cookie = DAT_004d9968;
     char bufA[0x40];
     char bufC[0x40];
     char bufB[0x40];
@@ -148,6 +146,5 @@ bool Config_dc230::FUN_000dc230(Parser_dc230 *parser, Handler_dc230 *handler, Si
         }
         parser->FUN_000f9fb0();
     }
-    __security_check_cookie(cookie);
     return true;
 }

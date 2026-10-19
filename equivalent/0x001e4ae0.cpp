@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 16224 inputs, branch coverage 6/6)
 // FUN_001e4ae0 @ 0x001e4ae0
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) { return p; }
@@ -21,8 +22,6 @@ public:
 }
 }
 
-extern "C" unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 struct Handle_1e4ae0 { char pad[4]; };
 
@@ -64,7 +63,6 @@ public:
 
 int Spawner_1e4ae0::FUN_001e4ae0(const char *key, const char *name, const char *prefix, int p3, int p4, int p5)
 {
-    unsigned int cookie = DAT_004d9968;
     Frame_1e4ae0 f;
     Factory_1e4ae0 *factory = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
     unsigned __int64 id = FUN_002672f0(name, 0, 0);
@@ -87,6 +85,5 @@ int Spawner_1e4ae0::FUN_001e4ae0(const char *key, const char *name, const char *
             result = FUN_001e4760(h, f.text, 0, &f.u.mat, p3, p4, p5);
         }
     }
-    __security_check_cookie(cookie);
     return result;
 }

@@ -1,11 +1,14 @@
 typedef unsigned char u8;
-extern "C" void __stdcall Init(void*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(void*, int);
+    virtual void v_001d0480();
+};
 extern "C" u8 __cdecl Check(const char*);
 extern const char name1[];
 extern const char name2[];
-class Core {
+class Core : public CtorV_001d0480 {
   public:
-    Core(void* x) { Init(x, 1); }
+    Core(void* x) : CtorV_001d0480(x, 1) { }
 };
 class Method1 : public Core {
   public:

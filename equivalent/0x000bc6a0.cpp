@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 15378 inputs, branch coverage 10/10)
 // FUN_000bc6a0 @ 0x000bc6a0
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 int FUN_000964a0(char *buf, int size, const char *fmt, ...);
 
 struct Item;
@@ -33,9 +32,7 @@ void Menu_bc6a0::FUN_000bc6a0()
         int b;
         int a;
         char name[0x10];
-        unsigned int cookie;
     } fr;
-    fr.cookie = DAT_004d9968;
     if (label != 0) {
         label->FUN_00089880(&fr.a, &fr.b);
         if (fr.a > -1 && fr.b > -1) {
@@ -50,5 +47,4 @@ void Menu_bc6a0::FUN_000bc6a0()
             }
         }
     }
-    __security_check_cookie(fr.cookie);
 }

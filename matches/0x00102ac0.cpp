@@ -7,9 +7,11 @@ class Helper_102ac0 {
   public:
     Obj_102ac0* Make();
 };
-extern void __stdcall Base(void*);
+struct Ctor_000fc760 {
+    Ctor_000fc760(void*);
+};
 extern void* Alloc(unsigned int);
-class CMoveAgent {
+class CMoveAgent : public Ctor_000fc760 {
   public:
     char pad[0x68];
     Obj_102ac0* p;
@@ -21,8 +23,7 @@ class CMoveAgent {
     unsigned char b76;
     CMoveAgent(void*);
 };
-CMoveAgent::CMoveAgent(void* arg) {
-    Base(arg);
+CMoveAgent::CMoveAgent(void* arg) : Ctor_000fc760(arg) {
     *(unsigned int*)this = ((int)DAT_0040d418);
     Helper_102ac0* h = (Helper_102ac0*)Alloc(0x38);
     Obj_102ac0* q;

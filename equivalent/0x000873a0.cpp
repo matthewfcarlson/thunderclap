@@ -1,11 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 21/21)
+// STATUS: equivalent (tools/equiv.py level 3: 3063 inputs, branch coverage 21/21)
 // FUN_000873a0 @ 0x000873a0
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 extern "C" int __cdecl sprintf(char *,const char *,...);
-extern unsigned DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned);
 struct Gfx {
 #define V(n) virtual void v##n();
 V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
@@ -27,7 +26,6 @@ unsigned unknown; State *state; GameData *data; char pad[12]; Subsystem *s18,*s1
 void FUN_000865d0(); void FUN_00086630(); void FUN_00086790(); void FUN_000872a0(); void update();
 };
 void Main::update() {
-unsigned cookie=DAT_004d9968;
 char text[9][64];
 while(state->current != state->previous) {
 state->previous = state->current;
@@ -39,7 +37,7 @@ if((*(unsigned char*)&DAT_004dd8d0)) {
 if(((char*)&DAT_004dd890)[0]) {
 FUN_000865d0();
 void *item=s20->FUN_000b4cf0(((char*)&DAT_004dd890));
-if(!item) { __security_check_cookie(cookie); return; }
+if(!item) { return; }
 s3c->FUN_00093c40(((char*)&DAT_004dd890));
 s38->FUN_00089810(((char*)&DAT_004dd890));
 s38->FUN_000895e0(item);
@@ -56,5 +54,4 @@ case 7: sprintf(text[7],"Entering %s state\n","GS_FMV"); (*(unsigned char*)&DAT_
 case 8: sprintf(text[8],"Entering %s state\n","GS_QUIT"); break;
 }
 }
-__security_check_cookie(cookie);
 }

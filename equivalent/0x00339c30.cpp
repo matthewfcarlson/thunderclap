@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 6/6)
 // FUN_00339c30 @ 0x00339c30
+// cl-flags: /GS
 struct DebugInfo_339c30 {
     int event;
     const char* name;
@@ -7,13 +8,10 @@ struct DebugInfo_339c30 {
     char rest[84];
 };
 struct State;
-extern "C" unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl FUN_00213fc0(State*, int, DebugInfo_339c30*);
 extern "C" int __cdecl FUN_00214bd0(State*, const char*, DebugInfo_339c30*);
 extern "C" int __cdecl FUN_00338e20(State*, const char*, ...);
 int __cdecl FUN_00339c30(State* state, int argument, const char* message) {
-    unsigned int cookie = DAT_004d9968;
     DebugInfo_339c30 info;
     FUN_00213fc0(state, 0, &info);
     FUN_00214bd0(state, "n", &info);
@@ -30,6 +28,5 @@ int __cdecl FUN_00339c30(State* state, int argument, const char* message) {
         if (!info.name) info.name = "?";
         result = FUN_00338e20(state, "bad argument #%d to `%s' (%s)", argument, info.name, message);
     }
-    __security_check_cookie(cookie);
     return result;
 }

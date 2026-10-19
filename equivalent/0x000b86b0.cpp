@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 275 inputs, branch coverage 22/22)
 // FUN_000b86b0 @ 0x000b86b0
+// cl-flags: /GS
 #include "decls/address.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 extern char DAT_0049dba4[];
 extern char DAT_0049dbbc[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -92,7 +91,6 @@ struct Frame_b86b0 {
     unsigned short text[0x40];
     char pad_ac[0x80];
     ScriptArgs args;
-    unsigned int cookie;
 };
 
 class CheatMenu_b86b0 {
@@ -105,7 +103,6 @@ public:
 void CheatMenu_b86b0::FUN_000b86b0()
 {
     Frame_b86b0 f;
-    f.cookie = DAT_004d9968;
     CheatList *list = (CheatList *)FUN_00344e74(FUN_000fc260("cheat_code_list"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
     if (list) {
         list->FUN_000e36c0();
@@ -138,5 +135,4 @@ void CheatMenu_b86b0::FUN_000b86b0()
         }
         list->vfunc_3();
     }
-    __security_check_cookie(f.cookie);
 }

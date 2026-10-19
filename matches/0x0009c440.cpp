@@ -1,10 +1,13 @@
 #include "decls/address.h"
 typedef unsigned char u8;
-extern "C" void __stdcall FUN_001d0480(void*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(void*, int);
+    virtual void v_001d0480();
+};
 extern int gA_9c440, gB;
-class Parent_9c440 {
+class Parent_9c440 : public CtorV_001d0480 {
   public:
-    Parent_9c440(void* a) { FUN_001d0480(a, 2); }
+    Parent_9c440(void* a) : CtorV_001d0480(a, 2) { }
 };
 class Method2 : public Parent_9c440 {
   public:

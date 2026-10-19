@@ -4,10 +4,12 @@ class Ref_1d020 {
     virtual void A();
     virtual void B();
 };
-extern void BaseInit();
+struct Ctor_00232660 {
+    Ctor_00232660();
+};
 extern int ActionVtable;
 extern int HitVtable;
-class Hit_1d020 {
+class Hit_1d020 : public Ctor_00232660 {
   public:
     int* vptr;
     char pad[0x18];
@@ -16,8 +18,7 @@ class Hit_1d020 {
     int mZero;
     Hit_1d020(int a, Ref_1d020* b);
 };
-Hit_1d020::Hit_1d020(int a, Ref_1d020* b) {
-    BaseInit();
+Hit_1d020::Hit_1d020(int a, Ref_1d020* b) : Ctor_00232660() {
     vptr = &ActionVtable;
     mRef = 0;
     if (b)

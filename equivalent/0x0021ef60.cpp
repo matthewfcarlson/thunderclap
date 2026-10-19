@@ -50,8 +50,8 @@ struct Frame_21ef60 {
 
 // equiv-conv: FUN_0021c3d0 esi
 void *FUN_0021c3d0(LexState_21ef60 *ls);
-// equiv-conv: FUN_0021c240 ecx edx
-void FUN_0021c240(const char *what, int limit);
+// equiv-conv: FUN_0021c240 esi ecx edx
+void FUN_0021c240(FuncState_21ef60 *fs, const char *what, int limit);
 unsigned short __cdecl FUN_0021c490(LexState_21ef60 *ls, void *name);
 void __cdecl FUN_00220850(FuncState_21ef60 *fs, int n);
 // equiv-conv: FUN_0021cac0 ecx eax
@@ -77,7 +77,7 @@ void FUN_0021ef60(LexState_21ef60 *ls)
 
     FuncState_21ef60 *cur = ls->fs;
     if (cur->nactvar + 1 > 200)
-        FUN_0021c240("local variables", 200);
+        FUN_0021c240(cur, "local variables", 200);
     cur->actvar[cur->nactvar] = FUN_0021c490(ls, name);
 
     f.v.k = 5;

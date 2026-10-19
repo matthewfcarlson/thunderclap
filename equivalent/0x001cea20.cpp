@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_001cea20 @ 0x001cea20
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 class CScenarioManager { public: int FUN_dummy(); };
 
@@ -37,9 +36,7 @@ class Closure0 : public Method0<T, R> {
 
 struct Frame_1cea20 {
     Closure0<CScenarioManager, int> closure;
-    unsigned int cookie;
     Frame_1cea20(const char* n, CScenarioManager* o, int (CScenarioManager::*f)()) throw() : closure(n, o, f) {
-        cookie = DAT_004d9968;
     }
 };
 
@@ -52,5 +49,4 @@ void Registry_1cea20::FUN_001cea20(const char* name, CScenarioManager* owner, in
     Frame_1cea20 fr(name, owner, fn);
     FUN_001d26d0(name, &fr.closure);
     fr.closure.FUN_001d04a0();
-    __security_check_cookie(fr.cookie);
 }

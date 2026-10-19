@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 30/30)
 // FUN_0003b1c0 @ 0x0003b1c0
+// cl-flags: /GS
 #include "decls/address.h"
-extern "C" unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 struct Msg_3b1c0 {
     char data[0xb0];
@@ -47,13 +46,11 @@ public:
 
 bool Timer::FUN_0003b1c0(float dt, bool force)
 {
-    unsigned int cookie = DAT_004d9968;
     Msg_3b1c0 msg;
 
     if (!force) {
         if (trigger > 0.0f || count > 0) {
             if (dt < value) {
-                __security_check_cookie(cookie);
                 return false;
             }
         }
@@ -82,6 +79,5 @@ bool Timer::FUN_0003b1c0(float dt, bool force)
             }
         }
     }
-    __security_check_cookie(cookie);
     return true;
 }

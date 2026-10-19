@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3058 inputs, branch coverage 75/78, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20077 inputs, branch coverage 77/78, incomplete)
 // FUN_00040970 @ 0x00040970
+// cl-flags: /GS
 #include "decls/address.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 union Bits_40970 {
     float f;
@@ -124,11 +123,8 @@ void Actor_40970::FUN_00040970(World *w, float dt)
         Bits_40970 g;
         Bits_40970 av;
         Buf_40970 buf;
-        unsigned int cookie;
     } f;
-    f.cookie = DAT_004d9968;
     if (b118 != 0) {
-        __security_check_cookie(f.cookie);
         return;
     }
     dt = dt * f314;
@@ -228,5 +224,4 @@ void Actor_40970::FUN_00040970(World *w, float dt)
         f300 = 0.0f;
         f304 = 0.0f;
     }
-    __security_check_cookie(f.cookie);
 }

@@ -1,11 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 4/4)
 // FUN_001cbc20 @ 0x001cbc20
-extern unsigned DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned cookie);
+// cl-flags: /GS
 struct Record_1cbc20 { unsigned size; char data[220]; };
 struct Queue_1cbc20 { char pad[16]; Record_1cbc20* next; Record_1cbc20* end; bool FUN_001cbc20(const Record_1cbc20* source); };
 bool Queue_1cbc20::FUN_001cbc20(const Record_1cbc20* source) {
-    unsigned cookie = DAT_004d9968;
     Record_1cbc20 local;
     local.size = 0;
     unsigned n = source->size;
@@ -19,6 +17,5 @@ bool Queue_1cbc20::FUN_001cbc20(const Record_1cbc20* source) {
         if (dest) *dest=local;
         result = true;
     }
-    __security_check_cookie(cookie);
     return result;
 }

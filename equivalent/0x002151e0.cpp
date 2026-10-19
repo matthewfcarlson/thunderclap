@@ -1,9 +1,12 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2568 inputs, branch coverage 2/2)
+// FUN_002151e0 @ 0x002151e0
 extern "C" void _ReadWriteBarrier();
 extern "C" {
 void __cdecl FUN_00219660(int, int);
 void __cdecl FUN_002165c0(int, int);
 int __cdecl FUN_002152f0(int, void*, int);
-void __cdecl FUN_00214f90(void);
+// equiv-conv: FUN_00214f90 esi
+void __cdecl FUN_00214f90(int);
 void __cdecl LAB_002151d0(void);
 }
 void __cdecl FUN_002151e0(int param_1) {
@@ -21,6 +24,6 @@ void __cdecl FUN_002151e0(int param_1) {
         *(short*)(esi + 0x2e) = 0;
         r = FUN_002152f0(esi, (void*)LAB_002151d0, 0);
     } while (r != 0);
-    FUN_00214f90();
+    FUN_00214f90(esi);
     _ReadWriteBarrier();
 }

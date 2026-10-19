@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 119 inputs, branch coverage 41/48, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20043 inputs, branch coverage 45/48, incomplete)
 // hulkfight::GameStateCondition::vfunc_6 @ 0x0012f400
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
+// cl-flags: /GS
 extern int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
 
 struct Script_12f400 {
@@ -32,7 +31,6 @@ public:
 
 bool GameStateCondition::vfunc_6(int a, int b, int c)
 {
-    unsigned int cookie = DAT_004d9968;
     bool result = false;
 
     if (expected != 0) {
@@ -92,7 +90,6 @@ bool GameStateCondition::vfunc_6(int a, int b, int c)
             }
         }
     }
-    __security_check_cookie(cookie);
     return result;
 }
 

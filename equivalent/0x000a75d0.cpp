@@ -1,11 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3046 inputs, branch coverage 130/130)
+// STATUS: equivalent (tools/equiv.py level 3: 5772 inputs, branch coverage 130/130)
 // CChaseCamera::vfunc_35 @ 0x000a75d0
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
 extern "C" double __cdecl sqrt(double);
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
-extern unsigned int DAT_004d9968;
 
 static float AbsF(float v)
 {
@@ -174,13 +173,11 @@ struct Frame_a75d0 {
     } u;
     char pad[0x14];
     Mat_a75d0 mat2;
-    unsigned int cookie;
 };
 
 void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
 {
     Frame_a75d0 f;
-    f.cookie = DAT_004d9968;
     if (!bf1) {
         p248.FUN_000a06d0(&p170);
         b346 = 0;
@@ -437,5 +434,4 @@ void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
         ((CGameCamera *)this)->vfunc_35(a1, dt, a3, a4);
         f410 = 0;
     }
-    __security_check_cookie(f.cookie);
 }

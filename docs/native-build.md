@@ -15,19 +15,26 @@ build/venv/bin/python tools/native_shim.py              # platform-shim / CRT in
 build/venv/bin/python tools/native_shim.py --skeleton   # write src/platform/sdl/xdk/ files that don't exist yet (pre-shim inventory)
 build/venv/bin/python tools/native_fix.py               # fix 4 source edits: plan; --apply --verify rewrites verified sources
 build/venv/bin/python tools/native_conv_check.py        # calling conventions of library imports and register-convention callers
-build/venv/bin/python tools/native_conv_check.py --returns --pops --tree-report build/tree/report.json   # checks 6-8 (below)
+build/venv/bin/python tools/native_conv_check.py --returns --pops --tree-report build/tree/report.json   # checks 6-9 (below)
+build/venv/bin/python tools/native_fix.py --rule reg-call --apply --verify     # the hand-read call fixes in tools/native_calls.py
+HULK_TREE_REPORT=... HULK_TREE_MANIFEST=... HULK_BINDINGS=... build/venv/bin/python tools/native_fix.py --rule base-ctor --apply --verify   # candidate rules: return-param, base-ctor, this-cand
 build/venv/bin/python tools/native_run.py --hello       # Wine runs a trivial i686 PE? (our own prefix: build/native/wineprefix)
 build/venv/bin/python tools/native_run.py               # run the image under Wine: build/native/run/ (trace, summary)
 # beside another agent's runs: HULK_CLANG_PROBE_DIR=build/native5/clang-probe HULK_CLANG_PROBE_CACHE=build/clang-probe/cache
 #   HULK_NATIVE_DIR=build/native5 ... clang_probe.py --snapshot --configs msvc; native_link.py --tree build/native5/clang-probe/snap
 ```
 
-**Status 2026-10-18 evening: `main` runs.** The image runs all **457 game C++ dynamic initializers** and gets
-into `main` (0x0008ee30): the memory and thread systems start (host threads, fibers, semaphores), the drive layer
-opens, reads and closes game files under `D:\`, and the game object's constructor starts the Lua VM, where it
-stops on a register-convention call the sources get wrong (`matches/0x0033eb30.cpp`, run 20). See [Start-up,
-continued](#start-up-continued-2026-10-18-evening): the data layout fix, seven classes of verified-source bugs (263
-sources rewritten, all re-verified), four new link-time repairs, the shim's first real stand-ins and what is left.
+**Status 2026-10-18 night: the game object is built and the D3D device is up.** The image runs all **457 game
+C++ dynamic initializers**, gets into `main`, constructs the game object (the Lua VM opened with its libraries,
+the script `Registry`), registers every script binding, and in `T_8ee30::Init` creates
+the Direct3D device through the shim (`Direct3D_CreateDevice`, the vertical-blank callback, textures, a vertex
+buffer, viewport, transforms and render states: 55 distinct imports called). It stops in pure3d's d3d backend,
+which writes D3D's own render-state cache at its XBE address (`*(int*)0x39de28 = v` in `matches/0x00321b70.cpp`,
+inside the D3D library section): the graphics boundary (the pddi/bgfx backend replaces that layer). See [Start-up,
+part 3](#start-up-part-3-2026-10-18-night): three more classes of verified-source bugs found and their checks,
+the Lua VM's register-convention calls, 308 sources rewritten (all re-verified; 3 matches became equivalent/
+sources), and the split of the caller-convention mismatches.
+The evening: [Start-up, continued](#start-up-continued-2026-10-18-evening) (into `main`, stopped in the Lua VM).
 The morning: [Start-up](#start-up-2026-10-18) (308 of 466 initializers). The evening before: all 2,558 TUs
 compiled under clang and the strict link succeeded with 3,253 symbols stubbed; see [Deleting destructors, the last TU and the platform
 shim](#deleting-destructors-the-last-tu-and-the-platform-shim-2026-10-18).
@@ -39,6 +46,135 @@ next fixes 1-3](#after-the-next-fixes-1-3-2026-10-17) the night before (first st
 Cold, the first run takes 10-15 minutes (4 compiler processes); a warm run takes 30 s. Everything goes to `build/clang-probe/`:
 `report.json` (counts, categories with example sites, scans, link probe), `undefined.txt` (every undefined symbol with
 its group and demangled name), `cache/` (per-TU results and objects) and `snap/` (the tree being probed).
+
+## Start-up, part 3 (2026-10-18 night)
+
+From the Lua VM to the D3D device. Inputs: frozen copies of the live tree at 18:18 (HEAD d3c0fb15 plus the
+untracked equivalent/ files then present; fx17's /GS installs after that are not in these measurements) with this
+round's rewritten sources on top, `clang_probe.py --snapshot --configs msvc`, `native_link.py`, Wine 7.7
+(`native_run.py`). Every source edit went through `native_fix.py --apply --verify` (compare.py MATCH /
+equiv.py --inputs 3000 EQUIVALENT, file unchanged meanwhile; log `build/native-fix.log`, list
+`build/native7/sources.txt`): **308 sources**, 3 of them matches/ that became equivalent/ sources.
+
+**1. The trace, run by run:**
+
+| run | stopped at | cause | fixed where |
+|---|---|---|---|
+| 21 | luaL_openlib 0x003390d0 -> lua_type 0x00212f00 -> index2adr 0x00212bb0 | index2adr is a `__fastcall` match (idx ecx, L edx); its 14 callers declared it `__cdecl` with an `ecx edx` / `edx ecx` note: natively they pushed both words (new check 9) | **source**: declared `__fastcall` (14 sources, rule `reg-call`) |
+| 22 | luaL_openlib -> lua_setfield -> luaV_settable 0x00217980 writes through garbage | luaH_get 0x00219e90 and luaH_set 0x00219ef0 were `void` (their callers use the slot they return; check 6) | **source** (by hand) |
+| 23 | luaopen_table 0x0033b560 -> luaL_openlib | `matches/0x0033b560.cpp` passed the string literal `"$IC"` for the `luaL_reg` table at 0x004348a0: compare.py matched the literal by the bytes at that address (the table's first pointer reads `$IC\0`); natively it is a 4-byte string. The same for the game's own table `"h$B"` in `matches/0x001d3c90.cpp` | **source**: `(const char*)DAT_004348a0` / `DAT_00422458` |
+| 24 | the game object is built; `T_8ee30::Init` -> 0x00088020 -> 0x0008e880 -> `Registry::Add` 0x001d3b70 | the script Registry's singleton getter 0x001d4c90 was `void` (119 call sites use eax) | **source** |
+| 25 | script bindings registered, D3D device created ... `d3dContext::v66` 0x00321b70 | see below | (run 26 = the final tree: same point) |
+| 26 | **`T_8ee30::Init` -> 0x0008e880 -> 0x0008dec0 -> 0x00292560 -> `d3dDevice::vfunc_8` 0x0031b860 -> `pddiBaseContext::vfunc_99` -> `vfunc_102` -> `pddiStencilState::vfunc_0` -> `d3dContext::v66`** | pure3d's d3d backend (game code) writes D3D's own render-state cache at its XBE address: `*(int*)0x39de28 = v;` (`matches/0x00321b70.cpp`), inside the D3D library section, which the image doesn't map (its XBE window is 0x003f0000-0x0058a000) | open: the graphics boundary (the pddi/bgfx backend replaces pure3d's d3d layer; a stand-in for D3D's state words would be the D3D shim's) |
+
+Between runs 24 and 25 the Lua binding objects: their base constructor `Function::Function(name, nargs)` 0x001d0480
+(and the fight actions' 0x00232660, conditions' 0x00234590, ...) was called through free `__stdcall`
+declarations (`Base(const char* s) { FUN_001d0480(s, 1); }`, `RegisterMethod(a1, 2)`, `BaseInit(...)`) with `this`
+in ecx by chance: rule `base-ctor`, 135 sources (they still byte-match: the base class `Ctor_<addr>`, empty or
+with a virtual function when the vftable pointer comes first, and its mem-initializer give MSVC 7.1 the
+original's bytes).
+
+**2. Verified-source bugs: classes and checks this round** (`tools/native_conv_check.py`; findings at the start of the
+round / after it, on the same tree build):
+
+| class | check | start | fixed | left |
+|---|---|---|---|---|
+| register-convention callers (no note, or a list without a register the definition reads) | 5 | 154 (64 + 90) | 150: the Lua VM (all), lundump's `error(S, ...)`, the text-encoding dispatchers' tail calls (36), phantom registers removed from definitions (0x00035ab0 is a `bool` thiscall member, 0x002e7560 returns `ax`, 0x0024b920's `ebx` was a register save) | 4: 2 benign (0x000e0850 / 0x000e0e50 note a `Vec3` by value per parameter, the definition per word), 1 benign (0x00271b70 now declares 0x002719a0 `__fastcall`; check 5 doesn't read conventions), `equivalent/0x0033d400` (below) |
+| callers' notes for definitions without one, against the definition's real convention (`__fastcall` / thiscall matches called `__cdecl` with a register note; a `__cdecl` definition with a register note in a caller) | **9 (new)** | 30 | 20 (`__fastcall` declarations, member calls `((ThisNote_x*)p)->f()`, phantom register arguments dropped) | 10: five thiscall getters called with stack words that belong to later calls (0x00014d40, 0x00115e20, 0x001259c0, 0x0013d7b0, 0x00248670: per-site rewrite), a tail call equiv.py can't verify (0x000e07c0 -> 0x0008ef00: a thiscall without arguments, the original's `jmp` passes its frame on), 4 benign (member declarations, a callee reading no argument) |
+| a definition with an equiv-conv note declared `__fastcall` (natively its second argument travels in edx) | (by hand) | 4 + 1 caller | 5 | 0 |
+| `void` definition whose original callers use eax | 6 | 105 definitions (966 sites) | 34 rewritten (33 fewer): rule `void-return` now sees `extern "C"` callees and calls through function-pointer members (9), new rule `return-param` (22: `return out;` in vector ops, singleton getters), by hand (luaH_get, luaH_set, the Registry getter) | 72 (386 sites) |
+| caller symbol in another convention than its definition | 8 | see the split below | 152 call symbols: rule `base-ctor` (135 sources), new rule `this-cand` (8), `this-note` (6) | 309 behaviour-changing |
+| data tables passed as string literals | (scan) | 2 | 2 | 0 found (a scan of short literals with `$@^` etc.; no general check yet) |
+| declared callee-pops bytes differ from `ret N` | 7 | 223 symbols / 160 addresses | 2 | 221 / 158 |
+
+**3. Check 8, split** (`native_conv_check.classify_definition_convs`: each *called* caller symbol bound to a
+definition of another convention, as the machine call; the registers the definition really reads come from
+equiv.py's `reg_inputs` on the original, read-only): `identical` = the same registers set, no stack word read
+that isn't pushed, the same cleanup (a `__cdecl`/`__stdcall` caller of a 0-argument stdcall, a thiscall caller of a
+one-dword `__fastcall` such as `Normalize(float*, void*)` whose second register is never read, ...); `changing` =
+natively the definition reads a register the caller doesn't set, stack words it doesn't push, or the stack is
+cleaned up twice or not at all.
+
+| pair (caller, definition) | identical | changing (start -> now) | unknown |
+|---|---|---|---|
+| thiscall, fastcall | 3,294 | 25 -> 25 | |
+| thiscall, cdecl | 1,107 | 5 -> 5 | 26 |
+| thiscall, stdcall | 375 | 4 -> 4 | 9 |
+| stdcall, thiscall | 2 | 239 -> 120 | |
+| cdecl, thiscall | 8 | 113 -> 94 | |
+| fastcall, thiscall | 172 | 4 -> 4 | |
+| cdecl, fastcall | 7 | 48 -> 34 | |
+| stdcall, cdecl | 4 | 23 -> 23 | 16 |
+| fastcall, cdecl | 28 | | 1 |
+| **all** | **4,997** | **461 -> 309** (222 -> 197 definitions) | **52** |
+
+The doc's earlier "1,497" were all *bound* cdecl/stdcall symbols of thiscall definitions; 362 of them are called
+(352 changing at the start, 214 now), the rest are only referenced by address.
+
+**4. Tools.** `tools/native_fix.py`: rules `reg-call` (hand-read edit groups in the new `tools/native_calls.py`,
+each with the call site's reading; `DEMOTE`: a match whose call needs esi/edi/ebx becomes an equivalent/ source,
+written only if equiv.py finds it equivalent and promotable, the match removed), `this-note`, and three
+candidate rules verified candidate by candidate (`return-param`, `base-ctor`, `this-cand`; they need
+`HULK_TREE_REPORT`, `HULK_TREE_MANIFEST`, `HULK_BINDINGS` of the tree build and link); `void-return` fixed for
+`extern "C"` declarations (blanked string `"C"`) and function-pointer members. `tools/native_conv_check.py`:
+check 9 (with `--returns`), `classify_definition_convs`; a note without locations no longer swallows the next
+line (`CONV_NOTE`), and `target`/`run` notes count as the definition's own (check 5 had missed their callers).
+
+**5. `equivalent/0x0033d400.cpp` (str_format) fails equiv.py unedited:** one directed `+patch` input (input 5) of
+2,000 (1,252 more inconclusive, the cap hit): the original calls `luaL_prepbuffer` 0x00339470 where ours calls
+`isdigit`, then the runs diverge. Two real differences in the source for the native build: its `buff[120]` is
+512 bytes in the original (Lua 5.0's `MAX_ITEM`; `%99.99f` can overflow 120 natively), and its frame puts
+`b.p` 4 bytes off the original's (`esp+0x3c` vs `esp+0x38`). With `buff[512]` and without the `unused` word the
+frame matches the original's (size 0x43c+, `b.p` at 0x38) and the same single input still fails, so it isn't
+the layout: left for an equiv.py look at that input (not written; its check-5 order finding stays).
+
+**6. MSVC 7.1 verification build** (`build/native7/msvc-proof.txt`): the frozen 18:18 copies; HEAD = HEAD's
+`gen_tree.py`/`build_tree.py` (`runbase.py`) with the frozen sources, this = the same generator (this round
+changed none) with the 308 rewritten sources (and the 3 demoted matches removed), both `build_tree.py --resume
+--jobs 3 --regression-rounds 4` from the same fallback state, local:
+
+| | HEAD | this |
+|---|---|---|
+| TUs compiled | 2,723 / 2,723 | 2,726 / 2,726 |
+| matches byte-matching | 22,127 / 22,127 | 22,124 / 22,124 (3 demoted) |
+| equivalent/ compiled, same code as standalone | 5,345 (5,293 same, 51 no_symbol, 1 standalone_compile_error) | 5,348 (5,296 same, same split otherwise) |
+| equivalent/ differing | 0 | 0 |
+| merged / wrapped / isolated | 20,473 / 6,136 / 863 | 20,473 / 6,135 / 864 |
+| fallbacks wrapped / isolated | 432 / 401 | 433 / 402 |
+
+Per function the verdicts are identical (27,469 / 27,472) except the 3 demoted functions (`0x002151e0`,
+`0x00339270`, `0x0033eb30`: match -> compiled equivalent, by design). Nine functions changed mode (wrapped <->
+merged/isolated: `0x00027930`, `0x000e39c0`, `0x000fb110`, `0x0021e300`, `0x0021ee70`, `0x0024b920`,
+`0x002bfb20`, `0x002bfb70`, `0x002bfd30`): a rewritten declaration now conflicts, or no longer does, with
+another source's in the same TU; each still matches or compiles to its standalone code. Two sources
+(`equivalent/0x000c4220`, `0x000e39c0`) got fx17's /GS version installed over this round's rewrite while it ran;
+the rewrite was applied again on top (verified) and the proof's second build includes both.
+
+**Compiling and link** (the final tree): `msvc` **2,724 / 2,724**; data TUs 1,078 / 1,078. Binding map: 56,897
+referenced symbols, 56,663 bound, 234 ambiguous. Strict `lld-link`: **links (0 errors)**, 7.49 MB; undefined after
+binding 1,722 symbols / 2,924 references (1,690 / 2,892 before: the 32 more are virtual members of clang's stub
+vftables for the new polymorphic `CtorV_` bases); virtual-dispatch stubs 1,262.
+
+**Start-up trace summary** (run 26): xbe-window mapped; 466 initializers, 457 run, 9 library ones skipped; `main`:
+`XGetLaunchInfo`, `XInitDevices`, the thread/fiber system, the drive (`GetDiskFreeSpaceExA`, `XGetDiskSectorSizeA`,
+`CreateFileA`, `GetFileSize`, `SetFilePointer`, `ReadFile`, `CloseHandle`), the game object (Lua VM with its
+libraries, the script registry, every binding), then `T_8ee30::Init` and the display: `Direct3D_Object`,
+`D3D_GetDeviceCaps`, `XGetVideoFlags`, `D3D_SetPushBufferSize`, `Direct3D_CreateDevice`, `D3DDevice_GetGammaRamp`,
+`GetRenderTarget2`, `D3DSurface_GetDesc`, `CreateTexture2`, `D3DResource_Release`, `SetVerticalBlankCallback`,
+`SetTexture`, `SetPalette`, texture and render states, `SetPixelShader`, `GetCreationParameters`,
+`D3D_CheckDeviceFormat`, `CreateVertexBuffer2`, `Get/SetViewport`, `SetTransform`, `SetRenderState_CullMode`,
+`ZEnable`, `FillMode`, `FogColor`, `StencilEnable` (55 distinct imports), and the stop above.
+
+**Next** (in order):
+
+1. The D3D seam: pure3d's d3d context writes D3D's state cache at XBE addresses in the D3D section
+   (`0x39de28`; the "absolute-address-cast" scan lists 75 such casts in 54 sources): with the graphics agent
+   (the pddi/bgfx backend replaces that layer; a D3D-shim state block at those addresses would let the d3d path
+   run meanwhile).
+2. Check 8's 309 behaviour-changing calls (197 definitions): the free `__stdcall` callers of thiscall lookups
+   (`Table::FUN_001fc7f0` 13, `Registry_e7260` 7, `Table_1def30` 7, ...) whose ecx was a global or another call's
+   result: per-site readings, as `reg-call`.
+3. Check 6's 72 definitions, check 7's 158 addresses, check 9's 10.
 
 ## Start-up, continued (2026-10-18 evening)
 

@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 17991 inputs, branch coverage 12/12)
 // FUN_000bfa10 @ 0x000bfa10
+// cl-flags: /GS
 extern "C" int sprintf(char* buf, const char* fmt, ...);
 
 struct Lookup_bfa10 {
@@ -19,8 +20,6 @@ struct DialogMgr {
 
 Strings_bfa10* FUN_000fc1b0();
 DialogMgr* FUN_000fc3d0();
-extern unsigned DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned);
 extern "C" int FUN_000fc020(char* buf, int size, const char* fmt, ...);
 
 struct Frame_bfa10 {
@@ -32,7 +31,6 @@ struct Frame_bfa10 {
     char dialog[0x20];
     char text[0x80];
     char rest[0x80];
-    unsigned cookie;
 };
 
 struct UnlockMenu {
@@ -45,7 +43,6 @@ struct UnlockMenu {
 void UnlockMenu::FUN_000bfa10(int arg1, int arg2)
 {
     Frame_bfa10 f;
-    f.cookie = DAT_004d9968;
     if (lookup != 0) {
         lookup->FUN_00093950(arg1, arg2, &f.found, &f.flagA, &f.flagB, f.pair);
         if ((char)arg2 != 0)
@@ -74,5 +71,4 @@ void UnlockMenu::FUN_000bfa10(int arg1, int arg2)
                 FUN_000fc3d0()->FUN_000be230(f.dialog, "TBS_UNLOCKABLES_UP_CODE_WRONG_LOCATION_2", "", "", "TBS_MENU_ITEM_OK", 2, 0, 0);
         }
     }
-    __security_check_cookie(f.cookie);
 }

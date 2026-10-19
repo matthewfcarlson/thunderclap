@@ -1,8 +1,10 @@
 #include "decls/address.h"
 extern "C" char DAT_003f421c[];
-extern "C" void __stdcall FUN_001d0480(const char*, int);
+struct Ctor_001d0480 {
+    Ctor_001d0480(const char*, int);
+};
 extern const char g1_2d830[], g2[], g3[];
-class CActorManager {
+class CActorManager : public Ctor_001d0480 {
   public:
     int vptr;
     char pad4[0xc];
@@ -13,8 +15,7 @@ class CActorManager {
     int m1c;
     CActorManager(const char*, int);
 };
-CActorManager::CActorManager(const char* a, int b) {
-    FUN_001d0480(a, 4);
+CActorManager::CActorManager(const char* a, int b) : Ctor_001d0480(a, 4) {
     vptr = ((int)DAT_003f421c);
     m1c = b;
     b18 = FUN_001d04d0(g1_2d830);

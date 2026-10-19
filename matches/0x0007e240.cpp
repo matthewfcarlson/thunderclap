@@ -1,11 +1,14 @@
 class CAmbientsManager;
-extern "C" void __stdcall init(void*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(void*, int);
+    virtual void v_001d0480();
+};
 extern "C" unsigned char __cdecl lookup(const char*);
 extern const char a[];
 extern const char b[];
-class Base {
+class Base : public CtorV_001d0480 {
   public:
-    Base(void* x) { init(x, 1); }
+    Base(void* x) : CtorV_001d0480(x, 1) { }
 };
 class Method1 : public Base {
   public:

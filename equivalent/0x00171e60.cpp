@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 32/32)
+// STATUS: equivalent (tools/equiv.py level 3: 12541 inputs, branch coverage 31/32, incomplete)
 // hulkfight::motion::SyncToLocatorAction::vfunc_3 @ 0x00171e60
+// cl-flags: /GS
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
 struct V3_171e60 {
@@ -119,8 +120,6 @@ struct World {
 
 void *thunk_FUN_0008d690(unsigned int size);
 float __cdecl FUN_00224fc0(float a, float b);
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 class SyncToLocatorAction {
 public:
@@ -154,16 +153,13 @@ struct Frame_171e60 {
 
 bool SyncToLocatorAction::vfunc_3(int a, int b)
 {
-    unsigned int cookie = DAT_004d9968;
     Frame_171e60 f;
     if (target == 0 || cfg->v7() <= 0.0f) {
-        __security_check_cookie(cookie);
         return false;
     }
     Clock_171e60 *clock = target->FUN_000592a0();
     Skeleton *skel = clock->FUN_00059a40();
     if (skel == 0) {
-        __security_check_cookie(cookie);
         return false;
     }
     Timing_171e60 *timing = clock->FUN_00059a30();
@@ -187,23 +183,19 @@ bool SyncToLocatorAction::vfunc_3(int a, int b)
         const char *name = cfg->name28;
         int tag = cfg->f2c;
         if (name == 0) {
-            __security_check_cookie(cookie);
             return false;
         }
         Registry_171e60 *reg = FUN_001d4c90();
         if (reg->FUN_001d35a0(name, "syncToLocator", tag) != 3 || !reg->FUN_001d19f0(f.buf, 0x400, 1)) {
-            __security_check_cookie(cookie);
             return false;
         }
         id.FUN_0027b040(f.buf);
         if (id.lo == 0 && id.hi == 0) {
-            __security_check_cookie(cookie);
             return false;
         }
     }
     Located *obj = DAT_004dd700->f28->FUN_001fc8c0(id.lo, id.hi);
     if (obj == 0) {
-        __security_check_cookie(cookie);
         return false;
     }
     f34 = obj->v9();
@@ -241,6 +233,5 @@ bool SyncToLocatorAction::vfunc_3(int a, int b)
         v48.FUN_00011140(1.0f / y);
     else
         v48.FUN_00011140(1.0f / cfg->v7());
-    __security_check_cookie(cookie);
     return true;
 }

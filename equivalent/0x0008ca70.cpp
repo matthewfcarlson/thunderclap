@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 21/22, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 16099 inputs, branch coverage 21/22, incomplete)
 // FUN_0008ca70 @ 0x0008ca70
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 
 struct CreateParams_8ca70 {
     void* buffer;
@@ -75,10 +74,8 @@ int Manager_8ca70::FUN_0008ca70(int index, int arg1, int arg2, int arg3, int arg
         Obj_8ca70* created;
         int status;
         char buf[0x104];
-        unsigned int guard;
     } f;
     int result;
-    f.guard = DAT_004d9968;
     Obj_8ca70* obj = slots[index].obj;
     obj->v58();
     if (slots[index].aux) {
@@ -121,6 +118,5 @@ int Manager_8ca70::FUN_0008ca70(int index, int arg1, int arg2, int arg3, int arg
             }
         }
     }
-    __security_check_cookie(f.guard);
     return result;
 }

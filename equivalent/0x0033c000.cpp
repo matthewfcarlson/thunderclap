@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 114 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 115 inputs, branch coverage 4/4)
 // FUN_0033c000 @ 0x0033c000
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 
 struct lua_State;
 
@@ -20,7 +19,6 @@ void __cdecl FUN_00339540(luaL_Buffer_33c000 *b);
 
 int FUN_0033c000(lua_State *L)
 {
-    unsigned int cookie = DAT_004d9968;
     unsigned int l;
     luaL_Buffer_33c000 b;
     const char *s = FUN_00339df0(L, 1, &l);
@@ -31,6 +29,5 @@ int FUN_0033c000(lua_State *L)
         n--;
     }
     FUN_00339540(&b);
-    __security_check_cookie(cookie);
     return 1;
 }

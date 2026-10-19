@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 39 inputs, branch coverage 36/42, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 119 inputs, branch coverage 42/42)
 // FUN_000e70d0 @ 0x000e70d0
+// cl-flags: /GS
 extern "C" char *strchr(const char *s, int c);
 extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 struct Node {
     virtual void vfn0();
@@ -63,14 +62,12 @@ public:
 
 void *Registry_e70d0::FUN_000e70d0(const char *name)
 {
-    unsigned int cookie = DAT_004d9968;
     char buf[0x40];
     const char *dot = strchr(name, '.');
     int i;
     if (dot != 0) {
         int len = dot - name;
         if (len >= 0x40) {
-            __security_check_cookie(cookie);
             return 0;
         }
         memcpy(buf, name, len);
@@ -79,7 +76,6 @@ void *Registry_e70d0::FUN_000e70d0(const char *name)
         if (n == 0)
             n = FUN_000e6410(buf);
         void *r = n->find(dot + 1);
-        __security_check_cookie(cookie);
         return r;
     }
     void *r;
@@ -115,6 +111,5 @@ void *Registry_e70d0::FUN_000e70d0(const char *name)
         }
     }
 done:
-    __security_check_cookie(cookie);
     return r;
 }

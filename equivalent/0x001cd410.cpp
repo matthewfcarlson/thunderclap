@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 12697 inputs, branch coverage 24/24)
 // FUN_001cd410 @ 0x001cd410
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern "C" unsigned int DAT_004d9968;
+// cl-flags: /GS
 extern "C" int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 
 struct Node { void FUN_001dcac0(); };
@@ -59,13 +58,11 @@ struct Controller_1cd410 {
 
 struct Frame_1cd410 {
     char buf[0x100];
-    unsigned int cookie;
 };
 
 void Controller_1cd410::FUN_001cd410() {
     Frame_1cd410 f;
     char *buf = f.buf;
-    f.cookie = DAT_004d9968;
     busy = 1;
     if (session != 0) {
         if (session->p0c != 0)
@@ -97,5 +94,4 @@ void Controller_1cd410::FUN_001cd410() {
     if (session != 0 && session->holder != 0)
         session->holder->FUN_0009bc60(session);
     busy = 0;
-    __security_check_cookie(f.cookie);
 }

@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2355 inputs, branch coverage 36/36)
+// STATUS: equivalent (tools/equiv.py level 3: 14639 inputs, branch coverage 36/36)
 // hulkfight::DialogueAction::vfunc_3 @ 0x0012f750
+// cl-flags: /GS
 #include "gen/hulkfight.h"
 #include "decls/address.h"
 
@@ -29,14 +30,10 @@ struct Holder_12f750 { char pad[8]; int f8; Mgr_12f750 *FUN_000592a0(); };
 struct Singleton_4dd6ec { Obj3_12f750 *FUN_00086340(int n); };
 struct Target_12f750 { void FUN_001ecda0(char *a, int b, char *c, int d); };
 struct World { char pad[0x34]; Target_12f750 *t34; };
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 struct Name64 { char c[0x40]; };
 
 bool hulkfight::DialogueAction::vfunc_3(int a, int b) {
-    unsigned int cookie0 = DAT_004d9968;
     if ((*(Holder_12f750 * *)&this->f_20) == 0) {
-        __security_check_cookie(cookie0);
         return (bool)(0);
     }
     Player_12f750 *pl = 0;
@@ -49,13 +46,10 @@ bool hulkfight::DialogueAction::vfunc_3(int a, int b) {
             pl = pl->f334;
     }
     if (pl && pl->f20b0) {
-        __security_check_cookie(cookie0);
         return (bool)(0);
     }
     char nameB[0x40] = "";
-    char nameA[0x44] = "";
-    unsigned int *cookie = (unsigned int *)(nameA + 0x40);
-    *cookie = cookie0;
+    char nameA[0x40] = "";
     if (inf->name14) {
         const char *s = inf->name14;
         char *d = nameA;
@@ -89,6 +83,5 @@ bool hulkfight::DialogueAction::vfunc_3(int a, int b) {
         }
     }
     DAT_004dd700->t34->FUN_001ecda0(nameA, (*(Info_12f750 * *)&this->f_1c)->f1c, nameB, (*(Info_12f750 * *)&this->f_1c)->f10);
-    __security_check_cookie(*cookie);
     return (bool)(1);
 }

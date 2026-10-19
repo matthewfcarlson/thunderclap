@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 12845 inputs, branch coverage 18/18)
 // FUN_000c1f70 @ 0x000c1f70
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 namespace pure3d { class Texture; class Shader; }
 namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; } }
@@ -120,7 +119,6 @@ public:
 
 void BlonskyScreen::FUN_000c1f70(int index)
 {
-    unsigned int cookie = DAT_004d9968;
     Frame_c1f70 frame;
 
     if (items != 0) {
@@ -174,5 +172,4 @@ void BlonskyScreen::FUN_000c1f70(int index)
             loader->release();
         }
     }
-    __security_check_cookie(cookie);
 }

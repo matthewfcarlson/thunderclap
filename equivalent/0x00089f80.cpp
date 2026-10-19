@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 13/14, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19998 inputs, branch coverage 13/14, incomplete)
 // FUN_00089f80 @ 0x00089f80
+// cl-flags: /GS
 #include "decls/address.h"
-extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
 struct InfoReader {
  bool FUN_001d2ba0(const char*, int, int);
  bool FUN_001d2c60(const char*, char*, int);
@@ -18,7 +17,6 @@ struct Manager_89f80 {
  void FUN_00089f80(const char*);
 };
 void Manager_89f80::FUN_00089f80(const char* name) {
- unsigned int cookie = DAT_004d9968;
  char info[64];
  int index = FUN_00089400(name);
  if (index == -1) {
@@ -26,7 +24,6 @@ void Manager_89f80::FUN_00089f80(const char* name) {
    if (entries[index].low == 0 && entries[index].high == 0) break;
   }
   if(index == 100) {
-   __security_check_cookie(cookie);
    return;
   }
  }
@@ -40,5 +37,4 @@ void Manager_89f80::FUN_00089f80(const char* name) {
   }
   reader->FUN_001d19d0(1);
  }
- __security_check_cookie(cookie);
 }

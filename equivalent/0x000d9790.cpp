@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 17631 inputs, branch coverage 4/4)
 // FUN_000d9790 @ 0x000d9790
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 typedef unsigned short wchar_t;
-extern unsigned int DAT_004d9968;
-extern void __fastcall __security_check_cookie(unsigned int);
 struct TextTable { int FUN_000f7d30(const wchar_t*); const wchar_t* FUN_000f7220(int); };
 struct Entry_d9790 { char data[0x38]; const wchar_t* FUN_000f83f0(TextTable*, int); };
 struct UI_d9790 {
@@ -20,7 +19,6 @@ struct Object {
  void target(int index);
 };
 void Object::target(int index) {
- unsigned int cookie=DAT_004d9968;
  wchar_t buffer[512];
  UI_d9790* ui=FUN_000fc3d0();
  TextTable* text=ui->v44();
@@ -36,5 +34,4 @@ void Object::target(int index) {
  ui->FUN_000be310(title,buffer,((float*)&DAT_003f335c),"TBS_INSTRUCTION_DELETE","TBS_CANCEL",2,common,common);
  shown=1;
  status=0;
- __security_check_cookie(cookie);
 }

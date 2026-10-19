@@ -2,8 +2,10 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 extern "C" char DAT_00420e74[];
-extern "C" void __stdcall FUN_001d0480(unsigned int, unsigned int);
-class CRenderManager {
+struct Ctor_001d0480 {
+    Ctor_001d0480(unsigned int, unsigned int);
+};
+class CRenderManager : public Ctor_001d0480 {
   public:
     CRenderManager(unsigned int, unsigned int);
     int vptr;
@@ -12,8 +14,7 @@ class CRenderManager {
     char pad19[3];
     int field1c;
 };
-CRenderManager::CRenderManager(unsigned int a, unsigned int b) {
-    FUN_001d0480(a, 4);
+CRenderManager::CRenderManager(unsigned int a, unsigned int b) : Ctor_001d0480(a, 4) {
     vptr = ((int)DAT_00420e74);
     field1c = b;
     b18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0049b95c)));

@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 16411 inputs, branch coverage 8/8)
 // FUN_000b51c0 @ 0x000b51c0
+// cl-flags: /GS
 // FUN_000b51c0 @ 0x000b51c0
 #include "decls/data/game/global.h"
 
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern const char *__cdecl FUN_000f7120(int);
 extern int __cdecl FUN_000964a0(char *, int, const char *, ...);
 struct Resource_b51c0 {
@@ -18,7 +17,6 @@ struct Resource_b51c0 {
 };
 extern void __cdecl thunk_FUN_00271230(Resource_b51c0 **, const char *, int, int, int, int, int, int);
 bool __cdecl FUN_000b51c0(int language) {
- unsigned int cookie=DAT_004d9968;
  int index=0;
  for (; index<6; ++index) { if (index==language) break; }
  if(index==6) index=0;
@@ -28,6 +26,5 @@ bool __cdecl FUN_000b51c0(int language) {
  thunk_FUN_00271230(&resource,filename,0,0,1,0,1,1);
  bool result=resource->ready()!=0;
  resource->release();
- __security_check_cookie(cookie);
  return result;
 }

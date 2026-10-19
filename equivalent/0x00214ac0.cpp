@@ -31,8 +31,7 @@ struct lua_Debug_214ac0 {
 
 // equiv-conv: FUN_00214160 ecx eax
 void FUN_00214160(lua_Debug_214ac0 *ar, const TObject_214ac0 *f);
-// equiv-conv: FUN_00213f20 edx
-int FUN_00213f20(CallInfo *ci);
+int __fastcall FUN_00213f20(int unused, CallInfo *ci);
 // equiv-conv: FUN_00214840 ecx stack
 const char *__cdecl FUN_00214840(CallInfo *ci, const char **name);
 
@@ -46,7 +45,7 @@ int __cdecl FUN_00214ac0(const char *what, lua_Debug_214ac0 *ar, CallInfo *ci, l
             FUN_00214160(ar, f);
             break;
         case 'l':
-            ar->currentline = ci ? FUN_00213f20(ci) : -1;
+            ar->currentline = ci ? FUN_00213f20(0, ci) : -1;
             break;
         case 'u':
             ar->nups = ((Closure_214ac0 *)f->value)->nupvalues;

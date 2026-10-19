@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 9112 inputs, branch coverage 6/6)
 // FUN_0021f710 @ 0x0021f710
+// cl-flags: /GS
 struct State_21f710 { unsigned int a, value, savedValue, result, savedToken, token, tokenData; char pad[12]; unsigned int option; unsigned int pad2; unsigned int zero; char buffer[520]; };
-extern unsigned int DAT_004d9968;
-extern void __fastcall __security_check_cookie(unsigned int);
 extern int __cdecl FUN_00219430(void*, const char*, unsigned int);
 extern void __cdecl FUN_0021b160(void*, State_21f710*, unsigned int, int);
 // equiv-conv: FUN_0021cac0 ecx eax
@@ -12,7 +11,6 @@ extern void __cdecl FUN_0021f640(State_21f710*);
 extern void __cdecl FUN_0021b060(State_21f710*, const char*);
 extern void __cdecl FUN_0021cb80(State_21f710*);
 unsigned int __cdecl FUN_0021f710(void* context, unsigned int arg2, unsigned int option, const char* text) {
- unsigned int cookie = DAT_004d9968;
  State_21f710 s;
  s.option = option;
  s.zero = 0;
@@ -30,6 +28,5 @@ unsigned int __cdecl FUN_0021f710(void* context, unsigned int arg2, unsigned int
  if(s.result != 0x11f) FUN_0021b060(&s, "<eof> expected");
  FUN_0021cb80(&s);
  unsigned int result = *(unsigned int*)s.buffer;
- __security_check_cookie(cookie);
  return result;
 }

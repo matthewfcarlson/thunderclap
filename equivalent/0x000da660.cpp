@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 18383 inputs, branch coverage 4/4)
 // FUN_000da660 @ 0x000da660
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
 struct TextSource_da660 {
  int FUN_000f7d30(const char*);
  const unsigned short* FUN_000f7220(int);
@@ -22,7 +21,6 @@ struct Object {
  void target(int);
 };
 void Object::target(int) {
- unsigned int cookie = DAT_004d9968;
  unsigned short buffer[512];
  Menu_da660* menu = FUN_000fc3d0();
  TextSource_da660* source = menu->v44();
@@ -37,5 +35,4 @@ void Object::target(int) {
  menu->FUN_000be310(heading, buffer, "", "", "TBS_MENU_ITEM_OK", 2, option, option);
  active = 1;
  value = 0;
- __security_check_cookie(cookie);
 }

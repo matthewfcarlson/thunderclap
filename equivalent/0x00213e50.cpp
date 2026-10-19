@@ -57,13 +57,12 @@ struct lua_State_213e50 {
 
 
 // index2adr
-// equiv-conv: FUN_00212bb0 edx ecx
-TObject_213e50 *FUN_00212bb0(lua_State_213e50 *L, int idx);
+TObject_213e50 *__fastcall FUN_00212bb0(int idx, lua_State_213e50 *L);
 void __cdecl FUN_00217100(lua_State_213e50 *L, void *o, void *v);
 
 const char *__cdecl FUN_00213e50(lua_State_213e50 *L, int funcindex, int n)
 {
-    TObject_213e50 *fi = FUN_00212bb0(L, funcindex);
+    TObject_213e50 *fi = FUN_00212bb0(funcindex, L);
     if (fi->tt != 6)
         return 0;
 

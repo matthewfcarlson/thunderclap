@@ -3,8 +3,9 @@ class C_1c17c0 {
     int value;
 
   public:
-    void Set(int);
+    int Set(int);
 };
-void C_1c17c0::Set(int x) {
+int C_1c17c0::Set(int x) {
     value = x;
+    return (int)(value);
 }

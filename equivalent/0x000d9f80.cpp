@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 17706 inputs, branch coverage 4/4)
 // FUN_000d9f80 @ 0x000d9f80
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct Resource_d9f80 { int FUN_000f7d30(void*); void* FUN_000f7220(int); };
@@ -11,9 +12,6 @@ struct Status_d9f80 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { Status_d9f80* FUN_00086280(); };
 struct Entry_d9f80 { char pad[0x38]; void* FUN_000f83f0(Resource_d9f80*,int); };
    
-extern unsigned int DAT_004d9968;
-// equiv-conv: __security_check_cookie ecx
-void __cdecl __security_check_cookie(unsigned int);
 extern void __cdecl FUN_000fc020(char*,int,void*,void*);
 struct Target_d9f80 {
  char pad0[0x21c]; int state; char pad1[0x13c]; Entry_d9f80 entries[2]; char pad2[0x1f]; unsigned char special;
@@ -21,7 +19,6 @@ struct Target_d9f80 {
  void FUN_000d9f80(int index);
 };
 void Target_d9f80::FUN_000d9f80(int index) {
- unsigned int cookie = DAT_004d9968;
  char text[1024];
  Menu_d9f80* menu = FUN_000fc3d0();
  Resource_d9f80* resource = menu->v44();
@@ -36,5 +33,4 @@ void Target_d9f80::FUN_000d9f80(int index) {
  menu->FUN_000be310(label,text,((float*)&DAT_003f335c),"TBS_MENU_ITEM_CONTINUE_WITHOUT_SAVE","TBS_MENU_ITEM_RETRY",2,option,option);
  entries[1].pad[0x1c] = 1;
  state = 0;
- __security_check_cookie(cookie);
 }

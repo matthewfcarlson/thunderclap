@@ -1,11 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2143 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 7358 inputs, branch coverage 12/12)
 // FUN_002067d0 @ 0x002067d0
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" int __cdecl sprintf(char *, const char *, ...);
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 typedef unsigned __int64 ID;
 
@@ -118,13 +117,11 @@ struct Frame_2067d0 {
     Event_2067d0 ev;               // 0x10
     char name[0x100];
     char buf[0x100];
-    unsigned int cookie;
 };
 
 void Loader_2067d0::FUN_002067d0(int idx, char flag)
 {
     Frame_2067d0 f;
-    f.cookie = DAT_004d9968;
     sprintf(f.name, "%s_r%03d", this->name, idx);
     Factory_2067d0 *fac = 0;
     if ((*(char*)&DAT_004c91d8))
@@ -171,5 +168,4 @@ void Loader_2067d0::FUN_002067d0(int idx, char flag)
         f.ev.FUN_001cad10(idx);
         DAT_004dd700->queue->FUN_001cbc20(&f.ev);
     }
-    __security_check_cookie(f.cookie);
 }

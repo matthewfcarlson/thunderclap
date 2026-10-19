@@ -11,8 +11,8 @@ extern void __cdecl FUN_0021b060(Parser_21ecd0*, const char*);
 extern void FUN_0021e860(Parser_21ecd0*, int, int);
 // equiv-conv: FUN_0021ea60 ebx stack
 extern void FUN_0021ea60(Parser_21ecd0*, int);
-// equiv-conv: FUN_0021c340 eax edi stack
-extern void FUN_0021c340(int, int, int);
+// equiv-conv: FUN_0021c340 eax esi edi stack
+extern void FUN_0021c340(int, Parser_21ecd0*, int, int);
 // equiv-conv: FUN_0021c5b0 eax edx
 extern void FUN_0021c5b0(void*, unsigned int);
 extern void __cdecl FUN_00220bd0(State_21ecd0*, int, unsigned int, int, int);
@@ -29,7 +29,7 @@ void FUN_0021ecd0(Parser_21ecd0* p, int arg) {
  if(p->token==0x3d) FUN_0021e860(p,result,arg);
  else if(p->token==0x2c || p->token==0x10b) FUN_0021ea60(p,result);
  else FUN_0021b060(p,"`=' or `in' expected");
- FUN_0021c340(arg,0x106,0x108);
+ FUN_0021c340(arg,p,0x106,0x108);
  Frame_21ecd0* f=s->frame;
  s->frame=f->previous;
  FUN_0021c5b0(s->resource,f->saved);

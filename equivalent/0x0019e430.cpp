@@ -162,7 +162,8 @@ Stats_19e430 *__fastcall FUN_00059a30(Context *ctx);
 FlagSrc *__fastcall FUN_00086340(Holder28_19e430 *s);
 unsigned __int64 __cdecl FUN_0027afb0(const char *s);
 char __cdecl FUN_00096b50(Target_19e430 *t, V3_19e430 *c, void *out);
-void __cdecl FUN_001947a0(Stats_19e430 *fighter, float x);
+// equiv-conv: FUN_001947a0 esi stack stack
+void __cdecl FUN_001947a0(V3_19e430 *pos, Stats_19e430 *fighter, float x);
 
 namespace hulkfight {
 namespace motion {
@@ -309,7 +310,7 @@ char FireMissileAction::vfunc_5(int a0, int a1)
         if (c4->b74 || bl) {
             f.ok = FUN_00096b50(tgt, &f.tmp, &f.s10);
             if (bl) {
-                FUN_001947a0(f.fighter, f.s14.f);
+                FUN_001947a0(&f.tmp, f.fighter, f.s14.f);
                 if (!cfg->b75)
                     proj->f7c = 0;
             }

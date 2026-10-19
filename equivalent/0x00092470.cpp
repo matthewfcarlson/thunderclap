@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 357 inputs, branch coverage 15/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 4486 inputs, branch coverage 15/16, incomplete)
 // FUN_00092470 @ 0x00092470
+// cl-flags: /GS
 #include "decls/address.h"
 extern "C" int __cdecl sprintf(char *, const char *, ...);
-extern unsigned long DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned long);
 struct Item_92470 { char pad[8]; unsigned char state; };
 struct Observer_92470 { void FUN_000c2c10(int); };
 struct Table_92470 {
@@ -12,7 +11,6 @@ struct Table_92470 {
  bool FUN_00092470(int first, int last, const char *format, unsigned __int64 key, unsigned char state);
 };
 bool Table_92470::FUN_00092470(int first, int last, const char *format, unsigned __int64 key, unsigned char state) {
- unsigned long cookie=DAT_004d9968;
  char buffer[256];
  bool found=false;
  for (int n=0; first+n <= last; ++n) {
@@ -30,6 +28,5 @@ bool Table_92470::FUN_00092470(int first, int last, const char *format, unsigned
    break;
   }
  }
- __security_check_cookie(cookie);
  return found;
 }

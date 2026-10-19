@@ -21,8 +21,8 @@ void FUN_00220220(Reader *S);
 void FUN_002202a0(Reader *S, int size, const char *name);
 // equiv-conv: FUN_0021f8c0 ecx eax edx
 void FUN_0021f8c0(void *dst, int size, Reader *r);
-// equiv-conv: FUN_0021f800 stack esi
-void FUN_0021f800(const char *msg, Reader *r, ...);
+// equiv-conv: FUN_0021f800 esi stack
+void FUN_0021f800(Reader *r, const char *msg, ...);
 int __cdecl FUN_0021a550(Zio_220310 *z);
 
 // Lua 5.0 luaU_loadheader tail (version, endianness, sizes, test number); S arrives in eax.
@@ -48,13 +48,13 @@ void FUN_00220310(Reader *S)
         ch = FUN_0021a550(z);
     }
     if (ch == -1)
-        FUN_0021f800("unexpected end of file", S);
+        FUN_0021f800(S, "unexpected end of file");
 
     int version = (unsigned char)ch;
     if (version > 0x51)
-        FUN_0021f800("bad version (read %d.%d; expected at %s %d.%d)", S, version / 16, version % 16, "most", 5, 1);
+        FUN_0021f800(S, "bad version (read %d.%d; expected at %s %d.%d)", version / 16, version % 16, "most", 5, 1);
     if (version < 0x51)
-        FUN_0021f800("bad version (read %d.%d; expected at %s %d.%d)", S, version / 16, version % 16, "least", 5, 1);
+        FUN_0021f800(S, "bad version (read %d.%d; expected at %s %d.%d)", version / 16, version % 16, "least", 5, 1);
 
     z = S->zio;
     n = z->n;
@@ -68,7 +68,7 @@ void FUN_00220310(Reader *S)
         ch = FUN_0021a550(z);
     }
     if (ch == -1)
-        FUN_0021f800("unexpected end of file", S);
+        FUN_0021f800(S, "unexpected end of file");
 
     S->swap = ((char)ch != 1);
 
@@ -79,5 +79,5 @@ void FUN_00220310(Reader *S)
 
     FUN_0021f8c0(&x, 4, S);
     if ((int)x != 0x1df5e76)
-        FUN_0021f800("unknown number format", S);
+        FUN_0021f800(S, "unknown number format");
 }

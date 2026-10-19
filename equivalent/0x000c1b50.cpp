@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2254 inputs, branch coverage 45/46, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 1958 inputs, branch coverage 45/46, incomplete)
 // FUN_000c1b50 @ 0x000c1b50
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
 inline void *operator new(unsigned int, void *p) throw() { return p; }
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 namespace pure3d { class Texture; }
 namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); int pad4; }; } }
@@ -163,7 +162,6 @@ struct Frame {
     TextEntry entry2;                                              // 0x2c
     TextEntry entry1;                                              // 0x50
     unsigned short buf[0x80];                                      // 0x74
-    unsigned int cookie;                                           // 0x174
 };
 
 class GalleryScreen {
@@ -178,7 +176,6 @@ public:
 void GalleryScreen::FUN_000c1b50(int kind, int first, int last)
 {
     Frame f;
-    f.cookie = DAT_004d9968;
     f.self = this;
     f.entry1.FUN_000f7930();
     f.entry1.FUN_000f8500(((char*)&DAT_003f335c), FUN_000fc1b0(), 1);
@@ -256,5 +253,4 @@ void GalleryScreen::FUN_000c1b50(int kind, int first, int last)
         }
     }
     f.entry1.FUN_000f7960();
-    __security_check_cookie(f.cookie);
 }

@@ -1,12 +1,11 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 44/46, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 2037 inputs, branch coverage 45/46, incomplete)
 // FUN_00207580 @ 0x00207580
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl _sprintf(char *, const char *, ...);
 extern int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
-extern unsigned int DAT_004d9968;
 
 struct Node {
     char pad0[0x56];
@@ -66,14 +65,11 @@ bool MapLoader::FUN_00207580(int a1, bool a2)
         Node *node;
         char name[0x40];
         char path[0x100];
-        unsigned int cookie;
     } f;
 
-    f.cookie = DAT_004d9968;
     char *slot = 0;
     f.node = FUN_001c3d90()->pool->FUN_001c7f10(a1);
     if (f.node == 0) {
-        __security_check_cookie(f.cookie);
         return false;
     }
     for (;;) {
@@ -137,7 +133,6 @@ bool MapLoader::FUN_00207580(int a1, bool a2)
         }
         if (!a2 && (*(char*)&DAT_004e5a50) == 0) {
             handle = FUN_00203e90(f.path, 1, 0, slot, 0, ref, 0xb);
-            __security_check_cookie(f.cookie);
             return true;
         }
         if (pending == 0) {
@@ -151,7 +146,6 @@ bool MapLoader::FUN_00207580(int a1, bool a2)
         handle = 0;
         if (!wasPending) {
             FUN_002067d0(a1, 1);
-            __security_check_cookie(f.cookie);
             return true;
         }
         pending = 0;

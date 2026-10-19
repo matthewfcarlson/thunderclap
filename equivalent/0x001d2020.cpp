@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 4/4)
 // FUN_001d2020 @ 0x001d2020
+// cl-flags: /GS
 struct LuaState;
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl FUN_00212d70(LuaState*);
 extern "C" void __cdecl FUN_002135a0(LuaState*,int,const char*);
 extern "C" void __cdecl FUN_00212ed0(LuaState*,int);
@@ -16,7 +15,6 @@ extern "C" void __cdecl FUN_00212de0(LuaState*,int);
 extern "C" int __cdecl FUN_001d0c60(LuaState*,const char*);
 extern "C" void __cdecl FUN_00212e20(LuaState*,int);
 int __cdecl FUN_001d2020(LuaState* state) {
- unsigned int cookie=DAT_004d9968;
  char name[64];
  int result=-1;
  if(FUN_00212d70(state)>=1) {
@@ -37,6 +35,5 @@ int __cdecl FUN_001d2020(LuaState* state) {
  FUN_00212e20(state,1);
  }
  }
- __security_check_cookie(cookie);
  return result;
 }

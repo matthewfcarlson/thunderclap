@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 20013 inputs, branch coverage 24/24)
 // FUN_00117da0 @ 0x00117da0
+// cl-flags: /GS
 #include "decls/address.h"
-extern unsigned DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned);
 struct Bounds_117da0 { char pad[0x18]; float lowX, highX, lowY, highY; };
 struct Result_117da0;
 struct Link_117da0 { Result_117da0* FUN_00059a30(); };
@@ -16,7 +15,6 @@ struct Sink_117da0 { void FUN_001cbc20(Packet_117da0*); };
 struct World { char pad[0x30]; Sink_117da0* sink; };
 struct Target_117da0 { char pad[0x1c]; Bounds_117da0* bounds; Source_117da0* source; char pad2[0xc]; float magnitude, x, y; char pad3[0xc]; unsigned value; bool run(); };
 bool Target_117da0::run() {
- unsigned cookie = DAT_004d9968;
  bool inX = x <= bounds->highX && x >= bounds->lowX;
  bool inY = y <= bounds->highY && y >= bounds->lowY;
  union { float f; unsigned u; } absolute;
@@ -38,6 +36,5 @@ bool Target_117da0::run() {
    }
   }
  }
- __security_check_cookie(cookie);
  return ok;
 }

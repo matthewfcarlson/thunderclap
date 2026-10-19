@@ -4,8 +4,10 @@ class Obj_151bc0 {
     virtual void F();
     virtual void G();
 };
-void BaseCtor();
-class Hit_151bc0 {
+struct Ctor_00232660 {
+    Ctor_00232660();
+};
+class Hit_151bc0 : public Ctor_00232660 {
   public:
     volatile int v;
     char pad[0x18];
@@ -14,8 +16,7 @@ class Hit_151bc0 {
     char gap[0x1c];
     Hit_151bc0(int p, Obj_151bc0* q);
 };
-Hit_151bc0::Hit_151bc0(int p, Obj_151bc0* q) {
-    BaseCtor();
+Hit_151bc0::Hit_151bc0(int p, Obj_151bc0* q) : Ctor_00232660() {
     v = ((int)DAT_0041460c);
     a = 0;
     b = 0;

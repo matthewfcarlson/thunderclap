@@ -1,12 +1,12 @@
-// STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 19/19)
+// STATUS: equivalent (tools/equiv.py level 3: 19618 inputs, branch coverage 19/19)
 // FUN_000c4220 @ 0x000c4220
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
-extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
 struct State_c4220;
-// equiv-conv: FUN_000c3ea0 ecx
-void FUN_000c3ea0(State_c4220*);
+struct ThisNote_000c3ea0 {
+    void FUN_000c3ea0();
+};
 struct Player_c4220 { void FUN_001b7310(const char*, int, int); };
 struct Screen_c4220 { void FUN_001edf60(); void FUN_001ec480(const char*, const char*); };
 struct State_c4220 {
@@ -15,8 +15,7 @@ struct State_c4220 {
  void update(Player_c4220* player);
 };
 void State_c4220::update(Player_c4220* player) {
- struct Buffer { char text[64]; unsigned int cookie; } buffer;
- buffer.cookie=DAT_004d9968;
+ struct Buffer { char text[64];  } buffer;
  switch((*(unsigned int*)&DAT_0049fb40)) {
  case 0: {
  const char* prefix="copyright-";
@@ -45,11 +44,10 @@ void State_c4220::update(Player_c4220* player) {
  case 6: finished=1; break;
  }
  if(finished) {
- FUN_000c3ea0(this);
+ ((ThisNote_000c3ea0*)(this))->FUN_000c3ea0();
  Screen_c4220* current=screen;
  (*(unsigned int*)&DAT_0049fb40)=0;
  if(current) { current->FUN_001edf60(); screen->FUN_001ec480("main","FE_screen_enter_start"); }
  mode=1;
  }
- __security_check_cookie(buffer.cookie);
 }

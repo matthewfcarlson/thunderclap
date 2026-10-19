@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 583 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 17813 inputs, branch coverage 10/10)
 // FUN_001f64c0 @ 0x001f64c0
-extern unsigned DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned);
+// cl-flags: /GS
 struct Vec_1f64c0 { float x,y,z; };
 struct Transform_1f64c0 { char pad[0x30]; Vec_1f64c0 a,b,c; };
 void __cdecl FUN_0024ca70(Vec_1f64c0*);
@@ -17,7 +16,7 @@ struct Object {
  void FUN_001f64c0(unsigned arg, char enabled);
 };
 void Object::FUN_001f64c0(unsigned arg, char enabled) {
- unsigned cookie = DAT_004d9968;
+ char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
  if (enabled && state == 0) {
   if (transform) {
    FUN_0024ca70(&transform->a);
@@ -30,5 +29,4 @@ void Object::FUN_001f64c0(unsigned arg, char enabled) {
   FUN_001f4140(0);
   for (int i=0; i<count; ++i) children[i]->FUN_001f5860(arg);
  }
- __security_check_cookie(cookie);
 }

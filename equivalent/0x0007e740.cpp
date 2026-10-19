@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 7386 inputs, branch coverage 20/20)
 // FUN_0007e740 @ 0x0007e740
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 extern "C" double sin(double);
 extern "C" double cos(double);
 
-extern unsigned int DAT_004d9968;
 extern int DAT_004dd074;
 extern float DAT_003f32e0;
 extern float DAT_003feed8;  // 80
@@ -90,10 +89,8 @@ void Game_7e740::FUN_0007e740()
         V3_7e740 r2;
         V3_7e740 r1;
         char name[0x20];
-        unsigned int cookie;
     } f;
 
-    f.cookie = DAT_004d9968;
     Player_7e740 *pl = mgr->zone->player;
     pl->f10->FUN_00059a50(&f.p);
     pl->FUN_00035660(&f.q);
@@ -140,5 +137,4 @@ void Game_7e740::FUN_0007e740()
             }
         }
     }
-    __security_check_cookie(f.cookie);
 }

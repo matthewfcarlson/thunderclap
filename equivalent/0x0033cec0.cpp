@@ -11,11 +11,10 @@ extern int __cdecl _isdigit(int);
 extern int __cdecl FUN_00338e20(void*, const char*);
 // equiv-conv: FUN_0033cb10 eax esi
 extern void* FUN_0033cb10(int, Context*);
-// equiv-conv: FUN_00339590 eax stack
-extern void FUN_00339590(void*, Buffer_33cec0*);
+extern void FUN_00339590(Buffer_33cec0*);
 extern void __cdecl FUN_00212ed0(void*, int);
-// equiv-conv: FUN_0033cb70 ecx eax
-extern void* FUN_0033cb70(int, int);
+// equiv-conv: FUN_0033cb70 esi ecx eax
+extern void* FUN_0033cb70(Context*, int, int);
 extern void __cdecl FUN_002139a0(void*, void*, int);
 extern void __cdecl FUN_00212d80(void*, int);
 // equiv-conv: FUN_0033cec0 eax ebx stack stack
@@ -37,16 +36,16 @@ void target(Context* context, Buffer_33cec0* buffer, int a, int b) {
      int index=(signed char)text[i]-'1';
      if(index<0 || index>=context->count || context->captures[index].index==-1) index=FUN_00338e20(context->state,"invalid capture index");
      void* value=FUN_0033cb10(index,context);
-     FUN_00339590(value,buffer);
+     FUN_00339590(buffer); (void)value;
     }
    }
   }
  } else {
   FUN_00212ed0(state,3);
-  void* v=FUN_0033cb70(a,b);
+  void* v=FUN_0033cb70(context,a,b);
   FUN_002139a0(state,v,1);
   int result=FUN_00212fb0(state,-1);
-  if(result) FUN_00339590((void*)result,buffer);
+  if(result) FUN_00339590(buffer);
   else FUN_00212d80(state,-2);
  }
 }

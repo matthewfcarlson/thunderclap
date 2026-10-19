@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 15581 inputs, branch coverage 16/16)
 // FUN_001c0ab0 @ 0x001c0ab0
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern "C" unsigned int DAT_004d9968;
 extern "C" int strcmp(const char *a, const char *b);
 
 
@@ -52,14 +51,12 @@ public:
 
 void Menu_1c0ab0::FUN_001c0ab0(const char *name)
 {
-    unsigned int cookie = DAT_004d9968;
     char buf[0x40];
     int tok = FUN_00266da0(0xe);
     FUN_001c0360(2, 0);
     int h = FUN_000f7120(handle);
     if (h == 0) {
         FUN_00266da0(tok);
-        __security_check_cookie(cookie);
         return;
     }
 
@@ -109,5 +106,4 @@ void Menu_1c0ab0::FUN_001c0ab0(const char *name)
         s->f1c = 0;
     }
     FUN_00266da0(tok);
-    __security_check_cookie(cookie);
 }

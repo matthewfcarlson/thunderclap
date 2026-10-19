@@ -14,6 +14,8 @@ struct Actor_1b0470 {
     float FUN_001b0310();
     void FUN_00043ae0(int, int, float, int, float, int, int, int, int);
 };
+// equiv-conv: FUN_001b0310 esi edi
+float FUN_001b0310(Actor_1b0470 *self, Item_1b0470 *item);
 extern bool __cdecl FUN_00044500(int);
 extern unsigned char DAT_001b0590[10];
 
@@ -26,7 +28,7 @@ struct DispatchData {
 // equiv-conv: FUN_001b0470 eax ecx stack
 float __cdecl FUN_001b0470(Item_1b0470* item, Actor_1b0470* self, int argument)
 {
-    float result = self->FUN_001b0310();
+    float result = FUN_001b0310(self, item);
     int identifier = item->FUN_001d72e0();
     unsigned int type = (unsigned int)item->FUN_001d64a0() - 2;
     if (type <= 9) {

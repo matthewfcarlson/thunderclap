@@ -1,14 +1,12 @@
-// STATUS: equivalent (tools/equiv.py level 3: 648 inputs, branch coverage 11/12, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 18759 inputs, branch coverage 11/12, incomplete)
 // FUN_001f17f0 @ 0x001f17f0
+// cl-flags: /GS
 #include "decls/data/game/unknown.h"
 
 struct Item_1f17f0 { Item_1f17f0* FUN_001f0760(const char*, void*, unsigned, unsigned, unsigned, unsigned); };
 struct Manager_1f17f0 { void FUN_001ef260(Item_1f17f0*); };
-extern unsigned DAT_004d9968;
 extern "C" void* __cdecl FUN_0008d710(unsigned,unsigned);
-extern "C" void __fastcall __security_check_cookie(unsigned);
 void __stdcall FUN_001f17f0(const char* name, void* data, unsigned a, unsigned b, unsigned c, unsigned d) {
- unsigned cookie=DAT_004d9968;
  if(name && data) {
   Manager_1f17f0* manager=(*(Manager_1f17f0**)&DAT_004e3710);
   if(manager) {
@@ -19,5 +17,4 @@ void __stdcall FUN_001f17f0(const char* name, void* data, unsigned a, unsigned b
    manager->FUN_001ef260(item);
   }
  }
- __security_check_cookie(cookie);
 }

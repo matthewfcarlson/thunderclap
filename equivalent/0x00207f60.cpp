@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 116 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 143 inputs, branch coverage 6/6)
 // FUN_00207f60 @ 0x00207f60
+// cl-flags: /GS
 extern "C" int __cdecl sprintf(char *, const char *, ...);
-extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
 struct Item_207f60 { char pad[0x54]; short id; };
 struct ListPart { int FUN_001c7520(); };
 struct Manager_207f60 { char pad[0x18]; ListPart list; Item_207f60 *FUN_001c7f80(int); };
@@ -23,7 +22,6 @@ struct Object {
  void FUN_00207f60();
 };
 void Object::FUN_00207f60() {
- unsigned int cookie=DAT_004d9968;
  if (dirty) { FUN_00204e40(); dirty=0; }
  Manager_207f60 *manager=FUN_001c3d90()->manager;
  int count=manager->list.FUN_001c7520();
@@ -38,5 +36,4 @@ void Object::FUN_00207f60() {
   h->resource->v11();
   FUN_00207080(id);
  }
- __security_check_cookie(cookie);
 }

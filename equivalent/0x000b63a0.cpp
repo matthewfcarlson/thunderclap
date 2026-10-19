@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 1207 inputs, branch coverage 10/10)
 // FUN_000b63a0 @ 0x000b63a0
+// cl-flags: /GS
 extern char DAT_0049dba4[];
 extern char DAT_0049dbbc[];
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 class FEObject {
 public:
@@ -83,7 +82,6 @@ public:
 
 void Owner_b63a0::FUN_000b63a0()
 {
-    unsigned int cookie = DAT_004d9968;
     if (table) {
         SelectorView_b63a0 *sel = (SelectorView_b63a0 *)FUN_00344e74(FUN_000fc260("stats_table"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
         if (sel) {
@@ -113,5 +111,4 @@ void Owner_b63a0::FUN_000b63a0()
             label.FUN_000f7960();
         }
     }
-    __security_check_cookie(cookie);
 }

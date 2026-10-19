@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 17345 inputs, branch coverage 4/4)
 // FUN_000d9680 @ 0x000d9680
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct Profile_d9680 { int FUN_000f7d30(int); void* FUN_000f7220(int); };
@@ -11,8 +12,6 @@ virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virt
 void FUN_000be310(void*, void*, const char*, const char*, const char*, int, void*, void*);
 };
      
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 void __cdecl FUN_000fc020(void*, int, void*, void*);
 struct Object {
 char pad0[0x21c]; int status; char pad1[0x35c-0x220]; Item_d9680 items[2]; char pad2[0x3eb-0x3cc]; unsigned char flag;
@@ -20,7 +19,6 @@ Dialog_d9680* FUN_000fc3d0();
 void target(int index);
 };
 void Object::target(int index) {
-unsigned int cookie=DAT_004d9968;
 char buffer[1024];
 Dialog_d9680* dialog=FUN_000fc3d0();
 Profile_d9680* profile=dialog->v44();
@@ -39,5 +37,4 @@ dialog->FUN_000be310(heading,buffer,"","","TBS_MENU_ITEM_OK",2,value,value);
 }
 items[1].active=1;
 status=0;
-__security_check_cookie(cookie);
 }

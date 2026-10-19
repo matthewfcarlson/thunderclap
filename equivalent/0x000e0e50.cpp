@@ -72,7 +72,8 @@ public:
 };
 
 
-void __cdecl FUN_000e07c0(Vec3_e0e50 a, Vec3_e0e50 b, int color);
+// equiv-conv: FUN_000e07c0 esi stack stack stack
+void __cdecl FUN_000e07c0(int handle, Vec3_e0e50 a, Vec3_e0e50 b, int color);
 
 /* Draws the 12 edges of a box given its 8 corners in debug lines. */
 void __cdecl FUN_000e0e50(Vec3_e0e50 c0, Vec3_e0e50 c1, Vec3_e0e50 c2, Vec3_e0e50 c3,
@@ -86,18 +87,18 @@ void __cdecl FUN_000e0e50(Vec3_e0e50 c0, Vec3_e0e50 c1, Vec3_e0e50 c2, Vec3_e0e5
 
     int handle = DAT_0052c2a8->vfunc_30((*(Texture**)&DAT_004de954), arg, 0x2020, 0x18, 0);
     if (handle) {
-        FUN_000e07c0(c0, c1, color);
-        FUN_000e07c0(c1, c3, color);
-        FUN_000e07c0(c3, c2, color);
-        FUN_000e07c0(c2, c0, color);
-        FUN_000e07c0(c4, c5, color);
-        FUN_000e07c0(c5, c7, color);
-        FUN_000e07c0(c7, c6, color);
-        FUN_000e07c0(c6, c4, color);
-        FUN_000e07c0(c0, c4, color);
-        FUN_000e07c0(c1, c5, color);
-        FUN_000e07c0(c2, c6, color);
-        FUN_000e07c0(c3, c7, color);
+        FUN_000e07c0(handle, c0, c1, color);
+        FUN_000e07c0(handle, c1, c3, color);
+        FUN_000e07c0(handle, c3, c2, color);
+        FUN_000e07c0(handle, c2, c0, color);
+        FUN_000e07c0(handle, c4, c5, color);
+        FUN_000e07c0(handle, c5, c7, color);
+        FUN_000e07c0(handle, c7, c6, color);
+        FUN_000e07c0(handle, c6, c4, color);
+        FUN_000e07c0(handle, c0, c4, color);
+        FUN_000e07c0(handle, c1, c5, color);
+        FUN_000e07c0(handle, c2, c6, color);
+        FUN_000e07c0(handle, c3, c7, color);
     }
     DAT_0052c2a8->vfunc_31(handle);
 }

@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 881 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 11988 inputs, branch coverage 14/14)
 // FUN_001fa3a0 @ 0x001fa3a0
+// cl-flags: /GS
 #include "decls/address.h"
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 int __cdecl FUN_00267760(char *buf, int size, const char *fmt);
 
 struct S8_1fa3a0 {
@@ -80,7 +79,7 @@ public:
 
 void Mixer::FUN_001fa3a0(int index)
 {
-    unsigned int cookie = DAT_004d9968;
+    char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
 
     if (index >= 0 && index < recordCount) {
         for (int i = 0; i < channelCount; i++) {
@@ -116,5 +115,4 @@ void Mixer::FUN_001fa3a0(int index)
             r->FUN_001f91b0(&records[recordCount - 1]);
         recordCount--;
     }
-    __security_check_cookie(cookie);
 }

@@ -1,10 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 141 inputs, branch coverage 26/26)
+// STATUS: equivalent (tools/equiv.py level 3: 1053 inputs, branch coverage 26/26)
 // Render::LevelLoader::vfunc_5 @ 0x001c9160
+// cl-flags: /GS
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" int strcmp(const char *, const char *);
 extern "C" int sprintf(char *, const char *, ...);
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 namespace pure3d { class DrawableHierarchy; class LightGroup; }
 namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; } }
@@ -81,7 +81,6 @@ public:
     virtual void Load(int *x, Id64_1c9160 *y, Reader *r, Inventory_1c9160 *inv);
 };
 
-extern unsigned int DAT_004d9968;
 void __cdecl FUN_0028fcc0(const char *fmt, ...);
 
 namespace Render {
@@ -133,10 +132,8 @@ void LevelLoader::vfunc_5(int *out1, Id64_1c9160 *out2, Reader *rd, Inventory_1c
         char bufC[0x100];
         char bufA[0x100];
         char bufE[0x100];
-        unsigned int cookie;
     } fr;
 
-    fr.cookie = DAT_004d9968;
     fr.self = this;
     rd->stream->FUN_002647e0(&fr.l.len, 1, 1, 1);
     unsigned int len = fr.l.len;
@@ -228,6 +225,5 @@ void LevelLoader::vfunc_5(int *out1, Id64_1c9160 *out2, Reader *rd, Inventory_1c
     *out1 = 0;
     out2->lo = 0;
     out2->hi = 0;
-    __security_check_cookie(fr.cookie);
 }
 }

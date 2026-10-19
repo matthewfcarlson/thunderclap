@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 186 inputs, branch coverage 24/24)
 // FUN_000a9630 @ 0x000a9630
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
 extern "C" double sqrt(double);
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern "C" unsigned int DAT_004d9968;
 
 
 struct Sphere_a9630 {
@@ -65,7 +64,7 @@ class Manager_a9630 {
     void FUN_000a9630(Holder_a9630* holder);
 };
 void Manager_a9630::FUN_000a9630(Holder_a9630* holder) {
-    volatile unsigned int cookie = DAT_004d9968;
+    char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     int count = holder->list->count;
     for (int i = 0; i < count; i++) {
         Item_a9630* item = holder->list->FUN_00024190(i);
@@ -98,5 +97,4 @@ void Manager_a9630::FUN_000a9630(Holder_a9630* holder) {
                 sub->effect->FUN_001c5130(a, b);
         }
     }
-    __security_check_cookie(cookie);
 }

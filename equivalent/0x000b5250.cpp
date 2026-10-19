@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 7848 inputs, branch coverage 14/14)
 // FUN_000b5250 @ 0x000b5250
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 
 struct Locale {
     int FUN_000f7d30(const char *key);
@@ -19,7 +18,6 @@ void __cdecl FUN_000fc000(char *buf, int size, const char *fmt, ...);
 void __stdcall FUN_000b5250(TextEntry_b5250 *entry, const char *key, const char *k2, const char *k3,
                             const char *k4, const char *k5, const char *k6, const char *k7)
 {
-    unsigned int cookie = DAT_004d9968;
     char buf[0x100];
     Locale *L;
     int id;
@@ -87,5 +85,4 @@ void __stdcall FUN_000b5250(TextEntry_b5250 *entry, const char *key, const char 
     else
         FUN_000fc000(buf, 0x100, key, a2, a3, a4, a5, a6, a7);
     entry->FUN_000f79a0(buf, 0);
-    __security_check_cookie(cookie);
 }

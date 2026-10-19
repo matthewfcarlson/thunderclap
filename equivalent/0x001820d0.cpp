@@ -1,11 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 11965 inputs, branch coverage 10/10)
 // hulkfight::motion::PropSpawnAction::vfunc_3 @ 0x001820d0
+// cl-flags: /GS
 #include "gen/hulkfight.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"
 
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 struct Vec3_1820d0 {
     float x, y, z;
@@ -80,7 +79,6 @@ struct World {
 int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
 
 bool hulkfight::motion::PropSpawnAction::vfunc_3(int a, int b) {
-    volatile unsigned int cookie = DAT_004d9968;
     struct Frame {
         Vec3_1820d0 tmp;
         Vec3_1820d0 dir;
@@ -130,6 +128,5 @@ bool hulkfight::motion::PropSpawnAction::vfunc_3(int a, int b) {
             }
         }
     }
-    __security_check_cookie(cookie);
     return false;
 }

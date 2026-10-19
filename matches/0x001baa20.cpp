@@ -1,9 +1,12 @@
-extern "C" void __stdcall init(void*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(void*, int);
+    virtual void v_001d0480();
+};
 extern "C" unsigned char __cdecl query(const void*);
 extern char key1, key2;
-class Base {
+class Base : public CtorV_001d0480 {
   public:
-    Base(void* name) { init(name, 1); }
+    Base(void* name) : CtorV_001d0480(name, 1) { }
 };
 class Method1 : public Base {
   public:

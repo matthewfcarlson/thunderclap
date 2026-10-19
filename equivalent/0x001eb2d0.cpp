@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 11/12, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 11/12, incomplete)
 // FUN_001eb2d0 @ 0x001eb2d0
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 extern "C" char* strncat(char* dst, const char* src, unsigned int n);
 extern "C" char* strcat(char* dst, const char* src);
 extern "C" long atol(const char* s);
@@ -16,10 +15,8 @@ void FUN_001eb2d0(const char* name, ScriptLoader* loader)
     struct {
         char field1[4];
         char path[0x20];
-        unsigned int guard;
     } f;
     char field2[4];
-    f.guard = DAT_004d9968;
     f.field1[0] = 0;
     f.field1[1] = 0;
     f.field1[2] = 0;
@@ -39,5 +36,4 @@ void FUN_001eb2d0(const char* name, ScriptLoader* loader)
     strcat(f.path, field2);
     strcat(f.path, ".lua");
     loader->FUN_001eef90(f.path);
-    __security_check_cookie(f.guard);
 }

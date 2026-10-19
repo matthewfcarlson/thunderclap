@@ -6,13 +6,13 @@ struct Context { char pad[0x10]; State_217490* state; };
 void __cdecl FUN_00217350(Context*, int);
 // equiv-conv: FUN_00216f90 edi
 void __cdecl FUN_00216f90(Context*);
-// equiv-conv: FUN_00216ed0 eax
-void __cdecl FUN_00216ed0(unsigned int);
+// equiv-conv: FUN_00216ed0 esi
+void __cdecl FUN_00216ed0(Context*);
 void __cdecl FUN_00217490(Context* context) {
  State_217490* state = context->state;
  while (state->status != 3) FUN_00217350(context, 0x7fffffff);
  FUN_00216f90(context);
  while (state->status != 3) FUN_00217350(context, 0x7fffffff);
  state->cursor = state->base + 0x140;
- while (context->state->pending != 0) FUN_00216ed0(context->state->pending);
+ while (context->state->pending != 0) FUN_00216ed0(context);
 }

@@ -1,10 +1,12 @@
 extern "C" char DAT_00425354[];
-extern "C" void __stdcall Init(void*, int);
+struct Ctor_001d0480 {
+    Ctor_001d0480(void*, int);
+};
 extern "C" char __cdecl ReadBool(const char*);
 extern const char A[];
 extern const char B[];
 extern const char C[];
-class CTriggerVolumeManager {
+class CTriggerVolumeManager : public Ctor_001d0480 {
   public:
     int vptr;
     char pad4[12];
@@ -18,8 +20,7 @@ class CTriggerVolumeManager {
     int value;
     CTriggerVolumeManager(int x, int y);
 };
-CTriggerVolumeManager::CTriggerVolumeManager(int x, int y) {
-    Init((void*)x, 4);
+CTriggerVolumeManager::CTriggerVolumeManager(int x, int y) : Ctor_001d0480((void*)x, 4) {
     vptr = ((int)DAT_00425354);
     value = y;
     b18 = ReadBool(A);

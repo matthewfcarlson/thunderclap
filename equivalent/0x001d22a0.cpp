@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3184 inputs, branch coverage 48/51, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20178 inputs, branch coverage 45/51, incomplete)
 // FUN_001d22a0 @ 0x001d22a0
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 extern "C" void* memset(void*, int, unsigned int);
-extern unsigned int DAT_004d9968;
 
 struct Vec3 {
     float x, y, z;
@@ -44,7 +43,6 @@ struct Frame {
     };
     Vec3 vec;
     ArgBuffer args;
-    volatile unsigned int cookie;
 };
 
 int FUN_00212fe0(LuaState* L, int idx);
@@ -63,16 +61,13 @@ void FUN_001d0870(LuaState* L, Vec3* v);
 int FUN_001d22a0(LuaState* L)
 {
     Frame f;
-    f.cookie = DAT_004d9968;
 
     if (!FUN_00212fe0(L, -10002)) {
-        __security_check_cookie(f.cookie);
         return 0;
     }
     Binding* bind = FUN_00213260(L, -10002);
     int expected = bind->count;
     if (expected != FUN_00212d70(L)) {
-        __security_check_cookie(f.cookie);
         return 0;
     }
 
@@ -90,7 +85,6 @@ int FUN_001d22a0(LuaState* L)
         switch (c) {
         case 'V':
             if (type != 7) {
-                __security_check_cookie(f.cookie);
                 return 0;
             }
             {
@@ -112,7 +106,6 @@ int FUN_001d22a0(LuaState* L)
         case 'c':
         case 'v':
             if (type != 2) {
-                __security_check_cookie(f.cookie);
                 return 0;
             }
             {
@@ -126,7 +119,6 @@ int FUN_001d22a0(LuaState* L)
             break;
         case 'f':
             if (type != 3) {
-                __security_check_cookie(f.cookie);
                 return 0;
             }
             {
@@ -140,7 +132,6 @@ int FUN_001d22a0(LuaState* L)
             break;
         case 'i':
             if (type != 3) {
-                __security_check_cookie(f.cookie);
                 return 0;
             }
             {
@@ -157,7 +148,6 @@ int FUN_001d22a0(LuaState* L)
                 char* s = 0;
                 if (FUN_00212f00(L, i) != 0) {
                     if (type != 4) {
-                        __security_check_cookie(f.cookie);
                         return 0;
                     }
                     s = FUN_00213190(L, i);
@@ -170,7 +160,6 @@ int FUN_001d22a0(LuaState* L)
             }
             break;
         default:
-            __security_check_cookie(f.cookie);
             return 0;
         }
     }
@@ -205,12 +194,9 @@ int FUN_001d22a0(LuaState* L)
         break;
     case 'v':
         bind->vfunc_2(0, f.args.data, 0);
-        __security_check_cookie(f.cookie);
         return 0;
     default:
-        __security_check_cookie(f.cookie);
         return 0;
     }
-    __security_check_cookie(f.cookie);
     return 1;
 }

@@ -34,8 +34,8 @@ void FUN_00221190(Ctx_2218d0* c, Operand_2218d0* op);
 void FUN_00221110(Ctx_2218d0* c, Operand_2218d0* op);
 void FUN_002207c0(Ctx_2218d0* c, int* dst, int src);
 int FUN_00220b20(Ctx_2218d0* c, int a, int b);
-// equiv-conv: FUN_00221860 ecx edx stack eax
-void FUN_00221860(void* self, int sel, Ctx_2218d0* c, void* extra);
+// equiv-conv: FUN_00221860 eax ecx edx edi stack
+void FUN_00221860(void* extra, void* self, int sel, Operand_2218d0* a, Ctx_2218d0* c);
 
 void FUN_002218d0(Ctx_2218d0* c, int sel, Operand_2218d0* a, Operand_2218d0* b)
 {
@@ -100,5 +100,5 @@ void FUN_002218d0(Ctx_2218d0* c, int sel, Operand_2218d0* a, Operand_2218d0* b)
         if (a->val >= (int)c->minReg && a->val < 0xfa)
             c->counter--;
     }
-    FUN_00221860(self, sel, c, extra);
+    FUN_00221860(extra, self, sel, a, c);
 }

@@ -36,7 +36,7 @@ char FUN_0024af90(Source_24b920 *src);
 Source_24b920 *FUN_0025e090(Source_24b920 *src);
 unsigned int FUN_0026fd80(Source_24b920 *src, int size);
 void FUN_0025e0b0(Source_24b920 *src, unsigned int v, int zero);
-int FUN_00267f80(unsigned int live);
+int FUN_00267f80();
 
 struct Player_24b920 {
     char pad0[0x14];
@@ -53,8 +53,8 @@ struct Player_24b920 {
     unsigned int pending;
 };
 
-// equiv-conv: FUN_0024b920 esi ebx
-void FUN_0024b920(Player_24b920 *p, unsigned int live)
+// equiv-conv: FUN_0024b920 esi
+void FUN_0024b920(Player_24b920 *p)
 {
     unsigned int got;
 
@@ -83,7 +83,7 @@ void FUN_0024b920(Player_24b920 *p, unsigned int live)
         if (n == 0)
             return;
         p->f1c++;
-        p->f18 = FUN_00267f80(live);
+        p->f18 = FUN_00267f80();
         sink->write(p->source->off + p->source->base, p->source->f8, n);
         p->pending = n;
         p->started = 1;

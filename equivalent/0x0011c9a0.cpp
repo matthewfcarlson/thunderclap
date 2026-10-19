@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 9/10, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19933 inputs, branch coverage 9/10, incomplete)
 // hulkfight::ai::PathAction::vfunc_4 @ 0x0011c9a0
+// cl-flags: /GS
 #include "decls/address.h"
-extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
 struct Token_11c9a0 {};
 struct EventPart { void FUN_001ca2e0(Token_11c9a0*); char storage[0x50]; };
 struct Event_11c9a0 { char prefix[12]; EventPart part; };
@@ -22,7 +21,6 @@ struct PathAction {
  char pad[0x18]; PathPoint_11c9a0 point; char pad2[0x90-0x1d]; Handle_11c9a0* handle; char pad3[0xec-0x94]; int value;
 };
 void PathAction::vfunc_4() {
- unsigned int cookie=DAT_004d9968;
  if (handle) {
  Actor_11c9a0* actor=handle->FUN_000592a0()->FUN_00059a30();
  if (actor) {
@@ -43,6 +41,5 @@ void PathAction::vfunc_4() {
  actor->state.FUN_00060170();
  }
  }
- __security_check_cookie(cookie);
 }
 }}

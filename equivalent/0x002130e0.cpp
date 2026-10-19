@@ -3,8 +3,7 @@
 #include "decls/data/game/global.h"
 
 struct Entry { int type; float value; };
-// equiv-conv: FUN_00212bb0 ecx edx
-Entry* FUN_00212bb0(void* second, void* first);
+Entry* __fastcall FUN_00212bb0(void* second, void* first);
 Entry* __cdecl FUN_00217600(Entry*, void*);
 float __cdecl FUN_002130e0(void* first, void* second)
 {

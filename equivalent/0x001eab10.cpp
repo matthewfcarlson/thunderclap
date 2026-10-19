@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 128 inputs, branch coverage 24/24)
 // FUN_001eab10 @ 0x001eab10
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern "C" unsigned int DAT_004d9968;
 extern "C" int sprintf(char *buf, const char *fmt, ...);
 
 namespace core {
@@ -119,7 +118,6 @@ public:
 
 void Player_1eab10::FUN_001eab10(const char *name)
 {
-    unsigned int cookie = DAT_004d9968;
     char buf[0x80];
     Handle_1eab10 *h = 0;
     for (int i = 0; i < 0x80; i++)
@@ -189,5 +187,4 @@ void Player_1eab10::FUN_001eab10(const char *name)
         }
         h->FUN_00263e90();
     }
-    __security_check_cookie(cookie);
 }

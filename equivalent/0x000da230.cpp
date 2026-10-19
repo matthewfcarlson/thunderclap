@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 17768 inputs, branch coverage 10/10)
 // FUN_000da230 @ 0x000da230
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct Locale {
@@ -90,14 +91,11 @@ public:
     char alt;
 };
 
-extern "C" unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern TextOwner* FUN_000fc3d0();
 void FUN_000fc020(char* buf, int n, const char* fmt, ...);
 
 void Menu_da230::FUN_000da230(int idx)
 {
-    unsigned int cookie = DAT_004d9968;
     char buf[0x400];
     Screen_da230* screen = (Screen_da230*)FUN_000fc3d0();
     Locale* loc = ((TextOwner*)screen)->v44();
@@ -129,5 +127,4 @@ void Menu_da230::FUN_000da230(int idx)
     }
     done = 1;
     n21c = 0;
-    __security_check_cookie(cookie);
 }

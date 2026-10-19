@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 17099 inputs, branch coverage 4/4)
 // FUN_000d8a90 @ 0x000d8a90
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct UI_d8a90 {
@@ -9,14 +10,11 @@ void FUN_000be310(const char*, const unsigned short*, const float*, const char*,
 };
 UI_d8a90* __cdecl FUN_000fc3d0();
 void __cdecl FUN_000fc020(unsigned short*, int, const char*, const char*);
-extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
 struct Entry_d8a90 { char data[0x38]; const char* FUN_000f83f0(UI_d8a90*,int); };
 struct State_d8a90 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d8a90* FUN_00086280(); };
 struct Target_d8a90 { char pad0[0x21c]; int value; char pad1[0x35c-0x220]; Entry_d8a90 entries[1]; char pad2[0x3b0-0x394]; unsigned char active; char pad3[0x3eb-0x3b1]; unsigned char mode; void run(int index); };
 void Target_d8a90::run(int index) {
-unsigned int cookie=DAT_004d9968;
 unsigned short text[512];
 UI_d8a90* ui = FUN_000fc3d0()->v44();
 int id = ui->FUN_000f7d30((*(const char**)&DAT_004a0cbc));
@@ -32,5 +30,4 @@ const char* extra=(*(const char**)&DAT_004a0c60);
 dialog->FUN_000be310(title,text,&DAT_003f335c,"TBS_MENU_ITEM_MC_LOAD","TBS_CANCEL",2,extra,extra);
 active=1;
 value=0;
-__security_check_cookie(cookie);
 }

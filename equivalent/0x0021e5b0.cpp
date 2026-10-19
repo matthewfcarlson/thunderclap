@@ -8,8 +8,8 @@ int __cdecl FUN_00220530(Context*);
 int __cdecl FUN_0021bbc0(Parser_21e5b0*, int*);
 // equiv-conv: FUN_0021e080 eax
 void FUN_0021e080(Parser_21e5b0*);
-// equiv-conv: FUN_0021c340 eax edi stack
-void FUN_0021c340(int, int, int);
+// equiv-conv: FUN_0021c340 eax esi edi stack
+void FUN_0021c340(int, Parser_21e5b0*, int, int);
 void __cdecl FUN_0021ded0(Parser_21e5b0*, Result_21e5b0*, int);
 void __cdecl FUN_002214b0(Context*, Result_21e5b0*);
 void __cdecl FUN_00220d70(Context*, int);
@@ -35,7 +35,7 @@ void FUN_0021e5b0(Parser_21e5b0* parser, int argument) {
  parser->nextToken = 0x11f;
  } else parser->token = FUN_0021bbc0(parser, &parser->value);
  FUN_0021e080(parser);
- FUN_0021c340(argument, 0x114, 0x110);
+ FUN_0021c340(argument, parser, 0x114, 0x110);
  Result_21e5b0 result;
  FUN_0021ded0(parser, &result, 0);
  if (result.kind == 1) result.kind = 3;

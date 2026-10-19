@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 4247 inputs, branch coverage 14/14)
 // FUN_000b8d00 @ 0x000b8d00
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern "C" unsigned int DAT_004d9968;
 
 
 class Manager_b8d00 { public: char pad[4]; };
@@ -59,7 +58,6 @@ public:
 
 void ObjectivesScreen::FUN_000b8d00()
 {
-    unsigned int cookie = DAT_004d9968;
     // Not reset per iteration: status values outside 1..3 reuse the previous colour (as the original does).
     unsigned int color;
     if (objectives != 0) {
@@ -95,5 +93,4 @@ void ObjectivesScreen::FUN_000b8d00()
             }
         }
     }
-    __security_check_cookie(cookie);
 }

@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 6501 inputs, branch coverage 14/14)
 // FUN_00233c50 @ 0x00233c50
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/engine/fight.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern "C" unsigned int DAT_004d9968;
 
 
 struct Branch;
@@ -46,7 +45,6 @@ struct Frame_233c50 {
     int count;
     char buf[0x400];
     int gap;
-    unsigned int cookie;
 };
 
 struct Branch {
@@ -58,7 +56,6 @@ struct Branch {
 char Branch::FUN_00233c50(Ctx_233c50 *ctx, Writer_233c50 *w, int index)
 {
     Frame_233c50 f;
-    f.cookie = DAT_004d9968;
     w->FUN_00232c40(FUN_002672f0((*(const char**)&DAT_004ca26c), 0, 0), this);
     f.buf[0] = 0;
     for (int i = 1; i < 0x400; i++)
@@ -83,6 +80,5 @@ char Branch::FUN_00233c50(Ctx_233c50 *ctx, Writer_233c50 *w, int index)
         if (!result)
             FUN_00232cc0(w, "Failed to insert branch into parent branch.");
     }
-    __security_check_cookie(f.cookie);
     return result;
 }

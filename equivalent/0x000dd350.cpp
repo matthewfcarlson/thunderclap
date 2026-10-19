@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2134 inputs, branch coverage 52/52)
+// STATUS: equivalent (tools/equiv.py level 3: 1771 inputs, branch coverage 52/52)
 // FUN_000dd350 @ 0x000dd350
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" long __cdecl atol(const char* s);
-extern unsigned int DAT_004d9968;
 
 
 struct Node {
@@ -147,9 +146,7 @@ bool Config_dd350::FUN_000dd350(Parser_dd350* parser, Handler_dd350* handler, Si
         const char *name;       // (the name pointer kept across the snprintf loop)
         char bufA[0x40];
         char bufB[0x40];        // (bufA is not always terminated: the length scan runs on into bufB)
-        unsigned int cookie;
     } f;
-    f.cookie = DAT_004d9968;
     if (parser->FUN_000f9ef0()) {
         parser->FUN_000f9f30();
         while (parser->FUN_000f9e50()) {
@@ -219,6 +216,5 @@ bool Config_dd350::FUN_000dd350(Parser_dd350* parser, Handler_dd350* handler, Si
         }
         parser->FUN_000f9fb0();
     }
-    __security_check_cookie(f.cookie);
     return true;
 }

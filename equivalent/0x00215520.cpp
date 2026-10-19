@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 19948 inputs, branch coverage 8/8)
 // FUN_00215520 @ 0x00215520
-extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 struct Context;
 struct Packet_215520 {
     int kind;
@@ -28,7 +27,6 @@ struct Context {
 };
 void __cdecl FUN_00215460(Context *, int);
 void __cdecl FUN_00215520(Context *self, int kind, int value) {
-    unsigned int cookie = DAT_004d9968;
     Callback_215520 callback = self->callback;
     if (callback && self->enabled) {
         int cursorOffset = self->cursor - self->base;
@@ -46,5 +44,4 @@ void __cdecl FUN_00215520(Context *self, int kind, int value) {
         self->entry->end = self->base + endOffset;
         self->cursor = self->base + cursorOffset;
     }
-    __security_check_cookie(cookie);
 }

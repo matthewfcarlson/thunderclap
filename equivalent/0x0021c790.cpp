@@ -6,7 +6,8 @@ struct Node { Node* next; unsigned other; unsigned char limit, marked; };
 struct Object { Table_21c790* table; unsigned pad4; Object* parent; char padc[8]; Node* nodes; char pad18[28]; unsigned char count; char pad35[65]; unsigned short indices[256]; };
 struct Result_21c790 { int type; int index; unsigned extra; int a,b; };
 int __cdecl FUN_002209b0(Object*,unsigned);
-int __cdecl FUN_0021c5f0(unsigned,Result_21c790*);
+// equiv-conv: FUN_0021c5f0 edi stack stack
+int __cdecl FUN_0021c5f0(Object*,unsigned,Result_21c790*);
 void __cdecl target(Object* object,unsigned key,Result_21c790* result,int flag) {
  if (!object) { result->a=-1; result->b=-1; result->type=7; result->index=255; return; }
  int i=(int)object->count-1;
@@ -18,5 +19,5 @@ void __cdecl target(Object* object,unsigned key,Result_21c790* result,int flag) 
  }
  target(object->parent,key,result,0);
  if(result->type==7) { if(flag) result->index=FUN_002209b0(object,key); }
- else { int index=FUN_0021c5f0(key,result); result->type=6; result->index=index; }
+ else { int index=FUN_0021c5f0(object,key,result); result->type=6; result->index=index; }
 }

@@ -1,11 +1,14 @@
 typedef unsigned char byte;
-extern "C" void __stdcall Init(void*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(void*, int);
+    virtual void v_001d0480();
+};
 extern "C" byte __cdecl GetFlag(void*);
 extern int gOne;
 extern int gTwo;
-class Base {
+class Base : public CtorV_001d0480 {
   public:
-    Base(void* p) { Init(p, 1); }
+    Base(void* p) : CtorV_001d0480(p, 1) { }
 };
 class Method1 : public Base {
   public:

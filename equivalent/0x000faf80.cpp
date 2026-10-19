@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 27/30, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 1915 inputs, branch coverage 27/27)
 // FUN_000faf80 @ 0x000faf80
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern "C" unsigned int DAT_004d9968;
+// cl-flags: /GS
 
 struct Item_faf80 {
     char pad0[4];
@@ -45,13 +44,11 @@ struct Frame_faf80 {
     TokState ts;
     char line[0x100];
     char copy[0x100];
-    unsigned int cookie;
 };
 
 Head_faf80 *Script_faf80::FUN_000faf80(Lines *lines)
 {
     Frame_faf80 f;
-    f.cookie = DAT_004d9968;
     f.ts.owner = this;
     lines->mark18 = lines->mark10;
     Head_faf80 *h = (Head_faf80 *)FUN_0008d690(8);
@@ -108,6 +105,5 @@ Head_faf80 *Script_faf80::FUN_000faf80(Lines *lines)
         } while (ok);
     }
     Head_faf80 *result = head;
-    __security_check_cookie(f.cookie);
     return result;
 }

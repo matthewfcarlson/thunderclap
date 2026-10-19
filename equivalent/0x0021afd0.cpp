@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 2/2)
 // FUN_0021afd0 @ 0x0021afd0
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 
 struct lua_State;
 struct TString_21afd0 {
@@ -25,12 +24,10 @@ const char *FUN_0021af60(int token, LexState_21afd0 *ls);
 
 void FUN_0021afd0(LexState_21afd0 *ls, const char *msg, int token)
 {
-    unsigned int cookie = DAT_004d9968;
     char buff[0x50];
     FUN_00216340(buff, ls->source->str, 0x50);
     const char *s = FUN_00216320(ls->L, "%s:%d: %s", buff, ls->linenumber, msg);
     if (token)
         FUN_00216320(ls->L, "%s near `%s'", s, FUN_0021af60(token, ls));
     FUN_002152b0(ls->L, 3);
-    __security_check_cookie(cookie);
 }

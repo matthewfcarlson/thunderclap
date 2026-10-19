@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/12, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 12/12)
 // FUN_001b5da0 @ 0x001b5da0
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern "C" unsigned int DAT_004d9968;
 
 class Settings_1b5da0 {
 public:
@@ -62,7 +61,7 @@ public:
 
 void Physics_1b5da0::FUN_001b5da0(int a, int b)
 {
-    unsigned int cookie = DAT_004d9968;
+    char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     if ((*(Settings_1b5da0**)&DAT_004dd6e8)->FUN_0023f760("DoPhysics", 0x66, 1)) {
         Input_1b5da0 *input = DAT_004dd700->pad->FUN_00086340();
         union { float f; unsigned int u; } d;
@@ -91,5 +90,4 @@ void Physics_1b5da0::FUN_001b5da0(int a, int b)
         }
         (*(Timer*)&DAT_0055545c).FUN_002f9660();
     }
-    __security_check_cookie(cookie);
 }

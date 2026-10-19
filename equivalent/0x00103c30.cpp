@@ -1,11 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3059 inputs, branch coverage 96/98, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 12265 inputs, branch coverage 92/98, incomplete)
 // COccupationAgent::vfunc_4 @ 0x00103c30
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" double sqrt(double);
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
-extern unsigned int DAT_004d9968;
 
 struct Vec3_103c30 {
     float x, y, z;
@@ -209,7 +208,6 @@ public:
 
 void COccupationAgent::vfunc_4(Ctx2_103c30* a1, float a2, int a3)
 {
-    unsigned int cookie = DAT_004d9968;
     FUN_000fc550(a1, a2, a3);
     do {
         if (list == 0 && !fa5) {
@@ -472,5 +470,4 @@ void COccupationAgent::vfunc_4(Ctx2_103c30* a1, float a2, int a3)
             }
         }
     } while (0);
-    __security_check_cookie(cookie);
 }

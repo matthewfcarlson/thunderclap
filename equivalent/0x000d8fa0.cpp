@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 17831 inputs, branch coverage 4/4)
 // FUN_000d8fa0 @ 0x000d8fa0
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct Menu_d8fa0;
@@ -12,11 +13,8 @@ Manager_d8fa0* __cdecl FUN_000fc3d0();
 void __cdecl FUN_000fc020(unsigned short*,int,const char*);
 struct State_d8fa0 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d8fa0* FUN_00086280(); };
-extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
 struct Object { char pad[0x21c]; int field21c; char pad2[0x190]; unsigned char field3b0; char pad3[0x3a]; unsigned char field3eb; void FUN_000d8fa0(int,int); };
 void Object::FUN_000d8fa0(int,int) {
- unsigned int cookie=DAT_004d9968;
  unsigned short text[512];
  Menu_d8fa0* menu=FUN_000fc3d0()->v44();
  int id=menu->FUN_000f7d30((*(const char**)&DAT_004a0c9c));
@@ -31,5 +29,4 @@ void Object::FUN_000d8fa0(int,int) {
  manager->FUN_000be310(title,text,&DAT_003f335c,&DAT_003f335c,"TBS_MENU_ITEM_OK",2,button,button);
  field3b0=1;
  field21c=0;
- __security_check_cookie(cookie);
 }

@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 19998 inputs, branch coverage 4/4)
 // FEMemCardControl::vfunc_13 @ 0x000d8030
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
-extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
 struct Label_d8030 { void FUN_000bc9f0(const char*, int); struct Stage1_d8030* FUN_000b5000(int); };
 struct Stage2_d8030 { void FUN_0008c870(); };
 struct Stage1_d8030 { Stage2_d8030* FUN_00089a50(); };
@@ -17,7 +16,7 @@ struct FEMemCardControl {
  void vfunc_13(int);
 };
 void FEMemCardControl::vfunc_13(int) {
- unsigned int cookie=DAT_004d9968;
+ char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
  if (!skip) {
   bool active=fa!=0;
   x=31; fc=0; count=0; f9=0; fb=0;
@@ -35,5 +34,4 @@ void FEMemCardControl::vfunc_13(int) {
   timer.FUN_000f8500((*(void**)&DAT_004a0c64),v,1);
  }
  skip=0;
- __security_check_cookie(cookie);
 }

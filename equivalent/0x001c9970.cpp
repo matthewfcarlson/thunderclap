@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 6/6)
 // FUN_001c9970 @ 0x001c9970
-extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 struct Service_1c9970 {
  bool FUN_001d2e80();
  void FUN_001d1d50(const char*, const char*);
@@ -19,7 +18,6 @@ struct Object {
  bool target();
 };
 bool Object::target() {
- unsigned int cookie = DAT_004d9968;
  bool result = false;
  if (FUN_001c9840()) {
   Service_1c9970* service = FUN_001d4c90();
@@ -32,6 +30,5 @@ bool Object::target() {
    result = true;
   }
  }
- __security_check_cookie(cookie);
  return result;
 }

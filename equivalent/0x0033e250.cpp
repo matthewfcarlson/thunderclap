@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 110 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 14/14)
 // FUN_0033e250 @ 0x0033e250
-extern "C" unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 extern "C" int sprintf(char* buf, const char* fmt, ...);
 
 struct lua_State;
@@ -20,32 +19,26 @@ const char* FUN_00213470(lua_State* L, const char* fmt, ...);
 
 int FUN_0033e250(lua_State* L)
 {
-    unsigned int cookie = DAT_004d9968;
     char buff[20];
     const char* name = "";
     const void* ptr = 0;
 
     FUN_00339dc0(L, 1);
     if (FUN_00339070(L, 1, "__tostring") != 0) {
-        __security_check_cookie(cookie);
         return 1;
     }
     switch (FUN_00212f00(L, 1)) {
     case 3:
         FUN_002133d0(L, FUN_00213190(L, 1));
-        __security_check_cookie(cookie);
         return 1;
     case 4:
         FUN_00212ed0(L, 1);
-        __security_check_cookie(cookie);
         return 1;
     case 1:
         FUN_002133d0(L, FUN_00213160(L, 1) != 0 ? "true" : "false");
-        __security_check_cookie(cookie);
         return 1;
     case 0:
         FUN_00213380(L, "nil", 3);
-        __security_check_cookie(cookie);
         return 1;
     case 5:
         ptr = FUN_002132b0(L, 1);
@@ -69,6 +62,5 @@ int FUN_0033e250(lua_State* L)
     }
     sprintf(buff, "%p", ptr);
     FUN_00213470(L, "%s: %s", name, buff);
-    __security_check_cookie(cookie);
     return 1;
 }

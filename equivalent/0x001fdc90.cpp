@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 32/32)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 32/32)
 // FUN_001fdc90 @ 0x001fdc90
-extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 struct Reader {
  bool FUN_001d2ba0(const char*,int,int);
  bool FUN_001d2c60(const char*,char*,int);
@@ -24,15 +23,14 @@ struct Manager_1fdc90 {
 };
 bool Manager_1fdc90::FUN_001fdc90(int id,const char* file) {
  struct Parameters {
- int script; float kill; int locator,total; float deactivate; int maximum; float radius; int minimum,reset; char name[256]; unsigned int cookie;
+ int script; float kill; int locator,total; float deactivate; int maximum; float radius; int minimum,reset; char name[256];
  } p;
- p.cookie=DAT_004d9968;
  int index=FUN_001fcff0(id);
- if(index==-1) { __security_check_cookie(p.cookie); return false; }
- if(entries[index].count>=16) { __security_check_cookie(p.cookie); return false; }
+ if(index==-1) { return false; }
+ if(entries[index].count>=16) { return false; }
  Reader* reader=FUN_001d4c90();
- if(!reader) { __security_check_cookie(p.cookie); return false; }
- if(!reader->FUN_001d2ba0(file,1,0)) { __security_check_cookie(p.cookie); return false; }
+ if(!reader) { return false; }
+ if(!reader->FUN_001d2ba0(file,1,0)) { return false; }
  p.script=-1;
  bool ok=false;
  if(reader->FUN_001d2c60("template",p.name,256) &&
@@ -49,6 +47,5 @@ bool Manager_1fdc90::FUN_001fdc90(int id,const char* file) {
  }
  reader->FUN_001d19d0(1);
  if(!ok) reader->FUN_001d1900(p.script);
- __security_check_cookie(p.cookie);
  return ok;
 }

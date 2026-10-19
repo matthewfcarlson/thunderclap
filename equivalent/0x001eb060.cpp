@@ -1,9 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 6/6)
 // FUN_001eb060 @ 0x001eb060
+// cl-flags: /GS
 #include "decls/data/game/global.h"
 
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl sprintf(char *, const char *, ...);
 struct Manager_1eb060 {
  char pad[0x514];
@@ -16,7 +15,6 @@ struct Manager_1eb060 {
  void target(const char *first, const char *second);
 };
 void Manager_1eb060::target(const char *first, const char *second) {
- unsigned int cookie = DAT_004d9968;
  char firstPath[32];
  char secondPath[32];
  (*(int*)&DAT_004e36ac) = 0;
@@ -34,5 +32,4 @@ void Manager_1eb060::target(const char *first, const char *second) {
  }
  mainMix = FUN_001e9960("main_mix");
  FUN_001e9a90("main_mix", 0);
- __security_check_cookie(cookie);
 }

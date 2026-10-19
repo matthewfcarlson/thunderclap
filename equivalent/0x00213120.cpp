@@ -8,14 +8,13 @@ struct TObject {
     float n;
 };
 
-// equiv-conv: FUN_00212bb0 edx ecx
-const TObject* FUN_00212bb0(lua_State* L, int idx);
+const TObject* __fastcall FUN_00212bb0(int idx, lua_State* L);
 const TObject* __cdecl FUN_00217600(const TObject* obj, TObject* n);
 
 int FUN_00213120(lua_State* L, int idx)
 {
     TObject n;
-    const TObject* o = FUN_00212bb0(L, idx);
+    const TObject* o = FUN_00212bb0(idx, L);
     if (o->tt == 3 || (o = FUN_00217600(o, &n)) != 0)
         return (int)o->n;
     return 0;

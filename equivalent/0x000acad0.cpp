@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 11388 inputs, branch coverage 10/10)
 // CScriptCamera::vfunc_35 @ 0x000acad0
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 
 struct Vec3_acad0 {
     float x, y, z;
@@ -105,7 +104,7 @@ public:
 
 void CScriptCamera::vfunc_35(CameraArgs* args, float dt, int flag, int extra)
 {
-    unsigned int cookie = DAT_004d9968;
+    char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     if (!frozen) {
         float dur0 = duration;
         float sum = dt + time;
@@ -146,5 +145,4 @@ void CScriptCamera::vfunc_35(CameraArgs* args, float dt, int flag, int extra)
                 args->f8->FUN_00099470(args);
         }
     }
-    __security_check_cookie(cookie);
 }

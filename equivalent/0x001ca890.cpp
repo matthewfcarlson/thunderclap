@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 8/8)
 // FUN_001ca890 @ 0x001ca890
+// cl-flags: /GS
 #include "decls/address.h"
-extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
 struct Actor_1ca890 { const char* FUN_00036d00(); };
 struct Registry_1ca890 { Actor_1ca890* FUN_00059c10(unsigned int id); };
 struct World { char pad[0x44]; Registry_1ca890* registry; };
@@ -10,7 +9,6 @@ struct Writer_1ca890 { bool FUN_001d2e80(); void FUN_001d1d50(const char*, const
 extern "C" void __cdecl FUN_00096d50(char*, int, unsigned int, unsigned int);
 struct Target_1ca890 { char pad[0x10]; unsigned int actor; char pad14[4]; unsigned int propLow, propHigh, typeLow, typeHigh, attachment; Writer_1ca890* FUN_001d4c90(); bool run(); };
 bool Target_1ca890::run() {
- unsigned int cookie = DAT_004d9968;
  Writer_1ca890* writer = FUN_001d4c90();
  bool result = false;
  if (writer && writer->FUN_001d2e80()) {
@@ -32,6 +30,5 @@ bool Target_1ca890::run() {
  }
  writer->FUN_001d1d10();
  }
- __security_check_cookie(cookie);
  return result;
 }

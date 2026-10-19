@@ -1,10 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 44/46, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 124 inputs, branch coverage 45/46, incomplete)
 // FUN_001baab0 @ 0x001baab0
+// cl-flags: /GS
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
 
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int __cdecl strlen(const char *);
 extern "C" char *__cdecl strstr(const char *, const char *);
 void *thunk_FUN_0008d690(unsigned int size);
@@ -188,7 +188,6 @@ struct Globals_1baab0 {
     Replay_1baab0 *replay;
 };
 
-extern unsigned int DAT_004d9968;
 extern Globals_1baab0 *DAT_004dd700;
 extern Device_1baab0 *DAT_0052c2a8;
 
@@ -221,7 +220,6 @@ struct Frame_1baab0 {
     Font *font;                    // 0x3c
     unsigned short line[0x100];    // 0x40
     unsigned short lineBuf[0x200]; // 0x240
-    unsigned int cookie;           // 0x640
 };
 
 inline void *operator new(unsigned int, void *p) throw() { return p; }
@@ -229,7 +227,6 @@ inline void *operator new(unsigned int, void *p) throw() { return p; }
 void Credits_1baab0::FUN_001baab0(bool flag)
 {
     Frame_1baab0 f;
-    f.cookie = DAT_004d9968;
     f.self = this;
     if (flag)
         (*(Banner**)&DAT_0052c2b4)->FUN_0028f9a0();
@@ -352,5 +349,4 @@ void Credits_1baab0::FUN_001baab0(bool flag)
     } else {
         lastTick = now;
     }
-    __security_check_cookie(f.cookie);
 }

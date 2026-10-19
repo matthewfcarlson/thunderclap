@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 18875 inputs, branch coverage 4/4)
 // FUN_000d9a80 @ 0x000d9a80
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct TextTable {
@@ -23,8 +24,6 @@ struct Dialog_d9a80 {
 };
 struct Status_d9a80 { char pad[0x1bc8]; unsigned char active; };
 struct Singleton_4dd6ec { Status_d9a80* FUN_00086280(); };
-extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
 void __cdecl FUN_000fc020(unsigned short*, int, const unsigned short*);
 struct Screen_d9a80 {
  char pad0[0x21c]; int state;
@@ -35,7 +34,6 @@ struct Screen_d9a80 {
 };
 void Screen_d9a80::FUN_000d9a80(int) {
  unsigned short text[512];
- unsigned int cookie = DAT_004d9968;
  Dialog_d9a80* dialog = FUN_000fc3d0();
  TextTable* table = dialog->slot44();
  int id = table->FUN_000f7d30((*(const char**)&DAT_004a0cb0));
@@ -51,5 +49,4 @@ void Screen_d9a80::FUN_000d9a80(int) {
  dialog->FUN_000be310(heading, text, ((float*)&DAT_003f335c), ((float*)&DAT_003f335c), "TBS_MENU_ITEM_OK", 2, option, option);
  visible = 1;
  state = 0;
- __security_check_cookie(cookie);
 }

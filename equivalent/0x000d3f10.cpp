@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 115 inputs, branch coverage 32/34, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 10436 inputs, branch coverage 33/34, incomplete)
 // FUN_000d3f10 @ 0x000d3f10
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 namespace pure3d { class DrawableHierarchy; }
@@ -24,8 +25,6 @@ struct Provider_d3f10 {
     int FUN_000ad7b0(int a, int b, int c);
     int FUN_000ad580(int a, int b, int c);
 };
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int strcmp(const char*, const char*);
 extern "C" const char* strstr(const char*, const char*);
 extern "C" int sprintf(char*, const char*, ...);
@@ -41,13 +40,11 @@ struct Finder_d3f10 {
 };
 
 void* Finder_d3f10::FUN_000d3f10(const char* name) {
-    unsigned int cookie = DAT_004d9968;
     char buf[64];
     int i = 0;
     const char* s = ((const char**)&DAT_0040b020)[0];
     for (;;) {
         if (s == 0) {
-            __security_check_cookie(cookie);
             return 0;
         }
         if (strcmp(s, name) == 0) break;
@@ -83,6 +80,5 @@ void* Finder_d3f10::FUN_000d3f10(const char* name) {
     content::LoadInventory* ld = (*(content::LoadInventory**)&DAT_004dd9cc);
     __int64 uid = FUN_0027b020(buf);
     void* r = ld->Find(content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>(), uid);
-    __security_check_cookie(cookie);
     return r;
 }

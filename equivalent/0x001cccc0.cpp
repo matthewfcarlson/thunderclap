@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 101 inputs, branch coverage 33/34, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20017 inputs, branch coverage 34/34)
 // FUN_001cccc0 @ 0x001cccc0
+// cl-flags: /GS
 #include "decls/address.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern "C" unsigned int DAT_004d9968;
 
 struct Overlay {
     void FUN_000d4620(int one, const char *text, int minusOne, unsigned color, float minusOneF);
@@ -64,7 +63,6 @@ public:
 
 void ComboTracker::FUN_001cccc0()
 {
-    unsigned int cookie = DAT_004d9968;
     Frame_1cccc0 f;
     if (count > 1 && parent && parent->checker && parent->checker->FUN_00086280()
         && parent->holder) {
@@ -86,5 +84,4 @@ void ComboTracker::FUN_001cccc0()
             DAT_004dd6ec->FUN_00086370("action_combo", 1)->FUN_00090720();
         }
     }
-    __security_check_cookie(cookie);
 }

@@ -1,9 +1,12 @@
-void __stdcall Init(void*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(void*, int);
+    virtual void v_001d0480();
+};
 unsigned char __cdecl Lookup(const char*);
 extern const char text1[], text2[];
-class Base {
+class Base : public CtorV_001d0480 {
   public:
-    Base(void* x) { Init(x, 1); }
+    Base(void* x) : CtorV_001d0480(x, 1) { }
 };
 class Method1 : public Base {
   public:

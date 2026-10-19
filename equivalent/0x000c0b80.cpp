@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_000c0b80 @ 0x000c0b80
-extern unsigned DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned);
+// cl-flags: /GS
 struct ClosureBase {
     virtual void invoke();
     char data[28];
@@ -19,10 +18,8 @@ struct Manager {
 };
 void Manager::FUN_000c0b80(const char *first, const char *second, const char *third)
 {
-    volatile unsigned cookie = DAT_004d9968;
     Closure7 closure(first, third);
     closure.second = second;
     FUN_001d26d0(first, &closure);
     closure.FUN_001d04a0();
-    __security_check_cookie(cookie);
 }

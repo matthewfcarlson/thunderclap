@@ -14,12 +14,11 @@ struct lua_State_212e60 {
     TObject_212e60* base;
 };
 // index2adr: edx = L, ecx = idx
-// equiv-conv: FUN_00212bb0 edx ecx
-TObject_212e60* FUN_00212bb0(lua_State_212e60* L, int idx);
+TObject_212e60* __fastcall FUN_00212bb0(int idx, lua_State_212e60* L);
 void FUN_00217100(lua_State_212e60* L, void* o, void* v);
 void FUN_00212e60(lua_State_212e60* L, int idx) {
     TObject_212e60* src = L->top - 1;
-    TObject_212e60* o = FUN_00212bb0(L, idx);
+    TObject_212e60* o = FUN_00212bb0(idx, L);
     *o = *src;
     if (idx < -10001) {
         if (L->top[-1].tt >= 4) {

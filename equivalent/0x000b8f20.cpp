@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 15/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 16/16)
 // FUN_000b8f20 @ 0x000b8f20
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern "C" unsigned int DAT_004d9968;
+// cl-flags: /GS
 
 class Manager_b8f20 { public: char pad[4]; };
 Manager_b8f20 *__cdecl FUN_000fc1b0();
@@ -52,7 +51,6 @@ public:
 
 void TextHost::FUN_000b8f20()
 {
-    unsigned int cookie = DAT_004d9968;
     char name[0x80];
     TextSelector *sel = dynamic_cast<TextSelector *>(FUN_000fc260("mission_selector"));
     if (sel != 0 && sel->field1d58 != 0) {
@@ -75,5 +73,4 @@ void TextHost::FUN_000b8f20()
             }
         }
     }
-    __security_check_cookie(cookie);
 }

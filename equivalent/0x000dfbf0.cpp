@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 2/2)
 // FUN_000dfbf0 @ 0x000dfbf0
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
+// cl-flags: /GS
 
 int __cdecl FUN_00294c70(const char* src, unsigned short* dst, int max);
 
@@ -25,15 +24,11 @@ float TextSink::FUN_000dfbf0(const char* text)
 {
     struct Frame {
         unsigned short wide[0x200];
-        unsigned int cookie;
     } f;
-    f.cookie = DAT_004d9968;
     if (text == 0) {
-        __security_check_cookie(f.cookie);
         return 0.0f;
     }
     FUN_00294c70(text, f.wide, 0x200);
     float r = Measure(f.wide);
-    __security_check_cookie(f.cookie);
     return r;
 }

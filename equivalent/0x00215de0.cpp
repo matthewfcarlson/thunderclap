@@ -19,8 +19,8 @@ struct State_215de0 {
 };
 extern "C" unsigned int __cdecl FUN_002152f0(State_215de0*, unsigned int, unsigned int);
 extern "C" void __cdecl FUN_00219660(State_215de0*, char*);
-// equiv-conv: FUN_00215240 eax ecx
-extern "C" void __cdecl FUN_00215240(unsigned int, char*);
+// equiv-conv: FUN_00215240 eax ecx edi
+extern "C" void __cdecl FUN_00215240(unsigned int, char*, State_215de0*);
 extern "C" void __cdecl FUN_00215410(State_215de0*, unsigned int);
 unsigned int __cdecl FUN_00215de0(State_215de0* s, unsigned int a, unsigned int b, unsigned int offset, unsigned int context) {
  unsigned short oldWord = s->savedWord;
@@ -32,7 +32,7 @@ unsigned int __cdecl FUN_00215de0(State_215de0* s, unsigned int a, unsigned int 
  if(result) {
   char* position = s->entries + offset;
   FUN_00219660(s,position);
-  FUN_00215240(result,position);
+  FUN_00215240(result,position,s);
   bool large = s->capacity > 0x1000;
   char* base = s->base;
   char* entries = s->entries;

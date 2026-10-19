@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 142 inputs, branch coverage 15/18, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 140 inputs, branch coverage 17/18, incomplete)
 // Render::RoomLoader::vfunc_5 @ 0x001c6fe0
+// cl-flags: /GS
 void *FUN_0008d690(unsigned int size);
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 extern "C" int __cdecl FUN_001c62f0(const char *name, int n);
 
 struct V3_1c6fe0 {
@@ -81,7 +80,6 @@ struct Frame_1c6fe0 {
     char b2[256];          // S904
     char b3[256];          // S1160
     Item_1c6fe0 items[16];        // S1416
-    unsigned int cookie;   // S1672
 };
 
 namespace Render {
@@ -101,7 +99,6 @@ public:
 void RoomLoader::vfunc_5(int *out0, unsigned __int64 *out1, Stream *s, void *inv)
 {
     Frame_1c6fe0 f;
-    f.cookie = DAT_004d9968;
     f.self = this;
     s->reader->FUN_002647e0(&f.len, 1, 1, 1);
     f.flag8 = 0;
@@ -209,7 +206,6 @@ void RoomLoader::vfunc_5(int *out0, unsigned __int64 *out1, Stream *s, void *inv
     ((RoomLoader *)f.self)->mgr->FUN_001c7e90(obj);
     *out0 = 0;
     out1[0] = 0;
-    __security_check_cookie(f.cookie);
 }
 
 }

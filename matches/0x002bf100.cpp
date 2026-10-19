@@ -1,7 +1,9 @@
 extern "C" char DAT_0042e9bc[];
 typedef unsigned int u32_2bf100;
-extern void BaseInit();
-struct ImageFont {
+struct Ctor_0027b070 {
+    Ctor_0027b070();
+};
+struct ImageFont : public Ctor_0027b070 {
     volatile u32_2bf100 vt;
     char pad[12];
     volatile u32_2bf100 a, b, c, d, e;
@@ -9,8 +11,7 @@ struct ImageFont {
     volatile u32_2bf100 g, h, i, j;
     ImageFont();
 };
-ImageFont::ImageFont() {
-    BaseInit();
+ImageFont::ImageFont() : Ctor_0027b070() {
     a = 0;
     b = 0;
     c = 0;

@@ -5,8 +5,7 @@ struct SoundInfo { char pad[16]; unsigned int sound; unsigned int value; unsigne
 struct SoundSystem {};
 struct SoundHandle { void FUN_001eb5e0(SoundValue *, unsigned int, unsigned int); };
 extern SoundSystem *DAT_004dd6ec;
-// equiv-conv: FUN_000862e0 ecx stack stack stack
-SoundHandle *__cdecl FUN_000862e0(SoundSystem *, SoundValue *, unsigned int, unsigned int);
+SoundHandle *__fastcall FUN_000862e0(SoundSystem *);
 namespace hulkfight {
 struct NISSoundAction {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual bool vfunc_3(int,int); virtual void vfunc_4(); virtual void vfunc_5();
@@ -18,7 +17,7 @@ bool NISSoundAction::vfunc_3(int, int) {
  value.FUN_0027b0e0(info->value);
  unsigned int extra = info->extra;
  unsigned int sound = info->sound;
- SoundHandle *handle = FUN_000862e0(DAT_004dd6ec, &value, sound, extra);
+ SoundHandle *handle = FUN_000862e0(DAT_004dd6ec);
  handle->FUN_001eb5e0(&value, sound, extra);
  value.FUN_0027af50();
  return true;

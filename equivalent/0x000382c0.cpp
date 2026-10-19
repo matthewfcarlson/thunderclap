@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 15/15)
+// STATUS: equivalent (tools/equiv.py level 3: 20028 inputs, branch coverage 15/15)
 // FUN_000382c0 @ 0x000382c0
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -28,8 +29,6 @@ struct Anchor_382c0 {
     bool FUN_00059a50(Vec3_382c0 *out);
 };
 
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 class Camera {
 public:
@@ -47,18 +46,16 @@ public:
 
 bool Camera::FUN_000382c0(Vec3_382c0 *out)
 {
-    unsigned int cookie = DAT_004d9968;
+    char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     Vec3_382c0 pos;
     Vec3_382c0 off;
 
     if (!anchor->FUN_00059a50(&pos)) {
-        __security_check_cookie(cookie);
         return false;
     }
     if (f8 != (*(int*)&DAT_004dc0e0) || fc != (*(int*)((char*)&DAT_004dc0e0 + 4))) {
         if (!FUN_000352b0(out))
             *out = pos;
-        __security_check_cookie(cookie);
         return true;
     }
     *out = pos;
@@ -84,6 +81,5 @@ bool Camera::FUN_000382c0(Vec3_382c0 *out)
     float limit = DAT_004dd700->limits->minY;
     if (limit > out->y)
         out->y = limit;
-    __security_check_cookie(cookie);
     return true;
 }

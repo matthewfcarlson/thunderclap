@@ -1,10 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2532 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 4199 inputs, branch coverage 10/10)
 // FUN_000befc0 @ 0x000befc0
+// cl-flags: /GS
 #include "decls/data/engine/content.h"
 #include "decls/data/game/global.h"
 
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" char* __cdecl _strncpy(char* dst, const char* src, unsigned int n);
 
 class Request {
@@ -39,7 +38,6 @@ struct Frame {
     Inventory* inventory;
     int param;
     char flag;
-    unsigned int cookie;
 };
 
 class Loader {
@@ -51,7 +49,6 @@ public:
 void Loader::FUN_000befc0(const char* name, int param, bool pump)
 {
     Frame fr;
-    fr.cookie = DAT_004d9968;
     fr.inventory = (*(Inventory**)&DAT_004dd9cc);
     fr.request = 0;
     fr.name[0] = 0;
@@ -74,5 +71,4 @@ void Loader::FUN_000befc0(const char* name, int param, bool pump)
     (*(Inventory**)&DAT_004dd9cc)->FUN_00266220(fr.request->FUN_00266700());
     if (fr.request != 0)
         fr.request->Release();
-    __security_check_cookie(fr.cookie);
 }

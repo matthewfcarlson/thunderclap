@@ -53,8 +53,8 @@ struct Ctl_cf4b0 {
     void FUN_000cf4b0(float dt);
 };
 
-// equiv-conv: FUN_000cb7d0 ecx stack
-void __cdecl FUN_000cb7d0(float *obj, float v);
+// equiv-conv: FUN_000cb7d0 ecx edx stack
+void __cdecl FUN_000cb7d0(float *obj, float *target, float v);
 
 void Ctl_cf4b0::FUN_000cf4b0(float dt)
 {
@@ -101,7 +101,7 @@ void Ctl_cf4b0::FUN_000cf4b0(float dt)
             f48c = r;
         }
         if (!(f490 <= 0.5f))
-            FUN_000cb7d0(&f484, dt * f48c);
+            FUN_000cb7d0(&f484, &f480, dt * f48c);
         int *p = &i494;
         if ((*(char*)&DAT_004dde79) == 0) {
             *p += DAT_0049fcb0;

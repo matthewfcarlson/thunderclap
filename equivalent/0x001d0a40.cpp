@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 129 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 1513 inputs, branch coverage 30/30)
 // FUN_001d0a40 @ 0x001d0a40
+// cl-flags: /GS
 struct lua_State;
 
 struct lua_Debug_1d0a40 {
@@ -15,8 +16,6 @@ struct lua_Debug_1d0a40 {
     int i_ci;
 };
 
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 int FUN_00212d70(lua_State* L);
 int FUN_00212fb0(lua_State* L, int idx);
@@ -30,7 +29,6 @@ int FUN_00214bd0(lua_State* L, const char* what, lua_Debug_1d0a40* ar);
 // Lua error handler: pushes the "LUA SCRIPT ERROR" banner and a stack traceback.
 int FUN_001d0a40(lua_State* L)
 {
-    unsigned int cookie = DAT_004d9968;
     lua_Debug_1d0a40 ar;
     int level = 1;
     int firstpart = 1;
@@ -87,6 +85,5 @@ int FUN_001d0a40(lua_State* L)
         }
         FUN_00213c90(L, FUN_00212d70(L));
     }
-    __security_check_cookie(cookie);
     return 1;
 }

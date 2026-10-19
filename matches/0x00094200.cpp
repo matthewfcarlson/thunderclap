@@ -1,11 +1,13 @@
 extern "C" char DAT_004046dc[];
-extern void __stdcall Init(int, int);
+struct Ctor_001d0480 {
+    Ctor_001d0480(int, int);
+};
 extern char __cdecl Query(const char*);
 extern char s0_94200;
 extern char s1_94200;
 extern char s2_94200;
 extern char s3_94200;
-class CUnlockablesManager {
+class CUnlockablesManager : public Ctor_001d0480 {
   public:
     int v;
     char pad4[12];
@@ -18,8 +20,7 @@ class CUnlockablesManager {
     int value;
     CUnlockablesManager(int a, int b);
 };
-CUnlockablesManager::CUnlockablesManager(int a, int b) {
-    Init(a, 3);
+CUnlockablesManager::CUnlockablesManager(int a, int b) : Ctor_001d0480(a, 3) {
     v = ((int)DAT_004046dc);
     value = b;
     b18 = Query(&s0_94200);

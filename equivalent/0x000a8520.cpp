@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20021 inputs, branch coverage 6/6)
 // CDramaticCamera::vfunc_35 @ 0x000a8520
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 
 struct Mat_a8520 {
     float m[16];
@@ -124,7 +123,7 @@ public:
 
 void CDramaticCamera::vfunc_35(Event_a8520 *e, float dt, int a, int b)
 {
-    unsigned int cookie = DAT_004d9968;
+    char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     if (!disabled) {
         if (!controller->vfunc_22()) {
             controller->vfunc_6(dt * scale * 1000.0f, 1);
@@ -141,5 +140,4 @@ void CDramaticCamera::vfunc_35(Event_a8520 *e, float dt, int a, int b)
                 e->target->FUN_0009a1e0(e);
         }
     }
-    __security_check_cookie(cookie);
 }

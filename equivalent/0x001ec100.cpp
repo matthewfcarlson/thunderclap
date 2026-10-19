@@ -1,12 +1,11 @@
-// STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 13297 inputs, branch coverage 20/20)
 // FUN_001ec100 @ 0x001ec100
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 extern "C" int strcmp(const char *a, const char *b);
 extern "C" char *strcpy(char *dst, const char *src);
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 struct Query_1ec100 {
     char data[0x44];
@@ -64,13 +63,11 @@ struct Frame_1ec100 {
     Query_1ec100 q;
     int gap;
     char buf[0x40];
-    unsigned int cookie;
 };
 
 void Handler_1ec100::FUN_001ec100(Entity *entity, const char *name)
 {
     Frame_1ec100 f;
-    f.cookie = DAT_004d9968;
     if (entity != 0 && entity->info != 0) {
         int i;
         for (i = 0; i < 0x40; i++) f.buf[i] = 0;
@@ -78,7 +75,6 @@ void Handler_1ec100::FUN_001ec100(Entity *entity, const char *name)
         long long id = entity->info->FUN_000443c0();
         if ((int)id == (*(int*)&DAT_004dc0e0) && (int)(id >> 32) == (*(int*)((char*)&DAT_004dc0e0 + 4))) {
             if (!flag) {
-                __security_check_cookie(f.cookie);
                 return;
             }
             strcpy(f.buf, "joefixit");
@@ -87,7 +83,6 @@ void Handler_1ec100::FUN_001ec100(Entity *entity, const char *name)
         }
         if (strcmp(name, "spawn") == 0) {
             if (env->logic->FUN_00027fc0("hulk", "//hulk/opening/holding/stealth_truck")) {
-                __security_check_cookie(f.cookie);
                 return;
             }
         }
@@ -102,5 +97,4 @@ void Handler_1ec100::FUN_001ec100(Entity *entity, const char *name)
             (*(SpawnGlobals_1ec100**)&DAT_004e36d8)->spawner->FUN_001efe20(&f.q, &entity->pos, name, 100.0f);
         f.q.FUN_001ef350();
     }
-    __security_check_cookie(f.cookie);
 }

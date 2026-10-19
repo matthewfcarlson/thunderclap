@@ -1,10 +1,13 @@
-extern "C" void __stdcall Init(const char*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(const char*, int);
+    virtual void v_001d0480();
+};
 extern "C" char __cdecl Check(const char*);
 extern const char textA[];
 extern const char textB[];
-class Base {
+class Base : public CtorV_001d0480 {
   public:
-    Base(const char* x) { Init(x, 1); }
+    Base(const char* x) : CtorV_001d0480(x, 1) { }
 };
 class Method : public Base {
   public:

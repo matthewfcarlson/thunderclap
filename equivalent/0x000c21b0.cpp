@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20041 inputs, branch coverage 135/136, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20119 inputs, branch coverage 135/136, incomplete)
 // FUN_000c21b0 @ 0x000c21b0
+// cl-flags: /GS
 #include "decls/address.h"
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 class Entry;
 class Manager {
@@ -168,11 +167,8 @@ void UnlockMenu::FUN_000c21b0(volatile int id) {
         int nameId;
         char numBuf[0x10];
         unsigned short wide[0x80];
-        volatile unsigned int cookie;
     } frame;
-    frame.cookie = DAT_004d9968;
     if (table == 0) {
-        __security_check_cookie(frame.cookie);
         return;
     }
     frame.text.FUN_000f7930();
@@ -361,5 +357,4 @@ void UnlockMenu::FUN_000c21b0(volatile int id) {
         }
     }
     frame.text.FUN_000f7960();
-    __security_check_cookie(frame.cookie);
 }

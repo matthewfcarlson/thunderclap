@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 13662 inputs, branch coverage 4/4)
 // FUN_001d2ee0 @ 0x001d2ee0
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern "C" unsigned int DAT_004d9968;
+// cl-flags: /GS
 
 struct LuaState;
 struct Vec3 {
@@ -49,7 +48,6 @@ public:
 
 char ScriptTable::FUN_001d2ee0(Actor *actor)
 {
-    unsigned int cookie = DAT_004d9968;
     char *actorName = FUN_00036d00(FUN_00059a30(FUN_000592a0(actor)));
     FUN_001d1cb0();
     FUN_002133d0(L, "actor");
@@ -76,6 +74,5 @@ char ScriptTable::FUN_001d2ee0(Actor *actor)
         FUN_00212d80(L, -2);
     }
     FUN_00212d80(L, -2);
-    __security_check_cookie(cookie);
     return 1;
 }

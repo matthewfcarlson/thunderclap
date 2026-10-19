@@ -1,7 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 191 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 2155 inputs, branch coverage 12/12)
 // FUN_001d0e00 @ 0x001d0e00
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int);
+// cl-flags: /GS
 
 struct lua_State;
 
@@ -22,9 +21,7 @@ void FUN_001d0e00(lua_State *L)
 {
     struct Frame {
         lua_Debug_1d0e00 ar;
-        unsigned int cookie;
     } f;
-    f.cookie = DAT_004d9968;
 
     int level = 1;
     while (FUN_00213fc0(L, level, &f.ar)) {
@@ -42,5 +39,4 @@ void FUN_001d0e00(lua_State *L)
         }
         level++;
     }
-    __security_check_cookie(f.cookie);
 }

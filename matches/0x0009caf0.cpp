@@ -1,10 +1,13 @@
-extern "C" void __stdcall init(void*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(void*, int);
+    virtual void v_001d0480();
+};
 extern "C" unsigned char query(void*);
 extern void* gA;
 extern void* gB;
-class Parent {
+class Parent : public CtorV_001d0480 {
   public:
-    Parent(void* p) { init(p, 1); }
+    Parent(void* p) : CtorV_001d0480(p, 1) { }
 };
 class Method1 : public Parent {
   public:

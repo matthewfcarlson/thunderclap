@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 8576 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 770 inputs, branch coverage 22/22)
 // FUN_001a9f10 @ 0x001a9f10
+// cl-flags: /GS
 // FUN_001a9f10 @ 0x001a9f10
 #include "decls/address.h"
 struct Vec3_1a9f10 {
@@ -34,9 +35,7 @@ struct Slot_1a9f10 {
     char pad10[8];
 };
 
-extern unsigned int DAT_004d9968;
 
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 const char* FUN_001a4cb0(Table_1a9f10* t, unsigned int idx);
 const char* FUN_001a4e40(Table_1a9f10* t, unsigned int idx);
@@ -70,13 +69,11 @@ struct Frame_1a9f10 {
     bool isCustom;
     Vec3_1a9f10 pos;
     char buf[0x80];
-    unsigned int cookie;
 };
 
 bool Obj_1a9f10::FUN_001a9f10()
 {
     Frame_1a9f10 f;
-    f.cookie = DAT_004d9968;
     char* buf = f.buf;
     buf[0] = 0;
     for (int z = 1; z < 0x80; z++)
@@ -157,6 +154,5 @@ bool Obj_1a9f10::FUN_001a9f10()
         slot++;
         name = FUN_001a4cb0(f.self->table, f.idx);
     }
-    __security_check_cookie(f.cookie);
     return f.any;
 }

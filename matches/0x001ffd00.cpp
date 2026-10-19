@@ -1,9 +1,12 @@
 #include "decls/address.h"
-extern "C" void __stdcall FUN_001d0480(int, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(int, int);
+    virtual void v_001d0480();
+};
 extern int label;
-class Base {
+class Base : public CtorV_001d0480 {
   public:
-    Base(int a) { FUN_001d0480(a, 0); }
+    Base(int a) : CtorV_001d0480(a, 0) { }
 };
 class Method0 : public Base {
   public:

@@ -10,7 +10,8 @@ extern void FUN_0021c190(Input_21db50*);
 extern void FUN_0021c440(Input_21db50*, unsigned int, Output_21db50*);
 // equiv-conv: FUN_0021cf70 ecx eax
 extern void FUN_0021cf70(Input_21db50*, Output_21db50*);
-extern void __cdecl FUN_0021d4b0(Output_21db50*, int, unsigned int);
+// equiv-conv: FUN_0021d4b0 ebx stack stack stack
+extern void __cdecl FUN_0021d4b0(Input_21db50*, Output_21db50*, int, unsigned int);
 // equiv-conv: FUN_0021d830 eax esi
 extern void FUN_0021d830(Output_21db50*, Input_21db50*);
 // equiv-conv: FUN_0021db50 eax edi
@@ -22,7 +23,7 @@ void FUN_0021db50(Input_21db50* input, Output_21db50* output) {
  case 6: FUN_0021c440(input,input->data,output);FUN_0021c190(input);break;
  case 3: case 4: case 1: output->a=-1;output->b=-1;output->type=branch==1?3:branch==3?1:2;output->value=0;FUN_0021c190(input);break;
  case 0: FUN_0021cf70(input,output);break;
- case 2: FUN_0021c190(input);FUN_0021d4b0(output,0,input->value);break;
+ case 2: FUN_0021c190(input);FUN_0021d4b0(input,output,0,input->value);break;
  default: FUN_0021d830(output,input);break;
  }
 }

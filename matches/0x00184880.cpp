@@ -3,9 +3,11 @@ class Ref_184880 {
     virtual void Fn();
     virtual void Release();
 };
-extern void BaseInit();
+struct Ctor_00232660 {
+    Ctor_00232660();
+};
 extern int vtable_184880;
-class BallAndChainShootAction {
+class BallAndChainShootAction : public Ctor_00232660 {
   public:
     BallAndChainShootAction(int, Ref_184880*);
     int vt;
@@ -25,8 +27,7 @@ class BallAndChainShootAction {
     int m4c;
     int m50;
 };
-BallAndChainShootAction::BallAndChainShootAction(int a, Ref_184880* b) {
-    BaseInit();
+BallAndChainShootAction::BallAndChainShootAction(int a, Ref_184880* b) : Ctor_00232660() {
     vt = (int)&vtable_184880;
     int* q = &mA;
     *q = 0;

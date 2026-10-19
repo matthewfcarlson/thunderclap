@@ -2,7 +2,7 @@
 // FUN_00214280 @ 0x00214280
 struct Data { char pad0[0x28]; int length; char pad1[0x47-0x2c]; unsigned char minimum; };
 // equiv-conv: FUN_00214280 ecx edx eax
-int __fastcall FUN_00214280(int value, Data *data, int mode) {
+int FUN_00214280(int value, Data *data, int mode) {
     if (mode == 0) return value == 0 ? 1 : 0;
     if (mode == 2) return value < data->minimum ? 1 : 0;
     if (mode == 3 && value >= data->minimum) {

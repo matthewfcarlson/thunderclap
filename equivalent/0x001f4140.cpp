@@ -19,8 +19,9 @@ struct State_1f4140 {
     char pad[8];
     void FUN_001f36e0();
 };
-// equiv-conv: FUN_001e8ac0 ecx
-void FUN_001e8ac0(int handle);
+struct ThisNote_001e8ac0 {
+    void FUN_001e8ac0();
+};
 bool FUN_00249b40(Sound *s);
 void FUN_0024af00(Sound *s);
 void FUN_00247890(Sound *s, float volume);
@@ -58,7 +59,7 @@ void Player_1f4140::FUN_001f4140(bool force)
         if (id != group) return;
     }
     if (voice->handle != id) {
-        FUN_001e8ac0(voice->handle);
+        ((ThisNote_001e8ac0*)(voice->handle))->FUN_001e8ac0();
         voice->handle = 0;
         FUN_0024af00(voice->sound);
         voice->sound = 0;

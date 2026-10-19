@@ -1,11 +1,14 @@
 #include "decls/address.h"
 class CAmbientsManager;
-extern "C" void __stdcall FUN_001d0480(void*, int);
+struct CtorV_001d0480 {
+    CtorV_001d0480(void*, int);
+    virtual void v_001d0480();
+};
 extern int gA_7e2d0;
 extern int gB_7e2d0;
-class MethodBase_7e2d0 {
+class MethodBase_7e2d0 : public CtorV_001d0480 {
   public:
-    MethodBase_7e2d0(void* a) { FUN_001d0480(a, 2); }
+    MethodBase_7e2d0(void* a) : CtorV_001d0480(a, 2) { }
 };
 template <class T, class R, class A, class B> class Method2 : public MethodBase_7e2d0 {
   public:
