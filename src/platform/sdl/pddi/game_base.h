@@ -18,7 +18,7 @@ struct GameBase {
     void FUN_0031d380();
     void FUN_0031d3f0();
     void FUN_0031d4f0(unsigned int);
-    void FUN_0031d500(int);
+    int* FUN_0031d500(int*);
     void FUN_0031d510(void*);
     float FUN_0031d520();
     void FUN_0031d530(void*);
@@ -37,7 +37,7 @@ struct GameBase {
     void FUN_0031d7c0(void*, void*, void*, void*);
     void FUN_0031d830(int, int, int, int);
     int FUN_0031d900();
-    void FUN_0031d920(int);
+    int* FUN_0031d920(int*);
     void FUN_0031d940(int, int, int);
     void FUN_0031da40(int, int);
     unsigned char FUN_0031da80(unsigned int);
@@ -69,7 +69,7 @@ struct GameBase {
     int FUN_0031e0f0();
     bool FUN_0031e110();
     void FUN_0031e150(void*, void*, void*);
-    void FUN_0031e180(int);
+    int FUN_0031e180(int);
     float FUN_0031e1a0(int);
     void FUN_0031e1b0(unsigned char);
     unsigned char FUN_0031e1c0();
@@ -97,10 +97,10 @@ struct GameBase {
     void FUN_003279b0();
     void FUN_003279c0();
     void FUN_003279d0();
-    void FUN_003279e0(int, int);
+    bool FUN_003279e0(int, int);
     bool FUN_00327a40(int, int);
     unsigned char FUN_00327aa0(int, int);
-    void FUN_00327b00(int, int);
+    bool FUN_00327b00(int, int);
     bool FUN_00327b60(int, int);
     bool FUN_00327bc0(int, int);
     // base implementations our overrides call first, as the game's do

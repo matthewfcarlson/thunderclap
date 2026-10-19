@@ -11,7 +11,8 @@ DrawRecord). Sources:
   - the native backend: `hulk::pddi::drawlogDump` writes "PDL1" binaries (the same 24 words per draw).
 
   build/venv/bin/python tools/drawlog_diff.py A.jsonl B.jsonl                 # first mismatches, per-frame counts
-  build/venv/bin/python tools/drawlog_diff.py A.jsonl B.pdl --ignore shader,shader_id
+  build/venv/bin/python tools/drawlog_diff.py A.jsonl B.pdl --ignore shader_id      # hybrid vs native: the shader
+                                                                                   # field compared as a kind
   build/venv/bin/python tools/drawlog_diff.py A.jsonl --summary              # one log: what it holds
 
 Records are aligned by (frame, draw index); the exit status is 0 when every compared field of every aligned draw is
@@ -65,6 +66,22 @@ def class_names():
     for c in json.load(open(p))["classes"]:
         for v in c.get("vtables", []):
             out[v["address"]] = c["name"].split("::")[-1]
+    return out
+
+
+# the native backend's shader field is 0x8000 | its ShaderKind (src/platform/sdl/pddi/pddi.h); the hybrid build's is
+# the game class's vftable: comparing the two, the hybrid's is translated through the class name
+NATIVE_KINDS = {"d3dSimpleShader": 0, "d3dLayeredShader": 1, "d3dBuildingShader": 2, "d3dReflShader": 3,
+                "d3dRefractVertexShader": 4, "d3dFBEffectsShader": 5, "d3dErrorShader": 6}
+
+
+def to_native_kinds(recs, names):
+    out = []
+    for r in recs:
+        r = dict(r)
+        k = NATIVE_KINDS.get(names.get(r["shader"], ""))
+        r["shader"] = 0x8000 | k if k is not None else r["shader"]
+        out.append(r)
     return out
 
 
@@ -145,6 +162,9 @@ def main(argv):
     mb, b = load(args.b)
     if args.summary:
         summary(mb, b, names)
+    if (ma.get("source") == "native") != (mb.get("source") == "native"):
+        # hybrid vs native: the shader as a kind on both sides
+        a, b = (a, to_native_kinds(b, names)) if ma.get("source") == "native" else (to_native_kinds(a, names), b)
     fields = args.fields.split(",") if args.fields else [f for f in FIELDS if f not in ("frame", "seq")]
     ign = set(filter(None, args.ignore.split(",")))
     fields = [f for f in fields if f not in ign]

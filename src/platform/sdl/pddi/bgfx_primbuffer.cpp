@@ -85,10 +85,10 @@ void bgfxPrimStream::vertex()
 }
 
 // ---- bgfxPrimBuffer slots
-void bgfxPrimBuffer::vfunc_4() { PDDI_STUB(4); }
+void* bgfxPrimBuffer::vfunc_4() { PDDI_STUB(4); return 0; }
 void bgfxPrimBuffer::vfunc_5(void* a0) { PDDI_STUB(5); }
 void bgfxPrimBuffer::vfunc_6() { PDDI_BASE_V(6, FUN_00326d60()); }
-void bgfxPrimBuffer::vfunc_7() { PDDI_STUB(7); }
+unsigned int bgfxPrimBuffer::vfunc_7() { PDDI_STUB(7); return 0; }
 void bgfxPrimBuffer::vfunc_8(unsigned int a0) { PDDI_STUB(8); }
 void bgfxPrimBuffer::vfunc_9(void* a0, int a1) { PDDI_STUB(9); }
 bool bgfxPrimBuffer::vfunc_10(int a0) { PDDI_STUB(10); return false; }

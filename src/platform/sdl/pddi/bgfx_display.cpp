@@ -49,9 +49,24 @@ void bgfxDisplay::hostShutdown()
 }
 
 // ---- slots
-// slot 4: init from the engine's display config (the mode table, auto-select; 640x480 fallback). G1: the window
-// and bgfx::init come from the platform layer; the config's size becomes the back buffer.
-bool bgfxDisplay::vfunc_4(int a0) { PDDI_STUB(4); return m_initialised; }
+// slot 4: init from the engine's display config ({width, height, depth, ...}: 0x31ae70 picks a mode from its table
+// and creates the D3D device). Here: the platform's window and bgfx on it, at the platform's size (the window's,
+// not the TV mode's; 640x480 by default). The host build's caller brings bgfx up itself (hostInit).
+bool bgfxDisplay::vfunc_4(int a0)
+{
+    if (m_initialised)
+        return true;
+#if HULK_PDDI_GAME && defined(_WIN32)
+    const int* cfg = (const int*)a0;
+    logf("pddi: display init: game asks %dx%d depth %d\n", cfg ? cfg[0] : 0, cfg ? cfg[1] : 0, cfg ? cfg[2] : 0);
+    if (cfg && cfg[2])
+        m_depth = (unsigned)cfg[2];
+    return platformDisplayInit(this, 640, 480);
+#else
+    PDDI_STUB(4);
+    return m_initialised;
+#endif
+}
 // slot 5: set the mode (width, height, depth); unchanged -> true, else re-init through slot 4
 bool bgfxDisplay::vfunc_5(int a0, int a1, int a2)
 {
@@ -80,8 +95,14 @@ unsigned int bgfxDisplay::vfunc_13() { return 0; }
 // callback 0x31acc0 counts them) and presents; bgfx::frame presents with vsync.
 void bgfxDisplay::vfunc_14()
 {
+#if HULK_PDDI_GAME && defined(_WIN32)
+    platformBeforeFrame(m_frame);
+#endif
     if (m_initialised)
         bgfx::frame();
+#if HULK_PDDI_GAME && defined(_WIN32)
+    platformAfterFrame(m_frame);
+#endif
     m_frame++;
 }
 void bgfxDisplay::vfunc_15(int a0, int a1) { PDDI_STUB(15); }   // copy the back buffer rect (CopyRects): G4

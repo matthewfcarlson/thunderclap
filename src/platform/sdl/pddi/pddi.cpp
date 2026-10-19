@@ -130,6 +130,32 @@ const DrawRecord* drawlogAt(uint32_t i)
     return &s_ring[(s_count - n + i) % kDrawRing];
 }
 
+// texture -> first-seen ordinal, given out at the first logged draw that uses it (hybrid/hooks.cpp dl_tex)
+enum { kTexSlots = 4096 };
+static const void* s_texKey[kTexSlots];
+static uint32_t s_texVal[kTexSlots], s_texCount;
+
+uint32_t drawlogTexture(const void* t)
+{
+    if (!t)
+        return 0;
+    uint32_t h = (uint32_t)(((uintptr_t)t >> 4) % kTexSlots);
+    for (uint32_t i = 0; i < kTexSlots; i++, h = (h + 1) % kTexSlots) {
+        if (s_texKey[h] == t)
+            return s_texVal[h];
+        if (!s_texKey[h]) {
+            s_texKey[h] = t;
+            s_texVal[h] = ++s_texCount;
+            return s_texCount;
+        }
+    }
+    return 0xffffffffu;
+}
+
+static unsigned s_draws;
+unsigned drawCount() { return s_draws; }
+void countDraw() { s_draws++; }
+
 bool drawlogDump(const char* path)
 {
     FILE* f = fopen(path, "wb");
@@ -156,6 +182,8 @@ extern "C" int hulk_pddi_create_device(int major, int minor, void** out)
     static hulk::pddi::bgfxDevice* s_device;
 #if HULK_PDDI_GAME && defined(_WIN32)
     hulk_pddi_run_initializers();                       // bx/bgfx's static initializers (once)
+    hulk::pddi::platformInit();
+    hulk::pddi::logf("pddi: create device %d.%d (bgfx backend)\n", major, minor);
 #endif
     if (major == 0x12 && minor == 0xb) {
         if (!s_device)

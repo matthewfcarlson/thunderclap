@@ -20,9 +20,16 @@ build/venv/bin/python tools/native_fix.py --rule reg-call --apply --verify     #
 HULK_TREE_REPORT=... HULK_TREE_MANIFEST=... HULK_BINDINGS=... build/venv/bin/python tools/native_fix.py --rule base-ctor --apply --verify   # candidate rules: return-param, base-ctor, this-cand
 build/venv/bin/python tools/native_run.py --hello       # Wine runs a trivial i686 PE? (our own prefix: build/native/wineprefix)
 build/venv/bin/python tools/native_run.py               # run the image under Wine: build/native/run/ (trace, summary)
+build/venv/bin/python tools/native_link.py --reuse-map --gfx   # with the pddi/bgfx graphics backend (docs/graphics-backend.md 8)
 # beside another agent's runs: HULK_CLANG_PROBE_DIR=build/native5/clang-probe HULK_CLANG_PROBE_CACHE=build/clang-probe/cache
 #   HULK_NATIVE_DIR=build/native5 ... clang_probe.py --snapshot --configs msvc; native_link.py --tree build/native5/clang-probe/snap
 ```
+
+**Status 2026-10-19 (G1): the graphics boundary is crossed.** With `native_link.py --gfx` the device the engine
+creates is the pddi/bgfx backend's ([graphics-backend.md section 8](graphics-backend.md#8-g1-the-backend-in-the-native-image-2026-10-19)):
+no D3D import is called, bgfx draws through Vulkan (MoltenVK) under Wine, and start-up goes on through
+`pure3d::InitPlatform`, physics init and the platform start-up to the RCF mount, where it stops on native-only
+source bugs: see [Graphics boundary crossed](#graphics-boundary-crossed-g1-2026-10-19).
 
 **Status 2026-10-18 night: the game object is built and the D3D device is up.** The image runs all **457 game
 C++ dynamic initializers**, gets into `main`, constructs the game object (the Lua VM opened with its libraries,
@@ -46,6 +53,28 @@ next fixes 1-3](#after-the-next-fixes-1-3-2026-10-17) the night before (first st
 Cold, the first run takes 10-15 minutes (4 compiler processes); a warm run takes 30 s. Everything goes to `build/clang-probe/`:
 `report.json` (counts, categories with example sites, scans, link probe), `undefined.txt` (every undefined symbol with
 its group and demangled name), `cache/` (per-TU results and objects) and `snap/` (the tree being probed).
+
+## Graphics boundary crossed (G1, 2026-10-19)
+
+The native7 tree (frozen 18:18 sources + native7's 308 rewrites, its snapshot and binding map), linked with
+`native_link.py --reuse-map --gfx`, run with `native_run.py` (Wine 7.7). Strict link: 0 errors with and without
+`--gfx`. The run, after the backend replaced the d3d layer:
+
+| stop | where | cause (read off the original) | probed fix (scratch tree only) |
+|---|---|---|---|
+| 1 | physics init `FUN_002f4df0` -> `O_2f7ee0` ctor -> `FUN_002efa90` -> `CollisionVolume::vfunc_10` -> `Node::run` -> `CollisionWall::vfunc_13` (`equivalent/0x0030e870.cpp`) returns to 0x1d2 | `SimState::vfunc_4` (0x2ef300, `lea eax,[ecx+0x10]; ret 4`) takes one argument; the original pushes three and leaves two on the stack as the arguments of the next call, `FUN_0022c3b0(output, bounds)`; the source declares `vfunc_4(unsigned, void*, void*)`, so natively esp is off by 8 | `virtual void* vfunc_4(unsigned int);` and `owner->result->vfunc_4(value)`: **equiv.py --inputs 3000 EQUIVALENT** |
+| 2 | drive thread `FUN_0026db70` -> `DriveOpenRequest::vfunc_0` (0x2756e0): `missing ?acquire@Lock_2756e0@core@fn_f0fe475a@@UAEXXZ` | clang calls a member object's virtual function directly (`drive->lock.acquire()`); native_link's `source_slots` didn't match a symbol with a namespace between class and `fn_` | **fixed in tools/native_link.py** (10 more virtual-dispatch stubs) |
+| 3 | `FUN_0008e880` -> stream `configure()` -> `core::InstanceDrive::vfunc_24` (`matches/0x00276d60.cpp`) | a pure forwarder (`mov ecx,[ecx+0xc]; jmp 0x272920`) that passes its two stack arguments on; the source calls `g()` with none. `native_fix.py --rule pass-through` plans it but its rewrite didn't compile (`compile_error`, in native-fix.log); 13 such sources are still planned | the snapshot's definitions of every pure forwarder (`mov ecx,[ecx+d]; jmp X`, `...; mov eax,[ecx]; jmp [eax+s]`: 70 functions) as naked asm doing exactly that (probe tool `probe_forwarders.py`); a source-level fix is native-build work (MSVC 7.1 `__declspec(naked)` + `__asm` would byte-match) |
+| 4 | `File::vfunc_18` (`equivalent/0x00276160.cpp`) and `InstanceDrive::vfunc_19` (`equivalent/0x00276c10.cpp`) | the three words pushed before `call FUN_0026dbb0` (no arguments, plain `ret`) are the constructor `FUN_00274ca0`/`FUN_00274d80`'s (4 arguments, `ret 0x10`): the sources declare `FUN_0026dbb0` `__stdcall` with three (check 7 lists both) | `extern void* __cdecl FUN_0026dbb0();`, `FUN_00274ca0(void*, core::File*, unsigned, unsigned)` / `FUN_00274d80(void*, core::InstanceDrive*, unsigned, unsigned)` called as `(FUN_0026dbb0(), this, a, b)`: **both EQUIVALENT** |
+| 5 (open) | RCF mount: `thunk_FUN_00271560` -> `FUN_00277b70` -> `CementLibrary` ctor (`equivalent/0x00277a70.cpp`) -> `File::vfunc_18` -> ... -> `FileCompletionRequest::vfunc_0` (0x274d20) releases its `CementLibrary` (the `IFileCompletionCallback` subobject at +4) and `CementLibrary::vfunc_1` (0x2777b0) gets `this` pointing into vtables.s | not read to the end: the ctor's explicit base constructor calls on a 4-base class, the adjustor thunks matched by byte shape (0x2777c0/0x2777d0 `sub ecx,4; jmp X`: identical bytes for any of the class's thunks once the jump is masked; the verification build names 0x2777d0 after `a`'s thunk), and the stub vftables of that class are the suspects | - |
+
+Stops 1, 3 and 4 are the classes native8 works on (check 7's callee-pops list has 0x26dbb0, 0x274ca0 and 0x272920;
+0x2ef300 is a virtual callee, which check 7 can't see by symbol): "the pushes belong to the next call", and pure
+forwarders. The verified rewrites for 1 and 4 are in the G1 report for `native_fix.py`'s verified path (G1 did not
+change `matches/` or `equivalent/`). Tools for crash hunting added to `src/platform/sdl/xdk/startup.cpp`'s crash
+report: a scan of the stack top for return addresses into the image (the frame chain is useless after a stack
+imbalance: `scan esp+... ` lines, symbolized by native_run.py; `HULK_CRASH_BELOW=n` starts n words lower),
+`HULK_CRASH_DUMP=1` (0x40 bytes at each register) and `HULK_CRASH_PEEK=addr,...` (heap layouts repeat between runs).
 
 ## Start-up, part 3 (2026-10-18 night)
 

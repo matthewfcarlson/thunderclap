@@ -30,6 +30,20 @@ static hulk_host_file* hulk_trace_;
 static const char* hulk_phase_ = "start";
 static hulk_u32 hulk_seq_;
 
+static void hulk_trace_line(const char* fmt, ...);
+
+// The graphics backend's log (src/platform/sdl/pddi/win32_platform.cpp): one trace line "gfx <line>" per call.
+extern "C" void HULK_CDECL hulk_native_log(const char* line) {
+    char buf[480];
+    int n = 0;
+    while (line[n] && line[n] != '\n' && n < (int)sizeof(buf) - 1) {
+        buf[n] = line[n];
+        n++;
+    }
+    buf[n] = 0;
+    hulk_trace_line("gfx %s", buf);
+}
+
 static void hulk_trace_line(const char* fmt, ...) {
     char buf[512];
     __builtin_va_list ap;
@@ -105,6 +119,56 @@ static hulk_u32 HULK_STDCALL hulk_crash_filter(hulk_exception_pointers* ep) {
         hulk_trace_line("stack0 0x%08x 0x%08x 0x%08x 0x%08x", ((hulk_u32*)esp)[0], ((hulk_u32*)esp)[1],
                         ((hulk_u32*)esp)[2], ((hulk_u32*)esp)[3]);
     hulk_frames(c[0xb4 / 4]);
+    // when the frame chain is broken: the words near the stack top that look like return addresses into the image
+    if (esp >= 0x10000) {
+        int shown = 0;
+        // (HULK_CRASH_BELOW=n: start n words below esp: the stale frames of the calls that just returned)
+        const char* below = hulk_host_getenv("HULK_CRASH_BELOW");
+        int from = 0;
+        if (below)
+            for (; *below >= '0' && *below <= '9'; below++)
+                from = from * 10 + (*below - '0');
+        for (int i = -from; i < 256 && shown < 48; i++) {
+            hulk_u32 v = ((hulk_u32*)esp)[i];
+            if (v >= 0x10001000u && v < 0x10900000u) {
+                hulk_trace_line("scan esp%c0x%03x 0x%08x", i < 0 ? '-' : '+', (i < 0 ? -i : i) * 4, v);
+                shown++;
+            }
+        }
+    }
+    // HULK_CRASH_DUMP=1: the 0x40 bytes at each register that points into the heap or the image (last: a bad
+    // pointer faults again and ends the process with code 5)
+    if (hulk_host_getenv("HULK_CRASH_DUMP")) {
+        static const int regs[] = {0xb0, 0xa4, 0xac, 0xa8, 0xa0, 0x9c, 0xb4};
+        static const char* const names[] = {"eax", "ebx", "ecx", "edx", "esi", "edi", "ebp"};
+        if (hulk_trace_)
+            hulk_host_fflush(hulk_trace_);
+        for (int r = 0; r < 7; r++) {
+            hulk_u32 v = c[regs[r] / 4] & ~3u;
+            if (v < 0x00100000u)
+                continue;
+            const hulk_u32* m = (const hulk_u32*)v;
+            for (int k = 0; k < 16; k += 8)
+                hulk_trace_line("dump %s+0x%02x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x", names[r],
+                                k * 4, m[k], m[k + 1], m[k + 2], m[k + 3], m[k + 4], m[k + 5], m[k + 6], m[k + 7]);
+        }
+    }
+    // HULK_CRASH_PEEK=addr[,addr...]: the same for addresses from an earlier run's dump (heap layouts repeat)
+    if (const char* peek = hulk_host_getenv("HULK_CRASH_PEEK")) {
+        while (*peek) {
+            hulk_u32 v = 0;
+            if (peek[0] == '0' && (peek[1] == 'x' || peek[1] == 'X'))
+                peek += 2;
+            for (; *peek && *peek != ','; peek++)
+                v = v * 16 + (hulk_u32)(*peek <= '9' ? *peek - '0' : (*peek | 0x20) - 'a' + 10);
+            if (*peek == ',')
+                peek++;
+            const hulk_u32* m = (const hulk_u32*)(v & ~3u);
+            for (int k = 0; k < 16; k += 8)
+                hulk_trace_line("peek 0x%08x+0x%02x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x", v,
+                                k * 4, m[k], m[k + 1], m[k + 2], m[k + 3], m[k + 4], m[k + 5], m[k + 6], m[k + 7]);
+        }
+    }
     hulk_summary("crash", ep->record->code);
     hulk_host_ExitProcess(4);
     return 0;

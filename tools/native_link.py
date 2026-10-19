@@ -4,6 +4,7 @@
   build/venv/bin/python tools/native_link.py              # binding map from the verification build + link inventory
   build/venv/bin/python tools/native_link.py --no-link    # binding map and inventory only (no lld-link run)
   build/venv/bin/python tools/native_link.py --jobs 3     # processes for the equivalent/ bindings (default 3)
+  build/venv/bin/python tools/native_link.py --reuse-map --gfx   # the image with the pddi/bgfx graphics backend
 
 Why: every verified function is checked with its relocations masked (compare.py) or bound by address
 (equiv.py), so a call made under a caller's stub name (`Base_135f40::Fin`), from inside a wrapped source's
@@ -40,7 +41,9 @@ Outputs (build/native/, not tracked):
                      retargeted to their item, gl_ clang dynamic initializers made global),
                      host/ (msvcrt/ntdll/kernel32 import libraries from src/platform/sdl/crt/host_crt_table.h),
                      crt/ (src/platform/sdl/crt/ compiled), startup.s/.obj (the game's initializer table, type_info's
-                     vftable), hulk-strict.exe/.map (the image and its map: tools/native_run.py runs it under Wine)
+                     vftable), hulk-strict.exe/.map (the image and its map: tools/native_run.py runs it under Wine),
+                     gfx/ (--gfx: the pddi objects and bgfx/bimg/bx with their host imports renamed hulk_gfx_*,
+                     and the import libraries for those: graphics_backend)
 
 The start-up milestone (docs/native-build.md "Start-up"; tools/native_host.py): the host C runtime and our CRT glue,
 the library code and data the tree reaches by address (src/platform/sdl/xdk/library.h), the entry point
@@ -368,6 +371,16 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
         if by_addr_def.get(a) and by_addr_def[a] != s and a not in host["by_addr"]:
             continue
         by_addr_def[a] = s
+    # --gfx: the pddi backend on bgfx in place of pure3d's d3d layer (graphics_backend): the engine's one call of
+    # d3dCreateDevice gets our device, so every pddi object the game creates from then on is ours; the pddi
+    # objects' references to the portable bases' functions are bound by address like the tree's own
+    gfx = graphics_backend(os.path.join(OUT, "link")) if GFX else None
+    if gfx and gfx["objects"]:
+        for s in gfx["game_refs"]:
+            refs[s] += 1
+            undef.add(s)
+        defined |= gfx["defined"]
+        by_addr_def[GFX_DEVICE_ADDR] = GFX_DEVICE_ENTRY
     # fix 6a: the game's vftables and RTTI structures as data (build/native/link/vtables.s), named by address
     vt = code_owned_data(by_addr_def)
     for a, lab in vt["labels"].items():
@@ -575,6 +588,9 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
            "aliases": len(aliases), "aliases_by_source": dict(how), "stub_vftable_slots": dict(slot_how),
            "code_owned_data": vt["stats"], "deleting_destructors": dd["stats"], "platform_shim": shim["stats"],
            "host_crt": dict(host["stats"]), "library_shim": lib["stats"], "startup": start_st,
+           "graphics": dict(gfx["stats"], unresolved=gfx["unresolved"],
+                            game_refs_unbound=sorted(s for s in gfx["game_refs"] if s not in aliases))
+           if gfx else None,
            "interior_retargeted_objects": len(retarget),
            "undefined_after": {"symbols": len(after), "references": sum(refs[s] for s in after),
                                "groups": tally(after_g, after)}}
@@ -614,6 +630,8 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
         if blk["mismatch"]:
             inv["data_block_mismatch"] = blk["mismatch"]
         link_objs += shim["objects"] + host["objects"]
+        if gfx and gfx["objects"]:
+            link_objs += gfx["objects"]
         # a virtual member of a stub class that clang calls directly (`sub.F0()` on a member object: clang
         # devirtualizes, MSVC 7.1 called through the vftable) and that nothing defines: its stub dispatches through
         # the object's vftable at the member's slot, as the original's call did
@@ -621,9 +639,143 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
         for s_, n in source_slots(after - set(vthunks), man).items():
             vthunks[s_] = n
         inv["virtual_dispatch_stubs"] = len(vthunks)
-        inv["lld_link"] = lld_link(link_objs, aliases, after | vt["undefined"], vt["asm"], dd["asm"], startup, host["libs"],
+        inv["lld_link"] = lld_link(link_objs, aliases, after | vt["undefined"] | set(gfx["unresolved"] if gfx else ()),
+                                   vt["asm"], dd["asm"], startup,
+                                   host["libs"] + (gfx["libs"] if gfx and gfx["objects"] else []),
                                    data_asm=blk["asm"], vthunks=vthunks)
     return inv
+
+
+# ---------------------------------------------------------------------------------------------
+# The graphics backend (docs/graphics-backend.md G1, build/g0/LINK.md): --gfx / HULK_NATIVE_GFX=1
+GFX = os.environ.get("HULK_NATIVE_GFX") == "1"
+GFX_OUT = os.environ.get("HULK_GFX_OUT") or os.path.join(ROOT, "build/third_party/out")   # tools/native_gfx.py
+GFX_DEVICE_ADDR = 0x0031ba60            # d3dCreateDevice (pure3d::InitPlatform 0x00292560, its only caller)
+GFX_DEVICE_ENTRY = "_hulk_pddi_create_device"
+GFX_KEEP = {"__fltused", "@feat.00"}    # the image's own (src/platform/sdl/crt/crt_glue.cpp)
+# Which DLL each Windows function bgfx/bx and the pddi backend import comes from (stdcall names; everything cdecl is
+# msvcrt.dll's, the compiler helpers ntdll.dll's). A name missing here is reported, not guessed.
+GFX_DLLS = {
+    "kernel32": set("""CloseHandle CreateProcessA CreateSemaphoreA CreateThread DeleteCriticalSection EnterCriticalSection
+        FindClose FindFirstFileExW FindNextFileW FreeLibrary GetCommandLineW GetCurrentProcess GetCurrentThreadId
+        GetEnvironmentVariableW GetExitCodeThread GetFullPathNameW GetLargePageMinimum GetLastError GetModuleFileNameW
+        GetModuleHandleA GetModuleHandleW GetNativeSystemInfo GetProcAddress GetStdHandle GetSystemInfo GetTempPathW
+        InitializeCriticalSection IsDebuggerPresent LeaveCriticalSection LoadLibraryA LoadLibraryExW LoadLibraryW
+        MoveFileExW OutputDebugStringA QueryPerformanceCounter QueryPerformanceFrequency ReleaseSemaphore
+        SetEnvironmentVariableW SetErrorMode Sleep SwitchToThread TerminateProcess TlsAlloc TlsFree TlsGetValue
+        TlsSetValue VirtualAlloc VirtualFree VirtualProtect WaitForSingleObject WaitForSingleObjectEx WriteFile
+        CreateFileA ExitProcess GetTickCount K32EnumProcessModules K32GetModuleBaseNameA
+        K32GetProcessMemoryInfo""".split()),
+    "user32": set("""AdjustWindowRect AdjustWindowRectEx CreateWindowExA CreateWindowExW DefWindowProcA DefWindowProcW
+        DestroyWindow DispatchMessageA GetClientRect GetDC LoadCursorA LoadIconA PeekMessageA RegisterClassA
+        RegisterClassExA ReleaseDC SetWindowPos SetWindowTextA ShowWindow TranslateMessage UpdateWindow""".split()),
+    "gdi32": set("ChoosePixelFormat DescribePixelFormat GetPixelFormat SetPixelFormat SwapBuffers".split()),
+    "ntdll": set("_alldiv _allrem _aulldiv _aullrem _allmul _allshl _allshr _aullshr _chkstk".split()),
+}
+GFX_CXX = {"??2@YAPAXI@Z": "op_new", "??3@YAXPAX@Z": "op_delete", "??_U@YAPAXI@Z": "op_new_array",
+           "??_V@YAXPAX@Z": "op_delete_array"}
+
+
+def gfx_nm(paths):
+    """(defined, undefined) external symbols over objects and archives (every member)."""
+    d, u = set(), set()
+    p = subprocess.run([os.path.join("/opt/homebrew/opt/llvm/bin", "llvm-nm"), "--no-sort"] + list(paths),
+                       capture_output=True, text=True, errors="replace")
+    for line in p.stdout.splitlines():
+        parts = line.split()
+        if len(parts) == 2 and parts[0] == "U":
+            u.add(parts[1])
+        elif len(parts) == 3 and parts[1] in "TDBRCVW":
+            d.add(parts[2])
+    return d, u
+
+
+def gfx_import(s):
+    """(dll, renamed symbol, .def line) for one host name the graphics objects import, or None."""
+    m = re.fullmatch(r"(__imp_)?_(\w+?)(@\d+)", s)            # stdcall: Windows API
+    if m:
+        name = m.group(2)
+        dll = next((k for k in ("kernel32", "user32", "gdi32") if name in GFX_DLLS[k]), None)
+        if not dll:
+            return None
+        return dll, "%s_hulk_gfx_%s%s" % (m.group(1) or "", name, m.group(3)), \
+            "hulk_gfx_%s%s == %s" % (name, m.group(3), name)
+    if s in GFX_CXX:
+        return "msvcrt", "_hulk_gfx_" + GFX_CXX[s], "hulk_gfx_%s == %s" % (GFX_CXX[s], s)
+    m = re.fullmatch(r"(__imp_)?_(\w+)", s)                     # cdecl: the C runtime and compiler helpers
+    if m:
+        name = m.group(2)
+        dll = "ntdll" if name in GFX_DLLS["ntdll"] else "msvcrt"
+        return dll, "%s_hulk_gfx_%s" % (m.group(1) or "", name), "hulk_gfx_%s == %s" % (name, name)
+    return None
+
+
+def graphics_backend(outdir):
+    """The pddi backend and bgfx for the native image (--gfx; build/g0/LINK.md, docs/graphics-backend.md G1).
+
+    Inputs (tools/native_gfx.py build --target win32 + pddi --target win32): the pddi objects
+    (out/pddi-win32/obj/*.obj, linked as objects: they define the device entry point) and bgfx/bimg/bx.lib.
+    Every host function they import is renamed to `hulk_gfx_<name>` in copies of the objects and libraries
+    (build/native/link/gfx/) and comes from import libraries of our own (`hulk_gfx_X == X`): the graphics side
+    calls msvcrt.dll / kernel32 / user32 / gdi32 / ntdll directly, while the tree's references of the same plain
+    names (`_free`, `_memcpy`, `??3@YAXPAX@Z`, `_CloseHandle@4`, ...) keep their bindings to the game's heap, the
+    host CRT and the XDK shim. The pddi objects' `FUN_<address>` references (hulk::pddi::GameBase, the portable
+    pddi bases' own functions) are returned for the address binding; d3dCreateDevice is bound to
+    hulk_pddi_create_device by the caller."""
+    st = collections.Counter()
+    out = {"objects": [], "libs": [], "game_refs": set(), "defined": set(), "unresolved": [], "stats": st}
+    objs = sorted(os.path.join(GFX_OUT, "pddi-win32/obj", f) for f in os.listdir(os.path.join(GFX_OUT, "pddi-win32/obj"))
+                  if f.endswith(".obj")) if os.path.isdir(os.path.join(GFX_OUT, "pddi-win32/obj")) else []
+    libs = [os.path.join(GFX_OUT, "win32/lib/%s.lib" % n) for n in ("bgfx", "bimg", "bx")]
+    if not objs or not all(os.path.exists(l) for l in libs):
+        st["not built (tools/native_gfx.py build --target win32; pddi --target win32)"] += 1
+        return out
+    d_obj, _u = gfx_nm(objs)
+    d_all, u_all = gfx_nm(objs + libs)
+    renames, imports = {}, collections.defaultdict(set)
+    for s in sorted(u_all - d_all):
+        if s in GFX_KEEP or s.startswith("_hulk_native_"):
+            continue          # (the image's own: the trace sink in src/platform/sdl/xdk/startup.cpp, ...)
+        if ADDR_RX.search(s if s.startswith("?") else "_" + s.lstrip("_@")):
+            out["game_refs"].add(s)
+            continue
+        r = gfx_import(s)
+        if r is None:
+            out["unresolved"].append(s)
+            continue
+        dll, new, line = r
+        renames[s] = new
+        imports[dll].add(line)
+    st["pddi objects"] = len(objs)
+    st["GameBase references (bound by address)"] = len(out["game_refs"])
+    st["host imports renamed hulk_gfx_"] = len(renames)
+    st["host imports without a DLL (stubbed)"] = len(out["unresolved"])
+    gd = os.path.join(outdir, "gfx")
+    os.makedirs(os.path.join(gd, "obj"), exist_ok=True)
+    for dll, lines in sorted(imports.items()):
+        df = os.path.join(gd, "gfx_%s.def" % dll)
+        with open(df, "w") as f:
+            f.write("LIBRARY %s.dll\nEXPORTS\n%s\n" % (dll, "\n".join(sorted(lines))))
+        lib = os.path.join(gd, "gfx_%s.lib" % dll)
+        r = subprocess.run([os.path.join("/opt/homebrew/opt/llvm/bin", "llvm-dlltool"), "-m", "i386", "-d", df,
+                            "-l", lib], capture_output=True, text=True)
+        if r.returncode:
+            raise RuntimeError("llvm-dlltool %s: %s" % (dll, r.stderr[-1000:]))
+        out["libs"].append(lib)
+    lst = os.path.join(gd, "renames.txt")
+    with open(lst, "w") as f:
+        f.write("".join("%s %s\n" % kv for kv in sorted(renames.items())))
+    for src, dst_dir in [(o, os.path.join(gd, "obj")) for o in objs] + [(l, gd) for l in libs]:
+        dst = os.path.join(dst_dir, os.path.basename(src))
+        r = subprocess.run(["/opt/homebrew/opt/llvm/bin/llvm-objcopy", "--redefine-syms=" + lst, src, dst],
+                           capture_output=True, text=True)
+        if r.returncode:
+            raise RuntimeError("llvm-objcopy %s: %s" % (src, r.stderr[-1000:]))
+        (out["objects"] if src.endswith(".obj") else out["libs"]).append(dst)
+    out["defined"] = d_obj
+    if GFX_DEVICE_ENTRY not in d_obj:
+        st["device entry point missing"] += 1
+    return out
 
 
 SHIM_DIR = os.path.join(ROOT, "src/platform/sdl/xdk")
@@ -800,7 +952,8 @@ def source_slots(symbols, man):
     (MS ABI: slots in declaration order, a virtual destructor taking one). Unique definitions only."""
     want = collections.defaultdict(list)       # (ns, class) -> [(symbol, member)]
     for s in symbols:
-        m = re.match(r"\?(\w+)@(\w+)@(fn_[0-9a-f]{8})@@[UM][AB]E", s)
+        # (a namespace between the class and the TU's fn_ namespace is allowed: `?acquire@Lock_2756e0@core@fn_f0fe475a@@`)
+        m = re.match(r"\?(\w+)@(\w+)@(?:\w+@)*?(fn_[0-9a-f]{8})@@[UM][AB]E", s)
         if m:
             want[(m.group(3), m.group(2))].append((s, m.group(1)))
     if not want:
@@ -975,10 +1128,14 @@ def main(argv=None):
     ap.add_argument("--reuse-map", action="store_true",
                     help="take the binding map from build/native/bindings.json (e.g. built on another machine) "
                          "instead of rebuilding it; only the link inventory and the link run")
+    ap.add_argument("--gfx", action="store_true",
+                    help="link the pddi backend on bgfx in place of pure3d's d3d layer (or HULK_NATIVE_GFX=1; "
+                         "build/g0/LINK.md, docs/graphics-backend.md G1)")
     ap.add_argument("--tree", help="the verification tree to bind from (default build/tree, or HULK_TREE_DIR): e.g. "
                     "build/clang-probe/snap, the snapshot tools/clang_probe.py compiled")
     a = ap.parse_args(argv)
-    global TREE
+    global TREE, GFX
+    GFX = GFX or a.gfx
     if a.tree:
         TREE = os.path.abspath(a.tree)
     os.makedirs(OUT, exist_ok=True)

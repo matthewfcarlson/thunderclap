@@ -6,7 +6,8 @@
   build/venv/bin/python tools/native_run.py --hello            # only check that Wine runs a trivial i686 PE
 
 Wine: Whisky's Wine (WINE env var to override), always in our own prefix, build/native/wineprefix (WINEPREFIX is
-set by this tool; the user's bottles are never touched). The image reads the extracted game files from
+set by this tool; the user's bottles are never touched). Graphics: HULK_GFX_RENDERER defaults to vulkan here (Whisky's
+MoltenVK, found through DYLD_FALLBACK_LIBRARY_PATH); HULK_GFX_* options in src/platform/sdl/pddi/win32_platform.cpp. The image reads the extracted game files from
 isos/extracted (HULK_DATA_DIR) and writes saves under build/native/run/save (HULK_SAVE_DIR) and title storage
 (`T:\\`) under build/native/tdata (HULK_TDATA_DIR).
 
@@ -34,6 +35,13 @@ LLVM = "/opt/homebrew/opt/llvm/bin"
 def wine_env(prefix):
     env = dict(os.environ, WINEPREFIX=prefix, WINEDEBUG=os.environ.get("WINEDEBUG", "-all"),
                WINEDLLOVERRIDES="mscoree,mshtml=")
+    # the graphics backend (docs/graphics-backend.md G1): under Whisky's Wine the image draws through bgfx's Vulkan
+    # renderer on Whisky's own MoltenVK (D3D11 presents, but Wine 7.7's d3dcompiler can't build the shaders);
+    # Wine's winevulkan finds libMoltenVK.dylib through the dynamic loader's fallback path
+    env.setdefault("HULK_GFX_RENDERER", "vulkan")
+    lib = os.path.join(os.path.dirname(os.path.dirname(WINE)), "lib")
+    if os.path.exists(os.path.join(lib, "libMoltenVK.dylib")) and "DYLD_FALLBACK_LIBRARY_PATH" not in env:
+        env["DYLD_FALLBACK_LIBRARY_PATH"] = lib + ":/usr/lib"
     return env
 
 
@@ -143,10 +151,10 @@ def summarize(trace_path, sym):
             crash = nice
         elif l.startswith("missing "):
             missing = nice
-        elif l.startswith("frame "):
+        elif l.startswith(("frame ", "scan ")):
             frames.append(nice)
     return {"lines": len(lines), "initializers_run": inits, "first_calls": firsts, "end": end, "crash": crash,
-            "missing": missing, "frames": frames[:12]}, out
+            "missing": missing, "frames": frames[:36]}, out
 
 
 def main(argv=None):

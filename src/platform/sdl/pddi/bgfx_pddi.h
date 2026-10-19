@@ -43,27 +43,30 @@ class bgfxObject {
 };
 
 // Stands in for pure3d::d3dDevice (vftable 0x4324e4, 14 slots). Created by hulk_pddi_create_device (in place of
-// d3dCreateDevice 0x31ba60). Slot 5/6: the current display, 7: new display (0x49c bytes in the game), 8: new context
-// (0x450), 9: new texture (0xf8) from a parameter block, 10: new prim buffer (0x40), 11: shader registration.
+// d3dCreateDevice 0x31ba60). Slot 4: version, 5/6: the current context, 7: new display (0x49c bytes in the game),
+// 8: new context (0x450), 9: new texture (0xf8) from a parameter block, 10: new prim buffer (0x40), 11: new shader by
+// pddi name (the game: the factory table 0x5555c8 that d3dDevice's constructor fills through FUN_00328130; ours is
+// bgfxDevice::newShader, see docs/graphics-backend.md G1 "binding").
 class bgfxDevice : public bgfxObject {
   public:
     enum { kClass = kClassDevice };
     bgfxDevice();
     virtual ~bgfxDevice();
-    virtual void vfunc_4(int);                // slot 4: d3dDevice 0x31b7d0 (pure3d/d3dDevice.cpp)
+    virtual void vfunc_4(void* version);      // slot 4: d3dDevice 0x31b7d0 (pure3d/d3dDevice.cpp)
     virtual void vfunc_5(void*);              // slot 5: d3dDevice 0x31b810 (pure3d/d3dDevice.cpp)
     virtual void* vfunc_6();                  // slot 6: d3dDevice 0x31b820 (pure3d/d3dDevice.cpp)
     virtual void* vfunc_7(int);               // slot 7: d3dDevice 0x31b830 (pure3d/d3dDevice.cpp)
     virtual void* vfunc_8(void*);             // slot 8: d3dDevice 0x31b860 (pure3d/d3dDevice.cpp)
-    virtual void* vfunc_9(int);                // slot 9: d3dDevice 0x31b8a0 (pure3d/d3dDevice.cpp)
+    virtual void* vfunc_9(const void*);       // slot 9: d3dDevice 0x31b8a0 (pure3d/d3dDevice.cpp)
     virtual void* vfunc_10(void*);            // slot 10: d3dDevice 0x31b960 (pure3d/d3dDevice.cpp)
-    virtual void vfunc_11(int, int);          // slot 11: d3dDevice 0x31b9d0 (pure3d/d3dDevice.cpp)
+    virtual void* vfunc_11(const char* name, int); // slot 11: d3dDevice 0x31b9d0 (pure3d/d3dDevice.cpp)
     virtual void vfunc_12(int, int);          // slot 12: d3dDevice 0x31b9f0 (pure3d/d3dDevice.cpp)
     virtual void vfunc_13(int);               // slot 13: base pddiDevice 0x31e230 (pure3d/pddiBaseContext.cpp)
 
-    int m_lastError;                          // +8 (slot 10 stores the prim buffer's status here)
-    bgfxDisplay* m_display;                   // +0xc (slots 5/6)
-    bgfxContext* m_context;
+    bgfxShader* newShader(const char* name);  // slot 11's factory (bgfx_device.cpp)
+    int m_lastError;                          // +8 (slots 9/10 store a failed object's status here)
+    bgfxContext* m_context;                   // +0xc: the current context (slots 5/6; slot 11 hands it to shaders)
+    bgfxDisplay* m_display;                   // +0x10 (the game: the Direct3D object, passed to new displays)
 };
 
 // Stands in for pure3d::d3dDisplay (vftable 0x43242c, 18 slots). Slot 4: init from a display config (mode table,
@@ -115,7 +118,7 @@ class bgfxContext : public bgfxObject {
     virtual void vfunc_4();                   // slot 4: d3dContext 0x323df0 (pure3d/d3dExtFramebufferEffects.cpp)
     virtual void vfunc_5();                   // slot 5: d3dContext 0x321280 (pure3d/d3dExtFramebufferEffects.cpp)
     virtual void vfunc_6(unsigned int);       // slot 6: base pddiBaseContext 0x31d4f0 (pure3d/pddiBaseContext.cpp)
-    virtual void vfunc_7(int);                // slot 7: base pddiBaseContext 0x31d500 (pure3d/pddiBaseContext.cpp)
+    virtual int* vfunc_7(int*);               // slot 7: base pddiBaseContext 0x31d500 (pure3d/pddiBaseContext.cpp)
     virtual void vfunc_8(void*);              // slot 8: base pddiBaseContext 0x31d510 (pure3d/pddiBaseContext.cpp)
     virtual float vfunc_9();                  // slot 9: base pddiBaseContext 0x31d520 (pure3d/pddiBaseContext.cpp)
     virtual void vfunc_10(void*);             // slot 10: base pddiBaseContext 0x31d530 (pure3d/pddiBaseContext.cpp)
@@ -144,7 +147,7 @@ class bgfxContext : public bgfxObject {
     virtual void vfunc_33(int, int, int, int); // slot 33: base pddiBaseContext 0x31d830 (pure3d/pddiBaseContext.cpp)
     virtual int vfunc_34();                   // slot 34: base pddiBaseContext 0x31d900 (pure3d/pddiBaseContext.cpp)
     virtual void vfunc_35(void*);             // slot 35: d3dContext 0x321990 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_36(int);               // slot 36: base pddiBaseContext 0x31d920 (pure3d/pddiBaseContext.cpp)
+    virtual int* vfunc_36(int*);              // slot 36: base pddiBaseContext 0x31d920 (pure3d/pddiBaseContext.cpp)
     virtual void vfunc_37(int, int, int);     // slot 37: base pddiBaseContext 0x31d940 (pure3d/pddiBaseContext.cpp)
     virtual void vfunc_38(int, int);          // slot 38: base pddiBaseContext 0x31da40 (pure3d/pddiBaseContext.cpp)
     virtual unsigned char vfunc_39(unsigned int); // slot 39: base pddiBaseContext 0x31da80 (pure3d/pddiBaseContext.cpp)
@@ -190,14 +193,14 @@ class bgfxContext : public bgfxObject {
     virtual bool vfunc_79();                  // slot 79: base pddiBaseContext 0x31e110 (pure3d/pddiBaseContext.cpp)
     virtual void vfunc_80(int, int, int);     // slot 80: d3dContext 0x321ce0 (pure3d/d3dExtFramebufferEffects.cpp)
     virtual void vfunc_81(void*, void*, void*); // slot 81: base pddiBaseContext 0x31e150 (pure3d/pddiBaseContext.cpp)
-    virtual void vfunc_82(int);               // slot 82: base pddiBaseContext 0x31e180 (pure3d/pddiBaseContext.cpp)
+    virtual int vfunc_82(int);                // slot 82: base pddiBaseContext 0x31e180 (pure3d/pddiBaseContext.cpp)
     virtual float vfunc_83(int);              // slot 83: base pddiBaseContext 0x31e1a0 (pure3d/pddiBaseContext.cpp)
     virtual unsigned int vfunc_84();          // slot 84: d3dContext 0x321d90 (pure3d/d3dExtFramebufferEffects.cpp)
     virtual void vfunc_85(unsigned char);     // slot 85: base pddiBaseContext 0x31e1b0 (pure3d/pddiBaseContext.cpp)
     virtual unsigned char vfunc_86();         // slot 86: base pddiBaseContext 0x31e1c0 (pure3d/pddiBaseContext.cpp)
     virtual void vfunc_87(int);               // slot 87: base pddiBaseContext 0x31f290 (pure3d/pddiBaseContext.cpp)
     virtual void vfunc_88(unsigned char);     // slot 88: base pddiBaseContext 0x31e9b0 (pure3d/pddiBaseContext.cpp)
-    virtual void vfunc_89(int);               // slot 89: d3dContext 0x321ea0 (pure3d/d3dExtFramebufferEffects.cpp)
+    virtual int vfunc_89(int);                // slot 89: d3dContext 0x321ea0 (pure3d/d3dExtFramebufferEffects.cpp)
     virtual bool vfunc_90(int);               // slot 90: d3dContext 0x321f50 (pure3d/d3dExtFramebufferEffects.cpp)
     virtual void vfunc_91();                  // slot 91: d3dContext 0x3212c0 (pure3d/d3dExtFramebufferEffects.cpp)
     virtual int vfunc_92(void*);              // slot 92: d3dContext 0x321d40 (pure3d/d3dExtFramebufferEffects.cpp)
@@ -240,11 +243,20 @@ class bgfxContext : public bgfxObject {
     unsigned m_cull;                          // slot 54
     unsigned m_drawIndex;                     // draws in this frame (drawlog)
     unsigned m_program;                       // bgfx::ProgramHandle of the fixed-function stand-in
+    unsigned m_texProgram, m_uTex, m_uAlpha;  // the textured one and its uniforms
+    uint32_t ensureTexProgram();
+    void drawlogState(DrawRecord& r);
+    static uint64_t blendState(int pddiBlendMode);
     float m_view[16], m_proj[16];
+    // slot 89 (GetExtension): the d3dContext's extension objects by id, in the game's order (+0x424..+0x448):
+    // 0x101 gamma, 0x500001 antialias, 0x500004 projected texture, 0x500005 read pixels, 0x102 hardware skinning,
+    // 0x500002 visibility test, 0x106 vertex program, 0x103 framebuffer effects, 0x104 framebuffer texture, 0x105 none
+    void* m_ext[10];
 };
 
-// Stands in for pure3d::d3dTexture (vftable 0x4333ac, 21 slots). 4-10: size/format/mip queries, 11: palette,
-// 12: ?, 13/14: lock/unlock a mip level (the unlock swizzles on the Xbox: here it uploads linear), 15/20: base.
+// Stands in for pure3d::d3dTexture (vftable 0x4333ac, 21 slots). 4: pixel type, 5/6: width/height, 7: bits per
+// pixel, 8: alpha bits, 9: mip count, 10: palette size, 11/12: palette write/read, 13/14: lock/unlock a mip level
+// (the unlock swizzles on the Xbox: here it uploads linear), 15/20: base, 18/19: a priority word.
 class bgfxTexture : public bgfxObject {
   public:
     enum { kClass = kClassTexture };
@@ -258,8 +270,8 @@ class bgfxTexture : public bgfxObject {
     virtual unsigned int vfunc_9();           // slot 9: d3dTexture 0x326270 (pure3d/d3dTexture.cpp)
     virtual unsigned int vfunc_10();          // slot 10: d3dTexture 0x326890 (pure3d/d3dTexture.cpp)
     virtual void vfunc_11(unsigned int, void*); // slot 11: d3dTexture 0x3268a0 (pure3d/d3dTexture.cpp)
-    virtual void vfunc_12(int);               // slot 12: d3dTexture 0x3268d0 (pure3d/d3dTexture.cpp)
-    virtual void vfunc_13(int, int);          // slot 13: d3dTexture 0x326900 (pure3d/d3dTexture.cpp)
+    virtual unsigned int vfunc_12(void*);     // slot 12: d3dTexture 0x3268d0 (pure3d/d3dTexture.cpp)
+    virtual void* vfunc_13(int, int);         // slot 13: d3dTexture 0x326900 (pure3d/d3dTexture.cpp)
     virtual void vfunc_14(int);               // slot 14: d3dTexture 0x326a10 (pure3d/d3dTexture.cpp)
     virtual void vfunc_15(int, int, int);     // slot 15: base pddiTexture 0x325ee0 (pure3d/pddiTexture.cpp)
     virtual void vfunc_16();                  // slot 16: d3dTexture 0x326ad0 (pure3d/d3dTexture.cpp)
@@ -268,9 +280,35 @@ class bgfxTexture : public bgfxObject {
     virtual unsigned int vfunc_19();          // slot 19: d3dTexture 0x326280 (pure3d/d3dTexture.cpp)
     virtual void vfunc_20(int, int, int, int, int, int, int); // slot 20: base pddiTexture 0x325ef0 (pure3d/pddiTexture.cpp)
 
+    // ours
+    // What lock (slot 13) returns: the level's description, laid out as the game's (FUN_0031c570 / FUN_0031c290):
+    // size, bits per pixel, the pixel layout (a type and channel masks) and where to write (bits, stride; a
+    // negative stride for the uncompressed formats: the engine writes its rows bottom-up, as into the Xbox buffer).
+    struct LockInfo {
+        int width, height, bitsPerPixel, depth;
+        int type;                             // 6 A8R8G8B8, 11 DXT1, 13 DXT2/3, 15 DXT4/5 (the game's numbering)
+        unsigned char direct;                 // masks are exactly A8R8G8B8
+        char pad15[3];
+        unsigned start[4], shift[4], mask[4]; // red, green, blue, alpha
+        int stride, slicePitch;
+        void* bits;
+    };
+    // device slot 9: the parameter block (width, height, ?, bits, alpha depth, mip count, pddi format, usage;
+    // byte +0x20: volume). Returns 0 with *error set when the game's checks would fail (non-power-of-two, ...).
+    static bgfxTexture* create(bgfxContext* context, const int* params, int* error);
+    bool init(int width, int height, int bits, int alphaDepth, int mips, int format);
+    void upload(int level);
     bgfxContext* m_context;
-    unsigned m_handle;                        // bgfx::TextureHandle
+    unsigned m_handle;                        // bgfx::TextureHandle (created on first upload: bgfx may not be up yet)
     unsigned m_width, m_height, m_format, m_mips;
+    unsigned m_pddiFormat, m_bits, m_alphaBits, m_usage;
+    int m_type;                               // LockInfo::type
+    int m_lockedLevel;                        // -1: not locked
+    unsigned m_priority;                      // slots 18/19
+    unsigned m_ordinal;                       // first-seen order (the drawlog's texture key)
+    LockInfo m_info;
+    unsigned char* m_levels[16];              // CPU copies per mip level (bgfx gets them on unlock)
+    uint32_t m_palette[256];
 };
 
 // Stands in for pure3d::d3dPrimBuffer (vftable 0x4334b4, 15 slots): a static vertex (+ index) buffer, filled
@@ -280,10 +318,10 @@ class bgfxPrimBuffer : public bgfxObject {
     enum { kClass = kClassPrimBuffer };
     explicit bgfxPrimBuffer(bgfxContext* context);
     virtual ~bgfxPrimBuffer();
-    virtual void vfunc_4();                   // slot 4: d3dPrimBuffer 0x327190 (pure3d/d3dPrimBufferStream.cpp)
+    virtual void* vfunc_4();                  // slot 4: d3dPrimBuffer 0x327190 (pure3d/d3dPrimBufferStream.cpp)
     virtual void vfunc_5(void*);              // slot 5: d3dPrimBuffer 0x3271f0 (pure3d/d3dPrimBufferStream.cpp)
     virtual void vfunc_6();                   // slot 6: base pddiPrimBuffer 0x326d60 (pure3d/pddiPrimBuffer.cpp)
-    virtual void vfunc_7();                   // slot 7: d3dPrimBuffer 0x327200 (pure3d/d3dPrimBufferStream.cpp)
+    virtual unsigned int vfunc_7();           // slot 7: d3dPrimBuffer 0x327200 (pure3d/d3dPrimBufferStream.cpp)
     virtual void vfunc_8(unsigned int);       // slot 8: d3dPrimBuffer 0x327220 (pure3d/d3dPrimBufferStream.cpp)
     virtual void vfunc_9(void*, int);         // slot 9: d3dPrimBuffer 0x3272b0 (pure3d/d3dPrimBufferStream.cpp)
     virtual bool vfunc_10(int);               // slot 10: d3dPrimBuffer 0x327230 (pure3d/d3dPrimBufferStream.cpp)
@@ -364,44 +402,58 @@ class bgfxShader : public bgfxObject {
     enum { kClass = kClassShader };
     explicit bgfxShader(bgfxContext* context);
     virtual ~bgfxShader();
-    virtual void vfunc_4();                   // slot 4: pure in the game's class
-    virtual void vfunc_5(int, int);           // slot 5: base pddiBaseShader 0x3279e0 (pure3d/pddiBaseShader.cpp)
+    virtual const char* vfunc_4();            // slot 4: the pddi name (pure in d3dShader; each kind returns its own)
+    virtual bool vfunc_5(int, int);           // slot 5: base pddiBaseShader 0x3279e0 (pure3d/pddiBaseShader.cpp)
     virtual bool vfunc_6(int, int);           // slot 6: base pddiBaseShader 0x327a40 (pure3d/pddiBaseShader.cpp)
     virtual unsigned char vfunc_7(int, int);  // slot 7: base pddiBaseShader 0x327aa0 (pure3d/pddiBaseShader.cpp)
-    virtual void vfunc_8(int, int);           // slot 8: base pddiBaseShader 0x327b00 (pure3d/pddiBaseShader.cpp)
+    virtual bool vfunc_8(int, int);           // slot 8: base pddiBaseShader 0x327b00 (pure3d/pddiBaseShader.cpp)
     virtual bool vfunc_9(int, int);           // slot 9: base pddiBaseShader 0x327b60 (pure3d/pddiBaseShader.cpp)
     virtual bool vfunc_10(int, int);          // slot 10: base pddiBaseShader 0x327bc0 (pure3d/pddiBaseShader.cpp)
     virtual int vfunc_11();                   // slot 11: pure in the game's class
     virtual void vfunc_12();                  // slot 12: d3dShader 0x333420 (pure3d/d3dShader.cpp)
     virtual void vfunc_13();                  // slot 13: d3dShader 0x3334a0 (pure3d/d3dShader.cpp)
     virtual void vfunc_14(int);               // slot 14: pure in the game's class
-    virtual void vfunc_15();                  // slot 15: base pddiBaseShader 0x327980 (pure3d/pddiBaseShader.cpp)
-    virtual void vfunc_16();                  // slot 16: base pddiBaseShader 0x327990 (pure3d/pddiBaseShader.cpp)
-    virtual void vfunc_17();                  // slot 17: base pddiBaseShader 0x3279a0 (pure3d/pddiBaseShader.cpp)
-    virtual void vfunc_18();                  // slot 18: base pddiBaseShader 0x3279b0 (pure3d/pddiBaseShader.cpp)
-    virtual void vfunc_19();                  // slot 19: base pddiBaseShader 0x3279c0 (pure3d/pddiBaseShader.cpp)
-    virtual void vfunc_20();                  // slot 20: base pddiBaseShader 0x3279d0 (pure3d/pddiBaseShader.cpp)
+    virtual const void* vfunc_15();           // slot 15: base pddiBaseShader 0x327980 (pure3d/pddiBaseShader.cpp)
+    virtual const void* vfunc_16();           // slot 16: base pddiBaseShader 0x327990 (pure3d/pddiBaseShader.cpp)
+    virtual const void* vfunc_17();           // slot 17: base pddiBaseShader 0x3279a0 (pure3d/pddiBaseShader.cpp)
+    virtual const void* vfunc_18();           // slot 18: base pddiBaseShader 0x3279b0 (pure3d/pddiBaseShader.cpp)
+    virtual const void* vfunc_19();           // slot 19: base pddiBaseShader 0x3279c0 (pure3d/pddiBaseShader.cpp)
+    virtual const void* vfunc_20();           // slot 20: base pddiBaseShader 0x3279d0 (pure3d/pddiBaseShader.cpp)
     virtual void vfunc_21(void*);             // slot 21: d3dShader 0x333370 (pure3d/d3dShader.cpp)
     virtual bool vfunc_22();                  // slot 22: d3dShader 0x3286b0 (pure3d/d3dFBEffectsShader.cpp)
     virtual void* vfunc_23();                 // slot 23: d3dShader 0x3286c0 (pure3d/d3dFBEffectsShader.cpp)
     virtual void vfunc_24();                  // slot 24: d3dShader 0x3286d0 (pure3d/d3dFBEffectsShader.cpp)
 
-    int m_base[2];                            // +8, +0xc: pddiBaseShader's data
+    int m_base[2];                            // +8, +0xc: pddiBaseShader's data (+0xc: the change serial)
     bgfxContext* m_context;                   // +0x10
     int m_kind;                               // ShaderKind
+
+    // ours: the pddi parameters, set through the base's slots 5-10 (key -> setter tables, slots 15-20)
+    struct Param {                            // the layout pddiBaseShader's slots 5-10 walk (24 bytes)
+        uint32_t key;                         // the parameter's four-character code ("TEX", "BLMD", ...)
+        uint32_t reserved;
+        const void* setter;                   // thiscall (value), called on this + offset
+        int offset;
+        int unused[2];
+    };
+    const Param* m_tables[6];                 // slots 15..20: textures, ints, floats, colours, (vectors, matrices)
+    const char* m_name;                       // slot 4
+    bgfxObject* m_texture[3];                 // TEX, TTEX (layered), REFL
+    int m_blendMode;                          // BLMD (pddi blend mode)
+    int m_alphaCompare;                       // ACMP
+    int m_uvMode, m_filter, m_shadeMode;      // UVMD, FIMD, SHMD
+    bool m_alphaTest, m_lit, m_twoSided;      // ATST, LIT, 2SID
+    float m_alphaRef;                         // ACTH
+    uint32_t m_diffuse, m_ambient, m_emissive, m_specular;   // DIFF, AMBI, EMIS, SPEC (D3DCOLOR)
+    void setTexture(int which, bgfxObject* t);
 };
 
 // Stands in for pure3d::d3dSimpleShader (25 slots; pddi shader name: simple, lightweight). Only the slots d3dSimpleShader overrides.
 class bgfxSimpleShader : public bgfxShader {
   public:
     explicit bgfxSimpleShader(bgfxContext* context);
-    virtual void vfunc_4();                   // slot 4: d3dSimpleShader 0x32a430 (pure3d/d3dSimpleShader.cpp)
     virtual int vfunc_11();                   // slot 11: d3dSimpleShader 0x32a440 (pure3d/d3dSimpleShader.cpp)
     virtual void vfunc_14(int);               // slot 14: d3dSimpleShader 0x32aa70 (pure3d/d3dSimpleShader.cpp)
-    virtual void vfunc_15();                  // slot 15: d3dSimpleShader 0x32a3f0 (pure3d/d3dSimpleShader.cpp)
-    virtual void vfunc_16();                  // slot 16: d3dSimpleShader 0x32a400 (pure3d/d3dSimpleShader.cpp)
-    virtual void vfunc_17();                  // slot 17: d3dSimpleShader 0x32a410 (pure3d/d3dSimpleShader.cpp)
-    virtual void vfunc_18();                  // slot 18: d3dSimpleShader 0x32a420 (pure3d/d3dSimpleShader.cpp)
     virtual void vfunc_21(void*);             // slot 21: d3dSimpleShader 0x32a450 (pure3d/d3dSimpleShader.cpp)
     virtual bool vfunc_22();                  // slot 22: d3dSimpleShader 0x32a540 (pure3d/d3dSimpleShader.cpp)
     virtual void* vfunc_23();                 // slot 23: d3dSimpleShader 0x32a570 (pure3d/d3dSimpleShader.cpp)
@@ -412,13 +464,8 @@ class bgfxSimpleShader : public bgfxShader {
 class bgfxLayeredShader : public bgfxShader {
   public:
     explicit bgfxLayeredShader(bgfxContext* context);
-    virtual void vfunc_4();                   // slot 4: d3dLayeredShader 0x32d950 (pure3d/d3dLayeredShader.cpp)
     virtual int vfunc_11();                   // slot 11: d3dLayeredShader 0x32d960 (pure3d/d3dLayeredShader.cpp)
     virtual void vfunc_14(int);               // slot 14: d3dLayeredShader 0x32dc40 (pure3d/d3dLayeredShader.cpp)
-    virtual void vfunc_15();                  // slot 15: d3dLayeredShader 0x32d910 (pure3d/d3dLayeredShader.cpp)
-    virtual void vfunc_16();                  // slot 16: d3dLayeredShader 0x32d920 (pure3d/d3dLayeredShader.cpp)
-    virtual void vfunc_17();                  // slot 17: d3dLayeredShader 0x32d930 (pure3d/d3dLayeredShader.cpp)
-    virtual void vfunc_18();                  // slot 18: d3dLayeredShader 0x32d940 (pure3d/d3dLayeredShader.cpp)
     virtual bool vfunc_22();                  // slot 22: d3dLayeredShader 0x32d970 (pure3d/d3dLayeredShader.cpp)
     virtual void* vfunc_23();                 // slot 23: d3dLayeredShader 0x32d9a0 (pure3d/d3dLayeredShader.cpp)
     virtual void vfunc_24();                  // slot 24: d3dLayeredShader 0x32e400 (pure3d/d3dLayeredShader.cpp)
@@ -428,15 +475,10 @@ class bgfxLayeredShader : public bgfxShader {
 class bgfxBuildingShader : public bgfxShader {
   public:
     explicit bgfxBuildingShader(bgfxContext* context);
-    virtual void vfunc_4();                   // slot 4: d3dBuildingShader 0x3322e0 (pure3d/d3dBuildingShader.cpp)
     virtual int vfunc_11();                   // slot 11: d3dBuildingShader 0x3322f0 (pure3d/d3dBuildingShader.cpp)
     virtual void vfunc_12();                  // slot 12: d3dBuildingShader 0x332620 (pure3d/d3dBuildingShader.cpp)
     virtual void vfunc_13();                  // slot 13: d3dBuildingShader 0x3326d0 (pure3d/d3dBuildingShader.cpp)
     virtual void vfunc_14(int);               // slot 14: d3dBuildingShader 0x332310 (pure3d/d3dBuildingShader.cpp)
-    virtual void vfunc_15();                  // slot 15: d3dBuildingShader 0x3322a0 (pure3d/d3dBuildingShader.cpp)
-    virtual void vfunc_16();                  // slot 16: d3dBuildingShader 0x3322b0 (pure3d/d3dBuildingShader.cpp)
-    virtual void vfunc_17();                  // slot 17: d3dBuildingShader 0x3322c0 (pure3d/d3dBuildingShader.cpp)
-    virtual void vfunc_18();                  // slot 18: d3dBuildingShader 0x3322d0 (pure3d/d3dBuildingShader.cpp)
     virtual void* vfunc_23();                 // slot 23: d3dBuildingShader 0x332300 (pure3d/d3dBuildingShader.cpp)
 };
 
@@ -444,30 +486,20 @@ class bgfxBuildingShader : public bgfxShader {
 class bgfxReflShader : public bgfxShader {
   public:
     explicit bgfxReflShader(bgfxContext* context);
-    virtual void vfunc_4();                   // slot 4: d3dReflShader 0x32c2e0 (pure3d/d3dReflShader.cpp)
     virtual int vfunc_11();                   // slot 11: d3dReflShader 0x32c2f0 (pure3d/d3dReflShader.cpp)
     virtual void vfunc_12();                  // slot 12: d3dReflShader 0x32c300 (pure3d/d3dReflShader.cpp)
     virtual void vfunc_13();                  // slot 13: d3dReflShader 0x32c3b0 (pure3d/d3dReflShader.cpp)
     virtual void vfunc_14(int);               // slot 14: d3dReflShader 0x32c520 (pure3d/d3dReflShader.cpp)
-    virtual void vfunc_15();                  // slot 15: d3dReflShader 0x32c2a0 (pure3d/d3dReflShader.cpp)
-    virtual void vfunc_16();                  // slot 16: d3dReflShader 0x32c2b0 (pure3d/d3dReflShader.cpp)
-    virtual void vfunc_17();                  // slot 17: d3dReflShader 0x32c2c0 (pure3d/d3dReflShader.cpp)
-    virtual void vfunc_18();                  // slot 18: d3dReflShader 0x32c2d0 (pure3d/d3dReflShader.cpp)
 };
 
 // Stands in for pure3d::d3dRefractVertexShader (25 slots; pddi shader name: refract). Only the slots d3dRefractVertexShader overrides.
 class bgfxRefractShader : public bgfxShader {
   public:
     explicit bgfxRefractShader(bgfxContext* context);
-    virtual void vfunc_4();                   // slot 4: d3dRefractVertexShader 0x32ef80 (pure3d/d3dRefractVertexShader.cpp)
     virtual int vfunc_11();                   // slot 11: d3dRefractVertexShader 0x32ef90 (pure3d/d3dRefractVertexShader.cpp)
     virtual void vfunc_12();                  // slot 12: d3dRefractVertexShader 0x32f270 (pure3d/d3dRefractVertexShader.cpp)
     virtual void vfunc_13();                  // slot 13: d3dRefractVertexShader 0x32f280 (pure3d/d3dRefractVertexShader.cpp)
     virtual void vfunc_14(int);               // slot 14: d3dRefractVertexShader 0x32efa0 (pure3d/d3dRefractVertexShader.cpp)
-    virtual void vfunc_15();                  // slot 15: d3dRefractVertexShader 0x32ef40 (pure3d/d3dRefractVertexShader.cpp)
-    virtual void vfunc_16();                  // slot 16: d3dRefractVertexShader 0x32ef50 (pure3d/d3dRefractVertexShader.cpp)
-    virtual void vfunc_17();                  // slot 17: d3dRefractVertexShader 0x32ef60 (pure3d/d3dRefractVertexShader.cpp)
-    virtual void vfunc_18();                  // slot 18: d3dRefractVertexShader 0x32ef70 (pure3d/d3dRefractVertexShader.cpp)
     virtual bool vfunc_22();                  // slot 22: d3dRefractVertexShader 0x32f240 (pure3d/d3dRefractVertexShader.cpp)
     virtual void* vfunc_23();                 // slot 23: d3dRefractVertexShader 0x32f250 (pure3d/d3dRefractVertexShader.cpp)
     virtual void vfunc_24();                  // slot 24: d3dRefractVertexShader 0x32f3b0 (pure3d/d3dRefractVertexShader.cpp)
@@ -477,21 +509,16 @@ class bgfxRefractShader : public bgfxShader {
 class bgfxFBEffectsShader : public bgfxShader {
   public:
     explicit bgfxFBEffectsShader(bgfxContext* context);
-    virtual void vfunc_4();                   // slot 4: d3dFBEffectsShader 0x328510 (pure3d/d3dFBEffectsShader.cpp)
     virtual int vfunc_11();                   // slot 11: d3dFBEffectsShader 0x328520 (pure3d/d3dFBEffectsShader.cpp)
     virtual void vfunc_12();                  // slot 12: d3dFBEffectsShader 0x328540 (pure3d/d3dFBEffectsShader.cpp)
     virtual void vfunc_13();                  // slot 13: d3dFBEffectsShader 0x328550 (pure3d/d3dFBEffectsShader.cpp)
     virtual void vfunc_14(int);               // slot 14: d3dFBEffectsShader 0x328530 (pure3d/d3dFBEffectsShader.cpp)
-    virtual void vfunc_16();                  // slot 16: d3dFBEffectsShader 0x328700 (pure3d/d3dFBEffectsShader.cpp)
-    virtual void vfunc_17();                  // slot 17: d3dFBEffectsShader 0x3286f0 (pure3d/d3dFBEffectsShader.cpp)
-    virtual void vfunc_18();                  // slot 18: d3dFBEffectsShader 0x3286e0 (pure3d/d3dFBEffectsShader.cpp)
 };
 
 // Stands in for pure3d::d3dErrorShader (25 slots; pddi shader name: error (the fallback)). Only the slots d3dErrorShader overrides.
 class bgfxErrorShader : public bgfxShader {
   public:
     explicit bgfxErrorShader(bgfxContext* context);
-    virtual void vfunc_4();                   // slot 4: d3dErrorShader 0x32b0a0 (pure3d/d3dErrorShader.cpp)
     virtual int vfunc_11();                   // slot 11: d3dErrorShader 0x32b0b0 (pure3d/d3dErrorShader.cpp)
     virtual void vfunc_14(int);               // slot 14: d3dErrorShader 0x32b120 (pure3d/d3dErrorShader.cpp)
 };
@@ -609,7 +636,7 @@ class bgfxExtVisibilityTest : public bgfxExtension {
     virtual unsigned int vfunc_1();           // slot 1: d3dExtVisibilityTest 0x3222c0 (pure3d/d3dExtFramebufferEffects.cpp)
     virtual void vfunc_2();                   // slot 2: d3dExtVisibilityTest 0x3222d0 (pure3d/d3dExtFramebufferEffects.cpp)
     virtual void vfunc_3();                   // slot 3: d3dExtVisibilityTest 0x3222e0 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_4(int);                // slot 4: d3dExtVisibilityTest 0x3222f0 (pure3d/d3dExtFramebufferEffects.cpp)
+    virtual unsigned int vfunc_4(int);        // slot 4: d3dExtVisibilityTest 0x3222f0 (pure3d/d3dExtFramebufferEffects.cpp)
     bgfxContext* m_context;
 };
 

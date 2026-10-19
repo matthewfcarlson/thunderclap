@@ -1,33 +1,189 @@
 // bgfxTexture (stands in for pure3d::d3dTexture).
+//
+// Specification: the verified d3dTexture sources (create 0x326330, lock 0x326900, unlock 0x326a10, the level
+// description 0x31c570 / 0x31c290, the format choice 0x325fd0). What changes: no swizzling (the Xbox unswizzled
+// formats are swizzled on unlock; a modern GPU takes the same bytes linear) and one uncompressed storage format,
+// A8R8G8B8 (the engine converts every image into the layout the lock describes, so asking for 16-bit formats is
+// the game's memory saving, not something the data depends on). DXT1/3/5 blocks are uploaded as they are.
 #include "bgfx_pddi.h"
+
+#include <bgfx/bgfx.h>
+#include <stdlib.h>
+#include <string.h>
 
 namespace hulk {
 namespace pddi {
 
+static unsigned s_textures;     // first-seen ordinals
+
 bgfxTexture::bgfxTexture(bgfxContext* context)
-    : m_context(context), m_handle(0xffff), m_width(0), m_height(0), m_format(0), m_mips(0)
+    : m_context(context), m_handle(bgfx::kInvalidHandle), m_width(0), m_height(0), m_format(0), m_mips(0),
+      m_pddiFormat(0), m_bits(32), m_alphaBits(8), m_usage(0), m_type(6), m_lockedLevel(-1), m_priority(0xf),
+      m_ordinal(++s_textures)
 {
+    memset(&m_info, 0, sizeof(m_info));
+    memset(m_levels, 0, sizeof(m_levels));
+    memset(m_palette, 0, sizeof(m_palette));
 }
 
-bgfxTexture::~bgfxTexture() {}
+bgfxTexture::~bgfxTexture()
+{
+    if (m_handle != bgfx::kInvalidHandle)
+        bgfx::destroy(bgfx::TextureHandle{(uint16_t)m_handle});
+    for (int i = 0; i < 16; i++)
+        free(m_levels[i]);
+}
+
+static bool pow2(int v) { return v > 0 && (v & (v - 1)) == 0; }
+
+bgfxTexture* bgfxTexture::create(bgfxContext* context, const int* p, int* error)
+{
+    bgfxTexture* t = new bgfxTexture(context);
+    if (((const unsigned char*)p)[0x20])
+        logf("pddi: volume texture %dx%dx%d: not supported yet (an empty 2D texture)\n", p[0], p[1], p[2]);
+    // the 2D path passes (width, height, bits, alpha depth, mips, format, usage): words 0, 1, 3, 4, 5, 6, 7
+    if (!t->init(p[0], p[1], p[3], p[4], p[5], p[6])) {
+        if (error)
+            *error = 0xc8;                      // the game's "not a power of two"
+        delete t;
+        return 0;
+    }
+    t->m_usage = (unsigned)p[7];
+    return t;
+}
+
+// pddi formats (0x325fd0): 0/1 RGB(A) by bits and alpha depth, 2/3 one-channel, 4 DXT1, 5/6 DXT2/3, 7/8 DXT4/5,
+// 11/12 linear. The game refuses a non-power-of-two size for format 0 only.
+bool bgfxTexture::init(int width, int height, int bits, int alphaDepth, int mips, int format)
+{
+    if (format == 0 && (!pow2(width) || !pow2(height)))
+        return false;
+    m_width = (unsigned)width;
+    m_height = (unsigned)height;
+    m_mips = (unsigned)(mips < 0 ? 0 : mips > 12 ? 12 : mips);   // extra levels beyond the top one
+    m_pddiFormat = (unsigned)format;
+    m_bits = (unsigned)bits;
+    switch (format) {
+    case 4: m_type = 11; m_format = bgfx::TextureFormat::BC1; break;
+    case 5: case 6: m_type = 13; m_format = bgfx::TextureFormat::BC2; break;
+    case 7: case 8: m_type = 15; m_format = bgfx::TextureFormat::BC3; break;
+    default: m_type = 6; m_format = bgfx::TextureFormat::BGRA8; break;     // A8R8G8B8 in memory order
+    }
+    m_alphaBits = m_type == 6 ? 8 : 0;
+    return true;
+}
+
+static bool compressed(int type) { return type == 11 || type == 13 || type == 15; }
+
+// bytes per row and rows of one level (4x4 blocks for DXT)
+static void levelSize(int type, unsigned w, unsigned h, unsigned* pitch, unsigned* rows)
+{
+    if (compressed(type)) {
+        unsigned bw = (w + 3) / 4, bh = (h + 3) / 4;
+        *pitch = (bw ? bw : 1) * (type == 11 ? 8 : 16);
+        *rows = bh ? bh : 1;
+    } else {
+        *pitch = (w ? w : 1) * 4;
+        *rows = h ? h : 1;
+    }
+}
+
+void bgfxTexture::upload(int level)
+{
+    if (!m_levels[level] || !bgfx::getCaps())
+        return;
+    if (m_handle == bgfx::kInvalidHandle) {
+        bgfx::TextureHandle h = bgfx::createTexture2D((uint16_t)m_width, (uint16_t)m_height, m_mips > 0, 1,
+                                                      (bgfx::TextureFormat::Enum)m_format, BGFX_TEXTURE_NONE);
+        m_handle = h.idx;
+        if (!bgfx::isValid(h))
+            return;
+    }
+    unsigned w = m_width >> level, h = m_height >> level, pitch, rows;
+    w = w ? w : 1;
+    h = h ? h : 1;
+    levelSize(m_type, w, h, &pitch, &rows);
+    bgfx::updateTexture2D(bgfx::TextureHandle{(uint16_t)m_handle}, 0, (uint8_t)level, 0, 0, (uint16_t)w, (uint16_t)h,
+                          bgfx::copy(m_levels[level], pitch * rows), (uint16_t)pitch);
+}
 
 // ---- slots
-unsigned int bgfxTexture::vfunc_4() { PDDI_STUB(4); return 0; }
-unsigned int bgfxTexture::vfunc_5() { PDDI_STUB(5); return 0; }
-int bgfxTexture::vfunc_6() { PDDI_STUB(6); return 0; }
-unsigned int bgfxTexture::vfunc_7() { PDDI_STUB(7); return 0; }
-int bgfxTexture::vfunc_8() { PDDI_STUB(8); return 0; }
-unsigned int bgfxTexture::vfunc_9() { PDDI_STUB(9); return 0; }
-unsigned int bgfxTexture::vfunc_10() { PDDI_STUB(10); return 0; }
-void bgfxTexture::vfunc_11(unsigned int a0, void* a1) { PDDI_STUB(11); }
-void bgfxTexture::vfunc_12(int a0) { PDDI_STUB(12); }
-void bgfxTexture::vfunc_13(int a0, int a1) { PDDI_STUB(13); }
-void bgfxTexture::vfunc_14(int a0) { PDDI_STUB(14); }
+unsigned int bgfxTexture::vfunc_4() { return (unsigned)m_type; }
+unsigned int bgfxTexture::vfunc_5() { return m_width; }
+int bgfxTexture::vfunc_6() { return (int)m_height; }
+unsigned int bgfxTexture::vfunc_7() { return compressed(m_type) ? 0 : 32; }
+int bgfxTexture::vfunc_8() { return (int)m_alphaBits; }
+unsigned int bgfxTexture::vfunc_9() { return m_mips; }
+unsigned int bgfxTexture::vfunc_10() { return 0x100; }
+// slot 11: write the palette (count D3DCOLOR entries). Our textures are never palettised (see init); kept so a
+// palettised path can expand on unlock later.
+void bgfxTexture::vfunc_11(unsigned int count, void* src)
+{
+    if (count > 256)
+        count = 256;
+    memcpy(m_palette, src, count * 4);
+}
+unsigned int bgfxTexture::vfunc_12(void* out)
+{
+    memcpy(out, m_palette, sizeof(m_palette));
+    return 256;
+}
+// slot 13: lock mip `level` and describe it (0x326900 + 0x31c570 + 0x31c290)
+void* bgfxTexture::vfunc_13(int level, int)
+{
+    if (level < 0 || level > (int)m_mips || level >= 16)
+        level = 0;
+    unsigned w = m_width >> level, h = m_height >> level, pitch, rows;
+    w = w ? w : 1;
+    h = h ? h : 1;
+    levelSize(m_type, w, h, &pitch, &rows);
+    if (!m_levels[level])
+        m_levels[level] = (unsigned char*)calloc(pitch, rows);
+    m_lockedLevel = level;
+    LockInfo& i = m_info;
+    memset(&i, 0, sizeof(i));
+    i.width = (int)w;
+    i.height = (int)h;
+    i.depth = 1;
+    i.type = m_type;
+    if (compressed(m_type)) {
+        i.bitsPerPixel = 0;
+        i.bits = m_levels[level];
+        i.stride = (int)pitch;
+    } else {
+        i.bitsPerPixel = 32;
+        i.mask[0] = 0xff0000u;
+        i.mask[1] = 0xff00u;
+        i.mask[2] = 0xffu;
+        i.mask[3] = 0xff000000u;
+        i.start[0] = 16;
+        i.start[1] = 8;
+        i.start[2] = 0;
+        i.start[3] = 24;
+        // (24 - bits in the channel) etc., as 0x31c290 computes them: all channels 8 bits
+        i.shift[0] = 16;
+        i.shift[1] = 8;
+        i.shift[2] = 0;
+        i.shift[3] = 24;
+        i.direct = 1;
+        i.bits = m_levels[level] + (h - 1) * pitch;    // bottom-up, as the Xbox lock hands it out
+        i.stride = -(int)pitch;
+    }
+    i.slicePitch = (int)(pitch * rows);
+    return &m_info;
+}
+// slot 14: unlock: upload the level
+void bgfxTexture::vfunc_14(int)
+{
+    if (m_lockedLevel >= 0)
+        upload(m_lockedLevel);
+    m_lockedLevel = -1;
+}
 void bgfxTexture::vfunc_15(int a0, int a1, int a2) { PDDI_BASE_V(15, FUN_00325ee0(a0, a1, a2)); }
-void bgfxTexture::vfunc_16() { PDDI_STUB(16); }
-void bgfxTexture::vfunc_17() { PDDI_STUB(17); }
-void bgfxTexture::vfunc_18(unsigned int a0) { PDDI_STUB(18); }
-unsigned int bgfxTexture::vfunc_19() { PDDI_STUB(19); return 0; }
+void bgfxTexture::vfunc_16() {}
+void bgfxTexture::vfunc_17() {}
+void bgfxTexture::vfunc_18(unsigned int a0) { m_priority = a0; }
+unsigned int bgfxTexture::vfunc_19() { return m_priority; }
 void bgfxTexture::vfunc_20(int a0, int a1, int a2, int a3, int a4, int a5, int a6) { PDDI_BASE_V(20, FUN_00325ef0(a0, a1, a2, a3, a4, a5, a6)); }
 } // namespace pddi
 } // namespace hulk

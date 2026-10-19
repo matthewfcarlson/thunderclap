@@ -12,6 +12,8 @@
 namespace hulk {
 namespace pddi {
 
+enum { kNoProgram = 0xfffe };      // ensureProgram: no shader binary for the running renderer
+
 static void identity(float* m)
 {
     memset(m, 0, 16 * sizeof(float));
@@ -20,7 +22,8 @@ static void identity(float* m)
 
 bgfxContext::bgfxContext(bgfxDisplay* display, bgfxDevice* device)
     : m_display(display), m_device(device), m_stream(0), m_defaultShader(0), m_cull(0), m_drawIndex(0),
-      m_program(bgfx::kInvalidHandle)
+      m_program(bgfx::kInvalidHandle), m_texProgram(bgfx::kInvalidHandle), m_uTex(bgfx::kInvalidHandle),
+      m_uAlpha(bgfx::kInvalidHandle)
 {
     memset(m_base, 0, sizeof(m_base));
 #if HULK_PDDI_GAME
@@ -37,11 +40,21 @@ bgfxContext::bgfxContext(bgfxDisplay* display, bgfxDevice* device)
     identity(m_proj);
     m_stream = new bgfxPrimStream(this);
     m_defaultShader = new bgfxErrorShader(this);
+    m_ext[0] = new bgfxExtGammaControl(this);
+    m_ext[1] = new bgfxExtAntialiasControl(this);
+    m_ext[2] = new bgfxExtGlobalProjectedTexture(this);
+    m_ext[3] = new bgfxExtReadPixels(this);
+    m_ext[4] = new bgfxExtHardwareSkinning(this);
+    m_ext[5] = new bgfxExtVisibilityTest(this);
+    m_ext[6] = new bgfxExtVertexProgram(this);
+    m_ext[7] = new bgfxExtFramebufferEffects(this);
+    m_ext[8] = new bgfxExtFrameBufferTexture(this);
+    m_ext[9] = 0;
 }
 
 bgfxContext::~bgfxContext()
 {
-    if (bgfx::isValid(bgfx::ProgramHandle{(uint16_t)m_program}))
+    if (m_program != kNoProgram && bgfx::isValid(bgfx::ProgramHandle{(uint16_t)m_program}))
         bgfx::destroy(bgfx::ProgramHandle{(uint16_t)m_program});
     delete m_stream;
 #if HULK_PDDI_GAME
@@ -72,21 +85,45 @@ void bgfxContext::setViewTransform(const float* view, const float* proj)
     memcpy(m_proj, proj, sizeof(m_proj));
 }
 
-static bgfx::ShaderHandle loadShader(const unsigned char* data, unsigned size)
+// The embedded shader binary for the running renderer (pddi_shaders.h: one entry per shader and profile), or 0.
+static const char* rendererProfile()
 {
-    return bgfx::createShader(bgfx::makeRef(data, size));
+    switch (bgfx::getRendererType()) {
+    case bgfx::RendererType::Direct3D11:
+    case bgfx::RendererType::Direct3D12: return "dxbc";
+    case bgfx::RendererType::Vulkan: return "spirv";
+    case bgfx::RendererType::Metal: return "metal";
+    case bgfx::RendererType::OpenGL: return "glsl";
+    case bgfx::RendererType::OpenGLES: return "essl";
+    default: return "";
+    }
+}
+
+static bgfx::ShaderHandle loadShader(const char* name)
+{
+#if HULK_PDDI_HOST || HULK_PDDI_EMBED_SHADERS
+    const char* prof = rendererProfile();
+    for (const PddiEmbeddedShader* s = g_pddi_shaders; s->name; s++)
+        if (!strcmp(s->name, name) && !strcmp(s->profile, prof))
+            return bgfx::createShader(bgfx::makeRef(s->data, s->size));
+    logf("pddi: no %s build of shader %s: its draws are skipped\n", prof, name);
+#endif
+    return BGFX_INVALID_HANDLE;
 }
 
 // The fixed-function stand-in program (shaders/vs_pddi_ff.sc + fs_pddi_colour.sc): position, D3DCOLOR, one uv.
+// (kNoProgram once loading failed: no binary for this renderer; the draws are counted and logged, not submitted)
 static uint32_t ensureProgram(unsigned& prog)
 {
     if (prog != bgfx::kInvalidHandle)
         return prog;
-#if HULK_PDDI_HOST || HULK_PDDI_EMBED_SHADERS
-    bgfx::ShaderHandle vs = loadShader(g_vs_pddi_ff, sizeof(g_vs_pddi_ff));
-    bgfx::ShaderHandle fs = loadShader(g_fs_pddi_colour, sizeof(g_fs_pddi_colour));
+    bgfx::ShaderHandle vs = loadShader("vs_pddi_ff");
+    bgfx::ShaderHandle fs = loadShader("fs_pddi_colour");
+    if (!bgfx::isValid(vs) || !bgfx::isValid(fs)) {
+        prog = kNoProgram;
+        return prog;
+    }
     prog = bgfx::createProgram(vs, fs, true).idx;
-#endif
     return prog;
 }
 
@@ -117,12 +154,15 @@ void bgfxContext::submit(bgfxPrimStream* s)
         r.prim = kPrimToD3D[s->m_kind];
         r.count = (uint32_t)n;
         r.shader = 0x8000u | (uint32_t)(s->m_shader ? s->m_shader->m_kind : kShaderError);
-        r.stateA[1] = m_cull;
-        r.mtx = fnv(fnv(2166136261u, m_view, sizeof(m_view)), m_proj, sizeof(m_proj));
+        r.shaderId = s->m_shader ? (uint32_t)s->m_shader->m_base[1] : 0;     // pddiBaseShader's word at +0xc
+        for (int t = 0; t < 3; t++)
+            r.tex[t] = s->m_shader ? drawlogTexture(s->m_shader->m_texture[t]) : 0;
+        drawlogState(r);
         drawlogAppend(r);
     }
     m_drawIndex++;
-    if (!m_display || !m_display->m_initialised)
+    countDraw();
+    if (!m_display || !m_display->m_initialised || ensureProgram(m_program) == kNoProgram)
         return;
     bgfx::VertexLayout layout;
     layout.begin()
@@ -151,8 +191,86 @@ void bgfxContext::submit(bgfxPrimStream* s)
     }
     bgfx::setViewTransform(0, m_view, m_proj);
     bgfx::setVertexBuffer(0, &tvb);
-    bgfx::setState(BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A | kPrimToBgfx[s->m_kind]);
-    bgfx::submit(0, bgfx::ProgramHandle{(uint16_t)ensureProgram(m_program)});
+    // the shader's stage 0 texture (TEX) and alpha test; its blend mode (BLMD) as bgfx blend state
+    const bgfxShader* sh = s->m_shader;
+    const bgfxTexture* tex = sh ? (const bgfxTexture*)sh->m_texture[0] : 0;
+    uint32_t program = m_program;
+    if (tex && tex->m_handle != bgfx::kInvalidHandle && uvOff >= 0 && ensureTexProgram() != kNoProgram) {
+        program = m_texProgram;
+        bgfx::setTexture(0, bgfx::UniformHandle{(uint16_t)m_uTex}, bgfx::TextureHandle{(uint16_t)tex->m_handle});
+        float alpha[4] = {sh->m_alphaRef, sh->m_alphaTest ? 1.0f : 0.0f, 0.0f, 0.0f};
+        bgfx::setUniform(bgfx::UniformHandle{(uint16_t)m_uAlpha}, alpha);
+    }
+    bgfx::setState(BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A | kPrimToBgfx[s->m_kind] |
+                   blendState(sh ? sh->m_blendMode : 0));
+    bgfx::submit(0, bgfx::ProgramHandle{(uint16_t)program});
+}
+
+// The pddi state of the draw as the hybrid build's hook reads it from the game's context (hybrid/hooks.cpp drawlog):
+// the portable base keeps the same blocks in our context (+0x4c render state, +0x58 stencil, +0x54 fog, the matrix
+// stacks at +0x20..), so these words are comparable field by field. The host build has no base: cull and our own
+// view/projection only.
+void bgfxContext::drawlogState(DrawRecord& r)
+{
+#if HULK_PDDI_GAME
+    const char* me = (const char*)this;
+    const uint32_t* a = *(const uint32_t* const*)(me + 0x4c);
+    const uint32_t* st = *(const uint32_t* const*)(me + 0x58);
+    const unsigned char* fog = *(const unsigned char* const*)(me + 0x54);
+    for (int i = 0; i < 6; i++) {
+        r.stateA[i] = a ? a[i] : 0;
+        r.stateS[i] = st ? st[i] : 0;
+    }
+    r.fog = fog ? fog[4] : 0;
+    uint32_t h = 2166136261u;
+    for (int i = 0; i < 4; i++) {
+        const uint32_t* stack = *(const uint32_t* const*)(me + 0x20 + 4 * i);   // +8 index, +0xc matrices
+        if (!stack)
+            continue;
+        uint32_t idx = stack[2];
+        const char* m = (const char*)(uintptr_t)stack[3];
+        if (idx < 64 && m)
+            h = fnv(h, m + 64 * idx, 64);
+    }
+    r.mtx = h;
+#else
+    r.stateA[1] = m_cull;
+    r.mtx = fnv(fnv(2166136261u, m_view, sizeof(m_view)), m_proj, sizeof(m_proj));
+#endif
+}
+
+// pddi blend modes (BLMD; the order d3dShader's colour fade 0x3335e0 treats them in: 1/7 alpha-like, 2/3 add and
+// subtract, 4/5 modulate): none, alpha, add, subtract, modulate, modulate2x, add-modulate-alpha, sub-modulate-alpha
+uint64_t bgfxContext::blendState(int mode)
+{
+    switch (mode) {
+    case 1: return BGFX_STATE_BLEND_ALPHA;
+    case 2: return BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_SRC_ALPHA, BGFX_STATE_BLEND_ONE);
+    case 3: return BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_SRC_ALPHA, BGFX_STATE_BLEND_ONE) |
+                   BGFX_STATE_BLEND_EQUATION(BGFX_STATE_BLEND_EQUATION_REVSUB);
+    case 4: return BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_DST_COLOR, BGFX_STATE_BLEND_ZERO);
+    case 5: return BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_DST_COLOR, BGFX_STATE_BLEND_SRC_COLOR);
+    case 6: return BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_ONE, BGFX_STATE_BLEND_SRC_ALPHA);
+    case 7: return BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_ZERO, BGFX_STATE_BLEND_INV_SRC_ALPHA);
+    default: return 0;
+    }
+}
+
+// the textured stand-in (vs_pddi_ff + fs_pddi_tex): texture x vertex colour with the alpha test
+uint32_t bgfxContext::ensureTexProgram()
+{
+    if (m_texProgram != bgfx::kInvalidHandle)
+        return m_texProgram;
+    bgfx::ShaderHandle vs = loadShader("vs_pddi_ff");
+    bgfx::ShaderHandle fs = loadShader("fs_pddi_tex");
+    if (!bgfx::isValid(vs) || !bgfx::isValid(fs)) {
+        m_texProgram = kNoProgram;
+        return m_texProgram;
+    }
+    m_texProgram = bgfx::createProgram(vs, fs, true).idx;
+    m_uTex = bgfx::createUniform("s_pddiTex0", bgfx::UniformType::Sampler).idx;
+    m_uAlpha = bgfx::createUniform("u_pddiAlpha", bgfx::UniformType::Vec4).idx;
+    return m_texProgram;
 }
 
 
@@ -174,7 +292,7 @@ void bgfxContext::vfunc_5()
 #endif
 }
 void bgfxContext::vfunc_6(unsigned int a0) { PDDI_BASE_V(6, FUN_0031d4f0(a0)); }
-void bgfxContext::vfunc_7(int a0) { PDDI_BASE_V(7, FUN_0031d500(a0)); }
+int* bgfxContext::vfunc_7(int* a0) { PDDI_BASE(7, FUN_0031d500(a0)); }
 void bgfxContext::vfunc_8(void* a0) { PDDI_BASE_V(8, FUN_0031d510(a0)); }
 float bgfxContext::vfunc_9() { PDDI_BASE(9, FUN_0031d520()); }
 void bgfxContext::vfunc_10(void* a0) { PDDI_BASE_V(10, FUN_0031d530(a0)); }
@@ -230,7 +348,7 @@ void bgfxContext::vfunc_32(void* a0, void* a1) { PDDI_STUB(32); }     // draw a 
 void bgfxContext::vfunc_33(int a0, int a1, int a2, int a3) { PDDI_BASE_V(33, FUN_0031d830(a0, a1, a2, a3)); }
 int bgfxContext::vfunc_34() { PDDI_BASE(34, FUN_0031d900()); }
 void bgfxContext::vfunc_35(void* a0) { PDDI_STUB(35); }
-void bgfxContext::vfunc_36(int a0) { PDDI_BASE_V(36, FUN_0031d920(a0)); }
+int* bgfxContext::vfunc_36(int* a0) { PDDI_BASE(36, FUN_0031d920(a0)); }
 void bgfxContext::vfunc_37(int a0, int a1, int a2) { PDDI_BASE_V(37, FUN_0031d940(a0, a1, a2)); }
 void bgfxContext::vfunc_38(int a0, int a1) { PDDI_BASE_V(38, FUN_0031da40(a0, a1)); }
 unsigned char bgfxContext::vfunc_39(unsigned int a0) { PDDI_BASE(39, FUN_0031da80(a0)); }
@@ -283,14 +401,23 @@ void bgfxContext::vfunc_78(unsigned int a0) { PDDI_STUB(78); }
 bool bgfxContext::vfunc_79() { PDDI_BASE(79, FUN_0031e110()); }
 void bgfxContext::vfunc_80(int a0, int a1, int a2) { PDDI_STUB(80); }
 void bgfxContext::vfunc_81(void* a0, void* a1, void* a2) { PDDI_BASE_V(81, FUN_0031e150(a0, a1, a2)); }
-void bgfxContext::vfunc_82(int a0) { PDDI_BASE_V(82, FUN_0031e180(a0)); }
+int bgfxContext::vfunc_82(int a0) { PDDI_BASE(82, FUN_0031e180(a0)); }
 float bgfxContext::vfunc_83(int a0) { PDDI_BASE(83, FUN_0031e1a0(a0)); }
 unsigned int bgfxContext::vfunc_84() { PDDI_STUB(84); return 0; }
 void bgfxContext::vfunc_85(unsigned char a0) { PDDI_BASE_V(85, FUN_0031e1b0(a0)); }
 unsigned char bgfxContext::vfunc_86() { PDDI_BASE(86, FUN_0031e1c0()); }
 void bgfxContext::vfunc_87(int a0) { PDDI_BASE_V(87, FUN_0031f290(a0)); }
 void bgfxContext::vfunc_88(unsigned char a0) { PDDI_BASE_V(88, FUN_0031e9b0(a0)); }
-void bgfxContext::vfunc_89(int a0) { PDDI_STUB(89); }
+// slot 89: the extension with this id (0x321ea0), or the base's answer (0) for any other
+int bgfxContext::vfunc_89(int id)
+{
+    static const int kIds[10] = {0x101, 0x500001, 0x500004, 0x500005, 0x102, 0x500002, 0x106, 0x103, 0x104, 0x105};
+    for (int i = 0; i < 10; i++)
+        if (kIds[i] == id)
+            return (int)(intptr_t)m_ext[i];
+    logf("pddi: extension 0x%x asked for: none\n", id);
+    return 0;
+}
 bool bgfxContext::vfunc_90(int a0) { PDDI_STUB(90); return false; }
 void bgfxContext::vfunc_91() { PDDI_STUB(91); }
 int bgfxContext::vfunc_92(void* a0) { PDDI_STUB(92); return 0; }

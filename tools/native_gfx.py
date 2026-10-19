@@ -5,6 +5,7 @@
   build/venv/bin/python tools/native_gfx.py build            # static libraries for macOS (host) and i686 Windows
   build/venv/bin/python tools/native_gfx.py build --target win32
   build/venv/bin/python tools/native_gfx.py shaderc          # bgfx's shaderc for the host (GENie + make, ~7 min)
+  build/venv/bin/python tools/native_gfx.py d3d4linux        # Wine bridge for HLSL: windows/d3d4linux.exe (+ Wine's d3dcompiler_47)
   build/venv/bin/python tools/native_gfx.py shaders          # compile src/platform/sdl/pddi/shaders/*.sc
   build/venv/bin/python tools/native_gfx.py pddi             # the pddi skeleton: host library + smoke test, win32 objects
   build/venv/bin/python tools/native_gfx.py smoke            # run the host smoke test (a window, clear + one triangle)
@@ -72,6 +73,13 @@ PATCHES = [
      "#\tif BX_CRT_MSVC\n#\t\tdefine __stdcall\n#\tendif // BX_CRT_MSVC",
      "#\tif BX_CRT_MSVC && !defined(_M_IX86) // hulk: keep __stdcall on i686 (tools/native_gfx.py PATCHES)\n"
      "#\t\tdefine __stdcall\n#\tendif // BX_CRT_MSVC"),
+    #  - bgfx's Vulkan renderer: GPU timer queries off when HULK_VK_NO_TIMER_QUERY is defined. Under Wine on macOS
+    #    (MoltenVK) the i686 build divides by zero in TimerQueryVK::begin; the timers only feed bgfx's profiler stats.
+    ("bgfx", "src/renderer_vk.cpp",
+     "\t\t\t\tm_timerQuerySupport = m_deviceProperties.limits.timestampComputeAndGraphics;",
+     "\t\t\t\tm_timerQuerySupport = m_deviceProperties.limits.timestampComputeAndGraphics;\n"
+     "#if defined(HULK_VK_NO_TIMER_QUERY) // hulk: tools/native_gfx.py PATCHES\n"
+     "\t\t\t\tm_timerQuerySupport = false;\n#endif"),
 ]
 
 
@@ -241,7 +249,8 @@ def target_cfg(target):
                "-Wno-nonportable-include-path", "-Wno-pragma-pack", "-Wno-unknown-pragmas",
                "-Wno-deprecated-declarations", "-Wno-invalid-offsetof", "-Wno-macro-redefined"]
         defs = COMMON_DEFS + ["-DBGFX_CONFIG_RENDERER_DIRECT3D11=1", "-DBGFX_CONFIG_RENDERER_DIRECT3D12=0",
-                              "-DBGFX_CONFIG_RENDERER_OPENGL=43", "-DBGFX_CONFIG_RENDERER_VULKAN=1"]
+                              "-DBGFX_CONFIG_RENDERER_OPENGL=43", "-DBGFX_CONFIG_RENDERER_VULKAN=1",
+                              "-DHULK_VK_NO_TIMER_QUERY=1"]
         return cxx + defs, [os.path.join(LLVM, "llvm-lib"), "/nologo"], ".lib"
     raise SystemExit("unknown target %s" % target)
 
@@ -318,6 +327,9 @@ def build_target(target):
 # ---------------------------------------------------------------------------------------------
 # shaderc (host): GENie + make, as upstream builds it
 def shaderc():
+    """bgfx's shaderc for the host, with HLSL (s_5_0, Direct3D 11) through upstream's d3d4linux bridge: shaderc runs
+    tools/windows/d3d4linux.exe under Wine, which calls Wine's own d3dcompiler_47.dll (Wine's implementation, LGPL;
+    nothing of Microsoft's). d3d4linux() builds that helper."""
     genie = _bx("tools/bin/darwin/genie")
     bg = _bgfx()
     r = subprocess.run([genie, "--with-tools", "--gcc=osx-arm64", "gmake"], cwd=bg, capture_output=True, text=True)
@@ -327,7 +339,15 @@ def shaderc():
     t0 = time.time()
     logf = os.path.join(OUT, "shaderc-build.log")
     with open(logf, "w") as f:
-        r = subprocess.run(["make", "-j%d" % JOBS, "config=release", "shaderc"], cwd=proj, stdout=f,
+        # SHADERC_CONFIG_HAS_D3DCOMPILER: upstream turns the d3d4linux path on for Linux only; macOS works the same way
+        # (bgfx's copy of DirectX-Headers' WSL stubs includes <sal.h> without shipping it: mingw-w64's, alone in a
+        # directory of its own so nothing else of mingw-w64 is found)
+        sal = os.path.join(COMPAT, "sal")
+        os.makedirs(sal, exist_ok=True)
+        for h in ("sal.h", "concurrencysal.h"):
+            shutil.copy2(os.path.join(SRC, "mingw-w64/mingw-w64-headers/include", h), os.path.join(sal, h))
+        r = subprocess.run(["make", "-j%d" % JOBS, "config=release", "shaderc",
+                            "CPPFLAGS=-DSHADERC_CONFIG_HAS_D3DCOMPILER=1 -I" + sal], cwd=proj, stdout=f,
                            stderr=subprocess.STDOUT)
     if r.returncode:
         raise SystemExit("shaderc build failed (log %s)" % os.path.relpath(logf, ROOT))
@@ -337,6 +357,153 @@ def shaderc():
     log("shaderc built in %d s" % (time.time() - t0))
 
 
+# ---------------------------------------------------------------------------------------------
+# d3d4linux.exe: upstream bgfx's 3rdparty/d3d4linux server (WTFPL, Sam Hocevar), built as an i686 PE with the image's
+# toolchain. It needs a C++ standard library only for std::string / std::vector, which the mingw-w64 headers don't
+# provide: a minimal stand-in of our own (compat/d3d4linux/, generated below) covers the members it uses.
+WINE_DIR = os.path.expanduser("~/Library/Application Support/com.isaacmarovitz.Whisky/Libraries/Wine")
+WINE = os.environ.get("WINE") or os.path.join(WINE_DIR, "bin/wine64")
+D3D4LINUX_DIR = os.path.join(TP, "windows")                # shaderc looks in ../windows/ from its own directory
+SHADER_PREFIX = os.path.join(ROOT, "build/g0/wineprefix")  # our own Wine prefix for the compiler runs
+
+D3D4LINUX_STD = {
+    "string": """#pragma once
+// minimal std::string for d3d4linux.cpp (tools/native_gfx.py): the members it uses
+#include <stdlib.h>
+#include <string.h>
+namespace std {
+class string {
+  public:
+    string() : m_p(0), m_n(0) { reserve(0); m_p[0] = 0; }
+    string(const char* s) : m_p(0), m_n(0) { assign(s, strlen(s)); }
+    string(const string& o) : m_p(0), m_n(0) { assign(o.m_p, o.m_n); }
+    ~string() { free(m_p); }
+    string& operator=(const string& o) { if (this != &o) assign(o.m_p, o.m_n); return *this; }
+    string& operator+=(const char* s) { size_t k = strlen(s); size_t n = m_n; resize(n + k); memcpy(m_p + n, s, k); return *this; }
+    string& operator+=(char c) { size_t n = m_n; resize(n + 1); m_p[n] = c; return *this; }
+    void resize(size_t n) { reserve(n); if (n > m_n) memset(m_p + m_n, 0, n - m_n); m_n = n; m_p[n] = 0; }
+    const char* c_str() const { return m_p; }
+    size_t size() const { return m_n; }
+    size_t length() const { return m_n; }
+    char& operator[](size_t i) { return m_p[i]; }
+  private:
+    void reserve(size_t n) { m_p = (char*)realloc(m_p, n + 1); }
+    void assign(const char* s, size_t n) { resize(n); memcpy(m_p, s, n); }
+    char* m_p;
+    size_t m_n;
+};
+}
+""",
+    "vector": """#pragma once
+// minimal std::vector for d3d4linux.cpp (tools/native_gfx.py): the members it uses
+#include <stdlib.h>
+#include <string.h>
+namespace std {
+template <class T> class vector {
+  public:
+    vector() : m_p(0), m_n(0) {}
+    ~vector() { free(m_p); }
+    void resize(size_t n) { m_p = (T*)realloc(m_p, n * sizeof(T) + 1); if (n > m_n) memset(m_p + m_n, 0, (n - m_n) * sizeof(T)); m_n = n; }
+    T* data() { return m_p; }
+    size_t size() const { return m_n; }
+    T& operator[](size_t i) { return m_p[i]; }
+  private:
+    vector(const vector&);
+    T* m_p;
+    size_t m_n;
+};
+}
+""",
+    "cstdio": "#pragma once\n#include <stdio.h>\n",
+    "cstdint": "#pragma once\n#include <stdint.h>\n",
+}
+
+
+def wine_wrapper():
+    """d3d4linux execs D3D4LINUX_WINE with argv[0] "wine"; on macOS Wine finds its libraries from argv[0], so it gets
+    a two-line script that execs Wine by its full path."""
+    p = os.path.join(D3D4LINUX_DIR, "wine.sh")
+    text = '#!/bin/sh\n# tools/native_gfx.py: Wine by its full path (it locates its libraries from argv[0])\nexec "%s" "$@"\n' % WINE
+    os.makedirs(D3D4LINUX_DIR, exist_ok=True)
+    if not os.path.exists(p) or open(p).read() != text:
+        open(p, "w").write(text)
+        os.chmod(p, 0o755)
+    return p
+
+
+def d3d4linux():
+    """build/third_party/windows/d3d4linux.exe (+ d3dcompiler_47.dll: a link to Wine's own x86_64 build).
+
+    x86_64, as upstream builds it: d3d4linux.cpp calls D3DCompile & co. through plain function pointers, which on
+    i686 would be cdecl calls into stdcall functions."""
+    mg = os.path.join(SRC, "mingw-w64/mingw-w64-headers")
+    cxx = [os.path.join(LLVM, "clang++"), "--target=x86_64-pc-windows-msvc", "-fms-extensions", "-fms-compatibility",
+           "-std=c++17", "-O1", "-fno-exceptions", "-fno-rtti", "-fno-stack-protector", "-fno-threadsafe-statics",
+           "-nostdinc++", "-isystem", os.path.join(mg, "crt"), "-isystem", os.path.join(mg, "include"),
+           "-fgnuc-version=4.2.1", "-D_AMD64_=1", "-DWIN32_LEAN_AND_MEAN", "-D_WIN32_WINNT=0x0601", "-DWINVER=0x0601", "-D__MSVCRT_VERSION__=0x700",
+           "-D__USE_MINGW_ANSI_STDIO=0", "-D_CRT_SECURE_NO_WARNINGS"]
+    od = os.path.join(OUT, "d3d4linux")
+    comp = os.path.join(od, "compat")
+    os.makedirs(comp, exist_ok=True)
+    for name, text in D3D4LINUX_STD.items():
+        open(os.path.join(comp, name), "w").write(text)
+    entry = os.path.join(od, "entry.cpp")
+    open(entry, "w").write(
+        "// d3d4linux.exe's entry point: no C runtime start-up in this image, so call main ourselves\n"
+        "#include <stdio.h>\n#include <stdlib.h>\nint main(void);\n"
+        "extern \"C\" FILE* __cdecl __iob_func(void);\n"
+        "extern \"C\" FILE* __cdecl __acrt_iob_func(unsigned i) { return __iob_func() + i; }\n"
+        "extern \"C\" void __cdecl d3d4linux_entry(void) { exit(main()); }\n"
+        "extern \"C\" int _fltused = 0x9875;\n")
+    src = _bgfx("3rdparty/d3d4linux/d3d4linux.cpp")
+    objs = []
+    for s_, o in ((src, os.path.join(od, "d3d4linux.obj")), (entry, os.path.join(od, "entry.obj"))):
+        r = run(cxx + ["-I" + comp, "-I" + _bgfx("3rdparty/d3d4linux/include"), "-Wno-everything", "-c", s_, "-o", o])
+        if r.returncode:
+            raise SystemExit("d3d4linux: %s failed:\n%s" % (os.path.basename(s_), (r.stdout + r.stderr)[-3000:]))
+        objs.append(o)
+    # import libraries for what the two objects use (llvm-nm), from our own .def files: kernel32 for the
+    # Windows API (LoadLibraryA, GetProcAddress), msvcrt for the rest (with msvcrt.dll's spellings of POSIX names)
+    nm = run([os.path.join(LLVM, "llvm-nm"), "--undefined-only"] + objs)
+    undef = sorted({l.split()[-1] for l in nm.stdout.splitlines() if l.strip().startswith("U ")})
+    oldnames = {"fileno": "_fileno", "setmode": "_setmode", "strdup": "_strdup"}
+    kernel32_api = {"LoadLibraryA", "LoadLibraryW", "GetProcAddress", "FreeLibrary", "GetLastError"}
+    kernel32, msvcrt = [], []
+    for u in undef:
+        n = u[len("__imp_"):] if u.startswith("__imp_") else u
+        if n in kernel32_api:
+            kernel32.append(n)
+        elif n in ("main", "__acrt_iob_func"):
+            continue
+        else:
+            msvcrt.append("%s == %s" % (n, oldnames[n]) if n in oldnames else n)
+    libs = []
+    for dll, names in (("kernel32", kernel32), ("msvcrt", msvcrt)):
+        d = os.path.join(od, dll + ".def")
+        open(d, "w").write("LIBRARY %s.dll\nEXPORTS\n%s\n" % (dll, "\n".join(sorted(set(names)))))
+        lib = os.path.join(od, dll + ".lib")
+        r = run([os.path.join(LLVM, "llvm-dlltool"), "-m", "i386:x86-64", "-d", d, "-l", lib])
+        if r.returncode:
+            raise SystemExit("d3d4linux: dlltool %s: %s" % (dll, r.stderr[-1000:]))
+        libs.append(lib)
+    os.makedirs(D3D4LINUX_DIR, exist_ok=True)
+    exe = os.path.join(D3D4LINUX_DIR, "d3d4linux.exe")
+    lld = os.path.join(LLVM, "lld-link") if os.path.exists(os.path.join(LLVM, "lld-link")) else "lld-link"
+    r = run([lld, "/nologo", "/machine:x64", "/subsystem:console", "/entry:d3d4linux_entry", "/nodefaultlib",
+             "/out:" + exe] + objs + libs)
+    if r.returncode:
+        raise SystemExit("d3d4linux link failed:\n" + (r.stdout + r.stderr)[-3000:])
+    dll = os.path.join(D3D4LINUX_DIR, "d3dcompiler_47.dll")
+    wine_dll = os.path.join(WINE_DIR, "lib/wine/x86_64-windows/d3dcompiler_47.dll")
+    if os.path.lexists(dll):
+        os.unlink(dll)
+    if os.path.exists(wine_dll):
+        os.symlink(wine_dll, dll)
+    wine_wrapper()
+    log("d3d4linux: %s (%d imports), d3dcompiler_47.dll -> %s" % (os.path.relpath(exe, ROOT), len(undef), wine_dll))
+    return exe
+
+
 SHADER_PROFILES = {          # bgfx shaderc --platform / --profile per backend we can compile on macOS
     "metal": ("osx", "metal"),
     "spirv": ("linux", "spirv"),
@@ -344,6 +511,13 @@ SHADER_PROFILES = {          # bgfx shaderc --platform / --profile per backend w
     "essl": ("android", "300_es"),
     "wgsl": ("linux", "wgsl"),
 }
+
+
+# Direct3D 11/12 bytecode through d3d4linux + Wine's d3dcompiler_47 (shaderc(), d3d4linux()): opt-in, HULK_GFX_DXBC=1.
+# The pipeline runs, but Whisky's Wine 7.7 compiler can't build bgfx's HLSL (no calls to user functions, no ternary
+# operator, no lerp/transpose/asfloat: docs/graphics-backend.md G1); with a newer Wine (or on Linux) it is the route.
+if os.environ.get("HULK_GFX_DXBC") == "1":
+    SHADER_PROFILES["dxbc"] = ("windows", "s_5_0")
 
 
 def compile_shaders(out_dir=None):
@@ -364,7 +538,15 @@ def compile_shaders(out_dir=None):
             out = os.path.join(od, fn[:-3] + ".bin")
             cmd = [sc, "-f", os.path.join(sd, fn), "-o", out, "--type", kind, "--platform", plat, "-p", p,
                    "-i", _bgfx("src"), "--varyingdef", os.path.join(sd, "varying.def.sc")]
-            r = subprocess.run(cmd, capture_output=True, text=True)
+            env = None
+            if prof == "dxbc":
+                if not os.path.exists(os.path.join(D3D4LINUX_DIR, "d3d4linux.exe")):
+                    res["%s/%s" % (prof, fn)] = "FAILED no d3d4linux.exe (tools/native_gfx.py d3d4linux)"
+                    continue
+                os.makedirs(SHADER_PREFIX, exist_ok=True)
+                env = dict(os.environ, WINEPREFIX=SHADER_PREFIX, D3D4LINUX_WINE=wine_wrapper(), WINEDEBUG="-all",
+                           WINEDLLOVERRIDES="mscoree,mshtml=")
+            r = subprocess.run(cmd, capture_output=True, text=True, env=env)
             res["%s/%s" % (prof, fn)] = "ok %d B" % os.path.getsize(out) if r.returncode == 0 else \
                 "FAILED " + (r.stdout + r.stderr)[-500:]
     return res
@@ -384,7 +566,7 @@ def pddi_sources():
 def pddi_host():
     """The skeleton as a host static library, the shaders embedded for Metal, and the smoke test linked against it."""
     res = compile_shaders()
-    bad = [k for k, v in res.items() if not v.startswith("ok")]
+    bad = [k for k, v in res.items() if not v.startswith("ok") and not k.startswith("dxbc/")]   # (dxbc: Wine)
     if bad:
         raise SystemExit("shaders failed: %s" % {k: res[k] for k in bad})
     gen = os.path.join(PDDI_HOST_DIR, "gen")
@@ -425,22 +607,31 @@ def pddi_host():
     return {"lib": lib, "exe": exe, "shaders": res}
 
 
-def embed_shaders(gen, profile):
-    """shaders_<profile>.h: each compiled shader as a byte array (the host smoke test loads them from memory)."""
+def embed_shaders(gen, profiles):
+    """pddi_shaders.h: each compiled shader of each profile as a byte array, and a table the backend picks from by
+    renderer at run time (bgfx_context.cpp findShader): {name, profile, data, size}."""
     os.makedirs(gen, exist_ok=True)
-    sd = os.path.join(OUT, "shaders", profile)
-    lines = ["// generated by tools/native_gfx.py from src/platform/sdl/pddi/shaders (%s)" % profile]
-    names = []
-    for fn in sorted(os.listdir(sd)):
-        if not fn.endswith(".bin"):
+    if isinstance(profiles, str):
+        profiles = [profiles]
+    lines = ["// generated by tools/native_gfx.py from src/platform/sdl/pddi/shaders (%s)" % ", ".join(profiles)]
+    table = []
+    for profile in profiles:
+        sd = os.path.join(OUT, "shaders", profile)
+        if not os.path.isdir(sd):
             continue
-        data = open(os.path.join(sd, fn), "rb").read()
-        name = "g_" + fn[:-4]
-        names.append(name)
-        lines.append("static const unsigned char %s[%d] = {" % (name, len(data)))
-        for i in range(0, len(data), 24):
-            lines.append("    " + ",".join(str(b) for b in data[i:i + 24]) + ",")
-        lines.append("};")
+        for fn in sorted(os.listdir(sd)):
+            if not fn.endswith(".bin"):
+                continue
+            data = open(os.path.join(sd, fn), "rb").read()
+            name = "g_%s_%s" % (fn[:-4], profile)
+            table.append('    {"%s", "%s", %s, %d},' % (fn[:-4], profile, name, len(data)))
+            lines.append("static const unsigned char %s[%d] = {" % (name, len(data)))
+            for i in range(0, len(data), 24):
+                lines.append("    " + ",".join(str(b) for b in data[i:i + 24]) + ",")
+            lines.append("};")
+    lines += ["struct PddiEmbeddedShader { const char* name; const char* profile; const unsigned char* data; "
+              "unsigned size; };", "static const PddiEmbeddedShader g_pddi_shaders[] = {"] + table + \
+             ["    {0, 0, 0, 0},", "};"]
     open(os.path.join(gen, "pddi_shaders.h"), "w").write("\n".join(lines) + "\n")
 
 
@@ -448,7 +639,7 @@ def pddi_win32():
     """The skeleton for the native image: i686-pc-windows-msvc objects (HULK_PDDI_GAME=1), archived."""
     cxx, ar, _ = target_cfg("win32")
     gen = os.path.join(PDDI_WIN_DIR, "gen")
-    embed_shaders(gen, "spirv")          # placeholder until D3D11 binaries can be compiled (needs Windows)
+    embed_shaders(gen, ["dxbc", "spirv"])     # Direct3D 11 (Wine, Windows) and Vulkan; the backend picks by renderer
     inc = ["-I" + PDDI, "-I" + gen, "-I" + _bx("include"), "-I" + _bgfx("include"), "-I" + _bimg("include"),
            "-DHULK_PDDI_GAME=1", "-DHULK_PDDI_EMBED_SHADERS=1", "-Wall", "-Wno-unused-parameter", "-Wno-unused-private-field", "-Werror",
            "-fno-threadsafe-statics"]
@@ -514,7 +705,7 @@ def slots():
     inc = ["-I" + PDDI, "-I" + os.path.join(PDDI_WIN_DIR, "gen"), "-I" + _bx("include"), "-I" + _bgfx("include"),
            "-DHULK_PDDI_GAME=1", "-DHULK_PDDI_EMBED_SHADERS=1"]
     if not os.path.exists(os.path.join(PDDI_WIN_DIR, "gen", "pddi_shaders.h")):
-        embed_shaders(os.path.join(PDDI_WIN_DIR, "gen"), "spirv")
+        embed_shaders(os.path.join(PDDI_WIN_DIR, "gen"), ["dxbc", "spirv"])
     got, bad = {}, []
     for s in pddi_sources():
         r = subprocess.run(cxx + inc + ["-S", "-o", os.devnull, "-Xclang", "-fdump-vtable-layouts", s],
@@ -569,6 +760,7 @@ def main(argv):
     b = sub.add_parser("build")
     b.add_argument("--target", choices=("host", "win32", "all"), default="all")
     sub.add_parser("shaderc")
+    sub.add_parser("d3d4linux")
     sub.add_parser("shaders")
     p = sub.add_parser("pddi")
     p.add_argument("--target", choices=("host", "win32", "all"), default="all")
@@ -587,6 +779,8 @@ def main(argv):
     elif a.cmd == "shaderc":
         fetch()
         shaderc()
+    elif a.cmd == "d3d4linux":
+        d3d4linux()
     elif a.cmd == "shaders":
         print(json.dumps(compile_shaders(), indent=1))
     elif a.cmd == "pddi":

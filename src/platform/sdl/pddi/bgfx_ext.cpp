@@ -59,7 +59,7 @@ void bgfxExtVertexProgram::vfunc_8(int a0, int a1) { PDDI_STUB(8); }
 unsigned int bgfxExtVisibilityTest::vfunc_1() { PDDI_STUB(1); return 0; }
 void bgfxExtVisibilityTest::vfunc_2() { PDDI_STUB(2); }
 void bgfxExtVisibilityTest::vfunc_3() { PDDI_STUB(3); }
-void bgfxExtVisibilityTest::vfunc_4(int a0) { PDDI_STUB(4); }
+unsigned int bgfxExtVisibilityTest::vfunc_4(int a0) { PDDI_STUB(4); return 0; }
 
 } // namespace pddi
 } // namespace hulk

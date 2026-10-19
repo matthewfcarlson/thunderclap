@@ -95,7 +95,22 @@ void drawlogAppend(const DrawRecord& r);
 uint32_t drawlogCount();
 const DrawRecord* drawlogAt(uint32_t i);      // i < drawlogCount(), oldest kept first
 bool drawlogWants(uint32_t frame);
+uint32_t drawlogTexture(const void* texture);  // first-seen ordinal (1-based; 0 for none), as the hybrid log's
 bool drawlogDump(const char* path);           // binary: "PDL1", count, records
+unsigned drawCount();                         // draws submitted since start
+void countDraw();
+
+class bgfxDisplay;
+#if HULK_PDDI_GAME && defined(_WIN32)
+// The native image's window and run-time options (win32_platform.cpp)
+void platformInit();
+bool platformDisplayInit(bgfxDisplay* display, unsigned width, unsigned height);
+void platformPump();
+void platformBeforeFrame(unsigned frame);
+void platformAfterFrame(unsigned frame);
+class bgfxContext;
+void platformSelfTest(bgfxContext* context, bgfxDisplay* display);
+#endif
 
 } // namespace pddi
 } // namespace hulk
