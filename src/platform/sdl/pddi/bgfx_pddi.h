@@ -104,6 +104,30 @@ class bgfxDisplay : public bgfxObject {
     bool m_initialised;
     unsigned m_frame;
     int m_nativeType;         // set before hostInit: 1 = the handles are a Wayland display/surface
+
+    // G4: the frame is drawn into a frame buffer of ours (the scene target: colour + D24S8), which the present pass
+    // (view kPresentView, before bgfx::frame) draws onto the back buffer. That is what makes the game's reads of the
+    // render target possible: bgfx can neither read nor blit the back buffer. The copy texture is the one the game's
+    // display makes at init (0x31ae70: CreateTexture of the back buffer's size and format, display+0x498) and
+    // FUN_0031b1e0 fills with CopyRects of the render target: the refraction shader samples it (bgfxContext::
+    // copyFrameBuffer blits into it at the point in the frame the copy is asked for). Without a present program for
+    // the renderer (no shader build, e.g. D3D11 under Wine 7.7) the frame goes straight to the back buffer and no
+    // copy exists (the refraction stage samples white).
+    enum { kPresentView = 255 };
+    bool ensureTargets();                     // (re)make the scene target and the copy at the current size
+    void destroyTargets();
+    void present();                           // the scene target onto the back buffer (display slot 14)
+    bool m_offscreen;                         // the scene target is in use (a present program exists)
+    unsigned m_sceneFb, m_sceneColour, m_sceneDepth, m_copyTex;   // bgfx handles (0xffff: none)
+    unsigned m_targetWidth, m_targetHeight;
+    unsigned m_presentProgram, m_uPresentTex;
+    bool m_presentTried;
+    unsigned char m_wantCopy;                 // DisplayConfig.createTexture (+0x2e) as the game asked (logged)
+    // the front buffer: what the last present showed, kept (a blit at the present) while the framebuffer effects'
+    // overlay asks for it (GetBackBuffer(-1) in 0x3226d0); m_prevAsked: the frame it was last asked in
+    unsigned m_prevFrame;
+    unsigned m_prevAsked;
+    unsigned prevFrame();                     // the handle (made on first use), and keep it coming
 };
 
 // Stands in for pure3d::d3dContext (vftable 0x433164, 111 slots). 33 slots are the D3D backend's overrides
@@ -293,9 +317,31 @@ class bgfxContext : public bgfxObject {
     int directionalLights(int* ids);          // FUN_00321dc0(ids, 0): up to 4 enabled directional lights
     void setVertexConstants(int reg, const float* v, int count);   // SetVertexShaderConstant (hardware numbering)
     void skinConstants(bgfxShader* shader);  // FUN_00324270: the skin programs' material, light, projection
+    // d3dRefractVertexShader::vfunc_24's unskinned upload (0x32f3b0; the class computes the four rows it passes)
+    void refractConstants(bgfxShader* shader, const float* viewport, const float* uv, const float* half,
+                          const float* one);
     const float* worldMatrix();               // the modelview (D3D world: the base's matrix stack 0)
     // the viewport changed (clearFlags < 0) or a clear (bgfx flags): a new bgfx view when the current one has draws
     void viewChanged(int clearFlags);
+    void setupView();                         // the current view's target, rectangle, clear, mode
+    // FUN_0031b1e0 (display): CopyRects of the render target into the display's frame-buffer texture, at this point
+    // of the frame: a blit into the copy at the start of a new view (bgfx runs a view's blits before its draws), so
+    // what was drawn so far is in it and what follows can sample it. Returns the texture object the refraction shader
+    // binds (its tex84 wraps the display's texture, FUN_00326300), or 0 when there is no copy (no scene target).
+    bgfxTexture* copyFrameBuffer();
+    // ---- full-screen passes (bgfx_effects.cpp): each pass is a view of its own after what was drawn so far
+    // a view drawing into `fb` (0xffff: the scene target) over the rectangle, no clear, in submission order
+    uint16_t fxView(unsigned fb, unsigned x, unsigned y, unsigned w, unsigned h);
+    void fxDone();                            // what follows goes to a new scene view (the current viewport)
+    bool fxCopy(unsigned dstTex);             // FUN_00320aa0: the render target (the scene) into a texture of its size
+    // a quad in target pixels (edges: 0..w, 0..h) with up to four texture coordinate sets (normalised), one program
+    struct FxQuad {
+        float x0, y0, x1, y1;
+        float uv[4][4];                       // set i: u0, v0, u1, v1
+    };
+    void fxDraw(uint16_t view, uint16_t program, const FxQuad& q, const unsigned* tex, int ntex, uint64_t state,
+                const float* consts, int nconsts, const float* prog);
+    bool fxEnsure();
     uint64_t stateBits(const bgfxShader* shader, int kind, uint32_t* stencil);
     void drawlogState(DrawRecord& r);
     int m_base[(0x14c - 8) / 4];              // +8..+0x14c: the portable base's data (see above)
@@ -410,6 +456,14 @@ class bgfxContext : public bgfxObject {
     // 0x101 gamma, 0x500001 antialias, 0x500004 projected texture, 0x500005 read pixels, 0x102 hardware skinning,
     // 0x500002 visibility test, 0x106 vertex program, 0x103 framebuffer effects, 0x104 framebuffer texture, 0x105 none
     void* m_ext[10];
+    // G4 (the data members stay after the base's block at +8..+0x14c: m_base must be the first)
+    unsigned m_visQuery;                      // the visibility test's bgfx occlusion query the draws go to (0xffff)
+    const char* m_streamProgram;              // d3dExtVertexProgram slot 6: the program prim streams draw with (0)
+    bgfxTexture* m_fbCopy;                    // a linear texture object over the display's copy (texel coordinates)
+    unsigned m_copiesThisFrame;
+    unsigned m_fxUniforms[3], m_fxUniformK, m_fxSamplers[4], m_fxPrograms[2];   // u_fxC, u_fxProg, u_fxTarget;
+                                                                                // u_fxK; s_fx0..3; filter, blur
+    unsigned m_fxTargetW, m_fxTargetH;        // the fx view's target size (u_fxTarget)
 };
 
 // Stands in for pure3d::d3dTexture (vftable 0x4333ac, 21 slots). 4: pixel type, 5/6: width/height, 7: bits per
@@ -680,7 +734,8 @@ class bgfxShader : public bgfxObject {
     int m_layerPath;                          // layered CLYR (+0x8c)
     bool m_noLayer;                           // layeredReflect LRSA (+0x8c): leave the TTEX layer out
     uint32_t m_envColour;                     // environment ENVB (+0x88), refract REFC (+0x90)
-    float m_refractBlend;                     // refract REFB (+0x8c)
+    float m_refractBlend;                     // refract REFB (+0x8c): the factor's alpha and the intensity
+    float m_refractScale;                     // refract REFI (+0x88, default 10): the refraction's offset scale
     int m_savedMode;                          // refract: what its pass set-up put aside (+0x94, +0x98)
     bool m_savedAlphaTest;
     void setTexture(int which, bgfxObject* t);
@@ -758,6 +813,11 @@ class bgfxRefractShader : public bgfxShader {
 class bgfxFBEffectsShader : public bgfxShader {
   public:
     explicit bgfxFBEffectsShader(bgfxContext* context);
+    // 0x328720: SAT +0x80, BRIT +0x84, MDPT +0x88 (0.5), CONT +0x8c, TINT +0x90 (opaque white), CLRE +0x94 (on/off);
+    // UPDT adds them to the frame's average (FUN_003285d0)
+    float m_fxSat, m_fxBright, m_fxMid, m_fxContrast;
+    uint32_t m_fxTint;
+    bool m_fxOn;
     virtual int vfunc_11();                   // slot 11: d3dFBEffectsShader 0x328520 (pure3d/d3dFBEffectsShader.cpp)
     virtual void vfunc_12();                  // slot 12: d3dFBEffectsShader 0x328540 (pure3d/d3dFBEffectsShader.cpp)
     virtual void vfunc_13();                  // slot 13: d3dFBEffectsShader 0x328550 (pure3d/d3dFBEffectsShader.cpp)
@@ -782,12 +842,13 @@ class bgfxExtension {
 class bgfxExtAntialiasControl : public bgfxExtension {
   public:
     enum { kClass = kClassExtAntialiasControl };
-    explicit bgfxExtAntialiasControl(bgfxContext* context) : m_context(context) {}
+    explicit bgfxExtAntialiasControl(bgfxContext* context) : m_context(context), m_on(false), m_quadClear(false) {}
     virtual void vfunc_1(unsigned char);      // slot 1: d3dExtAntialiasControl 0x322000 (pure3d/d3dExtFramebufferEffects.cpp)
     virtual void vfunc_2(unsigned char);      // slot 2: d3dExtAntialiasControl 0x322030 (pure3d/d3dExtFramebufferEffects.cpp)
     virtual void vfunc_3();                   // slot 3: d3dExtAntialiasControl 0x322010 (pure3d/d3dExtFramebufferEffects.cpp)
     virtual unsigned int vfunc_4();           // slot 4: d3dExtAntialiasControl 0x322020 (pure3d/d3dExtFramebufferEffects.cpp)
     bgfxContext* m_context;
+    bool m_on, m_quadClear;
 };
 
 // Stands in for pure3d::d3dExtFrameBufferTexture.
@@ -800,23 +861,59 @@ class bgfxExtFrameBufferTexture : public bgfxExtension {
     bgfxContext* m_context;
 };
 
-// Stands in for pure3d::d3dExtFramebufferEffects.
+// Stands in for pure3d::d3dExtFramebufferEffects (bgfx_effects.cpp): the game's full-screen passes, run by
+// CRenderManager after the 3D scene each frame (FUN_001b93a0) and by the HUD's motion-trail overlay (FUN_001c22f0).
+// Slots: 1/2 the overlay (the previous frame drawn over the frame, zoomed, at an alpha), 3/4/5/6 the colour correction
+// (enable, settings, settings from the fbeffects shaders of the data, the pass), 7/8/9 the bloom (enable, settings,
+// the passes: bright pass to half size, a tinted copy to quarter size, a separable gaussian, the composite). The
+// fields keep the game's meanings (offsets in the comments); the passes are views of the context (bgfxContext::fx*).
 class bgfxExtFramebufferEffects : public bgfxExtension {
   public:
     enum { kClass = kClassExtFramebufferEffects };
-    explicit bgfxExtFramebufferEffects(bgfxContext* context) : m_context(context) {}
-    virtual void vfunc_1(unsigned char, int, int, unsigned char); // slot 1: d3dExtFramebufferEffects 0x3225c0 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_2();                   // slot 2: d3dExtFramebufferEffects 0x3226b0 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_3(unsigned char);      // slot 3: d3dExtFramebufferEffects 0x320530 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_4(int, int, int, int, int); // slot 4: d3dExtFramebufferEffects 0x3239e0 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_5();                   // slot 5: d3dExtFramebufferEffects 0x3202a0 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_6();                   // slot 6: d3dExtFramebufferEffects 0x324a00 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_7(unsigned char);      // slot 7: d3dExtFramebufferEffects 0x320290 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_8(int, int, int, int, int, int, int, int); // slot 8: d3dExtFramebufferEffects 0x322cd0 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_9();                   // slot 9: d3dExtFramebufferEffects 0x325110 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_10(int);               // slot 10: d3dExtFramebufferEffects 0x3225e0 (pure3d/d3dExtFramebufferEffects.cpp)
+    explicit bgfxExtFramebufferEffects(bgfxContext* context);    // 0x3224b0's defaults
+    virtual ~bgfxExtFramebufferEffects();
+    virtual void vfunc_1(unsigned char, float, float, unsigned char); // slot 1: 0x3225c0: the overlay's on, alpha, scale, split
+    virtual void vfunc_2();                   // slot 2: d3dExtFramebufferEffects 0x3226b0: draw the overlay
+    virtual void vfunc_3(unsigned char);      // slot 3: d3dExtFramebufferEffects 0x320530: colour correction on/off
+    virtual void vfunc_4(float, float, float, float, unsigned int); // slot 4: 0x3239e0: its settings (sat, bright, contrast, mid, tint)
+    virtual void vfunc_5();                   // slot 5: d3dExtFramebufferEffects 0x3202a0 -> FUN_003287a0: the fbeffects shaders' average
+    virtual void vfunc_6();                   // slot 6: d3dExtFramebufferEffects 0x324a00: the colour correction pass
+    virtual void vfunc_7(unsigned char);      // slot 7: d3dExtFramebufferEffects 0x320290: bloom on/off
+    virtual void vfunc_8(float, unsigned int, float, float, unsigned int, float, float, float); // slot 8: 0x322cd0: bloom settings
+    virtual void vfunc_9();                   // slot 9: d3dExtFramebufferEffects 0x325110: the bloom passes
+    virtual void vfunc_10(int);               // slot 10: d3dExtFramebufferEffects 0x3225e0: nothing
     bgfxContext* m_context;
+    // the overlay (+0x08..+0x1c)
+    bgfxShader* m_overlayShader;              // +0x08: a "simple" shader with TEX = the previous frame
+    bgfxTexture* m_overlayTex;                // +0x0c
+    bool m_overlayOn;                         // +0x10
+    float m_overlayAlpha, m_overlayScale;     // +0x14 (0.9), +0x18
+    bool m_overlaySplit;                      // +0x1c: three passes, one colour channel each, scales 4 apart
+    // colour correction (+0x68..+0x88; vfunc_4)
+    float m_ccScale, m_ccAmount, m_ccCurve, m_ccBias, m_ccResult;
+    bool m_ccBusy, m_ccEnabled;               // +0x7c (no resources), +0x7d (vfunc_3)
+    float m_ccTint[3];                        // +0x80 red, green, blue
+    // bloom (+0xb8..+0x18c; vfunc_8)
+    float m_bAmount, m_bBlend, m_bContrast, m_bRadius, m_bMix, m_bD0, m_bD4, m_bSigma;
+    uint32_t m_bFactor;                       // +0xdc: the quarter copy's tint (texture factor)
+    float m_bWeights[3];                      // +0xe0: the bright pass's channel weights (the colour, summing to 1)
+    bool m_bEnabled;                          // +0xec (vfunc_7; on by default)
+    bool m_blurBusy;                          // +0xb4
+    float m_positions[20], m_values[20];      // +0xf0, +0x140: the gaussian's tap offsets and weights
+    // resources (bgfx handles; 0xffff none): the full-size copy (+0x20), the half (+0xa8) and quarter (+0xac, +0xb0)
+    // targets, the previous frame (what GetBackBuffer(-1) is to the overlay: the front buffer)
+    unsigned m_full, m_half, m_halfFb, m_quarter[2], m_quarterFb[2], m_w, m_h;
+    bool ensureResources();
+    void releaseResources();
+    // FUN_00324660: the colour pass from the full copy into the current fx view (17 shader variants: level, side)
+    void filterPass(const float* weights, float f1, float f2, const float* colour, float f3, float f4, int w, int h);
+    // FUN_00323130: the separable gaussian between two quarter targets; returns the one holding the result
+    int blur(int source, int target);
 };
+
+// the fbeffects shaders' settings, accumulated by context slot 32 / UPDT (FUN_003285d0) and averaged by
+// d3dExtFramebufferEffects::vfunc_5 (FUN_003287a0) into the colour correction (bgfx_effects.cpp)
+void fbEffectsAccumulate(bgfxShader* shader);
 
 // Stands in for pure3d::d3dExtGammaControl.
 class bgfxExtGammaControl : public bgfxExtension {
@@ -861,32 +958,40 @@ class bgfxExtReadPixels : public bgfxExtension {
     bgfxContext* m_context;
 };
 
-// Stands in for pure3d::d3dExtVertexProgram.
+// Stands in for pure3d::d3dExtVertexProgram (bgfx_ext.cpp): how the prim group loaders give a mesh its vertex
+// program. The game's handles are Direct3D vertex shader handles from the declaration builder (FUN_003290e0, for the
+// shader's program name and the vertex format); ours are the program name itself (the static string slot 23 of the
+// shader returns), which the prim buffer (+0x3c) or the streamed prim group's binding (slot 6) carries to the draw.
 class bgfxExtVertexProgram : public bgfxExtension {
   public:
     enum { kClass = kClassExtVertexProgram };
     explicit bgfxExtVertexProgram(bgfxContext* context) : m_context(context) {}
     virtual void vfunc_1();                   // slot 1: d3dExtVertexProgram 0x322420 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_2(int, int, int, int, int); // slot 2: d3dExtVertexProgram 0x322440 (pure3d/d3dExtFramebufferEffects.cpp)
+    virtual int vfunc_2(bgfxShader*, int, int, int, unsigned char); // slot 2: 0x322440: the handle for a shader
     virtual void vfunc_3();                   // slot 3: d3dExtVertexProgram 0x322430 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_4(void*, char);        // slot 4: d3dExtVertexProgram 0x322360 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_5(int, int);           // slot 5: d3dExtVertexProgram 0x322390 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_6(unsigned int);       // slot 6: d3dExtVertexProgram 0x3223a0 (pure3d/d3dExtFramebufferEffects.cpp)
+    virtual bool vfunc_4(bgfxShader*, unsigned char); // slot 4: 0x322360: does the shader have a program (slot 22)
+    virtual void vfunc_5(bgfxPrimBuffer*, int); // slot 5: 0x322390: a prim buffer's handle (+0x3c)
+    virtual void vfunc_6(unsigned int);       // slot 6: 0x3223a0: the handle prim streams draw with (0: none)
     virtual void vfunc_7(int, int, int);      // slot 7: d3dExtVertexProgram 0x3223c0 (pure3d/d3dExtFramebufferEffects.cpp)
     virtual void vfunc_8(int, int);           // slot 8: d3dExtVertexProgram 0x322400 (pure3d/d3dExtFramebufferEffects.cpp)
     bgfxContext* m_context;
 };
 
-// Stands in for pure3d::d3dExtVisibilityTest.
+// Stands in for pure3d::d3dExtVisibilityTest (bgfx_ext.cpp): occlusion queries.
 class bgfxExtVisibilityTest : public bgfxExtension {
   public:
-    enum { kClass = kClassExtVisibilityTest };
-    explicit bgfxExtVisibilityTest(bgfxContext* context) : m_context(context) {}
+    enum { kClass = kClassExtVisibilityTest, kQueries = 64, kIndices = 16 };
+    explicit bgfxExtVisibilityTest(bgfxContext* context);
     virtual unsigned int vfunc_1();           // slot 1: d3dExtVisibilityTest 0x3222c0 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_2();                   // slot 2: d3dExtVisibilityTest 0x3222d0 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_3();                   // slot 3: d3dExtVisibilityTest 0x3222e0 (pure3d/d3dExtFramebufferEffects.cpp)
+    virtual void vfunc_2();                   // slot 2: d3dExtVisibilityTest 0x3222d0: begin a test
+    virtual void vfunc_3(int);                // slot 3: d3dExtVisibilityTest 0x3222e0: end test n
     virtual unsigned int vfunc_4(int);        // slot 4: d3dExtVisibilityTest 0x3222f0 (pure3d/d3dExtFramebufferEffects.cpp)
     bgfxContext* m_context;
+    unsigned m_query[kQueries], m_last[kQueries];
+    int m_byIndex[kIndices];
+    unsigned m_frame, m_next;
+    int m_current;
+    bool m_noQueries;
 };
 
 // bgfx_draw.cpp: the packed prim-buffer layout (FUN_00326e90 / FUN_003290e0) and the active-shader bookkeeping
@@ -895,6 +1000,9 @@ void packedOffsets(unsigned flags, int* weights, int* indices, int* normal, int*
                    int* extra);
 void shaderDestroyed(bgfxShader* shader);
 void releaseBuffers(unsigned vb, bool dynamicVb, unsigned ib, bool dynamicIb);
+// a program from two embedded shaders (0xffff when the renderer has no build of either, or bgfx refuses the pair)
+unsigned loadProgram(const char* vs, const char* fs);
+bool hasEmbeddedShader(const char* name);
 
 // bgfx_combiner.cpp: every combiner key the shader classes can produce (tools/native_gfx.py combiners)
 int enumerateCombinerKeys(bgfxContext* ctx, void (*out)(const char* key, const char* example));

@@ -82,6 +82,56 @@ PATCHES = [
      "\t\t\t\tm_timerQuerySupport = m_deviceProperties.limits.timestampComputeAndGraphics;\n"
      "#if defined(HULK_VK_NO_TIMER_QUERY) // hulk: tools/native_gfx.py PATCHES\n"
      "\t\t\t\tm_timerQuerySupport = false;\n#endif"),
+    #  - bgfx's Vulkan renderer: vkMapMemory through a wrapper that maps into an 8-byte slot when HULK_VK_MAP_WRAP is
+    #    defined (G4). Wine 7.7's 32-bit winevulkan writes a 64-bit pointer through ppData: the word after a 4-byte
+    #    pointer member is zeroed, e.g. OcclusionQueryVK::m_control.m_size right after m_queryResult (the first
+    #    occlusion query then divides by zero; TimerQueryVK has the same layout, which is what the timer patch above
+    #    avoided). Real Windows writes 4 bytes; the wrapper is harmless there.
+    ("bgfx", "src/renderer_vk.cpp",
+     "VK_IMPORT_DEVICE\n#undef VK_IMPORT_DEVICE_FUNC\n#undef VK_IMPORT_INSTANCE_FUNC\n#undef VK_IMPORT_FUNC\n",
+     "VK_IMPORT_DEVICE\n#undef VK_IMPORT_DEVICE_FUNC\n#undef VK_IMPORT_INSTANCE_FUNC\n#undef VK_IMPORT_FUNC\n"
+     "#if defined(HULK_VK_MAP_WRAP) // hulk: tools/native_gfx.py PATCHES\n"
+     "\tstatic PFN_vkMapMemory s_hulkMapMemory;\n"
+     "\tstatic VkResult VKAPI_CALL hulkMapMemory(::VkDevice _device, ::VkDeviceMemory _memory, VkDeviceSize _offset,\n"
+     "\t\tVkDeviceSize _size, VkMemoryMapFlags _flags, void** _data)\n"
+     "\t{\n"
+     "\t\tunion { void* ptr; uint64_t wide; } slot;\n"
+     "\t\tslot.wide = 0;\n"
+     "\t\tconst VkResult result = s_hulkMapMemory(_device, _memory, _offset, _size, _flags, &slot.ptr);\n"
+     "\t\t*_data = slot.ptr;\n"
+     "\t\treturn result;\n"
+     "\t}\n"
+     "#endif\n"),
+    ("bgfx", "src/renderer_vk.cpp",
+     "VK_IMPORT_DEVICE\n#undef VK_IMPORT_DEVICE_FUNC\n\n\t\t\tif (!imported)",
+     "VK_IMPORT_DEVICE\n#undef VK_IMPORT_DEVICE_FUNC\n"
+     "#if defined(HULK_VK_MAP_WRAP) // hulk: tools/native_gfx.py PATCHES\n"
+     "\t\t\tif (NULL != vkMapMemory && hulkMapMemory != vkMapMemory)\n"
+     "\t\t\t{\n"
+     "\t\t\t\ts_hulkMapMemory = vkMapMemory;\n"
+     "\t\t\t\tvkMapMemory = hulkMapMemory;\n"
+     "\t\t\t}\n"
+     "#endif\n"
+     "\n\t\t\tif (!imported)"),
+    #  - bgfx's Vulkan renderer: precise occlusion queries where the device has them, when HULK_VK_PRECISE_OCCLUSION is
+    #    defined (G4). The game's visibility test divides the passed samples by the area (d3dExtVisibilityTest,
+    #    BillboardQuadGroup FUN_002ba220); without VK_QUERY_CONTROL_PRECISE_BIT Vulkan may answer any non-zero
+    #    number (MoltenVK answers 1). D3D11 and Metal count.
+    ("bgfx", "src/renderer_vk.cpp",
+     "\t\t\t\t\t.occlusionQueryPrecise                   = VK_FALSE,",
+     "#if defined(HULK_VK_PRECISE_OCCLUSION) // hulk: tools/native_gfx.py PATCHES\n"
+     "\t\t\t\t\t.occlusionQueryPrecise                   = supportedFeatures.occlusionQueryPrecise,\n"
+     "#else\n"
+     "\t\t\t\t\t.occlusionQueryPrecise                   = VK_FALSE,\n"
+     "#endif"),
+    ("bgfx", "src/renderer_vk.cpp",
+     "\t\tvkCmdBeginQuery(commandBuffer, m_queryPool, _handle.idx, 0);",
+     "#if defined(HULK_VK_PRECISE_OCCLUSION) // hulk: tools/native_gfx.py PATCHES\n"
+     "\t\tvkCmdBeginQuery(commandBuffer, m_queryPool, _handle.idx\n"
+     "\t\t\t, s_renderVK->m_deviceFeatures.occlusionQueryPrecise ? VK_QUERY_CONTROL_PRECISE_BIT : 0);\n"
+     "#else\n"
+     "\t\tvkCmdBeginQuery(commandBuffer, m_queryPool, _handle.idx, 0);\n"
+     "#endif"),
 ]
 
 
@@ -252,7 +302,8 @@ def target_cfg(target):
                "-Wno-deprecated-declarations", "-Wno-invalid-offsetof", "-Wno-macro-redefined"]
         defs = COMMON_DEFS + ["-DBGFX_CONFIG_RENDERER_DIRECT3D11=1", "-DBGFX_CONFIG_RENDERER_DIRECT3D12=0",
                               "-DBGFX_CONFIG_RENDERER_OPENGL=43", "-DBGFX_CONFIG_RENDERER_VULKAN=1",
-                              "-DHULK_VK_NO_TIMER_QUERY=1"]
+                              "-DHULK_VK_NO_TIMER_QUERY=1", "-DHULK_VK_MAP_WRAP=1",
+                              "-DHULK_VK_PRECISE_OCCLUSION=1"]
         return cxx + defs, [os.path.join(LLVM, "llvm-lib"), "/nologo"], ".lib"
     raise SystemExit("unknown target %s" % target)
 
@@ -598,8 +649,9 @@ def generate_combiner_shaders():
 
 
 def compile_shaders(out_dir=None):
-    """Compile every src/platform/sdl/pddi/shaders/{vs,fs}_*.sc and shaders/vp/{vs,fs}_*.sc (the vertex-program
-    shaders, the fixed-function path and the generic combiners that pair with them: their own varying.def.sc), and
+    """Compile every src/platform/sdl/pddi/shaders/{vs,fs}_*.sc, shaders/vp/{vs,fs}_*.sc (the vertex-program
+    shaders, the fixed-function path and the generic combiners that pair with them: their own varying.def.sc) and
+    shaders/fx/{vs,fs}_*.sc (the framebuffer effects' full-screen passes, G4: their own varyings), and
     the generated combiner programs (out/shaders-gen/fs_cmb_*.sc, with shaders/vp's varyings and fs_vp_stage.sh),
     for each profile into out/shaders/<profile>/ (one flat namespace: the file names are unique). Outputs newer than
     their inputs (the source, its varyings, the .sh headers, shaderc) are kept."""
@@ -608,9 +660,10 @@ def compile_shaders(out_dir=None):
         raise SystemExit("no shaderc: run `tools/native_gfx.py shaderc` first")
     out_dir = out_dir or os.path.join(OUT, "shaders")
     vp = os.path.join(PDDI, "shaders", "vp")
+    fx = os.path.join(PDDI, "shaders", "fx")       # G4: the full-screen passes (their own varyings)
     res = {}
     units = []          # (source dir, file, varying dir, extra include dirs)
-    for sd in (os.path.join(PDDI, "shaders"), vp):
+    for sd in (os.path.join(PDDI, "shaders"), vp, fx):
         units += [(sd, fn, sd, []) for fn in sorted(os.listdir(sd))
                   if fn.endswith(".sc") and fn[:3] in ("vs_", "fs_")]
     gen = generate_combiner_shaders()

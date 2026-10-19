@@ -2,12 +2,19 @@
 #include "bgfx_pddi.h"
 
 #include <bgfx/bgfx.h>
+#include <stdlib.h>
+#include <string.h>
 
 namespace hulk {
 namespace pddi {
 
+enum { kNone = 0xffff };
+
 bgfxDisplay::bgfxDisplay(bgfxDevice* device)
-    : m_device(device), m_width(640), m_height(480), m_depth(32), m_initialised(false), m_frame(0), m_nativeType(0)
+    : m_device(device), m_width(640), m_height(480), m_depth(32), m_initialised(false), m_frame(0), m_nativeType(0),
+      m_offscreen(false), m_sceneFb(kNone), m_sceneColour(kNone), m_sceneDepth(kNone), m_copyTex(kNone),
+      m_targetWidth(0), m_targetHeight(0), m_presentProgram(kNone), m_uPresentTex(kNone), m_presentTried(false),
+      m_wantCopy(1), m_prevFrame(kNone), m_prevAsked(0xfffffff0u)
 {
 }
 
@@ -38,7 +45,136 @@ bool bgfxDisplay::hostInit(void* nativeWindow, void* nativeDisplay, unsigned wid
     m_height = height;
     m_initialised = true;
     logf("pddi: bgfx %s, %ux%u\n", bgfx::getRendererName(bgfx::getRendererType()), width, height);
+    ensureTargets();
     return true;
+}
+
+// ---- the scene target, the copy texture, the present pass (G4; see bgfx_pddi.h)
+void bgfxDisplay::destroyTargets()
+{
+    if (m_sceneFb != kNone)
+        bgfx::destroy(bgfx::FrameBufferHandle{(uint16_t)m_sceneFb});     // destroys its textures too
+    if (m_copyTex != kNone)
+        bgfx::destroy(bgfx::TextureHandle{(uint16_t)m_copyTex});
+    if (m_prevFrame != kNone)
+        bgfx::destroy(bgfx::TextureHandle{(uint16_t)m_prevFrame});
+    m_sceneFb = m_sceneColour = m_sceneDepth = m_copyTex = m_prevFrame = kNone;
+    m_targetWidth = m_targetHeight = 0;
+}
+
+bool bgfxDisplay::ensureTargets()
+{
+    if (!m_initialised)
+        return false;
+    if (!m_presentTried) {
+        m_presentTried = true;
+        const char* direct = getenv("HULK_GFX_DIRECT");        // 1: no scene target (the G3 path: no copies)
+        if (direct && *direct == '1') {
+            logf("pddi: HULK_GFX_DIRECT: drawing to the back buffer (no frame-buffer copies or effects)\n");
+            return m_offscreen = false;
+        }
+        m_presentProgram = loadProgram("vs_pddi_present", "fs_pddi_present");
+        if (m_presentProgram != kNone)
+            m_uPresentTex = bgfx::createUniform("s_pddiPresent", bgfx::UniformType::Sampler).idx;
+        else
+            logf("pddi: no present program for this renderer: drawing to the back buffer (no frame-buffer copies)\n");
+    }
+    if (m_presentProgram == kNone)
+        return m_offscreen = false;
+    if (m_sceneFb != kNone && m_targetWidth == m_width && m_targetHeight == m_height)
+        return m_offscreen = true;
+    destroyTargets();
+    const uint64_t rt = BGFX_TEXTURE_RT | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT;
+    bgfx::TextureHandle colour = bgfx::createTexture2D((uint16_t)m_width, (uint16_t)m_height, false, 1,
+                                                       bgfx::TextureFormat::BGRA8, rt);
+    // depth + stencil: D24S8 where the renderer can render to it, else 32-bit float depth + stencil (MoltenVK and
+    // Apple GPUs have no D24S8)
+    const bgfx::Caps* caps = bgfx::getCaps();
+    bgfx::TextureFormat::Enum depthFormat = bgfx::TextureFormat::D24S8;
+    if (caps && !(caps->formats[bgfx::TextureFormat::D24S8] & BGFX_CAPS_FORMAT_TEXTURE_FRAMEBUFFER))
+        depthFormat = bgfx::TextureFormat::D32FS8;
+    bgfx::TextureHandle depth = bgfx::createTexture2D((uint16_t)m_width, (uint16_t)m_height, false, 1, depthFormat,
+                                                      BGFX_TEXTURE_RT_WRITE_ONLY);
+    bgfx::TextureHandle both[2] = {colour, depth};
+    bgfx::FrameBufferHandle fb = bgfx::createFrameBuffer(2, both, true);
+    if (!bgfx::isValid(fb)) {
+        logf("pddi: scene target %ux%u (depth format %d): bgfx refused it: drawing to the back buffer\n", m_width,
+             m_height, (int)depthFormat);
+        bgfx::destroy(colour);
+        bgfx::destroy(depth);
+        return m_offscreen = false;
+    }
+    m_sceneFb = fb.idx;
+    m_sceneColour = colour.idx;
+    m_sceneDepth = depth.idx;
+    // the copy (the game's display+0x498: the back buffer's size and format); a blit destination, sampled
+    // (this bgfx has no blit capability bit: every renderer we build blits; WebGL2, G5, gets a quad copy if not)
+    m_copyTex = bgfx::createTexture2D((uint16_t)m_width, (uint16_t)m_height, false, 1, bgfx::TextureFormat::BGRA8,
+                                      BGFX_TEXTURE_BLIT_DST | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP).idx;
+    m_targetWidth = m_width;
+    m_targetHeight = m_height;
+    logf("pddi: scene target %ux%u (depth format %s)%s\n", m_width, m_height,
+         depthFormat == bgfx::TextureFormat::D24S8 ? "D24S8" : "D32FS8", m_copyTex != kNone ? " + frame-buffer copy" : "");
+    return m_offscreen = true;
+}
+
+// The previous frame for the framebuffer effects' overlay: made on first use (the frame it is first asked for has
+// nothing in it yet: black, as a fresh Xbox front buffer would hold whatever was last shown); kept up to date by the
+// present while it is asked for
+unsigned bgfxDisplay::prevFrame()
+{
+    if (!m_offscreen || m_sceneFb == kNone)
+        return kNone;
+    if (m_prevFrame == kNone)
+        m_prevFrame = bgfx::createTexture2D((uint16_t)m_targetWidth, (uint16_t)m_targetHeight, false, 1,
+                                            bgfx::TextureFormat::BGRA8,
+                                            BGFX_TEXTURE_BLIT_DST | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP).idx;
+    m_prevAsked = m_frame;
+    return m_prevFrame;
+}
+
+// Before bgfx::frame: the scene target onto the back buffer, a full-screen quad in the last view (point sampled;
+// stretched if the window's size differs). Renderers with the origin at the bottom left (OpenGL) store a target
+// upside down relative to how it is sampled: the quad's v runs the other way there.
+void bgfxDisplay::present()
+{
+    if (!m_initialised || !m_offscreen || m_sceneFb == kNone)
+        return;
+    struct V { float x, y, z, u, v; };
+    static bgfx::VertexLayout s_layout;
+    static bool s_made;
+    if (!s_made) {
+        s_layout.begin()
+            .add(bgfx::Attrib::Position, 3, bgfx::AttribType::Float)
+            .add(bgfx::Attrib::TexCoord0, 2, bgfx::AttribType::Float)
+            .end();
+        s_made = true;
+    }
+    if (bgfx::getAvailTransientVertexBuffer(4, s_layout) < 4)
+        return;
+    bgfx::TransientVertexBuffer tvb;
+    bgfx::allocTransientVertexBuffer(&tvb, 4, s_layout);
+    const bgfx::Caps* caps = bgfx::getCaps();
+    bool flip = caps && caps->originBottomLeft;
+    float vt = flip ? 1.0f : 0.0f, vb = flip ? 0.0f : 1.0f;
+    V q[4] = {{-1, 1, 0, 0, vt}, {1, 1, 0, 1, vt}, {-1, -1, 0, 0, vb}, {1, -1, 0, 1, vb}};
+    memcpy(tvb.data, q, sizeof(q));
+    bgfx::ViewId view = (bgfx::ViewId)kPresentView;
+    if (m_prevFrame != kNone && m_frame - m_prevAsked < 2) {     // the front buffer of the next frame (a view's
+        bgfx::TextureRegion dst, srcRegion;                      // blits run before its draws: the frame as drawn)
+        dst.init(bgfx::TextureHandle{(uint16_t)m_prevFrame});
+        srcRegion.init(bgfx::TextureHandle{(uint16_t)m_sceneColour});
+        bgfx::blit(view, dst, srcRegion);
+    }
+    bgfx::setViewFrameBuffer(view, BGFX_INVALID_HANDLE);
+    bgfx::setViewRect(view, 0, 0, (uint16_t)m_width, (uint16_t)m_height);
+    bgfx::setViewClear(view, BGFX_CLEAR_NONE);
+    bgfx::setViewMode(view, bgfx::ViewMode::Sequential);
+    bgfx::setVertexBuffer(0, &tvb);
+    bgfx::setTexture(0, bgfx::UniformHandle{(uint16_t)m_uPresentTex}, bgfx::TextureHandle{(uint16_t)m_sceneColour},
+                     BGFX_SAMPLER_POINT | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
+    bgfx::setState(BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A | BGFX_STATE_PT_TRISTRIP);
+    bgfx::submit(view, bgfx::ProgramHandle{(uint16_t)m_presentProgram});
 }
 
 // The window's size in pixels changed (resized, fullscreen): reset the main swap chain to it. The engine reads the
@@ -53,12 +189,19 @@ void bgfxDisplay::hostResize(unsigned width, unsigned height)
     sc.width = width;
     sc.height = height;
     bgfx::reset(BGFX_RESET_VSYNC, &sc);
+    ensureTargets();
     logf("pddi: back buffer %ux%u (window resized)\n", width, height);
 }
 
 void bgfxDisplay::hostShutdown()
 {
     if (m_initialised) {
+        destroyTargets();
+        if (m_presentProgram != kNone)
+            bgfx::destroy(bgfx::ProgramHandle{(uint16_t)m_presentProgram});
+        if (m_uPresentTex != kNone)
+            bgfx::destroy(bgfx::UniformHandle{(uint16_t)m_uPresentTex});
+        m_presentProgram = m_uPresentTex = kNone;
         bgfx::shutdown();
         m_initialised = false;
     }
@@ -77,6 +220,12 @@ bool bgfxDisplay::vfunc_4(int a0)
     logf("pddi: display init: game asks %dx%d depth %d\n", cfg ? cfg[0] : 0, cfg ? cfg[1] : 0, cfg ? cfg[2] : 0);
     if (cfg && cfg[2])
         m_depth = (unsigned)cfg[2];
+    if (cfg) {
+        // DisplayConfig +0x2e: make the frame-buffer copy texture (0x31ae70). The copy exists either way here (the
+        // refraction shader is its only reader and checks for it as the game does); logged for the record.
+        m_wantCopy = ((const unsigned char*)cfg)[0x2e];
+        logf("pddi: display init: frame-buffer texture %s\n", m_wantCopy ? "asked for" : "not asked for");
+    }
     return platformDisplayInit(this, 640, 480);
 #else
     PDDI_STUB(4);
@@ -96,11 +245,15 @@ bool bgfxDisplay::vfunc_5(int a0, int a1, int a2)
         sc.width = m_width;
         sc.height = m_height;
         bgfx::reset(BGFX_RESET_VSYNC, &sc);     // G1: check how the 2026 API wants the main window resized
+        ensureTargets();
     }
     return m_initialised;
 }
-unsigned int bgfxDisplay::vfunc_6() { return m_width; }
-unsigned int bgfxDisplay::vfunc_7() { return m_height; }
+// slots 6/7 (0x31ad30, 0x31ad40): the mode's height (+0x478) and width (+0x47c): 0x31ae70 gives the back buffer
+// +0x47c as its width; d3dRefractVertexShader::vfunc_24 divides the back buffer's width by slot 7 (G1 had the two
+// swapped; docs/subsystems.md has 7 = width, 6 = height)
+unsigned int bgfxDisplay::vfunc_6() { return m_height; }
+unsigned int bgfxDisplay::vfunc_7() { return m_width; }
 int bgfxDisplay::vfunc_8() { return (int)m_depth; }
 unsigned int bgfxDisplay::vfunc_9() { return 0; }
 unsigned char bgfxDisplay::vfunc_10() { PDDI_STUB(10); return 0; }
@@ -114,8 +267,10 @@ void bgfxDisplay::vfunc_14()
 #if HULK_PDDI_GAME && defined(_WIN32)
     platformBeforeFrame(m_frame);
 #endif
-    if (m_initialised)
+    if (m_initialised) {
+        present();
         bgfx::frame();
+    }
 #if HULK_PDDI_GAME && defined(_WIN32)
     platformAfterFrame(m_frame);
 #endif

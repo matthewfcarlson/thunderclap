@@ -19,6 +19,16 @@ static void identity(float* m)
     m[0] = m[5] = m[10] = m[15] = 1.0f;
 }
 
+// The portable base's data lives at +8..+0x14c of the object (the game image's base functions write it there): our
+// data members must all come after m_base
+#if HULK_PDDI_GAME
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Winvalid-offsetof"
+static_assert(offsetof(bgfxContext, m_base) == 8, "bgfxContext: m_base must be at +8 (declare new members after it)");
+static_assert(offsetof(bgfxContext, m_display) == 0x14c, "bgfxContext: our fields start at +0x14c");
+#pragma clang diagnostic pop
+#endif
+
 bgfxContext::bgfxContext(bgfxDisplay* display, bgfxDevice* device)
     : m_display(display), m_device(device), m_stream(0), m_defaultShader(0), m_drawIndex(0), m_anyLightDirty(false),
       m_hostLights(false), m_viewId(0), m_viewUsed(false), m_clearFlags(0), m_clearRgba(0), m_clearDepth(1.0f),
@@ -30,6 +40,17 @@ bgfxContext::bgfxContext(bgfxDisplay* display, bgfxDevice* device)
     memset(m_programCache, 0, sizeof(m_programCache));
     m_forceGeneric = false;
     m_generatedDraws = m_genericDraws = 0;
+    m_fbCopy = 0;
+    m_copiesThisFrame = 0;
+    m_visQuery = kNone;
+    m_streamProgram = 0;
+    for (int i = 0; i < 3; i++)
+        m_fxUniforms[i] = kNone;
+    m_fxUniformK = kNone;
+    for (int i = 0; i < 4; i++)
+        m_fxSamplers[i] = kNone;
+    m_fxPrograms[0] = m_fxPrograms[1] = kNone;
+    m_fxTargetW = m_fxTargetH = 0;
     memset(&m_hostView, 0, sizeof(m_hostView));
     m_hostView.colour = 0xff000000u;
     m_hostView.depth = 1.0f;
@@ -109,8 +130,22 @@ bgfxContext::~bgfxContext()
                 bgfx::destroy(bgfx::UniformHandle{(uint16_t)m_uTex[i]});
             bgfx::destroy(bgfx::TextureHandle{(uint16_t)m_whiteTex});
         }
+        if (m_fxUniforms[0] != kNone) {
+            for (int i = 0; i < 3; i++)
+                bgfx::destroy(bgfx::UniformHandle{(uint16_t)m_fxUniforms[i]});
+            bgfx::destroy(bgfx::UniformHandle{(uint16_t)m_fxUniformK});
+            for (int i = 0; i < 4; i++)
+                bgfx::destroy(bgfx::UniformHandle{(uint16_t)m_fxSamplers[i]});
+            for (int i = 0; i < 2; i++)
+                if (m_fxPrograms[i] != kNone)
+                    bgfx::destroy(bgfx::ProgramHandle{(uint16_t)m_fxPrograms[i]});
+        }
     }
     delete m_stream;
+    if (m_fbCopy) {
+        m_fbCopy->m_handle = kNone;           // the display's texture: not the object's to destroy
+        delete m_fbCopy;
+    }
 #if HULK_PDDI_GAME
     reinterpret_cast<GameBase*>(this)->FUN_0031ece0(0);     // ~pddiBaseContext, no free
 #endif
@@ -182,6 +217,7 @@ void bgfxContext::vfunc_4()
     reinterpret_cast<GameBase*>(this)->FUN_0031d470();
 #endif
     m_drawIndex = 0;
+    m_copiesThisFrame = 0;
     m_viewId = 0;
     m_viewUsed = false;
     m_viewport[0] = m_viewport[1] = 0;
@@ -223,7 +259,18 @@ void bgfxContext::vfunc_12(int a0)
     m_clearStencil = c->stencil;
     viewChanged(f | (m_viewUsed ? 0 : (int)m_clearFlags));
 }
+// slot 13 (0x31d560): the top of matrix stack n set to the identity, then slot 108 (the base's; the host's stacks)
+#if HULK_PDDI_GAME
 void bgfxContext::vfunc_13(int a0) { PDDI_BASE_V(13, FUN_0031d560(a0)); }
+#else
+void bgfxContext::vfunc_13(int n)
+{
+    if (n < 0 || n > 3)
+        return;
+    identity(m_hostStack[n][m_hostDepth[n]]);
+    vfunc_108(n);
+}
+#endif
 // slots 14-16 (0x31d590, 0x31e810, 0x31e840): load the top of matrix stack n (then slot 108 hands it to the
 // device), push (copy the top), pop (then slot 108). The base's in the game; the host keeps small stacks of its own
 // so the shaders' activation (the sphere map) and the self-test take the same path.
@@ -302,6 +349,10 @@ void bgfxContext::vfunc_31(void* a0)
 // G4 / not needed by our shaders.)
 void bgfxContext::vfunc_32(void* shader, void* buffer)
 {
+    if (shader && ((bgfxShader*)shader)->m_kind == kShaderFBEffects) {
+        fbEffectsAccumulate((bgfxShader*)shader);   // FUN_003285d0: no draw, the shader's settings to the frame's
+        return;
+    }
     bgfxShader* sh = shader ? (bgfxShader*)shader : m_defaultShader;
     bgfxPrimBuffer* b = (bgfxPrimBuffer*)buffer;
     if (!b)
@@ -310,6 +361,8 @@ void bgfxContext::vfunc_32(void* shader, void* buffer)
     const char* program = b->m_program;
     if (sh->m_kind == kShaderRefract && (b->m_flags & 0x80))
         program = "skin_refract";
+    if (sh->vfunc_22())                       // the shader's program constants (the refraction shader's)
+        sh->vfunc_24();
     drawPrimBuffer(sh, b, program);
 }
 void bgfxContext::vfunc_33(int a0, int a1, int a2, int a3) { PDDI_BASE_V(33, FUN_0031d830(a0, a1, a2, a3)); }

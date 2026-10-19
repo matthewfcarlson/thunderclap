@@ -5,6 +5,7 @@ Stage G1 (the backend in the native image, first frames and draws) is [section 8
 G3's draw path (prim buffers, vertex programs, render state) is [section 9](#9-g3-the-draw-path-prim-buffers-vertex-programs-render-state-2026-10-19).
 G2's shader-class combiners, 2D mode, linear textures and movie strategy are [section 10](#10-g2-the-shader-classes-combiners-2d-textures-and-movies-2026-10-19).
 The window and the event pump moved to SDL3 in [section 11](#11-sdlwin-the-window-and-the-event-pump-on-sdl3-2026-10-19).
+G4's frame-buffer copy, refraction, framebuffer effects and the other extensions are [section 12](#12-g4-effects-the-frame-buffer-copy-refraction-and-the-extensions-2026-10-19).
 The small prototypes and the scripts that produced the planning numbers were under `build/gfx-proto/` (not tracked). Inputs: [platform-boundary.md](platform-boundary.md),
 [seams.md](seams.md), [web-port.md](web-port.md), [native-build.md](native-build.md), [subsystems.md](subsystems.md),
 [formats/p3d.md](formats/p3d.md), [texture-packs.md](texture-packs.md), `src/platform/sdl/xdk/`,
@@ -343,6 +344,7 @@ graphics (today's state: it links and starts, [native-build.md](native-build.md)
 | G2 Menus and front end | the `simple` shader with its 1-3 stage combiners, texture-stage state key + shader cache, blend/z/cull/alpha test, 2D mode (`pddiBaseContext`), PNG/P8 textures, fonts, the copyright and title screens, movies' render strategy (frames as textures). Compare draw logs and screenshots for title → main menu → options. **Combiners done 2026-10-19 (section 10): every data-used class's pass set-up ported onto a D3D device-state model, 100 combiner keys with a generated program each (+ a generic combiner), the fade, blend table fixed, four stage samplers, texgen + texture matrices, linear textures (texel coordinates), 2D modes, the movie tile path; P8 is unreachable in this game. Self-test 464 probes on Metal and under Wine/Vulkan. The front end's own frames wait for the native build** | 2 to 3 weeks | combiner ops, state mapping, P8/palette, screenshot tooling |
 | G3 A level | `bgfxPrimBuffer` static meshes, vertex declarations from the flags word, `skin`/`skin_onebone`/`simple_*` programs (NV2A interpreter first), hardware-skinning extension, `layered` (+ lightmap pair) and `layeredReflect`, fog, stencil (shadows/decals), `environment`, lights from `pddiLightingState`. Target: the junkyard tutorial replay with matching draw logs. **Draw path done 2026-10-19 (section 9): prim buffers, the skin programs through the skinning extension, the fixed-function program with lights, render-state slots 54-80, views; self-test 19/19 probes on Metal and on Vulkan under Wine. The level waits for the native build; the shader classes' combiners are G2's** | 3 to 5 weeks | one batch per shader class; one per vertex program (interpreter-checked); state/fog/stencil |
 | G4 Effects | `d3dExtFramebufferEffects` (114 functions: glow levels, blur, colour passes, the 17 `xps` shaders), render targets, `CopyRects`, `refract` (+`skin_refract`), visibility tests, gamma, read pixels, antialias | 2 to 3 weeks | the 17 `xps` translations as one batch; targets/copies; queries/gamma |
+| | **Done 2026-10-19 (section 12): the frame drawn into a scene target with a present pass; the display's frame-buffer copy (blits ordered between views) and the refraction shader's constants and stage; the vertex program extension that gives meshes their program; the framebuffer effects (colour correction, the fbeffects shaders' average, bloom, the motion-trail overlay) with the xps programs translated; visibility tests as occlusion queries; antialias answers. Self-test 502 probes on Metal; 498 on Vulkan under Wine (page 5's four vertex-program-extension probes came after the last Wine run). Not done: two-sided lighting; the unused extensions (gamma, read pixels, framebuffer texture, render targets, projected texture)** | | |
 | G5 Web and polish | WebGL2 via the same backend (Emscripten bgfx build, `BGFX_CONFIG_MULTITHREADED=0`, blit fallback), HD textures + dump mode, resolution independence (640/480 literal), MSAA/anisotropy options; the unused shader classes only if a factory log shows them | 1 to 3 weeks | HD textures independent of everything after G1 |
 
 Total about **10 to 16 weeks**. The critical path is G0 → G1 → G3 (vertex programs and the level shaders). What
@@ -620,7 +622,7 @@ streams: fixed function); the constant file is `bgfxContext::m_vc` (192 register
 | program | constants | state |
 |---|---|---|
 | `skin`, `skin_onebone` | `d3dExtHardwareSkinning` slot 5: bone x the modelview (the base's matrix stack 0), transposed, three rows to c113 + 3i (25 bones, slot 1); slot 6: FUN_00324270 (c96 fixed, c98-c101 the projection's columns, c102 diffuse, c103 specular + power, c104 emissive + ambient light x ambient, with the game's alpha swap; up to four enabled directional lights at c105..c112), the shader marked skinned, every pass | **wired; drawn in the self-test (bones blended 50/50, lit)** |
-| `refract`, `skin_refract` | d3dRefractVertexShader slot 24 (0x32f3b0) needs the refraction shader's own parameters and samples the frame-buffer copy | G4 (drawn with the fixed-function program meanwhile, logged once) |
+| `refract`, `skin_refract` | d3dRefractVertexShader slot 24 (0x32f3b0): the refraction shader's own parameters; the stage samples the frame-buffer copy | **wired in G4 (section 12)** |
 | `simple_proximity`, `*_multicbv` | d3dSimpleShader/d3dLayeredShader slot 24 | CBVP/MCBV are 0 in all data (docs/shaders.md): fixed function |
 | fixed function | `vs_vp_ff.sc`: D3D8 T&L from the backend's D3D-side state, through the same uniform (layout in the shader: modelview and projection columns, the material, the ambient light, four lights) | **done**: directional and point lights (a spot is lit as a point, no cone), local-viewer Blinn specular, vertex colour as the diffuse/ambient material, fog depth |
 
@@ -723,9 +725,9 @@ is active and puts the colour back after; refract swaps its mode and alpha test 
 | `layered` TBLM 7 | the layer stage subtracts, its alpha is TTEX's, blending src x src alpha + 0 (and the shader's own blend and alpha test are skipped, as the game's early return) |
 | `layeredReflect` | TEX x diffuse (TEX's alpha); TTEX added where that is not opaque (20; LRSA leaves it out); REFL through the camera-space reflection vector and the sphere map in D3DTS_TEXTURE2, clamped, added the same way; fade (alpha modes: the factor's alpha) |
 | `environment` | TEX x diffuse into temp; REFL (reflection vector, sphere map in D3DTS_TEXTURE1, clamped) x the factor (ENVB, alpha faded); temp + temp alpha x that (18), the factor's alpha |
-| `refract` | the frame-buffer copy x the factor (REFC, REFB) into temp (the copy is G4's: the stage samples white until then); TEX (x diffuse when lit); temp over it by the factor's alpha (15), the diffuse alpha; alpha blend, no alpha test |
+| `refract` | the frame-buffer copy x the factor (REFC, REFB) into temp (the copy: G4, section 12); TEX (x diffuse when lit); temp over it by the factor's alpha (15), the diffuse alpha; alpha blend, no alpha test |
 | `error` | no textures, stage 0 off (the diffuse colour); blend and alpha test stay as they were |
-| `fbeffectsshader` | nothing (its slots 12-14 are empty; its draws are the effects extension's, G4) |
+| `fbeffectsshader` | nothing (its slots 12-14 are empty; a draw with it only adds its settings to the colour correction: G4, section 12) |
 
 The fade (`FADE`, 0..1 -> 0..255 faded out; set at run time by game code, in no `.p3d`): FUN_003335e0 makes the
 mode the blend uses (alpha when BLMD is none and the shader fades), scales the alpha test reference by what is
@@ -881,14 +883,152 @@ compile-checked but not run. The pump runs once per present: a long load without
 unserviced (Wine marks it not responding after several seconds); if loads show that, call `platformPump` from the
 loading loop's yield.
 
+## 12. G4 effects: the frame-buffer copy, refraction and the extensions (2026-10-19)
+
+```sh
+PY=build/venv/bin/python
+$PY tools/native_gfx.py fetch && $PY tools/native_gfx.py build --target win32   # bgfx with the two new PATCHES
+$PY tools/native_gfx.py pddi && $PY tools/native_gfx.py smoke     # Metal: 9 self-test pages, 502 probes
+HULK_GFX_SELFTEST=30 HULK_GFX_SELFTEST_PAGE=N HULK_GFX_SHOT=10 HULK_GFX_SHOT_DIR='Z:/abs/dir' $PY tools/native_run.py
+HULK_GFX_DIRECT=1 ...   # no scene target: draws straight to the back buffer (G3's path; no copies, no effects)
+```
+
+Specification: the verified sources of `d3dRefractVertexShader` (0x32efa0 the pass, 0x32f3b0 the constants,
+0x32f2e0 the constructor, 0x32f240/0x32f250), the display (0x31ae70 its copy texture, 0x31b1e0 the copy, slots
+0x31ad30/0x31ad40), the context's slot 32 (0x3218c0) and the skinning extension's slot 6 (0x3245d0), the
+`d3dExtFramebufferEffects` object and its helpers (0x3224b0, 0x3225c0..0x3226b0, 0x3226d0, 0x322990, 0x320330,
+0x320540, 0x320aa0, 0x322cd0, 0x323130, 0x323910, 0x3239e0, 0x324660, 0x324a00, 0x325110), `d3dFBEffectsShader`
+(0x328720, setters 0x328560..0x3285c0, 0x3285d0) and FUN_003287a0, the visibility and antialias extensions
+(0x3222c0..0x3222f0, 0x322000..0x322030), `d3dExtVertexProgram` (0x322360..0x322440); the game's callers
+(CRenderManager FUN_001b93a0 / FUN_001b98e0 / FUN_001b8780, the HUD's FUN_001c16e0 / FUN_001c22f0,
+BillboardQuadGroup FUN_002ba220, the prim group loaders FUN_002e1960 / FUN_002e22c0 / FUN_002e30f0 / FUN_002e3bd0 and
+PrimGroupStreamed::vfunc_6) found by an xref of the extension ids in the XBE; data read by address (the contrast
+table 0x432a10, the level thresholds, the threshold program's text 0x432da0, the fbeffects key tables): values only.
+New: `bgfx_effects.cpp`, `shaders/fx/` (`vs_fx`, `fs_fx_filter`, `fs_fx_blur`, own varyings),
+`shaders/vs_pddi_present.sc` + `fs_pddi_present.sc`; self-test pages 5-8.
+
+**The scene target and the present pass.** bgfx can neither read nor blit the back buffer, and the game reads its
+render target (the refraction's copy, every framebuffer effect, the overlay's front buffer). So the frame is drawn
+into a frame buffer of ours, BGRA8 + depth/stencil (D24S8, or D32FS8 where the renderer can't render to D24S8:
+MoltenVK, Apple GPUs), and display slot 14 draws it onto the back buffer in the last view (255) before
+`bgfx::frame`; screenshots still read the back buffer. Every context view targets it. Without a present program
+(no shader build for the renderer: D3D11 under Wine 7.7) or with `HULK_GFX_DIRECT=1` the frame goes to the back
+buffer as before and there are no copies (the refraction stage samples white, the effects skip). The OpenGL origin
+(bottom left) is handled by the present and fx quads; the refraction stage's sampling of the copy is not flipped
+there yet (G5, with WebGL2).
+
+**The frame-buffer copy.** The game's display makes a texture of the back buffer's size and format at init when
+DisplayConfig +0x2e asks (the game does: logged as "frame-buffer texture asked for"), and FUN_0031b1e0 copies the
+render target into it (CopyRects) each time a refraction pass begins. Ours: `bgfxContext::copyFrameBuffer` puts a
+`bgfx::blit` (scene colour -> the copy) at the start of a new view, and bgfx runs a view's blits before its clear
+and draws: everything drawn (and cleared) so far is in the copy, what follows samples it. Views: a frame has at
+most 250; a copy needs one (two refractions in a row: two views). A view that only clears now keeps the rectangle it
+cleared when a viewport change follows (Direct3D clears the viewport of the time; G3 moved the pending clear to
+the new rectangle).
+
+**Refraction** (`refract`, `skin_refract`; 41 shader chunks in `art`). The pass (0x32efa0) binds the copy on stage 0
+as a linear texture (texel coordinates: the program's oT0 is the screen position x the viewport plus the projected
+normal x the scale). Slot 22 now answers true (the game's), so context slot 32 and the skinning extension's slot 6
+call slot 24 before the passes, as the game does; slot 24 (0x32f3b0) is ported: `bgfxContext::refractConstants` for
+the unskinned constants, c188-c191 for skinned (the table in docs/shaders.md). The constructor's defaults are the
+game's: REFI 10 (+0x88), REFB 1 (+0x8c), REFC opaque white (+0x90); slot 24 stores the faded intensity back into
+REFB as the game does. **How a mesh gets the program:** not from the prim buffer's creation block but from the vertex
+program extension (0x106), which G3 left as stubs: the prim group loaders ask slot 4 (the shader's slot 22, with
++0x7d set for a skinned palette), take slot 2's handle (the shader's slot 23 name: `refract` / `skin_refract`) and
+give it to the buffer with slot 5 (+0x3c); streamed prim groups keep it and bind it with slot 6 around their prim
+stream draws. Our handles are 1 + an index into the names (the game's are D3D vertex shader handles from
+FUN_003290e0). Without this the data's refraction meshes would have drawn with the fixed-function program.
+**Display slots 6/7 fixed:** 6 is the height (+0x478), 7 the width (+0x47c) (G1 had them swapped; 0x31ae70 gives
++0x47c to BackBufferWidth, and the refraction's scale divides the back buffer's width by slot 7).
+
+**The framebuffer effects extension** (0x103). What the game runs each in-game frame after the scene:
+
+| slots | what | ours |
+|---|---|---|
+| 3, 4 | colour correction on/off; settings: saturation, brightness, contrast (linear below 0, the table above), its midpoint, a tint | ported (the table copied by value) |
+| 5 | FUN_003287a0: the frame's fbeffects shaders averaged into slots 3/4 (none: off); their settings come from a draw of one through context slot 32 (no draw: FUN_003285d0 adds SAT, BRIT, MDPT, CONT, TINT when CLRE) or its UPDT parameter | ported; the data's six fbeffects shaders (`global_nonchar.p3d`) are all neutral (contrast 0: the pass is the identity but for 8-bit rounding) |
+| 6 | the colour pass (FUN_00324660): the frame copied, then the level's program over it with luminance weights (0.25, 0.625, 0.125) | ported |
+| 7, 8 | bloom on/off; settings: amount, the quarter copy's tint, blend, the gaussian's width (taps exp(-i^2/s^2), at most 20, the run cut at 1/255), the bright pass's colour weights, brightness, contrast, midpoint | ported |
+| 9 | the bloom: copy; bright pass into a half-size target; tinted copy into a quarter target; the separable gaussian (1-4 taps a draw, additive, both sides, both directions); the composite 2 x blur x amount + frame x blend | ported |
+| 1, 2 | the HUD's motion trail: the front buffer (the last presented frame, kept by a blit at the present while asked for) over the frame through the context's own 2D path and a "simple" shader: alpha-blended, or additive and zoomed (split: three passes, one channel each, scales 4 apart) | ported |
+| 10 | nothing | as the game |
+
+The passes are views of the context (`fxView`: a view drawing into the scene target or one of the extension's
+targets, `fxCopy`: the copy, `fxDone`: back to the scene) drawing pre-transformed quads (the game's
+`DrawVerticesUP` with XYZRHW + TEX1..4, its -0.5 pixel-centre offsets becoming pixel edges) with `shaders/fx/`:
+`fs_fx_filter` is FUN_00320540's 14 colour-pass programs as one (each level's co-issued `mov_x2/x4` and add chain
+as uniforms) plus the threshold program, `fs_fx_blur` the five FUN_00320330 sums and the composite. Arithmetic as
+the register combiners do it: each instruction clamped to [-1, 1], the output to [0, 1], constants quantised to 8
+bits in [0, 1] on the CPU (the combiner constants are packed colours). Brightness is at most 100/255, so the
+programs' second side (brightness >= 0.5) is never chosen by the game.
+
+**Visibility tests** (0x500002; BillboardQuadGroup: a flare quad drawn with colour writes off, the passed samples
+over its area). Begin/end make the draws between them a bgfx occlusion query; the result is the query's latest
+answer: bgfx answers a frame or two late, so each test of a frame has its own query (the k-th test the k-th query)
+and gets last frame's count for the same flare. **Antialias** (0x500001): slot 4 answers the multisample type, 0
+(the scene target is not multisampled); slot 2 (the context's clear-by-quad flag) has no caller in the game: kept
+and logged. Slot 3 jumps into the XDK and has no caller.
+
+**Two bgfx fixes for Wine's 32-bit Vulkan** (`tools/native_gfx.py` PATCHES, defines in the win32 build only):
+`HULK_VK_MAP_WRAP`: Wine 7.7's 32-bit winevulkan writes a 64-bit pointer through vkMapMemory's ppData, zeroing the
+word after a 4-byte pointer member; in OcclusionQueryVK that word is its ring's size, so the first occlusion query
+divided by zero (TimerQueryVK has the same layout: the earlier timer-query patch avoided the same fault). bgfx's
+vkMapMemory now goes through a wrapper that maps into an 8-byte slot. `HULK_VK_PRECISE_OCCLUSION`: the precise
+occlusion feature and `VK_QUERY_CONTROL_PRECISE_BIT` where the device has it (MoltenVK answered 1 for 8,192
+passed pixels without it).
+
+**Layout rule found the hard way:** `bgfxContext`'s data members must all come after `m_base` (the portable base's
++8..+0x14c block, written by the game image's base functions); new members declared earlier shifted the block and
+the base constructor overwrote them. Static asserts in `bgfx_context.cpp` now check +8 and +0x14c in the i686 build.
+
+**Self-test** (pages 5-8 new; the host smoke test runs every page, the game image one per run):
+
+| page | what | probes | Metal (host) | Vulkan (Wine, game image) |
+|---|---|---|---|---|
+| 0-4 | G3 / G2 (unchanged; now through the scene target and the present pass) | 464 | 464 | 464 |
+| 5 | refraction over a known pattern: a 20-pixel offset from the normal and REFI, REFC's tint, two refractions in a row (the second's copy holds the first's output), skin_refract through the skinning extension, the program's alpha k, the copy after a mid-frame clear, the program given through the vertex program extension's slots 4/2/5 and through slot 6 on a prim stream | 18 | 18 | 14 of the first 14 (the last four not run: see below) |
+| 6 | colour correction of eight colours and the clear colour from two fbeffects shaders' average (slot 32 + UPDT, slot 5, slot 6) against a CPU reference written from the xps text; a visibility test (half a quad behind an occluder: 8,192 of 16,384 pixels) | 13 | 13 | 13 |
+| 7 | the bloom of five uniform regions (sigma 2: three taps; brightness -20, contrast 30, midpoint 0.6, a tinted quarter copy) against the CPU reference of every pass with 8-bit targets | 5 | 5 | 5 |
+| 8 | the overlay, additive and split, converging on colour / (1 - a) | 2 | 2 | 2 |
+
+The Vulkan column is from the game image linked before the vertex program extension was implemented (pages 0-8,
+498 probes, all passing); after it, every x86 process on this Mac (Wine and wibo alike, Rosetta-translated) hung in
+uninterruptible state from 18:14 on 2026-10-19, so page 5's four extension probes are verified on Metal only.
+Without the copy, page 5 fails 11 of its first 14 probes; a missing doubling in one level's add chain fails 8 of
+page 6's 13. Screenshots and probe lines: `build/g4/` (`selftest-vulkan-page*.png`, `-probes.txt`). Direct3D 11
+under Wine: the present program has no DXBC build, so the frame goes to the back buffer as before (the clear colour;
+no draws). `tests/shaders` 42/42 (no vertex program changed); `native_gfx.py slots` ok.
+
+**Not done / open after G4:**
+
+- **Two-sided lighting** (D3DRS_TWOSIDEDLIGHTING: 263 lit two-sided `simple` shader chunks and 11 `refract`): the
+  fixed-function program would need back-colour outputs, which changes the interface of every program in the
+  seven-output set (the proven `skin`/`skin_onebone` included) and of all 100 generated combiners; and what the
+  NV2A does for vertex programs that write no oB0/oB1 under two-sided lighting is unverified. Not cheap: left.
+- Unused by the game's code (no caller found by an xref of the ids and of context slot 92): render targets (context
+  slot 92 SetRenderTarget, the framebuffer texture extension 0x104), read pixels (0x500005), gamma (0x101: the
+  display's ramp 0x31b390 is reached only through it), the global projected texture (0x500004), clear-by-quad
+  (+0x44c), the vertex program extension's slots 1/3/7/8, the display's capture (slot 15, still a stub). They stay
+  logged stubs.
+- The OpenGL/WebGL2 origin for the refraction stage's copy (G5); a quad copy where a renderer can't blit (G5).
+- An `xps.1.1` interpreter proof of `fs_fx_filter`/`fs_fx_blur` with fuzzed inputs (docs/shaders.md); the NV2A
+  combiners' internal precision and constant rounding are taken as float and round-to-nearest.
+- The game's own effects frames: the native image still stops in physics init after the self-test (native-build
+  work), so no in-game refraction, colour correction or bloom has been drawn yet.
+- Game code `dynamic_cast`s the effects extension (HulkShaderCallback FUN_001c1a40 keeps it in DAT_004e2318 for
+  the HUD's motion trail). Our extension objects carry no game RTTI, so in the native image that cast needs a
+  rebind (or a locator naming the game's types); noted for the native build (build/g4/for-native10.md).
+
 ## Open questions
 
 - Confirm on the hybrid build that the eight shader classes the data never names are never constructed (log the
   factory table's calls through a full replay).
-- Which code reaches `FUN_003202b0` (the pixel shader assembled from a caller-supplied string), and with what text.
+- ~~Which code reaches `FUN_003202b0`~~: only FUN_00320330, the framebuffer effects' five blur/composite programs
+  (section 12).
 - The exact meaning of `d3dContext` slots 30/31 (59 sites each), 89 and 91 (one-byte override, 16 sites); read
   `pddiBaseContext`'s callers before G1.
-- Does `d3dExtReadPixels` need a synchronous result (bgfx reads back a frame or two later)?
+- Does `d3dExtReadPixels` need a synchronous result (bgfx reads back a frame or two later)? (G4: no game code asks
+  for the extension, 0x500005; the display's capture, slot 15, is still a stub.)
 - Is the DXT mip-0 data the backend receives byte-identical to the payload's mip 0 (key option A)?
 - bgfx on the 32-bit Windows target: bgfx supports Windows x86, but the first native image is built with clang-cl +
   lld-link; build bgfx with the same toolchain (GENie can emit a vs2022 or ninja project) rather than mixing CRTs.

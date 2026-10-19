@@ -191,8 +191,8 @@ static const ProgramInfo kPrograms[] = {
     {"", "vs_vp_ff", "fs_vp_stage", true},
     {"skin", "vs_vp_skin", "fs_vp_stage", true},                    // d3dExtHardwareSkinning (FUN_00324270 + bones)
     {"skin_onebone", "vs_vp_skin_onebone", "fs_vp_stage", true},    // the same uploads
-    {"refract", "vs_vp_refract", "fs_vp_stage5", false},            // d3dRefractVertexShader::vfunc_24 (0x32f3b0): G4
-    {"skin_refract", "vs_vp_skin_refract", "fs_vp_stage5", false},
+    {"refract", "vs_vp_refract", "fs_vp_stage5", true},             // d3dRefractVertexShader::vfunc_24 (0x32f3b0)
+    {"skin_refract", "vs_vp_skin_refract", "fs_vp_stage5", true},   // the same, after the skinning extension's
     {"simple_proximity", "vs_vp_simple_proximity", "fs_vp_stage3", false},   // d3dSimpleShader::vfunc_24: CBVP is
                                                                              // 0 in the data
 };
@@ -290,6 +290,30 @@ static bool hasShader(const char* name)
 #endif
     (void)name;
     return false;
+}
+
+bool hasEmbeddedShader(const char* name)
+{
+    return hasShader(name);
+}
+
+unsigned loadProgram(const char* vsName, const char* fsName)
+{
+    bgfx::ShaderHandle vs = loadShader(vsName);
+    bgfx::ShaderHandle fs = loadShader(fsName);
+    if (!bgfx::isValid(vs) || !bgfx::isValid(fs)) {
+        if (bgfx::isValid(vs))
+            bgfx::destroy(vs);
+        if (bgfx::isValid(fs))
+            bgfx::destroy(fs);
+        return kNone;
+    }
+    bgfx::ProgramHandle p = bgfx::createProgram(vs, fs, true);
+    if (!bgfx::isValid(p)) {
+        logf("pddi: program %s + %s: bgfx refused it\n", vsName, fsName);
+        return kNone;
+    }
+    return p.idx;
 }
 
 uint16_t bgfxContext::combinerProgram(int vp, const char* key, uint32_t hash, bool* generic)
@@ -498,6 +522,63 @@ void bgfxContext::skinConstants(bgfxShader* shader)
     setVertexConstants(102, c[6], 11);
 }
 
+// 0x32f3b0's unskinned constants. The transforms are D3D's: GetTransform(WORLD) (the modelview: D3D's VIEW is the
+// identity here), x VIEW (the affine product FUN_0022ca90), x PROJECTION (FUN_0022cc10), transposed (FUN_0022c0b0);
+// and WORLD transposed. Lights as FUN_00324270 takes them (FUN_00321dc0: up to three of the enabled directional
+// lights; a missing one is light 0's direction and black). The material as slot 21 hands it out.
+void bgfxContext::refractConstants(bgfxShader* shader, const float* viewport, const float* uv, const float* half,
+                                   const float* one)
+{
+    updateLights();
+    float wv[16];
+    for (int r = 0; r < 4; r++)                    // the world with the affine product's last column
+        for (int k = 0; k < 4; k++)
+            wv[r * 4 + k] = k == 3 ? (r == 3 ? 1.0f : 0.0f) : m_world[r * 4 + k];
+    float wvp[16];
+    for (int r = 0; r < 4; r++)
+        for (int k = 0; k < 4; k++)
+            wvp[r * 4 + k] = wv[r * 4 + 0] * m_proj[0 * 4 + k] + wv[r * 4 + 1] * m_proj[1 * 4 + k] +
+                             wv[r * 4 + 2] * m_proj[2 * 4 + k] + wv[r * 4 + 3] * m_proj[3 * 4 + k];
+    float clip[4][4], world[4][4];
+    columns(wvp, clip, homogeneousDepth());
+    columns(m_world, world, false);
+    setVertexConstants(98, clip[0], 4);
+    setVertexConstants(102, world[0], 4);
+    setVertexConstants(107, viewport, 1);
+    setVertexConstants(108, uv, 1);
+    setVertexConstants(109, half, 1);
+    int ids[4];
+    directionalLights(ids);
+    static const float kCoeff[4] = {0.0f, 1.0f, 256.0f, 0.5f};
+    ShaderMaterial mat;
+    shader->vfunc_21(&mat);
+    float spec[4], diff[4], emis[4], amb[4], ambLight[4];
+    colour4(mat.specular, spec);
+    colour4(mat.diffuse, diff);
+    colour4(mat.emissive, emis);
+    colour4(mat.ambient, amb);
+    colour4(m_rs.ambient, ambLight);
+    if (emis[3] == 0.0f) {
+        emis[3] = diff[3];
+        diff[3] = 0.0f;
+    }
+    memcpy(&spec[3], &mat.shininessBits, 4);
+    for (int k = 0; k < 4; k++)
+        emis[k] = ambLight[k] * amb[k] + emis[k];
+    setVertexConstants(96, kCoeff, 1);
+    setVertexConstants(110, diff, 1);
+    setVertexConstants(111, spec, 1);
+    setVertexConstants(112, emis, 1);
+    static const float kZero[4] = {0, 0, 0, 0};
+    for (int i = 0; i < 3; i++) {
+        const Light& l = m_lights[ids[i] < 0 ? 0 : ids[i]];
+        float dir[4] = {l.direction[0], l.direction[1], l.direction[2], l.range};
+        setVertexConstants(113 + 2 * i, dir, 1);
+        setVertexConstants(114 + 2 * i, ids[i] < 0 ? kZero : l.diffuse, 1);
+    }
+    setVertexConstants(121, one, 1);
+}
+
 // The fixed-function program's constants (vs_vp_ff.sc has the layout) from the D3D-side state: the transforms, the
 // material and lighting the shader's pass set (FUN_00329f70), the lights, each stage's texture coordinates
 static void ffConstants(bgfxContext* ctx, unsigned flags, float (*c)[4])
@@ -632,21 +713,67 @@ uint64_t bgfxContext::stateBits(const bgfxShader* sh, int kind, uint32_t* stenci
 // middle of a frame: bgfx clears a view at its start and has one rectangle per view). Views run in submission order.
 void bgfxContext::viewChanged(int clearFlags)
 {
-    if (m_viewUsed && m_viewId < 250) {
+    // a view that only clears keeps the rectangle it cleared (Direct3D clears the viewport of the time): a viewport
+    // change after it opens the next view too
+    bool clearPending = clearFlags < 0 && m_clearFlags != 0;
+    if ((m_viewUsed || clearPending) && m_viewId < 250) {
         m_viewId++;
         m_viewUsed = false;
         m_clearFlags = 0;
     }
     if (clearFlags >= 0)
         m_clearFlags = (unsigned)clearFlags;
+    setupView();
+}
+
+void bgfxContext::setupView()
+{
     if (!m_display || !m_display->m_initialised)
         return;
+    bgfx::setViewFrameBuffer((bgfx::ViewId)m_viewId, m_display->m_offscreen
+                                                         ? bgfx::FrameBufferHandle{(uint16_t)m_display->m_sceneFb}
+                                                         : bgfx::FrameBufferHandle(BGFX_INVALID_HANDLE));
     bgfx::setViewMode((bgfx::ViewId)m_viewId, bgfx::ViewMode::Sequential);
     bgfx::setViewRect((bgfx::ViewId)m_viewId, (uint16_t)m_viewport[0], (uint16_t)m_viewport[1],
                       (uint16_t)m_viewport[2], (uint16_t)m_viewport[3]);
     bgfx::setViewClear((bgfx::ViewId)m_viewId, (uint16_t)m_clearFlags, m_clearRgba, m_clearDepth,
                        (uint8_t)m_clearStencil);
     bgfx::touch((bgfx::ViewId)m_viewId);
+}
+
+bgfxTexture* bgfxContext::copyFrameBuffer()
+{
+    bgfxDisplay* d = m_display;
+    if (!d || !d->m_initialised || !d->m_offscreen || d->m_copyTex == kNone)
+        return 0;
+    if (!m_fbCopy) {
+        m_fbCopy = new bgfxTexture(this);
+        m_fbCopy->m_linear = true;            // the game's copy is a render-target (linear) texture
+        m_fbCopy->m_pddiFormat = 11;
+    }
+    m_fbCopy->m_handle = d->m_copyTex;        // (re)made with the target on a resize
+    m_fbCopy->m_width = d->m_targetWidth;
+    m_fbCopy->m_height = d->m_targetHeight;
+    // the blit goes at the start of a view that follows everything drawn (and cleared) so far: a view runs its blits
+    // before its clear and its draws
+    if (m_viewUsed || m_clearFlags) {
+        if (m_viewId >= 250) {
+            static int s_logged;
+            if (!s_logged++)
+                logf("pddi: frame-buffer copy: out of bgfx views this frame (the copy keeps older contents)\n");
+            return m_fbCopy;
+        }
+        m_viewId++;
+        m_viewUsed = false;
+        m_clearFlags = 0;
+        setupView();
+    }
+    bgfx::TextureRegion dst, srcRegion;
+    dst.init(bgfx::TextureHandle{(uint16_t)d->m_copyTex});
+    srcRegion.init(bgfx::TextureHandle{(uint16_t)d->m_sceneColour});
+    bgfx::blit((bgfx::ViewId)m_viewId, dst, srcRegion);
+    m_copiesThisFrame++;
+    return m_fbCopy;
 }
 
 static uint32_t fnv(uint32_t h, const void* p, unsigned n)
@@ -839,7 +966,11 @@ void bgfxContext::draw(bgfxShader* sh, const DrawSource& src)
     if (!m_viewUsed) {
         m_viewUsed = true;
     }
-    bgfx::submit((bgfx::ViewId)m_viewId, bgfx::ProgramHandle{prog});
+    if (m_visQuery != kNone)                  // inside a visibility test: the draw is the query
+        bgfx::submit((bgfx::ViewId)m_viewId, bgfx::ProgramHandle{prog},
+                     bgfx::OcclusionQueryHandle{(uint16_t)m_visQuery});
+    else
+        bgfx::submit((bgfx::ViewId)m_viewId, bgfx::ProgramHandle{prog});
 }
 
 // Draw what a prim stream holds: converted to the backend's vertex in a transient buffer
@@ -855,7 +986,7 @@ void bgfxContext::submit(bgfxPrimStream* s)
     src.vertexCount = (uint32_t)n;
     src.transient = true;
     src.flags = s->m_flags;
-    src.program = "";
+    src.program = m_streamProgram ? m_streamProgram : "";   // a streamed prim group's (vertex program ext slot 6)
     src.vb = src.ib = kNone;
     bgfx::TransientVertexBuffer tvb;
     if (m_display && m_display->m_initialised) {

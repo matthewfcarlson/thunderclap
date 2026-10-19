@@ -313,9 +313,15 @@ state, so the proven shaders run unchanged; the vertex the shaders read is conve
 is the NV2A's `v15.x`, D3DCOLORs left as they are for the shaders' own swizzles); Direct3D's [0, w] clip depth is
 remapped on the CPU where bgfx wants [-w, w]. `skin` and `skin_onebone` get their constants from the skinning
 extension (bones) and FUN_00324270 (material, lights, projection): drawn and checked by the self-test (bones blended,
-lit) on Metal and on Vulkan under Wine. `refract`/`skin_refract` wait for d3dRefractVertexShader's constant upload
-(G4) and `simple_proximity` for d3dSimpleShader's (unused by the data); until then those draws use the
-fixed-function program, logged once. bgfx only pairs a vertex shader with a fragment shader whose inputs are exactly
+lit) on Metal and on Vulkan under Wine. `refract`/`skin_refract` get theirs from d3dRefractVertexShader::vfunc_24
+(0x32f3b0, ported in G4: [graphics-backend.md](graphics-backend.md) section 12): c98-c101 the transposed
+world x view x projection, c102-c105 the transposed world, c107 the viewport, c108 the scale (back buffer / mode
+size x REFI), c110-c112 the material, c113-c118 three directional lights, c121.w the intensity less 0.3; skinned,
+only c188-c191 after the skinning extension's own. A mesh gets the program through the vertex program extension
+(0x106: the prim group loaders' slots 4/2/5, a streamed group's binding through slot 6), and the pixel stage samples
+the frame-buffer copy: drawn and checked by the self-test's page 5 on Metal and on Vulkan under Wine.
+`simple_proximity` still waits for d3dSimpleShader's upload (unused by the data): drawn with the fixed-function
+program, logged once. bgfx only pairs a vertex shader with a fragment shader whose inputs are exactly
 its outputs, so the stage fragment shader exists per output set (`fs_vp_stage`, `fs_vp_stage5`, `fs_vp_stage3`).
 
 **Fixed function.** The default path (no program) is D3D8 fixed-function T&L; it is specified by public
@@ -340,10 +346,17 @@ combination), check the interpreter against hand-computed cases, then prove `vs_
   `vs_vp_ff.sc` now also generates each stage's texture coordinates (a uv set, or the camera-space normal,
   position or reflection vector) and applies D3DTS_TEXTUREn under D3DTTFF, which a `.vp` proof of it would have to
   cover too.
-- *The 17 `xps.1.1` effect shaders* (`d3dExtFramebufferEffects` set-up, 8 glow levels x 2 passes + 1), whose text
-  is in our verified C: translate each by hand to a bgfx fragment shader and prove it against a small `xps.1.1`
-  interpreter of ours (`tex`, `dp3`, `mad`, `mul_x2`, `_bx2`, co-issue, c0-c7; the semantics are in the public D3D8
-  pixel shader documentation). `FUN_003202b0` (a caller-supplied string) first needs its callers found.
+- *The 17 `xps.1.1` effect shaders* (`d3dExtFramebufferEffects` set-up FUN_00320540: 7 colour-pass levels x 2
+  sides + the threshold program at 0x432da0; the two never-filled slots 14/15 are unreachable) and the five
+  `ps.1.1` programs FUN_00320330 assembles through `FUN_003202b0` (its only caller: the gaussian's 1-4 tap sums and
+  the bloom's composite). **Translated in G4** ([graphics-backend.md](graphics-backend.md) section 12):
+  `shaders/fx/fs_fx_filter.sc` is the colour-pass family as one program (the level's co-issued alpha multipliers
+  and adds as uniforms, the register combiners' [-1, 1] clamps, 8-bit constants quantised on the CPU) plus the
+  threshold; `fs_fx_blur.sc` the sums and the composite. Checked on the GPU against a CPU reference written from the
+  instruction text in `selftest_scene.cpp` (pages 6 and 7; a missing doubling in one level's add chain fails 8 of
+  13 probes). Still open: a proof against an `xps.1.1` interpreter of ours with fuzzed inputs, as for the vertex
+  programs; and the NV2A combiners' internal precision (9-bit signed) and its constant rounding, which the
+  translation takes as float and round-to-nearest.
 
 ## Open questions
 

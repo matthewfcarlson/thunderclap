@@ -59,10 +59,18 @@ static void PDDI_THISCALL setLayerPath(S* s, int v) { s->m_layerPath = v; }     
 static void PDDI_THISCALL setNoLayer(S* s, int v) { s->m_noLayer = v != 0; }                      // LRSA 0x3327e0
 static void PDDI_THISCALL setEnvColour(S* s, uint32_t v) { s->m_envColour = v; }                  // ENVB 0x32c480, REFC
 static void PDDI_THISCALL setRefractBlend(S* s, float v) { s->m_refractBlend = v; }               // REFB 0x32eef0
+static void PDDI_THISCALL setRefractScale(S* s, float v) { s->m_refractScale = v; }               // REFI 0x32eee0
+// the fbeffects shader's (0x328560 .. 0x3285c0; UPDT: FUN_003285d0, the accumulation)
+static void PDDI_THISCALL setFxOn(S* s, int v) { ((bgfxFBEffectsShader*)s)->m_fxOn = v != 0; }
+static void PDDI_THISCALL fxUpdate(S* s, int) { fbEffectsAccumulate(s); }
+static void PDDI_THISCALL setFxSat(S* s, float v) { ((bgfxFBEffectsShader*)s)->m_fxSat = v; }
+static void PDDI_THISCALL setFxBright(S* s, float v) { ((bgfxFBEffectsShader*)s)->m_fxBright = v; }
+static void PDDI_THISCALL setFxMid(S* s, float v) { ((bgfxFBEffectsShader*)s)->m_fxMid = v; }
+static void PDDI_THISCALL setFxContrast(S* s, float v) { ((bgfxFBEffectsShader*)s)->m_fxContrast = v; }
+static void PDDI_THISCALL setFxTint(S* s, uint32_t v) { ((bgfxFBEffectsShader*)s)->m_fxTint = v; }
 static void PDDI_THISCALL ignoreVector(S*, const void*) {}
 static void PDDI_THISCALL ignoreInt(S*, int) {}                // accepted, not used (the CBV programs; G4's)
 static void PDDI_THISCALL ignoreFloat(S*, float) {}
-static void PDDI_THISCALL ignoreColour(S*, uint32_t) {}
 
 #define P(name, fn) {K(name), 0, (const void*)&fn, 0, {0, 0}}
 #define END {0, 0, 0, 0, {0, 0}}
@@ -87,11 +95,11 @@ static const S::Param kCommonInt[] = {COMMON_INTS, END};
 static const S::Param kCommonFloat[] = {COMMON_FLOATS, END};
 static const S::Param kReflTex[] = {P("TEX", setTex), P("REFL", setRefl), END};
 static const S::Param kReflColours[] = {COMMON_COLOURS, P("ENVB", setEnvColour), END};
-static const S::Param kRefractFloat[] = {COMMON_FLOATS, P("REFI", ignoreFloat), P("REFB", setRefractBlend), END};
+static const S::Param kRefractFloat[] = {COMMON_FLOATS, P("REFI", setRefractScale), P("REFB", setRefractBlend), END};
 static const S::Param kRefractColours[] = {COMMON_COLOURS, P("REFC", setEnvColour), END};
-static const S::Param kFBInt[] = {P("CLRE", ignoreInt), P("UPDT", ignoreInt), END};
-static const S::Param kFBFloat[] = {P("SAT", ignoreFloat), P("BRIT", ignoreFloat), P("MDPT", ignoreFloat), P("CONT", ignoreFloat), END};
-static const S::Param kFBColours[] = {P("TINT", ignoreColour), END};
+static const S::Param kFBInt[] = {P("CLRE", setFxOn), P("UPDT", fxUpdate), END};
+static const S::Param kFBFloat[] = {P("SAT", setFxSat), P("BRIT", setFxBright), P("MDPT", setFxMid), P("CONT", setFxContrast), END};
+static const S::Param kFBColours[] = {P("TINT", setFxTint), END};
 #undef P
 #undef END
 
@@ -102,7 +110,8 @@ bgfxShader::bgfxShader(bgfxContext* context)
       m_alphaCompare(5), m_alphaRef(0.5f), m_alphaRefFaded(0.5f), m_fade(0), m_uvMode(1), m_filter(1), m_lit(false),
       m_shadeMode(1), m_shininess(0.0f), m_diffuse(0xff000000u), m_specular(0xff000000u), m_ambient(0xffffffffu),
       m_emissive(0xff000000u), m_savedFog(0), m_twoSided(false), m_skinned(false), m_layerMode(4), m_layerPath(0),
-      m_noLayer(false), m_envColour(0), m_refractBlend(0.0f), m_savedMode(0), m_savedAlphaTest(false)
+      m_noLayer(false), m_envColour(0), m_refractBlend(0.0f), m_refractScale(0.0f), m_savedMode(0),
+      m_savedAlphaTest(false)
 {
     m_base[0] = m_base[1] = 0;
     for (int i = 0; i < 6; i++)
@@ -569,10 +578,15 @@ void bgfxReflShader::vfunc_14(int)
 }
 
 // ---- bgfxRefractShader (d3dRefractVertexShader)
+// The constructor (0x32f2e0): REFI 10, REFB 1, REFC opaque white; the texture object for the frame-buffer copy
+// (+0x84; ours is the context's, bgfxContext::copyFrameBuffer)
 bgfxRefractShader::bgfxRefractShader(bgfxContext* context) : bgfxShader(context)
 {
     m_kind = kShaderRefract;
     m_name = "refract";
+    m_refractScale = 10.0f;
+    m_refractBlend = 1.0f;
+    m_envColour = 0xffffffffu;
     tables(this, kSimpleTex, kCommonInt, kRefractFloat, kRefractColours);
 }
 int bgfxRefractShader::vfunc_11() { return 1; }
@@ -585,12 +599,15 @@ void bgfxRefractShader::vfunc_13()
     m_alphaTest = m_savedAlphaTest;
     applyBlendAndTest();
 }
-// 0x32efa0: stage 0 a copy of the frame buffer (G4: not made yet, the stage samples white) times the factor (REFC,
-// alpha REFB) into temp; stage 1 TEX (times the diffuse colour when lit); stage 2 temp blended over that by the
-// factor's alpha (blendfactoralpha), the diffuse alpha. The pass draws alpha-blended without the alpha test.
+// 0x32efa0: the render target copied into the display's frame-buffer texture (FUN_0031b1e0; G4:
+// bgfxContext::copyFrameBuffer), which stage 0 samples (clamped, texel coordinates: a linear texture) times the
+// factor (REFC, alpha REFB) into temp; stage 1 TEX (times the diffuse colour when lit); stage 2 temp blended over that
+// by the factor's alpha (blendfactoralpha), the diffuse alpha. The pass draws alpha-blended without the alpha test.
+// No copy (no scene target): the stage has no texture (samples white), as the game's would with no display texture.
 void bgfxRefractShader::vfunc_14(int)
 {
     bgfxContext* c = m_context;
+    bgfxTexture* copy = c->copyFrameBuffer();
     c->setTextureFactor(((uint32_t)(int)(m_refractBlend * 255.0f) << 24) | (m_envColour & 0xffffffu));
     c->stageBoth(0, 4, 3, 2);
     c->m_d3d.stage[0].texCoordIndex = 0;
@@ -598,7 +615,7 @@ void bgfxRefractShader::vfunc_14(int)
     c->stageAddress(0, 1);
     c->stageFilter(0, m_filter);
     c->m_d3d.stage[0].resultArg = 5;
-    c->stageTexture(0, 0);
+    c->stageTexture(0, copy);
     c->stageBoth(1, m_lit ? 4 : 3, 0, 2);
     c->stageTexture(1, m_texture[0]);
     c->stageCoords(1, 1, 0, m_uvMode, m_filter);
@@ -613,13 +630,43 @@ void bgfxRefractShader::vfunc_14(int)
     finishPass(this);
     applyBlendAndTest();
 }
-bool bgfxRefractShader::vfunc_22() { return false; }
+bool bgfxRefractShader::vfunc_22() { return true; }                   // 0x32f240: it has program constants
 void* bgfxRefractShader::vfunc_23() { return (void*)(m_skinned ? "skin_refract" : "refract"); }   // 0x32f250
-void bgfxRefractShader::vfunc_24() {}
-
-// ---- bgfxFBEffectsShader (d3dFBEffectsShader): slots 12-14 are empty in the game (its draws are the
-// framebuffer-effects extension's, G4)
-bgfxFBEffectsShader::bgfxFBEffectsShader(bgfxContext* context) : bgfxShader(context)
+// 0x32f3b0: the refract programs' constants. The texture scale: the back buffer's size over the display's mode
+// size (slots 7 width, 6 height) times REFI; the intensity REFB is faded in place (+0x8c = (255 - fade) x REFB /
+// 255: the game stores it back, so a fading shader's intensity keeps falling) and c121.w is it less 0.3. Skinned
+// (+0x7d, d3dExtHardwareSkinning::vfunc_6 has already uploaded FUN_00324270's constants and the bones): c188-c191
+// only. Otherwise: c98-c101 (world x view x projection) transposed, c102-c105 the world transposed (the normal's
+// rotation; our D3D view is the identity), c107 the viewport, c108 the scale, c109 one half, c96 the constant row,
+// c110 diffuse, c111 specular + power, c112 emissive + ambient light x ambient (the emissive alpha 0 takes the
+// diffuse alpha), c113-c118 three directional lights (direction, colour; black for a missing one) and c121.
+void bgfxRefractShader::vfunc_24()
+{
+    bgfxContext* c = m_context;
+    bgfxDisplay* d = c->m_display;
+    unsigned bbW = d ? d->m_width : 640, bbH = d ? d->m_height : 480;
+    unsigned modeW = d ? d->vfunc_7() : 640, modeH = d ? d->vfunc_6() : 480;
+    float viewport[4] = {(float)bbW, (float)bbH, 1.0f, 1.0f};
+    float uv[4] = {(float)bbW / (float)(modeW ? modeW : 1) * m_refractScale,
+                   (float)bbH / (float)(modeH ? modeH : 1) * m_refractScale, 0.0f, 0.0f};
+    float half[4] = {0.5f, 0.5f, 0.5f, 0.5f};
+    float one[4] = {1.0f, 1.0f, 1.0f, 1.0f};
+    m_refractBlend = (float)(uint32_t)(255 - m_fade) * m_refractBlend * 0.003921568859368563f;
+    one[3] = m_refractBlend - 0.3f;
+    if (m_skinned) {
+        c->setVertexConstants(188, uv, 1);
+        c->setVertexConstants(189, half, 1);
+        c->setVertexConstants(190, viewport, 1);
+        c->setVertexConstants(191, one, 1);
+        return;
+    }
+    c->refractConstants(this, viewport, uv, half, one);
+}
+// ---- bgfxFBEffectsShader (d3dFBEffectsShader): slots 12-14 are empty in the game; a draw with it adds its
+// settings to the framebuffer effects' colour correction (context slot 32 -> FUN_003285d0; bgfx_effects.cpp)
+bgfxFBEffectsShader::bgfxFBEffectsShader(bgfxContext* context)
+    : bgfxShader(context), m_fxSat(0.0f), m_fxBright(0.0f), m_fxMid(0.5f), m_fxContrast(0.0f), m_fxTint(0xffffffffu),
+      m_fxOn(false)
 {
     m_kind = kShaderFBEffects;
     m_name = "fbeffectsshader";

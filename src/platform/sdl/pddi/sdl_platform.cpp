@@ -11,6 +11,7 @@
 //                       file (PDL1, tools/drawlog_diff.py), written after the last logged frame and at exit
 //   HULK_GFX_FRAMES     exit the process after this many presented frames (test runs)
 //   HULK_GFX_HIDDEN     1: don't show the window (it still exists: D3D11 needs one)
+//   HULK_GFX_DIRECT     1: no scene target (G4): draw straight to the back buffer, no frame-buffer copies or effects
 //   HULK_GFX_FULLSCREEN 1: start in desktop-size fullscreen (F11 / Alt+Enter toggle it; the window is resizable and
 //                       the back buffer follows its pixel size)
 //   HULK_GFX_SELFTEST   N: when the context is created, drive N frames of the self-test scene (selftest_scene.cpp:
@@ -20,7 +21,8 @@
 //                       N of M"), then go on with the game: independent of how far the game gets
 //   HULK_GFX_SELFTEST_PAGE  which page of the scene (default 0: G3's draw path; 1 G2's combiners, 2 the same through
 //                       the generic combiner, 3 2D / linear textures / movie tile / state, 4 every combiner key
-//                       against a CPU reference); one screenshot per run
+//                       against a CPU reference; G4: 5 refraction, 6 colour correction + visibility test, 7 bloom,
+//                       8 the overlay); one screenshot per run
 //                       under Wine's winevulkan, so one page per run
 #include "bgfx_pddi.h"
 

@@ -28,10 +28,13 @@
 //          reflection through the sphere map (texgen + texture matrix) | FADE scales the alpha reference
 // Page 4 (G2: the combiner sweep): every key of combiners.txt through its generated program and the generic
 //   combiner, colour and alpha, against a CPU reference of the texture-stage operations (4 cells a key)
+// Pages 5-8 (G4): the frame-buffer copy and refraction; the framebuffer effects' colour correction and the
+//   visibility test; the bloom; the overlay (each described where it is drawn, below)
 // Everything is in clip space (identity modelview and projection, z in [0, 1]) unless a cell says otherwise;
 // D3DCOLORs are 0xAARRGGBB.
 #include "bgfx_pddi.h"
 
+#include <math.h>
 #include <string.h>
 
 #if HULK_PDDI_HOST || HULK_PDDI_EMBED_SHADERS
@@ -263,8 +266,12 @@ static void resetState(bgfxContext* ctx)
 static void page1(bgfxContext* ctx, bool generic);
 static void page3(bgfxContext* ctx);
 static void page4(bgfxContext* ctx);
+static void page5(bgfxContext* ctx);
+static void page6(bgfxContext* ctx);
+static void page7(bgfxContext* ctx);
+static void page8(bgfxContext* ctx);
 
-int selfTestPages() { return 5; }
+int selfTestPages() { return 9; }
 
 // One frame of a page of the scene (between the caller's begin frame and end frame). Returns the number of probes.
 int selfTestScene(bgfxContext* ctx, int page)
@@ -288,6 +295,22 @@ int selfTestScene(bgfxContext* ctx, int page)
     if (page == 4) {
         page4(ctx);
         ctx->m_forceGeneric = false;
+        return s_nprobes;
+    }
+    if (page == 5) {
+        page5(ctx);
+        return s_nprobes;
+    }
+    if (page == 6) {
+        page6(ctx);
+        return s_nprobes;
+    }
+    if (page == 7) {
+        page7(ctx);
+        return s_nprobes;
+    }
+    if (page == 8) {
+        page8(ctx);
         return s_nprobes;
     }
     float I[16];
@@ -1195,6 +1218,553 @@ int selfTestCheck(const unsigned char* px, unsigned w, unsigned h, unsigned pitc
         }
     }
     return ok;
+}
+
+
+// ---------------------------------------------------------------------------------------------
+// G4 page 5: the frame-buffer copy and the refraction shader (prim buffers with the "refract" program; the
+// skinning extension's "skin_refract"). Each cell: a known pattern (left half red, right half green, behind), then
+// the refraction shader over the whole cell. With the copy, the shader shows the frame as it was when its pass began,
+// sampled at the pixel's own place plus the projected normal x REFI pixels, times REFC; then blended by the program's
+// alpha (refract: k = clamp((n . ndc)^2 + REFB - 0.3, 0, 1); skin_refract: REFB - 0.3).
+//   (0, 0) the pattern alone | (1, 0) refract, normal (1, 0, 2), REFI so that the offset is 20 pixels right, REFC
+//   (128, 255, 128): k = 1 | (2, 0) two refraction draws, no offset: the second's copy holds the first's output (the
+//   tint twice) | (3, 0) skin_refract through d3dExtHardwareSkinning (bones move the quad half a screen right; the
+//   same 20-pixel offset from the blended normal), alpha 0.7
+//   (0, 1) refract, normal (0, 0, 1) at z 0: k = 0.7 (the program's alpha blends the tinted copy over the frame)
+//   (1, 1) the copy follows a mid-frame clear: a cell cleared to blue (a viewport + clear), then refract with no
+//   offset and REFC (255, 0, 255): the copy's blue comes through (outside the cleared viewport: the clear colour)
+//   (2, 1) a prim buffer made with no program, given "refract" the way the prim group loaders do it: the vertex
+//   program extension (0x106) slots 4 (has a program), 2 (its handle), 5 (onto the buffer); the 20-pixel offset
+//   (3, 1) a streamed prim group's way: extension slot 6 binds the handle, prim streams (normals) draw with it
+struct Page5 {
+    bool made;
+    bgfxShader *plain, *refract[7];
+    bgfxPrimBuffer *buf[7];
+    int streamHandle;
+};
+static Page5 s_p5;
+
+// a quad prim buffer (the refraction program, or skinned for skin_refract) with one normal for every vertex
+static bgfxPrimBuffer* refractQuad(bgfxDevice* dev, const Rect& q, float z, const float* n, bool skinned)
+{
+    unsigned flags = skinned ? (0x180u | 0x10u | 1u) : (0x10u | 1u);
+    intptr_t params[8] = {kPrimTriList, (intptr_t)flags, 0, 0, 4, 6, 0, (intptr_t)(skinned ? 0 : "refract")};
+    bgfxPrimBuffer* b = (bgfxPrimBuffer*)dev->vfunc_10(params);
+    if (!b)
+        return 0;
+    b->vfunc_0();
+    bgfxPrimBufferStream* s = (bgfxPrimBufferStream*)b->vfunc_4();
+    const float pos[4][3] = {{q.x0, q.y1, z}, {q.x0, q.y0, z}, {q.x1, q.y1, z}, {q.x1, q.y0, z}};
+    for (int i = 0; i < 4; i++) {
+        if (skinned) {
+            s->vfunc_11(0.5f, 0.5f, 0.0f);
+            s->vfunc_10(0, 1, 2, 0);
+        }
+        s->vfunc_1(n[0], n[1], n[2]);
+        s->vfunc_6(0.0f, 0.0f, 0);
+        s->vfunc_0(pos[i][0], pos[i][1], pos[i][2]);
+    }
+    b->vfunc_5(s);
+    static const unsigned short idx[6] = {0, 1, 2, 2, 1, 3};
+    b->vfunc_9((void*)idx, 6);
+    return b;
+}
+
+// the pattern a cell's refraction reads: left half red, right half green, at the back
+static void pattern(bgfxContext* ctx, int c, int r)
+{
+    Rect q = cell(c, r, 16);
+    Rect left = q, right = q;
+    float mid = (q.x0 + q.x1) * 0.5f;
+    left.x1 = mid;
+    right.x0 = mid;
+    quad(ctx, s_p5.plain, left, 0.95f, 0xffff0000u);
+    quad(ctx, s_p5.plain, right, 0.95f, 0xff00ff00u);
+}
+
+static void setupPage5(bgfxContext* ctx)
+{
+    Page5& P = s_p5;
+    P.made = true;
+    bgfxDevice* dev = ctx->m_device;
+    P.plain = simpleShader(dev, 0);
+    // the packed normal is scaled by 1 / (length x 1.001) (the stream's slot 1): n = (1, 0, 2) gives x 0.4464
+    static const float n12[3] = {1.0f, 0.0f, 2.0f}, n001[3] = {0.0f, 0.0f, 1.0f};
+    const float nx = 1.0f / (2.2360680f * 1.001f);
+    for (int i = 0; i < 7; i++) {
+        P.refract[i] = makeShader(dev, "refract");
+        if (P.refract[i])
+            setC(P.refract[i], "REFC", 0xff80ff80u);
+    }
+    P.buf[0] = refractQuad(dev, cell(1, 0, 16), 0.9f, n12, false);
+    if (P.refract[0])
+        setF(P.refract[0], "REFI", 20.0f / nx);
+    P.buf[1] = refractQuad(dev, cell(2, 0, 16), 0.9f, n12, false);
+    if (P.refract[1])
+        setF(P.refract[1], "REFI", 0.0f);
+    // skinned: placed half a screen to the left, the bones (half +1, half 0 in x) move it into cell (3, 0)
+    Rect sq = cell(3, 0, 16);
+    sq.x0 -= 0.5f;
+    sq.x1 -= 0.5f;
+    P.buf[2] = refractQuad(dev, sq, 0.9f, n12, true);
+    if (P.refract[2])
+        setF(P.refract[2], "REFI", 20.0f / nx);
+    P.buf[3] = refractQuad(dev, cell(0, 1, 16), 0.0f, n001, false);
+    if (P.refract[3])
+        setF(P.refract[3], "REFI", 0.0f);
+    P.buf[4] = refractQuad(dev, cell(1, 1, 16), 0.9f, n12, false);
+    if (P.refract[4]) {
+        setF(P.refract[4], "REFI", 0.0f);
+        setC(P.refract[4], "REFC", 0xffff00ffu);
+    }
+    // (2, 1): no program name at creation (fixed function), then the loaders' extension calls
+    P.buf[5] = refractQuad(dev, cell(2, 1, 16), 0.9f, n12, false);
+    if (P.buf[5])
+        P.buf[5]->m_program = "";
+    bgfxExtVertexProgram* vp = (bgfxExtVertexProgram*)ctx->m_ext[6];         // slot 89 (0x106)
+    if (P.refract[5]) {
+        setF(P.refract[5], "REFI", 20.0f / nx);
+        if (vp && P.buf[5] && vp->vfunc_4(P.refract[5], 0))
+            vp->vfunc_5(P.buf[5], vp->vfunc_2(P.refract[5], 0x11, 0, 1, 0));
+    }
+    // (3, 1): the streamed binding
+    P.streamHandle = 0;
+    if (P.refract[6]) {
+        setF(P.refract[6], "REFI", 20.0f / nx);
+        if (vp && vp->vfunc_4(P.refract[6], 0))
+            P.streamHandle = vp->vfunc_2(P.refract[6], 0x11, 0, 1, 0);
+    }
+}
+
+static void page5(bgfxContext* ctx)
+{
+    Page5& P = s_p5;
+    if (!P.made)
+        setupPage5(ctx);
+    beginPage(ctx);
+    bgfxContext::Light l;                   // lights don't reach the colour here (unlit: the stages ignore it)
+    memset(&l, 0, sizeof(l));
+    for (int i = 0; i < bgfxContext::kLights; i++)
+        ctx->hostSetLight(i, l);
+    int cw = (int)(s_scene.w / 4.0f);
+    // the half boundary of cell c, in pixels
+    #define BX(c) ((c) * cw + cw / 2)
+    const unsigned red = 0xff0000, green = 0x00ff00;
+    const unsigned redT = 0x800000, greenT = 0x00ff00;          // x REFC (128, 255, 128)
+    if (!P.plain)
+        return;
+    pattern(ctx, 0, 0);
+    probe(BX(0) - 30, cy(0), red, 2, "pattern: left half red");
+    probe(BX(0) + 30, cy(0), green, 2, "pattern: right half green");
+    pattern(ctx, 1, 0);
+    pattern(ctx, 2, 0);
+    pattern(ctx, 3, 0);
+    pattern(ctx, 0, 1);
+    if (P.refract[0] && P.buf[0]) {
+        ctx->vfunc_32(P.refract[0], P.buf[0]);
+        probe(BX(1) - 30, cy(0), redT, 3, "refract: 20 px right of 30 px left of the edge: red x REFC");
+        probe(BX(1) - 10, cy(0), greenT, 3, "refract: 20 px right of 10 px left of the edge: green x REFC");
+        probe(BX(1) + 20, cy(0), greenT, 3, "refract: right half samples green");
+    }
+    if (P.refract[1] && P.buf[1]) {
+        ctx->vfunc_32(P.refract[1], P.buf[1]);
+        ctx->vfunc_32(P.refract[1], P.buf[1]);
+        probe(BX(2) - 30, cy(0), 0x400000, 3, "refract twice: the second copy has the first's output (red x 0.5^2)");
+        probe(BX(2) + 30, cy(0), green, 3, "refract twice: green x 1 x 1");
+    }
+    bgfxExtHardwareSkinning* sk = (bgfxExtHardwareSkinning*)ctx->m_ext[4];
+    if (P.refract[2] && P.buf[2] && sk) {
+        float b0[16], b1[16], b2[16];
+        identity(b0);
+        identity(b1);
+        identity(b2);
+        b0[12] = 1.0f;
+        b2[12] = 5.0f;
+        sk->vfunc_5(0, b0);
+        sk->vfunc_5(1, b1);
+        sk->vfunc_5(2, b2);
+        sk->vfunc_6(P.refract[2], P.buf[2]);
+        // alpha 0.7: 0.7 x (sampled x REFC) + 0.3 x the pattern under it
+        probe(BX(3) - 30, cy(0), 0xa50000, 4, "skin_refract: 0.7 red x REFC + 0.3 red");
+        probe(BX(3) - 10, cy(0), 0x4cb200, 4, "skin_refract: 0.7 green (offset 20) + 0.3 red");
+        probe(BX(3) + 20, cy(0), 0x00ff00, 4, "skin_refract: green");
+    }
+    if (P.refract[3] && P.buf[3]) {
+        ctx->vfunc_32(P.refract[3], P.buf[3]);
+        // k = 0.7 (n . ndc = 0): 0.7 x red x REFC + 0.3 x red
+        probe(BX(0) - 30, cy(1), 0xa50000, 4, "refract, k = 0.7: the program's alpha blends the copy");
+        probe(BX(0) + 30, cy(1), green, 3, "refract, k = 0.7: green x 1");
+    }
+    if (P.refract[4] && P.buf[4]) {
+        // a mid-frame viewport + clear to blue over cell (1, 1), then the refraction: its copy sees the clear
+        unsigned saved[4];
+        memcpy(saved, ctx->m_viewport, sizeof(saved));
+        bgfxContext::ViewBlock* v = ctx->viewBlock();
+        bgfxContext::ViewBlock keep = *v;
+        int px0 = cw + 16, px1 = 2 * cw - 16, py0 = (int)(s_scene.h / 3.0f) + 16, py1 = (int)(2 * s_scene.h / 3.0f) - 16;
+        v->x0 = (float)px0 / s_scene.w;
+        v->x1 = (float)px1 / s_scene.w;
+        v->y0 = (float)py0 / s_scene.h;
+        v->y1 = (float)py1 / s_scene.h;
+        ctx->vfunc_24(1);                   // orthographic: the viewport of the view block
+        ctx->vfunc_6(0xff0000ffu);
+        ctx->hostSetClear(0xff0000ffu, 1.0f, 0);
+        ctx->vfunc_12(1 | 2);
+        *v = keep;
+        ctx->vfunc_24(0);
+        float I[16];
+        identity(I);
+        ctx->setViewTransform(I, I);        // back to clip space for the quad
+        ctx->vfunc_32(P.refract[4], P.buf[4]);
+        probe(cx(1), cy(1), 0x0000ff, 3, "refract after a mid-frame clear: the copy holds the clear (blue x REFC)");
+        probe(cx(1) - cw / 2 + 8, cy(1), kClearColour & 0xffffff, 3, "refract after a clear: outside the viewport");
+    }
+    pattern(ctx, 2, 1);
+    pattern(ctx, 3, 1);
+    if (P.refract[5] && P.buf[5]) {
+        ctx->vfunc_32(P.refract[5], P.buf[5]);
+        probe(BX(2) - 30, cy(1), redT, 3, "refract via the vertex program extension (slots 4, 2, 5): red x REFC");
+        probe(BX(2) - 10, cy(1), greenT, 3, "refract via the extension: 20 px offset, green x REFC");
+    }
+    bgfxExtVertexProgram* vp = (bgfxExtVertexProgram*)ctx->m_ext[6];
+    if (P.refract[6] && vp && P.streamHandle) {
+        vp->vfunc_6((unsigned)P.streamHandle);              // PrimGroupStreamed::vfunc_6 binds it around its draws
+        Rect q = cell(3, 1, 16);
+        const float pos[4][3] = {{q.x0, q.y1, 0.9f}, {q.x0, q.y0, 0.9f}, {q.x1, q.y1, 0.9f}, {q.x1, q.y0, 0.9f}};
+        const float n[3] = {1.0f / 2.2360680f, 0.0f, 2.0f / 2.2360680f};
+        bgfxPrimStream* p = (bgfxPrimStream*)ctx->vfunc_30(P.refract[6], kPrimTriStrip, kVertexNormal | 1, 4, 0);
+        for (int i = 0; i < 4; i++) {
+            memcpy(p->posPtr, pos[i], 12);
+            memcpy(p->normalPtr, n, 12);
+            const float uv[2] = {0.0f, 0.0f};
+            memcpy(p->uvPtr, uv, 8);
+            p->vertex();
+        }
+        ctx->vfunc_31(p);
+        vp->vfunc_6(0);
+        // the stream's normal is not packed: x = 0.4472 (the buffer's 0.4464 sets REFI): 20.04 pixels
+        probe(BX(3) - 30, cy(1), redT, 3, "refract on a prim stream bound through extension slot 6: red x REFC");
+        probe(BX(3) - 10, cy(1), greenT, 3, "refract on the bound prim stream: 20 px offset, green x REFC");
+    }
+    #undef BX
+    (void)red;
+}
+
+
+// ---------------------------------------------------------------------------------------------
+// G4 pages 6-8: the framebuffer effects extension (context slot 89, 0x103), each pass over the whole frame, checked
+// against a CPU reference written here from the xps text and the slots' arithmetic (not from the shaders):
+// combiner clamps to [-1, 1], 8-bit constants, 8-bit targets.
+// Page 6: eight colour cells (rows 0-1); two fbeffects shaders (one drawn through context slot 32, the other through
+//   its UPDT parameter) averaged by slot 5 into the colour correction, slot 6 over the frame; row 2 after it: the
+//   visibility test (a quad half behind an occluder: the cell turns green when the count is half the quad's pixels,
+//   red otherwise; the count is last frame's) | untouched cells (drawn after the pass)
+// Page 7: the bloom (slots 8, 7, 9): bright pass (luminance, contrast, midpoint), the tinted quarter copy, the gaussian
+//   (sigma 2: three taps), the composite 2 x blur x amount + frame x blend; probes in the uniform cells' interiors
+// Page 8: the overlay (slots 1, 2): additive, split into three channels, scale 4: the front buffer zoomed onto the
+//   frame each frame; a uniform region converges to colour / (1 - a)
+static float rq8(float v)
+{
+    v = v < 0.0f ? 0.0f : v > 1.0f ? 1.0f : v;
+    return (float)(int)(v * 255.0f + 0.5f) / 255.0f;
+}
+static float rs(float v) { return v < -1.0f ? -1.0f : v > 1.0f ? 1.0f : v; }
+static int r8(float v) { v = v < 0.0f ? 0.0f : v > 1.0f ? 1.0f : v; return (int)(v * 255.0f + 0.5f); }
+
+// FUN_00320540's program for (level lv, side 0) run on one colour: the xps text as instructions
+static void refColourPass(const float* rgb, const float* c0, float c3, float c5, const float* c6, float c7, int lv,
+                          float* out)
+{
+    float lum = rs(c0[0] * rgb[0] + c0[1] * rgb[1] + c0[2] * rgb[2]);         // dp3 r0, t0, c0
+    float r0[3], r1;
+    for (int k = 0; k < 3; k++)
+        r0[k] = rs(rgb[k] - lum);                                          // add r0.xyz, t0, -r0
+    r1 = rs(lum * c5 + (2.0f * c3 - 1.0f));                                // + mad r1.w, r0.w, c5, c3_bx2
+    for (int k = 0; k < 3; k++)
+        r0[k] = rs(2.0f * r0[k] * c7);                                     // mul_x2 r0.xyz, r0, c7
+    if (lv >= 32)
+        r1 = rs(4.0f * r1);                                                // + mov_x4
+    else if (lv >= 16)
+        r1 = rs(2.0f * r1);                                                // + mov_x2
+    for (int k = 0; k < 3; k++)
+        r0[k] = rs((2.0f * c6[k] - 1.0f) * lum + r0[k]);                   // mad r0.xyz, c6_bx2, r0.w, r0
+    if (lv == 64)
+        r1 = rs(2.0f * r1);
+    // side 0: add; [add; [+mov_x2; add; [+mov_x2; add]]] by level
+    int adds = lv > 4 ? 4 : lv > 2 ? 3 : lv > 1 ? 2 : 1;
+    for (int i = 0; i < adds; i++) {
+        for (int k = 0; k < 3; k++)
+            r0[k] = rs(r0[k] + r1);
+        if (i >= 1)                                                        // the mov_x2 paired with adds 2 and 3
+            r1 = rs(2.0f * r1);
+    }
+    for (int k = 0; k < 3; k++)
+        out[k] = r0[k] < 0.0f ? 0.0f : r0[k];
+}
+
+// FUN_00324660 for brightness below 0.5 (all the game can ask for): the constants, then the program
+static void refFilter(const float* rgb, const float* w, float f1, float f2, const float* b, float f3, float f4,
+                      float* out)
+{
+    float dot = w[0] * b[0] + w[1] * b[1] + w[2] * b[2];
+    float c0[3] = {rq8(w[0]), rq8(w[1]), rq8(w[2])};
+    float base = f2 == 1.0f ? f1 : ((f1 - f3) * f2 + f3) * dot;
+    int lv = 1;
+    while (lv < 64 && f2 > (float)lv)
+        lv *= 2;
+    float q = 1.0f / (float)lv;
+    float c6[3];
+    for (int k = 0; k < 3; k++)
+        c6[k] = rq8((b[k] - dot + 1.0f) * 0.5f);
+    refColourPass(rgb, c0, rq8((base * q + 1.0f) * 0.5f), rq8(f2 * q * dot), c6, rq8(dot * f4), lv, out);
+}
+
+struct Page6 {
+    bool made;
+    bgfxShader *plain, *fx[2];
+};
+static Page6 s_p6;
+
+static const unsigned kP6Colours[8] = {0xff808080u, 0xffc04020u, 0xff20c040u, 0xff3060d0u,
+                                       0xffffffffu, 0xff000000u, 0xffe0d020u, 0xff40d0d0u};
+
+static void page6(bgfxContext* ctx)
+{
+    Page6& P = s_p6;
+    bgfxDevice* dev = ctx->m_device;
+    if (!P.made) {
+        P.made = true;
+        P.plain = simpleShader(dev, 0);
+        // two fbeffects shaders (pddi name "fbeffectsshader"): their average drives the colour correction
+        P.fx[0] = makeShader(dev, "fbeffectsshader");
+        P.fx[1] = makeShader(dev, "fbeffectsshader");
+        const float sat[2] = {20.0f, -20.0f}, brit[2] = {10.0f, 30.0f}, mid[2] = {0.5f, 0.3f}, cont[2] = {40.0f, 60.0f};
+        const unsigned tint[2] = {0xffe0c0a0u, 0xffb0d0e0u};
+        for (int i = 0; i < 2; i++)
+            if (P.fx[i]) {
+                setF(P.fx[i], "SAT", sat[i]);
+                setF(P.fx[i], "BRIT", brit[i]);
+                setF(P.fx[i], "MDPT", mid[i]);
+                setF(P.fx[i], "CONT", cont[i]);
+                setC(P.fx[i], "TINT", tint[i]);
+                setI(P.fx[i], "CLRE", 1);
+            }
+    }
+    beginPage(ctx);
+    bgfxExtFramebufferEffects* fx = (bgfxExtFramebufferEffects*)ctx->m_ext[7];   // slot 89 (0x103)
+    if (!P.plain || !fx || !P.fx[0] || !P.fx[1])
+        return;
+    for (int i = 0; i < 8; i++)
+        quad(ctx, P.plain, cell(i % 4, i / 4, 16), 0.5f, kP6Colours[i]);
+    ctx->vfunc_32(P.fx[0], 0);                // slot 32 with an fbeffects shader: no draw, its settings added
+    setI(P.fx[1], "UPDT", 1);                 // UPDT adds them too
+    fx->vfunc_5();                            // the average: on, saturation 0, brightness 20, contrast 50, mid 0.4
+    fx->vfunc_6();
+    // the reference: slot 4 with the averages, then the colour pass
+    float amount = 20.0f / 255.0f, curve = 2.09608f, bias = 0.4f;
+    float result = (curve < 1.0f ? curve : 1.0f) * 1.0f;
+    float tint[3] = {(float)0xc8 / 255.0f, (float)0xc8 / 255.0f, (float)0xc0 / 255.0f};
+    static const float kW[3] = {0.25f, 0.625f, 0.125f};
+    static char what[8][64];
+    for (int i = 0; i < 8; i++) {
+        unsigned c = kP6Colours[i];
+        float rgb[3] = {(float)((c >> 16) & 255) / 255.0f, (float)((c >> 8) & 255) / 255.0f, (float)(c & 255) / 255.0f};
+        float out[3];
+        refFilter(rgb, kW, amount, curve, tint, bias, result * 0.5f, out);
+        unsigned want = (unsigned)(r8(out[0]) << 16 | r8(out[1]) << 8 | r8(out[2]));
+        logLine(what[i], sizeof(what[i]), "colour correction of %06x", c & 0xffffff);
+        probe(cx(i % 4), cy(i / 4), want, 4, what[i]);
+    }
+    unsigned clearCorrected;
+    {
+        float clr[3] = {0x20 / 255.0f, 0x30 / 255.0f, 0x40 / 255.0f}, out[3];
+        refFilter(clr, kW, amount, curve, tint, bias, result * 0.5f, out);
+        clearCorrected = (unsigned)(r8(out[0]) << 16 | r8(out[1]) << 8 | r8(out[2]));
+        probe(cx(0), (int)(s_scene.h / 3.0f) - 6, clearCorrected, 4, "colour correction of the clear colour");
+    }
+    // row 2: the visibility test (BillboardQuadGroup's use): occluder at z 0.3 over the left half, the test quad at
+    // z 0.6 with colour writes off; the count is last frame's (bgfx answers late)
+    bgfxExtVisibilityTest* vis = (bgfxExtVisibilityTest*)ctx->m_ext[5];       // slot 89 (0x500002)
+    if (vis) {
+        int cw = (int)(s_scene.w / 4.0f), ch = (int)(s_scene.h / 3.0f);
+        int px0 = 16, px1 = cw - 16, py0 = 2 * ch + 16, py1 = 3 * ch - 16;
+        Rect q = cell(0, 2, 16);
+        Rect left = q;
+        left.x1 = (q.x0 + q.x1) * 0.5f;
+        quad(ctx, P.plain, left, 0.3f, 0xff404040u);
+        ctx->vfunc_56(0, 0, 0, 1);
+        ctx->vfunc_62(0);
+        vis->vfunc_2();
+        quad(ctx, P.plain, q, 0.6f, 0xffffffffu);
+        vis->vfunc_3(0);
+        unsigned n = vis->vfunc_4(0);
+        ctx->vfunc_62(1);
+        ctx->vfunc_56(1, 1, 1, 1);
+        int area = (px1 - px0) * (py1 - py0), half = area / 2;
+        bool good = (int)n >= half - area / 50 && (int)n <= half + area / 50;
+        Rect ind = cell(1, 2, 16);
+        quad(ctx, P.plain, ind, 0.5f, good ? 0xff00ff00u : 0xffff0000u);
+        static char visWhat[96];
+        logLine(visWhat, sizeof(visWhat), "visibility test: half the quad's pixels pass (last frame's count: %u of %d)",
+                n, area);
+        probe(cx(1), cy(2), 0x00ff00, 2, visWhat);
+        probe(cx(0) - cw / 4, cy(2), 0x404040, 2, "visibility test: the occluder (the test quad drew nothing)");
+        probe(cx(0) + cw / 4, cy(2), clearCorrected, 4, "visibility test: no colour where it passed (the corrected "
+              "clear)");
+    }
+    quad(ctx, P.plain, cell(2, 2, 16), 0.5f, 0xff808080u);
+    probe(cx(2), cy(2), 0x808080, 2, "after the pass: untouched");
+}
+
+// ---- page 7: the bloom
+struct Page7 {
+    bool made;
+    bgfxShader* plain;
+};
+static Page7 s_p7;
+static const unsigned kP7Colours[4] = {0xff808080u, 0xffe04020u, 0xff2060f0u, 0xffffffffu};
+
+// the bloom of a uniform region, as the passes do it (8-bit targets between them)
+static void refBloom(const float* rgb, const float* weights, float radius, float contrast, float mix, uint32_t factor,
+                     const float* taps, int count, float amount, float blend, float* out)
+{
+    static const float kOne[3] = {1.0f, 1.0f, 1.0f};
+    float bright[3];
+    refFilter(rgb, weights, radius, contrast, kOne, mix, 0.0f, bright);
+    float half[3], quarter[3];
+    for (int k = 0; k < 3; k++) {
+        half[k] = (float)r8(bright[k]) / 255.0f;
+        float f = (float)((factor >> (16 - 8 * k)) & 255) / 255.0f;
+        quarter[k] = (float)r8(half[k] * f) / 255.0f;
+    }
+    // the gaussian of a uniform value: each direction, one side's draws (batches of 4 taps) then the other's,
+    // added in an 8-bit target; then the other direction
+    float v[3];
+    memcpy(v, quarter, sizeof(v));
+    for (int pass = 0; pass < 2; pass++) {
+        float acc[3] = {0, 0, 0};
+        bool first = true;
+        for (int side = 0; side < 2; side++) {
+            float sum[3] = {0, 0, 0};
+            int batch = 0;
+            for (int n = 0; n < count; n++) {
+                if (side == 1 && n == 0)
+                    continue;
+                for (int k = 0; k < 3; k++)
+                    sum[k] = rs(v[k] * rq8(taps[n]) + sum[k]);
+                ++batch;
+                if (batch == 4 || n == count - 1) {
+                    for (int k = 0; k < 3; k++) {
+                        float d = sum[k] < 0.0f ? 0.0f : sum[k];
+                        acc[k] = first ? (float)r8(d) / 255.0f : (float)r8(acc[k] + (float)r8(d) / 255.0f) / 255.0f;
+                        sum[k] = 0.0f;
+                    }
+                    first = false;
+                    batch = 0;
+                }
+            }
+        }
+        memcpy(v, acc, sizeof(v));
+    }
+    for (int k = 0; k < 3; k++)
+        out[k] = rs(rs(2.0f * v[k] * rq8(amount)) + rgb[k] * rq8(blend));
+}
+
+static void page7(bgfxContext* ctx)
+{
+    Page7& P = s_p7;
+    if (!P.made) {
+        P.made = true;
+        P.plain = simpleShader(ctx->m_device, 0);
+    }
+    beginPage(ctx);
+    bgfxExtFramebufferEffects* fx = (bgfxExtFramebufferEffects*)ctx->m_ext[7];
+    if (!P.plain || !fx)
+        return;
+    // four big uniform regions (each a 2 x 1 block of cells, rows 0-1), the clear colour in row 2
+    int cw = (int)(s_scene.w / 4.0f), ch = (int)(s_scene.h / 3.0f);
+    for (int i = 0; i < 4; i++) {
+        Rect q = cell((i % 2) * 2, i / 2, 0);
+        Rect q2 = cell((i % 2) * 2 + 1, i / 2, 0);
+        q.x1 = q2.x1;
+        quad(ctx, P.plain, q, 0.5f, kP7Colours[i]);
+    }
+    // amount 1 (x 0.5), the quarter copy at (0.75, 0.5, 1), blend 0.5, width 8 (sigma 2), weights from (255, 128, 64)
+    // (normalised), brightness -20, contrast 30, midpoint 0.6
+    fx->vfunc_8(1.0f, 0xffc080ffu, 0.5f, 8.0f, 0xffff8040u, -20.0f, 30.0f, 0.6f);
+    fx->vfunc_7(1);
+    fx->vfunc_9();
+    float wsum = 255.0f + 128.0f + 64.0f;
+    float weights[3] = {255.0f / wsum, 128.0f / wsum, 64.0f / wsum};
+    // the gaussian's taps, as slot 8 computes them (sigma 2: s = 1.2)
+    float taps[20];
+    int count = 0;
+    {
+        double s2 = 1.2 * 1.2, sum = 1.0;
+        taps[0] = 1.0f;
+        count = 1;
+        for (int i = 1; i < 20; i++) {
+            double wv = exp(-(double)(i * i) / s2);
+            if (!(wv > 1.0 / 255.0))
+                break;
+            taps[count++] = (float)wv;
+            sum += 2.0 * wv;
+        }
+        for (int i = 0; i < count; i++)
+            taps[i] = (float)(taps[i] / sum);
+    }
+    static char what[5][64];
+    for (int i = 0; i < 5; i++) {
+        unsigned c = i < 4 ? kP7Colours[i] : kClearColour;
+        float rgb[3] = {(float)((c >> 16) & 255) / 255.0f, (float)((c >> 8) & 255) / 255.0f, (float)(c & 255) / 255.0f};
+        float out[3];
+        refBloom(rgb, weights, -20.0f / 255.0f, 1.44878f, 0.6f, 0xffc080ffu, taps, count, 0.5f, 0.5f, out);
+        unsigned want = (unsigned)(r8(out[0]) << 16 | r8(out[1]) << 8 | r8(out[2]));
+        logLine(what[i], sizeof(what[i]), "bloom of %06x", c & 0xffffff);
+        int x = i < 4 ? (i % 2) * 2 * cw + cw : 2 * cw, y = i < 4 ? (i / 2) * ch + ch / 2 : 2 * ch + ch / 2;
+        probe(x, y, want, 4, what[i]);
+    }
+}
+
+// ---- page 8: the overlay
+struct Page8 {
+    bool made;
+    bgfxShader* plain;
+};
+static Page8 s_p8;
+
+static void page8(bgfxContext* ctx)
+{
+    Page8& P = s_p8;
+    if (!P.made) {
+        P.made = true;
+        P.plain = simpleShader(ctx->m_device, 0);
+    }
+    beginPage(ctx);
+    bgfxExtFramebufferEffects* fx = (bgfxExtFramebufferEffects*)ctx->m_ext[7];
+    if (!P.plain || !fx)
+        return;
+    Rect big = cell(1, 0, 0);
+    Rect b2 = cell(2, 2, 0);
+    big.x1 = b2.x1;
+    big.y1 = b2.y1;
+    quad(ctx, P.plain, big, 0.5f, 0xff102030u);
+    // on, alpha 0.5, scale 4 (additive: 0.5 x 254 = 127 per channel), split: red, green, blue at scales 4, 8, 12
+    fx->vfunc_1(1, 0.5f, 4.0f, 1);
+    fx->vfunc_2();
+    // a uniform region: x = c + (127/255) x, so x = c / (1 - 127/255) (in 8 bits, settling a little lower)
+    float a = 127.0f / 255.0f;
+    unsigned want = 0;
+    const unsigned c[3] = {0x10, 0x20, 0x30};
+    for (int k = 0; k < 3; k++) {
+        int x = (int)c[k];
+        for (int i = 0; i < 40; i++)                          // what the 8-bit target settles to
+            x = r8((float)c[k] / 255.0f + (float)(int)((float)x * a + 0.5f) / 255.0f);
+        want = (want << 8) | (unsigned)x;
+    }
+    probe(s_scene.w / 2, s_scene.h / 2, want, 4, "overlay: additive, split, the front buffer zoomed: c / (1 - a)");
+    probe(s_scene.w / 2 + 40, s_scene.h / 2 - 30, want, 4, "overlay: the same off centre");
 }
 
 } // namespace pddi
