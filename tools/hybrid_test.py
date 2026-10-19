@@ -154,7 +154,7 @@ RECORD_FLAGS = ["fixed-dt", "ckpt", "pollkey"] + PIN_FLAGS
 # Recording format version 2 (docs/tasks/record-replay.md): the game sees one virtual pad in port 1 whatever xemu
 # has bound (vpad), and the date follows the virtual clock (vdate). Version 1 recordings (no "version") were made
 # without them and replay without them.
-RECORDING_PINS = ["vpad", "vdate", "seq-rng"]
+RECORDING_PINS = ["vpad", "vdate", "seq-rng", "syncio"]
 RECORDING_VERSION = 2
 
 
@@ -203,6 +203,7 @@ def _drain(x, man, rec, seen):
     if not tl or tl[-1][1:] != [st["frame"], st["polls"]]:
         tl.append([round(time.time() - seen.get("t0", time.time()), 1), st["frame"], st["polls"]])
     rec["pads"] = {k: st[k] for k in PAD_DIAG if k in st}
+    rec["syncio"] = {k: st.get(k) for k in ("io_waits", "io_timeouts")}      # (syncio flag: sleeps, gave up)
     return st
 
 
@@ -420,7 +421,7 @@ def replay(args):
             "common": common_frames(a, b, 0), "divergence": d,
             "matching": sum(1 for f, h in b if ma.get(f) == h),
             "checkpoints": [[f, h] for f, h in b], "polls": rec["polls"], "pads": rec.get("pads"),
-            "timeline": rec.get("timeline", []),
+            "timeline": rec.get("timeline", []), "syncio": rec.get("syncio"),
             "identical": d is None and common_frames(a, b, 0) > 0}, **extra)
 
 
@@ -595,7 +596,7 @@ def resume_snapshot(data, snap, tag, gdb_cls=None, syncio=True):
                 snap["tag"], st["frame"], st["polls"], snap["frame"], snap["polls"]))
         # the recording build becomes the replay build: the flags replay() would use, the replay ring from here
         flags = 0
-        for f in [f for f in data["flags"] if f != "record"] + ["replay"]:
+        for f in [f for f in data["flags"] if f != "record" and (syncio or f != "syncio")] + ["replay"]:
             flags |= patch_xbe.HF[f]
         entries = data["inputs"]
         pos = 0
@@ -616,7 +617,7 @@ def resume_snapshot(data, snap, tag, gdb_cls=None, syncio=True):
         g.write(ext("replay_avail"), struct.pack("<I", end))
         g.write(base + 4 * 8, struct.pack("<II", len(entries), pos))     # replay_count, replay_pos
         g.write(base + 4 * 1, struct.pack("<I", flags))
-        if syncio:
+        if syncio and "syncio" not in data.get("flags", ()):       # (builds with the flag have the wait built in)
             install_syncio(g, man, data)
     except BaseException:
         x.close()

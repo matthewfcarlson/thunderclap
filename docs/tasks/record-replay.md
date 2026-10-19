@@ -105,7 +105,7 @@ reads them back.
 `hybrid_test.py record` writes:
 
 ```
-{"version": 2, "key": "polls", "flags": [... "vpad", "vdate", "seq-rng", "record", "quant"],
+{"version": 2, "key": "polls", "flags": [... "vpad", "vdate", "seq-rng", "syncio", "record", "quant"],
  "seed", "tweaks", "inputs": [[poll, buttons, [8 analog], [4 thumbs]], ...], "checkpoints": [[frame, hash]],
  "frames", "polls", "timeline": [[wall s, frame, polls], ...], "pads": {...diagnostics}}
 ```
@@ -379,16 +379,28 @@ Neither changes any input the hooks pin. Which way the race goes depends on the 
 s8 with syncio, throttled as above, also matched to 51600: 1,295 sleeps, no timeouts. Without syncio, throttling
 had given bad ×4.
 
+### Built in: the `syncio` flag (recordings made from now on)
+
+The wait is now a build-time hook, so recordings and replays from boot are timing-proof as well.
+- `hooks.cpp` `HF_SYNCIO` (8192, flag name `syncio`) and `hybrid_syncio_tail`: `patch_xbe.py` (`SYNCIO_SITE`) turns
+  the tail of the drive post routine at 0x27303f into a `jmp` to it. With the flag, the main thread sleeps 1 ms at a
+  time (the game's own `Sleep`) until that drive's `+0x8c` is 0, up to 2,000 sleeps. Other threads fall through.
+  `io_waits` counts the sleeps and `io_timeouts` the waits given up (the same fields `iosync` uses; recordings don't
+  set `iosync`).
+- `RECORDING_PINS` has `syncio`, so new recordings carry it in their `flags`, and replays (from boot or from a
+  snapshot) turn on what the recording says. `replay` now reports `"syncio": {io_waits, io_timeouts}`.
+- A recording whose flags lack it (play3, play1, play2) is unchanged: it replays without the hook, and
+  `--from-snapshot` still installs the GDB version (`install_syncio`). `--no-syncio` drops either.
+- Proof (`record --script` with a stand-in pad script, 4,904 frames, 164 checkpoints): replay from boot identical
+  twice, and identical throttled as above (18,936 sleeps, 9 timeouts).
+
+**Re-record?** Not needed for play3, whose synced resumes match. Anything recorded from here on includes the
+flag. A recording made earlier on a slow host could still contain a late completion that no synced replay
+reproduces; re-record those if they diverge.
+
 ### Left open
 
-- **Recordings and replays from boot don't have syncio.** A recording made on a slow or busy host can contain late
-  completions that a synced replay won't reproduce. play3 evidently had none in this stretch: every synced resume
-  matches it.
-- **A full fix makes recording and replay both wait.** That is a hook in the build, not a GDB patch:
-  - `patch_xbe.py`: a `jmp` from 0x27303f to a `hooks.cpp` function doing the same wait under a new flag;
-  - `hybrid_test.RECORDING_PINS`: the flag.
-  - Recordings made before it would still replay with the GDB patch.
-  - Not done here: `patch_xbe.py` was out of scope. Then re-record.
+- **Recordings made before the flag** replay from boot without syncio (only resumes have the GDB wait).
 - **Cost.** Resumes run slower with the waits: 1,100–9,600 sleeps of 1 ms over 4,000–26,000 frames here. The s8
   resume to 51,600 took about 10 min against 6 without.
 - **The timeouts.** The 2 in s4 and s5 (a drive still busy after 2 s, probably in a load) didn't cost a checkpoint.

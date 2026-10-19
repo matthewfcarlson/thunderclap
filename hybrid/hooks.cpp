@@ -125,6 +125,7 @@ struct HybridCtl {
 #define HF_QUANT    1024             // record mode: quantize the analog inputs the game is given (fewer pad changes)
 #define HF_VDATE    4096             // the date (GetLocalTime) follows the virtual clock (hybrid_get_local_time)
 #define HF_VPAD     2048             // the game sees one virtual pad in port 1 (see hybrid_get_device_changes)
+#define HF_SYNCIO   8192             // the main thread waits after each drive-thread post until that drive is idle
 #define HF_POLLKEY  64               // replay entries are keyed by pad polls instead of frames (tools/trace_capture.py:
                                      // after the new-game load the frame counter races, polls stay ~1 per frame)
 
@@ -653,6 +654,48 @@ extern "C" __declspec(naked) void hybrid_drive_thread_start()
     full:
         mov eax, 0x0026DCE0
         jmp eax
+    }
+}
+
+// HF_SYNCIO: the tail of core::DriveThread's post routine 0x272fc0 (pop edi; pop esi; ret 0xc at 0x27303f, edi =
+// drive + 0xc) jumps here (tools/patch_xbe.py SYNCIO_SITE). With the flag, the main thread sleeps 1 ms at a time
+// until that drive has nothing queued or running (+0x8c = 0), so every file request completes in the frame that
+// made it, whatever the host's speed (docs/tasks/record-replay.md, "Snapshot resumes that diverged"). Counts the
+// sleeps in io_waits and the waits given up after 2000 sleeps in io_timeouts (HF_IOSYNC, which also uses them,
+// isn't set in recordings). Other threads and builds without the flag fall straight through to the original tail.
+extern "C" __declspec(naked) void hybrid_syncio_tail()
+{
+    __asm {
+        push eax
+        push ecx
+        push edx
+        test g_hybrid.flags, HF_SYNCIO
+        jz done
+        mov eax, fs:[28h]
+        cmp eax, g_hybrid.main_thread
+        jne done
+        mov ecx, 2000
+    again:
+        cmp dword ptr [edi + 0x80], 0
+        je done
+        dec ecx
+        jz timeout
+        push ecx
+        push 1
+        mov eax, 0x0020C723
+        call eax
+        pop ecx
+        inc g_hybrid.io_waits
+        jmp again
+    timeout:
+        inc g_hybrid.io_timeouts
+    done:
+        pop edx
+        pop ecx
+        pop eax
+        pop edi
+        pop esi
+        ret 0Ch
     }
 }
 

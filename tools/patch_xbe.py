@@ -334,6 +334,9 @@ HOOK_CALLS = [
     0x003214D7,     # pure3d::d3dContext::vfunc_106
     0x003214EB,     # pure3d::d3dContext::vfunc_107
 )]
+# syncio (hooks.cpp HF_SYNCIO): the tail of core::DriveThread's post routine 0x272fc0 jumps to hybrid_syncio_tail.
+SYNCIO_SITE = 0x0027303F
+SYNCIO_TAIL = bytes.fromhex("5f5ec20c00")                    # pop edi; pop esi; ret 0xc
 SEED_SITE = (0x0008668E, 0x00267F00)                         # 0x86630: Seed(GetMicroseconds()) on new game
 COOKIE_CHECK = 0x0034502E                                    # __security_check_cookie (__fastcall)
 # With vpad (hooks.cpp HF_VPAD) the game sees one virtual pad in port 1 on every host: the device calls of
@@ -410,7 +413,7 @@ DRAWLOG_HDR = ("magic", "first", "every", "last", "count", "draws", "cur_frame",
 DRAWLOG_RING_OFF = 4 * len(DRAWLOG_HDR) + 4 * 16
 HF = {"fixed-dt": 1, "replay": 2, "record": 4, "ckpt": 8, "autostart": 16, "wide": 32, "pollkey": 64,
       "vclock": 128, "iosync": 256, "sound-rng": 512, "quant": 1024,
-      "vpad": 2048, "vdate": 4096,
+      "vpad": 2048, "vdate": 4096, "syncio": 8192,
       "seq-rng": 0, "rng-log": 0}      # seq-rng: a build-time patch only (SEQ_RNG_SITES), no runtime bit
 
 
@@ -573,6 +576,21 @@ def apply_hooks(x, image, base, syms, hooks, records=()):
                         raise ValueError("vclock patch %#x is inside replaced non-identical %#x" % (site, r["addr"]))
                     o = r["ours"] - base + (site - r["addr"])
                     image[o:o + len(new)] = new
+    if "syncio" in hooks.get("flags", ()):
+        jmp = lambda at: b"\xe9" + struct.pack("<i", syms["_hybrid_syncio_tail"] - (at + 5))
+        o = x.va_to_file(SYNCIO_SITE)
+        if bytes(x.d[o:o + 5]) != SYNCIO_TAIL:
+            raise ValueError("syncio site %#x changed" % SYNCIO_SITE)
+        x.write(SYNCIO_SITE, jmp(SYNCIO_SITE))
+        for r in records:              # our copy of 0x272fc0, if it's replaced (the same bytes at the same offset)
+            size = equiv.Program.get().funcs.get(r["addr"], (0,))[0]
+            if "ours" in r and r["addr"] <= SYNCIO_SITE < r["addr"] + size:
+                if r.get("class") != "identical":
+                    raise ValueError("syncio site is inside replaced non-identical %#x" % r["addr"])
+                o = r["ours"] - base + (SYNCIO_SITE - r["addr"])
+                if bytes(image[o:o + 5]) != SYNCIO_TAIL:
+                    raise ValueError("syncio: our copy of %#x differs at the site" % r["addr"])
+                image[o:o + 5] = jmp(base + o)
     if "seq-rng" in hooks.get("flags", ()):
         snd = base + ctl + CTL_EXT + 4 * EXT_FIELDS.index("snd_rng0")
         struct.pack_into("<I", image, ctl + CTL_SEQ_RNG_PTR, snd)
