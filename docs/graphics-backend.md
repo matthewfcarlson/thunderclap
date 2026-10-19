@@ -1,7 +1,7 @@
 # Graphics backend: design and plan
 
-Planning document, written 2026-10-18. Nothing here is built in the tree; the small prototypes and the scripts that
-produced the numbers are under `build/gfx-proto/` (not tracked). Inputs: [platform-boundary.md](platform-boundary.md),
+Planning document, written 2026-10-18. Stage G0 (the harness) is built: see [section 7](#7-g0-the-harness-built-2026-10-18).
+The small prototypes and the scripts that produced the planning numbers were under `build/gfx-proto/` (not tracked). Inputs: [platform-boundary.md](platform-boundary.md),
 [seams.md](seams.md), [web-port.md](web-port.md), [native-build.md](native-build.md), [subsystems.md](subsystems.md),
 [formats/p3d.md](formats/p3d.md), [texture-packs.md](texture-packs.md), `src/platform/sdl/xdk/`,
 `build/native/shim-inventory.json`, `build/rtti.json`, `build/port/platform_calls.json`, `build/port/seams.json`,
@@ -334,7 +334,7 @@ graphics (today's state: it links and starts, [native-build.md](native-build.md)
 
 | Stage | Work | Size | Parallel batches |
 |---|---|---|---|
-| G0 Harness | bgfx (bx, bimg) built by `tools/native_link.py` for i686-pc-windows-msvc (D3D11) and macOS (Metal); `src/platform/sdl/pddi/` skeleton; the native link swaps `platform/xbox/pure3d` + `graphics_*.cpp` for it; SDL3 window; hybrid `drawlog` hook + record reader + diff tool | 1 to 2 weeks | the drawlog hook and the bgfx build are independent |
+| G0 Harness | bgfx (bx, bimg) built by `tools/native_gfx.py` for i686-pc-windows-msvc (D3D11) and macOS (Metal); `src/platform/sdl/pddi/` skeleton; the native link swaps `platform/xbox/pure3d` + `graphics_*.cpp` for it; SDL3 window; hybrid `drawlog` hook + record reader + diff tool. **Built 2026-10-18 except the link swap (section 7)** | 1 to 2 weeks | the drawlog hook and the bgfx build are independent |
 | G1 First triangle | `bgfxDisplay` (init, reset, swap, sizes, aspect), `bgfxDevice` (factories), `bgfxContext` clear + transforms + fixed-function vertex shader + one texture stage, `bgfxPrimStream` immediate draws, `bgfxTexture` for DXT1/3/5 and RGBA, `error` shader | 1 to 2 weeks | display/device vs texture vs prim stream |
 | G2 Menus and front end | the `simple` shader with its 1-3 stage combiners, texture-stage state key + shader cache, blend/z/cull/alpha test, 2D mode (`pddiBaseContext`), PNG/P8 textures, fonts, the copyright and title screens, movies' render strategy (frames as textures). Compare draw logs and screenshots for title → main menu → options | 2 to 3 weeks | combiner ops, state mapping, P8/palette, screenshot tooling |
 | G3 A level | `bgfxPrimBuffer` static meshes, vertex declarations from the flags word, `skin`/`skin_onebone`/`simple_*` programs (NV2A interpreter first), hardware-skinning extension, `layered` (+ lightmap pair) and `layeredReflect`, fog, stencil (shadows/decals), `environment`, lights from `pddiLightingState`. Target: the junkyard tutorial replay with matching draw logs | 3 to 5 weeks | one batch per shader class; one per vertex program (interpreter-checked); state/fog/stencil |
@@ -349,6 +349,102 @@ the interpreter as oracle; combiner ops are table rows. Keep Claude-side agents 
 
 Prerequisites outside this plan: the native build's game loop running past start-up with graphics stubbed; the radcore
 file shim reading extracted data; input replay in the native build (needed for the frame-matched comparisons).
+
+## 7. G0: the harness (built 2026-10-18)
+
+```sh
+PY=build/venv/bin/python
+$PY tools/native_gfx.py fetch            # pinned tarballs -> build/third_party/{dl,src} (sha256-checked), notices
+$PY tools/native_gfx.py build            # bx/bimg/bgfx static libs: host (macOS arm64, Metal) and win32 (i686): ~10 s
+$PY tools/native_gfx.py shaderc          # bgfx's shaderc for the host (GENie + make -j2): ~5.5 min, once
+$PY tools/native_gfx.py pddi             # the skeleton: host lib + smoke test; win32 hulk_pddi.lib
+$PY tools/native_gfx.py smoke            # a window, clear + one triangle through the skeleton's context API
+$PY tools/native_gfx.py slots            # MS-ABI vtable layout of every skeleton class vs build/rtti.json
+$PY tools/native_gfx.py status
+$PY tools/hybrid_test.py replay build/replays/final1.json --until-frame 900 --drawlog 30:300:900 \
+    --drawlog-out build/g0/drawlog-a.jsonl  # xemu: the replay with a per-draw log (checkpoints still compared)
+$PY tools/drawlog_diff.py build/g0/drawlog-a.jsonl build/g0/drawlog-b.jsonl   # IDENTICAL / first mismatches
+```
+
+**bgfx as a dependency** (`tools/native_gfx.py`; everything under `build/third_party/`, nothing installed system-wide).
+Pinned upstream commits as GitHub tarballs with their sha256 in `PINS`: bx `dd261e27`, bimg `6d60464e`, bgfx `4410cdfc`
+(2026-10-16/18 heads; BSD-2-Clause, notices collected into `build/third_party/out/LICENSES.txt`), and the mingw-w64
+v14.0.0 **headers** (public domain / ZPL notices; compile-time only, nothing of mingw-w64 is linked). No build system of
+theirs is used for the libraries: each library is its amalgamated source (`bx/src/amalgamated.cpp`, `bimg/src/image.cpp`
+with ASTC decoding off, `bgfx/src/amalgamated.cpp`), compiled directly, so the two targets share one recipe:
+
+| target | compiler | renderers | output |
+|---|---|---|---|
+| `host` (macOS arm64) | Apple clang, `-x objective-c++ -std=c++20` | Metal (+ noop) | `out/host/lib/{bx,bimg,bgfx}.a` (0.3 / 0.2 / 1.3 MB) |
+| `win32` (i686) | Homebrew LLVM clang `--target=i686-pc-windows-msvc` (native_link.py's toolchain): MS C++ ABI, `-msse4.2`, no exceptions/RTTI/`/GS`/thread-safe statics | Direct3D 11, OpenGL, Vulkan (all loaded at run time) | `out/win32/lib/{bx,bimg,bgfx}.lib` (0.4 / 0.3 / 1.8 MB) |
+
+Both use `BGFX_CONFIG_MULTITHREADED=0` (pddi drives bgfx from the game's render thread; no render thread, no TLS; the web
+build needs the same). The Windows build has no MSVC or Windows SDK headers here, so it compiles against mingw-w64's
+headers (Windows API, msvcrt-flavoured C runtime) with the MSVC triple plus `-fgnuc-version=4.2.1` (the headers expect a
+GNU front end), a small generated compat header (one UCRT-only declaration bx uses, and `#pragma init_seg(".CRT$XHU")`,
+see below), and bgfx's bundled DirectX headers. One local fix to the pinned sources (`PATCHES`): bx's `macros.h` defines
+`__stdcall` away for clang with the MSVC CRT, which on i686 turns every WINAPI and COM call into cdecl (found by the
+undecorated `__imp__CloseHandle`); it is kept on `_M_IX86` (worth reporting upstream). shaderc is built with upstream's
+GENie projects (`--with-tools`, `gmake-osx-arm64`, `make -j2 shaderc`) and copied to `build/third_party/tools/shaderc`;
+`native_gfx.py shaders` compiles `src/platform/sdl/pddi/shaders/*.sc` for Metal, SPIR-V, GLSL 430, ESSL 300 and WGSL
+(10/10). D3D bytecode still needs Windows (section 3).
+
+What the native link has to do with these libraries is in `build/g0/LINK.md` (not done here: `native_link.py` belongs
+to the native-build work): add `hulk_pddi.lib` + the three libraries, bind the skeleton's 95 `FUN_<address>`
+references to the tree's pddi base functions, bind `d3dCreateDevice` (0x31ba60) to `hulk_pddi_create_device`, and
+import libraries for the plain kernel32/user32/gdi32/msvcrt/ntdll names bgfx uses (listed there). The image skips
+clang's `.CRT$XCU` initializers on purpose, so the Windows libraries put theirs in `.CRT$XHU` and
+`src/platform/sdl/pddi/win32_glue.cpp` runs them (with stand-ins for five UCRT-only functions msvcrt.dll lacks).
+Checked by a stand-alone PE linked with the image's flags (`/nodefaultlib /safeseh:no /machine:x86`, import libraries
+generated from Wine's own export tables; `build/g0/probe/`, not tracked): **Direct3D 11 under Whisky's Wine renders and
+reads back the clear colour.** OpenGL crashes under Wine on macOS (macOS GL is 4.1, bgfx asks for 4.3) and Vulkan has no
+ICD there; on Windows / the Deck both are available.
+
+**The pddi skeleton** (`src/platform/sdl/pddi/`): one class per D3D-side pddi class, keeping the MS-ABI vtable slot
+order of the game class it stands in for: `bgfxDevice`, `bgfxDisplay`, `bgfxContext` (111 slots), `bgfxTexture`,
+`bgfxPrimBuffer`, `bgfxPrimBufferStream`, `bgfxPrimStream`, `bgfxShader` (d3dShader's 25 slots) with the six data-used
+kinds `bgfxSimpleShader`, `bgfxLayeredShader`, `bgfxBuildingShader`, `bgfxReflShader`, `bgfxRefractShader`,
+`bgfxFBEffectsShader` plus `bgfxErrorShader`, and the nine extensions. Slot lists come from `build/rtti.json`, signatures
+from `include/gen/pure3d.h` with each slot's stack shape checked against the game function's `ret N` (two headers were
+short: `d3dDisplay` slot 4 takes a config pointer, `d3dExtFramebufferEffects` slot 8 takes 8 words) and returns
+corrected where the verified source shows one (display slots 9/13/17 return 0; device slots 7 and 9 return the new object). Each
+slot is either *ours* (the D3D backend's overrides and the slots the game leaves pure: a logged stub, counted per
+slot, or a minimal bgfx implementation) or *base* (inherited from a portable pddi base, i.e. engine code in the tree: in
+the native image it calls the tree's function by XBE address through `game_base.h`; on the host it is a logged stub).
+The context keeps the portable base's 0x148 bytes of data where the base's functions expect them and runs the base
+constructor (0x31f410) in the native image. Implemented: device factories, display init on a native window (SDL3 on
+the host), sizes, aspect, swap (`bgfx::frame`), context begin/end frame, clear (pddi flags 1/2/4 from the base's clear
+block), immediate prims (slot 30 returns a prim stream with d3dPrimStream's field layout for the engine's inline vertex
+writes, slot 31 draws it through a transient buffer and a stand-in fixed-function program), cull mode. The prim kinds
+come from the game's table at 0x4d3650 (0 tri list, 1 tri strip, 2 line list, 3 line strip, 4 points). Everything
+else is G1+. `native_gfx.py slots` compiles the skeleton for i686 with clang's vtable dump: **all 23 classes have the
+game's slot count and every `vfunc_N` sits at index N.**
+
+**Smoke test** (`smoke/smoke_main.cpp`, host): SDL3 window, `hulk_pddi_create_device` -> display (slot 7) ->
+`hostInit` (bgfx on Metal) -> context (slot 8); per frame begin (4), clear (12), begin prims (30), three vertices written
+through the stream's pointers as the engine's inline code does, end prims (31), end frame (5), swap (display 14); a
+screenshot four frames from the end is checked at two pixels. Result: `renderer Metal ... corner 32,48,64 centre
+255,128,0 -> PASS` (the clear colour and the triangle's), and the native draw log of the run (`smoke.pdl`, 120 draws).
+
+**drawlog** (hybrid build; `hybrid/hooks.cpp` `HYBRID_DRAWLOG`, `tools/patch_xbe.py --drawlog` / `hooks["drawlog"]`,
+`tools/hybrid_test.py replay --drawlog`, `hybrid_run.read_drawlog`, `tools/drawlog_diff.py`; details in
+[hybrid-build.md](hybrid-build.md#drawlog-per-draw-pddi-state-graphics-backend-g0)): the 11 call sites of the D3D draw
+functions in the pure3d backend go through a logger that records, in selected frames, 24 words per draw: frame, draw
+index and site, primitive type and count, the active shader's class (vftable) and id, the four stage textures as
+first-seen ordinals, the context's render-state and stencil blocks, the fog flag, and a hash of the top matrices. The
+native backend writes the same record (`pddi.h` `DrawRecord`, `drawlogDump`), so `drawlog_diff.py` compares hybrid with
+native as well as two hybrid runs. Proof on `build/replays/final1.json` to frame 900, logging every 30th frame from 300:
+two runs logged **5,357 draws each in 21 frames (of 234,574 draws executed), all fields identical**, and both runs'
+checkpoints matched the recording's (31 of 31, no divergence). The hooks-only build without the flag is unchanged
+(hooks.cpp compiles to the same code and data). What the log shows already: in those frames the data uses
+`d3dSimpleShader` (4,467 draws), `d3dLayeredShader` (759) and `d3dBuildingShader` (131); 85% of draws are prim-buffer
+`DrawIndexedVertices` tri strips; 164 distinct textures.
+
+**Open after G0**: the link integration (LINK.md); D3D11 shader bytecode (Windows or the compiler under Wine); the
+prim stream's pending-vertex carry-over, mid-frame clears (a new view), the clear-by-quad path; `bgfx::reset` with the
+2026 swap-chain API for mode changes; whether portable code reads d3d-side fields beyond the base data of the context,
+display or texture (the skeleton keeps only the base's layout); include/gen returns that are `void` where the game's
+caller reads eax (only the ones above were corrected).
 
 ## Open questions
 

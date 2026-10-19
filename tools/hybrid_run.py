@@ -440,6 +440,29 @@ def read_hybrid(x, man, full=False):
     return st
 
 
+DRAWLOG_FIELDS = ("frame", "seq", "prim", "count", "shader", "shader_id", "tex0", "tex1", "tex2", "tex3",
+                  "a0", "a1", "a2", "a3", "a4", "a5", "s0", "s1", "s2", "s3", "s4", "s5", "fog", "mtx")
+
+
+def read_drawlog(x, man, seen=0):
+    """drawlog builds (patch_xbe hooks["drawlog"]): (header, [records written since `seen`]); each record a tuple in
+    DRAWLOG_FIELDS order (hooks.cpp DrawRec). Records the ring overwrote before this read are counted in header["lost"]."""
+    base, lay = man["g_drawlog"], man["g_drawlog_layout"]
+    names = lay["hdr"]
+    hdr = dict(zip(names, struct.unpack("<%dI" % len(names), x.read(base, 4 * len(names)))))
+    n, size, ring = lay["ring_len"], lay["rec_bytes"], base + lay["ring"]
+    i0 = max(seen, hdr["count"] - n)
+    hdr["lost"] = i0 - seen
+    out = []
+    i = i0
+    while i < hdr["count"]:
+        j = min(hdr["count"], (i // n + 1) * n)
+        raw = x.read(ring + size * (i % n), size * (j - i))
+        out += [struct.unpack_from("<24I", raw, size * k) for k in range(j - i)]
+        i = j
+    return hdr, out
+
+
 def boot(seconds=90, interval=10, tag="run", gdb=False, extra=(), until_title=False, coverage=None, manifest=None,
          retries=2, shots=True):
     """boot_once, retried when xemu itself crashes (a host signal, seen in ~1 of 10 launches on macOS)."""

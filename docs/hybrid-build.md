@@ -252,6 +252,42 @@ Recordings longer than the 8,192-entry ring are fed in over the GDB stub while t
 8,647-change recording that wraps the ring at poll ~275). `determinism --replay` still replays only the first 8,192
 pad changes.
 
+## drawlog: per-draw pddi state (graphics backend G0)
+
+The oracle for the new renderer ([graphics-backend.md](graphics-backend.md#4-test-strategy)): one record per draw of the
+original game, to compare with the native backend's records draw by draw. Off by default; only builds asked for it
+get it.
+
+```sh
+build/venv/bin/python tools/hybrid_test.py replay build/replays/final1.json --until-frame 900 \
+    --drawlog 30:300:900 --drawlog-out build/g0/drawlog-a.jsonl      # EVERY[:FIRST[:LAST]] frames
+build/venv/bin/python tools/drawlog_diff.py build/g0/drawlog-a.jsonl --summary
+build/venv/bin/python tools/drawlog_diff.py build/g0/drawlog-a.jsonl build/g0/drawlog-b.jsonl
+build/venv/bin/python tools/patch_xbe.py --hooks --drawlog 30:300:900 --out build/hybrid/dl.xbe     # just the build
+```
+
+- **Hook** (`hybrid/hooks.cpp`, under `#ifdef HYBRID_DRAWLOG`; `patch_xbe.py` compiles hooks.cpp with
+  `/DHYBRID_DRAWLOG` only when `hooks["drawlog"]` is set, so every other build's hooks object is unchanged, checked
+  section by section): the 11 calls the pure3d D3D backend makes to `D3DDevice_DrawVertices` (0x31bb9e, 0x31c10a,
+  0x3273b2), `DrawVerticesUP` (0x31fde3, 0x3236ba, 0x32388c, 0x3249ea, 0x3259f3, 0x325b73) and
+  `DrawIndexedVertices` (0x326cb7, 0x32736c) are redirected (`DRAWLOG_CALLS`, also inside our copies of patched
+  functions) to stdcall loggers that record the draw and call the original.
+- **Record** (24 words, `DrawRec`; the native backend's `DrawRecord` in `src/platform/sdl/pddi/pddi.h` is the same):
+  frame; draw index in the frame | site << 24 (site = 1-based index of the call site in address order, 0 inside
+  a patched copy); D3D primitive type and count as passed; the vftable and +0xc id of the shader last activated
+  (`[0x5555bc]`, set by 0x327d20); the 4 stage textures (`(*(context+0x150))->c[0..3]`) as first-seen ordinals (a
+  1,024-entry pointer table); 6 words each of the context's render-state block (`*(context+0x4c)`: cull at +4, ...)
+  and stencil block (`*(context+0x58)`); the fog flag (`*(context+0x54)+4`); FNV-1a of the top matrices of the
+  context's stacks 0-3 (`context+0x20..`). The context is Pure3D's global at 0x52c2a8. Every pointer is
+  range-checked before it is read.
+- **Channel**: `g_drawlog` (its own symbol next to `g_hybrid`; address and layout in the build manifest,
+  `g_drawlog_layout`): a 4,096-record ring (384 KB, only in drawlog builds) the host drains over QMP `memsave` every
+  second (`hybrid_run.read_drawlog`; lost records are counted), plus the total of draws seen. `replay --drawlog`
+  writes JSON lines (a header with the spec, site list and counts, then one object per draw).
+- **Result** (2026-10-18, final1.json to frame 900, every 30th frame from 300): two runs, 5,357 draws logged each
+  in 21 frames (234,574 / 240,121 draws executed; the second run read a few frames further), none lost,
+  `drawlog_diff.py`: all fields of all draws identical; both runs' checkpoints matched the recording's (31 of 31).
+
 ## Driving xemu (`tools/hybrid_run.py`, `tools/xemu_gdb.py`)
 
 **Several at once.** `HULK_XEMU_INSTANCE=N` (N > 0) gives a run its own disc image (an APFS clone of

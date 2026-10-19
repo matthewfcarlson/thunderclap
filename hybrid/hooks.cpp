@@ -851,3 +851,164 @@ extern "C" void __cdecl hybrid_check_cookie_cdecl(unsigned int cookie)
 {
     ((CookieFn)0x0034502E)(cookie);
 }
+
+#ifdef HYBRID_DRAWLOG
+// ---------------------------------------------------------------------------------------------
+// drawlog (docs/graphics-backend.md "Test strategy" 1; tools/patch_xbe.py --drawlog, DRAWLOG_CALLS): every call the
+// pure3d D3D backend makes to D3DDevice_DrawVertices / DrawVerticesUP / DrawIndexedVertices is redirected here, and
+// in the selected frames one record per draw goes to g_drawlog.ring: the pddi state at that draw, read from the
+// game's own objects. Compiled only into drawlog builds (/DHYBRID_DRAWLOG), so other builds keep their layout.
+// The native backend writes the same 24-word record (src/platform/sdl/pddi/pddi.h DrawRecord: keep in sync);
+// tools/drawlog_diff.py compares two logs.
+#define DRAWLOG_RING 4096
+#define DRAWLOG_TEX 1024
+#define DL_CONTEXT 0x0052C2A8          // Pure3D's context global (docs/seams.md: device 0x52c2a0, display, context)
+#define DL_SHADER 0x005555BC           // the shader last activated (0x327d20 stores it; its +0xc is its id)
+
+struct DrawRec {                       // 24 words
+    unsigned int frame;
+    unsigned int seq;                  // draw index in the frame | site << 24 (DRAWLOG_CALLS order + 1)
+    unsigned int prim;                 // D3D primitive type passed to the draw
+    unsigned int count;                // vertex / index count passed to the draw
+    unsigned int shader;               // vftable of [0x5555bc] (the shader class)
+    unsigned int shader_id;            // its word at +0xc
+    unsigned int tex[4];               // stage textures (*(context+0x150))->c[0..3], as first-seen ordinals
+    unsigned int state_a[6];           // *(context+0x4c): cull at +4, ...
+    unsigned int state_s[6];           // *(context+0x58): stencil
+    unsigned int fog;                  // byte at *(context+0x54)+4
+    unsigned int mtx;                  // FNV-1a of the top matrix of the context's stacks 0..3 (+0x20..)
+};
+
+struct DrawlogCtl {
+    unsigned int magic;                // 'DLG1'
+    unsigned int first, every, last;   // frames logged: first <= f <= last and (f - first) % every == 0
+    unsigned int count;                // records written (ring index = count % DRAWLOG_RING)
+    unsigned int draws;                // every draw seen, logged or not
+    unsigned int cur_frame, seq;       // the frame the per-frame counter belongs to
+    unsigned int ntex;                 // texture ordinals given out
+    unsigned int site_addr[16];        // diagnostics: return address of each site's last draw
+    DrawRec ring[DRAWLOG_RING];
+    unsigned int tex_key[DRAWLOG_TEX]; // pddiTexture* -> ordinal (open addressing)
+    unsigned int tex_val[DRAWLOG_TEX];
+};
+
+extern "C" DrawlogCtl g_drawlog = {0x31474C44, 0, 0, 0};
+
+static unsigned int dl_ok(unsigned int p)
+{
+    return p >= 0x00010000 && p < 0x04000000 && !(p & 3);     // the title's 64 MB, aligned
+}
+
+static unsigned int dl_tex(unsigned int t)
+{
+    if (!t)
+        return 0;
+    unsigned int h = (t >> 4) % DRAWLOG_TEX;
+    for (unsigned int i = 0; i < DRAWLOG_TEX; i++, h = (h + 1) % DRAWLOG_TEX) {
+        if (g_drawlog.tex_key[h] == t)
+            return g_drawlog.tex_val[h];
+        if (!g_drawlog.tex_key[h]) {
+            g_drawlog.tex_key[h] = t;
+            g_drawlog.tex_val[h] = ++g_drawlog.ntex;
+            return g_drawlog.ntex;
+        }
+    }
+    return 0xFFFFFFFF;
+}
+
+static void dl_words(unsigned int* out, unsigned int ptr, unsigned int n)
+{
+    for (unsigned int i = 0; i < n; i++)
+        out[i] = dl_ok(ptr) ? ((unsigned int*)ptr)[i] : 0;
+}
+
+static void drawlog(unsigned int site, unsigned int prim, unsigned int count)
+{
+    g_drawlog.draws++;
+    unsigned int f = g_hybrid.frame;
+    if (f != g_drawlog.cur_frame) {
+        g_drawlog.cur_frame = f;
+        g_drawlog.seq = 0;
+    }
+    unsigned int seq = g_drawlog.seq++;
+    if (!g_drawlog.every || f < g_drawlog.first || f > g_drawlog.last || (f - g_drawlog.first) % g_drawlog.every)
+        return;
+    DrawRec& r = g_drawlog.ring[g_drawlog.count % DRAWLOG_RING];
+    r.frame = f;
+    r.seq = seq | (site << 24);
+    r.prim = prim;
+    r.count = count;
+    unsigned int sh = *(unsigned int*)DL_SHADER;
+    r.shader = dl_ok(sh) ? *(unsigned int*)sh : 0;
+    r.shader_id = dl_ok(sh) ? ((unsigned int*)sh)[3] : 0;
+    unsigned int ctx = *(unsigned int*)DL_CONTEXT;
+    unsigned int i;
+    for (i = 0; i < 4; i++)
+        r.tex[i] = 0;
+    for (i = 0; i < 6; i++)
+        r.state_a[i] = r.state_s[i] = 0;
+    r.fog = 0;
+    r.mtx = 2166136261u;
+    if (dl_ok(ctx)) {
+        unsigned int d = *(unsigned int*)(ctx + 0x150);
+        if (dl_ok(d))
+            for (i = 0; i < 4; i++)
+                r.tex[i] = dl_tex(((unsigned int*)d)[2 + i]);
+        dl_words(r.state_a, *(unsigned int*)(ctx + 0x4c), 6);
+        dl_words(r.state_s, *(unsigned int*)(ctx + 0x58), 6);
+        unsigned int fogp = *(unsigned int*)(ctx + 0x54);
+        r.fog = dl_ok(fogp) ? *(unsigned char*)(fogp + 4) : 0;
+        for (i = 0; i < 4; i++) {
+            unsigned int st = *(unsigned int*)(ctx + 0x20 + 4 * i);     // matrix stack: +8 index, +0xc matrices
+            if (!dl_ok(st))
+                continue;
+            unsigned int idx = ((unsigned int*)st)[2], m = ((unsigned int*)st)[3];
+            if (idx < 64 && dl_ok(m))
+                r.mtx = fnv(r.mtx, (const unsigned char*)(m + 64 * idx), 64);
+        }
+    }
+    g_drawlog.count++;
+}
+
+extern "C" void* _ReturnAddress(void);
+#pragma intrinsic(_ReturnAddress)
+
+// the site: which DRAWLOG_CALLS entry called (return address - 5 is the call instruction)
+static unsigned int dl_site(unsigned int ret)
+{
+    static const unsigned int sites[] = {0x0031BB9E, 0x0031C10A, 0x0031FDE3, 0x003236BA, 0x0032388C, 0x003249EA,
+                                         0x003259F3, 0x00325B73, 0x00326CB7, 0x0032736C, 0x003273B2};
+    for (unsigned int i = 0; i < sizeof(sites) / sizeof(sites[0]); i++)
+        if (sites[i] + 5 == ret) {
+            g_drawlog.site_addr[i] = ret;
+            return i + 1;
+        }
+    return 0;                          // our copy of a patched function (its call sites move)
+}
+
+typedef void (__stdcall *DrawVerticesFn)(unsigned int prim, unsigned int start, unsigned int count);
+typedef void (__stdcall *DrawVerticesUPFn)(unsigned int prim, unsigned int count, const void* data, unsigned int stride);
+typedef void (__stdcall *DrawIndexedFn)(unsigned int prim, unsigned int count, const void* indices);
+#define D3DDevice_DrawVertices ((DrawVerticesFn)0x003834C0)
+#define D3DDevice_DrawVerticesUP ((DrawVerticesUPFn)0x00383210)
+#define D3DDevice_DrawIndexedVertices ((DrawIndexedFn)0x00383560)
+
+extern "C" void __stdcall hybrid_dl_draw_vertices(unsigned int prim, unsigned int start, unsigned int count)
+{
+    drawlog(dl_site((unsigned int)_ReturnAddress()), prim, count);
+    D3DDevice_DrawVertices(prim, start, count);
+}
+
+extern "C" void __stdcall hybrid_dl_draw_vertices_up(unsigned int prim, unsigned int count, const void* data,
+                                                     unsigned int stride)
+{
+    drawlog(dl_site((unsigned int)_ReturnAddress()), prim, count);
+    D3DDevice_DrawVerticesUP(prim, count, data, stride);
+}
+
+extern "C" void __stdcall hybrid_dl_draw_indexed(unsigned int prim, unsigned int count, const void* indices)
+{
+    drawlog(dl_site((unsigned int)_ReturnAddress()), prim, count);
+    D3DDevice_DrawIndexedVertices(prim, count, indices);
+}
+#endif // HYBRID_DRAWLOG

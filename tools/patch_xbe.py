@@ -72,16 +72,17 @@ def annotations(src):
     return explicit, convs
 
 
-def cached_obj(src):
-    """Compile src (cached by content + flags)."""
+def cached_obj(src, extra=()):
+    """Compile src (cached by content + flags). extra: more cl flags (e.g. /DHYBRID_DRAWLOG for hooks.cpp)."""
     os.makedirs(OBJ_DIR, exist_ok=True)
-    h = hashlib.sha1(open(src, "rb").read() + repr(DEFAULT_FLAGS).encode()).hexdigest()[:16]
+    flags = DEFAULT_FLAGS + list(extra)
+    h = hashlib.sha1(open(src, "rb").read() + repr(flags if extra else DEFAULT_FLAGS).encode()).hexdigest()[:16]
     path = os.path.join(OBJ_DIR, "%s-%s.obj" % (os.path.splitext(os.path.basename(src))[0], h))
     if not os.path.exists(path):
         tmp = path + ".d%d" % os.getpid()
         os.makedirs(tmp, exist_ok=True)
         try:
-            o = compile_obj(src, DEFAULT_FLAGS, tmp)
+            o = compile_obj(src, flags, tmp)
             os.replace(o, path)
         finally:
             for f in os.listdir(tmp):
@@ -395,15 +396,27 @@ RNGLOG_FUNCS = [0x000113E0, 0x002382A0, 0x00080BA0, 0x0007A230, 0x0007A420, 0x00
 # rng-log (diagnostic): the game's RNG accessors jump to loggers in hooks.cpp (original bytes, our symbol)
 RNGLOG_ENTRIES = [(0x000964D0, b"\xa1\xcc\x5a\x4e\x00", "_hybrid_rnglog_get"),
                   (0x000964E0, b"\x51\x8b\x0d\xcc\x5a", "_hybrid_rnglog_float")]
+# drawlog (hooks.cpp HYBRID_DRAWLOG, docs/graphics-backend.md "Test strategy"): every call the pure3d D3D backend makes to
+# a D3D draw function goes through a logger that records the pddi state of the draw. Only in builds with
+# hooks["drawlog"] = {"first", "every", "last"} (hooks.cpp is then compiled with /DHYBRID_DRAWLOG).
+DRAWLOG_CALLS = [(site, callee, name) for callee, name, sites in (
+    (0x003834C0, "_hybrid_dl_draw_vertices@12", (0x0031BB9E, 0x0031C10A, 0x003273B2)),
+    (0x00383210, "_hybrid_dl_draw_vertices_up@16", (0x0031FDE3, 0x003236BA, 0x0032388C, 0x003249EA, 0x003259F3,
+                                                    0x00325B73)),
+    (0x00383560, "_hybrid_dl_draw_indexed@12", (0x00326CB7, 0x0032736C)),
+) for site in sites]
+DRAWLOG_RING, DRAWLOG_REC = 4096, 96                 # keep in sync with hooks.cpp DrawlogCtl / DrawRec
+DRAWLOG_HDR = ("magic", "first", "every", "last", "count", "draws", "cur_frame", "seq", "ntex")   # then site_addr[16]
+DRAWLOG_RING_OFF = 4 * len(DRAWLOG_HDR) + 4 * 16
 HF = {"fixed-dt": 1, "replay": 2, "record": 4, "ckpt": 8, "autostart": 16, "wide": 32, "pollkey": 64,
       "vclock": 128, "iosync": 256, "sound-rng": 512, "quant": 1024,
       "vpad": 2048, "vdate": 4096,
       "seq-rng": 0, "rng-log": 0}      # seq-rng: a build-time patch only (SEQ_RNG_SITES), no runtime bit
 
 
-def link_hooks(base):
+def link_hooks(base, drawlog=False):
     """Link hybrid/hooks.cpp at base. Returns (image, {symbol: address})."""
-    obj = equiv.Obj(cached_obj(HOOK_SRC))
+    obj = equiv.Obj(cached_obj(HOOK_SRC, ["/DHYBRID_DRAWLOG"] if drawlog else ()))
     fsym = next(sy for sy in obj.syms.values() if sy[0] == "_hybrid_clock_tick")
     saved = equiv.OURS
     try:
@@ -451,7 +464,8 @@ def link_section(records, base, hooks=None):
     image = bytearray()
     entries, hook_syms = {}, {}
     if hooks is not None or records:
-        img, hook_syms = link_hooks(base)        # also holds shims our functions may need (see below)
+        img, hook_syms = link_hooks(base, bool((hooks or {}).get("drawlog")))   # also holds shims our functions
+                                                                                    # may need (see below)
         image.extend(img)
     saved = equiv.OURS
     try:
@@ -501,7 +515,7 @@ def apply_hooks(x, image, base, syms, hooks, records=()):
     """Redirect the hook call sites (in the original and in our copies) and configure g_hybrid."""
     fl = hooks.get("flags", ())
     calls = HOOK_CALLS + (VPAD_CALLS if "vpad" in fl else []) + (VDATE_CALLS if "vdate" in fl else []) \
-        + (SEQ_RANDINT_CALLS if "seq-rng" in fl else [])
+        + (SEQ_RANDINT_CALLS if "seq-rng" in fl else []) + (DRAWLOG_CALLS if hooks.get("drawlog") else [])
     for site, callee, name in calls:
         _redirect_in_copies(image, base, records, site, callee,
                             lambda va, t=syms[name]: b"\xe8" + struct.pack("<i", t - (va + 5)))
@@ -594,6 +608,10 @@ def apply_hooks(x, image, base, syms, hooks, records=()):
             tramp += relocate(tva + len(tramp))
             image.extend(tramp)
             x.write(f, b"\xe9" + struct.pack("<i", tva - (f + 5)))
+    dl = hooks.get("drawlog")
+    if dl:
+        o = syms["_g_drawlog"] - base
+        struct.pack_into("<3I", image, o + 4, dl.get("first", 0), dl.get("every", 1), dl.get("last", 0xFFFFFFFF))
     if hooks.get("vpad_count"):
         struct.pack_into("<I", image, ctl + CTL_EXT2 + 4 * EXT2_FIELDS.index("vpad_count"), hooks["vpad_count"])
     if hooks.get("snap_frame"):
@@ -881,6 +899,10 @@ def build(records, out, pad=PAD_SIZE, empty_section=False, tweaks=(), hooks=None
                                "wide_pages": WIDE_PAGES, "ext": CTL_EXT, "ext_fields": list(EXT_FIELDS),
                                "ext2": CTL_EXT2, "ext2_fields": list(EXT2_FIELDS)},
            "functions": [{k: r.get(k) for k in ("addr", "name", "src", "class", "ours", "sym")} for r in ok]}
+    if hook_syms.get("_g_drawlog"):
+        man["g_drawlog"] = hook_syms["_g_drawlog"]
+        man["g_drawlog_layout"] = {"hdr": list(DRAWLOG_HDR), "ring": DRAWLOG_RING_OFF, "ring_len": DRAWLOG_RING,
+                                   "rec_bytes": DRAWLOG_REC, "sites": sorted([s, c] for s, c, _n in DRAWLOG_CALLS)}   # site id = index + 1
     if tinfo is not None:
         man["trace"] = tinfo
     json.dump(man, open(os.path.splitext(out)[0] + ".json", "w"), indent=1)
@@ -938,6 +960,12 @@ def add_tier_args(ap):
                     "(0 mismatch, 1 fuzz only, 2 replay agreed on a few calls, 3 replay-verified)")
 
 
+def parse_drawlog(spec):
+    """EVERY[:FIRST[:LAST]] -> hooks["drawlog"]"""
+    p = [int(v, 0) for v in str(spec).split(":")]
+    return {"every": p[0], "first": p[1] if len(p) > 1 else 0, "last": p[2] if len(p) > 2 else 0xFFFFFFFF}
+
+
 def read_addr_file(path):
     out = set()
     for line in open(path):
@@ -970,6 +998,8 @@ def main(argv):
     ap.add_argument("--replay", help="with --hooks: input replay JSON ([[frame, buttons, [analog x8], [thumbs x4]], ...])")
     ap.add_argument("--record", action="store_true", help="with --hooks: log pad changes into g_hybrid.record")
     ap.add_argument("--no-fixed-dt", action="store_true")
+    ap.add_argument("--drawlog", help="with --hooks: log the pddi state of every draw in frames FIRST..LAST, every "
+                    "EVERY-th (EVERY[:FIRST[:LAST]]; off by default; tools/drawlog_diff.py)")
     ap.add_argument("--report", help="write every record (incl. rejects) to this JSON file")
     add_tier_args(ap)
     args = ap.parse_args(argv)
@@ -1005,6 +1035,8 @@ def main(argv):
         hooks = {"seed": args.seed, "flags": flags, "dt_us": args.dt_us, "ckpt_interval": args.ckpt_interval}
         if args.replay:
             hooks["replay"] = json.load(open(args.replay))
+        if args.drawlog:
+            hooks["drawlog"] = parse_drawlog(args.drawlog)
     man = build(recs, args.out, args.pad, args.empty_section, args.tweak, hooks)
     from collections import Counter
     c = Counter(r.get("class") if r.get("status") == "ok" else r.get("status") for r in recs)

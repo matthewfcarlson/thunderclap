@@ -13,6 +13,9 @@
         save the pad input and checkpoints to tests/replays/NAME.json. Stop with Ctrl-C (or --minutes).
   tools/hybrid_test.py replay tests/replays/NAME.json [--until-frame N]
         replay a recording on the same build and compare its checkpoints with the recorded ones.
+  tools/hybrid_test.py replay NAME.json --drawlog EVERY[:FIRST[:LAST]] [--drawlog-out PATH]
+        the same, on a build that also logs the pddi state of every draw in those frames (tools/drawlog_diff.py;
+        docs/hybrid-build.md "drawlog").
   tools/hybrid_test.py replay NAME.json --from-snapshot K | --from-frame F
         start from one of the recording's VM snapshots (record --snap-every, default every 5 min).
   tools/hybrid_test.py salvage OLD.json NEW.json
@@ -351,8 +354,10 @@ def replay(args):
     hooks = {"seed": data.get("seed", SEED), "flags": [f for f in data["flags"] if f != "record"] + ["replay"],
              "dt_us": 33333, "ckpt_interval": 30, "replay": data["inputs"], "mask": data.get("mask", []),
              "skip": data.get("skip", []), "vpad_count": data.get("vpad_count", 0)}
+    if getattr(args, "drawlog", None):
+        hooks["drawlog"] = patch_xbe.parse_drawlog(args.drawlog)
     os.makedirs(TEST_DIR, exist_ok=True)
-    out = os.path.join(TEST_DIR, "replay.xbe")
+    out = os.path.join(TEST_DIR, "replay-drawlog.xbe" if hooks.get("drawlog") else "replay.xbe")
     man = patch_xbe.build([], out, tweaks=data.get("tweaks", TWEAKS), hooks=hooks)
     hybrid_run.install(out)
     rec = {"inputs": [], "checkpoints": {}, "frames": 0, "polls": 0}
@@ -363,11 +368,17 @@ def replay(args):
     x = hybrid_run.Xemu("replay", gdb=long)
     seen["t0"] = x.t0
     feeder = ReplayFeeder(man, data["inputs"]) if long else None
+    dl = {"seen": 0, "records": [], "lost": 0} if hooks.get("drawlog") else None
     try:
         stop = min(want, args.until_frame or want)
         while x.alive() and time.time() - x.t0 < limit and rec["frames"] < stop:
-            time.sleep(5)
+            time.sleep(1 if dl else 5)
             try:
+                if dl:
+                    hdr, new = hybrid_run.read_drawlog(x, man, dl["seen"])
+                    dl["records"] += new
+                    dl["lost"] += hdr["lost"]
+                    dl["seen"], dl["draws"] = hdr["count"], hdr["draws"]
                 st = _drain(x, man, rec, seen)
                 if feeder:
                     feeder.feed(st)
@@ -377,19 +388,49 @@ def replay(args):
                 print("  monitor: %r" % e, file=sys.stderr)
                 break
             print("  %4ds frame %d / %d" % (time.time() - x.t0, rec["frames"], want), file=sys.stderr)
+        if dl and x.alive():
+            try:
+                hdr, new = hybrid_run.read_drawlog(x, man, dl["seen"])
+                dl["records"] += new
+                dl["lost"] += hdr["lost"]
+                dl["seen"], dl["draws"] = hdr["count"], hdr["draws"]
+            except (RuntimeError, OSError):
+                pass
     finally:
         if feeder:
             feeder.close()
         x.close()
     a, b = [tuple(c) for c in data["checkpoints"]], sorted(rec["checkpoints"].items())
+    if dl:
+        b = [(f, h) for f, h in b if f <= rec["frames"]]
+        a_cut = [(f, h) for f, h in a if f <= max([f for f, _h in b] or [0])]
     d = first_divergence(a, b, 0)
     ma = dict(a)
-    return {"recording": args.recording, "recorded_frames": want, "replayed_frames": rec["frames"],
+    extra = {}
+    if dl:
+        path = args.drawlog_out or os.path.join(TEST_DIR, "drawlog.jsonl")
+        write_drawlog(path, dl["records"], {"source": "hybrid", "recording": args.recording, "spec": args.drawlog,
+                                            "draws_seen": dl.get("draws"), "lost": dl["lost"],
+                                            "sites": man["g_drawlog_layout"]["sites"]})
+        extra = {"drawlog": os.path.relpath(path, ROOT), "drawlog_records": len(dl["records"]),
+                 "drawlog_lost": dl["lost"], "draws_seen": dl.get("draws"),
+                 "checkpoints_compared": len([1 for f, h in b if f in ma]),
+                 "recorded_checkpoints_in_range": len(a_cut)}
+    return dict({"recording": args.recording, "recorded_frames": want, "replayed_frames": rec["frames"],
             "common": common_frames(a, b, 0), "divergence": d,
             "matching": sum(1 for f, h in b if ma.get(f) == h),
             "checkpoints": [[f, h] for f, h in b], "polls": rec["polls"], "pads": rec.get("pads"),
             "timeline": rec.get("timeline", []),
-            "identical": d is None and common_frames(a, b, 0) > 0}
+            "identical": d is None and common_frames(a, b, 0) > 0}, **extra)
+
+
+def write_drawlog(path, records, meta):
+    """A draw log as JSON lines: a header object, then one object per draw (hybrid_run.DRAWLOG_FIELDS)."""
+    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+    with open(path, "w") as f:
+        f.write(json.dumps(dict(meta, format="drawlog-1", fields=list(hybrid_run.DRAWLOG_FIELDS))) + "\n")
+        for r in records:
+            f.write(json.dumps(dict(zip(hybrid_run.DRAWLOG_FIELDS, r)), separators=(",", ":")) + "\n")
 
 
 def replay_from_snapshot(args, data):
@@ -725,6 +766,9 @@ def main(argv):
     p.add_argument("--until-frame", type=int, default=0, help="stop once the game reaches this frame")
     p.add_argument("--from-snapshot", type=int, help="resume the recording's VM snapshot K (negative: from the end)")
     p.add_argument("--from-frame", type=int, help="resume the latest snapshot at or before this frame")
+    p.add_argument("--drawlog", help="also log the pddi state of every draw (hooks.cpp HYBRID_DRAWLOG) in frames "
+                   "EVERY[:FIRST[:LAST]] (off by default); checkpoints are still compared")
+    p.add_argument("--drawlog-out", help="where to write the draw log (default build/hybrid/test/drawlog.jsonl)")
     sv = sub.add_parser("salvage")
     sv.add_argument("recording")
     sv.add_argument("out")
