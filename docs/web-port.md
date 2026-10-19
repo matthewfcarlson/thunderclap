@@ -242,10 +242,12 @@ path).
 
 **Bink video.** No web decoder is shipped by us. Options: (1) skip movies as OpenCE does; (2) RAD's Bink 2 SDK lists
 "the web (WebAssembly via Emscripten)" ([RAD Bink](https://www.radgametools.com/bnkmain.htm)), but it is a commercial
-license and the game's movies are Bink 1 (**unverified**, check the `.rmv` container): not an option for an open
+license and the game's movies are Bink 1 (verified by mv1: all 28 `.rmv` files are `BIKi`): not an option for an open
 repo; (3) transcode at asset-prep time on the player's machine to a format the browser decodes (WebCodecs / `<video>`
 with VP9 or H.264), which fits the "player supplies data" rule and needs an ffmpeg-class transcoder in the page
-(heavy) or a desktop helper; (4) a clean-room Bink 1 decoder (patent/license status **unverified**, legal review needed).
+(heavy) or a desktop helper; (4) a clean-room Bink 1 decoder (patent/license status **unverified**, legal review needed);
+(5) FFmpeg's LGPL Bink decoder, which the desktop build now uses ([native-movies.md](native-movies.md)): a wasm build of
+the same minimal configuration links to a 549 KB module (linked, not yet run in a browser).
 Recommendation: ship v1 with movies skipped and a seam hook so a transcoded `.webm` can play through `RenderStrategy`
 later. Movies are about half of the disc, so skipping also halves the storage ask.
 
@@ -352,7 +354,7 @@ build/web/             output only (ignored)
 ## Open questions
 
 - bgfx or SDL_gpu natively? (web favours bgfx; check SDL_gpu's current web status first.)
-- Do `.rmv` movies use Bink 1? What would a transcode path cost?
+- ~~Do `.rmv` movies use Bink 1?~~ Yes (mv1). A transcode would add about 1.2 GB ([native-movies.md](native-movies.md) section 3).
 - Does the game keep any state in the first 64 KB / absolute XBE addresses that wasm's flat memory must reproduce (the
   75 absolute-address casts)? They are in platform code today.
 - Browser memory in practice: can Safari and mobile browsers give the footprint (unverified; desktop Chrome, Edge and
