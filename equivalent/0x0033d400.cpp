@@ -1,9 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 123 inputs, branch coverage 29/30, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 12443 inputs, branch coverage 30/30)
 // FUN_0033d400 @ 0x0033d400
+// checked with equiv.py --time-budget 3600 (at the defaults most inputs hit the time budget)
+// cl-flags: /GS
 extern "C" int __cdecl isdigit(int c);
 extern "C" int __cdecl _sprintf(char *buf, const char *fmt, ...);
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 struct lua_State;
 
@@ -39,12 +39,11 @@ struct Frame_33d400 {
     char form[20];
     luaL_Buffer_33d400 b;
     int gap;
-    char buff[120];
+    char buff[512];  // Lua 5.0 MAX_ITEM; the old source had 120, which %99.99f overflows
 };
 
 int FUN_0033d400(lua_State *L)
 {
-    unsigned int cookie = DAT_004d9968;
     Frame_33d400 f;
     f.arg = 1;
     const char *strfrmt = FUN_00339df0(L, f.arg, &f.sfl);
@@ -63,7 +62,6 @@ int FUN_0033d400(lua_State *L)
             f.hasprecision = 0;
             if (isdigit((unsigned char)*strfrmt) && strfrmt[1] == '$') {
                 int r = FUN_00338e20(L, "obsolete option (d$) to `format'");
-                __security_check_cookie(cookie);
                 return r;
             }
             f.arg++;
@@ -102,7 +100,6 @@ int FUN_0033d400(lua_State *L)
             }
             default: {
                 int r = FUN_00338e20(L, "invalid option to `format'");
-                __security_check_cookie(cookie);
                 return r;
             }
             }
@@ -113,6 +110,5 @@ int FUN_0033d400(lua_State *L)
         }
     }
     FUN_00339540(&f.b);
-    __security_check_cookie(cookie);
     return 1;
 }

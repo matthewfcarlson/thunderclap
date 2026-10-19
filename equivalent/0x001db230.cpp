@@ -1,11 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 20058 inputs, branch coverage 30/30)
 // CSPListener::vfunc_0 @ 0x001db230
+// cl-flags: /GS
 // equiv-map: ??0Name@@QAE@ABU0@@Z = 0x0027af30
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" int __cdecl _sprintf(char *, const char *, ...);
-extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern unsigned int DAT_004d9968;
 
 struct V3_1db230 {
     float x, y, z;
@@ -137,7 +136,6 @@ public:
 
 void CSPListener::vfunc_0(Ev_1db230 *a1, unsigned int a2)
 {
-    unsigned int cookie = DAT_004d9968;
     int type = a1->type;
     Ctx_1db230 *u = fc;
     switch (type) {
@@ -212,8 +210,9 @@ void CSPListener::vfunc_0(Ev_1db230 *a1, unsigned int a2)
         break;
     case -1: {
         Obj_1db230 *o = (Obj_1db230 *)a2;
-        int total = o->fec->FUN_001d5710();
-        int cur = o->f40;
+        Fec *fec0 = o->fec;
+        int cur = o->f40;   // the original loads f40 before the call
+        int total = fec0->FUN_001d5710();
         if (cur == total - 1) {
             a2 = 0;
             const char *r = FUN_001b46f0(o->FUN_001d6490(), &a2);
@@ -246,5 +245,4 @@ void CSPListener::vfunc_0(Ev_1db230 *a1, unsigned int a2)
     default:
         break;
     }
-    __security_check_cookie(cookie);
 }

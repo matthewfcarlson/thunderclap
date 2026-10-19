@@ -1,10 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 37/46, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 101 inputs, branch coverage 38/46, incomplete)
 // FUN_000f7a80 @ 0x000f7a80
+// checked with equiv.py --time-budget 3600 (at the defaults most inputs hit the time budget)
+// cl-flags: /GS
 #include "decls/address.h"
 extern "C" void *memset(void *dst, int c, unsigned int n);
 extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
-extern unsigned int DAT_004d9968;
-extern "C" void __fastcall __security_check_cookie(unsigned int cookie);
 
 void *__cdecl FUN_00263ea0(unsigned int size);
 
@@ -38,7 +38,6 @@ public:
 
 bool StringTable_f7a80::FUN_000f7a80(const char *filename)
 {
-    unsigned int cookie = DAT_004d9968;
     unsigned short line[0x1000];
     char key[0x80];
     char hdr[4];
@@ -61,7 +60,6 @@ bool StringTable_f7a80::FUN_000f7a80(const char *filename)
 
     if (file->ok == 0) {
         file->vfunc_1();
-        __security_check_cookie(cookie);
         return false;
     }
 
@@ -125,6 +123,5 @@ bool StringTable_f7a80::FUN_000f7a80(const char *filename)
         more = FUN_000f7080(line, 0x1000, file);
     }
     file->vfunc_1();
-    __security_check_cookie(cookie);
     return true;
 }

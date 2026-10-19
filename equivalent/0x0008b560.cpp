@@ -1,9 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 45/52, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 2237 inputs, branch coverage 50/52, incomplete)
 // FUN_0008b560 @ 0x0008b560
+// checked with equiv.py --time-budget 3600 (at the defaults most inputs hit the time budget)
+// cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/hulkfight.h"
 #include "decls/data/game/unknown.h"
-extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" void *__cdecl memset(void *, int, unsigned int);
 
 struct Rec6 {
@@ -101,7 +102,6 @@ struct Mgr2_8b560 {
     int FUN_0008cbe0(int a1, int a2, Slot_8b560 *slot, int size, unsigned short *name);
 };
 
-extern unsigned int DAT_004d9968;
 char FUN_00035da0();
 int __cdecl FUN_000964a0(char *buf, int n, const char *fmt, ...);
 unsigned int *__cdecl FUN_000964d0();
@@ -145,10 +145,8 @@ int SaveMgr::FUN_0008b560(int a1, int a2, Singleton_4dd6ec *a3)
         Obj3_8b560 *obj3;
         char buf[64];
         unsigned short wbuf[64];
-        unsigned int cookie;
     } fr;
 
-    fr.cookie = DAT_004d9968;
     DAT_004dd6ec->FUN_000862e0()->FUN_001eb870();
     int off = a2 * 0xbe8;
     Slot_8b560 *esi = (Slot_8b560 *)((char *)slots + off);
@@ -245,7 +243,6 @@ int SaveMgr::FUN_0008b560(int a1, int a2, Singleton_4dd6ec *a3)
     unsigned int counter = 0;
     int r = fac4->FUN_0008cd80(a1, a2);
     if (r != 1 && r != 0) {
-        __security_check_cookie(fr.cookie);
         return r;
     }
     int result = 8;
@@ -294,6 +291,5 @@ int SaveMgr::FUN_0008b560(int a1, int a2, Singleton_4dd6ec *a3)
             break;
     }
     DAT_004dd6ec->FUN_000862e0()->FUN_001eb890();
-    __security_check_cookie(fr.cookie);
     return result;
 }
