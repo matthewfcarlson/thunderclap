@@ -76,7 +76,7 @@ in xemu: the game negates the camera X input itself unless its "invert X" option
 command line `-caminvertx`), and inverts Y only when the option is set. That is the game's default, on hardware too;
 the backend reports the stick as the pad does and leaves it to the in-game option.
 
-**Recorded input (design only).** A `HulkInputSource` for native replays reads the hybrid recordings
+**Recorded input (built by rp1; see [native-replay.md](native-replay.md)).** A `HulkInputSource` for native replays reads the hybrid recordings
 (`tools/hybrid_test.py`'s JSON, keyed by the poll counter that `hybrid/hooks.cpp`'s vpad counts per
 `ControllerXBox::vfunc_17` read): one virtual pad in port 0, inserted at the first device check, every read
 succeeds, state = the recording's 18-byte gamepad for that poll, rumble ignored. Selected with

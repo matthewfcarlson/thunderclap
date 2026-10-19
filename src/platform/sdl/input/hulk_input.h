@@ -38,9 +38,13 @@ typedef struct HulkInputSource {
     unsigned (*generation)(void* self, unsigned port);            // changes whenever port p's pad changes
     int (*read)(void* self, unsigned port, HulkPadState* out);    // 1: read, 0: no pad
     void (*rumble)(void* self, unsigned port, unsigned short left, unsigned short right);
+    // optional (0: same as read): the read the game makes when it opens a pad, which is not a poll. A recorded
+    // source counts polls (docs/native-replay.md) and returns an idle pad here.
+    int (*read_init)(void* self, unsigned port, HulkPadState* out);
 } HulkInputSource;
 
-// Starts input (idempotent): the source from HULK_INPUT_SOURCE ("sdl", the default; "none"), unless
+// Starts input (idempotent): the source from HULK_INPUT_SOURCE ("sdl", the default; "none";
+// "replay:<file>", a hybrid recording: src/platform/sdl/replay/hulk_replay.h), unless
 // hulk_input_set_source ran first. Pads present now are reported as inserted by the first hulk_input_changes.
 int hulk_input_init(void);
 void hulk_input_shutdown(void);
@@ -52,6 +56,7 @@ const HulkInputSource* hulk_input_sdl_source(void);           // the SDL3 gamepa
 unsigned hulk_input_devices(void);
 int hulk_input_changes(unsigned* inserted, unsigned* removed);   // since the last call; 1 when anything changed
 int hulk_input_read(unsigned port, HulkPadState* out);
+int hulk_input_read_init(unsigned port, HulkPadState* out);      // the pad-init read (not a poll)
 void hulk_input_rumble(unsigned port, unsigned short left, unsigned short right);
 unsigned hulk_input_generation(unsigned port);
 

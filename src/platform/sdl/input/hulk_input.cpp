@@ -5,6 +5,9 @@
 
 #include <SDL3/SDL.h>
 
+// the recorded-input source and checkpoint hashing are in this translation unit (replay/hulk_replay.cpp)
+#include "../replay/hulk_replay.h"
+
 // ---------------------------------------------------------------------------------------------
 // conversions
 unsigned char hulk_input_trigger(short v)
@@ -166,7 +169,7 @@ static void sdl_rumble(void*, unsigned port, unsigned short left, unsigned short
     SDL_RumbleGamepad(sp->pad, left, right, (left || right) ? 0xffff : 0);
 }
 
-static const HulkInputSource kSdlSource = {"sdl", 0, sdl_update, sdl_connected, sdl_generation, sdl_read, sdl_rumble};
+static const HulkInputSource kSdlSource = {"sdl", 0, sdl_update, sdl_connected, sdl_generation, sdl_read, sdl_rumble, 0};
 
 // a source with no pads (HULK_INPUT_SOURCE=none)
 static void none_update(void*) {}
@@ -175,7 +178,7 @@ static unsigned none_generation(void*, unsigned) { return 0; }
 static int none_read(void*, unsigned, HulkPadState*) { return 0; }
 static void none_rumble(void*, unsigned, unsigned short, unsigned short) {}
 static const HulkInputSource kNoneSource = {"none", 0, none_update, none_connected, none_generation, none_read,
-                                            none_rumble};
+                                            none_rumble, 0};
 
 const HulkInputSource* hulk_input_sdl_source(void)
 {
@@ -201,9 +204,21 @@ int hulk_input_init(void)
         const char* s = SDL_getenv("HULK_INPUT_SOURCE");
         if (s && SDL_strcmp(s, "none") == 0)
             g_in.src = &kNoneSource;
-        else {
+        else if (s && SDL_strncmp(s, "replay:", 7) == 0) {
+            // a bad recording must not fall back to live pads: the run would silently not be a replay
+            if (hulk_replay_open(s + 7)) {
+                g_in.src = hulk_replay_source();
+                HulkReplayInfo ri;
+                hulk_replay_info(&ri);
+                SDL_Log("input: replay %s: %u entries keyed by %s, %u virtual pad(s), %u checkpoints", s + 7,
+                        ri.entries, ri.frame_keyed ? "frame" : "poll", ri.vpad_count, ri.checkpoints);
+            } else {
+                SDL_Log("input: %s (no pads)", hulk_replay_error());
+                g_in.src = &kNoneSource;
+            }
+        } else {
             if (s && *s && SDL_strcmp(s, "sdl") != 0)
-                SDL_Log("input: source '%s' is not built yet (replay: design only); using SDL gamepads", s);
+                SDL_Log("input: unknown source '%s'; using SDL gamepads", s);
             g_in.src = &kSdlSource;
         }
     }
@@ -283,6 +298,13 @@ int hulk_input_read(unsigned port, HulkPadState* out)
     return g_in.src->read(g_in.src->self, port, out);
 }
 
+int hulk_input_read_init(unsigned port, HulkPadState* out)
+{
+    hulk_input_init();
+    return g_in.src->read_init ? g_in.src->read_init(g_in.src->self, port, out)
+                               : g_in.src->read(g_in.src->self, port, out);
+}
+
 void hulk_input_rumble(unsigned port, unsigned short left, unsigned short right)
 {
     hulk_input_init();
@@ -294,3 +316,5 @@ unsigned hulk_input_generation(unsigned port)
     hulk_input_init();
     return g_in.src->generation(g_in.src->self, port);
 }
+
+#include "../replay/hulk_replay.cpp"
