@@ -444,11 +444,25 @@ CASES = {
     # the original's unshared constants (fconst). equivalent/0x000d6b20.cpp as is, and with `0.017453292f`
     "0x000d6b20_float_const": ("equivalent", None),
     "0x000d6b20_float_const_wrong": ("fail", "L2 float_constant_differs __real@3c8efa39"),
+    # round 14. A copy constructor looping over `(src.end - src.begin) >> 4` elements (and `>> 2` inside) of fuzzed
+    # vectors: 98 of 107 inputs ran away (8 completed, 1 of 24 edges). The `sub; sar` sites are known from the code
+    # (staticcount) and inputs start with small element counts once two have run away: 160 inputs, 22/24 edges
+    "0x002a4e40_static_count": ("equivalent", None, 0.75, {"n_inputs": 3000}),
+    "0x002a4e40_static_count_wrong": ("fail", "argument", 0, {"n_inputs": 3000}),
+    # an in-order walk to `&tree.nil` = owner + 0x3c (a lea of a fuzzed pointer, so not in the heap range the walk
+    # detector knew): walkaddr; and the owner pointer is not a count to plant small (addrcount; without it 17 inputs
+    # completed, 2/30 edges)
+    "0x00242da0_nil_addr_walk": ("equivalent", None, 0.9, {"n_inputs": 3000}),
+    "0x00242da0_nil_addr_walk_wrong": ("fail", None, 0, {"n_inputs": 3000}),
+    # `w->out = 3`: `inc dword [3 + 0x24]` is unaligned; Unicorn delivered the instruction's hook again after its
+    # store and the increment was applied twice, in our code only (rmwundo): "write to 0x24 ... was 0x2000000"
+    "0x0025b970_rmw_restart": ("equivalent", None, 0.75, {"n_inputs": 3000}),
 }
 
 # cases that must also complete this many inputs (the promotion bar is 50)
 MIN_RUN = {"0x0028c2a0_rep_count": 50, "0x000e36c0_small_counts": 50, "0x002155f0_diff_bound": 50,
-           "0x0024a800_walk_end": 50, "0x001fe380_tiny_counts": 50}
+           "0x0024a800_walk_end": 50, "0x001fe380_tiny_counts": 50, "0x002a4e40_static_count": 50,
+           "0x00242da0_nil_addr_walk": 50}
 
 
 def job(name):

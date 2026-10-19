@@ -52,6 +52,12 @@ the original has 1.0). Level 3's float tolerance passes such a source on every i
 constant's bits; the native build would carry the wrong value. A double constant of exactly the float's value is
 not a difference. Write the original's value with 9 significant digits (`0.0174532924f`).
 
+`tools/lint_floats.py` is the static companion (all of `matches/` and `equivalent/`, no inputs needed): it takes the
+constants each original function loads (float/double memory operands in the data sections, immediates that are float
+bit patterns) and lists every float literal in the source that is within 1e-3 of one without being bit-exact, with the
+spelling that is (`build/cl2/floats.json`). `fconst` only sees a function when its checker run happens; `matches/`
+sources are never re-run, and a byte match masks the constant (the compare is on code). It never rewrites a source.
+
 ## Binding our symbols to original addresses
 
 Our object names things; the original has addresses. Each symbol our code references is bound in this
@@ -328,6 +334,17 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   words all differ (word i = 0x101 * (i + 1) + 0x10000 * depth: small, so counts stay small, and the bytes of a
   word's low half differ too) into the pointer's source; a pointer loaded from that object in turn gets the next
   of four such objects (`inputs_objptr`, labels `N+obj`). Only inputs change; both sides read the same object.
+- (round 14) Four small changes found on the full re-check's three leftovers, each switchable with `EQUIV_OFF=name`.
+  `rmwundo`: Unicorn can deliver the code hook of a read-modify-write instruction a second time after its store went
+  through (0x0025b970's `inc dword [3 + 0x24]`, an unaligned dword, in our code only), applying it twice; the old
+  bytes of such a store are put back when the same address is delivered again. `staticcount`: a `sub r, x; sar/shr r,
+  k` (a pointer difference scaled to an element count) is a loop bound read from the input; the sites are known from
+  the code, so once two inputs have run away the small-count rounds start every input (three in four) with a small
+  count there, without waiting for a runaway loop to point at it (0x002a4e40: 8 -> 163 inputs, 1 -> 22 of 24 edges).
+  `walkaddr`: a walk waiting for `&tree.nil` computed by `lea` from a fuzzed pointer is a walk although the address is
+  not in the heap range. `addrcount`: an address computed by `lea` from a pointer is never a "count" to plant small
+  (planting 2 into the owner pointer made every walk start in the zero page; 0x00242da0: 17 -> 50 inputs, 2 -> 30 of
+  30 edges).
 
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check

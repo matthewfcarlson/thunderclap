@@ -73,6 +73,8 @@ MIN_CONCLUSIVE = 8          # fewer completed inputs than this (or less coverage
 MIN_COVERAGE = 0.25
 ACCEPT_COVERAGE = 0.75      # the bar for promotion to equivalent/ (promote-remote.sh, farm.ts, clone_equivalent.py):
 ACCEPT_INPUTS = 50          # `promotable` in the report; `status` keeps its looser meaning
+RMW_MNEMS = frozenset(("inc", "dec", "add", "sub", "and", "or", "xor", "adc", "sbb", "not", "neg", "shl", "shr", "sar",
+                       "sal", "rol", "ror", "rcl", "rcr", "xchg", "xadd", "cmpxchg", "bts", "btr", "btc"))
 EQUIV_OFF = set(os.environ.get("EQUIV_OFF", "").split(","))   # A/B experiments: switch named round-6 changes off
 ONLY_SEEDS = {int(x) for x in os.environ.get("EQUIV_SEEDS", "").split(",") if x.strip()}
 DEFAULT_POINTEE = 4         # ... when the callee's parameter type is unknown (e.g. virtual calls)
@@ -2491,6 +2493,7 @@ class Run:
         self.slot_arity = None      # (unused)
         self.ecx_dirty = False      # ecx written since entry or the last call
         self.last_insn = None       # (address, eflags) of the previous instruction hook
+        self.rmw_undo = None        # (round 14, rmwundo) (insn address, [(address, old bytes)]) of a read-modify-write's stores
         self.prev_esp = ENTRY_ESP
         self.convs = {}             # callee address -> argument locations (// equiv-conv)
         self.orig_entry = None      # the original's address of the function under test
@@ -2593,6 +2596,22 @@ class Run:
         return True
 
     def _on_write(self, uc, access, addr, size, value, _):
+        ci0 = self.cur_insn
+        if size > 1 and addr & (size - 1) and ci0 is not None and ci0.mnemonic in RMW_MNEMS and ci0.mem is not None and \
+                "rmwundo" not in EQUIV_OFF:
+            # (round 14, rmwundo) the unaligned store of a read-modify-write instruction: remember the bytes it replaces.
+            # Unicorn can restart such an instruction after its store (the code hook fires again for the same address,
+            # 0x0025b970's `inc dword [0x27]`): the re-execution would apply `inc` twice (_on_code puts them back).
+            # Unaligned only: it is the one case seen, and a read of the old bytes at every aligned `add [m], r` slows
+            # the Bink decoder (0x003341e0) by a third
+            try:
+                old_ = bytes(uc.mem_read(addr, size))
+            except Exception:   # noqa: BLE001
+                old_ = None
+            if old_ is not None:
+                if self.rmw_undo is None or self.rmw_undo[0] != ci0.addr:
+                    self.rmw_undo = (ci0.addr, [])
+                self.rmw_undo[1].append((addr, old_))
         if self.fmem:
             # (round 9, fprov) a stored steerable float overwritten by anything but its own store (or a fabs
             # mask applied in memory, `and dword [esp+4], 0x7fffffff`) is no longer that value
@@ -4372,6 +4391,14 @@ class Run:
                 if fl != self.last_insn[1]:
                     self.uc.reg_write(self.u.UC_X86_REG_EFLAGS, self.last_insn[1])
                     fl = self.last_insn[1]
+            if self.rmw_undo is not None:
+                if self.last_insn is not None and self.last_insn[0] == addr and self.rmw_undo[0] == addr and insn is not None and \
+                        not insn.mnemonic.startswith(("rep", "cmps", "scas", "movs", "stos", "lods")):
+                    # (round 14, rmwundo) the same read-modify-write delivered again after its store went through
+                    for a_, old_ in reversed(self.rmw_undo[1]):
+                        uc.mem_write(a_, old_)
+                    self.rmw_undo_n = getattr(self, "rmw_undo_n", 0) + 1
+                self.rmw_undo = None
             self.last_insn = (addr, fl)
             if insn is not None and insn.mem is not None and insn.mem[1] is None and insn.mem[2] is None \
                     and insn.mem[4] == SECURITY_COOKIE and insn.mnemonic != "lea":
@@ -6562,6 +6589,32 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     count_diffs = {}           # (round 10) `sub end, begin` instructions among them -> the transforms after the sub
     index_fills = set()        # (round 10) (call, argument, offset) of stub fills the original indexed a frame array with
     count_walks = {}           # (round 10) compares of runaway walks -> the operand holding the sentinel ("zero": a null link)
+    static_counts = [False]    # (round 14, staticcount) `sub end, begin; sar k` element counts in the code, once switched on
+    static_diffs = {}          # (round 14, staticcount) ... and the sites found in it
+    if "staticcount" not in EQUIV_OFF:
+        # (round 14, staticcount) A pointer difference scaled to an element count (`mov eax, [e+4]; sub eax, [e]; sar
+        # eax, 2`) is a loop bound read from the input: with fuzzed pointers it is millions of elements, and every
+        # round of the loop calls a stub. The discovery run of the small-count rounds plants a small count there;
+        # known from the code, it needn't wait for a runaway input to find the site. A fallback only (random_phase): when
+        # the usual rounds get no input through (16 ran away, fewer than 16 completed). Where they work, starting
+        # inputs with small counts at every such site changes which inputs reach the code (0x001b4d00's wrong
+        # knockback sign went unseen in 2680 inputs)
+        for a_, i_ in oview.insns.items():
+            if i_.mnemonic != "sub" or len(i_.ops) != 2 or i_.ops[0][0] != "reg" or i_.ops[1][0] not in ("reg", "mem") \
+                    or i_.ops[0][1] not in ("eax", "ebx", "ecx", "edx", "esi", "edi", "ebp") or i_.mem and i_.mem[5] != 4:
+                continue
+            r_, n_ = i_.ops[0][1], a_ + i_.size
+            for _ in range(4):
+                j_ = oview.insns.get(n_)
+                if j_ is None or j_.kind != "other":
+                    break
+                if j_.mnemonic in ("sar", "shr") and len(j_.ops) == 2 and j_.ops[0] == ("reg", r_) and \
+                        j_.ops[1][0] == "imm" and 1 <= j_.imms[0] <= 5:
+                    static_diffs[a_] = ((j_.mnemonic, j_.imms[0]),)
+                    break
+                if j_.ops and j_.ops[0] == ("reg", r_) and j_.mnemonic not in ("cmp", "test"):
+                    break
+                n_ += j_.size
     walk_heads = {}            # (round 11) top tests of those walks -> the walk's compare
     unit_targets = set()       # (round 11, ftolunit) callees whose float result bounded a runaway loop through __ftol2
     small_left = [512, 0, 0, 0, 0.0]   # (round 9) small-count rounds: budget, tried, completed, (round 10) completed tiny, CPU seconds
@@ -6927,7 +6980,13 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                                 # (round 10, diffcount) the bound is `(end - begin) >> 2`: planted at the sub
                                 count_pcs.add(o_["dpc"][0])
                                 count_diffs[o_["dpc"][0]] = o_["dpc"][1]
-                            elif sr_ and isinstance(sr_[0], int) and not STACK_LO <= sr_[0] < STACK_HI and o_.get("pc"):
+                            elif sr_ and isinstance(sr_[0], int) and not STACK_LO <= sr_[0] < STACK_HI and o_.get("pc") and \
+                                    not ("addrcount" not in EQUIV_OFF and any(x[0] == "addp" for x in o_.get("xf") or ()) and
+                                         all(x_.get("imm") is None for x_ in ob.get("ops") or () if x_ is not o_)):
+                                # (round 14, addrcount: not an address computed from a pointer and compared with another
+                                # register, `cmp eax, edx` with edx = `&tree.nil` = owner + 0x3c: planting a small "count"
+                                # there turns the owner into 2, a node in the zero page. `lea eax, [ecx + 1]` compared with
+                                # an immediate is a count: 0x000e36c0)
                                 count_pcs.add(o_["pc"])
             for j, c in orun.jcc_count.most_common(1):
                 if c > 1000 and o["status"] == "timeout" and not orun.loop_abort and repair_on[0]:
@@ -7197,6 +7256,15 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             steps[0] = old
             probed[0] = 0
 
+    def activate_static(seed):
+        """(round 14, staticcount) Start using the `sub; sar` element counts found in the code (see static_diffs)."""
+        static_counts[0] = True
+        count_diffs.update(static_diffs)
+        count_pcs.update(static_diffs)
+        res["static_counts"] = len(static_diffs)
+        small_left[1] = small_left[2] = 0      # (a fresh account: the rounds so far knew none of these sites)
+        small_left[4] = 0.0
+
     def random_phase(soft, until_run=None, nocap=False, stop_frac=None):
         """soft: hand over to the directed phase once half the time budget is gone and 50 inputs completed
         (with --inputs 3000 the random inputs alone would use all of it); the rest of the random inputs
@@ -7244,7 +7312,13 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 # objects x 66 calls) runs long but ends; a loop a stubbed callee keeps going never does.
                 # One input (the pristine one) with a huge budget tells them apart
                 s0_ = first_to[0] or 0
-                if count_pcs and "smallcount" not in EQUIV_OFF and small_retry(s0_) is not None:
+                skipped_ = bool(count_pcs and "smallcount" not in EQUIV_OFF and small_retry(s0_) is not None)
+                if not skipped_ and static_diffs and not static_counts[0] and "smallcount" not in EQUIV_OFF:
+                    # (round 14, staticcount) the sites the runaway loops pointed to got no input through (or there were
+                    # none): the code's own element counts are the next thing to try, before the 8M-step probe
+                    activate_static(seed)
+                    skipped_ = small_retry(s0_) is not None
+                if skipped_:
                     # (round 9) ... unless small counts at the loads that fed the runaway loops already got an input
                     # through: fuzzed counts, not long code (the 8M-step probe took 100 s of the 120 s budget)
                     probed[0] = 0
@@ -7272,9 +7346,15 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             new = None
             tried_small = False
             nst_ = sum(res["statuses"].values())
-            if count_pcs and repair_on[0] and small_left[2] >= 2 and small_left[2] * 2 >= small_left[1] and \
-                    "smallcount" not in EQUIV_OFF and \
-                    2 * nrun_away() >= nst_ and (seed % 4 or (seed % 8 and 10 * nrun_away() >= 9 * nst_)):
+            # (round 14, staticcount) the code's own element counts are known: inputs start with them small as soon as
+            # two have run away, without waiting for the loop-repair bookkeeping
+            if static_diffs and not static_counts[0] and nrun_away() >= 16 and res["inputs_run"] < 16:
+                activate_static(seed)
+            static_go = static_counts[0] and nrun_away() >= 2 and 2 * nrun_away() >= nst_ and seed % 4 != 3 and \
+                "smallcount" not in EQUIV_OFF and (small_left[1] < 8 or small_left[2] * 4 >= small_left[1])
+            if static_go or (count_pcs and repair_on[0] and small_left[2] >= 2 and small_left[2] * 2 >= small_left[1] and
+                             "smallcount" not in EQUIV_OFF and
+                             2 * nrun_away() >= nst_ and (seed % 4 or (seed % 8 and 10 * nrun_away() >= 9 * nst_))):
                 # (round 9, smallcount) most inputs run away and small counts got some through: three in four
                 # inputs start with their loop counts small (the fourth stays as drawn)
                 n1 = len(stuck)
@@ -7930,7 +8010,11 @@ def _walk_side(ob):
                 HEAP <= v < HEAP + HEAP_SIZE or STACK_LO <= v < STACK_HI or IMAGE_LO <= v < IMAGE_HI or
                 # (round 11) a list head in an object a fuzzed null-ish pointer put in the zero page (`&heap->bins[i]`
                 # with heap = 0): its links read 0 until planted
-                (0 < v < NULL_HI and o1[k].get("src") is not None and "walkheads" not in EQUIV_OFF)):
+                (0 < v < NULL_HI and o1[k].get("src") is not None and "walkheads" not in EQUIV_OFF) or
+                # (round 14, walkaddr) `&tree.nil` computed by `lea edx, [esi + 0x3c]` from a fuzzed owner pointer: an
+                # address wherever the fuzzed pointer points (0x8236..., past the heap), still what the walk waits for
+                (v > NULL_HI and o1[k].get("src") is not None and any(x[0] == "addp" for x in o1[k].get("xf") or ()) and
+                 "walkaddr" not in EQUIV_OFF)):
             continue
         ln1, ln2 = o1[1 - k], o2[1 - k]
         if v == o2[k].get("val") and ln1.get("src") and isinstance(ln1["src"][0], int) and not ln1.get("xf") and \
