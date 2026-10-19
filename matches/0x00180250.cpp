@@ -1,4 +1,4 @@
-extern const float Rad = 0.0174533f;
+extern const float Rad = 0.017453292f;
 class Obj_180250 {
   public:
     char pad[0x20];

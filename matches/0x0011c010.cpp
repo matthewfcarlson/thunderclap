@@ -1,4 +1,4 @@
-extern const float k_11c010 = 0.0174533f;
+extern const float k_11c010 = 0.017453292f;
 
 class Obj_11c010 {
   public:

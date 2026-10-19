@@ -1,5 +1,5 @@
 // cl-flags: /O2
-const float RAD_CONST = 0.0174533f;
+const float RAD_CONST = 0.017453292f;
 
 class Obj_123550 {
   public:

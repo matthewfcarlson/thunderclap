@@ -1,4 +1,4 @@
-extern const float RADIANS_TO_DEGREES = 0.0174533f;
+extern const float RADIANS_TO_DEGREES = 0.017453292f;
 class Obj_16e8a0 {
   public:
     char Pad[0x48];

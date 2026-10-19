@@ -1,4 +1,4 @@
-const float gRad = 0.0174533f;
+const float gRad = 0.017453292f;
 
 class Obj_1927a0 {
   public:

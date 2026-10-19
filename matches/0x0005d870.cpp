@@ -1,4 +1,4 @@
-const float rad_5d870 = 0.0174533f;
+const float rad_5d870 = 0.017453292f;
 class Obj_5d870 {
   public:
     char Set(float a);

@@ -1,4 +1,4 @@
-const float k = 0.0174533f;
+const float k = 0.017453292f;
 class Obj {
   public:
     char pad[0x28];

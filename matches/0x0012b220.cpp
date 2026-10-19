@@ -4,7 +4,7 @@ class Obj_12b220 {
     float mF10;
     bool SetAngle(float angle);
 };
-const float kDegToRad = 0.0174533f;
+const float kDegToRad = 0.017453292f;
 bool Obj_12b220::SetAngle(float angle) {
     mF10 = angle * kDegToRad;
     return true;

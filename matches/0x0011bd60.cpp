@@ -1,4 +1,4 @@
-extern "C" const float g_deg2rad = 0.0174533f;
+extern "C" const float g_deg2rad = 0.017453292f;
 struct Obj_11bd60 {
     char pad[0x18];
     float value;

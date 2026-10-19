@@ -1,4 +1,4 @@
-extern const float kRadian = 0.0174533f;
+extern const float kRadian = 0.017453292f;
 class Obj_1239c0 {
   public:
     char pad[0x14];

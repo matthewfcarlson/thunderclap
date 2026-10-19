@@ -1,4 +1,4 @@
-const float RADIAN_FACTOR = 0.0174533f;
+const float RADIAN_FACTOR = 0.017453292f;
 class Obj_13ed70 {
   public:
     char Set(float v);

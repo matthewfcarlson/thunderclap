@@ -54,7 +54,7 @@ class CGameCamera {
 
 void CGameCamera::vfunc_37(int param_2, int param_3, int param_4, float param_5) {
     if (param_2 >= 0 && param_2 < 6) {
-        static const float twoPi = 6.28319f;
+        static const float twoPi = 6.2831855f;
         float scaled = param_5 * twoPi;
         slots[param_2].field1 = param_3;
         slots[param_2].field2 = param_4;

@@ -1,4 +1,4 @@
-extern const float k_1334e0 = 0.0174533f;
+extern const float k_1334e0 = 0.017453292f;
 class Obj_1334e0 {
   public:
     char Set(float x);

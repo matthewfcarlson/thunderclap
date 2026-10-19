@@ -1,4 +1,4 @@
-extern const float k_1338c0 = 0.0174533f;
+extern const float k_1338c0 = 0.017453292f;
 class O_1338c0 {
   public:
     char m[0x2c];

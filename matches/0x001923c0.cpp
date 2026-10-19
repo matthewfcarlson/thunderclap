@@ -1,4 +1,4 @@
-extern "C" const float __real_3c8efa35 = 0.0174533f;
+extern "C" const float __real_3c8efa35 = 0.017453292f;
 class X_1923c0 {
   public:
     char Pad[0x70];

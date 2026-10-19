@@ -1,4 +1,4 @@
-const float gHalfPi180 = 0.0174533f;
+const float gHalfPi180 = 0.017453292f;
 class Obj_47ce0 {
   public:
     char Pad[12];
