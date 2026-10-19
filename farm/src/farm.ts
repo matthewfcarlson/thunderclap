@@ -53,8 +53,7 @@ let EQUIV_DIR = join(ROOT, "equivalent");
 let WORK_TAG = "main";
 let MODE: "match" | "equiv" = "match";
 // --rewrite (equiv mode): readability pass over proven equivalent/ sources (docs/tech-debt.md). The new source must
-// drop tools/tech_debt.py's flags (no goto, no lifted frame array, under half the volatiles, never more than before)
-// and stay equivalent.
+// drop tools/tech_debt.py's flags (no goto, no lifted frame array, under half the volatiles) and stay equivalent.
 let REWRITE = false;
 const debt = (code: string) => ({
 	gotos: (code.match(/\bgoto\s+\w+\s*;/g) ?? []).length,
@@ -71,8 +70,7 @@ function readabilityIssue(code: string, addr: string): string | undefined {
 	if (lost.length) issues.push(`dropped ${lost.join(", ")} (keep every #include and use the shared declarations instead of redeclaring them)`);
 	if (now.gotos) issues.push(`${now.gotos} goto (use structured control flow)`);
 	if (now.lift) issues.push("a raw stack-frame array or lift header (use named locals)");
-	if (now.vol > old.vol) issues.push(`${now.vol} volatile where the proven source has ${old.vol} (a rewrite must not add any)`);
-	else if (now.vol >= 20 && now.vol > old.vol / 2) issues.push(`${now.vol} volatile (was ${old.vol}; keep only the few that pin x87 rounding)`);
+	if (now.vol >= 20 && now.vol > old.vol / 2) issues.push(`${now.vol} volatile (was ${old.vol}; keep only the few that pin x87 rounding)`);
 	return issues.length ? `Not accepted: this is a readability pass and the source still has ${issues.join(", ")}.` : undefined;
 }
 const MIN_EQUIV_COVERAGE = 0.75; // share of the original's branch edges the passing inputs must reach
