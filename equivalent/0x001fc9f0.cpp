@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 2/2)
 // FUN_001fc9f0 @ 0x001fc9f0
 struct Result { int x, y, z; };
 struct Object { char pad[0xb0]; Result value; };

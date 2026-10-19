@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 10/10)
 // hulkfight::ai::TargetOrientationCondition::vfunc_6 @ 0x001259c0
 #include "decls/data/game/hulkfight/ai.h"
 

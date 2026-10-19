@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 19976 inputs, branch coverage 4/4)
 // hulkfight::ai::MotionFacingAction::vfunc_5 @ 0x00115e20
 #include "gen/hulkfight.h"
 

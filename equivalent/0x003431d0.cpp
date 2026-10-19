@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 134 inputs, branch coverage 25/28, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 127 inputs, branch coverage 25/28, incomplete)
 // FUN_003431d0 @ 0x003431d0
 // FUN_003431d0 @ 0x003431d0
 // equiv-conv: FUN_00341290 eax stack stack

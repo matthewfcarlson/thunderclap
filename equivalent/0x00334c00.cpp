@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 6/6)
 // FUN_00334c00 @ 0x00334c00
 class Item {
   public:

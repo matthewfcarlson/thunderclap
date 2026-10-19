@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // core::MemoryDlAllocator::vfunc_0_adj4 @ 0x0026cc30
 namespace core {
 struct MemoryDlAllocator {

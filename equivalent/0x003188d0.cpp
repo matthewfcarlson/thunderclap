@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3016 inputs, branch coverage 3/4, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 17909 inputs, branch coverage 3/4, incomplete)
 // FUN_003188d0 @ 0x003188d0
 struct Item { char pad[0x24]; float key; char rest[0x1c]; };
 struct Store { char pad[4]; Item * volatile cursor; };

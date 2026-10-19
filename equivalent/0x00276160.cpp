@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 19182 inputs, branch coverage 2/2)
 // core::File::vfunc_18 @ 0x00276160
 namespace core { struct File; }
 struct Result_276160 { unsigned int FUN_00274ca0(void* node, core::File* file, unsigned int a, unsigned int b); };

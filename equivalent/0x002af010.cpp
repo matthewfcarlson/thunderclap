@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 17396 inputs, branch coverage 2/2)
 // FUN_002af010 @ 0x002af010
 class TextureBuilder {
 public:

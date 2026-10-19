@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 19961 inputs, branch coverage 4/4)
 // FUN_00066b60 @ 0x00066b60
 void FUN_00066980();
 void FUN_00066940();

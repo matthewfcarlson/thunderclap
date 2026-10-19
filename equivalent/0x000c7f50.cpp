@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 741 inputs, branch coverage 32/32)
+// STATUS: equivalent (tools/equiv.py level 3: 733 inputs, branch coverage 32/32)
 // FUN_000c7f50 @ 0x000c7f50
 #include "decls/address.h"
 struct Item_c7f50 { int FUN_00204200(int, int, int); };

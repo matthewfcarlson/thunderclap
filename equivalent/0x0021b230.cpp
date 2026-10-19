@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 118 inputs, branch coverage 40/40)
+// STATUS: equivalent (tools/equiv.py level 3: 835 inputs, branch coverage 40/40)
 // FUN_0021b230 @ 0x0021b230
 extern "C" int __cdecl isdigit(int c);
 

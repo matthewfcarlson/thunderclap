@@ -1,3 +1,3 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 6/6)
 // FUN_00028e30 @ 0x00028e30
 struct Target { void FUN_00103b60(void*, int, int); }; struct Link { Target* FUN_000fdc40(); }; struct Item { char pad[0x1ca0]; Link* link; int FUN_00036d30(); }; __int64 __cdecl FUN_002672f0(void*, int, int); struct Owner { void* first; Item* FUN_00024280(__int64); void FUN_00028e30(void* input); }; void Owner::FUN_00028e30(void* input) { __int64 value = FUN_002672f0(input, 0, 0); Item* item = FUN_00024280(value); if (item && item->link) { Target* target = item->link->FUN_000fdc40(); if (target) { target->FUN_00103b60(first, item->FUN_00036d30(), 0); } } }

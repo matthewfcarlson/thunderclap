@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 12991 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 15330 inputs, branch coverage 8/8)
 // hulkfight::motion::GrappleHitReactionTrack::vfunc_9 @ 0x00148730
 // hulkfight::motion::GrappleHitReactionTrack::vfunc_9 @ 0x00148730
 #include "gen/hulkfight.h"

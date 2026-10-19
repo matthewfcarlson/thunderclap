@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // core::XboxSaveDrive::vfunc_0_adj4 @ 0x002786e0
 namespace core {
 class XboxSaveDrive {

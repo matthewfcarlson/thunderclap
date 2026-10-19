@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 19903 inputs, branch coverage 0/0)
 // FUN_00104c60 @ 0x00104c60
 struct Vec_104c60 { int x, y, z; };
 struct Sub_104c60 { char pad[0x75]; char v75; };

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 13613 inputs, branch coverage 6/6)
 // FEObject::vfunc_3 @ 0x000e9160
 struct FEObject;
 struct Source_e9160 {

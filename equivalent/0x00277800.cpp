@@ -1,3 +1,3 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // core::CementLibrary::vfunc_2_adj10 @ 0x00277800
 namespace core { struct CementLibrary { char pad[16]; void vfunc_2(unsigned flags); }; struct CementLibraryAdj10 { CementLibrary *owner; void vfunc_2_adj10(unsigned flags); }; void CementLibraryAdj10::vfunc_2_adj10(unsigned flags) { reinterpret_cast<CementLibrary *>(reinterpret_cast<char *>(this) - 16)->vfunc_2(flags); } }

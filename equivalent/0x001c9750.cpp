@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 136 inputs, branch coverage 4/4)
 // FUN_001c9750 @ 0x001c9750
 #include "decls/address.h"
 struct Details_1c9750 { char pad[0x118]; unsigned value1; unsigned value2; };

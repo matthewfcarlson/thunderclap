@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 9773 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 6772 inputs, branch coverage 8/8)
 // FUN_0021ab30 @ 0x0021ab30
 // FUN_0021ab30 @ 0x0021ab30
 struct Dump {

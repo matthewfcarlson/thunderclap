@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 982 inputs, branch coverage 31/36, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 267 inputs, branch coverage 31/36, incomplete)
 // FUN_003435d0 @ 0x003435d0
 // FUN_003435d0 @ 0x003435d0
 // split-radix float FFT pass (Ooura-style cftrec4 middle): n in eax, then (a, nw, w) on the stack

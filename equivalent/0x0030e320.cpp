@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 12492 inputs, branch coverage 10/10)
 // physics::CollisionAnalyser::vfunc_4 @ 0x0030e320
 struct PairKey { unsigned first, firstData, second, secondData; };
 struct Entry_30e320 {

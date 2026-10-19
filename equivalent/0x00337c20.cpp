@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 6527 inputs, branch coverage 8/8)
 // FUN_00337c20 @ 0x00337c20
 struct Buffer_337c20 {
     unsigned int field0;

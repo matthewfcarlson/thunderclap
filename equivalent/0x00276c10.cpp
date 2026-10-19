@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 18149 inputs, branch coverage 2/2)
 // core::InstanceDrive::vfunc_19 @ 0x00276c10
 void* __cdecl FUN_00273560(unsigned size);
 namespace core { struct InstanceDrive; }

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 54/62, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20060 inputs, branch coverage 57/61, incomplete)
 // hulkfight::ai::MotionLocatorAction::vfunc_5 @ 0x00117480
 #include "decls/address.h"
 struct V3_117480 {

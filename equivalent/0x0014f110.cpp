@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 12423 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 16070 inputs, branch coverage 8/8)
 // hulkfight::motion::HitReactionTrack::vfunc_9 @ 0x0014f110
 // hulkfight::motion::HitReactionTrack::vfunc_9 @ 0x0014f110
 extern char DAT_00494b44;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // FUN_0008baf0 @ 0x0008baf0
 struct ThisWrap_0008baf0 {
     const char* FUN_0008abc0();

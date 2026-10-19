@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 4/4)
 // FUN_00224f10 @ 0x00224f10
 struct Vec3_224f10 { float x,y,z; };
 extern "C" double __cdecl sqrt(double);

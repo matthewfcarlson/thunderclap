@@ -1,3 +1,3 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // core::Drive::vfunc_0_adj4 @ 0x00272ca0
 namespace core { struct IRefCount { virtual void vfunc_0(); }; struct Object { void vfunc_0_adj4(unsigned flags); }; struct Drive : IRefCount, Object { void vfunc_2(unsigned flags); }; } void core::Object::vfunc_0_adj4(unsigned flags) { static_cast<core::Drive*>(this)->core::Drive::vfunc_2(flags); }

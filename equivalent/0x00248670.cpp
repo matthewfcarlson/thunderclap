@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 28/28)
+// STATUS: equivalent (tools/equiv.py level 3: 19923 inputs, branch coverage 28/28)
 // FUN_00248670 @ 0x00248670
 extern "C" double __cdecl sqrt(double);
 struct Sound_248670 {

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 19992 inputs, branch coverage 14/14)
 // FUN_0009c060 @ 0x0009c060
 struct Node { void FUN_000361c0(int); void FUN_00036140(int); };
 struct Details_9c060 { char pad[0x124]; Node* node; };

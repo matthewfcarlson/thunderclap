@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_001f36e0 @ 0x001f36e0
 struct ThisCall_0027af60 {
     void FUN_0027af60(int, int);

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 18232 inputs, branch coverage 2/2)
 // FUN_003430f0 @ 0x003430f0
 // FUN_003430f0 @ 0x003430f0
 // Post-twiddle butterfly pass of a split-radix transform: dispatches on the block size (0x80 or not).

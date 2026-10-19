@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 2/2)
 // FUN_001fca40 @ 0x001fca40
 struct Vec3 { unsigned int x, y, z; };
 struct Object { char padding[0xbc]; Vec3 position; };

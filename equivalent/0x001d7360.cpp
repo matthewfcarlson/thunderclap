@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 19048 inputs, branch coverage 10/10)
 // FUN_001d7360 @ 0x001d7360
 // Fill `out` (x, y, z, w) from the attached transform source and its parent chain, then hand it to
 // the virtual transform step and finish with the result object.

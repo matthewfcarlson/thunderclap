@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 8/8)
 // CCollisionTrack::vfunc_10 @ 0x0005daf0
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 6/6)
 // FUN_00087990 @ 0x00087990
 extern "C" {
 struct Run_87990 { void fn86(); };
