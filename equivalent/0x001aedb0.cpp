@@ -1,57 +1,34 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1944 inputs, branch coverage 33/34, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 33/34, incomplete)
+// FUN_001aedb0 @ 0x001aedb0
 // FUN_001aedb0 @ 0x001aedb0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
 struct Ctx;
-
 struct Rec {
-    int id;                 // 0x00
-    int idx;                // 0x04
-    float x, y, z;          // 0x08
-    Rec *parent;            // 0x14
-    float g;                // 0x18
-    float h;                // 0x1c
-    char closed;            // 0x20
+    int id, idx;
+    float x, y, z;
+    Rec *parent;
+    float g, h;
+    char closed;
     char pad21[3];
-    int last;               // 0x24
+    int last;
     void FUN_001ad2b0(Ctx *d);
 };
-
-struct ANode {
-    char hdr[0x10];
-    Rec rec;                // 0x10
-};
-
+struct ANode { char hdr[0x10]; Rec rec; };
 struct Map;
-
-struct BNode {
-    char hdr[0x10];
-    ANode *an;              // 0x10
-    Map *map;               // 0x14
-};
-
-struct Key {
-    BNode *unused;
-    Map *map;
-};
-
+struct BNode { char hdr[0x10]; ANode *an; Map *map; };
 struct Map {
     char pad0[0x14];
-    int size;               // 0x14
+    int size;
     BNode *FUN_00230ea0();
     void FUN_00230de0(void *node);
     void *FUN_00230ba0(void *cmp, void *key);
     void *FUN_00230be0(void *cmp, void *key);
     void FUN_00230c30(void *node, void *cmp, void *parent);
 };
-
 struct Iter {
-    int tile;
-    int cur;
-    int idx;
-    int flag;
+    int tile, cur, idx, flag;
     void FUN_001ad7d0(Ctx *d);
 };
-
 int __cdecl FUN_001ad4d0(void *, void *);
 int __cdecl FUN_001ad4f0(void *, void *);
 int __cdecl FUN_001aea70(void *, void *);
@@ -61,132 +38,130 @@ void *FUN_0008d6d0(unsigned int size);
 void thunk_FUN_00267090(void *p);
 extern "C" double sqrt(double);
 
-struct Frame {
-    float g;                // 0x10
-    Map *bspill;            // 0x14
-    int cnt;                // 0x18
-    ANode *key_node;        // 0x1c
-    Map *key_map;           // 0x20
-    ANode *P;               // 0x24
-    int hi;                 // 0x28
-    void *bnode;            // 0x2c
-    Map *bspill2;           // 0x30
-    Iter it2;               // 0x34
-    Iter it1;               // 0x44
-    int w54;                // 0x54
-    Rec rec;                // 0x58
+struct SearchState {
+    float candidateCost;
+    Map *savedMap;
+    int processed;
+    ANode *candidateNode;
+    Map *candidateMap;
+    ANode *currentNode;
+    int currentMapValue;
+    void *openEntry;
+    Map *savedOpenMap;
+    Iter neighbors;
+    Iter start;
+    int startExtra;
+    Rec candidate;
 };
 
-Rec *FUN_001aedb0(Map *a, Map *b, Rec *c, Ctx *d, int *e)
+Rec *FUN_001aedb0(Map *visited, Map *open, Rec *goal, Ctx *context, int *result)
 {
-    Frame f;
-    BNode *last = b->FUN_00230ea0();
-    if (last->an->rec.id == c->id)
-        return &b->FUN_00230ea0()->an->rec;
+    SearchState state;
+    BNode *front = open->FUN_00230ea0();
+    if (front->an->rec.id == goal->id)
+        return &open->FUN_00230ea0()->an->rec;
 
-    last = b->FUN_00230ea0();
-    f.it1.tile = last->an->rec.id;
-    f.it1.idx = -1;
-    f.it1.flag = (unsigned char)FUN_001ad730(f.it1.tile, d);
-    f.it1.FUN_001ad7d0(d);
-    if (b->size == 0)
+    front = open->FUN_00230ea0();
+    state.start.tile = front->an->rec.id;
+    state.start.idx = -1;
+    state.start.flag = (unsigned char)FUN_001ad730(state.start.tile, context);
+    state.start.FUN_001ad7d0(context);
+    if (!open->size)
         return 0;
-    f.cnt = 0;
+
+    state.processed = 0;
     for (;;) {
-        int old = f.cnt;
-        f.cnt = old + 1;
-        if (old == 0x80)
+        if (state.processed++ == 0x80)
             return 0;
-        BNode *node = b->FUN_00230ea0();
-        f.P = node->an;
-        f.hi = (int)node->map;
-        node = b->FUN_00230ea0();
-        f.bspill = b;
-        b->FUN_00230de0(node);
-        thunk_FUN_00267090(node);
-        f.it2.tile = f.P->rec.id;
-        f.it2.idx = -1;
-        f.it2.flag = (unsigned char)FUN_001ad730(f.it2.tile, d);
-        f.it2.FUN_001ad7d0(d);
-        int idx = f.it2.idx;
-        while (idx != -1) {
-            f.rec.id = f.it2.cur;
-            *(int *)&f.rec.x = f.it1.idx;
-            *(int *)&f.rec.y = f.it1.flag;
-            *(int *)&f.rec.z = *(&f.it1.flag + 1);
-            f.rec.parent = 0;
-            f.rec.g = 0;
-            f.rec.h = 0;
-            f.rec.last = 0;
-            f.rec.idx = idx;
-            *(int *)&f.rec.closed = 0;
-            char isNew = 1;
-            void *parent = a->FUN_00230be0((void *)FUN_001ad4f0, &f.rec);
-            if (parent == 0) {
-                f.key_node = 0;
-                f.key_map = 0;
+
+        BNode *front = open->FUN_00230ea0();
+        state.currentNode = front->an;
+        state.currentMapValue = (int)front->map;
+        front = open->FUN_00230ea0();
+        state.savedMap = open;
+        open->FUN_00230de0(front);
+        thunk_FUN_00267090(front);
+
+        state.neighbors.tile = state.currentNode->rec.id;
+        state.neighbors.idx = -1;
+        state.neighbors.flag = (unsigned char)FUN_001ad730(state.neighbors.tile, context);
+        state.neighbors.FUN_001ad7d0(context);
+        while (state.neighbors.idx != -1) {
+            state.candidate.id = state.neighbors.cur;
+            *(int *)&state.candidate.x = state.start.idx;
+            *(int *)&state.candidate.y = state.start.flag;
+            *(int *)&state.candidate.z = state.startExtra;
+            state.candidate.parent = 0;
+            state.candidate.g = 0;
+            state.candidate.h = 0;
+            state.candidate.last = 0;
+            state.candidate.idx = state.neighbors.idx;
+            *(int *)&state.candidate.closed = 0;
+
+            bool newlyCreated = true;
+            void *insertionPoint = visited->FUN_00230be0((void *)FUN_001ad4f0, &state.candidate);
+            ANode *allocated = 0;
+            if (insertionPoint) {
+                allocated = (ANode *)FUN_0008d6d0(0x38);
+                if (allocated)
+                    allocated->rec = state.candidate;
+                visited->FUN_00230c30(allocated, (void *)FUN_001ad4d0, insertionPoint);
+                state.candidateNode = allocated;
+                state.candidateMap = visited;
             } else {
-                ANode *n = (ANode *)FUN_0008d6d0(0x38);
-                if (n != 0)
-                    n->rec = f.rec;
-                a->FUN_00230c30(n, (void *)FUN_001ad4d0, parent);
-                f.key_node = n;
-                f.key_map = a;
-                if (n != 0) {
-                    n->rec.FUN_001ad2b0(d);
-                    goto have_node;
-                }
+                state.candidateNode = 0;
+                state.candidateMap = 0;
             }
-            f.key_node = (ANode *)a->FUN_00230ba0((void *)FUN_001ad4f0, &f.rec);
-            f.key_map = a;
-            isNew = 0;
-        have_node:
-            {
-                ANode *an = f.key_node;
-                Rec *N = &an->rec;
-                ANode *P = f.P;
-                double dx = P->rec.x - N->x;
-                double dy = P->rec.y - N->y;
-                double dz = P->rec.z - N->z;
-                f.g = (float)(sqrt(dz * dz + dy * dy + dx * dx) + P->rec.g);
-                if (isNew || f.g < N->g) {
-                    N->idx = f.rec.idx;
-                    if (!isNew && !N->closed) {
-                        f.bnode = b->FUN_00230ba0((void *)FUN_001aeae0, &f.key_node);
-                        if (f.bnode != 0) {
-                            b->FUN_00230de0(f.bnode);
-                            thunk_FUN_00267090(f.bnode);
-                        }
-                    }
-                    N->g = f.g;
-                    N->parent = &P->rec;
-                    double ex = N->x - c->x;
-                    double ey = N->y - c->y;
-                    double ez = N->z - c->z;
-                    N->h = (float)(sqrt(ez * ez + ey * ey + ex * ex) * 1.5f + f.g);
-                    if (N->id == c->id) {
-                        *e = f.it1.idx;
-                        // the callees took &f.key_node, so it is re-read from the frame here
-                        f.key_node->rec.last = f.it1.idx;
-                        return &f.key_node->rec;
-                    }
-                    void *bp = b->FUN_00230be0((void *)FUN_001aeae0, &f.key_node);
-                    if (bp != 0) {
-                        BNode *nb = (BNode *)FUN_0008d6d0(0x18);
-                        if (nb != 0) {
-                            nb->an = f.key_node;
-                            nb->map = f.key_map;
-                        }
-                        b->FUN_00230c30(nb, (void *)FUN_001aea70, bp);
-                    }
-                    N->closed = 0;
-                }
+            if (allocated) {
+                allocated->rec.FUN_001ad2b0(context);
+            } else {
+                state.candidateNode = (ANode *)visited->FUN_00230ba0((void *)FUN_001ad4f0, &state.candidate);
+                state.candidateMap = visited;
+                newlyCreated = false;
             }
-            f.it2.FUN_001ad7d0(d);
-            idx = f.it2.idx;
+
+            ANode *candidate = state.candidateNode;
+            Rec *next = &candidate->rec;
+            Rec *current = &state.currentNode->rec;
+            double dx = current->x - next->x;
+            double dy = current->y - next->y;
+            double dz = current->z - next->z;
+            state.candidateCost = (float)(sqrt(dz * dz + dy * dy + dx * dx) + current->g);
+            if (newlyCreated || state.candidateCost < next->g) {
+                next->idx = state.candidate.idx;
+                if (!newlyCreated && !next->closed) {
+                    state.openEntry = open->FUN_00230ba0((void *)FUN_001aeae0, &state.candidateNode);
+                    if (state.openEntry) {
+                        open->FUN_00230de0(state.openEntry);
+                        thunk_FUN_00267090(state.openEntry);
+                    }
+                }
+                next->g = state.candidateCost;
+                next->parent = current;
+                double ex = next->x - goal->x;
+                double ey = next->y - goal->y;
+                double ez = next->z - goal->z;
+                next->h = (float)(sqrt(ez * ez + ey * ey + ex * ex) * 1.5f + state.candidateCost);
+                if (next->id == goal->id) {
+                    *result = state.start.idx;
+                    state.candidateNode->rec.last = state.start.idx;
+                    return &state.candidateNode->rec;
+                }
+                void *position = open->FUN_00230be0((void *)FUN_001aeae0, &state.candidateNode);
+                if (position) {
+                    BNode *entry = (BNode *)FUN_0008d6d0(0x18);
+                    if (entry) {
+                        entry->an = state.candidateNode;
+                        entry->map = state.candidateMap;
+                    }
+                    open->FUN_00230c30(entry, (void *)FUN_001aea70, position);
+                }
+                next->closed = 0;
+            }
+            state.neighbors.FUN_001ad7d0(context);
         }
-        f.P->rec.closed = 1;
-        if (b->size == 0)
+        state.currentNode->rec.closed = 1;
+        if (!open->size)
             return 0;
     }
 }

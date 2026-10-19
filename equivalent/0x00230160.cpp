@@ -1,110 +1,73 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 22/22)
+// FUN_00230160 @ 0x00230160
 // FUN_00230160 @ 0x00230160
 extern "C" double sqrt(double);
-
-struct Vec3_230160 {
-    float x, y, z;
-};
-
-union FloatBits_230160 {
-    float f;
-    unsigned int u;
-};
-
+struct Vec3_230160 { float x,y,z; };
+union FloatBits_230160 { float value; unsigned int bits; };
 class Segment_230160 {
 public:
-    Vec3_230160 p0;
-    Vec3_230160 p1;
+    Vec3_230160 p0,p1;
     float FUN_00230160(Segment_230160* other);
 };
-
 float Segment_230160::FUN_00230160(Segment_230160* other)
 {
-    volatile float ux = p1.x - p0.x;
-    volatile float uy = p1.y - p0.y;
-    volatile float uz = p1.z - p0.z;
-    volatile float vx = other->p1.x - other->p0.x;
-    volatile float vy = other->p1.y - other->p0.y;
-    volatile float vz = other->p1.z - other->p0.z;
-    volatile float wx = p0.x - other->p0.x;
-    volatile float wy = p0.y - other->p0.y;
-    volatile float wz = p0.z - other->p0.z;
-    volatile float a = uz * uz + uy * uy + ux * ux;
-    volatile float b = vz * uz + vy * uy + vx * ux;
-    volatile float c = vz * vz + vy * vy + vx * vx;
-    volatile float d = wz * uz + wy * uy + wx * ux;
-    volatile float e = wz * vz + wy * vy + wx * vx;
-    volatile float D = c * a - b * b;
-    volatile float sD = D;
-    volatile float tD = D;
-    volatile float tN;
-    double sN;
-    if (D < 1.0e-5f) {
-        sN = 0.0;
-        sD = 1.0f;
-        tN = e;
-        tD = c;
+    float ux = p1.x - p0.x, uy = p1.y - p0.y, uz = p1.z - p0.z;
+    float vx = other->p1.x - other->p0.x, vy = other->p1.y - other->p0.y, vz = other->p1.z - other->p0.z;
+    float wx = p0.x - other->p0.x, wy = p0.y - other->p0.y, wz = p0.z - other->p0.z;
+    float uu = uz*uz + uy*uy + ux*ux;
+    float uv = vz*uz + vy*uy + vx*ux;
+    float vv = vz*vz + vy*vy + vx*vx;
+    float wu = wz*uz + wy*uy + wx*ux;
+    float wv = wz*vz + wy*vy + wx*vx;
+    float determinant = vv*uu - uv*uv;
+    float sDenominator = determinant, tDenominator = determinant;
+    float tNumerator;
+    double sNumerator;
+    if (determinant < 1.0e-5f) {
+        sNumerator = 0.0;
+        sDenominator = 1.0f;
+        tNumerator = wv;
+        tDenominator = vv;
     } else {
-        sN = e * b - d * c;
-        tN = e * a - d * b;
-        if (sN < 0.0) {
-            sN = 0.0;
-            tN = e;
-            tD = c;
-        } else if (sN > D) {
-            sN = D;
-            tN = e + b;
-            tD = c;
+        sNumerator = wv*uv - wu*vv;
+        tNumerator = wv*uu - wu*uv;
+        if (sNumerator < 0.0) {
+            sNumerator = 0.0;
+            tNumerator = wv;
+            tDenominator = vv;
+        } else if (sNumerator > determinant) {
+            sNumerator = determinant;
+            tNumerator = wv + uv;
+            tDenominator = vv;
         }
     }
-    if (tN < 0.0f) {
-        tN = 0.0f;
-        double nd = -d;
-        if (nd < 0.0)
-            sN = 0.0;
-        else if (nd > a)
-            sN = sD;
-        else {
-            sN = nd;
-            sD = a;
-        }
-    } else if (tN > tD) {
-        tN = tD;
-        double bd = b - d;
-        if (bd < 0.0)
-            sN = 0.0;
-        else if (bd > a)
-            sN = sD;
-        else {
-            sN = bd;
-            sD = a;
-        }
+    if (tNumerator < 0.0f) {
+        tNumerator = 0.0f;
+        double boundary = -wu;
+        if (boundary < 0.0) sNumerator = 0.0;
+        else if (boundary > uu) sNumerator = sDenominator;
+        else { sNumerator = boundary; sDenominator = uu; }
+    } else if (tNumerator > tDenominator) {
+        tNumerator = tDenominator;
+        double boundary = uv - wu;
+        if (boundary < 0.0) sNumerator = 0.0;
+        else if (boundary > uu) sNumerator = sDenominator;
+        else { sNumerator = boundary; sDenominator = uu; }
     }
-    FloatBits_230160 s;
-    s.f = (float)sN;
-    s.u &= 0x7fffffff;
-    double sc;
-    if (s.f < 1.0e-5f)
-        sc = 0.0;
-    else
-        sc = sN / sD;
-    FloatBits_230160 t;
-    t.f = tN;
-    t.u &= 0x7fffffff;
-    double tc;
-    if (t.f < 1.0e-5f)
-        tc = 0.0;
-    else
-        tc = tN / tD;
-    volatile float tvx = vx * tc;
-    volatile float tvy = vy * tc;
-    double tvz = tc * vz;
-    volatile float suz = uz * sc;
-    volatile float ax = ux * sc + wx;
-    double ay = uy * sc + wy;
-    volatile float az = suz + wz;
-    volatile float dx = ax - tvx;
-    volatile float dy = ay - tvy;
-    double dz = az - tvz;
-    return sqrt(dz * dz + dy * dy + dx * dx);
+    FloatBits_230160 magnitude;
+    magnitude.value = (float)sNumerator;
+    magnitude.bits &= 0x7fffffff;
+    double s = magnitude.value < 1.0e-5f ? 0.0 : sNumerator/sDenominator;
+    magnitude.value = tNumerator;
+    magnitude.bits &= 0x7fffffff;
+    double t = magnitude.value < 1.0e-5f ? 0.0 : tNumerator/tDenominator;
+    volatile float tvx = vx*t, tvy = vy*t;
+    double tvz = t*vz;
+    volatile float suz = uz*s;
+    volatile float nearestX = ux*s + wx;
+    double nearestY = uy*s + wy;
+    volatile float nearestZ = suz + wz;
+    volatile float dx = nearestX - tvx, dy = nearestY - tvy;
+    double dz = nearestZ - tvz;
+    return sqrt(dz*dz + dy*dy + dx*dx);
 }

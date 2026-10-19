@@ -1,12 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 98 inputs, branch coverage 36/42, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 125 inputs, branch coverage 38/42, incomplete)
 // FUN_002b57d0 @ 0x002b57d0
 struct V3 { float x, y, z; };
-
 struct Mat {
     float m[16];
     void FUN_0022ca90(const Mat *a, const Mat *b);
 };
-
 struct Rec0 {
     float x, y, z;
     short idx;
@@ -29,12 +27,10 @@ struct Rec2 {
     float w0, w1, w2;
     unsigned char c0, c1, c2, c3;
 };
-
 struct TriIdx {
     unsigned short a, b, c;
     unsigned short pad[3];
 };
-
 struct Topo {
     char pad00[8];
     Rec0 *r0;
@@ -44,7 +40,6 @@ struct Topo {
     int n1;
     int n2;
 };
-
 struct Skel {
     char pad00[0xc];
     unsigned int count;
@@ -52,26 +47,22 @@ struct Skel {
     Mat *mats;
     void FUN_00284820(int z);
 };
-
 struct SrcMats {
     char pad00[0x10];
     unsigned int count;
     char pad14[0x20 - 0x14];
     Mat *mats;
 };
-
 struct IdxBuf {
     char pad00[0xc];
     int count;
     TriIdx *tris;
 };
-
 struct OutBuf {
     char pad00[0x10];
     V3 *verts;
     V3 *normals;
 };
-
 namespace pure3d {
 class ShadowMeshImpl {
 public:
@@ -87,7 +78,6 @@ public:
     void Update(Skel *arg);
 };
 }
-
 #define XG_X(M, x, y, z) (((y) * (M)->m[4] + (z) * (M)->m[8]) + (x) * (M)->m[0] + (M)->m[12])
 #define XG_Y(M, x, y, z) (((y) * (M)->m[5] + (x) * (M)->m[1]) + (z) * (M)->m[9] + (M)->m[13])
 #define XG_Z(M, x, y, z) (((y) * (M)->m[6] + (x) * (M)->m[2]) + (z) * (M)->m[10] + (M)->m[14])
@@ -100,27 +90,25 @@ void pure3d::ShadowMeshImpl::Update(Skel *arg)
     if (!arg)
         return;
     arg->FUN_00284820(0);
-    unsigned int n = src->count;
-    unsigned int cnt = arg->count;
-    if (n < cnt)
-        cnt = n;
+    unsigned int cnt = src->count;
+    if (arg->count < cnt)
+        cnt = arg->count;
     bool changed = false;
     if (cnt != 0) {
         for (unsigned int i = 0; i < cnt; i++) {
-            Mat M;
-            M.FUN_0022ca90(&src->mats[i], &arg->mats[i]);
+            Mat transformed;
+            transformed.FUN_0022ca90(&src->mats[i], &arg->mats[i]);
             if (!changed) {
-                for (int r = 0; r < 4; r++) {
+                for (int r = 0; r < 4 && !changed; r++) {
                     for (int c = 0; c < 4; c++) {
-                        if (!(M.m[r * 4 + c] == cache[i].m[r * 4 + c])) {
+                        if (!(transformed.m[r * 4 + c] == cache[i].m[r * 4 + c])) {
                             changed = true;
-                            goto cmpdone;
+                            break;
                         }
                     }
                 }
-            cmpdone:;
             }
-            cache[i] = M;
+            cache[i] = transformed;
         }
         if (changed) {
             IdxBuf *ib = idx;

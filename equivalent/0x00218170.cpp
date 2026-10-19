@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 14126 inputs, branch coverage 23/23)
+// STATUS: equivalent (tools/equiv.py level 3: 3042 inputs, branch coverage 23/23)
 // FUN_00218170 @ 0x00218170
 // FUN_00218170 @ 0x00218170
 struct Str_218170 {
@@ -36,8 +36,8 @@ struct Ctx_218170 {
 };
 
 struct Frame_218170 {
-    TV a;
-    TV b;
+    TV rhsNumber;
+    TV lhsNumber;
 };
 
 int FUN_00215ff0(const char *str, int *out);
@@ -54,72 +54,71 @@ void FUN_00214d40(Ctx_218170 *ctx, TV *lhs, TV *rhs);
 // equiv-conv: FUN_00218170 eax ecx edx stack stack stack
 int FUN_00218170(TV *rhs, TV *lhs, int line, Ctx_218170 *ctx, TV *res, int op)
 {
-    Frame_218170 fr;
-    TV *a;
-    TV *b;
+    Frame_218170 numbers;
+    TV *leftNumber = lhs;
+    TV *rightNumber = rhs;
     ctx->f14->line = line;
 
-    if (lhs->tag == 3) {
-        b = lhs;
-    } else {
-        if (lhs->tag != 4)
-            goto fallback;
-        if (FUN_00215ff0(((StrTV *)lhs)->s->data, &fr.a.tag) == 0)
-            goto fallback;
-        fr.b.val = fr.a.tag;
-        fr.b.tag = 3;
-        b = &fr.b;
-    }
-    if (rhs->tag == 3) {
-        a = rhs;
-    } else {
-        if (rhs->tag != 4)
-            goto fallback;
-        if (FUN_00215ff0(((StrTV *)rhs)->s->data, &fr.a.tag) == 0)
-            goto fallback;
-        fr.a.val = fr.a.tag;
-        fr.a.tag = 3;
-        a = &fr.a;
+    bool leftIsNumeric = lhs->tag == 3;
+    if (lhs->tag == 4) {
+        if (FUN_00215ff0(((StrTV *)lhs)->s->data, &numbers.rhsNumber.tag)) {
+            numbers.lhsNumber.val = numbers.rhsNumber.tag;
+            numbers.lhsNumber.tag = 3;
+            leftNumber = &numbers.lhsNumber;
+            leftIsNumeric = true;
+        }
     }
 
-    switch (op) {
-    case 5: {
-        float x = *(float *)&a->val + *(float *)&b->val;
-        res->tag = 3;
-        *(float *)&res->val = x;
-        return ctx->f0c;
-    }
-    case 6: {
-        float x = *(float *)&b->val - *(float *)&a->val;
-        res->tag = 3;
-        *(float *)&res->val = x;
-        return ctx->f0c;
-    }
-    case 7: {
-        float x = *(float *)&a->val * *(float *)&b->val;
-        res->tag = 3;
-        *(float *)&res->val = x;
-        return ctx->f0c;
-    }
-    case 8: {
-        float x = *(float *)&b->val / *(float *)&a->val;
-        res->tag = 3;
-        *(float *)&res->val = x;
-        return ctx->f0c;
-    }
-    case 9: {
-        TV *h = FUN_00219e50(ctx->f44, ctx->f10->f98);
-        if (h->tag != 6)
-            FUN_00214a90(ctx, "`__pow' (`^' operator) is not a function");
-        FUN_00217750(ctx, h, b, a);
-        FUN_00217790(ctx, res);
-        return ctx->f0c;
-    }
-    default:
-        return ctx->f0c;
+    if (leftIsNumeric) {
+        bool rightIsNumeric = rhs->tag == 3;
+        if (rhs->tag == 4) {
+            if (FUN_00215ff0(((StrTV *)rhs)->s->data, &numbers.rhsNumber.tag)) {
+                numbers.rhsNumber.val = numbers.rhsNumber.tag;
+                numbers.rhsNumber.tag = 3;
+                rightNumber = &numbers.rhsNumber;
+                rightIsNumeric = true;
+            }
+        }
+        if (rightIsNumeric) {
+            switch (op) {
+            case 5: {
+                float value = *(float *)&rightNumber->val + *(float *)&leftNumber->val;
+                res->tag = 3;
+                *(float *)&res->val = value;
+                return ctx->f0c;
+            }
+            case 6: {
+                float value = *(float *)&leftNumber->val - *(float *)&rightNumber->val;
+                res->tag = 3;
+                *(float *)&res->val = value;
+                return ctx->f0c;
+            }
+            case 7: {
+                float value = *(float *)&rightNumber->val * *(float *)&leftNumber->val;
+                res->tag = 3;
+                *(float *)&res->val = value;
+                return ctx->f0c;
+            }
+            case 8: {
+                float value = *(float *)&leftNumber->val / *(float *)&rightNumber->val;
+                res->tag = 3;
+                *(float *)&res->val = value;
+                return ctx->f0c;
+            }
+            case 9: {
+                TV *powerFunction = FUN_00219e50(ctx->f44, ctx->f10->f98);
+                if (powerFunction->tag != 6)
+                    FUN_00214a90(ctx, "`__pow' (`^' operator) is not a function");
+                FUN_00217750(ctx, powerFunction, leftNumber, rightNumber);
+                FUN_00217790(ctx, res);
+                return ctx->f0c;
+            }
+            default:
+                return ctx->f0c;
+            }
+        }
     }
 
-fallback:
     if (FUN_00217af0(ctx, lhs, rhs, res, op) == 0)
         FUN_00214d40(ctx, lhs, rhs);
     return ctx->f0c;
