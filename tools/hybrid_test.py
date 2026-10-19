@@ -249,7 +249,7 @@ def record(args):
         json.dump(doc, open(path, "w"), separators=(",", ":"))
 
     x = hybrid_run.Xemu("record-" + args.name, pad=args.pad, hdd=sp["disk"] if snaps_on else None,
-                        snapshot=not snaps_on)
+                        snapshot=not snaps_on, sound=not args.mute)
     seen["t0"] = x.t0
     print("recording to %s: play, then press Ctrl-C here (closing the xemu window loses the last 2 s)" % path,
           file=sys.stderr)
@@ -748,12 +748,13 @@ def main(argv):
     d.add_argument("--shots", action="store_true", help="also take screenshots (can wedge xemu's monitor during loads)")
     r = sub.add_parser("record")
     r.add_argument("name")
-    r.add_argument("--minutes", type=float, default=60)
+    r.add_argument("--minutes", type=float, default=240)
     r.add_argument("--pad", default=None, help="port-1 binding: 'keyboard' or a gamepad GUID (default: your xemu "
                    "config's, else the keyboard)")
     r.add_argument("--out", help="default tests/replays/NAME.json")
     r.add_argument("--no-quant", action="store_true", help="record raw analog values (by default sticks and pressure "
                    "buttons are snapped to coarse steps, which the game is given too, so pad changes stay rare)")
+    r.add_argument("--mute", action="store_true", help="record without sound (sound is on for recordings, off for replays)")
     r.add_argument("--snap-every", type=float, default=SNAP_EVERY, help="minutes between VM snapshots (0: none; "
                    "they need the recording's own disk overlay, NAME.disk.qcow2, ~60 MB each)")
     r.add_argument("--v1", action="store_true", help="the old format: no virtual pad (the game polls every pad xemu "

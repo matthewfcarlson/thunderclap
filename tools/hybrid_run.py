@@ -328,7 +328,7 @@ def png_write(path, w, h, rgb):
 class Xemu:
     """A running xemu with QMP. Reads guest memory through the HMP monitor (x / xp / pmemsave)."""
 
-    def __init__(self, tag="run", gdb=False, extra=(), pad="keyboard", hdd=None, snapshot=True):
+    def __init__(self, tag="run", gdb=False, extra=(), pad="keyboard", hdd=None, snapshot=True, sound=False):
         """snapshot=False (VM snapshots are saved into the disk): only on an overlay of the base (assert_overlay);
         every other run keeps -snapshot, so no disk is ever written."""
         check_base()
@@ -345,7 +345,7 @@ class Xemu:
             + (["-display", DISPLAY] if DISPLAY else []) + list(extra)
         self.log = open(os.path.join(self.outdir, "xemu.log"), "w")
         env = dict(os.environ)
-        if not env.get("HULK_XEMU_SOUND"):      # muted unless asked for (SDL's null audio device)
+        if not (sound or env.get("HULK_XEMU_SOUND")):   # muted unless asked for (SDL's null audio device)
             env.setdefault("SDL_AUDIODRIVER", "dummy")
         self.p = subprocess.Popen(cmd, stdout=self.log, stderr=subprocess.STDOUT, env=env)
         self.t0 = time.time()
