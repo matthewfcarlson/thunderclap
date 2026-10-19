@@ -294,3 +294,102 @@ the shards used `--shard 0/2` and `1/2`.
   `-snapshot` as before.
 - **Host:** snapshots are tied to this xemu (0.8.136) and to the machine setup (64 MB, the pad topology).
 - **Trace targets:** a recording's trampolines cover the trace targets as of recording time.
+
+## Snapshot resumes that diverged at frame 51570 (play3)
+
+Resumes of `build/replays/play3.json` from s4, s5, s6 and s8 left the recorded checkpoints at frame 51570, and
+resumes from s7 and s9 didn't. Some re-joined the recording around the load at frame 52069 and some didn't. The
+cause is not the snapshots. The game's streaming reads finish on the drive threads, and which frame a result lands
+in follows the host. One AI decision at frame 51565 went either way. Replays from boot are exposed in the same way.
+
+### What differs
+
+- **At 51570 only the gameplay RNG differs.** The camera, GameClock and boot step hash the same. Between 51540 and
+  51570 the recording drew the RNG 50 times; the s5 resumes drew 51, the s4/s6/s8 ones 52. Both bad hashes are the
+  recorded state stepped once or twice more.
+- **The extra draw is one more frame of avoidance.** A guest-side log of every RNG accessor call
+  (`build/snapdiv/rnglog2.py`: logger code written over GDB into the build's unused `rnglog` area, no breakpoints)
+  matched call for call, with the same RNG states, from the snapshot to 51565. At 51565, the bad runs call
+  `CPathAgent::vfunc_4` (0x1050d0) → `CAvoidBehaviour::vfunc_4` (0x109c00) → `vfunc_3` (0x10a040) once more, and
+  its sweep draws at 0x10a4aa. In good runs that behaviour's last update is at 51564.
+- **The two objects involved are the same up to then.** Copies of the character and the behaviour, taken at every
+  update from 51555 to 51564 (`snaplog.py`), were byte-identical between a good and a bad run.
+- **The drive threads were busy right then.** A log of the `core::DriveThread` request handler (`call [edx+0xc]`
+  at 0x273210) shows dozens of request steps per frame from 51554 to 51565, and a new request at 51562 that was
+  still running at 51594.
+
+### It was never per-snapshot
+
+The same snapshot gives either result, depending on how the host runs:
+
+| Resume of s8, to 51600 | 51570 |
+|---|---|
+| plain: the original run, and one with the rain generator moved | bad, bad (52 draws) |
+| plain, idle host, 4 runs (two of them with `iosync` or a pre-read disk clone, which did nothing) | good ×4 |
+| throttled (xemu SIGSTOPped 70 ms of every 100 ms), 4 runs with various other options | bad ×4 |
+| VM stopped over GDB at some frames (breakpoints, memory dumps) | good in 7 of 9 |
+| guest-side RNG logging (a few instructions per RNG call) | bad ×4 |
+
+The s7 resume matched in one run and missed in another (a halt that spins the game thread at 51540).
+- A VM stop lets the host finish outstanding reads while the guest stands still, so they complete "early".
+- Throttling stops xemu while QEMU's virtual clock runs on, so every frame takes more emulated time.
+
+Neither changes any input the hooks pin. Which way the race goes depends on the host.
+
+### Ruled out
+
+- **A savevm/loadvm gap.** Nothing was found missing after `loadvm`. Every checkpoint before 51570 matches in
+  every run, good or bad. Runs from one snapshot differ from each other only in timing.
+- **The sound generator** (`snd_rng`) is not reproduced from run to run. A resume of s8 reaches s9's frame with
+  28,042 calls against s9's 28,070. That is the audio hardware's real time, and it doesn't reach the gameplay RNG.
+- **`iosync`.** It waits at `PumpPlatformServices`, and never waited (`io_waits` = 0). No request is pending
+  there: requests are posted during the frame and completed before the next pump. The game reads their results
+  in between.
+- **The rain effect (0x1f7320).** It is not sound, but sound-rng puts it on the sound generator
+  (`patch_xbe.SOUND_RNG` sites 0x1f7362 and 0x1f74b7, labelled "voices"). Every ~0.05 s of game time it raycasts
+  from a random point near the player and sends the object hit a `Damage_<kind>_<material>` event (0x1f6cd0).
+  - Its draws are host-timed, because they share a stream with the sound code's.
+  - Moving it to a private generator over GDB changed every rain hit from s8 to 51570 and changed no checkpoint.
+  - Then it still parted at 51570, both plain and throttled.
+  - It is left as is, but it remains a host-timed input in principle.
+- **A cold page cache for the disk clone.** Reading the clone before starting changed nothing.
+
+### Fix: `syncio` on resumes
+
+`tools/hybrid_test.py` `install_syncio`, which `resume_snapshot` runs by default:
+- After every request the main thread posts to a drive thread (`core::DriveThread` 0x272fc0, its tail at
+  0x27303f), the main thread sleeps 1 ms at a time until that drive has nothing queued or running (`+0x8c` = 0).
+- Every request then completes inside the frame that made it, as on a fast host.
+- The code is written over GDB into the recording build's unused `rnglog` area, so existing recordings
+  (play3.rec.xbe) get it without a rebuild.
+- `io_waits` counts the sleeps, `io_timeouts` the waits given up after 2 s.
+- The replay result reports both as `"syncio"`.
+- `--no-syncio` turns it off.
+- `trace_gate.py --from-snapshot` resumes through the same function, so it is on there too.
+
+| Resume (`replay --from-snapshot K --until-frame 52120`) | Checkpoints | Sleeps | Timeouts |
+|---|---|---|---|
+| s4 (frame 25,705) | 881 of 881, identical (to 52,110) | 9,565 | 2 |
+| s5 (30,841) | 709 of 709 (to 52,110) | 8,616 | 2 |
+| s6 (37,310) | 495 of 495 (to 52,140) | 2,804 | 0 |
+| s7 (40,923) | 374 of 374 (to 52,140) | 2,435 | 0 |
+| s8 (44,699) | 250 of 250 (to 52,170) | 1,618 | 0 |
+| s9 (48,226) | 132 of 132 (to 52,170) | 1,117 | 0 |
+
+s8 with syncio, throttled as above, also matched to 51600: 1,295 sleeps, no timeouts. Without syncio, throttling
+had given bad ×4.
+
+### Left open
+
+- **Recordings and replays from boot don't have syncio.** A recording made on a slow or busy host can contain late
+  completions that a synced replay won't reproduce. play3 evidently had none in this stretch: every synced resume
+  matches it.
+- **A full fix makes recording and replay both wait.** That is a hook in the build, not a GDB patch:
+  - `patch_xbe.py`: a `jmp` from 0x27303f to a `hooks.cpp` function doing the same wait under a new flag;
+  - `hybrid_test.RECORDING_PINS`: the flag.
+  - Recordings made before it would still replay with the GDB patch.
+  - Not done here: `patch_xbe.py` was out of scope. Then re-record.
+- **Cost.** Resumes run slower with the waits: 1,100–9,600 sleeps of 1 ms over 4,000–26,000 frames here. The s8
+  resume to 51,600 took about 10 min against 6 without.
+- **The timeouts.** The 2 in s4 and s5 (a drive still busy after 2 s, probably in a load) didn't cost a checkpoint.
+  A drive that never goes idle would make every post wait 2 s.

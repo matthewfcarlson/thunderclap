@@ -437,8 +437,9 @@ def replay_from_snapshot(args, data):
     """Resume the recording's VM snapshot (on a throwaway copy of its disk) and replay from there to the end."""
     snap = find_snapshot(data, args.from_snapshot, args.from_frame)
     want = data["frames"]
-    res = resume_snapshot(data, snap, "replay-snap")
+    res = resume_snapshot(data, snap, "replay-snap", syncio=not args.no_syncio)
     x, man = res["x"], res["man"]
+    io = {}
     rec = {"inputs": [], "checkpoints": {}, "frames": snap["frame"], "polls": snap["polls"]}
     seen = {"inputs": snap.get("inputs", 0), "t0": x.t0, "ckpts": res["ckpt_count"]}
     feeder = ReplayFeeder(man, data["inputs"], g=res["g"], avail=res["avail"])        # (this starts the VM)
@@ -450,6 +451,7 @@ def replay_from_snapshot(args, data):
             time.sleep(5)
             try:
                 st = _drain(x, man, rec, seen)
+                io = {k: st.get(k) for k in ("io_waits", "io_timeouts")}
                 feeder.feed(st)
             except RuntimeError:
                 continue
@@ -465,7 +467,7 @@ def replay_from_snapshot(args, data):
     d = first_divergence(a, b, 0)
     ma = dict(a)
     return {"recording": args.recording, "snapshot": {k: snap.get(k) for k in ("tag", "frame", "polls", "ckpt")},
-            "resume_s": res["resume_s"], "recorded_frames": want, "replayed_frames": rec["frames"],
+            "resume_s": res["resume_s"], "syncio": dict(io, on=not args.no_syncio), "recorded_frames": want, "replayed_frames": rec["frames"],
             "common": common_frames(a, b, 0), "divergence": d, "matching": sum(1 for f, h in b if ma.get(f) == h),
             "checkpoints": [[f, h] for f, h in b], "timeline": rec.get("timeline", []),
             "identical": d is None and common_frames(a, b, 0) > 0}
@@ -545,10 +547,10 @@ def find_snapshot(data, k=None, frame=None):
     return max(cand, key=lambda sn: sn["frame"])
 
 
-def resume_snapshot(data, snap, tag, gdb_cls=None):
+def resume_snapshot(data, snap, tag, gdb_cls=None, syncio=True):
     """Boot xemu paused on a copy of the recording's disk, loadvm the snapshot, attach GDB, and turn the recording
-    build into a replay from there. Returns {x, g, man, avail, ckpt_count, clone, resume_s}; the VM is still
-    stopped (the caller continues it through g)."""
+    build into a replay from there (with syncio unless asked not to). Returns {x, g, man, avail, ckpt_count, clone,
+    resume_s}; the VM is still stopped (the caller continues it through g)."""
     import shutil
     import subprocess
     from xemu_gdb import Gdb
@@ -614,12 +616,72 @@ def resume_snapshot(data, snap, tag, gdb_cls=None):
         g.write(ext("replay_avail"), struct.pack("<I", end))
         g.write(base + 4 * 8, struct.pack("<II", len(entries), pos))     # replay_count, replay_pos
         g.write(base + 4 * 1, struct.pack("<I", flags))
+        if syncio:
+            install_syncio(g, man, data)
     except BaseException:
         x.close()
         os.unlink(clone)
         raise
     return {"x": x, "g": g, "man": man, "avail": end, "ckpt_count": st["ckpt_count"], "clone": clone,
             "resume_s": round(time.time() - t0, 2)}
+
+
+# syncio (docs/tasks/record-replay.md, "Snapshot resumes that diverged at 51570"): the game streams the open world
+# through core::DriveThread, whose request handlers run on the drive threads, and the game reads their results as
+# soon as they are there. Which frame a result lands in followed the host (and how much emulated time a frame took),
+# so an AI decision (CPathAgent -> CAvoidBehaviour at frame 51565 of play3) went either way, and replays parted from
+# the recording at the next checkpoint. With syncio the main thread waits, after each request it posts
+# (core::DriveThread 0x272fc0), until that drive is idle: every request completes in the frame that made it, as on
+# a fast host. It is machine code written over GDB into the build's unused rnglog area (any recording build has it),
+# so resumes of existing recordings get it too.
+SYNCIO_SITE = 0x0027303F          # 0x272fc0's tail: pop edi; pop esi; ret 0xc (edi = drive + 0xc)
+SYNCIO_TAIL = bytes.fromhex("5f5ec20c00")
+SYNCIO_SLEEP = 0x0020C723         # XAPI Sleep (hooks.cpp XSleep)
+SYNCIO_LIMIT = 2000               # 1 ms sleeps before giving up on a drive (counted in io_timeouts)
+
+
+def syncio_stub(man):
+    """(address, code) of the wait: on the main thread, Sleep(1) until [drive + 0x8c] (requests queued or being
+    processed) is 0, counting sleeps in io_waits; then the original tail."""
+    base, lay = man["g_hybrid"], man["g_hybrid_layout"]
+    ext = lambda k: base + lay["ext"] + 4 * lay["ext_fields"].index(k)
+    p = lambda v: struct.pack("<I", v)
+    c = bytearray(b"\x50" + b"\x64\xa1\x28\x00\x00\x00" + b"\x3b\x05" + p(ext("main_thread")))   # push eax;
+    j_done = len(c)                                     # mov eax, fs:[28h]; cmp eax, [main_thread]
+    c += b"\x75\x00"                                    # jne done
+    c += b"\x51\xb9" + p(SYNCIO_LIMIT)                  # push ecx; mov ecx, LIMIT
+    loop = len(c)
+    c += b"\x8b\x87\x80\x00\x00\x00\x85\xc0"            # mov eax, [edi + 0x80]; test eax, eax
+    j_out = len(c)
+    c += b"\x74\x00\x49"                                # jz out; dec ecx
+    j_to = len(c)
+    c += b"\x74\x00"                                    # jz timeout
+    c += b"\x51\x6a\x01\xb8" + p(SYNCIO_SLEEP) + b"\xff\xd0\x59"   # push ecx; Sleep(1); pop ecx
+    c += b"\xff\x05" + p(ext("io_waits"))               # inc [io_waits]
+    c += b"\xeb" + bytes([(loop - (len(c) + 2)) & 0xFF])            # jmp loop
+    timeout = len(c)
+    c += b"\xff\x05" + p(ext("io_timeouts"))            # inc [io_timeouts]
+    out = len(c)
+    c += b"\x59"                                        # pop ecx
+    done = len(c)
+    c += b"\x58" + SYNCIO_TAIL                          # pop eax; pop edi; pop esi; ret 0xc
+    for j, t in ((j_done, done), (j_out, out), (j_to, timeout)):
+        c[j + 1] = t - (j + 2)
+    return base + patch_xbe.CTL_RNGLOG + 4, bytes(c)
+
+
+def install_syncio(g, man, data):
+    """Write the syncio wait into a stopped VM running a recording build (over GDB)."""
+    if "rng-log" in data.get("flags", ()):
+        raise SystemExit("syncio: this build uses the rnglog area")
+    if g.read(SYNCIO_SITE, 5) != SYNCIO_TAIL:
+        raise RuntimeError("syncio: unexpected bytes at %#x" % SYNCIO_SITE)
+    at, code = syncio_stub(man)
+    base, lay = man["g_hybrid"], man["g_hybrid_layout"]
+    ext = lambda k: base + lay["ext"] + 4 * lay["ext_fields"].index(k)
+    g.write(at, code)
+    g.write(ext("io_waits"), struct.pack("<II", 0, 0))                  # io_waits, io_timeouts
+    g.write(SYNCIO_SITE, b"\xe9" + struct.pack("<i", at - (SYNCIO_SITE + 5)))
 
 
 def close_resumed(res):
@@ -767,6 +829,8 @@ def main(argv):
     p.add_argument("--until-frame", type=int, default=0, help="stop once the game reaches this frame")
     p.add_argument("--from-snapshot", type=int, help="resume the recording's VM snapshot K (negative: from the end)")
     p.add_argument("--from-frame", type=int, help="resume the latest snapshot at or before this frame")
+    p.add_argument("--no-syncio", action="store_true", help="with --from-snapshot/--from-frame: let the game's file "
+                   "requests complete in host time, as before (they diverged; docs/tasks/record-replay.md)")
     p.add_argument("--drawlog", help="also log the pddi state of every draw (hooks.cpp HYBRID_DRAWLOG) in frames "
                    "EVERY[:FIRST[:LAST]] (off by default); checkpoints are still compared")
     p.add_argument("--drawlog-out", help="where to write the draw log (default build/hybrid/test/drawlog.jsonl)")
