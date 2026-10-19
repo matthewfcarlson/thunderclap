@@ -52,6 +52,27 @@ let MATCHES_DIR = join(ROOT, "matches");
 let EQUIV_DIR = join(ROOT, "equivalent");
 let WORK_TAG = "main";
 let MODE: "match" | "equiv" = "match";
+// --rewrite (equiv mode): readability pass over proven equivalent/ sources (docs/tech-debt.md). The new source must
+// drop tools/tech_debt.py's flags (no goto, no lifted frame array, under half the volatiles) and stay equivalent.
+let REWRITE = false;
+const debt = (code: string) => ({
+	gotos: (code.match(/\bgoto\s+\w+\s*;/g) ?? []).length,
+	vol: (code.match(/\bvolatile\b/g) ?? []).length,
+	lift: /mechanical lift|Generated from the original/i.test(code.slice(0, 2000))
+		|| /\b(?:volatile\s+)?(?:Wd|unsigned)\s+[LS]\s*\[\s*(?:0x)?[0-9a-fA-F]+\s*\]/.test(code),
+});
+function readabilityIssue(code: string, addr: string): string | undefined {
+	const old = debt(readFileSync(join(EQUIV_DIR, `${addr}.cpp`), "utf8"));
+	const now = debt(code);
+	const issues = [];
+	const includes = (c: string) => new Set(c.match(/^#include\s+\S+/gm) ?? []);
+	const kept = includes(code), lost = [...includes(readFileSync(join(EQUIV_DIR, `${addr}.cpp`), "utf8"))].filter((i) => !kept.has(i));
+	if (lost.length) issues.push(`dropped ${lost.join(", ")} (keep every #include and use the shared declarations instead of redeclaring them)`);
+	if (now.gotos) issues.push(`${now.gotos} goto (use structured control flow)`);
+	if (now.lift) issues.push("a raw stack-frame array or lift header (use named locals)");
+	if (now.vol >= 20 && now.vol > old.vol / 2) issues.push(`${now.vol} volatile (was ${old.vol}; keep only the few that pin x87 rounding)`);
+	return issues.length ? `Not accepted: this is a readability pass and the source still has ${issues.join(", ")}.` : undefined;
+}
 const MIN_EQUIV_COVERAGE = 0.75; // share of the original's branch edges the passing inputs must reach
 
 type Tier = {
@@ -210,6 +231,18 @@ const submitCpp = defineTool({
 			return { content: [{ type: "text", text: "Rejected: inline assembly, _emit, naked functions and #pragma are not allowed. Write plain C++." }], isError: true };
 		}
 		const n = job.attempts + 1;
+		const readability = REWRITE ? readabilityIssue(args.code, job.addr) : undefined;
+		if (readability) {
+			await api.commit(async (tx) => {
+				const j = await tx.doc(Job, api.conversationId);
+				j.attempts = n;
+				if (job.maxAttempts - n <= 0) j.status = "exhausted";
+			}, context);
+			const left = job.maxAttempts - n;
+			return left <= 0
+				? { content: [{ type: "text", text: readability + "\nNo submissions left." }], control: { terminate: true } }
+				: { content: [{ type: "text", text: `${readability}\n(${left} submissions left)` }] };
+		}
 		const dir = join(BUILD, "work", WORK_TAG, job.addr);
 		mkdirSync(dir, { recursive: true });
 		const src = join(dir, `t${job.tier}_a${n}.cpp`);
@@ -447,6 +480,7 @@ async function main() {
 			packets: { type: "string", default: join(BUILD, "packets") }, // prebuilt packet dir (A/B tests)
 			mode: { type: "string", default: "match" }, // match | equiv
 			upgrade: { type: "boolean" }, // match mode: start from the function's proven equivalent/ source
+			rewrite: { type: "boolean" }, // equiv mode: readability pass over the proven equivalent/ source
 		},
 	});
 	const tiers: Tier[] = JSON.parse(readFileSync(values.tiers!, "utf8"));
@@ -467,6 +501,8 @@ async function main() {
 	MATCHES_DIR = matchesDir;
 	if (values.mode !== "match" && values.mode !== "equiv") throw new Error(`--mode must be match or equiv`);
 	MODE = values.mode;
+	REWRITE = !!values.rewrite;
+	if (REWRITE && MODE !== "equiv") throw new Error("--rewrite needs --mode equiv");
 	EQUIV_DIR = bench ? join(BUILD, "bench", bench, "equivalent") : join(ROOT, "equivalent");
 	WORK_TAG = bench ?? (lane ? `lane-${lane}` : "main");
 
@@ -503,7 +539,8 @@ async function main() {
 	const invalid = new Set(existsSync(invalidPath) ? readFileSync(invalidPath, "utf8").split("\n").filter(Boolean) : []);
 	for (const a of invalid) finished.delete(a);
 	const isDone = (a: string) => existsSync(join(matchesDir, `${a}.cpp`)) || finished.get(a)?.has(-1)
-		|| (MODE === "equiv" && existsSync(join(EQUIV_DIR, `${a}.cpp`)))
+		|| (MODE === "equiv" && !REWRITE && existsSync(join(EQUIV_DIR, `${a}.cpp`)))
+		|| (REWRITE && !existsSync(join(EQUIV_DIR, `${a}.cpp`)))
 		|| tiers.every((tier, t) => finished.get(a)?.has(t) || !fits(a, tier));
 
 	const fits = (a: string, tier: Tier) => {
@@ -556,6 +593,8 @@ async function main() {
 		let text = existsSync(p) ? readFileSync(p, "utf8") : (await run(PY, [join(ROOT, "tools/packet.py"), "show", addr])).stdout;
 		// --upgrade: the function is already proven behaviourally equivalent; that source is the starting point
 		const eq = join(EQUIV_DIR, `${addr}.cpp`);
+		if (REWRITE && existsSync(eq))
+			text += `\nThis function already has a source proven to behave exactly like the original, but it was written for the checker, not for people (goto copied from the assembly, a raw stack-frame array, or many volatile declarations). Rewrite it as clean, readable C++: structured control flow instead of goto, named locals instead of frame arrays, meaningful names where the packet suggests them, and only the few volatiles that pin x87 rounding where the original stores and reloads a float. Keep the behaviour exactly (same calls, writes and return). Keep every #include line and use the shared declarations they provide (this overrides the no-#include rule); change the function body and its local helper declarations only.\n--- proven source ---\n${readFileSync(eq, "utf8").replace(/^\/\/ STATUS:.*\n/, "")}--- end ---\n`;
 		if (values.upgrade && MODE === "match" && existsSync(eq))
 			text += `\nThis function already has a source proven to behave exactly like the original (tools/equiv.py), but it doesn't compile to identical bytes. Start from it and change only what makes the code differ (declaration order, types, expression order, locals); keep its behaviour.\n--- proven source ---\n${readFileSync(eq, "utf8").replace(/^\/\/ STATUS:.*\n/, "")}--- end ---\n`;
 		return text;
