@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2345 inputs, branch coverage 44/44)
+// STATUS: equivalent (tools/equiv.py level 3: 19780 inputs, branch coverage 44/44)
 // CHand2HandAgent::vfunc_23 @ 0x00101a30
+// checked with equiv.py --time-budget 1200 at 20000 inputs (the default budget stops near 8300)
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" double sqrt(double);
@@ -173,7 +174,7 @@ void CHand2HandAgent::v23(Arg1_101a30 *a1, Out_101a30 *out, int a3)
         v174.x = (float)(lx + a0);
         v174.y = a1_ + ly;
     }
-    v168.z = v174.z + v150.z;
+    v168.z = *(volatile float *)&v174.z + v150.z;
     v168.x = v150.x + v174.x;
     v168.y = v174.y + v150.y;
     p5c->v10.x = v168.x;
@@ -235,12 +236,11 @@ void CHand2HandAgent::v23(Arg1_101a30 *a1, Out_101a30 *out, int a3)
         out->v10c.z = v168.z;
     }
     char d1v = d1;
-    float D1 = vBC.z * f9c + vBC.y * f98 + vBC.x * f94;
+    float D1 = (vBC.z * f9c + vBC.y * f98) + vBC.x * f94;
     if (!d1v && !d3 && f64 > 0.0f && b7c) {
-        double E = vB0.z * f9c + vB0.y * f98 + vB0.x * f94;
         int i = i128;
         const char *nm = 0;
-        if (E < -0.93f) {
+        if ((vB0.z * f9c + vB0.y * f98) + vB0.x * f94 < -0.93f) {
             if (i <= 0)
                 nm = "taunt";
             else if (rng->FUN_00078780() < 0.5f)
