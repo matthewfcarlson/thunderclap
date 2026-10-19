@@ -1,3 +1,0 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2918 inputs, branch coverage 4/4)
-// FUN_002331c0 @ 0x002331c0
-struct Node { virtual void slot0(); virtual void release(); char pad[16]; Node* prev; char pad2[8]; Node* next; }; struct Owner { char pad[28]; Node* head; void FUN_002331c0(); }; void Owner::FUN_002331c0() { Node* node = head; while (node) { Node* next = node->next; node->next = 0; node->prev = 0; node->release(); node = next; } head = 0; }
