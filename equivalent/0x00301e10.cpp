@@ -1,54 +1,62 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3041 inputs, branch coverage 30/30)
 // FUN_00301e10 @ 0x00301e10
-// FUN_00301e10 @ 0x00301e10
 #include "decls/data/engine/unknown.h"
 
 extern "C" double sqrt(double);
 struct Vec3_301e10 {
     float x, y, z;
     float FUN_0022d110();
-    void FUN_00011160(float s, Vec3_301e10 *dir);
-    void FUN_001f6bc0(Vec3_301e10 *base, float s, Vec3_301e10 *dir);
+    void FUN_00011160(float s, Vec3_301e10* dir);
+    void FUN_001f6bc0(Vec3_301e10* base, float s, Vec3_301e10* dir);
 };
-union FloatBits_301e10 { float f; unsigned int u; };
-struct PtrRange_301e10 { char *begin; char *end; };
+union FloatBits_301e10 {
+    float f;
+    unsigned int u;
+};
+struct PtrRange_301e10 {
+    char* begin;
+    char* end;
+};
 class Cap {
-public:
-    virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-    virtual Vec3_301e10 *GetPos();
+  public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual Vec3_301e10* GetPos();
     char pad04[0x10];
-    PtrRange_301e10 *list;
+    PtrRange_301e10* list;
     char pad18[0x44 - 0x18];
     Vec3_301e10 dir;
     float radius;
     float half;
 };
 class Collider_301e10 {
-public:
+  public:
     char pad00[0xc];
     float margin;
     char pad10[4];
     Vec3_301e10 d;
-    char FUN_00315620(Vec3_301e10 *out, Vec3_301e10 *axis, float ext, Vec3_301e10 *u, Vec3_301e10 *b, float f50, float *kv, float L, float m, Cap *a, Cap *cap);
-    void FUN_00314be0(Cap *a, Vec3_301e10 *p1, Cap *b, Vec3_301e10 *p2, float depth, Vec3_301e10 *dir);
-    void FUN_00318bb0(Cap *a, Cap *b);
-    void FUN_00318910(Cap *a, Cap *b);
-    void FUN_00317700(Cap *a, Cap *b, int x, int y);
-    void FUN_00301e10(Cap *a, Cap *b);
+    char FUN_00315620(Vec3_301e10* out, Vec3_301e10* axis, float ext, Vec3_301e10* u, Vec3_301e10* b,
+                      float f50, float* kv, float L, float m, Cap* a, Cap* cap);
+    void FUN_00314be0(Cap* a, Vec3_301e10* p1, Cap* b, Vec3_301e10* p2, float depth, Vec3_301e10* dir);
+    void FUN_00318bb0(Cap* a, Cap* b);
+    void FUN_00318910(Cap* a, Cap* b);
+    void FUN_00317700(Cap* a, Cap* b, int x, int y);
+    void FUN_00301e10(Cap* a, Cap* b);
 };
 
-void Collider_301e10::FUN_00301e10(Cap *a, Cap *b)
-{
+void Collider_301e10::FUN_00301e10(Cap* a, Cap* b) {
     Vec3_301e10 k, contactA, contactB, axial, radial;
     float radialGap;
-    Vec3_301e10 *posA = a->GetPos();
-    Vec3_301e10 *posB = b->GetPos();
+    Vec3_301e10* posA = a->GetPos();
+    Vec3_301e10* posB = b->GetPos();
     d.x = posB->x - posA->x;
     d.y = posB->y - posA->y;
     d.z = posB->z - posA->z;
 
-    Vec3_301e10 *axisA = &a->dir;
-    Vec3_301e10 *axisB = &b->dir;
+    Vec3_301e10* axisA = &a->dir;
+    Vec3_301e10* axisB = &b->dir;
     double crossX = axisA->y * axisB->z - axisA->z * axisB->y;
     double crossY = axisA->z * axisB->x - axisA->x * axisB->z;
     volatile float crossZ = axisA->x * axisB->y - axisA->y * axisB->x;
@@ -89,7 +97,10 @@ void Collider_301e10::FUN_00301e10(Cap *a, Cap *b)
                 bool aHasItems = a->list && ((int)(a->list->end - a->list->begin) & ~3) != 0;
                 if (!aHasItems) {
                     bool bHasItems = b->list && ((int)(b->list->end - b->list->begin) & ~3) != 0;
-                    if (!bHasItems && FUN_00315620(&contactA, axisA, a->radius, &contactB, axisB, b->radius, &k.x, length, roundedSeparation, a, b) && (*(char*)&DAT_00555481) == 0)
+                    if (!bHasItems &&
+                        FUN_00315620(&contactA, axisA, a->radius, &contactB, axisB, b->radius, &k.x, length,
+                                     roundedSeparation, a, b) &&
+                        (*(char*)&DAT_00555481) == 0)
                         return;
                 }
             }
@@ -121,7 +132,7 @@ void Collider_301e10::FUN_00301e10(Cap *a, Cap *b)
                         contactA.y = axial.y * a->radius;
                         contactA.z = axial.z * a->radius;
                         contactA.FUN_00011160(a->half, &radial);
-                        Vec3_301e10 *origin = a->GetPos();
+                        Vec3_301e10* origin = a->GetPos();
                         contactA.x = contactA.x + origin->x;
                         contactA.y = contactA.y + origin->y;
                         contactA.z = contactA.z + origin->z;

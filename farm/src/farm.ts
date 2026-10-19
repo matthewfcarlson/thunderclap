@@ -315,7 +315,10 @@ const submitCpp = defineTool({
 			const cov = l3.coverage ?? {};
 			const head = `// STATUS: equivalent (tools/equiv.py level 3: ${l3.inputs_run} inputs, branch coverage ${cov.edges_covered}/${cov.edges_total}${cov.complete ? "" : ", incomplete"})\n`
 				+ `// ${eq.target ?? job.addr} @ ${job.addr}\n`;
-			writeFileSync(join(EQUIV_DIR, `${job.addr}.cpp`), head + args.code);
+			const dest = join(EQUIV_DIR, `${job.addr}.cpp`);
+			writeFileSync(dest, head + args.code.replace(/^\/\/ STATUS:.*\n(?:\/\/ .* @ 0x[0-9a-f]+\n)?/, ""));
+			// clang-format it; the formatter recompiles and keeps the original unless the object code is identical.
+			await run(PY, [join(ROOT, "tools/format_equivalents.py"), dest, "--jobs", "1"], { timeout: 300_000 }).catch(() => {});
 			return { content: [{ type: "text", text: "EQUIVALENT. Done." }], control: { terminate: true } };
 		}
 		if (left <= 0) {
@@ -594,7 +597,7 @@ async function main() {
 		// --upgrade: the function is already proven behaviourally equivalent; that source is the starting point
 		const eq = join(EQUIV_DIR, `${addr}.cpp`);
 		if (REWRITE && existsSync(eq))
-			text += `\nThis function already has a source proven to behave exactly like the original, but it was written for the checker, not for people (goto copied from the assembly, a raw stack-frame array, or many volatile declarations). Rewrite it as clean, readable C++: structured control flow instead of goto, named locals instead of frame arrays, meaningful names where the packet suggests them, and only the few volatiles that pin x87 rounding where the original stores and reloads a float. Keep the behaviour exactly (same calls, writes and return). Keep every #include line and use the shared declarations they provide (this overrides the no-#include rule); change the function body and its local helper declarations only.\n--- proven source ---\n${readFileSync(eq, "utf8").replace(/^\/\/ STATUS:.*\n/, "")}--- end ---\n`;
+			text += `\nThis function already has a source proven to behave exactly like the original, but it was written for the checker, not for people (goto copied from the assembly, a raw stack-frame array, or many volatile declarations). Rewrite it as clean, readable C++: structured control flow instead of goto, named locals instead of frame arrays, meaningful names where the packet suggests them, and only the few volatiles that pin x87 rounding where the original stores and reloads a float. Keep the behaviour exactly (same calls, writes and return). Keep every #include line and use the shared declarations they provide (this overrides the no-#include rule); change the function body and its local helper declarations only. Don't compress the file: keep its blank lines, comments, parameter names and one declaration per line; the goal is code a person can read.\n--- proven source ---\n${readFileSync(eq, "utf8").replace(/^\/\/ STATUS:.*\n(?:\/\/ .* @ 0x[0-9a-f]+\n)?/, "")}--- end ---\n`;
 		if (values.upgrade && MODE === "match" && existsSync(eq))
 			text += `\nThis function already has a source proven to behave exactly like the original (tools/equiv.py), but it doesn't compile to identical bytes. Start from it and change only what makes the code differ (declaration order, types, expression order, locals); keep its behaviour.\n--- proven source ---\n${readFileSync(eq, "utf8").replace(/^\/\/ STATUS:.*\n/, "")}--- end ---\n`;
 		return text;

@@ -9,7 +9,7 @@ struct V3_38660 {
 struct Rng_38660 {
     int FUN_00011380(int a, int b);
 };
-Rng_38660 *FUN_000964d0();
+Rng_38660* FUN_000964d0();
 
 struct Rc {
     char pad0[0xc];
@@ -22,23 +22,23 @@ struct Sub74_38660 {
 };
 struct Sub_38660 {
     char pad0[0x74];
-    Sub74_38660 *p74;
+    Sub74_38660* p74;
 };
 struct Link_38660 {
     char pad0[0x74];
-    Sub74_38660 *p74;
+    Sub74_38660* p74;
 };
 struct Ent_38660 {
-    Sub_38660 *FUN_001d72e0();
+    Sub_38660* FUN_001d72e0();
 };
 
 struct Player_38660 {
     char pad0[0x124];
-    void *f124;
+    void* f124;
 };
 struct World {
     char pad0[0x20];
-    Player_38660 *p20;
+    Player_38660* p20;
 };
 
 struct Slot_38660 {
@@ -46,7 +46,7 @@ struct Slot_38660 {
     float x1, y1, z1;
     float x2, y2, z2;
     float x3, y3, z3;
-    Rc *ptr;
+    Rc* ptr;
     char flag;
     char pad35[3];
 };
@@ -57,30 +57,32 @@ struct Opts_38660 {
     float c;
 };
 
-void FUN_000187d0(Rc **slot);
-void FUN_00018810(Rc **slot, int z);
+void FUN_000187d0(Rc** slot);
+void FUN_00018810(Rc** slot, int z);
 char FUN_00018960(float a, float b, float eps);
-void FUN_00224d70(float angle, V3_38660 *v);
-float FUN_00224f10(V3_38660 *v);
-char FUN_00202560(V3_38660 *from, int a2, int flag, V3_38660 *a3, V3_38660 *a4, V3_38660 *o38, V3_38660 *o48, Opts_38660 *opts);
+void FUN_00224d70(float angle, V3_38660* v);
+float FUN_00224f10(V3_38660* v);
+char FUN_00202560(V3_38660* from, int a2, int flag, V3_38660* a3, V3_38660* a4, V3_38660* o38, V3_38660* o48,
+                  Opts_38660* opts);
 extern "C" int __cdecl FUN_0034483c();
 
 class Mover_38660 {
-public:
+  public:
     char pad0[0x128];
-    Ent_38660 *p128;
-    Link_38660 *p12c;
+    Ent_38660* p128;
+    Link_38660* p12c;
     char pad130[0x334 - 0x130];
-    void *f334;
-    void *f338;
+    void* f334;
+    void* f338;
     char pad33c[0x1ea8 - 0x33c];
     Slot_38660 slots[3];
     void FUN_00035fa0(int z);
-    char F(V3_38660 *a1, int a2, V3_38660 *a3, V3_38660 *a4, V3_38660 *a5, int *a6, int idx, char *a8, V3_38660 *a9);
+    char F(V3_38660* a1, int a2, V3_38660* a3, V3_38660* a4, V3_38660* a5, int* a6, int idx, char* a8,
+           V3_38660* a9);
 };
 
-char Mover_38660::F(V3_38660 *a1, int a2, V3_38660 *a3, V3_38660 *a4, V3_38660 *a5, int *a6, int idx, char *a8, V3_38660 *a9)
-{
+char Mover_38660::F(V3_38660* a1, int a2, V3_38660* a3, V3_38660* a4, V3_38660* a5, int* a6, int idx,
+                    char* a8, V3_38660* a9) {
     struct Frame {
         Opts_38660 opts;
         V3_38660 D;
@@ -91,27 +93,27 @@ char Mover_38660::F(V3_38660 *a1, int a2, V3_38660 *a3, V3_38660 *a4, V3_38660 *
     } fr;
     char result;
     char isPlayer;
-    char *flagOut;
+    char* flagOut;
 
-    World *w0 = DAT_004dd700;
+    World* w0 = DAT_004dd700;
     if (p12c) {
-        Sub74_38660 *x = p12c->p74;
+        Sub74_38660* x = p12c->p74;
         if (x)
             x->b72 = 0;
     }
     if (p128) {
-        Sub_38660 *r = p128->FUN_001d72e0();
+        Sub_38660* r = p128->FUN_001d72e0();
         if (r) {
-            Sub74_38660 *y = r->p74;
+            Sub74_38660* y = r->p74;
             if (y)
                 y->b72 = 0;
         }
     }
     FUN_00035fa0(0);
     if (idx >= 0 && idx < 3) {
-        Slot_38660 *s = &slots[idx];
+        Slot_38660* s = &slots[idx];
         if (s->flag != 0) {
-            Rc *rc = s->ptr;
+            Rc* rc = s->ptr;
             if (rc != 0 && rc->f0c == 0) {
                 s->flag = 0;
                 FUN_000187d0(&s->ptr);
@@ -121,7 +123,7 @@ char Mover_38660::F(V3_38660 *a1, int a2, V3_38660 *a3, V3_38660 *a4, V3_38660 *
     flagOut = a8;
     if (flagOut)
         *flagOut = 0;
-    isPlayer = w0->p20->f124 == (void *)this;
+    isPlayer = w0->p20->f124 == (void*)this;
     result = 1;
     float tol1 = 0.4f, tol0 = 0.4f, tol2 = 0.4f;
     if (isPlayer) {
@@ -131,8 +133,11 @@ char Mover_38660::F(V3_38660 *a1, int a2, V3_38660 *a3, V3_38660 *a4, V3_38660 *
     }
     fr.opts.c = tol2;
     if (idx >= 0 && idx < 3 && slots[idx].flag) {
-        Slot_38660 *s = &slots[idx];
-        union { float f; unsigned int u; } t;
+        Slot_38660* s = &slots[idx];
+        union {
+            float f;
+            unsigned int u;
+        } t;
         t.f = a1->x - s->x0;
         t.u &= 0x7fffffff;
         if (t.f < tol1) {
@@ -166,8 +171,8 @@ char Mover_38660::F(V3_38660 *a1, int a2, V3_38660 *a3, V3_38660 *a4, V3_38660 *
     }
     {
         int notOwner = 0;
-        void *pl = DAT_004dd700->p20->f124;
-        if ((void *)this != pl && f338 != pl && f334 != pl)
+        void* pl = DAT_004dd700->p20->f124;
+        if ((void*)this != pl && f338 != pl && f334 != pl)
             notOwner = 1;
         fr.opts.flag = notOwner;
         fr.o48.x = 0;
@@ -219,8 +224,8 @@ char Mover_38660::F(V3_38660 *a1, int a2, V3_38660 *a3, V3_38660 *a4, V3_38660 *
             goto epilogue;
         }
     success:
-        if (*(int *)&fr.o48.x == 0 && idx >= 0 && idx < 3) {
-            Slot_38660 *s = &slots[idx];
+        if (*(int*)&fr.o48.x == 0 && idx >= 0 && idx < 3) {
+            Slot_38660* s = &slots[idx];
             s->flag = 1;
             s->x0 = a1->x;
             s->y0 = a1->y;
@@ -242,19 +247,19 @@ char Mover_38660::F(V3_38660 *a1, int a2, V3_38660 *a3, V3_38660 *a4, V3_38660 *
             a5->z = fr.o38.z;
         }
         if (a6)
-            *a6 = *(int *)&fr.o48.x;
+            *a6 = *(int*)&fr.o48.x;
     }
 epilogue:
     FUN_00035fa0(1);
     if (p12c) {
-        Sub74_38660 *x = p12c->p74;
+        Sub74_38660* x = p12c->p74;
         if (x)
             x->b72 = 1;
     }
     if (p128) {
-        Sub_38660 *r = p128->FUN_001d72e0();
+        Sub_38660* r = p128->FUN_001d72e0();
         if (r) {
-            Sub74_38660 *y = r->p74;
+            Sub74_38660* y = r->p74;
             if (y)
                 y->b72 = 1;
         }
