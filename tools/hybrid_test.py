@@ -440,7 +440,7 @@ def replay_from_snapshot(args, data):
     res = resume_snapshot(data, snap, "replay-snap")
     x, man = res["x"], res["man"]
     rec = {"inputs": [], "checkpoints": {}, "frames": snap["frame"], "polls": snap["polls"]}
-    seen = {"inputs": 0, "t0": x.t0, "ckpts": res["ckpt_count"]}
+    seen = {"inputs": snap.get("inputs", 0), "t0": x.t0, "ckpts": res["ckpt_count"]}
     feeder = ReplayFeeder(man, data["inputs"], g=res["g"], avail=res["avail"])        # (this starts the VM)
     t_run = time.time()
     limit = args.seconds or ((want - snap["frame"]) / 8 + 120)
