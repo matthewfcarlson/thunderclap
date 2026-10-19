@@ -446,6 +446,7 @@ async function main() {
 			lane: { type: "string" }, // parallel worker lane: own ledger/db, but writes to and skips main matches/
 			packets: { type: "string", default: join(BUILD, "packets") }, // prebuilt packet dir (A/B tests)
 			mode: { type: "string", default: "match" }, // match | equiv
+			upgrade: { type: "boolean" }, // match mode: start from the function's proven equivalent/ source
 		},
 	});
 	const tiers: Tier[] = JSON.parse(readFileSync(values.tiers!, "utf8"));
@@ -552,9 +553,12 @@ async function main() {
 
 	async function packet(addr: string): Promise<string> {
 		const p = join(values.packets!, `${addr}.txt`);
-		if (existsSync(p)) return readFileSync(p, "utf8");
-		const { stdout } = await run(PY, [join(ROOT, "tools/packet.py"), "show", addr]);
-		return stdout;
+		let text = existsSync(p) ? readFileSync(p, "utf8") : (await run(PY, [join(ROOT, "tools/packet.py"), "show", addr])).stdout;
+		// --upgrade: the function is already proven behaviourally equivalent; that source is the starting point
+		const eq = join(EQUIV_DIR, `${addr}.cpp`);
+		if (values.upgrade && MODE === "match" && existsSync(eq))
+			text += `\nThis function already has a source proven to behave exactly like the original (tools/equiv.py), but it doesn't compile to identical bytes. Start from it and change only what makes the code differ (declaration order, types, expression order, locals); keep its behaviour.\n--- proven source ---\n${readFileSync(eq, "utf8").replace(/^\/\/ STATUS:.*\n/, "")}--- end ---\n`;
+		return text;
 	}
 
 	type Handoff = { code: string; report: string; history: NonNullable<JobState["history"]>; models: string[] };

@@ -1,7 +1,7 @@
 #!/bin/sh
 # Run a farm lane over a queue in batches, committing + pushing after each batch.
 # Stops when the queue is done or a budget/credit stop is hit.
-# Usage: [MODE=equiv] farm/lane.sh LANE QUEUE TIERS [batch] [concurrency]
+# Usage: [MODE=equiv] [FARM_EXTRA=--upgrade] farm/lane.sh LANE QUEUE TIERS [batch] [concurrency]
 # Subscription tiers that hit their usage window (429) wait it out instead of stopping the lane.
 set -u
 cd "$(dirname "$0")/.."
@@ -11,7 +11,7 @@ IDLE=0
 LOG=build/farm/lane-$LANE.log
 while :; do
     START=$(wc -l < "$LOG" 2>/dev/null || echo 0)
-    farm/run.sh --lane "$LANE" --mode "${MODE:-match}" --queue "$QUEUE" --tiers "$TIERS" --limit "$BATCH" --concurrency "$CONC" >> "$LOG" 2>&1
+    farm/run.sh --lane "$LANE" --mode "${MODE:-match}" --queue "$QUEUE" --tiers "$TIERS" --limit "$BATCH" --concurrency "$CONC" ${FARM_EXTRA:-} >> "$LOG" 2>&1
     $PY tools/progress.py --readme >> "$LOG" 2>&1
     # Stage only this lane's own results: other agents leave files in matches/ and equivalent/ that
     # they commit themselves, and sweeping them in mislabels the commit.
