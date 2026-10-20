@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 15/20, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20055 inputs, branch coverage 20/20)
 // FUN_002771b0 @ 0x002771b0
 bool __cdecl FUN_002674f0(const char*, const char*);
 bool __cdecl FUN_002771b0(const char* path)

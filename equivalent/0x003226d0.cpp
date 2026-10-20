@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 18904 inputs, branch coverage 6/6)
 // FUN_003226d0 @ 0x003226d0
 #include "compat/ptr.h"
 namespace D3D8 {

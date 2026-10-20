@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 14/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20053 inputs, branch coverage 16/16)
 // FUN_00320330 @ 0x00320330
 #include "compat/ptr.h"
 struct SurfaceDesc_320330 {

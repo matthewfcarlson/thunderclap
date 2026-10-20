@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3031 inputs, branch coverage 31/32, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20031 inputs, branch coverage 31/32, incomplete)
 // pure3d::d3dDisplay::vfunc_4 @ 0x0031ae70
 #include "decls/data/engine/unknown.h"
 

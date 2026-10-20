@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 278 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 18370 inputs, branch coverage 6/6)
 // pure3d::MultiController::vfunc_7 @ 0x002b2040
 struct Controller_2b2040 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
 // FUN_0032f2e0 @ 0x0032f2e0
 struct Resource_32f2e0 { Resource_32f2e0* FUN_00326110(void* owner, int flag); };
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
