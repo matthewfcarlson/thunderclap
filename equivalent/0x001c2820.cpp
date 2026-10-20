@@ -1,3 +1,0 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
-// FUN_001c2820 @ 0x001c2820
-struct Plane { float x, y, z, w; }; struct Volume { int count; Plane planes[1]; unsigned char FUN_001c2820(const float* point); }; unsigned char Volume::FUN_001c2820(const float* point) { for (int i = count - 1; i >= 0; --i) { const Plane& p = planes[i]; float dot = p.x * point[0] + p.z * point[2] + p.y * point[1]; float distance = point[3] - p.w; if (!(distance >= dot)) return 0; } return 1; }
