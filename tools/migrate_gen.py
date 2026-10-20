@@ -10,6 +10,7 @@ address names). Re-runnable, logged, and every rewrite is verified before it is 
   build/venv/bin/python tools/migrate_gen.py --family ns --apply      # rtti-ns / clone-ns
   build/venv/bin/python tools/migrate_gen.py --only matches/0x0004e980.cpp --show
   build/venv/bin/python tools/migrate_gen.py --family pin --no-verify --show    # plan only, compile nothing
+  build/venv/bin/python tools/migrate_gen.py --family rn --batch build/rn1/batches/c1-unclash-matches-refined.json --apply
 
 Rules. The target is the build/functions.csv name of the source's address.
 
@@ -36,6 +37,13 @@ Rules. The target is the build/functions.csv name of the source's address.
                   (`struct FaceTargetAction` -> `namespace hulkfight { namespace ai { struct FaceTargetAction`).
   clone-ns        a clone defining its donor's `A::m` for target `ns::B::m`: A becomes ns::B (reconcile_stubs.py's
                   clone-class rule for namespaced targets).
+  rn family (docs/consolidation-plan.md; one batch file of `tools/rn_plan.py --batches` per run; the rewrites are
+  in tools/rn_transform.py; log build/migrate-rn.log, list build/rn-migrated.txt, originals build/rn-orig/):
+  unclash         a private stub named like an include/gen/ class but of another class (tools/rn_map.py) takes the
+                  real class's name with the source's placeholder suffix (`CTrack` -> `ConditionFactory_23d3d0`).
+  gen-ref         a stub the source only uses goes onto its include/gen/ class (fields -> `f_XX`, virtual calls ->
+                  the header's slot names, non-virtual calls through a `<Class>_nv_<addr>` declaration struct).
+  A source's batch items are applied in order (gen-ref first); an item that fails is left out, the others kept.
 
 Identifiers are renamed token by token (comments, strings, preprocessor lines and `// equiv-*` lines keep their
 bytes; a rule refuses a source whose equiv-* lines name what it would change); the leading comment block and any
@@ -471,14 +479,48 @@ def equiv_cli(path, addr, inputs):
     return (m.group(1).lower() if m else "error"), first
 
 
+def rn_apply(rel, addr, text, items, hdb, taken, work):
+    """rn family: apply a source's batch items in order (gen-ref first: it reads the stubs' original AST, then the
+    renames). (rule, new text, header, what); an item that fails is left out, SwapFail if none applies."""
+    import rn_transform
+    tmp = os.path.join(work, "rn-ast", os.path.dirname(rel))
+    os.makedirs(tmp, exist_ok=True)
+    p = os.path.join(tmp, os.path.basename(rel))
+    rules, whats, fails, hdrs = [], [], [], set()
+    keep = set(items[0].get("keep", ())) if items else set()
+    for it in sorted(items, key=lambda x: x["rule"] != "gen-ref"):
+        try:
+            if it["rule"] == "unclash":
+                new, what = rn_transform.unclash_transform(text, addr, it["stub"], it["real"])
+            elif it["rule"] == "gen-ref":
+                with open(p, "w", encoding="latin1", newline="") as f:
+                    f.write(text)
+                new, what = rn_transform.genref_transform(p, text, it["stub"], it["real"], hdb, addr, taken, keep)
+                hdrs.add("gen/" + hdb[it["real"]]["header"])
+            else:
+                raise gh.SwapFail("unknown rule %s" % it["rule"])
+        except gh.SwapFail as e:
+            fails.append("%s %s: %s" % (it["rule"], it["stub"], e))
+            continue
+        text = new
+        rules.append(it["rule"])
+        whats.append(what)
+    if not rules:
+        raise gh.SwapFail(fails[0] if len(fails) == 1 else "; ".join(fails)[:200] if fails else "nothing to do")
+    rule = "+".join(sorted(set(rules), key=rules.index))
+    return rule, text, ",".join(sorted(hdrs)) or "rn/none", "; ".join(whats) + (" [failed: %s]" % "; ".join(fails) if fails else "")
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--apply", action="store_true", help="rewrite the sources that still verify")
     ap.add_argument("--only", nargs="*", help="limit to these source paths")
-    ap.add_argument("--family", choices=("gen", "pin", "ns"), default="gen",
-                    help="gen: gen-swap + clone-template (default); pin: pin-decl; ns: rtti-ns")
-    ap.add_argument("--rule", choices=("gen-swap", "clone-template", "gen-dtor", "pin-decl", "rtti-ns", "clone-ns"),
+    ap.add_argument("--family", choices=("gen", "pin", "ns", "rn"), default="gen",
+                    help="gen: gen-swap + clone-template (default); pin: pin-decl; ns: rtti-ns; rn: a --batch file")
+    ap.add_argument("--rule", choices=("gen-swap", "clone-template", "gen-dtor", "pin-decl", "rtti-ns", "clone-ns",
+                                       "unclash", "gen-ref"),
                     action="append")
+    ap.add_argument("--batch", help="rn family: the batch file (tools/rn_plan.py --batches)")
     ap.add_argument("--equivalent", action="store_true", help="also equivalent/ sources (checked with equiv.py)")
     ap.add_argument("--equiv-inputs", type=int, default=3000)
     ap.add_argument("--limit", type=int)
@@ -486,6 +528,13 @@ def main(argv=None):
     ap.add_argument("--show", action="store_true", help="print the rewritten text")
     ap.add_argument("--no-verify", action="store_true", help="plan only: rewrite into the scratch dir, compile nothing")
     a = ap.parse_args(argv)
+    if a.family == "rn":
+        if not a.batch:
+            ap.error("--family rn needs --batch")
+        global LOG, ORIG, CHANGED
+        LOG = os.path.join(ROOT, "build/migrate-rn.log")
+        ORIG = os.path.join(ROOT, "build/rn-orig")
+        CHANGED = os.path.join(ROOT, "build/rn-migrated.txt")
     g = Gen.get()
     names = load_names()
     rtti = rtti_simple_names() if a.family != "gen" else set()
@@ -498,6 +547,15 @@ def main(argv=None):
         gen_tu_srcs = {b.path for t in gt.tus if t.gen for b in t.blocks}
     if a.family == "pin":
         pins = load_pins()
+    rn_items = collections.defaultdict(list)
+    if a.family == "rn":
+        import rn_transform
+        batch = json.load(open(a.batch))
+        for it in batch["items"]:
+            if a.rule and it["rule"] not in a.rule:
+                continue
+            rn_items[it["source"]].append(it)
+        rn_hdb, rn_taken = rn_transform.load_hdb(), rn_transform.gen_taken()
     dirs = ("matches", "equivalent") if a.equivalent else ("matches",)
     in_matches = {int(f[2:10], 16) for f in os.listdir(os.path.join(ROOT, "matches")) if f.endswith(".cpp")}
     todo, skipped = [], collections.Counter()
@@ -517,6 +575,8 @@ def main(argv=None):
                     "already includes " + DECLS
             elif a.family == "ns":
                 why = ns_skip(text) or ("its TU is on include/gen/" if rel in gen_tu_srcs else None)
+            elif a.family == "rn":
+                why = None if rel in rn_items else "not in the batch"
             else:
                 why = skip_reason(text, names.get(addr), g)
             if why:
@@ -533,13 +593,15 @@ def main(argv=None):
                 rule, new, hdr, cls = pin_transform(rel, addr, text, rtti)
             elif a.family == "ns":
                 rule, new, hdr, cls = ns_transform(rel, addr, text, rtti, target)
+            elif a.family == "rn":
+                rule, new, hdr, cls = rn_apply(rel, addr, text, rn_items[rel], rn_hdb, rn_taken, work)
             else:
                 rule, new, hdr, cls = transform(g, os.path.join(ROOT, rel), target)
         except gh.SwapFail as e:
             return rel, addr, None, "rewrite: " + str(e), None
         except Exception as e:  # noqa: BLE001 - one odd source must not stop the run
             return rel, addr, None, "rewrite crash: %s %s" % (type(e).__name__, str(e)[:60]), None
-        if a.rule and rule not in a.rule:
+        if a.rule and a.family != "rn" and rule not in a.rule:
             return rel, addr, None, "rule %s not selected" % rule, None
         if a.family == "gen" and a.equivalent and EQUIV_LINE.search(text):
             # equiv-* annotations may name stub types or mangled names the rewrite changes
