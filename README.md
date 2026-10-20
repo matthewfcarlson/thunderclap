@@ -62,7 +62,7 @@ Full plan: [`docs/roadmap.md`](docs/roadmap.md).
 - [x] Asset tools: RCF unpack/repack, P3D → PNG/glTF
 - [x] **1. Map the platform boundary**: XDK/kernel/D3D calls from game code; render/camera/HUD/game-loop subsystems
 - [ ] **2. Shared headers and real types/names**: headers generated and verified; 9,159 sources migrated onto them (tree 77% merged). Next: constructors in the headers, the remaining stub classes, real names.
-- [ ] **3. Source for every game function**: byte-matched where cheap, behaviour-verified *equivalent* for large ones. 97% of bytes verified; about 1,100 functions (79 KB) to go, all but 7 under 100 bytes.
+- [x] **3. Source for every game function**: byte-matched where cheap, behaviour-verified *equivalent* for large ones. Every game function has verified source (table above); the one address left, 0x0035c5b0, is 304 bytes of data, not a function.
   - Port-priority functions (platform seams first): 95% verified.
 - [ ] **4. Data**: globals, tables, vtables, strings. Inventory and byte-verified data files done; wiring sources onto the named items is in progress.
 - [ ] **5. Hybrid build in xemu**: boots with 14,614 functions patched in. Next: trace replay of real game state for every equivalent (in progress) so the build only includes equivalents that agree on it, then the full scenario suite ([`docs/tasks/10-hybrid-test-plan.md`](docs/tasks/10-hybrid-test-plan.md)). *ETA: 2–4 days after a replay recording (estimate).*

@@ -36,7 +36,7 @@ Claude-Session: https://claude.ai/code/session_011A8Mi5d28UHDdVom8hvHuu" && { gi
         echo "== usage limit $(date); waiting 30 min" >> "$LOG"; IDLE=0; sleep 1800; continue
     fi
     # Already-finished jobs replay instantly at $0, so a queue of only those never hits "0 functions".
-    [ "$IDLE" -ge 3 ] && { echo "== stalled: 3 chunks with no new matches" >> "$LOG"; break; }
+    [ "$IDLE" -ge 3 ] && { echo "== stalled: 3 chunks with no new results" >> "$LOG"; break; }
     # Only this batch's output: an older run's "0 functions" line must not stop a new run.
     tail -n +"$((START + 1))" "$LOG" | grep -Eq 'farm( \(equivalent mode\))?: 0 functions' && break
     tail -n +"$((START + 1))" "$LOG" | grep -q 'skipping paid tiers' && break
