@@ -1,14 +1,11 @@
-struct CActorManager {
+#include "gen/global.h"
+
+struct CActorManager_2d800 {
     char unused;
 };
-struct Method4 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(CActorManager*, const char*, void*);
-    char pad[0x18];
-    void (CActorManager::*method)(const char*, float, int, float);
-};
-void Method4::vfunc_2(CActorManager* actor, const char* args, void*) {
+
+template <> void Method4<CActorManager, void, const char *, float, int, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2d800 * actor = (CActorManager_2d800 *)__p0; const char * args = (const char *)__p1;
+
     const char* name = *(const char**)args;
     args += 4;
     float value = *(float*)args;
@@ -16,5 +13,5 @@ void Method4::vfunc_2(CActorManager* actor, const char* args, void*) {
     int count = *(int*)args;
     args += 4;
     float other = *(float*)args;
-    (actor->*method)(name, value, count, other);
+    (actor->*(*(void (CActorManager_2d800::**)(const char *, float, int, float))&this->f_1c))(name, value, count, other);
 }

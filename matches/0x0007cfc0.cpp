@@ -1,24 +1,22 @@
-class Function {
+#include "gen/global.h"
+
+class Function_7cfc0 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
 };
-class CAmbientsManager {
+class CAmbientsManager_7cfc0 {
   public:
     void invoke(const char*, bool);
 };
-class Method2 : public Function {
-  public:
-    char pad[0x18];
-    void (CAmbientsManager::*fn)(const char*, bool);
-    virtual void vfunc_2(CAmbientsManager*, void*, void*);
-};
-void Method2::vfunc_2(CAmbientsManager* obj, void* args, void* unused) {
+
+template <> void Method2<CAmbientsManager, void, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CAmbientsManager_7cfc0 * obj = (CAmbientsManager_7cfc0 *)__p0; void * args = (void *)__p1; void * unused = (void *)__p2;
+
     struct Args {
         const char* s;
         bool b;
     };
     Args* a = (Args*)args;
-    (obj->*fn)(a->s, a->b);
+    (obj->*(*(void (CAmbientsManager_7cfc0::**)(const char *, bool))&this->f_1c))(a->s, a->b);
 }

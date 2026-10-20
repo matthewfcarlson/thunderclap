@@ -1,30 +1,28 @@
-class CSPManager {
+#include "gen/global.h"
+
+class CSPManager_1e1b50 {
   public:
     void Fn(int, float, float, float);
 };
-class Function {
+class Function_1e1b50 {
   public:
     virtual void A();
     virtual void B();
     virtual void C();
 };
-class Method4 : public Function {
+class Method4_1e1b50 : public Function_1e1b50 {
   public:
     char pad[24];
-    void (CSPManager::*fn)(int, float, float, float);
-    CSPManager* obj;
+    void (CSPManager_1e1b50::*fn)(int, float, float, float);
+    CSPManager_1e1b50* obj;
 };
-class Closure4 : public Method4 {
-  public:
-    virtual void A();
-    virtual void B();
-    virtual void C(int, const float*, int);
-};
-void Closure4::C(int x, const float* p, int y) {
+
+template <> void Closure4<CSPManager, void, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { int x = (int)__p0; const float * p = (const float *)__p1; int y = (int)__p2;
+
     const int* q = (const int*)p;
     int a = *q++;
     volatile int b = *q++;
     int d = q[1];
     int c = q[0];
-    (obj->*fn)(a, *(float*)&b, *(float*)&c, *(float*)&d);
+    ((*(CSPManager_1e1b50 * *)&this->f_20)->*(*(void (CSPManager_1e1b50::**)(int, float, float, float))&this->f_1c))(a, *(float*)&b, *(float*)&c, *(float*)&d);
 }

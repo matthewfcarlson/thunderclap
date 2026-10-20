@@ -1,18 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method3<CTriggerVolumeManager,void,const_char_*,int,bool>::vfunc_2 @ 0x001ff340
-struct CTriggerVolumeManager {};
+#include "gen/global.h"
+
+struct CTriggerVolumeManager_1ff340 {};
 struct TriggerArguments {
     const char *name;
     int value;
     bool enabled;
 };
-struct Method3 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(CTriggerVolumeManager *manager, TriggerArguments *args, void *unused);
-    char reserved[0x18];
-    void (CTriggerVolumeManager::*method)(const char *, int, bool);
-};
-void Method3::vfunc_2(CTriggerVolumeManager *manager, TriggerArguments *args, void *unused) {
-    (manager->*method)(args->name, args->value, args->enabled);
+
+template <> void Method3<CTriggerVolumeManager, void, const char *, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1ff340 * manager = (CTriggerVolumeManager_1ff340 *)__p0; TriggerArguments * args = (TriggerArguments *)__p1; void * unused = (void *)__p2;
+
+    (manager->*(*(void (CTriggerVolumeManager_1ff340::**)(const char *, int, bool))&this->f_1c))(args->name, args->value, args->enabled);
 }

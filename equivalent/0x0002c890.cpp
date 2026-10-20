@@ -1,16 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method3<CActorManager,void,const_char_*,float,bool>::vfunc_2 @ 0x0002c890
-struct CActorManager { void FUN_0002c890(const char *, float, bool); };
+#include "gen/global.h"
+
+struct CActorManager_2c890 { void FUN_0002c890(const char *, float, bool); };
 struct CallArguments { const char *text; float value; bool enabled; };
-class Method3 {
-public:
- virtual void vfunc_0();
- virtual void vfunc_1();
- virtual void vfunc_2(CActorManager *actor, const CallArguments *arguments, int unused);
- char padding[0x18];
- void (CActorManager::*callback)(const char *, float, bool);
-};
-void Method3::vfunc_2(CActorManager *actor, const CallArguments *arguments, int unused)
-{
- (actor->*callback)(arguments->text, arguments->value, arguments->enabled);
+
+template <> void Method3<CActorManager, void, const char *, float, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2c890 * actor = (CActorManager_2c890 *)__p0; const CallArguments * arguments = (const CallArguments *)__p1; int unused = (int)__p2;
+
+ (actor->*(*(void (CActorManager_2c890::**)(const char *, float, bool))&this->f_1c))(arguments->text, arguments->value, arguments->enabled);
 }

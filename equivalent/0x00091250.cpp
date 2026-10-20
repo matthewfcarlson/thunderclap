@@ -1,17 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Closure3<CStatsManager,void,char_*,char_*,int>::vfunc_2 @ 0x00091250
-struct CStatsManager {
+#include "gen/global.h"
+
+struct CStatsManager_91250 {
     void FUN_00091250(char *, char *, int);
 };
 struct Arguments { char *first; char *second; int third; };
-struct Closure3 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void *, Arguments *, void *);
-    char padding[0x18];
-    void (CStatsManager::*method)(char *, char *, int);
-    CStatsManager *object;
-};
-void Closure3::vfunc_2(void *, Arguments *arguments, void *) {
-    (object->*method)(arguments->first, arguments->second, arguments->third);
+
+template <> void Closure3<CStatsManager, void, char *, char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { Arguments * arguments = (Arguments *)__p1;
+
+    ((*(CStatsManager_91250 * *)&this->f_20)->*(*(void (CStatsManager_91250::**)(char *, char *, int))&this->f_1c))(arguments->first, arguments->second, arguments->third);
 }

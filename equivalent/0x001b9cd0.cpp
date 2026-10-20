@@ -1,15 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method3<CRenderManager,void,int,int,int>::vfunc_2 @ 0x001b9cd0
-struct CRenderManager { };
-struct Function {
+#include "gen/global.h"
+
+struct CRenderManager_1b9cd0 { };
+struct Function_1b9cd0 {
     virtual void vfunc_0();
     virtual void vfunc_1();
 };
-struct Method3 : Function {
-    char padding[0x18];
-    void (CRenderManager::*method)(int, int, int);
-    virtual void vfunc_2(CRenderManager* object, const int* args, void* unused);
-};
-void Method3::vfunc_2(CRenderManager* object, const int* args, void* unused) {
-    (object->*method)(args[0], args[1], args[2]);
+
+template <> void Method3<CRenderManager, void, int, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { CRenderManager_1b9cd0 * object = (CRenderManager_1b9cd0 *)__p0; const int * args = (const int *)__p1; void * unused = (void *)__p2;
+
+    (object->*(*(void (CRenderManager_1b9cd0::**)(int, int, int))&this->f_1c))(args[0], args[1], args[2]);
 }

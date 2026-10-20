@@ -1,20 +1,18 @@
-class CActorManager {
+#include "gen/global.h"
+
+class CActorManager_2ded0 {
   public:
     int Run(const char*, const char*);
 };
-struct Function {
+struct Function_2ded0 {
     virtual void f0();
     virtual void f1();
-    virtual void f2(CActorManager*, const char**, int*);
+    virtual void f2(CActorManager_2ded0*, const char**, int*);
 };
-class Method2 : public Function {
-  public:
-    char pad[0x18];
-    int (CActorManager::*fn)(const char*, const char*);
-    virtual void f2(CActorManager*, const char**, int*);
-};
-void Method2::f2(CActorManager* a, const char** b, int* out) {
-    int (CActorManager::*f)(const char*, const char*) = fn;
+
+template <> void Method2<CActorManager, int, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2ded0 * a = (CActorManager_2ded0 *)__p0; const char ** b = (const char **)__p1; int * out = (int *)__p2;
+
+    int (CActorManager_2ded0::*f)(const char*, const char*) = (*(int (CActorManager_2ded0::**)(const char *, const char *))&this->f_1c);
     const char* x = b[0];
     const char* y = b[1];
     int r = (a->*f)(x, y);

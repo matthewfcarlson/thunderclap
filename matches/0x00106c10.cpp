@@ -1,4 +1,6 @@
-struct CPatrolPathManager {
+#include "gen/global.h"
+
+struct CPatrolPathManager_106c10 {
     bool FUN_00106c10(const char*, bool, int);
 };
 struct Arguments {
@@ -7,18 +9,12 @@ struct Arguments {
     char padding[3];
     int count;
 };
-struct Closure {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(int unused, Arguments* args, bool* result);
-    char padding[24];
-    bool (CPatrolPathManager::*method)(const char*, bool, int);
-    CPatrolPathManager* object;
-};
-void Closure::vfunc_2(int unused, Arguments* args, bool* result) {
+
+template <> void Closure3<CPatrolPathManager, bool, const char *, bool, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { int unused = (int)__p0; Arguments * args = (Arguments *)__p1; bool * result = (bool *)__p2;
+
     Arguments* a = args;
-    CPatrolPathManager* obj = object;
-    bool (CPatrolPathManager::*fn)(const char*, bool, int) = method;
+    CPatrolPathManager_106c10* obj = (*(CPatrolPathManager_106c10 * *)&this->f_20);
+    bool (CPatrolPathManager_106c10::*fn)(const char*, bool, int) = (*(bool (CPatrolPathManager_106c10::**)(const char *, bool, int))&this->f_1c);
     const char* text = a->text;
     bool flag = a->flag;
     int count = a->count;

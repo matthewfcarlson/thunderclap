@@ -1,16 +1,6 @@
+#include "gen/hulkfight.h"
+
 namespace hulkfight {
-class XPAction {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual char vfunc_3(int, int);
-    virtual void v4();
-    virtual void v5();
-    char pad[0x18];
-    void* value;
-    int enabled;
-};
 } // namespace hulkfight
 struct Datum {
     char pad[16];
@@ -25,10 +15,10 @@ class Manager {
     Result* Find();
 };
 extern Manager* gManager;
-char hulkfight::XPAction::vfunc_3(int, int) {
-    if (!enabled)
-        return 0;
-    int n = (int)((Datum*)value)->value;
+bool hulkfight::XPAction::vfunc_3(int , int ) {
+    if (!(*(int *)&this->f_20))
+        return (bool)(0);
+    int n = (int)((Datum*)(*(void * *)&this->f_1c))->value;
     gManager->Find()->Apply("xp", n);
-    return 1;
+    return (bool)(1);
 }

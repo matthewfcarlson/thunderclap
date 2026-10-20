@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 typedef unsigned int size_t;
 void* __cdecl operator new(size_t);
 namespace hulkfight {
@@ -12,9 +14,9 @@ class BaseTrack {
     int count;
     int zero;
 };
-class ClearFightParamsHitRecordTrack : public BaseTrack {
+class ClearFightParamsHitRecordTrack_15a060 : public BaseTrack {
   public:
-    ClearFightParamsHitRecordTrack() throw() {
+    ClearFightParamsHitRecordTrack_15a060() throw() {
         zero = 0;
         count = 1;
     }
@@ -25,16 +27,8 @@ class ClearFightParamsHitRecordTrack : public BaseTrack {
 } // namespace motion
 } // namespace hulkfight
 namespace fight {
-class TrackFactoryTemplate {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual hulkfight::motion::ClearFightParamsHitRecordTrack* vfunc_5();
-};
-hulkfight::motion::ClearFightParamsHitRecordTrack* TrackFactoryTemplate::vfunc_5() {
-    return new hulkfight::motion::ClearFightParamsHitRecordTrack;
-}
+
 } // namespace fight
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::ClearFightParamsHitRecordTrack>::vfunc_5() {
+    return (void*)(new hulkfight::motion::ClearFightParamsHitRecordTrack_15a060);
+}

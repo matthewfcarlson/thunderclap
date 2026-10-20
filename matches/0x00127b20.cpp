@@ -1,10 +1,7 @@
+#include "gen/fight.h"
+
 namespace fight {
-class ConditionFactoryCaster {
-  public:
-    virtual bool vfunc_0(void*);
-    virtual void vfunc_1();
-};
-class Caster : public ConditionFactoryCaster {
+class ConditionFactoryCaster_127b20 {
   public:
     virtual bool vfunc_0(void*);
     virtual void vfunc_1();
@@ -12,6 +9,7 @@ class Caster : public ConditionFactoryCaster {
 } // namespace fight
 extern "C" int FUN_00344e74(void*, int, void*, void*, int);
 extern int a, b;
-bool fight::Caster::vfunc_0(void* p) {
+template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetTypeCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
     return FUN_00344e74(p, 0, &a, &b, 0) != 0;
 }

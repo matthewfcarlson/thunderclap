@@ -1,18 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // physics::PhysicsJoint3D::vfunc_24 @ 0x0030d280
+#include "gen/physics.h"
+
 namespace physics {
 struct Vec3 { float x, y, z; };
-struct PhysicsJoint3D {
-    char pad[0x120];
-    Vec3 position;
-    char pad2[0x151 - 0x12c];
-    unsigned char dirty;
-    void vfunc_24(const Vec3 *delta);
-};
-void PhysicsJoint3D::vfunc_24(const Vec3 *delta) {
-    position.x += delta->x;
-    position.y += delta->y;
-    position.z += delta->z;
-    dirty = 0;
+
 }
+void physics::PhysicsJoint3D::vfunc_24(int __p0) { const Vec3 * delta = (const Vec3 *)__p0;
+
+    (*(Vec3 *)&this->f_120).x += delta->x;
+    (*(Vec3 *)&this->f_120).y += delta->y;
+    (*(Vec3 *)&this->f_120).z += delta->z;
+    (*(unsigned char *)&this->f_151) = 0;
 }

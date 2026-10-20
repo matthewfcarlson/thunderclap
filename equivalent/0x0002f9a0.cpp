@@ -1,15 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Closure3<CActorManager,void,const_char_*,float,float>::vfunc_2 @ 0x0002f9a0
-struct CActorManager { char placeholder; };
+#include "gen/global.h"
+
+struct CActorManager_2f9a0 { char placeholder; };
 struct Args { const char* name; float first; float second; };
-struct Closure3 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void*, Args*, void*);
-    char pad[0x1c - 4];
-    void (CActorManager::*method)(const char*, float, float);
-    CActorManager* actor;
-};
-void Closure3::vfunc_2(void* unused, Args* args, void* unused2) {
-    (actor->*method)(args->name, args->first, args->second);
+
+template <> void Closure3<CActorManager, void, const char *, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; Args * args = (Args *)__p1; void * unused2 = (void *)__p2;
+
+    ((*(CActorManager_2f9a0 * *)&this->f_20)->*(*(void (CActorManager_2f9a0::**)(const char *, float, float))&this->f_1c))(args->name, args->first, args->second);
 }

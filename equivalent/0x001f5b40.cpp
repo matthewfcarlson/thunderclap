@@ -1,15 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Closure4<CSoundVoiceManager,void,char_*,char_*,char_*,int>::vfunc_2 @ 0x001f5b40
-struct CSoundVoiceManager { void callback(char*, char*, char*, int); };
+#include "gen/global.h"
+
+struct CSoundVoiceManager_1f5b40 { void callback(char*, char*, char*, int); };
 struct VoiceArgs { char* first; char* second; char* third; int fourth; };
-struct Closure4 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void* unused, VoiceArgs* arguments, void* unused2);
-    char padding[0x18];
-    void (CSoundVoiceManager::*method)(char*, char*, char*, int);
-    CSoundVoiceManager* object;
-};
-void Closure4::vfunc_2(void*, VoiceArgs* arguments, void*) {
-    (object->*method)(arguments->first, arguments->second, arguments->third, arguments->fourth);
+
+template <> void Closure4<CSoundVoiceManager, void, char *, char *, char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { VoiceArgs * arguments = (VoiceArgs *)__p1;
+
+    ((*(CSoundVoiceManager_1f5b40 * *)&this->f_20)->*(*(void (CSoundVoiceManager_1f5b40::**)(char *, char *, char *, int))&this->f_1c))(arguments->first, arguments->second, arguments->third, arguments->fourth);
 }

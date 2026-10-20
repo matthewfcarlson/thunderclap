@@ -1,16 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Closure4<CSubtitleManager,void,int,float,const_char_*,float>::vfunc_2 @ 0x001bff80
-struct CSubtitleManager { void FUN_001bff80(int, float, const char *, float); };
+#include "gen/global.h"
+
+struct CSubtitleManager_1bff80 { void FUN_001bff80(int, float, const char *, float); };
 struct Arguments { int number; float time; const char *text; float duration; };
-struct Closure4 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(int unused, Arguments *arguments, int other);
-    char reserved[24];
-    void (CSubtitleManager::*method)(int, float, const char *, float);
-    CSubtitleManager *object;
-};
-void Closure4::vfunc_2(int unused, Arguments *arguments, int other) {
+
+template <> void Closure4<CSubtitleManager, void, int, float, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { int unused = (int)__p0; Arguments * arguments = (Arguments *)__p1; int other = (int)__p2;
+
     float time = arguments->time;
-    (object->*method)(arguments->number, time, arguments->text, arguments->duration);
+    ((*(CSubtitleManager_1bff80 * *)&this->f_20)->*(*(void (CSubtitleManager_1bff80::**)(int, float, const char *, float))&this->f_1c))(arguments->number, time, arguments->text, arguments->duration);
 }

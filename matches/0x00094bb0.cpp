@@ -1,4 +1,6 @@
-struct CUnlockablesManager {
+#include "gen/global.h"
+
+struct CUnlockablesManager_94bb0 {
     char dummy;
 };
 struct Arguments {
@@ -7,19 +9,13 @@ struct Arguments {
     const char* third;
     const char* fourth;
 };
-struct Closure4 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void*, const Arguments*, void*);
-    char padding[0x18];
-    void (CUnlockablesManager::*callback)(const char*, int, const char*, const char*);
-    CUnlockablesManager* object;
-};
-void Closure4::vfunc_2(void*, const Arguments* arguments, void*) {
+
+template <> void Closure4<CUnlockablesManager, void, const char *, int, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { const Arguments * arguments = (const Arguments *)__p1;
+
     const char** p = (const char**)arguments;
     const char* a = *p++;
     int b = *(int*)p++;
     const char* c = *p++;
     const char* d = *p++;
-    (object->*callback)(a, b, c, d);
+    ((*(CUnlockablesManager_94bb0 * *)&this->f_20)->*(*(void (CUnlockablesManager_94bb0::**)(const char *, int, const char *, const char *))&this->f_1c))(a, b, c, d);
 }

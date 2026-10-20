@@ -1,8 +1,7 @@
-class CTargetTrack {
-  public:
-    virtual int vfunc_0(int);
-};
+#include "gen/global.h"
+
 extern int* gTable;
+
 int CTargetTrack::vfunc_0(int i) {
     return gTable[i];
 }

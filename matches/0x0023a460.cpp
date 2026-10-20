@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 class Delegate_23a460 {
   public:
     virtual void f0();
@@ -26,15 +28,12 @@ class Delegate_23a460 {
     virtual void f23();
     virtual int f24();
 };
-class StringReader {
+class StringReader_23a460 {
   public:
     char pad[8];
     Delegate_23a460* sub;
 };
-class IFileStringReader : public StringReader {
-  public:
-    int vfunc_3();
-};
-int IFileStringReader::vfunc_3() {
-    return sub->f24();
+
+unsigned int fight::IFileStringReader::vfunc_3() {
+    return (unsigned int)((*(Delegate_23a460 * *)&this->f_08)->f24());
 }

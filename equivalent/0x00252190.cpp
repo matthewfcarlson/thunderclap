@@ -1,35 +1,30 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // audio::SeqEventChannelVolumes::vfunc_2 @ 0x00252190
+#include "gen/audio.h"
+
 #include "decls/data/engine/audio.h"
 
 struct AllocationPool { char byte; };
 void* __cdecl FUN_00247530(AllocationPool*);
 namespace audio {
-struct SeqEventChannelVolumes;
-struct SeqActionChannelVolumes {
+
+struct SeqActionChannelVolumes_252190 {
     virtual void vfunc_0();
     virtual void vfunc_1();
     char padding[4];
-    SeqEventChannelVolumes* source;
+    audio::SeqEventChannelVolumes* source;
     int state;
 };
-struct SeqEventChannelVolumes {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void* context);
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-};
 }
-struct Context { void FUN_0025dc20(audio::SeqActionChannelVolumes*); };
-void audio::SeqEventChannelVolumes::vfunc_2(void* context) {
+struct Context_252190 { void FUN_0025dc20(audio::SeqActionChannelVolumes_252190*); };
+void audio::SeqEventChannelVolumes::vfunc_2(int __p0) { void * context = (void *)__p0;
+
     void* memory = FUN_00247530(((AllocationPool*)&DAT_004e6ce0));
-    audio::SeqActionChannelVolumes* action = (audio::SeqActionChannelVolumes*)memory;
+    audio::SeqActionChannelVolumes_252190* action = (audio::SeqActionChannelVolumes_252190*)memory;
     if (action) {
-        action->audio::SeqActionChannelVolumes::SeqActionChannelVolumes();
+        action->audio::SeqActionChannelVolumes_252190::SeqActionChannelVolumes_252190();
         action->source = this;
         action->state = 0;
     }
-    ((Context*)context)->FUN_0025dc20(action);
+    ((Context_252190*)context)->FUN_0025dc20(action);
 }

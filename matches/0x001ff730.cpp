@@ -1,12 +1,6 @@
-class CTriggerVolumeManager {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual char* vfunc_3(int x);
-    int mDummy;
-};
+#include "gen/global.h"
 
-char* CTriggerVolumeManager::vfunc_3(int x) {
-    return (char*)(x ? "Volume" : "Locator");
+void* CTriggerVolumeManager::vfunc_3(void* __p0) { int x = (int)__p0;
+
+    return (void*)((char*)(x ? "Volume" : "Locator"));
 }

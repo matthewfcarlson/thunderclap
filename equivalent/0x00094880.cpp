@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Closure6<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_2 @ 0x00094880
-struct CUnlockablesManager {
+#include "gen/global.h"
+
+struct CUnlockablesManager_94880 {
     void FUN_00094880(const char *, int, const char *, const char *, const char *, const char *);
 };
 struct Arguments {
@@ -11,14 +13,8 @@ struct Arguments {
     const char *text3;
     const char *text4;
 };
-struct Closure6 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void *, Arguments *, void *);
-    char pad[0x18];
-    void (CUnlockablesManager::*method)(const char *, int, const char *, const char *, const char *, const char *);
-    CUnlockablesManager *object;
-};
-void Closure6::vfunc_2(void *, Arguments *args, void *) {
-    (object->*method)(args->name, args->number, args->text1, args->text2, args->text3, args->text4);
+
+template <> void Closure6<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { Arguments * args = (Arguments *)__p1;
+
+    ((*(CUnlockablesManager_94880 * *)&this->f_20)->*(*(void (CUnlockablesManager_94880::**)(const char *, int, const char *, const char *, const char *, const char *))&this->f_1c))(args->name, args->number, args->text1, args->text2, args->text3, args->text4);
 }

@@ -1,22 +1,18 @@
-class CEventManager {
+#include "gen/global.h"
+
+class CEventManager_1cbb00 {
   public:
     bool Test(const char*);
 };
-class Function {
+class Function_1cbb00 {
   public:
     virtual void v0();
     virtual void v1();
 };
-class Method1 : public Function {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void vfunc_2(CEventManager*, const char**, bool*);
-    char pad[0x18];
-    bool (CEventManager::*fn)(const char*);
-};
-void Method1::vfunc_2(CEventManager* obj, const char** arg, bool* out) {
-    bool (CEventManager::*f)(const char*) = fn;
+
+template <> void Method1<CEventManager, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CEventManager_1cbb00 * obj = (CEventManager_1cbb00 *)__p0; const char ** arg = (const char **)__p1; bool * out = (bool *)__p2;
+
+    bool (CEventManager_1cbb00::*f)(const char*) = (*(bool (CEventManager_1cbb00::**)(const char *))&this->f_1c);
     const char* value = *arg;
     bool r = (obj->*f)(value);
     if (out)

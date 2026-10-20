@@ -1,4 +1,6 @@
 // Same code shape as 0x0023a460 (propagated; names are from that function)
+#include "gen/fight.h"
+
 class Delegate_23b8a0 {
   public:
     virtual void f0();
@@ -32,10 +34,7 @@ class DataReader_23b8a0 {
     char pad[8];
     Delegate_23b8a0* sub;
 };
-class IFileDataReader_23b8a0 : public DataReader_23b8a0 {
-  public:
-    int vfunc_3();
-};
-int IFileDataReader_23b8a0::vfunc_3() {
-    return sub->f24();
+
+unsigned int fight::IFileDataReader::vfunc_3() {
+    return (unsigned int)((*(Delegate_23b8a0 * *)&this->f_08)->f24());
 }

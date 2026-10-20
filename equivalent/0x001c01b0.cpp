@@ -1,14 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Closure3<CSubtitleManager,void,float,float,float>::vfunc_2 @ 0x001c01b0
-struct CSubtitleManager { char padding[4]; };
-struct Closure3 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void* unused, const float* values, void* unused2);
-    char pad[0x1c - 4];
-    void (CSubtitleManager::*method)(float, float, float);
-    CSubtitleManager* target;
-};
-void Closure3::vfunc_2(void* unused, const float* values, void* unused2) {
-    (target->*method)(values[0], values[1], values[2]);
+#include "gen/global.h"
+
+struct CSubtitleManager_1c01b0 { char padding[4]; };
+
+template <> void Closure3<CSubtitleManager, void, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const float * values = (const float *)__p1; void * unused2 = (void *)__p2;
+
+    ((*(CSubtitleManager_1c01b0 * *)&this->f_20)->*(*(void (CSubtitleManager_1c01b0::**)(float, float, float))&this->f_1c))(values[0], values[1], values[2]);
 }

@@ -1,18 +1,14 @@
-struct CStatsManager {
+#include "gen/global.h"
+
+struct CStatsManager_91160 {
     int invoke(const char*);
 };
-typedef int (CStatsManager::*StatsMethod)(const char*);
-struct Closure1 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void*, const char**, int*);
-    char padding[0x18];
-    StatsMethod method;
-    CStatsManager* object;
-};
-void Closure1::vfunc_2(void* unused, const char** argument, int* result) {
-    CStatsManager* obj = object;
-    StatsMethod fn = method;
+typedef int (CStatsManager_91160::*StatsMethod)(const char*);
+
+template <> void Closure1<CStatsManager, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** argument = (const char **)__p1; int * result = (int *)__p2;
+
+    CStatsManager_91160* obj = (*(CStatsManager_91160 * *)&this->f_20);
+    StatsMethod fn = (*(StatsMethod *)&this->f_1c);
     int value = (obj->*fn)(*argument);
     if (result)
         *result = value;

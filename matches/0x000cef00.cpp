@@ -1,4 +1,6 @@
-class HUDOverlay {
+#include "gen/global.h"
+
+class HUDOverlay_cef00 {
   public:
     int Do(int, int);
 };
@@ -6,16 +8,10 @@ struct Args {
     int a;
     int b;
 };
-class Method2 {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void vfunc_2(HUDOverlay*, Args*, int*);
-    char pad[0x18];
-    int (HUDOverlay::*method)(int, int);
-};
-void Method2::vfunc_2(HUDOverlay* obj, Args* args, int* out) {
-    int (HUDOverlay::*fn)(int, int) = method;
+
+template <> void Method2<HUDOverlay, int, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cef00 * obj = (HUDOverlay_cef00 *)__p0; Args * args = (Args *)__p1; int * out = (int *)__p2;
+
+    int (HUDOverlay_cef00::*fn)(int, int) = (*(int (HUDOverlay_cef00::**)(int, int))&this->f_1c);
     int a = args->a;
     int b = args->b;
     int result = (obj->*fn)(a, b);

@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Inner_1d7b70 {
   public:
     virtual void f0();
@@ -9,29 +11,7 @@ class Inner_1d7b70 {
     virtual void f6();
     virtual int f7();
 };
-namespace pure3d { namespace prop { class StateProp {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual int f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
-    virtual void f11();
-    virtual void f12();
-    virtual void f13();
-    virtual void f14();
-    virtual void f15();
-    virtual void f16();
-    char pad[0x98];
-    Inner_1d7b70* mInner;
-    int vfunc_7();
-}; }}
-int pure3d::prop::StateProp::vfunc_7() {
-    return mInner->f7();
+namespace pure3d { namespace prop {  }}
+char pure3d::prop::StateProp::vfunc_7() {
+    return (char)((*(Inner_1d7b70 * *)&this->f_9c)->f7());
 }

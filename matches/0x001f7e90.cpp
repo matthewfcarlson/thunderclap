@@ -1,19 +1,14 @@
-class CEffectManager {
+#include "gen/global.h"
+
+class CEffectManager_1f7e90 {
   public:
     unsigned int FUN_001f7e90_callback(char*);
 };
-class Closure1_CEffectManager_uint_charptr {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void*, char**, unsigned int*);
-    char padding[0x18];
-    unsigned int (CEffectManager::*callback)(char*);
-    CEffectManager* manager;
-};
-void Closure1_CEffectManager_uint_charptr::vfunc_2(void*, char** argument, unsigned int* result) {
-    CEffectManager* m = manager;
-    unsigned int (CEffectManager::*fn)(char*) = callback;
+
+template <> void Closure1<CEffectManager, unsigned int, char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { char ** argument = (char **)__p1; unsigned int * result = (unsigned int *)__p2;
+
+    CEffectManager_1f7e90* m = (*(CEffectManager_1f7e90 * *)&this->f_20);
+    unsigned int (CEffectManager_1f7e90::*fn)(char*) = (*(unsigned int (CEffectManager_1f7e90::**)(char *))&this->f_1c);
     unsigned int value = (m->*fn)(*argument);
     if (result)
         *result = value;

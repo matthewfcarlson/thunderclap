@@ -1,28 +1,19 @@
+#include "gen/global.h"
+
 extern "C" void _ReadWriteBarrier();
-class CActorManager {};
+class CActorManager_2e980 {};
 struct Arguments {
     const char* name;
     float value;
     const char* other;
 };
-class Closure3 {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(int, Arguments*, int);
 
-  private:
-    char padding[0x18];
+template <> void Closure3<CActorManager, void, const char *, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { int unused = (int)__p0; Arguments * args = (Arguments *)__p1; int unused2 = (int)__p2;
 
-  public:
-    void (CActorManager::*method)(const char*, float, const char*);
-    CActorManager* actor;
-};
-void Closure3::vfunc_2(int unused, Arguments* args, int unused2) {
     const char* name = args->name;
     _ReadWriteBarrier();
     const char* other = args->other;
     float value = args->value;
-    (actor->*method)(name, value, other);
+    ((*(CActorManager_2e980 * *)&this->f_20)->*(*(void (CActorManager_2e980::**)(const char *, float, const char *))&this->f_1c))(name, value, other);
     _ReadWriteBarrier();
 }

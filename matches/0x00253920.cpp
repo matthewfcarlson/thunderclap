@@ -1,12 +1,14 @@
+#include "gen/audio.h"
+
 extern char gHeap;
 void* Alloc(char*);
 inline void* operator new(unsigned int, void* p) {
     return p;
 }
 namespace audio {
-class SeqEvent {
+class SeqEvent_253920 {
   public:
-    SeqEvent();
+    SeqEvent_253920();
     virtual void a();
     virtual void b();
     virtual void c();
@@ -14,22 +16,15 @@ class SeqEvent {
     int unknown;
     float pitch;
 };
-class SeqEventVarPitch : public SeqEvent {
+class SeqEventVarPitch_253920 : public SeqEvent_253920 {
   public:
-    SeqEventVarPitch() { pitch = 1.0f; }
+    SeqEventVarPitch_253920() { pitch = 1.0f; }
     virtual void a();
-};
-class SeqEventVarPitchType {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual SeqEvent* d();
 };
 } // namespace audio
-audio::SeqEvent* audio::SeqEventVarPitchType::d() {
+void* audio::SeqEventVarPitchType::vfunc_3() {
     void* p = Alloc(&gHeap);
     if (p)
-        return new (p) audio::SeqEventVarPitch;
-    return 0;
+        return (void*)(new (p) audio::SeqEventVarPitch_253920);
+    return (void*)(0);
 }

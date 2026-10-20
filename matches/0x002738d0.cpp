@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 class Inner_2738d0 {
   public:
     virtual void f0();
@@ -27,7 +29,7 @@ class Inner_2738d0 {
     virtual void f24();
     virtual int f25();
 };
-class Request {
+class Request_2738d0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -36,12 +38,7 @@ class Request {
     virtual void v4();
     virtual void v5();
 };
-class FileRequest : public Request {
-  public:
-    char pad[4];
-    Inner_2738d0* m;
-    int vfunc_5();
-};
-int FileRequest::vfunc_5() {
-    return m->f25();
+
+void* core::FileRequest::vfunc_5() {
+    return (void*)((*(Inner_2738d0 * *)&this->f_08)->f25());
 }

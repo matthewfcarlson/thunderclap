@@ -1,21 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure1<CWorldStreamManager,int,int>::vfunc_2 @ 0x00205f50
-class CWorldStreamManager {};
+#include "gen/global.h"
 
-class Closure1_CWorldStreamManager_int_int {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void* unused, int* argument, int* result);
-private:
-    char padding[0x18];
-    int (CWorldStreamManager::*method)(int);
-    CWorldStreamManager* object;
-};
+class CWorldStreamManager_205f50 {};
 
-void Closure1_CWorldStreamManager_int_int::vfunc_2(void* unused, int* argument, int* result)
-{
-    int value = (object->*method)(*argument);
+template <> void Closure1<CWorldStreamManager, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; int * argument = (int *)__p1; int * result = (int *)__p2;
+
+    int value = ((*(CWorldStreamManager_205f50 * *)&this->f_20)->*(*(int (CWorldStreamManager_205f50::**)(int))&this->f_1c))(*argument);
     if (result)
         *result = value;
 }

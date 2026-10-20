@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 typedef unsigned int size_t;
 void* operator new(size_t) throw();
 class Base {
@@ -8,25 +10,17 @@ class Base {
     virtual void v2();
     char pad[8];
 };
-class HulkActionLargestCondition : public Base {
+class HulkActionLargestCondition_114030 : public Base {
   public:
-    HulkActionLargestCondition() throw();
+    HulkActionLargestCondition_114030() throw();
     virtual void v0();
     virtual void v1();
     virtual void v2();
     int a;
     int b;
 };
-inline HulkActionLargestCondition::HulkActionLargestCondition() throw() : Base(0), a(0), b(0) {}
-class Factory {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual Base* vfunc_5();
-};
-Base* Factory::vfunc_5() {
-    return new HulkActionLargestCondition;
+inline HulkActionLargestCondition_114030::HulkActionLargestCondition_114030() throw() : Base(0), a(0), b(0) {}
+
+template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::HulkActionLargestCondition>::vfunc_5() {
+    return (void*)(new HulkActionLargestCondition_114030);
 }

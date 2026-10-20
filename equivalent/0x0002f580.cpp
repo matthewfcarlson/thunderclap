@@ -1,16 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure2<CActorManager,bool,const_char_*,int>::vfunc_2 @ 0x0002f580
-struct CActorManager { bool callback(const char *, int); };
+#include "gen/global.h"
+
+struct CActorManager_2f580 { bool callback(const char *, int); };
 struct ActorArgs { const char *name; int value; };
-struct Closure2 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void *unused, const ActorArgs *args, bool *result);
-    char padding[0x18];
-    bool (CActorManager::*method)(const char *, int);
-    CActorManager *manager;
-};
-void Closure2::vfunc_2(void *unused, const ActorArgs *args, bool *result) {
-    bool value = (manager->*method)(args->name, args->value);
+
+template <> void Closure2<CActorManager, bool, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const ActorArgs * args = (const ActorArgs *)__p1; bool * result = (bool *)__p2;
+
+    bool value = ((*(CActorManager_2f580 * *)&this->f_20)->*(*(bool (CActorManager_2f580::**)(const char *, int))&this->f_1c))(args->name, args->value);
     if (result) *result = value;
 }

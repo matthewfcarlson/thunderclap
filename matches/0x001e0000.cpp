@@ -1,4 +1,6 @@
-struct CSPManager {
+#include "gen/global.h"
+
+struct CSPManager_1e0000 {
     void FUN_001e0000_callback(int, float, float, float);
 };
 struct Arguments {
@@ -7,18 +9,13 @@ struct Arguments {
     float second;
     float third;
 };
-struct Method4 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(CSPManager* manager, Arguments* arguments, void* unused);
-    char padding[0x18];
-    void (CSPManager::*callback)(int, float, float, float);
-};
-void Method4::vfunc_2(CSPManager* manager, Arguments* arguments, void* unused) {
+
+template <> void Method4<CSPManager, void, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CSPManager_1e0000 * manager = (CSPManager_1e0000 *)__p0; Arguments * arguments = (Arguments *)__p1; void * unused = (void *)__p2;
+
     int* p = (int*)arguments;
     int id = *p++;
     float first = *(float*)p++;
     float second = *(float*)p++;
     float third = *(float*)p++;
-    (manager->*callback)(id, first, second, third);
+    (manager->*(*(void (CSPManager_1e0000::**)(int, float, float, float))&this->f_1c))(id, first, second, third);
 }

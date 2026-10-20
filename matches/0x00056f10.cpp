@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 typedef unsigned int size_t;
 void* operator new(size_t) throw();
 class BaseCondition {
@@ -6,20 +8,12 @@ class BaseCondition {
     virtual void v0();
     char pad[28];
 };
-class CAxisPressCondition : public BaseCondition {
+class CAxisPressCondition_56f10 : public BaseCondition {
   public:
-    CAxisPressCondition() throw() : BaseCondition() {}
+    CAxisPressCondition_56f10() throw() : BaseCondition() {}
     virtual void v0();
 };
-class ConditionFactory {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual BaseCondition* v5();
-};
-BaseCondition* ConditionFactory::v5() {
-    return new CAxisPressCondition;
+
+template <> void* fight::ConditionFactoryTemplate<CAxisPressCondition>::vfunc_5() {
+    return (void*)(new CAxisPressCondition_56f10);
 }

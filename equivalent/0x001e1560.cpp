@@ -1,16 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure2<CSPManager,bool,const_char_*,int>::vfunc_2 @ 0x001e1560
-struct CSPManager {};
+#include "gen/global.h"
+
+struct CSPManager_1e1560 {};
 struct Arguments { const char* text; int number; };
-struct Closure2 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void* unused, Arguments* args, bool* result);
-    char padding[24];
-    bool (CSPManager::*method)(const char*, int);
-    CSPManager* object;
-};
-void Closure2::vfunc_2(void* unused, Arguments* args, bool* result) {
-    bool value = (object->*method)(args->text, args->number);
+
+template <> void Closure2<CSPManager, bool, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; Arguments * args = (Arguments *)__p1; bool * result = (bool *)__p2;
+
+    bool value = ((*(CSPManager_1e1560 * *)&this->f_20)->*(*(bool (CSPManager_1e1560::**)(const char *, int))&this->f_1c))(args->text, args->number);
     if (result) *result = value;
 }

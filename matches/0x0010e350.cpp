@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 struct SemaphoreData {
     char pad[0x18];
     int value;
@@ -17,24 +19,19 @@ struct SemaphoreSource {
 };
 namespace hulkfight {
 namespace ai {
-struct SemaphoreClearAction {
-    char pad[0x1c];
-    SemaphoreData* data;
-    SemaphoreSource* source;
-    bool vfunc_5(int, int);
-};
-bool SemaphoreClearAction::vfunc_5(int, int) {
-    if (!source)
+
+} // namespace ai
+} // namespace hulkfight
+bool hulkfight::ai::SemaphoreClearAction::vfunc_5(int , int ) {
+    if (!(*(SemaphoreSource * *)&this->f_20))
         return false;
-    if (data->enabled) {
-        ClearTarget* target = source->FUN_000592a0()->FUN_00059a30();
-        if (data->clearDirectly) {
+    if ((*(SemaphoreData * *)&this->f_1c)->enabled) {
+        ClearTarget* target = (*(SemaphoreSource * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();
+        if ((*(SemaphoreData * *)&this->f_1c)->clearDirectly) {
             target->FUN_00037000();
             return true;
         }
-        target->FUN_00037040(&data->value, 0, 1);
+        target->FUN_00037040(&(*(SemaphoreData * *)&this->f_1c)->value, 0, 1);
     }
     return true;
 }
-} // namespace ai
-} // namespace hulkfight

@@ -1,20 +1,15 @@
-class CCameraManager {
+#include "gen/global.h"
+
+class CCameraManager_9cbd0 {
   public:
     void Action(int, float, float, float);
 };
-class Closure4 {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(int, int*, int);
-    char pad[0x18];
-    void (CCameraManager::*fn)(int, float, float, float);
-    CCameraManager* obj;
-};
-void Closure4::vfunc_2(int, int* p, int) {
+
+template <> void Closure4<CCameraManager, void, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { int * p = (int *)__p1;
+
     int a = *p++;
     float b = *(float*)p++;
     float c = *(float*)p++;
     float d = *(float*)p++;
-    (obj->*fn)(a, b, c, d);
+    ((*(CCameraManager_9cbd0 * *)&this->f_20)->*(*(void (CCameraManager_9cbd0::**)(int, float, float, float))&this->f_1c))(a, b, c, d);
 }

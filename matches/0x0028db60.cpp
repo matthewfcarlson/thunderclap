@@ -1,23 +1,20 @@
+#include "gen/pure3d.h"
+
 namespace math {
 struct Quaternion {
     float x, y, z, w;
 };
-struct CompressedQuaternion3 {
+struct CompressedQuaternion3_28db60 {
     unsigned char bytes[3];
     Quaternion* FUN_0028dbb0(Quaternion* result);
 };
 } // namespace math
 namespace pure3d {
-struct CompressedQuaternionChannel {
-    char pad[0x14];
-    short* frames;
-    math::CompressedQuaternion3* values;
-    void vfunc_3(int index, float* time, math::Quaternion* rotation);
-};
 } // namespace pure3d
-void pure3d::CompressedQuaternionChannel::vfunc_3(int index, float* time, math::Quaternion* rotation) {
-    *time = (float)frames[index];
+template <> void pure3d::CompressedQuaternionChannel<math::CompressedQuaternion3>::vfunc_3(int index, void* __p1, void* __p2) { float * time = (float *)__p1; math::Quaternion * rotation = (math::Quaternion *)__p2;
+
+    *time = (float)(*(short * *)&this->f_14)[index];
     math::Quaternion temp;
-    math::Quaternion* decoded = values[index].FUN_0028dbb0(&temp);
+    math::Quaternion* decoded = (*(math::CompressedQuaternion3_28db60 * *)&this->f_18)[index].FUN_0028dbb0(&temp);
     *rotation = *decoded;
 }

@@ -1,24 +1,21 @@
-class HUDOverlay {
+#include "gen/global.h"
+
+class HUDOverlay_cf030 {
   public:
     void Act(int, bool);
 };
-class Function {
+class Function_cf030 {
   public:
     virtual void f0();
     virtual void f1();
 };
-class Method2 : public Function {
-  public:
-    virtual void f0();
-    virtual void f2(HUDOverlay*, void*, void*);
-    char pad[0x18];
-    void (HUDOverlay::*fn)(int, bool);
-};
-void Method2::f2(HUDOverlay* h, void* b, void* c) {
+
+template <> void Method2<HUDOverlay, void, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cf030 * h = (HUDOverlay_cf030 *)__p0; void * b = (void *)__p1; void * c = (void *)__p2;
+
     struct Args {
         int i;
         bool flag;
     };
     Args* p = (Args*)b;
-    (h->*fn)(p->i, p->flag);
+    (h->*(*(void (HUDOverlay_cf030::**)(int, bool))&this->f_1c))(p->i, p->flag);
 }

@@ -1,21 +1,19 @@
-class CSPManager {
+#include "gen/global.h"
+
+class CSPManager_1e0530 {
   public:
     bool fn(const char*);
 };
-class Function {
+class Function_1e0530 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
 };
-class Method1 : public Function {
-  public:
-    char pad[0x18];
-    bool (CSPManager::*fn)(const char*);
-    virtual void vfunc_2(CSPManager* obj, const char** arg, bool* out);
-};
-void Method1::vfunc_2(CSPManager* obj, const char** arg, bool* out) {
-    bool (CSPManager::*f)(const char*) = fn;
+
+template <> void Method1<CSPManager, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CSPManager_1e0530 * obj = (CSPManager_1e0530 *)__p0; const char ** arg = (const char **)__p1; bool * out = (bool *)__p2;
+
+    bool (CSPManager_1e0530::*f)(const char*) = (*(bool (CSPManager_1e0530::**)(const char *))&this->f_1c);
     const char* a = *arg;
     bool r = (obj->*f)(a);
     if (out)

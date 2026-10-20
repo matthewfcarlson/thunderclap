@@ -1,26 +1,22 @@
-class CHapticControllerManager {
+#include "gen/global.h"
+
+class CHapticControllerManager_b02b0 {
   public:
     void Run(int, float, float, float);
 };
-class Function {
+class Function_b02b0 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(void*, int*, void*);
 };
-class Closure4 : public Function {
-    char pad[24];
-    void (CHapticControllerManager::*method)(int, float, float, float);
-    CHapticControllerManager* object;
 
-  public:
-    virtual void vfunc_2(void*, int*, void*);
-};
-void Closure4::vfunc_2(void*, int* args, void*) {
+template <> void Closure4<CHapticControllerManager, void, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { int * args = (int *)__p1;
+
     int a = *args;
     float b = *(float*)++args;
     args++;
     float c = *(float*)args;
     float d = *(float*)(args + 1);
-    (object->*method)(a, b, c, d);
+    ((*(CHapticControllerManager_b02b0 * *)&this->f_20)->*(*(void (CHapticControllerManager_b02b0::**)(int, float, float, float))&this->f_1c))(a, b, c, d);
 }

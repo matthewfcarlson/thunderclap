@@ -1,19 +1,13 @@
-class pure3d_d3dLayeredLMapShader {
-  public:
-    char pad[0x48];
-    char a;
-    char pad2[0x47];
-    char b;
-    char c;
-    const char* vfunc_23();
-};
+#include "gen/pure3d.h"
+
 extern const char zeroName[];
 extern const char multiName[];
 extern const char proximityName[];
-const char* pure3d_d3dLayeredLMapShader::vfunc_23() {
-    if (!a && b)
-        return multiName;
-    if (!a && c)
-        return proximityName;
-    return zeroName;
+
+void* pure3d::d3dLayeredLMapShader::vfunc_23() {
+    if (!(*(char *)&this->f_48) && (*(char *)&this->f_90))
+        return (void*)(multiName);
+    if (!(*(char *)&this->f_48) && (*(char *)&this->f_91))
+        return (void*)(proximityName);
+    return (void*)(zeroName);
 }

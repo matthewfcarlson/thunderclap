@@ -1,17 +1,14 @@
-struct CWorldStreamManager {};
-struct Function {
+#include "gen/global.h"
+
+struct CWorldStreamManager_2053f0 {};
+struct Function_2053f0 {
     virtual void vfunc_0();
     virtual void vfunc_1();
 };
-struct Method1 : Function {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(CWorldStreamManager* manager, int* input, int* result);
-    char padding[0x18];
-    int (CWorldStreamManager::*callback)(int);
-};
-void Method1::vfunc_2(CWorldStreamManager* manager, int* input, int* result) {
-    int (CWorldStreamManager::*fn)(int) = callback;
+
+template <> void Method1<CWorldStreamManager, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldStreamManager_2053f0 * manager = (CWorldStreamManager_2053f0 *)__p0; int * input = (int *)__p1; int * result = (int *)__p2;
+
+    int (CWorldStreamManager_2053f0::*fn)(int) = (*(int (CWorldStreamManager_2053f0::**)(int))&this->f_1c);
     int arg = *input;
     int value = (manager->*fn)(arg);
     if (result)

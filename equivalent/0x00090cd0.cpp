@@ -1,14 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method3<CStatsManager,void,char_*,char_*,int>::vfunc_2 @ 0x00090cd0
-struct CStatsManager { void FUN_00090cd0(char *, char *, int); };
+#include "gen/global.h"
+
+struct CStatsManager_90cd0 { void FUN_00090cd0(char *, char *, int); };
 struct Arguments { char *first; char *second; int third; };
-struct Method3 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(CStatsManager *manager, Arguments *args, void *unused);
-    char pad[24];
-    void (CStatsManager::*method)(char *, char *, int);
-};
-void Method3::vfunc_2(CStatsManager *manager, Arguments *args, void *unused) {
-    (manager->*method)(args->first, args->second, args->third);
+
+template <> void Method3<CStatsManager, void, char *, char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { CStatsManager_90cd0 * manager = (CStatsManager_90cd0 *)__p0; Arguments * args = (Arguments *)__p1; void * unused = (void *)__p2;
+
+    (manager->*(*(void (CStatsManager_90cd0::**)(char *, char *, int))&this->f_1c))(args->first, args->second, args->third);
 }
