@@ -637,6 +637,86 @@ PATCHES = [
      "    const unsigned char *p = text;",
      "callee-preserved edx (native13): the UTF-8 decoder 0x00271b70 reads the text pointer back from edx after the "
      "validator 0x002719a0 (__fastcall, the text in edx, never written); declared as the validator's 64-bit result"),
+    # native14: fields of a frame structure the caller passes by pointer, stored by the original and missing in the
+    # source (equiv.py doesn't compare the caller's frame bytes a callee reads through an argument)
+    ("equivalent/0x0027dca0.cpp", """class Handler_27dca0 {
+public:
+    virtual void vfunc_0(Id64_27dca0 *id, Chain_27dca0 *chain);
+};""", """// the listener event: the prop's state id, the kind (-1: a state change) and a value
+struct Event_27dca0 {
+    Id64_27dca0 id;
+    int type;
+    int value;
+};
+
+class Handler_27dca0 {
+public:
+    virtual void vfunc_0(Event_27dca0 *ev, Chain_27dca0 *chain);
+};""",
+     "frame structure fields (native14, stop 38): the state prop's change notification 0x0027dca0 passes its "
+     "listeners {state id, type -1, 0} (`mov [esp+0x1c], -1` after the id's constructor, `mov [esp+0x1c], 0` before "
+     "the loop); the source passed only the id, so natively CSPListener::vfunc_0 0x001db230 switched on stack garbage "
+     "and no prop's state change (breakage, the ERS event 20, `State_%d`) was ever handled"),
+    ("equivalent/0x0027dca0.cpp", """    Id64_27dca0 id;
+    Id64_27dca0 empty;
+
+    id.FUN_0027af00();
+    empty.FUN_0027b0e0(((char*)&DAT_003f335c));
+    id.FUN_0027af70(&empty);
+    empty.FUN_0027af50();
+
+    for (int i = 0; i < count; i++)
+        handlers[i]->vfunc_0(&id, this);
+
+    id.FUN_0027af50();""", """    Event_27dca0 ev;
+    Id64_27dca0 empty;
+
+    ev.id.FUN_0027af00();
+    ev.type = -1;
+    empty.FUN_0027b0e0(((char*)&DAT_003f335c));
+    ev.id.FUN_0027af70(&empty);
+    empty.FUN_0027af50();
+    ev.value = 0;
+
+    for (int i = 0; i < count; i++)
+        handlers[i]->vfunc_0(&ev, this);
+
+    ev.id.FUN_0027af50();""", "(the same edit)"),
+    # native14: x87 precision: a float local MSVC 7.1 keeps in an x87 register (53-bit mantissa, the game's control
+    # word 0x023f) across statements, which clang -O0 rounds to 24 bits when it stores the local; spelled `double`
+    # (the same register value) with the stores to float memory explicit: MSVC compiles the same bytes
+    ("matches/0x000350c0.cpp", "        float r = v * 0.5f + p[1];", "        double r = v * 0.5f + (double)p[1];",
+     "x87 precision (native14, stop 39): Hulk's position getter 0x000350c0 adds half the collision height to y and "
+     "keeps the sum in st0 for the second addition (`fst [edi+4]` ... `fadd st(1)`); the source's `float r` rounded "
+     "it natively: y one ULP off at frame 445, the chase camera's y 1-14 ULP off from frame 450 on"),
+    ("matches/0x000350c0.cpp", "            p[1] = y->f3c * 0.5f + r;", "            p[1] = (float)(y->f3c * 0.5f + r);",
+     "(the same edit)"),
+    # native14: check 7 (listed since native12, never applied): the name constructor 0x0027b0e0 (`ret 4`) declared
+    # with the next call's six words; natively the entity manager's add 0x001dd330 got one argument
+    ("matches/0x000796e0.cpp", "Request* FUN_0027b0e0(const char*, unsigned int, Matrix*, unsigned int, unsigned int, unsigned int, unsigned int);",
+     "Request* FUN_0027b0e0(const char*);",
+     "check 7 (native14, stop 40): the prop factory 0x000796e0 pushes (0, d, c, b, &m, a), builds the name 0x0027b0e0 "
+     "(`ret 4`: takes the text only) and calls the entity manager's add 0x001dd330 (`ret 0x1c`) with the name and the "
+     "six words; the source declared the name constructor with all seven and the add with one: natively the add read "
+     "garbage for the transform, every ambient cow got a record at (0, 4, ...) and was deleted and re-created each frame"),
+    ("matches/0x000796e0.cpp", "struct Manager_796e0 { unsigned int FUN_001dd330(Request*); };",
+     "struct Manager_796e0 { unsigned int FUN_001dd330(Request*, unsigned int, Matrix*, unsigned int, unsigned int, unsigned int, unsigned int); };",
+     "(the same edit)"),
+    ("matches/0x000796e0.cpp", "Request* request=r.FUN_0027b0e0(text,a,&m,b,c,d,0); unsigned int result=manager->FUN_001dd330(request);",
+     "unsigned int result=manager->FUN_001dd330(r.FUN_0027b0e0(text),a,&m,b,c,d,0);", "(the same edit)"),
+    ("equivalent/0x0012f750.cpp", "struct Obj3_12f750 { char FUN_00092de0(); };", "struct Obj3_12f750 { char FUN_00092de0(int n); };",
+     "check 7 (native14): natively clang re-reserves its call frame after a callee-pops call by the bytes the declaration pops, so a callee that pops a different number shifts every later outgoing argument: 0x0012f750 pushes 2 for 0x00092de0 (`ret 4`) before calling the getter 0x00086340 (`ret`)"),
+    ("equivalent/0x0012f750.cpp", "Obj3_12f750 *FUN_00086340(int n); };", "Obj3_12f750 *FUN_00086340(); };", "(the same edit)"),
+    ("equivalent/0x0012f750.cpp", "DAT_004dd6ec->FUN_00086340(2)->FUN_00092de0() != 0", "DAT_004dd6ec->FUN_00086340()->FUN_00092de0(2) != 0",
+     "(the same edit)"),
+    ("matches/0x001b3320.cpp", "    void doIt();", "    void doIt(Vec, int, int, int);",
+     "check 7 (native14): natively clang re-reserves its call frame after a callee-pops call by the bytes the declaration pops, so a callee that pops a different number shifts every later outgoing argument: 0x001b3320 pushes the explosion's (position, kind, 0, 0) for 0x001b4620 (`ret 0x18`) before the getter 0x001b6580 (`ret`); declared get(Vec, int, int, int) and doIt()"),
+    ("matches/0x001b3320.cpp", "Obj* __stdcall get(Vec, int, int, int);", "Obj* get();", "(the same edit)"),
+    ("matches/0x001b3320.cpp", "        Obj* p = get(v, n, 0, 0);\n        p->doIt();", "        get()->doIt(v, n, 0, 0);", "(the same edit)"),
+    ("matches/0x001c5740.cpp", "    int convert(Arg*);", "    int convert();",
+     "check 7 (native14): natively clang re-reserves its call frame after a callee-pops call by the bytes the declaration pops, so a callee that pops a different number shifts every later outgoing argument: 0x001c5740 pushes n for 0x001c7870 (`ret 8`) before n's 0x001c5b70 (`ret`)"),
+    ("matches/0x001c5740.cpp", "    void g(int);", "    void g(int, Arg*);", "(the same edit)"),
+    ("matches/0x001c5740.cpp", "    g(n->convert(n));", "    g(n->convert(), n);", "(the same edit)"),
 ]
 
 
@@ -2466,7 +2546,12 @@ def this_cand_pairs():
                 continue
             a = int(b["addr"], 16)
             name = _plain_name(b["symbol"])
-            for src in _symbol_sources(b["symbol"]):
+            srcs = _symbol_sources(b["symbol"])
+            if b.get("callers") and not any(c.startswith("tu:") for c in b["callers"]):
+                # native14: a name the link binds per calling function: only those functions' sources
+                own = {"%s/0x%s.cpp" % (d, c[2:].rjust(8, "0")) for c in b["callers"] for d in ("matches", "equivalent")}
+                srcs = [x for x in srcs if x in own]
+            for src in srcs:
                 out.setdefault(src, set()).add((name, a, kind))
         _BC["t"] = out
     return _BC["t"]

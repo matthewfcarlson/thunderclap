@@ -194,7 +194,7 @@ static void hulk_peek(const char* peek) {
 extern "C" hulk_u32 hulk_native_frame_no;
 hulk_u32 hulk_native_frame_no;
 
-extern "C" void HULK_CDECL hulk_trace_func(hulk_u32 addr, const hulk_u32* f) {
+static int trace_func_impl(hulk_u32 addr, const hulk_u32* f) {
     static hulk_u32 seen_addr[64], seen_n[64];
     static hulk_u32 limit = 0;
     if (!limit) {
@@ -206,13 +206,55 @@ extern "C" void HULK_CDECL hulk_trace_func(hulk_u32 addr, const hulk_u32* f) {
                 limit = limit * 10 + (hulk_u32)(*v - '0');
         }
     }
+    // native14: HULK_TRACE_WATCH=<pointer hex>:<offset hex> (or =<address hex>): the 3 words at (*pointer + offset) (a singleton's
+    // field), compared at every probe call: a change is logged with this probe and the previous one (the write
+    // happened between them), from HULK_TRACE_FROM on
+    static const char* watch = (const char*)1;
+    static hulk_u32 w_ptr, w_off, w_old[3], w_prev, w_abs;
+    if (watch == (const char*)1) {
+        watch = hulk_host_getenv("HULK_TRACE_WATCH");
+        if (watch && *watch == '=') {     // `=<hex>`: an absolute address (no pointer to read first)
+            w_abs = 1;
+            watch++;
+        }
+        hulk_u32* acc = &w_ptr;
+        for (const char* q = watch; q && *q; q++) {
+            if (*q == ':')
+                acc = &w_off;
+            else
+                *acc = *acc * 16 + (hulk_u32)(*q <= '9' ? *q - '0' : (*q | 0x20) - 'a' + 10);
+        }
+    }
+    if (w_ptr) {
+        hulk_u32 obj = w_abs ? w_ptr : *(const hulk_u32*)w_ptr;
+        if (obj) {
+            const hulk_u32* m = (const hulk_u32*)(obj + w_off);
+            if (m[0] != w_old[0] || m[1] != w_old[1] || m[2] != w_old[2]) {
+                if (w_prev)
+                    hulk_trace_line("watch f=%u between 0x%08x and 0x%08x (ret=0x%08x): %08x %08x %08x -> %08x %08x %08x",
+                                    hulk_native_frame_no, w_prev, addr, f[3], w_old[0], w_old[1], w_old[2], m[0], m[1], m[2]);
+                w_old[0] = m[0]; w_old[1] = m[1]; w_old[2] = m[2];
+            }
+        }
+        w_prev = addr;
+    }
+    // native14: HULK_TRACE_FROM=<frame>: log nothing before that GameClock frame (the per-function limit counts from it)
+    static hulk_u32 from = 0xffffffffu;
+    if (from == 0xffffffffu) {
+        const char* v = hulk_host_getenv("HULK_TRACE_FROM");
+        from = 0;
+        for (; v && *v >= '0' && *v <= '9'; v++)
+            from = from * 10 + (hulk_u32)(*v - '0');
+    }
+    if (hulk_native_frame_no < from)
+        return 0;
     int k = 0;
     while (k < 64 && seen_addr[k] && seen_addr[k] != addr)
         k++;
     if (k < 64) {
         seen_addr[k] = addr;
         if (seen_n[k]++ >= limit)
-            return;
+            return 0;
     }
     hulk_trace_line("fcall 0x%08x ecx=0x%08x edx=0x%08x ret=0x%08x args 0x%08x 0x%08x 0x%08x 0x%08x tid=%u f=%u", addr, f[1],
                     f[2], f[3], f[4], f[5], f[6], f[7], hulk_host_GetCurrentThreadId(), hulk_native_frame_no);
@@ -336,6 +378,80 @@ extern "C" void HULK_CDECL hulk_trace_func(hulk_u32 addr, const hulk_u32* f) {
             v = m[0];
         }
     }
+    return 1;
+}
+
+extern "C" void HULK_CDECL hulk_trace_func(hulk_u32 addr, const hulk_u32* f) {
+    trace_func_impl(addr, f);
+}
+
+// native14: HULK_TRACE_EXIT probes (tools/native_link.py): the wrapper logs the entry as HULK_TRACE_FUNCS does, then
+// returns through _hulk_tx_ret, which logs `fexit` (eax, edx, st0 when the x87 stack holds a result) and, with
+// HULK_TRACE_XDEREF=<digits 0-4, r>, 16 words at those entry arguments (0: ecx; r: the returned eax) (output buffers) after the call. The
+// real return addresses wait on a small stack (per thread id, spin-locked: diagnostics only).
+struct HulkTxFrame {
+    hulk_u32 tid, addr, ret, logged, args[5];   // args[0]: ecx at entry, 1-4: the stack arguments
+};
+static HulkTxFrame hulk_tx_stack[1024];
+static int hulk_tx_top;
+static volatile int hulk_tx_lock;
+
+extern "C" void HULK_CDECL hulk_trace_enter(hulk_u32 addr, const hulk_u32* f) {
+    int logged = trace_func_impl(addr, f);
+    while (__sync_lock_test_and_set(&hulk_tx_lock, 1))
+        ;
+    if (hulk_tx_top < 1024) {
+        HulkTxFrame& t = hulk_tx_stack[hulk_tx_top++];
+        t.tid = hulk_host_GetCurrentThreadId();
+        t.addr = addr;
+        t.ret = f[3];
+        t.logged = (hulk_u32)logged;
+        t.args[0] = f[1];
+        for (int i = 0; i < 4; i++)
+            t.args[1 + i] = f[4 + i];
+    }
+    __sync_lock_release(&hulk_tx_lock);
+}
+
+extern "C" hulk_u32 HULK_CDECL hulk_trace_exit(const hulk_u32* regs, const double* st0, int has_st0) {
+    hulk_u32 tid = hulk_host_GetCurrentThreadId();
+    HulkTxFrame t = {0, 0, 0, 0, {0, 0, 0, 0, 0}};
+    while (__sync_lock_test_and_set(&hulk_tx_lock, 1))
+        ;
+    for (int k = hulk_tx_top - 1; k >= 0; k--) {
+        if (hulk_tx_stack[k].tid == tid) {
+            t = hulk_tx_stack[k];
+            for (int j = k; j + 1 < hulk_tx_top; j++)
+                hulk_tx_stack[j] = hulk_tx_stack[j + 1];
+            hulk_tx_top--;
+            break;
+        }
+    }
+    __sync_lock_release(&hulk_tx_lock);
+    if (t.logged) {
+        const hulk_u32* d = (const hulk_u32*)st0;
+        if (has_st0)
+            hulk_trace_line("fexit 0x%08x eax=0x%08x edx=0x%08x st0=%08x%08x tid=%u f=%u", t.addr, regs[0], regs[2], d[1],
+                            d[0], tid, hulk_native_frame_no);
+        else
+            hulk_trace_line("fexit 0x%08x eax=0x%08x edx=0x%08x tid=%u f=%u", t.addr, regs[0], regs[2], tid,
+                            hulk_native_frame_no);
+        static const char* xd = (const char*)1;
+        if (xd == (const char*)1)
+            xd = hulk_host_getenv("HULK_TRACE_XDEREF");
+        for (const char* q = xd; q && ((*q >= '0' && *q <= '4') || *q == 'r'); q++) {
+            hulk_u32 v = *q == 'r' ? regs[0] : t.args[*q - '0'];   // `r`: the returned eax
+            hulk_u32 mbi[7] = {0};
+            if (v < 0x10000 || hulk_host_VirtualQuery((const void*)v, mbi, sizeof(mbi)) < sizeof(mbi) || mbi[4] != 0x1000 ||
+                (mbi[5] & 0x101) || v + 64 > mbi[0] + mbi[3])
+                continue;
+            const hulk_u32* m = (const hulk_u32*)v;
+            for (int k = 0; k < 16; k += 8)
+                hulk_trace_line("  xderef %c 0x%08x+0x%02x: %08x %08x %08x %08x %08x %08x %08x %08x", *q, v, k * 4, m[k],
+                                m[k + 1], m[k + 2], m[k + 3], m[k + 4], m[k + 5], m[k + 6], m[k + 7]);
+        }
+    }
+    return t.ret;
 }
 
 // HULK_HANG=n (seconds): a watchdog thread that, n seconds into the run, samples the main thread (its current fiber)

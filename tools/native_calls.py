@@ -18,7 +18,9 @@ DEMOTE = {"matches/0x002151e0.cpp", "matches/0x00339270.cpp", "matches/0x0033eb3
           # outside check 5's view): the stack_init / step / fenv / thing-placement calls
           "matches/0x00215010.cpp", "matches/0x00216f60.cpp", "matches/0x0033db20.cpp", "matches/0x001e5720.cpp",
           # native8: tail calls passing ecx / a stack word on that MSVC 7.1 compiles another way
-          "matches/0x00087990.cpp", "matches/0x001bc710.cpp", "matches/0x00334c00.cpp"}
+          "matches/0x00087990.cpp", "matches/0x001bc710.cpp", "matches/0x00334c00.cpp",
+          # native14: check 12 over the per-TU split names (`init`, bound in this TU only)
+          "matches/0x0033dad0.cpp"}
 
 
 def _n(name, locs):
@@ -1185,4 +1187,12 @@ REG_CALLS += [
      [('extern "C" void __cdecl fallback();', "struct Owner_334c00 {\n// equiv-conv: FUN_00334b00 esi\n    void FUN_00334b00();\n};"),
       ("            fallback();\n    } else\n        fallback();",
        "            ((Owner_334c00*)p)->FUN_00334b00();\n    } else\n        ((Owner_334c00*)p)->FUN_00334b00();")]),
+]
+
+# native14: check 12 now also reads the names the link binds per TU / per calling function (bindings.json
+# `ambiguous_by_tu` / `ambiguous_by_function`): luaB_getfenv calls getfunc as `init()`.
+REG_CALLS += [
+    ("matches/0x0033dad0.cpp", "luaB_getfenv: getfunc 0x0033d9e0 takes L in esi (the argument p)",
+     [('extern "C" void init();', _n("FUN_0033d9e0", "esi") + 'extern "C" void init(void*);'),
+      ("    init();", "    init(q);")]),
 ]

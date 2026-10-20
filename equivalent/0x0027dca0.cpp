@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 574 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 19468 inputs, branch coverage 4/4)
 // FUN_0027dca0 @ 0x0027dca0
 #include "decls/data/game/global.h"
 
@@ -14,9 +14,16 @@ struct Id64_27dca0 {
 
 class Chain_27dca0;
 
+// the listener event: the prop's state id, the kind (-1: a state change) and a value
+struct Event_27dca0 {
+    Id64_27dca0 id;
+    int type;
+    int value;
+};
+
 class Handler_27dca0 {
 public:
-    virtual void vfunc_0(Id64_27dca0 *id, Chain_27dca0 *chain);
+    virtual void vfunc_0(Event_27dca0 *ev, Chain_27dca0 *chain);
 };
 
 class Chain_27dca0 {
@@ -29,16 +36,18 @@ public:
 
 void Chain_27dca0::FUN_0027dca0()
 {
-    Id64_27dca0 id;
+    Event_27dca0 ev;
     Id64_27dca0 empty;
 
-    id.FUN_0027af00();
+    ev.id.FUN_0027af00();
+    ev.type = -1;
     empty.FUN_0027b0e0(((char*)&DAT_003f335c));
-    id.FUN_0027af70(&empty);
+    ev.id.FUN_0027af70(&empty);
     empty.FUN_0027af50();
+    ev.value = 0;
 
     for (int i = 0; i < count; i++)
-        handlers[i]->vfunc_0(&id, this);
+        handlers[i]->vfunc_0(&ev, this);
 
-    id.FUN_0027af50();
+    ev.id.FUN_0027af50();
 }

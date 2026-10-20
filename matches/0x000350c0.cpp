@@ -26,11 +26,11 @@ bool C_350c0::F(float* p) {
         float v = q->f30;
         if (v <= 0.0f)
             v = q->f34 + q->f34;
-        float r = v * 0.5f + p[1];
+        double r = v * 0.5f + (double)p[1];
         p[1] = r;
         int k = y->kind;
         if (k == 2 || k == 3)
-            p[1] = y->f3c * 0.5f + r;
+            p[1] = (float)(y->f3c * 0.5f + r);
     }
     return true;
 }

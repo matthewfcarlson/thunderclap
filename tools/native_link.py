@@ -547,6 +547,33 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
         by_addr_def[t] = lab
         defined.add(lab)
         how["probe wrapper (HULK_TRACE_FUNCS)"] += 1
+    # native14: HULK_TRACE_EXIT=addr,...: probes that also log the return (`fexit`: eax, edx, st0, output buffers;
+    # src/platform/sdl/xdk/startup.cpp hulk_trace_enter / hulk_trace_exit): the wrapper logs the entry, swaps the
+    # return address for _hulk_tx_ret (the real one waits in hulk_trace_enter's stack) and jumps to the definition;
+    # _hulk_tx_ret saves the result registers and st0 (fxam: only when the x87 stack holds one) and returns to the
+    # caller. Any calling convention (the callee pops its own arguments). Probe builds only.
+    tx = [int(v, 16) for v in os.environ.get("HULK_TRACE_EXIT", "").replace(",", " ").split()]
+    if tx and "_hulk_trace_exit" in shim["defined"]:
+        clock_asm += ("\t.text\n\t.globl\t_hulk_tx_ret\n\t.p2align\t4\n_hulk_tx_ret:\n\tpushl\t%eax\n\tpushl\t%edx\n"
+                      "\tpushl\t%ecx\n\tpushl\t%eax\n\tsubl\t$8, %esp\n\tfxam\n\tfnstsw\t%ax\n\tandl\t$0x4500, %eax\n"
+                      "\tcmpl\t$0x4100, %eax\n\tje\t1f\n\tfstl\t(%esp)\n\tmovl\t$1, %eax\n\tjmp\t2f\n1:\n\txorl\t%eax, %eax\n"
+                      "2:\n\tmovl\t%esp, %ecx\n\tpushl\t%eax\n\tpushl\t%ecx\n\tleal\t16(%esp), %ecx\n\tpushl\t%ecx\n"
+                      "\tcalll\t_hulk_trace_exit\n\taddl\t$20, %esp\n\tmovl\t%eax, 12(%esp)\n\tpopl\t%eax\n\tpopl\t%ecx\n"
+                      "\tpopl\t%edx\n\tretl\n")
+        defined.add("_hulk_tx_ret")
+    for t in tx if "_hulk_trace_exit" in shim["defined"] else []:
+        d = by_addr_def.get(t)
+        if not d:
+            continue
+        lab = "_hulk_tx_%08x" % t
+        wrapped[d] = lab
+        clock_asm += ("\t.text\n\t.globl\t%s\n\t.p2align\t4\n%s:\n\tpushl\t%%edx\n\tpushl\t%%ecx\n\tpushl\t%%eax\n"
+                      "\tmovl\t%%esp, %%eax\n\tpushl\t%%eax\n\tpushl\t$%d\n\tcalll\t_hulk_trace_enter\n\taddl\t$8, %%esp\n"
+                      "\tmovl\t$_hulk_tx_ret, 12(%%esp)\n\tpopl\t%%eax\n\tpopl\t%%ecx\n\tpopl\t%%edx\n\tjmp\t\"%s\"\n"
+                      % (lab, lab, t, d))
+        by_addr_def[t] = lab
+        defined.add(lab)
+        how["exit probe wrapper (HULK_TRACE_EXIT)"] += 1
     # native10: the platform's event pump (src/platform/sdl/platform_events.cpp, linked with --gfx), which the
     # shim's main-thread sleeps and waits call (xdk/threads.cpp): a no-op without the graphics objects
     if "_hulk_platform_pump" not in defined:

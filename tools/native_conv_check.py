@@ -844,6 +844,23 @@ def rel32_symbols(objects_rsp):
     return out
 
 
+def split_bindings(bj):
+    """native14: the names the link binds per calling function or per TU (bindings.json `ambiguous_by_function` /
+    `ambiguous_by_tu`; linked as `<symbol>$<addr>` aliases), as extra binding entries {"<symbol>$<addr>": {addr,
+    def, how: ["split"], symbol, callers}} for the checks that read `bindings` (7, 8, 12)."""
+    defs = bj.get("definitions", {})
+    out = {}
+    for key in ("ambiguous_by_function", "ambiguous_by_tu"):
+        for sym, m in sorted((bj.get(key) or {}).items()):
+            for where, addr in sorted(m.items()):
+                e = out.setdefault("%s$%s" % (sym, addr[2:]), dict(addr=addr, def_=defs.get(addr), how=["split"],
+                                                                     symbol=sym, callers=[]))
+                e["callers"].append(where if key == "ambiguous_by_function" else "tu:" + where)
+    for e in out.values():
+        e["def"] = e.pop("def_")
+    return out
+
+
 def check_pops(path=BINDINGS, objects_rsp=None):
     """Check 7: every symbol the verified code calls (bindings.json: symbol -> XBE address) whose declared
     convention pops another number of argument bytes than the callee's `ret N` in the XBE. MSVC compiles such a
@@ -876,8 +893,23 @@ def check_pops(path=BINDINGS, objects_rsp=None):
     rets_cache, bad, seen = {}, [], 0
     if not _OWN_NOTES:
         check_register_orders()
-    for s in sorted(b):
-        a = int(b[s]["addr"], 16)
+    # native14: the per-function / per-TU splits too (their symbol is the name before `$`)
+    splits = split_bindings(bj)
+    b = dict(b)
+    b.update(splits)
+    for k, v in splits.items():
+        if v["symbol"].startswith("?") and v["symbol"] not in dem:
+            dem[v["symbol"]] = None
+    missing = [k for k, v in dem.items() if v is None]
+    if missing:
+        out = subprocess.run(["/opt/homebrew/opt/llvm/bin/llvm-undname"], input="\n".join(missing) + "\n",
+                             capture_output=True, text=True, errors="replace").stdout.splitlines()
+        for i in range(len(out) - 1):
+            if out[i] in dem and dem[out[i]] is None:
+                dem[out[i]] = out[i + 1]
+    for key in sorted(b):
+        s = b[key].get("symbol", key)
+        a = int(b[key]["addr"], 16)
         if not (text.va <= a < text.va + text.vsize):
             continue
         if s.startswith("?") and ("@@6B" in s or re.match(r"\?\?_[78R]", s) or "@@3" in s):
@@ -886,7 +918,7 @@ def check_pops(path=BINDINGS, objects_rsp=None):
             continue
         if re.match(r"__(all|aull)\w+$|__ftol|__CI", s):
             continue          # the compiler's own helpers (callee-pops by their own convention, not a declaration)
-        d = declared_pops(s, dem.get(s, ""))
+        d = declared_pops(s, dem.get(s) or "")
         if d is None:
             continue
         # a definition with a register-convention note (`equiv-conv: FUN_x ecx eax`): its parameters travel in
@@ -903,7 +935,8 @@ def check_pops(path=BINDINGS, objects_rsp=None):
         pops = max(rets)
         if pops != nb or len(rets) > 1:
             bad.append(dict(symbol=s, addr="0x%08x" % a, conv=conv, declared=nb, callee=sorted(rets),
-                            refs=bj.get("references", {}).get(s), demangled=dem.get(s, s)[:160],
+                            refs=bj.get("references", {}).get(s), demangled=(dem.get(s) or s)[:160],
+                            callers=b[key].get("callers"),
                             why="declared %s popping %d, the callee returns with %s" % (
                                 conv.lower(), nb, "/".join("ret %d" % r for r in sorted(rets)))))
     return seen, bad
@@ -1044,6 +1077,31 @@ def classify_definition_convs(path=BINDINGS, objects_rsp=None):
         a, c = symbol_conv(s), symbol_conv(d)
         if a and c and a != c and (called is None or s in called):
             todo.append((s, d, v["addr"]))
+    # native14: the names the link binds per calling function or per TU (`ambiguous_by_function` /
+    # `ambiguous_by_tu`, linked as `<symbol>$<addr>` aliases): check 8 never saw them (0x00042930 called the
+    # thiscall 0x00042890 through `void __stdcall helper(int, float)`, ecx = its first argument natively)
+    defs = bj.get("definitions", {})
+    caller_of = {}
+    for s, m in sorted((bj.get("ambiguous_by_function") or {}).items()):
+        for fn, addr in sorted(m.items()):
+            d = defs.get(addr)
+            if not d or d == s or "@@6B" in s or "@@3" in s:
+                continue
+            a, c = symbol_conv(s), symbol_conv(d)
+            if a and c and a != c:
+                todo.append((s, d, addr))
+                caller_of.setdefault((s, addr), set()).add(fn)
+    for s, m in sorted((bj.get("ambiguous_by_tu") or {}).items()):
+        for tu, addr in sorted(m.items()):
+            d = defs.get(addr)
+            if not d or d == s or "@@6B" in s or "@@3" in s:
+                continue
+            a, c = symbol_conv(s), symbol_conv(d)
+            if a and c and a != c:
+                todo.append((s, d, addr))
+                caller_of.setdefault((s, addr), set()).add("tu:" + tu)
+    todo = sorted(set(todo))
+    fn_addr = {v: k for k, v in defs.items()}
     names = sorted({x for s, d, _a in todo for x in (s, d) if x.startswith("?")})
     dem = {}
     if names:
@@ -1090,8 +1148,11 @@ def classify_definition_convs(path=BINDINGS, objects_rsp=None):
         counts[cls] += 1
         by_pair[pair][cls] += 1
         if cls == "changing":
-            bad.append(dict(symbol=s, definition=d, addr=addr, caller=cs, definition_shape=cd,
-                            demangled=dem.get(s, s)[:140], definition_demangled=dem.get(d, d)[:140]))
+            e = dict(symbol=s, definition=d, addr=addr, caller=cs, definition_shape=cd,
+                     demangled=dem.get(s, s)[:140], definition_demangled=dem.get(d, d)[:140])
+            if (s, addr) in caller_of:      # a split name: the calling functions (their addresses) or TUs
+                e["callers"] = sorted(fn_addr.get(f, f) for f in caller_of[(s, addr)])
+            bad.append(e)
     return dict(counts), {k: dict(v) for k, v in by_pair.items()}, bad
 
 
@@ -1241,11 +1302,14 @@ def check_bound_register_callers(roots=("matches", "equivalent"), path=BINDINGS)
                 noted.add((int(mm.group(1), 16), mm.group(2)))
     if not os.path.exists(path):
         return len(own), []
-    b = json.load(open(path)).get("bindings", {})
+    bj = json.load(open(path))
+    b = dict(bj.get("bindings", {}))
+    b.update(split_bindings(bj))         # native14: the per-function / per-TU splits too
     bad = []
-    for sym, v in sorted(b.items()):
+    for key, v in sorted(b.items()):
+        sym = v.get("symbol", key)
         a = int(v["addr"], 16)
-        if a not in own or v.get("def") == sym or "position" not in v.get("how", []):
+        if a not in own or v.get("def") == sym or not ({"position", "split"} & set(v.get("how", []))):
             continue
         if re.search(r"FUN_00%06x" % (a & 0xFFFFFF), sym, re.I):
             continue                    # named: check 5

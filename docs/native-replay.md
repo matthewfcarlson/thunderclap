@@ -137,6 +137,19 @@ without xemu: the trace session's census (first frame of every traced function) 
 `fcall` lines now carry `f=<frame>`; `HULK_CKPT_REGIONS=1` logs the hashed regions at every logged checkpoint
 (brute-forcing which region a recorded hash differs in, e.g. the RNG by N draws).
 
+### Status (native14, 2026-10-20)
+
+Four native bugs on play3's path fixed (docs/native-build.md "native14"): Hulk's head tracker (a thiscall reached
+through a free `__stdcall` declaration bound per calling function), the state props' change events (a listener
+event structure the source didn't fill), Hulk's position getter's x87 precision, and the ambient cows (check 7: a
+callee-pops mismatch that clang's call-frame re-reservation turns into garbage arguments). Checkpoints 0-420,
+480, 510, 570 and 630 match; 450-690's other checkpoints differ only in the camera's y by 1-14 ULP (the x87
+precision class: MSVC keeps float temporaries in 53-bit registers, clang -O0 rounds float locals). The census of
+first calls agrees with the hybrid's to frame 914, where a streamed resource completes one frame later natively
+(I/O timing: play3 has no syncio). New probe aids: `HULK_TRACE_FROM`, `HULK_TRACE_WATCH`, `HULK_TRACE_EXIT` /
+`HULK_TRACE_XDEREF`; `HULK_CKPT_REGIONS=1` plus a brute force over small ULP changes of the camera tells a
+precision difference from a logic one.
+
 ### Limits and expectations
 
 - **What has to be exactly equal.** The hash covers the gameplay RNG, the camera and the clock, so it is a

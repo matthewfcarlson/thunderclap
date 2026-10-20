@@ -1,12 +1,12 @@
 class Arg {
   public:
-    int convert(Arg*);
+    int convert();
 };
 class X {
   public:
-    void g(int);
+    void g(int, Arg*);
     void f(Arg*);
 };
 void X::f(Arg* n) {
-    g(n->convert(n));
+    g(n->convert(), n);
 }

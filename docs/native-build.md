@@ -260,6 +260,47 @@ MSVC 7.1 to an identical object; `verify_relocs.py` ok on the 2,316 changed `mat
 modes among neighbours that share `GetLastError`-style declarations); the strict i686 native link of that tree:
 lld-link rc 0, no messages.
 
+## native14: the head tracker, prop events, cows (2026-10-20)
+
+Inputs: native13's workspace, equal to HEAD 4ffd8334 plus the 21 untracked sources of other sessions plus the
+0x0030ed60 demotion (now HEAD b5ec02a0), plus this round's rewrites (`build/native14/sources.txt`, 11 files;
+`removed.txt`: matches/0x0033dad0 demoted). Method as native13: first-call frames of the trace session's census
+(tr1-A) against native probes, then the stop's call chain from the hybrid's captured stacks and callee results.
+
+| # | stop | cause | class and fix |
+|---|---|---|---|
+| 37 | Hulk's head tracker never updates (first difference 0x00039c60, hybrid frame 445) | the hybrid's captured stack of CHeadTrackerAction::vfunc_7 0x000202f0 shows the chain 0x0002ab40 -> 0x00042930 -> 0x00042890 (runs Hulk's +0xdc sequence with selector 0) -> SpawnAction::vfunc_5(0) -> 0x00231f20 -> CAction::vfunc_5 -> vfunc_7. matches/0x00042930 called 0x00042890 (thiscall) through `void __stdcall helper(int, float)`: MSVC 7.1 had `this` in ecx by chance, natively ecx was the first argument. Check 8 never saw it: `helper` is a name the link binds per calling function (`helper$00042890`), and check 8 read only `bindings` | **check 8 over the split names**: native_conv_check.py `split_bindings` (bindings.json `ambiguous_by_function` / `ambiguous_by_tu`) now feeds checks 7, 8 and 12. Check 8: 4 findings, `this-cand` rewrites (0x00042930, 0x00042960, the deleting destructors 0x00336f10, 0x00337330; MATCH, relocs ok). Check 12: luaB_getfenv 0x0033dad0 calls getfunc 0x0033d9e0 (L in esi) as `init()` (reg-call, demoted to equivalent/, EQUIVALENT). After it: 570 and 630 match, census first frames agree to 473 |
+| 38 | a state prop's final-state event (ERS increase, event 20) never happens (hybrid 473/474) | the StateProp change notification 0x0027dca0 passes its listeners {state id, type -1, 0}: the original stores -1 and 0 into the two words after the id (`mov [esp+0x1c], -1` ...); the source passed only the id, so CSPListener::vfunc_0 0x001db230 switched on stack garbage: no prop state change (breakage, explosions' "Broken", ERS) was ever handled natively | **frame-structure fields a callee reads**: equiv.py doesn't compare the caller's frame bytes a callee reads through a pointer argument (checker gap). Patch (EQUIVALENT 3003). Scan: `framestores` (non-zero immediates the original stores into its frame that our MSVC compile never stores; 292 equivalents) narrowed to stores inside an escaped frame region the function never reads back: 21 candidates, the 6 read by hand are false positives (switch-filled arrays, flags); the rest are listed in build/native14/RESUME.md for triage |
+| 39 | Hulk's y one ULP off at frame 445 (an exit probe of 0x000350c0 against the hybrid capture of its caller 0x00039c60); the chase camera's y 1-14 ULP off from frame 450 on (the checkpoint brute force over the logged regions: everything else equal to frame 690) | **x87 precision**: MSVC 7.1 keeps float temporaries in x87 registers (53-bit mantissa: the game's control word is 0x023f, Wine's default is the same and Rosetta honours it, measured) across statements; clang -O0 rounds every float local to 24 bits when it stores it. matches/0x000350c0 keeps `v*0.5 + y` in st0 for the second addition | patch: `double r` (MATCH: MSVC emits the same bytes). The camera's ULPs remain: other sites; 533 functions use `fst dword` (keep a value after storing it) and 3,260 have x87 code, so this is a compile-mode class, now with the x87 agent. clang -O1 (LLVM keeps float SSA values unrounded on x87) crashes right after frame 0 (a separate workspace) |
+| 40 | ambient cows created and deleted every frame from 774 (the cow update 0x000835a0 never runs; hybrid census: once at 775) | the prop factory 0x000796e0 pushes (0, d, c, b, &m, a), builds the name 0x0027b0e0 (`ret 4`) and calls the entity manager's add 0x001dd330 (`ret 0x1c`) with the name and those six words; declared name(text, a, &m, b, c, d, 0) and add(name): natively clang re-reserves its outgoing call frame after a callee-pops call by the bytes the declaration pops (`sub esp, 0x1c`), so the add read six garbage words: the cow's world record was at (0, 4, ...) and 0x0007ee10 deleted it | **check 7 (native_conv_check, listed since native12: 26 symbols)**: these are real natively whenever the definition pops another number than the caller declares (not "harmless by luck": clang's re-reservation moves the next arguments). Fixed: 0x000796e0, 0x001b3320 (explosion effect spawn, `get()->doIt(pos, kind, 0, 0)`), 0x001c5740 (MATCH) and 0x0012f750 (EQUIVALENT). Not fixed: 0x00248670 (tail jumps to 0x0025d740/0x0025d780 with its own stack word; the rewrite fails equiv.py), the save streams 0x002786a0 / 0x002786c0 (0x0027a370 / 0x0027a460 pop 32 / 36), 0x002ad7f0, and the destructor / adjustor callers (most are tail thunks jump_shapes re-emits) |
+
+**Next divergence (open, stop 41)**: census first frames agree to 914 except 0x00203a80 (the region-name builder:
+hybrid 914, native 915), called by 0x00207410 when a streamed resource's state (0x00266710) reaches 3: an I/O
+completion one frame later natively (play3 was recorded without the hybrid's syncio; see native11 pin H). From
+953 on the census parts further (0x00013f20 953 vs 1007, ...). Not separated yet from the x87 class.
+
+**Replay status**: frames 0-420, 480, 510, 570, 630 match (native13: 0-420, 480, 510); 450, 540, 600, 660, 690
+differ only in the camera's y by 1-14 ULP (x87 class); from 720 on more. The image plays all of play3 (to frame
+76,500 with the recording's end at 56,566) without a crash. The trace census agrees with the hybrid's first-call
+frames for every probed function to frame 914 (native13: 441).
+
+**Probe aids** (src/platform/sdl/xdk/startup.cpp, tools/native_link.py; diagnostics, not bridges):
+`HULK_TRACE_FROM=<frame>` (nothing logged before it), `HULK_TRACE_WATCH=<ptr>:<off>` or `='<addr>'` (logs a
+change of 3 words between two probe calls: who wrote it), `HULK_TRACE_EXIT=addr,...` (`fexit` lines: eax, edx,
+st0 when the x87 stack holds one; `HULK_TRACE_XDEREF=<0-4, r>`: 16 words at the entry's ecx / stack arguments or
+the returned eax after the call). Scratch tools (not committed): camulp.py (which camera ULPs explain a checkpoint),
+capcallees.py / capmem.py (a capture's callee results / memory), framestores.py + fsescape.py, natcheck.py /
+natreplay.py (equiv.py with the clang object: fuzzing misses x87 differences, and replays of clang objects
+misalign on clang's helper calls: not usable yet).
+
+**Checker gaps (cl4)**: (1) equiv.py doesn't compare frame bytes a callee reads through a pointer argument (stop
+38). (2) the float tolerance (FTOL) lets ULP differences through; a replay needs bit-exact floats: with exact
+comparison an MSVC object of the chase camera 0x000a75d0 still agrees with all 50 recorded calls, so exact
+replay is feasible. (3) compare.py / verify_relocs accept a free `__stdcall` declaration of a thiscall callee
+(MSVC's ecx is `this` by chance); check 8 is the only guard, now including split names.
+
+**MSVC 7.1 proof and links**: see build/native14/msvc-proof.txt.
+
 ## native13: into the first level's gameplay (2026-10-20)
 
 Inputs: native12's workspace (HEAD 8c871013 + native12) for the search, then a workspace rebuilt from HEAD 26a05b20

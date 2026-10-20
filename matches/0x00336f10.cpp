@@ -13,11 +13,11 @@ class CAction_336f10 {
     virtual void g();
     virtual void h();
 };
-extern void FUN_00019420();
+extern void __fastcall FUN_00019420(void*);
 extern void thunk_FUN_00267090(movie::BinkCallback*);
 
 void* movie::BinkCallback::vfunc_1_BinkCallback(unsigned char param_2) {
-    FUN_00019420();
+    FUN_00019420((void*)(this));
     if ((param_2 & 1) != 0)
         thunk_FUN_00267090(this);
     return (void*)(this);

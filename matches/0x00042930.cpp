@@ -8,8 +8,10 @@ class C_42930 {
     int field338;
     void target(int, float);
 };
-void __stdcall helper(int, float);
+struct ThisCall_00042890 {
+    void helper(int, float);
+};
 void C_42930::target(int a, float b) {
     if (!flag && field338 == 0)
-        helper(a, b * scale);
+        ((ThisCall_00042890*)(this))->helper(a, b * scale);
 }

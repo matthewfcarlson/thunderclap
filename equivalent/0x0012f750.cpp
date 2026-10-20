@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2855 inputs, branch coverage 36/36)
+// STATUS: equivalent (tools/equiv.py level 3: 18926 inputs, branch coverage 36/36)
 // hulkfight::DialogueAction::vfunc_3 @ 0x0012f750
 // cl-flags: /GS
 #include "gen/hulkfight.h"
@@ -25,9 +25,9 @@ struct Player_12f750 {
     const char *FUN_00036d00();
 };
 struct Mgr_12f750 { Player_12f750 *FUN_00059a30(); };
-struct Obj3_12f750 { char FUN_00092de0(); };
+struct Obj3_12f750 { char FUN_00092de0(int n); };
 struct Holder_12f750 { char pad[8]; int f8; Mgr_12f750 *FUN_000592a0(); };
-struct Singleton_4dd6ec { Obj3_12f750 *FUN_00086340(int n); };
+struct Singleton_4dd6ec { Obj3_12f750 *FUN_00086340(); };
 struct Target_12f750 { void FUN_001ecda0(char *a, int b, char *c, int d); };
 struct World { char pad[0x34]; Target_12f750 *t34; };
 struct Name64 { char c[0x40]; };
@@ -68,7 +68,7 @@ bool hulkfight::DialogueAction::vfunc_3(int a, int b) {
         int k = 0;
         while (k < 5 && r[k] == h[k]) k++;
         if (k == 5) {
-            if (DAT_004dd6ec->FUN_00086340(2)->FUN_00092de0() != 0)
+            if (DAT_004dd6ec->FUN_00086340()->FUN_00092de0(2) != 0)
                 for (int i = 0; i < 5; i++) nameB[i] = h[i];
         } else {
             const char *s = pl->FUN_00036d00();
