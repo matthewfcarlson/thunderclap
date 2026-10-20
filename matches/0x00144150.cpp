@@ -1,7 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
-// hulkfight::motion::SlowMotionAction::vfunc_3 @ 0x00144150
-#include "decls/data/game/global.h"
-
+extern const float DAT_003f3358;
+extern const float DAT_003f32dc;
 struct MotionSource {
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -15,7 +13,7 @@ struct MotionSource {
 };
 struct SlowMotionAction {
     char pad[0x1c];
-    MotionSource *source;
+    MotionSource* source;
     float factor;
     float measured;
     bool vfunc_3(int a, int b);
@@ -24,7 +22,9 @@ bool SlowMotionAction::vfunc_3(int a, int b) {
     measured = source->vfunc_6();
     factor = 1.0f;
     float value = source->value;
-    if (!(value <= DAT_003f3358) && value != DAT_003f32dc)
+    if (value <= DAT_003f3358)
+        return false;
+    if (value != DAT_003f32dc)
         return true;
     return false;
 }
