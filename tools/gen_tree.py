@@ -259,6 +259,7 @@ TYPE_KINDS = {"class", "template class", "enum", "typedef", "fwd", "template fwd
 # prototypes of address names) and include/decls/data/ (the data items, tools/data_gen.py); the generator hoists
 # them to the TU and their declarations win in it
 GEN_INCLUDE = re.compile(r'#\s*include\s*[<"]((?:gen|decls)/\w+\.h|decls/data/[\w/]+\.h)[>"]\s*$')
+PTR_NAME = re.compile(r"\bhulk_u?(?:int|long)ptr\b")
 PTR_INCLUDE = re.compile(r'^[ \t]*#\s*include\s*[<"]compat/ptr\.h[>"][ \t]*\r?\n', re.M)
 DATA_INCLUDE = re.compile(r'^[ \t]*#\s*include\s*[<"]decls/data/[\w/]+\.h[>"][ \t]*\r?\n?', re.M)
 
@@ -726,6 +727,7 @@ class Generator:
             if not absorbed or not self.validate_tu(tu, absorbed):
                 break
         seen = set()
+        local_at = {}
         tu.variants = collections.defaultdict(set)       # name -> variants used by merged blocks (incl. defs)
         tu.local = []
         tu.merged_names = sorted(absorbed) if absorbed else []
@@ -739,7 +741,14 @@ class Generator:
             for k, norm, it in b.decls:
                 if (k, norm) not in seen:
                     seen.add((k, norm))
+                    local_at[(k, norm)] = len(tu.local)
                     tu.local.append((k, norm, it, b.addr))
+                elif PTR_NAME.search(it.text):
+                    # declarations equal up to hulk_intptr etc. (cxx_items reads those as int ...): the TU emits the
+                    # pointer-sized spelling, so the 64-bit build sees the types the casts and locals use
+                    i = local_at[(k, norm)]
+                    if not PTR_NAME.search(tu.local[i][2].text):
+                        tu.local[i] = (k, norm, it, tu.local[i][3])
 
     def merge_tu_gen(self, tu):
         """A TU with sources on include/gen/ (or include/decls/): the headers' declarations win in the TU, so
@@ -788,7 +797,10 @@ class Generator:
                     users[nk][cvar].add(b.addr)
                     raw[nk][cvar][var].add(b.addr)
                     if it is not None:
-                        items.setdefault((nk, var), it)
+                        # (declarations equal up to hulk_intptr etc. are one variant: the pointer-sized spelling wins)
+                        old = items.setdefault((nk, var), it)
+                        if old is not it and PTR_NAME.search(it.text) and not PTR_NAME.search(old.text):
+                            items[(nk, var)] = it
             accepted = {nk: accept_variants(vs, tu.gen_vars.get(nk, ())) for nk, vs in users.items()}
             absorbed = {}
             for nk, vs in users.items():
@@ -1095,6 +1107,8 @@ class Generator:
             lines += ["#ifndef " + guard, "#define " + guard]
             # the TU namespace (see TU_NS_GLOBAL): a TU defines these before including its headers
             lines += ["#ifndef " + TU_BEGIN, "#define " + TU_BEGIN, "#define " + TU_END, "#endif"]
+            if any(PTR_NAME.search(e[2].text) for e in entries):
+                lines.append('#include "compat/ptr.h"')      # the declarations below spell hulk_intptr etc.
             if h != "common.h":
                 lines.append('#include "common.h"')
             spans = []

@@ -546,7 +546,8 @@ class Context:
     def type_info(self, words, scope, stack, self_q=None):
         """(size, align, kind) of a type given as tokens (no declarator). kind: 'prim', 'ptr', 'enum',
         'memptr', 'class:<q>'."""
-        ws = [w for w in words if w not in CV and w not in ELAB]
+        # (cxx_items reads hulk_uintptr as the one token "unsigned int": split it back into words)
+        ws = [x for w in words if w not in CV and w not in ELAB for x in (w.split(" ") if w and " " in w else [w])]
         if not ws:
             raise Unsupported("empty type")
         if ws[-1] in ("*", "&"):

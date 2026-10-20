@@ -107,6 +107,21 @@ def sixty4_classes(results, tus, man):
 
 # ---------------------------------------------------------------------------------------------
 # The 64-bit link probe: msvc64 objects, no bridges
+def site_list(results, tus, man, path):
+    """JSON lines of every pointer-width site (class, tree file:line, the source it comes from) of msvc64, net of
+    i686's `__int64` narrowing: the work list for tools/ptr1.py (which works on the sources themselves)."""
+    base = sites(results["gnu32w"], tus, "64bit-shorten") if "gnu32w" in results else set()
+    with open(path, "w") as out:
+        for cat in SIXTY4:
+            s = sites(results["msvc64"], tus, cat)
+            if cat == "64bit-shorten":
+                s -= base
+            for f, line in sorted(s):
+                prod, src = man.producer(f, line)
+                out.write(json.dumps({"class": cat, "tree_file": f, "line": line, "producer": prod,
+                                      "source": src}) + "\n")
+
+
 def link64(results, tus, man, do_link=True, bindings=None):
     res = results["msvc64"]
     objs = sorted(r["obj"] for r in res.values() if r.get("obj"))
@@ -269,6 +284,8 @@ def main(argv=None):
     ap.add_argument("--configs", default=",".join(CONFIGS))
     ap.add_argument("--jobs", type=int, default=4)
     ap.add_argument("--no-link", action="store_true")
+    ap.add_argument("--sites", metavar="OUT", help="also write the pointer-width sites (msvc64) as JSON lines: "
+                    "class, tree file:line, source")
     ap.add_argument("--bindings", help="the 32-bit strict link's build/native/bindings.json of the same tree: "
                     "estimate how much of the 64-bit link it would resolve as a name table")
     a = ap.parse_args(argv)
@@ -281,6 +298,8 @@ def main(argv=None):
            "pads": pad_scan(man, tus)}
     if "msvc64" in results and not a.no_link:
         rep["link"] = link64(results, tus, man, bindings=a.bindings)
+    if a.sites and "msvc64" in results:
+        site_list(results, tus, man, a.sites)
     os.makedirs(OUT, exist_ok=True)
     with open(os.path.join(OUT, "report.json"), "w") as f:
         json.dump(rep, f, indent=1, default=cp.jsonable)

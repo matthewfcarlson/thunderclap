@@ -46,6 +46,12 @@ _TOKEN = re.compile(r"""
 """, re.S | re.X)
 
 
+# include/compat/ptr.h: the pointer-sized integer typedefs are the 32-bit types they replace as far as the tree
+# generator is concerned (variants, signatures and class layouts compare as before); the source text keeps its spelling
+PTR_TYPES = {"hulk_intptr": "int", "hulk_uintptr": "unsigned int", "hulk_longptr": "long",
+             "hulk_ulongptr": "unsigned long"}
+
+
 class Tok:
     __slots__ = ("t", "v", "s", "e")
 
@@ -83,7 +89,8 @@ def tokenize(text):
             toks.append(Tok("pp", text[i:k].strip(), i, k))
             i = k
             continue
-        toks.append(Tok(kind, m.group(kind), m.start(), m.end()))
+        v = m.group(kind)
+        toks.append(Tok(kind, PTR_TYPES.get(v, v) if kind == "id" else v, m.start(), m.end()))
         i = m.end()
     return toks
 
