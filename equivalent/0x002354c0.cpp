@@ -21,7 +21,7 @@ public:
     virtual void v4();
     virtual void v5();
     virtual void v6();
-    virtual void v7(int a, int b, Key_2354c0 *k);
+    virtual int v7(int a, int b, Key_2354c0 *k);
 };
 
 namespace fight { class ParamValueNameList {
@@ -31,7 +31,7 @@ public:
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void vfunc_5(int a1, int a2, Sink_2354c0 *sink);
+    virtual int vfunc_5(int a1, int a2, Sink_2354c0 *sink);
     virtual void v6();
     virtual Key_2354c0 *v7(int a1);
     int f4;
@@ -39,7 +39,7 @@ public:
     int fc;
 }; }
 
-void fight::ParamValueNameList::vfunc_5(int a1, int a2, Sink_2354c0 *sink)
+int fight::ParamValueNameList::vfunc_5(int a1, int a2, Sink_2354c0 *sink)
 {
     Key_2354c0 *k = v7(a1);
     if (k == 0) {
@@ -50,5 +50,5 @@ void fight::ParamValueNameList::vfunc_5(int a1, int a2, Sink_2354c0 *sink)
         }
         k = ((Key_2354c0*)&DAT_004e5bd0);
     }
-    sink->v7(f8, fc, k);
+    return sink->v7(f8, fc, k);
 }

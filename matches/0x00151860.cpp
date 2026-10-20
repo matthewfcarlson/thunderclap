@@ -8,7 +8,7 @@ struct Sub_151860 {
     void Set(int);
     void Stop();
     void Start(int);
-    void End();
+    int End();
 };
 struct C3_151860 {
     void f();
@@ -30,9 +30,9 @@ struct HitReactionAction {
     Obj_151860* m4c;
     int m50;
     char m54;
-    void vfunc_5(int b, int a);
+    int vfunc_5(int b, int a);
 };
-void HitReactionAction::vfunc_5(int b, int a) {
+int HitReactionAction::vfunc_5(int b, int a) {
     if (!b && !m54)
         sub.Init(m50, a);
     Obj_151860* old = m4c;
@@ -49,5 +49,5 @@ void HitReactionAction::vfunc_5(int b, int a) {
     if (m4c)
         m4c->V1();
     m4c = q;
-    sub.End();
+    return sub.End();
 }

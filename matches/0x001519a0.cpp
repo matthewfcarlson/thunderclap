@@ -29,7 +29,7 @@ public:
     void FUN_002322f0(int count, int arg);
     void FUN_00231f20(int step);
     void FUN_002324b0(int flag);
-    void FUN_00231ee0();
+    int FUN_00231ee0();
 };
 
 class HitReactionFloatAction {
@@ -41,10 +41,10 @@ public:
     int stepCount;
     char started;
 
-    void FUN_001519a0(int step, int arg);
+    int FUN_001519a0(int step, int arg);
 };
 
-void HitReactionFloatAction::FUN_001519a0(int step, int arg)
+int HitReactionFloatAction::FUN_001519a0(int step, int arg)
 {
     if (step == 0 && !started) {
         track.FUN_002322f0(stepCount, arg);
@@ -65,5 +65,5 @@ void HitReactionFloatAction::FUN_001519a0(int step, int arg)
         previous->Release();
     }
     previous = now;
-    track.FUN_00231ee0();
+    return track.FUN_00231ee0();
 }

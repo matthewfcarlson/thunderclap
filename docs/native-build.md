@@ -25,6 +25,11 @@ build/venv/bin/python tools/native_link.py --reuse-map --gfx   # with the pddi/b
 #   HULK_NATIVE_DIR=build/native5 ... clang_probe.py --snapshot --configs msvc; native_link.py --tree build/native5/clang-probe/snap
 ```
 
+**Status 2026-10-19 (native10): the front end's scripts run.** Past native9's heap stop, the native image loads the
+front end (the DollyScript `frontend\fe_real.txt`: fonts, macros, screens, labels, buttons, locators), sorts its
+screens and runs the front-end Lua; it plays the boot movies and stops while uploading their frames (a null bgfx block). See
+[native10](#native10-past-the-loader-into-the-front-end-2026-10-19).
+
 **Status 2026-10-19 (native9): the game's own frame loop runs.** The native image gets through start-up and loading
 into `Main::update`, which presents frames through the pddi/bgfx device (256+ frames of the copyright screen, drawn
 by the game) and runs the Lua scripts; it stops later in the loader fiber (a game heap runs out). See
@@ -58,6 +63,59 @@ next fixes 1-3](#after-the-next-fixes-1-3-2026-10-17) the night before (first st
 Cold, the first run takes 10-15 minutes (4 compiler processes); a warm run takes 30 s. Everything goes to `build/clang-probe/`:
 `report.json` (counts, categories with example sites, scans, link probe), `undefined.txt` (every undefined symbol with
 its group and demangled name), `cache/` (per-TU results and objects) and `snap/` (the tree being probed).
+
+## native10: past the loader, into the front end (2026-10-19)
+
+Inputs: native9's workspace (HEAD 32bafa21's tree + native9's 244 sources) plus this round's verified rewrites
+(`build/native10/sources.txt`, 55 sources, 25 of them equivalent/), rebuilt with `build_tree.py
+--resume --jobs 3 --regression-rounds 4`, probed, linked (`native_link.py --gfx`, the binding map rebuilt), run under
+Wine. Every source edit went through `native_fix.py --apply --verify` (compare.py MATCH / equiv.py --inputs 3000
+EQUIVALENT); every tree build: all TUs compiled, every match matching, 0 equivalents differing from standalone.
+
+**1. The stops** (each fixed as a class where a class could be named):
+
+| # | stop | cause | class and fix |
+|---|---|---|---|
+| 17 | operator new -> out-of-memory handler 0x8d320: heap 11 (Stream Heap), size 0x021e62f0 | the size was `this`: `CompositeDrawable`'s inline constructor called the allocator 0x263ea0 for its base `DrawableBase()` 0x2a3480. The source's `// equiv-map: ??0DrawableBase@pure3d@@QAE@XZ = 0x002a3480` names the standalone symbol; in the merged tree object the name carries the TU namespace and equiv.py's translation (`_tree_names`) skips `??` names (constructors, destructors, operators), so the binding fell back to instruction pairing | **link**: `tree_explicit` (native_link.py): every equiv-map line matched to the object's symbol with the same demangled name without `fn_<addr>::` (llvm-undname); `build/native/tree-explicit.json` (3; 1 changed). Reported for equiv.py (cl2's) |
+| 18 | particle loader 0x2d5640 -> `Animation::GetGroup` 0x288a10 reads a null group list | AnimationLoader 0x289500 compared chunk ids with `&DAT_00121401`: a constant spelled as the address of a `char` data name in .text (natively a stub of the image's data) | **source**: rule `addr-const` (8 sources: chunk ids, a push-buffer method, a function by its address) + `code-table` patches (6 sources: switch case-index tables in .text read as `DAT_<addr>[i]`, the switches written on the value) |
+| 19 | Lua parser (`sound\map.lua`) | exprstat 0x21f300's `int values[5]` is the LHS link plus the 5-word expdesc: one word short, primaryexp's `f = NO_JUMP` overwrote `ls->fs` (reached only now: before `code-table`, simpleexp parsed every expression as a table constructor) | **source**: patch (EQUIVALENT) |
+| 20 | AnimationLoader's qsort comparator 0x289270: a null group | `DefaultChannelHandler::vfunc_5` 0x28aea0 (the channel's pool sizes, a jump table) had no case 0x12110e and 0x121111 in the wrong group: the pool came out 63 headers short and its data overwrote the group array allocated after it. **The source was EQUIVALENT before and after**: equiv.py's coverage counts the jump table's 12 targets, not its 21 indices | **source**: patch, read off the original table. A static scan of all equivalent/ jump tables (scratch `jt.py`: 122 flagged, mostly index-vs-value noise) is not triaged; reported for equiv.py |
+| 21 | front end: DollyScript token list walked into garbage | `CTokenHashed::vfunc_2` 0xfa9c0 (Clone) was `void`; the other tokens' Clones return the copy | **check 11** (native_conv_check `check_virtual_returns`: a `void` override in a vftable slot its family mostly returns a value from, by RTTI; 35) + rule `ret-cand` (27 MATCH/EQUIVALENT) + patch 0xfa9c0 (MATCH) |
+| 22 | `FontSet::FUN_000f8970` got a code address as the font name | `v44(t)->FUN_000f8970()`: the getter v44 leaves `t` on the stack, the setter (`ret 4`) takes it (check 7, declared fewer words than the callee pops) | **source**: rule `arg-unshift` (the reverse of arg-shift: X's last words move to M: 0xf5b20 x2, 0x1c7550). equiv.py cannot tell which of two chained calls a stack word belongs to (a second pass of the rule "verified" a wrong move: reverted, the rule now checks M's declared words) |
+| 23 | `FEContainer::vfunc_50` 0xee9b0: a container without children | the parser's token-list append `Lst::Put` is inline in 0xfaf80 and out of line in 0xfa870, with **one** function-local static `last` (0x4e09f8, guard 0x4e09fc); each source had its own `static ... last`, so the macro expander's Put never saw the parser's last token and every `$MACRO_INSERT` was lost (the screens' AddSceneGraph/AddLocators lines) | **source**: patches naming the shared item (MATCH, EQUIVALENT). A scan of the original for guard words shared by several functions finds no other instance |
+| 24 | (not a stop) | 64-bit results through 32-bit definitions: `FUN_0027b020` (the 64-bit name hash, 173 callers), `GetMicroseconds64` 0x267f40 and 3 more declared `int` | **check 10** extended to 64-bit callers; patches (5 MATCH). 0xfaeb0 left (its `return 0` path only sets eax) |
+| 25 | the front end's screen sort: comparator 0xe1e90 -> 0xf6370 -> `Run` 0x2848b0 | `int r = api->B(c, d, 0, &local); api->C(r);`: B pops 8, C (`ret 0xc`) takes (r, 0, &local) (check 7 through a variable) | **source**: patches 0xf6370 (MATCH), 0xf63c0 (the same shape) |
+| 26 | Lua `luaD_poscall` 0x215970 filled nils past the stack (script `UpdateMoveList`) | `lua_call` 0x2139a0 rewrites two stack words and tail-jumps to `luaD_call` with its third (nresults) passed through; declared with two | **source**: patch (pass-through class) |
+| 27 (open) | the boot movies: `bgfx::copy` from `bgfxTexture::upload` writes through a null block (bgfx's allocator returned 0) after three Bink movies opened | not read yet: the movie frames' texture uploads (pddi/mv1 side) |
+
+**2. How far the game gets**: start-up, loading, the copyright screen (256+ frames), the front end's DollyScript (`frontend\fe_real.txt`: fonts, 44 macros defined and expanded, every screen with its labels, buttons, scene graphs and locators), the screen sort, the front end's Lua (`UpdateMoveList`), the pad device check (`XGetDeviceChanges`) and **the boot movies**: Bink opens three (640x480; 120, 390, 367 frames) and decodes about 665 frames before stop 27 (~29 s into the run).
+
+**3. Replay groundwork** (build/rp1/for-native9.md; docs/native-replay.md):
+
+| request | done |
+|---|---|
+| A pad-init reads are not polls | `native_link.py` `SITE_REBIND` (per-call-site binding: the calls one function makes to one callee go to another definition): 0x2692c0's XInputGetState -> `hulk_xdk_XInputGetStateInit` (xdk/input_xpp.cpp, `hulk_input_read_init`) |
+| B frame hook | xdk/replay_hooks.cpp `hulk_native_frame(clock)`: `hulk_ckpt_update` with the image's 0x4e5ad0 / 0x49fb40 / 0x4e231c and the GameClock; the `--gfx` clock wrapper calls it before the draw-log tick; the first 64 checkpoints also go to the trace |
+| C poll rate limit | `ENTRY_HOOKS` (a wrapper in front of a function, every address/vftable caller goes through it): 0x269170 -> `hulk_hook_pad_poll`: with a recording open the interval at +0x12a0 reads 0 |
+| D virtual clock / vdate | xdk/timing.cpp: `HULK_VCLOCK=1` or a recording's vclock/fixed-dt/vdate flags: QPC is the hybrid's virtual clock (1 s, +4 ms per main-thread read before the first update, 300 s at the first, +33,333 us per update); SITE_REBIND 0x86450 / 0x87e30 -> `hulk_clock_tick` / `hulk_clock_now`; GetLocalTime = 2006-01-02 12:00 + virtual seconds |
+| E new-game seed | SITE_REBIND 0x86630's GetMicroseconds -> `hulk_replay_seed` |
+| F tweaks | skip-intro: `hulk_replay_startup` (after the initializers, before main) opens the recording and sets g_BootSequenceStep 6. no-fmv: not done |
+| G, H, I, J | not done (sound/seq RNG isolation, I/O sync); I and J are run options (`HULK_AUDIO_CLOCK=frame`, `HULK_SAVE_DIR`), passed through by native_run.py's environment |
+
+Replay run: `HULK_INPUT_SOURCE=replay:<play3.hrp> HULK_CKPT=1 HULK_AUDIO_CLOCK=frame` opens the recording (17,915 entries, 1,886 checkpoints, flags 0x3ecd, tweaks skip-intro + no-fmv, seed 0x1234) and hashes frame 0: **53891aea, the recording has 732dab43 (diverged at frame 0)**. The regions at that checkpoint (logged to the trace): RNG 7df2f1ba 418a5dfb, boot step 6, the camera singleton already set (0x04d69aa8: its position is hashed), the GameClock's +0x10 block 0,0,0,0, ff000000 ff000000 (the elapsed field before the first Update: the constructor leaves it, so it is heap content) ..., rate 0x10000. Candidates for rp1: the camera existing at frame 0 natively, and the uninitialized clock word. With skip-intro the run then takes another path and stops in `Other_2dfc90::g` (not read). A first version of request C zeroed the interval and ControllerXBox::vfunc_20 divided by it: the hook now moves the last-poll time instead.
+
+**4. Counts**: rewrites **55 sources** (`build/native10/sources.txt`: 30 matches/, 25 equivalent/): by rule (one source has two): ret-cand (check 11) 27, addr-const 8, code-table 6, arg-unshift 2 (3 calls), check 10 (64-bit) 5, patches 8 (stops 19, 20, 21, 23 x2, 25 x2, 26). Conv checks on the final tree and map: check 6 **20 definitions / 25 sites** (unchanged), check 7 **33 symbols / 31 addresses** (native9 40/37), check 10 **59** (incl. the new 64-bit case; the 46-odd caller-side ones as before), check 11 (new) **7** left (35 found, 27 verified rewrites, 1 patch). Binding map: 3 equiv-map lines rebound in the tree namespace (tree_explicit), 6 call sites rebound (SITE_REBIND), 1 entry hook. Strict `lld-link`: **0 errors** plain (7.54 MB) and `--gfx` (10.41 MB); 1,579 symbols still stubbed (native9 1,596), 1,217 dispatch stubs.
+
+**5. MSVC 7.1 proof** (`build/native10/msvc-proof.txt`): base = native9's final inputs (the 55 files at HEAD), mine = + build/native10/sources.txt, both `build_tree.py --resume --jobs 3 --regression-rounds 4` from the same state: TUs 2,810 / 2,810, matches 22,197 / 22,197 in both, **0 equivalents differing** from their standalone code, per-function verdicts identical for all 27,474 functions; 2 functions changed mode (wrapped <-> merged).
+
+**6. Tools.** `native_link.py`: `tree_explicit`, `SITE_REBIND` / `site_rebind`, `ENTRY_HOOKS`, the clock wrapper's
+`hulk_native_frame` call, a no-op `_hulk_platform_pump` without `--gfx`, HulkShaderCallback's dynamic_cast of the
+pddi effects extension rebound to `hulk_cast_self` (build/g4/for-native10.md 8). `native_fix.py`: rules
+`addr-const`, `arg-unshift`; native10 patches (`code-table`, `shared-static`, check 10/11 fixes); ret-cand also
+takes check 11's findings. `native_conv_check.py`: check 10 (64-bit), check 11 (`check_virtual_returns`).
+xdk: replay_hooks.cpp (new), input_xpp.cpp (`XInputGetStateInit`), timing.cpp (virtual clock), threads.cpp (the
+main thread's Sleep and long waits pump the window's events, sdlwin's item 4), startup.cpp (`HULK_TRACE_DEREF`,
+`HULK_TRACE_LIST` for the probe wrappers; `hulk_replay_startup`), library.cpp (`hulk_cast_self`).
 
 ## native9: from the RCF mount toward the first frame (2026-10-19)
 
@@ -155,6 +213,8 @@ instead of compiling our own source as written. Accepted as tech debt (2026-10-1
 | stub vftables pointed at the game's (`vt_` objects, fix 6a), ambiguous ones resolved by declaring source | all stub classes | stub classes stand for the game's classes | the real classes (include/gen) |
 | `hulk_at_` / `DAT_` by address, data in the XBE window | 54 sources + the window mapping | sources name data by XBE address | named data (include/decls/data) everywhere |
 | `ctor-virt` stand-in virtuals `hulk_slot_<name>` | 12 sources | stub classes made polymorphic by the wrong member | the real class declaration (the member is not virtual) |
+| (native10) `SITE_REBIND` call sites named by XBE address (native_link.py) | 6 sites (0x2692c0, 0x86450, 0x87e30, 0x86630, 0x1c1a40) | the replay pins and one dynamic_cast act on single call sites of verified code | the platform calls as such in the sources (a replay-aware clock/input/seed interface), the pddi extension with real RTTI |
+| (native10) `ENTRY_HOOKS`: a wrapper at 0x269170 writing ControllerSystemXBox +0x12a4 from +0x12a0 | 1 (2 field offsets) | the replay pin C needs the poll's rate limit off | a named member of the real class (include/gen) and a platform poll policy |
 | the empty stubs for a virtual the original doesn't own (the 0x002777c0 class) | 14 sources with an adjustor thunk and an empty out-of-line body: 10 fixed (`stub-body`), 2 are other sessions' untracked files (matches/0x002777e0, 0x002777f0), 2 are constructor/destructor bodies the vftable emission needs (0x00268010, 0x0026e350) | — | (the 2 untracked ones: the same rewrite once they are committed) |
 
 ## Graphics boundary crossed (G1, 2026-10-19)

@@ -2,6 +2,8 @@
 // FUN_000faf80 @ 0x000faf80
 // cl-flags: /GS
 
+extern "C" unsigned char DAT_004e09f8[4];
+extern "C" unsigned char DAT_004e09fc[4];
 struct Item_faf80 {
     char pad0[4];
     Item_faf80 *next;
@@ -77,7 +79,11 @@ Head_faf80 *Script_faf80::FUN_000faf80(Lines *lines)
                 if (!it)
                     break;
                 if (!FUN_000faa40(it)) {
-                    static Item_faf80 *last = it;
+                    if (!(*(unsigned char*)DAT_004e09fc & 1)) {
+                        *(unsigned*)DAT_004e09fc |= 1;
+                        *(Item_faf80**)DAT_004e09f8 = it;
+                    }
+                    Item_faf80 *&last = *(Item_faf80**)DAT_004e09f8;
                     Head_faf80 *hd = head;
                     if (hd->first == 0) {
                         hd->first = it;

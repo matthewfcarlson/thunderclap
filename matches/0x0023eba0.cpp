@@ -5,7 +5,7 @@ class Child_23eba0 {
     void Begin(int, int);
     void Update(int);
     void Finish(int);
-    void End();
+    int End();
 };
 class SpawnAction {
   public:
@@ -14,18 +14,18 @@ class SpawnAction {
     virtual void f2();
     virtual void f3();
     virtual void f4();
-    virtual void vfunc_5(int, int);
+    virtual int vfunc_5(int, int);
     char pad[0x28 - 4];
     Child_23eba0 child;
     int count;
     unsigned char flag;
 };
-void SpawnAction::vfunc_5(int index, int value) {
+int SpawnAction::vfunc_5(int index, int value) {
     if (index == 0 && !flag)
         child.Begin(count, value);
     flag = 0;
     child.Update(index);
     if (index == count - 1)
         child.Finish(1);
-    child.End();
+    return child.End();
 }

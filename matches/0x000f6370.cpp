@@ -1,7 +1,7 @@
 struct API {
     void A(int);
-    int B(int, int, int, int*);
-    void C(int);
+    int B(int, int);
+    void C(int, int, int*);
 };
 struct V {
     int a;
@@ -18,7 +18,6 @@ struct S_f6370 {
 V S_f6370::Target() {
     V local;
     api->A(0);
-    int r = api->B(c, d, 0, (int*)&local);
-    api->C(r);
+    api->C(api->B(c, d), 0, (int*)&local);
     return local;
 }

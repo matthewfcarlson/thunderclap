@@ -9,7 +9,7 @@ void __cdecl FUN_0021e170(Object *object, int *value, int flag);
 // equiv-conv: FUN_0021f300 eax
 void FUN_0021f300(Object *object) {
     void *item = object->item;
-    int values[5];
+    int values[6];
     FUN_0021d830(&values[1], object);
     if (values[1] == 12) {
         FUN_00220a50(item, &values[1], 0);

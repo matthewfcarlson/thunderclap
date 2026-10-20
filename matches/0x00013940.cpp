@@ -3,13 +3,13 @@ class CAction {
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    virtual void vfunc_3(int, int);
+    virtual int vfunc_3(int, int);
     virtual void f4();
     virtual void f5(int);
-    virtual void f6(int);
+    virtual int f6(int);
     virtual void f7();
     virtual void f8();
 };
-void CAction::vfunc_3(int a, int b) {
-    f6(b);
+int CAction::vfunc_3(int a, int b) {
+    return f6(b);
 }

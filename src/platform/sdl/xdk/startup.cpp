@@ -22,6 +22,7 @@ extern hulk_init_fn hulk_game_initializers[];
 extern const hulk_u32 hulk_game_initializer_addrs[];
 extern const hulk_u32 hulk_game_initializer_count;
 int HULK_CDECL hulk_game_main(void);
+void HULK_CDECL hulk_replay_startup(void);  // replay_hooks.cpp (native10: a replay's tweaks before main)
 extern hulk_init_fn hulk_clang_xc_a[], hulk_clang_xc_z[];  // clang's own .CRT$XCU entries lie between
 void HULK_CDECL hulk_crt_run_atexit(void);
 }
@@ -210,6 +211,47 @@ extern "C" void HULK_CDECL hulk_trace_func(hulk_u32 addr, const hulk_u32* f) {
     }
     hulk_trace_line("fcall 0x%08x ecx=0x%08x edx=0x%08x ret=0x%08x args 0x%08x 0x%08x 0x%08x 0x%08x tid=%u", addr, f[1],
                     f[2], f[3], f[4], f[5], f[6], f[7], hulk_host_GetCurrentThreadId());
+    // native10: HULK_TRACE_DEREF=<digits>: also 8 words at the pointers in these slots (0 ecx, 1-4 the stack
+    // arguments), each when committed memory (VirtualQuery), and 8 words at the first word of each (a vptr-led
+    // object: the object's class and its fields; a pointer to a pointer: the pointee)
+    static const char* deref = (const char*)1;
+    if (deref == (const char*)1)
+        deref = hulk_host_getenv("HULK_TRACE_DEREF");
+    // HULK_TRACE_LIST=<slot>+<hex offset>: the linked list whose head pointer lies at that offset of the slot's
+    // object (`0+8`: ecx's +8): up to 400 nodes, `next` at +4; each node's words 0, 2, 3, 4, 5 (a vptr-led node)
+    static const char* list = (const char*)1;
+    if (list == (const char*)1)
+        list = hulk_host_getenv("HULK_TRACE_LIST");
+    if (list && *list >= '0' && *list <= '4' && list[1] == '+') {
+        hulk_u32 off = 0;
+        for (const char* q = list + 2; *q; q++)
+            off = off * 16 + (hulk_u32)(*q <= '9' ? *q - '0' : (*q | 0x20) - 'a' + 10);
+        hulk_u32 base = *list == '0' ? f[1] : f[3 + (*list - '0')];
+        hulk_u32 mbi[7] = {0};
+        if (base >= 0x10000 && hulk_host_VirtualQuery((const void*)base, mbi, sizeof(mbi)) == sizeof(mbi) && mbi[4] == 0x1000) {
+            hulk_u32 n = *(const hulk_u32*)(base + off);
+            for (int i = 0; i < 400 && n >= 0x10000; i++) {
+                if (hulk_host_VirtualQuery((const void*)n, mbi, sizeof(mbi)) != sizeof(mbi) || mbi[4] != 0x1000)
+                    break;
+                const hulk_u32* m = (const hulk_u32*)n;
+                hulk_trace_line("  node %d 0x%08x: 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x", i, n, m[0], m[2], m[3], m[4], m[5]);
+                n = m[1];
+            }
+        }
+    }
+    for (const char* d = deref; d && *d >= '0' && *d <= '4'; d++) {
+        hulk_u32 v = *d == '0' ? f[1] : f[3 + (*d - '0')];
+        for (int depth = 0; depth < 2 && v >= 0x10000; depth++) {
+            hulk_u32 mbi[7] = {0};
+            if (hulk_host_VirtualQuery((const void*)v, mbi, sizeof(mbi)) < sizeof(mbi) || mbi[4] != 0x1000 /* MEM_COMMIT */ ||
+                (mbi[5] & 0x101) || v + 32 > mbi[0] + mbi[3])
+                break;
+            const hulk_u32* m = (const hulk_u32*)v;
+            hulk_trace_line("  deref %c%s 0x%08x: 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x", *d,
+                            depth ? "*" : "", v, m[0], m[1], m[2], m[3], m[4], m[5], m[6], m[7]);
+            v = m[0];
+        }
+    }
 }
 
 // HULK_HANG=n (seconds): a watchdog thread that, n seconds into the run, samples the main thread (its current fiber)
@@ -385,6 +427,7 @@ extern "C" void HULK_CDECL hulk_native_entry(void) {
                             hulk_game_initializer_addrs[i]);
     }
     hulk_trace_line("initializers done");
+    hulk_replay_startup();
     hulk_phase_ = "main";
     int r = hulk_game_main();
     hulk_phase_ = "exit";

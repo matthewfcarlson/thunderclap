@@ -11,13 +11,13 @@ struct Pending_1c7550 {
 
 class Result_1c7550 {
 public:
-    char FUN_0027af90();
+    char FUN_0027af90(const Key_1c7550 *key);
 };
 
 class Registry_1c7550 {
 public:
     virtual void v0();
-    virtual Result_1c7550 *Lookup(void *entry, const Key_1c7550 *key);     // slot 1
+    virtual Result_1c7550 *Lookup(void *entry);     // slot 1
     char pad04[8];
     int removed;             // 0x0c
     int last;                // 0x10
@@ -43,7 +43,7 @@ void Registry_1c7550::FUN_001c7550(const Key_1c7550 *key) {
     int i = 0;
     do {
         void *entry = entries[i];
-        if (entry != 0 && Lookup(entry, key)->FUN_0027af90()) {
+        if (entry != 0 && Lookup(entry)->FUN_0027af90(key)) {
             entries[i] = 0;
             removed++;
             return;

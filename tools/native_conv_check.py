@@ -1109,6 +1109,8 @@ def _return_bits(demangled):
         return 16
     if r in ("int", "unsigned int", "long", "unsigned long") or r.endswith("*") or r.endswith("&"):
         return 32
+    if r in ("__int64", "unsigned __int64", "long long", "unsigned long long"):
+        return 64
     return 0 if r == "void" else None
 
 
@@ -1138,11 +1140,80 @@ def check_return_widths(path=BINDINGS):
         pass
     by = collections.defaultdict(list)
     for s_, d, a in pairs:
-        if _return_bits(dem.get(s_)) == 32 and _return_bits(dem.get(d)) in (8, 16):
+        cb, db = _return_bits(dem.get(s_)), _return_bits(dem.get(d))
+        # (native10: a caller reading edx:eax from a 32-bit definition: FUN_0027b020, the 64-bit name hash, was
+        # `int` in its source; natively edx was whatever the callee left there)
+        if (cb == 32 and db in (8, 16)) or (cb == 64 and db in (8, 16, 32)):
             by[(a, d)].append(s_)
     bad = [dict(addr=a, definition=d, callers=sorted(v), why="defined %s-bit, %d caller symbol(s) read eax" % (
         _return_bits(dem.get(d)), len(v))) for (a, d), v in sorted(by.items(), key=lambda kv: str(kv[0][0]))]
     return len(pairs), bad
+
+
+def check_virtual_returns(tree_report=TREE_REPORT, rtti=os.path.join(ROOT, "build/rtti.json")):
+    """Check 11 (native10): a `void` virtual whose slot returns a value elsewhere in its class family. Check 6 sees
+    direct callers only; a virtual is called through its vftable (`call [eax+8]`), so a void override of a slot its
+    siblings return a pointer from goes unnoticed: DollyScript::CTokenHashed::vfunc_2 0x000fa9c0 (Clone, `void`
+    in its source; CTokenString/CTokenFloat/... return the copy) left eax to chance, and the front end's script
+    parser linked whatever was there into its token list. Family of slot k: the class that introduced it (the
+    deepest base sharing the vptr at offset 0 whose vftable has the slot, build/rtti.json); the verified
+    definitions' declared return kinds (as check 6). Each void definition in a slot where another definition returns int is a finding (the
+    ret-cand rule's candidates are verified, so a slot the original really leaves void just gets no rewrite).
+    Returns (slots checked, [findings shaped like check 6's])."""
+    rep = json.load(open(tree_report))
+    checks = [c for c in rep["checks"] if c.get("symbol") and c["status"] in ("match", "compiled")]
+    syms = sorted({c["symbol"] for c in checks if c["symbol"].startswith("?")})
+    dem = {}
+    try:
+        out = subprocess.run(["/opt/homebrew/opt/llvm/bin/llvm-undname"], input="\n".join(syms) + "\n",
+                             capture_output=True, text=True, errors="replace").stdout.splitlines()
+        for i in range(len(out) - 1):
+            if out[i] in syms and out[i] not in dem:
+                dem[out[i]] = out[i + 1]
+    except OSError:
+        pass
+    kind = {}
+    for c in checks:
+        s = c["symbol"]
+        k = return_kind(dem.get(s, "")) if s.startswith("?") else c_return_kind(
+            os.path.join(ROOT, c["src"]), re.sub(r"^[_@]|@\d+$", "", s))
+        if k:
+            kind[int(c["addr"], 16)] = (k, c["src"], s)
+    classes = json.load(open(rtti))["classes"]
+    by_td = {c["td"]: c for c in classes}
+    vt0 = {}
+    for c in classes:
+        for v in c.get("vtables", []):
+            if v["offset"] == 0:
+                vt0[c["td"]] = v
+    # a slot's family: the class that introduced it, the deepest base sharing the vptr at offset 0 whose own
+    # vftable has the slot (the bases are listed nearest first)
+    groups = collections.defaultdict(lambda: collections.defaultdict(set))   # (root td, slot) -> kind -> addrs
+    for c in classes:
+        v = vt0.get(c["td"])
+        if not v:
+            continue
+        chain = [b["td"] for b in c.get("bases", []) if b.get("mdisp") == 0 and b.get("pdisp", -1) == -1
+                 and b["td"] in vt0]
+        for k, a in enumerate(v["slots"]):
+            root = c["td"]
+            for b in chain:
+                if len(vt0[b]["slots"]) > k:
+                    root = b
+            kk = kind.get(a)
+            if kk:
+                groups[(root, k)][kk[0]].add(a)
+    bad = []
+    for (root, k), kinds in sorted(groups.items()):
+        if "void" in kinds and "int" in kinds and len(kinds["int"]) > len(kinds["void"]):
+            other = sorted(kinds["int"])[0]
+            for a in sorted(kinds["void"]):
+                _k, src, sym = kind[a]
+                bad.append(dict(addr="0x%08x" % a, file=src, symbol=sym, declared="void", caller=None, caller_file=None,
+                                site=None, slot=k, family=by_td.get(root, {}).get("name"),
+                                why="declared void; vftable slot %d of %s's family, which 0x%08x (%s) returns a value "
+                                    "from (check 11)" % (k, by_td.get(root, {}).get("name"), other, kind[other][2])))
+    return len(groups), bad
 
 
 def run(sources=True, bindings=True, xbe=True, tails=False, roots=("matches", "equivalent"), bindings_path=BINDINGS,

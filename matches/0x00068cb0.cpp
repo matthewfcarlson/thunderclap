@@ -10,10 +10,10 @@ class CTrack {
     virtual void f7();
     virtual void f8();
     virtual void f9();
-    virtual void vfunc_10(int, int, int);
+    virtual int vfunc_10(int, int, int);
     virtual void vfunc_11();
-    virtual void f12(int);
+    virtual int f12(int);
 };
-void CTrack::vfunc_10(int a, int b, int c) {
-    f12(c);
+int CTrack::vfunc_10(int a, int b, int c) {
+    return f12(c);
 }

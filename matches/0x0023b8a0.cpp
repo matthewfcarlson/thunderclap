@@ -25,7 +25,7 @@ class Delegate_23b8a0 {
     virtual void f21();
     virtual void f22();
     virtual void f23();
-    virtual void f24();
+    virtual int f24();
 };
 class StringReader {
   public:
@@ -34,8 +34,8 @@ class StringReader {
 };
 class IFileStringReader : public StringReader {
   public:
-    void vfunc_3();
+    int vfunc_3();
 };
-void IFileStringReader::vfunc_3() {
-    sub->f24();
+int IFileStringReader::vfunc_3() {
+    return sub->f24();
 }

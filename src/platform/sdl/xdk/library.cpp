@@ -106,3 +106,12 @@ void* hulk_lib_slot_RtlEnterCriticalSection = (void*)hulk_lib_RtlEnterCriticalSe
 void* hulk_lib_slot_RtlLeaveCriticalSection = (void*)hulk_lib_RtlLeaveCriticalSection;
 
 }  // extern "C"
+
+// native10 (build/g4/for-native10.md 8): HulkShaderCallback's FUN_001c1a40 dynamic_casts the pddi extension the
+// context returns for 0x103 to pddiExtFramebufferEffects. Our extension objects carry no game RTTI, so the CRT's
+// __RTDynamicCast can't read them; the extension is that type, so that one call (tools/native_link.py SITE_REBIND)
+// returns its argument.
+extern "C" void* HULK_CDECL hulk_cast_self(void* p, int vfdelta, void* src, void* dst, int is_ref) {
+    (void)vfdelta; (void)src; (void)dst; (void)is_ref;
+    return p;
+}

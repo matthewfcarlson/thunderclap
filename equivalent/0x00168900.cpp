@@ -9,7 +9,7 @@ struct GrappleHealthCondition {
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual void vfunc_6(void*, void*, void*);
+    virtual int vfunc_6(void*, void*, void*);
     char padding[8];
     int field_c;
     int field_10;
@@ -19,8 +19,8 @@ struct GrappleHealthCondition {
 struct GrappleTarget;
 GrappleTarget* __cdecl FUN_00048260(void*);
 // equiv-conv: FUN_001687a0 ecx esi stack stack
-void __cdecl FUN_001687a0(GrappleTarget*, int, int, int);
-void hulkfight::motion::GrappleHealthCondition::vfunc_6(void* arg1, void* arg2, void* arg3) {
+int __cdecl FUN_001687a0(GrappleTarget*, int, int, int);
+int hulkfight::motion::GrappleHealthCondition::vfunc_6(void* arg1, void* arg2, void* arg3) {
     GrappleTarget* target = FUN_00048260(arg2);
-    FUN_001687a0(target, field_c, field_14, field_10);
+    return FUN_001687a0(target, field_c, field_14, field_10);
 }

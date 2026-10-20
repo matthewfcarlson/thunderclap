@@ -25,7 +25,7 @@ class Inner_2738d0 {
     virtual void f22();
     virtual void f23();
     virtual void f24();
-    virtual void f25();
+    virtual int f25();
 };
 class Request {
   public:
@@ -40,8 +40,8 @@ class FileRequest : public Request {
   public:
     char pad[4];
     Inner_2738d0* m;
-    void vfunc_5();
+    int vfunc_5();
 };
-void FileRequest::vfunc_5() {
-    m->f25();
+int FileRequest::vfunc_5() {
+    return m->f25();
 }

@@ -17,7 +17,7 @@ class BaseAction_1489d0 {
     virtual void c();
     virtual void d();
     virtual void e();
-    virtual void f(int, int);
+    virtual int f(int, int);
 };
 class Obj_1489d0 {
   public:
@@ -30,7 +30,7 @@ class Sub_1489d0 {
     void Init(int, int);
     void Set(int);
     void Set2(int);
-    void Finish();
+    int Finish();
 };
 class GrappleHitReactionAction : public BaseAction_1489d0 {
   public:
@@ -41,9 +41,9 @@ class GrappleHitReactionAction : public BaseAction_1489d0 {
     Obj_1489d0* old;
     int count;
     char flag;
-    virtual void f(int x, int y);
+    virtual int f(int x, int y);
 };
-void GrappleHitReactionAction::f(int x, int y) {
+int GrappleHitReactionAction::f(int x, int y) {
     if (!x && !flag)
         sub.Init(count, y);
     Obj_1489d0* p = old;
@@ -60,5 +60,5 @@ void GrappleHitReactionAction::f(int x, int y) {
     if (old)
         old->B();
     old = r;
-    sub.Finish();
+    return sub.Finish();
 }

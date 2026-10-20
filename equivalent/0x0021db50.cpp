@@ -3,7 +3,6 @@
 // FUN_0021db50 @ 0x0021db50
 struct Input_21db50 { char pad0[4]; unsigned int value; char pad8[4]; unsigned int kind; unsigned int data; char pad14[8]; unsigned int context; };
 struct Output_21db50 { unsigned int type; unsigned int value; unsigned int reserved; int a; int b; };
-extern unsigned char DAT_0021dc68[164];
 extern unsigned int __cdecl FUN_002209e0(unsigned int, unsigned int);
 // equiv-conv: FUN_0021c190 esi
 extern void FUN_0021c190(Input_21db50*);
@@ -18,7 +17,7 @@ extern void FUN_0021d830(Output_21db50*, Input_21db50*);
 // equiv-conv: FUN_0021db50 eax edi
 void FUN_0021db50(Input_21db50* input, Output_21db50* output) {
  unsigned int k=input->kind-0x7b;
- unsigned int branch=k<=0xa3 ? DAT_0021dc68[k] : 7;
+ unsigned int branch=k==0 ? 0 : k==140 ? 1 : k==142 ? 2 : k==146 ? 3 : k==152 ? 4 : k==162 ? 5 : k==163 ? 6 : 7;
  switch(branch) {
  case 5: { unsigned int v=FUN_002209e0(input->context,input->data); output->a=-1;output->b=-1;output->type=4;output->value=v;FUN_0021c190(input);break; }
  case 6: FUN_0021c440(input,input->data,output);FUN_0021c190(input);break;

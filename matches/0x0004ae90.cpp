@@ -3,10 +3,10 @@ class Obj_4ae90 {
   public:
     Obj_4ae90* a();
     Obj_4ae90* b();
-    void c();
+    int c();
 };
-void __stdcall vfunc_7(Obj_4ae90* p) {
+int __stdcall vfunc_7(Obj_4ae90* p) {
     p = p->a();
     p = p->b();
-    p->c();
+    return p->c();
 }

@@ -8,13 +8,13 @@ struct Base_262c40 {
     virtual void f6();
     virtual void f7();
     virtual void f8();
-    virtual void f9();
+    virtual int f9();
 };
 struct HalRadicalAdpcmDecodeStream {
     char pad[4];
     Base_262c40* mStream;
-    void vfunc_9();
+    int vfunc_9();
 };
-void HalRadicalAdpcmDecodeStream::vfunc_9() {
-    mStream->f9();
+int HalRadicalAdpcmDecodeStream::vfunc_9() {
+    return mStream->f9();
 }

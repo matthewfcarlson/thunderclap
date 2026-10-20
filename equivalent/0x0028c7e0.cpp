@@ -27,7 +27,6 @@ struct Reader {
     void FUN_00266be0();
 };
 
-extern char DAT_00121110;
 void *FUN_0008d690(unsigned size);
 
 Node * __stdcall FUN_0028c7e0(Reader *r, unsigned unused, Parent_28c7e0 *parent)
@@ -57,7 +56,7 @@ Node * __stdcall FUN_0028c7e0(Reader *r, unsigned unused, Parent_28c7e0 *parent)
     r->stream->FUN_002647e0(node->field_18, x * 2, 4, 1);
 
     while (r->FUN_002669f0()) {
-        if ((char *)r->FUN_00266a30() == &DAT_00121110) {
+        if ((char *)r->FUN_00266a30() == ((char*)0x00121110)) {
             r->stream->FUN_002647e0(&parent, 1, 4, 1);
             r->stream->FUN_002647e0(&x, 1, 4, 1);
             node->field_04 = x;

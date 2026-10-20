@@ -7,9 +7,9 @@ class CCondition {
     virtual void e();
     virtual void f();
     virtual void g(int);
-    virtual void h(int);
-    void vfunc_6(int, int, int);
+    virtual int h(int);
+    int vfunc_6(int, int, int);
 };
-void CCondition::vfunc_6(int x, int y, int z) {
-    h(y);
+int CCondition::vfunc_6(int x, int y, int z) {
+    return h(y);
 }

@@ -62,7 +62,6 @@ struct Reader {
 };
 
 void *FUN_0008d690(unsigned size);
-extern char DAT_00121110;
 
 struct Frame_28ea80 {
     char pad[3];
@@ -110,7 +109,7 @@ Node *__stdcall FUN_0028ea80(Reader *r, LoadContext_28ea80 *ctx, Parent_28ea80 *
     }
 
     while (r->FUN_002669f0()) {
-        if ((char *)r->FUN_00266a30() == &DAT_00121110) {
+        if ((char *)r->FUN_00266a30() == ((char*)0x00121110)) {
             r->stream->FUN_002647e0(&f.x, 1, 4, 1);
             r->stream->FUN_002647e0(&f.a, 1, 4, 1);
             node->field_04 = f.a;

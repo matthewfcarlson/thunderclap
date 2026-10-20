@@ -191,6 +191,66 @@ def _equiv_job(args):
     return res
 
 
+_UNDNAME = {}
+
+
+def undname(names):
+    """{mangled: demangled} through llvm-undname (cached; names it can't demangle map to themselves)."""
+    want = sorted({n for n in names if n not in _UNDNAME})
+    if want:
+        p = subprocess.run([os.path.join("/opt/homebrew/opt/llvm/bin", "llvm-undname")], input="\n".join(want) + "\n",
+                           capture_output=True, text=True, errors="replace")
+        blocks = [b.split("\n") for b in p.stdout.strip("\n").split("\n\n")]
+        for b in blocks:
+            if len(b) >= 2:
+                _UNDNAME[b[0]] = b[1]
+        for n in want:
+            _UNDNAME.setdefault(n, n)
+    return {n: _UNDNAME[n] for n in names}
+
+
+_FN_NS = re.compile(r"(?<![A-Za-z0-9_])fn_[0-9a-fA-F]{8}::")
+
+
+def tree_explicit(res, obj, src):
+    """native10: a source's `// equiv-map:` lines name the standalone symbol (`??0DrawableBase@pure3d@@QAE@XZ`); in a
+    merged tree object the name carries the TU's namespace (`??0DrawableBase@pure3d@fn_f0ae8a57@@QAE@XZ`). equiv.py
+    translates the plain names (`_tree_names`) but not constructors, destructors and operators (its `_qualified`
+    skips `??` names), so those fell back to instruction pairing and could bind to a neighbouring callee (0x0029a190:
+    DrawableBase's constructor bound to the allocator 0x00263ea0, operator new called with `this` as the size: the
+    native stop 'game heap exhausted'). Here every equiv-map line the map does not already have under its own name
+    is matched to the object's undefined symbol whose demangled name is the same without `fn_<addr>::`."""
+    try:
+        lines = [(m.group(1), int(m.group(2), 16)) for m in
+                 (re.match(r"\s*//\s*equiv-map:\s*(\S+)\s*=\s*(0x[0-9a-fA-F]+)", l)
+                  for l in open(os.path.join(ROOT, src), errors="replace")) if m]
+    except OSError:
+        return res
+    if not lines:
+        return res
+    syms = compare.Coff(obj).symbols
+    undefined = {s[0] for s in syms if s[2] == 0 and s[4] == 2}
+    lines = [(n, a) for n, a in lines if n not in undefined and n.startswith("?")]
+    if not lines:
+        return res
+    cands = [s for s in undefined if s.startswith("?") and "fn_" in s]
+    dm = undname(cands + [n for n, _ in lines])
+    by = collections.defaultdict(list)
+    for s in cands:
+        by[_FN_NS.sub("", dm[s])].append(s)
+    for n, a in lines:
+        hits = by.get(_FN_NS.sub("", dm[n])) or []
+        if len(hits) == 1:
+            old = res["map"].get(hits[0])
+            if not old or int(old[0], 16) != a:
+                res.setdefault("tree_explicit", []).append([hits[0], "0x%08x" % a, old])
+            res["map"][hits[0]] = ["0x%08x" % a, "explicit"]
+    return res
+
+
+tree_explicit.changed = []
+
+
 # ---------------------------------------------------------------------------------------------
 def tree_checks():
     rep = json.load(open(os.path.join(TREE, "report.json")))
@@ -276,6 +336,12 @@ def build_map(jobs):
     with ProcessPoolExecutor(jobs) as ex:
         for i, (res, tu, job) in enumerate(zip(ex.map(_equiv_job, todo, chunksize=8), todo_tu, todo), 1):
             stats["equivalent: equiv.py level 2 %s" % ("ok" if res["status"] in ("draft", "pass") else res["status"])] += 1
+            res = tree_explicit(dict(res, map=dict(res["map"])), job[0], job[2])
+            for s, t, old in res.get("tree_explicit", []):
+                stats["equivalent: equiv-map lines bound in the tree's namespace (native10)"] += 1
+                if old:
+                    stats["equivalent: ... of them replacing another address (%s)" % old[1]] += 1
+                tree_explicit.changed.append([job[2], s, t, old])
             for s, (t, how) in res["map"].items():
                 refs[s][int(t, 16)]["equiv:" + how] += 1
                 per_tu[s][tu].add(int(t, 16))
@@ -451,10 +517,17 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
     # --gfx (G3, build/g3/for-native9.md): GameClock::Update 0x00086450 ticks the backend's draw-log frame counter
     # first (the hybrid build hooks the same function), so native draw-log frames are numbered like the hybrid's
     clock_asm = ""
+    def_before_wrappers = dict(by_addr_def)     # (native10: SITE_REBIND finds a wrapped caller's own definition)
     if gfx and gfx["objects"] and by_addr_def.get(GFX_CLOCK_ADDR) and GFX_CLOCK_TICK in gfx["defined"]:
+        # (native10, replay request B: the platform's per-frame hook first, with the clock: the checkpoint hash,
+        # src/platform/sdl/xdk/replay_hooks.cpp)
+        frame = ("\tpushl\t4(%esp)\n\tcalll\t_hulk_native_frame\n\taddl\t$4, %esp\n"
+                 if "_hulk_native_frame" in shim["defined"] else "")
         clock_asm = ("\t.text\n\t.globl\t_hulk_clock_update\n\t.p2align\t4\n_hulk_clock_update:\n\tpushl\t%%eax\n"
-                     "\tpushl\t%%ecx\n\tpushl\t%%edx\n\tcalll\t%s\n\tpopl\t%%edx\n\tpopl\t%%ecx\n\tpopl\t%%eax\n"
-                     '\tjmp\t"%s"\n' % (GFX_CLOCK_TICK, by_addr_def[GFX_CLOCK_ADDR]))
+                     "\tpushl\t%%ecx\n\tpushl\t%%edx\n%s\tcalll\t%s\n\tpopl\t%%edx\n\tpopl\t%%ecx\n\tpopl\t%%eax\n"
+                     '\tjmp\t"%s"\n' % (frame, GFX_CLOCK_TICK, by_addr_def[GFX_CLOCK_ADDR]))
+        if frame:
+            how["GameClock::Update wrapped: hulk_native_frame (replay checkpoints)"] += 1
         by_addr_def[GFX_CLOCK_ADDR] = "_hulk_clock_update"
         how["GameClock::Update wrapped: hulk_pddi_clock_tick (--gfx)"] += 1
         defined.add("_hulk_clock_update")
@@ -472,6 +545,24 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
         by_addr_def[t] = lab
         defined.add(lab)
         how["probe wrapper (HULK_TRACE_FUNCS)"] += 1
+    # native10: the platform's event pump (src/platform/sdl/platform_events.cpp, linked with --gfx), which the
+    # shim's main-thread sleeps and waits call (xdk/threads.cpp): a no-op without the graphics objects
+    if "_hulk_platform_pump" not in defined:
+        clock_asm += "\t.text\n\t.globl\t_hulk_platform_pump\n\t.p2align\t4\n_hulk_platform_pump:\n\tretl\n"
+        defined.add("_hulk_platform_pump")
+    # native10: ENTRY_HOOKS (the replay pins that act at a function's entry)
+    for t, hook, _why in ENTRY_HOOKS:
+        d = by_addr_def.get(t)
+        if not d or hook not in shim["defined"]:
+            how["entry hook skipped (no definition or hook): 0x%08x" % t] += 1
+            continue
+        lab = "_hulk_eh_%08x" % t
+        clock_asm += ("\t.text\n\t.globl\t%s\n\t.p2align\t4\n%s:\n\tpushl\t%%edx\n\tpushl\t%%ecx\n\tpushl\t%%eax\n"
+                      "\tmovl\t%%esp, %%eax\n\tpushl\t%%eax\n\tcalll\t%s\n\taddl\t$4, %%esp\n"
+                      "\tpopl\t%%eax\n\tpopl\t%%ecx\n\tpopl\t%%edx\n\tjmp\t\"%s\"\n" % (lab, lab, hook, d))
+        by_addr_def[t] = lab
+        defined.add(lab)
+        how["entry hook (native10) 0x%08x -> %s" % (t, hook)] += 1
     # fix 6a: the game's vftables and RTTI structures as data (build/native/link/vtables.s), named by address
     vt = code_owned_data(by_addr_def)
     vt["asm"] += js["asm"] + clock_asm
@@ -609,6 +700,10 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
                 rebind[o][s] = plan
         how["rebound per calling function (%s)" % ("ambiguous" if s in undef else "name means another address")] += 1
     how["rebound to an address inside a data item"] = len(rebind_interior)
+    # native10: call sites bound to a platform function of their own (SITE_REBIND): the calls one function makes to
+    # one callee go to another definition (the pad constructor's reads that are not polls, ...)
+    site_stats = site_rebind(syms, binding, aliases, def_before_wrappers, defined, rebind)
+    how.update(site_stats)
     after = undef - set(aliases) - renamed_all
     # an address inside a data item another object defines (a global at +0x4c of a data TU's `DAT_<start>`, an
     # interior label of a vftable item): the referencing objects are patched to name the item, offset in the addend
@@ -825,6 +920,56 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
                                    host["libs"] + (gfx["libs"] if gfx and gfx["objects"] else []) + SDL_LIBS,
                                    data_asm=blk["asm"], vthunks=vthunks)
     return inv
+
+
+# ---------------------------------------------------------------------------------------------
+# native10: per-call-site bindings to platform functions (build/rp1/for-native9.md, docs/native-replay.md)
+# (caller address, callee address, the platform definition its calls go to instead, why)
+SITE_REBIND = [
+    (0x002692c0, 0x003eb91f, "_hulk_xdk_XInputGetStateInit@8",
+     "ControllerSystemXBox's pad object constructor reads a new pad 20 times: not polls (replay request A)"),
+    (0x00086450, 0x00267f40, "_hulk_clock_tick",
+     "GameClock::Update's time: fixed dt / the virtual clock with a replay or HULK_VCLOCK=1 (request D; xdk/timing.cpp)"),
+    (0x00087e30, 0x00267f40, "_hulk_clock_now", "the GameClock constructor's first timestamp (request D)"),
+    (0x00086630, 0x00267f00, "_hulk_replay_seed", "the new-game reseed: the recording's seed (request E)"),
+    (0x001c1a40, 0x00344e74, "_hulk_cast_self",
+     "--gfx: HulkShaderCallback's dynamic_cast of the pddi framebuffer-effects extension (ours, no game RTTI): the "
+     "extension is that type (build/g4/for-native10.md 8; xdk/library.cpp)"),
+]
+# native10: entry hooks: a wrapper in front of the function (every caller bound by address and every vftable slot
+# goes through it, as HULK_TRACE_FUNCS' probes) calls `int hook(u32* regs)` (eax, ecx, edx, the return address, the
+# arguments), then jumps to the definition. (address, hook, why)
+ENTRY_HOOKS = [
+    (0x00269170, "_hulk_hook_pad_poll",
+     "ControllerSystemXBox::vfunc_12: the poll's rate limit off with a recording open (request C)"),
+]
+
+
+def site_rebind(syms, binding, aliases, by_addr_def, defined, rebind):
+    """Add SITE_REBIND's plans to `rebind` ({object: {symbol: {function symbol: new symbol}}}): in the object that
+    defines the caller, the relocations of the caller's body that name the callee (an undefined symbol bound to
+    the callee's address, by the binding map or by its name) are pointed at the new definition. Returns stats."""
+    st = collections.Counter()
+    for caller, callee, new, _why in SITE_REBIND:
+        fn = by_addr_def.get(caller)
+        if not fn or new not in defined:
+            st["site rebinding skipped (caller or new definition missing): 0x%08x" % caller] += 1
+            continue
+        target = by_addr_def.get(callee)
+        hit = 0
+        for o, (d_, u) in syms.items():
+            if fn not in d_:
+                continue
+            for s in u | (d_ - {fn}):
+                b = binding.get(s)
+                a = int(b["addr"], 16) if b else name_address(s)
+                if a == callee or (target and (aliases.get(s) == target or s == target)):
+                    plan = dict(rebind[o].get(s, {}))     # (amb_fn shares one plan between objects)
+                    plan[fn] = new
+                    rebind[o][s] = plan
+                    hit += 1
+        st["site rebinding (native10) 0x%08x -> %s" % (caller, new)] += hit
+    return st
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1435,6 +1580,8 @@ def main(argv=None):
         print(json.dumps(rep["link"], indent=1))
         return 0
     defs, refs, users, stats, per_tu, per_fn = build_map(a.jobs)
+    with open(os.path.join(OUT, "tree-explicit.json"), "w") as f:
+        json.dump(tree_explicit.changed, f, indent=0)
     binding, amb = bind(defs, {}, refs)
     # native9: a stub class's vftable bound to two addresses because a check took a same-named function of the TU
     # (build_tree's loose symbol lookup: 0x0023d710 was compared as 0x0023d420's `Func`): the address from the one

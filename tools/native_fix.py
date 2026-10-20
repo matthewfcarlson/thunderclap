@@ -262,6 +262,171 @@ PATCHES = [
     ("matches/0x001b46d0.cpp", "    void Fn(int a, float b);", "    void Fn(int a, float b, float c);", "(the same edit)"),
     ("matches/0x001b46d0.cpp", "void Target::Fn(int a, float b) {", "void Target::Fn(int a, float b, float c) {", "(the same edit)"),
     ("matches/0x001b46d0.cpp", "    g->Other(a, b);", "    g->Other(a, b, c);", "(the same edit, the call)"),
+    # native10, code-table: a switch whose case-index table MSVC 7.1 put in .text after the function, read by the
+    # source as `DAT_<addr>[i]` (the XBE's code bytes): natively the name is a zero stub, every input took case 0.
+    # The switch is written on the value itself (the table's mapping, read from the XBE once, in the case labels).
+    ("equivalent/0x0026f3e0.cpp", "extern unsigned char DAT_0026f498[];\n", "",
+     "code-table: the case-index table 0x0026f498 lies in .text (MSVC's switch table, not data): the switch is "
+     "written on `code` itself"),
+    ("equivalent/0x0026f3e0.cpp",
+     "        switch (DAT_0026f498[code]) {\n        case 0: return 0;\n        case 1: return 1;\n        case 2: return 5;\n"
+     "        case 3: return 8;\n        case 4: return 3;\n",
+     "        switch (code) {\n        case 0: return 0;\n        case 2: case 3: case 15: return 1;\n        case 11: return 5;\n"
+     "        case 14: return 8;\n        case 17: return 3;\n", "(the same edit, the switch)"),
+    ("equivalent/0x002787c0.cpp", "extern unsigned char DAT_002788a4[];\n", "",
+     "code-table: the case-index table 0x002788a4 lies in .text: the switch is written on `value` itself"),
+    ("equivalent/0x002787c0.cpp",
+     "switch(DAT_002788a4[value]) {case 0:return 0;case 1:return 1;case 2:return 5;case 3:return 7;case 4:return 3;default:return 8;}",
+     "switch(value) {case 0:return 0;case 2:case 3:case 15:return 1;case 11:return 5;case 14:return 7;case 17:return 3;default:return 8;}",
+     "(the same edit, the switch)"),
+    ("equivalent/0x0028ec30.cpp", "extern unsigned char DAT_0028ed74[21];\n", "",
+     "code-table: the case-index table 0x0028ed74 lies in .text: the switch is written on the chunk id's index"),
+    ("equivalent/0x0028ec30.cpp",
+     "switch(DAT_0028ed74[index]) {\ncase 8: return FUN_0028c580(c,a,b);\ncase 0: return FUN_0028c6b0(c,a,b);\n"
+     "case 1: return FUN_0028c7e0(c,a,b);\ncase 2: return FUN_0028c910(c,a,b);\ncase 3: return FUN_0028e160(c,a,b);\n"
+     "case 4: return FUN_0028cd80(c,a,b);\ncase 5: return FUN_0028ea80(c,a,b);\ncase 6: return FUN_0028ceb0(c,a,b);\n"
+     "case 7: return FUN_0028cfd0(c,a,b);\n",
+     "switch(index) {\ncase 14: return FUN_0028c580(c,a,b);\ncase 0: return FUN_0028c6b0(c,a,b);\n"
+     "case 1: return FUN_0028c7e0(c,a,b);\ncase 2: case 3: case 4: return FUN_0028c910(c,a,b);\n"
+     "case 5: case 17: case 18: case 19: case 20: return FUN_0028e160(c,a,b);\n"
+     "case 6: return FUN_0028cd80(c,a,b);\ncase 7: return FUN_0028ea80(c,a,b);\ncase 8: return FUN_0028ceb0(c,a,b);\n"
+     "case 9: return FUN_0028cfd0(c,a,b);\n", "(the same edit, the switch)"),
+    ("equivalent/0x0031c290.cpp", "extern unsigned char DAT_0031c544[39];\n", "",
+     "code-table: the case-index table 0x0031c544 lies in .text: the switch is written on the format's index"),
+    ("equivalent/0x0031c290.cpp",
+     " if(index<=38) switch(DAT_0031c544[index]) {\n case 3: r=0xf800;g=0x7e0;b=0x1f;out->type=1;break;\n"
+     " case 0: a=0x8000;r=0x7c00;g=0x3e0;b=0x1f;out->type=2;break;\n case 2: a=0xf000;r=0xf00;g=0xf0;b=0xf;out->type=4;break;\n"
+     " case 4: a=0xff000000;r=0xff0000;g=0xff00;b=0xff;out->type=6;break;\n case 5: r=0xff0000;g=0xff00;b=0xff;out->type=6;break;\n"
+     " case 1: r=0x7c00;g=0x3e0;b=0x1f;out->type=3;break;\n case 7: out->type=11;break;\n case 8: out->type=13;break;\n"
+     " case 9: out->type=15;break;\n case 6: out->type=7;break;\n case 10: out->type=10;break;\n }",
+     " if(index<=38) switch(index) {\n case 3: case 15: r=0xf800;g=0x7e0;b=0x1f;out->type=1;break;\n"
+     " case 0: case 14: a=0x8000;r=0x7c00;g=0x3e0;b=0x1f;out->type=2;break;\n case 2: case 27: a=0xf000;r=0xf00;g=0xf0;b=0xf;out->type=4;break;\n"
+     " case 4: case 28: a=0xff000000;r=0xff0000;g=0xff00;b=0xff;out->type=6;break;\n case 5: case 16: r=0xff0000;g=0xff00;b=0xff;out->type=6;break;\n"
+     " case 1: r=0x7c00;g=0x3e0;b=0x1f;out->type=3;break;\n case 10: out->type=11;break;\n case 12: out->type=13;break;\n"
+     " case 13: out->type=15;break;\n case 9: out->type=7;break;\n case 38: out->type=10;break;\n }",
+     "(the same edit, the switch)"),
+    ("equivalent/0x0021db50.cpp", "extern unsigned char DAT_0021dc68[164];\n", "",
+     "code-table: the case-index table 0x0021dc68 lies in .text: the branch is computed from the kind itself"),
+    ("equivalent/0x0021db50.cpp", " unsigned int branch=k<=0xa3 ? DAT_0021dc68[k] : 7;\n",
+     " unsigned int branch=k==0 ? 0 : k==140 ? 1 : k==142 ? 2 : k==146 ? 3 : k==152 ? 4 : k==162 ? 5 : k==163 ? 6 : 7;\n",
+     "(the same edit, the branch)"),
+    ("equivalent/0x001b0470.cpp", "extern unsigned char DAT_001b0590[10];\n", "",
+     "code-table: the case-index table 0x001b0590 and the branch addresses before it lie in .text (the source "
+     "compared code addresses): the switch is written on `type` itself"),
+    ("equivalent/0x001b0470.cpp",
+     "        const DispatchData* dispatch = reinterpret_cast<const DispatchData*>(\n"
+     "            DAT_001b0590 - 5 * sizeof(unsigned char*));\n"
+     "        unsigned char* branch = dispatch->branches[DAT_001b0590[type]];\n"
+     "        const unsigned char* origin = reinterpret_cast<const unsigned char*>(dispatch);\n"
+     "        float angle = 90.0f;\n"
+     "        if (branch == origin - 0xa5) {\n"
+     "            angle = FUN_00044500(self->state->value) ? 10.0f : 90.0f;\n"
+     "        } else if (branch == origin - 0x41) {\n"
+     "            angle = FUN_00044500(self->state->value) ? 90.0f : 100.0f;\n"
+     "        } else if (branch == origin - 0x0a) {\n"
+     "            return result;\n"
+     "        }\n",
+     "        float angle = 90.0f;\n"
+     "        switch (type) {\n"
+     "        case 0: case 4:\n"
+     "            angle = FUN_00044500(self->state->value) ? 10.0f : 90.0f;\n"
+     "            break;\n"
+     "        case 2: case 9:\n"
+     "            angle = FUN_00044500(self->state->value) ? 90.0f : 100.0f;\n"
+     "            break;\n"
+     "        case 6: case 7:\n"
+     "            return result;\n"
+     "        }\n",
+     "(the same edit, the switch)"),
+    ("equivalent/0x0028aea0.cpp",
+     " case 0x121100: case 0x121107: case 0x121109: case 0x121111: case 0x121113: a=count*4; b=count*2; *header=0x1c; break;\n"
+     " case 0x121101: a=count*8; b=count*2; *header=0x1c; break;\n",
+     " case 0x121100: case 0x121107: case 0x121109: case 0x12110e: case 0x121113: a=count*4; b=count*2; *header=0x1c; break;\n"
+     " case 0x121101: case 0x121111: a=count*8; b=count*2; *header=0x1c; break;\n",
+     "jump-table: DefaultChannelHandler::vfunc_5 0x0028aea0 (a channel's pool sizes) maps 0x12110e like 0x121100 "
+     "(count*4, header 0x1c) and 0x121111 like 0x121101 (count*8): the source had 0x121111 in the first group and "
+     "no 0x12110e (sizes 0), which the equivalence run never fed (its coverage counts the table's 12 targets, not "
+     "its 21 indices). Natively an animation's pool came out 63 headers short and AnimationLoader's group array, "
+     "allocated after it, was overwritten (qsort's comparator 0x00289270 then read a null group)"),
+    ("matches/0x000fa9c0.cpp", "    virtual void vfunc_2();\n    int a, b, c;",
+     "    virtual CScriptToken* vfunc_2();\n    int a, b, c;",
+     "check 11: DollyScript::CTokenHashed::vfunc_2 0x000fa9c0 is the token's Clone (slot 2 of CScriptToken: "
+     "CTokenString/CTokenFloat/CTokenSectionStart/End return the copy; the original leaves it in eax): declared void, "
+     "natively the front end's script parser linked whatever eax held into its token list"),
+    ("matches/0x000fa9c0.cpp", "    virtual void vfunc_2();\n    int d, e;", "    virtual CScriptToken* vfunc_2();\n    int d, e;",
+     "(the same edit, the override)"),
+    ("matches/0x000fa9c0.cpp", "void CTokenHashed::vfunc_2() {\n    CTokenHashed* p = new CTokenHashed(*this);\n    p->a = 0;\n}",
+     "CScriptToken* CTokenHashed::vfunc_2() {\n    CTokenHashed* p = new CTokenHashed(*this);\n    p->a = 0;\n    return p;\n}",
+     "(the same edit, the definition)"),
+    # native10, ret-wide64: definitions that return a 64-bit callee's result (edx:eax) declared 32-bit; their
+    # callers read edx:eax (check 10's 64-bit case). Natively clang's int return left edx to chance: FUN_0027b020
+    # (the 64-bit name hash, 173 callers) gave the front end's container lookups (FEContainer::vfunc_50) hashes
+    # with a garbage high half.
+    ("matches/0x0027b020.cpp", "int FUN_002672f0(void* a, int b, int c);\nint FUN_0027b020(void* a) {",
+     "unsigned __int64 FUN_002672f0(void* a, int b, int c);\nunsigned __int64 FUN_0027b020(void* a) {",
+     "check 10 (64-bit, native10): the 64-bit name hash / microsecond clock returned through a 32-bit definition: FUN_0027b020 0x0027b020 tail-returns FUN_002672f0's edx:eax (the 64-bit name hash)"),
+    ("matches/0x00044370.cpp", "int __fastcall FUN_00044370(char* self) {", "unsigned __int64 __fastcall FUN_00044370(char* self) {",
+     "check 10 (64-bit, native10): the 64-bit name hash / microsecond clock returned through a 32-bit definition: 0x00044370 returns FUN_0027b020's edx:eax"),
+    ("matches/0x000443c0.cpp", "int __cdecl FUN_0027b020(void*);", "unsigned __int64 __cdecl FUN_0027b020(void*);",
+     "check 10 (64-bit, native10): the 64-bit name hash / microsecond clock returned through a 32-bit definition: 0x000443c0 returns FUN_0027b020's edx:eax"),
+    ("matches/0x000443c0.cpp", "    int Fn();", "    unsigned __int64 Fn();", "(the same edit, the declaration)"),
+    ("matches/0x000443c0.cpp", "int Obj::Fn() {", "unsigned __int64 Obj::Fn() {", "(the same edit, the definition)"),
+    ("matches/0x00267f40.cpp", "int __cdecl FUN_00267e20(DWORD, DWORD, DWORD, DWORD, DWORD, DWORD);\nint __cdecl FUN_00267f40(void) {",
+     "unsigned __int64 __cdecl FUN_00267e20(DWORD, DWORD, DWORD, DWORD, DWORD, DWORD);\nunsigned __int64 __cdecl FUN_00267f40(void) {",
+     "check 10 (64-bit, native10): the 64-bit name hash / microsecond clock returned through a 32-bit definition: core::GetMicroseconds64 0x00267f40 returns the 64-bit muldiv 0x00267e20's edx:eax (GameClock::Update's time)"),
+    ("matches/0x0027afb0.cpp", "int __cdecl Target(int, int, int);\nint __cdecl Wrapper(int a) {",
+     "unsigned __int64 __cdecl Target(int, int, int);\nunsigned __int64 __cdecl Wrapper(int a) {",
+     "check 10 (64-bit, native10): the 64-bit name hash / microsecond clock returned through a 32-bit definition: 0x0027afb0 tail-returns FUN_002672f0's edx:eax"),
+    # native10, shared-static: the token list's `last` item is ONE function-local static in the original (an inline
+    # Put of the parser, emitted inline in 0x000faf80 and out of line as 0x000fa870: both use 0x4e09f8 and its
+    # guard bit at 0x4e09fc); each source declared its own `static ... last = it;`, natively two statics: the
+    # macro expander's Put (0x000fa870) never saw the parser's last token, its first call skipped linking, and
+    # every inserted macro token hung off that unlinked one (the front end's screens lost their AddLocators and
+    # AddSceneGraph lines: FEContainer::vfunc_50 found no children). Both name the shared item.
+    ("matches/0x000fa870.cpp", "struct Item_fa870 {",
+     'extern "C" unsigned char DAT_004e09f8[4];\nextern "C" unsigned char DAT_004e09fc[4];\nstruct Item_fa870 {',
+     "shared-static: Lst::Put 0x000fa870's `last` is the parser's (0x4e09f8, guard 0x4e09fc bit 0)"),
+    ("matches/0x000fa870.cpp", "    static Item_fa870* last = it;\n",
+     "    if (!(*(unsigned char*)DAT_004e09fc & 1)) {\n        *(unsigned*)DAT_004e09fc |= 1;\n"
+     "        *(Item_fa870**)DAT_004e09f8 = it;\n    }\n    Item_fa870*& last = *(Item_fa870**)DAT_004e09f8;\n",
+     "(the same edit, the static)"),
+    ("equivalent/0x000faf80.cpp", "struct Item_faf80 {\n",
+     'extern "C" unsigned char DAT_004e09f8[4];\nextern "C" unsigned char DAT_004e09fc[4];\nstruct Item_faf80 {\n',
+     "(the same edit, the declarations)"),
+    ("equivalent/0x000faf80.cpp", "                    static Item_faf80 *last = it;\n",
+     "                    if (!(*(unsigned char*)DAT_004e09fc & 1)) {\n                        *(unsigned*)DAT_004e09fc |= 1;\n"
+     "                        *(Item_faf80**)DAT_004e09f8 = it;\n                    }\n"
+     "                    Item_faf80 *&last = *(Item_faf80**)DAT_004e09f8;\n",
+     "shared-static: the parser 0x000faf80's inline Put names the shared `last` (0x4e09f8, guard 0x4e09fc bit 0)"),
+    ("matches/0x000f6370.cpp", "    int B(int, int, int, int*);\n    void C(int);\n",
+     "    int B(int, int);\n    void C(int, int, int*);\n",
+     "check 7 (arg-shift through a variable): 0x000f6370 pushes (&local, 0) before B 0x002843a0 (`ret 8`, pops "
+     "c and d) and C 0x002848b0 (`ret 0xc`) takes them after B's result: C(r, 0, &local) is the camera locator's "
+     "Run(index, value, out); natively B took four words and C one (the front end's sort comparator 0x000e1e90 "
+     "then crashed in Run)"),
+    ("matches/0x000f6370.cpp", "    int r = api->B(c, d, 0, (int*)&local);\n    api->C(r);\n",
+     "    api->C(api->B(c, d), 0, (int*)&local);\n", "(the same edit, the calls)"),
+    ("equivalent/0x000f63c0.cpp", "    int FUN_002843a0(int first, int second, int zero, void *out);\n    void FUN_00284860(int result);\n",
+     "    int FUN_002843a0(int first, int second);\n    void FUN_00284860(int result, int zero, void *out);\n",
+     "check 7 (the same shape as 0x000f6370): 0x002843a0 pops 8, 0x00284860 (`ret 0xc`) takes (result, 0, values)"),
+    ("equivalent/0x000f63c0.cpp", "    int result = device->FUN_002843a0(first, second, 0, values);\n    device->FUN_00284860(result);\n",
+     "    device->FUN_00284860(device->FUN_002843a0(first, second), 0, values);\n", "(the same edit, the calls)"),
+    ("equivalent/0x002139a0.cpp",
+     "void __cdecl FUN_002159e0(Record *record, char *position);\nvoid __cdecl FUN_002139a0(Record *record, int index) {\n"
+     "    FUN_002159e0(record, record->end - (index * 8 + 8));\n",
+     "void __cdecl FUN_002159e0(Record *record, char *position, int nresults);\n"
+     "void __cdecl FUN_002139a0(Record *record, int index, int nresults) {\n"
+     "    FUN_002159e0(record, record->end - (index * 8 + 8), nresults);\n",
+     "pass-through: lua_call 0x002139a0 rewrites its first two stack words and tail-jumps to luaD_call 0x002159e0, "
+     "whose third argument (nresults) is lua_call's own third, passed through; declared with two, natively "
+     "luaD_poscall filled `nresults` (stack garbage) nils past the Lua stack (the script call UpdateMoveList)"),
+    ("equivalent/0x0021f300.cpp", "    int values[5];\n", "    int values[6];\n",
+     "exprstat 0x0021f300: values[0] is the assignment's link and values[1..5] the expdesc (k, info, aux, t, f) "
+     "primaryexp 0x0021d830 fills: the array was one word short, natively `item` (ls->fs) lay there and the "
+     "expdesc's f (NO_JUMP, -1) overwrote it (the Lua parser crashed in luaK_setcallreturns 0x00220a50)"),
+    ("equivalent/0x001b0470.cpp",
+     "// The case-selection bytes follow five branch addresses in the dispatch data.\nstruct DispatchData {\n"
+     "    unsigned char* branches[5];\n    unsigned char cases[10];\n};\n\n", "", "(the same edit, the table's struct)"),
 ]
 
 
@@ -937,6 +1102,49 @@ def data_literal(text):
     return out, ["%s by name, not by address" % n for n in names]
 
 
+# ---------------------------------------------------------------------------------------------
+# addr-const (native10): a constant or a function spelled as the address of a data name in the code range
+ADDR_CONST_DECL = re.compile(r'(?:^|(?<=[;}]))[ \t]*extern(?:[ \t]+"[^"\n]*")?[ \t]+(?:unsigned[ \t]+|signed[ \t]+)?char[ \t]+(DAT_00([0-9a-f]{6}))[ \t]*;[ \t]*\n?',
+                             re.M)
+
+
+def addr_const(text):
+    """`id == &DAT_00121401` (a P3D chunk id compared with the reader's id), `SetRenderState_Simple(&DAT_0004037c,
+    v)` (a push-buffer method), `FUN_00011520(p, 12, n, &DAT_00011090)` (the element constructor): an address in
+    the XBE's code range named as a `char` data item. MSVC emits the same immediate as for a literal (a relocation
+    the byte match masks); natively the name is a stub of the image's data, so the comparison never held (the
+    animation loader read no channel groups: the native stop in the particle loader, 0x002d5640). A scalar
+    `extern char DAT_<addr>;` in .text whose every use is `&DAT_<addr>` becomes the literal `((char*)0x<addr>)`,
+    or `((char*)(void (__cdecl*)())&FUN_<addr>)` when the address is a function start (code-literal's form)."""
+    if "text" not in _ITEMS:
+        from xbe import Xbe
+        t_ = next(s_ for s_ in Xbe(os.path.join(ROOT, "isos/extracted/default.xbe")).sections if s_.name == ".text")
+        _ITEMS["text"] = (t_.va, t_.va + t_.vsize)
+    lo, hi = _ITEMS["text"]
+    funcs = _function_starts()
+    blank = blank_comments(text)
+    out, why = text, []
+    for m in ADDR_CONST_DECL.finditer(blank):
+        name, a = m.group(1), int(m.group(2), 16)
+        if not lo <= a < hi:
+            continue            # (the library sections' data, XPP's device types: the shim knows those addresses)
+        uses = [u.start() for u in re.finditer(r"\b%s\b" % name, blank)]
+        amp = [u.start() for u in re.finditer(r"&\s*%s\b" % name, blank)]
+        if len(uses) != len(amp) + 1:
+            continue            # used other than by its address: not this rule's
+        if a in funcs:
+            lit = "((char*)(void (__cdecl*)())&FUN_%08x)" % a
+            decl = 'extern "C" void __cdecl FUN_%08x();' % a if not re.search(r"\bFUN_%08x\b" % a, blank) else ""
+        else:
+            lit, decl = "((char*)0x%08x)" % a, ""
+        decl_text = text[m.start():m.end()]
+        out = re.sub(r"&\s*%s\b" % name, lambda _m: lit, out)
+        if decl_text.strip() and decl_text in out:
+            out = out.replace(decl_text, decl + ("\n" if decl and decl_text.endswith("\n") else ""), 1)
+        why.append("%s: %s" % (name, "the function by name" if a in funcs else "the constant 0x%x" % a))
+    return out, why
+
+
 # stub-body (native9): an adjustor-thunk source defining an empty body for the virtual its thunk jumps to
 _THUNK_ADDRS = {}
 
@@ -1332,6 +1540,9 @@ def ret_findings():
     if "f" not in _RC:
         import native_conv_check
         _n, bad, _h = native_conv_check.check_returns(tree_report=TREE_REPORT)
+        # native10: check 11, void overrides of virtual slots their family returns a value from
+        _n, bad11 = native_conv_check.check_virtual_returns(tree_report=TREE_REPORT)
+        bad = bad + bad11
         out = {}
         for b in bad:
             if b["declared"] != "void":
@@ -1715,6 +1926,97 @@ def arg_shift_candidates(rel, text):
     return out
 
 
+def arg_unshift_pairs():
+    """{source: {(plain name, address, declared pops, callee pops)}} of check 7's symbols declared popping fewer
+    words than the callee's single `ret N`: the missing words are the previous call's (arg-unshift)."""
+    if "u" not in _AS:
+        import native_conv_check
+        _n, bad = native_conv_check.check_pops(os.environ.get("HULK_BINDINGS") or os.path.join(ROOT, "build/native/bindings.json"))
+        out = {}
+        for b in bad:
+            if len(b["callee"]) != 1 or b["declared"] >= b["callee"][0] or (b["callee"][0] - b["declared"]) % 4:
+                continue
+            name = _plain_name(b["symbol"])
+            for src in _symbol_sources(b["symbol"]):
+                out.setdefault(src, set()).add((name, int(b["addr"], 16), b["declared"], b["callee"][0]))
+        _AS["u"] = out
+    return _AS["u"]
+
+
+def arg_unshift_candidates(rel, text):
+    """[(new text, why)] for the arg-unshift rule (native10): the reverse of arg-shift. A call `X(a1..an)->M(b...)`
+    where M is declared popping fewer words than its callee's `ret N` (check 7: `v44(t)->FUN_000f8970()`, the font
+    setter 0x000f8970 takes the font's name; v44, the dolly script node's getter, takes nothing and leaves `t` on
+    the stack): X pops its first n-k arguments and M finds the last k on top, then its own. The call becomes
+    `X(a1..a(n-k))->M(a(n-k+1)..an, b...)` (MSVC 7.1 pushes M's arguments before it evaluates the object
+    expression: the same push order), X's declaration loses its last k parameters, M's gains them in front. Only
+    when every call of M in the source is chained that way to calls of one X, and M's declaration there has the
+    words check 7 saw. Verified (compare.py / equiv.py), but the verification can't tell which of two consecutive
+    calls an argument word belongs to (both see the same stack): the split comes from the callee's `ret N` alone.
+    Run once per check 7 report (a second pass over the same report would move another word)."""
+    pairs = arg_unshift_pairs().get(rel)
+    if not pairs:
+        return []
+    out = []
+    for name, a, decl_b, ret_b in sorted(pairs):
+        if not name:
+            continue
+        k = (ret_b - decl_b) // 4
+        blank = blank_comments(text)
+        dm = [x for x in re.finditer(r"(?<![\w:.>])%s\s*\(([^()]*)\)\s*(?:const\s*)?;" % re.escape(name), blank)
+              if _is_decl_prefix(blank, x.start())]
+        if len(dm) != 1:
+            continue
+        md = dm[0]
+        mparams = text[md.start(1):md.end(1)].strip()
+        mparams = "" if mparams in ("", "void") else mparams
+        if len(split_args(text, md.start(1), md.end(1)) if mparams else []) * 4 != decl_b:
+            continue        # (another source of the TU declares M; this one's declaration already has the words)
+        calls = [m for m in re.finditer(r"(?<![\w:])%s\s*\(" % re.escape(name), blank) if m.start() != md.start()]
+        if not calls:
+            continue
+        plan, xname, ok = [], None, True
+        for m in calls:
+            pm = re.search(r"(\w+)\s*\(([^()]*)\)\s*->\s*$", blank[:m.start()])
+            if not pm or (xname and pm.group(1) != xname):
+                ok = False
+                break
+            xname = pm.group(1)
+            xargs = split_args(text, pm.start(2), pm.end(2)) if text[pm.start(2):pm.end(2)].strip() else []
+            if len(xargs) < k:
+                ok = False
+                break
+            me = _close_paren(blank, m.end())
+            plan.append((pm.start(2), pm.end(2), xargs, m.end(), me))
+        if not ok or not plan:
+            continue
+        xd = [x for x in re.finditer(r"(?<![\w:.>])%s\s*\(([^()]*)\)\s*(?:const\s*)?(?:=\s*0\s*)?;" % re.escape(xname), blank)
+              if _is_decl_prefix(blank, x.start())]
+        if len(xd) != 1:
+            continue
+        xd = xd[0]
+        xps = split_args(text, xd.start(1), xd.end(1)) if text[xd.start(1):xd.end(1)].strip() not in ("", "void") else []
+        if len(xps) < k:
+            continue
+        xparams = [text[s0:e0].strip() for s0, e0 in xps]
+        moved = xparams[len(xparams) - k:]
+        edits = []
+        for x0, x1, xargs, m0, m1 in plan:
+            kept = ", ".join(text[s0:e0].strip() for s0, e0 in xargs[:len(xargs) - k])
+            mv = [text[s0:e0].strip() for s0, e0 in xargs[len(xargs) - k:]]
+            margs = text[m0:m1].strip()
+            edits.append((m0, m1, ", ".join(mv + ([margs] if margs else []))))
+            edits.append((x0, x1, kept))
+        edits.append((md.start(1), md.end(1), ", ".join(moved + ([mparams] if mparams else []))))
+        edits.append((xd.start(1), xd.end(1), ", ".join(xparams[:len(xparams) - k])))
+        new = text
+        for s0, e0, rep in sorted(edits, key=lambda t: -t[0]):
+            new = new[:s0] + rep + new[e0:]
+        out.append((new, "%s takes %d more word(s) than declared: %s's last %d argument(s), which %s leaves on the "
+                         "stack" % (name, k, xname, k, xname)))
+    return out
+
+
 _BC = {}
 
 
@@ -2021,12 +2323,12 @@ def ret_widen_candidates(rel, text):
 RULES = {"template-spec": lambda rel, t: template_spec(t), "dependent-base": lambda rel, t: dependent_base(t),
          "return-struct": lambda rel, t: return_struct(t), "patch": patch, "register-order": register_order,
          "void-return": void_return, "split-temp": lambda rel, t: split_temp(t),
-         "code-literal": lambda rel, t: code_literal(t), "ctor-virt": lambda rel, t: ctor_virt(t), "data-literal": lambda rel, t: data_literal(t), "stub-body": stub_body, "unique-class": unique_class, "pass-through": None,
+         "code-literal": lambda rel, t: code_literal(t), "addr-const": lambda rel, t: addr_const(t), "ctor-virt": lambda rel, t: ctor_virt(t), "data-literal": lambda rel, t: data_literal(t), "stub-body": stub_body, "unique-class": unique_class, "pass-through": None,
          "this-call": this_call, "reg-call": reg_call, "this-note": this_note, "return-param": None, "base-ctor": None, "this-cand": None,
-         "ret-cand": None, "arg-shift": None, "ret-widen": None}
+         "ret-cand": None, "arg-shift": None, "ret-widen": None, "arg-unshift": None}
 
 
-CANDIDATE_RULES = ("return-param", "base-ctor", "this-cand", "ret-cand", "arg-shift", "ret-widen")
+CANDIDATE_RULES = ("return-param", "base-ctor", "this-cand", "ret-cand", "arg-shift", "ret-widen", "arg-unshift")
 
 
 def main(argv=None):
@@ -2051,6 +2353,8 @@ def main(argv=None):
         return return_param_main(a, arg_shift_candidates, "arg-shift")
     if rules == ["ret-widen"]:
         return return_param_main(a, ret_widen_candidates, "ret-widen")
+    if rules == ["arg-unshift"]:
+        return return_param_main(a, arg_unshift_candidates, "arg-unshift")
     srcs = load_sources()
     in_matches = {addr for rel, addr, _ in srcs if rel.startswith("matches/")}
     planned = []

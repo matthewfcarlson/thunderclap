@@ -7,8 +7,8 @@ void pure3d::DefaultChannelHandler::vfunc_5(int __p0, int __p1, int __p2, int __
 
  unsigned a=0,b=0; *header=0;
  switch(type) {
- case 0x121100: case 0x121107: case 0x121109: case 0x121111: case 0x121113: a=count*4; b=count*2; *header=0x1c; break;
- case 0x121101: a=count*8; b=count*2; *header=0x1c; break;
+ case 0x121100: case 0x121107: case 0x121109: case 0x12110e: case 0x121113: a=count*4; b=count*2; *header=0x1c; break;
+ case 0x121101: case 0x121111: a=count*8; b=count*2; *header=0x1c; break;
  case 0x121102: a=count*4; b=count*2; *header=0x2c; break;
  case 0x121103: a=count*8; b=count*2; *header=0x2c; break;
  case 0x121104: a=count*12; b=count*2; *header=0x1c; break;

@@ -11,10 +11,6 @@ int FUN_00266da0(int token);
 int __cdecl FUN_00289240(const void *a, const void *b);
 int __cdecl FUN_00289270(const void *a, const void *b);
 
-extern char DAT_00121002;
-extern char DAT_00121006;
-extern char DAT_00121401;
-extern char DAT_00121402;
 
 struct Pair_289500 {
     unsigned int lo;
@@ -161,7 +157,7 @@ void AnimationLoader::vfunc_5(Animation **out, Pair_289500 *outId, Reader *r, in
         rowOff = 0;
         do {
             char *id = (char *)r->FUN_00266a30();
-            if (id == &DAT_00121401) {
+            if (id == ((char*)0x00121401)) {
                 if (anim->f38 == 0) {
                     if (anim->f30 != 0) {
                         anim->f30->v0();
@@ -217,11 +213,11 @@ void AnimationLoader::vfunc_5(Animation **out, Pair_289500 *outId, Reader *r, in
                 }
                 rowOff += 0x18;
                 row3 += 3;
-            } else if (id == &DAT_00121402) {
+            } else if (id == ((char*)0x00121402)) {
                 r->stream->FUN_002647e0(&fr.dummy, 1, 4, 1);
                 r->stream->FUN_002647e0(&fr.unused, 1, 4, 1);
                 anim->f20 = fr.unused;
-            } else if (id == &DAT_00121002) {
+            } else if (id == ((char*)0x00121002)) {
                 r->stream->FUN_002647e0(&fr.a, 1, 4, 1);
                 r->stream->FUN_002647e0(&fr.b, 1, 4, 1);
                 anim->f28 = fr.b;
@@ -236,7 +232,7 @@ void AnimationLoader::vfunc_5(Animation **out, Pair_289500 *outId, Reader *r, in
                         i++;
                     }
                 }
-            } else if (id == &DAT_00121006) {
+            } else if (id == ((char*)0x00121006)) {
                 if (anim->f28 == 0) {
                     anim->f30 = fr.self->FUN_00289070(r);
                     if (anim->f30)

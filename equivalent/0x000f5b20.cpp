@@ -31,8 +31,8 @@ struct Node {
     char pad[0x858];
     char name[1];
     void FUN_000e4610(const char *s);
-    void FUN_000f8970();
-    void FUN_001bded0();
+    void FUN_000f8970(int t);
+    void FUN_001bded0(int t);
 };
 
 struct Holder_f5b20 {
@@ -97,8 +97,8 @@ public:
     virtual void v41();
     virtual void v42();
     virtual void v43();
-    virtual Node *v44(int t);
-    virtual Node *v45(int t);
+    virtual Node *v44();
+    virtual Node *v45();
 
     int field4;
     Holder_f5b20 *field8;
@@ -149,8 +149,8 @@ void FEThingsBase::FUN_000f5b20(ParamSlot slot, Source *c, void *d, Args_f5b20 *
         return;
     case 0x1126cb0c: {
         int t = param->FUN_000fad90();
-        v44(t)->FUN_000f8970();
-        v45(t)->FUN_001bded0();
+        v44()->FUN_000f8970(t);
+        v45()->FUN_001bded0(t);
         return;
     }
     case (int)0xb37063b4: {

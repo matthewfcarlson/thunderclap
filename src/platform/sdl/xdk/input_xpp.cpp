@@ -7,7 +7,7 @@
 //             every changed port: the game opens pads only here, so the pads present at start-up are reported as
 //             inserted by the first call (as on the Xbox)
 //   0x278060 / 0x278500  XGetDeviceChanges / XGetDevices(memory-unit type): no memory units here
-//   0x2685a0  XInputGetState(handle, 22 bytes): u32 packet number + the gamepad (hulk_input.h: layout from the
+//   0x2685a0  XInputGetState(handle, 22 bytes) (a poll; the pad constructor 0x2692c0's 20 reads: XInputGetStateInit): u32 packet number + the gamepad (hulk_input.h: layout from the
 //             game's own table at 0x4cd6a8); 0 = success. XInputSetState(handle, feedback): the game skips rumble
 //             while the feedback's status word (+0) reads ERROR_IO_PENDING; the motors are the two words at +0x42
 //   0x268520 / 0x268780 / 0x269590  XInputClose(handle)
@@ -105,11 +105,11 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputClose(hulk_u32 h) {
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputGetState(hulk_u32 h, hulk_u32 out) {
-    HULK_XDK_TRACE("XInputGetState");
+static hulk_u32 get_state(hulk_u32 h, hulk_u32 out, int init) {
     PadHandle* p = handle(h);
     HulkPadState s;
-    if (!p || !out || hulk_input_generation(p->port) != p->gen || !hulk_input_read(p->port, &s))
+    if (!p || !out || hulk_input_generation(p->port) != p->gen ||
+        !(init ? hulk_input_read_init(p->port, &s) : hulk_input_read(p->port, &s)))
         return HULK_ERROR_DEVICE_NOT_CONNECTED;
     unsigned char b[18];
     b[0] = (unsigned char)s.buttons;
@@ -135,6 +135,19 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputGetState(hulk_u32 h, hulk_u32 ou
     for (int i = 0; i < 18; i++)
         o[4 + i] = b[i];
     return HULK_ERROR_SUCCESS;
+}
+
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputGetState(hulk_u32 h, hulk_u32 out) {
+    HULK_XDK_TRACE("XInputGetState");
+    return get_state(h, out, 0);
+}
+
+// native10 (build/rp1/for-native9.md A): the pad object's constructor 0x2692c0 reads the new pad 20 times; those
+// reads are not polls (the replay source must not count them). The native link binds that function's call of
+// XInputGetState here instead (tools/native_link.py SITE_REBIND); every other caller polls.
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputGetStateInit(hulk_u32 h, hulk_u32 out) {
+    HULK_XDK_TRACE("XInputGetState");
+    return get_state(h, out, 1);
 }
 
 // feedback: +0 status (ERROR_IO_PENDING while the Xbox works on it; we finish at once), +0x42 left motor (the large,
@@ -171,6 +184,10 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputClose(hulk_u32 a0) {
 extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputGetState(hulk_u32 a0, hulk_u32 a1) {
     (void)a0; (void)a1; HULK_XDK_TRACE("XInputGetState");
     return 0;
+}
+
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputGetStateInit(hulk_u32 a0, hulk_u32 a1) {
+    return hulk_xdk_XInputGetState(a0, a1);
 }
 
 extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputSetState(hulk_u32 a0, hulk_u32 a1) {

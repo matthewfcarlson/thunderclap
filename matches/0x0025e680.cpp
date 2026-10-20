@@ -1,7 +1,7 @@
 class Entity {
   public:
     virtual void vfunc_0();
-    virtual void vfunc_1(void*, void*);
+    virtual int vfunc_1(void*, void*);
     virtual void vfunc_2();
     virtual Entity* vfunc_3();
     virtual void vfunc_4();
@@ -13,10 +13,10 @@ class Entity {
 class MetaEntity : public Entity {
   public:
     virtual void vfunc_2();
-    virtual void vfunc_3(void*);
+    virtual int vfunc_3(void*);
 };
-void MetaEntity::vfunc_3(void* p) {
+int MetaEntity::vfunc_3(void* p) {
     Entity* a = this->vfunc_8();
     Entity* b = a->vfunc_3();
-    b->vfunc_1(p, this);
+    return b->vfunc_1(p, this);
 }

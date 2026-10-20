@@ -1,3 +1,5 @@
+extern "C" unsigned char DAT_004e09f8[4];
+extern "C" unsigned char DAT_004e09fc[4];
 struct Item_fa870 {
     int a;
     Item_fa870* next;
@@ -12,7 +14,11 @@ struct Lst {
     void Put(Item_fa870* it);
 };
 void Lst::Put(Item_fa870* it) {
-    static Item_fa870* last = it;
+    if (!(*(unsigned char*)DAT_004e09fc & 1)) {
+        *(unsigned*)DAT_004e09fc |= 1;
+        *(Item_fa870**)DAT_004e09f8 = it;
+    }
+    Item_fa870*& last = *(Item_fa870**)DAT_004e09f8;
     if (h->count == 0) {
         h->First(it);
         last = it;

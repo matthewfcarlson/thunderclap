@@ -6,9 +6,9 @@ class Driver {
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void v5();
-    virtual void vfunc_6();
+    virtual int v5();
+    virtual int vfunc_6();
 };
-void Driver::vfunc_6() {
-    v5();
+int Driver::vfunc_6() {
+    return v5();
 }
