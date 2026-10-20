@@ -20,6 +20,7 @@ import argparse
 import csv
 import json
 import os
+import re
 import struct
 import sys
 import tempfile
@@ -70,6 +71,94 @@ def literal_bytes(coff, sym):
     return raw[value:end + 1] if end >= 0 else raw[value:]
 
 
+# (cl3) Initializers. A global our source defines (not only declares) that binds to an original address: the
+# relocation is masked (compare.py) or the code reads the original's address (equiv.py level 3), so its initial
+# bytes are never compared, but the native build starts with ours (`const float rads = 0.0174533f;` bound to
+# the original's pi/180 at 0x003f32b8). They must equal the original's data there (.bss reads as zeros).
+_NOT_GLOBALS = ("??_C@", "__real@", "__xmm@", "??_7", "??_8", "??_R", "$SG", "__imp_", ".", "@", "__security_cookie")
+SCN_CODE, SCN_IDATA, SCN_UDATA = 0x20, 0x40, 0x80
+
+
+def defined_data(obj_bytes):
+    """{name: (section name, bytes (None: .bss), size, masked offsets)} of the data symbols an object defines."""
+    d = obj_bytes
+    _, nsec, _, symoff, nsym, opthdr, _ = struct.unpack_from("<HHIIIHH", d, 0)
+    strtab = symoff + nsym * 18
+    secs = []
+    for i in range(nsec):
+        o = 20 + opthdr + i * 40
+        name = d[o:o + 8].rstrip(b"\0").decode("latin1")
+        _, _, size, raw, relptr, _, nrel, _, flags = struct.unpack_from("<IIIIIIHHI", d, o + 8)
+        if name.startswith("/"):
+            off = int(name[1:])
+            name = d[strtab + off:d.index(b"\0", strtab + off)].decode("latin1")
+        relocs = [struct.unpack_from("<I", d, relptr + j * 10)[0] for j in range(nrel)]
+        secs.append((name, size, d[raw:raw + size] if raw else None, relocs, flags))
+    syms, i = [], 0
+    while i < nsym:
+        o = symoff + i * 18
+        if d[o:o + 4] == b"\0\0\0\0":
+            off, = struct.unpack_from("<I", d, o + 4)
+            name = d[strtab + off:d.index(b"\0", strtab + off)].decode("latin1")
+        else:
+            name = d[o:o + 8].rstrip(b"\0").decode("latin1")
+        value, secnum, typ, cls, naux = struct.unpack_from("<IhHBB", d, o + 8)
+        syms.append((name, value, secnum, typ, cls, naux))
+        i += 1 + naux
+    starts = {}
+    for name, value, secnum, typ, cls, naux in syms:
+        if secnum > 0:
+            starts.setdefault(secnum, set()).add(value)
+    out = {}
+    for name, value, secnum, typ, cls, naux in syms:
+        if secnum <= 0 or typ == 0x20 or cls not in (2, 3) or name.startswith(_NOT_GLOBALS):
+            continue
+        sname, ssize, raw, relocs, flags = secs[secnum - 1]
+        if flags & SCN_CODE or not flags & (SCN_IDATA | SCN_UDATA) or name == sname or (cls == 3 and naux):
+            continue          # code, .drectve/.debug, the section's own symbol
+        later = [v for v in starts[secnum] if v > value]
+        end = min(later) if later else ssize
+        if end <= value:
+            continue
+        mask = {k - value for r in relocs for k in range(r, r + 4) if value <= k < end}
+        out[name] = (sname, raw[value:end] if raw is not None else None, end - value, mask)
+    return out
+
+
+def initializer_diffs(obj_bytes, mapping, read):
+    """[{symbol, target, offset, ours, original}] for each defined data symbol in MAPPING ({name: original address})
+    whose initial bytes differ from the original's (READ(addr, n) -> bytes; None or short reads are zeros)."""
+    out = []
+    for name, (sname, raw, size, mask) in sorted(defined_data(obj_bytes).items()):
+        a = mapping.get(name)
+        if a is None:
+            continue
+        ours = raw if raw is not None else bytes(size)
+        orig = read(a, size) or b""
+        orig = orig + bytes(size - len(orig))
+        bad = [k for k in range(size) if k not in mask and ours[k] != orig[k]]
+        if bad:
+            k = bad[0] & ~3
+            rec = {"kind": "initializer_differs", "symbol": name, "target": "0x%08x" % a, "size": size,
+                   "offset": bad[0], "ours": ours[k:k + 16].hex(), "original": orig[k:k + 16].hex(),
+                   "section": sname}
+            if size == 4 and not mask:
+                rec["ours_f"], rec["original_f"] = repr(struct.unpack("<f", ours)[0]), repr(struct.unpack("<f", orig)[0])
+            out.append(rec)
+    return out
+
+
+def xbe_read(xbe):
+    def read(a, n):
+        o = xbe.offset(a)
+        if o is None:
+            return bytes(n) if xbe.section_of(a) is not None else None
+        s = xbe.section_of(a)
+        k = min(n, s.raw + s.rsize - o)
+        return xbe.data[o:o + k] + bytes(n - k)
+    return read
+
+
 def check(src, addr):
     st = state()
     xbe = st["xbe"]
@@ -78,7 +167,8 @@ def check(src, addr):
         return {"addr": "0x%08x" % addr, "status": "not_matching", "detail": r["status"]}
     with tempfile.TemporaryDirectory() as tmp:
         try:
-            coff = Coff(compile_obj(src, DEFAULT_FLAGS, tmp))
+            objp = compile_obj(src, DEFAULT_FLAGS, tmp)
+            coff = Coff(objp)
         except CompileError as e:
             return {"addr": "0x%08x" % addr, "status": "compile_error", "detail": str(e)[:200]}
     sym = next(s for s in coff.function_symbols() if s[0] == r["symbol"])
@@ -134,6 +224,10 @@ def check(src, addr):
             elif sec.name == ".text" and not (addr <= target < addr + 0x10000):
                 issues.append(("data_in_code", name))
             # Other sections (.rdata/.data, XDK D3D/XGRPH/DSOUND data, BINKDATA) hold real globals.
+    # (cl3) a global the source defines: its initial bytes must be the original's
+    inits = initializer_diffs(coff.data, mapping, xbe_read(xbe))
+    for rec in inits:
+        issues.append(("initializer_mismatch", rec["symbol"]))
     targets = Counter(mapping.values())
     for name, t in mapping.items():
         if targets[t] > 1 and classify(name) == "symbol":
@@ -141,7 +235,78 @@ def check(src, addr):
     SOFT = ("vftable_of_other_class", "aliased_target", "call_target_not_known_function", "function_address_as_data")
     hard = [i for i in issues if i[0] not in SOFT]
     return {"addr": "0x%08x" % addr, "status": "ok" if not hard else "bad", "relocs": len(mapping),
-            "issues": issues, "map": {k: "0x%08x" % v for k, v in mapping.items()}}
+            "issues": issues, "map": {k: "0x%08x" % v for k, v in mapping.items()},
+            **({"initializers": inits} if inits else {})}
+
+
+_STRIP = re.compile(r'//[^\n]*|/\*.*?\*/|"(?:\\.|[^"\\\n])*"|\'(?:\\.|[^\'\\\n])*\'', re.S)
+_NOT_DEF = re.compile(r"^\s*(?:extern|typedef|using|template|friend|class|struct|union|enum|namespace|#)\b|^\s*#")
+
+
+def may_define_data(text):
+    """Cheap, conservative text test: could this source define a global (a namespace-scope variable, a static data
+    member, a function-local static)? False only when it certainly doesn't."""
+    t = _STRIP.sub(lambda m: " " if m.group(0)[0] in "/" else '""', text)
+    if re.search(r"\bstatic\b(?![^;{]*\()", t):
+        return True               # a static variable (not a static member function declaration)
+    depth, transparent, stmt = 0, [], ""
+    for line in t.splitlines():
+        if line.lstrip().startswith("#"):
+            continue
+        for c in line + "\n":
+            if c == "{":
+                head = stmt.strip()
+                tr = depth == len(transparent) and re.match(r'(?:namespace\b[^=]*|extern\s*""\s*)$', head)
+                if tr:
+                    transparent.append(depth)
+                elif depth == len(transparent) and "=" in head:
+                    return True       # an aggregate initializer at namespace scope
+                depth += 1
+                stmt = "" if (tr or depth > len(transparent)) else stmt
+                continue
+            if c == "}":
+                depth -= 1
+                if transparent and transparent[-1] == depth:
+                    transparent.pop()
+                    stmt = ""
+                elif depth == len(transparent):
+                    stmt = "}"         # a class body closed: `} g;` defines g
+                continue
+            if depth != len(transparent):
+                continue
+            if c == ";":
+                s = stmt.strip()
+                if s.startswith("}") and s.strip("} \n"):
+                    return True
+                if s.startswith("extern") and "=" in s:
+                    return True       # `extern "C" const float k = 1.0f;` defines k
+                if s and s != "}" and not _NOT_DEF.match(s) and ("=" in s or "(" not in s or "(*" in s.replace(" ", "")):
+                    return True
+                stmt = ""
+                continue
+            stmt += c
+    return False
+
+
+def init_job(path):
+    """(cl3) The initializer check for one matches/ or equivalent/ source: [records] (empty: none)."""
+    addr = int(os.path.basename(path)[2:10], 16)
+    if not may_define_data(open(path, errors="replace").read()):
+        return path, "skip", []
+    try:
+        if "/matches/" in path:
+            r = check(path, addr)
+            if r.get("status") == "not_matching":
+                import equiv
+                r2 = equiv.verify(path, addr, max_level=2)
+                return path, "equiv", [i for i in (r2.get("level2") or {}).get("issues", [])
+                                       if i["kind"] == "initializer_differs"]
+            return path, "relocs", r.get("initializers", [])
+        import equiv
+        r = equiv.verify(path, addr, max_level=2)
+        return path, "equiv", [i for i in (r.get("level2") or {}).get("issues", []) if i["kind"] == "initializer_differs"]
+    except Exception as e:  # noqa: BLE001
+        return path, "error", [{"error": repr(e)[:200]}]
 
 
 def _job(path):
@@ -160,7 +325,24 @@ def main():
     p.add_argument("--all", action="store_true")
     p.add_argument("--jobs", type=int, default=8)
     p.add_argument("--out", default=os.path.join(ROOT, "build/reloc-report.jsonl"))
+    p.add_argument("--initializers", metavar="OUT", help="(cl3) check the initializers of every matches/ and "
+                   "equivalent/ source that may define a global; violations to OUT (JSON)")
     a = p.parse_args()
+    if a.initializers:
+        files = sorted(os.path.join(ROOT, d, f) for d in ("matches", "equivalent")
+                       for f in os.listdir(os.path.join(ROOT, d)) if f.endswith(".cpp"))
+        out, counts = {}, Counter()
+        with Pool(a.jobs) as pool:
+            for i, (path, how, recs) in enumerate(pool.imap_unordered(init_job, files, chunksize=8)):
+                counts[how] += 1
+                if recs:
+                    out[os.path.relpath(path, ROOT)] = recs
+                    counts["violating"] += 1
+                if (i + 1) % 2000 == 0:
+                    print("  %d/%d %s" % (i + 1, len(files), dict(counts)), flush=True)
+        json.dump({"counts": dict(counts), "violations": dict(sorted(out.items()))}, open(a.initializers, "w"), indent=1)
+        print("results:", dict(counts))
+        return
     if a.file:
         r = check(a.file, int(a.addr, 16)) if a.addr else _job(a.file)
         print(json.dumps(r) if a.json else json.dumps(r, indent=1))

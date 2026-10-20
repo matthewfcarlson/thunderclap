@@ -23,7 +23,7 @@ input cap to at least N.
 | Level | Check | Fails on |
 |---|---|---|
 | 1 | compiles with MSVC 7.1 (`compare.py` flags; `--clang` adds a host-clang syntax check, warning only) | compile errors |
-| 2 | same references: callees, globals, vftables, strings, float constants | a missing or extra callee or global, an unresolvable symbol, a float constant a few ulps off the original's |
+| 2 | same references: callees, globals, vftables, strings, float constants (in memory and in immediates), the initializers of globals the source defines | a missing or extra callee or global, an unresolvable symbol, a float constant a few ulps off the original's, a defined global whose initial bytes aren't the original's |
 | 3 | differential execution in Unicorn on fuzzed inputs | any difference in calls, memory writes, return value, callee-saved registers or stack balance |
 
 `status` is `equivalent` (levels 1–3 pass), `fail`, `inconclusive` (no difference, but fewer than 8 inputs
@@ -345,6 +345,35 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   not in the heap range. `addrcount`: an address computed by `lea` from a pointer is never a "count" to plant small
   (planting 2 into the owner pointer made every walk start in the zero page; 0x00242da0: 17 -> 50 inputs, 2 -> 30 of
   30 edges).
+- (round 15, cl3) Five gaps native10 and fx20 found, each switchable with `EQUIV_OFF=name`:
+  - `caseidx`: a jump table's cases are its indices, not its targets. Coverage counts every index the bounds check
+    before the `jmp [r*4 + tab]` lets through (`cmp esi, 0x14; ja`: 21), each index an edge `(jmp, ("idx", k))`, and
+    directed inputs plant the missing indices (through the switch value's source and transforms, as before). Two
+    indices that share a target in the original are two cases: native10's stop 20 was 0x0028aea0 mapping 0x12110e to
+    the default and 0x121111 to another group, `equivalent` at 19,784 inputs with "12/12" coverage (now 21 index
+    edges, and the old source fails).
+  - `argcall`: chained calls. `X(a)->M()` and `X()->M(a)` compile to the same bytes when X pops nothing and M pops a
+    word (`v44(t)->setFont()` for `v44()->setFont(t)`); every word was compared, but not which call it belongs to. At a
+    direct call to a callee that pops its words (`ret N`, N > 0), our declaration must pop N too; otherwise every
+    input fails (`call #3 to 0x0027af90: our declaration passes it 8 bytes of stack arguments, but it takes 4 (ret 4):
+    the other 4 bytes belong to another call`). Natively the other call gets them. A callee with a plain `ret` (caller
+    pops) keeps the old rule (a declaration mismatch only explains a difference): `this` in ecx with caller-popped
+    words can't be declared in C++. Not covered: two chained virtual calls (no declaration is visible at either).
+  - `initbytes` (level 2): a global our source *defines* (`const float rads = 0.0174533f;`, `float g = -1.0f;`) that
+    binds to an original address is read at the original's address in level 3, and a byte match masks the
+    relocation, so its initializer was never compared. Its bytes (relocations inside it masked, `.bss` as zeros)
+    must be the original's there: `initializer_differs` (`ours`/`original` hex, and floats for a 4-byte item).
+    `tools/verify_relocs.py` reports the same for matches (`initializer_mismatch`, a hard issue), and
+    `verify_relocs.py --initializers OUT` sweeps all of `matches/` and `equivalent/` (`build/cl3/initializers.json`).
+  - `immfloat` (level 2): float bit patterns in `mov`/`push` immediates (`mov dword [esi+0x38], 0x3e32b8c3`) compare
+    like float constants in memory: one of ours the original doesn't have, within 1e-4 (relative) and with the same
+    exponent as one of its unshared ones, is `float_immediate_differs` (fx20's 0x00180f00: `0.17453292f` and
+    `1.7453292f`, 1 ulp off each, passed 3000 inputs). An immediate counts as a float when it is above 0xffff, has a
+    normal exponent and isn't an image address; an integer that only looks like a float is flagged only next to a
+    near-equal original constant.
+  - `treespecial`: equiv-map and equiv-conv lines naming a constructor, destructor, operator or template function
+    (`??0DrawableBase@pure3d@@QAE@XZ`) are translated into a merged tree object's `fn_<addr>` namespace too (they
+    fell back to instruction pairing, which bound the allocator: native10's stop 17).
 
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check
@@ -550,7 +579,7 @@ after it); sides a source declares with
 and everything only a dead side reaches; a side a rule calls dead that a run takes anyway counts normally
 and is listed in `coverage.dead_taken`, a checker bug to report), 0/1 for every `setcc` (also one that
 stores to memory, `sete byte ptr [esp+0x1c]`), and every
-jump-table case of the original (a table is read up to its first non-code word, and ends where the
+jump-table case index of the original (round 15: every index the bounds check lets through, not every distinct target) (a table is read up to its first non-code word, and ends where the
 next table of the function starts, so two back-to-back switches keep their own cases). It comes only from inputs that ran to completion (not from faults).
 Directed inputs can also patch a word a stub filled through an out-parameter, when the original compares
 it. `level3.coverage.complete` is false when some edge never ran, and the
@@ -587,7 +616,18 @@ Mismatch strings are written for a model to act on. Examples:
 
 ## Validation
 
-Latest run (2026-10-18, checker round 13; details in [tasks/equiv-round13.md](tasks/equiv-round13.md)):
+Latest run (2026-10-19, checker round 15, cl3): `regress.py` 181/181 (12 new cases; every new `_wrong` case is
+`equivalent` under round 14, and `0x0029a190_tree_ctor_map` fails there; `0x000991b0_chained_vcalls` now fails, as it
+should: its source declares FUN_000fd8a0 (`ret 0x10`) with 2 of its 4 words, see `argcall`); `test_equiv.py` 12/12.
+60-function sample of `equivalent/` at 3000 inputs (20 with jump tables of more indices than targets, 20 with chained
+callee-popped calls, 20 random; `build/cl3/sample60.txt`), round 14 vs 15: 59 equivalent under both, with 21 gaining
+index edges, all covered (0x0028aea0 12/12 -> 23/23); 0x000991b0 newly fails (the declaration above; a real bug for the
+native build); time 1358.6 s vs 1360.7 s (+0.2%). Level 2 over the 939 committed equivalents with float immediates:
+no `float_immediate_differs` (fx20 fixed the known ones). Initializers (`verify_relocs.py --initializers`): 119
+violations in 116 `matches/` sources (89 a `gNegOne = -1.0f` propagated to functions whose original reads another
+constant, 15 placeholder vftables defined as zeros), none in `equivalent/` (`build/cl3/initializers.json`).
+
+Previous run (2026-10-18, checker round 13; details in [tasks/equiv-round13.md](tasks/equiv-round13.md)):
 `regress.py` 164/164 (the library-span cases 0x00212641 and 0x003468c0 replaced or dropped; every new `_wrong` case
 is `equivalent` under round 12); `replay_regress.py` 16/16; selftest 292/300 (all 8 fail the same under round 12);
 mutation suite identical to round 12 mutant by mutant; `equivalent/` random 300 (seed 2041, library excluded) at

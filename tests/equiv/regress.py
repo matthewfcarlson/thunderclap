@@ -105,7 +105,10 @@ CASES = {
     # (a base-class null check) is not a test to steer; a /GS cookie load inside the prologue; strings
     # reached through a table in .rdata can be patched (the table's own pointer is a fixed address)
     "0x0008c680_frame_release": ("equivalent", None),
-    "0x000991b0_chained_vcalls": ("equivalent", None),
+    # (round 15, argcall: this source declares FUN_000fd8a0 (ret 0x10) with 2 words; the other two are v14's
+    # arguments, which v14 leaves on the stack: fd8a0 takes (owner, r, out1, f), as 0x000a1930 declares it. The words
+    # compare alike either way; the declaration is wrong, so it fails now)
+    "0x000991b0_chained_vcalls": ("fail", "belong to another call"),
     "0x0003a680_base_null_check": ("equivalent", None),
     "0x0008e880_cookie_prologue": ("equivalent", None),
     "0x000d3f10_string_table": ("equivalent", None, 0.75),
@@ -457,6 +460,29 @@ CASES = {
     # `w->out = 3`: `inc dword [3 + 0x24]` is unaligned; Unicorn delivered the instruction's hook again after its
     # store and the increment was applied twice, in our code only (rmwundo): "write to 0x24 ... was 0x2000000"
     "0x0025b970_rmw_restart": ("equivalent", None, 0.75, {"n_inputs": 3000}),
+    # round 15 (cl3). A jump table's coverage counts case indices, not targets (caseidx): 0x0028aea0 has 21 indices
+    # over 12 targets; before native10's fix it had no case 0x12110e and 0x121111 in the wrong group, and passed
+    "0x0028aea0_case_index": ("equivalent", None, 0.95),
+    "0x0028aea0_case_index_wrong": ("fail", None),
+    # chained calls (argcall): the stack words a call takes are its callee's `ret N`; `X(a)->M()` for `X()->M(a)`
+    # compiles to the same bytes. native10's arg-unshift fixed 0x000f5b20 (v44(t)->setFont() -> v44()->setFont(t))
+    # and a second pass moved Lookup's `entry` on to FUN_0027af90 in 0x001c7550 (reverted)
+    "0x000f5b20_chained_args": ("equivalent", None),
+    "0x000f5b20_chained_args_wrong": ("fail", "belong to another call"),
+    "0x001c7550_chained_args": ("equivalent", None),
+    "0x001c7550_chained_args_wrong": ("fail", "belong to another call"),
+    # a global the source defines, bound to an original address: its initializer must be the original's bytes
+    # (initbytes; the relocation is masked and level 3 reads the original's address)
+    "0x00047ce0_init_const": ("equivalent", None),
+    "0x00047ce0_init_const_wrong": ("fail", "L2 initializer_differs"),
+    # float bit patterns in immediates (immfloat): `mov [esi+0x38], 0x3e32b8c3` for 0.17453294f; fx20's old source
+    # had 0.17453292f and 1.7453292f, 1 ulp off, and passed 3000 inputs
+    "0x00180f00_imm_float": ("equivalent", None),
+    "0x00180f00_imm_float_wrong": ("fail", "L2 float_immediate_differs"),
+    # equiv-map lines for ??-names (constructors, operators) in a merged tree object (treespecial): the base
+    # constructor fell back to pairing and bound the allocator (native10 stop 17)
+    "0x0029a190_tree_ctor_map": ("equivalent", None),
+    "0x0029a190_tree_ctor_map_wrong": ("fail", "went to 0x00263ea0 instead of 0x002a3480"),
 }
 
 # cases that must also complete this many inputs (the promotion bar is 50)

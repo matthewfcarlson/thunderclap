@@ -1099,6 +1099,7 @@ class CodeView:
         self.jcc = []             # conditional branch addresses
         self.setcc = []           # setcc addresses (branch-free conditions count for coverage too)
         self.tables = {}          # indirect jmp addr -> [targets]
+        self.table_bound = {}     # (round 15) indirect jmp addr -> number of case indices
         self.table_ranges = []    # (lo, hi) of jump tables (data inside the body)
         self._dec = {}
         self._fret = {}
@@ -1284,7 +1285,28 @@ class CodeView:
                 if nxt_b is not None and b + 4 * len(tg) > nxt_b:
                     self.tables[j] = tg[:(nxt_b - b) // 4]
             self.table_ranges = [(lo, min([hi] + [x for x in bases if lo < x < hi])) for lo, hi in self.table_ranges]
+        self.table_bound = {j: self._table_bound(j) for j in self.tables}
         return self
+
+    def _table_bound(self, j):
+        """(round 15, caseidx) The number of indices the bounds check before a jump table lets through (`cmp esi,
+        0x14; ja default; jmp [esi*4 + tab]`: 21), capped at the table read; the table's length when none is found."""
+        n = len(self.tables[j])
+        reg = self.insns[j].mem[2]
+        prev = sorted(a for a in self.insns if j - 48 <= a < j)
+        cond = None
+        for a in reversed(prev):
+            i = self.insns[a]
+            if i.kind == "jcc" and cond is None:
+                cond = i.mnemonic
+                continue
+            if cond and i.mnemonic == "cmp" and i.ops and i.ops[0] == ("reg", reg) and len(i.ops) == 2 and \
+                    i.ops[1][0] == "imm":
+                k = i.ops[1][1] + (1 if cond == "ja" else 0) if cond in ("ja", "jae") else None
+                return min(n, k) if k else n
+            if i.kind in ("call", "jmp", "ret") or (i.ops and i.ops[0] == ("reg", reg) and i.mnemonic != "cmp"):
+                break
+        return n
 
     def _table(self, i):
         base = i.mem[4]
@@ -2000,10 +2022,32 @@ def _tree_key(mangled):
     (tools/build_tree.py): (qualified name, signature), comparable with the standalone source's name.
     Back-references in mangled names are positional, so the namespace can't just be cut out of the text."""
     q = _qualified(mangled)
+    if q is None and "treespecial" not in EQUIV_OFF:
+        q = _qualified_special(mangled)
     if q is None:
         return None
     sig = parse_signature(mangled)
     return _TREE_NS.sub("", q), _TREE_NS.sub("", repr(sorted(sig.items()))) if sig else None
+
+
+def _qualified_special(mangled):
+    """(round 15, `treespecial`) '??0DrawableBase@pure3d@@QAE@XZ' -> '??0 pure3d::DrawableBase': the qualified name
+    of a constructor, destructor, operator or template function (`??$`), with its special code, so `_tree_key`
+    translates equiv-map lines for them too (native10's stop 17: the base constructor fell back to pairing)."""
+    try:
+        if mangled.startswith("??$"):
+            return "??$ " + _Parser(mangled[1:]).qualified_name()
+        if mangled.startswith("??_"):
+            code, rest = mangled[2:4], mangled[4:]
+        elif mangled.startswith("??"):
+            code, rest = mangled[2], mangled[3:]
+        else:
+            return None
+        if code in ("_7", "_8", "_R", "__"):       # vftables, vbtables, RTTI, dynamic initializers: bound elsewhere
+            return None
+        return "??%s %s" % (code, _Parser(rest).qualified_name())
+    except (DemangleError, IndexError):
+        return None
 
 
 def _tree_names(obj, names):
@@ -4483,6 +4527,9 @@ class Run:
                 if self.prev_jcc is not None:
                     self.edges.add((self.prev_jcc, addr))
                 self.prev_jcc = addr if insn.kind == "jcc" or addr in self.view.tables else None
+                if addr in self.view.tables and insn.mem is not None and insn.mem[2] and "caseidx" not in EQUIV_OFF:
+                    # (round 15) the case index, not only the target: two indices sharing a target are two cases
+                    self.edges.add((addr, ("idx", self.reg(insn.mem[2]))))
                 if self.prev_set is not None:
                     pa, pr = self.prev_set
                     try:
@@ -5195,10 +5242,12 @@ def our_refs(ours, resolved, rview):
         kind = "call" if typ == REL32 else "data"
         out.append((kind, t if t is None else (t + (addend if typ == DIR32 else 0)) & M32, name))
     imms = set()
+    ours.imm_floats = set()
     for a, i in rview.insns.items():
         if any(s in rel_sites for s in range(a, a + i.size)):
             continue
         imms.update(i.imms)
+        ours.imm_floats |= _imm_floats(i)
         if i.mem is not None:
             imms.add(i.mem[4])
     return out, imms
@@ -5255,14 +5304,35 @@ def level2(prog, orefs, oview, ours, resolved, how, rview):
     for t in sorted(o_imm - r_data - imms - o_data):
         issues.append({"kind": "missing_address_constant", "target": "0x%08x" % t, "section": prog.section_name(t)})
     if "fconst" not in EQUIV_OFF:
-        issues += _float_const_diffs(prog, oview, refs, o_float - r_data)
+        o_imm_f = set()
+        if "immfloat" not in EQUIV_OFF:
+            for i in oview.insns.values():
+                o_imm_f |= _imm_floats(i)
+        issues += _float_const_diffs(prog, oview, refs, o_float - r_data, o_imm_f,
+                                     getattr(ours, "imm_floats", set()) if "immfloat" not in EQUIV_OFF else set())
     return issues
+
+
+def _imm_floats(i):
+    """(round 15, `immfloat`) The immediates of a `mov`/`push` that read as normal floats (`mov dword [esi+0x38],
+    0x3e32b8c3`, `push 0x3f800000`): a float literal stored without a constant in memory. Addresses in the image,
+    small integers and denormal patterns aren't floats."""
+    if i.mnemonic not in ("mov", "push") or not i.imms:
+        return set()
+    if i.mem is not None and i.mem[5] != 4:
+        return set()          # a byte or word store
+    out = set()
+    for v in i.imms:
+        e = (v >> 23) & 0xff
+        if v > 0xffff and 0 < e < 0xff and not _in_image(v):
+            out.add(v)
+    return out
 
 
 FCONST_TOL = 1e-4       # (round 13, fconst) relative: what a mistyped literal looks like (3-7 digits right)
 
 
-def _float_const_diffs(prog, oview, refs, o_left):
+def _float_const_diffs(prog, oview, refs, o_left, o_imm=(), r_imm=()):
     """(round 13, fconst) A float constant of ours the original doesn't have, when the original reads a constant
     it doesn't share with us that is nearly the same value: `0.0174533f` (0x3c8efa39) where the original has
     pi/180 = 0x3c8efa35, `0.003921569f` for 1/255 (0x3b808081). Level 3 compares floats with a relative
@@ -5280,22 +5350,37 @@ def _float_const_diffs(prog, oview, refs, o_left):
                 w = struct.unpack("<f" if sz == 4 else "<d", prog.read(t, sz))[0]
                 if math.isfinite(w):
                     orig.append((t, sz, w))
-    out = []
+    # (round 15, immfloat) immediates: the original's float bit patterns we don't store, and ours it doesn't. An
+    # integer that only looks like a float compares here too; it is flagged only when the original has no such
+    # immediate and has a float within FCONST_TOL of it with the same exponent (a few ulps: a mistyped literal)
+    imm_o = sorted(set(o_imm) - set(r_imm))
+    for v in imm_o:
+        w = struct.unpack("<f", struct.pack("<I", v))[0]
+        orig.append(("imm", 4, w))
+    mine = []
     for k, t, n in refs:
         if t is not None or not n.startswith("__real@"):
             continue
         hx = n[len("__real@"):]
         if len(hx) not in (8, 16):
             continue
-        v = struct.unpack("<f" if len(hx) == 8 else "<d", bytes.fromhex(hx)[::-1])[0]
+        mine.append((n, struct.unpack("<f" if len(hx) == 8 else "<d", bytes.fromhex(hx)[::-1])[0], None))
+    for v in sorted(set(r_imm) - set(o_imm)):
+        mine.append(("0x%08x" % v, struct.unpack("<f", struct.pack("<I", v))[0], v))
+    out = []
+    for n, v, bits in mine:
         if not math.isfinite(v) or any(w == v for _, _, w in orig) or any(x["symbol"] == n for x in out):
             continue
         near = [(abs(w - v) / max(abs(w), abs(v)), t_, sz, w) for t_, sz, w in orig if w and v]
         near = [x for x in near if x[0] <= FCONST_TOL]
+        if bits is not None:           # ours an immediate: the same exponent as the original's float
+            near = [x for x in near if x[2] == 4 and
+                    (struct.unpack("<I", struct.pack("<f", x[3]))[0] >> 23) == (bits >> 23)]
         if near:
             _, t_, sz, w = min(near)
-            out.append({"kind": "float_constant_differs", "symbol": n, "ours": repr(v), "original": repr(w),
-                        "target": "0x%08x" % t_, "size": sz})
+            out.append({"kind": "float_immediate_differs" if bits is not None or t_ == "imm" else
+                        "float_constant_differs", "symbol": n, "ours": repr(v), "original": repr(w),
+                        "target": t_ if t_ == "imm" else "0x%08x" % t_, "size": sz})
     return out
 
 
@@ -5653,15 +5738,26 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
                     out.append("left %s in eax, expected %s: ours is void, but the original returns a value there "
                                "and it is called through a vtable or pointer, so callers may use it (declare "
                                "the return type)" % (_fmt(rv), _fmt(ov)))
-    if out and r.get("abi_mismatch"):
+    if r.get("abi_mismatch") and (out or ("argcall" not in EQUIV_OFF and r["abi_mismatch"][3])):
         # Our declaration pops differently from the real callee. Two such declarations can cancel out (a
-        # push folded around a call: byte-identical code does this), so it only explains a difference.
+        # push folded around a call: byte-identical code does this, `v44(t)->setFont()` for `v44()->setFont(t)`):
+        # the stack words then belong to the wrong call. (round 15, argcall) That is a difference of its own: the
+        # words each call takes are its callee's `ret N`, whatever the bytes (natively, the other call gets them).
+        # Not for a callee that leaves its words to the caller (a plain `ret`: `this` in ecx with caller-popped
+        # arguments can't be declared in C++).
         k_, t_, dpop_, real_ = r["abi_mismatch"]
-        out.insert(0, "call #%d to %s: our declaration has the callee pop %d bytes of arguments, but it really pops "
-                   "%d (%s), so our stack is off by %d after it. Declare its real convention, or use "
-                   "// equiv-conv if MSVC can't express it" % (
-                       k_ + 1, _fmt(t_), dpop_, real_, "a plain ret: the caller pops" if real_ == 0 else "ret %d" % real_,
-                       dpop_ - real_))
+        if out:
+            out.insert(0, "call #%d to %s: our declaration has the callee pop %d bytes of arguments, but it really pops "
+                       "%d (%s), so our stack is off by %d after it. Declare its real convention, or use "
+                       "// equiv-conv if MSVC can't express it" % (
+                           k_ + 1, _fmt(t_), dpop_, real_, "a plain ret: the caller pops" if real_ == 0 else
+                           "ret %d" % real_, dpop_ - real_))
+        else:
+            out.append("call #%d to %s: our declaration passes it %d bytes of stack arguments, but it takes %d (%s): "
+                       "the other %d bytes belong to another call (chained calls `X(a)->M()` for `X()->M(a)` give the "
+                       "same bytes). Declare the words on the call that takes them" % (
+                           k_ + 1, _fmt(t_), dpop_, real_, "a plain ret: the caller pops" if real_ == 0 else
+                           "ret %d" % real_, abs(dpop_ - real_)))
     return out[:max_report]
 
 
@@ -6155,6 +6251,10 @@ def _declared_dead(view, lines):
     return out
 
 
+def table_cases_n(view, j):
+    return (getattr(view, "table_bound", None) or {}).get(j) or len(view.tables[j])
+
+
 def coverage_of(view, edges):
     total, covered, missing = 0, 0, []
     dead = infeasible_edges(view)
@@ -6182,6 +6282,18 @@ def coverage_of(view, edges):
             else:
                 missing.append("+0x%x set%s %d" % (j - view.entry, view.insns[j].mnemonic[3:], v))
     for j, tg in view.tables.items():
+        if "caseidx" not in EQUIV_OFF:
+            # (round 15, caseidx) every index the bounds check lets through is a case: a source that maps one of them
+            # to another target (or the default) differs only on that index (0x0028aea0: 21 indices, 12 targets)
+            for k in range(table_cases_n(view, j)):
+                if (j, tg[k]) in dead:
+                    continue
+                total += 1
+                if (j, ("idx", k)) in edges:
+                    covered += 1
+                else:
+                    missing.append("+0x%x case %d ->+0x%x" % (j - view.entry, k, tg[k] - view.entry))
+            continue
         for t in sorted(set(tg)):
             if (j, t) in dead:
                 continue
@@ -6336,6 +6448,11 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     # ---- level 2
     ours.orig_addr = addr
     issues = level2(prog, orefs, oview, ours, resolved, how, rview)
+    if "initbytes" not in EQUIV_OFF:
+        # (round 15) a global our source defines that binds to an original address: level 3 reads the original's
+        # bytes there, so its initializer is never compared; the native build starts with ours
+        from verify_relocs import initializer_diffs
+        issues += initializer_diffs(obj.data, resolved, prog.read)
     # an immediate that merely looks like an address may legitimately be computed differently: warn only
     warnings = [i for i in issues if i["kind"] in SOFT_L2]
     issues = [i for i in issues if i["kind"] not in SOFT_L2]
@@ -7459,7 +7576,11 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             missing_now[0] = set(missing)
             table_cases = {}
             for j, tg in oview.tables.items():
-                miss = [i for i, t in enumerate(tg) if (j, t) not in edges and (j, t) not in dead]
+                if "caseidx" not in EQUIV_OFF:
+                    miss = [i for i in range(table_cases_n(oview, j)) if (j, ("idx", i)) not in edges and
+                            (j, tg[i]) not in dead]
+                else:
+                    miss = [i for i, t in enumerate(tg) if (j, t) not in edges and (j, t) not in dead]
                 if miss:
                     table_cases[j] = miss
                     missing.add(j)
@@ -7609,7 +7730,10 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                             sides = [(j, oview.insns[j].target), (j, j + oview.insns[j].size)]
                         else:
                             sides = [(j, "set0"), (j, "set1")]
-                        if all(hits[e] >= RARE_HITS for e in sides):
+                        if j in oview.tables and "caseidx" not in EQUIV_OFF and \
+                                any(hits[(j, ("idx", k_))] == 0 for k_ in table_cases.get(j, ())):
+                            pass          # (round 15) a case index not reached yet
+                        elif all(hits[e] >= RARE_HITS for e in sides):
                             done = True
                             active.discard(j)
                         if done or dstate["budget"] <= 0 or res["inputs_failed"] >= 3:
