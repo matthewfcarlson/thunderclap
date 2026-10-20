@@ -41,7 +41,7 @@ INCLUDE_LINE = b'#include "compat/ptr.h"\n'
 
 
 def args(target):
-    return ["--target=" + target, "-fms-extensions", "-fms-compatibility", "-fms-compatibility-version=13.10",
+    return ["--target=" + target, "-x", "c++", "-fms-extensions", "-fms-compatibility", "-fms-compatibility-version=13.10",
             "-std=c++14", "-I" + os.path.join(ROOT, "include"), "-include", "compat/native.h", "-fno-strict-aliasing",
             "-fwrapv", "-Xclang", "-fno-wchar", "-Xclang", "-fno-operator-names", "-Wno-c++11-narrowing",
             "-Wno-address-of-temporary", "-Wno-everything", "-Wshorten-64-to-32", "-Wpointer-to-int-cast",
@@ -114,6 +114,23 @@ class Unit:
                     self.decls[k.s].append(k)
                 stack.append(k)
         self._toks = None
+        self.dem = set()          # signature demands: ("param", key, i) / ("ret", key) / ("field", class, name, "L"|"H")
+        self._keys = None
+
+    def keys(self):
+        """{(cursor kind value, location offset): i686 mangled name} of the functions of the main file."""
+        if self._keys is None:
+            u32 = Unit(self.path, self.src, "i686-pc-windows-msvc")
+            self._keys = {}
+            for n in u32.nodes:
+                if n.kind in FUNCS:
+                    self._keys[(n.kind.value, n.cur.location.offset)] = n.cur.mangled_name
+        return self._keys
+
+    def fnkey(self, cur):
+        if cur is None or not cur.location.file or cur.location.file.name != self.path:
+            return None
+        return self.keys().get((cur.kind.value, cur.location.offset))
 
     def off(self, line, col):
         return self.lines[line - 1] + col - 1
@@ -206,26 +223,11 @@ def local_scope(n):
     return p is not None and p.kind in FUNCS
 
 
-def decl_edit(u, d):
-    """(edit, reason): widen the declared type of a variable declaration node."""
+def spec_edit(d, toks=None):
+    """Edit of the integer type specifier of a variable / field / parameter declaration node, or a reason."""
     c = d.cur
     want = int_kind(c.type)
-    if not want:
-        # (an array of integers keeps its element size: its indexing and byte offsets are the layout)
-        return None, "decl-not-int:%s" % c.type.spelling
-    if d.kind == CK.PARM_DECL:
-        return None, "param"
-    if d.kind == CK.FIELD_DECL:
-        return None, "field"
-    if d.kind != CK.VAR_DECL:
-        return None, "decl-kind:%s" % d.kind.name
-    if not local_scope(d):
-        return None, "global"
-    sib = u.decls.get(d.s, [d])
-    for o in sib:
-        if int_kind(o.cur.type) != want or o.kind != CK.VAR_DECL:
-            return None, "mixed-declarators"
-    toks = u.tokens(d)
+    toks = toks if toks is not None else list(c.get_tokens())
     a = 0
     while a < len(toks) and toks[a].spelling in QUAL_KW:
         a += 1
@@ -237,7 +239,68 @@ def decl_edit(u, d):
             b = a + 1
         else:
             return None, "decl-spelling"
+    if toks[a].spelling.startswith("hulk_"):
+        return None, "done"
     return edit_span(toks, a, b, want), None
+
+
+def qual_name(cur):
+    parts = []
+    p = cur
+    while p is not None and p.kind != CK.TRANSLATION_UNIT:
+        if p.kind in (CK.STRUCT_DECL, CK.CLASS_DECL, CK.NAMESPACE, CK.UNION_DECL):
+            if not p.spelling:
+                return None
+            parts.append(p.spelling)
+        elif p.kind in FUNCS:
+            return None
+        p = p.semantic_parent
+    return "::".join(reversed(parts))
+
+
+def demand_param(u, pcur):
+    f = pcur.semantic_parent
+    if f is None or f.kind not in FUNCS:
+        return
+    key = u.fnkey(f)
+    if key is None:
+        return
+    for i, a in enumerate(f.get_arguments()):
+        if a == pcur:
+            u.dem.add(("param", key, i))
+            return
+
+
+def demand_field(u, fcur):
+    cls = qual_name(fcur.semantic_parent)
+    if not cls:
+        return
+    local = fcur.location.file and fcur.location.file.name == u.path
+    u.dem.add(("field", cls, fcur.spelling, "L" if local else "H"))
+
+
+def decl_edit(u, d):
+    """(edit, reason): widen the declared type of a variable declaration node."""
+    c = d.cur
+    want = int_kind(c.type)
+    if not want:
+        # (an array of integers keeps its element size: its indexing and byte offsets are the layout)
+        return None, "decl-not-int:%s" % c.type.spelling
+    if d.kind == CK.PARM_DECL:
+        demand_param(u, c)
+        return None, "param"
+    if d.kind == CK.FIELD_DECL:
+        demand_field(u, c)
+        return None, "field"
+    if d.kind != CK.VAR_DECL:
+        return None, "decl-kind:%s" % d.kind.name
+    if not local_scope(d):
+        return None, "global"
+    sib = u.decls.get(d.s, [d])
+    for o in sib:
+        if int_kind(o.cur.type) != want or o.kind != CK.VAR_DECL:
+            return None, "mixed-declarators"
+    return spec_edit(d, u.tokens(d))
 
 
 def cast_edit(u, n, pointee=False):
@@ -274,11 +337,16 @@ def sink_edit(u, n):
             if d.cur == r or (d.s, d.e) == (r.extent.start.offset, r.extent.end.offset) and d.cur.spelling == r.spelling:
                 return decl_edit(u, d)
         if r.kind == CK.PARM_DECL:
+            if int_kind(r.type):
+                demand_param(u, r)
             return None, "param"
         if r.kind == CK.VAR_DECL:
             return None, "global"
         return None, "ref:%s" % r.kind.name
     if k == CK.MEMBER_REF_EXPR:
+        r = n.cur.referenced
+        if r is not None and r.kind == CK.FIELD_DECL and int_kind(r.type):
+            demand_field(u, r)
         return None, "field"
     if k == CK.UNARY_OPERATOR:
         first = next(iter(n.cur.get_tokens()), None)
@@ -379,6 +447,9 @@ def leaf_edit(u, kind, n):
         return None, "constant"
     if kind == "call":
         ref = n.cur.referenced
+        key = u.fnkey(ref) if ref is not None and ref.kind in FUNCS and int_kind(ref.result_type) else None
+        if key:
+            u.dem.add(("ret", key))
         return None, "call-return:%s" % (ref.spelling if ref is not None else "?")
     return None, kind
 
@@ -434,8 +505,22 @@ def shorten_edit(u, off):
             return sink_edit(u, P.kids[0])
     if P.kind == CK.CALL_EXPR:
         ref = P.cur.referenced
+        if ref is not None and ref.kind in FUNCS and P.kids and E is not P.kids[0]:
+            args = list(ref.get_arguments())
+            i = P.kids.index(E) - 1 if E in P.kids else -1
+            if 0 <= i < len(args) and len(P.kids) - 1 == len(args) and int_kind(args[i].type):
+                key = u.fnkey(ref)
+                if key:
+                    u.dem.add(("param", key, i))
         return None, "arg-of:%s" % (ref.spelling if ref is not None else "?")
     if P.kind == CK.RETURN_STMT:
+        f = P.parent
+        while f is not None and f.kind not in FUNCS:
+            f = f.parent
+        if f is not None and int_kind(f.cur.result_type):
+            key = u.fnkey(f.cur)
+            if key:
+                u.dem.add(("ret", key))
         return None, "return"
     return None, "context:%s" % P.kind.name
 
@@ -534,8 +619,9 @@ def fix_file(path, rounds=12):
     u.baseline = base
     _, un = plan(u)
     if final != orig and (u.errors > errs64 or errors_of(path, final, "i686-pc-windows-msvc") > errs32):
-        return None, [(0, 0, "", "regressed:clang-errors")], used     # a rewrite that breaks a clang parse is dropped
-    return (final if final != orig else None), un, used
+        return None, [(0, 0, "", "regressed:clang-errors")], used, []     # a rewrite that breaks a clang parse is dropped
+    dem = sorted(u.dem) if un else []
+    return (final if final != orig else None), un, used, dem
 
 
 def scan_file(path):
@@ -546,6 +632,147 @@ def scan_file(path):
     edits, un = plan(u)
     n = sum(1 for d in u.diags if not (d[3] == "-Wshorten-64-to-32" and (d[1], d[4]) in u.baseline))
     return n, len(edits), un
+
+
+# ---- signatures: parameters, returns and fields that other sources' casts and arguments demand ----------
+FN_SPEC = {"static", "virtual", "inline", "extern", "__forceinline", "__inline", "const", "volatile"}
+FN_KINDS = (CK.FUNCTION_DECL, CK.CXX_METHOD)
+
+
+def ret_edit(n):
+    """Edit of the integer return type spelled in a function declaration node, or None."""
+    want = int_kind(n.cur.result_type)
+    if not want:
+        return None
+    toks = list(n.cur.get_tokens())
+    a = 0
+    while a < len(toks):
+        t = toks[a]
+        if t.spelling in FN_SPEC or (t.kind == ci.TokenKind.LITERAL and t.spelling.startswith('"')):
+            a += 1
+        elif t.spelling == "__declspec" and a + 1 < len(toks) and toks[a + 1].spelling == "(":
+            depth = 0
+            a += 1
+            while a < len(toks):
+                depth += toks[a].spelling == "("
+                depth -= toks[a].spelling == ")"
+                a += 1
+                if depth == 0:
+                    break
+        else:
+            break
+    b = a
+    while b < len(toks) and toks[b].kind == ci.TokenKind.KEYWORD and toks[b].spelling in INT_KW:
+        b += 1
+    if b == a:
+        if a + 1 < len(toks) and toks[a].kind == ci.TokenKind.IDENTIFIER and toks[a + 1].spelling != "::" and \
+                toks[a + 1].spelling != "(":
+            b = a + 1
+        else:
+            return None
+    if toks[a].spelling.startswith("hulk_"):
+        return None
+    return edit_span(toks, a, b, want)
+
+
+def sig_edits(u, D, blocked):
+    """Edits that satisfy the demands D in one parse (i686: the keys are its mangled names). Returns
+    (edits, keys declared here, virtual keys here)."""
+    edits, keys, virt = {}, set(), set()
+    for n in u.nodes:
+        if n.kind in FN_KINDS:
+            key = n.cur.mangled_name
+            keys.add(key)
+            if n.cur.is_virtual_method():
+                virt.add(key)
+                continue
+            if key in blocked:
+                continue
+            params = [k for k in n.kids if k.kind == CK.PARM_DECL]
+            for dm in D.get(key, ()):
+                if dm[0] == "param" and dm[2] < len(params):
+                    pn = params[dm[2]]
+                    if int_kind(pn.cur.type):
+                        e, _ = spec_edit(pn)
+                        if e:
+                            edits[(e[0], e[1])] = e
+                elif dm[0] == "ret":
+                    e = ret_edit(n)
+                    if e:
+                        edits[(e[0], e[1])] = e
+        elif n.kind == CK.FIELD_DECL:
+            cls = qual_name(n.cur.semantic_parent)
+            keys.add(("field", cls, n.cur.spelling))
+            if cls and ("field", cls, n.cur.spelling) in D and ("field", cls, n.cur.spelling) not in blocked and \
+                    int_kind(n.cur.type):
+                sib = u.decls.get(n.s, [n])
+                if all(o.kind == CK.FIELD_DECL and int_kind(o.cur.type) == int_kind(n.cur.type) for o in sib):
+                    e, _ = spec_edit(n)
+                    if e:
+                        edits[(e[0], e[1])] = e
+    return sorted(edits.values()), keys, virt
+
+
+def parse_demands(rows):
+    """{key: [demand rows]} from [["param", key, i] / ["ret", key] / ["field", class, name, "L"|"H"]]."""
+    D = collections.defaultdict(list)
+    for r in rows:
+        if r[0] == "field":
+            D[("field", r[1], r[2])].append(tuple(r))
+        else:
+            D[r[1]].append(tuple(r))
+    return D
+
+
+_G = {}
+
+
+def init_sigs(rows, blocked):
+    _G["D"] = parse_demands(rows)
+    _G["blocked"] = blocked
+
+
+def sigs_file(path):
+    D, blocked = _G["D"], _G["blocked"]
+    try:
+        orig = open(path, "rb").read()
+        src = add_include(orig)
+        u = Unit(path, src, "i686-pc-windows-msvc")
+        edits, keys, virt = sig_edits(u, D, blocked)
+        if not edits:
+            return path, None, sorted(virt, key=str), "", 0
+        new = apply(src, edits)
+        e0 = u.errors
+        u64 = Unit(path, new)
+        base64 = Unit(path, src).errors
+        if errors_of(path, new, "i686-pc-windows-msvc") > e0 or u64.errors > base64:
+            return path, None, sorted(virt, key=str), "regressed", len(edits)
+        return path, new, sorted(virt, key=str), "", len(edits)
+    except Exception as e:  # noqa: BLE001
+        return path, None, [], repr(e), 0
+
+
+def scan_keys(path):
+    """(declared keys, virtual keys) of one source, read-only."""
+    try:
+        src = open(path, "rb").read()
+        u = Unit(path, src, "i686-pc-windows-msvc")
+        D = {}
+        _, keys, virt = sig_edits(u, D, set())
+        return path, sorted(keys, key=str), sorted(virt, key=str)
+    except Exception:  # noqa: BLE001
+        return path, [], []
+
+
+def header_keys(path):
+    """Function keys and (class, field) keys a header declares."""
+    try:
+        src = open(path, "rb").read()
+        u = Unit(path, src, "i686-pc-windows-msvc")
+        _, keys, virt = sig_edits(u, {}, set())
+        return path, sorted(keys, key=str), sorted(virt, key=str)
+    except Exception:  # noqa: BLE001
+        return path, [], []
 
 
 # ---- proof: the MSVC 7.1 object must not change ---------------------------------------------------
@@ -595,17 +822,24 @@ def proof_one(args_):
     return path, "identical" if sa == sb else "DIFFERENT"
 
 
+def tuple_key(k):
+    return tuple(tuple_key(x) if isinstance(x, list) else x for x in k) if isinstance(k, (list, tuple)) else k
+
+
 def worker_fix(path):
     try:
-        new, un, rounds = fix_file(path)
-        return path, new, un, rounds, None
+        new, un, rounds, dem = fix_file(path)
+        return path, new, un, rounds, None, dem
     except Exception as e:  # noqa: BLE001
-        return path, None, [], 0, repr(e)
+        return path, None, [], 0, repr(e), []
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("cmd", choices=["scan", "fix", "proof"])
+    ap.add_argument("cmd", choices=["scan", "fix", "proof", "collect", "sigs"])
+    ap.add_argument("--demands", help="sigs: JSON list of demand rows (the union of fix's per-file `demands`)")
+    ap.add_argument("--blocked", help="sigs: JSON from `collect` (keys declared in headers, virtual keys)")
+    ap.add_argument("--skip", help="sigs: @list of sources that are read but never edited; keys they declare stay as they are")
     ap.add_argument("--orig-dir", help="proof: compare against the same-named files of this directory (default: git HEAD)")
     ap.add_argument("files", nargs="+")
     ap.add_argument("--write", action="store_true")
@@ -637,13 +871,54 @@ def main():
         if a.out:
             json.dump(dict(res), open(a.out, "w"), indent=0)
         return
+    if a.cmd == "collect":
+        # keys the signature phase must leave alone: declared in headers (include/), virtual in any source
+        hdrs = []
+        for dp, _, fs in os.walk(os.path.join(ROOT, "include")):
+            hdrs += [os.path.join(dp, f) for f in fs if f.endswith(".h")]
+        out = {"header": set(), "virtual": set()}
+        with Pool(a.jobs) as pool:
+            for _, keys, virt in pool.imap(header_keys, sorted(hdrs), chunksize=2):
+                out["header"] |= set(map(tuple_key, keys))
+            for _, keys, virt in pool.imap(scan_keys, a.files, chunksize=8):
+                out["virtual"] |= set(map(tuple_key, virt))
+        json.dump({k: sorted(v, key=str) for k, v in out.items()}, open(a.out, "w"))
+        print({k: len(v) for k, v in out.items()})
+        return
+    if a.cmd == "sigs":
+        rows = json.load(open(a.demands))
+        bl = json.load(open(a.blocked))
+        blocked = set(map(tuple_key, bl["header"])) | set(map(tuple_key, bl["virtual"]))
+        if a.skip:
+            with Pool(a.jobs) as pool:
+                skipf = [l.strip() for l in open(a.skip[1:]) if l.strip()]
+                for _, keys, _v in pool.imap(scan_keys, skipf, chunksize=8):
+                    blocked |= set(map(tuple_key, keys))
+        rows = [r for r in rows if (tuple(r[:3]) if r[0] == "field" else r[1]) not in blocked]
+        wanted = {tuple(r[:3]) if r[0] == "field" else r[1] for r in rows}
+        with Pool(a.jobs, initializer=init_sigs, initargs=(rows, blocked)) as pool:
+            n_edits = changed = regressed = 0
+            for f, new, virt, err, ne in pool.imap(sigs_file, a.files, chunksize=4):
+                if err == "regressed":
+                    regressed += 1
+                    print("regressed", f)
+                elif err:
+                    print("error", f, err)
+                if new is not None:
+                    changed += 1
+                    n_edits += ne
+                    if a.write:
+                        open(f, "wb").write(new)
+        print(json.dumps({"files_changed": changed, "edits": n_edits, "regressed": regressed,
+                          "demanded_keys": len(wanted), "blocked_keys": len(blocked)}))
+        return
     with Pool(a.jobs) as pool:
         if a.cmd == "scan":
             for f, r in zip(a.files, pool.imap(scan_file, a.files, chunksize=8)):
                 rep[f] = r
         else:
-            for f, new, un, rounds, err in pool.imap(worker_fix, a.files, chunksize=4):
-                rep[f] = {"changed": new is not None, "unresolved": un, "rounds": rounds, "error": err}
+            for f, new, un, rounds, err, dem in pool.imap(worker_fix, a.files, chunksize=4):
+                rep[f] = {"changed": new is not None, "unresolved": un, "rounds": rounds, "error": err, "demands": dem}
                 if new is not None and a.write:
                     open(f, "wb").write(new)
     for f, r in rep.items():
