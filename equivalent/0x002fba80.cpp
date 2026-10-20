@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 0/0)
 // FUN_002fba80 @ 0x002fba80
 extern "C" double __cdecl sqrt(double);
 struct Bits3 { unsigned int x,y,z; };

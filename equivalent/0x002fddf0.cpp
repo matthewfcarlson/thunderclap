@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 29/30, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19978 inputs, branch coverage 29/30, incomplete)
 // FUN_002fddf0 @ 0x002fddf0
 #include "gen/physics.h"
 struct Pose_2fddf0 {

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure3<CWorldStreamManager,bool,float,float,float>::vfunc_2 @ 0x00205ce0
 #include "gen/global.h"
 

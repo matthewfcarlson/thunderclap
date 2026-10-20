@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 6/6)
 // FUN_001fbec0 @ 0x001fbec0
 struct Vec3 { unsigned int x, y, z; };
 struct CTriggerVolume_1fbec0 {

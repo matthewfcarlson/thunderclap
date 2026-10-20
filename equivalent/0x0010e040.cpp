@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 28/30, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20054 inputs, branch coverage 28/30, incomplete)
 // hulkfight::ai::FormationReadyCondition::vfunc_6 @ 0x0010e040
 #include "gen/hulkfight.h"
 

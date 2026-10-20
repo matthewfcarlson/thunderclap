@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 12/12)
 // FUN_002a15d0 @ 0x002a15d0
 #include "gen/pure3d.h"
 struct LightGroup_nv_2a15d0 {

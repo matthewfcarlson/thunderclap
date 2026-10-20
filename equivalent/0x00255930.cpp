@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 19942 inputs, branch coverage 2/2)
 // audio::SeqEventCrossFade::vfunc_2 @ 0x00255930
 #include "gen/audio.h"
 

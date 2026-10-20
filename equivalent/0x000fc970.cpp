@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 115 inputs, branch coverage 34/40, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20063 inputs, branch coverage 40/40)
 // CChaseAgent::vfunc_3 @ 0x000fc970
 #include "gen/global.h"
 

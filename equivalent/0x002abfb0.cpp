@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 16/18, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 15709 inputs, branch coverage 18/18)
 // FUN_002abfb0 @ 0x002abfb0
 #include "decls/data/engine/content.h"
 #include "gen/pure3d.h"

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 12/12)
 // FUN_00207850 @ 0x00207850
 class LoadInventory_207850 {
 public:

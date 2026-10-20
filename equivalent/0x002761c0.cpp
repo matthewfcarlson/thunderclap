@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
 // core::File::vfunc_19 @ 0x002761c0
 #include "gen/core.h"
 

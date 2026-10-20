@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 7/7)
+// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 7/7)
 // audio::HalRadicalAdpcmDecodeStream::vfunc_1 @ 0x00262c70
 #include "gen/audio.h"
 

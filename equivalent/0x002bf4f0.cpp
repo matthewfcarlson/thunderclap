@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 21/22, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 4989 inputs, branch coverage 22/22)
 // pure3d::ImageFont::vfunc_17 @ 0x002bf4f0
 struct Items_2bf4f0 {
     virtual void vfn0();

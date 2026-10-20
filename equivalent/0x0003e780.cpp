@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 33/34, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19983 inputs, branch coverage 34/34)
 // FUN_0003e780 @ 0x0003e780
 #include "decls/address.h"
 #include "gen/global.h"

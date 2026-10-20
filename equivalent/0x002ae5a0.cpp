@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3022 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 20029 inputs, branch coverage 16/16)
 // pure3d::TextureBuilder::vfunc_1 @ 0x002ae5a0
 #include "gen/pure3d.h"
 

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20042 inputs, branch coverage 15/16, incomplete)
 // CGrappleSmartPropDropTrack::vfunc_12 @ 0x0005b670
 #include "gen/global.h"
 

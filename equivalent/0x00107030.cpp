@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 13/14, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 13/13)
 // CRangedAgent::vfunc_3 @ 0x00107030
 // CRangedAgent::vfunc_3 @ 0x00107030
 #include "gen/global.h"

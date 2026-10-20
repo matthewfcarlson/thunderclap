@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 19974 inputs, branch coverage 6/6)
 // FUN_001d5630 @ 0x001d5630
 #include "gen/global.h"
 struct Query_1d5630 { void FUN_0008ced0(int,int,unsigned*,int,int,int); };

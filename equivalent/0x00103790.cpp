@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 4/4)
 // COccupationAgent::vfunc_7 @ 0x00103790
 #include "gen/global.h"
 

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 9/10, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 9/10, incomplete)
 // CGrappleFightNodeCondition::vfunc_7 @ 0x000522b0
 #include "gen/global.h"
 

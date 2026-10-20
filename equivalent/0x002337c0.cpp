@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 40/40)
+// STATUS: equivalent (tools/equiv.py level 3: 13637 inputs, branch coverage 40/40)
 // FUN_002337c0 @ 0x002337c0
 #include "decls/data/engine/fight.h"
 #include "gen/fight.h"

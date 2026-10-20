@@ -1,3 +1,3 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 6/6)
 // FUN_001dc940 @ 0x001dc940
 struct Linked { char reserved[0x108]; int value; }; struct Entry { char reserved[0x18]; Linked *linked; char padding[6]; short id; short fallback; char tail[2]; }; struct Flag { unsigned char bits; char unused[19]; }; struct CSPManager_1dc940 { char pad[0x608]; Entry entries[1]; int FUN_001dbfe0(int key); int FUN_001dc940(int key); }; int CSPManager_1dc940::FUN_001dc940(int key) { int index = FUN_001dbfe0(key); if (index < 0) return 0; Entry &entry = entries[index]; int id = entry.id; if ((((Flag*)this)[id + 0x104e].bits & 1) && entry.linked) return entry.linked->value; return entry.fallback; }

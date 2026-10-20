@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20013 inputs, branch coverage 6/6)
 // FUN_0026f4b0 @ 0x0026f4b0
 extern "C" int __stdcall GetLastError();
 extern "C" char * __cdecl _strncpy(char *, const char *, unsigned int);

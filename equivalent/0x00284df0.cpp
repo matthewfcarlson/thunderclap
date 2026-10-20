@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 10/10)
 // pure3d::SimpleFrameController::vfunc_16 @ 0x00284df0
 #include "gen/pure3d.h"
 

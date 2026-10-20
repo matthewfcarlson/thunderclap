@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Method3<HUDOverlay,int,const_char_*,const_char_*,float>::vfunc_2 @ 0x000cec00
 #include "gen/global.h"
 

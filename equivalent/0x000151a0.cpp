@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2987 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 19942 inputs, branch coverage 4/4)
 // CAutoTargetAction::vfunc_6 @ 0x000151a0
 #include "gen/global.h"
 

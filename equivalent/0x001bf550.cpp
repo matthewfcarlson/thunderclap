@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method4<CSubtitleManager,void,int,float,const_char_*,float>::vfunc_2 @ 0x001bf550
 #include "gen/global.h"
 

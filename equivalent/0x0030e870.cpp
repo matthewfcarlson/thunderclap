@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // physics::CollisionWall::vfunc_13 @ 0x0030e870
 #include "gen/physics.h"
 

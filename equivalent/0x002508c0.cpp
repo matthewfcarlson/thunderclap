@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 19942 inputs, branch coverage 2/2)
 // audio::SeqEventWaitBeat::vfunc_2 @ 0x002508c0
 #include "gen/audio.h"
 

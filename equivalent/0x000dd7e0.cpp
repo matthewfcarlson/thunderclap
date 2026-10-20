@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2973 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 19799 inputs, branch coverage 0/0)
 // ControllerState::vfunc_1 @ 0x000dd7e0
 #include "gen/global.h"
 

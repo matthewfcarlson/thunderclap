@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 222 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 16742 inputs, branch coverage 24/24)
 // FUN_000e7d90 @ 0x000e7d90
 struct LanguageInfo { char pad[0x10c]; unsigned language; };
 struct Reader {

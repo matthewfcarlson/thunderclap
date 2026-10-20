@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method3<CActorManager,void,const_char_*,float,bool>::vfunc_2 @ 0x0002c890
 #include "gen/global.h"
 

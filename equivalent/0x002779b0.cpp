@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 8/8)
 // FUN_002779b0 @ 0x002779b0
 struct Entry_2779b0 { unsigned int unused, value4, value8, valueC, value10; };
 // equiv-conv: FUN_00277310 eax edi stack stack

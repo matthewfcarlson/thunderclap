@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // audio::Clip::vfunc_5 @ 0x00245680
 // audio::Clip::vfunc_5 @ 0x00245680: loads a clip from a content stream, logging on failure
 #include "gen/audio.h"

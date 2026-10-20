@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_0028c470 @ 0x0028c470
 // 0x0028c470: channel constructor holding 4-byte elements, allocated from the parent pool or the heap
 extern char DAT_0042ca7c[];

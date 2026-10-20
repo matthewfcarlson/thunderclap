@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2985 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 18240 inputs, branch coverage 6/6)
 // pure3d::scenegraph::BranchNode::vfunc_6 @ 0x002965a0
 #include "gen/pure3d.h"
 

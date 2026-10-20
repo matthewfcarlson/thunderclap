@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 19889 inputs, branch coverage 2/2)
 // pure3d::pddiBaseContext::vfunc_43 @ 0x0031dba0
 #include "gen/pure3d.h"
 

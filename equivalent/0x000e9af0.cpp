@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2955 inputs, branch coverage 34/34)
+// STATUS: equivalent (tools/equiv.py level 3: 19732 inputs, branch coverage 34/34)
 // HSlider::vfunc_5 @ 0x000e9af0
 #include "decls/data/engine/pure3d/prop.h"
 

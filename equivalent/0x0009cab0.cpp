@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure2<CCameraManager,void,math::Vector,math::Vector>::vfunc_2 @ 0x0009cab0
 #include "gen/global.h"
 

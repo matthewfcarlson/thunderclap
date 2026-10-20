@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 20030 inputs, branch coverage 18/18)
 // audio::HalRsdFileStream::vfunc_11 @ 0x00263330
 #include "gen/audio.h"
 

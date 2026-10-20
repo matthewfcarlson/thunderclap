@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 19/22, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20029 inputs, branch coverage 22/22)
 // pure3d::d3dContext::vfunc_109 @ 0x00323ee0
 // volatile locals (nf, w2) force the float-rounded memory temporaries the original uses; 0.0f - (lo - hi) reproduces its constant-load order.
 #include "gen/pure3d.h"

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 2/2)
 // FUN_000a0fe0 @ 0x000a0fe0
 extern "C" double __cdecl tan(double);
 extern "C" double __cdecl atan(double);

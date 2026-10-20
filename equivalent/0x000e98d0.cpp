@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20023 inputs, branch coverage 6/6)
 // HSlider::vfunc_3 @ 0x000e98d0
 class Metrics_e98d0 {
 public:

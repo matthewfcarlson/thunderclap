@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 4/4)
 // FUN_00285780 @ 0x00285780
 // 0x00285780: SimpleFrameController copy constructor
 extern char DAT_0042c5bc[];

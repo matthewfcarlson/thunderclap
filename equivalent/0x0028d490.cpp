@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_0028d490 @ 0x0028d490
 // 0x0028d490: channel constructor holding 6-byte elements, allocated from the parent pool or the heap
 extern char DAT_0042cac8[];

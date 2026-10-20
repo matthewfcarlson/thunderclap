@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 93 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 20022 inputs, branch coverage 20/20)
 // FUN_0001e870 @ 0x0001e870
 #include "gen/global.h"
 struct V3_1e870 {

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Function2<float,float,float>::vfunc_2 @ 0x00086eb0
 #include "gen/global.h"
 

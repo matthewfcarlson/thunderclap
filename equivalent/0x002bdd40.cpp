@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 5709 inputs, branch coverage 4/4)
 // pure3d::Sprite::vfunc_6 @ 0x002bdd40
 #include "gen/pure3d.h"
 

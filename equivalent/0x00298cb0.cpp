@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3023 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 19980 inputs, branch coverage 22/22)
 // pure3d::CompositeDrawable::vfunc_8 @ 0x00298cb0
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"

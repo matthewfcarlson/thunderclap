@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CTriggerVolumeManager,bool,const_char_*,math::Vector>::vfunc_2 @ 0x001ffb80
 #include "gen/global.h"
 

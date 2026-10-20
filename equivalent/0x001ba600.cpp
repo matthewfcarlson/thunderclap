@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure6<CRenderManager,void,float,float,float,float,float,float>::vfunc_2 @ 0x001ba600
 #include "gen/global.h"
 

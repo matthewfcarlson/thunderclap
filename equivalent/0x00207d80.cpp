@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1569 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 19975 inputs, branch coverage 14/14)
 // FUN_00207d80 @ 0x00207d80
 #include "decls/address.h"
 struct Entry_207d80 { char pad[9]; unsigned char flag; };

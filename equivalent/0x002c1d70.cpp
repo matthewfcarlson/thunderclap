@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 16754 inputs, branch coverage 16/16)
 // FUN_002c1d70 @ 0x002c1d70
 #include "gen/pure3d.h"
 struct StrField_2c1d70 {

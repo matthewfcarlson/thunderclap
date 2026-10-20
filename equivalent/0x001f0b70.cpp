@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method3<CSoundSystem,void,char_*,char_*,float>::vfunc_2 @ 0x001f0b70
 #include "gen/global.h"
 

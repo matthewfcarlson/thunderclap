@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method3<CStatsManager,void,char_*,char_*,int>::vfunc_2 @ 0x00090cd0
 #include "gen/global.h"
 

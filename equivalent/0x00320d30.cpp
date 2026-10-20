@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 58/58)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 58/58)
 // FUN_00320d30 @ 0x00320d30
 #include "gen/pure3d.h"
 namespace D3D8 { struct CreationParameters { unsigned adapter; unsigned deviceType; void* focusWindow; unsigned behaviorFlags; }; extern "C" int __stdcall D3DDevice_GetCreationParameters(CreationParameters*); extern "C" int __stdcall D3D_CheckDeviceFormat(unsigned, unsigned, unsigned, unsigned, unsigned, unsigned); }

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 937 inputs, branch coverage 52/52)
+// STATUS: equivalent (tools/equiv.py level 3: 4146 inputs, branch coverage 52/52)
 // TextSelector::vfunc_3 @ 0x000ea2e0
 // TextSelector::vfunc_3 @ 0x000ea2e0: measure the selector's text entries
 struct Vec3 {

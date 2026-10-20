@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure2<HUDOverlay,void,int,math::Vector>::vfunc_2 @ 0x000cfd70
 #include "gen/global.h"
 

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 36/36)
+// STATUS: equivalent (tools/equiv.py level 3: 20015 inputs, branch coverage 36/36)
 // FUN_00337a30 @ 0x00337a30
 extern "C" int memcmp(const void *a, const void *b, unsigned int n);
 extern "C" long atol(const char *s);

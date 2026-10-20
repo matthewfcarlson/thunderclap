@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 19941 inputs, branch coverage 2/2)
 // audio::SeqEventChannelVolumes::vfunc_2 @ 0x00252190
 #include "gen/audio.h"
 

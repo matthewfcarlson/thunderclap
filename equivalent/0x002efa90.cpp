@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 23/24, incomplete)
 // FUN_002efa90 @ 0x002efa90
 struct SimState_2efa90; struct Source_2efa90; struct Parent_2efa90;
 struct Service_2efa90 {

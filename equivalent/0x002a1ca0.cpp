@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 658 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 19092 inputs, branch coverage 4/4)
 // pure3d::TranslucentTraversal::vfunc_6 @ 0x002a1ca0
 #include "gen/pure3d.h"
 

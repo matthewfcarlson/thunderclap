@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 26/26)
+// STATUS: equivalent (tools/equiv.py level 3: 19377 inputs, branch coverage 26/26)
 // audio::SeqActionStopTrack::vfunc_1 @ 0x00251170
 #include "gen/audio.h"
 

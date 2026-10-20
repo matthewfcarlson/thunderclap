@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20011 inputs, branch coverage 8/8)
 // FUN_001a5840 @ 0x001a5840
 struct Matrix {
  unsigned int data[16];

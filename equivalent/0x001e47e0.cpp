@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 13213 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 22/22)
 // FUN_001e47e0 @ 0x001e47e0
 // cl-flags: /GS
 #include "decls/data/game/global.h"

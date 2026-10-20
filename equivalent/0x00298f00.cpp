@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 12/12)
 // pure3d::CompositeDrawable::vfunc_10 @ 0x00298f00
 class Shader {
 public:

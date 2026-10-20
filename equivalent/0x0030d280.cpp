@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // physics::PhysicsJoint3D::vfunc_24 @ 0x0030d280
 #include "gen/physics.h"
 

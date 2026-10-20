@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 4/4)
 // pure3d::d3dBumpMapVertexShader::vfunc_24 @ 0x00332c60
 #include "gen/pure3d.h"
 

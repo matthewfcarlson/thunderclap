@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 116 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 284 inputs, branch coverage 14/14)
 // FUN_002a6930 @ 0x002a6930
 #include "gen/pure3d.h"
 struct TypeInfo_2a6930 { unsigned int value; }; extern TypeInfo_2a6930 DAT_004cf8e8, DAT_004cf908;

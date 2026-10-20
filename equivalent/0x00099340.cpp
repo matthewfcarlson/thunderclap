@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 4/4)
 // FUN_00099340 @ 0x00099340
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "gen/global.h"

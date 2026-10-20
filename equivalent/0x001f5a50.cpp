@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure3<CSoundVoiceManager,void,bool,bool,bool>::vfunc_2 @ 0x001f5a50
 #include "gen/global.h"
 

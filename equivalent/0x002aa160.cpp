@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3034 inputs, branch coverage 22/26, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20036 inputs, branch coverage 22/26, incomplete)
 // FUN_002aa160 @ 0x002aa160
 #include "gen/pure3d.h"
 typedef void (*Code)();

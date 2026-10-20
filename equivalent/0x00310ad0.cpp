@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20021 inputs, branch coverage 4/4)
 // physics::ArticulatedPhysicsObject::vfunc_27 @ 0x00310ad0
 #include "gen/physics.h"
 

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Method3<CPatrolPathManager,bool,const_char_*,int,math::Vector>::vfunc_2 @ 0x00106b70
 #include "gen/global.h"
 

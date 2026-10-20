@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2985 inputs, branch coverage 37/37)
+// STATUS: equivalent (tools/equiv.py level 3: 19754 inputs, branch coverage 37/37)
 // pure3d::d3dLightMapShader::vfunc_14 @ 0x0032b6c0
 #include "gen/pure3d.h"
 

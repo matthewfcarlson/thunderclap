@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 174 inputs, branch coverage 21/22, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 9801 inputs, branch coverage 21/22, incomplete)
 // FUN_00237050 @ 0x00237050
 typedef unsigned __int64 Token_237050;
 struct Stream { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual bool ready(); virtual Token_237050 token(); void FUN_00232c90(); };

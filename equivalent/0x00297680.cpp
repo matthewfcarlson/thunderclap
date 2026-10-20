@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3109 inputs, branch coverage 49/51, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20136 inputs, branch coverage 49/51, incomplete)
 // FUN_00297680 @ 0x00297680
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/data/engine/content.h"

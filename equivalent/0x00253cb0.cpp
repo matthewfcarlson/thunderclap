@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 112 inputs, branch coverage 26/26)
+// STATUS: equivalent (tools/equiv.py level 3: 20029 inputs, branch coverage 26/26)
 // FUN_00253cb0 @ 0x00253cb0
 class Reader {
 public:

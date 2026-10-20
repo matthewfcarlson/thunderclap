@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 2/2)
 // physics::PhysicsObject::vfunc_33 @ 0x002f5b90
 #include "gen/physics.h"
 

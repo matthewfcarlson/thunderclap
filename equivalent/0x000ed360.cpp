@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 0/0)
 // TextWindow::vfunc_3 @ 0x000ed360
 // TextWindow::vfunc_3 @ 0x000ed360: recompute the line scale from the owner's reported extent
 class Metrics_ed360 {

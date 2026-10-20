@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 8/8)
 // hulkfight::motion::PropGrabbableIsThrownCondition::vfunc_6 @ 0x00181cc0
 extern char DAT_00494b44;
 extern char DAT_00494b60;

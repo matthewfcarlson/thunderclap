@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 98 inputs, branch coverage 36/38, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 36/38, incomplete)
 // content::P3DFileHandler::vfunc_3 @ 0x00265cd0
 #include "decls/data/engine/content.h"
 

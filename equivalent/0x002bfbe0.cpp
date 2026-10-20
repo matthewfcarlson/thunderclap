@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 52 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 55 inputs, branch coverage 4/4)
 // FUN_002bfbe0 @ 0x002bfbe0
 extern "C" void* __cdecl FUN_00266e00(int, unsigned int);
 extern "C" void __cdecl FUN_00267090(void*);

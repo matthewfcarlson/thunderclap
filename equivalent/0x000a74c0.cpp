@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 20019 inputs, branch coverage 18/18)
 // FUN_000a74c0 @ 0x000a74c0
 #include "decls/address.h"
 typedef unsigned __int64 Key_a74c0;

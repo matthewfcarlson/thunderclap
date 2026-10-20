@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 20/20)
 // FUN_0009bf50 @ 0x0009bf50
 #include "gen/global.h"
 struct Toggle { void FUN_000361c0(int); void FUN_00036140(int); };

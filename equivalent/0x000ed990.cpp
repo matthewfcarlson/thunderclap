@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 764 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 19737 inputs, branch coverage 22/22)
 // TextTable::vfunc_3 @ 0x000ed990
 struct Vec3_ed990 {
     float x, y, z;

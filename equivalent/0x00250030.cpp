@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 19941 inputs, branch coverage 2/2)
 // audio::SeqEventConditionType::vfunc_3 @ 0x00250030
 #include "gen/audio.h"
 

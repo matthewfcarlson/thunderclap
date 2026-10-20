@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 16/16)
 // hulkfight::motion::RestPoseAction::vfunc_3 @ 0x00172680
 struct Result_172680;
 struct RefPart { void FUN_0027b040(const char*); };

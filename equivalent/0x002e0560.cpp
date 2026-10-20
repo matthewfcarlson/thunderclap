@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 156 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 16764 inputs, branch coverage 4/4)
 // pure3d::PrimGroupSkinnedStreamed::vfunc_10 @ 0x002e0560
 // 0x002e0560: PrimGroupSkinnedStreamed::vfunc_10: rebuild the bounding box and sphere from the skin points
 struct Vec3_2e0560 {

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 16690 inputs, branch coverage 10/10)
 // FUN_00204880 @ 0x00204880
 #include "gen/content.h"
 struct LoadInventory_nv_204880 {

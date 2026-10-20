@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 19998 inputs, branch coverage 10/10)
 // FUN_001dc720 @ 0x001dc720
 #include "gen/global.h"
 struct Vec_1dc720 { float x,y,z; bool FUN_0022d2b0(const Vec_1dc720*, float); };

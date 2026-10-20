@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
 // HSlider::vfunc_6 @ 0x000e2e20
 #include "gen/global.h"
 

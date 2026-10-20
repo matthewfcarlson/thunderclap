@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 22/26, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 26/26)
 // FUN_00321dc0 @ 0x00321dc0
 struct Entry_321dc0 {
     char padding[0x70];

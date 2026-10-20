@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2972 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 19802 inputs, branch coverage 4/4)
 // FUN_000fc060 @ 0x000fc060
 // equiv-map: ??0Manager@@QAE@H@Z = 0x000ddbf0
 // equiv-map: ??0Overlay@@QAE@HPAVManager@@@Z = 0x000dd940

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure3<CUnlockablesManager,void,int,const_char_*,const_char_*>::vfunc_2 @ 0x00094a10
 #include "gen/global.h"
 
