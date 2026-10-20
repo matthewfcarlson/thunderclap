@@ -38,7 +38,7 @@ Target_2a30a0::Target_2a30a0() {
     mObj->Init();
     {
         Obj_2a30a0* q = mObj;
-        q->manager->Call(((int)((char*)((char*)&DAT_0052cbb0 + 97692))), 0);
+        q->manager->Call(((int)((char*)0x54494c)), 0);
     }
     {
         Obj_2a30a0* q = mObj;

@@ -225,7 +225,7 @@
     C(0x0034773f, srand, "_srand srand") \
     C(0x0034774c, rand, "_rand rand") \
     C(0x00347792, hulk_crt_fprintf, "_fwprintf fprintf") \
-    C(0x003479aa, malloc, "") \
+    C(0x003479aa, hulk_crt_malloc, "") \
     C(0x003479bc, free, "free") \
     C(0x003481ba, ceil, "") \
     C(0x00347a14, bsearch, "_bsearch bsearch") \
@@ -251,7 +251,7 @@
     C(0, strlen, "strlen") \
     C(0, strcpy, "strcpy") \
     C(0, strcat, "strcat") \
-    C(0, malloc, "malloc") \
+    C(0, hulk_crt_malloc, "malloc") \
     C(0, sqrt, "sqrt") \
     C(0, sin, "sin") \
     C(0, cos, "cos") \

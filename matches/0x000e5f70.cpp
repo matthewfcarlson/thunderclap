@@ -1,7 +1,7 @@
 extern "C" void _ReadWriteBarrier();
 class Probe_e5f70 {
   public:
-    short* Find(int);
+    short* Find(int, int);
 };
 class Item_e5f70 {
     char pad[0x14];
@@ -59,7 +59,7 @@ class Manager_e5f70 {
     virtual void f41();
     virtual void f42();
     virtual void f43();
-    virtual int get(int);
+    virtual int get();
 };
 class Owner_e5f70 {
     char pad[4];
@@ -83,8 +83,7 @@ void Owner_e5f70::Update() {
     do {
         Item_e5f70* p = a[i];
         if (p) {
-            int x = mgr->get(0);
-            short* q = ((Probe_e5f70*)((char*)p + 0x18))->Find(x);
+            short* q = ((Probe_e5f70*)((char*)p + 0x18))->Find(mgr->get(), 0);
             if (q && *q) {
                 p->f141 = 1;
                 p->f74 = 1;

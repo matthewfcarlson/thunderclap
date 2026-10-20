@@ -424,6 +424,141 @@ PATCHES = [
      "exprstat 0x0021f300: values[0] is the assignment's link and values[1..5] the expdesc (k, info, aux, t, f) "
      "primaryexp 0x0021d830 fills: the array was one word short, natively `item` (ls->fs) lay there and the "
      "expdesc's f (NO_JUMP, -1) overwrote it (the Lua parser crashed in luaK_setcallreturns 0x00220a50)"),
+    # native11: a virtual call's argument left on the stack for the next call (check 7 through a vftable slot)
+    ("equivalent/0x0028faa0.cpp", "    virtual int v18(int flag, void *location);\n};\nstruct Destination { void FUN_0022ca90(int value); };\n",
+     "    virtual int v18(int flag);\n};\nstruct Destination { void FUN_0022ca90(int value, void *location); };\n",
+     "check 7 through a vftable slot (native11): 0x0028faa0 pushes &location (+0x4c), then 0, calls slot 18 (`ret 4`: "
+     "takes the 0) and passes its result and the location left on the stack to Matrix::Mult 0x0022ca90 (`ret 8`: a, b); "
+     "declared as v18(0, location) and Mult(value), natively Mult read its second matrix from stack garbage (the "
+     "front end's PolySkin draw 0x0029b750 crashed in 0x0022ca90)"),
+    ("equivalent/0x0028faa0.cpp", "    int value = (*source)->v18(0, location);\n    destination.FUN_0022ca90(value);\n",
+     "    destination.FUN_0022ca90((*source)->v18(0), location);\n", "(the same edit, the calls)"),
+    ("equivalent/0x00296160.cpp", "virtual int vfunc_18(int,int,int);\n", "virtual int vfunc_18(int);\n",
+     "check 7 through a vftable slot (native11, the same slot as 0x0028faa0): Scenegraph::vfunc_8 0x00296160 pushes "
+     "(b, a, 0) and calls the context's slot 18 (`ret 4`: takes the 0); the root node's vfunc_8 (slot 8, "
+     "BranchNode::vfunc_8 `ret 0xc`) takes its result and the a, b left on the stack. Declared as vfunc_18(0, a, b) "
+     "and vfunc_8(result): natively the root node's draw read a return address as its second argument (the front "
+     "end's PolySkin draw crashed in 0x0029b750)"),
+    ("equivalent/0x00296160.cpp", "virtual void vfunc_7(); virtual void vfunc_8(int);\n};\nnamespace",
+     "virtual void vfunc_7(); virtual void vfunc_8(int, int, int);\n};\nnamespace", "(the same edit, slot 8)"),
+    ("equivalent/0x00296160.cpp",
+     "  int result = (*(*(Device***)&DAT_0052c2ac))->vfunc_18(0,a,b);\n  typedef void (Child::*Method)(int);\n"
+     "  union { void *address; Method method; } call;\n  call.address = savedTable[8];\n  (child->*call.method)(result);\n",
+     "  typedef void (Child::*Method)(int, int, int);\n"
+     "  (child->*(*(Method*)&savedTable[8]))((*(*(Device***)&DAT_0052c2ac))->vfunc_18(0), a, b);\n",
+     "(the same edit, the calls: a and b are pushed before the slot-18 call, as in the original)"),
+    ("equivalent/0x0024d840.cpp", "    virtual audio::ListenerEffectXBox_24d840* vfunc_3(audio::ListenerEffectXBox_24d840*);\n",
+     "    virtual audio::ListenerEffectXBox_24d840* vfunc_3();\n", "check 7 through a vftable slot (native11): the listener-effect types' Create (0x0024d840 and its siblings) push the new effect, call the type's slot 3 (`mov eax, <base type>; ret`: takes nothing) and pass the effect left on the stack to the base type's init 0x0025fb00 (`ret 4`); declared as slot3(effect) and/or init(), natively init read its effect from stack garbage (the replay's first level load crashed in 0x0025fb00 at frame ~430)"),
+    ("equivalent/0x0024d840.cpp", "    void FUN_0025fb00();\n", "    void FUN_0025fb00(ListenerEffectXBox_24d840*);\n", "(the same edit, the init)"),
+    ("equivalent/0x0024d840.cpp",
+     "        ListenerEffectXBox_24d840* object = ((EffectRegistry*)DAT_004e6468)->vfunc_3(result);\n        object->FUN_0025fb00();\n",
+     "        ((EffectRegistry*)DAT_004e6468)->vfunc_3()->FUN_0025fb00(result);\n", "(the same edit, the calls)"),
+    ("equivalent/0x0024da50.cpp", "    virtual ListenerEffectPs2* vfunc_3(ListenerEffectPs2*);\n", "    virtual ListenerEffectPs2* vfunc_3();\n",
+     "(the same class as 0x0024d840: slot 3 takes nothing)"),
+    ("equivalent/0x0024da50.cpp",
+     "    ListenerEffectPs2* result = factory->vfunc_3(effect);\n    ((Returned*)result)->FUN_0025fb00(effect);\n",
+     "    ((Returned*)factory->vfunc_3())->FUN_0025fb00(effect);\n", "(the same edit, the calls)"),
+    ("equivalent/0x0024db50.cpp", "virtual void* vfunc_3(audio::ListenerEffectWin32*)=0; };", "virtual void* vfunc_3()=0; };",
+     "(the same class as 0x0024d840: slot 3 takes nothing)"),
+    ("equivalent/0x0024db50.cpp",
+     " EffectResult* result = (EffectResult*)((Factory*)&(*(char*)&DAT_004e65b8))->vfunc_3(obj);\n result->FUN_0025fb00(obj);\n",
+     " ((EffectResult*)((Factory*)&(*(char*)&DAT_004e65b8))->vfunc_3())->FUN_0025fb00(obj);\n", "(the same edit, the calls)"),
+    ("matches/0x000e2a60.cpp", "    virtual int v44(int);\n", "    virtual int v44();\n",
+     "check 7 through a vftable slot (native11): 0x000e2a60 pushes 1, calls the provider's slot 44 (takes nothing) and "
+     "passes the 1 left on the stack to the text element's Set 0x000f8500 (`ret 0xc`: key, value, 1); declared as "
+     "v44(1) and Set(key, value) with the key read as `(&x)[1]` (the word above x at that depth: x itself)"),
+    ("matches/0x000e2a60.cpp", "    void Set(int, int);\n", "    void Set(int, int, int);\n", "(the same edit, Set)"),
+    ("matches/0x000e2a60.cpp", "    elem.Set((&x)[1], outer->mid->provider->v44(1));\n", "    elem.Set(x, outer->mid->provider->v44(), 1);\n",
+     "(the same edit, the calls)"),
+    ("matches/0x000e5f70.cpp", "    short* Find(int);\n", "    short* Find(int, int);\n",
+     "check 7 through a vftable slot (native11, the shape of 0x000e2a60): 0x000e5f70 pushes 0, calls the manager's "
+     "slot 44 (takes nothing) and passes its result and the 0 to the text lookup 0x000f83f0 (`ret 8`: language, flag)"),
+    ("matches/0x000e5f70.cpp", "    virtual int get(int);\n", "    virtual int get();\n", "(the same edit, slot 44)"),
+    ("matches/0x000e5f70.cpp", "            int x = mgr->get(0);\n            short* q = ((Probe_e5f70*)((char*)p + 0x18))->Find(x);\n",
+     "            short* q = ((Probe_e5f70*)((char*)p + 0x18))->Find(mgr->get(), 0);\n", "(the same edit, the calls)"),
+    ("equivalent/0x000becd0.cpp", "virtual void* get(int); };", "virtual void* get(); };",
+     "check 7 through a vftable slot (native11, the shape of 0x000e2a60): 0x000becd0 pushes the record's value, calls "
+     "the service's slot 44 (takes nothing) and the item's key getter 0x000f72c0 (`ret 4`) takes the value"),
+    ("equivalent/0x000becd0.cpp", "struct Object { __int64 FUN_000f72c0(); };", "struct Object { __int64 FUN_000f72c0(int); };",
+     "(the same edit, the getter)"),
+    ("equivalent/0x000becd0.cpp", " Object* obj=(Object*)service->get(record->value);\n __int64 key=obj->FUN_000f72c0();\n",
+     " __int64 key=((Object*)service->get())->FUN_000f72c0(record->value);\n", "(the same edit, the calls)"),
+    ("equivalent/0x000ef030.cpp", "virtual Brief* f44(const char*);", "virtual Brief* f44();",
+     "check 7 through a vftable slot (native11, the shape of 0x000e2a60): the text service's slot 44 takes nothing; "
+     "the string 0x000ef030 pushes before it is the argument of 0x000f7d30 (`ret 4`)"),
+    ("equivalent/0x000ef030.cpp", "struct Brief { int FUN_000f7d30(); };", "struct Brief { int FUN_000f7d30(const char*); };",
+     "(the same edit, the callee)"),
+    ("equivalent/0x000ef030.cpp", "->f44(\"TBS_MISSION_BRIEF_C7M2\")->FUN_000f7d30();",
+     "->f44()->FUN_000f7d30(\"TBS_MISSION_BRIEF_C7M2\");", "(the same edit, the calls)"),
+    ("equivalent/0x000991b0.cpp", "    virtual int v14(int a, float b);\n", "    virtual int v14();\n",
+     "check 7 through a vftable slot (native11): 0x000991b0 pushes the node's speed and out1, calls the node's slot 14 "
+     "(takes nothing, as 0x000a1930's `v14()`) and 0x000fd8a0 (`ret 0x10`) takes (owner, result, out1, speed)"),
+    ("equivalent/0x000991b0.cpp", "    void FUN_000fd8a0(void *owner, int arg);\n", "    void FUN_000fd8a0(void *owner, int arg, int a, float b);\n",
+     "(the same edit, the callee)"),
+    ("equivalent/0x000991b0.cpp", "                int r = node->v14(out1, f);\n                cur->FUN_000fd8a0(owner, r);\n",
+     "                cur->FUN_000fd8a0(owner, node->v14(), out1, f);\n", "(the same edit, the calls)"),
+    ("equivalent/0x000e39c0.cpp", "virtual Vec_e39c0* slot8(Vec_e39c0*, unsigned); };", "virtual Vec_e39c0* slot8(Vec_e39c0*); };",
+     "check 7 through a vftable slot (native11): 0x000e39c0 pushes the tolerance 0x3727c5ac and &pos, calls the "
+     "entry's slot 8 (`ret 4`: takes &pos) and 0x0022d2b0 (`ret 8`) takes (result, tolerance)"),
+    ("equivalent/0x000e39c0.cpp", "    bool FUN_0022d2b0(Vec_e39c0*);\n", "    bool FUN_0022d2b0(Vec_e39c0*, unsigned);\n", "(the same edit, the callee)"),
+    ("equivalent/0x000e39c0.cpp", "->FUN_0022d2b0(entry->slot8(&pos,0x3727c5ac))", "->FUN_0022d2b0(entry->slot8(&pos),0x3727c5ac)",
+     "(the same edit, the calls)"),
+    ("equivalent/0x00232cc0.cpp", " virtual int line(char*);\n", " virtual int line();\n",
+     "check 7 through a vftable slot (native11): the fight reader's error report 0x00232cc0 pushes &message, calls the "
+     "reader's slot 19 (the line number: takes nothing) and formats (name, line, message): the message pointer is the "
+     "format's third argument (`add esp, 0x18`). Declared as line(message) and a format with two arguments, natively "
+     "the `%s` read stack garbage (the fight script parser's \"Unexpected token.\" report crashed)"),
+    ("equivalent/0x00232cc0.cpp", " int line = reader->line(message);\n FUN_00267760(fullMessage, 1024, \"fight::Reader ERROR\\n%s(%d):  %s\\n\", name, line);\n",
+     " FUN_00267760(fullMessage, 1024, \"fight::Reader ERROR\\n%s(%d):  %s\\n\", name, reader->line(), message);\n",
+     "(the same edit, the calls)"),
+    ("equivalent/0x002787c0.cpp", "case 11:return 5;case 14:return 7;case 17:return 3;", "case 11:return 5;case 17:return 3;",
+     "jump-table case index (native11, equiv.py round 15): the index byte table at 0x2788a4 sends 14 to the default "
+     "target (8), not to 7 (only 0x70 returns 7)"),
+    ("matches/0x0023ba20.cpp", "    virtual void vi(int, int, int, int);\n", "    virtual char vi(int, int, int, int);\n",
+     "check 6 (native11): fight::BinReader::vfunc_6 0x0023ba20 (an enum value: the binary reader's int read, slot 10, or "
+     "the string read, slot 8) returns its callee's bool (`call [eax+0x28]; ret 0x14`); declared void, natively "
+     "ParamValueEnum::vfunc_5 0x00234cf0 read garbage as `ok` and the fight parameter reader went off its stream "
+     "(the replay's level load: a 2 GB string length, out of memory in 0x0008d320)"),
+    ("matches/0x0023ba20.cpp", "    virtual void vk(int, int, int);\n", "    virtual char vk(int, int, int);\n", "(the same edit, slot 10)"),
+    ("matches/0x0023ba20.cpp", "    void vfunc_6(int, int, int, int, int);\n", "    char vfunc_6(int, int, int, int, int);\n", "(the same edit)"),
+    ("matches/0x0023ba20.cpp", "void BinReader::vfunc_6(int p2, int p3, int p4, int p5, int p6) {\n    if (mode)\n        vk(p2, p3, p4);\n    else\n        vi(p2, p3, p5, p6);\n",
+     "char BinReader::vfunc_6(int p2, int p3, int p4, int p5, int p6) {\n    if (mode)\n        return vk(p2, p3, p4);\n    else\n        return vi(p2, p3, p5, p6);\n",
+     "(the same edit, the body)"),
+    ("matches/0x00232f60.cpp", "    void run();\n", "    void* run();\n",
+     "check 6 (native11): fight Node::run 0x00232f60 returns the dynamic_cast 0x00344e74 of the block node it finds "
+     "(its caller 0x00233fe0 tests eax); declared void"),
+    ("matches/0x00232f60.cpp", "extern void helper(Node*, int, const void*, const void*, int);\n",
+     "extern void* helper(Node*, int, const void*, const void*, int);\n", "(the same edit, the cast)"),
+    ("matches/0x00232f60.cpp", "void Node::run() {\n    if (type == 3) {\n        helper(this, 0, &desc1_232f60, &desc2_232f60, 0);\n        return;\n    }\n",
+     "void* Node::run() {\n    if (type == 3)\n        return helper(this, 0, &desc1_232f60, &desc2_232f60, 0);\n", "(the same edit)"),
+    ("matches/0x00232f60.cpp", "        q = q->next;\n    helper(q, 0,", "        q = q->next;\n    return helper(q, 0,", "(the same edit)"),
+    ("matches/0x000ad580.cpp", "    void Do(int a, int b);\n", "    int Do(int a, int b);\n", "check 6 (native11): Manager_ad580::Run 0x000ad580 forwards its callee's result in eax on every path (the original caller 0x000d3f10 tests it); declared void"),
+    ("matches/0x000ad580.cpp", "void Fallback(int a, int b);\n", "int Fallback(int a, int b);\n", "(the same edit)"),
+    ("matches/0x000ad580.cpp", "    void Run(int id, int a, int b);\n", "    int Run(int id, int a, int b);\n", "(the same edit)"),
+    ("matches/0x000ad580.cpp", "void Manager_ad580::Run(", "int Manager_ad580::Run(", "(the same edit)"),
+    ("matches/0x000ad580.cpp", "                arr[i]->Do(a, b);\n                return;\n", "                return arr[i]->Do(a, b);\n", "(the same edit)"),
+    ("matches/0x000ad580.cpp", "    Fallback(a, b);\n}", "    return Fallback(a, b);\n}", "(the same edit)"),
+    ("matches/0x000ad7b0.cpp", "    void action(int a, int b);\n", "    int action(int a, int b);\n", "check 6 (native11): Owner_ad7b0::run 0x000ad7b0 forwards its callee's result in eax on every path (the original caller 0x000d3f10 tests it); declared void"),
+    ("matches/0x000ad7b0.cpp", "void fallback(int a, int b);\n", "int fallback(int a, int b);\n", "(the same edit)"),
+    ("matches/0x000ad7b0.cpp", "    void run(int key, int a, int b);\n", "    int run(int key, int a, int b);\n", "(the same edit)"),
+    ("matches/0x000ad7b0.cpp", "void Owner_ad7b0::run(", "int Owner_ad7b0::run(", "(the same edit)"),
+    ("matches/0x000ad7b0.cpp", "            items[i]->action(a, b);\n            return;\n", "            return items[i]->action(a, b);\n", "(the same edit)"),
+    ("matches/0x000ad7b0.cpp", "    fallback(a, b);\n}", "    return fallback(a, b);\n}", "(the same edit)"),
+    ("matches/0x00099d60.cpp", "    void A(U_99d60* p);\n    void B(U_99d60* p);\n", "    int A(U_99d60* p);\n    int B(U_99d60* p);\n", "check 6 (native11): 0x00099d60 forwards its callee's result in eax on every path (the original caller 0x001f9810 tests it); declared void"),
+    ("matches/0x00099d60.cpp", "void __stdcall FUN_00099d60(", "int __stdcall FUN_00099d60(", "(the same edit)"),
+    ("matches/0x00099d60.cpp", "    if (flag)\n        o->A(&x[3]);\n    else\n        o->B(&x[3]);\n",
+     "    if (flag)\n        return o->A(&x[3]);\n    return o->B(&x[3]);\n", "(the same edit)"),
+    ("equivalent/0x00241930.cpp",
+     "void __cdecl FUN_00241930(Tree *tree, Node *node)\n{\n    Node *end = &tree->sentinel;\n    Node *next = node->parent;\n"
+     "    if (next == end) {\n        next = node->right;\n        while (next != end && node == next->parent) {\n"
+     "            node = next;\n            next = next->right;\n        }\n    } else {\n        next = next->left;\n"
+     "        while (next != end)\n            next = next->left;\n    }\n}",
+     "Node * __cdecl FUN_00241930(Tree *tree, Node *node)\n{\n    Node *end = &tree->sentinel;\n    Node *next = node->parent;\n"
+     "    if (next == end) {\n        next = node->right;\n        while (next != end && node == next->parent) {\n"
+     "            node = next;\n            next = next->right;\n        }\n        return next;\n    }\n"
+     "    while (next->left != end)\n        next = next->left;\n    return next;\n}",
+     "check 6 (native11): the tree step 0x00241930 returns the node it finds (its caller 0x002424a0 uses eax): the "
+     "leftmost node of the parent link's subtree, not the sentinel the declared-void loop stopped at"),
     ("equivalent/0x001b0470.cpp",
      "// The case-selection bytes follow five branch addresses in the dispatch data.\nstruct DispatchData {\n"
      "    unsigned char* branches[5];\n    unsigned char cases[10];\n};\n\n", "", "(the same edit, the table's struct)"),
@@ -1100,6 +1235,106 @@ def data_literal(text):
         break
     out = out[:k] + decls + out[k:]
     return out, ["%s by name, not by address" % n for n in names]
+
+
+# ---------------------------------------------------------------------------------------------
+# fourcc (native11): a FourCC constant spelled as a data address
+_FOURCC_CH = set(b"ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+_FOURCC = {}
+
+
+def _is_fourcc(v):
+    """Three capital letters and a zero byte, and not the start of a data item config/data.json types (an RTTI
+    descriptor 0x494b44 'DKI', a struct 0x434250 'PBC' are addresses; a `table` item starting at an odd address was
+    cut at the constant)."""
+    import bisect
+    b = v.to_bytes(4, "little")
+    if b[3] != 0 or not all(c in _FOURCC_CH for c in b[:3]):
+        return False
+    d = _data_items()
+    k = bisect.bisect_right(d["starts"], v) - 1
+    if k >= 0 and d["items"][k][2] == "vtable" and v - d["items"][k][0] == 4:
+        return False            # (a vptr: the vftable after its complete-object-locator word, 0x414150 'PAA')
+    return not (k >= 0 and d["items"][k][0] == v and d["items"][k][2] != "table")
+
+
+def _orig_immediates(addr):
+    """The immediates of the original function at `addr` outside memory operands (push/mov/cmp imm32)."""
+    import capstone
+    from xbe import Xbe
+    if "xbe" not in _FOURCC:
+        _FOURCC["xbe"] = Xbe(os.path.join(ROOT, "isos/extracted/default.xbe"))
+        _FOURCC["sizes"] = {}
+        import csv
+        for r in csv.DictReader(open(os.path.join(ROOT, "build/functions.csv"))):
+            _FOURCC["sizes"][int(r["address"], 16)] = int(r["size"])
+    x, n = _FOURCC["xbe"], _FOURCC["sizes"].get(addr)
+    if not n:
+        return set(), []
+    o = x.offset(addr)
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    ins = list(md.disasm(x.data[o:o + n], addr))
+    out = set()
+    for i in ins:
+        for m in re.finditer(r"0x([0-9a-f]{5,8})\b", re.sub(r"\[[^\]]*\]", "", i.op_str)):
+            out.add(int(m.group(1), 16))
+    return out, ins
+
+
+FOURCC_EXPR = [
+    # ((char*)((char*)&DAT_x + N)) / ((char*)&DAT_x + N): data-literal's form of an address inside an item
+    (re.compile(r"\(\(char\*\)\(\(char\*\)&(?:DAT|hulk_at)_00([0-9a-f]{6}) \+ (\d+)\)\)"), "((char*)0x%x)"),
+    (re.compile(r"\(\(char\*\)&(?:DAT|hulk_at)_00([0-9a-f]{6}) \+ (\d+)\)"), "((char*)0x%x)"),
+    # ((int)DAT_x) of a `char DAT_x[]`
+    (re.compile(r"\(\(int\)(?:DAT|hulk_at)_00([0-9a-f]{6})\)"), "((int)0x%x)"),
+    # (unsigned)&DAT_x / &DAT_x of an `int DAT_x`
+    (re.compile(r"\(unsigned\)&DAT_00([0-9a-f]{6})\b"), "((unsigned)0x%x)"),
+    (re.compile(r"&DAT_00([0-9a-f]{6})\b(?!\s*\+)"), "((int*)0x%x)"),
+    # a `char DAT_x[]` used as a pointer value (`labelPointer = DAT_x;`)
+    (re.compile(r"(?<=[=(,]) ?DAT_00([0-9a-f]{6})(?=\s*[;,)])"), " ((char*)0x%x)"),
+]
+
+
+def fourcc(rel, text):
+    """`Find(((int)((char*)((char*)&DAT_0052cbb0 + 97692))), 0x31544c46)`: a P3D attribute or channel FourCC ('LIT'
+    0x54494c) that falls in the XBE's data range, written as an address inside a data item (or `((int)DAT_00544457)`,
+    or a getter propagated from another function's `return &DAT_004dd780;` that the link rebinds to the original's
+    immediate, the channel type ids 'ROT' 'INT' 'STR' 'ENT' 'CLR'). MSVC emits the same immediate (the byte match and
+    equiv.py bind it by address); natively the name is an address of the image's data, so the lookup never found its
+    channel (the front end's particle emitters got no rotation channel: a null reader in 0x002d53d0). Every such
+    expression whose value is a FourCC (three capital letters, top byte 0, not a data item's start) that the original function has as an
+    immediate becomes the literal; a getter `return &DAT_x;` whose original is `mov eax, <FourCC>; ret` returns
+    the FourCC."""
+    try:
+        addr = int(os.path.basename(rel)[2:10], 16)
+    except ValueError:
+        return text, []
+    imms, ins = _orig_immediates(addr)
+    tags = {v for v in imms if _is_fourcc(v)}
+    if not tags:
+        return text, []
+    blank = blank_comments(text)
+    out, why = text, []
+    if (len(ins) == 2 and ins[0].mnemonic == "mov" and ins[0].op_str.startswith("eax, ") and ins[1].mnemonic == "ret"):
+        v = int(ins[0].op_str.split(", ")[1], 16)
+        m = re.search(r"return &DAT_00([0-9a-f]{6});", blank)
+        if v in tags and m and int(m.group(1), 16) != v:
+            out = out[:m.start()] + "return (int*)0x%x;" % v + out[m.end():]
+            return out, ["fourcc: the getter returns %r (0x%x), not &DAT_00%s" % (v.to_bytes(4, "little")[:3].decode(), v, m.group(1))]
+    for rx, fmt in FOURCC_EXPR:
+        blank = blank_comments(out)
+        hits = []
+        for m in rx.finditer(blank):
+            line_start = blank.rfind("\n", 0, m.start()) + 1
+            if re.match(r"\s*extern\b", blank[line_start:m.start()]):
+                continue
+            v = int(m.group(1), 16) + (int(m.group(2)) if m.lastindex and m.lastindex >= 2 else 0)
+            if v in tags:
+                hits.append((m.start(), m.end(), v))
+        for s_, e_, v in reversed(hits):
+            out = out[:s_] + fmt % v + out[e_:]
+            why.append("fourcc: %r 0x%x is a constant, not a data address" % (v.to_bytes(4, "little")[:3].decode(), v))
+    return out, sorted(set(why))
 
 
 # ---------------------------------------------------------------------------------------------
@@ -2323,7 +2558,7 @@ def ret_widen_candidates(rel, text):
 RULES = {"template-spec": lambda rel, t: template_spec(t), "dependent-base": lambda rel, t: dependent_base(t),
          "return-struct": lambda rel, t: return_struct(t), "patch": patch, "register-order": register_order,
          "void-return": void_return, "split-temp": lambda rel, t: split_temp(t),
-         "code-literal": lambda rel, t: code_literal(t), "addr-const": lambda rel, t: addr_const(t), "ctor-virt": lambda rel, t: ctor_virt(t), "data-literal": lambda rel, t: data_literal(t), "stub-body": stub_body, "unique-class": unique_class, "pass-through": None,
+         "code-literal": lambda rel, t: code_literal(t), "addr-const": lambda rel, t: addr_const(t), "fourcc": fourcc, "ctor-virt": lambda rel, t: ctor_virt(t), "data-literal": lambda rel, t: data_literal(t), "stub-body": stub_body, "unique-class": unique_class, "pass-through": None,
          "this-call": this_call, "reg-call": reg_call, "this-note": this_note, "return-param": None, "base-ctor": None, "this-cand": None,
          "ret-cand": None, "arg-shift": None, "ret-widen": None, "arg-unshift": None}
 

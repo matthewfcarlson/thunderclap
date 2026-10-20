@@ -517,6 +517,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
     # --gfx (G3, build/g3/for-native9.md): GameClock::Update 0x00086450 ticks the backend's draw-log frame counter
     # first (the hybrid build hooks the same function), so native draw-log frames are numbered like the hybrid's
     clock_asm = ""
+    wrapped = {}            # (native11) a wrapped definition -> its wrapper, for the forwarders jump_shapes re-emitted
     def_before_wrappers = dict(by_addr_def)     # (native10: SITE_REBIND finds a wrapped caller's own definition)
     if gfx and gfx["objects"] and by_addr_def.get(GFX_CLOCK_ADDR) and GFX_CLOCK_TICK in gfx["defined"]:
         # (native10, replay request B: the platform's per-frame hook first, with the clock: the checkpoint hash,
@@ -539,6 +540,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
         if not d:
             continue
         lab = "_hulk_tr_%08x" % t
+        wrapped[d] = lab
         clock_asm += ("\t.text\n\t.globl\t%s\n\t.p2align\t4\n%s:\n\tpushl\t%%edx\n\tpushl\t%%ecx\n\tpushl\t%%eax\n"
                       "\tmovl\t%%esp, %%eax\n\tpushl\t%%eax\n\tpushl\t$%d\n\tcalll\t_hulk_trace_func\n\taddl\t$8, %%esp\n"
                       "\tpopl\t%%eax\n\tpopl\t%%ecx\n\tpopl\t%%edx\n\tjmp\t\"%s\"\n" % (lab, lab, t, d))
@@ -551,18 +553,48 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
         clock_asm += "\t.text\n\t.globl\t_hulk_platform_pump\n\t.p2align\t4\n_hulk_platform_pump:\n\tretl\n"
         defined.add("_hulk_platform_pump")
     # native10: ENTRY_HOOKS (the replay pins that act at a function's entry)
-    for t, hook, _why in ENTRY_HOOKS:
+    for eh in ENTRY_HOOKS:
+        t, hook = eh[0], eh[1]
+        skip = eh[3] if len(eh) > 3 else None     # native11: a nonzero hook result returns at once (`ret skip`)
         d = by_addr_def.get(t)
         if not d or hook not in shim["defined"]:
             how["entry hook skipped (no definition or hook): 0x%08x" % t] += 1
             continue
         lab = "_hulk_eh_%08x" % t
+        wrapped[d] = lab
         clock_asm += ("\t.text\n\t.globl\t%s\n\t.p2align\t4\n%s:\n\tpushl\t%%edx\n\tpushl\t%%ecx\n\tpushl\t%%eax\n"
-                      "\tmovl\t%%esp, %%eax\n\tpushl\t%%eax\n\tcalll\t%s\n\taddl\t$4, %%esp\n"
-                      "\tpopl\t%%eax\n\tpopl\t%%ecx\n\tpopl\t%%edx\n\tjmp\t\"%s\"\n" % (lab, lab, hook, d))
+                      "\tmovl\t%%esp, %%eax\n\tpushl\t%%eax\n\tcalll\t%s\n\taddl\t$4, %%esp\n" % (lab, lab, hook))
+        if skip is None:
+            clock_asm += "\tpopl\t%%eax\n\tpopl\t%%ecx\n\tpopl\t%%edx\n\tjmp\t\"%s\"\n" % d
+        else:
+            clock_asm += ("\ttestl\t%%eax, %%eax\n\tpopl\t%%eax\n\tpopl\t%%ecx\n\tpopl\t%%edx\n\tjnz\t%s_skip\n"
+                          "\tjmp\t\"%s\"\n%s_skip:\n\tretl\t$%d\n" % (lab, d, lab, skip))
         by_addr_def[t] = lab
         defined.add(lab)
         how["entry hook (native10) 0x%08x -> %s" % (t, hook)] += 1
+    # native11: EXIT_HOOKS (thiscall functions with a hook after them)
+    for t, hook, nb, _why in EXIT_HOOKS:
+        d = by_addr_def.get(t)
+        if not d or hook not in shim["defined"]:
+            how["exit hook skipped (no definition or hook): 0x%08x" % t] += 1
+            continue
+        lab = "_hulk_xh_%08x" % t
+        wrapped[d] = lab
+        clock_asm += ("\t.text\n\t.globl\t%s\n\t.p2align\t4\n%s:\n\tpushl\t%%ecx\n" % (lab, lab)
+                      + "\tpushl\t%d(%%esp)\n" % (nb + 4) * (nb // 4)
+                      + "\tmovl\t%d(%%esp), %%ecx\n\tcalll\t\"%s\"\n" % (nb, d)
+                      + "\tpushl\t%%eax\n\tpushl\t4(%%esp)\n\tcalll\t%s\n\taddl\t$4, %%esp\n"
+                        "\tpopl\t%%eax\n\tpopl\t%%ecx\n\tretl\t$%d\n" % (hook, nb))
+        by_addr_def[t] = lab
+        defined.add(lab)
+        how["exit hook (native11) 0x%08x -> %s" % (t, hook)] += 1
+    # native11: a forwarder re-emitted by jump_shapes before the wrappers existed (`mov ecx, [ecx+0xb8]; jmp
+    # 0x272fc0`, the drive's post: request H's exit hook was never reached) jumps to the wrapper too
+    for d, lab in wrapped.items():
+        n_ = js["asm"].count('\tjmp\t"%s"\n' % d)
+        if n_:
+            js["asm"] = js["asm"].replace('\tjmp\t"%s"\n' % d, "\tjmp\t%s\n" % lab)
+            how["re-emitted forwarders pointed at a wrapper (native11)"] += n_
     # fix 6a: the game's vftables and RTTI structures as data (build/native/link/vtables.s), named by address
     vt = code_owned_data(by_addr_def)
     vt["asm"] += js["asm"] + clock_asm
@@ -935,6 +967,23 @@ SITE_REBIND = [
     (0x001c1a40, 0x00344e74, "_hulk_cast_self",
      "--gfx: HulkShaderCallback's dynamic_cast of the pddi framebuffer-effects extension (ours, no game RTTI): the "
      "extension is that type (build/g4/for-native10.md 8; xdk/library.cpp)"),
+    # native11, request G (sound-rng, seq-rng; xdk/replay_hooks.cpp): the hybrid's per-site patches, here per caller
+    # (each caller below makes only the patched calls to its callee: read off the original)
+    (0x001ef2a0, 0x000964d0, "_hulk_sound_rng", "sound-rng: the sound manager caches the RNG it draws from (0x1ef2ca)"),
+    (0x001efe20, 0x000964d0, "_hulk_sound_rng", "sound-rng: 0x1efe8d"),
+    (0x001f7320, 0x000964d0, "_hulk_sound_rng", "sound-rng: the voices' draws (0x1f7362, 0x1f74b7)"),
+    (0x00260ae0, 0x0034774c, "_hulk_sound_rand", "sound-rng: audio sequencing's rand() (0x260ae2)"),
+    (0x002526b0, 0x004e5acc, "_hulk_seq_rng_ptr", "seq-rng: SeqActionVarVolumeRand::vfunc_1 reads the RNG pointer (0x2526cc)"),
+    (0x00253680, 0x004e5acc, "_hulk_seq_rng_ptr", "seq-rng: SeqActionVarPitchRand::vfunc_1 (0x25369c)"),
+    (0x00255250, 0x004e5acc, "_hulk_seq_rng_ptr", "seq-rng: SeqCommandLogicOr::vfunc_0 (0x25527f)"),
+    (0x002549a0, 0x000113e0, "_hulk_seq_randint", "seq-rng: SeqEventSilence::vfunc_2 -> RandInt (0x2549c9)"),
+    (0x00254c80, 0x000113e0, "_hulk_seq_randint", "seq-rng: SeqEventLogicRepeat's state -> RandInt (0x254ca8)"),
+]
+# native11: exit hooks: a wrapper calls the (thiscall) definition with the caller's stack arguments, then
+# `void hook(u32 this)`, then returns as the definition did (eax kept). (address, hook, argument bytes, why)
+EXIT_HOOKS = [
+    (0x00272fc0, "_hulk_hook_drive_post", 12,
+     "core::DriveThread's post: the main thread waits for the drive to go idle (request H, syncio)"),
 ]
 # native10: entry hooks: a wrapper in front of the function (every caller bound by address and every vftable slot
 # goes through it, as HULK_TRACE_FUNCS' probes) calls `int hook(u32* regs)` (eax, ecx, edx, the return address, the
@@ -942,6 +991,12 @@ SITE_REBIND = [
 ENTRY_HOOKS = [
     (0x00269170, "_hulk_hook_pad_poll",
      "ControllerSystemXBox::vfunc_12: the poll's rate limit off with a recording open (request C)"),
+    # native11, request F no-fmv (tools/patch_xbe.py TWEAKS): (address, hook, why, bytes `ret` pops when it skips)
+    (0x001b7310, "_hulk_hook_fmv_queue",
+     "no-fmv: CFMVManager::QueueMovie returns at once (the hybrid's `ret 0xc` at its entry)", 12),
+    (0x001b7d10, "_hulk_hook_fmv_render",
+     "no-fmv: the FMV render reads the movie's status as 0 (finished) and stops it (the hybrid's `xor eax, eax` "
+     "for the call at 0x1b7d38): the hook takes that path itself", 8),
 ]
 
 

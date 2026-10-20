@@ -90,6 +90,15 @@ char* hulk_crt_host_path(const char* p, char* buf, hulk_u32 size) {
     return buf;
 }
 
+// The game's malloc (0x003479aa and the tree's `malloc`): zero-filled. On the Xbox the game's allocations come from
+// pages the kernel hands out zeroed (the heaps' arenas are allocated once at start-up, so they are fresh memory);
+// the host's malloc returns recycled memory, and code that reads a field its constructor leaves (GameClock's
+// elapsed time, the camera's position before its first update: both hashed by the replay checkpoints) saw the
+// host's old bytes. docs/native-build.md native11.
+void* HULK_HOST_CDECL hulk_crt_malloc(hulk_u32 size) {
+    return hulk_host_calloc(1, size ? size : 1);
+}
+
 void* HULK_HOST_CDECL hulk_crt_fopen(const char* path, const char* mode) {
     char buf[520];
     const char* host = hulk_crt_host_path(path, buf, sizeof(buf));

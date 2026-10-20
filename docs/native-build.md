@@ -25,6 +25,13 @@ build/venv/bin/python tools/native_link.py --reuse-map --gfx   # with the pddi/b
 #   HULK_NATIVE_DIR=build/native5 ... clang_probe.py --snapshot --configs msvc; native_link.py --tree build/native5/clang-probe/snap
 ```
 
+**Status 2026-10-20 (native11): a recorded game replays natively.** play3 (the hybrid's 56,566-frame recording) runs
+through the native image with the replay pins: **frames 0-420 match the recording at all 15 checkpoints** (title,
+menus, new game, into the first level's load), with the sound/sequencer RNG isolation, no-fmv and the I/O-sync hook
+in. The level load then stops in the fight parameter reader (stop 31, open). The normal run plays the five boot
+movies and reaches the title ("Press START", 8,000+ frames presented). See
+[native11](#native11-the-replay-matches-to-frame-420-2026-10-20).
+
 **Status 2026-10-19 (native10): the front end's scripts run.** Past native9's heap stop, the native image loads the
 front end (the DollyScript `frontend\fe_real.txt`: fonts, macros, screens, labels, buttons, locators), sorts its
 screens and runs the front-end Lua; it plays the boot movies and stops while uploading their frames (a null bgfx block). See
@@ -63,6 +70,68 @@ next fixes 1-3](#after-the-next-fixes-1-3-2026-10-17) the night before (first st
 Cold, the first run takes 10-15 minutes (4 compiler processes); a warm run takes 30 s. Everything goes to `build/clang-probe/`:
 `report.json` (counts, categories with example sites, scans, link probe), `undefined.txt` (every undefined symbol with
 its group and demangled name), `cache/` (per-TU results and objects) and `snap/` (the tree being probed).
+
+## native11: the replay matches to frame 420 (2026-10-20)
+
+Inputs: native10's workspace plus this round's verified rewrites (`build/native11/sources.txt`, 35 sources, 16 of them
+equivalent/), rebuilt with `build_tree.py --resume --jobs 3 --regression-rounds 4`, probed, linked (`native_link.py
+--gfx`), run under Wine with `HULK_INPUT_SOURCE=replay:build/rp1/play3.hrp HULK_CKPT=1 HULK_AUDIO_CLOCK=frame` and a
+fresh save directory. Every source edit went through `native_fix.py --apply --verify` (compare.py MATCH / equiv.py
+--inputs 3000 EQUIVALENT; the equivalents re-verified under equiv.py round 15).
+
+**1. Frame 0.** The hybrid's frame-0 hash 732dab43 decomposes (brute force over the checkpoint's inputs): the
+gameplay RNG in its seed-0 state (7df2f1ba 418a5dfb, the same natively), boot step 6, the camera singleton present
+with position (0,0,0), the GameClock's elapsed time 0. Natively the camera's position and the clock's elapsed/step
+words were `ff000000`: fields the constructors leave, read from **recycled host memory** (the host malloc behind
+the game's heaps returns old blocks; on the Xbox the heaps' arenas are fresh, zeroed pages). Class fix: the game's
+`malloc` (0x3479aa and the tree's `malloc`) is `hulk_crt_malloc` (crt_glue.cpp: zero-filled), the shim's HeapAlloc
+always zeroes. Frame 0 then matches, and with the pins below every checkpoint to frame 420.
+
+**2. Replay pins** (build/rp1/for-native9.md; docs/native-replay.md):
+
+| request | native11 |
+|---|---|
+| F no-fmv | `ENTRY_HOOKS` may now return at once (4th field: the `ret` bytes): CFMVManager::QueueMovie 0x1b7310 (`ret 0xc`) and the FMV render 0x1b7d10 (`ret 8`: the hook takes the "status 0, finished" path itself: 0x333ef0, then the manager's stop 0x1b7970) |
+| G sound-rng / seq-rng | `SITE_REBIND` (9 sites): 0x964d0 from 0x1ef2a0 / 0x1efe20 / 0x1f7320 -> `hulk_sound_rng` (a private MWC, 0x2F6B6F2A 0x1F123BB5), rand() from 0x260ae0 -> `hulk_sound_rand` (LCG 0x5EED), the RNG pointer 0x4e5acc in 0x2526b0 / 0x253680 / 0x255250 -> `hulk_seq_rng_ptr` (data rebinding), RandInt 0x113e0 from 0x2549a0 / 0x254c80 -> `hulk_seq_randint`. Each caller makes only the hybrid's patched calls (read off the original). Two of the hybrid's seq sites (0x254ed0, 0x2548e0) are in functions without a source (not in functions.csv): reached, they are missing calls |
+| H syncio | `EXIT_HOOKS` (new: a wrapper calls the thiscall definition with the caller's stack words, then `hook(this)`): 0x272fc0 (the drive's post) -> `hulk_hook_drive_post` (main thread: wait for drive+0x8c = 0, 2,000 x 1 ms). **Off unless `HULK_SYNCIO=1`**: play3 was recorded without the hybrid's syncio, and an .hrp can't carry it (rp1's bit 13 is seq-rng, the hybrid's HF_SYNCIO is 8192 too). With it on, the audio stream drive keeps a request in flight and the main thread times out 35 times in 30 frames. The forwarder 0x272b60 (`mov ecx, [ecx+0xb8]; jmp 0x272fc0`) that jump_shapes re-emits now jumps to the wrapper (native_link.py points re-emitted forwarders at entry/exit/probe wrappers) |
+
+**3. The stops** (replay path; each fixed as a class where one could be named):
+
+| # | stop | cause | class and fix |
+|---|---|---|---|
+| 28 | front end: Other_2dfc90 / Matrix::Mult 0x22ca90 on garbage (G5 saw the same after the movies) | **check 7 through a vftable slot**: 0x28faa0 and Scenegraph::vfunc_8 0x296160 push the next call's arguments, call the context's slot 18 (`ret 4`), and the next call takes the words left on the stack; declared as slot18(0, x, y) | patches 0x28faa0, 0x296160 (EQUIVALENT; in 0x296160 the arguments of the root node's call are written so MSVC pushes them before the slot-18 call: equiv.py only verifies that form). Same class, found by check 7's list and a scan of the original (indirect call, then a direct call taking more words than were pushed since: $S/n11/chain.py): the listener-effect types' Create 0x24d840/0x24da50/0x24db50 (stop 30), 0x0e2a60, 0x0e5f70, 0x0becd0, 0x0ef030, 0x0991b0, 0x0e39c0 (the text service's slot 44 and siblings take nothing), the fight reader's error report 0x232cc0 |
+| 29 | front-end particles: 0x2d53d0, a null rotation reader | **FourCC constants spelled as data addresses**: 'ROT' 0x544f52, 'LIT' 0x54494c, 'INT', 'CLR', ... fall in the XBE's data range; sources name them `((char*)&DAT_0052cbb0 + 97692)`, `((int)DAT_00544457)` or (propagated getters) `return &DAT_004dd780;` that the link rebinds to the original's immediate. MSVC emits the same immediate; natively they are image addresses, so the channel lookups failed | rule `fourcc` (native_fix.py): a FourCC (three capitals, top byte 0, not a data item's start or a vptr) that the original has as an immediate becomes the literal: 16 sources (12 MATCH, 4 EQUIVALENT: 5 channel type ids, the particle attributes, 'TEX', 'DVD', 'CAM', 'RAD', 'BQG') |
+| 30 | first level load: 0x25fb00 | check 7 through slot 3 (row 28) | patches |
+| - | (found while reading stop 31) | **check 6**: void definitions whose callers use the result: fight BinReader::vfunc_6 0x23ba20 (an enum read's bool), Node::run 0x232f60 (a dynamic_cast), the tree step 0x241930 (the node it finds), forwarders 0x99d60, 0xad580, 0xad7b0 | patches (MATCH / EQUIVALENT) |
+| 31 (open) | first level load, frame ~421: the fight parameter reader (BinReader 0x23be00) reads a 2 GB string length and the heap runs out (0x8d320) | the parameters of the track type 0x1a71e0 are read in the original's order (checked against the hashes of its registration: timeBegin ... blendOutDuration, then `filename`), every reader function matches its original, but the length word of `filename` is a hash: the record's bytes differ from what the reads expect. Not found: a native file/stream layer difference (fs1/RCF) is the next suspect | - |
+
+**4. Replay status**: play3 matches at **every checkpoint from frame 0 to 420 (15 of 15)**: the title, menus and
+the new game's setup, with the gameplay RNG, the camera and the clock identical; the run stops in the level load
+(stop 31), before the next checkpoint. Every divergence found was a native bug (frame 0: host memory; stops 28-31:
+source declarations / constants) or a missing pin (G, F). The I/O-sync pin is built but off for play3.
+
+**5. The normal run** (G5's stop-27 fix pulled): the five boot movies play through and the game loop runs to the
+title screen: "Press START" drawn, 8,000+ frames presented, no stop in 330 s. The movie layer's background is black
+(build/g5/for-native10.md: nothing presents while movies play; the title's attract loop is one of them). A
+synthetic recording tapping START (poll- or frame-keyed) did not leave the title: the attract loop's input path is
+not read yet, so the main menu and its draw log are not reached (step 4 open; build/native11/for-g5.md).
+
+**6. Counts**: rewrites **35 sources** (`build/native11/sources.txt`: 19 matches/, 16 equivalent/): fourcc 16, check 7
+through a vftable slot 12 (0x28faa0, 0x296160 and the ten of row 28), check 6 6, jump-table case index 1 (0x2787c0, equiv.py round 15).
+Conv checks on the final tree and map: check 7 **25 symbols** (native10 32), check 6 **20** (native10 25). Binding:
+SITE_REBIND 15 sites (6 + 9), ENTRY_HOOKS 3 (1 + 2 skipping), EXIT_HOOKS 1. Strict `lld-link`: **0 errors** `--gfx`
+(10.52 MB) and plain (see the MSVC proof); 1,577 symbols still stubbed.
+
+**7. MSVC 7.1 proof** (`build/native11/msvc-proof.txt`): base = native10's final inputs (this round's 35 files at
+HEAD), mine = + build/native11/sources.txt, both `build_tree.py --resume --jobs 3 --regression-rounds 4` from the same
+state: TUs 2,810 / 2,810, matches 22,197 / 22,197 in both, **0 equivalents differing** from their standalone code,
+per-function verdicts identical for all 27,474 functions, no mode changes; the 16 equivalents EQUIVALENT under
+equiv.py round 15. Strict `lld-link` 0 errors plain (7.54 MB) and `--gfx` (10.52 MB).
+
+**8. Tools.** `native_link.py`: `EXIT_HOOKS`, skipping entry hooks, re-emitted forwarders pointed at wrappers,
+SITE_REBIND of data names. `native_fix.py`: rule `fourcc`, native11 patches. xdk: replay_hooks.cpp (sound/seq RNG,
+syncio, no-fmv hooks, checkpoint log with the I/O and sound-RNG counters, the first divergence's regions),
+memory.cpp (HeapAlloc zeroed); crt: `hulk_crt_malloc`.
 
 ## native10: past the loader, into the front end (2026-10-19)
 
@@ -215,6 +284,9 @@ instead of compiling our own source as written. Accepted as tech debt (2026-10-1
 | `ctor-virt` stand-in virtuals `hulk_slot_<name>` | 12 sources | stub classes made polymorphic by the wrong member | the real class declaration (the member is not virtual) |
 | (native10) `SITE_REBIND` call sites named by XBE address (native_link.py) | 6 sites (0x2692c0, 0x86450, 0x87e30, 0x86630, 0x1c1a40) | the replay pins and one dynamic_cast act on single call sites of verified code | the platform calls as such in the sources (a replay-aware clock/input/seed interface), the pddi extension with real RTTI |
 | (native10) `ENTRY_HOOKS`: a wrapper at 0x269170 writing ControllerSystemXBox +0x12a4 from +0x12a0 | 1 (2 field offsets) | the replay pin C needs the poll's rate limit off | a named member of the real class (include/gen) and a platform poll policy |
+| (native11) `SITE_REBIND` for the sound/sequencer RNG (native_link.py) | 9 sites (0x1ef2a0, 0x1efe20, 0x1f7320, 0x260ae0, 0x2526b0, 0x253680, 0x255250 (data 0x4e5acc), 0x2549a0, 0x254c80) | replay pins G (sound-rng, seq-rng) act on single call sites of verified code | a sound RNG of its own in the sources (the audio code's generator as a named object) |
+| (native11) `ENTRY_HOOKS` that return at once (no-fmv) | 2 (0x1b7310 `ret 0xc`, 0x1b7d10 `ret 8`) | the hybrid's no-fmv patches bytes of two functions | a movie-policy interface the FMV manager asks |
+| (native11) `EXIT_HOOKS` | 1 (0x272fc0, `ret 0xc`) | replay pin H (syncio) after the drive's post | a drive interface with a synchronous mode |
 | the empty stubs for a virtual the original doesn't own (the 0x002777c0 class) | 14 sources with an adjustor thunk and an empty out-of-line body: 10 fixed (`stub-body`), 2 are other sessions' untracked files (matches/0x002777e0, 0x002777f0), 2 are constructor/destructor bodies the vftable emission needs (0x00268010, 0x0026e350) | — | (the 2 untracked ones: the same rewrite once they are committed) |
 
 ## Graphics boundary crossed (G1, 2026-10-19)

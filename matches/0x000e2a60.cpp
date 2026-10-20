@@ -44,7 +44,7 @@ class Provider {
     virtual void v41();
     virtual void v42();
     virtual void v43();
-    virtual int v44(int);
+    virtual int v44();
 };
 struct Mid {
     char pad[4];
@@ -56,7 +56,7 @@ struct Outer {
 };
 class Elem {
   public:
-    void Set(int, int);
+    void Set(int, int, int);
 };
 class Obj {
     char pad[0x14];
@@ -67,5 +67,5 @@ class Obj {
     void Fn(int);
 };
 void Obj::Fn(int x) {
-    elem.Set((&x)[1], outer->mid->provider->v44(1));
+    elem.Set(x, outer->mid->provider->v44(), 1);
 }

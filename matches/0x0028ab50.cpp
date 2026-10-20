@@ -2,5 +2,5 @@
 #include "decls/data/game/unknown.h"
 
 extern "C" int* FUN_0028ab50() {
-    return &DAT_004dd780;
+    return (int*)0x525453;
 }

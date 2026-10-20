@@ -31,8 +31,10 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_HeapCreate(hulk_u32 a0, hulk_u32 a1, h
 extern "C" hulk_u32 HULK_STDCALL hulk_xdk_HeapAlloc(hulk_u32 heap, hulk_u32 flags, hulk_u32 size) {
     (void)heap;
     HULK_XDK_TRACE("HeapAlloc");
-    void* p = (flags & 8) ? hulk_host_calloc(1, size ? size : 1) : hulk_host_malloc(size ? size : 1);  // 8: zero
-    return (hulk_u32)p;
+    // zeroed whatever the flags (8 = HEAP_ZERO_MEMORY): the Xbox's heaps grow over fresh, zeroed pages, the host's
+    // malloc recycles (crt_glue.cpp hulk_crt_malloc, docs/native-build.md native11)
+    (void)flags;
+    return (hulk_u32)hulk_host_calloc(1, size ? size : 1);
 }
 
 extern "C" hulk_u32 HULK_STDCALL hulk_xdk_HeapFree(hulk_u32 heap, hulk_u32 flags, hulk_u32 p) {

@@ -1,18 +1,18 @@
 struct Item_ad580 {
     char pad[0x54];
     int id;
-    void Do(int a, int b);
+    int Do(int a, int b);
 };
-void Fallback(int a, int b);
+int Fallback(int a, int b);
 class Manager_ad580 {
     char pad[0x10];
     int count;
     Item_ad580** items;
 
   public:
-    void Run(int id, int a, int b);
+    int Run(int id, int a, int b);
 };
-void Manager_ad580::Run(int id, int a, int b) {
+int Manager_ad580::Run(int id, int a, int b) {
     int n = count;
     int i = 0;
     if (n > 0) {
@@ -22,12 +22,11 @@ void Manager_ad580::Run(int id, int a, int b) {
         do {
             Item_ad580* p = *cur;
             if (p && p->id == key) {
-                arr[i]->Do(a, b);
-                return;
+                return arr[i]->Do(a, b);
             }
             ++i;
             ++cur;
         } while (i < n);
     }
-    Fallback(a, b);
+    return Fallback(a, b);
 }

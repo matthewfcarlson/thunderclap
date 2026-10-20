@@ -8,9 +8,9 @@ class BinReader {
     virtual void vf();
     virtual void vg();
     virtual void vh();
-    virtual void vi(int, int, int, int);
+    virtual char vi(int, int, int, int);
     virtual void vj();
-    virtual void vk(int, int, int);
+    virtual char vk(int, int, int);
     virtual void vl();
     virtual void vm();
     virtual void vn();
@@ -22,11 +22,11 @@ class BinReader {
     virtual void vt();
     char pad[8];
     unsigned char mode;
-    void vfunc_6(int, int, int, int, int);
+    char vfunc_6(int, int, int, int, int);
 };
-void BinReader::vfunc_6(int p2, int p3, int p4, int p5, int p6) {
+char BinReader::vfunc_6(int p2, int p3, int p4, int p5, int p6) {
     if (mode)
-        vk(p2, p3, p4);
+        return vk(p2, p3, p4);
     else
-        vi(p2, p3, p5, p6);
+        return vi(p2, p3, p5, p6);
 }

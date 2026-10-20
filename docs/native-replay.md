@@ -105,6 +105,18 @@ hybrid value (play3's frame-0 hash 1932372803) could not be recomputed. The firs
 real test: frame 0 must match (the hash then depends on seed, skip-intro, the clock's initial fields), and the
 output of `HULK_CKPT` names the first frame that does not.
 
+### Status (native11, 2026-10-20)
+
+play3 replays natively with every pin except syncio: **frames 0-420 match the recording at all 15 checkpoints**
+(docs/native-build.md "native11"). Frame 0 needed fresh (zeroed) heap memory: the hybrid's camera position and clock
+fields that the constructors leave are 0 on the Xbox. Pins in the native image: 1-5, 8 (native10), 6 and 7
+(`SITE_REBIND` to xdk/replay_hooks.cpp's `hulk_sound_rng`, `hulk_sound_rand`, `hulk_seq_rng_ptr`, `hulk_seq_randint`;
+two seq-rng sites, 0x254ed0 and 0x2548e0, are in functions with no source), 9 (skip-intro and no-fmv: entry hooks on
+0x1b7310 and 0x1b7d10), 10 (an exit hook on 0x272fc0, **off unless `HULK_SYNCIO=1`**: play3 was recorded without
+syncio; note the .hrp's bit 13 (seq-rng) is the hybrid's HF_SYNCIO bit, so an .hrp can't say syncio), 12. The log
+line `ckpt frame N hash ... (io posts, waits, timeouts, sound rng)` counts the pins' activity; the first divergence's
+regions (RNG, boot step, camera position, clock block) are logged to the trace.
+
 ### Limits and expectations
 
 - **What has to be exactly equal.** The hash covers the gameplay RNG, the camera and the clock, so it is a
