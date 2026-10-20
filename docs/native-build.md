@@ -260,6 +260,51 @@ MSVC 7.1 to an identical object; `verify_relocs.py` ok on the 2,316 changed `mat
 modes among neighbours that share `GetLastError`-style declarations); the strict i686 native link of that tree:
 lld-link rc 0, no messages.
 
+## native13: into the first level's gameplay (2026-10-20)
+
+Inputs: native12's workspace (HEAD 8c871013 + native12) for the search, then a workspace rebuilt from HEAD 26a05b20
+(ptr1's pointer-width typedefs) plus this round's rewrites (`build/native13/sources.txt`, 6 files) for the final
+replay. Same procedure as native12. New probe aids: the probes' `fcall` lines carry `f=N` (GameClock::Update calls,
+the frame the checkpoints and the hybrid's trace sessions number), `HULK_CKPT_REGIONS=1` logs the hashed regions of
+every logged checkpoint. The hybrid side came from trace session tr1 (mac2 `~/hulk-tr1/build/traces`): its `census`
+gives every equivalent/ function's first frame, so probing a few dozen of them natively finds the first frame where
+the two runs part without a new xemu run.
+
+| # | stop | cause | class and fix |
+|---|---|---|---|
+| 34 | first gameplay update 0x000677d0: no main actor | init.lua's SpawnHulk calls `am_CreateActor("hulk", "spawn_hulk", ...)` and on success `am_SetMainActor`. Natively 0x0002c050 found no locator: CTriggerVolumeManager was empty because the locator file's parse (0x00337a30) stopped at the first object: the type schema loader 0x00337700 had registered "HexWorld" and **"HudMap]"**. The tokenizer's one-character token list (ctor 0x003388d0) is the wide string L"()[]{}=;" at 0x00434634 (read as a double-NUL list of 1-char strings by 0x00338640); the source spelled **L"()"**, so `[`/`]` were not tokens | **literal shorter than the original's item**: verify_relocs compares a literal only up to its first NUL (checker gap, below). Scan of the XBE's string items that continue past their first NUL inside the item (`multistr.py`): no other game literal; sources with wide or embedded-NUL literals checked by hand: 0x003388d0 only. Fix: L"()[]{}=;" (MATCH, relocs ok) |
+| 35 | Hulk's collision setup: `ret` to 0 in Node::run's callee | CollisionCylinder::vfunc_13 0x002f2fc0 pushes 3 words, calls the callback's slot 4 (SimState::vfunc_4 0x002ef300, `ret 4`) and the transform 0x0022c3b0 (`ret 8`) takes the two left; the source declared slot 4 with all three and passed the two again: natively 8 bytes too many came off the stack | **check 7 through a vftable slot, spelled with the words twice** (equiv.py can't see it: both calls get the same stack words). Scan (`dup_ind.py`: our MSVC compile of each equivalent at native11's 123 chain sites pushes more words than the original): 0x002f2fc0 and 0x0024da50 / 0x0024db50 (native11's patches for these two had never applied); the other "more" sites are register saves or `X()->M()` chains (read by hand). Fixed: the three, `X(a)->M(b)` form, EQUIVALENT |
+| 36 | first level, frame 439: Owner::Traverse 0x0030ed60 reads null+0xc | the original keeps the node in **edx across a call** to 0x0030ecb0, which never writes edx (whole-program register allocation); the byte-matched source reads it back as the high half of a 64-bit return | **callee-preserved scratch register**: scan of every binding declared 64-bit whose original callee never writes edx (`edx64.py`): 0x0030ecb0 (0x0030ed60) and the UTF-8 validator 0x002719a0 (0x00271b70 read the text pointer back the same way). 0x00271b70 fixed (`p = text`, EQUIVALENT). 0x0030ed60 can't stay a match (MSVC 7.1 can't keep a value in edx over a call) and **equiv.py can't prove the rewrite**: its `reg_writes` recursion guard assumes a self-recursive callee (0x0030ecb0 calls itself) clobbers eax/ecx/edx, so the original's edx is fuzzed after the call. With the guard set to "no writes" (a scratch copy of equiv.py) the rewrite is EQUIVALENT. Pending: `build/native13/pending/0x0030ed60.cpp` (a demotion once cl3 fixes the guard); the replays below use it as a workspace-only test |
+| 37 (open) | gameplay from frame 441: Hulk's head tracker never updates | first frame where the runs part (census vs `f=` probes, 60 functions): 0x00039c60 (target search) runs at frame 445 in the hybrid, at 6628 natively. Its caller CHeadTrackerAction::vfunc_7 0x000202f0 is never called natively: the action is created and started at 439 (vfunc_6) and its node sits in the list Hulk's 0x000366d0 runs with selector 1 (CAction::vfunc_5(1) -> vfunc_8), not in the +0xb4 list 0x0003b7d0 runs with selector 0 (-> vfunc_7), which is empty natively | not found yet: which code puts the head-tracker's spawn node in Hulk's +0xdc list instead of +0xb4 (the fight scenario's node placement, 0x00231ad0 / 0x002322f0 / 0x002324b0 and their callers). The checkpoints from 540 on differ (camera); 450 differs and 480/510 match only because a cinematic holds the camera, the clock is frame-counted and the RNG isn't drawn |
+
+**check 6's 11** (triage): one real, fixed: 0x000fb240 returns the script 0x000faf80 returns (its caller 0x000f5fa0
+keeps it; EQUIVALENT; it only needed its own declaration of 0x000faf80 retyped, not 0x000faf80's stuck patch).
+0x00104c60 is not: the caller 0x001050d0 loads its own f6c onto the x87 stack before the call and stores it after
+(the source models that). The other 9 (0x00090130, 0x001035f0 x2, 0x0022b980, 0x0024c090, 0x0025dbd0, 0x002629a0,
+0x00284860, 0x002a5fd0) are tail-returned by wrappers whose own callers are virtual or ignore them (e.g. 0x00029390
+is am_SetPatrolParams' handler, its closure returns void): incidental eax.
+
+**Replay status** (workspace from HEAD 26a05b20 + `build/native13/sources.txt` + the pending 0x0030ed60 as a
+workspace-only test; `build_tree.py --resume`: 2,818 TUs, 22,343 / 22,343 matches, 0 regressions; strict `lld-link`
+0 errors `--gfx`): play3 matches at **frames 0-420 (15 of 15), 480 and 510**; the first level loads, Hulk spawns at
+the recorded frame (439, as the hybrid), and the native image then plays **all of play3's inputs to frame 58,500**
+(the recording ends at 56,566) in 500 s with `HULK_AUDIO_CLOCK=frame`, with no crash or hang; the checkpoints from 540
+on differ (stop 37). 450 differs and 480/510 match only because a cinematic holds the camera while the clock is
+frame-counted and the RNG isn't drawn. Without the pending 0x0030ed60 the run stops at stop 36 (frame 439).
+
+**Checker gaps (cl3)**: (1) verify_relocs `literal_bytes` stops at the first NUL, so a wide or multi-string literal
+that is a prefix of the original's item passes (stop 34); compare the COMDAT literal's full size. (2) equiv.py
+`reg_writes` recursion guard: a self-recursive callee is assumed to clobber eax/ecx/edx (stop 36); the least fixed
+point (start from no writes) is sound for self-recursion. (3) equiv.py can't see a virtual declared with more stack
+words than its callee pops when the next call takes the same words (stop 35); comparing the total words pushed for
+an indirect call plus the following direct call with the original's would.
+
+**Bridges**: none new (the probe/checkpoint options are diagnostics).
+
+**Process (farm)**: `farm/src/farm.ts --upgrade` now skips native_calls.DEMOTE, equivalent/ sources with an
+`equiv-conv` register note, and sources naming a function whose own source has one (9 + 487 + 292 of the current
+equivalents); `--dry-run` prints the filtered queue and exits.
+
 ## native12: past the first level load (2026-10-20)
 
 Inputs: HEAD 8c871013 (`git archive`) plus the 21 untracked sources of other sessions native11's workspace also had

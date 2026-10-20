@@ -16,7 +16,9 @@ extern "C" char DAT_004e231c[];         // the camera singleton pointer
 extern "C" void HULK_CDECL hulk_native_log(const char* line);
 
 static hulk_u32 hulk_io_posts, hulk_io_waits, hulk_io_timeouts, hulk_snd_calls;
+extern "C" hulk_u32 hulk_native_frame_no;    // (startup.cpp: the probes' frame number)
 extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
+    hulk_native_frame_no++;
     HulkCkptState st;
     st.rng = DAT_004e5ad0;
     st.boot_step = DAT_0049fb40;
@@ -39,7 +41,13 @@ extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
                      s.frame - 1, s.last_hash, have ? "" : "(none) ", want, r ? "ok" : "DIVERGED", hulk_io_posts, hulk_io_waits,
                      hulk_io_timeouts, hulk_snd_calls);
         hulk_native_log(line);
-        if (logged == 0 || first_bad) {   // the inputs of the first checkpoint and of the first divergence
+        // (native13) HULK_CKPT_REGIONS=1: the regions of every logged checkpoint (brute-forcing which one differs)
+        static int all_regions = -1;
+        if (all_regions < 0) {
+            const char* v = hulk_host_getenv("HULK_CKPT_REGIONS");
+            all_regions = v && *v == '1';
+        }
+        if (logged == 0 || first_bad || all_regions) {   // the inputs of the first checkpoint and of the first divergence
             const hulk_u32* r = (const hulk_u32*)st.rng;
             const hulk_u32* c = (const hulk_u32*)((const char*)clock + 0x10);
             const void* cam = *st.camera_ptr;
@@ -252,7 +260,9 @@ extern "C" int HULK_CDECL hulk_hook_fmv_render(hulk_u32* regs) {
     return 0;
 }
 
+extern "C" hulk_u32 hulk_native_frame_no;    // (startup.cpp: the probes' frame number)
 extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
+    hulk_native_frame_no++;
     (void)clock;
 }
 

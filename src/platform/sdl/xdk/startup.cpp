@@ -189,6 +189,11 @@ static void hulk_peek(const char* peek) {
 
 // tools/native_link.py HULK_TRACE_FUNCS probe wrappers: one `fcall` line per call (frame: saved eax, ecx, edx, the
 // return address, the stack arguments), at most HULK_TRACE_MAX (default 64) per function.
+// native13: GameClock::Update calls so far (replay_hooks.cpp's hulk_native_frame counts them; 0 without --gfx), in
+// the probes' `fcall` lines as f=N (the frame the checkpoints and the hybrid's trace sessions number)
+extern "C" hulk_u32 hulk_native_frame_no;
+hulk_u32 hulk_native_frame_no;
+
 extern "C" void HULK_CDECL hulk_trace_func(hulk_u32 addr, const hulk_u32* f) {
     static hulk_u32 seen_addr[64], seen_n[64];
     static hulk_u32 limit = 0;
@@ -209,8 +214,8 @@ extern "C" void HULK_CDECL hulk_trace_func(hulk_u32 addr, const hulk_u32* f) {
         if (seen_n[k]++ >= limit)
             return;
     }
-    hulk_trace_line("fcall 0x%08x ecx=0x%08x edx=0x%08x ret=0x%08x args 0x%08x 0x%08x 0x%08x 0x%08x tid=%u", addr, f[1],
-                    f[2], f[3], f[4], f[5], f[6], f[7], hulk_host_GetCurrentThreadId());
+    hulk_trace_line("fcall 0x%08x ecx=0x%08x edx=0x%08x ret=0x%08x args 0x%08x 0x%08x 0x%08x 0x%08x tid=%u f=%u", addr, f[1],
+                    f[2], f[3], f[4], f[5], f[6], f[7], hulk_host_GetCurrentThreadId(), hulk_native_frame_no);
     // native12: HULK_TRACE_STR=<digits 1-8>: the NUL-terminated string (up to 96 chars) each of these stack arguments
     // points at, when committed memory (varargs too: `5` is luaG_runerror's name)
     static const char* strs = (const char*)1;

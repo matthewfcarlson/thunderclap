@@ -126,6 +126,17 @@ level's Lua runs without a runtime error, and the run stops in the first gamepla
 never set, `am_SetMainActor` is registered but no script calls it; open). The replay needs the untracked
 equivalent/0x0029e6c0.cpp (another session's file): without it the image stops in a missing `Light` constructor.
 
+### Status (native13, 2026-10-20)
+
+On HEAD 26a05b20 plus native13's six rewrites (and the pending 0x0030ed60, see docs/native-build.md "native13"):
+frames 0-420, 480 and 510 match; the first level loads and Hulk spawns at frame 439 as in the hybrid; the image
+then plays all of play3's inputs (to frame 58,500) without a crash, but the checkpoints from 540 on differ: Hulk's
+head-tracker action never updates natively (its node lands in the list run with selector 1), first visible as the
+target search 0x00039c60 at frame 445 in the hybrid and 6628 natively (stop 37, open). Finding where two runs part
+without xemu: the trace session's census (first frame of every traced function) against native probes, whose
+`fcall` lines now carry `f=<frame>`; `HULK_CKPT_REGIONS=1` logs the hashed regions at every logged checkpoint
+(brute-forcing which region a recorded hash differs in, e.g. the RNG by N draws).
+
 ### Limits and expectations
 
 - **What has to be exactly equal.** The hash covers the gameplay RNG, the camera and the clock, so it is a

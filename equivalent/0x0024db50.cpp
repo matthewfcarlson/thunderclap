@@ -5,7 +5,7 @@
 #include "decls/data/engine/audio.h"
 
 namespace audio { struct ListenerEffectWin32_24db50;  struct ListenerEffectWin32_24db50 { virtual void vfunc_0(); void FUN_0025e6f0(void*); }; }
-struct Factory { virtual void vfunc_0()=0; virtual void vfunc_1()=0; virtual void vfunc_2()=0; virtual void* vfunc_3(audio::ListenerEffectWin32_24db50*)=0; };
+struct Factory { virtual void vfunc_0()=0; virtual void vfunc_1()=0; virtual void vfunc_2()=0; virtual void* vfunc_3()=0; };
 extern void* DAT_00429598[];
 void* __cdecl FUN_00247530(void*);
 struct EffectResult { void FUN_0025fb00(audio::ListenerEffectWin32_24db50*); };
@@ -14,7 +14,6 @@ void* audio::ListenerEffectWin32Type::vfunc_2() {
  if (!obj) return (void*)(0);
  obj->FUN_0025e6f0(((char*)&DAT_004e65b8));
  *(void***)obj = DAT_00429598;
- EffectResult* result = (EffectResult*)((Factory*)&(*(char*)&DAT_004e65b8))->vfunc_3(obj);
- result->FUN_0025fb00(obj);
+ ((EffectResult*)((Factory*)&(*(char*)&DAT_004e65b8))->vfunc_3())->FUN_0025fb00(obj);
  return (void*)(obj);
 }

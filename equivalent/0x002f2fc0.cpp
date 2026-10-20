@@ -1,10 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // physics::CollisionCylinder::vfunc_13 @ 0x002f2fc0
 namespace physics {
 struct CallbackResult { void FUN_0022c3b0(void*, void*); };
 struct Callback {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3();
- virtual CallbackResult* vfunc_4(void*, void*, void*);
+ virtual CallbackResult* vfunc_4(void*);
 };
 struct Owner { char pad[0x18]; Callback* callback; };
 struct CollisionCylinder {
@@ -16,7 +16,6 @@ struct CollisionCylinder {
 };
 void CollisionCylinder::vfunc_13() {
  dirty = 1;
- CallbackResult* result = owner->callback->vfunc_4(field08, pad70, position);
- result->FUN_0022c3b0(pad70, position);
+ owner->callback->vfunc_4(field08)->FUN_0022c3b0(pad70, position);
 }
 }

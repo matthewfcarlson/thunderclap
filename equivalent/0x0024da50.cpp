@@ -18,7 +18,7 @@ struct Factory {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
-    virtual ListenerEffectPs2_24da50* vfunc_3(ListenerEffectPs2_24da50*);
+    virtual ListenerEffectPs2_24da50* vfunc_3();
 };
 extern "C" ListenerEffectPs2_24da50* __cdecl FUN_00247530(Factory*);
 struct Returned { void FUN_0025fb00(ListenerEffectPs2_24da50*); };
@@ -31,7 +31,6 @@ void* audio::ListenerEffectPs2Type::vfunc_2() {
     if (!mem) return (void*)(0);
     mem->FUN_0025e6f0(factory);
     ListenerEffectPs2_24da50* effect = new (mem) ListenerEffectPs2_24da50;
-    ListenerEffectPs2_24da50* result = factory->vfunc_3(effect);
-    ((Returned*)result)->FUN_0025fb00(effect);
+    ((Returned*)factory->vfunc_3())->FUN_0025fb00(effect);
     return (void*)(effect);
 }

@@ -47,7 +47,7 @@ O_3388d0::O_3388d0(int a, int b) throw() {
     s85a = *(const T3*)"//";
     s862 = *(const T3*)"/*";
     s86a = *(const T3*)"/*";
-    F1(b83a, (const unsigned short*)L"()");
+    F1(b83a, (const unsigned short*)L"()[]{}=;");
     c872 = 0;
     c1c = 0;
     c41c = 0;

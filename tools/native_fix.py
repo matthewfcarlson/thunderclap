@@ -594,6 +594,49 @@ PATCHES = [
      'extern "C" double __cdecl floor(double);\ndouble FUN_00047970(float param_1) {\n    return floor((double)param_1);\n}',
      "check 6 (native12): 0x00047970 is floor's wrapper (0x0034557c is floor; the propagated name said _isnan, bound "
      "ambiguously) and its callers (0x002899e0) use st0"),
+    # native13: check 6, real: the script table's lookup returns the script it finds or loads
+    ("equivalent/0x000fb240.cpp", "    void FUN_000faf80(int result);\n    void FUN_000fb240(void *item);",
+     "    void *FUN_000faf80(int result);\n    void *FUN_000fb240(void *item);",
+     "check 6 (native13): 0x000fb240 returns the parsed script 0x000faf80 returns (0 when neither the loader slot nor "
+     "0x000fa4b0 has it); its caller 0x000f5fa0 keeps it (`Script_f5fa0 *script = ...FUN_000fb240(name)`); declared void"),
+    ("equivalent/0x000fb240.cpp", "void Inventory::FUN_000fb240(void *item) {", "void *Inventory::FUN_000fb240(void *item) {",
+     "(the same edit)"),
+    ("equivalent/0x000fb240.cpp", "        if (!result) return;\n    }\n    FUN_000faf80(result);\n}",
+     "        if (!result) return 0;\n    }\n    return FUN_000faf80(result);\n}", "(the same edit)"),
+    # native13: a literal shorter than the original's item (verify_relocs compares a literal up to its first NUL)
+    ("matches/0x003388d0.cpp", '    F1(b83a, (const unsigned short*)L"()");', '    F1(b83a, (const unsigned short*)L"()[]{}=;");',
+     "literal (native13, stop 34): the tokenizer's one-character token list at 0x00434634 is the wide string "
+     "L\"()[]{}=;\" (read as a double-NUL list of 1-char strings by 0x00338640); the source spelled L\"()\", so natively "
+     "`[`/`]` were not tokens, the type-schema loader 0x00337700 read `HudMap]` as a type name and stopped, no "
+     "Locator type was registered, the level's locators never loaded and SpawnHulk found no `spawn_hulk`"),
+    # native13: check 7 through a vftable slot (native11's row 28), spelled with the next call's words twice: the
+    # virtual declared with them (natively it "pops" them: the caller's stack is off by their size afterwards)
+    ("equivalent/0x002f2fc0.cpp", " virtual CallbackResult* vfunc_4(void*, void*, void*);", " virtual CallbackResult* vfunc_4(void*);",
+     "check 7 through a vftable slot (native13, stop 35): CollisionCylinder::vfunc_13 0x002f2fc0 pushes (position, "
+     "+0x70, +0x08), calls the owner's callback slot 4 (SimState::vfunc_4 0x002ef300: `ret 4`, takes +0x08) and the "
+     "transform 0x0022c3b0 (`ret 8`) takes the two words left; declared vfunc_4(a, b, c) and the transform's (b, c) "
+     "again: natively 8 bytes too many came off the stack and vfunc_13 returned to 0 (first level, Hulk's collision setup)"),
+    ("equivalent/0x002f2fc0.cpp",
+     " CallbackResult* result = owner->callback->vfunc_4(field08, pad70, position);\n result->FUN_0022c3b0(pad70, position);",
+     " owner->callback->vfunc_4(field08)->FUN_0022c3b0(pad70, position);", "(the same edit)"),
+    ("equivalent/0x0024da50.cpp", "    virtual ListenerEffectPs2_24da50* vfunc_3(ListenerEffectPs2_24da50*);",
+     "    virtual ListenerEffectPs2_24da50* vfunc_3();",
+     "check 7 through a vftable slot (native13): native11's 0x0024da50 patch no longer applied after a rename; slot 3 "
+     "takes nothing, the effect is the init 0x0025fb00's"),
+    ("equivalent/0x0024da50.cpp",
+     "    ListenerEffectPs2_24da50* result = factory->vfunc_3(effect);\n    ((Returned*)result)->FUN_0025fb00(effect);",
+     "    ((Returned*)factory->vfunc_3())->FUN_0025fb00(effect);", "(the same edit)"),
+    ("equivalent/0x0024db50.cpp", "virtual void* vfunc_3(audio::ListenerEffectWin32_24db50*)=0; };", "virtual void* vfunc_3()=0; };",
+     "check 7 through a vftable slot (native13): as 0x0024da50 (native11's patch text no longer matched)"),
+    ("equivalent/0x0024db50.cpp",
+     " EffectResult* result = (EffectResult*)((Factory*)&(*(char*)&DAT_004e65b8))->vfunc_3(obj);\n result->FUN_0025fb00(obj);",
+     " ((EffectResult*)((Factory*)&(*(char*)&DAT_004e65b8))->vfunc_3())->FUN_0025fb00(obj);", "(the same edit)"),
+    # native13: a value the original keeps in edx across a call whose callee never writes edx (whole-program
+    # register allocation), spelled as the high half of a 64-bit return: natively the definition's edx is garbage
+    ("equivalent/0x00271b70.cpp", "    const unsigned char *p = (const unsigned char *)(hulk_uintptr)(result >> 32);",
+     "    const unsigned char *p = text;",
+     "callee-preserved edx (native13): the UTF-8 decoder 0x00271b70 reads the text pointer back from edx after the "
+     "validator 0x002719a0 (__fastcall, the text in edx, never written); declared as the validator's 64-bit result"),
 ]
 
 

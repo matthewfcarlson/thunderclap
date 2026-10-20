@@ -12,17 +12,17 @@ struct Loader {
 extern char DAT_0040ced4[];
 struct Inventory {
     int FUN_000fa4b0(void *item);
-    void FUN_000faf80(int result);
-    void FUN_000fb240(void *item);
+    void *FUN_000faf80(int result);
+    void *FUN_000fb240(void *item);
 };
 extern __int64 __cdecl FUN_0027b020(void *item);
-void Inventory::FUN_000fb240(void *item) {
+void *Inventory::FUN_000fb240(void *item) {
     __int64 value = FUN_0027b020(item);
     void *caster = DAT_0040ced4;
     int result = (*(Loader**)&DAT_004dd9cc)->slot3(&caster, (unsigned int)value, (unsigned int)(value >> 32));
     if (!result) {
         result = FUN_000fa4b0(item);
-        if (!result) return;
+        if (!result) return 0;
     }
-    FUN_000faf80(result);
+    return FUN_000faf80(result);
 }

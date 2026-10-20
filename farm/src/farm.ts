@@ -472,6 +472,49 @@ function parseModel(m: string) {
 	return { provider: m.slice(0, i), modelId: m.slice(i + 1) };
 }
 
+// --upgrade must not re-match what the native build needs as an equivalent (docs/native-build.md "native12", process
+// note): a byte match can't pass a register argument. Skipped: the matches/ files tools/native_calls.py demoted
+// (DEMOTE), equivalent/ sources with an `// equiv-conv` register note (they call, or are, a register-convention
+// function), and sources naming a function whose own source has such a note. Returns addr -> reason.
+const CONV_NOTE = /\/\/[ \t]*equiv-conv:[ \t]*(\S+)[ \t]+([^\n]*)/g;
+const hasRegister = (locs: string) => locs.split(/\s+/).some((l) => l && l !== "stack");
+function nativeUpgradeBlocks(equivDir: string): Map<string, string> {
+	const out = new Map<string, string>();
+	const nc = join(ROOT, "tools/native_calls.py");
+	if (existsSync(nc)) {
+		const m = readFileSync(nc, "utf8").match(/^DEMOTE\s*=\s*\{([\s\S]*?)\}/m);
+		for (const d of m?.[1].matchAll(/matches\/(0x[0-9a-f]{8})\.cpp/g) ?? []) out.set(d[1], "native_calls.DEMOTE");
+	}
+	const regFns = new Set<string>(); // FUN_xxxxxxxx with a register-convention note in any source
+	const notes = new Map<string, string>(); // equivalent/ addr -> its first register note
+	for (const dir of [join(ROOT, "matches"), equivDir]) {
+		if (!existsSync(dir)) continue;
+		for (const f of readdirSync(dir)) {
+			if (!/^0x[0-9a-f]{8}\.cpp$/.test(f)) continue;
+			const txt = readFileSync(join(dir, f), "utf8");
+			if (!txt.includes("equiv-conv")) continue;
+			for (const n of txt.matchAll(CONV_NOTE)) {
+				if (!hasRegister(n[2])) continue;
+				const fn = n[1].match(/FUN_[0-9a-fA-F]{8}/)?.[0];
+				if (fn) regFns.add(fn.toLowerCase().replace("fun_", "FUN_"));
+				if (dir === equivDir && !notes.has(f.slice(0, 10))) notes.set(f.slice(0, 10), n[0].trim());
+			}
+		}
+	}
+	for (const [a, n] of notes) if (!out.has(a)) out.set(a, `register note (${n})`);
+	if (existsSync(equivDir))
+		for (const f of readdirSync(equivDir)) {
+			const a = f.slice(0, 10);
+			if (!/^0x[0-9a-f]{8}\.cpp$/.test(f) || out.has(a)) continue;
+			const own = `FUN_${a.slice(2)}`;
+			for (const fn of readFileSync(join(equivDir, f), "utf8").matchAll(/FUN_[0-9a-fA-F]{8}/g)) {
+				const k = fn[0].toLowerCase().replace("fun_", "FUN_");
+				if (k !== own && regFns.has(k)) { out.set(a, `calls register-convention ${k}`); break; }
+			}
+		}
+	return out;
+}
+
 async function main() {
 	const { values } = parseArgs({
 		options: {
@@ -487,6 +530,7 @@ async function main() {
 			packets: { type: "string", default: join(BUILD, "packets") }, // prebuilt packet dir (A/B tests)
 			mode: { type: "string", default: "match" }, // match | equiv
 			upgrade: { type: "boolean" }, // match mode: start from the function's proven equivalent/ source
+			"dry-run": { type: "boolean" }, // print the filtered queue (and --upgrade's native skips), then exit
 			rewrite: { type: "boolean" }, // equiv mode: readability pass over the proven equivalent/ source
 		},
 	});
@@ -563,7 +607,17 @@ async function main() {
 		? values.only.split(",")
 		: readFileSync(values.queue!, "utf8").split("\n").filter(Boolean);
 	queue = queue.map((a) => "0x" + parseInt(a, 16).toString(16).padStart(8, "0")).filter((a) => !isLibrary(a) && !isDone(a));
+	if (UPGRADE) {
+		const blocks = nativeUpgradeBlocks(EQUIV_DIR);
+		const skipped = queue.filter((a) => blocks.has(a));
+		for (const a of skipped) console.log(`${a} skipped (--upgrade, native): ${blocks.get(a)}`);
+		queue = queue.filter((a) => !blocks.has(a));
+	}
 	queue = queue.slice(0, Number(values.limit));
+	if (values["dry-run"]) {
+		console.log(`dry run: ${queue.length} queued${queue.length ? ": " + queue.join(" ") : ""}`);
+		return;
+	}
 
 	const models = createModels({ credentials: piCredentials as any });
 	models.setProvider(openrouterProvider());
