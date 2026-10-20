@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 14/14)
 // pure3d::d3dSpheremapVertexShader::vfunc_12 @ 0x00331cd0
 // pure3d::d3dSpheremapVertexShader::vfunc_12 @ 0x00331cd0
+#include "gen/pure3d.h"
+
 namespace pure3d {
 struct Vec4_331cd0 {
     float x;
@@ -20,7 +22,7 @@ struct ShaderColors {
     unsigned int c3;
     unsigned int extra;
 };
-struct Light {
+struct Light_331cd0 {
     int type;
     Vec4_331cd0 diffuse;
     Vec4_331cd0 specular;
@@ -73,48 +75,17 @@ class LightManager_331cd0 {
     virtual unsigned int* v36(unsigned int* out);
     void FUN_00321dc0(int* ids, int key);
 };
-class d3dSpheremapVertexShader {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    virtual void vfunc_8();
-    virtual void vfunc_9();
-    virtual void vfunc_10();
-    virtual void vfunc_11();
-    virtual void vfunc_12();
-    virtual void vfunc_13();
-    virtual void vfunc_14();
-    virtual void vfunc_15();
-    virtual void vfunc_16();
-    virtual void vfunc_17();
-    virtual void vfunc_18();
-    virtual void vfunc_19();
-    virtual void vfunc_20();
-    virtual void vfunc_21(ShaderColors* out);
-    virtual void vfunc_22();
-    virtual void vfunc_23();
-    virtual void vfunc_24();
-    char pad_04[0xc];
-    LightManager_331cd0* lightManager;
-};
 }
 namespace D3D8 {
-void __stdcall D3DDevice_GetLight(int index, pure3d::Light* out);
+void __stdcall D3DDevice_GetLight(int index, pure3d::Light_331cd0* out);
 void __fastcall D3DDevice_SetVertexShaderConstant1(int reg, const pure3d::Vec4_331cd0* data);
 }
-
 void pure3d::d3dSpheremapVertexShader::vfunc_12() {
     int ids[4];
     Vec4_331cd0 constA, constB, zero, out1, out2, out3, out4, out5;
     ShaderColors colors;
     unsigned int scratch;
-    Light light0, light1, light2;
+    Light_331cd0 light0, light1, light2;
 
     constA.x = 0.0f;
     constA.y = 1.0f;
@@ -124,7 +95,7 @@ void pure3d::d3dSpheremapVertexShader::vfunc_12() {
     constB.y = 0.0f;
     constB.z = 1.0f;
     constB.w = 0.0f;
-    lightManager->FUN_00321dc0(ids, 0);
+    (*(LightManager_331cd0 * *)&this->f_10)->FUN_00321dc0(ids, 0);
     D3D8::D3DDevice_GetLight(ids[0] == -1 ? 0 : ids[0], &light0);
     D3D8::D3DDevice_GetLight(ids[1] == -1 ? 0 : ids[1], &light1);
     D3D8::D3DDevice_GetLight(ids[2] == -1 ? 0 : ids[2], &light2);
@@ -137,7 +108,7 @@ void pure3d::d3dSpheremapVertexShader::vfunc_12() {
     FUN_00331620(&out2, colors.c0);
     FUN_00331620(&out3, colors.c3);
     FUN_00331620(&out4, colors.c2);
-    FUN_00331620(&out5, *lightManager->v36(&scratch));
+    FUN_00331620(&out5, *(*(LightManager_331cd0 * *)&this->f_10)->v36(&scratch));
     if (out3.w == 0.0f) {
         out3.wBits = out2.wBits;
         out2.wBits = 0;

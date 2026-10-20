@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 #include "decls/data/game/global.h"
 
 struct ResetObject {
@@ -7,11 +9,11 @@ struct ContextChild {
     char pad[0x124];
     ResetObject* reset;
 };
-struct Context {
+struct Context_e6da0 {
     char pad[0x20];
     ContextChild* child;
 };
-extern Context* DAT_004dd700;
+extern Context_e6da0* DAT_004dd700;
 struct Panel_e6da0 {
     virtual void v0();
     virtual void v1();
@@ -33,83 +35,22 @@ struct Panel_e6da0 {
     unsigned char enabled;
     void FUN_000e5440(int);
 };
-struct FEThingsBase {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    virtual void vfunc_8();
-    virtual void vfunc_9();
-    virtual void vfunc_10();
-    virtual void vfunc_11();
-    virtual void vfunc_12();
-    virtual void vfunc_13();
-    virtual void vfunc_14();
-    virtual void vfunc_15();
-    virtual void vfunc_16();
-    virtual void vfunc_17();
-    virtual void vfunc_18();
-    virtual void vfunc_19();
-    virtual void vfunc_20();
-    virtual void vfunc_21();
-    virtual void vfunc_22();
-    virtual void vfunc_23();
-    virtual void vfunc_24();
-    virtual void vfunc_25();
-    virtual void vfunc_26();
-    virtual void vfunc_27();
-    virtual void vfunc_28();
-    virtual void vfunc_29();
-    virtual void vfunc_30();
-    virtual void vfunc_31();
-    virtual void vfunc_32();
-    virtual void vfunc_33();
-    virtual void vfunc_34();
-    virtual void vfunc_35();
-    virtual void vfunc_36();
-    virtual void vfunc_37();
-    virtual void vfunc_38();
-    virtual void vfunc_39();
-    virtual void vfunc_40();
-    virtual void vfunc_41();
-    virtual void vfunc_42();
-    virtual void vfunc_43();
-    virtual void vfunc_44();
-    virtual void vfunc_45();
-    virtual void vfunc_46();
-    virtual void vfunc_47();
-    virtual void vfunc_48(int);
-    char pad[0x1758];
-    Panel_e6da0* panel;
-    char pad2[8];
-    unsigned selected;
-    int mode;
-    unsigned entries[16];
-    int index;
-    char pad3[0x44];
-    int changed;
-    char pad4[0x908];
-    unsigned char allowed;
-};
+
 void FEThingsBase::vfunc_21() {
-    if (index < 0 || (!allowed && index == 0) || (panel && !panel->enabled)) {
+    if (this->f_17b0 < 0 || (!(*(unsigned char *)&this->f_2104) && this->f_17b0 == 0) || ((*(Panel_e6da0 * *)&this->f_175c) && !(*(Panel_e6da0 * *)&this->f_175c)->enabled)) {
         vfunc_48(7);
         return;
     }
     vfunc_48(1);
-    --index;
-    selected = index >= 0 ? entries[index] : 0;
-    changed = 1;
-    mode = 2;
-    if (panel) {
-        panel->v15();
-        panel->FUN_000e5440(mode);
+    --this->f_17b0;
+    (*(unsigned int *)&this->f_1768) = this->f_17b0 >= 0 ? (*(unsigned int (*)[16])&this->f_1770)[this->f_17b0] : 0;
+    this->f_17f8 = 1;
+    this->f_176c = 2;
+    if ((*(Panel_e6da0 * *)&this->f_175c)) {
+        (*(Panel_e6da0 * *)&this->f_175c)->v15();
+        (*(Panel_e6da0 * *)&this->f_175c)->FUN_000e5440(this->f_176c);
     }
-    Context* context = DAT_004dd700;
+    Context_e6da0* context = DAT_004dd700;
     (*(unsigned char*)&DAT_004e222c) = 1;
     if (context->child && context->child->reset && (*(unsigned char*)&DAT_004e2518)) {
         (*(unsigned char*)&DAT_004e2518) = 0;

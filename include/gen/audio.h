@@ -180,7 +180,7 @@ public:
     int f_0c;
     int f_10;
     int f_14;
-    char _pad_18[0x4];
+    int f_18;
     int f_1c;
 };
 
@@ -200,16 +200,18 @@ public:
     virtual void vfunc_10(); // overrides audio::HalStream slot 10
     virtual void vfunc_11(); // overrides audio::HalStream slot 11
     virtual void vfunc_12(); // overrides audio::HalStream slot 12
-    char _pad_04[0x1c];
+    char _pad_04[0x18];
+    int f_1c;
     void* f_20;
     void* f_24;
-    char _pad_28[0x4];
+    int f_28;
     unsigned int f_2c;
     int f_30;
     int f_34;
-    char _pad_38[0x4];
+    int f_38;
     unsigned int f_3c;
-    char _pad_40[0x4];
+    char f_40;
+    char _pad_41[0x3];
     unsigned int f_44;
 };
 
@@ -357,7 +359,8 @@ public:
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
     virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
-    char _pad_04[0x8];
+    char _pad_04[0x4];
+    void* f_08;
     int f_0c;
 };
 
@@ -386,7 +389,8 @@ public:
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
     virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
-    char _pad_04[0x8];
+    char _pad_04[0x4];
+    void* f_08;
     int f_0c;
 };
 
@@ -400,7 +404,8 @@ public:
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
     virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
-    char _pad_04[0x8];
+    char _pad_04[0x4];
+    void* f_08;
     int f_0c;
     char _pad_10[0x4];
     int f_14;
@@ -417,7 +422,8 @@ public:
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
     virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
-    char _pad_04[0x8];
+    int f_04;
+    void* f_08;
     int f_0c;
     int f_10;
 };
@@ -447,7 +453,8 @@ public:
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
     virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
-    char _pad_04[0x8];
+    char _pad_04[0x4];
+    void* f_08;
     int f_0c;
 };
 
@@ -461,7 +468,10 @@ public:
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
     virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
-    char _pad_04[0x14];
+    char _pad_04[0x8];
+    int f_0c;
+    float f_10;
+    char _pad_14[0x4];
     int f_18;
 };
 
@@ -475,7 +485,8 @@ public:
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
     virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
-    char _pad_04[0x8];
+    char _pad_04[0x4];
+    void* f_08;
     int f_0c;
 };
 
@@ -494,7 +505,7 @@ public:
     int f_10;
     int f_14;
     int f_18;
-    char _pad_1c[0x4];
+    int f_1c;
     int f_20;
 };
 
@@ -522,7 +533,8 @@ public:
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
     virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
-    char _pad_04[0x8];
+    char _pad_04[0x4];
+    void* f_08;
     int f_0c;
 };
 
@@ -536,7 +548,8 @@ public:
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
     virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
-    char _pad_04[0x8];
+    char _pad_04[0x4];
+    void* f_08;
     int f_0c;
 };
 
@@ -580,7 +593,8 @@ public:
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
     virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
-    char _pad_04[0x8];
+    int f_04;
+    void* f_08;
     int f_0c;
 };
 
@@ -594,7 +608,8 @@ public:
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
     virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
-    char _pad_04[0x8];
+    char _pad_04[0x4];
+    void* f_08;
     int f_0c;
 };
 
@@ -1072,7 +1087,9 @@ public:
     virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventWaitBeat(); // overrides audio::SeqEvent slot 4
-    char _pad_04[0xc];
+    int f_04;
+    int f_08;
+    int f_0c;
     int f_10;
 };
 

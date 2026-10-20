@@ -1,3 +1,5 @@
+#include "gen/physics.h"
+
 struct Mat_2fb7a0 {
     float m[16];
     void Fn(void* a, void* b);
@@ -15,43 +17,11 @@ struct Mid_2fb7a0 {
     Prov_2fb7a0* prov;
     Mat_2fb7a0* Get(int id) { return prov->Get(id); }
 };
-class CollisionOBB {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual void vfunc_13();
-    virtual void v14();
-    virtual void v15();
-    char pad[4];
-    int mId;
-    char pad1[4];
-    Mid_2fb7a0* mMid;
-    char pad2[5];
-    char mFlag;
-    char pad3[0x54 - 0x1a];
-    char a54[12];
-    char a60[12];
-    char a6c[12];
-    char pad4[0x94 - 0x78];
-    char a94[12];
-    char aa0[12];
-    char aac[12];
-};
-void CollisionOBB::vfunc_13() {
-    mFlag = 1;
-    Mat_2fb7a0 m = *mMid->Get(mId);
-    m.Fn(a94, a54);
-    m.Fn(aa0, a60);
-    m.Fn(aac, a6c);
+
+void physics::CollisionOBB::vfunc_13() {
+    (*(char *)&this->f_19) = 1;
+    Mat_2fb7a0 m = *(*(Mid_2fb7a0 * *)&this->f_10)->Get(this->f_08);
+    m.Fn((*(char (*)[12])&this->f_94), (*(char (*)[12])&this->f_54));
+    m.Fn((*(char (*)[12])&this->f_a0), (*(char (*)[12])&this->f_60));
+    m.Fn((*(char (*)[12])&this->f_ac), (*(char (*)[12])&this->f_6c));
 }

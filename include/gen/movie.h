@@ -74,7 +74,8 @@ public:
     void* f_1c;
     float f_20;
     unsigned char f_24;
-    char _pad_25[0x3];
+    char f_25;
+    char _pad_26[0x2];
     unsigned int f_28;
 };
 
@@ -108,7 +109,13 @@ public:
     virtual void vfunc_6(); // overrides movie::RenderStrategy slot 6
     virtual void vfunc_7(); // overrides movie::RenderStrategy slot 7
     int f_0c;
-    char _pad_10[0x20];
+    void* f_10;
+    int f_14;
+    int f_18;
+    int f_1c;
+    int f_20;
+    char _pad_24[0x8];
+    int f_2c;
     int f_30;
     char _pad_34[0x14];
     char f_48;

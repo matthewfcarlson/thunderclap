@@ -1,4 +1,6 @@
-class FEControl {
+#include "gen/global.h"
+
+class FEControl_dc7c0 {
   public:
     virtual void a();
     virtual void b();
@@ -20,18 +22,13 @@ class FEControl {
     virtual void r();
     virtual void s();
 };
-class FETextInput : public FEControl {
-  public:
-    char pad74[0x74 - 4];
-    unsigned char flag;
-    char pad178[0x178 - 0x75];
-    int state;
-    virtual void target(int);
+struct FETextInput_nv_dc7c0 {
     void helper();
 };
-void FETextInput::target(int) {
-    if (flag) {
-        state = 1;
-        helper();
+
+void FETextInput::vfunc_13(int ) {
+    if ((*(unsigned char *)&this->f_74)) {
+        this->f_178 = 1;
+        ((FETextInput_nv_dc7c0*)this)->helper();
     }
 }

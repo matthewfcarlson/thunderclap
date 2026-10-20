@@ -1,23 +1,13 @@
-class BufferDataReader {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual unsigned vfunc_4(void*, unsigned);
-    virtual void f5();
-    char pad[4];
-    char* data;
-    int unused;
-    unsigned size;
-    unsigned pos;
-};
+#include "gen/fight.h"
+
 extern "C" void* memcpy(void*, const void*, unsigned);
-unsigned BufferDataReader::vfunc_4(void* dst, unsigned n) {
-    unsigned available = size - pos;
+
+int fight::BufferDataReader::vfunc_4(int __p0, int __p1) { void * dst = (void *)__p0; unsigned int n = (unsigned int)__p1;
+
+    unsigned available = this->f_10 - this->f_14;
     if (available < n)
         n = available;
-    memcpy(dst, data + pos, n);
-    pos += n;
-    return n;
+    memcpy(dst, (*(char * *)&this->f_08) + this->f_14, n);
+    this->f_14 += n;
+    return (int)(n);
 }

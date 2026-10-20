@@ -1,4 +1,6 @@
-class FEDoAction {
+#include "gen/global.h"
+
+class FEDoAction_e1b00 {
   public:
     virtual void v0();
     virtual void v1();
@@ -66,17 +68,8 @@ struct Holder_e1b00 {
     int x;
     Obj_e1b00* p;
 };
-class FEDoFunction : public FEDoAction {
-  public:
-    char p10[12];
-    Holder_e1b00* holder;
-    char p14[32];
-    Check_e1b00* mCheck;
-    int a38;
-    int a3c;
-    virtual void vfunc_1();
-};
+
 void FEDoFunction::vfunc_1() {
-    if (mCheck && mCheck->Call(a38, a3c))
-        holder->p->f48(7);
+    if ((*(Check_e1b00 * *)&this->f_34) && (*(Check_e1b00 * *)&this->f_34)->Call(this->f_38, this->f_3c))
+        (*(Holder_e1b00 * *)&this->f_10)->p->f48(7);
 }

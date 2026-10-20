@@ -62,7 +62,13 @@ public:
 class ContentStream : public ::om::Stream {
 public:
     virtual ~ContentStream(); // overrides om::Stream slot 0
-    char _pad_04[0x18];
+    int f_04;
+    int f_08;
+    int f_0c;
+    int f_10;
+    int f_14;
+    char f_18;
+    char _pad_19[0x3];
     void* f_1c;
 };
 
@@ -107,7 +113,9 @@ public:
     virtual void vfunc_6(); // slot 6
     virtual bool vfunc_7(void*); // slot 7
     virtual void vfunc_8() = 0; // slot 8
-    char _pad_04[0x1c];
+    char _pad_04[0x14];
+    int f_18;
+    int f_1c;
     short f_20;
 };
 

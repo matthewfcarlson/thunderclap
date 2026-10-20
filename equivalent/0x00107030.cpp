@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 13/14, incomplete)
 // CRangedAgent::vfunc_3 @ 0x00107030
 // CRangedAgent::vfunc_3 @ 0x00107030
+#include "gen/global.h"
+
 struct Stats_107030 {
     char pad0[0x3a0];
     float limit;
@@ -35,39 +37,28 @@ public:
     Unit_107030 unit;
 };
 
-class CRangedAgent {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual float vfunc_3(int a, int b);
-    char pad4[4];
-    float value;
-    char pad0c[0x58 - 0xc];
-    Brain_107030 *brain;
-
+struct CRangedAgent_nv_107030 {
     float FUN_000fc4e0(int a, int b);
 };
 
-float CRangedAgent::vfunc_3(int a, int b)
-{
-    FUN_000fc4e0(a, b);
-    Weapon_107030 *weapon = brain->v6();
-    Unit_107030 *unit = &brain->unit;
-    value = 0.0f;
+float CRangedAgent::vfunc_3(int a, int b) {
+    ((CRangedAgent_nv_107030*)this)->FUN_000fc4e0(a, b);
+    Weapon_107030 *weapon = (*(Brain_107030 * *)&this->f_58)->v6();
+    Unit_107030 *unit = &(*(Brain_107030 * *)&this->f_58)->unit;
+    (*(float *)&this->f_08) = 0.0f;
     if (unit == 0 || unit->binding == 0)
         return 0.0f;
 
     if (!unit->flag46) {
-        if (brain->v9() < 3 || !unit->flag45)
-            return value;
+        if ((*(Brain_107030 * *)&this->f_58)->v9() < 3 || !unit->flag45)
+            return (*(float *)&this->f_08);
     }
     if (weapon->stats->limit >= 4.0f) {
         if (unit->flag46) {
-            value = 60.0f;
-            return value;
+            (*(float *)&this->f_08) = 60.0f;
+            return (*(float *)&this->f_08);
         }
-        value = 40.0f;
+        (*(float *)&this->f_08) = 40.0f;
     }
-    return value;
+    return (*(float *)&this->f_08);
 }

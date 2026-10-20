@@ -1,18 +1,11 @@
+#include "gen/core.h"
+
 namespace core {
-class MemoryDlAllocator {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual bool vfunc_5(unsigned int);
-    unsigned char pad[8];
-    unsigned int lo, hi;
-};
-bool MemoryDlAllocator::vfunc_5(unsigned int p) {
-    if (p >= lo && p < hi || p == 0)
+
+} // namespace core
+bool core::MemoryDlAllocator::vfunc_5(void* __p0) { unsigned int p = (unsigned int)__p0;
+
+    if (p >= (*(unsigned int *)&this->f_0c) && p < (*(unsigned int *)&this->f_10) || p == 0)
         return true;
     return false;
 }
-} // namespace core

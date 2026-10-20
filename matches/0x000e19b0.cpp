@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class Obj_e19b0 {
   public:
     virtual void f0();
@@ -55,7 +57,7 @@ struct Inner_e19b0 {
     int pad;
     Obj_e19b0* ptr;
 };
-struct FEDoAction {
+struct FEDoAction_e19b0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -64,10 +66,7 @@ struct FEDoAction {
     char pad[0xc];
     Inner_e19b0* field;
 };
-struct FEDoSound : FEDoAction {
-    char rest[0x34 - 0x14];
-    virtual void vfunc_1();
-};
+
 void FEDoSound::vfunc_1() {
-    field->ptr->f49((char*)this + 0x34);
+    (*(Inner_e19b0 * *)&this->f_10)->ptr->f49((char*)this + 0x34);
 }

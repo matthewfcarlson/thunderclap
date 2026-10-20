@@ -1,31 +1,25 @@
 // Same code shape as 0x0028b4d0 (propagated; names are from that function)
+#include "gen/pure3d.h"
+
 struct Obj_28b660 {
     virtual void f0();
     virtual void f1();
 };
 void thunk(int*);
-class Vector3DOFChannel_28b660 {
-  public:
-    char pad0[12];
-    Obj_28b660* volatile mObj;
-    char pad10[4];
-    int* m14;
-    int* m18;
-    void vfunc_1();
-};
-void Vector3DOFChannel_28b660::vfunc_1() {
-    if (mObj == 0)
-        thunk(m18);
-    m18 = 0;
-    if (mObj == 0) {
-        thunk(m14);
-        m14 = 0;
+
+void pure3d::Vector3DOFChannel::vfunc_1() {
+    if ((*(Obj_28b660 *volatile *)&this->f_0c) == 0)
+        thunk((*(int * *)&this->f_18));
+    (*(int * *)&this->f_18) = 0;
+    if ((*(Obj_28b660 *volatile *)&this->f_0c) == 0) {
+        thunk((*(int * *)&this->f_14));
+        (*(int * *)&this->f_14) = 0;
         return;
     }
-    Obj_28b660* p = mObj;
+    Obj_28b660* p = (*(Obj_28b660 *volatile *)&this->f_0c);
     if (p) {
         p->f1();
-        mObj = 0;
+        (*(Obj_28b660 *volatile *)&this->f_0c) = 0;
     }
-    m14 = 0;
+    (*(int * *)&this->f_14) = 0;
 }

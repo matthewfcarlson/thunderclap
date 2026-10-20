@@ -646,6 +646,16 @@ class Gen:
             u = c.unit if c else self.unit_by_uid.get(uname)
             for off, t in fl.items():
                 u.fields[off] = t
+        # tools/rn_fields.py (batch b7): fields the stubs agree on, already in the header text
+        rn = os.path.join(OUT_DIR, "evidence-rn.json")
+        if os.path.exists(rn):
+            for uname, fl in json.load(open(rn))["fields"].items():
+                c = self.by_csv.get(uname) or self.by_name.get(uname)
+                if c is None:
+                    self.report["evidence_dropped"].append("evidence-rn fields for unknown class %s" % uname)
+                    continue
+                for off, t in fl.items():
+                    c.unit.fields[int(off, 16)] = t
         # overlapping fields: keep the earlier one
         for u in self.units.values():
             end = -1

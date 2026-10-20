@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class Base_e1c80 {
   public:
     virtual void a();
@@ -46,15 +48,12 @@ class Container_e1c80 {
     int pad;
     Inner_e1c80* p;
 };
-class FEDoAction {
+class FEDoAction_e1c80 {
   public:
     char pad[0x10];
     Container_e1c80* m;
 };
-class FEDoBackMenu : public FEDoAction {
-  public:
-    void vfunc_1();
-};
+
 void FEDoBackMenu::vfunc_1() {
-    m->p->ak();
+    (*(Container_e1c80 * *)&this->f_10)->p->ak();
 }

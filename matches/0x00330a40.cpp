@@ -1,25 +1,22 @@
+#include "gen/pure3d.h"
+
 namespace D3D8 {
 void __stdcall D3DDevice_GetTransform(unsigned int, float*);
 void __fastcall D3DDevice_SetVertexShaderConstant4(unsigned int, const float*);
 } // namespace D3D8
-struct Matrix {
+struct Matrix_330a40 {
     float v[16];
-    void FUN_0022ca90(const Matrix*, const Matrix*);
-    void FUN_0022cc10(const Matrix*, const Matrix*);
+    void FUN_0022ca90(const Matrix_330a40*, const Matrix_330a40*);
+    void FUN_0022cc10(const Matrix_330a40*, const Matrix_330a40*);
     void FUN_0022c0b0();
     void FUN_0022cdb0();
 };
 namespace pure3d {
-struct d3dToonVertexShader {
-    char padding[0x7d];
-    unsigned char flag;
-    void vfunc_24();
-};
 } // namespace pure3d
 void pure3d::d3dToonVertexShader::vfunc_24() {
-    if (flag)
+    if ((*(unsigned char *)&this->f_7d))
         return;
-    Matrix projection, view, world, worldView, combined, invCombined, invWorldView, invProjection, adjusted;
+    Matrix_330a40 projection, view, world, worldView, combined, invCombined, invWorldView, invProjection, adjusted;
     D3D8::D3DDevice_GetTransform(6, projection.v);
     D3D8::D3DDevice_GetTransform(0, view.v);
     D3D8::D3DDevice_GetTransform(1, world.v);

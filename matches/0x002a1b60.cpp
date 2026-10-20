@@ -1,4 +1,6 @@
 // pure3d::TranslucentTraversal::vfunc_4 @ 0x002a1b60
+#include "gen/pure3d.h"
+
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/Render/Canvas.h"
@@ -161,28 +163,15 @@ struct Helper_2a1b60 {
     void FUN_002a06d0(int link);
 };
 
-
-class TranslucentTraversal {
-public:
-    void run();
-    char p0[4];
-    char p1[0x10];
-    Helper_2a1b60* helper;
-    unsigned int count;
-    char p2[0x28 - 0x18 - 4];
-    Item_2a1b60** items;
-};
-
-void TranslucentTraversal::run()
-{
+void pure3d::TranslucentTraversal::vfunc_4() {
     (*(*(Device_2a1b60***)&DAT_0052c2ac))->v15(0);
-    for (unsigned int i = 0; i < count; i++) {
-        ObjHandle* handle = items[i]->handle;
-        Sub_2a1b60* sub = items[i]->sub;
-        (*(*(Device_2a1b60***)&DAT_0052c2ac))->v14(0, items[i]->n);
-        if (handle->obj->v9() == 1 && helper != 0 && sub->link != 0)
-            helper->FUN_002a06d0(sub->link);
-        if (items[i]->tag == DAT_004e2314) {
+    for (unsigned int i = 0; i < (*(unsigned int *)&this->f_18); i++) {
+        ObjHandle* handle = (*(Item_2a1b60 ** *)&this->f_28)[i]->handle;
+        Sub_2a1b60* sub = (*(Item_2a1b60 ** *)&this->f_28)[i]->sub;
+        (*(*(Device_2a1b60***)&DAT_0052c2ac))->v14(0, (*(Item_2a1b60 ** *)&this->f_28)[i]->n);
+        if (handle->obj->v9() == 1 && (*(Helper_2a1b60 * *)&this->f_14) != 0 && sub->link != 0)
+            (*(Helper_2a1b60 * *)&this->f_14)->FUN_002a06d0(sub->link);
+        if ((*(Item_2a1b60 ** *)&this->f_28)[i]->tag == DAT_004e2314) {
             DAT_0052c2a8->v87(8);
             DAT_0052c2a8->v78(0);
         }
@@ -195,7 +184,7 @@ void TranslucentTraversal::run()
         } else {
             handle->FUN_002a4060();
         }
-        if (items[i]->tag == DAT_004e2314)
+        if ((*(Item_2a1b60 ** *)&this->f_28)[i]->tag == DAT_004e2314)
             DAT_0052c2a8->v88(8);
     }
     (*(*(Device_2a1b60***)&DAT_0052c2ac))->v16(0);

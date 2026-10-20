@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 9/9)
 // audio::SeqActionWait::vfunc_6 @ 0x00250160
+#include "gen/audio.h"
+
 struct Str_250160 {
     char *data;
     short mode;
@@ -28,7 +30,7 @@ struct WaitData {
 
 void FUN_002613b0(Table_250160 *t, Str_250160 *out, Str_250160 *in);
 
-class SeqAction {
+class SeqAction_250160 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -43,33 +45,28 @@ public:
 };
 
 namespace audio {
-class SeqActionWait : public SeqAction {
-public:
-    virtual void vfunc_6(Ctx_250160 *ctx);
-};
 }
+void audio::SeqActionWait::vfunc_6(int __p0) { Ctx_250160 * ctx = (Ctx_250160 *)__p0;
 
-void audio::SeqActionWait::vfunc_6(Ctx_250160 *ctx)
-{
     Str_250160 value;
     Str_250160 probe;
-    switch (state) {
+    switch (this->f_0c) {
     case 1:
     case 4:
-        state = 2;
+        this->f_0c = 2;
         break;
     case 3: {
         value.FUN_0023fac0();
-        FUN_002613b0(&ctx->mgr->table, &value, &data->name);
+        FUN_002613b0(&ctx->mgr->table, &value, &(*(WaitData * *)&this->f_08)->name);
         bool same = probe.FUN_0023fc40("t", 2)->FUN_00240310(&value);
         FUN_00240060(&probe);
         if (same)
-            state = 0;
+            this->f_0c = 0;
         FUN_00240060(&value);
         break;
     }
     case 5:
-        state = 0;
+        this->f_0c = 0;
         break;
     }
 }

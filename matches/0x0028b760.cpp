@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 class Ref_28b760 {
   public:
     virtual void v0();
@@ -9,22 +11,12 @@ class Elem_28b760 {
     ~Elem_28b760() throw();
 };
 void operator delete(void*);
-class StringChannel {
-  public:
-    virtual void a();
-    virtual void b();
-    char pad[8];
-    Ref_28b760* volatile mRef;
-    char pad2[4];
-    void* m14;
-    Elem_28b760* m18;
-    void vfunc_1();
-};
-void StringChannel::vfunc_1() {
-    if (mRef == 0 && m18 != 0) {
-        int* base = (int*)m18 - 1;
+
+void pure3d::StringChannel::vfunc_1() {
+    if ((*(Ref_28b760 *volatile *)&this->f_0c) == 0 && (*(Elem_28b760 * *)&this->f_18) != 0) {
+        int* base = (int*)(*(Elem_28b760 * *)&this->f_18) - 1;
         int n = *base;
-        Elem_28b760* e = m18 + n;
+        Elem_28b760* e = (*(Elem_28b760 * *)&this->f_18) + n;
         n--;
         if (n >= 0) {
             int c = n + 1;
@@ -36,16 +28,16 @@ void StringChannel::vfunc_1() {
         }
         operator delete(base);
     }
-    m18 = 0;
-    if (mRef == 0) {
-        operator delete(m14);
-        m14 = 0;
+    (*(Elem_28b760 * *)&this->f_18) = 0;
+    if ((*(Ref_28b760 *volatile *)&this->f_0c) == 0) {
+        operator delete((*(void * *)&this->f_14));
+        (*(void * *)&this->f_14) = 0;
     } else {
-        Ref_28b760* r = mRef;
+        Ref_28b760* r = (*(Ref_28b760 *volatile *)&this->f_0c);
         if (r != 0) {
             r->v1();
-            mRef = 0;
+            (*(Ref_28b760 *volatile *)&this->f_0c) = 0;
         }
-        m14 = 0;
+        (*(void * *)&this->f_14) = 0;
     }
 }

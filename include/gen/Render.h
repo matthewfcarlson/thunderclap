@@ -100,7 +100,10 @@ public:
     virtual ~StoreBase(); // slot 0
     virtual int vfunc_1(int) = 0; // slot 1
     virtual void vfunc_2(void*) = 0; // slot 2
-    char _pad_04[0x10];
+    char _pad_04[0x4];
+    int f_08;
+    int f_0c;
+    int f_10;
     void* f_14;
 };
 

@@ -57,9 +57,20 @@ public:
     virtual bool vfunc_11(int, int, int, int); // overrides choreo2::Driver slot 11
     virtual bool vfunc_12(int, int); // overrides choreo2::Driver slot 12
     virtual unsigned char vfunc_13(); // overrides choreo2::Driver slot 13
-    char _pad_14[0xc];
+    void* f_14;
+    int f_18;
+    int f_1c;
     void* f_20;
-    char _pad_24[0x218];
+    char _pad_24[0x4];
+    void* f_28;
+    char _pad_2c[0x1f8];
+    char f_224;
+    char f_225;
+    char _pad_226[0xe];
+    char f_234;
+    char f_235;
+    char _pad_236[0x2];
+    int f_238;
     float f_23c;
 };
 
@@ -96,11 +107,21 @@ public:
     virtual bool vfunc_11(int, int, int, int); // overrides choreo2::Driver slot 11
     virtual bool vfunc_12(int, int); // overrides choreo2::Driver slot 12
     virtual void vfunc_14(float); // overrides choreo2::LocomotionDriver slot 14
-    char _pad_14[0x1c];
+    void* f_14;
+    int f_18;
+    int f_1c;
+    float f_20;
+    float f_24;
+    int f_28;
+    int f_2c;
     unsigned int f_30;
     char _pad_34[0x868];
     bool f_89c;
-    char _pad_89d[0x63];
+    char _pad_89d[0xf];
+    int f_8ac;
+    char _pad_8b0[0x4];
+    int f_8b4;
+    char _pad_8b8[0x48];
     float f_900;
     float f_904;
     float f_908;
@@ -117,7 +138,13 @@ public:
     virtual bool vfunc_11(int, int, int, int); // overrides choreo2::Driver slot 11
     virtual bool vfunc_12(int, int); // overrides choreo2::Driver slot 12
     virtual void vfunc_14(float); // overrides choreo2::LocomotionDriver slot 14
-    char _pad_14[0x1c];
+    void* f_14;
+    int f_18;
+    int f_1c;
+    float f_20;
+    float f_24;
+    int f_28;
+    int f_2c;
     unsigned int f_30;
 };
 

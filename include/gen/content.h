@@ -107,7 +107,9 @@ public:
     virtual void vfunc_3(int, int, int); // slot 3
     virtual void vfunc_4(void*, void*, void*); // slot 4
     virtual void vfunc_5(void*); // slot 5
-    char _pad_08[0x4];
+    char f_08;
+    char f_09;
+    char _pad_0a[0x2];
     void* f_0c;
     void* f_10;
 };
@@ -178,7 +180,10 @@ public:
 class LoadRequest : public ::content::LoadObject {
 public:
     virtual ~LoadRequest(); // overrides core::IRefCount slot 2
-    char _pad_08[0x10];
+    int f_08;
+    int f_0c;
+    int f_10;
+    int f_14;
     void* f_18;
     void* f_1c;
     char _pad_20[0x104];
@@ -190,7 +195,14 @@ class LoadStream : public ::content::LoadObject {
 public:
     virtual ~LoadStream(); // overrides core::IRefCount slot 2
     void* f_08;
-    char _pad_0c[0x14];
+    char _pad_0c[0x1];
+    char f_0d;
+    char f_0e;
+    char _pad_0f[0x1];
+    int f_10;
+    int f_14;
+    int f_18;
+    int f_1c;
     void* f_20;
     void* f_24;
 };
@@ -216,7 +228,8 @@ public:
     virtual void vfunc_3(int, int, int, int, int); // overrides content::ObjectLoader slot 3
     virtual void vfunc_4(); // slot 4
     virtual void vfunc_5(void*, void*, void*, int) = 0; // slot 5
-    char _pad_08[0x8];
+    int f_08;
+    int f_0c;
     int f_10;
 };
 

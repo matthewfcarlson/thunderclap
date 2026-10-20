@@ -1,18 +1,6 @@
-namespace pure3d { class AmbientLight {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void vfunc_9(int x);
-    char pad[0x10];
-    int value;
-}; }
+#include "gen/pure3d.h"
+
+namespace pure3d {  }
 class Dispatch_2a1280 {
   public:
     virtual void f0();
@@ -54,5 +42,5 @@ class Dispatch_2a1280 {
 };
 extern Dispatch_2a1280* g_dispatch;
 void pure3d::AmbientLight::vfunc_9(int x) {
-    return g_dispatch->f35(value);
+    return g_dispatch->f35(this->f_14);
 }

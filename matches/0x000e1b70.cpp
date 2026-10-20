@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 struct Inner_e1b70 {
     virtual void f0();
     virtual void f1();
@@ -34,16 +36,7 @@ struct Holder_e1b70 {
     char pad[4];
     Inner_e1b70* p;
 };
-struct FEDoMenu {
-    virtual void f0();
-    virtual void vfunc_1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    char pad[12];
-    Holder_e1b70* m10;
-    char pad2[0x34 - 0x14];
-};
+
 void FEDoMenu::vfunc_1() {
-    m10->p->f29((char*)this + 0x34);
+    (*(Holder_e1b70 * *)&this->f_10)->p->f29((char*)this + 0x34);
 }

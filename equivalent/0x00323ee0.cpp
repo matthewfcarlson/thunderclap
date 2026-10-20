@@ -1,14 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 19/22, incomplete)
 // pure3d::d3dContext::vfunc_109 @ 0x00323ee0
 // volatile locals (nf, w2) force the float-rounded memory temporaries the original uses; 0.0f - (lo - hi) reproduces its constant-load order.
-struct Matrix {
+#include "gen/pure3d.h"
+
+struct Matrix_323ee0 {
     float m[16];
 };
 namespace D3D8 {
-void __stdcall D3DDevice_SetTransform(int, const Matrix*);
+void __stdcall D3DDevice_SetTransform(int, const Matrix_323ee0*);
 }
 extern "C" double __cdecl tan(double);
-extern void __fastcall FUN_0022b980(Matrix*);
+extern void __fastcall FUN_0022b980(Matrix_323ee0*);
 class Viewport_323ee0 {
   public:
     virtual void s0();
@@ -26,29 +28,24 @@ struct ViewInfo {
     float x0, y0, x1, y1;
     float nearZ, farZ, fov, aspect;
 };
-class Ctx_323ee0 {
-  public:
-    void FUN_00323ee0();
+struct d3dContext_nv_323ee0 {
     void FUN_00321520(float x, float y, float w, float h);
-    char pad0[0x48];
-    ViewInfo* view;
-    char pad4c[0x154 - 0x4c];
-    Viewport_323ee0* viewport;
 };
-void Ctx_323ee0::FUN_00323ee0() {
-    ViewInfo* k0 = view;
-    Matrix mat;
+
+void pure3d::d3dContext::vfunc_109() {
+    ViewInfo* k0 = (*(ViewInfo * *)&this->f_48);
+    Matrix_323ee0 mat;
     FUN_0022b980(&mat);
-    float W = (float)viewport->GetWidth();
-    float H = (float)viewport->GetHeight();
-    ViewInfo* k = view;
+    float W = (float)(*(Viewport_323ee0 * *)&this->f_154)->GetWidth();
+    float H = (float)(*(Viewport_323ee0 * *)&this->f_154)->GetHeight();
+    ViewInfo* k = (*(ViewInfo * *)&this->f_48);
     volatile float nf[2];
     switch (k->mode) {
     case 0: {
         nf[0] = k0->nearZ;
         nf[1] = k0->farZ;
-        float A = (float)tan(view->fov * 0.5) * view->nearZ;
-        float X = A / view->aspect;
+        float A = (float)tan((*(ViewInfo * *)&this->f_48)->fov * 0.5) * (*(ViewInfo * *)&this->f_48)->nearZ;
+        float X = A / (*(ViewInfo * *)&this->f_48)->aspect;
         float v20 = (k->x0 + k->x0) / (k->x1 - k->x0) + 1.0f;
         if (v20 > 1.0f)
             v20 = 1.0f;
@@ -91,7 +88,7 @@ void Ctx_323ee0::FUN_00323ee0() {
             k->y1 = 1.0f;
         if (k->y0 < 0.0f)
             k->y0 = 0.0f;
-        FUN_00321520(W * k->x0, H * k->y0, (k->x1 - k->x0) * W, (k->y1 - k->y0) * H);
+        ((d3dContext_nv_323ee0*)this)->FUN_00321520(W * k->x0, H * k->y0, (k->x1 - k->x0) * W, (k->y1 - k->y0) * H);
         break;
     }
     case 1: {
@@ -103,7 +100,7 @@ void Ctx_323ee0::FUN_00323ee0() {
         float r = 1.0f / (nf[1] - nf[0]);
         mat.m[10] = r;
         mat.m[14] = -(r * nf[0]);
-        FUN_00321520(W * k->x0, H * k->y0, (k->x1 - k->x0) * W, (k->y1 - k->y0) * H);
+        ((d3dContext_nv_323ee0*)this)->FUN_00321520(W * k->x0, H * k->y0, (k->x1 - k->x0) * W, (k->y1 - k->y0) * H);
         break;
     }
     case 2: {
@@ -116,7 +113,7 @@ void Ctx_323ee0::FUN_00323ee0() {
         float r = 1.0f / (nf[1] - nf[0]);
         mat.m[10] = r;
         mat.m[14] = -(r * nf[0]);
-        FUN_00321520(0.0f, 0.0f, W, H);
+        ((d3dContext_nv_323ee0*)this)->FUN_00321520(0.0f, 0.0f, W, H);
         break;
     }
     }

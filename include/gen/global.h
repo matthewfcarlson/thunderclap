@@ -548,7 +548,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -587,7 +587,14 @@ public:
     virtual void vfunc_7(); // slot 7
     virtual void vfunc_8(int); // slot 8
     virtual unsigned int vfunc_9(); // slot 9
-    char _pad_08[0xe8];
+    int f_08;
+    char _pad_0c[0x40];
+    int f_4c;
+    int f_50;
+    char _pad_54[0x94];
+    char f_e8;
+    char f_e9;
+    char _pad_ea[0x6];
     int f_f0;
 };
 
@@ -638,7 +645,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     int f_10;
 };
@@ -689,7 +696,7 @@ public:
     virtual bool vfunc_7(int); // overrides CAction slot 7
     char _pad_08[0x14];
     void* f_1c;
-    char _pad_20[0x4];
+    void* f_20;
     void* f_24;
 };
 
@@ -702,7 +709,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -889,7 +896,9 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
-    char _pad_08[0x1c];
+    char _pad_08[0x14];
+    void* f_1c;
+    char _pad_20[0x4];
     unsigned int f_24;
 };
 
@@ -902,7 +911,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -926,7 +935,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -953,7 +962,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
 };
 
@@ -993,14 +1002,20 @@ public:
     virtual void vfunc_4(int, int); // overrides CGolem slot 4
     virtual void vfunc_5(int, int); // overrides CGolem slot 5
     virtual void vfunc_7(); // overrides CGolem slot 7
-    char _pad_f4[0xc];
+    char f_f4;
+    char _pad_f5[0x3];
+    int f_f8;
+    char _pad_fc[0x4];
     void* f_100;
     void* f_104;
     void* f_108;
     void* f_10c;
     void* f_110;
     void* f_114;
-    char _pad_118[0x10];
+    char _pad_118[0x9];
+    char f_121;
+    char _pad_122[0x2];
+    float f_124;
     unsigned char f_128;
 };
 
@@ -1056,9 +1071,12 @@ public:
     virtual void vfunc_4(int, int, int); // overrides CAgent slot 4
     virtual void vfunc_7(int); // overrides CAgent slot 7
     virtual void vfunc_9(); // overrides CAgent slot 9
-    char _pad_0c[0x5c];
+    char _pad_0c[0x4c];
+    void* f_58;
+    char _pad_5c[0xc];
     int f_68;
-    char _pad_6c[0x4];
+    char f_6c;
+    char _pad_6d[0x3];
     int f_70;
 };
 
@@ -1075,9 +1093,95 @@ public:
     virtual void vfunc_34(int, int, int, int, int); // overrides CGameCamera slot 34
     virtual void vfunc_35(int, int, int, int); // overrides CGameCamera slot 35
     virtual void vfunc_38(void*, int, void*); // slot 38
-    char _pad_d0[0x280];
+    int f_d0;
+    float f_d4;
+    float f_d8;
+    float f_dc;
+    char _pad_e0[0x11];
+    char f_f1;
+    char _pad_f2[0x82];
+    int f_174;
+    int f_178;
+    char _pad_17c[0x4];
+    int f_180;
+    int f_184;
+    int f_188;
+    int f_18c;
+    int f_190;
+    char _pad_194[0x10];
+    int f_1a4;
+    int f_1a8;
+    char _pad_1ac[0x4];
+    int f_1b0;
+    int f_1b4;
+    char _pad_1b8[0x1c];
+    int f_1d4;
+    int f_1d8;
+    char _pad_1dc[0x4];
+    int f_1e0;
+    int f_1e4;
+    char _pad_1e8[0x10];
+    int f_1f8;
+    int f_1fc;
+    int f_200;
+    char _pad_204[0x4];
+    int f_208;
+    char _pad_20c[0x34];
+    float f_240;
+    char f_244;
+    char f_245;
+    char _pad_246[0x6];
+    float f_24c;
+    float f_250;
+    char _pad_254[0x40];
+    float f_294;
+    float f_298;
+    char _pad_29c[0x48];
+    float f_2e4;
+    float f_2e8;
+    float f_2ec;
+    float f_2f0;
+    float f_2f4;
+    float f_2f8;
+    float f_2fc;
+    float f_300;
+    float f_304;
+    float f_308;
+    char _pad_30c[0x8];
+    float f_314;
+    float f_318;
+    char f_31c;
+    char _pad_31d[0x3];
+    int f_320;
+    int f_324;
+    int f_328;
+    char _pad_32c[0x4];
+    int f_330;
+    char _pad_334[0x4];
+    int f_338;
+    int f_33c;
+    char f_340;
+    char _pad_341[0x3];
+    char f_344;
+    char f_345;
+    char f_346;
+    char f_347;
+    char f_348;
+    char f_349;
+    char _pad_34a[0x6];
     int f_350;
-    char _pad_354[0x78];
+    char _pad_354[0x44];
+    float f_398;
+    float f_39c;
+    float f_3a0;
+    float f_3a4;
+    float f_3a8;
+    float f_3ac;
+    float f_3b0;
+    int f_3b4;
+    char _pad_3b8[0xc];
+    float f_3c4;
+    float f_3c8;
     int f_3cc;
 };
 
@@ -1119,7 +1223,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
 };
 
@@ -1156,7 +1260,7 @@ public:
     virtual float vfunc_6(); // overrides fight::Track slot 6
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -1172,9 +1276,13 @@ public:
     char _pad_08[0x14];
     void* f_1c;
     void* f_20;
-    char _pad_24[0x18];
+    int f_24;
+    char _pad_28[0xc];
+    int f_34;
+    int f_38;
     void* f_3c;
-    char _pad_40[0x8];
+    float f_40;
+    float f_44;
     void* f_48;
 };
 
@@ -1281,7 +1389,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
     virtual void vfunc_11(void*); // slot 11
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -1302,7 +1410,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
 };
 
@@ -1322,7 +1430,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
     unsigned int f_14;
@@ -1374,7 +1482,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     int f_10;
     int f_14;
@@ -1463,7 +1571,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
     float f_14;
@@ -1495,7 +1603,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -1539,9 +1647,10 @@ public:
     virtual ~CEffectAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x18];
+    char _pad_08[0x14];
+    void* f_1c;
     void* f_20;
-    char _pad_24[0x4];
+    void* f_24;
     int f_28;
 };
 
@@ -1565,7 +1674,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
 };
 
@@ -1578,10 +1687,19 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
     virtual void vfunc_11(void*); // slot 11
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
-    char _pad_14[0x3c];
+    char _pad_14[0xc];
+    int f_20;
+    int f_24;
+    char _pad_28[0x10];
+    int f_38;
+    int f_3c;
+    int f_40;
+    int f_44;
+    int f_48;
+    int f_4c;
     unsigned char f_50;
 };
 
@@ -1602,7 +1720,8 @@ public:
 class CEventManager {
 public:
     virtual ~CEventManager(); // slot 0
-    char _pad_04[0x8];
+    int f_04;
+    int f_08;
     void* f_0c;
     void* f_10;
 };
@@ -1772,7 +1891,8 @@ public:
     virtual bool vfunc_8(int); // overrides CAction slot 8
     char _pad_08[0x14];
     void* f_1c;
-    char _pad_20[0x8];
+    void* f_20;
+    int f_24;
     void* f_28;
 };
 
@@ -1813,7 +1933,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
 };
 
@@ -1918,7 +2038,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -1940,7 +2060,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -1962,7 +2082,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -2052,10 +2172,20 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
-    char _pad_14[0xb4];
+    int f_14;
+    int f_18;
+    char _pad_1c[0xc];
+    int f_28;
+    char _pad_2c[0x84];
+    int f_b0;
+    int f_b4;
+    int f_b8;
+    int f_bc;
+    int f_c0;
+    int f_c4;
     unsigned char f_c8;
 };
 
@@ -2077,7 +2207,7 @@ public:
     virtual void* vfunc_8(void*, void*); // overrides fight::Track slot 8
     virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
     virtual void vfunc_11(void*); // slot 11
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
 };
 
@@ -2131,7 +2261,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
 };
 
@@ -2180,7 +2310,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -2223,11 +2353,27 @@ public:
     virtual void vfunc_21(int, int, int); // slot 21
     virtual void vfunc_22(); // slot 22
     virtual void vfunc_23(); // slot 23
-    char _pad_0c[0x50];
+    char _pad_0c[0x4c];
+    void* f_58;
     void* f_5c;
-    char _pad_60[0x2c];
+    char f_60;
+    char _pad_61[0xf];
+    float f_70;
+    float f_74;
+    char f_78;
+    char f_79;
+    char f_7a;
+    char f_7b;
+    char f_7c;
+    char f_7d;
+    char f_7e;
+    char f_7f;
+    char _pad_80[0xc];
     float f_8c;
-    char _pad_90[0x18];
+    char _pad_90[0x8];
+    float f_98;
+    float f_9c;
+    char _pad_a0[0x8];
     float f_a8;
 };
 
@@ -2249,7 +2395,8 @@ public:
     virtual ~CHapticEventAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(int, int); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    char _pad_08[0x18];
+    char _pad_08[0x14];
+    void* f_1c;
     void* f_20;
 };
 
@@ -2263,10 +2410,11 @@ public:
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
     virtual float vfunc_14(); // slot 14
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
-    char _pad_14[0x8];
+    int f_14;
+    int f_18;
     unsigned char f_1c;
 };
 
@@ -2281,7 +2429,12 @@ public:
     void* f_1c;
     char _pad_20[0x4];
     void* f_24;
-    char _pad_28[0x60];
+    char _pad_28[0x4c];
+    char f_74;
+    char _pad_75[0x7];
+    int f_7c;
+    int f_80;
+    float f_84;
     void* f_88;
 };
 
@@ -2294,7 +2447,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -2425,7 +2578,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -2504,7 +2657,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -2531,7 +2684,7 @@ public:
     virtual bool vfunc_7(int); // overrides CAction slot 7
     char _pad_08[0x14];
     void* f_1c;
-    char _pad_20[0x4];
+    void* f_20;
     void* f_24;
 };
 
@@ -2575,7 +2728,7 @@ public:
     virtual float vfunc_29(); // slot 29
     virtual unsigned char vfunc_30(); // slot 30
     virtual unsigned char vfunc_31(); // slot 31
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
     float f_14;
@@ -2584,7 +2737,7 @@ public:
     float f_20;
     float f_24;
     float f_28;
-    char _pad_2c[0x4];
+    float f_2c;
     float f_30;
     float f_34;
     float f_38;
@@ -2620,7 +2773,9 @@ public:
     virtual void vfunc_8(int); // slot 8
     virtual float vfunc_9(); // slot 9
     virtual void vfunc_10(int); // slot 10
-    char _pad_10[0xc];
+    char _pad_10[0x4];
+    int f_14;
+    int f_18;
     float f_1c;
 };
 
@@ -2679,7 +2834,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
     unsigned int f_14;
@@ -2691,7 +2846,8 @@ public:
     virtual ~CMotionTrailAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
-    char _pad_08[0x18];
+    char _pad_08[0x14];
+    void* f_1c;
     void* f_20;
     int f_24;
 };
@@ -2725,7 +2881,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -2746,7 +2902,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -2759,7 +2915,9 @@ public:
     virtual void vfunc_4(int, int, int); // overrides CAgent slot 4
     virtual void vfunc_7(int); // overrides CAgent slot 7
     virtual void vfunc_9(); // overrides CAgent slot 9
-    char _pad_0c[0x5c];
+    char _pad_0c[0x4c];
+    void* f_58;
+    char _pad_5c[0xc];
     void* f_68;
 };
 
@@ -2772,7 +2930,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -2785,7 +2943,9 @@ public:
     virtual void vfunc_28(); // overrides CGameCamera slot 28
     virtual void vfunc_29(); // overrides CGameCamera slot 29
     virtual void vfunc_35(int, int, int, int); // overrides CGameCamera slot 35
-    char _pad_d0[0xa0];
+    char _pad_d0[0x21];
+    char f_f1;
+    char _pad_f2[0x7e];
     void* f_170;
 };
 
@@ -2809,7 +2969,8 @@ public:
     virtual void vfunc_7(int); // overrides CAgent slot 7
     virtual void vfunc_9(); // overrides CAgent slot 9
     virtual int vfunc_10(); // overrides CAgent slot 10
-    char _pad_0c[0x50];
+    char _pad_0c[0x4c];
+    void* f_58;
     void* f_5c;
 };
 
@@ -2835,7 +2996,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
     char _pad_14[0x4];
@@ -2878,7 +3039,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -2911,7 +3072,15 @@ public:
     virtual void vfunc_7(int); // overrides CAgent slot 7
     virtual void vfunc_9(); // overrides CAgent slot 9
     virtual void vfunc_11(int, int, int); // slot 11
-    char _pad_0c[0x70];
+    char _pad_0c[0x4c];
+    void* f_58;
+    int f_5c;
+    void* f_60;
+    void* f_64;
+    int f_68;
+    char _pad_6c[0x8];
+    int f_74;
+    int f_78;
     int f_7c;
     int f_80;
     int f_84;
@@ -2990,7 +3159,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
 };
 
@@ -3023,7 +3192,7 @@ public:
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~CRadMovieRenderLoop(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(); // overrides movie::RenderLoop slot 3
-    char _pad_04[0x4];
+    int f_04;
     int f_08;
     void* f_0c;
 };
@@ -3057,7 +3226,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     int f_10;
 };
@@ -3071,7 +3240,8 @@ public:
     virtual void vfunc_6(int); // overrides CAgent slot 6
     virtual void vfunc_7(int); // overrides CAgent slot 7
     virtual void vfunc_9(); // overrides CAgent slot 9
-    char _pad_0c[0x50];
+    char _pad_0c[0x4c];
+    void* f_58;
     void* f_5c;
 };
 
@@ -3227,7 +3397,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -3264,7 +3434,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
 };
 
@@ -3387,7 +3557,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
 };
 
@@ -3438,7 +3608,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -3468,7 +3638,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -3727,7 +3897,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     int f_10;
 };
@@ -3736,7 +3906,9 @@ public:
 class CStaticAllocator {
 public:
     virtual ~CStaticAllocator(); // slot 0
-    char _pad_04[0xc];
+    int f_04;
+    int f_08;
+    int f_0c;
     void* f_10;
     void* f_14;
 };
@@ -3786,7 +3958,14 @@ public:
     virtual void vfunc_2(); // overrides Overlay slot 2
     virtual void vfunc_3(int); // overrides Overlay slot 3
     virtual void vfunc_4(); // overrides Overlay slot 4
-    char _pad_04[0x119];
+    char f_04;
+    char _pad_05[0x7];
+    char f_0c;
+    char _pad_0d[0x7];
+    int f_14;
+    void* f_18;
+    char _pad_1c[0x100];
+    char f_11c;
     unsigned char f_11d;
 };
 
@@ -3799,7 +3978,7 @@ public:
     virtual bool vfunc_7(int); // overrides CAction slot 7
     char _pad_08[0x14];
     void* f_1c;
-    char _pad_20[0x4];
+    void* f_20;
     void* f_24;
 };
 
@@ -3812,7 +3991,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -3833,7 +4012,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -3861,7 +4040,12 @@ public:
     virtual void vfunc_13(int); // slot 13
     virtual void vfunc_14(int); // slot 14
     virtual void vfunc_15(int); // slot 15
-    char _pad_10[0xc0];
+    char _pad_10[0xb8];
+    float f_c8;
+    char f_cc;
+    char f_cd;
+    char f_ce;
+    char f_cf;
     int f_d0;
 };
 
@@ -3918,7 +4102,9 @@ public:
 class CUnlockableMove : public ::CUnlockable {
 public:
     virtual ~CUnlockableMove(); // overrides CUnlockable slot 0
-    char _pad_04[0x14];
+    char _pad_04[0x4];
+    char f_08;
+    char _pad_09[0xf];
     void* f_18;
 };
 
@@ -3979,7 +4165,7 @@ public:
     virtual float vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
     virtual void vfunc_11(void*); // slot 11
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -4883,7 +5069,9 @@ public:
     virtual bool vfunc_3(int); // overrides ControllerPollerBase slot 3
     virtual void vfunc_4(int, int); // overrides ControllerPollerBase slot 4
     virtual int vfunc_5(int); // overrides ControllerPollerBase slot 5
-    char _pad_04[0x34];
+    char _pad_04[0x4];
+    int f_08;
+    char _pad_0c[0x2c];
     int f_38;
 };
 
@@ -4943,7 +5131,7 @@ public:
     virtual float vfunc_5(); // slot 5
     virtual void vfunc_6(); // slot 6
     void* f_04;
-    char _pad_08[0x4];
+    int f_08;
     void* f_0c;
 };
 
@@ -4976,7 +5164,35 @@ public:
     virtual void vfunc_7(int); // slot 7
     virtual float vfunc_8(); // slot 8
     virtual float vfunc_9(); // slot 9
-    char _pad_04[0x9c];
+    char _pad_04[0x38];
+    int f_3c;
+    char f_40;
+    char _pad_41[0x3];
+    int f_44;
+    char f_48;
+    char _pad_49[0x3];
+    int f_4c;
+    char _pad_50[0x4];
+    float f_54;
+    float f_58;
+    float f_5c;
+    char _pad_60[0x8];
+    char f_68;
+    char _pad_69[0x3];
+    int f_6c;
+    int f_70;
+    char f_74;
+    char _pad_75[0x7];
+    int f_7c;
+    int f_80;
+    char _pad_84[0x4];
+    int f_88;
+    int f_8c;
+    int f_90;
+    int f_94;
+    char f_98;
+    char _pad_99[0x3];
+    float f_9c;
     float f_a0;
 };
 
@@ -5074,7 +5290,8 @@ public:
     int f_4c;
     char _pad_50[0x5fc];
     int f_64c;
-    char _pad_650[0x200];
+    char _pad_650[0x1fc];
+    float f_84c;
     int f_850;
     int f_854;
 };
@@ -5103,7 +5320,11 @@ public:
     virtual void vfunc_10(); // overrides FEContainer slot 10
     virtual void vfunc_11(); // overrides FEContainer slot 11
     virtual int vfunc_35(); // overrides FEContainer slot 35
-    char _pad_858[0x150];
+    char _pad_858[0x140];
+    void* f_998;
+    void* f_99c;
+    void* f_9a0;
+    void* f_9a4;
     unsigned char f_9a8;
 };
 
@@ -5118,7 +5339,7 @@ public:
     int f_04;
     int f_08;
     int f_0c;
-    char _pad_10[0x4];
+    void* f_10;
     char f_14;
 };
 
@@ -5435,7 +5656,9 @@ public:
     virtual void vfunc_64(int, int, int) = 0; // slot 64
     virtual void vfunc_65(); // slot 65
     virtual void vfunc_66(); // slot 66
-    char _pad_04[0x1708];
+    void* f_04;
+    void* f_08;
+    char _pad_0c[0x1700];
     unsigned char f_170c;
     char _pad_170d[0x4f];
     void* f_175c;
@@ -5451,12 +5674,33 @@ public:
     int f_17f4;
     int f_17f8;
     void* f_17fc;
-    char _pad_1800[0x30];
+    float f_1800;
+    int f_1804;
+    int f_1808;
+    float f_180c;
+    float f_1810;
+    float f_1814;
+    void* f_1818;
+    char _pad_181c[0x10];
+    int f_182c;
     int f_1830;
     int f_1834;
     int f_1838;
     int f_183c;
-    char _pad_1840[0x9d0];
+    char _pad_1840[0xc];
+    char f_184c;
+    char _pad_184d[0x3];
+    int f_1850;
+    char _pad_1854[0x820];
+    char f_2074;
+    char _pad_2075[0x8b];
+    int f_2100;
+    char f_2104;
+    char _pad_2105[0x100];
+    char f_2205;
+    char _pad_2206[0x2];
+    int f_2208;
+    int f_220c;
     unsigned int f_2210;
     unsigned int f_2214;
     void* f_2218;
@@ -5710,7 +5954,18 @@ public:
     virtual void vfunc_3(int); // overrides Overlay slot 3
     virtual void vfunc_4(); // overrides Overlay slot 4
     virtual void vfunc_5(int); // overrides Overlay slot 5
-    char _pad_04[0x7b8];
+    char f_04;
+    char _pad_05[0x23b];
+    int f_240;
+    char _pad_244[0x4];
+    char f_248;
+    char _pad_249[0x233];
+    int f_47c;
+    char _pad_480[0x4];
+    char f_484;
+    char _pad_485[0x32f];
+    float f_7b4;
+    float f_7b8;
     char f_7bc;
 };
 
@@ -5762,7 +6017,9 @@ public:
 class NamedValueFloat : public ::NamedValue {
 public:
     virtual void vfunc_1(); // overrides NamedValue slot 1
-    char _pad_04[0x3c];
+    char _pad_04[0x10];
+    void* f_14;
+    char _pad_18[0x28];
     float f_40;
     float f_44;
     void* f_48;
@@ -5772,7 +6029,12 @@ public:
 class NamedValueInt : public ::NamedValue {
 public:
     virtual void vfunc_1(); // overrides NamedValue slot 1
-    char _pad_04[0x3c];
+    int f_04;
+    int f_08;
+    int f_0c;
+    int f_10;
+    void* f_14;
+    char _pad_18[0x28];
     int f_40;
     int f_44;
     void* f_48;
@@ -5832,7 +6094,10 @@ public:
     virtual int vfunc_22(); // slot 22
     char _pad_04[0x4];
     void* f_08;
-    char _pad_0c[0x28];
+    char _pad_0c[0x4];
+    int f_10;
+    int f_14;
+    char _pad_18[0x1c];
     float f_34;
     float f_38;
     char _pad_3c[0x4];
@@ -5927,14 +6192,22 @@ public:
     virtual void vfunc_18(void*); // overrides FELayout slot 18
     virtual int vfunc_19(); // overrides FELayout slot 19
     virtual ~VScroll(); // slot 21
-    char _pad_04[0x30];
+    char _pad_04[0x4];
+    void* f_08;
+    char _pad_0c[0x24];
+    float f_30;
     float f_34;
     float f_38;
     char _pad_3c[0x204];
     int f_240;
     void* f_244;
     int f_248;
-    char _pad_24c[0x1c];
+    char _pad_24c[0x8];
+    float f_254;
+    void* f_258;
+    char _pad_25c[0x4];
+    float f_260;
+    float f_264;
     int f_268;
 };
 

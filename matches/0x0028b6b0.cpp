@@ -1,31 +1,25 @@
 // Same code shape as 0x0028b4d0 (propagated; names are from that function)
+#include "gen/pure3d.h"
+
 struct Obj_28b6b0 {
     virtual void f0();
     virtual void f1();
 };
 void thunk(int*);
-class QuaternionChannel_28b6b0 {
-  public:
-    char pad0[12];
-    Obj_28b6b0* volatile mObj;
-    char pad10[4];
-    int* m14;
-    int* m18;
-    void vfunc_1();
-};
-void QuaternionChannel_28b6b0::vfunc_1() {
-    if (mObj == 0)
-        thunk(m18);
-    m18 = 0;
-    if (mObj == 0) {
-        thunk(m14);
-        m14 = 0;
+
+void pure3d::QuaternionChannel::vfunc_1() {
+    if ((*(Obj_28b6b0 *volatile *)&this->f_0c) == 0)
+        thunk((*(int * *)&this->f_18));
+    (*(int * *)&this->f_18) = 0;
+    if ((*(Obj_28b6b0 *volatile *)&this->f_0c) == 0) {
+        thunk((*(int * *)&this->f_14));
+        (*(int * *)&this->f_14) = 0;
         return;
     }
-    Obj_28b6b0* p = mObj;
+    Obj_28b6b0* p = (*(Obj_28b6b0 *volatile *)&this->f_0c);
     if (p) {
         p->f1();
-        mObj = 0;
+        (*(Obj_28b6b0 *volatile *)&this->f_0c) = 0;
     }
-    m14 = 0;
+    (*(int * *)&this->f_14) = 0;
 }

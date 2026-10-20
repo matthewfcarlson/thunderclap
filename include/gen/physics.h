@@ -97,7 +97,8 @@ public:
     virtual void* vfunc_28(unsigned int) = 0; // slot 28
     virtual void vfunc_29(int); // slot 29
     int f_10;
-    char _pad_14[0x8];
+    int f_14;
+    int f_18;
     void* f_1c;
 };
 
@@ -199,7 +200,7 @@ public:
     virtual void* vfunc_28(unsigned int); // overrides physics::SimulatedObject slot 28
     virtual void vfunc_30(); // overrides physics::PhysicsObject slot 30
     void* f_1f8;
-    char _pad_1fc[0x4];
+    void* f_1fc;
     int f_200;
 };
 
@@ -219,7 +220,11 @@ public:
     virtual void vfunc_12(int, int); // slot 12
     virtual void vfunc_13(); // slot 13
     virtual void vfunc_14(void*); // slot 14
-    char _pad_08[0x11];
+    int f_08;
+    int f_0c;
+    int f_10;
+    char _pad_14[0x4];
+    char f_18;
     unsigned char f_19;
 };
 
@@ -248,7 +253,17 @@ public:
     void* f_08;
     unsigned int f_0c;
     unsigned char f_10;
-    char _pad_11[0x43];
+    char _pad_11[0x7];
+    void* f_18;
+    void* f_1c;
+    char _pad_20[0x8];
+    void* f_28;
+    char _pad_2c[0xc];
+    void* f_38;
+    void* f_3c;
+    char _pad_40[0x8];
+    void* f_48;
+    char _pad_4c[0x8];
     unsigned int f_54;
     unsigned int f_58;
     unsigned int f_5c;
@@ -469,7 +484,7 @@ public:
     virtual void vfunc_1(int, int); // overrides physics::Filter1D slot 1
     virtual float vfunc_2(); // overrides physics::Filter1D slot 2
     int f_04;
-    char _pad_08[0x4];
+    float f_08;
     float f_0c;
     float f_10;
     float f_14;
@@ -521,7 +536,14 @@ public:
     virtual void vfunc_3(void*, int, int, int); // slot 3
     virtual void vfunc_4(); // slot 4
     void* f_04;
-    char _pad_08[0x2c];
+    int f_08;
+    char _pad_0c[0x8];
+    void* f_14;
+    void* f_18;
+    int f_1c;
+    int f_20;
+    char _pad_24[0xc];
+    float f_30;
     unsigned char f_34;
 };
 
@@ -541,13 +563,21 @@ public:
     virtual void vfunc_12(void*, float, bool); // slot 12
     virtual void vfunc_13(void*); // slot 13
     virtual void vfunc_14(void*); // slot 14
-    char _pad_08[0x38];
+    int f_08;
+    int f_0c;
+    char _pad_10[0x30];
     float f_40;
     float f_44;
     float f_48;
     char _pad_4c[0x4];
     char f_50;
-    char _pad_51[0x1b];
+    char _pad_51[0x3];
+    int f_54;
+    int f_58;
+    char _pad_5c[0x4];
+    int f_60;
+    int f_64;
+    char _pad_68[0x4];
     int f_6c;
     void* f_70;
     void* f_74;
@@ -600,16 +630,22 @@ public:
     virtual bool vfunc_26(int, int) = 0; // slot 26
     virtual void* vfunc_27() = 0; // slot 27
     virtual void vfunc_28(void*); // slot 28
-    char _pad_04[0x4];
+    char f_04;
+    char _pad_05[0x1];
+    short f_06;
     int f_08;
-    char _pad_0c[0x4];
+    int f_0c;
     int f_10;
     int f_14;
     void* f_18;
     char _pad_1c[0x4];
     int f_20;
     int f_24;
-    char _pad_28[0x14];
+    int f_28;
+    char _pad_2c[0x4];
+    float f_30;
+    float f_34;
+    float f_38;
     float f_3c;
     float f_40;
 };

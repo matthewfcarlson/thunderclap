@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 115 inputs, branch coverage 34/40, incomplete)
 // CChaseAgent::vfunc_3 @ 0x000fc970
+#include "gen/global.h"
+
 struct Binding_fc970;
 
 struct Unit_fc970 {
@@ -57,34 +59,24 @@ public:
     Unit_fc970 unit;
 };
 
-class CChaseAgent {
-public:
-    char pad0[8];
-    float timer;
-    char pad0c[0x58 - 0xc];
-    Brain_fc970 *brain;
-    char pad5c[0x6c - 0x5c];
-    char engaged;
-    char pad6d[3];
-    float f70;
+struct CChaseAgent_nv_fc970 {
     float FUN_000fc4e0(Unit_fc970 *u, int a);
-    float FUN_000fc970(Unit_fc970 *u, int a);
 };
 
-float CChaseAgent::FUN_000fc970(Unit_fc970 *arg, int a)
-{
-    FUN_000fc4e0(arg, a);
-    Binding_fc970 *bind = brain->unit.binding;
-    Unit_fc970 *u = &brain->unit;
-    timer = 0.0f;
+float CChaseAgent::vfunc_3(int __p0, int a) { Unit_fc970 * arg = (Unit_fc970 *)__p0;
+
+    ((CChaseAgent_nv_fc970*)this)->FUN_000fc4e0(arg, a);
+    Binding_fc970 *bind = (*(Brain_fc970 * *)&this->f_58)->unit.binding;
+    Unit_fc970 *u = &(*(Brain_fc970 * *)&this->f_58)->unit;
+    (*(float *)&this->f_08) = 0.0f;
     if (!bind)
         return 0.0f;
 
-    Weapon_fc970 *w = brain->v6();
+    Weapon_fc970 *w = (*(Brain_fc970 * *)&this->f_58)->v6();
     if (!w)
-        return timer;
-    if (brain->v9() < 2)
-        return timer;
+        return (*(float *)&this->f_08);
+    if ((*(Brain_fc970 * *)&this->f_58)->v9() < 2)
+        return (*(float *)&this->f_08);
 
     int kind = 0;
     if (bind->type == 1)
@@ -111,14 +103,14 @@ float CChaseAgent::FUN_000fc970(Unit_fc970 *arg, int a)
         }
     }
     if (reset) {
-        timer = 50.0f;
-        engaged = 0;
-        return timer;
+        (*(float *)&this->f_08) = 50.0f;
+        this->f_6c = 0;
+        return (*(float *)&this->f_08);
     }
 
-    if (!u->flag12 && u->f14 > 2.5f && f70 > 0.0f) {
-        engaged = 1;
-        timer = 50.0f;
+    if (!u->flag12 && u->f14 > 2.5f && (*(float *)&this->f_70) > 0.0f) {
+        this->f_6c = 1;
+        (*(float *)&this->f_08) = 50.0f;
     }
-    return timer;
+    return (*(float *)&this->f_08);
 }

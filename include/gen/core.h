@@ -160,9 +160,17 @@ public:
     virtual void vfunc_3(int); // overrides core::IFileCompletionCallback slot 3
     virtual void vfunc_0_IMutable(); // overrides core::IMutable slot 0
     virtual void vfunc_1_IMutable(); // overrides core::IMutable slot 1
-    char _pad_14[0xc];
+    char _pad_14[0x4];
+    void* f_18;
+    int f_1c;
     int f_20;
-    char _pad_24[0x48];
+    char _pad_24[0x21];
+    char f_45;
+    char _pad_46[0x12];
+    int f_58;
+    void* f_5c;
+    int f_60;
+    char _pad_64[0x8];
     void* f_6c;
     int f_70;
 };
@@ -199,7 +207,7 @@ public:
     virtual int vfunc_4(); // overrides core::Request slot 4
     virtual void* vfunc_5(); // overrides core::Request slot 5
     virtual int vfunc_6(); // overrides core::Request slot 6
-    char _pad_04[0x4];
+    int f_04;
     int f_08;
     unsigned int f_0c;
 };
@@ -518,7 +526,7 @@ public:
     virtual int vfunc_3(); // overrides core::Request slot 3
     virtual int vfunc_4(); // overrides core::Request slot 4
     virtual void* vfunc_5(); // overrides core::Request slot 5
-    char _pad_04[0x4];
+    int f_04;
     void* f_08;
 };
 
@@ -539,7 +547,8 @@ public:
     virtual int vfunc_3(); // overrides core::Request slot 3
     virtual int vfunc_6(); // overrides core::Request slot 6
     virtual void vfunc_7(); // overrides core::CompletionCallbackRequest slot 7
-    char _pad_04[0x8];
+    int f_04;
+    int f_08;
     void* f_0c;
     void* f_10;
     int f_14;
@@ -711,7 +720,7 @@ public:
     virtual void vfunc_1_IMutable(); // overrides core::IMutable slot 1
     int f_08;
     void* f_0c;
-    char _pad_10[0x4];
+    int f_10;
     int f_14;
     char _pad_18[0x4];
     bool f_1c;
@@ -772,7 +781,8 @@ public:
     virtual int vfunc_3(); // overrides core::Request slot 3
     virtual int vfunc_6(); // overrides core::Request slot 6
     virtual void vfunc_7(); // overrides core::CompletionCallbackRequest slot 7
-    char _pad_04[0x8];
+    int f_04;
+    int f_08;
     void* f_0c;
     void* f_10;
     int f_14;
@@ -1064,9 +1074,11 @@ public:
     virtual bool vfunc_9(void*, void*, void*, void*); // overrides core::IMemoryAllocator slot 9
     virtual void vfunc_10(); // overrides core::IMemoryAllocator slot 10
     virtual int vfunc_11(); // overrides core::IMemoryAllocator slot 11
-    char _pad_0c[0x8];
+    int f_0c;
+    int f_10;
     int f_14;
-    char _pad_18[0x478];
+    int f_18;
+    char _pad_1c[0x474];
     int f_490;
     int f_494;
     int f_498;
@@ -1212,7 +1224,8 @@ public:
     virtual void vfunc_4(int); // overrides core::ITimerList slot 4
     virtual void vfunc_5(); // overrides core::ITimerList slot 5
     int f_0c;
-    char _pad_10[0x8];
+    char f_10;
+    char _pad_11[0x7];
     void* f_18;
 };
 

@@ -371,7 +371,10 @@ public:
     virtual void vfunc_8(void*); // slot 8
     virtual void vfunc_9(int) = 0; // slot 9
     unsigned char f_10;
-    char _pad_11[0x7];
+    char f_11;
+    char f_12;
+    char f_13;
+    int f_14;
     int f_18;
     int f_1c;
     int f_20;
@@ -438,7 +441,8 @@ class AnimationGroup {
 public:
     virtual ~AnimationGroup(); // slot 0
     virtual void vfunc_1(); // slot 1
-    char _pad_04[0x10];
+    char _pad_04[0xc];
+    int f_10;
     unsigned int f_14;
     void* f_18;
     void* f_1c;
@@ -720,7 +724,10 @@ public:
     virtual ~BoolChannel(); // overrides pure3d::Channel slot 0
     virtual void vfunc_1(); // overrides pure3d::Channel slot 1
     virtual unsigned int vfunc_2(); // overrides pure3d::Channel slot 2
-    char _pad_04[0x10];
+    char _pad_04[0x4];
+    int f_08;
+    char _pad_0c[0x4];
+    int f_10;
     void* f_14;
     void* f_18;
 };
@@ -814,7 +821,10 @@ public:
     virtual ~ColourChannel(); // overrides pure3d::Channel slot 0
     virtual void vfunc_1(); // overrides pure3d::Channel slot 1
     virtual unsigned int vfunc_2(); // overrides pure3d::Channel slot 2
-    char _pad_04[0x10];
+    int f_04;
+    int f_08;
+    void* f_0c;
+    int f_10;
     void* f_14;
     void* f_18;
 };
@@ -831,7 +841,8 @@ public:
     virtual bool vfunc_26(void*); // overrides pure3d::AnimationFrameController slot 26
     void* f_40;
     void* f_44;
-    char _pad_48[0x8];
+    int f_48;
+    char _pad_4c[0x4];
     void* f_50;
 };
 
@@ -1027,7 +1038,8 @@ public:
     virtual ~EntityChannel(); // overrides pure3d::Channel slot 0
     virtual void vfunc_1(); // overrides pure3d::Channel slot 1
     virtual unsigned int vfunc_2(); // overrides pure3d::Channel slot 2
-    char _pad_04[0x8];
+    int f_04;
+    int f_08;
     void* f_0c;
     unsigned int f_10;
     void* f_14;
@@ -1083,7 +1095,10 @@ public:
     virtual ~Float1Channel(); // overrides pure3d::Channel slot 0
     virtual void vfunc_1(); // overrides pure3d::Channel slot 1
     virtual unsigned int vfunc_2(); // overrides pure3d::Channel slot 2
-    char _pad_04[0x10];
+    int f_04;
+    int f_08;
+    void* f_0c;
+    int f_10;
     void* f_14;
     void* f_18;
 };
@@ -1094,7 +1109,10 @@ public:
     virtual ~Float2Channel(); // overrides pure3d::Channel slot 0
     virtual void vfunc_1(); // overrides pure3d::Channel slot 1
     virtual unsigned int vfunc_2(); // overrides pure3d::Channel slot 2
-    char _pad_04[0x10];
+    int f_04;
+    int f_08;
+    void* f_0c;
+    int f_10;
     void* f_14;
     void* f_18;
 };
@@ -1195,7 +1213,9 @@ public:
     virtual void vfunc_12(int, int, int, int, int, int, int); // overrides pure3d::Image slot 12
     int f_10;
     int f_14;
-    char _pad_18[0xc];
+    int f_18;
+    int f_1c;
+    int f_20;
     void* f_24;
 };
 
@@ -1221,9 +1241,13 @@ public:
     virtual unsigned int vfunc_20(int, int); // slot 20
     int f_10;
     int f_14;
-    char _pad_18[0xc];
+    int f_18;
+    char _pad_1c[0x4];
+    int f_20;
     void* f_24;
-    char _pad_28[0x8];
+    char f_28;
+    char f_29;
+    char _pad_2a[0x6];
     int f_30;
     char _pad_34[0x3fc];
     int f_430;
@@ -1292,7 +1316,10 @@ public:
     virtual void vfunc_15(int); // slot 15
     virtual void vfunc_16(int); // slot 16
     virtual void vfunc_17(int, int, int, int, int); // slot 17
-    char _pad_10[0x10];
+    int f_10;
+    int f_14;
+    int f_18;
+    int f_1c;
     unsigned int f_20;
     int f_24;
 };
@@ -1318,7 +1345,10 @@ public:
     virtual ~IntChannel(); // overrides pure3d::Channel slot 0
     virtual void vfunc_1(); // overrides pure3d::Channel slot 1
     virtual unsigned int vfunc_2(); // overrides pure3d::Channel slot 2
-    char _pad_04[0x10];
+    int f_04;
+    int f_08;
+    void* f_0c;
+    int f_10;
     void* f_14;
     void* f_18;
 };
@@ -1327,7 +1357,8 @@ public:
 class Language : public ::pure3d::Entity {
 public:
     virtual ~Language(); // overrides core::IRefCount slot 2
-    char _pad_10[0xc];
+    char f_10;
+    char _pad_11[0xb];
     void* f_1c;
     void* f_20;
     void* f_24;
@@ -1525,7 +1556,10 @@ public:
     virtual void vfunc_4(); // overrides pure3d::DisplayTraversal slot 4
     virtual void vfunc_5(); // overrides pure3d::DisplayTraversal slot 5
     virtual void vfunc_6(void*, unsigned int, float); // overrides pure3d::DisplayTraversal slot 6
-    char _pad_08[0x10];
+    char _pad_08[0x4];
+    int f_0c;
+    int f_10;
+    void* f_14;
     int f_18;
 };
 
@@ -1612,7 +1646,9 @@ public:
     void* f_88;
     void* f_8c;
     unsigned int f_90;
-    char _pad_94[0xc];
+    int f_94;
+    int f_98;
+    char _pad_9c[0x4];
     float f_a0;
 };
 
@@ -1629,7 +1665,8 @@ public:
     virtual void vfunc_9() = 0; // slot 9
     virtual void vfunc_10(int); // slot 10
     virtual float vfunc_11(); // slot 11
-    char _pad_10[0x4];
+    char f_10;
+    char _pad_11[0x3];
     float f_14;
 };
 
@@ -1818,7 +1855,8 @@ public:
     virtual void vfunc_8(void*); // overrides pure3d::DrawablePrimitive slot 8
     virtual unsigned char vfunc_9(); // overrides pure3d::DrawablePrimitive slot 9
     int f_10;
-    char _pad_14[0x2c];
+    char _pad_14[0x28];
+    int f_3c;
     void* f_40;
 };
 
@@ -1834,7 +1872,11 @@ public:
     virtual ~PrimGroupOptimized(); // overrides core::IRefCount slot 2
     virtual void vfunc_6(); // overrides pure3d::DrawablePrimitive slot 6
     virtual void vfunc_10(); // overrides pure3d::DrawablePrimitive slot 10
-    char _pad_44[0x14];
+    int f_44;
+    int f_48;
+    int f_4c;
+    int f_50;
+    char _pad_54[0x4];
     void* f_58;
 };
 
@@ -1870,7 +1912,12 @@ public:
     virtual void vfunc_10(); // overrides pure3d::DrawablePrimitive slot 10
     virtual void vfunc_11(int); // slot 11
     virtual void vfunc_12(int); // slot 12
-    char _pad_44[0x18];
+    int f_44;
+    int f_48;
+    int f_4c;
+    int f_50;
+    int f_54;
+    char _pad_58[0x4];
     void* f_5c;
 };
 
@@ -1922,7 +1969,10 @@ public:
     virtual void vfunc_4(int, int, int); // overrides pure3d::RotationChannel slot 4
     virtual void vfunc_5(int, int); // overrides pure3d::RotationChannel slot 5
     virtual void vfunc_6(int, int); // overrides pure3d::RotationChannel slot 6
-    char _pad_04[0x10];
+    int f_04;
+    char _pad_08[0x4];
+    void* f_0c;
+    int f_10;
     void* f_14;
     void* f_18;
 };
@@ -2117,7 +2167,8 @@ public:
     virtual void vfunc_8(void*); // overrides pure3d::DrawablePrimitive slot 8
     virtual unsigned char vfunc_9(); // overrides pure3d::DrawablePrimitive slot 9
     virtual void vfunc_10(); // overrides pure3d::DrawablePrimitive slot 10
-    char _pad_10[0x30];
+    int f_10;
+    char _pad_14[0x2c];
     void* f_40;
 };
 
@@ -2192,7 +2243,12 @@ public:
     virtual int vfunc_5(); // overrides pure3d::DrawablePrimitive slot 5
     virtual void vfunc_6(); // overrides pure3d::DrawablePrimitive slot 6
     virtual void vfunc_10(); // overrides pure3d::DrawablePrimitive slot 10
-    char _pad_10[0x60];
+    int f_10;
+    char _pad_14[0x2c];
+    void* f_40;
+    void* f_44;
+    void* f_48;
+    char _pad_4c[0x24];
     void* f_70;
     char _pad_74[0x8];
     void* f_7c;
@@ -2220,7 +2276,12 @@ public:
     virtual void vfunc_4(); // overrides pure3d::DisplayTraversal slot 4
     virtual void vfunc_5(); // overrides pure3d::DisplayTraversal slot 5
     virtual void vfunc_6(void*, unsigned int, float); // overrides pure3d::DisplayTraversal slot 6
-    char _pad_08[0x30];
+    char _pad_08[0x4];
+    int f_0c;
+    int f_10;
+    char _pad_14[0x1c];
+    int f_30;
+    int f_34;
     unsigned int f_38;
     void* f_3c;
 };
@@ -2280,9 +2341,27 @@ public:
     virtual void vfunc_11(void*); // slot 11
     virtual void vfunc_12(void*); // slot 12
     int f_10;
-    char _pad_14[0x38];
+    char _pad_14[0x2c];
+    int f_40;
+    void* f_44;
+    void* f_48;
     void* f_4c;
-    char _pad_50[0x40];
+    char _pad_50[0x4];
+    int f_54;
+    int f_58;
+    int f_5c;
+    int f_60;
+    int f_64;
+    int f_68;
+    int f_6c;
+    float f_70;
+    float f_74;
+    int f_78;
+    int f_7c;
+    int f_80;
+    float f_84;
+    float f_88;
+    int f_8c;
     unsigned int f_90;
     unsigned int f_94;
     unsigned int f_98;
@@ -2383,7 +2462,10 @@ public:
     virtual ~StringChannel(); // overrides pure3d::Channel slot 0
     virtual void vfunc_1(); // overrides pure3d::Channel slot 1
     virtual unsigned int vfunc_2(); // overrides pure3d::Channel slot 2
-    char _pad_04[0x10];
+    char _pad_04[0x4];
+    int f_08;
+    void* f_0c;
+    int f_10;
     void* f_14;
     void* f_18;
 };
@@ -2458,11 +2540,12 @@ public:
     void* f_04;
     char _pad_08[0x4];
     void* f_0c;
-    char _pad_10[0x4];
+    int f_10;
     void* f_14;
-    char _pad_18[0x4];
+    int f_18;
     void* f_1c;
-    char _pad_20[0x8];
+    int f_20;
+    int f_24;
     int f_28;
 };
 
@@ -2515,9 +2598,14 @@ public:
     virtual void vfunc_4(); // overrides pure3d::DisplayTraversal slot 4
     virtual void vfunc_5(); // overrides pure3d::DisplayTraversal slot 5
     virtual void vfunc_6(void*, unsigned int, float); // overrides pure3d::DisplayTraversal slot 6
-    char _pad_08[0x10];
+    char _pad_08[0x4];
+    int f_0c;
+    int f_10;
+    void* f_14;
     int f_18;
-    char _pad_1c[0xc];
+    void* f_1c;
+    void* f_20;
+    char _pad_24[0x4];
     void* f_28;
 };
 
@@ -2538,9 +2626,10 @@ public:
     virtual void vfunc_1(); // overrides pure3d::Channel slot 1
     virtual void vfunc_3(int, void*, void*); // overrides pure3d::VectorChannel slot 3
     virtual void vfunc_4(int, int); // overrides pure3d::VectorChannel slot 4
-    char _pad_04[0x8];
+    int f_04;
+    char _pad_08[0x4];
     int f_0c;
-    char _pad_10[0x4];
+    int f_10;
     void* f_14;
     int f_18;
     unsigned int f_1c;
@@ -2556,11 +2645,15 @@ public:
     virtual void vfunc_1(); // overrides pure3d::Channel slot 1
     virtual void vfunc_3(int, void*, void*); // overrides pure3d::VectorChannel slot 3
     virtual void vfunc_4(int, int); // overrides pure3d::VectorChannel slot 4
-    char _pad_04[0x8];
+    char _pad_04[0x4];
+    int f_08;
     int f_0c;
-    char _pad_10[0x4];
+    int f_10;
     void* f_14;
-    char _pad_18[0x10];
+    int f_18;
+    char _pad_1c[0x4];
+    int f_20;
+    int f_24;
     void* f_28;
 };
 
@@ -2571,7 +2664,10 @@ public:
     virtual void vfunc_1(); // overrides pure3d::Channel slot 1
     virtual void vfunc_3(int, void*, void*); // overrides pure3d::VectorChannel slot 3
     virtual void vfunc_4(int, int); // overrides pure3d::VectorChannel slot 4
-    char _pad_04[0x10];
+    int f_04;
+    int f_08;
+    void* f_0c;
+    int f_10;
     void* f_14;
     void* f_18;
 };
@@ -2717,7 +2813,7 @@ public:
     virtual void vfunc_18(); // slot 18
     virtual void vfunc_19(); // slot 19
     virtual void vfunc_20(); // slot 20
-    char _pad_08[0x4];
+    int f_08;
     int f_0c;
 };
 
@@ -2767,9 +2863,17 @@ public:
     virtual bool vfunc_22(); // overrides pure3d::d3dShader slot 22
     virtual void* vfunc_23(); // overrides pure3d::d3dShader slot 23
     virtual void vfunc_24(); // overrides pure3d::d3dShader slot 24
-    char _pad_10[0x4];
+    void* f_10;
     void* f_14;
-    char _pad_18[0x68];
+    char _pad_18[0x38];
+    char f_50;
+    char f_51;
+    char f_52;
+    char _pad_53[0x1];
+    char f_54;
+    char f_55;
+    char f_56;
+    char _pad_57[0x29];
     void* f_80;
     void* f_84;
 };
@@ -2979,7 +3083,10 @@ public:
     virtual void vfunc_108(int) = 0; // slot 108
     virtual void vfunc_109() = 0; // slot 109
     virtual void vfunc_110(int, char) = 0; // slot 110
-    char _pad_08[0x10];
+    char _pad_08[0x4];
+    void* f_0c;
+    void* f_10;
+    int f_14;
     int f_18;
     char _pad_1c[0x18];
     void* f_34;
@@ -2994,7 +3101,21 @@ public:
     void* f_58;
     char _pad_5c[0x40];
     float f_9c;
-    char _pad_a0[0xa8];
+    float f_a0;
+    float f_a4;
+    char _pad_a8[0x4];
+    float f_ac;
+    char _pad_b0[0x4];
+    float f_b4;
+    float f_b8;
+    int f_bc;
+    int f_c0;
+    float f_c4;
+    char _pad_c8[0x4];
+    float f_cc;
+    float f_d0;
+    char _pad_d4[0x70];
+    void* f_144;
     unsigned char f_148;
 };
 
@@ -3034,18 +3155,27 @@ public:
     virtual void vfunc_108(int); // overrides pure3d::pddiBaseContext slot 108
     virtual void vfunc_109(); // overrides pure3d::pddiBaseContext slot 109
     virtual void vfunc_110(int, char); // overrides pure3d::pddiBaseContext slot 110
-    char _pad_14c[0x4];
+    int f_14c;
     void* f_150;
-    char _pad_154[0xc];
+    void* f_154;
+    void* f_158;
+    char _pad_15c[0x4];
     int f_160;
-    char _pad_164[0x18];
+    int f_164;
+    int f_168;
+    int f_16c;
+    int f_170;
+    int f_174;
+    int f_178;
     unsigned int f_17c;
     unsigned int f_180;
     char _pad_184[0x80];
     int f_204;
-    char _pad_208[0x20c];
+    void* f_208;
+    char _pad_20c[0x208];
     unsigned char f_414;
-    char _pad_415[0xb];
+    char _pad_415[0x7];
+    int f_41c;
     float f_420;
 };
 
@@ -3103,21 +3233,28 @@ public:
     virtual void vfunc_15(int, int); // overrides pure3d::pddiDisplay slot 15
     virtual float vfunc_16(); // overrides pure3d::pddiDisplay slot 16
     virtual void vfunc_17(); // slot 17
-    char _pad_08[0x8];
+    int f_08;
+    int f_0c;
     int f_10;
     char _pad_14[0x420];
     char f_434;
-    char _pad_435[0x2];
+    char f_435;
+    char f_436;
     unsigned char f_437;
-    char _pad_438[0x4];
+    int f_438;
     int f_43c;
     int f_440;
     int f_444;
-    char _pad_448[0x30];
+    char _pad_448[0x28];
+    int f_470;
+    int f_474;
     int f_478;
     unsigned int f_47c;
     int f_480;
-    char _pad_484[0x14];
+    float f_484;
+    float f_488;
+    float f_48c;
+    char _pad_490[0x8];
     int f_498;
 };
 
@@ -3208,7 +3345,33 @@ public:
     int f_14;
     int f_18;
     unsigned char f_1c;
-    char _pad_1d[0xcf];
+    char _pad_1d[0x4b];
+    float f_68;
+    char _pad_6c[0xc];
+    float f_78;
+    char f_7c;
+    char f_7d;
+    char _pad_7e[0x6];
+    float f_84;
+    char _pad_88[0x4];
+    int f_8c;
+    int f_90;
+    int f_94;
+    int f_98;
+    int f_9c;
+    int f_a0;
+    int f_a4;
+    char _pad_a8[0xc];
+    char f_b4;
+    char _pad_b5[0x13];
+    int f_c8;
+    char _pad_cc[0x4];
+    float f_d0;
+    float f_d4;
+    float f_d8;
+    int f_dc;
+    char _pad_e0[0x8];
+    float f_e8;
     unsigned char f_ec;
 };
 
@@ -3361,12 +3524,23 @@ public:
     virtual bool vfunc_22(); // overrides pure3d::d3dShader slot 22
     virtual void* vfunc_23(); // overrides pure3d::d3dShader slot 23
     virtual void vfunc_24(); // overrides pure3d::d3dShader slot 24
-    char _pad_10[0x38];
+    char _pad_10[0x4];
+    void* f_14;
+    char _pad_18[0x4];
+    int f_1c;
+    char _pad_20[0x18];
+    int f_38;
+    char _pad_3c[0xc];
     unsigned char f_48;
-    char _pad_49[0x37];
+    char _pad_49[0x3];
+    int f_4c;
+    char _pad_50[0x2c];
+    char f_7c;
+    char _pad_7d[0x3];
     void* f_80;
     void* f_84;
-    char _pad_88[0x8];
+    int f_88;
+    int f_8c;
     unsigned char f_90;
     unsigned char f_91;
 };
@@ -3397,9 +3571,17 @@ public:
     virtual bool vfunc_22(); // overrides pure3d::d3dShader slot 22
     virtual void* vfunc_23(); // overrides pure3d::d3dShader slot 23
     virtual void vfunc_24(); // overrides pure3d::d3dShader slot 24
-    char _pad_10[0x38];
+    char _pad_10[0x4];
+    void* f_14;
+    char _pad_18[0x4];
+    int f_1c;
+    char _pad_20[0x18];
+    int f_38;
+    char _pad_3c[0xc];
     unsigned char f_48;
-    char _pad_49[0x37];
+    char _pad_49[0x33];
+    char f_7c;
+    char _pad_7d[0x3];
     void* f_80;
     void* f_84;
     unsigned char f_88;
@@ -3418,7 +3600,11 @@ public:
     virtual void vfunc_15(); // overrides pure3d::pddiBaseShader slot 15
     virtual void vfunc_16(); // overrides pure3d::pddiBaseShader slot 16
     virtual void vfunc_17(); // overrides pure3d::pddiBaseShader slot 17
-    char _pad_10[0x70];
+    char _pad_10[0x4];
+    void* f_14;
+    char _pad_18[0x28];
+    int f_40;
+    char _pad_44[0x3c];
     void* f_80;
 };
 
@@ -3453,12 +3639,17 @@ public:
     virtual void vfunc_12(); // overrides pure3d::pddiPrimBuffer slot 12
     virtual void vfunc_13(int, int); // overrides pure3d::pddiPrimBuffer slot 13
     virtual void vfunc_14(int); // overrides pure3d::pddiPrimBuffer slot 14
-    char _pad_08[0x1c];
+    char _pad_08[0x4];
+    int f_0c;
+    char _pad_10[0x8];
+    int f_18;
+    int f_1c;
+    int f_20;
     int f_24;
     int f_28;
     void* f_2c;
     void* f_30;
-    char _pad_34[0x1];
+    char f_34;
     unsigned char f_35;
 };
 
@@ -3506,13 +3697,18 @@ public:
     virtual void vfunc_15(void*, void*); // overrides pure3d::pddiPrimBufferStream slot 15
     virtual void vfunc_16(int, int); // overrides pure3d::pddiPrimBufferStream slot 16
     virtual void vfunc_17(); // overrides pure3d::pddiPrimBufferStream slot 17
-    char _pad_04[0x20];
+    char _pad_04[0xc];
+    int f_10;
+    char _pad_14[0x4];
+    int f_18;
+    char _pad_1c[0x8];
     void* f_24;
     char _pad_28[0x8];
     void* f_30;
     void* f_34;
     void* f_38;
-    char _pad_3c[0x8];
+    int f_3c;
+    int f_40;
     void* f_44;
     void* f_48;
     void* f_4c;
@@ -3540,7 +3736,15 @@ public:
     virtual void vfunc_18(); // overrides pure3d::pddiBaseShader slot 18
     virtual void vfunc_20(); // overrides pure3d::pddiBaseShader slot 20
     void* f_10;
-    char _pad_14[0x6c];
+    void* f_14;
+    char _pad_18[0x2c];
+    int f_44;
+    char f_48;
+    char _pad_49[0x3];
+    int f_4c;
+    char _pad_50[0x2c];
+    char f_7c;
+    char _pad_7d[0x3];
     void* f_80;
     void* f_84;
 };
@@ -3560,7 +3764,16 @@ public:
     virtual void vfunc_18(); // overrides pure3d::pddiBaseShader slot 18
     void* f_10;
     void* f_14;
-    char _pad_18[0x68];
+    char _pad_18[0x20];
+    int f_38;
+    char _pad_3c[0x8];
+    int f_44;
+    char f_48;
+    char _pad_49[0x3];
+    int f_4c;
+    char _pad_50[0x2c];
+    char f_7c;
+    char _pad_7d[0x3];
     void* f_80;
     void* f_84;
 };
@@ -3581,7 +3794,21 @@ public:
     virtual bool vfunc_22(); // overrides pure3d::d3dShader slot 22
     virtual void* vfunc_23(); // overrides pure3d::d3dShader slot 23
     virtual void vfunc_24(); // overrides pure3d::d3dShader slot 24
-    char _pad_10[0x6d];
+    void* f_10;
+    void* f_14;
+    char _pad_18[0x4];
+    int f_1c;
+    char _pad_20[0x8];
+    char f_28;
+    char _pad_29[0xf];
+    int f_38;
+    char _pad_3c[0x8];
+    int f_44;
+    char f_48;
+    char _pad_49[0x3];
+    int f_4c;
+    char _pad_50[0x2c];
+    char f_7c;
     unsigned char f_7d;
     char _pad_7e[0x2];
     void* f_80;
@@ -3603,12 +3830,23 @@ public:
     virtual bool vfunc_22(); // overrides pure3d::d3dShader slot 22
     virtual void* vfunc_23(); // overrides pure3d::d3dShader slot 23
     virtual void vfunc_24(); // overrides pure3d::d3dShader slot 24
-    char _pad_10[0x38];
+    char _pad_10[0x4];
+    void* f_14;
+    char _pad_18[0x4];
+    int f_1c;
+    char _pad_20[0x18];
+    int f_38;
+    char _pad_3c[0xc];
     unsigned char f_48;
-    char _pad_49[0x37];
+    char _pad_49[0x3];
+    int f_4c;
+    char _pad_50[0x2c];
+    char f_7c;
+    char _pad_7d[0x3];
     void* f_80;
     unsigned char f_84;
-    char _pad_85[0x7];
+    char _pad_85[0x3];
+    int f_88;
     unsigned char f_8c;
 };
 
@@ -3629,7 +3867,7 @@ public:
     virtual bool vfunc_22(); // overrides pure3d::d3dShader slot 22
     virtual void* vfunc_23(); // overrides pure3d::d3dShader slot 23
     virtual void vfunc_24(); // overrides pure3d::d3dShader slot 24
-    char _pad_10[0x4];
+    void* f_10;
     void* f_14;
     char _pad_18[0x68];
     void* f_80;
@@ -3678,15 +3916,55 @@ public:
     virtual void vfunc_17(); // overrides pure3d::pddiTexture slot 17
     virtual void vfunc_18(unsigned int); // overrides pure3d::pddiTexture slot 18
     virtual unsigned int vfunc_19(); // overrides pure3d::pddiTexture slot 19
-    char _pad_08[0x60];
+    int f_08;
+    char _pad_0c[0x14];
+    int f_20;
+    char _pad_24[0x8];
+    int f_2c;
+    char _pad_30[0x14];
+    int f_44;
+    int f_48;
+    int f_4c;
+    char _pad_50[0xc];
+    int f_5c;
+    int f_60;
+    int f_64;
     void* f_68;
-    char _pad_6c[0x64];
+    char _pad_6c[0x8];
+    int f_74;
+    int f_78;
+    int f_7c;
+    int f_80;
+    char f_84;
+    char _pad_85[0x3];
+    int f_88;
+    int f_8c;
+    int f_90;
+    int f_94;
+    int f_98;
+    int f_9c;
+    int f_a0;
+    int f_a4;
+    int f_a8;
+    int f_ac;
+    int f_b0;
+    int f_b4;
+    int f_b8;
+    int f_bc;
+    char _pad_c0[0x8];
+    int f_c8;
+    int f_cc;
     unsigned int f_d0;
-    char _pad_d4[0x8];
+    int f_d4;
+    int f_d8;
     unsigned int f_dc;
-    char _pad_e0[0x4];
+    int f_e0;
     unsigned int f_e4;
-    char _pad_e8[0x8];
+    int f_e8;
+    char f_ec;
+    char f_ed;
+    char f_ee;
+    char f_ef;
     unsigned int f_f0;
 };
 
@@ -3705,7 +3983,16 @@ public:
     virtual bool vfunc_22(); // overrides pure3d::d3dShader slot 22
     virtual void* vfunc_23(); // overrides pure3d::d3dShader slot 23
     virtual void vfunc_24(); // overrides pure3d::d3dShader slot 24
-    char _pad_10[0x70];
+    void* f_10;
+    void* f_14;
+    char _pad_18[0x2c];
+    int f_44;
+    char f_48;
+    char _pad_49[0x3];
+    int f_4c;
+    char _pad_50[0x2c];
+    char f_7c;
+    char _pad_7d[0x3];
     void* f_80;
     void* f_84;
     void* f_88;
@@ -3728,10 +4015,18 @@ public:
     virtual void* vfunc_23(); // overrides pure3d::d3dShader slot 23
     virtual void vfunc_24(); // overrides pure3d::d3dShader slot 24
     void* f_10;
-    char _pad_14[0x80];
+    void* f_14;
+    char _pad_18[0x20];
+    int f_38;
+    char _pad_3c[0x14];
+    int f_50;
+    char _pad_54[0x29];
+    char f_7d;
+    char _pad_7e[0x16];
     void* f_94;
     void* f_98;
-    char _pad_9c[0x44];
+    int f_9c;
+    char _pad_a0[0x40];
     int f_e0;
 };
 
@@ -3851,10 +4146,21 @@ public:
     virtual void vfunc_11(); // slot 11
     virtual int vfunc_12(); // slot 12
     virtual void vfunc_13(); // slot 13
-    char _pad_10[0x30];
+    int f_10;
+    char _pad_14[0x2c];
     void* f_40;
     void* f_44;
-    char _pad_48[0x34];
+    int f_48;
+    int f_4c;
+    int f_50;
+    int f_54;
+    char _pad_58[0xc];
+    void* f_64;
+    int f_68;
+    int f_6c;
+    int f_70;
+    void* f_74;
+    void* f_78;
     float f_7c;
     float f_80;
 };

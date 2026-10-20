@@ -1,15 +1,7 @@
-class TextSelector {
-  public:
-    char pad0[0x44];
-    int value;
-    char pad48[0x100];
-    int saved;
-    char pad14c[0x1c3c];
-    void* other;
-    void vfunc_14(int);
-};
+#include "gen/global.h"
+
 void TextSelector::vfunc_14(int x) {
-    saved = value;
-    if (other)
-        *(int*)((char*)other + 0x44) = value;
+    this->f_148 = this->f_44;
+    if ((*(void * *)&this->f_1d88))
+        *(int*)((char*)(*(void * *)&this->f_1d88) + 0x44) = this->f_44;
 }

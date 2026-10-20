@@ -1,29 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // pure3d::pddiBaseContext::vfunc_104 @ 0x0031d380
+#include "gen/pure3d.h"
+
 namespace pure3d {
-struct pddiBaseContext {
-    char reserved[0xa4];
-    float firstNumerator;
-    float reservedA8;
-    float secondNumerator;
-    float reservedB0;
-    float firstDenominator;
-    float firstResult;
-    char reservedBC[8];
-    float thirdNumerator;
-    float reservedC8;
-    float secondDenominator;
-    float secondResult;
-    void vfunc_104();
-};
-void pddiBaseContext::vfunc_104() {
-    if (firstDenominator > 0.0f)
-        firstResult = (secondNumerator + firstNumerator) / firstDenominator;
-    else
-        firstResult = 0.0f;
-    if (secondDenominator > 0.0f)
-        secondResult = thirdNumerator / secondDenominator;
-    else
-        secondResult = 0.0f;
+
 }
+void pure3d::pddiBaseContext::vfunc_104() {
+    if (this->f_b4 > 0.0f)
+        this->f_b8 = (this->f_ac + this->f_a4) / this->f_b4;
+    else
+        this->f_b8 = 0.0f;
+    if (this->f_cc > 0.0f)
+        this->f_d0 = this->f_c4 / this->f_cc;
+    else
+        this->f_d0 = 0.0f;
 }

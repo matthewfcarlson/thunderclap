@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 28/30, incomplete)
 // hulkfight::ai::FormationReadyCondition::vfunc_6 @ 0x0010e040
+#include "gen/hulkfight.h"
+
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -49,29 +51,17 @@ struct Registry_10e040 {
 };
 Registry_10e040 *__cdecl FUN_000678d0();
 
-namespace hulkfight { namespace ai { class FormationReadyCondition {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual char vfunc_6(int unused1, Owner_10e040 *owner, int unused3);
-    char pad4[8];
-    unsigned int mode;
-}; }}
+namespace hulkfight { namespace ai {  }}
+bool hulkfight::ai::FormationReadyCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int unused1 = (int)__p0; Owner_10e040 * owner = (Owner_10e040 *)__p1; int unused3 = (int)__p2;
 
-char hulkfight::ai::FormationReadyCondition::vfunc_6(int unused1, Owner_10e040 *owner, int unused3)
-{
     if (!FUN_00344e74(owner, 0, DAT_00494b44, DAT_00494b60, 0))
-        return 0;
+        return (bool)(0);
     Actor_10e040 *actor = owner->FUN_000592a0()->FUN_00059a30();
     if (!actor)
-        return 0;
+        return (bool)(0);
     Body_10e040 *body = actor->body;
     if (!body)
-        return 0;
+        return (bool)(0);
 
     Vec3_10e040 pos = body->pos;
     if ((actor->nameLo | actor->nameHi) == 0)
@@ -85,13 +75,13 @@ char hulkfight::ai::FormationReadyCondition::vfunc_6(int unused1, Owner_10e040 *
 
     int cur = FUN_000678d0()->cur;
     if (cur < FUN_000678d0()->lo)
-        return 0;
+        return (bool)(0);
     cur = FUN_000678d0()->cur;
     if (cur > FUN_000678d0()->hi)
-        return 0;
+        return (bool)(0);
 
     // The original's jump table sends every mode 0..5 to the same test.
-    if (mode > 5)
-        return 0;
-    return actor->value != 0.0f;
+    if ((*(unsigned int *)&this->f_0c) > 5)
+        return (bool)(0);
+    return (bool)(actor->value != 0.0f);
 }
