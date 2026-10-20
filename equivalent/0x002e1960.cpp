@@ -1,45 +1,47 @@
-// STATUS: equivalent (tools/equiv.py level 3: 408 inputs, branch coverage 130/130)
+// STATUS: equivalent (tools/equiv.py level 3: 2780 inputs, branch coverage 134/134)
 // FUN_002e1960 @ 0x002e1960
 // equiv-map: ??0PrimGroupBase@@QAE@XZ = 0x002a5060
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
-inline void *operator new(unsigned int, void *p) throw() { return p; }
+inline void* operator new(unsigned int, void* p) throw() {
+    return p;
+}
 struct Hdr8;
 
-void *thunk_FUN_0008d690(unsigned int size);
-void *__cdecl FUN_0008d690(unsigned int size);
-void *__cdecl FUN_00266e00(int a, int b);
-void __cdecl FUN_00267090(void *p);
+void* thunk_FUN_0008d690(unsigned int size);
+void* __cdecl FUN_0008d690(unsigned int size);
+void* __cdecl FUN_00266e00(int a, int b);
+void __cdecl FUN_00267090(void* p);
 
 class Ref_2e1960 {
-public:
+  public:
     virtual void AddRef();
     virtual void Release();
 };
 
 struct Stream {
-    int FUN_002647e0(void *buf, int count, int size, int flag);
+    int FUN_002647e0(void* buf, int count, int size, int flag);
 };
 
 class Reader {
-public:
+  public:
     char pad0[0x284];
-    Stream *stream;
+    Stream* stream;
     char FUN_002669f0();
     int FUN_00266a30();
     int FUN_00266c30();
     void FUN_00266be0();
     unsigned int FUN_001c61c0();
     float FUN_001c61e0();
-    void FUN_001c6200(void *v);
+    void FUN_001c6200(void* v);
     void FUN_000f95e0();
-    void FUN_000f9650(void *a, void *b, int c);
+    void FUN_000f9650(void* a, void* b, int c);
 };
 
 // element list built by the loader
 class AttrList {
-public:
+  public:
     virtual void a0(float x, float y, float z);
     virtual void a1(float x, float y, float z);
     virtual void a2(float x, float y, float z);
@@ -61,25 +63,25 @@ public:
 };
 
 class Builder {
-public:
+  public:
     virtual void b0();
     virtual void b1();
     virtual void b2();
     virtual void b3();
-    virtual AttrList *b4();
-    virtual void b5(AttrList *l);
+    virtual AttrList* b4();
+    virtual void b5(AttrList* l);
     virtual void b6();
     virtual int b7();
     virtual void b8(int v);
-    virtual void b9(void *buf, unsigned int n);
+    virtual void b9(void* buf, unsigned int n);
     virtual void b10();
-    virtual AttrList *b11(unsigned int v);
+    virtual AttrList* b11(unsigned int v);
     virtual void b12();
     virtual void b13(int id, unsigned int v);
 };
 
 class Factory_2e1960 {
-public:
+  public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -90,21 +92,21 @@ public:
     virtual void f7();
     virtual void f8();
     virtual void f9();
-    virtual Builder *f10(void *desc);
+    virtual Builder* f10(void* desc);
 };
 
 class Maker_2e1960 {
-public:
+  public:
     virtual void m0();
     virtual void m1();
     virtual int m2(int a, int b, int c, int d, int e);
     virtual void m3();
     virtual char m4(int a, int b);
-    virtual void m5(Builder *b, int r);
+    virtual void m5(Builder* b, int r);
 };
 
 class Gfx {
-public:
+  public:
     virtual void g0();
     virtual void g1();
     virtual void g2();
@@ -194,9 +196,8 @@ public:
     virtual void g86();
     virtual void g87();
     virtual void g88();
-    virtual Maker_2e1960 *g89(int id);
+    virtual Maker_2e1960* g89(int id);
 };
-
 
 struct Desc_2e1960 {
     int f40;
@@ -212,10 +213,10 @@ struct Desc_2e1960 {
 };
 
 class PalList_2e1960 : public Ref_2e1960 {
-public:
+  public:
     char pad04[4];
-    char *begin;
-    char *end;
+    char* begin;
+    char* end;
 };
 
 struct Hdr8 {
@@ -225,7 +226,7 @@ struct Hdr8 {
 
 struct Hdr_2e1960 {
     char pad00[8];
-    Hdr8 *f8;
+    Hdr8* f8;
     int fc;
     char b10;
     char pad11[0x1c - 0x11];
@@ -233,13 +234,13 @@ struct Hdr_2e1960 {
     int f20;
     int f24;
     int f28;
-    void FUN_002a46d0(int a1, void *obj);
-    void FUN_002a4b00(int a1, Reader *r, int a3);
-    void Load(int a1, Reader *R, int a3, PalList_2e1960 *a4, unsigned int *a5);
+    void FUN_002a46d0(int a1, void* obj);
+    void FUN_002a4b00(int a1, Reader* r, int a3);
+    void Load(int a1, Reader* R, int a3, PalList_2e1960* a4, unsigned int* a5);
 };
 
 class __declspec(novtable) PrimGroupBase {
-public:
+  public:
     virtual void p0();
     virtual void p1();
     virtual void p2();
@@ -248,12 +249,12 @@ public:
     virtual void p5();
     virtual void p6();
     virtual void p7();
-    virtual void p8(Hdr8 *v);
+    virtual void p8(Hdr8* v);
     PrimGroupBase();
 };
 
 class __declspec(novtable) PrimGroup : public PrimGroupBase {
-public:
+  public:
     char pad04[0x40 - 4];
     int f40;
     int f44;
@@ -261,14 +262,13 @@ public:
     int f4c;
     int f50;
     char pad54[4];
-    Ref_2e1960 *f58;
+    Ref_2e1960* f58;
 };
 
 namespace pure3d {
 class PrimGroupOptimized : public PrimGroup {
-public:
-    PrimGroupOptimized(int a, int b)
-    {
+  public:
+    PrimGroupOptimized(int a, int b) {
         f48 = a;
         f40 = 0;
         f44 = 0;
@@ -277,52 +277,51 @@ public:
         f58 = 0;
     }
 };
-}
+} // namespace pure3d
 
 class PrimGroupPalette_2e1960 : public PrimGroup {
-public:
+  public:
     char pad5c[4];
-    Ref_2e1960 *f60;
-    Ref_2e1960 *f64;
-    PrimGroupPalette_2e1960 *FUN_002dffe0(int a, int b);
+    Ref_2e1960* f60;
+    Ref_2e1960* f64;
+    PrimGroupPalette_2e1960* FUN_002dffe0(int a, int b);
 };
 
 struct IntVec_2e1960 {
-    int *data;
+    int* data;
     int cap;
     void FUN_002e18c0(unsigned int n);
 };
 
 namespace pure3d {
 class MatrixPaletteList : public Ref_2e1960 {
-public:
+  public:
     int f4;
     IntVec_2e1960 vec;
-    MatrixPaletteList()
-    {
+    MatrixPaletteList() {
         f4 = 0;
         vec.data = 0;
         vec.cap = 0;
     }
 };
-}
+} // namespace pure3d
 
 struct Frame_2e1960 {
-    unsigned int s0;                // 0
-    Hdr_2e1960 *self;                      // 4
-    PrimGroup *obj;                 // 8
-    unsigned int u12;               // 12
-    unsigned int local20;           // 16
-    PrimGroupPalette_2e1960 *pal;          // 20
-    unsigned int n24;               // 24
-    unsigned int u28;               // 28
-    unsigned int u32;               // 32
-    unsigned int s36;               // 36
-    unsigned int u40;               // 40
-    Desc_2e1960 d;                         // 44
-    unsigned int s80;               // 80
-    unsigned int v64;               // 84
-    float v2[2];                    // 88
+    unsigned int s0;
+    Hdr_2e1960* self;
+    PrimGroup* obj;
+    unsigned int u12;
+    unsigned int local20;
+    PrimGroupPalette_2e1960* pal;
+    unsigned int n24;
+    unsigned int u28;
+    unsigned int u32;
+    unsigned int s36;
+    unsigned int u40;
+    Desc_2e1960 d;
+    unsigned int s80;
+    unsigned int v64;
+    float v2[2];
     float v96[3];
     float v108[3];
     float v120[3];
@@ -330,9 +329,7 @@ struct Frame_2e1960 {
     float v144[3];
 };
 
-
-void Hdr_2e1960::Load(int a1, Reader *R, int a3, PalList_2e1960 *a4, unsigned int *a5)
-{
+void Hdr_2e1960::Load(int a1, Reader* R, int a3, PalList_2e1960* a4, unsigned int* a5) {
     Frame_2e1960 f;
     f.self = this;
     unsigned int flags = f1c;
@@ -343,19 +340,19 @@ void Hdr_2e1960::Load(int a1, Reader *R, int a3, PalList_2e1960 *a4, unsigned in
     else
         f.local20 = 0;
     f.v64 = flags & 0xf;
-    PrimGroup *obj;
+    PrimGroup* obj;
     f.pal = 0;
     if (a4 != 0 && ((a4->end - a4->begin) >> 6) != 0) {
-        void *m = thunk_FUN_0008d690(0x68);
+        void* m = thunk_FUN_0008d690(0x68);
         if (m) {
-            f.pal = ((PrimGroupPalette_2e1960 *)m)->FUN_002dffe0(f1c, f20);
+            f.pal = ((PrimGroupPalette_2e1960*)m)->FUN_002dffe0(f1c, f20);
             obj = f.pal;
         } else {
             f.pal = 0;
             obj = 0;
         }
     } else {
-        void *m = thunk_FUN_0008d690(0x60);
+        void* m = thunk_FUN_0008d690(0x60);
         if (m)
             obj = new (m) pure3d::PrimGroupOptimized(f1c, f20);
         else
@@ -366,7 +363,7 @@ void Hdr_2e1960::Load(int a1, Reader *R, int a3, PalList_2e1960 *a4, unsigned in
     obj->f44 = fc;
     FUN_002a46d0(a1, obj);
 
-    Desc_2e1960 &d = f.d;
+    Desc_2e1960& d = f.d;
     d.f40 = fc;
     d.f44 = f1c;
     d.f50 = f20;
@@ -376,19 +373,19 @@ void Hdr_2e1960::Load(int a1, Reader *R, int a3, PalList_2e1960 *a4, unsigned in
     d.b59 = 0;
     d.f5c = 0;
     if (a5) {
-        ((unsigned int *)d.c48)[0] = a5[0];
-        ((unsigned int *)d.c48)[1] = a5[1];
+        ((unsigned int*)d.c48)[0] = a5[0];
+        ((unsigned int*)d.c48)[1] = a5[1];
     }
     d.b58 = b10;
     d.f60 = f28;
-    Builder *B = (*(Factory_2e1960**)&DAT_0052c2a0)->f10(&d);
+    Builder* B = (*(Factory_2e1960**)&DAT_0052c2a0)->f10(&d);
     if (B)
-        ((Ref_2e1960 *)B)->AddRef();
+        ((Ref_2e1960*)B)->AddRef();
     if (obj->f58)
         obj->f58->Release();
-    obj->f58 = (Ref_2e1960 *)B;
+    obj->f58 = (Ref_2e1960*)B;
 
-    Maker_2e1960 *mk = DAT_0052c2a8->g89(0x106);
+    Maker_2e1960* mk = DAT_0052c2a8->g89(0x106);
     if (mk) {
         bool hasPal = (a4 != 0);
         if (mk->m4(f8->f10, hasPal)) {
@@ -408,7 +405,7 @@ void Hdr_2e1960::Load(int a1, Reader *R, int a3, PalList_2e1960 *a4, unsigned in
                     R->stream->FUN_002647e0(&f.n24, 1, 4, 1);
                     R->stream->FUN_002647e0(&f.u12, 1, 4, 1);
                     if (f.u12 < f.local20) {
-                        AttrList *l = B->b4();
+                        AttrList* l = B->b4();
                         for (unsigned int i = 0; i < f.n24; i++) {
                             R->stream->FUN_002647e0(&f.u32, 1, 4, 1);
                             l->a4(f.u32, f.u12);
@@ -419,188 +416,187 @@ void Hdr_2e1960::Load(int a1, Reader *R, int a3, PalList_2e1960 *a4, unsigned in
                 }
             } else {
                 unsigned int idx = id - 0x10003;
-                if (idx > 0x13)
-                    goto next;
-                switch (idx) {
-                case 0:
-                    R->FUN_001c6200((char *)obj + 0x14);
-                    R->FUN_001c6200((char *)obj + 0x20);
-                    break;
-                case 1:
-                    R->FUN_001c6200((char *)obj + 0x2c);
-                    *(float *)((char *)obj + 0x38) = R->FUN_001c61e0();
-                    break;
-                case 2:
-                    if (f1c & 0x2000) {
-                        unsigned int n = R->FUN_001c61c0();
-                        AttrList *l = B->b4();
-                        for (unsigned int i = 0; i < n; i++) {
-                            float (&v)[3] = f.v144;
-                            R->stream->FUN_002647e0(v, 3, 4, 1);
-                            l->a0(v[0], v[1], v[2]);
+                if (idx <= 0x13) {
+                    switch (idx) {
+                    case 0:
+                        R->FUN_001c6200((char*)obj + 0x14);
+                        R->FUN_001c6200((char*)obj + 0x20);
+                        break;
+                    case 1:
+                        R->FUN_001c6200((char*)obj + 0x2c);
+                        *(float*)((char*)obj + 0x38) = R->FUN_001c61e0();
+                        break;
+                    case 2:
+                        if (f1c & 0x2000) {
+                            unsigned int n = R->FUN_001c61c0();
+                            AttrList* l = B->b4();
+                            for (unsigned int i = 0; i < n; i++) {
+                                float (&v)[3] = f.v144;
+                                R->stream->FUN_002647e0(v, 3, 4, 1);
+                                l->a0(v[0], v[1], v[2]);
+                            }
+                            B->b5(l);
                         }
-                        B->b5(l);
-                    }
-                    break;
-                case 3:
-                    if (f1c & 0x10) {
-                        unsigned int n = R->FUN_001c61c0();
-                        AttrList *l = B->b4();
-                        for (unsigned int i = 0; i < n; i++) {
-                            float (&v)[3] = f.v108;
-                            R->stream->FUN_002647e0(v, 3, 4, 1);
-                            l->a1(v[0], v[1], v[2]);
-                            l->a17();
-                        }
-                        B->b5(l);
-                    }
-                    break;
-                case 19:
-                    if (f1c & 0x800) {
-                        unsigned int n = R->FUN_001c61c0();
-                        AttrList *l = B->b4();
-                        for (unsigned int i = 0; i < n; i++) {
-                            float (&v)[3] = f.v132;
-                            R->stream->FUN_002647e0(v, 3, 4, 1);
-                            l->a2(v[0], v[1], v[2]);
-                            l->a17();
-                        }
-                        B->b5(l);
-                    }
-                    break;
-                case 18:
-                    if (f1c & 0x1000) {
-                        unsigned int n = R->FUN_001c61c0();
-                        AttrList *l = B->b4();
-                        for (unsigned int i = 0; i < n; i++) {
-                            float (&v)[3] = f.v96;
-                            R->stream->FUN_002647e0(v, 3, 4, 1);
-                            l->a3(v[0], v[1], v[2]);
-                            l->a17();
-                        }
-                        B->b5(l);
-                    }
-                    break;
-                case 5:
-                    if (f1c & 0x20) {
-                        unsigned int n = R->FUN_001c61c0();
-                        AttrList *l = B->b4();
-                        for (unsigned int i = 0; i < n; i++) {
-                            unsigned int &v = f.u40;
-                            R->stream->FUN_002647e0(&v, 1, 4, 1);
-                            l->a4(v, 0);
-                            l->a17();
-                        }
-                        B->b5(l);
-                    }
-                    break;
-                case 4:
-                    if (f1c & 0xf) {
-                        unsigned int cnt = R->FUN_001c61c0();
-                        unsigned int ix = R->FUN_001c61c0();
-                        if (ix < f.v64) {
-                            AttrList *l = B->b4();
-                            for (unsigned int i = cnt; i > 0; i--) {
-                                float (&v)[2] = f.v2;
-                                R->stream->FUN_002647e0(v, 2, 4, 1);
-                                l->a6(v[0], v[1], ix);
+                        break;
+                    case 3:
+                        if (f1c & 0x10) {
+                            unsigned int n = R->FUN_001c61c0();
+                            AttrList* l = B->b4();
+                            for (unsigned int i = 0; i < n; i++) {
+                                float (&v)[3] = f.v108;
+                                R->stream->FUN_002647e0(v, 3, 4, 1);
+                                l->a1(v[0], v[1], v[2]);
                                 l->a17();
                             }
                             B->b5(l);
                         }
-                    }
-                    break;
-                case 7: {
-                    unsigned int n = R->FUN_001c61c0();
-                    unsigned short *buf = (unsigned short *)FUN_00266e00(1, n * 2);
-                    for (unsigned int i = 0; i < n; i++) {
-                        unsigned int &v = f.u28;
-                        R->stream->FUN_002647e0(&v, 1, 4, 1);
-                        buf[i] = (unsigned short)v;
-                    }
-                    B->b9(buf, n);
-                    FUN_00267090(buf);
-                    break;
-                }
-                case 9:
-                    if (f1c & 0x100) {
-                        unsigned int n = R->FUN_001c61c0();
-                        AttrList *l = B->b4();
-                        for (unsigned int i = 0; i < n; i++) {
-                            float (&v)[3] = f.v120;
-                            R->stream->FUN_002647e0(v, 3, 4, 1);
-                            l->a11(v[0], v[1], v[2]);
-                            l->a17();
+                        break;
+                    case 19:
+                        if (f1c & 0x800) {
+                            unsigned int n = R->FUN_001c61c0();
+                            AttrList* l = B->b4();
+                            for (unsigned int i = 0; i < n; i++) {
+                                float (&v)[3] = f.v132;
+                                R->stream->FUN_002647e0(v, 3, 4, 1);
+                                l->a2(v[0], v[1], v[2]);
+                                l->a17();
+                            }
+                            B->b5(l);
                         }
-                        B->b5(l);
-                    }
-                    break;
-                case 8:
-                    if (f1c & 0x80) {
+                        break;
+                    case 18:
+                        if (f1c & 0x1000) {
+                            unsigned int n = R->FUN_001c61c0();
+                            AttrList* l = B->b4();
+                            for (unsigned int i = 0; i < n; i++) {
+                                float (&v)[3] = f.v96;
+                                R->stream->FUN_002647e0(v, 3, 4, 1);
+                                l->a3(v[0], v[1], v[2]);
+                                l->a17();
+                            }
+                            B->b5(l);
+                        }
+                        break;
+                    case 5:
+                        if (f1c & 0x20) {
+                            unsigned int n = R->FUN_001c61c0();
+                            AttrList* l = B->b4();
+                            for (unsigned int i = 0; i < n; i++) {
+                                unsigned int& v = f.u40;
+                                R->stream->FUN_002647e0(&v, 1, 4, 1);
+                                l->a4(v, 0);
+                                l->a17();
+                            }
+                            B->b5(l);
+                        }
+                        break;
+                    case 4:
+                        if (f1c & 0xf) {
+                            unsigned int cnt = R->FUN_001c61c0();
+                            unsigned int ix = R->FUN_001c61c0();
+                            if (ix < f.v64) {
+                                AttrList* l = B->b4();
+                                for (unsigned int i = cnt; i > 0; i--) {
+                                    float (&v)[2] = f.v2;
+                                    R->stream->FUN_002647e0(v, 2, 4, 1);
+                                    l->a6(v[0], v[1], ix);
+                                    l->a17();
+                                }
+                                B->b5(l);
+                            }
+                        }
+                        break;
+                    case 7: {
                         unsigned int n = R->FUN_001c61c0();
-                        AttrList *l = B->b4();
+                        unsigned short* buf = (unsigned short*)FUN_00266e00(1, n * 2);
                         for (unsigned int i = 0; i < n; i++) {
-                            unsigned int &v = f.u12;
+                            unsigned int& v = f.u28;
                             R->stream->FUN_002647e0(&v, 1, 4, 1);
-                            l->a10(v >> 24, (v >> 16) & 0xff, (v >> 8) & 0xff, v & 0xff);
-                            l->a17();
+                            buf[i] = (unsigned short)v;
                         }
-                        B->b5(l);
+                        B->b9(buf, n);
+                        FUN_00267090(buf);
+                        break;
                     }
-                    break;
-                case 10:
-                    if (f1c & 0x80) {
-                        unsigned int n = R->FUN_001c61c0();
-                        pure3d::MatrixPaletteList *mp;
-                        void *mm = FUN_0008d690(0x14);
-                        if (mm)
-                            mp = new (mm) pure3d::MatrixPaletteList();
-                        else
-                            mp = 0;
-                        mp->vec.FUN_002e18c0(n);
-                        for (unsigned int i = 0; i < n; i++) {
-                            unsigned int &v = f.u32;
-                            R->stream->FUN_002647e0(&v, 1, 4, 1);
-                            mp->vec.data[i] = v;
+                    case 9:
+                        if (f1c & 0x100) {
+                            unsigned int n = R->FUN_001c61c0();
+                            AttrList* l = B->b4();
+                            for (unsigned int i = 0; i < n; i++) {
+                                float (&v)[3] = f.v120;
+                                R->stream->FUN_002647e0(v, 3, 4, 1);
+                                l->a11(v[0], v[1], v[2]);
+                                l->a17();
+                            }
+                            B->b5(l);
                         }
-                        if (a4)
-                            a4->AddRef();
-                        if (f.pal->f60)
-                            f.pal->f60->Release();
-                        f.pal->f60 = a4;
-                        if (mp)
-                            mp->AddRef();
-                        if (f.pal->f64)
-                            f.pal->f64->Release();
-                        f.pal->f64 = mp;
+                        break;
+                    case 8:
+                        if (f1c & 0x80) {
+                            unsigned int n = R->FUN_001c61c0();
+                            AttrList* l = B->b4();
+                            for (unsigned int i = 0; i < n; i++) {
+                                unsigned int& v = f.u12;
+                                R->stream->FUN_002647e0(&v, 1, 4, 1);
+                                l->a10(v >> 24, (v >> 16) & 0xff, (v >> 8) & 0xff, v & 0xff);
+                                l->a17();
+                            }
+                            B->b5(l);
+                        }
+                        break;
+                    case 10:
+                        if (f1c & 0x80) {
+                            unsigned int n = R->FUN_001c61c0();
+                            pure3d::MatrixPaletteList* mp;
+                            void* mm = FUN_0008d690(0x14);
+                            if (mm)
+                                mp = new (mm) pure3d::MatrixPaletteList();
+                            else
+                                mp = 0;
+                            mp->vec.FUN_002e18c0(n);
+                            for (unsigned int i = 0; i < n; i++) {
+                                unsigned int& v = f.u32;
+                                R->stream->FUN_002647e0(&v, 1, 4, 1);
+                                mp->vec.data[i] = v;
+                            }
+                            if (a4)
+                                a4->AddRef();
+                            if (f.pal->f60)
+                                f.pal->f60->Release();
+                            f.pal->f60 = a4;
+                            if (mp)
+                                mp->AddRef();
+                            if (f.pal->f64)
+                                f.pal->f64->Release();
+                            f.pal->f64 = mp;
+                        }
+                        break;
+                    case 15:
+                    case 17: {
+                        R->FUN_000f95e0();
+                        unsigned int format = R->FUN_001c61c0();
+                        unsigned int size = R->FUN_001c61c0();
+                        B->b13(R->FUN_00266c30(), format);
+                        AttrList* l = B->b11(size);
+                        R->FUN_000f9650(l, (void*)size, 1);
+                        B->b12();
+                        break;
                     }
-                    break;
-                case 15:
-                case 17: {
-                    R->FUN_000f95e0();
-                    unsigned int ebx = R->FUN_001c61c0();
-                    unsigned int ebp = R->FUN_001c61c0();
-                    B->b13(R->FUN_00266c30(), ebx);
-                    AttrList *l = B->b11(ebp);
-                    R->FUN_000f9650(l, (void *)ebp, 1);
-                    B->b12();
-                    break;
-                }
-                case 16: {
-                    R->FUN_000f95e0();
-                    unsigned int ebx = R->FUN_001c61c0();
-                    unsigned int ebp = R->FUN_001c61c0();
-                    B->b13(R->FUN_00266c30(), ebx);
-                    int r = B->b7();
-                    R->FUN_000f9650((void *)r, (void *)ebp, 1);
-                    B->b8(f24);
-                    break;
-                }
-                default:
-                    break;
+                    case 16: {
+                        R->FUN_000f95e0();
+                        unsigned int format = R->FUN_001c61c0();
+                        unsigned int size = R->FUN_001c61c0();
+                        B->b13(R->FUN_00266c30(), format);
+                        int r = B->b7();
+                        R->FUN_000f9650((void*)r, (void*)size, 1);
+                        B->b8(f24);
+                        break;
+                    }
+                    default:
+                        break;
+                    }
                 }
             }
-        next:
             R->FUN_00266be0();
         } while (R->FUN_002669f0());
     }
