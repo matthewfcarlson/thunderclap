@@ -8,6 +8,8 @@ vec4  v_texcoord0 : TEXCOORD0 = vec4(0.0, 0.0, 0.0, 1.0);
 vec4  v_texcoord1 : TEXCOORD1 = vec4(0.0, 0.0, 0.0, 1.0);
 vec4  v_texcoord2 : TEXCOORD2 = vec4(0.0, 0.0, 0.0, 1.0);
 vec4  v_texcoord3 : TEXCOORD3 = vec4(0.0, 0.0, 0.0, 1.0);
+vec4  v_bcolor0    : TEXCOORD4 = vec4(1.0, 1.0, 1.0, 1.0);   // G5: the back face's colours (vs_vp_ff2s:
+vec4  v_bcolor1    : TEXCOORD5 = vec4(0.0, 0.0, 0.0, 0.0);   // two-sided lighting)
 
 // Attributes, as the vertex declaration gives them (missing components read (0, 0, 0, 1) on both the NV2A and
 // a bgfx backend). Colours are D3DCOLOR bytes, which a bgfx Uint8-normalised attribute delivers as B, G, R, A.

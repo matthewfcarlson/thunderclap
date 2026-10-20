@@ -101,23 +101,11 @@ void bgfxContext::fxDone()
 
 // FUN_00320aa0: CopyRects of the render target (here always the scene target) into `dstTex`, a texture of its size:
 // a blit at the start of a new view
-bool bgfxContext::fxCopy(unsigned dstTex)
+bool bgfxContext::fxCopy(unsigned dstTex, unsigned dstFb)
 {
     if (dstTex == kNone || !m_display->m_offscreen)
         return false;
-    if (m_viewUsed || m_clearFlags) {
-        if (m_viewId >= 250)
-            return false;
-        m_viewId++;
-        m_viewUsed = false;
-        m_clearFlags = 0;
-        setupView();
-    }
-    bgfx::TextureRegion dst, src;
-    dst.init(bgfx::TextureHandle{(uint16_t)dstTex});
-    src.init(bgfx::TextureHandle{(uint16_t)m_display->m_sceneColour});
-    bgfx::blit((bgfx::ViewId)m_viewId, dst, src);
-    return true;
+    return sceneCopy(dstTex, dstFb);
 }
 
 // One quad of a pass. `prog` = u_fxProg (and u_fxK after it when the filter program draws), `consts` = c0.. (already
@@ -197,7 +185,7 @@ bgfxExtFramebufferEffects::bgfxExtFramebufferEffects(bgfxContext* context)
       m_ccBias(0.5f), m_ccResult(1.0f), m_ccBusy(false), m_ccEnabled(false), m_bAmount(0.0f), m_bBlend(1.0f),
       m_bContrast(1.0f), m_bRadius(0.0f), m_bMix(0.5f), m_bD0(1.0f), m_bD4(1.0f), m_bSigma(0.0f),
       m_bFactor(0xffffffffu), m_bEnabled(true), m_blurBusy(false), m_full(kNone), m_half(kNone), m_halfFb(kNone),
-      m_w(0), m_h(0)
+      m_w(0), m_h(0), m_fullFb(kNone)
 {
     m_ccTint[0] = m_ccTint[1] = m_ccTint[2] = 1.0f;
     m_bWeights[0] = 1.0f;
@@ -223,8 +211,8 @@ bgfxExtFramebufferEffects::~bgfxExtFramebufferEffects()
 
 void bgfxExtFramebufferEffects::releaseResources()
 {
-    if (m_full != kNone)
-        bgfx::destroy(bgfx::TextureHandle{(uint16_t)m_full});
+    if (m_context && m_context->m_display)
+        m_context->m_display->destroyCopyTarget(&m_full, &m_fullFb);
     if (m_halfFb != kNone)
         bgfx::destroy(bgfx::FrameBufferHandle{(uint16_t)m_halfFb});
     for (int i = 0; i < 2; i++)
@@ -260,8 +248,7 @@ bool bgfxExtFramebufferEffects::ensureResources()
     releaseResources();
     m_w = w;
     m_h = h;
-    m_full = bgfx::createTexture2D((uint16_t)w, (uint16_t)h, false, 1, bgfx::TextureFormat::BGRA8,
-                                   BGFX_TEXTURE_BLIT_DST | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP).idx;
+    m_full = d->makeCopyTarget(w, h, &m_fullFb);
     m_halfFb = makeTarget(w / 2, h / 2, &m_half);
     m_quarterFb[0] = makeTarget(w / 4, h / 4, &m_quarter[0]);
     m_quarterFb[1] = makeTarget(w / 4, h / 4, &m_quarter[1]);
@@ -316,6 +303,7 @@ void bgfxExtFramebufferEffects::vfunc_2()
         return;
     unsigned prev = d->prevFrame();
     m_overlayTex->m_handle = prev;            // kNone (no scene target): the stage samples white
+    m_overlayTex->m_fromTarget = true;
     m_overlayTex->m_width = d->m_targetWidth;
     m_overlayTex->m_height = d->m_targetHeight;
     float zNear = 0.0f, farv = 1.0f, unused;
@@ -495,6 +483,11 @@ static void fxProgram(int lv, int pass, float* prog)
     prog[3] = (float)adds;
 }
 
+void fxProgramParams(int lv, int side, float* prog8)
+{
+    fxProgram(lv, side, prog8);
+}
+
 // FUN_00324660: the colour pass. weights: the luminance weights (c0); f1 the brightness; f2 the contrast factor;
 // colour: the tint; f3 the contrast's midpoint; f4 the saturation (/ 2). The quad covers w x h pixels of the current
 // fx view and reads the whole full-size copy. c7 = luminance . tint x f4, c6 = (tint - that + 1) / 2, c3 and c5 the
@@ -550,7 +543,7 @@ void bgfxExtFramebufferEffects::vfunc_6()
         return;
     bgfxContext* c = m_context;
     bgfxDisplay* d = c->m_display;
-    if (!c->fxCopy(m_full))
+    if (!c->fxCopy(m_full, m_fullFb))
         return;
     static const float kTint[3] = {0.25f, 0.625f, 0.125f};
     c->m_fxTargetW = d->m_targetWidth;
@@ -710,7 +703,7 @@ void bgfxExtFramebufferEffects::vfunc_9()
     bgfxContext* c = m_context;
     bgfxDisplay* d = c->m_display;
     int fullW = (int)d->vfunc_7(), fullH = (int)d->vfunc_6();
-    if (!c->fxCopy(m_full))
+    if (!c->fxCopy(m_full, m_fullFb))
         return;
     // the bright pass: viewport (0, 0, w / 2, h / 2) of the half target
     c->m_fxTargetW = m_w / 2;

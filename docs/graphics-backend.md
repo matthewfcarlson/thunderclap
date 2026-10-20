@@ -6,6 +6,7 @@ G3's draw path (prim buffers, vertex programs, render state) is [section 9](#9-g
 G2's shader-class combiners, 2D mode, linear textures and movie strategy are [section 10](#10-g2-the-shader-classes-combiners-2d-textures-and-movies-2026-10-19).
 The window and the event pump moved to SDL3 in [section 11](#11-sdlwin-the-window-and-the-event-pump-on-sdl3-2026-10-19).
 G4's frame-buffer copy, refraction, framebuffer effects and the other extensions are [section 12](#12-g4-effects-the-frame-buffer-copy-refraction-and-the-extensions-2026-10-19).
+G5's clean-up (shader proofs, window scaling, copies without blits, two-sided lighting) is [section 13](#13-g5-clean-up-shader-proofs-window-scaling-portability-two-sided-lighting-2026-10-19).
 The small prototypes and the scripts that produced the planning numbers were under `build/gfx-proto/` (not tracked). Inputs: [platform-boundary.md](platform-boundary.md),
 [seams.md](seams.md), [web-port.md](web-port.md), [native-build.md](native-build.md), [subsystems.md](subsystems.md),
 [formats/p3d.md](formats/p3d.md), [texture-packs.md](texture-packs.md), `src/platform/sdl/xdk/`,
@@ -346,6 +347,7 @@ graphics (today's state: it links and starts, [native-build.md](native-build.md)
 | G4 Effects | `d3dExtFramebufferEffects` (114 functions: glow levels, blur, colour passes, the 17 `xps` shaders), render targets, `CopyRects`, `refract` (+`skin_refract`), visibility tests, gamma, read pixels, antialias | 2 to 3 weeks | the 17 `xps` translations as one batch; targets/copies; queries/gamma |
 | | **Done 2026-10-19 (section 12): the frame drawn into a scene target with a present pass; the display's frame-buffer copy (blits ordered between views) and the refraction shader's constants and stage; the vertex program extension that gives meshes their program; the framebuffer effects (colour correction, the fbeffects shaders' average, bloom, the motion-trail overlay) with the xps programs translated; visibility tests as occlusion queries; antialias answers. Self-test 502 probes on Metal; 498 on Vulkan under Wine (page 5's four vertex-program-extension probes came after the last Wine run). Not done: two-sided lighting; the unused extensions (gamma, read pixels, framebuffer texture, render targets, projected texture)** | | |
 | G5 Web and polish | WebGL2 via the same backend (Emscripten bgfx build, `BGFX_CONFIG_MULTITHREADED=0`, blit fallback), HD textures + dump mode, resolution independence (640/480 literal), MSAA/anisotropy options; the unused shader classes only if a factory log shows them | 1 to 3 weeks | HD textures independent of everything after G1 |
+| | **G5 clean-up done 2026-10-19 (section 13): every shader the backend draws with proven against an independent reference (the framebuffer effects' 20 pixel programs against an interpreter of the game's text, the fixed-function vertex path against Direct3D 8's pipeline as the game sets it up, the 100 combiner keys against the texture-stage reference); three fixed-function corrections from the game's state; the frame scaled into any window with its aspect kept (HULK_GFX_SCALE); quad copies where a renderer can't blit; the OpenGL origin for render-target copies; two-sided lighting on the fixed-function path; deferred texture uploads (the boot movies' crash). Self-test 548 probes on Metal. Not done: an OpenGL/WebGL2 run, the web build** | | |
 
 Total about **10 to 16 weeks**. The critical path is G0 → G1 → G3 (vertex programs and the level shaders). What
 batches well: each shader class is a self-contained port of one verified `platform/xbox` object (12 to 40 functions,
@@ -1010,14 +1012,96 @@ no draws). `tests/shaders` 42/42 (no vertex program changed); `native_gfx.py slo
   display's ramp 0x31b390 is reached only through it), the global projected texture (0x500004), clear-by-quad
   (+0x44c), the vertex program extension's slots 1/3/7/8, the display's capture (slot 15, still a stub). They stay
   logged stubs.
-- The OpenGL/WebGL2 origin for the refraction stage's copy (G5); a quad copy where a renderer can't blit (G5).
-- An `xps.1.1` interpreter proof of `fs_fx_filter`/`fs_fx_blur` with fuzzed inputs (docs/shaders.md); the NV2A
-  combiners' internal precision and constant rounding are taken as float and round-to-nearest.
+- ~~The OpenGL/WebGL2 origin for the refraction stage's copy; a quad copy where a renderer can't blit~~: G5,
+  section 13 (no OpenGL run yet).
+- ~~An `xps.1.1` interpreter proof of `fs_fx_filter`/`fs_fx_blur`~~: G5 (`tools/xps.py`); the NV2A combiners'
+  internal precision and `def` rounding are still taken as float.
 - The game's own effects frames: the native image still stops in physics init after the self-test (native-build
   work), so no in-game refraction, colour correction or bloom has been drawn yet.
 - Game code `dynamic_cast`s the effects extension (HulkShaderCallback FUN_001c1a40 keeps it in DAT_004e2318 for
   the HUD's motion trail). Our extension objects carry no game RTTI, so in the native image that cast needs a
   rebind (or a locator naming the game's types); noted for the native build (build/g4/for-native10.md).
+
+## 13. G5 clean-up: shader proofs, window scaling, portability, two-sided lighting (2026-10-19)
+
+```sh
+PY=build/venv/bin/python
+$PY tools/xps.py prove                      # the 20 framebuffer-effects pixel programs vs shaders/fx (3000 px each)
+$PY tools/d3d_ff.py prove                   # vs_vp_ff.sc vs the Direct3D 8 fixed-function reference (10 configs)
+$PY tools/d3d_ff.py prove --src src/platform/sdl/pddi/shaders/vp/vs_vp_ff2s.sc   # + the back colours
+$PY tools/d3d_combiner.py prove --all-profiles   # the 100 combiner keys, generated and generic programs
+$PY tools/native_gfx.py pddi && $PY tools/native_gfx.py smoke      # Metal: 11 pages, 14 shots, 548 probes
+HULK_GFX_QUAD_COPY=1 $PY tools/native_gfx.py smoke                # the same with quad copies instead of blits
+HULK_GFX_WINDOW=960x540 HULK_GFX_SCALE=integer ... tools/native_run.py   # the game image in a larger window
+```
+
+**Shader proofs** (docs/shaders.md has the details and tolerances). Everything the backend draws with is now proven
+against an independent reference on fuzzed inputs through the compiled SPIR-V (`shader_equiv.py`'s machine, which
+gained texture sampling: sampler n answers only at its own coordinate set, so a swapped set fails), each with a
+deliberately broken fixture that fails:
+
+| what | reference | result | broken fixture |
+|---|---|---|---|
+| `shaders/fx/` (15 `xps.1.1` programs of FUN_00320540 incl. the threshold text at 0x432da0, 5 `ps.1.1` of FUN_00320330) | `tools/xps.py`: an interpreter of the game's own program text (combiner clamps, co-issue, 8-bit constants); the filter program's uniforms come from the C++ (`pddi_smoke --fx-params`) | 20 equivalent, 3,006 pixels each, max difference 4e-6 (tolerance 2^-16) | `fixtures/fx/`: a dropped clamp fails the 8 programs of levels 1-8 (above them the result saturates either way); a swapped coordinate set fails `blur4` only |
+| `vs_vp_ff.sc` (fixed function) | `tools/d3d_ff.py`: Direct3D 8's pipeline with the state the game sets (below) | 10 configurations equivalent, 3,000 vertices each, worst 5% of the tolerance | `fixtures/vs_wrong_ff.sc` (no linear attenuation) fails exactly the 4 point-light configurations |
+| the 100 combiner keys | `tools/d3d_combiner.py`: Direct3D 8's texture stages, specular, alpha test, fog | 200 programs equivalent (generated + generic), 600 pixels each, all profiles compile | `fixtures/fs_wrong_vp_stage.sh` (op 20) fails exactly the 12 keys using it, both programs |
+
+**Fixed function: three corrections found by the reference** (from the verified sources, not guesses):
+FUN_00320c60, the context's device set-up, writes the deferred render states after LIGHTING (0x39dea8) and
+SPECULARENABLE (0x39deac): COLORVERTEX on and every material source **D3DMCS_MATERIAL** (the ordering is confirmed by
+AMBIENT = 0x39dedc, the word slot 35 writes, and by the point-sprite shader's POINTSIZE..POINTSIZE_MAX at
+0x39dee0..0x39defc). So a lit draw takes its colours from the material and never from the vertex; G3 used the vertex
+colour. LOCALVIEWER and NORMALIZENORMALS are never set (Direct3D's defaults: on, off), so normals now go through the
+inverse transpose of the modelview (`u_vc[52..54]`, computed in `ffConstants`) and are not renormalised (a flag,
+`u_vc[13].w`, if a hybrid capture shows otherwise); directional lights' directions are normalised (FUN_00321310 moves
+them by a matrix: not unit). The self-test pages still pass unchanged (their lit quads have unit normals, identity
+transforms and white material).
+
+**Window scaling.** The game's frame (the mode: what slots 6/7/11/12 report and the scene target's size) is now
+independent of the window: `bgfxDisplay::present` draws it into `presentRect()`, the largest rectangle of the frame's
+aspect that fits, centred, with black bars (pillarbox / letterbox). `HULK_GFX_SCALE`: `linear` (default; 1:1 stays
+point sampled), `nearest`, `integer` (whole multiples, point sampled; a smaller window falls back to fitting).
+`HULK_GFX_WINDOW=WxH` opens the window at another size than `HULK_GFX_SIZE` (the frame). Resizing and fullscreen (F11 /
+Alt+Enter from the event hub, no mouse needed) reset only the swap chain; without a scene target (`HULK_GFX_DIRECT`,
+no present program) the back buffer is the frame and follows the window as before. Self-test page 9: four quadrants;
+probes at each quadrant mapped through the present rectangle, the frame's first/last row and column in the window,
+and the bars just outside (black); the smoke test runs it at 640x480 and in 960x540 (linear, pillarbox), 900x600
+(integer, bars on four sides) and 800x800 (nearest, letterbox) windows.
+
+**Portability prep.** *Copies without blits:* `bgfxContext::sceneCopy` is the one place render-target copies happen
+(the refraction's frame-buffer copy, the effects' full copy, the overlay's front buffer at the present); where the
+renderer can't blit it draws a full-screen quad into the destination's frame buffer in a view of its own and the
+scene goes on in the next view. On by default for OpenGL (bgfx's desktop GL renderer blits only through
+glCopyImageSubData, GL 4.3; its GLES/WebGL2 path blits through framebuffer blits), `HULK_GFX_QUAD_COPY=1/0` forces it.
+Checked on Metal: the smoke test with quad copies forced passes all 548 probes (pages 5-8 depend on the copies), and
+page 5 under Wine/Vulkan likewise. *GL origin:* a copy of a render target (`bgfxTexture::m_fromTarget`: the frame-buffer
+copy, the overlay's front buffer) is stored bottom-up where targets have the origin at the bottom left; the stage's
+coordinates now take an offset after the scale (`u_pddiFrag[14..15]`), so the draw samples it with v -> 1 - v there
+(the present and fx quads already flipped). Checked at unit level only: the pinned bgfx has no macOS OpenGL context
+(no `glcontext_nsgl`; the host build is Metal-only), so there is no OpenGL run on this host; `d3d_combiner.py`'s fuzzed
+offsets/negative scales prove the shaders apply it.
+
+**Two-sided lighting.** A separate program, used only while a lit two-sided shader draws on the fixed-function path
+(FUN_00329f70: TWOSIDEDLIGHTING with LIGHTING; 263 lit two-sided `simple` chunks): `vs_vp_ff2s.sc` (the same
+`vs_vp_ff.sh` with FF_TWO_SIDED: also the back face's colours, the lights on the reversed normal with the back
+material, which FUN_00329f70 sets to the front one) and `fs_vp_stage2s.sc` (the generic combiner picking the colours
+by `gl_FrontFacing`). `vs_vp_ff.sc`, the six proven programs and the 100 generated combiners are unchanged; the
+variant is proven with its back colours by `d3d_ff.py`. Self-test page 10: front and back faces with the normal toward
+and away from the light (two-sided), and the same back faces through a one-sided lit shader. Not done: `refract` /
+`skin_refract` with two-sided lighting (11 `refract` chunks): what the NV2A does for a vertex program that writes no
+oB0/oB1 is unverified, so they keep the front colours.
+
+**Texture uploads deferred** (the native image's stop 27, `build/g5/for-native10.md`): an unlock queues the texture;
+its data goes to bgfx when a draw binds it or at the next present, so a game that unlocks more often than it presents
+(the boot movies while it loads) keeps one copy per level instead of one per unlock.
+
+**Results.** Host Metal: 11 pages, 14 shots, **548 of 548** (also with quad copies forced). Wine + Vulkan, the game
+image (wsg1, linked `--gfx`, strict 0 errors): pages 0-10 one per run, **512 of 512** (19 + 13 + 13 + 19 + 400 + 18 + 13 + 5 + 2 + 4 + 6), page 9 in a 960x540 window 11/11 and in a 900x600 window with `HULK_GFX_SCALE=integer` 14/14, page 5 with quad copies forced 18/18 (`build/g5/wine-vulkan-results.txt`, screenshots `build/g5/selftest-vulkan-*`). `tests/shaders` 65 tests OK; `native_gfx.py slots` ok.
+
+**Open after G5:** an OpenGL/WebGL2 run (needs a bgfx with a GL context on some host, or the web build); the NV2A's
+combiner precision and `def` constant rounding (the fx proofs take float and exact constants); NORMALIZENORMALS'
+real default on the Xbox (a hybrid capture of a scaled lit mesh would settle it); two-sided lighting for vertex
+programs; spot-light cones (no data light is a spot).
 
 ## Open questions
 

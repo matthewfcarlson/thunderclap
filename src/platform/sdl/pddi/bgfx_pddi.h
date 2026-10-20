@@ -128,6 +128,26 @@ class bgfxDisplay : public bgfxObject {
     unsigned m_prevFrame;
     unsigned m_prevAsked;
     unsigned prevFrame();                     // the handle (made on first use), and keep it coming
+
+    // G5: the window. The game's frame (m_width x m_height: the mode slots 6/7/11/12 report, the scene target's size)
+    // is presented into the window's back buffer (m_windowWidth x m_windowHeight) scaled with its aspect kept: bars
+    // (black) left and right or above and below. HULK_GFX_SCALE: linear (default), nearest, integer (whole
+    // multiples, point sampled; a window smaller than the frame falls back to linear). Without a scene target (no
+    // present program, HULK_GFX_DIRECT) the back buffer is the frame and follows the window as before.
+    unsigned m_windowWidth, m_windowHeight;
+    int m_scaleMode;                          // 0 linear, 1 nearest, 2 integer
+    void presentRect(int* x, int* y, int* w, int* h) const;   // where the frame lands in the window
+    // G5: render-target copies where the renderer can't blit (desktop OpenGL: bgfx blits there only through
+    // glCopyImageSubData, GL 4.3) are full-screen draws into a frame buffer over the destination
+    // (HULK_GFX_QUAD_COPY=1 forces them, 0 forbids them; default: on for OpenGL)
+    bool m_quadCopy;
+    unsigned m_copyFb, m_prevFb;              // the copy's and the front buffer's frame buffers (quad copies only)
+    unsigned makeCopyTarget(unsigned w, unsigned h, unsigned* fb);   // a copy destination (blit or render target)
+    void destroyCopyTarget(unsigned* tex, unsigned* fb);
+    void copyQuad(uint16_t view, unsigned srcTex, unsigned dstFb, unsigned w, unsigned h);
+    // the full-screen quad (present, quad copies): clip-space rectangle x0..x1, y0 (top)..y1, the source sampled
+    // edge to edge, v flipped on renderers whose targets have the origin at the bottom left
+    void fullQuad(uint16_t view, unsigned srcTex, uint32_t sampler, float x0, float y0, float x1, float y1);
 };
 
 // Stands in for pure3d::d3dContext (vftable 0x433164, 111 slots). 33 slots are the D3D backend's overrides
@@ -329,11 +349,15 @@ class bgfxContext : public bgfxObject {
     // what was drawn so far is in it and what follows can sample it. Returns the texture object the refraction shader
     // binds (its tex84 wraps the display's texture, FUN_00326300), or 0 when there is no copy (no scene target).
     bgfxTexture* copyFrameBuffer();
+    // the scene target into `dstTex` (its size): a blit at the start of a new view, or with quad copies a draw into
+    // `dstFb` in a view of its own (the scene goes on in the next one). False when out of views.
+    bool sceneCopy(unsigned dstTex, unsigned dstFb);
     // ---- full-screen passes (bgfx_effects.cpp): each pass is a view of its own after what was drawn so far
     // a view drawing into `fb` (0xffff: the scene target) over the rectangle, no clear, in submission order
     uint16_t fxView(unsigned fb, unsigned x, unsigned y, unsigned w, unsigned h);
     void fxDone();                            // what follows goes to a new scene view (the current viewport)
-    bool fxCopy(unsigned dstTex);             // FUN_00320aa0: the render target (the scene) into a texture of its size
+    bool fxCopy(unsigned dstTex, unsigned dstFb);   // FUN_00320aa0: the render target (the scene) into a texture of
+                                                    // its size (dstFb: its frame buffer, for quad copies)
     // a quad in target pixels (edges: 0..w, 0..h) with up to four texture coordinate sets (normalised), one program
     struct FxQuad {
         float x0, y0, x1, y1;
@@ -530,7 +554,18 @@ class bgfxTexture : public bgfxObject {
     LockInfo m_info;
     unsigned char* m_levels[16];              // CPU copies per mip level (bgfx gets them on unlock)
     uint32_t m_palette[256];
+    // G5: a copy of a render target (the frame-buffer copy, the front buffer): on renderers whose targets have the
+    // origin at the bottom left (OpenGL) its rows are stored bottom-up, so the draw samples it with v flipped
+    bool m_fromTarget;
+    // G5: deferred uploads (bgfx_texture.cpp upload): the levels unlocked since the last flush, queued for the next
+    // present; a draw that binds the texture flushes it first
+    unsigned m_dirtyLevels;
+    bool m_pendingQueued;
+    bgfxTexture* m_pendingNext;
+    void flush();
+    void unqueue();
 };
+void flushPendingTextures(int limit);         // display slot 14, before bgfx::frame
 
 // Stands in for pure3d::d3dPrimBufferStream (vftable 0x4334f4, 18 slots; no pddiObject base): what a prim buffer's
 // lock (slot 4) hands out to write vertices with. The fields keep the game's record layout (FUN_00326e90 fills
@@ -903,6 +938,7 @@ class bgfxExtFramebufferEffects : public bgfxExtension {
     // resources (bgfx handles; 0xffff none): the full-size copy (+0x20), the half (+0xa8) and quarter (+0xac, +0xb0)
     // targets, the previous frame (what GetBackBuffer(-1) is to the overlay: the front buffer)
     unsigned m_full, m_half, m_halfFb, m_quarter[2], m_quarterFb[2], m_w, m_h;
+    unsigned m_fullFb;                        // the full copy's frame buffer (quad copies only)
     bool ensureResources();
     void releaseResources();
     // FUN_00324660: the colour pass from the full copy into the current fx view (17 shader variants: level, side)
@@ -1006,6 +1042,9 @@ bool hasEmbeddedShader(const char* name);
 
 // bgfx_combiner.cpp: every combiner key the shader classes can produce (tools/native_gfx.py combiners)
 int enumerateCombinerKeys(bgfxContext* ctx, void (*out)(const char* key, const char* example));
+// bgfx_effects.cpp: the filter program's parameters (u_fxProg, u_fxK) for colour-pass level `lv` (1..64) and side
+// 0/1, as the colour pass sets them (tools/xps.py prove reads them through pddi_smoke --fx-params)
+void fxProgramParams(int lv, int side, float* prog8);
 
 // selftest_scene.cpp: the self-test scene (host smoke test, HULK_GFX_SELFTEST) and its expected pixels
 struct SelfTestProbe {
@@ -1013,8 +1052,11 @@ struct SelfTestProbe {
     unsigned rgb;                             // expected 0xRRGGBB
     int tolerance;                            // per channel
     const char* what;
+    bool window;                              // x, y are the window's pixels (else the frame's: mapped through the
+                                              // display's present rectangle when the shot is of a scaled window)
 };
-int selfTestPages();                          // pages of the scene (0: G3's draw path, 1-3: G2's)
+int selfTestPages();                          // pages of the scene (0: G3's draw path, 1-3: G2's, 5-8: G4's,
+                                              // 9: window scaling, G5)
 int selfTestScene(bgfxContext* ctx, int page);   // one frame's draws (between begin and end frame) -> probes
 int selfTestProbes(const SelfTestProbe** out);
 int selfTestCheck(const unsigned char* px, unsigned w, unsigned h, unsigned pitch, bool bgra, bool yflip,

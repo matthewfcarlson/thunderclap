@@ -13,7 +13,10 @@ $PY tools/nv2a_vp.py dis skin                   # a listing, on this machine onl
 $PY tools/nv2a_vp.py asm prog.vp -o prog.bin    # our own text form back into microcode
 $PY tools/shader_equiv.py src/platform/sdl/pddi/shaders/vp/vs_vp_skin_onebone.sc            # prove a shader
 $PY tools/shader_equiv.py SRC.sc PROGRAM --inputs 3000 --json                              # for a batch
-$PY -m unittest discover -s tests/shaders -v    # 42 tests (verdict tests need shaderc; game ones the XBE)
+$PY tools/xps.py prove                          # G5: the 20 framebuffer-effects pixel programs vs shaders/fx/
+$PY tools/d3d_ff.py prove                       # G5: vs_vp_ff.sc vs the Direct3D 8 fixed-function reference
+$PY tools/d3d_combiner.py prove                 # G5: the 100 combiner keys vs the texture-stage reference
+$PY -m unittest discover -s tests/shaders -v    # 65 tests (verdict tests need shaderc; game ones the XBE)
 ```
 
 Prerequisites: bgfx's sources and shaderc (`tools/native_gfx.py fetch`, `tools/native_gfx.py shaderc`) and the
@@ -324,12 +327,29 @@ the frame-buffer copy: drawn and checked by the self-test's page 5 on Metal and 
 program, logged once. bgfx only pairs a vertex shader with a fragment shader whose inputs are exactly
 its outputs, so the stage fragment shader exists per output set (`fs_vp_stage`, `fs_vp_stage5`, `fs_vp_stage3`).
 
-**Fixed function.** The default path (no program) is D3D8 fixed-function T&L; it is specified by public
-documentation, not by game microcode. `shaders/vp/vs_vp_ff.sc` (G3) implements it (transform, up to four
-directional/point lights with Blinn specular, vertex colour as material, fog depth) and is checked by the backend's
-self-test pixels, not yet by this harness. The same harness can prove it: write the fixed-function equations once
-as a `.vp` program of ours per variant (`nv2a_vp.assemble`; the light-type branches make one variant per
-combination), check the interpreter against hand-computed cases, then prove `vs_vp_ff.sc` against those programs.
+**Fixed function** (proven in G5). The default path (no program) is D3D8 fixed-function T&L, specified by public
+documentation and by the state the game gives it, not by game microcode. Rather than `.vp` programs per variant (the
+plan before), `tools/d3d_ff.py` is a reference of the pipeline in Python (transform, normals by the inverse transpose
+of the world-view matrix, directional and point lights with range and attenuation, Blinn specular with a local
+viewer, texture coordinate generation (uv sets, camera-space normal / position / reflection vector) and the texture
+transform with Direct3D's (u, v, 1, 0) rule for 2D coordinates, fog depth) configured as the verified sources set it
+up: FUN_00320c60 (COLORVERTEX on, every material source D3DMCS_MATERIAL: a lit draw ignores the vertex colour),
+FUN_00329f70 (LIGHTING, SPECULARENABLE when the power is above 0, the material), FUN_00321310 (Specular = Diffuse,
+Ambient = 0 for every light), LOCALVIEWER / NORMALIZENORMALS at Direct3D's defaults (on / off: the game never sets
+them). It drives `vs_vp_ff.sc`'s SPIR-V through `shader_equiv.py`'s machine with the constants laid out as
+`bgfx_draw.cpp` ffConstants does (a mirror in `constants()`), 300 random states x 10 vertices per configuration.
+Configurations, from what the data's shader classes set up: unlit (one or two uv sets), lit with 1-4 directional
+lights, lit + specular with point and directional lights, a uniformly and a non-uniformly scaled modelview,
+layeredReflect's three stages (the reflection vector through the sphere map), environment's two, and the generators
+no data uses. Tolerance: colours 2^-14 absolute; positions, fog and coordinates 2^-16 times the sum of the magnitudes
+that make them; vertices with N.L or N.H within 1e-4 of 0 or a point light within 0.1% of its range are not compared
+(counted as ambiguous: 0-8 of 3,000). **All 10 configurations equivalent at 3,000 vertices, worst 5% of the
+tolerance.** Writing it found three differences from the game's state in G3's shader, now fixed: the vertex colour
+used as the lit material, normals by the modelview and renormalised, directional light directions not normalised.
+Broken fixture: `vs_wrong_ff.sc` (no linear attenuation term) fails exactly the four configurations with point
+lights. `vs_vp_ff2s.sc` (two-sided lighting, G5) is proven the same way, its back colours against the reference on
+the reversed normal. Assumptions (our reading where the documentation is silent): a light adds nothing where
+N.L <= 0, no specular where N.H <= 0.
 
 **Pixel side.** Two parts, both without vendor material:
 
@@ -341,8 +361,12 @@ combination), check the interpreter against hand-computed cases, then prove `vs_
   constants); `fs_vp_stage{,5,3}.sc` are the same combiner with the stages as uniforms, for other keys and for the
   vertex programs with fewer outputs. Checked on the GPU rather than by an `fs` mode of this tool: the self-test's
   sweep page draws every key through both programs, colour and alpha, against a CPU reference of the operations
-  (written separately from the shader) on Metal and on Vulkan under Wine. An `fs` mode (the fragment SPIR-V on
-  fuzzed interpolants and texel values, with the bound tracking) would still add fuzzed inputs; not done.
+  (written separately from the shader) on Metal and on Vulkan under Wine. **G5: `tools/d3d_combiner.py`** proves
+  every key's generated program and the generic one on fuzzed interpolants, texels, texture factor, alpha test,
+  specular add, fog and coordinate scale/offset (600 pixels a program; all profiles compile): 200 of 200
+  equivalent, max difference 4e-7 (tolerance 2^-16); `fixtures/fs_wrong_vp_stage.sh` (op 20 without the inverse
+  alpha) fails exactly the 12 keys that use op 20, through both programs. The reference is a third implementation
+  (Python, from the documentation), separate from the shader and from the self-test's C++ one.
   `vs_vp_ff.sc` now also generates each stage's texture coordinates (a uv set, or the camera-space normal,
   position or reflection vector) and applies D3DTS_TEXTUREn under D3DTTFF, which a `.vp` proof of it would have to
   cover too.
@@ -354,9 +378,36 @@ combination), check the interpreter against hand-computed cases, then prove `vs_
   and adds as uniforms, the register combiners' [-1, 1] clamps, 8-bit constants quantised on the CPU) plus the
   threshold; `fs_fx_blur.sc` the sums and the composite. Checked on the GPU against a CPU reference written from the
   instruction text in `selftest_scene.cpp` (pages 6 and 7; a missing doubling in one level's add chain fails 8 of
-  13 probes). Still open: a proof against an `xps.1.1` interpreter of ours with fuzzed inputs, as for the vertex
-  programs; and the NV2A combiners' internal precision (9-bit signed) and its constant rounding, which the
-  translation takes as float and round-to-nearest.
+  13 probes). **Proven in G5** against `tools/xps.py`, an interpreter of ours for the game's program text (below).
+  Still open: the NV2A combiners' internal precision (9-bit signed) and the rounding of `def` constants, which both
+  the translation and the interpreter take as float (application constants are 8-bit in both).
+
+### Pixel shaders: the framebuffer effects (`tools/xps.py`, G5)
+
+The programs are the game's own text: the five `ps.1.1` sums FUN_00320330 hands to FUN_003202b0 (in our verified
+source), the 14 colour-pass programs FUN_00320540 assembles from fixed pieces (rebuilt by the same rules,
+`filter_program`), and the threshold program whose text FUN_00320540 copies from 0x432da0 (read from the player's
+XBE at run time; not stored). `xps.py` parses them and runs them with the semantics of Microsoft's public `ps.1.1`
+documentation and the NV2A register combiners' documented range: registers are 4-vectors, `t<n>` from stage n at
+coordinate set n, application constants quantised to 8 bits in [0, 1], `def` constants as written; source modifiers
+`-`, `_bx2`, `_bias`, `1-` and the `.a`/`.b` selectors; `mov add sub mul mad lrp dp3 dp4 cnd` (dp3/dp4 replicate
+into every written component, so `r0.a` holds the dot product; `cnd` is `r0.a > 0.5`); `_x2 _x4 _d2` then every
+result clamped to [-1, 1] (`_sat`: [0, 1]); `+` co-issues with the instruction before (both read the registers as
+they were); the output is r0 clamped to [0, 1]. `_bx2`/`_bias` of a value outside [0, 1] is reported (undefined in
+ps.1.1; it never happens with these programs).
+
+`xps.py prove` runs each program and the bgfx translation that draws it (`fs_fx_filter.sc` with the u_fxProg/u_fxK
+that `bgfx_effects.cpp` sets for that level and side, read from the C++ through `pddi_smoke --fx-params`;
+`fs_fx_blur.sc` for the sums and the composite) on 6 directed and 3,000 random pixels (8-bit texels, 10% exactly 0
+or 1; constants uniform in [0, 1] with 10% exactly 0, 0.5 or 1, quantised the same for both). Tolerance: 2^-16
+absolute per output component (1/257 of an 8-bit step; float32 rounding through at most 14 instructions with x4/x2
+scaling is below 4e-6); a pixel whose `cnd` operand is within 2^-12 of 0.5 is not compared (none were). **All 20
+equivalent**, max difference 4e-6; most pixels hit at least one clamp (2,629-2,998 of 3,006 for the colour pass),
+and 2,224-10,990 output components per program lie strictly inside (0, 1). Broken fixtures (`tests/shaders/
+fixtures/fx/`): the colour pass without the clamp after `mul_x2` fails the eight programs of levels 1-8 (at 16 and
+above the result saturates either way); the four-tap sum reading its fourth texture at the third set's coordinates
+fails `blur4` and nothing else. `tests/shaders/test_xps.py`: hand-computed interpreter cases (8-bit constants, the
+clamp, co-issue, dp3 into alpha, `cnd`'s strict test) and the proofs.
 
 ## Open questions
 
@@ -370,3 +421,7 @@ combination), check the interpreter against hand-computed cases, then prove `vs_
   assumes so).
 - A GPU spot check (bgfx Metal, one point per vertex into an RGBA32F target) to bound the real backends' error
   against the SPIR-V interpreter.
+- The Xbox's NORMALIZENORMALS default (the fixed-function proof takes Direct3D's documented off; `u_vc[13].w`
+  turns renormalisation on if a hybrid capture of a scaled lit mesh shows it).
+- What the NV2A computes for a vertex program that writes no oB0/oB1 under two-sided lighting (so `refract` keeps
+  its front colours on back faces).

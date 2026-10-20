@@ -194,8 +194,10 @@ static const ProgramInfo kPrograms[] = {
     {"refract", "vs_vp_refract", "fs_vp_stage5", true},             // d3dRefractVertexShader::vfunc_24 (0x32f3b0)
     {"skin_refract", "vs_vp_skin_refract", "fs_vp_stage5", true},   // the same, after the skinning extension's
     {"simple_proximity", "vs_vp_simple_proximity", "fs_vp_stage3", false},   // d3dSimpleShader::vfunc_24: CBVP is
-                                                                             // 0 in the data
+                                                                             // 0 in the data    // G5: the fixed-function path with two-sided lighting (not a game program: chosen by the draw, never by name)
+    {"\x01" "ff two-sided", "vs_vp_ff2s", "fs_vp_stage2s", true},
 };
+enum { kProgramFF2S = 6 };
 enum { kProgramCount = sizeof(kPrograms) / sizeof(kPrograms[0]) };
 
 static int programIndex(const char* name, bool* fellBack)
@@ -244,7 +246,7 @@ bool bgfxContext::ensureResources()
         return false;
     if (m_uVc == kNone) {
         m_uVc = bgfx::createUniform("u_vc", bgfx::UniformType::Vec4, 96).idx;
-        m_uFrag = bgfx::createUniform("u_pddiFrag", bgfx::UniformType::Vec4, 14).idx;
+        m_uFrag = bgfx::createUniform("u_pddiFrag", bgfx::UniformType::Vec4, 16).idx;
         static const char* const kSamplers[4] = {"s_pddiTex0", "s_pddiTex1", "s_pddiTex2", "s_pddiTex3"};
         for (int i = 0; i < 4; i++)
             m_uTex[i] = bgfx::createUniform(kSamplers[i], bgfx::UniformType::Sampler).idx;
@@ -408,6 +410,12 @@ static bool homogeneousDepth()
 {
     const bgfx::Caps* caps = bgfx::getCaps();
     return caps && caps->homogeneousDepth;
+}
+
+static bool originBottomLeft()
+{
+    const bgfx::Caps* caps = bgfx::getCaps();
+    return caps && caps->originBottomLeft;
 }
 
 void bgfxContext::setVertexConstants(int reg, const float* v, int count)
@@ -584,7 +592,7 @@ void bgfxContext::refractConstants(bgfxShader* shader, const float* viewport, co
 static void ffConstants(bgfxContext* ctx, unsigned flags, float (*c)[4])
 {
     const bgfxContext::DeviceState& d = ctx->m_d3d;
-    memset(c, 0, 52 * 16);
+    memset(c, 0, 55 * 16);
     columns(ctx->m_world, &c[0], false);
     columns(ctx->m_proj, &c[4], homogeneousDepth());
     colour4(d.material[0], c[8]);
@@ -594,8 +602,34 @@ static void ffConstants(bgfxContext* ctx, unsigned flags, float (*c)[4])
     c[11][3] = d.power;
     colour4(ctx->m_rs.ambient, c[12]);
     c[13][0] = d.lighting ? 1.0f : 0.0f;
-    c[13][1] = (flags & (kVertexColour | kVertexColourSets)) ? 1.0f : 0.0f;
+    // FUN_00320c60 (the device set-up) leaves COLORVERTEX on but sets every material source to D3DMCS_MATERIAL: a
+    // lit draw takes its colours from the material, never from the vertex. NORMALIZENORMALS is never set: off.
+    (void)flags;
+    c[13][1] = 0.0f;
     c[13][2] = (d.lighting && d.specular) ? 1.0f : 0.0f;
+    c[13][3] = 0.0f;
+    // Direct3D's normal transform: the inverse transpose of the world-view 3x3 (rows for the shader's dots)
+    {
+        const float* w = ctx->m_world;
+        float a00 = w[0], a01 = w[1], a02 = w[2], a10 = w[4], a11 = w[5], a12 = w[6], a20 = w[8], a21 = w[9],
+              a22 = w[10];
+        float c00 = a11 * a22 - a12 * a21, c01 = a12 * a20 - a10 * a22, c02 = a10 * a21 - a11 * a20;
+        float det = a00 * c00 + a01 * c01 + a02 * c02;
+        float k = det != 0.0f ? 1.0f / det : 0.0f;
+        // inverse = adjugate / det; row i of the inverse: the cofactors of column i
+        float inv[3][3] = {
+            {c00 * k, (a02 * a21 - a01 * a22) * k, (a01 * a12 - a02 * a11) * k},
+            {c01 * k, (a00 * a22 - a02 * a20) * k, (a02 * a10 - a00 * a12) * k},
+            {c02 * k, (a01 * a20 - a00 * a21) * k, (a00 * a11 - a01 * a10) * k},
+        };
+        // n' = n (M^-1)^T: n'_i = sum_k n_k inv[i][k]
+        for (int i = 0; i < 3; i++) {
+            c[52 + i][0] = inv[i][0];
+            c[52 + i][1] = inv[i][1];
+            c[52 + i][2] = inv[i][2];
+            c[52 + i][3] = 0.0f;
+        }
+    }
     int n = 0;
     for (int i = 0; i < bgfxContext::kLights && n < 4; i++) {
         const bgfxContext::Light& l = ctx->m_lights[i];
@@ -754,26 +788,49 @@ bgfxTexture* bgfxContext::copyFrameBuffer()
     m_fbCopy->m_handle = d->m_copyTex;        // (re)made with the target on a resize
     m_fbCopy->m_width = d->m_targetWidth;
     m_fbCopy->m_height = d->m_targetHeight;
-    // the blit goes at the start of a view that follows everything drawn (and cleared) so far: a view runs its blits
-    // before its clear and its draws
+    m_fbCopy->m_fromTarget = true;
+    if (!sceneCopy(d->m_copyTex, d->m_copyFb)) {
+        static int s_logged;
+        if (!s_logged++)
+            logf("pddi: frame-buffer copy: out of bgfx views this frame (the copy keeps older contents)\n");
+        return m_fbCopy;
+    }
+    m_copiesThisFrame++;
+    return m_fbCopy;
+}
+
+// The copy goes at the start of a view that follows everything drawn (and cleared) so far: a view runs its blits
+// before its clear and its draws. A quad copy is a view of its own drawing into the destination's frame buffer; the
+// scene goes on in the next view.
+bool bgfxContext::sceneCopy(unsigned dstTex, unsigned dstFb)
+{
+    bgfxDisplay* d = m_display;
+    bool quad = d->m_quadCopy;
+    if (quad && dstFb == kNone)
+        return false;
     if (m_viewUsed || m_clearFlags) {
-        if (m_viewId >= 250) {
-            static int s_logged;
-            if (!s_logged++)
-                logf("pddi: frame-buffer copy: out of bgfx views this frame (the copy keeps older contents)\n");
-            return m_fbCopy;
-        }
+        if (m_viewId >= (quad ? 249 : 250))
+            return false;
         m_viewId++;
         m_viewUsed = false;
         m_clearFlags = 0;
         setupView();
+    } else if (quad && m_viewId >= 250) {
+        return false;
     }
-    bgfx::TextureRegion dst, srcRegion;
-    dst.init(bgfx::TextureHandle{(uint16_t)d->m_copyTex});
-    srcRegion.init(bgfx::TextureHandle{(uint16_t)d->m_sceneColour});
-    bgfx::blit((bgfx::ViewId)m_viewId, dst, srcRegion);
-    m_copiesThisFrame++;
-    return m_fbCopy;
+    if (!quad) {
+        bgfx::TextureRegion dst, srcRegion;
+        dst.init(bgfx::TextureHandle{(uint16_t)dstTex});
+        srcRegion.init(bgfx::TextureHandle{(uint16_t)d->m_sceneColour});
+        bgfx::blit((bgfx::ViewId)m_viewId, dst, srcRegion);
+        return true;
+    }
+    d->copyQuad((uint16_t)m_viewId, d->m_sceneColour, dstFb, d->m_targetWidth, d->m_targetHeight);
+    m_viewId++;
+    m_viewUsed = false;
+    m_clearFlags = 0;
+    setupView();
+    return true;
 }
 
 static uint32_t fnv(uint32_t h, const void* p, unsigned n)
@@ -862,6 +919,11 @@ void bgfxContext::draw(bgfxShader* sh, const DrawSource& src)
             logf("pddi: vertex program '%s' not wired yet: fixed-function program instead\n", src.program);
         }
     }
+    // a lit two-sided draw (FUN_00329f70: TWOSIDEDLIGHTING with LIGHTING) on the fixed-function path: the variant
+    // with the back face's colours (G5), when this renderer has it
+    if (pi == 0 && m_d3d.lighting && m_d3d.twoSidedLighting &&
+        programHandle(m_programs, kProgramFF2S) != kNoProgram && programHandle(m_programs, kProgramFF2S) != kNone)
+        pi = kProgramFF2S;
     char key[160];
     combinerKey(m_d3d, key, sizeof(key));
     bool generic;
@@ -874,20 +936,22 @@ void bgfxContext::draw(bgfxShader* sh, const DrawSource& src)
         m_generatedDraws++;
 
     // constants
-    if (pi == 0) {
-        float c[52][4];
+    if (pi == 0 || pi == kProgramFF2S) {
+        float c[55][4];
         ffConstants(this, src.flags, c);
-        bgfx::setUniform(bgfx::UniformHandle{(uint16_t)m_uVc}, c, 52);
+        bgfx::setUniform(bgfx::UniformHandle{(uint16_t)m_uVc}, c, 55);
     } else {
         bgfx::setUniform(bgfx::UniformHandle{(uint16_t)m_uVc}, m_vc[96], 96);
     }
     // the stage textures (an empty stage samples white), with the stage's addressing and filtering
-    float frag[14][4];
+    float frag[16][4];
     memset(frag, 0, sizeof(frag));
     for (int i = 0; i < 4; i++) {
         const Stage& stg = m_d3d.stage[i];
         const bgfxTexture* tex = stg.texture;
         uint16_t th = (uint16_t)m_whiteTex;
+        if (tex)
+            const_cast<bgfxTexture*>(tex)->flush();           // its latest unlocked contents (deferred uploads)
         if (tex && tex->m_handle != bgfx::kInvalidHandle)
             th = (uint16_t)tex->m_handle;
         uint32_t flags = 0;
@@ -904,14 +968,21 @@ void bgfxContext::draw(bgfxShader* sh, const DrawSource& src)
         if (stg.mipFilter <= 1)
             flags |= BGFX_SAMPLER_MIP_POINT;
         bgfx::setTexture((uint8_t)i, bgfx::UniformHandle{(uint16_t)m_uTex[i]}, bgfx::TextureHandle{th}, flags);
-        // linear textures take texel coordinates
-        float sx = 1.0f, sy = 1.0f;
+        // linear textures take texel coordinates; a copy of a render target is stored bottom-up where targets have
+        // the origin at the bottom left (OpenGL): v -> 1 - v there
+        float sx = 1.0f, sy = 1.0f, oy = 0.0f;
         if (tex && tex->m_linear && tex->m_width && tex->m_height) {
             sx = 1.0f / (float)tex->m_width;
             sy = 1.0f / (float)tex->m_height;
         }
+        if (tex && tex->m_fromTarget && originBottomLeft()) {
+            sy = -sy;
+            oy = 1.0f;
+        }
         frag[4 + i / 2][(i & 1) * 2] = sx;
         frag[4 + i / 2][(i & 1) * 2 + 1] = sy;
+        frag[14 + i / 2][(i & 1) * 2] = 0.0f;
+        frag[14 + i / 2][(i & 1) * 2 + 1] = oy;
     }
     // the alpha test (D3D compare -> pddi order), the specular add, fog, the texture factor
     static const int kCmp[8] = {0, 2, 6, 3, 4, 7, 5, 1};       // D3DCMP 0x200.. -> pddi compare
@@ -943,7 +1014,7 @@ void bgfxContext::draw(bgfxShader* sh, const DrawSource& src)
         l[1] = (float)stg.alphaArg2;
         l[2] = stg.resultArg == 5 ? 5.0f : 1.0f;
     }
-    bgfx::setUniform(bgfx::UniformHandle{(uint16_t)m_uFrag}, frag, 14);
+    bgfx::setUniform(bgfx::UniformHandle{(uint16_t)m_uFrag}, frag, 16);
 
     uint32_t stencil;
     uint64_t st = stateBits(sh, src.kind, &stencil);

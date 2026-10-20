@@ -14,8 +14,14 @@ bgfxDisplay::bgfxDisplay(bgfxDevice* device)
     : m_device(device), m_width(640), m_height(480), m_depth(32), m_initialised(false), m_frame(0), m_nativeType(0),
       m_offscreen(false), m_sceneFb(kNone), m_sceneColour(kNone), m_sceneDepth(kNone), m_copyTex(kNone),
       m_targetWidth(0), m_targetHeight(0), m_presentProgram(kNone), m_uPresentTex(kNone), m_presentTried(false),
-      m_wantCopy(1), m_prevFrame(kNone), m_prevAsked(0xfffffff0u)
+      m_wantCopy(1), m_prevFrame(kNone), m_prevAsked(0xfffffff0u), m_windowWidth(640), m_windowHeight(480),
+      m_scaleMode(0), m_quadCopy(false), m_copyFb(kNone), m_prevFb(kNone)
 {
+    const char* sc = getenv("HULK_GFX_SCALE");
+    if (sc && (!strcmp(sc, "nearest") || !strcmp(sc, "point")))
+        m_scaleMode = 1;
+    else if (sc && !strcmp(sc, "integer"))
+        m_scaleMode = 2;
 }
 
 bgfxDisplay::~bgfxDisplay()
@@ -41,8 +47,8 @@ bool bgfxDisplay::hostInit(void* nativeWindow, void* nativeDisplay, unsigned wid
         logf("pddi: bgfx::init failed\n");
         return false;
     }
-    m_width = width;
-    m_height = height;
+    m_width = m_windowWidth = width;
+    m_height = m_windowHeight = height;
     m_initialised = true;
     logf("pddi: bgfx %s, %ux%u\n", bgfx::getRendererName(bgfx::getRendererType()), width, height);
     ensureTargets();
@@ -54,12 +60,40 @@ void bgfxDisplay::destroyTargets()
 {
     if (m_sceneFb != kNone)
         bgfx::destroy(bgfx::FrameBufferHandle{(uint16_t)m_sceneFb});     // destroys its textures too
-    if (m_copyTex != kNone)
-        bgfx::destroy(bgfx::TextureHandle{(uint16_t)m_copyTex});
-    if (m_prevFrame != kNone)
-        bgfx::destroy(bgfx::TextureHandle{(uint16_t)m_prevFrame});
-    m_sceneFb = m_sceneColour = m_sceneDepth = m_copyTex = m_prevFrame = kNone;
+    destroyCopyTarget(&m_copyTex, &m_copyFb);
+    destroyCopyTarget(&m_prevFrame, &m_prevFb);
+    m_sceneFb = m_sceneColour = m_sceneDepth = kNone;
     m_targetWidth = m_targetHeight = 0;
+}
+
+// A texture the scene target is copied into: a blit destination, or (quad copies) a render target with a frame
+// buffer of its own
+unsigned bgfxDisplay::makeCopyTarget(unsigned w, unsigned h, unsigned* fb)
+{
+    *fb = kNone;
+    const uint64_t clamp = BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP;
+    bgfx::TextureHandle t = bgfx::createTexture2D((uint16_t)w, (uint16_t)h, false, 1, bgfx::TextureFormat::BGRA8,
+                                                  (m_quadCopy ? BGFX_TEXTURE_RT : BGFX_TEXTURE_BLIT_DST) | clamp);
+    if (!bgfx::isValid(t))
+        return kNone;
+    if (m_quadCopy) {
+        bgfx::FrameBufferHandle f = bgfx::createFrameBuffer(1, &t, true);
+        if (!bgfx::isValid(f)) {
+            bgfx::destroy(t);
+            return kNone;
+        }
+        *fb = f.idx;
+    }
+    return t.idx;
+}
+
+void bgfxDisplay::destroyCopyTarget(unsigned* tex, unsigned* fb)
+{
+    if (*fb != kNone)
+        bgfx::destroy(bgfx::FrameBufferHandle{(uint16_t)*fb});          // and its texture
+    else if (*tex != kNone)
+        bgfx::destroy(bgfx::TextureHandle{(uint16_t)*tex});
+    *tex = *fb = kNone;
 }
 
 bool bgfxDisplay::ensureTargets()
@@ -78,6 +112,10 @@ bool bgfxDisplay::ensureTargets()
             m_uPresentTex = bgfx::createUniform("s_pddiPresent", bgfx::UniformType::Sampler).idx;
         else
             logf("pddi: no present program for this renderer: drawing to the back buffer (no frame-buffer copies)\n");
+        const char* qc = getenv("HULK_GFX_QUAD_COPY");
+        m_quadCopy = qc && *qc ? *qc == '1' : bgfx::getRendererType() == bgfx::RendererType::OpenGL;
+        if (m_quadCopy)
+            logf("pddi: render-target copies by quad (no blits)\n");
     }
     if (m_presentProgram == kNone)
         return m_offscreen = false;
@@ -109,8 +147,7 @@ bool bgfxDisplay::ensureTargets()
     m_sceneDepth = depth.idx;
     // the copy (the game's display+0x498: the back buffer's size and format); a blit destination, sampled
     // (this bgfx has no blit capability bit: every renderer we build blits; WebGL2, G5, gets a quad copy if not)
-    m_copyTex = bgfx::createTexture2D((uint16_t)m_width, (uint16_t)m_height, false, 1, bgfx::TextureFormat::BGRA8,
-                                      BGFX_TEXTURE_BLIT_DST | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP).idx;
+    m_copyTex = makeCopyTarget(m_width, m_height, &m_copyFb);
     m_targetWidth = m_width;
     m_targetHeight = m_height;
     logf("pddi: scene target %ux%u (depth format %s)%s\n", m_width, m_height,
@@ -126,20 +163,38 @@ unsigned bgfxDisplay::prevFrame()
     if (!m_offscreen || m_sceneFb == kNone)
         return kNone;
     if (m_prevFrame == kNone)
-        m_prevFrame = bgfx::createTexture2D((uint16_t)m_targetWidth, (uint16_t)m_targetHeight, false, 1,
-                                            bgfx::TextureFormat::BGRA8,
-                                            BGFX_TEXTURE_BLIT_DST | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP).idx;
+        m_prevFrame = makeCopyTarget(m_targetWidth, m_targetHeight, &m_prevFb);
     m_prevAsked = m_frame;
     return m_prevFrame;
 }
 
-// Before bgfx::frame: the scene target onto the back buffer, a full-screen quad in the last view (point sampled;
-// stretched if the window's size differs). Renderers with the origin at the bottom left (OpenGL) store a target
-// upside down relative to how it is sampled: the quad's v runs the other way there.
-void bgfxDisplay::present()
+// Where the frame lands in the window (G5): the largest rectangle of the frame's aspect that fits, centred; with
+// HULK_GFX_SCALE=integer the largest whole multiple of the frame's size that fits (when at least 1x)
+void bgfxDisplay::presentRect(int* x, int* y, int* w, int* h) const
 {
-    if (!m_initialised || !m_offscreen || m_sceneFb == kNone)
-        return;
+    unsigned ww = m_windowWidth, wh = m_windowHeight, fw = m_width, fh = m_height;
+    unsigned rw = ww, rh = wh;
+    if (fw && fh && ww && wh) {
+        unsigned k = ww / fw < wh / fh ? ww / fw : wh / fh;
+        if (m_scaleMode == 2 && k >= 1) {
+            rw = fw * k;
+            rh = fh * k;
+        } else if ((unsigned long long)ww * fh <= (unsigned long long)wh * fw) {   // the window is narrower
+            rw = ww;
+            rh = (unsigned)(((unsigned long long)ww * fh + fw / 2) / fw);
+        } else {
+            rh = wh;
+            rw = (unsigned)(((unsigned long long)wh * fw + fh / 2) / fh);
+        }
+    }
+    *x = (int)(ww - rw) / 2;
+    *y = (int)(wh - rh) / 2;
+    *w = (int)rw;
+    *h = (int)rh;
+}
+
+void bgfxDisplay::fullQuad(uint16_t view, unsigned srcTex, uint32_t sampler, float x0, float y0, float x1, float y1)
+{
     struct V { float x, y, z, u, v; };
     static bgfx::VertexLayout s_layout;
     static bool s_made;
@@ -157,40 +212,78 @@ void bgfxDisplay::present()
     const bgfx::Caps* caps = bgfx::getCaps();
     bool flip = caps && caps->originBottomLeft;
     float vt = flip ? 1.0f : 0.0f, vb = flip ? 0.0f : 1.0f;
-    V q[4] = {{-1, 1, 0, 0, vt}, {1, 1, 0, 1, vt}, {-1, -1, 0, 0, vb}, {1, -1, 0, 1, vb}};
+    V q[4] = {{x0, y0, 0, 0, vt}, {x1, y0, 0, 1, vt}, {x0, y1, 0, 0, vb}, {x1, y1, 0, 1, vb}};
     memcpy(tvb.data, q, sizeof(q));
-    bgfx::ViewId view = (bgfx::ViewId)kPresentView;
-    if (m_prevFrame != kNone && m_frame - m_prevAsked < 2) {     // the front buffer of the next frame (a view's
-        bgfx::TextureRegion dst, srcRegion;                      // blits run before its draws: the frame as drawn)
-        dst.init(bgfx::TextureHandle{(uint16_t)m_prevFrame});
-        srcRegion.init(bgfx::TextureHandle{(uint16_t)m_sceneColour});
-        bgfx::blit(view, dst, srcRegion);
-    }
-    bgfx::setViewFrameBuffer(view, BGFX_INVALID_HANDLE);
-    bgfx::setViewRect(view, 0, 0, (uint16_t)m_width, (uint16_t)m_height);
-    bgfx::setViewClear(view, BGFX_CLEAR_NONE);
-    bgfx::setViewMode(view, bgfx::ViewMode::Sequential);
     bgfx::setVertexBuffer(0, &tvb);
-    bgfx::setTexture(0, bgfx::UniformHandle{(uint16_t)m_uPresentTex}, bgfx::TextureHandle{(uint16_t)m_sceneColour},
-                     BGFX_SAMPLER_POINT | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
+    bgfx::setTexture(0, bgfx::UniformHandle{(uint16_t)m_uPresentTex}, bgfx::TextureHandle{(uint16_t)srcTex},
+                     sampler | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
     bgfx::setState(BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A | BGFX_STATE_PT_TRISTRIP);
     bgfx::submit(view, bgfx::ProgramHandle{(uint16_t)m_presentProgram});
 }
 
-// The window's size in pixels changed (resized, fullscreen): reset the main swap chain to it. The engine reads the
-// size back through slots 6/7/11/12 (the mode it asked for at start-up is not kept).
+// A quad copy (renderers that can't blit): `srcTex` drawn 1:1 into the frame buffer `dstFb` in `view`
+void bgfxDisplay::copyQuad(uint16_t view, unsigned srcTex, unsigned dstFb, unsigned w, unsigned h)
+{
+    bgfx::setViewFrameBuffer(view, bgfx::FrameBufferHandle{(uint16_t)dstFb});
+    bgfx::setViewRect(view, 0, 0, (uint16_t)w, (uint16_t)h);
+    bgfx::setViewClear(view, BGFX_CLEAR_NONE);
+    bgfx::setViewMode(view, bgfx::ViewMode::Sequential);
+    fullQuad(view, srcTex, BGFX_SAMPLER_POINT, -1.0f, 1.0f, 1.0f, -1.0f);
+}
+
+// Before bgfx::frame: the scene target onto the back buffer, a quad in the last view: 1:1 (point sampled) when the
+// window has the frame's size, else scaled into presentRect with black bars around it (G5).
+void bgfxDisplay::present()
+{
+    if (!m_initialised || !m_offscreen || m_sceneFb == kNone)
+        return;
+    bgfx::ViewId view = (bgfx::ViewId)kPresentView;
+    if (m_prevFrame != kNone && m_frame - m_prevAsked < 2) {     // the front buffer of the next frame (a view's
+        if (m_quadCopy) {                                        // blits run before its draws: the frame as drawn)
+            copyQuad((uint16_t)(kPresentView - 1), m_sceneColour, m_prevFb, m_targetWidth, m_targetHeight);
+        } else {
+            bgfx::TextureRegion dst, srcRegion;
+            dst.init(bgfx::TextureHandle{(uint16_t)m_prevFrame});
+            srcRegion.init(bgfx::TextureHandle{(uint16_t)m_sceneColour});
+            bgfx::blit(view, dst, srcRegion);
+        }
+    }
+    int rx, ry, rw, rh;
+    presentRect(&rx, &ry, &rw, &rh);
+    unsigned ww = m_windowWidth ? m_windowWidth : 1, wh = m_windowHeight ? m_windowHeight : 1;
+    bool bars = rx > 0 || ry > 0 || (unsigned)rw < ww || (unsigned)rh < wh;
+    bool scaled = (unsigned)rw != m_width || (unsigned)rh != m_height;
+    bgfx::setViewFrameBuffer(view, BGFX_INVALID_HANDLE);
+    bgfx::setViewRect(view, 0, 0, (uint16_t)ww, (uint16_t)wh);
+    bgfx::setViewClear(view, bars ? BGFX_CLEAR_COLOR : BGFX_CLEAR_NONE, 0x000000ff);
+    bgfx::setViewMode(view, bgfx::ViewMode::Sequential);
+    float x0 = 2.0f * (float)rx / (float)ww - 1.0f, x1 = 2.0f * (float)(rx + rw) / (float)ww - 1.0f;
+    float y0 = 1.0f - 2.0f * (float)ry / (float)wh, y1 = 1.0f - 2.0f * (float)(ry + rh) / (float)wh;
+    fullQuad(view, m_sceneColour, scaled && m_scaleMode == 0 ? 0 : BGFX_SAMPLER_POINT, x0, y0, x1, y1);
+}
+
+// The window's size in pixels changed (resized, fullscreen): the main swap chain follows it. With a scene target the
+// game's frame keeps its size (the mode it asked for) and is scaled into the window at the present; without one the
+// back buffer is the frame, and the engine reads the new size through slots 6/7/11/12.
 void bgfxDisplay::hostResize(unsigned width, unsigned height)
 {
-    if (!m_initialised || (width == m_width && height == m_height))
+    if (!m_initialised || !width || !height || (width == m_windowWidth && height == m_windowHeight))
         return;
-    m_width = width;
-    m_height = height;
+    m_windowWidth = width;
+    m_windowHeight = height;
     bgfx::SwapChain sc;
     sc.width = width;
     sc.height = height;
     bgfx::reset(BGFX_RESET_VSYNC, &sc);
+    if (!m_offscreen) {
+        m_width = width;
+        m_height = height;
+    }
     ensureTargets();
-    logf("pddi: back buffer %ux%u (window resized)\n", width, height);
+    int rx, ry, rw, rh;
+    presentRect(&rx, &ry, &rw, &rh);
+    logf("pddi: window %ux%u (resized): the %ux%u frame at %d,%d %dx%d\n", width, height, m_width, m_height, rx, ry,
+         rw, rh);
 }
 
 void bgfxDisplay::hostShutdown()
@@ -241,11 +334,15 @@ bool bgfxDisplay::vfunc_5(int a0, int a1, int a2)
     m_height = a1;
     m_depth = a2;
     if (m_initialised) {
-        bgfx::SwapChain sc;
-        sc.width = m_width;
-        sc.height = m_height;
-        bgfx::reset(BGFX_RESET_VSYNC, &sc);     // G1: check how the 2026 API wants the main window resized
-        ensureTargets();
+        if (!m_offscreen) {                     // the back buffer is the frame
+            m_windowWidth = m_width;
+            m_windowHeight = m_height;
+            bgfx::SwapChain sc;
+            sc.width = m_width;
+            sc.height = m_height;
+            bgfx::reset(BGFX_RESET_VSYNC, &sc);
+        }
+        ensureTargets();                        // the scene target at the mode's size, presented into the window
     }
     return m_initialised;
 }
@@ -268,6 +365,7 @@ void bgfxDisplay::vfunc_14()
     platformBeforeFrame(m_frame);
 #endif
     if (m_initialised) {
+        flushPendingTextures(512);
         present();
         bgfx::frame();
     }

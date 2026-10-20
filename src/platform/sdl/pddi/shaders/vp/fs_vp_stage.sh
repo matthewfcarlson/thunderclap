@@ -16,6 +16,8 @@
 //   u_pddiFrag[3]   the texture factor (D3DRS_TEXTUREFACTOR)
 //   u_pddiFrag[4]   xy, zw: stage 0, 1 texture coordinate scale (1 / size for linear textures: their coordinates
 //                   are in texels, the NV2A's rule; 1 otherwise); u_pddiFrag[5]: stages 2, 3
+//   u_pddiFrag[14]  xy, zw: stage 0, 1 texture coordinate offset (after the scale: 0, or v -> 1 - v for a copy of a
+//                   render target where targets have the origin at the bottom left, G5); u_pddiFrag[15]: stages 2, 3
 //   u_pddiFrag[6 + 2i]  stage i (generic combiner): colour op, colour arg 1, colour arg 2, alpha op
 //   u_pddiFrag[7 + 2i]  alpha arg 1, alpha arg 2, result register (1 current, 5 temp)
 // Ops and arguments are the Xbox D3D values (bgfx_pddi.h, bgfxContext::Stage): op 1 disable .. 24 lerp; argument
@@ -25,7 +27,7 @@ SAMPLER2D(s_pddiTex0, 0);
 SAMPLER2D(s_pddiTex1, 1);
 SAMPLER2D(s_pddiTex2, 2);
 SAMPLER2D(s_pddiTex3, 3);
-uniform vec4 u_pddiFrag[14];
+uniform vec4 u_pddiFrag[16];
 
 #ifndef FS_UV_SETS
 #define FS_UV_SETS 4
@@ -105,24 +107,30 @@ void cmbStage(vec4 k, vec4 l, vec4 tex, vec4 diffuse, vec4 spec, vec4 tf, inout 
 
 void main()
 {
+#ifdef FS_TWO_SIDED
+    // two-sided lighting (G5, vs_vp_ff2s): the back face's colours on back faces
+    vec4 diffuse = gl_FrontFacing ? v_color0 : v_bcolor0;
+    vec4 spec = gl_FrontFacing ? v_color1 : v_bcolor1;
+#else
     vec4 diffuse = v_color0;
 #ifdef FS_NO_SPECULAR
     vec4 spec = vec4(0.0, 0.0, 0.0, 0.0);
 #else
     vec4 spec = v_color1;
 #endif
+#endif
     vec4 tf = u_pddiFrag[3];
     vec4 current = diffuse;
     vec4 temp = vec4(0.0, 0.0, 0.0, 0.0);
-    vec2 uv0 = v_texcoord0.xy * u_pddiFrag[4].xy;
+    vec2 uv0 = v_texcoord0.xy * u_pddiFrag[4].xy + u_pddiFrag[14].xy;
 #if FS_UV_SETS > 1
-    vec2 uv1 = v_texcoord1.xy * u_pddiFrag[4].zw;
+    vec2 uv1 = v_texcoord1.xy * u_pddiFrag[4].zw + u_pddiFrag[14].zw;
 #else
     vec2 uv1 = vec2(0.0, 0.0);
 #endif
 #if FS_UV_SETS > 2
-    vec2 uv2 = v_texcoord2.xy * u_pddiFrag[5].xy;
-    vec2 uv3 = v_texcoord3.xy * u_pddiFrag[5].zw;
+    vec2 uv2 = v_texcoord2.xy * u_pddiFrag[5].xy + u_pddiFrag[15].xy;
+    vec2 uv3 = v_texcoord3.xy * u_pddiFrag[5].zw + u_pddiFrag[15].zw;
 #else
     vec2 uv2 = vec2(0.0, 0.0);
     vec2 uv3 = vec2(0.0, 0.0);

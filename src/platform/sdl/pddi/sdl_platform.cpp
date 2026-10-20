@@ -4,7 +4,11 @@
 //
 // Options (environment, read once when the display is initialised):
 //   HULK_GFX_RENDERER   d3d11 (default) | d3d12 | gl | vulkan | noop
-//   HULK_GFX_SIZE       WxH of the window and back buffer (default 640x480, the size the hybrid harness captures)
+//   HULK_GFX_SIZE       WxH of the game's frame (the mode it sees; default 640x480, the size the hybrid harness
+//                       captures) and of the window unless HULK_GFX_WINDOW says otherwise
+//   HULK_GFX_WINDOW     WxH of the window (G5): the frame is presented scaled into it with its aspect kept (bars)
+//   HULK_GFX_SCALE      linear (default) | nearest | integer: how the frame is scaled into a window of another size
+//   HULK_GFX_QUAD_COPY  1 / 0: render-target copies by full-screen quads instead of blits (default: OpenGL only)
 //   HULK_GFX_SHOT       frame numbers to capture (comma-separated); HULK_GFX_SHOT_DIR: where (default .), as
 //                       shot-<frame>.tga
 //   HULK_GFX_DRAWLOG    first:every:last frames to log (the hybrid build's --drawlog spec); HULK_GFX_DRAWLOG_OUT: the
@@ -22,7 +26,8 @@
 //   HULK_GFX_SELFTEST_PAGE  which page of the scene (default 0: G3's draw path; 1 G2's combiners, 2 the same through
 //                       the generic combiner, 3 2D / linear textures / movie tile / state, 4 every combiner key
 //                       against a CPU reference; G4: 5 refraction, 6 colour correction + visibility test, 7 bloom,
-//                       8 the overlay); one screenshot per run
+//                       8 the overlay; G5: 9 window scaling, with HULK_GFX_WINDOW, 10 two-sided lighting); one
+//                       screenshot per run
 //                       under Wine's winevulkan, so one page per run
 #include "bgfx_pddi.h"
 
@@ -132,14 +137,20 @@ static int rendererFromEnv()
     return bgfx::RendererType::Count;
 }
 
-static void readOptions(unsigned* w, unsigned* h)
+static void readSize(const char* name, unsigned* w, unsigned* h)
 {
-    const char* s = getenv("HULK_GFX_SIZE");
+    const char* s = getenv(name);
     unsigned a, b;
     if (s && sscanf(s, "%ux%u", &a, &b) == 2 && a >= 64 && b >= 64 && a <= 8192 && b <= 8192) {
         *w = a;
         *h = b;
     }
+}
+
+static void readOptions(unsigned* w, unsigned* h)
+{
+    readSize("HULK_GFX_SIZE", w, h);
+    const char* s;
     s = getenv("HULK_GFX_SHOT");
     while (s && *s && s_shotCount < 16) {
         s_shots[s_shotCount++] = (unsigned)strtoul(s, (char**)&s, 10);
@@ -180,12 +191,14 @@ static void onResize(int w, int h, void*)
 bool platformDisplayInit(bgfxDisplay* d, unsigned width, unsigned height)
 {
     readOptions(&width, &height);
+    unsigned winW = width, winH = height;
+    readSize("HULK_GFX_WINDOW", &winW, &winH);
     if (!hulk_platform_video_init()) {
         logf("pddi: SDL video init failed: %s\n", hulk_platform_error());
         return false;
     }
     const char* hidden = getenv("HULK_GFX_HIDDEN");
-    s_window = hulk_platform_create_window("The Incredible Hulk: Ultimate Destruction (native)", (int)width, (int)height,
+    s_window = hulk_platform_create_window("The Incredible Hulk: Ultimate Destruction (native)", (int)winW, (int)winH,
                                            hidden && *hidden == '1', 1);
     if (!s_window) {
         logf("pddi: SDL window failed: %s\n", hulk_platform_error());
@@ -204,7 +217,11 @@ bool platformDisplayInit(bgfxDisplay* d, unsigned width, unsigned height)
     if (fs && *fs == '1')
         hulk_platform_toggle_fullscreen();
     platformPump();
-    return d->hostInit(nwh, ndt, width, height, rendererFromEnv(), &s_callback);
+    if (!d->hostInit(nwh, ndt, width, height, rendererFromEnv(), &s_callback))
+        return false;
+    if (winW != width || winH != height)
+        d->hostResize(winW, winH);           // the frame keeps the mode's size; the window gets it scaled
+    return true;
 }
 
 // the one event pump (platform_events.h): window close ends the process as the old window's WM_CLOSE did

@@ -60,6 +60,7 @@ struct SceneState {
     bgfxPrimBuffer* skinQuad;
     unsigned w, h;
     bool made;
+    bgfxDisplay* display;       // the shot's display (window probes, the present rectangle)
 };
 static SceneState s_scene;
 enum { kMaxProbes = 512 };
@@ -75,7 +76,16 @@ static void probe(int x, int y, unsigned rgb, int tol, const char* what)
         p.rgb = rgb & 0xffffff;
         p.tolerance = tol;
         p.what = what;
+        p.window = false;
     }
+}
+
+// a probe at a pixel of the window (the bars around a scaled frame)
+static void probeWindow(int x, int y, unsigned rgb, int tol, const char* what)
+{
+    probe(x, y, rgb, tol, what);
+    if (s_nprobes > 0)
+        s_probes[s_nprobes - 1].window = true;
 }
 
 // cell (c, r) of the 4 x 3 grid in clip space: x0, y0 (top-left), x1, y1 (bottom-right), shrunk by `inset` pixels
@@ -271,7 +281,10 @@ static void page6(bgfxContext* ctx);
 static void page7(bgfxContext* ctx);
 static void page8(bgfxContext* ctx);
 
-int selfTestPages() { return 9; }
+static void page9(bgfxContext* ctx);
+static void page10(bgfxContext* ctx);
+
+int selfTestPages() { return 11; }
 
 // One frame of a page of the scene (between the caller's begin frame and end frame). Returns the number of probes.
 int selfTestScene(bgfxContext* ctx, int page)
@@ -279,6 +292,7 @@ int selfTestScene(bgfxContext* ctx, int page)
     SceneState& S = s_scene;
     S.w = ctx->m_display ? ctx->m_display->m_width : 640;
     S.h = ctx->m_display ? ctx->m_display->m_height : 480;
+    S.display = ctx->m_display;
     if (!S.made)
         setup(ctx);
     s_nprobes = 0;
@@ -307,6 +321,14 @@ int selfTestScene(bgfxContext* ctx, int page)
     }
     if (page == 7) {
         page7(ctx);
+        return s_nprobes;
+    }
+    if (page == 9) {
+        page9(ctx);
+        return s_nprobes;
+    }
+    if (page == 10) {
+        page10(ctx);
         return s_nprobes;
     }
     if (page == 8) {
@@ -1197,12 +1219,22 @@ int selfTestCheck(const unsigned char* px, unsigned w, unsigned h, unsigned pitc
                   void (*out)(const char* line))
 {
     int ok = 0;
+    // a shot of a window the frame is scaled into (G5): frame probes land where the present put the frame
+    int rx = 0, ry = 0, rw = (int)w, rh = (int)h;
+    bool mapped = s_scene.display && (w != s_scene.w || h != s_scene.h);
+    if (mapped)
+        s_scene.display->presentRect(&rx, &ry, &rw, &rh);
     for (int i = 0; i < s_nprobes; i++) {
         const SelfTestProbe& p = s_probes[i];
-        if (p.x < 0 || p.y < 0 || (unsigned)p.x >= w || (unsigned)p.y >= h)
+        int x = p.x, y = p.y;
+        if (mapped && !p.window) {
+            x = rx + (int)(((float)p.x + 0.5f) * (float)rw / (float)s_scene.w);
+            y = ry + (int)(((float)p.y + 0.5f) * (float)rh / (float)s_scene.h);
+        }
+        if (x < 0 || y < 0 || (unsigned)x >= w || (unsigned)y >= h)
             continue;
-        unsigned row = yflip ? h - 1 - (unsigned)p.y : (unsigned)p.y;
-        const unsigned char* c = px + row * pitch + (unsigned)p.x * 4;
+        unsigned row = yflip ? h - 1 - (unsigned)y : (unsigned)y;
+        const unsigned char* c = px + row * pitch + (unsigned)x * 4;
         int rgb[3] = {bgra ? c[2] : c[0], c[1], bgra ? c[0] : c[2]};
         int want[3] = {(int)(p.rgb >> 16) & 255, (int)(p.rgb >> 8) & 255, (int)p.rgb & 255};
         bool good = true;
@@ -1212,7 +1244,7 @@ int selfTestCheck(const unsigned char* px, unsigned w, unsigned h, unsigned pitc
         ok += good;
         if (out) {
             char line[256];
-            logLine(line, sizeof(line), "pddi: probe %d,%d %s: %d,%d,%d (want %d,%d,%d) %s\n", p.x, p.y,
+            logLine(line, sizeof(line), "pddi: probe %d,%d %s: %d,%d,%d (want %d,%d,%d) %s\n", x, y,
                     good ? "ok" : "FAIL", rgb[0], rgb[1], rgb[2], want[0], want[1], want[2], p.what);
             out(line);
         }
@@ -1765,6 +1797,152 @@ static void page8(bgfxContext* ctx)
     }
     probe(s_scene.w / 2, s_scene.h / 2, want, 4, "overlay: additive, split, the front buffer zoomed: c / (1 - a)");
     probe(s_scene.w / 2 + 40, s_scene.h / 2 - 30, want, 4, "overlay: the same off centre");
+}
+
+} // namespace pddi
+} // namespace hulk
+
+namespace hulk {
+namespace pddi {
+
+// ---------------------------------------------------------------------------------------------
+// G5 page 9: window scaling. Four quadrants of known colours fill the frame; the shot is of the window, which the
+// driver may have resized (the smoke test: 960x540 linear, 900x600 integer, 800x800 nearest; the game image:
+// HULK_GFX_WINDOW / HULK_GFX_SCALE). Probes: each quadrant's centre (frame pixels, mapped through the present
+// rectangle), the frame's first and last columns and rows in the window (the quadrant there), and the bars just
+// outside them (black). At the frame's own size the page is the quadrants alone.
+static void page9(bgfxContext* ctx)
+{
+    SceneState& S = s_scene;
+    beginPage(ctx);
+    static const unsigned kQ[4] = {0xffe02020u, 0xff20e020u, 0xff2020e0u, 0xffe0e020u};   // TL, TR, BL, BR
+    static const char* const kWhat[4] = {"scaled frame: top-left quadrant", "scaled frame: top-right quadrant",
+                                         "scaled frame: bottom-left quadrant", "scaled frame: bottom-right quadrant"};
+    for (int k = 0; k < 4; k++) {
+        Rect q = {k & 1 ? 0.0f : -1.0f, k & 2 ? 0.0f : 1.0f, k & 1 ? 1.0f : 0.0f, k & 2 ? -1.0f : 0.0f};
+        quad(ctx, S.plain, q, 0.5f, kQ[k]);
+        probe((int)(S.w * (k & 1 ? 3 : 1) / 4), (int)(S.h * (k & 2 ? 3 : 1) / 4), kQ[k], 2, kWhat[k]);
+    }
+    bgfxDisplay* d = S.display;
+    if (!d || (d->m_windowWidth == S.w && d->m_windowHeight == S.h))
+        return;
+    int rx, ry, rw, rh;
+    d->presentRect(&rx, &ry, &rw, &rh);
+    int midY = ry + rh / 4, midX = rx + rw / 4;
+    probeWindow(rx, midY, kQ[0], 2, "scaled frame: its first column (top-left quadrant)");
+    probeWindow(rx + rw - 1, midY, kQ[1], 2, "scaled frame: its last column (top-right quadrant)");
+    probeWindow(midX, ry, kQ[0], 2, "scaled frame: its first row (top-left quadrant)");
+    probeWindow(midX, ry + rh - 1, kQ[2], 2, "scaled frame: its last row (bottom-left quadrant)");
+    if (rx > 0) {
+        probeWindow(rx - 1, midY, 0, 0, "bar: just left of the frame (black)");
+        probeWindow(rx / 2, ry + rh / 2, 0, 0, "bar: the middle of the left bar");
+    }
+    if (rx + rw < (int)d->m_windowWidth)
+        probeWindow(rx + rw, midY, 0, 0, "bar: just right of the frame (black)");
+    if (ry > 0) {
+        probeWindow(midX, ry - 1, 0, 0, "bar: just above the frame (black)");
+        probeWindow(rx + rw / 2, ry / 2, 0, 0, "bar: the middle of the top bar");
+    }
+    if (ry + rh < (int)d->m_windowHeight)
+        probeWindow(midX, ry + rh, 0, 0, "bar: just below the frame (black)");
+}
+
+} // namespace pddi
+} // namespace hulk
+
+namespace hulk {
+namespace pddi {
+
+// ---------------------------------------------------------------------------------------------
+// G5 page 10: two-sided lighting (a lit 2SID shader: FUN_00329f70 turns culling off and TWOSIDEDLIGHTING on). One
+// directional light shining into the screen; quads with their normal toward the camera or away, drawn clockwise
+// (front faces) or counter-clockwise (back faces). A back face is lit with the reversed normal: lit where its normal
+// points away. The same quads through a lit one-sided shader (culling off by hand) show the back faces unlit.
+struct Page10 {
+    bool made;
+    bgfxShader* twoSided;       // LIT, 2SID, white diffuse, black ambient
+    bgfxPrimBuffer* quads[4];   // (normal toward, cw), (toward, ccw), (away, ccw), (away, cw)
+};
+static Page10 s_p10;
+
+static bgfxPrimBuffer* normalQuad(bgfxDevice* dev, const Rect& q, float nz, bool ccw)
+{
+    intptr_t params[8] = {kPrimTriList, 0x10, 0, 0, 4, 6, 0, (intptr_t)""};
+    bgfxPrimBuffer* b = (bgfxPrimBuffer*)dev->vfunc_10(params);
+    if (!b)
+        return 0;
+    b->vfunc_0();
+    bgfxPrimBufferStream* s = (bgfxPrimBufferStream*)b->vfunc_4();
+    const float pos[4][3] = {{q.x0, q.y1, 0.5f}, {q.x0, q.y0, 0.5f}, {q.x1, q.y1, 0.5f}, {q.x1, q.y0, 0.5f}};
+    for (int i = 0; i < 4; i++) {
+        s->vfunc_1(0.0f, 0.0f, nz);
+        s->vfunc_0(pos[i][0], pos[i][1], pos[i][2]);
+    }
+    b->vfunc_5(s);
+    static const unsigned short cw[6] = {0, 1, 2, 2, 1, 3}, ccwIdx[6] = {0, 2, 1, 2, 3, 1};
+    b->vfunc_9((void*)(ccw ? ccwIdx : cw), 6);
+    return b;
+}
+
+static void page10(bgfxContext* ctx)
+{
+    SceneState& S = s_scene;
+    Page10& P = s_p10;
+    if (!P.made) {
+        P.made = true;
+        P.twoSided = simpleShader(ctx->m_device, 0);
+        if (P.twoSided) {
+            setI(P.twoSided, "LIT", 1);
+            setI(P.twoSided, "2SID", 1);
+            setC(P.twoSided, "DIFF", 0xffffffffu);
+            setC(P.twoSided, "AMBI", 0xff000000u);
+        }
+        for (int k = 0; k < 4; k++)
+            P.quads[k] = normalQuad(ctx->m_device, cell(k, 0, 16), k < 2 ? -1.0f : 1.0f, k == 1 || k == 2);
+    }
+    beginPage(ctx);
+    if (!P.twoSided || !S.lit)
+        return;
+    bgfxContext::Light l;
+    memset(&l, 0, sizeof(l));
+    for (int i = 1; i < bgfxContext::kLights; i++)
+        ctx->hostSetLight(i, l);
+    l.type = 3;
+    l.on = true;
+    l.direction[2] = 1.0f;
+    l.range = 1e30f;
+    l.att[0] = 1.0f;
+    l.diffuse[0] = 0.5f;
+    l.diffuse[1] = 0.25f;
+    l.diffuse[2] = 1.0f;
+    l.diffuse[3] = 1.0f;
+    ctx->hostSetLight(0, l);
+    static const unsigned kLit = 0x8040ff, kDark = 0x000000;
+    static const char* const kWhat[4] = {
+        "two-sided: front face, normal toward the light: lit",
+        "two-sided: back face, normal toward the light: the reversed normal is unlit",
+        "two-sided: back face, normal away: lit through the reversed normal",
+        "two-sided: front face, normal away: unlit"};
+    for (int k = 0; k < 4; k++) {
+        if (!P.quads[k])
+            continue;
+        ctx->vfunc_32(P.twoSided, P.quads[k]);
+        probe(cx(k), cy(0), k == 0 || k == 2 ? kLit : kDark, 3, kWhat[k]);
+    }
+    // row 1: the same through the one-sided lit shader with culling off by hand: back faces keep the front colours
+    ctx->vfunc_54(0);
+    static const char* const kWhat1[2] = {"one-sided lighting, back face, normal toward the light: lit as the front",
+                                          "one-sided lighting, back face, normal away: unlit"};
+    for (int k = 1; k <= 2; k++) {
+        if (!P.quads[k])
+            continue;
+        float I[16];
+        identity(I);
+        I[13] = -2.0f / 3.0f;                 // one row down (the base's matrix stack 0: the draw loads it)
+        ctx->vfunc_14(0, I);
+        ctx->vfunc_32(S.lit, P.quads[k]);
+        probe(cx(k), cy(1), k == 1 ? kLit : kDark, 3, kWhat1[k - 1]);
+    }
 }
 
 } // namespace pddi

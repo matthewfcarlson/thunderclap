@@ -19,7 +19,8 @@ static unsigned s_textures;     // first-seen ordinals
 bgfxTexture::bgfxTexture(bgfxContext* context)
     : m_context(context), m_handle(bgfx::kInvalidHandle), m_width(0), m_height(0), m_format(0), m_mips(0),
       m_pddiFormat(0), m_bits(32), m_alphaBits(8), m_usage(0), m_type(6), m_lockedLevel(-1), m_priority(0xf),
-      m_ordinal(++s_textures), m_linear(false)
+      m_ordinal(++s_textures), m_linear(false), m_fromTarget(false), m_dirtyLevels(0), m_pendingQueued(false),
+      m_pendingNext(0)
 {
     memset(&m_info, 0, sizeof(m_info));
     memset(m_levels, 0, sizeof(m_levels));
@@ -28,6 +29,7 @@ bgfxTexture::bgfxTexture(bgfxContext* context)
 
 bgfxTexture::~bgfxTexture()
 {
+    unqueue();
     if (m_handle != bgfx::kInvalidHandle)
         bgfx::destroy(bgfx::TextureHandle{(uint16_t)m_handle});
     for (int i = 0; i < 16; i++)
@@ -93,23 +95,82 @@ static void levelSize(int type, unsigned w, unsigned h, unsigned* pitch, unsigne
     }
 }
 
+// Uploads are deferred (G5, the boot movies' crash): an unlock only marks the level; the data goes to bgfx when a
+// draw binds the texture (flush) or at the next present (flushPendingTextures). bgfx keeps every update's copy until
+// the next bgfx::frame, and the game can unlock far more often than it presents: the boot movies upload a 640x480
+// frame each time they decode one while the game is loading and not presenting (about 1.2 MB a frame, until the
+// 32-bit address space ran out at ~600 frames). Deferred, only the latest contents of each level are ever queued,
+// and bgfx applies a frame's texture updates before its draws anyway, so what is drawn is the same.
+static bgfxTexture* s_pending;          // textures with dirty levels (singly linked through m_pendingNext)
+
 void bgfxTexture::upload(int level)
 {
-    if (!m_levels[level] || !bgfx::getCaps())
+    if (level < 0 || level >= 16 || !m_levels[level])
+        return;
+    m_dirtyLevels |= 1u << level;
+    if (!m_pendingQueued) {
+        m_pendingQueued = true;
+        m_pendingNext = s_pending;
+        s_pending = this;
+    }
+}
+
+void bgfxTexture::unqueue()
+{
+    if (!m_pendingQueued)
+        return;
+    for (bgfxTexture** p = &s_pending; *p; p = &(*p)->m_pendingNext)
+        if (*p == this) {
+            *p = m_pendingNext;
+            break;
+        }
+    m_pendingQueued = false;
+    m_pendingNext = 0;
+}
+
+void bgfxTexture::flush()
+{
+    if (!m_dirtyLevels || !bgfx::getCaps())
         return;
     if (m_handle == bgfx::kInvalidHandle) {
         bgfx::TextureHandle h = bgfx::createTexture2D((uint16_t)m_width, (uint16_t)m_height, m_mips > 0, 1,
                                                       (bgfx::TextureFormat::Enum)m_format, BGFX_TEXTURE_NONE);
-        m_handle = h.idx;
         if (!bgfx::isValid(h))
             return;
+        m_handle = h.idx;
     }
-    unsigned w = m_width >> level, h = m_height >> level, pitch, rows;
-    w = w ? w : 1;
-    h = h ? h : 1;
-    levelSize(m_type, w, h, &pitch, &rows);
-    bgfx::updateTexture2D(bgfx::TextureHandle{(uint16_t)m_handle}, 0, (uint8_t)level, 0, 0, (uint16_t)w, (uint16_t)h,
-                          bgfx::copy(m_levels[level], pitch * rows), (uint16_t)pitch);
+    for (int level = 0; level < 16; level++) {
+        if (!(m_dirtyLevels & (1u << level)) || !m_levels[level])
+            continue;
+        unsigned w = m_width >> level, h = m_height >> level, pitch, rows;
+        w = w ? w : 1;
+        h = h ? h : 1;
+        levelSize(m_type, w, h, &pitch, &rows);
+        const bgfx::Memory* mem = bgfx::copy(m_levels[level], pitch * rows);
+        if (!mem) {
+            logf("pddi: texture %ux%u level %d: bgfx has no memory for the upload (kept for later)\n", m_width,
+                 m_height, level);
+            return;
+        }
+        bgfx::updateTexture2D(bgfx::TextureHandle{(uint16_t)m_handle}, 0, (uint8_t)level, 0, 0, (uint16_t)w,
+                              (uint16_t)h, mem, (uint16_t)pitch);
+        m_dirtyLevels &= ~(1u << level);
+    }
+    unqueue();
+}
+
+// at the present: the pending uploads, at most `limit` textures (the rest wait for the next present or their draw)
+void flushPendingTextures(int limit)
+{
+    while (s_pending && limit-- > 0) {
+        bgfxTexture* t = s_pending;
+        unsigned before = t->m_dirtyLevels;
+        t->flush();
+        if (t->m_dirtyLevels && t->m_dirtyLevels == before)
+            break;                            // bgfx can't take it now: try again next time
+        if (s_pending == t)
+            t->unqueue();
+    }
 }
 
 bool bgfxTexture::writeFrame(const unsigned char* frame, int frameWidth, int frameHeight, int pitch, int srcX,

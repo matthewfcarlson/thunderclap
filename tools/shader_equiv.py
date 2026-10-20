@@ -502,10 +502,13 @@ class ExecError(Exception):
 class Machine:
     """Runs a Module's entry point. Inputs and uniforms are given by variable / member name."""
 
-    def __init__(self, module, step_limit=200000):
+    def __init__(self, module, step_limit=200000, sample=None):
         self.m = module
         self.step_limit = step_limit
         self.used_ops = set()
+        # fragment shaders: sample(name, coord) -> 4 floats, `name` the bgfx sampler (s_fx0 for s_fx0Texture /
+        # s_fx0Sampler); images and samplers are tokens carrying that name
+        self.sample = sample
 
     def run(self, inputs, uniforms):
         m = self.m
@@ -520,6 +523,10 @@ class Machine:
         for nm, d in unis.items():
             t = d["type"]
             if t is None:
+                continue
+            if t.kind in ("image", "sampler", "sampledimage"):
+                base = nm[:-7] if nm.endswith(("Texture", "Sampler")) else nm
+                self.mem[d["id"]] = [("texture", base)]
                 continue
             if t.kind == "struct":
                 vals = []
@@ -743,6 +750,13 @@ class Machine:
                                          for i in ops[3:]])
         elif name == "OpUndef":
             env[r] = m.zero(m.types[ops[0]])
+        elif name == "OpSampledImage":
+            env[r] = V(ops[2])
+        elif name in ("OpImageSampleImplicitLod", "OpImageSampleExplicitLod"):
+            tok = V(ops[2])
+            if self.sample is None or not isinstance(tok, tuple) or tok[0] != "texture":
+                raise ExecError("a texture sample with no sampler model")
+            env[r] = tuple(f32(x) for x in self.sample(tok[1], V(ops[3])))
         else:
             raise ExecError("unsupported SPIR-V instruction %s" % name)
 
@@ -840,16 +854,18 @@ def parse_annotations(src_text):
 
 
 # ---------------------------------------------------------------------------------------------------------------
-def compile_sc(src, profile, out_dir):
+def compile_sc(src, profile, out_dir, stype="vertex", varyingdef=None, includes=()):
     if not os.path.exists(SHADERC):
         raise SystemExit("no shaderc at %s: run `tools/native_gfx.py fetch` and `tools/native_gfx.py shaderc`"
                          % os.path.relpath(SHADERC, ROOT))
     plat, prof = PROFILES[profile]
-    vdef = os.path.join(os.path.dirname(os.path.abspath(src)), "varying.def.sc")
+    vdef = varyingdef or os.path.join(os.path.dirname(os.path.abspath(src)), "varying.def.sc")
     os.makedirs(out_dir, exist_ok=True)
     out = os.path.join(out_dir, "%s.%s.bin" % (os.path.basename(src)[:-3], profile))
-    cmd = [SHADERC, "-f", src, "-o", out, "--type", "vertex", "--platform", plat, "-p", prof,
+    cmd = [SHADERC, "-f", src, "-o", out, "--type", stype, "--platform", plat, "-p", prof,
            "-i", BGFX_SRC, "--varyingdef", vdef]
+    for inc in includes:
+        cmd += ["-i", inc]
     r = subprocess.run(cmd, capture_output=True, text=True)
     if r.returncode != 0 or not os.path.exists(out):
         return None, (r.stdout + r.stderr).strip()[-2000:]
