@@ -217,10 +217,15 @@ def dtor_transform(g, C, raw):
     return rule, out, C.unit.header + ".h", C.name
 
 
+DECLS_INCLUDE = re.compile(r'^[ \t]*#[ \t]*include[ \t]*"decls/[^"]+"[ \t]*\r?$', re.M)
+
+
 def skip_reason(text, target, g, names_on_equiv=True):
     if re.search(r'#\s*include\s*[<"]gen/', text):
         return "already on include/gen/"
-    if re.search(r"^\s*#", text, re.M):
+    # `#include "decls/..."` (the data migration's data headers, decls/address.h pins) is allowed: the rewrite keeps
+    # those lines (insert_include puts the gen header after them) and every rewrite is verified as it is
+    if re.search(r"^\s*#", DECLS_INCLUDE.sub("", text), re.M):
         return "preprocessor lines"
     m = VFUNC.match(target or "")
     if not m or m.group(1) not in g.by_csv:
@@ -364,7 +369,9 @@ def ns_index():
 def ns_skip(text):
     if re.search(r'#\s*include\s*[<"]gen/', text):
         return "already on include/gen/"
-    if re.search(r"^\s*#", text, re.M):
+    # `#include "decls/..."` (the data migration's data headers, decls/address.h pins) is allowed: the rewrite keeps
+    # those lines (insert_include puts the gen header after them) and every rewrite is verified as it is
+    if re.search(r"^\s*#", DECLS_INCLUDE.sub("", text), re.M):
         return "preprocessor lines"
     return None
 

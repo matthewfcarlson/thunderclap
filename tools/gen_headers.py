@@ -1276,16 +1276,53 @@ MINE_CACHE = os.path.join(ROOT, "build/gen_mine_cache.json")
 MINE_VERSION = 2  # bump to invalidate the cache when mine_file changes
 
 
-def clang_ast(path):
-    r = subprocess.run(CLANG + ["-fsyntax-only", "-Xclang", "-ast-dump=json", path], capture_output=True, text=True)
+def clang_ast(path, includes=False):
+    """clang's JSON AST of a source. includes: resolve `#include "decls/..."` (include/) and keep only the
+    source's own top-level declarations (the headers' nodes carry `includedFrom` and offsets into other files,
+    which a text rewrite of the source must not touch)."""
+    extra = ["-I", os.path.join(ROOT, "include")] if includes else []
+    r = subprocess.run(CLANG + extra + ["-fsyntax-only", "-Xclang", "-ast-dump=json", path], capture_output=True,
+                       text=True)
     if r.returncode != 0:
         return None
-    return json.loads(r.stdout)
+    ast = json.loads(r.stdout)
+    if includes:
+        ast["inner"] = _own_nodes(ast.get("inner", []), path)
+    return ast
 
 
-def clang_layouts(path):
-    """{record name: {(record, field): absolute offset}} from -fdump-record-layouts."""
-    r = subprocess.run(CLANG + ["-c", "-o", os.devnull, "-Xclang", "-fdump-record-layouts", path],
+def _own_nodes(nodes, path):
+    """The top-level nodes written in `path` itself. clang's JSON locations are delta-encoded: a location names
+    its "file" only when it differs from the previous location printed, so the file is tracked in dump order."""
+    cur = [None]
+
+    def scan(o):
+        if isinstance(o, dict):
+            if "file" in o:
+                cur[0] = o["file"]
+            for v in o.values():
+                scan(v)
+        elif isinstance(o, list):
+            for v in o:
+                scan(v)
+    out = []
+    main = os.path.abspath(path)
+    for n in nodes:
+        loc = n.get("loc", {})
+        first = loc.get("spellingLoc", loc).get("file") or loc.get("file")
+        if first:
+            cur[0] = first
+        f = cur[0]
+        scan(n)
+        if f is None or os.path.abspath(f) == main:
+            out.append(n)
+    return out
+
+
+def clang_layouts(path, includes=False):
+    """{record name: {(record, field): absolute offset}} from -fdump-record-layouts (includes: see clang_ast)."""
+    extra = ["-I", os.path.join(ROOT, "include")] if includes else []
+    r = subprocess.run(CLANG + extra + ["-c", "-o", os.devnull, "-Xclang", "-fdump-record-layouts", path],
                        capture_output=True, text=True)
     if r.returncode != 0:
         return None
@@ -1559,7 +1596,7 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
     if hname == "~":
         raise SwapFail("target is a destructor slot")
     raw = open(path, "rb").read().decode("latin1")
-    ast = clang_ast(path)
+    ast = clang_ast(path, includes=True)
     if ast is None:
         raise SwapFail("clang can't parse the original")
     records, fields, methods, outdefs, fwds, nsof = {}, {}, {}, [], [], {}
@@ -1640,7 +1677,7 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
     def need_layout():
         nonlocal layout
         if layout is None:
-            lay = clang_layouts(path)
+            lay = clang_layouts(path, includes=True)
             if lay is None:
                 raise SwapFail("clang can't lay out the original")
             layout = lay.get(sname, {})
