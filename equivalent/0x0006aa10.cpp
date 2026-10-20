@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // CInvulnerableTrack::vfunc_12 @ 0x0006aa10
-#include "compat/ptr.h"
-void* __cdecl FUN_0008d690(hulk_uintptr size);
+void* __cdecl FUN_0008d690(unsigned int size);
 struct InvulnerableObject {
     InvulnerableObject* FUN_000200a0(void* argument, void* source);
 };

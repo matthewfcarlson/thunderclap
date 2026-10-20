@@ -139,7 +139,7 @@ struct StringTable_ecf10 {
 };
 
 void __cdecl thunk_FUN_00267090(void *p);
-void *__cdecl FUN_0008d6d0(hulk_uintptr size);
+void *__cdecl FUN_0008d6d0(unsigned int size);
 
 class TextBox_ecf10 {
 public:

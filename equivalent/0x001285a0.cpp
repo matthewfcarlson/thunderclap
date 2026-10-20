@@ -1,13 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 6/6)
 // FUN_001285a0 @ 0x001285a0
-#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/hulkfight/ai.h"
 #include "decls/data/game/unknown.h"
 
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* address) { return address; }
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(size_t);
 void FUN_00123600(); void FUN_00123610();
 namespace hulkfight { namespace ai { class TargetTypeCondition; } }
 namespace fight { template<class T> struct ParamEnumConstList {

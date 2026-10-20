@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 30/30)
 // FUN_0005ca20 @ 0x0005ca20
-#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d690(unsigned int size);
 
 class CGrappleAttachTrack {
 public:

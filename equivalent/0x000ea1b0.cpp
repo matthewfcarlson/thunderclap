@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 16/20, incomplete)
 // TextSelector::vfunc_20 @ 0x000ea1b0
-#include "compat/ptr.h"
 struct Elem_ea1b0 {
     char data[0x24];
     void FUN_000f7930();
@@ -16,7 +15,7 @@ struct Entry_ea1b0 {
 };
 
 int __cdecl FUN_00266da0(int tag);
-void *__cdecl FUN_0008d6d0(hulk_uintptr size);
+void *__cdecl FUN_0008d6d0(unsigned int size);
 void __stdcall FUN_00011520(void *arr, unsigned int size, int count, void (Elem_ea1b0::*ctor)());
 void __cdecl FUN_0008d340(void *p);
 

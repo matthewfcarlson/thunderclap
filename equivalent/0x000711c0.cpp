@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 10/10)
 // FUN_000711c0 @ 0x000711c0
-#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 inline void* operator new(unsigned int, void* p) { return p; }
@@ -8,7 +7,7 @@ void __cdecl FUN_00068310();
 void __cdecl FUN_00068320();
 void __cdecl FUN_00068330();
 void __cdecl FUN_0006b7b0();
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned int);
 struct ParamBase_711c0 {
  virtual void placeholder();
  char padding[12];

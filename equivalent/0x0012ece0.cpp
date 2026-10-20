@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012ece0 @ 0x0012ece0
-#include "compat/ptr.h"
 typedef unsigned int size_t;
 void __cdecl FUN_0008d340(void*);
-void* __cdecl FUN_0008d6d0(hulk_uintptr);
+void* __cdecl FUN_0008d6d0(size_t);
 struct Thing {
     char pad[0x20];
     char* text;

@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 18/18)
 // FUN_000d3d80 @ 0x000d3d80
-#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "gen/global.h"
 
-void *__cdecl FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d690(unsigned int size);
 
 
 class Typed {

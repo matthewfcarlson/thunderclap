@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 10/10)
 // FUN_0017ab80 @ 0x0017ab80
-#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
 inline void* operator new(unsigned int, void* p) { return p; }
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned int);
 void FUN_0016f930(); void FUN_0016f960(); void FUN_0016f9a0(); void FUN_0016f9d0();
 namespace hulkfight { namespace motion { class TeleportRelativeTrack; } }
 struct BaseFloat_17ab80 { virtual void slot0(); char pad[12]; void (*callback)(); int tail; void FUN_00234960(const char*); };

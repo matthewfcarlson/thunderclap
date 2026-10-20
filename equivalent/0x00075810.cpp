@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 32/32)
 // FUN_00075810 @ 0x00075810
-#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d690(unsigned int size);
 
 class CHeadTrackerTrack {
 public:

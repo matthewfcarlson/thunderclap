@@ -23,7 +23,7 @@ struct Owner_5b5b0 {
 struct CSoundAction_nv_5b5b0 {
     void* FUN_0001d190(CGrappleSoundTrack* track, Settings* settings);
 };
-void* __cdecl FUN_0008d690(hulk_uintptr size);
+void* __cdecl FUN_0008d690(unsigned int size);
 
 int CGrappleSoundTrack::vfunc_12(int __p0) { Owner_5b5b0 * owner = (Owner_5b5b0 *)__p0;
 

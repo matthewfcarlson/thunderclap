@@ -2,7 +2,7 @@
 // FUN_0010c8d0 @ 0x0010c8d0
 #include "compat/ptr.h"
 int __cdecl FUN_0008d340(void *p);
-void * __cdecl FUN_0008d6d0(hulk_uintptr size);
+void * __cdecl FUN_0008d6d0(unsigned int size);
 struct Owner { char pad[0x10]; char *text; hulk_intptr FUN_0010c8d0(const char *source); };
 hulk_intptr Owner::FUN_0010c8d0(const char *source) {
     int freed = FUN_0008d340(text);

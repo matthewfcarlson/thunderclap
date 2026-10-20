@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1961 inputs, branch coverage 54/54)
 // FUN_000612e0 @ 0x000612e0
-#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d690(unsigned int size);
 
 class CMotionTrailTrack {
 public:

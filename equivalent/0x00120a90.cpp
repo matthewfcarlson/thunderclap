@@ -1,11 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 26/26)
 // FUN_00120a90 @ 0x00120a90
-#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
 namespace ai {

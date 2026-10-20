@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_000aef10 @ 0x000aef10
-#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-void* __cdecl FUN_0008d690(hulk_uintptr size);
+void* __cdecl FUN_0008d690(unsigned int size);
 void FUN_000af480();
 
 class Function {

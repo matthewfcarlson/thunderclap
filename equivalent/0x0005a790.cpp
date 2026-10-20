@@ -23,7 +23,7 @@ struct Owner_5a790 {
 struct CAutoTargetAction_nv_5a790 {
     void* FUN_0001d4c0(CGrappleAutoTargetTrack* track, Settings* settings);
 };
-void* __cdecl FUN_0008d690(hulk_uintptr size);
+void* __cdecl FUN_0008d690(unsigned int size);
 
 int CGrappleAutoTargetTrack::vfunc_12(int __p0) { Owner_5a790 * owner = (Owner_5a790 *)__p0;
 

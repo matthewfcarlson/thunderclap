@@ -2,7 +2,7 @@
 // FUN_0003dd70 @ 0x0003dd70
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "compat/ptr.h"
-void *FUN_0008d690(hulk_uintptr size);
+void *FUN_0008d690(unsigned int size);
 
 struct V3_3dd70 {
     union {

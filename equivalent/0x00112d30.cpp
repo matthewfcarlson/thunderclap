@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 10/10)
 // FUN_00112d30 @ 0x00112d30
-#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/ai.h"
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_0010c600(); void __cdecl FUN_0010c610(); void __cdecl FUN_0010c620(); void __cdecl FUN_0010c630();
 namespace hulkfight { namespace ai { class AIHistorySetTrack; } }
 namespace fight {

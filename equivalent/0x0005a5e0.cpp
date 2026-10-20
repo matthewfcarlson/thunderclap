@@ -33,7 +33,7 @@ struct Owner_5a5e0 {
     Anchor_5a5e0 *FUN_000592a0();
 };
 
-void *__cdecl FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d690(unsigned int size);
 
 int CGrappleDrainHealthTrack::vfunc_12(int __p0) { Owner_5a5e0 * owner = (Owner_5a5e0 *)__p0;
 

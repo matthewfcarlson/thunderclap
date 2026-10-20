@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 226 inputs, branch coverage 10/10)
 // FUN_000e19d0 @ 0x000e19d0
-#include "compat/ptr.h"
 struct Tbl_e19d0 { void* FUN_000df970(int id); };
 struct Reg_e19d0 { char pad[4]; Tbl_e19d0* tbl; };
 struct Owner_e19d0 { char pad[4]; Reg_e19d0* reg; };
-void* __cdecl FUN_0008d6d0(hulk_uintptr size);
+void* __cdecl FUN_0008d6d0(unsigned size);
 struct FEDoFunction {
  virtual void slot0();
  int pad4; int v8, vc;

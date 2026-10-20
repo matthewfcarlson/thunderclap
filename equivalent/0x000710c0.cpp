@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 10/10)
 // FUN_000710c0 @ 0x000710c0
-#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned);
 void __cdecl FUN_000682e0(); void __cdecl FUN_000682f0(); void __cdecl FUN_00068300(); void __cdecl FUN_0006b750();
 class CMoveAddTrack;
 namespace fight { template<class T> struct ParamFloatConstRange {

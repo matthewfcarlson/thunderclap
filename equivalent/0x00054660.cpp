@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 8/8)
 // FUN_00054660 @ 0x00054660
-#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
 
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void FUN_00048190(); void FUN_000481a0(); void FUN_000481b0();
 class CFightNodePrevCondition;

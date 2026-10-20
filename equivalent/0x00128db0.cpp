@@ -1,11 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 10/10)
 // FUN_00128db0 @ 0x00128db0
-#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned int);
 void FUN_00123830(); void FUN_00123840(); void FUN_00123860(); void FUN_00123880();
   
 namespace hulkfight { namespace ai { class TargetDistanceXZCondition; } }

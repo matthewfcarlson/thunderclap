@@ -1,12 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 12/12)
 // FUN_000528d0 @ 0x000528d0
-#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/hulkfight/ai.h"
 #include "decls/data/game/unknown.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d690(unsigned int size);
 
 class CButtonValueCondition {
 public:

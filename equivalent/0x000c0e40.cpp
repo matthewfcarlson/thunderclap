@@ -1,13 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 26/26)
 // FUN_000c0e40 @ 0x000c0e40
-#include "compat/ptr.h"
 #include "decls/address.h"
 typedef void (*Callback)();
 #define CB(a) extern void FUN_##a();
 CB(000b43e0) CB(000b45a0) CB(000b45b0) CB(000b45d0) CB(000b47b0) CB(000b4850) CB(000b4b60) CB(000b4e30) CB(000b5490) CB(000b54d0) CB(000b5530) CB(000b5590) CB(000b5670) CB(000b5710) CB(000b5790) CB(000b57d0) CB(000b5810) CB(000b89c0) CB(000bb5c0) CB(000bc1e0) CB(000bc230) CB(000bc750) CB(000bf450)
 extern unsigned char DAT_004ddbd0; extern unsigned DAT_004ddc08,DAT_004ddc0c;
 extern char DAT_0048e100[],DAT_0048e0f0[],DAT_0048e134[],DAT_0049cad8[];
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned);
 inline void* __cdecl operator new(unsigned,void* p) { return p; }
 struct CFEManager;
 struct Binding { virtual void slot(); char pad[12]; unsigned char argumentType; char pad2[7]; unsigned char resultType; char pad3[3]; Callback callback; CFEManager* owner; void FUN_001d0480(const char*,int); Binding* FUN_000c0030(const char*,CFEManager*,Callback); Binding* FUN_000c0200(const char*,CFEManager*,Callback); };

@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 8/8)
 // FUN_00053080 @ 0x00053080
-#include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
@@ -8,7 +7,7 @@ class CAxisDirectionCondition;
 extern void __cdecl FUN_00047bf0();
 extern void __cdecl FUN_00047c00();
 extern void __cdecl FUN_00047c20();
-extern void* __cdecl FUN_0008d690(hulk_uintptr);
+extern void* __cdecl FUN_0008d690(unsigned int);
 namespace fight {
 template<class T> struct ParamEnumConstList {
  virtual void slot0();

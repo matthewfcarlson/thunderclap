@@ -1,4 +1,3 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 8/8)
 // FUN_00091fe0 @ 0x00091fe0
-#include "compat/ptr.h"
-extern "C" void __cdecl FUN_0008d340(void *); extern "C" void * __cdecl FUN_0008d6d0(hulk_uintptr); struct Object { char pad[0x30]; char *text; void FUN_00091fe0(const char *value); }; void Object::FUN_00091fe0(const char *value) { if (text) { FUN_0008d340(text); text = 0; } if (value) { const char *end = value; while (*end) ++end; char *dest = (char *)FUN_0008d6d0((unsigned int)(end - value + 1)); text = dest; do { *dest++ = *value; } while (*value++); } }
+extern "C" void __cdecl FUN_0008d340(void *); extern "C" void * __cdecl FUN_0008d6d0(unsigned int); struct Object { char pad[0x30]; char *text; void FUN_00091fe0(const char *value); }; void Object::FUN_00091fe0(const char *value) { if (text) { FUN_0008d340(text); text = 0; } if (value) { const char *end = value; while (*end) ++end; char *dest = (char *)FUN_0008d6d0((unsigned int)(end - value + 1)); text = dest; do { *dest++ = *value; } while (*value++); } }

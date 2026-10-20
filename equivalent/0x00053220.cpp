@@ -1,13 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_00053220 @ 0x00053220
-#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
 void __cdecl FUN_00047c60();
 void __cdecl FUN_00047c70();
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned);
 void __cdecl FUN_002347b0(void*,void*,int);
 inline void* __cdecl operator new(unsigned,void* p) { return p; }
 struct Base_53220 {

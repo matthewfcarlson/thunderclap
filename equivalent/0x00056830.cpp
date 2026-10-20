@@ -1,11 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 6/6)
 // FUN_00056830 @ 0x00056830
-#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d690(unsigned int size);
 
 class CSmartPropGrabbableNameCondition {
 public:

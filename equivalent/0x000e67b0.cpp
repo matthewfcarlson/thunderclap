@@ -1,12 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3022 inputs, branch coverage 21/22, incomplete)
 // FUN_000e67b0 @ 0x000e67b0
-#include "compat/ptr.h"
 struct Entry_e67b0 {
  char padding[0x18];
  char name[0x20];
  Entry_e67b0* FUN_000fb470(const char* name);
 };
-void* __cdecl FUN_0008d690(hulk_uintptr size);
+void* __cdecl FUN_0008d690(unsigned int size);
 struct Registry_e67b0 {
  char padding[0x160c];
  Entry_e67b0* entries[64];

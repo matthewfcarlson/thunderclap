@@ -7,7 +7,7 @@
 #include "decls/data/game/global.h"
 
 void *thunk_FUN_0008d690(unsigned int size);
-void *__cdecl FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d690(unsigned int size);
 extern int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 
 struct V3_42b40 { float x, y, z; };

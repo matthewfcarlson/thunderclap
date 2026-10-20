@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)
 // FUN_0017ae00 @ 0x0017ae00
-#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
 inline void* operator new(unsigned int, void* p) { return p; }
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned int);
 void FUN_0016fa60(); void FUN_0016fa70(); void FUN_0016fa90();
 struct FloatBase_17ae00 { virtual void slot0(); char padding[12]; void (*callback)(); int tail; void FUN_00234960(const char*); };
 struct BoolBase { virtual void slot0(); char padding[12]; void (*callback)(); int tail; void FUN_00234860(const char*); };

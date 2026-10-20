@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 8/8)
 // FUN_00187ac0 @ 0x00187ac0
-#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
 
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned);
 inline void* __cdecl operator new(unsigned, void* memory) { return memory; }
 namespace hulkfight { namespace motion { class PropStateByIndexCondition; } }
 namespace fight {

@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 10398 inputs, branch coverage 15/16, incomplete)
 // FUN_0008cbe0 @ 0x0008cbe0
 // cl-flags: /GS
-#include "compat/ptr.h"
 #include "decls/address.h"
 struct Engine_8cbe0 {
     void FUN_001eb870();
@@ -13,7 +12,7 @@ struct Singleton_4dd6ec {
 };
 
 
-void *FUN_0008d690(hulk_uintptr size);
+void *FUN_0008d690(unsigned int size);
 int __cdecl FUN_00266da0(int mode);
 void __cdecl FUN_0026b800(char *buf, int a, int b, int c, int d, int e, int f);
 void __cdecl FUN_0008d330(void *p);

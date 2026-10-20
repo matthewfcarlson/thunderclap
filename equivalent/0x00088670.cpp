@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20023 inputs, branch coverage 34/34)
 // FUN_00088670 @ 0x00088670
-#include "compat/ptr.h"
 #include "gen/global.h"
 struct Sim_88670;
 struct Cfg_88670 { char pad[0x2c]; int v2c; };
@@ -66,7 +65,7 @@ struct CAmbientsManager_nv_88670 {
 };
 struct R_88670 { void FUN_00066c20(Sim_88670 *s); };
 
-extern void *__cdecl FUN_0008d690(hulk_uintptr n);
+extern void *__cdecl FUN_0008d690(unsigned int n);
 Sys10 *__cdecl FUN_001b6580();
 void *__cdecl FUN_001b6990();
 R_88670 *__stdcall FUN_000678d0();

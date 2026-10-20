@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 14/14)
 // FUN_00112f10 @ 0x00112f10
-#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/ai.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d690(unsigned int size);
 
 class SemaphoreWaitTrack {
 public:

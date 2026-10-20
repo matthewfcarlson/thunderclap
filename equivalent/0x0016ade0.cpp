@@ -1,12 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)
 // FUN_0016ade0 @ 0x0016ade0
-#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/hulkfight/motion.h"
 #include "decls/data/game/unknown.h"
 
 typedef unsigned int uint;
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(uint);
 void __cdecl FUN_00165380(); void __cdecl FUN_00165390(); void __cdecl FUN_001653a0();
    
 void __cdecl FUN_002347b0(void*,void**,int);

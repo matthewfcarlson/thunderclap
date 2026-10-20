@@ -22,7 +22,7 @@ class Entry_f8500 {
 
 Manager_f8500* FUN_000fc1b0();
 int FUN_000dfcc0(char* dst, int size, const char* fmt, ...);
-void* FUN_0008d6d0(hulk_uintptr size);
+void* FUN_0008d6d0(unsigned int size);
 void FUN_000fb740(short* dst, const char* src, hulk_intptr count);
 void FUN_0008d340(void* p);
 

@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 13/14, incomplete)
 // FUN_000fe940 @ 0x000fe940
 // 0x000fe940: fetch (or lazily create) the CRangedAgent in *slot
-#include "compat/ptr.h"
 struct CAgent {
     virtual void AddRef();
     virtual void Release();
@@ -18,7 +17,7 @@ struct AgentHost_fe940 {
 extern char DAT_004a1b68;
 
 int __cdecl FUN_00266da0(int v);
-void *__cdecl FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d690(unsigned int size);
 
 void __cdecl FUN_000fe940(AgentHost_fe940 *host, CAgent **slot)
 {

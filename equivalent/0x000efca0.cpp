@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 24/24)
 // FUN_000efca0 @ 0x000efca0
-#include "compat/ptr.h"
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned int);
 struct Manager_efca0;
 struct FEMenuBase {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual const char* v8();

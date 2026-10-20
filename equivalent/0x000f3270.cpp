@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3218 inputs, branch coverage 94/94)
 // FEThingsBase::vfunc_35 @ 0x000f3270
-#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 typedef unsigned __int64 u64_f3270;
-void *FUN_0008d690(hulk_uintptr size);
+void *FUN_0008d690(unsigned int size);
 
 namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; } }
 namespace pure3d { class CompositeDrawable; }

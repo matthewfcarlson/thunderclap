@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 12/12)
 // FUN_0005d370 @ 0x0005d370
-#include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d690(unsigned int size);
 
 class CHapticTrack {
 public:

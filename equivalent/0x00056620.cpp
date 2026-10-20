@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 8/8)
 // FUN_00056620 @ 0x00056620
-#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 
@@ -13,7 +12,7 @@ template<class T> struct ParamIntConstRange { virtual void slot0(); char pad[12]
 class CSmartPropNameCondition;
    
 void FUN_00047e90(); void FUN_00047ea0(); void FUN_00047eb0();
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned);
 void __cdecl FUN_002347b0(void*,void**,int);
 void target() {
  if (!DAT_004dc4c4) {

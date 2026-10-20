@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 10/10)
 // FUN_0016b2c0 @ 0x0016b2c0
-#include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 
 typedef unsigned int size_t;
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(size_t);
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 void FUN_00165540(); void FUN_00165550(); void FUN_00165560(); void FUN_00165570();
 namespace hulkfight { namespace motion { class IntentionInputCondition; } }

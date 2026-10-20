@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 13/14, incomplete)
 // FUN_000fec60 @ 0x000fec60
 // 0x000fec60: fetch (or lazily create) the CPathGraphAgent in *slot
-#include "compat/ptr.h"
 struct CAgent {
     virtual void AddRef();
     virtual void Release();
@@ -18,7 +17,7 @@ struct AgentHost_fec60 {
 extern char DAT_004a1bdc;
 
 int __cdecl FUN_00266da0(int v);
-void *__cdecl FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d690(unsigned int size);
 
 void __cdecl FUN_000fec60(AgentHost_fec60 *host, CAgent **slot)
 {

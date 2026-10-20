@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 314/314)
 // FUN_00031310 @ 0x00031310
-#include "compat/ptr.h"
 typedef unsigned int size_t;
 void* operator new(size_t) throw();
-void* FUN_0008d690(hulk_uintptr);
+void* FUN_0008d690(unsigned int);
 class CActorManager;
 extern char DAT_0048e128,DAT_0048e0e4,DAT_0048e0f0,DAT_0048e134,DAT_0048e100,DAT_0048e10c;
 char FUN_001d04d0(const void*) throw();

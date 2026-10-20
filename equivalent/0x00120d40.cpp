@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 26/26)
 // FUN_00120d40 @ 0x00120d40
-#include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d690(unsigned int size);
 
 class RoutTrack {
 public:

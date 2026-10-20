@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19961 inputs, branch coverage 4/4)
 // FUN_00066a90 @ 0x00066a90
-#include "compat/ptr.h"
 void FUN_00066900();
 void FUN_000668c0();
-void *FUN_0008d6d0(hulk_uintptr size);
+void *FUN_0008d6d0(unsigned int size);
 
 struct Key_66a90 {
     int w[4];

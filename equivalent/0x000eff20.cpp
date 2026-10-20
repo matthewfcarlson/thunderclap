@@ -5,7 +5,7 @@
 // equiv-map: ??_R0?AVCTokenFloat@DollyScript@@@8 = 0x004a13bc
 #include "compat/ptr.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
-void *FUN_0008d690(hulk_uintptr size);
+void *FUN_0008d690(unsigned int size);
 extern "C" char *__cdecl strncpy(char *, const char *, unsigned int);
 void *__cdecl FUN_000f6610(const char *s);
 

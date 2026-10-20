@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 13/14, incomplete)
 // FUN_000fe9e0 @ 0x000fe9e0
 // 0x000fe9e0: fetch (or lazily create) the CHand2HandAgent in *slot
-#include "compat/ptr.h"
 struct CAgent {
     virtual void AddRef();
     virtual void Release();
@@ -18,7 +17,7 @@ struct AgentHost_fe9e0 {
 extern char DAT_004a1b84;
 
 int __cdecl FUN_00266da0(int v);
-void *__cdecl FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d690(unsigned int size);
 
 void __cdecl FUN_000fe9e0(AgentHost_fe9e0 *host, CAgent **slot)
 {

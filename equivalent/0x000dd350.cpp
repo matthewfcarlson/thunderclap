@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1771 inputs, branch coverage 52/52)
 // FUN_000dd350 @ 0x000dd350
 // cl-flags: /GS
-#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" long __cdecl atol(const char* s);
@@ -124,7 +123,7 @@ struct Slot_dd350 {
 
 int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, ...);
 void __cdecl FUN_0008d340(void* p);
-char* __cdecl FUN_0008d6d0(hulk_intptr size);
+char* __cdecl FUN_0008d6d0(int size);
 
 class Config_dd350 {
 public:

@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3130 inputs, branch coverage 92/97, incomplete)
 // MyDriveErrorCallback::vfunc_0 @ 0x0008e1f0
-#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -96,7 +95,7 @@ char __cdecl FUN_0008d910(int a3);
 void __cdecl FUN_00240bb0();
 Mgr_8e1f0 *__cdecl FUN_002684b0();
 void __cdecl FUN_002684c0();
-void *FUN_0008d690(hulk_uintptr size);
+void *FUN_0008d690(unsigned int size);
 MyControllerCallback *FUN_0008e090();
 
 class MyDriveErrorCallback {

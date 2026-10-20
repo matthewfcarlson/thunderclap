@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 479 inputs, branch coverage 74/74)
 // FUN_0007f950 @ 0x0007f950
-#include "compat/ptr.h"
 typedef unsigned int size_t;
 void* operator new(size_t) throw();
 inline void* operator new(size_t, void* p) throw() { return p; }
-void* FUN_0008d690(hulk_uintptr);
+void* FUN_0008d690(unsigned int);
 char FUN_001d04d0(const void*) throw();
 class CAmbientsManager;
 namespace math { class Vector { public: float x, y, z; }; }

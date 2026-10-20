@@ -1,11 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 8/8)
 // hulkfight::motion::HitReactionTrack::vfunc_9 @ 0x0014f110
 // hulkfight::motion::HitReactionTrack::vfunc_9 @ 0x0014f110
-#include "compat/ptr.h"
 extern char DAT_00494b44;
 extern char DAT_00494b60;
 extern void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern void* __cdecl FUN_0008d690(hulk_uintptr);
+extern void* __cdecl FUN_0008d690(unsigned int);
 struct Reaction_14f110;
 struct Settings_14f110 { char data[0x98]; void FUN_00059820(); void FUN_00059300(); };
 struct Controller_14f110 { unsigned char FUN_00231a40(void*, Reaction_14f110*); };

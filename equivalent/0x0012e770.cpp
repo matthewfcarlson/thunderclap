@@ -3,7 +3,7 @@
 #include "compat/ptr.h"
 struct Object { char pad[0x18]; char* text; hulk_intptr FUN_0012e770(const char* source); };
 int __cdecl FUN_0008d340(void*);
-char* __cdecl FUN_0008d6d0(hulk_uintptr);
+char* __cdecl FUN_0008d6d0(unsigned int);
 hulk_intptr Object::FUN_0012e770(const char* source) {
     hulk_intptr result = FUN_0008d340(text);
     if (!source) { text = 0; return (result & ~255) | 1; }

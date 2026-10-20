@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 16169 inputs, branch coverage 27/27)
 // FUN_000faf80 @ 0x000faf80
 // cl-flags: /GS
-#include "compat/ptr.h"
 
 extern "C" unsigned char DAT_004e09f8[4];
 extern "C" unsigned char DAT_004e09fc[4];
@@ -39,7 +38,7 @@ public:
     Head_faf80 *FUN_000faf80(Lines *lines);
 };
 
-void *__cdecl FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d690(unsigned int size);
 char *__cdecl FUN_003465c6(char *s, const char *delims);
 
 struct Frame_faf80 {

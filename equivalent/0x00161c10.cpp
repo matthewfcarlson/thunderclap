@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 8/8)
 // FUN_00161c10 @ 0x00161c10
-#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void FUN_0015a830(); void FUN_0015a840(); void FUN_0015a850();
 struct FUN_00234ba0 { FUN_00234ba0(const char* = "joint"); virtual void slot(); char pad[12]; void (*callback)(); char tail[4]; };

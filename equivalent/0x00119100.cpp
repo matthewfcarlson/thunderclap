@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 20/20)
 // FUN_00119100 @ 0x00119100
-#include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d690(unsigned int size);
 
 class HasGroundPointExtendedCondition {
 public:

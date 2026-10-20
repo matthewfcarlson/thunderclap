@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 18665 inputs, branch coverage 43/44, incomplete)
 // FUN_000145b0 @ 0x000145b0
-#include "compat/ptr.h"
-void *FUN_0008d690(hulk_uintptr size);
+void *FUN_0008d690(unsigned int size);
 
 struct Vec3_145b0 {
     float x, y, z;

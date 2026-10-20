@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 8/8)
 // CGrabAction::vfunc_6 @ 0x0001e480
-#include "compat/ptr.h"
 struct Vec3_1e480 { float x, y, z; };
 
 struct Mat_1e480 {
@@ -75,7 +74,7 @@ struct EffectInit_1e480 {
     EffectInit_1e480 *FUN_002efe50(Vec3_1e480 *v, int handle);
 };
 
-void *__cdecl FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d690(unsigned int size);
 Effect_1e480 *__cdecl FUN_002efca0(EffectInit_1e480 *init, const char *name);
 
 struct Sys_1e480 {

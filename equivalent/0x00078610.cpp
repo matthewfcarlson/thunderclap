@@ -1,11 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)
 // FUN_00078610 @ 0x00078610
-#include "compat/ptr.h"
 #include "decls/data/game/DataHandler.h"
 #include "decls/data/game/global.h"
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_00077ed0(); void __cdecl FUN_00077ee0(); void __cdecl FUN_00077ef0();
 void __cdecl FUN_002347b0(void*, void**, int);
 class CExplosionTrack;

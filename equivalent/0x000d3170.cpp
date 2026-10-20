@@ -22,7 +22,7 @@ class Geometry;
 
 extern "C" int sprintf(char *, const char *, ...);
 extern "C" int __cdecl FUN_00266da0(hulk_intptr mode);
-void *__cdecl FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d690(unsigned int size);
 void *thunk_FUN_0008d690(unsigned int size);
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 

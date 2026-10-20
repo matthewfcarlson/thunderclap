@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // CGrappleInvincibleTrack::vfunc_12 @ 0x0005b280
-#include "compat/ptr.h"
-void *FUN_0008d690(hulk_uintptr size);
+void *FUN_0008d690(unsigned int size);
 
 struct Weapon;
 struct Fighter_5b280 {

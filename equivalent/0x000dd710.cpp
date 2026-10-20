@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2979 inputs, branch coverage 4/4)
 // FUN_000dd710 @ 0x000dd710
-#include "compat/ptr.h"
-void *__cdecl FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d690(unsigned int size);
 
 struct Block_dd710 {
     int word[10];

@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 22/22)
 // FUN_00163790 @ 0x00163790
-#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d690(unsigned int size);
 
 class GrappleLocomotionSteerTrack {
 public:

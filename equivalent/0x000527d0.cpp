@@ -1,11 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)
 // FUN_000527d0 @ 0x000527d0
-#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/hulkfight/ai.h"
 #include "decls/data/game/unknown.h"
 
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned);
 void __cdecl FUN_00047ab0(); void __cdecl FUN_00047ac0(); void __cdecl FUN_00047ad0();
 class CButtonCondition;
 struct FUN_00234cc0 {

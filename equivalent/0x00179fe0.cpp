@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 16/16)
 // FUN_00179fe0 @ 0x00179fe0
-#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d690(unsigned int size);
 
 class DriftToPositionTrack {
 public:
