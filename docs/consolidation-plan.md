@@ -139,11 +139,11 @@ proves the image. Ordered by risk (a rename < onto the header < header changes) 
 
 | batch | rule | scope | candidates -> refined -> verified | risk | status |
 |---|---|---|---|---|---|
-| **b1** | `unclash` | matches/ | 1,760 stubs in 1,528 sources -> refined (`c1`) 1,691 stubs in 1,475 sources -> **1,475 MATCH** | lowest: names only | dry run, proven (5) |
-| **b2** | `gen-ref` | matches/ | 428 stubs in 406 sources -> 201 rewritable -> refined (`c2`) 169 -> **168 MATCH** (1 compile error) | low | dry run, proven (5) |
-| **b3** | `unclash` + `gen-ref` | equivalent/ | 384 stubs in 317 sources -> 172 rewritable -> refined (`c3`) 141 -> **130 EQUIVALENT** at 3,000 inputs (8 compile errors, 3 FAIL, one of which fails unchanged too) | medium (equiv.py) | dry run, proven (5); the 20,000-input re-check is pending |
+| **b1** | `unclash` | matches/ | 1,760 stubs in 1,528 sources -> refined (`c1`) 1,691 stubs in 1,475 sources -> **1,475 MATCH** | lowest: names only | **applied** (x64-1, 2026-10-20: re-planned on HEAD 441f5270b, 1,526 -> 1,473 MATCH; section 8) |
+| **b2** | `gen-ref` | matches/ | 428 stubs in 406 sources -> 201 rewritable -> refined (`c2`) 169 -> **168 MATCH** (1 compile error) | low | **applied** (x64-1: 459 -> 239 rewritable -> 198 -> 197 MATCH; section 8) |
+| **b3** | `unclash` + `gen-ref` | equivalent/ | 384 stubs in 317 sources -> 172 rewritable -> refined (`c3`) 141 -> **130 EQUIVALENT** at 3,000 inputs (8 compile errors, 3 FAIL, one of which fails unchanged too) | medium (equiv.py) | **applied** (x64-1: 341 -> 165 rewritable -> 138 -> 129 EQUIVALENT at 3,000 inputs; the 20,000-input re-check of the 129 is pending, `build/x64/equivalents-b3.txt`; section 8) |
 | b4 | relabel | both | 2,861 suffixed/invented stubs with a known real class in 2,296 sources: `Obj_2d5ec0` -> `SpriteParticleEmitter_2d5ec0` | low | planned: readability only, no merge effect (the names don't collide today) |
-| b5 | `gen-swap` re-run | both | 712 rewritable today (`migrate_gen.py --no-verify --equivalent`), plus up to 3,030 sources the gen family skips for "preprocessor lines": the `#include "decls/data/..."` lines the data migration added | low | planned; needs `skip_reason` to accept `decls/` includes (an existing mode's behaviour, so not changed here) |
+| b5 | `gen-swap` re-run | both | 712 rewritable today (`migrate_gen.py --no-verify --equivalent`), plus up to 3,030 sources the gen family skips for "preprocessor lines": the `#include "decls/data/..."` lines the data migration added | low | planned; `skip_reason` accepts `decls/` includes since x64-1 (757 rewritable with them, 22 of the 46 new ones verify in a scratch copy) |
 | b6 | header signatures | include/gen/ + rewrites | 198 used stubs whose called slot has another arity (189 sources), 118 gen-swap "header slot returns void", 16 float/int parameters, 170 owner stubs | medium: a header change reaches every TU that includes it | planned (`gen_headers.CURATED_SIGS`, then b2/gen-swap again) |
 | b7 | header fields | include/gen/ + rewrites | 6,374 agreeing field offsets in 1,102 classes (`header-additions.json`); unblocks 409 used stubs (351 sources) and the 748 gen-swap "field not in header" skips | medium-high | planned (gen_headers field evidence, probe-checked) |
 | b8 | base stubs | rewrites | 1,894 used stubs that fit but are a base of the source's own stub, used by value or with `new`: the derived stub derives from the header class (`class CSweepTrack_23d3d0 : public fight::ConditionFactory`) | medium | planned |
@@ -305,13 +305,13 @@ invented names. Per bridge of [native-build.md](native-build.md#bridges-to-remov
   header's slot names are still placeholders) and `((X_nv_<addr>*)p)->f()` for non-virtual calls. Real member names
   come with b9 (non-virtual members in include/gen/) and slot names from the Lua binding table.
 - **migrate_gen gen family and data includes.** `skip_reason` refuses any source with a preprocessor line, so the
-  data-migrated sources (`#include "decls/data/..."`) are out of gen-swap's reach since 2026-10-16 (b5).
+  data-migrated sources (`#include "decls/data/..."`) are out of gen-swap's reach since 2026-10-16 (b5). (Fixed by x64-1, section 8.)
 - **build_tree.py finds functions by mangled-name prefix.** Two functions of one TU defined under one name (overloads)
   are both checked against the first symbol; the snapshot has 643 such groups (2,387 functions), all copies of one
   template instantiation emitted in several objects (identical code, so harmless), but an overload pair would be
   checked against the wrong function and bound to it by the native link (b2's first try). A uniqueness check in
   build_tree.py (a symbol may stand for several addresses only when their sources define the same function) would
-  catch it at the source; refine guards the batches meanwhile.
+  catch it at the source; refine guards the batches meanwhile. (Done by x64-1, section 8.)
 - **equiv.py and renames.** One b3 unclash rename (`equivalent/0x001065b0.cpp`) turned EQUIVALENT into FAIL: equiv.py
   keys some bindings by mangled name. Every rename of an equivalent/ source has to be re-checked, as here.
 
@@ -323,3 +323,30 @@ runs' source lists `c1-sources.txt` (1,475) / `c2-sources.txt` (168) / `c3-equiv
 `dryrun-c1-c3.patch` against the 21:25 snapshot (1,762 files), `proof/`). To apply a batch to the live tree, re-run `rn_plan.py
 --refine` (with the live tree's state and binding map) and `migrate_gen.py --family rn --apply` there rather than
 apply the patch: sources and the tree move under other sessions, and both steps check the tree as it is.
+
+## 8. Applied to the tree (x64-1, 2026-10-20)
+
+b1-b3 re-planned and applied to the live tree rather than from the dry-run patch: a snapshot of HEAD 441f5270b
+(base), its strict native link's binding map for `rn_map.py` and `--refine --bindings`, each refined batch applied
+with `migrate_gen.py --family rn` on mac2 and proven there with `build_tree.py --resume --rounds 16
+--regression-rounds 4` (same fallback state as section 5), the strict link locally, `verify_relocs.py` on every
+changed match. Sources with uncommitted changes or another agent's open work were excluded (none of the batches'
+sources were). Each batch was copied into the tree only where the file was unchanged since the snapshot (all were).
+
+| tree | sources | matches still matching | verdict differences | equivalents differing from standalone | merged / wrapped / isolated | strict link: rc / stubbed / ambiguous names | verify_relocs |
+|---|---|---|---|---|---|---|---|
+| base (441f5270b) | - | 22,255 / 22,255 | - | 0 | 20,551 / 6,042 / 862 | 0 / 1,600 / 65 | - |
+| + b1 (commit 36784eba) | 1,473 matches/ | 22,255 / 22,255 | 0 | 0 | 21,037 / 5,555 / 863 | 0 / 1,594 / 61 | 1,473 / 1,473 ok |
+| + b2 (755eb3f7) | 197 matches/ | 22,255 / 22,255 | 0 | 0 | 21,049 / 5,542 / 864 | 0 / 1,594 / 61 | 197 / 197 ok |
+| + b3 (0ac939aa) | 129 equivalent/ | 22,255 / 22,255 | 0 | 0 | 21,073 / 5,518 / 864 | 0 / 1,594 / 61 | - (equiv.py 3,000: all EQUIVALENT) |
+
+Merged 74.85% -> 76.75% (+522 functions). The 129 b3 equivalents need the 20,000-input re-check
+(`build/x64/equivalents-b3.txt`). Refine kept 97% / 43% / 40% of the candidate sources (b1 1,526 -> 1,473; b2 459
+sources, 239 rewritable -> 198; b3 341, 165 rewritable -> 138).
+
+Findings of section 7 addressed: **build_tree.py** checks that a symbol stands for one function of a TU (commit
+5b0eab47, [native-build.md](native-build.md#64-bit-the-probe-the-gap-by-class-and-what-replaces-each-bridge-x64-1-2026-10-20)
+item 7: 832 functions re-checked under their own symbol, 3 fell back; strict link 1,600 -> 1,392 stubbed); the
+**migrate_gen gen family** accepts `#include "decls/..."` sources (commit 03de06ed: 711 -> 757 rewritable, the
+newly reachable ones mostly wait on header fields, b7). The batches' proofs used the tools of 441f5270b
+(the old lookup) for base and batches alike.

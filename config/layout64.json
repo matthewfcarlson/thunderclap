@@ -1,0 +1,11 @@
+{
+ "what": "Records whose layout is a file format: tools/layout64.py --check asserts their 32-bit size and offsets on i686, x86-64 and arm64 (docs/native-build.md, 64-bit).",
+ "records": [
+  {"name": "Entry_2779b0", "source": "equivalent/0x002779b0.cpp", "size": 20,
+   "offsets": {"value4": 4, "value8": 8, "valueC": 12, "value10": 16},
+   "why": "RCF (cement library) directory entry, read raw from the archive; strides 12/20 are hard-coded in 0x002779b0"},
+  {"name": "RawHeader", "source": "matches/0x002ddf10.cpp", "size": 28,
+   "offsets": {"magic": 0, "words": 4},
+   "why": "raw texture/image header read as 7 dwords"}
+ ]
+}

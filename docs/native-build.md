@@ -21,9 +21,13 @@ HULK_TREE_REPORT=... HULK_TREE_MANIFEST=... HULK_BINDINGS=... build/venv/bin/pyt
 build/venv/bin/python tools/native_run.py --hello       # Wine runs a trivial i686 PE? (our own prefix: build/native/wineprefix)
 build/venv/bin/python tools/native_run.py               # run the image under Wine: build/native/run/ (trace, summary)
 build/venv/bin/python tools/native_link.py --reuse-map --gfx   # with the pddi/bgfx graphics backend (docs/graphics-backend.md 8)
+build/venv/bin/python tools/native64.py --bindings build/native/bindings.json   # 64-bit probe: msvc64/arm64 compile, x64 link (64-bit section)
+build/venv/bin/python tools/layout64.py [--check]   # 32- vs 64-bit record layouts; file-format static_asserts (config/layout64.json)
 # beside another agent's runs: HULK_CLANG_PROBE_DIR=build/native5/clang-probe HULK_CLANG_PROBE_CACHE=build/clang-probe/cache
 #   HULK_NATIVE_DIR=build/native5 ... clang_probe.py --snapshot --configs msvc; native_link.py --tree build/native5/clang-probe/snap
 ```
+
+**64-bit (x64-1, 2026-10-20):** the tree compiles for x86-64 (2,803 / 2,810 TUs) and arm64 (2,787); the gap is silent layout and the link: 4,881 pointer/int casts, 272 64-to-32 truncations, 874 include/gen/ classes whose fields move relative to each other, 56,688 undefined symbols in a bridge-free x64 link. See [64-bit](#64-bit-the-probe-the-gap-by-class-and-what-replaces-each-bridge-x64-1-2026-10-20).
 
 **Status 2026-10-20 (native11): a recorded game replays natively.** play3 (the hybrid's 56,566-frame recording) runs
 through the native image with the replay pins: **frames 0-420 match the recording at all 15 checkpoints** (title,
@@ -70,6 +74,112 @@ next fixes 1-3](#after-the-next-fixes-1-3-2026-10-17) the night before (first st
 Cold, the first run takes 10-15 minutes (4 compiler processes); a warm run takes 30 s. Everything goes to `build/clang-probe/`:
 `report.json` (counts, categories with example sites, scans, link probe), `undefined.txt` (every undefined symbol with
 its group and demangled name), `cache/` (per-TU results and objects) and `snap/` (the tree being probed).
+
+## 64-bit: the probe, the gap by class and what replaces each bridge (x64-1, 2026-10-20)
+
+The port's targets are x86-64 (SteamOS/Linux, Windows) and arm64 macOS from one tree. A 64-bit image can't use
+the 32-bit link's bridges: they take code or layout from the XBE (x86 bytes, 32-bit addresses), so every one of
+them needs our own source instead. This section measures the distance on the tree of HEAD 441f5270b (the
+consolidation batches b1-b3 of [consolidation-plan.md](consolidation-plan.md) applied on top of it since).
+
+```sh
+build/venv/bin/python tools/native64.py --bindings build/native/bindings.json   # compile msvc64/arm64/gnu64/gnu32w,
+                                                  # classify, link the msvc64 objects with lld-link /machine:x64
+build/venv/bin/python tools/layout64.py           # include/gen/ record layouts on i686 vs x86-64 vs arm64
+build/venv/bin/python tools/layout64.py --check   # static_asserts for the file-format records (config/layout64.json)
+```
+
+`native64.py` runs on clang_probe's snapshot (`clang_probe.py --snapshot` after a complete tree build) with four
+configurations added to `tools/clang_probe.py`: `msvc64` (`x86_64-pc-windows-msvc`, MS ABI, LLP64: objects for the
+link; Wine runs x64 PEs), `arm64` (`arm64-apple-darwin`, Itanium, LP64, syntax only), `gnu64` (as 2026-10-17) and
+`gnu32w` (i686 with the same truncation warnings, to subtract `__int64` narrowing every target has). The 64-bit
+configurations add `-Wshorten-64-to-32 -Wvoid-pointer-to-int-cast -Wint-to-void-pointer-cast`.
+
+**1. Compile** (2,810 tree TUs):
+
+| config | TUs compiling | failing TUs by cause |
+|---|---|---|
+| `msvc64` | **2,803 (99.75%)** | 3 `array is too large` (pads computed as `N - sizeof(...)` that go negative with 8-byte pointers, `FEThingsBase_2.cpp`), 2 `extern "C"` CRT redeclarations (`strlen`/`memset`/`_alloca` with `unsigned int` sizes), 2 placement `operator new(unsigned int, ...)` |
+| `arm64`, `gnu64` | 2,787 (99.2%) | the same 7, plus Itanium-only causes `gnu32w` (i686 Itanium) shares: 7 `other-error` (overloads `FUN_001d04d0` with `long`), 3 `register`, 3 `goto` over initialization, 3 exception specifications |
+
+64-bit *compiles*; nothing about it is an error the compiler reports, which is the problem: the gap is silent.
+
+**2. Pointer width, by class** (sites / sources, net of i686):
+
+| class | `msvc64` | `arm64` | where |
+|---|---|---|---|
+| pointer <-> integer casts (`(int)p`, `(T*)i`) | **4,881 / 3,136** | 4,864 / 3,121 | matches merged 2,929, wrapped 785, isolated 123; equivalent wrapped 741, merged 271, isolated 30; one source has 521 (`equivalent/0x00107c90.cpp`) |
+| implicit 64 -> 32-bit truncation (`int n = p - q;`, `int i = strlen(s);`) | **272 / 195** | 294 / 204 (`long` is 8 bytes) | 0 of them on i686 |
+| explicit `char pad[N]` in sources (tree TUs) | 25,683 in 3,949 sources | same | offsets written for 4-byte pointers |
+| include/gen/ `_pad_` gaps / pointer `f_XX` fields at 32-bit offsets | 889 / 589 | same | |
+| `*(T*)&x` punning / hand-written vftable calls / stub virtual declarations | 2,946 / 734 / 84,904 (in 880 / 372 / 4,175 sources) | same | slot numbers and vptr offsets are MS-ABI x86 |
+
+**3. Layout** (`layout64.py`, clang's record layouts of the 1,550 non-template include/gen/ classes): every one
+moves on x86-64 and arm64 (all are polymorphic: the 8-byte vftable pointer shifts every field by 4); in **874**
+the fields also move relative to each other (pointer fields, alignment), and **906** have `_pad_` gaps, which keep
+their byte count while the fields around them grow: those headers are wrong on 64-bit although clang reports
+nothing. The data TUs (`build/data/src`): 55 `#pragma pack(1)` `DataLayout_` structs, all with pointer members,
+and 754 `void*` items/arrays, laid out at the XBE's 4-byte distances.
+
+**File formats.** A search of the sources for whole-struct reads and in-place pointer fix-ups found none: the
+P3D chunk reader reads field by field (`FUN_002647e0(dst, count, size, flag)`, ~1,330 sites with literal sizes
+1/2/4), the RCF header is a byte array read by offset, fight/DHD data goes through `BufferDataReader`/`BinReader`,
+the replay and save files are parsed by byte readers in `src/platform/sdl`. Two records are read raw and are now
+pinned by `config/layout64.json` + `layout64.py --check` (static_asserts of size and offsets, compiled for
+i686, x86-64 and arm64; all pass): `Entry_2779b0` (RCF directory entry, 20 bytes, all `unsigned`) and
+`RawHeader` (`matches/0x002ddf10.cpp`, 28 bytes). The Lua 5.0 undump header checks `sizeof(int/size_t/
+Instruction/lua_Number) == 4` with literal 4s (`equivalent/0x00220310.cpp`), so the compiled scripts stay
+loadable; Lua's in-memory structs (`TString`, `Proto`, `TObject`) are stub structs with pads like the rest.
+The XDK shims' ABI structs (find data 0x344 bytes, `DSBUFFERDESC` 24 bytes) are 32-bit shapes in
+`src/platform/sdl/xdk/` and go with the 32-bit-only shim layer.
+
+**4. The 64-bit link without bridges** (`lld-link /machine:x64`, 3,881 objects: tree TUs + data TUs):
+**56,688 undefined symbols** (62,828 references), the same order as the 32-bit tree before its binding map
+(57,533 in the 2026-10-19 probe):
+
+| group | symbols | references |
+|---|---|---|
+| verified function referenced under another symbol (32-bit: bound by relocation position) | 26,000 | 26,829 |
+| invented / stub names (32-bit: bound by relocation position, stub-vftable aliases, dispatch stubs) | 25,920 | 27,037 |
+| vftables / RTTI by address (hand-written vptr stores) | 3,062 | 3,243 |
+| platform imports (XDK / kernel / D3D / DSound / Bink) | 465 | 468 |
+| CRT / C++ runtime | 404 | 4,389 |
+| data: emitted item under a C++ name / outside the inventory / library | 286 / 192 / 55 | |
+| not yet verified / TU fails under clang / library code by address | 229 / 65 / 10 | |
+
+Reusing the 32-bit link's binding map as a *name table* (no bytes: symbol -> address -> definition name,
+matched by demangled name with conventions and `__ptr64` dropped) would resolve **37,271** of them; 612 more
+are bound but their definition's 64-bit name differs; 18,805 have no 32-bit binding under that name (the
+stub-vftable members, dispatch stubs and ambiguous names the 32-bit link handles by aliases and stubs).
+
+**5. What replaces each bridge on 64-bit** (none implemented for 64-bit; counts from the base tree's strict link):
+
+| 32-bit bridge (count) | 64-bit replacement: the source it needs | batch / step |
+|---|---|---|
+| binding map: callers' names bound by relocation position (`/alternatename`, per-function rebinding) | every caller declares its callee under the definition's name: include/gen/ classes (b4-b13), prototype pins in include/decls/ for free functions and data, `FUN_` names replaced by the callee's real name. Interim, if wanted: the map as a name table (37,271 of 56,688, above), which carries no game bytes | consolidation b2-b13, pin-decl families |
+| `jump_shapes` (205 thunks replaced, 120/122 bare `jmp` slots, 48 `jmp [reg+d]`) | the real base order of multiple-inheritance classes in include/gen/, so clang emits its own adjustor thunks; the thunk sources become those classes' overrides | b13 |
+| RTTI TD redirection (2,731) | real class names and namespaces in the sources, so clang's own TDs are the game's classes (`dynamic_cast` across sources needs it; the 64-bit link has no undefined TDs, it would silently fail casts) | b9, b10, b11 |
+| stub vftables pointed at the game's; 1,324 stubbed stub-vftable members; 1,218 dispatch stubs | constructors/destructors on include/gen/ classes so the compiler's vftable is the real one; hand-written vptr stores (`*(void**)this = g_vftable_x`, 3,062 undefined vftable/RTTI names on x64) become constructor calls | b10 first, then b9, b11 |
+| stand-in bodies `local_code` (940) | sources declare callees they define today (`~Sprite() {}`) | `stub-body`-style rule over the 940 |
+| `hulk_at_` / `DAT_` by address, data copied at XBE distances (54 sources; 1,670 data-by-address names on x64) | named data in include/decls/data/ everywhere, typed data structs instead of `DataLayout_` byte layouts (55 packed structs with pointers, 754 `void*` items), item boundaries from the types (data.md open problems 2, 5) | data steps |
+| `ctor-virt` stand-ins (12) | the real class declaration | b9 |
+| `SITE_REBIND` (15 sites), `ENTRY_HOOKS` (3), `EXIT_HOOKS` (1): replay pins, no-fmv, sync I/O | platform interfaces the sources call: a replay-aware clock/input/seed interface, a sound RNG object, a movie policy, a synchronous drive mode, ControllerSystemXBox +0x12a0/+0x12a4 as named members (b7) | platform layer + b7 |
+| empty stubs for the 0x002777c0 class (14) | the class's real declaration | b13 |
+| x87 (`-mno-sse -mfpmath=387`), `volatile` rounding pins (2,288) | SSE/NEON math: the replay checkpoints have to be re-recorded or made tolerant on 64-bit (roadmap step 6) | - |
+
+**6. Order of work for 64-bit**: the consolidation batches in their plan order (each one shrinks the binding map
+the 64-bit link can't use), then the pointer-int casts (4,881) as the fields they read get types (b7 header
+fields turn `ptr-int` fits into typed fields), the 272 truncations per source, the 7 failing TUs, typed data,
+and only then a 64-bit link attempt with real bindings. The gate to watch is `native64.py`'s undefined symbols
+(56,688) and `layout64.py`'s relative-move count (874).
+
+**7. build_tree.py's symbol uniqueness** (rn1's finding a): the lookup by mangled-name prefix checked 1,137
+functions of the base tree (302 groups) under another function's symbol (every `Method2<CActorManager,...>`
+deleting destructor under the first instantiation's). `verify()` now re-checks such functions under their own
+symbol: 832 resolved (all still match), 3 had no own symbol in their TU (they had matched another class's
+deleting destructor) and fall back to isolated, where they match; 0 verdict differences. The strict 32-bit link
+with that report: 1,600 -> 1,392 symbols stubbed, 1,218 -> 1,073 dispatch stubs (the native replay has not been
+re-run since).
 
 ## native11: the replay matches to frame 420 (2026-10-20)
 
@@ -1519,7 +1629,7 @@ replaces anyway.
 **8. Unverified functions** (1,068 symbols: 280 by address, the rest include/gen vfuncs nobody defined). The holes of
 roadmap step 3; the link probe lists exactly the ones a linked image needs (`undefined.txt`, group "not yet verified").
 
-**9. 64-bit (sized, not first):** 4,779 pointer↔int casts in 2,981 sources, 24,747 explicit pads in 3,572 sources,
+**9. 64-bit (sized, not first; measured again 2026-10-20 in [64-bit](#64-bit-the-probe-the-gap-by-class-and-what-replaces-each-bridge-x64-1-2026-10-20)):** 4,779 pointer↔int casts in 2,981 sources, 24,747 explicit pads in 3,572 sources,
 889 pads and 589 pointer fields in include/gen, mixed `DataLayout_` data structs ([data.md](data.md#what-the-native-clang-build-needs-from-data)),
 loaders of 32-bit file formats. After fix 1, 64-bit *compiles* as well as 32-bit (2,307 TUs). The gap is silent layout,
 which only real types close (5b, 6b, typed globals).

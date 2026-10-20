@@ -90,6 +90,18 @@ CONFIGS = {
     "gnu64": dict(flags=["--target=x86_64-unknown-linux-gnu", "-fms-extensions", "-std=gnu++17",
                          "-fsyntax-only"] + NATIVE + ["-fcheck-new"], obj=False),
 }
+# 64-bit targets of the port (docs/native-build.md "64-bit"): x86-64 Windows with the MS ABI (objects, for the
+# 64-bit link probe of tools/native64.py; Wine runs x64 PEs), arm64 macOS (Itanium ABI, syntax only). On top of
+# gnu64's checks they report the implicit 64 -> 32-bit truncations (`int n = p - q;`, `int i = sizeof(x);`), the
+# silent half of the pointer-width gap.
+W64 = ["-Wshorten-64-to-32", "-Wvoid-pointer-to-int-cast", "-Wint-to-void-pointer-cast"]
+CONFIGS["msvc64"] = dict(flags=["--target=x86_64-pc-windows-msvc", "-fms-extensions", "-fms-compatibility",
+                                "-fms-compatibility-version=13.10", "-std=c++14", "-O0", "-c"] + NATIVE + W64, obj=True)
+# the same truncation warnings on i686 (syntax only): a site in this one is a 64-bit integer (`__int64`) narrowed
+# on purpose on every target, not a pointer-width one (tools/native64.py subtracts them)
+CONFIGS["gnu32w"] = dict(flags=CONFIGS["gnu"]["flags"] + W64, obj=False)
+CONFIGS["arm64"] = dict(flags=["--target=arm64-apple-darwin", "-fms-extensions", "-std=gnu++17", "-fsyntax-only"]
+                        + NATIVE + ["-fcheck-new"] + W64, obj=False)
 # Proof-of-concept fixes (build/clang-probe/poc/, a patched copy of the snapshot; nothing in the repo changes):
 #   compat.h, force-included: size_t, the placement operator new, type_info (what MSVC predeclares or <new> /
 #   <typeinfo> would bring); include/gen/global.h: `enum script_state;` gets an underlying type; every
@@ -276,6 +288,7 @@ RULES = [
     ("other-error", "e", r""),
     # warnings that matter
     ("64bit-pointer-int-cast", "w", r"cast to smaller integer type|from smaller integer type"),
+    ("64bit-shorten", "w", r"implicit conversion loses integer precision"),
     ("ub-null-this-or-reference-check", "w", r"cannot be null in well-defined C\+\+ code|"
                                             r"will always evaluate to|address of .* (not )?equal to a null pointer"),
     ("ub-missing-return", "w", r"does not return a value"),
@@ -746,7 +759,7 @@ def summary(rep):
               ", ".join("%s %d/%d" % (k, v["compiling"], v["tus"]) for k, v in r["by_layer"].items())))
         print("  %-34s %6s %6s %5s %5s %5s  %s" % ("category", "occ", "sites", "TUs", "fail", "only", "producers"))
         for k, v in r["categories"].items():
-            if k in NOISE and cfg != "gnu64":
+            if k in NOISE and cfg not in ("gnu64", "msvc64", "arm64", "gnu32w"):
                 continue
             print("  %-34s %6d %6d %5d %5d %5d  %s" % (
                 k, v["occurrences"], v["sites"], v["tus"], r["failing_tus_by_category"].get(k, 0),
