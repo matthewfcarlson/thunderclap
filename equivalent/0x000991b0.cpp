@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 101 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 20025 inputs, branch coverage 24/24)
 // FUN_000991b0 @ 0x000991b0
 void *FUN_00263ea0(unsigned int size);
 
@@ -23,7 +23,7 @@ public:
     virtual void v11();
     virtual void v12();
     virtual void v13();
-    virtual int v14(int a, float b);
+    virtual int v14();
     virtual void v15();
     virtual void v16();
     virtual void v17();
@@ -76,7 +76,7 @@ public:
     virtual void v28();
     virtual void v29();
     virtual void v30(void *owner);
-    void FUN_000fd8a0(void *owner, int arg);
+    void FUN_000fd8a0(void *owner, int arg, int a, float b);
 };
 
 class Helper_991b0 {
@@ -162,8 +162,7 @@ void Controller_991b0::FUN_000991b0(Owner_991b0 *owner, Node *node, Node *tgt, b
             if (cur) {
                 node->v6(&out1, &out2);
                 float f = node->v8();
-                int r = node->v14(out1, f);
-                cur->FUN_000fd8a0(owner, r);
+                cur->FUN_000fd8a0(owner, node->v14(), out1, f);
             }
         }
     }

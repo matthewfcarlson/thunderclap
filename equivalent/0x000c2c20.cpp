@@ -227,7 +227,7 @@ void MovesMenu::F()
             FUN_000964a0(buf, 0x100, "%s.png", img);
             Tex *tex = FUN_000c1ed0((*(void**)&DAT_004dd9cc), buf);
             if (tex)
-                sh->FUN_000b4280(&DAT_00584554, tex);
+                sh->FUN_000b4280(((int*)0x584554), tex);
         }
     }
     Widget_c2c20 *btn = (Widget_c2c20 *)FUN_00344e74(FUN_000fc260("purchase_move"), 0, DAT_0049dba4, DAT_0049f4a4, 0);

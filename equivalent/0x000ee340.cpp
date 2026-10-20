@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 466 inputs, branch coverage 28/28)
+// STATUS: equivalent (tools/equiv.py level 3: 4231 inputs, branch coverage 28/28)
 // ImageSelector::vfunc_5 @ 0x000ee340
 // ImageSelector::vfunc_5: draw the image grid, selection highlight and captions.
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
@@ -358,7 +358,7 @@ void ImageSelector::vfunc_5() {
                         formatted->content->v6(0x444d4c42, 1);
                         unsigned currentCell = *cell;
                         unsigned label = currentCell ? *(unsigned*)(currentCell + 0x10) : 0;
-                        formatted->content->v5((unsigned)&DAT_00584554, label);
+                        formatted->content->v5(((unsigned)0x584554), label);
 
                         unsigned texture = (unsigned)formatted->content;
                         volatile float width = selector->cellWidth * 0.8f;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 12000 inputs, branch coverage 14/14; run with --inputs 12000)
+// STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 14/14)
 // FUN_0026f570 @ 0x0026f570
 #include "decls/data/engine/core.h"
 #include "decls/data/platform/xbox/core.h"
@@ -25,7 +25,7 @@ namespace core { struct XboxDrive : FUN_00272d00 {
 core::XboxDrive::XboxDrive(const char* name,const char* source) {
  stateC0=0; state1D8=0; state1DC=0; FUN_002705f0();
  if(name[0]=='D' && name[1]==':' && name[2]==0) {
-  type=0x22; labelPointer=DAT_00445644;
+  type=0x22; labelPointer= ((char*)0x445644);
   if(!(*(Resource_26f570**)&DAT_00528408)) {
    FUN_0026d820(((char*)&DAT_005283e8)); (*(const char**)&DAT_004cdbb0)=source;
    Resource_26f570* p=FUN_00266e00(source,0x94);

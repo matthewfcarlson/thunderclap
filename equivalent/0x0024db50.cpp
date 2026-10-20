@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 19943 inputs, branch coverage 2/2)
 // audio::ListenerEffectWin32Type::vfunc_2 @ 0x0024db50
 #include "decls/data/engine/audio.h"
 

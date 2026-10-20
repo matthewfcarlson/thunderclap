@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 533 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 549 inputs, branch coverage 12/12)
 // FUN_00241930 @ 0x00241930
 struct Node {
     Node *left;
@@ -9,7 +9,7 @@ struct Tree {
     char padding[4];
     Node sentinel;
 };
-void __cdecl FUN_00241930(Tree *tree, Node *node)
+Node * __cdecl FUN_00241930(Tree *tree, Node *node)
 {
     Node *end = &tree->sentinel;
     Node *next = node->parent;
@@ -19,9 +19,9 @@ void __cdecl FUN_00241930(Tree *tree, Node *node)
             node = next;
             next = next->right;
         }
-    } else {
-        next = next->left;
-        while (next != end)
-            next = next->left;
+        return next;
     }
+    while (next->left != end)
+        next = next->left;
+    return next;
 }

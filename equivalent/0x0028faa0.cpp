@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 0/0)
 // FUN_0028faa0 @ 0x0028faa0
 struct Source {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
@@ -6,9 +6,9 @@ struct Source {
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
     virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
     virtual void v16(); virtual void v17();
-    virtual int v18(int flag, void *location);
+    virtual int v18(int flag);
 };
-struct Destination { void FUN_0022ca90(int value); };
+struct Destination { void FUN_0022ca90(int value, void *location); };
 struct Object {
     char pad0[4];
     Source **source;
@@ -18,7 +18,6 @@ struct Object {
     Destination *FUN_0028faa0();
 };
 Destination *Object::FUN_0028faa0() {
-    int value = (*source)->v18(0, location);
-    destination.FUN_0022ca90(value);
+    destination.FUN_0022ca90((*source)->v18(0), location);
     return &destination;
 }
