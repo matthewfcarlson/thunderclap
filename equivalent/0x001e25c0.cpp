@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure4<CSPManager,bool,const_char_*,float,float,int>::vfunc_2 @ 0x001e25c0
 #include "gen/global.h"
 
