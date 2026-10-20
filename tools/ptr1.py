@@ -677,12 +677,13 @@ def ret_edit(n):
 
 def sig_edits(u, D, blocked):
     """Edits that satisfy the demands D in one parse (i686: the keys are its mangled names). Returns
-    (edits, keys declared here, virtual keys here)."""
-    edits, keys, virt = {}, set(), set()
+    (edits, keys declared here, virtual keys here, {qualified name: keys})."""
+    edits, keys, virt, names = {}, set(), set(), collections.defaultdict(set)
     for n in u.nodes:
         if n.kind in FN_KINDS:
             key = n.cur.mangled_name
             keys.add(key)
+            names["%s::%s" % (qual_name(n.cur.semantic_parent) or "", n.cur.spelling)].add(key)
             if n.cur.is_virtual_method():
                 virt.add(key)
                 continue
@@ -710,7 +711,7 @@ def sig_edits(u, D, blocked):
                     e, _ = spec_edit(n)
                     if e:
                         edits[(e[0], e[1])] = e
-    return sorted(edits.values()), keys, virt
+    return sorted(edits.values()), keys, virt, names
 
 
 def parse_demands(rows):
@@ -738,7 +739,7 @@ def sigs_file(path):
         orig = open(path, "rb").read()
         src = add_include(orig)
         u = Unit(path, src, "i686-pc-windows-msvc")
-        edits, keys, virt = sig_edits(u, D, blocked)
+        edits, keys, virt, _names = sig_edits(u, D, blocked)
         if not edits:
             return path, None, sorted(virt, key=str), "", 0
         new = apply(src, edits)
@@ -758,10 +759,10 @@ def scan_keys(path):
         src = open(path, "rb").read()
         u = Unit(path, src, "i686-pc-windows-msvc")
         D = {}
-        _, keys, virt = sig_edits(u, D, set())
-        return path, sorted(keys, key=str), sorted(virt, key=str)
+        _, keys, virt, names = sig_edits(u, D, set())
+        return path, sorted(keys, key=str), sorted(virt, key=str), {k: sorted(v) for k, v in names.items()}
     except Exception:  # noqa: BLE001
-        return path, [], []
+        return path, [], [], {}
 
 
 def header_keys(path):
@@ -769,10 +770,10 @@ def header_keys(path):
     try:
         src = open(path, "rb").read()
         u = Unit(path, src, "i686-pc-windows-msvc")
-        _, keys, virt = sig_edits(u, {}, set())
-        return path, sorted(keys, key=str), sorted(virt, key=str)
+        _, keys, virt, names = sig_edits(u, {}, set())
+        return path, sorted(keys, key=str), sorted(virt, key=str), {k: sorted(v) for k, v in names.items()}
     except Exception:  # noqa: BLE001
-        return path, [], []
+        return path, [], [], {}
 
 
 # ---- proof: the MSVC 7.1 object must not change ---------------------------------------------------
@@ -839,6 +840,9 @@ def main():
     ap.add_argument("cmd", choices=["scan", "fix", "proof", "collect", "sigs"])
     ap.add_argument("--demands", help="sigs: JSON list of demand rows (the union of fix's per-file `demands`)")
     ap.add_argument("--blocked", help="sigs: JSON from `collect` (keys declared in headers, virtual keys)")
+    ap.add_argument("--block-names", help="sigs: file of function names (as `Class::name`, or `::name`) whose "
+                    "signatures stay as they are, one per line: the ones a 64-bit compile of the tree found ambiguous")
+    ap.add_argument("--block-overloaded", action="store_true", help="sigs: leave every name with several signatures")
     ap.add_argument("--skip", help="sigs: @list of sources that are read but never edited; keys they declare stay as they are")
     ap.add_argument("--orig-dir", help="proof: compare against the same-named files of this directory (default: git HEAD)")
     ap.add_argument("files", nargs="+")
@@ -876,23 +880,42 @@ def main():
         hdrs = []
         for dp, _, fs in os.walk(os.path.join(ROOT, "include")):
             hdrs += [os.path.join(dp, f) for f in fs if f.endswith(".h")]
-        out = {"header": set(), "virtual": set()}
+        out = {"header": set(), "virtual": set(), "overloaded": set()}
+        groups = collections.defaultdict(set)
         with Pool(a.jobs) as pool:
-            for _, keys, virt in pool.imap(header_keys, sorted(hdrs), chunksize=2):
+            for _, keys, virt, names in pool.imap(header_keys, sorted(hdrs), chunksize=2):
                 out["header"] |= set(map(tuple_key, keys))
-            for _, keys, virt in pool.imap(scan_keys, a.files, chunksize=8):
+                for g, ks in names.items():
+                    groups[g] |= set(ks)
+            for _, keys, virt, names in pool.imap(scan_keys, a.files, chunksize=8):
                 out["virtual"] |= set(map(tuple_key, virt))
-        json.dump({k: sorted(v, key=str) for k, v in out.items()}, open(a.out, "w"))
+                for g, ks in names.items():
+                    groups[g] |= set(ks)
+        # a name declared with several signatures (overloads, or stubs that disagree about one function): widening
+        # one of them leaves a call ambiguous on 64-bit (int vs a pointer-sized integer), so none of them is touched
+        for g, ks in groups.items():
+            if len(ks) > 1:
+                out["overloaded"] |= set(ks)
+        res = {k: sorted(v, key=str) for k, v in out.items()}
+        res["groups"] = {g: sorted(ks) for g, ks in groups.items() if len(ks) > 1}      # name -> its several signatures
+        json.dump(res, open(a.out, "w"))
         print({k: len(v) for k, v in out.items()})
         return
     if a.cmd == "sigs":
         rows = json.load(open(a.demands))
         bl = json.load(open(a.blocked))
         blocked = set(map(tuple_key, bl["header"])) | set(map(tuple_key, bl["virtual"]))
+        if a.block_overloaded:
+            blocked |= set(map(tuple_key, bl.get("overloaded", [])))
+        if a.block_names:
+            for nm in (l.strip() for l in open(a.block_names)):
+                if nm:
+                    for g in (nm, "::" + nm):
+                        blocked |= set(bl.get("groups", {}).get(g, []))
         if a.skip:
             with Pool(a.jobs) as pool:
                 skipf = [l.strip() for l in open(a.skip[1:]) if l.strip()]
-                for _, keys, _v in pool.imap(scan_keys, skipf, chunksize=8):
+                for _, keys, _v, _n in pool.imap(scan_keys, skipf, chunksize=8):
                     blocked |= set(map(tuple_key, keys))
         rows = [r for r in rows if (tuple(r[:3]) if r[0] == "field" else r[1]) not in blocked]
         wanted = {tuple(r[:3]) if r[0] == "field" else r[1] for r in rows}
