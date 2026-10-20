@@ -1,6 +1,5 @@
-#include "compat/ptr.h"
 typedef unsigned int uint_efe20;
-extern void* __cdecl FUN_0008d690(hulk_uintptr);
+extern void* __cdecl FUN_0008d690(uint_efe20);
 class H {
   public:
     uint_efe20 run(uint_efe20);

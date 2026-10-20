@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 29 inputs, branch coverage 24/24)
 // FUN_002eee10 @ 0x002eee10
-#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
-extern "C" void *__cdecl FUN_0008d6d0(hulk_uintptr size);
+extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 
 
 struct RawVec {

@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 18165 inputs, branch coverage 8/8)
 // FUN_0029e6c0 @ 0x0029e6c0
-#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
-extern "C" void* __cdecl FUN_0008d6d0(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 struct Entry_29e6c0 {
  unsigned char active; char pad[3];
  unsigned int a; int index; unsigned int c,d,e,f,g;

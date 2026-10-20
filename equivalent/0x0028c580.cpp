@@ -28,7 +28,7 @@ struct Reader {
     void FUN_00266be0();
 };
 
-void *FUN_0008d690(hulk_uintptr size);
+void *FUN_0008d690(unsigned size);
 
 IntChannel_28c580 * __stdcall FUN_0028c580(Reader *r, unsigned unused, Parent_28c580 *parent)
 {

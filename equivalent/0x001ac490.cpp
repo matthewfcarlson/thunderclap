@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 8/8)
 // FUN_001ac490 @ 0x001ac490
-#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/hulkfight/scenario.h"
 
@@ -8,7 +7,7 @@ inline void* operator new(unsigned,void* p) { return p; }
 void FUN_001aad60();
 void FUN_001aad70();
 void FUN_001aad80();
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned);
 void __cdecl FUN_002347b0(void*,void*,int);
 namespace hulkfight { namespace scenario { class Event_CharacterTemplateVariationCondition; } }
 namespace fight {

@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 44 inputs, branch coverage 18/18)
 // FUN_00307f30 @ 0x00307f30
-#include "compat/ptr.h"
 struct Entry_307f30 { unsigned a,b; void* resource; unsigned char c,d; char pad[2]; };
 extern "C" void __cdecl FUN_0008d340(void*);
-extern "C" void* __cdecl FUN_0008d6d0(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned);
 struct Flags_307f30 { int size; int capacity; unsigned char* data; void FUN_003048a0(int); };
 struct Object { int count; Entry_307f30* entries; Flags_307f30 flags; void FUN_00307f30(int); };
 void Object::FUN_00307f30(int n) {

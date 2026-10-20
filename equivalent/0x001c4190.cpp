@@ -59,7 +59,7 @@ struct Entry_1c4190 {
 };
 
 extern "C" int __cdecl FUN_00266da0(hulk_intptr mode);
-void *__cdecl FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d690(unsigned int size);
 
 class Loader_1c4190 {
 public:

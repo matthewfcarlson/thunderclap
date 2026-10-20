@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 56 inputs, branch coverage 12/12)
 // FUN_002a7410 @ 0x002a7410
-#include "compat/ptr.h"
 typedef unsigned int uint;
 struct RefObject_2a7410 { virtual void AddRef(); virtual void Release(); };
-void* __cdecl FUN_0008d6d0(hulk_uintptr);
+void* __cdecl FUN_0008d6d0(uint);
 struct Base_2a7410 { virtual void v0(); char pad[0x3c]; Base_2a7410(const Base_2a7410&); };
 namespace pure3d {
 struct ParticleController : Base_2a7410 {

@@ -62,7 +62,7 @@ struct Reader {
     void FUN_00266be0();
 };
 
-void *FUN_0008d690(hulk_uintptr size);
+void *FUN_0008d690(unsigned size);
 
 struct Frame_28ea80 {
     char pad[3];

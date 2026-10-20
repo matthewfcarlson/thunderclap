@@ -4,7 +4,7 @@
 #include "compat/ptr.h"
 extern "C" char DAT_0042c48c[];
 extern "C" char DAT_0042c52c[];
-void *FUN_0008d6d0(hulk_uintptr size);
+void *FUN_0008d6d0(unsigned int size);
 void *thunk_FUN_0008d690(unsigned int size);
 
 class CMotionTrail {

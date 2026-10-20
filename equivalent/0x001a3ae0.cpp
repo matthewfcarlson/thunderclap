@@ -2,7 +2,7 @@
 // FUN_001a3ae0 @ 0x001a3ae0
 #include "compat/ptr.h"
 extern "C" void * __cdecl FUN_0008d340(void *);
-extern "C" void * __cdecl FUN_0008d6d0(hulk_uintptr);
+extern "C" void * __cdecl FUN_0008d6d0(unsigned int);
 struct Object {
     char pad[0x9c];
     char *text;

@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 42/42)
 // FUN_002b7e50 @ 0x002b7e50
-#include "compat/ptr.h"
-void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d690(unsigned int size);
 
 struct RefObj_2b7e50 {
     virtual void AddRef();

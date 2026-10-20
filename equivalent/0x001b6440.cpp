@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001b6440 @ 0x001b6440
-#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct Part_1b6440 { char data[0x138]; void FUN_001b3020(); };
@@ -12,7 +11,7 @@ void __cdecl FUN_001b4cd0();
 struct Command_1b6440 { Command_1b6440* FUN_001b61f0(const char*, CCollisionManager*, Callback_1b6440); };
 struct Registry_1b6440 { void FUN_001b62d0(const char*, CCollisionManager*, Callback_1b6440); void FUN_001d3b70(const char*,Command_1b6440*); };
 Registry_1b6440* __cdecl FUN_001d4c90();
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned int);
 struct Physics_1b6440 { void FUN_002ece90(int,float,int); };
 struct CCollisionManager {
  virtual void slot0();

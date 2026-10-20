@@ -1,8 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00299680 @ 0x00299680
 // pure3d::CompositeDrawable::ActiveControllerList constructor: three arrays sized by a byte count.
-#include "compat/ptr.h"
-void* __cdecl FUN_0008d6d0(hulk_uintptr size);
+void* __cdecl FUN_0008d6d0(unsigned int size);
 
 namespace pure3d {
 class CompositeDrawable {

@@ -1,11 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001c6e60 @ 0x001c6e60
-#include "compat/ptr.h"
 struct Ref_1c6e60 { virtual void AddRef(); virtual void Release(); };
 struct Words3 { unsigned int x,y,z; };
 struct Words6_1c6e60 { unsigned int a,b,c,d,e,f; };
 struct Words4 { unsigned int a,b,c,d; };
-extern void* __cdecl FUN_0008d6d0(hulk_uintptr bytes);
+extern void* __cdecl FUN_0008d6d0(unsigned int bytes);
 extern void __cdecl FUN_001c6d60(void* begin, void* end);
 struct Object {
  char base[8]; unsigned char flag8,flag9; char padA[2];

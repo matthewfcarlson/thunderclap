@@ -7,7 +7,7 @@
 inline void *operator new(unsigned int, void *p) { return p; }
 
 void *thunk_FUN_0008d690(unsigned int size);
-void *__cdecl FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d690(unsigned int size);
 
 struct Stream {
     int FUN_002647e0(void *buf, int count, int size, int flag);

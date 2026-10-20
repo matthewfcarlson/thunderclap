@@ -1,4 +1,3 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_0027be00 @ 0x0027be00
-#include "compat/ptr.h"
-struct Buffer { void* begin; void* end; bool FUN_0027be00(unsigned int count, int value); }; void* __cdecl FUN_0008d6d0(hulk_uintptr size); void __cdecl FUN_0027bc30(void* data, unsigned int count, int value); bool Buffer::FUN_0027be00(unsigned int count, int value) { if (begin) return false; if (count) { void* data = FUN_0008d6d0(count * 40); begin = data; if (data) { end = (char*)data + count * 40; FUN_0027bc30(data, count, value); return true; } } begin = 0; end = 0; return false; }
+struct Buffer { void* begin; void* end; bool FUN_0027be00(unsigned int count, int value); }; void* __cdecl FUN_0008d6d0(unsigned int size); void __cdecl FUN_0027bc30(void* data, unsigned int count, int value); bool Buffer::FUN_0027be00(unsigned int count, int value) { if (begin) return false; if (count) { void* data = FUN_0008d6d0(count * 40); begin = data; if (data) { end = (char*)data + count * 40; FUN_0027bc30(data, count, value); return true; } } begin = 0; end = 0; return false; }

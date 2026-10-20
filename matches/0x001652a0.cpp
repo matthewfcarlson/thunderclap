@@ -2,7 +2,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned int);
 class Dummy_1652a0 {
   public:
     hulk_intptr FUN_0005aa00();

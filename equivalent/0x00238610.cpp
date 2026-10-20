@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 4/4)
 // FUN_00238610 @ 0x00238610
-#include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d690(unsigned int size);
 
 namespace fight {
 class RandomCondition {

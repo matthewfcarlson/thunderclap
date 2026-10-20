@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 23/24, incomplete)
 // FUN_002efa90 @ 0x002efa90
-#include "compat/ptr.h"
 struct SimState_2efa90; struct Source_2efa90; struct Parent_2efa90;
 struct Service_2efa90 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10();
@@ -18,7 +17,7 @@ struct SimState_2efa90 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(Parent_2efa90*); virtual void v14(Source_2efa90*);
  SimState_2efa90* FUN_002ef7f0(int);
 };
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned int);
 SimState_2efa90* __cdecl FUN_002efa90(Source_2efa90* source, Parent_2efa90* parent, SimState_2efa90* storage) {
  if (!storage) storage = (SimState_2efa90*)FUN_0008d690(0x88);
  if (!storage) return 0;

@@ -1,8 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 277 inputs, branch coverage 10/10)
 // FUN_0029ecb0 @ 0x0029ecb0
-#include "compat/ptr.h"
 extern void* __cdecl FUN_00263ea0(unsigned int size);
-extern void* __cdecl FUN_0008d6d0(hulk_uintptr size);
+extern void* __cdecl FUN_0008d6d0(unsigned int size);
 struct Manager_29ecb0 {
  virtual void initialize();
  Manager_29ecb0* FUN_002a1140(int count);

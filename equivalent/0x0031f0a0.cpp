@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 6/6)
 // FUN_0031f0a0 @ 0x0031f0a0
-#include "compat/ptr.h"
-void* __cdecl FUN_0008d690(hulk_uintptr bytes);
+void* __cdecl FUN_0008d690(unsigned int bytes);
 namespace pure3d {
 class pddiStencilState {
 public:

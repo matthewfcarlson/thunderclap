@@ -1,8 +1,7 @@
-#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned int);
 inline void* operator new(unsigned int, void* p) {
     return p;
 }

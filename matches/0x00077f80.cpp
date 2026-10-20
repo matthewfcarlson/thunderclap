@@ -1,7 +1,6 @@
-#include "compat/ptr.h"
 #include "gen/global.h"
 
-extern void* __cdecl FUN_0008d690(hulk_uintptr);
+extern void* __cdecl FUN_0008d690(unsigned int);
 struct Helper_77f80 {
     unsigned int call(CHeliDeathSpiralTrack*, unsigned int);
 };

@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 21/22, incomplete)
 // FUN_00306c60 @ 0x00306c60
-#include "compat/ptr.h"
-void* __cdecl FUN_0008d690(hulk_uintptr size);
+void* __cdecl FUN_0008d690(unsigned int size);
 struct BasicCopy { BasicCopy* FUN_00306c00(); };
 struct CopyB { CopyB* FUN_00306b40(); };
 struct CopyC { CopyC* FUN_00306ba0(); };

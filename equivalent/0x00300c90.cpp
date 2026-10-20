@@ -3,7 +3,7 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
-extern void* __cdecl FUN_0008d6d0(hulk_uintptr size);
+extern void* __cdecl FUN_0008d6d0(unsigned int size);
 struct A_300c90 { char data[16]; void FUN_00304300(); };
 struct B_300c90 { char data[64]; void FUN_00301290(); };
 struct C_300c90 { char data[256]; void FUN_002f7ee0(); };

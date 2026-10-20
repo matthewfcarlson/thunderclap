@@ -9,8 +9,8 @@ extern "C" void __fastcall FUN_00011090(void *p);
 extern "C" void __fastcall FUN_000115b0(void *p);
 void __stdcall FUN_00011520(void *p, unsigned int size, int count, void(__fastcall *ctor)(void *));
 
-void *__cdecl FUN_0008d6d0(hulk_uintptr size);
-void *FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d6d0(unsigned int size);
+void *FUN_0008d690(unsigned int size);
 
 struct Reader_3078a0 {
     void FUN_002647e0(void *dst, int count, int size, int flag);

@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 195 inputs, branch coverage 10/10)
 // FUN_002ab6a0 @ 0x002ab6a0
-#include "compat/ptr.h"
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned int);
 void* __cdecl memmove(void*, const void*, unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 namespace pure3d {

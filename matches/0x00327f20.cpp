@@ -1,5 +1,4 @@
-#include "compat/ptr.h"
-void* FUN_0008d690(hulk_uintptr);
+void* FUN_0008d690(unsigned int);
 struct Obj {
     Obj* Init(int x);
 };

@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 15 inputs, branch coverage 21/22, incomplete)
 // FUN_001ff580 @ 0x001ff580
-#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern void* __cdecl FUN_00263ec0(unsigned);
-extern void* __cdecl FUN_0008d6d0(hulk_uintptr);
+extern void* __cdecl FUN_0008d6d0(unsigned);
 struct Volume_1ff580 { char data[64]; void FUN_001fbf40(); };
 struct Group_1ff580 { char data[0xc70]; void FUN_001fa630(); };
 struct Entry_1ff580 { unsigned count; Volume_1ff580* volumes; };

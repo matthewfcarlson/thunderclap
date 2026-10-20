@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 15667 inputs, branch coverage 18/18)
 // FUN_002abba0 @ 0x002abba0
-#include "compat/ptr.h"
 #include "decls/data/engine/content.h"
 #include "gen/pure3d.h"
 
@@ -8,7 +7,7 @@ extern char DAT_0049c7dc[];
 extern char DAT_004ce974[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 extern void *__cdecl FUN_00263ea0(unsigned int size);
-extern void *__cdecl FUN_0008d690(hulk_uintptr size);
+extern void *__cdecl FUN_0008d690(unsigned int size);
 
 struct GeneratorBlendState_nv_2abba0 {
     pure3d::ParticlePointGenerator::GeneratorBlendState *FUN_002d2130(void *src);

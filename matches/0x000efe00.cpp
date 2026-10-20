@@ -1,7 +1,6 @@
-#include "compat/ptr.h"
 #include "gen/global.h"
 
-extern void* __cdecl FUN_0008d690(hulk_uintptr);
+extern void* __cdecl FUN_0008d690(unsigned int);
 class Helper_efe00 {
   public:
     int call(int);

@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // fight::OpportunityTrack::vfunc_10 @ 0x002379e0
-#include "compat/ptr.h"
-void* __cdecl FUN_0008d690(hulk_uintptr size);
+void* __cdecl FUN_0008d690(unsigned size);
 struct Sub_2379e0 { int w[3]; };
 struct Node {
     void* FUN_00237470(void* a1, void* self, float a, float b, int f18, int f24, Sub_2379e0* sub, void* a2, void* a3);

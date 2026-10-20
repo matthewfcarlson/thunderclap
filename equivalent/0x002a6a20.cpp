@@ -42,8 +42,8 @@ public:
     RefCounted_2a6a20 *FUN_002c8730(int handle);
 };
 
-void *__cdecl FUN_0008d690(hulk_uintptr size);
-void *__cdecl FUN_0008d6d0(hulk_uintptr size);
+void *__cdecl FUN_0008d690(unsigned int size);
+void *__cdecl FUN_0008d6d0(unsigned int size);
 
 class Binder_2a6a20 {
 public:

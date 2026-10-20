@@ -1,10 +1,9 @@
-#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
 typedef unsigned int uint;
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(uint);
 void FUN_0014c580();
 void FUN_0014c590();
 inline void* operator new(unsigned int, void* p) {

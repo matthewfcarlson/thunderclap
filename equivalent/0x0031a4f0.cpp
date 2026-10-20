@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0031a4f0 @ 0x0031a4f0
-#include "compat/ptr.h"
-extern "C" void* __cdecl FUN_0008d6d0(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 struct State_31a4f0 {
  char pad0[0x20];
  float weightA, weightB;

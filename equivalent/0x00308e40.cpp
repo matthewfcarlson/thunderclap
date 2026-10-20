@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 609 inputs, branch coverage 8/8)
 // FUN_00308e40 @ 0x00308e40
-#include "compat/ptr.h"
 struct Entry_308e40 {
  char base[0x1c];
  unsigned int x,y,z;
@@ -11,7 +10,7 @@ struct Entry_308e40 {
  void FUN_002fcaf0(Entry_308e40*);
 };
 void __cdecl FUN_00308de0();
-void* __cdecl FUN_0008d6d0(hulk_uintptr);
+void* __cdecl FUN_0008d6d0(unsigned int);
 void __stdcall FUN_00011520(void*,unsigned int,int,void (__cdecl*)());
 struct Object {
  char pad[0x1f8];

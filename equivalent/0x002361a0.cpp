@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 6/6)
 // FUN_002361a0 @ 0x002361a0
-#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d690(unsigned int size);
 
 namespace fight {
 class FightNodeCondition {

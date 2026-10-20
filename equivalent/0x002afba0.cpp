@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // pure3d::ExpressionLoader::vfunc_5 @ 0x002afba0
-#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 extern "C" void *__cdecl FUN_00263ea0(unsigned int size);
-extern "C" void *__cdecl FUN_0008d6d0(hulk_uintptr size);
+extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 

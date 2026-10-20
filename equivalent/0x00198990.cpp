@@ -1,13 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 4/4)
 // FUN_00198990 @ 0x00198990
-#include "compat/ptr.h"
 struct Vec3_198990 { float x,y,z; };
 struct Transform_198990 { char data[64]; void FUN_0022b980(); };
 struct Params { char pad0[44]; unsigned field2c; char pad30[4]; unsigned field34; char pad38[8]; char position[28]; unsigned field5c; };
 struct RenderState_198990 { char pad[112]; unsigned char enabled; unsigned char other; unsigned char flag; };
 struct Object { virtual void AddRef(); virtual void Release(); unsigned field4; void* owner; unsigned type; char pad10[100]; RenderState_198990* state; };
 struct AllocObject { AllocObject* FUN_002efe50(Vec3_198990*, unsigned); };
-extern void* __cdecl FUN_0008d690(hulk_uintptr);
+extern void* __cdecl FUN_0008d690(unsigned);
 extern Object* __cdecl FUN_002efca0(AllocObject*, unsigned);
 struct Controller_198990 { void FUN_001b42b0(Object*); };
 extern Controller_198990* __stdcall FUN_001b6580();

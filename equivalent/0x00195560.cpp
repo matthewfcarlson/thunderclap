@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 42/42)
 // FUN_00195560 @ 0x00195560
-#include "compat/ptr.h"
 #include "decls/address.h"
 struct V3_195560 {
     float x, y, z;
@@ -99,7 +98,7 @@ struct World {
     List_195560 *list;
 };
 
-void *FUN_0008d690(hulk_uintptr size);
+void *FUN_0008d690(unsigned int size);
 int __cdecl FUN_00266da0(int v);
 void __cdecl FUN_00018810(RefObj_195560 **slot, RefObj_195560 *ref);
 

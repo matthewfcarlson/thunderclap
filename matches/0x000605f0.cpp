@@ -1,7 +1,6 @@
-#include "compat/ptr.h"
 #include "gen/global.h"
 
-extern void* FUN_0008d690(hulk_uintptr);
+extern void* FUN_0008d690(unsigned int);
 struct Obj_605f0 {
     char pad[0x104];
     int value;

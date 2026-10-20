@@ -2,7 +2,7 @@
 // FUN_001a4090 @ 0x001a4090
 #include "compat/ptr.h"
 extern "C" unsigned int __cdecl FUN_0008d340(void *);
-extern "C" void * __cdecl FUN_0008d6d0(hulk_uintptr);
+extern "C" void * __cdecl FUN_0008d6d0(unsigned int);
 struct Holder { char pad[0x100]; char *text; unsigned int FUN_001a4090(const char *source); };
 unsigned int Holder::FUN_001a4090(const char *source) {
     unsigned int result = FUN_0008d340(text);

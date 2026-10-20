@@ -1,11 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 167 inputs, branch coverage 240/244, incomplete)
 // FUN_001a71e0 @ 0x001a71e0
-#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight/scenario.h"
 
 typedef void (*Callback)();
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned);
 namespace hulkfight { namespace scenario { class NISAnimationTrack; } }
 struct ParamBase { virtual void slot0(); char padding[12]; void FUN_00234960(const char*); void FUN_002349e0(const char*); void FUN_00234cc0(const char*); void FUN_00234860(const char*); void FUN_002348e0(const char*); };
 namespace fight {

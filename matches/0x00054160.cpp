@@ -1,11 +1,10 @@
-#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 typedef void (*Callback_54160)();
 extern void FUN_00048080();
 extern void FUN_000480a0();
 extern void FUN_000480d0();
-extern void* __cdecl FUN_0008d690(hulk_uintptr);
+extern void* __cdecl FUN_0008d690(unsigned);
 inline void* __cdecl operator new(unsigned, void* address) {
     return address;
 }

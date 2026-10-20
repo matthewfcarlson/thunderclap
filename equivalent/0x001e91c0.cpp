@@ -1,13 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 118 inputs, branch coverage 2/2)
 // FUN_001e91c0 @ 0x001e91c0
-#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct LevelKeys {
     unsigned __int64 keys[28];
 };
 
-void *FUN_0008d6d0(hulk_uintptr size);
+void *FUN_0008d6d0(unsigned int size);
 unsigned __int64 FUN_002672f0(const char *s, unsigned __int64 seed);
 
 void FUN_001e91c0(void)

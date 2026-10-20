@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 157 inputs, branch coverage 22/24, incomplete)
 // FUN_002a4e40 @ 0x002a4e40
 #include "compat/ptr.h"
-extern "C" void *__cdecl FUN_0008d6d0(hulk_uintptr size);
+extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 
 class Drawable {
 public:

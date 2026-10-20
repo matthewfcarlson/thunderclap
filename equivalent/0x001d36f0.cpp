@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 9310 inputs, branch coverage 23/26, incomplete)
 // FUN_001d36f0 @ 0x001d36f0
 // cl-flags: /GS
-#include "compat/ptr.h"
 struct Stream { virtual void s0(); virtual void release(); virtual void s2(); virtual void read(char*,int,int); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual int size(); virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19(); virtual void s20(); virtual void reset(); virtual void s22(); virtual bool valid(); };
 extern void __cdecl thunk_FUN_002710d0(Stream**,void*,int,int,int,int,int,int);
-extern char* __cdecl FUN_0008d6d0(hulk_intptr);
+extern char* __cdecl FUN_0008d6d0(int);
 extern void __cdecl FUN_0008d340(void*);
 extern int __cdecl FUN_00212d70(void*);
 extern int __cdecl FUN_00339a60(void*,const char*,int,const char*);

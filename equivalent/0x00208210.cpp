@@ -1,11 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 24/24)
 // FUN_00208210 @ 0x00208210
-#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 class CWorldStreamManager;
 
-void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d690(unsigned size);
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 

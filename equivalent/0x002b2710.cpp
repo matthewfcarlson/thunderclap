@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 155 inputs, branch coverage 10/10)
 // FUN_002b2710 @ 0x002b2710
-#include "compat/ptr.h"
-void* __cdecl FUN_0008d6d0(hulk_uintptr);
+void* __cdecl FUN_0008d6d0(unsigned int);
 struct FUN_00284a70 { virtual void dummy(); char pad[20]; FUN_00284a70(); };
 namespace pure3d {
 struct MultiController : FUN_00284a70 {

@@ -7,7 +7,7 @@ extern "C" void *__cdecl memset(void *, int, unsigned int);
 extern "C" void __cdecl qsort(void *base, unsigned int count, unsigned int size,
                               int (__cdecl *cmp)(const void *, const void *));
 void *thunk_FUN_0008d690(unsigned int size);
-void *FUN_0008d6d0(hulk_uintptr size);
+void *FUN_0008d6d0(unsigned int size);
 int FUN_00266da0(int token);
 int __cdecl FUN_00289240(const void *a, const void *b);
 int __cdecl FUN_00289270(const void *a, const void *b);

@@ -3,7 +3,7 @@
 // 0x0028bf20: channel constructor holding 12-byte elements, allocated from the parent pool or the heap
 #include "compat/ptr.h"
 extern char DAT_0042c9f0[];
-void* __cdecl FUN_0008d6d0(hulk_uintptr size);
+void* __cdecl FUN_0008d6d0(unsigned size);
 void __stdcall FUN_00011520(void* base, unsigned size, int count, void* ctor);
 extern char FUN_00011090;
 

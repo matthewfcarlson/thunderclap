@@ -1,8 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 17174 inputs, branch coverage 20/20)
 // FUN_00289070 @ 0x00289070
-#include "compat/ptr.h"
 #include "gen/pure3d.h"
-void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d690(unsigned int size);
 
 struct Stream_289070 {
     char pad[0xc];

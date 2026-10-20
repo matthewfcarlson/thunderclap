@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 83 inputs, branch coverage 39/40, incomplete)
 // FUN_001cbfe0 @ 0x001cbfe0
-#include "compat/ptr.h"
 #include "decls/address.h"
 #include "gen/global.h"
 extern "C" void __cdecl qsort(void *base, unsigned int count, unsigned int size,
@@ -141,7 +140,7 @@ public:
 };
 
 int __cdecl FUN_00266da0(int value);
-void *__cdecl FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d690(unsigned int size);
 int __cdecl FUN_001cb3a0(const Item_1cbfe0 *a, const Item_1cbfe0 *b);
 
 struct ItemVec_1cbfe0 {

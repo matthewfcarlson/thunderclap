@@ -1,11 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 918 inputs, branch coverage 120/120)
 // FUN_0019d160 @ 0x0019d160
-#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 #include "decls/data/game/unknown.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
 namespace motion {

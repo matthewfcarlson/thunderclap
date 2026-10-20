@@ -1,9 +1,8 @@
-#include "compat/ptr.h"
 struct Part_31a440 {
     char data[0x60];
     void FUN_0031a830();
 };
-extern void* __cdecl FUN_0008d6d0(hulk_uintptr);
+extern void* __cdecl FUN_0008d6d0(unsigned int);
 struct Object {
     char* base;
     char* current;

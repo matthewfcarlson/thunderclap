@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 34 inputs, branch coverage 25/30, incomplete)
 // FUN_002a75a0 @ 0x002a75a0
-#include "compat/ptr.h"
 class Owned_2a75a0 {
 public:
     virtual void vfunc_0();
@@ -23,7 +22,7 @@ struct Source_2a75a0 {
     int valueB;
 };
 
-void *__cdecl FUN_0008d6d0(hulk_uintptr size);
+void *__cdecl FUN_0008d6d0(unsigned int size);
 void __cdecl FUN_0008d340(void *p);
 
 class Holder_2a75a0 {

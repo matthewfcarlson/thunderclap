@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001d4830 @ 0x001d4830
-#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
-void *FUN_0008d690(hulk_uintptr size);
+void *FUN_0008d690(unsigned int size);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 class __declspec(novtable) MethodBase_1d4830 {

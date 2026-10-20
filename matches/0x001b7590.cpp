@@ -1,10 +1,9 @@
-#include "compat/ptr.h"
 typedef unsigned int u32_1b7590;
 struct Obj_1b7590 {
     char pad[0x124];
     volatile u32_1b7590 field;
 };
-extern void __cdecl thunk(hulk_uintptr);
+extern void __cdecl thunk(u32_1b7590);
 struct Inner_1b7590 {
     void method(int);
 };

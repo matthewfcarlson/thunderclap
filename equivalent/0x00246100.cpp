@@ -8,7 +8,7 @@ struct Reader {
 };
 void __cdecl FUN_00245d40(Reader*);
 int __cdecl FUN_00245890(const char*, hulk_intptr);
-int __cdecl FUN_00245850(const char*, hulk_intptr);
+int __cdecl FUN_00245850(const char*, int);
 int __cdecl FUN_00246100(Reader* r) {
  char buffer[128];
  char* out = buffer;

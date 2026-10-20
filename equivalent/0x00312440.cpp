@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 31 inputs, branch coverage 34/34)
 // FUN_00312440 @ 0x00312440
-#include "compat/ptr.h"
 extern "C" void* memset(void*, int, unsigned int);
 extern "C" double sqrt(double);
 
@@ -49,7 +48,7 @@ struct SkeletonSrc {
     unsigned short* parent;
 };
 
-void* FUN_0008d6d0(hulk_uintptr size);
+void* FUN_0008d6d0(unsigned int size);
 void* FUN_00266e00(int kind, unsigned int size);
 void FUN_00267090(void* p);
 

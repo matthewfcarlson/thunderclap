@@ -1,7 +1,6 @@
 // FUN_0028c2a0 @ 0x0028c2a0
 // equiv-map: ??0Channel@pure3d@@QAE@HPAVOwner@@@Z = 0x0028b420
-#include "compat/ptr.h"
-extern void* __cdecl FUN_0008d6d0(hulk_uintptr size) throw();
+extern void* __cdecl FUN_0008d6d0(unsigned int size) throw();
 extern "C" void* __cdecl memset(void*, int, unsigned int) throw();
 
 class Owner {

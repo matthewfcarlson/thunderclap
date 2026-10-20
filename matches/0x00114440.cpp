@@ -9,7 +9,7 @@ class InActiveCondition_114440 {
     char field10;
     void Init(int);
 };
-extern void* __cdecl FUN_0008d690(hulk_uintptr);
+extern void* __cdecl FUN_0008d690(unsigned int);
 extern int g_InActiveVftable;
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::InActiveCondition>::vfunc_5() {

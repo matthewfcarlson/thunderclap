@@ -33,7 +33,7 @@ void FUN_0021f800(Reader *r, const char *msg);
 void *FUN_0021add0(State *L, void *block, unsigned int oldSize, unsigned int newSize);
 char *FUN_0021a6b0(State *L, Buffer *buf, hulk_uintptr n);
 int FUN_0021a610(Zio *z, char *dst, hulk_uintptr n);
-Str *FUN_00219430(State *L, const char *s, hulk_uintptr len);
+Str *FUN_00219430(State *L, const char *s, unsigned int len);
 
 struct Frame_21fb50 {
     int w;

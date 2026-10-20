@@ -40,7 +40,7 @@ struct LuaMgr {
 
 LuaMgr *FUN_001d4c90();
 int FUN_00267760(char *buf, int n, const char *fmt, ...);
-void *FUN_0008d6d0(hulk_uintptr n);
+void *FUN_0008d6d0(unsigned int n);
 void FUN_0008d340(void *p);
 int FUN_00213160(void *L, int idx);
 void FUN_00212d80(void *L, int idx);

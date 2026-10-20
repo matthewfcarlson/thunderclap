@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 20/20)
 // FUN_00300a00 @ 0x00300a00
-#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
-void *FUN_0008d6d0(hulk_uintptr size);
+void *FUN_0008d6d0(unsigned int size);
 
 
 struct Buffer_300a00 {

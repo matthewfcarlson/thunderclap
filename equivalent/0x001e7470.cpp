@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 934 inputs, branch coverage 102/102)
 // FUN_001e7470 @ 0x001e7470
-#include "compat/ptr.h"
 typedef unsigned int size_t;
 void* operator new(size_t) throw();
 inline void* operator new(size_t, void* p) throw() { return p; }
-void* FUN_0008d690(hulk_uintptr);
+void* FUN_0008d690(unsigned int);
 char FUN_001d04d0(const void*) throw();
 class CSPManager;
 namespace math { class Vector { public: float x, y, z; }; }

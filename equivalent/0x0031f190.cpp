@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // pure3d::pddiBaseContext::vfunc_101 @ 0x0031f190
-#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned int);
 struct StackA { char pad[8]; unsigned int index; char* data; StackA* FUN_0031ed40(int); };
 struct StackB { char pad[8]; unsigned int index; char* data; StackB* FUN_0031ee00(int); };
 struct StackC { char pad[8]; unsigned int index; char* data; StackC* FUN_0031eef0(int); };

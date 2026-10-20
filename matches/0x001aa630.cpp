@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_0041c550[];
-extern void* __cdecl FUN_0008d690(hulk_uintptr);
+extern void* __cdecl FUN_0008d690(unsigned int);
 class Event_1aa630 {
   public:
     virtual void V0();

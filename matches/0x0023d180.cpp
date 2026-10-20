@@ -3,7 +3,7 @@
 
 extern "C" char DAT_00428a44[];
 typedef unsigned int u32_23d180;
-extern void* __cdecl FUN_0008d690(hulk_uintptr);
+extern void* __cdecl FUN_0008d690(unsigned int);
 struct Init_23d180 {
     void init(int);
 };

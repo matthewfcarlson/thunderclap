@@ -3,7 +3,7 @@
 #include "compat/ptr.h"
 struct Object { char pad[0xe0]; char* text; unsigned int FUN_001a3ed0(const char* value); };
 unsigned int __cdecl FUN_0008d340(void*);
-void* __cdecl FUN_0008d6d0(hulk_uintptr);
+void* __cdecl FUN_0008d6d0(unsigned int);
 unsigned int Object::FUN_001a3ed0(const char* value) {
     unsigned int freed = FUN_0008d340(text);
     if (!value) { text = 0; return (freed & ~255u) | 1; }

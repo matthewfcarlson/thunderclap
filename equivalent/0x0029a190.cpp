@@ -168,7 +168,7 @@ struct Registry_29a190 {
 };
 
 void *FUN_00263ea0(unsigned int size);
-void *FUN_0008d690(hulk_uintptr size);
+void *FUN_0008d690(unsigned int size);
 void __cdecl FUN_0028fd70(Inventory_29a190 *inv);
 int __cdecl FUN_00298180(void *p);
 

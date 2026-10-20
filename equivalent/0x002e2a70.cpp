@@ -2,12 +2,11 @@
 // FUN_002e2a70 @ 0x002e2a70
 // FUN_002e2a70 @ 0x002e2a70
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
-#include "compat/ptr.h"
 #include "decls/data/engine/pure3d/prop.h"
 
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
-void *FUN_0008d690(hulk_uintptr size);
+void *FUN_0008d690(unsigned int size);
 void *__cdecl FUN_00266e00(int a, unsigned int n);
 void __cdecl FUN_00267090(void *p);
 

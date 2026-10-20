@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19969 inputs, branch coverage 10/10)
 // FUN_002a16c0 @ 0x002a16c0
-#include "compat/ptr.h"
-void* __cdecl FUN_0008d6d0(hulk_uintptr);
+void* __cdecl FUN_0008d6d0(unsigned int);
 void* __cdecl FUN_00263ea0(unsigned int);
 struct Element_2a16c0 { char data[20]; };
 struct DirectionalLight_2a16c0 { char pad[0x12]; unsigned char enabled; DirectionalLight_2a16c0* FUN_002a2e70(); void FUN_002a2ef0(float,float,float); void FUN_002a07a0(int); };

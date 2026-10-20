@@ -14,7 +14,7 @@ class Condition_159490 {
     char pad[8];
     char flag;
 };
-extern void* __cdecl FUN_0008d690(hulk_uintptr);
+extern void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionTargetIsTargetCondition>::vfunc_5() {
     Condition_159490* p = (Condition_159490*)FUN_0008d690(0x10);

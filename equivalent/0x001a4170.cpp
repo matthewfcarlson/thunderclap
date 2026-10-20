@@ -2,7 +2,7 @@
 // FUN_001a4170 @ 0x001a4170
 #include "compat/ptr.h"
 extern "C" unsigned int __cdecl FUN_0008d340(void *);
-extern "C" void * __cdecl FUN_0008d6d0(hulk_uintptr);
+extern "C" void * __cdecl FUN_0008d6d0(unsigned int);
 struct Object { char pad[0x110]; char *name; unsigned int FUN_001a4170(const char *text); };
 unsigned int Object::FUN_001a4170(const char *text) {
     hulk_uintptr result = FUN_0008d340(name);

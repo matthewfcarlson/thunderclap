@@ -2,7 +2,7 @@
 // FUN_002c1f80 @ 0x002c1f80
 #include "compat/ptr.h"
 extern "C" int sprintf(char *buf, const char *fmt, ...);
-void *FUN_0008d6d0(hulk_uintptr size);
+void *FUN_0008d6d0(unsigned int size);
 void FUN_0008d340(void *p);
 
 class Ref_2c1f80 {

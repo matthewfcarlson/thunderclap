@@ -3,7 +3,7 @@
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
 #include "compat/ptr.h"
 void __cdecl thunk_FUN_00267090(void *p);
-extern "C" void *__cdecl FUN_0008d6d0(hulk_uintptr size);
+extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 
 class Source_2a9ea0 {
 public:

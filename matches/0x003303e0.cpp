@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 4/4)
 // FUN_003303e0 @ 0x003303e0
-#include "compat/ptr.h"
 namespace D3D8 {
 void* __stdcall D3DDevice_GetBackBuffer2(unsigned int index);
 void __stdcall D3DSurface_GetDesc(void* surface, void* description);
@@ -9,7 +8,7 @@ void* __stdcall D3DDevice_CreateTexture2(unsigned int width, unsigned int height
                                          unsigned int levels, unsigned int usage, unsigned int format,
                                          unsigned int pool);
 } // namespace D3D8
-void* __cdecl FUN_0008d690(hulk_uintptr size);
+void* __cdecl FUN_0008d690(unsigned int size);
 struct Resource_3303e0 {
     char pad[0xf8];
     Resource_3303e0* FUN_00326110(void* device, void* texture);

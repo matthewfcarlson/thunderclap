@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_002d4e80 @ 0x002d4e80
-#include "compat/ptr.h"
 struct RefObj_2d4e80 {
     virtual void FUN_vf0();
     virtual void FUN_vf1();
@@ -10,7 +9,7 @@ struct Extra_2d4e80 {
     Extra_2d4e80 *FUN_0022b980();
 };
 
-void *FUN_0008d690(hulk_uintptr size);
+void *FUN_0008d690(unsigned int size);
 
 struct Config_2d4e80 {
     RefObj_2d4e80 *ref;

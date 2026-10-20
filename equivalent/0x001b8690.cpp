@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001b8690 @ 0x001b8690
-#include "compat/ptr.h"
 struct Child_1b8690 {
     virtual void vfn0();
     Child_1b8690 *FUN_00294880();
@@ -12,7 +11,7 @@ struct Child_1b8690 {
     unsigned int mask;
     char pad3[0x140 - 0x30];
 };
-extern void *__cdecl FUN_0008d690(hulk_uintptr n);
+extern void *__cdecl FUN_0008d690(unsigned int n);
 
 class Owner_1b8690 {
 public:

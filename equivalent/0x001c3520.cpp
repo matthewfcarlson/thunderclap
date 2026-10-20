@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 6/6)
 // FUN_001c3520 @ 0x001c3520
-#include "compat/ptr.h"
 #include "gen/pure3d.h"
 extern int __cdecl FUN_00266da0(int);
-extern void* __cdecl FUN_0008d690(hulk_uintptr);
+extern void* __cdecl FUN_0008d690(unsigned);
 extern void* __cdecl FUN_00263ea0(unsigned);
 struct MainObject { MainObject* FUN_001c1a40(); };
 struct Vec_1c3520 { void FUN_0022b980(); char data[80]; };

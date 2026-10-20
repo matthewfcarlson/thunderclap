@@ -1,8 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 4/4)
 // FUN_002c72e0 @ 0x002c72e0
-#include "compat/ptr.h"
 typedef void (__cdecl *Callback)();
-extern "C" void* __cdecl FUN_0008d6d0(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 extern "C" void __stdcall FUN_00011520(void*, unsigned int, int, Callback);
 extern "C" void __cdecl FUN_002c6d30();
 struct Object {

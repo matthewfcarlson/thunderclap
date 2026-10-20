@@ -1,6 +1,5 @@
 // FUN_0028c1a0 @ 0x0028c1a0
 // equiv-map: ??0Channel@pure3d@@QAE@II@Z = 0x0028b420
-#include "compat/ptr.h"
 
 struct Name_28c1a0 {
     int lo, hi;
@@ -11,7 +10,7 @@ struct Allocator {
     Name_28c1a0 *FUN_002888c0(unsigned int bytes, int flags);
 };
 
-void *__cdecl FUN_0008d6d0(hulk_uintptr size);
+void *__cdecl FUN_0008d6d0(unsigned int size);
 void __stdcall FUN_00011520(void *p, unsigned int size, unsigned int count, void (Name_28c1a0::*ctor)());
 
 namespace pure3d {

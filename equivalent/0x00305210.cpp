@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 53 inputs, branch coverage 20/20)
 // FUN_00305210 @ 0x00305210
-#include "compat/ptr.h"
 struct Pair_305210 { unsigned int a,b; };
 struct Item_305210 { int count, capacity; Pair_305210* data; int spare; void FUN_00304a10(int); };
 struct Bytes { int count, capacity; unsigned char* data; void FUN_003048a0(int); };
-extern "C" void* __cdecl FUN_0008d6d0(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 extern "C" void __stdcall FUN_00304b00(void*);
 extern "C" void __stdcall FUN_00011520(void*, int, int, void (__stdcall *)(void*));
 struct Container_305210 { int count; Item_305210* items; Bytes bytes; Container_305210* FUN_00305210(const Container_305210* source); };

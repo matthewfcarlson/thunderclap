@@ -1,7 +1,6 @@
-#include "compat/ptr.h"
 #include "decls/data/game/hulkfight.h"
 
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_0012d920();
 void __cdecl FUN_0012d930();
 void __cdecl FUN_0012d950();

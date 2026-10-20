@@ -1,5 +1,4 @@
-#include "compat/ptr.h"
-extern "C" void* __cdecl FUN_0008d6d0(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 class Base_2b0060 {
   public:
     Base_2b0060();

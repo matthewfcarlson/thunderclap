@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 5/6, incomplete)
 // FUN_001c5960 @ 0x001c5960
-#include "compat/ptr.h"
-void *__cdecl FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d690(unsigned int size);
 
 class Object_1c5960 {
 public:

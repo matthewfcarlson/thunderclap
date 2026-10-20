@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 146 inputs, branch coverage 18/18)
 // FUN_002160c0 @ 0x002160c0
-#include "compat/ptr.h"
 extern "C" char *__cdecl strchr(const char *, int);
 extern "C" unsigned int __cdecl strlen(const char *);
 
@@ -25,7 +24,7 @@ struct lua_State_2160c0 {
     TValue_2160c0 *stack_last;
 };
 
-TString_2160c0 *__cdecl FUN_00219430(lua_State_2160c0 *L, const char *s, hulk_uintptr len);
+TString_2160c0 *__cdecl FUN_00219430(lua_State_2160c0 *L, const char *s, unsigned int len);
 void __cdecl FUN_00215460(lua_State_2160c0 *L, int n);
 void __cdecl FUN_00217f20(lua_State_2160c0 *L, int total, int last);
 // equiv-conv: FUN_00216060 esi edx

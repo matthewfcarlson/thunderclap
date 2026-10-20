@@ -194,7 +194,7 @@ struct Fx34_1da540 {
 };
 
 extern "C" int __cdecl FUN_00266da0(hulk_intptr mode);
-void *__cdecl FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d690(unsigned int size);
 void __cdecl FUN_00018810(RefObj_1da540 **slot, RefObj_1da540 *obj);
 void __cdecl FUN_00224d70(float ang, V3_1da540 *v);
 void __cdecl FUN_00096b50(Ref_1da540 *a1, V3_1da540 *out, int *count);

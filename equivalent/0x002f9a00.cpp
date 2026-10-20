@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 9/10, incomplete)
 // FUN_002f9a00 @ 0x002f9a00
 #include "compat/ptr.h"
-extern "C" void* __cdecl FUN_0008d6d0(hulk_uintptr size);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
 
 struct WideVector {
     unsigned short* first;

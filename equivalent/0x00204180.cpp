@@ -2,7 +2,7 @@
 // FUN_00204180 @ 0x00204180
 #include "compat/ptr.h"
 extern "C" int __cdecl FUN_00266da0(hulk_intptr pool);
-extern "C" void* __cdecl FUN_0008d6d0(hulk_uintptr size);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
 
 struct Item_204180 {
     char data[0x56];

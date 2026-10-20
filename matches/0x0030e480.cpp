@@ -1,6 +1,5 @@
-#include "compat/ptr.h"
 extern void* vA[];
-void* __cdecl FUN_0008d6d0(hulk_uintptr n) throw();
+void* __cdecl FUN_0008d6d0(unsigned n) throw();
 struct Buf_30e480 {
     char* a;
     char* b;

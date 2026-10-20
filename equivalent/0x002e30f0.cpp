@@ -9,7 +9,7 @@ inline void *operator new(unsigned int, void *p) throw() { return p; }
 struct Hdr8;
 
 void *thunk_FUN_0008d690(unsigned int size);
-void *__cdecl FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d690(unsigned int size);
 void *__cdecl FUN_00266e00(int a, int b);
 void __cdecl FUN_00267090(void *p);
 

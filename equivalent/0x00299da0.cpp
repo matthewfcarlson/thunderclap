@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 26 inputs, branch coverage 24/24)
 // FUN_00299da0 @ 0x00299da0
 #include "compat/ptr.h"
-void* FUN_0008d6d0(hulk_uintptr size);
+void* FUN_0008d6d0(unsigned int size);
 
 class Ref_299da0 {
 public:

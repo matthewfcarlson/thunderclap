@@ -4,7 +4,6 @@
 // (actors, characters, props), trail effect, and the area-damage explosion.
 // The locals live in one Frame struct at the original's stack offsets (sub esp 0x2d8):
 // several out-parameters and event records share slots, as in the original.
-#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
@@ -423,7 +422,7 @@ Pool_19e910 *__cdecl FUN_00202f00() throw();
 void __cdecl FUN_002f1ce0(Vec3 *from, void *shape, Vec3 *outNormal, float *outDist) throw();
 Unlock_19e910 *__cdecl FUN_00344e74(void *p, int off, void *src, void *dst, int isRef) throw();
 void __cdecl FUN_00018810(void **slot, void *obj) throw();
-void *__cdecl FUN_0008d690(hulk_uintptr size) throw();
+void *__cdecl FUN_0008d690(unsigned int size) throw();
 bool __cdecl FUN_00096b50(RefObj_19e910 *t, Vec3 *out, float *out2) throw();
 void __cdecl FUN_00224db0(Mat4_19e910 *m, Vec3 *a, Vec3 *b) throw();
 Vec3 *__cdecl FUN_00083e00(Vec3 *out, Vec3 *v, float s) throw();

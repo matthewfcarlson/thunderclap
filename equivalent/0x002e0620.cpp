@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002e0620 @ 0x002e0620
 // equiv-map: ??0Base@@QAE@XZ = 0x002a5060
-#include "compat/ptr.h"
 class Base {
 public:
     Base();
@@ -15,7 +14,7 @@ public:
     virtual void f0();
 };
 
-void *__cdecl FUN_0008d690(hulk_uintptr n);
+void *__cdecl FUN_0008d690(unsigned int n);
 
 namespace pure3d {
 class PrimGroupSkinnedPC : public Base {

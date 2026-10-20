@@ -1,11 +1,10 @@
 // FUN_000dc810 @ 0x000dc810
-#include "compat/ptr.h"
 struct Vec3_dc810 {
     float x, y, z;
 };
 
 void FUN_0008d340(void *p);
-void *FUN_0008d6d0(hulk_uintptr size);
+void *FUN_0008d6d0(unsigned int size);
 
 class ParticleBuffers {
 public:

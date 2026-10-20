@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 402 inputs, branch coverage 12/12)
 // FUN_00300ea0 @ 0x00300ea0
-#include "compat/ptr.h"
 struct Elem_300ea0 {
     char data[0x6c];
     Elem_300ea0 *FUN_00300a00();
@@ -10,7 +9,7 @@ struct ElemArray_300ea0 {
     void FUN_00300d80(int flags);
 };
 
-void *__cdecl FUN_0008d6d0(hulk_uintptr size);
+void *__cdecl FUN_0008d6d0(unsigned int size);
 
 class ElemPool {
 public:

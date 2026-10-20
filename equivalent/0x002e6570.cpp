@@ -1,8 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 63 inputs, branch coverage 2/2)
 // FUN_002e6570 @ 0x002e6570
-#include "compat/ptr.h"
 typedef unsigned int uint_2e6570;
-extern void* __cdecl FUN_0008d6d0(hulk_uintptr size);
+extern void* __cdecl FUN_0008d6d0(uint_2e6570 size);
 struct FUN_0027b070 {
     FUN_0027b070();
     virtual void baseSlot();

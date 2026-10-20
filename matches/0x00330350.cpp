@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 4/4)
 // FUN_00330350 @ 0x00330350
-#include "compat/ptr.h"
 struct SurfaceDesc_330350 {
     unsigned int format;
     unsigned int rest[6];
@@ -13,7 +12,7 @@ void* __stdcall D3DDevice_CreateTexture2(unsigned int width, unsigned int height
                                          unsigned int levels, unsigned int usage, unsigned int format,
                                          unsigned int pool);
 } // namespace D3D8
-void* __cdecl FUN_0008d690(hulk_uintptr bytes);
+void* __cdecl FUN_0008d690(unsigned int bytes);
 struct Renderer_330350 {
     char pad0[0x10];
     void* device;

@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_001b84f0 @ 0x001b84f0
-#include "compat/ptr.h"
 class CFMVManager;
 
 struct HeapObj {
@@ -69,7 +68,7 @@ class CFMVManager {
 };
 
 Registry_1b84f0* FUN_001d4c90();
-void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d690(unsigned size);
 
 CFMVManager::CFMVManager() {
     field_04 = 0;

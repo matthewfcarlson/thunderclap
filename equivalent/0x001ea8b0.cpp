@@ -1,11 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1920 inputs, branch coverage 10/10)
 // FUN_001ea8b0 @ 0x001ea8b0
-#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
-void *FUN_0008d690(hulk_uintptr size);
+void *FUN_0008d690(unsigned int size);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 template <class T> struct TypeTag;

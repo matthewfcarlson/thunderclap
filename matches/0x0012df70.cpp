@@ -1,7 +1,6 @@
-#include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern void* FUN_0008d690(hulk_uintptr);
+extern void* FUN_0008d690(unsigned int);
 extern void* PostEvent_StringTrack_vtable;
 struct Helper_12df70 {
     void FUN_00236d40();

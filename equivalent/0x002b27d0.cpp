@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 153 inputs, branch coverage 12/12)
 // FUN_002b27d0 @ 0x002b27d0
 #include "compat/ptr.h"
-void* __cdecl FUN_0008d6d0(hulk_uintptr);
+void* __cdecl FUN_0008d6d0(unsigned int);
 struct Item_2b27d0 {
  virtual void retain();
  virtual void release();

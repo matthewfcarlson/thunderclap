@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 9 inputs, branch coverage 15/16, incomplete)
 // FUN_0027bee0 @ 0x0027bee0
-#include "compat/ptr.h"
-extern "C" void *__cdecl FUN_0008d6d0(hulk_uintptr size);
+extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 extern "C" void *memset(void *dst, int c, unsigned int n);
 void FUN_0027b8f0();
 

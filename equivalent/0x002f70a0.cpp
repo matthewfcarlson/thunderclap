@@ -2,7 +2,6 @@
 // physics::PhysicsObjectLoader::vfunc_5 @ 0x002f70a0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
-#include "compat/ptr.h"
 #include "gen/physics.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -81,7 +80,7 @@ void __cdecl FUN_002f5fe0(Reader_2f70a0 *r, SymMatrix_2f70a0 *sm);
 Part_2f70a0 *__cdecl FUN_0030d4f0(unsigned int a, Vec3_2f70a0 *v, unsigned int b, unsigned int c);
 Props *__cdecl FUN_002f2750(unsigned __int64 key);
 int __cdecl FUN_00266da0(int sel);
-void *__cdecl FUN_0008d6d0(hulk_uintptr size);
+void *__cdecl FUN_0008d6d0(unsigned int size);
 void __cdecl thunk_FUN_00267090(void *p);
 void *thunk_FUN_0008d690(unsigned int size);
 int __cdecl FUN_00267760(char *buf, int n, const char *fmt, ...);

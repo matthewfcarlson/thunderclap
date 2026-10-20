@@ -19,7 +19,7 @@ void FUN_0021f8c0(void *dst, int size, Reader *r);
 void FUN_0021f800(Reader *r, const char *msg);
 char *FUN_0021a6b0(State *L, Buffer *buf, hulk_uintptr n);
 int FUN_0021a610(Zio *z, char *dst, hulk_uintptr n);
-Str *FUN_00219430(State *L, const char *s, hulk_uintptr len);
+Str *FUN_00219430(State *L, const char *s, unsigned int len);
 
 // equiv-conv: FUN_0021fa80 eax
 Str *FUN_0021fa80(Reader *r)

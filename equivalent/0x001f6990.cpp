@@ -1,11 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
 // FUN_001f6990 @ 0x001f6990
-#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
-void *FUN_0008d690(hulk_uintptr size);
+void *FUN_0008d690(unsigned int size);
 void *FUN_0008d710(unsigned int size, int tag);
 
 template <class T> struct TypeName;

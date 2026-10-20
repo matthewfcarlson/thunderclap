@@ -2,7 +2,7 @@
 // FUN_002f9990 @ 0x002f9990
 #include "compat/ptr.h"
 struct Elem_2f9990 { int a, b, c, d; };
-void *__cdecl FUN_0008d6d0(hulk_uintptr n);
+void *__cdecl FUN_0008d6d0(unsigned int n);
 Elem_2f9990 *__cdecl FUN_002f95f0(Elem_2f9990 *first, hulk_intptr count, Elem_2f9990 *dest);
 
 struct Vec_2f9990 {

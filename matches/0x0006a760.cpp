@@ -1,4 +1,3 @@
-#include "compat/ptr.h"
 #include "gen/global.h"
 
 class A_6a760 {
@@ -14,7 +13,7 @@ class D {
   public:
     int Run(COrientTargetTrack*, void*, int);
 };
-extern void* __cdecl FUN_0008d690(hulk_uintptr);
+extern void* __cdecl FUN_0008d690(unsigned int);
 extern D* __cdecl FUN_0001fc60(void*);
 
 int COrientTargetTrack::vfunc_12(int __p0) { void * p = (void *)__p0;

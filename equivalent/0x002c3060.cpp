@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 24/24)
 // FUN_002c3060 @ 0x002c3060
-#include "compat/ptr.h"
 namespace pure3d { struct Geometry; }
 struct Ref_2c3060 {
  virtual void AddRef();
@@ -12,7 +11,7 @@ struct Ref_2c3060 {
  void FUN_002a6930(pure3d::Geometry*);
 };
 struct Helper_2c3060 : Ref_2c3060 { Helper_2c3060* FUN_002d1090(pure3d::Geometry*); };
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned int);
 struct Base_2c3060 {
  virtual void slot0();
  char padding[0x54];

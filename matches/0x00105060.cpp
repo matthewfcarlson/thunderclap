@@ -1,10 +1,9 @@
-#include "compat/ptr.h"
 class Obj_105060 {
   public:
     virtual void A();
     virtual void B();
 };
-extern void thunk(hulk_uintptr);
+extern void thunk(unsigned int);
 extern void thunk2(void*);
 extern void* g_vft_105060;
 class Base_105060 {

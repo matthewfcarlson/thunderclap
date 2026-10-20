@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_003fc10c[];
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned int);
 struct Obj_75c70 {
     int pad0[5];
     void Init();

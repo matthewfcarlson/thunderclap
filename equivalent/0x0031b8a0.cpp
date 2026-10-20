@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 6/6)
 // pure3d::d3dDevice::vfunc_9 @ 0x0031b8a0
-#include "compat/ptr.h"
-void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d690(unsigned int);
 struct Params { int a,b,c,d,e,f,g,h; unsigned char extended; };
 struct Surface_31b8a0 {
  virtual void slot0();

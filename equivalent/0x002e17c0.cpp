@@ -5,7 +5,7 @@ struct Mat_2e17c0 {
     char d[64];
 };
 
-void *__cdecl FUN_0008d6d0(hulk_uintptr n);
+void *__cdecl FUN_0008d6d0(unsigned int n);
 
 struct MatVec {
     char pad0[8];

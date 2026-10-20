@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002fc990 @ 0x002fc990
-#include "compat/ptr.h"
 namespace content {
 namespace LoadInventory {
 template <class T>
@@ -24,7 +23,7 @@ public:
     virtual void *get(void *caster, unsigned int lo, unsigned int hi);
 };
 
-void *__cdecl FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d690(unsigned int size);
 
 struct Body_2fc990 {
     char data[0x18];

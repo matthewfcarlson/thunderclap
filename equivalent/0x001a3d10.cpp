@@ -2,7 +2,7 @@
 // FUN_001a3d10 @ 0x001a3d10
 #include "compat/ptr.h"
 int __cdecl FUN_0008d340(void *p);
-void * __cdecl FUN_0008d6d0(hulk_uintptr size);
+void * __cdecl FUN_0008d6d0(unsigned int size);
 struct Object {
     char padding[0xc0];
     char *name;

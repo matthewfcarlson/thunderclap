@@ -14,7 +14,7 @@ class Entity_164db0 {
 class Factory_164db0 : public Entity_164db0 {
     char pad[12];
 };
-extern void* __cdecl FUN_0008d690(hulk_uintptr);
+extern void* __cdecl FUN_0008d690(unsigned int);
 class Init_164db0 {
   public:
     void InitIt(int);

@@ -1,8 +1,7 @@
 // Same code shape as 0x000694c0 (propagated; names are from that function)
-#include "compat/ptr.h"
 #include "gen/global.h"
 
-extern void* __cdecl FUN_0008d690(hulk_uintptr);
+extern void* __cdecl FUN_0008d690(unsigned int);
 class Helper_69d70 {
   public:
     int FUN_000190a0(CAutoTargetTrack*, int);

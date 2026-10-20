@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_004166d8[];
-extern void* __cdecl FUN_0008d690(hulk_uintptr);
+extern void* __cdecl FUN_0008d690(unsigned int);
 class VelocityYCondition_16d5a0 {
   public:
     virtual void dummy();

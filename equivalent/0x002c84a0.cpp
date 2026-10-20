@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 21 inputs, branch coverage 18/18)
 // FUN_002c84a0 @ 0x002c84a0
-#include "compat/ptr.h"
-void* __cdecl FUN_0008d6d0(hulk_uintptr);
+void* __cdecl FUN_0008d6d0(unsigned int);
 namespace pure3d {
 struct VertexOffsetList {
  virtual void destroy();

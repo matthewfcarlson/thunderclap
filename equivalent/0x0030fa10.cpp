@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 30/30)
 // FUN_0030fa10 @ 0x0030fa10
-#include "compat/ptr.h"
 struct Mat;
 
 struct Elem_30fa10 {
@@ -33,7 +32,7 @@ struct Source_30fa10 {
     void FUN_00284820(int flag);
 };
 
-void *__cdecl FUN_0008d6d0(hulk_uintptr size);
+void *__cdecl FUN_0008d6d0(unsigned int size);
 void __cdecl FUN_0008d340(void *p);
 void __fastcall FUN_0030eba0(void *self);
 void __stdcall FUN_00011520(void *base, unsigned int size, int count, void *ctor);

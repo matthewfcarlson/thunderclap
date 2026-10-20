@@ -1,4 +1,3 @@
-#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" void _ReadWriteBarrier();
@@ -7,7 +6,7 @@ class Child {
     Child();
 };
 extern char VT_12af80[];
-extern void* __cdecl FUN_0008d690(hulk_uintptr);
+extern void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::AcquireTargetTrack>::vfunc_5() {
     Child* p = (Child*)FUN_0008d690(0x2c);

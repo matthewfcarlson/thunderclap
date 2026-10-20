@@ -2,8 +2,8 @@
 // FUN_002e6340 @ 0x002e6340
 #include "compat/ptr.h"
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(hulk_uintptr size);
-void* FUN_0008d6d0(hulk_uintptr size);
+void* FUN_0008d690(unsigned int size);
+void* FUN_0008d6d0(unsigned int size);
 extern "C" void* memset(void* dst, int c, unsigned int n);
 
 struct Stream {

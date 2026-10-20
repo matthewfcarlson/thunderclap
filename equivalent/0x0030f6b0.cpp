@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 12/12)
 // FUN_0030f6b0 @ 0x0030f6b0
-#include "compat/ptr.h"
-void* __cdecl FUN_0008d6d0(hulk_uintptr);
+void* __cdecl FUN_0008d6d0(unsigned int);
 void __cdecl FUN_0030eba0();
 void __stdcall FUN_00011520(void*, unsigned int, int, void (__cdecl*)());
 struct Node {

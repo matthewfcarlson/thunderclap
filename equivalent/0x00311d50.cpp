@@ -61,7 +61,7 @@ static inline void **VtableOf(Bone_311d50 *b)
     return *(void ***)b;
 }
 
-void *FUN_0008d6d0(hulk_uintptr size);
+void *FUN_0008d6d0(unsigned int size);
 void *FUN_00266e00(int kind, unsigned int size);
 void FUN_00267090(void *p);
 void FUN_00311c20(Bone_311d50 **first, Bone_311d50 **last, hulk_intptr n);
