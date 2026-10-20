@@ -473,6 +473,36 @@ shards, merged), `tr1-G` (the 61 later one-shot targets, boot to s3) under `buil
 `replay-equivalent.json`. `equiv_confidence.py` reads them like any session. The `// STATUS:` line in `equivalent/` stays
 the fuzz result: nothing in this repo writes trace results into the headers; the tier file carries them.
 
+#### Follow-up (fx23, 2026-10-20): the disagreements fixed, stale results refreshed
+
+All three real disagreements came from the **layout of our locals**, not from the logic. The replay places what a callee
+wrote into the caller's frame relative to the pointer it was given, so ours must lay the objects out as the original does
+(a callee's write to one local must not land on a neighbour, and a write placed relative to another pointer must hit the
+same local):
+- 0x0001b280: the callee 0x0001b170 fills `limit, axis, target` through three pointers; the original has them in that
+  order at consecutive addresses and ours had `limit, target, axis`, so `target` stayed 0 and ours returned early (one call
+  fewer). A `struct { float limit; int axis; Object *target; }` local gives the original's layout. 10/10 agree.
+- 0x0015f6b0: a recorded write into `ex` (the first `Vec3::FUN_0022d290` result) is keyed to `&axis + 40`; the original
+  has a 4-byte slot between `v90` and `ex`, ours had none, so the write missed `ex` and `qA.FUN_0022b170` read 0x5a5a5a5a.
+  Making `adz` addressable (`(*(volatile float*)&adz);`) adds the slot (the frame grows from 0x10c to 0x110 bytes, a
+  difference from the original). 7/7 agree; branch coverage is now 122/122.
+- 0x000aa680: the 8-byte write by 0x000a04c0 through `&a` (`a` and `b` adjacent in the original) overran into our `dist`
+  because `b` lay 8 bytes away from `a`; `dist` became 27.5 instead of 118 and key 5 got the wrong time. `struct { float a, b; }`
+  with reference aliases makes them adjacent. 7/7 agree.
+- 0x000ef030, 0x0024d840, 0x0028faa0 (the chained-call fixes of 7553f51f) agree on every session at HEAD (15/15, 6/6,
+  26/26 on `tr1` plus the segments); 0x000f6530 and 0x002a4b00 agree on all `tr1*` sessions at HEAD (the old tier 0 came
+  from before round 12).
+
+Sources for the first three are in `build/farm/bench/claude-equiv/pass/` for the 20000-input promotion.
+
+Refresh of the stale results: the equivalents whose source changed since a session result was made were replayed at HEAD
+on mac2, one in-process process per shard (no fork pool): 672 functions captured in the `tr1*` sessions (610 agreed, 12
+`no_replay`, 50 `unsupported`, no mismatch) and 605 captured in the older sessions (`g-play2`, `p*`, `s2`, `x-*`, ...,
+copied to mac2 for this; 532 agreed, 23 `no_replay`, 50 `unsupported`, no mismatch; 14 more were not captured in any session
+on that host). The results are in `build/traces/replay-fn-mac2.json` and `replay-fn-mac2old.json`; with them
+`equiv_confidence.py` gives tier 3 on 2,729 of the 5,201 sources (was 2,646), tier 0 only on the three still-unpromoted fixes
+plus the four excluded ones.
+
 ### A second host for xemu (mac2)
 
 Set up like mac1, in `~/hulk-tr1`, without touching the existing `~/hulk-permute` there:
