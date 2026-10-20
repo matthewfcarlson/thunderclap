@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 extern "C" int __cdecl Fetch(void* p, float* out);
 struct Input_217600 {
     int type;
-    int data;
+    hulk_intptr data;
 };
 struct Output_217600 {
     int type;

@@ -5,7 +5,7 @@ class Obj {
     char text[1];
 
   public:
-    char Match(const char*, const char*, int);
+    char Match(const char*, const char*, hulk_intptr);
     char* Find(const char*);
 };
 char* Obj::Find(const char* name) {

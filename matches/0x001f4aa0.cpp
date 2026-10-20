@@ -4,7 +4,7 @@
 extern "C" char DAT_00424b2c[];
 class Obj_1f4aa0 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     char pad4[0xc];
     char b10;
     char b11;
@@ -13,7 +13,7 @@ class Obj_1f4aa0 {
     char pad14[4];
     char b18;
     char pad19[3];
-    int m1c;
+    hulk_intptr m1c;
     Obj_1f4aa0(char*, char*);
 };
 struct ThisCall_001d0480 {

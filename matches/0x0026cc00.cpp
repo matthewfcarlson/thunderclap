@@ -7,8 +7,8 @@ extern "C" char DAT_0042b364[];
 extern "C" char DAT_0042b36c[];
 typedef unsigned int u32_26cc00;
 struct MemoryDlAllocator {
-    volatile u32_26cc00 vptr;
-    volatile u32_26cc00 vptr2;
+    volatile hulk_uintptr vptr;
+    volatile hulk_uintptr vptr2;
     volatile u32_26cc00 member;
     void Init();
 };

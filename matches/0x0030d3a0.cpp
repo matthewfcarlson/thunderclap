@@ -13,7 +13,7 @@ class PhysicsJoint0D_30d3a0 {
     void* vptr;
     char pad1[0x20 - 4];
     int m20;
-    int m24;
+    hulk_intptr m24;
     char pad2[0x48 - 0x28];
     Sub_30d3a0 m48;
     char pad3[0x64 - 0x49];

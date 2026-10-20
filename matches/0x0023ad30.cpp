@@ -5,7 +5,7 @@ struct Owner_23ad30 {
     char pad1[8];
     bool Run(int, char*, int);
 };
-extern void __cdecl FUN_00267880(char*, int, int);
+extern void __cdecl FUN_00267880(char*, hulk_intptr, int);
 bool Owner_23ad30::Run(int index, char* out, int arg) {
     if (index < 0 || index >= count)
         return false;

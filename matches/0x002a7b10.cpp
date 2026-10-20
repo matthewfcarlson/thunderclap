@@ -2,14 +2,14 @@
 extern "C" char DAT_0042db8c[];
 class SceneGraphTransformAnimationController {
   public:
-    unsigned int vf;
+    hulk_uintptr vf;
     char pad[0x10c];
     int field;
     SceneGraphTransformAnimationController* vfunc_4();
     void copy(SceneGraphTransformAnimationController*);
     void initialize(int);
 };
-extern "C" void* alloc(unsigned int);
+extern "C" void* alloc(hulk_uintptr);
 
 SceneGraphTransformAnimationController* SceneGraphTransformAnimationController::vfunc_4() {
     SceneGraphTransformAnimationController* p = (SceneGraphTransformAnimationController*)alloc(0x118);

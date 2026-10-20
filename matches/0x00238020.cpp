@@ -1,9 +1,9 @@
 #include "compat/ptr.h"
 typedef unsigned int u32_238020;
-extern void* Alloc(unsigned int);
+extern void* Alloc(hulk_uintptr);
 class Builder {
   public:
-    u32_238020 Run(u32_238020, u32_238020, u32_238020, u32_238020, void*, u32_238020, u32_238020);
+    u32_238020 Run(u32_238020, hulk_uintptr, u32_238020, u32_238020, void*, u32_238020, u32_238020);
 };
 class Track {
   public:

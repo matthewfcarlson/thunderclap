@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 struct Obj_2f2e20 {
-    int Init();
+    hulk_intptr Init();
     void Existing();
 };
 extern Obj_2f2e20* gThing_2f2e20;

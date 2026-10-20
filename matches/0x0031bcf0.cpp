@@ -6,7 +6,7 @@ extern void __cdecl FreeArray(void*);
 
 class d3dPrimStream {
   public:
-    int vtable;
+    hulk_intptr vtable;
     char pad[0x128];
     void** resources;
 };

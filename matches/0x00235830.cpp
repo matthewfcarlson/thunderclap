@@ -4,7 +4,7 @@ struct Sub_235830 {
     void Init();
 };
 struct ParamValueConditionGroup {
-    int vptr;
+    hulk_intptr vptr;
     char pad[4];
     Sub_235830 sub;
     ParamValueConditionGroup* vfunc_0(int);

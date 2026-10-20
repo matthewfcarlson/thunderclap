@@ -28,9 +28,9 @@ class Owner_222ee0 {
     char pad[0x68];
     unsigned count;
     Entry_222ee0 entries[1];
-    int target(int index);
+    hulk_intptr target(int index);
 };
-int Owner_222ee0::target(int index) {
+hulk_intptr Owner_222ee0::target(int index) {
     int found = 0;
     for (unsigned i = 0; i < count; ++i) {
         Entry_222ee0* e = &entries[i];

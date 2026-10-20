@@ -28,9 +28,9 @@ struct Q_2f7b70 {
 };
 class H {
   public:
-    void F(O_2f7b70* p, int a3, int a4, int a5, int a6, int a7);
+    void F(O_2f7b70* p, int a3, int a4, hulk_intptr a5, int a6, int a7);
 };
-void H::F(O_2f7b70* p, int a3, int a4, int a5, int a6, int a7) {
+void H::F(O_2f7b70* p, int a3, int a4, hulk_intptr a5, int a6, int a7) {
     if (p) {
         p->v17(a4, (hulk_intptr)this + 0x24, a3, a6, a7);
         p->v20(a4, a5, a3, a6, a7);

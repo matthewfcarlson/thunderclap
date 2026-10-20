@@ -1,4 +1,5 @@
-extern "C" int Alloc(int, int);
+#include "compat/ptr.h"
+extern "C" hulk_intptr Alloc(hulk_intptr, int);
 extern "C" int gValue_2702a0;
 class Obj_2702a0 {
   public:

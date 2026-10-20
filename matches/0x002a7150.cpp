@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern float __cdecl FUN_002899e0(float*, float*, float, float, int, int, bool, int);
 class Item_2a7150 {
   public:
@@ -18,7 +19,7 @@ class Item_2a7150 {
 struct Vec_2a7150 {
     Item_2a7150** begin;
     Item_2a7150** end;
-    unsigned size() const { return end - begin; }
+    hulk_uintptr size() const { return end - begin; }
     Item_2a7150* at(unsigned i) const { return begin[i]; }
 };
 class PC_2a7150 {

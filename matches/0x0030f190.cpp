@@ -2,7 +2,7 @@
 #include "compat/ptr.h"
 struct Sub_30f190 {
     char pad[0x10];
-    void f(int);
+    void f(hulk_intptr);
 };
 struct C_30f190 {
     char pad[0x40];

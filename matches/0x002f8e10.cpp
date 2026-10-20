@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Inner_2f8e10 {
   public:
     virtual void f0();
@@ -13,7 +14,7 @@ class Outer_2f8e10 {
     char pad0[4];
     Inner_2f8e10* inner;
     char pad8[12];
-    int value;
+    hulk_intptr value;
     bool target(void** out1, int** out2);
 };
 bool Outer_2f8e10::target(void** out1, int** out2) {

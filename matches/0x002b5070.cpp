@@ -1,4 +1,5 @@
-extern "C" void* alloc(unsigned int);
+#include "compat/ptr.h"
+extern "C" void* alloc(hulk_uintptr);
 class ShadowMeshVertices {
   public:
     virtual ~ShadowMeshVertices();

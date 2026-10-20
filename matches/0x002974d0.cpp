@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 class Helper_2974d0 {
   public:
-    int call(pure3d::scenegraph::TransformNode*);
+    hulk_intptr call(pure3d::scenegraph::TransformNode*);
 };
 extern void* __cdecl alloc(int);
 

@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 struct CSPManager_1df130 {
-    int FUN_001def30(int);
+    hulk_intptr FUN_001def30(int);
     int FUN_001d7100(int);
     int FUN_001df130(int);
 };

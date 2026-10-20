@@ -5,7 +5,7 @@ extern U_2d4350 vt2_2d4350;
 void drop(U_2d4350);
 class Obj_2d4350 {
   public:
-    U_2d4350 vptr;
+    hulk_uintptr vptr;
     U_2d4350 x[3];
     U_2d4350 a[8];
     void f();

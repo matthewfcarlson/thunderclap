@@ -3,7 +3,7 @@
 
 struct Matrix {
     unsigned int data[16];
-    void FUN_0022c3b0(unsigned int, unsigned int);
+    void FUN_0022c3b0(hulk_uintptr, hulk_uintptr);
     void FUN_0022c2b0(unsigned int, unsigned int);
 };
 struct Object {

@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 struct SimulatedObject {
-    int vptr;
+    hulk_intptr vptr;
     char pad04[12];
     int field10;
     char pad14[4];

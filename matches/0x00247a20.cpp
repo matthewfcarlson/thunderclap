@@ -2,7 +2,7 @@
 class Obj_247a20 {
   public:
     int Check();
-    void Start(int, int);
+    void Start(hulk_intptr, int);
 };
 class State_247a20 {
   public:

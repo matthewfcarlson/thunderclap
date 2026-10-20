@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 extern "C" char DAT_0042d9dc[];
 typedef unsigned int u32_2a6c00;
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 class ProceduralVertexAnimController {
   public:
     virtual void a0();

@@ -5,7 +5,7 @@ class Base_2a30a0 {
   public:
     Base_2a30a0();
 };
-void* Alloc(unsigned int);
+void* Alloc(hulk_uintptr);
 class Manager_2a30a0 {
   public:
     virtual void a();

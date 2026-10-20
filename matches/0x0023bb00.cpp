@@ -6,7 +6,7 @@ class Arg_23bb00 {
 extern int table_23bb00;
 class StreamDataReader {
   public:
-    int vf;
+    hulk_intptr vf;
     int a;
     Arg_23bb00* p;
     int q;

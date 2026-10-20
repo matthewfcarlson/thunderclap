@@ -30,7 +30,7 @@ namespace physics { class CollisionObject {
     char pad10[0x1c];
     int field20;
     char pad24[12];
-    int field30;
+    hulk_intptr field30;
     char pad34[4];
 }; }
 void __cdecl freeA(void*);

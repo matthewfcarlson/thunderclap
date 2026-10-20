@@ -2,7 +2,7 @@
 #include "gen/core.h"
 
 typedef unsigned int uint;
-extern int __cdecl FUN_0026fd50(int, int);
+extern int __cdecl FUN_0026fd50(hulk_intptr, int);
 
 int core::XboxSaveDrive::vfunc_5(int __p0, int param3) { int * param2 = (int *)__p0;
 

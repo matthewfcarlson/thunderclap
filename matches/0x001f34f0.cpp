@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_1f34f0;
 struct H {
     void Run();
@@ -10,7 +11,7 @@ class Obj_1f34f0 {
   public:
     char p0[4];
     int b;
-    int c;
+    hulk_intptr c;
     char p1[4];
     int d;
     char e;

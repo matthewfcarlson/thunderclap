@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct Geometry_nv_2c3140 {
-    int run(pure3d::Geometry*);
+    hulk_intptr run(pure3d::Geometry*);
 };
 extern void* __cdecl thunk_FUN_0008d690(unsigned int);
 

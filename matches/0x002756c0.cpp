@@ -2,7 +2,7 @@
 extern "C" char DAT_0042bb60[];
 class DriveOpenRequest {
   public:
-    int vptr;
+    hulk_intptr vptr;
     void Init(int);
     DriveOpenRequest(int);
 };

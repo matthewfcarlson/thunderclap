@@ -6,7 +6,7 @@ class Part_235460 {
 };
 namespace fight { class ParamValueStringList {
   public:
-    int vt;
+    hulk_intptr vt;
     int pad;
     Part_235460 part;
     ParamValueStringList* vfunc_0(int);

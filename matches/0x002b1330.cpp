@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 struct E_2b1330 {
     char b[16];
 };
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 extern "C" void __cdecl Init(void*, unsigned int, void*);
 class Buffer_2b1330 {
   public:

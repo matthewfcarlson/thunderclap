@@ -5,7 +5,7 @@ typedef unsigned int U_23e880;
 extern void* __cdecl FUN_0008d690(int);
 class Helper_23e880 {
   public:
-    U_23e880 FUN_0023e610(U_23e880, U_23e880, U_23e880, U_23e880);
+    U_23e880 FUN_0023e610(U_23e880, hulk_uintptr, U_23e880, U_23e880);
 };
 
 int fight::StopTrack::vfunc_10(int __p0, int __p1, int __p2) { U_23e880 a = (U_23e880)__p0; U_23e880 b = (U_23e880)__p1; U_23e880 c = (U_23e880)__p2;

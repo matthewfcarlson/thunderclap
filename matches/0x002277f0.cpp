@@ -2,7 +2,7 @@
 struct E_2277f0 {
     int x, y, z;
 };
-extern void __cdecl FUN_002273d0(E_2277f0* first, int hole, int len, E_2277f0 v);
+extern void __cdecl FUN_002273d0(E_2277f0* first, hulk_intptr hole, hulk_intptr len, E_2277f0 v);
 void __cdecl FUN_002277f0(E_2277f0* first, E_2277f0* last) {
     hulk_intptr len = last - first;
     hulk_intptr parent = len / 2;

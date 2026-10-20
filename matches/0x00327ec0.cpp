@@ -1,4 +1,5 @@
-extern "C" void* __cdecl Alloc(unsigned int);
+#include "compat/ptr.h"
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 class Obj {
   public:
     Obj* init(int) throw();

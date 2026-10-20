@@ -9,7 +9,7 @@ class Helper_3122a0 {
 struct ArticulatedPhysicsObject_nv_3122a0 {
     void Setup(void*, unsigned int);
 };
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 
 void* physics::ArticulatedPhysicsObject::vfunc_28(unsigned int a) {
     void* p = alloc(0x238);

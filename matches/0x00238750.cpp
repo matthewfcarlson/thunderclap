@@ -2,10 +2,10 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_004281f0[];
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 class Obj {
   public:
-    int vf;
+    hulk_intptr vf;
     int a;
     int b;
     int c;

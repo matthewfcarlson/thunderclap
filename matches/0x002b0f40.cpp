@@ -2,7 +2,7 @@
 extern int g_vtable_2b0f40;
 class VertexOffsetExpressionMixerLoader {
   public:
-    int m0;
+    hulk_intptr m0;
     int m4;
     int m8;
     int mC;

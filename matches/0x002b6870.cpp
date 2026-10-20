@@ -2,7 +2,7 @@
 extern "C" char DAT_0042e634[];
 class ShadowSkinLoader {
   public:
-    int v;
+    hulk_intptr v;
     int a;
     int b;
     int c;

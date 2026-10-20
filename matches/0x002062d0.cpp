@@ -1,8 +1,8 @@
 #include "compat/ptr.h"
 extern "C" char DAT_00425c28[];
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 struct Loader_2062d0 {
-    unsigned int vptr;
+    hulk_uintptr vptr;
     int a;
     int b;
     int c;

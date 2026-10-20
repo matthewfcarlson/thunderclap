@@ -24,7 +24,7 @@ struct B_214050 {
     char pad[0x5c];
     int mIdx;
 };
-int Lookup(Rec_214050* r, int x, int y);
+int Lookup(Rec_214050* r, int x, hulk_intptr y);
 void Apply(A_214050* a, int* p);
 int Fn(A_214050* a, B_214050* b, int x) {
     int n = 0;

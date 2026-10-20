@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 class Obj_27d3e0 {
   public:
-    int call(pure3d::prop::StateProp*);
+    hulk_intptr call(pure3d::prop::StateProp*);
 };
 extern void* __cdecl thunk_FUN_0008d690(int);
 

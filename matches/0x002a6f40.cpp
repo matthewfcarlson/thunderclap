@@ -7,7 +7,7 @@ struct R_2a6f40 {
     virtual void f0();
     virtual void f1();
 };
-extern R_2a6f40* Cast(u32_2a6f40, int, Type*, Type*, int);
+extern R_2a6f40* Cast(hulk_uintptr, int, Type*, Type*, int);
 extern Type entityType;
 extern Type geometryType;
 

@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 extern int vt1_299cd0;
-extern void* Alloc(unsigned) throw();
+extern void* Alloc(hulk_uintptr) throw();
 struct Buf_299cd0 {
     char* b;
     char* e;

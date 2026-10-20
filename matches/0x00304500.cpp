@@ -1,5 +1,5 @@
 #include "compat/ptr.h"
-void FUN_00304370(int, int, int);
+void FUN_00304370(hulk_intptr, hulk_intptr, int);
 struct Thing_304500 {
     int* a;
     int* b;

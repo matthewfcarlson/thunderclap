@@ -1,9 +1,10 @@
 // FUN_00236ac0 @ 0x00236ac0
+#include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 
 typedef unsigned __int64 Key_236ac0;
 extern "C" int __cdecl FUN_00238190(int);
-extern "C" int __cdecl FUN_00266da0(int);
+extern "C" int __cdecl FUN_00266da0(hulk_intptr);
 extern "C" Key_236ac0 __cdecl FUN_002672f0(int, int, int);
 struct Node { char pad[16]; Node* next; int FUN_002367f0(Key_236ac0); };
 struct List_236ac0 { Node* first; };

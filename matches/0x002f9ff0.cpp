@@ -2,7 +2,7 @@
 struct Item_2f9ff0 {
     void f(int);
 };
-extern "C" int __cdecl FUN_002f9ff0(Item_2f9ff0* p, int count, int b) {
+extern "C" hulk_intptr __cdecl FUN_002f9ff0(Item_2f9ff0* p, int count, int b) {
     if (count != 0) {
         int n = count;
         Item_2f9ff0* q = p;

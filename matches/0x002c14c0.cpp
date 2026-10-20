@@ -2,7 +2,7 @@
 extern int gVtable_2c14c0;
 class LightGroupLoader {
   public:
-    int vf;
+    hulk_intptr vf;
     int a;
     int b;
     int c;

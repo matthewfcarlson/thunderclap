@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 struct R {
     char pad[0xcd];
     char f;
 };
 struct ThisWrap_001fcb70 {
-    int FUN_001fc7f0(unsigned int);
+    hulk_intptr FUN_001fc7f0(unsigned int);
     char FUN_001fcb70(unsigned int x);
 };
 char ThisWrap_001fcb70::FUN_001fcb70(unsigned int x) {

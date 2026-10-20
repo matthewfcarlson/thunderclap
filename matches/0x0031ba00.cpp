@@ -3,7 +3,7 @@
 extern "C" char DAT_004324e4[];
 typedef unsigned int u32_31ba00;
 struct Device_31ba00 {
-    u32_31ba00 vftable;
+    hulk_uintptr vftable;
     char pad4[8];
     u32_31ba00 fieldC;
     u32_31ba00 field10;

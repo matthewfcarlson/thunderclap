@@ -8,7 +8,7 @@ extern char vtLoad_266900[];
 extern char vtRef_266900[];
 namespace content { class LoadRequest {
   public:
-    int vt;
+    hulk_intptr vt;
     char p[0x14];
     Ref_266900* a;
     Ref_266900* c;

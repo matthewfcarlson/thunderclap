@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 typedef unsigned int u32_2dea00;
-void* alloc(u32_2dea00);
+void* alloc(hulk_uintptr);
 class Init_2dea00 {
   public:
     void* run();

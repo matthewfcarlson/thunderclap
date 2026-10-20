@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 class Allocated_29a170 {
   public:
-    int method(pure3d::CompositeDrawable*);
+    hulk_intptr method(pure3d::CompositeDrawable*);
 };
 extern Allocated_29a170* alloc(int);
 

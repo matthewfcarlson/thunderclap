@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 class Helper_297080 {
   public:
-    int run(pure3d::scenegraph::DrawableNode*);
+    hulk_intptr run(pure3d::scenegraph::DrawableNode*);
 };
 extern void* __cdecl alloc(int);
 

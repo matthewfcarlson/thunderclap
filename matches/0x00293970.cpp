@@ -2,7 +2,7 @@
 #include "gen/pure3d.h"
 
 typedef unsigned int U_293970;
-extern U_293970 __cdecl Query(U_293970, U_293970, const void*, const void*, U_293970);
+extern U_293970 __cdecl Query(hulk_uintptr, U_293970, const void*, const void*, U_293970);
 extern char CameraRTTI;
 extern char EntityRTTI_293970;
 struct CameraAnimationController_nv_293970 {

@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 inline void* operator new(unsigned int, void* p) {
     return p;
 }

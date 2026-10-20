@@ -5,7 +5,7 @@ struct SceneGraphVisibilityAnimationController_nv_2a7c30 {
     void init(pure3d::SceneGraphVisibilityAnimationController*);
     void setup(int);
 };
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 extern int vtable_2a7c30;
 
 void* pure3d::SceneGraphVisibilityAnimationController::vfunc_4() {

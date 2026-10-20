@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
-extern "C" int __cdecl GetThing() throw();
+extern "C" hulk_intptr __cdecl GetThing() throw();
 extern "C" void __cdecl Func(void*) throw();
 class Base_25a2c0 {
   public:

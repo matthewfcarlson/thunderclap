@@ -2,7 +2,7 @@
 #include "gen/pure3d.h"
 
 extern "C" char DAT_0042da6c[];
-void* __cdecl alloc(unsigned int);
+void* __cdecl alloc(hulk_uintptr);
 
 class Base_2a6e80 {
   public:

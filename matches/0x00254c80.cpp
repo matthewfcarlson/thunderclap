@@ -17,7 +17,7 @@ class Repeat : public Base {
     char pad[4];
     Seq* seq;
     int zero;
-    int val;
+    hulk_intptr val;
     int count;
     Repeat(Seq*);
 };

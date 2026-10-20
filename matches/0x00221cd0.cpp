@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 struct Sub_221cd0 {
     char pad[0x10];
-    void f(int);
+    void f(hulk_intptr);
 };
 struct C_221cd0 {
     char pad[0x40];

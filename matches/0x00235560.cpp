@@ -6,7 +6,7 @@ class Part_235560 {
 };
 class ParamValueEnum_235560 {
   public:
-    int vt;
+    hulk_intptr vt;
     int pad;
     Part_235560 part;
     ParamValueEnum_235560* vfunc_0(int);

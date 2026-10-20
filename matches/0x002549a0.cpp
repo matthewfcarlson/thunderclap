@@ -10,7 +10,7 @@ class SeqEvent {
 };
 class SeqActionSilence {
   public:
-    int vf;
+    hulk_intptr vf;
     int pad4;
     void* owner;
     int a;

@@ -1,9 +1,10 @@
 // Same code shape as 0x00297130 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 class Obj_2d3d00 {
   public:
-    int helper(pure3d::ParticleSphereGenerator*);
+    hulk_intptr helper(pure3d::ParticleSphereGenerator*);
 };
 extern Obj_2d3d00* alloc(int);
 

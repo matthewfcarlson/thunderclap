@@ -13,7 +13,7 @@ class Elem_274d80 {
 };
 extern void FUN_002705f0();
 struct Target_274d80 {
-    int vf, p4, p8;
+    hulk_intptr vf, p4, p8;
     Obj_274d80* pC;
     Obj_274d80* p10;
     int p14;

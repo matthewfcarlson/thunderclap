@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 class A_307810 {
   public:
     char pad[0x284];
-    int member;
+    hulk_intptr member;
     void First();
     void Last();
 };

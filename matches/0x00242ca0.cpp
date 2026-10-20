@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_242ca0;
 struct Item_242ca0 {
     char pad[0x10];
     int member;
     char pad2[0x0c];
-    int at20;
+    hulk_intptr at20;
 };
 extern void f1(void*, Item_242ca0*);
 extern void f2(void*, void*);

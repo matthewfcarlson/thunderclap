@@ -37,7 +37,7 @@ struct CameraAnimationController {
     void init(CameraAnimationController*);
     void finish(u32_293910);
 };
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 extern u32_293910 camera_vtable_293910;
 CameraAnimationController* CameraAnimationController::f4() {
     CameraAnimationController* p = (CameraAnimationController*)alloc(0x118);

@@ -3,7 +3,7 @@ extern "C" char DAT_0042d1ec[];
 typedef unsigned int u32_295c70;
 class Base_295c70 {
   public:
-    u32_295c70 vf;
+    hulk_uintptr vf;
     char pad[4];
     void Init();
 };

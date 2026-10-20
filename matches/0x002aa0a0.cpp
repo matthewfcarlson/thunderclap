@@ -1,4 +1,5 @@
-extern void* __cdecl alloc(unsigned int);
+#include "compat/ptr.h"
+extern void* __cdecl alloc(hulk_uintptr);
 inline void* operator new(unsigned int, void* where) {
     return where;
 }

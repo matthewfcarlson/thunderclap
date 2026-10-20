@@ -4,7 +4,7 @@
 extern "C" char DAT_004298fc[];
 class SeqAction {
   public:
-    int mVptr;
+    hulk_intptr mVptr;
 };
 extern void Register(void*, void*);
 class SeqActionVarPitchRand : public SeqAction {

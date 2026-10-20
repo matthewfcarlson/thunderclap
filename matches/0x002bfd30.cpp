@@ -5,7 +5,7 @@ struct Image32_nv_2bfd30 {
     void Finish();
 };
 struct Image_2bfd30 {
-    int vf;
+    hulk_intptr vf;
     char pad[0x20];
     int m24;
 };

@@ -3,7 +3,7 @@
 
 extern "C" char DAT_00431d1c[];
 typedef unsigned int u32_3094a0;
-extern void* alloc(unsigned int);
+extern void* alloc(hulk_uintptr);
 struct Obj_3094a0 {
     void init();
 };

@@ -5,7 +5,7 @@
 extern "C" char DAT_00423438[];
 class Method4_1e08c0 {
   public:
-    int vtable;
+    hulk_intptr vtable;
     char pad4[0xc];
     unsigned char a10, a11, a12, a13;
     char pad14[4];

@@ -5,7 +5,7 @@ struct Item_3371b0 {
     void Init();
 };
 struct Obj_3371b0 {
-    unsigned int v;
+    hulk_uintptr v;
     char pad[0x44];
     Item_3371b0 items[0x18];
     void Finish();

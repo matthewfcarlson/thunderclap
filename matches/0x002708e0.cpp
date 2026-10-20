@@ -8,8 +8,8 @@ extern "C" char DAT_0042b6b0[];
 extern int gValue_2708e0;
 class ControllerBuffer {
   public:
-    int vptr;
-    int vptr4;
+    hulk_intptr vptr;
+    hulk_intptr vptr4;
     int ref;
     int enabled;
     int a;

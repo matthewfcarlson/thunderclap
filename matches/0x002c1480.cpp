@@ -2,7 +2,7 @@
 extern "C" char DAT_0042eb44[];
 class LightLoader {
   public:
-    int v;
+    hulk_intptr v;
     int a;
     int b;
     int c;

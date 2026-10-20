@@ -1,9 +1,10 @@
 // Same code shape as 0x00224c60 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 class Helper_2b53c0 {
   public:
-    int run(pure3d::ShadowMeshImpl*);
+    hulk_intptr run(pure3d::ShadowMeshImpl*);
 };
 extern void* thunk_FUN_0008d690(int);
 

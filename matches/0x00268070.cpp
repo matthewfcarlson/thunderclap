@@ -5,7 +5,7 @@ struct Obj_268070 {
 };
 class Timer {
   public:
-    int x0;
+    hulk_intptr x0;
     int x4;
     int x8;
     int xc;

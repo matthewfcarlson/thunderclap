@@ -8,7 +8,7 @@ struct Ctor_001d0480 {
 };
 class Method6_1e0eb0 : public Ctor_001d0480 {
   public:
-    int vp;
+    hulk_intptr vp;
     char p04[0xc];
     char m10;
     char m11;

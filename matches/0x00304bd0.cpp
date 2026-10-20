@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 struct Node;
 struct Vec_304bd0 {
     Node** b;
     Node** e;
-    int bytes() { return (char*)e - (char*)b; }
-    unsigned size() { return e - b; }
+    hulk_intptr bytes() { return (char*)e - (char*)b; }
+    hulk_uintptr size() { return e - b; }
 };
 struct Node {
     char p0[8];

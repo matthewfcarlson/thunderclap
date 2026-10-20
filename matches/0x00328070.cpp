@@ -1,4 +1,5 @@
-extern "C" void* __cdecl Alloc(int size);
+#include "compat/ptr.h"
+extern "C" void* __cdecl Alloc(hulk_intptr size);
 
 struct Obj {
     char data[0x98];

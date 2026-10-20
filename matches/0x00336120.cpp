@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" unsigned strlen(const char*);
 inline void copy(char* d, const char* s) {
     char c;
@@ -14,7 +15,7 @@ class Source {
 };
 class Heap {
   public:
-    void* Allocate(unsigned, unsigned);
+    void* Allocate(hulk_uintptr, unsigned);
 };
 extern Heap gHeap;
 bool __stdcall Get(char** out, Source* src, int b, int c) {

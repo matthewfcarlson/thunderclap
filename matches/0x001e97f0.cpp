@@ -2,7 +2,7 @@
 extern "C" char DAT_00423f38[];
 extern void* __cdecl FUN_0008d710(unsigned int, unsigned int);
 struct CSoundSequence {
-    unsigned int vt;
+    hulk_uintptr vt;
     unsigned int a;
     unsigned int b;
     unsigned int c;

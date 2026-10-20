@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Base_282790 {
   public:
     virtual void Dummy();
@@ -18,7 +19,7 @@ class CMotionTrail : public Base_282790 {
     void* r;
     CMotionTrail();
 };
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 void CMotionTrail::V() {}
 CMotionTrail::CMotionTrail() {
     a = 0;

@@ -7,7 +7,7 @@ struct LightsChooserCache {
     void target();
     void finish();
 };
-extern void __cdecl thunk_FUN_00267090(int);
+extern void __cdecl thunk_FUN_00267090(hulk_intptr);
 void LightsChooserCache::target() {
     int x = value;
     vftable = (void*)((hulk_intptr)DAT_0042d604);

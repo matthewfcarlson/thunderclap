@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned char u8;
 typedef unsigned int u32_29b3a0;
 void ReleaseThing(void* p);
@@ -24,7 +25,7 @@ class TextString {
     char pad[0x3c];
     Base_29b3a0* mBase;
     char p44[4];
-    u32_29b3a0 mThing;
+    hulk_uintptr mThing;
     char p4c[4];
     u8 mFlag;
     void cleanup();

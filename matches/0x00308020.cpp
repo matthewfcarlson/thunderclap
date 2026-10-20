@@ -2,7 +2,7 @@
 extern "C" char DAT_00431c90[];
 class CollisionObjectLoader {
   public:
-    unsigned v;
+    hulk_uintptr v;
     unsigned a;
     unsigned b;
     unsigned c;

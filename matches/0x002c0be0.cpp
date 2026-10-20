@@ -6,7 +6,7 @@ struct Obj_2c0be0 {
     void ReleaseThing();
 };
 struct ImageLoader {
-    u32_2c0be0 vptr;
+    hulk_uintptr vptr;
     u32_2c0be0 pad[4];
     Obj_2c0be0* mPtr;
     void Destroy();

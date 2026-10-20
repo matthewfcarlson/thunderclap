@@ -5,7 +5,7 @@ extern "C" char DAT_004298fc[];
 namespace audio {
 class SeqActionClip {
   public:
-    unsigned long vt;
+    hulk_ulongptr vt;
     SeqActionClip* vfunc_0(int);
 };
 } // namespace audio

@@ -24,8 +24,8 @@ class SpawnAction : public Base_23ec50 {
     virtual void V();
     char p4[0x18];
     int m1c;
-    int m20;
-    int m24;
+    hulk_intptr m20;
+    hulk_intptr m24;
     Inner_23ec50 inner;
     int m50;
     char flag;

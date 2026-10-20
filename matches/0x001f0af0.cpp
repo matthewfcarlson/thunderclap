@@ -4,7 +4,7 @@
 #include "decls/data/game/unknown.h"
 extern "C" char DAT_004246cc[];
 struct Base_1f0af0 {
-    unsigned int vt;
+    hulk_uintptr vt;
     void Init(void*, int);
 };
 struct Target_1f0af0 : Base_1f0af0 {

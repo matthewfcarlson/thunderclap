@@ -20,9 +20,9 @@ class d3dPrimBuffer {
     void* buffer;
     char pad2[2];
     uchar locked;
-    unsigned int target(int arg);
+    hulk_uintptr target(int arg);
 };
-unsigned int d3dPrimBuffer::target(int arg) {
+hulk_uintptr d3dPrimBuffer::target(int arg) {
     void* p = D3DVertexBuffer_Lock2(buffer, 0);
     FUN_0031c230(0);
     locked = 1;

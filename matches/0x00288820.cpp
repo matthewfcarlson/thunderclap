@@ -1,4 +1,5 @@
-extern void* __cdecl FUN_0008d6d0(unsigned int);
+#include "compat/ptr.h"
+extern void* __cdecl FUN_0008d6d0(hulk_uintptr);
 struct B_288820 {
     int a;
     B_288820() { a = 0; }

@@ -2,7 +2,7 @@
 extern "C" char DAT_0042cb5c[];
 class ShaderFloatBroadcast {
   public:
-    int mVft;
+    hulk_intptr mVft;
     int mZero;
     int mA;
     int mB;

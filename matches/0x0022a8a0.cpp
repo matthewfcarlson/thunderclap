@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 #include "gen/choreo2.h"
 
-void* __cdecl alloc(unsigned int);
+void* __cdecl alloc(hulk_uintptr);
 extern int vt_22a8a0;
 struct RestPoseDriver_nv_22a8a0 {
     void InitA(choreo2::RestPoseDriver*);

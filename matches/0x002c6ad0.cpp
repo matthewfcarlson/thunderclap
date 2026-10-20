@@ -8,7 +8,7 @@ class Ref_2c6ad0 {
 };
 class DisplayTraversal {
   public:
-    volatile int vf;
+    volatile hulk_intptr vf;
     int p0, p1, p2, p3;
     Ref_2c6ad0* volatile mRef;
     DisplayTraversal* F2(unsigned int);

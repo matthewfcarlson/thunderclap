@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 typedef unsigned int uint;
 extern const uint g_transformTypes;
 struct Matrix {
     char pad[8];
     int index;
-    int data;
+    hulk_intptr data;
 };
 extern void __stdcall D3DDevice_SetTransform(uint, const void*);
 class d3dContext {

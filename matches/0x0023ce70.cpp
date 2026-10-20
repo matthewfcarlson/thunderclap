@@ -3,7 +3,7 @@
 
 typedef unsigned char u8;
 typedef unsigned int u32_23ce70;
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 extern u32_23ce70 PlatformVtable;
 class PlatformCondition_23ce70 {
   public:

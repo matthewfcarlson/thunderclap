@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int uint;
 struct Obj_25e310 {
     char pad0[4];
@@ -8,7 +9,7 @@ struct Obj_25e310 {
     uint m14;
     uint m18;
     char pad1c[12];
-    uint m28;
+    hulk_uintptr m28;
 };
 int __cdecl FUN_0025e310(Obj_25e310* p) {
     uint end, result;

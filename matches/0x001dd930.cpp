@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 struct Helper_1dd930 {
     void Use(void*);
 };
 struct Entry_1dd930 {
     char pad[0x18];
-    int ptr;
+    hulk_intptr ptr;
     char gap[6];
     short index;
     char tail[4];

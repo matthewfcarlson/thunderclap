@@ -3,10 +3,10 @@ void Release(void*);
 struct Obj_2f9cd0 {
     char pad[0x30];
     int a;
-    int b;
+    hulk_intptr b;
     char pad2[8];
     int c;
-    int d;
+    hulk_intptr d;
     void f();
 };
 void Obj_2f9cd0::f() {

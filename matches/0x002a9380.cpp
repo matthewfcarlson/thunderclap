@@ -38,7 +38,7 @@ struct LightAnimationController_2a9380 {
     void init(LightAnimationController_2a9380*);
     void finish(u32_2a9380);
 };
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 extern u32_2a9380 camera_vtable_2a9380;
 LightAnimationController_2a9380* LightAnimationController_2a9380::f4() {
     LightAnimationController_2a9380* p = (LightAnimationController_2a9380*)alloc(0x118);

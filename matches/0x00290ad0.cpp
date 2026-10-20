@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 struct Temp_290ad0 {
     char pad[8];
-    int value;
+    hulk_intptr value;
     int extra;
     void Init();
     void Fin();

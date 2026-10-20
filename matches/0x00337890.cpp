@@ -7,7 +7,7 @@ class Ref_337890 {
 };
 class Obj_337890 {
   public:
-    unsigned a;
+    hulk_uintptr a;
     unsigned b;
     Ref_337890* member;
     void Go();

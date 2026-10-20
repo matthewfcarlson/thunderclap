@@ -1,9 +1,9 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
-extern "C" unsigned char __cdecl Check1(int, int, int);
-extern "C" unsigned char __cdecl Validate1(int, int);
-extern "C" unsigned char __cdecl Final1(int, int);
+extern "C" unsigned char __cdecl Check1(int, hulk_intptr, int);
+extern "C" unsigned char __cdecl Validate1(hulk_intptr, int);
+extern "C" unsigned char __cdecl Final1(hulk_intptr, hulk_intptr);
 extern int kTenAddr;
 unsigned char Target(int* p, int a, int b) {
     int v = *p;

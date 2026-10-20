@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_2e6e00;
 struct Obj_2e6e00 {
     char pad0[0x1c];
-    int field1c;
+    hulk_intptr field1c;
     char pad20[4];
     int(__cdecl* callback)(int, int);
     int field28;

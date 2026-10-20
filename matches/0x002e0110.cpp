@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_2e0110 {
   public:
     virtual void f0();
@@ -15,7 +16,7 @@ class Obj_2e0110 {
 struct Vec_2e0110 {
     int* begin;
     int* end;
-    unsigned size() const { return end - begin; }
+    hulk_uintptr size() const { return end - begin; }
 };
 struct Arr_2e0110 {
     int pad[2];

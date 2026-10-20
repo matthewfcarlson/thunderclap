@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Item_29f590 {
   public:
     virtual void A();
@@ -11,9 +12,9 @@ class Cache_29f590 {
   public:
     virtual void V();
     int pad04[9];
-    int m28;
-    int m2c;
-    int m30;
+    hulk_intptr m28;
+    hulk_intptr m2c;
+    hulk_intptr m30;
     int m34;
     ~Cache_29f590();
 };

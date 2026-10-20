@@ -9,7 +9,7 @@ struct Sub_2a3660 {
 };
 class ParticleSystem {
   public:
-    unsigned int vt;
+    hulk_uintptr vt;
     char p[0x54];
     unsigned char flag;
     char p2[3];

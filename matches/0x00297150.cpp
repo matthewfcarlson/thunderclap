@@ -2,7 +2,7 @@
 extern "C" char DAT_0042d348[];
 class Obj_297150 {
   public:
-    int v;
+    hulk_intptr v;
     int a;
     int b;
     int c;

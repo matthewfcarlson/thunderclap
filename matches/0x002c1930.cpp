@@ -2,7 +2,7 @@
 extern "C" char DAT_0042ebb0[];
 class LocatorLoader {
   public:
-    int vptr;
+    hulk_intptr vptr;
     int a;
     int b;
     int c;

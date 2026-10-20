@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class XboxDrive {
   public:
     virtual void v0();
@@ -23,12 +24,12 @@ class XboxDrive {
     virtual void v20();
     virtual void v21();
     void MakePath(const char*, char*, unsigned int);
-    int MapError(unsigned long);
+    int MapError(hulk_ulongptr);
     char pad[0xb0];
     int lastError;
 };
 extern "C" int __stdcall CheckFn(const char*);
-extern "C" unsigned long __stdcall GetLastError();
+extern "C" hulk_ulongptr __stdcall GetLastError();
 int XboxDrive::v16(const char* path) {
     char buf[0x101];
     MakePath(path, buf, 0x101);

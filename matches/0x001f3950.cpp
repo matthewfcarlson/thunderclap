@@ -6,7 +6,7 @@ void __cdecl Apply(int, float);
 class Obj_1f3950 {
   public:
     char pad0[0xc0];
-    int mPtr;
+    hulk_intptr mPtr;
     char pad1[0x268];
     int mBusy;
     void Set(float value);

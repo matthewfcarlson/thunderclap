@@ -7,7 +7,7 @@ struct Sub_262090 {
 extern u32_262090 __cdecl makeobj(const char*, int);
 extern int zeroData;
 struct Obj_262090 {
-    u32_262090 vt;
+    hulk_uintptr vt;
     char pad[0x18];
     Sub_262090 s;
     char pad2[0x1b];

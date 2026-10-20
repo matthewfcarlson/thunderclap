@@ -13,7 +13,7 @@ class Elem_23d0a0 {
   public:
     void Build(int);
 };
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
   public:
     virtual void V0();

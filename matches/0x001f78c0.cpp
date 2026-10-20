@@ -5,7 +5,7 @@
 extern "C" char DAT_00424d6c[];
 class CEffectManager {
   public:
-    int vtable;
+    hulk_intptr vtable;
     char pad4[0x0c];
     char pad10[8];
     char c18;

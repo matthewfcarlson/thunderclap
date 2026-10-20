@@ -3,7 +3,7 @@
 extern "C" char DAT_00423468[];
 class Method3_1e0ac0 {
   public:
-    int x;
+    hulk_intptr x;
     char pad4[12];
     char b10;
     char b11;

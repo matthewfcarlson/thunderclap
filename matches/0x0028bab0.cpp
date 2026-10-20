@@ -1,4 +1,5 @@
-void* __cdecl Alloc(unsigned int) throw();
+#include "compat/ptr.h"
+void* __cdecl Alloc(hulk_uintptr) throw();
 class Mem_28bab0 {
   public:
     void* Make(unsigned int, int) throw();

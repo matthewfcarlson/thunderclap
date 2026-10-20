@@ -5,7 +5,7 @@ typedef unsigned int U_326290;
 extern void __stdcall Release(U_326290);
 extern void __cdecl Dispose(U_326290);
 struct d3dTexture_326290 {
-    U_326290 vt;
+    hulk_uintptr vt;
     char pad[12];
     U_326290 a;
     U_326290 b;

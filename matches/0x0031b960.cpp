@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct Params_31b960 {
     int p0, p1, p2, p3, p4, p5, p6, p7;
 };
-void* Alloc(unsigned n);
+void* Alloc(hulk_uintptr n);
 inline void* operator new(unsigned, void* p) {
     return p;
 }

@@ -4,7 +4,7 @@
 struct BufferHeader {
     int field_0;
     int field_4;
-    int field_8;
+    hulk_intptr field_8;
     int field_C;
     int field_10;
     int field_14;
@@ -20,7 +20,7 @@ struct Entry_213a50 {
     int type;
     int next;
     char pad[4];
-    int data;
+    hulk_intptr data;
 };
 
 extern "C" Entry_213a50* __cdecl FUN_00219520(BufferHeader* buf, int zero);
@@ -36,7 +36,7 @@ void FUN_00213a50(BufferHeader* buf, DataItem* item) {
     writePtr[1] = (hulk_intptr)entry;
     *writePtr = 6;
 
-    int available = buf->field_18 - buf->field_8;
+    hulk_intptr available = buf->field_18 - buf->field_8;
     if (available <= 8) {
         FUN_00215460(buf, 1);
     }

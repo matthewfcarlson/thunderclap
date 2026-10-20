@@ -4,10 +4,10 @@ class C_1fcf40 {
     char pad[0x20c];
     int count;
     void* buffer;
-    int foo();
+    hulk_intptr foo();
 };
 extern void __fastcall FUN_001fb970(void*);
-int C_1fcf40::foo() {
+hulk_intptr C_1fcf40::foo() {
     hulk_intptr result = 0;
     if (count < 256) {
         char* p = (char*)buffer + (count << 6);

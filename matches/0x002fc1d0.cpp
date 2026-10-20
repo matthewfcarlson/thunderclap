@@ -2,7 +2,7 @@
 extern "C" char DAT_0043186c[];
 class RootMatrixDriver {
   public:
-    int vf;
+    hulk_intptr vf;
     char pad[0x14];
     int value;
     RootMatrixDriver(int);

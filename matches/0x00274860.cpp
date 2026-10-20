@@ -15,7 +15,7 @@ class DriveSub {
 };
 class Obj_274860 {
   public:
-    int vf;
+    hulk_intptr vf;
     char pad[4];
     Drive* drive;
     void Run();

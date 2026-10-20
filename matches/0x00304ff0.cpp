@@ -7,7 +7,7 @@ class Ref_304ff0 {
 };
 class CollisionObject {
   public:
-    unsigned long vptr;
+    hulk_ulongptr vptr;
     char pad4[0x1c];
     Ref_304ff0* mRef;
     char pad24[0xc];

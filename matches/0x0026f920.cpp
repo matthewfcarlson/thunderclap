@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 typedef unsigned int U_26f920;
 U_26f920 __stdcall ReadA(U_26f920, U_26f920, U_26f920, U_26f920);
-U_26f920 __stdcall ReadB(U_26f920, U_26f920, U_26f920, U_26f920, U_26f920);
+U_26f920 __stdcall ReadB(U_26f920, U_26f920, U_26f920, hulk_uintptr, U_26f920);
 U_26f920 __stdcall GetLastError();
 class XboxDrive {
     char pad[0xb4];

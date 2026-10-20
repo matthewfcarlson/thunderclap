@@ -1,4 +1,5 @@
-extern "C" __int64 __cdecl helper(int, int, int);
+#include "compat/ptr.h"
+extern "C" __int64 __cdecl helper(hulk_intptr, int, int);
 class Obj {
   public:
     virtual void v0();

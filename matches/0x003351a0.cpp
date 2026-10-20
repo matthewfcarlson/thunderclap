@@ -8,12 +8,12 @@ extern "C" void Init();
 extern "C" volatile unsigned int gStored;
 extern "C" volatile void* gResult_3351a0;
 struct Callback_3351a0 {
-    unsigned int vtable;
+    hulk_uintptr vtable;
     unsigned int arg;
-    unsigned int subVtable;
+    hulk_uintptr subVtable;
     unsigned int field;
 };
-void CreateCallback(unsigned int arg) {
+void CreateCallback(hulk_uintptr arg) {
     gStored = arg;
     Callback_3351a0* p = (Callback_3351a0*)Allocate((void*)arg, 0x10);
     if (p) {

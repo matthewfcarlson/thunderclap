@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 extern void __cdecl ReleaseThing(void*);
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 extern void __stdcall Init(void*, unsigned int, unsigned int, void(__cdecl*)());
 extern void __cdecl ElemCtor();
 class Obj_22eda0 {

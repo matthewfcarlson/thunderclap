@@ -1,9 +1,10 @@
 // Same code shape as 0x002c3140 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 class Helper_2e00f0 {
   public:
-    int run(pure3d::PrimGroupSkinnedOptimized*);
+    hulk_intptr run(pure3d::PrimGroupSkinnedOptimized*);
 };
 extern void* __cdecl thunk_FUN_0008d690(unsigned int);
 

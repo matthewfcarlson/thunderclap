@@ -2,7 +2,7 @@
 extern "C" char DAT_00431d1c[];
 class HairclubPhysicsObject {
   public:
-    int vftable;
+    hulk_intptr vftable;
     char pad4[0x20];
     int field24;
     char pad28[0x1d0];

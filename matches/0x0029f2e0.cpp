@@ -25,9 +25,9 @@ class Obj_29f2e0 {
     char pad8[4];
     List_29f2e0* list;
     int n;
-    int run();
+    hulk_intptr run();
 };
-int Obj_29f2e0::run() {
+hulk_intptr Obj_29f2e0::run() {
     list->init(n);
     int i = 0;
     if (n > 0) {

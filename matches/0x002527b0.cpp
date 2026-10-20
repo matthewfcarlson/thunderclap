@@ -6,7 +6,7 @@ class Base_2527b0 {
 };
 class SeqEventVarVolume : public Base_2527b0 {
   public:
-    int vtable;
+    hulk_intptr vtable;
     int pad;
     float volume;
     SeqEventVarVolume* Build();

@@ -5,7 +5,7 @@
 
 typedef unsigned int u32_321c90;
 struct d3dContext_nv_321c90 {
-    void BaseVfunc76(u32_321c90);
+    void BaseVfunc76(hulk_uintptr);
 };
 extern void __stdcall D3DDevice_SetRenderState_FillMode(u32_321c90);
 

@@ -16,7 +16,7 @@ class Factory_23d780 {
 struct DebugCondition_nv_23d780 {
     void InitFn(int);
 };
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 void* Factory_23d780::V5() {
     Factory_23d780* p = (Factory_23d780*)Alloc(0x14);
     if (p) {

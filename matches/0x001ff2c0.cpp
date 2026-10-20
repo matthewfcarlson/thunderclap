@@ -8,7 +8,7 @@ extern char g0_1ff2c0, g1, g2, g3;
 class Method3_1ff2c0 : public Base_1ff2c0 {
   public:
     Method3_1ff2c0(const char*, int);
-    int m0;
+    hulk_intptr m0;
     char p04[0x0c];
     char b10;
     char b11;

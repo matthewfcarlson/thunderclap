@@ -5,7 +5,7 @@ struct Helper_2f78c0 {
     int call();
 };
 struct PhysicsObject_nv_2f78c0 {
-    void work(int, int);
+    void work(hulk_intptr, int);
 };
 extern Helper_2f78c0* __cdecl thunk_FUN_0008d690(unsigned int);
 

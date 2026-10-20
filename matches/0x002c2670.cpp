@@ -8,7 +8,7 @@ struct Result_2c2670 {
     u32_2c2670 b;
 };
 struct This_FUN_002c2370 {
-    Result_2c2670* FUN_002c2370(u32_2c2670);
+    Result_2c2670* FUN_002c2370(hulk_uintptr);
 };
 
 void pure3d::TextureLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int __p3) { u32_2c2670 * p2 = (u32_2c2670 *)__p0; u32_2c2670 * p3 = (u32_2c2670 *)__p1; hulk_uintptr p4 = (hulk_uintptr)__p2; u32_2c2670 unused = (u32_2c2670)__p3;

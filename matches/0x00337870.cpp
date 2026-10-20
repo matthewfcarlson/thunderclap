@@ -3,7 +3,7 @@
 
 class Obj_337870 {
   public:
-    int vft;
+    hulk_intptr vft;
     int a;
     int b;
     Obj_337870();

@@ -6,7 +6,7 @@ struct Base_22a980 {
     void Init(int);
 };
 struct LocomotionDriver : Base_22a980 {
-    int vptr;
+    hulk_intptr vptr;
     char pad[0x1b];
     int a;
     int b;

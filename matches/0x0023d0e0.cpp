@@ -8,7 +8,7 @@ struct NotCondition_23d0e0 {
     virtual void b();
     virtual void c();
 };
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 struct Helper_23d0e0 {
     void f(int);
 };

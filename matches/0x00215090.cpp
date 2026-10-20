@@ -9,7 +9,7 @@ struct Obj_215090 {
     u16 d;
 };
 void prep(Obj_215090*, int);
-void copy(void*, int, unsigned int, int);
+void copy(void*, hulk_intptr, unsigned int, int);
 void target(void* p, Obj_215090* s) {
     prep(s, s->a);
     copy(p, s->b, ((unsigned int)s->d) << 4, 0);

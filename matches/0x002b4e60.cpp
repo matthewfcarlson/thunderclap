@@ -1,4 +1,5 @@
-void* __cdecl alloc(unsigned int);
+#include "compat/ptr.h"
+void* __cdecl alloc(hulk_uintptr);
 class Mesh {
   public:
     Mesh* Init(int) throw();

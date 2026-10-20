@@ -5,7 +5,7 @@ struct BillboardQuadGroupAnimationController_nv_2a9c00 {
     void initialize(pure3d::BillboardQuadGroupAnimationController*);
 };
 extern "C" int BQVtable;
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 
 void* pure3d::BillboardQuadGroupAnimationController::vfunc_4() {
     pure3d::BillboardQuadGroupAnimationController* p = (pure3d::BillboardQuadGroupAnimationController*)alloc(0x48);

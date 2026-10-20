@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 extern float gHundred;
 void Apply(int, float);
 class Thing_1f3990 {
   public:
     char pad0[0x8c];
-    int mA;
+    hulk_intptr mA;
     char pad1[0x32c - 0x90];
     int mB;
     void Set(float);

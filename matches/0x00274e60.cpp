@@ -12,15 +12,15 @@ struct File {
     int count;
 };
 struct Request {
-    u32_274e60 vf;
+    hulk_uintptr vf;
     u32_274e60 field;
     File* file;
 };
 void init();
 struct Target_274e60 : Request {
-    Request* run(u32_274e60 arg);
+    Request* run(hulk_uintptr arg);
 };
-Request* Target_274e60::run(u32_274e60 arg) {
+Request* Target_274e60::run(hulk_uintptr arg) {
     vf = ((hulk_intptr)DAT_0042b914);
     field = 0;
     init();

@@ -4,7 +4,7 @@
 extern "C" char DAT_0042e914[];
 typedef unsigned int size_t;
 typedef unsigned int u32_2bdf50;
-void* __cdecl alloc(size_t);
+void* __cdecl alloc(hulk_uintptr);
 namespace pure3d {
 
 class Builder_2bdf50 {

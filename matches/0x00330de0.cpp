@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 struct Desc_330de0 {
     int format;
@@ -7,7 +8,7 @@ extern "C" int __stdcall GetBackBuffer2(int);
 extern "C" void __stdcall GetDesc(int, Desc_330de0*);
 extern "C" void __stdcall Release(int);
 extern "C" int __stdcall CreateTexture2(int, int, int, int, int, int, int);
-extern "C" int Alloc(int);
+extern "C" hulk_intptr Alloc(hulk_intptr);
 struct Obj_330de0 {
     virtual void Fn();
 };

@@ -6,7 +6,7 @@ class Part_235590 {
 };
 class ParamValueVector_235590 {
   public:
-    int vt;
+    hulk_intptr vt;
     int pad;
     Part_235590 part;
     ParamValueVector_235590* vfunc_0(int);

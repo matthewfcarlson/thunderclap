@@ -2,7 +2,7 @@
 extern "C" char DAT_0042ba80[];
 class FileCommitRequest {
   public:
-    int vt;
+    hulk_intptr vt;
     void Init(int);
     FileCommitRequest(int);
 };

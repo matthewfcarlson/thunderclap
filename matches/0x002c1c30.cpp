@@ -3,7 +3,7 @@
 extern "C" char DAT_0042ec20[];
 class Texture_2c1c30 {
   public:
-    int v;
+    hulk_intptr v;
     char pad[12];
     int field10;
 };

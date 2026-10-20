@@ -10,8 +10,8 @@ void FUN_002705f0();
 class MemoryPool {
   public:
     MemoryPool();
-    u32_270170 v0;
-    u32_270170 v1;
+    hulk_uintptr v0;
+    hulk_uintptr v1;
     u32_270170 v2;
     u32_270170 v3;
     u32_270170 v4;

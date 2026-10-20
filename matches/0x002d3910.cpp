@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 class Helper_2d3910 {
   public:
-    int run(pure3d::ParticlePointGenerator*);
+    hulk_intptr run(pure3d::ParticlePointGenerator*);
 };
 extern "C" void* __cdecl allocThing(unsigned int);
 

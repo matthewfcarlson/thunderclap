@@ -1,10 +1,11 @@
 // Same code shape as 0x00242070 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 typedef unsigned int u32_2559e0;
 extern "C" void* __cdecl FUN_00247530(void*);
 struct Callee_2559e0 {
-    u32_2559e0 run();
+    hulk_uintptr run();
 };
 extern char g_data_2559e0[];
 namespace audio {

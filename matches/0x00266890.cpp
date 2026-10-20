@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int FUN_00267f80();
 struct Obj_266890 {
     virtual void V();
@@ -5,7 +6,7 @@ struct Obj_266890 {
 struct Data_266890 {
     char c;
     char pad[0xff];
-    int a, b, d;
+    hulk_intptr a, b, d;
     char e;
     char pad2[3];
 };

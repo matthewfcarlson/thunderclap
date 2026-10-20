@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 int gValue_31ba60;
-extern "C" int __cdecl Alloc(int);
+extern "C" hulk_intptr __cdecl Alloc(hulk_intptr);
 extern "C" int __stdcall MakeArg(int);
 struct Obj_31ba60 {
     int Init(int);

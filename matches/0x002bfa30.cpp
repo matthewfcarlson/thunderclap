@@ -2,7 +2,7 @@
 extern "C" char DAT_0042ea08[];
 class ImageFontLoader {
   public:
-    int vf;
+    hulk_intptr vf;
     int a;
     int b;
     int c;

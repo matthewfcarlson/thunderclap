@@ -4,7 +4,7 @@ class SeqEventVarPitchRand {
   public:
     void init();
     SeqEventVarPitchRand();
-    int vptr;
+    hulk_intptr vptr;
     int unused;
     int a;
     int b;

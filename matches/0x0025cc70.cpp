@@ -8,7 +8,7 @@ struct Inner_25cc70 {
 void Register(void*, void*);
 class OmHalStream {
   public:
-    int vf;
+    hulk_intptr vf;
     char pad[0x1b8];
     Inner_25cc70 inner;
     OmHalStream* Init(unsigned char flag);

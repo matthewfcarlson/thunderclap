@@ -7,9 +7,9 @@ class Thing_337680 {
     int state;
     int Check(int);
     void Init(int);
-    int Target(int);
+    hulk_intptr Target(int);
 };
-int Thing_337680::Target(int arg) {
+hulk_intptr Thing_337680::Target(int arg) {
     if (Check(arg)) {
         state = 7;
         return 0;

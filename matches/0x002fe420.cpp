@@ -16,7 +16,7 @@ class B_2fe420 {
   public:
     char pad[0x24];
     int state;
-    void Apply(int, unsigned char);
+    void Apply(hulk_intptr, unsigned char);
 };
 class C_2fe420 {
   public:

@@ -2,7 +2,7 @@
 struct Item_303480 {
     int v[17];
 };
-void helper(Item_303480*, int, int, Item_303480);
+void helper(Item_303480*, hulk_intptr, hulk_intptr, Item_303480);
 void target(Item_303480* first, Item_303480* last) {
     hulk_intptr count = last - first;
     hulk_intptr n = count / 2;

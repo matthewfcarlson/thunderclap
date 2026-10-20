@@ -9,7 +9,7 @@ struct RefObj_237c90 {
 extern "C" char DAT_00428130[];
 
 struct SequenceAction {
-    int vptr;
+    hulk_intptr vptr;
     char pad04[0x18];
     RefObj_237c90 *f1c;
     int f20;

@@ -4,7 +4,7 @@ extern char VT_306c00[];
 class CollisionSphere {
   public:
     CollisionSphere();
-    int vptr;
+    hulk_intptr vptr;
     int a;
     int b;
     int c;

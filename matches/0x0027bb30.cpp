@@ -2,7 +2,7 @@
 extern "C" char DAT_0042c1b4[];
 typedef unsigned int u32_27bb30;
 struct Partition {
-    u32_27bb30 vptr;
+    hulk_uintptr vptr;
     u32_27bb30 pad;
     u32_27bb30 a;
     u32_27bb30 b;

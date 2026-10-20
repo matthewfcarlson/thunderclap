@@ -3,11 +3,11 @@
 
 extern "C" char DAT_0042dc94[];
 typedef unsigned int u32_2a8360;
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 
 class Obj_2a8360 {
   public:
-    u32_2a8360 vf;
+    hulk_uintptr vf;
     char pad[0x3c];
     u32_2a8360 value;
     u32_2a8360 a44;

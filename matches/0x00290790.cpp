@@ -1,4 +1,5 @@
-extern void* Alloc(unsigned int);
+#include "compat/ptr.h"
+extern void* Alloc(hulk_uintptr);
 extern void Init(void*, unsigned int, void*);
 
 class Buffer_290790 {

@@ -2,7 +2,7 @@
 extern int shaderVtable;
 class ShaderLoader {
   public:
-    int vptr;
+    hulk_intptr vptr;
     int a;
     int b;
     int c;

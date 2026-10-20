@@ -12,7 +12,7 @@ class Helper_23d140 {
     void Init();
     void Setup(void*);
 };
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryCasterTemplate<fight::OrCondition>::vfunc_1(void* __p0) { void * p = (void *)__p0;
 

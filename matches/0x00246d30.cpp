@@ -1,10 +1,11 @@
 // FUN_00246d30 @ 0x00246d30
+#include "compat/ptr.h"
 struct LineSink {
     char pad00[0x20];
     char gotLine;         // 0x20
     char pad21[7];
     char keepNewline;     // 0x28
-    bool FUN_00246cc0(const char* text, int length);
+    bool FUN_00246cc0(const char* text, hulk_intptr length);
 };
 
 // Splits text on '\n', feeding each line to the sink.

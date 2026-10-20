@@ -1,4 +1,5 @@
-void* FUN_0008d690(unsigned int) throw();
+#include "compat/ptr.h"
+void* FUN_0008d690(hulk_uintptr) throw();
 class Owner;
 class Entry_1f8000 {
   public:

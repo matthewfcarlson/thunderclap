@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 extern "C" char* strcpy(char*, const char*);
 extern "C" unsigned int strlen(const char*);
 class Alloc {
   public:
-    char* Allocate(unsigned int, int);
+    char* Allocate(hulk_uintptr, int);
 };
 extern Alloc gAlloc;
 class Obj {

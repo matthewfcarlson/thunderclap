@@ -1,4 +1,5 @@
-extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
+#include "compat/ptr.h"
+extern "C" void* __cdecl FUN_0008d6d0(hulk_uintptr);
 extern "C" void __cdecl FUN_002a7f60(void*, unsigned int, unsigned int);
 class Buffer_2a8060 {
   public:

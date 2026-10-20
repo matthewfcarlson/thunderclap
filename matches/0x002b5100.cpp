@@ -1,4 +1,5 @@
-void* __cdecl alloc(unsigned int) throw();
+#include "compat/ptr.h"
+void* __cdecl alloc(hulk_uintptr) throw();
 struct V3_2b5100 {
     unsigned a, b, c;
     void Set(const V3_2b5100& s) {

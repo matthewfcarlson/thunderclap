@@ -5,7 +5,7 @@ struct Ctor_0027b070 {
     Ctor_0027b070();
 };
 struct ImageFont : public Ctor_0027b070 {
-    volatile u32_2bf100 vt;
+    volatile hulk_uintptr vt;
     char pad[12];
     volatile u32_2bf100 a, b, c, d, e;
     volatile int f;

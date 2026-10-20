@@ -11,7 +11,7 @@ class Text_2509c0 {
 };
 class SeqEventExpression : public Base_2509c0 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     char pad[4];
     Text_2509c0 text;
     SeqEventExpression();

@@ -9,7 +9,7 @@ class Other_2f3c00 {
 };
 class SharedData {
   public:
-    u32_2f3c00 vft;
+    hulk_uintptr vft;
     u32_2f3c00 pad;
     u32_2f3c00 a;
     u32_2f3c00 b;

@@ -8,7 +8,7 @@ struct ListenerEffectXBoxType_nv_24d6b0 {
 };
 class X_24d6b0 {
   public:
-    int m;
+    hulk_intptr m;
     X_24d6b0();
 };
 X_24d6b0::X_24d6b0() {

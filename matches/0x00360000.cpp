@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 struct Pair {
     unsigned __int64 v;
 };
-extern "C" unsigned __int64 __cdecl make(const char*, int, int);
+extern "C" unsigned __int64 __cdecl make(const char*, int, hulk_intptr);
 extern "C" int __cdecl atexit(void(__cdecl*)());
 extern "C" void __cdecl cleanup();
 class Reg {

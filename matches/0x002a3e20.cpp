@@ -1,9 +1,10 @@
 // Same code shape as 0x002974d0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 class Helper_2a3e20 {
   public:
-    int call(pure3d::ParticleSystem*);
+    hulk_intptr call(pure3d::ParticleSystem*);
 };
 extern void* __cdecl alloc(int);
 

@@ -3,7 +3,7 @@
 
 extern "C" char DAT_0042e584[];
 typedef unsigned int u32_2b4d90;
-void* alloc(unsigned int);
+void* alloc(hulk_uintptr);
 struct ShadowMeshBufferImpl_nv_2b4d90 {
     void initialize();
 };

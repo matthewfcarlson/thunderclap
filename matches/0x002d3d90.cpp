@@ -2,7 +2,7 @@
 extern "C" char DAT_0042f190[];
 class ParticleAllocator {
   public:
-    int mVptr;
+    hulk_intptr mVptr;
     int mValue;
     ParticleAllocator();
 };

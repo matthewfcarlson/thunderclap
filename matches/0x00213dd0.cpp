@@ -3,7 +3,7 @@ struct R_213dd0 {
     int type;
     void* data;
 };
-R_213dd0* __fastcall GetR(int, int);
+R_213dd0* __fastcall GetR(int, hulk_intptr);
 struct Ent_213dd0 {
     char pad[8];
     int* v;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Item_2a67e0 {
     virtual void a();
     virtual void b();
@@ -17,7 +18,7 @@ struct Entry_2a67e0 {
 struct Vec_2a67e0 {
     Entry_2a67e0* begin;
     Entry_2a67e0* end;
-    int size() const { return end - begin; }
+    hulk_intptr size() const { return end - begin; }
 };
 struct Bag_2a67e0 {
     char pad[0x48];

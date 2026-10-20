@@ -5,7 +5,7 @@ extern "C" char DAT_00424b0c[];
 class CSoundVoiceManager {
   public:
     void Init(void*, int);
-    int vf;
+    hulk_intptr vf;
     char pad4[0x0c];
     char b10;
     char b11;

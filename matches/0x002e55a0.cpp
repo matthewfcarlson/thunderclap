@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Entry_2e55a0 {
     int* begin;
     int* end;
@@ -8,9 +9,9 @@ class Obj_2e55a0 {
     char pad[0x14];
     Entry_2e55a0* entries;
     char Check(int, int*);
-    int Count(int);
+    hulk_intptr Count(int);
 };
-int Obj_2e55a0::Count(int index) {
+hulk_intptr Obj_2e55a0::Count(int index) {
     if (Check(index, &index) == 1) {
         Entry_2e55a0* e = entries + index;
         return (e->end - e->begin);

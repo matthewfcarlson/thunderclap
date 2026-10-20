@@ -1,12 +1,13 @@
+#include "compat/ptr.h"
 extern "C" void* memset(void*, int, unsigned);
-void* Alloc(unsigned n);
+void* Alloc(hulk_uintptr n);
 struct Allocator_28c370 { void* Alloc2(unsigned n, int f); };
 class Base_28c370 {
   public:
     Base_28c370(int a, int b);
     virtual void f0();
     int pad[2];
-    int m0;
+    hulk_intptr m0;
     unsigned cnt;
 };
 class BoolChannel : public Base_28c370 {

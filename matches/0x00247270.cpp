@@ -7,7 +7,7 @@ extern "C" void __cdecl FUN_00246b90();
 extern "C" char DAT_00429224[];
 class MemoryStream {
   public:
-    int vp;
+    hulk_intptr vp;
     void (*p1)();
     void (*p2)();
     void (*p3)();

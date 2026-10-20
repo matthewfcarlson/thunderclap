@@ -1,4 +1,5 @@
-void* __cdecl alloc(unsigned);
+#include "compat/ptr.h"
+void* __cdecl alloc(hulk_uintptr);
 class Buffer {
   public:
     Buffer(int);

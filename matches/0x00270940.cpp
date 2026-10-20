@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 
 enum GameMemoryAllocator { GMA_DEFAULT };
 
-extern "C" void* FUN_00266e00(GameMemoryAllocator heap, unsigned int size);
+extern "C" void* FUN_00266e00(GameMemoryAllocator heap, hulk_uintptr size);
 
 inline void* operator new(size_t size, GameMemoryAllocator heap) {
     return FUN_00266e00(heap, size);

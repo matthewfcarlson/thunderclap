@@ -6,7 +6,7 @@ class Part_2353c0 {
 };
 namespace fight { class ParamValueName {
   public:
-    int vt;
+    hulk_intptr vt;
     int pad;
     Part_2353c0 part;
     ParamValueName* vfunc_0(int);

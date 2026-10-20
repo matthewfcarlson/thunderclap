@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern void* vA[];
 struct SubA_2f7ee0 {
     char pad[0x88];
@@ -29,7 +30,7 @@ struct Ref_2f7ee0 {
 struct Name_2f7ee0 {
     void SetName(const char*) throw();
 };
-void* __cdecl FUN_0008d690(unsigned) throw();
+void* __cdecl FUN_0008d690(hulk_uintptr) throw();
 void* __cdecl thunk_FUN_0008d690(unsigned) throw();
 Ref_2f7ee0* __cdecl FUN_002efa90(Obj1_2f7ee0*, int, int) throw();
 class O_2f7ee0 {

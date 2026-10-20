@@ -8,10 +8,10 @@ class Target_299170 {
   public:
     char pad[8];
     Ref_299170* mRef;
-    int Destroy(int flags);
+    hulk_intptr Destroy(int flags);
 };
 extern void __cdecl thunk_FUN_00267090(Target_299170*);
-int Target_299170::Destroy(int flags) {
+hulk_intptr Target_299170::Destroy(int flags) {
     if (mRef) {
         mRef->Release();
         mRef = 0;

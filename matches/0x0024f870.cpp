@@ -8,7 +8,7 @@ struct Arg_24f870 {
 };
 struct Result_24f870 {
     char pad[0x44];
-    u32_24f870 link;
+    hulk_uintptr link;
 };
 extern Result_24f870* __cdecl FUN_0024a940(u32_24f870, void*);
 

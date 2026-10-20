@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Sub_204350 {
     int Count();
 };
@@ -7,7 +8,7 @@ struct Item_204350 {
 struct Obj_204350 {
     char pad[4];
     Obj_204350* child;
-    int Find(int);
+    hulk_intptr Find(int);
 };
 extern Obj_204350* GetQuery();
 char __stdcall Target(int a, int b, int c) {

@@ -4,7 +4,7 @@ typedef unsigned int u32_2dd6f0;
 struct Obj_2dd6f0 {
     char pad0[0x4c];
     u32_2dd6f0 field4c;
-    u32_2dd6f0 field50;
+    hulk_uintptr field50;
     char pad54[8];
     u32_2dd6f0 field5c;
     char pad60[0xe4];

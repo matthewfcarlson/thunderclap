@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 typedef __int64 I64;
-extern "C" I64 __cdecl make(const char*, int, int);
+extern "C" I64 __cdecl make(const char*, int, hulk_intptr);
 extern "C" int __cdecl atexit(void(__cdecl*)());
 void __cdecl cleanup();
 extern const char first[];

@@ -20,7 +20,7 @@ struct Sub_2765d0 {
     void Dtor();
 };
 struct File {
-    int v0, v4, v8;
+    hulk_intptr v0, v4, v8;
     Obj_2765d0* o;
     char pad[0x12c - 0x10];
     Sub_2765d0 sub;

@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 #include "gen/core.h"
 extern int gState_26cfa0;
-int Check(int, int);
+hulk_intptr Check(int, int);
 struct MemoryDlAllocator_nv_26cfa0 {
     int Do(int, int, int, int);
 };

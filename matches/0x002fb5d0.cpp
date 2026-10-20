@@ -4,7 +4,7 @@ struct Part_2fb5d0 {
     void Init();
 };
 struct CollisionOBB {
-    unsigned v;
+    hulk_uintptr v;
     char pad[0x38];
     Part_2fb5d0 b;
     char pad2[0x3f];

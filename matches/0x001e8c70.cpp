@@ -1,8 +1,8 @@
 #include "compat/ptr.h"
 typedef unsigned int U_1e8c70;
 extern U_1e8c70 __cdecl F40750();
-extern U_1e8c70 __cdecl F40750(U_1e8c70);
-extern void __cdecl F416c0(U_1e8c70, U_1e8c70, int);
+extern U_1e8c70 __cdecl F40750(hulk_uintptr);
+extern void __cdecl F416c0(U_1e8c70, hulk_uintptr, int);
 extern void __cdecl F43090(U_1e8c70);
 extern void __cdecl F42ca0(U_1e8c70);
 class Obj_1e8c70 {

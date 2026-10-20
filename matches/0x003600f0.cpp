@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 struct Pair {
     unsigned a, b;
 };
-extern "C" Pair __cdecl make(const char*, int, int);
+extern "C" Pair __cdecl make(const char*, int, hulk_intptr);
 extern "C" int __cdecl atexit(void(__cdecl*)());
 extern "C" void __cdecl cleanup();
 extern const char name1[], name2[];

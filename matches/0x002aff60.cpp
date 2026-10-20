@@ -2,7 +2,7 @@
 extern "C" char DAT_0042e340[];
 class ExpressionGroupLoader {
   public:
-    int vf;
+    hulk_intptr vf;
     int a;
     int b;
     int c;

@@ -12,10 +12,10 @@ struct SeqAction {
     char pad[4];
 };
 struct SeqActionWaitBeat : SeqAction {
-    u32_2505b0 m8;
+    hulk_uintptr m8;
     u32_2505b0 mc;
     u32_2505b0 m10;
-    u32_2505b0 m14;
+    hulk_uintptr m14;
     void vfunc_2(void*, int);
 };
 } // namespace audio

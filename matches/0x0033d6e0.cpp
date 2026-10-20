@@ -6,7 +6,7 @@ extern int __cdecl FUN_00212d70(int);
 extern int __cdecl FUN_002135a0(int, int, const char*);
 extern void __cdecl FUN_00212ed0(int, int);
 extern void __cdecl FUN_002139a0(int, int, int);
-extern int __cdecl FUN_00213190(int, int);
+extern int __cdecl FUN_00213190(hulk_intptr, int);
 extern void __cdecl FUN_00347eed(const void*, const void*);
 extern void __cdecl FUN_00212d80(int, int);
 extern int __cdecl FUN_00338e20(int, const char*);

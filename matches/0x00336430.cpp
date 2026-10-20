@@ -1,10 +1,11 @@
+#include "compat/ptr.h"
 class Lookup {
   public:
     char* Get();
 };
 class Heap {
   public:
-    char* Alloc(unsigned, int);
+    char* Alloc(hulk_uintptr, int);
 };
 extern Heap gHeap;
 extern "C" unsigned strlen(const char*);

@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 typedef unsigned int U32_31c880;
 struct Obj_31c880 {
     char pad[8];
-    U32_31c880 index;
-    U32_31c880 base;
+    hulk_uintptr index;
+    hulk_uintptr base;
     void Copy(U32_31c880);
 };
 struct Temp_31c880 {

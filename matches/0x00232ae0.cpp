@@ -2,10 +2,11 @@
 // FUN_00232ae0 @ 0x00232ae0: reads a source into a temporary buffer and hands it to FUN_00232870 through a stream
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
+#include "compat/ptr.h"
 #include "gen/content.h"
 int __cdecl FUN_00238190(int n);
 int __cdecl FUN_00266da0(int mode);
-void *__cdecl FUN_0008d6d0(unsigned int size);
+void *__cdecl FUN_0008d6d0(hulk_uintptr size);
 void *thunk_FUN_0008d690(unsigned int size);
 void __cdecl thunk_FUN_00267090(void *p);
 

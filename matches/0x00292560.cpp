@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
 
@@ -36,7 +37,7 @@ struct Object {
 extern void __cdecl FUN_0028fcc0(const char*, ...);
 extern void __cdecl FUN_0031ba60(int, int, Device_292560**);
 extern void __cdecl FUN_002c3230(Device_292560*);
-extern void* __cdecl FUN_0008d690(unsigned);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 extern void __cdecl FUN_002c31b0();
 extern void* DAT_0052c2a8;
 struct Owner_292560 {

@@ -13,9 +13,9 @@ struct ShaderIntBroadcast {
     char pad[8];
     u32_28ee30 mA;
     u32_28ee30 mB;
-    int vfunc_3(void* param);
+    hulk_intptr vfunc_3(void* param);
 };
-int ShaderIntBroadcast::vfunc_3(void* param) {
+hulk_intptr ShaderIntBroadcast::vfunc_3(void* param) {
     if (param) {
         Receiver_28ee30* r = *(Receiver_28ee30**)((char*)param + 0x10);
         r->f6(mA, mB);

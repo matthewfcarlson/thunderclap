@@ -3,7 +3,7 @@ extern "C" char DAT_0042ba40[];
 void FreeFinish();
 class SaveGameOpenRequest {
   public:
-    int vptr;
+    hulk_intptr vptr;
     char pad4[8];
     int fieldC;
     unsigned char field10;

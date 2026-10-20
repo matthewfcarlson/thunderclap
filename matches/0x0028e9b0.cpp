@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 inline void* operator new(unsigned, void* p) {
     return p;
 }
 extern "C" void* memmove(void*, const void*, unsigned);
 extern "C" void* memset(void*, int, unsigned);
-void* Alloc(unsigned n);
+void* Alloc(hulk_uintptr n);
 class Hbase {
   public:
     Hbase() { a = 0; }

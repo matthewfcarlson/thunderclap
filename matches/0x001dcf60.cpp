@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 struct Data_1dcf60 {
     char pad[0x74];
-    int p;
+    hulk_intptr p;
 };
 class Obj_1dcf60 {
   public:

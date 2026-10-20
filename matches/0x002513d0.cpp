@@ -10,7 +10,7 @@ class Track_2513d0 {
 };
 class SeqEventPlayTrack_2513d0 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     char pad4[4];
     int a;
     int b;

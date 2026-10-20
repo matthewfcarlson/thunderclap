@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 class Other_2975c0 {
   public:
-    int helper(pure3d::scenegraph::VisibilityNode*);
+    hulk_intptr helper(pure3d::scenegraph::VisibilityNode*);
 };
 extern void* alloc(int);
 

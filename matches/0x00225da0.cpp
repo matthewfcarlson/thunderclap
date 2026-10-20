@@ -1,10 +1,10 @@
 #include "compat/ptr.h"
 extern "C" char DAT_00427368[];
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 int gCount_225da0;
 int gMax_225da0;
 struct Obj_225da0 {
-    int v;
+    hulk_intptr v;
     void InitA(void*);
     void InitB(void*);
 };

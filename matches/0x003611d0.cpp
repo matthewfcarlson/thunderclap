@@ -1,4 +1,5 @@
-extern "C" unsigned __int64 __cdecl make(const char*, int, int);
+#include "compat/ptr.h"
+extern "C" unsigned __int64 __cdecl make(const char*, int, hulk_intptr);
 extern "C" int __cdecl atexit(void(__cdecl*)());
 void __cdecl cleanup();
 class Obj_3611d0 {

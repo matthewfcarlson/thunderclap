@@ -6,7 +6,7 @@ struct Obj_26db70 {
     int(__cdecl* fn)(int);
     int arg;
     char pad10[12];
-    u32_26db70 field1c;
+    hulk_uintptr field1c;
     u32_26db70 field20;
     char pad24[4];
     u32_26db70 field28;

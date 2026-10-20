@@ -1,5 +1,6 @@
 // Same code shape as 0x002b0fb0 (propagated; names are from that function)
-extern void* Alloc(unsigned int);
+#include "compat/ptr.h"
+extern void* Alloc(hulk_uintptr);
 extern void Init(void*, unsigned int, void*);
 class Buffer_2f9b60 {
   public:

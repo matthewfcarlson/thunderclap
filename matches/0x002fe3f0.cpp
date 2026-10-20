@@ -5,7 +5,7 @@ struct Ref_2fe3f0 {
     virtual void release();
 };
 struct Obj_2fe3f0 {
-    volatile unsigned vptr;
+    volatile hulk_uintptr vptr;
     char pad[0x84];
     Ref_2fe3f0* volatile ptr;
     void run();

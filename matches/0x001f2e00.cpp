@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 extern int __cdecl FUN_0024b030(int);
 extern int __cdecl FUN_0024c590(int, int);
-extern int __cdecl FUN_0026fd50(int, int);
+extern int __cdecl FUN_0026fd50(hulk_intptr, int);
 struct Receiver_1f2e00 {
     void run(int);
 };

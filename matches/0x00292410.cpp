@@ -1,4 +1,5 @@
-extern "C" void* alloc(unsigned int);
+#include "compat/ptr.h"
+extern "C" void* alloc(hulk_uintptr);
 extern "C" void init();
 extern int* gA_292410;
 extern int* gB_292410;

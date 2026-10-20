@@ -9,7 +9,7 @@ class Obj_24a7a0 {
     int m40;
     Obj_24a7a0* Update(u8_24a7a0);
 };
-extern void Copy(void*, int);
+extern void Copy(void*, hulk_intptr);
 extern void InitA(void*);
 extern void InitB(void*);
 Obj_24a7a0* Obj_24a7a0::Update(u8_24a7a0 flag) {

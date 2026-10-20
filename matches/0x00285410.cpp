@@ -11,9 +11,9 @@ class Container_285410 {
     char pad[0x14];
     unsigned int count;
     Item_285410* items[1];
-    unsigned int Find(int value);
+    hulk_uintptr Find(int value);
 };
-unsigned int Container_285410::Find(int value) {
+hulk_uintptr Container_285410::Find(int value) {
     unsigned int i = 0;
     while (i < count) {
         if (items[i]->Match(value) == true)

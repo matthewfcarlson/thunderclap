@@ -9,7 +9,7 @@ class Obj_23b2f0 {
 extern void thunk(void*);
 class IFileStringReader {
   public:
-    unsigned int vt;
+    hulk_uintptr vt;
     unsigned int pad;
     Obj_23b2f0* sub;
     IFileStringReader* vfunc_2(int);

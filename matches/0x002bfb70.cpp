@@ -8,7 +8,7 @@ class Image {
     void Fn();
     void Next();
 };
-extern void __cdecl thunk_FUN_00267090(int);
+extern void __cdecl thunk_FUN_00267090(hulk_intptr);
 void Image::Fn() {
     int x = m24;
     *(hulk_intptr*)this = (hulk_intptr)Image_vftable;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Child_2edb90 {
     virtual void v0();
     virtual void v1();
@@ -28,7 +29,7 @@ struct Sub_2edb90 {
 struct Vec_2edb90 {
     Item_2edb90** b;
     Item_2edb90** e;
-    unsigned size() const { return e - b; }
+    hulk_uintptr size() const { return e - b; }
     Item_2edb90*& operator[](unsigned i) { return b[i]; }
 };
 struct T_2edb90 {

@@ -3,7 +3,7 @@ extern "C" char DAT_004298fc[];
 namespace audio {
 class SeqAction {
   public:
-    int vptr;
+    hulk_intptr vptr;
     SeqAction(int);
 };
 } // namespace audio

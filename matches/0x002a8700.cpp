@@ -37,7 +37,7 @@ class ShaderAnimationController_2a8700 : public Ref_2a8700 {
     virtual Ref_2a8700* own4();
     void setup(ShaderAnimationController_2a8700*);
 };
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 Ref_2a8700* ShaderAnimationController_2a8700::own4() {
     ShaderAnimationController_2a8700* self = this;
     ShaderAnimationController_2a8700* p = (ShaderAnimationController_2a8700*)alloc(0x48);

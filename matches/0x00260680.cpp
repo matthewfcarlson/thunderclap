@@ -8,7 +8,7 @@ struct Sub_260680 {
     void Close();
 };
 struct Obj_260680 {
-    u32_260680 vf;
+    hulk_uintptr vf;
     char pad[0x54];
     void Tail();
 };

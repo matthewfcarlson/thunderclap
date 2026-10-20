@@ -1,4 +1,5 @@
-int FUN_00245890(int param_1, int param_2) {
+#include "compat/ptr.h"
+int FUN_00245890(hulk_intptr param_1, hulk_intptr param_2) {
     int value = 0;
     int place = 1;
     char* p = (char*)(param_1 + 1);

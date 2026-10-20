@@ -8,7 +8,7 @@ class Obj_2641e0 {
 };
 class LoadStream {
   public:
-    unsigned int vt;
+    hulk_uintptr vt;
     unsigned int p4;
     Obj_2641e0* mObj;
     unsigned int pC[5];

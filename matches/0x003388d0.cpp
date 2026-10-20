@@ -3,11 +3,11 @@ extern void* vA[];
 struct T3 {
     char c[3];
 };
-void* __cdecl FUN_0008d690(unsigned n) throw();
+void* __cdecl FUN_0008d690(hulk_uintptr n) throw();
 class O_3388d0 {
   public:
     void* vptr;
-    int m4, m8, mc, m10, m14, m18;
+    hulk_intptr m4, m8, mc, m10, m14, m18;
     char c1c;
     char pad1[0x41c - 0x1d];
     char c41c;

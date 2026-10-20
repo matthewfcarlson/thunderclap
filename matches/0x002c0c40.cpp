@@ -11,10 +11,10 @@ class ImageLoader {
     int b;
     int c;
     int d;
-    int e;
+    hulk_intptr e;
     int f;
 };
-extern "C" void* alloc(int);
+extern "C" void* alloc(hulk_intptr);
 void* __fastcall FUN_002c0c40(ImageLoader* p) {
     p->a = 0;
     p->b = 0x19001;

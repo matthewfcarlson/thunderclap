@@ -8,9 +8,9 @@ extern "C" char* strncpy(char*, const char*, unsigned int);
 class DriveFileDestroyRequest {
   public:
     char pad[0x10c];
-    DriveFileDestroyRequest* Run(int, char*);
+    DriveFileDestroyRequest* Run(hulk_intptr, char*);
 };
-DriveFileDestroyRequest* DriveFileDestroyRequest::Run(int a, char* p) {
+DriveFileDestroyRequest* DriveFileDestroyRequest::Run(hulk_intptr a, char* p) {
     ((ThisCall_00275600*)(this))->BaseInit((void*)a);
     *(hulk_uintptr*)this = ((hulk_intptr)DAT_0042bc60);
     InitMore();

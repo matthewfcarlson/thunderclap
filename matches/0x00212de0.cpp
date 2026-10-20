@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 class Thing_212de0 {
   public:
     char pad[8];
-    int end;
+    hulk_intptr end;
 };
 int* __fastcall Find(int, Thing_212de0*);
 void __cdecl Remove(Thing_212de0* a, int b) {

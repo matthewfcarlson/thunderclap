@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Obj_1fb1e0 {
     void* a;
     int b, c, d;
@@ -14,7 +15,7 @@ struct Owner_1fb1e0 {
     Stream* stream;
     void Fn();
 };
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 extern Manager_1fb1e0* gManager_1fb1e0;
 extern const char filename[];
 extern char MyFileStream_vftable[];

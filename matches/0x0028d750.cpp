@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 typedef void(__fastcall* Callback_28d750)(void*);
 extern void __fastcall ElemCtor(void*);
-extern void* Alloc(unsigned int);
+extern void* Alloc(hulk_uintptr);
 extern void __stdcall VecNew(void*, int, int, Callback_28d750);
 class Mem_28d750 {
   public:

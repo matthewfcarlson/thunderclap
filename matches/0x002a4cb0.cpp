@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
-extern "C" void* alloc(unsigned int) throw();
+extern "C" void* alloc(hulk_uintptr) throw();
 struct E_2a4cb0 {
     int a, b, c, d;
 };

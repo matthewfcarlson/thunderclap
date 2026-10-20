@@ -9,7 +9,7 @@ struct B_2051b0 {
 extern char ReadValue(const char*);
 class Method3_2051b0 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     char p04[12];
     char b10, b11, b12;
     char p13[5];

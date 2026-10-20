@@ -4,7 +4,7 @@
 extern int g_vftable_24d380;
 namespace om { class EntityLoader {
   public:
-    int vptr;
+    hulk_intptr vptr;
     EntityLoader* vfunc_2(unsigned char);
 }; }
 extern void FUN_00247550(void*, om::EntityLoader*);

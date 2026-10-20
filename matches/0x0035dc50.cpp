@@ -3,7 +3,7 @@ extern "C" char hulk_at_0040048c[];
 struct Pair {
     unsigned a, b;
 };
-extern Pair __cdecl FUN_0027b020(int);
+extern Pair __cdecl FUN_0027b020(hulk_intptr);
 extern Pair g;
 void FUN_0035dc50() {
     g = FUN_0027b020(((hulk_intptr)hulk_at_0040048c));

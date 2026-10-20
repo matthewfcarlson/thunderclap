@@ -18,7 +18,7 @@ class Base_28bba0 {
 };
 class Float2Channel : public Base_28bba0 {
   public:
-    int m18;
+    hulk_intptr m18;
     Float2Channel(int, int);
     virtual void v1();
 };

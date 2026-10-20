@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 struct ThisWrap_001e9a90 {
-    int GetThing(int);
+    hulk_intptr GetThing(int);
     void FUN_001e9a90(int a, unsigned int b);
 };
 int CheckThing();

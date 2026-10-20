@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 class Node;
 struct Vec {
     Node** first;
     Node** last;
-    unsigned size() const { return ((char*)last - (char*)first) >> 2; }
+    hulk_uintptr size() const { return ((char*)last - (char*)first) >> 2; }
     Node* operator[](unsigned i) const { return first[i]; }
 };
 class Node {

@@ -8,7 +8,7 @@ class PhysicsJoint {
   public:
     char pad[0x20];
     int m20;
-    int m24;
+    hulk_intptr m24;
 };
 extern void __cdecl AddRef(void*);
 void __fastcall Target(PhysicsJoint* self) {

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Image {
   public:
     virtual void V0();
@@ -6,7 +7,7 @@ class Image {
     virtual ~Image();
     void Finish();
 };
-extern void __cdecl thunk_FUN_00267090(int);
+extern void __cdecl thunk_FUN_00267090(hulk_intptr);
 Image::~Image() {
     thunk_FUN_00267090(m24);
     Finish();

@@ -8,7 +8,7 @@ class InitBase_205600 {
 class Method3_205600 {
   public:
     Method3_205600(const char*, int);
-    int vptr;
+    hulk_intptr vptr;
     char p[12];
     char f10, f11, f12;
     char p2[5];

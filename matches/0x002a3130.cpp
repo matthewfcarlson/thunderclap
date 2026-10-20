@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Inner_2a3130 {
     virtual void f0();
     virtual void f1();
@@ -14,7 +15,7 @@ struct Obj_2a3130 {
     Obj_2a3130* build();
 };
 Obj_2a3130* gObj_2a3130;
-extern void* alloc(unsigned int);
+extern void* alloc(hulk_uintptr);
 void FUN_002a3130() {
     if (gObj_2a3130 == 0) {
         Obj_2a3130* p = (Obj_2a3130*)alloc(0x20);

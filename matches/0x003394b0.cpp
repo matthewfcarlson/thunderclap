@@ -1,5 +1,5 @@
 #include "compat/ptr.h"
-extern "C" void __cdecl copybytes(int, void*, int);
+extern "C" void __cdecl copybytes(int, void*, hulk_intptr);
 struct Buffer_3394b0 {
     char* pos;
     int count;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Item_280160 {
   public:
     virtual void A();
@@ -10,8 +11,8 @@ class Owner_280160 {
     char pad14[4];
     int clear;
     char pad1c[0x44];
-    int first;
-    int second;
+    hulk_intptr first;
+    hulk_intptr second;
     int x;
     int y;
     void Init();

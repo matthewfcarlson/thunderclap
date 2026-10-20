@@ -2,9 +2,9 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_00428210[];
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 struct RandomCondition_2387f0 {
-    int vf;
+    hulk_intptr vf;
     int pad[2];
     int value;
     void Init(int);

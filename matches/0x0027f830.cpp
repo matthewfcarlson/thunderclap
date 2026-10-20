@@ -2,7 +2,7 @@
 extern "C" char DAT_0042c48c[];
 typedef unsigned int u32_27f830;
 struct CMotionTrailQueue {
-    u32_27f830 vtable;
+    hulk_uintptr vtable;
     char pad[0x58];
     u32_27f830 field5c;
     void Run();

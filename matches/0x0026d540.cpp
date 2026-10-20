@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* p) {
     return p;
@@ -13,7 +14,7 @@ struct Obj {
     char pad2[12];
     Obj();
 };
-extern "C" void* __cdecl Alloc(int, int);
+extern "C" void* __cdecl Alloc(hulk_intptr, int);
 extern "C" void __cdecl Other();
 extern int g;
 Obj* __cdecl Make(int n, int heap) {

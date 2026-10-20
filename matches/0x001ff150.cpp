@@ -9,7 +9,7 @@ extern const char B[];
 extern const char C[];
 class Method4_1ff150 : public Ctor_001d0480 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     char pad4[12];
     char b10;
     char b11;

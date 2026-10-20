@@ -13,7 +13,7 @@ struct Sub_254520 {
 };
 class Stream_254520 {
   public:
-    int vf;
+    hulk_intptr vf;
     void BaseInit();
     char pad[4];
     Sub_254520 sub;

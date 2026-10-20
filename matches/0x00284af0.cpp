@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 struct AnimationFrameController {
     void Init();
-    unsigned int vptr;
+    hulk_uintptr vptr;
     char pad4[0xc];
     unsigned char field10;
     char pad11[7];

@@ -7,7 +7,7 @@ class Sub_2349e0 {
 };
 class ParamValueString {
   public:
-    int vf;
+    hulk_intptr vf;
     int pad;
     Sub_2349e0 sub;
     ParamValueString(const char*);

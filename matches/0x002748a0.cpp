@@ -36,7 +36,7 @@ struct Drive_2748a0 {
     char p1[4];
     Obj_2748a0* obj;
     char p2[8];
-    int result;
+    hulk_intptr result;
     char p3[4];
 };
 

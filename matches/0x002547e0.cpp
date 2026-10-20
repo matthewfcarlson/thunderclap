@@ -6,7 +6,7 @@ typedef unsigned int u32_2547e0;
 extern void* __cdecl allocObj(void*);
 extern char gPool_2547e0;
 struct SeqEventSilence_2547e0 {
-    u32_2547e0 vptr;
+    hulk_uintptr vptr;
     u32_2547e0 unk;
     int duration;
     int end;

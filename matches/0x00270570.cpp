@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 extern "C" void* malloc(unsigned);
 
-unsigned FUN_00270570(int param_1, unsigned param_2) {
+hulk_uintptr FUN_00270570(int param_1, unsigned param_2) {
     if (param_2 < 4)
         param_2 = 4;
     unsigned total = param_1 + param_2;

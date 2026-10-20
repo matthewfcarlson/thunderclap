@@ -2,7 +2,7 @@
 extern "C" char DAT_0042d4d4[];
 class CompositeDrawableLoader {
   public:
-    int a;
+    hulk_intptr a;
     int b;
     int c;
     int d;

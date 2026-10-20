@@ -6,9 +6,9 @@ extern "C" char DAT_0042bf6c[];
 extern "C" char DAT_004342e8[];
 extern "C" char DAT_004342fc[];
 struct Callback_3350f0 {
-    volatile int a;
+    volatile hulk_intptr a;
     volatile int b;
-    volatile int c;
+    volatile hulk_intptr c;
     volatile int d;
 };
 extern void __fastcall helper(Callback_3350f0*);

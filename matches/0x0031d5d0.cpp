@@ -1,12 +1,13 @@
+#include "compat/ptr.h"
 namespace pure3d {
 struct Vec_31d5d0 {
     unsigned int x[16];
-    void fill(int, unsigned int);
+    void fill(int, hulk_uintptr);
 };
 struct Item_31d5d0 {
     char a[8];
-    unsigned int count;
-    unsigned int ptr;
+    hulk_uintptr count;
+    hulk_uintptr ptr;
 };
 class pddiBaseContext {
   public:
@@ -126,7 +127,7 @@ class pddiBaseContext {
 void pure3d::pddiBaseContext::vfunc_17(int i, int p) {
     Vec_31d5d0 t;
     Item_31d5d0* q = items[i];
-    unsigned int d = q->count * 64 + q->ptr;
+    hulk_uintptr d = q->count * 64 + q->ptr;
     t.fill(p, d);
     *(Vec_31d5d0*)(q->count * 64 + q->ptr) = t;
     f108(i);

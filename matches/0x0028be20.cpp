@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 typedef void(__fastcall* Callback_28be20)(void*);
 extern void __fastcall ElemCtor(void*);
-extern void* Alloc(unsigned int);
+extern void* Alloc(hulk_uintptr);
 extern void __stdcall VecNew(void*, int, int, Callback_28be20);
 class Mem_28be20 {
   public:
@@ -27,7 +27,7 @@ struct Z4 {
 class V2_28be20 : public Base_28be20 {
   public:
     Z4 z;
-    int m28;
+    hulk_intptr m28;
     V2_28be20(int, int);
     virtual void v1();
 };

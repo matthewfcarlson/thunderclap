@@ -5,7 +5,7 @@ typedef unsigned int u32_31acf0;
 extern void __stdcall D3DDevice_Release();
 extern void __stdcall D3DResource_Release(u32_31acf0);
 struct Display_31acf0 {
-    u32_31acf0 vptr;
+    hulk_uintptr vptr;
     char pad[0x0c];
     u32_31acf0 device;
     char pad2[0x484];

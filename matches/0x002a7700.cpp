@@ -3,7 +3,7 @@
 #include "gen/pure3d.h"
 
 typedef unsigned int U_2a7700;
-extern U_2a7700 __cdecl Query(U_2a7700, U_2a7700, const void*, const void*, U_2a7700);
+extern U_2a7700 __cdecl Query(hulk_uintptr, U_2a7700, const void*, const void*, U_2a7700);
 extern char CameraRTTI;
 extern char EntityRTTI_2a7700;
 struct ParticleController_nv_2a7700 {

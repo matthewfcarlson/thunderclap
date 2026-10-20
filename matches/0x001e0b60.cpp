@@ -4,7 +4,7 @@ extern "C" char DAT_00423478[];
 class Method3_1e0b60 {
   public:
     void Init(int, int);
-    int m0;
+    hulk_intptr m0;
     char pad4[0x0c];
     char m10, m11, m12;
     char pad13[5];

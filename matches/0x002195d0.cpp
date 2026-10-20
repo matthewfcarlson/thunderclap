@@ -1,4 +1,5 @@
-extern "C" void* __cdecl FUN_0021add0(void*, int, int, int);
+#include "compat/ptr.h"
+extern "C" void* __cdecl FUN_0021add0(void*, int, hulk_intptr, hulk_intptr);
 extern "C" void __cdecl FUN_00217130(void*, void*, int);
 
 struct Obj_2195d0 {

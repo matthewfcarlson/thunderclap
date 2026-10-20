@@ -5,7 +5,7 @@ class Dev_32a2d0 {
     char pad[0x48];
 
   public:
-    int state;
+    hulk_intptr state;
     void Do(unsigned char, unsigned char, char*);
 };
 class Obj_32a2d0 {

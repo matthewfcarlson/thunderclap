@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned char u8_2b5560;
 typedef unsigned int u32_2b5560;
 extern int shadow_vtable;
@@ -10,9 +11,9 @@ class ShadowSkinTopology {
     virtual void v1();
     virtual ShadowSkinTopology* vfunc_2(u8_2b5560);
     u32_2b5560 a;
-    u32_2b5560 b;
-    u32_2b5560 c;
-    u32_2b5560 d;
+    hulk_uintptr b;
+    hulk_uintptr c;
+    hulk_uintptr d;
 };
 ShadowSkinTopology* ShadowSkinTopology::vfunc_2(u8_2b5560 param) {
     *(int**)this = &shadow_vtable;

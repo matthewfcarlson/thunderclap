@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Sub_2c3930 {
     void Set(int);
     char p[8];
@@ -11,7 +12,7 @@ struct Base_2c3930 {
 struct ILCC {
     virtual void f();
 };
-void* Alloc(unsigned);
+void* Alloc(hulk_uintptr);
 struct TextBible : Base_2c3930, ILCC {
     virtual void g();
     int* mBegin;

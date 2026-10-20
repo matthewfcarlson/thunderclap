@@ -6,7 +6,7 @@ class Entry_2d2130 {
 };
 class GeneratorBlendState {
   public:
-    int vf;
+    hulk_intptr vf;
     int a;
     int b;
     int c;

@@ -11,7 +11,7 @@ class Child_297010 {
 };
 class Obj_297010 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     int x[5];
     Child_297010* c;
     Obj_297010* Build(Obj_297010*);

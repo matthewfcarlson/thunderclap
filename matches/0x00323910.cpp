@@ -1,10 +1,11 @@
+#include "compat/ptr.h"
 struct SurfaceDesc_323910 {
     unsigned int Format, Type, Usage, Size, MultiSampleType, Width, Height;
 };
 namespace D3D8 {
 int __stdcall D3DDevice_GetRenderTarget2();
 void __stdcall D3DSurface_GetDesc(int, SurfaceDesc_323910*);
-void __stdcall D3DResource_Release(int);
+void __stdcall D3DResource_Release(hulk_intptr);
 int __stdcall D3DDevice_CreateTexture2(int, int, int, int, int, unsigned int, int);
 } // namespace D3D8
 class Viewport_323910 {

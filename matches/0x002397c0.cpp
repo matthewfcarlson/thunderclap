@@ -14,7 +14,7 @@ struct S_2397c0 {
 };
 struct EA : B_2397c0 {
     Ref_2397c0* m1c;
-    int m20;
+    hulk_intptr m20;
     Ref_2397c0* m24;
     int m28;
     Ref_2397c0* m2c;

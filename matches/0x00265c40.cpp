@@ -3,13 +3,13 @@ struct State_265c40 {
     unsigned char p0[1];
     unsigned char flag;
     unsigned char p2[0x12];
-    int at14;
-    int at18;
+    hulk_intptr at14;
+    hulk_intptr at18;
     int at1c;
     unsigned char p20[4];
     int at24;
-    int at28;
-    int at2c;
+    hulk_intptr at28;
+    hulk_intptr at2c;
     int at30;
 };
 void __cdecl Init(void*);

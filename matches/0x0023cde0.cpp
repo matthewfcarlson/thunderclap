@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 class PlatformCondition {};
 struct Factory_23cde0 {
-    int vptr;
+    hulk_intptr vptr;
 };
 extern int factoryVtable;
 extern void __cdecl FUN_002343e0(PlatformCondition*, Factory_23cde0*);

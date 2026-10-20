@@ -6,7 +6,7 @@ class Obj_28edf0 {
 };
 class Shader {
   public:
-    int vft;
+    hulk_intptr vft;
     char pad4[12];
     Obj_28edf0* field10;
     char flag;

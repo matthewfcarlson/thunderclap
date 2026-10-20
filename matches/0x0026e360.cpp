@@ -9,7 +9,7 @@ extern u32_26e360 gSaved;
 extern u32_26e360 gState_26e360;
 class ConsoleClient {
   public:
-    u32_26e360 a, b, c;
+    hulk_uintptr a, b, c;
     void Run();
 };
 void ConsoleClient::Run() {

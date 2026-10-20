@@ -1,4 +1,5 @@
-extern "C" __int64 __cdecl make(const char*, int, int);
+#include "compat/ptr.h"
+extern "C" __int64 __cdecl make(const char*, int, hulk_intptr);
 struct Manager {
     void init(__int64*, __int64*, int, int);
 };

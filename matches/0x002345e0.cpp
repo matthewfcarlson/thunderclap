@@ -11,7 +11,7 @@ class Obj_2345e0 {
     virtual void s6();
 };
 namespace fight { struct Condition {
-    unsigned vptr;
+    hulk_uintptr vptr;
     Obj_2345e0* mRef;
     Condition* vfunc_5(unsigned char flags);
     void reset();

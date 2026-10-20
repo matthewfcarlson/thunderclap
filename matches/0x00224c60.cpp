@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/choreo2.h"
 
 class Helper_224c60 {
   public:
-    int run(choreo2::JointDriver*);
+    hulk_intptr run(choreo2::JointDriver*);
 };
 extern void* thunk_FUN_0008d690(int);
 

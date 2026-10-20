@@ -2,9 +2,9 @@
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042c8b4[];
 typedef unsigned int u32_288890;
-void thunk(u32_288890);
+void thunk(hulk_uintptr);
 struct X_288890 {
-    u32_288890 vf;
+    hulk_uintptr vf;
     char pad[0x14];
     u32_288890 a;
     u32_288890 b;

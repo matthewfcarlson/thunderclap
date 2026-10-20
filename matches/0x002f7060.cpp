@@ -2,7 +2,7 @@
 extern int vftable_2f7060;
 class PhysicsObjectLoader {
   public:
-    int vptr;
+    hulk_intptr vptr;
     int a;
     int b;
     int c;

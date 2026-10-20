@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 #include "gen/movie.h"
-extern "C" int __cdecl allocate(void*, unsigned int);
+extern "C" hulk_intptr __cdecl allocate(void*, unsigned int);
 struct RenderStrategyBink_nv_334910 {
     int finish();
 };

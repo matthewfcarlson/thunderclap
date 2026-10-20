@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 class Obj_262400 {
   public:
-    unsigned int A();
+    hulk_uintptr A();
     char* B();
 };
 class P2_262400 {

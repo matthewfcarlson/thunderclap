@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 namespace pure3d {
 class Helper_288740 {
   public:
-    int run(pure3d::PoseAnimationController*);
+    hulk_intptr run(pure3d::PoseAnimationController*);
 };
 } // namespace pure3d
 extern void* __cdecl thunk_FUN_0008d690(unsigned int);

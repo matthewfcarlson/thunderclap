@@ -5,7 +5,7 @@
 typedef unsigned int u32_2fc720;
 extern const int type_animation;
 extern const int type_refcount;
-extern void __cdecl Cast(u32_2fc720, int, const int*, const int*, int);
+extern void __cdecl Cast(hulk_uintptr, int, const int*, const int*, int);
 
 template <> void content::LoadInventory::DynamicCaster<physics::ArticulatedPhysicsObject>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 

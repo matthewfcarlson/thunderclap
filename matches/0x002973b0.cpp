@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct Helper_2973b0 {
-    int f(pure3d::scenegraph::BranchNode*);
+    hulk_intptr f(pure3d::scenegraph::BranchNode*);
 };
 extern "C" void* __cdecl thunk_FUN_0008d690(int);
 

@@ -14,7 +14,7 @@ struct luaL_Buffer_339590 {
 unsigned int __cdecl FUN_002131f0(lua_State *L, int idx);              // lua_strlen
 const char *__cdecl FUN_00213190(lua_State *L, int idx);               // lua_tostring
 void __cdecl FUN_00212d80(lua_State *L, int idx);                      // lua_settop
-void __cdecl FUN_00213380(lua_State *L, const char *s, unsigned int l); // lua_pushlstring
+void __cdecl FUN_00213380(lua_State *L, const char *s, hulk_uintptr l); // lua_pushlstring
 void __cdecl FUN_00212e20(lua_State *L, int idx);                      // lua_insert
 void __cdecl FUN_003393f0(luaL_Buffer_339590 *B);                             // adjuststack
 

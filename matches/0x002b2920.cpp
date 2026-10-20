@@ -1,9 +1,10 @@
 // Same code shape as 0x0029a170 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 class Allocated_2b2920 {
   public:
-    int method(pure3d::MultiController*);
+    hulk_intptr method(pure3d::MultiController*);
 };
 extern Allocated_2b2920* alloc(int);
 

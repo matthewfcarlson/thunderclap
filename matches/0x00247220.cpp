@@ -10,7 +10,7 @@ struct Base_247220 {
 };
 class ContentStream {
   public:
-    unsigned vptr, a, b, c, d, e;
+    hulk_uintptr vptr, a, b, c, d, e;
     unsigned char flag;
     unsigned char pad[3];
     Base_247220* source;

@@ -1,4 +1,5 @@
-void __cdecl thunk_FUN_00267090(int);
+#include "compat/ptr.h"
+void __cdecl thunk_FUN_00267090(hulk_intptr);
 struct Target_304350 {
     int a;
     int b;

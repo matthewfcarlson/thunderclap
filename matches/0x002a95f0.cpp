@@ -5,7 +5,7 @@ extern "C" char DAT_0042de4c[];
 struct TextureAnimationController_nv_2a95f0 {
     void Init(pure3d::TextureAnimationController*);
 };
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 
 void* pure3d::TextureAnimationController::vfunc_4() {
     pure3d::TextureAnimationController* p = (pure3d::TextureAnimationController*)Alloc(0x48);

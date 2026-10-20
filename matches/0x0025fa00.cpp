@@ -7,7 +7,7 @@ struct Pair_25fa00 {
     int b;
 };
 struct MetaType {
-    int vptr;
+    hulk_intptr vptr;
     char pad04[0x10];
     int* m14;
     int* m18;

@@ -2,7 +2,7 @@
 extern "C" char DAT_004325f4[];
 class Obj_31cb20 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     void Init();
     Obj_31cb20();
 };

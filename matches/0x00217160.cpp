@@ -4,7 +4,7 @@ class Ctx_217160 {
     char p[0x10];
     int a;
     char p2[4];
-    int link;
+    hulk_intptr link;
     char p3[0x1c];
     int state;
     char p4[0x14];
@@ -15,12 +15,12 @@ class Param {
     char p[5];
     unsigned char flags;
     char p2[2];
-    int data;
+    hulk_intptr data;
 };
-void FUN_00217100(int, Param*, int);
-void FUN_00217160(int p1, Param* p2) {
+void FUN_00217100(hulk_intptr, Param*, hulk_intptr);
+void FUN_00217160(hulk_intptr p1, Param* p2) {
     Ctx_217160* c = *(Ctx_217160**)((char*)p1 + 0x10);
-    *(int*)p2 = c->link;
+    *(hulk_intptr*)p2 = c->link;
     c->link = (hulk_intptr)p2;
     unsigned char b = p2->flags;
     if ((b & 7) == 0) {

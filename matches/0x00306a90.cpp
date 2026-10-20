@@ -4,7 +4,7 @@ extern void __cdecl Ref(void*);
 extern void __cdecl Free(void*);
 struct Obj_306a90 {
     int a;
-    int b;
+    hulk_intptr b;
     Obj_306a90* Run(byte_306a90 flags);
 };
 Obj_306a90* Obj_306a90::Run(byte_306a90 flags) {

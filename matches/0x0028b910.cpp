@@ -8,7 +8,7 @@ class IRefCount {
 };
 class ChannelLoader {
   public:
-    int vf;
+    hulk_intptr vf;
     int pad;
     int count;
     IRefCount* items[1];

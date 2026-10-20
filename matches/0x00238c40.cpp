@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 typedef unsigned int u32_238c40;
-extern void PrintSomething(u32_238c40, u32_238c40, const char*, u32_238c40);
+extern void PrintSomething(hulk_uintptr, u32_238c40, const char*, u32_238c40);
 char fmt_238c40[] = "%s\n";
 
 bool fight::PrintCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_uintptr x = (hulk_uintptr)__p0; hulk_uintptr y = (hulk_uintptr)__p1; hulk_uintptr z = (hulk_uintptr)__p2;

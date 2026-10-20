@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 struct S_212c50 {
     char pad0[8];
     int a;
     int b;
     char pad10[4];
-    int e;
+    hulk_intptr e;
     int c;
     int d;
 };

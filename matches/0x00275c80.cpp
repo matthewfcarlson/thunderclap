@@ -2,7 +2,7 @@
 extern "C" char DAT_0042bc80[];
 class DriveCancelRequest {
   public:
-    int value;
+    hulk_intptr value;
     DriveCancelRequest(int);
     void Init(int);
 };

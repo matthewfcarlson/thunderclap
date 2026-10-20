@@ -3,7 +3,7 @@
 extern "C" char DAT_0043386c[];
 class ShaderBase_32a9f0 {
   public:
-    int v;
+    hulk_intptr v;
     char pad[0x7c];
     int a;
     char b;

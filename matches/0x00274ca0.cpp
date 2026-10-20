@@ -21,7 +21,7 @@ class Target_274ca0 {
 };
 class FileCompletionRequest {
   public:
-    int v;
+    hulk_intptr v;
     int a;
     int b;
     Obj_274ca0* c;

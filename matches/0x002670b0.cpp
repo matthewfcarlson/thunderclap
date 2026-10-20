@@ -5,8 +5,8 @@ struct Obj_2670b0 {
 };
 struct Entry_2670b0 {
     Obj_2670b0* object;
-    U_2670b0 field4;
-    U_2670b0 field8;
+    hulk_uintptr field4;
+    hulk_uintptr field8;
     Entry_2670b0* next;
 };
 extern Entry_2670b0 gEntries_2670b0[45];

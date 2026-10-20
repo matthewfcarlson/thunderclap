@@ -2,7 +2,7 @@
 extern "C" char DAT_0042e49c[];
 class MultiControllerLoader {
   public:
-    int a;
+    hulk_intptr a;
     int b;
     int c;
     int d;

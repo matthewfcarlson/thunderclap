@@ -10,13 +10,13 @@ class Sub_23f570 {
     void init2();
 };
 struct Obj_23f570 {
-    int vf;
+    hulk_intptr vf;
     int a;
     int b;
     int c;
 };
 extern int breakpoint_vftable;
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<fight::BreakPointTrack>::vfunc_5() {
     Obj_23f570* p = (Obj_23f570*)alloc(0x14);

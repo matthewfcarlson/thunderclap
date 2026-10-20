@@ -13,7 +13,7 @@ class NameObj_250ba0 {
 };
 class NestTrack_250ba0 {
   public:
-    u32_250ba0 vf;
+    hulk_uintptr vf;
     char pad[4];
     NameObj_250ba0 name;
     void init();

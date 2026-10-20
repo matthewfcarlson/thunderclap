@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 namespace core {
 class File {
   public:
@@ -7,7 +8,7 @@ class File {
     int size;
 };
 } // namespace core
-extern "C" void* __cdecl alloc(int);
+extern "C" void* __cdecl alloc(hulk_intptr);
 class Obj {
   public:
     int init(core::File*);

@@ -2,7 +2,7 @@
 extern "C" char DAT_0042ba00[];
 class FileOpenRequest {
   public:
-    int v;
+    hulk_intptr v;
     char pad[8];
     int field;
     unsigned char flag;

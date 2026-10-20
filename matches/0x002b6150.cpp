@@ -2,7 +2,7 @@
 extern "C" char DAT_0042e614[];
 class ShadowMeshLoader {
   public:
-    int vptr;
+    hulk_intptr vptr;
     int a, b, c, d;
     ShadowMeshLoader();
 };

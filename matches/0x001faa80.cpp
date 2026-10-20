@@ -13,7 +13,7 @@ struct StreamLoader {
     char data[0xc];
     void FUN_00337870();
     void FUN_00337890();
-    bool FUN_00337a30(MyBufferStream* stream, const char* name, int owner, void* self, int flag);
+    bool FUN_00337a30(MyBufferStream* stream, const char* name, hulk_intptr owner, void* self, int flag);
 };
 
 class Resource_1faa80 {

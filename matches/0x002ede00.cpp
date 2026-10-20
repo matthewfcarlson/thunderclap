@@ -1,4 +1,5 @@
-extern "C" void* Alloc(unsigned int);
+#include "compat/ptr.h"
+extern "C" void* Alloc(hulk_uintptr);
 struct Buffer_2ede00 {
     void* p;
     void* begin;

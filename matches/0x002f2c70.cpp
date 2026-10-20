@@ -2,7 +2,7 @@
 extern "C" char DAT_00431394[];
 class PhysicsPropertiesLoader {
   public:
-    int vptr;
+    hulk_intptr vptr;
     int a;
     int b;
     int c;

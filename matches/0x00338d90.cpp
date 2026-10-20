@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00338d90 @ 0x00338d90
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct lua_State;
@@ -20,7 +21,7 @@ struct lua_Debug_338d90 {
 
 
 int __cdecl FUN_00213fc0(lua_State *L, int level, lua_Debug_338d90 *ar);
-void __cdecl FUN_00213380(lua_State *L, const char *s, unsigned int len);
+void __cdecl FUN_00213380(lua_State *L, const char *s, hulk_uintptr len);
 const char *__cdecl FUN_00213470(lua_State *L, const char *fmt, ...);
 int __cdecl FUN_00214bd0(lua_State *L, const char *what, lua_Debug_338d90 *ar);
 

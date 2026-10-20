@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 struct Mat_2e1750 {
     char d[64];
     void Init();
 };
-void* Alloc(unsigned n);
+void* Alloc(hulk_uintptr n);
 class Base_2e1750 {
   public:
     Base_2e1750() { a = 0; }

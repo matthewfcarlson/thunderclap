@@ -7,7 +7,7 @@ class Shader {
 };
 class Obj_331690 {
   public:
-    int vft;
+    hulk_intptr vft;
     char pad[0x7c];
     Shader* a;
     Shader* b;

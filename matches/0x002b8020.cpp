@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct Helper_2b8020 {
-    int f(pure3d::PolySkin*);
+    hulk_intptr f(pure3d::PolySkin*);
 };
 extern void* __cdecl thunk_FUN_0008d690(unsigned int);
 

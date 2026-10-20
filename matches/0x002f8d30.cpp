@@ -7,7 +7,7 @@ class Ref_2f8d30 {
 };
 class CollisionSolverAgent {
   public:
-    int vptr;
+    hulk_intptr vptr;
     int pad4;
     Ref_2f8d30* mPtr;
     CollisionSolverAgent* vfunc_2(unsigned char);

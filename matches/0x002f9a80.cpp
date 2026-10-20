@@ -1,5 +1,6 @@
 // FUN_002f9a80 @ 0x002f9a80
-void *FUN_0008d6d0(unsigned int size);
+#include "compat/ptr.h"
+void *FUN_0008d6d0(hulk_uintptr size);
 
 struct Vertex_2f9a80 {
     int w[4];

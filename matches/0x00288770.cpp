@@ -19,7 +19,7 @@ class Result_288770 {
 };
 extern Result_288770* __cdecl resolve(void*, int, const void*, const void*, int);
 struct PoseAnimationController_nv_288770 {
-    void set(unsigned int);
+    void set(hulk_uintptr);
 };
 
 void pure3d::PoseAnimationController::vfunc_5(void* __p0) { void * arg = (void *)__p0;

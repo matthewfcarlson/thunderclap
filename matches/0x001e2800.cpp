@@ -2,7 +2,7 @@
 struct E_1e2800 {
     int a, b, c, d, e;
 };
-void Sift(E_1e2800* base, int idx, int n, E_1e2800 v);
+void Sift(E_1e2800* base, hulk_intptr idx, hulk_intptr n, E_1e2800 v);
 void Heapify(E_1e2800* first, E_1e2800* last) {
     hulk_intptr n = (last - first);
     hulk_intptr i = n / 2;

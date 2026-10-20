@@ -26,9 +26,9 @@ struct Obj_29f340 {
     Context* ctx;
     char y[4];
     int n;
-    int run();
+    hulk_intptr run();
 };
-int Obj_29f340::run() {
+hulk_intptr Obj_29f340::run() {
     ctx->prepare(n);
     int i = 0;
     if (n > 0)

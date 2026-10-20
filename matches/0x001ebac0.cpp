@@ -1,4 +1,5 @@
 // Same code shape as 0x00059a40 (propagated; names are from that function)
-int __fastcall FUN_001ebac0(int param_1) {
+#include "compat/ptr.h"
+int __fastcall FUN_001ebac0(hulk_intptr param_1) {
     return *(int*)(param_1 + 0x18);
 }

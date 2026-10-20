@@ -3,7 +3,7 @@ extern "C" char DAT_0042cca0[];
 class StatePropDataLoader {
   public:
     StatePropDataLoader();
-    int vptr;
+    hulk_intptr vptr;
     int a;
     int b;
     int c;

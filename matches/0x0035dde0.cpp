@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 extern "C" char hulk_at_0040048c[];
-extern "C" unsigned long long __cdecl Alloc(unsigned int x);
+extern "C" unsigned long long __cdecl Alloc(hulk_uintptr x);
 extern unsigned int gA_35dde0;
 extern unsigned int gB_35dde0;
 void __cdecl FUN_0035dde0() {

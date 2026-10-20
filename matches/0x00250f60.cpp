@@ -1,4 +1,5 @@
-extern "C" __int64 __cdecl make(const char*, int, int);
+#include "compat/ptr.h"
+extern "C" __int64 __cdecl make(const char*, int, hulk_intptr);
 struct Arg {
     __int64 val;
     Arg() throw() : val(make("SeqEventStopTrack", 0, 0)) {}

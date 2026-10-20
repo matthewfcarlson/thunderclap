@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 extern "C" char DAT_0042502c[];
 struct MyFileStream {
-    int v;
+    hulk_intptr v;
     int a;
     int b;
     int c;

@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 8/8)
 // FUN_0033ea00 @ 0x0033ea00
 // cl-flags: /GS
+#include "compat/ptr.h"
 struct lua_State;
 lua_State* __cdecl FUN_00213290(lua_State* L, int idx);
 void __cdecl FUN_00339c30(lua_State* L, int narg, const char* msg);
 int __cdecl FUN_00213fc0(lua_State* L, int level, void* ar);
 int __cdecl FUN_00212d70(lua_State* L);
-void __cdecl FUN_00213380(lua_State* L, const char* s, unsigned int len);
+void __cdecl FUN_00213380(lua_State* L, const char* s, hulk_uintptr len);
 
 // Lua coroutine.status
 int __cdecl FUN_0033ea00(lua_State* L) {

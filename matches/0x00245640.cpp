@@ -8,7 +8,7 @@ extern char allocatorGlobal;
 namespace audio {
 class Clip_245640 {
   public:
-    u32_245640 vft;
+    hulk_uintptr vft;
     char pad[0x24];
     u32_245640 field28;
     void init(void*);

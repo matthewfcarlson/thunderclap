@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 typedef unsigned int uint;
-extern void __cdecl CopyThing(void*, void*, int);
+extern void __cdecl CopyThing(void*, void*, hulk_intptr);
 struct Thing_339470 {
     uint* mPtr;
     int mCount;

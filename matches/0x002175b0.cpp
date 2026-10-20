@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 extern const float g_zero_2175b0;
 extern float* FUN_00219e50(int a, int b);
 
-float* FUN_002175b0(int param_1, int* param_2, int param_3) {
+float* FUN_002175b0(hulk_intptr param_1, int* param_2, int param_3) {
     int iVar1;
     switch (*param_2) {
     case 5:

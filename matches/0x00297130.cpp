@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct Scenegraph_nv_297130 {
-    int helper(pure3d::scenegraph::Scenegraph*);
+    hulk_intptr helper(pure3d::scenegraph::Scenegraph*);
 };
 extern pure3d::scenegraph::Scenegraph* alloc(int);
 

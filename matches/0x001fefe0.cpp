@@ -5,7 +5,7 @@ extern "C" char DAT_00425334[];
 extern "C" char DAT_0048e10c[];
 class Method3_1fefe0 {
   public:
-    int vftable;
+    hulk_intptr vftable;
     char pad04[0x0c];
     unsigned char b10;
     unsigned char b11;

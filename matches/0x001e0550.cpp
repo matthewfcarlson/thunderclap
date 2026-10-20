@@ -3,7 +3,7 @@
 extern "C" char DAT_004233f8[];
 class Obj_1e0550 {
   public:
-    int v;
+    hulk_intptr v;
     char pad[0x14];
     char b18;
     char p19[3];

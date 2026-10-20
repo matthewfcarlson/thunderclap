@@ -1,10 +1,11 @@
 // FUN_0033acd0 @ 0x0033acd0
+#include "compat/ptr.h"
 struct lua_State;
 
 void __cdecl FUN_00212d80(lua_State *L, int idx);
 void __cdecl FUN_00212ed0(lua_State *L, int idx);
 int __cdecl FUN_00212f00(lua_State *L, int idx);
-void __cdecl FUN_00213360(lua_State *L, int n);
+void __cdecl FUN_00213360(lua_State *L, hulk_intptr n);
 void __cdecl FUN_00213640(lua_State *L, int idx, int n);
 void __cdecl FUN_002139a0(lua_State *L, int nargs, int nresults);
 int __cdecl FUN_003392c0(lua_State *L, int idx);

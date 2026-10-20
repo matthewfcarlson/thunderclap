@@ -2,10 +2,10 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_00428bf8[];
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 class CommentCondition_23de30 {
   public:
-    int vtable;
+    hulk_intptr vtable;
     char pad[8];
     int value;
     void Init(int);

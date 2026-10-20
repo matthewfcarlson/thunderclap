@@ -1,8 +1,8 @@
 #include "compat/ptr.h"
-extern void __cdecl CopyThing(int, void*, int);
+extern void __cdecl CopyThing(int, void*, hulk_intptr);
 extern void __cdecl FinishThing(int, int);
 struct Thing_339540 {
-    int base;
+    hulk_intptr base;
     int count;
     int value;
 };

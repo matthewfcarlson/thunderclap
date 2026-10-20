@@ -4,7 +4,7 @@ extern "C" char DAT_0042b9dc[];
 void init();
 class Request {
   public:
-    int v;
+    hulk_intptr v;
     int a;
     int b;
 };

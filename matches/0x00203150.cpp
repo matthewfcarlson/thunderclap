@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class SubObj_203150 {
   public:
     void Clear();
@@ -9,7 +10,7 @@ class CWorldCollisionManager {
   public:
     void* vptr;
     char pad4[0x0C];
-    int mCount;
+    hulk_intptr mCount;
     char pad14[0x0C];
     SubObj_203150 mSub;
     CWorldCollisionManager* vfunc_0(unsigned char param);
