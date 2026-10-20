@@ -173,8 +173,8 @@ stub-vftable members, dispatch stubs and ambiguous names the 32-bit link handles
 | x87 (`-mno-sse -mfpmath=387`), `volatile` rounding pins (2,288) | SSE/NEON math: the replay checkpoints have to be re-recorded or made tolerant on 64-bit (roadmap step 6) | - |
 
 **6. Order of work for 64-bit**: the consolidation batches in their plan order (each one shrinks the binding map
-the 64-bit link can't use), then the pointer-int casts (4,881) as the fields they read get types (b7 header
-fields turn `ptr-int` fits into typed fields), the 272 truncations per source, the 7 failing TUs, typed data,
+the 64-bit link can't use), then the pointer-int casts (4,881; item 9: now 1,163) as the fields they read get types
+(b7 header fields turn `ptr-int` fits into typed fields), the 272 truncations per source, the 7 failing TUs, typed data,
 and only then a 64-bit link attempt with real bindings. The gate to watch is `native64.py`'s undefined symbols
 (56,688) and `layout64.py`'s relative-move count (874).
 
@@ -202,6 +202,63 @@ symbol: 832 resolved (all still match), 3 had no own symbol in their TU (they ha
 deleting destructor) and fall back to isolated, where they match; 0 verdict differences. The strict 32-bit link
 with that report: 1,600 -> 1,392 symbols stubbed, 1,218 -> 1,073 dispatch stubs (the native replay has not been
 re-run since).
+
+**9. Pointer-width types (ptr1, 2026-10-20).** The sources that keep a pointer in an `int` now say so, with types that are
+the same `int` on the 32-bit builds and pointer-sized on 64-bit (`include/compat/ptr.h`; MSVC 7.1 has no `<stdint.h>`):
+
+| type | 32-bit (MSVC 7.1, clang i686) | 64-bit (`intptr_t` width) | replaces |
+|---|---|---|---|
+| `hulk_intptr` / `hulk_uintptr` | `int` / `unsigned int` | `long long` (LLP64) or `long` (LP64) | `int` / `unsigned` that held a pointer, a difference or a size |
+| `hulk_longptr` / `hulk_ulongptr` | `long` / `unsigned long` | the same | `long` (its own pair: `long` and `int` mangle differently) |
+
+Signedness is kept as the source had it. A source that uses one has `#include "compat/ptr.h"` after its leading
+comments; `gen_tree.py` drops that line from the source, includes the header once in the TU (and in generated headers
+that spell the types), and `cxx_items.py` reads the four names as the 32-bit types they are, so declaration variants,
+signatures and `stub_layout` sizes compare as before (the TU emits the pointer-sized spelling of a declaration the
+variants share). Not touched, by design: on-disk fields (`layout64.py --check` still passes), `hulk_at_`/`DAT_`
+constants, arrays of integers (their element size is the layout), locals that address a local array by byte offset
+(the register-emulation equivalents), virtual methods, functions and fields declared in `include/` headers, and the
+names a 64-bit compile of the merged tree found ambiguous once some declarations of them are pointer-sized
+(`thunk`, `FUN_0008d690`, `FUN_00219430`, `FUN_00245850`, `FUN_0008d6d0`).
+
+`tools/ptr1.py` does the rewriting (libclang: `build/venv/bin/pip install clang`, Homebrew LLVM's `libclang.dylib`):
+
+```sh
+build/venv/bin/python tools/ptr1.py scan matches equivalent --out r.json    # sites per source with the reason a site is unresolved
+build/venv/bin/python tools/ptr1.py fix @files --write --out f.json          # casts, locals, punned slots; f.json["..."]["demands"]
+build/venv/bin/python tools/ptr1.py collect @all --out collect.json          # keys declared in headers / virtual / overloaded
+build/venv/bin/python tools/ptr1.py sigs --demands d.json --blocked collect.json --skip @n12 @all --write
+build/venv/bin/python tools/ptr1.py proof @changed                           # MSVC 7.1 objects before/after (git HEAD)
+```
+
+`fix` rewrites the type of a pointer -> integer cast, of the local that receives it or feeds an integer -> pointer
+cast, and the pointee type of a `*(uint*)(p + 8)` slot, and iterates on clang's own diagnostics (a file whose rewrite
+adds a clang error on either target is left alone). What it cannot reach it reports as a demand (a parameter, return
+type or field of this function / class carries a pointer); `sigs` applies the demands to every declaration of the same
+function (i686 mangled name) in every source at once, since the tree generator merges declarations by text.
+`proof` compiles HEAD's and the working copy's source with the verification flags and requires identical sections,
+relocations (by symbol name), symbol tables (the compiler's `$L<n>` jump-table labels are named by position) and
+data. Re-run `scan` after new sources land (`native64.py --sites OUT` lists the tree's sites as JSON lines).
+
+| `native64.py` (msvc64) | before (HEAD 64a092293) | after |
+|---|---|---|
+| pointer <-> integer casts, sites / sources | 4,936 / 3,187 | **1,163 / 1,106** (pointer -> integer 3,163 -> 18; integer -> pointer 3,016 -> 1,205) |
+| 64 -> 32-bit truncations | 274 / 196 | 666 / 302 |
+| both classes | 5,210 | **1,829** |
+| `arm64`: casts / truncations | 4,919 / 296 | 1,160 / 686 |
+
+The truncation class grows because an explicit `(unsigned)p` that is now `(hulk_uintptr)p` meets a callee, return or
+field that stays 32-bit: the cast no longer hides the narrowing. What is left, by source-level reason (`ptr1.py scan`,
+1,902 sites in 1,297 sources): 975 parameters of virtual stub methods and of functions declared in `include/` headers
+(they need the real class hierarchy: b9-b13), 198 stores into a local array used as a stack image (the register-emulation
+equivalents, e.g. `equivalent/0x00107c90.cpp`), 336 `int*`/`unsigned*` locals and slots written or read as pointers
+(`*p = (hulk_intptr)&vftable`: the hand-written vptr stores b10 replaces with constructors), 159 arguments of
+callees whose signature is virtual, header-declared or overloaded, 53 fields of `include/gen/` classes, 53 subscripts
+of such arrays, and a tail of constants and globals. 3,472 sources changed. Proof: every changed source compiles with
+MSVC 7.1 to an identical object; `verify_relocs.py` ok on the 2,316 changed `matches/`; `build_tree.py` (mac2):
+22,341 / 22,341 matches, 0 verdict differences, equivalents all `same`, merged 21,242 = 21,242 (8 functions swapped
+modes among neighbours that share `GetLastError`-style declarations); the strict i686 native link of that tree:
+lld-link rc 0, no messages.
 
 ## native12: past the first level load (2026-10-20)
 

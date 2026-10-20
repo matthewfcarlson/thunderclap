@@ -273,6 +273,8 @@ stub-virtual declarations in 4,182 sources (`clang_probe.py` scans, msvc configu
 a quarter of each; the rest belong to stubs without a known class (non-polymorphic helpers). Pointer<->integer casts
 (4,779 in the 2026-10-17 gnu64 probe) follow the fields: b7 turns `ptr-int` fits (9 used, 197 owner) into typed
 header fields; gen-ref keeps a `(*(int*)&p->f_XX)` cast where the stub read a pointer as an int.
+The casts and the locals / signatures that carry pointers were typed separately (ptr1, `hulk_intptr` etc., docs/native-build.md
+"64-bit" item 9): msvc64 pointer<->integer casts 4,936 -> 1,163; what is left sits behind virtual and header-declared signatures.
 
 **Link stubs and bridges.** Strict link of the snapshot: 0 errors, 1,594 symbols stubbed (1,339 of them virtual
 members of stub classes that only clang's emitted stub vftables name), 1,233 virtual dispatch stubs, 70 ambiguous
