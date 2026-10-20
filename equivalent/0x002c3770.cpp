@@ -1,3 +1,0 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2076 inputs, branch coverage 6/6)
-// FUN_002c3770 @ 0x002c3770
-struct Item { char pad[0x10]; char value; }; struct Holder { char pad[0x14]; Item **begin; Item **end; char pad2[8]; unsigned short index; void FUN_002c3770(char value); }; void Holder::FUN_002c3770(char value) { Item **it = begin; unsigned int i = 0; if (((int)((char*)end - (char*)it) >> 2) != 0) { for (;;) { if ((*it)->value == value) { index = (unsigned short)i; return; } ++i; ++it; if (i >= (unsigned int)((int)((char*)end - (char*)begin) >> 2)) return; } } }

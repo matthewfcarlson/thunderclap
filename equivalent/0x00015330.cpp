@@ -1,3 +1,0 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
-// CComboTimerAction::vfunc_7 @ 0x00015330
-struct Timer { float FUN_001ccc20(); unsigned int FUN_001ccc30(float); }; struct Manager { char pad[0x2c]; Timer* timer; }; extern Manager* DAT_004dd700; class CComboTimerAction { public: unsigned int vfunc_7(float); }; unsigned int CComboTimerAction::vfunc_7(float delta) { Manager* manager = DAT_004dd700; if (!manager) return 0; Timer* timer = manager->timer; if (!timer) return (unsigned int)manager & ~255u; unsigned int result = timer->FUN_001ccc30(timer->FUN_001ccc20() + delta); return (result & ~255u) | 1u; }
