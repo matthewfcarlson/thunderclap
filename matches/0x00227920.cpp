@@ -1,5 +1,3 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
-// FUN_00227920 @ 0x00227920
 extern float __cdecl FUN_00224fc0(float, float);
 struct Object {
     char pad[0x12e0];
@@ -9,6 +7,7 @@ struct Object {
     void FUN_00227920(int);
 };
 void Object::FUN_00227920(int arg) {
-    float result = FUN_00224fc0(value1, value0);
+    float a = value0, b = value1;
+    float result = FUN_00224fc0(b, a);
     FUN_00226a70(arg, result);
 }
