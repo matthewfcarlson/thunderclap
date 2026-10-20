@@ -1,3 +1,0 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
-// FUN_001ea6b0 @ 0x001ea6b0
-struct Node { char pad0[0x14]; Node* nextLink; char pad18[4]; int data; }; struct Source { char pad[0x3c]; Node* firstLink; }; struct Target { char pad0[0x18]; Source* source; char pad1[8]; int count; void FUN_001ea190(Node*, int*); void FUN_001ea6b0(Source*, int); }; void Target::FUN_001ea6b0(Source* src, int unused) { source = src; count = 0; if (src) { Node* link = src->firstLink; Node* node = link ? (Node*)((char*)link - 0x14) : 0; while (node) { FUN_001ea190(node, &node->data); link = node->nextLink; node = link ? (Node*)((char*)link - 0x14) : 0; } } }
