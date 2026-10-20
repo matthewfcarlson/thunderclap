@@ -14,6 +14,9 @@ Each group: (source, why, [(old text, new text), ...]); every occurrence of an o
 """
 
 DEMOTE = {"matches/0x002151e0.cpp", "matches/0x00339270.cpp", "matches/0x0033eb30.cpp",
+          # native12: callers reaching a register-convention definition under another name (bound by position,
+          # outside check 5's view): the stack_init / step / fenv / thing-placement calls
+          "matches/0x00215010.cpp", "matches/0x00216f60.cpp", "matches/0x0033db20.cpp", "matches/0x001e5720.cpp",
           # native8: tail calls passing ecx / a stack word on that MSVC 7.1 compiles another way
           "matches/0x00087990.cpp", "matches/0x001bc710.cpp", "matches/0x00334c00.cpp"}
 
@@ -1157,4 +1160,29 @@ REG_CALLS += [
     ("matches/0x001b6990.cpp", "returns the singleton (eax holds it on every path; its caller uses it)",
      [("void __cdecl FUN_001b6990() {\n    if (!gObj)\n        gObj = new Obj;\n}",
        "Obj* __cdecl FUN_001b6990() {\n    Obj* p = gObj;\n    if (!p)\n        gObj = p = new Obj;\n    return p;\n}")]),
+]
+
+# native12: the same register-convention callees, reached by callers that name them otherwise (`Init`, `step`,
+# `f33d9e0`, `Notify`, `fallback`: bound by position, so check 5, which looks for FUN_x, missed them; the native image
+# ran luaE_newthread's stack_init 0x00214dd0 with garbage in L1: play3's first Lua coroutine after frame 420).
+# Each register value read off the original's call site.
+REG_CALLS += [
+    ("matches/0x00215010.cpp", "luaE_newthread: stack_init 0x00214dd0 takes (L in edi = p, L1 in esi = the new thread)",
+     [("void Init();", _n("FUN_00214dd0", "edi esi") + "void Init(Node*, Node*);"),
+      ("    Init();", "    Init(p, n);")]),
+    ("matches/0x00216f60.cpp", "luaC_runtilstate-style loop: the step 0x00216ed0 takes L in esi (the argument p)",
+     [("void step();", _n("FUN_00216ed0", "esi") + "void step(Outer_216f60*);"),
+      ("        step();", "        step(p);")]),
+    ("matches/0x0033db20.cpp", "luaB_setfenv: getfunc 0x0033d9e0 takes L in esi (the argument state)",
+     [('extern "C" void __cdecl f33d9e0();', _n("FUN_0033d9e0", "esi") + 'extern "C" void __cdecl f33d9e0(void*);'),
+      ("    f33d9e0();", "    f33d9e0(state);")]),
+    ("matches/0x001e5720.cpp", "0x001e51b0 takes (this in ecx, the thing on the stack, a second word in esi = the "
+     "thing again)",
+     [("    void Notify(Thing_1e5720*);", "    " + _n("FUN_001e51b0", "ecx stack esi").strip() + "\n    void Notify(Thing_1e5720*, int);"),
+      ("        Notify(p);", "        Notify(p, (int)p);")]),
+    ("matches/0x00334c00.cpp", "0x00334b00 is the movie owner's member with `this` in esi (its own note): called on p "
+     "(esi); the lane's rematch (`fallback()`) of native8's demoted source",
+     [('extern "C" void __cdecl fallback();', "struct Owner_334c00 {\n// equiv-conv: FUN_00334b00 esi\n    void FUN_00334b00();\n};"),
+      ("            fallback();\n    } else\n        fallback();",
+       "            ((Owner_334c00*)p)->FUN_00334b00();\n    } else\n        ((Owner_334c00*)p)->FUN_00334b00();")]),
 ]

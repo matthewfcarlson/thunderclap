@@ -9,10 +9,10 @@ class Obj {
     virtual void a();
     virtual void b();
     virtual void c();
-    virtual void doIt(Caster_2b2c30*, U64);
+    virtual void* doIt(Caster_2b2c30*, U64);
 };
-void __cdecl target(Obj* obj, void* p) {
+void* __cdecl target(Obj* obj, void* p) {
     U64 v = getValue(p);
     Caster_2b2c30 caster;
-    obj->doIt(&caster, v);
+    return obj->doIt(&caster, v);
 }

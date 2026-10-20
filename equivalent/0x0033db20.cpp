@@ -1,5 +1,8 @@
+// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 8/8)
+// FUN_0033db20 @ 0x0033db20
 extern "C" void __cdecl f339d70(void*, int, int);
-extern "C" void __cdecl f33d9e0();
+// equiv-conv: FUN_0033d9e0 esi
+extern "C" void __cdecl f33d9e0(void*);
 extern "C" int __cdecl f213720(void*, int);
 extern "C" void __cdecl f213380(void*, const char*, int);
 extern "C" void __cdecl f213600(void*, int);
@@ -13,7 +16,7 @@ extern "C" void __cdecl f212e60(void*, int);
 extern "C" int __cdecl f213950(void*, int);
 int __cdecl target(void* state, void*) {
     f339d70(state, 2, 5);
-    f33d9e0();
+    f33d9e0(state);
     f213720(state, -1);
     f213380(state, "__fenv", 6);
     f213600(state, -2);

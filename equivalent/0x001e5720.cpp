@@ -1,3 +1,5 @@
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 8/8)
+// FUN_001e5720 @ 0x001e5720
 class Thing_1e5720 {
   public:
     char pad0[0x14c];
@@ -20,7 +22,8 @@ class Owner_1e5720 {
         char pad[0x4c];
         Manager_1e5720* m;
     }* mgr;
-    void Notify(Thing_1e5720*);
+    // equiv-conv: FUN_001e51b0 ecx stack esi
+    void Notify(Thing_1e5720*, int);
     void Run(Thing_1e5720*);
 };
 void Owner_1e5720::Run(Thing_1e5720* p) {
@@ -28,7 +31,7 @@ void Owner_1e5720::Run(Thing_1e5720* p) {
         return;
     p->Init();
     if (p->f14e)
-        Notify(p);
+        Notify(p, (int)p);
     p->Set(1);
     if (p->f14c) {
         p->Set(1);

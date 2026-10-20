@@ -19,6 +19,26 @@
 
 static const hulk_u32 hulk_invalid_handle = 0xffffffffu;
 
+// native12: HULK_TRACE_IO=1 logs every open / read / seek ("gfx io ..." trace lines: handle, offset, size, result,
+// thread) to line a parser's bytes up with the file they came from
+extern "C" void HULK_CDECL hulk_native_log(const char* line);
+static int io_trace_on() {
+    static int on = -1;
+    if (on < 0) {
+        const char* v = hulk_host_getenv("HULK_TRACE_IO");
+        on = v && *v == '1';
+    }
+    return on;
+}
+#define IO_TRACE(...)                                          \
+    do {                                                       \
+        if (io_trace_on()) {                                   \
+            char line_[400];                                   \
+            hulk_host__snprintf(line_, sizeof(line_), __VA_ARGS__); \
+            hulk_native_log(line_);                            \
+        }                                                      \
+    } while (0)
+
 template <class T> static T* P(hulk_u32 a) { return (T*)(__SIZE_TYPE__)a; }
 
 static hulk_u32 fail(unsigned err, hulk_u32 value) {
@@ -35,6 +55,8 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_CreateFileA(hulk_u32 path, hulk_u32 ac
         return fail(HULK_ERR_PATH_NOT_FOUND, hulk_invalid_handle);
     HulkFsHandle h;
     unsigned err = hulk_fs_open(P<const char>(path), access, share, disposition, flags, &h);
+    IO_TRACE("io open %s -> 0x%x err %u tid %u", P<const char>(path), err ? 0xffffffffu : h, err,
+             hulk_host_GetCurrentThreadId());
     return err ? fail(err, hulk_invalid_handle) : h;
 }
 
@@ -62,8 +84,14 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_ReadFile(hulk_u32 h, hulk_u32 buf, hul
     HULK_XDK_TRACE("ReadFile");
     unsigned got = 0;
     HulkU64 off;
-    unsigned err = io_with_offset(ov, &off) ? hulk_fs_read_at(h, off, P<void>(buf), n, &got)
-                                            : hulk_fs_read(h, P<void>(buf), n, &got);
+    int at = io_with_offset(ov, &off);
+    HulkU64 pos = 0;
+    if (!at && io_trace_on())
+        hulk_fs_seek(h, 0, 1 /* FILE_CURRENT */, &pos);
+    unsigned err = at ? hulk_fs_read_at(h, off, P<void>(buf), n, &got) : hulk_fs_read(h, P<void>(buf), n, &got);
+    IO_TRACE("io read 0x%x at 0x%x%s n 0x%x got 0x%x err %u buf 0x%08x first %08x tid %u", h,
+             (unsigned)(at ? off : pos), at ? " (ov)" : "", n, got, err, buf, got >= 4 ? *P<hulk_u32>(buf) : 0,
+             hulk_host_GetCurrentThreadId());
     return io_finish(err, done, ov, got);
 }
 
@@ -81,6 +109,7 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_SetFilePointer(hulk_u32 h, hulk_u32 lo
     long long off = hi ? (((long long)*P<int>(hi)) << 32) | lo : (long long)(int)lo;
     HulkU64 pos = 0;
     unsigned err = hulk_fs_seek(h, off, method, &pos);
+    IO_TRACE("io seek 0x%x off 0x%x method %u -> 0x%x err %u", h, (unsigned)off, method, (unsigned)pos, err);
     if (err)
         return fail(err, 0xffffffffu);
     if (hi)

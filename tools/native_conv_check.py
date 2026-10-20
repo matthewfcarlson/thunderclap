@@ -1216,6 +1216,51 @@ def check_virtual_returns(tree_report=TREE_REPORT, rtti=os.path.join(ROOT, "buil
     return len(groups), bad
 
 
+def check_bound_register_callers(roots=("matches", "equivalent"), path=BINDINGS):
+    """Check 12 (native12): callers that reach a register-convention definition (its own `// equiv-conv: FUN_x <locs>`
+    note with a register) under another name: the binding map binds `Init`, `step`, `f33d9e0` to FUN_x by position, so
+    check 5 (callers naming FUN_x) never saw them, and natively the definition read a register nobody set
+    (0x00215010's stack_init: play3's first Lua thread). A caller whose own source (the symbol's `fn_<address>`
+    namespace) carries a note for FUN_x is taken as fixed. Returns (register-convention definitions, [findings])."""
+    own, noted = {}, set()
+    for root in roots:
+        rd = os.path.join(ROOT, root)
+        for fn in sorted(os.listdir(rd)):
+            m = re.fullmatch(r"0x([0-9a-fA-F]{8})\.cpp", fn)
+            if not m:
+                continue
+            txt = open(os.path.join(rd, fn), errors="replace").read()
+            if "equiv-conv" not in txt:
+                continue
+            a = int(m.group(1), 16)
+            for mm in re.finditer(r"//[ \t]*equiv-conv:[ \t]*\S*?FUN_(00[0-9a-fA-F]{6})[ \t]+([^\n]*)", txt):
+                locs = mm.group(2).split()
+                if int(mm.group(1), 16) == a and any(l in ("eax", "ebx", "ecx", "edx", "esi", "edi") for l in locs):
+                    own[a] = (locs, "%s/%s" % (root, fn))
+            for mm in re.finditer(r"//[ \t]*equiv-conv:[ \t]*\S*?FUN_(00[0-9a-fA-F]{6})[^\n]*\n[^\n(]*?(\w+)[ \t]*\(", txt):
+                noted.add((int(mm.group(1), 16), mm.group(2)))
+    if not os.path.exists(path):
+        return len(own), []
+    b = json.load(open(path)).get("bindings", {})
+    bad = []
+    for sym, v in sorted(b.items()):
+        a = int(v["addr"], 16)
+        if a not in own or v.get("def") == sym or "position" not in v.get("how", []):
+            continue
+        if re.search(r"FUN_00%06x" % (a & 0xFFFFFF), sym, re.I):
+            continue                    # named: check 5
+        if own[a][0] == ["ecx"] or own[a][0][:1] == ["ecx"] and all(l == "stack" for l in own[a][0][1:]):
+            continue                    # a plain thiscall: any member declaration passes ecx
+        ident = re.match(r"\??_?(\w+?)(?:@|$)", sym)
+        ident = ident.group(1) if ident else sym
+        if (a, ident) in noted:
+            continue                    # some source declares `ident` with FUN_x's note: the fixed caller
+        src = None
+        bad.append({"addr": "0x%08x" % a, "symbol": sym, "conv": " ".join(own[a][0]), "definition": own[a][1],
+                    "caller_source": src or "(declared as `%s`)" % ident})
+    return len(own), bad
+
+
 def run(sources=True, bindings=True, xbe=True, tails=False, roots=("matches", "equivalent"), bindings_path=BINDINGS,
         returns=False, tree_report=TREE_REPORT, pops=False):
     """All checks; a JSON-able summary (counts and findings)."""
@@ -1239,6 +1284,8 @@ def run(sources=True, bindings=True, xbe=True, tails=False, roots=("matches", "e
         rep["pops"] = {"symbols": n, "disagreeing": bad}
         n, bad = check_return_widths(bindings_path)
         rep["return_widths"] = {"pairs": n, "disagreeing": bad}
+        n, bad = check_bound_register_callers(roots, bindings_path)
+        rep["bound_register_callers"] = {"definitions": n, "disagreeing": bad}
     if returns and os.path.exists(tree_report):
         n, bad = check_note_conventions(roots, tree_report)
         rep["note_convs"] = {"notes": n, "disagreeing": bad}
@@ -1293,6 +1340,13 @@ def main(argv=None):
             s["symbols"], len(s["disagreeing"])))
         for x in s["disagreeing"]:
             print("  %s %s  [%s]" % (x["addr"], x["symbol"], x["why"]))
+    if "bound_register_callers" in rep:
+        s = rep["bound_register_callers"]
+        print("register-convention definitions: %d; callers bound to one under another name without its note "
+              "(check 12): %d" % (s["definitions"], len(s["disagreeing"])))
+        for x in s["disagreeing"]:
+            print("  %s %s: %s (definition %s; caller %s)" % (x["addr"], x["symbol"], x["conv"], x["definition"],
+                                                            x["caller_source"]))
     if "definition_convs" in rep:
         s = rep["definition_convs"]
         print("caller symbols in another convention than their definition: %s; cdecl/stdcall callers of a thiscall "

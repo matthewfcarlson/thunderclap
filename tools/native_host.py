@@ -476,7 +476,7 @@ DATA_SYM_RX = re.compile(r"^(?:_|\?)DAT_(00[0-9a-f]{6})(?:$|@@)")
 GAP_LIMIT = 0x10000         # a larger gap between two items starts a new block
 
 
-def data_block(x, objs):
+def data_block(x, objs, want=()):
     """build/native/link/data.s: every item the data TUs (tools/data_gen.py, compiled by clang) define, placed at
     the XBE's distances from its neighbours, instead of the data TU objects themselves.
 
@@ -487,6 +487,12 @@ def data_block(x, objs):
     exactly the verified data TU's contents: no MSVC input changes) and laid out in address order, one block per
     run of items in one XBE section (gaps up to 64 KB zero-filled: vftables, RTTI and library data live elsewhere in
     the image), each block starting at the item's address modulo 16. Labels keep each item's symbol.
+
+    native12: `want` (the link's undefined symbols): a string item the game's code names (`_DAT_<addr>`) that the
+    inventory gives to a library object, because the linker pooled the game's literal with a library's ("sub",
+    0x00434bbc, also XGraphics' at 0x003ba1b8), has no data TU: natively it was a 16-byte zero stub, so Lua's string
+    library registered str_sub under "" and play3's level scripts called a nil `string.sub`. Each such string is
+    placed here with the XBE's bytes (a bridge: docs/native-build.md "Bridges to remove").
 
     objs: the data TU objects (after any relocation patches). Returns {"asm", "defined", "objects_used", "stats"}."""
     import compare
@@ -570,6 +576,22 @@ def data_block(x, objs):
                     orig = x.data[xo:xo + n]
                     if any(orig[k] != b[k] for k in range(n) if not any(r <= k < r + 4 for r in rel)):
                         mismatch.append(name)
+    if want:
+        for it in json.load(open(os.path.join(ROOT, "config/data.json")))["items"]:
+            a = int(it["addr"], 16)
+            name = "_DAT_%08x" % a
+            if it.get("kind") != "string" or name not in want or a in items or region(a) not in (".rdata", ".data"):
+                continue
+            if not str(it.get("object", "")).startswith("library/"):
+                continue
+            xo = x.offset(a)
+            b = bytes(x.data[xo:xo + it["size"]]) if xo is not None else b""
+            if len(b) != it["size"] or b[-1:] != b"\0":
+                st["pooled library strings not NUL-terminated (skipped)"] += 1
+                continue
+            items[a] = (name, b, {})
+            defined.add(name)
+            st["game-referenced strings pooled with library data, from the XBE (native12)"] += 1
     st["items"] = len(items)
     st["data objects replaced by the block"] = len(used)
     st["items whose bytes differ from the XBE outside relocations"] = len(mismatch)

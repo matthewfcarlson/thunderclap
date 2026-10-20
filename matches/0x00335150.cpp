@@ -9,5 +9,4 @@ struct Secondary {
 struct __declspec(dllexport) BinkCallback : Primary, Secondary {
     virtual void f();
 };
-void BinkCallback::f() {}
 } // namespace movie

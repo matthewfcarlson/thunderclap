@@ -12,12 +12,12 @@ struct Node {
     char data[4];
     uint_219610 key;
 };
-void FUN_00219610(Owner_219610* self, uint_219610 key) {
+Node* FUN_00219610(Owner_219610* self, uint_219610 key) {
     Node* current = (Node*)self->list;
     Node** link = (Node**)&self->list;
     while (current != 0 && current->key >= key) {
         if (current->key == key)
-            return;
+            return current;
         link = &current->next;
         current = current->next;
     }
@@ -27,4 +27,5 @@ void FUN_00219610(Owner_219610* self, uint_219610 key) {
     node->key = key;
     node->next = *link;
     *link = node;
+    return node;
 }

@@ -211,6 +211,78 @@ extern "C" void HULK_CDECL hulk_trace_func(hulk_u32 addr, const hulk_u32* f) {
     }
     hulk_trace_line("fcall 0x%08x ecx=0x%08x edx=0x%08x ret=0x%08x args 0x%08x 0x%08x 0x%08x 0x%08x tid=%u", addr, f[1],
                     f[2], f[3], f[4], f[5], f[6], f[7], hulk_host_GetCurrentThreadId());
+    // native12: HULK_TRACE_STR=<digits 1-8>: the NUL-terminated string (up to 96 chars) each of these stack arguments
+    // points at, when committed memory (varargs too: `5` is luaG_runerror's name)
+    static const char* strs = (const char*)1;
+    if (strs == (const char*)1)
+        strs = hulk_host_getenv("HULK_TRACE_STR");
+    for (const char* d = strs; d && *d >= '1' && *d <= '8'; d++) {
+        hulk_u32 v = f[3 + (*d - '0')];
+        hulk_u32 mbi[7] = {0};
+        if (v < 0x10000 || hulk_host_VirtualQuery((const void*)v, mbi, sizeof(mbi)) < sizeof(mbi) || mbi[4] != 0x1000 ||
+            (mbi[5] & 0x101))
+            continue;
+        char buf[100];
+        int n = 0;
+        while (n < 96 && v + n < mbi[0] + mbi[3] && ((const char*)v)[n]) {
+            char c = ((const char*)v)[n];
+            buf[n++] = c >= 32 && c < 127 ? c : '?';
+        }
+        buf[n] = 0;
+        hulk_trace_line("  str %c 0x%08x: \"%s\"", *d, v, buf);
+    }
+    // native12: HULK_TRACE_PATH=<slot><+|-hex>...: follow a pointer chain from a slot (0 ecx, 1-8 the stack
+    // arguments): each step reads the word at (current + offset); logs every value, then the final object's first
+    // 8 words and the string at +0x10 (a Lua TString: `1+14+0-4+c+20` is the running closure's chunk name)
+    static const char* path = (const char*)1;
+    if (path == (const char*)1)
+        path = hulk_host_getenv("HULK_TRACE_PATH");
+    for (const char* pp = path; pp && ((*pp >= '0' && *pp <= '8') || *pp == '@');) {  // (several: comma-separated)
+        hulk_u32 cur = *pp == '0' ? f[1] : f[3 + (*pp - '0')];
+        const char* q = pp + 1;
+        if (*pp == '@') {       // `@<hex>`: an absolute address (a global of the image, from the map)
+            cur = 0;
+            for (; (*q >= '0' && *q <= '9') || ((*q | 0x20) >= 'a' && (*q | 0x20) <= 'f'); q++)
+                cur = cur * 16 + (hulk_u32)(*q <= '9' ? *q - '0' : (*q | 0x20) - 'a' + 10);
+        }
+        char line[300];
+        int ln = hulk_host__snprintf(line, sizeof(line), "  path %c=0x%08x", *pp, cur);
+        int ok = 1;
+        while (ok && (*q == '+' || *q == '-')) {
+            int neg = *q == '-';
+            hulk_u32 off = 0;
+            for (q++; (*q >= '0' && *q <= '9') || ((*q | 0x20) >= 'a' && (*q | 0x20) <= 'f'); q++)
+                off = off * 16 + (hulk_u32)(*q <= '9' ? *q - '0' : (*q | 0x20) - 'a' + 10);
+            hulk_u32 at = neg ? cur - off : cur + off;
+            hulk_u32 mbi[7] = {0};
+            if (at < 0x10000 || hulk_host_VirtualQuery((const void*)at, mbi, sizeof(mbi)) < sizeof(mbi) ||
+                mbi[4] != 0x1000 || (mbi[5] & 0x101)) {
+                ok = 0;
+                break;
+            }
+            cur = *(const hulk_u32*)at;
+            if (ln > 0 && ln < (int)sizeof(line) - 16)
+                ln += hulk_host__snprintf(line + ln, sizeof(line) - ln, " -> 0x%08x", cur);
+        }
+        hulk_trace_line("%s%s", line, ok ? "" : " (unreadable)");
+        hulk_u32 mbi[7] = {0};
+        if (ok && cur >= 0x10000 && hulk_host_VirtualQuery((const void*)cur, mbi, sizeof(mbi)) == sizeof(mbi) &&
+            mbi[4] == 0x1000 && !(mbi[5] & 0x101) && cur + 0x70 <= mbi[0] + mbi[3]) {
+            const hulk_u32* m = (const hulk_u32*)cur;
+            char sb[100];
+            int n = 0;
+            while (n < 96 && ((const char*)cur)[0x10 + n]) {
+                char c = ((const char*)cur)[0x10 + n];
+                sb[n++] = c >= 32 && c < 127 ? c : '?';
+            }
+            sb[n] = 0;
+            hulk_trace_line("  path end: 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x \"%s\"", m[0], m[1],
+                            m[2], m[3], m[4], m[5], m[6], m[7], sb);
+        }
+        while (*q && *q != ',')
+            q++;
+        pp = *q == ',' ? q + 1 : q;
+    }
     // native10: HULK_TRACE_DEREF=<digits>: also 8 words at the pointers in these slots (0 ecx, 1-4 the stack
     // arguments), each when committed memory (VirtualQuery), and 8 words at the first word of each (a vptr-led
     // object: the object's class and its fields; a pointer to a pointer: the pointee)
@@ -249,6 +321,13 @@ extern "C" void HULK_CDECL hulk_trace_func(hulk_u32 addr, const hulk_u32* f) {
             const hulk_u32* m = (const hulk_u32*)v;
             hulk_trace_line("  deref %c%s 0x%08x: 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x", *d,
                             depth ? "*" : "", v, m[0], m[1], m[2], m[3], m[4], m[5], m[6], m[7]);
+            // native12: HULK_TRACE_WIDE=1: the object's next 8 words too (fields at +0x20..+0x3c)
+            static const char* wide = (const char*)1;
+            if (wide == (const char*)1)
+                wide = hulk_host_getenv("HULK_TRACE_WIDE");
+            if (wide && *wide == '1' && !depth && v + 64 <= mbi[0] + mbi[3])
+                hulk_trace_line("  deref %c+20 0x%08x: 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x", *d, v + 32,
+                                m[8], m[9], m[10], m[11], m[12], m[13], m[14], m[15]);
             v = m[0];
         }
     }

@@ -4,12 +4,12 @@ class Base {
     Base(float);
     char pad[12];
 };
-class Derived : public Base {
+class Derived_06c790 : public Base {
   public:
     virtual void Fn();
     float val;
-    Derived(float a, float b);
+    Derived_06c790(float a, float b);
 };
-Derived::Derived(float a, float b) : Base(a) {
+Derived_06c790::Derived_06c790(float a, float b) : Base(a) {
     val = b;
 }

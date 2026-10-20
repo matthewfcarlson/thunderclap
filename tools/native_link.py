@@ -797,8 +797,18 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
             continue
         g = "??_R0." + re.sub(r"fn_[0-9a-f]{8}@", "", s[5:])
         if g not in vt["names"]:
+            # native12: a class renamed with its source's address (`AnimationLoader_2abfb0`: the consolidation's
+            # unclash renames, x64-1 b1-b7) is still the game's class for dynamic_cast / typeid: the stripped
+            # name, if the game has that descriptor (equivalent/0x002abfb0: the particle loader's cast to
+            # pure3d::AnimationLoader returned null, play3 crashed before frame 30)
+            g2 = re.sub(r"_[0-9a-f]{6}@", "@", g)
+            if g2 in vt["names"]:
+                g = g2
+                how["RTTI type descriptors matched without an address suffix (native12)"] += 1
+        if g not in vt["names"]:
             m = re.match(r"\?\?_R0(\?A[UV]\w+@)", s)
-            cands = {x for k in ("?AU", "?AV") for x in leaf.get(k + m.group(1)[3:], ())} if m else set()
+            lf = re.sub(r"_[0-9a-f]{6}@$", "@", m.group(1)) if m else None      # (native12: as above)
+            cands = {x for k in ("?AU", "?AV") for x in leaf.get(k + m.group(1)[3:], ()) or leaf.get(k + lf[3:], ())} if m else set()
             if len(cands) == 1:
                 g = cands.pop()
         a = vt["names"].get(g)
@@ -932,7 +942,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
                 continue
             link_objs.append(o2)
         # the data TUs' items at the XBE's distances (build/native/link/data.s) instead of the data TU objects
-        blk = native_host.data_block(xbe(), data_objs)
+        blk = native_host.data_block(xbe(), data_objs, want=after | vt["undefined"])
         link_objs += [o for o in data_objs if o not in set(blk["objects_used"])]
         inv["data_block"] = blk["stats"]
         if blk["mismatch"]:
@@ -947,7 +957,8 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
         for s_, n in source_slots(after - set(vthunks), man).items():
             vthunks[s_] = n
         inv["virtual_dispatch_stubs"] = len(vthunks)
-        inv["lld_link"] = lld_link(link_objs, aliases, after | vt["undefined"] | set(gfx["unresolved"] if gfx else ()),
+        inv["lld_link"] = lld_link(link_objs, aliases, (after | vt["undefined"] | set(gfx["unresolved"] if gfx else ()))
+                                   - blk["defined"],
                                    vt["asm"], dd["asm"], startup,
                                    host["libs"] + (gfx["libs"] if gfx and gfx["objects"] else []) + SDL_LIBS,
                                    data_asm=blk["asm"], vthunks=vthunks)

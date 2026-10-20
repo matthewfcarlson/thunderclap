@@ -562,6 +562,38 @@ PATCHES = [
     ("equivalent/0x001b0470.cpp",
      "// The case-selection bytes follow five branch addresses in the dispatch data.\nstruct DispatchData {\n"
      "    unsigned char* branches[5];\n    unsigned char cases[10];\n};\n\n", "", "(the same edit, the table's struct)"),
+    # native12: check 6 findings that are real (the callers' sources use the result)
+    ("equivalent/0x0033c6e0.cpp", "void FUN_0033c6e0(CaptureState *state, int value, int arg1, int arg2)",
+     "int FUN_0033c6e0(CaptureState *state, int value, int arg1, int arg2)",
+     "check 6 (native12): Lua's start_capture 0x0033c6e0 returns match()'s result (its caller 0x0033c7e0, do_match, "
+     "returns it: string.find/gsub with captures); declared void"),
+    ("equivalent/0x0033c6e0.cpp", "    if (!FUN_0033c7e0(state, value, arg1))\n        --state->count;\n}",
+     "    int result = FUN_0033c7e0(state, value, arg1);\n    if (!result)\n        --state->count;\n    return result;\n}",
+     "(the same edit)"),
+    ("matches/0x002b2c30.cpp", "    virtual void doIt(Caster_2b2c30*, U64);", "    virtual void* doIt(Caster_2b2c30*, U64);",
+     "check 6 (native12): 0x002b2c30 returns the loader slot's result (its caller 0x002b2ea0 keeps it as the "
+     "controller); declared void"),
+    ("matches/0x002b2c30.cpp", "void __cdecl target(Obj* obj, void* p) {", "void* __cdecl target(Obj* obj, void* p) {",
+     "(the same edit)"),
+    ("matches/0x002b2c30.cpp", "    obj->doIt(&caster, v);\n}", "    return obj->doIt(&caster, v);\n}", "(the same edit)"),
+    ("matches/0x00219610.cpp", "void FUN_00219610(Owner_219610* self, uint_219610 key) {",
+     "Node* FUN_00219610(Owner_219610* self, uint_219610 key) {",
+     "check 6 (native12): luaF_findupval 0x00219610 returns the upvalue (found or new; luaV_execute's OP_CLOSURE "
+     "stores it): declared void, the native closures got &L->openupval as their upvalue (play3's level scripts: "
+     "arithmetic on a nil upvalue)"),
+    ("matches/0x00219610.cpp", "        if (current->key == key)\n            return;", "        if (current->key == key)\n            return current;",
+     "(the same edit)"),
+    ("matches/0x00219610.cpp", "    *link = node;\n}", "    *link = node;\n    return node;\n}", "(the same edit)"),
+    ("matches/0x0030bf40.cpp", "void FUN_0030bf40(U32_30bf40* param_1, int param_2, U32_30bf40* param_3) {\n    volatile U32_30bf40* out = param_3;",
+     "U32_30bf40* FUN_0030bf40(U32_30bf40* param_1, int param_2, U32_30bf40* param_3) {\n    U32_30bf40* out = param_3;",
+     "check 6 (native12): the copy 0x0030bf40 returns the end of the destination (its caller 0x0030c580 stores it); "
+     "declared void"),
+    ("matches/0x0030bf40.cpp", "        } while (--param_2 != 0);\n    }\n}", "        } while (--param_2 != 0);\n    }\n    return out;\n}",
+     "(the same edit)"),
+    ("matches/0x00047970.cpp", 'extern "C" int __cdecl _isnan(double);\nvoid FUN_00047970(float param_1) {\n    _isnan((double)param_1);\n}',
+     'extern "C" double __cdecl floor(double);\ndouble FUN_00047970(float param_1) {\n    return floor((double)param_1);\n}',
+     "check 6 (native12): 0x00047970 is floor's wrapper (0x0034557c is floor; the propagated name said _isnan, bound "
+     "ambiguously) and its callers (0x002899e0) use st0"),
 ]
 
 
@@ -1175,7 +1207,7 @@ _ITEMS = {}
 
 
 def _data_items():
-    if not _ITEMS:
+    if "range" not in _ITEMS:
         from xbe import Xbe
         x = Xbe(os.path.join(ROOT, "isos/extracted/default.xbe"))
         sec = {s_.name: s_ for s_ in x.sections}
@@ -1440,6 +1472,8 @@ def unique_class(rel, text):
         if re.search(r"\b%s\b" % re.escape(new), out):
             continue
         out = re.sub(r"(?<![\w:])%s\b" % re.escape(cls), new, out)
+        # native12: the class's own constructor / destructor names (`Derived_06c740::Derived(`)
+        out = re.sub(r"\b%s::(~?)%s\b" % (re.escape(new), re.escape(cls)), lambda m_: "%s::%s%s" % (new, m_.group(1), new), out)
         why.append("%s -> %s" % (cls, new))
     return out, why
 

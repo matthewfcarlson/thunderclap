@@ -1,3 +1,5 @@
+// STATUS: equivalent (tools/equiv.py level 3: 19945 inputs, branch coverage 0/0)
+// FUN_00215010 @ 0x00215010
 struct Node {
     Node* next; // 0
     char kind;  // 4
@@ -27,7 +29,8 @@ struct Node {
     int f54;
 };
 Node* Alloc(Node* a, int b, int c, int size);
-void Init();
+// equiv-conv: FUN_00214dd0 edi esi
+void Init(Node*, Node*);
 Node* Target(Node* p) {
     Node* n = Alloc(p, 0, 0, 0x58);
     n->next = p->next;
@@ -52,7 +55,7 @@ Node* Target(Node* p) {
     n->f28 = 0;
     n->f54 = 0;
     n->f40 = 0;
-    Init();
+    Init(p, n);
     n->f40 = p->f40;
     n->f44 = p->f44;
     return n;

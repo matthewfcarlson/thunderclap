@@ -29,6 +29,11 @@ build/venv/bin/python tools/layout64.py [--check]   # 32- vs 64-bit record layou
 
 **64-bit (x64-1, 2026-10-20):** the tree compiles for x86-64 (2,803 / 2,810 TUs) and arm64 (2,787); the gap is silent layout and the link: 4,881 pointer/int casts, 272 64-to-32 truncations, 874 include/gen/ classes whose fields move relative to each other, 56,688 undefined symbols in a bridge-free x64 link. See [64-bit](#64-bit-the-probe-the-gap-by-class-and-what-replaces-each-bridge-x64-1-2026-10-20).
 
+**Status 2026-10-20 (native12): the first level loads.** On HEAD with x64-1's consolidation the replay again matches
+all 15 checkpoints (frames 0-420) after five native bug classes the new tree exposed were fixed; stops 31-33 are fixed
+(the fight tracks, a Lua thread, Lua upvalues) and the run now stops in the first gameplay update (stop 34, open).
+See [native12](#native12-past-the-first-level-load-2026-10-20).
+
 **Status 2026-10-20 (native11): a recorded game replays natively.** play3 (the hybrid's 56,566-frame recording) runs
 through the native image with the replay pins: **frames 0-420 match the recording at all 15 checkpoints** (title,
 menus, new game, into the first level's load), with the sound/sequencer RNG isolation, no-fmv and the I/O-sync hook
@@ -197,6 +202,57 @@ symbol: 832 resolved (all still match), 3 had no own symbol in their TU (they ha
 deleting destructor) and fall back to isolated, where they match; 0 verdict differences. The strict 32-bit link
 with that report: 1,600 -> 1,392 symbols stubbed, 1,218 -> 1,073 dispatch stubs (the native replay has not been
 re-run since).
+
+## native12: past the first level load (2026-10-20)
+
+Inputs: HEAD 8c871013 (`git archive`) plus the 21 untracked sources of other sessions native11's workspace also had
+(the replay needs equivalent/0x0029e6c0.cpp: without it the image stops in a missing `Light` constructor) plus this
+round's verified rewrites (`build/native12/sources.txt`, 17 files; `removed.txt`: 6 matches/ demoted to equivalent/).
+`build_tree.py --resume --jobs 3 --regression-rounds 4`, probe, `native_link.py --gfx`, play3 replay as native11.
+
+**1. Regression check (x64-1's b1-b7 and the uniqueness check).** HEAD's image did not start; each stop was a class:
+
+| # | stop | cause | fix |
+|---|---|---|---|
+| R1 | start-up, `luaopen_base` reads L from the stack | **a lane re-matched a source native8 had demoted** (matches/0x0033eb30, chatgpt-upgrade 96abba03: `FUN_0033ea90()` with L in esi); likewise 0x00334c00 (`fallback()`) | `reg-call` (native_calls.py): demoted to equivalent/ again |
+| R2 | registration: missing `Caster::_m_vf0` | **ambiguous stub vftable**: 0x0012d110 and 0x0012d2e0 declare `Caster` in one TU, each storing another game vftable; with the uniqueness check both are bound (before, one silently took the other's: ThreatBall's factory registered with ThreatDodge's caster) | `unique-class` (4 sources; the rule now renames the constructor too: `Derived_06c740::Derived_06c740`) |
+| R3 | before frame 30: particle loader 0x002abfb0 | **dynamic_cast to a renamed class**: b3 renamed `pure3d::AnimationLoader` to `AnimationLoader_2abfb0` (also 0x002abd90, 0x00297680): the RTTI descriptor lookup by decorated name found no game TD, the cast returned null | native_link.py: the TD match also tries the name without an `_<6 hex>` suffix (exact, then leaf) |
+| - | (found with them) | check 6/7 findings new on HEAD: 0x0002bf80 declared void (a lane match), the BinkCallback stand-in body 0x00335150 | `void-return`, `stub-body` |
+
+With these, **15 of 15 checkpoints match again (frames 0-420)**. x64-1's renames themselves bound nothing to a wrong
+address (verify_relocs and the replay agree); the regressions were RTTI identity (R3) and binding ambiguity the
+uniqueness check made visible (R2), plus lane matches of native-fixed functions (R1).
+
+**2. The stops past frame 420:**
+
+| # | stop | cause | class and fix |
+|---|---|---|---|
+| 31 | fight BinReader reads a hash as a string length | not the file layer (the stream's bytes are misc.rcf's): record "effect" (hash 8b025b6b 1cd0cba1) in the scenario registry created a **NISAnimationTrack**, whose 121 parameters were read over the effect track's 20-word record. vtables.s slot 1 of the effect caster's vftable 0x0041c8b8 named `TrackFactoryCasterTemplate<NISAnimationTrack>::vfunc_1`: 0x001aac50 had been verified under 0x001aa740's symbol (two same-code-shape sources in one TU) | **fixed by build_tree's uniqueness check (5b0eab47)**; no source change |
+| 32 | luaE_newthread 0x00215010: stack_init on garbage | **register-convention callee reached under another name**: matches/0x00215010 calls `Init()` (bound by position to 0x00214dd0, `edi esi`); check 5 only looks for callers naming FUN_x | `reg-call`: 5 callers (0x00215010, 0x00216f60, 0x0033db20, 0x001e5720, 0x00334c00) demoted to equivalent/; new **check 12** (native_conv_check.py) finds callers bound to a register-convention definition without its note: 0 left |
+| - | `attempt to call field 'sub'` (Lua, from frame 0) | **game strings the linker pooled with library data**: `"sub"` (0x00434bbc) is owned by xgrph.obj in the inventory, so no data TU defines it; natively a 16-byte zero stub, so string.sub was registered under "" | native_host.data_block: 37 such strings the game names, from the XBE (bridge) |
+| 33 | getobjname 0x002146f0 on a stripped proto (arithmetic on a nil upvalue) | **check 6, real**: luaF_findupval 0x00219610 declared void; OP_CLOSURE stored its eax, natively `&L->openupval` | void -> `Node*` (MATCH). Same check's other real ones: floor's wrapper 0x00047970 (st0; the propagated name said `_isnan`), uninitialized_copy 0x0030bf40, Lua start_capture 0x0033c6e0, 0x002b2c30 |
+| 34 (open) | first gameplay update: 0x000677d0 reads the main actor (CSimDb+0x20 -> +0x124) = null | the setter 0x00025e50 (via `am_SetMainActor`, 0x00025fc0) is never called: the binding is registered (vftable, member pointer, argument types correct), the Lua dispatcher runs 5,000+ times, no Lua error is raised, but no script calls it. In the hybrid 0x00025e50 runs (trace session tr1: 4 calls) | - |
+
+**3. Counts.** Rewrites 17 files (`build/native12/sources.txt`: 10 matches/, 7 equivalent/, all MATCH / EQUIVALENT
+at 3000 inputs; equivalents listed in `build/native12/equivalents.txt` for the 20000-input re-check). Conv checks on
+the final tree: check 5: 2 (native11 2), check 7: 26 (2 of them the untracked 0x002777e0/f0), check 6: 11 left (native11 20)
+(eax kept by callers that return it; 0x000fb240 needs 0x000faf80's result, which its stuck `shared-static` patch
+blocks), check 12: 0. Binding: unbound symbols 1,368 (native11 1,577). Strict `lld-link` 0 errors `--gfx`.
+
+**4. MSVC 7.1 proof** (`build/native12/msvc-proof.txt`): base = HEAD + the untracked sources, mine = + this round,
+both `build_tree.py --resume` from one state: TUs 2,817 / 2,817, matches 22,316 / 22,310 (the 6 demotions), verdicts
+identical for 27,468 of 27,474 (the 6 demoted: match -> equivalent `same`), 0 equivalents differing from their
+standalone code. Strict `lld-link` 0 errors plain (7.53 MB) and `--gfx` (10.51 MB).
+
+**5. Tools.** `native_link.py`: RTTI TD names without the address suffix; pooled strings into the data block
+(native_host.py). `native_fix.py`: `_ITEMS` cache shared by data-literal and code-literal fixed (the plan crashed),
+`unique-class` renames constructors, native12 patches. `native_calls.py`: native12 reg-call groups. `native_conv_check.py`:
+check 12. xdk trace options: `HULK_TRACE_WIDE`, `HULK_TRACE_STR`, `HULK_TRACE_PATH` (pointer chains, `@addr`),
+`HULK_TRACE_IO` (file_io.cpp).
+
+**6. Process note.** Lanes that upgrade equivalents into matches re-created two sources native8 had demoted
+(0x0033eb30, 0x00334c00): a match can't pass a register argument. A lane should skip `native_calls.DEMOTE` and any
+source whose callee carries an `equiv-conv` register note.
 
 ## native11: the replay matches to frame 420 (2026-10-20)
 
@@ -414,6 +470,8 @@ instead of compiling our own source as written. Accepted as tech debt (2026-10-1
 | (native11) `SITE_REBIND` for the sound/sequencer RNG (native_link.py) | 9 sites (0x1ef2a0, 0x1efe20, 0x1f7320, 0x260ae0, 0x2526b0, 0x253680, 0x255250 (data 0x4e5acc), 0x2549a0, 0x254c80) | replay pins G (sound-rng, seq-rng) act on single call sites of verified code | a sound RNG of its own in the sources (the audio code's generator as a named object) |
 | (native11) `ENTRY_HOOKS` that return at once (no-fmv) | 2 (0x1b7310 `ret 0xc`, 0x1b7d10 `ret 8`) | the hybrid's no-fmv patches bytes of two functions | a movie-policy interface the FMV manager asks |
 | (native11) `EXIT_HOOKS` | 1 (0x272fc0, `ret 0xc`) | replay pin H (syncio) after the drive's post | a drive interface with a synchronous mode |
+| (native12) pooled game strings copied from the XBE (native_host.data_block `want`) | 37 strings (`"sub"` 0x00434bbc, ...) | the inventory gives a literal the linker shared with a library object to that object, so no data TU defines it | data_gen emits game-referenced strings whatever object the inventory names |
+| (native12) RTTI TD match without the `_<address>` suffix (native_link.py) | the renamed classes' descriptors (0x002abfb0, 0x002abd90, 0x00297680 casts) | consolidation renames make the class name differ from the game's | the real class names (include/gen) in the casting sources |
 | the empty stubs for a virtual the original doesn't own (the 0x002777c0 class) | 14 sources with an adjustor thunk and an empty out-of-line body: 10 fixed (`stub-body`), 2 are other sessions' untracked files (matches/0x002777e0, 0x002777f0), 2 are constructor/destructor bodies the vftable emission needs (0x00268010, 0x0026e350) | — | (the 2 untracked ones: the same rewrite once they are committed) |
 
 ## Graphics boundary crossed (G1, 2026-10-19)

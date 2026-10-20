@@ -117,6 +117,15 @@ syncio; note the .hrp's bit 13 (seq-rng) is the hybrid's HF_SYNCIO bit, so an .h
 line `ckpt frame N hash ... (io posts, waits, timeouts, sound rng)` counts the pins' activity; the first divergence's
 regions (RNG, boot step, camera position, clock block) are logged to the trace.
 
+### Status (native12, 2026-10-20)
+
+Still 15 of 15 checkpoints (frames 0-420) on HEAD 8c871013 (x64-1's consolidation b1-b7, build_tree's uniqueness check,
+the lanes' new matches) once five native classes were fixed (docs/native-build.md "native12"). The first level's
+load now completes: the fight tracks parse (stop 31 was a mis-verified factory, fixed by the uniqueness check), the
+level's Lua runs without a runtime error, and the run stops in the first gameplay update (stop 34: the main actor is
+never set, `am_SetMainActor` is registered but no script calls it; open). The replay needs the untracked
+equivalent/0x0029e6c0.cpp (another session's file): without it the image stops in a missing `Light` constructor.
+
 ### Limits and expectations
 
 - **What has to be exactly equal.** The hash covers the gameplay RNG, the camera and the clock, so it is a
