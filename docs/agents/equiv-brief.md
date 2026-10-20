@@ -31,7 +31,7 @@ first. The essentials:
 - Use real structs with named fields, and loops instead of gotos.
 - **Register-argument callees** (eax, or other registers C++ can't express): declare them normally and add `// equiv-conv: FUN_x eax ecx stack`. See "Register conventions" in `docs/equivalence.md`.
 - **Hand-written stack cookie:** for a /GS cookie, see matches/0x001fc460.cpp, or just omit the cookie; the checker skips the cookie call.
-- `matches/*.cpp` has ~15k matched functions. Grep it for the same class or callee names to reuse layouts.
+- `matches/*.cpp` has ~22k matched functions. Grep it for the same class or callee names to reuse layouts.
 
 ## Hard rules
 - Don't commit, push, or edit anything outside `build/farm/bench/claude-equiv/`. Don't touch `tools/`, `farm/`, `matches/` or `equivalent/`. Other sessions and lanes are running in this checkout.

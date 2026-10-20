@@ -232,7 +232,7 @@ display, level select).
 
 `docs/port-priority.txt` (= `build/farm/priority.txt`), 2,011 functions, 228 KB, in order:
 
-| Group | Functions | Bytes | Already matched |
+| Group | Functions | Bytes | Already matched (when generated; every one has verified source now) |
 |---|---|---|---|
 | seam functions that call the platform (render, core-platform, audio-hal, movie), then the 8 leaks, then the rest of the seam ranges | 1,597 | 147,540 | 1,102 (37,564 B, 25%) |
 | other vtable slots of seam classes | 22 | 714 | 20 |

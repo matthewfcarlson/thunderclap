@@ -30,14 +30,16 @@ XDK, CRT and Bink library code is **replaced, never decompiled**. Everything els
 - Recompile every match against the shared headers; it must still match. This catches field-offset disagreements.
 - This is a prerequisite for both the port (64-bit layouts depend on real types) and for large functions (they fail on layout far more than on logic).
 
-### 3. Complete source coverage
+### 3. Complete source coverage *(done 2026-10-19)*
+Every game function (all but 0x0035c5b0, which is data) has a verified source in `matches/` or `equivalent/`. What remains is upgrading equivalents to matches where cheap and readability rewrites.
+
 Every game function gets compilable C++ at one of three levels:
 
 | Level | Meaning | How it's proven | Where it goes |
 |---|---|---|---|
 | **matched** | byte-identical codegen, references verified | `compare.py` + `verify_relocs.py` | `matches/` |
 | **equivalent** | different bytes, same behaviour | differential execution against the original (see [task 09](tasks/09-equivalent-decomp.md)) | `equivalent/` |
-| **draft** | compiles against shared headers, not yet proven | — | `equivalent/` with `// STATUS: draft` |
+| **draft** | compiles against shared headers, not yet proven | — | `equivalent/` with `// STATUS: draft` (none left: every function is proven) |
 
 - Small functions: keep matching. It's cheap (under a cent each) and the proof is free.
 - Large functions: stop paying for byte-matches. The farm writes equivalent code and checks behaviour instead ([task 09](tasks/09-equivalent-decomp.md)). A later pass can still upgrade them to matched.
@@ -53,7 +55,9 @@ Every game function gets compilable C++ at one of three levels:
 - Test plan ([task 10](tasks/10-hybrid-test-plan.md)): deterministic input replays compared checkpoint by checkpoint against the original, automatic bisection to the guilty function, and real captured inputs fed back to `tools/equiv.py`. The same suite later checks the native builds.
 - The hybrid ISO is an internal test vehicle, never a release: players can already run the original in xemu. Only the native port (step 8) ships.
 
-### 6. Native build
+### 6. Native build *(in progress)*
+Status 2026-10-19: the tree compiles and strict-links under clang as an i686 image that runs under Wine through start-up, the game's frame loop and the front end's scripts, on the SDL3 platform layer (`src/platform/sdl/`) and the pddi/bgfx backend; not yet playable. See [native-build.md](native-build.md), [graphics-backend.md](graphics-backend.md), [native-movies.md](native-movies.md), [native-audio-input.md](native-audio-input.md), [native-files-saves.md](native-files-saves.md), [native-replay.md](native-replay.md).
+
 1. **x86-32 host build first** (Linux or Windows, clang): same pointer size and calling conventions as the Xbox, so the only new variable is the platform layer. Shim XAPI/kernel, implement the `pddi`, input, audio and movie backends. The radcore file shim reads loose files from `mods/` before the RCFs. Prior art for the input and audio backends: [jsrf-recomp](platform-boundary.md#prior-art-for-the-backends-jsrf-recomp-reviewed-2026-10-12).
 2. **64-bit clean-up**: pointer-size assumptions in structs, especially anything loaded from disk (`.p3d` chunk loaders, save data) and any code that stores pointers in `int`s.
 3. **x86-64 (SteamOS) and arm64 (macOS)** builds. Watch x87 → SSE/NEON float differences in physics and animation; replays from step 5 catch drift.
