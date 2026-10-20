@@ -1,5 +1,5 @@
 // Same code shape as 0x00045800 (propagated; names are from that function)
-class IRefCount {
+class IMessageScriptCallback_91b90 {
   public:
     virtual void f0();
     virtual void f1();
@@ -7,7 +7,7 @@ class IRefCount {
 };
 extern void* refcount_vftable[];
 namespace pure3d {
-class NonCopyable : public IRefCount {
+class NonCopyable : public IMessageScriptCallback_91b90 {
   public:
     virtual void f0();
     virtual void f1();

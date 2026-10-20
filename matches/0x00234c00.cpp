@@ -4,14 +4,14 @@ class Sub_234c00 {
   public:
     void Init(int a);
 };
-class ParamValue {
+class ParamValueScript_234c00 {
   public:
     void* vptr;
     char pad[4];
     Sub_234c00 sub;
-    ParamValue(int a);
+    ParamValueScript_234c00(int a);
 };
-ParamValue::ParamValue(int a) {
+ParamValueScript_234c00::ParamValueScript_234c00(int a) {
     vptr = g_vftable_234c00;
     sub.Init(a);
     vptr = g_vftable2;

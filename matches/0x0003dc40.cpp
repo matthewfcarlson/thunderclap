@@ -35,7 +35,7 @@ struct State_3dc40 {
     char pad[0x2c];
     unsigned int value;
 };
-struct Object {
+struct CCharacter_3dc40 {
     char pad0[0x10];
     Source_3dc40* source;
     char pad1[0x108];
@@ -51,7 +51,7 @@ struct Object {
     void FUN_00035160(Matrix*);
     void FUN_0003dc40(unsigned int, unsigned int);
 };
-void Object::FUN_0003dc40(unsigned int a, unsigned int b) {
+void CCharacter_3dc40::FUN_0003dc40(unsigned int a, unsigned int b) {
     Receiver_3dc40* receiver = source->FUN_00059a40();
     FUN_0003ba60(a, b);
     FUN_000365f0(a, b);

@@ -2,7 +2,7 @@
 #include "decls/data/game/global.h"
 extern "C" char DAT_00422644[];
 extern "C" char DAT_00422800[];
-class ScriptHandler {
+class Closure1_1d4210 {
   public:
     virtual void V();
     void Init(const char*, int);
@@ -13,9 +13,9 @@ class ScriptHandler {
     char pad19[3];
     int m1c;
     int m20;
-    ScriptHandler* Run(const char*, const char*, const char*);
+    Closure1_1d4210* Run(const char*, const char*, const char*);
 };
-ScriptHandler* ScriptHandler::Run(const char* a, const char* b, const char* c) {
+Closure1_1d4210* Closure1_1d4210::Run(const char* a, const char* b, const char* c) {
     Init(a, 1);
     *(int*)this = ((int)DAT_00422644);
     m1c = (int)c;

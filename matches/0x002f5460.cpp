@@ -11,13 +11,13 @@ class CAction {
     virtual void g();
     virtual void h();
 };
-class CCollisionAction : public CAction {
+class SymMatrix_2f5460 : public CAction {
   public:
-    CCollisionAction* vfunc_2(unsigned char);
+    SymMatrix_2f5460* vfunc_2(unsigned char);
 };
 extern void __fastcall FUN_00019420(void*);
-extern void thunk_FUN_00267090(CCollisionAction*);
-CCollisionAction* CCollisionAction::vfunc_2(unsigned char param_2) {
+extern void thunk_FUN_00267090(SymMatrix_2f5460*);
+SymMatrix_2f5460* SymMatrix_2f5460::vfunc_2(unsigned char param_2) {
     FUN_00019420((void*)(this));
     if ((param_2 & 1) != 0)
         thunk_FUN_00267090(this);

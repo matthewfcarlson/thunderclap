@@ -6,9 +6,9 @@ class Base_242010 {
     virtual void f();
     Base_242010(const unsigned __int64&, const unsigned __int64&, int, int, int);
 };
-class Mix : public Base_242010 {
+class MixType_242010 : public Base_242010 {
   public:
-    Mix();
+    MixType_242010();
     virtual void f();
 };
-Mix::Mix() : Base_242010(lookup(otherName, 0, 0), lookup(mixName, 0, 0), 0x1000002, 0x50, 8) {}
+MixType_242010::MixType_242010() : Base_242010(lookup(otherName, 0, 0), lookup(mixName, 0, 0), 0x1000002, 0x50, 8) {}

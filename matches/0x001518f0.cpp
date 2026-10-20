@@ -14,7 +14,7 @@ class Sub_1518f0 {
     Sub_1518f0();
     char pad[0x28];
 };
-class Action : public Root_1518f0 {
+class HitReactionFloatAction_1518f0 : public Root_1518f0 {
   public:
     char pad[0x18];
     int* mA;
@@ -23,9 +23,9 @@ class Action : public Root_1518f0 {
     int x;
     int y;
     unsigned char z;
-    Action(int* a, Ref_1518f0* b);
+    HitReactionFloatAction_1518f0(int* a, Ref_1518f0* b);
 };
-Action::Action(int* a, Ref_1518f0* b) : mA(0), mB(0), sub() {
+HitReactionFloatAction_1518f0::HitReactionFloatAction_1518f0(int* a, Ref_1518f0* b) : mA(0), mB(0), sub() {
     x = 0;
     y = 0;
     z = 0;

@@ -11,16 +11,16 @@ class Base_1390c0 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_1390c0 {
+class AirToGroundTargetAction_1390c0 : public Base_1390c0 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_1390c0* m20;
     Ref_1390c0* m24;
     Ref_1390c0* m28;
-    Action* f2(unsigned char flags);
+    AirToGroundTargetAction_1390c0* f2(unsigned char flags);
 };
-Action* Action::f2(unsigned char flags) {
+AirToGroundTargetAction_1390c0* AirToGroundTargetAction_1390c0::f2(unsigned char flags) {
     vptr = g_vftable_1390c0;
     _ReadWriteBarrier();
     if (m28) {

@@ -28,10 +28,10 @@ class CAction : public CBase_1d190 {
     }
 };
 
-class CDriftAction : public CAction {
+class CSoundAction_1d190 : public CAction {
   public:
     virtual void ProcessDrift();
-    CDriftAction(int a, IRef_1d190* p);
+    CSoundAction_1d190(int a, IRef_1d190* p);
 };
 
-CDriftAction::CDriftAction(int a, IRef_1d190* p) : CAction(a, p) {}
+CSoundAction_1d190::CSoundAction_1d190(int a, IRef_1d190* p) : CAction(a, p) {}

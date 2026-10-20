@@ -6,14 +6,14 @@ struct Obj_167530 {
     void f2();
 };
 extern void thunk_FUN_00267090(Obj_167530*);
-class ThreatCondition {
+class RayCastTargetCondition_167530 {
   public:
     void* vftable;
     char pad[0x0c];
-    ThreatCondition* vfunc_5(unsigned char);
+    RayCastTargetCondition_167530* vfunc_5(unsigned char);
 };
-ThreatCondition* ThreatCondition::vfunc_5(unsigned char param) {
-    ThreatCondition* p = this;
+RayCastTargetCondition_167530* RayCastTargetCondition_167530::vfunc_5(unsigned char param) {
+    RayCastTargetCondition_167530* p = this;
     *(char**)p = &threat_vftable_167530;
     ((Obj_167530*)((char*)p + 0x10))->f1();
     ((Obj_167530*)p)->f2();

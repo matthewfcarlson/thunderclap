@@ -4,13 +4,13 @@ struct Base_275aa0 {
     int dummy;
     Base_275aa0(int x);
 };
-struct FileSetPositionRequest : Base_275aa0 {
+struct DriveFindNextRequest_275aa0 : Base_275aa0 {
     int b;
     int value;
-    FileSetPositionRequest(int x, int y);
+    DriveFindNextRequest_275aa0(int x, int y);
 };
 void FinishInit();
-FileSetPositionRequest::FileSetPositionRequest(int x, int y) : Base_275aa0(x) {
+DriveFindNextRequest_275aa0::DriveFindNextRequest_275aa0(int x, int y) : Base_275aa0(x) {
     value = y;
     FinishInit();
 }

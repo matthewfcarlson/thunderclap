@@ -1,5 +1,5 @@
 // Same code shape as 0x000d7a30 (propagated; names are from that function)
-class IValueChangedSender {
+class DrawablePrimitive_2d3ec0 {
   public:
     virtual void f0();
 };
@@ -7,7 +7,7 @@ class IValueChangedReceiver {
   public:
     virtual void f1();
 };
-class FEObject : public IValueChangedSender, public IValueChangedReceiver {
+class ParticleEmitter_2d3ec0 : public DrawablePrimitive_2d3ec0, public IValueChangedReceiver {
   public:
     virtual void f2();
     virtual void f3();
@@ -20,6 +20,6 @@ class FEObject : public IValueChangedSender, public IValueChangedReceiver {
     char pad[0xA0 - 8];
     float value;
 };
-float FEObject::vfunc_9() {
+float ParticleEmitter_2d3ec0::vfunc_9() {
     return value;
 }

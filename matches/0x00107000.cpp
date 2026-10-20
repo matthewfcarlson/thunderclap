@@ -4,7 +4,7 @@ struct Thing_107000 {
     virtual void f1();
 };
 extern void* handvtable;
-class CHand2HandAgent {
+class CRangedAgent_107000 {
   public:
     virtual void V0();
     virtual void V1();
@@ -13,7 +13,7 @@ class CHand2HandAgent {
     void go();
     void cleanup();
 };
-void CHand2HandAgent::go() {
+void CRangedAgent_107000::go() {
     *(void**)this = &handvtable;
     mThing->f1();
     mThing = 0;

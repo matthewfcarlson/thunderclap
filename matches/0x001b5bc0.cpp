@@ -4,7 +4,7 @@ struct This_FUN_001d0480 {
     int FUN_001d0480(const char*, int);
 };
 extern char str1_1b5bc0, str2;
-class CCollisionManager {
+class Method3_1b5bc0 {
   public:
     int vtable;
     char pad04[12];
@@ -13,9 +13,9 @@ class CCollisionManager {
     char value18;
     char pad19[3];
     int value1c;
-    CCollisionManager(int, int);
+    Method3_1b5bc0(int, int);
 };
-CCollisionManager::CCollisionManager(int a, int b) {
+Method3_1b5bc0::Method3_1b5bc0(int a, int b) {
     ((This_FUN_001d0480*)this)->FUN_001d0480((const char*)a, 3);
     vtable = ((int)DAT_0041da1c);
     value1c = b;

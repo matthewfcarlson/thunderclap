@@ -11,14 +11,14 @@ class CAction {
     char pad[0x18];
     Actor_1f1f0* mActor;
 };
-class CIntangibleToActorsAction : public CAction {
+class CSmartPropDetachAction_1f1f0 : public CAction {
   public:
-    CIntangibleToActorsAction(Actor_1f1f0*);
+    CSmartPropDetachAction_1f1f0(Actor_1f1f0*);
     virtual void V1();
 };
 extern int vtAction;
 extern int vtDerived;
-CIntangibleToActorsAction::CIntangibleToActorsAction(Actor_1f1f0* a) {
+CSmartPropDetachAction_1f1f0::CSmartPropDetachAction_1f1f0(Actor_1f1f0* a) {
     *(int*)this = (int)&vtAction;
     mActor = 0;
     if (a)

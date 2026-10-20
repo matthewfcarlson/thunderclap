@@ -1,12 +1,12 @@
 // cl-flags: /O2 /GR /GX
 
-class NonCopyable {
+class Action_23a210 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
 };
 
-class QueuedNodeAction : public NonCopyable {
+class QueuedNodeAction : public Action_23a210 {
   public:
     virtual void vfunc_2();
     virtual void vfunc_3();

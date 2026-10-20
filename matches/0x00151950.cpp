@@ -10,7 +10,7 @@ struct Sub_151950 {
 extern "C" void _ReadWriteBarrier(void);
 extern int g_vtable_151950;
 
-class Action {
+class HitReactionFloatAction_151950 {
   public:
     void destroy();
     void finalize();
@@ -21,7 +21,7 @@ class Action {
     VObj_151950* m4c;
 };
 
-void Action::destroy() {
+void HitReactionFloatAction_151950::destroy() {
     *(int**)this = &g_vtable_151950;
     _ReadWriteBarrier();
     if (m4c) {

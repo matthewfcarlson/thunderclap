@@ -11,9 +11,9 @@ struct BaseCls_238ca0 {
     void Dtor();
 };
 
-class DebugPrintCondition {
+class PrintCondition_238ca0 {
   public:
-    virtual ~DebugPrintCondition();
+    virtual ~PrintCondition_238ca0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
@@ -25,7 +25,7 @@ class DebugPrintCondition {
     void* m_p2;
 };
 
-void* DebugPrintCondition::v5(unsigned char flag) {
+void* PrintCondition_238ca0::v5(unsigned char flag) {
     *(char**)this = &g_vftable_target;
     thunk_FUN_00267090(m_p1);
     thunk_FUN_00267090b(m_p2);

@@ -10,13 +10,13 @@ class Base_2dfd40 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_2dfd40 {
+class PrimGroup_2dfd40 : public Base_2dfd40 {
   public:
     char pad[0x3c];
     Ref_2dfd40* m40;
-    ~Action();
+    ~PrimGroup_2dfd40();
 };
-Action::~Action() {
+PrimGroup_2dfd40::~PrimGroup_2dfd40() {
     vptr = g_vftable_2dfd40;
     _ReadWriteBarrier();
     if (m40) {

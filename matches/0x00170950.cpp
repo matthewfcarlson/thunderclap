@@ -2,14 +2,14 @@
 struct Tail_170950 {
     void Init();
 };
-struct SemaphoreClearTrack {
+struct JointPivotTrackerTrack_170950 {
     void* vptr;
     char pad[0x14];
     void Finish();
     void Run();
 };
 extern void* vftable_170950;
-void SemaphoreClearTrack::Run() {
+void JointPivotTrackerTrack_170950::Run() {
     vptr = &vftable_170950;
     ((Tail_170950*)((char*)this + 0x18))->Init();
     Finish();

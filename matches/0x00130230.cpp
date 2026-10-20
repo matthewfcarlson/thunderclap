@@ -10,14 +10,14 @@ class Base_130230 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_130230 {
+class XPAction_130230 : public Base_130230 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_130230* m20;
-    ~Action();
+    ~XPAction_130230();
 };
-Action::~Action() {
+XPAction_130230::~XPAction_130230() {
     vptr = g_vftable_130230;
     _ReadWriteBarrier();
     if (m20) {

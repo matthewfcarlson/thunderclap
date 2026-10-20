@@ -29,17 +29,17 @@ class Ref_2a8700 {
     virtual void v25();
     virtual void v26();
 };
-class Shader : public Ref_2a8700 {
+class ShaderAnimationController_2a8700 : public Ref_2a8700 {
   public:
     char pad[0x40 - sizeof(Ref_2a8700)];
     Ref_2a8700* mRef;
     virtual Ref_2a8700* own4();
-    void setup(Shader*);
+    void setup(ShaderAnimationController_2a8700*);
 };
 extern void* __cdecl alloc(unsigned int);
-Ref_2a8700* Shader::own4() {
-    Shader* self = this;
-    Shader* p = (Shader*)alloc(0x48);
+Ref_2a8700* ShaderAnimationController_2a8700::own4() {
+    ShaderAnimationController_2a8700* self = this;
+    ShaderAnimationController_2a8700* p = (ShaderAnimationController_2a8700*)alloc(0x48);
     if (p) {
         p->setup(self);
         *(int*)p = ((int)DAT_0042dd24);

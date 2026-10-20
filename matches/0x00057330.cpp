@@ -1,14 +1,14 @@
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
 
-extern void* CTrack_vftable[];
+extern void* CButtonValueCondition_57330_vftable[];
 
-class CTrack {
+class CButtonValueCondition_57330 {
   public:
     void Destroy(); // FUN_00236d60, __thiscall, this in ecx
 };
 
-class CButtonPressCondition : public CTrack {
+class CButtonPressCondition : public CButtonValueCondition_57330 {
   public:
     CButtonPressCondition* vfunc_5(signed char flags);
 };
@@ -16,7 +16,7 @@ class CButtonPressCondition : public CTrack {
 void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
 
 CButtonPressCondition* CButtonPressCondition::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
+    *(void***)this = CButtonValueCondition_57330_vftable;
     Destroy();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);

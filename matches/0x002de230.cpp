@@ -1,7 +1,7 @@
 // Same code shape as 0x000b3de0 (propagated; names are from that function)
-class FEControllerSystem {
+class ImageConverter_2de230 {
   public:
-    FEControllerSystem();
-    virtual ~FEControllerSystem();
+    ImageConverter_2de230();
+    virtual ~ImageConverter_2de230();
 };
-FEControllerSystem::FEControllerSystem() {}
+ImageConverter_2de230::ImageConverter_2de230() {}

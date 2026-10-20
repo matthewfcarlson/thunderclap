@@ -10,16 +10,16 @@ class Base_1a5eb0 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_1a5eb0 {
+class EffectAction_1a5eb0 : public Base_1a5eb0 {
   public:
     char pad1c[0x18];
     void* m1c;
     Ref_1a5eb0* m20;
     char pad28[0x4];
     Ref_1a5eb0* m28;
-    ~Action();
+    ~EffectAction_1a5eb0();
 };
-Action::~Action() {
+EffectAction_1a5eb0::~EffectAction_1a5eb0() {
     vptr = g_vftable_1a5eb0;
     _ReadWriteBarrier();
     if (m28) {

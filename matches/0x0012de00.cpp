@@ -2,7 +2,7 @@ class Caster {
   public:
     virtual void Cast();
 };
-class TrackFactoryCaster : public Caster {
+class TrackFactoryCasterTemplate_12de00 : public Caster {
   public:
     virtual void Cast();
 };
@@ -12,6 +12,6 @@ class Obj {
 };
 void* __cdecl Find(void*, Caster*);
 void __cdecl Target(Obj* obj, void* key) {
-    TrackFactoryCaster caster;
+    TrackFactoryCasterTemplate_12de00 caster;
     obj->Use(Find(key, &caster));
 }

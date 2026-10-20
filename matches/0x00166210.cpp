@@ -1,13 +1,13 @@
 // Same code shape as 0x0011c270 (propagated; names are from that function)
 void __cdecl Cleanup(int);
-class PathLocatorTestCondition {
+class TargetCharacterTemplateCondition_166210 {
   public:
     int a, b;
-    virtual ~PathLocatorTestCondition();
+    virtual ~TargetCharacterTemplateCondition_166210();
     int d;
     virtual void hulk_slot_F(); void F();
 };
-PathLocatorTestCondition::~PathLocatorTestCondition() {
+TargetCharacterTemplateCondition_166210::~TargetCharacterTemplateCondition_166210() {
     Cleanup(d);
     F();
 }

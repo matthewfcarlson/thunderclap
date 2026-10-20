@@ -16,13 +16,13 @@ class SeqEvent {
     virtual void v4();
     virtual void v5();
 };
-class SeqEventNestTrack : public SeqEvent {
+class SeqEventVarVolume_252990 : public SeqEvent {
     char pad[8];
 
   public:
     int vfunc_1(Stm_252990**);
 };
-int SeqEventNestTrack::vfunc_1(Stm_252990** p) {
+int SeqEventVarVolume_252990::vfunc_1(Stm_252990** p) {
     if (SeqEvent::v1(p)) {
         if (Match(*p, sOpen)) {
             (*p)->depth++;

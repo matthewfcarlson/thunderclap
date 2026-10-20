@@ -10,7 +10,7 @@ class Base : public CtorV_001d0480 {
   public:
     Base(void* p) : CtorV_001d0480(p, 1) { }
 };
-class Method1 : public Base {
+class Closure1_1e19d0 : public Base {
   public:
     virtual void invoke(float);
     char pad[0x0c];
@@ -19,19 +19,19 @@ class Method1 : public Base {
     char y;
     char pad3[3];
     void* obj;
-    Method1(void*, void*);
+    Closure1_1e19d0(void*, void*);
 };
-class Closure1 : public Method1 {
+class Closure1 : public Closure1_1e19d0 {
   public:
     virtual void invoke(float);
     void* data;
     Closure1(void*, void*, void*);
 };
-Method1::Method1(void* p, void* f) : Base(p) {
+Closure1_1e19d0::Closure1_1e19d0(void* p, void* f) : Base(p) {
     obj = f;
     y = FUN_001d04d0(a);
     x = FUN_001d04d0(b);
 }
-Closure1::Closure1(void* p, void* f, void* q) : Method1(p, q) {
+Closure1::Closure1(void* p, void* f, void* q) : Closure1_1e19d0(p, q) {
     data = f;
 }

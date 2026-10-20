@@ -10,15 +10,15 @@ class Base_11dd60 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_11dd60 {
+class StrafeCircleHBAction_11dd60 : public Base_11dd60 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_11dd60* m20;
     Ref_11dd60* m24;
-    ~Action();
+    ~StrafeCircleHBAction_11dd60();
 };
-Action::~Action() {
+StrafeCircleHBAction_11dd60::~StrafeCircleHBAction_11dd60() {
     vptr = g_vftable_11dd60;
     _ReadWriteBarrier();
     if (m24) {

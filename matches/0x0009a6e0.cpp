@@ -2,7 +2,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 extern "C" char DAT_00404c00[];
-class CCameraManager {
+class Method6_9a6e0 {
   public:
     int v;
     char pad4[0xc];
@@ -10,9 +10,9 @@ class CCameraManager {
     char pad19[3];
     int m1c;
     void Init(int, int);
-    CCameraManager* Run(int, int);
+    Method6_9a6e0* Run(int, int);
 };
-CCameraManager* CCameraManager::Run(int a, int b) {
+Method6_9a6e0* Method6_9a6e0::Run(int a, int b) {
     Init(a, 6);
     v = ((int)DAT_00404c00);
     m1c = b;

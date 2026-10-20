@@ -17,7 +17,7 @@ class Method6Base {
     Method6Base(const char* name, int index);
 };
 
-class CUnlockable : public Method6Base {
+class Method6_94000 : public Method6Base {
     char m_flag1; // 0x10
     char m_flag2; // 0x11
     char m_flag3; // 0x12
@@ -28,10 +28,10 @@ class CUnlockable : public Method6Base {
     char m_flag7; // 0x18
     int m_data;   // 0x1c
   public:
-    CUnlockable(const char* name, int data);
+    Method6_94000(const char* name, int data);
 };
 
-CUnlockable::CUnlockable(const char* name, int data) : Method6Base(name, 6) {
+Method6_94000::Method6_94000(const char* name, int data) : Method6Base(name, 6) {
     m_data = data;
     m_flag7 = CheckString(&g_str1);
     m_flag1 = CheckString(&g_str2);

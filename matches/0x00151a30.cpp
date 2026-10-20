@@ -12,15 +12,15 @@ class ActionBase_151a30 {
     char pad[0x18];
 };
 
-class FaceTargetAction : public ActionBase_151a30 {
+class HitPushbackAddAction_151a30 : public ActionBase_151a30 {
   public:
     int mTarget;
     RefObj_151a30* mObj;
-    FaceTargetAction(int target, RefObj_151a30* obj);
+    HitPushbackAddAction_151a30(int target, RefObj_151a30* obj);
     virtual void Execute();
 };
 
-FaceTargetAction::FaceTargetAction(int target, RefObj_151a30* obj) {
+HitPushbackAddAction_151a30::HitPushbackAddAction_151a30(int target, RefObj_151a30* obj) {
     int* p = &mTarget;
     *p = 0;
     mObj = 0;

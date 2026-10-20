@@ -10,14 +10,14 @@ class Base_12fff0 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_12fff0 {
+class NISSoundAction_12fff0 : public Base_12fff0 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_12fff0* m20;
-    ~Action();
+    ~NISSoundAction_12fff0();
 };
-Action::~Action() {
+NISSoundAction_12fff0::~NISSoundAction_12fff0() {
     vptr = g_vftable_12fff0;
     _ReadWriteBarrier();
     if (m20) {

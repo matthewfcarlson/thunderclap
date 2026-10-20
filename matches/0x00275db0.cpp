@@ -4,7 +4,7 @@ class Sub_275db0 {
     virtual void F0();
     virtual void F1();
 };
-class InstanceDrive {
+class File_275db0 {
   public:
     virtual void F0();
     virtual void F1();
@@ -50,7 +50,7 @@ class InstanceDrive {
     Sub_275db0 sub;
     int count;
 };
-void InstanceDrive::F0() {
+void File_275db0::F0() {
     sub.F0();
     ++count;
     sub.F1();

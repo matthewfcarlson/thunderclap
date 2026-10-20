@@ -13,7 +13,7 @@ class Sub_148840 {
     Sub_148840();
     char pad[0x28];
 };
-class Action : public Root_148840 {
+class GrappleHitReactionAction_148840 : public Root_148840 {
   public:
     char pad[0x18];
     int* mA;
@@ -22,9 +22,9 @@ class Action : public Root_148840 {
     int x;
     int y;
     unsigned char z;
-    Action(int* a, Ref_148840* b);
+    GrappleHitReactionAction_148840(int* a, Ref_148840* b);
 };
-Action::Action(int* a, Ref_148840* b) : mA(0), mB(0), sub() {
+GrappleHitReactionAction_148840::GrappleHitReactionAction_148840(int* a, Ref_148840* b) : mA(0), mB(0), sub() {
     x = 0;
     y = 0;
     z = 0;

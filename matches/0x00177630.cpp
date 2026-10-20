@@ -10,14 +10,14 @@ class Base_177630 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_177630 {
+class SnapToGroundAction_177630 : public Base_177630 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_177630* m20;
-    ~Action();
+    ~SnapToGroundAction_177630();
 };
-Action::~Action() {
+SnapToGroundAction_177630::~SnapToGroundAction_177630() {
     vptr = g_vftable_177630;
     _ReadWriteBarrier();
     if (m20) {

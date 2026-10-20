@@ -13,7 +13,7 @@ struct Track {
     virtual void tfunc9();
 };
 
-struct ThreatBallTrack : Track, Param {
+struct ChargeClearTrack_170eb0 : Track, Param {
   public:
     virtual void vfunc0();
     virtual void vfunc5();
@@ -28,6 +28,6 @@ struct ThreatBallTrack : Track, Param {
     float mHeight;
 };
 
-float ThreatBallTrack::GetExtent() {
+float ChargeClearTrack_170eb0::GetExtent() {
     return mMaxX - mMinX;
 }

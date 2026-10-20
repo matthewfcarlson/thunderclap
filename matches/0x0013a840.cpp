@@ -6,14 +6,14 @@ struct Obj_13a840 {
     void f2();
 };
 extern void thunk_FUN_00267090(Obj_13a840*);
-class ThreatCondition {
+class FrameReachedCondition_13a840 {
   public:
     void* vftable;
     char pad[0x0c];
-    ThreatCondition* vfunc_5(unsigned char);
+    FrameReachedCondition_13a840* vfunc_5(unsigned char);
 };
-ThreatCondition* ThreatCondition::vfunc_5(unsigned char param) {
-    ThreatCondition* p = this;
+FrameReachedCondition_13a840* FrameReachedCondition_13a840::vfunc_5(unsigned char param) {
+    FrameReachedCondition_13a840* p = this;
     *(char**)p = &threat_vftable_13a840;
     ((Obj_13a840*)((char*)p + 0x10))->f1();
     ((Obj_13a840*)p)->f2();

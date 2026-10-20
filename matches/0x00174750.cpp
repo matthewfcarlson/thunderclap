@@ -10,14 +10,14 @@ class Base_174750 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_174750 {
+class IntentionClearAction_174750 : public Base_174750 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_174750* m20;
-    ~Action();
+    ~IntentionClearAction_174750();
 };
-Action::~Action() {
+IntentionClearAction_174750::~IntentionClearAction_174750() {
     vptr = g_vftable_174750;
     _ReadWriteBarrier();
     if (m20) {

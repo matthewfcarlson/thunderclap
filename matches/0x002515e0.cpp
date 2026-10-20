@@ -1,15 +1,15 @@
 // Same code shape as 0x0024fee0 (propagated; names are from that function)
-class SeqEventContainer {
+class SeqEvent_2515e0 {
   public:
     char pad[0x14];
 };
-class SeqEventCondition : public SeqEventContainer {
+class SeqEventPlayTrack_2515e0 : public SeqEvent_2515e0 {
   public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual SeqEventCondition* vfunc_4(unsigned char);
+    virtual SeqEventPlayTrack_2515e0* vfunc_4(unsigned char);
     virtual void v5();
 };
 class A_2515e0 {
@@ -20,9 +20,9 @@ class B_2515e0 {
   public:
     void f();
 };
-void __cdecl f47550(void*, SeqEventCondition*);
+void __cdecl f47550(void*, SeqEventPlayTrack_2515e0*);
 extern char gBss_2515e0;
-SeqEventCondition* SeqEventCondition::vfunc_4(unsigned char flag) {
+SeqEventPlayTrack_2515e0* SeqEventPlayTrack_2515e0::vfunc_4(unsigned char flag) {
     ((A_2515e0*)((char*)this + 0x14))->f();
     ((B_2515e0*)this)->f();
     if (flag & 1)

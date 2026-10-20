@@ -4,13 +4,13 @@ struct Base_275430 {
     int dummy;
     Base_275430(int x);
 };
-struct FileSetPositionRequest : Base_275430 {
+struct FileGetPositionRequest_275430 : Base_275430 {
     int b;
     int value;
-    FileSetPositionRequest(int x, int y);
+    FileGetPositionRequest_275430(int x, int y);
 };
 void FinishInit();
-FileSetPositionRequest::FileSetPositionRequest(int x, int y) : Base_275430(x) {
+FileGetPositionRequest_275430::FileGetPositionRequest_275430(int x, int y) : Base_275430(x) {
     value = y;
     FinishInit();
 }

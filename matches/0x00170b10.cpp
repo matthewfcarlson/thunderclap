@@ -5,9 +5,9 @@ class Base {
     virtual void V0();
 };
 
-class Track : public Base {
+class CriticalMassDrainTrack_170b10 : public Base {
   public:
-    Track();
+    CriticalMassDrainTrack_170b10();
     virtual void V1();
     char pad[4];
     int mBase8;
@@ -15,7 +15,7 @@ class Track : public Base {
     int m10;
 };
 
-Track::Track() : Base() {
+CriticalMassDrainTrack_170b10::CriticalMassDrainTrack_170b10() : Base() {
     mC = 0;
     m10 = 0;
     *(int*)this = ((int)(hulk_at_00417c24 + 0x4));

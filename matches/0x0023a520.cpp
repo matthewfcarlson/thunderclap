@@ -1,20 +1,20 @@
-class IRefCount {
+class StreamStringReader_23a520 {
   public:
     virtual void A();
     virtual void B();
-    virtual ~IRefCount() throw();
+    virtual ~StreamStringReader_23a520() throw();
 };
-class StreamStringReader : public IRefCount {
+class StreamStringReader : public StreamStringReader_23a520 {
   public:
     char pad[8];
-    IRefCount* m;
+    StreamStringReader_23a520* m;
     virtual void A();
     virtual void B();
     ~StreamStringReader() throw();
 };
-void IRefCount::A() {}
-void IRefCount::B() {}
-IRefCount::~IRefCount() throw() {}
+void StreamStringReader_23a520::A() {}
+void StreamStringReader_23a520::B() {}
+StreamStringReader_23a520::~StreamStringReader_23a520() throw() {}
 void StreamStringReader::A() {}
 void StreamStringReader::B() {}
 StreamStringReader::~StreamStringReader() throw() {

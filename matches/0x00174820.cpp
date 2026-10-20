@@ -12,15 +12,15 @@ class ActionBase_174820 {
     char pad[0x18];
 };
 
-class FaceTargetAction : public ActionBase_174820 {
+class ChargeClearAction_174820 : public ActionBase_174820 {
   public:
     int mTarget;
     RefObj_174820* mObj;
-    FaceTargetAction(int target, RefObj_174820* obj);
+    ChargeClearAction_174820(int target, RefObj_174820* obj);
     virtual void Execute();
 };
 
-FaceTargetAction::FaceTargetAction(int target, RefObj_174820* obj) {
+ChargeClearAction_174820::ChargeClearAction_174820(int target, RefObj_174820* obj) {
     int* p = &mTarget;
     *p = 0;
     mObj = 0;

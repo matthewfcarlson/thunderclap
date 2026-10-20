@@ -9,20 +9,20 @@ class Root {
     virtual void Run();
     char pad[24];
 };
-class CAction : public Root {
+class CSmartPropEventAction_1f3e0 : public Root {
   public:
-    CAction(Ref* r, int b);
+    CSmartPropEventAction_1f3e0(Ref* r, int b);
     virtual void Run();
     Ref* ref;
     int x;
 };
-class CSmartPropEventAction : public CAction {
+class CSmartPropEventAction : public CSmartPropEventAction_1f3e0 {
   public:
     CSmartPropEventAction(Ref* r, int a, int b);
     virtual void Run();
     int y;
 };
-CAction::CAction(Ref* r, int b) {
+CSmartPropEventAction_1f3e0::CSmartPropEventAction_1f3e0(Ref* r, int b) {
     ref = 0;
     if (r)
         r->Add();
@@ -31,6 +31,6 @@ CAction::CAction(Ref* r, int b) {
     ref = r;
     x = b;
 }
-CSmartPropEventAction::CSmartPropEventAction(Ref* r, int a, int b) : CAction(r, b) {
+CSmartPropEventAction::CSmartPropEventAction(Ref* r, int a, int b) : CSmartPropEventAction_1f3e0(r, b) {
     y = a;
 }

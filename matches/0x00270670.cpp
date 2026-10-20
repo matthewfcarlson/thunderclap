@@ -1,5 +1,5 @@
 // Same code shape as 0x00267bb0 (propagated; names are from that function)
-class TimerList {
+class ControllerBuffer_270670 {
   public:
     virtual void f0();
     virtual void f1();
@@ -10,7 +10,7 @@ class TimerList {
     char pad[8];
     int mRefCount;
 };
-void TimerList::f1() {
+void ControllerBuffer_270670::f1() {
     if (--mRefCount == 0)
         f2(1);
 }

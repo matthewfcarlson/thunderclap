@@ -6,14 +6,14 @@ struct Obj_1ab760 {
     void f2();
 };
 extern void thunk_FUN_00267090(Obj_1ab760*);
-class ThreatCondition {
+class Event_PathNameCondition_1ab760 {
   public:
     void* vftable;
     char pad[0x0c];
-    ThreatCondition* vfunc_5(unsigned char);
+    Event_PathNameCondition_1ab760* vfunc_5(unsigned char);
 };
-ThreatCondition* ThreatCondition::vfunc_5(unsigned char param) {
-    ThreatCondition* p = this;
+Event_PathNameCondition_1ab760* Event_PathNameCondition_1ab760::vfunc_5(unsigned char param) {
+    Event_PathNameCondition_1ab760* p = this;
     *(char**)p = &threat_vftable_1ab760;
     ((Obj_1ab760*)((char*)p + 0x10))->f1();
     ((Obj_1ab760*)p)->f2();

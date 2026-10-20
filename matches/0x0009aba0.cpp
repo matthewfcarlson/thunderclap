@@ -5,9 +5,9 @@ extern "C" char DAT_00404c60[];
 struct InitBase_9aba0 {
     void Init(void*, int);
 };
-class CCameraManager : public InitBase_9aba0 {
+class Method4_9aba0 : public InitBase_9aba0 {
   public:
-    CCameraManager* Init(void*, void*);
+    Method4_9aba0* Init(void*, void*);
     int vf;
     char pad04[0x0c];
     unsigned char b10, b11, b12, b13;
@@ -16,7 +16,7 @@ class CCameraManager : public InitBase_9aba0 {
     char pad19[3];
     void* member1c;
 };
-CCameraManager* CCameraManager::Init(void* a, void* p) {
+Method4_9aba0* Method4_9aba0::Init(void* a, void* p) {
     InitBase_9aba0::Init(a, 4);
     vf = ((int)DAT_00404c60);
     member1c = p;

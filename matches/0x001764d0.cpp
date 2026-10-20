@@ -9,14 +9,14 @@ class Base_1764d0 {
     virtual void V();
     Base_1764d0();
 };
-class CAction : public Base_1764d0 {
+class TargetBreakAction_1764d0 : public Base_1764d0 {
   public:
     virtual void V2();
     char pad[0x18];
     Ref_1764d0* mRef;
-    CAction(Ref_1764d0*);
+    TargetBreakAction_1764d0(Ref_1764d0*);
 };
-CAction::CAction(Ref_1764d0* arg) : Base_1764d0() {
+TargetBreakAction_1764d0::TargetBreakAction_1764d0(Ref_1764d0* arg) : Base_1764d0() {
     mRef = 0;
     if (arg)
         arg->AddRef();

@@ -17,11 +17,11 @@ extern void __cdecl FUN_003390d0(State*, int, const char*, int);
 extern void __cdecl FUN_001d07b0(State*);
 extern void __cdecl FUN_002134a0(State*, Callback_1d3c90, int);
 extern void __cdecl FUN_00213790(State*, int, const char*);
-struct Object {
+struct ScriptHandler_1d3c90 {
     int FUN_001d1740(State*);
     int target(State**);
 };
-int Object::target(State** state) {
+int ScriptHandler_1d3c90::target(State** state) {
     if (*state) {
         FUN_002151e0(*state);
         *state = 0;

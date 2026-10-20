@@ -4,10 +4,10 @@ extern char s2_9a8e0[];
 extern char s3_9a8e0[];
 extern char s4_9a8e0[];
 extern char __cdecl Convert(const char*);
-class CCameraManager {
+class Method3_9a8e0 {
   public:
     void Init(void*, int);
-    CCameraManager(void*, int);
+    Method3_9a8e0(void*, int);
     char a[0x10];
     char b10;
     char b11;
@@ -17,7 +17,7 @@ class CCameraManager {
     char pad19[3];
     int field1c;
 };
-CCameraManager::CCameraManager(void* p, int value) {
+Method3_9a8e0::Method3_9a8e0(void* p, int value) {
     Init(p, 3);
     *(int*)this = ((int)DAT_00404c20);
     field1c = value;

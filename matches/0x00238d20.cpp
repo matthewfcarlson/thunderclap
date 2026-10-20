@@ -3,18 +3,18 @@ struct Obj_238d20 {
     virtual void F();
     virtual void R();
 };
-extern int PostEvent_StringAction_vftable;
-struct PostEvent_StringAction {
+extern int PrintAction_238d20_vftable;
+struct PrintAction_238d20 {
     void* vf;
     int pad[6];
     int arg;
     Obj_238d20* object;
     void Init();
-    PostEvent_StringAction* Build(int, Obj_238d20*);
+    PrintAction_238d20* Build(int, Obj_238d20*);
 };
-PostEvent_StringAction* PostEvent_StringAction::Build(int a, Obj_238d20* p) {
+PrintAction_238d20* PrintAction_238d20::Build(int a, Obj_238d20* p) {
     Init();
-    vf = &PostEvent_StringAction_vftable;
+    vf = &PrintAction_238d20_vftable;
     object = 0;
     arg = a;
     if (p)

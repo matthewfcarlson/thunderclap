@@ -9,14 +9,14 @@ class SeqEvent {
     virtual void vfunc_5();
 };
 bool FUN_0025ac10(void*, void*);
-class SeqEventVarVolumeRand : public SeqEvent {
+class SeqEventVarPitchRand_2533c0 : public SeqEvent {
   public:
     char pad[8];
     int x;
     int y;
     int vfunc_0(void* p);
 };
-int SeqEventVarVolumeRand::vfunc_0(void* p) {
+int SeqEventVarPitchRand_2533c0::vfunc_0(void* p) {
     char r = (char)SeqEvent::vfunc_0(p);
     if (r) {
         if (FUN_0025ac10(p, (char*)this + 8)) {

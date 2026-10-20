@@ -5,7 +5,7 @@ extern "C" char DAT_00404d20[];
 struct ThisCall_001d0480 {
     void FUN_001d0480(void*, int);
 };
-class CCameraManager {
+class Method6_9b4a0 {
   public:
     int vptr;
     char pad4[12];
@@ -14,9 +14,9 @@ class CCameraManager {
     char b18;
     char pad19[3];
     void* p1c;
-    CCameraManager* Run(void*, void*);
+    Method6_9b4a0* Run(void*, void*);
 };
-CCameraManager* CCameraManager::Run(void* arg, void* value) {
+Method6_9b4a0* Method6_9b4a0::Run(void* arg, void* value) {
     ((ThisCall_001d0480*)(this))->FUN_001d0480(arg, 6);
     vptr = ((int)DAT_00404d20);
     p1c = value;

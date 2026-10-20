@@ -5,7 +5,7 @@ class Parent {
     virtual void invoke();
     Parent(void*, int);
 };
-class Method1 : public Parent {
+class Closure1_bfe10 : public Parent {
   public:
     virtual void invoke();
     char pad[12];
@@ -14,19 +14,19 @@ class Method1 : public Parent {
     unsigned char b;
     char pad3[3];
     void* ptr;
-    Method1(void*, void*);
+    Closure1_bfe10(void*, void*);
 };
-Method1::Method1(void* p, void* q) : Parent(p, 1) {
+Closure1_bfe10::Closure1_bfe10(void* p, void* q) : Parent(p, 1) {
     ptr = q;
     b = Find(&gOne);
     a = Find(&gTwo);
 }
-class Closure1 : public Method1 {
+class Closure1 : public Closure1_bfe10 {
   public:
     virtual void invoke();
     void* ptr2;
     Closure1(void*, void*, void*);
 };
-Closure1::Closure1(void* p, void* q, void* r) : Method1(p, r) {
+Closure1::Closure1(void* p, void* q, void* r) : Closure1_bfe10(p, r) {
     ptr2 = q;
 }

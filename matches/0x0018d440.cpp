@@ -10,14 +10,14 @@ class Base_18d440 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_18d440 {
+class VarAssignAction_18d440 : public Base_18d440 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_18d440* m20;
-    ~Action();
+    ~VarAssignAction_18d440();
 };
-Action::~Action() {
+VarAssignAction_18d440::~VarAssignAction_18d440() {
     vptr = g_vftable_18d440;
     _ReadWriteBarrier();
     if (m20) {

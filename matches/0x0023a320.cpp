@@ -14,16 +14,16 @@ class Base_23a320 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_23a320 {
+class QueuedNodeAction_23a320 : public Base_23a320 {
   public:
     char pad[0x18];
     Ref_23a320* m1c;
     char pad2[8];
     Ref_23a320* m28;
     Sub_23a320 m2c;
-    ~Action();
+    ~QueuedNodeAction_23a320();
 };
-Action::~Action() {
+QueuedNodeAction_23a320::~QueuedNodeAction_23a320() {
     vptr = g_vftable_23a320;
     _ReadWriteBarrier();
     if (m28) {

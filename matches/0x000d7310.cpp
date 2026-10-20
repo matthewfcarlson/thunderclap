@@ -10,7 +10,7 @@ class Base : public CtorV_001d0480 {
   public:
     Base(void* p) : CtorV_001d0480(p, 1) { }
 };
-class Method1 : public Base {
+class Closure1_d7310 : public Base {
   public:
     virtual void Fn();
     char pad[12];
@@ -19,17 +19,17 @@ class Method1 : public Base {
     byte second;
     char pad3[3];
     void* obj;
-    Method1(void* p, void* c);
+    Closure1_d7310(void* p, void* c);
 };
-class Closure1 : public Method1 {
+class Closure1 : public Closure1_d7310 {
   public:
     virtual void Fn();
     void* extra;
     Closure1(void* p, void* e, void* c);
 };
-Method1::Method1(void* p, void* c) : Base(p) {
+Closure1_d7310::Closure1_d7310(void* p, void* c) : Base(p) {
     obj = c;
     second = GetFlag(&gOne);
     first = GetFlag(&gTwo);
 }
-Closure1::Closure1(void* p, void* e, void* c) : Method1(p, c), extra(e) {}
+Closure1::Closure1(void* p, void* e, void* c) : Closure1_d7310(p, c), extra(e) {}

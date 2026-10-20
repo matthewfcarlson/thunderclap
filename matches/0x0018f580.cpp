@@ -6,14 +6,14 @@ struct Obj_18f580 {
     void f2();
 };
 extern void thunk_FUN_00267090(Obj_18f580*);
-class ThreatCondition {
+class ImpulseVelocityTrack_18f580 {
   public:
     void* vftable;
     char pad[0x0c];
-    ThreatCondition* vfunc_5(unsigned char);
+    ImpulseVelocityTrack_18f580* vfunc_5(unsigned char);
 };
-ThreatCondition* ThreatCondition::vfunc_5(unsigned char param) {
-    ThreatCondition* p = this;
+ImpulseVelocityTrack_18f580* ImpulseVelocityTrack_18f580::vfunc_5(unsigned char param) {
+    ImpulseVelocityTrack_18f580* p = this;
     *(char**)p = &threat_vftable_18f580;
     ((Obj_18f580*)((char*)p + 0x10))->f1();
     ((Obj_18f580*)p)->f2();

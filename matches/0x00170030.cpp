@@ -2,14 +2,14 @@
 struct Tail_170030 {
     void Init();
 };
-struct SemaphoreClearTrack {
+struct JointRelativeTrack_170030 {
     void* vptr;
     char pad[0x14];
     void Finish();
     void Run();
 };
 extern void* vftable_170030;
-void SemaphoreClearTrack::Run() {
+void JointRelativeTrack_170030::Run() {
     vptr = &vftable_170030;
     ((Tail_170030*)((char*)this + 0x18))->Init();
     Finish();

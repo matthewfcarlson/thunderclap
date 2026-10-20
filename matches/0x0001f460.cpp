@@ -14,12 +14,12 @@ class CAction {
     Obj_1f460* mObj;
     int mValue;
 };
-class CDrainHealthAction : public CAction {
+class CSmartPropRemoveInstanceAction_1f460 : public CAction {
   public:
-    CDrainHealthAction(Obj_1f460*, int);
+    CSmartPropRemoveInstanceAction_1f460(Obj_1f460*, int);
     virtual void V0();
 };
-CDrainHealthAction::CDrainHealthAction(Obj_1f460* arg, int value) {
+CSmartPropRemoveInstanceAction_1f460::CSmartPropRemoveInstanceAction_1f460(Obj_1f460* arg, int value) {
     *(int*)this = (int)&VBase;
     mObj = 0;
     if (arg)
@@ -30,4 +30,4 @@ CDrainHealthAction::CDrainHealthAction(Obj_1f460* arg, int value) {
     mValue = value;
     *(int*)this = (int)&VDerived;
 }
-void CDrainHealthAction::V0() {}
+void CSmartPropRemoveInstanceAction_1f460::V0() {}

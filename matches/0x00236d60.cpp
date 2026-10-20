@@ -13,12 +13,12 @@ class Parent_236d60 {
     virtual void p();
 };
 void __fastcall FUN_00234210(void* self);
-class Condition : public Parent_236d60 {
+class Track_236d60 : public Parent_236d60 {
   public:
-    virtual ~Condition();
+    virtual ~Track_236d60();
     Ref_236d60* mRef;
 };
-Condition::~Condition() {
+Track_236d60::~Track_236d60() {
     if (mRef)
         mRef->Release(1);
     mRef = 0;

@@ -2,14 +2,14 @@
 struct Tail_12b510 {
     void Init();
 };
-struct SemaphoreClearTrack {
+struct ThreatAngleCondition_12b510 {
     void* vptr;
     char pad[0x14];
     void Finish();
     void Run();
 };
 extern void* vftable_12b510;
-void SemaphoreClearTrack::Run() {
+void ThreatAngleCondition_12b510::Run() {
     vptr = &vftable_12b510;
     ((Tail_12b510*)((char*)this + 0x18))->Init();
     Finish();

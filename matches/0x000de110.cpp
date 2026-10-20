@@ -1,9 +1,9 @@
 // Same code shape as 0x00021840 (propagated; names are from that function)
-class CAction {
+class FEThingsBase_de110 {
   public:
     virtual void a();
     virtual void b();
-    virtual CAction* vfunc_2(unsigned char);
+    virtual FEThingsBase_de110* vfunc_2(unsigned char);
     virtual void c();
     virtual void d();
     virtual void e();
@@ -11,15 +11,15 @@ class CAction {
     virtual void g();
     virtual void h();
 };
-class CCollisionAction : public CAction {
+class FEThings_de110 : public FEThingsBase_de110 {
   public:
-    CCollisionAction* vfunc_2(unsigned char);
+    FEThings_de110* vfunc_2(unsigned char);
 };
 struct ThisCall_000ddfc0 {
     void FUN_00019420();
 };
-extern void thunk_FUN_00267090(CCollisionAction*);
-CCollisionAction* CCollisionAction::vfunc_2(unsigned char param_2) {
+extern void thunk_FUN_00267090(FEThings_de110*);
+FEThings_de110* FEThings_de110::vfunc_2(unsigned char param_2) {
     ((ThisCall_000ddfc0*)(this))->FUN_00019420();
     if ((param_2 & 1) != 0)
         thunk_FUN_00267090(this);

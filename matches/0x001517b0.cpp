@@ -14,7 +14,7 @@ class Sub_1517b0 {
     Sub_1517b0();
     char pad[0x28];
 };
-class Action : public Root_1517b0 {
+class HitReactionAction_1517b0 : public Root_1517b0 {
   public:
     char pad[0x18];
     int* mA;
@@ -23,9 +23,9 @@ class Action : public Root_1517b0 {
     int x;
     int y;
     unsigned char z;
-    Action(int* a, Ref_1517b0* b);
+    HitReactionAction_1517b0(int* a, Ref_1517b0* b);
 };
-Action::Action(int* a, Ref_1517b0* b) : mA(0), mB(0), sub() {
+HitReactionAction_1517b0::HitReactionAction_1517b0(int* a, Ref_1517b0* b) : mA(0), mB(0), sub() {
     x = 0;
     y = 0;
     z = 0;

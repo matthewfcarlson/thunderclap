@@ -10,14 +10,14 @@ class Base_149380 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_149380 {
+class CivilianDetachAction_149380 : public Base_149380 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_149380* m20;
-    ~Action();
+    ~CivilianDetachAction_149380();
 };
-Action::~Action() {
+CivilianDetachAction_149380::~CivilianDetachAction_149380() {
     vptr = g_vftable_149380;
     _ReadWriteBarrier();
     if (m20) {

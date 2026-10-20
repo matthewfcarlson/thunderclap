@@ -21,12 +21,12 @@ struct Node {
     char pad1[0x44];
     unsigned char dirty;
 };
-struct Object {
+struct SimState_2ef5b0 {
     char pad[0x74];
     Node* node;
     void FUN_002ef5b0(const Matrix* first, Matrix* second);
 };
-void Object::FUN_002ef5b0(const Matrix* first, Matrix* second) {
+void SimState_2ef5b0::FUN_002ef5b0(const Matrix* first, Matrix* second) {
     Matrix inverse = *first;
     inverse.FUN_0022cdb0();
     Vec_2ef5b0 intermediate, delta;

@@ -10,14 +10,14 @@ class Base_10ec50 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_10ec50 {
+class ButtonAction_10ec50 : public Base_10ec50 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_10ec50* m20;
-    ~Action();
+    ~ButtonAction_10ec50();
 };
-Action::~Action() {
+ButtonAction_10ec50::~ButtonAction_10ec50() {
     vptr = g_vftable_10ec50;
     _ReadWriteBarrier();
     if (m20) {

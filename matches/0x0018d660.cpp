@@ -10,14 +10,14 @@ class Base_18d660 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_18d660 {
+class TimerSetAction_18d660 : public Base_18d660 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_18d660* m20;
-    ~Action();
+    ~TimerSetAction_18d660();
 };
-Action::~Action() {
+TimerSetAction_18d660::~TimerSetAction_18d660() {
     vptr = g_vftable_18d660;
     _ReadWriteBarrier();
     if (m20) {

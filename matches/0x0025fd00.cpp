@@ -1,7 +1,7 @@
 // Same code shape as 0x000b3de0 (propagated; names are from that function)
-class FEControllerSystem {
+class SeqEvent_25fd00 {
   public:
-    FEControllerSystem();
-    virtual ~FEControllerSystem();
+    SeqEvent_25fd00();
+    virtual ~SeqEvent_25fd00();
 };
-FEControllerSystem::FEControllerSystem() {}
+SeqEvent_25fd00::SeqEvent_25fd00() {}

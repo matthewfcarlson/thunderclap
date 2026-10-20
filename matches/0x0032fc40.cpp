@@ -4,7 +4,7 @@ class Ref_32fc40 {
     virtual void Release();
 };
 extern int toonVftable;
-class Shader {
+class d3dToon2VertexShader_32fc40 {
   public:
     virtual void A();
     virtual void B();
@@ -19,7 +19,7 @@ class Next_32fc40 {
   public:
     void Go();
 };
-void Shader::Reset() {
+void d3dToon2VertexShader_32fc40::Reset() {
     *(int*)this = (int)&toonVftable;
     if (m88)
         m88->Release();

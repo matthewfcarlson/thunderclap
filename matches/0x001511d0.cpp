@@ -10,15 +10,15 @@ class Base_1511d0 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_1511d0 {
+class GroundSlideAction_1511d0 : public Base_1511d0 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_1511d0* m20;
     Ref_1511d0* m24;
-    ~Action();
+    ~GroundSlideAction_1511d0();
 };
-Action::~Action() {
+GroundSlideAction_1511d0::~GroundSlideAction_1511d0() {
     vptr = g_vftable_1511d0;
     _ReadWriteBarrier();
     if (m24) {

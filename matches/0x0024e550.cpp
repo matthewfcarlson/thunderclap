@@ -6,13 +6,13 @@ class Base_24e550 {
     Base_24e550();
     virtual void g();
 };
-class Track : public Base_24e550 {
+class SeqEventNestTrack_24e550 : public Base_24e550 {
   public:
-    Track();
+    SeqEventNestTrack_24e550();
     virtual void g();
     char pad[4];
     Inner_24e550 in;
 };
-Track::Track() {
+SeqEventNestTrack_24e550::SeqEventNestTrack_24e550() {
     in.Init("MySeqTrack", 2);
 }

@@ -10,14 +10,14 @@ class Base_144bd0 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_144bd0 {
+class MotionTrailStopAction_144bd0 : public Base_144bd0 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_144bd0* m20;
-    ~Action();
+    ~MotionTrailStopAction_144bd0();
 };
-Action::~Action() {
+MotionTrailStopAction_144bd0::~MotionTrailStopAction_144bd0() {
     vptr = g_vftable_144bd0;
     _ReadWriteBarrier();
     if (m20) {

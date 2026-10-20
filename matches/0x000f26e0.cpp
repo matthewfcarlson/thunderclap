@@ -28,12 +28,12 @@ struct Base_f26e0 {
     Base_f26e0(int x, int y);
 };
 
-struct FEShaderAnimation : Base_f26e0 {
+struct FETextureAnimation_f26e0 : Base_f26e0 {
     Result_f26e0* m_c;
-    FEShaderAnimation(int p1, int p2);
+    FETextureAnimation_f26e0(int p1, int p2);
 };
 
-FEShaderAnimation::FEShaderAnimation(int p1, int p2) : Base_f26e0(p1, p2) {
+FETextureAnimation_f26e0::FETextureAnimation_f26e0(int p1, int p2) : Base_f26e0(p1, p2) {
     Obj_f26e0* obj = g_dat_f26e0;
     __int64 v = fun_p2(p2);
     m_c = obj->cast(&DynamicCaster(), v);

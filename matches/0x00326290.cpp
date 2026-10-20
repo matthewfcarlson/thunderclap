@@ -3,7 +3,7 @@ extern "C" char DAT_004333ac[];
 typedef unsigned int U_326290;
 extern void __stdcall Release(U_326290);
 extern void __cdecl Dispose(U_326290);
-struct Texture {
+struct d3dTexture_326290 {
     U_326290 vt;
     char pad[12];
     U_326290 a;
@@ -13,7 +13,7 @@ struct Texture {
     U_326290 d;
     void BaseDestroy();
 };
-void __fastcall FUN_00326290(Texture* self) {
+void __fastcall FUN_00326290(d3dTexture_326290* self) {
     self->vt = ((int)DAT_004333ac);
     if (self->a)
         Release(self->a);

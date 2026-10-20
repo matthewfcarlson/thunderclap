@@ -12,15 +12,15 @@ class ActionBase_1526c0 {
     char pad[0x18];
 };
 
-class FaceTargetAction : public ActionBase_1526c0 {
+class ClearFightParamsHitRecordAction_1526c0 : public ActionBase_1526c0 {
   public:
     int mTarget;
     RefObj_1526c0* mObj;
-    FaceTargetAction(int target, RefObj_1526c0* obj);
+    ClearFightParamsHitRecordAction_1526c0(int target, RefObj_1526c0* obj);
     virtual void Execute();
 };
 
-FaceTargetAction::FaceTargetAction(int target, RefObj_1526c0* obj) {
+ClearFightParamsHitRecordAction_1526c0::ClearFightParamsHitRecordAction_1526c0(int target, RefObj_1526c0* obj) {
     int* p = &mTarget;
     *p = 0;
     mObj = 0;

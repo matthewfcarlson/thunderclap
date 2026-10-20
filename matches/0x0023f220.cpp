@@ -3,18 +3,18 @@ struct Obj_23f220 {
     virtual void F();
     virtual void R();
 };
-extern int PostEvent_StringAction_vftable;
-struct PostEvent_StringAction {
+extern int BreakPointAction_23f220_vftable;
+struct BreakPointAction_23f220 {
     void* vf;
     int pad[6];
     int arg;
     Obj_23f220* object;
     void Init();
-    PostEvent_StringAction* Build(int, Obj_23f220*);
+    BreakPointAction_23f220* Build(int, Obj_23f220*);
 };
-PostEvent_StringAction* PostEvent_StringAction::Build(int a, Obj_23f220* p) {
+BreakPointAction_23f220* BreakPointAction_23f220::Build(int a, Obj_23f220* p) {
     Init();
-    vf = &PostEvent_StringAction_vftable;
+    vf = &BreakPointAction_23f220_vftable;
     object = 0;
     arg = a;
     if (p)

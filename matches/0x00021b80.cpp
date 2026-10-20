@@ -12,15 +12,15 @@ class Base_21b80 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_21b80 {
+class CSweepAction_21b80 : public Base_21b80 {
   public:
     char pad[0x18];
     Ref_21b80* m1c;
     char pad2[4];
     Ref_21b80* m24;
-    Action* f2(unsigned char flags);
+    CSweepAction_21b80* f2(unsigned char flags);
 };
-Action* Action::f2(unsigned char flags) {
+CSweepAction_21b80* CSweepAction_21b80::f2(unsigned char flags) {
     vptr = g_vftable_21b80;
     _ReadWriteBarrier();
     if (m24) {

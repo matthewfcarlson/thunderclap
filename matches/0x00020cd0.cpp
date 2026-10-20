@@ -14,12 +14,12 @@ class CAction {
     Obj_20cd0* mObj;
     int mValue;
 };
-class CDrainHealthAction : public CAction {
+class CMotionHitGroundHeightAction_20cd0 : public CAction {
   public:
-    CDrainHealthAction(Obj_20cd0*, int);
+    CMotionHitGroundHeightAction_20cd0(Obj_20cd0*, int);
     virtual void V0();
 };
-CDrainHealthAction::CDrainHealthAction(Obj_20cd0* arg, int value) {
+CMotionHitGroundHeightAction_20cd0::CMotionHitGroundHeightAction_20cd0(Obj_20cd0* arg, int value) {
     *(int*)this = (int)&VBase;
     mObj = 0;
     if (arg)
@@ -30,4 +30,4 @@ CDrainHealthAction::CDrainHealthAction(Obj_20cd0* arg, int value) {
     mValue = value;
     *(int*)this = (int)&VDerived;
 }
-void CDrainHealthAction::V0() {}
+void CMotionHitGroundHeightAction_20cd0::V0() {}

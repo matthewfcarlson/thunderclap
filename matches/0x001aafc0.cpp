@@ -2,14 +2,14 @@
 struct Tail_1aafc0 {
     void Init();
 };
-struct SemaphoreClearTrack {
+struct Event_CharacterTemplateCondition_1aafc0 {
     void* vptr;
     char pad[0x14];
     void Finish();
     void Run();
 };
 extern void* vftable_1aafc0;
-void SemaphoreClearTrack::Run() {
+void Event_CharacterTemplateCondition_1aafc0::Run() {
     vptr = &vftable_1aafc0;
     ((Tail_1aafc0*)((char*)this + 0x18))->Init();
     Finish();

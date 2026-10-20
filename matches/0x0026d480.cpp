@@ -5,11 +5,11 @@ extern "C" char DAT_0042b3b4[];
 extern "C" char DAT_0042b3fc[];
 extern int gValue_26d480;
 void Init();
-class Allocator {
+class MemoryTwoWayAllocator_26d480 {
   public:
     int* Construct();
 };
-int* Allocator::Construct() {
+int* MemoryTwoWayAllocator_26d480::Construct() {
     *(int*)this = ((int)DAT_0042b3fc);
     ((int*)this)[1] = ((int)DAT_0042afa8);
     ((int*)this)[2] = gValue_26d480;

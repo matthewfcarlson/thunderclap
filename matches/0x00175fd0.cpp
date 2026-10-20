@@ -12,15 +12,15 @@ class ActionBase_175fd0 {
     char pad[0x18];
 };
 
-class FaceTargetAction : public ActionBase_175fd0 {
+class SuckInPropsAction_175fd0 : public ActionBase_175fd0 {
   public:
     int mTarget;
     RefObj_175fd0* mObj;
-    FaceTargetAction(int target, RefObj_175fd0* obj);
+    SuckInPropsAction_175fd0(int target, RefObj_175fd0* obj);
     virtual void Execute();
 };
 
-FaceTargetAction::FaceTargetAction(int target, RefObj_175fd0* obj) {
+SuckInPropsAction_175fd0::SuckInPropsAction_175fd0(int target, RefObj_175fd0* obj) {
     int* p = &mTarget;
     *p = 0;
     mObj = 0;

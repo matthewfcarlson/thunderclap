@@ -12,15 +12,15 @@ class Base_21aa0 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_21aa0 {
+class CMoveAction_21aa0 : public Base_21aa0 {
   public:
     char pad[0x18];
     Ref_21aa0* m1c;
     char pad2[4];
     Ref_21aa0* m24;
-    Action* f2(unsigned char flags);
+    CMoveAction_21aa0* f2(unsigned char flags);
 };
-Action* Action::f2(unsigned char flags) {
+CMoveAction_21aa0* CMoveAction_21aa0::f2(unsigned char flags) {
     vptr = g_vftable_21aa0;
     _ReadWriteBarrier();
     if (m24) {

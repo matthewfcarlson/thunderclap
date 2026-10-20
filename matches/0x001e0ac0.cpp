@@ -1,6 +1,6 @@
 #include "decls/address.h"
 extern "C" char DAT_00423468[];
-class CSPManager {
+class Method3_1e0ac0 {
   public:
     int x;
     char pad4[12];
@@ -12,13 +12,13 @@ class CSPManager {
     char pad19[3];
     int m1c;
     void Init(int, int);
-    CSPManager* Run(int, int);
+    Method3_1e0ac0* Run(int, int);
 };
 extern const char s0_1e0ac0[];
 extern const char s1_1e0ac0[];
 extern const char s2_1e0ac0[];
 extern const char s3_1e0ac0[];
-CSPManager* CSPManager::Run(int a, int b) {
+Method3_1e0ac0* Method3_1e0ac0::Run(int a, int b) {
     Init(a, 3);
     x = ((int)DAT_00423468);
     m1c = b;

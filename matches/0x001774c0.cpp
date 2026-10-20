@@ -10,7 +10,7 @@ class Base_1774c0 {
     Base_1774c0();
 };
 extern void* g_vft_1774c0;
-class Action : public Base_1774c0 {
+class MomentumXZAddAction_1774c0 : public Base_1774c0 {
   public:
     int a;
     Ref_1774c0* b;
@@ -18,9 +18,9 @@ class Action : public Base_1774c0 {
     int d;
     int e;
     int f;
-    Action(int, Ref_1774c0*);
+    MomentumXZAddAction_1774c0(int, Ref_1774c0*);
 };
-Action::Action(int x, Ref_1774c0* p) {
+MomentumXZAddAction_1774c0::MomentumXZAddAction_1774c0(int x, Ref_1774c0* p) {
     *(void**)this = &g_vft_1774c0;
     int* q = &a;
     *q = 0;

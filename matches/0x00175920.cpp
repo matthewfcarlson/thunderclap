@@ -15,9 +15,9 @@ class Base_175920 {
     Base_175920();
     virtual void A0();
 };
-class Action : public Base_175920 {
+class TeleportRelativeAction_175920 : public Base_175920 {
   public:
-    Action(int arg, Obj_175920* obj);
+    TeleportRelativeAction_175920(int arg, Obj_175920* obj);
     virtual void A0();
     char pad04[0x18];
     int field1c;
@@ -25,7 +25,7 @@ class Action : public Base_175920 {
     char pad24[4];
     Inner_175920 inner;
 };
-Action::Action(int arg, Obj_175920* obj) {
+TeleportRelativeAction_175920::TeleportRelativeAction_175920(int arg, Obj_175920* obj) {
     field1c = 0;
     field20 = 0;
     inner.Init();

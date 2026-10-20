@@ -11,14 +11,14 @@ class CAction {
     char pad[0x18];
     Actor_1f560* mActor;
 };
-class CIntangibleToActorsAction : public CAction {
+class CIntangibleAction_1f560 : public CAction {
   public:
-    CIntangibleToActorsAction(Actor_1f560*);
+    CIntangibleAction_1f560(Actor_1f560*);
     virtual void V1();
 };
 extern int vtAction;
 extern int vtDerived;
-CIntangibleToActorsAction::CIntangibleToActorsAction(Actor_1f560* a) {
+CIntangibleAction_1f560::CIntangibleAction_1f560(Actor_1f560* a) {
     *(int*)this = (int)&vtAction;
     mActor = 0;
     if (a)

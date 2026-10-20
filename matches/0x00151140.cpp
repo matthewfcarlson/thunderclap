@@ -10,14 +10,14 @@ class Base_151140 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_151140 {
+class HitWaitAction_151140 : public Base_151140 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_151140* m20;
-    ~Action();
+    ~HitWaitAction_151140();
 };
-Action::~Action() {
+HitWaitAction_151140::~HitWaitAction_151140() {
     vptr = g_vftable_151140;
     _ReadWriteBarrier();
     if (m20) {

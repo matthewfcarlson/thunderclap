@@ -5,12 +5,12 @@ class MotionBase_144aa0 {
     char pad[0x18];
     MotionBase_144aa0();
 };
-class MotionBlurAction : public MotionBase_144aa0 {
+class SlowMotionAction_144aa0 : public MotionBase_144aa0 {
   public:
     int value;
-    MotionBlurAction(int);
+    SlowMotionAction_144aa0(int);
 };
-MotionBlurAction::MotionBlurAction(int x) : MotionBase_144aa0(), value(0) {
+SlowMotionAction_144aa0::SlowMotionAction_144aa0(int x) : MotionBase_144aa0(), value(0) {
     int* p = &value;
     *p = 0;
     value = x;

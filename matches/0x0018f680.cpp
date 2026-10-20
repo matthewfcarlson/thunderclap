@@ -10,15 +10,15 @@ class Base_18f680 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_18f680 {
+class TankLocomotionAction_18f680 : public Base_18f680 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_18f680* m20;
     Ref_18f680* m24;
-    ~Action();
+    ~TankLocomotionAction_18f680();
 };
-Action::~Action() {
+TankLocomotionAction_18f680::~TankLocomotionAction_18f680() {
     vptr = g_vftable_18f680;
     _ReadWriteBarrier();
     if (m24) {

@@ -4,13 +4,13 @@ class Inner_93430 {
     void Reset();
 };
 void FreeMem(void*);
-class CUnlockable {
+class CUnlockableCheat_93430 {
   public:
-    virtual ~CUnlockable();
+    virtual ~CUnlockableCheat_93430();
     char pad[0x14];
     void* mPtr18;
 };
-CUnlockable::~CUnlockable() {
+CUnlockableCheat_93430::~CUnlockableCheat_93430() {
     if (mPtr18) {
         FreeMem(mPtr18);
         mPtr18 = 0;

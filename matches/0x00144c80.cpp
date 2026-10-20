@@ -10,15 +10,15 @@ class Base_144c80 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_144c80 {
+class HitEffectAction_144c80 : public Base_144c80 {
   public:
     char pad[0x18];
     Ref_144c80* m1c;
     void* m20;
     Ref_144c80* m24;
-    ~Action();
+    ~HitEffectAction_144c80();
 };
-Action::~Action() {
+HitEffectAction_144c80::~HitEffectAction_144c80() {
     vptr = g_vftable_144c80;
     _ReadWriteBarrier();
     if (m24) {

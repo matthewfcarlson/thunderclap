@@ -13,12 +13,12 @@ void FUN_000be310(void*, void*, const char*, const char*, const char*, int, void
 };
      
 void __cdecl FUN_000fc020(void*, int, void*, void*);
-struct Object {
+struct FEMemCardControl_d9680 {
 char pad0[0x21c]; int status; char pad1[0x35c-0x220]; Item_d9680 items[2]; char pad2[0x3eb-0x3cc]; unsigned char flag;
 Dialog_d9680* FUN_000fc3d0();
 void target(int index);
 };
-void Object::target(int index) {
+void FEMemCardControl_d9680::target(int index) {
 char buffer[1024];
 Dialog_d9680* dialog=FUN_000fc3d0();
 Profile_d9680* profile=dialog->v44();

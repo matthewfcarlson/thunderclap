@@ -9,14 +9,14 @@ class CCondition {
   public:
     virtual void F();
 };
-class CCharacterTemplateVariationCondition : public CCondition {
+class CCharacterTemplateCondition_49f50 : public CCondition {
   public:
     char pad[12];
     Part_49f50 part;
     void Run();
     void Finish();
 };
-void CCharacterTemplateVariationCondition::Run() {
+void CCharacterTemplateCondition_49f50::Run() {
     *(int*)this = (int)&vtableA;
     part.Init();
     *(int*)this = (int)&vtableB;

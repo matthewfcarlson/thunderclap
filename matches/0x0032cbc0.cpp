@@ -1,17 +1,17 @@
 extern "C" char DAT_00433a8c[];
-class Shader {
+class d3dProjectedTextureShader_32cbc0 {
   public:
     void InitBase(void*);
     char pad[0x80];
     int a, b;
     void InitMember();
-    Shader* Target(void*);
+    d3dProjectedTextureShader_32cbc0* Target(void*);
 };
-Shader* Shader::Target(void* arg) {
+d3dProjectedTextureShader_32cbc0* d3dProjectedTextureShader_32cbc0::Target(void* arg) {
     InitBase(arg);
     *(void**)this = (void*)((int)DAT_00433a8c);
     a = 0;
     b = 0;
-    ((Shader*)((char*)this + 0x88))->InitMember();
+    ((d3dProjectedTextureShader_32cbc0*)((char*)this + 0x88))->InitMember();
     return this;
 }

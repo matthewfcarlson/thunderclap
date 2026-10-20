@@ -12,15 +12,15 @@ class ActionBase_12ffa0 {
     char pad[0x18];
 };
 
-class FaceTargetAction : public ActionBase_12ffa0 {
+class NISSoundAction_12ffa0 : public ActionBase_12ffa0 {
   public:
     int mTarget;
     RefObj_12ffa0* mObj;
-    FaceTargetAction(int target, RefObj_12ffa0* obj);
+    NISSoundAction_12ffa0(int target, RefObj_12ffa0* obj);
     virtual void Execute();
 };
 
-FaceTargetAction::FaceTargetAction(int target, RefObj_12ffa0* obj) {
+NISSoundAction_12ffa0::NISSoundAction_12ffa0(int target, RefObj_12ffa0* obj) {
     int* p = &mTarget;
     *p = 0;
     mObj = 0;

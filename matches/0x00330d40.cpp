@@ -4,7 +4,7 @@ class Base_330d40 {
     void Init(u32_330d40);
 };
 extern int vtableSymbol;
-class Shader : public Base_330d40 {
+class d3dToonVertexShader_330d40 : public Base_330d40 {
   public:
     char p[0x94];
     u32_330d40 x94;
@@ -14,9 +14,9 @@ class Shader : public Base_330d40 {
     u32_330d40 xe0;
     u32_330d40 xe4;
     u32_330d40 xe8;
-    Shader* Run(u32_330d40);
+    d3dToonVertexShader_330d40* Run(u32_330d40);
 };
-Shader* Shader::Run(u32_330d40 arg) {
+d3dToonVertexShader_330d40* d3dToonVertexShader_330d40::Run(u32_330d40 arg) {
     Init(arg);
     x94 = 0;
     x98 = 0;

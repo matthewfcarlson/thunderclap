@@ -13,22 +13,22 @@ class Base {
     char pad3[3];
     int val;
 };
-class Method1 : public Base {
+class Closure1_8b030 : public Base {
   public:
     virtual void f();
-    Method1(CGameFlowManager*, int);
+    Closure1_8b030(CGameFlowManager*, int);
 };
-class Closure1 : public Method1 {
+class Closure1 : public Closure1_8b030 {
   public:
     virtual void f();
     int extra;
     Closure1(CGameFlowManager*, int, int);
 };
-Method1::Method1(CGameFlowManager* p, int x) : Base(p, 1) {
+Closure1_8b030::Closure1_8b030(CGameFlowManager* p, int x) : Base(p, 1) {
     val = x;
     a = getFlag(key1);
     b = getFlag(key2);
 }
-Closure1::Closure1(CGameFlowManager* p, int x, int y) : Method1(p, y) {
+Closure1::Closure1(CGameFlowManager* p, int x, int y) : Closure1_8b030(p, y) {
     extra = x;
 }

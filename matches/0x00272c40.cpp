@@ -1,5 +1,5 @@
 // Same code shape as 0x00049c80 (propagated; names are from that function)
-class CCondition {
+class IRefCount_272c40 {
   public:
     virtual int vfunc_0();
 };
@@ -15,10 +15,10 @@ class Param {
     virtual int vfunc_4();
 };
 } // namespace fight
-class CIsInvincibleCondition : public CCondition, public fight::Condition, public fight::Param {
+class Drive_272c40 : public IRefCount_272c40, public fight::Condition, public fight::Param {
   public:
     virtual int vfunc_0(int);
 };
-int CIsInvincibleCondition::vfunc_0(int) {
+int Drive_272c40::vfunc_0(int) {
     return 0;
 }

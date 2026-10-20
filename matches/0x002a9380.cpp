@@ -1,11 +1,11 @@
 // Same code shape as 0x00293910 (propagated; names are from that function)
 typedef unsigned int u32_2a9380;
-struct CameraAnimationController {
+struct LightAnimationController_2a9380 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
     virtual void f3();
-    virtual CameraAnimationController* f4();
+    virtual LightAnimationController_2a9380* f4();
     virtual void f5();
     virtual void f6();
     virtual void f7();
@@ -34,13 +34,13 @@ struct CameraAnimationController {
     char pad[0x10c];
     u32_2a9380 field110;
     u32_2a9380 field114;
-    void init(CameraAnimationController*);
+    void init(LightAnimationController_2a9380*);
     void finish(u32_2a9380);
 };
 extern "C" void* __cdecl alloc(unsigned int);
 extern u32_2a9380 camera_vtable_2a9380;
-CameraAnimationController* CameraAnimationController::f4() {
-    CameraAnimationController* p = (CameraAnimationController*)alloc(0x118);
+LightAnimationController_2a9380* LightAnimationController_2a9380::f4() {
+    LightAnimationController_2a9380* p = (LightAnimationController_2a9380*)alloc(0x118);
     if (p) {
         p->init(this);
         *(u32_2a9380*)p = (u32_2a9380)&camera_vtable_2a9380;

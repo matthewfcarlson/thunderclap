@@ -53,14 +53,14 @@ class Field_d7e60 {
     int val;
     void set(char*, int, int);
 };
-class FEObject {
+class FEControl_d7e60 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
     virtual void vfunc_3();
 };
-class FEMemCardControl : public FEObject {
+class FEMemCardControl : public FEControl_d7e60 {
   public:
     char a[0x18 - 4];
     int x18;
@@ -81,7 +81,7 @@ class FEMemCardControl : public FEObject {
     virtual void vfunc_3();
 };
 void FEMemCardControl::vfunc_3() {
-    FEObject::vfunc_3();
+    FEControl_d7e60::vfunc_3();
     x1d0 = 0;
     x18 = 0;
     Manager_d7e60* m = getManager();

@@ -10,14 +10,14 @@ class Base_10fa20 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_10fa20 {
+class SemaphoreClearAction_10fa20 : public Base_10fa20 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_10fa20* m20;
-    ~Action();
+    ~SemaphoreClearAction_10fa20();
 };
-Action::~Action() {
+SemaphoreClearAction_10fa20::~SemaphoreClearAction_10fa20() {
     vptr = g_vftable_10fa20;
     _ReadWriteBarrier();
     if (m20) {

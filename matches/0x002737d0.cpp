@@ -4,7 +4,7 @@ class CompletionCallbackRequest {
     char pad[12];
 };
 class Request {};
-class FileCompletionRequest : public CompletionCallbackRequest, public Request {
+class DriveCompletionRequest_2737d0 : public CompletionCallbackRequest, public Request {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -15,6 +15,6 @@ class FileCompletionRequest : public CompletionCallbackRequest, public Request {
     virtual void vfunc_6();
     virtual void vfunc_7();
 };
-int FileCompletionRequest::vfunc_3() {
+int DriveCompletionRequest_2737d0::vfunc_3() {
     return *(int*)(*(int*)((char*)this + 0xc) + 0xc);
 }

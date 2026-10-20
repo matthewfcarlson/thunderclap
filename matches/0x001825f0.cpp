@@ -32,7 +32,7 @@ class End_1825f0 {
     void finish(int);
 };
 extern End_1825f0* __stdcall getEnd();
-class Action {
+class BallAndChainShootAction_1825f0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -46,7 +46,7 @@ class Action {
     char rest[0x2c];
     int ending;
 };
-void Action::vfunc_4() {
+void BallAndChainShootAction_1825f0::vfunc_4() {
     First_1825f0* f = first;
     Obj_1825f0* o = f->get();
     Mid_1825f0* m = o->val();

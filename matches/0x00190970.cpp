@@ -10,14 +10,14 @@ class Base_190970 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_190970 {
+class SimulationAction_190970 : public Base_190970 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_190970* m20;
-    ~Action();
+    ~SimulationAction_190970();
 };
-Action::~Action() {
+SimulationAction_190970::~SimulationAction_190970() {
     vptr = g_vftable_190970;
     _ReadWriteBarrier();
     if (m20) {

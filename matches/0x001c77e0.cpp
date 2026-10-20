@@ -1,10 +1,10 @@
 extern "C" char DAT_00421a3c[];
-class Store {
+class StoreBase_1c77e0 {
   public:
-    Store(unsigned int, unsigned char);
+    StoreBase_1c77e0(unsigned int, unsigned char);
     void init(unsigned int);
 };
-Store::Store(unsigned int arg, unsigned char flag) {
+StoreBase_1c77e0::StoreBase_1c77e0(unsigned int arg, unsigned char flag) {
     unsigned char* p = (unsigned char*)this;
     *(unsigned int*)p = ((int)DAT_00421a3c);
     *(unsigned int*)(p + 8) = 0;

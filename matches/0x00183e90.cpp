@@ -10,14 +10,14 @@ class Base_183e90 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_183e90 {
+class PropSpawnAction_183e90 : public Base_183e90 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_183e90* m20;
-    ~Action();
+    ~PropSpawnAction_183e90();
 };
-Action::~Action() {
+PropSpawnAction_183e90::~PropSpawnAction_183e90() {
     vptr = g_vftable_183e90;
     _ReadWriteBarrier();
     if (m20) {

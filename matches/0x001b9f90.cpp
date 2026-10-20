@@ -5,16 +5,16 @@ extern "C" char DAT_00420e74[];
 struct Ctor_001d0480 {
     Ctor_001d0480(unsigned int, unsigned int);
 };
-class CRenderManager : public Ctor_001d0480 {
+class Method4_1b9f90 : public Ctor_001d0480 {
   public:
-    CRenderManager(unsigned int, unsigned int);
+    Method4_1b9f90(unsigned int, unsigned int);
     int vptr;
     char pad04[0x0c];
     char b10, b11, b12, b13, b14, b15, b16, b17, b18;
     char pad19[3];
     int field1c;
 };
-CRenderManager::CRenderManager(unsigned int a, unsigned int b) : Ctor_001d0480(a, 4) {
+Method4_1b9f90::Method4_1b9f90(unsigned int a, unsigned int b) : Ctor_001d0480(a, 4) {
     vptr = ((int)DAT_00420e74);
     field1c = b;
     b18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0049b95c)));

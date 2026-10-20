@@ -9,14 +9,14 @@ class CCondition {
   public:
     virtual void F();
 };
-class CCharacterTemplateVariationCondition : public CCondition {
+class CGrappleCharacterTemplateCondition_4a110 : public CCondition {
   public:
     char pad[12];
     Part_4a110 part;
     void Run();
     void Finish();
 };
-void CCharacterTemplateVariationCondition::Run() {
+void CGrappleCharacterTemplateCondition_4a110::Run() {
     *(int*)this = (int)&vtableA;
     part.Init();
     *(int*)this = (int)&vtableB;

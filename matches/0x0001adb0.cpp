@@ -5,9 +5,9 @@ class Obj_1adb0 {
     virtual void f();
     virtual void g();
 };
-class Action {
+class CAction_1adb0 {
   public:
-    Action();
+    CAction_1adb0();
     virtual void f();
     char pad[0x18];
     Obj_1adb0* mObj;
@@ -17,11 +17,11 @@ class Action {
     int m54;
     int m58;
 };
-class Opportunity : public Action {
+class Opportunity : public CAction_1adb0 {
   public:
     Opportunity(int, Obj_1adb0*, int);
 };
-Opportunity::Opportunity(int p2, Obj_1adb0* p3, int p4) : Action() {
+Opportunity::Opportunity(int p2, Obj_1adb0* p3, int p4) : CAction_1adb0() {
     *(unsigned long*)this = ((int)DAT_003f3390);
     mObj = 0;
     if (p3)

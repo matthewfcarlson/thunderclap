@@ -2,7 +2,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 extern "C" char DAT_00423438[];
-class CSPManager {
+class Method4_1e08c0 {
   public:
     int vtable;
     char pad4[0xc];
@@ -11,12 +11,12 @@ class CSPManager {
     unsigned char a18;
     char pad19[3];
     int field1c;
-    CSPManager* Init(void*, int);
+    Method4_1e08c0* Init(void*, int);
 };
 struct ThisCall_001d0480 {
     void FUN_001d0480(void*, int);
 };
-CSPManager* CSPManager::Init(void* p, int b) {
+Method4_1e08c0* Method4_1e08c0::Init(void* p, int b) {
     ((ThisCall_001d0480*)(this))->FUN_001d0480(p, 4);
     vtable = ((int)DAT_00423438);
     field1c = b;

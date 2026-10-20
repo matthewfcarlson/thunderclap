@@ -6,13 +6,13 @@ struct Inner {
     char pad[0x11c];
     Result* result;
 };
-struct Node {
+struct CCharacter_44560 {
     char pad[0x148];
     Inner* inner;
 };
 struct Param {
     char pad[8];
-    Node* node;
+    CCharacter_44560* node;
     int type;
 };
 int FUN_00044560(Param* p) {

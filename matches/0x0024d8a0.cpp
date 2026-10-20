@@ -11,9 +11,9 @@ class MetaEntity {
     virtual void i();
     void cleanup();
 };
-class Entity : public MetaEntity {};
+class MetaEntity_24d8a0 : public MetaEntity {};
 class IRefCount {};
-class ListenerEffectXBox : public Entity, public IRefCount {
+class ListenerEffectXBox : public MetaEntity_24d8a0, public IRefCount {
   public:
     virtual void v0();
     virtual void v1();

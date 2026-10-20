@@ -12,15 +12,15 @@ class ActionBase_184080 {
     char pad[0x18];
 };
 
-class FaceTargetAction : public ActionBase_184080 {
+class PropDestroyAction_184080 : public ActionBase_184080 {
   public:
     int mTarget;
     RefObj_184080* mObj;
-    FaceTargetAction(int target, RefObj_184080* obj);
+    PropDestroyAction_184080(int target, RefObj_184080* obj);
     virtual void Execute();
 };
 
-FaceTargetAction::FaceTargetAction(int target, RefObj_184080* obj) {
+PropDestroyAction_184080::PropDestroyAction_184080(int target, RefObj_184080* obj) {
     int* p = &mTarget;
     *p = 0;
     mObj = 0;

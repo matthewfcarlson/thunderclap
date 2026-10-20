@@ -12,15 +12,15 @@ class ActionBase_151060 {
     char pad[0x18];
 };
 
-class FaceTargetAction : public ActionBase_151060 {
+class InterruptPriorityAction_151060 : public ActionBase_151060 {
   public:
     int mTarget;
     RefObj_151060* mObj;
-    FaceTargetAction(int target, RefObj_151060* obj);
+    InterruptPriorityAction_151060(int target, RefObj_151060* obj);
     virtual void Execute();
 };
 
-FaceTargetAction::FaceTargetAction(int target, RefObj_151060* obj) {
+InterruptPriorityAction_151060::InterruptPriorityAction_151060(int target, RefObj_151060* obj) {
     int* p = &mTarget;
     *p = 0;
     mObj = 0;

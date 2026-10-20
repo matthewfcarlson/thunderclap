@@ -10,13 +10,13 @@ class Base_2a8620 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_2a8620 {
+class ShaderAnimationController_2a8620 : public Base_2a8620 {
   public:
     char pad[60];
     Ref_2a8620* m;
-    ~Action();
+    ~ShaderAnimationController_2a8620();
 };
-Action::~Action() {
+ShaderAnimationController_2a8620::~ShaderAnimationController_2a8620() {
     vptr = g_vftable_2a8620;
     _ReadWriteBarrier();
     if (m) {

@@ -4,12 +4,12 @@ class Base_327e00 {
     Base_327e00();
     virtual void f();
 };
-class Shader : public Base_327e00 {
+class pddiBaseShader_327e00 : public Base_327e00 {
   public:
-    Shader();
+    pddiBaseShader_327e00();
     int pad[2];
     int id;
 };
-Shader::Shader() {
+pddiBaseShader_327e00::pddiBaseShader_327e00() {
     id = gCounter_327e00++;
 }

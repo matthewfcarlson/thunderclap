@@ -10,14 +10,14 @@ class Base_151b80 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_151b80 {
+class NoHitPushbackAction_151b80 : public Base_151b80 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_151b80* m20;
-    ~Action();
+    ~NoHitPushbackAction_151b80();
 };
-Action::~Action() {
+NoHitPushbackAction_151b80::~NoHitPushbackAction_151b80() {
     vptr = g_vftable_151b80;
     _ReadWriteBarrier();
     if (m20) {

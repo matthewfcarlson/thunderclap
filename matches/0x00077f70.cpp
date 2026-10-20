@@ -6,14 +6,14 @@ struct Param {
     virtual void vfunc4();
 };
 
-struct Track {
+struct CTrack_77f70 {
   public:
     virtual void tfunc3();
     virtual void tfunc8();
     virtual void tfunc9();
 };
 
-struct ThreatBallTrack : Track, Param {
+struct CHeliDeathSpiralTrack_77f70 : CTrack_77f70, Param {
   public:
     virtual void vfunc0();
     virtual void vfunc5();
@@ -28,6 +28,6 @@ struct ThreatBallTrack : Track, Param {
     float mHeight;
 };
 
-float ThreatBallTrack::GetExtent() {
+float CHeliDeathSpiralTrack_77f70::GetExtent() {
     return mMaxX - mMinX;
 }

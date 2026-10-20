@@ -1,14 +1,14 @@
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
 
-extern void* CTrack_vftable[];
+extern void* Condition_10ea20_vftable[];
 
-class CTrack {
+class Condition_10ea20 {
   public:
     void Destroy(); // FUN_00236d60, __thiscall, this in ecx
 };
 
-namespace hulkfight { namespace ai { class FightingOtherNPCCondition : public CTrack {
+namespace hulkfight { namespace ai { class FightingOtherNPCCondition : public Condition_10ea20 {
   public:
     FightingOtherNPCCondition* vfunc_5(signed char flags);
 }; }}
@@ -16,7 +16,7 @@ namespace hulkfight { namespace ai { class FightingOtherNPCCondition : public CT
 void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
 
 hulkfight::ai::FightingOtherNPCCondition* hulkfight::ai::FightingOtherNPCCondition::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
+    *(void***)this = Condition_10ea20_vftable;
     Destroy();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);

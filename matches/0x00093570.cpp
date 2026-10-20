@@ -4,13 +4,13 @@ class Inner_93570 {
     void Reset();
 };
 void FreeMem(void*);
-class CUnlockable {
+class CUnlockableMovie_93570 {
   public:
-    virtual ~CUnlockable();
+    virtual ~CUnlockableMovie_93570();
     char pad[0x14];
     void* mPtr18;
 };
-CUnlockable::~CUnlockable() {
+CUnlockableMovie_93570::~CUnlockableMovie_93570() {
     if (mPtr18) {
         FreeMem(mPtr18);
         mPtr18 = 0;

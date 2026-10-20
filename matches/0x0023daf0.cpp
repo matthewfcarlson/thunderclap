@@ -4,9 +4,9 @@ extern "C" void __cdecl ai_delete(void* p);
 struct VFT {
     int x;
 };
-extern const VFT PathLocatorTestCondition_vftable;
+extern const VFT CommentTrack_23daf0_vftable;
 
-class PathLocatorTestCondition {
+class CommentTrack_23daf0 {
   public:
     virtual void vfunc_0();
     virtual void p_vfunc_1();
@@ -20,8 +20,8 @@ class PathLocatorTestCondition {
     void* m_p;
 };
 
-void* PathLocatorTestCondition::vfunc_5(unsigned char flag) {
-    *(const VFT**)this = &PathLocatorTestCondition_vftable;
+void* CommentTrack_23daf0::vfunc_5(unsigned char flag) {
+    *(const VFT**)this = &CommentTrack_23daf0_vftable;
     ai_free(m_p);
     Cleanup();
     if (flag & 1) {

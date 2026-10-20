@@ -10,15 +10,15 @@ class Base_135420 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_135420 {
+class FlyingBrakeAction_135420 : public Base_135420 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_135420* m20;
     Ref_135420* m24;
-    ~Action();
+    ~FlyingBrakeAction_135420();
 };
-Action::~Action() {
+FlyingBrakeAction_135420::~FlyingBrakeAction_135420() {
     vptr = g_vftable_135420;
     _ReadWriteBarrier();
     if (m24) {

@@ -9,16 +9,16 @@ extern int vtableSweep;
 struct Ctor_00232660 {
     Ctor_00232660();
 };
-class CSweepAction : public Ctor_00232660 {
+class CSmartPropAttachAction_1ea30 : public Ctor_00232660 {
   public:
-    CSweepAction(int value, Arg_1ea30* arg);
+    CSmartPropAttachAction_1ea30(int value, Arg_1ea30* arg);
     char pad[0x1c];
     Arg_1ea30* mThing;
     int mValue;
     int mA;
     int mB;
 };
-CSweepAction::CSweepAction(int value, Arg_1ea30* arg) : Ctor_00232660() {
+CSmartPropAttachAction_1ea30::CSmartPropAttachAction_1ea30(int value, Arg_1ea30* arg) : Ctor_00232660() {
     *(int*)this = (int)&vtableAction;
     mThing = 0;
     if (arg)

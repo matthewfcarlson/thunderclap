@@ -10,13 +10,13 @@ class Base_151f20 {
     virtual void X();
     virtual void Y();
 };
-class FlyingBrakeAction : public Base_151f20 {
+class HitThrowAction_151f20 : public Base_151f20 {
   public:
-    FlyingBrakeAction(void* p, Thing_151f20* t);
+    HitThrowAction_151f20(void* p, Thing_151f20* t);
     char pad[0x1c - 4];
     int mF[9];
 };
-FlyingBrakeAction::FlyingBrakeAction(void* p, Thing_151f20* t) : Base_151f20() {
+HitThrowAction_151f20::HitThrowAction_151f20(void* p, Thing_151f20* t) : Base_151f20() {
     int i;
     for (i = 0; i < 9; i++)
         mF[i] = 0;

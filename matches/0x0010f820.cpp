@@ -12,15 +12,15 @@ class ActionBase_10f820 {
     char pad[0x18];
 };
 
-class FaceTargetAction : public ActionBase_10f820 {
+class TokenAction_10f820 : public ActionBase_10f820 {
   public:
     int mTarget;
     RefObj_10f820* mObj;
-    FaceTargetAction(int target, RefObj_10f820* obj);
+    TokenAction_10f820(int target, RefObj_10f820* obj);
     virtual void Execute();
 };
 
-FaceTargetAction::FaceTargetAction(int target, RefObj_10f820* obj) {
+TokenAction_10f820::TokenAction_10f820(int target, RefObj_10f820* obj) {
     int* p = &mTarget;
     *p = 0;
     mObj = 0;

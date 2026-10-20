@@ -1,17 +1,17 @@
 extern "C" char DAT_0042af64[];
 // Same code shape as 0x00267ed0 (propagated; names are from that function)
-class BaseObject {
+class Object_26d1e0 {
   public:
     virtual void vfunc_0();
 };
-class Object : public BaseObject {
+class RefCount_26d1e0 : public Object_26d1e0 {
   public:
     int field;
-    virtual Object* vfunc_0(unsigned char);
+    virtual RefCount_26d1e0* vfunc_0(unsigned char);
 };
 extern volatile int g_saved;
-extern void __cdecl FUN_00266f00(int, Object*);
-Object* Object::vfunc_0(unsigned char param) {
+extern void __cdecl FUN_00266f00(int, RefCount_26d1e0*);
+RefCount_26d1e0* RefCount_26d1e0::vfunc_0(unsigned char param) {
     g_saved = field;
     *(unsigned long*)this = ((int)DAT_0042af64);
     if (param & 1)

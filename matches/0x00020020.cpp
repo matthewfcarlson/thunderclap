@@ -14,12 +14,12 @@ class CAction {
     Obj_20020* mObj;
     int mValue;
 };
-class CDrainHealthAction : public CAction {
+class CUninterruptibleAction_20020 : public CAction {
   public:
-    CDrainHealthAction(Obj_20020*, int);
+    CUninterruptibleAction_20020(Obj_20020*, int);
     virtual void V0();
 };
-CDrainHealthAction::CDrainHealthAction(Obj_20020* arg, int value) {
+CUninterruptibleAction_20020::CUninterruptibleAction_20020(Obj_20020* arg, int value) {
     *(int*)this = (int)&VBase;
     mObj = 0;
     if (arg)
@@ -30,4 +30,4 @@ CDrainHealthAction::CDrainHealthAction(Obj_20020* arg, int value) {
     mValue = value;
     *(int*)this = (int)&VDerived;
 }
-void CDrainHealthAction::V0() {}
+void CUninterruptibleAction_20020::V0() {}

@@ -28,10 +28,10 @@ class CAction : public CBase_1f800 {
     }
 };
 
-class CDriftAction : public CAction {
+class CCameraShakeAction_1f800 : public CAction {
   public:
     virtual void ProcessDrift();
-    CDriftAction(int a, IRef_1f800* p);
+    CCameraShakeAction_1f800(int a, IRef_1f800* p);
 };
 
-CDriftAction::CDriftAction(int a, IRef_1f800* p) : CAction(a, p) {}
+CCameraShakeAction_1f800::CCameraShakeAction_1f800(int a, IRef_1f800* p) : CAction(a, p) {}

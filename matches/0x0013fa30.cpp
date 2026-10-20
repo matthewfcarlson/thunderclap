@@ -10,16 +10,16 @@ class Base_13fa30 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_13fa30 {
+class WallRunAction_13fa30 : public Base_13fa30 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_13fa30* m20;
     Ref_13fa30* m24;
     Ref_13fa30* m28;
-    ~Action();
+    ~WallRunAction_13fa30();
 };
-Action::~Action() {
+WallRunAction_13fa30::~WallRunAction_13fa30() {
     vptr = g_vftable_13fa30;
     _ReadWriteBarrier();
     if (m28) {

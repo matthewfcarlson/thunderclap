@@ -4,12 +4,12 @@ class Base {
     virtual void f();
     char pad[12];
 };
-class LuaCondition : public Base {
+class ParamScript_1a1930 : public Base {
   public:
-    LuaCondition(int, int);
+    ParamScript_1a1930(int, int);
     virtual void f();
     int value;
 };
-LuaCondition::LuaCondition(int a, int b) : Base(a) {
+ParamScript_1a1930::ParamScript_1a1930(int a, int b) : Base(a) {
     value = b;
 }

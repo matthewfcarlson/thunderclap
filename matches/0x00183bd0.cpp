@@ -10,14 +10,14 @@ class Base_183bd0 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_183bd0 {
+class PropAddToMissileCountAction_183bd0 : public Base_183bd0 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_183bd0* m20;
-    ~Action();
+    ~PropAddToMissileCountAction_183bd0();
 };
-Action::~Action() {
+PropAddToMissileCountAction_183bd0::~PropAddToMissileCountAction_183bd0() {
     vptr = g_vftable_183bd0;
     _ReadWriteBarrier();
     if (m20) {

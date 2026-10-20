@@ -10,15 +10,15 @@ class Base_134e90 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_134e90 {
+class FallAction_134e90 : public Base_134e90 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_134e90* m20;
     Ref_134e90* m24;
-    ~Action();
+    ~FallAction_134e90();
 };
-Action::~Action() {
+FallAction_134e90::~FallAction_134e90() {
     vptr = g_vftable_134e90;
     _ReadWriteBarrier();
     if (m24) {

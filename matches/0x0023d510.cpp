@@ -1,14 +1,14 @@
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
 
-extern void* CTrack_vftable[];
+extern void* Condition_23d510_vftable[];
 
-class CTrack {
+class Condition_23d510 {
   public:
     void Destroy(); // FUN_00236d60, __thiscall, this in ecx
 };
 
-class CSweepTrack_23d510 : public CTrack {
+class CSweepTrack_23d510 : public Condition_23d510 {
   public:
     CSweepTrack_23d510* vfunc_5(signed char flags);
 };
@@ -16,7 +16,7 @@ class CSweepTrack_23d510 : public CTrack {
 void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
 
 CSweepTrack_23d510* CSweepTrack_23d510::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
+    *(void***)this = Condition_23d510_vftable;
     Destroy();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);

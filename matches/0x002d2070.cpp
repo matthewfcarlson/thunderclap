@@ -1,5 +1,5 @@
 extern "C" char DAT_0042f074[];
-class ParticleGenerator {
+class ParticlePlaneGenerator_2d2070 {
   public:
     void* vftable;
     char pad4[0x0c];
@@ -8,7 +8,7 @@ class ParticleGenerator {
     int b, c, d, e;
     void Init();
 };
-ParticleGenerator* __fastcall FUN_002d2070(ParticleGenerator* p) {
+ParticlePlaneGenerator_2d2070* __fastcall FUN_002d2070(ParticlePlaneGenerator_2d2070* p) {
     p->Init();
     p->a = 0;
     p->b = 0;

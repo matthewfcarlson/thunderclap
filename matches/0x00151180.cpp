@@ -9,7 +9,7 @@ class Base_151180 {
     virtual void X();
     Base_151180();
 };
-class FootPivotAction : public Base_151180 {
+class GroundSlideAction_151180 : public Base_151180 {
   public:
     virtual void A();
     virtual void B();
@@ -18,9 +18,9 @@ class FootPivotAction : public Base_151180 {
     Obj_151180* m20;
     int m24;
     int m28;
-    FootPivotAction(int, Obj_151180*);
+    GroundSlideAction_151180(int, Obj_151180*);
 };
-FootPivotAction::FootPivotAction(int v, Obj_151180* p) : Base_151180() {
+GroundSlideAction_151180::GroundSlideAction_151180(int v, Obj_151180* p) : Base_151180() {
     volatile int* q = &m1c;
     q[0] = 0;
     q[1] = 0;

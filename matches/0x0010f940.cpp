@@ -12,15 +12,15 @@ class ActionBase_10f940 {
     char pad[0x18];
 };
 
-class FaceTargetAction : public ActionBase_10f940 {
+class SemaphoreWaitAction_10f940 : public ActionBase_10f940 {
   public:
     int mTarget;
     RefObj_10f940* mObj;
-    FaceTargetAction(int target, RefObj_10f940* obj);
+    SemaphoreWaitAction_10f940(int target, RefObj_10f940* obj);
     virtual void Execute();
 };
 
-FaceTargetAction::FaceTargetAction(int target, RefObj_10f940* obj) {
+SemaphoreWaitAction_10f940::SemaphoreWaitAction_10f940(int target, RefObj_10f940* obj) {
     int* p = &mTarget;
     *p = 0;
     mObj = 0;

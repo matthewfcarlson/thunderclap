@@ -28,10 +28,10 @@ class CAction : public CBase_1f900 {
     }
 };
 
-class CDriftAction : public CAction {
+class CCameraHintAction_1f900 : public CAction {
   public:
     virtual void ProcessDrift();
-    CDriftAction(int a, IRef_1f900* p);
+    CCameraHintAction_1f900(int a, IRef_1f900* p);
 };
 
-CDriftAction::CDriftAction(int a, IRef_1f900* p) : CAction(a, p) {}
+CCameraHintAction_1f900::CCameraHintAction_1f900(int a, IRef_1f900* p) : CAction(a, p) {}

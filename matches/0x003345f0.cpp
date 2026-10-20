@@ -2,12 +2,12 @@
 typedef unsigned char u8_3345f0;
 extern void __cdecl release(int, void*);
 extern int globalValue;
-class ControllerSystemXBox {
+class RenderStrategyBink_3345f0 {
   public:
     void cleanup();
     virtual void f0();
     virtual void f1();
-    virtual ControllerSystemXBox* f2(u8_3345f0);
+    virtual RenderStrategyBink_3345f0* f2(u8_3345f0);
     virtual void f3();
     virtual void f4();
     virtual void f5();
@@ -19,7 +19,7 @@ class ControllerSystemXBox {
     virtual void f11();
     virtual void f12();
 };
-ControllerSystemXBox* ControllerSystemXBox::f2(u8_3345f0 flag) {
+RenderStrategyBink_3345f0* RenderStrategyBink_3345f0::f2(u8_3345f0 flag) {
     cleanup();
     if (flag & 1)
         release(globalValue, this);

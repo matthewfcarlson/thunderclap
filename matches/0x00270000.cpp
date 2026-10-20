@@ -7,11 +7,11 @@ class IB_270000 {
   public:
     void helper();
 };
-class MemoryTwoWayAllocator : public IA, public IB_270000 {
+class MemoryPool_270000 : public IA, public IB_270000 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
 };
-void MemoryTwoWayAllocator::vfunc_1() {
+void MemoryPool_270000::vfunc_1() {
     IB_270000::helper();
 }

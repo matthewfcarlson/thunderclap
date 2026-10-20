@@ -7,11 +7,11 @@ class IB_334110 {
   public:
     void helper();
 };
-class MemoryTwoWayAllocator : public IA, public IB_334110 {
+class RenderStrategyBink_334110 : public IA, public IB_334110 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
 };
-void MemoryTwoWayAllocator::vfunc_1() {
+void RenderStrategyBink_334110::vfunc_1() {
     IB_334110::helper();
 }

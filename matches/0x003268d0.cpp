@@ -3,7 +3,7 @@ extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 namespace D3D8 {
 void* __stdcall D3DPalette_Lock2(u32_3268d0, int);
 }
-class Texture {
+class d3dTexture_3268d0 {
   public:
     virtual void a();
     virtual void b();
@@ -21,7 +21,7 @@ class Texture {
     char pad[0x64];
     u32_3268d0 palette;
 };
-u32_3268d0 Texture::f12(u32_3268d0* out) {
+u32_3268d0 d3dTexture_3268d0::f12(u32_3268d0* out) {
     if (palette) {
         void* p = D3D8::D3DPalette_Lock2(palette, 0);
         memcpy(out, p, 0x400);

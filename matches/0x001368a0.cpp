@@ -10,16 +10,16 @@ class Base_1368a0 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_1368a0 {
+class AirToGroundTargetAction_1368a0 : public Base_1368a0 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_1368a0* m20;
     Ref_1368a0* m24;
     Ref_1368a0* m28;
-    ~Action();
+    ~AirToGroundTargetAction_1368a0();
 };
-Action::~Action() {
+AirToGroundTargetAction_1368a0::~AirToGroundTargetAction_1368a0() {
     vptr = g_vftable_1368a0;
     _ReadWriteBarrier();
     if (m28) {

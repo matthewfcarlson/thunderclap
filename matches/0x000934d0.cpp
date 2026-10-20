@@ -3,9 +3,9 @@ class Part_934d0 {
     Part_934d0();
     char pad[8];
 };
-class CUnlockable {
+class CUnlockableMove_934d0 {
   public:
-    CUnlockable();
+    CUnlockableMove_934d0();
     virtual void f();
     char pad4[4];
     char flag8;
@@ -13,8 +13,8 @@ class CUnlockable {
     Part_934d0 p10;
     int val18;
 };
-CUnlockable::CUnlockable() : flag8(1), val18(0) {}
-class CUnlockableMove : public CUnlockable {
+CUnlockableMove_934d0::CUnlockableMove_934d0() : flag8(1), val18(0) {}
+class CUnlockableMove : public CUnlockableMove_934d0 {
   public:
     CUnlockableMove(int x);
     virtual void g();

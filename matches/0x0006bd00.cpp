@@ -4,14 +4,14 @@ class Base {
     Base(int a);
 };
 
-class CJointTrack : public Base {
+class ParamFloatConstRange_6bd00 : public Base {
   public:
     virtual void V1();
     char pad[0x0c];
     int mValue;
-    CJointTrack(int a, int b);
+    ParamFloatConstRange_6bd00(int a, int b);
 };
 
-CJointTrack::CJointTrack(int a, int b) : Base(a) {
+ParamFloatConstRange_6bd00::ParamFloatConstRange_6bd00(int a, int b) : Base(a) {
     mValue = b;
 }

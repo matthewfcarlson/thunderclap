@@ -10,14 +10,14 @@ class Base_152680 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_152680 {
+class HealthAction_152680 : public Base_152680 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_152680* m20;
-    ~Action();
+    ~HealthAction_152680();
 };
-Action::~Action() {
+HealthAction_152680::~HealthAction_152680() {
     vptr = g_vftable_152680;
     _ReadWriteBarrier();
     if (m20) {

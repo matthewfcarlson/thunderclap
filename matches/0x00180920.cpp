@@ -2,14 +2,14 @@
 struct Tail_180920 {
     void Init();
 };
-struct SemaphoreClearTrack {
+struct PropStateByNameCondition_180920 {
     void* vptr;
     char pad[0x14];
     void Finish();
     void Run();
 };
 extern void* vftable_180920;
-void SemaphoreClearTrack::Run() {
+void PropStateByNameCondition_180920::Run() {
     vptr = &vftable_180920;
     ((Tail_180920*)((char*)this + 0x18))->Init();
     Finish();

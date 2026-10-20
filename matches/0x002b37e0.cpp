@@ -1,10 +1,10 @@
-class IRefCount {
+class ShadowMeshTopology_2b37e0 {
   public:
-    virtual ~IRefCount() throw();
+    virtual ~ShadowMeshTopology_2b37e0() throw();
 };
-IRefCount::~IRefCount() throw() {}
+ShadowMeshTopology_2b37e0::~ShadowMeshTopology_2b37e0() throw() {}
 void ReleaseRef(int);
-class ShadowMeshTopology : public IRefCount {
+class ShadowMeshTopology : public ShadowMeshTopology_2b37e0 {
   public:
     int pad04[3];
     int m10;

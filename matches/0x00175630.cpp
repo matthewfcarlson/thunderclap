@@ -10,14 +10,14 @@ class Base_175630 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_175630 {
+class DriftToHulkAction_175630 : public Base_175630 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_175630* m20;
-    ~Action();
+    ~DriftToHulkAction_175630();
 };
-Action::~Action() {
+DriftToHulkAction_175630::~DriftToHulkAction_175630() {
     vptr = g_vftable_175630;
     _ReadWriteBarrier();
     if (m20) {

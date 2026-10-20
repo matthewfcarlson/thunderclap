@@ -14,13 +14,13 @@ struct Inner_2737f0 {
     char pad[16];
     int ref;
 };
-struct Request {
+struct FileRequest_2737f0 {
     void* v;
     char pad[4];
     Inner_2737f0* p;
     void run();
 };
-void Request::run() {
+void FileRequest_2737f0::run() {
     v = (void*)((int)DAT_0042b99c);
     p->sub.f();
     --p->ref;

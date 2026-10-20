@@ -6,7 +6,7 @@ struct B_2051b0 {
     void Init(int, int);
 };
 extern char ReadValue(const char*);
-class CWorldStreamManager {
+class Method3_2051b0 {
   public:
     int vptr;
     char p04[12];
@@ -15,9 +15,9 @@ class CWorldStreamManager {
     char b18;
     char p19[3];
     int value1c;
-    CWorldStreamManager(int a, int b);
+    Method3_2051b0(int a, int b);
 };
-CWorldStreamManager::CWorldStreamManager(int a, int b) {
+Method3_2051b0::Method3_2051b0(int a, int b) {
     ((B_2051b0*)this)->Init(a, 3);
     vptr = ((int)DAT_00425b64);
     value1c = b;

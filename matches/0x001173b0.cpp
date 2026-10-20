@@ -10,14 +10,14 @@ class Base_1173b0 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_1173b0 {
+class MotionLocatorAction_1173b0 : public Base_1173b0 {
   public:
     char pad1c[0x18];
     void* m1c;
     Ref_1173b0* m20;
-    ~Action();
+    ~MotionLocatorAction_1173b0();
 };
-Action::~Action() {
+MotionLocatorAction_1173b0::~MotionLocatorAction_1173b0() {
     vptr = g_vftable_1173b0;
     _ReadWriteBarrier();
     if (m20) {

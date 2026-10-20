@@ -27,15 +27,15 @@ class Delegate_23b8a0 {
     virtual void f23();
     virtual int f24();
 };
-class StringReader {
+class DataReader_23b8a0 {
   public:
     char pad[8];
     Delegate_23b8a0* sub;
 };
-class IFileStringReader : public StringReader {
+class IFileDataReader_23b8a0 : public DataReader_23b8a0 {
   public:
     int vfunc_3();
 };
-int IFileStringReader::vfunc_3() {
+int IFileDataReader_23b8a0::vfunc_3() {
     return sub->f24();
 }

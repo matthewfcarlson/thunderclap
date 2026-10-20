@@ -8,7 +8,7 @@ class RefObj_161660 {
 extern "C" void __fastcall BaseDtor(void* p);
 extern "C" void operator_delete(void* p);
 
-class MotionTargetAction {
+class GrappleLocomotionSteerAction_161660 {
   public:
     void* mVptr;
     char pad[0x18];
@@ -18,8 +18,8 @@ class MotionTargetAction {
     void* vfunc_2(unsigned char flag);
 };
 
-void* MotionTargetAction::vfunc_2(unsigned char flag) {
-    volatile MotionTargetAction* self = this;
+void* GrappleLocomotionSteerAction_161660::vfunc_2(unsigned char flag) {
+    volatile GrappleLocomotionSteerAction_161660* self = this;
     self->mVptr = &g_vftable_161660;
     RefObj_161660* t3 = self->m3;
     if (t3) {

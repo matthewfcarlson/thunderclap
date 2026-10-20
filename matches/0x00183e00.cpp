@@ -10,14 +10,14 @@ class Base_183e00 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_183e00 {
+class PropSetStateByNameAction_183e00 : public Base_183e00 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_183e00* m20;
-    ~Action();
+    ~PropSetStateByNameAction_183e00();
 };
-Action::~Action() {
+PropSetStateByNameAction_183e00::~PropSetStateByNameAction_183e00() {
     vptr = g_vftable_183e00;
     _ReadWriteBarrier();
     if (m20) {

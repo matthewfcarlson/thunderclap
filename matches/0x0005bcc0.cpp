@@ -4,11 +4,11 @@ class Base {
     virtual void f();
     Base(int);
 };
-class Branch : public Base {
+class ParamBranch_5bcc0 : public Base {
   public:
-    Branch(int, int);
+    ParamBranch_5bcc0(int, int);
     virtual void f();
     char pad[12];
     int value;
 };
-Branch::Branch(int a, int b) : Base(a), value(b) {}
+ParamBranch_5bcc0::ParamBranch_5bcc0(int a, int b) : Base(a), value(b) {}

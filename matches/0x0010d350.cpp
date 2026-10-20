@@ -2,14 +2,14 @@
 struct Tail_10d350 {
     void Init();
 };
-struct SemaphoreClearTrack {
+struct KeywordWaitTrack_10d350 {
     void* vptr;
     char pad[0x14];
     void Finish();
     void Run();
 };
 extern void* vftable_10d350;
-void SemaphoreClearTrack::Run() {
+void KeywordWaitTrack_10d350::Run() {
     vptr = &vftable_10d350;
     ((Tail_10d350*)((char*)this + 0x18))->Init();
     Finish();

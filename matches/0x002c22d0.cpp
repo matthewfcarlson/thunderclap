@@ -10,13 +10,13 @@ class Base_2c22d0 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_2c22d0 {
+class Texture_2c22d0 : public Base_2c22d0 {
   public:
     char pad[12];
     Ref_2c22d0* m;
-    ~Action();
+    ~Texture_2c22d0();
 };
-Action::~Action() {
+Texture_2c22d0::~Texture_2c22d0() {
     vptr = g_vftable_2c22d0;
     _ReadWriteBarrier();
     if (m) {

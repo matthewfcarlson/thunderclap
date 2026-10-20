@@ -10,14 +10,14 @@ class Base_130110 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_130110 {
+class StatBeginTrialAction_130110 : public Base_130110 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_130110* m20;
-    ~Action();
+    ~StatBeginTrialAction_130110();
 };
-Action::~Action() {
+StatBeginTrialAction_130110::~StatBeginTrialAction_130110() {
     vptr = g_vftable_130110;
     _ReadWriteBarrier();
     if (m20) {

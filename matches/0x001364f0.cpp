@@ -10,15 +10,15 @@ class Base_1364f0 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_1364f0 {
+class BounceAction_1364f0 : public Base_1364f0 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_1364f0* m20;
     Ref_1364f0* m24;
-    ~Action();
+    ~BounceAction_1364f0();
 };
-Action::~Action() {
+BounceAction_1364f0::~BounceAction_1364f0() {
     vptr = g_vftable_1364f0;
     _ReadWriteBarrier();
     if (m24) {

@@ -10,14 +10,14 @@ class Base_177510 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_177510 {
+class MomentumXZAddAction_177510 : public Base_177510 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_177510* m20;
-    ~Action();
+    ~MomentumXZAddAction_177510();
 };
-Action::~Action() {
+MomentumXZAddAction_177510::~MomentumXZAddAction_177510() {
     vptr = g_vftable_177510;
     _ReadWriteBarrier();
     if (m20) {

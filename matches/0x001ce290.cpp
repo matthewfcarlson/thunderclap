@@ -11,22 +11,22 @@ class Base {
     char y;
     char pad3[3];
 };
-class Method1 : public Base {
+class Closure1_1ce290 : public Base {
   public:
-    Method1(void*, void*);
+    Closure1_1ce290(void*, void*);
     virtual void f();
     void* arg;
 };
-class Closure1 : public Method1 {
+class Closure1 : public Closure1_1ce290 {
   public:
     Closure1(void*, void*, void*);
     virtual void f();
     void* extra;
 };
-Closure1::Closure1(void* p, void* q, void* r) : Method1(p, r) {
+Closure1::Closure1(void* p, void* q, void* r) : Closure1_1ce290(p, r) {
     extra = q;
 }
-Method1::Method1(void* p, void* q) : Base(p, 1) {
+Closure1_1ce290::Closure1_1ce290(void* p, void* q) : Base(p, 1) {
     arg = q;
     y = lookup(a);
     x = lookup(b);

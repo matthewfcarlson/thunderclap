@@ -14,12 +14,12 @@ class CAction {
     Obj_1dbc0* mObj;
     int mValue;
 };
-class CDrainHealthAction : public CAction {
+class CComboTimerAction_1dbc0 : public CAction {
   public:
-    CDrainHealthAction(Obj_1dbc0*, int);
+    CComboTimerAction_1dbc0(Obj_1dbc0*, int);
     virtual void V0();
 };
-CDrainHealthAction::CDrainHealthAction(Obj_1dbc0* arg, int value) {
+CComboTimerAction_1dbc0::CComboTimerAction_1dbc0(Obj_1dbc0* arg, int value) {
     *(int*)this = (int)&VBase;
     mObj = 0;
     if (arg)
@@ -30,4 +30,4 @@ CDrainHealthAction::CDrainHealthAction(Obj_1dbc0* arg, int value) {
     mValue = value;
     *(int*)this = (int)&VDerived;
 }
-void CDrainHealthAction::V0() {}
+void CComboTimerAction_1dbc0::V0() {}

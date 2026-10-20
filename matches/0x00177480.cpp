@@ -10,14 +10,14 @@ class Base_177480 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_177480 {
+class CriticalMassDrainAction_177480 : public Base_177480 {
   public:
     char pad1c[0x18];
     void* m1c;
     Ref_177480* m20;
-    ~Action();
+    ~CriticalMassDrainAction_177480();
 };
-Action::~Action() {
+CriticalMassDrainAction_177480::~CriticalMassDrainAction_177480() {
     vptr = g_vftable_177480;
     _ReadWriteBarrier();
     if (m20) {

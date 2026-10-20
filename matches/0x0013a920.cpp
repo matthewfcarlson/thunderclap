@@ -2,18 +2,18 @@
 struct Helper_13a920 {
     void run();
 };
-struct ThreatBallTrack {
+struct AnimationLinkedTrack_13a920 {
     void* vptr;
     char pad04[0x14];
     Helper_13a920 h18;
     char pad1d[0x17];
     Helper_13a920 h30;
-    ThreatBallTrack* other();
-    ThreatBallTrack* vfunc_5(unsigned int);
+    AnimationLinkedTrack_13a920* other();
+    AnimationLinkedTrack_13a920* vfunc_5(unsigned int);
 };
 extern void* threat_vftable_13a920;
-void destroy(ThreatBallTrack*);
-ThreatBallTrack* ThreatBallTrack::vfunc_5(unsigned int flags) {
+void destroy(AnimationLinkedTrack_13a920*);
+AnimationLinkedTrack_13a920* AnimationLinkedTrack_13a920::vfunc_5(unsigned int flags) {
     vptr = &threat_vftable_13a920;
     h30.run();
     h18.run();

@@ -4,9 +4,9 @@ class Parent {
     virtual void f();
     char p[12];
 };
-class Method1 : public Parent {
+class Closure1_945c0 : public Parent {
   public:
-    Method1(int a, int b);
+    Closure1_945c0(int a, int b);
     virtual void f();
     char x;
     char pad2[7];
@@ -14,7 +14,7 @@ class Method1 : public Parent {
     char pad3[3];
     int n;
 };
-class Closure1 : public Method1 {
+class Closure1 : public Closure1_945c0 {
   public:
     Closure1(int a, int b, int c);
     virtual void f();
@@ -22,11 +22,11 @@ class Closure1 : public Method1 {
 };
 extern char Get(const char*);
 extern const char s1[], s2[];
-Method1::Method1(int a, int b) : Parent(a, 1) {
+Closure1_945c0::Closure1_945c0(int a, int b) : Parent(a, 1) {
     n = b;
     y = Get(s1);
     x = Get(s2);
 }
-Closure1::Closure1(int a, int b, int c) : Method1(a, c) {
+Closure1::Closure1(int a, int b, int c) : Closure1_945c0(a, c) {
     m = b;
 }

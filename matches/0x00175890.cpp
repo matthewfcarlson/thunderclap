@@ -12,15 +12,15 @@ class ActionBase_175890 {
     char pad[0x18];
 };
 
-class FaceTargetAction : public ActionBase_175890 {
+class TeleportAction_175890 : public ActionBase_175890 {
   public:
     int mTarget;
     RefObj_175890* mObj;
-    FaceTargetAction(int target, RefObj_175890* obj);
+    TeleportAction_175890(int target, RefObj_175890* obj);
     virtual void Execute();
 };
 
-FaceTargetAction::FaceTargetAction(int target, RefObj_175890* obj) {
+TeleportAction_175890::TeleportAction_175890(int target, RefObj_175890* obj) {
     int* p = &mTarget;
     *p = 0;
     mObj = 0;

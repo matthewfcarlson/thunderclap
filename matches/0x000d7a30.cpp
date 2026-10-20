@@ -1,4 +1,4 @@
-class IValueChangedSender {
+class IValueChangedReceiver_d7a30 {
   public:
     virtual void f0();
 };
@@ -6,7 +6,7 @@ class IValueChangedReceiver {
   public:
     virtual void f1();
 };
-class FEObject : public IValueChangedSender, public IValueChangedReceiver {
+class FEObject : public IValueChangedReceiver_d7a30, public IValueChangedReceiver {
   public:
     virtual void f2();
     virtual void f3();

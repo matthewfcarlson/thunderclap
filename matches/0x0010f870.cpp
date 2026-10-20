@@ -10,14 +10,14 @@ class Base_10f870 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_10f870 {
+class TokenAction_10f870 : public Base_10f870 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_10f870* m20;
-    ~Action();
+    ~TokenAction_10f870();
 };
-Action::~Action() {
+TokenAction_10f870::~TokenAction_10f870() {
     vptr = g_vftable_10f870;
     _ReadWriteBarrier();
     if (m20) {

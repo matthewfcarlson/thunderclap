@@ -14,12 +14,12 @@ class CAction {
     Obj_200a0* mObj;
     int mValue;
 };
-class CDrainHealthAction : public CAction {
+class CInvulnerableAction_200a0 : public CAction {
   public:
-    CDrainHealthAction(Obj_200a0*, int);
+    CInvulnerableAction_200a0(Obj_200a0*, int);
     virtual void V0();
 };
-CDrainHealthAction::CDrainHealthAction(Obj_200a0* arg, int value) {
+CInvulnerableAction_200a0::CInvulnerableAction_200a0(Obj_200a0* arg, int value) {
     *(int*)this = (int)&VBase;
     mObj = 0;
     if (arg)
@@ -30,4 +30,4 @@ CDrainHealthAction::CDrainHealthAction(Obj_200a0* arg, int value) {
     mValue = value;
     *(int*)this = (int)&VDerived;
 }
-void CDrainHealthAction::V0() {}
+void CInvulnerableAction_200a0::V0() {}

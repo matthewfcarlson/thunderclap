@@ -2,7 +2,7 @@
 struct Data_32a450 {
     int a, b, c, d, e;
 };
-class d3dShader {
+class d3dSimpleShader_32a450 {
   public:
     virtual void v0();
     virtual void v1();
@@ -32,6 +32,6 @@ class d3dShader {
     char pad[0x4c];
     Data_32a450 m;
 };
-void d3dShader::vfunc_21(Data_32a450* out) {
+void d3dSimpleShader_32a450::vfunc_21(Data_32a450* out) {
     *out = m;
 }

@@ -4,14 +4,14 @@ class Base {
     virtual ~Base();
 };
 
-class CMoveTrack : public Base {
+class ParamIntConstRange_6c420 : public Base {
   public:
-    CMoveTrack(int a, int b);
-    virtual ~CMoveTrack();
+    ParamIntConstRange_6c420(int a, int b);
+    virtual ~ParamIntConstRange_6c420();
     char pad[12];
     int mValue;
 };
 
-CMoveTrack::CMoveTrack(int a, int b) : Base(a) {
+ParamIntConstRange_6c420::ParamIntConstRange_6c420(int a, int b) : Base(a) {
     mValue = b;
 }

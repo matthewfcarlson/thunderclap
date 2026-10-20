@@ -1,13 +1,13 @@
 extern void* __cdecl Alloc(unsigned int);
 extern int LocationVtable_132a00;
-struct LocationCondition {
+struct GameStateCondition_132a00 {
     virtual void f0();
     char pad[8];
     int a, b, c, d;
     void Init(int);
 };
 void* FactoryVfunc5() {
-    LocationCondition* p = (LocationCondition*)Alloc(0x1c);
+    GameStateCondition_132a00* p = (GameStateCondition_132a00*)Alloc(0x1c);
     if (p) {
         p->Init(0);
         p->a = 0;

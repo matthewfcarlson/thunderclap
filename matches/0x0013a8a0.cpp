@@ -1,11 +1,11 @@
 // Same code shape as 0x0005e160 (propagated; names are from that function)
-struct CProceduralDurationAnimationTrack {
+struct AnimationTrack_13a8a0 {
     virtual void a();
     virtual void b();
     virtual void c();
     virtual void d();
     virtual void e();
-    virtual CProceduralDurationAnimationTrack* vfunc_5(int);
+    virtual AnimationTrack_13a8a0* vfunc_5(int);
     virtual void f();
     virtual void g();
     virtual void h();
@@ -21,9 +21,9 @@ struct H {
 struct G_13a8a0 {
     void g();
 };
-extern void __cdecl thunk_FUN_00267090(CProceduralDurationAnimationTrack*);
+extern void __cdecl thunk_FUN_00267090(AnimationTrack_13a8a0*);
 extern int vftable_13a8a0;
-CProceduralDurationAnimationTrack* CProceduralDurationAnimationTrack::vfunc_5(int param) {
+AnimationTrack_13a8a0* AnimationTrack_13a8a0::vfunc_5(int param) {
     *(int*)this = (int)&vftable_13a8a0;
     ((H*)((char*)this + 0x38))->f();
     ((H*)((char*)this + 0x18))->f();

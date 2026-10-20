@@ -3,12 +3,12 @@ class Ref_332840 {
     virtual void f0();
     virtual void f1();
 };
-class Shader {
+class d3dBuildingShader_332840 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    Shader(unsigned char);
+    d3dBuildingShader_332840(unsigned char);
     virtual void f4();
     virtual void f5();
     virtual void f6();
@@ -36,8 +36,8 @@ class Shader {
     Ref_332840* c;
     void cleanup();
 };
-void destroy(Shader*);
-Shader::Shader(unsigned char flag) {
+void destroy(d3dBuildingShader_332840*);
+d3dBuildingShader_332840::d3dBuildingShader_332840(unsigned char flag) {
     if (a)
         a->f1();
     if (b)

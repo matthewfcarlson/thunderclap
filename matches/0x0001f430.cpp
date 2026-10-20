@@ -10,13 +10,13 @@ class Base_1f430 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_1f430 {
+class CAction_1f430 : public Base_1f430 {
   public:
     char pad1c[0x18];
     Ref_1f430* m1c;
-    ~Action();
+    ~CAction_1f430();
 };
-Action::~Action() {
+CAction_1f430::~CAction_1f430() {
     vptr = g_vftable_1f430;
     _ReadWriteBarrier();
     if (m1c) {

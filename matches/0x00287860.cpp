@@ -3,12 +3,12 @@ class Base_287860 {
     Base_287860();
 };
 extern int vtable_287860;
-class Pose : public Base_287860 {
+class PoseAnimationController_287860 : public Base_287860 {
   public:
     char pad[0x10f];
-    Pose();
+    PoseAnimationController_287860();
 };
-Pose::Pose() {
+PoseAnimationController_287860::PoseAnimationController_287860() {
     *(int*)((char*)this + 0x110) = 0;
     *(int*)((char*)this + 0x118) = 0;
     *((char*)this + 0x131) = 0;

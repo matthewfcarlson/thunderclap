@@ -23,13 +23,13 @@ class IRefCount {
     virtual ~IRefCount() {}
     int pad4;
 };
-class CompositeDrawable : public IRefCount {
+class ActivePrimitiveList_299fa0 : public IRefCount {
   public:
     Buf_299fa0<0xc> m8;
     Buf_299fa0<0x10> m14;
     Buf_299fa0<0xc> m24;
     Buf_299fa0<0xc> m30;
     Range_299fa0 m3c;
-    virtual ~CompositeDrawable();
+    virtual ~ActivePrimitiveList_299fa0();
 };
-CompositeDrawable::~CompositeDrawable() {}
+ActivePrimitiveList_299fa0::~ActivePrimitiveList_299fa0() {}

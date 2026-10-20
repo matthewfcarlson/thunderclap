@@ -4,7 +4,7 @@ struct Obj_28b660 {
     virtual void f1();
 };
 void thunk(int*);
-class IntChannel {
+class Vector3DOFChannel_28b660 {
   public:
     char pad0[12];
     Obj_28b660* volatile mObj;
@@ -13,7 +13,7 @@ class IntChannel {
     int* m18;
     void vfunc_1();
 };
-void IntChannel::vfunc_1() {
+void Vector3DOFChannel_28b660::vfunc_1() {
     if (mObj == 0)
         thunk(m18);
     m18 = 0;

@@ -4,13 +4,13 @@ class Ref_32a3d0 {
     virtual void F0();
     virtual void F1();
 };
-struct Shader {
+struct d3dSimpleShader_32a3d0 {
     char pad[0x80];
     Ref_32a3d0* member;
     void Target();
     void Next();
 };
-void Shader::Target() {
+void d3dSimpleShader_32a3d0::Target() {
     *(unsigned long*)this = ((int)DAT_0043386c);
     if (member)
         member->F1();

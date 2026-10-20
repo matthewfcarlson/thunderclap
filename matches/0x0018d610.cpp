@@ -12,15 +12,15 @@ class ActionBase_18d610 {
     char pad[0x18];
 };
 
-class FaceTargetAction : public ActionBase_18d610 {
+class TimerSetAction_18d610 : public ActionBase_18d610 {
   public:
     int mTarget;
     RefObj_18d610* mObj;
-    FaceTargetAction(int target, RefObj_18d610* obj);
+    TimerSetAction_18d610(int target, RefObj_18d610* obj);
     virtual void Execute();
 };
 
-FaceTargetAction::FaceTargetAction(int target, RefObj_18d610* obj) {
+TimerSetAction_18d610::TimerSetAction_18d610(int target, RefObj_18d610* obj) {
     int* p = &mTarget;
     *p = 0;
     mObj = 0;

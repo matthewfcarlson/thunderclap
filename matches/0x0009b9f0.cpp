@@ -4,9 +4,9 @@ class Base {
     Base(int, int);
     virtual void f();
 };
-class Camera : public Base {
+class Method0_9b9f0 : public Base {
   public:
-    Camera(int, int);
+    Method0_9b9f0(int, int);
     virtual void f();
     char pad[0x14];
     unsigned char flag;
@@ -14,7 +14,7 @@ class Camera : public Base {
     int value;
 };
 unsigned char __cdecl fun2(int);
-Camera::Camera(int a, int b) : Base(a, 0) {
+Method0_9b9f0::Method0_9b9f0(int a, int b) : Base(a, 0) {
     value = b;
     flag = fun2(((int)hulk_at_0048e128));
 }

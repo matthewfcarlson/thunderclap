@@ -10,14 +10,14 @@ class Base_10f990 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_10f990 {
+class SemaphoreWaitAction_10f990 : public Base_10f990 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_10f990* m20;
-    ~Action();
+    ~SemaphoreWaitAction_10f990();
 };
-Action::~Action() {
+SemaphoreWaitAction_10f990::~SemaphoreWaitAction_10f990() {
     vptr = g_vftable_10f990;
     _ReadWriteBarrier();
     if (m20) {

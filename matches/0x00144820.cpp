@@ -6,14 +6,14 @@ struct Obj_144820 {
     void f2();
 };
 extern void thunk_FUN_00267090(Obj_144820*);
-class ThreatCondition {
+class WorldDamageTrack_144820 {
   public:
     void* vftable;
     char pad[0x0c];
-    ThreatCondition* vfunc_5(unsigned char);
+    WorldDamageTrack_144820* vfunc_5(unsigned char);
 };
-ThreatCondition* ThreatCondition::vfunc_5(unsigned char param) {
-    ThreatCondition* p = this;
+WorldDamageTrack_144820* WorldDamageTrack_144820::vfunc_5(unsigned char param) {
+    WorldDamageTrack_144820* p = this;
     *(char**)p = &threat_vftable_144820;
     ((Obj_144820*)((char*)p + 0x10))->f1();
     ((Obj_144820*)p)->f2();

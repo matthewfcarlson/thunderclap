@@ -10,14 +10,14 @@ class Base_173340 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_173340 {
+class LocomotionStateAction_173340 : public Base_173340 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_173340* m20;
-    ~Action();
+    ~LocomotionStateAction_173340();
 };
-Action::~Action() {
+LocomotionStateAction_173340::~LocomotionStateAction_173340() {
     vptr = g_vftable_173340;
     _ReadWriteBarrier();
     if (m20) {

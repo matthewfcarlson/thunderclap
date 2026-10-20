@@ -1,17 +1,17 @@
 struct Base_333130 {
     void Init(int);
 };
-struct Shader {
+struct d3dBumpMapVertexShader_333130 {
     unsigned int* vptr;
     char pad[0x7c];
     unsigned int a, b, c;
-    Shader* Make(int);
+    d3dBumpMapVertexShader_333130* Make(int);
 };
 extern const float zeroF;
 extern unsigned int vtblBump;
 void __stdcall CreatePixelShader(const float* src, unsigned int* out);
 
-Shader* Shader::Make(int n) {
+d3dBumpMapVertexShader_333130* d3dBumpMapVertexShader_333130::Make(int n) {
     ((Base_333130*)this)->Init(n);
     vptr = (unsigned int*)&vtblBump;
     a = 0;

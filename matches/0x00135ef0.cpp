@@ -9,7 +9,7 @@ class Base_135ef0 {
     virtual void X();
     Base_135ef0();
 };
-class FootPivotAction : public Base_135ef0 {
+class FlyingAutoTargetAction_135ef0 : public Base_135ef0 {
   public:
     virtual void A();
     virtual void B();
@@ -18,9 +18,9 @@ class FootPivotAction : public Base_135ef0 {
     Obj_135ef0* m20;
     int m24;
     int m28;
-    FootPivotAction(int, Obj_135ef0*);
+    FlyingAutoTargetAction_135ef0(int, Obj_135ef0*);
 };
-FootPivotAction::FootPivotAction(int v, Obj_135ef0* p) : Base_135ef0() {
+FlyingAutoTargetAction_135ef0::FlyingAutoTargetAction_135ef0(int v, Obj_135ef0* p) : Base_135ef0() {
     volatile int* q = &m1c;
     q[0] = 0;
     q[1] = 0;

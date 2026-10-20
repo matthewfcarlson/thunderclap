@@ -10,14 +10,14 @@ class Base_152710 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_152710 {
+class ClearFightParamsHitRecordAction_152710 : public Base_152710 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_152710* m20;
-    ~Action();
+    ~ClearFightParamsHitRecordAction_152710();
 };
-Action::~Action() {
+ClearFightParamsHitRecordAction_152710::~ClearFightParamsHitRecordAction_152710() {
     vptr = g_vftable_152710;
     _ReadWriteBarrier();
     if (m20) {

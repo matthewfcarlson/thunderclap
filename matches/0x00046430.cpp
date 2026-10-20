@@ -12,22 +12,22 @@ class Base {
 };
 extern char g1[];
 extern char g2[];
-class Method1 : public Base {
+class Closure1_46430 : public Base {
   public:
-    Method1(const char*, int);
+    Closure1_46430(const char*, int);
     virtual void f();
 };
-Method1::Method1(const char* s, int x) : Base(s, 1) {
+Closure1_46430::Closure1_46430(const char* s, int x) : Base(s, 1) {
     c = x;
     b = FUN_001d04d0(g2);
     a = FUN_001d04d0(g1);
 }
-class Closure1 : public Method1 {
+class Closure1 : public Closure1_46430 {
   public:
     int d;
     Closure1(const char*, int, int);
     virtual void f();
 };
-Closure1::Closure1(const char* s, int x, int y) : Method1(s, y) {
+Closure1::Closure1(const char* s, int x, int y) : Closure1_46430(s, y) {
     d = x;
 }

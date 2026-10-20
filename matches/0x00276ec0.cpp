@@ -23,7 +23,7 @@ class Ref_276ec0 {
     virtual void f20();
     virtual void f21();
 };
-class Drive {
+class InstanceDrive_276ec0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -67,8 +67,8 @@ class Drive {
     virtual void f39();
     virtual void f40();
 };
-void Drive::f34(int* p, int a, int b, int c, int d, int e, int f, int g) {
-    Drive* self = this;
+void InstanceDrive_276ec0::f34(int* p, int a, int b, int c, int d, int e, int f, int g) {
+    InstanceDrive_276ec0* self = this;
     self->f33(p, a, b, c, d, e, f, g);
     if (*p)
         ((Ref_276ec0*)*p)->f21();

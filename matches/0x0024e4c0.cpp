@@ -5,14 +5,14 @@ class Attrib {
     Attrib(void*, void*, int, int) throw();
     char pad[0x44];
 };
-class Type : public Attrib {
+class TypeT_24e4c0 : public Attrib {
   public:
     virtual void vf();
-    Type() throw() : Attrib(&g2, &g1, 0x1c, 4) {}
-    ~Type() throw();
+    TypeT_24e4c0() throw() : Attrib(&g2, &g1, 0x1c, 4) {}
+    ~TypeT_24e4c0() throw();
 };
-extern void process(Type*, void*) throw();
+extern void process(TypeT_24e4c0*, void*) throw();
 void target(void* p) {
-    Type t;
+    TypeT_24e4c0 t;
     process(&t, p);
 }

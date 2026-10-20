@@ -28,10 +28,10 @@ class CAction : public CBase_1dd50 {
     }
 };
 
-class CDriftAction : public CAction {
+class CGrappleSwapAction_1dd50 : public CAction {
   public:
     virtual void ProcessDrift();
-    CDriftAction(int a, IRef_1dd50* p);
+    CGrappleSwapAction_1dd50(int a, IRef_1dd50* p);
 };
 
-CDriftAction::CDriftAction(int a, IRef_1dd50* p) : CAction(a, p) {}
+CGrappleSwapAction_1dd50::CGrappleSwapAction_1dd50(int a, IRef_1dd50* p) : CAction(a, p) {}

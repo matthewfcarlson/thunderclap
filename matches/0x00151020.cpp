@@ -10,14 +10,14 @@ class Base_151020 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_151020 {
+class InterruptAccumulatorSetAction_151020 : public Base_151020 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_151020* m20;
-    ~Action();
+    ~InterruptAccumulatorSetAction_151020();
 };
-Action::~Action() {
+InterruptAccumulatorSetAction_151020::~InterruptAccumulatorSetAction_151020() {
     vptr = g_vftable_151020;
     _ReadWriteBarrier();
     if (m20) {

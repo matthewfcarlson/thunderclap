@@ -10,14 +10,14 @@ class Base_177040 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_177040 {
+class SuckAction_177040 : public Base_177040 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_177040* m20;
-    ~Action();
+    ~SuckAction_177040();
 };
-Action::~Action() {
+SuckAction_177040::~SuckAction_177040() {
     vptr = g_vftable_177040;
     _ReadWriteBarrier();
     if (m20) {

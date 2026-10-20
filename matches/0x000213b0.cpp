@@ -28,10 +28,10 @@ class CAction : public CBase_213b0 {
     }
 };
 
-class CDriftAction : public CAction {
+class CTargetAction_213b0 : public CAction {
   public:
     virtual void ProcessDrift();
-    CDriftAction(int a, IRef_213b0* p);
+    CTargetAction_213b0(int a, IRef_213b0* p);
 };
 
-CDriftAction::CDriftAction(int a, IRef_213b0* p) : CAction(a, p) {}
+CTargetAction_213b0::CTargetAction_213b0(int a, IRef_213b0* p) : CAction(a, p) {}

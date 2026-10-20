@@ -10,14 +10,14 @@ class Base_183f20 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_183f20 {
+class PropDropAction_183f20 : public Base_183f20 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_183f20* m20;
-    ~Action();
+    ~PropDropAction_183f20();
 };
-Action::~Action() {
+PropDropAction_183f20::~PropDropAction_183f20() {
     vptr = g_vftable_183f20;
     _ReadWriteBarrier();
     if (m20) {

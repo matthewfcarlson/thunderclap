@@ -2,13 +2,13 @@
 #include "decls/data/game/unknown.h"
 
 extern "C" char DAT_00405ea8[];
-class CHapticControllerManager {
+class Method4_b00b0 {
   public:
     void Init(int, int);
-    CHapticControllerManager(int, int);
+    Method4_b00b0(int, int);
 };
 extern "C" unsigned char __cdecl Read(const char*);
-CHapticControllerManager::CHapticControllerManager(int a, int b) {
+Method4_b00b0::Method4_b00b0(int a, int b) {
     Init(a, 4);
     *(int*)this = ((int)DAT_00405ea8);
     *(int*)((char*)this + 0x1c) = b;

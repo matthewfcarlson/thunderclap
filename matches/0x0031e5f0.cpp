@@ -1,5 +1,5 @@
 // Same code shape as 0x00049c80 (propagated; names are from that function)
-class CCondition {
+class pddiRenderContext_31e5f0 {
   public:
     virtual int vfunc_0();
 };
@@ -15,10 +15,10 @@ class Param {
     virtual int vfunc_4();
 };
 } // namespace fight
-class CIsInvincibleCondition : public CCondition, public fight::Condition, public fight::Param {
+class pddiBaseContext_31e5f0 : public pddiRenderContext_31e5f0, public fight::Condition, public fight::Param {
   public:
     virtual int vfunc_0(int);
 };
-int CIsInvincibleCondition::vfunc_0(int) {
+int pddiBaseContext_31e5f0::vfunc_0(int) {
     return 0;
 }

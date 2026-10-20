@@ -1,14 +1,14 @@
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
 
-extern void* CTrack_vftable[];
+extern void* Condition_182fa0_vftable[];
 
-class CTrack {
+class Condition_182fa0 {
   public:
     void Destroy(); // FUN_00236d60, __thiscall, this in ecx
 };
 
-namespace hulkfight { namespace motion { class PropGrabbableIsThrownCondition : public CTrack {
+namespace hulkfight { namespace motion { class PropGrabbableIsThrownCondition : public Condition_182fa0 {
   public:
     PropGrabbableIsThrownCondition* vfunc_5(signed char flags);
 }; }}
@@ -16,7 +16,7 @@ namespace hulkfight { namespace motion { class PropGrabbableIsThrownCondition : 
 void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
 
 hulkfight::motion::PropGrabbableIsThrownCondition* hulkfight::motion::PropGrabbableIsThrownCondition::vfunc_5(signed char flags) {
-    *(void***)this = CTrack_vftable;
+    *(void***)this = Condition_182fa0_vftable;
     Destroy();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);

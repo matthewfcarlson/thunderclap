@@ -12,15 +12,15 @@ class ActionBase_1492a0 {
     char pad[0x18];
 };
 
-class FaceTargetAction : public ActionBase_1492a0 {
+class CivilianAttachAction_1492a0 : public ActionBase_1492a0 {
   public:
     int mTarget;
     RefObj_1492a0* mObj;
-    FaceTargetAction(int target, RefObj_1492a0* obj);
+    CivilianAttachAction_1492a0(int target, RefObj_1492a0* obj);
     virtual void Execute();
 };
 
-FaceTargetAction::FaceTargetAction(int target, RefObj_1492a0* obj) {
+CivilianAttachAction_1492a0::CivilianAttachAction_1492a0(int target, RefObj_1492a0* obj) {
     int* p = &mTarget;
     *p = 0;
     mObj = 0;

@@ -2,14 +2,14 @@
 struct Tail_180c50 {
     void Init();
 };
-struct SemaphoreClearTrack {
+struct PropSetStateByNameTrack_180c50 {
     void* vptr;
     char pad[0x14];
     void Finish();
     void Run();
 };
 extern void* vftable_180c50;
-void SemaphoreClearTrack::Run() {
+void PropSetStateByNameTrack_180c50::Run() {
     vptr = &vftable_180c50;
     ((Tail_180c50*)((char*)this + 0x18))->Init();
     Finish();

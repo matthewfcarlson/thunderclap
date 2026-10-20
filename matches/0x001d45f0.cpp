@@ -1,13 +1,13 @@
 struct Obj;
 void* __cdecl Alloc(int n);
-struct Node {
-    Node* Init(int a, int b, int c);
+struct Closure1_1d45f0 {
+    Closure1_1d45f0* Init(int a, int b, int c);
     void Setup(int a);
 };
 struct List_1d45f0 {
-    void Add(Node* n);
+    void Add(Closure1_1d45f0* n);
 };
-void __cdecl FnA(int a, Node* n);
+void __cdecl FnA(int a, Closure1_1d45f0* n);
 void __cdecl FnB(int a, void* f, int c);
 void __cdecl FnC(int a, int b, int c);
 void Cb();
@@ -21,8 +21,8 @@ struct Owner_1d45f0 {
 };
 
 void Owner_1d45f0::Create(int a, int b, int c) {
-    Node* mem = (Node*)Alloc(0x24);
-    Node* n;
+    Closure1_1d45f0* mem = (Closure1_1d45f0*)Alloc(0x24);
+    Closure1_1d45f0* n;
     if (mem) {
         n = mem->Init(a, b, c);
     } else {

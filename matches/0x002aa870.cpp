@@ -1,10 +1,10 @@
-class OldParticleSystemLoader {
+class RenderObjectLoader_2aa870 {
   public:
-    OldParticleSystemLoader();
+    RenderObjectLoader_2aa870();
     virtual void A();
 };
-class OldParticleEmitterLoader : public OldParticleSystemLoader {
+class OldParticleEmitterLoader : public RenderObjectLoader_2aa870 {
   public:
     OldParticleEmitterLoader();
 };
-OldParticleEmitterLoader::OldParticleEmitterLoader() : OldParticleSystemLoader() {}
+OldParticleEmitterLoader::OldParticleEmitterLoader() : RenderObjectLoader_2aa870() {}

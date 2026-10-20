@@ -10,14 +10,14 @@ class Base_1758e0 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_1758e0 {
+class TeleportAction_1758e0 : public Base_1758e0 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_1758e0* m20;
-    ~Action();
+    ~TeleportAction_1758e0();
 };
-Action::~Action() {
+TeleportAction_1758e0::~TeleportAction_1758e0() {
     vptr = g_vftable_1758e0;
     _ReadWriteBarrier();
     if (m20) {

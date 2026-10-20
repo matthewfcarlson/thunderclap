@@ -6,7 +6,7 @@ class Obj_273750 {
     virtual void f();
     virtual void g();
 };
-class FileCompletionRequest {
+class DriveCompletionRequest_273750 {
   public:
     void** vt;
     char pad[8];
@@ -14,7 +14,7 @@ class FileCompletionRequest {
     Obj_273750* m10;
     void Finish();
 };
-void FileCompletionRequest::Finish() {
+void DriveCompletionRequest_273750::Finish() {
     vt = &vFileCompletion;
     m10->g();
     m0c->g();

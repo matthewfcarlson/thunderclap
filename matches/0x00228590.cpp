@@ -5,7 +5,7 @@ class Item_228590 {
     virtual void release();
 };
 void __fastcall FUN_0022a9c0(void* self);
-class LocomotionStrafeDriver {
+class LocomotionSteerDriver_228590 {
   public:
     virtual void v();
     char pad[0x2c];
@@ -14,9 +14,9 @@ class LocomotionStrafeDriver {
         Item_228590* item;
         char rest[0x204];
     } entries[1];
-    ~LocomotionStrafeDriver();
+    ~LocomotionSteerDriver_228590();
 };
-LocomotionStrafeDriver::~LocomotionStrafeDriver() {
+LocomotionSteerDriver_228590::~LocomotionSteerDriver_228590() {
     for (unsigned i = 0; i < count; ++i)
         entries[i].item->release();
     FUN_0022a9c0(this);

@@ -10,15 +10,15 @@ class Base_140600 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_140600 {
+class WallJumpAction_140600 : public Base_140600 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_140600* m20;
     Ref_140600* m24;
-    ~Action();
+    ~WallJumpAction_140600();
 };
-Action::~Action() {
+WallJumpAction_140600::~WallJumpAction_140600() {
     vptr = g_vftable_140600;
     _ReadWriteBarrier();
     if (m24) {

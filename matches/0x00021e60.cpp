@@ -12,15 +12,15 @@ class Base_21e60 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_21e60 {
+class CSmartPropUpdateAttachmentAction_21e60 : public Base_21e60 {
   public:
     char pad[0x18];
     Ref_21e60* m1c;
     char pad2[4];
     Ref_21e60* m24;
-    Action* f2(unsigned char flags);
+    CSmartPropUpdateAttachmentAction_21e60* f2(unsigned char flags);
 };
-Action* Action::f2(unsigned char flags) {
+CSmartPropUpdateAttachmentAction_21e60* CSmartPropUpdateAttachmentAction_21e60::f2(unsigned char flags) {
     vptr = g_vftable_21e60;
     _ReadWriteBarrier();
     if (m24) {

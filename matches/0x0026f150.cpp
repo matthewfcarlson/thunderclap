@@ -1,5 +1,5 @@
 // Same code shape as 0x0023c920 (propagated; names are from that function)
-class Condition {
+class IRefCount_26f150 {
   public:
     virtual void v0();
     virtual void v1();
@@ -21,11 +21,11 @@ class Helper_26f150 {
   public:
     void f();
 };
-class SubConditionGroupCondition : public Condition, public Param {
+class Drive_26f150 : public IRefCount_26f150, public Param {
   public:
     virtual void vfunc_5();
     virtual void vfunc_6();
 };
-void SubConditionGroupCondition::vfunc_6() {
+void Drive_26f150::vfunc_6() {
     ((Helper_26f150*)((char*)this + 0xc))->f();
 }

@@ -10,15 +10,15 @@ class Base_15e780 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_15e780 {
+class LocomotionSteerAction_15e780 : public Base_15e780 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_15e780* m20;
     Ref_15e780* m24;
-    ~Action();
+    ~LocomotionSteerAction_15e780();
 };
-Action::~Action() {
+LocomotionSteerAction_15e780::~LocomotionSteerAction_15e780() {
     vptr = g_vftable_15e780;
     _ReadWriteBarrier();
     if (m24) {

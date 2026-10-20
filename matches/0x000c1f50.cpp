@@ -11,15 +11,15 @@ class CAction {
     virtual void g();
     virtual void h();
 };
-class CCollisionAction : public CAction {
+class CFEManager_c1f50 : public CAction {
   public:
-    CCollisionAction* vfunc_2(unsigned char);
+    CFEManager_c1f50* vfunc_2(unsigned char);
 };
 struct ThisCall_000c1430 {
     void FUN_00019420();
 };
-extern void thunk_FUN_00267090(CCollisionAction*);
-CCollisionAction* CCollisionAction::vfunc_2(unsigned char param_2) {
+extern void thunk_FUN_00267090(CFEManager_c1f50*);
+CFEManager_c1f50* CFEManager_c1f50::vfunc_2(unsigned char param_2) {
     ((ThisCall_000c1430*)(this))->FUN_00019420();
     if ((param_2 & 1) != 0)
         thunk_FUN_00267090(this);

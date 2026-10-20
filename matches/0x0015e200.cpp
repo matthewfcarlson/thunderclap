@@ -10,15 +10,15 @@ class Base_15e200 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_15e200 {
+class LocomotionSprintAction_15e200 : public Base_15e200 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_15e200* m20;
     Ref_15e200* m24;
-    ~Action();
+    ~LocomotionSprintAction_15e200();
 };
-Action::~Action() {
+LocomotionSprintAction_15e200::~LocomotionSprintAction_15e200() {
     vptr = g_vftable_15e200;
     _ReadWriteBarrier();
     if (m24) {

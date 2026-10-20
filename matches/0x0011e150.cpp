@@ -10,15 +10,15 @@ class Base_11e150 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_11e150 {
+class StrafeLateralHBAction_11e150 : public Base_11e150 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_11e150* m20;
     Ref_11e150* m24;
-    ~Action();
+    ~StrafeLateralHBAction_11e150();
 };
-Action::~Action() {
+StrafeLateralHBAction_11e150::~StrafeLateralHBAction_11e150() {
     vptr = g_vftable_11e150;
     _ReadWriteBarrier();
     if (m24) {

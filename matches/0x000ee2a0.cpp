@@ -4,7 +4,7 @@ struct Vec3_ee2a0 {
     float x, y, z;
 };
 
-class FEObject;
+class FEControl_ee2a0;
 
 class Owner_ee2a0 {
 public:
@@ -23,10 +23,10 @@ public:
     virtual void v12();
     virtual void v13();
     virtual void v14();
-    virtual void GetExtent(Vec3_ee2a0 *out, FEObject *who);
+    virtual void GetExtent(Vec3_ee2a0 *out, FEControl_ee2a0 *who);
 };
 
-class FEObject {
+class FEControl_ee2a0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -36,7 +36,7 @@ public:
     Owner_ee2a0 *owner;
 };
 
-class ImageSelector : public FEObject {
+class ImageSelector : public FEControl_ee2a0 {
 public:
     virtual void vfunc_3();
     char pad18[0x78 - 0x18];
@@ -52,7 +52,7 @@ public:
 void ImageSelector::vfunc_3()
 {
     Vec3_ee2a0 s;
-    FEObject::vfunc_3();
+    FEControl_ee2a0::vfunc_3();
     owner->GetExtent(&s, this);
     cellW = s.x / columns;
     owner->GetExtent(&s, this);

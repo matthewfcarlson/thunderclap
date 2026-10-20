@@ -12,7 +12,7 @@ struct Tidier {
     void Tidy();
 };
 
-class CSmartPropUpdateAttachmentAction {
+class CSmartPropAttachAction_1ea90 {
   public:
     char pad[0x1c];
     RefObj_1ea90* volatile mA; // 0x1c
@@ -21,7 +21,7 @@ class CSmartPropUpdateAttachmentAction {
     void Shutdown();
 };
 
-void CSmartPropUpdateAttachmentAction::Shutdown() {
+void CSmartPropAttachAction_1ea90::Shutdown() {
     *(void* volatile*)this = (void*)vftableD;
     RefObj_1ea90* b = mB;
     if (b) {

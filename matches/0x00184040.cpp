@@ -10,14 +10,14 @@ class Base_184040 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_184040 {
+class GrapplePropDamageAction_184040 : public Base_184040 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_184040* m20;
-    ~Action();
+    ~GrapplePropDamageAction_184040();
 };
-Action::~Action() {
+GrapplePropDamageAction_184040::~GrapplePropDamageAction_184040() {
     vptr = g_vftable_184040;
     _ReadWriteBarrier();
     if (m20) {

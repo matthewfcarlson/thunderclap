@@ -14,12 +14,12 @@ class CAction {
     Obj_20ad0* mObj;
     int mValue;
 };
-class CDrainHealthAction : public CAction {
+class CAlertStatusAction_20ad0 : public CAction {
   public:
-    CDrainHealthAction(Obj_20ad0*, int);
+    CAlertStatusAction_20ad0(Obj_20ad0*, int);
     virtual void V0();
 };
-CDrainHealthAction::CDrainHealthAction(Obj_20ad0* arg, int value) {
+CAlertStatusAction_20ad0::CAlertStatusAction_20ad0(Obj_20ad0* arg, int value) {
     *(int*)this = (int)&VBase;
     mObj = 0;
     if (arg)
@@ -30,4 +30,4 @@ CDrainHealthAction::CDrainHealthAction(Obj_20ad0* arg, int value) {
     mValue = value;
     *(int*)this = (int)&VDerived;
 }
-void CDrainHealthAction::V0() {}
+void CAlertStatusAction_20ad0::V0() {}

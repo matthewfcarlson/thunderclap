@@ -10,14 +10,14 @@ class Base_10f360 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_10f360 {
+class HulkAction_10f360 : public Base_10f360 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_10f360* m20;
-    ~Action();
+    ~HulkAction_10f360();
 };
-Action::~Action() {
+HulkAction_10f360::~HulkAction_10f360() {
     vptr = g_vftable_10f360;
     _ReadWriteBarrier();
     if (m20) {

@@ -1,7 +1,7 @@
 // Same code shape as 0x000b3de0 (propagated; names are from that function)
-class FEControllerSystem {
+class SymMatrix_2fca90 {
   public:
-    FEControllerSystem();
-    virtual ~FEControllerSystem();
+    SymMatrix_2fca90();
+    virtual ~SymMatrix_2fca90();
 };
-FEControllerSystem::FEControllerSystem() {}
+SymMatrix_2fca90::SymMatrix_2fca90() {}

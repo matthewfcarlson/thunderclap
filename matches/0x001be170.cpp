@@ -13,12 +13,12 @@ struct Node2_1be170 {
     virtual void v5();
     virtual void v6(unsigned int, bool);
 };
-struct Node {
+struct Shader_1be170 {
     int pad[3];
     Node2_1be170* c;
     int pad2[3];
     virtual void init();
-    Node() throw();
+    Shader_1be170() throw();
 };
 class Base_1be170 {
   public:
@@ -32,7 +32,7 @@ class CSubtitleOverlay : public Base_1be170 {
     char mc;
     int m10;
     int m14;
-    Node* m18;
+    Shader_1be170* m18;
     char pad[0x11c - 0x1c];
     char b11c;
     char b11d;
@@ -51,9 +51,9 @@ CSubtitleOverlay::CSubtitleOverlay() throw() {
     b11d = 0;
     sub.Init();
     int old = Push(0xe);
-    m18 = new Node;
+    m18 = new Shader_1be170;
     m18->init();
-    Node* q = m18;
+    Shader_1be170* q = m18;
     q->c->v6(0x444d4c42, true);
     Push(old);
 }

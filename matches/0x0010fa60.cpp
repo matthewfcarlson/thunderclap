@@ -12,15 +12,15 @@ class ActionBase_10fa60 {
     char pad[0x18];
 };
 
-class FaceTargetAction : public ActionBase_10fa60 {
+class KeywordWaitAction_10fa60 : public ActionBase_10fa60 {
   public:
     int mTarget;
     RefObj_10fa60* mObj;
-    FaceTargetAction(int target, RefObj_10fa60* obj);
+    KeywordWaitAction_10fa60(int target, RefObj_10fa60* obj);
     virtual void Execute();
 };
 
-FaceTargetAction::FaceTargetAction(int target, RefObj_10fa60* obj) {
+KeywordWaitAction_10fa60::KeywordWaitAction_10fa60(int target, RefObj_10fa60* obj) {
     int* p = &mTarget;
     *p = 0;
     mObj = 0;

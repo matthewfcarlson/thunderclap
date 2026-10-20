@@ -9,7 +9,7 @@ class InitBase : public CtorV_001d0480 {
   public:
     InitBase(const char* name) : CtorV_001d0480(name, 1) { }
 };
-class Method1 : public InitBase {
+class Closure1_1ffd80 : public InitBase {
   public:
     virtual void f();
     char pad[12];
@@ -18,19 +18,19 @@ class Method1 : public InitBase {
     unsigned char y;
     char pad3[3];
     int z;
-    Method1(const char*, int);
+    Closure1_1ffd80(const char*, int);
 };
-Method1::Method1(const char* name, int v) : InitBase(name) {
+Closure1_1ffd80::Closure1_1ffd80(const char* name, int v) : InitBase(name) {
     z = v;
     y = Get(a);
     x = Get(b);
 }
-class Closure1 : public Method1 {
+class Closure1 : public Closure1_1ffd80 {
   public:
     virtual void f();
     int val;
     Closure1(const char*, int, int);
 };
-Closure1::Closure1(const char* name, int v, int w) : Method1(name, w) {
+Closure1::Closure1(const char* name, int v, int w) : Closure1_1ffd80(name, w) {
     val = v;
 }

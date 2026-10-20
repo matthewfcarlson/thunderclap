@@ -10,15 +10,15 @@ class Base_176fa0 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_176fa0 {
+class RestPoseAction_176fa0 : public Base_176fa0 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_176fa0* m20;
     Ref_176fa0* m24;
-    ~Action();
+    ~RestPoseAction_176fa0();
 };
-Action::~Action() {
+RestPoseAction_176fa0::~RestPoseAction_176fa0() {
     vptr = g_vftable_176fa0;
     _ReadWriteBarrier();
     if (m24) {

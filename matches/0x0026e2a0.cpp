@@ -2,9 +2,9 @@ extern int gId_26e2a0;
 void Hook();
 void PoolInit(void* pool, int a, int b, int c, int d, const char* name, int e);
 
-class IRefCount {
+class ConsoleClient_26e2a0 {
   public:
-    IRefCount();
+    ConsoleClient_26e2a0();
     virtual void f0();
 };
 
@@ -22,7 +22,7 @@ class RefC : public Obj_26e2a0 {
     int mRef;
 };
 
-class ConsoleClient : public IRefCount, public RefC {
+class ConsoleClient : public ConsoleClient_26e2a0, public RefC {
   public:
     ConsoleClient(int a, int b);
     virtual void f1();
@@ -34,8 +34,8 @@ class ConsoleClient : public IRefCount, public RefC {
     int m2;
 };
 
-IRefCount::IRefCount() {}
-void IRefCount::f0() {}
+ConsoleClient_26e2a0::ConsoleClient_26e2a0() {}
+void ConsoleClient_26e2a0::f0() {}
 Obj_26e2a0::Obj_26e2a0() {
     mId = gId_26e2a0;
     Hook();

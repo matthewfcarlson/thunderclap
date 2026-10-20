@@ -15,13 +15,13 @@ struct Transform_1e54b0 {
     void FUN_0022be40(const Vec3_1e54b0 *pos);
 };
 
-class World {
+class CSPManager_1e54b0 {
 public:
     void FUN_001e43b0(Id_1e54b0 *a, Id_1e54b0 *b, Transform_1e54b0 *xf, int flag);
     void FUN_001e54b0(const char *nameA, const char *nameB, float x, float y, float z);
 };
 
-void World::FUN_001e54b0(const char *nameA, const char *nameB, float x, float y, float z)
+void CSPManager_1e54b0::FUN_001e54b0(const char *nameA, const char *nameB, float x, float y, float z)
 {
     // Frame slots follow the original's layout; the position block is dead
     // before the second name is built, so they share a slot.

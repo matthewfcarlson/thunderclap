@@ -8,12 +8,12 @@ class Base_32ff90 {
     float d;
     int e, f;
 };
-class Shader : public Base_32ff90 {
+class d3dToon2VertexShader_32ff90 : public Base_32ff90 {
   public:
     virtual void v();
-    Shader(int);
+    d3dToon2VertexShader_32ff90(int);
 };
-Shader::Shader(int x) : Base_32ff90(x) {
+d3dToon2VertexShader_32ff90::d3dToon2VertexShader_32ff90(int x) : Base_32ff90(x) {
     c = 0;
     b = 0;
     a = 0;

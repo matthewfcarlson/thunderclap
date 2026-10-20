@@ -8,7 +8,7 @@ class Base : public CtorV_001d0480 {
   public:
     Base(void* name) : CtorV_001d0480(name, 1) { }
 };
-class Method1 : public Base {
+class Closure1_1baa20 : public Base {
   public:
     virtual void f();
     char pad[12];
@@ -17,19 +17,19 @@ class Method1 : public Base {
     unsigned char b;
     char pad3[3];
     void* owner;
-    Method1(void*, void*);
+    Closure1_1baa20(void*, void*);
 };
-class Closure1 : public Method1 {
+class Closure1 : public Closure1_1baa20 {
   public:
     virtual void f();
     void* fn;
     Closure1(void*, void*, void*);
 };
-Method1::Method1(void* name, void* obj) : Base(name) {
+Closure1_1baa20::Closure1_1baa20(void* name, void* obj) : Base(name) {
     owner = obj;
     b = query(&key1);
     a = query(&key2);
 }
-Closure1::Closure1(void* name, void* cb, void* obj) : Method1(name, obj) {
+Closure1::Closure1(void* name, void* cb, void* obj) : Closure1_1baa20(name, obj) {
     fn = cb;
 }

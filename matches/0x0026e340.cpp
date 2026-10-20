@@ -7,11 +7,11 @@ class IB_26e340 {
   public:
     void helper();
 };
-class MemoryTwoWayAllocator : public IA, public IB_26e340 {
+class ConsoleClient_26e340 : public IA, public IB_26e340 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
 };
-void MemoryTwoWayAllocator::vfunc_1() {
+void ConsoleClient_26e340::vfunc_1() {
     IB_26e340::helper();
 }

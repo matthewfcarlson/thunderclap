@@ -6,14 +6,14 @@ struct Obj_148110 {
     void f2();
 };
 extern void thunk_FUN_00267090(Obj_148110*);
-class ThreatCondition {
+class GrappleAttachJointCondition_148110 {
   public:
     void* vftable;
     char pad[0x0c];
-    ThreatCondition* vfunc_5(unsigned char);
+    GrappleAttachJointCondition_148110* vfunc_5(unsigned char);
 };
-ThreatCondition* ThreatCondition::vfunc_5(unsigned char param) {
-    ThreatCondition* p = this;
+GrappleAttachJointCondition_148110* GrappleAttachJointCondition_148110::vfunc_5(unsigned char param) {
+    GrappleAttachJointCondition_148110* p = this;
     *(char**)p = &threat_vftable_148110;
     ((Obj_148110*)((char*)p + 0x10))->f1();
     ((Obj_148110*)p)->f2();

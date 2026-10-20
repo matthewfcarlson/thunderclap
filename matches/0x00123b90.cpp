@@ -2,14 +2,14 @@
 struct Tail_123b90 {
     void Init();
 };
-struct SemaphoreClearTrack {
+struct TargetArcCondition_123b90 {
     void* vptr;
     char pad[0x14];
     void Finish();
     void Run();
 };
 extern void* vftable_123b90;
-void SemaphoreClearTrack::Run() {
+void TargetArcCondition_123b90::Run() {
     vptr = &vftable_123b90;
     ((Tail_123b90*)((char*)this + 0x18))->Init();
     Finish();

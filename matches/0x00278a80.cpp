@@ -2,12 +2,12 @@
 typedef unsigned char u8_278a80;
 extern void __cdecl release(int, void*);
 extern int globalValue;
-class ControllerSystemXBox {
+class XboxSaveDrive_278a80 {
   public:
     void cleanup();
     virtual void f0();
     virtual void f1();
-    virtual ControllerSystemXBox* f2(u8_278a80);
+    virtual XboxSaveDrive_278a80* f2(u8_278a80);
     virtual void f3();
     virtual void f4();
     virtual void f5();
@@ -19,7 +19,7 @@ class ControllerSystemXBox {
     virtual void f11();
     virtual void f12();
 };
-ControllerSystemXBox* ControllerSystemXBox::f2(u8_278a80 flag) {
+XboxSaveDrive_278a80* XboxSaveDrive_278a80::f2(u8_278a80 flag) {
     cleanup();
     if (flag & 1)
         release(globalValue, this);

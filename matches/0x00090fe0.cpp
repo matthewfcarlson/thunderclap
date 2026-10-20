@@ -10,7 +10,7 @@ class Base : public CtorV_001d0480 {
   public:
     Base(void* p) : CtorV_001d0480(p, 1) { }
 };
-class Method1 : public Base {
+class Closure1_90fe0 : public Base {
   public:
     virtual void Invoke(int);
     char pad[12];
@@ -19,19 +19,19 @@ class Method1 : public Base {
     unsigned char b;
     char pad3[3];
     CStatsManager* manager;
-    Method1(void*, CStatsManager*);
+    Closure1_90fe0(void*, CStatsManager*);
 };
-Method1::Method1(void* p, CStatsManager* m) : Base(p) {
+Closure1_90fe0::Closure1_90fe0(void* p, CStatsManager* m) : Base(p) {
     manager = m;
     b = FUN_001d04d0(g1);
     a = FUN_001d04d0(g2);
 }
-class Closure1 : public Method1 {
+class Closure1 : public Closure1_90fe0 {
   public:
     virtual void Invoke(int);
     void* extra;
     Closure1(void*, void*, CStatsManager*);
 };
-Closure1::Closure1(void* p, void* x, CStatsManager* m) : Method1(p, m) {
+Closure1::Closure1(void* p, void* x, CStatsManager* m) : Closure1_90fe0(p, m) {
     extra = x;
 }

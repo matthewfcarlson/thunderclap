@@ -8,7 +8,7 @@ struct P_147ab0 {
 extern int __cdecl TypeCheck(void* a, int b, void* c, void* d, int e);
 extern char kDesc1;
 extern char kDesc2;
-struct CivilianAttachedCondition {
+struct CivilianTargetCondition_147ab0 {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -19,7 +19,7 @@ struct CivilianAttachedCondition {
     char pad[8];
     u8 flag;
 };
-bool CivilianAttachedCondition::vfunc_6(void* a, void* b, void* c) {
+bool CivilianTargetCondition_147ab0::vfunc_6(void* a, void* b, void* c) {
     if (!TypeCheck(b, 0, &kDesc1, &kDesc2, 0))
         return false;
     P_147ab0* p = ((P_147ab0*)b)->A();

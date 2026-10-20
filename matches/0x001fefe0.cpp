@@ -2,7 +2,7 @@
 #include "decls/data/game/global.h"
 extern "C" char DAT_00425334[];
 extern "C" char DAT_0048e10c[];
-class CTriggerVolumeManager {
+class Method3_1fefe0 {
   public:
     int vftable;
     char pad04[0x0c];
@@ -14,9 +14,9 @@ class CTriggerVolumeManager {
     char pad19[3];
     void* p1c;
     void Init(void*, int);
-    CTriggerVolumeManager* Build(void*, void*);
+    Method3_1fefe0* Build(void*, void*);
 };
-CTriggerVolumeManager* CTriggerVolumeManager::Build(void* arg1, void* arg2) {
+Method3_1fefe0* Method3_1fefe0::Build(void* arg1, void* arg2) {
     Init(arg1, 3);
     vftable = ((int)DAT_00425334);
     p1c = arg2;

@@ -10,14 +10,14 @@ class Base_1510b0 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_1510b0 {
+class InterruptPriorityAction_1510b0 : public Base_1510b0 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_1510b0* m20;
-    ~Action();
+    ~InterruptPriorityAction_1510b0();
 };
-Action::~Action() {
+InterruptPriorityAction_1510b0::~InterruptPriorityAction_1510b0() {
     vptr = g_vftable_1510b0;
     _ReadWriteBarrier();
     if (m20) {

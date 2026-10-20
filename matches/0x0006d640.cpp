@@ -3,9 +3,9 @@ class TrackFactoryCasterTemplate {
   public:
     virtual void A();
 };
-class CComboTimerTrack : public TrackFactoryCasterTemplate {
+class TrackFactoryCasterTemplate_6d640 : public TrackFactoryCasterTemplate {
   public:
     virtual void A();
-    CComboTimerTrack();
+    TrackFactoryCasterTemplate_6d640();
 };
-CComboTimerTrack::CComboTimerTrack() {}
+TrackFactoryCasterTemplate_6d640::TrackFactoryCasterTemplate_6d640() {}

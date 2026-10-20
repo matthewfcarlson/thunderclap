@@ -6,14 +6,14 @@ struct Obj_23f1f0 {
     void f2();
 };
 extern void thunk_FUN_00267090(Obj_23f1f0*);
-class ThreatCondition {
+class BreakPointTrack_23f1f0 {
   public:
     void* vftable;
     char pad[0x0c];
-    ThreatCondition* vfunc_5(unsigned char);
+    BreakPointTrack_23f1f0* vfunc_5(unsigned char);
 };
-ThreatCondition* ThreatCondition::vfunc_5(unsigned char param) {
-    ThreatCondition* p = this;
+BreakPointTrack_23f1f0* BreakPointTrack_23f1f0::vfunc_5(unsigned char param) {
+    BreakPointTrack_23f1f0* p = this;
     *(char**)p = &threat_vftable_23f1f0;
     ((Obj_23f1f0*)((char*)p + 0x10))->f1();
     ((Obj_23f1f0*)p)->f2();

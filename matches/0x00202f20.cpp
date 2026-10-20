@@ -7,9 +7,9 @@ class Base {
     virtual void f();
     char pad[12];
 };
-class Method1 : public Base {
+class Closure1_202f20 : public Base {
   public:
-    Method1(void*, void*, void*);
+    Closure1_202f20(void*, void*, void*);
     virtual void f();
     u8 a;
     char gap[7];
@@ -17,17 +17,17 @@ class Method1 : public Base {
     char gap2[3];
     void* p;
 };
-class Closure1 : public Method1 {
+class Closure1 : public Closure1_202f20 {
   public:
     Closure1(void*, void*, void*);
     virtual void f();
     void* q;
 };
-Method1::Method1(void* x, void* y, void* z) : Base(x, 1) {
+Closure1_202f20::Closure1_202f20(void* x, void* y, void* z) : Base(x, 1) {
     p = z;
     b = query(label);
     a = query(label);
 }
-Closure1::Closure1(void* x, void* y, void* z) : Method1(x, y, z) {
+Closure1::Closure1(void* x, void* y, void* z) : Closure1_202f20(x, y, z) {
     q = y;
 }

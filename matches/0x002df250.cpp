@@ -1,5 +1,5 @@
 // Same code shape as 0x002df1d0 (propagated; names are from that function)
-class ShadowMesh {
+class ShadowSkin_2df250 {
     char pad[0x48];
     struct Holder {
         int* p;
@@ -8,7 +8,7 @@ class ShadowMesh {
   public:
     void vfunc_20(unsigned char a, int* b);
 };
-void ShadowMesh::vfunc_20(unsigned char a, int* b) {
+void ShadowSkin_2df250::vfunc_20(unsigned char a, int* b) {
     int* x = holder->p;
     *((unsigned char*)x + 0x54) = a;
     *((int*)((char*)x + 0x64)) = b[0];

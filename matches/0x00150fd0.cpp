@@ -12,15 +12,15 @@ class ActionBase_150fd0 {
     char pad[0x18];
 };
 
-class FaceTargetAction : public ActionBase_150fd0 {
+class InterruptAccumulatorSetAction_150fd0 : public ActionBase_150fd0 {
   public:
     int mTarget;
     RefObj_150fd0* mObj;
-    FaceTargetAction(int target, RefObj_150fd0* obj);
+    InterruptAccumulatorSetAction_150fd0(int target, RefObj_150fd0* obj);
     virtual void Execute();
 };
 
-FaceTargetAction::FaceTargetAction(int target, RefObj_150fd0* obj) {
+InterruptAccumulatorSetAction_150fd0::InterruptAccumulatorSetAction_150fd0(int target, RefObj_150fd0* obj) {
     int* p = &mTarget;
     *p = 0;
     mObj = 0;

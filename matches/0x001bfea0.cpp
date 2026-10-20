@@ -12,7 +12,7 @@ class Base : public CtorV_001d0480 {
 };
 Base::Base(void* p) : CtorV_001d0480(p, 1) {
 }
-class Method1 : public Base {
+class Closure1_1bfea0 : public Base {
   public:
     virtual void call(int);
     char pad[0x0c];
@@ -21,19 +21,19 @@ class Method1 : public Base {
     unsigned char b;
     char pad3[3];
     CSubtitleManager* owner;
-    Method1(void*, CSubtitleManager*);
+    Closure1_1bfea0(void*, CSubtitleManager*);
 };
-class Closure1 : public Method1 {
+class Closure1 : public Closure1_1bfea0 {
   public:
     virtual void call(int);
     void* fn;
     Closure1(void*, void*, CSubtitleManager*);
 };
-Method1::Method1(void* p, CSubtitleManager* o) : Base(p) {
+Closure1_1bfea0::Closure1_1bfea0(void* p, CSubtitleManager* o) : Base(p) {
     owner = o;
     b = FUN_001d04d0((const char*)((int)hulk_at_0048e100));
     a = FUN_001d04d0((const char*)((int)hulk_at_0048e134));
 }
-Closure1::Closure1(void* p, void* f, CSubtitleManager* o) : Method1(p, o) {
+Closure1::Closure1(void* p, void* f, CSubtitleManager* o) : Closure1_1bfea0(p, o) {
     fn = f;
 }

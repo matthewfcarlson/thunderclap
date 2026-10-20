@@ -6,12 +6,12 @@ class Base {
     virtual void f0();
     char pad[12];
 };
-class TokenCondition : public Base {
+class ParamBool_110740 : public Base {
   public:
-    TokenCondition(int a, int b);
+    ParamBool_110740(int a, int b);
     virtual void f0();
     int m10;
 };
-TokenCondition::TokenCondition(int a, int b) : Base(a) {
+ParamBool_110740::ParamBool_110740(int a, int b) : Base(a) {
     m10 = b;
 }

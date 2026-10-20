@@ -4,9 +4,9 @@ struct Base_1ff2c0 {
     void Init(const char*, int);
 };
 extern char g0_1ff2c0, g1, g2, g3;
-class CTriggerVolumeManager : public Base_1ff2c0 {
+class Method3_1ff2c0 : public Base_1ff2c0 {
   public:
-    CTriggerVolumeManager(const char*, int);
+    Method3_1ff2c0(const char*, int);
     int m0;
     char p04[0x0c];
     char b10;
@@ -17,7 +17,7 @@ class CTriggerVolumeManager : public Base_1ff2c0 {
     char p19[3];
     int m1c;
 };
-CTriggerVolumeManager::CTriggerVolumeManager(const char* a, int c) {
+Method3_1ff2c0::Method3_1ff2c0(const char* a, int c) {
     Init(a, 3);
     m0 = ((int)DAT_00425374);
     m1c = c;

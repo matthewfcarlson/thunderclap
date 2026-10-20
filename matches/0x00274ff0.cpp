@@ -25,14 +25,14 @@ class Holder_274ff0 {
     char pad2[0x10];
     int mCount;
 };
-class FileRequest {
+class FileOpenByKeyRequest_274ff0 {
   public:
     void** vt;
     int pad;
     Holder_274ff0* mH;
-    FileRequest* Dtor(unsigned char flag);
+    FileOpenByKeyRequest_274ff0* Dtor(unsigned char flag);
 };
-FileRequest* FileRequest::Dtor(unsigned char flag) {
+FileOpenByKeyRequest_274ff0* FileOpenByKeyRequest_274ff0::Dtor(unsigned char flag) {
     vt = FileReqVtbl;
     mH->mSub.a();
     mH->mCount--;

@@ -4,9 +4,9 @@ extern "C" void __cdecl ai_delete(void* p);
 struct VFT {
     int x;
 };
-extern const VFT PathLocatorTestCondition_vftable;
+extern const VFT LuaCondition_1a1800_vftable;
 
-class PathLocatorTestCondition {
+class LuaCondition_1a1800 {
   public:
     virtual void vfunc_0();
     virtual void p_vfunc_1();
@@ -20,8 +20,8 @@ class PathLocatorTestCondition {
     void* m_p;
 };
 
-void* PathLocatorTestCondition::vfunc_5(unsigned char flag) {
-    *(const VFT**)this = &PathLocatorTestCondition_vftable;
+void* LuaCondition_1a1800::vfunc_5(unsigned char flag) {
+    *(const VFT**)this = &LuaCondition_1a1800_vftable;
     ai_free(m_p);
     Cleanup();
     if (flag & 1) {

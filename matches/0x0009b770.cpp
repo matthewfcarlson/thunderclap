@@ -7,9 +7,9 @@ struct Ctor_001d0480 {
     Ctor_001d0480(void*, int);
 };
 extern unsigned char __cdecl FUN_001d04d0(const type_info&);
-class CCameraManager : public Ctor_001d0480 {
+class Method5_9b770 : public Ctor_001d0480 {
   public:
-    CCameraManager(void*, int);
+    Method5_9b770(void*, int);
     char p[16];
     unsigned char a, b, c, d, e;
     char q[3];
@@ -17,7 +17,7 @@ class CCameraManager : public Ctor_001d0480 {
     char r[3];
     int n;
 };
-CCameraManager::CCameraManager(void* x, int y) : Ctor_001d0480(x, 5) {
+Method5_9b770::Method5_9b770(void* x, int y) : Ctor_001d0480(x, 5) {
     *(void**)this = &g_vftable_9b770;
     n = y;
     f = FUN_001d04d0(typeid(bool));

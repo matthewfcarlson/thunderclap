@@ -10,14 +10,14 @@ class Base_184840 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_184840 {
+class BallAndChainSpinAction_184840 : public Base_184840 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_184840* m20;
-    ~Action();
+    ~BallAndChainSpinAction_184840();
 };
-Action::~Action() {
+BallAndChainSpinAction_184840::~BallAndChainSpinAction_184840() {
     vptr = g_vftable_184840;
     _ReadWriteBarrier();
     if (m20) {

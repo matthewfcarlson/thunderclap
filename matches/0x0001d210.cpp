@@ -28,10 +28,10 @@ class CAction : public CBase_1d210 {
     }
 };
 
-class CDriftAction : public CAction {
+class CComboMessageAction_1d210 : public CAction {
   public:
     virtual void ProcessDrift();
-    CDriftAction(int a, IRef_1d210* p);
+    CComboMessageAction_1d210(int a, IRef_1d210* p);
 };
 
-CDriftAction::CDriftAction(int a, IRef_1d210* p) : CAction(a, p) {}
+CComboMessageAction_1d210::CComboMessageAction_1d210(int a, IRef_1d210* p) : CAction(a, p) {}

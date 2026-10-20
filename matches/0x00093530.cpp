@@ -4,13 +4,13 @@ class Inner_93530 {
     void Reset();
 };
 void FreeMem(void*);
-class CUnlockable {
+class CUnlockableJumpMarker_93530 {
   public:
-    virtual ~CUnlockable();
+    virtual ~CUnlockableJumpMarker_93530();
     char pad[0x14];
     void* mPtr18;
 };
-CUnlockable::~CUnlockable() {
+CUnlockableJumpMarker_93530::~CUnlockableJumpMarker_93530() {
     if (mPtr18) {
         FreeMem(mPtr18);
         mPtr18 = 0;

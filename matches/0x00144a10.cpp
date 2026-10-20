@@ -10,14 +10,14 @@ class Base_144a10 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_144a10 {
+class WorldConeDamageAction_144a10 : public Base_144a10 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_144a10* m20;
-    ~Action();
+    ~WorldConeDamageAction_144a10();
 };
-Action::~Action() {
+WorldConeDamageAction_144a10::~WorldConeDamageAction_144a10() {
     vptr = g_vftable_144a10;
     _ReadWriteBarrier();
     if (m20) {

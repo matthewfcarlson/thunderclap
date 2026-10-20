@@ -8,7 +8,7 @@ class RefObj_122260 {
 extern "C" void __fastcall BaseDtor(void* p);
 extern "C" void operator_delete(void* p);
 
-class MotionTargetAction {
+class StrafeCircleHBAction_122260 {
   public:
     void* mVptr;
     char pad[0x18];
@@ -18,8 +18,8 @@ class MotionTargetAction {
     void* vfunc_2(unsigned char flag);
 };
 
-void* MotionTargetAction::vfunc_2(unsigned char flag) {
-    volatile MotionTargetAction* self = this;
+void* StrafeCircleHBAction_122260::vfunc_2(unsigned char flag) {
+    volatile StrafeCircleHBAction_122260* self = this;
     self->mVptr = &g_vftable_122260;
     RefObj_122260* t3 = self->m3;
     if (t3) {

@@ -1,5 +1,5 @@
 // Same code shape as 0x0022a930 (propagated; names are from that function)
-class Driver {
+class MetaEntity_25e710 {
   public:
     virtual void v0();
     virtual void v1();
@@ -9,6 +9,6 @@ class Driver {
     virtual int v5();
     virtual int vfunc_6();
 };
-int Driver::vfunc_6() {
+int MetaEntity_25e710::vfunc_6() {
     return v5();
 }

@@ -10,12 +10,12 @@ class Root {
     float y;
     void* r;
 };
-class Track : public Root {
+class TargetIconDistanceTrack_170a70 : public Root {
   public:
-    Track();
+    TargetIconDistanceTrack_170a70();
     virtual void fn();
 };
-Track::Track() {
+TargetIconDistanceTrack_170a70::TargetIconDistanceTrack_170a70() {
     p = 0;
     q = 0;
     r = 0;

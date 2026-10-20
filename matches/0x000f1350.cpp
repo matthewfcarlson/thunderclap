@@ -1,9 +1,9 @@
 // Same code shape as 0x00021840 (propagated; names are from that function)
-class CAction {
+class IValueChangedReceiver_f1350 {
   public:
     virtual void a();
     virtual void b();
-    virtual CAction* vfunc_2(unsigned char);
+    virtual IValueChangedReceiver_f1350* vfunc_2(unsigned char);
     virtual void c();
     virtual void d();
     virtual void e();
@@ -11,7 +11,7 @@ class CAction {
     virtual void g();
     virtual void h();
 };
-class FEObject : public CAction {
+class FEObject : public IValueChangedReceiver_f1350 {
   public:
     FEObject* vfunc_2(unsigned char);
 };

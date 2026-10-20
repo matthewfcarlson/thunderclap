@@ -1,5 +1,5 @@
 extern int vtable_32ba30;
-class Shader {
+class d3dLightMapShader_32ba30 {
   public:
     virtual void V();
     char pad[0x7c];
@@ -10,9 +10,9 @@ class Shader {
     int e;
     int f;
     void Init(int);
-    Shader* Target(int);
+    d3dLightMapShader_32ba30* Target(int);
 };
-Shader* Shader::Target(int arg) {
+d3dLightMapShader_32ba30* d3dLightMapShader_32ba30::Target(int arg) {
     Init(arg);
     a = 0;
     b = 0;

@@ -6,14 +6,14 @@ struct Obj_18d360 {
     void f2();
 };
 extern void thunk_FUN_00267090(Obj_18d360*);
-class ThreatCondition {
+class VarCompareCondition_18d360 {
   public:
     void* vftable;
     char pad[0x0c];
-    ThreatCondition* vfunc_5(unsigned char);
+    VarCompareCondition_18d360* vfunc_5(unsigned char);
 };
-ThreatCondition* ThreatCondition::vfunc_5(unsigned char param) {
-    ThreatCondition* p = this;
+VarCompareCondition_18d360* VarCompareCondition_18d360::vfunc_5(unsigned char param) {
+    VarCompareCondition_18d360* p = this;
     *(char**)p = &threat_vftable_18d360;
     ((Obj_18d360*)((char*)p + 0x10))->f1();
     ((Obj_18d360*)p)->f2();

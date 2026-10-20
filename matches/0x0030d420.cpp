@@ -7,7 +7,7 @@ extern "C" void __cdecl FreeBuf(void*);
 extern "C" void __cdecl DeleteObj(void*);
 extern "C" char DAT_00431de4[];
 
-class PhysicsJoint {
+class PhysicsJoint1D_30d420 {
   public:
     void* vptr;
     char pad1[0x20 - 4];
@@ -21,7 +21,7 @@ class PhysicsJoint {
     void* vfunc_0(int flags);
 };
 
-void* PhysicsJoint::vfunc_0(int flags) {
+void* PhysicsJoint1D_30d420::vfunc_0(int flags) {
     Sub_30d420* p = &m64;
     vptr = (void*)DAT_00431de4;
     p->Destruct();

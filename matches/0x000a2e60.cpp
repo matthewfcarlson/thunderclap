@@ -1,6 +1,6 @@
 #include "decls/data/game/global.h"
 
-struct Object {
+struct CChaseCamera_a2e60 {
     char pad0[0x1f4];
     unsigned a[6];
     char pad1[8];
@@ -19,7 +19,7 @@ struct Object {
     void FUN_000a2de0(unsigned, unsigned, unsigned, unsigned);
     void FUN_000a2e60(unsigned arg, unsigned char flag);
 };
-void Object::FUN_000a2e60(unsigned arg, unsigned char flag) {
+void CChaseCamera_a2e60::FUN_000a2e60(unsigned arg, unsigned char flag) {
     if (flag)
         FUN_000a2cc0(arg, field44c, field444, (*(float*)&DAT_0049ec64), 0);
     else

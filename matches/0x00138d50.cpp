@@ -8,7 +8,7 @@ class RefObj_138d50 {
 extern "C" void __fastcall BaseDtor(void* p);
 extern "C" void operator_delete(void* p);
 
-class MotionTargetAction {
+class FlyingBrakeAction_138d50 {
   public:
     void* mVptr;
     char pad[0x18];
@@ -18,8 +18,8 @@ class MotionTargetAction {
     void* vfunc_2(unsigned char flag);
 };
 
-void* MotionTargetAction::vfunc_2(unsigned char flag) {
-    volatile MotionTargetAction* self = this;
+void* FlyingBrakeAction_138d50::vfunc_2(unsigned char flag) {
+    volatile FlyingBrakeAction_138d50* self = this;
     self->mVptr = &g_vftable_138d50;
     RefObj_138d50* t3 = self->m3;
     if (t3) {

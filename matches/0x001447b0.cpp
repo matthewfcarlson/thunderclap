@@ -10,16 +10,16 @@ class Base_1447b0 {
 };
 extern void cdel(void*);
 extern int vftable_1447b0;
-class AnimationChargeTrack {
+class HitEffectTrack_1447b0 {
   public:
     int vf;
     char pad1[0x18 - 4];
     Sub_1447b0 a;
     char pad2[0x28 - 0x18 - 1];
     Sub_1447b0 b;
-    AnimationChargeTrack* vfunc_5(byte_1447b0 param);
+    HitEffectTrack_1447b0* vfunc_5(byte_1447b0 param);
 };
-AnimationChargeTrack* AnimationChargeTrack::vfunc_5(byte_1447b0 param) {
+HitEffectTrack_1447b0* HitEffectTrack_1447b0::vfunc_5(byte_1447b0 param) {
     vf = (int)&vftable_1447b0;
     b.f();
     a.f();

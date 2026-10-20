@@ -10,14 +10,14 @@ class Base_1267d0 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_1267d0 {
+class AcquireTargetAction_1267d0 : public Base_1267d0 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_1267d0* m20;
-    ~Action();
+    ~AcquireTargetAction_1267d0();
 };
-Action::~Action() {
+AcquireTargetAction_1267d0::~AcquireTargetAction_1267d0() {
     vptr = g_vftable_1267d0;
     _ReadWriteBarrier();
     if (m20) {

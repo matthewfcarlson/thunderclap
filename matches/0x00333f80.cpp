@@ -7,11 +7,11 @@ class IB_333f80 {
   public:
     void helper();
 };
-class MemoryTwoWayAllocator : public IA, public IB_333f80 {
+class PlayerBink_333f80 : public IA, public IB_333f80 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
 };
-void MemoryTwoWayAllocator::vfunc_1() {
+void PlayerBink_333f80::vfunc_1() {
     IB_333f80::helper();
 }

@@ -1,5 +1,5 @@
 // Same code shape as 0x00234ac0 (propagated; names are from that function)
-class ParamValueString {
+class ParamValueStringList_234bd0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -10,7 +10,7 @@ class ParamValueString {
     virtual void f6();
     virtual void* get(void*);
 };
-namespace fight { class ParamValueNameList : public ParamValueString {
+namespace fight { class ParamValueNameList : public ParamValueStringList_234bd0 {
   public:
     bool vfunc_6(void*, void*);
 }; }

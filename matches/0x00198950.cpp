@@ -10,14 +10,14 @@ class Base_198950 {
     void* vptr;
     void Fin();
 };
-class Action : public Base_198950 {
+class FireGroundShockwaveAction_198950 : public Base_198950 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_198950* m20;
-    ~Action();
+    ~FireGroundShockwaveAction_198950();
 };
-Action::~Action() {
+FireGroundShockwaveAction_198950::~FireGroundShockwaveAction_198950() {
     vptr = g_vftable_198950;
     _ReadWriteBarrier();
     if (m20) {
