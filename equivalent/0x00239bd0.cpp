@@ -1,3 +1,0 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
-// fight::ExecuteTrack::vfunc_10 @ 0x00239bd0
-struct ExecuteTrack { char pad0[0x14]; int field14; char pad18[8]; int field20; char field24; int vfunc_10(int a,int b,int c); }; struct Work { int FUN_002397c0(int,ExecuteTrack*,int,int,void*,int,int); }; extern "C" Work* __cdecl FUN_0008d690(int); int ExecuteTrack::vfunc_10(int a,int b,int c) { Work* p=FUN_0008d690(0x68); if (!p) return 0; return p->FUN_002397c0(a,this,field14,field20,&field24,b,c); }
