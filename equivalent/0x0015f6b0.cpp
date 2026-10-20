@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 121/122, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20047 inputs, branch coverage 122/122)
 // hulkfight::motion::HeliLocomotionAction::vfunc_5 @ 0x0015f6b0
 #include "decls/data/game/hulkfight/motion.h"
 
@@ -407,7 +407,8 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
         } else {
             nv.x = dd.x * step + nv.x;
             nv.y = dd.y * step + nv.y;
-            nv.z = dd.z * step + nv.z;
+            volatile float pz = dd.z * step;   // the original rounds this product to float (a spill); x and y are not
+            nv.z = pz + nv.z;
         }
     }
     Vec3_15f6b0 w2;
@@ -464,6 +465,7 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
     float ady = FAbs(ay);
     float az = v90.z - steer.z;
     float adz = FAbs(az);
+    (*(volatile float*)&adz);   // keeps adz in the frame: the original has a 4-byte slot there, which puts ex and fwd2 at the offsets the recorded callee writes land on
     if (bl) {
         if (adx > lim44.x || ady > lim44.y || adz > lim44.z)
             bl = false;
