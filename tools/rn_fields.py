@@ -14,8 +14,9 @@ Rules, chosen so that no existing offset or size can change (the 32-bit layout i
     int -> `char` (sources whose stub has another type of the same size get a cast, as gen-swap does today);
   - the field lies inside one `char _pad_XX[N];` of the class itself (absolute offsets, the generator's
     convention) and is naturally aligned; the pad is split into pad / field / pad;
-  - offsets in a base's region, past the class's end, or where a header field already sits are left out
-    (they would change a base shared by other classes or the class's size);
+  - an offset in a base's extent goes to that base (pads hold absolute offsets, so it is the base's pad that
+    is split) when no class's stubs disagree there and all agreeing classes name one type; offsets past the
+    class's end or where a header field already sits are left out (they would change sizes);
   - a class head that occurs more than once in its header with the same pad (two namespaces) is skipped.
 The applied fields are also written to include/gen/evidence-rn.json, which tools/gen_headers.py reads like its
 curated fields (gen-swap and gen-ref take field names from the generator's model). `--check` re-lays out every include/gen/ class with clang before and after: every old field keeps its offset
@@ -57,33 +58,59 @@ def body_lines(lines, head):
     return out
 
 
+def owner(db, cls, off):
+    """(class, offset in it) that owns absolute offset `off` of `cls`: the base subobject whose extent holds it
+    (recursively), else `cls` itself."""
+    for boff, bname, _ in db[cls].get("bases", []):
+        b = db.get(bname)
+        if b and b["size"] and boff <= off < boff + b["size"]:
+            return owner(db, bname, off - boff)
+    return cls, off
+
+
 def plan(db, adds):
-    out = collections.defaultdict(list)       # header -> [(class, off, type)]
+    """Fields to add, per header: [(owner class, offset, type)]. An offset a derived class's stubs agree on that
+    lies in a base's extent goes to that base (every class derived from it sees the field), so it is kept only
+    if no class's stubs disagree on it there and every class that agrees names the same type."""
+    votes = collections.defaultdict(set)       # (owner, off) -> {(size, type)}
+    against = set()
     why = collections.Counter()
     for cls, a in adds.items():
         h = db.get(cls)
         if h is None:
             why["class not in header-db (template or unknown)"] += len(a["agree"])
             continue
-        flds, gaps = rn_layout.header_fields(h)
-        taken = {o for o, t, n in flds}
-        for off_s, f in sorted(a["agree"].items(), key=lambda kv: int(kv[0], 16)):
+        for off_s in a.get("disagree", {}):
+            against.add(owner(db, cls, int(off_s, 16)))
+        for off_s, f in a["agree"].items():
             off, size = int(off_s, 16), f["size"]
             t = TYPES.get((size, f["kind"]))
             if t is None:
                 why["not a scalar (%s)" % f["kind"]] += 1
                 continue
-            if off in taken:
-                why["header already has a field there"] += 1
-                continue
-            if off % size:
-                why["misaligned"] += 1
-                continue
-            if not any(lo <= off and off + size <= hi for lo, hi in gaps):
-                why["not inside a pad (base region, past the end, straddles)"] += 1
-                continue
-            out[h["header"]].append((cls, off, t))
-            why["planned"] += 1
+            votes[owner(db, cls, off)].add((size, t))
+    out = collections.defaultdict(list)
+    for (cls, off), ts in sorted(votes.items()):
+        h = db[cls]
+        flds, gaps = rn_layout.header_fields(h)
+        if (cls, off) in against:
+            why["another class's stubs disagree at that base offset"] += 1
+            continue
+        if len(ts) != 1:
+            why["classes disagree on the type"] += 1
+            continue
+        size, t = next(iter(ts))
+        if off in {o for o, _, _ in flds}:
+            why["header already has a field there"] += 1
+            continue
+        if off % size:
+            why["misaligned"] += 1
+            continue
+        if not any(lo <= off and off + size <= hi for lo, hi in gaps):
+            why["not inside a pad (past the class's end, straddles a field)"] += 1
+            continue
+        out[h["header"]].append((cls, off, t))
+        why["planned"] += 1
     return out, why
 
 
