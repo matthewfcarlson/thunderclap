@@ -256,10 +256,11 @@ class Verifier:
                 return r2
         return r
 
-    def _check(self, obj, block, claimed):
+    def _check(self, obj, block, claimed, only=None):
         addr = int(block["addr"], 16)
         coff = self.coff(obj)
-        cands, how = self.candidates(coff, block, claimed)
+        cands, how = ([s for s in coff.function_symbols() if s[0] == only], "unique") if only else \
+            self.candidates(coff, block, claimed)
         if not cands:
             return {"status": "no_function", "how": how}
         target = self.target(addr)
@@ -541,6 +542,10 @@ def regressions(checks):
             out[int(c["addr"], 16)] = (mode, "lost its match in the tree (%s)" % c.get("why", c["status"]))
         elif c["kind"] == "equivalent" and c.get("vs_standalone") == "differs":
             out[int(c["addr"], 16)] = (mode, "code differs from its standalone build")
+        elif c.get("shared_symbol") == "ambiguous" and c["mode"] == "merged":
+            # (unique_symbols: its own definition is not in the TU's object under a name it can be told by;
+            # wrapped, it gets its fn_<addr> namespace and is checked under that)
+            out[int(c["addr"], 16)] = (mode, "checked against another function's symbol (ambiguous lookup)")
     return out
 
 
@@ -552,6 +557,7 @@ def verify(gen, manifest, results, jobs=4):
     for rec in manifest["tus"]:
         obj = results[rec["path"]][0]
         claimed = set()
+        pairs = []
         for b in rec["blocks"]:
             a = int(b["addr"], 16)
             pre, cn, sa = names.get(a, ([], [], []))
@@ -581,7 +587,96 @@ def verify(gen, manifest, results, jobs=4):
                     if sa["status"] == "match" and c["status"] == "diff":
                         r["why"] = diff_reason(c.get("rows"), sa.get("rows"))
             out.append(r)
+            pairs.append((b, r))
+        if obj is not None:
+            unique_symbols(v, obj, pairs)
     return out
+
+
+def own_symbol(v, b):
+    """The function's own symbol in its standalone object: the one that matches the original (or the best one)."""
+    obj = standalone_obj(b["src"])
+    if obj is None:
+        return None
+    r = v.check(obj, {"addr": b["addr"], "mode": "isolated"}, set())
+    return r.get("symbol")
+
+
+SUFFIXES = re.compile(r"_[0-9a-f]{4,8}(?=@)")      # placeholder suffixes (`Obj_14940@`): addresses, kept apart
+
+
+def own_candidates(own, syms, tag):
+    """Tree symbols that are `own` (a standalone symbol): equal under _loose_key, then with struct/class
+    (U/V) not told apart (the tree's merged declaration can be the other keyword), then the placeholder suffixes
+    (which _loose_key's digit removal blurs: `Obj_14860` / `Obj_14940`) breaking a tie."""
+    if not own:
+        return []
+    k = _loose_key(own)
+    lk = {s: _loose_key(s.replace(tag, "")) for s in syms}
+    c = [s for s in syms if lk[s] == k]
+    if not c:
+        uv = re.sub(r"[UV]", "V", k)
+        c = [s for s in syms if re.sub(r"[UV]", "V", lk[s]) == uv]
+    if len(c) > 1:
+        sx = SUFFIXES.findall(own)
+        c2 = [s for s in c if SUFFIXES.findall(TU_NS.sub("@", s.replace(tag, ""))) == sx]
+        c = c2 or c
+    return c
+
+
+def unique_symbols(v, obj, pairs):
+    """The lookup by mangled-name prefix (mangle_prefixes: no parameter types, no template arguments) can check
+    two functions of one TU against one symbol: overloads `Target(PhysicsJoint_30cbb0*)` /
+    `Target(PhysicsJoint_30cd60*)`, or every instantiation of `Method2<CActorManager, ...>::~Method2` against
+    the first. With relocations masked, clones then "match" under each other's symbol and the native link binds
+    them to one address. Where the functions' original bytes differ, each is re-checked against the tree symbol
+    whose name is its own standalone symbol's (TU namespace and back-reference digits aside, _loose_key);
+    one without such a symbol is marked `shared_symbol: ambiguous` and, being unverifiable, gets status
+    `ambiguous` (matches) / vs_standalone `ambiguous` (equivalent/), which regressions() turns into a fallback
+    (merged -> wrapped). Groups whose original bytes are identical are harmless (`shared_symbol: identical`)."""
+    groups = collections.defaultdict(list)
+    for b, r in pairs:
+        if r.get("symbol") and b["mode"] != "isolated":
+            groups[r["symbol"]].append((b, r))
+    syms = None
+    for sym, grp in groups.items():
+        if len(grp) < 2:
+            continue
+        if len({v.target(int(b["addr"], 16)) for b, _ in grp}) == 1:
+            for _, r in grp:
+                r["shared_symbol"] = "identical"
+            continue
+        if syms is None:
+            syms = v.coff(obj).function_symbols()
+        for b, r in grp:
+            own = own_symbol(v, b)
+            k = _loose_key(own) if own else None
+            tag = "fn_%s@" % b["addr"][2:]          # a wrapped block's namespace (not in the standalone name)
+            c = own_candidates(own, [s[0] for s in syms], tag)
+            if len(c) == 1 and c[0] == sym:
+                r["shared_symbol"] = "owner"
+                continue
+            if len(c) != 1:
+                r["shared_symbol"] = "ambiguous"
+                if b["kind"] == "equivalent":
+                    r["vs_standalone"] = "ambiguous"
+                else:
+                    r["status"] = "ambiguous"
+                    r["standalone"] = standalone(b["src"], int(b["addr"], 16), v)["status"]
+                continue
+            c2 = v._check(obj, b, set(), only=c[0])
+            r["shared_symbol"] = "resolved"
+            r["symbol"], r["how"] = c2.get("symbol"), "unique"
+            a = int(b["addr"], 16)
+            if b["kind"] == "equivalent":
+                r["vs_standalone"] = compare_with_standalone(v, obj, c[0], b, a)
+            else:
+                r["status"], r["score"] = c2["status"], c2.get("score")
+                if c2["status"] != "match":
+                    sa = standalone(b["src"], a, v)
+                    r["standalone"] = sa["status"]
+                    if sa["status"] == "match" and c2["status"] == "diff":
+                        r["why"] = diff_reason(c2.get("rows"), sa.get("rows"))
 
 
 def summarize(manifest, results, checks, history, gen, state):
@@ -615,6 +710,7 @@ def summarize(manifest, results, checks, history, gen, state):
         "matches_lost": len(lost),
         "matches_lost_why": dict(lost_why.most_common()),
         "symbol_lookup": dict(collections.Counter(c.get("how") for c in checks if c.get("how"))),
+        "shared_symbols": dict(collections.Counter(c["shared_symbol"] for c in checks if c.get("shared_symbol"))),
         "equivalent_vs_standalone": dict(collections.Counter(
             "%s/%s" % (c["mode"], c.get("vs_standalone")) for c in checks if c["kind"] == "equivalent")),
         "regressions_left": len(regressions(checks)),
