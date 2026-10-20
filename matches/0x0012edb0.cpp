@@ -1,8 +1,8 @@
 // Same code shape as 0x000695a0 (propagated; names are from that function)
 #include "gen/hulkfight.h"
 
-float gNegOne = -1.0f;
+#include "decls/data/game/global.h"
 
 float hulkfight::DebugPrintTrack::vfunc_7() {
-    return gNegOne;
+    return DAT_003f32e0;
 }

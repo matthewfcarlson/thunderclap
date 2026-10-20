@@ -68,10 +68,10 @@ class d3dContext : public pddiBaseContext {
     void vfunc_54(int);
 };
 } // namespace pure3d
-int cullModes[4] = {0, 1, 2, 3};
+extern "C" int DAT_004d3a48[4];
 void __stdcall D3DDevice_SetRenderState_CullMode(int);
 void pure3d::d3dContext::vfunc_54(int x) {
     pddiBaseContext::vfunc_54(x);
     if (!state->flag)
-        D3DDevice_SetRenderState_CullMode(cullModes[x]);
+        D3DDevice_SetRenderState_CullMode(DAT_004d3a48[x]);
 }

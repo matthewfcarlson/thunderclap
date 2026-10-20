@@ -3,7 +3,7 @@ class Stream {
   public:
     virtual void Fn();
 };
-Stream* gStream;
+extern "C" Stream* DAT_004cc0cc;
 void Init() {
-    gStream = (Stream*)((int)DAT_00423f20);
+    DAT_004cc0cc = (Stream*)((int)DAT_00423f20);
 }

@@ -1,6 +1,6 @@
 // Same code shape as 0x0013bde0 (propagated; names are from that function)
 extern "C" {
-void* g_anim_vtable;
+extern "C" char DAT_0041258c[];
 void __cdecl opdel(void*);
 void _ReadWriteBarrier();
 }
@@ -32,7 +32,7 @@ class AnimationAction {
 };
 
 AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
-    *(int*)this = (int)&g_anim_vtable;
+    *(int*)this = (int)DAT_0041258c;
     _ReadWriteBarrier();
     RefObj_13be90* a = m20;
     if (a) {

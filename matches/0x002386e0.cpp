@@ -8,10 +8,10 @@ class Obj_2386e0 {
     void Use(void*);
 };
 extern void* Build(void* arg, void* storage);
-int vtable_2386e0;
+extern "C" char DAT_0042827c[];
 void Target(void* a, void* b) {
     RandomCondition local;
-    *(int*)&local = (int)&vtable_2386e0;
+    *(int*)&local = (int)DAT_0042827c;
     void* r = Build(b, &local);
     ((Obj_2386e0*)a)->Use(r);
 }

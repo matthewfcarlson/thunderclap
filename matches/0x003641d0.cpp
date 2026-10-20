@@ -3,7 +3,7 @@ class Allocator {
   public:
     virtual void Fn();
 };
-Allocator* g_allocator;
+extern "C" Allocator* DAT_004cc200;
 void InitAllocator() {
-    g_allocator = (Allocator*)((int)DAT_00429254);
+    DAT_004cc200 = (Allocator*)((int)DAT_00429254);
 }

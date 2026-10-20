@@ -3,7 +3,7 @@ class IRefCount {
   public:
     virtual void F();
 };
-IRefCount* gRefCount;
+extern "C" IRefCount* DAT_004cdb4c;
 void FUN_00364780() {
-    gRefCount = (IRefCount*)((int)DAT_003f6098);
+    DAT_004cdb4c = (IRefCount*)((int)DAT_003f6098);
 }

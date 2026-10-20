@@ -1,7 +1,7 @@
 extern "C" void __cdecl FUN_00267090(void* p);
 void __cdecl operator delete(void* p);
 
-char DialogueTrack_vftable[4];
+extern "C" char DAT_00411344[];
 
 class hulkfight_DialogueTrack {
   public:
@@ -18,7 +18,7 @@ class hulkfight_DialogueTrack {
 };
 
 hulkfight_DialogueTrack* hulkfight_DialogueTrack::vfunc_5(int param) {
-    vptr = (void*)DialogueTrack_vftable;
+    vptr = (void*)DAT_00411344;
     FUN_00267090(m10);
     FUN_00267090(m14);
     FUN_00267090(m1c);

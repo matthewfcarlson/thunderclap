@@ -1,4 +1,4 @@
-void* g_vftable_116760[7];
+extern "C" char DAT_0040eb00[];
 
 namespace fight {
 class Condition {
@@ -19,7 +19,7 @@ class HasGroundPointExtendedCondition : public fight::Condition, public fight::P
 
 void* HasGroundPointExtendedCondition::vfunc_5(char flag) {
     HasGroundPointExtendedCondition* self = this;
-    *(void**)self = &g_vftable_116760;
+    *(void**)self = DAT_0040eb00;
     this->fight::Condition::munge();
     if (flag & 1) {
         opDelete(self);

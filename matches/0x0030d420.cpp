@@ -5,7 +5,7 @@ struct Sub_30d420 {
 
 extern "C" void __cdecl FreeBuf(void*);
 extern "C" void __cdecl DeleteObj(void*);
-void* PhysicsJoint_vft[29];
+extern "C" char DAT_00431de4[];
 
 class PhysicsJoint {
   public:
@@ -23,7 +23,7 @@ class PhysicsJoint {
 
 void* PhysicsJoint::vfunc_0(int flags) {
     Sub_30d420* p = &m64;
-    vptr = (void*)&PhysicsJoint_vft;
+    vptr = (void*)DAT_00431de4;
     p->Destruct();
     m48.Destruct();
     int v = m20;

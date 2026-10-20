@@ -8,7 +8,7 @@ struct Helper_32d390 {
     void run();
 };
 extern void thunk_FUN_00267090(void*);
-int shader_vtable;
+extern "C" char DAT_00433b14[];
 struct pure3d_d3dSimpleShader_32d390 {
     virtual void a0();
     virtual void a1();
@@ -39,7 +39,7 @@ struct pure3d_d3dSimpleShader_32d390 {
     Ref_32d390* member;
 };
 pure3d_d3dSimpleShader_32d390* pure3d_d3dSimpleShader_32d390::vfunc_3(u8_32d390 destroy) {
-    *(int**)this = &shader_vtable;
+    *(int**)this = (int*)DAT_00433b14;
     if (member)
         member->f1();
     ((Helper_32d390*)this)->run();

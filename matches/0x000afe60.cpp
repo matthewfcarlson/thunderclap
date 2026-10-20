@@ -1,5 +1,5 @@
 // Same code shape as 0x000695a0 (propagated; names are from that function)
-float gNegOne = -1.0f;
+#include "decls/data/game/global.h"
 
 class CKeyPoseTrack {
   public:
@@ -20,5 +20,5 @@ class CKeyPoseTrack {
 };
 
 float CKeyPoseTrack::vfunc_7() {
-    return gNegOne;
+    return DAT_003f32dc;
 }

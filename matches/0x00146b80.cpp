@@ -5,7 +5,7 @@ class X_146b80 {
     float angle;
 };
 
-const float kScale_146b80 = 0.3f;
+const float kScale_146b80 = 0.0174532924f;
 
 bool X_146b80::Set(float v) {
     angle = v * kScale_146b80;

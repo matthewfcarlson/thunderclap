@@ -1,4 +1,4 @@
-int g_vt_2a3d30 = 0;
+extern "C" char DAT_0042d88c[];
 
 class Ref_2a3d30 {
   public:
@@ -19,7 +19,7 @@ class ParticleSystem {
 
 ParticleSystem* ParticleSystem::vfunc_2(unsigned char p) {
     volatile int* q = (volatile int*)this;
-    *q = (int)&g_vt_2a3d30;
+    *q = (int)DAT_0042d88c;
     Ref_2a3d30* x = a;
     if (x) {
         x->Release();

@@ -1,8 +1,8 @@
 // Same code shape as 0x000695a0 (propagated; names are from that function)
 #include "gen/global.h"
 
-float gNegOne = -1.0f;
+#include "decls/data/game/global.h"
 
 float CCameraShakeTrack::vfunc_7() {
-    return gNegOne;
+    return DAT_003f32e0;
 }

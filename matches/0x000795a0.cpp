@@ -1,4 +1,4 @@
-float gValue;
+extern "C" float DAT_0049b890;
 class Item {
   public:
     void Update(float);
@@ -11,7 +11,7 @@ class Obj {
     void Run(float);
 };
 void Obj::Run(float value) {
-    gValue = value;
+    DAT_0049b890 = value;
     for (int i = 0; i < count; ++i)
         items[i]->Update(value);
 }

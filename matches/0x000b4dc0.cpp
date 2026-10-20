@@ -1,10 +1,9 @@
 #include "decls/data/game/global.h"
 
 extern "C" int strcmp(const char*, const char*);
-const char* words[3];
 
 extern "C" bool __stdcall FUN_000b4dc0(const char* s) {
-    const char** p = words;
+    const char** p = (const char**)DAT_0049f3d8;
     do {
         const char* q = *p;
         if (q == 0)

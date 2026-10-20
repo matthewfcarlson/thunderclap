@@ -1,5 +1,5 @@
 extern "C" {
-void* g_anim_vtable;
+extern "C" char DAT_00412570[];
 void __cdecl opdel(void*);
 void _ReadWriteBarrier();
 }
@@ -31,7 +31,7 @@ class AnimationAction {
 };
 
 AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
-    *(int*)this = (int)&g_anim_vtable;
+    *(int*)this = (int)DAT_00412570;
     _ReadWriteBarrier();
     RefObj_13bde0* a = m20;
     if (a) {
