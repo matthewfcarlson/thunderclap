@@ -1,7 +1,8 @@
+#include "gen/global.h"
 struct Matrix {
     unsigned int words[16];
 };
-struct Object {
+struct CSPManager_nv_1dd470 {
     void FUN_001d6b60(Matrix matrix, unsigned int option);
 };
 struct Rotation_1dd470 {
@@ -15,7 +16,7 @@ struct State_1dd470 {
 struct Entry_1dd470 {
     char pad[16];
     State_1dd470 state;
-    Object* object;
+    CSPManager* object;
     char pad2[6];
     short stateIndex;
     char tail[4];
@@ -38,7 +39,7 @@ bool Manager_1dd470::target(int index, const Matrix* matrix, unsigned int option
     Entry_1dd470* entry = &entries[index];
     Position_1dd470* position = &positions[entry->stateIndex];
     if ((position->flags & 1) && entry->object) {
-        entry->object->FUN_001d6b60(*matrix, option);
+        ((CSPManager_nv_1dd470*)(entry->object))->FUN_001d6b60(*matrix, option);
         return true;
     }
     Rotation_1dd470 rotation;

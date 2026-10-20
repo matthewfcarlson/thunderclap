@@ -1,3 +1,4 @@
+#include "gen/hulkfight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_151810[];
 class Ref_151810 {
@@ -10,8 +11,7 @@ class Sub_151810 {
   public:
     void Fn();
 };
-class Helper_151810 {
-  public:
+struct GroundSlideAction_nv_151810 {
     void Fn();
 };
 class A_151810 {
@@ -39,5 +39,5 @@ void A_151810::f() {
     if (m1c)
         m1c = 0;
     m24.Fn();
-    ((Helper_151810*)this)->Fn();
+    ((GroundSlideAction_nv_151810*)(((hulkfight::motion::GroundSlideAction*)this)))->Fn();
 }

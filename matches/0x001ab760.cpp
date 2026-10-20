@@ -1,11 +1,11 @@
 // Same code shape as 0x0012bc00 (propagated; names are from that function)
+#include "gen/hulkfight.h"
 extern char threat_vftable_1ab760;
-struct Obj_1ab760 {
-    int x;
+struct Event_PathNameCondition_nv_1ab760 {
     void f1();
     void f2();
 };
-extern void thunk_FUN_00267090(Obj_1ab760*);
+extern void thunk_FUN_00267090(hulkfight::scenario::Event_PathNameCondition*);
 class Event_PathNameCondition_1ab760 {
   public:
     void* vftable;
@@ -15,9 +15,9 @@ class Event_PathNameCondition_1ab760 {
 Event_PathNameCondition_1ab760* Event_PathNameCondition_1ab760::vfunc_5(unsigned char param) {
     Event_PathNameCondition_1ab760* p = this;
     *(char**)p = &threat_vftable_1ab760;
-    ((Obj_1ab760*)((char*)p + 0x10))->f1();
-    ((Obj_1ab760*)p)->f2();
+    ((Event_PathNameCondition_nv_1ab760*)(((hulkfight::scenario::Event_PathNameCondition*)((char*)p + 0x10))))->f1();
+    ((Event_PathNameCondition_nv_1ab760*)(((hulkfight::scenario::Event_PathNameCondition*)p)))->f2();
     if (param & 1)
-        thunk_FUN_00267090((Obj_1ab760*)p);
+        thunk_FUN_00267090((hulkfight::scenario::Event_PathNameCondition*)p);
     return p;
 }

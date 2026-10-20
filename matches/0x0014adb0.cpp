@@ -1,3 +1,4 @@
+#include "gen/hulkfight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_14adb0[];
 class Ref_14adb0 {
@@ -10,8 +11,7 @@ class Sub_14adb0 {
   public:
     void Fn();
 };
-class Helper_14adb0 {
-  public:
+struct GrappleThrowAction_nv_14adb0 {
     void Fn();
 };
 class A_14adb0 {
@@ -34,7 +34,7 @@ A_14adb0* A_14adb0::f2(unsigned char flags) {
     if (m1c)
         m1c = 0;
     m24.Fn();
-    ((Helper_14adb0*)this)->Fn();
+    ((GrappleThrowAction_nv_14adb0*)(((hulkfight::motion::GrappleThrowAction*)this)))->Fn();
     if (flags & 1)
         operator delete(this);
     return this;

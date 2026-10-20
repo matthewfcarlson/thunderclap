@@ -1,3 +1,4 @@
+#include "gen/physics.h"
 extern void* g_vftable_310080[];
 void* operator new(unsigned);
 void* operator new[](unsigned);
@@ -5,17 +6,15 @@ class Res_310080 {
   public:
     virtual void F0();
 };
-class Holder_310080 {
-  public:
-    virtual void F0();
-    Holder_310080* Init(Res_310080* r);
+struct Pose_nv_310080 {
+    physics::Pose* Init(Res_310080* r);
 };
 class Obj_310080 {
   public:
     void* vptr;
     int m4;
     Res_310080* m8;
-    Holder_310080* mc;
+    physics::Pose* mc;
     int m10;
     int m14;
     int** m18;
@@ -27,13 +26,13 @@ Obj_310080* Obj_310080::ctor(Res_310080* a0, int a1, int a2) {
     vptr = g_vftable_310080;
     m10 = a1;
     m14 = a2;
-    Holder_310080* h = (Holder_310080*)operator new(0x10);
+    physics::Pose* h = (physics::Pose*)operator new(0x10);
     if (h)
-        h = h->Init(a0);
+        h = ((Pose_nv_310080*)(h))->Init(a0);
     else
         h = 0;
     mc = h;
-    h->F0();
+    h->vfunc_0();
     m8 = a0;
     a0->F0();
     m18 = (int**)operator new[](m10 * 4);

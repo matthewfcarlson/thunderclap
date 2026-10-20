@@ -8,18 +8,17 @@ class Params_10bde0 {
 extern Params_10bde0 TypeA_10bde0;
 extern Params_10bde0 TypeB_10bde0;
 int __cdecl Check(void*, int, Params_10bde0*, Params_10bde0*, int);
-class Object_10bde0 {
-  public:
+struct FaceMotionAction_nv_10bde0 {
     int Init(hulkfight::ai::FaceMotionTrack*, int);
 };
-Object_10bde0* __cdecl Alloc(int);
+hulkfight::ai::FaceMotionAction* __cdecl Alloc(int);
 
 int hulkfight::ai::FaceMotionTrack::vfunc_10(int a, int b, int c) {
     int result = Check((void*)c, 0, &TypeA_10bde0, &TypeB_10bde0, 0);
     if (result) {
-        Object_10bde0* p = Alloc(0x24);
+        hulkfight::ai::FaceMotionAction* p = Alloc(0x24);
         if (p)
-            return p->Init(this, c);
+            return ((FaceMotionAction_nv_10bde0*)(p))->Init(this, c);
     }
     return 0;
 }

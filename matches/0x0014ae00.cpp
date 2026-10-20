@@ -8,18 +8,17 @@ class Params_14ae00 {
 extern Params_14ae00 TypeA_14ae00;
 extern Params_14ae00 TypeB_14ae00;
 int __cdecl Check(void*, int, Params_14ae00*, Params_14ae00*, int);
-class Object_14ae00 {
-  public:
+struct CivilianThrowAction_nv_14ae00 {
     int Init(hulkfight::motion::CivilianThrowTrack*, int);
 };
-Object_14ae00* __cdecl Alloc(int);
+hulkfight::motion::CivilianThrowAction* __cdecl Alloc(int);
 
 int hulkfight::motion::CivilianThrowTrack::vfunc_10(int a, int b, int c) {
     int result = Check((void*)c, 0, &TypeA_14ae00, &TypeB_14ae00, 0);
     if (result) {
-        Object_14ae00* p = Alloc(0x24);
+        hulkfight::motion::CivilianThrowAction* p = Alloc(0x24);
         if (p)
-            return p->Init(this, c);
+            return ((CivilianThrowAction_nv_14ae00*)(p))->Init(this, c);
     }
     return 0;
 }

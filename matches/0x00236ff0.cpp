@@ -1,27 +1,26 @@
-struct Node {
-    int pad;
-    Node* next;
-    void Link(Node*);
+#include "gen/fight.h"
+struct OpportunityAction_nv_236ff0 {
+    void Link(fight::OpportunityAction*);
 };
 class List {
   public:
-    Node* head;
-    int Add(Node* n);
+    fight::OpportunityAction* head;
+    int Add(fight::OpportunityAction* n);
 };
-int List::Add(Node* n) {
+int List::Add(fight::OpportunityAction* n) {
     if (!n)
         return -1;
-    Node* last = 0;
-    Node* p = head;
+    fight::OpportunityAction* last = 0;
+    fight::OpportunityAction* p = head;
     int count = 0;
     while (p) {
         last = p;
-        p = p->next;
+        p = (*(fight::OpportunityAction * *)&p->f_04);
         ++count;
     }
-    n->Link(p);
+    ((OpportunityAction_nv_236ff0*)(n))->Link(p);
     if (last)
-        last->Link(n);
+        ((OpportunityAction_nv_236ff0*)(last))->Link(n);
     else
         head = n;
     return count;

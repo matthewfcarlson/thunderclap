@@ -1,14 +1,13 @@
 #include "gen/global.h"
 
-class Helper_62c70 {
-  public:
+struct CSmartPropRemoveInstanceAction_nv_62c70 {
     int run(int, int);
 };
-extern Helper_62c70* __cdecl FUN_0008d690(int);
+extern CSmartPropRemoveInstanceAction* __cdecl FUN_0008d690(int);
 
 int CSmartPropRemoveInstanceTrack::vfunc_12(int arg) {
-    Helper_62c70* p = FUN_0008d690(0x24);
+    CSmartPropRemoveInstanceAction* p = FUN_0008d690(0x24);
     if (p)
-        return p->run(arg, this->f_0c);
+        return ((CSmartPropRemoveInstanceAction_nv_62c70*)(p))->run(arg, this->f_0c);
     return 0;
 }

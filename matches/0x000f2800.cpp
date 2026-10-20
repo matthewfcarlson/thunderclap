@@ -1,6 +1,6 @@
+#include "gen/global.h"
 extern void* __cdecl Alloc(unsigned int);
-class Obj_f2800 {
-  public:
+struct FEParticleAnimation_nv_f2800 {
     int Build(int, int, int);
 };
 class Thing_f2800 {
@@ -13,10 +13,10 @@ class Thing_f2800 {
 int Thing_f2800::Run(int a, int b) {
     if (ref == 0)
         return 0;
-    Obj_f2800* p = (Obj_f2800*)Alloc(0x68);
+    FEParticleAnimation* p = (FEParticleAnimation*)Alloc(0x68);
     int result;
     if (p != 0)
-        result = p->Build(ref, a, b);
+        result = ((FEParticleAnimation_nv_f2800*)(p))->Build(ref, a, b);
     else
         result = 0;
     int i = 0;

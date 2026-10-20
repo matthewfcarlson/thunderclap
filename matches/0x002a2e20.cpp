@@ -1,7 +1,7 @@
+#include "gen/pure3d.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_2a2e20[];
-class Helper_2a2e20 {
-  public:
+struct OpaqueTraversal_nv_2a2e20 {
     void Fn();
 };
 class OT {
@@ -22,7 +22,7 @@ OT* OT::f2(unsigned char flags) {
         operator delete[](m2c);
     if (m20)
         operator delete[](m20);
-    ((Helper_2a2e20*)this)->Fn();
+    ((OpaqueTraversal_nv_2a2e20*)(((pure3d::OpaqueTraversal*)this)))->Fn();
     if (flags & 1)
         operator delete(this);
     return this;

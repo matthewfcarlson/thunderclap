@@ -1,10 +1,11 @@
 // Same code shape as 0x0032aa30 (propagated; names are from that function)
+#include "gen/pure3d.h"
 typedef unsigned char u8_32d390;
 struct Ref_32d390 {
     virtual void f0();
     virtual void f1();
 };
-struct Helper_32d390 {
+struct d3dPointSpriteShader_nv_32d390 {
     void run();
 };
 extern void thunk_FUN_00267090(void*);
@@ -42,7 +43,7 @@ pure3d_d3dSimpleShader_32d390* pure3d_d3dSimpleShader_32d390::vfunc_3(u8_32d390 
     *(int**)this = (int*)DAT_00433b14;
     if (member)
         member->f1();
-    ((Helper_32d390*)this)->run();
+    ((d3dPointSpriteShader_nv_32d390*)(((pure3d::d3dPointSpriteShader*)this)))->run();
     if (destroy & 1)
         thunk_FUN_00267090(this);
     return this;

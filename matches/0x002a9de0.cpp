@@ -1,3 +1,4 @@
+#include "gen/pure3d.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_2a9de0[];
 class Ref_2a9de0 {
@@ -6,8 +7,7 @@ class Ref_2a9de0 {
     virtual void f0();
     virtual void f1();
 };
-class Helper_2a9de0 {
-  public:
+struct ExpressionAnimationController_nv_2a9de0 {
     void Fn();
 };
 class A_2a9de0 {
@@ -33,5 +33,5 @@ void A_2a9de0::f() {
         m44 = 0;
     }
     operator delete[](m4c);
-    ((Helper_2a9de0*)this)->Fn();
+    ((ExpressionAnimationController_nv_2a9de0*)(((pure3d::ExpressionAnimationController*)this)))->Fn();
 }

@@ -1,28 +1,28 @@
+#include "gen/pure3d.h"
 extern "C" char DAT_00433b9c[];
-class Shader {
+class Shader_32d8e0 {
   public:
     virtual void A();
     virtual void B();
 };
-class Base_32d8e0 {
-  public:
+struct d3dLayeredShader_nv_32d8e0 {
     void Cleanup();
 };
 class Thing_32d8e0 {
   public:
     virtual void V();
     char pad[0x7c];
-    Shader* a;
-    Shader* b;
+    Shader_32d8e0* a;
+    Shader_32d8e0* b;
     void Fn();
 };
 void Thing_32d8e0::Fn() {
-    Shader* a = this->a;
+    Shader_32d8e0* a = this->a;
     *(unsigned long*)this = ((int)DAT_00433b9c);
     if (a)
         a->B();
-    Shader* b = this->b;
+    Shader_32d8e0* b = this->b;
     if (b)
         b->B();
-    ((Base_32d8e0*)this)->Cleanup();
+    ((d3dLayeredShader_nv_32d8e0*)(((pure3d::d3dLayeredShader*)this)))->Cleanup();
 }

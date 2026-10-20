@@ -1,11 +1,11 @@
+#include "gen/pure3d.h"
 extern "C" char DAT_00433cac[];
 class Obj_32ef10 {
   public:
     virtual void A();
     virtual void B();
 };
-class Tail_32ef10 {
-  public:
+struct d3dRefractVertexShader_nv_32ef10 {
     void Go();
 };
 class Target_32ef10 {
@@ -24,5 +24,5 @@ void Target_32ef10::F() {
     Obj_32ef10* y = b;
     if (y)
         y->B();
-    ((Tail_32ef10*)this)->Go();
+    ((d3dRefractVertexShader_nv_32ef10*)(((pure3d::d3dRefractVertexShader*)this)))->Go();
 }

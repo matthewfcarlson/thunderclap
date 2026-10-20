@@ -1,7 +1,8 @@
 // Same code shape as 0x000f2740 (propagated; names are from that function)
+#include "gen/global.h"
 typedef unsigned int uint;
 extern "C" void* __cdecl FUN_0008d690(uint);
-struct X_f2860 {
+struct FETextureAnimation_nv_f2860 {
     int make(void*, void*);
 };
 struct Y_f2860 {
@@ -13,8 +14,8 @@ struct Y_f2860 {
 int Y_f2860::f(void* p) {
     if (!field)
         return 0;
-    X_f2860* x = (X_f2860*)FUN_0008d690(0x60);
-    int r = x ? x->make(field, p) : 0;
+    FETextureAnimation* x = (FETextureAnimation*)FUN_0008d690(0x60);
+    int r = x ? ((FETextureAnimation_nv_f2860*)(x))->make(field, p) : 0;
     int i = 0;
     do {
         if (slots[i] == 0) {

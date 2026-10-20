@@ -1,3 +1,4 @@
+#include "gen/pure3d.h"
 extern "C" char DAT_0043386c[];
 class ShaderBase_32a9f0 {
   public:
@@ -9,7 +10,7 @@ class ShaderBase_32a9f0 {
     char d;
     int e;
 };
-struct ThisCall_00333520 {
+struct d3dSimpleShader_nv_32a9f0 {
     void BaseInit(int);
 };
 class SimpleShader : public ShaderBase_32a9f0 {
@@ -17,7 +18,7 @@ class SimpleShader : public ShaderBase_32a9f0 {
     SimpleShader* Init(int);
 };
 SimpleShader* SimpleShader::Init(int x) {
-    ((ThisCall_00333520*)(this))->BaseInit(x);
+    ((d3dSimpleShader_nv_32a9f0*)(((pure3d::d3dSimpleShader*)(this))))->BaseInit(x);
     a = 0;
     b = 0;
     c = 0;

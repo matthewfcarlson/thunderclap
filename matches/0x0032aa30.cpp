@@ -1,9 +1,10 @@
+#include "gen/pure3d.h"
 typedef unsigned char u8_32aa30;
 struct Ref_32aa30 {
     virtual void f0();
     virtual void f1();
 };
-struct Helper_32aa30 {
+struct d3dSimpleShader_nv_32aa30 {
     void run();
 };
 extern void thunk_FUN_00267090(void*);
@@ -41,7 +42,7 @@ pure3d_d3dSimpleShader_32aa30* pure3d_d3dSimpleShader_32aa30::vfunc_3(u8_32aa30 
     *(int**)this = (int*)DAT_0043386c;
     if (member)
         member->f1();
-    ((Helper_32aa30*)this)->run();
+    ((d3dSimpleShader_nv_32aa30*)(((pure3d::d3dSimpleShader*)this)))->run();
     if (destroy & 1)
         thunk_FUN_00267090(this);
     return this;

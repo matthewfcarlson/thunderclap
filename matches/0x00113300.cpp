@@ -8,18 +8,17 @@ class Params_113300 {
 extern Params_113300 TypeA_113300;
 extern Params_113300 TypeB_113300;
 int __cdecl Check(void*, int, Params_113300*, Params_113300*, int);
-class Object_113300 {
-  public:
+struct AIHistorySetAction_nv_113300 {
     int Init(hulkfight::ai::AIHistorySetTrack*, int);
 };
-Object_113300* __cdecl Alloc(int);
+hulkfight::ai::AIHistorySetAction* __cdecl Alloc(int);
 
 int hulkfight::ai::AIHistorySetTrack::vfunc_10(int a, int b, int c) {
     int result = Check((void*)c, 0, &TypeA_113300, &TypeB_113300, 0);
     if (result) {
-        Object_113300* p = Alloc(0x24);
+        hulkfight::ai::AIHistorySetAction* p = Alloc(0x24);
         if (p)
-            return p->Init(this, c);
+            return ((AIHistorySetAction_nv_113300*)(p))->Init(this, c);
     }
     return 0;
 }

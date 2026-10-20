@@ -8,18 +8,17 @@ class Params_19b910 {
 extern Params_19b910 TypeA_19b910;
 extern Params_19b910 TypeB_19b910;
 int __cdecl Check(void*, int, Params_19b910*, Params_19b910*, int);
-class Object_19b910 {
-  public:
+struct MissileThrowAction_nv_19b910 {
     int Init(hulkfight::motion::MissileThrowTrack*, int);
 };
-Object_19b910* __cdecl Alloc(int);
+hulkfight::motion::MissileThrowAction* __cdecl Alloc(int);
 
 int hulkfight::motion::MissileThrowTrack::vfunc_10(int a, int b, int c) {
     int result = Check((void*)c, 0, &TypeA_19b910, &TypeB_19b910, 0);
     if (result) {
-        Object_19b910* p = Alloc(0x24);
+        hulkfight::motion::MissileThrowAction* p = Alloc(0x24);
         if (p)
-            return p->Init(this, c);
+            return ((MissileThrowAction_nv_19b910*)(p))->Init(this, c);
     }
     return 0;
 }

@@ -1,3 +1,4 @@
+#include "gen/pure3d.h"
 struct Desc_330de0 {
     int format;
     char pad[24];
@@ -10,7 +11,7 @@ extern "C" int Alloc(int);
 struct Obj_330de0 {
     virtual void Fn();
 };
-struct Factory_330de0 {
+struct d3dTexture_nv_330de0 {
     Obj_330de0* Build(int, int);
 };
 class Device_330de0 {
@@ -32,7 +33,7 @@ void Device_330de0::Update() {
         int t = CreateTexture2(0x40, 1, 1, 1, 0, d.format, 3);
         Obj_330de0* o = (Obj_330de0*)Alloc(0xf8);
         if (o)
-            o = ((Factory_330de0*)o)->Build(m, t);
+            o = ((d3dTexture_nv_330de0*)(((pure3d::d3dTexture*)o)))->Build(m, t);
         else
             o = (Obj_330de0*)0;
         texture = o;

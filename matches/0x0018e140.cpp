@@ -8,18 +8,17 @@ class Params_18e140 {
 extern Params_18e140 TypeA_18e140;
 extern Params_18e140 TypeB_18e140;
 int __cdecl Check(void*, int, Params_18e140*, Params_18e140*, int);
-class Object_18e140 {
-  public:
+struct VarAssignAction_nv_18e140 {
     int Init(hulkfight::motion::VarAssignTrack*, int);
 };
-Object_18e140* __cdecl Alloc(int);
+hulkfight::motion::VarAssignAction* __cdecl Alloc(int);
 
 int hulkfight::motion::VarAssignTrack::vfunc_10(int a, int b, int c) {
     int result = Check((void*)c, 0, &TypeA_18e140, &TypeB_18e140, 0);
     if (result) {
-        Object_18e140* p = Alloc(0x24);
+        hulkfight::motion::VarAssignAction* p = Alloc(0x24);
         if (p)
-            return p->Init(this, c);
+            return ((VarAssignAction_nv_18e140*)(p))->Init(this, c);
     }
     return 0;
 }

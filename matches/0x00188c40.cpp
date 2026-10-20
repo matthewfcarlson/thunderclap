@@ -8,18 +8,17 @@ class Params_188c40 {
 extern Params_188c40 TypeA_188c40;
 extern Params_188c40 TypeB_188c40;
 int __cdecl Check(void*, int, Params_188c40*, Params_188c40*, int);
-class Object_188c40 {
-  public:
+struct PropSpawnAction_nv_188c40 {
     int Init(hulkfight::motion::PropSpawnTrack*, int);
 };
-Object_188c40* __cdecl Alloc(int);
+hulkfight::motion::PropSpawnAction* __cdecl Alloc(int);
 
 int hulkfight::motion::PropSpawnTrack::vfunc_10(int a, int b, int c) {
     int result = Check((void*)c, 0, &TypeA_188c40, &TypeB_188c40, 0);
     if (result) {
-        Object_188c40* p = Alloc(0x24);
+        hulkfight::motion::PropSpawnAction* p = Alloc(0x24);
         if (p)
-            return p->Init(this, c);
+            return ((PropSpawnAction_nv_188c40*)(p))->Init(this, c);
     }
     return 0;
 }

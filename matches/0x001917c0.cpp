@@ -8,18 +8,17 @@ class Params_1917c0 {
 extern Params_1917c0 TypeA_1917c0;
 extern Params_1917c0 TypeB_1917c0;
 int __cdecl Check(void*, int, Params_1917c0*, Params_1917c0*, int);
-class Object_1917c0 {
-  public:
+struct ImpulseVelocityAction_nv_1917c0 {
     int Init(hulkfight::motion::ImpulseVelocityTrack*, int);
 };
-Object_1917c0* __cdecl Alloc(int);
+hulkfight::motion::ImpulseVelocityAction* __cdecl Alloc(int);
 
 int hulkfight::motion::ImpulseVelocityTrack::vfunc_10(int a, int b, int c) {
     int result = Check((void*)c, 0, &TypeA_1917c0, &TypeB_1917c0, 0);
     if (result) {
-        Object_1917c0* p = Alloc(0x24);
+        hulkfight::motion::ImpulseVelocityAction* p = Alloc(0x24);
         if (p)
-            return p->Init(this, c);
+            return ((ImpulseVelocityAction_nv_1917c0*)(p))->Init(this, c);
     }
     return 0;
 }

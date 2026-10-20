@@ -1,13 +1,13 @@
+#include "gen/audio.h"
 extern "C" char DAT_00429dcc[];
-class Base_2513d0 {
-  public:
+struct SeqEventPlayTrack_nv_2513d0 {
     void Init();
 };
-class Track {
+class Track_2513d0 {
   public:
     void Setup(const char*, int);
 };
-class SeqEventPlayTrack {
+class SeqEventPlayTrack_2513d0 {
   public:
     int vptr;
     char pad4[4];
@@ -15,10 +15,10 @@ class SeqEventPlayTrack {
     int b;
     unsigned char c;
     char pad11[3];
-    Track track;
+    Track_2513d0 track;
 };
-SeqEventPlayTrack* __fastcall Target(SeqEventPlayTrack* self) {
-    ((Base_2513d0*)self)->Init();
+SeqEventPlayTrack_2513d0* __fastcall Target(SeqEventPlayTrack_2513d0* self) {
+    ((SeqEventPlayTrack_nv_2513d0*)(((audio::SeqEventPlayTrack*)self)))->Init();
     self->vptr = ((int)DAT_00429dcc);
     self->a = 0;
     self->b = 0;

@@ -22,8 +22,8 @@ struct ObjA_5b4f0 {
 struct Input_5b4f0 {
     ObjA_5b4f0* GetA();
 };
-struct Result_5b4f0 {
-    Result_5b4f0* Init(int);
+struct CIntangibleAction_nv_5b4f0 {
+    CIntangibleAction* Init(int);
 };
 void* __cdecl FUN_0008d690(int);
 
@@ -38,9 +38,9 @@ int CGrappleIntangibleTrack::vfunc_12(int __p0) { Input_5b4f0 * p = (Input_5b4f0
                 if (x) {
                     int y = x->field;
                     if (y) {
-                        Result_5b4f0* z = (Result_5b4f0*)FUN_0008d690(0x20);
+                        CIntangibleAction* z = (CIntangibleAction*)FUN_0008d690(0x20);
                         if (z)
-                            return (int)(z->Init(y));
+                            return (int)(((CIntangibleAction_nv_5b4f0*)(z))->Init(y));
                     }
                 }
             }

@@ -1,3 +1,4 @@
+#include "gen/global.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_aa0d0[];
 class Ref_aa0d0 {
@@ -6,8 +7,7 @@ class Ref_aa0d0 {
     virtual void f0();
     virtual void f1();
 };
-class Helper_aa0d0 {
-  public:
+struct CHypnoticCamera_nv_aa0d0 {
     void Fn();
 };
 class A_aa0d0 {
@@ -35,5 +35,5 @@ void A_aa0d0::f() {
         m428->f1();
         m428 = 0;
     }
-    ((Helper_aa0d0*)this)->Fn();
+    ((CHypnoticCamera_nv_aa0d0*)(((CHypnoticCamera*)this)))->Fn();
 }

@@ -8,18 +8,17 @@ class Params_145d00 {
 extern Params_145d00 TypeA_145d00;
 extern Params_145d00 TypeB_145d00;
 int __cdecl Check(void*, int, Params_145d00*, Params_145d00*, int);
-class Object_145d00 {
-  public:
+struct MotionTrailStopAction_nv_145d00 {
     int Init(hulkfight::motion::MotionTrailStopTrack*, int);
 };
-Object_145d00* __cdecl Alloc(int);
+hulkfight::motion::MotionTrailStopAction* __cdecl Alloc(int);
 
 int hulkfight::motion::MotionTrailStopTrack::vfunc_10(int a, int b, int c) {
     int result = Check((void*)c, 0, &TypeA_145d00, &TypeB_145d00, 0);
     if (result) {
-        Object_145d00* p = Alloc(0x24);
+        hulkfight::motion::MotionTrailStopAction* p = Alloc(0x24);
         if (p)
-            return p->Init(this, c);
+            return ((MotionTrailStopAction_nv_145d00*)(p))->Init(this, c);
     }
     return 0;
 }

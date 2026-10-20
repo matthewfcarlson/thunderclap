@@ -2,6 +2,7 @@
 // FUN_001f1ad0 @ 0x001f1ad0
 // cl-flags: /GS
 #include "decls/data/game/unknown.h"
+#include "gen/global.h"
 
 extern "C" void * __cdecl memset(void *, int, unsigned int);
 extern "C" char * __cdecl strcat(char *, const char *);
@@ -11,8 +12,7 @@ public:
     void FUN_001ef260(void *p);
 };
 
-class Job_1f1ad0 {
-public:
+struct CSoundCommand_PlaySFXEvent_nv_1f1ad0 {
     void *FUN_001f08f0(const char *name, int b, int c);
 };
 
@@ -33,8 +33,8 @@ void __stdcall FUN_001f1ad0(const char *name, int b, int c)
             if (f.mgr != 0) {
                 memset(f.buf, 0, sizeof f.buf);
                 strcat(f.buf, name);
-                Job_1f1ad0 *j = (Job_1f1ad0 *)FUN_0008d710(0x20, 6);
-                f.mgr->FUN_001ef260(j != 0 ? j->FUN_001f08f0(name, b, c) : 0);
+                CSoundCommand_PlaySFXEvent *j = (CSoundCommand_PlaySFXEvent *)FUN_0008d710(0x20, 6);
+                f.mgr->FUN_001ef260(j != 0 ? ((CSoundCommand_PlaySFXEvent_nv_1f1ad0*)(j))->FUN_001f08f0(name, b, c) : 0);
             }
         }
     }

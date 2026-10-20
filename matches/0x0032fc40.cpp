@@ -1,3 +1,4 @@
+#include "gen/pure3d.h"
 class Ref_32fc40 {
   public:
     virtual void A();
@@ -15,8 +16,7 @@ class d3dToon2VertexShader_32fc40 {
     Ref_32fc40* m88;
     void Reset();
 };
-class Next_32fc40 {
-  public:
+struct d3dToon2VertexShader_nv_32fc40 {
     void Go();
 };
 void d3dToon2VertexShader_32fc40::Reset() {
@@ -27,5 +27,5 @@ void d3dToon2VertexShader_32fc40::Reset() {
         m80->Release();
     if (m84)
         m84->Release();
-    ((Next_32fc40*)this)->Go();
+    ((d3dToon2VertexShader_nv_32fc40*)(((pure3d::d3dToon2VertexShader*)this)))->Go();
 }

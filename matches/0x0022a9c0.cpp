@@ -1,14 +1,15 @@
 // Same code shape as 0x0022a910 (propagated; names are from that function)
+#include "gen/choreo2.h"
 extern int g_count_22a9c0;
 extern int vtable_22a9c0;
-struct ThisCall_002222d0 {
+struct LocomotionDriver_nv_22a9c0 {
     void cleanup();
 };
-struct Driver {
+struct Driver_22a9c0 {
     int* vptr;
 };
-void __fastcall target(Driver* self) {
+void __fastcall target(Driver_22a9c0* self) {
     self->vptr = &vtable_22a9c0;
     --g_count_22a9c0;
-    ((ThisCall_002222d0*)(self))->cleanup();
+    ((LocomotionDriver_nv_22a9c0*)(((choreo2::LocomotionDriver*)(self))))->cleanup();
 }

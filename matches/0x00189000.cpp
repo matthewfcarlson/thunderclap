@@ -8,18 +8,17 @@ class Params_189000 {
 extern Params_189000 TypeA_189000;
 extern Params_189000 TypeB_189000;
 int __cdecl Check(void*, int, Params_189000*, Params_189000*, int);
-class Object_189000 {
-  public:
+struct ShieldArcAction_nv_189000 {
     int Init(hulkfight::motion::ShieldArcTrack*, int);
 };
-Object_189000* __cdecl Alloc(int);
+hulkfight::motion::ShieldArcAction* __cdecl Alloc(int);
 
 int hulkfight::motion::ShieldArcTrack::vfunc_10(int a, int b, int c) {
     int result = Check((void*)c, 0, &TypeA_189000, &TypeB_189000, 0);
     if (result) {
-        Object_189000* p = Alloc(0x24);
+        hulkfight::motion::ShieldArcAction* p = Alloc(0x24);
         if (p)
-            return p->Init(this, c);
+            return ((ShieldArcAction_nv_189000*)(p))->Init(this, c);
     }
     return 0;
 }

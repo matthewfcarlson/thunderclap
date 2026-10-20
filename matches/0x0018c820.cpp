@@ -1,11 +1,12 @@
 // Same code shape as 0x0014c420 (propagated; names are from that function)
+#include "gen/hulkfight.h"
 void* __cdecl alloc(unsigned int);
-struct Obj_18c820 {
+struct PropAnimationTrack_nv_18c820 {
     void* init();
 };
 void* f() {
-    Obj_18c820* p = (Obj_18c820*)alloc(0x30);
+    hulkfight::motion::PropAnimationTrack* p = (hulkfight::motion::PropAnimationTrack*)alloc(0x30);
     if (p)
-        return p->init();
+        return ((PropAnimationTrack_nv_18c820*)(p))->init();
     return 0;
 }

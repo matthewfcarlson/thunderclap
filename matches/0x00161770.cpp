@@ -1,3 +1,4 @@
+#include "gen/hulkfight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_161770[];
 class Ref_161770 {
@@ -6,8 +7,7 @@ class Ref_161770 {
     virtual void f0();
     virtual void f1();
 };
-class Helper_161770 {
-  public:
+struct HeliLocomotionAction_nv_161770 {
     void Fn();
 };
 class A_161770 {
@@ -27,7 +27,7 @@ A_161770* A_161770::f2(unsigned char flags) {
         m24 = 0;
     }
     m20->f1();
-    ((Helper_161770*)this)->Fn();
+    ((HeliLocomotionAction_nv_161770*)(((hulkfight::motion::HeliLocomotionAction*)this)))->Fn();
     if (flags & 1)
         operator delete(this);
     return this;

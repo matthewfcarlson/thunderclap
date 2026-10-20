@@ -1,10 +1,11 @@
+#include "gen/hulkfight.h"
 void* __cdecl alloc(unsigned int);
-struct Obj_14c420 {
+struct CivilianAnimationTrack_nv_14c420 {
     void* init();
 };
 void* f() {
-    Obj_14c420* p = (Obj_14c420*)alloc(0x30);
+    hulkfight::motion::CivilianAnimationTrack* p = (hulkfight::motion::CivilianAnimationTrack*)alloc(0x30);
     if (p)
-        return p->init();
+        return ((CivilianAnimationTrack_nv_14c420*)(p))->init();
     return 0;
 }

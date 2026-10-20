@@ -1,12 +1,13 @@
+#include "gen/movie.h"
 extern "C" int __cdecl allocate(void*, unsigned int);
-struct X_334910 {
+struct RenderStrategyBink_nv_334910 {
     int finish();
 };
 extern "C" int g_value_334910;
 int __cdecl target(void* p) {
     g_value_334910 = (int)p;
-    X_334910* x = (X_334910*)allocate(p, 0x4c);
+    movie::RenderStrategyBink* x = (movie::RenderStrategyBink*)allocate(p, 0x4c);
     if (x)
-        return x->finish();
+        return ((RenderStrategyBink_nv_334910*)(x))->finish();
     return 0;
 }

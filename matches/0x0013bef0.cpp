@@ -4,18 +4,18 @@
 typedef unsigned int u32_13bef0;
 extern int TypeA_13bef0;
 extern int TypeB_13bef0;
-struct Result_13bef0 {
+struct AnimationVelocityScaledAction_nv_13bef0 {
     u32_13bef0 Init(void*, void*);
 };
 extern int Check(void*, int, int*, int*, int);
-extern Result_13bef0* Alloc(int);
+extern hulkfight::motion::AnimationVelocityScaledAction* Alloc(int);
 
 int hulkfight::motion::AnimationVelocityScaledTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_13bef0 a = (u32_13bef0)__p0; u32_13bef0 b = (u32_13bef0)__p1; void * p = (void *)__p2;
 
     if (Check(p, 0, &TypeA_13bef0, &TypeB_13bef0, 0)) {
-        Result_13bef0* q = Alloc(0x28);
+        hulkfight::motion::AnimationVelocityScaledAction* q = Alloc(0x28);
         if (q)
-            return (int)(q->Init(this, p));
+            return (int)(((AnimationVelocityScaledAction_nv_13bef0*)(q))->Init(this, p));
     }
     return (int)(0);
 }

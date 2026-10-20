@@ -8,18 +8,17 @@ class Params_17bd20 {
 extern Params_17bd20 TypeA_17bd20;
 extern Params_17bd20 TypeB_17bd20;
 int __cdecl Check(void*, int, Params_17bd20*, Params_17bd20*, int);
-class Object_17bd20 {
-  public:
+struct SuckAction_nv_17bd20 {
     int Init(hulkfight::motion::SuckTrack*, int);
 };
-Object_17bd20* __cdecl Alloc(int);
+hulkfight::motion::SuckAction* __cdecl Alloc(int);
 
 int hulkfight::motion::SuckTrack::vfunc_10(int a, int b, int c) {
     int result = Check((void*)c, 0, &TypeA_17bd20, &TypeB_17bd20, 0);
     if (result) {
-        Object_17bd20* p = Alloc(0x24);
+        hulkfight::motion::SuckAction* p = Alloc(0x24);
         if (p)
-            return p->Init(this, c);
+            return ((SuckAction_nv_17bd20*)(p))->Init(this, c);
     }
     return 0;
 }

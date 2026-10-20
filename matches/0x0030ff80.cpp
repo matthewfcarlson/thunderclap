@@ -1,5 +1,5 @@
-class R_30ff80 {
-  public:
+#include "gen/physics.h"
+struct Pose_nv_30ff80 {
     void f650();
     void f4c0();
     void fa10(int);
@@ -7,16 +7,16 @@ class R_30ff80 {
 class C_30ff80 {
     char pad0[8];
     int m8;
-    R_30ff80* mc;
+    physics::Pose* mc;
 
   public:
     void target(char b);
 };
 void C_30ff80::target(char b) {
-    mc->f650();
+    ((Pose_nv_30ff80*)(mc))->f650();
     if (b) {
-        mc->f4c0();
+        ((Pose_nv_30ff80*)(mc))->f4c0();
         return;
     }
-    mc->fa10(m8);
+    ((Pose_nv_30ff80*)(mc))->fa10(m8);
 }

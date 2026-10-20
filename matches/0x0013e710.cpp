@@ -1,4 +1,5 @@
 #include "gen/fight.h"
+#include "gen/hulkfight.h"
 
 struct TrackFactory_13e710 {
     virtual void a();
@@ -9,13 +10,13 @@ struct TrackFactory_13e710 {
     virtual void f();
 };
 extern "C" void* __cdecl Allocate(unsigned int);
-struct Built_13e710 {
+struct AnimationVelocityScaledTrack_nv_13e710 {
     void* init();
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::AnimationVelocityScaledTrack>::vfunc_5() {
     void* p = Allocate(0x58);
     if (p)
-        return (void*)(((Built_13e710*)p)->init());
+        return (void*)(((AnimationVelocityScaledTrack_nv_13e710*)(((hulkfight::motion::AnimationVelocityScaledTrack*)p)))->init());
     return (void*)(0);
 }

@@ -1,13 +1,11 @@
+#include "gen/physics.h"
 extern "C" char DAT_0043209c[];
-class PoseDriver {
-  public:
-    int pad0[4];
-    char active;
+struct PoseDriver_nv_30eb10 {
     void InitBase();
 };
-PoseDriver* __fastcall FUN_0030eb10(PoseDriver* self) {
-    self->InitBase();
+physics::PoseDriver* __fastcall FUN_0030eb10(physics::PoseDriver* self) {
+    ((PoseDriver_nv_30eb10*)(self))->InitBase();
     *(void**)self = (void*)((int)DAT_0043209c);
-    self->active = 1;
+    (*(char *)&self->f_10) = 1;
     return self;
 }

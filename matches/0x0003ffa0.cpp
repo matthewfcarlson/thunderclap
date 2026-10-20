@@ -1,3 +1,4 @@
+#include "gen/global.h"
 class Ref_3ffa0 {
   public:
     virtual void Use();
@@ -11,12 +12,12 @@ class Thing_3ffa0 {
     unsigned char state;
     void Set(Ref_3ffa0*, unsigned char);
 };
-struct ThisCall_000393c0 {
+struct CCharacter_nv_3ffa0 {
     void Missing();
 };
 void Thing_3ffa0::Set(Ref_3ffa0* value, unsigned char flag) {
     if (value == 0) {
-        ((ThisCall_000393c0*)(this))->Missing();
+        ((CCharacter_nv_3ffa0*)(((CCharacter*)(this))))->Missing();
         return;
     }
     state = flag;

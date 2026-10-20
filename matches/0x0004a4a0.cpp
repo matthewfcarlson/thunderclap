@@ -1,5 +1,6 @@
+#include "gen/global.h"
 extern "C" char DAT_003f7404[];
-class CAlertStatusCondition {
+class CAlertStatusCondition_4a4a0 {
   public:
     int vptr;
     int pad4;
@@ -7,11 +8,11 @@ class CAlertStatusCondition {
     int mC;
     int m10;
 };
-struct ThisCall_00234590 {
+struct CAlertStatusCondition_nv_4a4a0 {
     void Init(int);
 };
-CAlertStatusCondition* __fastcall FUN_0004a4a0(CAlertStatusCondition* self, void*) {
-    ((ThisCall_00234590*)(self))->Init(0);
+CAlertStatusCondition_4a4a0* __fastcall FUN_0004a4a0(CAlertStatusCondition_4a4a0* self, void*) {
+    ((CAlertStatusCondition_nv_4a4a0*)(((CAlertStatusCondition*)(self))))->Init(0);
     self->vptr = ((int)DAT_003f7404);
     self->mC = 0;
     self->m10 = 0;

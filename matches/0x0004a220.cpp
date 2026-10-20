@@ -1,5 +1,6 @@
+#include "gen/global.h"
 extern "C" char DAT_003f7394[];
-class CMotionStateCondition {
+class CMotionStateCondition_4a220 {
   public:
     int vptr;
     int pad4;
@@ -7,11 +8,11 @@ class CMotionStateCondition {
     int fieldC;
     int field10;
 };
-struct ThisCall_00234590 {
+struct CMotionStateCondition_nv_4a220 {
     void FUN_00234590(int);
 };
-CMotionStateCondition* __fastcall FUN_0004a220(CMotionStateCondition* p) {
-    ((ThisCall_00234590*)(p))->FUN_00234590(0);
+CMotionStateCondition_4a220* __fastcall FUN_0004a220(CMotionStateCondition_4a220* p) {
+    ((CMotionStateCondition_nv_4a220*)(((CMotionStateCondition*)(p))))->FUN_00234590(0);
     p->vptr = ((int)DAT_003f7394);
     p->fieldC = 0;
     p->field10 = 1;

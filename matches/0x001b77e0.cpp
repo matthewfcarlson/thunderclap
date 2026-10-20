@@ -1,3 +1,4 @@
+#include "gen/global.h"
 class RC {
   public:
     virtual void AddRef();
@@ -12,9 +13,8 @@ class Obj3_1b77e0 : public RC {
 
 class Res_1b77e0 : public RC {};
 
-class Sub_1b77e0 {
-  public:
-    Sub_1b77e0* Init();
+struct CRadMovieRenderLoop_nv_1b77e0 {
+    CRadMovieRenderLoop* Init();
 };
 
 class Mgr_1b77e0 {
@@ -44,7 +44,7 @@ void Target_1b77e0::Run() {
     void* mem = Alloc(0x10, 7);
     RC* s;
     if (mem)
-        s = (RC*)((Sub_1b77e0*)mem)->Init();
+        s = (RC*)((CRadMovieRenderLoop_nv_1b77e0*)(((CRadMovieRenderLoop*)mem)))->Init();
     else
         s = 0;
     mSub = s;

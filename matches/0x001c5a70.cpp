@@ -1,13 +1,12 @@
-class Node {
-  public:
-    char pad[8];
+#include "gen/Render.h"
+struct Object_nv_1c5a70 {
     void Update(int);
 };
 class Container {
   public:
-    Node* Find(int);
+    Render::Object* Find(int);
     void Remove(int);
-    void Erase(void*, Node*);
+    void Erase(void*, Render::Object*);
 };
 class Owner {
   public:
@@ -17,10 +16,10 @@ class Owner {
 };
 void Owner::Act(int key, int value) {
     Container* c = &items;
-    Node* n = c->Find(key);
+    Render::Object* n = c->Find(key);
     if (n) {
         c->Remove(key);
-        n->Update(value);
+        ((Object_nv_1c5a70*)(n))->Update(value);
         c->Erase((char*)n + 8, n);
     }
 }

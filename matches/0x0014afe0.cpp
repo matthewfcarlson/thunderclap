@@ -8,18 +8,17 @@ class Params_14afe0 {
 extern Params_14afe0 TypeA_14afe0;
 extern Params_14afe0 TypeB_14afe0;
 int __cdecl Check(void*, int, Params_14afe0*, Params_14afe0*, int);
-class Object_14afe0 {
-  public:
+struct CivilianAnimationAction_nv_14afe0 {
     int Init(hulkfight::motion::CivilianAnimationTrack*, int);
 };
-Object_14afe0* __cdecl Alloc(int);
+hulkfight::motion::CivilianAnimationAction* __cdecl Alloc(int);
 
 int hulkfight::motion::CivilianAnimationTrack::vfunc_10(int a, int b, int c) {
     int result = Check((void*)c, 0, &TypeA_14afe0, &TypeB_14afe0, 0);
     if (result) {
-        Object_14afe0* p = Alloc(0x24);
+        hulkfight::motion::CivilianAnimationAction* p = Alloc(0x24);
         if (p)
-            return p->Init(this, c);
+            return ((CivilianAnimationAction_nv_14afe0*)(p))->Init(this, c);
     }
     return 0;
 }

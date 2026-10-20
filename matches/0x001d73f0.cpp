@@ -1,3 +1,4 @@
+#include "gen/global.h"
 struct Val_1d73f0 {
     char pad[0x18];
     float value;
@@ -19,8 +20,7 @@ class Other_1d73f0 {
     virtual void f3a();
     virtual int f4();
 };
-class Sub_1d73f0 {
-  public:
+struct CSPHulkPropInstance_nv_1d73f0 {
     int run(int);
 };
 class Self_1d73f0 {
@@ -30,7 +30,7 @@ class Self_1d73f0 {
     char p1[0xa0 - 0x44];
     Helper_1d73f0* a;
     char p2[0xec - 0xa4];
-    Sub_1d73f0* d;
+    CSPHulkPropInstance* d;
     char p3[0x11c - 0xf0];
     Other_1d73f0* b;
 };
@@ -44,6 +44,6 @@ int __fastcall target(Self_1d73f0* s) {
     if (*(float*)(r + 4) < limit)
         return -10;
     int v = s->arg;
-    Sub_1d73f0* d = s->d;
-    return d->run(v);
+    CSPHulkPropInstance* d = s->d;
+    return ((CSPHulkPropInstance_nv_1d73f0*)(d))->run(v);
 }

@@ -1,4 +1,5 @@
-struct Base_333130 {
+#include "gen/pure3d.h"
+struct d3dBumpMapVertexShader_nv_333130 {
     void Init(int);
 };
 struct d3dBumpMapVertexShader_333130 {
@@ -12,7 +13,7 @@ extern unsigned int vtblBump;
 void __stdcall CreatePixelShader(const float* src, unsigned int* out);
 
 d3dBumpMapVertexShader_333130* d3dBumpMapVertexShader_333130::Make(int n) {
-    ((Base_333130*)this)->Init(n);
+    ((d3dBumpMapVertexShader_nv_333130*)(((pure3d::d3dBumpMapVertexShader*)this)))->Init(n);
     vptr = (unsigned int*)&vtblBump;
     a = 0;
     b = 0;

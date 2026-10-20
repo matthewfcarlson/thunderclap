@@ -1,21 +1,22 @@
 #include "decls/data/engine/content.h"
+#include "gen/Render.h"
 
 extern int __cdecl FUN_00266da0(int);
 extern void __cdecl FUN_0023f8c0(const char*);
 extern void* __cdecl FUN_0008d690(unsigned int);
 extern void* __cdecl thunk_FUN_0008d690(unsigned int);
-struct Engine_1c35f0 {
-    Engine_1c35f0* FUN_001c9030();
+struct World_nv_1c35f0 {
+    Render::World* FUN_001c9030();
 };
 struct Small_1c35f0 {
     Small_1c35f0* FUN_001c5f10();
 };
-struct Medium {
-    Medium* FUN_001c5840();
+struct ObjectManager_nv_1c35f0 {
+    Render::ObjectManager* FUN_001c5840();
 };
 struct Owner_1c35f0;
-struct Registration_1c35f0 {
-    Registration_1c35f0* FUN_001c8f60(Engine_1c35f0*, Owner_1c35f0*);
+struct LevelLoader_nv_1c35f0 {
+    Render::LevelLoader* FUN_001c8f60(Render::World*, Owner_1c35f0*);
 };
 struct Item_1c35f0 {
     char pad[12];
@@ -23,13 +24,13 @@ struct Item_1c35f0 {
     Item_1c35f0* FUN_001c49c0();
 };
 struct Manager_1c35f0 {
-    void FUN_00265210(Registration_1c35f0*, unsigned int);
+    void FUN_00265210(Render::LevelLoader*, unsigned int);
 };
 struct Owner_1c35f0 {
     void* context;
-    Engine_1c35f0* engine;
+    Render::World* engine;
     Small_1c35f0* small;
-    Medium* medium;
+    Render::ObjectManager* medium;
     char pad10[4];
     Item_1c35f0* item14;
     Item_1c35f0* item18;
@@ -45,14 +46,14 @@ void Owner_1c35f0::FUN_001c35f0() {
         return;
     }
     FUN_0023f8c0("Starting render engine setup...\n");
-    Engine_1c35f0* e = (Engine_1c35f0*)FUN_0008d690(0x768);
-    engine = e ? e->FUN_001c9030() : 0;
+    Render::World* e = (Render::World*)FUN_0008d690(0x768);
+    engine = e ? ((World_nv_1c35f0*)(e))->FUN_001c9030() : 0;
     Small_1c35f0* s = (Small_1c35f0*)FUN_0008d690(0x10);
     small = s ? s->FUN_001c5f10() : 0;
-    Medium* m = (Medium*)FUN_0008d690(0x250);
-    medium = m ? m->FUN_001c5840() : 0;
-    Registration_1c35f0* r = (Registration_1c35f0*)thunk_FUN_0008d690(0x20);
-    r = r ? r->FUN_001c8f60(engine, (Owner_1c35f0*)context) : 0;
+    Render::ObjectManager* m = (Render::ObjectManager*)FUN_0008d690(0x250);
+    medium = m ? ((ObjectManager_nv_1c35f0*)(m))->FUN_001c5840() : 0;
+    Render::LevelLoader* r = (Render::LevelLoader*)thunk_FUN_0008d690(0x20);
+    r = r ? ((LevelLoader_nv_1c35f0*)(r))->FUN_001c8f60(engine, (Owner_1c35f0*)context) : 0;
     (*(Manager_1c35f0**)&DAT_00527c58)->FUN_00265210(r, 0x60000700);
     FUN_0023f8c0("Render engine setup complete\n");
     Item_1c35f0* i = (Item_1c35f0*)FUN_0008d690(0x38);

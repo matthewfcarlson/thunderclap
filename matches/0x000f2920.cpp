@@ -1,7 +1,7 @@
 // Same code shape as 0x000f27a0 (propagated; names are from that function)
+#include "gen/global.h"
 extern void* Alloc(unsigned int);
-class Factory_f2920 {
-  public:
+struct FEBillboardAnimation_nv_f2920 {
     int Create(int, int);
 };
 class Holder_f2920 {
@@ -14,10 +14,10 @@ class Holder_f2920 {
 int Holder_f2920::Run(int arg) {
     if (data == 0)
         return 0;
-    Factory_f2920* obj = (Factory_f2920*)Alloc(100);
+    FEBillboardAnimation* obj = (FEBillboardAnimation*)Alloc(100);
     int result;
     if (obj != 0)
-        result = obj->Create(data, arg);
+        result = ((FEBillboardAnimation_nv_f2920*)(obj))->Create(data, arg);
     else
         result = 0;
     int i;
