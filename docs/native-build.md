@@ -173,6 +173,23 @@ fields turn `ptr-int` fits into typed fields), the 272 truncations per source, t
 and only then a 64-bit link attempt with real bindings. The gate to watch is `native64.py`'s undefined symbols
 (56,688) and `layout64.py`'s relative-move count (874).
 
+**8. After the batches** (b1-b3, b5, b7 part 1 applied; `native64.py` on that tree, 2,818 TUs):
+
+| measure | HEAD 441f5270b | after the batches |
+|---|---|---|
+| `msvc64` / `arm64` TUs compiling | 2,803 / 2,787 of 2,810 | 2,811 / 2,795 of 2,818 (the same 7 / 23 fail) |
+| pointer <-> integer casts (`msvc64`, sites / sources) | 4,881 / 3,136 | 4,935 / 3,186 |
+| 64 -> 32-bit truncations | 272 / 195 | 272 / 195 |
+| stub virtual declarations | 84,904 in 4,175 sources | 83,336 in 3,674 |
+| explicit `char pad[N]` (sources) | 25,683 in 3,949 | 25,476 in 3,456 |
+| include/gen/ `_pad_` gaps / pointer fields | 889 / 589 | 820 / 695 |
+| x64 link undefined symbols (resolvable by the 32-bit map's names) | 56,688 (37,271) | 56,564 (37,305) |
+
+The class work moves stubs onto the real classes (stub virtuals -1,568, header pads -69, pointer-typed header
+fields +106) but adds casts: gen-ref and gen-swap keep a source's view of a field as a cast where its type differs
+from the header's (`(*(int*)&p->f_1c)`), so the pointer/int count grows by 54 until header fields carry the
+pointer types and the sources drop the casts.
+
 **7. build_tree.py's symbol uniqueness** (rn1's finding a): the lookup by mangled-name prefix checked 1,137
 functions of the base tree (302 groups) under another function's symbol (every `Method2<CActorManager,...>`
 deleting destructor under the first instantiation's). `verify()` now re-checks such functions under their own
