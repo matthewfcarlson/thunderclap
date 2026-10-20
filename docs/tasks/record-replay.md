@@ -459,7 +459,7 @@ Disagreements at HEAD (not fixed here; `equivalent/` was not edited):
 | Function | Calls | What differs |
 |---|---|---|
 | 0x0001b280 | 0 of 10 | the original makes a call to the 6-byte thunk at 0x002fb600 as its call #2 and ours makes one call fewer, on all ten recorded calls. Fuzzing passed 3,007 inputs, so the path is one the fuzzer's callee stubs don't reach |
-| 0x000aa680 | 6 of 7 | write to `this+0x28c` before call #19: ours 0x3e18f7f6 (0.149), original 0x4059d51b (3.40), 12 bytes differ (a key table entry) |
+| 0x000aa680 | 6 of 7 | write to `this+0x28c` before call #19: ours 0x3e18f7f6 (0.149), original 0x4059d51b (3.40), 12 bytes differ |
 | 0x0015f6b0 | 0 of 7 | the local passed as argument 2 of 0x0022b170 is 0x5a5a5a5a in ours and 1.0f in the original: an uninitialised local |
 | 0x000ef030 | 4 of 10 | call #5 to 0x000f7d30 declared with 0 stack bytes; it takes 4 (`ret 4`): chained-call words on the wrong call |
 | 0x0024d840 | 0 of 6 | call #4 to 0x0025fb00, same: takes 4 stack bytes, declared 0 |
