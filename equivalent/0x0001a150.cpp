@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 15/16, incomplete)
 // CCollisionAction::vfunc_6 @ 0x0001a150
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct Vec3_1a150 { float x, y, z; };
 
@@ -81,7 +82,7 @@ struct EffectInit_1a150 {
     EffectInit_1a150 *FUN_002efe50(Vec3_1a150 *v, int handle);
 };
 
-void *__cdecl FUN_0008d690(unsigned int size);
+void *__cdecl FUN_0008d690(hulk_uintptr size);
 Effect_1a150 *__cdecl FUN_002efca0(EffectInit_1a150 *init, const char *name);
 
 struct Sys_1a150 {

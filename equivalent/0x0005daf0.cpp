@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 8/8)
 // CCollisionTrack::vfunc_10 @ 0x0005daf0
+#include "compat/ptr.h"
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
-void* __cdecl FUN_0008d690(unsigned size);
+void* __cdecl FUN_0008d690(hulk_uintptr size);
 struct Index_5daf0 { int FUN_0027b200(unsigned lo, unsigned hi); };
 struct Lookup_5daf0 { Index_5daf0* FUN_002226b0(); };
 struct Owner_5daf0 { Lookup_5daf0* FUN_00059a40(); };

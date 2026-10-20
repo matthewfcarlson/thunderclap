@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
 // FUN_0017a340 @ 0x0017a340
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void __cdecl FUN_0016f200();
 void __cdecl FUN_0016f210();
 void __cdecl FUN_0016f230();
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 namespace hulkfight { namespace motion { class MomentumXZAddTrack; } }
 namespace fight {
 template<class T> struct ParamFloatConstRange {

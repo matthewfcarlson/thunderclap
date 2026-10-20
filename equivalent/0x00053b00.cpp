@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_00053b00 @ 0x00053b00
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -7,7 +8,7 @@
 inline void* operator new(unsigned int, void* p) { return p; }
 void FUN_00047e70();
 void FUN_00047e80();
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 class CSmartPropTypeCondition;
 namespace fight {
 template<class T> struct ParamEnumConstList {

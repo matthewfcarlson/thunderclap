@@ -94,7 +94,7 @@ struct Params {
     int fb0;
 };
 
-int __cdecl FUN_00098190(int a1, int a2, int a3, int a4, int a5, int a6, V3_197ff0 *a7, V3_197ff0 *io, int a9, int a10, int a11, int a12);
+int __cdecl FUN_00098190(int a1, int a2, int a3, int a4, hulk_intptr a5, int a6, V3_197ff0 *a7, V3_197ff0 *io, int a9, int a10, int a11, int a12);
 Scene_197ff0 *FUN_0027f250();
 Rng_197ff0 *FUN_000964d0();
 float FUN_000964e0();

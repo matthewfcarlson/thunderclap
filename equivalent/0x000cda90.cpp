@@ -141,7 +141,7 @@ public:
 
 union I_cda90 {
     int i;
-    unsigned int u;
+    hulk_uintptr u;
     float f;
 };
 

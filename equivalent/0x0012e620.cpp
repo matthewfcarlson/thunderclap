@@ -1,3 +1,4 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012e620 @ 0x0012e620
-struct C { char pad[0x10]; char* text; bool FUN_0012e620(const char* value); }; void __cdecl FUN_0008d340(void*); void* __cdecl FUN_0008d6d0(unsigned int); bool C::FUN_0012e620(const char* value) { FUN_0008d340(text); if (!value) { text = 0; return true; } unsigned int size = 1; for (const char* p = value; *p; ++p) ++size; text = (char*)FUN_0008d6d0(size); char* dest = text; do { *dest++ = *value; } while (*value++); return true; }
+#include "compat/ptr.h"
+struct C { char pad[0x10]; char* text; bool FUN_0012e620(const char* value); }; void __cdecl FUN_0008d340(void*); void* __cdecl FUN_0008d6d0(hulk_uintptr); bool C::FUN_0012e620(const char* value) { FUN_0008d340(text); if (!value) { text = 0; return true; } unsigned int size = 1; for (const char* p = value; *p; ++p) ++size; text = (char*)FUN_0008d6d0(size); char* dest = text; do { *dest++ = *value; } while (*value++); return true; }

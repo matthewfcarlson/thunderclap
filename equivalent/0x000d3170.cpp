@@ -2,6 +2,7 @@
 // FUN_000d3170 @ 0x000d3170
 // cl-flags: /GS
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 namespace content {
@@ -20,8 +21,8 @@ class Geometry;
 }
 
 extern "C" int sprintf(char *, const char *, ...);
-extern "C" int __cdecl FUN_00266da0(int mode);
-void *__cdecl FUN_0008d690(unsigned int size);
+extern "C" int __cdecl FUN_00266da0(hulk_intptr mode);
+void *__cdecl FUN_0008d690(hulk_uintptr size);
 void *thunk_FUN_0008d690(unsigned int size);
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 

@@ -40,7 +40,7 @@ struct Dev1 {
 };
 struct Ctx_ee340 {
     Dev1* dev;
-    void FUN_00293d00(unsigned a);
+    void FUN_00293d00(hulk_uintptr a);
     void FUN_00293da0(unsigned a, unsigned b, unsigned c);
 };
 struct Gfx {
@@ -239,10 +239,10 @@ struct Z {
     void FUN_0008ef00();
 };
 struct Fmt7 {
-    void FUN_000f7fe0(unsigned a);
+    void FUN_000f7fe0(hulk_uintptr a);
 };
 struct Fmt8 {
-    void FUN_000f80e0(unsigned a, unsigned b, unsigned c);
+    void FUN_000f80e0(hulk_uintptr a, unsigned b, unsigned c);
 };
 struct Fmt9 {
     void FUN_000f78e0();

@@ -113,8 +113,8 @@ public:
         virtual void vfunc_0(int a, int b);
         FEThingsBase *mObj;
         void (FEThingsBase::*mFn)(int, int, int, int);
-        int mC;
-        int mD;
+        hulk_intptr mC;
+        hulk_intptr mD;
     };
 
     virtual void v0();

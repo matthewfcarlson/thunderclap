@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 10/10)
 // FUN_00072180 @ 0x00072180
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 inline void* operator new(unsigned int, void* p) { return p; }
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 void FUN_000688f0(); void FUN_00068900(); void FUN_00068910(); void FUN_00068920();
 class CDriftTrack;
 namespace fight {

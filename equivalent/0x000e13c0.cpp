@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_000e13c0 @ 0x000e13c0
+#include "compat/ptr.h"
 struct Matrix {
     float m[16];
     void FUN_0022b980();
 };
-void* __cdecl FUN_0008d6d0(unsigned int size);
+void* __cdecl FUN_0008d6d0(hulk_uintptr size);
 
 class FEAnimation {
 public:

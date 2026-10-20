@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 10/10)
 // FUN_00128ad0 @ 0x00128ad0
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
 
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 // Standard placement allocation; it does not allocate or call game code.
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void FUN_00123780(); void FUN_00123790(); void FUN_001237b0(); void FUN_001237d0();

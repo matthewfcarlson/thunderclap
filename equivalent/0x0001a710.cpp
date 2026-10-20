@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3208 inputs, branch coverage 108/108)
 // FUN_0001a710 @ 0x0001a710
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 typedef unsigned __int64 u64;
@@ -16,7 +17,7 @@ struct RefObj {
 };
 
 struct Request {
-    int r00;
+    hulk_intptr r00;
     int r04;
     V3 target;                     // 8
     char pad14[4];
@@ -86,7 +87,7 @@ struct Slot {
 
 struct Aux {
     char pad0[8];
-    int f08;
+    hulk_intptr f08;
     int f0c;
 };
 
@@ -100,7 +101,7 @@ struct Pad {
     char pad111[3];
     Aux *f114;
     char pad118[0x148 - 0x118];
-    int f148;
+    hulk_intptr f148;
     char pad14c[0x198 - 0x14c];
     int f198;
     float f19c;
@@ -260,7 +261,7 @@ public:
     RefObj *f48;
 
     void FUN_00019d30(Target *t, V3 *p1, V3 *p2);
-    void FUN_00019470(int h, int z, V3 *p1, V3 *p2, float v);
+    void FUN_00019470(hulk_intptr h, int z, V3 *p1, V3 *p2, float v);
     void FUN_00013f20(float k, Item *it, float *outA, float *outB);
     void FUN_0001a710(Item *arg1, V3 *arg2, V3 *arg3);
 };
@@ -304,7 +305,7 @@ void SpawnAction::FUN_0001a710(Item *arg1, V3 *arg2, V3 *arg3)
                 if (O->fec->FUN_001d4e40())
                     break;
             }
-            int h = O->f148;
+            hulk_intptr h = O->f148;
             float v = 1.0f;
             if (h == 0) {
                 Aux *a = O->f114;

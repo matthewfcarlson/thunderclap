@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 6310 inputs, branch coverage 16/16)
 // FUN_00025a90 @ 0x00025a90
 // FUN_00025a90 @ 0x00025a90
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/unknown.h"
-void *FUN_0008d690(unsigned int size);
+void *FUN_0008d690(hulk_uintptr size);
 
 struct Name_25a90 {
     int lo;

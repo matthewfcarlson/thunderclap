@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 8/8)
 // FUN_001122b0 @ 0x001122b0
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
 
@@ -8,7 +9,7 @@ inline void* operator new(size_t,void* p) { return p; }
 namespace hulkfight { namespace ai { class HulkActionCountCondition; } }
 void FUN_0010c280(); void FUN_0010c2b0(); void FUN_0010ce60();
    
-void* __cdecl FUN_0008d690(unsigned);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 void __cdecl FUN_002347b0(void*,void*,int);
 struct BaseEnum_1122b0 { virtual void slot0(); char pad[12]; void FUN_00234cc0(const char*); };
 struct BaseString { virtual void slot0(); char pad[12]; void FUN_002349e0(const char*); };

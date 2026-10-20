@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // CFightParamsCollision::vfunc_4 @ 0x00059990
+#include "compat/ptr.h"
 typedef unsigned int size_t;
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 struct Base { void FUN_00236a60(); };
 struct CollisionData {
     char pad0[0x4c]; unsigned int a,b;

@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20037 inputs, branch coverage 64/65, incomplete)
 // FUN_000437a0 @ 0x000437a0
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "gen/global.h"
 
 extern "C" int atexit(void (*)());
-extern "C" int __cdecl FUN_00266da0(int mode);
-void* __cdecl FUN_0008d690(unsigned int size);
+extern "C" int __cdecl FUN_00266da0(hulk_intptr mode);
+void* __cdecl FUN_0008d690(hulk_uintptr size);
 void FUN_00363b90();
 
 struct Vec3_437a0 {

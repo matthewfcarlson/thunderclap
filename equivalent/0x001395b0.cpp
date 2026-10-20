@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // fight::TrackFactoryTemplate<hulkfight::motion::FlyingBrakeTrack>::vfunc_5 @ 0x001395b0
+#include "compat/ptr.h"
 typedef unsigned int size_t;
-void* __cdecl FUN_0008d690(size_t);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 struct TrackBase {
     virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5();
     char gap[8];

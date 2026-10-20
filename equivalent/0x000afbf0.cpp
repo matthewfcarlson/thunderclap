@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 153 inputs, branch coverage 10/10)
 // FUN_000afbf0 @ 0x000afbf0
-void* __cdecl FUN_0008d690(unsigned size);
+#include "compat/ptr.h"
+void* __cdecl FUN_0008d690(hulk_uintptr size);
 class Source_afbf0 {
 public:
     virtual void AddRef();

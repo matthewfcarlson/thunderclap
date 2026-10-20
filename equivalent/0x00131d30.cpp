@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 6/6)
 // FUN_00131d30 @ 0x00131d30
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+void* FUN_0008d690(hulk_uintptr size);
 
 namespace hulkfight {
 class StatTrack {

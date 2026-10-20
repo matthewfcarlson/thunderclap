@@ -18,7 +18,7 @@ struct RefObj {
 };
 
 struct Request {
-    int r00;
+    hulk_intptr r00;
     int r04;
     V3 target;                     // 8
     float f14;
@@ -122,7 +122,7 @@ struct Slot {
 
 struct Aux {
     char pad0[8];
-    int f08;
+    hulk_intptr f08;
     int f0c;
 };
 
@@ -146,7 +146,7 @@ struct Pad {
     char pad130[0x140 - 0x130];
     int f140;
     char pad144[0x148 - 0x144];
-    int f148;
+    hulk_intptr f148;
     char pad14c[0x198 - 0x14c];
     int f198;
     float f19c;
@@ -310,7 +310,7 @@ struct Frame {
     unsigned char flag;            // E-237
     Player *Y;                     // E-236
     union {
-        int l232;
+        hulk_intptr l232;
         float f232;
     };                             // E-232
     V3 mid;                        // E-228

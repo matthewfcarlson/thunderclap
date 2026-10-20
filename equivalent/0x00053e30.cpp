@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 6/6)
 // FUN_00053e30 @ 0x00053e30
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 void __cdecl FUN_00047fa0();
 void __cdecl FUN_00047fb0();
 void __cdecl FUN_002347b0(void*,void*,int);

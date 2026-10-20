@@ -82,7 +82,7 @@ struct Frame_15ed10 {
     int n24;               // 0x24
     float f28, f2c, f30, f34, f38, f3c, f40;  // 0x28
     int x44;               // 0x44
-    unsigned int t48;      // 0x48
+    hulk_uintptr t48;      // 0x48
     int i4c;               // 0x4c
     int i50;               // 0x50
     char pad54[4];

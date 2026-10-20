@@ -38,7 +38,7 @@ struct World {
 
 int FUN_00096600(const char *a, const char *b);
 
-int FUN_000452e0(const char *id, const char *name, int value)
+hulk_intptr FUN_000452e0(const char *id, const char *name, int value)
 {
     int r = 0;
     if (id == 0 || *id == 0) return (hulk_intptr)id;

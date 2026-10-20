@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3040 inputs, branch coverage 38/38)
 // FUN_0003ba60 @ 0x0003ba60
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct V3_3ba60 {
@@ -52,7 +53,7 @@ struct Holder_3ba60 {
     Effect_3ba60* effect;
 };
 struct Bank {
-    int FUN_000446c0(int index);
+    hulk_intptr FUN_000446c0(int index);
 };
 struct Prop_3ba60 {
     virtual void v0();

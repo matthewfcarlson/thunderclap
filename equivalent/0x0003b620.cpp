@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 34/36, incomplete)
 // FUN_0003b620 @ 0x0003b620
+#include "compat/ptr.h"
 struct Mat;
 
 struct Ref_3b620 {
@@ -26,7 +27,7 @@ struct Bank {
     char pad00[0xa8];
     char flagA8;
     char pada9[3];
-    int FUN_000446c0(int index);
+    hulk_intptr FUN_000446c0(int index);
 };
 
 struct Link124_3b620 {

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 6/6)
 // FUN_0016b3c0 @ 0x0016b3c0
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight/motion.h"
@@ -8,7 +9,7 @@
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 extern void FUN_00165580();
 extern void FUN_00165590();
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 namespace hulkfight { namespace motion { class LocomotionMotionStateCondition; } }
 namespace fight {
 template<class T> struct ParamEnumConstList {

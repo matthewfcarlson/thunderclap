@@ -3,7 +3,7 @@
 // cl-flags: /GS
 #include "compat/ptr.h"
 
-int FUN_000fbe00(unsigned short *buf, unsigned int count, const unsigned short *fmt, char *ap)
+hulk_intptr FUN_000fbe00(unsigned short *buf, unsigned int count, const unsigned short *fmt, char *ap)
 {
     struct Frame {
         int c;

@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 22 inputs, branch coverage 4/4)
 // FUN_00047890 @ 0x00047890
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 typedef unsigned int uint_47890;
 inline void* __cdecl operator new(unsigned int,void* p) { return p; }
-void* __cdecl FUN_0008d6d0(uint_47890);
-void* __cdecl FUN_0008d690(uint_47890);
+void* __cdecl FUN_0008d6d0(hulk_uintptr);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 struct Registry_47890 { void FUN_001d3b70(const char*,void*); };
 Registry_47890* __cdecl FUN_001d4c90();
 class CCharacterTemplateManager {

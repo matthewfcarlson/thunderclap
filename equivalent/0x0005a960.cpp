@@ -23,7 +23,7 @@ struct Owner_5a960 {
 struct CGrappleLocoStrafe4Action_nv_5a960 {
     void* FUN_0001dc40(CGrappleLocoStrafe4Track* track, Settings* settings);
 };
-void* __cdecl FUN_0008d690(unsigned int size);
+void* __cdecl FUN_0008d690(hulk_uintptr size);
 
 int CGrappleLocoStrafe4Track::vfunc_12(int __p0) { Owner_5a960 * owner = (Owner_5a960 *)__p0;
 

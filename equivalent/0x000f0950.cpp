@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 25/26, incomplete)
 // FUN_000f0950 @ 0x000f0950
 // equiv-map: ?FUN_000f0950@FEThingsBase@@QAEXPAVParam@@HPAVEntity@@PAVArgs@@@Z = 0x000f0950
+#include "compat/ptr.h"
 extern int __cdecl FUN_0034483c();
 extern "C" int __cdecl memcmp(const void *a, const void *b, unsigned n);
 
@@ -104,7 +105,7 @@ public:
         virtual void vfunc_0(int a, int b);
         FEThingsBase *mObj;
         void (FEThingsBase::*mFn)(Param *, int, Entity *, Args *);
-        int mC;
+        hulk_intptr mC;
         Entity *mD;
     };
 

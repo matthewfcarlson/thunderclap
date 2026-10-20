@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_00087e80 @ 0x00087e80
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -8,7 +9,7 @@ struct CGame;
 extern void FUN_00086a10(); extern void FUN_000861f0(); extern void FUN_000964e0(); extern void FUN_00096540(); extern void FUN_00096ed0(); extern void FUN_00096f10(); extern void FUN_00096f40();
  
 struct Registry_87e80 { void FUN_00087dc0(const char*, CGame*, void(*)()); void FUN_00087a90(const char*,void(*)()); void FUN_00087b40(const char*,void(*)()); void FUN_001d3b70(const char*,void*); };
-extern Registry_87e80* __cdecl FUN_001d4c90(); extern void* __cdecl FUN_0008d690(unsigned); 
+extern Registry_87e80* __cdecl FUN_001d4c90(); extern void* __cdecl FUN_0008d690(hulk_uintptr); 
 struct FunctionBase { virtual void dummy(); char pad[12]; unsigned char type1,type2; char pad2[6]; unsigned char type3; char pad3[3]; void (*callback)(); void FUN_001d0480(const char*,int); void* FUN_00086fc0(const char*,void(*)()); };
 template<class R,class A,class B> struct Function2 : FunctionBase { virtual void dummy(); };
 struct CGame { virtual void dummy(); int a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s; unsigned char flag; CGame(); };

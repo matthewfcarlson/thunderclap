@@ -9,8 +9,8 @@ struct Vec3 {
     float x, y, z;
     float FUN_0022d110();
     void FUN_0022b980();
-    bool FUN_0022d2b0(unsigned other, float tolerance);
-    void FUN_00011160(float distance, unsigned direction);
+    bool FUN_0022d2b0(hulk_uintptr other, float tolerance);
+    void FUN_00011160(float distance, hulk_uintptr direction);
 };
 struct Transform {
     float elements[12];
@@ -53,7 +53,7 @@ struct CollisionType {
     unsigned FUN_001d5e80(unsigned value);
 };
 struct Matrix {
-    void FUN_0022c3b0(unsigned from, unsigned to);
+    void FUN_0022c3b0(hulk_uintptr from, hulk_uintptr to);
 };
 struct VObj {
     virtual void v0();
@@ -74,14 +74,14 @@ struct VObj {
     virtual Matrix* v15();
 };
 struct Spawn {
-    void FUN_0027ffc0(unsigned effect, unsigned transform);
+    void FUN_0027ffc0(unsigned effect, hulk_uintptr transform);
     void FUN_0027ffb0(unsigned effect);
 };
 struct ImpactSpawner {
-    void FUN_00283a40(unsigned config, unsigned transform, unsigned neg, unsigned pos);
+    void FUN_00283a40(hulk_uintptr config, hulk_uintptr transform, unsigned neg, unsigned pos);
 };
 struct ImpactEvents {
-    void FUN_001f6cd0(unsigned effect, unsigned object, unsigned point, unsigned normal, unsigned direction,
+    void FUN_001f6cd0(unsigned effect, unsigned object, hulk_uintptr point, hulk_uintptr normal, hulk_uintptr direction,
                       unsigned count, unsigned a, unsigned b, unsigned c, unsigned d);
 };
 struct GlobalContext {
@@ -91,23 +91,23 @@ struct GlobalContext {
     Registry* registry;
 };
 extern GlobalContext* DAT_004dd700;
-unsigned FUN_00098190(float dt, unsigned speed, unsigned distance, unsigned z1, unsigned object, unsigned z2,
-                      unsigned position, unsigned direction, unsigned z3, unsigned z4, unsigned z5,
+unsigned FUN_00098190(float dt, unsigned speed, unsigned distance, unsigned z1, hulk_uintptr object, unsigned z2,
+                      hulk_uintptr position, hulk_uintptr direction, unsigned z3, unsigned z4, unsigned z5,
                       unsigned one);
 // equiv-conv: FUN_00195290 ecx eax edx edi stack stack stack stack stack stack stack
-char FUN_00195290(unsigned point, unsigned hitObject, unsigned effect, unsigned previous, unsigned position,
-                  unsigned normal, unsigned hit, unsigned material, unsigned zero, unsigned flag,
+char FUN_00195290(hulk_uintptr point, hulk_uintptr hitObject, hulk_uintptr effect, hulk_uintptr previous, hulk_uintptr position,
+                  hulk_uintptr normal, hulk_uintptr hit, unsigned material, unsigned zero, hulk_uintptr flag,
                   unsigned zero2);
 // equiv-conv: FUN_001958c0 eax stack stack stack stack stack stack stack stack stack stack
-char FUN_001958c0(unsigned owner, unsigned hit, unsigned p9c, unsigned pa8, unsigned point, unsigned normal,
-                  unsigned direction, unsigned pb8, unsigned pb4, unsigned zero, unsigned mask);
+char FUN_001958c0(unsigned owner, hulk_uintptr hit, unsigned p9c, unsigned pa8, hulk_uintptr point, hulk_uintptr normal,
+                  hulk_uintptr direction, unsigned pb8, unsigned pb4, unsigned zero, unsigned mask);
 // equiv-conv: FUN_00195560 ecx eax ebx stack stack stack stack stack stack stack stack stack stack stack
-char FUN_00195560(unsigned direction, unsigned hit, unsigned point, unsigned owner, unsigned p9c,
-                  unsigned pa8, unsigned normal, unsigned pb8, unsigned pb4, unsigned zero, unsigned mask,
+char FUN_00195560(hulk_uintptr direction, hulk_uintptr hit, hulk_uintptr point, unsigned owner, unsigned p9c,
+                  unsigned pa8, hulk_uintptr normal, unsigned pb8, unsigned pb4, unsigned zero, unsigned mask,
                   unsigned zero2, unsigned one, unsigned zero3);
 unsigned FUN_0027f250();
 float FUN_000964e0();
-void FUN_00224db0(unsigned transform, unsigned a, unsigned b);
+void FUN_00224db0(hulk_uintptr transform, hulk_uintptr a, hulk_uintptr b);
 namespace hulkfight {
 namespace motion {
 class ProjectileEffect {

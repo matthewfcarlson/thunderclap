@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 4/4)
 // FUN_00096450 @ 0x00096450
-extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
+#include "compat/ptr.h"
+extern "C" void* __cdecl FUN_0008d6d0(hulk_uintptr);
 char* __cdecl FUN_00096450(const char* source)
 {
     const char* end = source;

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001076f0 @ 0x001076f0
-void *__cdecl FUN_0008d690(unsigned int size);
+#include "compat/ptr.h"
+void *__cdecl FUN_0008d690(hulk_uintptr size);
 
 class Weapon_1076f0 {
 public:

@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 24/24)
 // FUN_00120fe0 @ 0x00120fe0
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/ai.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+void* FUN_0008d690(hulk_uintptr size);
 
 class PathFormationTrack {
 public:

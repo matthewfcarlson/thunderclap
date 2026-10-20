@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 10/10)
 // FUN_00054360 @ 0x00054360
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 void __cdecl FUN_00048110(); void __cdecl FUN_00048120(); void __cdecl FUN_00048140(); void __cdecl FUN_00048160();
    
 struct CGrappleTimerCondition;

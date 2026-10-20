@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3090 inputs, branch coverage 37/40, incomplete)
 // hulkfight::motion::AnimationLinkedAction::vfunc_3 @ 0x0013e070
 // equiv-map: ?FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) { return p; }
 
@@ -111,7 +112,7 @@ public:
     V3_13e070 posB;                // 0x38
 };
 
-void *__cdecl FUN_0008d690(unsigned int size);
+void *__cdecl FUN_0008d690(hulk_uintptr size);
 
 class AnimationLinkedAction {
 public:

@@ -23,7 +23,7 @@ struct Owner_5a6d0 {
 struct Created_5a6d0 {
     void* FUN_0001d100(CGrappleKeyPoseTrack* track, Settings* settings);
 };
-void* __cdecl FUN_0008d690(unsigned int size);
+void* __cdecl FUN_0008d690(hulk_uintptr size);
 
 int CGrappleKeyPoseTrack::vfunc_12(int __p0) { Owner_5a6d0 * owner = (Owner_5a6d0 *)__p0;
 

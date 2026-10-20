@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 22/22)
 // FUN_000642e0 @ 0x000642e0
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+void* FUN_0008d690(hulk_uintptr size);
 
 class CSmartPropThrowTrack {
 public:

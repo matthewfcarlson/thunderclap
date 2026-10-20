@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_000e7770 @ 0x000e7770
+#include "compat/ptr.h"
 extern char DAT_0049f4f0[];
 extern char DAT_0049f4a4[];
 extern void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
@@ -7,7 +8,7 @@ extern void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* d
 class Param {
 public:
     float FUN_000fad30();
-    int FUN_000fad90();
+    hulk_intptr FUN_000fad90();
     int FUN_000faeb0();
     char FUN_000f9e90();
     void FUN_000fa0a0();

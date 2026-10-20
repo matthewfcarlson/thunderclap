@@ -23,7 +23,7 @@ struct Owner_5b670 {
 struct CSmartPropDropAction_nv_5b670 {
     void* FUN_0001f360(CGrappleSmartPropDropTrack* track, Settings* settings);
 };
-void* __cdecl FUN_0008d690(unsigned int size);
+void* __cdecl FUN_0008d690(hulk_uintptr size);
 
 int CGrappleSmartPropDropTrack::vfunc_12(int __p0) { Owner_5b670 * owner = (Owner_5b670 *)__p0;
 

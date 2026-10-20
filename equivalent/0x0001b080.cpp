@@ -20,7 +20,7 @@ extern "C" char DAT_003f3390[];
 extern "C" char DAT_003f34c8[];
 
 struct CWeaponCollisionAction {
-    int vptr;
+    hulk_intptr vptr;
     char pad04[0x18];
     RefObj_1b080 *f1c;
     Owner_1b080 *owner;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19995 inputs, branch coverage 42/42)
 // FUN_000f7330 @ 0x000f7330
+#include "compat/ptr.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "gen/pure3d.h"
 
@@ -87,7 +88,7 @@ struct Run_f7330 {
     float tokY;                     // 0x14
 };
 
-extern void *FUN_0008d690(unsigned int size);
+extern void *FUN_0008d690(hulk_uintptr size);
 // finds the candidate name (ebx) inside the text (eax), returns the match
 // equiv-conv: FUN_000f72e0 eax ebx
 unsigned short *FUN_000f72e0(const unsigned short *text, const char *name);

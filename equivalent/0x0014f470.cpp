@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 8/8)
 // hulkfight::motion::HitReactionFloatTrack::vfunc_9 @ 0x0014f470
 // hulkfight::motion::HitReactionFloatTrack::vfunc_9 @ 0x0014f470
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 extern char DAT_00494b44;
@@ -27,7 +28,7 @@ struct Context_14f470 {
  void FUN_00059760(Controller_14f470*);
 };
 extern void* __cdecl FUN_00344e74(Context_14f470*, int, void*, void*, int);
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 // equiv-conv: FUN_0014f2f0 eax esi edi
 extern void FUN_0014f2f0(Context_14f470*, void*, Temporary_14f470*);
 namespace hulkfight { namespace motion {

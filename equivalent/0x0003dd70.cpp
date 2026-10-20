@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 68/70, incomplete)
 // FUN_0003dd70 @ 0x0003dd70
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
-void *FUN_0008d690(unsigned int size);
+#include "compat/ptr.h"
+void *FUN_0008d690(hulk_uintptr size);
 
 struct V3_3dd70 {
     union {
@@ -75,7 +76,7 @@ struct Singleton_3dd70 {
 Singleton_3dd70 *FUN_0027f250();
 
 extern "C" float __cdecl FUN_000186b0(float *a, float *b, float *c);
-extern "C" int __cdecl FUN_00266da0(int v);
+extern "C" int __cdecl FUN_00266da0(hulk_intptr v);
 
 struct Pool_3dd70 {
     int first;

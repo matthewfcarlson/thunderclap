@@ -2,6 +2,7 @@
 // CPatrolPathManager::vfunc_1 @ 0x001065b0
 // CPatrolPathManager::vfunc_1 @ 0x001065b0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/address.h"
 
 struct V3_1065b0 {
@@ -58,7 +59,7 @@ public:
 };
 
 void *thunk_FUN_0008d690(unsigned int size);
-void *FUN_0008d6d0(unsigned int size);
+void *FUN_0008d6d0(hulk_uintptr size);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 class CPatrolPath : public PathBase {

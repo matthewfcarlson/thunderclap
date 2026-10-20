@@ -8,7 +8,7 @@ extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *d
 class Param {
 public:
     float FUN_000fad30();
-    int FUN_000fad90();
+    hulk_intptr FUN_000fad90();
     void FUN_000fa0a0();
 };
 
@@ -36,8 +36,8 @@ public:
         virtual void vfunc_0(int a, int b);
         FEThingsBase *mObj;
         void (FEThingsBase::*mFn)(int, int, int, int);
-        int mC;
-        int mD;
+        hulk_intptr mC;
+        hulk_intptr mD;
     };
 
     virtual void v0();

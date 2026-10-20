@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 21/22, incomplete)
 // FUN_0003aef0 @ 0x0003aef0
+#include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" double sqrt(double);
 
@@ -40,7 +41,7 @@ struct Slot_3aef0 {
 
 struct Cam_3aef0 { bool FUN_00059a50(V3_3aef0* out); };
 
-struct Bank { int FUN_000446c0(int index); };
+struct Bank { hulk_intptr FUN_000446c0(int index); };
 
 struct Mgr_3aef0 { void FUN_0027ffb0(void* arg); };
 Mgr_3aef0* __cdecl FUN_0027f250();

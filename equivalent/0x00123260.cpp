@@ -13,7 +13,7 @@ struct Name_123260 {
 };
 
 struct PathAction {
-    int vptr;
+    hulk_intptr vptr;
     char pad04[0x4c];
     int f50;
     int f54;

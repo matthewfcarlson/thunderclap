@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 10/10)
 // FUN_0019aba0 @ 0x0019aba0
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
 typedef void (__cdecl *Callback_19aba0)();
@@ -7,7 +8,7 @@ void __cdecl FUN_00192770();
 void __cdecl FUN_00192780();
 void __cdecl FUN_001927a0();
 void __cdecl FUN_001927c0();
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 namespace hulkfight { namespace motion { class MissilePunchTrack; } }
 namespace fight {

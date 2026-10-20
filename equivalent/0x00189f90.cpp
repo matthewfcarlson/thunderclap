@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 8/8)
 // FUN_00189f90 @ 0x00189f90
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
 inline void* operator new(unsigned int, void* p) { return p; }
 namespace hulkfight { namespace motion { class PropSetStateByNameTrack; } }
 void FUN_0017f720(); void FUN_0017f740(); void FUN_0017f750();
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 struct FUN_00234960 { FUN_00234960(const char* = "timeBegin"); virtual void slot(); char pad[12]; void (*callback)(); char tail[4]; };
 struct FUN_002348e0 { FUN_002348e0(const char* = "attachmentIndex"); virtual void slot(); char pad[12]; void (*callback)(); char tail[4]; };
 struct FUN_00234a90 { FUN_00234a90(const char* = "state"); virtual void slot(); char pad[12]; void (*callback)(); char tail[4]; };

@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1734 inputs, branch coverage 68/68)
 // FUN_00064a70 @ 0x00064a70
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+void* FUN_0008d690(hulk_uintptr size);
 
 class CWeaponCollisionTrack {
 public:

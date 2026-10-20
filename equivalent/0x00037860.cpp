@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1487 inputs, branch coverage 26/26)
 // FUN_00037860 @ 0x00037860
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct Name_37860 {
     int lo;
@@ -87,7 +88,7 @@ struct World {
     Mgr_37860 *mgr;
 };
 void __cdecl FUN_000964d0();
-void *__cdecl FUN_0008d690(unsigned int size);
+void *__cdecl FUN_0008d690(hulk_uintptr size);
 
 namespace pure3d {
 class __declspec(novtable) Entity {

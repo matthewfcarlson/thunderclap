@@ -69,7 +69,7 @@ public:
     Config_1c430* cfg;
     char pad24[0x34 - 0x24];
     Xform_1c430 xf;
-    void FUN_0001b510(int a, Vec3_1c430* pos, Vec3_1c430* dir, int kind);
+    void FUN_0001b510(hulk_intptr a, Vec3_1c430* pos, Vec3_1c430* dir, int kind);
     void FUN_0001c430(Source_1c430* src);
 };
 

@@ -35,12 +35,12 @@ struct LuaMgr {
     void FUN_001d1d50(const char *name, char *buf);
     bool FUN_001d1d30();
     void FUN_001d2ee0(CFightParams *p);
-    int FUN_001d35a0(const char *chunk, char *name, int len);
+    int FUN_001d35a0(const char *chunk, char *name, hulk_intptr len);
 };
 
 LuaMgr *FUN_001d4c90();
 int FUN_00267760(char *buf, int n, const char *fmt, ...);
-void *FUN_0008d6d0(unsigned int n);
+void *FUN_0008d6d0(hulk_uintptr n);
 void FUN_0008d340(void *p);
 int FUN_00213160(void *L, int idx);
 void FUN_00212d80(void *L, int idx);

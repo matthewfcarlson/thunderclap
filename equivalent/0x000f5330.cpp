@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3136 inputs, branch coverage 134/134)
 // FEThingsBase::vfunc_37 @ 0x000f5330
+#include "compat/ptr.h"
 
 class Item_f5330 {
 public:
@@ -27,7 +28,7 @@ public:
 
 class Param {
 public:
-    int FUN_000fad90();
+    hulk_intptr FUN_000fad90();
     char FUN_000f9ef0();
     void FUN_000f9f30();
     char FUN_000f9e50();

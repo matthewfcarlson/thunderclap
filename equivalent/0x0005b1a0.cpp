@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // CGrabTrack::vfunc_10 @ 0x0005b1a0
+#include "compat/ptr.h"
 namespace fight {
 class Params {
 public:
@@ -26,7 +27,7 @@ struct Table_5b1a0 {
 };
 
 class GrabAction;
-void *FUN_0008d690(unsigned int size);
+void *FUN_0008d690(hulk_uintptr size);
 
 class GrabAction {
 public:

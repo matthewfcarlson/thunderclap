@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 14/14)
 // FUN_00129310 @ 0x00129310
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/ai.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+void* FUN_0008d690(hulk_uintptr size);
 
 class AcquireTargetTrack {
 public:

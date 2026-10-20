@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 10/10)
 // FUN_001559d0 @ 0x001559d0
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
 
@@ -11,7 +12,7 @@ template<class T> struct ParamFloatConstRange { virtual void slot0(); char pad[1
 template<class T> struct ParamBool { virtual void slot0(); char pad[12]; void (*callback)(); int tail; void FUN_00234860(const char*); };
 }
 void FUN_0014c6b0(); void FUN_0014c6d0(); void FUN_0014c6e0(); void FUN_0014c700();
-void* __cdecl FUN_0008d690(unsigned);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 void __cdecl FUN_002347b0(void*,void**,int);
 void FUN_001559d0() {
  if (!DAT_004e10b4) {

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3022 inputs, branch coverage 44/44)
 // FUN_000f3f00 @ 0x000f3f00
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern char DAT_0049f4f0[];
@@ -10,7 +11,7 @@ int __cdecl FUN_000c0d80(int a, int b);
 class Param {
 public:
     float FUN_000fad30();
-    int FUN_000fad90();
+    hulk_intptr FUN_000fad90();
     int FUN_000faeb0();
     char FUN_000f9e90();
     void FUN_000fa0a0();

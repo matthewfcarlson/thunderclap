@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3103 inputs, branch coverage 70/70)
 // FUN_000f5b20 @ 0x000f5b20
+#include "compat/ptr.h"
 class Param {
 public:
     float FUN_000fad30();
-    int FUN_000fad90();
+    hulk_intptr FUN_000fad90();
     int FUN_000faeb0();
     char FUN_000f9e90();
     char FUN_000f9ef0();

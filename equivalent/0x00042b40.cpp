@@ -7,7 +7,7 @@
 #include "decls/data/game/global.h"
 
 void *thunk_FUN_0008d690(unsigned int size);
-void *__cdecl FUN_0008d690(unsigned int size);
+void *__cdecl FUN_0008d690(hulk_uintptr size);
 extern int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 
 struct V3_42b40 { float x, y, z; };
@@ -116,7 +116,7 @@ struct Entry_42b40 {
     EntrySub *sub;
 };
 
-struct Obj2f0 { Obj2f0 *FUN_00222620(int a); };
+struct Obj2f0 { Obj2f0 *FUN_00222620(hulk_intptr a); };
 struct Obj48 { Obj48 *FUN_002efe50(V3_42b40 *a, float b); };
 struct Obj8c_42b40 { Obj8c_42b40 *FUN_002f3070(V3_42b40 *a, V3_42b40 *b, float c, float d, int e); };
 
@@ -167,7 +167,7 @@ struct Obj128_42b40 {
     int FUN_001d68d0();
 };
 
-struct Rig2 { char pad00[0x18]; int f18; };
+struct Rig2 { char pad00[0x18]; hulk_intptr f18; };
 
 struct Sink284 { void FUN_00284820(int a); };
 
@@ -214,7 +214,7 @@ struct Chara_42b40 {
     void FUN_0003b620(int a);
     void FUN_00035190(Mat_42b40 *m);
     void FUN_000401a0();
-    void FUN_0003acf0(int a, int b, int c, int d, int e, Mat_42b40 *m);
+    void FUN_0003acf0(int a, hulk_intptr b, int c, int d, int e, Mat_42b40 *m);
     char Setup(Rig_42b40 *r);
 };
 

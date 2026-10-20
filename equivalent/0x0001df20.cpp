@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2874 inputs, branch coverage 75/78, incomplete)
 // FUN_0001df20 @ 0x0001df20
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct Vec3 {
     float x, y, z;
@@ -62,7 +63,7 @@ struct Obj {
 void __cdecl FUN_00018810(RefObj **slot, RefObj *v) throw();
 void __cdecl FUN_000187a0(RefObj **slot, RefObj *v) throw();
 void __cdecl FUN_00018840(RefObj **slot, RefObj *v) throw();
-void *__cdecl FUN_0008d690(unsigned int size) throw();
+void *__cdecl FUN_0008d690(hulk_uintptr size) throw();
 
 struct Info {
     char pad000[0x1b0];

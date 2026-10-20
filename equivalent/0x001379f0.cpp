@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 14/14)
 // FUN_001379f0 @ 0x001379f0
+#include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+void* FUN_0008d690(hulk_uintptr size);
 
 class FlyingDashTrack {
 public:

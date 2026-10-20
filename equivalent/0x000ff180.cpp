@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000ff180 @ 0x000ff180
 // CHand2HandAgent::CHand2HandAgent @ 0x000ff180
-void *__cdecl FUN_0008d690(unsigned int size);
+#include "compat/ptr.h"
+void *__cdecl FUN_0008d690(hulk_uintptr size);
 
 class Weapon_ff180 {
 public:

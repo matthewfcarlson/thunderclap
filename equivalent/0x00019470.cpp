@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20078 inputs, branch coverage 99/100, incomplete)
 // FUN_00019470 @ 0x00019470
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
 
@@ -193,7 +194,7 @@ struct World {
     Fx_19470* f34;
 };
 
-void* __cdecl FUN_0008d690(unsigned int size);
+void* __cdecl FUN_0008d690(hulk_uintptr size);
 void __cdecl FUN_00018810(RefObj_19470** slot, RefObj_19470* obj);
 void __cdecl FUN_000187a0(void* slot, int v);
 void __cdecl FUN_00018840(void* slot, int v);

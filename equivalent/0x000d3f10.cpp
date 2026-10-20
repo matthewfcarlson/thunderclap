@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 10436 inputs, branch coverage 33/34, incomplete)
 // FUN_000d3f10 @ 0x000d3f10
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 namespace pure3d { class DrawableHierarchy; }
@@ -22,8 +23,8 @@ struct Lookup_d3f10 {
     int kind;
 };
 struct Provider_d3f10 {
-    int FUN_000ad7b0(int a, int b, int c);
-    int FUN_000ad580(int a, int b, int c);
+    hulk_intptr FUN_000ad7b0(int a, int b, int c);
+    hulk_intptr FUN_000ad580(int a, int b, int c);
 };
 extern "C" int strcmp(const char*, const char*);
 extern "C" const char* strstr(const char*, const char*);

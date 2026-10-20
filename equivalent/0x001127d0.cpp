@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 14/14)
 // FUN_001127d0 @ 0x001127d0
+#include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+void* FUN_0008d690(hulk_uintptr size);
 
 class TokenSupressTrack {
 public:

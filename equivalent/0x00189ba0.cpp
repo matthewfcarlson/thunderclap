@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 10/10)
 // FUN_00189ba0 @ 0x00189ba0
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
 
 typedef unsigned int uint;
-void* __cdecl FUN_0008d690(uint);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 inline void* __cdecl operator new(uint, void* p) { return p; }
 void FUN_0017f490(); void FUN_0017f4b0(); void FUN_0017f4c0(); void FUN_0017f4e0();
 struct BInt { virtual void slot(); char pad[12]; void (*callback)(); uint rest; BInt(const char* s="attachmentIndex"); };

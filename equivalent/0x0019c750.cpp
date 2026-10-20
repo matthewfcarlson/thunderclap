@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1295 inputs, branch coverage 94/94)
 // FUN_0019c750 @ 0x0019c750
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 #include "decls/data/game/unknown.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+void* FUN_0008d690(hulk_uintptr size);
 
 namespace hulkfight { namespace motion {
 class FireBeamTrack {

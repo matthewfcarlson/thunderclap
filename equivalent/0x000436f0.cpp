@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000436f0 @ 0x000436f0
+#include "compat/ptr.h"
 #include "decls/address.h"
 typedef unsigned int size_t;
 void* operator new(size_t) throw();
 inline void* operator new(size_t, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int);
+void* FUN_0008d690(hulk_uintptr);
 class Unused;
 namespace math { class Vector { public: float x, y, z; }; }
 typedef float Float; typedef bool Bool; typedef int Int; typedef void Void;

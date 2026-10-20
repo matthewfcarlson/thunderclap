@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2747 inputs, branch coverage 12/12)
 // FUN_000d6640 @ 0x000d6640
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 typedef unsigned int uint;
 void* __cdecl operator new(unsigned int, void* p) { return p; }
-extern void* __cdecl FUN_0008d690(uint);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 extern void* __cdecl FUN_00263ea0(uint);
 struct MessageOverlay;
 extern void FUN_000d45e0(); extern void FUN_000d4600(); extern void FUN_000d4720(); extern void FUN_000d4780(); extern void FUN_000d47d0(); extern void FUN_000d4850(); extern void FUN_000d5440(); extern void thunk_FUN_000d4b60(); extern void FUN_000d5fa0();

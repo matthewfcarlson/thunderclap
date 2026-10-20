@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_000f3000 @ 0x000f3000
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" void* memset(void* dst, int c, unsigned int n);
@@ -23,7 +24,7 @@ public:
 }
 }
 
-void* FUN_0008d690(unsigned int size);
+void* FUN_0008d690(hulk_uintptr size);
 
 class Scenegraph {
 public:

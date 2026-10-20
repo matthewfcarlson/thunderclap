@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3116 inputs, branch coverage 199/256, incomplete)
 // CRangedAgent::vfunc_4 @ 0x00107c90
 // mechanical lift of 0x00107c90 (work/big3/lift.py): frame array S[], register variables, gotos
+#include "compat/ptr.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
 
@@ -85,7 +86,7 @@ struct VC9 { virtual void vf0(); virtual void vf1(); virtual void vf2(); virtual
 void Agent::FUN_00107c90(void* a1, float a2, int a3)
 {
     unsigned S[107];
-    unsigned eax = 0, ebx = 0, ecx = (unsigned)this, edx = 0, esi = 0, edi = 0, ebp = 0;
+    hulk_uintptr eax = 0, ebx = 0, ecx = (hulk_uintptr)this, edx = 0, esi = 0, edi = 0, ebp = 0;
     double fpk0;
     double fpk1;
     double fretv;
@@ -305,11 +306,11 @@ void Agent::FUN_00107c90(void* a1, float a2, int a3)
     float fl98;
     float fl99;
     float fl9;
-    unsigned vo_eax;
-    unsigned vo_ecx;
-    unsigned vo_edx;
+    hulk_uintptr vo_eax;
+    hulk_uintptr vo_ecx;
+    hulk_uintptr vo_edx;
     S[99] = 0;
-    S[100] = (unsigned)a1;
+    S[100] = (hulk_uintptr)a1;
     *(float*)&S[101] = a2;
     S[102] = (unsigned)a3;
   /*0000 sub esp, 0x14c*/
@@ -384,7 +385,7 @@ L_007c:
   /*0091 push edi*/
     *(unsigned*)((char*)S + 48) = edi;
   /*0092 lea edi, [ebx + 0x1f58]*/
-    edi = (unsigned)((char*)(ebx + 8024));
+    edi = (hulk_uintptr)((char*)(ebx + 8024));
   /*0098 mov ecx, edi*/
     ecx = edi;
   /*009a call FUN_00060170*/
@@ -449,7 +450,7 @@ L_0101:
     *(unsigned char*)((char*)S + 66) = 0u;
 L_0106:
   /*0106 lea edx, [esp + 0xa8]*/
-    edx = (unsigned)((char*)S + 216);
+    edx = (hulk_uintptr)((char*)S + 216);
   /*010d push edx*/
     *(unsigned*)((char*)S + 44) = edx;
   /*010e mov ecx, ebx*/
@@ -491,7 +492,7 @@ L_0106:
   /*017d mov dword ptr [esp + 0x7c], eax*/
     *(unsigned*)((char*)S + 172) = eax;
   /*0181 lea eax, [esp + 0x24]*/
-    eax = (unsigned)((char*)S + 84);
+    eax = (hulk_uintptr)((char*)S + 84);
   /*0185 mov dword ptr [esp + 0x80], ecx*/
     *(unsigned*)((char*)S + 176) = ecx;
   /*018c mov ecx, dword ptr [esp + 0xd0]*/
@@ -507,7 +508,7 @@ L_0106:
   /*01a4 fsub dword ptr [esp + 0x7c]*/
     fl2 = *(float*)((char*)S + 172);
   /*01a8 lea ecx, [esp + 0x64]*/
-    ecx = (unsigned)((char*)S + 148);
+    ecx = (hulk_uintptr)((char*)S + 148);
   /*01ac push ecx*/
     *(unsigned*)((char*)S + 44) = ecx;
   /*01ad push ebp*/
@@ -564,7 +565,7 @@ L_01ea:
     goto L_02ec;
 L_0213:
   /*0213 lea edx, [esp + 0x64]*/
-    edx = (unsigned)((char*)S + 148);
+    edx = (hulk_uintptr)((char*)S + 148);
   /*0217 push edx*/
     *(unsigned*)((char*)S + 44) = edx;
   /*0218 mov ecx, ebp*/
@@ -572,11 +573,11 @@ L_0213:
   /*021a call FUN_000fde40*/
     ((O*)ecx)->FUN_000fde40(*(unsigned*)((char*)S + 44));
   /*021f lea eax, [esp + 0x24]*/
-    eax = (unsigned)((char*)S + 84);
+    eax = (hulk_uintptr)((char*)S + 84);
   /*0223 push eax*/
     *(unsigned*)((char*)S + 44) = eax;
   /*0224 lea ecx, [esp + 0x68]*/
-    ecx = (unsigned)((char*)S + 148);
+    ecx = (hulk_uintptr)((char*)S + 148);
   /*0228 push ecx*/
     *(unsigned*)((char*)S + 40) = ecx;
   /*0229 mov dword ptr [esp + 0x2c], 0*/
@@ -607,11 +608,11 @@ L_0266:
   /*0266 push 0x3727c5ac*/
     *(unsigned*)((char*)S + 44) = 925353388u;
   /*026b lea edx, [esp + 0x28]*/
-    edx = (unsigned)((char*)S + 84);
+    edx = (hulk_uintptr)((char*)S + 84);
   /*026f push edx*/
     *(unsigned*)((char*)S + 40) = edx;
   /*0270 lea ecx, [esp + 0x6c]*/
-    ecx = (unsigned)((char*)S + 148);
+    ecx = (hulk_uintptr)((char*)S + 148);
   /*0274 mov dword ptr [esp + 0x2c], 0*/
     *(unsigned*)((char*)S + 84) = 0u;
   /*027c mov dword ptr [esp + 0x30], 0*/
@@ -624,7 +625,7 @@ L_0266:
   /*0293 je 02a1*/
     if ((unsigned char)(((eax & 0xff) & (eax & 0xff))) == 0) goto L_02a1;
   /*0295 lea eax, [esp + 0x64]*/
-    eax = (unsigned)((char*)S + 148);
+    eax = (hulk_uintptr)((char*)S + 148);
   /*0299 push eax*/
     *(unsigned*)((char*)S + 44) = eax;
   /*029a mov ecx, ebp*/
@@ -635,11 +636,11 @@ L_02a1:
   /*02a1 push 0x3727c5ac*/
     *(unsigned*)((char*)S + 44) = 925353388u;
   /*02a6 lea ecx, [esp + 0x28]*/
-    ecx = (unsigned)((char*)S + 84);
+    ecx = (hulk_uintptr)((char*)S + 84);
   /*02aa push ecx*/
     *(unsigned*)((char*)S + 40) = ecx;
   /*02ab lea ecx, [esp + 0x6c]*/
-    ecx = (unsigned)((char*)S + 148);
+    ecx = (hulk_uintptr)((char*)S + 148);
   /*02af mov dword ptr [esp + 0x2c], 0*/
     *(unsigned*)((char*)S + 84) = 0u;
   /*02b7 mov dword ptr [esp + 0x30], 0*/
@@ -669,7 +670,7 @@ L_02ec:
   /*02ec fld dword ptr [esp + 0x64]*/
     fl13 = *(float*)((char*)S + 148);
   /*02f0 lea ecx, [esp + 0xc4]*/
-    ecx = (unsigned)((char*)S + 244);
+    ecx = (hulk_uintptr)((char*)S + 244);
   /*02f7 fsub dword ptr [esp + 0xa8]*/
     fl14 = *(float*)((char*)S + 216);
   /*02fe fstp dword ptr [esp + 0xc4]*/
@@ -697,7 +698,7 @@ L_02ec:
   /*0340 mov dword ptr [esp + 0x58], ecx*/
     *(unsigned*)((char*)S + 136) = ecx;
   /*0344 lea ecx, [esp + 0x50]*/
-    ecx = (unsigned)((char*)S + 128);
+    ecx = (hulk_uintptr)((char*)S + 128);
   /*0348 mov dword ptr [esp + 0x50], eax*/
     *(unsigned*)((char*)S + 128) = eax;
   /*034c mov dword ptr [esp + 0x54], 0*/
@@ -707,12 +708,12 @@ L_02ec:
   /*0359 fstp dword ptr [esp + 0xec]*/
     *(float*)((char*)S + 284) = (float)(fretv);
   /*0360 lea ecx, [esp + 0xc4]*/
-    ecx = (unsigned)((char*)S + 244);
+    ecx = (hulk_uintptr)((char*)S + 244);
   /*0367 call FUN_0022d110*/
     fretv = ((O*)ecx)->FUN_0022d110();
   /*036c fstp st(0)*/
   /*036e lea ecx, [esp + 0x50]*/
-    ecx = (unsigned)((char*)S + 128);
+    ecx = (hulk_uintptr)((char*)S + 128);
   /*0372 call FUN_0022d110*/
     fretv = ((O*)ecx)->FUN_0022d110();
   /*0377 fstp st(0)*/
@@ -785,7 +786,7 @@ L_03d2:
   /*0400 push 0x3f3fa0*/
     *(unsigned*)((char*)S + 44) = 4145056u;
   /*0405 mov dword ptr [0x4e0ac0], eax*/
-    (*(unsigned*)&DAT_004e0ac0) = eax;
+    (*(hulk_uintptr*)&DAT_004e0ac0) = eax;
   /*040a call FUN_0027b020*/
     { unsigned __int64 r64 = FUN_0027b020(*(unsigned*)((char*)S + 44)); eax = (unsigned)r64; edx = (unsigned)(r64 >> 32); }
   /*040f add esp, 4*/
@@ -811,7 +812,7 @@ L_0439:
     *(unsigned char*)((char*)S + 67) = 0u;
 L_043e:
   /*043e lea ecx, [ebx + 0xdc]*/
-    ecx = (unsigned)((char*)(ebx + 220));
+    ecx = (hulk_uintptr)((char*)(ebx + 220));
   /*0444 call FUN_00231ee0*/
     eax = (unsigned)((O*)ecx)->FUN_00231ee0();
   /*0449 fld dword ptr [esi + 0x70]*/
@@ -869,7 +870,7 @@ L_043e:
   /*04bb push 0x40d278*/
     *(unsigned*)((char*)S + 44) = 4248184u;
   /*04c0 lea ecx, [edi + 0x140]*/
-    ecx = (unsigned)((char*)(edi + 320));
+    ecx = (hulk_uintptr)((char*)(edi + 320));
   /*04c6 call FUN_0027b040*/
     ((O*)ecx)->FUN_0027b040(*(unsigned*)((char*)S + 44));
   /*04cb mov byte ptr [edi + 0x148], 1*/
@@ -886,15 +887,15 @@ L_04d2:
   /*04e5 fstp dword ptr [esi + 0xa0]*/
     *(float*)((char*)(esi + 160)) = (float)(((fl28) - (fl29)));
   /*04eb mov dword ptr [edi + 0x11c], edx*/
-    *(unsigned*)((char*)(edi + 284)) = edx;
+    *(hulk_uintptr*)((char*)(edi + 284)) = edx;
   /*04f1 mov eax, dword ptr [esp + 0x58]*/
     eax = (*(unsigned*)((char*)S + 132));
   /*04f5 mov dword ptr [edi + 0x120], eax*/
-    *(unsigned*)((char*)(edi + 288)) = eax;
+    *(hulk_uintptr*)((char*)(edi + 288)) = eax;
   /*04fb mov ecx, dword ptr [esp + 0x5c]*/
     ecx = (*(unsigned*)((char*)S + 136));
   /*04ff mov dword ptr [edi + 0x124], ecx*/
-    *(unsigned*)((char*)(edi + 292)) = ecx;
+    *(hulk_uintptr*)((char*)(edi + 292)) = ecx;
   /*0505 mov ecx, ebx*/
     ecx = ebx;
   /*0507 call FUN_00035ef0*/
@@ -936,7 +937,7 @@ L_04d2:
   /*0554 fsub dword ptr [esp + 0x9c]*/
     fl33 = *(float*)((char*)S + 204);
   /*055b lea ecx, [esp + 0x40]*/
-    ecx = (unsigned)((char*)S + 112);
+    ecx = (hulk_uintptr)((char*)S + 112);
   /*055f fstp dword ptr [esp + 0x44]*/
     *(float*)((char*)S + 116) = (float)(((fl32) - (fl33)));
   /*0563 fld dword ptr [esp + 0x6c]*/
@@ -964,7 +965,7 @@ L_04d2:
   /*058f push eax*/
     *(unsigned*)((char*)S + 36) = eax;
   /*0590 lea ecx, [esp + 0x70]*/
-    ecx = (unsigned)((char*)S + 148);
+    ecx = (hulk_uintptr)((char*)S + 148);
   /*0594 push ecx*/
     *(unsigned*)((char*)S + 32) = ecx;
   /*0595 mov ecx, dword ptr [0x4dd6e8]*/
@@ -980,11 +981,11 @@ L_04d2:
   /*05ac push eax*/
     *(unsigned*)((char*)S + 40) = eax;
   /*05ad lea eax, [esp + 0x6c]*/
-    eax = (unsigned)((char*)S + 148);
+    eax = (hulk_uintptr)((char*)S + 148);
   /*05b1 push eax*/
     *(unsigned*)((char*)S + 36) = eax;
   /*05b2 lea ecx, [esp + 0xa4]*/
-    ecx = (unsigned)((char*)S + 200);
+    ecx = (hulk_uintptr)((char*)S + 200);
   /*05b9 push ecx*/
     *(unsigned*)((char*)S + 32) = ecx;
   /*05ba mov ecx, dword ptr [0x4dd6e8]*/
@@ -1038,15 +1039,15 @@ L_05c5:
     *(unsigned*)((char*)S + 104) = 1058824618u;
 L_062e:
   /*062e lea edx, [esp + 0x24]*/
-    edx = (unsigned)((char*)S + 84);
+    edx = (hulk_uintptr)((char*)S + 84);
   /*0632 push edx*/
     *(unsigned*)((char*)S + 44) = edx;
   /*0633 lea eax, [esp + 0x44]*/
-    eax = (unsigned)((char*)S + 112);
+    eax = (hulk_uintptr)((char*)S + 112);
   /*0637 push eax*/
     *(unsigned*)((char*)S + 40) = eax;
   /*0638 lea ecx, [esp + 0x84]*/
-    ecx = (unsigned)((char*)S + 172);
+    ecx = (hulk_uintptr)((char*)S + 172);
   /*063f mov dword ptr [esp + 0x2c], 0*/
     *(unsigned*)((char*)S + 84) = 0u;
   /*0647 mov dword ptr [esp + 0x30], 0x3f800000*/
@@ -1058,25 +1059,25 @@ L_062e:
   /*065c mov edx, dword ptr [esp + 0x38]*/
     edx = (*(unsigned*)((char*)S + 104));
   /*0660 lea ecx, [esp + 0x7c]*/
-    ecx = (unsigned)((char*)S + 172);
+    ecx = (hulk_uintptr)((char*)S + 172);
   /*0664 push ecx*/
     *(unsigned*)((char*)S + 44) = ecx;
   /*0665 push edx*/
     *(unsigned*)((char*)S + 40) = edx;
   /*0666 lea ecx, [esp + 0x108]*/
-    ecx = (unsigned)((char*)S + 304);
+    ecx = (hulk_uintptr)((char*)S + 304);
   /*066d call FUN_0022b170*/
     ((O*)ecx)->FUN_0022b170(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*0672 lea ecx, [esp + 0x11c]*/
-    ecx = (unsigned)((char*)S + 332);
+    ecx = (hulk_uintptr)((char*)S + 332);
   /*0679 call FUN_0022b980*/
     ((O*)ecx)->FUN_0022b980();
   /*067e lea eax, [esp + 0x11c]*/
-    eax = (unsigned)((char*)S + 332);
+    eax = (hulk_uintptr)((char*)S + 332);
   /*0685 push eax*/
     *(unsigned*)((char*)S + 44) = eax;
   /*0686 lea ecx, [esp + 0x104]*/
-    ecx = (unsigned)((char*)S + 304);
+    ecx = (hulk_uintptr)((char*)S + 304);
   /*068d call FUN_0022b650*/
     ((O*)ecx)->FUN_0022b650(*(unsigned*)((char*)S + 44));
   /*0692 mov ecx, dword ptr [esp + 0x40]*/
@@ -1088,17 +1089,17 @@ L_062e:
   /*069e mov dword ptr [esp + 0x24], ecx*/
     *(unsigned*)((char*)S + 84) = ecx;
   /*06a2 lea ecx, [esp + 0x40]*/
-    ecx = (unsigned)((char*)S + 112);
+    ecx = (hulk_uintptr)((char*)S + 112);
   /*06a6 mov dword ptr [esp + 0x28], edx*/
     *(unsigned*)((char*)S + 88) = edx;
   /*06aa push ecx*/
     *(unsigned*)((char*)S + 44) = ecx;
   /*06ab lea edx, [esp + 0x28]*/
-    edx = (unsigned)((char*)S + 84);
+    edx = (hulk_uintptr)((char*)S + 84);
   /*06af push edx*/
     *(unsigned*)((char*)S + 40) = edx;
   /*06b0 lea ecx, [esp + 0x124]*/
-    ecx = (unsigned)((char*)S + 332);
+    ecx = (hulk_uintptr)((char*)S + 332);
   /*06b7 mov dword ptr [esp + 0x34], eax*/
     *(unsigned*)((char*)S + 92) = eax;
   /*06bb call FUN_0022c3b0*/
@@ -1109,11 +1110,11 @@ L_06c0:
   /*06c4 push eax*/
     *(unsigned*)((char*)S + 44) = eax;
   /*06c5 lea ecx, [esp + 0x44]*/
-    ecx = (unsigned)((char*)S + 112);
+    ecx = (hulk_uintptr)((char*)S + 112);
   /*06c9 push ecx*/
     *(unsigned*)((char*)S + 40) = ecx;
   /*06ca lea edx, [esp + 0x2c]*/
-    edx = (unsigned)((char*)S + 84);
+    edx = (hulk_uintptr)((char*)S + 84);
   /*06ce push edx*/
     *(unsigned*)((char*)S + 36) = edx;
   /*06cf jmp 06e3*/
@@ -1124,11 +1125,11 @@ L_06d1:
   /*06d5 push ecx*/
     *(unsigned*)((char*)S + 44) = ecx;
   /*06d6 lea edx, [esp + 0xc8]*/
-    edx = (unsigned)((char*)S + 244);
+    edx = (hulk_uintptr)((char*)S + 244);
   /*06dd push edx*/
     *(unsigned*)((char*)S + 40) = edx;
   /*06de lea eax, [esp + 0x2c]*/
-    eax = (unsigned)((char*)S + 84);
+    eax = (hulk_uintptr)((char*)S + 84);
   /*06e2 push eax*/
     *(unsigned*)((char*)S + 36) = eax;
 L_06e3:
@@ -1163,7 +1164,7 @@ L_06e3:
   /*0718 push 0x40d6d8*/
     *(unsigned*)((char*)S + 44) = 4249304u;
   /*071d lea ecx, [esp + 0x9c]*/
-    ecx = (unsigned)((char*)S + 200);
+    ecx = (hulk_uintptr)((char*)S + 200);
   /*0724 mov ebp, eax*/
     ebp = eax;
   /*0726 call FUN_0027b0e0*/
@@ -1171,11 +1172,11 @@ L_06e3:
   /*072b push eax*/
     *(unsigned*)((char*)S + 44) = eax;
   /*072c lea ecx, [ebp + 0x1b50]*/
-    ecx = (unsigned)((char*)(ebp + 6992));
+    ecx = (hulk_uintptr)((char*)(ebp + 6992));
   /*0732 call FUN_0027af90*/
     eax = (unsigned)((O*)ecx)->FUN_0027af90(*(unsigned*)((char*)S + 44));
   /*0737 lea ecx, [esp + 0x98]*/
-    ecx = (unsigned)((char*)S + 200);
+    ecx = (hulk_uintptr)((char*)S + 200);
   /*073e mov byte ptr [esp + 0xa7], al*/
     *(unsigned char*)((char*)S + 215) = (eax & 0xff);
   /*0745 call FUN_0027af50*/
@@ -1303,7 +1304,7 @@ L_0800:
   /*084e jne 08a1*/
     if ((unsigned)(eax) != (unsigned)((*(unsigned*)((char*)(edx + 432))))) goto L_08a1;
   /*0850 lea ecx, [esp + 0x24]*/
-    ecx = (unsigned)((char*)S + 84);
+    ecx = (hulk_uintptr)((char*)S + 84);
   /*0854 push ecx*/
     *(unsigned*)((char*)S + 44) = ecx;
   /*0855 mov ecx, dword ptr [ebp + 0x10]*/
@@ -1315,7 +1316,7 @@ L_0800:
   /*0861 fsub dword ptr [esp + 0x64]*/
     fl51 = *(float*)((char*)S + 148);
   /*0865 lea ecx, [esp + 0x7c]*/
-    ecx = (unsigned)((char*)S + 172);
+    ecx = (hulk_uintptr)((char*)S + 172);
   /*0869 fstp dword ptr [esp + 0x7c]*/
     *(float*)((char*)S + 172) = (float)(((fl50) - (fl51)));
   /*086d fld dword ptr [esp + 0x28]*/
@@ -1401,7 +1402,7 @@ L_08b1:
   /*092e fsub dword ptr [esp + 0xb0]*/
     fl61 = *(float*)((char*)S + 224);
   /*0935 lea ecx, [esp + 0x40]*/
-    ecx = (unsigned)((char*)S + 112);
+    ecx = (hulk_uintptr)((char*)S + 112);
   /*0939 mov dword ptr [esp + 0x84], edx*/
     *(unsigned*)((char*)S + 180) = edx;
   /*0940 fstp dword ptr [esp + 0x2c]*/
@@ -1428,7 +1429,7 @@ L_08b1:
   /*096b mov dword ptr [esp + 0x24], ecx*/
     *(unsigned*)((char*)S + 84) = ecx;
   /*096f lea ecx, [esp + 0x24]*/
-    ecx = (unsigned)((char*)S + 84);
+    ecx = (hulk_uintptr)((char*)S + 84);
   /*0973 mov dword ptr [esp + 0x28], edx*/
     *(unsigned*)((char*)S + 88) = edx;
   /*0977 mov dword ptr [esp + 0x2c], eax*/
@@ -1439,12 +1440,12 @@ L_08b1:
   /*0982 fld dword ptr [esp + 0x38]*/
     fl62 = *(float*)((char*)S + 104);
   /*0986 lea ecx, [esp + 0xb4]*/
-    ecx = (unsigned)((char*)S + 228);
+    ecx = (hulk_uintptr)((char*)S + 228);
   /*098d fsub dword ptr [0x3f5cf8]*/
   /*0993 push ecx*/
     *(unsigned*)((char*)S + 44) = ecx;
   /*0994 lea edx, [esp + 0x9c]*/
-    edx = (unsigned)((char*)S + 200);
+    edx = (hulk_uintptr)((char*)S + 200);
   /*099b push edx*/
     *(unsigned*)((char*)S + 40) = edx;
   /*099c fstp dword ptr [esp + 0xbc]*/
@@ -1457,11 +1458,11 @@ L_08b1:
     *(float*)((char*)S + 44) = (float)(fretv);
   /*09b7 add esp, 4*/
   /*09ba lea eax, [esp + 0x28]*/
-    eax = (unsigned)((char*)S + 84);
+    eax = (hulk_uintptr)((char*)S + 84);
   /*09be push eax*/
     *(unsigned*)((char*)S + 40) = eax;
   /*09bf lea ecx, [esp + 0xa0]*/
-    ecx = (unsigned)((char*)S + 200);
+    ecx = (hulk_uintptr)((char*)S + 200);
   /*09c6 push ecx*/
     *(unsigned*)((char*)S + 36) = ecx;
   /*09c7 call FUN_00083e00*/
@@ -1512,11 +1513,11 @@ L_0a03:
   /*0a16 push 0*/
     *(unsigned*)((char*)S + 44) = 0u;
   /*0a18 mov dword ptr [0x554c18], ecx*/
-    (*(unsigned*)&DAT_00554c18) = ecx;
+    (*(hulk_uintptr*)&DAT_00554c18) = ecx;
   /*0a1e fstp dword ptr [esp + 0x9c]*/
     *(float*)((char*)S + 200) = (float)(((fl63) + (fl64)));
   /*0a25 lea edx, [esp + 0x9c]*/
-    edx = (unsigned)((char*)S + 200);
+    edx = (hulk_uintptr)((char*)S + 200);
   /*0a2c fld dword ptr [esp + 0x48]*/
     fl65 = *(float*)((char*)S + 116);
   /*0a30 push edx*/
@@ -1524,7 +1525,7 @@ L_0a03:
   /*0a31 fadd dword ptr [esp + 0x88]*/
     fl66 = *(float*)((char*)S + 176);
   /*0a38 lea ecx, [esp + 0x84]*/
-    ecx = (unsigned)((char*)S + 172);
+    ecx = (hulk_uintptr)((char*)S + 172);
   /*0a3f push ecx*/
     *(unsigned*)((char*)S + 36) = ecx;
   /*0a40 mov ecx, dword ptr [0x554c14]*/
@@ -1589,17 +1590,17 @@ L_0a9f:
   /*0aba push 0*/
     *(unsigned*)((char*)S + 44) = 0u;
   /*0abc lea edx, [esp + 0xb8]*/
-    edx = (unsigned)((char*)S + 228);
+    edx = (hulk_uintptr)((char*)S + 228);
   /*0ac3 push edx*/
     *(unsigned*)((char*)S + 40) = edx;
   /*0ac4 mov edx, dword ptr [esp + 0x40]*/
     edx = (*(unsigned*)((char*)S + 104));
   /*0ac8 lea eax, [esp + 0xa0]*/
-    eax = (unsigned)((char*)S + 200);
+    eax = (hulk_uintptr)((char*)S + 200);
   /*0acf push eax*/
     *(unsigned*)((char*)S + 36) = eax;
   /*0ad0 lea ecx, [esp + 0x100]*/
-    ecx = (unsigned)((char*)S + 292);
+    ecx = (hulk_uintptr)((char*)S + 292);
   /*0ad7 push ecx*/
     *(unsigned*)((char*)S + 32) = ecx;
   /*0ad8 push 1*/
@@ -1609,11 +1610,11 @@ L_0a9f:
   /*0adb mov edx, dword ptr [esp + 0x178]*/
     edx = (*(unsigned*)((char*)S + 400));
   /*0ae2 lea eax, [esp + 0x58]*/
-    eax = (unsigned)((char*)S + 112);
+    eax = (hulk_uintptr)((char*)S + 112);
   /*0ae6 push eax*/
     *(unsigned*)((char*)S + 20) = eax;
   /*0ae7 lea ecx, [esp + 0x98]*/
-    ecx = (unsigned)((char*)S + 172);
+    ecx = (hulk_uintptr)((char*)S + 172);
   /*0aee push ecx*/
     *(unsigned*)((char*)S + 16) = ecx;
   /*0aef mov ecx, dword ptr [edx + 0x24]*/
@@ -1663,40 +1664,40 @@ L_0b39:
   /*0b49 jne 0c10*/
     if ((unsigned char)((((eax >> 8) & 0xff) & 65u)) != 0) goto L_0c10;
   /*0b4f mov dword ptr [edi + 0x118], ebp*/
-    *(unsigned*)((char*)(edi + 280)) = ebp;
+    *(hulk_uintptr*)((char*)(edi + 280)) = ebp;
   /*0b55 mov eax, dword ptr [esp + 0x50]*/
     eax = (*(unsigned*)((char*)S + 128));
   /*0b59 mov dword ptr [edi + 0x11c], eax*/
-    *(unsigned*)((char*)(edi + 284)) = eax;
+    *(hulk_uintptr*)((char*)(edi + 284)) = eax;
   /*0b5f mov ecx, dword ptr [esp + 0x54]*/
     ecx = (*(unsigned*)((char*)S + 132));
   /*0b63 mov eax, dword ptr [esp + 0xb8]*/
     eax = (*(unsigned*)((char*)S + 232));
   /*0b6a mov dword ptr [edi + 0x120], ecx*/
-    *(unsigned*)((char*)(edi + 288)) = ecx;
+    *(hulk_uintptr*)((char*)(edi + 288)) = ecx;
   /*0b70 mov edx, dword ptr [esp + 0x58]*/
     edx = (*(unsigned*)((char*)S + 136));
   /*0b74 mov ecx, dword ptr [esp + 0xbc]*/
     ecx = (*(unsigned*)((char*)S + 236));
   /*0b7b mov dword ptr [edi + 0x124], edx*/
-    *(unsigned*)((char*)(edi + 292)) = edx;
+    *(hulk_uintptr*)((char*)(edi + 292)) = edx;
   /*0b81 mov edx, dword ptr [esp + 0xc0]*/
     edx = (*(unsigned*)((char*)S + 240));
   /*0b88 mov dword ptr [edi + 0x114], ebp*/
-    *(unsigned*)((char*)(edi + 276)) = ebp;
+    *(hulk_uintptr*)((char*)(edi + 276)) = ebp;
   /*0b8e mov dword ptr [edi + 0x110], ebp*/
-    *(unsigned*)((char*)(edi + 272)) = ebp;
+    *(hulk_uintptr*)((char*)(edi + 272)) = ebp;
   /*0b94 mov dword ptr [edi + 0x10c], ebp*/
-    *(unsigned*)((char*)(edi + 268)) = ebp;
+    *(hulk_uintptr*)((char*)(edi + 268)) = ebp;
   /*0b9a mov dword ptr [edi + 0x128], eax*/
-    *(unsigned*)((char*)(edi + 296)) = eax;
+    *(hulk_uintptr*)((char*)(edi + 296)) = eax;
   /*0ba0 mov al, byte ptr [esp + 0x13]*/
     eax = (eax & ~(0xffu << 0)) | (((unsigned)((*(unsigned char*)((char*)S + 67))) & 0xff) << 0);
   /*0ba4 test al, al*/
   /*0ba6 mov dword ptr [edi + 0x12c], ecx*/
-    *(unsigned*)((char*)(edi + 300)) = ecx;
+    *(hulk_uintptr*)((char*)(edi + 300)) = ecx;
   /*0bac mov dword ptr [edi + 0x130], edx*/
-    *(unsigned*)((char*)(edi + 304)) = edx;
+    *(hulk_uintptr*)((char*)(edi + 304)) = edx;
   /*0bb2 je 0bcf*/
     if ((unsigned char)(((eax & 0xff) & (eax & 0xff))) == 0) goto L_0bcf;
   /*0bb4 call FUN_000964e0*/
@@ -1732,7 +1733,7 @@ L_0bd5:
     if ((unsigned char)(((eax & 0xff) & (eax & 0xff))) == 0) goto L_0bf0;
 L_0bed:
   /*0bed mov dword ptr [esi + 0x70], ebp*/
-    *(unsigned*)((char*)(esi + 112)) = ebp;
+    *(hulk_uintptr*)((char*)(esi + 112)) = ebp;
 L_0bf0:
   /*0bf0 mov eax, dword ptr [esp + 0x94]*/
     eax = (*(unsigned*)((char*)S + 196));
@@ -1754,30 +1755,30 @@ L_0c10:
   /*0c10 mov ecx, dword ptr [esp + 0x50]*/
     ecx = (*(unsigned*)((char*)S + 128));
   /*0c14 mov dword ptr [edi + 0x11c], ecx*/
-    *(unsigned*)((char*)(edi + 284)) = ecx;
+    *(hulk_uintptr*)((char*)(edi + 284)) = ecx;
   /*0c1a mov edx, dword ptr [esp + 0x54]*/
     edx = (*(unsigned*)((char*)S + 132));
   /*0c1e mov ecx, dword ptr [esp + 0xb8]*/
     ecx = (*(unsigned*)((char*)S + 232));
   /*0c25 mov dword ptr [edi + 0x120], edx*/
-    *(unsigned*)((char*)(edi + 288)) = edx;
+    *(hulk_uintptr*)((char*)(edi + 288)) = edx;
   /*0c2b mov eax, dword ptr [esp + 0x58]*/
     eax = (*(unsigned*)((char*)S + 136));
   /*0c2f mov edx, dword ptr [esp + 0xbc]*/
     edx = (*(unsigned*)((char*)S + 236));
   /*0c36 mov dword ptr [edi + 0x124], eax*/
-    *(unsigned*)((char*)(edi + 292)) = eax;
+    *(hulk_uintptr*)((char*)(edi + 292)) = eax;
   /*0c3c mov eax, dword ptr [esp + 0xc0]*/
     eax = (*(unsigned*)((char*)S + 240));
   /*0c43 mov dword ptr [edi + 0x130], eax*/
-    *(unsigned*)((char*)(edi + 304)) = eax;
+    *(hulk_uintptr*)((char*)(edi + 304)) = eax;
   /*0c49 mov al, byte ptr [esp + 0x3f]*/
     eax = (eax & ~(0xffu << 0)) | (((unsigned)((*(unsigned char*)((char*)S + 111))) & 0xff) << 0);
   /*0c4d test al, al*/
   /*0c4f mov dword ptr [edi + 0x128], ecx*/
-    *(unsigned*)((char*)(edi + 296)) = ecx;
+    *(hulk_uintptr*)((char*)(edi + 296)) = ecx;
   /*0c55 mov dword ptr [edi + 0x12c], edx*/
-    *(unsigned*)((char*)(edi + 300)) = edx;
+    *(hulk_uintptr*)((char*)(edi + 300)) = edx;
   /*0c5b je 0d0d*/
     if ((unsigned char)(((eax & 0xff) & (eax & 0xff))) == 0) goto L_0d0d;
   /*0c61 fld dword ptr [esi + 0x98]*/
@@ -1795,7 +1796,7 @@ L_0c10:
   /*0c7b mov ecx, dword ptr [ebx + 0x3a8]*/
     ecx = (*(unsigned*)((char*)(ebx + 936)));
   /*0c81 mov dword ptr [esi + 0x98], ecx*/
-    *(unsigned*)((char*)(esi + 152)) = ecx;
+    *(hulk_uintptr*)((char*)(esi + 152)) = ecx;
   /*0c87 mov ecx, dword ptr [esp + 0xf0]*/
     ecx = (*(unsigned*)((char*)S + 288));
   /*0c8e call FUN_00078780*/
@@ -1836,7 +1837,7 @@ L_0cd2:
   /*0ce1 push 1*/
     *(unsigned*)((char*)S + 44) = 1u;
   /*0ce3 lea eax, [esp + 0xac]*/
-    eax = (unsigned)((char*)S + 216);
+    eax = (hulk_uintptr)((char*)S + 216);
   /*0cea fstp dword ptr [esi + 0x70]*/
     *(float*)((char*)(esi + 112)) = (float)(((fpk0) / (fpk1)));
   /*0ced mov edx, dword ptr [ebx + 0x1cbc]*/
@@ -1946,7 +1947,7 @@ L_0dfd:
   /*0e01 mov eax, dword ptr [esp + 0x160]*/
     eax = (*(unsigned*)((char*)S + 400));
   /*0e08 lea ecx, [esp + 0x70]*/
-    ecx = (unsigned)((char*)S + 160);
+    ecx = (hulk_uintptr)((char*)S + 160);
   /*0e0c push ecx*/
     *(unsigned*)((char*)S + 44) = ecx;
   /*0e0d push edx*/
@@ -1980,7 +1981,7 @@ L_0dfd:
   /*0e43 mov byte ptr [ecx + 0x129], 1*/
     *(unsigned char*)((char*)(ecx + 297)) = 1u;
   /*0e4a lea ecx, [esp + 0x70]*/
-    ecx = (unsigned)((char*)S + 160);
+    ecx = (hulk_uintptr)((char*)S + 160);
   /*0e4e call FUN_0022d110*/
     fretv = ((O*)ecx)->FUN_0022d110();
   /*0e53 fstp st(0)*/
@@ -2038,13 +2039,13 @@ L_0ebd:
   /*0ebd fld dword ptr [esp + 0x5c]*/
     fl90 = *(float*)((char*)S + 140);
   /*0ec1 lea eax, [esp + 0x98]*/
-    eax = (unsigned)((char*)S + 200);
+    eax = (hulk_uintptr)((char*)S + 200);
   /*0ec8 fsub dword ptr [esp + 0x38]*/
     fl91 = *(float*)((char*)S + 104);
   /*0ecc push eax*/
     *(unsigned*)((char*)S + 44) = eax;
   /*0ecd lea ecx, [esp + 0x50]*/
-    ecx = (unsigned)((char*)S + 124);
+    ecx = (hulk_uintptr)((char*)S + 124);
   /*0ed1 push ecx*/
     *(unsigned*)((char*)S + 40) = ecx;
   /*0ed2 fdiv dword ptr [esp + 0x64]*/
@@ -2059,7 +2060,7 @@ L_0ebd:
     *(float*)((char*)S + 44) = (float)(fretv);
   /*0eee add esp, 4*/
   /*0ef1 lea ecx, [esp + 0x74]*/
-    ecx = (unsigned)((char*)S + 160);
+    ecx = (hulk_uintptr)((char*)S + 160);
   /*0ef5 call FUN_000344b0*/
     ((O*)ecx)->FUN_000344b0(*(unsigned*)((char*)S + 44));
   /*0efa mov byte ptr [esi + 0x6c], 0*/
@@ -2102,15 +2103,15 @@ L_0f22:
     *(float*)((char*)(esi + 120)) = (float)(((((fretv) * (3.0f))) + (4.0f)));
 L_0f59:
   /*0f59 lea eax, [esp + 0x24]*/
-    eax = (unsigned)((char*)S + 84);
+    eax = (hulk_uintptr)((char*)S + 84);
   /*0f5d push eax*/
     *(unsigned*)((char*)S + 44) = eax;
   /*0f5e lea ecx, [esp + 0x54]*/
-    ecx = (unsigned)((char*)S + 128);
+    ecx = (hulk_uintptr)((char*)S + 128);
   /*0f62 push ecx*/
     *(unsigned*)((char*)S + 40) = ecx;
   /*0f63 lea ecx, [esp + 0xdc]*/
-    ecx = (unsigned)((char*)S + 260);
+    ecx = (hulk_uintptr)((char*)S + 260);
   /*0f6a mov dword ptr [esp + 0x2c], 0*/
     *(unsigned*)((char*)S + 84) = 0u;
   /*0f72 mov dword ptr [esp + 0x30], 0x3f800000*/
@@ -2124,7 +2125,7 @@ L_0f59:
   /*0f8a fld dword ptr [esp + 0xd4]*/
     fl96 = *(float*)((char*)S + 260);
   /*0f91 lea ecx, [esp + 0xd4]*/
-    ecx = (unsigned)((char*)S + 260);
+    ecx = (hulk_uintptr)((char*)S + 260);
   /*0f98 fmul st(1)*/
   /*0f9a fstp dword ptr [esp + 0xd4]*/
     *(float*)((char*)S + 260) = (float)(((fl96) * (fl95)));
@@ -2161,11 +2162,11 @@ L_0f59:
   /*1000 mov ecx, dword ptr [esp + 0x160]*/
     ecx = (*(unsigned*)((char*)S + 400));
   /*1007 lea edx, [esp + 0x40]*/
-    edx = (unsigned)((char*)S + 112);
+    edx = (hulk_uintptr)((char*)S + 112);
   /*100b push edx*/
     *(unsigned*)((char*)S + 44) = edx;
   /*100c lea eax, [esp + 0xe4]*/
-    eax = (unsigned)((char*)S + 272);
+    eax = (hulk_uintptr)((char*)S + 272);
   /*1013 push eax*/
     *(unsigned*)((char*)S + 40) = eax;
   /*1014 push ebx*/
@@ -2199,11 +2200,11 @@ L_0f59:
   /*1058 fstp dword ptr [esp + 0x24]*/
     *(float*)((char*)S + 84) = (float)(((fl101) - (fl102)));
   /*105c lea ecx, [esp + 0x24]*/
-    ecx = (unsigned)((char*)S + 84);
+    ecx = (hulk_uintptr)((char*)S + 84);
   /*1060 fld dword ptr [esp + 0xac]*/
     fl103 = *(float*)((char*)S + 220);
   /*1067 mov dword ptr [esi + 0xac], ebp*/
-    *(unsigned*)((char*)(esi + 172)) = ebp;
+    *(hulk_uintptr*)((char*)(esi + 172)) = ebp;
   /*106d fsub dword ptr [esp + 0x44]*/
     fl104 = *(float*)((char*)S + 116);
   /*1071 mov dword ptr [esp + 0x7c], edx*/
@@ -2223,13 +2224,13 @@ L_0f59:
   /*1094 push ecx*/
     *(unsigned*)((char*)S + 44) = ecx;
   /*1095 lea edx, [esp + 0xe4]*/
-    edx = (unsigned)((char*)S + 272);
+    edx = (hulk_uintptr)((char*)S + 272);
   /*109c fstp dword ptr [esp]*/
     *(float*)((char*)S + 44) = (float)(fretv);
   /*109f push edx*/
     *(unsigned*)((char*)S + 40) = edx;
   /*10a0 lea eax, [esp + 0xfc]*/
-    eax = (unsigned)((char*)S + 292);
+    eax = (hulk_uintptr)((char*)S + 292);
   /*10a7 push eax*/
     *(unsigned*)((char*)S + 36) = eax;
   /*10a8 call FUN_00083e00*/
@@ -2239,7 +2240,7 @@ L_0f59:
   /*10b4 fadd dword ptr [eax + 8]*/
     fl108 = *(float*)((char*)(eax + 8));
   /*10b7 lea ecx, [esp + 0x6e]*/
-    ecx = (unsigned)((char*)S + 146);
+    ecx = (hulk_uintptr)((char*)S + 146);
   /*10bb fld dword ptr [esp + 0x88]*/
     fl109 = *(float*)((char*)S + 172);
   /*10c2 push ecx*/
@@ -2247,17 +2248,17 @@ L_0f59:
   /*10c3 fadd dword ptr [eax]*/
     fl110 = *(float*)((char*)(eax));
   /*10c5 lea edx, [esp + 0x73]*/
-    edx = (unsigned)((char*)S + 147);
+    edx = (hulk_uintptr)((char*)S + 147);
   /*10c9 push edx*/
     *(unsigned*)((char*)S + 28) = edx;
   /*10ca lea eax, [esp + 0x108]*/
-    eax = (unsigned)((char*)S + 292);
+    eax = (hulk_uintptr)((char*)S + 292);
   /*10d1 fstp dword ptr [esp + 0x38]*/
     *(float*)((char*)S + 84) = (float)(((fl109) + (fl110)));
   /*10d5 push eax*/
     *(unsigned*)((char*)S + 24) = eax;
   /*10d6 lea ecx, [esp + 0xd0]*/
-    ecx = (unsigned)((char*)S + 232);
+    ecx = (hulk_uintptr)((char*)S + 232);
   /*10dd fstp dword ptr [esp + 0x44]*/
     *(float*)((char*)S + 92) = (float)(((fl107) + (fl108)));
   /*10e1 push ecx*/
@@ -2268,11 +2269,11 @@ L_0f59:
     ecx = DAT_004dd700;
   /*10ef fadd dword ptr [0x3f75a8]*/
   /*10f5 lea edx, [esp + 0x40]*/
-    edx = (unsigned)((char*)S + 84);
+    edx = (hulk_uintptr)((char*)S + 84);
   /*10f9 push edx*/
     *(unsigned*)((char*)S + 16) = edx;
   /*10fa lea eax, [esp + 0x9c]*/
-    eax = (unsigned)((char*)S + 172);
+    eax = (hulk_uintptr)((char*)S + 172);
   /*1101 push eax*/
     *(unsigned*)((char*)S + 12) = eax;
   /*1102 fst dword ptr [esp + 0xa4]*/
@@ -2310,11 +2311,11 @@ L_0f59:
   /*113e push 0x3f800000*/
     *(unsigned*)((char*)S + 32) = 1065353216u;
   /*1143 lea edx, [esp + 0x34]*/
-    edx = (unsigned)((char*)S + 84);
+    edx = (hulk_uintptr)((char*)S + 84);
   /*1147 push edx*/
     *(unsigned*)((char*)S + 28) = edx;
   /*1148 lea eax, [esp + 0xbc]*/
-    eax = (unsigned)((char*)S + 216);
+    eax = (hulk_uintptr)((char*)S + 216);
   /*114f push eax*/
     *(unsigned*)((char*)S + 24) = eax;
   /*1150 push ecx*/
@@ -2351,7 +2352,7 @@ L_1173:
     if ((unsigned char)(((eax & 0xff) & (eax & 0xff))) != 0) goto L_1c2a;
 L_117f:
   /*117f mov dword ptr [edi + 0x110], ebp*/
-    *(unsigned*)((char*)(edi + 272)) = ebp;
+    *(hulk_uintptr*)((char*)(edi + 272)) = ebp;
   /*1185 jmp 1d32*/
     goto L_1d32;
 L_118a:
@@ -2380,11 +2381,11 @@ L_11bf:
   /*11c6 push 1*/
     *(unsigned*)((char*)S + 40) = 1u;
   /*11c8 lea eax, [esp + 0x78]*/
-    eax = (unsigned)((char*)S + 160);
+    eax = (hulk_uintptr)((char*)S + 160);
   /*11cc push eax*/
     *(unsigned*)((char*)S + 36) = eax;
   /*11cd lea ecx, [esp + 0xa4]*/
-    ecx = (unsigned)((char*)S + 200);
+    ecx = (hulk_uintptr)((char*)S + 200);
   /*11d4 push ecx*/
     *(unsigned*)((char*)S + 32) = ecx;
   /*11d5 push 0x3fc00000*/
@@ -2436,17 +2437,17 @@ L_122c:
   /*122f mov edx, dword ptr [esp + 0xe0]*/
     edx = (*(unsigned*)((char*)S + 272));
   /*1236 mov dword ptr [eax + 0x10], edx*/
-    *(unsigned*)((char*)(eax + 16)) = edx;
+    *(hulk_uintptr*)((char*)(eax + 16)) = edx;
   /*1239 mov ecx, dword ptr [esp + 0xe4]*/
     ecx = (*(unsigned*)((char*)S + 276));
   /*1240 add eax, 0x10*/
     eax = (unsigned)(eax + 16u);
   /*1243 mov dword ptr [eax + 4], ecx*/
-    *(unsigned*)((char*)(eax + 4)) = ecx;
+    *(hulk_uintptr*)((char*)(eax + 4)) = ecx;
   /*1246 mov edx, dword ptr [esp + 0xe8]*/
     edx = (*(unsigned*)((char*)S + 280));
   /*124d mov dword ptr [eax + 8], edx*/
-    *(unsigned*)((char*)(eax + 8)) = edx;
+    *(hulk_uintptr*)((char*)(eax + 8)) = edx;
   /*1250 mov edx, dword ptr [esp + 0x164]*/
     edx = (*(unsigned*)((char*)S + 404));
   /*1257 mov ecx, dword ptr [esi + 0x5c]*/
@@ -2459,7 +2460,7 @@ L_122c:
   /*125e push edx*/
     *(unsigned*)((char*)S + 40) = edx;
   /*125f lea edx, [esp + 0x90]*/
-    edx = (unsigned)((char*)S + 184);
+    edx = (hulk_uintptr)((char*)S + 184);
   /*1266 push edx*/
     *(unsigned*)((char*)S + 36) = edx;
   /*1267 mov edx, dword ptr [0x4dd700]*/
@@ -2476,7 +2477,7 @@ L_122c:
     ecx = (*(unsigned*)&DAT_004a1e38);
   /*127f fadd st(0), st(0)*/
   /*1281 lea eax, [esp + 0x70]*/
-    eax = (unsigned)((char*)S + 160);
+    eax = (hulk_uintptr)((char*)S + 160);
   /*1285 push eax*/
     *(unsigned*)((char*)S + 44) = eax;
   /*1286 fstp dword ptr [esp + 0x8c]*/
@@ -2486,12 +2487,12 @@ L_122c:
   /*128e fld dword ptr [esp + 0x94]*/
     fl114 = *(float*)((char*)S + 188);
   /*1295 lea edx, [esp + 0x48]*/
-    edx = (unsigned)((char*)S + 112);
+    edx = (hulk_uintptr)((char*)S + 112);
   /*1299 fadd st(0), st(0)*/
   /*129b push edx*/
     *(unsigned*)((char*)S + 36) = edx;
   /*129c lea ebp, [esi + 0x60]*/
-    ebp = (unsigned)((char*)(esi + 96));
+    ebp = (hulk_uintptr)((char*)(esi + 96));
   /*129f fstp dword ptr [esp + 0x98]*/
     *(float*)((char*)S + 188) = (float)(((fl114) + (fl114)));
   /*12a6 fld dword ptr [esp + 0x9c]*/
@@ -2508,7 +2509,7 @@ L_122c:
   /*12ca push eax*/
     *(unsigned*)((char*)S + 44) = eax;
   /*12cb lea eax, [esp + 0x114]*/
-    eax = (unsigned)((char*)S + 320);
+    eax = (hulk_uintptr)((char*)S + 320);
   /*12d2 push eax*/
     *(unsigned*)((char*)S + 40) = eax;
   /*12d3 push ebp*/
@@ -2516,7 +2517,7 @@ L_122c:
   /*12d4 push ecx*/
     *(unsigned*)((char*)S + 32) = ecx;
   /*12d5 lea ecx, [esp + 0x110]*/
-    ecx = (unsigned)((char*)S + 304);
+    ecx = (hulk_uintptr)((char*)S + 304);
   /*12dc fstp dword ptr [esp]*/
     *(float*)((char*)S + 32) = (float)(((1.0f) - (fl116)));
   /*12df push ecx*/
@@ -2534,21 +2535,21 @@ L_122c:
     vo_edx = eax;
     edx = (*(unsigned*)((char*)(eax)));
   /*12f8 mov dword ptr [ebp], edx*/
-    *(unsigned*)((char*)(ebp)) = edx;
+    *(hulk_uintptr*)((char*)(ebp)) = edx;
   /*12fb mov ecx, dword ptr [eax + 4]*/
     ecx = (*(unsigned*)((char*)(eax + 4)));
   /*12fe mov dword ptr [ebp + 4], ecx*/
-    *(unsigned*)((char*)(ebp + 4)) = ecx;
+    *(hulk_uintptr*)((char*)(ebp + 4)) = ecx;
   /*1301 mov edx, dword ptr [eax + 8]*/
     edx = (*(unsigned*)((char*)(eax + 8)));
   /*1304 mov dword ptr [ebp + 8], edx*/
-    *(unsigned*)((char*)(ebp + 8)) = edx;
+    *(hulk_uintptr*)((char*)(ebp + 8)) = edx;
   /*1307 fadd dword ptr [ebp]*/
     fl118 = *(float*)((char*)(ebp));
   /*130a fld dword ptr [esp + 0xe8]*/
     fl119 = *(float*)((char*)S + 280);
   /*1311 lea ecx, [esp + 0x14]*/
-    ecx = (unsigned)((char*)S + 68);
+    ecx = (hulk_uintptr)((char*)S + 68);
   /*1315 fadd dword ptr [ebp + 8]*/
     fl120 = *(float*)((char*)(ebp + 8));
   /*1318 mov dword ptr [esp + 0x18], 0*/
@@ -2588,28 +2589,28 @@ L_1366:
   /*1366 mov eax, dword ptr [esp + 0x50]*/
     eax = (*(unsigned*)((char*)S + 128));
   /*136a mov dword ptr [edi + 0x11c], eax*/
-    *(unsigned*)((char*)(edi + 284)) = eax;
+    *(hulk_uintptr*)((char*)(edi + 284)) = eax;
   /*1370 mov ecx, dword ptr [esp + 0x54]*/
     ecx = (*(unsigned*)((char*)S + 132));
   /*1374 mov dword ptr [edi + 0x120], ecx*/
-    *(unsigned*)((char*)(edi + 288)) = ecx;
+    *(hulk_uintptr*)((char*)(edi + 288)) = ecx;
   /*137a mov edx, dword ptr [esp + 0x58]*/
     edx = (*(unsigned*)((char*)S + 136));
   /*137e mov dword ptr [edi + 0x124], edx*/
-    *(unsigned*)((char*)(edi + 292)) = edx;
+    *(hulk_uintptr*)((char*)(edi + 292)) = edx;
 L_1384:
   /*1384 mov eax, dword ptr [esp + 0x14]*/
     eax = (*(unsigned*)((char*)S + 68));
   /*1388 mov dword ptr [edi + 0x10c], eax*/
-    *(unsigned*)((char*)(edi + 268)) = eax;
+    *(hulk_uintptr*)((char*)(edi + 268)) = eax;
   /*138e mov ecx, dword ptr [esp + 0x18]*/
     ecx = (*(unsigned*)((char*)S + 72));
   /*1392 mov dword ptr [edi + 0x110], ecx*/
-    *(unsigned*)((char*)(edi + 272)) = ecx;
+    *(hulk_uintptr*)((char*)(edi + 272)) = ecx;
   /*1398 mov edx, dword ptr [esp + 0x1c]*/
     edx = (*(unsigned*)((char*)S + 76));
   /*139c mov dword ptr [edi + 0x114], edx*/
-    *(unsigned*)((char*)(edi + 276)) = edx;
+    *(hulk_uintptr*)((char*)(edi + 276)) = edx;
   /*13a2 jmp 1171*/
     goto L_1171;
 L_13a7:
@@ -2634,7 +2635,7 @@ L_13a7:
   /*13d6 jne 147d*/
     if ((unsigned char)(((ecx & 0xff) & (ecx & 0xff))) != 0) goto L_147d;
   /*13dc lea eax, [esp + 0x7c]*/
-    eax = (unsigned)((char*)S + 172);
+    eax = (hulk_uintptr)((char*)S + 172);
   /*13e0 mov byte ptr [esi + 0x6c], cl*/
     *(unsigned char*)((char*)(esi + 108)) = (ecx & 0xff);
   /*13e3 mov dword ptr [esi + 0xac], 0*/
@@ -2682,11 +2683,11 @@ L_13a7:
   /*1437 push 0x3f800000*/
     *(unsigned*)((char*)S + 32) = 1065353216u;
   /*143c lea ecx, [esp + 0x34]*/
-    ecx = (unsigned)((char*)S + 84);
+    ecx = (hulk_uintptr)((char*)S + 84);
   /*1440 push ecx*/
     *(unsigned*)((char*)S + 28) = ecx;
   /*1441 lea edx, [esp + 0x90]*/
-    edx = (unsigned)((char*)S + 172);
+    edx = (hulk_uintptr)((char*)S + 172);
   /*1448 push edx*/
     *(unsigned*)((char*)S + 24) = edx;
   /*1449 push ebx*/
@@ -2807,14 +2808,14 @@ L_14d9:
   /*152a mov ecx, dword ptr [ebx + 0x1cd0]*/
     ecx = (*(unsigned*)((char*)(ebx + 7376)));
   /*1530 mov dword ptr [esi + 0x9c], ecx*/
-    *(unsigned*)((char*)(esi + 156)) = ecx;
+    *(hulk_uintptr*)((char*)(esi + 156)) = ecx;
   /*1536 mov ecx, dword ptr [esp + 0xf0]*/
     ecx = (*(unsigned*)((char*)S + 288));
   /*153d call FUN_00078780*/
     fretv = ((O*)ecx)->FUN_00078780();
   /*1542 fmul dword ptr [0x40d66c]*/
   /*1548 mov dword ptr [esi + 0x70], ebp*/
-    *(unsigned*)((char*)(esi + 112)) = ebp;
+    *(hulk_uintptr*)((char*)(esi + 112)) = ebp;
   /*154b push 1*/
     *(unsigned*)((char*)S + 44) = 1u;
   /*154d fadd dword ptr [0x3f32dc]*/
@@ -2825,27 +2826,27 @@ L_14d9:
   /*155f fstp dword ptr [esi + 0x74]*/
     *(float*)((char*)(esi + 116)) = (float)(((((((fretv) * (0.5f))) + (1.0f))) * (fl134)));
   /*1562 mov dword ptr [edi + 0x118], ebp*/
-    *(unsigned*)((char*)(edi + 280)) = ebp;
+    *(hulk_uintptr*)((char*)(edi + 280)) = ebp;
   /*1568 mov edx, dword ptr [esp + 0xc8]*/
     edx = (*(unsigned*)((char*)S + 244));
   /*156f mov dword ptr [edi + 0x11c], edx*/
-    *(unsigned*)((char*)(edi + 284)) = edx;
+    *(hulk_uintptr*)((char*)(edi + 284)) = edx;
   /*1575 mov eax, dword ptr [esp + 0xcc]*/
     eax = (*(unsigned*)((char*)S + 248));
   /*157c mov dword ptr [edi + 0x120], eax*/
-    *(unsigned*)((char*)(edi + 288)) = eax;
+    *(hulk_uintptr*)((char*)(edi + 288)) = eax;
   /*1582 mov ecx, dword ptr [esp + 0xd0]*/
     ecx = (*(unsigned*)((char*)S + 252));
   /*1589 mov dword ptr [edi + 0x124], ecx*/
-    *(unsigned*)((char*)(edi + 292)) = ecx;
+    *(hulk_uintptr*)((char*)(edi + 292)) = ecx;
   /*158f mov ecx, dword ptr [esp + 0x98]*/
     ecx = (*(unsigned*)((char*)S + 196));
   /*1596 mov dword ptr [edi + 0x114], ebp*/
-    *(unsigned*)((char*)(edi + 276)) = ebp;
+    *(hulk_uintptr*)((char*)(edi + 276)) = ebp;
   /*159c mov dword ptr [edi + 0x110], ebp*/
-    *(unsigned*)((char*)(edi + 272)) = ebp;
+    *(hulk_uintptr*)((char*)(edi + 272)) = ebp;
   /*15a2 mov dword ptr [edi + 0x10c], ebp*/
-    *(unsigned*)((char*)(edi + 268)) = ebp;
+    *(hulk_uintptr*)((char*)(edi + 268)) = ebp;
   /*15a8 mov dword ptr [edi + 0xc], 1*/
     *(unsigned*)((char*)(edi + 12)) = 1u;
   /*15af mov edx, dword ptr [ebx + 0x1cbc]*/
@@ -2855,7 +2856,7 @@ L_14d9:
   /*15b6 mov edx, dword ptr [esp + 0x168]*/
     edx = (*(unsigned*)((char*)S + 400));
   /*15bd lea eax, [esp + 0xb0]*/
-    eax = (unsigned)((char*)S + 216);
+    eax = (hulk_uintptr)((char*)S + 216);
   /*15c4 push eax*/
     *(unsigned*)((char*)S + 36) = eax;
   /*15c5 push ecx*/
@@ -2924,15 +2925,15 @@ L_1634:
   /*163b add eax, 0x10*/
     eax = (unsigned)(eax + 16u);
   /*163e mov dword ptr [eax], ecx*/
-    *(unsigned*)((char*)(eax)) = ecx;
+    *(hulk_uintptr*)((char*)(eax)) = ecx;
   /*1640 mov edx, dword ptr [esp + 0x18]*/
     edx = (*(unsigned*)((char*)S + 72));
   /*1644 mov dword ptr [eax + 4], edx*/
-    *(unsigned*)((char*)(eax + 4)) = edx;
+    *(hulk_uintptr*)((char*)(eax + 4)) = edx;
   /*1647 mov ecx, dword ptr [esp + 0x1c]*/
     ecx = (*(unsigned*)((char*)S + 76));
   /*164b mov dword ptr [eax + 8], ecx*/
-    *(unsigned*)((char*)(eax + 8)) = ecx;
+    *(hulk_uintptr*)((char*)(eax + 8)) = ecx;
   /*164e mov eax, dword ptr [esp + 0x164]*/
     eax = (*(unsigned*)((char*)S + 404));
   /*1655 mov ecx, dword ptr [esi + 0x5c]*/
@@ -2945,7 +2946,7 @@ L_1634:
   /*165b push eax*/
     *(unsigned*)((char*)S + 40) = eax;
   /*165c lea eax, [esp + 0x90]*/
-    eax = (unsigned)((char*)S + 184);
+    eax = (hulk_uintptr)((char*)S + 184);
   /*1663 push eax*/
     *(unsigned*)((char*)S + 36) = eax;
   /*1664 mov eax, dword ptr [esp + 0x16c]*/
@@ -2974,22 +2975,22 @@ L_1634:
     goto L_1697;
 L_1691:
   /*1691 mov dword ptr [esi + 0xac], ebp*/
-    *(unsigned*)((char*)(esi + 172)) = ebp;
+    *(hulk_uintptr*)((char*)(esi + 172)) = ebp;
 L_1697:
   /*1697 mov edx, dword ptr [0x4a1e38]*/
     edx = (*(unsigned*)&DAT_004a1e38);
   /*169d lea ecx, [esp + 0x70]*/
-    ecx = (unsigned)((char*)S + 160);
+    ecx = (hulk_uintptr)((char*)S + 160);
   /*16a1 push ecx*/
     *(unsigned*)((char*)S + 44) = ecx;
   /*16a2 push edx*/
     *(unsigned*)((char*)S + 40) = edx;
   /*16a3 lea eax, [esp + 0x108]*/
-    eax = (unsigned)((char*)S + 304);
+    eax = (hulk_uintptr)((char*)S + 304);
   /*16aa push eax*/
     *(unsigned*)((char*)S + 36) = eax;
   /*16ab lea ebp, [esi + 0x60]*/
-    ebp = (unsigned)((char*)(esi + 96));
+    ebp = (hulk_uintptr)((char*)(esi + 96));
   /*16ae call FUN_00083dd0*/
     eax = (unsigned)FUN_00083dd0(*(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*16b3 fld dword ptr [0x3f32dc]*/
@@ -2999,7 +3000,7 @@ L_1697:
   /*16c2 push eax*/
     *(unsigned*)((char*)S + 44) = eax;
   /*16c3 lea ecx, [esp + 0x114]*/
-    ecx = (unsigned)((char*)S + 320);
+    ecx = (hulk_uintptr)((char*)S + 320);
   /*16ca push ecx*/
     *(unsigned*)((char*)S + 40) = ecx;
   /*16cb push ebp*/
@@ -3007,7 +3008,7 @@ L_1697:
   /*16cc push ecx*/
     *(unsigned*)((char*)S + 32) = ecx;
   /*16cd lea edx, [esp + 0x104]*/
-    edx = (unsigned)((char*)S + 292);
+    edx = (hulk_uintptr)((char*)S + 292);
   /*16d4 fstp dword ptr [esp]*/
     *(float*)((char*)S + 32) = (float)(((1.0f) - (fl145)));
   /*16d7 push edx*/
@@ -3025,21 +3026,21 @@ L_1697:
     vo_ecx = eax;
     ecx = (*(unsigned*)((char*)(eax)));
   /*16ed mov dword ptr [ebp], ecx*/
-    *(unsigned*)((char*)(ebp)) = ecx;
+    *(hulk_uintptr*)((char*)(ebp)) = ecx;
   /*16f0 mov edx, dword ptr [eax + 4]*/
     edx = (*(unsigned*)((char*)(eax + 4)));
   /*16f3 mov dword ptr [ebp + 4], edx*/
-    *(unsigned*)((char*)(ebp + 4)) = edx;
+    *(hulk_uintptr*)((char*)(ebp + 4)) = edx;
   /*16f6 mov eax, dword ptr [eax + 8]*/
     eax = (*(unsigned*)((char*)(eax + 8)));
   /*16f9 mov dword ptr [ebp + 8], eax*/
-    *(unsigned*)((char*)(ebp + 8)) = eax;
+    *(hulk_uintptr*)((char*)(ebp + 8)) = eax;
   /*16fc fadd dword ptr [ebp]*/
     fl147 = *(float*)((char*)(ebp));
   /*16ff fld dword ptr [esp + 0x18]*/
     fl148 = *(float*)((char*)S + 72);
   /*1703 lea ecx, [esp + 0x14]*/
-    ecx = (unsigned)((char*)S + 68);
+    ecx = (hulk_uintptr)((char*)S + 68);
   /*1707 fadd dword ptr [ebp + 4]*/
     fl149 = *(float*)((char*)(ebp + 4));
   /*170a fld dword ptr [esp + 0x1c]*/
@@ -3080,27 +3081,27 @@ L_1697:
     ecx = (*(unsigned*)((char*)S + 244));
   /*1767 fstp st(0)*/
   /*1769 mov dword ptr [edi + 0x11c], ecx*/
-    *(unsigned*)((char*)(edi + 284)) = ecx;
+    *(hulk_uintptr*)((char*)(edi + 284)) = ecx;
   /*176f mov edx, dword ptr [esp + 0xc8]*/
     edx = (*(unsigned*)((char*)S + 248));
   /*1776 mov dword ptr [edi + 0x120], edx*/
-    *(unsigned*)((char*)(edi + 288)) = edx;
+    *(hulk_uintptr*)((char*)(edi + 288)) = edx;
   /*177c mov eax, dword ptr [esp + 0xcc]*/
     eax = (*(unsigned*)((char*)S + 252));
   /*1783 mov dword ptr [edi + 0x124], eax*/
-    *(unsigned*)((char*)(edi + 292)) = eax;
+    *(hulk_uintptr*)((char*)(edi + 292)) = eax;
   /*1789 mov ecx, dword ptr [esp + 0x14]*/
     ecx = (*(unsigned*)((char*)S + 68));
   /*178d mov dword ptr [edi + 0x10c], ecx*/
-    *(unsigned*)((char*)(edi + 268)) = ecx;
+    *(hulk_uintptr*)((char*)(edi + 268)) = ecx;
   /*1793 mov edx, dword ptr [esp + 0x18]*/
     edx = (*(unsigned*)((char*)S + 72));
   /*1797 mov dword ptr [edi + 0x110], edx*/
-    *(unsigned*)((char*)(edi + 272)) = edx;
+    *(hulk_uintptr*)((char*)(edi + 272)) = edx;
   /*179d mov eax, dword ptr [esp + 0x1c]*/
     eax = (*(unsigned*)((char*)S + 76));
   /*17a1 mov dword ptr [edi + 0x114], eax*/
-    *(unsigned*)((char*)(edi + 276)) = eax;
+    *(hulk_uintptr*)((char*)(edi + 276)) = eax;
   /*17a7 mov dword ptr [edi + 0x118], 0x3f800000*/
     *(unsigned*)((char*)(edi + 280)) = 1065353216u;
   /*17b1 jmp 1171*/
@@ -3155,7 +3156,7 @@ L_1812:
   /*1812 fld dword ptr [esp + 0xe0]*/
     fl167 = *(float*)((char*)S + 272);
   /*1819 lea ecx, [esp + 0x14]*/
-    ecx = (unsigned)((char*)S + 68);
+    ecx = (hulk_uintptr)((char*)S + 68);
   /*181d fadd dword ptr [esp + 0x50]*/
     fl168 = *(float*)((char*)S + 128);
   /*1821 mov byte ptr [esi + 0x6c], 0*/
@@ -3163,7 +3164,7 @@ L_1812:
   /*1825 fld dword ptr [esp + 0xe4]*/
     fl169 = *(float*)((char*)S + 276);
   /*182c mov dword ptr [esi + 0xac], ebp*/
-    *(unsigned*)((char*)(esi + 172)) = ebp;
+    *(hulk_uintptr*)((char*)(esi + 172)) = ebp;
   /*1832 fadd dword ptr [esp + 0x54]*/
     fl170 = *(float*)((char*)S + 132);
   /*1836 fld dword ptr [esp + 0xe8]*/
@@ -3193,27 +3194,27 @@ L_1812:
     ecx = (*(unsigned*)((char*)S + 244));
   /*1878 fstp st(0)*/
   /*187a mov dword ptr [edi + 0x11c], ecx*/
-    *(unsigned*)((char*)(edi + 284)) = ecx;
+    *(hulk_uintptr*)((char*)(edi + 284)) = ecx;
   /*1880 mov edx, dword ptr [esp + 0xc8]*/
     edx = (*(unsigned*)((char*)S + 248));
   /*1887 mov dword ptr [edi + 0x120], edx*/
-    *(unsigned*)((char*)(edi + 288)) = edx;
+    *(hulk_uintptr*)((char*)(edi + 288)) = edx;
   /*188d mov eax, dword ptr [esp + 0xcc]*/
     eax = (*(unsigned*)((char*)S + 252));
   /*1894 mov dword ptr [edi + 0x124], eax*/
-    *(unsigned*)((char*)(edi + 292)) = eax;
+    *(hulk_uintptr*)((char*)(edi + 292)) = eax;
   /*189a mov ecx, dword ptr [esp + 0x14]*/
     ecx = (*(unsigned*)((char*)S + 68));
   /*189e mov dword ptr [edi + 0x10c], ecx*/
-    *(unsigned*)((char*)(edi + 268)) = ecx;
+    *(hulk_uintptr*)((char*)(edi + 268)) = ecx;
   /*18a4 mov edx, dword ptr [esp + 0x18]*/
     edx = (*(unsigned*)((char*)S + 72));
   /*18a8 mov dword ptr [edi + 0x110], edx*/
-    *(unsigned*)((char*)(edi + 272)) = edx;
+    *(hulk_uintptr*)((char*)(edi + 272)) = edx;
   /*18ae mov eax, dword ptr [esp + 0x1c]*/
     eax = (*(unsigned*)((char*)S + 76));
   /*18b2 mov dword ptr [edi + 0x114], eax*/
-    *(unsigned*)((char*)(edi + 276)) = eax;
+    *(hulk_uintptr*)((char*)(edi + 276)) = eax;
   /*18b8 mov dword ptr [edi + 0x118], 0x3f800000*/
     *(unsigned*)((char*)(edi + 280)) = 1065353216u;
   /*18c2 jmp 1173*/
@@ -3262,11 +3263,11 @@ L_18c7:
   /*1923 mov ecx, dword ptr [esp + 0x1c]*/
     ecx = (*(unsigned*)((char*)S + 72));
   /*1927 mov dword ptr [eax + 4], ecx*/
-    *(unsigned*)((char*)(eax + 4)) = ecx;
+    *(hulk_uintptr*)((char*)(eax + 4)) = ecx;
   /*192a mov edx, dword ptr [esp + 0x20]*/
     edx = (*(unsigned*)((char*)S + 76));
   /*192e mov dword ptr [eax + 8], edx*/
-    *(unsigned*)((char*)(eax + 8)) = edx;
+    *(hulk_uintptr*)((char*)(eax + 8)) = edx;
   /*1931 mov edx, dword ptr [esp + 0x168]*/
     edx = (*(unsigned*)((char*)S + 404));
   /*1938 mov ecx, dword ptr [esi + 0x5c]*/
@@ -3277,7 +3278,7 @@ L_18c7:
   /*193d push edx*/
     *(unsigned*)((char*)S + 40) = edx;
   /*193e lea edx, [esp + 0x90]*/
-    edx = (unsigned)((char*)S + 184);
+    edx = (hulk_uintptr)((char*)S + 184);
   /*1945 push edx*/
     *(unsigned*)((char*)S + 36) = edx;
   /*1946 mov edx, dword ptr [0x4dd700]*/
@@ -3291,17 +3292,17 @@ L_18c7:
   /*1951 mov ecx, dword ptr [0x4a1e38]*/
     ecx = (*(unsigned*)&DAT_004a1e38);
   /*1957 lea eax, [esp + 0x70]*/
-    eax = (unsigned)((char*)S + 160);
+    eax = (hulk_uintptr)((char*)S + 160);
   /*195b push eax*/
     *(unsigned*)((char*)S + 44) = eax;
   /*195c push ecx*/
     *(unsigned*)((char*)S + 40) = ecx;
   /*195d lea edx, [esp + 0x108]*/
-    edx = (unsigned)((char*)S + 304);
+    edx = (hulk_uintptr)((char*)S + 304);
   /*1964 push edx*/
     *(unsigned*)((char*)S + 36) = edx;
   /*1965 lea ebp, [esi + 0x60]*/
-    ebp = (unsigned)((char*)(esi + 96));
+    ebp = (hulk_uintptr)((char*)(esi + 96));
   /*1968 call FUN_00083dd0*/
     eax = (unsigned)FUN_00083dd0(*(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*196d fld dword ptr [0x3f32dc]*/
@@ -3311,7 +3312,7 @@ L_18c7:
   /*197c push eax*/
     *(unsigned*)((char*)S + 44) = eax;
   /*197d lea eax, [esp + 0x114]*/
-    eax = (unsigned)((char*)S + 320);
+    eax = (hulk_uintptr)((char*)S + 320);
   /*1984 push eax*/
     *(unsigned*)((char*)S + 40) = eax;
   /*1985 push ebp*/
@@ -3319,7 +3320,7 @@ L_18c7:
   /*1986 push ecx*/
     *(unsigned*)((char*)S + 32) = ecx;
   /*1987 lea ecx, [esp + 0x104]*/
-    ecx = (unsigned)((char*)S + 292);
+    ecx = (hulk_uintptr)((char*)S + 292);
   /*198e fstp dword ptr [esp]*/
     *(float*)((char*)S + 32) = (float)(((1.0f) - (fl183)));
   /*1991 push ecx*/
@@ -3337,21 +3338,21 @@ L_18c7:
     vo_edx = eax;
     edx = (*(unsigned*)((char*)(eax)));
   /*19a7 mov dword ptr [ebp], edx*/
-    *(unsigned*)((char*)(ebp)) = edx;
+    *(hulk_uintptr*)((char*)(ebp)) = edx;
   /*19aa mov ecx, dword ptr [eax + 4]*/
     ecx = (*(unsigned*)((char*)(eax + 4)));
   /*19ad mov dword ptr [ebp + 4], ecx*/
-    *(unsigned*)((char*)(ebp + 4)) = ecx;
+    *(hulk_uintptr*)((char*)(ebp + 4)) = ecx;
   /*19b0 mov edx, dword ptr [eax + 8]*/
     edx = (*(unsigned*)((char*)(eax + 8)));
   /*19b3 mov dword ptr [ebp + 8], edx*/
-    *(unsigned*)((char*)(ebp + 8)) = edx;
+    *(hulk_uintptr*)((char*)(ebp + 8)) = edx;
   /*19b6 fadd dword ptr [ebp]*/
     fl185 = *(float*)((char*)(ebp));
   /*19b9 fld dword ptr [esp + 0x18]*/
     fl186 = *(float*)((char*)S + 72);
   /*19bd lea ecx, [esp + 0x14]*/
-    ecx = (unsigned)((char*)S + 68);
+    ecx = (hulk_uintptr)((char*)S + 68);
   /*19c1 fadd dword ptr [ebp + 4]*/
     fl187 = *(float*)((char*)(ebp + 4));
   /*19c4 fld dword ptr [esp + 0x1c]*/
@@ -3381,27 +3382,27 @@ L_18c7:
     eax = (*(unsigned*)((char*)S + 128));
   /*19ff fstp st(0)*/
   /*1a01 mov dword ptr [edi + 0x11c], eax*/
-    *(unsigned*)((char*)(edi + 284)) = eax;
+    *(hulk_uintptr*)((char*)(edi + 284)) = eax;
   /*1a07 mov ecx, dword ptr [esp + 0x54]*/
     ecx = (*(unsigned*)((char*)S + 132));
   /*1a0b mov eax, dword ptr [esp + 0xb8]*/
     eax = (*(unsigned*)((char*)S + 232));
   /*1a12 mov dword ptr [edi + 0x120], ecx*/
-    *(unsigned*)((char*)(edi + 288)) = ecx;
+    *(hulk_uintptr*)((char*)(edi + 288)) = ecx;
   /*1a18 mov edx, dword ptr [esp + 0x58]*/
     edx = (*(unsigned*)((char*)S + 136));
   /*1a1c mov ecx, dword ptr [esp + 0xbc]*/
     ecx = (*(unsigned*)((char*)S + 236));
   /*1a23 mov dword ptr [edi + 0x124], edx*/
-    *(unsigned*)((char*)(edi + 292)) = edx;
+    *(hulk_uintptr*)((char*)(edi + 292)) = edx;
   /*1a29 mov edx, dword ptr [esp + 0xc0]*/
     edx = (*(unsigned*)((char*)S + 240));
   /*1a30 mov dword ptr [edi + 0x128], eax*/
-    *(unsigned*)((char*)(edi + 296)) = eax;
+    *(hulk_uintptr*)((char*)(edi + 296)) = eax;
   /*1a36 mov dword ptr [edi + 0x12c], ecx*/
-    *(unsigned*)((char*)(edi + 300)) = ecx;
+    *(hulk_uintptr*)((char*)(edi + 300)) = ecx;
   /*1a3c mov dword ptr [edi + 0x130], edx*/
-    *(unsigned*)((char*)(edi + 304)) = edx;
+    *(hulk_uintptr*)((char*)(edi + 304)) = edx;
   /*1a42 mov dword ptr [edi + 0x118], 0x3f800000*/
     *(unsigned*)((char*)(edi + 280)) = 1065353216u;
   /*1a4c jmp 1384*/
@@ -3410,40 +3411,40 @@ L_1a51:
   /*1a51 mov eax, dword ptr [esp + 0x50]*/
     eax = (*(unsigned*)((char*)S + 128));
   /*1a55 mov dword ptr [edi + 0x11c], eax*/
-    *(unsigned*)((char*)(edi + 284)) = eax;
+    *(hulk_uintptr*)((char*)(edi + 284)) = eax;
   /*1a5b mov ecx, dword ptr [esp + 0x54]*/
     ecx = (*(unsigned*)((char*)S + 132));
   /*1a5f mov eax, dword ptr [esp + 0xb8]*/
     eax = (*(unsigned*)((char*)S + 232));
   /*1a66 mov dword ptr [edi + 0x120], ecx*/
-    *(unsigned*)((char*)(edi + 288)) = ecx;
+    *(hulk_uintptr*)((char*)(edi + 288)) = ecx;
   /*1a6c mov edx, dword ptr [esp + 0x58]*/
     edx = (*(unsigned*)((char*)S + 136));
   /*1a70 mov ecx, dword ptr [esp + 0xbc]*/
     ecx = (*(unsigned*)((char*)S + 236));
   /*1a77 mov dword ptr [edi + 0x124], edx*/
-    *(unsigned*)((char*)(edi + 292)) = edx;
+    *(hulk_uintptr*)((char*)(edi + 292)) = edx;
   /*1a7d mov edx, dword ptr [esp + 0xc0]*/
     edx = (*(unsigned*)((char*)S + 240));
   /*1a84 mov dword ptr [edi + 0x128], eax*/
-    *(unsigned*)((char*)(edi + 296)) = eax;
+    *(hulk_uintptr*)((char*)(edi + 296)) = eax;
   /*1a8a mov dword ptr [edi + 0x12c], ecx*/
-    *(unsigned*)((char*)(edi + 300)) = ecx;
+    *(hulk_uintptr*)((char*)(edi + 300)) = ecx;
   /*1a90 mov dword ptr [edi + 0x130], edx*/
-    *(unsigned*)((char*)(edi + 304)) = edx;
+    *(hulk_uintptr*)((char*)(edi + 304)) = edx;
   /*1a96 mov dword ptr [edi + 0x118], ebp*/
-    *(unsigned*)((char*)(edi + 280)) = ebp;
+    *(hulk_uintptr*)((char*)(edi + 280)) = ebp;
   /*1a9c mov dword ptr [edi + 0x114], ebp*/
-    *(unsigned*)((char*)(edi + 276)) = ebp;
+    *(hulk_uintptr*)((char*)(edi + 276)) = ebp;
   /*1aa2 mov dword ptr [edi + 0x110], ebp*/
-    *(unsigned*)((char*)(edi + 272)) = ebp;
+    *(hulk_uintptr*)((char*)(edi + 272)) = ebp;
   /*1aa8 mov dword ptr [edi + 0x10c], ebp*/
-    *(unsigned*)((char*)(edi + 268)) = ebp;
+    *(hulk_uintptr*)((char*)(edi + 268)) = ebp;
   /*1aae mov al, byte ptr [esi + 0x6c]*/
     eax = (eax & ~(0xffu << 0)) | (((unsigned)((*(unsigned char*)((char*)(esi + 108)))) & 0xff) << 0);
   /*1ab1 test al, al*/
   /*1ab3 mov dword ptr [esi + 0xac], ebp*/
-    *(unsigned*)((char*)(esi + 172)) = ebp;
+    *(hulk_uintptr*)((char*)(esi + 172)) = ebp;
   /*1ab9 jne 1173*/
     if ((unsigned char)(((eax & 0xff) & (eax & 0xff))) != 0) goto L_1173;
   /*1abf mov al, byte ptr [esp + 0x37]*/
@@ -3452,7 +3453,7 @@ L_1a51:
   /*1ac5 jne 1c2a*/
     if ((unsigned char)(((eax & 0xff) & (eax & 0xff))) != 0) goto L_1c2a;
   /*1acb lea ecx, [esp + 0x70]*/
-    ecx = (unsigned)((char*)S + 160);
+    ecx = (hulk_uintptr)((char*)S + 160);
   /*1acf call FUN_000111f0*/
     fretv = ((O*)ecx)->FUN_000111f0();
   /*1ad4 fcomp dword ptr [0x3f3358]*/
@@ -3468,15 +3469,15 @@ L_1a51:
   /*1aec add eax, 0x10*/
     eax = (unsigned)(eax + 16u);
   /*1aef mov dword ptr [eax], ecx*/
-    *(unsigned*)((char*)(eax)) = ecx;
+    *(hulk_uintptr*)((char*)(eax)) = ecx;
   /*1af1 mov edx, dword ptr [esp + 0x74]*/
     edx = (*(unsigned*)((char*)S + 164));
   /*1af5 mov dword ptr [eax + 4], edx*/
-    *(unsigned*)((char*)(eax + 4)) = edx;
+    *(hulk_uintptr*)((char*)(eax + 4)) = edx;
   /*1af8 mov ecx, dword ptr [esp + 0x78]*/
     ecx = (*(unsigned*)((char*)S + 168));
   /*1afc mov dword ptr [eax + 8], ecx*/
-    *(unsigned*)((char*)(eax + 8)) = ecx;
+    *(hulk_uintptr*)((char*)(eax + 8)) = ecx;
   /*1aff mov eax, dword ptr [esp + 0x164]*/
     eax = (*(unsigned*)((char*)S + 404));
   /*1b06 mov ecx, dword ptr [esi + 0x5c]*/
@@ -3489,7 +3490,7 @@ L_1a51:
   /*1b0d push eax*/
     *(unsigned*)((char*)S + 40) = eax;
   /*1b0e lea eax, [esp + 0x90]*/
-    eax = (unsigned)((char*)S + 184);
+    eax = (hulk_uintptr)((char*)S + 184);
   /*1b15 push eax*/
     *(unsigned*)((char*)S + 36) = eax;
   /*1b16 mov eax, dword ptr [0x4dd700]*/
@@ -3503,17 +3504,17 @@ L_1a51:
   /*1b20 mov edx, dword ptr [0x4a1e38]*/
     edx = (*(unsigned*)&DAT_004a1e38);
   /*1b26 lea ecx, [esp + 0x70]*/
-    ecx = (unsigned)((char*)S + 160);
+    ecx = (hulk_uintptr)((char*)S + 160);
   /*1b2a push ecx*/
     *(unsigned*)((char*)S + 44) = ecx;
   /*1b2b push edx*/
     *(unsigned*)((char*)S + 40) = edx;
   /*1b2c lea eax, [esp + 0x108]*/
-    eax = (unsigned)((char*)S + 304);
+    eax = (hulk_uintptr)((char*)S + 304);
   /*1b33 push eax*/
     *(unsigned*)((char*)S + 36) = eax;
   /*1b34 lea ebp, [esi + 0x60]*/
-    ebp = (unsigned)((char*)(esi + 96));
+    ebp = (hulk_uintptr)((char*)(esi + 96));
   /*1b37 call FUN_00083dd0*/
     eax = (unsigned)FUN_00083dd0(*(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*1b3c fld dword ptr [0x3f32dc]*/
@@ -3523,7 +3524,7 @@ L_1a51:
   /*1b4b push eax*/
     *(unsigned*)((char*)S + 44) = eax;
   /*1b4c lea ecx, [esp + 0x114]*/
-    ecx = (unsigned)((char*)S + 320);
+    ecx = (hulk_uintptr)((char*)S + 320);
   /*1b53 push ecx*/
     *(unsigned*)((char*)S + 40) = ecx;
   /*1b54 push ebp*/
@@ -3531,7 +3532,7 @@ L_1a51:
   /*1b55 push ecx*/
     *(unsigned*)((char*)S + 32) = ecx;
   /*1b56 lea edx, [esp + 0x104]*/
-    edx = (unsigned)((char*)S + 292);
+    edx = (hulk_uintptr)((char*)S + 292);
   /*1b5d fstp dword ptr [esp]*/
     *(float*)((char*)S + 32) = (float)(((1.0f) - (fl194)));
   /*1b60 push edx*/
@@ -3549,21 +3550,21 @@ L_1a51:
     vo_ecx = eax;
     ecx = (*(unsigned*)((char*)(eax)));
   /*1b76 mov dword ptr [ebp], ecx*/
-    *(unsigned*)((char*)(ebp)) = ecx;
+    *(hulk_uintptr*)((char*)(ebp)) = ecx;
   /*1b79 mov edx, dword ptr [eax + 4]*/
     edx = (*(unsigned*)((char*)(eax + 4)));
   /*1b7c mov dword ptr [ebp + 4], edx*/
-    *(unsigned*)((char*)(ebp + 4)) = edx;
+    *(hulk_uintptr*)((char*)(ebp + 4)) = edx;
   /*1b7f mov eax, dword ptr [eax + 8]*/
     eax = (*(unsigned*)((char*)(eax + 8)));
   /*1b82 mov dword ptr [ebp + 8], eax*/
-    *(unsigned*)((char*)(ebp + 8)) = eax;
+    *(hulk_uintptr*)((char*)(ebp + 8)) = eax;
   /*1b85 fadd dword ptr [ebp]*/
     fl196 = *(float*)((char*)(ebp));
   /*1b88 fld dword ptr [esp + 0x18]*/
     fl197 = *(float*)((char*)S + 72);
   /*1b8c lea ecx, [esp + 0x14]*/
-    ecx = (unsigned)((char*)S + 68);
+    ecx = (hulk_uintptr)((char*)S + 68);
   /*1b90 fadd dword ptr [ebp + 4]*/
     fl198 = *(float*)((char*)(ebp + 4));
   /*1b93 mov dword ptr [esp + 0x98], 0x3f800000*/
@@ -3592,13 +3593,13 @@ L_1a51:
   /*1bd0 call FUN_00018990*/
     fretv = ((O*)ecx)->FUN_00018990();
   /*1bd5 lea ecx, [esp + 0x98]*/
-    ecx = (unsigned)((char*)S + 200);
+    ecx = (hulk_uintptr)((char*)S + 200);
   /*1bdc fstp dword ptr [esp + 0x4c]*/
     *(float*)((char*)S + 124) = (float)(fretv);
   /*1be0 push ecx*/
     *(unsigned*)((char*)S + 44) = ecx;
   /*1be1 lea edx, [esp + 0x50]*/
-    edx = (unsigned)((char*)S + 124);
+    edx = (hulk_uintptr)((char*)S + 124);
   /*1be5 push edx*/
     *(unsigned*)((char*)S + 40) = edx;
   /*1be6 call FUN_000186f0*/
@@ -3607,26 +3608,26 @@ L_1a51:
     *(float*)((char*)(edi + 280)) = (float)(fretv);
   /*1bf1 add esp, 8*/
   /*1bf4 lea ecx, [esp + 0x14]*/
-    ecx = (unsigned)((char*)S + 68);
+    ecx = (hulk_uintptr)((char*)S + 68);
   /*1bf8 call FUN_0022d110*/
     fretv = ((O*)ecx)->FUN_0022d110();
   /*1bfd fstp st(0)*/
   /*1bff mov eax, dword ptr [esp + 0x14]*/
     eax = (*(unsigned*)((char*)S + 68));
   /*1c03 mov dword ptr [edi + 0x10c], eax*/
-    *(unsigned*)((char*)(edi + 268)) = eax;
+    *(hulk_uintptr*)((char*)(edi + 268)) = eax;
   /*1c09 mov ecx, dword ptr [esp + 0x18]*/
     ecx = (*(unsigned*)((char*)S + 72));
   /*1c0d mov dword ptr [edi + 0x110], ecx*/
-    *(unsigned*)((char*)(edi + 272)) = ecx;
+    *(hulk_uintptr*)((char*)(edi + 272)) = ecx;
   /*1c13 mov edx, dword ptr [esp + 0x1c]*/
     edx = (*(unsigned*)((char*)S + 76));
   /*1c17 xor ebp, ebp*/
     ebp = 0;
   /*1c19 mov dword ptr [edi + 0x114], edx*/
-    *(unsigned*)((char*)(edi + 276)) = edx;
+    *(hulk_uintptr*)((char*)(edi + 276)) = edx;
   /*1c1f mov dword ptr [edi + 0x110], ebp*/
-    *(unsigned*)((char*)(edi + 272)) = ebp;
+    *(hulk_uintptr*)((char*)(edi + 272)) = ebp;
   /*1c25 jmp 1d32*/
     goto L_1d32;
 L_1c2a:
@@ -3653,7 +3654,7 @@ L_1c2a:
     if (PF8((((eax >> 8) & 0xff) & 5u))) goto L_1cb5;
   /*1c60 fld dword ptr [0x40d6cc]*/
   /*1c66 lea ecx, [edi + 0x10c]*/
-    ecx = (unsigned)((char*)(edi + 268));
+    ecx = (hulk_uintptr)((char*)(edi + 268));
   /*1c6c fsub dword ptr [esp + 0xec]*/
     fl208 = *(float*)((char*)S + 284);
   /*1c73 fmul dword ptr [0x40d6c8]*/
@@ -3691,7 +3692,7 @@ L_1cb5:
     if ((unsigned char)((((eax >> 8) & 0xff) & 65u)) != 0) goto L_1d32;
   /*1cc6 fld dword ptr [0x40d6cc]*/
   /*1ccc lea ecx, [edi + 0x10c]*/
-    ecx = (unsigned)((char*)(edi + 268));
+    ecx = (hulk_uintptr)((char*)(edi + 268));
   /*1cd2 fsub dword ptr [esp + 0xec]*/
     fl213 = *(float*)((char*)S + 284);
   /*1cd9 fmul dword ptr [0x40d6c8]*/

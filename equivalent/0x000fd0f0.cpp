@@ -16,15 +16,15 @@ extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
 union Wd {
     float f;
-    unsigned int u;
+    hulk_uintptr u;
 };
 
 struct V3x_fd0f0 { float FUN_0022d110(); };
-struct Cls3660 { void FUN_000b3660(unsigned a); };
-struct Cls3d20 { unsigned FUN_000b3d20(unsigned a); };
-struct Cls1c38f0 { void FUN_001c38f0(unsigned a, unsigned b); };
+struct Cls3660 { void FUN_000b3660(hulk_uintptr a); };
+struct Cls3d20 { hulk_uintptr FUN_000b3d20(hulk_uintptr a); };
+struct Cls1c38f0 { void FUN_001c38f0(hulk_uintptr a, hulk_uintptr b); };
 struct Cls1c3990 { unsigned FUN_001c3990(); };
-struct Cls1c3950 { void FUN_001c3950(unsigned a, unsigned b); };
+struct Cls1c3950 { void FUN_001c3950(hulk_uintptr a, hulk_uintptr b); };
 struct VFight {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5();
     virtual VFight *v6();
@@ -32,11 +32,11 @@ struct VFight {
 
 unsigned FUN_001c3d90();
 float FUN_00018a20(float x);
-void FUN_000fce60(unsigned s1, unsigned s2, unsigned s3, unsigned s4, unsigned s5, unsigned s6, unsigned s7);
-void FUN_000fd010(unsigned s1, unsigned s2, unsigned s3, unsigned s4, unsigned s5, unsigned s6);
+void FUN_000fce60(hulk_uintptr s1, hulk_uintptr s2, hulk_uintptr s3, hulk_uintptr s4, hulk_uintptr s5, hulk_uintptr s6, hulk_uintptr s7);
+void FUN_000fd010(hulk_uintptr s1, hulk_uintptr s2, hulk_uintptr s3, hulk_uintptr s4, hulk_uintptr s5, hulk_uintptr s6);
 
 struct CControllerAgent_nv_fd0f0 {
-    void FUN_000fc550(unsigned a, unsigned b, unsigned c);
+    void FUN_000fc550(hulk_uintptr a, unsigned b, unsigned c);
 };
 
 void CControllerAgent::vfunc_4(int __p0, int __p1, int __p2) { hulk_uintptr a1 = (unsigned int)__p0; unsigned int a2 = (unsigned int)__p1; unsigned int a3 = (unsigned int)__p2;
@@ -51,10 +51,10 @@ void CControllerAgent::vfunc_4(int __p0, int __p1, int __p2) { hulk_uintptr a1 =
     int r12_ecx;
     int r13_edx;
     int r14_esi;
-    int r15_eax;
-    int r16_eax;
-    int r17_ecx;
-    int r18_edx;
+    hulk_intptr r15_eax;
+    hulk_intptr r16_eax;
+    hulk_intptr r17_ecx;
+    hulk_intptr r18_edx;
     int r1_ecx;
     int r2_edx;
     int r3_ecx;
@@ -63,7 +63,7 @@ void CControllerAgent::vfunc_4(int __p0, int __p1, int __p2) { hulk_uintptr a1 =
     int r7_edx;
     int r8_eax;
     int r9_ecx;
-    unsigned ebpv, ebxv;
+    hulk_uintptr ebpv, ebxv;
     hulk_uintptr esiv, ediv;
     hulk_uintptr fgt, infov, objb, ev, tmpi, sv, rr;
     volatile float * r10_edx;
@@ -137,7 +137,7 @@ void CControllerAgent::vfunc_4(int __p0, int __p1, int __p2) { hulk_uintptr a1 =
         if (ang > DAT_004a1ab0 * 0.017453292f) {
             *(volatile unsigned char *)((char *)this + 0xa1) = 1;
             *(volatile unsigned char *)((char *)this + 0xa0) = 0;
-            *(volatile unsigned *)((char *)this + 0xd4) = L[12].u;
+            *(volatile hulk_uintptr *)((char *)this + 0xd4) = L[12].u;
         }
         ediv = infov;
     } else if (*(volatile unsigned char *)((char *)this + 0xa1) != 0) {
@@ -225,7 +225,7 @@ void CControllerAgent::vfunc_4(int __p0, int __p1, int __p2) { hulk_uintptr a1 =
     *(volatile unsigned *)((char *)ediv + 0x124) = 0;
     *(volatile unsigned *)((char *)ediv + 0x120) = 0;
     *(volatile unsigned *)((char *)ediv + 0x11c) = 0;
-    *(volatile unsigned *)((char *)ediv + 0x128) = L[27].u;
-    *(volatile unsigned *)((char *)ediv + 0x12c) = L[28].u;
-    *(volatile unsigned *)((char *)ediv + 0x130) = L[29].u;
+    *(volatile hulk_uintptr *)((char *)ediv + 0x128) = L[27].u;
+    *(volatile hulk_uintptr *)((char *)ediv + 0x12c) = L[28].u;
+    *(volatile hulk_uintptr *)((char *)ediv + 0x130) = L[29].u;
 }

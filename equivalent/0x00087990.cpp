@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 6/6)
 // FUN_00087990 @ 0x00087990
+#include "compat/ptr.h"
 extern "C" {
 struct Run_87990 { void fn86(); };
 struct Obj_87990 {
     char pad0[0x54];
-    int field54;
+    hulk_intptr field54;
     char pad58[0x9d - 0x58];
     char flag9d;
 };

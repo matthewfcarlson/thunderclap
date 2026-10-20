@@ -3,7 +3,7 @@
 #include "compat/ptr.h"
 #include "gen/global.h"
 
-int __cdecl FUN_0005a3f0(int value);
+hulk_intptr __cdecl FUN_0005a3f0(hulk_intptr value);
 
 void* CGrappleEffectTrack::vfunc_8(void* __p0, void* __p1) { hulk_intptr unused = (hulk_intptr)__p0; hulk_intptr value = (hulk_intptr)__p1;
 

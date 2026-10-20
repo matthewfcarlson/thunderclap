@@ -15,7 +15,7 @@ struct Source_15c9c0 {
 };
 
 struct HeliLocomotionAction {
-    int vptr;
+    hulk_intptr vptr;
     char pad04[0x18];
     Source_15c9c0 *f1c;
     RefObj_15c9c0 *f20;

@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 22/22)
 // FUN_00137e40 @ 0x00137e40
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+void* FUN_0008d690(hulk_uintptr size);
 
 class BounceTrack {
 public:

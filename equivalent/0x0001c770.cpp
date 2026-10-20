@@ -63,7 +63,7 @@ public:
     Config_1c770* cfg;
     char pad24[0x64 - 0x24];
     Vec3_1c770 target;
-    void FUN_0001b510(int a, Vec3_1c770* pos, Vec3_1c770* dir, int kind);
+    void FUN_0001b510(hulk_intptr a, Vec3_1c770* pos, Vec3_1c770* dir, int kind);
     void FUN_0001c770(Source_1c770* src, float radius);
 };
 

@@ -2,7 +2,7 @@
 // FUN_0007f310 @ 0x0007f310
 #include "compat/ptr.h"
 void *__cdecl FUN_00263ea0(unsigned int size);
-void *__cdecl FUN_00266da0(int n);
+void *__cdecl FUN_00266da0(hulk_intptr n);
 
 struct Timer {
     // equiv-conv: FUN_0008ced0 ecx stack stack stack stack stack stack

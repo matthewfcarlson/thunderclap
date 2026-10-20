@@ -270,7 +270,7 @@ struct Frame_bd1b0 {
         float f;
         int i;
     } s4;                       // 0x04
-    int s8;                     // 0x08
+    hulk_intptr s8;                     // 0x08
     unsigned int dt;            // 0x0c
     void *self;                 // 0x10
     float lo;                   // 0x14

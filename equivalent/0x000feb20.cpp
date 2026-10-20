@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_000feb20 @ 0x000feb20
 // FUN_000feb20: fetch (or lazily create) the CMoveAgent in *slot
+#include "compat/ptr.h"
 struct CAgent {
     virtual void AddRef();
     virtual void Release();
@@ -17,7 +18,7 @@ struct AgentHost_feb20 {
 extern char DAT_004a1ba4;
 
 int __cdecl FUN_00266da0(int v);
-void *__cdecl FUN_0008d690(unsigned int size);
+void *__cdecl FUN_0008d690(hulk_uintptr size);
 
 void __cdecl FUN_000feb20(AgentHost_feb20 *host, CAgent **slot)
 {

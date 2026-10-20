@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 20/20)
 // FUN_00072820 @ 0x00072820
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+void* FUN_0008d690(hulk_uintptr size);
 
 class CWallSlideTrack {
 public:

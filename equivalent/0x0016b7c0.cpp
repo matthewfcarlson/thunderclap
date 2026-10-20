@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 8/8)
 // FUN_0016b7c0 @ 0x0016b7c0
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/hulkfight/motion.h"
 #include "decls/data/game/unknown.h"
 
 typedef unsigned int size_t;
 inline void* __cdecl operator new(size_t, void* p) { return p; }
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 void FUN_00165710(); void FUN_00165720(); void FUN_00165730();
 struct ParamBase_16b7c0 { virtual void slot0(); char padding[12]; void FUN_00234cc0(const char*); void FUN_00234960(const char*); };
 namespace hulkfight { namespace motion { class GrappleHealthCondition; } }

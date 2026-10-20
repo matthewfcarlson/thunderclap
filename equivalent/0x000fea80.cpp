@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_000fea80 @ 0x000fea80
 // FUN_000fea80: fetch (or lazily create) the CChaseAgent in *slot
+#include "compat/ptr.h"
 struct CAgent {
     virtual void AddRef();
     virtual void Release();
@@ -17,7 +18,7 @@ struct AgentHost_fea80 {
 extern char DAT_004a1a44;
 
 int __cdecl FUN_00266da0(int v);
-void *__cdecl FUN_0008d690(unsigned int size);
+void *__cdecl FUN_0008d690(hulk_uintptr size);
 
 void __cdecl FUN_000fea80(AgentHost_fea80 *host, CAgent **slot)
 {
