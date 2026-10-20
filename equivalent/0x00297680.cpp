@@ -97,7 +97,7 @@ class NodeB_297680 : public Node_297680 {
 public:
     char pad[0xb0 - 0x10];
     NodeB_297680 *FUN_00297460(int v);
-    int FUN_001a4990();
+    hulk_intptr FUN_001a4990();
     void FUN_00296970(SceneGraphTransformAnimationController_297680 *c);
 };
 

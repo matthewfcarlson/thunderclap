@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 26/26)
 // FUN_002ffa00 @ 0x002ffa00
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct Vec3_2ffa00 {
@@ -9,7 +10,7 @@ struct Vec3_2ffa00 {
 
 struct Aux_2ffa00 {
     char pad0[0x10];
-    int field10;
+    hulk_intptr field10;
 };
 
 struct Node {

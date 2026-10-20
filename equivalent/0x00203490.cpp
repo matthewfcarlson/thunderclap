@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_00203490 @ 0x00203490
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 namespace math { class Vector; }
 
 extern char DAT_0048e10c;
-void* FUN_0008d690(unsigned size);
+void* FUN_0008d690(hulk_uintptr size);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 
 template <class T> struct TypeTag;

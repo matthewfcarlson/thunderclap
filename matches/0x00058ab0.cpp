@@ -8,13 +8,13 @@ class Condition_58ab0 {
 };
 class CSmartPropWeaponizableTypeCondition_58ab0 {
   public:
-    unsigned int vptr;
+    hulk_uintptr vptr;
     unsigned int a;
     unsigned int b;
     unsigned int c;
     unsigned int d;
 };
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<CSmartPropWeaponizableTypeCondition>::vfunc_5() {
     CSmartPropWeaponizableTypeCondition_58ab0* p = (CSmartPropWeaponizableTypeCondition_58ab0*)alloc(0x14);

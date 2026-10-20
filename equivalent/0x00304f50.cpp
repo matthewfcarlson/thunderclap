@@ -9,7 +9,7 @@ struct Name_304f50 {
 };
 
 struct CollisionObject {
-    int vptr;
+    hulk_intptr vptr;
     char pad04[0xc];
     Name_304f50 name;
     int f18, f1c, f20, f24, f28, f2c, f30;

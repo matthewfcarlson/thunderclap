@@ -5,19 +5,19 @@ extern "C" void __cdecl FUN_00047f80();
 extern "C" void __cdecl FUN_00047f90();
 extern "C" char DAT_003f7d48[];
 extern "C" char DAT_003f7d70[];
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 extern int gGuard;
 extern int gTable_53d80;
 extern int gSix;
 struct ParamEnumConstList {
     int pad[5];
     int field14;
-    int field18;
+    hulk_intptr field18;
     void Init(const char*);
 };
 struct ParamIntConstRange {
     int pad[4];
-    int field10;
+    hulk_intptr field10;
     void Init(const char*);
 };
 extern void __cdecl Register(void*, void**, int);

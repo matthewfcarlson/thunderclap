@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // om::MetaTypeAttrib<int>::vfunc_2 @ 0x0024d740
 #include "compat/ptr.h"
-void __cdecl FUN_0025ab50(int, int);
+void __cdecl FUN_0025ab50(hulk_intptr, int);
 namespace om {
 struct MetaTypeAttribBase {
     virtual void vfunc_0();

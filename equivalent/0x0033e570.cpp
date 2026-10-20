@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 191 inputs, branch coverage 4/4)
 // FUN_0033e570 @ 0x0033e570
+#include "compat/ptr.h"
 struct lua_State;
 
 extern "C" char *__cdecl strchr(const char *s, int c);
 
 const char *__cdecl FUN_00213190(lua_State *L, int idx);
 void __cdecl FUN_00338fe0(lua_State *L, int level, const char *msg);
-void __cdecl FUN_00213380(lua_State *L, const char *s, unsigned int len);
+void __cdecl FUN_00213380(lua_State *L, const char *s, hulk_uintptr len);
 void __cdecl FUN_00212ed0(lua_State *L, int n);
 void __cdecl FUN_002133d0(lua_State *L, const char *s);
 void __cdecl FUN_00213c90(lua_State *L, int n);

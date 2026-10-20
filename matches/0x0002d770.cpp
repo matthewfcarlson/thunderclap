@@ -3,7 +3,7 @@
 extern "C" char DAT_003f420c[];
 class CActorManager {
   public:
-    int vt;
+    hulk_intptr vt;
     char pad4[0x0c];
     unsigned char b10, b11, b12, b13;
     char pad14[4];

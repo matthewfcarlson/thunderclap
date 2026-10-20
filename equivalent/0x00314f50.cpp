@@ -8,7 +8,7 @@
 #include "compat/ptr.h"
 union Wd_314f50 {
     float f;
-    unsigned int u;
+    hulk_uintptr u;
 };
 
 struct V3_314f50 {
@@ -24,7 +24,7 @@ struct BoxA_314f50 {
 struct BoxB {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual V3_314f50 *Center();
-    void FUN_002fb940(volatile float *out, int idx);
+    void FUN_002fb940(volatile float *out, hulk_intptr idx);
 };
 typedef BoxA_314f50 VBox;
 
@@ -34,9 +34,9 @@ public:
     float f0c;
     float f10;
     float delta[3];
-    void FUN_00313540(unsigned order, float a, float b, float c);
-    void FUN_003137f0(BoxA_314f50 *a, volatile float *p, unsigned e1, unsigned e2, int axis);
-    void FUN_00314be0(BoxA_314f50 *a, volatile float *p, BoxB *b, volatile float *c, unsigned d, volatile float *n);
+    void FUN_00313540(hulk_uintptr order, float a, float b, float c);
+    void FUN_003137f0(BoxA_314f50 *a, volatile float *p, hulk_uintptr e1, hulk_uintptr e2, int axis);
+    void FUN_00314be0(BoxA_314f50 *a, volatile float *p, BoxB *b, volatile float *c, hulk_uintptr d, volatile float *n);
     void FUN_00314f50(BoxA_314f50 *a, BoxB *b);
 };
 
@@ -55,42 +55,42 @@ void Sweep_314f50::FUN_00314f50(BoxA_314f50 *pa, BoxB *pb)
     float f47;
     float f48;
     float f7;
-    int r10_edx;
+    hulk_intptr r10_edx;
     int r12_edx;
     int r13_eax;
     int r14_ecx;
     int r15_ebp;
-    int r16_ecx;
-    int r17_ecx;
+    hulk_intptr r16_ecx;
+    hulk_intptr r17_ecx;
     int r18_eax;
-    int r19_ecx;
+    hulk_intptr r19_ecx;
     int r1_ebp;
-    int r20_edx;
-    int r21_edx;
-    int r23_edx;
-    int r24_ecx;
-    int r25_edx;
-    int r27_edx;
-    int r28_edx;
-    int r29_ecx;
+    hulk_intptr r20_edx;
+    hulk_intptr r21_edx;
+    hulk_intptr r23_edx;
+    hulk_intptr r24_ecx;
+    hulk_intptr r25_edx;
+    hulk_intptr r27_edx;
+    hulk_intptr r28_edx;
+    hulk_intptr r29_ecx;
     int r2_edi;
     int r30_edi;
     int r31_eax;
     int r32_eax;
     int r33_ecx;
-    int r38_edx;
-    int r39_eax;
-    int r3_ecx;
+    hulk_intptr r38_edx;
+    hulk_intptr r39_eax;
+    hulk_intptr r3_ecx;
     int r40_edx;
-    int r41_eax;
+    hulk_intptr r41_eax;
     int r42_eax;
     int r43_eax;
     int r44_ecx;
     int r4_eax;
-    int r5_edx;
-    int r6_edx;
-    int r8_edx;
-    int r9_ecx;
+    hulk_intptr r5_edx;
+    hulk_intptr r6_edx;
+    hulk_intptr r8_edx;
+    hulk_intptr r9_ecx;
     unsigned tmpi, esiv, ecxv; int jo, cnt, kk, n1, n2, special; volatile float *ca, *cb, *cb2;
     volatile float * r34_eax;
     volatile float * r45_ecx;

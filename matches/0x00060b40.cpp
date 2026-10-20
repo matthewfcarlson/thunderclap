@@ -5,7 +5,7 @@ struct Part_60b40 {
     void init();
 };
 struct CEffectTrack {
-    unsigned long vf;
+    hulk_ulongptr vf;
     char p4[20];
     Part_60b40 a18;
     char p1c[15];

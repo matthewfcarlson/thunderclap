@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int uint;
-void* __cdecl Alloc(uint);
+void* __cdecl Alloc(hulk_uintptr);
 class Base_591f0 {
   public:
     Base_591f0(int);

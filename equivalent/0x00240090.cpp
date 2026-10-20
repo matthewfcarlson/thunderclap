@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 4/4)
 // FUN_00240090 @ 0x00240090
 #include "compat/ptr.h"
-void __cdecl FUN_0023fa40(int* out, int text, int a, int b);
+void __cdecl FUN_0023fa40(int* out, hulk_intptr text, int a, int b);
 
 struct Handle_240090 {
-    int text;                   // 0x00
+    hulk_intptr text;                   // 0x00
     unsigned short kind;        // 0x04
     unsigned short pad6;
     unsigned short extra;       // 0x08

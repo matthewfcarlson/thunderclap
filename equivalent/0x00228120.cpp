@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 385 inputs, branch coverage 30/30)
 // FUN_00228120 @ 0x00228120
+#include "compat/ptr.h"
 struct Obj_228120 {
     char pad00[0x10];
     float a10;
@@ -25,7 +26,7 @@ struct Entry_228120 {
 float FUN_00224fc0(float a, float b);
 float FUN_0004af40(float lo, float hi, float x);
 float FUN_0015cf40(float x);
-void FUN_00227f90(Entry_228120* first, Entry_228120* last, int count);
+void FUN_00227f90(Entry_228120* first, Entry_228120* last, hulk_intptr count);
 
 class Sampler_228120 {
 public:

@@ -2,10 +2,10 @@
 // FUN_001c23c0 @ 0x001c23c0
 #include "compat/ptr.h"
 extern "C" char DAT_004216d4[];
-void *FUN_0008d690(unsigned int size);
+void *FUN_0008d690(hulk_uintptr size);
 
 struct HulkShaderCallback {
-    int vptr;
+    hulk_intptr vptr;
     int f04;
     int f08;
     float f0c;

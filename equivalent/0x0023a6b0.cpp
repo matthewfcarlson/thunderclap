@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 16746 inputs, branch coverage 92/102, incomplete)
 // FUN_0023a6b0 @ 0x0023a6b0
 // cl-flags: /GS
+#include "compat/ptr.h"
 extern "C" int isalpha(int c);
 extern "C" int isalnum(int c);
 extern "C" int isdigit(int c);
@@ -42,7 +43,7 @@ public:
 int __cdecl FUN_00238190(int i);
 int __cdecl FUN_00266da0(int v);
 float __cdecl FUN_003458c1(const char *s);
-void *FUN_0008d690(unsigned int size);
+void *FUN_0008d690(hulk_uintptr size);
 
 class ScriptReader_23a6b0 {
 public:

@@ -3,7 +3,7 @@
 #include "gen/fight.h"
 
 class CSmartPropRemoveInstanceTrack_6e490;
-int FUN_00344e74(int, int, void*, int, int);
+int FUN_00344e74(hulk_intptr, int, void*, int, int);
 class TrackFactoryCaster_6e490 {
   public:
     virtual bool vfunc_0(int);

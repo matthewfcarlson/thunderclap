@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 454 inputs, branch coverage 8/8)
 // FUN_00312130 @ 0x00312130
+#include "compat/ptr.h"
 struct Obj_312130;
 struct Ref_312130 { virtual void AddRef() = 0; };
 struct Context { char pad[0x88]; Ref_312130* ref; };
@@ -14,7 +15,7 @@ struct Child_312130 {
  virtual Child_312130* Clone()=0;
  void FUN_0030a260(Obj_312130*);
 };
-extern void* __cdecl FUN_0008d6d0(unsigned);
+extern void* __cdecl FUN_0008d6d0(hulk_uintptr);
 struct Obj_312130 {
  char pad0[0x1f8]; Child_312130** children; int unknown1fc; int count; int unknown204;
  Ref_312130* ref208; int field20c; int field210; int field214; int field218;

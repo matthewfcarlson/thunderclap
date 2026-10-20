@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0033ea90 @ 0x0033ea90
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
 struct lua_State;
@@ -13,7 +14,7 @@ struct luaL_Reg {
 
 void FUN_00212ed0(lua_State *L, int idx);
 void FUN_003390d0(lua_State *L, const char *libname, const luaL_Reg *l, int nup);
-void FUN_00213380(lua_State *L, const char *s, unsigned int len);
+void FUN_00213380(lua_State *L, const char *s, hulk_uintptr len);
 void FUN_00213790(lua_State *L, int idx, const char *k);
 void FUN_00213680(lua_State *L, int narr, int nrec);
 void FUN_002138e0(lua_State *L, int idx);

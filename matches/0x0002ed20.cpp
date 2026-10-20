@@ -7,7 +7,7 @@ struct CActorManager {};
 extern char GetName(const char*);
 class Obj_2ed20 {
   public:
-    int vt;
+    hulk_intptr vt;
     char pad4[0x0c];
     char b10;
     char pad11[7];

@@ -10,7 +10,7 @@ class Helper_52540 {
 };
 class Init2 {
   public:
-    void Init(unsigned int);
+    void Init(hulk_uintptr);
 };
 
 template <> void* fight::ConditionFactoryCasterTemplate<CIsGrappledCondition>::vfunc_1(void* __p0) { hulk_uintptr arg = (hulk_uintptr)__p0;

@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 void* __cdecl Allocate(unsigned int);
 struct Grapple_6f700 {
-    int Build();
+    hulk_intptr Build();
 };
 
 template <> void* fight::TrackFactoryTemplate<CGrappleLocoStrafe4Track>::vfunc_5() {

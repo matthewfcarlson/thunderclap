@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 18724 inputs, branch coverage 30/30)
 // FUN_0029a010 @ 0x0029a010
-void *__cdecl FUN_0008d690(unsigned int size);
+#include "compat/ptr.h"
+void *__cdecl FUN_0008d690(hulk_uintptr size);
 
 namespace pure3d {
 class CompositeDrawable;

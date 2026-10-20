@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_6f220;
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 struct InitObj_6f220 {
-    u32_6f220 Init();
+    hulk_uintptr Init();
 };
 
 template <> void* fight::TrackFactoryTemplate<CEffectTrack>::vfunc_5() {

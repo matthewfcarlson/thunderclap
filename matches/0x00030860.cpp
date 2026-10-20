@@ -1,4 +1,5 @@
-void* FUN_0008d690(unsigned int);
+#include "compat/ptr.h"
+void* FUN_0008d690(hulk_uintptr);
 class Owner;
 class Registry_30860 {
   public:

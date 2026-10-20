@@ -56,7 +56,7 @@ struct ShortVec {
     unsigned short* begin;
     unsigned short* end;
     unsigned short* cap;
-    void FUN_002f9930(unsigned short* pos, int count, unsigned short* src);
+    void FUN_002f9930(unsigned short* pos, hulk_intptr count, unsigned short* src);
 };
 
 Entry_2fa290* FUN_002f9460(Entry_2fa290* first, Entry_2fa290* last, Entry_2fa290* dest);

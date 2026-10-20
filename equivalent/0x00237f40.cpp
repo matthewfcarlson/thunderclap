@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 8/8)
 // FUN_00237f40 @ 0x00237f40
+#include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 void __cdecl FUN_00237b70(); void __cdecl FUN_00237b80(); void __cdecl FUN_00237b90();
  
 namespace fight {

@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 40/40)
 // FUN_0027d0f0 @ 0x0027d0f0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 extern "C" void *memset(void *dst, int c, unsigned int n);
 
-void *FUN_0008d690(unsigned int size);
+void *FUN_0008d690(hulk_uintptr size);
 void *thunk_FUN_0008d690(unsigned int size);
-void *FUN_0008d6d0(unsigned int size);
+void *FUN_0008d6d0(hulk_uintptr size);
 
 struct Name_27d0f0 {
     char data[8];

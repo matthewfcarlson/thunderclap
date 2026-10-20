@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 12/12)
 // FUN_0024be00 @ 0x0024be00
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 extern "C" void *memset(void *p, int c, unsigned n);
@@ -39,7 +40,7 @@ void FUN_00247550(void *pool, Rec_24be00 *r);
 int FUN_0025d340(int a, int b, int c);
 int FUN_00259610(int a, int b, int c);
 void FUN_00258b40(int h, int one);
-int FUN_0025e070();
+hulk_intptr FUN_0025e070();
 int FUN_0025d040(int h);
 void FUN_0025e550(Sub_24be00 *s, int a, int b, int c);
 

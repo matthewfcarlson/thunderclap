@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 class CGrappleSoundTrack;
-extern "C" int __cdecl Query(void*, int, int, int, int);
+extern "C" int __cdecl Query(void*, int, hulk_intptr, hulk_intptr, int);
 namespace fight {
 class TrackFactoryCaster {
   public:

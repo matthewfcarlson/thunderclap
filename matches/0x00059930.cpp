@@ -21,8 +21,8 @@ class CFightParams {
 void operator delete(void* p);
 
 union VPtr {
-    unsigned int n;
-    volatile unsigned int v;
+    hulk_uintptr n;
+    volatile hulk_uintptr v;
 };
 
 class CFightParamsCollision {

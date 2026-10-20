@@ -8,7 +8,7 @@ class Ref_21fe0 {
 };
 class CSmartPropThrowingAction {
   public:
-    volatile int vptr;
+    volatile hulk_intptr vptr;
     char pad[0x18];
     Ref_21fe0* member;
     CSmartPropThrowingAction* V2(int);

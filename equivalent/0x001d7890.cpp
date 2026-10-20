@@ -75,7 +75,7 @@ public:
     char f14d;
     char f14e;
     char pad14f[0x1];
-    int f150;
+    hulk_intptr f150;
     int f154;
     int f158;
     int f15c;

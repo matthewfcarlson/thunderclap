@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3034 inputs, branch coverage 64/66, incomplete)
 // FUN_0024b550 @ 0x0024b550
+#include "compat/ptr.h"
 class Sink_24b550 {
 public:
     virtual void v0();
@@ -58,10 +59,10 @@ struct Frame_24b550 {
 
 unsigned int FUN_0025e2b0(Chunk *c);
 unsigned int FUN_0025e090(Chunk *c);
-unsigned int FUN_0026fd80(unsigned int a, unsigned int n);
+hulk_uintptr FUN_0026fd80(hulk_uintptr a, unsigned int n);
 unsigned int FUN_0025e310(Region_24b550 *r);
-char FUN_0025cf70(int a, void *b, unsigned int c, unsigned int *out);
-char FUN_0025d070(int a, void *b, unsigned int c, int d, unsigned int *z, unsigned int *y, unsigned int *x);
+char FUN_0025cf70(int a, void *b, hulk_uintptr c, unsigned int *out);
+char FUN_0025d070(int a, void *b, hulk_uintptr c, int d, unsigned int *z, unsigned int *y, unsigned int *x);
 unsigned int FUN_00267f80();
 Stream *FUN_002703c0(unsigned int y, unsigned int z, unsigned int w, unsigned int v, unsigned int x);
 void FUN_0025d0f0(int a, unsigned int b);
@@ -128,7 +129,7 @@ void FUN_0024b550(Player_24b550 *p)
                 return;
             }
         }
-        unsigned int amount = FUN_0025e090(p->chunk);
+        hulk_uintptr amount = FUN_0025e090(p->chunk);
         if (p->region == 0 && sink != 0) {
             amount = FUN_0026fd80(amount, sink->v3());
         }

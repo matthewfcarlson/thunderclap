@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 426 inputs, branch coverage 178/180, incomplete)
 // FUN_001e6390 @ 0x001e6390
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight.h"
 #include "decls/data/game/om.h"
@@ -68,7 +69,7 @@ struct Listener_1e6390 {
 struct Chain3_1e6390 {
     int f0;
     char pad4[4];
-    int f8;
+    hulk_intptr f8;
     int fc;
 };
 struct Chain2_1e6390 {
@@ -85,7 +86,7 @@ struct Chain0 {
 };
 
 extern Listener_1e6390 *__cdecl FUN_001c3d90();
-extern void __cdecl FUN_001e55f0(Entry_1e6390 *first, Entry_1e6390 *last, int n);
+extern void __cdecl FUN_001e55f0(Entry_1e6390 *first, Entry_1e6390 *last, hulk_intptr n);
 
 struct Frame_1e6390 {
     int idx;                    // 0x00

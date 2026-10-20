@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_003f6ed8[];
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 class CAxisArcCondition_56be0 {
   public:
     virtual void f0();

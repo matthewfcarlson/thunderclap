@@ -41,7 +41,7 @@ int __cdecl FUN_001ad4f0(void*, void*);
 int __cdecl FUN_001aea70(void*, void*);
 int __cdecl FUN_001aeae0(void*, void*);
 char __cdecl FUN_001ad730(int tile, Ctx* d);
-void* FUN_0008d6d0(unsigned int size);
+void* FUN_0008d6d0(hulk_uintptr size);
 void thunk_FUN_00267090(void* p);
 extern "C" double sqrt(double);
 
@@ -52,7 +52,7 @@ struct SearchState {
     ANode* candidateNode;
     Map* candidateMap;
     ANode* currentNode;
-    int currentMapValue;
+    hulk_intptr currentMapValue;
     void* openEntry;
     Map* savedOpenMap;
     Iter neighbors;

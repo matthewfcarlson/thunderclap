@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 14/14)
 // FUN_002655b0 @ 0x002655b0
+#include "compat/ptr.h"
 class Task_2655b0 {
 public:
     virtual void v0();
@@ -26,14 +27,14 @@ public:
     void FUN_002655b0();
 };
 
-static int Ring1Count(char *cur, char *end, char *base, char *limit)
+static hulk_intptr Ring1Count(char *cur, char *end, char *base, char *limit)
 {
     if (cur <= end)
         return (end - cur) >> 3;
     return ((end - base) >> 3) + ((limit - cur) >> 3);
 }
 
-static int Ring2Count(Task_2655b0 **cur, Task_2655b0 **end, Task_2655b0 **base, Task_2655b0 **limit)
+static hulk_intptr Ring2Count(Task_2655b0 **cur, Task_2655b0 **end, Task_2655b0 **base, Task_2655b0 **limit)
 {
     if (cur <= end)
         return (end - cur);

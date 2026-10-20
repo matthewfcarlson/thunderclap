@@ -11,8 +11,8 @@ struct Item_2394c0 {
 };
 
 struct Part_2394c0 {
-    void FUN_00232060(struct Owner_2394c0 *owner, int a, int b, int c);
-    void FUN_002320d0(struct Owner_2394c0 *owner, int a, int b);
+    void FUN_00232060(struct Owner_2394c0 *owner, hulk_intptr a, int b, int c);
+    void FUN_002320d0(struct Owner_2394c0 *owner, hulk_intptr a, int b);
 };
 
 struct Child_2394c0 {

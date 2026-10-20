@@ -1,10 +1,11 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class Alloc_6b1f0 {
   public:
     int method(CWallSlideTrack*, int);
 };
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 
 int CWallSlideTrack::vfunc_12(int param) {
     Alloc_6b1f0* p = (Alloc_6b1f0*)FUN_0008d690(0x38);

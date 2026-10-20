@@ -13,7 +13,7 @@ struct Ref_285780 {
 
 class SimpleFrameController_285780 {
 public:
-    int vptr;
+    hulk_intptr vptr;
     char pad04[0xc];
     char field_10;
     char pad11[7];

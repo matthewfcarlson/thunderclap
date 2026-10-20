@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 8/8)
 // FUN_002b15d0 @ 0x002b15d0
 // pure3d::VertexOffsetExpressionMixer::VertexOffsetExpressionMixer @ 0x002b15d0
+#include "compat/ptr.h"
 struct Source_2b15d0 {
     virtual void AddRef();
     virtual void Release();
@@ -18,7 +19,7 @@ struct FUN_0027b070 {
 struct IntVector_2b15d0 {
     int *first;
     int *last;
-    void FUN_002b1010(unsigned int count, int *value);
+    void FUN_002b1010(hulk_uintptr count, int *value);
 };
 
 namespace pure3d {

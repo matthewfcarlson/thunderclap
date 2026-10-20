@@ -41,7 +41,7 @@ struct World {
 };
 
 
-int __stdcall FUN_001f8b40(int a1, Obj_1f8b40 *obj, float x, float y, float z)
+hulk_intptr __stdcall FUN_001f8b40(int a1, Obj_1f8b40 *obj, float x, float y, float z)
 {
     struct Frame {
         V3_1f8b40 p;

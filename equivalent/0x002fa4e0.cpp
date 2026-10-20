@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 185 inputs, branch coverage 14/16, incomplete)
 // FUN_002fa4e0 @ 0x002fa4e0
+#include "compat/ptr.h"
 #include "decls/data/engine/physics.h"
 
 struct Cell_2fa4e0 {
@@ -17,7 +18,7 @@ struct CellGrid {
     void FUN_002fa180(unsigned int n);
 };
 
-void *__cdecl FUN_0008d6d0(unsigned int size);
+void *__cdecl FUN_0008d6d0(hulk_uintptr size);
 
 
 void FUN_002fa4e0(unsigned int n, unsigned int a, unsigned int b)

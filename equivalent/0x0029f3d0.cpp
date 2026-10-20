@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 14/14)
 // FUN_0029f3d0 @ 0x0029f3d0
-void* __cdecl FUN_0008d690(unsigned int);
-void* __cdecl FUN_0008d6d0(unsigned int);
+#include "compat/ptr.h"
+void* __cdecl FUN_0008d690(hulk_uintptr);
+void* __cdecl FUN_0008d6d0(hulk_uintptr);
 void* __cdecl FUN_00263ea0(unsigned int);
 struct Pool_29f3d0 { char data[0x24]; void FUN_00231550(int,int,int); };
 struct Helper_29f3d0 { void FUN_00231160(Pool_29f3d0*); };

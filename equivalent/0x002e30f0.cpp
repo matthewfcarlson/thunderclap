@@ -9,7 +9,7 @@ inline void *operator new(unsigned int, void *p) throw() { return p; }
 struct Hdr8;
 
 void *thunk_FUN_0008d690(unsigned int size);
-void *__cdecl FUN_0008d690(unsigned int size);
+void *__cdecl FUN_0008d690(hulk_uintptr size);
 void *__cdecl FUN_00266e00(int a, int b);
 void __cdecl FUN_00267090(void *p);
 
@@ -28,7 +28,7 @@ public:
     char pad0[0x284];
     Stream *stream;
     char FUN_002669f0();
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     int FUN_00266c30();
     void FUN_00266be0();
     unsigned int FUN_001c61c0();
@@ -392,7 +392,7 @@ void Hdr::Load(int a1, Reader *R, int a3, PalList_2e30f0 *a4)
     Builder *B = 0;
     unsigned char flag = 0;
     if (R->FUN_002669f0()) {
-        unsigned int idx = R->FUN_00266a30() - 0x10005;
+        hulk_uintptr idx = R->FUN_00266a30() - 0x10005;
         if (idx <= 0x17) {
             if (idx == 13 || idx == 15)
                 flag = 1;

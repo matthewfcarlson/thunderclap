@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 14/14)
 // FUN_00205910 @ 0x00205910
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "gen/content.h"
 
@@ -7,7 +8,7 @@ struct LoadInventory_nv_205910 {
     content::LoadInventory* FUN_00266480(int);
 };
 extern "C" void* __cdecl FUN_00263ea0(unsigned int);
-extern "C" int __cdecl FUN_00266da0(int);
+extern "C" int __cdecl FUN_00266da0(hulk_intptr);
 extern "C" void __cdecl FUN_00266d90();
 struct Texture_205910 {
  char pad[0x34];

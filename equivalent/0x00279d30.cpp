@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 55/56, incomplete)
 // FUN_00279d30 @ 0x00279d30
+#include "compat/ptr.h"
 typedef unsigned char Byte_279d30;
-Byte_279d30* __cdecl FUN_00279d30(Byte_279d30* input, unsigned int unused, Byte_279d30* output, unsigned int limit, unsigned int fullSize)
+Byte_279d30* __cdecl FUN_00279d30(Byte_279d30* input, unsigned int unused, Byte_279d30* output, unsigned int limit, hulk_uintptr fullSize)
 {
     unsigned int written = 0;
     if (!limit) return (Byte_279d30*)fullSize;

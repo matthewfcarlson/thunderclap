@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 12/12)
 // FUN_00271560 @ 0x00271560
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
 struct Item_271560 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual signed char v6(); };
@@ -11,7 +12,7 @@ extern int __cdecl FUN_00270c10(void*);
 extern void __cdecl FUN_00270f10(void*,int);
 extern void __cdecl FUN_00277b70(void*,Item_271560*,int,int,int);
 struct Work_271560 { int primary; int secondary; int tertiary; int alternate; char reserved[16]; int data; char rest[0xfc]; };
-void __cdecl FUN_00271560(int* output, int name, int flags, int extra) {
+void __cdecl FUN_00271560(int* output, hulk_intptr name, int flags, int extra) {
     Work_271560 work;
     work.secondary = 0;
     work.tertiary = 0;

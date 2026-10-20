@@ -113,7 +113,7 @@ struct Body_1b1710 {
     Obj5Z* fec;
     char pad_f0[0x114 - 0xf0];
     Thing114* f114;
-    int f118;
+    hulk_intptr f118;
     Sub11c_1b1710* f11c;
     char pad120[0x128 - 0x120];
     Body_1b1710* f128;
@@ -129,7 +129,7 @@ struct Body_1b1710 {
     char pad1ca[0x1ed - 0x1ca];
     char b1ed;
     char pad1ee[0x1fc - 0x1ee];
-    int f1fc;
+    hulk_intptr f1fc;
     char pad200[0x334 - 0x200];
     Body_1b1710 *f334, *f338;
     char pad33c[0x1b88 - 0x33c];

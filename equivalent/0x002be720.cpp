@@ -2,6 +2,7 @@
 // FUN_002be720 @ 0x002be720
 // FUN_002be720 @ 0x002be720
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/data/engine/pure3d.h"
 #include "gen/pure3d.h"
 
@@ -68,7 +69,7 @@ public:
 
 void *thunk_FUN_0008d690(unsigned int size);
 void *FUN_00266e00(int pool, int size);
-void *FUN_0008d6d0(unsigned int size);
+void *FUN_0008d6d0(hulk_uintptr size);
 int FUN_00267090(void *p);
 void FUN_003647b0();
 

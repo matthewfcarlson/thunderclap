@@ -50,8 +50,8 @@ struct GridPart {
     short *heads;
     char pad2030[4];
     unsigned flags;
-    void FUN_00312db0(int n);
-    int FUN_00313450(int n);
+    void FUN_00312db0(hulk_intptr n);
+    int FUN_00313450(hulk_intptr n);
 };
 
 class Broadphase_300780 {

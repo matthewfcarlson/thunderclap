@@ -2,9 +2,10 @@
 // FUN_00278b50 @ 0x00278b50
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 22/28, incomplete)
 // FUN_00278b50 @ 0x00278b50
+#include "compat/ptr.h"
 #include "decls/data/platform/xbox/core.h"
 
-namespace XAPILIB { extern "C" char* __stdcall XMUNameFromDriveLetter(unsigned int, char*, unsigned int); extern "C" unsigned int __stdcall GetLastError(); }
+namespace XAPILIB { extern "C" char* __stdcall XMUNameFromDriveLetter(unsigned int, char*, unsigned int); extern "C" hulk_uintptr __stdcall GetLastError(); }
 extern "C" int __stdcall FUN_00208b9c(char*, unsigned int*, unsigned int*, unsigned int*);
 extern "C" unsigned int __stdcall FUN_00209a8e(char*);
 extern "C" void __cdecl FUN_0026b800(char*, int, char*, int, int, int, int);

@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 8/8)
 // FUN_002a9ea0 @ 0x002a9ea0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
+#include "compat/ptr.h"
 void __cdecl thunk_FUN_00267090(void *p);
-extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void *__cdecl FUN_0008d6d0(hulk_uintptr size);
 
 class Source_2a9ea0 {
 public:
@@ -18,7 +19,7 @@ public:
     char pad00[0x40];
     Source_2a9ea0 *source;
     char pad44[4];
-    int count;
+    hulk_intptr count;
     int *values;
     void FUN_002a9ea0(Source_2a9ea0 *src);
 };

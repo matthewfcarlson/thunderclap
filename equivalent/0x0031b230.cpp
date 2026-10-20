@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 40 inputs, branch coverage 10/10)
 // FUN_0031b230 @ 0x0031b230
+#include "compat/ptr.h"
 struct RECT { int left, top, right, bottom; };
 struct D3DLOCKED_RECT { int Pitch; unsigned char* pBits; };
 namespace D3D8 {
-int __stdcall D3DDevice_GetBackBuffer2(int);
-void __stdcall D3DDevice_CopyRects(int, int, int, int, int);
+hulk_intptr __stdcall D3DDevice_GetBackBuffer2(int);
+void __stdcall D3DDevice_CopyRects(hulk_intptr, int, int, int, int);
 void __stdcall D3DSurface_LockRect(int, D3DLOCKED_RECT*, int, int);
-void __stdcall D3DResource_Release(int);
+void __stdcall D3DResource_Release(hulk_intptr);
 }
 extern int __stdcall FUN_00382400(int, int, int, int);
 extern void __cdecl FUN_0031c230(int);
@@ -22,7 +23,7 @@ int Display_31b230::Capture(unsigned char* dest, int unused, const RECT* r, int 
     int h = r->bottom - r->top;
     int surf = FUN_00382400(w, h, 0, 0x12);
     FUN_0031c230((surf != 0) - 1 & 0x8007000e);
-    int back = D3D8::D3DDevice_GetBackBuffer2(which == 0 ? -1 : 0);
+    hulk_intptr back = D3D8::D3DDevice_GetBackBuffer2(which == 0 ? -1 : 0);
     FUN_0031c230(0);
     D3D8::D3DDevice_CopyRects(back, 0, 0, surf, 0);
     D3DLOCKED_RECT lr;

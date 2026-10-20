@@ -24,8 +24,8 @@ struct Mat_1db230 {
 
 struct Evt {
     char data[0x38];
-    Evt *FUN_001ca6b0(Name n1, Name n2, int a, int b, int c);
-    Evt *FUN_001caae0(Name n1, int k, Name n2, int a, int b, int c, int d);
+    Evt *FUN_001ca6b0(Name n1, Name n2, int a, hulk_intptr b, int c);
+    Evt *FUN_001caae0(Name n1, int k, Name n2, int a, hulk_intptr b, int c, int d);
 };
 
 struct Sink_1db230 {
@@ -107,7 +107,7 @@ struct Obj20_1db230 {
     void FUN_00025470(unsigned int a2);
 };
 struct Ui_1db230 {
-    void FUN_001ebd80(unsigned int a2, const char *name, float t, int z);
+    void FUN_001ebd80(hulk_uintptr a2, const char *name, float t, int z);
 };
 struct World0c {
     void FUN_001deda0(unsigned int a2);

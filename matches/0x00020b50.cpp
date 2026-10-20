@@ -9,7 +9,7 @@ class Arg_20b50 {
 class CAction {
   public:
     CAction();
-    int vf;
+    hulk_intptr vf;
     char pad[0x18];
     Arg_20b50* mArg;
 };

@@ -1,10 +1,10 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 extern int AxisVtable_56d50;
 struct CAxisDoubleTapCondition_56d50 {
-    int vt;
+    hulk_intptr vt;
     int pad0;
     int pad1;
     int x0;

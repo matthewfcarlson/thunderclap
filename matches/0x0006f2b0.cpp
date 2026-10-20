@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 class Effect_6f2b0 {
   public:
-    int Init();
+    hulk_intptr Init();
 };
 extern void* __cdecl operator_new(unsigned int);
 

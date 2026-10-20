@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 157 inputs, branch coverage 22/24, incomplete)
 // FUN_002a4e40 @ 0x002a4e40
 #include "compat/ptr.h"
-extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void *__cdecl FUN_0008d6d0(hulk_uintptr size);
 
 class Drawable {
 public:
@@ -24,7 +24,7 @@ struct Elem_2a4e40 {
 struct ElemVec_2a4e40 {
     Elem_2a4e40 *begin;
     Elem_2a4e40 *end;
-    bool FUN_002a4d10(unsigned int count, Elem_2a4e40 *fill);
+    bool FUN_002a4d10(hulk_uintptr count, Elem_2a4e40 *fill);
 };
 
 class __declspec(novtable) DrawableBase_2a4e40 {

@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 26 inputs, branch coverage 24/24)
 // FUN_00299da0 @ 0x00299da0
 #include "compat/ptr.h"
-void* FUN_0008d6d0(unsigned int size);
+void* FUN_0008d6d0(hulk_uintptr size);
 
 class Ref_299da0 {
 public:
@@ -22,7 +22,7 @@ struct PrimEntryList {
     PrimEntry* begin;
     PrimEntry* end;
     int pad;
-    void FUN_00299540(int count, PrimEntryList* const* fill);
+    void FUN_00299540(hulk_intptr count, PrimEntryList* const* fill);
 };
 
 namespace pure3d {

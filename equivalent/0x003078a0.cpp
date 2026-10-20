@@ -9,8 +9,8 @@ extern "C" void __fastcall FUN_00011090(void *p);
 extern "C" void __fastcall FUN_000115b0(void *p);
 void __stdcall FUN_00011520(void *p, unsigned int size, int count, void(__fastcall *ctor)(void *));
 
-void *__cdecl FUN_0008d6d0(unsigned int size);
-void *FUN_0008d690(unsigned int size);
+void *__cdecl FUN_0008d6d0(hulk_uintptr size);
+void *FUN_0008d690(hulk_uintptr size);
 
 struct Reader_3078a0 {
     void FUN_002647e0(void *dst, int count, int size, int flag);
@@ -68,7 +68,7 @@ struct Frame_3078a0 {
     unsigned int i1c;
     Geom_3078a0 *saved20;
     unsigned int n24;
-    unsigned int x28;
+    hulk_uintptr x28;
     unsigned int n2c;
     unsigned int n30;
     unsigned int t34;

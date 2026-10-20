@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 4/4)
 // FUN_00277b70 @ 0x00277b70
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 #include "gen/core.h"
 
@@ -8,7 +9,7 @@ struct File_nv_277b70 {
 };
 struct Object_277b70 { Object_277b70* FUN_00277a70(unsigned int a,core::File* b,unsigned int c); };
 extern "C" core::File* __cdecl FUN_00275d50(unsigned int size);
-extern "C" Object_277b70* __cdecl FUN_00266e00(unsigned int a,unsigned int size);
+extern "C" Object_277b70* __cdecl FUN_00266e00(unsigned int a,hulk_uintptr size);
 void __cdecl FUN_00277b70(Object_277b70** out,unsigned int a,unsigned int b,unsigned int c,unsigned int d) {
  core::File* p=FUN_00275d50(0x168);
  core::File* base=0;

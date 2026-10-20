@@ -3,11 +3,11 @@
 // 0x002a2d50: OpaqueTraversal constructor reserving n 16-byte records and n 4-byte indices
 #include "compat/ptr.h"
 extern char DAT_0042d78c[];
-void* __cdecl FUN_0008d6d0(unsigned int size);
+void* __cdecl FUN_0008d6d0(hulk_uintptr size);
 
 class OpaqueTraversal {
 public:
-    int vptr;
+    hulk_intptr vptr;
     char pad04[8];
     unsigned int flags;
     int field_10;

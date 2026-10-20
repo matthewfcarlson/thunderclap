@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 11840 inputs, branch coverage 16/16; run with --inputs 12000)
 // FUN_00334b00 @ 0x00334b00
+#include "compat/ptr.h"
 #include "decls/data/platform/xbox/movie.h"
 
 extern unsigned int __cdecl FUN_00368660();
-extern unsigned int __cdecl FUN_0026fd50(unsigned int, unsigned int);
+extern hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr, unsigned int);
 struct GlobalData { char pad[8]; char data; };
 struct Owner_334b00;
 struct Stream {
@@ -24,7 +25,7 @@ struct Owner_334b00 {
  unsigned int current; Stream *stream;
  unsigned int total; unsigned int offset;
  unsigned int position; unsigned int result;
- unsigned int transfer; char pad64[0xc];
+ hulk_uintptr transfer; char pad64[0xc];
  unsigned int source; unsigned int capacity;
  unsigned int savedId; unsigned int timestamp;
  unsigned char flag; char pad81[3]; unsigned int residue;
@@ -34,7 +35,7 @@ struct Owner_334b00 {
 void Owner_334b00::FUN_00334b00() {
  if (flag == 1 || busy != 0) return;
  unsigned int remaining = offset < total ? total - offset : 0;
- unsigned int size = 0x4000;
+ hulk_uintptr size = 0x4000;
  if (capacity < size || remaining == 0) {
   previous = current;
   return;

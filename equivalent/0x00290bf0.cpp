@@ -14,7 +14,7 @@ struct Reader {
     char pad[0x284];
     Stream *stream;
     char FUN_002669f0();
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     void FUN_00266be0();
 };
 
@@ -70,49 +70,49 @@ struct Rec20 {
     NameField name;
     char b8;
     char pad9[3];
-    int fc;
+    hulk_intptr fc;
     char b10;
     char pad11[3];
-    int f14;
-    int f18;
-    int f1c;
+    hulk_intptr f14;
+    hulk_intptr f18;
+    hulk_intptr f1c;
 };
 struct Rec10b {
     NameField name;
-    int f8;
-    int fc;
+    hulk_intptr f8;
+    hulk_intptr fc;
 };
 struct Rec30 {
     NameField name;
     unsigned int idLo;
     unsigned int idHi;
-    int f10;
-    int f14;
-    int f18;
-    int f1c;
-    int f20;
-    int f24;
-    int f28;
+    hulk_intptr f10;
+    hulk_intptr f14;
+    hulk_intptr f18;
+    hulk_intptr f1c;
+    hulk_intptr f20;
+    hulk_intptr f24;
+    hulk_intptr f28;
     int f2c;
 };
 struct Rec58 {
-    int f0, f4, f8, fc, f10, f14;
-    int f18, f1c, f20;
+    hulk_intptr f0, f4, f8, fc, f10, f14;
+    hulk_intptr f18, f1c, f20;
     char pad24[4];
     NameField n28;
     NameField n30;
     NameField n38;
     NameField n40;
-    int f48;
-    int f4c;
-    int f50;
+    hulk_intptr f48;
+    hulk_intptr f4c;
+    hulk_intptr f50;
     char pad54[4];
 };
 struct Sub {
     char b0;
     char pad1[3];
-    int f4;
-    int f8;
+    hulk_intptr f4;
+    hulk_intptr f8;
 };
 
 struct StateObj : RefObj {
@@ -135,7 +135,7 @@ struct StateObj : RefObj {
     Rec58 *a48;
     RefObj *f4c;
     char pad50[8];
-    StateObj *FUN_0028ff00(int a, int b, int c, int d, int e, int f, int g);
+    StateObj *FUN_0028ff00(hulk_intptr a, hulk_intptr b, hulk_intptr c, hulk_intptr d, hulk_intptr e, hulk_intptr f, hulk_intptr g);
 };
 
 struct Prop {
@@ -146,7 +146,7 @@ struct Prop {
     char pad20[0x28 - 0x20];
     NameField *arr28;
     char pad2c[0x38 - 0x2c];
-    Prop *FUN_00290b30(ResObj *res, void *obj2, void *obj3, int x2, int x3);
+    Prop *FUN_00290b30(ResObj *res, void *obj2, void *obj3, hulk_intptr x2, hulk_intptr x3);
 };
 
 int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);

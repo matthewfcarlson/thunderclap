@@ -1,10 +1,11 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
 
 inline void* __cdecl operator new(unsigned int, void* p) {
     return p;
 }
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 extern void __cdecl FUN_00048040();
 extern void __cdecl FUN_00048050();
 struct Base_53fe0 {

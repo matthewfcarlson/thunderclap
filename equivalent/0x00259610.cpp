@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 49 inputs, branch coverage 61/68, incomplete)
 // FUN_00259610 @ 0x00259610
+#include "compat/ptr.h"
 #include "decls/data/platform/xbox/audio.h"
 #include "decls/data/platform/xbox/unknown.h"
 
 typedef unsigned int uint_259610;
 struct Device_259610 { char pad[0x1c]; char list[0x18]; void* sound; };
 extern void* __cdecl FUN_00247530(void*);
-extern uint_259610 __cdecl FUN_0024c740();
+extern hulk_uintptr __cdecl FUN_0024c740();
 extern void __cdecl FUN_0024c810(void*);
 extern void __cdecl FUN_00257e80(void*,void*);
 extern uint_259610 __cdecl FUN_0024c2f0(void*);

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 544 inputs, branch coverage 42/42)
 // FUN_00206320 @ 0x00206320
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/engine/fight.h"
@@ -39,7 +40,7 @@ struct W_206320 {
 };
 extern "C" Registry_206320* __cdecl FUN_001d4c90();
 extern "C" Rand* __cdecl FUN_000964d0();
-extern "C" int __cdecl FUN_00266da0(int);
+extern "C" int __cdecl FUN_00266da0(hulk_intptr);
 extern "C" int __cdecl FUN_002381a0(int, int);
 extern "C" void* __cdecl FUN_00263ea0(int);
 extern "C" void __cdecl FUN_000964a0(char*, int, const char*, ...);

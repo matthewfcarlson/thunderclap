@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19978 inputs, branch coverage 29/30, incomplete)
 // FUN_002fddf0 @ 0x002fddf0
+#include "compat/ptr.h"
 #include "gen/physics.h"
 struct Pose_2fddf0 {
     int words[21];
@@ -132,7 +133,7 @@ struct SkeletonInfo_nv_2fddf0 {
     physics::SkeletonInfo *FUN_00312440(void *owner);
 };
 
-void *__cdecl FUN_0008d690(unsigned int size);
+void *__cdecl FUN_0008d690(hulk_uintptr size);
 void *__cdecl FUN_00263ea0(unsigned int size);
 
 struct SimStateArticulated_nv_2fddf0 {

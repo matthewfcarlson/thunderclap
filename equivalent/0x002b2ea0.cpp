@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2757 inputs, branch coverage 58/58)
 // pure3d::MultiControllerLoader::vfunc_5 @ 0x002b2ea0
+#include "compat/ptr.h"
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
@@ -11,7 +12,7 @@ struct Reader {
     char pad[0x284];
     Stream *stream;
     char FUN_002669f0();
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     void FUN_00266be0();
 };
 

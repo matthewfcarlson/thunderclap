@@ -22,8 +22,8 @@ template<class T> struct DynamicCaster { virtual void cast(); };
 }
 }
 
-void *__cdecl FUN_0008d690(unsigned int size);
-void *__cdecl FUN_0008d6d0(unsigned int size);
+void *__cdecl FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d6d0(hulk_uintptr size);
 void *__cdecl FUN_00266e00(int a, int b);
 void __cdecl FUN_00267090(void *a);
 
@@ -43,7 +43,7 @@ public:
     char pad0[0x284];
     Stream *stream;
     char FUN_002669f0();
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     int FUN_00266c30();
     void FUN_00266be0();
 };
@@ -72,7 +72,7 @@ public:
 
 class SkinTopo18 : public Ref_2b7020 {
 public:
-    SkinTopo18 *FUN_002b5070(int a, int b);
+    SkinTopo18 *FUN_002b5070(int a, hulk_intptr b);
 };
 
 struct Rec0_2b7020 {
@@ -198,13 +198,13 @@ public:
 struct Frame_2b7020 {
     char pad0[3];
     unsigned char len;      // 0x03
-    int nf;                 // 0x04 (read, then reused for topo)
-    int A;                  // 0x08
-    int vbuf;               // 0x0c
+    hulk_intptr nf;                 // 0x04 (read, then reused for topo)
+    hulk_intptr A;                  // 0x08
+    hulk_intptr vbuf;               // 0x0c
     int nv;                 // 0x10
     int c14;                // 0x14 (caster slot / count for chunk 24)
     char pad18[0x30 - 0x18];
-    int x30;                // 0x30 (read, then reused for obj)
+    hulk_intptr x30;                // 0x30 (read, then reused for obj)
     int cnt9;               // 0x34
     int cnt2;               // 0x38
     int cnt8;               // 0x3c
@@ -237,7 +237,7 @@ unsigned __int64 pure3d::ShadowSkinLoader::v5(Target_2b7020 **objOut, unsigned _
     R->stream->FUN_002647e0(&f.nf, 1, 4, 1);
 
     int nvv = f.nv;
-    int nfv = f.nf;
+    hulk_intptr nfv = f.nf;
     Target_2b7020 *obj = v6();
     f.x30 = (hulk_intptr)obj;
     ((NameHolder_2b7020 *)((char *)obj + 8))->FUN_0027b040(f.name1);

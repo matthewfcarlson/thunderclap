@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 485 inputs, branch coverage 66/66)
 // FUN_00200c10 @ 0x00200c10
+#include "compat/ptr.h"
 typedef unsigned int size_t;
 void* operator new(size_t) throw();
 inline void* operator new(size_t, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int);
+void* FUN_0008d690(hulk_uintptr);
 char FUN_001d04d0(const void*) throw();
 class CTriggerVolumeManager;
 namespace math { class Vector { public: float x, y, z; }; }

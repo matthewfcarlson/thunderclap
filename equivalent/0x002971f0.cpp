@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 111 inputs, branch coverage 12/12)
 // FUN_002971f0 @ 0x002971f0
+#include "compat/ptr.h"
 typedef unsigned int uint;
 inline void* operator new(unsigned int, void* p) { return p; }
-void* __cdecl FUN_0008d6d0(uint);
+void* __cdecl FUN_0008d6d0(hulk_uintptr);
 struct Item_2971f0 {
  virtual void AddRef(); virtual void Release(); virtual void v2(); virtual void v3(); virtual Item_2971f0* Clone(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void Configure(int,int,int,int); virtual void v11(); virtual void v12(); virtual void v13(); virtual void SetParent(void*);
 };

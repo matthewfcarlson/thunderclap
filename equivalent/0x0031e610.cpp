@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 63 inputs, branch coverage 20/20)
 // pure3d::pddiBaseContext::vfunc_100 @ 0x0031e610
-void* __cdecl FUN_0008d690(unsigned int);
+#include "compat/ptr.h"
+void* __cdecl FUN_0008d690(hulk_uintptr);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 namespace math { struct Matrix { char data[64]; void FUN_0022b980(); }; }
 namespace pure3d {

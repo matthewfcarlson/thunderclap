@@ -4,9 +4,9 @@
 #include "compat/ptr.h"
 extern "C" void *memset(void *dst, int c, unsigned int n);
 
-void *FUN_0008d690(unsigned int size);
+void *FUN_0008d690(hulk_uintptr size);
 void *thunk_FUN_0008d690(unsigned int size);
-void *FUN_0008d6d0(unsigned int size);
+void *FUN_0008d6d0(hulk_uintptr size);
 
 struct Name_27def0 {
     int w0;

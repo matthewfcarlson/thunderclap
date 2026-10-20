@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 16/18, incomplete)
 // pure3d::OldParticleSystemLoader::vfunc_5 @ 0x002ad550
+#include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" char *strstr(const char *, const char *);
 
@@ -99,7 +100,7 @@ struct Reader {
     char pad0[0x284];
     Stream *stream;
     bool FUN_002669f0();
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     void FUN_00266be0();
 };
 

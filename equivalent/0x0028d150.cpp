@@ -3,7 +3,7 @@
 // 0x0028d150: channel constructor holding 8-byte elements, allocated from the parent pool or the heap
 #include "compat/ptr.h"
 extern char DAT_0042caa8[];
-void* __cdecl FUN_0008d6d0(unsigned size);
+void* __cdecl FUN_0008d6d0(hulk_uintptr size);
 void __stdcall FUN_00011520(void* base, unsigned size, int count, void* ctor);
 extern char FUN_00289ed0;
 
@@ -13,7 +13,7 @@ struct Pool_28d150 {
 
 class CompressedQuaternionChannel_28d150 {
 public:
-    int vptr;
+    hulk_intptr vptr;
     int field_04;
     int field_08;
     Pool_28d150* parent;

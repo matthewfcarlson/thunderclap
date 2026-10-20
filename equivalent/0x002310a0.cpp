@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 14/14)
 // FUN_002310a0 @ 0x002310a0
-extern void* __cdecl FUN_0008d690(unsigned int bytes);
+#include "compat/ptr.h"
+extern void* __cdecl FUN_0008d690(hulk_uintptr bytes);
 extern void __cdecl FUN_0008d330(void* memory);
 struct Entry_2310a0 { unsigned int first, second; };
 struct Table_2310a0 {

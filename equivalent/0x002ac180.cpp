@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 168 inputs, branch coverage 49/52, incomplete)
 // FUN_002ac180 @ 0x002ac180
+#include "compat/ptr.h"
 #include "decls/data/engine/content.h"
 
 void* FUN_00263ea0(unsigned int size);
-void* FUN_0008d690(unsigned int size);
+void* FUN_0008d690(hulk_uintptr size);
 
 struct Stream {
     char pad[0xc];
@@ -15,7 +16,7 @@ struct Reader {
     char pad000[0x284];
     Stream* stream;
     char FUN_002669f0();
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     void FUN_00266be0();
 };
 

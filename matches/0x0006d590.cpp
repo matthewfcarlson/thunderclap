@@ -1,4 +1,5 @@
-extern "C" int __cdecl FUN_00344e74(void*, int, int, int, int);
+#include "compat/ptr.h"
+extern "C" int __cdecl FUN_00344e74(void*, int, hulk_intptr, hulk_intptr, int);
 
 class TrackFactoryCaster {
   public:

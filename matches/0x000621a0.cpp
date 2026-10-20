@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_621a0;
 struct Track {
     virtual void a();
@@ -25,7 +26,7 @@ struct CWeaponCollisionTrack : Track, Param {
     virtual void v11();
 };
 extern int query(u32_621a0, int, const void*, const void*, int);
-extern void* alloc(unsigned int);
+extern void* alloc(hulk_uintptr);
 struct Maker_621a0 {
     u32_621a0 construct(u32_621a0, CWeaponCollisionTrack*, int);
 };

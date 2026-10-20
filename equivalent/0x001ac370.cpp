@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 8/8)
 // FUN_001ac370 @ 0x001ac370
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/hulkfight/scenario.h"
 
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* p) { return p; }
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 extern void __cdecl FUN_001aad30();
 extern void __cdecl FUN_001aad40();
 extern void __cdecl FUN_001aad50();

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 223 inputs, branch coverage 60/62, incomplete)
 // FUN_002e5b20 @ 0x002e5b20
-void *FUN_0008d690(unsigned int size);
+#include "compat/ptr.h"
+void *FUN_0008d690(hulk_uintptr size);
 
 struct Reader {
     void FUN_002647e0(void *dst, int count, int size, int flag);

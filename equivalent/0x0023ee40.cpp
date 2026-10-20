@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 10/10)
 // FUN_0023ee40 @ 0x0023ee40
+#include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 
 typedef void (__cdecl *Callback_23ee40)();
@@ -7,7 +8,7 @@ void __cdecl FUN_0023ea20();
 void __cdecl FUN_0023ea30();
 void __cdecl FUN_0023ea40();
 void __cdecl FUN_0023ea50();
-void* __cdecl FUN_0008d690(unsigned);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 inline void* operator new(unsigned, void* p) { return p; }
 namespace fight {
 class SpawnTrack;

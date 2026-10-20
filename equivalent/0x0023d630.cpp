@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 6/6)
 // FUN_0023d630 @ 0x0023d630
+#include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/engine/unknown.h"
 
@@ -7,7 +8,7 @@ typedef unsigned int size_t;
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 extern void FUN_0023d450();
 extern void FUN_0023d460();
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 struct Base_23d630 { char pad[16]; void FUN_00234cc0(const char*); };
 namespace fight {
 class DebugCondition;

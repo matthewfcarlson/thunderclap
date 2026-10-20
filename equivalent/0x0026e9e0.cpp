@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 4/4)
 // FUN_0026e9e0 @ 0x0026e9e0
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 #include "gen/core.h"
 
 struct Obj_26e9e0 { virtual void FUN_0026e9e0_slot0(); };
-extern "C" void* __cdecl FUN_00266e00(int, int);
+extern "C" void* __cdecl FUN_00266e00(int, hulk_intptr);
 struct ConsoleClient_nv_26e9e0 {
     void* FUN_0026e2a0(int, int);
 };

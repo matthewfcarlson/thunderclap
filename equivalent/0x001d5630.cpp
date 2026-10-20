@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19974 inputs, branch coverage 6/6)
 // FUN_001d5630 @ 0x001d5630
+#include "compat/ptr.h"
 #include "gen/global.h"
 struct Query_1d5630 { void FUN_0008ced0(int,int,unsigned*,int,int,int); };
 extern "C" Query_1d5630* __cdecl FUN_0008ceb0(int,int,unsigned*,int,int,int);
-extern "C" unsigned __cdecl FUN_00266da0(unsigned);
+extern "C" unsigned __cdecl FUN_00266da0(hulk_uintptr);
 struct Owner_1d5630;
 struct Entry_1d5630;
 struct CSPHulkPropInstance_nv_1d5630 {

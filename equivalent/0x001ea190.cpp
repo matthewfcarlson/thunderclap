@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 22/24, incomplete)
 // FUN_001ea190 @ 0x001ea190
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern char DAT_004c7150[];
 extern char DAT_004c7170[];
 extern char DAT_004c712c[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
-extern unsigned __cdecl FUN_0026fd50(unsigned value, unsigned align);
+extern hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr value, unsigned align);
 extern void *__cdecl FUN_0008d710(unsigned size, int tag);
 
 struct Key_1ea190 {
@@ -17,7 +18,7 @@ struct Key_1ea190 {
 struct Entry_1ea190 {
     int f00;
     void *f04;
-    unsigned f08;
+    hulk_uintptr f08;
     int f0c;
     unsigned f10;
 };
@@ -81,7 +82,7 @@ int Collector_1ea190::FUN_001ea190(Request *req, List_1ea190 *list)
             if (src) {
                 Key_1ea190 key = src->key;
                 Link_1ea190 *keyLink = (Link_1ea190 *)&src->key;
-                unsigned size = 0;
+                hulk_uintptr size = 0;
                 if (!(src->flags & 1)) {
                     unsigned v = (src->size & 0x7fffffff) - 0x800;
                     unsigned align = DAT_004c6f4c * 2;

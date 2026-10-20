@@ -1,4 +1,5 @@
-extern int __cdecl FUN_00344e74(int a, int b, int c, int d, int e);
+#include "compat/ptr.h"
+extern hulk_intptr __cdecl FUN_00344e74(hulk_intptr a, int b, hulk_intptr c, hulk_intptr d, int e);
 class ConditionFactoryCaster {
   public:
     virtual int vfunc_0(int a);

@@ -4,7 +4,7 @@
 extern int vft_59070;
 class CSmartPropDistanceCondition_59070 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     int pad4[2];
     int one;
     float val;
@@ -19,7 +19,7 @@ class CSmartPropDistanceCondition_59070 {
     int h;
     void setup(int);
 };
-void* __cdecl alloc(unsigned int);
+void* __cdecl alloc(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<CSmartPropDistanceCondition>::vfunc_5() {
     CSmartPropDistanceCondition_59070* p = (CSmartPropDistanceCondition_59070*)alloc(0x30);

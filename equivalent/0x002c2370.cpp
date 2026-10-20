@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 16/18, incomplete)
 // FUN_002c2370 @ 0x002c2370
+#include "compat/ptr.h"
 struct Stream {
     char FUN_002647e0(void* dest, int a, int b, int c);
 };
@@ -8,7 +9,7 @@ struct Reader {
     char pad0[0x284];
     Stream* stream;
     char FUN_002669f0();
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     void FUN_00266be0();
 };
 

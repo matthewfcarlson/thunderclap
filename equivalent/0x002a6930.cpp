@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 284 inputs, branch coverage 14/14)
 // FUN_002a6930 @ 0x002a6930
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 struct TypeInfo_2a6930 { unsigned int value; }; extern TypeInfo_2a6930 DAT_004cf8e8, DAT_004cf908;
 struct Resource_2a6930 { char pad[0x5c]; void* data; };
@@ -8,7 +9,7 @@ struct Source_2a6930 { char pad[0x48]; Entry_2a6930* begin; Entry_2a6930* end; }
 struct VertexList_nv_2a6930 {
     pure3d::VertexList* FUN_002c8730(void*);
 };
-extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(hulk_uintptr);
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern "C" Resource_2a6930* __cdecl FUN_00344e74(void*, int, TypeInfo_2a6930*, TypeInfo_2a6930*, int);
 struct Owner_2a6930 { char pad[0x40]; Source_2a6930* source; unsigned int field44; unsigned int count; pure3d::VertexList** items; void FUN_002a68b0(); void target(Source_2a6930*); };

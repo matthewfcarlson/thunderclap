@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 14/16, incomplete)
 // fight::BinReader::vfunc_7 @ 0x0023bf10
+#include "compat/ptr.h"
 struct Stream {
  virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual int FUN_read(void*, unsigned);
 };
 struct Value_23bf10 { void FUN_0027af60(unsigned, unsigned); void FUN_0027b040(const char*); };
 extern "C" void* __cdecl FUN_00238190(int);
-extern "C" char* __cdecl FUN_00266e00(void*, unsigned);
+extern "C" char* __cdecl FUN_00266e00(void*, hulk_uintptr);
 extern "C" void __cdecl FUN_00267090(void*);
 namespace fight {
 struct BinReader {

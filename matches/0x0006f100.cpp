@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 struct Allocated_6f100 {
-    int Finish();
+    hulk_intptr Finish();
 };
 extern void* Allocate(unsigned int);
 

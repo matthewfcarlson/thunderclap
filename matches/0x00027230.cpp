@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Item {
     char pad[0x213c];
     float value;
@@ -6,7 +7,7 @@ struct Obj {
     Item* get(unsigned __int64 x);
     void fn(void* x, unsigned char b);
 };
-extern "C" unsigned __int64 __cdecl make(void*, int, int);
+extern "C" unsigned __int64 __cdecl make(void*, int, hulk_intptr);
 void Obj::fn(void* x, unsigned char b) {
     Item* p = get(make(x, 0, 0));
     if (p)

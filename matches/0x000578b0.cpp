@@ -3,7 +3,7 @@
 
 extern "C" char DAT_003f6fa4[];
 typedef unsigned int u32_578b0;
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 struct CCollisionHitLocationCondition_578b0 {
     virtual void a();
     virtual void b();

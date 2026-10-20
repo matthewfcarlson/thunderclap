@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 13637 inputs, branch coverage 40/40)
 // FUN_002337c0 @ 0x002337c0
+#include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 #include "gen/fight.h"
 
@@ -58,7 +59,7 @@ struct ScopeNode {
 };
 
 extern "C" int FUN_00238190(int mode);
-extern "C" int FUN_00266da0(int v);
+extern "C" int FUN_00266da0(hulk_intptr v);
 extern "C" void FUN_00232cc0(Lexer *lexer, const char *msg);
 void *__cdecl FUN_00263ea0(unsigned int size);
 

@@ -9,7 +9,7 @@ extern const char g1_2fd70[];
 extern const char g2_2fd70[];
 class Target_2fd70 {
   public:
-    int v;
+    hulk_intptr v;
     char p[0x24];
     Target_2fd70* Fn(void* a, int b, void* c);
 };

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20022 inputs, branch coverage 12/12)
 // FUN_002407a0 @ 0x002407a0
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 #include "decls/data/engine/content.h"
 #include "gen/om.h"
@@ -23,7 +24,7 @@ struct Registry_2407a0 {
 };
 
 
-void *FUN_0008d690(unsigned int size);
+void *FUN_0008d690(hulk_uintptr size);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 Subsystem_2407a0 *FUN_00256660();
 Subsystem_2407a0 *FUN_00245330();

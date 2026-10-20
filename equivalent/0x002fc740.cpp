@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // FUN_002fc740 @ 0x002fc740
+#include "compat/ptr.h"
 struct Ref_2fc740 { virtual void AddRef(); virtual void Release(); char pad[8]; void* data; Ref_2fc740* FUN_00310080(void*,int,void*); void FUN_0030ff80(int); };
 struct Input_2fc740 { char pad[12]; void* data; void FUN_00284820(int); };
 extern char DAT_004c60bc; extern char DAT_004d2d90;
 void* __cdecl FUN_00344e74(void*,int,void*,void*,int);
-void* __cdecl FUN_0008d690(unsigned);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 Ref_2fc740* __cdecl FUN_002fddf0(void*,void*,void*);
 Ref_2fc740* __cdecl FUN_002efa90(void*,void*,int);
 Ref_2fc740* __cdecl FUN_002fe480(Input_2fc740*,void*,void*);

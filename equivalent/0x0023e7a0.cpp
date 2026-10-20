@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 8/8)
 // FUN_0023e7a0 @ 0x0023e7a0
+#include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 
 typedef void (*Callback_23e7a0)();
 void FUN_0023e4d0();
 void FUN_0023e4e0();
 void FUN_0023e4f0();
-void* __cdecl FUN_0008d690(unsigned);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 inline void* __cdecl operator new(unsigned, void* p) { return p; }
 struct ParamBase_23e7a0 {
  char bytes[16]; Callback_23e7a0 callback; unsigned tail;

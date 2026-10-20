@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 42/42)
 // FUN_00224260 @ 0x00224260
+#include "compat/ptr.h"
 struct Sink_224260;
 struct Target_224260 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
@@ -21,7 +22,7 @@ struct Entry_224260 {
     float w;                // 0x24
 };
 
-extern void __cdecl FUN_00223dc0(Entry_224260 *first, Entry_224260 *last, int count);
+extern void __cdecl FUN_00223dc0(Entry_224260 *first, Entry_224260 *last, hulk_intptr count);
 
 struct Mixer {
     char pad0[0x68];

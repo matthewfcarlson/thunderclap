@@ -2,6 +2,7 @@
 // FUN_001f9810 @ 0x001f9810
 // cl-flags: /GS
 // equiv-map: ___security_cookie = 0x004d9968
+#include "compat/ptr.h"
 typedef unsigned __int64 u64;
 extern "C" int memcmp(const void *a, const void *b, unsigned int n);
 
@@ -36,7 +37,7 @@ struct Obj {
     virtual float v9();
     char pad_o[0xc - 4];
     char name[4];
-    int FUN_001fba60();
+    hulk_intptr FUN_001fba60();
 };
 
 struct Finder {

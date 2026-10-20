@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19 inputs, branch coverage 10/10)
 // FUN_0028ff00 @ 0x0028ff00
-extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
+#include "compat/ptr.h"
+extern "C" void *__cdecl FUN_0008d6d0(hulk_uintptr size);
 extern "C" void *memset(void *dst, int c, unsigned int n);
 
 struct Name_28ff00 {

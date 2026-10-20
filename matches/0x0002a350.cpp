@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 class Bar {
   public:
     void act();
 };
-extern "C" __int64 __cdecl make(void*, int, int);
+extern "C" __int64 __cdecl make(void*, int, hulk_intptr);
 class Foo {
   public:
     Bar* get(__int64);

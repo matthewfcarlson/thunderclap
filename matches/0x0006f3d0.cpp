@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_6f3d0;
 struct CGrabTrack_6f3d0 {
-    u32_6f3d0 init();
+    hulk_uintptr init();
 };
 extern "C" void* __cdecl operator_new(unsigned int);
 

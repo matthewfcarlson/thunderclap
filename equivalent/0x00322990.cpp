@@ -2,8 +2,8 @@
 // FUN_00322990 @ 0x00322990
 #include "compat/ptr.h"
 namespace D3D8 {
-int __stdcall D3DDevice_GetBackBuffer2(int);
-void __stdcall D3DResource_Release(int);
+hulk_intptr __stdcall D3DDevice_GetBackBuffer2(int);
+void __stdcall D3DResource_Release(hulk_intptr);
 }
 struct Surface_322990 {
     unsigned int common;

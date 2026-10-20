@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 341 inputs, branch coverage 21/22, incomplete)
 // FUN_0022f7e0 @ 0x0022f7e0
+#include "compat/ptr.h"
 typedef unsigned int uint_22f7e0;
 struct Point_22f7e0 { float x,y,z,w; };
 struct Segment_22f7e0 {
@@ -8,7 +9,7 @@ struct Segment_22f7e0 {
 };
 // equiv-conv: FUN_0022f760 edi stack
 float __cdecl FUN_0022f760(Segment_22f7e0*, float);
-void* __cdecl FUN_0008d690(uint_22f7e0);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 struct Curve_22f7e0 {
  char padding[0x108];
  unsigned char closed;

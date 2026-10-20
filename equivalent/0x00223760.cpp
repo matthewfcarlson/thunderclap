@@ -5,7 +5,7 @@ struct Elem_223760 {
     int w[10];
 };
 
-void __cdecl FUN_002234d0(Elem_223760 *first, int index, int count, Elem_223760 value);
+void __cdecl FUN_002234d0(Elem_223760 *first, hulk_intptr index, hulk_intptr count, Elem_223760 value);
 
 void FUN_00223760(Elem_223760 *first, Elem_223760 *last)
 {

@@ -6,7 +6,7 @@ extern char DAT_0042d668[];
 struct Vec3_2a0b00 { float x, y, z; };
 
 struct Light {
-    int vptr;
+    hulk_intptr vptr;
     char pad04[0xc];
     char b10, b11, b12, b13;
     int f14;

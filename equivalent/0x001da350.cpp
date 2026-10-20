@@ -49,7 +49,7 @@ struct Reg124_1da350 {
 struct Reg20_1da350 {
     char pad[0x124];
     Reg124_1da350 *p124;
-    void FUN_00029b50(unsigned a, unsigned b, unsigned c);
+    void FUN_00029b50(unsigned a, hulk_uintptr b, unsigned c);
 };
 
 struct World {

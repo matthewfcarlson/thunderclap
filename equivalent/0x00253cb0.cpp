@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20029 inputs, branch coverage 26/26)
 // FUN_00253cb0 @ 0x00253cb0
+#include "compat/ptr.h"
 class Reader {
 public:
     virtual void v0();
@@ -39,7 +40,7 @@ void FUN_0025be60(int *pos, int *local);
 int FUN_0024c4d0(int *local, int v);
 int FUN_0024c480(int *local, int v);
 int FUN_0024c2f0(int *pos);
-unsigned int FUN_0026fd80(unsigned int a, unsigned int b);
+hulk_uintptr FUN_0026fd80(hulk_uintptr a, unsigned int b);
 Reader *FUN_0025bec0(Reader *r);
 int FUN_0024ba70(void *source, Reader *reader, int amount);
 
@@ -115,7 +116,7 @@ void SeqActionStream_253cb0::FUN_00253cb0(Stream *s)
     if (FUN_0024b200(s->source))
         return;
     int n = FUN_0024c480(&pos, base);
-    int m = FUN_0026fd80(n, FUN_0024c2f0(&pos));
+    hulk_intptr m = FUN_0026fd80(n, FUN_0024c2f0(&pos));
     s->reader->v5(m);
     s->reader = FUN_0025bec0(s->reader);
     int k = FUN_0024c4d0(&pos, f28) - base;

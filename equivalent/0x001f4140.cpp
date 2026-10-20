@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 18514 inputs, branch coverage 30/30)
 // FUN_001f4140 @ 0x001f4140
 // FUN_001f4140 @ 0x001f4140
+#include "compat/ptr.h"
 struct Sound;
 struct Voice_1f4140 {
     char pad0[4];
     Sound *sound;           // 0x4
-    int handle;             // 0x8
+    hulk_intptr handle;             // 0x8
     char pad1[4];
     int owner;              // 0x10
     char finished;          // 0x14

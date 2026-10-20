@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 28/28)
 // FUN_001c3e10 @ 0x001c3e10
+#include "compat/ptr.h"
 #include "decls/data/game/Render/Canvas.h"
 #include "decls/data/game/global.h"
 
@@ -20,7 +21,7 @@ struct Target_1c3e10 {
 };
 
 struct DebugView {
-    int FUN_001b4420(int id);
+    hulk_intptr FUN_001b4420(int id);
 };
 
 struct Hub_1c3e10 {

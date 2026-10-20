@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 struct B_249d0 {
     char pad[0x44];
     struct Lookuper* lk;
 };
 struct Lookuper {
-    int Lookup(int key);
+    hulk_intptr Lookup(int key);
 };
 struct Node {
     char pad[0x20a8];

@@ -5,7 +5,7 @@ struct Helper_60720 {
     void Init();
 };
 struct CEffectTrack {
-    u32_60720 vft;
+    hulk_uintptr vft;
     char pad[0x30 - 4];
     void Finish();
 };

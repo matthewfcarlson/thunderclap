@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3075 inputs, branch coverage 37/37)
 // FUN_00297ba0 @ 0x00297ba0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 void *thunk_FUN_0008d690(unsigned int size);
 
 struct Name_297ba0 {
@@ -57,7 +58,7 @@ class NodeB_297ba0 : public Node {
 public:
     char pad[0xb0 - 0x10];
     NodeB_297ba0 *FUN_00297460(int v);
-    int FUN_001a4990();
+    hulk_intptr FUN_001a4990();
 };
 
 class NodeC_297ba0 : public Node {

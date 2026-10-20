@@ -21,8 +21,8 @@ struct lua_State_2155f0 {
     TObject_2155f0 *stack_last;
 };
 
-extern void __cdecl FUN_00215460(lua_State_2155f0 *L, int n);
-extern Table *__cdecl FUN_00219cc0(lua_State_2155f0 *L, int narray, int lnhash);
+extern void __cdecl FUN_00215460(lua_State_2155f0 *L, hulk_intptr n);
+extern Table *__cdecl FUN_00219cc0(lua_State_2155f0 *L, hulk_intptr narray, int lnhash);
 extern TObject_2155f0 *__cdecl FUN_00219f60(lua_State_2155f0 *L, Table *t, int key);
 extern TString *__cdecl FUN_00219430(lua_State_2155f0 *L, const char *str, unsigned int len);
 extern TObject_2155f0 *__cdecl FUN_0021a500(lua_State_2155f0 *L, Table *t, TString *key);

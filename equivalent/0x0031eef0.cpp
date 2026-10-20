@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1747 inputs, branch coverage 6/6)
 // FUN_0031eef0 @ 0x0031eef0
-void* __cdecl FUN_0008d690(unsigned int size);
+#include "compat/ptr.h"
+void* __cdecl FUN_0008d690(hulk_uintptr size);
 void __stdcall FUN_00011520(void* array, unsigned int elementSize, int count, void* ctor);
 extern char FUN_0031e490;
 inline void* __cdecl operator new(unsigned int, void* address) { return address; }

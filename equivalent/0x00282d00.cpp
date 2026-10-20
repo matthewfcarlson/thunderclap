@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 16/16)
 // pure3d::prop::CMotionTrail::vfunc_6 @ 0x00282d00
+#include "compat/ptr.h"
 struct Vec3 {
     float x, y, z;
 };
@@ -173,8 +174,8 @@ struct Frame {
         int i;
     } saved1;
     int saved2;
-    int diffBA;
-    int diffAB;
+    hulk_intptr diffBA;
+    hulk_intptr diffAB;
     Slice r0;
     Slice r1;
 };

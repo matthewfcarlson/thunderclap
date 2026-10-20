@@ -8,7 +8,7 @@ class Ref_224a0 {
 };
 class CUninterruptibleAction {
   public:
-    volatile int vptr;
+    volatile hulk_intptr vptr;
     char pad[0x18];
     volatile Ref_224a0* mRef;
     CUninterruptibleAction* f2(unsigned char flags);

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 20/20)
 // FUN_00288080 @ 0x00288080
+#include "compat/ptr.h"
 struct Vec3_288080 {
     float x, y, z;
 };
@@ -29,7 +30,7 @@ public:
 };
 
 void FUN_0008d340(void *p);
-void *FUN_0008d6d0(unsigned int size);
+void *FUN_0008d6d0(hulk_uintptr size);
 Pair_288080 FUN_002672f0(const char *name, int a, int b);
 
 class SkeletonUser {

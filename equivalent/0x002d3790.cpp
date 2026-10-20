@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 37 inputs, branch coverage 16/16)
 // FUN_002d3790 @ 0x002d3790
+#include "compat/ptr.h"
 typedef unsigned size_t;
 void* __cdecl operator new(size_t,void*);
 struct Ref_2d3790 { virtual void AddRef(); virtual void Release(); };
@@ -8,7 +9,7 @@ namespace pure3d {
 struct ParticleGenerator {virtual void slot0(); unsigned field4;Part_2d3790 part;unsigned char flag;char pad11[3];unsigned f14,f18,count,f20,f24;Ref_2d3790* ref;Ref_2d3790** items;Ref_2d3790** end;unsigned f34,f38,f3c,f40,f44,f48,f4c;void FUN_0027b070();};
 struct ParticlePointGenerator:ParticleGenerator {virtual void slot0(); ParticlePointGenerator* copy(const ParticlePointGenerator&);};
 }
-extern "C" void* __cdecl FUN_0008d6d0(unsigned);
+extern "C" void* __cdecl FUN_0008d6d0(hulk_uintptr);
 pure3d::ParticlePointGenerator* pure3d::ParticlePointGenerator::copy(const ParticlePointGenerator& src) {
  FUN_0027b070();
  this->ParticleGenerator::ParticleGenerator();

@@ -2,7 +2,7 @@
 extern "C" void __cdecl FUN_00066980();
 typedef unsigned int u32_670a0;
 struct Inner_670a0 {
-    int Find(const void*, void*);
+    hulk_intptr Find(const void*, void*);
 };
 struct S_670a0 {
     char pad[0x2f4];

@@ -4,7 +4,7 @@
 extern "C" char DAT_003f7034[];
 typedef unsigned int u32_57960;
 struct CCollisionInterruptCondition_57960 {
-    u32_57960 vf;
+    hulk_uintptr vf;
     char pad[8];
     unsigned char flag;
 };

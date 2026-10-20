@@ -7,7 +7,7 @@ class TrackFactoryCaster_6d950 {
     virtual bool vfunc_0(int owner);
     virtual bool vfunc_1(int owner);
 };
-int FUN_00344e74(int owner, int a, int b, int c, int d);
+hulk_intptr FUN_00344e74(hulk_intptr owner, int a, hulk_intptr b, hulk_intptr c, int d);
 
 template <> bool fight::TrackFactoryCasterTemplate<CGrappleDamageTrack>::vfunc_0(void* __p0) { hulk_intptr owner = (hulk_intptr)__p0;
 

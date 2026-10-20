@@ -17,9 +17,9 @@ struct PartitionList {
  pure3d::Skeleton::Partition* begin;
  pure3d::Skeleton::Partition* end;
  pure3d::Skeleton::Partition* capacity;
- void FUN_0027bd70(int count, const pure3d::Skeleton::Partition* initial);
+ void FUN_0027bd70(hulk_intptr count, const pure3d::Skeleton::Partition* initial);
 };
-extern void* __cdecl FUN_0008d6d0(unsigned int size);
+extern void* __cdecl FUN_0008d6d0(hulk_uintptr size);
 struct Object {
  char pad0[0x10];
  unsigned int bitCount;

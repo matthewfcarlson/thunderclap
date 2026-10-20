@@ -6,15 +6,15 @@
 typedef unsigned long DWORD;
 extern "C" int __stdcall FUN_002109b6(int, int);
 extern "C" char __cdecl FUN_002781c0(int, void *);
-extern "C" int __stdcall FUN_002101d4(int, unsigned int, int, int);
-extern "C" int __stdcall FUN_0021007a(int, int, int, void *, int);
-namespace XAPILIB { extern "C" int __stdcall GetLastError(); }
+extern "C" int __stdcall FUN_002101d4(int, hulk_uintptr, int, int);
+extern "C" int __stdcall FUN_0021007a(int, hulk_intptr, int, void *, int);
+namespace XAPILIB { extern "C" hulk_intptr __stdcall GetLastError(); }
 struct DataBlock_278de0 { DWORD words[5]; };
 struct Scratch_278de0 { DWORD unused; DataBlock_278de0 block; };
 struct Target_278de0 {
  char pad[0xb4];
  int error;
- int FUN_002787c0(int);
+ int FUN_002787c0(hulk_intptr);
  bool FUN_00278de0();
 };
 bool Target_278de0::FUN_00278de0() {

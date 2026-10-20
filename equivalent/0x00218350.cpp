@@ -153,7 +153,7 @@ void __cdecl FUN_00214a90(lua_State* L, const char* msg);
 void __cdecl FUN_002159e0(lua_State* L, StkId func, int nresults);
 void* __cdecl FUN_00219430(lua_State* L, const char* str, int l);
 TObject* __cdecl FUN_00219e50(Table* t, void* key);
-void* __cdecl FUN_00219f60(lua_State* L, void* h, int key);
+void* __cdecl FUN_00219f60(lua_State* L, void* h, hulk_intptr key);
 void __cdecl FUN_00219660(lua_State* L, StkId level);
 LClosure* __cdecl FUN_00219560(lua_State* L, int nelems, TObject* e);
 UpVal* __cdecl FUN_00219610(lua_State* L, StkId level);

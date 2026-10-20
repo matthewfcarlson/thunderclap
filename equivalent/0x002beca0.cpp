@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002beca0 @ 0x002beca0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
-void* __cdecl FUN_0008d690(unsigned size);
+#include "compat/ptr.h"
+void* __cdecl FUN_0008d690(hulk_uintptr size);
 void* __cdecl thunk_FUN_0008d690(unsigned size);
 struct Lookup_2beca0 { Lookup_2beca0* FUN_002de230(); };
 class Child_2beca0 { public: virtual void v0(); Child_2beca0* FUN_002c0c40(); };

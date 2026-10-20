@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 145 inputs, branch coverage 8/8)
 // FUN_00214c90 @ 0x00214c90
 // Lua 5.0 luaG_typeerror(L, o, op): "attempt to <op> <kind> `<name>' (a <type> value)".
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
 struct TObject_214c90 {
@@ -23,7 +24,7 @@ struct lua_State_214c90 {
                       // luaT_typenames
 
 // equiv-conv: FUN_002146f0 eax stack stack
-const char* __cdecl FUN_002146f0(unsigned int reg, CallInfo_214c90* ci, const char** name);
+const char* __cdecl FUN_002146f0(hulk_uintptr reg, CallInfo_214c90* ci, const char** name);
 void __cdecl FUN_00214a90(lua_State_214c90* L, const char* fmt, ...);   // luaG_runerror
 
 void __cdecl FUN_00214c90(lua_State_214c90* L, const TObject_214c90* o, const char* op)

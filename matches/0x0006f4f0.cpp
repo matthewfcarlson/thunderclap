@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 struct Thing_6f4f0 {
-    int init();
+    hulk_intptr init();
 };
 void* operator new(unsigned int);
 

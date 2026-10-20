@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned __int64 U64;
 struct V {
     virtual void f0();
@@ -14,7 +15,7 @@ struct Obj {
     char pad[0x1ca0];
     V* v;
 };
-extern "C" U64 __cdecl make(unsigned, unsigned, unsigned);
+extern "C" U64 __cdecl make(unsigned, unsigned, hulk_uintptr);
 class Owner {
   public:
     Obj* lookup(U64);

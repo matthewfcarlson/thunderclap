@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_002b5610 @ 0x002b5610
+#include "compat/ptr.h"
 struct Ref_2b5610 { virtual void AddRef(); virtual void Release(); char pad[12]; unsigned count; };
 struct Matrix { char data[64]; void FUN_0022b980(); };
 struct Small_2b5610 : Ref_2b5610 { Small_2b5610* FUN_002b5100(Ref_2b5610*); };
-void* __cdecl FUN_0008d6d0(unsigned);
-void* __cdecl FUN_0008d690(unsigned);
+void* __cdecl FUN_0008d6d0(hulk_uintptr);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 struct FUN_002b52e0 { virtual void dummy(); char pad04[12]; unsigned type; char pad14[52]; Ref_2b5610* object; char pad4c[36]; Ref_2b5610* resource; Matrix* matrices; Ref_2b5610* resource2; unsigned tail; FUN_002b52e0(FUN_002b52e0*); };
 namespace pure3d {
 struct ShadowSkinImpl : FUN_002b52e0 { virtual void dummy(); ShadowSkinImpl(FUN_002b52e0*); };

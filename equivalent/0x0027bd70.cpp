@@ -12,11 +12,11 @@ public:
     Elem_27bd70 *capEnd;            // 0x08
     void FUN_0027b3b0(unsigned int n);
     void FUN_0027ba70(Elem_27bd70 *from, Elem_27bd70 *to);
-    void FUN_0027bad0(Elem_27bd70 *at, int count);
+    void FUN_0027bad0(Elem_27bd70 *at, hulk_intptr count);
     void FUN_0027bd70(unsigned int newSize, int fill);
 };
 
-void __cdecl FUN_0027bb30(Elem_27bd70 *at, int count, int fill);
+void __cdecl FUN_0027bb30(Elem_27bd70 *at, hulk_intptr count, int fill);
 
 void ElemVector::FUN_0027bd70(unsigned int newSize, int fill) {
     if (first == 0)

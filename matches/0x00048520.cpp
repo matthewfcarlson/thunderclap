@@ -2,7 +2,7 @@
 extern int g_vft_48520;
 class CButtonValueCondition {
   public:
-    int vf;
+    hulk_intptr vf;
     int x1;
     int x2;
     int x3;

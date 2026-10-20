@@ -9,7 +9,7 @@ struct RefObj_1f6c0 {
 };
 
 struct CEffectAction {
-    int vptr;
+    hulk_intptr vptr;
     char pad04[0x18];
     RefObj_1f6c0 *f1c;
     int f20;

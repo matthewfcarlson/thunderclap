@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern "C" int FUN_00344e74(int a, int b, int c, int d, int e);
+extern "C" int FUN_00344e74(hulk_intptr a, int b, hulk_intptr c, hulk_intptr d, int e);
 class TrackFactoryCaster_6df90 {
   public:
     virtual int vfunc_0(int a);

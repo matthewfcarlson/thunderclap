@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002e6160 @ 0x002e6160
+#include "compat/ptr.h"
 struct Buffer { void* data; void* end; bool FUN_002e6160(unsigned int count, int value); }; 
-void* __cdecl FUN_0008d6d0(unsigned int size);
+void* __cdecl FUN_0008d6d0(hulk_uintptr size);
 void __cdecl FUN_002e59b0(void* data, unsigned int count, int value);
 bool Buffer::FUN_002e6160(unsigned int count, int value) {
     if (data) return false;

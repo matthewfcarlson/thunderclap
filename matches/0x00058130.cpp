@@ -6,7 +6,7 @@ class GroundCondition {
   public:
     void Init(int);
 };
-extern "C" void* Alloc(unsigned int);
+extern "C" void* Alloc(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<CGroundDistanceCondition>::vfunc_5() {
     GroundCondition* p = (GroundCondition*)Alloc(0x14);

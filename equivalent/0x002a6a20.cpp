@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 60 inputs, branch coverage 22/22)
 // FUN_002a6a20 @ 0x002a6a20
+#include "compat/ptr.h"
 class pure3d_PrimGroup {
 public:
     virtual void vfunc_0();
@@ -41,14 +42,14 @@ public:
     RefCounted_2a6a20 *FUN_002c8730(int handle);
 };
 
-void *__cdecl FUN_0008d690(unsigned int size);
-void *__cdecl FUN_0008d6d0(unsigned int size);
+void *__cdecl FUN_0008d690(hulk_uintptr size);
+void *__cdecl FUN_0008d6d0(hulk_uintptr size);
 
 class Binder_2a6a20 {
 public:
     char pad0[0x44];
     Source_2a6a20 *source;
-    unsigned int count;
+    hulk_uintptr count;
     RefCounted_2a6a20 **items;
 
     void FUN_002a68b0();

@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_003f74e0[];
-void* __cdecl Alloc(unsigned int);
+void* __cdecl Alloc(hulk_uintptr);
 struct Obj_57d70 {
     void Init(int);
 };
@@ -10,7 +10,7 @@ struct Tail_57d70 {
     void Init();
 };
 struct Raw_57d70 {
-    unsigned int vptr;
+    hulk_uintptr vptr;
     char pad[8];
     int f;
     char pad2[12];

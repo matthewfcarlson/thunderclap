@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 24/28, incomplete)
 // FUN_002c1f80 @ 0x002c1f80
+#include "compat/ptr.h"
 extern "C" int sprintf(char *buf, const char *fmt, ...);
-void *FUN_0008d6d0(unsigned int size);
+void *FUN_0008d6d0(hulk_uintptr size);
 void FUN_0008d340(void *p);
 
 class Ref_2c1f80 {
@@ -18,7 +19,7 @@ struct Reader {
     char pad0[0x284];
     Stream *stream;
     char FUN_002669f0();
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     void FUN_00266be0();
     int FUN_00266c90();
     void FUN_00266ca0(int handle);
@@ -43,10 +44,10 @@ public:
     Factory_2c1f80 *defaultFactory;    // 0x14
     Sink_2c1f80 *sink;                 // 0x18
 
-    void *FUN_002c1f80(Reader *r, Factory_2c1f80 *factory, int a3, int a4, int a5);
+    void *FUN_002c1f80(Reader *r, Factory_2c1f80 *factory, hulk_intptr a3, int a4, int a5);
 };
 
-void *Loader_2c1f80::FUN_002c1f80(Reader *r, Factory_2c1f80 *factory, int a3, int a4, int a5)
+void *Loader_2c1f80::FUN_002c1f80(Reader *r, Factory_2c1f80 *factory, hulk_intptr a3, int a4, int a5)
 {
     if (factory == 0)
         factory = defaultFactory;

@@ -15,7 +15,7 @@ class CSmartPropTypeCondition_58a00 {
     int a;
     int b;
 };
-extern "C" CSmartPropTypeCondition_58a00* Alloc(unsigned int);
+extern "C" CSmartPropTypeCondition_58a00* Alloc(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<CSmartPropTypeCondition>::vfunc_5() {
     CSmartPropTypeCondition_58a00* p = Alloc(0x14);

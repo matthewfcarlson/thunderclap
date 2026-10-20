@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 36/36)
 // FUN_001bb990 @ 0x001bb990
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -30,7 +31,7 @@ class OverlayObj {
     char pad2[0x20 - 0x14];
 };
 
-void* FUN_0008d690(unsigned size);
+void* FUN_0008d690(hulk_uintptr size);
 void* FUN_00263ea0(unsigned size);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 

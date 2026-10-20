@@ -2,7 +2,7 @@
 extern "C" char hulk_at_003f6334[];
 class Base_462a0 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     Base_462a0();
     int data;
 };

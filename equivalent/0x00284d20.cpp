@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 15029 inputs, branch coverage 8/8)
 // pure3d::SimpleFrameController::vfunc_6 @ 0x00284d20
 // pure3d::SimpleFrameController::vfunc_6 @ 0x00284d20
+#include "compat/ptr.h"
 namespace pure3d {
 struct SimpleFrameController {
     virtual void vfunc_0();
@@ -23,7 +24,7 @@ struct SimpleFrameController {
     int end;
     float time;
     int otherFrame;
-    int animation;
+    hulk_intptr animation;
 };
 }
 struct ThisNote_00289db0 {

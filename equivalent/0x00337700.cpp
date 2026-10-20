@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 28/28)
 // FUN_00337700 @ 0x00337700
+#include "compat/ptr.h"
 extern "C" long atol(const char* s);
-void* __cdecl FUN_0008d690(unsigned int size);
+void* __cdecl FUN_0008d690(hulk_uintptr size);
 
 class AttrDef_337700 {
   public:

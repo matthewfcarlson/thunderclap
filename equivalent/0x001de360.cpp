@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001de360 @ 0x001de360
+#include "compat/ptr.h"
 struct Sub_1de360 {
     virtual void v0();
     virtual void v1();
@@ -9,7 +10,7 @@ struct Item_1de360 {
     Sub_1de360 sub;
     Item_1de360 *FUN_001db1c0(int arg);
 };
-void *FUN_0008d690(unsigned int size);
+void *FUN_0008d690(hulk_uintptr size);
 
 struct Owner_1de360 {
     char pad[0x1e824];

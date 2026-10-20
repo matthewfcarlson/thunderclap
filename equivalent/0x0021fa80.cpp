@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_0021fa80 @ 0x0021fa80
 // FUN_0021fa80 @ 0x0021fa80
+#include "compat/ptr.h"
 struct State;
 struct Zio;
 struct Buffer;
@@ -16,9 +17,9 @@ struct Reader {
 void FUN_0021f8c0(void *dst, int size, Reader *r);
 // equiv-conv: FUN_0021f800 esi stack
 void FUN_0021f800(Reader *r, const char *msg);
-char *FUN_0021a6b0(State *L, Buffer *buf, unsigned int n);
-int FUN_0021a610(Zio *z, char *dst, unsigned int n);
-Str *FUN_00219430(State *L, const char *s, unsigned int len);
+char *FUN_0021a6b0(State *L, Buffer *buf, hulk_uintptr n);
+int FUN_0021a610(Zio *z, char *dst, hulk_uintptr n);
+Str *FUN_00219430(State *L, const char *s, hulk_uintptr len);
 
 // equiv-conv: FUN_0021fa80 eax
 Str *FUN_0021fa80(Reader *r)

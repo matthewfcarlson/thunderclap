@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 37 inputs, branch coverage 13/14, incomplete)
 // pure3d::ExpressionGroupLoader::vfunc_5 @ 0x002b0170
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
 struct Item_2b0170 {
@@ -50,7 +51,7 @@ struct Reader {
     int depth;
     Stream *stream;
     bool FUN_002669f0();
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     void FUN_00266be0();
     void *FUN_00266c30();
 };

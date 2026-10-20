@@ -4,12 +4,12 @@
 #include "compat/ptr.h"
 extern "C" char DAT_0042c48c[];
 extern "C" char DAT_0042c52c[];
-void *FUN_0008d6d0(unsigned int size);
+void *FUN_0008d6d0(hulk_uintptr size);
 void *thunk_FUN_0008d690(unsigned int size);
 
 class CMotionTrail {
 public:
-    int vt;
+    hulk_intptr vt;
     char pad1[0x0c];
     int f10;
     char pad2[0x2c];
@@ -25,7 +25,7 @@ public:
 
 class CMotionTrailQueue {
 public:
-    int vt;
+    hulk_intptr vt;
     char pad1[0x54];
     int f58;
     unsigned char *flags;

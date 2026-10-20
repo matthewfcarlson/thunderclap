@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 226 inputs, branch coverage 31/31)
 // pure3d::ShaderLoader::vfunc_5 @ 0x0028f2c0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/data/engine/pure3d/prop.h"
 
 inline void *operator new(unsigned int, void *p) throw() { return p; }
@@ -100,7 +101,7 @@ struct Reader {
     char pad0[0x284];
     Stream *stream;
     bool FUN_002669f0();
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     void FUN_00266be0();
 };
 

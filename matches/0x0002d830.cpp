@@ -7,7 +7,7 @@ struct Ctor_001d0480 {
 extern const char g1_2d830[], g2[], g3[];
 class CActorManager : public Ctor_001d0480 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     char pad4[0xc];
     unsigned char b10, b11, b12, b13;
     char pad14[4];

@@ -2,12 +2,12 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_003f7404[];
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 struct InitObj_56b30 {
     void Init(int);
 };
 struct CAlertStatusCondition_56b30 {
-    int a, b, c, d, e;
+    hulk_intptr a, b, c, d, e;
 };
 
 template <> void* fight::ConditionFactoryTemplate<CAlertStatusCondition>::vfunc_5() {

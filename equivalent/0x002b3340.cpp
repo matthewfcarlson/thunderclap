@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 75 inputs, branch coverage 14/14)
 // pure3d::OldMultiControllerLoader::vfunc_5 @ 0x002b3340
 // equiv-map: ?FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
@@ -21,7 +22,7 @@ public:
 
 namespace pure3d { class FrameController; }
 
-void *__cdecl FUN_0008d690(unsigned int size);
+void *__cdecl FUN_0008d690(hulk_uintptr size);
 
 struct Reader {
     void FUN_002647e0(void *buf, int a, int b, int c);

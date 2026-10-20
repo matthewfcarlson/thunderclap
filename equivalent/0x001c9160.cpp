@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1053 inputs, branch coverage 26/26)
 // Render::LevelLoader::vfunc_5 @ 0x001c9160
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" int strcmp(const char *, const char *);
@@ -52,7 +53,7 @@ struct Reader {
     char pad00[0x284];
     Stream *stream;
     char FUN_002669f0();
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     int FUN_00266c30();
     void FUN_00266be0();
 };

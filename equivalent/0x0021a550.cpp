@@ -4,7 +4,7 @@
 struct Stream;
 typedef unsigned char * (__cdecl *Refill)(int, int, Stream **);
 struct Stream {
-    unsigned int remaining;
+    hulk_uintptr remaining;
     unsigned char *cursor;
     Refill refill;
     int context;

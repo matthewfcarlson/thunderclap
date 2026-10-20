@@ -12,7 +12,7 @@ struct Table_216ed0 {
 
 struct TObject_216ed0 {
     int tt;
-    int value;
+    hulk_intptr value;
 };
 
 struct Udata_216ed0 {

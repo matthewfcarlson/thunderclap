@@ -3,9 +3,9 @@
 
 extern "C" char DAT_003f6fc8[];
 typedef unsigned int u32_57750;
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 struct CCollisionDirectionCondition_57750 {
-    u32_57750 vptr;
+    hulk_uintptr vptr;
     u32_57750 pad4, pad8, fieldC, field10;
     void Init(int);
 };

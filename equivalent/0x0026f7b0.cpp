@@ -1,17 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 11/14, incomplete)
 // core::XboxDrive::vfunc_8 @ 0x0026f7b0
+#include "compat/ptr.h"
 extern "C" int __cdecl _strncmp(const char *, const char *, unsigned int);
 extern "C" int __cdecl FUN_00345804(const char *, const char *, unsigned int *, unsigned int *);
 extern "C" int __stdcall FUN_00355791(unsigned int, unsigned int, int *, int *, int, int);
 extern "C" int __stdcall FUN_003559b9(int, int);
 extern "C" int __stdcall FUN_002109f1(const char *, unsigned int, unsigned int, int, unsigned int, int, int);
 extern "C" int __stdcall FUN_002109b6(int, int);
-namespace XAPILIB { extern "C" unsigned int __stdcall GetLastError(); }
+namespace XAPILIB { extern "C" hulk_uintptr __stdcall GetLastError(); }
 namespace core {
 struct XboxDrive {
  char pad[0xb4]; int status; char gap[8]; int count;
  void FUN_0026f330(const char *, char *, unsigned int);
- int FUN_0026f3e0(unsigned int);
+ int FUN_0026f3e0(hulk_uintptr);
  int vfunc_8(const char *path, int mode, unsigned char write, int *handle, int *result);
 };
 int XboxDrive::vfunc_8(const char *path, int mode, unsigned char write, int *handle, int *result) {

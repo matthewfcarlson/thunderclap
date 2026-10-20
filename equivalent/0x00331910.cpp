@@ -9,7 +9,7 @@ extern U_331910 DAT_0039db08,DAT_0039db10,DAT_0039db14,DAT_0039db18,DAT_0039db60
 namespace D3D8 { void __stdcall D3DDevice_SetRenderState_TextureFactor(U_331910); void __stdcall D3DDevice_SetTexture(U_331910,U_331910); void __stdcall D3DDevice_SetPalette(U_331910,U_331910); void __fastcall D3DDevice_SetRenderState_Simple(U_331910,U_331910); }
 struct Texture { void FUN_00326b00(U_331910); };
 struct Device_331910 {
- char p0[8]; U_331910 tex0,tex1; char p10[0x18]; U_331910 mode0,mode1; char p30[0x18]; U_331910 renderMode; char p4c[0x4c]; U_331910 stage0; U_331910 stage1; char pa0[0x2c]; U_331910 stage2; char pd0[0x14]; U_331910 stateE4; char pe8[0x20]; U_331910 factor;
+ char p0[8]; hulk_uintptr tex0,tex1; char p10[0x18]; U_331910 mode0,mode1; char p30[0x18]; U_331910 renderMode; char p4c[0x4c]; U_331910 stage0; U_331910 stage1; char pa0[0x2c]; U_331910 stage2; char pd0[0x14]; U_331910 stateE4; char pe8[0x20]; U_331910 factor;
  void FUN_00329e50(U_331910,U_331910,U_331910,U_331910);
  void FUN_00329cf0(U_331910,U_331910,U_331910);
  void FUN_00329c90(U_331910,U_331910);

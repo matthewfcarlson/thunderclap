@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 267 inputs, branch coverage 15/16, incomplete)
 // FUN_00201cd0 @ 0x00201cd0
+#include "compat/ptr.h"
 struct Entry_201cd0 { unsigned a,b,c; void FUN_00201740(); };
-extern void* __cdecl FUN_0008d6d0(unsigned);
+extern void* __cdecl FUN_0008d6d0(hulk_uintptr);
 extern void __stdcall FUN_00011520(void*,unsigned,int,void (Entry_201cd0::*)());
 extern void __cdecl FUN_0008d340(void*);
 struct Array_201cd0 { volatile int count; int capacity; Entry_201cd0* volatile data; unsigned char flags; unsigned char manualCopy; void grow(int n); };

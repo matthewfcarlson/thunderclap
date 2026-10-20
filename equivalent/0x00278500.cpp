@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_00278500 @ 0x00278500
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 #include "decls/data/game/global.h"
 #include "decls/data/platform/xbox/core.h"
@@ -10,7 +11,7 @@ extern "C" void __cdecl FUN_002705f0();
 extern "C" uint __stdcall XGetDevices(void*);
 extern "C" void* __cdecl FUN_0026fd50(void*,int);
 extern "C" void __cdecl FUN_0026d820(void*);
-extern "C" void* __cdecl FUN_00266e00(void*,int);
+extern "C" void* __cdecl FUN_00266e00(void*,hulk_intptr);
 struct Device_278500 { virtual void action(); void* FUN_002733c0(void*,void*); };
 extern "C" char DAT_003ea820;
 extern "C" char* __cdecl _strncpy(char*,const char*,unsigned int);

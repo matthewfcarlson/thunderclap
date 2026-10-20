@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 6/6)
 // FUN_002bc3d0 @ 0x002bc3d0
+#include "compat/ptr.h"
 typedef unsigned int size_t;
-void* __cdecl FUN_0008d690(size_t);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace pure3d {
 struct BillboardQuadGroupBase {

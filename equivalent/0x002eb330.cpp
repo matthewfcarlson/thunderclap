@@ -6,7 +6,7 @@ extern "C" void *memcpy(void *, const void *, unsigned int);
 
 struct Pool;
 
-void *FUN_002e6c00(Pool *pool, unsigned int size);
+void *FUN_002e6c00(Pool *pool, hulk_uintptr size);
 
 struct Entry_2eb330 {
     char pad0[8];

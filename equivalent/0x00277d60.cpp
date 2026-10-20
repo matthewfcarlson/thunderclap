@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 526 inputs, branch coverage 38/40, incomplete; run with --inputs 12000)
 // FUN_00277d60 @ 0x00277d60
+#include "compat/ptr.h"
 typedef unsigned int U_277d60;
-extern U_277d60 __cdecl FUN_0026fd80(U_277d60,U_277d60);
-extern U_277d60 __cdecl FUN_0026fd50(U_277d60,U_277d60);
+extern hulk_uintptr __cdecl FUN_0026fd80(hulk_uintptr,U_277d60);
+extern hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr,U_277d60);
 extern void __cdecl FUN_00279d30(void*,U_277d60,void*,U_277d60,U_277d60);
 extern "C" void* __cdecl memcpy(void*,const void*,unsigned int);
 struct Reader { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual int read(U_277d60,U_277d60,U_277d60,void*,void*,U_277d60,U_277d60*,U_277d60); };
@@ -15,12 +16,12 @@ int State_277d60::target(Reader* reader,U_277d60 a2,U_277d60 a3,U_277d60 a4,U_27
  if(start+requested>size) count=size-start;
  U_277d60 done=total, pos=position, offset=skip, carry=0;
  while(count) {
- U_277d60 aligned=FUN_0026fd80(pos,alignment);
- U_277d60 room=capacity;
- U_277d60 available=sourceSize-aligned;
+ hulk_uintptr aligned=FUN_0026fd80(pos,alignment);
+ hulk_uintptr room=capacity;
+ hulk_uintptr available=sourceSize-aligned;
  if(offset) room-=FUN_0026fd50(offset,alignment);
  if(available<room) room=available;
- U_277d60 amount=FUN_0026fd50(room-carry,alignment);
+ hulk_uintptr amount=FUN_0026fd50(room-carry,alignment);
  U_277d60 readResult;
  int status=reader->read(a2,a3,a4,source+aligned+carry,buffer+carry,amount,&readResult,1);
  if(status!=1) return status;

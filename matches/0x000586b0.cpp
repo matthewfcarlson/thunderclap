@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_003f742c[];
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 class CRageModeCondition_586b0 {
   public:
     void Init(int);

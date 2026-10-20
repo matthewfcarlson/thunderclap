@@ -4,7 +4,7 @@
 #include "decls/data/engine/core.h"
 
 typedef unsigned int uint_26be70;
-struct Block_26be70 { uint_26be70 previous; uint_26be70 size; };
+struct Block_26be70 { uint_26be70 previous; hulk_uintptr size; };
 struct Fence { uint_26be70 previous; uint_26be70 first; uint_26be70 second; };
 struct Arena_26be70 {
  unsigned char flags; char pad0[0x2b]; Block_26be70 *current;

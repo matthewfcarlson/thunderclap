@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 typedef unsigned int size_t;
-void* FUN_0008d690(unsigned int);
+void* FUN_0008d690(hulk_uintptr);
 inline void* operator new(size_t n) throw() {
     return FUN_0008d690(n);
 }

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 55 inputs, branch coverage 4/4)
 // FUN_002bfbe0 @ 0x002bfbe0
-extern "C" void* __cdecl FUN_00266e00(int, unsigned int);
+#include "compat/ptr.h"
+extern "C" void* __cdecl FUN_00266e00(int, hulk_uintptr);
 extern "C" void __cdecl FUN_00267090(void*);
 struct Image32_2bfbe0 {
  char pad0[16];

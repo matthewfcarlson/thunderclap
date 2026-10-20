@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 18/18)
 // FUN_0028ea80 @ 0x0028ea80
+#include "compat/ptr.h"
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
@@ -57,11 +58,11 @@ struct Reader {
     char pad[0x284];
     Stream *stream;
     char FUN_002669f0();
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     void FUN_00266be0();
 };
 
-void *FUN_0008d690(unsigned size);
+void *FUN_0008d690(hulk_uintptr size);
 
 struct Frame_28ea80 {
     char pad[3];

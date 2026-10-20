@@ -4,7 +4,7 @@
 extern "C" char DAT_003f73bc[];
 extern "C" void* __cdecl Allocate(unsigned int);
 struct CMotionHitCondition_584a0 {
-    unsigned int vtable;
+    hulk_uintptr vtable;
     unsigned int pad1;
     unsigned int pad2;
     unsigned int value;

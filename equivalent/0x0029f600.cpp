@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 20/20)
 // FUN_0029f600 @ 0x0029f600
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
-void *FUN_0008d690(unsigned int size);
+void *FUN_0008d690(hulk_uintptr size);
 
 struct Name_29f600 {
     char data[8];

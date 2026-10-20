@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 151 inputs, branch coverage 43/44, incomplete)
 // pure3d::ParticleSystemLoader::vfunc_5 @ 0x002ab030
 // pure3d::ParticleSystemLoader::vfunc_5 @ 0x002ab030
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
 typedef unsigned __int64 Key_2ab030;
@@ -39,7 +40,7 @@ struct Reader {
     char pad0[0x284];
     Stream *stream;
     bool FUN_002669f0();
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     void FUN_00266be0();
     int FUN_00266c30();
 };

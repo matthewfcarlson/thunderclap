@@ -10,7 +10,7 @@ extern int __cdecl FUN_00219980(int* key, float value);
 extern float* __cdecl FUN_00219e90(Context* ctx, int* key);
 extern void __cdecl FUN_00214a90(void* receiver, const char* message);
 // equiv-conv: FUN_00219fb0 eax edi stack
-int FUN_00219fb0(int* key, Context* ctx, void* receiver)
+hulk_intptr FUN_00219fb0(int* key, Context* ctx, void* receiver)
 {
     if (*key == 0) return -1;
     int position = FUN_00219980(key, (float)ctx->index);

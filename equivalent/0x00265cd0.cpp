@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 36/38, incomplete)
 // content::P3DFileHandler::vfunc_3 @ 0x00265cd0
+#include "compat/ptr.h"
 #include "decls/data/engine/content.h"
 
 void* __cdecl FUN_00263ed0(unsigned int size, int flag);
@@ -35,7 +36,7 @@ struct Reader {
     Reader* FUN_00266cb0(void* handle);
     void FUN_002669d0(Ctx_265cd0* ctx);
     bool FUN_002669f0();
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     int FUN_00266c30();
     void FUN_00266be0();
     void FUN_002669c0();

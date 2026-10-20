@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2417 inputs, branch coverage 12/12)
 // FUN_0033cb70 @ 0x0033cb70
 // FUN_0033cb70 @ 0x0033cb70: Lua 5.0 lstrlib push_captures (push_onecapture inlined)
+#include "compat/ptr.h"
 struct lua_State;
 
 struct Capture_33cb70 {
@@ -18,8 +19,8 @@ struct MatchState_33cb70 {
 
 void __cdecl FUN_00338fe0(lua_State *L, int space, const char *msg);
 void __cdecl FUN_00338e20(lua_State *L, const char *fmt, ...);
-void __cdecl FUN_00213380(lua_State *L, const char *s, unsigned int len);
-void __cdecl FUN_00213360(lua_State *L, int n);
+void __cdecl FUN_00213380(lua_State *L, const char *s, hulk_uintptr len);
+void __cdecl FUN_00213360(lua_State *L, hulk_intptr n);
 
 // equiv-conv: FUN_0033cb70 esi ecx eax
 int FUN_0033cb70(MatchState_33cb70 *ms, const char *s, const char *e)

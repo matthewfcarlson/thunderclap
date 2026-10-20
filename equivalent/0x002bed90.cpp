@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 183 inputs, branch coverage 26/26)
 // pure3d::SpriteLoader::vfunc_5 @ 0x002bed90
+#include "compat/ptr.h"
 #include "decls/address.h"
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* __cdecl FUN_00263ea0(unsigned int size);
@@ -13,7 +14,7 @@ struct Reader {
     char pad[0x284];
     Stream* stream;
     int FUN_002669f0();
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     void FUN_00266be0();
 };
 

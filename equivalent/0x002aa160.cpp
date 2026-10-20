@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20036 inputs, branch coverage 22/26, incomplete)
 // FUN_002aa160 @ 0x002aa160
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 typedef void (*Code)();
 void FUN_002d12f0();
@@ -31,7 +32,7 @@ void FUN_002d1b00();
 void FUN_002d1bc0();
 void FUN_002d1cc0();
 
-void* __cdecl FUN_0008d690(unsigned int size);
+void* __cdecl FUN_0008d690(hulk_uintptr size);
 
 struct SpriteParticleUpdater_nv_2aa160 {
     pure3d::SpriteParticleUpdater* FUN_002d11f0();

@@ -11,7 +11,7 @@ inline void* operator new(unsigned int, void* p) throw() {
 struct Hdr8;
 
 void* thunk_FUN_0008d690(unsigned int size);
-void* __cdecl FUN_0008d690(unsigned int size);
+void* __cdecl FUN_0008d690(hulk_uintptr size);
 void* __cdecl FUN_00266e00(int a, int b);
 void __cdecl FUN_00267090(void* p);
 
@@ -30,7 +30,7 @@ class Reader {
     char pad0[0x284];
     Stream* stream;
     char FUN_002669f0();
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     int FUN_00266c30();
     void FUN_00266be0();
     unsigned int FUN_001c61c0();

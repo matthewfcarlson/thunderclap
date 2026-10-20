@@ -1,4 +1,5 @@
 // Same code shape as 0x0004a2d0 (propagated; names are from that function)
+#include "compat/ptr.h"
 struct Obj_4a560 {
     char pad[0x330];
     int a;
@@ -12,9 +13,9 @@ struct ObjHelper_4a560 {
     Obj_4a560* Second();
 };
 struct CGrappleAlertStatusCondition {
-    int vfunc_8(int);
+    int vfunc_8(hulk_intptr);
 };
-int CGrappleAlertStatusCondition::vfunc_8(int p) {
+int CGrappleAlertStatusCondition::vfunc_8(hulk_intptr p) {
     if (!p)
         return 0;
     Helper_4a560* h = (Helper_4a560*)p;

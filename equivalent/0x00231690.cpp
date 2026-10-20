@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 39 inputs, branch coverage 11/12, incomplete)
 // FUN_00231690 @ 0x00231690
+#include "compat/ptr.h"
 typedef unsigned int uint;
-extern "C" void* __cdecl FUN_00266e00(uint, uint);
+extern "C" void* __cdecl FUN_00266e00(uint, hulk_uintptr);
 extern "C" void __cdecl FUN_00267090(void*);
 struct Pair_231690 { uint first, second; };
 struct Table_231690 {

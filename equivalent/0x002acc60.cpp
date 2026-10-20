@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 126 inputs, branch coverage 16/16)
 // FUN_002acc60 @ 0x002acc60
+#include "compat/ptr.h"
 #include "decls/data/engine/pure3d.h"
 
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 void* __cdecl memmove(void*, const void*, unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 struct Ref_2acc60 { virtual void Add(); virtual void Release(); };

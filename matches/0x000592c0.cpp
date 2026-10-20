@@ -1,4 +1,5 @@
-extern void* Alloc(unsigned int);
+#include "compat/ptr.h"
+extern void* Alloc(hulk_uintptr);
 inline void* operator new(unsigned int, void* p) {
     return p;
 }

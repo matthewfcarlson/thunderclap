@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 24/24)
 // FUN_0024ad20 @ 0x0024ad20
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 struct Child;
@@ -25,8 +26,8 @@ struct List1 {
 struct Node2 {
     Node2 *next;
     char pad0[0x3c - 4];
-    int value3c;
-    int value40;
+    hulk_intptr value3c;
+    hulk_intptr value40;
     char pad1[0x50 - 0x44];
     Sub sub50;
 };

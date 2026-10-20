@@ -2,9 +2,9 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_003f6f34[];
-void* __cdecl Alloc(unsigned int);
+void* __cdecl Alloc(hulk_uintptr);
 struct CAxisDirectionCondition_56ca0 {
-    int vt;
+    hulk_intptr vt;
     void Init(int);
     char pad[8];
     int a;

@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 14/14)
 // FUN_0027a370 @ 0x0027a370
+#include "compat/ptr.h"
 typedef unsigned int uint_27a370;
-extern uint_27a370 __cdecl FUN_0026fd80(uint_27a370 position, uint_27a370 size);
+extern hulk_uintptr __cdecl FUN_0026fd80(hulk_uintptr position, uint_27a370 size);
 struct Stream {
  virtual int transfer(uint_27a370 key, uint_27a370 mode, uint_27a370 block, uint_27a370 offset, uint_27a370 count, uint_27a370 destination, uint_27a370 flags);
  virtual uint_27a370 blockSize();
@@ -12,14 +13,14 @@ int Stream::FUN_0027a370(uint_27a370 unused, uint_27a370 key, uint_27a370 mode, 
  uint_27a370 size = blockSize();
  uint_27a370 position = baseOffset(key) + start;
  uint_27a370 block = position / size;
- uint_27a370 offset = position - FUN_0026fd80(position, size);
- uint_27a370 amount = size - offset;
+ hulk_uintptr offset = position - FUN_0026fd80(position, size);
+ hulk_uintptr amount = size - offset;
  if (amount >= count) amount = count;
  int result = transfer(key, mode, block, offset, amount, destination, flags);
  if (result != 1) return result;
- uint_27a370 remaining = count - amount;
+ hulk_uintptr remaining = count - amount;
  ++block;
- uint_27a370 dest = destination + amount;
+ hulk_uintptr dest = destination + amount;
  while (remaining >= size) {
   result = transfer(key, mode, block, 0, size, dest, flags);
   if (result != 1) return result;

@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_002a2130 @ 0x002a2130
 // equiv-map: ??0DisplayTraversal@pure3d@@QAE@XZ = 0x002c6a80
-extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
+#include "compat/ptr.h"
+extern "C" void *__cdecl FUN_0008d6d0(hulk_uintptr size);
 
 namespace pure3d {
 

@@ -86,7 +86,7 @@ public:
     char pad04[0x14];
     ListA_23b570 list;             // 0x18
     Scope_23b570 *scope;           // 0x28
-    char FUN_002337c0(int a0, Writer_23b570 *w, int index);
+    char FUN_002337c0(hulk_intptr a0, Writer_23b570 *w, int index);
 };
 }
 

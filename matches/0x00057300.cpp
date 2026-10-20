@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_003f9230[];
-void* __cdecl Alloc(unsigned int);
+void* __cdecl Alloc(hulk_uintptr);
 class CButtonPressCondition_57300 {
   public:
     CButtonPressCondition_57300();

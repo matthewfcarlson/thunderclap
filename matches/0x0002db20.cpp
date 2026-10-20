@@ -8,7 +8,7 @@ struct ThisCall_001d0480 {
 };
 class CActorManager {
   public:
-    int vftable;
+    hulk_intptr vftable;
     char pad04[0x0c];
     char flag10, flag11, flag12;
     char pad13[5];

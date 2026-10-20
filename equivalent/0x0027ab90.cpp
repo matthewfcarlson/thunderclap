@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_0027ab90 @ 0x0027ab90
+#include "compat/ptr.h"
 struct PathRef { const char *s; };
 
 class Stream {
@@ -30,7 +31,7 @@ public:
     virtual bool vfn23();
 };
 
-extern void *__cdecl FUN_0008d690(unsigned int n);
+extern void *__cdecl FUN_0008d690(hulk_uintptr n);
 void thunk_FUN_002710d0(Stream **out, PathRef name, int a, int b, int c, int d, int e, int f);
 
 class RDLReader {

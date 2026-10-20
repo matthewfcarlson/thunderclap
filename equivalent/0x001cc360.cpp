@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_001cc360 @ 0x001cc360
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-void *FUN_0008d690(unsigned int size);
-void *FUN_0008d6d0(unsigned int size);
+void *FUN_0008d690(hulk_uintptr size);
+void *FUN_0008d6d0(hulk_uintptr size);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 template <class T> struct TypeTag;

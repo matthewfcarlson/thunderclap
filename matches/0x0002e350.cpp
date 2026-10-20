@@ -8,7 +8,7 @@ class Base_2e350 {
 };
 class Method3 : public Base_2e350 {
   public:
-    int v;
+    hulk_intptr v;
     char p[0x0c];
     unsigned char b10, b11, b12;
     char q[5];

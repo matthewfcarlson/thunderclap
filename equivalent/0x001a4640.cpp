@@ -2,7 +2,7 @@
 // FUN_001a4640 @ 0x001a4640
 #include "compat/ptr.h"
 extern unsigned int __cdecl FUN_0008d340(void *);
-extern void *__cdecl FUN_0008d6d0(unsigned int);
+extern void *__cdecl FUN_0008d6d0(hulk_uintptr);
 struct Object {
     char padding[0x16c];
     char *text;

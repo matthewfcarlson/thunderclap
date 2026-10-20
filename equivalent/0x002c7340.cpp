@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 52/52)
 // FUN_002c7340 @ 0x002c7340
+#include "compat/ptr.h"
 struct V3_2c7340 {
     float x, y, z;
     void FUN_00011090();
 };
 
-void *FUN_0008d6d0(unsigned int size);
+void *FUN_0008d6d0(hulk_uintptr size);
 void __stdcall FUN_00011520(void *arr, unsigned int size, int count, void (V3_2c7340::*ctor)());
 
 class MeshBuffers_2c7340 {

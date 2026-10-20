@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20015 inputs, branch coverage 36/36)
 // FUN_00337a30 @ 0x00337a30
+#include "compat/ptr.h"
 extern "C" int memcmp(const void *a, const void *b, unsigned int n);
 extern "C" long atol(const char *s);
 
-void *__cdecl FUN_0008d690(unsigned int size);
+void *__cdecl FUN_0008d690(hulk_uintptr size);
 
 struct BinkCallback_337a30;
 struct Item;

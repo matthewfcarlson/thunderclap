@@ -19,7 +19,7 @@ struct Names_245680 {
 };
 
 struct OmHalStream_nv_245680 {
-    void *FUN_0025cbc0(Stream_245680 *stream, void *context, unsigned int version, void *source);
+    void *FUN_0025cbc0(Stream_245680 *stream, void *context, hulk_uintptr version, void *source);
 };
 
 void *__cdecl FUN_0025c040();

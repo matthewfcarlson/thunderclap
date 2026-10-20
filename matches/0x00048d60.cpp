@@ -6,7 +6,7 @@ class Sub_48d60 {
 };
 class CNameFlagConditionBase {
   public:
-    int m0;
+    hulk_intptr m0;
     char pad[8];
     int mC;
     Sub_48d60 sub;

@@ -3,7 +3,7 @@
 extern "C" char DAT_003f7404[];
 class CAlertStatusCondition_4a4a0 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     int pad4;
     int pad8;
     int mC;

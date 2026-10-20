@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2975 inputs, branch coverage 24/24)
 // FUN_001c1a40 @ 0x001c1a40
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/Render/Canvas.h"
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+void* FUN_0008d690(hulk_uintptr size);
 void* thunk_FUN_0008d690(unsigned int size);
 
 namespace pure3d {

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2862 inputs, branch coverage 48/50, incomplete)
 // FUN_002fdf40 @ 0x002fdf40
+#include "compat/ptr.h"
 class Shape_2fdf40;
 
 struct Name_2fdf40 {
@@ -87,7 +88,7 @@ struct Table_2fdf40 {
     Part_2fdf40 **parts;
 };
 
-void *__cdecl FUN_0008d690(unsigned int size);
+void *__cdecl FUN_0008d690(hulk_uintptr size);
 void *__cdecl FUN_00263ea0(unsigned int size);
 void *__cdecl FUN_002efa90(Shape_2fdf40 *shape, Made_2fdf40 *made, int zero);
 

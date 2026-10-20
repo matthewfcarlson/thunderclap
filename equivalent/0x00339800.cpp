@@ -3,6 +3,7 @@
 // cl-flags: /GS
 // FUN_00339800 @ 0x00339800
 // equiv-conv: FUN_003397c0 edi ebx
+#include "compat/ptr.h"
 struct lua_State;
 
 struct File {
@@ -22,7 +23,7 @@ int __cdecl FUN_00212d70(lua_State *L);
 void __cdecl FUN_00212d80(lua_State *L, int idx);
 void __cdecl FUN_00212de0(lua_State *L, int idx);
 const char *__cdecl FUN_00213190(lua_State *L, int idx);
-void __cdecl FUN_00213380(lua_State *L, const char *s, unsigned int len);
+void __cdecl FUN_00213380(lua_State *L, const char *s, hulk_uintptr len);
 const char *__cdecl FUN_00213470(lua_State *L, const char *fmt, ...);
 int __cdecl FUN_00213b20(lua_State *L, const char *(__cdecl *reader)(lua_State *, void *, unsigned int *),
                          void *data, const char *chunkname);

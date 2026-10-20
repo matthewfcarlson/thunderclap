@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 867 inputs, branch coverage 36/36)
 // FUN_0022a0d0 @ 0x0022a0d0
+#include "compat/ptr.h"
 struct Shape_22a0d0 {
     char pad[0x10];
     float f10;
@@ -20,7 +21,7 @@ struct Elem_22a0d0 {
 
 float __cdecl FUN_0004af40(float lo, float hi, float x);
 float __cdecl FUN_0015cf40(float x);
-void __cdecl FUN_00229f40(Elem_22a0d0 *first, Elem_22a0d0 *last, int n);
+void __cdecl FUN_00229f40(Elem_22a0d0 *first, Elem_22a0d0 *last, hulk_intptr n);
 
 class Spawner_22a0d0 {
 public:

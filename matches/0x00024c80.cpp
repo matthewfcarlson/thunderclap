@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Obj {
     char pad[0x1a8];
     int value;
@@ -10,7 +11,7 @@ struct Holder {
     Mgr* mgr;
     void fn(int a, int b);
 };
-extern "C" unsigned __int64 __cdecl FUN_0027b020(int);
+extern "C" unsigned __int64 __cdecl FUN_0027b020(hulk_intptr);
 void Holder::fn(int a, int b) {
     Mgr* m = mgr;
     unsigned __int64 x = FUN_0027b020(a);

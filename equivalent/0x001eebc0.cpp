@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 4/4)
 // FUN_001eebc0 @ 0x001eebc0
+#include "compat/ptr.h"
 #include "decls/address.h"
 typedef unsigned int size_t;
 void* operator new(size_t) throw();
 inline void* operator new(size_t, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int);
+void* FUN_0008d690(hulk_uintptr);
 class CSoundSimManager;
 namespace math { class Vector { public: float x, y, z; }; }
 typedef float Float; typedef bool Bool; typedef int Int; typedef void Void;

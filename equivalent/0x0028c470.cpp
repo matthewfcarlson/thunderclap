@@ -3,7 +3,7 @@
 // 0x0028c470: channel constructor holding 4-byte elements, allocated from the parent pool or the heap
 #include "compat/ptr.h"
 extern char DAT_0042ca7c[];
-void* __cdecl FUN_0008d6d0(unsigned size);
+void* __cdecl FUN_0008d6d0(hulk_uintptr size);
 void __stdcall FUN_00011520(void* base, unsigned size, int count, void* ctor);
 extern char FUN_000115b0;
 
@@ -13,7 +13,7 @@ struct Pool_28c470 {
 
 class ColourChannel_28c470 {
 public:
-    int vptr;
+    hulk_intptr vptr;
     int field_04;
     int field_08;
     Pool_28c470* parent;

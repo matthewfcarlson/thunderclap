@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 40/40)
 // FUN_001c0cd0 @ 0x001c0cd0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 inline void* __cdecl operator new(unsigned, void* p) { return p; }
-void* __cdecl FUN_0008d690(unsigned); void* __cdecl FUN_0008d6d0(unsigned); void* __cdecl FUN_00263ea0(unsigned); int __cdecl FUN_00266da0(int);
+void* __cdecl FUN_0008d690(hulk_uintptr); void* __cdecl FUN_0008d6d0(hulk_uintptr); void* __cdecl FUN_00263ea0(unsigned); int __cdecl FUN_00266da0(int);
 struct CSubtitleManager; typedef void (__cdecl *Callback_1c0cd0)();
 void FUN_001bf860(); void FUN_001bdfb0(); void FUN_001bdf20(); void FUN_001c0360(); void FUN_001c0ca0(); void FUN_00088ec0(); void FUN_00088ee0(); void FUN_001bdfc0(); void FUN_001bdfd0(); void FUN_001bddc0(); void FUN_001be9f0();
 struct Binding_1c0cd0 { virtual void invoke(); char pad[12]; unsigned char resultType; char pad2[7]; unsigned char ownerType; char pad3[3]; Callback_1c0cd0 method; CSubtitleManager* owner; void FUN_001d0480(const char*,int); Binding_1c0cd0* FUN_001bfd70(const char*,CSubtitleManager*,Callback_1c0cd0); Binding_1c0cd0* FUN_001bffb0(const char*,CSubtitleManager*,Callback_1c0cd0); void FUN_001bf4c0(const char*,Callback_1c0cd0); void FUN_001bf710(const char*,Callback_1c0cd0); void FUN_001bf7c0(const char*,Callback_1c0cd0); };

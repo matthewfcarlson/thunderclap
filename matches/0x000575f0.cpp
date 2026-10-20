@@ -3,7 +3,7 @@
 
 class CClimbableCondition_575f0 {
   public:
-    int vt;
+    hulk_intptr vt;
     void Init(int);
     int a;
     int b;
@@ -12,7 +12,7 @@ class CClimbableCondition_575f0 {
     char e;
 };
 extern int climbVftable;
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<CClimbableCondition>::vfunc_5() {
     CClimbableCondition_575f0* p = (CClimbableCondition_575f0*)FUN_0008d690(0x18);

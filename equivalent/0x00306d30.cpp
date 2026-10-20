@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 403 inputs, branch coverage 12/12)
 // physics::CollisionVolume::vfunc_14 @ 0x00306d30
 #include "compat/ptr.h"
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 namespace physics { struct CollisionVolume; }
 struct VolumeArray {
  physics::CollisionVolume **begin, **end, **limit;

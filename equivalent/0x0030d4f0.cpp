@@ -4,8 +4,9 @@
 // equiv-map: ??0PhysicsJoint@physics@@QAE@HHH@Z = 0x0030ca80
 // equiv-map: ??0PhysicsJoint1D@physics@@QAE@HHH@Z = 0x0030cdb0
 // equiv-map: ??0PhysicsJoint3D@physics@@QAE@HHH@Z = 0x0030d030
+#include "compat/ptr.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
-void *__cdecl FUN_0008d690(unsigned int size);
+void *__cdecl FUN_0008d690(hulk_uintptr size);
 
 namespace physics {
 

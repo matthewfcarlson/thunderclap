@@ -19,7 +19,7 @@ struct Pool {
 };
 extern Pool DAT_0055dbb0;
 extern unsigned int DAT_0055dbb4;
-unsigned int __cdecl FUN_00335270(unsigned int v);
+hulk_uintptr __cdecl FUN_00335270(hulk_uintptr v);
 #define SWAP(v) (swap ? FUN_00335270(v) : (v))
 #define REBASE(v) ((v) ? (v) - DAT_0055dbb4 : 0)
 class Relocator {
@@ -27,7 +27,7 @@ class Relocator {
     char pad0[4];
     Header* hdr;
     unsigned int* arr;
-    unsigned int data2;
+    hulk_uintptr data2;
     void FUN_003369c0(char swap);
 };
 void Relocator::FUN_003369c0(char swap) {
@@ -35,7 +35,7 @@ void Relocator::FUN_003369c0(char swap) {
     for (int i = 0; i < count; i++) {
         Entry* e = hdr->FUN_00337090(i);
         unsigned int* p;
-        unsigned int v;
+        hulk_uintptr v;
         switch (e->type) {
         case 1:
         case 2:
@@ -154,7 +154,7 @@ void Relocator::FUN_003369c0(char swap) {
     arr = (unsigned int*)a;
     a = SWAP(a);
     arr = (unsigned int*)a;
-    unsigned int b = data2;
+    hulk_uintptr b = data2;
     b = REBASE(b);
     data2 = b;
     b = SWAP(b);

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 37 inputs, branch coverage 16/16)
 // FUN_002d3b80 @ 0x002d3b80
+#include "compat/ptr.h"
 typedef unsigned int uint;
 struct Ref_2d3b80 { virtual void AddRef(); virtual void Release(); };
 struct Small_2d3b80 { void FUN_0027af70(const Small_2d3b80*); char data[8]; };
@@ -22,7 +23,7 @@ struct ParticleSphereGenerator : ParticleGenerator {
  ParticleSphereGenerator(const ParticleSphereGenerator& source);
 };
 }
-void* __cdecl FUN_0008d6d0(uint);
+void* __cdecl FUN_0008d6d0(hulk_uintptr);
 pure3d::ParticleSphereGenerator::ParticleSphereGenerator(const ParticleSphereGenerator& source) : ParticleGenerator(source) {
  object=0;
  uint size=source.count*4;

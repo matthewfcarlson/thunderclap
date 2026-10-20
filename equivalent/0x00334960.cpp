@@ -3,7 +3,7 @@
 #include "compat/ptr.h"
 typedef unsigned int U_334960;
 extern "C" void* __cdecl memcpy(void*,const void*,unsigned int);
-extern U_334960 __cdecl FUN_0026fd50(U_334960,U_334960); extern U_334960 __cdecl FUN_0026fd80(U_334960,U_334960);
+extern hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr,U_334960); extern hulk_uintptr __cdecl FUN_0026fd80(hulk_uintptr,U_334960);
 struct Stream { virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void read(void*,U_334960,U_334960); virtual void s10(); virtual void seek(U_334960); virtual void tell(U_334960*); virtual void s13(); virtual void s14(); virtual void s15(); virtual U_334960 block(); };
 struct State_334960 { char pad[0x3c]; U_334960 limit; U_334960 unused40; U_334960 available; U_334960 unused48; Stream* stream; U_334960 end; U_334960 position; U_334960 consumed; };
 U_334960 __stdcall FUN_00334960(State_334960* state,U_334960 position,unsigned char* destination,U_334960 remaining) {
@@ -15,9 +15,9 @@ U_334960 __stdcall FUN_00334960(State_334960* state,U_334960 position,unsigned c
  f.destination=destination; f.total=0;
  U_334960 currentBlock=initialBlock;
  while(remaining) {
- U_334960 start=FUN_0026fd80(state->position,currentBlock);
- U_334960 offset=state->position-start;
- U_334960 count=f.capacity-offset;
+ hulk_uintptr start=FUN_0026fd80(state->position,currentBlock);
+ hulk_uintptr offset=state->position-start;
+ hulk_uintptr count=f.capacity-offset;
  f.readSize=f.capacity;
  if(remaining<f.capacity) { count=remaining; f.readSize=FUN_0026fd50(offset+remaining,f.block); }
  state->stream->seek(start); state->stream->read(f.aligned,f.readSize,1); state->stream->tell(&f.actual);

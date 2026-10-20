@@ -67,7 +67,7 @@ struct Sub8_1e2940 {
 struct Ptr9c { char pad[0x38]; float f38; };
 struct PtrA0 {
     void *FUN_002fc2d0();
-    void FUN_002fc670(int v);
+    void FUN_002fc670(hulk_intptr v);
 };
 struct Link_1e2940 { int FUN_001d5c70(int index); Rec_1e2940 *FUN_001d56f0(int a); };
 struct Holder11c { void FUN_001c5080(float a, float b); };

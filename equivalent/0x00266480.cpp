@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_00266480 @ 0x00266480
+#include "compat/ptr.h"
 class Pool_266480 {
   public:
     void FUN_00231550(unsigned int size, int a, int b);
@@ -11,7 +12,7 @@ class Pool_266480 {
     unsigned int limit;
     char pad2[0x24 - 0x14];
 };
-void* __cdecl FUN_0008d690(unsigned int size);
+void* __cdecl FUN_0008d690(hulk_uintptr size);
 unsigned int __cdecl FUN_00356c30(unsigned int n);
 
 namespace content {

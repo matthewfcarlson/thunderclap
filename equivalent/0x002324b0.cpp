@@ -4,7 +4,7 @@
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/global.h"
 
-void *__cdecl FUN_00266da0(int n);
+void *__cdecl FUN_00266da0(hulk_intptr n);
 int __cdecl FUN_00238190(int n);
 
 class Node {

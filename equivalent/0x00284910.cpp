@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00284910 @ 0x00284910
-void* __cdecl FUN_0008d6d0(unsigned int);
+#include "compat/ptr.h"
+void* __cdecl FUN_0008d6d0(hulk_uintptr);
 struct Skeleton { virtual void retain(); char pad[12]; unsigned int count; };
 namespace pure3d {
 struct Pose {

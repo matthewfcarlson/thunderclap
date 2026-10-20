@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 60 inputs, branch coverage 38/38)
 // FUN_002d5640 @ 0x002d5640
-extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
+#include "compat/ptr.h"
+extern "C" void *__cdecl FUN_0008d6d0(hulk_uintptr size);
 
 class Channel {
 public:

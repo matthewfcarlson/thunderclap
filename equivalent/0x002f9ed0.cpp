@@ -4,7 +4,7 @@
 // to the front of the pool's character buffer and resizes the buffer to the used length.
 // Returns the used length.
 #include "compat/ptr.h"
-void *__cdecl FUN_0008d6d0(unsigned int bytes);
+void *__cdecl FUN_0008d6d0(hulk_uintptr bytes);
 
 struct Str_2f9ed0 {
     int pad0;
@@ -17,7 +17,7 @@ struct Buffer_2f9ed0 {
     unsigned short *begin;          // 0
     unsigned short *end;            // 4
     unsigned short *cap;            // 8
-    void FUN_002f9bc0(unsigned short *pos, unsigned int count, const unsigned short *value);
+    void FUN_002f9bc0(unsigned short *pos, hulk_uintptr count, const unsigned short *value);
 };
 
 struct Pool_2f9ed0 {
@@ -27,10 +27,10 @@ struct Pool_2f9ed0 {
     char pad38[8];
     Buffer_2f9ed0 buf;                     // 0x40
 
-    unsigned int FUN_002f9ed0();
+    hulk_uintptr FUN_002f9ed0();
 };
 
-unsigned int Pool_2f9ed0::FUN_002f9ed0()
+hulk_uintptr Pool_2f9ed0::FUN_002f9ed0()
 {
     unsigned short *dest = buf.begin;
     for (Str_2f9ed0 *s = strBegin; s != strEnd; s++) {

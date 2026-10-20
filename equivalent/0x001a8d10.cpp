@@ -19,7 +19,7 @@ struct World { char pad[0x54]; Holder54_1a8d10* holder; };
 struct NISAnimationAction;
 
 struct NISAnimationAction {
-    int vptr;
+    hulk_intptr vptr;
     char pad04[0x18];
     int f1c;
     RefObj_1a8d10* f20;

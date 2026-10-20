@@ -15,7 +15,7 @@ struct Range_30df50 {
 
 class Pool_30df50 {
 public:
-    int FUN_0030df50();
+    hulk_intptr FUN_0030df50();
 
     char pad0[4];
     Range_30df50 *rangesBegin;
@@ -29,7 +29,7 @@ public:
     Elem_30df50 *elemCap;
 };
 
-int Pool_30df50::FUN_0030df50()
+hulk_intptr Pool_30df50::FUN_0030df50()
 {
     if ((((char *)freeEnd - (char *)freeBegin) & ~3) != 0) {
         freeEnd = freeEnd - 1;

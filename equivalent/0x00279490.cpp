@@ -9,16 +9,16 @@ struct XboxSaveDrive_279490 {
  char pad[0xb4];
  uint_279490 error;
  unsigned char FUN_00278de0();
- uint_279490 FUN_002787c0(uint_279490);
- void FUN_002789e0(uint_279490);
+ uint_279490 FUN_002787c0(hulk_uintptr);
+ void FUN_002789e0(hulk_uintptr);
  bool FUN_00279490(uint_279490, uint_279490);
 };
 struct Cache_279490 { char *buffer; uint_279490 file; uint_279490 block; uint_279490 valid; };
 extern "C" uint_279490 __stdcall FUN_002109b6(uint_279490, uint_279490);
-extern "C" uint_279490 __stdcall FUN_002101d4(uint_279490, uint_279490, uint_279490, uint_279490);
-extern "C" uint_279490 __stdcall FUN_0020ff8d(uint_279490, char *, uint_279490, uint_279490 *, uint_279490);
+extern "C" uint_279490 __stdcall FUN_002101d4(uint_279490, hulk_uintptr, uint_279490, uint_279490);
+extern "C" uint_279490 __stdcall FUN_0020ff8d(uint_279490, char *, hulk_uintptr, uint_279490 *, uint_279490);
 extern "C" unsigned char __cdecl FUN_002781c0(uint_279490, Header_279490 *);
-namespace XAPILIB { extern "C" uint_279490 __stdcall GetLastError(); }
+namespace XAPILIB { extern "C" hulk_uintptr __stdcall GetLastError(); }
 bool XboxSaveDrive_279490::FUN_00279490(uint_279490 file, uint_279490 block) {
  if ((*(Cache_279490*)&DAT_0052c270).valid && (*(Cache_279490*)&DAT_0052c270).file == file && (*(Cache_279490*)&DAT_0052c270).block == block) return true;
  uint_279490 length = FUN_002109b6(file, 0);

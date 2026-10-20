@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_6f340;
 struct Helper_6f340 {
-    u32_6f340 run();
+    hulk_uintptr run();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 

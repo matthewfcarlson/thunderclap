@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 14/14)
 // FUN_00306930 @ 0x00306930
+#include "compat/ptr.h"
 class Item_306930 {
 public:
     virtual void AddRef();
@@ -12,7 +13,7 @@ struct ItemVec_306930 {
     Item_306930 **cap;
 };
 
-void *__cdecl FUN_0008d690(unsigned int size);
+void *__cdecl FUN_0008d690(hulk_uintptr size);
 
 class Owner_306930 {
 public:

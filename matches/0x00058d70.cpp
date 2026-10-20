@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_003f734c[];
-extern "C" void* __cdecl Alloc(int);
+extern "C" void* __cdecl Alloc(hulk_intptr);
 struct Entity_58d70 {
     void Init();
 };

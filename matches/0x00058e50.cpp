@@ -4,7 +4,7 @@
 extern "C" char DAT_003f9754[];
 class CCollisionFlagCondition_58e50 {
   public:
-    int vf;
+    hulk_intptr vf;
     void Init();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);

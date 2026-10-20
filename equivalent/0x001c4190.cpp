@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_001c4190 @ 0x001c4190
+#include "compat/ptr.h"
 #include "decls/address.h"
 namespace content {
 namespace LoadInventory {
@@ -57,8 +58,8 @@ struct Entry_1c4190 {
     Entry_1c4190 *FUN_001c5cf0(Key_1c4190 *key, Res_1c4190 *r);
 };
 
-extern "C" int __cdecl FUN_00266da0(int mode);
-void *__cdecl FUN_0008d690(unsigned int size);
+extern "C" int __cdecl FUN_00266da0(hulk_intptr mode);
+void *__cdecl FUN_0008d690(hulk_uintptr size);
 
 class Loader_1c4190 {
 public:

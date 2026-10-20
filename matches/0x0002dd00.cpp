@@ -8,7 +8,7 @@ struct Ctor_001d0480 {
 };
 class CActorManager : public Ctor_001d0480 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     char pad04[0x0c];
     char m10, m11, m12, m13;
     char pad14[4];

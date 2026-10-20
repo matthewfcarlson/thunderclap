@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // fight::QueuedNodeAction::vfunc_3 @ 0x0023a0f0
+#include "compat/ptr.h"
 typedef unsigned int uint_23a0f0;
 extern "C" uint_23a0f0 __cdecl FUN_00238190(uint_23a0f0);
-extern "C" uint_23a0f0 __cdecl FUN_00266da0(uint_23a0f0);
+extern "C" uint_23a0f0 __cdecl FUN_00266da0(hulk_uintptr);
 struct Result_23a0f0 { char pad[12]; uint_23a0f0 flags; float first, second; };
 struct Owner_23a0f0;
 struct Node {

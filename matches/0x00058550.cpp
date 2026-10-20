@@ -5,7 +5,7 @@ extern "C" char DAT_003f7394[];
 typedef unsigned int u32_58550;
 void* __cdecl Allocate(unsigned int);
 struct CMotionStateCondition_58550 {
-    u32_58550 vtable;
+    hulk_uintptr vtable;
     u32_58550 pad4;
     u32_58550 pad8;
     u32_58550 fieldC;

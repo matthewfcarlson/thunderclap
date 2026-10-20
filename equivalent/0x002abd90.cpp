@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 15652 inputs, branch coverage 18/18)
 // FUN_002abd90 @ 0x002abd90
+#include "compat/ptr.h"
 #include "decls/data/engine/content.h"
 #include "gen/pure3d.h"
 
@@ -77,7 +78,7 @@ struct Registry_2abd90 {
 
 
 void *FUN_00263ea0(unsigned int size);
-void *FUN_0008d690(unsigned int size);
+void *FUN_0008d690(hulk_uintptr size);
 
 Generator_2abd90 * __stdcall FUN_002abd90(Reader_2abd90 *r, int flag)
 {

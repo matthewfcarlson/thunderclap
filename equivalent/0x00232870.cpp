@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 18/18)
 // FUN_00232870 @ 0x00232870
 #include "compat/ptr.h"
-void* __cdecl FUN_00266da0(int n);
+void* __cdecl FUN_00266da0(hulk_intptr n);
 int __cdecl FUN_00238190(int n);
 void* __cdecl FUN_00263ea0(unsigned int size);
 

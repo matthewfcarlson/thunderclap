@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_002656b0 @ 0x002656b0
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 #include "decls/data/engine/content.h"
 
 struct Config_2656b0 { unsigned first, second, count, value; };
 struct Block_2656b0 { void FUN_00231550(unsigned, unsigned, unsigned); };
-extern void* __cdecl FUN_0008d690(unsigned);
-extern void* __cdecl FUN_0008d6d0(unsigned);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
+extern void* __cdecl FUN_0008d6d0(hulk_uintptr);
 extern unsigned __cdecl FUN_0026dbf0();
 extern void __cdecl FUN_00265520();
 extern void __cdecl FUN_0026dd70(void*, void (__cdecl*)(), void*, unsigned, unsigned);

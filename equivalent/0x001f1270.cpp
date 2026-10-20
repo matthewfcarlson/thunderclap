@@ -9,7 +9,7 @@ void *__cdecl FUN_00263ed0(int size, int tag);
 void *__cdecl FUN_0008d710(int size, int tag);
 
 struct SoundBank_1f1270 {
-    int vptr;
+    hulk_intptr vptr;
     int f04;
     char pad08[0x198 - 8];
     int f198;

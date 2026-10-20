@@ -10,7 +10,7 @@ struct ThisCall_001d0480 {
 };
 u8 GetHelper(const void*);
 struct Obj_2e830 {
-    u32_2e830 vptr;
+    hulk_uintptr vptr;
     char p4[12];
     u8 b10;
     char p11[7];

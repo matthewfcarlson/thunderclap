@@ -18,7 +18,7 @@ class Owner_65c50 {
     } entries[40];
     int count;
 };
-int __fastcall Target(Owner_65c50* self) {
+hulk_intptr __fastcall Target(Owner_65c50* self) {
     int i = 0;
     hulk_intptr result = 0;
     if (self->count > 0) {

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3219 inputs, branch coverage 155/162, incomplete)
 // FUN_001da540 @ 0x001da540
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" int __cdecl FUN_0034483c();
@@ -46,7 +47,7 @@ struct Sub_1da540 : RefObj_1da540 {
 };
 
 struct Request {
-    int r00;
+    hulk_intptr r00;
     int r04;
     V3_1da540 target;                 // 0x08
     char pad14[4];
@@ -192,8 +193,8 @@ struct Fx34_1da540 {
     void FUN_001ebd80(Entity *e, const char *name, float v, int z);
 };
 
-extern "C" int __cdecl FUN_00266da0(int mode);
-void *__cdecl FUN_0008d690(unsigned int size);
+extern "C" int __cdecl FUN_00266da0(hulk_intptr mode);
+void *__cdecl FUN_0008d690(hulk_uintptr size);
 void __cdecl FUN_00018810(RefObj_1da540 **slot, RefObj_1da540 *obj);
 void __cdecl FUN_00224d70(float ang, V3_1da540 *v);
 void __cdecl FUN_00096b50(Ref_1da540 *a1, V3_1da540 *out, int *count);

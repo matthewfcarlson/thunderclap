@@ -8,7 +8,7 @@ class Base_2e2b0 {
 };
 class CActorManager : public Base_2e2b0 {
   public:
-    int v;
+    hulk_intptr v;
     char pad[0x18];
     int m1c;
     CActorManager(int, int);

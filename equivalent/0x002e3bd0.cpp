@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2765 inputs, branch coverage 118/118)
 // FUN_002e3bd0 @ 0x002e3bd0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
-void *FUN_0008d690(unsigned int size);
+void *FUN_0008d690(hulk_uintptr size);
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
 struct Reader {

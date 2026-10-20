@@ -6,7 +6,7 @@ struct Pool_270020 {
     void* freeHead;
     void* owner;
     void* blocks;
-    unsigned stride;
+    hulk_uintptr stride;
     unsigned count;
     unsigned flags;
     unsigned zero28;
@@ -14,8 +14,8 @@ struct Pool_270020 {
     unsigned zero30;
     void FUN_00270020(void* buffer, unsigned itemSize, unsigned itemCount, unsigned flagsValue, void* allocator, unsigned unused6, unsigned itemAdjustment);
 };
-extern "C" unsigned __cdecl FUN_0026fd50(unsigned, unsigned);
-extern "C" void* __cdecl FUN_00266eb0(void*, unsigned, unsigned);
+extern "C" hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr, unsigned);
+extern "C" void* __cdecl FUN_00266eb0(void*, hulk_uintptr, unsigned);
 void Pool_270020::FUN_00270020(void* buffer, unsigned itemSize, unsigned itemCount, unsigned flagsValue, void* allocator, unsigned unused6, unsigned itemAdjustment) {
     stride = FUN_0026fd50(itemSize, itemAdjustment);
     count = itemCount;

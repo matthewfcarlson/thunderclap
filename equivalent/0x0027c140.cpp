@@ -5,8 +5,8 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 void *thunk_FUN_0008d690(unsigned int size);
-void *FUN_0008d690(unsigned int size);
-void *FUN_0008d6d0(unsigned int size);
+void *FUN_0008d690(hulk_uintptr size);
+void *FUN_0008d6d0(hulk_uintptr size);
 extern "C" int __cdecl FUN_0028fcc0(const char *fmt, ...);
 unsigned int FUN_0027b340(const char *s);
 

@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 18/18)
 // FUN_0028ceb0 @ 0x0028ceb0
+#include "compat/ptr.h"
 struct Stream { void FUN_002647e0(void*, unsigned, unsigned, unsigned); };
 struct Owner_28ceb0 { char pad[0x284]; Stream* stream; };
 struct Pool_28ceb0 { void* FUN_002888c0(unsigned, unsigned); };
 struct Result_28ceb0 { char pad0[8]; unsigned value; char pad1[8]; unsigned short* entries; unsigned* bits; Result_28ceb0* FUN_0028c370(unsigned, Pool_28ceb0*); };
-void* __cdecl FUN_0008d690(unsigned);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 Result_28ceb0* __stdcall FUN_0028ceb0(Owner_28ceb0* owner, unsigned unused, Pool_28ceb0* pool) {
  unsigned count; unsigned value;
  owner->stream->FUN_002647e0(&count,1,4,1);

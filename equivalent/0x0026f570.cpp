@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 14/14)
 // FUN_0026f570 @ 0x0026f570
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 #include "decls/data/platform/xbox/core.h"
 
 extern "C" void __cdecl FUN_002705f0();
 extern "C" void __cdecl FUN_0026d820(void*);
 struct Resource_26f570 { virtual void retain(); Resource_26f570* FUN_002733c0(void*,const char*); };
-extern "C" Resource_26f570* __cdecl FUN_00266e00(const char*,int);
+extern "C" Resource_26f570* __cdecl FUN_00266e00(const char*,hulk_intptr);
 extern "C" char* __cdecl _strncpy(char*,const char*,unsigned);
 extern char DAT_00445644[];
 struct DAT_0042b52c { virtual void slot0(); };

@@ -3,7 +3,7 @@
 
 extern "C" char DAT_003f7274[];
 typedef unsigned int U_58600;
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 struct CPropActorStateCondition_58600 {
     virtual void v0();
     U_58600 x[4];

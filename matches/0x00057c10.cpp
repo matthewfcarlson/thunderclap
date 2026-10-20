@@ -2,9 +2,9 @@
 #include "gen/fight.h"
 
 typedef unsigned int u32_57c10;
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 struct CCollisionPushbackYAngleCondition_57c10 {
-    u32_57c10 vptr;
+    hulk_uintptr vptr;
     char pad[8];
     int fieldC;
     int field10;

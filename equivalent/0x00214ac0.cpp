@@ -3,9 +3,10 @@
 // FUN_00214ac0 @ 0x00214ac0
 // Lua 5.0 auxgetinfo: fills a lua_Debug according to the option letters in `what`.
 // what arrives in eax, ar in esi and ci in edi; L and f are on the stack.
+#include "compat/ptr.h"
 struct TObject_214ac0 {
     int tt;
-    int value;
+    hulk_intptr value;
 };
 
 struct Closure_214ac0 {

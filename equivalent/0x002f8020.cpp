@@ -9,7 +9,7 @@ struct Sub8_2f8020 {
 
 struct Q_2f8020 {
     char pad0[0x1ec];
-    int f1ec;               // 0x1ec
+    hulk_intptr f1ec;               // 0x1ec
     char pad1f0[4];
     unsigned char f1f4;     // 0x1f4
 };
@@ -147,14 +147,14 @@ void Solver_2f8020::FUN_002f8020(List_2f8020 *l, int unused, int a3)
                         Q_2f8020 *qa = q1;
                         q2 = b;
                         if (qa != 0) {
-                            int t = qa->f1ec;
+                            hulk_intptr t = qa->f1ec;
                             if (t == 0)
                                 qa->f1ec = (hulk_intptr)r.p2;
                             else if (t != (hulk_intptr)r.p2)
                                 qa->f1f4 = qa->f1f4 & 0xfe;
                         }
                         if (b != 0) {
-                            int t = b->f1ec;
+                            hulk_intptr t = b->f1ec;
                             if (t == 0)
                                 b->f1ec = (hulk_intptr)r.p1;
                             else if (t != (hulk_intptr)r.p1)

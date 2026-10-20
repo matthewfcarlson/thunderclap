@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00264050 @ 0x00264050
-int __cdecl FUN_0026fd50(int a, int b);
+#include "compat/ptr.h"
+int __cdecl FUN_0026fd50(hulk_intptr a, int b);
 class Stream {
 public:
     virtual void v0();

@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 14/16, incomplete)
 // FUN_002fc880 @ 0x002fc880
+#include "compat/ptr.h"
 struct Ref_2fc880 { virtual void AddRef() = 0; virtual void Release() = 0; };
 struct Input_2fc880 { char pad[12]; int value; };
 struct Wrapper_2fc880 : Ref_2fc880 { Wrapper_2fc880* FUN_00310080(Input_2fc880*, int, int); void FUN_0030ff80(int); };
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 namespace physics {
 struct PhysicsInstance {
  virtual void slot0();

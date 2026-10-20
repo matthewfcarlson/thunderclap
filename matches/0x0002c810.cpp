@@ -12,7 +12,7 @@ extern char g3_2c810[];
 extern char g4_2c810[];
 class Method3 {
   public:
-    u32_2c810 vf;
+    hulk_uintptr vf;
     char pad4[12];
     u8 b10, b11, b12;
     char pad13[5];

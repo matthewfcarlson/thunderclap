@@ -5,7 +5,7 @@
 extern "C" char DAT_003f424c[];
 class CActorManager {
   public:
-    int vf;
+    hulk_intptr vf;
     char pad04[0x0c];
     char b10;
     char b11;

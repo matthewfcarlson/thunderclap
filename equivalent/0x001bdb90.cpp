@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 32/32)
 // FUN_001bdb90 @ 0x001bdb90
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
@@ -57,7 +58,7 @@ struct World {
     Holder_1bdb90 *holder;
 };
 
-extern "C" int __cdecl FUN_00266da0(int mode);
+extern "C" int __cdecl FUN_00266da0(hulk_intptr mode);
 
 class Widget_1bdb90 {
 public:

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 13434 inputs, branch coverage 12/12)
 // movie::BinkCallback::vfunc_3_adj8 @ 0x00335010
 // movie::BinkCallback::vfunc_3_adj8 @ 0x00335010
+#include "compat/ptr.h"
 struct FileStream_335010 {
     virtual void vf0();
     virtual void vf1();
@@ -20,7 +21,7 @@ struct FileStream_335010 {
     virtual void vf15();
     virtual int GetBlockSize();
 };
-int __cdecl FUN_0026fd50(int, int);
+int __cdecl FUN_0026fd50(hulk_intptr, int);
 int __cdecl FUN_00368660();
 struct BinkRequest {
     char pad0[0x1c];

@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 52 inputs, branch coverage 10/10)
 // pure3d::Image8::vfunc_7 @ 0x002bfe10
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
-extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void* __cdecl FUN_0008d6d0(hulk_uintptr size);
 extern "C" void __cdecl FUN_0008d340(void* data);
 namespace pure3d {
 

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 10/12, incomplete)
 // pure3d::SpriteLoader::vfunc_8 @ 0x002bdfc0
+#include "compat/ptr.h"
 struct Name_2bdfc0 {
     unsigned int lo, hi;
     void FUN_0027b040(const char *s);
@@ -20,7 +21,7 @@ struct Reader {
     char pad0[0x284];
     Stream *stream;
     char FUN_002669f0();
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     void FUN_00266be0();
     int FUN_00266c90();
     void FUN_00266ca0(int v);

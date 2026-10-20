@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // FUN_002320d0 @ 0x002320d0
+#include "compat/ptr.h"
 extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 extern "C" int __cdecl FUN_00238190(int index);
-extern "C" int __cdecl FUN_00266da0(int pool);
+extern "C" int __cdecl FUN_00266da0(hulk_intptr pool);
 
 struct Spec_2320d0 {
     char pad0[0x28];

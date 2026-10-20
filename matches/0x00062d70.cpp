@@ -11,7 +11,7 @@ struct Base_62d70 {
 };
 class CWeaponCollisionTrack {
   public:
-    int vf;
+    hulk_intptr vf;
     char x[0x28];
     SubA_62d70 s2c;
     char y[0xb];

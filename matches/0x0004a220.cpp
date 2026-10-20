@@ -3,7 +3,7 @@
 extern "C" char DAT_003f7394[];
 class CMotionStateCondition_4a220 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     int pad4;
     int pad8;
     int fieldC;

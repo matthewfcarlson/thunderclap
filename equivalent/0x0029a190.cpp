@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 45/50, incomplete)
 // pure3d::CompositeDrawableLoader::vfunc_5 @ 0x0029a190
 // equiv-map: ??0DrawableBase@pure3d@@QAE@XZ = 0x002a3480
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
@@ -13,7 +14,7 @@ struct Reader {
     char pad[0x284];
     Stream *stream;
     char FUN_002669f0();
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     void FUN_00266be0();
 };
 
@@ -167,7 +168,7 @@ struct Registry_29a190 {
 };
 
 void *FUN_00263ea0(unsigned int size);
-void *FUN_0008d690(unsigned int size);
+void *FUN_0008d690(hulk_uintptr size);
 void __cdecl FUN_0028fd70(Inventory_29a190 *inv);
 int __cdecl FUN_00298180(void *p);
 

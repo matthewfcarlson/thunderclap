@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 6/6)
 // FUN_0031efd0 @ 0x0031efd0
-void* __cdecl FUN_0008d690(unsigned int size);
+#include "compat/ptr.h"
+void* __cdecl FUN_0008d690(hulk_uintptr size);
 inline void* __cdecl operator new(unsigned int, void* address) { return address; }
 namespace pure3d {
 class pddiFogState {

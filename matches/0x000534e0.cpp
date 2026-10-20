@@ -5,7 +5,7 @@ struct Param {
     void Initialize(const char*);
     char pad[24];
 };
-extern int __cdecl Alloc(unsigned int);
+extern hulk_intptr __cdecl Alloc(unsigned int);
 extern void __cdecl Register(void*, void*, int);
 extern int gCount_534e0;
 extern int gSlot_534e0;

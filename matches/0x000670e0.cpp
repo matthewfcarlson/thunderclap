@@ -2,7 +2,7 @@
 extern "C" void __cdecl FUN_00066980();
 class H {
   public:
-    void* lookup(unsigned int, unsigned int);
+    void* lookup(hulk_uintptr, unsigned int);
 };
 extern const float gZero_670e0;
 class C_670e0 {

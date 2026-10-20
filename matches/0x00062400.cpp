@@ -8,7 +8,7 @@ class Part_62400 {
 };
 class Obj_62400 {
   public:
-    int vt;
+    hulk_intptr vt;
     char pad[0x14];
     Part_62400 p18;
     Part_62400 p20;

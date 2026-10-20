@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Inner_5a010 {
     void f(int);
 };
@@ -7,7 +8,7 @@ struct Obj_5a010 {
     int b;
 };
 extern void __fastcall FUN_00059d30(Obj_5a010*);
-extern void __cdecl thunk_FUN_00267090(int);
+extern void __cdecl thunk_FUN_00267090(hulk_intptr);
 void __fastcall FUN_0005a010(Obj_5a010* self) {
     FUN_00059d30(self);
     if (self->a)

@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_00238910 @ 0x00238910
+#include "compat/ptr.h"
 extern "C" void __cdecl FUN_0008d340(void *);
-extern "C" void * __cdecl FUN_0008d6d0(unsigned int);
+extern "C" void * __cdecl FUN_0008d6d0(hulk_uintptr);
 struct Object {
     char pad[12];
     char *text;

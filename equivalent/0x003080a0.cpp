@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1853 inputs, branch coverage 30/31, incomplete)
 // FUN_003080a0 @ 0x003080a0
+#include "compat/ptr.h"
 struct V3_3080a0 {
     float x, y, z;
 };
@@ -11,7 +12,7 @@ struct Stream {
 struct Reader {
     char pad000[0x284];
     Stream* stream;
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     int FUN_00266c30();
     void FUN_00266be0();
     unsigned short FUN_00201750();
@@ -59,7 +60,7 @@ struct NodeE : Node {
     Node* FUN_00312900();
 };
 
-void* FUN_0008d690(unsigned int size);
+void* FUN_0008d690(hulk_uintptr size);
 Node* __cdecl FUN_003078a0(Reader* r);
 void __cdecl FUN_00307810(Reader* r, V3_3080a0* out);
 

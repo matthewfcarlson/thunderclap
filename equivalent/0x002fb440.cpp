@@ -42,7 +42,7 @@ struct Mesh_2fb440 {
     MeshData_2fb440* data;
 };
 struct Hitter {
-    void FUN_00304530(Ray_2fb440* ray, unsigned int index, float t, V3_2fb440* point, V3_2fb440* normal, Mesh_2fb440* mesh, int flags);
+    void FUN_00304530(Ray_2fb440* ray, hulk_uintptr index, float t, V3_2fb440* point, V3_2fb440* normal, Mesh_2fb440* mesh, int flags);
 };
 struct Globals_2fb440 {
     char pad0[0x1b0];

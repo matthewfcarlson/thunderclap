@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 53 inputs, branch coverage 10/10)
 // pure3d::Image32::vfunc_7 @ 0x002c00b0
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
-void* __cdecl FUN_0008d6d0(unsigned int);
+void* __cdecl FUN_0008d6d0(hulk_uintptr);
 void __cdecl FUN_0008d340(void*);
 namespace pure3d {
 

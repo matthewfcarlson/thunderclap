@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 4/4)
 // FUN_0027b340 @ 0x0027b340
 // equiv-conv: FUN_0027b340 eax
-extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
+#include "compat/ptr.h"
+extern "C" void* __cdecl FUN_0008d6d0(hulk_uintptr);
 char* FUN_0027b340(const char* source) {
     const char* end = source;
     do { ++end; } while (end[-1]);

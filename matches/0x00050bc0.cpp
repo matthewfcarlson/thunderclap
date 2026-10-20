@@ -1,4 +1,5 @@
-int __cdecl FUN_00344e74(int arg, int a, int b, int c, int d);
+#include "compat/ptr.h"
+hulk_intptr __cdecl FUN_00344e74(hulk_intptr arg, int a, hulk_intptr b, hulk_intptr c, int d);
 
 class ConditionFactoryCaster {
   public:
@@ -12,6 +13,6 @@ class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
 };
 
 int ConditionFactoryCasterTemplate::f0(int arg) {
-    int r = FUN_00344e74(arg, 0, 0x491ca8, 0x492e90, 0);
+    hulk_intptr r = FUN_00344e74(arg, 0, 0x491ca8, 0x492e90, 0);
     return r != 0;
 }

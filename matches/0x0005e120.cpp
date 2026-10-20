@@ -15,7 +15,7 @@ struct C_5e120 {
 void __cdecl FreeTrack(void* p);
 
 struct COpportunityBallTrack {
-    int vptr;
+    hulk_intptr vptr;
     char p0[0x14];
     A_5e120 a;
     char p1[0x18];

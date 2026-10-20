@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 9/10, incomplete)
 // FUN_002a4760 @ 0x002a4760
 #include "compat/ptr.h"
-void *FUN_0008d6d0(unsigned int size);
+void *FUN_0008d6d0(hulk_uintptr size);
 
 struct IntVector_2a4760 {
     int *first;

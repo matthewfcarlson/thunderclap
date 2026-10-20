@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 34 inputs, branch coverage 19/24, incomplete)
 // FUN_002e6340 @ 0x002e6340
+#include "compat/ptr.h"
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
-void* FUN_0008d6d0(unsigned int size);
+void* FUN_0008d690(hulk_uintptr size);
+void* FUN_0008d6d0(hulk_uintptr size);
 extern "C" void* memset(void* dst, int c, unsigned int n);
 
 struct Stream {
@@ -13,7 +14,7 @@ struct Reader {
     char pad00[0x284];
     Stream* stream;
     char FUN_002669f0();
-    int FUN_00266a30();
+    hulk_intptr FUN_00266a30();
     void FUN_00266be0();
 };
 
