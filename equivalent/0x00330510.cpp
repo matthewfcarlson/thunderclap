@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 19782 inputs, branch coverage 10/10)
 // pure3d::d3dToon2VertexShader::vfunc_14 @ 0x00330510
 #include "decls/data/platform/xbox/pure3d.h"
 

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 141 inputs, branch coverage 25/25)
+// STATUS: equivalent (tools/equiv.py level 3: 20018 inputs, branch coverage 25/25)
 // FUN_002787c0 @ 0x002787c0
 #include "decls/data/platform/xbox/core.h"
 

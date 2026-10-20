@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 12/12)
 // pure3d::DefaultChannelHandler::vfunc_4 @ 0x0028ec30
 struct Channel { unsigned FUN_00266c30(); };
 namespace pure3d { struct DefaultChannelHandler {

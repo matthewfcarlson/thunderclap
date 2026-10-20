@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 4/4)
 // fight::ParamValueName::vfunc_5 @ 0x002353f0
 #include "decls/data/engine/fight.h"
 

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 62 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 142 inputs, branch coverage 12/12)
 // FUN_0028c7e0 @ 0x0028c7e0
 struct Stream {
     void FUN_002647e0(void *dest, unsigned count, unsigned size, int flag);

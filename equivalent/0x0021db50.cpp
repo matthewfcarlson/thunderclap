@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19801 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 10/10)
 // FUN_0021db50 @ 0x0021db50
 // FUN_0021db50 @ 0x0021db50
 struct Input_21db50 { char pad0[4]; unsigned int value; char pad8[4]; unsigned int kind; unsigned int data; char pad14[8]; unsigned int context; };

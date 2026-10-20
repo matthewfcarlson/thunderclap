@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 143 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 16659 inputs, branch coverage 14/14)
 // FUN_001c7550 @ 0x001c7550
 struct Key_1c7550 {
     int lo, hi;

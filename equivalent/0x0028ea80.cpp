@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 12 inputs, branch coverage 15/18, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 18/18)
 // FUN_0028ea80 @ 0x0028ea80
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }

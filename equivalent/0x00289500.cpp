@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 154 inputs, branch coverage 52/54, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 158 inputs, branch coverage 49/54, incomplete)
 // pure3d::AnimationLoader::vfunc_5 @ 0x00289500
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 inline void *operator new(unsigned int, void *p) throw() { return p; }

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 15821 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 2/2)
 // FUN_0021f300 @ 0x0021f300
 // FUN_0021f300 @ 0x0021f300
 struct Object { char pad[0x1c]; void *item; };

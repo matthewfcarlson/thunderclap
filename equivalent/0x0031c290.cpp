@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 102 inputs, branch coverage 52/54, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 52/54, incomplete)
 // FUN_0031c290 @ 0x0031c290
 struct FormatInfo {
  char reserved[16];

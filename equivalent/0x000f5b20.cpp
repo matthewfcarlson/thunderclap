@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3067 inputs, branch coverage 70/70)
+// STATUS: equivalent (tools/equiv.py level 3: 20044 inputs, branch coverage 70/70)
 // FUN_000f5b20 @ 0x000f5b20
 class Param {
 public:
