@@ -143,9 +143,9 @@ proves the image. Ordered by risk (a rename < onto the header < header changes) 
 | **b2** | `gen-ref` | matches/ | 428 stubs in 406 sources -> 201 rewritable -> refined (`c2`) 169 -> **168 MATCH** (1 compile error) | low | **applied** (x64-1: 459 -> 239 rewritable -> 198 -> 197 MATCH; section 8) |
 | **b3** | `unclash` + `gen-ref` | equivalent/ | 384 stubs in 317 sources -> 172 rewritable -> refined (`c3`) 141 -> **130 EQUIVALENT** at 3,000 inputs (8 compile errors, 3 FAIL, one of which fails unchanged too) | medium (equiv.py) | **applied** (x64-1: 341 -> 165 rewritable -> 138 -> 129 EQUIVALENT at 3,000 inputs; the 20,000-input re-check of the 129 is pending, `build/x64/equivalents-b3.txt`; section 8) |
 | b4 | relabel | both | 2,861 suffixed/invented stubs with a known real class in 2,296 sources: `Obj_2d5ec0` -> `SpriteParticleEmitter_2d5ec0` | low | planned: readability only, no merge effect (the names don't collide today) |
-| b5 | `gen-swap` re-run | both | 712 rewritable today (`migrate_gen.py --no-verify --equivalent`), plus up to 3,030 sources the gen family skips for "preprocessor lines": the `#include "decls/data/..."` lines the data migration added | low | planned; `skip_reason` accepts `decls/` includes since x64-1 (757 rewritable with them, 22 of the 46 new ones verify in a scratch copy) |
+| b5 | `gen-swap` re-run | both | 712 rewritable today (`migrate_gen.py --no-verify --equivalent`), plus up to 3,030 sources the gen family skips for "preprocessor lines": the `#include "decls/data/..."` lines the data migration added | low | **applied** (x64-1, commit ac5792eb: 756 candidates, 402 verified, 246 kept after dropping the newly isolated and the TUs that gained unbound names, 240 applied; section 8) |
 | b6 | header signatures | include/gen/ + rewrites | 198 used stubs whose called slot has another arity (189 sources), 118 gen-swap "header slot returns void", 16 float/int parameters, 170 owner stubs | medium: a header change reaches every TU that includes it | planned (`gen_headers.CURATED_SIGS`, then b2/gen-swap again) |
-| b7 | header fields | include/gen/ + rewrites | 6,374 agreeing field offsets in 1,102 classes (`header-additions.json`); unblocks 409 used stubs (351 sources) and the 748 gen-swap "field not in header" skips | medium-high | planned (gen_headers field evidence, probe-checked) |
+| b7 | header fields | include/gen/ + rewrites | 6,374 agreeing field offsets in 1,102 classes (`header-additions.json`); unblocks 409 used stubs (351 sources) and the 748 gen-swap "field not in header" skips | medium-high | **first part applied** (x64-1, commit 78683b3c: 815 fields inside the classes' own `_pad_` gaps, layout-neutral by construction, + 61 gen-swap rewrites; section 8). Left: offsets in a base's region (4,465), non-scalars (744), non-unique class heads (441) |
 | b8 | base stubs | rewrites | 1,894 used stubs that fit but are a base of the source's own stub, used by value or with `new`: the derived stub derives from the header class (`class CSweepTrack_23d3d0 : public fight::ConditionFactory`) | medium | planned |
 | b9 | owner non-virtual members | include/gen/ + rewrites | 1,752 stubs whose own function is a non-virtual member (`Obj_2d5ec0::target` = `SpriteParticleEmitter::FUN_002d5ec0`): include/gen/ declares no non-virtual members yet | high | planned |
 | b10 | destructor slots, owner vfuncs | migrate_gen gen family | 2,490 owner stubs; 1,692 gen-swap skips "destructor slot (body is not base-dtor + delete)" | medium-high | planned ([source-tree.md](source-tree.md) next step 1) |
@@ -339,9 +339,12 @@ sources were). Each batch was copied into the tree only where the file was uncha
 | + b1 (commit 36784eba) | 1,473 matches/ | 22,255 / 22,255 | 0 | 0 | 21,037 / 5,555 / 863 | 0 / 1,594 / 61 | 1,473 / 1,473 ok |
 | + b2 (755eb3f7) | 197 matches/ | 22,255 / 22,255 | 0 | 0 | 21,049 / 5,542 / 864 | 0 / 1,594 / 61 | 197 / 197 ok |
 | + b3 (0ac939aa) | 129 equivalent/ | 22,255 / 22,255 | 0 | 0 | 21,073 / 5,518 / 864 | 0 / 1,594 / 61 | - (equiv.py 3,000: all EQUIVALENT) |
+| + b5 (ac5792eb) | 118 matches/ + 122 equivalent/ (+ 6 changed in the tree since: not applied) | 22,255 / 22,255 | 0 | 0 | 21,242 / 5,342 / 871 | 0 / 1,594 / 61 (unbound set identical) | ok |
+| + b7 headers (78683b3c) | 12 include/gen/ headers, 815 fields | 22,255 / 22,255 | 0 | 0 | identical to b5 | - | - |
+| + b7 sources (78683b3c) | 34 matches/ + 27 equivalent/ | 22,255 / 22,255 | 0 | 0 | 21,266 / 5,319 / 870 | 0 / 1,590 / 61 | 34 / 34 ok |
 
-Merged 74.85% -> 76.75% (+522 functions). The 129 b3 equivalents need the 20,000-input re-check
-(`build/x64/equivalents-b3.txt`). Refine kept 97% / 43% / 40% of the candidate sources (b1 1,526 -> 1,473; b2 459
+Merged 74.85% -> 76.75% after b1-b3 (+522 functions), 77.46% after b5 and b7 (+715). The 129 b3 equivalents need the 20,000-input re-check
+(`build/x64/equivalents-b3.txt`; b5: `equivalents-b5.txt`, 122; b7: `equivalents-b7.txt`, 27). Refine kept 97% / 43% / 40% of the candidate sources (b1 1,526 -> 1,473; b2 459
 sources, 239 rewritable -> 198; b3 341, 165 rewritable -> 138).
 
 Findings of section 7 addressed: **build_tree.py** checks that a symbol stands for one function of a TU (commit
@@ -350,3 +353,16 @@ item 7: 832 functions re-checked under their own symbol, 3 fell back; strict lin
 **migrate_gen gen family** accepts `#include "decls/..."` sources (commit 03de06ed: 711 -> 757 rewritable, the
 newly reachable ones mostly wait on header fields, b7). The batches' proofs used the tools of 441f5270b
 (the old lookup) for base and batches alike.
+
+**b5** (gen family re-run, `migrate_gen.py --apply --equivalent` on the b3 tree): 756 candidates, 402 verified
+(326 clone-template, 76 gen-swap; 271 compile errors, 77 DIFF, 6 FAIL). Unrefined, the tree build isolated 114
+of them (wrapped -> isolated) and the strict link gained 37 unbound symbols: invented names two merged sources
+declare for two addresses (`TryCast`, `performCast`, `castThing` cast helpers, `gOne`/`typeA` globals, `TrackBase`
+stub slots), rn1's b1 first-try finding again. Dropping the 114 and every b5 source of the 30 TUs those names live
+in (42) gave a tree with the b3 tree's exact unbound set. The gen family has no `--refine --bindings` step yet;
+it needs one (rn_plan's refine works on rn batches only).
+
+**b7, first part** (`tools/rn_fields.py`): see the table row above. The base-region offsets (4,465) are the bulk:
+a derived class's stubs agree on a field that belongs to a base; putting it into the base is layout-neutral the
+same way (inside the base's pad) but every class derived from that base sees it, so it needs agreement over all
+derived classes' stubs; next.

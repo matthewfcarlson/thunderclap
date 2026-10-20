@@ -80,7 +80,7 @@ its group and demangled name), `cache/` (per-TU results and objects) and `snap/`
 The port's targets are x86-64 (SteamOS/Linux, Windows) and arm64 macOS from one tree. A 64-bit image can't use
 the 32-bit link's bridges: they take code or layout from the XBE (x86 bytes, 32-bit addresses), so every one of
 them needs our own source instead. This section measures the distance on the tree of HEAD 441f5270b (the
-consolidation batches b1-b3 of [consolidation-plan.md](consolidation-plan.md) applied on top of it since).
+consolidation batches b1-b3, b5 and the first part of b7 of [consolidation-plan.md](consolidation-plan.md) applied on top of it since: merged 74.85% -> 77.46%, header fields +815).
 
 ```sh
 build/venv/bin/python tools/native64.py --bindings build/native/bindings.json   # compile msvc64/arm64/gnu64/gnu32w,
@@ -108,7 +108,7 @@ configurations add `-Wshorten-64-to-32 -Wvoid-pointer-to-int-cast -Wint-to-void-
 
 | class | `msvc64` | `arm64` | where |
 |---|---|---|---|
-| pointer <-> integer casts (`(int)p`, `(T*)i`) | **4,881 / 3,136** | 4,864 / 3,121 | matches merged 2,929, wrapped 785, isolated 123; equivalent wrapped 741, merged 271, isolated 30; one source has 521 (`equivalent/0x00107c90.cpp`) |
+| pointer <-> integer casts (`(int)p`, `(T*)i`) | **4,881 / 3,136** | 4,864 / 3,121 | matches merged 2,929, wrapped 785, isolated 123; equivalent wrapped 741, merged 271, isolated 30; one source has 521 (`equivalent/0x00107c90.cpp`). By direction (occurrences): pointer kept in an integer 3,119, integer used as a pointer 2,990 |
 | implicit 64 -> 32-bit truncation (`int n = p - q;`, `int i = strlen(s);`) | **272 / 195** | 294 / 204 (`long` is 8 bytes) | 0 of them on i686 |
 | explicit `char pad[N]` in sources (tree TUs) | 25,683 in 3,949 sources | same | offsets written for 4-byte pointers |
 | include/gen/ `_pad_` gaps / pointer `f_XX` fields at 32-bit offsets | 889 / 589 | same | |

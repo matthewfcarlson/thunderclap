@@ -89,6 +89,16 @@ def sixty4_classes(results, tus, man):
                     srcs[src] += 1
             row[cat] = {"sites": len(s), "sources": len(srcs), "producers": dict(prods.most_common()),
                         "top_sources": srcs.most_common(8)}
+            if cat == "64bit-pointer-int-cast":
+                # direction: a pointer kept in an integer (`(int)p`: the field or variable wants a pointer type)
+                # or an integer used as a pointer (`(T*)i`: where the integer came from wants one)
+                d = collections.Counter()
+                for p in tus:
+                    for f, line, sev, msg, opt in res[p]["diags"]:
+                        if cp.classify(sev, msg) == cat:
+                            d["pointer -> integer" if "cast to smaller integer type" in msg else
+                              "integer -> pointer"] += 1
+                row[cat]["direction (occurrences)"] = dict(d)
         out[cfg] = row
     if "gnu32w" in results:
         out["gnu32w"] = {"64bit-shorten (i686 too: __int64 narrowed on purpose)": len(base)}
