@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042fcd4[];
 extern "C" void _ReadWriteBarrier();
@@ -9,10 +10,10 @@ struct BoneMatrixList {
     void Destroy();
 };
 void BoneMatrixList::Destroy() {
-    *(volatile void**)&vptr = (void*)((int)DAT_0042fcd4);
+    *(volatile void**)&vptr = (void*)((hulk_intptr)DAT_0042fcd4);
     _ReadWriteBarrier();
     void* p = *(void* volatile*)&item;
     if (p)
         ReleaseThing(p);
-    vptr = (void*)((int)DAT_003f6098);
+    vptr = (void*)((hulk_intptr)DAT_003f6098);
 }

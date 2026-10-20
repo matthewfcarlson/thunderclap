@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Info {
     char pad[16];
     int count;
@@ -15,7 +16,7 @@ class Table {
 };
 Elem* Table::Get(int index) {
     if (index >= 0) {
-        int count = (int)info;
+        hulk_intptr count = (hulk_intptr)info;
         if (count)
             count = ((Info*)count)->count;
         if (index < count)

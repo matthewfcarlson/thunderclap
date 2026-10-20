@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00431700[];
 class CollisionSolverAgent {
   public:
@@ -8,6 +9,6 @@ class CollisionSolverAgent {
 };
 CollisionSolverAgent::CollisionSolverAgent() {
     a = 0;
-    vptr = (void*)((int)DAT_00431700);
+    vptr = (void*)((hulk_intptr)DAT_00431700);
     b = 0;
 }

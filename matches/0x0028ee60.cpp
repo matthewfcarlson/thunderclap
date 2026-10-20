@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042cb5c[];
 class ShaderFloatBroadcast {
   public:
@@ -9,7 +10,7 @@ class ShaderFloatBroadcast {
 };
 ShaderFloatBroadcast::ShaderFloatBroadcast(int a, int b) {
     mZero = 0;
-    mVft = ((int)DAT_0042cb5c);
+    mVft = ((hulk_intptr)DAT_0042cb5c);
     mA = a;
     mB = b;
 }

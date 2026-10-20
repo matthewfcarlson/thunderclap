@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042ef74[];
 class Ref_2c6ad0 {
@@ -14,13 +15,13 @@ class DisplayTraversal {
 };
 extern void Destroy(DisplayTraversal*);
 DisplayTraversal* DisplayTraversal::F2(unsigned int flags) {
-    vf = ((int)DAT_0042ef74);
+    vf = ((hulk_intptr)DAT_0042ef74);
     Ref_2c6ad0* r = mRef;
     if (r) {
         r->Release();
         mRef = 0;
     }
-    vf = ((int)DAT_003f6098);
+    vf = ((hulk_intptr)DAT_003f6098);
     if (flags & 1)
         Destroy(this);
     return this;

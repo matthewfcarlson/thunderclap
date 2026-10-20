@@ -1,4 +1,5 @@
 // FUN_0031a6b0 @ 0x0031a6b0
+#include "compat/ptr.h"
 struct Rest_31a6b0 {
     char data[96];
     void FUN_0031a8b0(const Rest_31a6b0 *src);
@@ -40,7 +41,7 @@ Container_31a6b0 *Container_31a6b0::FUN_0031a6b0(const Container_31a6b0 *other)
         state = 2;
     end = begin;
 
-    for (unsigned int i = 0; i < (unsigned int)(((int)other->end - (int)other->begin) / 100); i++) {
+    for (unsigned int i = 0; i < (unsigned int)(((hulk_intptr)other->end - (hulk_intptr)other->begin) / 100); i++) {
         Elem_31a6b0 tmp;
         const Elem_31a6b0 *s = &other->begin[i];
         tmp.first = s->first;

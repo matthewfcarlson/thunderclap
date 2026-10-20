@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int Image_vftable[];
 class Image {
   public:
@@ -10,7 +11,7 @@ class Image {
 extern void __cdecl thunk_FUN_00267090(int);
 void Image::Fn() {
     int x = m24;
-    *(int*)this = (int)Image_vftable;
+    *(hulk_intptr*)this = (hulk_intptr)Image_vftable;
     thunk_FUN_00267090(x);
     Next();
 }

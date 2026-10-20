@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042eb0c[];
 typedef unsigned int u32_2c0be0;
@@ -13,10 +14,10 @@ struct ImageLoader {
 void __cdecl DropThing(Obj_2c0be0*);
 void ImageLoader::Destroy() {
     Obj_2c0be0* p = mPtr;
-    vptr = ((int)DAT_0042eb0c);
+    vptr = ((hulk_intptr)DAT_0042eb0c);
     if (p) {
         p->ReleaseThing();
         DropThing(p);
     }
-    vptr = ((int)DAT_003f6098);
+    vptr = ((hulk_intptr)DAT_003f6098);
 }

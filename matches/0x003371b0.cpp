@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/movie.h"
 
 struct Item_3371b0 {
@@ -10,7 +11,7 @@ struct Obj_3371b0 {
     void Finish();
 };
 Obj_3371b0* __fastcall FUN_003371b0(Obj_3371b0* self, void*) {
-    self->v = ((int)((char*)&DAT_00434318));
+    self->v = ((hulk_intptr)((char*)&DAT_00434318));
     Item_3371b0* p = (Item_3371b0*)((char*)self + 0x48);
     int n = 0x18;
     do {

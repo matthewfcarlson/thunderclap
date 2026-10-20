@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 extern int EntityType, CompositeType, PoseType;
@@ -27,7 +28,7 @@ void pure3d::PoseAnimationController::vfunc_5(void* __p0) { void * arg = (void *
     if (p) {
         ((PoseAnimationController_nv_288770*)this)->set(p->run());
     } else {
-        unsigned int x = (unsigned int)resolve(arg, 0, &EntityType, &PoseType, 0);
+        hulk_uintptr x = (hulk_uintptr)resolve(arg, 0, &EntityType, &PoseType, 0);
         ((PoseAnimationController_nv_288770*)this)->set(x);
     }
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/physics.h"
 extern "C" char DAT_00431968[];
 class PhysicsThing {
@@ -11,7 +12,7 @@ struct WorldCollisionObject_nv_2fe1d0 {
 };
 PhysicsThing* __fastcall Target(PhysicsThing* self) {
     ((WorldCollisionObject_nv_2fe1d0*)(((physics::WorldCollisionObject*)(self))))->BaseCtor();
-    *(int*)self = ((int)DAT_00431968);
+    *(hulk_intptr*)self = ((hulk_intptr)DAT_00431968);
     self->b = 0;
     self->c = 1;
     return self;

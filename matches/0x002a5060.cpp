@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
 class Base_2a5060 {
   public:
@@ -14,7 +15,7 @@ class DrawablePrimitive : public Base_2a5060 {
 extern int drawable_vtable;
 DrawablePrimitive::DrawablePrimitive() : Base_2a5060() {
     a[0] = 0;
-    *((int*)this) = (int)&drawable_vtable;
+    *((hulk_intptr*)this) = (hulk_intptr)&drawable_vtable;
     _ReadWriteBarrier();
     a[1] = 0;
     a[2] = 0;

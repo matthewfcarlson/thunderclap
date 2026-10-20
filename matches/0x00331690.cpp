@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00433e64[];
 class Shader {
   public:
@@ -15,7 +16,7 @@ class Obj_331690 {
 };
 void Obj_331690::Fn() {
     Shader* x = a;
-    vft = ((int)DAT_00433e64);
+    vft = ((hulk_intptr)DAT_00433e64);
     if (x)
         x->F1();
     x = b;

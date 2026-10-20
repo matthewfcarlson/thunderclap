@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042e7f0[];
 class Ref_2bc4d0 {
@@ -18,13 +19,13 @@ class OldBillboardObjectLoader : public Ref_2bc4d0 {
 };
 extern void __cdecl thunk(OldBillboardObjectLoader*);
 OldBillboardObjectLoader* OldBillboardObjectLoader::v2(int flags) {
-    *(volatile int*)this = ((int)DAT_0042e7f0);
+    *(volatile hulk_intptr*)this = ((hulk_intptr)DAT_0042e7f0);
     Ref_2bc4d0* r = mRef;
     if (r) {
         r->B();
         mRef = 0;
     }
-    *(volatile int*)this = ((int)DAT_003f6098);
+    *(volatile hulk_intptr*)this = ((hulk_intptr)DAT_003f6098);
     if (flags & 1)
         thunk(this);
     return this;

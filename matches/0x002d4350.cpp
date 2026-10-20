@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int U_2d4350;
 extern U_2d4350 vt1_2d4350;
 extern U_2d4350 vt2_2d4350;
@@ -10,7 +11,7 @@ class Obj_2d4350 {
     void f();
 };
 void Obj_2d4350::f() {
-    vptr = (U_2d4350)&vt1_2d4350;
+    vptr = (hulk_uintptr)&vt1_2d4350;
     drop(a[0]);
     drop(a[1]);
     drop(a[2]);
@@ -19,5 +20,5 @@ void Obj_2d4350::f() {
     drop(a[5]);
     drop(a[6]);
     drop(a[7]);
-    vptr = (U_2d4350)&vt2_2d4350;
+    vptr = (hulk_uintptr)&vt2_2d4350;
 }

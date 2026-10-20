@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_00431898[];
 class Ref_2fc520 {
@@ -24,7 +25,7 @@ class Global_2fc520 {
 };
 extern Global_2fc520* global_2fc520;
 void Physics_2fc520::Destroy() {
-    vptr = (void*)((int)DAT_00431898);
+    vptr = (void*)((hulk_intptr)DAT_00431898);
     global_2fc520->call(*(int*)((char*)obj + 0x74));
     if (ref)
         ref->Release();
@@ -39,5 +40,5 @@ void Physics_2fc520::Destroy() {
         obj = 0;
         o->Release();
     }
-    vptr = (void*)((int)DAT_003f6098);
+    vptr = (void*)((hulk_intptr)DAT_003f6098);
 }

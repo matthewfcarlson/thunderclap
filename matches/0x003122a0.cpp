@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/physics.h"
 
 extern "C" char DAT_0043217c[];
@@ -14,7 +15,7 @@ void* physics::ArticulatedPhysicsObject::vfunc_28(unsigned int a) {
     void* p = alloc(0x238);
     if (p) {
         ((Helper_3122a0*)p)->Init();
-        *(unsigned int*)p = ((int)DAT_0043217c);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_0043217c);
         *(unsigned int*)((char*)p + 0x1fc) = 0;
         *(unsigned int*)((char*)p + 0x24) = 1;
     } else {

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042d2dc[];
 class Obj_2970a0 {
   public:
@@ -27,7 +28,7 @@ class Scenegraph {
 };
 void __cdecl thunk(Scenegraph*);
 Scenegraph* Scenegraph::vfunc_2(unsigned char flag) {
-    *(volatile unsigned long*)this = ((int)DAT_0042d2dc);
+    *(volatile hulk_ulongptr*)this = ((hulk_intptr)DAT_0042d2dc);
     Obj_2970a0* p = mObj;
     if (p) {
         p->b();

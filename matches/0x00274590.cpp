@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b9bc[];
 class V {
@@ -20,12 +21,12 @@ class Owner_274590 {
 };
 void Owner_274590::Fn() {
     Obj_274590* p = mObj;
-    *(unsigned long*)this = ((int)DAT_0042b9bc);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b9bc);
     p->sub.A();
     --(*(int*)((char*)mObj + 0x14));
     p = mObj;
     p->sub.B();
     p = mObj;
     ((V*)p)->B();
-    *(unsigned long*)this = ((int)DAT_0042b914);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b914);
 }

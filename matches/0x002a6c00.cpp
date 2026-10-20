@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042d9dc[];
 typedef unsigned int u32_2a6c00;
 extern void* __cdecl alloc(unsigned int);
@@ -39,7 +40,7 @@ void* ProceduralVertexAnimController::vfunc_4() {
     ProceduralVertexAnimController* p = (ProceduralVertexAnimController*)alloc(0x58);
     if (p) {
         p->init(this);
-        *(u32_2a6c00*)p = ((int)DAT_0042d9dc);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_0042d9dc);
         p->field40 = 0;
         p->field48 = 0;
         p->field4c = 0;

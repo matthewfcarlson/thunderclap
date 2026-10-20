@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042bb60[];
 class DriveOpenRequest {
   public:
@@ -8,6 +9,6 @@ class DriveOpenRequest {
 extern void __stdcall Finish();
 DriveOpenRequest::DriveOpenRequest(int a) {
     Init(a);
-    vptr = ((int)DAT_0042bb60);
+    vptr = ((hulk_intptr)DAT_0042bb60);
     Finish();
 }

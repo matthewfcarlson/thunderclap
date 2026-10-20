@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Ref_305320 {
   public:
     virtual void f0();
@@ -35,7 +36,7 @@ namespace physics { class CollisionObject {
 void __cdecl freeA(void*);
 void __cdecl freeB(void*);
 physics::CollisionObject* physics::CollisionObject::vfunc_2(unsigned char p) {
-    *(int*)this = (int)&collisionVtable;
+    *(hulk_intptr*)this = (hulk_intptr)&collisionVtable;
     if (field20) {
         Ref_305320* r = *(Ref_305320**)&field20;
         r->f1();

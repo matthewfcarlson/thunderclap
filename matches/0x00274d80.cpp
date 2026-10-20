@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b978[];
 extern "C" char DAT_0042b9dc[];
@@ -19,13 +20,13 @@ struct Target_274d80 {
     Target_274d80(int, int, Obj_274d80*, int);
 };
 Target_274d80::Target_274d80(int a, int b, Obj_274d80* c, int d) {
-    vf = ((int)DAT_0042b914);
+    vf = ((hulk_intptr)DAT_0042b914);
     p4 = 0;
     FUN_002705f0();
-    vf = ((int)DAT_0042b9dc);
+    vf = ((hulk_intptr)DAT_0042b9dc);
     p8 = a;
     FUN_002705f0();
-    vf = ((int)DAT_0042b978);
+    vf = ((hulk_intptr)DAT_0042b978);
     pC = (Obj_274d80*)b;
     p10 = c;
     p14 = d;

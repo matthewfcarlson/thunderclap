@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042fd84[];
 namespace pure3d { class Language {
   public:
@@ -15,7 +16,7 @@ namespace pure3d { class Language {
 void release(void*);
 void destroy(void*);
 pure3d::Language* pure3d::Language::vfunc_2(int flag) {
-    *(void**)this = (void*)((int)DAT_0042fd84);
+    *(void**)this = (void*)((hulk_intptr)DAT_0042fd84);
     release(x);
     release(y);
     release(z);

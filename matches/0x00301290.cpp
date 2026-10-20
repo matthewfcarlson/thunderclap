@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Owner_301290 {
     char pad[0x30];
     int value;
@@ -13,7 +14,7 @@ class CollisionDetector : public Ctor_00313500 {
     CollisionDetector();
 };
 CollisionDetector::CollisionDetector() : Ctor_00313500() {
-    *(int*)this = (int)&vtable_301290;
+    *(hulk_intptr*)this = (hulk_intptr)&vtable_301290;
     *(int*)((char*)this + 0x3c) = 0;
     *(int*)((char*)this + 0x10) = *(int*)((char*)g_owner + 0x30);
 }

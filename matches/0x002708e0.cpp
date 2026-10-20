@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 
 extern "C" char DAT_0042afa8[];
@@ -22,12 +23,12 @@ class ControllerBuffer {
 };
 void InitBase();
 ControllerBuffer::ControllerBuffer(int value) {
-    vptr = ((int)DAT_0042b6b0);
-    vptr4 = ((int)DAT_0042afa8);
-    ref = *(int*)((int)((char*)&DAT_004cdbb0));
+    vptr = ((hulk_intptr)DAT_0042b6b0);
+    vptr4 = ((hulk_intptr)DAT_0042afa8);
+    ref = *(int*)((hulk_intptr)((char*)&DAT_004cdbb0));
     InitBase();
-    vptr = ((int)DAT_0042b688);
-    vptr4 = ((int)DAT_0042b680);
+    vptr = ((hulk_intptr)DAT_0042b688);
+    vptr4 = ((hulk_intptr)DAT_0042b680);
     enabled = 1;
     a = 0;
     b = 0;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vtable_32ba30;
 class d3dLightMapShader_32ba30 {
   public:
@@ -20,6 +21,6 @@ d3dLightMapShader_32ba30* d3dLightMapShader_32ba30::Target(int arg) {
     d = 0;
     e = 0;
     f = 0;
-    *(int*)this = (int)&vtable_32ba30;
+    *(hulk_intptr*)this = (hulk_intptr)&vtable_32ba30;
     return this;
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042e340[];
 class ExpressionGroupLoader {
   public:
@@ -13,5 +14,5 @@ ExpressionGroupLoader::ExpressionGroupLoader() {
     b = 0x21001;
     c = 0;
     d = 0;
-    vf = ((int)DAT_0042e340);
+    vf = ((hulk_intptr)DAT_0042e340);
 }

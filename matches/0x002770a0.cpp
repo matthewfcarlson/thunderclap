@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 
 struct Drive {
@@ -70,9 +71,9 @@ InstanceDrive* InstanceDrive::vfunc_2(unsigned char flag) {
     drive->v1();
     *(void**)this = &vtref;
     if (flag & 1) {
-        f850((void*)((int)DAT_0052a208));
+        f850((void*)((hulk_intptr)DAT_0052a208));
         g_obj_2770a0->x4(this);
-        f840((void*)((int)DAT_0052a208));
+        f840((void*)((hulk_intptr)DAT_0052a208));
     }
     return this;
 }

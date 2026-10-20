@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_2e59b0;
 class Obj_2e59b0 {
   public:
@@ -14,7 +15,7 @@ u32_2e59b0 __cdecl target(u32_2e59b0 p, u32_2e59b0 count, u32_2e59b0 arg) {
             q = (Obj_2e59b0*)((char*)q + 12);
             i--;
         } while (i != 0);
-        return (u32_2e59b0)q;
+        return (hulk_uintptr)q;
     }
     return p;
 }

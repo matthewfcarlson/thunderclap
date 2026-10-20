@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042e9bc[];
 typedef unsigned int u32_2bf100;
 struct Ctor_0027b070 {
@@ -17,7 +18,7 @@ ImageFont::ImageFont() : Ctor_0027b070() {
     c = 0;
     d = 0;
     e = 0;
-    vt = ((int)DAT_0042e9bc);
+    vt = ((hulk_intptr)DAT_0042e9bc);
     f = -1;
     g = 0;
     h = 0;

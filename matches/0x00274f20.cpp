@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042ba00[];
 class FileOpenRequest {
   public:
@@ -11,7 +12,7 @@ class FileOpenRequest {
 extern void post();
 FileOpenRequest* FileOpenRequest::target(int a, int b, unsigned char c) {
     init(a);
-    v = ((int)DAT_0042ba00);
+    v = ((hulk_intptr)DAT_0042ba00);
     field = b;
     flag = c;
     post();

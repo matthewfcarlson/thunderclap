@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/platform/xbox/pure3d.h"
 
 class Dev_32a2d0 {
@@ -22,10 +23,10 @@ class Obj_32a2d0 {
 extern void __fastcall D3DDevice_SetRenderState_Simple(const char*, int);
 extern int global_32a2d0;
 void __fastcall FUN_0032a2d0(Obj_32a2d0* self) {
-    int x = self->value;
+    hulk_intptr x = self->value;
     if (x != self->dev->state) {
         self->dev->state = x;
-        int v = (*(int*)(((int)((char*)&DAT_004d4f24)) + x * 4));
+        int v = (*(int*)(((hulk_intptr)((char*)&DAT_004d4f24)) + x * 4));
         D3DDevice_SetRenderState_Simple((const char*)0x4037c, v);
         global_32a2d0 = v;
     }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042d90c[];
 class Calls {
   public:
@@ -14,7 +15,7 @@ class DrawableContainer {
 };
 void* DrawableContainer::Init(unsigned int arg) {
     ((Calls*)this)->Base();
-    vftable = (void*)((int)DAT_0042d90c);
+    vftable = (void*)((hulk_intptr)DAT_0042d90c);
     half = 0x3f000000;
     ((Calls*)((char*)this + 0x48))->Second(arg, &arg);
     owner = this;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 void __fastcall cleanup(void*);
 class X_2d0c80 {
   public:
@@ -7,7 +8,7 @@ class X_2d0c80 {
     void target();
 };
 void X_2d0c80::target() {
-    unsigned int n = ((char*)end - (char*)begin) >> 2;
+    hulk_uintptr n = ((char*)end - (char*)begin) >> 2;
     for (unsigned int i = 0; i < n; ++i) {
         void* p = begin[i];
         if (p)

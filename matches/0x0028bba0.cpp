@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 namespace pure3d {
 typedef void(__fastcall* Callback_28bba0)(void*);
 extern void __fastcall ElemCtor(void*);
@@ -26,9 +27,9 @@ Float2Channel::Float2Channel(int x, int y) : Base_28bba0(x, y) {
     if (mc == 0) {
         int n = m10;
         void* p = Alloc(n * 8);
-        m18 = (int)(p ? (VecNew(p, 8, n, ElemCtor), p) : 0);
+        m18 = (hulk_intptr)(p ? (VecNew(p, 8, n, ElemCtor), p) : 0);
         return;
     }
-    m18 = (int)mc->Make(m10 << 3, 3);
+    m18 = (hulk_intptr)mc->Make(m10 << 3, 3);
 }
 } // namespace pure3d

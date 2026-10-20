@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00431394[];
 class PhysicsPropertiesLoader {
   public:
@@ -13,5 +14,5 @@ PhysicsPropertiesLoader::PhysicsPropertiesLoader() {
     b = 0x07011010;
     c = 0;
     d = 0;
-    vptr = ((int)DAT_00431394);
+    vptr = ((hulk_intptr)DAT_00431394);
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042c694[];
 class SimpleFrameController {
   public:
@@ -16,7 +17,7 @@ SimpleFrameController* __fastcall FUN_00284cd0(SimpleFrameController* p) {
     *(int*)(p->pad + 0x34) = 0;
     *(int*)(p->pad + 0x3c) = 0;
     *(int*)(p->pad + 0x18) = 0x3f800000;
-    *(int*)p = ((int)DAT_0042c694);
+    *(hulk_intptr*)p = ((hulk_intptr)DAT_0042c694);
     *(int*)(p->pad + 0x28) = 0x7f7fffff;
     p->pad[0x38] = 1;
     return p;

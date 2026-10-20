@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_293910;
 struct CameraAnimationController {
     virtual void f0();
@@ -42,7 +43,7 @@ CameraAnimationController* CameraAnimationController::f4() {
     CameraAnimationController* p = (CameraAnimationController*)alloc(0x118);
     if (p) {
         p->init(this);
-        *(u32_293910*)p = (u32_293910)&camera_vtable_293910;
+        *(hulk_uintptr*)p = (hulk_uintptr)&camera_vtable_293910;
         p->field110 = 0xffffffff;
         p->field114 = 0;
         p->finish(field114);

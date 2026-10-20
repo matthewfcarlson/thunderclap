@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042ed30[];
 struct Caller_2c3230 {
     virtual void a();
@@ -21,7 +22,7 @@ void target(Caller_2c3230* p) {
     unsigned int one = 1;
     if ((((unsigned char)g_flag_2c3230) & one) == 0) {
         g_flag_2c3230 |= one;
-        g_slot_2c3230 = ((int)DAT_0042ed30);
+        g_slot_2c3230 = ((hulk_intptr)DAT_0042ed30);
     }
     p->n((void*)&g_slot_2c3230);
 }

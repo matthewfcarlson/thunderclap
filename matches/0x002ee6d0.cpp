@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Item_2ee6d0 {
   public:
     virtual void Execute();
@@ -14,7 +15,7 @@ void Container_2ee6d0::Add(Item_2ee6d0* item) {
     if (p < end) {
         current = p + 1;
         if (p != 0)
-            *p = (unsigned int)item;
+            *p = (hulk_uintptr)item;
     }
     item->Execute();
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042e5b4[];
 struct RelObj_2b6eb0 {
     virtual void vfunc_0();
@@ -20,7 +21,7 @@ class ShadowMeshImpl {
 };
 
 ShadowMeshImpl* ShadowMeshImpl::vfunc_2(unsigned char flags) {
-    m_vptr = (void*)((int)DAT_0042e5b4);
+    m_vptr = (void*)((hulk_intptr)DAT_0042e5b4);
     RelObj_2b6eb0* a = m_a;
     if (a != 0) {
         a->Release();

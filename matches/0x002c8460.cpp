@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042efb0[];
 class VertexOffsetList {
   public:
@@ -11,7 +12,7 @@ class VertexOffsetList {
 
 VertexOffsetList::VertexOffsetList(int value) {
     a1 = 0;
-    vptr = (void*)((int)DAT_0042efb0);
+    vptr = (void*)((hulk_intptr)DAT_0042efb0);
     a2 = 0;
     a3 = value;
     a4 = 0;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
 extern char VT_306c00[];
 class CollisionSphere {
@@ -37,5 +38,5 @@ CollisionSphere::CollisionSphere() {
     j = 0;
     k = 0;
     l = 0x3f800000;
-    vptr = (int)VT_306c00;
+    vptr = (hulk_intptr)VT_306c00;
 }

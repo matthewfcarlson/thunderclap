@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042d750[];
 extern "C" void _ReadWriteBarrier();
 typedef unsigned int u32_2a21c0;
@@ -11,7 +12,7 @@ struct TranslucentTraversal {
     u32_2a21c0 mTen;
 };
 void __fastcall FUN_002a21c0(TranslucentTraversal* self) {
-    *(volatile u32_2a21c0*)&self->vptr = ((int)DAT_0042d750);
+    *(volatile hulk_uintptr*)&self->vptr = ((hulk_intptr)DAT_0042d750);
     _ReadWriteBarrier();
     if (self->mTen)
         thunk_FUN_00267090(self->mTen);

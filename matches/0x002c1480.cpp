@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042eb44[];
 class LightLoader {
   public:
@@ -13,5 +14,5 @@ LightLoader::LightLoader() {
     b = 0x13000;
     c = 0;
     d = 0;
-    v = ((int)DAT_0042eb44);
+    v = ((hulk_intptr)DAT_0042eb44);
 }

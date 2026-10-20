@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042db8c[];
 class SceneGraphTransformAnimationController {
   public:
@@ -14,7 +15,7 @@ SceneGraphTransformAnimationController* SceneGraphTransformAnimationController::
     SceneGraphTransformAnimationController* p = (SceneGraphTransformAnimationController*)alloc(0x118);
     if (p) {
         p->copy(this);
-        p->vf = ((int)DAT_0042db8c);
+        p->vf = ((hulk_intptr)DAT_0042db8c);
         p->field = 0;
         p->initialize(1);
         p->field = field;

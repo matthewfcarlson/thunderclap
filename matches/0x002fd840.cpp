@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004318f4[];
 struct Base_2fd840 {
     virtual void a();
@@ -20,7 +21,7 @@ class Sim_2fd840 {
     void run();
 };
 void Sim_2fd840::run() {
-    vptr = (void*)((int)DAT_004318f4);
+    vptr = (void*)((hulk_intptr)DAT_004318f4);
     if (m8c)
         release((char*)m8c - 4);
     if (m70)

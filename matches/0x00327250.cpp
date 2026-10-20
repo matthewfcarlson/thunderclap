@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned char uchar;
 extern void* __stdcall D3DVertexBuffer_Lock2(void*, int);
 extern void __cdecl FUN_0031c230(int);
@@ -25,5 +26,5 @@ unsigned int d3dPrimBuffer::target(int arg) {
     void* p = D3DVertexBuffer_Lock2(buffer, 0);
     FUN_0031c230(0);
     locked = 1;
-    return (unsigned int)p;
+    return (hulk_uintptr)p;
 }

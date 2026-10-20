@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042e974[];
 class A_2beac0 {
@@ -24,7 +25,7 @@ class Sprite {
     void target();
 };
 void Sprite::target() {
-    vt = (void*)((int)DAT_0042e974);
+    vt = (void*)((hulk_intptr)DAT_0042e974);
     a->g();
     if (b)
         b->f(1);
@@ -33,5 +34,5 @@ void Sprite::target() {
         q->run();
         thunk(q);
     }
-    vt = (void*)((int)DAT_003f6098);
+    vt = (void*)((hulk_intptr)DAT_003f6098);
 }

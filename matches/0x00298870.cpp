@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Entry_298870 {
     char pad[8];
     void* p;
@@ -18,7 +19,7 @@ class Obj_298870 {
 void Obj_298870::Run() {
     unsigned char* c = &count;
     *c = 0;
-    unsigned int n = end - entries;
+    hulk_uintptr n = end - entries;
     for (unsigned int i = 0; i < n; ++i) {
         if (entries[i].p) {
             out[i] = count;

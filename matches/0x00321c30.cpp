@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/platform/xbox/pure3d.h"
 
 typedef unsigned int u32_321c30;
@@ -89,11 +90,11 @@ void __stdcall SetStencil(u32_321c30);
 void __fastcall SetSimple(u32_321c30, u32_321c30);
 void pure3d::d3dContext::vfunc_74(int a, int b, int c) {
     pddiBaseContext::vfunc_74(a, b, c);
-    SetStencil(*(u32_321c30*)(((int)((char*)&DAT_004d3a54)) + a * 4));
-    u32_321c30 x = *(u32_321c30*)(((int)((char*)&DAT_004d3a54)) + b * 4);
+    SetStencil(*(u32_321c30*)(((hulk_intptr)((char*)&DAT_004d3a54)) + a * 4));
+    u32_321c30 x = *(u32_321c30*)(((hulk_intptr)((char*)&DAT_004d3a54)) + b * 4);
     SetSimple(0x40374, x);
     *(u32_321c30*)0x39de20 = x;
-    u32_321c30 y = *(u32_321c30*)(((int)((char*)&DAT_004d3a54)) + c * 4);
+    u32_321c30 y = *(u32_321c30*)(((hulk_intptr)((char*)&DAT_004d3a54)) + c * 4);
     SetSimple(0x40378, y);
     *(u32_321c30*)0x39de24 = y;
 }

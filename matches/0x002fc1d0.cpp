@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0043186c[];
 class RootMatrixDriver {
   public:
@@ -13,5 +14,5 @@ class Base_2fc1d0 {
 RootMatrixDriver::RootMatrixDriver(int x) {
     ((Base_2fc1d0*)this)->Init();
     value = x;
-    vf = ((int)DAT_0043186c);
+    vf = ((hulk_intptr)DAT_0043186c);
 }

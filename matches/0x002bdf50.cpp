@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 extern "C" char DAT_0042e914[];
@@ -16,7 +17,7 @@ void* pure3d::SpriteObject::vfunc_4() {
     pure3d::SpriteObject* p = (pure3d::SpriteObject*)alloc(0x58);
     if (p) {
         ((Builder_2bdf50*)p)->init(this);
-        *(u32_2bdf50*)p = ((int)DAT_0042e914);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_0042e914);
         return (void*)(p);
     }
     return (void*)(0);

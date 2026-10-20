@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/platform/xbox/pure3d.h"
 
 extern "C" char DAT_004324a8[];
@@ -12,8 +13,8 @@ class Device_31ba30 {
     virtual Device_31ba30* f3(u8_31ba30);
 };
 Device_31ba30* Device_31ba30::f3(u8_31ba30 param) {
-    *(volatile int*)((int)DAT_005554a4) = 0;
-    *(void**)this = (void*)((int)DAT_004324a8);
+    *(volatile int*)((hulk_intptr)DAT_005554a4) = 0;
+    *(void**)this = (void*)((hulk_intptr)DAT_004324a8);
     InitDevice((void*)(this));
     if (param & 1)
         CleanupDevice(this);

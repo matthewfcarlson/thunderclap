@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b9bc[];
 class V {
@@ -25,10 +26,10 @@ class DriveRequest : public Request {
     void Cleanup();
 };
 void DriveRequest::Cleanup() {
-    *(int*)this = ((int)DAT_0042b9bc);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_0042b9bc);
     sub->obj.A();
     --sub->refs;
     sub->obj.B();
     sub->Y();
-    *(int*)this = ((int)DAT_0042b914);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_0042b914);
 }

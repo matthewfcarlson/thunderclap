@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 extern "C" char DAT_0042e764[];
@@ -30,7 +31,7 @@ void* pure3d::BillboardObject::vfunc_4() {
     Alloc_2b9660* p = (Alloc_2b9660*)thunk_FUN_0008d690(0x60);
     if (p) {
         p->init(this);
-        *(unsigned long*)p = ((int)DAT_0042e764);
+        *(hulk_ulongptr*)p = ((hulk_intptr)DAT_0042e764);
         *(unsigned long*)((char*)p + 0x58) = 0x3f800000;
         return (void*)(p);
     }

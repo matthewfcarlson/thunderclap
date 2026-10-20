@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned char u8_323ca0;
 namespace pure3d {
 extern int vt_d3d;
@@ -25,9 +26,9 @@ class d3dExtFrameBufferTexture : public pddiExtFrameBufferTexture, public pddiEx
     virtual void vfunc_2();
 };
 d3dExtFrameBufferTexture* d3dExtFrameBufferTexture::vfunc_0(u8_323ca0 param) {
-    *(int*)this = (int)&vt_d3d;
+    *(hulk_intptr*)this = (hulk_intptr)&vt_d3d;
     ((Helper_323ca0*)this)->call();
-    *(int*)this = (int)&vt_ext;
+    *(hulk_intptr*)this = (hulk_intptr)&vt_ext;
     if (param & 1)
         thunk_FUN_00267090((Helper_323ca0*)this);
     return this;

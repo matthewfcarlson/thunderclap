@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct V {
     virtual void x0();
     virtual void x1();
@@ -30,5 +31,5 @@ extern G_293c80 glob_293c80;
 void T_293c80::f(int a, int b, int c) {
     glob_293c80.a();
     glob_293c80.b(a, b, c);
-    p->x17(0, (int)&glob_293c80);
+    p->x17(0, (hulk_intptr)&glob_293c80);
 }

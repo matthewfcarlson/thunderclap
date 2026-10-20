@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042d3bc[];
 typedef unsigned int u32_297460;
 struct Base_297460 {
@@ -16,7 +17,7 @@ struct TransformNode {
 };
 TransformNode* TransformNode::Init(u32_297460 arg) {
     ((Base_297460*)this)->Init(arg);
-    *(u32_297460*)this = ((int)DAT_0042d3bc);
+    *(hulk_uintptr*)this = ((hulk_intptr)DAT_0042d3bc);
     field = 0;
     a.Init();
     b.Init();

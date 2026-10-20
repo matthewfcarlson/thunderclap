@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/movie.h"
 
 struct Element_3371e0 {
@@ -9,7 +10,7 @@ struct Obj_3371e0 {
     void run();
 };
 void Obj_3371e0::run() {
-    *(void**)this = (void*)((int)((char*)&DAT_00434318));
+    *(void**)this = (void*)((hulk_intptr)((char*)&DAT_00434318));
     Element_3371e0* p = (Element_3371e0*)((char*)this + 0x288);
     int i = 0x18;
     do {

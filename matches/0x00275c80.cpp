@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042bc80[];
 class DriveCancelRequest {
   public:
@@ -8,6 +9,6 @@ class DriveCancelRequest {
 extern void Helper();
 DriveCancelRequest::DriveCancelRequest(int arg) {
     Init(arg);
-    value = ((int)DAT_0042bc80);
+    value = ((hulk_intptr)DAT_0042bc80);
     Helper();
 }

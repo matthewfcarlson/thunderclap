@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vtable_3103e0;
 class Obj_3103e0 {
   public:
@@ -19,7 +20,7 @@ class ArticulatedPhysicsObject {
     void Tail();
 };
 void ArticulatedPhysicsObject::Destroy() {
-    *(int*)this = (int)&vtable_3103e0;
+    *(hulk_intptr*)this = (hulk_intptr)&vtable_3103e0;
     if (at220)
         at220->Release();
     if (at208)

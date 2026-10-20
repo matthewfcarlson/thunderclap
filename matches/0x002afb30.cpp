@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042e30c[];
 class Expression {
   public:
@@ -10,6 +11,6 @@ Expression* __fastcall FUN_002afb30(Expression* self) {
     self->Init();
     self->a = 0;
     self->b = 0;
-    *(int*)self = ((int)DAT_0042e30c);
+    *(hulk_intptr*)self = ((hulk_intptr)DAT_0042e30c);
     return self;
 }

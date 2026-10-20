@@ -1,4 +1,5 @@
 // Same code shape as 0x00273730 (propagated; names are from that function)
+#include "compat/ptr.h"
 class CompletionCallbackRequest {
   public:
     char pad[12];
@@ -16,5 +17,5 @@ class DriveCompletionRequest_2737d0 : public CompletionCallbackRequest, public R
     virtual void vfunc_7();
 };
 int DriveCompletionRequest_2737d0::vfunc_3() {
-    return *(int*)(*(int*)((char*)this + 0xc) + 0xc);
+    return *(int*)(*(hulk_intptr*)((char*)this + 0xc) + 0xc);
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042ebe8[];
 class CameraLoader {
   public:
@@ -13,5 +14,5 @@ CameraLoader::CameraLoader() {
     b = 0x2200;
     c = 0;
     d = 0;
-    vf = (void*)((int)DAT_0042ebe8);
+    vf = (void*)((hulk_intptr)DAT_0042ebe8);
 }

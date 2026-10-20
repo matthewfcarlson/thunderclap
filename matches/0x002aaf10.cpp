@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vtLoader;
 extern int vtRef_2aaf10;
 class Ref_2aaf10 {
@@ -14,7 +15,7 @@ class Loader_2aaf10 {
 };
 void Loader_2aaf10::Destroy() {
     unsigned int i = 0;
-    *(int*)this = (int)&vtLoader;
+    *(hulk_intptr*)this = (hulk_intptr)&vtLoader;
     while (i < count) {
         if (items[i]) {
             items[i]->Release();
@@ -26,5 +27,5 @@ void Loader_2aaf10::Destroy() {
         items[8]->Release();
         items[8] = 0;
     }
-    *(int*)this = (int)&vtRef_2aaf10;
+    *(hulk_intptr*)this = (hulk_intptr)&vtRef_2aaf10;
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042afa8[];
 extern "C" char DAT_0042bf6c[];
 extern "C" char DAT_004342e8[];
@@ -16,12 +17,12 @@ void CreateCallback(unsigned int arg) {
     gStored = arg;
     Callback_3351a0* p = (Callback_3351a0*)Allocate((void*)arg, 0x10);
     if (p) {
-        p->vtable = ((int)DAT_0042afa8);
+        p->vtable = ((hulk_intptr)DAT_0042afa8);
         p->arg = gStored;
         Init();
-        *(volatile unsigned int*)&p->subVtable = ((int)DAT_0042bf6c);
-        p->vtable = ((int)DAT_004342fc);
-        p->subVtable = ((int)DAT_004342e8);
+        *(volatile hulk_uintptr*)&p->subVtable = ((hulk_intptr)DAT_0042bf6c);
+        p->vtable = ((hulk_intptr)DAT_004342fc);
+        p->subVtable = ((hulk_intptr)DAT_004342e8);
         p->field = 0;
         gResult_3351a0 = p;
     } else

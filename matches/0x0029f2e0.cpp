@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Item_29f2e0 {
   public:
     virtual void f0();
@@ -41,5 +42,5 @@ int Obj_29f2e0::run() {
             ++i;
         } while (i < n);
     }
-    return (int)list;
+    return (hulk_intptr)list;
 }

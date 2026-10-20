@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042e8d8[];
 struct Thing_2bd430 {
     virtual void A();
@@ -15,7 +16,7 @@ struct Sprite {
 };
 extern void Free(void*);
 void Sprite::Destroy() {
-    vf = (void*)((int)DAT_0042e8d8);
+    vf = (void*)((hulk_intptr)DAT_0042e8d8);
     p4c->B();
     for (int i = 0; i < count; ++i)
         items[i]->B();

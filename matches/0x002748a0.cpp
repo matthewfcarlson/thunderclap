@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/core.h"
 
 class Obj_2748a0 {
@@ -42,7 +43,7 @@ struct Drive_2748a0 {
 int core::DriveFindNextRequest::vfunc_1() {
     Obj_2748a0* o = (*(Drive_2748a0 * *)&this->f_08)->obj;
     int r = o->call19((char*)(*(Drive_2748a0 * *)&this->f_08) + 0x1c, this->f_0c);
-    int v = (int)o->Fetch();
+    hulk_intptr v = (hulk_intptr)o->Fetch();
     (*(Drive_2748a0 * *)&this->f_08)->sub.a();
     (*(Drive_2748a0 * *)&this->f_08)->result = v;
     (*(Drive_2748a0 * *)&this->f_08)->sub.b();

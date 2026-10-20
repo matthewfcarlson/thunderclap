@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 extern "C" char DAT_00433cac[];
 class Obj_32ef10 {
@@ -18,7 +19,7 @@ class Target_32ef10 {
 };
 void Target_32ef10::F() {
     Obj_32ef10* x = a;
-    *(int*)this = ((int)DAT_00433cac);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00433cac);
     if (x)
         x->B();
     Obj_32ef10* y = b;

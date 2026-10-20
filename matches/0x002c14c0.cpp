@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int gVtable_2c14c0;
 class LightGroupLoader {
   public:
@@ -13,5 +14,5 @@ LightGroupLoader::LightGroupLoader() {
     b = 0x2380;
     c = 0;
     d = 0;
-    vf = (int)&gVtable_2c14c0;
+    vf = (hulk_intptr)&gVtable_2c14c0;
 }

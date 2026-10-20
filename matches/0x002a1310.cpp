@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vftable_2a1310;
 class Sub_2a1310 {
   public:
@@ -11,5 +12,5 @@ class Obj_2a1310 {
 };
 void Obj_2a1310::Init() {
     sub.Init();
-    *(int*)this = (int)&vftable_2a1310;
+    *(hulk_intptr*)this = (hulk_intptr)&vftable_2a1310;
 }

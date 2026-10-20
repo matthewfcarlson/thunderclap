@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef void(__fastcall* Callback_28be20)(void*);
 extern void __fastcall ElemCtor(void*);
 extern void* Alloc(unsigned int);
@@ -36,8 +37,8 @@ V2_28be20::V2_28be20(int x, int y) : Base_28be20(x, y) {
     if (mc == 0) {
         int n = m10;
         void* p = Alloc(n * 8);
-        m28 = (int)(p ? (VecNew(p, 8, n, ElemCtor), p) : 0);
+        m28 = (hulk_intptr)(p ? (VecNew(p, 8, n, ElemCtor), p) : 0);
         return;
     }
-    m28 = (int)mc->Make(m10 << 3, 3);
+    m28 = (hulk_intptr)mc->Make(m10 << 3, 3);
 }

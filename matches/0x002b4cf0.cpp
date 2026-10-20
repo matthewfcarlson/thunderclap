@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042e584[];
 class ShadowMeshBufferImpl {
   public:
@@ -9,7 +10,7 @@ struct ThisCall_002a5060 {
 };
 ShadowMeshBufferImpl* ShadowMeshBufferImpl::InitSelf() {
     ((ThisCall_002a5060*)(this))->Init();
-    *(int*)this = ((int)DAT_0042e584);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_0042e584);
     *(int*)((char*)this + 0x40) = 0;
     *(int*)((char*)this + 0x10) = 2;
     return this;

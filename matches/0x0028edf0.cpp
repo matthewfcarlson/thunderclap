@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042cb44[];
 class Obj_28edf0 {
   public:
@@ -34,7 +35,7 @@ struct ThisCall_0027b070 {
 };
 Shader* Shader::Ctor(int a, int b) {
     ((ThisCall_0027b070*)(this))->BaseInit();
-    vft = ((int)DAT_0042cb44);
+    vft = ((hulk_intptr)DAT_0042cb44);
     flag = 0;
     field18 = 0;
     Obj_28edf0* p = gFactory_28edf0->Get(a, b);

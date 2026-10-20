@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Thing_337680 {
   public:
     char pad0[4];
@@ -20,5 +21,5 @@ int Thing_337680::Target(int arg) {
     }
     ((Thing_337680*)((char*)this + i * 0x288 + 8))->Init(arg);
     count++;
-    return (int)((char*)this + i * 0x288 + 8);
+    return (hulk_intptr)((char*)this + i * 0x288 + 8);
 }

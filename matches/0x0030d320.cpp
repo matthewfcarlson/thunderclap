@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Sub_30d320 {
     void Destruct();
 };
@@ -25,7 +26,7 @@ void* PhysicsJoint::vfunc_0(int flags) {
     vptr = (void*)DAT_00431de4;
     p->Destruct();
     m48.Destruct();
-    int v = m20;
+    hulk_intptr v = m20;
     m24 = v;
     if (v)
         FreeBuf((void*)v);

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042e634[];
 class ShadowSkinLoader {
   public:
@@ -13,5 +14,5 @@ ShadowSkinLoader::ShadowSkinLoader() {
     b = 0x10019;
     c = 0;
     d = 0;
-    v = ((int)DAT_0042e634);
+    v = ((hulk_intptr)DAT_0042e634);
 }

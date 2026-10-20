@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_299830[];
 extern void* g_base_vftable[];
@@ -23,7 +24,7 @@ class Obj_299830 {
 Obj_299830::~Obj_299830() {
     vptr = g_vftable_299830;
     _ReadWriteBarrier();
-    unsigned n = m28 - m24;
+    hulk_uintptr n = m28 - m24;
     for (unsigned i = 0; i < n; i++) {
         Ref_299830** p = &m24[i];
         if (*p) {

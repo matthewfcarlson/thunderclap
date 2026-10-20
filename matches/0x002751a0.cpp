@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042ba80[];
 class FileCommitRequest {
   public:
@@ -8,6 +9,6 @@ class FileCommitRequest {
 extern void __stdcall Finish();
 FileCommitRequest::FileCommitRequest(int a) {
     Init(a);
-    vt = ((int)DAT_0042ba80);
+    vt = ((hulk_intptr)DAT_0042ba80);
     Finish();
 }

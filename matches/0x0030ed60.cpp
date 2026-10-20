@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Node {
   public:
     char pad0[12];
@@ -24,7 +25,7 @@ void Owner::Traverse() {
             if (n > 0) {
                 do {
                     unsigned __int64 r = p->children[j]->Step();
-                    p = (Node*)(unsigned int)(r >> 32);
+                    p = (Node*)(hulk_uintptr)(r >> 32);
                     ++j;
                 } while (j < p->count);
             }

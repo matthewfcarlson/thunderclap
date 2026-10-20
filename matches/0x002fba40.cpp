@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004317dc[];
 typedef unsigned char byte_2fba40;
 class H1 {
@@ -56,7 +57,7 @@ class CollisionOBB : public CollisionVolume {
 void cleanup(physics::CollisionOBB*);
 physics::CollisionOBB* physics::CollisionOBB::vfunc_2(byte_2fba40 flag) {
     CollisionOBB* self = this;
-    *(unsigned long*)self = ((int)DAT_004317dc);
+    *(hulk_ulongptr*)self = ((hulk_intptr)DAT_004317dc);
     ((H1*)((char*)self + 0x7c))->f();
     ((H2_2fba40*)((char*)self + 0x3c))->f();
     ((H3_2fba40*)self)->f();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void __cdecl freeItem(void*);
 struct Pair {
     int a, b;
@@ -8,7 +9,7 @@ void FUN_00363d50() {
     int n = 13;
     do {
         --p;
-        int v = p[0].a;
+        hulk_intptr v = p[0].a;
         if (v) {
             freeItem((void*)v);
             p[-1].b = 0;

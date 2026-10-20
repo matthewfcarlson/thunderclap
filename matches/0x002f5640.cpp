@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004315dc[];
 class Big_2f5640 {
   public:
@@ -19,7 +20,7 @@ class PhysicsObject {
     void Setup();
 };
 void PhysicsObject::Setup() {
-    vt = (void*)((int)DAT_004315dc);
+    vt = (void*)((hulk_intptr)DAT_004315dc);
     ((Big_2f5640*)((char*)this + 0x168))->Init();
     ((Small_2f5640*)((char*)this + 0x114))->Init();
     ((Small_2f5640*)((char*)this + 0xf8))->Init();

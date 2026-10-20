@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042eb0c[];
 class Sub_2c0c40 {
   public:
@@ -19,12 +20,12 @@ void* __fastcall FUN_002c0c40(ImageLoader* p) {
     p->b = 0x19001;
     p->c = 0;
     p->d = 0;
-    p->v = (void*)((int)DAT_0042eb0c);
+    p->v = (void*)((hulk_intptr)DAT_0042eb0c);
     p->f = 0x20;
     Sub_2c0c40* s = (Sub_2c0c40*)alloc(0xa4);
-    int r;
+    hulk_intptr r;
     if (s)
-        r = (int)s->Init();
+        r = (hulk_intptr)s->Init();
     else
         r = 0;
     p->e = r;

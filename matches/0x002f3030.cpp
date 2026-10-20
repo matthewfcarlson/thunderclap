@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned char u8_2f3030;
 extern int vtable_2f3030;
 struct Part_2f3030 {
@@ -27,7 +28,7 @@ struct CollisionCylinder {
 } // namespace physics
 void cleanup(physics::CollisionCylinder*);
 physics::CollisionCylinder* physics::CollisionCylinder::vfunc_2(u8_2f3030 flag) {
-    *(int*)this = (int)&vtable_2f3030;
+    *(hulk_intptr*)this = (hulk_intptr)&vtable_2f3030;
     ((Part_2f3030*)((char*)this + 0x64))->init();
     ((Part_2f3030*)((char*)this + 0x38))->init();
     base();

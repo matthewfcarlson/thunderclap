@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/movie.h"
 
 class Ref_337890 {
@@ -12,7 +13,7 @@ class Obj_337890 {
     void Go();
 };
 void Obj_337890::Go() {
-    a = ((int)((char*)&DAT_00434578));
+    a = ((hulk_intptr)((char*)&DAT_00434578));
     if (member)
         member->F(1);
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class A_2fe420 {
   public:
     virtual void f0();
@@ -29,7 +30,7 @@ void C_2fe420::Run(int x) {
         int* result = (int*)a->Get(x);
         if (b && b->state == 2) {
             int n = a->count;
-            for (int i = 0; i < n; ++i)
+            for (hulk_intptr i = 0; i < n; ++i)
                 b->Apply(i, *(unsigned char*)(result[2] + i));
         }
     }

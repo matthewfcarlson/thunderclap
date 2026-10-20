@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct Child_2a4350 {
@@ -34,10 +35,10 @@ struct Group_2a4350 {
 };
 
 void pure3d::DrawableContainer::vfunc_9() {
-    unsigned n = (*(Group_2a4350 * *)&this->f_4c) - (*(Group_2a4350 * *)&this->f_48);
+    hulk_uintptr n = (*(Group_2a4350 * *)&this->f_4c) - (*(Group_2a4350 * *)&this->f_48);
     for (unsigned i = 0; i < n; i++) {
         Group_2a4350* g = &(*(Group_2a4350 * *)&this->f_48)[i];
-        unsigned m = g->end - g->begin;
+        hulk_uintptr m = g->end - g->begin;
         for (unsigned j = 0; j < m; j++) {
             Child_2a4350* c = g->begin[j];
             if (c)

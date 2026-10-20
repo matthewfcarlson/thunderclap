@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 class Manager_2df540 {
@@ -40,5 +41,5 @@ extern Manager_2df540* gManager_2df540;
 
 void pure3d::PrimGroupOptimized::vfunc_6() {
     int a = (*(void * *)&this->f_40) ? *(int*)((char*)(*(void * *)&this->f_40) + 0x10) : 0;
-    gManager_2df540->f32(a, (int)(*(void * *)&this->f_58));
+    gManager_2df540->f32(a, (hulk_intptr)(*(void * *)&this->f_58));
 }

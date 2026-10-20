@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042ebb0[];
 class LocatorLoader {
   public:
@@ -13,5 +14,5 @@ LocatorLoader::LocatorLoader() {
     b = 0x14000;
     c = 0;
     d = 0;
-    vptr = ((int)DAT_0042ebb0);
+    vptr = ((hulk_intptr)DAT_0042ebb0);
 }

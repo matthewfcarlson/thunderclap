@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 void FUN_00304370(int, int, int);
 struct Thing_304500 {
     int* a;
@@ -6,5 +7,5 @@ struct Thing_304500 {
 void __fastcall FUN_00304500(Thing_304500* p) {
     int* s = p->b;
     int* d = p->a;
-    FUN_00304370((int)d, (int)s, (int)(((char*)s - (char*)d) / 0x44));
+    FUN_00304370((hulk_intptr)d, (hulk_intptr)s, (int)(((char*)s - (char*)d) / 0x44));
 }

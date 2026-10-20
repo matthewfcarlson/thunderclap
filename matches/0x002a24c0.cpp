@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 void __cdecl operator delete(void*);
 void __cdecl operator delete[](void*);
 extern const int TranslucentTraversal_vftable;
@@ -24,12 +25,12 @@ class TranslucentTraversal {
 
 void* TranslucentTraversal::vfunc_2(unsigned char param) {
     volatile int* v = (volatile int*)this;
-    *v = (int)&TranslucentTraversal_vftable;
-    void* p28 = (void*)*(volatile int*)((char*)v + 0x28);
+    *v = (hulk_intptr)&TranslucentTraversal_vftable;
+    void* p28 = (void*)*(volatile hulk_intptr*)((char*)v + 0x28);
     if (p28 != 0) {
         operator delete[](p28);
     }
-    void* p1c = (void*)*(volatile int*)((char*)v + 0x1c);
+    void* p1c = (void*)*(volatile hulk_intptr*)((char*)v + 0x1c);
     if (p1c != 0) {
         operator delete[](p1c);
     }

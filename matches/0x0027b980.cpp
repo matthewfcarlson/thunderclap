@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042c1cc[];
 class SkeletonLoader {
   public:
@@ -14,6 +15,6 @@ SkeletonLoader::SkeletonLoader() {
     b = 0x23000;
     c = 0;
     d = 0;
-    vf = (void*)((int)DAT_0042c1cc);
+    vf = (void*)((hulk_intptr)DAT_0042c1cc);
     e = 1;
 }

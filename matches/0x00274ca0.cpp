@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b954[];
 extern "C" char DAT_0042b9dc[];
@@ -29,13 +30,13 @@ class FileCompletionRequest {
     FileCompletionRequest(int x, Obj_274ca0* y, Target_274ca0* z, int w);
 };
 FileCompletionRequest::FileCompletionRequest(int x, Obj_274ca0* y, Target_274ca0* z, int w) {
-    v = ((int)DAT_0042b914);
+    v = ((hulk_intptr)DAT_0042b914);
     a = 0;
     init();
-    v = ((int)DAT_0042b9dc);
+    v = ((hulk_intptr)DAT_0042b9dc);
     b = x;
     init();
-    v = ((int)DAT_0042b954);
+    v = ((hulk_intptr)DAT_0042b954);
     c = y;
     d = z;
     e = w;

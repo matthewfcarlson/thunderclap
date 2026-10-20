@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042d548[];
 typedef unsigned int u32_29b1d0;
 struct Base_29b1d0 {
@@ -15,7 +16,7 @@ struct Obj_29b1d0 {
 void cleanup(u32_29b1d0);
 void __fastcall finish(Obj_29b1d0*);
 void __fastcall target(Obj_29b1d0* self) {
-    *(u32_29b1d0*)self = ((int)DAT_0042d548);
+    *(hulk_uintptr*)self = ((hulk_intptr)DAT_0042d548);
     if (self->flag)
         cleanup(self->value);
     self->base->release();

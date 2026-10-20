@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
 extern int anim_vt;
 class Base_2889b0 {
@@ -27,7 +28,7 @@ Animation::Animation() : Base_2889b0() {
     x1c[5] = 0;
     x1c[6] = 0;
     x1c[7] = 0;
-    *((int*)this) = (int)&anim_vt;
+    *((hulk_intptr*)this) = (hulk_intptr)&anim_vt;
     _ReadWriteBarrier();
     x14 = 30.0f;
 }

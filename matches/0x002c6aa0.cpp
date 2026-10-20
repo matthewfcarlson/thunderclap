@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042ef74[];
 extern "C" void _ReadWriteBarrier();
@@ -14,11 +15,11 @@ class DisplayTraversal {
     void Fn();
 };
 void DisplayTraversal::Fn() {
-    vptr = (volatile int*)((int)DAT_0042ef74);
+    vptr = (volatile int*)((hulk_intptr)DAT_0042ef74);
     _ReadWriteBarrier();
     if (mRef) {
         mRef->Release();
         mRef = 0;
     }
-    vptr = (volatile int*)((int)DAT_003f6098);
+    vptr = (volatile int*)((hulk_intptr)DAT_003f6098);
 }

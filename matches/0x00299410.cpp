@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042d4d4[];
 class CompositeDrawableLoader {
   public:
@@ -13,5 +14,5 @@ CompositeDrawableLoader::CompositeDrawableLoader() {
     c = 0x123000;
     d = 0;
     e = 0;
-    a = ((int)DAT_0042d4d4);
+    a = ((hulk_intptr)DAT_0042d4d4);
 }

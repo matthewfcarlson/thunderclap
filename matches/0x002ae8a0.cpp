@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" int __cdecl _stricmp(const char*, const char*);
 extern "C" unsigned int __cdecl strlen(const char*);
 namespace pure3d {
@@ -14,8 +15,8 @@ class ImageHandler {
 };
 unsigned char ImageHandler::vfunc_7(const char* name) {
     const char* ext = f6();
-    int n = strlen(name);
-    int m = strlen(ext);
+    hulk_intptr n = strlen(name);
+    hulk_intptr m = strlen(ext);
     if (n < m)
         return 0;
     return _stricmp(ext, name + n - m) == 0;

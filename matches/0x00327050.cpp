@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00433424[];
 extern "C" char DAT_004334b4[];
 void Cleanup(void*);
@@ -12,7 +13,7 @@ class PrimBuffer {
     void Destroy();
 };
 void PrimBuffer::Destroy() {
-    *(int*)this = ((int)DAT_004334b4);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_004334b4);
     if (a) {
         Cleanup(a);
         Release(a);
@@ -21,6 +22,6 @@ void PrimBuffer::Destroy() {
         Cleanup(b);
         Release(b);
     }
-    *(int*)this = ((int)DAT_00433424);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00433424);
     BaseDestroy();
 }

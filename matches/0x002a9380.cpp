@@ -1,4 +1,5 @@
 // Same code shape as 0x00293910 (propagated; names are from that function)
+#include "compat/ptr.h"
 typedef unsigned int u32_2a9380;
 struct LightAnimationController_2a9380 {
     virtual void f0();
@@ -43,7 +44,7 @@ LightAnimationController_2a9380* LightAnimationController_2a9380::f4() {
     LightAnimationController_2a9380* p = (LightAnimationController_2a9380*)alloc(0x118);
     if (p) {
         p->init(this);
-        *(u32_2a9380*)p = (u32_2a9380)&camera_vtable_2a9380;
+        *(hulk_uintptr*)p = (hulk_uintptr)&camera_vtable_2a9380;
         p->field110 = 0xffffffff;
         p->field114 = 0;
         p->finish(field114);

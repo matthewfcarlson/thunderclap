@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042c514[];
 extern "C" void _ReadWriteBarrier();
 class Ref_2835e0 {
@@ -19,7 +20,7 @@ class CLightQueue {
 };
 void __fastcall FUN_0027afd0(CLightQueue*);
 void __fastcall FUN_002835e0(CLightQueue* self) {
-    self->vptr = (void*)((int)DAT_0042c514);
+    self->vptr = (void*)((hulk_intptr)DAT_0042c514);
     _ReadWriteBarrier();
     if (self->m2c) {
         self->m2c->Release();

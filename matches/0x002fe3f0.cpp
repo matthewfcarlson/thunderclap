@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004319a4[];
 struct Ref_2fe3f0 {
     virtual void a();
@@ -11,7 +12,7 @@ struct Obj_2fe3f0 {
 };
 extern void __fastcall FUN_002ef2c0(Obj_2fe3f0*);
 void Obj_2fe3f0::run() {
-    vptr = ((int)DAT_004319a4);
+    vptr = ((hulk_intptr)DAT_004319a4);
     Ref_2fe3f0* p = ptr;
     if (p) {
         p->release();

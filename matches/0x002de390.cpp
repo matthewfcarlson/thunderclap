@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class ImageConverter {
   public:
     virtual void f0();
@@ -34,5 +35,5 @@ int ImageConverter::f3(void** items, int count, void* a, void* b) {
     for (int i = 0; i < count; ++i)
         f6(items[i], n, i);
     obj->o(b);
-    return (int)a;
+    return (hulk_intptr)a;
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b99c[];
 // Same code shape as 0x002737f0 (propagated; names are from that function)
@@ -22,10 +23,10 @@ struct FileRequest_273b50 {
     void run();
 };
 void FileRequest_273b50::run() {
-    v = (void*)((int)DAT_0042b99c);
+    v = (void*)((hulk_intptr)DAT_0042b99c);
     p->sub.f();
     --p->ref;
     p->sub.g();
     ((V*)p)->g();
-    v = (void*)((int)DAT_0042b914);
+    v = (void*)((hulk_intptr)DAT_0042b914);
 }

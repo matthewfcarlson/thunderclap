@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b99c[];
 struct Sub_2737f0 {
@@ -21,10 +22,10 @@ struct FileRequest_2737f0 {
     void run();
 };
 void FileRequest_2737f0::run() {
-    v = (void*)((int)DAT_0042b99c);
+    v = (void*)((hulk_intptr)DAT_0042b99c);
     p->sub.f();
     --p->ref;
     p->sub.g();
     ((V*)p)->g();
-    v = (void*)((int)DAT_0042b914);
+    v = (void*)((hulk_intptr)DAT_0042b914);
 }

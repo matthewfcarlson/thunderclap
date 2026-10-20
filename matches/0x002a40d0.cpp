@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct Obj_2a40d0 {
@@ -17,10 +18,10 @@ struct Grp {
 };
 
 void pure3d::DrawableContainer::vfunc_6(int a, int b) {
-    unsigned n = (*(Grp * *)&this->f_4c) - (*(Grp * *)&this->f_48);
+    hulk_uintptr n = (*(Grp * *)&this->f_4c) - (*(Grp * *)&this->f_48);
     for (unsigned i = 0; i < n; i++) {
         Grp* g = &(*(Grp * *)&this->f_48)[i];
-        unsigned m = g->e - g->b;
+        hulk_uintptr m = g->e - g->b;
         for (unsigned j = 0; j < m; j++) {
             Obj_2a40d0* o = g->b[j];
             if (o)

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int viewvt, refvt;
 class IRefCount {
   public:
@@ -14,7 +15,7 @@ class View {
     void Cleanup();
 };
 void View::Cleanup() {
-    ((int*)this)[0] = (int)&viewvt;
+    ((hulk_intptr*)this)[0] = (hulk_intptr)&viewvt;
     if (mRef)
         mRef->Release();
     for (int i = 0; i < 32; i++) {
@@ -23,5 +24,5 @@ void View::Cleanup() {
             arr[i] = 0;
         }
     }
-    ((int*)this)[0] = (int)&refvt;
+    ((hulk_intptr*)this)[0] = (hulk_intptr)&refvt;
 }

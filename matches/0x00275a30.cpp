@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 
 extern int vtDrive, vtRequest;
@@ -30,16 +31,16 @@ namespace core { class DriveFindFirstRequest {
     Elem_275a30* object;
 }; }
 core::DriveFindFirstRequest* core::DriveFindFirstRequest::vfunc_0(int flag) {
-    ((int*)this)[0] = (int)&vtDrive;
+    ((hulk_intptr*)this)[0] = (hulk_intptr)&vtDrive;
     ((Elem_275a30*)((char*)object + 4))->A();
     --((int*)((char*)object))[5];
     ((Elem_275a30*)((char*)object + 4))->B();
     object->B();
-    ((int*)this)[0] = (int)&vtRequest;
+    ((hulk_intptr*)this)[0] = (hulk_intptr)&vtRequest;
     if (flag & 1) {
-        FUN_0026d850((void*)((int)((char*)&DAT_0052a1c8)));
+        FUN_0026d850((void*)((hulk_intptr)((char*)&DAT_0052a1c8)));
         globalG->e(this);
-        FUN_0026d840((void*)((int)((char*)&DAT_0052a1c8)));
+        FUN_0026d840((void*)((hulk_intptr)((char*)&DAT_0052a1c8)));
     }
     return this;
 }

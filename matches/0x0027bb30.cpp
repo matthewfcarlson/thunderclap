@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042c1b4[];
 typedef unsigned int u32_27bb30;
 struct Partition {
@@ -17,7 +18,7 @@ struct Source_27bb30 {
 Partition* f(Partition* out, int count, Source_27bb30* src) {
     while (count != 0) {
         if (out) {
-            out->vptr = ((int)DAT_0042c1b4);
+            out->vptr = ((hulk_intptr)DAT_0042c1b4);
             out->a = src->a;
             out->b = src->b;
             out->c = src->c;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042cca0[];
 class StatePropDataLoader {
   public:
@@ -13,5 +14,5 @@ StatePropDataLoader::StatePropDataLoader() {
     b = 0x802000a;
     c = 0;
     d = 0;
-    vptr = ((int)DAT_0042cca0);
+    vptr = ((hulk_intptr)DAT_0042cca0);
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Base_31b790 {
   public:
     Base_31b790();
@@ -9,5 +10,5 @@ class Device_31b790 {
     Device_31b790();
 };
 Device_31b790::Device_31b790() {
-    *(int*)this = (int)&device_vftable;
+    *(hulk_intptr*)this = (hulk_intptr)&device_vftable;
 }

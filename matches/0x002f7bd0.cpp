@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/physics.h"
 
 class C_2f7bd0 {
@@ -29,7 +30,7 @@ bool physics::ImpulseBasedCollisionSolver::vfunc_2(void* __p0, int a, int b, int
 
     bool r = true;
     if (o) {
-        if (!o->first(b, (int)((char*)this + 0x50), c, a, d, e)) {
+        if (!o->first(b, (hulk_intptr)((char*)this + 0x50), c, a, d, e)) {
             o->second(b, c, a, d, e);
             r = false;
         }

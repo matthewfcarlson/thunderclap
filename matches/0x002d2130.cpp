@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042f0a8[];
 class Entry_2d2130 {
   public:
@@ -14,7 +15,7 @@ class GeneratorBlendState {
 };
 GeneratorBlendState::GeneratorBlendState(int x) {
     a = 0;
-    vf = ((int)DAT_0042f0a8);
+    vf = ((hulk_intptr)DAT_0042f0a8);
     b = 0;
     c = 0;
     d = 0;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 extern "C" char DAT_004324e4[];
 typedef unsigned int u32_31ba00;
@@ -14,7 +15,7 @@ struct d3dDevice_nv_31ba00 {
 extern void FUN_00328130();
 Device_31ba00* Device_31ba00::Init(u32_31ba00 value) {
     ((d3dDevice_nv_31ba00*)(((pure3d::d3dDevice*)(this))))->FUN_0031bac0();
-    vftable = ((int)DAT_004324e4);
+    vftable = ((hulk_intptr)DAT_004324e4);
     field10 = value;
     fieldC = 0;
     FUN_00328130();

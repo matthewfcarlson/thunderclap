@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042c8b4[];
 typedef unsigned int u32_288890;
@@ -10,8 +11,8 @@ struct X_288890 {
     void target();
 };
 void X_288890::target() {
-    vf = ((int)DAT_0042c8b4);
+    vf = ((hulk_intptr)DAT_0042c8b4);
     thunk(a);
     thunk(b);
-    vf = ((int)DAT_003f6098);
+    vf = ((hulk_intptr)DAT_003f6098);
 }

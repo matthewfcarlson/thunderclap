@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042c48c[];
 typedef unsigned int u32_27f830;
 struct CMotionTrailQueue {
@@ -10,7 +11,7 @@ struct CMotionTrailQueue {
 extern void __cdecl thunk_FUN_00267090(u32_27f830);
 void CMotionTrailQueue::Finish() {
     u32_27f830 x = field5c;
-    vtable = ((int)DAT_0042c48c);
+    vtable = ((hulk_intptr)DAT_0042c48c);
     thunk_FUN_00267090(x);
     Run();
 }

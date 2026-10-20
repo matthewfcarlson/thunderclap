@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_32ffe0 {
   public:
     virtual void a();
@@ -18,7 +19,7 @@ class pure3d_d3dToon2VertexShader_32ffe0 {
 };
 void thunk_FUN_00267090(pure3d_d3dToon2VertexShader_32ffe0*);
 pure3d_d3dToon2VertexShader_32ffe0* pure3d_d3dToon2VertexShader_32ffe0::vfunc_3(unsigned char flag) {
-    *(volatile int*)this = (int)&vtable_32ffe0;
+    *(volatile hulk_intptr*)this = (hulk_intptr)&vtable_32ffe0;
     if (p88)
         p88->b();
     if (p80)

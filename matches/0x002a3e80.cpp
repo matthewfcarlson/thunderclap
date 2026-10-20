@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vftable_2a3e80;
 class RenderObjectLoader {
   public:
@@ -7,5 +8,5 @@ class RenderObjectLoader {
 };
 RenderObjectLoader::RenderObjectLoader() {
     mValue = 0;
-    *(int*)this = (int)&vftable_2a3e80;
+    *(hulk_intptr*)this = (hulk_intptr)&vftable_2a3e80;
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042d88c[];
 struct ThisCall_002a4e10 {
     void* FUN_002a4e10(void*);
@@ -22,7 +23,7 @@ class ParticleSystem {
 };
 ParticleSystem* ParticleSystem::Build(void* arg) {
     ((ThisCall_002a4e10*)(this))->FUN_002a4e10(arg);
-    vt = ((int)DAT_0042d88c);
+    vt = ((hulk_intptr)DAT_0042d88c);
     flag = 1;
     x = 100.0f;
     y = 30.0f;

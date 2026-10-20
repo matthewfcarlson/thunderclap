@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Mgr_2765d0 {
     virtual void m0();
     virtual void m1();
@@ -27,12 +28,12 @@ struct File {
     void Close();
 };
 File* File::Fn(unsigned char f) {
-    *(int*)this = (int)&vt0_2765d0;
-    v4 = (int)&vt4;
+    *(hulk_intptr*)this = (hulk_intptr)&vt0_2765d0;
+    v4 = (hulk_intptr)&vt4;
     Close();
     o->Rel();
     sub.Dtor();
-    *(int*)this = (int)&vtR;
+    *(hulk_intptr*)this = (hulk_intptr)&vtR;
     if (f & 1) {
         Enter(&gLock_2765d0);
         gMgr_2765d0->Free(this);

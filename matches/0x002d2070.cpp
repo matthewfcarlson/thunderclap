@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042f074[];
 class ParticlePlaneGenerator_2d2070 {
   public:
@@ -15,6 +16,6 @@ ParticlePlaneGenerator_2d2070* __fastcall FUN_002d2070(ParticlePlaneGenerator_2d
     p->c = 0;
     p->d = 0;
     p->e = 0;
-    p->vftable = (void*)((int)DAT_0042f074);
+    p->vftable = (void*)((hulk_intptr)DAT_0042f074);
     return p;
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042d23c[];
 class Base_295f30 {
   public:
@@ -13,5 +14,5 @@ class LeafNode : public Base_295f30 {
 LeafNode::LeafNode() : Base_295f30() {
     x = 6;
     y = 0;
-    *(int*)this = ((int)DAT_0042d23c);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_0042d23c);
 }

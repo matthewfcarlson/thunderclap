@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/physics.h"
 
 extern "C" char DAT_00431d1c[];
@@ -16,7 +17,7 @@ void* physics::HairclubPhysicsObject::vfunc_28(unsigned int arg) {
     if (q) {
         p = q;
         ((Obj_3094a0*)p)->init();
-        *(u32_3094a0*)p = ((int)DAT_00431d1c);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_00431d1c);
         *(u32_3094a0*)((char*)p + 0x1f8) = 0;
         *(u32_3094a0*)((char*)p + 0x24) = 2;
     } else

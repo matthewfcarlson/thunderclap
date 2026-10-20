@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042fb54[];
 typedef unsigned int U_2df4d0;
 class Base_2df4d0 {
@@ -14,7 +15,7 @@ PrimGroup::PrimGroup(U_2df4d0 x, U_2df4d0 y) {
     a = 0;
     b = 0;
     c = x;
-    *(U_2df4d0*)this = ((int)DAT_0042fb54);
+    *(hulk_uintptr*)this = ((hulk_intptr)DAT_0042fb54);
     d = y;
     e = 0xffffffff;
 }

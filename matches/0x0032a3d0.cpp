@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0043386c[];
 class Ref_32a3d0 {
   public:
@@ -11,7 +12,7 @@ struct d3dSimpleShader_32a3d0 {
     void Next();
 };
 void d3dSimpleShader_32a3d0::Target() {
-    *(unsigned long*)this = ((int)DAT_0043386c);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0043386c);
     if (member)
         member->F1();
     Next();

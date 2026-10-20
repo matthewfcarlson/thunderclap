@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042d88c[];
 
 class Ref_2a3d30 {
@@ -19,7 +20,7 @@ class ParticleSystem {
 
 ParticleSystem* ParticleSystem::vfunc_2(unsigned char p) {
     volatile int* q = (volatile int*)this;
-    *q = (int)DAT_0042d88c;
+    *q = (hulk_intptr)DAT_0042d88c;
     Ref_2a3d30* x = a;
     if (x) {
         x->Release();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 
@@ -23,18 +24,18 @@ loop:
     FUN_00212ed0(esi, -1);
     FUN_00212ed0(esi, edi);
     FUN_002139a0(esi, 1, 1);
-    int ebx = FUN_00213190(esi, -1);
+    hulk_intptr ebx = FUN_00213190(esi, -1);
     if (!ebx)
         goto failure;
     if (edi > 1)
-        FUN_00347eed((void*)((int)((char*)&DAT_00434f70)), &zero_33d6e0);
+        FUN_00347eed((void*)((hulk_intptr)((char*)&DAT_00434f70)), &zero_33d6e0);
     FUN_00347eed((void*)ebx, &zero_33d6e0);
     FUN_00212d80(esi, -2);
     ++edi;
     if (edi <= ebp)
         goto loop;
 finish:
-    FUN_00347eed((void*)((int)((char*)&DAT_00422518)), &zero_33d6e0);
+    FUN_00347eed((void*)((hulk_intptr)((char*)&DAT_00422518)), &zero_33d6e0);
     return 0;
 failure:
     return FUN_00338e20(esi, error);

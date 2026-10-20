@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/physics.h"
 
 struct Inner_2fd620 {
@@ -10,5 +11,5 @@ unsigned int physics::SimStateArticulated::vfunc_9(unsigned int __p0) { int inde
     Inner_2fd620* p = (*(Inner_2fd620 * *)&this->f_70);
     if (index > 0 && p != 0 && p->items[index] == 0)
         p = 0;
-    return (unsigned int)((int)p);
+    return (unsigned int)((hulk_intptr)p);
 }

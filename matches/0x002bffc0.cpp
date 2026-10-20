@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Base_2bffc0 {
     char pad[0x10];
     void Init();
@@ -17,7 +18,7 @@ Image32* Image32::Init() {
     field29 = 0;
     field28 = 0;
     field20 = 8;
-    *(int*)this = (int)&Image32Vtable;
+    *(hulk_intptr*)this = (hulk_intptr)&Image32Vtable;
     field18 = 0x20;
     return this;
 }

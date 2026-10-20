@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00431b08[];
 class Ref_304ff0 {
   public:
@@ -30,7 +31,7 @@ class Htail {
 extern void thunk(void*);
 void CollisionObject::destroy() {
     Ref_304ff0* r = mRef;
-    vptr = ((int)DAT_00431b08);
+    vptr = ((hulk_intptr)DAT_00431b08);
     if (r)
         r->f1();
     ((H38_304ff0*)sub)->run();

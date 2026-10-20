@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0043397c[];
 struct Ref_32b5e0 {
     virtual void f0();
@@ -13,7 +14,7 @@ struct Obj_32b5e0 : Parent_32b5e0 {
     void run();
 };
 void Obj_32b5e0::run() {
-    *(void**)this = (void*)((int)DAT_0043397c);
+    *(void**)this = (void*)((hulk_intptr)DAT_0043397c);
     if (a)
         a->f1();
     if (b)

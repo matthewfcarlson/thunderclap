@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042fbd4[];
 class Base_2dffe0 {
   public:
@@ -23,6 +24,6 @@ PrimGroupSkinnedOptimized* PrimGroupSkinnedOptimized::setup(int x, int y) {
     a60 = 0;
     a64 = 0;
     a50 = -1;
-    *(int*)this = ((int)DAT_0042fbd4);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_0042fbd4);
     return this;
 }

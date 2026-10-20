@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042e574[];
 struct ShadowSkinTopology {
@@ -10,9 +11,9 @@ struct ShadowSkinTopology {
 };
 void ReleaseThing(void*);
 void ShadowSkinTopology::Reset() {
-    vptr = (void*)((int)DAT_0042e574);
+    vptr = (void*)((hulk_intptr)DAT_0042e574);
     ReleaseThing(a);
     ReleaseThing(b);
     ReleaseThing(c);
-    vptr = (void*)((int)DAT_003f6098);
+    vptr = (void*)((hulk_intptr)DAT_003f6098);
 }

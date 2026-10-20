@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00431d1c[];
 struct Item_3093b0 {
     char pad[0x34];
@@ -13,7 +14,7 @@ struct HairclubPhysicsObject {
 };
 void HairclubPhysicsObject::Destroy() {
     Item_3093b0* p = items;
-    vptr = (void*)((int)DAT_00431d1c);
+    vptr = (void*)((hulk_intptr)DAT_00431d1c);
     if (p) {
         int n = *((int*)p - 1);
         Item_3093b0* q = p + n;

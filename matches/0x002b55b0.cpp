@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042e5e4[];
 class B_2b55b0 {
   public:
@@ -16,6 +17,6 @@ ShadowSkinImpl::ShadowSkinImpl() {
     b = 0;
     c = 0;
     d = 0;
-    *(int*)this = ((int)DAT_0042e5e4);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_0042e5e4);
     *(int*)((char*)this + 0x10) = 2;
 }

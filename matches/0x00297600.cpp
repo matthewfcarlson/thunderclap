@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042d3bc[];
 class Ref_297600 {
   public:
@@ -15,7 +16,7 @@ class TransformNode {
 };
 void __cdecl thunk_FUN_00267090(TransformNode*);
 TransformNode* TransformNode::vfunc_2(unsigned int p) {
-    *(volatile int*)this = ((int)DAT_0042d3bc);
+    *(volatile hulk_intptr*)this = ((hulk_intptr)DAT_0042d3bc);
     Ref_297600* r = *(Ref_297600* volatile*)&ref;
     if (r) {
         r->f1();

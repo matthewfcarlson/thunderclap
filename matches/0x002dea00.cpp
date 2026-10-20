@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_2dea00;
 void* alloc(u32_2dea00);
 class Init_2dea00 {
@@ -18,7 +19,7 @@ class ImageConverter {
     void* vfunc_4(void* p);
 };
 void* ImageConverter::vfunc_4(void* p) {
-    int t = (int)alloc(0x30);
+    hulk_intptr t = (hulk_intptr)alloc(0x30);
     void* x;
     if (t) {
         x = ((Init_2dea00*)t)->run();

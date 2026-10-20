@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042e324[];
 class ExpressionLoader {
   public:
@@ -14,5 +15,5 @@ ExpressionLoader::ExpressionLoader() {
     p[2] = 0x21000;
     p[3] = 0;
     p[4] = 0;
-    p[0] = ((int)DAT_0042e324);
+    p[0] = ((hulk_intptr)DAT_0042e324);
 }

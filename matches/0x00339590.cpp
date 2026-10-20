@@ -1,5 +1,6 @@
 // FUN_00339590 @ 0x00339590
 // FUN_00339590: Lua 5.0 lauxlib luaL_addvalue
+#include "compat/ptr.h"
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
 struct lua_State;
@@ -26,7 +27,7 @@ void FUN_00339590(luaL_Buffer_339590 *B)
         B->p += vl;
         FUN_00212d80(L, -2);
     } else {
-        unsigned int len = B->p - B->buffer;
+        hulk_uintptr len = B->p - B->buffer;
         if (len != 0) {
             FUN_00213380(B->L, B->buffer, len);
             B->p = B->buffer;

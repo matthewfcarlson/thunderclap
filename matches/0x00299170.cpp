@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Ref_299170 {
   public:
     virtual void f0();
@@ -17,5 +18,5 @@ int Target_299170::Destroy(int flags) {
     }
     if (flags & 1)
         thunk_FUN_00267090(this);
-    return (int)this;
+    return (hulk_intptr)this;
 }

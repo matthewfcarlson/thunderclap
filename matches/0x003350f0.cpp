@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 
 extern "C" char DAT_0042afa8[];
@@ -12,12 +13,12 @@ struct Callback_3350f0 {
 };
 extern void __fastcall helper(Callback_3350f0*);
 Callback_3350f0* __fastcall FUN_003350f0(Callback_3350f0* p) {
-    p->a = ((int)DAT_0042afa8);
-    p->b = *(volatile int*)((int)((char*)&DAT_004cdbb0));
+    p->a = ((hulk_intptr)DAT_0042afa8);
+    p->b = *(volatile int*)((hulk_intptr)((char*)&DAT_004cdbb0));
     helper(p);
-    p->c = ((int)DAT_0042bf6c);
-    p->a = ((int)DAT_004342fc);
-    p->c = ((int)DAT_004342e8);
+    p->c = ((hulk_intptr)DAT_0042bf6c);
+    p->a = ((hulk_intptr)DAT_004342fc);
+    p->c = ((hulk_intptr)DAT_004342e8);
     p->d = 0;
     return p;
 }

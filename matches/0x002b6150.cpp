@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042e614[];
 class ShadowMeshLoader {
   public:
@@ -10,5 +11,5 @@ ShadowMeshLoader::ShadowMeshLoader() {
     b = 0x1001a;
     c = 0;
     d = 0;
-    vptr = ((int)DAT_0042e614);
+    vptr = ((hulk_intptr)DAT_0042e614);
 }

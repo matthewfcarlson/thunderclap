@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
 extern char vt[];
 class DrawableNode {
@@ -17,6 +18,6 @@ Node::Node() : DrawableNode() {
     m14 = 0;
     m18 = 0;
     m10 = 6;
-    *(int*)this = (int)vt;
+    *(hulk_intptr*)this = (hulk_intptr)vt;
     _ReadWriteBarrier();
 }

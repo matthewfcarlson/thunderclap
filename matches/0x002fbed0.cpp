@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004317dc[];
 class Part_2fbed0 {
   public:
@@ -16,7 +17,7 @@ class Obj_2fbed0 {
 };
 Obj_2fbed0* Obj_2fbed0::Target(int a, int b, int c, int d, int e) {
     Base();
-    *(int*)this = ((int)DAT_004317dc);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_004317dc);
     p1.Init();
     p2.Init();
     Build(a, b, c, d, e);

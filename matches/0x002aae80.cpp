@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042e064[];
 class Ref_2aae80 {
   public:
@@ -16,7 +17,7 @@ class Loader_2aae80 {
 };
 void Loader_2aae80::F() {
     unsigned i = 0;
-    vt = (int*)((int)DAT_0042e064);
+    vt = (int*)((hulk_intptr)DAT_0042e064);
     if (count > 0) {
         do {
             if (items[i]) {

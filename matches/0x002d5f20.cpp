@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" double __cdecl __floor_default(double);
 struct Owner_2d5f20;
 struct Backend_2d5f20 {
@@ -25,7 +26,7 @@ void Owner_2d5f20::target(int a, int b, int c) {
     if (!backend)
         return;
     backend->update(a);
-    int available = ((int)((unsigned long)end - (unsigned long)begin) >> 2) - used;
+    int available = ((int)((hulk_ulongptr)end - (hulk_ulongptr)begin) >> 2) - used;
     if ((float)available < credit)
         credit = (float)available;
     if (credit >= 1.0f) {

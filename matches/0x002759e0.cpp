@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042bc00[];
 extern "C" void InitMore();
 extern "C" char* strncpy(char*, const char*, unsigned int);
@@ -13,7 +14,7 @@ class DriveFindFirstRequest {
 };
 DriveFindFirstRequest* DriveFindFirstRequest::Init(void* a, char* src, int v) {
     InitBase(a);
-    *(unsigned long*)this = ((int)DAT_0042bc00);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042bc00);
     value = v;
     InitMore();
     strncpy(name, src, 0x100);

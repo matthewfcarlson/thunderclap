@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_28ee30;
 struct Receiver_28ee30 {
     virtual void f0();
@@ -19,5 +20,5 @@ int ShaderIntBroadcast::vfunc_3(void* param) {
         Receiver_28ee30* r = *(Receiver_28ee30**)((char*)param + 0x10);
         r->f6(mA, mB);
     }
-    return (int)param;
+    return (hulk_intptr)param;
 }

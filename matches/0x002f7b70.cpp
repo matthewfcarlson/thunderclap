@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class O_2f7b70 {
   public:
     virtual void v0();
@@ -31,7 +32,7 @@ class H {
 };
 void H::F(O_2f7b70* p, int a3, int a4, int a5, int a6, int a7) {
     if (p) {
-        p->v17(a4, (int)this + 0x24, a3, a6, a7);
+        p->v17(a4, (hulk_intptr)this + 0x24, a3, a6, a7);
         p->v20(a4, a5, a3, a6, a7);
     } else {
         ((Q_2f7b70*)a5)->Fb();

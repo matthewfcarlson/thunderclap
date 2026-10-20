@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042efc0[];
 class VertexList {
   public:
@@ -17,7 +18,7 @@ class VertexList {
 VertexList::VertexList(int p2, int p3, int p4) {
     b = p2;
     a = 0;
-    vptr = ((int)DAT_0042efc0);
+    vptr = ((hulk_intptr)DAT_0042efc0);
     c = p3;
     d = p4;
     e[0] = 0;

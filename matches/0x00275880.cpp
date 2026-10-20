@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042bbc0[];
 typedef unsigned int u32_275880;
 struct ThisCall_00275600 {
@@ -14,7 +15,7 @@ class DriveCreateDirectoryRequest {
 };
 DriveCreateDirectoryRequest* DriveCreateDirectoryRequest::Create(int a, char* p) {
     ((ThisCall_00275600*)(this))->FUN_00275600(a);
-    vptr = (void*)((int)DAT_0042bbc0);
+    vptr = (void*)((hulk_intptr)DAT_0042bbc0);
     FUN_002705f0();
     _strncpy(path, p, 0x10);
     path[16] = 0;

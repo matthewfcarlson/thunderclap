@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Item_285410 {
   public:
     virtual void v0();
@@ -16,7 +17,7 @@ unsigned int Container_285410::Find(int value) {
     unsigned int i = 0;
     while (i < count) {
         if (items[i]->Match(value) == true)
-            return (unsigned int)items[i];
+            return (hulk_uintptr)items[i];
         ++i;
     }
     return 0;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042bdd0[];
 extern "C" char DAT_0042bddc[];
@@ -13,8 +14,8 @@ struct Obj_2766e0 {
     void f();
 };
 void Obj_2766e0::f() {
-    v = (void**)((int)DAT_0042bddc);
-    v4 = (void**)((int)DAT_0042bdd0);
+    v = (void**)((hulk_intptr)DAT_0042bddc);
+    v4 = (void**)((hulk_intptr)DAT_0042bdd0);
     p->B();
-    v = (void**)((int)DAT_003f6098);
+    v = (void**)((hulk_intptr)DAT_003f6098);
 }

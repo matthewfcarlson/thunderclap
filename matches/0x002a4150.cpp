@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct Item_2a4150 {
@@ -35,10 +36,10 @@ namespace pure3d {
 
 } // namespace pure3d
 char pure3d::DrawableContainer::vfunc_7() {
-    unsigned count = (unsigned)(((int)(*(Group_2a4150 * *)&this->f_4c) - (int)(*(Group_2a4150 * *)&this->f_48)) >> 4);
+    unsigned count = (unsigned)(((hulk_intptr)(*(Group_2a4150 * *)&this->f_4c) - (hulk_intptr)(*(Group_2a4150 * *)&this->f_48)) >> 4);
     for (unsigned i = 0; i < count; ++i) {
         Group_2a4150* group = (*(Group_2a4150 * *)&this->f_48) + i;
-        unsigned items = (unsigned)(((int)group->end - (int)group->begin) >> 2);
+        unsigned items = (unsigned)(((hulk_intptr)group->end - (hulk_intptr)group->begin) >> 2);
         for (unsigned j = 0; j < items; ++j) {
             Item_2a4150* item = group->begin[j];
             if (item && !item->slot22())

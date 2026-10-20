@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_2eaf30;
 struct Obj_2eaf30 {
     char pad[0x24];
@@ -9,6 +10,6 @@ int __cdecl FUN_002eaf30(Obj_2eaf30* a, Obj_2eaf30* b) {
     FUN_002ea2a0(a, b, 0);
     b->fn(b->value, a->value);
     b->fn(b->value, *((u32_2eaf30*)((char*)a + 0x24)));
-    b->fn(b->value, (u32_2eaf30)a);
+    b->fn(b->value, (hulk_uintptr)a);
     return 0;
 }

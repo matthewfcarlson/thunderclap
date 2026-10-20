@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042e1b4[];
 typedef unsigned int u32_2af0c0;
 struct Manager_2af0c0 {
@@ -23,7 +24,7 @@ class ImageHandler {
 };
 ImageHandler::ImageHandler() {
     b = 0;
-    *(volatile u32_2af0c0*)this = ((int)DAT_0042e1b4);
+    *(volatile hulk_uintptr*)this = ((hulk_intptr)DAT_0042e1b4);
     c = 0;
     flag = 0;
     d = gManager_2af0c0->getB();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00431d1c[];
 class HairclubPhysicsObject {
   public:
@@ -12,7 +13,7 @@ struct ThisCall_002f5480 {
 };
 HairclubPhysicsObject* __fastcall FUN_00308da0(HairclubPhysicsObject* self) {
     ((ThisCall_002f5480*)(self))->BaseCtor();
-    self->vftable = ((int)DAT_00431d1c);
+    self->vftable = ((hulk_intptr)DAT_00431d1c);
     self->field1f8 = 0;
     self->field24 = 2;
     return self;

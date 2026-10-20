@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int WorldCollisionObjectLoader_vftable;
 class WorldCollisionObjectLoader {
   public:
@@ -13,5 +14,5 @@ WorldCollisionObjectLoader::WorldCollisionObjectLoader() {
     b = 0x07010025;
     c = 0;
     d = 0;
-    *(int*)this = (int)&WorldCollisionObjectLoader_vftable;
+    *(hulk_intptr*)this = (hulk_intptr)&WorldCollisionObjectLoader_vftable;
 }

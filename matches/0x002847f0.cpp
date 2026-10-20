@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042c588[];
 class Ref_2847f0 {
@@ -14,12 +15,12 @@ struct Obj_2847f0 {
 };
 void cleanup(void*);
 void __fastcall target(volatile Obj_2847f0* self) {
-    self->v = (void**)((int)DAT_0042c588);
+    self->v = (void**)((hulk_intptr)DAT_0042c588);
     Ref_2847f0* r = self->m;
     if (r) {
         r->B();
         self->m = 0;
     }
     cleanup(self->p28);
-    self->v = (void**)((int)DAT_003f6098);
+    self->v = (void**)((hulk_intptr)DAT_003f6098);
 }

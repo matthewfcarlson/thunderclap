@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Worker_27f2a0 {
     virtual void f0();
     virtual void f1();
@@ -52,7 +53,7 @@ void Obj_27f2a0::target(int a, int b) {
             unsigned n = *(unsigned*)p;
             if (n != 0xffff)
                 gHolder_27f2a0->mgr->Do1(0, n * 64 + *(unsigned*)((*(char**)(p - 12)) + 0x1c));
-            gHolder_27f2a0->mgr->Do1(0, (int)(p - 0x50));
+            gHolder_27f2a0->mgr->Do1(0, (hulk_intptr)(p - 0x50));
             w->Run(a, b);
             gHolder_27f2a0->mgr->Do2(0);
         }

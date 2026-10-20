@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00431968[];
 class Ref_2fe1f0 {
   public:
@@ -15,7 +16,7 @@ class Obj_2fe1f0 : public Base_2fe1f0 {
     void run();
 };
 void Obj_2fe1f0::run() {
-    *(void**)this = (void*)((int)DAT_00431968);
+    *(void**)this = (void*)((hulk_intptr)DAT_00431968);
     if (member)
         member->f1();
     finish();

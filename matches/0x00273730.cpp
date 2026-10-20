@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class CompletionCallbackRequest {
   public:
     char pad[12];
@@ -15,5 +16,5 @@ class FileCompletionRequest : public CompletionCallbackRequest, public Request {
     virtual void vfunc_7();
 };
 int FileCompletionRequest::vfunc_3() {
-    return *(int*)(*(int*)((char*)this + 0xc) + 0xc);
+    return *(int*)(*(hulk_intptr*)((char*)this + 0xc) + 0xc);
 }

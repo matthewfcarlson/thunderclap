@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 extern int vtD_31b5c0;
 extern int vtP;
@@ -33,12 +34,12 @@ struct d3dDisplay_nv_31b5c0 {
 };
 void thunk_FUN_00267090(D*);
 D* D::f3(unsigned char flag) {
-    *(int*)this = (int)&vtD_31b5c0;
+    *(hulk_intptr*)this = (hulk_intptr)&vtD_31b5c0;
     if (x10)
         D3DDevice_Release();
     if (x498)
         D3DResource_Release(x498);
-    *(int*)this = (int)&vtP;
+    *(hulk_intptr*)this = (hulk_intptr)&vtP;
     ((d3dDisplay_nv_31b5c0*)(((pure3d::d3dDisplay*)this)))->Run();
     if (flag & 1)
         thunk_FUN_00267090(this);

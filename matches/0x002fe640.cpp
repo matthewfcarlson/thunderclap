@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct SimulatedObject {
     int vptr;
     char pad04[12];
@@ -19,7 +20,7 @@ SimulatedObject::SimulatedObject() {
     field10 = 0;
     field18 = 0;
     field1c = 0;
-    vptr = (int)&physics_vftable;
+    vptr = (hulk_intptr)&physics_vftable;
     field20 = 1;
     field24 = 3;
     field28 = g_counter_2fe640;

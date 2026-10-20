@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00433a04[];
 class Base_32c270 {
   public:
@@ -15,7 +16,7 @@ class Obj_32c270 {
 };
 void Obj_32c270::Run() {
     Base_32c270* p = a;
-    *(int*)this = ((int)DAT_00433a04);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00433a04);
     if (p)
         p->Release();
     p = b;

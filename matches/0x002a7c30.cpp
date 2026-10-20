@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct SceneGraphVisibilityAnimationController_nv_2a7c30 {
@@ -11,7 +12,7 @@ void* pure3d::SceneGraphVisibilityAnimationController::vfunc_4() {
     pure3d::SceneGraphVisibilityAnimationController* p = (pure3d::SceneGraphVisibilityAnimationController*)alloc(0x48);
     if (p) {
         ((SceneGraphVisibilityAnimationController_nv_2a7c30*)(p))->init(this);
-        *(int*)p = (int)&vtable_2a7c30;
+        *(hulk_intptr*)p = (hulk_intptr)&vtable_2a7c30;
         (*(int *)&p->f_40) = (*(int *)&this->f_40);
         p->f_44 = 0;
         ((SceneGraphVisibilityAnimationController_nv_2a7c30*)(p))->setup(1);

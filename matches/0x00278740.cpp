@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_278740 {
   public:
     virtual void V0();
@@ -24,11 +25,11 @@ extern GlobalObj_278740* gObj_278740;
 extern int gBss_278740;
 extern void Cleanup(int*);
 void XboxSaveDrive::Run() {
-    *(int*)this = (int)&vt0_278740;
-    *(int*)((char*)this + 4) = (int)&vt4;
-    *(int*)((char*)this + 0xc) = (int)&vtc;
-    *(int*)((char*)this + 0xbc) = (int)&vtbc;
-    *(int*)((char*)this + 0xc0) = (int)&vtc0;
+    *(hulk_intptr*)this = (hulk_intptr)&vt0_278740;
+    *(hulk_intptr*)((char*)this + 4) = (hulk_intptr)&vt4;
+    *(hulk_intptr*)((char*)this + 0xc) = (hulk_intptr)&vtc;
+    *(hulk_intptr*)((char*)this + 0xbc) = (hulk_intptr)&vtbc;
+    *(hulk_intptr*)((char*)this + 0xc0) = (hulk_intptr)&vtc0;
     Init();
     if (*(int*)((char*)mObj + 0x10) == 1) {
         gObj_278740->V1();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Ref_332260 {
   public:
     virtual void f();
@@ -15,7 +16,7 @@ class Building {
     void cleanup();
 };
 void Building::init() {
-    *(int*)this = (int)&vtable_332260;
+    *(hulk_intptr*)this = (hulk_intptr)&vtable_332260;
     if (a)
         a->Release();
     if (b)

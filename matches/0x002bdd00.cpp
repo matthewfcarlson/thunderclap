@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Thing_2bdd00 {
   public:
     char pad0[0x40];
@@ -10,7 +11,7 @@ class Thing_2bdd00 {
 void Thing_2bdd00::set(void* p) {
     value = p;
     for (int i = 0; i < count * 4; ++i) {
-        int off = i * 0x18;
-        *(void**)((char*)off + (int)base + 0xc) = value;
+        hulk_intptr off = i * 0x18;
+        *(void**)((char*)off + (hulk_intptr)base + 0xc) = value;
     }
 }

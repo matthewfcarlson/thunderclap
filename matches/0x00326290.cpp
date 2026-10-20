@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00433354[];
 extern "C" char DAT_004333ac[];
 typedef unsigned int U_326290;
@@ -14,7 +15,7 @@ struct d3dTexture_326290 {
     void BaseDestroy();
 };
 void __fastcall FUN_00326290(d3dTexture_326290* self) {
-    self->vt = ((int)DAT_004333ac);
+    self->vt = ((hulk_intptr)DAT_004333ac);
     if (self->a)
         Release(self->a);
     if (self->b) {
@@ -27,6 +28,6 @@ void __fastcall FUN_00326290(d3dTexture_326290* self) {
     }
     if (self->d)
         Release(self->d);
-    self->vt = ((int)DAT_00433354);
+    self->vt = ((hulk_intptr)DAT_00433354);
     self->BaseDestroy();
 }

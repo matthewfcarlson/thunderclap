@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042dc24[];
 class SceneGraphVisibilityAnimationController {
   public:
@@ -11,7 +12,7 @@ class SceneGraphVisibilityAnimationController {
 };
 void* SceneGraphVisibilityAnimationController::init() {
     base_ctor();
-    vtable = (void*)((int)DAT_0042dc24);
+    vtable = (void*)((hulk_intptr)DAT_0042dc24);
     a = 0;
     b = 0;
     base_init(1);

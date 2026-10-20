@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 extern "C" char DAT_0043386c[];
 class ShaderBase_32a9f0 {
@@ -24,6 +25,6 @@ SimpleShader* SimpleShader::Init(int x) {
     c = 0;
     d = 0;
     e = 0;
-    v = ((int)DAT_0043386c);
+    v = ((hulk_intptr)DAT_0043386c);
     return this;
 }

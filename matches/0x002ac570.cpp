@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042e0c4[];
 extern "C" void _ReadWriteBarrier();
 extern "C" void thunk_FUN_00267090(void*);
@@ -14,7 +15,7 @@ class ParticleAllocatorTemplate {
 };
 
 void ParticleAllocatorTemplate::FUN_002ac570() {
-    *(void**)this = (void*)((int)DAT_0042e0c4);
+    *(void**)this = (void*)((hulk_intptr)DAT_0042e0c4);
     _ReadWriteBarrier();
     if (mCallback2)
         thunk_FUN_00267090(mCallback2);

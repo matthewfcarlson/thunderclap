@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Owner_336180 {
   public:
     int Get();
@@ -12,7 +13,7 @@ char __stdcall Target(float* param_1, Owner_336180* owner, int c, char param_4) 
     if (param_4)
         p = param_1;
     else
-        p = (float*)*(int*)param_1;
+        p = (float*)*(hulk_intptr*)param_1;
     *p = FUN_003458c1(v);
     owner->Advance();
     v = owner->Get();

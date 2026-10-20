@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 extern "C" char DAT_0042dc94[];
@@ -23,7 +24,7 @@ void* pure3d::CompDrawVisibilityAnimationController::vfunc_4() {
     if (p) {
         p->init(this);
         p->value = 0;
-        p->vf = ((int)DAT_0042dc94);
+        p->vf = ((hulk_intptr)DAT_0042dc94);
         p->a44 = 0;
         p->a48 = 0;
         p->a50 = 0;

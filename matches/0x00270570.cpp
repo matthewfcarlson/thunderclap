@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void* malloc(unsigned);
 
 unsigned FUN_00270570(int param_1, unsigned param_2) {
@@ -7,8 +8,8 @@ unsigned FUN_00270570(int param_1, unsigned param_2) {
     if (total == 0)
         total = 1;
     void* p = malloc(total);
-    unsigned rem = (unsigned)p % param_2;
-    unsigned q = (unsigned)p - rem + param_2;
-    *(int*)(q - 4) = (int)p;
+    unsigned rem = (hulk_uintptr)p % param_2;
+    hulk_uintptr q = (hulk_uintptr)p - rem + param_2;
+    *(hulk_intptr*)(q - 4) = (hulk_intptr)p;
     return q;
 }

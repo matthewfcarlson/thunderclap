@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 
 extern "C" char DAT_0042b914[];
@@ -35,16 +36,16 @@ namespace core { struct FileGetSizeRequest {
     Owner_275500* owner;
 }; }
 core::FileGetSizeRequest* core::FileGetSizeRequest::vfunc_0(int flag) {
-    ((int*)this)[0] = ((int)DAT_0042b99c);
+    ((hulk_intptr*)this)[0] = ((hulk_intptr)DAT_0042b99c);
     ((Inner_275500*)((char*)owner + 4))->A();
     --(*(int*)((char*)owner + 0x18));
     ((Inner_275500*)((char*)owner + 4))->B();
     owner->B();
-    ((int*)this)[0] = ((int)DAT_0042b914);
+    ((hulk_intptr*)this)[0] = ((hulk_intptr)DAT_0042b914);
     if (flag & 1) {
-        FUN_0026d850((void*)((int)((char*)&DAT_0052a1c8)));
+        FUN_0026d850((void*)((hulk_intptr)((char*)&DAT_0052a1c8)));
         gObject_275500->E(this);
-        FUN_0026d840((void*)((int)((char*)&DAT_0052a1c8)));
+        FUN_0026d840((void*)((hulk_intptr)((char*)&DAT_0052a1c8)));
     }
     return this;
 }

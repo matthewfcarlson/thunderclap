@@ -1,4 +1,5 @@
 // Same code shape as 0x0030d320 (propagated; names are from that function)
+#include "compat/ptr.h"
 struct Sub_30d3a0 {
     void Destruct();
 };
@@ -26,7 +27,7 @@ void* PhysicsJoint0D_30d3a0::vfunc_0(int flags) {
     vptr = (void*)DAT_00431de4;
     p->Destruct();
     m48.Destruct();
-    int v = m20;
+    hulk_intptr v = m20;
     m24 = v;
     if (v)
         FreeBuf((void*)v);

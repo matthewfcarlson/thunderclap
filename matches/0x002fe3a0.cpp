@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004319a4[];
 class Ref_2fe3a0 {
   public:
@@ -17,7 +18,7 @@ class SimStateHairclub : public Base_2fe3a0 {
     SimStateHairclub(Ref_2fe3a0* r, void* p);
 };
 SimStateHairclub::SimStateHairclub(Ref_2fe3a0* r, void* p) : Base_2fe3a0(p) {
-    *(void**)this = (void*)((int)DAT_004319a4);
+    *(void**)this = (void*)((hulk_intptr)DAT_004319a4);
     mRef = 0;
     if (r)
         r->First();

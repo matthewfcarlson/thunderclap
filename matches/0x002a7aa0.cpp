@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042db8c[];
 typedef unsigned char u8_2a7aa0;
 struct SceneGraphTransformAnimationController {
@@ -37,7 +38,7 @@ struct SceneGraphTransformAnimationController {
 };
 void destroy(SceneGraphTransformAnimationController*);
 SceneGraphTransformAnimationController* SceneGraphTransformAnimationController::vfunc_2(u8_2a7aa0 flag) {
-    *(unsigned long*)this = ((int)DAT_0042db8c);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042db8c);
     member = 0;
     init();
     if (flag & 1)

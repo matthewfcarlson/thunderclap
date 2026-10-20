@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b9bc[];
 class Drive {
@@ -20,10 +21,10 @@ class Obj_274860 {
     void Run();
 };
 void Obj_274860::Run() {
-    vf = ((int)DAT_0042b9bc);
+    vf = ((hulk_intptr)DAT_0042b9bc);
     ((DriveSub*)((char*)drive + 4))->A();
     --drive->count;
     ((DriveSub*)((char*)drive + 4))->B();
     drive->B();
-    vf = ((int)DAT_0042b914);
+    vf = ((hulk_intptr)DAT_0042b914);
 }

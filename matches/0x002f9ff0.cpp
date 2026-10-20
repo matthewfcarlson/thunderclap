@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Item_2f9ff0 {
     void f(int);
 };
@@ -11,7 +12,7 @@ extern "C" int __cdecl FUN_002f9ff0(Item_2f9ff0* p, int count, int b) {
             q = (Item_2f9ff0*)((char*)q + 0x50);
             --n;
         } while (n != 0);
-        return (int)q;
+        return (hulk_intptr)q;
     }
-    return (int)p;
+    return (hulk_intptr)p;
 }

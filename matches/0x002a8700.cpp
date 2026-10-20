@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042dd24[];
 class Ref_2a8700 {
   public:
@@ -42,7 +43,7 @@ Ref_2a8700* ShaderAnimationController_2a8700::own4() {
     ShaderAnimationController_2a8700* p = (ShaderAnimationController_2a8700*)alloc(0x48);
     if (p) {
         p->setup(self);
-        *(int*)p = ((int)DAT_0042dd24);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_0042dd24);
         p->mRef = 0;
         Ref_2a8700* q = self->mRef;
         if (q)

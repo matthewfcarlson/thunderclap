@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042d1ec[];
 extern "C" char DAT_0042d28c[];
 class Child_297010 {
@@ -25,11 +26,11 @@ class Name_297010 {
 };
 Obj_297010* Obj_297010::Build(Obj_297010* src) {
     ((Base_297010*)this)->Init();
-    vptr = ((int)DAT_0042d1ec);
+    vptr = ((hulk_intptr)DAT_0042d1ec);
     x[3] = src->x[3];
     x[4] = src->x[4];
     ((Name_297010*)((char*)this + 8))->Copy((Name_297010*)((char*)src + 8));
-    vptr = ((int)DAT_0042d28c);
+    vptr = ((hulk_intptr)DAT_0042d28c);
     c = 0;
     if (src->c) {
         Child_297010* p = src->c->Get();

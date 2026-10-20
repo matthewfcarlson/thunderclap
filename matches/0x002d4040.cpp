@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 #include "decls/data/engine/pure3d.h"
 
@@ -38,7 +39,7 @@ D::D(Src_2d4040* s) throw() {
     v[16] = 0;
     v[17] = 0;
     if (s) {
-        v[1] = s->Find(((int)((char*)0x544152)), 0x31544c46);
+        v[1] = s->Find(((hulk_intptr)((char*)0x544152)), 0x31544c46);
         v[2] = s->Find(((int)0x46494c), 0x31544c46);
         v[3] = s->Find(0x5646494c, 0x31544c46);
         v[4] = s->Find(((int)0x445053), 0x31544c46);
@@ -47,13 +48,13 @@ D::D(Src_2d4040* s) throw() {
         v[7] = s->Find(0x565a4953, 0x31544c46);
         v[8] = s->Find(((int)0x495053), 0x31544c46);
         v[9] = s->Find(0x56495053, 0x31544c46);
-        v[10] = s->Find(((int)((char*)0x544757)), 0x31544c46);
+        v[10] = s->Find(((hulk_intptr)((char*)0x544757)), 0x31544c46);
         v[11] = s->Find(0x56544757, 0x31544c46);
         v[12] = s->Find(((int)0x415247), 0x31544c46);
         v[13] = s->Find(((int)0x415244), 0x31544c46);
-        v[14] = s->Find(((int)((char*)0x524c43)), ((int)((char*)0x524c43)));
-        v[15] = s->Find(0x56524c43, ((int)((char*)0x544e49)));
-        v[16] = s->Find(((int)((char*)0x504c41)), ((int)((char*)0x544e49)));
-        v[17] = s->Find(0x56504c41, ((int)((char*)0x544e49)));
+        v[14] = s->Find(((hulk_intptr)((char*)0x524c43)), ((hulk_intptr)((char*)0x524c43)));
+        v[15] = s->Find(0x56524c43, ((hulk_intptr)((char*)0x544e49)));
+        v[16] = s->Find(((hulk_intptr)((char*)0x504c41)), ((hulk_intptr)((char*)0x544e49)));
+        v[17] = s->Find(0x56504c41, ((hulk_intptr)((char*)0x544e49)));
     }
 }

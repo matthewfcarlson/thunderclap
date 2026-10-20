@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00433f74[];
 struct I_332bb0 {
     virtual void f();
@@ -13,7 +14,7 @@ class d3dBumpMapVertexShader_332bb0 {
     void common();
 };
 void d3dBumpMapVertexShader_332bb0::target() {
-    *(volatile unsigned long*)this = ((int)DAT_00433f74);
+    *(volatile hulk_ulongptr*)this = ((hulk_intptr)DAT_00433f74);
     if (m84)
         m84->Release();
     if (m80)

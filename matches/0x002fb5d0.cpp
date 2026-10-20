@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004317dc[];
 struct Part_2fb5d0 {
     void Init();
@@ -12,7 +13,7 @@ struct CollisionOBB {
     void Base();
 };
 void CollisionOBB::Target() {
-    v = ((int)DAT_004317dc);
+    v = ((hulk_intptr)DAT_004317dc);
     a.Init();
     b.Init();
     Base();

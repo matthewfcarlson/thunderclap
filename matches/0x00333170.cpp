@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00433f74[];
 typedef unsigned char byte_333170;
 struct Ref_333170 {
@@ -14,7 +15,7 @@ struct pure3d_d3dBumpMapVertexShader_333170 {
 };
 void thunk_FUN_00267090(pure3d_d3dBumpMapVertexShader_333170*);
 pure3d_d3dBumpMapVertexShader_333170* pure3d_d3dBumpMapVertexShader_333170::vfunc_3(byte_333170 param) {
-    vf = (void*)((int)DAT_00433f74);
+    vf = (void*)((hulk_intptr)DAT_00433f74);
     if (m84)
         m84->f1();
     if (m80)

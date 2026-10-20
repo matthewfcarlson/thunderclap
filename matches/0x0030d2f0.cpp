@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00431de4[];
 // Same code shape as 0x0030cbb0 (propagated; names are from that function)
 class Helper_30d2f0 {
@@ -12,10 +13,10 @@ class PhysicsJoint {
 };
 extern void __cdecl AddRef(void*);
 void __fastcall Target(PhysicsJoint* self) {
-    *(int*)self = ((int)DAT_00431de4);
+    *(hulk_intptr*)self = ((hulk_intptr)DAT_00431de4);
     ((Helper_30d2f0*)((char*)self + 0x64))->Init();
     ((Helper_30d2f0*)((char*)self + 0x48))->Init();
-    int value = self->m20;
+    hulk_intptr value = self->m20;
     self->m24 = value;
     if (value)
         AddRef((void*)value);

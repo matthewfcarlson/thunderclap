@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Item_29f340 {
   public:
     virtual void a();
@@ -41,5 +42,5 @@ int Obj_29f340::run() {
             ctx->process(i, p);
             ++i;
         } while (i < n);
-    return (int)ctx;
+    return (hulk_intptr)ctx;
 }

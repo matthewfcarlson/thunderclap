@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Manager_29ffd0 {
     int Make();
     int Finish(int, int);
@@ -18,7 +19,7 @@ void Obj_29ffd0::target(int a, int b) {
     if (!b) {
         int v = field44->Make();
         Stage(v, a, 0);
-        field44->Finish(v, (int)&field10);
+        field44->Finish(v, (hulk_intptr)&field10);
     } else {
         Other(a, b);
         ((Item_29ffd0*)b)->Last();

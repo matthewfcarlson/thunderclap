@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 void* Alloc(int n);
 struct Allocator_28bd40 { void* AllocAlign(int n, int a); };
 class Base_28bd40 {
@@ -22,7 +23,7 @@ Vector1DOFChannel::Vector1DOFChannel(int a, int b) : Base_28bd40(a, b) {
     p[1] = 0;
     p[2] = 0;
     p[3] = 0;
-    int c = m0c;
+    hulk_intptr c = m0c;
     p[4] = 0;
     if (c == 0)
         m28 = Alloc(m10 << 2);

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042c95c[];
 class IRefCount {
@@ -14,12 +15,12 @@ class ChannelLoader {
     void cleanup() throw();
 };
 void ChannelLoader::cleanup() throw() {
-    vf = ((int)DAT_0042c95c);
+    vf = ((hulk_intptr)DAT_0042c95c);
     for (int i = 0; i < count; ++i) {
         if (items[i]) {
             items[i]->Release();
             items[i] = 0;
         }
     }
-    vf = ((int)DAT_003f6098);
+    vf = ((hulk_intptr)DAT_003f6098);
 }

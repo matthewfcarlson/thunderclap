@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned short U16;
 class Buffer_2f9930 {
   public:
@@ -19,11 +20,11 @@ void Buffer_2f9930::Insert(U16* src, int count, int value) {
         }
         U16* r = src;
         if (count != 0) {
-            int d = value - (int)src;
+            hulk_intptr d = value - (hulk_intptr)src;
             int n = count;
             do {
                 if (r != 0)
-                    *r = *(U16*)(d + (int)r);
+                    *r = *(U16*)(d + (hulk_intptr)r);
                 ++r;
                 --n;
             } while (n != 0);

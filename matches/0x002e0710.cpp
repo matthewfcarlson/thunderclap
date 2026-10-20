@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 extern "C" char DAT_0042fc74[];
@@ -15,7 +16,7 @@ void* pure3d::PrimGroupSkinnedPC::vfunc_4() {
     pure3d::PrimGroupSkinnedPC* p = (pure3d::PrimGroupSkinnedPC*)alloc(0x70);
     if (p) {
         ((PrimGroupSkinnedPC_nv_2e0710*)(p))->init(this);
-        *(unsigned int*)p = ((int)DAT_0042fc74);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_0042fc74);
         *(unsigned int*)((char*)p + 0x68) = 0;
         Ref_2e0710* r = (*(Ref_2e0710 * *)&this->f_68);
         if (r)

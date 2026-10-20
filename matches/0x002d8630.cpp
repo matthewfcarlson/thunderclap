@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct S_2d8630 {
     char p0[8];
     unsigned char f8;
@@ -18,11 +19,11 @@ int F(int a, S_2d8630* s, int* o1, unsigned* o2, int* o3) {
                 r = 0x10;
             }
             if (o3 != 0) {
-                *o3 = (int)&s->f50;
+                *o3 = (hulk_intptr)&s->f50;
             }
         } else {
             if (o3 != 0) {
-                *o3 = (int)&s->f50;
+                *o3 = (hulk_intptr)&s->f50;
                 r = 0x10;
             }
             if (o1 != 0) {

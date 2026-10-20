@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004319a4[];
 class SimStateHairclub {
   public:
@@ -26,7 +27,7 @@ struct Ref_2fe530 {
 };
 void release(SimStateHairclub*);
 SimStateHairclub* SimStateHairclub::vfunc_2(unsigned char p) {
-    *(unsigned long*)this = ((int)DAT_004319a4);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_004319a4);
     Ref_2fe530* volatile* pm = &member;
     Ref_2fe530* m = *pm;
     if (m) {

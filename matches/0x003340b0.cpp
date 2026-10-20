@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042af64[];
 extern "C" char DAT_004342bc[];
@@ -17,8 +18,8 @@ struct X_3340b0 {
 };
 extern int global_3340b0;
 void __fastcall FUN_003340b0(X_3340b0* x) {
-    x->v = (void**)((int)DAT_004342c4);
-    x->a = (int)((int)DAT_004342bc);
+    x->v = (void**)((hulk_intptr)DAT_004342c4);
+    x->a = (int)((hulk_intptr)DAT_004342bc);
     if (x->p) {
         x->p->g();
         x->p = 0;
@@ -28,6 +29,6 @@ void __fastcall FUN_003340b0(X_3340b0* x) {
         x->q = 0;
     }
     global_3340b0 = x->b;
-    x->a = (int)((int)DAT_0042af64);
-    x->v = (void**)((int)DAT_003f6098);
+    x->a = (int)((hulk_intptr)DAT_0042af64);
+    x->v = (void**)((hulk_intptr)DAT_003f6098);
 }

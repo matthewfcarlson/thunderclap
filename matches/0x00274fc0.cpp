@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042ba20[];
 class Thing_274fc0 {
   public:
@@ -10,7 +11,7 @@ class Thing_274fc0 {
 extern void Finish();
 Thing_274fc0::Thing_274fc0(int x, int yy, int zz) {
     Init(x);
-    *(int*)this = ((int)DAT_0042ba20);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_0042ba20);
     y = yy;
     z = zz;
     Finish();

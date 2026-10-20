@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern char g_vtbl[];
 
 class Elem_3375f0 {
@@ -17,7 +18,7 @@ class Container_3375f0 {
 };
 
 Container_3375f0* Container_3375f0::Init() {
-    *(int*)this = (int)g_vtbl;
+    *(hulk_intptr*)this = (hulk_intptr)g_vtbl;
     char* p = elems;
     for (int i = 0x20; i != 0; --i) {
         ((Elem_3375f0*)p)->Init();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00431840[];
 class Base_2fc0d0 {
   public:
@@ -11,5 +12,5 @@ class PhysicsJointMatrixModifier : public Base_2fc0d0 {
 };
 PhysicsJointMatrixModifier::PhysicsJointMatrixModifier(void* arg) {
     member = arg;
-    *(void**)this = (void*)((int)DAT_00431840);
+    *(void**)this = (void*)((hulk_intptr)DAT_00431840);
 }

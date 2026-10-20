@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned char bool8_27aac0;
 class Obj_27aac0 {
   public:
@@ -8,7 +9,7 @@ class Obj_27aac0 {
 };
 bool8_27aac0 Obj_27aac0::Target(int a, int* out) {
     if (Check(a)) {
-        *out = index * 0x60 + (int)this + 0xd38;
+        *out = index * 0x60 + (hulk_intptr)this + 0xd38;
         return 1;
     }
     *out = 0;

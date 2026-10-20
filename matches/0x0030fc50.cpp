@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0043211c[];
 class Pose {
   public:
@@ -10,7 +11,7 @@ Pose* Pose::Make(int arg) {
     a = 0;
     b = 0;
     c = 0;
-    vf = (void*)((int)DAT_0043211c);
+    vf = (void*)((hulk_intptr)DAT_0043211c);
     Init(arg);
     return this;
 }

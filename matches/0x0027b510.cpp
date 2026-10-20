@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042c1b4[];
 typedef unsigned char byte_27b510;
 void thunk(void*);
@@ -8,7 +9,7 @@ class Partition {
     void* field10;
 };
 Partition* Partition::vfunc_0(byte_27b510 param) {
-    *(void**)this = (void*)((int)DAT_0042c1b4);
+    *(void**)this = (void*)((hulk_intptr)DAT_0042c1b4);
     if (field10)
         thunk(field10);
     if (param & 1)

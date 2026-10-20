@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int g_vtable_2b0f40;
 class VertexOffsetExpressionMixerLoader {
   public:
@@ -13,5 +14,5 @@ VertexOffsetExpressionMixerLoader::VertexOffsetExpressionMixerLoader() {
     m8 = 0x21002;
     mC = 0;
     m10 = 0;
-    m0 = (int)&g_vtable_2b0f40;
+    m0 = (hulk_intptr)&g_vtable_2b0f40;
 }

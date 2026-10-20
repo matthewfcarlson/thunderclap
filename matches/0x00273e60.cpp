@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/core.h"
 
 class Inner_273e60 {
@@ -35,7 +36,7 @@ struct Data_273e60 {
 int core::FileCommitRequest::vfunc_1() {
     Data_273e60* d = (*(Data_273e60 *volatile *)&this->f_08);
     Inner_273e60* i = d->inner;
-    int x = i->k(d->field, (int)((char*)d + 0x1e));
+    int x = i->k(d->field, (hulk_intptr)((char*)d + 0x1e));
     int z = i->m();
     (*(Data_273e60 *volatile *)&this->f_08)->sub.a();
     (*(Data_273e60 *volatile *)&this->f_08)->y = z;

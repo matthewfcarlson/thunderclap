@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00433eec[];
 class BuildingShader {
   public:
@@ -13,6 +14,6 @@ BuildingShader* BuildingShader::Target(int arg) {
     b = 0;
     c = 0;
     d = 0;
-    *(int*)this = ((int)DAT_00433eec);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00433eec);
     return this;
 }

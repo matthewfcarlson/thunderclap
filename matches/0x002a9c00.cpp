@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct BillboardQuadGroupAnimationController_nv_2a9c00 {
@@ -10,7 +11,7 @@ void* pure3d::BillboardQuadGroupAnimationController::vfunc_4() {
     pure3d::BillboardQuadGroupAnimationController* p = (pure3d::BillboardQuadGroupAnimationController*)alloc(0x48);
     if (p) {
         ((BillboardQuadGroupAnimationController_nv_2a9c00*)(p))->initialize(this);
-        *(int*)p = (int)&BQVtable;
+        *(hulk_intptr*)p = (hulk_intptr)&BQVtable;
         int* z = (int*)((char*)p + 0x40);
         *z = 0;
         pure3d::BillboardQuadGroupAnimationController* q = (*(pure3d::BillboardQuadGroupAnimationController * *)&this->f_40);

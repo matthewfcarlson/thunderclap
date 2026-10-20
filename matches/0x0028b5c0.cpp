@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 class Ref_28b5c0 {
@@ -16,7 +17,7 @@ void pure3d::Vector1DOFChannel::vfunc_1() {
         (*(void * *)&this->f_14) = 0;
         return;
     }
-    Ref_28b5c0* p = (Ref_28b5c0*)(*(volatile int *)&this->f_0c);
+    Ref_28b5c0* p = (Ref_28b5c0*)(*(volatile hulk_intptr *)&this->f_0c);
     if (p != 0) {
         p->Release();
         (*(volatile int *)&this->f_0c) = 0;

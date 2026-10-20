@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 extern "C" char DAT_0042da6c[];
@@ -17,7 +18,7 @@ void* pure3d::VertexAnimController::vfunc_4() {
     pure3d::VertexAnimController* p = (pure3d::VertexAnimController*)alloc(0x48);
     if (p) {
         ((Base_2a6e80*)p)->init(this);
-        *(unsigned int*)p = ((int)DAT_0042da6c);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_0042da6c);
         (*(Helper_2a6e80 * *)&p->f_40) = 0;
         Helper_2a6e80* old = (*(Helper_2a6e80 * *)&this->f_40);
         if (old)

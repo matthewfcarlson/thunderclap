@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042d548[];
 class Base_29b120 {
   public:
@@ -17,7 +18,7 @@ class TextString {
 };
 TextString* TextString::Foo(Base_29b120* p, int a, int b, unsigned char f) {
     Init();
-    *(unsigned*)this = ((int)DAT_0042d548);
+    *(hulk_uintptr*)this = ((hulk_intptr)DAT_0042d548);
     this->x44 = -1;
     this->obj = p;
     p->Call();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Item_27ba70 {
   public:
     virtual void release(int);
@@ -14,7 +15,7 @@ class List_27ba70 {
 void List_27ba70::erase(Item_27ba70* first, Item_27ba70* last) {
     Item_27ba70* e = end;
     if (last != e) {
-        int delta = (char*)last - (char*)first;
+        hulk_intptr delta = (char*)last - (char*)first;
         do {
             first->a = *(int*)((char*)first + delta + 8);
             first->b = *(int*)((char*)first + delta + 12);

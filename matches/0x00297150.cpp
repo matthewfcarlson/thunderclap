@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042d348[];
 class Obj_297150 {
   public:
@@ -13,5 +14,5 @@ Obj_297150::Obj_297150() {
     b = 0x120100;
     c = 0;
     d = 0;
-    v = ((int)DAT_0042d348);
+    v = ((hulk_intptr)DAT_0042d348);
 }

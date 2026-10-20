@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct Matrix {
@@ -54,7 +55,7 @@ void Queue_304530::target(unsigned int a, unsigned int b, unsigned int c, unsign
         object->FUN_00306600(b);
         temp.FUN_002f8ec0(a, d, object, d, c, e);
         Record_304530* dest = next;
-        if ((unsigned int)dest < (unsigned int)end) {
+        if ((hulk_uintptr)dest < (hulk_uintptr)end) {
             next = dest + 1;
             if (dest)
                 *dest = temp;

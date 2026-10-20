@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 class Ref_32fc40 {
   public:
@@ -20,7 +21,7 @@ struct d3dToon2VertexShader_nv_32fc40 {
     void Go();
 };
 void d3dToon2VertexShader_32fc40::Reset() {
-    *(int*)this = (int)&toonVftable;
+    *(hulk_intptr*)this = (hulk_intptr)&toonVftable;
     if (m88)
         m88->Release();
     if (m80)

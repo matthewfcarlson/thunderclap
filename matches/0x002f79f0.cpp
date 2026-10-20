@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Ref_2f79f0 {
     virtual void f0();
     virtual void f1();
@@ -22,7 +23,7 @@ class Obj_2f79f0 {
     void cleanup();
 };
 void Obj_2f79f0::cleanup() {
-    *(int*)this = (int)&vt_2f79f0;
+    *(hulk_intptr*)this = (hulk_intptr)&vt_2f79f0;
     if (a)
         a->f1();
     if (b)

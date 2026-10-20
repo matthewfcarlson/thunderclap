@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00434300[];
 class X_3352a0 {
   public:
@@ -9,7 +10,7 @@ class X_3352a0 {
 };
 
 X_3352a0* X_3352a0::Init() {
-    *(int*)this = ((int)DAT_00434300);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00434300);
     field = 0;
     return this;
 }

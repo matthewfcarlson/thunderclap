@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042c8c4[];
 class AnimationGroup {
   public:
@@ -14,7 +15,7 @@ class Thing_289d70 : public AnimationGroup {
     void Target();
 };
 void Thing_289d70::Target() {
-    *(void**)this = (void*)((int)DAT_0042c8c4);
+    *(void**)this = (void*)((hulk_intptr)DAT_0042c8c4);
     AnimationGroup::vfunc_1();
     sub.Helper();
 }

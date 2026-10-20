@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vftable_327030;
 class pddiPrimBuffer {
   public:
@@ -6,5 +7,5 @@ class pddiPrimBuffer {
 };
 pddiPrimBuffer::pddiPrimBuffer() {
     Init();
-    *(int*)this = (int)&vftable_327030;
+    *(hulk_intptr*)this = (hulk_intptr)&vftable_327030;
 }

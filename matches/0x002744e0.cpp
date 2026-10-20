@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b9bc[];
 // Same code shape as 0x00274590 (propagated; names are from that function)
@@ -21,12 +22,12 @@ class Owner_2744e0 {
 };
 void Owner_2744e0::Fn() {
     Obj_2744e0* p = mObj;
-    *(unsigned long*)this = ((int)DAT_0042b9bc);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b9bc);
     p->sub.A();
     --(*(int*)((char*)mObj + 0x14));
     p = mObj;
     p->sub.B();
     p = mObj;
     ((V*)p)->B();
-    *(unsigned long*)this = ((int)DAT_0042b914);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b914);
 }

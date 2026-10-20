@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vt_3277b0;
 class PrimBuf {
   public:
@@ -24,6 +25,6 @@ PrimBuf::PrimBuf(int arg) {
     b35 = 0;
     b36 = 0;
     m38 = arg;
-    *(int*)this = (int)&vt_3277b0;
-    m0c = *(int*)(*(int*)((char*)arg + 0x154) + 0x10);
+    *(hulk_intptr*)this = (hulk_intptr)&vt_3277b0;
+    m0c = *(int*)(*(hulk_intptr*)((char*)arg + 0x154) + 0x10);
 }

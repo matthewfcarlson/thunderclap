@@ -1,4 +1,5 @@
 // Same code shape as 0x0032ba70 (propagated; names are from that function)
+#include "compat/ptr.h"
 class Ref_32c4d0 {
   public:
     virtual void f0();
@@ -39,7 +40,7 @@ class pure3d_d3dLightMapShader_32c4d0 {
 };
 void __cdecl destroy(pure3d_d3dLightMapShader_32c4d0*);
 pure3d_d3dLightMapShader_32c4d0* pure3d_d3dLightMapShader_32c4d0::vfunc_3(unsigned int x) {
-    *(int*)this = (int)&vtable_32c4d0;
+    *(hulk_intptr*)this = (hulk_intptr)&vtable_32c4d0;
     if (a)
         a->f1();
     if (b)

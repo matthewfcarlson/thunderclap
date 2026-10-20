@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b99c[];
 typedef unsigned int u32_274e60;
@@ -20,10 +21,10 @@ struct Target_274e60 : Request {
     Request* run(u32_274e60 arg);
 };
 Request* Target_274e60::run(u32_274e60 arg) {
-    vf = ((int)DAT_0042b914);
+    vf = ((hulk_intptr)DAT_0042b914);
     field = 0;
     init();
-    vf = ((int)DAT_0042b99c);
+    vf = ((hulk_intptr)DAT_0042b99c);
     file = (File*)arg;
     init();
     ((Inner_274e60*)((char*)file + 4))->a();

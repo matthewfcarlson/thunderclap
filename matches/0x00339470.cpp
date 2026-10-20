@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int uint;
 extern void __cdecl CopyThing(void*, void*, int);
 struct Thing_339470 {
@@ -8,7 +9,7 @@ struct Thing_339470 {
 };
 extern void __cdecl Finish(Thing_339470*);
 int* __cdecl Target(Thing_339470* p) {
-    int n = (int)p->mPtr - (int)p - 12;
+    hulk_intptr n = (hulk_intptr)p->mPtr - (hulk_intptr)p - 12;
     if (n != 0) {
         CopyThing(p->mArg, &p->mData, n);
         p->mPtr = (uint*)&p->mData;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 class Receiver_28eea0 {
@@ -18,5 +19,5 @@ int pure3d::ShaderFloatBroadcast::vfunc_3(void* __p0) { void * p = (void *)__p0;
         Receiver_28eea0* r = *(Receiver_28eea0**)((char*)p + 16);
         r->invoke(this->f_08, this->f_0c);
     }
-    return (int)p;
+    return (hulk_intptr)p;
 }

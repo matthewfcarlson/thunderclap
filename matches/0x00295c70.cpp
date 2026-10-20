@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042d1ec[];
 typedef unsigned int u32_295c70;
 class Base_295c70 {
@@ -19,7 +20,7 @@ class Thing_295c70 : public Base_295c70 {
 };
 Thing_295c70* Thing_295c70::Run(void* src) {
     Init();
-    vf = ((int)DAT_0042d1ec);
+    vf = ((hulk_intptr)DAT_0042d1ec);
     a = ((u32_295c70*)src)[4];
     b = ((u32_295c70*)src)[5];
     ((Child_295c70*)((char*)this + 8))->Copy((char*)src + 8);

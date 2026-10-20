@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int shaderVtable;
 class ShaderLoader {
   public:
@@ -13,5 +14,5 @@ ShaderLoader::ShaderLoader() {
     b = 0x11000;
     c = 0;
     d = 0;
-    vptr = (int)&shaderVtable;
+    vptr = (hulk_intptr)&shaderVtable;
 }

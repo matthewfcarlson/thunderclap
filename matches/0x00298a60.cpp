@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
 class Mapping {
   public:
@@ -15,7 +16,7 @@ class Mapping {
 void Mapping::Build() {
     count = 0;
     _ReadWriteBarrier();
-    unsigned n = last - first;
+    hulk_uintptr n = last - first;
     unsigned i = 0;
     while (i < n) {
         if (first[i]) {

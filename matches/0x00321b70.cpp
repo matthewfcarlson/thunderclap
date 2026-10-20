@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/platform/xbox/pure3d.h"
 
 extern "C" void __fastcall D3DDevice_SetRenderState_Simple(int*, int);
@@ -78,7 +79,7 @@ class d3dContext : public pddiBaseContext {
 };
 void d3dContext::v66(int x) {
     pddiBaseContext::v66(x);
-    int v = ((int*)((int)((char*)&DAT_004d3a6c)))[x];
+    int v = ((int*)((hulk_intptr)((char*)&DAT_004d3a6c)))[x];
     D3DDevice_SetRenderState_Simple((int*)0x40364, v);
     *(int*)0x39de28 = v;
 }

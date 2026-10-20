@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042bc60[];
 struct ThisCall_00275600 {
     void BaseInit(void*);
@@ -11,7 +12,7 @@ class DriveFileDestroyRequest {
 };
 DriveFileDestroyRequest* DriveFileDestroyRequest::Run(int a, char* p) {
     ((ThisCall_00275600*)(this))->BaseInit((void*)a);
-    *(unsigned int*)this = ((int)DAT_0042bc60);
+    *(hulk_uintptr*)this = ((hulk_intptr)DAT_0042bc60);
     InitMore();
     strncpy((char*)this + 0xc, p, 0x100);
     ((char*)this)[0x10c] = 0;

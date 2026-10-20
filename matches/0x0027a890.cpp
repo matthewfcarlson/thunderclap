@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class RDLObject {
   public:
     char pad[0x10];
@@ -14,5 +15,5 @@ RDLObject::RDLObject() {
     a = 0;
     b = 0;
     c = 0;
-    *(int*)this = (int)&vtable_27a890;
+    *(hulk_intptr*)this = (hulk_intptr)&vtable_27a890;
 }
