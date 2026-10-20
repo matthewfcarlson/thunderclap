@@ -9,9 +9,9 @@ inline void* operator new(unsigned int, void* p) throw() { return p; }
 
 class Manager;
 
-class Overlay {
+class ControllerPoller_fc060 {
 public:
-    Overlay(int a, Manager* mgr) throw();
+    ControllerPoller_fc060(int a, Manager* mgr) throw();
     virtual void v0();
 };
 
@@ -19,7 +19,7 @@ class Manager {
 public:
     Manager(int a) throw();
     char pad0[0x182c];
-    Overlay* overlay;
+    ControllerPoller_fc060* overlay;
     void FUN_000dddc0(int a, int b);
 };
 
@@ -32,10 +32,10 @@ void FUN_000fc060(int a1, int a2, int a3, int a4) {
     (*(Manager**)&DAT_004e0a60) = mgr;
     mgr->FUN_000dddc0(a1, a3);
     void* mem2 = FUN_0008d690(0x3c);
-    Overlay* ov = 0;
+    ControllerPoller_fc060* ov = 0;
     if (mem2)
-        ov = new (mem2) Overlay(a2, (*(Manager**)&DAT_004e0a60));
-    (*(Overlay**)&DAT_004e0a64) = ov;
+        ov = new (mem2) ControllerPoller_fc060(a2, (*(Manager**)&DAT_004e0a60));
+    (*(ControllerPoller_fc060**)&DAT_004e0a64) = ov;
     ov->v0();
-    (*(Manager**)&DAT_004e0a60)->overlay = (*(Overlay**)&DAT_004e0a64);
+    (*(Manager**)&DAT_004e0a60)->overlay = (*(ControllerPoller_fc060**)&DAT_004e0a64);
 }

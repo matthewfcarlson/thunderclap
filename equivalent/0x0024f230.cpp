@@ -5,7 +5,7 @@
 typedef unsigned int size_t;
 __forceinline void* operator new(size_t, void* place) { return place; }
 void* __cdecl FUN_00247530(void*);
-struct Action {
+struct SeqActionChannelSendVolumes_24f230 {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -14,7 +14,7 @@ struct Action {
     int zero;
 };
 struct Channel {
-    void FUN_0025dc20(Action*);
+    void FUN_0025dc20(SeqActionChannelSendVolumes_24f230*);
 };
 namespace audio {
 struct SeqEventChannelSendVolumes {
@@ -27,7 +27,7 @@ struct SeqEventChannelSendVolumes {
 };
 void SeqEventChannelSendVolumes::vfunc_2(Channel* channel) {
     void* memory = FUN_00247530(((char*)&DAT_004e6700));
-    Action* action = memory ? new (memory) Action : 0;
+    SeqActionChannelSendVolumes_24f230* action = memory ? new (memory) SeqActionChannelSendVolumes_24f230 : 0;
     if (action) {
         action->event = this;
         action->zero = 0;

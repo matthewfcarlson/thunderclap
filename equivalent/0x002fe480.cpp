@@ -34,7 +34,7 @@ struct Item_2fe480 {
     void FUN_00304740(int value);
 };
 
-class Entity {
+class SimStateHairclub_2fe480 {
 public:
     virtual void v0();
     virtual void v1();
@@ -52,7 +52,7 @@ public:
     virtual void v13(Source_2fe480 *src);
     virtual void v14(Item_2fe480 *item);
     char pad[0x8c - 8];
-    Entity *FUN_002fe3a0(int a, int b);
+    SimStateHairclub_2fe480 *FUN_002fe3a0(int a, int b);
 };
 
 class Owner_2fe480 {
@@ -62,7 +62,7 @@ public:
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual Item_2fe480 *v5(Entity *e);
+    virtual Item_2fe480 *v5(SimStateHairclub_2fe480 *e);
 };
 
 class Provider_2fe480 {
@@ -95,13 +95,13 @@ public:
     virtual void v25();
     virtual void v26();
     virtual void v27();
-    virtual Source_2fe480 *v28(Entity *e);
+    virtual Source_2fe480 *v28(SimStateHairclub_2fe480 *e);
 };
 
-Entity *__cdecl FUN_002fe480(int a, Owner_2fe480 *owner, Provider_2fe480 *provider)
+SimStateHairclub_2fe480 *__cdecl FUN_002fe480(int a, Owner_2fe480 *owner, Provider_2fe480 *provider)
 {
-    Entity *mem = (Entity *)FUN_0008d690(0x8c);
-    Entity *e = 0;
+    SimStateHairclub_2fe480 *mem = (SimStateHairclub_2fe480 *)FUN_0008d690(0x8c);
+    SimStateHairclub_2fe480 *e = 0;
     if (mem)
         e = mem->FUN_002fe3a0(a, 0);
     if (e == 0)

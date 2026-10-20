@@ -17,7 +17,7 @@ struct RefObj_19470 {
 
 struct Mat;
 
-struct Request {
+struct CFightParamsCollision_19470 {
     int r00;
     int r04;
     Vec3_19470 target;
@@ -45,10 +45,10 @@ struct Request {
     char pad92[0x98 - 0x92];
     Vec3_19470 scratchAnchor;
     Vec3_19470 scratchAttacker;
-    Request* FUN_00059820();
+    CFightParamsCollision_19470* FUN_00059820();
     void FUN_000595f0(Vec3_19470* v, float a, float b, float c);
     void FUN_00059300();
-    Request* FUN_000598e0(RefObj_19470* r, Request* src);
+    CFightParamsCollision_19470* FUN_000598e0(RefObj_19470* r, CFightParamsCollision_19470* src);
 };
 
 struct Chooser_19470 {
@@ -162,7 +162,7 @@ struct Fighter_19470 {
     float FUN_0003ebb0(int a);
     char FUN_000373d0();
     char FUN_000360f0();
-    char FUN_000437a0(Gear_19470* g, Request* req, int a, int b, int c);
+    char FUN_000437a0(Gear_19470* g, CFightParamsCollision_19470* req, int a, int b, int c);
     char FUN_00043350(int a, RefObj_19470* b, int c, float d, int e, int f);
     void FUN_00035b70(float x, float a, float b);
     void FUN_0003ffa0(RefObj_19470* o, int z);
@@ -237,7 +237,7 @@ void Attack::FUN_00019470(Fighter_19470* t, int a2, Vec3_19470* P, Vec3_19470* N
     if (!attacker->FUN_0003a590(world, t))
         return;
 
-    Request request;
+    CFightParamsCollision_19470 request;
     request.scratchAnchor.x = 0;
     request.scratchAnchor.y = 0;
     request.scratchAnchor.z = 0;
@@ -391,7 +391,7 @@ void Attack::FUN_00019470(Fighter_19470* t, int a2, Vec3_19470* P, Vec3_19470* N
         Chooser_19470* targetChooser = params->f4c;
         bool found = false;
         if (targetChooser) {
-            Request* allocated = (Request*)FUN_0008d690(0xb0);
+            CFightParamsCollision_19470* allocated = (CFightParamsCollision_19470*)FUN_0008d690(0xb0);
             RefObj_19470* copy =
                 allocated ? (RefObj_19470*)allocated->FUN_000598e0(t->f10->first, &request) : 0;
             copy->AddRef();
@@ -418,7 +418,7 @@ void Attack::FUN_00019470(Fighter_19470* t, int a2, Vec3_19470* P, Vec3_19470* N
 
     Chooser_19470* attackerChooser = params->f58;
     if (attackerChooser) {
-        Request* allocated = (Request*)FUN_0008d690(0xb0);
+        CFightParamsCollision_19470* allocated = (CFightParamsCollision_19470*)FUN_0008d690(0xb0);
         RefObj_19470* copy = allocated ? (RefObj_19470*)allocated->FUN_000598e0(owner->f8, &request) : 0;
         copy->AddRef();
         RefObj_19470* result = attackerChooser->v8(copy, 0);

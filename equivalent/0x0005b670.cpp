@@ -19,7 +19,7 @@ struct Owner_5b670 {
     Context_5b670* FUN_000592a0();
 };
 
-struct Created_5b670 {
+struct CSmartPropDropAction_nv_5b670 {
     void* FUN_0001f360(CGrappleSmartPropDropTrack* track, Settings* settings);
 };
 void* __cdecl FUN_0008d690(unsigned int size);
@@ -42,8 +42,8 @@ int CGrappleSmartPropDropTrack::vfunc_12(int __p0) { Owner_5b670 * owner = (Owne
     Settings* settings = slot->settings;
     if (settings == 0)
         return (int)(0);
-    Created_5b670* c = static_cast<Created_5b670*>(FUN_0008d690(0x24));
+    CSmartPropDropAction* c = static_cast<CSmartPropDropAction*>(FUN_0008d690(0x24));
     if (c == 0)
         return (int)(0);
-    return (int)(c->FUN_0001f360(this, settings));
+    return (int)(((CSmartPropDropAction_nv_5b670*)(c))->FUN_0001f360(this, settings));
 }

@@ -190,7 +190,7 @@ public:
     Hold_e9af0 *hold;
 };
 
-class FEObject {
+class FEControl_e9af0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -205,7 +205,7 @@ public:
     int f3c;
 };
 
-class HSlider : public FEObject {
+class HSlider : public FEControl_e9af0 {
 public:
     virtual void vfunc_5();
     char pad40[0x60 - 0x40];

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3042 inputs, branch coverage 64/65, incomplete)
 // FUN_000437a0 @ 0x000437a0
 #include "decls/data/game/global.h"
+#include "gen/global.h"
 
 extern "C" int atexit(void (*)());
 extern "C" int __cdecl FUN_00266da0(int mode);
@@ -19,12 +20,8 @@ struct Key_437a0 {
 };
 
 
-class Event_437a0 {
-public:
-    virtual void v0();
-    virtual void v1();
-    char pad04[0xb0 - 4];
-    Event_437a0* FUN_000598e0(int first, void* params);
+struct CFightParamsCollision_nv_437a0 {
+    CFightParamsCollision* FUN_000598e0(int first, void* params);
 };
 
 struct Target2 {
@@ -38,7 +35,7 @@ struct Target_437a0 {
     int f0c;
 };
 
-struct Params {
+struct Params_437a0 {
     char pad00[0x24];
     char b24;
     char pad25[3];
@@ -58,8 +55,8 @@ struct Params {
 };
 
 struct Actor_437a0 {
-    void FUN_00231ad0(Vec3_437a0* where, Event_437a0* ev, int t);
-    char FUN_00231a40(Vec3_437a0* where, Event_437a0* ev);
+    void FUN_00231ad0(Vec3_437a0* where, CFightParamsCollision* ev, int t);
+    char FUN_00231a40(Vec3_437a0* where, CFightParamsCollision* ev);
     char FUN_001d6ec0(int a, Target_437a0* t, int c);
 };
 
@@ -73,7 +70,7 @@ public:
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual Actor_437a0* v8(Event_437a0* ev, int z);
+    virtual Actor_437a0* v8(CFightParamsCollision* ev, int z);
 };
 
 struct Obj11c_437a0 {
@@ -131,11 +128,11 @@ public:
     char b1d28;
     int FUN_00035fe0();
     char FUN_00043350(float dt, Target_437a0* t, int a, int b, int c, int d);
-    Actor_437a0* FUN_000392e0(Event_437a0* ev);
+    Actor_437a0* FUN_000392e0(CFightParamsCollision* ev);
     void FUN_00035930(int v);
     int FUN_00036e40(Key_437a0* k);
     void FUN_00037000();
-    char FUN_000437a0(float dt, Params* p, Vec3_437a0* where, Actor_437a0* actor, char flag5);
+    char FUN_000437a0(float dt, Params_437a0* p, Vec3_437a0* where, Actor_437a0* actor, char flag5);
 };
 
 union FloatBits_437a0 {
@@ -143,7 +140,7 @@ union FloatBits_437a0 {
     unsigned int u;
 };
 
-char Unit_437a0::FUN_000437a0(float dt, Params* p, Vec3_437a0* where, Actor_437a0* actor, char flag5)
+char Unit_437a0::FUN_000437a0(float dt, Params_437a0* p, Vec3_437a0* where, Actor_437a0* actor, char flag5)
 {
     if (f11c == 0)
         return 0;
@@ -194,12 +191,12 @@ char Unit_437a0::FUN_000437a0(float dt, Params* p, Vec3_437a0* where, Actor_437a
             factor = t->f08->f1d20;
         f320 = factor * dt + f320;
     }
-    Event_437a0* ev = (Event_437a0*)FUN_0008d690(0xb0);
+    CFightParamsCollision* ev = (CFightParamsCollision*)FUN_0008d690(0xb0);
     if (ev != 0)
-        ev = ev->FUN_000598e0(f10->first, p);
+        ev = ((CFightParamsCollision_nv_437a0*)(ev))->FUN_000598e0(f10->first, p);
     else
         ev = 0;
-    ev->v0();
+    ev->vfunc_0();
     if (!flag5) {
         Actor_437a0* act = actor;
         if (act == 0)
@@ -237,7 +234,7 @@ char Unit_437a0::FUN_000437a0(float dt, Params* p, Vec3_437a0* where, Actor_437a
             }
         }
     }
-    ev->v1();
+    ev->vfunc_1();
     FUN_00266da0(saved);
     return ok;
 }

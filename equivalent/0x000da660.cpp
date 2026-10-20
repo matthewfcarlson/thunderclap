@@ -15,12 +15,12 @@ struct Formatter_da660 { int FUN_000f83f0(TextSource_da660*, int); };
 struct State_da660 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_da660* FUN_00086280(); };
 void __cdecl FUN_000fc020(unsigned short*, int, const unsigned short*, int);
-struct Object {
+struct FEMemCardControl_da660 {
  char pad0[0x21c]; int value; char pad1[0x3b0-0x220]; unsigned char active; char pad2[0x3eb-0x3b1]; unsigned char mode; char pad3[8]; Formatter_da660 formatter;
  Menu_da660* FUN_000fc3d0();
  void target(int);
 };
-void Object::target(int) {
+void FEMemCardControl_da660::target(int) {
  unsigned short buffer[512];
  Menu_da660* menu = FUN_000fc3d0();
  TextSource_da660* source = menu->v44();

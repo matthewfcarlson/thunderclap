@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 42/42)
 // FUN_000f7330 @ 0x000f7330
 #include "decls/data/engine/pure3d/prop.h"
+#include "gen/pure3d.h"
 
-struct Font {
+struct Font_f7330 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -20,10 +21,8 @@ struct Font {
     virtual void v14(unsigned int *color);
 };
 
-struct Fade_f7330 {
-    virtual void v0();
-    virtual void v1();
-    Fade_f7330 *FUN_0028ee60(int tag, float f);
+struct ShaderFloatBroadcast_nv_f7330 {
+    pure3d::ShaderFloatBroadcast *FUN_0028ee60(int tag, float f);
 };
 
 struct Token_f7330 {
@@ -40,7 +39,7 @@ struct Token_f7330 {
     virtual void v10();
     virtual void v11();
     virtual void v12();
-    virtual void v13(Fade_f7330 *f);
+    virtual void v13(pure3d::ShaderFloatBroadcast *f);
     virtual void v14();
     char pad04[0x14 - 4];
     float f14;
@@ -72,7 +71,7 @@ struct Holder_f7330 {
 
 struct Probe_f7330 {
     char pad[0x18];
-    void FUN_000ded90(const unsigned short *text, Font *font);
+    void FUN_000ded90(const unsigned short *text, Font_f7330 *font);
 };
 
 struct Callback_f7330 {
@@ -122,7 +121,7 @@ struct Frame_f7330 {
 class GlyphRun {
 public:
     char pad0[0x24];
-    Font *fonts[1];         // 0x24
+    Font_f7330 *fonts[1];         // 0x24
     char pad28[0x114 - 0x28];
     TokenTable *table;      // 0x114
     float f118;
@@ -227,9 +226,9 @@ void GlyphRun::FUN_000f7330(unsigned short *text, int font, int unused, int mode
                 f.u14.alpha = f.u1c.color >> 24;
                 f.u14.fade = 1.0f - (float)f.u14.alpha * 0.003921569f;
                 void *mem = FUN_0008d690(0x10);
-                Fade_f7330 *fd = 0;
+                pure3d::ShaderFloatBroadcast *fd = 0;
                 if (mem != 0)
-                    fd = ((Fade_f7330 *)mem)->FUN_0028ee60(0x45444146, f.u14.fade);
+                    fd = ((ShaderFloatBroadcast_nv_f7330*)(((pure3d::ShaderFloatBroadcast *)mem)))->FUN_0028ee60(0x45444146, f.u14.fade);
                 tok->v13(fd);
                 tok->v8(0, 0);
                 tok->v14();

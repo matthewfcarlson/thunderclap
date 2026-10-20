@@ -4,7 +4,7 @@ struct Stream {
     void FUN_002647e0(void *dest, unsigned count, unsigned size, int flag);
 };
 
-struct Node {
+struct ColourChannel_28cfd0 {
     int field_00;
     int field_04;
     int field_08;
@@ -12,7 +12,7 @@ struct Node {
     int field_10;
     void *field_14;
     void *field_18;
-    Node *FUN_0028c470(unsigned x, Node *parent);
+    ColourChannel_28cfd0 *FUN_0028c470(unsigned x, ColourChannel_28cfd0 *parent);
 };
 
 struct Parent_28cfd0 {
@@ -29,11 +29,11 @@ struct Reader {
 
 void *FUN_0008d690(unsigned size);
 
-Node * __stdcall FUN_0028cfd0(Reader *r, unsigned unused, Parent_28cfd0 *parent)
+ColourChannel_28cfd0 * __stdcall FUN_0028cfd0(Reader *r, unsigned unused, Parent_28cfd0 *parent)
 {
     unsigned x;
     unsigned a;
-    Node *node;
+    ColourChannel_28cfd0 *node;
 
     r->stream->FUN_002647e0(&x, 1, 4, 1);
     r->stream->FUN_002647e0(&a, 1, 4, 1);
@@ -43,12 +43,12 @@ Node * __stdcall FUN_0028cfd0(Reader *r, unsigned unused, Parent_28cfd0 *parent)
         void *mem = FUN_0008d690(0x1c);
         node = 0;
         if (mem)
-            node = ((Node *)mem)->FUN_0028c470(x, 0);
+            node = ((ColourChannel_28cfd0 *)mem)->FUN_0028c470(x, 0);
     } else {
         void *mem = parent->FUN_002888c0(0x1c, 7);
         node = 0;
         if (mem)
-            node = ((Node *)mem)->FUN_0028c470(x, (Node *)parent);
+            node = ((ColourChannel_28cfd0 *)mem)->FUN_0028c470(x, (ColourChannel_28cfd0 *)parent);
     }
 
     node->field_08 = a;

@@ -8,7 +8,7 @@ inline void* operator new(unsigned int, void* p) throw() { return p; }
 struct Key { unsigned int lo; unsigned int hi; };
 extern "C" Key __cdecl FUN_0027b020(const char* s);
 
-class FEContainer;
+class FEScreenBase_e4fc0;
 class FEObject;
 
 struct Owner {
@@ -20,7 +20,7 @@ struct Owner {
 
 class FELayout {
 public:
-    FELayout(FEContainer* parent, const char* name) throw();
+    FELayout(FEScreenBase_e4fc0* parent, const char* name) throw();
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -43,7 +43,7 @@ public:
     virtual bool IsPrimary();
     virtual void f20();
     char pad04[4];
-    FEContainer* parent;
+    FEScreenBase_e4fc0* parent;
     char pad0c[4];
     unsigned int keyLo;
     unsigned int keyHi;
@@ -54,7 +54,7 @@ public:
 
 class SingleLayout : public FELayout {
 public:
-    SingleLayout(FEContainer* p, const char* n) throw() : FELayout(p, n) { field44 = 0; mLayout = 0; }
+    SingleLayout(FEScreenBase_e4fc0* p, const char* n) throw() : FELayout(p, n) { field44 = 0; mLayout = 0; }
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -73,7 +73,7 @@ public:
     Owner* ownerRef;
 };
 
-class FEContainer {
+class FEScreenBase_e4fc0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -108,7 +108,7 @@ public:
     FEObject* children[0x80];
 };
 
-FEObject* FEContainer::vfunc_23(FEObject* obj, const char* name)
+FEObject* FEScreenBase_e4fc0::vfunc_23(FEObject* obj, const char* name)
 {
     if (obj == 0)
         return 0;

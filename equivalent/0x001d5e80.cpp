@@ -6,8 +6,8 @@ extern int __cdecl FUN_001d5140(void*);
 struct Property_1d5e80 { unsigned int keyLow; unsigned int keyHigh; void* value; unsigned int reserved; };
 struct Entry_1d5e80 { char pad[0x3c]; int count; Property_1d5e80* properties; };
 struct Entries_1d5e80 { char pad[0x1c]; Entry_1d5e80** begin; Entry_1d5e80** end; };
-struct Object { char pad[0x90]; Entries_1d5e80* entries; int FUN_001d5e80(int index); };
-int Object::FUN_001d5e80(int index) {
+struct CSPHulkPropInstance_1d5e80 { char pad[0x90]; Entries_1d5e80* entries; int FUN_001d5e80(int index); };
+int CSPHulkPropInstance_1d5e80::FUN_001d5e80(int index) {
  unsigned int low, high;
  if (!((*(unsigned int*)&DAT_004e2408) & 1)) {
   (*(unsigned int*)&DAT_004e2408) |= 1;

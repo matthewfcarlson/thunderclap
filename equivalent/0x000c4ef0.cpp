@@ -19,7 +19,7 @@ struct Timer {
     float FUN_00095f70();
 };
 
-class Camera {
+class VectorCamera_c4ef0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -32,7 +32,7 @@ class Camera {
     virtual void v8();
     virtual void setFar(float f);
 
-    Camera *FUN_002939a0();
+    VectorCamera_c4ef0 *FUN_002939a0();
     void FUN_00293af0(Vec3_c4ef0 *v);
     void FUN_00293a90(Vec3_c4ef0 *v);
 };
@@ -48,7 +48,7 @@ class Renderer_c4ef0 {
 
     Renderer_c4ef0 *FUN_00294880();
     void FUN_00293e90(unsigned color);
-    void FUN_00294980(Camera *cam);
+    void FUN_00294980(VectorCamera_c4ef0 *cam);
 };
 
 class FEControllerSystem {
@@ -154,7 +154,7 @@ struct Input_c4ef0 {
 struct Frontend_c4ef0 {
     char pad0[0x20];
     Renderer_c4ef0 *renderer;
-    Camera *camera;
+    VectorCamera_c4ef0 *camera;
     char pad1[0x34 - 0x28];
     void *field_34;
     char pad2[0x40 - 0x38];
@@ -197,7 +197,7 @@ void Frontend_c4ef0::FUN_000c4ef0(void *a1, void *a2, void *a3, Input_c4ef0 *a4,
     renderer->FUN_00293e90(0xff505050);
 
     p = FUN_00263ea0(0xf8);
-    camera = p ? ((Camera *)p)->FUN_002939a0() : 0;
+    camera = p ? ((VectorCamera_c4ef0 *)p)->FUN_002939a0() : 0;
     camera->v0();
     camera->setNear(0.1f);
     camera->setFar(100.0f);

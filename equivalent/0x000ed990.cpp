@@ -117,7 +117,7 @@ struct Cell_ed990 {
     char pad00[0x24];
 };
 
-class FEObject {
+class FEControl_ed990 {
 public:
     virtual void v0();
     virtual void v1();
@@ -125,7 +125,7 @@ public:
     virtual void vfunc_3();
 };
 
-class TextTable : public FEObject {
+class TextTable : public FEControl_ed990 {
 public:
     virtual void vfunc_3();
     char pad04[0x10];
@@ -143,7 +143,7 @@ public:
 
 void TextTable::vfunc_3()
 {
-    FEObject::vfunc_3();
+    FEControl_ed990::vfunc_3();
 
     Builder x;
     x.FUN_000f7fe0(owner->p8->level2->v44());

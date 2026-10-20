@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00207850 @ 0x00207850
-class Stream {
+class LoadInventory_207850 {
 public:
     char pad0[0x590];
     int pending;            // 0x590
@@ -13,7 +13,7 @@ public:
     bool FUN_00207850(int flag);
 };
 
-bool Stream::FUN_00207850(int flag)
+bool LoadInventory_207850::FUN_00207850(int flag)
 {
     if (blocked == 0 && pending != 0) {
         int n = (char)flag ? FUN_002037a0() : FUN_00204c10(1);

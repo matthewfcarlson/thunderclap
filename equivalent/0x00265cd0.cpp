@@ -7,7 +7,7 @@ int __cdecl FUN_00266da0(int mode);
 
 struct Ctx_265cd0;
 struct Cache_265cd0;
-struct Stream;
+struct LoadInventory_265cd0;
 
 struct Res_265cd0 {
     char pad04[8];
@@ -19,13 +19,13 @@ struct Res_265cd0 {
     void* FUN_00263fb0();
 };
 
-struct Stream {
+struct LoadInventory_265cd0 {
     virtual void AddRef();
     virtual void Release();
     virtual void v2();
     virtual void v3();
     virtual void v4(int a, int b, void* obj);
-    Stream* FUN_00266480(int size);
+    LoadInventory_265cd0* FUN_00266480(int size);
     void FUN_00266130(int v);
     void FUN_002660a0(void* v);
 };
@@ -53,7 +53,7 @@ struct Cache_265cd0 {
     void FUN_00266850(Res_265cd0* r);
     void FUN_00266950(int v);
     int FUN_00266710();
-    void FUN_00266820(Stream* s);
+    void FUN_00266820(LoadInventory_265cd0* s);
 };
 
 struct Pair_265cd0 {
@@ -148,9 +148,9 @@ void P3DFileHandler::vfunc_3(Ctx_265cd0* ctx, Cache_265cd0* cache)
         listener->v0(ctx, res->FUN_00263fb0());
     int old = FUN_00266da0(1);
     void* mem2 = FUN_00263ed0(0x14, 1);
-    Stream* stream = 0;
+    LoadInventory_265cd0* stream = 0;
     if (mem2 != 0)
-        stream = ((Stream*)mem2)->FUN_00266480(0x400);
+        stream = ((LoadInventory_265cd0*)mem2)->FUN_00266480(0x400);
     FUN_00266da0(old);
     stream->FUN_00266130(0);
     stream->FUN_002660a0(ctx->f104);

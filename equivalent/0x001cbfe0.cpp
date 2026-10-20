@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 39/40, incomplete)
 // FUN_001cbfe0 @ 0x001cbfe0
 #include "decls/address.h"
+#include "gen/global.h"
 extern "C" void __cdecl qsort(void *base, unsigned int count, unsigned int size,
                               int (__cdecl *cmp)(const void *, const void *));
 
@@ -15,15 +16,11 @@ struct Event_1cbfe0 {
     void FUN_001caf10(float dt);
 };
 
-class Task_1cbfe0 {
-public:
-    virtual void vf0();
-    virtual void vf1();
-    Task_1cbfe0 *FUN_001d0360(const Item_1cbfe0 *item);
-    char pad[0xf0 - 4];
+struct CScenarioParams_nv_1cbfe0 {
+    CScenarioParams *FUN_001d0360(const Item_1cbfe0 *item);
 };
 
-class Node {
+class Node_1cbfe0 {
 public:
     virtual void vf0();
     virtual void vf1();
@@ -33,9 +30,9 @@ public:
     virtual void vf5();
     virtual void vf6();
     virtual void vf7();
-    virtual Node *vf8(Task_1cbfe0 *task, int arg);
-    char FUN_00232ed0(Node *other);
-    Node *FUN_00231a00(Task_1cbfe0 *task);
+    virtual Node_1cbfe0 *vf8(CScenarioParams *task, int arg);
+    char FUN_00232ed0(Node_1cbfe0 *other);
+    Node_1cbfe0 *FUN_00231a00(CScenarioParams *task);
 };
 
 class Slot_1cbfe0 {
@@ -157,7 +154,7 @@ public:
     void FUN_001cbfe0(float dt);
     bool FUN_001cbc20(Event_1cbfe0 *ev);
     char FUN_001cb400(Item_1cbfe0 *item);
-    unsigned int FUN_001cb7c0(Node *node, Task_1cbfe0 *task);
+    unsigned int FUN_001cb7c0(Node_1cbfe0 *node, CScenarioParams *task);
     char FUN_001cbcb0(float dt);
 
     char pad0[0xc];
@@ -165,12 +162,12 @@ public:
     char pad1[8];
     char sorted;
     char pad2[3];
-    Node *owner;
+    Node_1cbfe0 *owner;
     Slot_1cbfe0 slots[24];
     char free[24];
     char active;
     char pad3[3];
-    Node *current;
+    Node_1cbfe0 *current;
 };
 
 void ItemQueue::FUN_001cbfe0(float dt)
@@ -192,18 +189,18 @@ void ItemQueue::FUN_001cbfe0(float dt)
                 item = item - 1;
                 if (!FUN_001cb400(item)) {
                     void *mem = FUN_0008d690(0xf0);
-                    Task_1cbfe0 *task;
+                    CScenarioParams *task;
                     if (mem)
-                        task = ((Task_1cbfe0 *)mem)->FUN_001d0360(item);
+                        task = ((CScenarioParams_nv_1cbfe0*)(((CScenarioParams *)mem)))->FUN_001d0360(item);
                     else
                         task = 0;
-                    task->vf0();
-                    Node *o = owner;
+                    task->vfunc_0();
+                    Node_1cbfe0 *o = owner;
                     if (o) {
                         if (current)
                             current->vf1();
                         current = 0;
-                        Node *node = o->vf8(task, 0);
+                        Node_1cbfe0 *node = o->vf8(task, 0);
                         while (node) {
                             unsigned int idx = FUN_001cb7c0(node, task);
                             if (idx != (unsigned int)-1) {
@@ -222,7 +219,7 @@ void ItemQueue::FUN_001cbfe0(float dt)
                             node = node->FUN_00231a00(task);
                         }
                     }
-                    task->vf1();
+                    task->vfunc_1();
                 }
             } while (item != vec.begin);
         }

@@ -17,11 +17,11 @@ struct Transform_1a5840 {
  virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
  virtual void slot16(); virtual Matrix* slot17();
 };
-struct Object {
+struct EffectAction_1a5840 {
  char pad[0x28]; Transform_1a5840* transform;
  void target(Source_1a5840* source, unsigned int a, unsigned int b, Matrix* output);
 };
-void Object::target(Source_1a5840* source, unsigned int a, unsigned int b, Matrix* output) {
+void EffectAction_1a5840::target(Source_1a5840* source, unsigned int a, unsigned int b, Matrix* output) {
  if (!source) { output->FUN_0022b980(); return; }
  unsigned int index=0;
  if (a || b) { index=source->FUN_002843a0(a,b); if(index==0xffff) index=0; }

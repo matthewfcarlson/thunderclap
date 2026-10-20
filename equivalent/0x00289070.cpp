@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 20/20)
 // FUN_00289070 @ 0x00289070
+#include "gen/pure3d.h"
 void* FUN_0008d690(unsigned int size);
 
-struct Stream {
+struct Stream_289070 {
     char pad[0xc];
     char FUN_002647e0(void* dst, int a, int size, int b);
 };
@@ -21,14 +22,14 @@ struct Table_289070 {
     Field_289070* FUN_0028b020(int key);
 };
 
-struct Result_289070 {
-    Result_289070* FUN_00288820(unsigned int total, unsigned int extra);
+struct AnimationMemoryBlock_nv_289070 {
+    pure3d::AnimationMemoryBlock* FUN_00288820(unsigned int total, unsigned int extra);
 };
 
-struct Reader {
+struct Reader_289070 {
     char pad000[0x280];
     int pad280;
-    Stream* stream;
+    Stream_289070* stream;
     char FUN_002669f0();
     int FUN_00266a30();
     void FUN_00266be0();
@@ -39,7 +40,7 @@ struct Layout_289070 {
     Table_289070* table;
     char pad18[8];
     int count;
-    Result_289070* FUN_00289070(Reader* r);
+    pure3d::AnimationMemoryBlock* FUN_00289070(Reader_289070* r);
 };
 
 struct Frame_289070 {
@@ -55,7 +56,7 @@ struct Frame_289070 {
     unsigned int total;
 };
 
-Result_289070* Layout_289070::FUN_00289070(Reader* r)
+pure3d::AnimationMemoryBlock* Layout_289070::FUN_00289070(Reader_289070* r)
 {
     Frame_289070 f;
     r->stream->FUN_002647e0(&f.total, 1, 4, 1);
@@ -92,8 +93,8 @@ Result_289070* Layout_289070::FUN_00289070(Reader* r)
         }
         r->FUN_00266be0();
     }
-    Result_289070* res = (Result_289070*)FUN_0008d690(0x20);
+    pure3d::AnimationMemoryBlock* res = (pure3d::AnimationMemoryBlock*)FUN_0008d690(0x20);
     if (res == 0)
         return 0;
-    return res->FUN_00288820(f.total, extra);
+    return ((AnimationMemoryBlock_nv_289070*)(res))->FUN_00288820(f.total, extra);
 }

@@ -2,9 +2,12 @@
 // FUN_001f17f0 @ 0x001f17f0
 // cl-flags: /GS
 #include "decls/data/game/unknown.h"
+#include "gen/global.h"
 
-struct Item_1f17f0 { Item_1f17f0* FUN_001f0760(const char*, void*, unsigned, unsigned, unsigned, unsigned); };
-struct Manager_1f17f0 { void FUN_001ef260(Item_1f17f0*); };
+struct CSoundCommand_PlayMissionDialogueEvent_nv_1f17f0 {
+    CSoundCommand_PlayMissionDialogueEvent* FUN_001f0760(const char*, void*, unsigned, unsigned, unsigned, unsigned);
+};
+struct Manager_1f17f0 { void FUN_001ef260(CSoundCommand_PlayMissionDialogueEvent*); };
 extern "C" void* __cdecl FUN_0008d710(unsigned,unsigned);
 void __stdcall FUN_001f17f0(const char* name, void* data, unsigned a, unsigned b, unsigned c, unsigned d) {
  if(name && data) {
@@ -12,8 +15,8 @@ void __stdcall FUN_001f17f0(const char* name, void* data, unsigned a, unsigned b
   if(manager) {
    char buffer[64]={0};
    unsigned n=0; do {buffer[n]=name[n];} while(name[n++]);
-   Item_1f17f0* item=(Item_1f17f0*)FUN_0008d710(0x48,6);
-   if(item) item=item->FUN_001f0760(name,data,a,b,c,d);
+   CSoundCommand_PlayMissionDialogueEvent* item=(CSoundCommand_PlayMissionDialogueEvent*)FUN_0008d710(0x48,6);
+   if(item) item=((CSoundCommand_PlayMissionDialogueEvent_nv_1f17f0*)(item))->FUN_001f0760(name,data,a,b,c,d);
    manager->FUN_001ef260(item);
   }
  }

@@ -4,11 +4,11 @@ extern "C" int __stdcall GetLastError();
 extern "C" char * __cdecl _strncpy(char *, const char *, unsigned int);
 struct Result_26f4b0 { int status; char name[257]; };
 struct Entry_26f4b0 { unsigned char flags; char pad[43]; char name[256]; };
-struct Reader {
+struct XboxDrive_26f4b0 {
     int FUN_0026f3e0(int error);
     int FUN_0026f4b0(Result_26f4b0 *result, Entry_26f4b0 *entry, int *handle);
 };
-int Reader::FUN_0026f4b0(Result_26f4b0 *result, Entry_26f4b0 *entry, int *handle)
+int XboxDrive_26f4b0::FUN_0026f4b0(Result_26f4b0 *result, Entry_26f4b0 *entry, int *handle)
 {
     if (*handle == -1) {
         int error = GetLastError();

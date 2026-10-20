@@ -5,12 +5,12 @@ extern "C" long atol(const char *s);
 
 void *__cdecl FUN_0008d690(unsigned int size);
 
-struct Node;
+struct BinkCallback_337a30;
 struct Item;
 
 struct Listener_337a30 {
     virtual void v0();
-    virtual void OnNode(Node *node);
+    virtual void OnNode(BinkCallback_337a30 *node);
 };
 
 struct Registry_337a30 {
@@ -25,12 +25,12 @@ public:
     void FUN_00338630();
 };
 
-class Node {
+class BinkCallback_337a30 {
 public:
     virtual void Destroy(int flag);
     char pad04[8];
     int hasOwner;
-    Node *FUN_003352a0();
+    BinkCallback_337a30 *FUN_003352a0();
     void FUN_003352c0(const char *text);
     char FUN_00335300(class Parser_337a30 *parser);
     void FUN_00336f30(Item *item, int arg);
@@ -55,7 +55,7 @@ bool Parser_337a30::FUN_00337a30(void *source, int a1, Registry_337a30 *registry
         r = r->FUN_003388d0(source, 0x2000);
     reader = r;
     if (r->FUN_003385f0(a1)) {
-        Node *node = (Node *)FUN_0008d690(0x10);
+        BinkCallback_337a30 *node = (BinkCallback_337a30 *)FUN_0008d690(0x10);
         if (node)
             node = node->FUN_003352a0();
         const char *tok = FUN_00337980();

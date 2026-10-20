@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 189 inputs, branch coverage 18/18; run with --inputs 12000)
 // FUN_002abba0 @ 0x002abba0
 #include "decls/data/engine/content.h"
+#include "gen/pure3d.h"
 
 extern char DAT_0049c7dc[];
 extern char DAT_004ce974[];
@@ -8,11 +9,8 @@ extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *d
 extern void *__cdecl FUN_00263ea0(unsigned int size);
 extern void *__cdecl FUN_0008d690(unsigned int size);
 
-class Node {
-public:
-    virtual void AddRef();
-    char pad4[0x10];
-    Node *FUN_002d2130(void *src);
+struct GeneratorBlendState_nv_2abba0 {
+    pure3d::ParticlePointGenerator::GeneratorBlendState *FUN_002d2130(void *src);
 };
 
 class Item_2abba0 {
@@ -24,15 +22,15 @@ public:
     void *FUN_00288a10(int index);
 };
 
-class Stream {
+class Stream_2abba0 {
 public:
     void FUN_002647e0(void *dst, int a, int b, int c);
 };
 
-class Reader {
+class Reader_2abba0 {
 public:
     char pad0[0x284];
-    Stream *stream;
+    Stream_2abba0 *stream;
     char FUN_002669f0();
     int FUN_00266a30();
     void FUN_00266be0();
@@ -45,13 +43,13 @@ public:
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void v5(Item_2abba0 **out, int *flag, Reader *r, int arg);
+    virtual void v5(Item_2abba0 **out, int *flag, Reader_2abba0 *r, int arg);
     int FUN_00288e90();
     void FUN_00288e80(int state);
 };
 
 struct NodeVec_2abba0 {
-    Node **data;
+    pure3d::ParticlePointGenerator::GeneratorBlendState **data;
     char pad4[8];
     void FUN_002ab940(int count, int *fill);
 };
@@ -84,7 +82,7 @@ struct Frame_2abba0 {
     int unused;
 };
 
-Result_2abba0 *__stdcall FUN_002abba0(Reader *r, int arg)
+Result_2abba0 *__stdcall FUN_002abba0(Reader_2abba0 *r, int arg)
 {
     Frame_2abba0 f;
     r->stream->FUN_002647e0(&f.state, 1, 4, 1);
@@ -119,14 +117,14 @@ Result_2abba0 *__stdcall FUN_002abba0(Reader *r, int arg)
                 f.fill = 0;
                 res->nodes.FUN_002ab940(f.count, &f.fill);
                 for (int i = 0; i < f.count; i++) {
-                    Node *n;
+                    pure3d::ParticlePointGenerator::GeneratorBlendState *n;
                     void *m = FUN_0008d690(0x14);
                     if (m)
-                        n = ((Node *)m)->FUN_002d2130(f.it->FUN_00288a10(i));
+                        n = ((GeneratorBlendState_nv_2abba0*)(((pure3d::ParticlePointGenerator::GeneratorBlendState *)m)))->FUN_002d2130(f.it->FUN_00288a10(i));
                     else
                         n = 0;
                     res->nodes.data[res->used] = n;
-                    res->nodes.data[res->used]->AddRef();
+                    res->nodes.data[res->used]->vfunc_0();
                     res->used++;
                 }
             }

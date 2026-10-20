@@ -44,7 +44,7 @@ int __cdecl FUN_00266da0(int v);
 float __cdecl FUN_003458c1(const char *s);
 void *FUN_0008d690(unsigned int size);
 
-class Tokenizer {
+class ScriptReader_23a6b0 {
 public:
     char pad0[8];
     CharStream *stream;
@@ -60,7 +60,7 @@ public:
     void FUN_0023a6b0();
 };
 
-void Tokenizer::FUN_0023a6b0()
+void ScriptReader_23a6b0::FUN_0023a6b0()
 {
     char buf[256];
     int old = FUN_00266da0(FUN_00238190(1));

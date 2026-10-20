@@ -43,7 +43,7 @@ unsigned int FUN_0026fd80(unsigned int a, unsigned int b);
 Reader *FUN_0025bec0(Reader *r);
 int FUN_0024ba70(void *source, Reader *reader, int amount);
 
-class Channel {
+class SeqActionStream_253cb0 {
 public:
     char pad00[8];
     int f08;
@@ -59,7 +59,7 @@ public:
     void FUN_00253cb0(Stream *s);
 };
 
-void Channel::FUN_00253cb0(Stream *s)
+void SeqActionStream_253cb0::FUN_00253cb0(Stream *s)
 {
     if (s->done)
         return;

@@ -95,7 +95,7 @@ struct Vec3_ed360 {
     float x, y, z;
 };
 
-class FEObject;
+class FEControl_ed360;
 
 class Owner_ed360 {
 public:
@@ -114,14 +114,14 @@ public:
     virtual void v12();
     virtual void v13();
     virtual void v14();
-    virtual void v15(Vec3_ed360 *out, FEObject *who);
-    virtual float v16(FEObject *who);
-    virtual float v17(FEObject *who);
+    virtual void v15(Vec3_ed360 *out, FEControl_ed360 *who);
+    virtual float v16(FEControl_ed360 *who);
+    virtual float v17(FEControl_ed360 *who);
     char pad04[8 - 4];
     Hold_ed360 *hold;
 };
 
-class FEObject {
+class FEControl_ed360 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -131,7 +131,7 @@ public:
     Owner_ed360 *owner;
 };
 
-class TextWindow : public FEObject {
+class TextWindow : public FEControl_ed360 {
 public:
     virtual void vfunc_3();
     char pad18[0x968 - 0x18];
@@ -150,7 +150,7 @@ void TextWindow::vfunc_3()
         Layout_ed360 layout;
     } fr;
 
-    FEObject::vfunc_3();
+    FEControl_ed360::vfunc_3();
     fr.layout.FUN_000f7fe0(owner->hold->fonts->v44());
     fr.k = owner->v17(this);
     fr.layout.entries[fr.layout.index].scale = owner->v16(this) * fr.k;

@@ -3,14 +3,14 @@
 extern "C" double __cdecl tan(double);
 extern "C" double __cdecl atan(double);
 extern "C" double __cdecl sqrt(double);
-struct Camera {
+struct CChaseCamera_a0fe0 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual float v8();
  char pad0[0xd8-4]; float horizontal; float vertical; char pad1[0x450-0xe0];
  float value; char pad2[8]; float x; float y; float z; float radius; float angleX; float angleY; float angleZ;
  void FUN_000a9090(float);
  void update(float);
 };
-void Camera::update(float v) {
+void CChaseCamera_a0fe0::update(float v) {
  if (v == value) return;
  value=v;
  FUN_000a9090(v);

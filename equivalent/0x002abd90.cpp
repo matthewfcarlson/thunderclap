@@ -1,14 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 18/18)
 // FUN_002abd90 @ 0x002abd90
 #include "decls/data/engine/content.h"
+#include "gen/pure3d.h"
 
-struct Stream {
+struct Stream_2abd90 {
     bool FUN_002647e0(void *dst, int a, int b, int c);
 };
 
-struct Reader {
+struct Reader_2abd90 {
     char pad0[0x284];
-    Stream *stream;
+    Stream_2abd90 *stream;
     bool FUN_002669f0();
     int FUN_00266a30();
     void FUN_00266be0();
@@ -23,13 +24,12 @@ public:
     void *FUN_00288a10(int index);
 };
 
-struct Elem_2abd90 {
-    virtual void v0();
-    Elem_2abd90 *FUN_002d2570(void *channels);
+struct GeneratorBlendState_nv_2abd90 {
+    ::pure3d::ParticlePlaneGenerator::GeneratorBlendState *FUN_002d2570(void *channels);
 };
 
 struct ElemArray_2abd90 {
-    Elem_2abd90 **data;
+    ::pure3d::ParticlePlaneGenerator::GeneratorBlendState **data;
     char pad[8];
     bool FUN_002ab9a0(unsigned int count, int *init);
 };
@@ -52,34 +52,34 @@ public:
 };
 
 namespace content {
-class ObjectLoader {
+class ObjectLoader_2abd90 {
 public:
     virtual void v0();
 };
 }
 
 namespace pure3d {
-class AnimationLoader : public content::ObjectLoader {
+class AnimationLoader_2abd90 : public content::ObjectLoader_2abd90 {
 public:
     virtual void v1();
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual unsigned __int64 v5(AnimObj **out, unsigned __int64 *hash, Reader *r, int flag);
+    virtual unsigned __int64 v5(AnimObj **out, unsigned __int64 *hash, Reader_2abd90 *r, int flag);
     int FUN_00288e90();
     void FUN_00288e80(int value);
 };
 }
 
 struct Registry_2abd90 {
-    content::ObjectLoader *FUN_00265310(int key);
+    content::ObjectLoader_2abd90 *FUN_00265310(int key);
 };
 
 
 void *FUN_00263ea0(unsigned int size);
 void *FUN_0008d690(unsigned int size);
 
-Generator_2abd90 * __stdcall FUN_002abd90(Reader *r, int flag)
+Generator_2abd90 * __stdcall FUN_002abd90(Reader_2abd90 *r, int flag)
 {
     struct Frame {
         AnimObj *obj;
@@ -109,7 +109,7 @@ Generator_2abd90 * __stdcall FUN_002abd90(Reader *r, int flag)
         do {
             int id = r->FUN_00266a30();
             if (id == 0x121000) {
-                pure3d::AnimationLoader *al = dynamic_cast<pure3d::AnimationLoader *>((*(Registry_2abd90**)&DAT_00527c58)->FUN_00265310(id));
+                pure3d::AnimationLoader_2abd90 *al = dynamic_cast<pure3d::AnimationLoader_2abd90 *>((*(Registry_2abd90**)&DAT_00527c58)->FUN_00265310(id));
                 al->v0();
                 fr.a = al->FUN_00288e90();
                 al->FUN_00288e80(1);
@@ -124,11 +124,11 @@ Generator_2abd90 * __stdcall FUN_002abd90(Reader *r, int flag)
                     fr.d = 0;
                     g->array.FUN_002ab9a0(fr.b, &fr.d);
                     for (int i = 0; i < fr.b; i++) {
-                        Elem_2abd90 *e = (Elem_2abd90 *)FUN_0008d690(0x1c);
+                        ::pure3d::ParticlePlaneGenerator::GeneratorBlendState *e = (::pure3d::ParticlePlaneGenerator::GeneratorBlendState *)FUN_0008d690(0x1c);
                         if (e != 0)
-                            e = e->FUN_002d2570(fr.obj->FUN_00288a10(i));
+                            e = ((GeneratorBlendState_nv_2abd90*)(e))->FUN_002d2570(fr.obj->FUN_00288a10(i));
                         g->array.data[g->used] = e;
-                        g->array.data[g->used]->v0();
+                        g->array.data[g->used]->vfunc_0();
                         g->used++;
                     }
                 }

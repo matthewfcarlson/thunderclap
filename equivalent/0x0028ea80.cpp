@@ -29,7 +29,7 @@ struct Stream {
     void FUN_002647e0(void *dest, unsigned count, unsigned size, int flag);
 };
 
-struct Node {
+struct EntityChannel_28ea80 {
     int field_00;
     int field_04;
     int field_08;
@@ -37,7 +37,7 @@ struct Node {
     int field_10;
     void *field_14;
     Entity **field_18;
-    Node *FUN_0028c2a0(unsigned x, void *parent);
+    EntityChannel_28ea80 *FUN_0028c2a0(unsigned x, void *parent);
 };
 
 class LoadContext_28ea80 {
@@ -71,10 +71,10 @@ struct Frame_28ea80 {
     char name[0x100];      // 0x14
 };
 
-Node *__stdcall FUN_0028ea80(Reader *r, LoadContext_28ea80 *ctx, Parent_28ea80 *parent)
+EntityChannel_28ea80 *__stdcall FUN_0028ea80(Reader *r, LoadContext_28ea80 *ctx, Parent_28ea80 *parent)
 {
     Frame_28ea80 f;
-    Node *node;
+    EntityChannel_28ea80 *node;
 
     r->stream->FUN_002647e0(&f.a, 1, 4, 1);
     r->stream->FUN_002647e0(&f.a, 1, 4, 1);
@@ -84,12 +84,12 @@ Node *__stdcall FUN_0028ea80(Reader *r, LoadContext_28ea80 *ctx, Parent_28ea80 *
         void *mem = FUN_0008d690(0x1c);
         node = 0;
         if (mem)
-            node = ((Node *)mem)->FUN_0028c2a0(f.x, 0);
+            node = ((EntityChannel_28ea80 *)mem)->FUN_0028c2a0(f.x, 0);
     } else {
         void *mem = parent->FUN_002888c0(0x1c, 7);
         node = 0;
         if (mem)
-            node = ((Node *)mem)->FUN_0028c2a0(f.x, parent);
+            node = ((EntityChannel_28ea80 *)mem)->FUN_0028c2a0(f.x, parent);
     }
 
     node->field_08 = f.a;

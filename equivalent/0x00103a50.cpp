@@ -6,8 +6,8 @@ struct Position_103a50 { void FUN_00059a50(Vec_103a50*); };
 struct Result_103a50 { char pad[16]; Position_103a50* position; };
 struct Provider_103a50 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual Result_103a50* v6(); };
 extern "C" double __cdecl sqrt(double);
-struct Object { char pad[0x58]; Provider_103a50* provider; char p5c[4]; Points* points; char p64[0x54]; int selected; void target(); };
-void Object::target() {
+struct COccupationAgent_103a50 { char pad[0x58]; Provider_103a50* provider; char p5c[4]; Points* points; char p64[0x54]; int selected; void target(); };
+void COccupationAgent_103a50::target() {
  if (!points) return;
  selected=0;
  Vec_103a50 first=*points->FUN_00106160(0);

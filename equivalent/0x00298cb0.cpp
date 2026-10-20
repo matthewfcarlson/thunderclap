@@ -34,12 +34,12 @@ struct Transforms {
     void FUN_00284820(int a);
 };
 
-class Drawable;
+class CompositeDrawable_298cb0;
 
 struct Anchor_298cb0 {
     char pad0[0x4c];
     V3_298cb0 offset;
-    void FUN_0029fd20(Drawable *d);
+    void FUN_0029fd20(CompositeDrawable_298cb0 *d);
 };
 
 struct Owner_298cb0 {
@@ -122,7 +122,7 @@ struct Camera {
 struct CameraRef { Camera *camera; };
 
 
-class Drawable {
+class CompositeDrawable_298cb0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -143,7 +143,7 @@ public:
     Part_298cb0 *partB;
 };
 
-void Drawable::Render(Owner_298cb0 *owner, int arg)
+void CompositeDrawable_298cb0::Render(Owner_298cb0 *owner, int arg)
 {
     if (partA != 0) {
         if (!partA->FUN_00284ae0()) {

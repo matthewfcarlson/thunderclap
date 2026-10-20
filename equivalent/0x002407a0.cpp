@@ -2,6 +2,7 @@
 // FUN_002407a0 @ 0x002407a0
 #include "decls/data/engine/audio.h"
 #include "decls/data/engine/content.h"
+#include "gen/om.h"
 
 struct Str_2407a0 {
     Str_2407a0 *FUN_0023fc40(const char *text, int flag);
@@ -13,12 +14,12 @@ struct Subsystem_2407a0 {
     int handle;
 };
 
-struct Loader_2407a0 {
-    Loader_2407a0 *FUN_0024d360(Subsystem_2407a0 *sys);
+struct EntityLoader_nv_2407a0 {
+    om::EntityLoader *FUN_0024d360(Subsystem_2407a0 *sys);
 };
 
 struct Registry_2407a0 {
-    void FUN_00265210(Loader_2407a0 *loader, int handle);
+    void FUN_00265210(om::EntityLoader *loader, int handle);
 };
 
 
@@ -51,7 +52,7 @@ Subsystem_2407a0 *FUN_0024ea00();
 Subsystem_2407a0 *FUN_0024e540();
 Subsystem_2407a0 *FUN_0024df00();
 void *FUN_0024d200();
-Loader_2407a0 *FUN_00247530(void *);
+om::EntityLoader *FUN_00247530(void *);
 Subsystem_2407a0 *FUN_0024d5a0();
 int FUN_00242bd0();
 int FUN_00267f80();
@@ -94,22 +95,22 @@ void FUN_002407a0(unsigned int flags)
     FUN_0024e540()->init();
     FUN_0024df00();
     if (flags & 1) {
-        Loader_2407a0 *l;
+        om::EntityLoader *l;
         l = FUN_00247530(FUN_0024d200());
         if (l != 0)
-            l = l->FUN_0024d360(FUN_00245330());
+            l = ((EntityLoader_nv_2407a0*)(l))->FUN_0024d360(FUN_00245330());
         (*(Registry_2407a0**)&DAT_00527c58)->FUN_00265210(l, FUN_00245330()->handle);
         l = FUN_00247530(FUN_0024d200());
         if (l != 0)
-            l = l->FUN_0024d360(FUN_00256660());
+            l = ((EntityLoader_nv_2407a0*)(l))->FUN_0024d360(FUN_00256660());
         (*(Registry_2407a0**)&DAT_00527c58)->FUN_00265210(l, FUN_00256660()->handle);
         l = FUN_00247530(FUN_0024d200());
         if (l != 0)
-            l = l->FUN_0024d360(FUN_00241660());
+            l = ((EntityLoader_nv_2407a0*)(l))->FUN_0024d360(FUN_00241660());
         (*(Registry_2407a0**)&DAT_00527c58)->FUN_00265210(l, FUN_00241660()->handle);
         l = FUN_00247530(FUN_0024d200());
         if (l != 0)
-            l = l->FUN_0024d360(FUN_0024d5a0());
+            l = ((EntityLoader_nv_2407a0*)(l))->FUN_0024d360(FUN_0024d5a0());
         (*(Registry_2407a0**)&DAT_00527c58)->FUN_00265210(l, FUN_0024d5a0()->handle);
     }
     DAT_004e5cac = FUN_00242bd0();

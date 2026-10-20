@@ -2,7 +2,7 @@
 // FUN_002bfbe0 @ 0x002bfbe0
 extern "C" void* __cdecl FUN_00266e00(int, unsigned int);
 extern "C" void __cdecl FUN_00267090(void*);
-struct Image {
+struct Image32_2bfbe0 {
  char pad0[16];
  int width;
  int height;
@@ -11,7 +11,7 @@ struct Image {
  unsigned char* pixels;
  void FUN_002bfbe0();
 };
-void Image::FUN_002bfbe0() {
+void Image32_2bfbe0::FUN_002bfbe0() {
  int bytesPerPixel = bits >> 3;
  unsigned char* temp = (unsigned char*)FUN_00266e00(1, (unsigned int)width * bytesPerPixel);
  unsigned int stride = (unsigned int)width * bytesPerPixel;

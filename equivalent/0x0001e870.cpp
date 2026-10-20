@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 93 inputs, branch coverage 20/20)
 // FUN_0001e870 @ 0x0001e870
+#include "gen/global.h"
 struct V3_1e870 {
     float x, y, z;
 };
@@ -9,7 +10,7 @@ struct RefObj_1e870 {
     virtual void Release();
 };
 
-struct Drawable;
+struct Drawable_1e870;
 
 struct Source_1e870 {
     char pad0[0xfc];
@@ -17,7 +18,7 @@ struct Source_1e870 {
     RefObj_1e870 *FUN_001d72e0();
 };
 
-struct Request {
+struct Request_1e870 {
     char pad0[0x14];
     unsigned char active;
     char pad15[0x28 - 0x15];
@@ -33,21 +34,19 @@ struct Request {
     char pad74[0x84 - 0x74];
     int f84;
     char pad88[0x98 - 0x88];
-    Request *FUN_00059820();
+    Request_1e870 *FUN_00059820();
     void FUN_00059300();
 };
 
-struct Job_1e870 {
-    virtual void v0();
-    virtual void v1();
-    Job_1e870 *FUN_000598e0(void *a, Request *req);
+struct CFightParamsCollision_nv_1e870 {
+    CFightParamsCollision *FUN_000598e0(void *a, Request_1e870 *req);
     void FUN_00059790(RefObj_1e870 *obj);
 };
 
 
 struct Sink;
 struct Slot_1e870 {
-    char FUN_00231ad0(Sink *sink, Job_1e870 *job, int zero);
+    char FUN_00231ad0(Sink *sink, CFightParamsCollision *job, int zero);
 };
 
 struct Queue_1e870 {
@@ -59,7 +58,7 @@ struct Queue_1e870 {
     virtual void q5();
     virtual void q6();
     virtual void q7();
-    virtual Slot_1e870 *Submit(Job_1e870 *job, int zero);
+    virtual Slot_1e870 *Submit(CFightParamsCollision *job, int zero);
 };
 
 struct Pad_1e870 {
@@ -123,7 +122,7 @@ bool Spawner_1e870::FUN_0001e870(Source_1e870 *src, const V3_1e870 *pos)
         return false;
     pad->FUN_0003a9d0(src->FUN_001d72e0());
 
-    Request req;
+    Request_1e870 req;
     req.FUN_00059820();
     FUN_00018810(&req.f4c, src->FUN_001d72e0());
     FUN_00018810(&req.f50, pad->f12c);
@@ -131,20 +130,20 @@ bool Spawner_1e870::FUN_0001e870(Source_1e870 *src, const V3_1e870 *pos)
     req.active = 1;
     req.target = *pos;
 
-    Job_1e870 *job = (Job_1e870 *)FUN_0008d690(0xb0);
+    CFightParamsCollision *job = (CFightParamsCollision *)FUN_0008d690(0xb0);
     if (job)
-        job = job->FUN_000598e0(*pad->chain, &req);
-    job->v0();
-    job->FUN_00059790(src->FUN_001d72e0());
+        job = ((CFightParamsCollision_nv_1e870*)(job))->FUN_000598e0(*pad->chain, &req);
+    job->vfunc_0();
+    ((CFightParamsCollision_nv_1e870*)(job))->FUN_00059790(src->FUN_001d72e0());
     Slot_1e870 *slot = holder->queue->Submit(job, 0);
     if (slot) {
         slot->FUN_00231ad0((Sink *)&pad->f0dc, job, 0);
         spawned = 1;
-        job->v1();
+        job->vfunc_1();
         req.FUN_00059300();
         return true;
     }
-    job->v1();
+    job->vfunc_1();
     req.FUN_00059300();
     return false;
 }

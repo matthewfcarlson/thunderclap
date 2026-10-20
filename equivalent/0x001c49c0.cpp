@@ -14,9 +14,9 @@ public:
     virtual void SetTag(unsigned int tag, int value);
 };
 
-class Stream {
+class Shader_1c49c0 {
 public:
-    Stream *FUN_0028edb0();
+    Shader_1c49c0 *FUN_0028edb0();
     virtual void AddRef();
     virtual void Release();
 
@@ -32,7 +32,7 @@ public:
     int f04;
     int f08;
     char f0c;
-    Stream *stream;     // +0x10
+    Shader_1c49c0 *stream;     // +0x10
     char f14;
     int f18;
     int f1c;
@@ -60,10 +60,10 @@ Reader *Reader::FUN_001c49c0() {
     f30 = 0;
     f34 = 0;
 
-    Stream *created = 0;
+    Shader_1c49c0 *created = 0;
     void *mem = thunk_FUN_0008d690(0x20);
     if (mem != 0) {
-        created = ((Stream *)mem)->FUN_0028edb0();
+        created = ((Shader_1c49c0 *)mem)->FUN_0028edb0();
     }
     if (created != 0) {
         created->AddRef();

@@ -1,18 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 25/26, incomplete)
 // FUN_00207410 @ 0x00207410
 #include "decls/data/game/global.h"
+#include "gen/content.h"
 
 struct Slot_207410 {
     void FUN_00266220(int v);
 };
 
-struct Node {
+struct Node_207410 {
     char pad0[0x38];
     Slot_207410 *slot;
     void FUN_00204f00();
 };
 
-struct Stream {
+struct LoadInventory_nv_207410 {
     int FUN_00266710();
     int FUN_00266700();
     void FUN_00263e90();
@@ -24,14 +25,14 @@ public:
     Slot_207410 *slots[3];
     int curSlot;
     char pad588[0xaec - 0x588];
-    Stream *stream;
+    content::LoadInventory *stream;
     char busy;
     char pad_af1;
     char pending;
     char locked;
 
     int FUN_00203a80();
-    Node *FUN_00204540(int a);
+    Node_207410 *FUN_00204540(int a);
     void FUN_00207130();
     int FUN_00203bb0();
     void FUN_00204720(int v);
@@ -43,7 +44,7 @@ char Player_207410::FUN_00207410()
 {
     if (!stream)
         return 0;
-    if (stream->FUN_00266710() != 3)
+    if (((LoadInventory_nv_207410*)(stream))->FUN_00266710() != 3)
         return 0;
 
     unsigned char flag;
@@ -55,7 +56,7 @@ char Player_207410::FUN_00207410()
     int id = FUN_00203a80();
 
     if (busy) {
-        stream->FUN_00263e90();
+        ((LoadInventory_nv_207410*)(stream))->FUN_00263e90();
         char wasLocked = locked;
         stream = 0;
         if (wasLocked) {
@@ -73,11 +74,11 @@ char Player_207410::FUN_00207410()
         FUN_00207130();
 
     if (flag) {
-        Node *n = FUN_00204540(id);
-        int r = stream->FUN_00266700();
+        Node_207410 *n = FUN_00204540(id);
+        int r = ((LoadInventory_nv_207410*)(stream))->FUN_00266700();
         n->slot->FUN_00266220(r);
     } else if (locked) {
-        int r = stream->FUN_00266700();
+        int r = ((LoadInventory_nv_207410*)(stream))->FUN_00266700();
         slots[curSlot]->FUN_00266220(r);
     }
 
@@ -91,7 +92,7 @@ char Player_207410::FUN_00207410()
         }
     }
 
-    stream->FUN_00263e90();
+    ((LoadInventory_nv_207410*)(stream))->FUN_00263e90();
     stream = 0;
     return 1;
 }

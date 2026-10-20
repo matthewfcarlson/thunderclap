@@ -8,8 +8,8 @@ struct Context { char pad[0x44]; Lookup_2a81c0* lookup; };
 void __cdecl FUN_0008d340(void*);
 struct ByteArray { unsigned char* data; unsigned size; void FUN_002a8060(int, unsigned char*); };
 struct WordArray { unsigned* data; unsigned size; void FUN_002a8000(int, unsigned*); };
-struct Object { char pad[0x3c]; Source_2a81c0* source; Context* context; WordArray words; unsigned unused; ByteArray bytes; void target(); };
-void Object::target() {
+struct CompDrawVisibilityAnimationController_2a81c0 { char pad[0x3c]; Source_2a81c0* source; Context* context; WordArray words; unsigned unused; ByteArray bytes; void target(); };
+void CompDrawVisibilityAnimationController_2a81c0::target() {
  if (source && context) {
   struct Frame {          // (the original's slot order)
    char pad[3];

@@ -3,8 +3,8 @@
 void* __cdecl FUN_0008d6d0(unsigned int);
 void* __cdecl FUN_00263ea0(unsigned int);
 struct Element_2a16c0 { char data[20]; };
-struct Light { char pad[0x12]; unsigned char enabled; Light* FUN_002a2e70(); void FUN_002a2ef0(float,float,float); void FUN_002a07a0(int); };
-struct List_2a16c0 { virtual void slot0(); List_2a16c0* FUN_002a1140(unsigned int); void FUN_002a1180(int); void FUN_002a0fc0(int,Light*); };
+struct DirectionalLight_2a16c0 { char pad[0x12]; unsigned char enabled; DirectionalLight_2a16c0* FUN_002a2e70(); void FUN_002a2ef0(float,float,float); void FUN_002a07a0(int); };
+struct List_2a16c0 { virtual void slot0(); List_2a16c0* FUN_002a1140(unsigned int); void FUN_002a1180(int); void FUN_002a0fc0(int,DirectionalLight_2a16c0*); };
 struct Setup_2a16c0 { void FUN_002a30a0(); char bytes[12]; };
 struct FUN_002c6a80 { FUN_002c6a80(); virtual void baseSlot(); char p4[8]; unsigned int flags; unsigned int mode; char p14[4]; };
 namespace pure3d {
@@ -21,7 +21,7 @@ ShadowTraversal::ShadowTraversal(unsigned int capacity,unsigned int n) {
  if(p) p=p->FUN_002a1140(count);
  generator.list=p;
  p->slot0();
- Light* light=(Light*)FUN_00263ea0(0x68);
+ DirectionalLight_2a16c0* light=(DirectionalLight_2a16c0*)FUN_00263ea0(0x68);
  if(light) light=light->FUN_002a2e70();
  light->FUN_002a2ef0(0.2018f,-0.9397f,0.2761f);
  light->FUN_002a07a0(-1);

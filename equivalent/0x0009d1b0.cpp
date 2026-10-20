@@ -58,7 +58,7 @@ struct Tail_9d1b0 {
 };
 
 
-class Node {
+class CCameraManager_9d1b0 {
 public:
     char pad0[4];
     unsigned int flags;
@@ -77,7 +77,7 @@ public:
     void FUN_0009d1b0(const char *n0, const char *n1, const char *n2, const char *n3);
 };
 
-void Node::FUN_0009d1b0(const char *n0, const char *n1, const char *n2, const char *n3)
+void CCameraManager_9d1b0::FUN_0009d1b0(const char *n0, const char *n1, const char *n2, const char *n3)
 {
     World *g = DAT_004dd700;
     if (busy)

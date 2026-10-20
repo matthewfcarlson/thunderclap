@@ -13,12 +13,12 @@ struct UI_d9790 {
 struct State_d9790 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d9790* FUN_00086280(); };
 extern void __cdecl FUN_000fc020(wchar_t*,int,const wchar_t*,const wchar_t*);
-struct Object {
+struct FEMemCardControl_d9790 {
  char pad0[0x21c]; int status; char pad1[0x13c]; Entry_d9790 entries[1]; char pad2[0x1c]; unsigned char shown; char pad3[0x3a]; unsigned char special;
  UI_d9790* FUN_000fc3d0();
  void target(int index);
 };
-void Object::target(int index) {
+void FEMemCardControl_d9790::target(int index) {
  wchar_t buffer[512];
  UI_d9790* ui=FUN_000fc3d0();
  TextTable* text=ui->v44();

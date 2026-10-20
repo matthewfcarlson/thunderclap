@@ -4,7 +4,7 @@
 
 typedef unsigned int uint_279490;
 struct Header_279490 { uint_279490 word[5]; };
-struct Object {
+struct XboxSaveDrive_279490 {
  char pad[0xb4];
  uint_279490 error;
  unsigned char FUN_00278de0();
@@ -18,7 +18,7 @@ extern "C" uint_279490 __stdcall FUN_002101d4(uint_279490, uint_279490, uint_279
 extern "C" uint_279490 __stdcall FUN_0020ff8d(uint_279490, char *, uint_279490, uint_279490 *, uint_279490);
 extern "C" unsigned char __cdecl FUN_002781c0(uint_279490, Header_279490 *);
 namespace XAPILIB { extern "C" uint_279490 __stdcall GetLastError(); }
-bool Object::FUN_00279490(uint_279490 file, uint_279490 block) {
+bool XboxSaveDrive_279490::FUN_00279490(uint_279490 file, uint_279490 block) {
  if ((*(Cache_279490*)&DAT_0052c270).valid && (*(Cache_279490*)&DAT_0052c270).file == file && (*(Cache_279490*)&DAT_0052c270).block == block) return true;
  uint_279490 length = FUN_002109b6(file, 0);
  if (length == 0xffffffff) { error = FUN_002787c0(XAPILIB::GetLastError()); return false; }

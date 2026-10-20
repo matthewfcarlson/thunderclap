@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 18/18)
 // FUN_000d3d80 @ 0x000d3d80
 #include "decls/data/game/global.h"
+#include "gen/global.h"
 
 void *__cdecl FUN_0008d690(unsigned int size);
 
@@ -46,19 +47,16 @@ public:
     unsigned char dirty;
 };
 
-class ObjA_d3d80 {
-public:
-    ObjA_d3d80 *FUN_000d7af0(int a, int b);
+struct FEBackground_nv_d3d80 {
+    FEBackground *FUN_000d7af0(int a, int b);
     char FUN_000d7890(Arg_d3d80 *arg, void *p2, Owner_d3d80 *owner);
 };
-class ObjB_d3d80 {
-public:
-    ObjB_d3d80 *FUN_000d82d0(int a, void *p1);
+struct FEMemCardControl_nv_d3d80 {
+    FEMemCardControl *FUN_000d82d0(int a, void *p1);
     char FUN_000dc230(Arg_d3d80 *arg, void *p2, Owner_d3d80 *owner);
 };
-class ObjC_d3d80 {
-public:
-    ObjC_d3d80 *FUN_000dc590(int a);
+struct FETextInput_nv_d3d80 {
+    FETextInput *FUN_000dc590(int a);
     char FUN_000dd350(Arg_d3d80 *arg, void *p2, Owner_d3d80 *owner);
 };
 
@@ -67,32 +65,32 @@ char __cdecl FUN_000d3d80(void *p1, void *p2, Owner_d3d80 *owner, Arg_d3d80 *arg
     if (typed->GetTypeId() == (*(unsigned long long*)&DAT_004ddf30)) {
         int a = arg->FUN_000fad90();
         int b = arg->FUN_000fad90();
-        ObjA_d3d80 *mem = (ObjA_d3d80 *)FUN_0008d690(0x158);
-        ObjA_d3d80 *obj = 0;
+        FEBackground *mem = (FEBackground *)FUN_0008d690(0x158);
+        FEBackground *obj = 0;
         if (mem)
-            obj = mem->FUN_000d7af0(a, b);
+            obj = ((FEBackground_nv_d3d80*)(mem))->FUN_000d7af0(a, b);
         owner->vfunc_23(obj, a);
-        return obj->FUN_000d7890(arg, p2, owner);
+        return ((FEBackground_nv_d3d80*)(obj))->FUN_000d7890(arg, p2, owner);
     }
     if (typed->GetTypeId() == (*(unsigned long long*)&DAT_004ddf50)) {
         int a = arg->FUN_000fad90();
-        ObjB_d3d80 *mem = (ObjB_d3d80 *)FUN_0008d690(0x458);
-        ObjB_d3d80 *obj = 0;
+        FEMemCardControl *mem = (FEMemCardControl *)FUN_0008d690(0x458);
+        FEMemCardControl *obj = 0;
         if (mem)
-            obj = mem->FUN_000d82d0(a, p1);
+            obj = ((FEMemCardControl_nv_d3d80*)(mem))->FUN_000d82d0(a, p1);
         owner->vfunc_23(obj, a);
         owner->dirty = 1;
-        return obj->FUN_000dc230(arg, p2, owner);
+        return ((FEMemCardControl_nv_d3d80*)(obj))->FUN_000dc230(arg, p2, owner);
     }
     if (typed->GetTypeId() == (*(unsigned long long*)&DAT_004ddf58)) {
         int a = arg->FUN_000fad90();
-        ObjC_d3d80 *mem = (ObjC_d3d80 *)FUN_0008d690(0x180);
-        ObjC_d3d80 *obj = 0;
+        FETextInput *mem = (FETextInput *)FUN_0008d690(0x180);
+        FETextInput *obj = 0;
         if (mem)
-            obj = mem->FUN_000dc590(a);
+            obj = ((FETextInput_nv_d3d80*)(mem))->FUN_000dc590(a);
         owner->vfunc_23(obj, a);
         owner->dirty = 1;
-        return obj->FUN_000dd350(arg, p2, owner);
+        return ((FETextInput_nv_d3d80*)(obj))->FUN_000dd350(arg, p2, owner);
     }
     return 0;
 }

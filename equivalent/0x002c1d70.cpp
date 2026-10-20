@@ -1,29 +1,30 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 16/16)
 // FUN_002c1d70 @ 0x002c1d70
+#include "gen/pure3d.h"
 struct StrField_2c1d70 {
     int a, b;
     void FUN_0027b040(const char *s);
 };
 
-struct Sprite {
+struct Sprite_2c1d70 {
     char pad0[8];
     StrField_2c1d70 name;
 };
 
-struct SpriteData_2c1d70 {
-    Sprite *FUN_002aedd0(const char *name);
-    Sprite *FUN_002aeec0(int h, int a, int b);
-    void FUN_002aef60(const char *name, Sprite *existing, int arg);
-    void FUN_002af010(int h, Sprite *existing, int b, int arg);
+struct TextureBuilder_nv_2c1d70 {
+    Sprite_2c1d70 *FUN_002aedd0(const char *name);
+    Sprite_2c1d70 *FUN_002aeec0(int h, int a, int b);
+    void FUN_002aef60(const char *name, Sprite_2c1d70 *existing, int arg);
+    void FUN_002af010(int h, Sprite_2c1d70 *existing, int b, int arg);
 };
 
-struct Stream {
+struct Stream_2c1d70 {
     bool FUN_002647e0(void *dst, int a, int b, int c);
 };
 
-struct Reader {
+struct Reader_2c1d70 {
     char pad0[0x284];
-    Stream *stream;
+    Stream_2c1d70 *stream;
     bool FUN_002669f0();
     int FUN_00266a30();
     void FUN_00266be0();
@@ -34,11 +35,11 @@ struct Reader {
 class Loader_2c1d70 {
 public:
     char pad00[0x14];
-    SpriteData_2c1d70 *data;
-    Sprite *FUN_002c1d70(Reader *r, SpriteData_2c1d70 *sd, Sprite *existing, int arg);
+    pure3d::TextureBuilder *data;
+    Sprite_2c1d70 *FUN_002c1d70(Reader_2c1d70 *r, pure3d::TextureBuilder *sd, Sprite_2c1d70 *existing, int arg);
 };
 
-Sprite *Loader_2c1d70::FUN_002c1d70(Reader *r, SpriteData_2c1d70 *sd, Sprite *existing, int arg)
+Sprite_2c1d70 *Loader_2c1d70::FUN_002c1d70(Reader_2c1d70 *r, pure3d::TextureBuilder *sd, Sprite_2c1d70 *existing, int arg)
 {
     struct Frame {
         char pad[3];
@@ -69,9 +70,9 @@ Sprite *Loader_2c1d70::FUN_002c1d70(Reader *r, SpriteData_2c1d70 *sd, Sprite *ex
                 r->stream->FUN_002647e0(&fr.a, 1, 4, 1);
                 int h = r->FUN_00266c90();
                 if (existing == 0)
-                    existing = sd->FUN_002aeec0(h, fr.a, fr.b);
+                    existing = ((TextureBuilder_nv_2c1d70*)(sd))->FUN_002aeec0(h, fr.a, fr.b);
                 else
-                    sd->FUN_002af010(h, existing, fr.b, arg);
+                    ((TextureBuilder_nv_2c1d70*)(sd))->FUN_002af010(h, existing, fr.b, arg);
                 r->FUN_00266ca0(h);
             } else if (id == 0x19003) {
                 r->stream->FUN_002647e0(&fr.len, 1, 1, 1);
@@ -80,9 +81,9 @@ Sprite *Loader_2c1d70::FUN_002c1d70(Reader *r, SpriteData_2c1d70 *sd, Sprite *ex
                 r->stream->FUN_002647e0(name2, m, 1, 1);
                 name2[m] = 0;
                 if (existing == 0)
-                    existing = sd->FUN_002aedd0(name2);
+                    existing = ((TextureBuilder_nv_2c1d70*)(sd))->FUN_002aedd0(name2);
                 else
-                    sd->FUN_002aef60(name2, existing, arg);
+                    ((TextureBuilder_nv_2c1d70*)(sd))->FUN_002aef60(name2, existing, arg);
             }
             r->FUN_00266be0();
         } while (r->FUN_002669f0());

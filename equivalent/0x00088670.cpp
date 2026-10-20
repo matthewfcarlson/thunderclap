@@ -1,29 +1,68 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 34/34)
 // FUN_00088670 @ 0x00088670
+#include "gen/global.h"
 struct Sim_88670;
 struct Cfg_88670 { char pad[0x2c]; int v2c; };
 struct Ctx_88670 {
     void *FUN_00086320();
     Cfg_88670 *FUN_00086380();
 };
-struct A_88670 { A_88670 *FUN_000b3c90(int a); void FUN_000b3d00(); };
-struct B_88670 { B_88670 *FUN_0009dd20(); void FUN_00098e20(Ctx_88670 *c); };
+struct CSimControllerManager_nv_88670 {
+    CSimControllerManager *FUN_000b3c90(int a);
+    void FUN_000b3d00();
+};
+struct CCameraManager_nv_88670 {
+    CCameraManager *FUN_0009dd20();
+    void FUN_00098e20(Ctx_88670 *c);
+};
 struct Sys10 { void FUN_001b3fc0(); };
-struct C_88670 { C_88670 *FUN_001e7470(); void FUN_001de360(Sim_88670 *s); };
-struct D { D *FUN_00106e90(int n); void FUN_001063e0(); };
-struct E_88670 { E_88670 *FUN_001aec00(); void FUN_001acd80(); };
+struct CSPManager_nv_88670 {
+    CSPManager *FUN_001e7470();
+    void FUN_001de360(Sim_88670 *s);
+};
+struct CPatrolPathManager_nv_88670 {
+    CPatrolPathManager *FUN_00106e90(int n);
+    void FUN_001063e0();
+};
+struct CPathManager_nv_88670 {
+    CPathManager *FUN_001aec00();
+    void FUN_001acd80();
+};
 struct F_88670 { F_88670 *FUN_00025a90(); void FUN_000243f0(Sim_88670 *s); };
-struct G_88670 { G_88670 *FUN_002023e0(); void FUN_00203490(); };
-struct H { H *FUN_001ff580(); void FUN_00200c10(Sim_88670 *s); };
-struct I_88670 { I_88670 *FUN_001cd150(); void FUN_001cfb20(Sim_88670 *s); };
-struct J_88670 { J_88670 *FUN_001cc360(); void FUN_001cb3f0(Sim_88670 *s); };
+struct CWorldCollisionManager_nv_88670 {
+    CWorldCollisionManager *FUN_002023e0();
+    void FUN_00203490();
+};
+struct CTriggerVolumeManager_nv_88670 {
+    CTriggerVolumeManager *FUN_001ff580();
+    void FUN_00200c10(Sim_88670 *s);
+};
+struct CScenarioManager_nv_88670 {
+    CScenarioManager *FUN_001cd150();
+    void FUN_001cfb20(Sim_88670 *s);
+};
+struct CEventManager_nv_88670 {
+    CEventManager *FUN_001cc360();
+    void FUN_001cb3f0(Sim_88670 *s);
+};
 struct K_88670 { K_88670 *FUN_001ebba0(Sim_88670 *s, Ctx_88670 *c); void FUN_001eebc0(); };
 struct L_88670 { L_88670 *FUN_001f6c30(); void FUN_001f81c0(); };
-struct M_88670 { M_88670 *FUN_000d75c0(); void FUN_000d6f00(int v); };
-struct N_88670 { N_88670 *FUN_001bceb0(); };
+struct CSimOverlayManager_nv_88670 {
+    CSimOverlayManager *FUN_000d75c0();
+    void FUN_000d6f00(int v);
+};
+struct CExtraRenderingCallback_nv_88670 {
+    CExtraRenderingCallback *FUN_001bceb0();
+};
 struct O_88670 { O_88670 *FUN_00059ad0(); };
-struct P_88670 { P_88670 *FUN_001fae80(); void FUN_001fb1e0(); };
-struct Q_88670 { Q_88670 *FUN_0007f950(); void FUN_00078c50(Sim_88670 *s); };
+struct CGameDataHandler_nv_88670 {
+    CGameDataHandler *FUN_001fae80();
+    void FUN_001fb1e0();
+};
+struct CAmbientsManager_nv_88670 {
+    CAmbientsManager *FUN_0007f950();
+    void FUN_00078c50(Sim_88670 *s);
+};
 struct R_88670 { void FUN_00066c20(Sim_88670 *s); };
 
 extern void *__cdecl FUN_0008d690(unsigned int n);
@@ -34,25 +73,25 @@ R_88670 *__stdcall FUN_000678d0();
 struct Sim_88670 {
     void FUN_00088670(Ctx_88670 *ctx, int arg1);
     int pad0;
-    A_88670 *a;     // 4
-    B_88670 *b;     // 8
-    C_88670 *c;     // c
+    CSimControllerManager *a;     // 4
+    CCameraManager *b;     // 8
+    CSPManager *c;     // c
     Sys10 *s10; // 10
     void *s14;
-    D *d;     // 18
-    E_88670 *e;     // 1c
+    CPatrolPathManager *d;     // 18
+    CPathManager *e;     // 1c
     F_88670 *f;     // 20
-    G_88670 *g;     // 24
-    H *h;     // 28
-    I_88670 *i;     // 2c
-    J_88670 *j;     // 30
+    CWorldCollisionManager *g;     // 24
+    CTriggerVolumeManager *h;     // 28
+    CScenarioManager *i;     // 2c
+    CEventManager *j;     // 30
     K_88670 *k;     // 34
     L_88670 *l;     // 38
-    M_88670 *m;     // 3c
-    N_88670 *n;     // 40
+    CSimOverlayManager *m;     // 3c
+    CExtraRenderingCallback *n;     // 40
     O_88670 *o;     // 44
-    P_88670 *p;     // 48
-    Q_88670 *q;     // 4c
+    CGameDataHandler *p;     // 48
+    CAmbientsManager *q;     // 4c
     Cfg_88670 *cfg50; // 50
     Ctx_88670 *ctx;   // 54
     void *p58;  // 58
@@ -66,40 +105,40 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, int arg1)
     p58 = arg0->FUN_00086320();
     cfg50 = arg0->FUN_00086380();
 
-    A_88670 *ta = (A_88670 *)FUN_0008d690(0xc);
+    CSimControllerManager *ta = (CSimControllerManager *)FUN_0008d690(0xc);
     if (ta)
-        ta = ta->FUN_000b3c90(arg1);
+        ta = ((CSimControllerManager_nv_88670*)(ta))->FUN_000b3c90(arg1);
     a = ta;
-    ta->FUN_000b3d00();
+    ((CSimControllerManager_nv_88670*)(ta))->FUN_000b3d00();
 
-    B_88670 *tb = (B_88670 *)FUN_0008d690(0xc8);
+    CCameraManager *tb = (CCameraManager *)FUN_0008d690(0xc8);
     if (tb)
-        tb = tb->FUN_0009dd20();
+        tb = ((CCameraManager_nv_88670*)(tb))->FUN_0009dd20();
     b = tb;
-    tb->FUN_00098e20(arg0);
+    ((CCameraManager_nv_88670*)(tb))->FUN_00098e20(arg0);
 
     s10 = FUN_001b6580();
     s10->FUN_001b3fc0();
 
-    C_88670 *tc = (C_88670 *)FUN_0008d690(0x1eee8);
+    CSPManager *tc = (CSPManager *)FUN_0008d690(0x1eee8);
     if (tc)
-        tc = tc->FUN_001e7470();
+        tc = ((CSPManager_nv_88670*)(tc))->FUN_001e7470();
     c = tc;
-    tc->FUN_001de360(this);
+    ((CSPManager_nv_88670*)(tc))->FUN_001de360(this);
 
     s14 = FUN_001b6990();
 
-    D *td = (D *)FUN_0008d690(0x10);
+    CPatrolPathManager *td = (CPatrolPathManager *)FUN_0008d690(0x10);
     if (td)
-        td = td->FUN_00106e90(0x100);
+        td = ((CPatrolPathManager_nv_88670*)(td))->FUN_00106e90(0x100);
     d = td;
-    td->FUN_001063e0();
+    ((CPatrolPathManager_nv_88670*)(td))->FUN_001063e0();
 
-    E_88670 *te = (E_88670 *)FUN_0008d690(0x2c);
+    CPathManager *te = (CPathManager *)FUN_0008d690(0x2c);
     if (te)
-        te = te->FUN_001aec00();
+        te = ((CPathManager_nv_88670*)(te))->FUN_001aec00();
     e = te;
-    te->FUN_001acd80();
+    ((CPathManager_nv_88670*)(te))->FUN_001acd80();
 
     F_88670 *tf = (F_88670 *)FUN_0008d690(0xd40);
     if (tf)
@@ -107,29 +146,29 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, int arg1)
     f = tf;
     tf->FUN_000243f0(this);
 
-    G_88670 *tg = (G_88670 *)FUN_0008d690(0x68);
+    CWorldCollisionManager *tg = (CWorldCollisionManager *)FUN_0008d690(0x68);
     if (tg)
-        tg = tg->FUN_002023e0();
+        tg = ((CWorldCollisionManager_nv_88670*)(tg))->FUN_002023e0();
     g = tg;
-    tg->FUN_00203490();
+    ((CWorldCollisionManager_nv_88670*)(tg))->FUN_00203490();
 
-    H *th = (H *)FUN_0008d690(0x43c);
+    CTriggerVolumeManager *th = (CTriggerVolumeManager *)FUN_0008d690(0x43c);
     if (th)
-        th = th->FUN_001ff580();
+        th = ((CTriggerVolumeManager_nv_88670*)(th))->FUN_001ff580();
     h = th;
-    th->FUN_00200c10(this);
+    ((CTriggerVolumeManager_nv_88670*)(th))->FUN_00200c10(this);
 
-    I_88670 *ti = (I_88670 *)FUN_0008d690(0x14ac);
+    CScenarioManager *ti = (CScenarioManager *)FUN_0008d690(0x14ac);
     if (ti)
-        ti = ti->FUN_001cd150();
+        ti = ((CScenarioManager_nv_88670*)(ti))->FUN_001cd150();
     i = ti;
-    ti->FUN_001cfb20(this);
+    ((CScenarioManager_nv_88670*)(ti))->FUN_001cfb20(this);
 
-    J_88670 *tj = (J_88670 *)FUN_0008d690(0x404);
+    CEventManager *tj = (CEventManager *)FUN_0008d690(0x404);
     if (tj)
-        tj = tj->FUN_001cc360();
+        tj = ((CEventManager_nv_88670*)(tj))->FUN_001cc360();
     j = tj;
-    tj->FUN_001cb3f0(this);
+    ((CEventManager_nv_88670*)(tj))->FUN_001cb3f0(this);
 
     K_88670 *tk = (K_88670 *)FUN_0008d690(8);
     if (tk)
@@ -143,15 +182,15 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, int arg1)
     l = tl;
     tl->FUN_001f81c0();
 
-    M_88670 *tm = (M_88670 *)FUN_0008d690(0x10);
+    CSimOverlayManager *tm = (CSimOverlayManager *)FUN_0008d690(0x10);
     if (tm)
-        tm = tm->FUN_000d75c0();
+        tm = ((CSimOverlayManager_nv_88670*)(tm))->FUN_000d75c0();
     m = tm;
-    m->FUN_000d6f00(ctx->FUN_00086380()->v2c);
+    ((CSimOverlayManager_nv_88670*)(m))->FUN_000d6f00(ctx->FUN_00086380()->v2c);
 
-    N_88670 *tn = (N_88670 *)FUN_0008d690(0x2c);
+    CExtraRenderingCallback *tn = (CExtraRenderingCallback *)FUN_0008d690(0x2c);
     if (tn)
-        tn = tn->FUN_001bceb0();
+        tn = ((CExtraRenderingCallback_nv_88670*)(tn))->FUN_001bceb0();
     n = tn;
 
     O_88670 *to = (O_88670 *)FUN_0008d690(0x10);
@@ -159,17 +198,17 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, int arg1)
         to = to->FUN_00059ad0();
     o = to;
 
-    P_88670 *tp = (P_88670 *)FUN_0008d690(0x34);
+    CGameDataHandler *tp = (CGameDataHandler *)FUN_0008d690(0x34);
     if (tp)
-        tp = tp->FUN_001fae80();
+        tp = ((CGameDataHandler_nv_88670*)(tp))->FUN_001fae80();
     p = tp;
-    tp->FUN_001fb1e0();
+    ((CGameDataHandler_nv_88670*)(tp))->FUN_001fb1e0();
 
-    Q_88670 *tq = (Q_88670 *)FUN_0008d690(0x3838);
+    CAmbientsManager *tq = (CAmbientsManager *)FUN_0008d690(0x3838);
     if (tq)
-        tq = tq->FUN_0007f950();
+        tq = ((CAmbientsManager_nv_88670*)(tq))->FUN_0007f950();
     q = tq;
-    tq->FUN_00078c50(this);
+    ((CAmbientsManager_nv_88670*)(tq))->FUN_00078c50(this);
 
     FUN_000678d0()->FUN_00066c20(this);
     ready = 1;

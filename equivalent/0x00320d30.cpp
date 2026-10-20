@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 58/58)
 // FUN_00320d30 @ 0x00320d30
+#include "gen/pure3d.h"
 namespace D3D8 { struct CreationParameters { unsigned adapter; unsigned deviceType; void* focusWindow; unsigned behaviorFlags; }; extern "C" int __stdcall D3DDevice_GetCreationParameters(CreationParameters*); extern "C" int __stdcall D3D_CheckDeviceFormat(unsigned, unsigned, unsigned, unsigned, unsigned, unsigned); }
 extern "C" void* __cdecl FUN_0008d690(unsigned);
 struct DeviceInfo { char pad[0x42c]; unsigned format; };
@@ -17,7 +18,9 @@ struct Renderer_320d30 {
  char pad[0x150]; DeviceInfo* device; char pad2[0x2c]; unsigned formats[30]; char pad3[8]; void* object;
  int FUN_00320c60(); unsigned char FUN_00320d30();
 };
-struct Object { void* FUN_0031bfa0(Renderer_320d30*); };
+struct d3dPrimStream_nv_320d30 {
+    void* FUN_0031bfa0(Renderer_320d30*);
+};
 unsigned char Renderer_320d30::FUN_00320d30() {
  D3D8::CreationParameters p;
  D3D8::D3DDevice_GetCreationParameters(&p);
@@ -33,8 +36,8 @@ unsigned char Renderer_320d30::FUN_00320d30() {
      if (i!=27) ++count;
    }
  }
- Object* allocated=(Object*)FUN_0008d690(0x160);
- object=allocated ? allocated->FUN_0031bfa0(this) : 0;
+ ::pure3d::d3dPrimStream* allocated=(::pure3d::d3dPrimStream*)FUN_0008d690(0x160);
+ object=allocated ? ((d3dPrimStream_nv_320d30*)(allocated))->FUN_0031bfa0(this) : 0;
  v99();
  FUN_00320c60();
  return 1;

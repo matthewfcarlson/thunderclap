@@ -13,8 +13,8 @@ Manager_d8fa0* __cdecl FUN_000fc3d0();
 void __cdecl FUN_000fc020(unsigned short*,int,const char*);
 struct State_d8fa0 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d8fa0* FUN_00086280(); };
-struct Object { char pad[0x21c]; int field21c; char pad2[0x190]; unsigned char field3b0; char pad3[0x3a]; unsigned char field3eb; void FUN_000d8fa0(int,int); };
-void Object::FUN_000d8fa0(int,int) {
+struct FEMemCardControl_d8fa0 { char pad[0x21c]; int field21c; char pad2[0x190]; unsigned char field3b0; char pad3[0x3a]; unsigned char field3eb; void FUN_000d8fa0(int,int); };
+void FEMemCardControl_d8fa0::FUN_000d8fa0(int,int) {
  unsigned short text[512];
  Menu_d8fa0* menu=FUN_000fc3d0()->v44();
  int id=menu->FUN_000f7d30((*(const char**)&DAT_004a0c9c));

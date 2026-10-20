@@ -1,3 +1,3 @@
 // STATUS: equivalent (tools/equiv.py level 3: 959 inputs, branch coverage 6/6)
 // FUN_001dc070 @ 0x001dc070
-struct Key { int first; int second; }; struct Entry { int first; int second; char rest[0x20]; }; struct Object { char pad[0x608]; Entry entries[0x800]; int FUN_001dc070(const Key* key); }; int Object::FUN_001dc070(const Key* key) { for (int i = 0; i < 0x800; ++i) { if (entries[i].first == key->first && entries[i].second == key->second) return i; } return -1; }
+struct Key { int first; int second; }; struct Entry { int first; int second; char rest[0x20]; }; struct CSPManager_1dc070 { char pad[0x608]; Entry entries[0x800]; int FUN_001dc070(const Key* key); }; int CSPManager_1dc070::FUN_001dc070(const Key* key) { for (int i = 0; i < 0x800; ++i) { if (entries[i].first == key->first && entries[i].second == key->second) return i; } return -1; }

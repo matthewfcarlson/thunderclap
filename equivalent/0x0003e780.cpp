@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 33/34, incomplete)
 // FUN_0003e780 @ 0x0003e780
 #include "decls/address.h"
+#include "gen/global.h"
 extern "C" double sqrt(double);
 extern "C" double cos(double);
 extern "C" double fabs(double);
@@ -31,20 +32,20 @@ struct Slot_3e780 {
     FlagHolder *holder;
 };
 
-struct Locator {
+struct Locator_3e780 {
     void FUN_00222120(Vec3_3e780 *out);
 };
 
 struct Anchor_3e780 {
     char pad[0x10];
-    Locator loc;
+    Locator_3e780 loc;
 };
 
 struct AnchorOwner {
     Anchor_3e780 *FUN_00059a40();
 };
 
-struct Hasher {
+struct CCharacter_nv_3e780 {
     unsigned __int64 FUN_000443c0();
 };
 
@@ -63,7 +64,7 @@ struct Actor_3e780 {
     char pad1[0xdc - 0x14];
     Gesture *gesture;
     char pad2[0x11c - 0xe0];
-    Hasher *hasher;
+    CCharacter *hasher;
     ElemArray_3e780 *elems;
     char pad3[0x128 - 0x124];
     Probe_3e780 *probe;
@@ -102,7 +103,7 @@ bool Actor_3e780::FUN_0003e780(void *a1, Vec3_3e780 *target, float maxDist, bool
     Vec3_3e780 &W = fr.W;
     Vec3_3e780 &tmp = fr.tmp;
     P = elems->items[index].pos;
-    if (hasher->FUN_000443c0() == FUN_0027b020("tank"))
+    if (((CCharacter_nv_3e780*)(hasher))->FUN_000443c0() == FUN_0027b020("tank"))
         P.y = P.y + 1.0f;
 
     D.x = target->x - P.x;

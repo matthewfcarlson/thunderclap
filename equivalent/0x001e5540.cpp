@@ -12,11 +12,11 @@ struct Handle_1e5540 {
  Handle_1e5540* FUN_0027b0e0(void*);
  void FUN_0027af50();
 };
-struct Object {
+struct CSPManager_1e5540 {
  void FUN_001e43b0(Handle_1e5540*,Handle_1e5540*,Matrix*,int);
  void target(void* a,void* b,Vector position,float x,float y,float z);
 };
-void Object::target(void* a,void* b,Vector position,float x,float y,float z) {
+void CSPManager_1e5540::target(void* a,void* b,Vector position,float x,float y,float z) {
  if(a && b) {
  Matrix matrix;
  matrix.FUN_0022b980();

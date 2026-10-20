@@ -8,13 +8,13 @@ extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
 
 void *__cdecl FUN_00263ea0(unsigned int size);
 
-class File {
+class LoadStream_f7a80 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     char pad04[8];
     char ok;
-    File *FUN_00264430(const char *name, int a, int b);
+    LoadStream_f7a80 *FUN_00264430(const char *name, int a, int b);
     void FUN_002647e0(void *out, int a, int b, int c);
 };
 
@@ -30,7 +30,7 @@ public:
     int maxHashes;
     int hashCount;
 
-    int FUN_000f7080(unsigned short *buf, int n, File *file);
+    int FUN_000f7080(unsigned short *buf, int n, LoadStream_f7a80 *file);
     void FUN_000f76c0(unsigned short *line);
     int FUN_000f7790(unsigned short *line);
     bool FUN_000f7a80(const char *filename);
@@ -53,10 +53,10 @@ bool StringTable_f7a80::FUN_000f7a80(const char *filename)
         memset(p, 0, bytes);
     }
 
-    File *file = 0;
+    LoadStream_f7a80 *file = 0;
     void *mem = FUN_00263ea0(0x48);
     if (mem != 0)
-        file = ((File *)mem)->FUN_00264430(fn, 0, 1);
+        file = ((LoadStream_f7a80 *)mem)->FUN_00264430(fn, 0, 1);
 
     if (file->ok == 0) {
         file->vfunc_1();

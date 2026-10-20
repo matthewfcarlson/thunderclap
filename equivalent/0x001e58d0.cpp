@@ -2,11 +2,11 @@
 // FUN_001e58d0 @ 0x001e58d0
 struct Vec3_1e58d0 { float x, y, z; };
 
-struct Builder {
+struct CSPManager_1e58d0 {
     void FUN_001e5540(const char* a, const char* b, Vec3_1e58d0 v1, Vec3_1e58d0 v2);
     void FUN_001e58d0(const char* a, const char* b, Vec3_1e58d0 v1, Vec3_1e58d0 v2);
 };
 
-void Builder::FUN_001e58d0(const char* a, const char* b, Vec3_1e58d0 v1, Vec3_1e58d0 v2) {
+void CSPManager_1e58d0::FUN_001e58d0(const char* a, const char* b, Vec3_1e58d0 v1, Vec3_1e58d0 v2) {
     FUN_001e5540(a, b, v1, v2);
 }

@@ -43,7 +43,7 @@ struct Canvas {
 struct GlyphEntry {
     unsigned short w[6];
 };
-class Font {
+class ImageFont_2bf4f0 {
 public:
     virtual void vfn0();
     virtual void vfn1();
@@ -74,7 +74,7 @@ public:
     void FUN_002bf4f0(Canvas *canvas, int x, int y, const unsigned short *str, unsigned int flags);
 };
 
-void Font::FUN_002bf4f0(Canvas *canvas, int x, int y, const unsigned short *str, unsigned int flags)
+void ImageFont_2bf4f0::FUN_002bf4f0(Canvas *canvas, int x, int y, const unsigned short *str, unsigned int flags)
 {
     if (str == 0 || str[0] == 0 || str[0] == 0xa) return;
     if (canvas->mode == 8) {

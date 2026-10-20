@@ -1,16 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 210 inputs, branch coverage 34/40, incomplete)
 // FUN_002bcf30 @ 0x002bcf30
 #include "decls/address.h"
+#include "gen/pure3d.h"
 struct Vec3_2bcf30 {
     float x, y, z;
 };
 
 namespace pure3d {
-class Shader;
+class Shader_2bcf30;
 }
 
 namespace content {
-struct LoadInventory {
+struct LoadInventory_2bcf30 {
     template <class T>
     class DynamicCaster {
     public:
@@ -19,15 +20,15 @@ struct LoadInventory {
 };
 }
 
-class Stream {
+class Stream_2bcf30 {
 public:
     void FUN_002647e0(void *dst, int count, int size, int flag);
 };
 
-class Reader {
+class Reader_2bcf30 {
 public:
     char pad00[0x284];
-    Stream *stream;
+    Stream_2bcf30 *stream;
     char FUN_002669f0();
     int FUN_00266a30();
     void FUN_00266be0();
@@ -79,9 +80,8 @@ public:
     Quad_2bcf30 *FUN_002bc580();
 };
 
-class ErrorShader {
-public:
-    ErrorShader *FUN_0028edf0(const char *what, int flag);
+struct Shader_nv_2bcf30 {
+    ::pure3d::Shader *FUN_0028edf0(const char *what, int flag);
 };
 
 class Factory_2bcf30 {
@@ -89,7 +89,7 @@ public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual ErrorShader *v3(content::LoadInventory::DynamicCaster<pure3d::Shader> *caster, unsigned __int64 id);
+    virtual ::pure3d::Shader *v3(content::LoadInventory_2bcf30::DynamicCaster<pure3d::Shader_2bcf30> *caster, unsigned __int64 id);
 };
 
 struct Parent_2bcf30 {
@@ -122,12 +122,12 @@ struct Frame_2bcf30 {
 class Group_2bcf30 {
 public:
     void FUN_002a46d0(void *a, Quad_2bcf30 *q);
-    Child_2bcf30 *FUN_002bb0b0(Reader *r, Factory_2bcf30 *factory);
-    void FUN_002a4b00(void *a, Reader *r, Factory_2bcf30 *factory);
-    void FUN_002bcf30(Parent_2bcf30 *parent, Reader *r, Factory_2bcf30 *factory);
+    Child_2bcf30 *FUN_002bb0b0(Reader_2bcf30 *r, Factory_2bcf30 *factory);
+    void FUN_002a4b00(void *a, Reader_2bcf30 *r, Factory_2bcf30 *factory);
+    void FUN_002bcf30(Parent_2bcf30 *parent, Reader_2bcf30 *r, Factory_2bcf30 *factory);
 };
 
-void Group_2bcf30::FUN_002bcf30(Parent_2bcf30 *parent, Reader *r, Factory_2bcf30 *factory)
+void Group_2bcf30::FUN_002bcf30(Parent_2bcf30 *parent, Reader_2bcf30 *r, Factory_2bcf30 *factory)
 {
     Frame_2bcf30 fr;
     char *name1 = (char *)fr.name1;
@@ -159,14 +159,14 @@ void Group_2bcf30::FUN_002bcf30(Parent_2bcf30 *parent, Reader *r, Factory_2bcf30
     parent->name.FUN_0027b040(name1);
     o->name.FUN_0027b040(name1);
     unsigned __int64 id = FUN_0027b020(name2);
-    content::LoadInventory::DynamicCaster<pure3d::Shader> caster;
-    ErrorShader *shader = factory->v3(&caster, id);
+    content::LoadInventory_2bcf30::DynamicCaster<pure3d::Shader_2bcf30> caster;
+    ::pure3d::Shader *shader = factory->v3(&caster, id);
     if (shader == 0) {
         FUN_0028fcc0("warning : shader \"%s\" not found for billboard quad group \"%s\"\n", name2, name1);
         void *mem2 = FUN_00263ea0(0x20);
         shader = 0;
         if (mem2 != 0) {
-            shader = ((ErrorShader *)mem2)->FUN_0028edf0("error", 0);
+            shader = ((Shader_nv_2bcf30*)(((::pure3d::Shader *)mem2)))->FUN_0028edf0("error", 0);
         }
     }
     o->v8(shader);

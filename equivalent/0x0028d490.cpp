@@ -10,7 +10,7 @@ struct Pool_28d490 {
     void* FUN_002888c0(int size, int tag);
 };
 
-class Channel {
+class CompressedQuaternionChannel_28d490 {
 public:
     int vptr;
     int field_04;
@@ -19,11 +19,11 @@ public:
     int count;
     int field_14;
     void* data;
-    Channel* FUN_0028b420(int a, int b);
-    Channel* Construct(int a, int b);
+    CompressedQuaternionChannel_28d490* FUN_0028b420(int a, int b);
+    CompressedQuaternionChannel_28d490* Construct(int a, int b);
 };
 
-Channel* Channel::Construct(int a, int b)
+CompressedQuaternionChannel_28d490* CompressedQuaternionChannel_28d490::Construct(int a, int b)
 {
     FUN_0028b420(a, b);
     vptr = (int)DAT_0042cac8;

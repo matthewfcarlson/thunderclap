@@ -137,7 +137,7 @@ struct Item {
 void __cdecl FUN_000f69e0(void *obj, Box *out);
 extern "C" int __cdecl FUN_0034483c();
 
-class FEObject {
+class FEControl_ea2e0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -157,7 +157,7 @@ struct Frame {
     float t;                 // 0xbc
 };
 
-class TextSelector : public FEObject {
+class TextSelector : public FEControl_ea2e0 {
 public:
     virtual void vfunc_3();
     char pad04[0x10];
@@ -181,7 +181,7 @@ void TextSelector::vfunc_3()
 {
     Frame f;
     int i;
-    FEObject::vfunc_3();
+    FEControl_ea2e0::vfunc_3();
     f1d60 = 0;
     f1d64 = 0;
     f1d74 = 0;

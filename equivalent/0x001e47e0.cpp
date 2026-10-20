@@ -74,7 +74,7 @@ struct Slot14_1e47e0 { unsigned char flags; char pad[0x13]; };
 
 int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
 
-class World {
+class CSPManager_1e47e0 {
 public:
     char pad0[0x608];
     Slot40 slots[100];
@@ -86,7 +86,7 @@ public:
     Part_1e47e0 *FUN_001e47e0(Owner_1e47e0 *owner, Attach_1e47e0 *a);
 };
 
-Part_1e47e0 *World::FUN_001e47e0(Owner_1e47e0 *owner, Attach_1e47e0 *a)
+Part_1e47e0 *CSPManager_1e47e0::FUN_001e47e0(Owner_1e47e0 *owner, Attach_1e47e0 *a)
 {
     Matrix mat38;
     Matrix mat78;

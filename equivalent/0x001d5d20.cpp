@@ -7,8 +7,8 @@ extern long __cdecl _atol(const char*);
 struct Property_1d5d20 { uint low, high; const char* value; uint extra; };
 struct Item_1d5d20 { char pad[0x3c]; int count; Property_1d5d20* properties; };
 struct Collection_1d5d20 { char pad[0x1c]; Item_1d5d20** begin; Item_1d5d20** end; };
-struct Object { char pad[0x90]; Collection_1d5d20* collection; long target(int index); };
-long Object::target(int index) {
+struct CSPHulkPropInstance_1d5d20 { char pad[0x90]; Collection_1d5d20* collection; long target(int index); };
+long CSPHulkPropInstance_1d5d20::target(int index) {
  uint low, high;
  if (!((*(uint*)&DAT_004e23e8) & 1)) {
   (*(uint*)&DAT_004e23e8) |= 1;

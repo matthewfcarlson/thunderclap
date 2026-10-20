@@ -47,7 +47,7 @@ double __cdecl FUN_000a03c0(int v, float lo, float hi);
 double __cdecl FUN_000a05b0(int a, float b, int c, int d, int e);
 V3_a55a0 *__cdecl FUN_0009f8c0(V3_a55a0 *out, int a, int b, int c);
 
-class Camera {
+class CChaseCamera_a55a0 {
 public:
     char pad0[0x194];
     V3_a55a0 out194;
@@ -87,7 +87,7 @@ public:
     void FUN_000a55a0(int a1, Slot_a55a0 a2);
 };
 
-void Camera::FUN_000a55a0(int a1, Slot_a55a0 a2)
+void CChaseCamera_a55a0::FUN_000a55a0(int a1, Slot_a55a0 a2)
 {
     struct Frame {
         float s0;

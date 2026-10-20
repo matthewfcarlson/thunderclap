@@ -8,12 +8,12 @@ struct Entry_321dc0 {
     char padding3[3];
 };
 struct Entries_321dc0 { int header; Entry_321dc0 entries[8]; };
-struct Object {
+struct d3dPrimStream_321dc0 {
     char padding[0x50];
     Entries_321dc0 *data;
     unsigned int FUN_00321dc0(int *output, int key);
 };
-unsigned int Object::FUN_00321dc0(int *output, int key) {
+unsigned int d3dPrimStream_321dc0::FUN_00321dc0(int *output, int key) {
     output[0] = -1;
     output[1] = -1;
     output[2] = -1;

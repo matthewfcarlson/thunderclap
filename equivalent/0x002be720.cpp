@@ -3,6 +3,7 @@
 // FUN_002be720 @ 0x002be720
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/data/engine/pure3d.h"
+#include "gen/pure3d.h"
 
 extern "C" int atexit(void (*)());
 
@@ -16,9 +17,7 @@ struct Row_2be720 {
     Rec_2be720 recs[1];
 };
 
-struct Aux_2be720 {
-    int pad[2];
-    Aux_2be720();
+struct ImageConverter_nv_2be720 {
     void FUN_002de230();
 };
 
@@ -87,13 +86,13 @@ public:
     char useSmall;
 
     int FUN_002bd570(Row_2be720 **rows, int *rowCount, int *recCount);
-    void FUN_002bd790(int idx, Rec_2be720 *rec, int lo, int hi, Source_2be720 *src, Obj_2be720 *obj, Aux_2be720 *aux);
+    void FUN_002bd790(int idx, Rec_2be720 *rec, int lo, int hi, Source_2be720 *src, Obj_2be720 *obj, pure3d::ImageConverter *aux);
     void FUN_002bdaf0(int idx, Rec_2be720 *rec, int lo, int hi);
 
-    int Load(Source_2be720 *src, Aux_2be720 *aux);
+    int Load(Source_2be720 *src, pure3d::ImageConverter *aux);
 };
 
-int Loader_2be720::Load(Source_2be720 *src, Aux_2be720 *aux)
+int Loader_2be720::Load(Source_2be720 *src, pure3d::ImageConverter *aux)
 {
     int rowCount;
     int recCount;
@@ -111,10 +110,10 @@ int Loader_2be720::Load(Source_2be720 *src, Aux_2be720 *aux)
     if (aux == 0) {
         if ((DAT_00554bd4 & 1) == 0) {
             DAT_00554bd4 |= 1;
-            (*(Aux_2be720*)&DAT_00554bd0).FUN_002de230();
+            ((ImageConverter_nv_2be720*)&((*(pure3d::ImageConverter*)&DAT_00554bd0)))->FUN_002de230();
             atexit(FUN_003647b0);
         }
-        aux = ((Aux_2be720*)&DAT_00554bd0);
+        aux = ((pure3d::ImageConverter*)&DAT_00554bd0);
     }
 
     Obj_2be720 *obj = 0;

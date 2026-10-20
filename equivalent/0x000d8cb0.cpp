@@ -13,11 +13,11 @@ void __cdecl FUN_000fc020(unsigned short*, int, const char*);
 struct State_d8cb0 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d8cb0* FUN_00086280(); };
 struct Widget_d8cb0 { void FUN_000bc9f0(const char*, int); };
-struct Object {
+struct FEMemCardControl_d8cb0 {
  char pad0[0x150]; Widget_d8cb0* widget; char pad1[0x21c-0x154]; int value; char pad2[0x3b0-0x220]; unsigned char active; char pad3[0x3eb-0x3b1]; unsigned char flag;
  void target(unsigned char unused, int mode);
 };
-void Object::target(unsigned char unused, int mode) {
+void FEMemCardControl_d8cb0::target(unsigned char unused, int mode) {
  unsigned short text[512];
  TextStore_d8cb0* store = FUN_000fc3d0()->v44();
  const char* common = (*(const char**)&DAT_004a0c60);

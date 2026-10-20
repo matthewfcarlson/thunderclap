@@ -17,12 +17,12 @@ struct Names_245680 {
     const char *FUN_0023fb00();
 };
 
-struct Decoder_245680 {
+struct OmHalStream_nv_245680 {
     void *FUN_0025cbc0(Stream_245680 *stream, void *context, unsigned int version, void *source);
 };
 
 void *__cdecl FUN_0025c040();
-Decoder_245680 *__cdecl FUN_00247530(void *registry);
+::audio::OmHalStream *__cdecl FUN_00247530(void *registry);
 void *__cdecl FUN_0024c710();
 void *__cdecl FUN_00245390(void *decoded, void *source);
 int __cdecl FUN_00246f50(void *log, const char *format, const char *arg);
@@ -36,12 +36,12 @@ bool audio::Clip::vfunc_5(int __p0) { Loader_245680 * loader = (Loader_245680 *)
 
     Loader_245680 *l = loader;
     l->stream->FUN_00246f00(&loader, 4, 1, 1);
-    Decoder_245680 *decoder = FUN_00247530(FUN_0025c040());
+    ::audio::OmHalStream *decoder = FUN_00247530(FUN_0025c040());
     void *decoded;
     if (decoder) {
         void *source = l->source;
         ((Clip_nv_245680*)this)->FUN_00243390();
-        decoded = decoder->FUN_0025cbc0(l->stream, FUN_0024c710(), (unsigned int)loader, source);
+        decoded = ((OmHalStream_nv_245680*)(decoder))->FUN_0025cbc0(l->stream, FUN_0024c710(), (unsigned int)loader, source);
     } else {
         decoded = 0;
     }

@@ -10,7 +10,7 @@ struct Ref_285780 {
     virtual void Release();
 };
 
-class FrameController {
+class SimpleFrameController_285780 {
 public:
     int vptr;
     char pad04[0xc];
@@ -27,11 +27,11 @@ public:
     char field_38;
     char pad39[3];
     Ref_285780* ref;
-    void FUN_0027b0b0(const FrameController* src);
-    FrameController* FUN_00285780(const FrameController* src);
+    void FUN_0027b0b0(const SimpleFrameController_285780* src);
+    SimpleFrameController_285780* FUN_00285780(const SimpleFrameController_285780* src);
 };
 
-FrameController* FrameController::FUN_00285780(const FrameController* src)
+SimpleFrameController_285780* SimpleFrameController_285780::FUN_00285780(const SimpleFrameController_285780* src)
 {
     FUN_0027b0b0(src);
     vptr = (int)DAT_0042c5bc;

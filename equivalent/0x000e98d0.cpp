@@ -116,7 +116,7 @@ public:
     Hold_e98d0 *hold;
 };
 
-class FEObject {
+class FEControl_e98d0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -126,7 +126,7 @@ public:
     Owner_e98d0 *owner;
 };
 
-class HSlider : public FEObject {
+class HSlider : public FEControl_e98d0 {
 public:
     virtual void vfunc_3();
     unsigned short text[0xa4];
@@ -144,7 +144,7 @@ void HSlider::vfunc_3()
         Layout_e98d0 layout;
     } fr;
 
-    FEObject::vfunc_3();
+    FEControl_e98d0::vfunc_3();
     f17c = 0.0f;
     fr.layout.FUN_000f7fe0(owner->hold->fonts->v44());
     fr.k = owner->v17(this);

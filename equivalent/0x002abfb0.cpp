@@ -1,19 +1,20 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 16/18, incomplete)
 // FUN_002abfb0 @ 0x002abfb0
 #include "decls/data/engine/content.h"
+#include "gen/pure3d.h"
 
 void* FUN_00263ea0(unsigned int size);
 void* FUN_0008d690(unsigned int size);
 
-struct Stream {
+struct Stream_2abfb0 {
     char pad[0xc];
     char FUN_002647e0(void* dst, int a, int size, int b);
 };
 
 struct Source_2abfb0;
-struct Reader {
+struct Reader_2abfb0 {
     char pad000[0x284];
-    Stream* stream;
+    Stream_2abfb0* stream;
     char FUN_002669f0();
     int FUN_00266a30();
     void FUN_00266be0();
@@ -29,19 +30,19 @@ public:
 };
 
 namespace content {
-class ObjectLoader {
+class ObjectLoader_2abfb0 {
 public:
     virtual void AddRef();
     virtual void Release();
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void Load(Source_2abfb0** out0, unsigned int* out1, Reader* r, void* arg);
+    virtual void Load(Source_2abfb0** out0, unsigned int* out1, Reader_2abfb0* r, void* arg);
 };
 }
 
 namespace pure3d {
-class AnimationLoader : public content::ObjectLoader {
+class AnimationLoader_2abfb0 : public content::ObjectLoader_2abfb0 {
 public:
     int FUN_00288e90();
     void FUN_00288e80(int v);
@@ -49,14 +50,12 @@ public:
 }
 
 struct Registry_2abfb0 {
-    content::ObjectLoader* FUN_00265310(int id);
+    content::ObjectLoader_2abfb0* FUN_00265310(int id);
 };
 
 
-class Element_2abfb0 {
-public:
-    virtual void AddRef();
-    Element_2abfb0* FUN_002d2bd0(Item_2abfb0* item);
+struct GeneratorBlendState_nv_2abfb0 {
+    ::pure3d::ParticleSphereGenerator::GeneratorBlendState* FUN_002d2bd0(Item_2abfb0* item);
 };
 
 struct Source_2abfb0 : public Releasable_2abfb0 {
@@ -67,9 +66,9 @@ struct Source_2abfb0 : public Releasable_2abfb0 {
 };
 
 struct ElementList_2abfb0 {
-    Element_2abfb0** begin;
-    Element_2abfb0** end;
-    char FUN_002aba00(unsigned int n, Element_2abfb0* const* fill);
+    ::pure3d::ParticleSphereGenerator::GeneratorBlendState** begin;
+    ::pure3d::ParticleSphereGenerator::GeneratorBlendState** end;
+    char FUN_002aba00(unsigned int n, ::pure3d::ParticleSphereGenerator::GeneratorBlendState* const* fill);
 };
 
 class Generator_2abfb0 {
@@ -96,7 +95,7 @@ struct Frame_2abfb0 {
     unsigned int pad14;
 };
 
-Generator_2abfb0* __stdcall FUN_002abfb0(Reader* r, void* arg)
+Generator_2abfb0* __stdcall FUN_002abfb0(Reader_2abfb0* r, void* arg)
 {
     Frame_2abfb0 f;
     r->stream->FUN_002647e0(&f.old, 1, 4, 1);
@@ -110,7 +109,7 @@ Generator_2abfb0* __stdcall FUN_002abfb0(Reader* r, void* arg)
     gen->dim1 = f.y;
     while (r->FUN_002669f0() != 0) {
         if (r->FUN_00266a30() == 0x121000) {
-            pure3d::AnimationLoader* loader = dynamic_cast<pure3d::AnimationLoader*>((*(Registry_2abfb0**)&DAT_00527c58)->FUN_00265310(0x121000));
+            pure3d::AnimationLoader_2abfb0* loader = dynamic_cast<pure3d::AnimationLoader_2abfb0*>((*(Registry_2abfb0**)&DAT_00527c58)->FUN_00265310(0x121000));
             loader->AddRef();
             f.old = loader->FUN_00288e90();
             loader->FUN_00288e80(1);
@@ -123,14 +122,14 @@ Generator_2abfb0* __stdcall FUN_002abfb0(Reader* r, void* arg)
                 gen->source = src;
                 f.y = f.out0->count;
                 f.z = 0;
-                gen->elements.FUN_002aba00(f.y, (Element_2abfb0* const*)&f.z);
+                gen->elements.FUN_002aba00(f.y, (::pure3d::ParticleSphereGenerator::GeneratorBlendState* const*)&f.z);
                 for (int i = 0; i < (int)f.y; i++) {
-                    Element_2abfb0* e = (Element_2abfb0*)FUN_0008d690(0x10);
+                    ::pure3d::ParticleSphereGenerator::GeneratorBlendState* e = (::pure3d::ParticleSphereGenerator::GeneratorBlendState*)FUN_0008d690(0x10);
                     f.z = e;
                     if (e != 0)
-                        e = e->FUN_002d2bd0(f.out0->FUN_00288a10(i));
+                        e = ((GeneratorBlendState_nv_2abfb0*)(e))->FUN_002d2bd0(f.out0->FUN_00288a10(i));
                     gen->elements.begin[gen->used] = e;
-                    gen->elements.begin[gen->used]->AddRef();
+                    gen->elements.begin[gen->used]->vfunc_0();
                     gen->used++;
                 }
             }

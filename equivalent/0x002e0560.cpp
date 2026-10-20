@@ -25,7 +25,7 @@ struct SkinHolder_2e0560 {
     Vec3_2e0560* points;
 };
 
-class PrimGroup {
+class PrimGroupSkinnedStreamed_2e0560 {
 public:
     char pad00[0x14];
     BBox box;
@@ -37,7 +37,7 @@ public:
     void FUN_002e0560();
 };
 
-void PrimGroup::FUN_002e0560()
+void PrimGroupSkinnedStreamed_2e0560::FUN_002e0560()
 {
     Sphere_2e0560 tmp;
     const Vec3_2e0560* pts = skin->points;

@@ -6,11 +6,11 @@ public:
     virtual void Release();
 };
 
-class Drawable;
+class CompositeDrawable_298f00;
 
 struct Slot_298f00 {
     char pad00[8];
-    Drawable *drawable;     // 0x8
+    CompositeDrawable_298f00 *drawable;     // 0x8
 };
 
 struct SlotList_298f00 {
@@ -23,7 +23,7 @@ struct Listener_298f00 {
     void FUN_00288080(Shader *shader);
 };
 
-class Drawable {
+class CompositeDrawable_298f00 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -43,7 +43,7 @@ public:
     Listener_298f00 *listener;     // 0x4c
 };
 
-void Drawable::vfunc_10(Shader *newShader)
+void CompositeDrawable_298f00::vfunc_10(Shader *newShader)
 {
     if (newShader != 0)
         newShader->AddRef();
@@ -56,7 +56,7 @@ void Drawable::vfunc_10(Shader *newShader)
 
     unsigned char count = (unsigned char)(slots->end - slots->begin);
     for (unsigned char i = 0; i < count; i++) {
-        Drawable *child = slots->begin[i].drawable;
+        CompositeDrawable_298f00 *child = slots->begin[i].drawable;
         if (child != 0)
             child->vfunc_10(shader);
     }

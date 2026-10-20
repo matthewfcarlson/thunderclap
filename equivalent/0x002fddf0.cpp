@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 29/30, incomplete)
 // FUN_002fddf0 @ 0x002fddf0
-struct Pose {
+#include "gen/physics.h"
+struct Pose_2fddf0 {
     int words[21];
 };
 
@@ -116,8 +117,8 @@ public:
 };
 
 struct PoseItem {
-    Pose *FUN_0030ef30();
-    void FUN_0030ee40(Pose *pose);
+    Pose_2fddf0 *FUN_0030ef30();
+    void FUN_0030ee40(Pose_2fddf0 *pose);
 };
 
 struct Chain_2fddf0 {
@@ -127,36 +128,36 @@ struct Chain_2fddf0 {
     PoseItem *FUN_0030f490(int index);
 };
 
-struct Handler_2fddf0 {
-    Handler_2fddf0 *FUN_00312440(void *owner);
+struct SkeletonInfo_nv_2fddf0 {
+    physics::SkeletonInfo *FUN_00312440(void *owner);
 };
 
 void *__cdecl FUN_0008d690(unsigned int size);
 void *__cdecl FUN_00263ea0(unsigned int size);
 
-struct SinkInit {
+struct SimStateArticulated_nv_2fddf0 {
     Sink_2fddf0 *FUN_002fdc90(Chain_2fddf0 *chain, int arg);
 };
 
 Sink_2fddf0 *__cdecl FUN_002fddf0(Chain_2fddf0 *chain, Source_2fddf0 *source, Provider_2fddf0 *provider)
 {
     chain->FUN_0030f4c0();
-    Pose *pose = chain->FUN_0030f490(0)->FUN_0030ef30();
+    Pose_2fddf0 *pose = chain->FUN_0030f490(0)->FUN_0030ef30();
     chain->FUN_0030f490(0)->FUN_0030ee40(pose);
 
-    SinkInit *mem = (SinkInit *)FUN_0008d690(0x98);
+    physics::SimStateArticulated *mem = (physics::SimStateArticulated *)FUN_0008d690(0x98);
     if (mem == 0)
         return 0;
-    Sink_2fddf0 *sink = mem->FUN_002fdc90(chain, 0);
+    Sink_2fddf0 *sink = ((SimStateArticulated_nv_2fddf0*)(mem))->FUN_002fdc90(chain, 0);
     if (sink == 0)
         return 0;
 
     Binding_2fddf0 *binding = 0;
     if (provider != 0) {
         if (provider->kind == 1 && provider->extra == 0) {
-            Handler_2fddf0 *h = (Handler_2fddf0 *)FUN_00263ea0(0x18);
+            physics::SkeletonInfo *h = (physics::SkeletonInfo *)FUN_00263ea0(0x18);
             if (h != 0)
-                h = h->FUN_00312440(chain->owner);
+                h = ((SkeletonInfo_nv_2fddf0*)(h))->FUN_00312440(chain->owner);
             provider->FUN_00310e90(h);
         }
         if (provider->flagged != 0) {

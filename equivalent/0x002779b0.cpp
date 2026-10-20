@@ -6,12 +6,12 @@ Entry_2779b0* __cdecl FUN_00277310(void* table, unsigned int stride, unsigned in
 struct Info_2779b0 { char pad[0x14]; unsigned int value14, value18; };
 struct Provider_2779b0 { Info_2779b0* FUN_00272bc0(); };
 struct Output_2779b0 { void FUN_00277c40(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int); };
-struct Object {
+struct CementLibrary_2779b0 {
  char pad0[0x18]; Provider_2779b0* provider; unsigned int value1C; unsigned int state;
  char pad24[0x21]; unsigned char mode; char pad46[0x12]; unsigned int value58; void* table; unsigned int count;
  bool FUN_002779b0(unsigned int key, Output_2779b0* output);
 };
-bool Object::FUN_002779b0(unsigned int key, Output_2779b0* output) {
+bool CementLibrary_2779b0::FUN_002779b0(unsigned int key, Output_2779b0* output) {
  if (state != 1) return false;
  unsigned int stride = mode ? 12 : 20;
  Entry_2779b0* entry = FUN_00277310(table, stride, count, key);

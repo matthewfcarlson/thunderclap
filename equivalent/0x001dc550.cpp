@@ -11,7 +11,7 @@ struct Rotation_1dc550 { char data[8]; void FUN_001db780(const Vector*); };
 struct Node { Matrix* FUN_001d6b40(); void FUN_001d6b60(Matrix,int); };
 struct Record_1dc550 { char pad[16]; Rotation_1dc550 rotation; Node* node; char pad2[6]; short id; char pad3[4]; };
 struct Flag_1dc550 { unsigned char bits; char pad[19]; };
-struct Object {
+struct CSPManager_1dc550 {
  union {
   struct { char pad[0x608]; Record_1dc550 records[1]; } entries;
   struct { char pad[0x14618]; Flag_1dc550 flags[1]; } status;
@@ -19,7 +19,7 @@ struct Object {
  int FUN_001dbfe0(int);
  bool target(int key,float x,float y,float z);
 };
-bool Object::target(int key,float x,float y,float z) {
+bool CSPManager_1dc550::target(int key,float x,float y,float z) {
  int index=FUN_001dbfe0(key);
  if(index<0) return false;
  Record_1dc550* record=&entries.records[index];

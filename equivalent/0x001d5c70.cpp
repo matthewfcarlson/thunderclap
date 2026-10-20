@@ -8,8 +8,8 @@ extern long __cdecl _atol(const char*);
 struct Attribute { U32_1d5c70 low, high; const char* text; U32_1d5c70 unused; };
 struct Item_1d5c70 { char pad[0x3c]; int count; Attribute* attributes; };
 struct List_1d5c70 { char pad[0x1c]; Item_1d5c70** begin; Item_1d5c70** end; };
-struct Object { char pad[0x90]; List_1d5c70* list; long FUN_001d5c70(int index); };
-long Object::FUN_001d5c70(int index) {
+struct CSPHulkPropInstance_1d5c70 { char pad[0x90]; List_1d5c70* list; long FUN_001d5c70(int index); };
+long CSPHulkPropInstance_1d5c70::FUN_001d5c70(int index) {
  U32_1d5c70 low, high;
  if (!((*(U32_1d5c70*)&DAT_004e23d8) & 1)) {
   (*(U32_1d5c70*)&DAT_004e23d8) |= 1;
