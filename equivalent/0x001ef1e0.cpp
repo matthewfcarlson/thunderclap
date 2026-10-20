@@ -1,3 +1,0 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
-// FUN_001ef1e0 @ 0x001ef1e0
-struct Key { int first; int second; }; struct Entry { int first; int second; char pad[4]; Entry* next; }; struct Node { char pad[4]; Entry* entries; Node* next; Entry* FUN_001ef1e0(const Key* key); }; Entry* Node::FUN_001ef1e0(const Key* key) { for (Node* node = this; node; node = node->next) { for (Entry* entry = node->entries; entry; entry = entry->next) { if (entry->first == key->first && entry->second == key->second) return entry; } } return 0; }
