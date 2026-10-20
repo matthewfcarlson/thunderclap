@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00411dc4[];
 struct Ref_135470 {
     virtual void AddRef();
@@ -22,7 +23,7 @@ class FlyingAttackAction {
 };
 FlyingAttackAction* FlyingAttackAction::Run(void* a, Ref_135470* r) {
     ((ThisCall_00232660*)(this))->BaseCtor();
-    vft = (void*)((int)DAT_00411dc4);
+    vft = (void*)((hulk_intptr)DAT_00411dc4);
     arg = 0;
     ref = 0;
     x24 = 0;

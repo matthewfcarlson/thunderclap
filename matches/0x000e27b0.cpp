@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class FELayout_e27b0 {
@@ -52,7 +53,7 @@ void VScroll::vfunc_11() {
     if (this->f_240 > 0) {
         char* p = (char*)this + 0x40;
         do {
-            int* q = (int*)cast((void*)*(int*)p, 0, &typeB_e27b0, &typeA_e27b0, 0);
+            int* q = (int*)cast((void*)*(hulk_intptr*)p, 0, &typeB_e27b0, &typeA_e27b0, 0);
             if (q)
                 ((FEControl_e27b0*)q)->o();
             ++i;

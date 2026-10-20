@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Called {
     void F(void*);
 };
@@ -7,5 +8,5 @@ struct Obj_92340 {
 };
 unsigned int Obj_92340::Target(Called* param) {
     param->F((char*)this + 0xa8);
-    return (unsigned int)param;
+    return (hulk_uintptr)param;
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004046dc[];
 struct Ctor_001d0480 {
     Ctor_001d0480(int, int);
@@ -21,7 +22,7 @@ class CUnlockablesManager : public Ctor_001d0480 {
     CUnlockablesManager(int a, int b);
 };
 CUnlockablesManager::CUnlockablesManager(int a, int b) : Ctor_001d0480(a, 3) {
-    v = ((int)DAT_004046dc);
+    v = ((hulk_intptr)DAT_004046dc);
     value = b;
     b18 = Query(&s0_94200);
     b10 = Query(&s1_94200);

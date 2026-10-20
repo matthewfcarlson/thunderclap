@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 extern "C" char DAT_0040c61c[];
@@ -15,7 +16,7 @@ void* FEThingsBase::vfunc_56(int arg) {
     if (p) {
         p->initialize(arg);
         p->a = 0;
-        *(volatile int*)p = ((int)DAT_0040c61c);
+        *(volatile hulk_intptr*)p = ((hulk_intptr)DAT_0040c61c);
         p->b = 0;
         p->c = 0;
         p->d = 0;

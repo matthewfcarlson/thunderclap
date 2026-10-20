@@ -1,4 +1,5 @@
 // Same code shape as 0x0005e160 (propagated; names are from that function)
+#include "compat/ptr.h"
 struct AnimationTrack_13a8a0 {
     virtual void a();
     virtual void b();
@@ -24,7 +25,7 @@ struct G_13a8a0 {
 extern void __cdecl thunk_FUN_00267090(AnimationTrack_13a8a0*);
 extern int vftable_13a8a0;
 AnimationTrack_13a8a0* AnimationTrack_13a8a0::vfunc_5(int param) {
-    *(int*)this = (int)&vftable_13a8a0;
+    *(hulk_intptr*)this = (hulk_intptr)&vftable_13a8a0;
     ((H*)((char*)this + 0x38))->f();
     ((H*)((char*)this + 0x18))->f();
     ((G_13a8a0*)this)->g();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00414420[];
 extern void* __cdecl Alloc(unsigned int);
 class Track {
@@ -24,7 +25,7 @@ void* Track::Make() {
         p->c = 0;
         p->d = 0;
         p->e = 0;
-        *(int*)p = ((int)DAT_00414420);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_00414420);
         return p;
     }
     return 0;

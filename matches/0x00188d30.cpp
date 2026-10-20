@@ -1,4 +1,5 @@
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
+#include "compat/ptr.h"
 struct RefCounted_188d30 {
   public:
     virtual void f0();
@@ -21,7 +22,7 @@ namespace hulkfight { namespace motion { class PropDropAction {
 
 hulkfight::motion::PropDropAction* hulkfight::motion::PropDropAction::vfunc_2(int flag) {
     volatile int* p = (volatile int*)this;
-    *p = (int)&g_vt_188d30;
+    *p = (hulk_intptr)&g_vt_188d30;
     RefCounted_188d30* q = (RefCounted_188d30*)p[8];
     if (q != 0) {
         q->Release();

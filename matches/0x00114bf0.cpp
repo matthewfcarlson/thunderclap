@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0040dc74[];
@@ -25,7 +26,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::ai::ButtonTrack>::vfunc
         p->d = 0;
         p->e = 0;
         p->f = 0;
-        p->vft = ((int)DAT_0040dc74);
+        p->vft = ((hulk_intptr)DAT_0040dc74);
         p->b = 0xbf800000;
         return (void*)(p);
     }

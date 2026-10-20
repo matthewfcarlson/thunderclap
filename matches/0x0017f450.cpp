@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_17f450 {
   public:
     char pad[0x10];
@@ -6,6 +7,6 @@ class Obj_17f450 {
 };
 
 bool Obj_17f450::Set(void* p) {
-    m10 = (int)p;
+    m10 = (hulk_intptr)p;
     return true;
 }

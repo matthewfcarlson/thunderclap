@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class W_e2f80 {
   public:
     char p[8];
@@ -34,6 +35,6 @@ void Obj_e2f80::f(int arg) {
         while (i < 4 && p[i + 1] != 0)
             ++i;
         if (i != 4)
-            p[i + 1] = (int)this;
+            p[i + 1] = (hulk_intptr)this;
     }
 }

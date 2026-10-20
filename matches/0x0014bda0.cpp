@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_004135d8[];
@@ -19,7 +20,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CivilianTar
     void* r;
     if (p) {
         p->CivilianTargetCondition_14bda0::CivilianTargetCondition_14bda0(0);
-        *(unsigned long*)p = ((int)DAT_004135d8);
+        *(hulk_ulongptr*)p = ((hulk_intptr)DAT_004135d8);
         p->data[8] = 1;
         r = p;
     } else

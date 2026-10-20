@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class CGameCamera_a0be0 {
@@ -45,5 +46,5 @@ class CGameCamera_a0be0 {
 void CChaseCamera::vfunc_38(void* __p0, int p3, void* __p2) { void * p4 = (void *)__p2;
 
     if (this->f_350 != 0 && p3 == this->f_350)
-        this->f_3cc = (int)p4;
+        this->f_3cc = (hulk_intptr)p4;
 }

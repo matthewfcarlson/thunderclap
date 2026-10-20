@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040bf84[];
 struct CScriptParser {
     void* vt;
@@ -11,7 +12,7 @@ struct CScriptParser {
 };
 CScriptParser::CScriptParser(int x) {
     arg = x;
-    vt = (void*)((int)DAT_0040bf84);
+    vt = (void*)((hulk_intptr)DAT_0040bf84);
     a = 0;
     b = 0;
     c = 0;

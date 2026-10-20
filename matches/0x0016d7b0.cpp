@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_16d7b0;
@@ -16,7 +17,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::IntentionIn
         ((u8*)p)[0xd] = 1;
         ((u8*)p)[0xe] = 1;
         ((u8*)p)[0xf] = 1;
-        *(u32_16d7b0*)p = (u32_16d7b0)&gVft;
+        *(hulk_uintptr*)p = (hulk_uintptr)&gVft;
         ((u8*)p)[0xc] = 0;
         return (void*)(p);
     }

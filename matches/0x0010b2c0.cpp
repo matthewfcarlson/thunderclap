@@ -1,4 +1,5 @@
 // cl-flags: /O2
+#include "compat/ptr.h"
 
 extern "C" void __cdecl FUN_0010b2a0();
 extern "C" void __cdecl FUN_0010b2b0();
@@ -45,7 +46,7 @@ This_10b2c0* This_10b2c0::Build() {
     Item_10b2c0* c = new Item_10b2c0();
     c->ch.Set(gColors[2]);
     list->Add(c);
-    FUN_00238b60(((int)(void (__cdecl*)())&FUN_0010b2a0), 0);
-    FUN_00238330(((int)(void (__cdecl*)())&FUN_0010b2b0), 0);
+    FUN_00238b60(((hulk_intptr)(void (__cdecl*)())&FUN_0010b2a0), 0);
+    FUN_00238330(((hulk_intptr)(void (__cdecl*)())&FUN_0010b2b0), 0);
     return this;
 }

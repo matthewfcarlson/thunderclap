@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern void* alloc(unsigned int);
@@ -15,7 +16,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAni
     VelocityCondition_16d650* p = (VelocityCondition_16d650*)alloc(0x14);
     if (p) {
         p->Init(0);
-        p->vt = (int)&velocity_vftable;
+        p->vt = (hulk_intptr)&velocity_vftable;
         p->a = 0;
         p->b = 0;
         return (void*)(p);

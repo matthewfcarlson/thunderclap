@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
 class Ref_10ba60 {
   public:
@@ -15,7 +16,7 @@ class FaceMotionAction {
     void Run();
 };
 void FaceMotionAction::Run() {
-    vptr = (int)&vt_10ba60;
+    vptr = (hulk_intptr)&vt_10ba60;
     _ReadWriteBarrier();
     if (r) {
         r->B();

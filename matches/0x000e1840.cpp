@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040bff8[];
 extern int type1_e1840;
 extern int type2_e1840;
@@ -23,7 +24,7 @@ FEParticleSystem::FEParticleSystem(void* arg, int unused) {
     b = -1;
     c = arg;
     flag = 0;
-    vptr = (void*)((int)DAT_0040bff8);
+    vptr = (void*)((hulk_intptr)DAT_0040bff8);
     d = 0;
     e = 0;
     f = (int)0xbf800000;

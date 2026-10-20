@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003fef7c[];
 struct Obj_c0d80 {
     virtual void f0();
@@ -12,6 +13,6 @@ int Target(Obj_c0d80* p, int b) {
         void* v;
     };
     Local local;
-    local.v = (void*)((int)DAT_003fef7c);
+    local.v = (void*)((hulk_intptr)DAT_003fef7c);
     return p->f3(&local, x);
 }

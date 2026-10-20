@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 extern "C" char DAT_00494b44[];
@@ -12,9 +13,9 @@ class Q_10d6b0 {
 };
 extern int __cdecl FUN_00344e74(void*, int, int, int, int);
 
-bool hulkfight::ai::LeashedCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int unused = (int)__p0; void * params = (void *)__p1; int unused2 = (int)__p2;
+bool hulkfight::ai::LeashedCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; void * params = (void *)__p1; hulk_intptr unused2 = (hulk_intptr)__p2;
 
-    int ok = FUN_00344e74(params, 0, ((int)DAT_00494b44), ((int)DAT_00494b60), 0);
+    int ok = FUN_00344e74(params, 0, ((hulk_intptr)DAT_00494b44), ((hulk_intptr)DAT_00494b60), 0);
     if (!ok)
         return false;
     void* a = ((P_10d6b0*)params)->get();

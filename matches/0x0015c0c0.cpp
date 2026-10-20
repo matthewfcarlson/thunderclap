@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00415ad0[];
 class Base_15c0c0 {
   public:
@@ -20,7 +21,7 @@ class GrappleLocomotionSteerTrack {
     Member_15c0c0 e;
 };
 void GrappleLocomotionSteerTrack::Kill() {
-    vf = ((int)DAT_00415ad0);
+    vf = ((hulk_intptr)DAT_00415ad0);
     e.Rel();
     d.Rel();
     c.Rel();

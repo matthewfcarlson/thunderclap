@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00415bb4[];
 class Base_15ea80 {
   public:
@@ -23,7 +24,7 @@ class GrappleLocomotionSteerAction : public Base_15ea80 {
     GrappleLocomotionSteerAction(int, Ref_15ea80*);
 };
 GrappleLocomotionSteerAction::GrappleLocomotionSteerAction(int x, Ref_15ea80* p) {
-    *(int*)this = ((int)DAT_00415bb4);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00415bb4);
     volatile int* q = &m1;
     *q = 0;
     m2 = 0;

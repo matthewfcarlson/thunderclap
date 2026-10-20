@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00411314[];
 typedef unsigned int u32_12e9b0;
 struct NISSoundTrack {
@@ -9,7 +10,7 @@ struct NISSoundTrack {
 };
 extern void __cdecl ReleaseThing(u32_12e9b0);
 void NISSoundTrack::Destroy() {
-    vptr = ((int)DAT_00411314);
+    vptr = ((hulk_intptr)DAT_00411314);
     ReleaseThing(a);
     ReleaseThing(b);
     ReleaseThing(c);

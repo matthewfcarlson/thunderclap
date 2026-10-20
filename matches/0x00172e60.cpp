@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00417958[];
 class JointRelativeTrack {
   public:
@@ -21,7 +22,7 @@ struct Sub_172e60 {
 };
 void __cdecl destroy(JointRelativeTrack*);
 JointRelativeTrack::JointRelativeTrack(int flag) {
-    *(int*)this = ((int)DAT_00417958);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00417958);
     ((Sub_172e60*)((char*)this + 0x18))->Init();
     Init2();
     if (flag & 1)

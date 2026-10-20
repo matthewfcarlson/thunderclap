@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char hulk_at_0048e128[];
 class Base {
   public:
@@ -16,5 +17,5 @@ class Method0_9b9f0 : public Base {
 unsigned char __cdecl fun2(int);
 Method0_9b9f0::Method0_9b9f0(int a, int b) : Base(a, 0) {
     value = b;
-    flag = fun2(((int)hulk_at_0048e128));
+    flag = fun2(((hulk_intptr)hulk_at_0048e128));
 }

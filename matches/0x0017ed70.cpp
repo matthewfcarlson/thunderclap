@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00417d48[];
@@ -22,7 +23,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::VisibilityTrack
         init(p);
         p->z = 1;
         p->x = 1;
-        *(unsigned int*)p = ((int)DAT_00417d48);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_00417d48);
         p->y = 0;
         return (void*)(p);
     }

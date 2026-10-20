@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Ref_15d460 {
   public:
     virtual void A();
@@ -15,7 +16,7 @@ struct LocomotionStrafeAction : Base_15d460 {
 };
 LocomotionStrafeAction* LocomotionStrafeAction::Init(Ref_15d460* p) {
     InitBase();
-    *(int*)this = (int)&vtable_15d460;
+    *(hulk_intptr*)this = (hulk_intptr)&vtable_15d460;
     mRef = 0;
     mOther = 0;
     if (p)

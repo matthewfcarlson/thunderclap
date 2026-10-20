@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00412f44[];
 struct SlowMotionTrack {
     char pad0[8];
@@ -18,7 +19,7 @@ SlowMotionTrack* __cdecl target() {
         p->Init();
         p->a = 1.0f;
         p->b = 1.0f;
-        *(unsigned int*)p = ((int)DAT_00412f44);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_00412f44);
         p->zero = 0;
         p->d = 0.1f;
         p->e = 0.9f;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern void* __cdecl Alloc(unsigned int);
 extern int LocationVtable_132a00;
 struct GameStateCondition_132a00 {
@@ -14,7 +15,7 @@ void* FactoryVfunc5() {
         p->b = 0;
         p->c = 0;
         p->d = 0;
-        *(int*)p = (int)&LocationVtable_132a00;
+        *(hulk_intptr*)p = (hulk_intptr)&LocationVtable_132a00;
         return p;
     }
     return 0;

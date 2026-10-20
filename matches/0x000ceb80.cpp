@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 class HUDOverlay {
   public:
@@ -20,7 +21,7 @@ template <class T, class U, class V, class W, class X> class Method3 : public HU
 extern const char g1_ceb80[], g2[], g3[];
 template <>
 Method3<HUDOverlay, int, const char*, const char*, float>::Method3(int x, const char* y) : HUDOverlay(x, 3) {
-    id = (int)y;
+    id = (hulk_intptr)y;
     d = FUN_001d04d0(g1_ceb80);
     a = FUN_001d04d0(g2);
     b = FUN_001d04d0(g2);

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040c924[];
 extern "C" void _ReadWriteBarrier();
 class Ref_f1d70 {
@@ -75,7 +76,7 @@ class FEMenuBase : public FEScreenBase {
 };
 void thunk_FUN_00267090(FEMenuBase*);
 FEMenuBase* FEMenuBase::vfunc_0(unsigned char p) {
-    *(void**)this = (void*)((int)DAT_0040c924);
+    *(void**)this = (void*)((hulk_intptr)DAT_0040c924);
     _ReadWriteBarrier();
     if (field) {
         field->Release();

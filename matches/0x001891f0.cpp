@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_1891f0;
@@ -21,9 +22,9 @@ extern int IsType(void*, int, int, int, int);
 extern void* Alloc(unsigned int);
 extern int typeA_1891f0, typeB;
 
-int hulkfight::motion::BallAndChainReturnTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_1891f0 a = (u32_1891f0)__p0; u32_1891f0 b = (u32_1891f0)__p1; u32_1891f0 c = (u32_1891f0)__p2;
+int hulkfight::motion::BallAndChainReturnTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_1891f0 a = (u32_1891f0)__p0; u32_1891f0 b = (u32_1891f0)__p1; hulk_uintptr c = (u32_1891f0)__p2;
 
-    if (IsType((void*)c, 0, (int)&typeB, (int)&typeA_1891f0, 0)) {
+    if (IsType((void*)c, 0, (hulk_intptr)&typeB, (hulk_intptr)&typeA_1891f0, 0)) {
         Obj_1891f0* p = (Obj_1891f0*)Alloc(0x48);
         if (p)
             return (int)(p->Init(this, c));

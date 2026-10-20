@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vftable_182f70;
 class Condition {
   public:
@@ -28,7 +29,7 @@ namespace hulkfight { namespace motion { class GrapplePropStateByNameCondition :
 }; }}
 extern void __cdecl thunk(hulkfight::motion::GrapplePropStateByNameCondition*);
 hulkfight::motion::GrapplePropStateByNameCondition* hulkfight::motion::GrapplePropStateByNameCondition::vfunc_5(int flag) {
-    *(int*)this = (int)&vftable_182f70;
+    *(hulk_intptr*)this = (hulk_intptr)&vftable_182f70;
     elem.Fn();
     Init();
     if (flag & 1)

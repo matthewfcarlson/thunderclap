@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004193ec[];
 struct Sub_180fc0 {
     void A();
@@ -10,7 +11,7 @@ struct X_180fc0 {
     void C();
 };
 void X_180fc0::f() {
-    v = (int*)((int)DAT_004193ec);
+    v = (int*)((hulk_intptr)DAT_004193ec);
     ((Sub_180fc0*)((char*)this + 0x78))->A();
     ((Sub_180fc0*)((char*)this + 0x68))->B();
     C();

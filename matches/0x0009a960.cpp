@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class CCameraManager_9a960 {
@@ -14,7 +15,7 @@ class Function_9a960 {
     virtual void F1();
 };
 
-template <> void Method3<CCameraManager, void, float, float, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CCameraManager_9a960 * obj = (CCameraManager_9a960 *)__p0; Args * args = (Args *)__p1; int unused = (int)__p2;
+template <> void Method3<CCameraManager, void, float, float, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CCameraManager_9a960 * obj = (CCameraManager_9a960 *)__p0; Args * args = (Args *)__p1; hulk_intptr unused = (hulk_intptr)__p2;
 
     Args* p = args;
     *(volatile float*)&args = p->a;

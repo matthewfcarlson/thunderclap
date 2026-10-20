@@ -1,4 +1,5 @@
 // Same code shape as 0x0013bde0 (propagated; names are from that function)
+#include "compat/ptr.h"
 extern "C" {
 extern "C" char DAT_0041258c[];
 void __cdecl opdel(void*);
@@ -32,7 +33,7 @@ class AnimationAction {
 };
 
 AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
-    *(int*)this = (int)DAT_0041258c;
+    *(hulk_intptr*)this = (hulk_intptr)DAT_0041258c;
     _ReadWriteBarrier();
     RefObj_13be90* a = m20;
     if (a) {

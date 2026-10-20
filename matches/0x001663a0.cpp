@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004168d8[];
 struct Sub_1663a0 {
     void Init();
@@ -13,7 +14,7 @@ struct RayCastCondition {
 };
 RayCastCondition::RayCastCondition() {
     BaseInit(0);
-    vptr = (void*)((int)DAT_004168d8);
+    vptr = (void*)((hulk_intptr)DAT_004168d8);
     ((Sub_1663a0*)((char*)this + 0x10))->Init();
     a[0] = 0;
     a[1] = 0;

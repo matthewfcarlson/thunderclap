@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00417f64[];
 class Ref_175d50 {
   public:
@@ -32,7 +33,7 @@ class Obj_175d50 : public Base_175d50 {
 };
 Obj_175d50* Obj_175d50::Func(int a, Ref_175d50* r) {
     Init();
-    *(int*)this = ((int)DAT_00417f64);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00417f64);
     mA = 0;
     mLink = 0;
     part.Init();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 extern "C" char DAT_0049dba4[];
@@ -34,7 +35,7 @@ extern FEObject_e2760* castFE(void*, int, int, int, int);
 
 void VScroll::vfunc_12() {
     for (int i = 0; i < this->f_240; ++i) {
-        FEObject_e2760* p = castFE(*(void**)((char*)this + 0x40 + i * 16), 0, ((int)DAT_0049dba4), ((int)DAT_0049f4f0), 0);
+        FEObject_e2760* p = castFE(*(void**)((char*)this + 0x40 + i * 16), 0, ((hulk_intptr)DAT_0049dba4), ((hulk_intptr)DAT_0049f4f0), 0);
         if (p)
             p->f16();
     }

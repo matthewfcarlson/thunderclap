@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void __cdecl FUN_0014c550();
 extern "C" char DAT_00414838[];
 extern "C" void* FUN_0008d690(unsigned int);
@@ -19,8 +20,8 @@ void FUN_00155500() {
         Hit_155500* p = (Hit_155500*)FUN_0008d690(0x18);
         if (p) {
             p->Init("hasHitPushback");
-            *(int*)p = ((int)DAT_00414838);
-            *(int*)((char*)p + 0x10) = ((int)(void (__cdecl*)())&FUN_0014c550);
+            *(hulk_intptr*)p = ((hulk_intptr)DAT_00414838);
+            *(hulk_intptr*)((char*)p + 0x10) = ((hulk_intptr)(void (__cdecl*)())&FUN_0014c550);
             temp = p;
         } else
             temp = 0;

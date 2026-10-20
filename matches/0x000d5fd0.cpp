@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char hulk_at_0048e0f0[];
 extern "C" char hulk_at_0048e100[];
 class Base {
@@ -17,8 +18,8 @@ class Middle : public Base {
     virtual void f();
     Middle(const char* s, int n) : Base(s, 1) {
         x = n;
-        b = get(((int)hulk_at_0048e100));
-        a = get(((int)hulk_at_0048e0f0));
+        b = get(((hulk_intptr)hulk_at_0048e100));
+        a = get(((hulk_intptr)hulk_at_0048e0f0));
     }
 };
 class Derived : public Middle {

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0040ff34[];
@@ -19,7 +20,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetInvincibl
     TargetInvincibleCondition_12ad90* p = (TargetInvincibleCondition_12ad90*)Allocate(0x10);
     if (p) {
         p->TargetInvincibleCondition_12ad90::TargetInvincibleCondition_12ad90(0);
-        *(unsigned int*)p = ((int)DAT_0040ff34);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040ff34);
         p->flag = 1;
         return (void*)(p);
     }

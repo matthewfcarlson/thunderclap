@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Ref_184880 {
   public:
     virtual void Fn();
@@ -28,7 +29,7 @@ class BallAndChainShootAction : public Ctor_00232660 {
     int m50;
 };
 BallAndChainShootAction::BallAndChainShootAction(int a, Ref_184880* b) : Ctor_00232660() {
-    vt = (int)&vtable_184880;
+    vt = (hulk_intptr)&vtable_184880;
     int* q = &mA;
     *q = 0;
     mRef = 0;

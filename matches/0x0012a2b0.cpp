@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0040fd14[];
@@ -19,7 +20,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetDirection
     TargetDirectionYCondition_12a2b0* p = (TargetDirectionYCondition_12a2b0*)Alloc(0x14);
     if (p) {
         ((Base_12a2b0*)p)->Init(0);
-        p->v0 = ((int)DAT_0040fd14);
+        p->v0 = ((hulk_intptr)DAT_0040fd14);
         p->x = 0;
         p->y = 0;
         return (void*)(p);

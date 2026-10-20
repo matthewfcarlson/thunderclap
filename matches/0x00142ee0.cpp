@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00412ab0[];
 class Obj_142ee0 {
   public:
@@ -18,7 +19,7 @@ Obj_142ee0* Obj_142ee0::v5() {
     Obj_142ee0* p = (Obj_142ee0*)Alloc(0x14);
     if (p) {
         p->Init(0);
-        *(int*)p = ((int)DAT_00412ab0);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_00412ab0);
         p->b = 0;
         p->c = 0;
         return p;

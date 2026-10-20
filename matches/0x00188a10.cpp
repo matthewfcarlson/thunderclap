@@ -1,4 +1,5 @@
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
+#include "compat/ptr.h"
 struct RefCounted_188a10 {
   public:
     virtual void f0();
@@ -21,7 +22,7 @@ class PropAddToMissileCountAction_188a10 {
 
 PropAddToMissileCountAction_188a10* PropAddToMissileCountAction_188a10::vfunc_2(int flag) {
     volatile int* p = (volatile int*)this;
-    *p = (int)&g_vt_188a10;
+    *p = (hulk_intptr)&g_vt_188a10;
     RefCounted_188a10* q = (RefCounted_188a10*)p[8];
     if (q != 0) {
         q->Release();

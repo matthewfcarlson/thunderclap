@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct PropAtRestCondition {
     virtual void v0();
     virtual void v1();
@@ -15,7 +16,7 @@ void* Factory_vfunc5() {
     PropAtRestCondition* p = (PropAtRestCondition*)alloc(0x10);
     if (p) {
         p->Init(0);
-        *((int*)p) = (int)&prop_vtable;
+        *((hulk_intptr*)p) = (hulk_intptr)&prop_vtable;
         p->flag = 1;
         return p;
     }

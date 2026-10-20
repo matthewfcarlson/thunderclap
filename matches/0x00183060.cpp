@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vftable_183060;
 class Sub_183060 {
   public:
@@ -18,7 +19,7 @@ namespace hulkfight { namespace motion { class PropStateByNameCondition {
 extern void thunk_FUN_00267090(void*);
 hulkfight::motion::PropStateByNameCondition* hulkfight::motion::PropStateByNameCondition::vfunc_5(unsigned int flags) {
     Sub_183060* s = (Sub_183060*)((char*)this + 0x18);
-    *(int*)this = (int)&vftable_183060;
+    *(hulk_intptr*)this = (hulk_intptr)&vftable_183060;
     s->Init();
     Second();
     if (flags & 1)

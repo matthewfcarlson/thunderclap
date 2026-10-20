@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 class InActiveCondition_114440 {
@@ -15,7 +16,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::InActiveConditi
     InActiveCondition_114440* p = (InActiveCondition_114440*)FUN_0008d690(0x14);
     if (p) {
         p->Init(0);
-        p->vptr = (unsigned int)&g_InActiveVftable;
+        p->vptr = (hulk_uintptr)&g_InActiveVftable;
         p->fieldC = 0;
         p->field10 = 0;
         return (void*)(p);

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00417b68[];
@@ -20,7 +21,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::TeleportTrack>:
     TeleportTrack_17e700* p = (TeleportTrack_17e700*)Alloc(0x1c);
     if (p) {
         ((TeleportTrackBase*)p)->Ctor();
-        p->vt = (void*)((int)DAT_00417b68);
+        p->vt = (void*)((hulk_intptr)DAT_00417b68);
         p->z1 = 0;
         p->z2 = 0;
         p->z3 = 0;

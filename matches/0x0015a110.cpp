@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_004143f0[];
@@ -15,7 +16,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitPushbackAddT
     HitPushbackAddTrack_15a110* p = (HitPushbackAddTrack_15a110*)Alloc(0x14);
     if (p) {
         p->Init();
-        p->vt = ((int)DAT_004143f0);
+        p->vt = ((hulk_intptr)DAT_004143f0);
         p->mZero = 0;
         p->mOne = 1.0f;
         p->mTwo = 1;

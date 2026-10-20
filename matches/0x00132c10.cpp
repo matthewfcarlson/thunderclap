@@ -1,4 +1,5 @@
 // Same code shape as 0x00075e70 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern void* __cdecl Alloc(unsigned int);
@@ -28,7 +29,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::NISSoundTrack>::vfunc_5
         p->y = 0;
         p->z = 0;
         p->w = 0;
-        *(unsigned long*)p = (unsigned long)&shakeVtable;
+        *(hulk_ulongptr*)p = (hulk_ulongptr)&shakeVtable;
         p->flag = 1;
         return (void*)(p);
     }

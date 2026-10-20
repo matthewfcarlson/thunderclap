@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vtable_e1c40;
 class FEDoPopDialog {
   public:
@@ -14,5 +15,5 @@ FEDoPopDialog::FEDoPopDialog(int x) {
     c = -1;
     d = x;
     e = 0;
-    vptr = (int)&vtable_e1c40;
+    vptr = (hulk_intptr)&vtable_e1c40;
 }

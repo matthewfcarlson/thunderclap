@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00411110[];
 extern "C" void _ReadWriteBarrier();
 class Ref_12dba0 {
@@ -17,7 +18,7 @@ class PostEvent_StringAction : public Base_12dba0 {
     Ref_12dba0* mRef;
 };
 void PostEvent_StringAction::Clean() {
-    *(void**)this = (void*)((int)DAT_00411110);
+    *(void**)this = (void*)((hulk_intptr)DAT_00411110);
     _ReadWriteBarrier();
     if (mRef) {
         mRef->Release();

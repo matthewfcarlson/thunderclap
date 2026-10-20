@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
 class Ref_188960 {
   public:
@@ -45,5 +46,5 @@ int PropAnimationAction::f2(char param) {
     this->Action::baseCleanup();
     if (param & 1)
         thunk(this);
-    return (int)this;
+    return (hulk_intptr)this;
 }

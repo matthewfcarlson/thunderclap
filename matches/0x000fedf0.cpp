@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int CActorGolem_vftable;
 class CActorGolem {
   public:
@@ -10,6 +11,6 @@ class CActorGolem {
 CActorGolem* CActorGolem::Init(void* p) {
     InitBase();
     m = p;
-    *(int*)this = (int)&CActorGolem_vftable;
+    *(hulk_intptr*)this = (hulk_intptr)&CActorGolem_vftable;
     return this;
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct A_10d770 {
@@ -17,7 +18,7 @@ bool hulkfight::ai::ButtonAction::vfunc_5(int p, int q) {
         if (!(*(A_10d770 * *)&this->f_20))
             return (bool)(0);
         A_10d770* r = (*(A_10d770 * *)&this->f_20)->f0();
-        int base = r->f1();
+        hulk_intptr base = r->f1();
         int* d = (int*)(base + 0x1f58);
         d = d + (*(B_10d770 * *)&this->f_1c)->a14 * 3;
         d[0] = (*(B_10d770 * *)&this->f_1c)->a18;

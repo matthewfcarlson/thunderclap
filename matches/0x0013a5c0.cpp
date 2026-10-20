@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct A_13a5c0 {
     void* Get();
 };
@@ -15,7 +16,7 @@ struct Target_13a5c0 {
 };
 bool Target_13a5c0::Run() {
     void* value = field20->Get();
-    int result = ((B_13a5c0*)value)->Check();
+    hulk_intptr result = ((B_13a5c0*)value)->Check();
     if (!result)
         return true;
     return ((C_13a5c0*)result)->Finish(field24);

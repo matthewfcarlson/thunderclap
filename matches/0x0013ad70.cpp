@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern char AnimAction_vt;
 
 namespace hulkfight {
@@ -26,7 +27,7 @@ class AnimationAction : public Base_13ad70 {
 
 void AnimationAction::Destroy() {
     volatile int* v = (volatile int*)this;
-    v[0] = (int)&AnimAction_vt;
+    v[0] = (hulk_intptr)&AnimAction_vt;
     MemObj* a = (MemObj*)v[8];
     if (a) {
         a->Release();

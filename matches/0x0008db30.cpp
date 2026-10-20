@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00400854[];
 class CSPHulkPropLoader {
   public:
@@ -9,6 +10,6 @@ struct ThisCall_00290740 {
 };
 CSPHulkPropLoader* CSPHulkPropLoader::Init() {
     ((ThisCall_00290740*)(this))->Initialize();
-    *(void**)this = (void*)((int)DAT_00400854);
+    *(void**)this = (void*)((hulk_intptr)DAT_00400854);
     return this;
 }

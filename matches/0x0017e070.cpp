@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 struct ChargeTrack_17e070 {
@@ -19,7 +20,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::ChargeTrack>::v
     ChargeTrack_17e070* p = (ChargeTrack_17e070*)operator new(0x20);
     if (p) {
         p->Init();
-        p->vt = (int)&chargeVtable;
+        p->vt = (hulk_intptr)&chargeVtable;
         p->padc = 0.0f;
         p->value10 = -1.0f;
         p->pad14 = 0;

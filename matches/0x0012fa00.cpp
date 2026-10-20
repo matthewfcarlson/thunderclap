@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_12fa00;
@@ -23,7 +24,7 @@ class ActionBase_12fa00 {
 bool hulkfight::StatBeginTrialAction::vfunc_3(int __p0, int __p1) {
     if (!(*(u32_12fa00 *)&this->f_20))
         return false;
-    u32_12fa00 x = *(u32_12fa00*)((*(u32_12fa00 *)&this->f_1c) + 0x10);
+    u32_12fa00 x = *(u32_12fa00*)((*(hulk_uintptr *)&this->f_1c) + 0x10);
     gGlobal_12fa00->run()->run(x);
     return true;
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Base_152480 {
   public:
     virtual void X();
@@ -20,7 +21,7 @@ class HitOrientToPushbackAction_152480 : public Base_152480 {
 };
 void HitOrientToPushbackAction_152480::V0() {}
 HitOrientToPushbackAction_152480::HitOrientToPushbackAction_152480(int a, Other_152480* b) : Base_152480() {
-    *(int*)this = (int)&vt_152480;
+    *(hulk_intptr*)this = (hulk_intptr)&vt_152480;
     volatile int* p = &mValue;
     *p = 0;
     mOther = 0;

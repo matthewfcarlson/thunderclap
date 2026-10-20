@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 extern void* __cdecl alloc(unsigned int);
@@ -22,7 +23,7 @@ int hulkfight::motion::MotionBlurTrack::vfunc_10(int a, int b, int c) {
         *(void* volatile*)p = MotionBlurAction_vftable;
         *(void* volatile*)&p->owner = 0;
         p->owner = (void*)this;
-        return (int)(p);
+        return (hulk_intptr)(p);
     }
     return (int)(0);
 }

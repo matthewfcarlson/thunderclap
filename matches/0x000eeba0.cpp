@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Blk_eeba0 {
     int x[10];
 };
@@ -130,6 +131,6 @@ Item_eeba0* FEContainer::Target(Item_eeba0* a, Item_eeba0* id) {
             res->blk = it->blk;
         }
     }
-    s24(res, (int)a);
+    s24(res, (hulk_intptr)a);
     return res;
 }

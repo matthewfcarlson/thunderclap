@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 class HitWaitTrack_159d70 {
@@ -15,7 +16,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitWaitTrack>::
     HitWaitTrack_159d70* p = (HitWaitTrack_159d70*)Alloc(0x14);
     if (p) {
         p->HitWaitTrack_159d70::HitWaitTrack_159d70();
-        *(int*)p = (int)&HitWaitTrack_vftable;
+        *(hulk_intptr*)p = (hulk_intptr)&HitWaitTrack_vftable;
         p->a = 0;
         p->b = 0;
         return (void*)(p);

@@ -1,4 +1,5 @@
 // Same code shape as 0x0013a8e0 (propagated; names are from that function)
+#include "compat/ptr.h"
 typedef unsigned char byte_1447b0;
 class Sub_1447b0 {
   public:
@@ -20,7 +21,7 @@ class HitEffectTrack_1447b0 {
     HitEffectTrack_1447b0* vfunc_5(byte_1447b0 param);
 };
 HitEffectTrack_1447b0* HitEffectTrack_1447b0::vfunc_5(byte_1447b0 param) {
-    vf = (int)&vftable_1447b0;
+    vf = (hulk_intptr)&vftable_1447b0;
     b.f();
     a.f();
     ((Base_1447b0*)this)->g();

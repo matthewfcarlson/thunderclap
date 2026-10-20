@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class Obj_fce10 {
@@ -16,7 +17,7 @@ struct CControllerAgent_nv_fce10 {
 
 float CControllerAgent::vfunc_3(int a, int b) {
     ((CControllerAgent_nv_fce10*)this)->helper(a, b);
-    int x = (*(Obj_fce10 * *)&this->f_58)->f6();
+    hulk_intptr x = (*(Obj_fce10 * *)&this->f_58)->f6();
     if (*(int*)((char*)x + 0x20a8) >= 0)
         *(float*)((char*)this + 8) = 100.0f;
     else

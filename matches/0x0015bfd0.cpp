@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00415aa0[];
 struct Sub_15bfd0 {
     char pad[8];
@@ -10,7 +11,7 @@ class LocomotionSprintTrack {
     void finish();
 };
 void __fastcall FUN_0015bfd0(LocomotionSprintTrack* self, void*) {
-    *(int*)self = ((int)DAT_00415aa0);
+    *(hulk_intptr*)self = ((hulk_intptr)DAT_00415aa0);
     self->s4.init();
     self->s3.init();
     self->s2.init();

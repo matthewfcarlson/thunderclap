@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0040dbe4[];
@@ -14,7 +15,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::ai::AIHistoryCountTrack
     AIHistoryCountTrack_1149d0* p = (AIHistoryCountTrack_1149d0*)Alloc(16);
     if (p) {
         p->AIHistoryCountTrack_1149d0::AIHistoryCountTrack_1149d0();
-        p->vptr = ((int)DAT_0040dbe4);
+        p->vptr = ((hulk_intptr)DAT_0040dbe4);
         p->member = 0;
         return (void*)(p);
     }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 struct CPatrolPathManager_106c10 {
@@ -10,7 +11,7 @@ struct Arguments {
     int count;
 };
 
-template <> void Closure3<CPatrolPathManager, bool, const char *, bool, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { int unused = (int)__p0; Arguments * args = (Arguments *)__p1; bool * result = (bool *)__p2;
+template <> void Closure3<CPatrolPathManager, bool, const char *, bool, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; Arguments * args = (Arguments *)__p1; bool * result = (bool *)__p2;
 
     Arguments* a = args;
     CPatrolPathManager_106c10* obj = (*(CPatrolPathManager_106c10 * *)&this->f_20);

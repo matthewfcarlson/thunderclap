@@ -1,4 +1,5 @@
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
+#include "compat/ptr.h"
 struct RefCounted_145ba0 {
   public:
     virtual void f0();
@@ -21,7 +22,7 @@ class WorldDamageAction_145ba0 {
 
 WorldDamageAction_145ba0* WorldDamageAction_145ba0::vfunc_2(int flag) {
     volatile int* p = (volatile int*)this;
-    *p = (int)&g_vt_145ba0;
+    *p = (hulk_intptr)&g_vt_145ba0;
     RefCounted_145ba0* q = (RefCounted_145ba0*)p[8];
     if (q != 0) {
         q->Release();

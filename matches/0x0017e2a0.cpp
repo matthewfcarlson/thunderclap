@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_004179e8[];
@@ -18,7 +19,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::LocomotionState
     LocomotionStateTrack_17e2a0* p = (LocomotionStateTrack_17e2a0*)FUN_0008d690(0x14);
     if (p) {
         ((Base_17e2a0*)p)->init();
-        p->vf = ((int)DAT_004179e8);
+        p->vf = ((hulk_intptr)DAT_004179e8);
         p->mc = 0;
         p->m10 = 0;
         p->m8 = 1;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vtable_ac5a0;
 class Ref_ac5a0 {
   public:
@@ -15,7 +16,7 @@ class CNISCamera {
 void __fastcall init(CNISCamera*);
 void __cdecl thunk(CNISCamera*);
 CNISCamera* CNISCamera::vfunc_2(unsigned char flag) {
-    *(volatile int*)this = (int)&vtable_ac5a0;
+    *(volatile hulk_intptr*)this = (hulk_intptr)&vtable_ac5a0;
     Ref_ac5a0* r = *(Ref_ac5a0* volatile*)&mRef;
     if (r) {
         r->f1();

@@ -1,4 +1,5 @@
 // Same code shape as 0x0012a410 (propagated; names are from that function)
+#include "compat/ptr.h"
 extern "C" void* __cdecl alloc(unsigned int);
 extern int tdcVtable;
 class TDC_12a780 {
@@ -20,7 +21,7 @@ TDC_12a780* __cdecl target() {
         p->y = z;
         p->a = (unsigned char)z;
         p->b = (unsigned char)z;
-        p->vf = (int)&tdcVtable;
+        p->vf = (hulk_intptr)&tdcVtable;
         return p;
     }
     return 0;

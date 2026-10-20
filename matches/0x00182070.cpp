@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct A_182070 {
@@ -17,7 +18,7 @@ bool hulkfight::motion::PropSetStateByNameAction::vfunc_5(int __p0, int __p1) { 
 
     if (param == 0 && (*(A_182070 * *)&this->f_20) != 0) {
         A_182070* p = (A_182070*)(*(A_182070 * *)&this->f_20)->f();
-        int x = ((B_182070*)p)->f();
+        hulk_intptr x = ((B_182070*)p)->f();
         int index = (*(int * *)&this->f_1c)[4];
         if (x != 0) {
             if (index < 0)

@@ -1,4 +1,5 @@
 // FUN_000cf2b0 @ 0x000cf2b0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" char DAT_0040a5c0[];
@@ -19,13 +20,13 @@ class Callback_cf2b0 {
 
 Callback_cf2b0* Callback_cf2b0::Init(void* arg, void* value) {
     FUN_001d0480(arg, 5);
-    vptr = (int)DAT_0040a5c0;
+    vptr = (hulk_intptr)DAT_0040a5c0;
     p1c = value;
-    b18 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e134)));
-    b10 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e134)));
-    b11 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e0f0)));
-    b12 = FUN_001d04d0((void*)((int)DAT_0048e10c));
-    b13 = FUN_001d04d0((void*)((int)DAT_0048e10c));
-    b14 = FUN_001d04d0((void*)((int)DAT_0048e10c));
+    b18 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e134)));
+    b10 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e134)));
+    b11 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    b12 = FUN_001d04d0((void*)((hulk_intptr)DAT_0048e10c));
+    b13 = FUN_001d04d0((void*)((hulk_intptr)DAT_0048e10c));
+    b14 = FUN_001d04d0((void*)((hulk_intptr)DAT_0048e10c));
     return this;
 }

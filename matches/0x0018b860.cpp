@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0041918c[];
@@ -17,7 +18,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::PropGrabbab
     PropGrabbableIsThrownCondition_18b860* p = (PropGrabbableIsThrownCondition_18b860*)Alloc(16);
     if (p) {
         p->PropGrabbableIsThrownCondition_18b860::PropGrabbableIsThrownCondition_18b860(0);
-        *(unsigned int*)p = ((int)DAT_0041918c);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_0041918c);
         p->flag = 1;
         return (void*)(p);
     }

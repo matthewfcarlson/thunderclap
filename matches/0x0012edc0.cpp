@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00411374[];
 typedef unsigned int u32_12edc0;
 extern void __cdecl ReleaseThing(u32_12edc0);
@@ -10,7 +11,7 @@ struct DebugPrintTrack {
 };
 extern void __fastcall Finish(DebugPrintTrack*);
 void DebugPrintTrack::Cleanup() {
-    vftable = ((int)DAT_00411374);
+    vftable = ((hulk_intptr)DAT_00411374);
     ReleaseThing(a);
     ReleaseThing(b);
     Finish(this);

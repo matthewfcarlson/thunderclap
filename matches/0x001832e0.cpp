@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0041941c[];
 typedef unsigned char u8_1832e0;
 extern void __cdecl cleanup(void*);
@@ -23,7 +24,7 @@ namespace hulkfight { namespace motion { class BallAndChainReturnTrack {
 }; }}
 hulkfight::motion::BallAndChainReturnTrack* hulkfight::motion::BallAndChainReturnTrack::vfunc_5(u8_1832e0 flag) {
     Sub_1832e0* a = (Sub_1832e0*)((char*)this + 0x60);
-    *(int*)this = ((int)DAT_0041941c);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_0041941c);
     a->Init();
     ((Sub_1832e0*)((char*)this + 0x48))->Init();
     this->BaseInit();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00414010[];
 struct CollisionTargetPriorityCondition {
     int* vptr;
@@ -12,7 +13,7 @@ void* __cdecl Factory_vfunc5() {
     CollisionTargetPriorityCondition* p = (CollisionTargetPriorityCondition*)Alloc(0x14);
     if (p) {
         p->Init(0);
-        p->vptr = (int*)((int)DAT_00414010);
+        p->vptr = (int*)((hulk_intptr)DAT_00414010);
         p->mC = 0;
         p->m10 = 0;
         return p;

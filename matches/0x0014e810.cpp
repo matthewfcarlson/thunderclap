@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Condition {
   public:
     virtual void a();
@@ -37,7 +38,7 @@ struct Source_14e810 {
 bool hulkfight::motion::CollisionSourceIsMissileCondition::vfunc_6(int, void* p, int) {
     if (helper(p, 0, &typeA_14e810, &typeB_14e810, 0) == 0)
         return false;
-    int x = ((Source_14e810*)p)->get();
+    hulk_intptr x = ((Source_14e810*)p)->get();
     if (!x)
         return false;
     return *(unsigned char*)(x + 0x14) == value;

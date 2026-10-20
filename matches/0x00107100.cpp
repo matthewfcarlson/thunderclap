@@ -1,4 +1,5 @@
 // Same code shape as 0x000ffeb0 (propagated; names are from that function)
+#include "compat/ptr.h"
 struct Thing_107100 {
     virtual void a();
     virtual void b();
@@ -39,7 +40,7 @@ class CRangedAgent {
 };
 CRangedAgent* CRangedAgent::vfunc_2(unsigned char param) {
     Thing_107100* t = thing;
-    *(int*)this = (int)&handVtable;
+    *(hulk_intptr*)this = (hulk_intptr)&handVtable;
     t->b();
     thing = 0;
     ((Helper_107100*)this)->run();

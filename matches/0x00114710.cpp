@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0040db44[];
@@ -14,7 +15,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TokenCondition>
         ((InitObj_114710*)p)->Init(0);
         ((u8*)p)[0xc] = 1;
         ((u8*)p)[0xd] = 1;
-        *(u32_114710*)p = ((int)DAT_0040db44);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040db44);
         return (void*)(p);
     }
     return (void*)((void*)0);

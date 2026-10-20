@@ -1,4 +1,5 @@
 // Same code shape as 0x0013a5c0 (propagated; names are from that function)
+#include "compat/ptr.h"
 struct A_13a670 {
     void* Get();
 };
@@ -16,7 +17,7 @@ struct Target_13a670 {
 };
 bool Target_13a670::Run() {
     void* value = field20->Get();
-    int result = ((B_13a670*)value)->Check();
+    hulk_intptr result = ((B_13a670*)value)->Check();
     if (!result)
         return true;
     return ((C_13a670*)result)->Finish(field24);

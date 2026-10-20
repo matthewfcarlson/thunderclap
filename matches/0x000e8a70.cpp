@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040bfe0[];
 class Ref_e8a70 {
   public:
@@ -11,7 +12,7 @@ class FEParticleSystem {
     void Cleanup();
 };
 void FEParticleSystem::Cleanup() {
-    *(volatile unsigned*)this = ((int)DAT_0040bfe0);
+    *(volatile hulk_uintptr*)this = ((hulk_intptr)DAT_0040bfe0);
     Ref_e8a70* r = mRef;
     if (r) {
         r->Release();

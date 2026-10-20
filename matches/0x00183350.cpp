@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0041947c[];
 typedef unsigned char u8_183350;
 struct Sub_183350 {
@@ -21,7 +22,7 @@ namespace hulkfight { namespace motion { class BallAndChainShootTrack {
     char pad[0x78 - 4];
 }; }}
 hulkfight::motion::BallAndChainShootTrack* hulkfight::motion::BallAndChainShootTrack::vfunc_5(u8_183350 x) {
-    *(unsigned int*)this = ((int)DAT_0041947c);
+    *(hulk_uintptr*)this = ((hulk_intptr)DAT_0041947c);
     ((Sub_183350*)((char*)this + 0x78))->Init();
     ((Sub_183350*)((char*)this + 0x60))->Init();
     BaseInit();

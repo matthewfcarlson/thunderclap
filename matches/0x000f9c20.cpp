@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040cebc[];
 extern "C" unsigned __int64 __cdecl MakeToken(int);
 class CTokenHashed {
@@ -10,7 +11,7 @@ CTokenHashed* CTokenHashed::Target(int p1, int p2, int p3, int p4) {
     a = 0;
     b = 0;
     c = 0;
-    vftable = (void*)((int)DAT_0040cebc);
+    vftable = (void*)((hulk_intptr)DAT_0040cebc);
     unsigned __int64 v = MakeToken(p1);
     d = (int)v;
     e = (int)(v >> 32);

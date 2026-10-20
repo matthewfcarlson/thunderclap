@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct B_171d10 {
@@ -14,7 +15,7 @@ struct D {
 };
 
 bool hulkfight::motion::TeleportRelativeAction::vfunc_3(int __p0, int ) {
-    int r = (*(A_171d10 * *)&this->f_20)->go()->go();
+    hulk_intptr r = (*(A_171d10 * *)&this->f_20)->go()->go();
     ((C_171d10*)((char*)this + 0x28))->go("teleport_failed");
     if (!(*(A_171d10 * *)&this->f_20))
         return false;

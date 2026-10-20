@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00411344[];
@@ -28,7 +29,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::DialogueTrack>::vfunc_5
         p->e = z;
         p->f = z;
         p->g = (char)z;
-        *(void**)p = (void*)((int)DAT_00411344);
+        *(void**)p = (void*)((hulk_intptr)DAT_00411344);
         *((int*)p + 2) = 1;
         return (void*)(p);
     }

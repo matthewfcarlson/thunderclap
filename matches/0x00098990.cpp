@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00404b3c[];
 typedef unsigned char byte_98990;
 struct CBlendCamera {
@@ -48,7 +49,7 @@ struct ThisCall_00098480 {
 void __cdecl thunk_FUN_00267090(CBlendCamera*);
 CBlendCamera* CBlendCamera::vfunc_2(byte_98990 param) {
     CBlendCamera* self = this;
-    *(int*)self = ((int)DAT_00404b3c);
+    *(hulk_intptr*)self = ((hulk_intptr)DAT_00404b3c);
     ((ThisCall_00098480*)(this))->FUN_00098480(0);
     self->call29();
     self->call9620();

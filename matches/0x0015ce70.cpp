@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00415aa0[];
 
 struct Track {
@@ -30,7 +31,7 @@ class LocomotionSprintTrack : public Track {
 void operator delete(void* p);
 
 LocomotionSprintTrack* LocomotionSprintTrack::vfunc_5(unsigned char flag) {
-    *(int*)this = ((int)DAT_00415aa0);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00415aa0);
     this->m_elems[4].~Elem_15ce70();
     this->m_elems[3].~Elem_15ce70();
     this->m_elems[2].~Elem_15ce70();

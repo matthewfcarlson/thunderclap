@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00414190[];
@@ -18,7 +19,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionDa
     Obj_159930* p = (Obj_159930*)Allocate(0x1c);
     if (p) {
         p->Init(0);
-        p->vt = ((int)DAT_00414190);
+        p->vt = ((hulk_intptr)DAT_00414190);
         p->c = 0;
         p->d = 0;
         p->e = 0;

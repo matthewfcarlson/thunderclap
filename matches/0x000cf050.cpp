@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" char DAT_0040a590[];
@@ -18,11 +19,11 @@ class Obj_cf050 : public Base_cf050 {
 };
 Obj_cf050::Obj_cf050(int a, int b) {
     Init(a, 4);
-    v = ((int)DAT_0040a590);
+    v = ((hulk_intptr)DAT_0040a590);
     n = b;
-    m18 = GetFlag((const char*)((int)((char*)&DAT_0048e134)));
-    *((char*)this + 0x10) = GetFlag((const char*)((int)((char*)&DAT_0048e134)));
-    *((char*)this + 0x11) = GetFlag((const char*)((int)((char*)&DAT_0048e134)));
-    *((char*)this + 0x12) = GetFlag((const char*)((int)DAT_0048e10c));
-    *((char*)this + 0x13) = GetFlag((const char*)((int)DAT_0048e10c));
+    m18 = GetFlag((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
+    *((char*)this + 0x10) = GetFlag((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
+    *((char*)this + 0x11) = GetFlag((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
+    *((char*)this + 0x12) = GetFlag((const char*)((hulk_intptr)DAT_0048e10c));
+    *((char*)this + 0x13) = GetFlag((const char*)((hulk_intptr)DAT_0048e10c));
 }

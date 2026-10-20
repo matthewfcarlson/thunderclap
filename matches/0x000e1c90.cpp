@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040c0bc[];
 class FEDoScreen {
   public:
@@ -13,6 +14,6 @@ FEDoScreen::FEDoScreen(int x, const char* s) {
     b = -1;
     c = x;
     e = 0;
-    *(int*)this = ((int)DAT_0040c0bc);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_0040c0bc);
     Format((char*)this + 0x34, 0x20, "%s", s);
 }

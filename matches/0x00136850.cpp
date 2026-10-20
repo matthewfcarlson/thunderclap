@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00411e34[];
 class Ref_136850 {
   public:
@@ -19,7 +20,7 @@ AirToGroundTargetAction::AirToGroundTargetAction(int x, Ref_136850* r) {
     ((Base_136850*)this)->Init();
     Ref_136850* q = r;
     volatile int* p = &vf;
-    *p = ((int)DAT_00411e34);
+    *p = ((hulk_intptr)DAT_00411e34);
     volatile int* z = &a;
     *z = 0;
     b = 0;
@@ -32,5 +33,5 @@ AirToGroundTargetAction::AirToGroundTargetAction(int x, Ref_136850* r) {
         q->Fn();
     if (b)
         ((Ref_136850*)b)->Release();
-    b = (int)q;
+    b = (hulk_intptr)q;
 }

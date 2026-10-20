@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Worker_e4060 {
     int* Find(void*);
 };
@@ -34,6 +35,6 @@ void Owner_e4060::Update(void* arg) {
             ++q;
         } while (i < 4);
         if (i != 4)
-            p[i + 1] = (int)this;
+            p[i + 1] = (hulk_intptr)this;
     }
 }

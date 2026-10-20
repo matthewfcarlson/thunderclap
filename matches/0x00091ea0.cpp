@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040449c[];
 extern "C" char DAT_004044b4[];
 struct Sub_91ea0 {
@@ -9,11 +10,11 @@ class CUnlockableMove {
     char pad[0x49];
 };
 CUnlockableMove* CUnlockableMove::Ctor() {
-    *(int*)this = ((int)DAT_0040449c);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_0040449c);
     *((char*)this + 8) = 1;
     ((Sub_91ea0*)((char*)this + 0x10))->Init();
     *(int*)((char*)this + 0x18) = 0;
-    *(int*)this = ((int)DAT_004044b4);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_004044b4);
     *((char*)this + 0x20) = 0;
     *(int*)((char*)this + 0x24) = 0;
     *(int*)((char*)this + 0x28) = -1;

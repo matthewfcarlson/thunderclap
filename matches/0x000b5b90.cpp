@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0049dba4[];
 extern "C" char DAT_0049dbbc[];
 class FEObject {
@@ -44,8 +45,8 @@ struct Global_b5b90 {
 };
 extern Global_b5b90* gGlobal_b5b90;
 void FUN_000b5b90() {
-    FEObject* p = (FEObject*)LookupThing(FindName("cheat_invulnerability_selector"), 0, (int*)((int)DAT_0049dba4),
-                                         (int*)((int)DAT_0049dbbc), 0);
+    FEObject* p = (FEObject*)LookupThing(FindName("cheat_invulnerability_selector"), 0, (int*)((hulk_intptr)DAT_0049dba4),
+                                         (int*)((hulk_intptr)DAT_0049dbbc), 0);
     if (p) {
         int flag = gGlobal_b5b90->ctx->Get()->Check(0x2e4) == 0;
         p->Set(flag);

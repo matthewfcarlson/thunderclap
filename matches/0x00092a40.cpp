@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0049dab8[];
 extern "C" char DAT_0049dad4[];
 extern "C" char DAT_0049db1c[];
@@ -11,13 +12,13 @@ class C_92a40 {
 };
 
 unsigned char C_92a40::Fn(int index) {
-    void* p = FUN_00344e74(items[index], 0, (const char*)((int)DAT_0049dab8), (const char*)((int)DAT_0049db80), 0);
+    void* p = FUN_00344e74(items[index], 0, (const char*)((hulk_intptr)DAT_0049dab8), (const char*)((hulk_intptr)DAT_0049db80), 0);
     if (p)
         return *((unsigned char*)p + 0xb0);
-    p = FUN_00344e74(items[index], 0, (const char*)((int)DAT_0049dab8), (const char*)((int)DAT_0049db1c), 0);
+    p = FUN_00344e74(items[index], 0, (const char*)((hulk_intptr)DAT_0049dab8), (const char*)((hulk_intptr)DAT_0049db1c), 0);
     if (p)
         return *((unsigned char*)p + 0x2d);
-    p = FUN_00344e74(items[index], 0, (const char*)((int)DAT_0049dab8), (const char*)((int)DAT_0049dad4), 0);
+    p = FUN_00344e74(items[index], 0, (const char*)((hulk_intptr)DAT_0049dab8), (const char*)((hulk_intptr)DAT_0049dad4), 0);
     if (p)
         return *((unsigned char*)p + 0xa8);
     return 0;

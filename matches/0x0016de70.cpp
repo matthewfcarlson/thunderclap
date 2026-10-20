@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern void* __cdecl alloc(unsigned int);
@@ -21,7 +22,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VelocityXZA
     VelocityXZAngleCondition_16de70* p = (VelocityXZAngleCondition_16de70*)alloc(0x14);
     if (p) {
         p->Init(0);
-        *(int*)p = (int)&velocityVtable;
+        *(hulk_intptr*)p = (hulk_intptr)&velocityVtable;
         p->z = 0;
         p->angle = 1.57079637f;
         return (void*)(p);

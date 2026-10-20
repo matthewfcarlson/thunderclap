@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00410bd4[];
@@ -22,7 +23,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::ThreatCondition
     Threat_12d5e0* p = (Threat_12d5e0*)alloc(0x20);
     if (p) {
         p->init(0);
-        p->vptr = ((int)DAT_00410bd4);
+        p->vptr = ((hulk_intptr)DAT_00410bd4);
         p->flagC = 1;
         p->sub.init();
         p->flag18 = 1;

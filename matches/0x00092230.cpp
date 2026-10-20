@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040449c[];
 extern "C" char DAT_004044cc[];
 class Sub_92230 {
@@ -24,11 +25,11 @@ class CUnlockableGallery {
     unsigned char m104;
 };
 CUnlockableGallery* __fastcall FUN_00092230(CUnlockableGallery* p) {
-    p->v = ((int)DAT_0040449c);
+    p->v = ((hulk_intptr)DAT_0040449c);
     p->flag = 1;
     ((Sub_92230*)((char*)p + 0x10))->Init();
     p->m18 = 0;
-    p->v = ((int)DAT_004044cc);
+    p->v = ((hulk_intptr)DAT_004044cc);
     p->m20 = 0;
     ((Sub_92230*)((char*)p + 0xa8))->Init();
     p->mB0 = 0;

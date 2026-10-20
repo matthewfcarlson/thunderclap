@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern void* __cdecl Alloc(unsigned int);
 extern int KeywordWaitVtable;
 class Helper_114b30 {
@@ -22,7 +23,7 @@ KeywordWaitTrack* __cdecl target() {
     KeywordWaitTrack* p = (KeywordWaitTrack*)Alloc(0x28);
     if (p) {
         ((Helper_114b30*)p)->Init();
-        p->vptr = (unsigned int)&KeywordWaitVtable;
+        p->vptr = (hulk_uintptr)&KeywordWaitVtable;
         p->field0c = 0;
         p->field10 = -1.0f;
         ((SetupObj_114b30*)((char*)p + 0x18))->Setup();

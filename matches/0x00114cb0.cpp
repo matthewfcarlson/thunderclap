@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040dca4[];
 extern void* Alloc(unsigned int);
 class Sub_114cb0 {
@@ -21,7 +22,7 @@ AIHistorySetTrack* Factory() {
     AIHistorySetTrack* p = (AIHistorySetTrack*)Alloc(0x20);
     if (p) {
         p->BaseInit();
-        *(int*)p = ((int)DAT_0040dca4);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_0040dca4);
         p->x3 = 0;
         p->val = -1.0f;
         p->flag = 0;

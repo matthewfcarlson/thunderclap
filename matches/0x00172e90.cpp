@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00417988[];
 class Sub_172e90 {
   public:
@@ -26,7 +27,7 @@ void cleanup(void* p);
 void destroyObj(hulkfight::motion::SyncToLocatorTrack* p);
 
 hulkfight::motion::SyncToLocatorTrack* hulkfight::motion::SyncToLocatorTrack::vfunc_5(unsigned char flags) {
-    *(unsigned long*)this = ((int)DAT_00417988);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_00417988);
     cleanup(mThing);
     sub.run();
     step();

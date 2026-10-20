@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040c244[];
 class FEItem {
   public:
@@ -25,7 +26,7 @@ class FEContainer {
     void Clear();
 };
 void FEContainer::Clear() {
-    *(int*)this = ((int)DAT_0040c244);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_0040c244);
     for (int i = 0; i < 8; i++) {
         if (a[i]) {
             a[i]->B();

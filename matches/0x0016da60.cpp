@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_004167f8[];
@@ -30,7 +31,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAni
         (hulkfight::motion::VelocityAnimatedYCondition_16da60*)alloc(0x14);
     if (p) {
         p->Init(0);
-        p->vptr = ((int)DAT_004167f8);
+        p->vptr = ((hulk_intptr)DAT_004167f8);
         p->mC = 0;
         p->m10 = 0;
         return (void*)(p);

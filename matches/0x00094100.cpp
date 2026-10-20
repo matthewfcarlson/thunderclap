@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 class Base_94100 {
@@ -25,11 +26,11 @@ void Derived_94100::f0() {}
 
 Derived_94100::Derived_94100(int a, int b) : Base_94100(a, 6) {
     m1c = b;
-    c18 = Lookup((const char*)((int)((char*)&DAT_0048e100)));
-    c10 = Lookup((const char*)((int)((char*)&DAT_0048e134)));
-    c11 = Lookup((const char*)((int)((char*)&DAT_0048e0f0)));
-    c12 = Lookup((const char*)((int)((char*)&DAT_0048e0f0)));
-    c13 = Lookup((const char*)((int)((char*)&DAT_0048e0f0)));
-    c14 = Lookup((const char*)((int)((char*)&DAT_0048e0f0)));
-    c15 = Lookup((const char*)((int)((char*)&DAT_0048e134)));
+    c18 = Lookup((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
+    c10 = Lookup((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
+    c11 = Lookup((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    c12 = Lookup((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    c13 = Lookup((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    c14 = Lookup((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    c15 = Lookup((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
 }

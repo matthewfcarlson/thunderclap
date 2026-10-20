@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00419774[];
 class Ref_1847a0 {
   public:
@@ -14,7 +15,7 @@ class ShieldArcAction {
     void Finish();
 };
 void ShieldArcAction::Cleanup() {
-    vft = ((int)DAT_00419774);
+    vft = ((hulk_intptr)DAT_00419774);
     Ref_1847a0* p = m20;
     if (p) {
         p->Release();

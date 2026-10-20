@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040d418[];
 class Obj_102ac0 {
   public:
@@ -24,7 +25,7 @@ class CMoveAgent : public Ctor_000fc760 {
     CMoveAgent(void*);
 };
 CMoveAgent::CMoveAgent(void* arg) : Ctor_000fc760(arg) {
-    *(unsigned int*)this = ((int)DAT_0040d418);
+    *(hulk_uintptr*)this = ((hulk_intptr)DAT_0040d418);
     Helper_102ac0* h = (Helper_102ac0*)Alloc(0x38);
     Obj_102ac0* q;
     if (h)

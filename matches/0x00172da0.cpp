@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00417898[];
 class Part_172da0 {
   public:
@@ -22,7 +23,7 @@ namespace hulkfight { namespace motion { class JointTrackerTrack {
     void Init();
 }; }}
 hulkfight::motion::JointTrackerTrack* hulkfight::motion::JointTrackerTrack::vfunc_5(int f) {
-    *(int*)this = ((int)DAT_00417898);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00417898);
     part.Init();
     Init();
     if (f & 1)

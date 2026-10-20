@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0040eae0[];
@@ -11,7 +12,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::ComputeDropZone
     Obj_11b110* p = (Obj_11b110*)Alloc(0x24);
     if (p) {
         p->Init(0);
-        *(unsigned int*)p = ((int)DAT_0040eae0);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040eae0);
         *(float*)((char*)p + 12) = 15.0f;
         *(float*)((char*)p + 16) = 100.0f;
         *(float*)((char*)p + 20) = 20.0f;

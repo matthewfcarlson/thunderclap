@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Ref_b3b80 {
   public:
     virtual void F();
@@ -14,7 +15,7 @@ class CSimController {
 };
 CSimController::CSimController(Ref_b3b80* q) {
     m = 0;
-    vt = (int)&vtable_b3b80;
+    vt = (hulk_intptr)&vtable_b3b80;
     p = q;
     q->F();
     Init((char*)this + 0xc, 1);

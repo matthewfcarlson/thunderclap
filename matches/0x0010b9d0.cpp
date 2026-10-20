@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040d884[];
 extern "C" void _ReadWriteBarrier();
 struct Ref_10b9d0 {
@@ -13,7 +14,7 @@ struct FaceTargetAction {
     void Cleanup();
 };
 void FaceTargetAction::Cleanup() {
-    vptr = ((int)DAT_0040d884);
+    vptr = ((hulk_intptr)DAT_0040d884);
     _ReadWriteBarrier();
     Ref_10b9d0* r = field20;
     if (r) {

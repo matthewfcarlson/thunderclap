@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00417b38[];
 class Sub_173070 {
   public:
@@ -21,7 +22,7 @@ namespace hulkfight { namespace motion { class PushOutTrack {
 }; }}
 extern void __cdecl thunk_FUN_00267090(hulkfight::motion::PushOutTrack*);
 hulkfight::motion::PushOutTrack* hulkfight::motion::PushOutTrack::vfunc_5(int flag) {
-    *(int*)this = ((int)DAT_00417b38);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00417b38);
     Sub_173070* p = (Sub_173070*)((char*)this + 0x18);
     p->Init();
     Middle();

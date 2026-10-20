@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" {
 extern "C" char DAT_00412570[];
 void __cdecl opdel(void*);
@@ -31,7 +32,7 @@ class AnimationAction {
 };
 
 AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
-    *(int*)this = (int)DAT_00412570;
+    *(hulk_intptr*)this = (hulk_intptr)DAT_00412570;
     _ReadWriteBarrier();
     RefObj_13bde0* a = m20;
     if (a) {

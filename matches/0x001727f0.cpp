@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Helper1_1727f0 {
@@ -15,11 +16,11 @@ bool hulkfight::motion::MomentumXZAddAction::vfunc_3(int __p0, int __p1) { unsig
     Helper1_1727f0* p = (*(Helper1_1727f0 * *)&this->f_20);
     if (!p)
         return false;
-    int q = p->f();
+    hulk_intptr q = p->f();
     if (!q)
         return false;
     Helper2_1727f0* z = (Helper2_1727f0*)q;
-    int r = z->f();
+    hulk_intptr r = z->f();
     if (!r)
         return false;
     ((Helper3*)r)->f(&this->f_24);

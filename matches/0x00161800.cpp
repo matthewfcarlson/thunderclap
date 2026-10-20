@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00415c50[];
 extern "C" void _ReadWriteBarrier();
 class LocomotingAction {
@@ -15,7 +16,7 @@ class Obj_161800 {
 };
 extern void thunk(LocomotingAction*);
 LocomotingAction* LocomotingAction::V2(int flags) {
-    vptr = ((int)DAT_00415c50);
+    vptr = ((hulk_intptr)DAT_00415c50);
     _ReadWriteBarrier();
     if (mObj) {
         mObj->V1();

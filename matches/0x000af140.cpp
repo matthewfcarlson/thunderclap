@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_00405e2c[];
 class NonCopyable {
@@ -13,9 +14,9 @@ class CGameController : public NonCopyable {
 };
 void Destroy(CGameController*);
 CGameController* CGameController::vfunc_2(unsigned char flag) {
-    *(void**)this = (void*)((int)DAT_00405e2c);
+    *(void**)this = (void*)((hulk_intptr)DAT_00405e2c);
     ((NonCopyable*)member)->vfunc_1();
-    *(void**)this = (void*)((int)DAT_003f6098);
+    *(void**)this = (void*)((hulk_intptr)DAT_003f6098);
     if (flag & 1)
         Destroy(this);
     return this;

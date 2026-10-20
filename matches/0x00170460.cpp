@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" int vtable_170460;
 void thunk(int);
 class DriftToPositionTrack {
@@ -9,7 +10,7 @@ class DriftToPositionTrack {
     void tail();
 };
 void DriftToPositionTrack::f() {
-    vf = (int)&vtable_170460;
+    vf = (hulk_intptr)&vtable_170460;
     thunk(value);
     tail();
 }

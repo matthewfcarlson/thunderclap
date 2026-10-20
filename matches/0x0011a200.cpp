@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct RefObj_11a200 {
   public:
     virtual void v0();
@@ -26,7 +27,7 @@ extern int dummy_vftable;
 void operator delete(void*);
 
 void* MotionClosestWaypointAction::vfunc_2(unsigned char flag) {
-    *(volatile int*)this = (int)&dummy_vftable;
+    *(volatile hulk_intptr*)this = (hulk_intptr)&dummy_vftable;
     RefObj_11a200* p = m20;
     if (p) {
         p->Release();

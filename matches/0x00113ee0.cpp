@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040d9c4[];
 class DefendingCondition {
   public:
@@ -11,7 +12,7 @@ void* FactoryVfunc5() {
     DefendingCondition* p = (DefendingCondition*)Alloc(0x10);
     if (p) {
         p->Init(0);
-        p->vptr = ((int)DAT_0040d9c4);
+        p->vptr = ((hulk_intptr)DAT_0040d9c4);
         p->flag = 1;
         return p;
     }

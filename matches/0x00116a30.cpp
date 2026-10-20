@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040ecd8[];
 class Ref_116a30 {
   public:
@@ -18,7 +19,7 @@ class MotionTargetAction : public Base_116a30 {
     MotionTargetAction(int x, Ref_116a30* r);
 };
 MotionTargetAction::MotionTargetAction(int x, Ref_116a30* r) : Base_116a30() {
-    v = ((int)DAT_0040ecd8);
+    v = ((hulk_intptr)DAT_0040ecd8);
     a = 0;
     b = 0;
     c = 0;

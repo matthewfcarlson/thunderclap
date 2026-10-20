@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040dc14[];
 typedef unsigned int u32_114a70;
 void* __cdecl Alloc(unsigned int);
@@ -23,7 +24,7 @@ HulkActionTrack* target() {
     HulkActionTrack* p = (HulkActionTrack*)Alloc(0x28);
     if (p) {
         ((Base_114a70*)p)->Init();
-        *(u32_114a70*)p = ((int)DAT_0040dc14);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040dc14);
         *(u32_114a70*)((char*)p + 0xc) = 0;
         *(u32_114a70*)((char*)p + 0x10) = 0xbf800000;
         ((Member_114a70*)((char*)p + 0x18))->Init();

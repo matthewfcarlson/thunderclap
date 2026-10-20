@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00413598[];
@@ -16,7 +17,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::GrappleAtta
     GrappleAttachedCondition_14bc60* p = (GrappleAttachedCondition_14bc60*)alloc(16);
     if (p) {
         p->GrappleAttachedCondition_14bc60::GrappleAttachedCondition_14bc60(0);
-        *(unsigned long*)p = ((int)DAT_00413598);
+        *(hulk_ulongptr*)p = ((hulk_intptr)DAT_00413598);
         p->flag = 1;
         return (void*)(p);
     }

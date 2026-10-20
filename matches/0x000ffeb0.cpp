@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Thing_ffeb0 {
     virtual void a();
     virtual void b();
@@ -38,7 +39,7 @@ class CHand2HandAgent {
 };
 CHand2HandAgent* CHand2HandAgent::vfunc_2(unsigned char param) {
     Thing_ffeb0* t = thing;
-    *(int*)this = (int)&handVtable;
+    *(hulk_intptr*)this = (hulk_intptr)&handVtable;
     t->b();
     thing = 0;
     ((Helper_ffeb0*)this)->run();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00417fd4[];
 extern "C" void _ReadWriteBarrier();
 class Ref_176510 {
@@ -17,7 +18,7 @@ class TargetBreakAction : public Base_176510 {
     Ref_176510* ref;
 };
 void TargetBreakAction::Finish() {
-    vptr = (char*)((int)DAT_00417fd4);
+    vptr = (char*)((hulk_intptr)DAT_00417fd4);
     _ReadWriteBarrier();
     if (ref) {
         ref->B();

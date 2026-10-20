@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Base_fad90 {
     int a;
     int b;
@@ -23,9 +24,9 @@ int __fastcall Target(Obj_fad90* self) {
     else {
         q = self->mCur;
         if (q == 0)
-            q = (Base_fad90*)*(int*)((char*)p + 4);
+            q = (Base_fad90*)*(hulk_intptr*)((char*)p + 4);
         else
-            q = (Base_fad90*)*(int*)((char*)q + 4);
+            q = (Base_fad90*)*(hulk_intptr*)((char*)q + 4);
         if (q == 0 || *(int*)((char*)q + 8) >= 2) {
         } else
             q = 0;

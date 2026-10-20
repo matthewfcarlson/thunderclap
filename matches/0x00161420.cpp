@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct RefObj_161420 {
     virtual void fn0();
     virtual void Release();
@@ -18,7 +19,7 @@ class LocomotionStrafeAction {
 };
 
 void* LocomotionStrafeAction::vfunc_2(unsigned char flag) {
-    *(volatile int*)this = (int)&g_vt_161420;
+    *(volatile hulk_intptr*)this = (hulk_intptr)&g_vt_161420;
     RefObj_161420* p = m20;
     if (p) {
         p->Release();

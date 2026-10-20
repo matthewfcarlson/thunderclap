@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0040f530[];
@@ -24,7 +25,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::ai::StrafeCircleHBTrack
         q[6] = 0;
         q[7] = 0;
         q[8] = 0;
-        q[0] = ((int)DAT_0040f530);
+        q[0] = ((hulk_intptr)DAT_0040f530);
         q[4] = (int)0xbf800000;
         q[9] = (int)0x3f800000;
         return (void*)(p);

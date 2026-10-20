@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vtbl_controller;
 extern int vtbl_refcount;
 class Sub_b36a0 {
@@ -16,9 +17,9 @@ class CSimController {
 extern void thunk(CSimController*);
 CSimController* CSimController::vfunc_2(int flags) {
     CSimController* p = this;
-    *((int*)p) = (int)&vtbl_controller;
+    *((hulk_intptr*)p) = (hulk_intptr)&vtbl_controller;
     sub->b();
-    *((int*)p) = (int)&vtbl_refcount;
+    *((hulk_intptr*)p) = (hulk_intptr)&vtbl_refcount;
     if (flags & 1)
         thunk(this);
     return this;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int FUN_00344e74(void*, int, int, int, int);
 extern int g_49850c;
 extern int g_4acbf8;
@@ -11,5 +12,5 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
     virtual int vfunc_0(void*);
 };
 int TrackFactoryCasterTemplate::vfunc_0(void* p) {
-    return (int)FUN_00344e74(p, 0, (int)&g_4acbf8, (int)&g_49850c, 0) != 0;
+    return (int)FUN_00344e74(p, 0, (hulk_intptr)&g_4acbf8, (hulk_intptr)&g_49850c, 0) != 0;
 }

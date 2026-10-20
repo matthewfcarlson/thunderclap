@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class FEObj {
   public:
     void Fn(int);
@@ -123,7 +124,7 @@ class FEContainer {
 };
 int FEContainer::v33(int a, int b) {
     FEObj* r = child->f57(a);
-    v24((int)r, a);
+    v24((hulk_intptr)r, a);
     if (b) {
         int x = v40(b);
         if (!x)
@@ -131,5 +132,5 @@ int FEContainer::v33(int a, int b) {
         if (x)
             r->Fn(x);
     }
-    return (int)r;
+    return (hulk_intptr)r;
 }

@@ -1,4 +1,5 @@
 // FUN_0009b930 @ 0x0009b930
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" char DAT_00404d80[];
@@ -18,7 +19,7 @@ class MethodObj_9b930 {
 };
 MethodObj_9b930* MethodObj_9b930::FUN_0009b930(void* name, void* f) {
     ((ThisCall_001d0480*)(this))->FUN_001d0480(name, 4);
-    vptr = (int)DAT_00404d80;
+    vptr = (hulk_intptr)DAT_00404d80;
     fn = f;
     result = FUN_001d04d0(((char*)&DAT_0048e100));
     a0 = FUN_001d04d0(((char*)&DAT_0049cad8));

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 extern "C" void _ReadWriteBarrier();
@@ -10,7 +11,7 @@ struct CameraArgs {
     bool third;
 };
 
-template <> void Closure3<CCameraManager, void, float, float, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { int unused = (int)__p0; CameraArgs * args = (CameraArgs *)__p1; int unused2 = (int)__p2;
+template <> void Closure3<CCameraManager, void, float, float, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; CameraArgs * args = (CameraArgs *)__p1; hulk_intptr unused2 = (hulk_intptr)__p2;
 
     float first = args->first;
     _ReadWriteBarrier();

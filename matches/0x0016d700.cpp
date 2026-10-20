@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 struct Turning {
@@ -15,7 +16,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::TurningVelo
     Turning* p = (Turning*)Alloc(0x14);
     if (p) {
         p->Init(0);
-        p->vptr = (int)&turning_vftable;
+        p->vptr = (hulk_intptr)&turning_vftable;
         p->z = 0;
         p->w = 0;
         return (void*)(p);

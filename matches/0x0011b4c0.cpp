@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0040ebb0[];
@@ -17,7 +18,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::ai::MotionBoostTrack>::
         *(u32_11b4c0*)((char*)p + 0x1c) = 0;
         *(u32_11b4c0*)((char*)p + 0x20) = 0;
         *(u32_11b4c0*)((char*)p + 0x28) = 0;
-        *(u32_11b4c0*)p = ((int)DAT_0040ebb0);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040ebb0);
         *(u32_11b4c0*)((char*)p + 0x10) = 0xbf800000;
         *(u32_11b4c0*)((char*)p + 0x24) = 0x3f800000;
         return (void*)(p);

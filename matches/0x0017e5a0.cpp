@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00417ad8[];
@@ -22,7 +23,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::MomentumXZAddTr
         p->Init();
         p->x = -1.0f;
         p->y = -1.0f;
-        *(volatile int*)p = ((int)DAT_00417ad8);
+        *(volatile hulk_intptr*)p = ((hulk_intptr)DAT_00417ad8);
         p->d = 0;
         p->c = 1;
         return (void*)(p);

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00413738[];
 struct PartA_147800 {
     void Init();
@@ -18,7 +19,7 @@ class GrappleExecuteTrack {
     void Run();
 };
 void GrappleExecuteTrack::Run() {
-    *(unsigned long*)this = ((int)DAT_00413738);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_00413738);
     ((PartA_147800*)((char*)this + 0x24))->Init();
     ((PartB_147800*)((char*)this + 0x14))->Init();
     ((End_147800*)this)->Finish();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_004112e4[];
@@ -18,7 +19,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::StatBeginTrialTrack>::v
     Track_132b60* p = (Track_132b60*)alloc(0x14);
     if (p) {
         p->Track_132b60::Track_132b60();
-        *(u32_132b60*)p = ((int)DAT_004112e4);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_004112e4);
         *(u32_132b60*)((char*)p + 0xc) = 0;
         *(u32_132b60*)((char*)p + 0x10) = 0;
         return (void*)(p);

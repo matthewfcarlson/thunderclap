@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0041922c[];
@@ -17,7 +18,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::PropStateBy
     PropStateByIndexCondition_18ba50* p = (PropStateByIndexCondition_18ba50*)Alloc(0x18);
     if (p) {
         p->Init(0);
-        p->a = ((int)DAT_0041922c);
+        p->a = ((hulk_intptr)DAT_0041922c);
         p->d = -1;
         p->e = 0;
         p->f = 0;

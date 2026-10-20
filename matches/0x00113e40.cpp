@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0040d9a4[];
@@ -16,7 +17,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::AIFightNodeCond
     AIFightNodeCondition_113e40* p = (AIFightNodeCondition_113e40*)operator_new(0x18);
     if (p) {
         ((InitObj_113e40*)p)->InitCondition(0);
-        *(int*)p = ((int)DAT_0040d9a4);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_0040d9a4);
         ((EntityObj*)((char*)p + 0xc))->InitEntity();
         return (void*)(p);
     }

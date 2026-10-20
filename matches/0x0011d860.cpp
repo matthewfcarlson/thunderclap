@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_11d860 {
   public:
     Obj_11d860();
@@ -21,5 +22,5 @@ StrafeCircleAction_11d860::StrafeCircleAction_11d860(int x, Obj_11d860* p) {
         p->A();
     if (b)
         ((Obj_11d860*)b)->B();
-    b = (int)p;
+    b = (hulk_intptr)p;
 }

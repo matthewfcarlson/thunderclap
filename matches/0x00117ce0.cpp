@@ -1,4 +1,5 @@
 // FUN_00117ce0 @ 0x00117ce0
+#include "compat/ptr.h"
 extern "C" char DAT_0040ed74[];
 
 struct RefObj_117ce0 {
@@ -34,7 +35,7 @@ struct MotionClosestWaypointAction {
 MotionClosestWaypointAction *MotionClosestWaypointAction::FUN_00117ce0(int a, RefObj_117ce0 *target)
 {
     FUN_00232660();
-    vptr = (int)DAT_0040ed74;
+    vptr = (hulk_intptr)DAT_0040ed74;
     f1c = 0;
     f20 = 0;
     f30 = 0;

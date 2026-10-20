@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00411344[];
 typedef unsigned int U_12eb80;
 class DialogueTrack;
@@ -15,7 +16,7 @@ class DialogueTrack {
     void destroy();
 };
 void DialogueTrack::destroy() {
-    vf = (void*)((int)DAT_00411344);
+    vf = (void*)((hulk_intptr)DAT_00411344);
     release(a);
     release(b);
     release(c);

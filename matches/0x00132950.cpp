@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00411284[];
@@ -15,7 +16,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::DebugPrintCondition
     DebugPrintCondition_132950* p = (DebugPrintCondition_132950*)Alloc(0x14);
     if (p) {
         p->Init(0);
-        p->vptr = ((int)DAT_00411284);
+        p->vptr = ((hulk_intptr)DAT_00411284);
         p->c = 0;
         p->d = 0;
         return (void*)(p);

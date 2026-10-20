@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040ce5c[];
 class CTokenFloat {
   public:
@@ -11,7 +12,7 @@ class CTokenFloat {
 CTokenFloat::CTokenFloat(int a, int b, int c) {
     m4 = a;
     m1 = 0;
-    *(void**)this = (void*)((int)DAT_0040ce5c);
+    *(void**)this = (void*)((hulk_intptr)DAT_0040ce5c);
     m2 = b;
     m3 = c;
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00417df0[];
 class Ref_17b110 {
   public:
@@ -26,7 +27,7 @@ class JointTrackerAction {
     Ref_17b110* m74;
 };
 JointTrackerAction* JointTrackerAction::vfunc_2(int flag) {
-    *(volatile int*)this = ((int)DAT_00417df0);
+    *(volatile hulk_intptr*)this = ((hulk_intptr)DAT_00417df0);
     Ref_17b110* volatile* p = &m74;
     Ref_17b110* a = *p;
     if (a) {

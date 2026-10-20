@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040c05c[];
 class FEDoMenu {
   public:
@@ -17,6 +18,6 @@ FEDoMenu::FEDoMenu(int x, const char* s) {
     c = -1;
     d = x;
     e = 0;
-    a = ((int)DAT_0040c05c);
+    a = ((hulk_intptr)DAT_0040c05c);
     FUN_000dfcc0((char*)this + 0x34, 0x20, "%s", s);
 }

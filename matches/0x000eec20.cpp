@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_eec20 {
   public:
     void Use(int);
@@ -118,5 +119,5 @@ int FEContainer::vfunc_26(int a, int b) {
         if (t)
             r->Use(t);
     }
-    return (int)r;
+    return (hulk_intptr)r;
 }

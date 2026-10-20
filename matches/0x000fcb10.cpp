@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_fcb10;
 struct Base_fcb10 {
     void InitBase(u32_fcb10);
@@ -18,7 +19,7 @@ CChaseAgent* CChaseAgent::Init(u32_fcb10 x) {
     a = 0;
     c = 0;
     b = 0;
-    *(u32_fcb10*)this = (u32_fcb10)&CChaseAgent_vftable;
+    *(hulk_uintptr*)this = (hulk_uintptr)&CChaseAgent_vftable;
     f = -1.0f;
     return this;
 }

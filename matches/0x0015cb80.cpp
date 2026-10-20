@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class A_15cb80 {
@@ -11,7 +12,7 @@ class B_15cb80 {
 };
 
 bool hulkfight::motion::LocomotingAction::vfunc_3(int __p0, int __p1) {
-    int x;
+    hulk_intptr x;
     if ((*(A_15cb80 * *)&this->f_1c) == 0)
         return false;
     x = (*(A_15cb80 * *)&this->f_1c)->first();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vtbl;
 class VScroll {
   public:
@@ -12,7 +13,7 @@ class VScroll {
 };
 VScroll::VScroll(int a, int q) {
     init(a, q);
-    vf = (unsigned int)&vtbl;
+    vf = (hulk_uintptr)&vtbl;
     for (int i = 0; i < 0x80; i++)
         arr[i] = 0;
     this->a[0] = 0;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_13e370;
@@ -18,7 +19,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::FrameReache
     FrameReachedCondition_13e370* p = (FrameReachedCondition_13e370*)alloc(0x20);
     if (p) {
         ((Init_13e370*)p)->f(0);
-        p->vptr = (u32_13e370)&frame_vtable;
+        p->vptr = (hulk_uintptr)&frame_vtable;
         ((Sub_13e370*)((char*)p + 0x10))->f();
         *(u32_13e370*)((char*)p + 0x18) = 0;
         return (void*)(p);

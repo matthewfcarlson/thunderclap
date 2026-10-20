@@ -1,4 +1,5 @@
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
+#include "compat/ptr.h"
 struct RefCounted_156d40 {
   public:
     virtual void f0();
@@ -21,7 +22,7 @@ class InterruptPriorityAction_156d40 {
 
 InterruptPriorityAction_156d40* InterruptPriorityAction_156d40::vfunc_2(int flag) {
     volatile int* p = (volatile int*)this;
-    *p = (int)&g_vt_156d40;
+    *p = (hulk_intptr)&g_vt_156d40;
     RefCounted_156d40* q = (RefCounted_156d40*)p[8];
     if (q != 0) {
         q->Release();

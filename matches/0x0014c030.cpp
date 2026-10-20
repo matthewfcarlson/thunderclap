@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00413678[];
@@ -17,7 +18,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GrappleStruggle
         p->a18 = 0;
         p->a1c = 0;
         p->a20 = 0;
-        p->a0 = ((int)DAT_00413678);
+        p->a0 = ((hulk_intptr)DAT_00413678);
         p->a10 = 0xbf800000;
         p->a8 = 1;
         return (void*)(p);

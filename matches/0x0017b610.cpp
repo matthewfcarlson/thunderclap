@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int DriftVTable;
 
 struct VObj_17b610 {
@@ -32,7 +33,7 @@ class DriftToPositionAction {
 
 DriftToPositionAction* DriftToPositionAction::vfunc_2(unsigned char param) {
     volatile unsigned int* p = (volatile unsigned int*)this;
-    p[0] = (unsigned int)&DriftVTable;
+    p[0] = (hulk_uintptr)&DriftVTable;
     VObj_17b610* m = (VObj_17b610*)p[8];
     if (m != 0) {
         m->f1();

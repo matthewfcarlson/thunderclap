@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00404c20[];
 extern char s1_9a8e0[];
 extern char s2_9a8e0[];
@@ -19,7 +20,7 @@ class Method3_9a8e0 {
 };
 Method3_9a8e0::Method3_9a8e0(void* p, int value) {
     Init(p, 3);
-    *(int*)this = ((int)DAT_00404c20);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00404c20);
     field1c = value;
     b18 = Convert(s1_9a8e0);
     b10 = Convert(s2_9a8e0);

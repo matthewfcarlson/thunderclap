@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" int strcmp(const char*, const char*);
@@ -11,6 +12,6 @@ extern "C" bool __stdcall FUN_000b4dc0(const char* s) {
         if (strcmp(s, q) == 0)
             return true;
         ++p;
-    } while ((int)p < ((int)DAT_0049f3e4));
+    } while ((hulk_intptr)p < ((hulk_intptr)DAT_0049f3e4));
     return false;
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Manager {
     void Release(int);
 };
@@ -22,7 +23,7 @@ class Obj {
 void Obj::Clear() {
     for (int i = 0; i < 32; i++) {
         Entry* e = &entries[i];
-        if (i >= 0 && i < 32 && e->value && (unsigned)this + 0x2258 + i * 56 != 0) {
+        if (i >= 0 && i < 32 && e->value && (hulk_uintptr)this + 0x2258 + i * 56 != 0) {
             g->manager->Release(e->handle);
             e->handle = -1;
             e->value = 0;

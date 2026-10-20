@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class MapThing {
   public:
     virtual void f0();
@@ -21,7 +22,7 @@ class Helper_e3a90 {
     int go();
 };
 int MapThing::vfunc_14() {
-    int x = vfunc_13();
+    hulk_intptr x = vfunc_13();
     if (x)
         return ((Helper_e3a90*)x)->go();
     return 0;

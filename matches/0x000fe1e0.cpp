@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int golemVtable;
 extern int memoryVtable;
 extern int refVtable_fe1e0;
@@ -17,13 +18,13 @@ class CGolem {
 };
 void CGolem::destroy() {
     int i;
-    vf = (int)&golemVtable;
+    vf = (hulk_intptr)&golemVtable;
     for (i = 0; i < 16; ++i) {
         if (items[i]) {
             items[i]->Release();
             items[i] = 0;
         }
     }
-    memory = (int)&memoryVtable;
-    vf = (int)&refVtable_fe1e0;
+    memory = (hulk_intptr)&memoryVtable;
+    vf = (hulk_intptr)&refVtable_fe1e0;
 }

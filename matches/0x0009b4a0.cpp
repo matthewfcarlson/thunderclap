@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -18,14 +19,14 @@ class Method6_9b4a0 {
 };
 Method6_9b4a0* Method6_9b4a0::Run(void* arg, void* value) {
     ((ThisCall_001d0480*)(this))->FUN_001d0480(arg, 6);
-    vptr = ((int)DAT_00404d20);
+    vptr = ((hulk_intptr)DAT_00404d20);
     p1c = value;
-    b18 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e0e4)));
-    b10 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e128)));
-    b11 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e128)));
-    b12 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e128)));
-    b13 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e128)));
-    b14 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e128)));
-    b15 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e128)));
+    b18 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0e4)));
+    b10 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
+    b11 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
+    b12 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
+    b13 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
+    b14 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
+    b15 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
     return this;
 }

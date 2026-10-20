@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern void __cdecl thunk_FUN_00267090(int);
 extern void* __cdecl FUN_0008d6d0(int);
 extern void __cdecl FUN_000fb690(void*, const short*, int);
@@ -13,7 +14,7 @@ class Obj_f79a0 {
 void Obj_f79a0::Set(const short* text, int unused) {
     mState = -1;
     if (mData != 0) {
-        thunk_FUN_00267090((int)mData);
+        thunk_FUN_00267090((hulk_intptr)mData);
         mData = 0;
     }
     if (text != 0) {

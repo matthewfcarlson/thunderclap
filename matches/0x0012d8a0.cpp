@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00410c84[];
@@ -23,7 +24,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::ai::ThreatDodgeTrack>::
     if (p) {
         Base* b = (Base*)p;
         b->Base::Base();
-        *(int*)p = ((int)DAT_00410c84);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_00410c84);
         *(int*)((char*)p + 0xc) = 0;
         *(int*)((char*)p + 0x10) = 0xbf800000;
         *(int*)((char*)p + 0x14) = 0x3f800000;

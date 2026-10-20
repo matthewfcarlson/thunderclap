@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00414330[];
@@ -11,7 +12,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::InterruptPriori
     char* p = (char*)Alloc(0x18);
     if (p) {
         ((TrackBase_159e20*)p)->Init();
-        *(int*)p = ((int)DAT_00414330);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_00414330);
         *(int*)(p + 0xc) = 0;
         *(int*)(p + 0x10) = (int)0xbf800000;
         *(int*)(p + 0x14) = 0;

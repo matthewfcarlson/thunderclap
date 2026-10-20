@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00411bb8[];
@@ -19,7 +20,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::FlyingDashTrack
     FlyingDashTrack_139430* p = (FlyingDashTrack_139430*)Alloc(0x24);
     if (p) {
         p->Init();
-        p->vt = ((int)DAT_00411bb8);
+        p->vt = ((hulk_intptr)DAT_00411bb8);
         p->a = 0;
         p->b = 0xbf800000;
         p->c = 0x42480000;

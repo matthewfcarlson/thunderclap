@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004a19e0[];
 extern "C" char DAT_004a19f8[];
 class Target_fc550 {
@@ -54,7 +55,7 @@ void Owner_fc550::Fn(int a, int b, char c) {
     if (c) {
         Elem_fc550* e = items[cur];
         if (e->f <= gZero_fc550) {
-            Other_fc550* o = (Other_fc550*)FUN_00344e74(e, 0, (void*)((int)DAT_004a19e0), (void*)((int)DAT_004a19f8), 0);
+            Other_fc550* o = (Other_fc550*)FUN_00344e74(e, 0, (void*)((hulk_intptr)DAT_004a19e0), (void*)((hulk_intptr)DAT_004a19f8), 0);
             if (o) {
                 Target_fc550* t = o->t;
                 if (t)

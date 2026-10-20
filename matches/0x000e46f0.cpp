@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_e46f0;
 typedef unsigned long long u64_e46f0;
 extern u64_e46f0 GetKey(int);
@@ -47,7 +48,7 @@ u32_e46f0 FEContainer::vfunc_36(int x) {
     int i = 0;
     u32_e46f0* p = (u32_e46f0*)((char*)this + 0x4c);
     while (i < 128) {
-        u32_e46f0 v = *p;
+        hulk_uintptr v = *p;
         if (!v)
             return 0;
         u64_e46f0 k = GetKey(x);

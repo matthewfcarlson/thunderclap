@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00405e3c[];
 extern "C" void _ReadWriteBarrier();
 struct Child_af3d0 {
@@ -11,7 +12,7 @@ struct CGameControllerManager {
 };
 void thunk_FUN_00267090(CGameControllerManager*);
 CGameControllerManager* CGameControllerManager::vfunc_0(unsigned char p) {
-    vptr = (void*)((int)DAT_00405e3c);
+    vptr = (void*)((hulk_intptr)DAT_00405e3c);
     _ReadWriteBarrier();
     child->b();
     if (p & 1)

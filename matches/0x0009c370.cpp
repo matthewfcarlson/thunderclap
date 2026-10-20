@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 namespace math {
@@ -10,7 +11,7 @@ class CCameraManager_9c370 {
     void fn(float, float, math::Vector_9c370, float);
 };
 
-template <> void Closure4<CCameraManager, void, float, float,math::Vector, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { int unused = (int)__p0; float * p = (float *)__p1; int unused2 = (int)__p2;
+template <> void Closure4<CCameraManager, void, float, float,math::Vector, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; float * p = (float *)__p1; hulk_intptr unused2 = (hulk_intptr)__p2;
 
     float a = *p++;
     float b = *p++;

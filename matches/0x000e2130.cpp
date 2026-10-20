@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 typedef unsigned int u32_e2130;
@@ -30,8 +31,8 @@ extern "C" u32_e2130 __cdecl helper(u32_e2130, int, const void*, const void*, in
 extern const char typeA_e2130[];
 extern const char typeB_e2130[];
 
-void SingleLayout::vfunc_18(void* __p0) { u32_e2130 x = (u32_e2130)__p0;
+void SingleLayout::vfunc_18(void* __p0) { hulk_uintptr x = (hulk_uintptr)__p0;
 
-    (*(u32_e2130 *)&this->f_40) = x;
+    (*(hulk_uintptr *)&this->f_40) = x;
     (*(u32_e2130 *)&this->f_44) = helper(x, 0, typeA_e2130, typeB_e2130, 0);
 }

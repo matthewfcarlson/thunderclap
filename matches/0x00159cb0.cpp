@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_004142a0[];
@@ -14,7 +15,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitPauseTrack>:
     if (p) {
         p->HitPauseTrack_159cb0::HitPauseTrack_159cb0();
         int* q = (int*)p;
-        q[0] = ((int)DAT_004142a0);
+        q[0] = ((hulk_intptr)DAT_004142a0);
         q[3] = 0;
         q[4] = 0;
         q[5] = 0;

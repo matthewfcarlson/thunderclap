@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040c5c4[];
 extern void* alloc(unsigned int);
 struct MapThing {
@@ -715,7 +716,7 @@ MapThing* FEThingsBase::vfunc_60(void* p) {
     MapThing* q = (MapThing*)alloc(0x120);
     if (q) {
         q->init(p);
-        q->vf = ((int)DAT_0040c5c4);
+        q->vf = ((hulk_intptr)DAT_0040c5c4);
         q->value = -1;
         return q;
     }

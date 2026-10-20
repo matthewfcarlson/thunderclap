@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00411314[];
 extern "C" void __cdecl free_a(void*);
 extern "C" void __cdecl free_b(void*);
@@ -27,7 +28,7 @@ class NISSoundTrack {
 };
 
 NISSoundTrack* NISSoundTrack::vfunc_5_impl(unsigned char param) {
-    *(void**)this = (void*)((int)DAT_00411314);
+    *(void**)this = (void*)((hulk_intptr)DAT_00411314);
     free_a(m10);
     free_a(m14);
     free_a(m18);

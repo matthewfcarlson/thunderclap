@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" char DAT_00400870[];
@@ -12,11 +13,11 @@ int FUN_0008e090() {
             p[4] = 0;
             p[8] = 0;
             p[9] = 0;
-            *(unsigned int*)p = ((int)DAT_00400870);
+            *(hulk_uintptr*)p = ((hulk_intptr)DAT_00400870);
         } else {
             p = 0;
         }
-        DAT_004dd7e0 = (unsigned int)p;
+        DAT_004dd7e0 = (hulk_uintptr)p;
     }
     return (int)(DAT_004dd7e0);
 }

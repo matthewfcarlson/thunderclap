@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class Sub_e6b30 {
@@ -13,7 +14,7 @@ void FEThingsBase::vfunc_17(int p) {
             this->f_17f8 = 2;
             this->f_176c = 2;
             if ((*(int *)&this->f_175c))
-                ((Sub_e6b30*)(*(int *)&this->f_175c))->run(2);
+                ((Sub_e6b30*)(*(hulk_intptr *)&this->f_175c))->run(2);
         }
     }
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Ref_134db0 {
   public:
     virtual void AddRef();
@@ -17,7 +18,7 @@ class HoverAction {
 };
 HoverAction* HoverAction::Init(int a, Ref_134db0* r) {
     ((ThisCall_00232660*)(this))->BaseCtor();
-    *(int*)this = (int)&hoverVftable;
+    *(hulk_intptr*)this = (hulk_intptr)&hoverVftable;
     field1c = a;
     field20 = 0;
     if (r)

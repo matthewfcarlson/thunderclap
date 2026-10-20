@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0040eb50[];
@@ -17,7 +18,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::ai::MotionStopTrack>::v
     MotionStopTrack_11b350* p = (MotionStopTrack_11b350*)alloc(0x14);
     if (p) {
         p->MotionStopTrack_11b350::MotionStopTrack_11b350();
-        p->a = ((int)DAT_0040eb50);
+        p->a = ((hulk_intptr)DAT_0040eb50);
         p->x = 0;
         p->y = -1.0f;
         return (void*)(p);

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned char byte_13f750;
 extern int vf_13f750;
 class Helper_13f750 {
@@ -27,7 +28,7 @@ class WallRunTrack {
     char pad[0x38];
 };
 WallRunTrack* WallRunTrack::vfunc_5(byte_13f750 param) {
-    *(int*)this = (int)&vf_13f750;
+    *(hulk_intptr*)this = (hulk_intptr)&vf_13f750;
     ((Helper_13f750*)((char*)this + 0x48))->clean();
     ((Helper_13f750*)((char*)this + 0x40))->clean();
     ((Helper_13f750*)((char*)this + 0x38))->clean();

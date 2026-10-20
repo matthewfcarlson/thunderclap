@@ -1,4 +1,5 @@
 // Same code shape as 0x000beac0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class CFEManager_9aa00 {
@@ -11,7 +12,7 @@ class Function_9aa00 {
     virtual void f1();
 };
 
-template <> void Method2<CCameraManager, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; int n = (int)__p2;
+template <> void Method2<CCameraManager, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_9aa00* m = (CFEManager_9aa00*)unused;
     const char* s = *(const char**)p;

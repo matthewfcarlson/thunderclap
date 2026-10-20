@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0040feb4[];
@@ -22,7 +23,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::AcquireTargetCo
     AcquireTargetCondition_12aae0* p = (AcquireTargetCondition_12aae0*)alloc(0x18);
     if (p) {
         p->Initialize(0);
-        *(u32_12aae0*)p = ((int)DAT_0040feb4);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040feb4);
         p->a = 1.57079637f;
         p->b = 100.0f;
         p->c = 1;

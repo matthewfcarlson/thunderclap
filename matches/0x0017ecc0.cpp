@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00417d18[];
 extern void* __cdecl alloc(unsigned int);
 class Track {
@@ -16,7 +17,7 @@ void* __cdecl make_track() {
         p->Init();
         p->flag = 1;
         p->a8 = 1;
-        p->vfptr = ((int)DAT_00417d18);
+        p->vfptr = ((hulk_intptr)DAT_00417d18);
         p->a12 = 0;
         p->a16 = 0xbf800000;
         return p;

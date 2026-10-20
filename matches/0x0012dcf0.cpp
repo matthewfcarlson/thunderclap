@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 extern "C" char DAT_00411110[];
@@ -16,7 +17,7 @@ int hulkfight::PostEvent_StringTrack::vfunc_10(int a, int b, int __p2) { Ref_12d
     if (p) {
         ((Memory_12dcf0*)p)->Init();
         *(void**)(p + 0x1c) = this;
-        *(unsigned int*)p = ((int)DAT_00411110);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_00411110);
         *(unsigned int*)(p + 0x20) = 0;
         if (param)
             param->f0();
@@ -24,7 +25,7 @@ int hulkfight::PostEvent_StringTrack::vfunc_10(int a, int b, int __p2) { Ref_12d
         if (old)
             old->f1();
         *(Ref_12dcf0**)(p + 0x20) = param;
-        return (int)(p);
+        return (hulk_intptr)(p);
     }
     return (int)(0);
 }

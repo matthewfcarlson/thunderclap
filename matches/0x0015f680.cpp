@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00415b00[];
 extern "C" void _ReadWriteBarrier();
 class Base_15f680 {
@@ -14,7 +15,7 @@ class Obj_15f680 {
     Base_15f680* p24;
 };
 void Obj_15f680::slot0() {
-    *(void**)this = (void*)((int)DAT_00415b00);
+    *(void**)this = (void*)((hulk_intptr)DAT_00415b00);
     _ReadWriteBarrier();
     if (p24) {
         p24->f1();

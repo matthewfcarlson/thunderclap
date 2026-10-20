@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
 class Obj_175920 {
@@ -35,5 +36,5 @@ TeleportRelativeAction_175920::TeleportRelativeAction_175920(int arg, Obj_175920
     if (field20)
         field20->V1();
     field20 = obj;
-    inner.SetName((const char*)((int)((char*)&DAT_00417da4)));
+    inner.SetName((const char*)((hulk_intptr)((char*)&DAT_00417da4)));
 }

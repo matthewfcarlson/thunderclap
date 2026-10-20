@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 class FaceTargetTrack_10bfb0 {
@@ -21,7 +22,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::ai::FaceTargetTrack>::v
     FaceTargetTrack_10bfb0* p = (FaceTargetTrack_10bfb0*)Allocate(0x14);
     if (p) {
         p->FaceTargetTrack_10bfb0::FaceTargetTrack_10bfb0();
-        *(int*)p = (int)&FaceVtable;
+        *(hulk_intptr*)p = (hulk_intptr)&FaceVtable;
         p->mc = 0;
         p->m10 = -1.0f;
         p->m8 = 1;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 extern "C" char DAT_00494b44[];
@@ -11,7 +12,7 @@ struct Obj_14ec10 {
 
 bool hulkfight::motion::HitPushbackCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * params = (void *)__p1; void * c = (void *)__p2;
 
-    if (!Cast(params, 0, (void*)((int)DAT_00494b44), (void*)((int)DAT_00494b60), 0))
+    if (!Cast(params, 0, (void*)((hulk_intptr)DAT_00494b44), (void*)((hulk_intptr)DAT_00494b60), 0))
         return false;
     Obj_14ec10* x = ((Obj_14ec10*)params)->A();
     Obj_14ec10* y = x->B();

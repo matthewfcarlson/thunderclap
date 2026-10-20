@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00411be8[];
@@ -18,7 +19,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GrappleHoverTra
     GrappleHoverTrack_1394f0* p = (GrappleHoverTrack_1394f0*)Alloc(0x18);
     if (p) {
         p->Init();
-        p->vptr = ((int)DAT_00411be8);
+        p->vptr = ((hulk_intptr)DAT_00411be8);
         p->m3 = 0;
         p->m4 = -1.0f;
         p->m5 = 0;

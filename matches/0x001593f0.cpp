@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 class HitPushbackCondition_1593f0 {
@@ -19,7 +20,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::HitPushback
     HitPushbackCondition_1593f0* p = (HitPushbackCondition_1593f0*)Alloc(0x10);
     if (p) {
         p->Init(0);
-        *(int*)p = (int)&vtable_1593f0;
+        *(hulk_intptr*)p = (hulk_intptr)&vtable_1593f0;
         p->flag = 1;
         return (void*)(p);
     }

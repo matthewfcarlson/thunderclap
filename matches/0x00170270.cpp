@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern char VT_004179e8[];
 class Base {
   public:
@@ -16,6 +17,6 @@ class LocomotionStateTrack : public Base {
 LocomotionStateTrack::LocomotionStateTrack() {
     mc = 0;
     m10 = 0;
-    *(void**)this = (void*)((int)VT_004179e8);
+    *(void**)this = (void*)((hulk_intptr)VT_004179e8);
     m8 = 1;
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0041928c[];
@@ -18,7 +19,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::SmartPropIs
     SmartPropIsCargoCondition_18bc60* p = (SmartPropIsCargoCondition_18bc60*)FUN_0008d690(0x10);
     if (p) {
         p->Init(0);
-        *(int*)p = ((int)DAT_0041928c);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_0041928c);
         p->c = 0;
         return (void*)(p);
     }

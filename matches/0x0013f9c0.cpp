@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Ref_13f9c0 {
   public:
     virtual void First();
@@ -21,7 +22,7 @@ class WallRunAction : public Base_13f9c0 {
     WallRunAction(int, Ref_13f9c0*);
 };
 WallRunAction::WallRunAction(int a, Ref_13f9c0* p) {
-    v = (int)&wallvt;
+    v = (hulk_intptr)&wallvt;
     int* q = &m1c;
     *q = 0;
     m20 = 0;

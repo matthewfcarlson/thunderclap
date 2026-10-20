@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
 class Obj_1762c0 {
   public:
@@ -18,7 +19,7 @@ class TargetIconDistanceAction : public Base_1762c0 {
 };
 extern int vt_1762c0;
 void TargetIconDistanceAction::Clean() {
-    vptr = (int)&vt_1762c0;
+    vptr = (hulk_intptr)&vt_1762c0;
     _ReadWriteBarrier();
     Obj_1762c0* p = m20;
     if (p) {

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0040dd04[];
@@ -22,7 +23,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::ai::SemaphoreWaitTrack>
     SemaphoreWaitTrack_114e20* p = (SemaphoreWaitTrack_114e20*)alloc(0x28);
     if (p != 0) {
         ((BaseInit*)p)->go();
-        *(unsigned int*)p = ((int)DAT_0040dd04);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040dd04);
         *(unsigned int*)((char*)p + 0xc) = 0;
         *(unsigned int*)((char*)p + 0x10) = 0xbf800000;
         ((MemberInit*)((char*)p + 0x18))->go();

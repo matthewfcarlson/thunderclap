@@ -1,4 +1,5 @@
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
+#include "compat/ptr.h"
 struct RefCounted_188f10 {
   public:
     virtual void f0();
@@ -21,7 +22,7 @@ class PropDestroyAction_188f10 {
 
 PropDestroyAction_188f10* PropDestroyAction_188f10::vfunc_2(int flag) {
     volatile int* p = (volatile int*)this;
-    *p = (int)&g_vt_188f10;
+    *p = (hulk_intptr)&g_vt_188f10;
     RefCounted_188f10* q = (RefCounted_188f10*)p[8];
     if (q != 0) {
         q->Release();

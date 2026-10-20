@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00417fb8[];
 class Ref_17bae0 {
   public:
@@ -21,7 +22,7 @@ class MoveJointAction {
 };
 void destroy(MoveJointAction*);
 MoveJointAction* MoveJointAction::v2(unsigned char flag) {
-    *(volatile int*)this = ((int)DAT_00417fb8);
+    *(volatile hulk_intptr*)this = ((hulk_intptr)DAT_00417fb8);
     Ref_17bae0* a = m24;
     if (a) {
         a->f1();

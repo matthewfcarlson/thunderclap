@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0040eac0[];
@@ -11,7 +12,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::LocatorDistance
     LocatorDistanceCondition_11b060* p = (LocatorDistanceCondition_11b060*)Alloc(0x14);
     if (p) {
         p->LocatorDistanceCondition_11b060::LocatorDistanceCondition_11b060(0);
-        *(unsigned int*)p = ((int)DAT_0040eac0);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040eac0);
         *(unsigned int*)((char*)p + 0xc) = 0;
         *(unsigned int*)((char*)p + 0x10) = 0;
         return (void*)(p);

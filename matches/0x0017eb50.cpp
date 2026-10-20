@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00417cb8[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class IntentionClearTrack {
@@ -18,7 +19,7 @@ void* __cdecl TrackFactoryTemplate_vfunc_5() {
     IntentionClearTrack* p = (IntentionClearTrack*)FUN_0008d690(0x14);
     if (p) {
         p->Init();
-        *(int*)p = ((int)DAT_00417cb8);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_00417cb8);
         p->b = 0;
         p->c = 0xbf800000;
         p->a = 1;

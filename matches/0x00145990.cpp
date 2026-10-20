@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
 extern "C" void __cdecl FUN_00143610();
@@ -26,52 +27,52 @@ void FUN_00145990() {
         p = (Obj_145990*)Alloc(24);
         if (p) {
             p->Init("timeBegin");
-            p->vf = (void*)((int)DAT_0041324c);
-            p->v = ((int)(void (__cdecl*)())&FUN_00143610);
+            p->vf = (void*)((hulk_intptr)DAT_0041324c);
+            p->v = ((hulk_intptr)(void (__cdecl*)())&FUN_00143610);
             a[0] = p;
         } else
             a[0] = 0;
         p = (Obj_145990*)Alloc(24);
         if (p) {
             p->Init("timeOn");
-            p->vf = (void*)((int)DAT_0041324c);
-            p->v = ((int)(void (__cdecl*)())&FUN_00143630);
+            p->vf = (void*)((hulk_intptr)DAT_0041324c);
+            p->v = ((hulk_intptr)(void (__cdecl*)())&FUN_00143630);
             a[1] = p;
         } else
             a[1] = 0;
         p = (Obj_145990*)Alloc(24);
         if (p) {
             p->Init("timeOff");
-            p->vf = (void*)((int)DAT_0041324c);
-            p->v = ((int)(void (__cdecl*)())&FUN_00143650);
+            p->vf = (void*)((hulk_intptr)DAT_0041324c);
+            p->v = ((hulk_intptr)(void (__cdecl*)())&FUN_00143650);
             a[2] = p;
         } else
             a[2] = 0;
         p = (Obj_145990*)Alloc(24);
         if (p) {
             p->Init("timeEnd");
-            p->vf = (void*)((int)DAT_0041324c);
-            p->v = ((int)(void (__cdecl*)())&FUN_00143670);
+            p->vf = (void*)((hulk_intptr)DAT_0041324c);
+            p->v = ((hulk_intptr)(void (__cdecl*)())&FUN_00143670);
             a[3] = p;
         } else
             a[3] = 0;
         p = (Obj_145990*)Alloc(24);
         if (p) {
             p->Init("motionBlur");
-            p->vf = (void*)((int)DAT_0041324c);
-            p->v = ((int)(void (__cdecl*)())&FUN_00143690);
+            p->vf = (void*)((hulk_intptr)DAT_0041324c);
+            p->v = ((hulk_intptr)(void (__cdecl*)())&FUN_00143690);
             a[4] = p;
         } else
             a[4] = 0;
         p = (Obj_145990*)Alloc(24);
         if (p) {
             p->Init("motionBlurParallax");
-            p->vf = (void*)((int)DAT_0041324c);
-            p->v = ((int)(void (__cdecl*)())&FUN_001436b0);
+            p->vf = (void*)((hulk_intptr)DAT_0041324c);
+            p->v = ((hulk_intptr)(void (__cdecl*)())&FUN_001436b0);
             a[5] = p;
         } else
             a[5] = 0;
-        Register((void*)((int)DAT_004e0fa0), a, 6);
+        Register((void*)((hulk_intptr)DAT_004e0fa0), a, 6);
     }
     ++gCounter_145990;
 }

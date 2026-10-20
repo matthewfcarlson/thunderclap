@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class FELayout {
   public:
     virtual void f0();
@@ -67,5 +68,5 @@ struct Obj_e2500 {
 };
 int VScroll::f13(int p) {
     Obj_e2500* h = *(Obj_e2500**)((char*)this + 8);
-    return h->get() == (int)this && field == p;
+    return h->get() == (hulk_intptr)this && field == p;
 }

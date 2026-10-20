@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char hulk_at_00417c24[];
 class Base {
   public:
@@ -18,6 +19,6 @@ class CriticalMassDrainTrack_170b10 : public Base {
 CriticalMassDrainTrack_170b10::CriticalMassDrainTrack_170b10() : Base() {
     mC = 0;
     m10 = 0;
-    *(int*)this = ((int)(hulk_at_00417c24 + 0x4));
+    *(hulk_intptr*)this = ((hulk_intptr)(hulk_at_00417c24 + 0x4));
     mBase8 = 1;
 }

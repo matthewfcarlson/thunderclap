@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00412430[];
 void* __cdecl operator_new(unsigned int);
 class FrameCondition {
@@ -17,7 +18,7 @@ FrameCondition* target(void) {
     FrameCondition* p = (FrameCondition*)operator_new(0x20);
     if (p) {
         p->initialize(0);
-        *(void**)p = (void*)((int)DAT_00412430);
+        *(void**)p = (void*)((hulk_intptr)DAT_00412430);
         ((FrameCondition*)((char*)p + 0x10))->initializeExtra();
         p->a = 0;
         p->b = 0;

@@ -1,4 +1,5 @@
 // Same code shape as 0x001353c0 (propagated; names are from that function)
+#include "compat/ptr.h"
 class Thing_151f20 {
   public:
     virtual void A();
@@ -20,10 +21,10 @@ HitThrowAction_151f20::HitThrowAction_151f20(void* p, Thing_151f20* t) : Base_15
     int i;
     for (i = 0; i < 9; i++)
         mF[i] = 0;
-    mF[0] = (int)p;
+    mF[0] = (hulk_intptr)p;
     if (t)
         t->A();
     if (mF[1])
         ((Thing_151f20*)mF[1])->B();
-    mF[1] = (int)t;
+    mF[1] = (hulk_intptr)t;
 }

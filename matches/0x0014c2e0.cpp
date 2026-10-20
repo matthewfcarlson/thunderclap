@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00413578[];
 extern "C" void* __cdecl alloc(unsigned int);
 class Base_14c2e0 {
@@ -28,7 +29,7 @@ void* Factory_14c2e0::F() {
     Factory_14c2e0* p = (Factory_14c2e0*)alloc(0x18);
     if (p) {
         ((Cond_14c2e0*)p)->Init(0);
-        *(int*)p = ((int)DAT_00413578);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_00413578);
         p->field = 0;
         p->sub.Init();
         return p;

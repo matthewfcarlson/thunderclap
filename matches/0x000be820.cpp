@@ -1,4 +1,5 @@
 // Same code shape as 0x000beac0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class CFEManager_be820 {
@@ -11,7 +12,7 @@ class Function_be820 {
     virtual void f1();
 };
 
-template <> void Method2<CFEManager, void, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; int n = (int)__p2;
+template <> void Method2<CFEManager, void, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_be820* m = (CFEManager_be820*)unused;
     const char* s = *(const char**)p;

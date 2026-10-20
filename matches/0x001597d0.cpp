@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00414130[];
 class Sub_1597d0 {
   public:
@@ -22,7 +23,7 @@ CollisionSourceNodeCondition* FactoryVfunc5() {
     CollisionSourceNodeCondition* p = (CollisionSourceNodeCondition*)Alloc(0x20);
     if (p) {
         p->Init(0);
-        *(unsigned long*)p = ((int)DAT_00414130);
+        *(hulk_ulongptr*)p = ((hulk_intptr)DAT_00414130);
         p->fieldC = 0;
         ((Sub_1597d0*)((char*)p + 0x10))->InitSub();
         *((char*)p + 0x1c) = 0;

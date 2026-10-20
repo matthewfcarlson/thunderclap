@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00400c1c[];
 struct CStaticAllocator {
     void* vf;
@@ -8,7 +9,7 @@ struct CStaticAllocator {
 };
 void thunk_FUN_00267090(int);
 void CStaticAllocator::Reset() {
-    vf = (void*)((int)DAT_00400c1c);
+    vf = (void*)((hulk_intptr)DAT_00400c1c);
     thunk_FUN_00267090(m14);
     thunk_FUN_00267090(m10);
 }

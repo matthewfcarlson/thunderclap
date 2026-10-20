@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" void* __cdecl alloc(unsigned int);
@@ -19,7 +20,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CSMPropIsCh
     Obj_18bd00* p = (Obj_18bd00*)alloc(16);
     if (p) {
         p->init(0);
-        *(int*)p = (int)&vt_18bd00;
+        *(hulk_intptr*)p = (hulk_intptr)&vt_18bd00;
         p->flag = 1;
         return (void*)(p);
     }

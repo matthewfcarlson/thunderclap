@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00417c28[];
@@ -22,7 +23,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::CriticalMassDra
     CriticalMassDrainTrack_17e910* p = (CriticalMassDrainTrack_17e910*)operator_new(0x14);
     if (p) {
         p->Init();
-        *(int*)p = ((int)DAT_00417c28);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_00417c28);
         p->mC = 0;
         p->m10 = 0;
         p->m8 = 1;

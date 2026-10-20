@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_eec80 {
   public:
     void apply(int);
@@ -113,7 +114,7 @@ class FEContainer {
 };
 int FEContainer::vfunc_27(int x, int y) {
     Obj_eec80* o = child->get(x);
-    a24((int)o, x);
+    a24((hulk_intptr)o, x);
     if (y) {
         int q = a44(y);
         if (!q)
@@ -121,5 +122,5 @@ int FEContainer::vfunc_27(int x, int y) {
         if (q)
             o->apply(q);
     }
-    return (int)o;
+    return (hulk_intptr)o;
 }

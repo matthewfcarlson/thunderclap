@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Ctor_0027b070 {
     Ctor_0027b070();
 };
@@ -14,7 +15,7 @@ class CPatrolPath : public Ctor_0027b070 {
 };
 CPatrolPath::CPatrolPath(int count) : Ctor_0027b070() {
     unsigned int size = count * 0x24;
-    vt = (int)&CPatrolPath_vtable;
+    vt = (hulk_intptr)&CPatrolPath_vtable;
     *(char*)((char*)this + 0x18) = 0;
     mData = alloc(size);
     mCount = count;

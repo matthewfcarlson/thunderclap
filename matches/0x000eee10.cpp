@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Widget {
   public:
 #define V(n) virtual int v##n();
@@ -20,7 +21,7 @@ class FEContainer {
     F(42) F(43) F(44) F(45) F(46) F(47) F(48) F(49) F(50) F(51) F(52) Widget* child;
 };
 int FEContainer::f30(int b, int a) {
-    int x = child->get(b);
+    hulk_intptr x = child->get(b);
     f24(x, b);
     if (a) {
         int y = f41(a);

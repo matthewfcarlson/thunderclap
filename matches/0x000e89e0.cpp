@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040c3d0[];
 class Ref_e89e0 {
   public:
@@ -16,7 +17,7 @@ class FEParticleAnimation {
     void Cleanup();
 };
 void FEParticleAnimation::Cleanup() {
-    *(int* volatile*)this = (int*)((int)DAT_0040c3d0);
+    *(int* volatile*)this = (int*)((hulk_intptr)DAT_0040c3d0);
     Ref_e89e0* r = mRef;
     if (r) {
         r->g();

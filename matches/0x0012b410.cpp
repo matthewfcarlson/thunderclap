@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00410bd4[];
 class Sub_12b410 {
   public:
@@ -12,7 +13,7 @@ class ThreatCondition {
     void Run();
 };
 void ThreatCondition::Run() {
-    *(void**)this = (void*)((int)DAT_00410bd4);
+    *(void**)this = (void*)((hulk_intptr)DAT_00410bd4);
     ((Sub_12b410*)((char*)this + 0x10))->Init();
     ((FinishCall*)this)->Finish();
 }

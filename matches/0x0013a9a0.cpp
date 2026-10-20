@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned char byte_13a9a0;
 struct Helper_13a9a0 {
     int x;
@@ -27,7 +28,7 @@ class AnimationVelocityScaledTrack {
     Helper_13a9a0 h40;
 };
 AnimationVelocityScaledTrack* AnimationVelocityScaledTrack::v5(byte_13a9a0 x) {
-    *(int*)this = (int)&vf_13a9a0;
+    *(hulk_intptr*)this = (hulk_intptr)&vf_13a9a0;
     h40.run();
     h18.run();
     ((Main_13a9a0*)this)->run();

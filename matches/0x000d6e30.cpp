@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040b370[];
 struct Ref_d6e30 {
     virtual void f0();
@@ -12,7 +13,7 @@ class COverlayManager {
     void clear();
 };
 void COverlayManager::clear() {
-    *(volatile int*)this = ((int)DAT_0040b370);
+    *(volatile hulk_intptr*)this = ((hulk_intptr)DAT_0040b370);
     Ref_d6e30* x = *(Ref_d6e30* volatile*)&a;
     if (x) {
         x->Release();

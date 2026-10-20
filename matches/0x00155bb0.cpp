@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
 extern "C" void __cdecl FUN_0014c730();
@@ -23,9 +24,9 @@ void FUN_00155bb0() {
         int v = gValue_155bb0;
         p->Init("compare");
         *(int*)((char*)p + 0x14) = v;
-        *(int*)p = ((int)DAT_00414ad0);
-        *(int*)((char*)p + 0x10) = ((int)((char*)&DAT_0042773c));
-        *(int*)((char*)p + 0x18) = ((int)(void (__cdecl*)())&FUN_0014c730);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_00414ad0);
+        *(hulk_intptr*)((char*)p + 0x10) = ((hulk_intptr)((char*)&DAT_0042773c));
+        *(hulk_intptr*)((char*)p + 0x18) = ((hulk_intptr)(void (__cdecl*)())&FUN_0014c730);
         tmp = p;
     } else
         tmp = 0;

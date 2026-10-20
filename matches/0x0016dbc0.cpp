@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00416838[];
@@ -14,7 +15,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::TargetHealt
     TargetHealthPercentCondition_16dbc0* p = (TargetHealthPercentCondition_16dbc0*)FUN_0008d690(0x14);
     if (p) {
         p->Init(0);
-        p->vt = ((int)DAT_00416838);
+        p->vt = ((hulk_intptr)DAT_00416838);
         p->a = 0;
         p->b = 0;
         return (void*)(p);

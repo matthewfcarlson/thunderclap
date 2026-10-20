@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Child_eece0 {
   public:
     virtual void f0();
@@ -120,7 +121,7 @@ class FEContainer {
     Child_eece0* child;
 };
 int FEContainer::vfunc_28(int a, int b) {
-    int r = child->f55(a);
+    hulk_intptr r = child->f55(a);
     a24(r, a);
     if (b) {
         int v = a45(b);

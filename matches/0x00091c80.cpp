@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040449c[];
 extern "C" char DAT_004044a4[];
 class Part_91c80 {
@@ -21,11 +22,11 @@ class CUnlockableBlonskyFile {
     CUnlockableBlonskyFile();
 };
 CUnlockableBlonskyFile::CUnlockableBlonskyFile() {
-    vf = (char*)((int)DAT_0040449c);
+    vf = (char*)((hulk_intptr)DAT_0040449c);
     enabled = 1;
     a.Init();
     *(int*)((char*)this + 0x18) = 0;
-    vf = (char*)((int)DAT_004044a4);
+    vf = (char*)((hulk_intptr)DAT_004044a4);
     b.Init();
     fa8 = 0;
     f68 = 0;

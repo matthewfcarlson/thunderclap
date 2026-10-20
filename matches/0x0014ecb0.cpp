@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 extern "C" char DAT_00494b44[];
@@ -12,7 +13,7 @@ struct V {
 
 bool hulkfight::motion::CollisionExplosionCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * param = (void *)__p1; void * extra = (void *)__p2;
 
-    int r = FUN_00344e74(param, 0, (const void*)((int)DAT_00494b44), (const void*)((int)DAT_00494b60), 0);
+    int r = FUN_00344e74(param, 0, (const void*)((hulk_intptr)DAT_00494b44), (const void*)((hulk_intptr)DAT_00494b60), 0);
     if (r == 0)
         return (bool)(0);
     unsigned char* x = ((V*)param)->d();

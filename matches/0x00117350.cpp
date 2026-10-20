@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040ed2c[];
 struct Ref_117350 {
     virtual void Add();
@@ -20,7 +21,7 @@ MotionLocatorAction* MotionLocatorAction::Build(unsigned int a, Ref_117350* r) {
     ((ThisCall_00232660*)(this))->Init();
     mMin1 = 0x7f7fffff;
     mMin2 = 0x7f7fffff;
-    *(volatile unsigned int*)this = ((int)DAT_0040ed2c);
+    *(volatile hulk_uintptr*)this = ((hulk_intptr)DAT_0040ed2c);
     mArg = 0;
     mOld = 0;
     mZero = 0;

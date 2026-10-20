@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040c42c[];
 extern "C" char DAT_0040c6a4[];
 class Sub_f1c80 {
@@ -37,13 +38,13 @@ class TextTable : public FEControl {
     char pad[0x495c - 4];
 };
 TextTable* TextTable::vfunc_2(unsigned char p) {
-    *(unsigned long*)this = ((int)DAT_0040c6a4);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0040c6a4);
     char* q = (char*)this + 0x495c;
     for (int i = 0x200; i != 0; --i) {
         q -= 0x24;
         ((Sub_f1c80*)q)->init();
     }
-    *(unsigned long*)this = ((int)DAT_0040c42c);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0040c42c);
     ((Sub2_f1c80*)this)->init();
     if (p & 1)
         thunk_FUN_00267090(this);

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class RefObj_10f780 {
   public:
     virtual void AddRef();
@@ -29,6 +30,6 @@ TokenSupressAction::TokenSupressAction(int a, RefObj_10f780* b) {
     if (m20 != 0)
         m20->Release();
     m20 = b;
-    int mgr = GetSingleton();
+    hulk_intptr mgr = GetSingleton();
     m24 = *(int*)(mgr + 0x368);
 }

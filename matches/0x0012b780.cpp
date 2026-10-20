@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 extern const char kRttiA[];
@@ -14,7 +15,7 @@ class Obj_12b780 {
     Obj2_12b780* Next();
 };
 
-bool hulkfight::ai::ThreatCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; int c = (int)__p1; int d = (int)__p2;
+bool hulkfight::ai::ThreatCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; hulk_intptr c = (hulk_intptr)__p1; hulk_intptr d = (hulk_intptr)__p2;
 
     if (!CheckFn(c, 0, kRttiA, kRttiB, 0))
         return false;

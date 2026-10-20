@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Base_14ded0 {
     Base_14ded0();
     virtual void vfn();
@@ -18,5 +19,5 @@ extern int vftable[];
 Derived_14ded0::Derived_14ded0() {
     m0c = 0;
     m10 = 0;
-    *(int*)this = (int)vftable;
+    *(hulk_intptr*)this = (hulk_intptr)vftable;
 }

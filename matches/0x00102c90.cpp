@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vftable_102c90;
 extern void __cdecl thunk(struct CMoveAgent*);
 
@@ -16,7 +17,7 @@ struct CMoveAgent {
 };
 
 CMoveAgent* CMoveAgent::vfunc_2(unsigned char param) {
-    *(int*)this = (int)&vftable_102c90;
+    *(hulk_intptr*)this = (hulk_intptr)&vftable_102c90;
     this->member->b();
     this->member = 0;
     this->cleanupM();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00417ea0[];
 extern "C" void _ReadWriteBarrier();
 class Action {
@@ -18,7 +19,7 @@ class PushOutAction : public Base_174900 {
     void Clear();
 };
 void PushOutAction::Clear() {
-    vptr = ((int)DAT_00417ea0);
+    vptr = ((hulk_intptr)DAT_00417ea0);
     _ReadWriteBarrier();
     if (m2) {
         m2->B();

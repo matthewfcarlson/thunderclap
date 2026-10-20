@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
@@ -18,12 +19,12 @@ class Method4_9b330 {
 };
 Method4_9b330* Method4_9b330::Fn(int a, int b) {
     ((Helper_9b330*)this)->Init(a, 4);
-    vtable = ((int)DAT_00404d00);
+    vtable = ((hulk_intptr)DAT_00404d00);
     m1c = b;
-    b18 = FUN_001d04d0(((int)((char*)&DAT_0048e100)));
-    b10 = FUN_001d04d0(((int)((char*)&DAT_0048e134)));
-    b11 = FUN_001d04d0(((int)((char*)&DAT_0048e128)));
-    b12 = FUN_001d04d0(((int)((char*)&DAT_0048e128)));
-    b13 = FUN_001d04d0(((int)((char*)&DAT_0048e128)));
+    b18 = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e100)));
+    b10 = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e134)));
+    b11 = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e128)));
+    b12 = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e128)));
+    b13 = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e128)));
     return this;
 }

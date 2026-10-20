@@ -1,4 +1,5 @@
 // Same code shape as 0x0012fa00 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_12fa50;
@@ -24,7 +25,7 @@ class ActionBase_12fa50 {
 bool hulkfight::StatEndTrialAction::vfunc_3(int __p0, int __p1) {
     if (!(*(u32_12fa50 *)&this->f_20))
         return false;
-    u32_12fa50 x = *(u32_12fa50*)((*(u32_12fa50 *)&this->f_1c) + 0x10);
+    u32_12fa50 x = *(u32_12fa50*)((*(hulk_uintptr *)&this->f_1c) + 0x10);
     gGlobal_12fa50->run()->run(x);
     return true;
 }

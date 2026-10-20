@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00411e18[];
 class Ref_1364a0 {
   public:
@@ -20,7 +21,7 @@ class BounceAction : public Ctor_00232660 {
     BounceAction(int, Ref_1364a0*);
 };
 BounceAction::BounceAction(int a, Ref_1364a0* r) : Ctor_00232660() {
-    vptr = ((int)DAT_00411e18);
+    vptr = ((hulk_intptr)DAT_00411e18);
     int* q = &m1c;
     *q = 0;
     m20 = 0;

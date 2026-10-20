@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00410c84[];
 class ThreatDodgeTrack {
   public:
@@ -21,7 +22,7 @@ class Helper_12bd00 {
 };
 void FUN_00267090(ThreatDodgeTrack*);
 ThreatDodgeTrack* ThreatDodgeTrack::vfunc_5(unsigned char param_2) {
-    *(void**)this = (void*)((int)DAT_00410c84);
+    *(void**)this = (void*)((hulk_intptr)DAT_00410c84);
     ((Helper_12bd00*)((char*)this + 0x20))->call1();
     ((Helper_12bd00*)this)->call2();
     if (param_2 & 1)

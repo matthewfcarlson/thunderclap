@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 extern int type1_138b80, type2;
@@ -9,7 +10,7 @@ extern int __cdecl Check(void*, int, int, int, int);
 extern Built_138b80* __cdecl Allocate(int);
 
 int hulkfight::motion::HoverTrack::vfunc_10(int a, int b, int c) {
-    if (Check((void*)c, 0, (int)&type1_138b80, (int)&type2, 0)) {
+    if (Check((void*)c, 0, (hulk_intptr)&type1_138b80, (hulk_intptr)&type2, 0)) {
         Built_138b80* p = Allocate(0x24);
         if (p) {
             int m = this->f_14;

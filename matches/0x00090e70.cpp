@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class CStatsManager_90e70 {
@@ -8,8 +9,8 @@ class CStatsManager_90e70 {
 template <> void Closure6<CStatsManager, void, const char *, const char *, int, int, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { const int * args = (const int *)__p1;
 
     const int* p = args;
-    int a = *p++;
-    int b = *p++;
+    hulk_intptr a = *p++;
+    hulk_intptr b = *p++;
     int c = *p++;
     int d = *p++;
     int e = *p++;

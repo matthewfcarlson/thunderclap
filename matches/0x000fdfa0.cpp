@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class CActorGolem_fdfa0 {
   public:
     virtual void a();
@@ -17,7 +18,7 @@ class CCharacterGolem : public CActorGolem_fdfa0 {
 void CCharacterGolem::vfunc_4(int a, int b) {
     CActorGolem_fdfa0::vfunc_4(a, b);
     if (flag) {
-        int v = get();
+        hulk_intptr v = get();
         if (v) {
             int* p = (int*)(v + 0x1f58);
             if (p)

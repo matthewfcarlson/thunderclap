@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00417f48[];
 class Ref_175cc0 {
   public:
@@ -21,7 +22,7 @@ class Teleport {
 };
 Teleport::Teleport(int x, Ref_175cc0* r) {
     ((Helper_175cc0*)this)->Init();
-    vptr = ((int)DAT_00417f48);
+    vptr = ((hulk_intptr)DAT_00417f48);
     value = 0;
     ref = 0;
     sub.InitSub();

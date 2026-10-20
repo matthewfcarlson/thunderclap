@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0040db84[];
@@ -15,7 +16,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::ai::SemaphoreClearTrack
     char* p = (char*)FUN_0008d690(0x28);
     if (p) {
         ((TrackBase_114850*)p)->Init();
-        *(unsigned int*)p = ((int)DAT_0040db84);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040db84);
         *(unsigned int*)(p + 0xc) = 0;
         *(unsigned int*)(p + 0x10) = 0xbf800000;
         ((TrackTail*)(p + 0x18))->Init();

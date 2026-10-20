@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" char DAT_00404c50[];
@@ -19,10 +20,10 @@ class Obj_9aaf0 : public Base_9aaf0 {
 };
 Obj_9aaf0::Obj_9aaf0(int a, int b) {
     Init(a, 3);
-    vt = ((int)DAT_00404c50);
+    vt = ((hulk_intptr)DAT_00404c50);
     field1c = b;
-    b18 = GetValue((const char*)((int)((char*)&DAT_0048e100)));
-    b10 = GetValue((const char*)((int)((char*)&DAT_0048e0e4)));
-    b11 = GetValue((const char*)((int)((char*)&DAT_0048e0e4)));
-    b12 = GetValue((const char*)((int)((char*)&DAT_0048e0e4)));
+    b18 = GetValue((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
+    b10 = GetValue((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
+    b11 = GetValue((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
+    b12 = GetValue((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
 }

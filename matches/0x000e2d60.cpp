@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Result_e2d60 {
     int header;
     int slots[4];
@@ -33,6 +34,6 @@ void Owner_e2d60::Run(int arg) {
         while (i < 4 && p->slots[i] != 0)
             ++i;
         if (i != 4)
-            p->slots[i] = (int)this;
+            p->slots[i] = (hulk_intptr)this;
     }
 }

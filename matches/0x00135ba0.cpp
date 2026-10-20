@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct A_135ba0 {
@@ -16,7 +17,7 @@ void hulkfight::motion::FlyingAttackAction::vfunc_4() {
     A_135ba0* edi = (*(A_135ba0 * *)&this->f_20)->get();
     edi->init();
     ((FlyingAttackAction_nv_135ba0*)this)->mid();
-    int result = edi->check();
+    hulk_intptr result = edi->check();
     if (result)
         ((Result_135ba0*)result)->apply(this->f_24, 0);
 }

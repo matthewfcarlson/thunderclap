@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
 extern char vt[];
 class Base {
@@ -17,6 +18,6 @@ HitPauseTrack::HitPauseTrack() : Base() {
     mC = 0;
     m10 = 0;
     m14 = 0;
-    *(int*)this = (int)vt;
+    *(hulk_intptr*)this = (hulk_intptr)vt;
     m8 = 1;
 }

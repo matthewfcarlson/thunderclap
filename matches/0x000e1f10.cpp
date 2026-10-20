@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040c0f4[];
 class Manager_e1f10 {
   public:
@@ -70,7 +71,7 @@ class FELayout {
 };
 FELayout* FELayout::init(Manager_e1f10* p, int arg) {
     int* q = &d[0];
-    vt = ((int)DAT_0040c0f4);
+    vt = ((hulk_intptr)DAT_0040c0f4);
     q[0] = 0;
     q[2] = 0;
     q[3] = 0;

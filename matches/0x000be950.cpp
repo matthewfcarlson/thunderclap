@@ -1,5 +1,6 @@
 // FUN_000be950 @ 0x000be950
 // 0x000be950: Method6 callback object constructor (bool/byte flags from the per-type descriptor words)
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern char DAT_00409108[];
@@ -20,7 +21,7 @@ public:
 Callback_be950* Callback_be950::Init(void* arg, void* value)
 {
     FUN_001d0480(arg, 6);
-    vptr = (int)DAT_00409108;
+    vptr = (hulk_intptr)DAT_00409108;
     p1c = value;
     b18 = FUN_001d04d0(((char*)&DAT_0048e100));
     b10 = FUN_001d04d0(((char*)&DAT_0048e0f0));

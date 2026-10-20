@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned char byte_13a8e0;
 class Sub_13a8e0 {
   public:
@@ -19,7 +20,7 @@ class AnimationChargeTrack {
     AnimationChargeTrack* vfunc_5(byte_13a8e0 param);
 };
 AnimationChargeTrack* AnimationChargeTrack::vfunc_5(byte_13a8e0 param) {
-    vf = (int)&vftable_13a8e0;
+    vf = (hulk_intptr)&vftable_13a8e0;
     b.f();
     a.f();
     ((Base_13a8e0*)this)->g();

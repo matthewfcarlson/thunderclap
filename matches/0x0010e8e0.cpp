@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class FormationReadyCondition {
   public:
     virtual void vfunc_0();
@@ -18,7 +19,7 @@ extern "C" void __cdecl helper(int);
 extern "C" void __cdecl helper2(FormationReadyCondition*);
 extern int formation_vtable;
 FormationReadyCondition* FormationReadyCondition::vfunc_5(int flag) {
-    *(volatile int*)this = (int)&formation_vtable;
+    *(volatile hulk_intptr*)this = (hulk_intptr)&formation_vtable;
     helper(m10);
     Cleanup();
     if (flag & 1)

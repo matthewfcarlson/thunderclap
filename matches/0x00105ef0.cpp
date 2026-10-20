@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040d518[];
 struct Root_105ef0 {
     char pad[0x1c];
@@ -21,7 +22,7 @@ class CPathGraphAgent {
 };
 extern void __fastcall Finish(CPathGraphAgent*);
 void __fastcall FUN(CPathGraphAgent* self) {
-    self->vptr = (void*)((int)DAT_0040d518);
+    self->vptr = (void*)((hulk_intptr)DAT_0040d518);
     ((Sub_105ef0*)gRoot_105ef0->sub)->Init((char*)self + 0x5c);
     self->mAcopy = self->mA;
     if (self->mA)

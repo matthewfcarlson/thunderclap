@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Node {
     int a;
     int b;
@@ -15,7 +16,7 @@ int Obj_fb150::next() {
     Node* n = root;
     if (!n)
         return 0;
-    int r;
+    hulk_intptr r;
     if (done != 1) {
         Node* c = cur;
         if (!c) {
@@ -23,7 +24,7 @@ int Obj_fb150::next() {
         } else {
             c = *(Node**)((char*)c + 4);
         }
-        r = (int)c;
+        r = (hulk_intptr)c;
         if (c && c->state < 2)
             r = 0;
     } else

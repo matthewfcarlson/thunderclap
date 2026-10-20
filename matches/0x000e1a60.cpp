@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vtFunction;
 extern int vtAction;
 extern void __cdecl thunk_FUN_00267090(void*);
@@ -10,7 +11,7 @@ class FEDoFunction {
     ~FEDoFunction();
 };
 FEDoFunction::~FEDoFunction() {
-    vptr = (int)&vtFunction;
+    vptr = (hulk_intptr)&vtFunction;
     if (items) {
         int i = 0;
         if (count > 0)
@@ -27,5 +28,5 @@ FEDoFunction::~FEDoFunction() {
             items = 0;
         }
     }
-    vptr = (int)&vtAction;
+    vptr = (hulk_intptr)&vtAction;
 }

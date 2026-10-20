@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00404b3c[];
 extern const char* gName_983d0;
 class CamInit {
@@ -21,7 +22,7 @@ extern "C" Blend_983d0* __fastcall FUN_000983d0(Blend_983d0* self) {
     char* p;
     CamCfg* c;
     ((CamInit*)self)->InitBase();
-    self->vft = ((int)DAT_00404b3c);
+    self->vft = ((hulk_intptr)DAT_00404b3c);
     p = (char*)self + 0x1a8;
     ((CamSetup*)p)->SetupPart();
     c = (CamCfg*)((char*)self + 8);

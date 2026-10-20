@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_004178f8[];
@@ -31,7 +32,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::RestPoseTrack>:
     RestPoseTrack_17eeb0* p = (RestPoseTrack_17eeb0*)Alloc(0x30);
     if (p) {
         p->Init();
-        *(int*)p = ((int)DAT_004178f8);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_004178f8);
         p->c = 0;
         p->d = -1.0f;
         p->sub.Init();

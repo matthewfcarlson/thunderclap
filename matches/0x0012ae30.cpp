@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0040ff54[];
@@ -18,7 +19,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::CanSeeTargetCon
         p->Init(0);
         p->a = 1;
         p->b = 1;
-        p->vt = ((int)DAT_0040ff54);
+        p->vt = ((hulk_intptr)DAT_0040ff54);
         return (void*)(p);
     }
     return (void*)(0);

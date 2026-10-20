@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Ref {
   public:
     virtual void f0();
@@ -27,7 +28,7 @@ class PropAnimationAction {
 };
 void PropAnimationAction::vfunc_4() {
     if (anim) {
-        if (anim->state == -1 && anim->get() == (int)ref)
+        if (anim->state == -1 && anim->get() == (hulk_intptr)ref)
             anim->set(0, 0, 0);
         if (ref) {
             ref->release();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0041959c[];
 class Sub_181640 {
   public:
@@ -14,7 +15,7 @@ class PropSpawnTrack {
 };
 extern void __cdecl thunk(int);
 void PropSpawnTrack::run() {
-    vftable = (void*)((int)DAT_0041959c);
+    vftable = (void*)((hulk_intptr)DAT_0041959c);
     thunk(mValue);
     ((Sub_181640*)((char*)this + 0x18))->init();
     finish();

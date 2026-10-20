@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004197c8[];
 extern "C" void _ReadWriteBarrier();
 class Ref_184f60 {
@@ -18,7 +19,7 @@ class BallAndChainReturnAction {
     void Reset();
 };
 void BallAndChainReturnAction::Reset() {
-    vptr = ((int)DAT_004197c8);
+    vptr = ((hulk_intptr)DAT_004197c8);
     _ReadWriteBarrier();
     if (mTwo) {
         mTwo->B();

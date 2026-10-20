@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0040cfb4[];
 typedef unsigned char u8_fc720;
 typedef unsigned int u32_fc720;
@@ -14,7 +15,7 @@ struct CActorAgent {
 };
 extern void thunk(CActorAgent*);
 CActorAgent* CActorAgent::vfunc_2(u8_fc720 flag) {
-    vt = ((int)DAT_0040cfb4);
+    vt = ((hulk_intptr)DAT_0040cfb4);
     mRef->b();
     mRef = 0;
     Cleanup();

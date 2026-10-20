@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Ref {
   public:
     virtual void Add();
@@ -31,5 +32,5 @@ JointPivotTrackerAction::JointPivotTrackerAction(int x, Ref* r) : Base() {
         r->Add();
     if (b)
         ((Ref*)b)->Release();
-    b = (int)r;
+    b = (hulk_intptr)r;
 }

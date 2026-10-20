@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 class X_fc2f0 {
@@ -26,5 +27,5 @@ class X_fc2f0 {
     virtual void f21();
 };
 void __cdecl FUN_000fc2f0() {
-    ((X_fc2f0*)*(unsigned int*)((int)DAT_004e0a60))->f21();
+    ((X_fc2f0*)*(hulk_uintptr*)((hulk_intptr)DAT_004e0a60))->f21();
 }

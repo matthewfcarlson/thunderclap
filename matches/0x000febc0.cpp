@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class type_info;
 class X_febc0 {
   public:
@@ -38,6 +39,6 @@ void __cdecl FUN_000febc0(Owner_febc0* owner, V** out) {
         if (*out)
             (*out)->D();
         *out = q;
-        FUN_00266da0((int)b);
+        FUN_00266da0((hulk_intptr)b);
     }
 }

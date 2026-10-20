@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern void* __cdecl Alloc(unsigned int);
@@ -23,7 +24,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::StatEndTrialTrack>::vfu
     StatEndTrialTrack_132e40* p = (StatEndTrialTrack_132e40*)Alloc(0x14);
     if (p) {
         p->StatEndTrialTrack_132e40::StatEndTrialTrack_132e40();
-        *(int*)p = (int)statVftable;
+        *(hulk_intptr*)p = (hulk_intptr)statVftable;
         p->a = 0;
         p->b = 0;
         return (void*)(p);
