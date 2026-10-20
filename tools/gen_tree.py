@@ -188,6 +188,11 @@ class Block:
     """One verified function's source."""
 
     def __init__(self, addr, size, name, kind, path, text):
+        # `#include "compat/ptr.h"` (the pointer-sized integer typedefs) is not an include of the kind that moves
+        # a source to its headers: the line is dropped here and the TU includes the header once (write_tu)
+        self.ptr_include = bool(PTR_INCLUDE.search(text))
+        if self.ptr_include:
+            text = PTR_INCLUDE.sub("", text, count=1)
         self.addr, self.size, self.name, self.kind, self.path, self.text = addr, size, name, kind, path, text
         self.flags = file_flags(text)
         self.tag = flags_tag(self.flags)
@@ -254,6 +259,7 @@ TYPE_KINDS = {"class", "template class", "enum", "typedef", "fwd", "template fwd
 # prototypes of address names) and include/decls/data/ (the data items, tools/data_gen.py); the generator hoists
 # them to the TU and their declarations win in it
 GEN_INCLUDE = re.compile(r'#\s*include\s*[<"]((?:gen|decls)/\w+\.h|decls/data/[\w/]+\.h)[>"]\s*$')
+PTR_INCLUDE = re.compile(r'^[ \t]*#\s*include\s*[<"]compat/ptr\.h[>"][ \t]*\r?\n', re.M)
 DATA_INCLUDE = re.compile(r'^[ \t]*#\s*include\s*[<"]decls/data/[\w/]+\.h[>"][ \t]*\r?\n?', re.M)
 
 
@@ -1156,6 +1162,8 @@ class Generator:
                                                                    ", dominant class " + o["dominant"] if o.get("dominant") else ""))
         prelude_at = len(lines)
         lines.append('#include "%s"' % PRELUDE)
+        if any(b.ptr_include for b in tu.blocks):
+            lines.append('#include "compat/ptr.h"')       # hulk_intptr etc. (include/compat/ptr.h)
         rec = {"path": tu.path, "object": o["file"], "layer": layer_of(o), "start": o["start"], "tag": tu.tag,
                "flags": tu.flags or [], "blocks": [], "locals": [], "placeholders": len(tu.placeholders)}
         merged = [b for b in tu.blocks if b.mode == "merged"]
