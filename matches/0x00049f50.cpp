@@ -1,4 +1,5 @@
 // Same code shape as 0x0004a030 (propagated; names are from that function)
+#include "compat/ptr.h"
 extern int vtableA;
 extern int vtableB;
 class Part_49f50 {
@@ -17,8 +18,8 @@ class CCharacterTemplateCondition_49f50 : public CCondition {
     void Finish();
 };
 void CCharacterTemplateCondition_49f50::Run() {
-    *(int*)this = (int)&vtableA;
+    *(hulk_intptr*)this = (hulk_intptr)&vtableA;
     part.Init();
-    *(int*)this = (int)&vtableB;
+    *(hulk_intptr*)this = (hulk_intptr)&vtableB;
     Finish();
 }

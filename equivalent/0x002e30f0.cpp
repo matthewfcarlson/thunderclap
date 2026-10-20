@@ -2,6 +2,7 @@
 // FUN_002e30f0 @ 0x002e30f0
 // equiv-map: ??0PrimGroupBase@@QAE@XZ = 0x002a5060
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
@@ -565,7 +566,7 @@ void Hdr::Load(int a1, Reader *R, int a3, PalList_2e30f0 *a4)
                 R->stream->FUN_002647e0(&f.c116, 1, 4, 1);
                 R->stream->FUN_002647e0(&f.c60, 1, 4, 1);
                 B->b13(R->FUN_00266c30(), f.c116);
-                int r = B->b7();
+                hulk_intptr r = B->b7();
                 R->stream->FUN_002647e0((void *)r, f.c60, 1, 1);
                 B->b8(f1c);
                 break;

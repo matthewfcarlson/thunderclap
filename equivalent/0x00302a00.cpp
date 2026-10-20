@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 22/23, incomplete)
 // FUN_00302a00 @ 0x00302a00
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
 struct Node;
@@ -49,9 +50,9 @@ char Solver_302a00::FUN_00302a00(Query_302a00 *q, Slot_302a00 arg, int a3)
     Node *node = arg.node;
     NodeList_302a00 *list = node->children;
 
-    if (list != 0 && (((int)list->end - (int)list->begin) & ~3) != 0) {
+    if (list != 0 && (((hulk_intptr)list->end - (hulk_intptr)list->begin) & ~3) != 0) {
         arg.best = DAT_004d2f14;
-        unsigned int n = (unsigned int)(((int)list->end - (int)list->begin) >> 2);
+        unsigned int n = (unsigned int)(((hulk_intptr)list->end - (hulk_intptr)list->begin) >> 2);
         unsigned int i = 0;
         while (i < n) {
             Slot_302a00 child;
@@ -61,7 +62,7 @@ char Solver_302a00::FUN_00302a00(Query_302a00 *q, Slot_302a00 arg, int a3)
             if (!(arg.best < q->limit))
                 arg.best = q->limit;
             i++;
-            n = (unsigned int)(((int)node->children->end - (int)node->children->begin) >> 2);
+            n = (unsigned int)(((hulk_intptr)node->children->end - (hulk_intptr)node->children->begin) >> 2);
         }
         if (arg.best < q->limit)
             q->limit = arg.best;

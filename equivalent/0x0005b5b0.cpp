@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20042 inputs, branch coverage 15/16, incomplete)
 // CGrappleSoundTrack::vfunc_12 @ 0x0005b5b0
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 struct Settings;
@@ -45,5 +46,5 @@ int CGrappleSoundTrack::vfunc_12(int __p0) { Owner_5b5b0 * owner = (Owner_5b5b0 
     CSoundAction* c = static_cast<CSoundAction*>(FUN_0008d690(0x24));
     if (c == 0)
         return (int)(0);
-    return (int)(((CSoundAction_nv_5b5b0*)(c))->FUN_0001d190(this, settings));
+    return (hulk_intptr)(((CSoundAction_nv_5b5b0*)(c))->FUN_0001d190(this, settings));
 }

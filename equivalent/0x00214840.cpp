@@ -2,6 +2,7 @@
 // FUN_00214840 @ 0x00214840
 // Lua 5.0 ldebug.c getfuncname(ci, &name): name the function that is running in `ci` from the
 // OP_CALL / OP_TAILCALL instruction of its calling Lua function.
+#include "compat/ptr.h"
 struct Proto_214840 { char pad0[8]; void* constants; unsigned* code; };
 struct Closure_214840 { char pad0[6]; unsigned char native; char pad1[5]; Proto_214840* proto; };
 struct Slot_214840 { unsigned type; Closure_214840* closure; };
@@ -27,7 +28,7 @@ const char* __cdecl FUN_00214840(CallInfo_214840* ci, char** name)
     int pc;
     callerFunc = caller->base - 1;
     if (callerFunc->type == 6 && !callerFunc->closure->native) {
-        pc = ((int)((unsigned)caller->pc - (unsigned)callerFunc->closure->proto->code) >> 2) - 1;
+        pc = ((int)((hulk_uintptr)caller->pc - (hulk_uintptr)callerFunc->closure->proto->code) >> 2) - 1;
     } else {
         pc = -1;
     }

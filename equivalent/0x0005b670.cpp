@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20042 inputs, branch coverage 15/16, incomplete)
 // CGrappleSmartPropDropTrack::vfunc_12 @ 0x0005b670
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 struct Settings;
@@ -45,5 +46,5 @@ int CGrappleSmartPropDropTrack::vfunc_12(int __p0) { Owner_5b670 * owner = (Owne
     CSmartPropDropAction* c = static_cast<CSmartPropDropAction*>(FUN_0008d690(0x24));
     if (c == 0)
         return (int)(0);
-    return (int)(((CSmartPropDropAction_nv_5b670*)(c))->FUN_0001f360(this, settings));
+    return (hulk_intptr)(((CSmartPropDropAction_nv_5b670*)(c))->FUN_0001f360(this, settings));
 }

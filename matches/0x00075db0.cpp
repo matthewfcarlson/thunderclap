@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003fbef4[];
 namespace fight {
 class TrackFactory {};
@@ -35,7 +36,7 @@ void* TrackFactoryTemplate_CCameraHintTrack::vfunc_5() {
     void* ptr = AllocFunc(0x18);
     if (ptr != 0) {
         static_cast<InternalHelper*>(ptr)->CallFunc();
-        *(unsigned int*)ptr = ((int)DAT_003fbef4);
+        *(hulk_uintptr*)ptr = ((hulk_intptr)DAT_003fbef4);
         ((unsigned int*)ptr)[3] = 0;
         ((float*)ptr)[4] = -1.0f;
         ((unsigned int*)ptr)[5] = 0;

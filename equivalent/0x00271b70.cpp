@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 14823 inputs, branch coverage 12/12)
 // FUN_00271b70 @ 0x00271b70
 // FUN_00271b70 @ 0x00271b70
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 
 extern unsigned __int64 __fastcall FUN_002719a0(int length, const unsigned char *text);
@@ -12,7 +13,7 @@ int __cdecl FUN_00271b70(const unsigned char *text, int *length, int *value)
     unsigned __int64 result = FUN_002719a0(count, text);
     unsigned int low = (unsigned int)result;
     if (!(low & 255)) return low;
-    const unsigned char *p = (const unsigned char *)(unsigned int)(result >> 32);
+    const unsigned char *p = (const unsigned char *)(hulk_uintptr)(result >> 32);
     unsigned int code = 0;
     switch (extra) {
     case 3:
@@ -38,5 +39,5 @@ int __cdecl FUN_00271b70(const unsigned char *text, int *length, int *value)
     code -= ((int*)&DAT_0042b6d8)[extra];
     if (length) *length = count;
     if (value) *value = code;
-    return ((unsigned int)value & 0xffffff00) | 1;
+    return ((hulk_uintptr)value & 0xffffff00) | 1;
 }

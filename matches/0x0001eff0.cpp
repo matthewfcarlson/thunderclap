@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Base_1eff0 {
   public:
     virtual void Fn();
@@ -26,7 +27,7 @@ class CSmartPropSpawnAction : public CAction {
 extern int vtAction;
 extern int vtSpawn;
 CSmartPropSpawnAction::CSmartPropSpawnAction(int value, Base_1eff0* ref) {
-    *(int*)this = (int)&vtAction;
+    *(hulk_intptr*)this = (hulk_intptr)&vtAction;
     mRef = 0;
     if (ref)
         ref->Fn();
@@ -34,6 +35,6 @@ CSmartPropSpawnAction::CSmartPropSpawnAction(int value, Base_1eff0* ref) {
         mRef->Release();
     mRef = ref;
     mValue = value;
-    *(int*)this = (int)&vtSpawn;
+    *(hulk_intptr*)this = (hulk_intptr)&vtSpawn;
     mOther = 0;
 }

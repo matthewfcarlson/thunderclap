@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned char byte_5b7d0;
 extern int vftable_5b7d0;
 void __cdecl FreeMem(void*);
@@ -19,7 +20,7 @@ class CGrappleSwapTrack {
     Sub_5b7d0 b;
 };
 CGrappleSwapTrack* CGrappleSwapTrack::vfunc_5(byte_5b7d0 param_2) {
-    *(int*)this = (int)&vftable_5b7d0;
+    *(hulk_intptr*)this = (hulk_intptr)&vftable_5b7d0;
     this->b.Clean();
     this->a.Clean();
     this->BaseClean();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Arg_1d420 {
   public:
     virtual void F0();
@@ -18,7 +19,7 @@ class CSweepAction : public Ctor_00232660 {
     int mB;
 };
 CSweepAction::CSweepAction(int value, Arg_1d420* arg) : Ctor_00232660() {
-    *(int*)this = (int)&vtableAction;
+    *(hulk_intptr*)this = (hulk_intptr)&vtableAction;
     mThing = 0;
     if (arg)
         arg->F0();
@@ -26,7 +27,7 @@ CSweepAction::CSweepAction(int value, Arg_1d420* arg) : Ctor_00232660() {
         mThing->F1();
     mThing = arg;
     mValue = value;
-    *(int*)this = (int)&vtableSweep;
+    *(hulk_intptr*)this = (hulk_intptr)&vtableSweep;
     mA = 0;
     mB = 0;
 }

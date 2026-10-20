@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_00222970 @ 0x00222970
+#include "compat/ptr.h"
 extern "C" void *__cdecl memmove(void *, const void *, unsigned int);
 
 class Handler_222970 {
@@ -35,7 +36,7 @@ bool SlotList_222970::FUN_00222970(Handler_222970 *handler, bool remove) {
         return false;
     if (remove) {
         handler->Release();
-        int index = slot - slots;
+        hulk_intptr index = slot - slots;
         count--;
         memmove(&slots[index], &slots[index + 1], (count - index) * sizeof(Slot_222970));
         return true;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" char DAT_003f42cc[];
 extern "C" char DAT_003f45ec[];
@@ -14,11 +15,11 @@ class Target_2fd70 {
 };
 Target_2fd70* Target_2fd70::Fn(void* a, int b, void* c) {
     ((ThisCall_001d0480*)(this))->FUN_001d0480(a, 1);
-    v = ((int)DAT_003f42cc);
-    *(int*)((char*)this + 0x1c) = (int)c;
+    v = ((hulk_intptr)DAT_003f42cc);
+    *(hulk_intptr*)((char*)this + 0x1c) = (hulk_intptr)c;
     *((char*)this + 0x18) = FUN_001d04d0(g1_2fd70);
     *((char*)this + 0x10) = FUN_001d04d0(g2_2fd70);
-    v = ((int)DAT_003f45ec);
+    v = ((hulk_intptr)DAT_003f45ec);
     *(int*)((char*)this + 0x20) = b;
     return this;
 }

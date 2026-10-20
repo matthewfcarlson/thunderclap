@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2769 inputs, branch coverage 32/32)
 // FUN_0001c430 @ 0x0001c430
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct Vec3_1c430 {
     float x, y, z;
@@ -134,5 +135,5 @@ void Tracker_1c430::FUN_0001c430(Source_1c430* src)
     mid.x = (hit.x + other->x) * 0.5f;
     mid.y = (hit.y + other->y) * 0.5f;
     mid.z = (hit.z + other->z) * 0.5f;
-    FUN_0001b510((int)sensor, &mid, &d, 2);
+    FUN_0001b510((hulk_intptr)sensor, &mid, &d, 2);
 }

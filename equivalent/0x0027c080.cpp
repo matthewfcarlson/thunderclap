@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 151 inputs, branch coverage 4/4)
 // FUN_0027c080 @ 0x0027c080
+#include "compat/ptr.h"
 namespace pure3d {
 struct Skeleton {
  struct Partition {
@@ -29,7 +30,7 @@ struct Object {
 };
 pure3d::Skeleton::Partition* Object::target(unsigned int key, unsigned int value) {
  if (FUN_0027b670(key,value)) return 0;
- int index = partitions.end - partitions.begin;
+ hulk_intptr index = partitions.end - partitions.begin;
  pure3d::Skeleton::Partition initial;
  initial.bits = 0;
  partitions.FUN_0027bd70(index+1, &initial);

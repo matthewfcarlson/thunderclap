@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003fa214[];
 class Base_5da90 {
   public:
@@ -23,7 +24,7 @@ class CCollisionTrack {
     void Fini();
 };
 void CCollisionTrack::Fini() {
-    *(int*)this = ((int)DAT_003fa214);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_003fa214);
     ((TypeA*)a70)->Done();
     ((TypeA*)a68)->Done();
     ((TypeB*)a58)->Done();

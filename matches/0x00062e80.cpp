@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003faf9c[];
 typedef unsigned char byte_62e80;
 struct CSmartPropUpdateAttachmentTrack {
@@ -8,7 +9,7 @@ void __fastcall Setup(CSmartPropUpdateAttachmentTrack*);
 void __cdecl Destroy(CSmartPropUpdateAttachmentTrack*);
 CSmartPropUpdateAttachmentTrack* __fastcall
 CSmartPropUpdateAttachmentTrack_vfunc_5(CSmartPropUpdateAttachmentTrack* p, void*, byte_62e80 b) {
-    *(unsigned long*)p = ((int)DAT_003faf9c);
+    *(hulk_ulongptr*)p = ((hulk_intptr)DAT_003faf9c);
     Init((char*)p + 0x20);
     Init((char*)p + 0x18);
     Setup(p);

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 37/39, incomplete)
 // CEffectAction::vfunc_6 @ 0x00016680
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct V3_16680 {
     float x, y, z;
@@ -134,7 +135,7 @@ char CEffectAction::F(int unused)
 
     Agent_16680 *ag = ((Top_16680 *)p1c)->FUN_000592a0()->FUN_00059a30();
     Fx_16680 *fx = FUN_0027f250();
-    fr.spill = (int)fx;
+    fr.spill = (hulk_intptr)fx;
     unsigned int t1 = p20->t1;
     if (t1 > 4) {
     } else if (t1 == 0) {

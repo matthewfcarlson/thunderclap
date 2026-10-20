@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20022 inputs, branch coverage 43/44, incomplete)
 // fight::ExecuteAction::vfunc_3 @ 0x002394c0
 // cl-flags: /GS
+#include "compat/ptr.h"
 
 struct Item_2394c0 {
     char pad0[0xc];
@@ -137,9 +138,9 @@ char ExecuteAction::FUN_002394c0(int a1, int a2)
     flags ^= (flags ^ allow) & 3;
     for (int i = 0; i < count; ++i) {
         if (mark[i])
-            seen[i]->FUN_00232060(found, (int)part, field34, field28);
+            seen[i]->FUN_00232060(found, (hulk_intptr)part, field34, field28);
         else
-            seen[i]->FUN_002320d0(found, (int)part, field34);
+            seen[i]->FUN_002320d0(found, (hulk_intptr)part, field34);
     }
     sub.FUN_002322f0(field60, a2);
     done = 1;

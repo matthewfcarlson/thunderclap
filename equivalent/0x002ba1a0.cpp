@@ -1,3 +1,4 @@
 // STATUS: equivalent (tools/equiv.py level 3: 757 inputs, branch coverage 8/8)
 // FUN_002ba1a0 @ 0x002ba1a0
-struct Entry { char pad[8]; int first; int second; }; struct Target { char pad[0x8c]; Entry **begin; Entry **end; Entry *FUN_002ba1a0(int first, int second); }; Entry *Target::FUN_002ba1a0(int first, int second) { unsigned index = 0; int count = ((int)end - (int)begin) >> 2; if (count != 0) { do { Entry *entry = begin[index]; if (entry->first == first && entry->second == second) return begin[index]; ++index; count = ((int)end - (int)begin) >> 2; } while (index < (unsigned)count); } return 0; }
+#include "compat/ptr.h"
+struct Entry { char pad[8]; int first; int second; }; struct Target { char pad[0x8c]; Entry **begin; Entry **end; Entry *FUN_002ba1a0(int first, int second); }; Entry *Target::FUN_002ba1a0(int first, int second) { unsigned index = 0; hulk_intptr count = ((hulk_intptr)end - (hulk_intptr)begin) >> 2; if (count != 0) { do { Entry *entry = begin[index]; if (entry->first == first && entry->second == second) return begin[index]; ++index; count = ((hulk_intptr)end - (hulk_intptr)begin) >> 2; } while (index < (unsigned)count); } return 0; }

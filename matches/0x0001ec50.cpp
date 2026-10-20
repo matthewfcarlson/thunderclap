@@ -1,4 +1,5 @@
 // Same code shape as 0x0001d420 (propagated; names are from that function)
+#include "compat/ptr.h"
 class Arg_1ec50 {
   public:
     virtual void F0();
@@ -19,7 +20,7 @@ class CSmartPropUpdateAttachmentAction_1ec50 : public Ctor_00232660 {
     int mB;
 };
 CSmartPropUpdateAttachmentAction_1ec50::CSmartPropUpdateAttachmentAction_1ec50(int value, Arg_1ec50* arg) : Ctor_00232660() {
-    *(int*)this = (int)&vtableAction;
+    *(hulk_intptr*)this = (hulk_intptr)&vtableAction;
     mThing = 0;
     if (arg)
         arg->F0();
@@ -27,7 +28,7 @@ CSmartPropUpdateAttachmentAction_1ec50::CSmartPropUpdateAttachmentAction_1ec50(i
         mThing->F1();
     mThing = arg;
     mValue = value;
-    *(int*)this = (int)&vtableSweep;
+    *(hulk_intptr*)this = (hulk_intptr)&vtableSweep;
     mA = 0;
     mB = 0;
 }

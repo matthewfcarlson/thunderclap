@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Obj_1db40 {
     virtual void F();
     virtual void G();
@@ -19,7 +20,7 @@ class CDrainHealthAction : public CAction {
     virtual void V0();
 };
 CDrainHealthAction::CDrainHealthAction(Obj_1db40* arg, int value) {
-    *(int*)this = (int)&VBase;
+    *(hulk_intptr*)this = (hulk_intptr)&VBase;
     mObj = 0;
     if (arg)
         arg->F();
@@ -27,6 +28,6 @@ CDrainHealthAction::CDrainHealthAction(Obj_1db40* arg, int value) {
         mObj->G();
     mObj = arg;
     mValue = value;
-    *(int*)this = (int)&VDerived;
+    *(hulk_intptr*)this = (hulk_intptr)&VDerived;
 }
 void CDrainHealthAction::V0() {}

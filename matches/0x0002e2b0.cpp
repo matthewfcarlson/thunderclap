@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" char DAT_003f431c[];
@@ -14,10 +15,10 @@ class CActorManager : public Base_2e2b0 {
 };
 extern char __cdecl ReadValue(const char*);
 CActorManager::CActorManager(int a, int b) : Base_2e2b0(a, 3) {
-    v = ((int)DAT_003f431c);
+    v = ((hulk_intptr)DAT_003f431c);
     m1c = b;
-    *((char*)this + 0x18) = ReadValue((const char*)((int)((char*)&DAT_0048e100)));
-    *((char*)this + 0x10) = ReadValue((const char*)((int)((char*)&DAT_0048e134)));
-    *((char*)this + 0x11) = ReadValue((const char*)((int)((char*)&DAT_0048e134)));
-    *((char*)this + 0x12) = ReadValue((const char*)((int)((char*)&DAT_0048e134)));
+    *((char*)this + 0x18) = ReadValue((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
+    *((char*)this + 0x10) = ReadValue((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
+    *((char*)this + 0x11) = ReadValue((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
+    *((char*)this + 0x12) = ReadValue((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
 }

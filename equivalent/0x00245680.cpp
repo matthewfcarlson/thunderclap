@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // audio::Clip::vfunc_5 @ 0x00245680
 // audio::Clip::vfunc_5 @ 0x00245680: loads a clip from a content stream, logging on failure
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 struct Stream_245680 {
@@ -41,7 +42,7 @@ bool audio::Clip::vfunc_5(int __p0) { Loader_245680 * loader = (Loader_245680 *)
     if (decoder) {
         void *source = l->source;
         ((Clip_nv_245680*)this)->FUN_00243390();
-        decoded = ((OmHalStream_nv_245680*)(decoder))->FUN_0025cbc0(l->stream, FUN_0024c710(), (unsigned int)loader, source);
+        decoded = ((OmHalStream_nv_245680*)(decoder))->FUN_0025cbc0(l->stream, FUN_0024c710(), (hulk_uintptr)loader, source);
     } else {
         decoded = 0;
     }

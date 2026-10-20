@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Function {
   public:
     char pad[0x18];
@@ -11,8 +12,8 @@ class Function3 : public Function {
 };
 void Function3::vfunc_2(int, void* arg, int) {
     volatile unsigned long* p = (volatile unsigned long*)arg;
-    unsigned long a = p[0];
+    hulk_ulongptr a = p[0];
     unsigned long c = p[2];
-    unsigned long b = p[1];
+    hulk_ulongptr b = p[1];
     mFn((const char*)a, (const char*)b, *(float*)&c);
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19972 inputs, branch coverage 4/4)
 // hulkfight::ai::FaceMotionAction::vfunc_5 @ 0x0010b890
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct MotionState {
@@ -21,5 +22,5 @@ bool hulkfight::ai::FaceMotionAction::vfunc_5(int mode, int unused) {
     state->previousX = state->positionX;
     state->previousY = state->positionY;
     state->previousZ = state->positionZ;
-    return (bool)((((unsigned int)state + 0x1f58) & ~255U) | 1);
+    return (bool)((((hulk_uintptr)state + 0x1f58) & ~255U) | 1);
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f73bc[];
@@ -15,7 +16,7 @@ template <> void* fight::ConditionFactoryTemplate<CMotionHitCondition>::vfunc_5(
     CMotionHitCondition_584a0* p = (CMotionHitCondition_584a0*)Allocate(0x14);
     if (p) {
         p->Init(0);
-        p->vtable = ((int)DAT_003f73bc);
+        p->vtable = ((hulk_intptr)DAT_003f73bc);
         p->value = 0;
         p->value2 = 2;
         return (void*)(p);

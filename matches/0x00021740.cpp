@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f3390[];
 extern "C" void _ReadWriteBarrier();
 class Child_21740 {
@@ -15,7 +16,7 @@ class CClimbingAction {
 };
 extern void __cdecl thunk_FUN_00267090(CClimbingAction*);
 CClimbingAction* CClimbingAction::Target(char flag) {
-    vptr = (void*)((int)DAT_003f3390);
+    vptr = (void*)((hulk_intptr)DAT_003f3390);
     _ReadWriteBarrier();
     Child_21740* p = member;
     if (p) {

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003fbbe8[];
@@ -17,7 +18,7 @@ template <> void* fight::TrackFactoryTemplate<CMoveTrack>::vfunc_5() {
         *(int*)((char*)p + 0x24) = 0;
         *(float*)((char*)p + 0x10) = 1.0f;
         *(float*)((char*)p + 0x14) = 1.0f;
-        *(int*)((char*)p) = ((int)DAT_003fbbe8);
+        *(hulk_intptr*)((char*)p) = ((hulk_intptr)DAT_003fbbe8);
         *(int*)((char*)p + 0x1c) = -1;
         *(int*)((char*)p + 8) = 1;
         return (void*)(p);

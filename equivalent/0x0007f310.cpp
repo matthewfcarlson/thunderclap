@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2834 inputs, branch coverage 12/12)
 // FUN_0007f310 @ 0x0007f310
+#include "compat/ptr.h"
 void *__cdecl FUN_00263ea0(unsigned int size);
 void *__cdecl FUN_00266da0(int n);
 
@@ -89,6 +90,6 @@ Node *Manager_7f310::FUN_0007f310(int a0, int a1, int count, int base)
         }
         res->Release();
     }
-    FUN_00266da0((int)saved);
+    FUN_00266da0((hulk_intptr)saved);
     return node;
 }

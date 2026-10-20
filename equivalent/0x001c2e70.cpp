@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 44 inputs, branch coverage 26/34, incomplete)
 // FUN_001c2e70 @ 0x001c2e70
+#include "compat/ptr.h"
 struct Vec3_1c2e70 { float x, y, z; };
 struct PointList { Vec3_1c2e70 *begin; Vec3_1c2e70 *end; };
 struct Plane_1c2e70 { float a, b, c, d; };
@@ -15,7 +16,7 @@ public:
 bool Hull_1c2e70::FUN_001c2e70(const PointList *pts)
 {
     const Vec3_1c2e70 *p = pts->begin;
-    int n = pts->end - pts->begin;
+    hulk_intptr n = pts->end - pts->begin;
     unsigned int total = count;
     for (unsigned int i = 0; i < total; i++) {
         const Plane_1c2e70 *pl = &planes[i];

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 119 inputs, branch coverage 99/99)
 // pure3d::ShadowSkinLoader::vfunc_5 @ 0x002b7020
+#include "compat/ptr.h"
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) { return p; }
 
@@ -238,10 +239,10 @@ unsigned __int64 pure3d::ShadowSkinLoader::v5(Target_2b7020 **objOut, unsigned _
     int nvv = f.nv;
     int nfv = f.nf;
     Target_2b7020 *obj = v6();
-    f.x30 = (int)obj;
+    f.x30 = (hulk_intptr)obj;
     ((NameHolder_2b7020 *)((char *)obj + 8))->FUN_0027b040(f.name1);
     Mesh_2b7020 *A = obj->holder->mesh;
-    f.A = (int)A;
+    f.A = (hulk_intptr)A;
 
     void *m1 = FUN_0008d690(0x18);
     pure3d::ShadowMeshTopology *topo;
@@ -249,7 +250,7 @@ unsigned __int64 pure3d::ShadowSkinLoader::v5(Target_2b7020 **objOut, unsigned _
         topo = new (m1) pure3d::ShadowMeshTopology(nvv, nfv);
     else
         topo = 0;
-    f.nf = (int)topo;
+    f.nf = (hulk_intptr)topo;
     if (topo)
         topo->AddRef();
     if (A->topo)
@@ -269,7 +270,7 @@ unsigned __int64 pure3d::ShadowSkinLoader::v5(Target_2b7020 **objOut, unsigned _
     A->skinTopo = st;
 
     unsigned char *vbuf = (unsigned char *)FUN_00266e00(1, nvv << 5);
-    f.vbuf = (int)vbuf;
+    f.vbuf = (hulk_intptr)vbuf;
     unsigned __int64 key = FUN_0027b020(f.name2);
     SkelObj *sk = (SkelObj *)inv->i3(new (&f.c14) content::LoadInventory::DynamicCaster<pure3d::Skeleton>, key);
     A->skel = sk;

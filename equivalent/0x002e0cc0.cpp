@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 38/38)
 // FUN_002e0cc0 @ 0x002e0cc0
+#include "compat/ptr.h"
 struct V3_2e0cc0 {
     int x, y, z;
 };
@@ -69,7 +70,7 @@ void Model_2e0cc0::FUN_002e0cc0(Src_2e0cc0 *src, char flag)
         mesh->FUN_002c7070();
     unsigned int i;
     if (mesh->f10 != 0) {
-        unsigned int n = src->vend - src->vbegin;
+        hulk_uintptr n = src->vend - src->vbegin;
         for (i = 0; i < n; i++) {
             VtxRec *e = &src->vbegin[i];
             int idx = e->idx;
@@ -80,7 +81,7 @@ void Model_2e0cc0::FUN_002e0cc0(Src_2e0cc0 *src, char flag)
         }
     }
     if (mesh->f14 != 0) {
-        unsigned int n = src->nend - src->nbegin;
+        hulk_uintptr n = src->nend - src->nbegin;
         for (i = 0; i < n; i++) {
             VtxRec *e = &src->nbegin[i];
             int idx = e->idx;
@@ -93,7 +94,7 @@ void Model_2e0cc0::FUN_002e0cc0(Src_2e0cc0 *src, char flag)
     int k;
     for (k = 0; k < 4; k++) {
         if (mesh->uv[k] != 0) {
-            int n = src->uv[k].end - src->uv[k].begin;
+            hulk_intptr n = src->uv[k].end - src->uv[k].begin;
             for (int j = 0; j < n; j++) {
                 UvRec *e = &src->uv[k].begin[j];
                 Pair8 *base = mesh->uv[k];
@@ -106,7 +107,7 @@ void Model_2e0cc0::FUN_002e0cc0(Src_2e0cc0 *src, char flag)
     }
     for (k = 0; k < 2; k++) {
         if (mesh->ext[k] != 0) {
-            int n = src->ext[k].end - src->ext[k].begin;
+            hulk_intptr n = src->ext[k].end - src->ext[k].begin;
             for (int j = 0; j < n; j++) {
                 UvRec *e = &src->ext[k].begin[j];
                 mesh->ext[k][e->idx].FUN_002c6d60(&e->a);

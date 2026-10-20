@@ -2,6 +2,7 @@
 // FUN_000c4220 @ 0x000c4220
 // FUN_000c4220 @ 0x000c4220
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct State_c4220;
@@ -25,7 +26,7 @@ void State_c4220::update(Player_c4220* player) {
  for(;i<64;++i) buffer.text[i]=0;
  const char* end=suffix;
  while(*end++) {}
- unsigned int count=end-suffix;
+ hulk_uintptr count=end-suffix;
  char* dst=buffer.text;
  while(*dst) ++dst;
  const char* src=suffix;

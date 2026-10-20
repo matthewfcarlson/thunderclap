@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 12/14, incomplete)
 // FUN_00311c20 @ 0x00311c20
+#include "compat/ptr.h"
 struct Partition { int* first; int* second; };
 void __cdecl FUN_003119b0(Partition* result, int* begin, int* end);
 void __cdecl FUN_00311b20(int* begin, int* end);
@@ -8,7 +9,7 @@ void __cdecl FUN_00311bd0(int* begin, int* end);
 void __cdecl FUN_00311c20(int* begin, int* end, int depth) {
     while (end - begin > 32) {
         if (depth <= 0) {
-            if (((int)end - (int)begin & ~3) > 4)
+            if (((hulk_intptr)end - (hulk_intptr)begin & ~3) > 4)
                 FUN_00311910(begin, end, 0, 0);
             FUN_00311bd0(begin, end);
             return;
@@ -17,7 +18,7 @@ void __cdecl FUN_00311c20(int* begin, int* end, int depth) {
         FUN_003119b0(&split, begin, end);
         depth /= 2;
         depth += depth / 2;
-        if ((((int)split.first - (int)begin) & ~3) < (((int)end - (int)split.second) & ~3)) {
+        if ((((hulk_intptr)split.first - (hulk_intptr)begin) & ~3) < (((hulk_intptr)end - (hulk_intptr)split.second) & ~3)) {
             FUN_00311c20(begin, split.first, depth);
             begin = split.second;
         } else {

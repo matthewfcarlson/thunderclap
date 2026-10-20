@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f7274[];
@@ -13,7 +14,7 @@ template <> void* fight::ConditionFactoryTemplate<CPropActorStateCondition>::vfu
     CPropActorStateCondition_58600* p = (CPropActorStateCondition_58600*)alloc(0x14);
     if (p) {
         p->setup(0);
-        *(U_58600*)p = ((int)DAT_003f7274);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f7274);
         *(U_58600*)((char*)p + 0xc) = 2;
         *(U_58600*)((char*)p + 0x10) = 0;
         return (void*)(p);

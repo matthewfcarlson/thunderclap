@@ -2,6 +2,7 @@
 // FUN_001962b0 @ 0x001962b0
 // equiv-map: ?thunk_FUN_0027d410@Node@@QAEXPAUId64@@@Z = 0x001d6630
 // equiv-map: ??0CProjectile@@QAE@XZ = 0x001b6800
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"
 struct V3_1962b0 {
@@ -247,7 +248,7 @@ hulkfight::motion::ProjectileMissile::ProjectileMissile(MissileCfg *src, int nam
             factory->FUN_001e3200(DAT_004e15d0, cfg->id.lo, cfg->id.hi);
     } else {
         h40 = node->FUN_001d6c70();
-        int base = node->fec;
+        hulk_intptr base = node->fec;
         node->b144 = 1;
         node->b1d8 = 1;
         V3_1962b0 zero;

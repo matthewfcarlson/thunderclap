@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 18/18)
 // FUN_00232870 @ 0x00232870
+#include "compat/ptr.h"
 void* __cdecl FUN_00266da0(int n);
 int __cdecl FUN_00238190(int n);
 void* __cdecl FUN_00263ea0(unsigned int size);
@@ -81,7 +82,7 @@ Dest_232870* __stdcall FUN_00232870(const char* data, int a1, unsigned int size,
         if (mem)
             model = ((ModelChunk*)mem)->FUN_0023b470(stream, 1);
     } else {
-        FUN_00266da0((int)guard);
+        FUN_00266da0((hulk_intptr)guard);
         return 0;
     }
 
@@ -92,9 +93,9 @@ Dest_232870* __stdcall FUN_00232870(const char* data, int a1, unsigned int size,
     if (mem)
         dest = ((Dest_232870*)mem)->FUN_0023b540();
     dest->v9(0, model, -1);
-    FUN_00266da0((int)inner);
+    FUN_00266da0((hulk_intptr)inner);
     model->v1();
     stream->v1();
-    FUN_00266da0((int)guard);
+    FUN_00266da0((hulk_intptr)guard);
     return dest;
 }

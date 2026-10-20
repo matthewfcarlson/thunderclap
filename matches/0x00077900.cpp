@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003fc238[];
@@ -36,7 +37,7 @@ template <> void* fight::TrackFactoryTemplate<CWallSlideTrack>::vfunc_5() {
         p->x2c = 0;
         p->x14 = 20.0f;
         p->x1c = 20.0f;
-        *(unsigned int*)p = ((int)DAT_003fc238);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fc238);
         p->x10 = -1.0f;
         p->x20 = 1.0f;
         return (void*)(p);

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3086 inputs, branch coverage 85/86, incomplete)
 // FUN_0007bf80 @ 0x0007bf80
+#include "compat/ptr.h"
 struct V3_7bf80 {
     float x, y, z;
     char FUN_0022d2b0(const V3_7bf80 *other, float eps);
@@ -96,7 +97,7 @@ void Anim_7bf80::F(int idx)
                 int cnt = x->count;
                 nxt = (cnt + ic8 - 1) % cnt;
             }
-            int v = x->FUN_00106160(nxt);
+            hulk_intptr v = x->FUN_00106160(nxt);
             it->FUN_00080ea0(&it->vdc, (void *)v);
             it->FUN_00080f20(nxt);
             return;

@@ -1,4 +1,5 @@
 // Same code shape as 0x0001db40 (propagated; names are from that function)
+#include "compat/ptr.h"
 struct Obj_20020 {
     virtual void F();
     virtual void G();
@@ -20,7 +21,7 @@ class CUninterruptibleAction_20020 : public CAction {
     virtual void V0();
 };
 CUninterruptibleAction_20020::CUninterruptibleAction_20020(Obj_20020* arg, int value) {
-    *(int*)this = (int)&VBase;
+    *(hulk_intptr*)this = (hulk_intptr)&VBase;
     mObj = 0;
     if (arg)
         arg->F();
@@ -28,6 +29,6 @@ CUninterruptibleAction_20020::CUninterruptibleAction_20020(Obj_20020* arg, int v
         mObj->G();
     mObj = arg;
     mValue = value;
-    *(int*)this = (int)&VDerived;
+    *(hulk_intptr*)this = (hulk_intptr)&VDerived;
 }
 void CUninterruptibleAction_20020::V0() {}

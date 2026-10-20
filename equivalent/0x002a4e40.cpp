@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 157 inputs, branch coverage 22/24, incomplete)
 // FUN_002a4e40 @ 0x002a4e40
+#include "compat/ptr.h"
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 
 class Drawable {
@@ -62,7 +63,7 @@ pure3d::DrawableContainer::DrawableContainer(const DrawableContainer &src)
     fill.FUN_002a4890();
     self = this;
 
-    unsigned int count = src.elems.end - src.elems.begin;
+    hulk_uintptr count = src.elems.end - src.elems.begin;
     if (count != 0) {
         unsigned int offset = 0;
         do {
@@ -75,7 +76,7 @@ pure3d::DrawableContainer::DrawableContainer(const DrawableContainer &src)
             dst->obj = clone;
 
             Elem_2a4e40 *se = (Elem_2a4e40 *)((char *)src.elems.begin + offset);
-            unsigned int m = se->end - se->begin;
+            hulk_uintptr m = se->end - se->begin;
             if (m != 0) {
                 Elem_2a4e40 *de = (Elem_2a4e40 *)((char *)elems.begin + offset);
                 if (de->begin == 0) {

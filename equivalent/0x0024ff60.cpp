@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 14/14)
 // audio::SeqCommandCondition::vfunc_0 @ 0x0024ff60
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 namespace audio {
@@ -31,5 +32,5 @@ unsigned int audio::SeqCommandCondition::vfunc_0(Context* context) {
  current->slot2(context);
  void* next = current->next;
  current = next ? (Node*)((char*)next - 4) : 0;
- return (unsigned int)current;
+ return (hulk_uintptr)current;
 }

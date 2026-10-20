@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 12/12)
 // FUN_00278de0 @ 0x00278de0
+#include "compat/ptr.h"
 #include "decls/data/platform/xbox/core.h"
 
 typedef unsigned long DWORD;
@@ -34,7 +35,7 @@ bool Target_278de0::FUN_00278de0() {
  DataBlock_278de0 *trailer = (DataBlock_278de0 *)((*(char**)&DAT_0052c270) + end - offset - 20);
  *trailer = scratch.block;
  if (FUN_002101d4((*(int*)((char*)&DAT_0052c270 + 4)), offset, 0, 0) == (int)offset &&
-     FUN_0021007a((*(int*)((char*)&DAT_0052c270 + 4)), (int)(*(char**)&DAT_0052c270), end - offset, &scratch, 0)) {
+     FUN_0021007a((*(int*)((char*)&DAT_0052c270 + 4)), (hulk_intptr)(*(char**)&DAT_0052c270), end - offset, &scratch, 0)) {
   (*(int*)((char*)&DAT_0052c270 + 12)) = 1;
   return true;
  }

@@ -2,6 +2,7 @@
 // CSPListener::vfunc_0 @ 0x001db230
 // cl-flags: /GS
 // equiv-map: ??0Name@@QAE@ABU0@@Z = 0x0027af30
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" int __cdecl _sprintf(char *, const char *, ...);
@@ -218,13 +219,13 @@ void CSPListener::vfunc_0(Ev_1db230 *a1, unsigned int a2)
             const char *r = FUN_001b46f0(o->FUN_001d6490(), &a2);
             Fec *fec = o->fec;
             Evt ev;
-            ev.FUN_001ca6b0(o->name8, fec->name, fec->FUN_001d4e10(), (int)r, a2);
+            ev.FUN_001ca6b0(o->name8, fec->name, fec->FUN_001d4e10(), (hulk_intptr)r, a2);
             DAT_004dd700->f30->FUN_001cbc20(&ev);
         }
         if (!o->FUN_001d6a90()) {
             char buf[16];
             _sprintf(buf, "State_%d", o->f40);
-            u->f34->FUN_001ebd80((unsigned int)o, buf, 100.0f, 0);
+            u->f34->FUN_001ebd80((hulk_uintptr)o, buf, 100.0f, 0);
             Sink_1db230 *sink = fc->f30;
             if (sink != 0) {
                 a2 = 0;
@@ -235,7 +236,7 @@ void CSPListener::vfunc_0(Ev_1db230 *a1, unsigned int a2)
                     inner = *l->f08->f10;
                 Fec *fec = o->fec;
                 Evt ev;
-                ev.FUN_001caae0(o->name8, o->FUN_001d7100(-1), fec->name, fec->FUN_001d4e10(), (int)r, a2, inner);
+                ev.FUN_001caae0(o->name8, o->FUN_001d7100(-1), fec->name, fec->FUN_001d4e10(), (hulk_intptr)r, a2, inner);
                 sink->FUN_001cbc20(&ev);
             }
         }

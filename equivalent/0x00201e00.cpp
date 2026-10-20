@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 16/16)
 // FUN_00201e00 @ 0x00201e00
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct Triple_201e00 { unsigned x,y,z; };
@@ -13,7 +14,7 @@ bool __stdcall FUN_00201e00(Object* object, void* query, unsigned mask, Triple_2
  if(objectOut) *objectOut=0;
  Manager_201e00* manager=(*(Manager_201e00**)&DAT_00554c14);
  if(!manager->FUN_002edb20(object,query,10)) return false;
- unsigned count=(manager->end-manager->begin);
+ hulk_uintptr count=(manager->end-manager->begin);
  if(!count) return false;
  for(unsigned i=0;i<count;++i) {
   unsigned short index;

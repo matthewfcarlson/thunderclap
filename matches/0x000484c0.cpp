@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct A_484c0 {
     void* f();
 };
@@ -21,6 +22,6 @@ struct CButtonCondition {
 };
 void CButtonCondition::f9(void* arg) {
     void* p = ((A_484c0*)arg)->f();
-    int v = ((B_484c0*)p)->f();
+    hulk_intptr v = ((B_484c0*)p)->f();
     f9((void*)(v + 0x1f58 + mIndex * 12));
 }

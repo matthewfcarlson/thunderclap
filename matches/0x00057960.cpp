@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f7034[];
@@ -16,7 +17,7 @@ template <> void* fight::ConditionFactoryTemplate<CCollisionInterruptCondition>:
     CCollisionInterruptCondition_57960* p = (CCollisionInterruptCondition_57960*)allocate(0x10);
     if (p) {
         ((Initializer_57960*)p)->init(0);
-        p->vf = ((int)DAT_003f7034);
+        p->vf = ((hulk_intptr)DAT_003f7034);
         p->flag = 1;
         return (void*)(p);
     }

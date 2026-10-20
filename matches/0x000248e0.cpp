@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern char gEmpty_248e0;
 struct Sub_248e0 {
     void* Lookup(int);
@@ -26,7 +27,7 @@ void* Thing_248e0::run(int index) {
         do {
             Sub_248e0* s = owner->sub;
             Item_248e0* v = (Item_248e0*)s->Lookup(*p);
-            if (v && (int)v != excluded) {
+            if (v && (hulk_intptr)v != excluded) {
                 if (found == index)
                     return v->Get();
                 ++found;

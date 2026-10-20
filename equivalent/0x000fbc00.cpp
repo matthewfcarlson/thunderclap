@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 18083 inputs, branch coverage 40/41, incomplete)
 // FUN_000fbc00 @ 0x000fbc00
 // cl-flags: /GS
+#include "compat/ptr.h"
 
 int FUN_000fbc00(unsigned short *buf, unsigned int count, const char *fmt, char *ap)
 {
@@ -91,6 +92,6 @@ int FUN_000fbc00(unsigned short *buf, unsigned int count, const char *fmt, char 
         } while (fr.c != 0);
     }
     *out = 0;
-    int n = out - buf;
+    hulk_intptr n = out - buf;
     return n;
 }

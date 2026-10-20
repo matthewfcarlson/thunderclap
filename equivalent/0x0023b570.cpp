@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3080 inputs, branch coverage 30/30)
 // fight::Chunk::vfunc_9 @ 0x0023b570
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/fight.h"
 
@@ -135,7 +136,7 @@ char fight::Chunk::vfunc_9(void *a1, Writer_23b570 *w, int a3)
     list.FUN_00236ec0();
     if (w->HasToken() && w->TokenType() == (*(unsigned __int64*)&DAT_004e5b20))
         list.FUN_00237160((unsigned int)(*(unsigned __int64*)&DAT_004e5b20), (unsigned int)((*(unsigned __int64*)&DAT_004e5b20) >> 32), scope, w);
-    FUN_002337c0((int)this, w, -1);
+    FUN_002337c0((hulk_intptr)this, w, -1);
     w->End();
     f.id.FUN_0027af50();
     return 1;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6e4c[];
 struct CAxisTimeCondition {
     void* vtable;
@@ -13,7 +14,7 @@ struct ThisCall_00234590 {
 CAxisTimeCondition::CAxisTimeCondition() {
     ((ThisCall_00234590*)(this))->Init(0);
     fieldC = 0;
-    vtable = (void*)((int)DAT_003f6e4c);
+    vtable = (void*)((hulk_intptr)DAT_003f6e4c);
     field10 = 4;
     field14 = 0;
 }

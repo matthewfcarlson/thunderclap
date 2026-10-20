@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Actor_1f5d0 {
   public:
     virtual void V0();
@@ -18,12 +19,12 @@ class CIntangibleToActorsAction : public CAction {
 extern int vtAction;
 extern int vtDerived;
 CIntangibleToActorsAction::CIntangibleToActorsAction(Actor_1f5d0* a) {
-    *(int*)this = (int)&vtAction;
+    *(hulk_intptr*)this = (hulk_intptr)&vtAction;
     mActor = 0;
     if (a)
         a->V0();
     if (mActor)
         mActor->Release();
     mActor = a;
-    *(int*)this = (int)&vtDerived;
+    *(hulk_intptr*)this = (hulk_intptr)&vtDerived;
 }

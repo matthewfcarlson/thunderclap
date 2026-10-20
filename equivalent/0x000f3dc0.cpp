@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // FUN_000f3dc0 @ 0x000f3dc0
+#include "compat/ptr.h"
 extern char DAT_0049f4f0[];
 extern char DAT_0049f454[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -109,7 +110,7 @@ void FEThingsBase::FUN_000f3dc0(Param *param, int c, void *d, Args *args)
     f.mObj = this;
     f.mFn = &FEThingsBase::FUN_000f3940;
     f.mC = c;
-    f.mD = (int)d;
+    f.mD = (hulk_intptr)d;
     if (v34(param, args, &f))
         return;
     param->FUN_000fa0a0();

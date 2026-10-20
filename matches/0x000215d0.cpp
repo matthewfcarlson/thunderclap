@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Arg_215d0 {
   public:
     virtual void F0();
@@ -17,7 +18,7 @@ class CClearHitRecordsAction : public CAction {
 };
 extern int vt1_215d0, vt2;
 CClearHitRecordsAction::CClearHitRecordsAction(Arg_215d0* p) {
-    *(int*)this = (int)&vt1_215d0;
+    *(hulk_intptr*)this = (hulk_intptr)&vt1_215d0;
     int* q = (int*)&mArg;
     *q = 0;
     if (p)
@@ -25,5 +26,5 @@ CClearHitRecordsAction::CClearHitRecordsAction(Arg_215d0* p) {
     if (mArg)
         mArg->F1();
     mArg = p;
-    *(int*)this = (int)&vt2;
+    *(hulk_intptr*)this = (hulk_intptr)&vt2;
 }

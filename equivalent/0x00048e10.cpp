@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 14/14)
 // CCollisionFlagCondition::vfunc_7 @ 0x00048e10
+#include "compat/ptr.h"
 struct CollisionFlags { int name; int flags; };
 struct CollisionContext {
     virtual void vfunc_0();
@@ -17,7 +18,7 @@ struct CCollisionFlagCondition {
 };
 unsigned int CCollisionFlagCondition::vfunc_7(CollisionContext* context) {
     CollisionFlags* collision = context->vfunc_3();
-    if (!collision || (mode != 0 && mode != 1)) return (unsigned int)collision & ~255u;
+    if (!collision || (mode != 0 && mode != 1)) return (hulk_uintptr)collision & ~255u;
     if (mode == 0) return collision->name == name && collision->flags == flags;
     return collision->name != name || collision->flags != flags;
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f3390[];
 extern "C" char DAT_003f3a34[];
 class Ref_1f640 {
@@ -22,7 +23,7 @@ class CMotionTrailAction : public CAction {
     CMotionTrailAction(int, Ref_1f640*);
 };
 CMotionTrailAction::CMotionTrailAction(int b, Ref_1f640* a) {
-    *(int*)this = ((int)DAT_003f3390);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_003f3390);
     int* q = (int*)&m1c;
     *q = 0;
     if (a)
@@ -31,6 +32,6 @@ CMotionTrailAction::CMotionTrailAction(int b, Ref_1f640* a) {
         m1c->Release();
     m1c = a;
     m20 = b;
-    *(int*)this = ((int)DAT_003f3a34);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_003f3a34);
     m24 = 0;
 }

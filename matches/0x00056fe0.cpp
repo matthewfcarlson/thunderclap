@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f9130[];
@@ -17,7 +18,7 @@ template <> void* fight::ConditionFactoryTemplate<CAxisReleaseCondition>::vfunc_
     CAxisReleaseCondition_56fe0* p = (CAxisReleaseCondition_56fe0*)Allocate(0x18);
     if (p) {
         p->Init();
-        *(void**)p = (void*)((int)DAT_003f9130);
+        *(void**)p = (void*)((hulk_intptr)DAT_003f9130);
         return (void*)(p);
     }
     return (void*)(0);

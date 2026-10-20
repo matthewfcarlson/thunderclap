@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 13/14, incomplete)
 // FUN_001c6660 @ 0x001c6660
+#include "compat/ptr.h"
 struct Sub_1c6660 { char data[0xa4]; bool FUN_001c27d0(int a); };
 struct Elem_1c6660 { char flag; char pad[3]; Sub_1c6660 sub; };
 struct Guard_1c6660 { char data[4]; bool FUN_001acb90(int a); };
@@ -16,7 +17,7 @@ public:
 
 bool Pool_1c6660::FUN_001c6660(int a)
 {
-    unsigned n = end - begin;
+    hulk_uintptr n = end - begin;
     if (n == 0)
         return true;
     if (!guard.FUN_001acb90(a))

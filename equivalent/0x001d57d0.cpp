@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 194 inputs, branch coverage 67/84, incomplete)
 // CSPHulkPropLoader::vfunc_5 @ 0x001d57d0
+#include "compat/ptr.h"
 #include "gen/global.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -140,7 +141,7 @@ void CSPHulkPropLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int unused) 
     key.FUN_0027af10(data->name.lo, data->name.hi);
     n->set.FUN_0027af70(&key);
 
-    int count = data->itemsEnd - data->items;
+    hulk_intptr count = data->itemsEnd - data->items;
     if (count > 0) {
         for (int i = 0; i < count; i++) {
             Item_1d57d0 *it = &data->items[i];
@@ -181,7 +182,7 @@ void CSPHulkPropLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int unused) 
     }
 
     Curves_1d57d0 *curves = DAT_004dd700->curves;
-    int nch = data->channelsEnd - data->channels;
+    hulk_intptr nch = data->channelsEnd - data->channels;
     for (int i = 0; i < nch; i++) {
         int cnt = data->channels[i]->count;
         float a = -1.0f;

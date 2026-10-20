@@ -1,3 +1,4 @@
 // STATUS: equivalent (tools/equiv.py level 3: 637 inputs, branch coverage 6/6)
 // FUN_002b07d0 @ 0x002b07d0
-struct Item { char pad[0x14]; float value; }; struct Entry { Item* item; int other; }; struct Holder { Entry* begin; Entry* end; int unused; float reciprocal; bool FUN_002b07d0(); }; bool Holder::FUN_002b07d0() { float sum = 0.0f; int count = ((int)end - (int)begin) >> 3; if (count == 0) return false; Entry* it = begin; do { sum += it->item->value; ++it; --count; } while (count != 0); if (sum < 0.01f) return false; reciprocal = 1.0f / sum; return true; }
+#include "compat/ptr.h"
+struct Item { char pad[0x14]; float value; }; struct Entry { Item* item; int other; }; struct Holder { Entry* begin; Entry* end; int unused; float reciprocal; bool FUN_002b07d0(); }; bool Holder::FUN_002b07d0() { float sum = 0.0f; hulk_intptr count = ((hulk_intptr)end - (hulk_intptr)begin) >> 3; if (count == 0) return false; Entry* it = begin; do { sum += it->item->value; ++it; --count; } while (count != 0); if (sum < 0.01f) return false; reciprocal = 1.0f / sum; return true; }

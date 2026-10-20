@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003faa44[];
 class Part_60530 {
   public:
@@ -19,7 +20,7 @@ class CMotionTrailTrack {
     void Run();
 };
 void CMotionTrailTrack::Run() {
-    *(int*)this = ((int)DAT_003faa44);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_003faa44);
     pa8.Init();
     Part_60530* p = &p60;
     int i = 6;

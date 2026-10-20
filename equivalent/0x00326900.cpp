@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 10/10)
 // pure3d::d3dTexture::vfunc_13 @ 0x00326900
+#include "compat/ptr.h"
 namespace pure3d {
 struct ImageInfo_326900 {
     int width;
@@ -99,7 +100,7 @@ pure3d::ImageInfo_326900* pure3d::d3dTexture::vfunc_13(unsigned int level, int u
         if (flag_ec == 0 && flag_ed == 0) {
             buffer = FUN_0008d690((info.bitsPerPixel >> 3) * info.depth * info.height * info.width + 0x10);
             int bytesPerPixel = info.bitsPerPixel >> 3;
-            dataEnd = (char*)(((unsigned int)buffer + 0xf) & 0xfffffff0) + (info.height - 1) * info.width * bytesPerPixel;
+            dataEnd = (char*)(((hulk_uintptr)buffer + 0xf) & 0xfffffff0) + (info.height - 1) * info.width * bytesPerPixel;
             rowStride = -(info.width * bytesPerPixel);
         }
     }

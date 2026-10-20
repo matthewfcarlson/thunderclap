@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 14900 inputs, branch coverage 18/18)
 // hulkfight::scenario::LuaCondition::vfunc_6 @ 0x001a14f0
 // cl-flags: /GS
+#include "compat/ptr.h"
 namespace fight {
 class Params {
 public:
@@ -95,7 +96,7 @@ bool LuaCondition::vfunc_6(int a, fight::Params *params, int c)
     if (chunk == 0) {
         return false;
     }
-    int len = scriptLen;
+    hulk_intptr len = scriptLen;
     bool allocated = false;
     if (*chunk != 0x1b) {
         char *tmp = (char *)FUN_0008d6d0(len + 0x10);

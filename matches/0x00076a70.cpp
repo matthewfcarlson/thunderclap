@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003fe8d8[];
@@ -11,7 +12,7 @@ template <> void* fight::TrackFactoryTemplate<CGrappleSoundTrack>::vfunc_5() {
     Track_76a70* p = (Track_76a70*)operator_new(0x54);
     if (p != 0) {
         p->Init();
-        *(u32_76a70*)p = ((int)DAT_003fe8d8);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fe8d8);
         return (void*)(p);
     }
     return (void*)(0);

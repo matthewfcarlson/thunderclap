@@ -1,3 +1,4 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a37b0 @ 0x001a37b0
-struct Object { char pad[0x5c]; char* name; int FUN_001a37b0(const char* text); }; int __cdecl FUN_0008d340(void*); void* __cdecl FUN_0008d6d0(unsigned int); int Object::FUN_001a37b0(const char* text) { int result = FUN_0008d340(name); if (!text) { name = 0; return (result & ~255) | 1; } unsigned int size = 0; do { ++size; } while (text[size-1]); char* allocated = (char*)FUN_0008d6d0(size); name = allocated; char* dest = allocated; do { *dest++ = *text; } while (*text++); return ((int)allocated & ~255) | 1; }
+#include "compat/ptr.h"
+struct Object { char pad[0x5c]; char* name; int FUN_001a37b0(const char* text); }; int __cdecl FUN_0008d340(void*); void* __cdecl FUN_0008d6d0(unsigned int); int Object::FUN_001a37b0(const char* text) { int result = FUN_0008d340(name); if (!text) { name = 0; return (result & ~255) | 1; } unsigned int size = 0; do { ++size; } while (text[size-1]); char* allocated = (char*)FUN_0008d6d0(size); name = allocated; char* dest = allocated; do { *dest++ = *text; } while (*text++); return ((hulk_intptr)allocated & ~255) | 1; }

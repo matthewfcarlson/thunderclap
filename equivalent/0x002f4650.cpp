@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 4/4)
 // FUN_002f4650 @ 0x002f4650
+#include "compat/ptr.h"
 void __cdecl FUN_002f40f0(unsigned short *, int, int, unsigned int);
 void __cdecl FUN_002f4650(unsigned short *first, unsigned short *last)
 {
-    int bytes = (char *)last - (char *)first;
+    hulk_intptr bytes = (char *)last - (char *)first;
     while ((bytes >> 1) > 1) {
         unsigned int saved = *(unsigned short *)((char *)first + bytes - 2);
         *(unsigned short *)((char *)first + bytes - 2) = *first;

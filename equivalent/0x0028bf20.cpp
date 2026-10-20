@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_0028bf20 @ 0x0028bf20
 // 0x0028bf20: channel constructor holding 12-byte elements, allocated from the parent pool or the heap
+#include "compat/ptr.h"
 extern char DAT_0042c9f0[];
 void* __cdecl FUN_0008d6d0(unsigned size);
 void __stdcall FUN_00011520(void* base, unsigned size, int count, void* ctor);
@@ -26,7 +27,7 @@ public:
 Vector3DOFChannel_28bf20* Vector3DOFChannel_28bf20::Construct(int a, int b)
 {
     FUN_0028b420(a, b);
-    vptr = (int)DAT_0042c9f0;
+    vptr = (hulk_intptr)DAT_0042c9f0;
     data = 0;
     if (parent == 0) {
         int n = count;

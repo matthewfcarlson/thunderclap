@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 16463 inputs, branch coverage 56/56)
 // FUN_003078a0 @ 0x003078a0
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "gen/physics.h"
 
@@ -130,7 +131,7 @@ physics::CollisionMesh *FUN_003078a0(Slot_3078a0 a1)
             if (raw != 0) {
                 raw[0] = n;
                 arr = (Face_3078a0 *)(raw + 1);
-                f.x28 = (unsigned int)arr;
+                f.x28 = (hulk_uintptr)arr;
                 FUN_00011520(arr, 0x18, n, FUN_002fa720);
                 arr = (Face_3078a0 *)f.x28;
             } else {
@@ -159,7 +160,7 @@ physics::CollisionMesh *FUN_003078a0(Slot_3078a0 a1)
             unsigned int n = (unsigned short)f.t3c;
             g->n1c = (unsigned short)f.t3c;
             float *raw = (float *)FUN_0008d6d0(n * 12);
-            f.x28 = (unsigned int)raw;
+            f.x28 = (hulk_uintptr)raw;
             float *r;
             if (raw != 0) {
                 FUN_00011520(raw, 0xc, n, FUN_00011090);

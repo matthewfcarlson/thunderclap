@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 class CGrappleInvulnerableTrack_769a0 {
@@ -17,7 +18,7 @@ template <> void* fight::TrackFactoryTemplate<CGrappleInvulnerableTrack>::vfunc_
     CGrappleInvulnerableTrack_769a0* p = (CGrappleInvulnerableTrack_769a0*)Alloc(0x18);
     if (p) {
         p->CGrappleInvulnerableTrack_769a0::CGrappleInvulnerableTrack_769a0();
-        *(int*)p = (int)&vtable_769a0;
+        *(hulk_intptr*)p = (hulk_intptr)&vtable_769a0;
         return (void*)(p);
     }
     return (void*)(0);

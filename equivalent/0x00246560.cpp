@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 26/26)
 // FUN_00246560 @ 0x00246560
+#include "compat/ptr.h"
 struct Reader {
  char pad[0x90];
  unsigned line;
@@ -12,7 +13,7 @@ unsigned __cdecl FUN_00246560(Reader* reader, char* output, unsigned capacity, c
  unsigned result = reader->position;
  if (result < reader->end) {
   char* limit = output + capacity - 1;
-  while ((unsigned)output < (unsigned)limit) {
+  while ((hulk_uintptr)output < (hulk_uintptr)limit) {
    result = reader->FUN_00245b70(reader->position);
    unsigned char ch = (unsigned char)result;
    if (ch == '"') quoted = !quoted;

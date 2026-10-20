@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Finder_65c50 {
   public:
     int Find(int, int);
@@ -19,7 +20,7 @@ class Owner_65c50 {
 };
 int __fastcall Target(Owner_65c50* self) {
     int i = 0;
-    int result = 0;
+    hulk_intptr result = 0;
     if (self->count > 0) {
         Owner_65c50::Entry* e = self->entries;
         do {

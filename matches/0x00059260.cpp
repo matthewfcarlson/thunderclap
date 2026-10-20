@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class CFightParams {
   public:
     virtual void V();
@@ -16,6 +17,6 @@ CFightParams* CFightParams::Init(int v) {
     value = v;
     x = 0;
     y = 0;
-    *(int*)this = (int)&fightvftable;
+    *(hulk_intptr*)this = (hulk_intptr)&fightvftable;
     return this;
 }

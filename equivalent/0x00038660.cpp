@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 77/92, incomplete)
 // FUN_00038660 @ 0x00038660
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct V3_38660 {
     float x, y, z;
@@ -161,7 +162,7 @@ char Mover_38660::F(V3_38660* a1, int a2, V3_38660* a3, V3_38660* a4, V3_38660* 
                         a5->y = s->y3;
                     }
                     if (a6)
-                        *a6 = (int)slots[idx].ptr;
+                        *a6 = (hulk_intptr)slots[idx].ptr;
                     if (flagOut)
                         *flagOut = 1;
                     goto epilogue;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f734c[];
@@ -16,7 +17,7 @@ template <> void* fight::ConditionFactoryTemplate<CCharacterTemplateVariationCon
     Condition_58d70* p = (Condition_58d70*)Alloc(0x18);
     if (p) {
         p->Ctor(0);
-        *(void**)p = (void*)((int)DAT_003f734c);
+        *(void**)p = (void*)((hulk_intptr)DAT_003f734c);
         *(int*)((char*)p + 0xc) = 0;
         p->ent.Init();
         return (void*)(p);

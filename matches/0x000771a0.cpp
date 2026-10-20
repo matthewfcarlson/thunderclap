@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003fbc24[];
@@ -19,7 +20,7 @@ template <> void* fight::TrackFactoryTemplate<CMoveAddTrack>::vfunc_5() {
         p->Init();
         p->x10 = 1.0f;
         p->x14 = 1.0f;
-        *(unsigned int*)p = ((int)DAT_003fbc24);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fbc24);
         p->xc = 0;
         p->x18 = 0;
         p->x8 = 1;

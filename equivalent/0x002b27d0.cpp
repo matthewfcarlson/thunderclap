@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 153 inputs, branch coverage 12/12)
 // FUN_002b27d0 @ 0x002b27d0
+#include "compat/ptr.h"
 void* __cdecl FUN_0008d6d0(unsigned int);
 struct Item_2b27d0 {
  virtual void retain();
@@ -31,7 +32,7 @@ MultiController::MultiController(const MultiController& source) : FUN_00284a90(s
  for(unsigned int j=0;j<10;++j) fields[j]=source.fields[j];
  flag=source.flag;
  count=source.count;
- unsigned int n=(unsigned int)((int)((unsigned int)source.end-(unsigned int)source.begin)>>2);
+ unsigned int n=(unsigned int)((int)((hulk_uintptr)source.end-(hulk_uintptr)source.begin)>>2);
  if(n>0) {
  begin=(Item_2b27d0**)FUN_0008d6d0(n*4);
  if(begin) end=begin+n;

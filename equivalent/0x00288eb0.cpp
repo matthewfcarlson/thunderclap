@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 45 inputs, branch coverage 17/18, incomplete)
 // FUN_00288eb0 @ 0x00288eb0
+#include "compat/ptr.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" void *__cdecl memset(void *, int, unsigned int);
 void *FUN_0008d690(unsigned int size);
@@ -117,7 +118,7 @@ pure3d::AnimationGroup *Loader_288eb0::FUN_00288eb0(Reader *r, int ctx, Alloc_28
         if (r->FUN_002669f0()) {
             while (i < obj->f14) {
                 r->FUN_00266a30();
-                obj->f18[i] = (int)child->FUN_0028b0b0(r, ctx, obj->f1c);
+                obj->f18[i] = (hulk_intptr)child->FUN_0028b0b0(r, ctx, obj->f1c);
                 r->FUN_00266be0();
                 i++;
                 if (!r->FUN_002669f0())

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" char DAT_003f407c[];
@@ -21,11 +22,11 @@ struct Obj_2e830 {
 };
 Obj_2e830* Obj_2e830::Build(const char* a, void* b, void* c) {
     ((ThisCall_001d0480*)(this))->InitHelper(a, 1);
-    vptr = ((int)DAT_003f407c);
+    vptr = ((hulk_intptr)DAT_003f407c);
     m1c = c;
-    b18 = GetHelper((const void*)((int)((char*)&DAT_0048e0e4)));
-    b10 = GetHelper((const void*)((int)((char*)&DAT_0048e0f0)));
-    vptr = ((int)DAT_003f439c);
+    b18 = GetHelper((const void*)((hulk_intptr)((char*)&DAT_0048e0e4)));
+    b10 = GetHelper((const void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    vptr = ((hulk_intptr)DAT_003f439c);
     m20 = b;
     return this;
 }

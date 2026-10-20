@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f3390[];
 extern "C" char DAT_003f3c90[];
 extern "C" void _ReadWriteBarrier();
@@ -18,11 +19,11 @@ struct Obj_20a90 {
 void Obj_20a90::a0() {}
 void Obj_20a90::a1() {}
 void Obj_20a90::Dtor() {
-    *(void**)this = (void*)((int)DAT_003f3c90);
+    *(void**)this = (void*)((hulk_intptr)DAT_003f3c90);
     _ReadWriteBarrier();
     if (mUnknown)
         mUnknown = 0;
-    *(void**)this = (void*)((int)DAT_003f3390);
+    *(void**)this = (void*)((hulk_intptr)DAT_003f3390);
     _ReadWriteBarrier();
     if (mRef) {
         mRef->Release();

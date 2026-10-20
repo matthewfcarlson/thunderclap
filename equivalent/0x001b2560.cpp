@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3191 inputs, branch coverage 113/118, incomplete)
 // AICollisionSolverAgent::vfunc_5 @ 0x001b2560
+#include "compat/ptr.h"
 #include "gen/global.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -92,7 +93,7 @@ struct AICollisionSolverAgent_nv_1b2560 {
     int FUN_001aff50(Body_1b2560 *a0, Body_1b2560 *a, Body_1b2560 *b0, Body_1b2560 *b, V3_1b2560 *p, V3_1b2560 *q, V3_1b2560 *r, float f);
 };
 
-int AICollisionSolverAgent::vfunc_5(void* __p0, void* __p1) { Contact_1b2560 * C = (Contact_1b2560 *)__p0; int a1 = (int)__p1;
+int AICollisionSolverAgent::vfunc_5(void* __p0, void* __p1) { Contact_1b2560 * C = (Contact_1b2560 *)__p0; hulk_intptr a1 = (hulk_intptr)__p1;
 
     Body_1b2560 *A = C->f8->f18;
     Body_1b2560 *B = C->fc->f18;

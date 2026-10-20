@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 4289 inputs, branch coverage 28/28)
 // FUN_000c9bd0 @ 0x000c9bd0
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" void *memset(void *, int, unsigned int);
@@ -215,7 +216,7 @@ void CHudMap::FUN_000c9bd0(char *name)
     if (tex != 0)
         tex->release();
     tex = l;
-    res->inner->set(0x584554, l != 0 ? (unsigned int)l->impl : 0);
+    res->inner->set(0x584554, l != 0 ? (hulk_uintptr)l->impl : 0);
     inv->i1();
     if (tex != 0) {
         float w = (float)tex->impl->width();

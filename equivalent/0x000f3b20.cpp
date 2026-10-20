@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3049 inputs, branch coverage 36/38, incomplete)
 // FUN_000f3b20 @ 0x000f3b20
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
@@ -176,7 +177,7 @@ void FEThingsBase::FUN_000f3b20(ParamArg_f3b20 arg, Loader_f3b20 *c, void *d, Ar
         const char *q = name;
         while (*q++)
             ;
-        int len = q - (name + 1);
+        hulk_intptr len = q - (name + 1);
         if (len != 0) {
             sink->objA = c->v29(name, 0);
             if (sink->objA)
@@ -223,7 +224,7 @@ void FEThingsBase::FUN_000f3b20(ParamArg_f3b20 arg, Loader_f3b20 *c, void *d, Ar
         const char *q = name;
         while (*q++)
             ;
-        int len = q - (name + 1);
+        hulk_intptr len = q - (name + 1);
         if (len == 0)
             return;
         sink->FUN_000e3de0(c->v29(name, 0));
@@ -236,8 +237,8 @@ void FEThingsBase::FUN_000f3b20(ParamArg_f3b20 arg, Loader_f3b20 *c, void *d, Ar
     ParseFunctor f;
     f.mObj = this;
     f.mFn = &FEThingsBase::FUN_000f3940;
-    f.mC = (int)c;
-    f.mD = (int)d;
+    f.mC = (hulk_intptr)c;
+    f.mD = (hulk_intptr)d;
     if (v34(param, args, &f))
         return;
     param->FUN_000fa0a0();

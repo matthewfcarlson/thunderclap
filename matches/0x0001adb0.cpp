@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f3390[];
 extern "C" char DAT_003f34a0[];
 class Obj_1adb0 {
@@ -22,7 +23,7 @@ class Opportunity : public CAction_1adb0 {
     Opportunity(int, Obj_1adb0*, int);
 };
 Opportunity::Opportunity(int p2, Obj_1adb0* p3, int p4) : CAction_1adb0() {
-    *(unsigned long*)this = ((int)DAT_003f3390);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_003f3390);
     mObj = 0;
     if (p3)
         p3->f();
@@ -30,7 +31,7 @@ Opportunity::Opportunity(int p2, Obj_1adb0* p3, int p4) : CAction_1adb0() {
         mObj->g();
     mObj = p3;
     m24 = p4;
-    *(unsigned long*)this = ((int)DAT_003f34a0);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_003f34a0);
     m54 = 0;
     m58 = 0;
     m20 = p2;

@@ -2,6 +2,7 @@
 // FUN_002e1960 @ 0x002e1960
 // equiv-map: ??0PrimGroupBase@@QAE@XZ = 0x002a5060
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 inline void* operator new(unsigned int, void* p) throw() {
@@ -575,7 +576,7 @@ void Hdr_2e1960::Load(int a1, Reader* R, int a3, PalList_2e1960* a4, unsigned in
                     case 17: {
                         R->FUN_000f95e0();
                         unsigned int format = R->FUN_001c61c0();
-                        unsigned int size = R->FUN_001c61c0();
+                        hulk_uintptr size = R->FUN_001c61c0();
                         B->b13(R->FUN_00266c30(), format);
                         AttrList* l = B->b11(size);
                         R->FUN_000f9650(l, (void*)size, 1);
@@ -585,9 +586,9 @@ void Hdr_2e1960::Load(int a1, Reader* R, int a3, PalList_2e1960* a4, unsigned in
                     case 16: {
                         R->FUN_000f95e0();
                         unsigned int format = R->FUN_001c61c0();
-                        unsigned int size = R->FUN_001c61c0();
+                        hulk_uintptr size = R->FUN_001c61c0();
                         B->b13(R->FUN_00266c30(), format);
-                        int r = B->b7();
+                        hulk_intptr r = B->b7();
                         R->FUN_000f9650((void*)r, (void*)size, 1);
                         B->b8(f24);
                         break;

@@ -1,4 +1,5 @@
 // Same code shape as 0x0004a030 (propagated; names are from that function)
+#include "compat/ptr.h"
 extern int vtableA;
 extern int vtableB;
 class Part_48d90 {
@@ -17,8 +18,8 @@ class CNameFlagConditionBase_48d90 : public CCondition {
     void Finish();
 };
 void CNameFlagConditionBase_48d90::Run() {
-    *(int*)this = (int)&vtableA;
+    *(hulk_intptr*)this = (hulk_intptr)&vtableA;
     part.Init();
-    *(int*)this = (int)&vtableB;
+    *(hulk_intptr*)this = (hulk_intptr)&vtableB;
     Finish();
 }

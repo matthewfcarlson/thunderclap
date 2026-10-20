@@ -3,6 +3,7 @@
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ??_R0?AVAnimationLoader@pure3d@@@8 = 0x004ce974
 // equiv-map: ??_R0?AVObjectLoader@content@@@8 = 0x0049c7dc
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
@@ -291,7 +292,7 @@ void Loader::FUN_002ac610(int a1, Stream *stream, Ctx_2ac610 *ctx, Extra *a4)
                     if ((int)f.s14.u > 0) {
                         do {
                             void *m = FUN_0008d690(0x4c);
-                            f.s20 = (unsigned int)m;
+                            f.s20 = (hulk_uintptr)m;
                             Sub4c *sub = 0;
                             if (m != 0)
                                 sub = ((Sub4c *)m)->FUN_002d4040(f.s18.res->FUN_00288a10(i));

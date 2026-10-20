@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class CGrappleSoundTrack;
 extern "C" int __cdecl Query(void*, int, int, int, int);
 namespace fight {
@@ -13,5 +14,5 @@ template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster 
 } // namespace fight
 extern int a, b;
 template <> bool fight::TrackFactoryCasterTemplate<CGrappleSoundTrack>::vfunc_0(void* p) {
-    return Query(p, 0, (int)&a, (int)&b, 0) != 0;
+    return Query(p, 0, (hulk_intptr)&a, (hulk_intptr)&b, 0) != 0;
 }

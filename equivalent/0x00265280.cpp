@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 12/12)
 // FUN_00265280 @ 0x00265280
+#include "compat/ptr.h"
 struct Item_265280 {
     virtual void unused();
     virtual void release();
@@ -20,14 +21,14 @@ struct Queue_265280 {
 void Queue_265280::clear() {
     for (;;) {
         unsigned count;
-        if ((unsigned)read <= (unsigned)write)
-            count = ((int)((unsigned)write - (unsigned)read)) >> 3;
+        if ((hulk_uintptr)read <= (hulk_uintptr)write)
+            count = ((int)((hulk_uintptr)write - (hulk_uintptr)read)) >> 3;
         else
-            count = (((int)((unsigned)write - (unsigned)begin)) >> 3) + (((int)((unsigned)end - (unsigned)read)) >> 3);
+            count = (((int)((hulk_uintptr)write - (hulk_uintptr)begin)) >> 3) + (((int)((hulk_uintptr)end - (hulk_uintptr)read)) >> 3);
         if (!count) break;
         Item_265280* item = read->item;
         unsigned value = read->value;
-        if ((unsigned)write >= (unsigned)end) write = read;
+        if ((hulk_uintptr)write >= (hulk_uintptr)end) write = read;
         ++read;
         if (read == end) read = begin;
         if (item) {

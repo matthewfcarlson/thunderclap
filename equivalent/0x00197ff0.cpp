@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 44/46, incomplete)
 // FUN_00197ff0 @ 0x00197ff0
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct V3_197ff0 {
     float x, y, z;
@@ -157,7 +158,7 @@ void Proj_197ff0::FUN_00197ff0(float dt)
 
     L.b.lifetime = params->f5c;
     if (f14 != 0 && L.b.lifetime > 0.0f) {
-        if (!FUN_00098190(*(int *)&dt, 0, *(int *)&L.b.lifetime, (int)0xbf800000, (int)f14, 0, &f18, &f24, 0, 0, 0, 1)) {
+        if (!FUN_00098190(*(int *)&dt, 0, *(int *)&L.b.lifetime, (int)0xbf800000, (hulk_intptr)f14, 0, &f18, &f24, 0, 0, 0, 1)) {
             if (f14 != 0)
                 f14->Release();
             f14 = 0;
@@ -165,7 +166,7 @@ void Proj_197ff0::FUN_00197ff0(float dt)
     }
 
     World *world = DAT_004dd700;
-    L.g = (int)world;
+    L.g = (hulk_intptr)world;
     L.owner = 0;
     L.b.out2 = 0;
     L.a.hit = 0;

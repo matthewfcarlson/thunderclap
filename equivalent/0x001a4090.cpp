@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a4090 @ 0x001a4090
+#include "compat/ptr.h"
 extern "C" unsigned int __cdecl FUN_0008d340(void *);
 extern "C" void * __cdecl FUN_0008d6d0(unsigned int);
 struct Holder { char pad[0x100]; char *text; unsigned int FUN_001a4090(const char *source); };
@@ -12,5 +13,5 @@ unsigned int Holder::FUN_001a4090(const char *source) {
     text = destination;
     char *out = destination;
     do { *out++ = *source; } while (*source++);
-    return ((unsigned int)destination & 0xffffff00u) | 1;
+    return ((hulk_uintptr)destination & 0xffffff00u) | 1;
 }

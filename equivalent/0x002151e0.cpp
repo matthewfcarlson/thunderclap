@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2199 inputs, branch coverage 2/2)
 // FUN_002151e0 @ 0x002151e0
 // FUN_002151e0 @ 0x002151e0
+#include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
 extern "C" {
 void __cdecl FUN_00219660(int, int);
@@ -11,17 +12,17 @@ void __cdecl FUN_00214f90(int);
 void __cdecl LAB_002151d0(void);
 }
 void __cdecl FUN_002151e0(int param_1) {
-    int esi = *(int*)(*(int*)(param_1 + 0x10) + 0x5c);
+    hulk_intptr esi = *(int*)(*(hulk_intptr*)(param_1 + 0x10) + 0x5c);
     FUN_00219660(esi, *(int*)(esi + 0x1c));
     FUN_002165c0(esi, 1);
     *(int*)(esi + 0x54) = 0;
     int r;
     do {
-        int eax = *(int*)(esi + 0x28);
-        *(int*)(esi + 0x14) = eax;
+        hulk_intptr eax = *(int*)(esi + 0x28);
+        *(hulk_intptr*)(esi + 0x14) = eax;
         eax = *(int*)eax;
-        *(int*)(esi + 8) = eax;
-        *(int*)(esi + 0xc) = eax;
+        *(hulk_intptr*)(esi + 8) = eax;
+        *(hulk_intptr*)(esi + 0xc) = eax;
         *(short*)(esi + 0x2e) = 0;
         r = FUN_002152f0(esi, (void*)LAB_002151d0, 0);
     } while (r != 0);

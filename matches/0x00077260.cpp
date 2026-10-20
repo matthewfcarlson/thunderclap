@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class CMoveAddYTrack {
   public:
     virtual void V0();
@@ -22,7 +23,7 @@ CMoveAddYTrack* __fastcall target(void* self) {
         p->Init();
         p->m10 = 1.0f;
         p->m14 = 1.0f;
-        *(int*)p = (int)&vtable_77260;
+        *(hulk_intptr*)p = (hulk_intptr)&vtable_77260;
         p->mc = 0;
         p->m18 = 0;
         p->m8 = 1;

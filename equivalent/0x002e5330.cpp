@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // FUN_002e5330 @ 0x002e5330
+#include "compat/ptr.h"
 class SortedArray {
 public:
     char pad0[8];
@@ -9,14 +10,14 @@ public:
 };
 bool SortedArray::FUN_002e5330(unsigned int key, unsigned int* outIndex) {
     unsigned int* b = begin;
-    int n = end - b;
+    hulk_intptr n = end - b;
     if (n == 0)
         return false;
     if (key < b[0] || key > b[n - 1])
         return false;
-    unsigned int lo = 0;
-    unsigned int hi = n - 1;
-    unsigned int mid = hi >> 1;
+    hulk_uintptr lo = 0;
+    hulk_uintptr hi = n - 1;
+    hulk_uintptr mid = hi >> 1;
     for (;;) {
         if (mid > hi)
             return false;

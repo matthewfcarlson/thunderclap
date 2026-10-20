@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 725 inputs, branch coverage 18/18)
 // FUN_001e3020 @ 0x001e3020
+#include "compat/ptr.h"
 class CSPHulkProp;
 namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; }}
 struct Entry_1e3020 { char pad[8]; int key1; int key2; };
@@ -21,7 +22,7 @@ int Game_1e3020::FUN_001e3020(int index,int key1,int key2) {
  else { int a=r.key1,b=r.key2; Service_1e3020 *s=owner->provider->FUN_000862a0(); Resolver_1e3020 *v=s->FUN_00203d70(); content::LoadInventory::DynamicCaster<CSPHulkProp> caster; p=v->find(&caster,a,b); if(!p) return -1; }
  Inventory_1e3020 *inv=p->FUN_001d4fc0();
  if(!inv) return -1;
- Entry_1e3020 **entries=inv->begin; int count=inv->end-entries;
+ Entry_1e3020 **entries=inv->begin; hulk_intptr count=inv->end-entries;
  for(int i=0;i<count;++i) { Entry_1e3020 *e=entries[i]; if(e->key1==key1 && e->key2==key2) return i; }
  return -1;
 }

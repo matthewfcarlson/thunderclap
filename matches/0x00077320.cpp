@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003fbf68[];
@@ -31,7 +32,7 @@ template <> void* fight::TrackFactoryTemplate<COrientTrack>::vfunc_5() {
         p->x20 = 0;
         p->x24 = 0;
         p->x28 = 0;
-        p->vptr = (void*)((int)DAT_003fbf68);
+        p->vptr = (void*)((hulk_intptr)DAT_003fbf68);
         p->x10 = 0xbf800000;
         p->x14 = 0xbc8efa35;
         p->x8 = 1;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003faa80[];
 typedef unsigned char byte_60b40;
 struct Part_60b40 {
@@ -16,7 +17,7 @@ struct CEffectTrack {
 };
 extern void cleanup(CEffectTrack*);
 CEffectTrack* CEffectTrack::vfunc_5(byte_60b40 param_2) {
-    vf = ((int)DAT_003faa80);
+    vf = ((hulk_intptr)DAT_003faa80);
     a30.init();
     a28.init();
     a18.init();

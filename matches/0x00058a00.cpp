@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f7178[];
@@ -20,7 +21,7 @@ template <> void* fight::ConditionFactoryTemplate<CSmartPropTypeCondition>::vfun
     CSmartPropTypeCondition_58a00* p = Alloc(0x14);
     if (p) {
         p->Init(0);
-        *(int*)p = ((int)DAT_003f7178);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_003f7178);
         p->a = 0;
         p->b = 0;
         return (void*)(p);

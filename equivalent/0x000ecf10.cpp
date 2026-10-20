@@ -2,6 +2,7 @@
 // FUN_000ecf10 @ 0x000ecf10
 // cl-flags: /GS
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
+#include "compat/ptr.h"
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 extern "C" void *__cdecl memset(void *, int, unsigned int);
 
@@ -246,12 +247,12 @@ void TextBox_ecf10::FUN_000ecf10(float maxWidth)
             f.u.p = &f.x.cells[f.x.cursor].a.f;
             f.u.f = *f.u.p / f.font->v7();
             if (f.font->v10(f.line) * f.u.f * 14.0f >= maxWidth) {
-                int wi = f.wordStart - f.line;
+                hulk_intptr wi = f.wordStart - f.line;
                 *f.lineEnd = 0;
                 unsigned short *o;
                 const unsigned short *brk;
                 if (wi == 0) {
-                    int n = (f.lineEnd - f.line) - 1;
+                    hulk_intptr n = (f.lineEnd - f.line) - 1;
                     memcpy(f.out, f.line, n * 2);
                     o = f.out + n;
                     *o = 0x2d;
@@ -270,7 +271,7 @@ void TextBox_ecf10::FUN_000ecf10(float maxWidth)
                 o++;
                 f.out = o;
                 lines[count] = o;
-                int rest = f.lineEnd - brk;
+                hulk_intptr rest = f.lineEnd - brk;
                 if (rest >= 0) {
                     memcpy(f.line, brk, rest * 2);
                     f.lineEnd = f.line + rest;

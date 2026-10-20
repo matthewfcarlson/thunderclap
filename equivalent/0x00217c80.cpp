@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 301 inputs, branch coverage 12/12)
 // FUN_00217c80 @ 0x00217c80
+#include "compat/ptr.h"
 extern "C" unsigned int __cdecl strlen(const char*);
 int __cdecl FUN_003473c6(const char* a, const char* b);
 struct TString_217c80 {
@@ -17,7 +18,7 @@ int FUN_00217c80(const TString_217c80* ls, const TString_217c80* rs) {
         int temp = FUN_003473c6(l, r);
         if (temp != 0)
             return temp;
-        unsigned int len = strlen(l);
+        hulk_uintptr len = strlen(l);
         if (len == lr)
             return len != ll;
         if (len == ll)

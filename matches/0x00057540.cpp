@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 class CCharacterSizeCondition_57540 {
@@ -16,7 +17,7 @@ template <> void* fight::ConditionFactoryTemplate<CCharacterSizeCondition>::vfun
     CCharacterSizeCondition_57540* p = (CCharacterSizeCondition_57540*)FUN_0008d690(0x14);
     if (p) {
         p->Init(0);
-        *(int*)p = (int)g_vtable_57540;
+        *(hulk_intptr*)p = (hulk_intptr)g_vtable_57540;
         *(int*)((char*)p + 0xc) = 0;
         *(int*)((char*)p + 0x10) = 0;
         return (void*)(p);

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1590 inputs, branch coverage 14/14)
 // FUN_001d6000 @ 0x001d6000
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 typedef unsigned int uint;
@@ -18,7 +19,7 @@ bool Object::check(int index) {
  } else { low=(*(uint*)&DAT_004e2420); high=(*(uint*)&DAT_004e2424); }
  if(index<0) return false;
  Collection_1d6000* c=collection;
- int n=c->end-c->begin;
+ hulk_intptr n=c->end-c->begin;
  if(index>=n) return false;
  Item_1d6000* item=c->begin[index];
  int count=item->count;

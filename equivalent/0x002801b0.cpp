@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 31/32, incomplete)
 // FUN_002801b0 @ 0x002801b0
+#include "compat/ptr.h"
 class Node {
 public:
     virtual void v0();
@@ -127,7 +128,7 @@ void VoicePool_2801b0::FUN_002801b0(float dt)
             for (int k = 0; k < (int)n; k++) {
                 Part_2801b0 *p = (Part_2801b0 *)m->begin[(unsigned char)k].part;
                 if (p->v15() == 4) {
-                    int count = ((char *)p->itemsEnd - (char *)p->items) >> 4;
+                    hulk_intptr count = ((char *)p->itemsEnd - (char *)p->items) >> 4;
                     for (int j = 0; j < count; j++) {
                         Node *item = *(Node **)((char *)p->items + j * 16);
                         item->v27(0);

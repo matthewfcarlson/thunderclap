@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0027bd70 @ 0x0027bd70
+#include "compat/ptr.h"
 struct Elem_27bd70 {
     char data[0x18];
 };
@@ -22,9 +23,9 @@ void ElemVector::FUN_0027bd70(unsigned int newSize, int fill) {
         FUN_0027b3b0(newSize);
     Elem_27bd70 *end = last;
     Elem_27bd70 *begin = first;
-    unsigned int size = end - begin;
+    hulk_uintptr size = end - begin;
     if (newSize > size) {
-        int extra = newSize - size;
+        hulk_intptr extra = newSize - size;
         if (end + extra <= capEnd) {
             FUN_0027bad0(end, extra);
             FUN_0027bb30(end, extra, fill);

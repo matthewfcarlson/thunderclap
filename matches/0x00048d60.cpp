@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f7010[];
 class Sub_48d60 {
   public:
@@ -16,7 +17,7 @@ struct ThisCall_00234590 {
 };
 CNameFlagConditionBase::CNameFlagConditionBase() {
     ((ThisCall_00234590*)(this))->FUN_00234590(0);
-    m0 = ((int)DAT_003f7010);
+    m0 = ((hulk_intptr)DAT_003f7010);
     mC = 0;
     sub.Init();
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f3390[];
 extern "C" char DAT_003f3d30[];
 class Ref_20c40 {
@@ -23,7 +24,7 @@ class CSnapToWallAction : public CAction {
 };
 CSnapToWallAction::CSnapToWallAction(int v, Ref_20c40* r) {
     int* p = (int*)this;
-    *p = ((int)DAT_003f3390);
+    *p = ((hulk_intptr)DAT_003f3390);
     mRef = 0;
     if (r)
         r->F();
@@ -31,6 +32,6 @@ CSnapToWallAction::CSnapToWallAction(int v, Ref_20c40* r) {
         mRef->G();
     mRef = r;
     mValue = v;
-    p[0] = ((int)DAT_003f3d30);
+    p[0] = ((hulk_intptr)DAT_003f3d30);
     mOther = 0;
 }

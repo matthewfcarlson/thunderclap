@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 60 inputs, branch coverage 59/64, incomplete)
 // FUN_0027def0 @ 0x0027def0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 extern "C" void *memset(void *dst, int c, unsigned int n);
 
 void *FUN_0008d690(unsigned int size);
@@ -202,7 +203,7 @@ StateProp::StateProp(Group_27def0 *a, int b)
             material->f50->FUN_00284ad0(1);
     }
 
-    if ((unsigned int)a >= 1u) {
+    if ((hulk_uintptr)a >= 1u) {
         if (((int)((char *)a->shapes.end - (char *)a->shapes.begin) & ~3) > 0) {
             int i = 0;
             do {
@@ -219,7 +220,7 @@ StateProp::StateProp(Group_27def0 *a, int b)
 
     colliders = (Collider_27def0 **)FUN_0008d6d0((a->shapes.end - a->shapes.begin) * 4);
     int fin = 0;
-    if (((unsigned int)a >= 1u) && ((int)((char *)a->shapes.end - (char *)a->shapes.begin) & ~3) > 0) {
+    if (((hulk_uintptr)a >= 1u) && ((int)((char *)a->shapes.end - (char *)a->shapes.begin) & ~3) > 0) {
         int j = 0;
         do {
             Source_27def0 *s = a->shapes.begin[j]->src;

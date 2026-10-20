@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 22 inputs, branch coverage 8/8)
 // FUN_002e11e0 @ 0x002e11e0
+#include "compat/ptr.h"
 struct V3_2e11e0 {
     float x, y, z;
 };
@@ -31,7 +32,7 @@ public:
 // Adds weight * delta to each referenced vertex.
 void Morph::FUN_002e11e0(DeltaList* list, float weight)
 {
-    int count = list->end - list->begin;
+    hulk_intptr count = list->end - list->begin;
     for (unsigned i = 0; i < (unsigned)count; i++) {
         const Delta* d = &list->begin[i];
         float x = weight * d->dx;

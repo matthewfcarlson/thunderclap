@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 155 inputs, branch coverage 32/32)
 // FUN_003010a0 @ 0x003010a0
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
 struct Object {
@@ -27,7 +28,7 @@ struct Container_3010a0 {
 void Container_3010a0::target(Object* object, unsigned flags) {
  if (!(flags & 8)) {
   if ((*(Global_3010a0**)&DAT_0055547c)->service->single(object)) {
-   if ((unsigned)specialEnd < (unsigned)specialCapacity) {
+   if ((hulk_uintptr)specialEnd < (hulk_uintptr)specialCapacity) {
     Object** slot=specialEnd; specialEnd=slot+1;
     if(slot) *slot=object;
    }
@@ -48,7 +49,7 @@ void Container_3010a0::target(Object* object, unsigned flags) {
    } while(i < (unsigned)(end-begin));
   }
  }
- if ((unsigned)end < (unsigned)capacity) {
+ if ((hulk_uintptr)end < (hulk_uintptr)capacity) {
   Object** slot=end; end=slot+1;
   if(slot) *slot=object;
  }

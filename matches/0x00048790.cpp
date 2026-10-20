@@ -1,4 +1,5 @@
 // Same code shape as 0x00048520 (propagated; names are from that function)
+#include "compat/ptr.h"
 extern int g_vft_48790;
 class CButtonValueCondition {
   public:
@@ -20,7 +21,7 @@ CButtonValueCondition* __fastcall FUN_00048790(CButtonValueCondition* self) {
     self->x6 = 4;
     self->x3 = 0;
     self->x5 = 0;
-    self->vf = (int)&g_vft_48790;
+    self->vf = (hulk_intptr)&g_vft_48790;
     self->x7 = 0;
     return self;
 }

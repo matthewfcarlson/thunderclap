@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 170 inputs, branch coverage 8/8)
 // FUN_0027d410 @ 0x0027d410
+#include "compat/ptr.h"
 struct Key_27d410 { char pad[8]; unsigned int a; unsigned int b; };
 struct KeyList_27d410 { char pad[0x1c]; Key_27d410** begin; Key_27d410** end; };
 struct Selector_27d410 {
@@ -15,7 +16,7 @@ struct Selector_27d410 {
 
 void Selector_27d410::FUN_0027d410(const unsigned int* id) {
     int index = -1;
-    int n = list->end - list->begin;
+    hulk_intptr n = list->end - list->begin;
     unsigned int a = id[0];
     unsigned int b = id[1];
     Key_27d410** it = list->begin;

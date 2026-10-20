@@ -3,6 +3,7 @@
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ??_R0?AVDriver@choreo2@@@8 = 0x0048d534
 // equiv-map: ??_R0?AVLocomotionStrafeDriver@choreo2@@@8 = 0x0048d554
+#include "compat/ptr.h"
 struct V3_15ed10 {
     float x, y, z;
 };
@@ -147,7 +148,7 @@ bool ClimbLocomotionAction::vfunc_3(int a, int b)
     Skeleton *skel = clock->FUN_00059a40();
     if (skel == 0)
         return false;
-    f.t48 = (unsigned int)timing;
+    f.t48 = (hulk_uintptr)timing;
     f.x44 = skel->FUN_002226b0();
     unsigned long long id = id6();
     unsigned int lo = (unsigned int)id;

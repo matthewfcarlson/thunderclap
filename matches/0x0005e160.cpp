@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct CProceduralDurationAnimationTrack {
     virtual void a();
     virtual void b();
@@ -23,7 +24,7 @@ struct G_5e160 {
 extern void __cdecl thunk_FUN_00267090(CProceduralDurationAnimationTrack*);
 extern int vftable_5e160;
 CProceduralDurationAnimationTrack* CProceduralDurationAnimationTrack::vfunc_5(int param) {
-    *(int*)this = (int)&vftable_5e160;
+    *(hulk_intptr*)this = (hulk_intptr)&vftable_5e160;
     ((H*)((char*)this + 0x38))->f();
     ((H*)((char*)this + 0x18))->f();
     ((G_5e160*)this)->g();

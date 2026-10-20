@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 20/24, incomplete)
 // FUN_001e2ed0 @ 0x001e2ed0
+#include "compat/ptr.h"
 class CSPHulkProp;
 
 namespace content {
@@ -123,7 +124,7 @@ int Inventory_1e2ed0::FUN_001e2ed0(int idx, int lo, int hi)
     ItemList_1e2ed0 *list = indexer->FUN_001d4fc0();
     if (!list)
         return -1;
-    int count = list->end - list->begin;
+    hulk_intptr count = list->end - list->begin;
     int n;
     for (n = 0; n < count; n++) {
         Item_1e2ed0 *it = list->begin[n];

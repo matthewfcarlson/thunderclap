@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003fc058[];
@@ -15,7 +16,7 @@ template <> void* fight::TrackFactoryTemplate<CRageModeTrack>::vfunc_5() {
     Obj_774c0* p = (Obj_774c0*)FUN_0008d690(0x14);
     if (p) {
         p->Init();
-        p->vptr = ((int)DAT_003fc058);
+        p->vptr = ((hulk_intptr)DAT_003fc058);
         p->mc = 0;
         p->m10 = 0;
         p->m8 = 1;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 403 inputs, branch coverage 12/12)
 // physics::CollisionVolume::vfunc_14 @ 0x00306d30
+#include "compat/ptr.h"
 void* __cdecl FUN_0008d690(unsigned int);
 namespace physics { struct CollisionVolume; }
 struct VolumeArray {
@@ -52,7 +53,7 @@ void CollisionVolume::vfunc_14(CollisionVolume* dest) {
    CollisionVolume* child=children->begin[i]->FUN_00306c60();
    child->vfunc_0();
    VolumeArray* out=dest->children;
-   if ((unsigned int)out->end < (unsigned int)out->limit) {
+   if ((hulk_uintptr)out->end < (hulk_uintptr)out->limit) {
     CollisionVolume** place=out->end;
     out->end=place+1;
     if(place) *place=child;

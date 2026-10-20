@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 22/28, incomplete)
 // pure3d::BillboardQuadGroup::vfunc_10 @ 0x002b9f50
+#include "compat/ptr.h"
 struct Matrix {
     float m[16];
 };
@@ -66,7 +67,7 @@ void BillboardQuadGroup::vfunc_10()
 {
     Frame_2b9f50 f;
     unsigned int i;
-    unsigned int n;
+    hulk_uintptr n;
 
     max.x = 0.0f;
     max.y = 0.0f;

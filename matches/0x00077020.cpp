@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 struct CMotionHitGroundHeightTrack_77020 {
@@ -16,7 +17,7 @@ template <> void* fight::TrackFactoryTemplate<CMotionHitGroundHeightTrack>::vfun
     CMotionHitGroundHeightTrack_77020* p = (CMotionHitGroundHeightTrack_77020*)operator_new(0x18);
     if (p) {
         p->construct();
-        p->vptr = (int)&vtable_77020;
+        p->vptr = (hulk_intptr)&vtable_77020;
         p->d = 0;
         p->e = -1.0f;
         p->f = 1.0f;

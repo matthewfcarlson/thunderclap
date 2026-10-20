@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" void __cdecl FUN_000683b0();
@@ -39,20 +40,20 @@ void Target() {
     } else {                                                                                                 \
         a[i] = 0;                                                                                            \
     }
-        M(0, "timeBegin", InitFloat, ((int)DAT_003fc624), ((int)(void (__cdecl*)())&FUN_000683b0))
-        M(1, "timeEnd", InitFloat, ((int)DAT_003fc624), ((int)(void (__cdecl*)())&FUN_000683c0))
-        M(2, "turningVelocity", InitFloat, ((int)DAT_003fc624), ((int)(void (__cdecl*)())&FUN_00069cf0))
-        M(3, "arc", InitFloat, ((int)DAT_003fc624), ((int)(void (__cdecl*)())&FUN_00069d10))
-        M(4, "distance", InitFloat, ((int)DAT_003fc624), ((int)(void (__cdecl*)())&FUN_000683d0))
-        M(5, "checkDistance", InitBool, ((int)DAT_003fc644), ((int)(void (__cdecl*)())&FUN_00068410))
-        M(6, "pickupPropTarget", InitBool, ((int)DAT_003fc644), ((int)(void (__cdecl*)())&FUN_00068440))
-        M(7, "locator", InitBool, ((int)DAT_003fc644), ((int)(void (__cdecl*)())&FUN_00068470))
-        M(8, "orientOffset", InitFloat, ((int)DAT_003fc624), ((int)(void (__cdecl*)())&FUN_00068480))
-        M(9, "orientOffsetFromTarget", InitFloat, ((int)DAT_003fc624), ((int)(void (__cdecl*)())&FUN_000684a0))
-        M(10, "priority", InitInt, ((int)DAT_003fc664), ((int)(void (__cdecl*)())&FUN_000684c0))
-        M(11, "blendInTime", InitFloat, ((int)DAT_003fc624), ((int)(void (__cdecl*)())&FUN_000684d0))
-        M(12, "blendOutTime", InitFloat, ((int)DAT_003fc624), ((int)(void (__cdecl*)())&FUN_000684e0))
-        Register((void**)((int)DAT_004dcf68), a, 13);
+        M(0, "timeBegin", InitFloat, ((int)DAT_003fc624), ((hulk_intptr)(void (__cdecl*)())&FUN_000683b0))
+        M(1, "timeEnd", InitFloat, ((int)DAT_003fc624), ((hulk_intptr)(void (__cdecl*)())&FUN_000683c0))
+        M(2, "turningVelocity", InitFloat, ((int)DAT_003fc624), ((hulk_intptr)(void (__cdecl*)())&FUN_00069cf0))
+        M(3, "arc", InitFloat, ((int)DAT_003fc624), ((hulk_intptr)(void (__cdecl*)())&FUN_00069d10))
+        M(4, "distance", InitFloat, ((int)DAT_003fc624), ((hulk_intptr)(void (__cdecl*)())&FUN_000683d0))
+        M(5, "checkDistance", InitBool, ((int)DAT_003fc644), ((hulk_intptr)(void (__cdecl*)())&FUN_00068410))
+        M(6, "pickupPropTarget", InitBool, ((int)DAT_003fc644), ((hulk_intptr)(void (__cdecl*)())&FUN_00068440))
+        M(7, "locator", InitBool, ((int)DAT_003fc644), ((hulk_intptr)(void (__cdecl*)())&FUN_00068470))
+        M(8, "orientOffset", InitFloat, ((int)DAT_003fc624), ((hulk_intptr)(void (__cdecl*)())&FUN_00068480))
+        M(9, "orientOffsetFromTarget", InitFloat, ((int)DAT_003fc624), ((hulk_intptr)(void (__cdecl*)())&FUN_000684a0))
+        M(10, "priority", InitInt, ((int)DAT_003fc664), ((hulk_intptr)(void (__cdecl*)())&FUN_000684c0))
+        M(11, "blendInTime", InitFloat, ((int)DAT_003fc624), ((hulk_intptr)(void (__cdecl*)())&FUN_000684d0))
+        M(12, "blendOutTime", InitFloat, ((int)DAT_003fc624), ((hulk_intptr)(void (__cdecl*)())&FUN_000684e0))
+        Register((void**)((hulk_intptr)DAT_004dcf68), a, 13);
     }
     ++gCount;
 }

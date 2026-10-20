@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f7250[];
@@ -20,7 +21,7 @@ template <> void* fight::ConditionFactoryTemplate<CSmartPropStateCondition>::vfu
     void* p = FUN_0008d690(0x14);
     if (p) {
         ((Init_58950*)p)->InitFn(0);
-        *(unsigned long*)p = ((int)DAT_003f7250);
+        *(hulk_ulongptr*)p = ((hulk_intptr)DAT_003f7250);
         *(unsigned long*)((char*)p + 0xc) = 2;
         *(unsigned long*)((char*)p + 0x10) = 0;
         return (void*)(p);

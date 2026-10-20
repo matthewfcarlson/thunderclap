@@ -2,6 +2,7 @@
 // FUN_00042b40 @ 0x00042b40
 // cl-flags: /GS
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 
@@ -299,7 +300,7 @@ char Chara_42b40::Setup(Rig_42b40 *r)
         Obj2f0 *o2f0 = (Obj2f0 *)thunk_FUN_0008d690(0x2f0);
         Obj2f0 *eo;
         if (o2f0)
-            eo = o2f0->FUN_00222620((int)f120);
+            eo = o2f0->FUN_00222620((hulk_intptr)f120);
         else
             eo = 0;
         ((Str_42b40 *)((char *)eo + 8))->FUN_0027af70((Str_42b40 *)&f8);
@@ -393,7 +394,7 @@ char Chara_42b40::Setup(Rig_42b40 *r)
         if (po == 0)
             continue;
         po->b1d8 = 1;
-        int tp = po->FUN_001d68d0();
+        hulk_intptr tp = po->FUN_001d68d0();
         if (tp)
             ((Sink284 *)tp)->FUN_00284820(0);
         int bone = 0;
@@ -412,7 +413,7 @@ char Chara_42b40::Setup(Rig_42b40 *r)
         mc8.m[12] = tr2->x;
         mc8.m[13] = tr2->y;
         mc8.m[14] = tr2->z;
-        FUN_0003acf0(i, (int)po, bone, 0, 0, &mc8);
+        FUN_0003acf0(i, (hulk_intptr)po, bone, 0, 0, &mc8);
     }
 
     Rig_42b40 *c = rig;

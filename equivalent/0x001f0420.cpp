@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 14/14)
 // CSoundCommand_SetLoopPitchEvent::vfunc_1 @ 0x001f0420
+#include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 
 struct SoundKey { unsigned int low, high; };
@@ -29,8 +30,8 @@ unsigned int CSoundCommand_SetLoopPitchEvent::vfunc_1(unsigned int instanceId, u
     else status = 0x4500;
     loop.pitchStep = (pitch - 1.0f) / (duration * 16.666666f);
    }
-   return ((unsigned int)instance & 0xffff0000U) | status;
+   return ((hulk_uintptr)instance & 0xffff0000U) | status;
   }
  }
- return (unsigned int)instance;
+ return (hulk_uintptr)instance;
 }

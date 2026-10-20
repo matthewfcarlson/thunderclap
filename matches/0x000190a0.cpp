@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f3390[];
 extern "C" char DAT_003f3438[];
 class Ref_190a0 {
@@ -30,7 +31,7 @@ class CDropAction : public CAction {
     CDropAction(int, Ref_190a0*);
 };
 CDropAction::CDropAction(int v, Ref_190a0* r) : CAction() {
-    *(int*)this = ((int)DAT_003f3390);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_003f3390);
     mRef = 0;
     if (r)
         r->Add();
@@ -38,7 +39,7 @@ CDropAction::CDropAction(int v, Ref_190a0* r) : CAction() {
         mRef->Release();
     mRef = r;
     x = v;
-    *(int*)this = ((int)DAT_003f3438);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_003f3438);
     mOther = 0;
     b = 0;
 }

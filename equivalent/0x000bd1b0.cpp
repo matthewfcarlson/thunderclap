@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3085 inputs, branch coverage 78/80, incomplete)
 // FUN_000bd1b0 @ 0x000bd1b0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
@@ -332,7 +333,7 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
             DAT_0052c2a8->v28(0.1f, 10000.0f, 0.5235988f, (*(Viewport_bd1b0**)&DAT_0052c2a4)->v16());
             DAT_0052c2a8->v12(7);
             char *id = p34->FUN_0008a2d0();
-            f.s8 = (int)id;
+            f.s8 = (hulk_intptr)id;
             bool done = false;
             if (p34 != 0) {
                 char *r = p34->FUN_0008a060(id);
@@ -386,7 +387,7 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
                         st->slots[st->index].b = 1;
                         st->slots[st->index].a = 0;
                         f.s4.f = 0.0f;
-                        f.s8 = (int)&((TblEntry*)&DAT_004061e8)[idx].strs[0];
+                        f.s8 = (hulk_intptr)&((TblEntry*)&DAT_004061e8)[idx].strs[0];
                         for (int k = 0; k < 4; k++, f.s8 += 4) {
                             const char *str = *(const char **)f.s8;
                             if (str != 0 && *str != 0) {
@@ -504,7 +505,7 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
                 Obj68_bd1b0 *o68 = me->p68;
                 o68->f10->v6(0x444d4c42, 1);
                 o68->f18 = 1;
-                Mesh_bd1b0 *mesh = DAT_0052c2a8->v30((int)me->p68->f10, 1, 0x2020, 4, 0);
+                Mesh_bd1b0 *mesh = DAT_0052c2a8->v30((hulk_intptr)me->p68->f10, 1, 0x2020, 4, 0);
                 {
                     Vertex_bd1b0 *vv = mesh->verts;
                     vv->x = -8.0f;

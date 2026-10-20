@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012e710 @ 0x0012e710
+#include "compat/ptr.h"
 extern "C" unsigned int __cdecl FUN_0008d340(void *);
 extern "C" void * __cdecl FUN_0008d6d0(unsigned int);
 struct Obj { char pad[0x10]; char *text; unsigned int FUN_0012e710(const char *value); };
@@ -13,5 +14,5 @@ unsigned int Obj::FUN_0012e710(const char *value) {
     text = allocated;
     char *out = allocated;
     do { *out++ = *value; } while (*value++);
-    return ((unsigned int)allocated & ~255u) | 1;
+    return ((hulk_uintptr)allocated & ~255u) | 1;
 }

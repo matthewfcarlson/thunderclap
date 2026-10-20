@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 66/66)
 // FUN_000452e0 @ 0x000452e0
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct Npc {
     char pad0[0x1ca8];
@@ -40,8 +41,8 @@ int FUN_00096600(const char *a, const char *b);
 int FUN_000452e0(const char *id, const char *name, int value)
 {
     int r = 0;
-    if (id == 0 || *id == 0) return (int)id;
-    if (name == 0 || *name == 0) return (int)id;
+    if (id == 0 || *id == 0) return (hulk_intptr)id;
+    if (name == 0 || *name == 0) return (hulk_intptr)id;
     Npc *npc = DAT_004dd700->modeB->FUN_000259f0(id);
     if (npc == 0) return 0;
     if ((r = FUN_00096600(name, "DesiredMinEngage")) == 0) {

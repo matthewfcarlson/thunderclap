@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 32/32)
 // FUN_001da350 @ 0x001da350
+#include "compat/ptr.h"
 #include "decls/address.h"
 class RefCounted_1da350 {
 public:
@@ -160,7 +161,7 @@ char Entity::FUN_001da350(RefCounted_1da350 *a1, Raw3_1da350 *a2, Raw3_1da350 *a
         if (r20 != 0) {
             Reg124_1da350 *r = r20->p124;
             if (r != 0 && r->key == a1)
-                r20->FUN_00029b50(FUN_001d72e0(), (unsigned)rc21c, f218);
+                r20->FUN_00029b50(FUN_001d72e0(), (hulk_uintptr)rc21c, f218);
         }
     }
     return 1;

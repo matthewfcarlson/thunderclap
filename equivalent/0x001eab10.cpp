@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 128 inputs, branch coverage 24/24)
 // FUN_001eab10 @ 0x001eab10
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
 extern "C" int sprintf(char *buf, const char *fmt, ...);
@@ -173,7 +174,7 @@ void Player_1eab10::FUN_001eab10(const char *name)
                 Voice_1eab10 *v = FUN_001e8960();
                 v->mix = mix;
                 void *mgr = FUN_00240750();
-                v->fc = FUN_00242c30(mgr, (int)v->mix);
+                v->fc = FUN_00242c30(mgr, (hulk_intptr)v->mix);
                 Pair_1eab10 *q = mix->FUN_00243390();
                 sink->k4(q->a, q->b, e);
             } else if (dynamic_cast<audio::Mixer *>(e)) {

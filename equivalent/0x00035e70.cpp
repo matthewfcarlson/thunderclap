@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 12/12)
 // FUN_00035e70 @ 0x00035e70
 // equiv-conv: FUN_00035e70 eax stack
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight.h"
 #include "decls/data/game/unknown.h"
 
@@ -10,7 +11,7 @@ int __cdecl FUN_00044560(Status *);
 unsigned int FUN_00035e70(Status *status, float value)
 {
     if (status->mode != 1)
-        return ((unsigned int)status & ~255u) | 1u;
+        return ((hulk_uintptr)status & ~255u) | 1u;
     int category = FUN_00044560(status);
     float limit = 0.0f;
     switch (category) {

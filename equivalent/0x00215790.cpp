@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 22/22)
 // FUN_00215790 @ 0x00215790
 // FUN_00215790 @ 0x00215790
+#include "compat/ptr.h"
 struct lua_State_215790;
 
 struct TObject_215790 {
@@ -62,7 +63,7 @@ void FUN_00215520(lua_State_215790* L, int a, int b);
 
 TObject_215790* FUN_00215790(lua_State_215790* L, TObject_215790* func)
 {
-    int funcr = (char*)func - (char*)L->stack;
+    hulk_intptr funcr = (char*)func - (char*)L->stack;
     if (func->tt != 6)
         func = FUN_00215710(L, func);
     if (L->ci + 1 == L->end_ci) {

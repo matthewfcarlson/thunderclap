@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3043 inputs, branch coverage 15/16, incomplete)
 // FUN_001d7890 @ 0x001d7890
+#include "compat/ptr.h"
 struct Item74 { char pad0[0x71]; char b71; char b72; };
 struct Item10_1d7890 { char pad0[0x74]; Item74 *p74; };
 struct Node { char pad0[0x10]; Item10_1d7890 *p10; };
@@ -237,7 +238,7 @@ CSPHulkPropInstance::CSPHulkPropInstance(Indexer_1d7890 *idx, int arg)
     f110 = f108 > 0;
     f130 = 0;
     if (indexer->FUN_001d4df0()) {
-        f150 = (int)indexer->FUN_001d4e00();
+        f150 = (hulk_intptr)indexer->FUN_001d4e00();
         if (node) {
             Item10_1d7890 *a = node->p10;
             if (a) {

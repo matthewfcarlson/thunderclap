@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19966 inputs, branch coverage 14/14)
 // FUN_001d5d20 @ 0x001d5d20
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 typedef unsigned int uint;
@@ -18,7 +19,7 @@ long CSPHulkPropInstance_1d5d20::target(int index) {
  } else { low = (*(uint*)&DAT_004e23e0); high = (*(uint*)&DAT_004e23e4); }
  if(index < 0) return 0;
  Collection_1d5d20* c = collection;
- int count = c->end - c->begin;
+ hulk_intptr count = c->end - c->begin;
  if(index >= count) return 0;
  Item_1d5d20* item = c->begin[index];
  int n = item->count;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct X_25260 {
     int Get(int);
 };
@@ -16,7 +17,7 @@ void C_25260::target(int arg, int, int) {
     if (count > 0) {
         do {
             void* p = ((void**)v)[17];
-            int x = ((X_25260*)p)->Get(items[i]);
+            hulk_intptr x = ((X_25260*)p)->Get(items[i]);
             if (x)
                 ((Y_25260*)x)->Use(arg);
             ++i;

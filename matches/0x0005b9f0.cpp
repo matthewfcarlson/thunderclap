@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int gVtable;
 class Base {
   public:
@@ -11,6 +12,6 @@ class Obj : public Base {
     int m10;
 };
 Obj::Obj(int a, int b) : Base(a) {
-    *(int*)this = (int)&gVtable;
+    *(hulk_intptr*)this = (hulk_intptr)&gVtable;
     m10 = b;
 }

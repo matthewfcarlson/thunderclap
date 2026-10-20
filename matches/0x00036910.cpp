@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class C_36910 {
     char pad[0x12c];
 
@@ -5,7 +6,7 @@ class C_36910 {
     void f(unsigned char x);
 };
 void C_36910::f(unsigned char x) {
-    int p = *(int*)((char*)this + 0x12c);
+    hulk_intptr p = *(int*)((char*)this + 0x12c);
     if (p && *(int*)(p + 0x74))
-        *(unsigned char*)(*(int*)(p + 0x74) + 0x72) = x;
+        *(unsigned char*)(*(hulk_intptr*)(p + 0x74) + 0x72) = x;
 }

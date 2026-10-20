@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // CGrappleKeyPoseTrack::vfunc_12 @ 0x0005a6d0
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 struct Settings;
@@ -45,5 +46,5 @@ int CGrappleKeyPoseTrack::vfunc_12(int __p0) { Owner_5a6d0 * owner = (Owner_5a6d
     Created_5a6d0* c = static_cast<Created_5a6d0*>(FUN_0008d690(0x30));
     if (c == 0)
         return (int)(0);
-    return (int)(c->FUN_0001d100(this, settings));
+    return (hulk_intptr)(c->FUN_0001d100(this, settings));
 }

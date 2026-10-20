@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 8/8)
 // FUN_00215710 @ 0x00215710
 // Lua 5.0 tryfuncTM
+#include "compat/ptr.h"
 struct TObject_215710 { int tt; int value; };
 struct lua_State_215710 {
     char pad0[8];
@@ -19,7 +20,7 @@ void __cdecl FUN_00215460(lua_State_215710 *L, int n);
 TObject_215710 *__cdecl FUN_00215710(lua_State_215710 *L, TObject_215710 *func)
 {
     const TObject_215710 *tm = FUN_002175b0(L, func, 14);
-    int funcr = (char *)func - (char *)L->stack;
+    hulk_intptr funcr = (char *)func - (char *)L->stack;
     if (tm->tt != 6)
         FUN_00214c90(L, func, "call");
     for (TObject_215710 *p = L->top; p > func; p--)

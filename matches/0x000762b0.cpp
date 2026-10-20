@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003fc148[];
@@ -12,7 +13,7 @@ template <> void* fight::TrackFactoryTemplate<CDeathTrack>::vfunc_5() {
     CDeathTrack_762b0* p = (CDeathTrack_762b0*)operator_new(0x10);
     if (p) {
         p->init();
-        *(unsigned long*)p = ((int)DAT_003fc148);
+        *(hulk_ulongptr*)p = ((hulk_intptr)DAT_003fc148);
         *(unsigned long*)((char*)p + 0xc) = 0;
         return (void*)(p);
     }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f3390[];
 extern "C" char DAT_003f3ce0[];
 class Arg_20b50 {
@@ -17,12 +18,12 @@ class CDeathAction : public CAction {
     CDeathAction(Arg_20b50*);
 };
 CDeathAction::CDeathAction(Arg_20b50* a) {
-    vf = ((int)DAT_003f3390);
+    vf = ((hulk_intptr)DAT_003f3390);
     mArg = 0;
     if (a)
         a->AddRef();
     if (mArg)
         mArg->Release();
     mArg = a;
-    vf = ((int)DAT_003f3ce0);
+    vf = ((hulk_intptr)DAT_003f3ce0);
 }

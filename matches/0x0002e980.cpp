@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 extern "C" void _ReadWriteBarrier();
@@ -8,7 +9,7 @@ struct Arguments {
     const char* other;
 };
 
-template <> void Closure3<CActorManager, void, const char *, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { int unused = (int)__p0; Arguments * args = (Arguments *)__p1; int unused2 = (int)__p2;
+template <> void Closure3<CActorManager, void, const char *, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; Arguments * args = (Arguments *)__p1; hulk_intptr unused2 = (hulk_intptr)__p2;
 
     const char* name = args->name;
     _ReadWriteBarrier();

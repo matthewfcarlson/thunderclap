@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2686 inputs, branch coverage 64/64)
 // pure3d::prop::StatePropDataLoader::vfunc_5 @ 0x00290bf0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
@@ -165,7 +166,7 @@ struct Frame {
     char b[0x3ec];
 };
 
-#define W(o) (*(volatile int *)((char *)&f + (o)))
+#define W(o) (*(volatile hulk_intptr *)((char *)&f + (o)))
 #define U8(o) (*(volatile unsigned char *)((char *)&f + (o)))
 #define PT(o) ((char *)&f + (o))
 
@@ -192,16 +193,16 @@ void StatePropDataLoader::vfunc_5(Prop **out, unsigned __int64 *outId, Reader *r
     W(0x10) = 0;
     CasterColl *c2 = new (PT(0x1c)) CasterColl;
     unsigned __int64 rid = ((unsigned __int64)res->idHi << 32) | res->idLo;
-    W(0x28) = (int)inv->v3(c2, rid);
+    W(0x28) = (hulk_intptr)inv->v3(c2, rid);
     if (W(0x28) != 0) {
         CasterPhys *c3 = new (PT(0x10)) CasterPhys;
         unsigned __int64 rid2 = ((unsigned __int64)res->idHi << 32) | res->idLo;
-        W(0x10) = (int)inv->v3(c3, rid2);
+        W(0x10) = (hulk_intptr)inv->v3(c3, rid2);
     }
 
     r->stream->FUN_002647e0(PT(0x1c), 1, 4, 1);
-    unsigned int ver = W(0x24);
-    int x3 = 0;
+    hulk_uintptr ver = W(0x24);
+    hulk_intptr x3 = 0;
     if (ver >= 3) {
         r->stream->FUN_002647e0(PT(0x0c), 1, 4, 1);
         x3 = W(0x0c);
@@ -212,9 +213,9 @@ void StatePropDataLoader::vfunc_5(Prop **out, unsigned __int64 *outId, Reader *r
         prop = ((Prop *)mem)->FUN_00290b30(res, (void *)W(0x28), (void *)W(0x10), W(0x1c), x3);
     else
         prop = 0;
-    W(0x20) = (int)prop;
+    W(0x20) = (hulk_intptr)prop;
     NameField *pname = &prop->name;
-    W(0xdc) = (int)pname;
+    W(0xdc) = (hulk_intptr)pname;
     pname->FUN_0027b040(PT(0x1ec));
 
     if (r->FUN_002669f0()) {
@@ -248,8 +249,8 @@ void StatePropDataLoader::vfunc_5(Prop **out, unsigned __int64 *outId, Reader *r
                 r->stream->FUN_002647e0(PT(0x60), 1, 4, 1);
                 r->stream->FUN_002647e0(PT(0xa8), 1, 4, 1);
                 r->stream->FUN_002647e0(PT(0xd0), 1, 4, 1);
-                int ebp = 0;
-                int edi = 0;
+                hulk_intptr ebp = 0;
+                hulk_intptr edi = 0;
                 W(0x0c) = 0;
                 if ((unsigned int)W(0x24) >= 2) {
                     r->stream->FUN_002647e0(PT(0x48), 1, 4, 1);

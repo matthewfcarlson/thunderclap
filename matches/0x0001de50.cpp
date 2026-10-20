@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f3390[];
 extern "C" char DAT_003f37f4[];
 class Ref_1de50 {
@@ -23,14 +24,14 @@ class CGrabAction : public Ctor_00232660 {
     CGrabAction(Ref_1de50*, int, Ref_1de50*, int);
 };
 CGrabAction::CGrabAction(Ref_1de50* a, int b, Ref_1de50* c, int d) : Ctor_00232660() {
-    vptr = (int*)((int)DAT_003f3390);
+    vptr = (int*)((hulk_intptr)DAT_003f3390);
     first = 0;
     if (c)
         c->A();
     if (first)
         first->B();
     first = c;
-    vptr = (int*)((int)DAT_003f37f4);
+    vptr = (int*)((hulk_intptr)DAT_003f37f4);
     m24 = d;
     m28 = 0;
     m38 = 0;

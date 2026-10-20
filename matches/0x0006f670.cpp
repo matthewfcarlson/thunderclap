@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003fd094[];
@@ -11,7 +12,7 @@ template <> void* fight::TrackFactoryTemplate<CGrappleEffectStopTrack>::vfunc_5(
     StopTrack_6f670* p = (StopTrack_6f670*)FUN_0008d690(0x18);
     if (p) {
         p->Init();
-        *(int*)p = ((int)DAT_003fd094);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_003fd094);
         return (void*)(p);
     }
     return (void*)(0);

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0015bc90 @ 0x0015bc90
+#include "compat/ptr.h"
 extern "C" char DAT_00415a40[];
 struct Vec2_15bc90 {
     int a, b;
@@ -34,7 +35,7 @@ struct HeliLocomotionTrack : Base_15bc90 {
 };
 HeliLocomotionTrack *HeliLocomotionTrack::ctor() {
     FUN_00236d40();
-    *(volatile unsigned long *)this = (unsigned long)DAT_00415a40;
+    *(volatile hulk_ulongptr *)this = (hulk_ulongptr)DAT_00415a40;
     f0c = 0;
     f14 = 100.0f;
     f18 = 25.0f;

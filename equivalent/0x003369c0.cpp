@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2829 inputs, branch coverage 78/83, incomplete)
 // FUN_003369c0 @ 0x003369c0
+#include "compat/ptr.h"
 struct Entry {
     char pad0[8];
     int type;
@@ -148,7 +149,7 @@ void Relocator::FUN_003369c0(char swap) {
             break;
         }
     }
-    unsigned int a = (unsigned int)arr;
+    hulk_uintptr a = (hulk_uintptr)arr;
     a = REBASE(a);
     arr = (unsigned int*)a;
     a = SWAP(a);
@@ -171,12 +172,12 @@ void Relocator::FUN_003369c0(char swap) {
         c = *r++;
         *d++ = c;
     } while (c != 0);
-    unsigned int off = (unsigned int)dst;
+    hulk_uintptr off = (hulk_uintptr)dst;
     off = REBASE(off);
     if (swap)
         off = FUN_00335270(off);
     unsigned int* out = (unsigned int*)DAT_0055dbb0.FUN_00337d60(0xc, 4);
-    out[0] = (unsigned int)arr;
+    out[0] = (hulk_uintptr)arr;
     out[1] = data2;
     out[2] = off;
 }

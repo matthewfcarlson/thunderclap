@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 24/24)
 // FUN_001f8b40 @ 0x001f8b40
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct V3_1f8b40 {
     float x, y, z;
@@ -66,7 +67,7 @@ int __stdcall FUN_001f8b40(int a1, Obj_1f8b40 *obj, float x, float y, float z)
         }
         const char *name = mgr->FUN_001ff950(f.p, 1, 2, -3.4028235e38f, 30.0f);
         if (name == 0)
-            return (int)obj;
+            return (hulk_intptr)obj;
         return mgr->FUN_001fc8c0(FUN_0027b020(name));
     }
 
@@ -86,5 +87,5 @@ int __stdcall FUN_001f8b40(int a1, Obj_1f8b40 *obj, float x, float y, float z)
         if (name != 0)
             return mgr->FUN_001fc8c0(FUN_0027b020(name));
     }
-    return (int)obj;
+    return (hulk_intptr)obj;
 }

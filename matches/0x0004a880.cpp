@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vftA, vftB;
 class Sub_4a880 {
   public:
@@ -11,8 +12,8 @@ class C_4a880 {
     void Run();
 };
 void C_4a880::Run() {
-    *(int*)this = (int)&vftA;
+    *(hulk_intptr*)this = (hulk_intptr)&vftA;
     sub.Init();
-    *(int*)this = (int)&vftB;
+    *(hulk_intptr*)this = (hulk_intptr)&vftB;
     Finish();
 }

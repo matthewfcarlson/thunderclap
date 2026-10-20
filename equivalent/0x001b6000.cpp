@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 16/18, incomplete)
 // FUN_001b6000 @ 0x001b6000
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight.h"
 
@@ -36,7 +37,7 @@ char Tracker_1b6000::FUN_001b6000(int id, void ***outList, int *outId)
     if (!reg->FUN_002edb90(id, 10))
         return 0;
     Rec_1b6000 *begin = reg->begin;
-    int n = reg->end - begin;
+    hulk_intptr n = reg->end - begin;
     unsigned int i;
     for (i = 0; i < (unsigned int)n; i++) {
         Rec_1b6000 *r = &reg->begin[i];
@@ -49,7 +50,7 @@ char Tracker_1b6000::FUN_001b6000(int id, void ***outList, int *outId)
                 unsigned int idx = 0;
                 if ((int)(((char *)itemsEnd - (char *)itemsBegin) & 0xfffffffc) > 0) {
                     for (;;) {
-                        unsigned int cnt = itemsEnd - itemsBegin;
+                        hulk_uintptr cnt = itemsEnd - itemsBegin;
                         void *e = idx < cnt ? itemsBegin[idx] : 0;
                         if (e == item) {
                             id |= idx << 16;

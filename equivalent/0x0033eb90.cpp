@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 14/14)
 // FUN_0033eb90 @ 0x0033eb90
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
 typedef void* (__stdcall *AllocHook)(unsigned int size);
@@ -25,7 +26,7 @@ void* __stdcall FUN_0033eb90(unsigned int size)
         if (raw == 0)
             return 0;
     }
-    unsigned char offset = (unsigned char)(0x40 - ((unsigned char)(unsigned int)raw & 0x1f));
+    unsigned char offset = (unsigned char)(0x40 - ((unsigned char)(hulk_uintptr)raw & 0x1f));
     unsigned char* user = raw + offset;
     user[-1] = offset;
     user[-2] = kind;

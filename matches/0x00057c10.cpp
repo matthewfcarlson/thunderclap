@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_57c10;
@@ -15,7 +16,7 @@ template <> void* fight::ConditionFactoryTemplate<CCollisionPushbackYAngleCondit
     CCollisionPushbackYAngleCondition_57c10* p = (CCollisionPushbackYAngleCondition_57c10*)Alloc(0x14);
     if (p) {
         p->Init(0);
-        p->vptr = (u32_57c10)&CCollisionPushbackYAngleCondition_vftable_57c10;
+        p->vptr = (hulk_uintptr)&CCollisionPushbackYAngleCondition_vftable_57c10;
         p->fieldC = 5;
         p->field10 = 0;
         return (void*)(p);

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vt1_49820;
 extern int vt2_49820;
 class CSmartPropDistanceCondition {
@@ -12,8 +13,8 @@ class CSmartPropDistanceCondition {
     void Build();
 };
 void CSmartPropDistanceCondition::Build() {
-    *(int*)this = (int)&vt1_49820;
+    *(hulk_intptr*)this = (hulk_intptr)&vt1_49820;
     part.Init();
-    *(int*)this = (int)&vt2_49820;
+    *(hulk_intptr*)this = (hulk_intptr)&vt2_49820;
     Final();
 }

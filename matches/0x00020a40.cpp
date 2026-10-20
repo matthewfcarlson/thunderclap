@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f3390[];
 extern "C" char DAT_003f3c90[];
 class Param {
@@ -18,14 +19,14 @@ class Obj_20a40 {
 };
 Obj_20a40* Obj_20a40::ctor(int value, Param* p) {
     ((ThisCall_00232660*)(this))->BaseInit();
-    v = (void*)((int)DAT_003f3390);
+    v = (void*)((hulk_intptr)DAT_003f3390);
     this->p = 0;
     if (p)
         p->Add();
     if (this->p)
         this->p->Drop();
     *(Param* volatile*)&this->p = p;
-    *(void* volatile*)&v = (void*)((int)DAT_003f3c90);
+    *(void* volatile*)&v = (void*)((hulk_intptr)DAT_003f3c90);
     this->value = 0;
     this->value = value;
     return this;

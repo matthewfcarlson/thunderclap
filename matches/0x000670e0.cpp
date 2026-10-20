@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void __cdecl FUN_00066980();
 class H {
   public:
@@ -11,7 +12,7 @@ class C_670e0 {
 };
 float C_670e0::f(unsigned int x) {
     H* h = (H*)((char*)this + 0x2f4);
-    void* p = h->lookup(((int)(void (__cdecl*)())&FUN_00066980), x);
+    void* p = h->lookup(((hulk_intptr)(void (__cdecl*)())&FUN_00066980), x);
     if (!p)
         return gZero_670e0;
     return *(float*)((char*)p + 0x18);

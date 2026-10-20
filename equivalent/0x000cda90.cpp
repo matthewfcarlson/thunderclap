@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2926 inputs, branch coverage 39/40, incomplete)
 // FUN_000cda90 @ 0x000cda90
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
@@ -198,7 +199,7 @@ void Obj_cda90::FUN_000cda90()
         wl = p25c;
         col1 = alpha | 0x79fe4;
     }
-    f.s1c.u = (unsigned int)obj1;
+    f.s1c.u = (hulk_uintptr)obj1;
     unsigned int col2 = alpha | 0xf0e614;
     int A = f.A;
     if (A != f.s24.i) {

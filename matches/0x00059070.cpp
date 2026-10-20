@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern int vft_59070;
@@ -24,7 +25,7 @@ template <> void* fight::ConditionFactoryTemplate<CSmartPropDistanceCondition>::
     CSmartPropDistanceCondition_59070* p = (CSmartPropDistanceCondition_59070*)alloc(0x30);
     if (p) {
         p->setup(0);
-        p->vptr = (int)&vft_59070;
+        p->vptr = (hulk_intptr)&vft_59070;
         p->one = 1;
         p->val = 1.0f;
         p->inner.init();

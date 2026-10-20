@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 13/14, incomplete)
 // audio::SeqActionChannelVolumes::vfunc_1 @ 0x00252220
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 typedef unsigned int uint;
@@ -27,7 +28,7 @@ void audio::SeqActionChannelVolumes::vfunc_1(Context* context) {
   if(key < node->key) node = node->left;
   else if(key > node->key) node = node->right;
   else {
-   uint address = (uint)node - 4;
+   hulk_uintptr address = (hulk_uintptr)node - 4;
    if(address) {
     ChannelVolumeFadeBehaviour* found = (ChannelVolumeFadeBehaviour*)address;
     Data_252220* source=data;

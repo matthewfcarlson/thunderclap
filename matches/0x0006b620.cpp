@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f98d0[];
 extern "C" char DAT_003fbb34[];
 class Helper_6b620 {
@@ -13,10 +14,10 @@ class CKeyPoseTrack {
 };
 void Final(CKeyPoseTrack*);
 CKeyPoseTrack* CKeyPoseTrack::vfunc_5(unsigned char flag) {
-    vptr = (int*)((int)DAT_003fbb34);
+    vptr = (int*)((hulk_intptr)DAT_003fbb34);
     ((Helper_6b620*)((char*)this + 0x60))->f();
     ((Helper_6b620*)((char*)this + 0x10))->f();
-    vptr = (int*)((int)DAT_003f98d0);
+    vptr = (int*)((hulk_intptr)DAT_003f98d0);
     BaseDtor();
     if (flag & 1)
         Final(this);

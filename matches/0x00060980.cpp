@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class CEffectStopTrack_60980 {
@@ -34,7 +35,7 @@ int CGrappleEffectStopTrack::vfunc_12(int arg) {
     if (p) {
         Obj_60980* o = FUN_0005a430(arg);
         int v = o->field;
-        return p->method((int)this, v);
+        return p->method((hulk_intptr)this, v);
     }
     return 0;
 }

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_002a2d50 @ 0x002a2d50
 // 0x002a2d50: OpaqueTraversal constructor reserving n 16-byte records and n 4-byte indices
+#include "compat/ptr.h"
 extern char DAT_0042d78c[];
 void* __cdecl FUN_0008d6d0(unsigned int size);
 
@@ -26,7 +27,7 @@ public:
 OpaqueTraversal* OpaqueTraversal::FUN_002a2d50(unsigned int n)
 {
     FUN_002c6a80();
-    vptr = (int)DAT_0042d78c;
+    vptr = (hulk_intptr)DAT_0042d78c;
     field_18 = 0;
     field_1c = 1;
     if (n != 0) {

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class ConditionFactory {
   public:
     virtual void A();
@@ -37,7 +38,7 @@ CCollisionPushbackVelocityCondition* Factory_57ab0::v5() {
     CCollisionPushbackVelocityCondition* p = (CCollisionPushbackVelocityCondition*)FUN_0008d690(0x14);
     if (p) {
         p->Init(0);
-        ((int*)p)[0] = (int)&CCollisionPushbackVelocityCondition_vftable;
+        ((hulk_intptr*)p)[0] = (hulk_intptr)&CCollisionPushbackVelocityCondition_vftable;
         p->a = 0;
         p->b = 0;
         return p;

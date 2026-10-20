@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20043 inputs, branch coverage 45/48, incomplete)
 // hulkfight::GameStateCondition::vfunc_6 @ 0x0012f400
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 extern int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
@@ -17,7 +18,7 @@ Script_12f400* __cdecl FUN_001d4c90();
 namespace hulkfight {
 
 }
-bool hulkfight::GameStateCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; int b = (int)__p1; int c = (int)__p2;
+bool hulkfight::GameStateCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; hulk_intptr b = (hulk_intptr)__p1; hulk_intptr c = (hulk_intptr)__p2;
 
     bool result = false;
 

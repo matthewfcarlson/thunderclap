@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f9a2c[];
 class CGrappleSequenceTrack {
   public:
@@ -17,7 +18,7 @@ class C_5af80 {
     void Finish();
 };
 void CGrappleSequenceTrack::Target() {
-    *(void**)this = (void*)((int)DAT_003f9a2c);
+    *(void**)this = (void*)((hulk_intptr)DAT_003f9a2c);
     ((A_5af80*)((char*)this + 0x1c))->InitA();
     ((B_5af80*)((char*)this + 0x0c))->InitB();
     ((C_5af80*)this)->Finish();

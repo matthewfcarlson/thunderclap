@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 287 inputs, branch coverage 119/144, incomplete)
 // pure3d::OldCompositeDrawableLoader::vfunc_5 @ 0x0029a630
+#include "compat/ptr.h"
 #include "decls/address.h"
 typedef unsigned __int64 UID;
 inline void* operator new(unsigned int,void* p) { return p; }
@@ -31,7 +32,7 @@ void pure3d::OldCompositeDrawableLoader::vfunc_5(CompositeDrawable** result,UID*
  if(chunk->FUN_002669f0()) {
  unsigned int si=w.ns,gi=w.ng,bi=w.nb,pi=w.np;
  if(type==0x4517) w.temporary=(char*)w.particleJoints-(char*)w.particles;
- if(type==0x4514) { w.remaining=(int)(w.billboardJoints+bi); w.offset=(char*)w.billboards-(char*)w.billboardJoints; w.skinCaster=(char*)w.geometries-(char*)w.geometryJoints; }
+ if(type==0x4514) { w.remaining=(hulk_intptr)(w.billboardJoints+bi); w.offset=(char*)w.billboards-(char*)w.billboardJoints; w.skinCaster=(char*)w.geometries-(char*)w.geometryJoints; }
  do {
  int child=chunk->FUN_00266a30();
  if(child==(type==0x4513?0x4515:type==0x4514?0x4516:0x4518)) {

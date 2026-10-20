@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f742c[];
@@ -11,7 +12,7 @@ template <> void* fight::ConditionFactoryTemplate<CRageModeCondition>::vfunc_5()
     CRageModeCondition_586b0* p = (CRageModeCondition_586b0*)Alloc(0x10);
     if (p) {
         p->Init(0);
-        *(int*)p = ((int)DAT_003f742c);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_003f742c);
         *((char*)p + 0xc) = 1;
         return (void*)(p);
     }

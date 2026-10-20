@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 509 inputs, branch coverage 228/230, incomplete)
 // FUN_00218350 @ 0x00218350
+#include "compat/ptr.h"
 struct Table;
 struct lua_State;
 
@@ -483,7 +484,7 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
             case 32:
             case 33: { /* OP_SETLIST, OP_SETLISTO */
                 int bc;
-                int n;
+                hulk_intptr n;
                 void* h;
                 if (ra->tt != 5)
                     return 0;

@@ -1,4 +1,5 @@
 // FUN_0001f6c0 @ 0x0001f6c0
+#include "compat/ptr.h"
 extern "C" char DAT_003f3390[];
 extern "C" char DAT_003f3a5c[];
 
@@ -21,14 +22,14 @@ struct CEffectAction {
 CEffectAction *CEffectAction::FUN_0001f6c0(int a, RefObj_1f6c0 *b, RefObj_1f6c0 *c)
 {
     FUN_00232660();
-    vptr = (int)DAT_003f3390;
+    vptr = (hulk_intptr)DAT_003f3390;
     f1c = 0;
     if (b)
         b->addRef();
     if (f1c)
         f1c->release();
     f1c = b;
-    vptr = (int)DAT_003f3a5c;
+    vptr = (hulk_intptr)DAT_003f3a5c;
     f24 = 0;
     f28 = 0;
     f20 = a;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 128 inputs, branch coverage 15/16, incomplete)
 // FUN_00300c90 @ 0x00300c90
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
 extern void* __cdecl FUN_0008d6d0(unsigned int size);
@@ -23,6 +24,6 @@ Object* Object::FUN_00300c90() {
  entries=list;
  if(count!=0) { unsigned int bytes=(unsigned int)count*4; unsigned int* p=(unsigned int*)FUN_0008d6d0(bytes); begin=p; if(p) {end=p; limit=(unsigned int*)((char*)p+bytes);} else {end=0; limit=0;} }
  else {begin=0;end=0;limit=0;}
- if(entries->active!=1) {entries->active=1; unsigned int* p=end; if((unsigned int)p<(unsigned int)limit) {end=p+1; if(p) *p=0;} }
+ if(entries->active!=1) {entries->active=1; unsigned int* p=end; if((hulk_uintptr)p<(hulk_uintptr)limit) {end=p+1; if(p) *p=0;} }
  return this;
 }

@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 32/32)
 // FUN_002ffce0 @ 0x002ffce0
+#include "compat/ptr.h"
 void __cdecl FUN_002ffce0(unsigned int* first, unsigned int* middle, unsigned int* last)
 {
     unsigned int a,b;
-    int count = last-first;
+    hulk_intptr count = last-first;
     if(count > 40) {
-        int step=(count+1)/8;
+        hulk_intptr step=(count+1)/8;
         unsigned int* p=first+step;
         unsigned int* q=first+2*step;
         a=*p; b=*first; if(a<b){*p=b;*first=a;}

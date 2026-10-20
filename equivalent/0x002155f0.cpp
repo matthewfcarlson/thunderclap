@@ -2,6 +2,7 @@
 // FUN_002155f0 @ 0x002155f0
 // Lua 5.0 ldo.c adjust_varargs(): pads missing fixed arguments with nil and moves the extra
 // arguments into a new `arg' table (with the count in field `n').
+#include "compat/ptr.h"
 struct TObject_2155f0 {
     int tt;
     union {
@@ -29,9 +30,9 @@ extern TObject_2155f0 *__cdecl FUN_0021a500(lua_State_2155f0 *L, Table *t, TStri
 // equiv-conv: FUN_002155f0 edx esi stack
 TObject_2155f0 *FUN_002155f0(TObject_2155f0 *base, lua_State_2155f0 *L, int nfixargs)
 {
-    int actual = L->top - base;
+    hulk_intptr actual = L->top - base;
     if (actual < nfixargs) {
-        int missing = nfixargs - actual;
+        hulk_intptr missing = nfixargs - actual;
         if ((char *)L->stack_last - (char *)L->top <= missing * (int)sizeof(TObject_2155f0))
             FUN_00215460(L, missing);
         actual += missing;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 164 inputs, branch coverage 27/34, incomplete)
 // FUN_0026be70 @ 0x0026be70
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 
 typedef unsigned int uint_26be70;
@@ -24,11 +25,11 @@ void *__cdecl FUN_0026be70(Arena_26be70 *self, uint_26be70 amount) {
  *(*(uint_26be70**)&DAT_005283ac) = start + bytes;
  if (*(*(uint_26be70**)&DAT_005283ac) >= (*(uint_26be70*)&DAT_005283a8) || start == ~0u) return 0;
  self->used += bytes;
- if (start == (uint_26be70)old + oldSize) {
+ if (start == (hulk_uintptr)old + oldSize) {
   old->size = (bytes + oldSize) | 1;
  } else {
   uint_26be70 extra = 0;
-  uint_26be70 base = start;
+  hulk_uintptr base = start;
   uint_26be70 cursor;
   bool valid;
   if (!(self->flags & 2)) {

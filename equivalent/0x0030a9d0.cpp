@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2142 inputs, branch coverage 35/36, incomplete)
 // FUN_0030a9d0 @ 0x0030a9d0
+#include "compat/ptr.h"
 #include "decls/data/engine/physics.h"
 
 struct Vec3_30a9d0 {
@@ -177,7 +178,7 @@ void Body_30a9d0::FUN_0030a9d0(Vec3_30a9d0 a, Vec3_30a9d0 b, char flag)
     e2->p10.x = b.x + e2->p10.x;
     e2->p10.y = b.y + e2->p10.y;
     e2->p10.z = b.z + e2->p10.z;
-    unsigned int n = childEnd - childBegin;
+    hulk_uintptr n = childEnd - childBegin;
     if (n != 0) {
         for (unsigned int i = 0; i < (unsigned int)(childEnd - childBegin); i++)
             childBegin[i]->FUN_0030a9d0(a, b, flag);

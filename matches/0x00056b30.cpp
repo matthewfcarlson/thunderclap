@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f7404[];
@@ -13,7 +14,7 @@ template <> void* fight::ConditionFactoryTemplate<CAlertStatusCondition>::vfunc_
     CAlertStatusCondition_56b30* p = (CAlertStatusCondition_56b30*)Alloc(0x14);
     if (p != 0) {
         ((InitObj_56b30*)p)->Init(0);
-        p->a = ((int)DAT_003f7404);
+        p->a = ((hulk_intptr)DAT_003f7404);
         p->d = 0;
         p->e = 0;
         return (void*)(p);

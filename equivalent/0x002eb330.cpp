@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 63 inputs, branch coverage 14/14)
 // FUN_002eb330 @ 0x002eb330
+#include "compat/ptr.h"
 extern "C" unsigned int strlen(const char *);
 extern "C" void *memcpy(void *, const void *, unsigned int);
 
@@ -28,7 +29,7 @@ void FUN_002eb330(Pool *pool, Entry_2eb330 *e, const char *name, int a4, int a8,
     if (e == 0)
         return;
 
-    unsigned int n = strlen(name) + 1;
+    hulk_uintptr n = strlen(name) + 1;
     char *copy = (char *)FUN_002e6c00(pool, n);
     e->name = copy;
     memcpy(copy, name, n);

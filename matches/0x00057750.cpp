@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f6fc8[];
@@ -13,7 +14,7 @@ template <> void* fight::ConditionFactoryTemplate<CCollisionDirectionCondition>:
     CCollisionDirectionCondition_57750* p = (CCollisionDirectionCondition_57750*)Alloc(0x14);
     if (p) {
         p->Init(0);
-        p->vptr = ((int)DAT_003f6fc8);
+        p->vptr = ((hulk_intptr)DAT_003f6fc8);
         p->fieldC = 0;
         p->field10 = 0x3fc90fdb;
         return (void*)(p);

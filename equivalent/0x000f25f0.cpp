@@ -2,6 +2,7 @@
 // FUN_000f25f0 @ 0x000f25f0
 // cl-flags: /GS
 // FEBillboardAnimation constructor: look the billboard object up by name when the name is short enough.
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 namespace content {
@@ -58,7 +59,7 @@ FEBillboardAnimation::FEBillboardAnimation(int a, const char *name) : FEBase(a, 
     const char *end = name;
     while (*end++) {
     }
-    unsigned int length = end - start;
+    hulk_uintptr length = end - start;
     if (length <= 0xfb) {
         Loader_f25f0 *ld = (*(Loader_f25f0**)&DAT_004dd9cc);
         Id64_f25f0 id = FUN_0027b020(name);

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 22/22)
 // FUN_00335300 @ 0x00335300
+#include "compat/ptr.h"
 #include "decls/data/engine/movie.h"
 
 struct Stream { const char* FUN_00337980(); void FUN_003379b0(); };
@@ -25,7 +26,7 @@ bool Parser_335300::run(Stream* stream) {
  stream->FUN_003379b0();
  int kind = entry->type;
  unsigned int flag = (kind >= 4 && kind <= 8) ? 0 : 1;
- unsigned int argument = ((unsigned int)stream & 0xffffff00u) | flag;
+ unsigned int argument = ((hulk_uintptr)stream & 0xffffff00u) | flag;
  if (!(this->*((Handler_335300*)&DAT_004d9800)[kind])(values + index, stream, entry, argument)) return false;
  stream->FUN_003379b0();
  return true;

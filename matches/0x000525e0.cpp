@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f8644[];
@@ -25,7 +26,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CIsHelicopterCondition>:
     void* p = Allocate(0x10);
     if (p) {
         ((InitObj_525e0*)p)->Init();
-        *(unsigned int*)p = ((int)DAT_003f8644);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f8644);
         ((SetupObj_525e0*)((char*)p + 8))->Setup(arg);
         return (void*)(p);
     }

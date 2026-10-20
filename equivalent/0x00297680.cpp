@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20136 inputs, branch coverage 49/51, incomplete)
 // FUN_00297680 @ 0x00297680
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/data/engine/content.h"
 #include "gen/pure3d.h"
 
@@ -258,7 +259,7 @@ Node_297680 *SceneLoader_297680::FUN_00297680(Stream_297680 *s, void *ctx)
     case 0x12010f: {
         s->reader->FUN_002647e0(&f.self, 1, 4, 1);
         s->reader->FUN_002647e0(&f.self, 1, 4, 1);
-        bool flag = ((int)f.self != 0);
+        bool flag = ((hulk_intptr)f.self != 0);
         s->FUN_000f9600(f.name);
         void *mem = thunk_FUN_0008d690(0x20);
         pure3d::scenegraph::DrawableNode *h = 0;

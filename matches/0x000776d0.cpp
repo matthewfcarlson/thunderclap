@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003fbc9c[];
@@ -18,7 +19,7 @@ template <> void* fight::TrackFactoryTemplate<CSweepTrack>::vfunc_5() {
         *(unsigned long*)((char*)p + 0x14) = 0;
         *(unsigned long*)((char*)p + 0x1c) = 0;
         *(unsigned long*)((char*)p + 0x20) = 0;
-        *(unsigned long*)p = ((int)DAT_003fbc9c);
+        *(hulk_ulongptr*)p = ((hulk_intptr)DAT_003fbc9c);
         *(unsigned long*)((char*)p + 0x10) = 0x3f800000;
         *(unsigned long*)((char*)p + 0x18) = 0xffffffff;
         *(unsigned long*)((char*)p + 8) = 1;

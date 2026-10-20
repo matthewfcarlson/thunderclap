@@ -1,4 +1,5 @@
 // Same code shape as 0x00025370 (propagated; names are from that function)
+#include "compat/ptr.h"
 struct Ctx_253c0 {
     int pad[17];
     int Find(int);
@@ -18,7 +19,7 @@ void Target_253c0::Run(int arg) {
     int i = 0;
     while (i < count) {
         Ctx_253c0* c = (Ctx_253c0*)vt[17];
-        int r = c->Find(items[i]);
+        hulk_intptr r = c->Find(items[i]);
         if (r)
             ((Act_253c0*)r)->Do(arg);
         ++i;

@@ -1,4 +1,5 @@
 // Same code shape as 0x00057c10 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_58290;
@@ -16,7 +17,7 @@ template <> void* fight::ConditionFactoryTemplate<CIntentionSpeedCondition>::vfu
     CCollisionPushbackYAngleCondition_58290* p = (CCollisionPushbackYAngleCondition_58290*)Alloc(0x14);
     if (p) {
         p->Init(0);
-        p->vptr = (u32_58290)&CCollisionPushbackYAngleCondition_vftable_58290;
+        p->vptr = (hulk_uintptr)&CCollisionPushbackYAngleCondition_vftable_58290;
         p->fieldC = 5;
         p->field10 = 0;
         return (void*)(p);

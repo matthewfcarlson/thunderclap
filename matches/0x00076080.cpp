@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_76080;
@@ -12,7 +13,7 @@ template <> void* fight::TrackFactoryTemplate<CComboMessageTrack>::vfunc_5() {
     CComboMessageTrack_76080* p = (CComboMessageTrack_76080*)Alloc(0x54);
     if (p) {
         p->Init();
-        *(u32_76080*)p = (u32_76080)&ComboVtable;
+        *(hulk_uintptr*)p = (hulk_uintptr)&ComboVtable;
         *(u32_76080*)((char*)p + 0xc) = 0;
         *(u32_76080*)((char*)p + 0x50) = 0;
         *((char*)p + 0x10) = 0;

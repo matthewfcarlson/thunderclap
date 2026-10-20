@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 32/32)
 // FUN_003117f0 @ 0x003117f0
+#include "compat/ptr.h"
 typedef unsigned int UInt;
 void __cdecl FUN_003117f0(UInt* first, UInt* middle, UInt* last)
 {
-    int distance = last - first;
+    hulk_intptr distance = last - first;
     UInt a, b;
     if (distance > 40) {
-        int step = (distance + 1) / 8;
+        hulk_intptr step = (distance + 1) / 8;
         UInt* leftMedian = first + step;
         UInt* leftEnd = first + 2 * step;
         a = *leftMedian; b = *first;

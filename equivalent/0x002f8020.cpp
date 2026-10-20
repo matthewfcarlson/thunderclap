@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 31/38, incomplete)
 // FUN_002f8020 @ 0x002f8020
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct Sub8_2f8020 {
@@ -110,7 +111,7 @@ void Solver_2f8020::FUN_002f8020(List_2f8020 *l, int unused, int a3)
 {
     if (core->obj8 != 0)
         core->obj8->FUN_0030e190(a3);
-    int n = l->end - l->begin;
+    hulk_intptr n = l->end - l->begin;
     if (n == 0)
         return;
     list = l;
@@ -148,15 +149,15 @@ void Solver_2f8020::FUN_002f8020(List_2f8020 *l, int unused, int a3)
                         if (qa != 0) {
                             int t = qa->f1ec;
                             if (t == 0)
-                                qa->f1ec = (int)r.p2;
-                            else if (t != (int)r.p2)
+                                qa->f1ec = (hulk_intptr)r.p2;
+                            else if (t != (hulk_intptr)r.p2)
                                 qa->f1f4 = qa->f1f4 & 0xfe;
                         }
                         if (b != 0) {
                             int t = b->f1ec;
                             if (t == 0)
-                                b->f1ec = (int)r.p1;
-                            else if (t != (int)r.p1)
+                                b->f1ec = (hulk_intptr)r.p1;
+                            else if (t != (hulk_intptr)r.p1)
                                 b->f1f4 = b->f1f4 & 0xfe;
                         }
                         FUN_002f7b00();

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00304f50 @ 0x00304f50
+#include "compat/ptr.h"
 extern char DAT_00431b08[];
 
 struct Name_304f50 {
@@ -34,7 +35,7 @@ struct CollisionObject {
 CollisionObject *CollisionObject::FUN_00304f50(int arg)
 {
     FUN_0027b070();
-    vptr = (int)DAT_00431b08;
+    vptr = (hulk_intptr)DAT_00431b08;
     name.FUN_0027af00();
     f18 = 0;
     f1c = 0;

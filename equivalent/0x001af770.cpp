@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 63 inputs, branch coverage 22/22)
 // FUN_001af770 @ 0x001af770
+#include "compat/ptr.h"
 struct Vec3_1af770 {
     float x, y, z;
 };
@@ -32,7 +33,7 @@ class JobQueue {
     void FUN_001af770();
 };
 void JobQueue::FUN_001af770() {
-    int count;
+    hulk_intptr count;
     if (head > tail)
         count = (tail - begin) + (end - head);
     else

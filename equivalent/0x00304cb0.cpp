@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 11/12, incomplete)
 // FUN_00304cb0 @ 0x00304cb0
 // 0x00304cb0: depth-first search for the slot index of `target` below `node`; -1 when not found
+#include "compat/ptr.h"
 struct Node;
 struct ChildList_304cb0 {
     Node** begin;
@@ -27,7 +28,7 @@ int Finder_304cb0::FUN_00304cb0(Node* node, Node* target)
     ChildList_304cb0* list = node->children;
     if (list == 0)
         return -1;
-    if (((int)list->end - (int)list->begin & ~3) == 0)
+    if (((hulk_intptr)list->end - (hulk_intptr)list->begin & ~3) == 0)
         return -1;
     for (unsigned int i = 0; i < (unsigned int)(node->children->end - node->children->begin); i++) {
         int r = FUN_00304cb0(node->children->begin[i], target);

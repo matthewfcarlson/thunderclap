@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f9944[];
 class CGrappleAttachTrack;
 class Helper_5b790 {
@@ -25,7 +26,7 @@ class CGrappleAttachTrack {
 };
 extern void FUN_00267090(CGrappleAttachTrack*);
 CGrappleAttachTrack* CGrappleAttachTrack::vfunc_5(unsigned char param) {
-    *(unsigned long*)this = ((int)DAT_003f9944);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_003f9944);
     ((Helper_5b790*)((char*)this + 0x40))->f();
     ((Helper_5b790*)((char*)this + 0x18))->f();
     ((Helper_5b790*)((char*)this + 0x10))->f();

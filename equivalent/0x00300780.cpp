@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 32 inputs, branch coverage 18/22, incomplete)
 // FUN_00300780 @ 0x00300780
+#include "compat/ptr.h"
 struct Vec3_300780 {
     float x, y, z;
 };
@@ -68,7 +69,7 @@ void Broadphase_300780::FUN_00300780(int arg)
     if (grid.flags & 8) {
         Group_300780 *g = group;
         g->edgeEnd = g->edgeBegin;
-        int count = g->end - g->begin;
+        hulk_intptr count = g->end - g->begin;
         grid.FUN_00312db0(count);
         Box_300780 *boxes = grid.boxes;
         for (int i = 0; i < count; i++) {

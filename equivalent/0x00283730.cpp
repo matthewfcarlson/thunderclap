@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2865 inputs, branch coverage 4/4)
 // FUN_00283730 @ 0x00283730
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 extern "C" char DAT_0042c48c[];
 extern "C" char DAT_0042c52c[];
 void *FUN_0008d6d0(unsigned int size);
@@ -36,14 +37,14 @@ public:
 CMotionTrailQueue *CMotionTrailQueue::FUN_00283730()
 {
     FUN_002a4e10(6);
-    vt = (int)DAT_0042c48c;
+    vt = (hulk_intptr)DAT_0042c48c;
     f58 = 1;
     flags = (unsigned char *)FUN_0008d6d0(0x30);
     for (int i = 0; i < 6; i++) {
         CMotionTrail *t = (CMotionTrail *)thunk_FUN_0008d690(0x88);
         if (t) {
             t->FUN_002a5060();
-            t->vt = (int)DAT_0042c52c;
+            t->vt = (hulk_intptr)DAT_0042c52c;
             t->f40 = 0;
             t->f44 = 0;
             t->f10 = 1;

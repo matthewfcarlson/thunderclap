@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Callback {
     void invoke(unsigned, unsigned, unsigned, unsigned, unsigned);
 };
@@ -10,5 +11,5 @@ void __cdecl FUN_0002da20(Callback* object, const unsigned* volatile values, uns
     values = (const unsigned*)*p++;
     unsigned e = p[1];
     unsigned d = p[0];
-    (object->*callback)(a, b, (unsigned)values, d, e);
+    (object->*callback)(a, b, (hulk_uintptr)values, d, e);
 }

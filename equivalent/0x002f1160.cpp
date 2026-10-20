@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3085 inputs, branch coverage 53/54, incomplete)
 // FUN_002f1160 @ 0x002f1160
+#include "compat/ptr.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
 
@@ -141,7 +142,7 @@ bool FUN_002f1160(V3_2f1160 *p, V3_2f1160 *dir, V3_2f1160 *a3, Bits_2f1160 a4, S
         child.f4.u = 0;
         slot.t = a4;
         hit = false;
-        unsigned int count = self->children->end - self->children->begin;
+        hulk_uintptr count = self->children->end - self->children->begin;
         if (count == 0)
             return hit;
         unsigned int i = 0;

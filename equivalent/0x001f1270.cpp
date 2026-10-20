@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 4/4)
 // FUN_001f1270 @ 0x001f1270
+#include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 
 extern char DAT_0042476c[];
@@ -40,7 +41,7 @@ SoundResourceManager *SoundResourceManager::FUN_001f1270()
     SoundBank_1f1270 *b = (SoundBank_1f1270 *)FUN_00263ed0(0x524, 6);
     if (b) {
         b->f04 = 0;
-        b->vptr = (int)DAT_0042476c;
+        b->vptr = (hulk_intptr)DAT_0042476c;
         b->f198 = 0;
         b->f4bc = 0;
         b->f510 = 0;

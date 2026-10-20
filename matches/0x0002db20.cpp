@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -18,11 +19,11 @@ class CActorManager {
 };
 CActorManager* CActorManager::Init(void* arg1, void* arg2) {
     ((ThisCall_001d0480*)(this))->FUN_001d0480(arg1, 3);
-    vftable = ((int)DAT_003f425c);
+    vftable = ((hulk_intptr)DAT_003f425c);
     member1c = arg2;
-    flag18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e100)));
-    flag10 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0f0)));
-    flag11 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e128)));
-    flag12 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e128)));
+    flag18 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
+    flag10 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    flag11 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    flag12 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
     return this;
 }

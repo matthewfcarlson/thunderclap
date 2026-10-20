@@ -2,6 +2,7 @@
 // FUN_002e22c0 @ 0x002e22c0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ??0PrimGroup@pure3d@@QAE@HHH@Z = 0x002e01d0
+#include "compat/ptr.h"
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) { return p; }
 
@@ -300,7 +301,7 @@ void Loader_2e22c0::FUN_002e22c0(void *a0, Reader *rd, int a2, VecObj *a3, int a
         else
             fr.B = 0;
     }
-    fr.B->v8((int)f8);
+    fr.B->v8((hulk_intptr)f8);
     fr.B->f44 = fc;
 
     if (w12 == 1) {

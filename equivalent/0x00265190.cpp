@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00265190 @ 0x00265190
+#include "compat/ptr.h"
 class Releasable_265190 {
 public:
     virtual void v0();
@@ -33,7 +34,7 @@ public:
 void Queue_265190::FUN_00265190(Releasable_265190* obj) {
     if (!obj)
         return;
-    unsigned int count;
+    hulk_uintptr count;
     if (ring.head <= ring.tail)
         count = ring.tail - ring.head;
     else

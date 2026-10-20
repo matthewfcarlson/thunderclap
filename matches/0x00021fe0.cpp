@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f3390[];
 extern "C" void _ReadWriteBarrier();
 class Ref_21fe0 {
@@ -18,7 +19,7 @@ class Helper_21fe0 {
 };
 extern void thunk_FUN_00267090(CSmartPropThrowingAction*);
 CSmartPropThrowingAction* CSmartPropThrowingAction::V2(int flag) {
-    vptr = ((int)DAT_003f3390);
+    vptr = ((hulk_intptr)DAT_003f3390);
     _ReadWriteBarrier();
     if (member) {
         member->Release();

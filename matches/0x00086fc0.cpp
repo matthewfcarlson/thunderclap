@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" char DAT_003ffb80[];
@@ -15,11 +16,11 @@ class Target_86fc0 : public Ctor_001d0480 {
     Target_86fc0(void*, void*);
 };
 Target_86fc0::Target_86fc0(void* a, void* b) : Ctor_001d0480(a, 4) {
-    vt = ((int)DAT_003ffb80);
+    vt = ((hulk_intptr)DAT_003ffb80);
     member1c = b;
-    b18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0e4)));
-    b10 = FUN_001d04d0((const char*)((int)DAT_0048e10c));
-    b11 = FUN_001d04d0((const char*)((int)DAT_0048e10c));
-    b12 = FUN_001d04d0((const char*)((int)DAT_0048e10c));
-    b13 = FUN_001d04d0((const char*)((int)DAT_0048e10c));
+    b18 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
+    b10 = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
+    b11 = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
+    b12 = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
+    b13 = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
 }

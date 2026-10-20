@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0010c8d0 @ 0x0010c8d0
+#include "compat/ptr.h"
 int __cdecl FUN_0008d340(void *p);
 void * __cdecl FUN_0008d6d0(unsigned int size);
 struct Owner { char pad[0x10]; char *text; int FUN_0010c8d0(const char *source); };
@@ -12,5 +13,5 @@ int Owner::FUN_0010c8d0(const char *source) {
     text = destination;
     char *current = destination;
     do { *current++ = *source; } while (*source++);
-    return ((int)destination & ~255) | 1;
+    return ((hulk_intptr)destination & ~255) | 1;
 }

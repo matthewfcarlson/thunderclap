@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 7/9, incomplete)
 // FEContainer::vfunc_49 @ 0x000e4470
+#include "compat/ptr.h"
 extern "C" char *strchr(const char *s, int c);
 
 struct Arg_e4470 {
@@ -91,7 +92,7 @@ int FEContainer::vfunc_49(const char *name, Arg_e4470 *arg)
 {
     char *dot = strchr(name, '.');
     if (dot != 0)
-        return (int)dot;
+        return (hulk_intptr)dot;
 
     Hash_e4470 id;
     id.q = FUN_0027b020(name).q;

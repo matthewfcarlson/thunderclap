@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 25/26, incomplete)
 // FUN_0026c6a0 @ 0x0026c6a0
+#include "compat/ptr.h"
 typedef unsigned int uint32_26c6a0;
 extern "C" void* __cdecl FUN_0026c040(uint32_26c6a0 size);
 extern "C" void __cdecl FUN_0026bd80(void* ptr);
@@ -29,8 +30,8 @@ void* __cdecl FUN_0026c6a0(uint32_26c6a0 alignment, uint32_26c6a0 size)
         return 0;
     ChunkHeader* initial = (ChunkHeader*)(allocation - 8);
     ChunkHeader* chunk = initial;
-    if (((uint32_26c6a0)allocation % alignment) != 0) {
-        chunk = (ChunkHeader*)((((uint32_26c6a0)allocation + alignment - 1) & ~(alignment - 1)) - 8);
+    if (((hulk_uintptr)allocation % alignment) != 0) {
+        chunk = (ChunkHeader*)((((hulk_uintptr)allocation + alignment - 1) & ~(alignment - 1)) - 8);
         if ((uint32_26c6a0)((char*)chunk - (char*)initial) < 16)
             chunk = (ChunkHeader*)((char*)chunk + alignment);
         uint32_26c6a0 distance = (uint32_26c6a0)((char*)chunk - (char*)initial);

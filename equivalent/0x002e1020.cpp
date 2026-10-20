@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 35/36, incomplete)
 // FUN_002e1020 @ 0x002e1020
+#include "compat/ptr.h"
 struct Elem16 {
     int id;
     float v[3];
@@ -49,7 +50,7 @@ public:
 void Dispatcher_2e1020::FUN_002e1020(Batch_2e1020 *batch, int ctx, unsigned int mask)
 {
     if (emitter->kindA && (mask & 0x10)) {
-        unsigned int n = batch->aEnd - batch->aBegin;
+        hulk_uintptr n = batch->aEnd - batch->aBegin;
         if (n != 0) {
             for (unsigned int i = 0; i != n; i++) {
                 Elem16 *e = &batch->aBegin[i];
@@ -58,7 +59,7 @@ void Dispatcher_2e1020::FUN_002e1020(Batch_2e1020 *batch, int ctx, unsigned int 
         }
     }
     if (emitter->kindB && (mask & 0x20)) {
-        unsigned int n = batch->bEnd - batch->bBegin;
+        hulk_uintptr n = batch->bEnd - batch->bBegin;
         if (n != 0) {
             for (unsigned int i = 0; i != n; i++) {
                 Elem16 *e = &batch->bBegin[i];
@@ -68,7 +69,7 @@ void Dispatcher_2e1020::FUN_002e1020(Batch_2e1020 *batch, int ctx, unsigned int 
     }
     for (int k = 0; k < 4; k++) {
         if (emitter->slots[k] && (mask & (1 << k))) {
-            unsigned int n = batch->lists[k].end - batch->lists[k].begin;
+            hulk_uintptr n = batch->lists[k].end - batch->lists[k].begin;
             if (n != 0) {
                 for (unsigned int i = 0; i != n; i++) {
                     Elem12_2e1020 *e = &batch->lists[k].begin[i];
@@ -79,7 +80,7 @@ void Dispatcher_2e1020::FUN_002e1020(Batch_2e1020 *batch, int ctx, unsigned int 
     }
     for (int k = 0; k < 2; k++) {
         if (emitter->slots[4 + k] && (mask & (0x40 << k))) {
-            unsigned int n = batch->lists[4 + k].end - batch->lists[4 + k].begin;
+            hulk_uintptr n = batch->lists[4 + k].end - batch->lists[4 + k].begin;
             if (n != 0) {
                 for (unsigned int i = 0; i != n; i++) {
                     Elem12_2e1020 *e = &batch->lists[4 + k].begin[i];

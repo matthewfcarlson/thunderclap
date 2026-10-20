@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class X_5a3f0 {
   public:
     int A();
@@ -8,9 +9,9 @@ class Y_5a3f0 {
 };
 int __cdecl target(X_5a3f0* param) {
     if (param != 0) {
-        int a = param->A();
+        hulk_intptr a = param->A();
         if (a != 0) {
-            int b = ((Y_5a3f0*)a)->B();
+            hulk_intptr b = ((Y_5a3f0*)a)->B();
             if (b != 0) {
                 int c = *(int*)(b + 0x334);
                 if (c != 0)

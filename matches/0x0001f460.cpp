@@ -1,4 +1,5 @@
 // Same code shape as 0x0001db40 (propagated; names are from that function)
+#include "compat/ptr.h"
 struct Obj_1f460 {
     virtual void F();
     virtual void G();
@@ -20,7 +21,7 @@ class CSmartPropRemoveInstanceAction_1f460 : public CAction {
     virtual void V0();
 };
 CSmartPropRemoveInstanceAction_1f460::CSmartPropRemoveInstanceAction_1f460(Obj_1f460* arg, int value) {
-    *(int*)this = (int)&VBase;
+    *(hulk_intptr*)this = (hulk_intptr)&VBase;
     mObj = 0;
     if (arg)
         arg->F();
@@ -28,6 +29,6 @@ CSmartPropRemoveInstanceAction_1f460::CSmartPropRemoveInstanceAction_1f460(Obj_1
         mObj->G();
     mObj = arg;
     mValue = value;
-    *(int*)this = (int)&VDerived;
+    *(hulk_intptr*)this = (hulk_intptr)&VDerived;
 }
 void CSmartPropRemoveInstanceAction_1f460::V0() {}

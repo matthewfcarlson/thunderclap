@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3042 inputs, branch coverage 19/20, incomplete)
 // FUN_002146f0 @ 0x002146f0
+#include "compat/ptr.h"
 struct Constant_2146f0 { unsigned tag; char* object; };
 struct Proto_2146f0 { char pad0[8]; Constant_2146f0* constants; unsigned* code; char pad1[12]; char** upvalues; };
 struct Closure_2146f0 { char pad0[6]; unsigned char native; char pad1[5]; Proto_2146f0* proto; };
@@ -17,7 +18,7 @@ const char* __cdecl FUN_002146f0(unsigned reg, Frame_2146f0* frame, char** name)
   Closure_2146f0* closure = slot->closure;
   if (closure->native) return 0;
   Proto_2146f0* proto = closure->proto;
-  int pc = ((int)((unsigned)frame->pc - (unsigned)proto->code) >> 2) - 1;
+  int pc = ((int)((hulk_uintptr)frame->pc - (hulk_uintptr)proto->code) >> 2) - 1;
   char* local = FUN_00219820(proto, reg + 1, pc);
   *name = local;
   if (local) return "local";

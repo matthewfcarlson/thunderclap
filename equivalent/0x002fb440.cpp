@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_002fb440 @ 0x002fb440
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct V3_2fb440 { float x, y, z; };
@@ -75,7 +76,7 @@ bool Tri_2fb440::FUN_002fb440(Ray_2fb440* ray, Mesh_2fb440* mesh, int flags)
     point.x = t * d2->x + o2->x;
     point.y = t * d2->y + o2->y;
     point.z = t * d2->z + o2->z;
-    unsigned int index = ((unsigned int)this - (unsigned int)mesh->data->tris) / 0x18;
+    hulk_uintptr index = ((hulk_uintptr)this - (hulk_uintptr)mesh->data->tris) / 0x18;
     (*(Globals_2fb440**)&DAT_00554c14)->hitter.FUN_00304530(ray, index, t, &point, &normal, mesh, flags);
     return hit;
 }

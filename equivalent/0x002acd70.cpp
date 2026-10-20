@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 300 inputs, branch coverage 68/86, incomplete)
 // FUN_002acd70 @ 0x002acd70
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
 inline void *operator new(unsigned int, void *p) { return p; }
@@ -340,11 +341,11 @@ Obj_2acd70 *Loader_2acd70::FUN_002acd70(Reader *R, Inv_2acd70 *a1)
                         obj->f1c0 = X;
                         f.xc = (void *)((Xobj *)f.x8)->f28;
                         f.x4 = 0;
-                        obj->vec1d4.FUN_002ab8e0((unsigned int)f.xc, &f.x4);
+                        obj->vec1d4.FUN_002ab8e0((hulk_uintptr)f.xc, &f.x4);
                         int i;
-                        for (i = 0; i < (int)f.xc; i++) {
+                        for (i = 0; i < (hulk_intptr)f.xc; i++) {
                             void *mem3 = FUN_0008d690(0x4c);
-                            f.x4 = (int)mem3;
+                            f.x4 = (hulk_intptr)mem3;
                             Child_2acd70 *ch;
                             if (mem3 != 0)
                                 ch = ((Child_2acd70 *)f.x4)->FUN_002d4040(((Xobj *)f.x8)->FUN_00288a10(i));

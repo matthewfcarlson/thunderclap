@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 11162 inputs, branch coverage 6/6)
 // FUN_00215de0 @ 0x00215de0
 // FUN_00215de0 @ 0x00215de0
+#include "compat/ptr.h"
 struct State_215de0 {
  char pad0[12];
  unsigned int value;
@@ -26,7 +27,7 @@ extern "C" void __cdecl FUN_00215410(State_215de0*, unsigned int);
 unsigned int __cdecl FUN_00215de0(State_215de0* s, unsigned int a, unsigned int b, unsigned int offset, unsigned int context) {
  unsigned short oldWord = s->savedWord;
  unsigned char oldByte = s->savedByte;
- unsigned int displacement = (unsigned int)s->current - (unsigned int)s->base;
+ hulk_uintptr displacement = (hulk_uintptr)s->current - (hulk_uintptr)s->base;
  unsigned int oldContext = s->context;
  s->context = context;
  unsigned int result = FUN_002152f0(s,a,b);

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 12/14, incomplete)
 // FUN_00227f90 @ 0x00227f90
+#include "compat/ptr.h"
 struct Item_227f90 { char data[12]; };
 struct Partition { Item_227f90* first; Item_227f90* second; };
 extern void __cdecl FUN_00227a10(Partition*, Item_227f90*, Item_227f90*);
@@ -7,13 +8,13 @@ extern void __cdecl FUN_00227e20(Item_227f90*, Item_227f90*);
 extern void __cdecl FUN_002277f0(Item_227f90*, Item_227f90*, int, int);
 extern void __cdecl FUN_00227ef0(Item_227f90*, Item_227f90*);
 void __cdecl FUN_00227f90(Item_227f90* first, Item_227f90* last, int budget) {
- int count = last-first;
+ hulk_intptr count = last-first;
  while (count > 32 && budget > 0) {
   Partition p;
   FUN_00227a10(&p, first, last);
   budget = budget/2 + (budget/2)/2;
-  int right = last-p.second;
-  int left = p.first-first;
+  hulk_intptr right = last-p.second;
+  hulk_intptr left = p.first-first;
   if (left < right) {
    FUN_00227f90(first,p.first,budget);
    first=p.second;

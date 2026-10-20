@@ -5,6 +5,7 @@
 // including the compiler's scratch/pointer slots, because the current checker compares the CONTENTS of locals
 // passed by pointer and a fuzzed axis index reads those slots), FPU-resident values are recomputed inline from
 // volatile reads, slot loads through an index are snapshotted at load time.
+#include "compat/ptr.h"
 union Wd_314f50 {
     float f;
     unsigned int u;
@@ -151,7 +152,7 @@ void Sweep_314f50::FUN_00314f50(BoxA_314f50 *pa, BoxB *pb)
     r15_ebp = 0;
     L[9].u = r13_eax;
     L[10].u = r14_ecx;
-        L[6].u = (unsigned)&L[22].f;
+        L[6].u = (hulk_uintptr)&L[22].f;
         cnt = 0; jo = 0;
         do {
             ((BoxB *)pb)->FUN_002fb940((volatile float *)L[6].u, cnt);
@@ -193,10 +194,10 @@ void Sweep_314f50::FUN_00314f50(BoxA_314f50 *pa, BoxB *pb)
     }
     cnt = 0;
     L[6].u = 0;
-    L[12].u = (unsigned)&L[38].f;
+    L[12].u = (hulk_uintptr)&L[38].f;
     do {
         esiv = L[12].u;
-        ((Sweep_314f50 *)T)->FUN_00313540((unsigned)&L[34].f, ((volatile float *)esiv)[-1], ((volatile float *)esiv)[0], ((volatile float *)esiv)[1]);
+        ((Sweep_314f50 *)T)->FUN_00313540((hulk_uintptr)&L[34].f, ((volatile float *)esiv)[-1], ((volatile float *)esiv)[0], ((volatile float *)esiv)[1]);
         L[15].u = 0;
         do {
             int done = 0;

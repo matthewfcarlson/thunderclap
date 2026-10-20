@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 26 inputs, branch coverage 24/24)
 // FUN_00299da0 @ 0x00299da0
+#include "compat/ptr.h"
 void* FUN_0008d6d0(unsigned int size);
 
 class Ref_299da0 {
@@ -73,7 +74,7 @@ ActivePrimitiveList::ActivePrimitiveList(const ActivePrimitiveList& src)
 
     flag = src.flag;
 
-    int n = src.data24End - src.data24;
+    hulk_intptr n = src.data24End - src.data24;
     if (n != 0) {
         p = (char*)FUN_0008d6d0(n);
         data24 = p;
@@ -106,7 +107,7 @@ ActivePrimitiveList::ActivePrimitiveList(const ActivePrimitiveList& src)
     const ActivePrimitiveList* srcRef = &src;
     entries.FUN_00299540(src.entries.end - src.entries.begin, (PrimEntryList* const*)&srcRef);
 
-    unsigned int count = src.entries.end - src.entries.begin;
+    hulk_uintptr count = src.entries.end - src.entries.begin;
     for (unsigned int i = 0; i < count; i++) {
         data24[i] = src.data24[i];
         data30[i] = src.data30[i];

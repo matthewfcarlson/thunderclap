@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 33/34, incomplete)
 // FUN_001aedb0 @ 0x001aedb0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
+#include "compat/ptr.h"
 struct Ctx;
 struct Rec {
     int id, idx;
@@ -81,7 +82,7 @@ Rec* FUN_001aedb0(Map* visited, Map* open, Rec* goal, Ctx* context, int* result)
 
         BNode* front = open->FUN_00230ea0();
         state.currentNode = front->an;
-        state.currentMapValue = (int)front->map;
+        state.currentMapValue = (hulk_intptr)front->map;
         front = open->FUN_00230ea0();
         state.savedMap = open;
         open->FUN_00230de0(front);

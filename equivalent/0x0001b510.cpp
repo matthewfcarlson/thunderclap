@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3297 inputs, branch coverage 180/187, incomplete)
 // FUN_0001b510 @ 0x0001b510
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 typedef unsigned __int64 u64;
@@ -377,7 +378,7 @@ void SpawnAction::FUN_0001b510(Item *e, V3 *a8, V3 *a12, void *a16)
         break;
     }
     Y->FUN_00035c70(e);
-    f.l232 = (int)DAT_004dd700->f20;
+    f.l232 = (hulk_intptr)DAT_004dd700->f20;
     Pad *O = 0;
     f.flag = 0;
     f.mult = 1.0f;
@@ -413,7 +414,7 @@ void SpawnAction::FUN_0001b510(Item *e, V3 *a8, V3 *a12, void *a16)
             }
             f.req.aim = *a12;
             Cfg *c = f20;
-            f.req.r00 = (int)c->f48;
+            f.req.r00 = (hulk_intptr)c->f48;
             f.req.r04 = c->f4c;
             f.req.r54 = c->fb4;
             FUN_00018810(&f.req.f4c, fighter->f12c);
@@ -505,7 +506,7 @@ void SpawnAction::FUN_0001b510(Item *e, V3 *a8, V3 *a12, void *a16)
         FUN_000187a0(&f.req.f6c, f7c);
         FUN_00018840(&f.req.f70, Y->s0dc.v);
         {
-            int fc4 = f20->fc4;
+            hulk_intptr fc4 = f20->fc4;
             if (fc4 != 0)
                 f.req.f74 = (void *)fc4;
             else
@@ -531,7 +532,7 @@ void SpawnAction::FUN_0001b510(Item *e, V3 *a8, V3 *a12, void *a16)
             f.req.target.FUN_00011160(1.0f, &f.mid);
         }
         f.req.aim = *a12;
-        f.req.r00 = (int)f20->f48;
+        f.req.r00 = (hulk_intptr)f20->f48;
         f.req.r04 = f20->f4c;
         f.req.f78 = f.l248;
         f.req.r54 = f20->fb4;

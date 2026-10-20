@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003fafd8[];
 extern void __fastcall FUN_0027af50(void*);
 extern void __fastcall FUN_00068c70(void*);
@@ -12,7 +13,7 @@ struct CSmartPropSpawnTrack {
     void Dtor();
 };
 void CSmartPropSpawnTrack::Dtor() {
-    vptr = (void*)((int)DAT_003fafd8);
+    vptr = (void*)((hulk_intptr)DAT_003fafd8);
     FUN_0027af50(&c);
     FUN_0027af50(&b);
     FUN_0027af50(&a);

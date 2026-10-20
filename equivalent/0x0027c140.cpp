@@ -2,6 +2,7 @@
 // pure3d::SkeletonLoader::vfunc_5 @ 0x0027c140
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-conv: FUN_0027b340 eax
+#include "compat/ptr.h"
 #include "decls/address.h"
 void *thunk_FUN_0008d690(unsigned int size);
 void *FUN_0008d690(unsigned int size);
@@ -118,7 +119,7 @@ void SkeletonLoader::F(Skeleton **out, unsigned __int64 *outId, Loader_27c140 *l
     Skeleton *sk = 0;
     if (raw)
         sk = raw->FUN_0027bee0(nJoints, fr.v10, fr.v18);
-    fr.v24 = (int)sk;
+    fr.v24 = (hulk_intptr)sk;
     sk->name.FUN_0027b040(fr.N);
     Info_27c140 *sp = 0;
     fr.v14 = 0;
@@ -132,7 +133,7 @@ void SkeletonLoader::F(Skeleton **out, unsigned __int64 *outId, Loader_27c140 *l
             p->names14 = 0;
             sp = p;
             p->skel = sk;
-            fr.v14 = (int)sp;
+            fr.v14 = (hulk_intptr)sp;
         }
         sp->f4 = FUN_0027b340(fr.N);
         sp->names8 = (char **)FUN_0008d6d0(nJoints * 4);

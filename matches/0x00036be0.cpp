@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Builder {
   public:
     void Make(void*);
@@ -16,7 +17,7 @@ class Obj_36be0 {
 };
 void Obj_36be0::Run(int arg) {
     char local[12];
-    int value = m1ca0;
+    hulk_intptr value = m1ca0;
     if (value) {
         Dest_36be0* p = (Dest_36be0*)(value + 0x58);
         if (p) {

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 415 inputs, branch coverage 60/60)
 // FUN_0027d780 @ 0x0027d780
 // equiv-map: ?thunk_FUN_002ee510@Cache@@QAEXPAUChoice@@@Z = 0x002ee700
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct Choice {
@@ -200,7 +201,7 @@ void Scene_27d780::FUN_0027d780()
     Board* b = board;
     Nodes_27d780* nodes = b->nodes;
     Group_27d780* group = b->group;
-    int total = nodes->end - nodes->begin;
+    hulk_intptr total = nodes->end - nodes->begin;
     f.x = x;
     f.d = group;
     f.self = this;
@@ -248,7 +249,7 @@ void Scene_27d780::FUN_0027d780()
     }
 
     group->FUN_002988e0();
-    int total2 = group->end - group->begin;
+    hulk_intptr total2 = group->end - group->begin;
     unsigned char n2 = (unsigned char)total2;
     f.j.b = 0;
     if (n2 != 0) {

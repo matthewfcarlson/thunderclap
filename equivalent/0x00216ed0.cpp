@@ -2,6 +2,7 @@
 // FUN_00216ed0 @ 0x00216ed0
 // Lua 5.0 style GC step: take the next userdata awaiting finalisation, put it back on the
 // root list and call its __gc metamethod.
+#include "compat/ptr.h"
 struct Table_216ed0 {
     void* next;
     unsigned char tt;
@@ -66,7 +67,7 @@ void FUN_00216ed0(lua_State_216ed0* L)
             unsigned char oldallow = L->allowhook;
             L->allowhook = 0;
             L->top[0] = *tm;
-            L->top[1].value = (int)u;
+            L->top[1].value = (hulk_intptr)u;
             L->top[1].tt = 7;
             L->top += 2;
             FUN_002159e0(L, L->top - 2, 0);

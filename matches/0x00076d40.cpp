@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 class CInvincibleTrack_76d40 {
@@ -23,7 +24,7 @@ template <> void* fight::TrackFactoryTemplate<CInvincibleTrack>::vfunc_5() {
     CInvincibleTrack_76d40* r;
     if (p) {
         p->Init();
-        *(int*)p = (int)&cvtable_76d40;
+        *(hulk_intptr*)p = (hulk_intptr)&cvtable_76d40;
         p->zero = 0;
         p->neg = (int)0xbf800000;
         p->tail = 0;

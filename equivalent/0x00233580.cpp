@@ -2,6 +2,7 @@
 // FUN_00233580 @ 0x00233580
 // cl-flags: /GS
 // FUN_00233580 @ 0x00233580
+#include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
@@ -36,8 +37,8 @@ PathNode* PathNode::FUN_00233580(const char* path)
     const char* end = path;
     while (*end != 0 && *end != delim)
         end++;
-    int len = end - path;
-    int n = 0;
+    hulk_intptr len = end - path;
+    hulk_intptr n = 0;
     if (len > 0) {
         memcpy(buf, path, len);
         n = len;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" char DAT_003f421c[];
 struct Ctor_001d0480 {
@@ -16,7 +17,7 @@ class CActorManager : public Ctor_001d0480 {
     CActorManager(const char*, int);
 };
 CActorManager::CActorManager(const char* a, int b) : Ctor_001d0480(a, 4) {
-    vptr = ((int)DAT_003f421c);
+    vptr = ((hulk_intptr)DAT_003f421c);
     m1c = b;
     b18 = FUN_001d04d0(g1_2d830);
     b10 = FUN_001d04d0(g2);

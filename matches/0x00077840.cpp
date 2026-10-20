@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003fbfe0[];
@@ -16,7 +17,7 @@ template <> void* fight::TrackFactoryTemplate<CUninterruptibleTrack>::vfunc_5() 
     Track_77840* p = (Track_77840*)operator_new(0x18);
     if (p) {
         p->Track_77840::Track_77840();
-        *(unsigned int*)p = ((int)DAT_003fbfe0);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fbfe0);
         p->a = 0;
         p->b = (int)0xbf800000;
         p->c = 0;

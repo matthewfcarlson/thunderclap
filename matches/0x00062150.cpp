@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003faf2c[];
 struct Small_62150 {
     ~Small_62150();
@@ -22,7 +23,7 @@ struct CWeaponCollisionTrack : Base {
     virtual void Kill();
 };
 void CWeaponCollisionTrack::Kill() {
-    *(int*)this = ((int)DAT_003faf2c);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_003faf2c);
     a.~Other_62150();
     b.~Big_62150();
     c.~Small_62150();

@@ -1,4 +1,5 @@
 // Same code shape as 0x0002fe60 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class CActorManager_87cb0 {
@@ -7,7 +8,7 @@ class CActorManager_87cb0 {
 };
 typedef float (CActorManager_87cb0::*Fn_87cb0)();
 
-template <> void Closure0<CTimeManager, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; int b = (int)__p1; float * out = (float *)__p2;
+template <> void Closure0<CTimeManager, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; hulk_intptr b = (hulk_intptr)__p1; float * out = (float *)__p2;
 
     CActorManager_87cb0* m = (*(CActorManager_87cb0 * *)&this->f_20);
     Fn_87cb0 fn = (*(Fn_87cb0 *)&this->f_1c);

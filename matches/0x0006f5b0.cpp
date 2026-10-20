@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003fd044[];
@@ -12,7 +13,7 @@ template <> void* fight::TrackFactoryTemplate<CGrappleEffectTrack>::vfunc_5() {
     CGrappleEffectTrack_6f5b0* p = (CGrappleEffectTrack_6f5b0*)Allocate(0x60);
     if (p != 0) {
         p->Init();
-        *(u32_6f5b0*)p = ((int)DAT_003fd044);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fd044);
         return (void*)(p);
     }
     return (void*)(0);

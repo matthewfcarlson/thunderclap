@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f7528[];
@@ -15,7 +16,7 @@ template <> void* fight::ConditionFactoryTemplate<CClimbEdgeCondition>::vfunc_5(
     CClimbEdgeCondition_576a0* p = (CClimbEdgeCondition_576a0*)Alloc(0x14);
     if (p) {
         p->Init(0);
-        p->vptr = ((int)DAT_003f7528);
+        p->vptr = ((hulk_intptr)DAT_003f7528);
         p->f0c = 0;
         p->f10 = 0;
         return (void*)(p);

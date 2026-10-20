@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2975 inputs, branch coverage 2/2)
 // FUN_0009b830 @ 0x0009b830
+#include "compat/ptr.h"
 struct Callback {
     unsigned char invoke(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int);
 };
@@ -17,7 +18,7 @@ void __cdecl FUN_0009b830(Callback* object, Data* data, unsigned char* result, u
     unsigned int third = data->third;
     unsigned int fourth = data->fourth;
     unsigned char tag = data->tag;
-    unsigned int taggedPointer = (reinterpret_cast<unsigned int>(data) & 0xffffff00U) | tag;
+    unsigned int taggedPointer = (reinterpret_cast<hulk_uintptr>(data) & 0xffffff00U) | tag;
     unsigned char value = (object->*callback)(first, second, third, fourth, taggedPointer);
     if (result) *result = value;
 }

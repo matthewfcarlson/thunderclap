@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f85c4[];
@@ -17,7 +18,7 @@ template <> void* fight::ConditionFactoryTemplate<CGrappleFightNodeParentConditi
     CGrappleFightNodeParentCondition_52390* p = (CGrappleFightNodeParentCondition_52390*)FUN_0008d690(0x20);
     if (p) {
         p->Init();
-        *(int*)p = ((int)DAT_003f85c4);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_003f85c4);
         return (void*)(p);
     }
     return (void*)(0);

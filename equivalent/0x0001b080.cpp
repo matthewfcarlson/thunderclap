@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0001b080 @ 0x0001b080
 // FUN_0001b080: CWeaponCollisionAction constructor
+#include "compat/ptr.h"
 struct RefObj_1b080 {
     virtual void AddRef();
     virtual void Release();
@@ -40,7 +41,7 @@ struct CWeaponCollisionAction {
 CWeaponCollisionAction *CWeaponCollisionAction::FUN_0001b080(RefObj_1b080 *a, Owner_1b080 *b, RefObj_1b080 *c)
 {
     FUN_00232660();
-    vptr = (int)DAT_003f3390;
+    vptr = (hulk_intptr)DAT_003f3390;
     f1c = 0;
     if (c)
         c->AddRef();
@@ -48,7 +49,7 @@ CWeaponCollisionAction *CWeaponCollisionAction::FUN_0001b080(RefObj_1b080 *a, Ow
         f1c->Release();
     f1c = c;
     owner = b;
-    vptr = (int)DAT_003f34c8;
+    vptr = (hulk_intptr)DAT_003f34c8;
     f24 = 0;
     b28 = 0;
     f2c = 0;

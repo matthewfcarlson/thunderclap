@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int weaponVftable;
 struct SubA_62d70 {
     void init();
@@ -21,7 +22,7 @@ class CWeaponCollisionTrack {
 };
 void destroy(CWeaponCollisionTrack*);
 CWeaponCollisionTrack* CWeaponCollisionTrack::vfunc_5(unsigned char p) {
-    vf = (int)&weaponVftable;
+    vf = (hulk_intptr)&weaponVftable;
     s48.init2();
     s38.init();
     s2c.init();

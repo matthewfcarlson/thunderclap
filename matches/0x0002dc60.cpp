@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 extern const char S1[], S2[], S3[];
 extern int VTable_2dc60;
@@ -14,7 +15,7 @@ struct Target_2dc60 : Base_2dc60 {
     Target_2dc60(const char*, int);
 };
 Target_2dc60::Target_2dc60(const char* a, int x) : Base_2dc60(a, 3) {
-    *(int*)this = (int)&VTable_2dc60;
+    *(hulk_intptr*)this = (hulk_intptr)&VTable_2dc60;
     field1c = x;
     b18 = FUN_001d04d0(S1);
     b10 = FUN_001d04d0(S2);

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 283 inputs, branch coverage 38/42, incomplete)
 // hulkfight::motion::LocomotionStrafe4Action::vfunc_7 @ 0x00163a90
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
@@ -272,18 +273,18 @@ void LocomotionStrafe4Action::vfunc_7(void *rig, SlotF_163a90 o2, SlotU_163a90 o
         o6.mode = 2;
     }
 
-    desc[0] = (unsigned int)o7.anim;
-    desc[1] = (unsigned int)o7.anim;
-    desc[2] = (unsigned int)o7.anim;
-    desc[3] = (unsigned int)o7.anim;
-    desc[4] = (unsigned int)o2.anim;
-    desc[5] = (unsigned int)o3.anim;
-    desc[6] = (unsigned int)o4.anim;
-    desc[7] = (unsigned int)o5.anim;
-    desc[8] = (unsigned int)aF;
-    desc[9] = (unsigned int)aG;
-    desc[10] = (unsigned int)aH;
-    desc[11] = (unsigned int)aI;
+    desc[0] = (hulk_uintptr)o7.anim;
+    desc[1] = (hulk_uintptr)o7.anim;
+    desc[2] = (hulk_uintptr)o7.anim;
+    desc[3] = (hulk_uintptr)o7.anim;
+    desc[4] = (hulk_uintptr)o2.anim;
+    desc[5] = (hulk_uintptr)o3.anim;
+    desc[6] = (hulk_uintptr)o4.anim;
+    desc[7] = (hulk_uintptr)o5.anim;
+    desc[8] = (hulk_uintptr)aF;
+    desc[9] = (hulk_uintptr)aG;
+    desc[10] = (hulk_uintptr)aH;
+    desc[11] = (hulk_uintptr)aI;
 
     void *mem = thunk_FUN_0008d690(0x1330);
     choreo2::StrafeDriver *nd;

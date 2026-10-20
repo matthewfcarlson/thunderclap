@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // CGrappleDamageTrack::vfunc_12 @ 0x0005a510
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 void *__cdecl FUN_0008d690(unsigned int size);
@@ -55,5 +56,5 @@ int CGrappleDamageTrack::vfunc_12(int __p0) { Target_5a510 * target = (Target_5a
     if (mem == 0) {
         return (int)(0);
     }
-    return (int)(mem->FUN_0001d9b0(anim, this->f_10, this->f_14));
+    return (hulk_intptr)(mem->FUN_0001d9b0(anim, this->f_10, this->f_14));
 }

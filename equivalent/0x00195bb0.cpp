@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3047 inputs, branch coverage 58/58)
 // hulkfight::motion::ProjectileEffect::vfunc_4 @ 0x00195bb0
+#include "compat/ptr.h"
 union FloatBits {
     float f;
     unsigned u;
@@ -143,8 +144,8 @@ void hulkfight::motion::ProjectileEffect::vfunc_4(float dt) {
     ProjectileConfig* settings = config;
     float traceDistance = settings->traceDistance;
     if (tracked && traceDistance > 0.0f) {
-        if (!FUN_00098190(dt, *(unsigned*)&speed, *(unsigned*)&traceDistance, 0, (unsigned)tracked, 0,
-                          (unsigned)&position, (unsigned)&direction, 0, 0, 0, 1)) {
+        if (!FUN_00098190(dt, *(unsigned*)&speed, *(unsigned*)&traceDistance, 0, (hulk_uintptr)tracked, 0,
+                          (hulk_uintptr)&position, (hulk_uintptr)&direction, 0, 0, 0, 1)) {
             Releasable* old = tracked;
             if (old)
                 old->Release();
@@ -191,26 +192,26 @@ void hulkfight::motion::ProjectileEffect::vfunc_4(float dt) {
 
     GlobalContext* context = DAT_004dd700;
     frame.material.u = 0;
-    unsigned materialObject = context->registry->FUN_00059c10(owner);
+    hulk_uintptr materialObject = context->registry->FUN_00059c10(owner);
     if (materialObject)
         frame.material.u = *(unsigned*)((char*)materialObject + 0x12c);
 
     frame.hit = 0;
     frame.object = 0;
-    frame.directionAddress = (unsigned)&direction;
+    frame.directionAddress = (hulk_uintptr)&direction;
     frame.effect = 0;
-    frame.context = (unsigned)context;
+    frame.context = (hulk_uintptr)context;
     unsigned char* hitFlag = (unsigned char*)&frame.flagWord + 3;
-    *hitFlag = FUN_00195290((unsigned)&frame.point, (unsigned)&frame.object, (unsigned)&frame.effect,
-                            (unsigned)&previous, (unsigned)&position, (unsigned)&frame.normal,
-                            (unsigned)&frame.hit, frame.material.u, 0, (unsigned)hitFlag, 0);
+    *hitFlag = FUN_00195290((hulk_uintptr)&frame.point, (hulk_uintptr)&frame.object, (hulk_uintptr)&frame.effect,
+                            (hulk_uintptr)&previous, (hulk_uintptr)&position, (hulk_uintptr)&frame.normal,
+                            (hulk_uintptr)&frame.hit, frame.material.u, 0, (hulk_uintptr)hitFlag, 0);
     previous.x = position.x;
     previous.y = position.y;
     previous.z = position.z;
 
-    unsigned collision = frame.hit;
+    hulk_uintptr collision = frame.hit;
     if (frame.object && *(unsigned*)(frame.object + 0x38) == 5)
-        collision = ((Thing*)*(unsigned*)(frame.object + 0x3c))->FUN_001d72e0();
+        collision = ((Thing*)*(hulk_uintptr*)(frame.object + 0x3c))->FUN_001d72e0();
 
     if (collision) {
         unsigned collisionKind = *(unsigned*)(collision + 0xc);
@@ -221,8 +222,8 @@ void hulkfight::motion::ProjectileEffect::vfunc_4(float dt) {
             unsigned pb8 = settings->hitParamB8;
             unsigned pa8 = settings->hitParamA8;
             unsigned p9c = settings->hitParam9c;
-            if (!FUN_00195560((unsigned)&direction, collision, (unsigned)&frame.point, owner, p9c, pa8,
-                              (unsigned)&frame.normal, pb8, pb4, 0, mask, 0, 0x3f800000, 0))
+            if (!FUN_00195560((hulk_uintptr)&direction, collision, (hulk_uintptr)&frame.point, owner, p9c, pa8,
+                              (hulk_uintptr)&frame.normal, pb8, pb4, 0, mask, 0, 0x3f800000, 0))
                 *hitFlag = 0;
         } else if (collisionKind == 5) {
             settings = config;
@@ -231,17 +232,17 @@ void hulkfight::motion::ProjectileEffect::vfunc_4(float dt) {
             unsigned pb8 = settings->hitParamB8;
             unsigned pa8 = settings->hitParamA8;
             unsigned p9c = settings->hitParam9c;
-            if (!FUN_001958c0(owner, collision, p9c, pa8, (unsigned)&frame.point, (unsigned)&frame.normal,
-                              (unsigned)&direction, pb8, pb4, 0, mask)) {
+            if (!FUN_001958c0(owner, collision, p9c, pa8, (hulk_uintptr)&frame.point, (hulk_uintptr)&frame.normal,
+                              (hulk_uintptr)&direction, pb8, pb4, 0, mask)) {
                 *hitFlag = 0;
             } else {
                 collision = *(unsigned*)(collision + 8);
-                if (collision && ((CollisionType*)*(unsigned*)(collision + 0xec))
+                if (collision && ((CollisionType*)*(hulk_uintptr*)(collision + 0xec))
                                          ->FUN_001d5e80(*(unsigned*)(collision + 0x40)) == 2) {
                     frame.up.x = 0.0f;
                     frame.up.y = 1.0f;
                     frame.up.z = 0.0f;
-                    ((VObj*)collision)->v15()->FUN_0022c3b0((unsigned)&frame.up, (unsigned)&frame.normal);
+                    ((VObj*)collision)->v15()->FUN_0022c3b0((hulk_uintptr)&frame.up, (hulk_uintptr)&frame.normal);
 
                     if ((frame.normal.z * direction.z + frame.normal.y * direction.y +
                          frame.normal.x * direction.x) > 0.0f) {
@@ -268,9 +269,9 @@ void hulkfight::motion::ProjectileEffect::vfunc_4(float dt) {
                     position.x = frame.point.x;
                     position.z = frame.point.z;
                     volatile float distance = dt * speed;
-                    position.FUN_00011160(distance, (unsigned)&direction);
+                    position.FUN_00011160(distance, (hulk_uintptr)&direction);
                     *hitFlag = 0;
-                    unsigned next = *(unsigned*)(collision + 0x114);
+                    hulk_uintptr next = *(unsigned*)(collision + 0x114);
                     if (next && *(unsigned*)(next + 0xc) == 1) {
                         next = *(unsigned*)(next + 8);
                         if (next)
@@ -281,19 +282,19 @@ void hulkfight::motion::ProjectileEffect::vfunc_4(float dt) {
         }
     }
 
-    unsigned spawner = FUN_0027f250();
+    hulk_uintptr spawner = FUN_0027f250();
     if (!*hitFlag) {
         frame.transform.FUN_0022b980();
         frame.orientation.x = config->forward.x;
         frame.orientation.y = config->forward.y;
         frame.orientation.z = config->forward.z;
         frame.orientation.FUN_0022d110();
-        if (!direction.FUN_0022d2b0((unsigned)&frame.orientation, 1e-5f))
-            FUN_00224db0((unsigned)&frame.transform, (unsigned)&frame.orientation, (unsigned)&direction);
+        if (!direction.FUN_0022d2b0((hulk_uintptr)&frame.orientation, 1e-5f))
+            FUN_00224db0((hulk_uintptr)&frame.transform, (hulk_uintptr)&frame.orientation, (hulk_uintptr)&direction);
         frame.transform.position.x = position.x;
         frame.transform.position.y = position.y;
         frame.transform.position.z = position.z;
-        ((Spawn*)spawner)->FUN_0027ffc0(effect, (unsigned)&frame.transform);
+        ((Spawn*)spawner)->FUN_0027ffc0(effect, (hulk_uintptr)&frame.transform);
         return;
     }
 
@@ -312,20 +313,20 @@ void hulkfight::motion::ProjectileEffect::vfunc_4(float dt) {
         frame.orientation.z = FUN_000964e0() + 0.001f;
         frame.orientation.FUN_0022d110();
     }
-    if (!frame.orientation.FUN_0022d2b0((unsigned)&frame.normal, 1e-5f))
-        FUN_00224db0((unsigned)&frame.transform, (unsigned)&frame.orientation, (unsigned)&frame.normal);
+    if (!frame.orientation.FUN_0022d2b0((hulk_uintptr)&frame.normal, 1e-5f))
+        FUN_00224db0((hulk_uintptr)&frame.transform, (hulk_uintptr)&frame.orientation, (hulk_uintptr)&frame.normal);
     frame.transform.position.x = frame.point.x;
     frame.transform.position.y = frame.point.y;
     frame.transform.position.z = frame.point.z;
     ((ImpactSpawner*)spawner)
-        ->FUN_00283a40((unsigned)&config->impactScale, (unsigned)&frame.transform, 0xbf800000, 0x3f800000);
+        ->FUN_00283a40((hulk_uintptr)&config->impactScale, (hulk_uintptr)&frame.transform, 0xbf800000, 0x3f800000);
     lifetime = 0.0f;
     if (frame.effect) {
         int count = ((volatile ProjectileConfig*)config)->impactCount;
         if (count > 0)
             ((GlobalContext*)frame.context)
-                ->events->FUN_001f6cd0(frame.effect, frame.object, (unsigned)&frame.point,
-                                       (unsigned)&frame.normal, (unsigned)&direction, count - 1, 0x3f800000,
+                ->events->FUN_001f6cd0(frame.effect, frame.object, (hulk_uintptr)&frame.point,
+                                       (hulk_uintptr)&frame.normal, (hulk_uintptr)&direction, count - 1, 0x3f800000,
                                        0x3f800000, 0, 0);
     }
 }

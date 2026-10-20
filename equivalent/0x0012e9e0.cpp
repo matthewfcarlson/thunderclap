@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012e9e0 @ 0x0012e9e0
+#include "compat/ptr.h"
 extern "C" unsigned int __cdecl FUN_0008d340(void*);
 extern "C" unsigned int __cdecl FUN_0008d6d0(unsigned int);
 struct Object {
@@ -8,7 +9,7 @@ struct Object {
  unsigned int FUN_0012e9e0(const char* text);
 };
 unsigned int Object::FUN_0012e9e0(const char* text) {
- unsigned int result = FUN_0008d340(value);
+ hulk_uintptr result = FUN_0008d340(value);
  if (!text) {
   value = 0;
   return (result & 0xffffff00) | 1;

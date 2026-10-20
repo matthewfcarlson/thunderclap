@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f9754[];
@@ -12,7 +13,7 @@ template <> void* fight::ConditionFactoryTemplate<CCollisionFlagCondition>::vfun
     CCollisionFlagCondition_58e50* p = (CCollisionFlagCondition_58e50*)FUN_0008d690(0x18);
     if (p) {
         p->Init();
-        p->vf = ((int)DAT_003f9754);
+        p->vf = ((hulk_intptr)DAT_003f9754);
         return (void*)(p);
     }
     return (void*)(0);

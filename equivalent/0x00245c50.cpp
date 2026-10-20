@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00245c50 @ 0x00245c50
+#include "compat/ptr.h"
 extern "C" unsigned int __cdecl strlen(const char*);
 class TextBuffer {
 public:
@@ -11,7 +12,7 @@ public:
 bool __cdecl FUN_00245c50(TextBuffer* buf, const char* text) {
     unsigned int cur = buf->start;
     unsigned int i = cur;
-    unsigned int len = strlen(text);
+    hulk_uintptr len = strlen(text);
     while (i - cur < len) {
         if (cur >= buf->end)
             return false;

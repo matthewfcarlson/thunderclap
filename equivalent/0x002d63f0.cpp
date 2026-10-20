@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 35 inputs, branch coverage 28/28)
 // FUN_002d63f0 @ 0x002d63f0
+#include "compat/ptr.h"
 void *__cdecl FUN_0008d6d0(unsigned int size);
 
 class RefCounted_2d63f0 {
@@ -57,7 +58,7 @@ SpriteParticleEmitter::SpriteParticleEmitter(const SpriteParticleEmitter &other)
     ref1c0 = 0;
     ref1c4 = 0;
 
-    unsigned int n = other.vec1cc - other.vec1c8;
+    hulk_uintptr n = other.vec1cc - other.vec1c8;
     if (n != 0) {
         int *p = (int *)FUN_0008d6d0(n * 4);
         vec1c8 = p;
@@ -72,7 +73,7 @@ SpriteParticleEmitter::SpriteParticleEmitter(const SpriteParticleEmitter &other)
         vec1cc = 0;
     }
 
-    unsigned int m = other.vec1d8 - other.vec1d4;
+    hulk_uintptr m = other.vec1d8 - other.vec1d4;
     if (m != 0) {
         RefCounted_2d63f0 **p = (RefCounted_2d63f0 **)FUN_0008d6d0(m * 4);
         vec1d4 = p;

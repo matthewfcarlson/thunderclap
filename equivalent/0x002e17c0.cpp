@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 54 inputs, branch coverage 8/8)
 // FUN_002e17c0 @ 0x002e17c0
+#include "compat/ptr.h"
 struct Mat_2e17c0 {
     char d[64];
 };
@@ -26,9 +27,9 @@ public:
 pure3d::BoneMatrixList::BoneMatrixList(MatVec *src)
 {
     f4 = 0;
-    unsigned int n = src->end - src->begin;
+    hulk_uintptr n = src->end - src->begin;
     if (n != 0) {
-        unsigned int bytes = n * 64;
+        hulk_uintptr bytes = n * 64;
         begin = (Mat_2e17c0 *)FUN_0008d6d0(bytes);
         if (begin != 0) {
             end = (Mat_2e17c0 *)((char *)begin + bytes);

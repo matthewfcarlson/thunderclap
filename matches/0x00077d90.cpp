@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003fba00[];
@@ -13,7 +14,7 @@ template <> void* fight::TrackFactoryTemplate<CScrubberTrack>::vfunc_5() {
     CScrubberTrack_77d90* p = (CScrubberTrack_77d90*)operator_new(0x0c);
     if (p) {
         p->Ctor();
-        *(unsigned int*)p = ((int)DAT_003fba00);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fba00);
         return (void*)(p);
     }
     return (void*)(0);

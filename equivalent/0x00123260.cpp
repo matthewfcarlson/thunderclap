@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00123260 @ 0x00123260
+#include "compat/ptr.h"
 extern "C" char DAT_0040fc60[];
 
 struct RefObj_123260 {
@@ -46,7 +47,7 @@ struct PathAction {
 PathAction *PathAction::FUN_00123260(int a, RefObj_123260 *target)
 {
     FUN_00232660();
-    vptr = (int)DAT_0040fc60;
+    vptr = (hulk_intptr)DAT_0040fc60;
     f50 = 0;
     f54 = 0;
     f58 = 0;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003fbfa4[];
@@ -17,7 +18,7 @@ template <> void* fight::TrackFactoryTemplate<CDriftTrack>::vfunc_5() {
     CDriftTrack_76410* p = (CDriftTrack_76410*)operator_new(0x1c);
     if (p) {
         p->init();
-        p->vptr = ((int)DAT_003fbfa4);
+        p->vptr = ((hulk_intptr)DAT_003fbfa4);
         p->fieldc = 0;
         p->field10 = -1.0f;
         p->field14 = 0;

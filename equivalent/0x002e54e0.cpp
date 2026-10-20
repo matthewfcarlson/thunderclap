@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 9/10, incomplete)
 // FUN_002e54e0 @ 0x002e54e0
+#include "compat/ptr.h"
 void *FUN_0008d6d0(unsigned int size);
 
 struct IntVec2 {
@@ -10,7 +11,7 @@ struct IntVec2 {
 
 IntVec2::IntVec2(const IntVec2 &other) throw()
 {
-    int count = other.last - other.first;
+    hulk_intptr count = other.last - other.first;
     if (count != 0) {
         first = (int *)FUN_0008d6d0(count * 4);
         if (first != 0) {

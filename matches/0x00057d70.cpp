@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f74e0[];
@@ -20,7 +21,7 @@ template <> void* fight::ConditionFactoryTemplate<CFightNodePrevCondition>::vfun
     Raw_57d70* p = (Raw_57d70*)Alloc(0x20);
     if (p != 0) {
         ((Obj_57d70*)p)->Init(0);
-        p->vptr = ((int)DAT_003f74e0);
+        p->vptr = ((hulk_intptr)DAT_003f74e0);
         p->f = 0;
         ((Tail_57d70*)((char*)p + 0x10))->Init();
         p->b = 1;

@@ -3,6 +3,7 @@
 // equiv-map: ??_R0?AVCScriptToken@DollyScript@@@8 = 0x004a13e4
 // equiv-map: ??_R0?AVCTokenString@DollyScript@@@8 = 0x004a140c
 // equiv-map: ??_R0?AVCTokenFloat@DollyScript@@@8 = 0x004a13bc
+#include "compat/ptr.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *FUN_0008d690(unsigned int size);
 extern "C" char *__cdecl strncpy(char *, const char *, unsigned int);
@@ -278,7 +279,7 @@ void Builder::FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4)
                     str = "";
                 CmdSeq *s2 = (CmdSeq *)a1.cmd;
                 if (s2->items != 0)
-                    *(int *)((char *)((CmdSeq *)a1.cmd)->items + f.off) = (int)FUN_000f6610(str);
+                    *(hulk_intptr *)((char *)((CmdSeq *)a1.cmd)->items + f.off) = (hulk_intptr)FUN_000f6610(str);
                 f.off += 4;
                 t = p->FUN_000fb150();
             } while (t != 0);
@@ -379,7 +380,7 @@ void Builder::FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4)
         if (f.v1 == 0)
             p->FUN_000fa0a0();
         const char *v2 = p->FUN_000fad90();
-        f.off = (unsigned int)v2;
+        f.off = (hulk_uintptr)v2;
         if (v2 == 0)
             p->FUN_000fa0a0();
         a1.s = p->FUN_000fad90();

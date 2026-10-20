@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 51/51)
 // FUN_002eea80 @ 0x002eea80
+#include "compat/ptr.h"
 extern "C" void *memset(void *dst, int c, unsigned int n);
 
 struct Info {
@@ -176,11 +177,11 @@ void Mgr::FUN_002eea80()
         }
     }
 
-    int nnodes = nodesEnd - nodesBegin;
+    hulk_intptr nnodes = nodesEnd - nodesBegin;
     for (int i = 0; i < nnodes; ++i) {
         Target *t = nodesBegin[i]->target;
         if (t->type() == 4) {
-            unsigned int nhits = hitEnd - hitBegin;
+            hulk_uintptr nhits = hitEnd - hitBegin;
             for (unsigned int j = 0; j < nhits; ++j) {
                 dirty = 0;
                 Child *c = hitBegin[j];
@@ -190,14 +191,14 @@ void Mgr::FUN_002eea80()
         }
     }
 
-    int nlinks = linksEnd - linksBegin;
+    hulk_intptr nlinks = linksEnd - linksBegin;
     for (int i = 0; i < nlinks; ++i) {
         dirty = 0;
         Link *l = &linksBegin[i];
         solver.FUN_00302ed0(l->a->ref, l->b->ref, &value);
     }
 
-    unsigned int nitems = end - begin;
+    hulk_uintptr nitems = end - begin;
     for (unsigned int i = 0; i < nitems; i = i + 1, nitems = end - begin) {
         Item *it = begin[i];
         it->hot2 = 0;

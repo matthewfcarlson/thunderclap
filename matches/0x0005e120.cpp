@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003fa248[];
 struct A_5e120 {
     int x;
@@ -26,7 +27,7 @@ struct COpportunityBallTrack {
 };
 
 COpportunityBallTrack* COpportunityBallTrack::vfunc_5(unsigned char param) {
-    vptr = ((int)DAT_003fa248);
+    vptr = ((hulk_intptr)DAT_003fa248);
     c.init();
     b.init();
     a.init();

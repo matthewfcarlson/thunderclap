@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1183 inputs, branch coverage 34/34)
 // FUN_00109df0 @ 0x00109df0
+#include "compat/ptr.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
 
@@ -147,7 +148,7 @@ bool __stdcall FUN_00109df0(Context* ctx, Vec3_109df0* from, Vec3_109df0* to, in
     if (!(outNormal->z * dir->z + dir->y * outNormal->y + outNormal->x * dir->x < 0.0f))
         return true;
 
-    if (out.hit && out.hit->kind == 5 && out.hit->link && out.hit->link->FUN_001d72e0() == (int)ignore)
+    if (out.hit && out.hit->kind == 5 && out.hit->link && out.hit->link->FUN_001d72e0() == (hulk_intptr)ignore)
         return true;
     return false;
 }

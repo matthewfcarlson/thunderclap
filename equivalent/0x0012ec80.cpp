@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012ec80 @ 0x0012ec80
+#include "compat/ptr.h"
 int __cdecl FUN_0008d340(void *);
 void * __cdecl FUN_0008d6d0(unsigned int);
 struct Item {
@@ -19,5 +20,5 @@ int Item::FUN_0012ec80(const char *source) {
     text = dest;
     char *allocated = dest;
     do { *dest++ = *source++; } while (source[-1]);
-    return (((int)allocated) & ~255) | 1;
+    return (((hulk_intptr)allocated) & ~255) | 1;
 }

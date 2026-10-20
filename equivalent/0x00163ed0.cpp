@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 445 inputs, branch coverage 42/42)
 // hulkfight::motion::LocomotionSprintAction::vfunc_3 @ 0x00163ed0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
@@ -244,11 +245,11 @@ bool hulkfight::motion::LocomotionSprintAction::vfunc_3(int a, int b)
         f.desc[2] = 0;
         f.desc[3] = 0;
         f.desc[4] = 0;
-        f.desc[5] = (unsigned int)animA;
-        f.desc[6] = (unsigned int)animA;
-        f.desc[7] = (unsigned int)f.s14.anim;
-        f.desc[8] = (unsigned int)animA;
-        f.desc[9] = (unsigned int)animC;
+        f.desc[5] = (hulk_uintptr)animA;
+        f.desc[6] = (hulk_uintptr)animA;
+        f.desc[7] = (hulk_uintptr)f.s14.anim;
+        f.desc[8] = (hulk_uintptr)animA;
+        f.desc[9] = (hulk_uintptr)animC;
         void *mem = thunk_FUN_0008d690(0x910);
         choreo2::LocomotionSteerDriver *nd;
         if (mem != 0)

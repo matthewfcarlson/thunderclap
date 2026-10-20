@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" void* __cdecl Allocate(unsigned int);
@@ -17,7 +18,7 @@ template <> void* fight::ConditionFactoryTemplate<CAxisSpeedCondition>::vfunc_5(
     if (p) {
         p->Initialize(0);
         p->c = 0;
-        *(int*)p = (int)&AxisVtable_57080;
+        *(hulk_intptr*)p = (hulk_intptr)&AxisVtable_57080;
         p->d = 4;
         p->e = 0;
         return (void*)(p);

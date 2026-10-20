@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vtableA;
 extern int vtableB;
 class Part_4a030 {
@@ -16,8 +17,8 @@ class CCharacterTemplateVariationCondition : public CCondition {
     void Finish();
 };
 void CCharacterTemplateVariationCondition::Run() {
-    *(int*)this = (int)&vtableA;
+    *(hulk_intptr*)this = (hulk_intptr)&vtableA;
     part.Init();
-    *(int*)this = (int)&vtableB;
+    *(hulk_intptr*)this = (hulk_intptr)&vtableB;
     Finish();
 }

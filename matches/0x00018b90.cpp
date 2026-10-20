@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f3390[];
 extern "C" char DAT_003f33b8[];
 class Ref_18b90 {
@@ -19,7 +20,7 @@ class CJointAction {
 };
 CJointAction* CJointAction::Init(int v, Ref_18b90* r) {
     ((ThisCall_00232660*)(this))->BaseInit();
-    *(int*)this = ((int)DAT_003f3390);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_003f3390);
     ref = 0;
     if (r)
         r->AddRef();
@@ -27,7 +28,7 @@ CJointAction* CJointAction::Init(int v, Ref_18b90* r) {
         ref->Release();
     ref = r;
     value = v;
-    *(int*)this = ((int)DAT_003f33b8);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_003f33b8);
     extra = 0;
     return this;
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern void* __cdecl Alloc(unsigned int);
@@ -19,7 +20,7 @@ template <> void* fight::ConditionFactoryTemplate<CAxisDoubleTapCondition>::vfun
     if (p) {
         p->Init(0);
         p->x0 = 0;
-        p->vt = (int)&AxisVtable_56d50;
+        p->vt = (hulk_intptr)&AxisVtable_56d50;
         p->x1 = 0;
         p->x2 = 0x3fc90fdb;
         p->x3 = 0;

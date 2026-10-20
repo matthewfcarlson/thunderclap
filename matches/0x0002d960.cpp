@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f423c[];
 struct ThisCall_001d0480 {
     void Init(void*, int);
@@ -23,7 +24,7 @@ class Method5 {
 };
 Method5* Method5::Build(void* p2, int p3) {
     ((ThisCall_001d0480*)(this))->Init(p2, 5);
-    *(void**)this = (void*)((int)DAT_003f423c);
+    *(void**)this = (void*)((hulk_intptr)DAT_003f423c);
     arg = p3;
     x18 = Get(&gA_2d960);
     x10 = Get(&gB_2d960);

@@ -5,6 +5,7 @@
 // original code with work/cq/x87c3.py; `this` is addressed through the volatile float view T, the frame is the
 // volatile slot array L[] at the original offsets, FPU-resident values are recomputed inline from volatile
 // reads. FUN_000fce60 takes an implicit edi (equiv-conv).
+#include "compat/ptr.h"
 #include "gen/global.h"
 #include "decls/data/game/global.h"
 
@@ -38,7 +39,7 @@ struct CControllerAgent_nv_fd0f0 {
     void FUN_000fc550(unsigned a, unsigned b, unsigned c);
 };
 
-void CControllerAgent::vfunc_4(int __p0, int __p1, int __p2) { unsigned int a1 = (unsigned int)__p0; unsigned int a2 = (unsigned int)__p1; unsigned int a3 = (unsigned int)__p2;
+void CControllerAgent::vfunc_4(int __p0, int __p1, int __p2) { hulk_uintptr a1 = (unsigned int)__p0; unsigned int a2 = (unsigned int)__p1; unsigned int a3 = (unsigned int)__p2;
 
     volatile float *T = (volatile float *)this;
     volatile Wd L[58];
@@ -63,13 +64,13 @@ void CControllerAgent::vfunc_4(int __p0, int __p1, int __p2) { unsigned int a1 =
     int r8_eax;
     int r9_ecx;
     unsigned ebpv, ebxv;
-    unsigned esiv, ediv;
-    unsigned fgt, infov, objb, ev, tmpi, sv, rr;
+    hulk_uintptr esiv, ediv;
+    hulk_uintptr fgt, infov, objb, ev, tmpi, sv, rr;
     volatile float * r10_edx;
     volatile float * r6_ecx;
     volatile float ARGfc;
     ((CControllerAgent_nv_fd0f0*)this)->FUN_000fc550(a1, a2, a3);
-    fgt = (unsigned)((VFight *)*(volatile unsigned *)&T[22])->v6();
+    fgt = (hulk_uintptr)((VFight *)*(volatile hulk_uintptr *)&T[22])->v6();
     if (*(volatile unsigned *)((char *)fgt + 0x140) == 4) {
         L[17].u = *(volatile unsigned *)((char *)fgt + 0x1af8);
         L[18].u = *(volatile unsigned *)((char *)fgt + 0x1afc);
@@ -85,7 +86,7 @@ void CControllerAgent::vfunc_4(int __p0, int __p1, int __p2) { unsigned int a1 =
     sv = *(volatile unsigned *)((char *)fgt + 0x20a8);
     L[16].u = infov;
     if ((int)sv >= 0 && (int)sv < 4)
-        ((Cls3660 *)((Cls3d20 *)*(volatile unsigned *)((char *)a1 + 4))->FUN_000b3d20(sv))->FUN_000b3660(infov);
+        ((Cls3660 *)((Cls3d20 *)*(volatile hulk_uintptr *)((char *)a1 + 4))->FUN_000b3d20(sv))->FUN_000b3660(infov);
     objb = FUN_001c3d90();
     r1_ecx = *(volatile unsigned*)&((volatile float *)infov)[42];
     r2_edx = *(volatile unsigned*)&((volatile float *)infov)[55];
@@ -118,11 +119,11 @@ void CControllerAgent::vfunc_4(int __p0, int __p1, int __p2) { unsigned int a1 =
             *(volatile unsigned char *)((char *)this + 0xa1) = 0;
     }
     if (*(volatile unsigned char *)((char *)this + 0xa0) != 0) {
-        esiv = (unsigned)(T + 54);
-        FUN_000fce60(esiv, (unsigned)&L[17].f, *(volatile unsigned *)((char *)this + 0x118), *(volatile unsigned *)((char *)this + 0x11c), L[4].u, L[3].u, (unsigned)&L[13].f);
-        FUN_000fce60(esiv, (unsigned)&L[17].f, *(volatile unsigned *)((char *)this + 0x118), *(volatile unsigned *)((char *)this + 0x11c), L[11].u, L[1].u, (unsigned)&L[27].f);
-        FUN_000fd010(esiv, *(volatile unsigned *)((char *)this + 0x118), *(volatile unsigned *)((char *)this + 0x11c), L[4].u, L[3].u, (unsigned)&L[30].f);
-        FUN_000fd010(esiv, *(volatile unsigned *)((char *)this + 0x118), *(volatile unsigned *)((char *)this + 0x11c), L[11].u, L[1].u, (unsigned)&L[33].f);
+        esiv = (hulk_uintptr)(T + 54);
+        FUN_000fce60(esiv, (hulk_uintptr)&L[17].f, *(volatile unsigned *)((char *)this + 0x118), *(volatile unsigned *)((char *)this + 0x11c), L[4].u, L[3].u, (hulk_uintptr)&L[13].f);
+        FUN_000fce60(esiv, (hulk_uintptr)&L[17].f, *(volatile unsigned *)((char *)this + 0x118), *(volatile unsigned *)((char *)this + 0x11c), L[11].u, L[1].u, (hulk_uintptr)&L[27].f);
+        FUN_000fd010(esiv, *(volatile unsigned *)((char *)this + 0x118), *(volatile unsigned *)((char *)this + 0x11c), L[4].u, L[3].u, (hulk_uintptr)&L[30].f);
+        FUN_000fd010(esiv, *(volatile unsigned *)((char *)this + 0x118), *(volatile unsigned *)((char *)this + 0x11c), L[11].u, L[1].u, (hulk_uintptr)&L[33].f);
     L[16].f = (sqrt((((T[41] * T[41]) + (T[42] * T[42])) + (T[43] * T[43]))) * sqrt((((L[15].f * L[15].f) + (L[14].f * L[14].f)) + (L[13].f * L[13].f))));
     L[1].f = (sqrt((((T[41] * T[41]) + (T[42] * T[42])) + (T[43] * T[43]))) * sqrt((((L[15].f * L[15].f) + (L[14].f * L[14].f)) + (L[13].f * L[13].f))));
         L[1].u = L[1].u & 0x7fffffff;
@@ -154,15 +155,15 @@ void CControllerAgent::vfunc_4(int __p0, int __p1, int __p2) { unsigned int a1 =
     L[5].u = r11_eax;
     L[6].u = r12_ecx;
     L[7].u = r13_edx;
-        ((Cls1c38f0 *)objb)->FUN_001c38f0((unsigned)&L[2].f, (unsigned)&L[26].f);
+        ((Cls1c38f0 *)objb)->FUN_001c38f0((hulk_uintptr)&L[2].f, (hulk_uintptr)&L[26].f);
         tmpi = ((Cls1c3990 *)objb)->FUN_001c3990();
         memcpy((void *)&L[36].f, (const void *)tmpi, 64);
-        ((Cls1c3950 *)objb)->FUN_001c3950((unsigned)&L[0].f, (unsigned)&L[26].f);
+        ((Cls1c3950 *)objb)->FUN_001c3950((hulk_uintptr)&L[0].f, (hulk_uintptr)&L[26].f);
         esiv = L[3].u; ediv = L[4].u;
-        FUN_000fce60((unsigned)&L[36].f, (unsigned)&L[17].f, L[2].u, L[0].u, ediv, esiv, (unsigned)&L[20].f);
-        FUN_000fce60((unsigned)&L[36].f, (unsigned)&L[17].f, L[2].u, L[0].u, L[11].u, L[1].u, (unsigned)&L[23].f);
-        FUN_000fd010((unsigned)&L[36].f, L[2].u, L[0].u, ediv, esiv, (unsigned)&L[52].f);
-        FUN_000fd010((unsigned)&L[36].f, L[2].u, L[0].u, L[11].u, L[1].u, (unsigned)&L[55].f);
+        FUN_000fce60((hulk_uintptr)&L[36].f, (hulk_uintptr)&L[17].f, L[2].u, L[0].u, ediv, esiv, (hulk_uintptr)&L[20].f);
+        FUN_000fce60((hulk_uintptr)&L[36].f, (hulk_uintptr)&L[17].f, L[2].u, L[0].u, L[11].u, L[1].u, (hulk_uintptr)&L[23].f);
+        FUN_000fd010((hulk_uintptr)&L[36].f, L[2].u, L[0].u, ediv, esiv, (hulk_uintptr)&L[52].f);
+        FUN_000fd010((hulk_uintptr)&L[36].f, L[2].u, L[0].u, L[11].u, L[1].u, (hulk_uintptr)&L[55].f);
     r14_esi = 0x7fffffff;
     L[0].u = 0;
     L[4].f = ((L[12].f - T[53]) / DAT_004a1aac);
@@ -201,24 +202,24 @@ void CControllerAgent::vfunc_4(int __p0, int __p1, int __p2) { unsigned int a1 =
     L[29].f = ((cos((A2 * L[4].f)) * L[7].f) - (sin((A2 * L[4].f)) * L[5].f));
         ediv = L[16].u;
     } else {
-        ((Cls1c38f0 *)objb)->FUN_001c38f0((unsigned)&L[2].f, (unsigned)&L[26].f);
+        ((Cls1c38f0 *)objb)->FUN_001c38f0((hulk_uintptr)&L[2].f, (hulk_uintptr)&L[26].f);
         tmpi = ((Cls1c3990 *)objb)->FUN_001c3990();
         memcpy((void *)&L[36].f, (const void *)tmpi, 64);
-        ((Cls1c3950 *)objb)->FUN_001c3950((unsigned)&L[0].f, (unsigned)&L[26].f);
+        ((Cls1c3950 *)objb)->FUN_001c3950((hulk_uintptr)&L[0].f, (hulk_uintptr)&L[26].f);
         esiv = L[3].u; ediv = L[4].u;
-        FUN_000fce60((unsigned)&L[36].f, (unsigned)&L[17].f, L[2].u, L[0].u, ediv, esiv, (unsigned)&L[13].f);
+        FUN_000fce60((hulk_uintptr)&L[36].f, (hulk_uintptr)&L[17].f, L[2].u, L[0].u, ediv, esiv, (hulk_uintptr)&L[13].f);
         ebpv = L[11].u; ebxv = L[1].u;
-        FUN_000fce60((unsigned)&L[36].f, (unsigned)&L[17].f, L[2].u, L[0].u, ebpv, ebxv, (unsigned)&L[27].f);
-        FUN_000fd010((unsigned)&L[36].f, L[2].u, L[0].u, ediv, esiv, (unsigned)&L[30].f);
-        FUN_000fd010((unsigned)&L[36].f, L[2].u, L[0].u, ebpv, ebxv, (unsigned)&L[33].f);
+        FUN_000fce60((hulk_uintptr)&L[36].f, (hulk_uintptr)&L[17].f, L[2].u, L[0].u, ebpv, ebxv, (hulk_uintptr)&L[27].f);
+        FUN_000fd010((hulk_uintptr)&L[36].f, L[2].u, L[0].u, ediv, esiv, (hulk_uintptr)&L[30].f);
+        FUN_000fd010((hulk_uintptr)&L[36].f, L[2].u, L[0].u, ebpv, ebxv, (hulk_uintptr)&L[33].f);
         ediv = L[16].u;
     }
     tmpi = L[13].u;
-    *(volatile unsigned *)((char *)ediv + 0x10c + 0x0) = tmpi;
+    *(volatile hulk_uintptr *)((char *)ediv + 0x10c + 0x0) = tmpi;
     tmpi = L[14].u;
-    *(volatile unsigned *)((char *)ediv + 0x10c + 0x4) = tmpi;
+    *(volatile hulk_uintptr *)((char *)ediv + 0x10c + 0x4) = tmpi;
     tmpi = L[15].u;
-    *(volatile unsigned *)((char *)ediv + 0x10c + 0x8) = tmpi;
+    *(volatile hulk_uintptr *)((char *)ediv + 0x10c + 0x8) = tmpi;
     flen = ((V3x_fd0f0 *)(ediv + 0x10c))->FUN_0022d110();
     *(volatile float *)((char *)ediv + 0x118) = flen;
     *(volatile unsigned *)((char *)ediv + 0x124) = 0;

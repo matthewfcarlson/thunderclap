@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f6ed8[];
@@ -19,7 +20,7 @@ template <> void* fight::ConditionFactoryTemplate<CAxisArcCondition>::vfunc_5() 
     if (p) {
         p->Init(0);
         *(int*)((char*)p + 0xc) = 0;
-        *(int*)p = ((int)DAT_003f6ed8);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_003f6ed8);
         *(int*)((char*)p + 0x18) = 5;
         *(unsigned int*)((char*)p + 0x1c) = 0x3fc90fdb;
         *(int*)((char*)p + 0x10) = 0;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/content.h"
 
 typedef unsigned int u32_21650;
@@ -7,5 +8,5 @@ extern void __cdecl Cast(u32_21650, int, const int*, const int*, int);
 
 template <> void content::LoadInventory::DynamicCaster<pure3d::Animation>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    Cast((u32_21650)p, 0, &type_refcount, &type_animation, 0);
+    Cast((hulk_uintptr)p, 0, &type_refcount, &type_animation, 0);
 }

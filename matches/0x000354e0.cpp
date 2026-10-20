@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class A_354e0 {
     char pad[16];
 
@@ -20,7 +21,7 @@ class Obj_354e0 {
     bool Run(Tmp_354e0*);
 };
 bool Obj_354e0::target(int arg) {
-    int p = ((A_354e0*)*(int*)((char*)this + 0x10))->Get();
+    int p = ((A_354e0*)*(hulk_intptr*)((char*)this + 0x10))->Get();
     if (!p)
         return false;
     Tmp_354e0 t;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f70a0[];
@@ -21,7 +22,7 @@ template <> void* fight::ConditionFactoryTemplate<CCollisionPushbackYCondition>:
     CCollisionPushbackYCondition_57b60* p = (CCollisionPushbackYCondition_57b60*)Allocate(0x14);
     if (p) {
         ((Initializer_57b60*)p)->init(0);
-        *(unsigned int*)p = ((int)DAT_003f70a0);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f70a0);
         p->a = 3;
         p->b = 0;
     } else

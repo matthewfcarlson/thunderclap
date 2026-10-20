@@ -1,4 +1,5 @@
 // Same code shape as 0x0001db40 (propagated; names are from that function)
+#include "compat/ptr.h"
 struct Obj_201a0 {
     virtual void F();
     virtual void G();
@@ -20,7 +21,7 @@ class CStageAction_201a0 : public CAction {
     virtual void V0();
 };
 CStageAction_201a0::CStageAction_201a0(Obj_201a0* arg, int value) {
-    *(int*)this = (int)&VBase;
+    *(hulk_intptr*)this = (hulk_intptr)&VBase;
     mObj = 0;
     if (arg)
         arg->F();
@@ -28,6 +29,6 @@ CStageAction_201a0::CStageAction_201a0(Obj_201a0* arg, int value) {
         mObj->G();
     mObj = arg;
     mValue = value;
-    *(int*)this = (int)&VDerived;
+    *(hulk_intptr*)this = (hulk_intptr)&VDerived;
 }
 void CStageAction_201a0::V0() {}

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20054 inputs, branch coverage 28/30, incomplete)
 // hulkfight::ai::FormationReadyCondition::vfunc_6 @ 0x0010e040
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 extern char DAT_00494b44[];
@@ -52,7 +53,7 @@ struct Registry_10e040 {
 Registry_10e040 *__cdecl FUN_000678d0();
 
 namespace hulkfight { namespace ai {  }}
-bool hulkfight::ai::FormationReadyCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int unused1 = (int)__p0; Owner_10e040 * owner = (Owner_10e040 *)__p1; int unused3 = (int)__p2;
+bool hulkfight::ai::FormationReadyCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_intptr unused1 = (hulk_intptr)__p0; Owner_10e040 * owner = (Owner_10e040 *)__p1; hulk_intptr unused3 = (hulk_intptr)__p2;
 
     if (!FUN_00344e74(owner, 0, DAT_00494b44, DAT_00494b60, 0))
         return (bool)(0);

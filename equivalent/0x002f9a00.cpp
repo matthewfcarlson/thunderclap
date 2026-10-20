@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 9/10, incomplete)
 // FUN_002f9a00 @ 0x002f9a00
+#include "compat/ptr.h"
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
 
 struct WideVector {
@@ -10,7 +11,7 @@ struct WideVector {
 };
 
 WideVector* WideVector::FUN_002f9a00(const WideVector* other) {
-    int capacity = other->cap - other->first;
+    hulk_intptr capacity = other->cap - other->first;
     if (capacity != 0) {
         first = (unsigned short*)FUN_0008d6d0(capacity * 2);
         if (first) {
@@ -18,7 +19,7 @@ WideVector* WideVector::FUN_002f9a00(const WideVector* other) {
             cap = first + capacity;
             const unsigned short* src = other->first;
             unsigned short* dst = first;
-            for (int n = other->last - other->first; n != 0; n--) {
+            for (hulk_intptr n = other->last - other->first; n != 0; n--) {
                 if (dst)
                     *dst = *src;
                 src++;

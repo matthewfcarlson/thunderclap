@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class Helper_52010 {
@@ -8,6 +9,6 @@ class Helper_52010 {
 
 int CFightNodeCondition::vfunc_7(void* __p0) { void * arg = (void *)__p0;
 
-    int x = ((Helper_52010*)arg)->first();
+    hulk_intptr x = ((Helper_52010*)arg)->first();
     return ((Helper_52010*)x)->second() + 0xdc;
 }

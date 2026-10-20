@@ -2,6 +2,7 @@
 // ImageSelector::vfunc_5 @ 0x000ee340
 // ImageSelector::vfunc_5: draw the image grid, selection highlight and captions.
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "gen/global.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
@@ -308,9 +309,9 @@ void ImageSelector::vfunc_5() {
 
     if (selector->drawFirst == 1) {
         (*(Ctx_ee340**)&DAT_0052c2ac)->dev->v15(0);
-        selector->owner->v14((unsigned)&frame.translation, (unsigned)this);
-        (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((unsigned)&frame.translation);
-        selector->owner->v15((unsigned)&imagePosition, (unsigned)this);
+        selector->owner->v14((hulk_uintptr)&frame.translation, (hulk_uintptr)this);
+        (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((hulk_uintptr)&frame.translation);
+        selector->owner->v15((hulk_uintptr)&imagePosition, (hulk_uintptr)this);
         unsigned image = selector->firstImage;
         FUN_000e11a0(imagePosition.x, imagePosition.y, imagePosition.z, image, 2);
         (*(Ctx_ee340**)&DAT_0052c2ac)->dev->v16(0);
@@ -318,9 +319,9 @@ void ImageSelector::vfunc_5() {
 
     if (selector->drawSecond == 1) {
         (*(Ctx_ee340**)&DAT_0052c2ac)->dev->v15(0);
-        selector->owner->v14((unsigned)&frame.translation, (unsigned)this);
-        (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((unsigned)&frame.translation);
-        selector->owner->v15((unsigned)&imagePosition, (unsigned)this);
+        selector->owner->v14((hulk_uintptr)&frame.translation, (hulk_uintptr)this);
+        (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((hulk_uintptr)&frame.translation);
+        selector->owner->v15((hulk_uintptr)&imagePosition, (hulk_uintptr)this);
         unsigned image = selector->secondImage;
         FUN_000e0cc0(imagePosition.x, imagePosition.y, imagePosition.z, image, 0);
         (*(Ctx_ee340**)&DAT_0052c2ac)->dev->v16(0);
@@ -328,8 +329,8 @@ void ImageSelector::vfunc_5() {
 
     if (selector->overlay) {
         (*(Ctx_ee340**)&DAT_0052c2ac)->dev->v15(0);
-        selector->owner->v14((unsigned)&frame.translation, (unsigned)this);
-        (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((unsigned)&frame.translation);
+        selector->owner->v14((hulk_uintptr)&frame.translation, (hulk_uintptr)this);
+        (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((hulk_uintptr)&frame.translation);
         (*(Ctx_ee340**)&DAT_0052c2ac)
             ->FUN_00293da0(selector->transformA, selector->transformB, selector->transformC);
         selector->overlay->v8(0, 0);
@@ -337,9 +338,9 @@ void ImageSelector::vfunc_5() {
     }
 
     (*(Ctx_ee340**)&DAT_0052c2ac)->dev->v15(0);
-    selector->owner->v14((unsigned)&frame.translation, (unsigned)this);
-    (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((unsigned)&frame.translation);
-    (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((unsigned)&selector->position);
+    selector->owner->v14((hulk_uintptr)&frame.translation, (hulk_uintptr)this);
+    (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((hulk_uintptr)&frame.translation);
+    (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((hulk_uintptr)&selector->position);
 
     if (selector->rows > 0) {
         frame.row = 0;
@@ -356,18 +357,18 @@ void ImageSelector::vfunc_5() {
                         NewObj_ee340* formatted = memory ? (NewObj_ee340*)((Fmt*)memory)->FUN_0028edb0() : 0;
                         formatted->v0();
                         formatted->content->v6(0x444d4c42, 1);
-                        unsigned currentCell = *cell;
+                        hulk_uintptr currentCell = *cell;
                         unsigned label = currentCell ? *(unsigned*)(currentCell + 0x10) : 0;
                         formatted->content->v5(((unsigned)0x584554), label);
 
-                        unsigned texture = (unsigned)formatted->content;
+                        hulk_uintptr texture = (hulk_uintptr)formatted->content;
                         volatile float width = selector->cellWidth * 0.8f;
                         volatile float height = selector->cellHeight * 0.8f;
                         volatile float left = width * -0.5f;
                         volatile float right = width * 0.5f;
                         volatile float top = height * 0.5f;
                         volatile float bottom = height * -0.5f;
-                        unsigned vertexData = DAT_0052c2a8->v30(texture, 0, 0x2021, 6, 0);
+                        hulk_uintptr vertexData = DAT_0052c2a8->v30(texture, 0, 0x2021, 6, 0);
                         if (vertexData) {
                             Z* vertices = (Z*)vertexData;
                             for (int vertex = 0; vertex < 6; ++vertex) {
@@ -398,23 +399,23 @@ void ImageSelector::vfunc_5() {
                                          0.02f, 0xff51c4ff);
                         }
                         if (captionRow[column]) {
-                            unsigned text = selector->owner->v20();
+                            hulk_uintptr text = selector->owner->v20();
                             text = ((Objr*)text)->v51();
                             text = ((Objs_ee340*)text)->v44();
                             ((Fmt7*)&caption)->FUN_000f7fe0(text);
-                            volatile float verticalScale = selector->owner->v17((unsigned)this);
-                            float horizontalScale = selector->owner->v16((unsigned)this);
+                            volatile float verticalScale = selector->owner->v17((hulk_uintptr)this);
+                            float horizontalScale = selector->owner->v16((hulk_uintptr)this);
                             caption.entries[caption.selectedEntry].scale = horizontalScale * verticalScale;
                             caption.entries[caption.selectedEntry].enabled = 1;
                             caption.entries[caption.selectedEntry].kind = 2;
-                            ((Fmt8*)&caption)->FUN_000f80e0((unsigned)&DAT_0040b0a0, 0, 0);
+                            ((Fmt8*)&caption)->FUN_000f80e0((hulk_uintptr)&DAT_0040b0a0, 0, 0);
                             ((Fmt9*)&caption)->FUN_000f78e0();
                         }
                     }
                     step.x = selector->cellWidth;
                     step.y = 0.0f;
                     step.z = 0.0f;
-                    (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((unsigned)&step);
+                    (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((hulk_uintptr)&step);
                     ++column;
                     ++cell;
                 } while ((int)column < selector->columns);
@@ -423,7 +424,7 @@ void ImageSelector::vfunc_5() {
             frame.translation.x = 0.0f;
             frame.translation.y = -selector->cellHeight;
             frame.translation.z = 0.0f;
-            (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((unsigned)&frame.translation);
+            (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((hulk_uintptr)&frame.translation);
             ++frame.row;
             cellRow += 8;
             captionRow += 8;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003faa80[];
 typedef unsigned int u32_60720;
 struct Helper_60720 {
@@ -9,7 +10,7 @@ struct CEffectTrack {
     void Finish();
 };
 void __fastcall FUN_00060720(CEffectTrack* self) {
-    self->vft = ((int)DAT_003faa80);
+    self->vft = ((hulk_intptr)DAT_003faa80);
     ((Helper_60720*)((char*)self + 0x30))->Init();
     ((Helper_60720*)((char*)self + 0x28))->Init();
     ((Helper_60720*)((char*)self + 0x18))->Init();

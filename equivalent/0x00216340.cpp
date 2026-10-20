@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 25/26, incomplete)
 // FUN_00216340 @ 0x00216340
+#include "compat/ptr.h"
 extern "C" char *strncpy(char *dst, const char *src, unsigned int n);
 extern "C" char *strncat(char *dst, const char *src, unsigned int n);
 extern "C" char *strcat(char *dst, const char *src);
@@ -18,7 +19,7 @@ void __cdecl FUN_00216340(char *out, const char *source, int bufflen)
     if (*source == '@') {
         source++;
         int room = bufflen - 8;
-        int l = strlen(source);
+        hulk_intptr l = strlen(source);
         *out = '\0';
         if (l > room) {
             source += l - room;

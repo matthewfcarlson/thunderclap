@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 class CButtonDownCondition_57230 {
@@ -17,7 +18,7 @@ template <> void* fight::ConditionFactoryTemplate<CButtonDownCondition>::vfunc_5
     CButtonDownCondition_57230* p = (CButtonDownCondition_57230*)FUN_0008d690(0x20);
     if (p) {
         p->CButtonDownCondition_57230::CButtonDownCondition_57230();
-        *(int*)p = (int)&g_vft_57230;
+        *(hulk_intptr*)p = (hulk_intptr)&g_vft_57230;
         return (void*)(p);
     }
     return (void*)(0);

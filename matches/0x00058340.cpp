@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f7304[];
@@ -16,7 +17,7 @@ template <> void* fight::ConditionFactoryTemplate<CLuaNumberCondition>::vfunc_5(
     CLuaNumberCondition_58340* p = (CLuaNumberCondition_58340*)Allocate(0x54);
     if (p) {
         p->init(0);
-        *(unsigned int*)p = ((int)DAT_003f7304);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f7304);
         *(unsigned int*)((char*)p + 0xc) = 2;
         *(unsigned int*)((char*)p + 0x50) = 0;
         *((unsigned char*)p + 0x10) = 0;

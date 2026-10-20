@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20039 inputs, branch coverage 63/80, incomplete)
 // FUN_001ae450 @ 0x001ae450
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight.h"
 
@@ -77,7 +78,7 @@ int __stdcall FUN_001ae450(Arg1 a1, Vec3_1ae450 *out, Arg3 a3, int a4)
     }
     Elem_1ae450 *end2 = a1.c->end;
     Elem_1ae450 *last = end2 - 1;
-    unsigned int n2 = end2 - begin;
+    hulk_uintptr n2 = end2 - begin;
     Elem_1ae450 *start = begin;
     if (n2 > 5)
         start = end - 5;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Ref_1d100 {
   public:
     virtual void A();
@@ -23,7 +24,7 @@ class KeyPoseAction : public Action {
     virtual void A();
 };
 KeyPoseAction::KeyPoseAction(int value, Ref_1d100* ref) : Action() {
-    *(int*)this = (int)&actionVftable;
+    *(hulk_intptr*)this = (hulk_intptr)&actionVftable;
     mRef = 0;
     if (ref)
         ref->A();
@@ -34,5 +35,5 @@ KeyPoseAction::KeyPoseAction(int value, Ref_1d100* ref) : Action() {
     m9 = 0;
     m10 = 0;
     m11 = 0;
-    *(int*)this = (int)&keyVftable;
+    *(hulk_intptr*)this = (hulk_intptr)&keyVftable;
 }

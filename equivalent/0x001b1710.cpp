@@ -2,6 +2,7 @@
 // FUN_001b1710 @ 0x001b1710
 // cl-flags: /GS
 // equiv-conv: FUN_001b0470 eax ecx stack
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -297,7 +298,7 @@ int Handler_1b1710::FUN_001b1710(Thing_1b1710* sourceThing, Thing_1b1710* hitThi
             }
             source->s1a4.FUN_001b6e60(hitThing);
         }
-        if ((int)hitThing == source->f118)
+        if ((hulk_intptr)hitThing == source->f118)
             return 1;
     }
     hit->FUN_00038e80(sourceThing, otherThing, -1, position, normal, strength);

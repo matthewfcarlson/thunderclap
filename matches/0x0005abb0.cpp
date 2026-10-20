@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f9980[];
 class Helper_5abb0 {
   public:
@@ -11,7 +12,7 @@ class CGrappleSwapTrack {
     void Run();
 };
 void CGrappleSwapTrack::Run() {
-    *(void**)this = (void*)((int)DAT_003f9980);
+    *(void**)this = (void*)((hulk_intptr)DAT_003f9980);
     ((Helper_5abb0*)((char*)this + 0x18))->Init();
     ((Helper_5abb0*)((char*)this + 0x10))->Init();
     ((Helper_5abb0*)this)->Finish();

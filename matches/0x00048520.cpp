@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int g_vft_48520;
 class CButtonValueCondition {
   public:
@@ -19,7 +20,7 @@ CButtonValueCondition* __fastcall FUN_00048520(CButtonValueCondition* self) {
     self->x6 = 4;
     self->x3 = 0;
     self->x5 = 0;
-    self->vf = (int)&g_vft_48520;
+    self->vf = (hulk_intptr)&g_vft_48520;
     self->x7 = 0;
     return self;
 }

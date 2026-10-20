@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3130 inputs, branch coverage 83/88, incomplete)
 // FUN_001e2940 @ 0x001e2940
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight.h"
 
@@ -371,7 +372,7 @@ Prop_1e2940 *Mgr_1e2940::F(int idx)
         prop->pa0->FUN_002fc670(2);
         if (prop->FUN_001d72e0()->p70)
             prop->FUN_001d72e0()->p70->v6(1);
-        prop->pa0->FUN_002fc670((int)r);
+        prop->pa0->FUN_002fc670((hulk_intptr)r);
     }
     prop->FUN_001d7e70();
     Event_1e2940 *ev = prop->FUN_001d72e0();

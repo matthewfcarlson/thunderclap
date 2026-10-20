@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 26/26)
 // FUN_002fa290 @ 0x002fa290
+#include "compat/ptr.h"
 #include "decls/data/engine/physics.h"
 
 struct Vec3_2fa290 {
@@ -135,8 +136,8 @@ void VisCache::FUN_002fa290(Frame_2fa290 frame, Item_2fa290* item, Entry_2fa290*
         end--;
     }
 
-    unsigned int free = (shorts.cap - shorts.begin) - (shorts.end - shorts.begin);
-    int count = out->last - out->first;
+    hulk_uintptr free = (shorts.cap - shorts.begin) - (shorts.end - shorts.begin);
+    hulk_intptr count = out->last - out->first;
     if (free < (unsigned int)count) {
         FUN_002f9ed0();
         free = (shorts.cap - shorts.begin) - (shorts.end - shorts.begin);

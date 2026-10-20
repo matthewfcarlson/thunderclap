@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 struct Obj_5b4f0 {
@@ -40,7 +41,7 @@ int CGrappleIntangibleTrack::vfunc_12(int __p0) { Input_5b4f0 * p = (Input_5b4f0
                     if (y) {
                         CIntangibleAction* z = (CIntangibleAction*)FUN_0008d690(0x20);
                         if (z)
-                            return (int)(((CIntangibleAction_nv_5b4f0*)(z))->Init(y));
+                            return (hulk_intptr)(((CIntangibleAction_nv_5b4f0*)(z))->Init(y));
                     }
                 }
             }

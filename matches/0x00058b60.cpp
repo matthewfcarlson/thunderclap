@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f7154[];
@@ -21,7 +22,7 @@ template <> void* fight::ConditionFactoryTemplate<CSmartPropWeaponTypeCondition>
     CSmartPropWeaponTypeCondition_58b60* p = (CSmartPropWeaponTypeCondition_58b60*)FUN_0008d690(0x14);
     if (p) {
         p->Init(0);
-        *(int*)p = ((int)DAT_003f7154);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_003f7154);
         p->value = 0;
         p->type = -1;
         return (void*)(p);

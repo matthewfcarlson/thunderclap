@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2985 inputs, branch coverage 20/20)
 // FUN_000ef610 @ 0x000ef610
+#include "compat/ptr.h"
 struct TimerState { int state; bool FUN_000fb4b0(float dt); };
 struct Entry_ef610 { char pad[0xe0]; TimerState timer; };
 struct Context { char pad[0x17f8]; int flag; };
@@ -15,7 +16,7 @@ struct Object {
 };
 bool Object::target() {
  volatile union { unsigned int word; unsigned char bytes[4]; } ready;
- ready.word=(unsigned int)this;
+ ready.word=(hulk_uintptr)this;
  ready.bytes[3]=1;
  void* timerContext=this;
  for(int i=0;i<128;++i) {
@@ -26,7 +27,7 @@ bool Object::target() {
    timerContext=&entry->timer;
   }
  }
- int flag=context()->flag;
+ hulk_intptr flag=context()->flag;
  if(mode==1 || mode==2) {
   float limit=mode==1 ? (flag ? limit1True:limit1False) : (flag ? limit2True:limit2False);
   if(ready.bytes[3] && limit<=elapsed) { FUN_000e54d0(); return false; }

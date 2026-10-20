@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void __cdecl FUN_00047d40();
 extern "C" char DAT_003f7938[];
 struct Param {
@@ -14,8 +15,8 @@ void FUN_000534e0() {
         void* out;
         if (p) {
             p->Initialize("interrupt");
-            *(unsigned int*)p = ((int)DAT_003f7938);
-            *(unsigned int*)((char*)p + 0x10) = ((int)(void (__cdecl*)())&FUN_00047d40);
+            *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f7938);
+            *(hulk_uintptr*)((char*)p + 0x10) = ((hulk_intptr)(void (__cdecl*)())&FUN_00047d40);
             out = p;
         } else
             out = 0;

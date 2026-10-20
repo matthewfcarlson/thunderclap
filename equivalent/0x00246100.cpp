@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 18/18)
 // FUN_00246100 @ 0x00246100
+#include "compat/ptr.h"
 struct Reader {
  char pad[0x90];
  unsigned int line, position, length;
@@ -30,7 +31,7 @@ int __cdecl FUN_00246100(Reader* r) {
   ++out;
  }
  *out = 0;
- int size = out-buffer;
+ hulk_intptr size = out-buffer;
  if (buffer[0] == '-') return FUN_00245890(buffer,size);
  return FUN_00245850(buffer,size);
 }

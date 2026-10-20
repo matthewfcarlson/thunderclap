@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003fa2c0[];
 typedef unsigned char BYTE;
 struct SubObj_5e1a0 {
@@ -23,7 +24,7 @@ struct CStunAnimationTrack {
     char pad[0x30 - 4];
 };
 CStunAnimationTrack* CStunAnimationTrack::vfunc_5(BYTE param) {
-    *(unsigned long*)this = ((int)DAT_003fa2c0);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_003fa2c0);
     ((SubObj_5e1a0*)((char*)this + 0x30))->f();
     ((SubObj_5e1a0*)((char*)this + 0x10))->f();
     this->core();

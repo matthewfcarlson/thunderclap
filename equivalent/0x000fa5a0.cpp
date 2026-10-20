@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 253 inputs, branch coverage 76/76)
 // FUN_000fa5a0 @ 0x000fa5a0
+#include "compat/ptr.h"
 extern "C" char *__cdecl strncpy(char *dst, const char *src, unsigned int n);
 extern "C" int __cdecl isdigit(int c);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
@@ -101,7 +102,7 @@ DollyScript::CToken * __stdcall FUN_000fa5a0(char **cur, const char *base, int a
                     break;
             } while (*q != 0);
         }
-        unsigned int len = q - start;
+        hulk_uintptr len = q - start;
         char *buf = FUN_0008d6d0(len + 1);
         strncpy(buf, start, len);
         buf[len] = 0;

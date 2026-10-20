@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 4/4)
 // FUN_00285780 @ 0x00285780
 // 0x00285780: SimpleFrameController copy constructor
+#include "compat/ptr.h"
 extern char DAT_0042c5bc[];
 extern char DAT_0042c624[];
 extern char DAT_0042c694[];
@@ -34,11 +35,11 @@ public:
 SimpleFrameController_285780* SimpleFrameController_285780::FUN_00285780(const SimpleFrameController_285780* src)
 {
     FUN_0027b0b0(src);
-    vptr = (int)DAT_0042c5bc;
-    vptr = (int)DAT_0042c624;
+    vptr = (hulk_intptr)DAT_0042c5bc;
+    vptr = (hulk_intptr)DAT_0042c624;
     field_10 = src->field_10;
     field_18 = src->field_18;
-    vptr = (int)DAT_0042c694;
+    vptr = (hulk_intptr)DAT_0042c694;
     field_20 = src->field_20;
     field_24 = src->field_24;
     field_28 = src->field_28;

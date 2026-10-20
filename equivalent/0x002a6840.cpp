@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 100 inputs, branch coverage 8/8)
 // FUN_002a6840 @ 0x002a6840
+#include "compat/ptr.h"
 struct Ent_2a6840 {
     char pad0[0x4c];
     int f50;
@@ -26,7 +27,7 @@ struct Target_2a6840 {
 };
 void Target_2a6840::FUN_002a6840()
 {
-    int n = group->end - group->begin;
+    hulk_intptr n = group->end - group->begin;
     if (n == 0)
         return;
     do {

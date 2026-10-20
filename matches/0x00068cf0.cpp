@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f98d0[];
 extern "C" char DAT_003fb9c4[];
 class Part_68cf0 {
@@ -12,8 +13,8 @@ class CJointTrack {
     void Init();
 };
 void CJointTrack::Init() {
-    *(unsigned long*)this = ((int)DAT_003fb9c4);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_003fb9c4);
     part.Init();
-    *(unsigned long*)this = ((int)DAT_003f98d0);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_003f98d0);
     Finish();
 }

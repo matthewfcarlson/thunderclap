@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20023 inputs, branch coverage 19/20, incomplete)
 // FUN_00279490 @ 0x00279490
+#include "compat/ptr.h"
 #include "decls/data/platform/xbox/core.h"
 
 typedef unsigned int uint_279490;
@@ -23,18 +24,18 @@ bool XboxSaveDrive_279490::FUN_00279490(uint_279490 file, uint_279490 block) {
  uint_279490 length = FUN_002109b6(file, 0);
  if (length == 0xffffffff) { error = FUN_002787c0(XAPILIB::GetLastError()); return false; }
  if (!FUN_00278de0()) return false;
- uint_279490 offset = block << 13;
- uint_279490 end = offset + 0x2000;
+ hulk_uintptr offset = block << 13;
+ hulk_uintptr end = offset + 0x2000;
  if (end >= length) end = length;
- uint_279490 amount = end - offset;
- uint_279490 footer = end - 20;
+ hulk_uintptr amount = end - offset;
+ hulk_uintptr footer = end - 20;
  (*(Cache_279490*)&DAT_0052c270).valid = 0;
  uint_279490 bytesRead;
  if (FUN_002101d4(file, offset, 0, 0) != offset ||
      !FUN_0020ff8d(file, (*(Cache_279490*)&DAT_0052c270).buffer, amount, &bytesRead, 0)) {
   error = FUN_002787c0(XAPILIB::GetLastError()); return false;
  }
- uint_279490 address = (uint_279490)(*(Cache_279490*)&DAT_0052c270).buffer;
+ hulk_uintptr address = (hulk_uintptr)(*(Cache_279490*)&DAT_0052c270).buffer;
  Header_279490 expected = *(Header_279490 *)(address + footer - offset);
  Header_279490 actual;
  (*(Cache_279490*)&DAT_0052c270).file = file;

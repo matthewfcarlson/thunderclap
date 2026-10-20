@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" char DAT_003ff014[];
 extern const char s0_7d380[], s1[], s2[], s3[];
@@ -21,7 +22,7 @@ class Target_7d380 : public Base_7d380 {
 };
 Target_7d380::Target_7d380(const char* p, int x) {
     Init(p, 4);
-    vptr = ((int)DAT_003ff014);
+    vptr = ((hulk_intptr)DAT_003ff014);
     member1c = x;
     b18 = FUN_001d04d0(s0_7d380);
     b10 = FUN_001d04d0(s1);

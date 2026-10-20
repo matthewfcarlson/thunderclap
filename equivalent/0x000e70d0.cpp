@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 119 inputs, branch coverage 42/42)
 // FUN_000e70d0 @ 0x000e70d0
 // cl-flags: /GS
+#include "compat/ptr.h"
 extern "C" char* strchr(const char* s, int c);
 extern "C" void* memcpy(void* dst, const void* src, unsigned int n);
 
@@ -63,7 +64,7 @@ class Registry_e70d0 {
 void* Registry_e70d0::FUN_000e70d0(const char* name) {
     const char* dot = strchr(name, '.');
     if (dot != 0) {
-        int length = dot - name;
+        hulk_intptr length = dot - name;
         if (length >= 0x40)
             return 0;
         char prefix[0x40];

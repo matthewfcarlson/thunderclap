@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 16/16)
 // FUN_002027c0 @ 0x002027c0
+#include "compat/ptr.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
 
@@ -124,7 +125,7 @@ bool FUN_002027c0(V3_2027c0 *from, V3_2027c0 *to, float radius, int a4, V3_2027c
             a5->z = pz + from->z;
             FUN_002f1ce0(from, value, a6, &fr.tmp);
             if (a7)
-                *a7 = (int)fr.info;
+                *a7 = (hulk_intptr)fr.info;
             if (a8)
                 *a8 = 0;
             result = true;

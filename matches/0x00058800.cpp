@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f710c[];
@@ -16,7 +17,7 @@ template <> void* fight::ConditionFactoryTemplate<CSmartPropAttachedCondition>::
     Condition_58800* p = (Condition_58800*)Allocate(0x18);
     if (p) {
         p->Initialize(0);
-        p->vptr = (void*)((int)DAT_003f710c);
+        p->vptr = (void*)((hulk_intptr)DAT_003f710c);
         p->enabled = 1;
         p->value = 0;
         p->last = -1;

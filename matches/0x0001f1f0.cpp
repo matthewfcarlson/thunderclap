@@ -1,4 +1,5 @@
 // Same code shape as 0x0001f5d0 (propagated; names are from that function)
+#include "compat/ptr.h"
 class Actor_1f1f0 {
   public:
     virtual void V0();
@@ -19,12 +20,12 @@ class CSmartPropDetachAction_1f1f0 : public CAction {
 extern int vtAction;
 extern int vtDerived;
 CSmartPropDetachAction_1f1f0::CSmartPropDetachAction_1f1f0(Actor_1f1f0* a) {
-    *(int*)this = (int)&vtAction;
+    *(hulk_intptr*)this = (hulk_intptr)&vtAction;
     mActor = 0;
     if (a)
         a->V0();
     if (mActor)
         mActor->Release();
     mActor = a;
-    *(int*)this = (int)&vtDerived;
+    *(hulk_intptr*)this = (hulk_intptr)&vtDerived;
 }

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 7022 inputs, branch coverage 6/6)
 // FUN_00092390 @ 0x00092390
 // cl-flags: /GS
+#include "compat/ptr.h"
 
 int __cdecl FUN_00345475(int c);
 
@@ -17,7 +18,7 @@ void __stdcall FUN_00092390(Sink_92390 *sink, const char *src, int arg)
     const char *e = src;
     while (*e != 0)
         e++;
-    int len = e - src;
+    hulk_intptr len = e - src;
     int i;
     for (i = 0; i < len; i++)
         fr.buf[i] = (char)FUN_00345475(src[i]);

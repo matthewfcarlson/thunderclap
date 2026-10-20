@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 120 inputs, branch coverage 44/44)
 // FUN_000e7260 @ 0x000e7260
 // cl-flags: /GS
+#include "compat/ptr.h"
 extern "C" char *strchr(const char *s, int c);
 extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
 
@@ -76,7 +77,7 @@ int Registry_e7260::FUN_000e7260(const char *name)
     } else {
         const char *dot = strchr(name, '.');
         if (dot != 0) {
-            int len = dot - name;
+            hulk_intptr len = dot - name;
             if (len >= 0x40) {
                 result = 0;
             } else {

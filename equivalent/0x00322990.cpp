@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 11/12, incomplete)
 // FUN_00322990 @ 0x00322990
+#include "compat/ptr.h"
 namespace D3D8 {
 int __stdcall D3DDevice_GetBackBuffer2(int);
 void __stdcall D3DResource_Release(int);
@@ -216,7 +217,7 @@ void Overlay::Draw() {
     }
     tex->FUN_00326300(0);
     bb->common = (bb->common & ~0x70000u) | (saved & 0x70000);
-    D3D8::D3DResource_Release((int)bb);
+    D3D8::D3DResource_Release((hulk_intptr)bb);
     ctx->f24(0);
     ctx->f58(1);
 }

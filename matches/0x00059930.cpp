@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern char CFightParamsCollision_vftable[4];
 extern char CFightParams_vftable[4];
 
@@ -37,9 +38,9 @@ class CFightParamsCollision {
 };
 
 CFightParamsCollision* CFightParamsCollision::vfunc_2(unsigned char flag) {
-    this->m_vptr.n = (unsigned int)&CFightParamsCollision_vftable[0];
+    this->m_vptr.n = (hulk_uintptr)&CFightParamsCollision_vftable[0];
     this->m_sub.destroy();
-    this->m_vptr.v = (unsigned int)&CFightParams_vftable[0];
+    this->m_vptr.v = (hulk_uintptr)&CFightParams_vftable[0];
     RefObj_59930* p10 = this->m_p10;
     if (p10 != 0) {
         p10->vfunc_1();

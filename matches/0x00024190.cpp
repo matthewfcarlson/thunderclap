@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_24190 {
   public:
     virtual int f0();
@@ -29,7 +30,7 @@ class Helper_24190 {
 };
 int Obj_24190::get(int index) {
     if (index >= 0 && index < count) {
-        Helper_24190* h = (Helper_24190*)*(int*)((int)*(int*)this + 0x44);
+        Helper_24190* h = (Helper_24190*)*(hulk_intptr*)((hulk_intptr)*(int*)this + 0x44);
         return h->apply(items[index]);
     }
     return 0;

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 4020 inputs, branch coverage 69/78, incomplete)
 // FUN_000396a0 @ 0x000396a0
 // equiv-conv: FUN_00035e70 eax stack
+#include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" double sqrt(double);
 extern "C" double atan2(double y, double x);
@@ -246,7 +247,7 @@ Thing_396a0 *Picker::F(float x, float z, int minScore)
                     bool commit = false;
                     if (fr.hit && th->type == 5 && th->p8) {
                         HitObj_396a0 *ho = th->p8->FUN_001d75c0(th->p8->f40);
-                        if (ho && ho->f10 == (int)fr.hit) {
+                        if (ho && ho->f10 == (hulk_intptr)fr.hit) {
                             bl = 0;
                             commit = true;
                         }

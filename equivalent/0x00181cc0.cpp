@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 8/8)
 // hulkfight::motion::PropGrabbableIsThrownCondition::vfunc_6 @ 0x00181cc0
+#include "compat/ptr.h"
 extern char DAT_00494b44;
 extern char DAT_00494b60;
 void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
@@ -15,7 +16,7 @@ int PropGrabbableIsThrownCondition_181cc0::vfunc_6(int, Input* input, int) {
     Actor* actor = input->FUN_000592a0()->FUN_00059a30();
     Entry* entry = actor->entry;
     if (!entry) return 0;
-    if (entry->kind != 5) return (unsigned)entry & ~255u;
+    if (entry->kind != 5) return (hulk_uintptr)entry & ~255u;
     Object* object = entry->object;
     if (!object) return 0;
     return object->state == state;

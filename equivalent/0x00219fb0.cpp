@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 6/6)
 // FUN_00219fb0 @ 0x00219fb0
 // FUN_00219fb0 @ 0x00219fb0
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
 struct Context { char pad0[16]; unsigned int base; char pad1[8]; int index; };
@@ -17,5 +18,5 @@ int FUN_00219fb0(int* key, Context* ctx, void* receiver)
     float* entry = FUN_00219e90(ctx, key);
     if (entry == ((float*)&DAT_00426824))
         FUN_00214a90(receiver, "invalid key for `next'");
-    return ((unsigned int)entry - ctx->base - 8) / 20 + ctx->index;
+    return ((hulk_uintptr)entry - ctx->base - 8) / 20 + ctx->index;
 }

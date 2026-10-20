@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_001a3c30 @ 0x001a3c30
+#include "compat/ptr.h"
 struct Holder { char pad[0xb0]; char *text; int FUN_001a3c30(const char *source); };
 int __cdecl FUN_0008d340(void *);
 void * __cdecl FUN_0008d6d0(unsigned int);
@@ -15,5 +16,5 @@ int Holder::FUN_001a3c30(const char *source) {
     text = dest;
     char *out = dest;
     do { *out++ = *source; } while (*source++);
-    return ((int)dest & ~255) | 1;
+    return ((hulk_intptr)dest & ~255) | 1;
 }

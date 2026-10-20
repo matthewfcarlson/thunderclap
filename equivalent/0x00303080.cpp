@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 17/18, incomplete)
 // FUN_00303080 @ 0x00303080
+#include "compat/ptr.h"
 struct Elem_303080 {
     unsigned int w[17];
 };
@@ -7,12 +8,12 @@ struct Elem_303080 {
 // std::rotate for 0x44-byte elements (Dinkumware _Rotate, random access).
 void FUN_00303080(Elem_303080* first, Elem_303080* mid, Elem_303080* last)
 {
-    int shift = mid - first;
-    int total = last - first;
-    int cycles = total;
-    int factor = shift;
+    hulk_intptr shift = mid - first;
+    hulk_intptr total = last - first;
+    hulk_intptr cycles = total;
+    hulk_intptr factor = shift;
     while (factor != 0) {
-        int tmp = cycles % factor;
+        hulk_intptr tmp = cycles % factor;
         cycles = factor;
         factor = tmp;
     }

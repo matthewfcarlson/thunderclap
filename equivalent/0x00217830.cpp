@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 17/18, incomplete)
 // FUN_00217830 @ 0x00217830
+#include "compat/ptr.h"
 struct Table_217830;
 struct TObject_217830 {
     int tt;
@@ -61,7 +62,7 @@ void __cdecl FUN_00217830(lua_State_217830* L, TObject_217830* t, TObject_217830
             *L->top = *metamethod;
             L->top[1] = *t;
             L->top[2] = *key;
-            int resultOffset = (char*)val - (char*)L->stack;
+            hulk_intptr resultOffset = (char*)val - (char*)L->stack;
             if ((char*)L->stack_last - (char*)L->top <= 0x18)
                 FUN_00215460(L, 3);
             L->top += 3;

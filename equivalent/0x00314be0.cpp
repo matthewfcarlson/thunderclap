@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3043 inputs, branch coverage 42/50, incomplete)
 // FUN_00314be0 @ 0x00314be0
+#include "compat/ptr.h"
 struct Vec3_314be0 {
     float x, y, z;
 };
@@ -77,8 +78,8 @@ void ContactManager::FUN_00314be0(int a1, int a2, int a3, int a4, int a5, Vec3_3
         if (f.bitA)
             f.pA = f.c.n;
         f.vecSlot = vec;
-        int n = vec->end - vec->begin;
-        int idx = n - 1;
+        hulk_intptr n = vec->end - vec->begin;
+        hulk_intptr idx = n - 1;
         if (idx >= n - count) {
             f.elem = vec->begin + idx;
             for (;;) {

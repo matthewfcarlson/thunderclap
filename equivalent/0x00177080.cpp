@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 48/50, incomplete)
 // hulkfight::motion::SuckAction::vfunc_5 @ 0x00177080
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 #include "decls/address.h"
 
@@ -154,7 +155,7 @@ bool hulkfight::motion::SuckAction::vfunc_5(int a, int b) {
     List_177080* list = DAT_004dd700->mgr->list->FUN_002ed700();
     if (!list)
         return true;
-    int count = list->end - list->begin;
+    hulk_intptr count = list->end - list->begin;
     f.i = 0;
     for (f.i = 0; f.i < count; f.i++) {
         Item_177080* item = list->begin[f.i];

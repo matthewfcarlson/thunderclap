@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0021a550 @ 0x0021a550
+#include "compat/ptr.h"
 struct Stream;
 typedef unsigned char * (__cdecl *Refill)(int, int, Stream **);
 struct Stream {
@@ -15,7 +16,7 @@ int __cdecl FUN_0021a550(Stream *stream)
     unsigned char *data = stream->refill(stream->request, stream->context, &available);
     if (data && available) {
         stream->cursor = data;
-        stream->remaining = (unsigned int)available - 1;
+        stream->remaining = (hulk_uintptr)available - 1;
         unsigned int result = *data;
         stream->cursor = data + 1;
         return result;

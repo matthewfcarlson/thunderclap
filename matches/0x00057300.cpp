@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003f9230[];
@@ -11,7 +12,7 @@ template <> void* fight::ConditionFactoryTemplate<CButtonPressCondition>::vfunc_
     CButtonPressCondition_57300* p = (CButtonPressCondition_57300*)Alloc(0x20);
     if (p) {
         p->CButtonPressCondition_57300::CButtonPressCondition_57300();
-        *(int*)p = ((int)DAT_003f9230);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_003f9230);
         return (void*)(p);
     }
     return (void*)(0);

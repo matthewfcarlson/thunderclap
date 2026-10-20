@@ -3,6 +3,7 @@
 // Compacts the pool's strings (16-byte records holding [begin, end) ranges of 16-bit characters)
 // to the front of the pool's character buffer and resizes the buffer to the used length.
 // Returns the used length.
+#include "compat/ptr.h"
 void *__cdecl FUN_0008d6d0(unsigned int bytes);
 
 struct Str_2f9ed0 {
@@ -48,7 +49,7 @@ unsigned int Pool_2f9ed0::FUN_002f9ed0()
         dest = s->end;
     }
 
-    unsigned int n = dest - buf.begin;
+    hulk_uintptr n = dest - buf.begin;
     unsigned short fill = 0;
     if (buf.begin == 0) {
         if (n == 0) {
@@ -56,7 +57,7 @@ unsigned int Pool_2f9ed0::FUN_002f9ed0()
             buf.end = 0;
             buf.cap = 0;
         } else {
-            unsigned int bytes = n * 2;
+            hulk_uintptr bytes = n * 2;
             unsigned short *p = (unsigned short *)FUN_0008d6d0(bytes);
             buf.begin = p;
             if (p) {
@@ -68,7 +69,7 @@ unsigned int Pool_2f9ed0::FUN_002f9ed0()
             }
         }
     }
-    unsigned int size = buf.end - buf.begin;
+    hulk_uintptr size = buf.end - buf.begin;
     if (n > size) {
         buf.FUN_002f9bc0(buf.end, n - size, &fill);
         return n;

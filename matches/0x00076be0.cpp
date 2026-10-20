@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003fbe04[];
@@ -21,7 +22,7 @@ template <> void* fight::TrackFactoryTemplate<CIntangibleTrack>::vfunc_5() {
     CIntangibleTrack_76be0* p = (CIntangibleTrack_76be0*)FUN_0008d690(0x14);
     if (p) {
         p->Init();
-        *(int*)p = ((int)DAT_003fbe04);
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_003fbe04);
         p->d = 0;
         p->e = (int)0xbf800000;
         p->c = 1;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1382 inputs, branch coverage 16/16)
 // FUN_00334960 @ 0x00334960
+#include "compat/ptr.h"
 typedef unsigned int U_334960;
 extern "C" void* __cdecl memcpy(void*,const void*,unsigned int);
 extern U_334960 __cdecl FUN_0026fd50(U_334960,U_334960); extern U_334960 __cdecl FUN_0026fd80(U_334960,U_334960);
@@ -9,8 +10,8 @@ U_334960 __stdcall FUN_00334960(State_334960* state,U_334960 position,unsigned c
  struct Frame { volatile U_334960 block; U_334960 total; unsigned char* destination; U_334960 readSize,capacity; unsigned char* aligned; U_334960 actual; unsigned char scratch[1040]; } f;
  if(position != 0xffffffffU && state->position != position) state->position=position;
  U_334960 initialBlock=state->stream->block(); if(initialBlock>1024) initialBlock=1024; f.block=initialBlock;
- f.aligned=(unsigned char*)FUN_0026fd50((U_334960)f.scratch,16);
- f.capacity=FUN_0026fd80((U_334960)(f.scratch+1040)-(U_334960)f.aligned,initialBlock);
+ f.aligned=(unsigned char*)FUN_0026fd50((hulk_uintptr)f.scratch,16);
+ f.capacity=FUN_0026fd80((hulk_uintptr)(f.scratch+1040)-(hulk_uintptr)f.aligned,initialBlock);
  f.destination=destination; f.total=0;
  U_334960 currentBlock=initialBlock;
  while(remaining) {

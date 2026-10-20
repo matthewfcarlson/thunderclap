@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 34/36, incomplete)
 // FUN_002324b0 @ 0x002324b0
+#include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/global.h"
 
@@ -91,6 +92,6 @@ bool NodeList_2324b0::FUN_002324b0(char flush)
                 FUN_002321b0();
         }
     }
-    FUN_00266da0((int)saved);
+    FUN_00266da0((hulk_intptr)saved);
     return keep;
 }

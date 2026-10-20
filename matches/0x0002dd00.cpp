@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -17,11 +18,11 @@ class CActorManager : public Ctor_001d0480 {
     CActorManager(const char*, int);
 };
 CActorManager::CActorManager(const char* a, int b) : Ctor_001d0480(a, 4) {
-    vptr = ((int)DAT_003f428c);
+    vptr = ((hulk_intptr)DAT_003f428c);
     m1c = b;
-    m18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e100)));
-    m10 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0f0)));
-    m11 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0f0)));
-    m12 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e128)));
-    m13 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e128)));
+    m18 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
+    m10 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    m11 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    m12 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    m13 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
 }

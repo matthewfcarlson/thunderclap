@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_003fd108[];
@@ -14,7 +15,7 @@ template <> void* fight::TrackFactoryTemplate<CGrappleMotionTrailTrack>::vfunc_5
     Track_6f7c0* p = (Track_6f7c0*)FUN_0008d690(0xd0);
     if (p) {
         ((Init_6f7c0*)p)->init();
-        *(void**)p = (void*)((int)DAT_003fd108);
+        *(void**)p = (void*)((hulk_intptr)DAT_003fd108);
         return (void*)(p);
     }
     return (void*)(0);

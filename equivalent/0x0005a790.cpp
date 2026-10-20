@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20042 inputs, branch coverage 15/16, incomplete)
 // CGrappleAutoTargetTrack::vfunc_12 @ 0x0005a790
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 struct Settings;
@@ -45,5 +46,5 @@ int CGrappleAutoTargetTrack::vfunc_12(int __p0) { Owner_5a790 * owner = (Owner_5
     CAutoTargetAction* c = static_cast<CAutoTargetAction*>(FUN_0008d690(0x30));
     if (c == 0)
         return (int)(0);
-    return (int)(((CAutoTargetAction_nv_5a790*)(c))->FUN_0001d4c0(this, settings));
+    return (hulk_intptr)(((CAutoTargetAction_nv_5a790*)(c))->FUN_0001d4c0(this, settings));
 }

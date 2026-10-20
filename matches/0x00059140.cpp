@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" void* __cdecl Allocate(unsigned int);
@@ -20,7 +21,7 @@ template <> void* fight::ConditionFactoryTemplate<CSmartPropGrabbableNameConditi
     Cond_59140* p = (Cond_59140*)Allocate(0x18);
     if (p) {
         p->Initialize(0);
-        *(int*)p = (int)&CondVtable;
+        *(hulk_intptr*)p = (hulk_intptr)&CondVtable;
         p->c = 0;
         p->s.Init();
         return (void*)(p);

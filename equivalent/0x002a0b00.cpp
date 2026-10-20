@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002a0b00 @ 0x002a0b00
+#include "compat/ptr.h"
 extern char DAT_0042d668[];
 
 struct Vec3_2a0b00 { float x, y, z; };
@@ -23,7 +24,7 @@ struct Light {
 Light *Light::FUN_002a0b00(const Light *src)
 {
     FUN_0027b0b0(src);
-    vptr = (int)DAT_0042d668;
+    vptr = (hulk_intptr)DAT_0042d668;
     b10 = 0;
     b11 = src->b11;
     b12 = src->b12;

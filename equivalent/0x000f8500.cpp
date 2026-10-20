@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 26/26)
 // FUN_000f8500 @ 0x000f8500
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
 extern "C" unsigned int strlen(const char*);
@@ -56,7 +57,7 @@ void Entry_f8500::FUN_000f8500(const char* name, Manager_f8500* manager, char fl
         FUN_000dfcc0(full, 0x100, "%s %s", prefix, name);
     else
         FUN_000dfcc0(full, 0x100, "%s", name);
-    int count = strlen(prefix) + strlen(name) + 2;
+    hulk_intptr count = strlen(prefix) + strlen(name) + 2;
     text = (short*)FUN_0008d6d0(count * 2);
     if (text != 0) {
         FUN_000fb740(text, full, count);
