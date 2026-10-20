@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 32/32)
+// STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 32/32)
 // FUN_001da350 @ 0x001da350
 #include "decls/address.h"
 class RefCounted_1da350 {

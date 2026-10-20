@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 342 inputs, branch coverage 69/70, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 2697 inputs, branch coverage 70/71, incomplete)
 // pure3d::LightLoader::vfunc_5 @ 0x002c0cf0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "gen/pure3d.h"

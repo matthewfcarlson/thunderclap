@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 40/45, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3045 inputs, branch coverage 40/41, incomplete)
 // hulkfight::scenario::EffectAction::vfunc_3 @ 0x001a5f00
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/scenario.h"

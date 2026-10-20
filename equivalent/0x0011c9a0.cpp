@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19933 inputs, branch coverage 9/10, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 9/10, incomplete)
 // hulkfight::ai::PathAction::vfunc_4 @ 0x0011c9a0
 // cl-flags: /GS
 #include "decls/address.h"

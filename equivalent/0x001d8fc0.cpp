@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1839 inputs, branch coverage 260/271, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 1891 inputs, branch coverage 251/270, incomplete)
 // FUN_001d8fc0 @ 0x001d8fc0
 // CSPHulkPropInstance per-frame update (FUN_001d8fc0): steering of the prop's velocity vectors,
 // ground/water level crossings, StateProp event keys.

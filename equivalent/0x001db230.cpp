@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20058 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 3065 inputs, branch coverage 30/30)
 // CSPListener::vfunc_0 @ 0x001db230
 // cl-flags: /GS
 // equiv-map: ??0Name@@QAE@ABU0@@Z = 0x0027af30

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00251b40 @ 0x00251b40
 // FUN_00251b40 @ 0x00251b40
 typedef __int64 Int64;

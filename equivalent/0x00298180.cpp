@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 9/9)
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00298180 @ 0x00298180
 int __cdecl FUN_00298180(int value) {
     switch (value) {

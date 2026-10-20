@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 5772 inputs, branch coverage 130/130)
+// STATUS: equivalent (tools/equiv.py level 3: 3091 inputs, branch coverage 130/130)
 // CChaseCamera::vfunc_35 @ 0x000a75d0
 // cl-flags: /GS
 #include "decls/data/game/global.h"

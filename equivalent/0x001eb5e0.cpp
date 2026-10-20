@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 8/8)
 // FUN_001eb5e0 @ 0x001eb5e0
 struct String {
  char data[8];

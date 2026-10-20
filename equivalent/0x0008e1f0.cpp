@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3088 inputs, branch coverage 96/97, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3130 inputs, branch coverage 92/97, incomplete)
 // MyDriveErrorCallback::vfunc_0 @ 0x0008e1f0
 #include "decls/address.h"
 #include "decls/data/game/global.h"

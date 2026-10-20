@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 12/12)
 // CJumpAttackAction::vfunc_6 @ 0x00017050
 struct V3_17050 {
     float x, y, z;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20021 inputs, branch coverage 9/9)
+// STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 13/13)
 // FUN_002132b0 @ 0x002132b0
 // FUN_002132b0 @ 0x002132b0
 struct Entry { int kind; int value; };

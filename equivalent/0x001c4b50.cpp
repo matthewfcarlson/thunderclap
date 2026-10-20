@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 113 inputs, branch coverage 38/38)
+// STATUS: equivalent (tools/equiv.py level 3: 3041 inputs, branch coverage 38/38)
 // FUN_001c4b50 @ 0x001c4b50
 #include "decls/data/game/Render.h"
 

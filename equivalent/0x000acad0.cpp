@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 11388 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 10/10)
 // CScriptCamera::vfunc_35 @ 0x000acad0
 // cl-flags: /GS
 

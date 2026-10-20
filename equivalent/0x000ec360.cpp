@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 321 inputs, branch coverage 46/48, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 1177 inputs, branch coverage 47/48, incomplete)
 // MapThing::vfunc_5 @ 0x000ec360
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"

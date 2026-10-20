@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 12/12)
 // FUN_00302d90 @ 0x00302d90
 struct Shape_302d90 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5();

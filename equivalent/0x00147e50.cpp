@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // hulkfight::motion::CivilianDetachAction::vfunc_3 @ 0x00147e50
 // hulkfight::motion::CivilianDetachAction::vfunc_3 @ 0x00147e50
 // equiv-map: ??0Name@@QAE@ABU0@@Z = 0x0027af30

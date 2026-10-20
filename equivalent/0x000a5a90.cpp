@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20018 inputs, branch coverage 55/56, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3038 inputs, branch coverage 55/56, incomplete)
 // FUN_000a5a90 @ 0x000a5a90
 // 0xa5a90: character-controller step: slide the position v194 along the ground / walls with sweep tests.
 #include "decls/data/game/global.h"

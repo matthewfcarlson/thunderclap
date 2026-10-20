@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 14/14)
 // FUN_000bce10 @ 0x000bce10
 struct Manager_bce10 { int FUN_000f7240(int,int); };
 extern Manager_bce10* __cdecl FUN_000fc1b0(int);

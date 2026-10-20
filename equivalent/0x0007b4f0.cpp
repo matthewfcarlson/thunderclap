@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 144 inputs, branch coverage 26/26)
+// STATUS: equivalent (tools/equiv.py level 3: 3046 inputs, branch coverage 26/26)
 // FUN_0007b4f0 @ 0x0007b4f0
 struct Raw3_7b4f0 {
     int a;

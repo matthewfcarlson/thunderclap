@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 6052 inputs, branch coverage 116/116)
+// STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 116/116)
 // hulkfight::motion::FireBeamAction::vfunc_3 @ 0x001966f0
 // cl-flags: /GS
 // equiv-map: ?thunk_FUN_0027d410@Obj64@@QAEXPAUKey@@@Z = 0x001d6630

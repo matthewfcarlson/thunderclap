@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20052 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 3080 inputs, branch coverage 30/30)
 // fight::Chunk::vfunc_9 @ 0x0023b570
 // cl-flags: /GS
 #include "decls/address.h"

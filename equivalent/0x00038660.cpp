@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19786 inputs, branch coverage 92/92)
+// STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 77/92, incomplete)
 // FUN_00038660 @ 0x00038660
 #include "decls/address.h"
 struct V3_38660 {

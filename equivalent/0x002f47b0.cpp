@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 241 inputs, branch coverage 51/61, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 2570 inputs, branch coverage 62/63, incomplete)
 // physics::CollisionMesh::vfunc_15 @ 0x002f47b0
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"

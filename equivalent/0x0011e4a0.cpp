@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20188 inputs, branch coverage 240/259, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3337 inputs, branch coverage 240/259, incomplete)
 // hulkfight::ai::PathAction::vfunc_5 @ 0x0011e4a0
 extern "C" int atexit(void (*)());
 

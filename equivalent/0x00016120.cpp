@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 24/24)
 // CSmartPropThrowAction::vfunc_6 @ 0x00016120
 #include "decls/data/game/global.h"
 

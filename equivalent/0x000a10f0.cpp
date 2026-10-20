@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3082 inputs, branch coverage 42/43, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3116 inputs, branch coverage 44/44)
 // CChaseCamera::vfunc_33 @ 0x000a10f0
 struct Vec3_a10f0 {
     float x, y, z;

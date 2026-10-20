@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 5/5)
+// STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 7/7)
 // audio::HalRadicalAdpcmDecodeStream::vfunc_1 @ 0x00262c70
 namespace audio {
 class HalStream {

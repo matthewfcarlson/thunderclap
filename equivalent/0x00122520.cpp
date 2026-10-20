@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20040 inputs, branch coverage 50/51, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3098 inputs, branch coverage 50/51, incomplete)
 // hulkfight::ai::RoutAction::vfunc_5 @ 0x00122520
 #include "decls/data/game/hulkfight/ai.h"
 

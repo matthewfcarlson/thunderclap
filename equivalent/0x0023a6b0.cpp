@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1656 inputs, branch coverage 84/102, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 1698 inputs, branch coverage 84/102, incomplete)
 // FUN_0023a6b0 @ 0x0023a6b0
 // cl-flags: /GS
 extern "C" int isalpha(int c);

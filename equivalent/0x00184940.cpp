@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 20/20)
 // hulkfight::motion::BallAndChainShootAction::vfunc_3 @ 0x00184940
 #include "decls/address.h"
 struct V3_184940 {

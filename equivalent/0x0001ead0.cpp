@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 26/26)
+// STATUS: equivalent (tools/equiv.py level 3: 3023 inputs, branch coverage 26/26)
 // CSmartPropAttachAction::vfunc_6 @ 0x0001ead0
 #include "decls/address.h"
 #include "decls/data/game/global.h"

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 136 inputs, branch coverage 63/63)
+// STATUS: equivalent (tools/equiv.py level 3: 3080 inputs, branch coverage 66/66)
 // FUN_00013f20 @ 0x00013f20
 #include "decls/address.h"
 struct Slot_13f20;

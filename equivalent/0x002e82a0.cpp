@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 199 inputs, branch coverage 47/53, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3071 inputs, branch coverage 50/55, incomplete)
 // FUN_002e82a0 @ 0x002e82a0
 struct png_info;
 

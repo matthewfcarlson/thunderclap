@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 5329 inputs, branch coverage 34/34)
+// STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 34/34)
 // FUN_00088670 @ 0x00088670
 struct Sim_88670;
 struct Cfg_88670 { char pad[0x2c]; int v2c; };

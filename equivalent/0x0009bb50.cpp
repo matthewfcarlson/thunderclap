@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 3023 inputs, branch coverage 14/14)
 // FUN_0009bb50 @ 0x0009bb50
 class Camera {
 public:

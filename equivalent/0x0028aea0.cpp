@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19784 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 23/23)
 // pure3d::DefaultChannelHandler::vfunc_5 @ 0x0028aea0
 #include "gen/pure3d.h"
 

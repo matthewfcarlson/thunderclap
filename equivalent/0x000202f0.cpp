@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 64/64)
+// STATUS: equivalent (tools/equiv.py level 3: 3061 inputs, branch coverage 63/64, incomplete)
 // CHeadTrackerAction::vfunc_7 @ 0x000202f0
 #include "decls/data/game/global.h"
 

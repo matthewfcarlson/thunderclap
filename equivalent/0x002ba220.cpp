@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 36/36)
+// STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 36/36)
 // FUN_002ba220 @ 0x002ba220
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"

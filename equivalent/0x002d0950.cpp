@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 14079 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 20/20)
 // FUN_002d0950 @ 0x002d0950
 // FUN_002d0950 @ 0x002d0950
 struct Item_2d0950 { char pad[8]; unsigned flags; };

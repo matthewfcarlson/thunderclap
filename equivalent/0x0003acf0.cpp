@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 16899 inputs, branch coverage 39/40, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3054 inputs, branch coverage 39/40, incomplete)
 // FUN_0003acf0 @ 0x0003acf0
 // equiv-map: ??0Key@@QAE@ABU0@@Z = 0x0027af30
 #include "decls/address.h"

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/9, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 7/9, incomplete)
 // FEContainer::vfunc_48 @ 0x000e43c0
 #include "decls/address.h"
 struct Result_e43c0 { unsigned a,b,c; };

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 0/0)
 // FUN_0009a5d0 @ 0x0009a5d0
 struct Vec_9a5d0 { float x,y,z; };
 struct Matrix { float m[16]; void FUN_0022b980(); void FUN_0022bc20(float,float,float); void FUN_0022c3b0(Vec_9a5d0*,Vec_9a5d0*); };

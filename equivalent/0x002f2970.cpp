@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 0/0)
 // physics::PhysicsPropertiesLoader::vfunc_5 @ 0x002f2970
 #include "gen/physics.h"
 #include "decls/address.h"

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 2/2)
 // FUN_00044430 @ 0x00044430
 struct Id64_44430 {
     unsigned int lo, hi;

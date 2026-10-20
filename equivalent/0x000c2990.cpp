@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 26/26)
+// STATUS: equivalent (tools/equiv.py level 3: 3073 inputs, branch coverage 26/26)
 // FUN_000c2990 @ 0x000c2990
 // cl-flags: /GS
 struct Track { const char* FUN_00092330(); int FUN_00092310(); void FUN_00092360(int); };

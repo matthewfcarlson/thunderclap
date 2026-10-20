@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 13866 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 16/16)
 // hulkfight::motion::AnimationPhaseMatchedAction::vfunc_3 @ 0x0013d7b0
 #include "gen/hulkfight.h"
 #include "decls/address.h"

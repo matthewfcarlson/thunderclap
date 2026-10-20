@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 12052 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 8/8)
 // FUN_000245b0 @ 0x000245b0
 // FUN_000245b0 @ 0x000245b0
 typedef unsigned __int64 Key_245b0;

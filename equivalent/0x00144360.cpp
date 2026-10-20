@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 12/14, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 14/14)
 // hulkfight::motion::MotionBlurAction::vfunc_5 @ 0x00144360
 extern "C" double __cdecl sin(double);
 

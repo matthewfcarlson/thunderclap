@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 19/20, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 21/22, incomplete)
 // FUN_00306c60 @ 0x00306c60
 void* __cdecl FUN_0008d690(unsigned int size);
 struct BasicCopy { BasicCopy* FUN_00306c00(); };

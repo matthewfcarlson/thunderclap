@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19678 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 4/4)
 // hulkfight::motion::BallAndChainReturnAction::vfunc_3 @ 0x00182660
 struct Vec_182660 { float x,y,z; Vec_182660* FUN_0022c2b0(Vec_182660*, Vec_182660*); float FUN_0022d110(); };
 struct Transform_182660 { Vec_182660* FUN_00221c40(); };

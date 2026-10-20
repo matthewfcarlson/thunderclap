@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // CGrabTrack::vfunc_10 @ 0x0005b1a0
 namespace fight {
 class Params {

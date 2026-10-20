@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 16225 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 6/6)
 // CSmartPropSpawnAction::vfunc_6 @ 0x0001f080
 // cl-flags: /GS
 #include "decls/address.h"

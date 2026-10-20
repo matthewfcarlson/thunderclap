@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 164 inputs, branch coverage 225/250, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 161 inputs, branch coverage 225/250, incomplete)
 // FUN_000ba040 @ 0x000ba040
 // cl-flags: /GS
 // FUN_000ba040 @ 0x000ba040

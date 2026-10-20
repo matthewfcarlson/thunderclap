@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 8/8)
 // FUN_000d88f0 @ 0x000d88f0
 struct Query_d88f0 {
     int FUN_000890a0(int key, int index);

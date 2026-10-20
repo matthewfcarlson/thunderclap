@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 10/10)
 // CJointAction::vfunc_6 @ 0x00013a00
 struct Vec3_13a00 {
     float x, y, z;

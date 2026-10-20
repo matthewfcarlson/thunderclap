@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 167 inputs, branch coverage 35/36, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 2142 inputs, branch coverage 35/36, incomplete)
 // FUN_0030a9d0 @ 0x0030a9d0
 #include "decls/data/engine/physics.h"
 

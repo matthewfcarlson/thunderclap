@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 4/4)
 // physics::PhysicsJoint3D::vfunc_10 @ 0x0030c440
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/hulkfight.h"

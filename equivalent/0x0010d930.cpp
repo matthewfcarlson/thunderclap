@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 14/14)
 // hulkfight::ai::FightingOtherNPCCondition::vfunc_6 @ 0x0010d930
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];

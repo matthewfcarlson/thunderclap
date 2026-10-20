@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3069 inputs, branch coverage 36/36)
+// STATUS: equivalent (tools/equiv.py level 3: 3075 inputs, branch coverage 37/37)
 // FUN_00297ba0 @ 0x00297ba0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 void *thunk_FUN_0008d690(unsigned int size);

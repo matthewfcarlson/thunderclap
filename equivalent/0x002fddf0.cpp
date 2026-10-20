@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 93 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 29/30, incomplete)
 // FUN_002fddf0 @ 0x002fddf0
 struct Pose {
     int words[21];

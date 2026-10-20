@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 749 inputs, branch coverage 81/88, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3130 inputs, branch coverage 83/88, incomplete)
 // FUN_001e2940 @ 0x001e2940
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight.h"

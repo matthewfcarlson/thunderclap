@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 16/16)
 // FUN_00329f70 @ 0x00329f70
 // FUN_00329f70 @ 0x00329f70
 struct Mat_329f70 {

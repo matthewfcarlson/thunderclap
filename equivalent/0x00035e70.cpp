@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 9/9)
+// STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 12/12)
 // FUN_00035e70 @ 0x00035e70
 // equiv-conv: FUN_00035e70 eax stack
 #include "decls/data/game/hulkfight.h"

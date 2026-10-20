@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20178 inputs, branch coverage 45/51, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3202 inputs, branch coverage 48/51, incomplete)
 // FUN_001d22a0 @ 0x001d22a0
 // cl-flags: /GS
 extern "C" void* memset(void*, int, unsigned int);

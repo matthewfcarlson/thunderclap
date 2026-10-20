@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 111 inputs, branch coverage 8/10, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 1254 inputs, branch coverage 8/10, incomplete)
 // FUN_0002a800 @ 0x0002a800
 class Resource_2a800 {
 public:

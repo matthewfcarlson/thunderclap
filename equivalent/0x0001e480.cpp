@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 8/8)
 // CGrabAction::vfunc_6 @ 0x0001e480
 struct Vec3_1e480 { float x, y, z; };
 

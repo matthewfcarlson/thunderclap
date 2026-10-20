@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3172 inputs, branch coverage 94/94)
+// STATUS: equivalent (tools/equiv.py level 3: 3218 inputs, branch coverage 94/94)
 // FEThingsBase::vfunc_35 @ 0x000f3270
 #include "decls/address.h"
 #include "decls/data/game/global.h"

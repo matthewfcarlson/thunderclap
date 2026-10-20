@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 6/6)
 // FUN_000dc730 @ 0x000dc730
 #include "decls/address.h"
 struct Settings_dc730 {

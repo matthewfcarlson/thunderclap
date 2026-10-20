@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 134 inputs, branch coverage 42/44, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 44/44)
 // hulkfight::motion::DriftToPositionAction::vfunc_5 @ 0x00175360
 #include "decls/data/game/hulkfight/motion.h"
 

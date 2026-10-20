@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 40/40)
+// STATUS: equivalent (tools/equiv.py level 3: 3041 inputs, branch coverage 47/48, incomplete)
 // FUN_00301790 @ 0x00301790
 // equiv-map: ?thunk_FUN_002fb860@Shape@@QAEXPAUVec3@@H@Z = 0x002fb940
 struct Vec3 {

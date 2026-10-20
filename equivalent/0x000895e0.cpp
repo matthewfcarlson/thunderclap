@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 4513 inputs, branch coverage 18/20, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 2056 inputs, branch coverage 18/20, incomplete)
 // FUN_000895e0 @ 0x000895e0
 #include "decls/address.h"
 int __cdecl FUN_00267760(char* dest, int size, const char* fmt, ...);

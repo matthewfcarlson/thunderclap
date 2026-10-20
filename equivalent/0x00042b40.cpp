@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1608 inputs, branch coverage 74/74)
+// STATUS: equivalent (tools/equiv.py level 3: 1716 inputs, branch coverage 74/74)
 // FUN_00042b40 @ 0x00042b40
 // cl-flags: /GS
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

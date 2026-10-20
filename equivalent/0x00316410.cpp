@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20049 inputs, branch coverage 98/104, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3081 inputs, branch coverage 99/104, incomplete)
 // FUN_00316410 @ 0x00316410
 // FUN_00316410 @ 0x00316410
 // Resolver::FUN_00316410 (this=ecx, ret 0x20): contact emitter for a swept disc/segment against body b

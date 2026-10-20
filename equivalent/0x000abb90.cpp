@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 9617 inputs, branch coverage 66/66)
+// STATUS: equivalent (tools/equiv.py level 3: 3039 inputs, branch coverage 66/66)
 // CHypnoticCamera::vfunc_35 @ 0x000abb90
 // cl-flags: /GS
 #include "decls/address.h"

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 158 inputs, branch coverage 33/33)
+// STATUS: equivalent (tools/equiv.py level 3: 3033 inputs, branch coverage 36/36)
 // FUN_00325fd0 @ 0x00325fd0
 // equiv-conv: FUN_00325fd0 ecx edx eax stack
 class Device_325fd0 {

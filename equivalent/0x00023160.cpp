@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1026 inputs, branch coverage 52/54, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3046 inputs, branch coverage 52/54, incomplete)
 // CGrappleLocoStrafe4Action::vfunc_6 @ 0x00023160
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"

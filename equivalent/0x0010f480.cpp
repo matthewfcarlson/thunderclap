@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 124 inputs, branch coverage 35/38, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3040 inputs, branch coverage 38/38)
 // hulkfight::ai::AIHistoryNameCondition::vfunc_6 @ 0x0010f480
 #include "decls/data/game/hulkfight/ai.h"
 

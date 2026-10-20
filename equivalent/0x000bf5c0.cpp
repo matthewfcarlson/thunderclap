@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 2244 inputs, branch coverage 10/10)
 // FUN_000bf5c0 @ 0x000bf5c0
 class CUnlockable {
   public:

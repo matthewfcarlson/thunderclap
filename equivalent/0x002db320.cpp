@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1603 inputs, branch coverage 69/69)
+// STATUS: equivalent (tools/equiv.py level 3: 3141 inputs, branch coverage 71/71)
 // FUN_002db320 @ 0x002db320
 struct RowInfo_2db320 {
     unsigned int width;

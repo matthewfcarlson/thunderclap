@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 6565 inputs, branch coverage 35/36, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3066 inputs, branch coverage 35/36, incomplete)
 // FUN_000b79a0 @ 0x000b79a0
 // cl-flags: /GS
 #include "decls/address.h"

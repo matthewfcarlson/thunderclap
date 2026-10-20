@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 28/28)
+// STATUS: equivalent (tools/equiv.py level 3: 2970 inputs, branch coverage 28/28)
 // pure3d::d3dRefractVertexShader::vfunc_14 @ 0x0032efa0
 #include "decls/data/platform/xbox/pure3d.h"
 

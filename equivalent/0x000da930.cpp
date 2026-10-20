@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 16477 inputs, branch coverage 305/312, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3402 inputs, branch coverage 313/320, incomplete)
 // FEMemCardControl::vfunc_4 @ 0x000da930
 // cl-flags: /GS
 // FEMemCardControl::vfunc_4 @ 0x000da930

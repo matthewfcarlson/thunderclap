@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 172 inputs, branch coverage 39/39)
+// STATUS: equivalent (tools/equiv.py level 3: 3081 inputs, branch coverage 41/41)
 // FUN_003027b0 @ 0x003027b0
 #include "decls/data/engine/unknown.h"
 

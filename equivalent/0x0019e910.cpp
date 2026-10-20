@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19668 inputs, branch coverage 383/432, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3442 inputs, branch coverage 407/432, incomplete)
 // hulkfight::motion::ProjectileMissile::vfunc_4 @ 0x0019e910
 // Per-frame update of a homing missile: steering/speed, collision sweep, hit dispatch
 // (actors, characters, props), trail effect, and the area-damage explosion.

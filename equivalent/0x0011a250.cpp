@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 54/56, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3064 inputs, branch coverage 52/56, incomplete)
 // hulkfight::ai::MotionClosestWaypointAction::vfunc_5 @ 0x0011a250
 extern "C" double sqrt(double);
 

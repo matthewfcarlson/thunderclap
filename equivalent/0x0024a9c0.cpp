@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 32/36, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3075 inputs, branch coverage 34/36, incomplete)
 // FUN_0024a9c0 @ 0x0024a9c0
 #include "decls/data/engine/audio.h"
 

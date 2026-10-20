@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 174 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 2438 inputs, branch coverage 18/18)
 // FUN_00336f30 @ 0x00336f30
 #include "decls/data/engine/movie.h"
 

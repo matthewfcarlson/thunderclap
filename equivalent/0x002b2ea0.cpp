@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 303 inputs, branch coverage 58/58)
+// STATUS: equivalent (tools/equiv.py level 3: 2757 inputs, branch coverage 58/58)
 // pure3d::MultiControllerLoader::vfunc_5 @ 0x002b2ea0
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }

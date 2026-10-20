@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 4/4)
 // FEThingsBase::vfunc_33 @ 0x000e7700
 class Thing_e7700 {
   public:

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 2/2)
 // CMotionTrailAction::vfunc_6 @ 0x000235f0
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) { return p; }

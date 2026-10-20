@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 12265 inputs, branch coverage 92/98, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3079 inputs, branch coverage 92/98, incomplete)
 // COccupationAgent::vfunc_4 @ 0x00103c30
 // cl-flags: /GS
 #include "decls/data/game/global.h"

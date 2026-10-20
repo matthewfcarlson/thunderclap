@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 12106 inputs, branch coverage 106/106)
+// STATUS: equivalent (tools/equiv.py level 3: 3215 inputs, branch coverage 106/106)
 // pure3d::DefaultFrameControllerHandler::vfunc_4 @ 0x002867b0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"

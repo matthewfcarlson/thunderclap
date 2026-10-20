@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 19/19)
 // CSmartPropCSMableCondition::vfunc_7 @ 0x0004cbe0
 struct V3 {
     float x, y, z;

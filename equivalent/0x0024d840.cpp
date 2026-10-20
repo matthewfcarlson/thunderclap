@@ -11,14 +11,14 @@ struct ListenerEffectXBox_24d840 {
     virtual void vfunc_2();
     virtual void vfunc_3();
     void FUN_0025e6f0(EffectRegistry*);
-    void FUN_0025fb00();
+    void FUN_0025fb00(ListenerEffectXBox_24d840*);
 };
 }
 struct EffectRegistry {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
-    virtual audio::ListenerEffectXBox_24d840* vfunc_3(audio::ListenerEffectXBox_24d840*);
+    virtual audio::ListenerEffectXBox_24d840* vfunc_3();
 };
 audio::ListenerEffectXBox_24d840* __cdecl FUN_00247530(void*);
 void* audio::ListenerEffectXBoxType::vfunc_2() {
@@ -27,8 +27,7 @@ void* audio::ListenerEffectXBoxType::vfunc_2() {
         result->FUN_0025e6f0((EffectRegistry*)DAT_004e6468);
         ListenerEffectXBox_24d840 initial;
         *(void**)result = *(void**)&initial;
-        ListenerEffectXBox_24d840* object = ((EffectRegistry*)DAT_004e6468)->vfunc_3(result);
-        object->FUN_0025fb00();
+        ((EffectRegistry*)DAT_004e6468)->vfunc_3()->FUN_0025fb00(result);
     }
     return (void*)(result);
 }

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_001c9840 @ 0x001c9840
 // cl-flags: /GS
 struct Vec3_1c9840 { float x,y,z; };

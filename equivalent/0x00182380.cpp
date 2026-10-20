@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3029 inputs, branch coverage 15/16, incomplete)
 // hulkfight::motion::GrapplePropDamageAction::vfunc_3 @ 0x00182380
 #include "gen/hulkfight.h"
 

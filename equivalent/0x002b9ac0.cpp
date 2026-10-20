@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 2785 inputs, branch coverage 2/2)
 // FUN_002b9ac0 @ 0x002b9ac0
 struct Mat4_2b9ac0 {
     float m[16];

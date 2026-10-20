@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1020 inputs, branch coverage 35/40, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3090 inputs, branch coverage 37/40, incomplete)
 // hulkfight::motion::AnimationLinkedAction::vfunc_3 @ 0x0013e070
 // equiv-map: ?FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"

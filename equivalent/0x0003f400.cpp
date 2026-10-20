@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 3016 inputs, branch coverage 18/18)
 // FUN_0003f400 @ 0x0003f400
 #include "decls/address.h"
 struct Vec3_3f400 {

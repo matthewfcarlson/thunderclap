@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 7386 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 20/20)
 // FUN_0007e740 @ 0x0007e740
 // cl-flags: /GS
 extern "C" double sin(double);

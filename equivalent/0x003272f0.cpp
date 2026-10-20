@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 10/10)
 // FUN_003272f0 @ 0x003272f0
 #include "decls/data/platform/xbox/pure3d.h"
 

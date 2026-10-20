@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 0/0)
 // physics::CollisionCylinder::vfunc_13 @ 0x002f2fc0
 namespace physics {
 struct CallbackResult { void FUN_0022c3b0(void*, void*); };

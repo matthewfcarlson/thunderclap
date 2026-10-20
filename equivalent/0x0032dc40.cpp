@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 110 inputs, branch coverage 50/52, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 55/55)
 // pure3d::d3dLayeredShader::vfunc_14 @ 0x0032dc40
 #include "decls/data/platform/xbox/pure3d.h"
 

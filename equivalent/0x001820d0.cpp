@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 11965 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 10/10)
 // hulkfight::motion::PropSpawnAction::vfunc_3 @ 0x001820d0
 // cl-flags: /GS
 #include "gen/hulkfight.h"

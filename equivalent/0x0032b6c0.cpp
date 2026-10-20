@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 34/34)
+// STATUS: equivalent (tools/equiv.py level 3: 2985 inputs, branch coverage 37/37)
 // pure3d::d3dLightMapShader::vfunc_14 @ 0x0032b6c0
 typedef unsigned long DWORD;
 namespace D3D8 {

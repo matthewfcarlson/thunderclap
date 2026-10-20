@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 4/4)
 // FUN_000fce60 @ 0x000fce60
 // local is the 3x3 rotation matrix (0x2c bytes) built by Matrix::build (0x0022baf0)
 // FUN_000fce60 @ 0x000fce60

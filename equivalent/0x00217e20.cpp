@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20028 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 3035 inputs, branch coverage 22/22)
 // FUN_00217e20 @ 0x00217e20
 // FUN_00217e20 @ 0x00217e20
 struct Value_217e20 { unsigned int type; union { unsigned int bits; float number; struct Object* object; } data; };

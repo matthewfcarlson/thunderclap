@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 6/6)
 // FUN_00099470 @ 0x00099470
 struct Scaler_99470 {
     void FUN_00086100(float v);

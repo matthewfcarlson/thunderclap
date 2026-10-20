@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 8/8)
 // FUN_001962b0 @ 0x001962b0
 // equiv-map: ?thunk_FUN_0027d410@Node@@QAEXPAUId64@@@Z = 0x001d6630
 // equiv-map: ??0CProjectile@@QAE@XZ = 0x001b6800

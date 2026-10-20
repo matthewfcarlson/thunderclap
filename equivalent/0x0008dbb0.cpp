@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 43/48, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3044 inputs, branch coverage 45/48, incomplete)
 // MyControllerCallback::vfunc_0 @ 0x0008dbb0
 #include "decls/address.h"
 #include "decls/data/game/global.h"

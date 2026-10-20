@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 30/30)
 // pure3d::LightAnimationController::vfunc_27 @ 0x002a8840
 #include "decls/data/game/global.h"
 

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 13/13)
 // FUN_00337f20 @ 0x00337f20
 unsigned int __cdecl FUN_00337f20(unsigned int value)
 {

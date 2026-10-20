@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 6250 inputs, branch coverage 62/64, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3086 inputs, branch coverage 62/64, incomplete)
 // FUN_0002a4b0 @ 0x0002a4b0
 // cl-flags: /GS
 struct Pair_2a4b0 {

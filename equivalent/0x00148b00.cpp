@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 3019 inputs, branch coverage 24/24)
 // hulkfight::motion::GrappleThrowAction::vfunc_3 @ 0x00148b00
 struct Vec3_148b00 {
     float x, y, z;

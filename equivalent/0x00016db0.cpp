@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 16/16)
 // CCameraDramaticAction::vfunc_6 @ 0x00016db0
 #include "decls/address.h"
 struct Vec3_16db0 {

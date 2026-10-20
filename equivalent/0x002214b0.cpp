@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 10/10)
 // FUN_002214b0 @ 0x002214b0
 // Lua 5.0 style: discharge an expression and store it into the slot of the destination expdesc.
 struct FuncState;

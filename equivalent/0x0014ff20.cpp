@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 14/14)
 // hulkfight::motion::HealthAction::vfunc_3 @ 0x0014ff20
 #include "gen/hulkfight.h"
 

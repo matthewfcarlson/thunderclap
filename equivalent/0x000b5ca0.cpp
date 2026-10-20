@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 229 inputs, branch coverage 85/98, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 274 inputs, branch coverage 92/98, incomplete)
 // FUN_000b5ca0 @ 0x000b5ca0
 // equiv-map: ??_R0?AVFEObject@@@8 = 0x0049dba4
 // equiv-map: ??_R0?AVTextSelector@@@8 = 0x0049dbbc

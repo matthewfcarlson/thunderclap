@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 6/6)
 // FUN_002e4e00 @ 0x002e4e00
 struct Resource { virtual void unused(); virtual void release(); };
 struct Controller {

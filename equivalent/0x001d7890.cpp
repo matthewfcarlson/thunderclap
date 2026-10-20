@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 15/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3043 inputs, branch coverage 15/16, incomplete)
 // FUN_001d7890 @ 0x001d7890
 struct Item74 { char pad0[0x71]; char b71; char b72; };
 struct Item10_1d7890 { char pad0[0x74]; Item74 *p74; };

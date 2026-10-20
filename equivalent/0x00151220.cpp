@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 20/20)
 // hulkfight::motion::GroundSlideAction::vfunc_3 @ 0x00151220
 extern "C" double sqrt(double);
 

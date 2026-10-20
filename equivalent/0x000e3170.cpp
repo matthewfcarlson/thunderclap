@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3038 inputs, branch coverage 84/95, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3073 inputs, branch coverage 86/97, incomplete)
 // TextSelector::vfunc_12 @ 0x000e3170
 class Ctl {
 public:

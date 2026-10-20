@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 24/27, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 28/30, incomplete)
 // hulkfight::ai::FormationReadyCondition::vfunc_6 @ 0x0010e040
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];

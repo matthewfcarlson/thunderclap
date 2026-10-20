@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 18524 inputs, branch coverage 96/98, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3117 inputs, branch coverage 95/98, incomplete)
 // hulkfight::motion::JointPivotTrackerAction::vfunc_5 @ 0x00173ca0
 extern "C" int __cdecl _isnan(double);
 

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 968 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 12/12)
 // hulkfight::motion::WorldConeDamageAction::vfunc_5 @ 0x00143df0
 #include "gen/hulkfight.h"
 #include "decls/address.h"

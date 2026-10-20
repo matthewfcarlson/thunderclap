@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 139 inputs, branch coverage 40/40)
+// STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 40/40)
 // FUN_001cc620 @ 0x001cc620
 #include "decls/address.h"
 struct Fader_1cc620 {

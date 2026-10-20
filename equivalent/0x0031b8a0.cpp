@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 6/6)
 // pure3d::d3dDevice::vfunc_9 @ 0x0031b8a0
 void* __cdecl FUN_0008d690(unsigned int);
 struct Params { int a,b,c,d,e,f,g,h; unsigned char extended; };

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 26/28, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 28/28)
 // FUN_001c3e10 @ 0x001c3e10
 #include "decls/data/game/Render/Canvas.h"
 #include "decls/data/game/global.h"

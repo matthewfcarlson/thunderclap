@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 10/10)
 // FEControl::vfunc_17 @ 0x000f13a0
 #include "decls/data/engine/pure3d/prop.h"
 

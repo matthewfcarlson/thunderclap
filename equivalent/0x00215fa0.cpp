@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 9/9)
+// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 10/10)
 // FUN_00215fa0 @ 0x00215fa0
 struct Value { unsigned int kind; union { unsigned int bits; float number; } data; };
 int __cdecl FUN_00215fa0(const Value *a, const Value *b)

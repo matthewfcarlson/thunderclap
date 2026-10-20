@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 27/28, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3046 inputs, branch coverage 27/28, incomplete)
 // MessageOverlay::vfunc_4 @ 0x000d5b20
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"

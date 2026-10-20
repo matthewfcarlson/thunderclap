@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 290 inputs, branch coverage 60/62, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 2686 inputs, branch coverage 64/64)
 // pure3d::prop::StatePropDataLoader::vfunc_5 @ 0x00290bf0
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"

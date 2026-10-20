@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/7)
 // FUN_00215240 @ 0x00215240
 struct ErrorValue { int kind; int detail; };
 struct ErrorContext { char pad[8]; ErrorValue* next; };

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 4/4)
 // FUN_000b47b0 @ 0x000b47b0
 // FUN_000b47b0 @ 0x000b47b0: sets the title and text of the fullscreen message widgets, then raises the screen
 #include "decls/address.h"

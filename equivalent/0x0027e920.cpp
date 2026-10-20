@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 171 inputs, branch coverage 65/66, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 1907 inputs, branch coverage 65/66, incomplete)
 // pure3d::prop::StateProp::vfunc_6 @ 0x0027e920
 struct V3_27e920 {
     float x, y, z;

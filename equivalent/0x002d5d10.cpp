@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 15/15)
+// STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 20/20)
 // pure3d::SpriteParticleEmitter::vfunc_17 @ 0x002d5d10
 struct Delegate_2d5d10 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(unsigned int, float); };
 namespace pure3d { struct SpriteParticleEmitter { char pad0[0x88]; Delegate_2d5d10* delegate; char pad1[0xcc]; float f158; char p15c[12]; float f168; char p16c[8]; float f174; char p178[8]; float f180; char p184[16]; float f194; char p198[8]; float f1a0; char p1a4[4]; float f1a8; char p1ac[4]; float f1b0; void vfunc_17(unsigned int, float); }; }

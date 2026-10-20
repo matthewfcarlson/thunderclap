@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3063 inputs, branch coverage 96/96)
+// STATUS: equivalent (tools/equiv.py level 3: 3088 inputs, branch coverage 96/96)
 // FUN_001b1e90 @ 0x001b1e90
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"

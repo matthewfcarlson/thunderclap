@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 779 inputs, branch coverage 228/230, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 509 inputs, branch coverage 228/230, incomplete)
 // FUN_00218350 @ 0x00218350
 struct Table;
 struct lua_State;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 17/18, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3040 inputs, branch coverage 17/18, incomplete)
 // CGrappleOpportunityTrack::vfunc_10 @ 0x0005ae00
 struct Context { char pad[8]; unsigned value; };
 struct Owner_5ae00;

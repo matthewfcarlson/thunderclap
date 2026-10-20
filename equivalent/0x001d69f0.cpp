@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 2/2)
 // FUN_001d69f0 @ 0x001d69f0
 struct V3_1d69f0 { float x, y, z; };
 

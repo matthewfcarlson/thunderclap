@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 6/6)
 // CKeyPoseAction::vfunc_6 @ 0x00022ff0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"

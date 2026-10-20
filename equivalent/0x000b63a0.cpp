@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1207 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 1567 inputs, branch coverage 10/10)
 // FUN_000b63a0 @ 0x000b63a0
 // cl-flags: /GS
 extern char DAT_0049dba4[];

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19124 inputs, branch coverage 67/68, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3029 inputs, branch coverage 68/68)
 // FUN_0002ab40 @ 0x0002ab40
 // FUN_0002ab40 @ 0x0002ab40
 extern "C" double sqrt(double);

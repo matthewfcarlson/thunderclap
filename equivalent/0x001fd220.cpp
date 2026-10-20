@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 15/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 2987 inputs, branch coverage 15/16, incomplete)
 // FUN_001fd220 @ 0x001fd220
 struct S8_1fd220 {
     int a;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 160 inputs, branch coverage 27/33, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3029 inputs, branch coverage 37/37)
 // FUN_001cb170 @ 0x001cb170
 class Dispatcher_1cb170;
 class Context {

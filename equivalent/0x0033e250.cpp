@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 15/15)
 // FUN_0033e250 @ 0x0033e250
 // cl-flags: /GS
 extern "C" int sprintf(char* buf, const char* fmt, ...);

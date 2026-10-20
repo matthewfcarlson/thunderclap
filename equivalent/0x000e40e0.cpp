@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2843 inputs, branch coverage 49/53, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 2852 inputs, branch coverage 52/55, incomplete)
 // ImageSelector::vfunc_12 @ 0x000e40e0
 struct SelectionListener {
     void FUN_000f8b90(int index);

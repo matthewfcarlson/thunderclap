@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 98/98)
+// STATUS: equivalent (tools/equiv.py level 3: 3050 inputs, branch coverage 98/98)
 // hulkfight::motion::TankLocomotionAction::vfunc_5 @ 0x0018f6d0
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"

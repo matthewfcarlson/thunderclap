@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3056 inputs, branch coverage 61/62, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3087 inputs, branch coverage 62/62)
 // hulkfight::ai::PathFormationAction::vfunc_5 @ 0x0011d2c0
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/ai.h"

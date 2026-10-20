@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 9/10, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 10/10)
 // CSmartPropAngleCondition::vfunc_7 @ 0x0004c7c0
 #include "decls/data/game/global.h"
 

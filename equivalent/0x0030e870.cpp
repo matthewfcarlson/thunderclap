@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 13195 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 0/0)
 // physics::CollisionWall::vfunc_13 @ 0x0030e870
 namespace physics {
 struct WallResult {

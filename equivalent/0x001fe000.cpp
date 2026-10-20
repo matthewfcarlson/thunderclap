@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 9/10, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 9/10, incomplete)
 // FUN_001fe000 @ 0x001fe000
 // 8-byte id with the game's copy routine.
 struct Id8 {

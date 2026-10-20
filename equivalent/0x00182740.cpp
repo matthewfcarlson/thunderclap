@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 20/20)
 // hulkfight::motion::BallAndChainReturnAction::vfunc_5 @ 0x00182740
 // hulkfight::motion::BallAndChainReturnAction::vfunc_5 @ 0x00182740
 #include "decls/address.h"

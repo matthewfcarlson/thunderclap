@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 4/4)
 // FUN_0009a400 @ 0x0009a400
 struct Camera {
     void FUN_000361c0(int flag);

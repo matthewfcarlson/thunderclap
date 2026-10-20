@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3059 inputs, branch coverage 195/256, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3116 inputs, branch coverage 199/256, incomplete)
 // CRangedAgent::vfunc_4 @ 0x00107c90
 // mechanical lift of 0x00107c90 (work/big3/lift.py): frame array S[], register variables, gotos
 #include "decls/data/engine/physics.h"

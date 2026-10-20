@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 70/74, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 70/71, incomplete)
 // hulkfight::ai::PathLocatorTestCondition::vfunc_6 @ 0x0011fa30
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/ai.h"

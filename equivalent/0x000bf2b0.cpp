@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 28/34, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 34/34)
 // FUN_000bf2b0 @ 0x000bf2b0
 #include "decls/address.h"
 extern "C" char *__cdecl strncpy(char *dst, const char *src, unsigned int n);

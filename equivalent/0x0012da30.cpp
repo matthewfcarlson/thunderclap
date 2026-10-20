@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 16/16)
 // hulkfight::PostEvent_StringAction::vfunc_5 @ 0x0012da30
 // equiv-map: ??0Key@@QAE@ABU0@@Z = 0x0027af30
 #include "decls/address.h"

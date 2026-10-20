@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 16/16)
 // hulkfight::ai::PathFormationAction::vfunc_3 @ 0x00121ff0
 #include "decls/address.h"
 struct Fighter_121ff0 { char pad[4]; };

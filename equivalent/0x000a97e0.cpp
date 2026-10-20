@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2105 inputs, branch coverage 46/46)
+// STATUS: equivalent (tools/equiv.py level 3: 2548 inputs, branch coverage 46/46)
 // CGameCamera::vfunc_35 @ 0x000a97e0
 // cl-flags: /GS
 // CGameCamera::vfunc_35 @ 0x000a97e0

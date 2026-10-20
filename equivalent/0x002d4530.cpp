@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 13/13)
+// STATUS: equivalent (tools/equiv.py level 3: 3049 inputs, branch coverage 18/18)
 // pure3d::SpriteParticleEmitter::vfunc_18 @ 0x002d4530
 class Source_2d4530 {
 public:

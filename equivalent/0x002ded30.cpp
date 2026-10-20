@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 3023 inputs, branch coverage 15/15)
 // pure3d::ImageConverter::vfunc_6 @ 0x002ded30
 #include "gen/pure3d.h"
 

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 16/16)
 // hulkfight::motion::AnimationChargeAction::vfunc_3 @ 0x0013de80
 #include "decls/address.h"
 namespace content {

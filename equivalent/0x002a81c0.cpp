@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 16583 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 1276 inputs, branch coverage 16/16)
 // FUN_002a81c0 @ 0x002a81c0
 struct Key_2a81c0 { unsigned a,b; };
 struct Item_2a81c0 { char pad[8]; Key_2a81c0 key; unsigned FUN_00288960(unsigned, unsigned); };

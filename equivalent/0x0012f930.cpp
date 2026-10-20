@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 2/2)
 // hulkfight::NISSoundAction::vfunc_3 @ 0x0012f930
 // hulkfight::NISSoundAction::vfunc_3 @ 0x0012f930
 struct SoundValue { unsigned int data[2]; void FUN_0027b0e0(unsigned int); void FUN_0027af50(); };

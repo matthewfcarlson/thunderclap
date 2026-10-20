@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 8/8)
 // FUN_000bf450 @ 0x000bf450
 // Demo/attract screen: remember the menu name; without a "go back" request show the quit-demo dialog,
 // otherwise leave the current screen.

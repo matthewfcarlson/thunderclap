@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2579 inputs, branch coverage 19/20, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 24/25, incomplete)
 // FUN_001dcb00 @ 0x001dcb00
 // FUN_001dcb00 @ 0x001dcb00
 struct V3_1dcb00 {

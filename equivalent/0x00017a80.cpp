@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19998 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 6/6)
 // CSnapToWallAction::vfunc_6 @ 0x00017a80
 #include "gen/global.h"
 

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 41/42, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 42/42)
 // CStunAnimationAction::vfunc_6 @ 0x00022d00
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"

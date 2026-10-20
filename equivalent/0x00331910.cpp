@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 10575 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 2941 inputs, branch coverage 24/24)
 // pure3d::d3dSpheremapVertexShader::vfunc_14 @ 0x00331910
 #include "decls/data/platform/xbox/pure3d.h"
 

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 18281 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000b9930 @ 0x000b9930
 // cl-flags: /GS
 // 0x000b9930: show the experience points value in its HUD label

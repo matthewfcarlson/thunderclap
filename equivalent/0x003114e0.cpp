@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 19/20, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3019 inputs, branch coverage 20/20)
 // physics::ArticulatedPhysicsObject::vfunc_19 @ 0x003114e0
 #include "decls/data/engine/physics.h"
 

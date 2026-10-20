@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1582 inputs, branch coverage 190/235, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3337 inputs, branch coverage 230/237, incomplete)
 // FUN_002da380 @ 0x002da380
 typedef unsigned char png_byte;
 typedef unsigned short png_uint_16;

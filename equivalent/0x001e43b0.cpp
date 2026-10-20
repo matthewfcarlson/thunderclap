@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 6/6)
 // FUN_001e43b0 @ 0x001e43b0
 // equiv-map: ??0Key@@QAE@ABU0@@Z = 0x0027af30
 // Finds a prop in the inventory by key, spawns the matching entity and notifies the event sink.

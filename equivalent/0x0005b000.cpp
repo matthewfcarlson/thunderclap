@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 13/14, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3038 inputs, branch coverage 13/14, incomplete)
 // CGrappleSequenceTrack::vfunc_10 @ 0x0005b000
 struct Result_5b000 { char pad[8]; unsigned int value; };
 struct Link_5b000 { unsigned int value; };

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19466 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_001e5540 @ 0x001e5540
 struct Vector { float x,y,z; };
 struct Matrix {

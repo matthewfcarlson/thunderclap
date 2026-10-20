@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 14639 inputs, branch coverage 36/36)
+// STATUS: equivalent (tools/equiv.py level 3: 2855 inputs, branch coverage 36/36)
 // hulkfight::DialogueAction::vfunc_3 @ 0x0012f750
 // cl-flags: /GS
 #include "gen/hulkfight.h"

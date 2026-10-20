@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 30/30)
 // hulkfight::ai::TokenCondition::vfunc_6 @ 0x0010dcf0
 #include "decls/data/game/global.h"
 

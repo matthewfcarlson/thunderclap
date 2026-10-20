@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 68/68)
+// STATUS: equivalent (tools/equiv.py level 3: 3056 inputs, branch coverage 68/68)
 // FUN_00197610 @ 0x00197610
 #include "decls/address.h"
 extern "C" double __cdecl sqrt(double);

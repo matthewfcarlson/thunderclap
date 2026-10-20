@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 14/14)
 // hulkfight::motion::FlyingAttackAction::vfunc_3 @ 0x00135520
 struct V3_135520 {
     float x, y, z;

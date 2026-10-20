@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 12/14, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3023 inputs, branch coverage 14/14)
 // pure3d::d3dExtFramebufferEffects::vfunc_6 @ 0x00324a00
 typedef unsigned int U_324a00;
 extern U_324a00 DAT_0039db08, DAT_0039db10, DAT_0039db14, DAT_0039db18, DAT_0039db40, DAT_0039db48, DAT_0039db50;

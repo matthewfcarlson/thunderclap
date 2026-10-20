@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 8/8)
 // FUN_0007f450 @ 0x0007f450
 typedef unsigned __int64 Key_7f450;
 extern Key_7f450 __cdecl FUN_0027b020(int);
