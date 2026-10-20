@@ -430,19 +430,17 @@ class Program:
         cache[key] = 32 if steps >= 400 else (width or 32)
         return cache[key]
 
-    def reg_writes(self, target, depth=0):
-        """Which of eax/ecx/edx a function may change (its own writes plus its callees'), or None."""
-        cache = self.__dict__.setdefault("_reg_wr", {})
+    def _rw_local(self, target):
+        """(own eax/ecx/edx writes, [callee addresses or None (unknown)]) of one function, or None."""
+        cache = self.__dict__.setdefault("_rw_loc", {})
         if target in cache:
             return cache[target]
-        if not self.is_code(target) or target not in self.funcs or depth > 3:
-            return None
-        cache[target] = {"eax", "ecx", "edx"}       # recursion guard: assume the worst
         view = CodeView(self.read, target, (target, target + self.funcs[target][0]), self).build(limit=3000)
-        out = set()
+        out, calls = set(), []
         for a, i in view.insns.items():
             ci = next(self.md.disasm(self.read(a, 16), a, 1), None)
             if ci is None:
+                cache[target] = None
                 return None
             nop = (i.mnemonic in ("mov", "xchg") and i.mem is None and len(i.regs) == 2 and i.regs[0] == i.regs[1]) or \
                 (i.mnemonic == "lea" and len(i.regs) == 1 and i.mem is not None and i.mem[1] == i.regs[0]
@@ -453,10 +451,70 @@ class Program:
             if a in view.tables:
                 continue                                  # a jump table inside the function
             if i.kind == "call" or (i.kind == "jmp" and not (i.target is not None and view.internal_target(i.target))):
-                sub = self.reg_writes(i.target, depth + 1) if i.target is not None else None
-                out |= sub if sub is not None else {"eax", "ecx", "edx"}
-        cache[target] = out
-        return out
+                calls.append(i.target)
+        cache[target] = (out, calls)
+        return cache[target]
+
+    def reg_writes(self, target, depth=0):
+        """Which of eax/ecx/edx a function may change (its own writes plus its callees'), or None.
+
+        (cl4, rwfix) The callees' writes are a least fixpoint over the call graph reached from TARGET (calls
+        down to depth 3; anything beyond, indirect, or unreadable counts as writing all three), so a function that
+        calls itself, or two that call each other, get the registers they really write. The recursion guard
+        used to assume a self-recursive callee clobbers all three, and a rewrite that relies on the original
+        keeping a value in edx across a call to a callee that never writes edx (0x0030ecb0 calls itself) could not
+        be proven."""
+        cache = self.__dict__.setdefault("_reg_wr", {})
+        if target in cache:
+            return cache[target]
+        if not self.is_code(target) or target not in self.funcs or depth > 3:
+            return None
+        worst = {"eax", "ecx", "edx"}
+        if "rwfix" in EQUIV_OFF:
+            cache[target] = worst           # recursion guard: assume the worst
+            loc = self._rw_local(target)
+            if loc is None:
+                return None
+            out = set(loc[0])
+            for c in loc[1]:
+                sub = self.reg_writes(c, depth + 1) if c is not None else None
+                out |= sub if sub is not None else worst
+            cache[target] = out
+            return out
+        nodes, level, work = {}, {target: 0}, [target]
+        while work:
+            n = work.pop()
+            loc = self._rw_local(n)
+            nodes[n] = loc
+            if loc is None:
+                continue
+            for c in loc[1]:
+                if c is None or c in cache or c in level or not self.is_code(c) or c not in self.funcs \
+                        or level[n] + 1 > 3:
+                    continue
+                level[c] = level[n] + 1
+                work.append(c)
+        res = {n: (set(worst) if nodes[n] is None else set(nodes[n][0])) for n in nodes}
+        changed = True
+        while changed:
+            changed = False
+            for n, loc in nodes.items():
+                if loc is None:
+                    continue
+                add = set()
+                for c in loc[1]:
+                    if c in res:
+                        add |= res[c]
+                    elif c in cache and cache[c] is not None:
+                        add |= cache[c]
+                    else:
+                        add |= worst
+                if not add <= res[n]:
+                    res[n] |= add
+                    changed = True
+        for n, v in res.items():
+            cache.setdefault(n, v)
+        return cache[target]
 
     def callee_writes(self, target, depth=0):
         """{argument location: bytes}: how far a function writes through each pointer argument.
@@ -2545,6 +2603,7 @@ class Run:
         self.self_alias = None      # our run: the original's address of the function under test
         self.huge_rep = False       # a rep string instruction ran with a count over 4 MB
         self.max_mapped = 0         # most pages mapped at once (memory-hungry runs)
+        self.vcall_mismatch = None  # (cl4) (call index, bytes our indirect call takes, bytes the original's takes)
         self.abi_mismatch = None    # (call index, callee, bytes our declaration pops, bytes it really pops)
         self.cookies = set()        # values read from the /GS cookie global
         self.cdecl_site = False     # (round 8) the current call is proven cdecl by the caller's cleanup
@@ -3007,6 +3066,16 @@ class Run:
                     # arguments where the original's caller cleaned them up: the target is unknown either
                     # way); compare as many words as the original's call took
                     nargs = learned[k_call][1]
+                    if "vcall" not in EQUIV_OFF and learned[k_call][0] > 0 and p > learned[k_call][0]:
+                        # (cl4, vcall) our call takes more stack words than the original's k-th call, which
+                        # takes some (an indirect call: the words pushed for it are decided by the code around
+                        # the call, on both sides). Declared with extra words that the next call passes again
+                        # (0x2f2fc0: slot 4 with 3 arguments where the callee pops 1 and the transform call takes
+                        # the other two) the bytes are identical, but natively the callee pops only its own.
+                        # Not for an original call that takes none (`p` 0 is also "its words are the next
+                        # call's" or "popped by the callee, with the next call's words in preset slots": the two
+                        # look the same in the original, 0x0013d7b0 vs 0x0024da50).
+                        self.vcall_mismatch = self.vcall_mismatch or (len(self.calls), p, learned[k_call][0])
             # a caller-cleaned callee takes only the words it reads: pushes above them are pending for a
             # later call (`push eax; call getter; push eax; ...; call snprintf; add esp, 0x14`)
             take = min(nargs, semantic) if semantic is not None and p == 0 else nargs
@@ -4748,6 +4817,7 @@ class Run:
         out["calls"] = self.calls
         out["cookie_bad"] = self.cookie_bad
         out["abi_mismatch"] = self.abi_mismatch
+        out["vcall_mismatch"] = self.vcall_mismatch
         # eax holds a value the function means to leave there: a callee's result the function used and then
         # kept (`p = alloc(); if (p) ...; return p`), or a write it never reads back on any path (only a
         # return value explains a dead write). A callee's result left unread is ambiguous (`g();` and
@@ -5043,6 +5113,8 @@ def literal_bytes(obj, sym):
     if secnum <= 0:
         return None
     raw = obj.sections[secnum - 1]["raw"] or b""
+    if "literalfull" not in EQUIV_OFF:
+        return raw[value:]      # (cl4, literalfull) the literal's whole extent: embedded NULs, a wide terminator
     if sym[0].startswith("??_C@_1"):      # wide string: up to a 00 00 pair
         k = value
         while k + 1 < len(raw) and raw[k:k + 2] != b"\0\0":
@@ -5758,6 +5830,12 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
                        "same bytes). Declare the words on the call that takes them" % (
                            k_ + 1, _fmt(t_), dpop_, real_, "a plain ret: the caller pops" if real_ == 0 else
                            "ret %d" % real_, abs(dpop_ - real_)))
+    if r.get("vcall_mismatch") and not out:
+        k_, dpop_, real_ = r["vcall_mismatch"]
+        out.append("call #%d (indirect): our code passes it %d bytes of stack arguments, but the original's call "
+                   "takes %d: the other %d bytes belong to another call (a virtual declared with extra words that "
+                   "the next call passes again gives the same bytes; natively the callee pops only its own). "
+                   "Declare the words on the call that takes them" % (k_ + 1, dpop_, real_, dpop_ - real_))
     return out[:max_report]
 
 

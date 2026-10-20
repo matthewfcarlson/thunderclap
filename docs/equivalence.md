@@ -374,6 +374,33 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   - `treespecial`: equiv-map and equiv-conv lines naming a constructor, destructor, operator or template function
     (`??0DrawableBase@pure3d@@QAE@XZ`) are translated into a merged tree object's `fn_<addr>` namespace too (they
     fell back to instruction pairing, which bound the allocator: native10's stop 17).
+- (round 16, cl4) Three gaps native13 found, each switchable (`EQUIV_OFF=name`; `RELOC_OFF=literal` for verify_relocs):
+  - `literal` (verify_relocs) / `literalfull` (equiv level 2 string binding): a string literal is compared over its
+    whole extent (its COMDAT section from the symbol to the end: a wide literal's terminator, embedded NULs), not up
+    to its first NUL byte, which cut every wide string after its first character. native13's stop 34:
+    `matches/0x003388d0` passed with `L"()"` where the original's item at 0x434634 is `L"()[]{}=;"`; now
+    `string_mismatch`. `verify_relocs.py --literals OUT` sweeps every `matches/` and `equivalent/` source that has a
+    wide literal or an escape `\0`/`\x0` (the only literals a NUL cut can hide a difference in; matches/ through the
+    relocation map, equivalents/ by finding the full bytes in the image): `build/cl4/literals.json`.
+  - `rwfix`: `reg_writes` (which of eax/ecx/edx a callee may change, so a register it never writes keeps its value
+    across the stub) assumed a self-recursive callee clobbers all three. It is now a least fixpoint over the call
+    graph reached from the callee (to depth 3; indirect or unreadable callees still write all three), so a
+    self- or mutually recursive function gets the registers it really writes. 0x0030ecb0 calls itself and never
+    writes edx; the original of 0x0030ed60 keeps the node in edx across that call, and the rewrite with an ordinary
+    local (native13's pending source) could not be proven: now EQUIVALENT at 3000 inputs.
+  - `vcall`: at an indirect (virtual) call our stack words are decided by our own code around the call, and the
+    original's by its code. If the original's k-th call takes words (a pop count above 0, learned from its code) and
+    our k-th call on the same input takes more, the extra words belong to another call: a virtual declared with extra
+    arguments that the next call passes again compiles to the same bytes (0x002f2fc0: slot 4 declared with 3 words,
+    the real callee pops 1 and the transform call takes the other two). Natively the callee pops its own word only.
+    Message: `call #N (indirect): our code passes it 12 bytes of stack arguments, but the original's call takes 4:
+    the other 8 bytes belong to another call`. This extends `argcall` (direct callee-popped calls) to indirect calls,
+    whose arity is learned from the original's run. Not covered: an original call that takes none (pop 0 is also what
+    the code looks like when its words are "the next call's"; 0x0024da50 / 0x0024db50 pass `effect` to a slot that
+    takes none and again to the next call, and 0x0013d7b0's original keeps the next call's words in preset frame
+    slots: the two look the same from the original alone, and a rule that flags the first flags the second, the
+    only committed equivalent it flags). The real callee's pop count is what decides: a rewrite that declares an
+    indirect call with arguments should be checked against the callee's own source.
 
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check
@@ -616,7 +643,16 @@ Mismatch strings are written for a model to act on. Examples:
 
 ## Validation
 
-Latest run (2026-10-19, checker round 15, cl3): `regress.py` 181/181 (12 new cases; every new `_wrong` case is
+Latest run (2026-10-20, checker round 16, cl4): `regress.py` 187/187 (6 new cases: 0x003388d0 literal, 0x0030ed60
+recursive edx, 0x002f2fc0 vcall, each with a `_wrong` that the previous round passes); `test_equiv.py` 14/14.
+60-function sample of `equivalent/` at 3000 inputs (9 whose callees changed register writes, 31 with indirect calls,
+20 random; `build/cl4/sample60.txt`), round 15 vs 16: 60 equivalent under both, no verdict change; time +2.9% (a
+shared machine; the runs are time-budgeted). All 1,691 `equivalent/` sources with an indirect call at 200 inputs: no
+`vcall` hit (the rule without its "original takes words" condition flags 0x0013d7b0 and 0x002b2040 only).
+`literals.json`: no violations (39 sources with a wide or escaped-NUL literal). `build/cl4/recheck.txt`: 11 sources
+(9 whose callees' register writes shrank, 2 for the pop-0 `vcall` shape). Pending 0x0030ed60 (native13): EQUIVALENT.
+
+Previous run (2026-10-19, checker round 15, cl3): `regress.py` 181/181 (12 new cases; every new `_wrong` case is
 `equivalent` under round 14, and `0x0029a190_tree_ctor_map` fails there; `0x000991b0_chained_vcalls` now fails, as it
 should: its source declares FUN_000fd8a0 (`ret 0x10`) with 2 of its 4 words, see `argcall`); `test_equiv.py` 12/12.
 60-function sample of `equivalent/` at 3000 inputs (20 with jump tables of more indices than targets, 20 with chained

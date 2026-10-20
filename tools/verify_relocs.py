@@ -62,11 +62,16 @@ def classify(name):
 
 
 def literal_bytes(coff, sym):
-    """Contents of a string-literal symbol in our object (its COMDAT .rdata section)."""
+    """Contents of a string-literal symbol in our object (its COMDAT .rdata section): its full extent, from the
+    symbol to the end of the section, so a wide literal's terminator and any embedded NULs are included.
+    (cl4: it used to stop at the first NUL byte, which cut every wide string after its first character and
+    let L"()" pass for the original's L"()[]{}=;". RELOC_OFF=literal restores that.)"""
     _, value, secnum, _, _ = sym
     if secnum <= 0:
         return None
     _, raw, _ = coff.sections[secnum - 1]
+    if "literal" not in os.environ.get("RELOC_OFF", ""):
+        return raw[value:]
     end = raw.find(b"\0", value)
     return raw[value:end + 1] if end >= 0 else raw[value:]
 
@@ -309,6 +314,38 @@ def init_job(path):
         return path, "error", [{"error": repr(e)[:200]}]
 
 
+# (cl4) Literals. literal_bytes() above compares a literal's full extent. The sweep (--literals) re-checks the
+# sources that have a literal with a NUL before its end (a wide string, or an escape \\0 / \\x0 in a narrow one):
+# for a matches/ source with check() (its reloc map), for an equivalents/ source (no reloc map) that the literal's
+# full bytes occur somewhere in the image.
+_NUL_LITERAL = re.compile(r'L"|\\(?:0|x0)')
+
+
+def literal_job(path):
+    """(path, how, [records]) for one matches/ or equivalent/ source."""
+    addr = int(os.path.basename(path)[2:10], 16)
+    if not _NUL_LITERAL.search(open(path, errors="replace").read()):
+        return path, "skip", []
+    try:
+        if "/matches/" in path:
+            r = check(path, addr)
+            if r.get("status") != "not_matching":
+                return path, "relocs", [{"kind": "string_mismatch", "symbol": n, "target": r["map"].get(n)}
+                                        for k, n in r.get("issues", []) if k == "string_mismatch"]
+        xbe = state()["xbe"]
+        with tempfile.TemporaryDirectory() as tmp:
+            coff = Coff(compile_obj(path, DEFAULT_FLAGS, tmp))
+        out = []
+        for sym in coff.symbols:
+            if sym[0].startswith("??_C@") and sym[2] > 0:
+                lit = literal_bytes(coff, sym)
+                if lit and xbe.data.find(lit) < 0:
+                    out.append({"kind": "string_not_in_image", "symbol": sym[0], "bytes": lit.hex()})
+        return path, "image", out
+    except Exception as e:  # noqa: BLE001
+        return path, "error", [{"error": repr(e)[:200]}]
+
+
 def _job(path):
     try:
         return check(path, int(os.path.basename(path)[:-4], 16))
@@ -327,7 +364,22 @@ def main():
     p.add_argument("--out", default=os.path.join(ROOT, "build/reloc-report.jsonl"))
     p.add_argument("--initializers", metavar="OUT", help="(cl3) check the initializers of every matches/ and "
                    "equivalent/ source that may define a global; violations to OUT (JSON)")
+    p.add_argument("--literals", metavar="OUT", help="(cl4) check the string literals (full extent, wide strings, "
+                   "embedded NULs) of every matches/ and equivalent/ source that has one; violations to OUT (JSON)")
     a = p.parse_args()
+    if a.literals:
+        files = sorted(os.path.join(ROOT, d, f) for d in ("matches", "equivalent")
+                       for f in os.listdir(os.path.join(ROOT, d)) if f.endswith(".cpp"))
+        out, counts = {}, Counter()
+        with Pool(a.jobs) as pool:
+            for path, how, recs in pool.imap_unordered(literal_job, files, chunksize=8):
+                counts[how] += 1
+                if recs:
+                    out[os.path.relpath(path, ROOT)] = recs
+                    counts["violating"] += 1
+        json.dump({"counts": dict(counts), "violations": dict(sorted(out.items()))}, open(a.literals, "w"), indent=1)
+        print("results:", dict(counts))
+        return
     if a.initializers:
         files = sorted(os.path.join(ROOT, d, f) for d in ("matches", "equivalent")
                        for f in os.listdir(os.path.join(ROOT, d)) if f.endswith(".cpp"))

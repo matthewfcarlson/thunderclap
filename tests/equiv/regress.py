@@ -483,6 +483,21 @@ CASES = {
     # constructor fell back to pairing and bound the allocator (native10 stop 17)
     "0x0029a190_tree_ctor_map": ("equivalent", None),
     "0x0029a190_tree_ctor_map_wrong": ("fail", "went to 0x00263ea0 instead of 0x002a3480"),
+    # round 16 (cl4). reg_writes: a self-recursive callee's writes are a fixpoint, not eax/ecx/edx (rwfix).
+    # 0x0030ecb0 calls itself and never writes edx; the original keeps the node in edx across the call
+    "0x0030ed60_recursive_edx": ("equivalent", None, 0.95),
+    "0x0030ed60_recursive_edx_wrong": ("fail", "before return was 0x3, expected 0x2"),
+    # a virtual declared with extra stack words that the next call passes again (vcall): slot 4 of 0x002f2fc0 takes
+    # 1 word (the original's call pops 4) and the transform call the other two; the source before native13's fix
+    "0x002f2fc0_vcall_words": ("equivalent", None),
+    "0x002f2fc0_vcall_words_wrong": ("fail", "belong to another call"),
+}
+
+# verify_relocs.py cases: name -> (expected status, issue kind it must report or None)
+RELOC_CASES = {
+    # a wide literal compared only up to its first NUL: L"()" passed for the original's L"()[]{}=;" (native13 stop 34)
+    "0x003388d0_literal": ("ok", None),
+    "0x003388d0_literal_wrong": ("bad", "string_mismatch"),
 }
 
 # cases that must also complete this many inputs (the promotion bar is 50)
@@ -533,6 +548,14 @@ def main():
             bad += not ok
             print("%-4s %-32s %-12s %3.0f%% %s" % ("ok" if ok else "FAIL", name, status, 100 * ratio,
                                                  "" if ok else (diffs[:2] or "")))
+    import verify_relocs
+    for name in [n for n in RELOC_CASES if not a.only or a.only in n]:
+        want, kind = RELOC_CASES[name]
+        r = verify_relocs.check(os.path.join(CASES_DIR, name + ".cpp"), int(name.split("_")[0], 16))
+        ok = r["status"] == want and (kind is None or any(i[0] == kind for i in r["issues"]))
+        bad += not ok
+        names.append(name)
+        print("%-4s %-32s %-12s %s" % ("ok" if ok else "FAIL", name, r["status"], "" if ok else r.get("issues")))
     print("%d/%d cases ok" % (len(names) - bad, len(names)))
     return 1 if bad else 0
 

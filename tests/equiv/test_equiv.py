@@ -55,6 +55,18 @@ class Logic(unittest.TestCase):
             ci = next(md.disasm(code, 0))
             self.assertNotIn("edx", equiv.Program._regs_rw(prog, ci)[0])
 
+    def test_reg_writes_fixpoint(self):
+        # (cl4, rwfix) register writes of self- and mutually recursive functions are a least fixpoint
+        prog = equiv.Program.__new__(equiv.Program)
+        prog.is_code = lambda a: True
+        prog.funcs = {a: (1, "f") for a in (1, 2, 3, 4)}
+        # 1 calls itself and writes eax; 2 and 3 call each other (3 writes edx); 4 calls 2 and an unknown callee
+        prog._rw_loc = {1: ({"eax"}, [1]), 2: (set(), [3]), 3: ({"edx"}, [2]), 4: (set(), [2, None])}
+        self.assertEqual(prog.reg_writes(1), {"eax"})
+        self.assertEqual(prog.reg_writes(2), {"edx"})
+        self.assertEqual(prog.reg_writes(3), {"edx"})
+        self.assertEqual(prog.reg_writes(4), {"eax", "ecx", "edx"})
+
     def test_mutants(self):
         src = "struct S { int a; int b; };\nint f(S* s, int x) {\n    g(x);\n    if (s->a < x)\n        return s->b - x;\n    return 3;\n}\n"
         m = mutate.mutants(src, None)
@@ -101,6 +113,14 @@ class Logic(unittest.TestCase):
         rep = {"status": "fail", "symbol": "?f@@YAXXZ", "target": "FUN_00010000", "addr": "0x00010000", "level": 2,
                "failed_levels": [3], "time": 0}
         self.assertIn("fails level 3 (passes level 2)", equiv.render(rep).splitlines()[0])
+
+
+@unittest.skipUnless(HAVE_GAME, "needs isos/extracted and the MSVC toolchain")
+class RegWrites(unittest.TestCase):
+    def test_recursive_callees(self):
+        prog = equiv.Program.get()
+        self.assertEqual(prog.reg_writes(0x30ecb0), {"eax", "ecx"})         # calls itself; never writes edx
+        self.assertIn("edx", prog.reg_writes(0x1b170))                        # self-recursive and writes edx
 
 
 @unittest.skipUnless(HAVE_GAME, "needs isos/extracted and the MSVC toolchain")
