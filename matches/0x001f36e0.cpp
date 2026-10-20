@@ -1,5 +1,3 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
-// FUN_001f36e0 @ 0x001f36e0
 struct ThisCall_0027af60 {
     void FUN_0027af60(int, int);
 };
@@ -16,7 +14,8 @@ struct Object {
 void Object::FUN_001f36e0() {
     ((ThisCall_0027af60*)(this))->FUN_0027af60(0, 0);
     field8 = 0;
-    fieldC = FUN_002673a0(0, 0);
+    int* p = &fieldC;
+    *p = FUN_002673a0(0, 0);
     field10 = 999;
     field14 = 0;
     field18 = 0;
