@@ -753,6 +753,9 @@ Captures live in `build/traces/SESSION/trace.sqlite`. They hold game memory, so 
 
 Both write the same `trace.sqlite`, and `equiv_replay.py` reads either.
 
+Play3 sharded over two hosts (2026-10-20): 1,368 more functions reached tier 3, 6 disagreements, and 1,700 targets that
+play3 never runs. See [tasks/record-replay.md](tasks/record-replay.md), "Trace sessions of play3 on two hosts".
+
 **Capture.**
 - The game is the original XBE plus only the test hooks: fixed frame time, constant seed, `skip-intro`,
   `no-fmv`.

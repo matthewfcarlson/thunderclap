@@ -405,3 +405,89 @@ reproduces; re-record those if they diverge.
   resume to 51,600 took about 10 min against 6 without.
 - **The timeouts.** The 2 in s4 and s5 (a drive still busy after 2 s, probably in a load) didn't cost a checkpoint.
   A drive that never goes idle would make every post wait 2 s.
+
+## Trace sessions of play3 on two hosts (2026-10-20)
+
+Every `equivalent/` function below tier 3 in `build/equiv-confidence.json` (4,072 of 5,228 at HEAD 95cc2154) was armed in
+`trace_gate.py` runs over play3, sharded **by time** across mac1 (M1 Max) and mac2 (M3 Max), then replayed.
+
+| Segment | From | To (`--until-polls`) | Frames | Host |
+|---|---|---|---|---|
+| A | boot | s3 (1158542) | 0–20.9k | mac2 |
+| B | `--from-snapshot 3` | s6 (1209924) | 20.5k–37.3k | mac2 |
+| C | `--from-snapshot 6` | stopped by hand | 37.3k–41.3k | mac1 |
+| C2 | `--from-snapshot 7` | s9 (1222003) | 40.9k–48.4k | mac2 |
+| D | `--from-snapshot 9` | stopped by hand | 48.2k–52.0k | mac1 |
+| D2 | `--from-snapshot 10` | end | 52.3k–56.6k | mac2 |
+
+All six used `--only` (the target list), `--burst 3 --per-func 10`. The checkpoints matched the recording the whole way
+(for example 243 of 243 in A at frame 7,267), so every segment stayed on the recorded path. The segments merge with
+`trace_gate.py --merge` (23,783 calls, 1,768 functions with a good capture).
+
+Notes from running it:
+- A segment is slow where first calls bunch up (boot: 435 frames in the first 160 s; one 126,000-stop capture took 190 s)
+  and fast elsewhere (D2: 4,300 frames in 470 s on mac2). mac1 stalled for minutes at a time with two instances running
+  (single captures of 500 s and more); one instance per host was steadier.
+- **A function that runs only at start-up is lost when its caller is armed too.** `gates_skipped` counts a gate hit that
+  is deeper than `MAX_DEPTH` (3) or on another stack: the call runs uncaptured and the function is parked, but a
+  start-up function never runs again. 604 targets were reached but not captured after the first pass, 566 of them at
+  poll 0 (CRT and static initialisers). A second pass of **24 disjoint shards** (`--shard K/24`, `--until-polls 30`, about
+  1 min each, 3 xemu at a time on mac2) captured 515 of the 543 start-up functions and cut reached-not-captured from 604
+  to 47. Use `--shard` on any boot-time target set.
+- `--jobs` in `equiv_replay.py` is capped at 3 (`Pool(min(jobs, 3))`), and on mac2's Python 3.9 that fork pool hung with
+  idle workers. The replays ran as 6–14 separate `equiv_replay.py --only A,B,C --jobs 1 --out FILE` processes and the
+  result files were concatenated into `SESSION/replay-equivalent.json` (the format `equiv_confidence.py` reads).
+- A background job started over ssh ignores SIGINT; stop a `trace_gate.py` with SIGTERM. The sqlite file keeps what was
+  committed (WAL), so a partial session still merges, but it has no `session.json` and no census.
+
+### Result
+
+| | before | after |
+|---|---|---|
+| tier 3 (replay verified, 3 or more calls agreed) | 1,156 | 2,646 |
+| tier 2 (replay agreed on fewer than 3) | 1,114 | 640 |
+| tier 1 (fuzz only) | 2,952 | 1,932 |
+| tier 0 (mismatch or excluded) | 6 | 9 (see below) |
+
+The 4,072 targets: 2,120 agreed on at least one call, 6 mismatched, 164 `unsupported` and 35 `no_replay` (the replayer
+can't run them; see the replay summaries), 47 reached but not captured (capture failed: frame differs, other path,
+timeout), **1,700 never ran in play3**. Those 1,700 are the real gap: nothing short of new gameplay (other levels,
+modes, menus) reaches them. `build/traces/capture-wanted.txt` is the older list of the same kind.
+
+Disagreements at HEAD (not fixed here; `equivalent/` was not edited):
+
+| Function | Calls | What differs |
+|---|---|---|
+| 0x0001b280 | 0 of 10 | the original makes a call to the 6-byte thunk at 0x002fb600 as its call #2 and ours makes one call fewer, on all ten recorded calls. Fuzzing passed 3,007 inputs, so the path is one the fuzzer's callee stubs don't reach |
+| 0x000aa680 | 6 of 7 | write to `this+0x28c` before call #19: ours 0x3e18f7f6 (0.149), original 0x4059d51b (3.40), 12 bytes differ (a key table entry) |
+| 0x0015f6b0 | 0 of 7 | the local passed as argument 2 of 0x0022b170 is 0x5a5a5a5a in ours and 1.0f in the original: an uninitialised local |
+| 0x000ef030 | 4 of 10 | call #5 to 0x000f7d30 declared with 0 stack bytes; it takes 4 (`ret 4`): chained-call words on the wrong call |
+| 0x0024d840 | 0 of 6 | call #4 to 0x0025fb00, same: takes 4 stack bytes, declared 0 |
+| 0x0028faa0 | 0 of 10 | call #2 to 0x0022ca90, same: takes 8, declared 4 |
+
+The last three had uncommitted edits in the working tree while this ran (another agent), so the committed versions are what
+disagree; replay them again after that lands. 0x000f6530 and 0x002a4b00 were already tier 0 from earlier sessions.
+
+Where the results live: `tr1` (merged A–D2), `tr1-E` (a boot-only pass, 39 functions), `tr1-F` (the 24 start-up
+shards, merged), `tr1-G` (the 61 later one-shot targets, boot to s3) under `build/traces/`, each with
+`replay-equivalent.json`. `equiv_confidence.py` reads them like any session. The `// STATUS:` line in `equivalent/` stays
+the fuzz result: nothing in this repo writes trace results into the headers; the tier file carries them.
+
+### A second host for xemu (mac2)
+
+Set up like mac1, in `~/hulk-tr1`, without touching the existing `~/hulk-permute` there:
+1. `/Applications/xemu.app` copied from mac1 (same binary, sha256 28887fa5...); no xemu config is copied or read from
+   the user's own xemu directory (`hybrid_run.write_config` starts from an empty one).
+2. `build/xemu/Xbox-Emulator-Files/{bios,mcpx,hdd}` copied from the laptop; the base HDD is `chmod a-w` and its sha256
+   was checked (38dcb8f1...). `build/hybrid/{eeprom.bin,hulk-hybrid.iso,.json}` copied too (one `eeprom-N.bin` per
+   `HULK_XEMU_INSTANCE`).
+3. The repo at `git archive HEAD`, with `compilers`, `functions.csv`, `rtti.json`, `isos` linked from the existing
+   checkout there.
+4. `play3.json`, `play3.rec.json`, `play3.rec.xbe`, `play3.disk.qcow2` copied. **The overlay's backing path is absolute**:
+   `rebase.py`-style, rewrite the backing file name in the copy's header (offset and length are at bytes 8 and 16 of the
+   header) to this host's base HDD path before use. The overlay itself is only ever resumed on throwaway clones.
+5. The system Python there is 3.9, which has no `tomllib`: a separate venv with `unicorn==2.1.4 capstone==5.0.9 tomli` and
+   a one-line `tomllib.py` (`from tomli import *`) in its site-packages.
+
+xemu opens its window in the logged-in GUI session, so runs started over ssh work while someone is logged in at the
+console. Every run is `-snapshot` or on a clone of the overlay; nothing wrote to the base HDD.
