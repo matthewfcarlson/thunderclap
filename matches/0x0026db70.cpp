@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_26db70;
 extern "C" void* __stdcall ConvertThreadToFiber(void*);
 struct Obj_26db70 {
@@ -16,7 +17,7 @@ struct Obj_26db70 {
 };
 extern "C" int __stdcall FUN_0026db70(Obj_26db70* p) {
     p->field20 = 0;
-    p->field1c = (u32_26db70)ConvertThreadToFiber(0);
+    p->field1c = (hulk_uintptr)ConvertThreadToFiber(0);
     p->result = p->fn(p->arg);
     p->field38 = 0;
     p->field28 = 0;

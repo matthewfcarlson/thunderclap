@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" char DAT_00423318[];
@@ -22,13 +23,13 @@ class Target_1dfae0 : public Base_1dfae0 {
     Target_1dfae0(const char*, int);
 };
 Target_1dfae0::Target_1dfae0(const char* p, int n) : Base_1dfae0(p, 6) {
-    *(int*)this = ((int)DAT_00423318);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00423318);
     m1c = n;
-    m18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e100)));
-    m10 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0f0)));
-    m11 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0f0)));
-    m12 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e134)));
-    m13 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0f0)));
-    m14 = FUN_001d04d0((const char*)((int)DAT_0048e10c));
-    m15 = FUN_001d04d0((const char*)((int)DAT_0048e10c));
+    m18 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
+    m10 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    m11 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    m12 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
+    m13 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    m14 = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
+    m15 = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Ref_264470 {
   public:
     virtual void f0();
@@ -22,7 +23,7 @@ struct ThisCall_002640f0 {
 void Free(void*);
 void Destroy(LoadStream*);
 LoadStream* LoadStream::f2(unsigned char flag) {
-    *(int*)this = (int)&streamvt_264470;
+    *(hulk_intptr*)this = (hulk_intptr)&streamvt_264470;
     ((ThisCall_002640f0*)(this))->Init();
     if (mRef)
         mRef->f1();
@@ -30,7 +31,7 @@ LoadStream* LoadStream::f2(unsigned char flag) {
         Free(a);
     if (b)
         Free(b);
-    *(int*)this = (int)&refvt;
+    *(hulk_intptr*)this = (hulk_intptr)&refvt;
     if (flag & 1)
         Destroy(this);
     return this;

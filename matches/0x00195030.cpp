@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_195030 {
   public:
     void init27();
@@ -16,7 +17,7 @@ class FireBeamTrack {
 void destroy(FireBeamTrack*);
 extern int fireVtable;
 FireBeamTrack* FireBeamTrack::vfunc_5(unsigned char flag) {
-    vptr = (int)&fireVtable;
+    vptr = (hulk_intptr)&fireVtable;
     ((Obj_195030*)((char*)this + 0xc0))->init27();
     ((Obj_195030*)((char*)this + 0xb0))->init23();
     ((Obj_195030*)((char*)this + 0x84))->init23();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0041d44c[];
@@ -24,7 +25,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::scenario::Event_Cha
     Condition_1ac930* p = (Condition_1ac930*)Allocate(0x20);
     if (p) {
         ((Initializer_1ac930*)p)->Init(0);
-        p->vf = ((int)DAT_0041d44c);
+        p->vf = ((hulk_intptr)DAT_0041d44c);
         p->x = 2;
         p->y = 0;
         ((OffsetInitializer*)((char*)p + 0x18))->Init();

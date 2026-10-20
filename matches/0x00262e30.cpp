@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 extern "C" char DAT_0042adc0[];
@@ -39,7 +40,7 @@ class HalRadicalAdpcmDecodeStream : public HalStream {
 } // namespace audio
 extern void __cdecl FUN_00247550(void*, audio::HalRadicalAdpcmDecodeStream*);
 audio::HalRadicalAdpcmDecodeStream* audio::HalRadicalAdpcmDecodeStream::vfunc_13(u8_262e30 p) {
-    *(void**)this = (void*)((int)DAT_0042adc0);
+    *(void**)this = (void*)((hulk_intptr)DAT_0042adc0);
     ((audio::HalStream*)*(void**)((char*)this + 4))->f12();
     if (p & 1)
         FUN_00247550(DAT_004e7b08, this);

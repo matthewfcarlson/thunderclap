@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class RenderThing_1b7790 {
   public:
     virtual void f0();
@@ -16,9 +17,9 @@ class CRadMovieRenderLoop {
 };
 extern void destroy(CRadMovieRenderLoop*);
 CRadMovieRenderLoop* CRadMovieRenderLoop::vfunc_2(unsigned char flags) {
-    *(int*)this = (int)&rad_vtable;
+    *(hulk_intptr*)this = (hulk_intptr)&rad_vtable;
     member->f1();
-    *(int*)this = (int)&ref_vtable;
+    *(hulk_intptr*)this = (hulk_intptr)&ref_vtable;
     if (flags & 1)
         destroy(this);
     return this;

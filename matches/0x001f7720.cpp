@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" char DAT_00424d4c[];
 class Base_1f7720 {
@@ -18,7 +19,7 @@ class Obj_1f7720 : public Base_1f7720 {
     int m1c;
 };
 Obj_1f7720::Obj_1f7720(int a, int b) : Base_1f7720(a, 3) {
-    *(int*)this = ((int)DAT_00424d4c);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00424d4c);
     m1c = b;
     m18 = FUN_001d04d0(sA);
     m10 = FUN_001d04d0(sB);

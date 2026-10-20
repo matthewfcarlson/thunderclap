@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Part_235300 {
   public:
     void Init();
@@ -12,7 +13,7 @@ namespace fight { class ParamValueBool {
 extern int base_vtable;
 extern "C" void __cdecl thunk_FUN_00267090(fight::ParamValueBool*);
 fight::ParamValueBool* fight::ParamValueBool::vfunc_0(int flag) {
-    vt = (int)&base_vtable;
+    vt = (hulk_intptr)&base_vtable;
     part.Init();
     if (flag & 1)
         thunk_FUN_00267090(this);

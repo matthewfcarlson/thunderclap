@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class CProjectile {
   public:
     int a;
@@ -11,7 +12,7 @@ class CProjectile {
 extern int projectile_vftable;
 CProjectile::CProjectile() {
     b = 0;
-    *(int*)this = (int)&projectile_vftable;
+    *(hulk_intptr*)this = (hulk_intptr)&projectile_vftable;
     c = -1;
     d = 0;
     e = 0;

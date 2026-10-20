@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 class SeqAction_252840 {
@@ -13,6 +14,6 @@ class SeqAction_252840 {
 
 void audio::SeqActionVarVolume::vfunc_1(void* __p0) { void * p = (void *)__p0;
 
-    *(int*)((char*)*(int*)((char*)p + 4) + 0x18) = this->f_08 + 8;
+    *(int*)((char*)*(hulk_intptr*)((char*)p + 4) + 0x18) = this->f_08 + 8;
     this->f_0c = 0;
 }

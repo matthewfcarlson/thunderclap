@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Item {
   public:
     int Find();
@@ -9,7 +10,7 @@ class Obj {
 };
 unsigned char Obj::Run(int a, int b) {
     unsigned char result = 0;
-    int n = ((Item*)a)->Find();
+    hulk_intptr n = ((Item*)a)->Find();
     if (n >= 0)
         result = Go((Item*)n, b);
     return result;

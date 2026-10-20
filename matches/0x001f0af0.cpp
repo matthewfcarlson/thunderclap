@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -19,11 +20,11 @@ struct Target_1f0af0 : Base_1f0af0 {
 };
 Target_1f0af0* Target_1f0af0::Run(void* a, void* b) {
     Init(a, 3);
-    vt = ((int)DAT_004246cc);
+    vt = ((hulk_intptr)DAT_004246cc);
     m1c = b;
-    m18 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e100)));
-    m10 = FUN_001d04d0((void*)((int)((char*)&DAT_0049cad8)));
-    m11 = FUN_001d04d0((void*)((int)((char*)&DAT_0049cad8)));
-    m12 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e128)));
+    m18 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e100)));
+    m10 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0049cad8)));
+    m11 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0049cad8)));
+    m12 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
     return this;
 }

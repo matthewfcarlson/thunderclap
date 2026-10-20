@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class CSubtitleManager_1bf5f0 {
@@ -17,7 +18,7 @@ class Function_1bf5f0 {
     virtual void V1();
 };
 
-template <> void Method2<CSubtitleManager, void, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { int manager = (int)__p0; int * pair = (int *)__p1; int a = (int)__p2;
+template <> void Method2<CSubtitleManager, void, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr manager = (hulk_intptr)__p0; int * pair = (int *)__p1; hulk_intptr a = (hulk_intptr)__p2;
 
     int x = pair[0];
     int y = pair[1];

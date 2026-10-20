@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Ref_23e610 {
   public:
     virtual void Add();
@@ -19,7 +20,7 @@ class StopAction : public Parent_23e610 {
 };
 StopAction::StopAction(Ref_23e610* a, int b, int c, Ref_23e610* d) {
     Init();
-    *(int*)this = (int)&StopVtable;
+    *(hulk_intptr*)this = (hulk_intptr)&StopVtable;
     mArg = c;
     mOther = 0;
     mRef = a;

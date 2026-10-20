@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class C_2393f0 {
   public:
     char pad[0x24];
@@ -5,5 +6,5 @@ class C_2393f0 {
 };
 
 char* C_2393f0::Get() {
-    return (char*)((int)this + 0x24);
+    return (char*)((hulk_intptr)this + 0x24);
 }

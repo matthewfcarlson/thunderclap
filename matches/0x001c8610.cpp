@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_00421abc[];
 extern "C" void _ReadWriteBarrier();
@@ -13,12 +14,12 @@ struct Obj_1c8610 {
     void F();
 };
 void Obj_1c8610::F() {
-    *(void**)this = (void*)((int)DAT_00421abc);
+    *(void**)this = (void*)((hulk_intptr)DAT_00421abc);
     _ReadWriteBarrier();
     Ref_1c8610* r = mRef;
     if (r) {
         r->Release();
         mRef = 0;
     }
-    *(void**)this = (void*)((int)DAT_003f6098);
+    *(void**)this = (void*)((hulk_intptr)DAT_003f6098);
 }

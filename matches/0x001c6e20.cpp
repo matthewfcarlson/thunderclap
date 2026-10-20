@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_1c6e20;
 struct Sub_1c6e20 {
     void clean();
@@ -13,6 +14,6 @@ void __fastcall target(Container_1c6e20* self) {
         char* e = self->end;
         for (; p != e; p += 0xa8)
             ((Sub_1c6e20*)(p + 4))->clean();
-        finish((u32_1c6e20)self->begin);
+        finish((hulk_uintptr)self->begin);
     }
 }

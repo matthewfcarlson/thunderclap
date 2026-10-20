@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 typedef unsigned int u32_24e6f0;
@@ -21,7 +22,7 @@ void* audio::SeqEventNestTrackType::vfunc_3() {
     NestTrack_24e6f0* p = (NestTrack_24e6f0*)Acquire(&gPool_24e6f0);
     if (p) {
         p->init();
-        p->vf = (u32_24e6f0)&gVtable_24e6f0;
+        p->vf = (hulk_uintptr)&gVtable_24e6f0;
         p->name.set(gName_24e6f0, 2);
         return (void*)(p);
     }

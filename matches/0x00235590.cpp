@@ -1,4 +1,5 @@
 // Same code shape as 0x00235300 (propagated; names are from that function)
+#include "compat/ptr.h"
 class Part_235590 {
   public:
     void Init();
@@ -13,7 +14,7 @@ class ParamValueVector_235590 {
 extern int base_vtable;
 extern "C" void __cdecl thunk_FUN_00267090(ParamValueVector_235590*);
 ParamValueVector_235590* ParamValueVector_235590::vfunc_0(int flag) {
-    vt = (int)&base_vtable;
+    vt = (hulk_intptr)&base_vtable;
     part.Init();
     if (flag & 1)
         thunk_FUN_00267090(this);

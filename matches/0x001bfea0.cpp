@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" char hulk_at_0048e100[];
 extern "C" char hulk_at_0048e134[];
@@ -31,8 +32,8 @@ class Closure1 : public Closure1_1bfea0 {
 };
 Closure1_1bfea0::Closure1_1bfea0(void* p, CSubtitleManager* o) : Base(p) {
     owner = o;
-    b = FUN_001d04d0((const char*)((int)hulk_at_0048e100));
-    a = FUN_001d04d0((const char*)((int)hulk_at_0048e134));
+    b = FUN_001d04d0((const char*)((hulk_intptr)hulk_at_0048e100));
+    a = FUN_001d04d0((const char*)((hulk_intptr)hulk_at_0048e134));
 }
 Closure1::Closure1(void* p, void* f, CSubtitleManager* o) : Closure1_1bfea0(p, o) {
     fn = f;

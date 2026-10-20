@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int U_2670b0;
 struct Obj_2670b0 {
     virtual void F();
@@ -25,5 +26,5 @@ void FUN_002670b0(int a, int b, Obj_2670b0* obj) {
     dest->next = list;
     dest->field4 = 0;
     dest->field8 = list->field4;
-    list->field4 = (U_2670b0)dest;
+    list->field4 = (hulk_uintptr)dest;
 }

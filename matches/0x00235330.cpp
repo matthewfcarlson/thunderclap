@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004279fc[];
 class Inner_235330 {
   public:
@@ -22,7 +23,7 @@ class ParamValueInt : public ParamValue {
 extern void Cleanup(ParamValueInt*);
 ParamValueInt* ParamValueInt::f0(int flags) {
     int* q = (int*)this;
-    *q = ((int)DAT_004279fc);
+    *q = ((hulk_intptr)DAT_004279fc);
     inner.Init();
     if (flags & 1)
         Cleanup(this);

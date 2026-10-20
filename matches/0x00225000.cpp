@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00427368[];
 struct Inner_225000 {
     virtual void A();
@@ -12,7 +13,7 @@ struct AnimationDriver {
     void Tail();
 };
 void AnimationDriver::F() {
-    *(int*)this = ((int)DAT_00427368);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00427368);
     mInner->B();
     --gCount_225000;
     Tail();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/om.h"
 
 extern "C" char DAT_0042918c[];
@@ -24,11 +25,11 @@ class Clip : public Entity {
 void ReleaseHandle(int);
 void RegisterClip(void*, Clip*);
 Clip* Clip::vfunc_2(int flag) {
-    *(int*)this = ((int)DAT_0042918c);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_0042918c);
     if (mHandle)
         ReleaseHandle(mHandle);
     cleanup();
     if (flag & 1)
-        RegisterClip((void*)((int)DAT_004e5f18), this);
+        RegisterClip((void*)((hulk_intptr)DAT_004e5f18), this);
     return this;
 }

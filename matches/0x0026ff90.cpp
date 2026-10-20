@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042af64[];
 extern "C" char DAT_0042b5ac[];
@@ -24,8 +25,8 @@ class Pool_26ff90 {
 };
 void Pool_26ff90::Destroy() {
     Ref_26ff90* p = field30;
-    *(int*)this = ((int)DAT_0042b5b4);
-    *((int*)this + 1) = ((int)DAT_0042b5ac);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_0042b5b4);
+    *((int*)this + 1) = ((hulk_intptr)DAT_0042b5ac);
     if (p) {
         p->A();
         field30 = 0;
@@ -34,6 +35,6 @@ void Pool_26ff90::Destroy() {
         Cleanup(field14, field18);
     field18 = 0;
     g_value_26ff90 = field8;
-    *((int*)this + 1) = ((int)DAT_0042af64);
-    *(int*)this = ((int)DAT_003f6098);
+    *((int*)this + 1) = ((hulk_intptr)DAT_0042af64);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_003f6098);
 }

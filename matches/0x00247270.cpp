@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void __cdecl FUN_00246ab0();
 extern "C" void __cdecl FUN_00246b00();
 extern "C" void __cdecl FUN_00246b50();
@@ -28,7 +29,7 @@ MemoryStream::MemoryStream(int a, int b, unsigned char c) {
     p4 = FUN_00246b70;
     p5 = FUN_00246b90;
     b18 = 0;
-    vp = ((int)DAT_00429224);
+    vp = ((hulk_intptr)DAT_00429224);
     x2 = a;
     x3 = a;
     flag = c;

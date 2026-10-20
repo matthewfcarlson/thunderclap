@@ -1,4 +1,5 @@
 // FUN_001faa80 @ 0x001faa80
+#include "compat/ptr.h"
 class MyBufferStream {
 public:
     virtual void v0();
@@ -31,7 +32,7 @@ bool Loader_1faa80::FUN_001faa80(int a, int b) {
     MyBufferStream stream(a, b);
     StreamLoader loader;
     loader.FUN_00337870();
-    if (loader.FUN_00337a30(&stream, "buffer", (int)res, this, 0)) {
+    if (loader.FUN_00337a30(&stream, "buffer", (hulk_intptr)res, this, 0)) {
         loader.FUN_00337890();
         return true;
     }

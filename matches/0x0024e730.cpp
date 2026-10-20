@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 class SeqEvent {
@@ -25,6 +26,6 @@ SeqEventNestTrack* SeqEventNestTrack::f4(unsigned int param) {
     ((H*)((char*)this + 8))->a();
     ((H*)this)->b();
     if (param & 1)
-        FUN_00247550((void*)((int)DAT_004e6698), this);
+        FUN_00247550((void*)((hulk_intptr)DAT_004e6698), this);
     return this;
 }

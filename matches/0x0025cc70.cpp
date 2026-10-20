@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 extern "C" char DAT_0042a850[];
@@ -13,9 +14,9 @@ class OmHalStream {
     OmHalStream* Init(unsigned char flag);
 };
 OmHalStream* OmHalStream::Init(unsigned char flag) {
-    vf = ((int)DAT_0042a850);
+    vf = ((hulk_intptr)DAT_0042a850);
     inner.Setup();
     if (flag & 1)
-        Register((void*)((int)DAT_004e7808), this);
+        Register((void*)((hulk_intptr)DAT_004e7808), this);
     return this;
 }

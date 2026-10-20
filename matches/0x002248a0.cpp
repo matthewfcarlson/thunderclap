@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004272f0[];
 extern int gCount_2248a0;
 extern int gMax_2248a0;
@@ -20,7 +21,7 @@ class JointDriver {
 };
 JointDriver* JointDriver::Init() {
     ((Base_2248a0*)this)->Init();
-    this->vptr = (int*)((int)DAT_004272f0);
+    this->vptr = (int*)((hulk_intptr)DAT_004272f0);
     mValue = 0;
     mState = 3;
     ((Part_2248a0*)((char*)this + 0x18))->Init();

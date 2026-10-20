@@ -1,4 +1,5 @@
 // fight::Bank::vfunc_8 @ 0x0023c670
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 struct Node_23c670 {
@@ -43,7 +44,7 @@ unsigned int fight::Bank::vfunc_8(unsigned int __p0, unsigned int __p1) { void *
         if (!hit)
             continue;
         if (!(w > 0.0f))
-            return (unsigned int)(hit);
+            return (hulk_uintptr)(hit);
         sum = w + sum;
     }
     if (sum <= 0.0f)
@@ -67,7 +68,7 @@ unsigned int fight::Bank::vfunc_8(unsigned int __p0, unsigned int __p1) { void *
             continue;
         acc = w + acc;
         if (target <= acc)
-            return (unsigned int)(hit);
+            return (hulk_uintptr)(hit);
     }
     return (unsigned int)(0);
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vderived;
 class ParamValue {
   public:
@@ -16,5 +17,5 @@ class ParamValueVector : public ParamValue {
     virtual void G();
 };
 ParamValueVector::ParamValueVector(int x) : part(x) {
-    *((int*)this) = (int)&vderived;
+    *((hulk_intptr*)this) = (hulk_intptr)&vderived;
 }

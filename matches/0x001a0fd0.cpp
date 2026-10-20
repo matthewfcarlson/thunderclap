@@ -1,4 +1,5 @@
 // cl-flags: /O2 /GR /GX
+#include "compat/ptr.h"
 extern "C" char DAT_0041b318[];
 
 namespace hulkfight {
@@ -48,7 +49,7 @@ fight::TrackFactoryTemplate<hulkfight::motion::AccuracyLatencyTrack>::vfunc_5() 
         (hulkfight::motion::AccuracyLatencyTrack*)Allocator(0x1c);
     if (track) {
         track->Init();
-        *(int*)track = ((int)DAT_0041b318);
+        *(hulk_intptr*)track = ((hulk_intptr)DAT_0041b318);
         track->field_c = 0;
         track->field_10 = -1.0f;
         track->field_14 = 0;

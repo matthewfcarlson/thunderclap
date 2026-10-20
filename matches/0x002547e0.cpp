@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 extern "C" char DAT_0042a30c[];
@@ -16,7 +17,7 @@ void* audio::SeqEventSilenceType::vfunc_3() {
     SeqEventSilence_2547e0* p = (SeqEventSilence_2547e0*)allocObj(&gPool_2547e0);
     if (p) {
         p->initialize();
-        p->vptr = ((int)DAT_0042a30c);
+        p->vptr = ((hulk_intptr)DAT_0042a30c);
         p->duration = 500;
         p->end = 1000;
         return (void*)(p);

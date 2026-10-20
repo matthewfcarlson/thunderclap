@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned char u8;
@@ -23,7 +24,7 @@ template <> void* fight::ConditionFactoryTemplate<fight::PlatformCondition>::vfu
         p->flags[1] = 1;
         p->flags[2] = 1;
         p->flags[3] = 1;
-        *(u32_23ce70*)p = (u32_23ce70)&PlatformVtable;
+        *(hulk_uintptr*)p = (hulk_uintptr)&PlatformVtable;
         return (void*)(p);
     }
     return (void*)(0);

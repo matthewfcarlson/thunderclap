@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" float DAT_004c7df8;
 static const float gScale_1f39d0 = 0.01f;
 extern void __cdecl Apply(int, float);
@@ -21,7 +22,7 @@ void Obj_1f39d0::Update(float x) {
         if (count > 0) {
             int* p = (int*)((char*)this + 8);
             do {
-                int v = *p;
+                hulk_intptr v = *p;
                 if (v != at8c && v != skip) {
                     int q = *(int*)(v + 4);
                     if (q)

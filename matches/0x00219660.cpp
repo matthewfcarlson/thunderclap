@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct G_219660 {
     char p[0x14];
     unsigned flags;
@@ -21,7 +22,7 @@ void F2(S_219660*, N_219660*, int, int);
 void FUN(S_219660* s, unsigned lim) {
     G_219660* g = s->g;
     N_219660* n = s->head;
-    while (n && (unsigned)n->d >= lim) {
+    while (n && (hulk_uintptr)n->d >= lim) {
         s->head = n->next;
         if (n->b & (g->flags ^ 3)) {
             F2(s, n, 0x14, 0);

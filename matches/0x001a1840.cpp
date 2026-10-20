@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned char u8_1a1840;
 extern int LuaTrack_vftable;
 struct LuaTrack {
@@ -19,7 +20,7 @@ struct LuaTrack {
 void ReleaseA(void* p);
 void ReleaseB(void* p);
 LuaTrack* LuaTrack::vfunc_5(u8_1a1840 param) {
-    *(int*)this = (int)&LuaTrack_vftable;
+    *(hulk_intptr*)this = (hulk_intptr)&LuaTrack_vftable;
     ReleaseA((void*)m14);
     helper();
     if (param & 1)

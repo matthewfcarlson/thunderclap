@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_262090;
 extern int vtable_262090;
 struct Sub_262090 {
@@ -16,7 +17,7 @@ struct Obj_262090 {
     unsigned char c[4];
 };
 Obj_262090* __fastcall FUN_00262090(Obj_262090* p) {
-    p->vt = (u32_262090)&vtable_262090;
+    p->vt = (hulk_uintptr)&vtable_262090;
     p->s.init();
     p->a = makeobj("MySeqTrack", 0);
     p->b = makeobj((const char*)&zeroData, 0);

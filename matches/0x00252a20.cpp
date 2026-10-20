@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 extern "C" char DAT_004298fc[];
@@ -17,8 +18,8 @@ class SeqActionVarVolume : public SeqAction {
     SeqActionVarVolume* vfunc_0(int);
 };
 SeqActionVarVolume* SeqActionVarVolume::vfunc_0(int x) {
-    *(unsigned long*)this = ((int)DAT_004298fc);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_004298fc);
     if (x & 1)
-        FUN_00247550((void*)((int)DAT_004e6e90), this);
+        FUN_00247550((void*)((hulk_intptr)DAT_004e6e90), this);
     return this;
 }

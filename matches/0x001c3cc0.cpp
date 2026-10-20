@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Inner_1c3cc0 {
     void Do(int, int, int, int, int);
 };
@@ -14,6 +15,6 @@ class X_1c3cc0 {
     void f();
 };
 void X_1c3cc0::f() {
-    ((Inner_1c3cc0*)*(int*)this)->Do((int)((char*)this + 0x1c), a, b, c, d);
+    ((Inner_1c3cc0*)*(hulk_intptr*)this)->Do((hulk_intptr)((char*)this + 0x1c), a, b, c, d);
     done = 1;
 }

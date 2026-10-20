@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" void* __cdecl alloc(unsigned int);
@@ -17,7 +18,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropAddToMissil
     Prop_18c310* p = (Prop_18c310*)alloc(0x18);
     if (p) {
         p->Init();
-        p->vptr = (int)&vtable_18c310;
+        p->vptr = (hulk_intptr)&vtable_18c310;
         p->a = 0;
         p->b = 0;
         p->c = 0;

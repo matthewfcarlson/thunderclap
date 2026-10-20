@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 
 extern "C" char DAT_003f6098[];
@@ -17,14 +18,14 @@ class ConsoleClient {
     ConsoleClient* vfunc_2(unsigned char);
 };
 ConsoleClient* ConsoleClient::vfunc_2(unsigned char flag) {
-    *(u32_26ea50*)this = ((int)DAT_0042b47c);
-    *(u32_26ea50*)((char*)this + 4) = ((int)DAT_0042b474);
+    *(hulk_uintptr*)this = ((hulk_intptr)DAT_0042b47c);
+    *(hulk_uintptr*)((char*)this + 4) = ((hulk_intptr)DAT_0042b474);
     init_console((void*)(this));
-    *(u32_26ea50*)((int)((char*)&DAT_004cdbb0)) = field8;
-    *(u32_26ea50*)((char*)this + 4) = ((int)DAT_0042af64);
-    *(u32_26ea50*)((int)DAT_005283b0) = 0;
-    *(u32_26ea50*)this = ((int)DAT_003f6098);
+    *(u32_26ea50*)((hulk_intptr)((char*)&DAT_004cdbb0)) = field8;
+    *(hulk_uintptr*)((char*)this + 4) = ((hulk_intptr)DAT_0042af64);
+    *(u32_26ea50*)((hulk_intptr)DAT_005283b0) = 0;
+    *(hulk_uintptr*)this = ((hulk_intptr)DAT_003f6098);
     if (flag & 1)
-        cleanup_console(*(u32_26ea50*)((int)((char*)&DAT_004cdbb0)), this);
+        cleanup_console(*(u32_26ea50*)((hulk_intptr)((char*)&DAT_004cdbb0)), this);
     return this;
 }

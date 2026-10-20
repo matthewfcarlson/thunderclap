@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 extern "C" char DAT_004298fc[];
@@ -12,8 +13,8 @@ class SeqActionVarPitchRand : public SeqAction {
 };
 SeqActionVarPitchRand* SeqActionVarPitchRand::vfunc_0(int flag) {
     SeqActionVarPitchRand* self = this;
-    self->mVptr = ((int)DAT_004298fc);
+    self->mVptr = ((hulk_intptr)DAT_004298fc);
     if (flag & 1)
-        Register((void*)((int)DAT_004e70a0), self);
+        Register((void*)((hulk_intptr)DAT_004e70a0), self);
     return self;
 }

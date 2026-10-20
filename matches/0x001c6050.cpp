@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00421990[];
 struct Item_1c6050 {
     char pad[0x23];
@@ -26,14 +27,14 @@ struct Owner_1c6050 {
     Owner_1c6050* Target(int arg1, int arg2);
 };
 Owner_1c6050* Owner_1c6050::Target(int arg1, int arg2) {
-    vf = (void*)((int)DAT_00421990);
+    vf = (void*)((hulk_intptr)DAT_00421990);
     s.Init();
     s.Set(arg1);
     Make2()->Poke(arg1, arg2);
     Obj_1c6050* p = Make0();
     Holder_1c6050* h = p->h;
     Item_1c6050* it = h->Find(arg1);
-    b = (int)it;
+    b = (hulk_intptr)it;
     it->flag = 1;
     return this;
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042ae9c[];
 class Obj_2641e0 {
@@ -18,7 +19,7 @@ class LoadStream {
 };
 void Cleanup(void*);
 void LoadStream::Destroy() {
-    vt = ((int)DAT_0042ae9c);
+    vt = ((hulk_intptr)DAT_0042ae9c);
     Init();
     if (mObj)
         mObj->Release();
@@ -26,5 +27,5 @@ void LoadStream::Destroy() {
         Cleanup(m20);
     if (m24)
         Cleanup(m24);
-    vt = ((int)DAT_003f6098);
+    vt = ((hulk_intptr)DAT_003f6098);
 }

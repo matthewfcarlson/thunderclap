@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00420e44[];
 extern char Helper(const char*);
 extern const char g1_1b9d80[];
@@ -17,7 +18,7 @@ class Obj_1b9d80 : public Base_1b9d80 {
 };
 Obj_1b9d80::Obj_1b9d80(int x, int y) {
     Init(x, 6);
-    v = ((int)DAT_00420e44);
+    v = ((hulk_intptr)DAT_00420e44);
     field = y;
     a[8] = Helper(g1_1b9d80);
     a[0] = Helper(g2_1b9d80);

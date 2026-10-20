@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004272f0[];
 typedef unsigned char byte_224bb0;
 extern int g_refCount;
@@ -26,7 +27,7 @@ class Helper_224bb0 {
 };
 extern void thunk_FUN_00267090(choreo2::JointDriver*);
 choreo2::JointDriver* choreo2::JointDriver::vfunc_2(byte_224bb0 param) {
-    *(unsigned long*)this = ((int)DAT_004272f0);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_004272f0);
     --g_refCount;
     ((Helper_224bb0*)this)->call();
     if (param & 1)

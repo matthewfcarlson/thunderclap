@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00427898[];
 class Branch {
   public:
@@ -18,7 +19,7 @@ class Helper_233970 {
     void finish();
 };
 void Branch::run() {
-    *(void**)this = (void*)((int)DAT_00427898);
+    *(void**)this = (void*)((hulk_intptr)DAT_00427898);
     Branch::f7();
     ((Helper_233970*)((char*)this + 0x18))->init();
     ((Helper_233970*)this)->finish();

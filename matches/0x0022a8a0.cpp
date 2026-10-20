@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/choreo2.h"
 
 void* __cdecl alloc(unsigned int);
@@ -11,7 +12,7 @@ void* choreo2::RestPoseDriver::vfunc_5() {
     choreo2::RestPoseDriver* p = (choreo2::RestPoseDriver*)alloc(0x20);
     if (p) {
         ((RestPoseDriver_nv_22a8a0*)(p))->InitA(this);
-        *(int*)p = (int)&vt_22a8a0;
+        *(hulk_intptr*)p = (hulk_intptr)&vt_22a8a0;
         ((RestPoseDriver_nv_22a8a0*)(p))->InitB(this);
         return (void*)(p);
     }

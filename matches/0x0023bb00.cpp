@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Arg_23bb00 {
   public:
     virtual void Init();
@@ -13,7 +14,7 @@ class StreamDataReader {
 };
 StreamDataReader::StreamDataReader(Arg_23bb00* x, int y) {
     a = 0;
-    vf = (int)&table_23bb00;
+    vf = (hulk_intptr)&table_23bb00;
     q = y;
     p = x;
     p->Init();

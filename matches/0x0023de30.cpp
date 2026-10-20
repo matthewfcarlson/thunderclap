@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00428bf8[];
@@ -14,7 +15,7 @@ template <> void* fight::ConditionFactoryTemplate<fight::CommentCondition>::vfun
     CommentCondition_23de30* p = (CommentCondition_23de30*)alloc(0x10);
     if (p) {
         p->Init(3);
-        p->vtable = ((int)DAT_00428bf8);
+        p->vtable = ((hulk_intptr)DAT_00428bf8);
         p->value = 0;
         return (void*)(p);
     }

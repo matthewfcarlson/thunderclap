@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00421dfc[];
 struct Item_1cc530 {
     char data[0x28];
@@ -14,7 +15,7 @@ struct CEventManager {
     Item_1cc530 items[24];
 };
 void __fastcall FUN_001cc530(CEventManager* self) {
-    self->vt = (void*)((int)DAT_00421dfc);
+    self->vt = (void*)((hulk_intptr)DAT_00421dfc);
     Item_1cc530* p = self->items + 24;
     int n = 24;
     do {

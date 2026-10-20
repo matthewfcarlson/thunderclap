@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 extern "C" char DAT_004298fc[];
@@ -11,8 +12,8 @@ class SeqActionClip {
 extern "C" void __cdecl FUN_00247550(void*, void*);
 audio::SeqActionClip* audio::SeqActionClip::vfunc_0(int f) {
     SeqActionClip* p = this;
-    vt = ((int)DAT_004298fc);
+    vt = ((hulk_intptr)DAT_004298fc);
     if (f & 1)
-        FUN_00247550((void*)((int)((char*)((char*)&DAT_004e7508 + 104))), p);
+        FUN_00247550((void*)((hulk_intptr)((char*)((char*)&DAT_004e7508 + 104))), p);
     return p;
 }

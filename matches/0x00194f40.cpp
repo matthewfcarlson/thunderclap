@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Track {
   public:
     virtual void v0();
@@ -52,7 +53,7 @@ class FireProjectileTrack : public Track {
 };
 
 FireProjectileTrack* FireProjectileTrack::vfunc_5(unsigned char flag) {
-    *(int*)this = (int)&g_FireProjectileTrackVtable;
+    *(hulk_intptr*)this = (hulk_intptr)&g_FireProjectileTrackVtable;
     ma8.~Pa8();
     m9c.~P9c();
     m88.~P88();

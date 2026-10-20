@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class X_26e200 {
   public:
     char pad[0x1d4];
@@ -5,9 +6,9 @@ class X_26e200 {
     bool f(void*);
 };
 bool X_26e200::f(void* p) {
-    int i = mHead;
+    hulk_intptr i = mHead;
     while (i != 0) {
-        if (i == (int)p)
+        if (i == (hulk_intptr)p)
             return true;
         i = *(int*)(i + 0x10);
     }

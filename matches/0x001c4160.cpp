@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Base_1c4160 {
   public:
     virtual void f0();
@@ -16,5 +17,5 @@ int Obj_1c4160::target(unsigned char flag) {
     member = 0;
     if (flag & 1)
         thunk(this);
-    return (int)this;
+    return (hulk_intptr)this;
 }

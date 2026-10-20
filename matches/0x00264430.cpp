@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042ae9c[];
 class LoadStream {
   public:
@@ -12,7 +13,7 @@ class LoadStream {
 };
 LoadStream* LoadStream::Target(int a, int b, int c) {
     field4 = 0;
-    vtable = ((int)DAT_0042ae9c);
+    vtable = ((hulk_intptr)DAT_0042ae9c);
     Init();
     flagD = 1;
     flagE = (c == 1);

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 extern "C" char DAT_0042a2b0[];
@@ -25,7 +26,7 @@ void* audio::SeqEventStreamType::vfunc_3() {
     if (p) {
         p->BaseInit();
         Sub_254520* s = &p->sub;
-        p->vf = ((int)DAT_0042a2b0);
+        p->vf = ((hulk_intptr)DAT_0042a2b0);
         s->Setup("MyRsdFile");
         s->flags &= 0xfe;
         s->bits &= 0x80000000;

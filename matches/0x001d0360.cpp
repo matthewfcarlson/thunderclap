@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00422370[];
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 struct DataInit {
@@ -15,7 +16,7 @@ struct CScenarioParams {
 extern unsigned int g_counter_1d0360;
 CScenarioParams* CScenarioParams::target(const unsigned int* src) {
     InitBase();
-    vf = ((int)DAT_00422370);
+    vf = ((hulk_intptr)DAT_00422370);
     data.Init();
     unsigned int n = *src;
     memcpy(&data, src, n);

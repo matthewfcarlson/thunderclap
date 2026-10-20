@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 
 extern "C" char DAT_003f6098[];
@@ -12,9 +13,9 @@ struct MemoryDlAllocator {
     void Init();
 };
 void MemoryDlAllocator::Init() {
-    vptr = ((int)DAT_0042b36c);
-    vptr2 = ((int)DAT_0042b364);
-    *(volatile u32_26cc00*)((int)((char*)&DAT_004cdbb0)) = member;
-    vptr2 = ((int)DAT_0042af64);
-    vptr = ((int)DAT_003f6098);
+    vptr = ((hulk_intptr)DAT_0042b36c);
+    vptr2 = ((hulk_intptr)DAT_0042b364);
+    *(volatile u32_26cc00*)((hulk_intptr)((char*)&DAT_004cdbb0)) = member;
+    vptr2 = ((hulk_intptr)DAT_0042af64);
+    vptr = ((hulk_intptr)DAT_003f6098);
 }

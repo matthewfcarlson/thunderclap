@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct State_265c40 {
     unsigned char p0[1];
     unsigned char flag;
@@ -20,7 +21,7 @@ void __cdecl FUN_00265c40(void) {
     State_265c40* s = g_state_265c40;
     s->flag = 1;
     Init((void*)&g_obj_265c40);
-    int x = s->at30;
+    hulk_intptr x = s->at30;
     s->at28 = x;
     s->at2c = x;
     if (x)

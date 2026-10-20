@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 struct Node_nv_2319e0 {
@@ -6,6 +7,6 @@ struct Node_nv_2319e0 {
 
 unsigned int fight::Node::vfunc_8(unsigned int a, unsigned int b) {
     if (((Node_nv_2319e0*)this)->helper(a, b))
-        return (unsigned int)this;
+        return (hulk_uintptr)this;
     return 0;
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" char DAT_00422644[];
@@ -17,11 +18,11 @@ class Closure1_1d4210 {
 };
 Closure1_1d4210* Closure1_1d4210::Run(const char* a, const char* b, const char* c) {
     Init(a, 1);
-    *(int*)this = ((int)DAT_00422644);
-    m1c = (int)c;
-    m18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0f0)));
-    m10 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0f0)));
-    *(int*)this = ((int)DAT_00422800);
-    m20 = (int)b;
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00422644);
+    m1c = (hulk_intptr)c;
+    m18 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    m10 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00422800);
+    m20 = (hulk_intptr)b;
     return this;
 }

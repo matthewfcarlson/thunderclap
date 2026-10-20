@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00425354[];
 struct Ctor_001d0480 {
     Ctor_001d0480(void*, int);
@@ -21,7 +22,7 @@ class Method4_1ff150 : public Ctor_001d0480 {
     Method4_1ff150(int x, int y);
 };
 Method4_1ff150::Method4_1ff150(int x, int y) : Ctor_001d0480((void*)x, 4) {
-    vptr = ((int)DAT_00425354);
+    vptr = ((hulk_intptr)DAT_00425354);
     value = y;
     b18 = ReadBool(A);
     b10 = ReadBool(B);

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042a45c[];
 class Base_2551b0 {
   public:
@@ -14,6 +15,6 @@ SeqEventLogicOr::SeqEventLogicOr() {
     b = 0;
     c = 0;
     d = 0;
-    *(int*)this = ((int)DAT_0042a45c);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_0042a45c);
     f = 0.5f;
 }

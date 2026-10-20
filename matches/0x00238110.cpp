@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00428100[];
@@ -18,7 +19,7 @@ template <> void* fight::TrackFactoryTemplate<fight::SequenceTrack>::vfunc_5() {
     if (p) {
         p->Ctor();
         Sub1_238110* s1 = (Sub1_238110*)((char*)p + 0xc);
-        *(u32_238110*)p = ((int)DAT_00428100);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_00428100);
         s1->Init1();
         Sub2_238110* s2 = (Sub2_238110*)((char*)p + 0x1c);
         *(u32_238110*)((char*)p + 0x18) = 1;

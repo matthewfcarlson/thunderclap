@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00427368[];
 typedef unsigned char u8_2259e0;
 struct Load {
@@ -14,7 +15,7 @@ struct AnimationDriver {
 extern int g_count_2259e0;
 void thunk(AnimationDriver*);
 AnimationDriver* AnimationDriver::vfunc_2(u8_2259e0 flag) {
-    this->vptr = (void*)((int)DAT_00427368);
+    this->vptr = (void*)((hulk_intptr)DAT_00427368);
     this->member->f1();
     --g_count_2259e0;
     this->Cleanup();

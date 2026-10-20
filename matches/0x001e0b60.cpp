@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" char DAT_00423478[];
 class Method3_1e0b60 {
@@ -16,7 +17,7 @@ extern char g1_1e0b60[];
 extern char g2_1e0b60[];
 Method3_1e0b60::Method3_1e0b60(int x, int y) {
     Init(x, 3);
-    m0 = ((int)DAT_00423478);
+    m0 = ((hulk_intptr)DAT_00423478);
     m1c = y;
     m18 = FUN_001d04d0(g1_1e0b60);
     m10 = FUN_001d04d0(g2_1e0b60);

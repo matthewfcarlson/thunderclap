@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
@@ -19,10 +20,10 @@ class Method3_2051b0 {
 };
 Method3_2051b0::Method3_2051b0(int a, int b) {
     ((B_2051b0*)this)->Init(a, 3);
-    vptr = ((int)DAT_00425b64);
+    vptr = ((hulk_intptr)DAT_00425b64);
     value1c = b;
-    b18 = ReadValue((const char*)((int)((char*)&DAT_0048e134)));
-    b10 = ReadValue((const char*)((int)((char*)&DAT_0048e128)));
-    b11 = ReadValue((const char*)((int)((char*)&DAT_0048e128)));
-    b12 = ReadValue((const char*)((int)((char*)&DAT_0048e128)));
+    b18 = ReadValue((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
+    b10 = ReadValue((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    b11 = ReadValue((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    b12 = ReadValue((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
 }

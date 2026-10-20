@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int U_1e8c70;
 extern U_1e8c70 __cdecl F40750();
 extern U_1e8c70 __cdecl F40750(U_1e8c70);
@@ -17,11 +18,11 @@ class Target_1e8c70 {
 void __fastcall target(Target_1e8c70* self) {
     U_1e8c70 x = F40750();
     Obj_1e8c70** q = &self->p;
-    F416c0(x, (U_1e8c70)*q, 0);
+    F416c0(x, (hulk_uintptr)*q, 0);
     while ((*q)->field != 0) {
         x = F40750(0x3a83126f);
         F43090(x);
     }
-    x = F40750((U_1e8c70)q);
+    x = F40750((hulk_uintptr)q);
     F42ca0(x);
 }

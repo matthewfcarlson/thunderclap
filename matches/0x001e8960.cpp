@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00423f28[];
 typedef unsigned int u32_1e8960;
 extern void* __cdecl alloc(unsigned int, unsigned int);
@@ -18,7 +19,7 @@ SoundMix* Manager_1e8960::Add() {
         return 0;
     SoundMix* p = (SoundMix*)alloc(0x10, 6);
     if (p != 0) {
-        p->vptr = (u32_1e8960*)((int)DAT_00423f28);
+        p->vptr = (u32_1e8960*)((hulk_intptr)DAT_00423f28);
         p->a = 0;
         p->b = 0;
     } else {

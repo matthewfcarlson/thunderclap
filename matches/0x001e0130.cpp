@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" char DAT_00423398[];
 class CSPManager {};
@@ -17,7 +18,7 @@ class Target_1e0130 : public Ctor_001d0480 {
     Target_1e0130(const char*, CSPManager*);
 };
 Target_1e0130::Target_1e0130(const char* a, CSPManager* c) : Ctor_001d0480(a, 3) {
-    vf = (void*)((int)DAT_00423398);
+    vf = (void*)((hulk_intptr)DAT_00423398);
     mgr = c;
     b18 = FUN_001d04d0(s0_1e0130);
     b10 = FUN_001d04d0(s1);

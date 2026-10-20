@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
 struct Obj_242d70 {
@@ -12,5 +13,5 @@ void __cdecl Target(void* a, Obj_242d70* b) {
         return;
     }
     F1(a, b);
-    F2((void*)((int)DAT_004e5e88), b);
+    F2((void*)((hulk_intptr)DAT_004e5e88), b);
 }

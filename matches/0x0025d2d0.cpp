@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 struct Obj_25d2d0 {
@@ -12,6 +13,6 @@ extern void __cdecl FUN_00247550(void*, Obj_25d2d0*);
 Obj_25d2d0* Obj_25d2d0::target(int flags) {
     ((Helper_25d2d0*)&member)->call();
     if (flags & 1)
-        FUN_00247550((void*)((int)DAT_004e7898), this);
+        FUN_00247550((void*)((hulk_intptr)DAT_004e7898), this);
     return this;
 }

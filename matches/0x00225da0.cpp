@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00427368[];
 extern "C" void* __cdecl alloc(unsigned int);
 int gCount_225da0;
@@ -14,7 +15,7 @@ Obj_225da0* Factory_225da0::Make() {
     Obj_225da0* p = (Obj_225da0*)alloc(0x240);
     if (p != 0) {
         p->InitA(this);
-        p->v = ((int)DAT_00427368);
+        p->v = ((hulk_intptr)DAT_00427368);
         p->InitB(this);
         ++gCount_225da0;
         if (gCount_225da0 > gMax_225da0)

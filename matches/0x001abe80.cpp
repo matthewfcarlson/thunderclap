@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/scenario.h"
 
 extern "C" void __cdecl FUN_001aacf0();
@@ -21,10 +22,10 @@ void FUN_001abe80() {
         Obj_1abe80* q = (Obj_1abe80*)Alloc(0x20);
         if (q != 0) {
             q->Init(name_1abe80);
-            q->v = ((int)DAT_0041d4ac);
-            q->a = ((int)((char*)&DAT_004c2a28));
+            q->v = ((hulk_intptr)DAT_0041d4ac);
+            q->a = ((hulk_intptr)((char*)&DAT_004c2a28));
             q->b = 0x1f;
-            q->c = ((int)(void (__cdecl*)())&FUN_001aacf0);
+            q->c = ((hulk_intptr)(void (__cdecl*)())&FUN_001aacf0);
             p = q;
         } else {
             p = 0;

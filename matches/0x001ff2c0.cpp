@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" char DAT_00425374[];
 struct Base_1ff2c0 {
@@ -19,7 +20,7 @@ class Method3_1ff2c0 : public Base_1ff2c0 {
 };
 Method3_1ff2c0::Method3_1ff2c0(const char* a, int c) {
     Init(a, 3);
-    m0 = ((int)DAT_00425374);
+    m0 = ((hulk_intptr)DAT_00425374);
     m1c = c;
     b18 = FUN_001d04d0(&g0_1ff2c0);
     b10 = FUN_001d04d0(&g1);

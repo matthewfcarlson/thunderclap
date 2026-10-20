@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Inner_23bad0 {
   public:
     virtual void f0();
@@ -19,9 +20,9 @@ extern int vtRef_23bad0;
 extern void cleanup(IFileDataReader*);
 IFileDataReader* IFileDataReader::v2(unsigned int flags) {
     Inner_23bad0* p = inner;
-    *(volatile int*)this = (int)&vtFight;
+    *(volatile hulk_intptr*)this = (hulk_intptr)&vtFight;
     p->f1();
-    *(volatile int*)this = (int)&vtRef_23bad0;
+    *(volatile hulk_intptr*)this = (hulk_intptr)&vtRef_23bad0;
     if (flags & 1)
         cleanup(this);
     return this;

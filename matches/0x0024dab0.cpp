@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 class ListenerEffectPs2 {
@@ -17,6 +18,6 @@ extern void DestroyFn(void*, ListenerEffectPs2*);
 ListenerEffectPs2* ListenerEffectPs2::F2(unsigned char flag) {
     Base();
     if (flag & 1)
-        DestroyFn((void*)((int)DAT_004e6548), this);
+        DestroyFn((void*)((hulk_intptr)DAT_004e6548), this);
     return this;
 }

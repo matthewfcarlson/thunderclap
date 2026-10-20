@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_00428760[];
 class DataReader_23bb30 {
@@ -18,9 +19,9 @@ class StreamDataReader : public DataReader_23bb30 {
 extern void Destroy(StreamDataReader*);
 StreamDataReader* StreamDataReader::vfunc_2(int flags) {
     DataReader_23bb30* p = mObj;
-    ((int*)this)[0] = ((int)DAT_00428760);
+    ((hulk_intptr*)this)[0] = ((hulk_intptr)DAT_00428760);
     p->B();
-    ((int*)this)[0] = ((int)DAT_003f6098);
+    ((hulk_intptr*)this)[0] = ((hulk_intptr)DAT_003f6098);
     if (flags & 1)
         Destroy(this);
     return this;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 #include "decls/data/platform/xbox/core.h"
 #include "gen/core.h"
@@ -9,10 +10,10 @@ struct ControllerSystemXBox_nv_269640 {
 };
 void __cdecl Target(u32_269640 a, u32_269640 b) {
     u32_269640 v = b;
-    *(volatile u32_269640*)((int)((char*)&DAT_004cdbb0)) = v;
-    u32_269640 x = FindThing(v, 0x12a8);
+    *(volatile u32_269640*)((hulk_intptr)((char*)&DAT_004cdbb0)) = v;
+    hulk_uintptr x = FindThing(v, 0x12a8);
     if (x)
-        *(volatile u32_269640*)((int)DAT_00528398) = ((ControllerSystemXBox_nv_269640*)(((core::ControllerSystemXBox*)x)))->Make(a, v);
+        *(volatile u32_269640*)((hulk_intptr)DAT_00528398) = ((ControllerSystemXBox_nv_269640*)(((core::ControllerSystemXBox*)x)))->Make(a, v);
     else
-        *(volatile u32_269640*)((int)DAT_00528398) = 0;
+        *(volatile u32_269640*)((hulk_intptr)DAT_00528398) = 0;
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/choreo2.h"
 
 extern "C" char DAT_004273c4[];
@@ -13,7 +14,7 @@ void* choreo2::LocomotionStrafeDriver::vfunc_5() {
     void* p = alloc_obj(0x1330);
     if (p) {
         ((Helper_227650*)p)->a(this);
-        *(u32_227650*)p = ((int)DAT_004273c4);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_004273c4);
         ((Helper_227650*)p)->b(this);
         return (void*)(p);
     }

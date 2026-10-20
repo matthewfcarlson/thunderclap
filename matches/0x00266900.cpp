@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Ref_266900 {
   public:
     virtual void f0();
@@ -17,14 +18,14 @@ namespace content { class LoadRequest {
 }; }
 void thunk(content::LoadRequest*);
 content::LoadRequest* content::LoadRequest::vfunc_2(bool d) {
-    vt = (int)vtLoad_266900;
+    vt = (hulk_intptr)vtLoad_266900;
     if (a)
         a->f1();
     if (b)
         b->f1();
     if (c)
         c->f1();
-    vt = (int)vtRef_266900;
+    vt = (hulk_intptr)vtRef_266900;
     if (d & 1)
         thunk(this);
     return this;

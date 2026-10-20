@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042aff0[];
 struct Obj_268070 {
     virtual void f();
@@ -19,7 +20,7 @@ class Timer {
 void InitTimer();
 Timer::Timer(Obj_268070* e, int b, int c, int d, char g, int f) {
     x8 = f;
-    x0 = ((int)DAT_0042aff0);
+    x0 = ((hulk_intptr)DAT_0042aff0);
     x4 = 1;
     xc = b;
     flag = 0;

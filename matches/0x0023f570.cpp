@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 class Base_23f570 {
@@ -21,7 +22,7 @@ template <> void* fight::TrackFactoryTemplate<fight::BreakPointTrack>::vfunc_5()
     Obj_23f570* p = (Obj_23f570*)alloc(0x14);
     if (p) {
         ((Base_23f570*)p)->init();
-        p->vf = (int)&breakpoint_vftable;
+        p->vf = (hulk_intptr)&breakpoint_vftable;
         p->c = 0;
         ((Sub_23f570*)((char*)p + 0x10))->init2();
         p->b = 1;

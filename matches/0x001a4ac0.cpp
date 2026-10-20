@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 extern int RTTI1_1a4ac0, RTTI2;
@@ -12,9 +13,9 @@ struct Obj_1a4ac0 {
     Result_1a4ac0* get();
 };
 
-bool hulkfight::scenario::Event_PropStateDescCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; int b = (int)__p1; int c = (int)__p2;
+bool hulkfight::scenario::Event_PropStateDescCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; hulk_intptr b = (hulk_intptr)__p1; hulk_intptr c = (hulk_intptr)__p2;
 
-    Obj_1a4ac0* x = (Obj_1a4ac0*)FUN_00344e74(b, 0, (int)&RTTI1_1a4ac0, (int)&RTTI2, 0);
+    Obj_1a4ac0* x = (Obj_1a4ac0*)FUN_00344e74(b, 0, (hulk_intptr)&RTTI1_1a4ac0, (hulk_intptr)&RTTI2, 0);
     if (!x)
         return false;
     Result_1a4ac0* r = x->get();

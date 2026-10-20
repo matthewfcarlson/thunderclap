@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void first(char*);
 extern "C" __int64 second(char*, int, int);
 class Thing {
@@ -7,7 +8,7 @@ class Thing {
 };
 Thing::Thing(char* s) {
     char buf[256];
-    int offset = buf - s;
+    hulk_intptr offset = buf - s;
     char c;
     do {
         c = *s;

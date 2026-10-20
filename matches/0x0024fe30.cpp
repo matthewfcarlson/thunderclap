@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 extern "C" char DAT_00429ac8[];
@@ -15,8 +16,8 @@ class SeqCommandCondition : public SeqCommand {
 } // namespace audio
 extern void __cdecl FUN_00247550(void*, void*);
 audio::SeqCommandCondition* audio::SeqCommandCondition::vfunc_1(int arg) {
-    *(int*)this = ((int)DAT_00429ac8);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00429ac8);
     if (arg & 1)
-        FUN_00247550((void*)((int)DAT_004e68b0), this);
+        FUN_00247550((void*)((hulk_intptr)DAT_004e68b0), this);
     return this;
 }

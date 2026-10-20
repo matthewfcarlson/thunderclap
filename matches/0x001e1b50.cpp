@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class CSPManager_1e1b50 {
@@ -17,7 +18,7 @@ class Method4_1e1b50 : public Function_1e1b50 {
     CSPManager_1e1b50* obj;
 };
 
-template <> void Closure4<CSPManager, void, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { int x = (int)__p0; const float * p = (const float *)__p1; int y = (int)__p2;
+template <> void Closure4<CSPManager, void, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr x = (hulk_intptr)__p0; const float * p = (const float *)__p1; hulk_intptr y = (hulk_intptr)__p2;
 
     const int* q = (const int*)p;
     int a = *q++;

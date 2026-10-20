@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int U_23e880;
@@ -11,6 +12,6 @@ int fight::StopTrack::vfunc_10(int __p0, int __p1, int __p2) { U_23e880 a = (U_2
 
     Helper_23e880* p = (Helper_23e880*)FUN_0008d690(0x2c);
     if (p)
-        return (int)(p->FUN_0023e610(a, (U_23e880)this, b, c));
+        return (int)(p->FUN_0023e610(a, (hulk_uintptr)this, b, c));
     return (int)(0);
 }

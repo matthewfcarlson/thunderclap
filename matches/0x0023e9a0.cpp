@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00428db0[];
@@ -22,7 +23,7 @@ template <> void* fight::TrackFactoryTemplate<fight::StopTrack>::vfunc_5() {
     StopTrack_23e9a0* p = (StopTrack_23e9a0*)operator_new(0x18);
     if (p) {
         p->init();
-        *(uint*)p = ((int)DAT_00428db0);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_00428db0);
         p->zero = 0;
         p->value = -1.0f;
         p->inner.init();

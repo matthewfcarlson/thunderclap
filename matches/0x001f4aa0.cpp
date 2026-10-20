@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" char DAT_00424b2c[];
@@ -21,11 +22,11 @@ struct ThisCall_001d0480 {
 extern "C" char __cdecl Get(void*);
 Obj_1f4aa0::Obj_1f4aa0(char* a, char* b) {
     ((ThisCall_001d0480*)(this))->Init(a, 4);
-    vptr = ((int)DAT_00424b2c);
-    m1c = (int)b;
-    b18 = Get((void*)((int)((char*)&DAT_0048e100)));
-    b10 = Get((void*)((int)((char*)&DAT_0049cad8)));
-    b11 = Get((void*)((int)((char*)&DAT_0049cad8)));
-    b12 = Get((void*)((int)((char*)&DAT_0049cad8)));
-    b13 = Get((void*)((int)((char*)&DAT_0048e134)));
+    vptr = ((hulk_intptr)DAT_00424b2c);
+    m1c = (hulk_intptr)b;
+    b18 = Get((void*)((hulk_intptr)((char*)&DAT_0048e100)));
+    b10 = Get((void*)((hulk_intptr)((char*)&DAT_0049cad8)));
+    b11 = Get((void*)((hulk_intptr)((char*)&DAT_0049cad8)));
+    b12 = Get((void*)((hulk_intptr)((char*)&DAT_0049cad8)));
+    b13 = Get((void*)((hulk_intptr)((char*)&DAT_0048e134)));
 }

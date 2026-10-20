@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Entry_1b55c0 {
   public:
     int a, b, c;
@@ -25,7 +26,7 @@ void Base_1b55c0::Func(Owner_1b55c0* obj, int value) {
     obj->value = value;
     int n = (unsigned short)*(unsigned short*)((char*)obj->data + 0x20);
     for (int i = 0; i < n; ++i) {
-        Entry_1b55c0* e = (Entry_1b55c0*)(*(int*)((char*)obj->data + 0x18) + (unsigned short)i * 0x18);
+        Entry_1b55c0* e = (Entry_1b55c0*)(*(hulk_intptr*)((char*)obj->data + 0x18) + (unsigned short)i * 0x18);
         if (e->a != -1)
             e->a = (value << 16) | e->a;
         if (e->b != -1)
@@ -39,5 +40,5 @@ void Base_1b55c0::Func(Owner_1b55c0* obj, int value) {
     if (*p) {
         ((Dummy_1b55c0*)*p)->y();
     }
-    *p = (int)obj;
+    *p = (hulk_intptr)obj;
 }

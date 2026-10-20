@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vtable_2533a0;
 class SeqEventVarPitchRand {
   public:
@@ -10,7 +11,7 @@ class SeqEventVarPitchRand {
 };
 SeqEventVarPitchRand::SeqEventVarPitchRand() {
     init();
-    vptr = (int)&vtable_2533a0;
+    vptr = (hulk_intptr)&vtable_2533a0;
     a = 0x3f4ccccd;
     b = 0x3f99999a;
 }

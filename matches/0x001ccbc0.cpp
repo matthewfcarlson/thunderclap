@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct C_1ccbc0 {
     char pad[0x54];
     int check();
@@ -23,7 +24,7 @@ int Obj_1ccbc0::get() {
         if (q->b) {
             void* p = q->b->p;
             if (p)
-                return (int)p;
+                return (hulk_intptr)p;
         }
     }
     return 0;

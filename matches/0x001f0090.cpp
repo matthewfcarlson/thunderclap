@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2549 inputs, branch coverage 10/10)
 // FUN_001f0090 @ 0x001f0090
 // cl-flags: /GS
+#include "compat/ptr.h"
 extern "C" char* __cdecl strchr(const char*, int);
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 struct Name {
@@ -23,7 +24,7 @@ NamePath::NamePath(const char* path) {
     const char* segment = path;
     const char* dot = strchr(segment, '.');
     while (dot) {
-        int len = dot - segment;
+        hulk_intptr len = dot - segment;
         strncpy(fr.buf, segment, len);
         fr.buf[len] = 0;
         if (count < 8) {

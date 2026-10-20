@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004279fc[];
 class Inner_235800 {
   public:
@@ -19,7 +20,7 @@ class ParamValueBranch : public ParamValue {
     virtual void* v0(unsigned int);
 };
 void* ParamValueBranch::v0(unsigned int flags) {
-    *(int*)this = ((int)DAT_004279fc);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_004279fc);
     ((Inner_235800*)((char*)this + 8))->Init();
     if (flags & 1)
         thunk_FUN_00267090(this);

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Info_214050 {
     char pad[6];
     char flag;
@@ -33,7 +34,7 @@ int Fn(A_214050* a, B_214050* b, int x) {
         if (inf->flag == 0) {
             Rec_214050* r = inf->rec;
             if (r) {
-                int cnt = ((char*)s->end - (char*)r->arr >> 2) - 1;
+                hulk_intptr cnt = ((char*)s->end - (char*)r->arr >> 2) - 1;
                 n = Lookup(r, x, cnt);
                 if (n)
                     Apply(a, s->base + x * 2 - 2);

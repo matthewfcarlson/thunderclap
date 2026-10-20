@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00428330[];
@@ -40,7 +41,7 @@ int fight::PrintTrack::vfunc_10(int __p0, int __p1, int __p2) { Obj_2390f0 * a =
     if (q) {
         q->Init();
         *(fight::PrintTrack**)((char*)q + 0x1c) = this;
-        *(unsigned int*)q = ((int)DAT_00428330);
+        *(hulk_uintptr*)q = ((hulk_intptr)DAT_00428330);
         *(Obj_2390f0**)((char*)q + 0x20) = 0;
         if (p)
             p->F0();
@@ -48,7 +49,7 @@ int fight::PrintTrack::vfunc_10(int __p0, int __p1, int __p2) { Obj_2390f0 * a =
         if (old)
             old->F1();
         *(Obj_2390f0**)((char*)q + 0x20) = p;
-        return (int)(q);
+        return (hulk_intptr)(q);
     }
     return (int)(0);
 }

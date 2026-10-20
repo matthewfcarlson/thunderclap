@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004282fc[];
 void __cdecl thunk_FUN_00267090(void* p);
 void __cdecl thunk_FUN_00267090_b(void* p);
@@ -25,9 +26,9 @@ class PrintTrack : public Track {
     virtual PrintTrack* vfunc_5(unsigned char);
 };
 PrintTrack* PrintTrack::vfunc_5(unsigned char p) {
-    *(int*)this = ((int)DAT_004282fc);
-    thunk_FUN_00267090((void*)(*(int*)((char*)this + 0x10)));
-    thunk_FUN_00267090((void*)(*(int*)((char*)this + 0x14)));
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_004282fc);
+    thunk_FUN_00267090((void*)(*(hulk_intptr*)((char*)this + 0x10)));
+    thunk_FUN_00267090((void*)(*(hulk_intptr*)((char*)this + 0x14)));
     FUN_00236d60();
     if (p & 1)
         thunk_FUN_00267090_b((void*)this);

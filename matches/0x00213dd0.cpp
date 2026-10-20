@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct R_213dd0 {
     int type;
     void* data;
@@ -33,7 +34,7 @@ struct Data_213dd0 {
 };
 extern char gZero_213dd0[];
 char* FUN_00213dd0(Out_213dd0* out, int x, int index) {
-    R_213dd0* r = GetR(x, (int)out);
+    R_213dd0* r = GetR(x, (hulk_intptr)out);
     if (r->type != 6)
         return 0;
     Data_213dd0* d = (Data_213dd0*)r->data;

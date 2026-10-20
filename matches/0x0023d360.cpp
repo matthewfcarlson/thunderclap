@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00428afc[];
@@ -27,7 +28,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::FalseCondition>::
     Obj_23d360* p = (Obj_23d360*)alloc(16);
     if (p) {
         p->Init();
-        *((void**)p) = (void*)((int)DAT_00428afc);
+        *((void**)p) = (void*)((hulk_intptr)DAT_00428afc);
         p->sub.Setup(a);
         return (void*)(p);
     }

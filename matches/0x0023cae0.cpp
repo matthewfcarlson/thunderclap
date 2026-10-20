@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_004288fc[];
@@ -19,7 +20,7 @@ template <> void* fight::ConditionFactoryTemplate<fight::SubConditionGroupCondit
     Condition_23cae0* p = (Condition_23cae0*)operator_new(0x10);
     if (p) {
         p->Init(0);
-        *(u32_23cae0*)p = ((int)DAT_004288fc);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_004288fc);
         ((Tail_23cae0*)((char*)p + 12))->InitTail();
         return (void*)(p);
     }

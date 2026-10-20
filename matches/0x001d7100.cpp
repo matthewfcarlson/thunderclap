@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct Table_1d7100 {
@@ -19,7 +20,7 @@ int Obj_1d7100::Find(int index) {
     int b = p[3];
     int result = -1;
     for (int i = 0; i < 8; ++i) {
-        if (a == ((int*)((int)DAT_004e2560))[i * 2] && b == ((int*)((int)((char*)((char*)&DAT_004e2560 + 4))))[i * 2]) {
+        if (a == ((int*)((hulk_intptr)DAT_004e2560))[i * 2] && b == ((int*)((hulk_intptr)((char*)((char*)&DAT_004e2560 + 4))))[i * 2]) {
             result = i;
             break;
         }

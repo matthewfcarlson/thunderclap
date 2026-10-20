@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class SeqEvent {
   public:
     virtual void v0();
@@ -40,7 +41,7 @@ void SeqEventSilence::v2(int arg) {
     SeqActionSilence* a = (SeqActionSilence*)FUN_00247530(g_buffer);
     SeqActionSilence* r;
     if (a) {
-        a->vf = (int)VT_2549a0;
+        a->vf = (hulk_intptr)VT_2549a0;
         a->owner = this;
         int x = mc;
         int y = m8;

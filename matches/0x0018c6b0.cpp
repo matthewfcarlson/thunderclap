@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0041920c[];
@@ -21,7 +22,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::PropStateBy
     PropStateByNameCondition_18c6b0* p = (PropStateByNameCondition_18c6b0*)FUN_0008d690(0x20);
     if (p) {
         p->Init(0);
-        *(unsigned int*)p = ((int)DAT_0041920c);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_0041920c);
         p->x = -1;
         p->y = 0;
         p->sub.Init();

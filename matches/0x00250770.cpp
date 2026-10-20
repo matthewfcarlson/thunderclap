@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 extern "C" char DAT_004298fc[];
@@ -22,9 +23,9 @@ class SeqActionWaitBeat : public SeqAction {
 };
 SeqActionWaitBeat* SeqActionWaitBeat::vfunc_0(int flag) {
     SeqActionWaitBeat* s = this;
-    *(int*)s = ((int)DAT_004298fc);
+    *(hulk_intptr*)s = ((hulk_intptr)DAT_004298fc);
     if (flag & 1)
-        FUN_00247550((void*)((int)DAT_004e6a18), s);
+        FUN_00247550((void*)((hulk_intptr)DAT_004e6a18), s);
     return s;
 }
 } // namespace audio

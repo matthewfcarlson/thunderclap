@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 typedef unsigned int u32_1b7740;
 extern "C" int __cdecl alloc(int);
@@ -25,10 +26,10 @@ struct CRadMovieRenderLoop_1b7740 {
     Made_1b7740* made;
 };
 CRadMovieRenderLoop_1b7740* __fastcall FUN_001b7740(CRadMovieRenderLoop_1b7740* self) {
-    self->vptr = (u32_1b7740)&movieVtable;
+    self->vptr = (hulk_uintptr)&movieVtable;
     self->state = -2;
     self->zero = 0;
-    int t = alloc(32);
+    hulk_intptr t = alloc(32);
     Made_1b7740* m;
     if (t)
         m = ((Shader_nv_1b7740*)(((pure3d::Shader*)t)))->make();

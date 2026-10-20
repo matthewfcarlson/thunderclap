@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0041935c[];
@@ -16,7 +17,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropDropTrack>:
     PropDropTrack_18bf00* p = (PropDropTrack_18bf00*)operator_new(0x14);
     if (p) {
         p->Init();
-        p->vt = ((int)DAT_0041935c);
+        p->vt = ((hulk_intptr)DAT_0041935c);
         p->c = 0;
         p->d = -1;
         p->e = 1;

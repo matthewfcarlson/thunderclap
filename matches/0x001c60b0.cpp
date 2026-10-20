@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 namespace Render {
 class CRenderableCharacter {
   public:
@@ -15,7 +16,7 @@ extern int g_vft_1c60b0;
 
 Render::CRenderableCharacter* Render::CRenderableCharacter::vfunc_0(unsigned char flag) {
     Sub_1c60b0* p = (Sub_1c60b0*)((char*)this + 8);
-    *(int*)this = (int)&g_vft_1c60b0;
+    *(hulk_intptr*)this = (hulk_intptr)&g_vft_1c60b0;
     FUN_001c3d90()->f(p);
     p->g();
     if (flag & 1)

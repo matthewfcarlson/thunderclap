@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_1a4a10;
@@ -14,7 +15,7 @@ namespace scenario {
 
 } // namespace scenario
 } // namespace hulkfight
-bool hulkfight::scenario::NodeShouldRunImmediatelyCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { u32_1a4a10 a = (u32_1a4a10)__p0; u32_1a4a10 b = (u32_1a4a10)__p1; u32_1a4a10 c = (u32_1a4a10)__p2;
+bool hulkfight::scenario::NodeShouldRunImmediatelyCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_uintptr a = (hulk_uintptr)__p0; hulk_uintptr b = (hulk_uintptr)__p1; hulk_uintptr c = (hulk_uintptr)__p2;
 
     gObj_1a4a10->inner->run(a);
     return true;

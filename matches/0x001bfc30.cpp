@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 typedef unsigned int u32_1bfc30;
@@ -18,6 +19,6 @@ void sSubtitleManagerCallback::vfunc_1(int a, int b) {
         *((unsigned char*)p + 0xd) = 0;
         *((unsigned char*)p + 0x24) = 0;
         *((unsigned char*)p + 0x55) = 0;
-        *((unsigned char*)(*(u32_1bfc30*)((char*)p + 0x2c)) + 0xc) = 0;
+        *((unsigned char*)(*(hulk_uintptr*)((char*)p + 0x2c)) + 0xc) = 0;
     }
 }

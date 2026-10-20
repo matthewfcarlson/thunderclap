@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 struct Temp_250a80 {
@@ -7,7 +8,7 @@ struct Temp_250a80 {
 };
 extern void operate(int, Temp_250a80*, int);
 
-void audio::SeqActionExpression::vfunc_1(void* __p0) { int p = (int)__p0;
+void audio::SeqActionExpression::vfunc_1(void* __p0) { hulk_intptr p = (hulk_intptr)__p0;
 
     Temp_250a80 t;
     t.init();

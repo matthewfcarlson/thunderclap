@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class CCollisionManager_1b5c40 {
@@ -11,7 +12,7 @@ class Function_1b5c40 {
     virtual void vfunc_2(CCollisionManager_1b5c40*, float*, int);
 };
 
-template <> void Method3<CCollisionManager, void, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CCollisionManager_1b5c40 * obj = (CCollisionManager_1b5c40 *)__p0; float * args = (float *)__p1; int unused = (int)__p2;
+template <> void Method3<CCollisionManager, void, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CCollisionManager_1b5c40 * obj = (CCollisionManager_1b5c40 *)__p0; float * args = (float *)__p1; hulk_intptr unused = (hulk_intptr)__p2;
 
     float* p = args;
     *(volatile int*)&args = *(int*)p;

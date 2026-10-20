@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_00428590[];
 class Obj_23b2f0 {
@@ -15,9 +16,9 @@ class IFileStringReader {
 };
 IFileStringReader* IFileStringReader::vfunc_2(int flag) {
     Obj_23b2f0* p = sub;
-    vt = ((int)DAT_00428590);
+    vt = ((hulk_intptr)DAT_00428590);
     p->f1();
-    vt = ((int)DAT_003f6098);
+    vt = ((hulk_intptr)DAT_003f6098);
     if (flag & 1)
         thunk(this);
     return this;

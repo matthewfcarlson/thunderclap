@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/Render.h"
 
 const float gZero_1c1580 = 0.0f;
@@ -61,7 +62,7 @@ extern Manager_1c1580* gManager_1c1580;
 
 int Render::Canvas::HulkShaderCallback::vfunc_4(void* __p0) { Arg_1c1580 * p = (Arg_1c1580 *)__p0;
 
-    int result = (int)p;
+    hulk_intptr result = (hulk_intptr)p;
     if (this->f_08 > 0.0f && p)
         p->shader->f7(0x45444146, 0);
     if (this->f_10 > 0.0f)

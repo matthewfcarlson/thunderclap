@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00429fac[];
 class Base_2527b0 {
   public:
@@ -12,7 +13,7 @@ class SeqEventVarVolume : public Base_2527b0 {
 };
 SeqEventVarVolume* SeqEventVarVolume::Build() {
     Init();
-    vtable = ((int)DAT_00429fac);
+    vtable = ((hulk_intptr)DAT_00429fac);
     volume = 1.0f;
     return this;
 }

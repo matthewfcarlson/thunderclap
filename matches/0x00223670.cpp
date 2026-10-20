@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004272b8[];
 class Puppet;
 class Aux_223670 {
@@ -23,7 +24,7 @@ Puppet* Puppet::f5() {
     Puppet* p = (Puppet*)allocThunk(0x2f0);
     if (p) {
         p->InitA();
-        *((int*)p) = ((int)DAT_004272b8);
+        *((hulk_intptr*)p) = ((hulk_intptr)DAT_004272b8);
         ((Aux_223670*)((char*)p + 0x10))->Init();
         p->x = 0;
         p->y = 0;

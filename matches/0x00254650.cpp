@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042a30c[];
 class SeqEventSilence {
   public:
@@ -9,7 +10,7 @@ class SeqEventSilence {
 };
 SeqEventSilence* __fastcall FUN_00254650(SeqEventSilence* self) {
     self->Init();
-    self->vptr = (int*)((int)DAT_0042a30c);
+    self->vptr = (int*)((hulk_intptr)DAT_0042a30c);
     self->a = 500;
     self->b = 1000;
     return self;

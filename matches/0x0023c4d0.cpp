@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00428824[];
 class Elem_23c4d0 {
   public:
@@ -20,7 +21,7 @@ namespace fight { class Reference {
 }; }
 extern void __cdecl FUN_00267090(fight::Reference*);
 fight::Reference* fight::Reference::vfunc_2(int flag) {
-    *(int*)this = ((int)DAT_00428824);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00428824);
     ((Elem_23c4d0*)((char*)this + 0x28))->Fn();
     Init();
     if (flag & 1)

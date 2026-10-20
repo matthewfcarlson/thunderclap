@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Item_1c5fb0 {
   public:
     char pad[8];
@@ -18,7 +19,7 @@ int Owner_1c5fb0::Find(Checker_1c5fb0* arg) {
     if (count > 0) {
         do {
             if (arg->test((char*)items[i] + 8))
-                return (int)items[i];
+                return (hulk_intptr)items[i];
             ++i;
         } while (i < count);
     }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00427a38[];
 class ParamValue {
   public:
@@ -13,5 +14,5 @@ class ParamValueInt {
 };
 ParamValueInt::ParamValueInt(int x) : value(x) {
     volatile int* p = (volatile int*)this;
-    *p = ((int)DAT_00427a38);
+    *p = ((hulk_intptr)DAT_00427a38);
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_238a50;
 extern u32_238a50 PrintTrack_vftable;
 void __cdecl ReleaseThing(int);
@@ -13,7 +14,7 @@ struct PrintTrack {
     void Cleanup();
 };
 void PrintTrack::Finish() {
-    *(u32_238a50*)this = (u32_238a50)&PrintTrack_vftable;
+    *(hulk_uintptr*)this = (hulk_uintptr)&PrintTrack_vftable;
     ReleaseThing(m10);
     ReleaseThing(m14);
     Cleanup();

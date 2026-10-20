@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 typedef unsigned int u32_24f870;
@@ -15,6 +16,6 @@ void audio::SeqActionChannelSends::vfunc_1(void* __p0) { Arg_24f870 * arg = (Arg
 
     u32_24f870 val = arg->value;
     Result_24f870* r = FUN_0024a940(val, (char*)(*(void * *)&this->f_08) + 0x108);
-    r->link = (u32_24f870)((char*)(*(void * *)&this->f_08) + 8);
+    r->link = (hulk_uintptr)((char*)(*(void * *)&this->f_08) + 8);
     (*(u32_24f870 *)&this->f_0c) = 0;
 }

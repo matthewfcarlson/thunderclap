@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004192cc[];
 typedef unsigned int u32_18bda0;
 typedef unsigned char u8;
@@ -30,7 +31,7 @@ PropTrack* Factory_18bda0::f5() {
     PropTrack* p = (PropTrack*)alloc(0x18);
     if (p) {
         p->PropTrack::PropTrack();
-        p->v = ((int)DAT_004192cc);
+        p->v = ((hulk_intptr)DAT_004192cc);
         p->a = 0;
         p->b = 0xffffffff;
         p->c = 0;

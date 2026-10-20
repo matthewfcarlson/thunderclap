@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_261ef0;
 extern "C" bool __cdecl FUN_0025abd0(const char*, unsigned int*);
 extern "C" bool __cdecl FUN_0025ac10(const char*, unsigned int*);
@@ -27,7 +28,7 @@ bool Obj_261ef0::Fn(const char* name) {
         if (!mTail)
             mHead = p;
         else
-            *mTail = (int)p;
+            *mTail = (hulk_intptr)p;
         mTail = p;
     }
     return true;

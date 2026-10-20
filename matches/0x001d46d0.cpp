@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void __cdecl FUN_001d22a0();
 extern "C" char DAT_00422810[];
 struct Closure4 {
@@ -24,7 +25,7 @@ void Handler_1d46d0::target(int a, int b, int c) {
     Closure4* p = (Closure4*)alloc(0x24);
     if (p) {
         p->init(a, c);
-        p->vftable = (void*)((int)DAT_00422810);
+        p->vftable = (void*)((hulk_intptr)DAT_00422810);
         p->field20 = b;
     } else
         p = 0;
@@ -32,6 +33,6 @@ void Handler_1d46d0::target(int a, int b, int c) {
     list.attach(p);
     int x = x8;
     taskC(x, p);
-    taskD(x, (void*)((int)(void (__cdecl*)())&FUN_001d22a0), 1);
+    taskD(x, (void*)((hulk_intptr)(void (__cdecl*)())&FUN_001d22a0), 1);
     taskE(x, 0xffffd8ef, a);
 }

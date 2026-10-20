@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00428a7c[];
 class ConditionFactoryCaster {
   public:
@@ -23,7 +24,7 @@ ConditionFactoryCasterTemplate* ConditionFactoryCasterTemplate::V1(int x) {
     BaseAllocated* p = (BaseAllocated*)alloc(0x10);
     if (p) {
         p->Init();
-        *(unsigned int*)p = ((int)DAT_00428a7c);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_00428a7c);
         ((Elem_23d0a0*)((char*)p + 8))->Build(x);
         return (ConditionFactoryCasterTemplate*)p;
     }

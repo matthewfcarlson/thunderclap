@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 typedef unsigned int u32_245640;
@@ -18,7 +19,7 @@ void* audio::ClipType::vfunc_2() {
     Clip_245640* p = (Clip_245640*)FUN_00247530(&allocatorGlobal);
     if (p != 0) {
         p->init(&allocatorGlobal);
-        p->vft = (u32_245640)&clipVftable;
+        p->vft = (hulk_uintptr)&clipVftable;
         p->field28 = 0;
         return (void*)(p);
     }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Inner_1aea70 {
     char p[0x2c];
     float key;
@@ -16,8 +17,8 @@ int Cmp(A_1aea70* q, A_1aea70* p) {
     Ref_1aea70 rq = q->r;
     float kq = rq.in->key;
     if (kq == kp) {
-        unsigned pa = (unsigned)rp.in + 0x10;
-        unsigned pb = (unsigned)rq.in + 0x10;
+        hulk_uintptr pa = (hulk_uintptr)rp.in + 0x10;
+        hulk_uintptr pb = (hulk_uintptr)rq.in + 0x10;
         if (pa > pb)
             return -1;
         return pa < pb;

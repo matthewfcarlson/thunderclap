@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0041b2e8[];
@@ -20,7 +21,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::MissilePunchTra
     MPT* p = (MPT*)operator_new(0x24);
     if (p) {
         p->BaseInit();
-        p->vf = ((int)DAT_0041b2e8);
+        p->vf = ((hulk_intptr)DAT_0041b2e8);
         p->c = 0;
         p->z = -1.0f;
         p->w = 6.2831855f;

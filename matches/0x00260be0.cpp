@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" int sprintf(char*, const char*, ...);
 class Owner_260be0 {
   public:
@@ -26,7 +27,7 @@ int FUN_00260be0(Owner_260be0* owner, float value) {
     char c;
     do {
         c = *src;
-        src[pos - (int)buffer] = c;
+        src[pos - (hulk_intptr)buffer] = c;
         ++src;
     } while (c);
     return pos;

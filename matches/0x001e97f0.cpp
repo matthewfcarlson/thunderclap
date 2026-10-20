@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00423f38[];
 extern void* __cdecl FUN_0008d710(unsigned int, unsigned int);
 struct CSoundSequence {
@@ -29,7 +30,7 @@ CSoundSequence* Owner_1e97f0::Add() {
     CSoundSequence* r0 = (CSoundSequence*)FUN_0008d710(0x130, 6);
     CSoundSequence* p;
     if (r0) {
-        r0->vt = ((int)DAT_00423f38);
+        r0->vt = ((hulk_intptr)DAT_00423f38);
         r0->a = 0;
         r0->d = 0;
         r0->e = 0;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00421a3c[];
 class StoreBase_1c77e0 {
   public:
@@ -6,7 +7,7 @@ class StoreBase_1c77e0 {
 };
 StoreBase_1c77e0::StoreBase_1c77e0(unsigned int arg, unsigned char flag) {
     unsigned char* p = (unsigned char*)this;
-    *(unsigned int*)p = ((int)DAT_00421a3c);
+    *(hulk_uintptr*)p = ((hulk_intptr)DAT_00421a3c);
     *(unsigned int*)(p + 8) = 0;
     *(unsigned int*)(p + 12) = 0;
     *(unsigned int*)(p + 16) = 0xffffffff;

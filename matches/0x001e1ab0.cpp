@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class CSPManager_1e1ab0 {
@@ -18,7 +19,7 @@ template <> void Closure5<CSPManager, bool, const char *, const char *, int, flo
     void** a = (void**)args;
     const char* s1 = (const char*)*a++;
     const char* s2 = (const char*)*a++;
-    int n = (int)*a++;
+    hulk_intptr n = (hulk_intptr)*a++;
     float v = *(float*)a++;
     const char* s3 = (const char*)*a;
     bool r = (p->*method)(s1, s2, n, v, s3);

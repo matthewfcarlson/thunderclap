@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 struct Val_1d73f0 {
     char pad[0x18];
@@ -36,7 +37,7 @@ class Self_1d73f0 {
 };
 int __fastcall target(Self_1d73f0* s) {
     float limit = g_1d73f0->p->value;
-    int r;
+    hulk_intptr r;
     if (s->a)
         r = s->a->get() + 0x30;
     else

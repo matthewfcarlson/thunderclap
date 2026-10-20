@@ -1,4 +1,5 @@
 // Same code shape as 0x001b7790 (propagated; names are from that function)
+#include "compat/ptr.h"
 class RenderThing_23b350 {
   public:
     virtual void f0();
@@ -17,9 +18,9 @@ class StreamStringReader_23b350 {
 };
 extern void destroy(StreamStringReader_23b350*);
 StreamStringReader_23b350* StreamStringReader_23b350::vfunc_2(unsigned char flags) {
-    *(int*)this = (int)&rad_vtable;
+    *(hulk_intptr*)this = (hulk_intptr)&rad_vtable;
     member->f1();
-    *(int*)this = (int)&ref_vtable;
+    *(hulk_intptr*)this = (hulk_intptr)&ref_vtable;
     if (flags & 1)
         destroy(this);
     return this;

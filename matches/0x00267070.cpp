@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 
 struct Obj_267070 {
@@ -15,6 +16,6 @@ struct Handle_267070 {
 };
 extern Handle_267070* __cdecl Get(void*, int);
 void __cdecl Target(int x) {
-    Handle_267070* h = Get((void*)((int)((char*)&DAT_00527f40)), x);
+    Handle_267070* h = Get((void*)((hulk_intptr)((char*)&DAT_00527f40)), x);
     h->p->h(x);
 }

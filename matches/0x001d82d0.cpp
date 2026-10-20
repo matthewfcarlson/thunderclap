@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Node {
     char pad[0x6c];
     int field6c;
@@ -29,9 +30,9 @@ class Obj_1d82d0 {
 int Obj_1d82d0::Run() {
     if (!active)
         return -1;
-    int x;
+    hulk_intptr x;
     if (holder)
-        x = (int)holder->node;
+        x = (hulk_intptr)holder->node;
     else
         x = 0;
     if (*(int*)(x + 0x6c))

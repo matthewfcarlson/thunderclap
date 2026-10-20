@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 int resolve(int, int);
 struct Seq {
     char pad[12];
@@ -24,9 +25,9 @@ Repeat::Repeat(Seq* s) {
     seq = s;
     zero = 0;
     int index = s->a;
-    int result;
+    hulk_intptr result;
     if (index == -1)
-        result = ((int)s | index);
+        result = ((hulk_intptr)s | index);
     else
         result = resolve(index, s->b);
     val = result;

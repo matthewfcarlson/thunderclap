@@ -1,4 +1,5 @@
 // FUN_001bf4c0 @ 0x001bf4c0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -19,7 +20,7 @@ class MethodObj_1bf4c0 {
 };
 MethodObj_1bf4c0* MethodObj_1bf4c0::FUN_001bf4c0(void* name, void* f) {
     ((ThisCall_001d0480*)(this))->FUN_001d0480(name, 4);
-    vptr = (int)DAT_004214d0;
+    vptr = (hulk_intptr)DAT_004214d0;
     fn = f;
     result = FUN_001d04d0(((char*)&DAT_0048e100));
     a0 = FUN_001d04d0(((char*)&DAT_0048e134));

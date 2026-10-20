@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" char DAT_0041da1c[];
 struct This_FUN_001d0480 {
@@ -17,7 +18,7 @@ class Method3_1b5bc0 {
 };
 Method3_1b5bc0::Method3_1b5bc0(int a, int b) {
     ((This_FUN_001d0480*)this)->FUN_001d0480((const char*)a, 3);
-    vtable = ((int)DAT_0041da1c);
+    vtable = ((hulk_intptr)DAT_0041da1c);
     value1c = b;
     value18 = FUN_001d04d0(&str1_1b5bc0);
     value10 = FUN_001d04d0(&str2);

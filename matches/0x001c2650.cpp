@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Item_1c2650 {
   public:
     virtual void a();
@@ -46,7 +47,7 @@ void Target_1c2650::fn(Item_1c2650* p, int x, int y) {
     if (p) {
         gRoot_1c2650->m->p(0);
         helper(p, y);
-        p->i((int)member, x);
+        p->i((hulk_intptr)member, x);
         gRoot_1c2650->m->q(0);
     }
 }

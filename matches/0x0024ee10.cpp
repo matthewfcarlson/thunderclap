@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 extern "C" char DAT_0042991c[];
@@ -18,8 +19,8 @@ class ChannelSendVolumeFadeBehaviour : public om::DynBehaviour {
 extern "C" void __cdecl FUN_00247550(void*, void*);
 audio::ChannelSendVolumeFadeBehaviour* audio::ChannelSendVolumeFadeBehaviour::vfunc_0(int flag) {
     ChannelSendVolumeFadeBehaviour* p = this;
-    *(int*)p = ((int)DAT_0042991c);
+    *(hulk_intptr*)p = ((hulk_intptr)DAT_0042991c);
     if (flag & 1)
-        FUN_00247550((void*)((int)DAT_004e67b8), p);
+        FUN_00247550((void*)((hulk_intptr)DAT_004e67b8), p);
     return p;
 }

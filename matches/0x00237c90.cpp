@@ -1,5 +1,6 @@
 // FUN_00237c90 @ 0x00237c90
 // FUN_00237c90: fight::SequenceAction constructor
+#include "compat/ptr.h"
 struct RefObj_237c90 {
     virtual void AddRef();
     virtual void Release();
@@ -26,7 +27,7 @@ struct SequenceAction {
 SequenceAction *SequenceAction::FUN_00237c90(RefObj_237c90 *a, int b, RefObj_237c90 *c, int d, int e, int f, RefObj_237c90 *g)
 {
     FUN_00232660();
-    vptr = (int)DAT_00428130;
+    vptr = (hulk_intptr)DAT_00428130;
     f1c = 0;
     f20 = 0;
     f24 = 0;

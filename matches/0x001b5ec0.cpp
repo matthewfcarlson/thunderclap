@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Obj_1b5ec0 {
     virtual void AddRef();
     virtual void Release();
@@ -34,7 +35,7 @@ bool Holder_1b5ec0::Add(Obj_1b5ec0* o, int v) {
             vals[i] = v;
             ctx->Reg(o);
             o = (Obj_1b5ec0*)o->h;
-            void* c = Cast((int)o, 0, TFrom, TTo, 0);
+            void* c = Cast((hulk_intptr)o, 0, TFrom, TTo, 0);
             if (c)
                 mesh.Set(c, v);
             return true;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004288fc[];
 class SubConditionGroupCondition;
 struct Part_23c930 {
@@ -18,7 +19,7 @@ class SubConditionGroupCondition {
 extern void __cdecl DestroySub(SubConditionGroupCondition*);
 SubConditionGroupCondition* SubConditionGroupCondition::vfunc_5(int flags) {
     Part_23c930* p = (Part_23c930*)((char*)this + 12);
-    *(unsigned int*)this = ((int)DAT_004288fc);
+    *(hulk_uintptr*)this = ((hulk_intptr)DAT_004288fc);
     p->Init();
     Finalize();
     if (flags & 1)

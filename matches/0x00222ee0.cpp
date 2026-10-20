@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern const float zeroValue_222ee0;
 class Item_222ee0 {
   public:
@@ -35,7 +36,7 @@ int Owner_222ee0::target(int index) {
         Entry_222ee0* e = &entries[i];
         if (!e->obj->Check() && (e->value >= zeroValue_222ee0 || e->flag)) {
             if (index == found)
-                return (int)e->obj;
+                return (hulk_intptr)e->obj;
             ++found;
         }
     }

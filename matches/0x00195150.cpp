@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
 class Ref_195150 {
   public:
@@ -18,7 +19,7 @@ class FireProjectileAction {
     void clean();
 };
 void FireProjectileAction::clean() {
-    vptr = (int)&vt_195150;
+    vptr = (hulk_intptr)&vt_195150;
     _ReadWriteBarrier();
     if (m2c) {
         m2c->Release();

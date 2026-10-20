@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Item_25dc20 {
     virtual void f0();
     virtual void f1();
@@ -16,7 +17,7 @@ int Owner_25dc20::Add(Item_25dc20* item) {
     if (last == 0)
         first = (Item_25dc20*)node;
     else
-        *(int*)last = (int)node;
+        *(hulk_intptr*)last = (hulk_intptr)node;
     last = (Item_25dc20*)node;
     ++count;
     return item->Run(this, 1);

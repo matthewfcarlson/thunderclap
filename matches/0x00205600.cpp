@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" char DAT_00425be4[];
 class InitBase_205600 {
@@ -18,7 +19,7 @@ class Method3_205600 {
 extern char str1_205600[], str2[], str3[], str4[];
 Method3_205600::Method3_205600(const char* a, int b) {
     ((InitBase_205600*)this)->Init(a, 3);
-    vptr = ((int)DAT_00425be4);
+    vptr = ((hulk_intptr)DAT_00425be4);
     f1c = b;
     f18 = (char)FUN_001d04d0(str1_205600);
     f10 = (char)FUN_001d04d0(str2);

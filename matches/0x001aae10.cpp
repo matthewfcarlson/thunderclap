@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0041d3cc[];
 class Sub_1aae10 {
   public:
@@ -15,7 +16,7 @@ class Event_TriggerVolumeNameCondition : public Base_1aae10 {
     void Fn();
 };
 void Event_TriggerVolumeNameCondition::Fn() {
-    vptr = (void*)((int)DAT_0041d3cc);
+    vptr = (void*)((hulk_intptr)DAT_0041d3cc);
     sub.Init();
     Tail();
 }

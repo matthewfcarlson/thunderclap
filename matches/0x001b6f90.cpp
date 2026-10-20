@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0041dc30[];
 struct Other_1b6f90 {
@@ -11,7 +12,7 @@ struct C_1b6f90 {
     void F();
 };
 void C_1b6f90::F() {
-    vptr = (void*)((int)DAT_0041dc30);
+    vptr = (void*)((hulk_intptr)DAT_0041dc30);
     obj->B();
-    vptr = (void*)((int)DAT_003f6098);
+    vptr = (void*)((hulk_intptr)DAT_003f6098);
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 class SeqCommand {
@@ -13,8 +14,8 @@ namespace audio { class SeqCommandLogicRepeat : public SeqCommand {
 extern int SeqCommand_vftable;
 extern void __cdecl FUN_00247550(void*, void*);
 audio::SeqCommandLogicRepeat* audio::SeqCommandLogicRepeat::vfunc_1(int x) {
-    *(int*)this = (int)&SeqCommand_vftable;
+    *(hulk_intptr*)this = (hulk_intptr)&SeqCommand_vftable;
     if (x & 1)
-        FUN_00247550((void*)((int)((char*)((char*)&DAT_004e72f8 + 104))), this);
+        FUN_00247550((void*)((hulk_intptr)((char*)((char*)&DAT_004e72f8 + 104))), this);
     return this;
 }

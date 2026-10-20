@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042aa7c[];
 extern void* gSource;
 extern int gCount_260950;
@@ -23,7 +24,7 @@ class SeqEventType : public Type {
 };
 SeqEventType* SeqEventType::vfunc2(unsigned int flags) {
     void* p = gSource;
-    *(void**)this = (void*)((int)DAT_0042aa7c);
+    *(void**)this = (void*)((hulk_intptr)DAT_0042aa7c);
     InitSeq(p, this);
     --gCount_260950;
     sub.Clean();

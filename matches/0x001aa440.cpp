@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" void* __cdecl Alloc(unsigned int);
@@ -20,7 +21,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::scenario::NodeIsNot
     Node_1aa440* p = (Node_1aa440*)Alloc(0x10);
     if (p) {
         p->Init(0);
-        *(unsigned int*)p = (unsigned int)&NodeVtable;
+        *(hulk_uintptr*)p = (hulk_uintptr)&NodeVtable;
         *((unsigned char*)p + 0xc) = 1;
         return (void*)(p);
     }

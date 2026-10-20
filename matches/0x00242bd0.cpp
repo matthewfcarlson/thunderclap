@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
 extern char gPool_242bd0[];
 extern void* __cdecl FUN_00247530(void*);
@@ -8,18 +9,18 @@ Node* __cdecl FUN_00242bd0() {
     Node* p = (Node*)FUN_00247530(gPool_242bd0);
     if (p) {
         int* q = (int*)p + 1;
-        q[0] = (int)q;
-        ((int*)p)[2] = (int)q;
-        ((int*)p)[3] = (int)q;
-        ((int*)p)[0] = (int)q;
+        q[0] = (hulk_intptr)q;
+        ((hulk_intptr*)p)[2] = (hulk_intptr)q;
+        ((hulk_intptr*)p)[3] = (hulk_intptr)q;
+        ((hulk_intptr*)p)[0] = (hulk_intptr)q;
         ((int*)p)[4] = 0;
         _ReadWriteBarrier();
         int* r = (int*)p + 6;
-        r[0] = (int)r;
-        ((int*)p)[7] = (int)r;
-        ((int*)p)[8] = (int)r;
+        r[0] = (hulk_intptr)r;
+        ((hulk_intptr*)p)[7] = (hulk_intptr)r;
+        ((hulk_intptr*)p)[8] = (hulk_intptr)r;
         ((int*)p)[9] = 0;
-        ((int*)p)[5] = (int)r;
+        ((hulk_intptr*)p)[5] = (hulk_intptr)r;
         return p;
     }
     return 0;

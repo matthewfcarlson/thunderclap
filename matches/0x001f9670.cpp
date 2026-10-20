@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Obj_1f9670 {
     char pad[0x20];
     unsigned short value;
@@ -15,7 +16,7 @@ struct Receiver_1f9670 {
 };
 extern int Callback();
 bool Receiver_1f9670::Target(int a, int b, int c, int d, unsigned short v) {
-    int r = sub->Find(Callback, &a);
+    hulk_intptr r = sub->Find(Callback, &a);
     if (!r) {
         ((Temp_1f9670*)&a)->Cleanup();
         return false;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" char DAT_004233f8[];
 class Obj_1e0550 {
@@ -16,7 +17,7 @@ extern char gB_1e0550[];
 extern char gC_1e0550[];
 Obj_1e0550* Obj_1e0550::Make(const char* p, int x) {
     Init(p, 5);
-    v = ((int)DAT_004233f8);
+    v = ((hulk_intptr)DAT_004233f8);
     m1c = x;
     b18 = FUN_001d04d0(gA_1e0550);
     pad[12] = FUN_001d04d0(gB_1e0550);

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 class CDHGameObjectCreator {
@@ -19,5 +20,5 @@ class CRenderManager : public CDHGameObjectCreator, public DataHandlerObjectCrea
     const char* f3(void*);
 };
 const char* CRenderManager::f3(void* p) {
-    return (const char*)((p != 0) - 1 & ((int)((char*)&DAT_00420dd8)));
+    return (const char*)((p != 0) - 1 & ((hulk_intptr)((char*)&DAT_00420dd8)));
 }

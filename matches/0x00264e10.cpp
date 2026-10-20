@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Pair_264e10 {
     unsigned a;
     unsigned b;
@@ -20,7 +21,7 @@ bool Queue_264e10::Push(Pair_264e10* value) {
         mNext = (Pair_264e10*)((char*)mNext + 8);
         if (mNext == mLimit)
             mNext = mEndQueue;
-        if (mBegin == (unsigned)mNext)
+        if (mBegin == (hulk_uintptr)mNext)
             mNext = (Pair_264e10*)((char*)mNext + (((char*)mLimit - (char*)mEndQueue) >> 3) * 8);
         return true;
     }

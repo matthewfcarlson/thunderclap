@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class CActorManager {
   public:
     int f(const char* a);
@@ -15,7 +16,7 @@ int Closure1::v2(CActorManager** obj, const char** arg, int** out) {
     CActorManager* o = mObj;
     const char* a = *arg;
     int (CActorManager::*fn)(const char*) = mFn;
-    int r = (o->*fn)(a);
+    hulk_intptr r = (o->*fn)(a);
     if (out)
         *out = (int*)r;
     return r;

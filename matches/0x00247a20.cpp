@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_247a20 {
   public:
     int Check();
@@ -29,7 +30,7 @@ void FUN_00247a20(Owner_247a20* owner, State_247a20* state, Obj_247a20* obj, int
     state->mStatus = 1;
     if (obj) {
         if (state->mObj->Check() == 0) {
-            state->mObj->Start((int)obj, flag);
+            state->mObj->Start((hulk_intptr)obj, flag);
             if (Result(obj) == 2) {
                 state->mStatus = 3;
                 return;

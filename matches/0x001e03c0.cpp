@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
@@ -21,11 +22,11 @@ struct Method6 : Base_1e03c0 {
 
 Method6::Method6(int a, int b) : Base_1e03c0(a, 6) {
     m1c = b;
-    c18 = ParseArg((const char*)((int)((char*)&DAT_0048e100)));
-    c10 = ParseArg((const char*)((int)((char*)&DAT_0048e0f0)));
-    c11 = ParseArg((const char*)((int)((char*)&DAT_0048e134)));
-    c12 = ParseArg((const char*)((int)((char*)&DAT_0048e128)));
-    c13 = ParseArg((const char*)((int)((char*)&DAT_0048e128)));
-    c14 = ParseArg((const char*)((int)((char*)&DAT_0048e128)));
-    c15 = ParseArg((const char*)((int)((char*)&DAT_0048e128)));
+    c18 = ParseArg((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
+    c10 = ParseArg((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    c11 = ParseArg((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
+    c12 = ParseArg((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    c13 = ParseArg((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    c14 = ParseArg((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    c15 = ParseArg((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
 }

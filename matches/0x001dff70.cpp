@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
@@ -25,9 +26,9 @@ void Derived_1dff70::f0() {}
 
 Derived_1dff70::Derived_1dff70(int a, int b) : Base_1dff70(a, 4) {
     m1c = b;
-    m18 = GetFlag((const char*)((int)((char*)&DAT_0048e100)));
-    m10 = GetFlag((const char*)((int)((char*)&DAT_0048e134)));
-    m11 = GetFlag((const char*)((int)((char*)&DAT_0048e128)));
-    m12 = GetFlag((const char*)((int)((char*)&DAT_0048e128)));
-    m13 = GetFlag((const char*)((int)((char*)&DAT_0048e128)));
+    m18 = GetFlag((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
+    m10 = GetFlag((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
+    m11 = GetFlag((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    m12 = GetFlag((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    m13 = GetFlag((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern int vtBase_234af0;
 extern int vtList;
 class Part_234af0 {
@@ -13,7 +14,7 @@ class ParamValueStringList {
 };
 ParamValueStringList::ParamValueStringList(int x) {
     int* p = &vptr;
-    *p = (int)&vtBase_234af0;
+    *p = (hulk_intptr)&vtBase_234af0;
     part.Init(x);
-    *p = (int)&vtList;
+    *p = (hulk_intptr)&vtList;
 }

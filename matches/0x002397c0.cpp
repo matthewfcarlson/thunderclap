@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Ref_2397c0 {
     virtual void AddRef();
     virtual void Release();
@@ -34,7 +35,7 @@ EA::EA(Ref_2397c0* a, Ref_2397c0* b, Ref_2397c0* c, int d, Ref_2397c0* e, Ref_23
     if (m1c)
         m1c->Release();
     m1c = a;
-    m20 = (int)b;
+    m20 = (hulk_intptr)b;
     if (c)
         c->AddRef();
     if (m24)

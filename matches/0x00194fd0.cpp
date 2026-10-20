@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Sub_194fd0 {
   public:
     void Init();
@@ -22,7 +23,7 @@ class MissilePunchTrack {
 extern int missileVftable;
 extern void Cleanup(MissilePunchTrack*);
 MissilePunchTrack* MissilePunchTrack::vfunc_5(int flag) {
-    *(int*)this = (int)&missileVftable;
+    *(hulk_intptr*)this = (hulk_intptr)&missileVftable;
     sub.Init();
     Setup();
     if (flag & 1)

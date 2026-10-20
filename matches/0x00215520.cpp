@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 8/8)
 // FUN_00215520 @ 0x00215520
 // cl-flags: /GS
+#include "compat/ptr.h"
 struct Context;
 struct Packet_215520 {
     int kind;
@@ -29,8 +30,8 @@ void __cdecl FUN_00215460(Context *, int);
 void __cdecl FUN_00215520(Context *self, int kind, int value) {
     Callback_215520 callback = self->callback;
     if (callback && self->enabled) {
-        int cursorOffset = self->cursor - self->base;
-        int endOffset = self->entry->end - self->base;
+        hulk_intptr cursorOffset = self->cursor - self->base;
+        hulk_intptr endOffset = self->entry->end - self->base;
         Packet_215520 packet;
         packet.kind = kind;
         packet.value = value;

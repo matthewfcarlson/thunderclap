@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 extern "C" char DAT_004298fc[];
@@ -21,8 +22,8 @@ class SeqActionVarPosDist : public SeqAction {
 extern void FUN_00247550(void*, void*);
 audio::SeqActionVarPosDist* audio::SeqActionVarPosDist::vfunc_0(int x) {
     int* p = (int*)this;
-    *p = ((int)DAT_004298fc);
+    *p = ((hulk_intptr)DAT_004298fc);
     if (x & 1)
-        FUN_00247550((void*)((int)DAT_004e6ff0), this);
+        FUN_00247550((void*)((hulk_intptr)DAT_004e6ff0), this);
     return this;
 }

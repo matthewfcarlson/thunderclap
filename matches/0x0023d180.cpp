@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00428a44[];
@@ -11,7 +12,7 @@ template <> void* fight::ConditionFactoryTemplate<fight::OrCondition>::vfunc_5()
     Init_23d180* p = (Init_23d180*)FUN_0008d690(12);
     if (p) {
         p->init(1);
-        *(u32_23d180*)p = ((int)DAT_00428a44);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_00428a44);
         return (void*)(p);
     }
     return (void*)(0);

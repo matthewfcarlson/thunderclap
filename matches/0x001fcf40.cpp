@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class C_1fcf40 {
   public:
     char pad[0x20c];
@@ -7,12 +8,12 @@ class C_1fcf40 {
 };
 extern void __fastcall FUN_001fb970(void*);
 int C_1fcf40::foo() {
-    int result = 0;
+    hulk_intptr result = 0;
     if (count < 256) {
         char* p = (char*)buffer + (count << 6);
         FUN_001fb970(p);
         ++count;
-        result = (int)p;
+        result = (hulk_intptr)p;
     }
     return result;
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004279ac[];
 class Obj_2345e0 {
   public:
@@ -18,7 +19,7 @@ namespace fight { struct Condition {
 void Destroy(fight::Condition*);
 fight::Condition* fight::Condition::vfunc_5(unsigned char flags) {
     Obj_2345e0* p = mRef;
-    vptr = ((int)DAT_004279ac);
+    vptr = ((hulk_intptr)DAT_004279ac);
     if (p)
         p->s5(1);
     mRef = 0;

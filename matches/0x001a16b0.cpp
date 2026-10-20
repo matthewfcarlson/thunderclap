@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Script_1a16b0 {
@@ -11,7 +12,7 @@ struct Provider_1a16b0 {
 int GetThing();
 
 bool hulkfight::scenario::LuaAction::vfunc_3(int a, int b) {
-    int x = GetThing();
+    hulk_intptr x = GetThing();
     if (!x)
         return false;
     Script_1a16b0* s = (*(Script_1a16b0 * *)&this->f_1c);

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class IRefCount {
   public:
     virtual void f0();
@@ -15,7 +16,7 @@ class CSoundSequence : public IRefCount {
 extern int seq_vftable_1e9180, base_vftable;
 extern void thunk(void*);
 CSoundSequence* CSoundSequence::f2(unsigned char flag) {
-    *(unsigned long*)this = (unsigned long)&seq_vftable_1e9180;
+    *(hulk_ulongptr*)this = (hulk_ulongptr)&seq_vftable_1e9180;
     if (member) {
         struct X {
             virtual void a();
@@ -24,7 +25,7 @@ CSoundSequence* CSoundSequence::f2(unsigned char flag) {
         ((X*)member)->b();
         member = 0;
     }
-    *(unsigned long*)this = (unsigned long)&base_vftable;
+    *(hulk_ulongptr*)this = (hulk_ulongptr)&base_vftable;
     if (flag & 1)
         thunk(this);
     return this;

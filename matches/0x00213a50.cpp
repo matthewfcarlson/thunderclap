@@ -1,4 +1,5 @@
 // cl-flags: /O2 /GR /GX
+#include "compat/ptr.h"
 
 struct BufferHeader {
     int field_0;
@@ -29,10 +30,10 @@ extern "C" void __cdecl FUN_002159e0(BufferHeader* buf, Entry_213a50* entry, int
 void FUN_00213a50(BufferHeader* buf, DataItem* item) {
     Entry_213a50* entry = FUN_00219520(buf, 0);
 
-    entry->data = (int)item->ptr0;
+    entry->data = (hulk_intptr)item->ptr0;
 
     int* writePtr = (int*)buf->field_8;
-    writePtr[1] = (int)entry;
+    writePtr[1] = (hulk_intptr)entry;
     *writePtr = 6;
 
     int available = buf->field_18 - buf->field_8;
@@ -43,7 +44,7 @@ void FUN_00213a50(BufferHeader* buf, DataItem* item) {
     buf->field_8 += 8;
 
     int* slot2 = (int*)buf->field_8;
-    slot2[1] = (int)item->ptr4;
+    slot2[1] = (hulk_intptr)item->ptr4;
     *slot2 = 2;
 
     available = buf->field_18 - buf->field_8;

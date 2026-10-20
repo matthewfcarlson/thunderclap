@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Elem_1fd130 {
   public:
     char pad[0x458];
@@ -15,7 +16,7 @@ class Container_1fd130 {
 };
 
 void Container_1fd130::Target(void* p2, void* p3) {
-    for (int i = 0; i < 0x6380; i += 0xc70) {
+    for (hulk_intptr i = 0; i < 0x6380; i += 0xc70) {
         Elem_1fd130* e = (Elem_1fd130*)(mArray + i);
         if (e->mFlag != 0) {
             if (((Elem_1fd130*)(mArray + i))->Check(p3)) {

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 
 extern int __cdecl Query(int, int);
@@ -16,7 +17,7 @@ bool Obj_1d19f0::Run(int a, int b, char flag) {
     if (x == 0) {
         r = false;
     } else {
-        Format(a, b, (const char*)((int)((char*)&DAT_003f3f38)), x);
+        Format(a, b, (const char*)((hulk_intptr)((char*)&DAT_003f3f38)), x);
     }
     if (flag)
         Finish(field, -2);

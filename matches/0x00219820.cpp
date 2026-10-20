@@ -1,12 +1,13 @@
+#include "compat/ptr.h"
 int Find(int* a, int b, int c) {
     int n = *(int*)((char*)a + 0x38), i = 0;
     if (n > 0) {
-        int* p = (int*)(*(int*)((char*)a + 0x18) + 8);
+        int* p = (int*)(*(hulk_intptr*)((char*)a + 0x18) + 8);
         do {
             if (p[-1] > c)
                 return 0;
             if (c < *p && --b == 0) {
-                int* q = (int*)*(int*)((char*)a + 0x18);
+                int* q = (int*)*(hulk_intptr*)((char*)a + 0x18);
                 return q[i * 3] + 16;
             }
             ++i;

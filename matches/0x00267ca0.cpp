@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/core.h"
 
 class TimerBase {
@@ -35,7 +36,7 @@ void core::Timer::vfunc_9() {
             int* cur = items;
             do {
                 if (*cur == 0) {
-                    items[i] = (int)this;
+                    items[i] = (hulk_intptr)this;
                     return;
                 }
                 ++i;

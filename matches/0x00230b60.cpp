@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct X_230b60 {
     int a;
     int b;
@@ -10,10 +11,10 @@ struct X_230b60 {
 };
 void X_230b60::Init() {
     int* p = &b;
-    a = (int)p;
-    b = (int)p;
-    c = (int)p;
-    d = (int)p;
+    a = (hulk_intptr)p;
+    b = (hulk_intptr)p;
+    c = (hulk_intptr)p;
+    d = (hulk_intptr)p;
     e = 0;
     f = 0;
 }

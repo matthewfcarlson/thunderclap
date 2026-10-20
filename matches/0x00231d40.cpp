@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00427688[];
 class Part_231d40 {
   public:
@@ -20,7 +21,7 @@ class Node {
 };
 extern void third(Node*);
 Node* Node::vfunc_2(unsigned char p) {
-    *(void**)this = (void*)((int)DAT_00427688);
+    *(void**)this = (void*)((hulk_intptr)DAT_00427688);
     ((Part_231d40*)((char*)this + 0x28))->init();
     second();
     if (p & 1)

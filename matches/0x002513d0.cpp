@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 extern "C" char DAT_00429dcc[];
 struct SeqEventPlayTrack_nv_2513d0 {
@@ -19,7 +20,7 @@ class SeqEventPlayTrack_2513d0 {
 };
 SeqEventPlayTrack_2513d0* __fastcall Target(SeqEventPlayTrack_2513d0* self) {
     ((SeqEventPlayTrack_nv_2513d0*)(((audio::SeqEventPlayTrack*)self)))->Init();
-    self->vptr = ((int)DAT_00429dcc);
+    self->vptr = ((hulk_intptr)DAT_00429dcc);
     self->a = 0;
     self->b = 0;
     self->c = 0;

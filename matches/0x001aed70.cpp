@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_1aed70[];
 void operator delete(void*);
@@ -15,7 +16,7 @@ A_1aed70* A_1aed70::f(unsigned char flags) {
     vptr = g_vftable_1aed70;
     _ReadWriteBarrier();
     volatile int old = m1c;
-    int v = m20;
+    hulk_intptr v = m20;
     m18 = v;
     m1c = v;
     if (v)

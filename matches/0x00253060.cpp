@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 class SeqAction_253060 {
@@ -17,6 +18,6 @@ struct Obj_253060 {
 
 void audio::SeqActionVarPosDist::vfunc_1(void* __p0) { void * param = (void *)__p0;
 
-    *(int*)((char*)*(int*)((char*)param + 4) + 0x38) = *(int*)((char*)this + 8) + 8;
+    *(int*)((char*)*(hulk_intptr*)((char*)param + 4) + 0x38) = *(int*)((char*)this + 8) + 8;
     *(int*)((char*)this + 0xc) = 0;
 }

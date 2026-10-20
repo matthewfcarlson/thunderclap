@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00427534[];
 class Base_22aa20 {
   public:
@@ -24,7 +25,7 @@ class LocomotionDriver {
 extern int g_count_22aa20;
 extern void __cdecl thunk_FUN_00267090(LocomotionDriver*);
 LocomotionDriver* LocomotionDriver::vfunc_2(int flags) {
-    *(void**)this = (void*)((int)DAT_00427534);
+    *(void**)this = (void*)((hulk_intptr)DAT_00427534);
     g_count_22aa20--;
     ((Base_22aa20*)this)->Fn();
     if (flags & 1)

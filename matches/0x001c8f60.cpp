@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00421abc[];
 struct Thing_1c8f60 {
     virtual void Run();
@@ -17,7 +18,7 @@ LevelLoader::LevelLoader(unsigned a, unsigned b) {
     m8 = 0x60000700;
     mc = 0;
     m10 = 0;
-    vptr = ((int)DAT_00421abc);
+    vptr = ((hulk_intptr)DAT_00421abc);
     m14 = a;
     m18 = b;
     Thing_1c8f60* t = Alloc(0x18);

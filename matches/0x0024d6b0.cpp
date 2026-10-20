@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 #include "gen/audio.h"
 
@@ -11,6 +12,6 @@ class X_24d6b0 {
     X_24d6b0();
 };
 X_24d6b0::X_24d6b0() {
-    ((ListenerEffectXBoxType_nv_24d6b0*)(((audio::ListenerEffectXBoxType*)this)))->FUN_002584d0((void*)((int)DAT_004e6338), (void*)((int)DAT_004e6330), (void*)0x30, 4);
-    m = ((int)DAT_00429440);
+    ((ListenerEffectXBoxType_nv_24d6b0*)(((audio::ListenerEffectXBoxType*)this)))->FUN_002584d0((void*)((hulk_intptr)DAT_004e6338), (void*)((hulk_intptr)DAT_004e6330), (void*)0x30, 4);
+    m = ((hulk_intptr)DAT_00429440);
 }

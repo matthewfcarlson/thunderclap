@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_004194dc[];
@@ -18,7 +19,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::ShieldArcTrack>
     ShieldArcTrack_18c1b0* p = (ShieldArcTrack_18c1b0*)operator_new(0x14);
     if (p) {
         p->Init();
-        *(u32_18c1b0*)p = ((int)DAT_004194dc);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_004194dc);
         *(u32_18c1b0*)((char*)p + 0xc) = 0;
         *(u32_18c1b0*)((char*)p + 0x10) = 0x3fc90fdb;
         *(u32_18c1b0*)((char*)p + 8) = 1;

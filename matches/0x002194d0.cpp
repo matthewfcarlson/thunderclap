@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Owner_2194d0;
 struct Result_2194d0 {
     unsigned char pad[16];
@@ -20,6 +21,6 @@ Result_2194d0* __cdecl FUN_002194d0(Owner_2194d0* p, Result_2194d0* x) {
     r->pad[4] = 7;
     *(int*)(r->pad + 8) = 0;
     *(int*)r->pad = *p->node->slot;
-    *p->node->slot = (int)r;
+    *p->node->slot = (hulk_intptr)r;
     return r;
 }

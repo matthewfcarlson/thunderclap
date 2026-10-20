@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 extern "C" char DAT_0042adc0[];
@@ -27,7 +28,7 @@ Stream* __cdecl FUN_00262e60(int param) {
     Stream* result = 0;
     if (p) {
         p->field = 0;
-        p->vptr = (void*)((int)DAT_0042adc0);
+        p->vptr = (void*)((hulk_intptr)DAT_0042adc0);
         p->arg = param;
         result = p;
     }

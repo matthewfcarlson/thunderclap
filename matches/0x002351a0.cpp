@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Helper_2351a0 {
   public:
     void Process(int);
@@ -14,7 +15,7 @@ namespace fight { class ParamValueBranch {
     virtual void f7();
 }; }
 void fight::ParamValueBranch::vfunc_3(int a, int b) {
-    int x = Query(a);
+    hulk_intptr x = Query(a);
     if (x)
         ((Helper_2351a0*)x)->Process(b);
 }

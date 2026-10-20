@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class C_1ca000 {
   public:
     void helper(int, int, int);
@@ -5,5 +6,5 @@ class C_1ca000 {
 };
 int C_1ca000::target(int a, int b) {
     helper(10, a, b);
-    return (int)this;
+    return (hulk_intptr)this;
 }

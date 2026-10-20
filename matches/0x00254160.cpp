@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 class SeqEvent {
@@ -25,6 +26,6 @@ extern void __cdecl FUN_00247550(void*, SeqEventStream*);
 SeqEventStream* SeqEventStream::f4(int flag) {
     ((Helper_254160*)this)->Run();
     if (flag & 1)
-        FUN_00247550((void*)((int)DAT_004e7200), this);
+        FUN_00247550((void*)((hulk_intptr)DAT_004e7200), this);
     return this;
 }

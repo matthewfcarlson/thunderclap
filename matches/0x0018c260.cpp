@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0041950c[];
@@ -13,7 +14,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropAddToCollis
         p->Init();
         p->pad[0x14] = 1;
         *(int*)(p->pad + 8) = 1;
-        *(int*)p->pad = ((int)DAT_0041950c);
+        *(hulk_intptr*)p->pad = ((hulk_intptr)DAT_0041950c);
         *(int*)(p->pad + 0xc) = 0;
         *(int*)(p->pad + 0x10) = 0;
     }

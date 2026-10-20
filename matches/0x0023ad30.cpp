@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Owner_23ad30 {
     char pad0[0x12c];
     int count;
@@ -13,7 +14,7 @@ bool Owner_23ad30::Run(int index, char* out, int arg) {
         return false;
     if (out) {
         *out = 0;
-        int p = *(int*)((char*)this + 0x13c + index * 24);
+        hulk_intptr p = *(int*)((char*)this + 0x13c + index * 24);
         while (p) {
             FUN_00267880(out, p, arg);
             p = *(int*)(p + 0x100);

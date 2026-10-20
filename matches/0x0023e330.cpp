@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_00428d24[];
@@ -19,7 +20,7 @@ int fight::WaitTrack::vfunc_10(int __p0, int __p1, int __p2) { void * p2 = (void
     if (r) {
         r->Init();
         *(void**)((char*)r + 0x1c) = this;
-        *(unsigned long*)r = ((int)DAT_00428d24);
+        *(hulk_ulongptr*)r = ((hulk_intptr)DAT_00428d24);
         *(unsigned long*)((char*)r + 0x20) = 0;
         if (p4)
             p4->AddRef();
@@ -27,7 +28,7 @@ int fight::WaitTrack::vfunc_10(int __p0, int __p1, int __p2) { void * p2 = (void
         if (old)
             old->Release();
         *(Ref_23e330**)((char*)r + 0x20) = p4;
-        return (int)(r);
+        return (hulk_intptr)(r);
     }
     return (int)(0);
 }

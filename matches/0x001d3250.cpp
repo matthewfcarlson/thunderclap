@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" char DAT_00422654[];
 extern const char text100[];
@@ -16,7 +17,7 @@ class Method4_1d3250 {
 };
 Method4_1d3250* Method4_1d3250::Create(const char* a, const char* b) {
     Init(a, 4);
-    vft = ((int)DAT_00422654);
+    vft = ((hulk_intptr)DAT_00422654);
     p1c = (void*)b;
     b18 = FUN_001d04d0(text100);
     b10 = FUN_001d04d0(text0f0);

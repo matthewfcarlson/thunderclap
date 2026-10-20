@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004279fc[];
 struct Sub_235830 {
     void Init();
@@ -10,7 +11,7 @@ struct ParamValueConditionGroup {
 };
 extern void FUN_00267090(ParamValueConditionGroup*);
 ParamValueConditionGroup* ParamValueConditionGroup::vfunc_0(int flags) {
-    vptr = ((int)DAT_004279fc);
+    vptr = ((hulk_intptr)DAT_004279fc);
     sub.Init();
     if (flags & 1)
         FUN_00267090(this);

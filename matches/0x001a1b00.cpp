@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/scenario.h"
 
 extern "C" void __cdecl FUN_001a1350();
@@ -21,9 +22,9 @@ void FUN_001a1b00() {
     if (g_count_1a1b00 == 0) {
         ParamScript* p = (ParamScript*)FUN_0008d690(0x18);
         if (p) {
-            p->Init((const char*)((int)((char*)&DAT_0041c420)));
-            *(unsigned int*)p = ((int)DAT_0041c3ac);
-            *(unsigned int*)((char*)p + 0x10) = ((int)(void (__cdecl*)())&FUN_001a1350);
+            p->Init((const char*)((hulk_intptr)((char*)&DAT_0041c420)));
+            *(hulk_uintptr*)p = ((hulk_intptr)DAT_0041c3ac);
+            *(hulk_uintptr*)((char*)p + 0x10) = ((hulk_intptr)(void (__cdecl*)())&FUN_001a1350);
             tmp = p;
         } else
             tmp = 0;

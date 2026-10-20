@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned char u8_23ec10;
 extern int spawn_vftable;
 struct A_23ec10 {
@@ -29,7 +30,7 @@ struct SpawnTrack : Track {
 };
 } // namespace fight
 fight::SpawnTrack* fight::SpawnTrack::vfunc_5(u8_23ec10 flag) {
-    *(int*)this = (int)&spawn_vftable;
+    *(hulk_intptr*)this = (hulk_intptr)&spawn_vftable;
     ((A_23ec10*)((char*)this + 0x20))->init();
     ((B_23ec10*)((char*)this + 0x14))->init();
     ((C_23ec10*)this)->init();

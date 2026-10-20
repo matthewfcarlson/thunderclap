@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042502c[];
 struct MyFileStream {
     int v;
@@ -22,7 +23,7 @@ bool Owner_1faf20::Open(int x) {
     local.a = 0;
     local.b = 0;
     local.c = 0;
-    local.v = ((int)DAT_0042502c);
+    local.v = ((hulk_intptr)DAT_0042502c);
     if (stream->Try(&local, x))
         return true;
     stream->Close();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class CSPManager_1e1bd0 {
@@ -5,7 +6,7 @@ class CSPManager_1e1bd0 {
     void Fn(int, float, float, float, const char*);
 };
 
-template <> void Closure5<CSPManager, void, int, float, float, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { int unused = (int)__p0; int * args = (int *)__p1; int other = (int)__p2;
+template <> void Closure5<CSPManager, void, int, float, float, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; int * args = (int *)__p1; hulk_intptr other = (hulk_intptr)__p2;
 
     int a = *args++;
     float b = *(float*)args++;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 class SeqAction {
@@ -27,6 +28,6 @@ extern void* seq_vftable_250ca0[];
 audio::SeqActionExpression* audio::SeqActionExpression::vfunc_0(int x) {
     *(void**)this = seq_vftable_250ca0;
     if (x & 1)
-        FUN_00247550((void*)((int)DAT_004e6ad0), this);
+        FUN_00247550((void*)((hulk_intptr)DAT_004e6ad0), this);
     return this;
 }

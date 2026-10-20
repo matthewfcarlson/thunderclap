@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -18,12 +19,12 @@ struct ThisCall_001d0480 {
 };
 Method4_1e08c0* Method4_1e08c0::Init(void* p, int b) {
     ((ThisCall_001d0480*)(this))->FUN_001d0480(p, 4);
-    vtable = ((int)DAT_00423438);
+    vtable = ((hulk_intptr)DAT_00423438);
     field1c = b;
-    a18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0e4)));
-    a10 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e128)));
-    a11 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e128)));
-    a12 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e128)));
-    a13 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e128)));
+    a18 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
+    a10 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    a11 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    a12 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    a13 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
     return this;
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int uint_262cc0;
 int FUN_0024c310(int);
 int FUN_0024c2f0(void*);
@@ -29,6 +30,6 @@ uint_262cc0 HalRadicalAdpcmDecodeStream::vfunc_3() {
     uint_262cc0 b = FUN_0024c310(a);
     void* p = (char*)this + 8;
     uint_262cc0 c = FUN_0024c2f0(p);
-    uint_262cc0 d = FUN_0024c310((int)p);
+    uint_262cc0 d = FUN_0024c310((hulk_intptr)p);
     return c * b / d;
 }

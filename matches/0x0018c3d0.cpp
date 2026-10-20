@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0041956c[];
@@ -22,7 +23,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropDamageTrack
     PropDamageTrack_18c3d0* p = (PropDamageTrack_18c3d0*)Alloc(0x18);
     if (p) {
         p->Track_18c3d0::Track_18c3d0();
-        *(volatile unsigned int*)p = ((int)DAT_0041956c);
+        *(volatile hulk_uintptr*)p = ((hulk_intptr)DAT_0041956c);
         p->xc = 0;
         p->x10 = 0;
         p->x14 = 0;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004272b8[];
 struct Sub_2235f0 {
     char pad[0x54];
@@ -14,7 +15,7 @@ struct Puppet {
 };
 Puppet* Puppet::ctor(int arg) {
     baseInit();
-    vt = (void*)((int)DAT_004272b8);
+    vt = (void*)((hulk_intptr)DAT_004272b8);
     sub.init();
     a = 0;
     b = 0;

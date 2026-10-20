@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int U32_26d8f0;
 typedef void(__stdcall* LockFn)(void*);
 extern LockFn enterFn;
@@ -11,8 +12,8 @@ void __cdecl Target(U32_26d8f0* node) {
         gFirst_26d8f0 = node;
         node[1] = 0;
     } else {
-        *(U32_26d8f0*)gLast_26d8f0 = (U32_26d8f0)node;
-        node[1] = (U32_26d8f0)gLast_26d8f0;
+        *(hulk_uintptr*)gLast_26d8f0 = (hulk_uintptr)node;
+        node[1] = (hulk_uintptr)gLast_26d8f0;
     }
     gLast_26d8f0 = node;
     node[0] = 0;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 typedef unsigned int u32_24a590;
@@ -10,8 +11,8 @@ struct Obj_24a590 {
     u32_24a590 m40;
 };
 void __fastcall target(Obj_24a590* p, void*) {
-    F47550((void*)((int)((char*)((char*)&DAT_004e6110 + 72))), p->m40);
-    F47550((void*)((int)DAT_004e6110), p->m3c);
+    F47550((void*)((hulk_intptr)((char*)((char*)&DAT_004e6110 + 72))), p->m40);
+    F47550((void*)((hulk_intptr)DAT_004e6110), p->m3c);
     char* q = (char*)p + 0x50;
     F4a450(q + 0x14);
     F4a4a0(q);

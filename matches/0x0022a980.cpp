@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00427534[];
 extern int gCount_22a980;
 extern int gHigh_22a980;
@@ -15,7 +16,7 @@ LocomotionDriver* LocomotionDriver::Init(int x) {
     Base_22a980::Init(x);
     a = 0;
     b = 0;
-    vptr = ((int)DAT_00427534);
+    vptr = ((hulk_intptr)DAT_00427534);
     int n = ++gCount_22a980;
     if (n > gHigh_22a980)
         gHigh_22a980 = n;

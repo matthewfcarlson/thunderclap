@@ -1,4 +1,5 @@
 // Same code shape as 0x002351a0 (propagated; names are from that function)
+#include "compat/ptr.h"
 class Helper_235250 {
   public:
     void Process(int);
@@ -15,7 +16,7 @@ namespace fight { class ParamValueConditionGroup {
     virtual void f7();
 }; }
 void fight::ParamValueConditionGroup::vfunc_3(int a, int b) {
-    int x = Query(a);
+    hulk_intptr x = Query(a);
     if (x)
         ((Helper_235250*)x)->Process(b);
 }

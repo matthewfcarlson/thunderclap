@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_238020;
 extern void* Alloc(unsigned int);
 class Builder {
@@ -30,7 +31,7 @@ u32_238020 SequenceTrack::vfunc_10(u32_238020 a, u32_238020 b, u32_238020 c) {
     Builder* p = (Builder*)Alloc(0x3c);
     if (p) {
         u32_238020 x = field0c;
-        return p->Run(a, (u32_238020)this, x, field18, &pad1c, b, c);
+        return p->Run(a, (hulk_uintptr)this, x, field18, &pad1c, b, c);
     }
     return 0;
 }

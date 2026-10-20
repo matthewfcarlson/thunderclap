@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_2505b0;
 namespace audio {
 struct SeqAction {
@@ -22,7 +23,7 @@ extern "C" void* __cdecl FUN_0024a390(u32_2505b0, void*);
 void audio::SeqActionWaitBeat::vfunc_2(void* param, int unused) {
     u32_2505b0 value = *(u32_2505b0*)((char*)param + 0x3c);
     void* result = FUN_0024a390(value, (char*)m8 + 0x10);
-    m14 = (u32_2505b0)result;
+    m14 = (hulk_uintptr)result;
     if (result)
         m10 = *(u32_2505b0*)((char*)result + 0x2c);
     mc = 2;

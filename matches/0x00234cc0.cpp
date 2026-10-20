@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Obj_234cc0 {
     int x, y;
     void Init(int);
@@ -271,7 +272,7 @@ class ParamValueEnum : public ParamValue {
     ParamValueEnum(int);
 };
 ParamValueEnum::ParamValueEnum(int x) {
-    *(int*)this = (int)&v1_234cc0;
+    *(hulk_intptr*)this = (hulk_intptr)&v1_234cc0;
     ((Obj_234cc0*)((char*)this + 8))->Init(x);
-    *(int*)this = (int)&v2;
+    *(hulk_intptr*)this = (hulk_intptr)&v2;
 }

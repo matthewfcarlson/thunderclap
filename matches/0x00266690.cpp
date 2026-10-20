@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042aee4[];
 class Ref_266690 {
@@ -16,12 +17,12 @@ class LoadRequest {
     void Destroy();
 };
 void LoadRequest::Destroy() {
-    *(int*)this = ((int)DAT_0042aee4);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_0042aee4);
     if (a)
         a->Release();
     if (c)
         c->Release();
     if (b)
         b->Release();
-    *(int*)this = ((int)DAT_003f6098);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_003f6098);
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0041b348[];
 struct S18 {
     char z[0x18];
@@ -36,7 +37,7 @@ struct FireBeamTrack {
     void Reset();
 };
 void FireBeamTrack::Reset() {
-    vptr = ((int)DAT_0041b348);
+    vptr = ((hulk_intptr)DAT_0041b348);
     f.Clear();
     e.Clear();
     d.Clear();

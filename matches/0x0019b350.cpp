@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" char DAT_0041b3f4[];
@@ -33,7 +34,7 @@ class Global_19b350 {
 extern H* __cdecl FUN_0027f250();
 extern Global_19b350* g_19b350;
 ProjectileEffect* ProjectileEffect::vfunc_2(unsigned char flags) {
-    *(int*)this = ((int)DAT_0041b3f4);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_0041b3f4);
     if (m1c) {
         H* h = FUN_0027f250();
         h->Fn(m1c);
@@ -46,6 +47,6 @@ ProjectileEffect* ProjectileEffect::vfunc_2(unsigned char flags) {
         m18 = 0;
     Cleanup();
     if (flags & 1)
-        ((Global_19b350*)((int)DAT_004e2210))->Free(this, 0x50);
+        ((Global_19b350*)((hulk_intptr)DAT_004e2210))->Free(this, 0x50);
     return this;
 }

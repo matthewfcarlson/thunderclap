@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 namespace audio {
 class SeqAction {
   public:
@@ -24,7 +25,7 @@ class SeqActionChannelSends : public SeqAction {
 } // namespace audio
 extern char gData_24fa60[];
 audio::SeqActionChannelSends* audio::SeqActionChannelSends::vfunc_0(int x) {
-    *(unsigned long*)this = (unsigned long)&baseVtable;
+    *(hulk_ulongptr*)this = (hulk_ulongptr)&baseVtable;
     if (x & 1)
         Init(gData_24fa60, this);
     return this;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 class CProjectile {
@@ -22,6 +23,6 @@ struct Alloc_19bbd0 {
 ProjectileGroundShockwave* ProjectileGroundShockwave::vfunc_2(unsigned char flags) {
     ((ThisCall_00198ab0*)(this))->FUN_00198ab0();
     if (flags & 1)
-        ((Alloc_19bbd0*)((int)DAT_004e2210))->f(this, 0xc0);
+        ((Alloc_19bbd0*)((hulk_intptr)DAT_004e2210))->f(this, 0xc0);
     return this;
 }

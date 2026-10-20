@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct Ctor_001d0480 {
     Ctor_001d0480(void*, int);
@@ -16,7 +17,7 @@ class Function4 : public Ctor_001d0480 {
     Function4(void*, int);
 };
 Function4::Function4(void* a, int b) : Ctor_001d0480(a, 4) {
-    vf = (int)&Function4_vftable;
+    vf = (hulk_intptr)&Function4_vftable;
     m1c = b;
     m18 = FUN_001d04d0(&G0);
     m10 = FUN_001d04d0(&G1);

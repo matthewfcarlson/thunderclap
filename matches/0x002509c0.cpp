@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00429c8c[];
 extern const char expr[];
 class Base_2509c0 {
@@ -16,6 +17,6 @@ class SeqEventExpression : public Base_2509c0 {
     SeqEventExpression();
 };
 SeqEventExpression::SeqEventExpression() {
-    vptr = ((int)DAT_00429c8c);
+    vptr = ((hulk_intptr)DAT_00429c8c);
     text.Set(expr, 2);
 }

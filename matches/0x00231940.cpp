@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00427688[];
 class Base_231940 {
   public:
@@ -16,7 +17,7 @@ class Node {
 };
 Node* Node::InitNode() {
     b.Init(1);
-    *(int*)this = ((int)DAT_00427688);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00427688);
     sub.Init();
     return this;
 }

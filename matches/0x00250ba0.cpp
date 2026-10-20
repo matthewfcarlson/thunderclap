@@ -1,4 +1,5 @@
 // Same code shape as 0x0024e6f0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 typedef unsigned int u32_250ba0;
@@ -22,7 +23,7 @@ void* audio::SeqEventExpressionType::vfunc_3() {
     NestTrack_250ba0* p = (NestTrack_250ba0*)Acquire(&gPool_250ba0);
     if (p) {
         p->init();
-        p->vf = (u32_250ba0)&gVtable_250ba0;
+        p->vf = (hulk_uintptr)&gVtable_250ba0;
         p->name.set(gName_250ba0, 2);
         return (void*)(p);
     }

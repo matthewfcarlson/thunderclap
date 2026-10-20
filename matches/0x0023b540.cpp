@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Chunk {
   public:
     char pad[0x28];
@@ -7,7 +8,7 @@ class Chunk {
 extern int vtable_23b540;
 Chunk* __fastcall Build(Chunk* self) {
     self->Init(3);
-    *(int*)self = (int)&vtable_23b540;
+    *(hulk_intptr*)self = (hulk_intptr)&vtable_23b540;
     self->field = 0;
     return self;
 }

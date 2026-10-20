@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_004192fc[];
@@ -17,7 +18,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropSetStateByN
     PropSetStateByNameTrack_18c760* p = (PropSetStateByNameTrack_18c760*)operator_new(0x20);
     if (p) {
         p->baseInit();
-        *(unsigned long*)p = ((int)DAT_004192fc);
+        *(hulk_ulongptr*)p = ((hulk_intptr)DAT_004192fc);
         *(unsigned long*)((char*)p + 0xc) = 0;
         *(unsigned long*)((char*)p + 0x10) = 0xffffffff;
         p->sub.initSub();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class ParamValue {
   public:
     virtual void a();
@@ -19,7 +20,7 @@ class ParamValueColour : public ParamValue {
 extern int vftable_2355c0;
 extern void FUN_00267090(ParamValueColour*);
 ParamValueColour* ParamValueColour::vfunc_0(int flags) {
-    *(int*)this = (int)&vftable_2355c0;
+    *(hulk_intptr*)this = (hulk_intptr)&vftable_2355c0;
     Elem_2355c0* q = (Elem_2355c0*)((char*)this + 8);
     q->Fn();
     if (flags & 1)

@@ -1,4 +1,5 @@
 // Same code shape as 0x0002ebc0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class Function_200420 {
@@ -9,7 +10,7 @@ class Function_200420 {
 };
 void __cdecl invoke(int, int, int, int);
 
-template <> void Closure5<CTriggerVolumeManager, const char *, const ::math::Vector, int, int, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { int x = (int)__p0; int y = (int)__p1; int z = (int)__p2;
+template <> void Closure5<CTriggerVolumeManager, const char *, const ::math::Vector, int, int, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr x = (hulk_intptr)__p0; hulk_intptr y = (hulk_intptr)__p1; hulk_intptr z = (hulk_intptr)__p2;
 
     invoke(this->f_20, y, z, (*(int *)&this->f_1c));
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 class SeqEvent {
@@ -22,6 +23,6 @@ extern void FUN_00247550(void*, SeqEventVarPosDist*);
 SeqEventVarPosDist* SeqEventVarPosDist::f4(int flags) {
     Prep();
     if (flags & 1)
-        FUN_00247550((void*)((int)((char*)((char*)&DAT_004e6ff0 + 72))), this);
+        FUN_00247550((void*)((hulk_intptr)((char*)((char*)&DAT_004e6ff0 + 72))), this);
     return this;
 }

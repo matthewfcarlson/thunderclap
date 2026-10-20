@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_0041c318[];
@@ -16,7 +17,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::scenario::LuaTrack>::vf
     LuaTrack_1a1e40* p = (LuaTrack_1a1e40*)alloc(0x1c);
     if (p) {
         p->initialize();
-        p->vf = (void*)((int)DAT_0041c318);
+        p->vf = (void*)((hulk_intptr)DAT_0041c318);
         p->x = 0;
         p->y = (int)0xbf800000;
         p->z = 0;

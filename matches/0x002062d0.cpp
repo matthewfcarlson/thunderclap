@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00425c28[];
 extern void* __cdecl Alloc(unsigned int);
 struct Loader_2062d0 {
@@ -28,7 +29,7 @@ void Owner_2062d0::Target(int value) {
         p->b = 0x60000722;
         p->c = 0;
         p->d = 0;
-        p->vptr = ((int)DAT_00425c28);
+        p->vptr = ((hulk_intptr)DAT_00425c28);
         p->owner = this;
         r = p;
     } else {

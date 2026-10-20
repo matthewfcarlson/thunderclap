@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 extern "C" char DAT_00429fac[];
@@ -24,7 +25,7 @@ void* audio::SeqEventVarVolumeType::vfunc_3() {
     audio::SeqEventVarVolume_252930* p = FUN_00247530((void*)g_seqVarVolumeHeap);
     if (p) {
         p->Init();
-        p->vptr = (void*)((int)DAT_00429fac);
+        p->vptr = (void*)((hulk_intptr)DAT_00429fac);
         p->volume = 1.0f;
         return (void*)(p);
     }

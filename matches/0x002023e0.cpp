@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004259f8[];
 struct Head_2023e0 {
     int x, y, z;
@@ -23,7 +24,7 @@ class CWorldCollisionManager {
 extern int global64;
 CWorldCollisionManager* __fastcall FUN_002023e0(CWorldCollisionManager* s, void*) {
     Head_2023e0* h = &s->head;
-    s->vf = (void*)((int)DAT_004259f8);
+    s->vf = (void*)((hulk_intptr)DAT_004259f8);
     h->x = 0;
     h->y = 0;
     h->z = 0;

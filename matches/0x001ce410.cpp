@@ -1,4 +1,5 @@
 // Same code shape as 0x0002e800 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class CActorManager_1ce410 {
@@ -7,7 +8,7 @@ class CActorManager_1ce410 {
 };
 typedef float (CActorManager_1ce410::*Fn_1ce410)(const char*);
 
-template <> void Closure1<CScenarioManager, float, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { int ignored = (int)__p0; const char ** arg = (const char **)__p1; float * out = (float *)__p2;
+template <> void Closure1<CScenarioManager, float, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr ignored = (hulk_intptr)__p0; const char ** arg = (const char **)__p1; float * out = (float *)__p2;
 
     CActorManager_1ce410* obj = (*(CActorManager_1ce410 * *)&this->f_20);
     Fn_1ce410 fn = (*(Fn_1ce410 *)&this->f_1c);

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042aec8[];
 class Ref_266630 {
@@ -26,7 +27,7 @@ void thunk_FUN_00267090(void*);
 void thunk_FUN_00267090(LoadInventory*);
 LoadInventory* LoadInventory::vfunc_2(unsigned char b) {
     Ops* p = mA;
-    *(int*)this = ((int)DAT_0042aec8);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_0042aec8);
     if (p) {
         p->a();
         p->b();
@@ -34,7 +35,7 @@ LoadInventory* LoadInventory::vfunc_2(unsigned char b) {
     }
     if (mB)
         mB->f1();
-    *(int*)this = ((int)DAT_003f6098);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_003f6098);
     if (b & 1)
         thunk_FUN_00267090(this);
     return this;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042918c[];
 class Clip {
   public:
@@ -9,7 +10,7 @@ class Clip {
 };
 void Release(void*);
 void Clip::Done() {
-    *(void**)this = (void*)((int)DAT_0042918c);
+    *(void**)this = (void*)((hulk_intptr)DAT_0042918c);
     if (m28)
         Release(m28);
     Finish();

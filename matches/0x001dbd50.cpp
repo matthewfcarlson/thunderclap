@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 class Loader_1dbd50 {
@@ -18,7 +19,7 @@ void __cdecl FUN_001dbd50() {
         do {
             p->Pair(*q, *q);
             ++q;
-        } while ((int)q < ((int)DAT_004c6044));
+        } while ((hulk_intptr)q < ((hulk_intptr)DAT_004c6044));
         p->Finish(2);
     }
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Track {
   public:
     virtual void f0();
@@ -25,6 +26,6 @@ extern "C" void* __cdecl FUN_0008d690(int);
 int NISAnimationTrack::v10(int a, int b, int c) {
     void* x = FUN_0008d690(0x218);
     if (x)
-        return ((X_1a9ac0*)x)->helper((int)this, c);
+        return ((X_1a9ac0*)x)->helper((hulk_intptr)this, c);
     return 0;
 }

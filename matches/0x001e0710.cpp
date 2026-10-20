@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" char DAT_00423418[];
@@ -18,11 +19,11 @@ struct ThisCall_001d0480 {
 };
 Target_1e0710::Target_1e0710(const char* s, CSPManager* m) {
     ((ThisCall_001d0480*)(this))->FUN_001d0480(s, 4);
-    *(int*)this = ((int)DAT_00423418);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00423418);
     mgr = m;
-    b18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e100)));
-    b10 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0f0)));
-    b11 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0f0)));
-    b12 = FUN_001d04d0((const char*)((int)DAT_0048e10c));
-    b13 = FUN_001d04d0((const char*)((int)DAT_0048e10c));
+    b18 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
+    b10 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    b11 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    b12 = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
+    b13 = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
 }

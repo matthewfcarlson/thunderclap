@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0041c5f0[];
 struct Helper_1a5c50 {
     void Init();
@@ -22,7 +23,7 @@ class EffectTrack {
 };
 void __cdecl Destroy(EffectTrack*);
 EffectTrack* EffectTrack::vfunc_5(unsigned char flag) {
-    *(unsigned long*)this = ((int)DAT_0041c5f0);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0041c5f0);
     ((Helper_1a5c50*)((char*)this + 0x58))->Init();
     ((Helper_1a5c50*)((char*)this + 0x30))->Init();
     ((Helper_1a5c50*)((char*)this + 0x20))->Init();

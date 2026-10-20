@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 extern "C" char DAT_00494b44[];
@@ -15,7 +16,7 @@ struct Obj_1a4c50 {
 
 bool hulkfight::scenario::Event_LocomotionStateNamePreviousCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { void * x = (void *)__p0; void * y = (void *)__p1; void * z = (void *)__p2;
 
-    void* p = Find(y, 0, (void*)((int)DAT_00494b44), (void*)((int)DAT_004c13d0), 0);
+    void* p = Find(y, 0, (void*)((hulk_intptr)DAT_00494b44), (void*)((hulk_intptr)DAT_004c13d0), 0);
     if (!p)
         return false;
     R_1a4c50* q = ((Obj_1a4c50*)p)->Get();

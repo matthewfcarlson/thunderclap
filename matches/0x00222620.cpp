@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004272b8[];
 typedef unsigned int u32_222620;
 typedef unsigned char u8;
@@ -15,7 +16,7 @@ struct Puppet {
 };
 Puppet* Puppet::Init(Arg_222620* param) {
     BaseInit();
-    *(u32_222620*)this = ((int)DAT_004272b8);
+    *(hulk_uintptr*)this = ((hulk_intptr)DAT_004272b8);
     ((Sub_222620*)((char*)this + 0x10))->Init();
     *(u32_222620*)((char*)this + 0x68) = 0;
     *(u8*)((char*)this + 0x2ec) = 0;

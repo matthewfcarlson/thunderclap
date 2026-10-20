@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_004276ec[];
 extern "C" void _ReadWriteBarrier();
@@ -13,7 +14,7 @@ struct Action {
     void Cleanup();
 };
 void Action::Cleanup() {
-    *(void* volatile*)&vptr = (void*)((int)DAT_004276ec);
+    *(void* volatile*)&vptr = (void*)((hulk_intptr)DAT_004276ec);
     _ReadWriteBarrier();
     Ref_2326a0* m = member;
     if (m) {
@@ -21,5 +22,5 @@ void Action::Cleanup() {
         member = 0;
     }
     --g_count_2326a0;
-    vptr = (void*)((int)DAT_003f6098);
+    vptr = (void*)((hulk_intptr)DAT_003f6098);
 }

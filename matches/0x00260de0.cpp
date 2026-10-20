@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/om.h"
 
 typedef unsigned int U_260de0;
@@ -11,7 +12,7 @@ extern U_260de0 __cdecl f2475(void*);
 extern char vft_260de0[];
 U_260de0 __cdecl target() {
     H h;
-    h.f((void*)((int)DAT_004e58d0), (void*)((int)DAT_004e58c8), 0x24, 4);
+    h.f((void*)((hulk_intptr)DAT_004e58d0), (void*)((hulk_intptr)DAT_004e58c8), 0x24, 4);
     h.vt = vft_260de0;
     U_260de0 r = f2475(&h);
     h.g();

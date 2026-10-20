@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 class SeqAction_252c30 {
@@ -13,7 +14,7 @@ class SeqAction_252c30 {
 
 void audio::SeqActionVarTempo::vfunc_1(void* __p0) { void * param = (void *)__p0;
 
-    *(int*)(*(int*)((char*)param + 4) + 0x28) = this->f_08 + 0x10;
-    *(int*)(*(int*)((char*)param + 4) + 0x30) = this->f_08 + 8;
+    *(int*)(*(hulk_intptr*)((char*)param + 4) + 0x28) = this->f_08 + 0x10;
+    *(int*)(*(hulk_intptr*)((char*)param + 4) + 0x30) = this->f_08 + 8;
     this->f_0c = 0;
 }

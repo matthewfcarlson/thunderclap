@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -17,13 +18,13 @@ class CSoundSystem : public Base_1f0c00 {
     CSoundSystem(char*, void*);
 };
 CSoundSystem::CSoundSystem(char* a, void* c) : Base_1f0c00(a, 6) {
-    *(unsigned int*)this = ((int)DAT_004246ec);
+    *(hulk_uintptr*)this = ((hulk_intptr)DAT_004246ec);
     p1c = c;
-    b18 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e100)));
-    b10 = FUN_001d04d0((void*)((int)((char*)&DAT_0049cad8)));
-    b11 = FUN_001d04d0((void*)((int)((char*)&DAT_0049cad8)));
-    b12 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e128)));
-    b13 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e128)));
-    b14 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e128)));
-    b15 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e128)));
+    b18 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e100)));
+    b10 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0049cad8)));
+    b11 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0049cad8)));
+    b12 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
+    b13 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
+    b14 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
+    b15 = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
 }

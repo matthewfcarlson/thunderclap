@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042b14c[];
 extern "C" void __stdcall XInputClose(void*);
@@ -8,7 +9,7 @@ struct ControllerXBox {
     void Shutdown();
 };
 void ControllerXBox::Shutdown() {
-    *(unsigned long*)this = ((int)DAT_0042b14c);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b14c);
     if (handle)
         XInputClose(handle);
     unsigned long* q = (unsigned long*)((char*)this + 0x448);
@@ -16,14 +17,14 @@ void ControllerXBox::Shutdown() {
     do {
         q -= 4;
         n--;
-        *q = ((int)DAT_003f6098);
+        *q = ((hulk_intptr)DAT_003f6098);
     } while (n);
     q = (unsigned long*)((char*)this + 0x428);
     n = 0x14;
     do {
         q -= 0xd;
         n--;
-        *q = ((int)DAT_003f6098);
+        *q = ((hulk_intptr)DAT_003f6098);
     } while (n);
-    *(unsigned long*)this = ((int)DAT_003f6098);
+    *(hulk_ulongptr*)this = ((hulk_intptr)DAT_003f6098);
 }

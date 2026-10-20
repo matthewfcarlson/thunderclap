@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00421a68[];
 class Sub_1c7a00 {
   public:
@@ -12,6 +13,6 @@ class ShadowGenerator {
 };
 ShadowGenerator::ShadowGenerator() {
     mValue = 0;
-    mVft = ((int)DAT_00421a68);
+    mVft = ((hulk_intptr)DAT_00421a68);
     mSub.Init();
 }

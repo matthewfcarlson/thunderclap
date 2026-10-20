@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 extern "C" char DAT_00429d1c[];
@@ -16,7 +17,7 @@ void* audio::SeqEventStopTrackType::vfunc_3() {
     E_250fe0* p = (E_250fe0*)alloc(pool_250fe0);
     if (p) {
         p->init();
-        *(u32_250fe0*)p = ((int)DAT_00429d1c);
+        *(hulk_uintptr*)p = ((hulk_intptr)DAT_00429d1c);
         ((u32_250fe0*)p)[2] = 0;
         ((u32_250fe0*)p)[3] = 0;
         ((S_250fe0*)((char*)p + 0x10))->setup(name_250fe0, 2);

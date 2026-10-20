@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 namespace math {
@@ -13,7 +14,7 @@ struct Function_1e07a0 {
     virtual void v1();
 };
 
-template <> void Method4<CSPManager, void, const char *, const char *,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CAmbientsManager_1e07a0 * o = (CAmbientsManager_1e07a0 *)__p0; char * a = (char *)__p1; int u = (int)__p2;
+template <> void Method4<CSPManager, void, const char *, const char *,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CAmbientsManager_1e07a0 * o = (CAmbientsManager_1e07a0 *)__p0; char * a = (char *)__p1; hulk_intptr u = (hulk_intptr)__p2;
 
     char* p = a;
     const char* s = *(const char**)p;

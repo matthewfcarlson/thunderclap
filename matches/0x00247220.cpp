@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void __cdecl FUN_002469e0();
 extern "C" void __cdecl FUN_002469f0();
 extern "C" void __cdecl FUN_00246a10();
@@ -16,13 +17,13 @@ class ContentStream {
     ContentStream* Make(Base_247220*);
 };
 ContentStream* ContentStream::Make(Base_247220* arg) {
-    a = ((int)(void (__cdecl*)())&FUN_002469e0);
-    b = ((int)(void (__cdecl*)())&FUN_002469f0);
-    c = ((int)(void (__cdecl*)())&FUN_00246a10);
-    d = ((int)(void (__cdecl*)())&FUN_00246a40);
-    e = ((int)(void (__cdecl*)())&FUN_00246a60);
+    a = ((hulk_intptr)(void (__cdecl*)())&FUN_002469e0);
+    b = ((hulk_intptr)(void (__cdecl*)())&FUN_002469f0);
+    c = ((hulk_intptr)(void (__cdecl*)())&FUN_00246a10);
+    d = ((hulk_intptr)(void (__cdecl*)())&FUN_00246a40);
+    e = ((hulk_intptr)(void (__cdecl*)())&FUN_00246a60);
     flag = 0;
-    vptr = ((int)DAT_0042921c);
+    vptr = ((hulk_intptr)DAT_0042921c);
     source = arg;
     arg->F();
     return this;

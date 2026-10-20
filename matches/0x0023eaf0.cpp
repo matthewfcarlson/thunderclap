@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00428e80[];
 struct SubA_23eaf0 {
     void A();
@@ -10,7 +11,7 @@ struct SpawnTrack {
     void Run();
 };
 void SpawnTrack::Run() {
-    *(int*)this = ((int)DAT_00428e80);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00428e80);
     ((SubA_23eaf0*)((char*)this + 0x20))->A();
     ((SubB_23eaf0*)((char*)this + 0x14))->B();
     Fin();

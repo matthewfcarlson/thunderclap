@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042aa40[];
 extern void* gPtr;
 extern int gCount_25fa80;
@@ -8,7 +9,7 @@ struct MetaType {
 };
 void MetaType::run() {
     void* p = gPtr;
-    vftable = (void*)((int)DAT_0042aa40);
+    vftable = (void*)((hulk_intptr)DAT_0042aa40);
     InitMeta(p, this);
     --gCount_25fa80;
 }

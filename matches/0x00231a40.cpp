@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Node {
   public:
     virtual void v0();
@@ -35,7 +36,7 @@ unsigned char Owner_231a40::Run(int a, int b) {
                 }
             } else if (n->mode == 3) {
                 int matched = n->Match(a, b);
-                if (matched == a && n->Check((int)this, matched, b) == 0) {
+                if (matched == a && n->Check((hulk_intptr)this, matched, b) == 0) {
                     result = 1;
                     break;
                 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042af64[];
 extern "C" char DAT_0042b474[];
@@ -12,11 +13,11 @@ class ConsoleClient {
     void Run();
 };
 void ConsoleClient::Run() {
-    a = ((int)DAT_0042b47c);
-    b = ((int)DAT_0042b474);
+    a = ((hulk_intptr)DAT_0042b47c);
+    b = ((hulk_intptr)DAT_0042b474);
     Init((void*)(this));
     gSaved = c;
-    b = ((int)DAT_0042af64);
-    a = ((int)DAT_003f6098);
+    b = ((hulk_intptr)DAT_0042af64);
+    a = ((hulk_intptr)DAT_003f6098);
     gState_26e360 = 0;
 }

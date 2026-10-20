@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_004279fc[];
 extern "C" char DAT_00427a78[];
 class Sub_2349e0 {
@@ -12,7 +13,7 @@ class ParamValueString {
     ParamValueString(const char*);
 };
 ParamValueString::ParamValueString(const char* s) {
-    vf = ((int)DAT_004279fc);
+    vf = ((hulk_intptr)DAT_004279fc);
     sub.Init(s);
-    vf = ((int)DAT_00427a78);
+    vf = ((hulk_intptr)DAT_00427a78);
 }

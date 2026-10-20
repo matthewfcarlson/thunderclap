@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_0042a3e4[];
 struct Base_254c20 {
     Base_254c20();
@@ -13,5 +14,5 @@ SeqEventLogicRepeat::SeqEventLogicRepeat() {
     a[2] = 0;
     a[3] = 1;
     a[4] = 1;
-    *(void**)this = (void*)((int)DAT_0042a3e4);
+    *(void**)this = (void*)((hulk_intptr)DAT_0042a3e4);
 }

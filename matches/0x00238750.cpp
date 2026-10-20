@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" char DAT_004281f0[];
@@ -15,7 +16,7 @@ template <> void* fight::ConditionFactoryTemplate<fight::MaybeCondition>::vfunc_
     Obj* p = (Obj*)Alloc(0x10);
     if (p) {
         p->Obj::Obj(0);
-        p->vf = ((int)DAT_004281f0);
+        p->vf = ((hulk_intptr)DAT_004281f0);
         p->c = 0;
         return (void*)(p);
     }

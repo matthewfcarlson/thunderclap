@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" char DAT_00427260[];
 class Base_2223f0 {
   public:
@@ -14,7 +15,7 @@ class PartitionDriver {
 };
 PartitionDriver* PartitionDriver::Run(Base_2223f0* source) {
     InitPartition((void*)(this));
-    *(int*)this = ((int)DAT_00427260);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00427260);
     mSource = source;
     mSource->Init();
     a = 0;
