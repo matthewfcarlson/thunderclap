@@ -4,7 +4,7 @@
 extern "C" char DAT_004144b0[];
 class HitPushbackTrack_15a3b0 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     int x04;
     int x08;
     int x0c;

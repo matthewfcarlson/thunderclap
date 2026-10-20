@@ -12,7 +12,7 @@ class Base_174900 {
 };
 class PushOutAction : public Base_174900 {
   public:
-    volatile int vptr;
+    volatile hulk_intptr vptr;
     char pad[0x18];
     int* m1;
     Action* m2;

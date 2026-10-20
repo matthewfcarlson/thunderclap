@@ -1,4 +1,5 @@
 // Same code shape as 0x00119fb0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_19b870;
@@ -7,7 +8,7 @@ struct Params_19b870 {
     int Init(hulkfight::motion::AccuracyLatencyTrack*, void*);
 };
 extern int IsKindOf(void*, int, int*, int*, int);
-extern void* Alloc(unsigned int);
+extern void* Alloc(hulk_uintptr);
 
 int hulkfight::motion::AccuracyLatencyTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_19b870 a = (u32_19b870)__p0; u32_19b870 b = (u32_19b870)__p1; void * p = (void *)__p2;
 

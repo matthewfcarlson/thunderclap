@@ -1,4 +1,5 @@
-extern void* Alloc(unsigned int);
+#include "compat/ptr.h"
+extern void* Alloc(hulk_uintptr);
 class Factory_f27a0 {
   public:
     int Create(int, int);

@@ -1,8 +1,9 @@
 // Same code shape as 0x0006f4f0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 struct Thing_70030 {
-    int init();
+    hulk_intptr init();
 };
 void* operator new(unsigned int);
 

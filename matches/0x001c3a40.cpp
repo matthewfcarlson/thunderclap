@@ -1,4 +1,5 @@
-extern "C" void* __cdecl Alloc(int);
+#include "compat/ptr.h"
+extern "C" void* __cdecl Alloc(hulk_intptr);
 extern "C" void __cdecl Free(void*);
 extern "C" void __cdecl Print(const char*);
 struct Maker_1c3a40 {

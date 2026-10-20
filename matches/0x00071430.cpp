@@ -18,7 +18,7 @@ extern "C" char DAT_003fc624[];
 extern "C" char DAT_003fc644[];
 extern "C" char DAT_003fc664[];
 extern "C" int gCount;
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 struct P {
     void InitFloat(const char*);
     void InitBool(const char*);

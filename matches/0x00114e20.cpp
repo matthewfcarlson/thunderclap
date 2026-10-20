@@ -11,7 +11,7 @@ class SemaphoreWaitTrack_114e20 {
     virtual void e();
     virtual void f();
 };
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 struct BaseInit {
     void go();
 };

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern void* CRawScript_vftable;
 
 class CRawScript {
@@ -8,7 +9,7 @@ class CRawScript {
     virtual void vfunc_3();
     virtual void vfunc_4();
     char pad[12];
-    int m_0x10;
+    hulk_intptr m_0x10;
 
     void Destroy();
     CRawScript* vfunc_2(unsigned char param);

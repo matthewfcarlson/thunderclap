@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 int __cdecl GetVal(int elem);
 
 class Other_fdd30 {
@@ -7,13 +8,13 @@ class Other_fdd30 {
 
 class Container_fdd30 {
   public:
-    int FindSomething(int arg);
+    int FindSomething(hulk_intptr arg);
     char pad[8];
     int mCount;
     int mArray[1];
 };
 
-int Container_fdd30::FindSomething(int arg) {
+int Container_fdd30::FindSomething(hulk_intptr arg) {
     Other_fdd30* o = (Other_fdd30*)arg;
     int e;
     int i = 0;

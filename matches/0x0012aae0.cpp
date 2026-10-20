@@ -17,7 +17,7 @@ struct AcquireTargetCondition_12aae0 {
     u8 c;
     void Initialize(int);
 };
-void* __cdecl alloc(unsigned int);
+void* __cdecl alloc(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::AcquireTargetCondition>::vfunc_5() {
     AcquireTargetCondition_12aae0* p = (AcquireTargetCondition_12aae0*)alloc(0x18);

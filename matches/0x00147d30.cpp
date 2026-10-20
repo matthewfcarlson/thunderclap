@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 namespace fight {
 class Track {
   public:
@@ -21,7 +22,7 @@ class GrappleThrowTrack : public fight::Track, public fight::Param {
 };
 } // namespace motion
 } // namespace hulkfight
-int __cdecl FUN_0005a3f0(int);
+hulk_intptr __cdecl FUN_0005a3f0(hulk_intptr);
 int hulkfight::motion::GrappleThrowTrack::vfunc_8(int a, int b) {
     return FUN_0005a3f0(b);
 }

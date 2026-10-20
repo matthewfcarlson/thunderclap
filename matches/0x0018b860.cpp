@@ -12,7 +12,7 @@ class PropGrabbableIsThrownCondition_18b860 : public Condition_18b860 {
     char pad[12];
     char flag;
 };
-void* __cdecl Alloc(unsigned int);
+void* __cdecl Alloc(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::PropGrabbableIsThrownCondition>::vfunc_5() {
     PropGrabbableIsThrownCondition_18b860* p = (PropGrabbableIsThrownCondition_18b860*)Alloc(16);

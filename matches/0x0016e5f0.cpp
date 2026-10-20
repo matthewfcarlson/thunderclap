@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned char u8;
-void* __cdecl Alloc(unsigned int);
+void* __cdecl Alloc(hulk_uintptr);
 extern char kVtbl[];
 struct Sub0_16e5f0 {
     void Init(int);

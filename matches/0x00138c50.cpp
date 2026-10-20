@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_138c50;
@@ -5,7 +6,7 @@ struct FallAction_nv_138c50 {
     int init(hulkfight::motion::FallTrack*, u32_138c50);
 };
 extern int __cdecl check(u32_138c50, int, const void*, const void*, int);
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 extern const int typeA_138c50;
 extern const int typeB_138c50;
 

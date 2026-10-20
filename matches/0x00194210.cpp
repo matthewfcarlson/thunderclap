@@ -25,7 +25,7 @@ struct SC0 {
     void Clear();
 };
 struct FireBeamTrack {
-    unsigned int vptr;
+    hulk_uintptr vptr;
     char pad[0x14];
     S18 a;
     S30 b;

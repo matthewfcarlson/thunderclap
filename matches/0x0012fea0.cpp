@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class StatTrack {
   public:
     virtual void v0();
@@ -11,7 +12,7 @@ class StatTrack {
     int m10;
     void trackCall();
 };
-extern void __cdecl thunk_FUN_00267090(int);
+extern void __cdecl thunk_FUN_00267090(hulk_intptr);
 StatTrack::~StatTrack() {
     thunk_FUN_00267090(m10);
     trackCall();

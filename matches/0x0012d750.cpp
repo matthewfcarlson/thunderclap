@@ -12,7 +12,7 @@ struct ThreatDistanceCondition_nv_12d750 {
 };
 class ThreatAngleCondition_12d750 {
   public:
-    int vtable;
+    hulk_intptr vtable;
     char pad4[8];
     int c;
     int f;

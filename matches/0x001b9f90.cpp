@@ -9,7 +9,7 @@ struct Ctor_001d0480 {
 class Method4_1b9f90 : public Ctor_001d0480 {
   public:
     Method4_1b9f90(unsigned int, unsigned int);
-    int vptr;
+    hulk_intptr vptr;
     char pad04[0x0c];
     char b10, b11, b12, b13, b14, b15, b16, b17, b18;
     char pad19[3];

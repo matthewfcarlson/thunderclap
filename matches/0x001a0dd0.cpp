@@ -1,11 +1,11 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 extern int missile_vftable[];
 class Prop_1a0dd0 {
   public:
-    int m0;
+    hulk_intptr m0;
     int m4;
     char pad[4];
     int mC;

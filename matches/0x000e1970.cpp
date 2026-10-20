@@ -5,7 +5,7 @@ extern "C" char DAT_0040c02c[];
 typedef unsigned int u32_e1970;
 class FEDoSound {
   public:
-    int vtable;
+    hulk_intptr vtable;
     int pad4;
     int a;
     int b;

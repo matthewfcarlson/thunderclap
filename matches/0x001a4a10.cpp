@@ -3,7 +3,7 @@
 
 typedef unsigned int u32_1a4a10;
 struct Inner_1a4a10 {
-    void run(u32_1a4a10);
+    void run(hulk_uintptr);
 };
 struct GlobalObj_1a4a10 {
     char pad[0x30];

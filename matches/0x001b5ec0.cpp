@@ -3,7 +3,7 @@ struct Obj_1b5ec0 {
     virtual void AddRef();
     virtual void Release();
     int p0, p1, p2;
-    int h;
+    hulk_intptr h;
 };
 struct Mesh_1b5ec0 {
     void Set(void* c, int v);
@@ -12,7 +12,7 @@ int FUN_002ee6d0(Obj_1b5ec0* o);
 struct Ctx_1b5ec0 {
     void Reg(Obj_1b5ec0* o);
 };
-void* Cast(int h, int a, const void* from, const void* to, int b);
+void* Cast(hulk_intptr h, int a, const void* from, const void* to, int b);
 extern char TFrom[], TTo[];
 struct Holder_1b5ec0 {
     char pad[8];

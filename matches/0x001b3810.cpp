@@ -7,7 +7,7 @@ extern char G0, G1, G2, G3;
 extern const int Function4_vftable;
 class Function4 : public Ctor_001d0480 {
   public:
-    int vf;
+    hulk_intptr vf;
     char p4[12];
     char m10, m11, m12, m13;
     char m14[4];

@@ -15,7 +15,7 @@ struct TeleportTrack_17e700 {
     int z3;
     float last;
 };
-extern void* Alloc(unsigned int);
+extern void* Alloc(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::TeleportTrack>::vfunc_5() {
     TeleportTrack_17e700* p = (TeleportTrack_17e700*)Alloc(0x1c);

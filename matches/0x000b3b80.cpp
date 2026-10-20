@@ -6,7 +6,7 @@ class Ref_b3b80 {
 extern int vtable_b3b80;
 class CSimController {
   public:
-    int vt;
+    hulk_intptr vt;
     int m;
     Ref_b3b80* p;
     char pad[0x10c];

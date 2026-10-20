@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern void* operator new(unsigned int);
 class Track_1aa780 {
   public:
-    int make();
+    hulk_intptr make();
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::scenario::NISAnimationTrack>::vfunc_5() {

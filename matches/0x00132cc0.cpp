@@ -15,7 +15,7 @@ class DialogueTrack_132cc0 {
     char g;
     void Init();
 };
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::DialogueTrack>::vfunc_5() {
     DialogueTrack_132cc0* p = (DialogueTrack_132cc0*)FUN_0008d690(0x28);

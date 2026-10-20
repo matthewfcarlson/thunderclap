@@ -11,7 +11,7 @@ class Helper_102ac0 {
 struct Ctor_000fc760 {
     Ctor_000fc760(void*);
 };
-extern void* Alloc(unsigned int);
+extern void* Alloc(hulk_uintptr);
 class CMoveAgent : public Ctor_000fc760 {
   public:
     char pad[0x68];

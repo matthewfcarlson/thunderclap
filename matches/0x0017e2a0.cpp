@@ -8,7 +8,7 @@ class Base_17e2a0 {
     void init();
 };
 struct LocomotionStateTrack_17e2a0 {
-    int vf;
+    hulk_intptr vf;
     int pad;
     int m8;
     int mc;

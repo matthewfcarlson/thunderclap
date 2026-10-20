@@ -3,12 +3,12 @@
 
 extern "C" char DAT_004169b8[];
 struct Obj_16e320 {
-    int vf;
+    hulk_intptr vf;
     char pad[8];
     unsigned char flag;
     void Init(int);
 };
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::ThinkingCondition>::vfunc_5() {
     Obj_16e320* p = (Obj_16e320*)Alloc(0x10);

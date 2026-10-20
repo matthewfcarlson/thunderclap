@@ -1,4 +1,5 @@
-extern "C" __int64 FUN_0027b020(int);
+#include "compat/ptr.h"
+extern "C" __int64 FUN_0027b020(hulk_intptr);
 struct Caster {
     virtual void cast();
 };

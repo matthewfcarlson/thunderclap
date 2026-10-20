@@ -5,7 +5,7 @@
 extern "C" char DAT_00421520[];
 class CSubtitleManager {
   public:
-    int vptr;
+    hulk_intptr vptr;
     char pad04[0x0c];
     unsigned char b10;
     unsigned char b11;
@@ -13,7 +13,7 @@ class CSubtitleManager {
     char pad13[5];
     unsigned char b18;
     char pad19[3];
-    int m1c;
+    hulk_intptr m1c;
     void Init(const char*, int);
     CSubtitleManager* Setup(const char*, const char*);
 };

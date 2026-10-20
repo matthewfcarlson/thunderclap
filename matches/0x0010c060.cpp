@@ -2,11 +2,11 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_0040d854[];
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 class Face {
   public:
     Face();
-    int vf;
+    hulk_intptr vf;
     int pad4;
     int m8;
     int mc;

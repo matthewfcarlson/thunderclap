@@ -1,10 +1,11 @@
 // Same code shape as 0x0006f460 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 class Dummy_165210 {
   public:
-    int FUN_0005aa00();
+    hulk_intptr FUN_0005aa00();
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::LocomotionSteerTrack>::vfunc_5() {

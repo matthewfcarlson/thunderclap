@@ -3,7 +3,7 @@ typedef unsigned char u8_1a1840;
 extern int LuaTrack_vftable;
 struct LuaTrack {
     char pad[0x10];
-    int m14;
+    hulk_intptr m14;
     virtual void v0();
     virtual void v1();
     virtual void v2();

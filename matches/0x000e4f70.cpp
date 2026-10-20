@@ -1,7 +1,8 @@
 // Same code shape as 0x000e49f0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/global.h"
 
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 struct VScroll_nv_e4f70 {
     int make(void*, unsigned int);
 };

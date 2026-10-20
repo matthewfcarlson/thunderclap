@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct FEContainer {
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -45,7 +46,7 @@ struct FEContainer {
     virtual void vfunc_43(int);
 };
 extern int g1, g2;
-extern "C" void helper(int, int, int*, int*, int);
+extern "C" void helper(hulk_intptr, int, int*, int*, int);
 void FEContainer::vfunc_43(int x) {
     helper(vfunc_39(x), 0, &g1, &g2, 0);
 }

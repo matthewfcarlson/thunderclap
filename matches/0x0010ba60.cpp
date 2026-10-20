@@ -8,7 +8,7 @@ class Ref_10ba60 {
 extern int vt_10ba60;
 class FaceMotionAction {
   public:
-    int vptr;
+    hulk_intptr vptr;
     char pad[0x18];
     int* p;
     Ref_10ba60* r;

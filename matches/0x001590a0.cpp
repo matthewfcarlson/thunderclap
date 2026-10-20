@@ -5,7 +5,7 @@ extern "C" char DAT_00413fb0[];
 extern "C" void* FUN_0008d690(unsigned int);
 class CollisionThrowCondition_1590a0 {
   public:
-    int vt;
+    hulk_intptr vt;
     int a;
     int b;
     unsigned char flag;

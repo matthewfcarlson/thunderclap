@@ -1,5 +1,5 @@
 #include "compat/ptr.h"
-extern "C" int FUN_00344e74(void*, int, void*, int, int);
+extern "C" int FUN_00344e74(void*, int, void*, hulk_intptr, int);
 extern int gA;
 extern int gB;
 class TrackFactoryCaster {

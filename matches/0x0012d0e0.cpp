@@ -6,7 +6,7 @@ struct Obj_12d0e0 {
     void Fn(u32_12d0e0);
 };
 struct Factory_12d0e0 {
-    u32_12d0e0 vft;
+    hulk_uintptr vft;
 };
 void __cdecl target(Obj_12d0e0* a, u32_12d0e0 b) {
     Factory_12d0e0 local;

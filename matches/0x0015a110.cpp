@@ -3,14 +3,14 @@
 
 extern "C" char DAT_004143f0[];
 struct HitPushbackAddTrack_15a110 {
-    unsigned int vt;
+    hulk_uintptr vt;
     char pad[4];
     int mTwo;
     int mZero;
     float mOne;
     void Init();
 };
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitPushbackAddTrack>::vfunc_5() {
     HitPushbackAddTrack_15a110* p = (HitPushbackAddTrack_15a110*)Alloc(0x14);

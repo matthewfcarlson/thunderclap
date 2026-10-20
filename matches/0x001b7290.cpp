@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Ent_1b7290 {
     float w, x, y, z;
 };
@@ -10,7 +11,7 @@ struct Obj_1b7290 {
     Buf_1b7290* buf;
     void Add(float, float, float, float);
 };
-extern void* __cdecl Alloc(unsigned);
+extern void* __cdecl Alloc(hulk_uintptr);
 void Obj_1b7290::Add(float a, float b, float c, float d) {
     if (!buf) {
         void* m = Alloc(0x504);

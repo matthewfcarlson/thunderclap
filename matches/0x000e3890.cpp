@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Notifier_e3890 { void Notify(int); };
 inline void Copy(char* d, const char* s) {
     char c;
@@ -17,7 +18,7 @@ class Obj_e3890 {
     char pad158[0x1d58 - 0x158];
     int count;
     char pad1d5c[0x38];
-    int callback;
+    hulk_intptr callback;
     char pad1d98[0x11];
     char entries[0x2000];
     void Target(const char*, char);

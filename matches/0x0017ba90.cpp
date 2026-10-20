@@ -1,4 +1,5 @@
 // Same code shape as 0x001421d0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_17ba90;
@@ -6,7 +7,7 @@ struct Helper_17ba90 {
     int run(hulkfight::motion::MoveJointTrack*, u32_17ba90);
 };
 extern int __cdecl FUN_00344e74(u32_17ba90, int, const void*, const void*, int);
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 extern const char RTTI1_17ba90[];
 extern const char RTTI2_17ba90[];
 

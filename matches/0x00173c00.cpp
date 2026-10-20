@@ -18,7 +18,7 @@ class JointPivotTrackerAction : public Base {
   public:
     virtual void Fn();
     Slot a;
-    int b, c;
+    hulk_intptr b, c;
     char pad2[0x58];
     int d;
     JointPivotTrackerAction(int, Ref*);

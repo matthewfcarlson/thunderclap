@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_00413598[];
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 class GrappleAttachedCondition_14bc60 {
   public:
     GrappleAttachedCondition_14bc60(int);

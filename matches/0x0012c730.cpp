@@ -2,7 +2,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern int __cdecl FUN_00344e74(int, int, int, int, int);
+extern hulk_intptr __cdecl FUN_00344e74(hulk_intptr, int, hulk_intptr, hulk_intptr, int);
 extern int gTypeA_12c730;
 extern int gTypeB;
 

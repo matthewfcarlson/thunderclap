@@ -1,10 +1,11 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_139860;
 struct Init_139860 {
-    u32_139860 run();
+    hulk_uintptr run();
 };
-extern void* alloc(unsigned int);
+extern void* alloc(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::FallTrack>::vfunc_5() {
     void* p = alloc(0x4c);

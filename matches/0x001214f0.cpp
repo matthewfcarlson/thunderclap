@@ -7,11 +7,11 @@ extern "C" void __cdecl FUN_0011bd90();
 extern "C" void __cdecl FUN_0011bdb0();
 extern "C" void __cdecl FUN_0011bdd0();
 extern "C" char DAT_0040f848[];
-void* __cdecl alloc(unsigned int);
+void* __cdecl alloc(hulk_uintptr);
 struct Param {
-    int vft;
+    hulk_intptr vft;
     int pad[3];
-    int value;
+    hulk_intptr value;
     void Init(const char*);
 };
 void __cdecl register_params(void*, Param**, int);

@@ -1,4 +1,5 @@
 // Same code shape as 0x00177c20 (propagated; names are from that function)
+#include "compat/ptr.h"
 typedef unsigned int u32_1a1950;
 struct C_1a1950 {
     bool go(u32_1a1950, u32_1a1950);
@@ -13,9 +14,9 @@ class Param {
     virtual void d();
     virtual void e();
     virtual void f();
-    bool vfunc_6(u32_1a1950 a, u32_1a1950 b, u32_1a1950 c);
+    bool vfunc_6(hulk_uintptr a, u32_1a1950 b, u32_1a1950 c);
 };
-bool Param::vfunc_6(u32_1a1950 a, u32_1a1950 b, u32_1a1950 c) {
+bool Param::vfunc_6(hulk_uintptr a, u32_1a1950 b, u32_1a1950 c) {
     if (!fn)
         return false;
     typedef bool (C_1a1950::*Fn)(u32_1a1950, u32_1a1950);

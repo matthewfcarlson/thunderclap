@@ -1,9 +1,10 @@
 // Same code shape as 0x0006f2b0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 class Effect_700c0 {
   public:
-    int Init();
+    hulk_intptr Init();
 };
 extern void* __cdecl operator_new(unsigned int);
 

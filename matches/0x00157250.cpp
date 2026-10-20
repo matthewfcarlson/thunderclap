@@ -1,4 +1,5 @@
 // Same code shape as 0x00138c50 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_157250;
@@ -6,7 +7,7 @@ struct Created_157250 {
     int init(hulkfight::motion::HitFloatTrack*, u32_157250);
 };
 extern int __cdecl check(u32_157250, int, const void*, const void*, int);
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 extern const int typeA_157250;
 extern const int typeB_157250;
 

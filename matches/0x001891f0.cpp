@@ -16,10 +16,10 @@ struct Track_1891f0 {
     virtual u32_1891f0 v10(u32_1891f0 a, u32_1891f0 b, u32_1891f0 c);
 };
 struct Obj_1891f0 {
-    u32_1891f0 Init(hulkfight::motion::BallAndChainReturnTrack*, u32_1891f0);
+    u32_1891f0 Init(hulkfight::motion::BallAndChainReturnTrack*, hulk_uintptr);
 };
-extern int IsType(void*, int, int, int, int);
-extern void* Alloc(unsigned int);
+extern int IsType(void*, int, hulk_intptr, hulk_intptr, int);
+extern void* Alloc(hulk_uintptr);
 extern int typeA_1891f0, typeB;
 
 int hulkfight::motion::BallAndChainReturnTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_1891f0 a = (u32_1891f0)__p0; u32_1891f0 b = (u32_1891f0)__p1; hulk_uintptr c = (u32_1891f0)__p2;

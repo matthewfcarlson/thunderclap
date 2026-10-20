@@ -1,11 +1,12 @@
 // Same code shape as 0x000e8980 (propagated; names are from that function)
+#include "compat/ptr.h"
 struct Ref_e8a10 {
     virtual void a();
     virtual void release();
 };
 extern int billboardVtable;
 extern int animationVtable;
-void thunk(unsigned int);
+void thunk(hulk_uintptr);
 struct Obj_e8a10 {
     int* vptr;
     unsigned int resource;

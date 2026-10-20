@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_004141b0[];
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 class Cond {
   public:
     Cond(int);

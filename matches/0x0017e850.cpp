@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern void* alloc(unsigned int);
+extern void* alloc(hulk_uintptr);
 inline void* operator new(unsigned int, void* where) {
     return where;
 }

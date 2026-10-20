@@ -7,15 +7,15 @@ class A_1aed70 {
   public:
     void* vptr;
     char p[0x14];
-    int m18;
-    int m1c;
+    hulk_intptr m18;
+    hulk_intptr m1c;
     int m20;
     A_1aed70* f(unsigned char flags);
 };
 A_1aed70* A_1aed70::f(unsigned char flags) {
     vptr = g_vftable_1aed70;
     _ReadWriteBarrier();
-    volatile int old = m1c;
+    volatile hulk_intptr old = m1c;
     hulk_intptr v = m20;
     m18 = v;
     m1c = v;

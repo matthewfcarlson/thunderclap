@@ -7,9 +7,9 @@ class Obj_1c3bd0 {
   public:
     char pad[0x0c];
     Context* mContext;
-    int Target(int);
+    hulk_intptr Target(int);
 };
-int Obj_1c3bd0::Target(int arg) {
+hulk_intptr Obj_1c3bd0::Target(int arg) {
     int* p = mContext->Lookup(arg);
     if (p)
         return (hulk_intptr)p + 0x30;

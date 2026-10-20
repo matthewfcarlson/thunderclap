@@ -11,7 +11,7 @@ struct SlowMotionTrack {
     char flag;
     void Init();
 };
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 
 SlowMotionTrack* __cdecl target() {
     SlowMotionTrack* p = (SlowMotionTrack*)alloc(0x24);

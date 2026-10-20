@@ -2,9 +2,9 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_00414240[];
-void* __cdecl Alloc(unsigned int);
+void* __cdecl Alloc(hulk_uintptr);
 struct HitThrowTrack_159bf0 {
-    int vt;
+    hulk_intptr vt;
     char p04[8];
     int f0c;
     float f10;

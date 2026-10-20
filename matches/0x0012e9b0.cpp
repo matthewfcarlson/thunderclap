@@ -2,7 +2,7 @@
 extern "C" char DAT_00411314[];
 typedef unsigned int u32_12e9b0;
 struct NISSoundTrack {
-    u32_12e9b0 vptr;
+    hulk_uintptr vptr;
     char pad[12];
     u32_12e9b0 a, b, c;
     void BaseDestroy();

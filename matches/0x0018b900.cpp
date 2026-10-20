@@ -10,7 +10,7 @@ struct PropAtRestCondition {
     unsigned char flag;
     void Init(int);
 };
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 extern int prop_vtable;
 void* Factory_vfunc5() {
     PropAtRestCondition* p = (PropAtRestCondition*)alloc(0x10);

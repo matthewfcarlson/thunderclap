@@ -2,7 +2,7 @@
 extern "C" char DAT_0040c05c[];
 class FEDoMenu {
   public:
-    int a;
+    hulk_intptr a;
     int gap;
     int b;
     int c;

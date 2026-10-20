@@ -2,11 +2,11 @@
 struct Ctor_0027b070 {
     Ctor_0027b070();
 };
-extern void* alloc(unsigned int);
+extern void* alloc(hulk_uintptr);
 extern int CPatrolPath_vtable;
 class CPatrolPath : public Ctor_0027b070 {
   public:
-    int vt;
+    hulk_intptr vt;
     char pad4[12];
     void* mData;
     int mCount;

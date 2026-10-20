@@ -5,7 +5,7 @@
 extern "C" char DAT_00420e84[];
 extern "C" char DAT_0048e10c[];
 struct C_1ba090 {
-    int v;
+    hulk_intptr v;
     char pad4[0xc];
     char b10;
     char b11;

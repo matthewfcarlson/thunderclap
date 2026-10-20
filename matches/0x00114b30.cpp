@@ -1,5 +1,5 @@
 #include "compat/ptr.h"
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 extern int KeywordWaitVtable;
 class Helper_114b30 {
   public:
@@ -10,7 +10,7 @@ class SetupObj_114b30 {
     void Setup();
 };
 struct KeywordWaitTrack {
-    unsigned int vptr;
+    hulk_uintptr vptr;
     unsigned int pad04;
     int field08;
     int field0c;

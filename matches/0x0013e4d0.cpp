@@ -1,9 +1,10 @@
 // Same code shape as 0x0006f3d0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_13e4d0;
 struct CGrabTrack_13e4d0 {
-    u32_13e4d0 init();
+    hulk_uintptr init();
 };
 extern "C" void* __cdecl operator_new(unsigned int);
 

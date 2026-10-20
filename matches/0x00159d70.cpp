@@ -9,7 +9,7 @@ class HitWaitTrack_159d70 {
     int b;
     HitWaitTrack_159d70();
 };
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 extern int HitWaitTrack_vftable;
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitWaitTrack>::vfunc_5() {

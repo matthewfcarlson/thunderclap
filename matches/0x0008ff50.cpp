@@ -7,7 +7,7 @@ struct CStaticAllocator {
     int m14;
     void Reset();
 };
-void thunk_FUN_00267090(int);
+void thunk_FUN_00267090(hulk_intptr);
 void CStaticAllocator::Reset() {
     vf = (void*)((hulk_intptr)DAT_00400c1c);
     thunk_FUN_00267090(m14);

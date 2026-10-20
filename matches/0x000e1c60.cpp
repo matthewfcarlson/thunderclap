@@ -3,7 +3,7 @@
 extern int vtable_e1c60;
 class FEDoBackMenu_e1c60 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     int a;
     int b;
     int c;

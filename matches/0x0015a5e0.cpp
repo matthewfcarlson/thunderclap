@@ -9,7 +9,7 @@ class Obj_15a5e0 {
     virtual void v4();
     virtual void v5();
 };
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 class Temp_15a5e0 {
   public:
     void Init(int);

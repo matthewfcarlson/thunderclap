@@ -8,7 +8,7 @@ class Obj_91ef0 {
 void rel(void*);
 class CUnlockableMove {
   public:
-    int vf;
+    hulk_intptr vf;
     char pad[0x14];
     void* ptr;
     char rest[0x24];

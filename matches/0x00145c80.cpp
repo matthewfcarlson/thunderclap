@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 extern void* MotionBlurAction_vftable[];
 class BaseAction {
   public:

@@ -5,7 +5,7 @@ extern "C" char DAT_00414030[];
 extern void* __cdecl Allocate(unsigned int);
 class CollisionDevastatorCondition_159350 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     char pad[8];
     char flag;
     CollisionDevastatorCondition_159350(int);

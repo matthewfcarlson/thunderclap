@@ -4,9 +4,9 @@ struct Called {
 };
 struct Obj_92340 {
     char pad[0xa8];
-    unsigned int Target(Called* param);
+    hulk_uintptr Target(Called* param);
 };
-unsigned int Obj_92340::Target(Called* param) {
+hulk_uintptr Obj_92340::Target(Called* param) {
     param->F((char*)this + 0xa8);
     return (hulk_uintptr)param;
 }

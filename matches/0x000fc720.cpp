@@ -7,7 +7,7 @@ struct Ref_fc720 {
     virtual void b();
 };
 struct CActorAgent {
-    u32_fc720 vt;
+    hulk_uintptr vt;
     char pad[0x54];
     Ref_fc720* mRef;
     void Cleanup();

@@ -10,7 +10,7 @@ class Base_cf050 {
 extern "C" char __cdecl GetFlag(const char*);
 class Obj_cf050 : public Base_cf050 {
   public:
-    int v;
+    hulk_intptr v;
     char pad[0x14];
     char m18;
     char pad2[3];

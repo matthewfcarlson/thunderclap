@@ -6,7 +6,7 @@ struct PropTrack_18c260 {
     void Init();
     unsigned char pad[0x18];
 };
-void* __cdecl Alloc(unsigned int);
+void* __cdecl Alloc(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropAddToCollisionTrack>::vfunc_5() {
     PropTrack_18c260* p = (PropTrack_18c260*)Alloc(0x18);

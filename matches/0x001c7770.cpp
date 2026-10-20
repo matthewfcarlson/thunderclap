@@ -1,7 +1,8 @@
 // FUN_001c7770 @ 0x001c7770
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d330
+#include "compat/ptr.h"
 extern void __cdecl thunk_FUN_00267090(void* p);
-extern void* __cdecl FUN_0008d690(unsigned int size);
+extern void* __cdecl FUN_0008d690(hulk_uintptr size);
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 

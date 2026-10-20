@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 struct CHitAnimationTrack_6fb80 {
@@ -5,7 +6,7 @@ struct CHitAnimationTrack_6fb80 {
     void init();
 };
 extern int hit_vftable;
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<CHitAnimationTrack>::vfunc_5() {
     CHitAnimationTrack_6fb80* p = (CHitAnimationTrack_6fb80*)alloc(0x50);

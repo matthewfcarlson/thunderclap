@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Provider_1c5c20 {
   public:
     virtual void f0();
@@ -21,7 +22,7 @@ class Owner_1c5c20 {
     int value;
     void* Run(int);
 };
-extern void* Alloc(unsigned int);
+extern void* Alloc(hulk_uintptr);
 void* Owner_1c5c20::Run(int arg) {
     int n = provider->Get();
     void* p = Alloc(0xb0);

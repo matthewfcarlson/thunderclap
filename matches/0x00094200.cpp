@@ -10,7 +10,7 @@ extern char s2_94200;
 extern char s3_94200;
 class CUnlockablesManager : public Ctor_001d0480 {
   public:
-    int v;
+    hulk_intptr v;
     char pad4[12];
     char b10;
     char b11;

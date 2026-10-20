@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 extern "C" void release(void*);
-extern "C" void* alloc(unsigned int);
+extern "C" void* alloc(hulk_uintptr);
 extern "C" unsigned int strlen(const char*);
 extern "C" char* strcpy(char*, const char*);
 class Obj_1a44f0 {

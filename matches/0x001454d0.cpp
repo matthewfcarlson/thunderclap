@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern "C" int __cdecl FUN_00344e74(int, int, void*, void*, int);
+extern "C" int __cdecl FUN_00344e74(hulk_intptr, int, void*, void*, int);
 
 class TrackFactoryCaster_1454d0 {
   public:

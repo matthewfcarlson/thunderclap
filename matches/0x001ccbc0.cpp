@@ -16,9 +16,9 @@ struct A_1ccbc0 {
 struct Obj_1ccbc0 {
     char pad[4];
     A_1ccbc0* a;
-    int get();
+    hulk_intptr get();
 };
-int Obj_1ccbc0::get() {
+hulk_intptr Obj_1ccbc0::get() {
     if (this->a && this->a->c && this->a->c->check()) {
         A_1ccbc0* q = this->a;
         if (q->b) {

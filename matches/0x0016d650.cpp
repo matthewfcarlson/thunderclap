@@ -1,11 +1,11 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern void* alloc(unsigned int);
+extern void* alloc(hulk_uintptr);
 extern int velocity_vftable;
 class VelocityCondition_16d650 {
   public:
-    int vt;
+    hulk_intptr vt;
     char pad[8];
     int a;
     int b;

@@ -110,9 +110,9 @@ class FEContainer {
     virtual void a43();
     virtual int a44(int);
     Child_eec80* child;
-    int vfunc_27(int x, int y);
+    hulk_intptr vfunc_27(int x, int y);
 };
-int FEContainer::vfunc_27(int x, int y) {
+hulk_intptr FEContainer::vfunc_27(int x, int y) {
     Obj_eec80* o = child->get(x);
     a24((hulk_intptr)o, x);
     if (y) {

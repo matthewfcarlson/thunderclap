@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 
-int Helper(int a, int b, void* c, void* d, int e);
+int Helper(hulk_intptr a, int b, void* c, void* d, int e);
 
 class TrackFactoryCaster_111ac0 {
   public:

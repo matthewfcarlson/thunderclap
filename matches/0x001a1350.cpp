@@ -1,8 +1,9 @@
 // FUN_001a1350 @ 0x001a1350
+#include "compat/ptr.h"
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
 void thunk_FUN_00267090(void*);
-extern "C" char* __cdecl FUN_0008d6d0(unsigned int);
+extern "C" char* __cdecl FUN_0008d6d0(hulk_uintptr);
 class StrHolder_1a1350 {
 public:
     char pad[12];

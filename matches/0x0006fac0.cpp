@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 class Track_6fac0 {
   public:
-    int method();
+    hulk_intptr method();
 };
 extern void* __cdecl operator_new(unsigned int);
 

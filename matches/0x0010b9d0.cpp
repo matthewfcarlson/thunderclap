@@ -7,7 +7,7 @@ struct Ref_10b9d0 {
 };
 void __fastcall BaseDestroy(void*);
 struct FaceTargetAction {
-    int vptr;
+    hulk_intptr vptr;
     char pad[0x18];
     int field1c;
     Ref_10b9d0* field20;

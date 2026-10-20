@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class ControllerState {
   public:
     virtual ControllerState* vfunc_0(unsigned char);
@@ -12,7 +13,7 @@ class ControllerState {
     virtual void vfunc_9();
     virtual void vfunc_10();
     virtual void vfunc_11();
-    int p4, p8, mA, mB;
+    hulk_intptr p4, p8, mA, mB;
 };
 extern void __cdecl thunk_FUN_00267090(void*);
 extern void* cvtable_ddb80;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct PropsToSuckCondition {
     void InitBase(int flag);
     char pad[0xc];
@@ -7,7 +8,7 @@ struct PropsToSuckCondition {
     int m_i;
 };
 
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 extern int g_PropsToSuckVftable;
 
 void* __cdecl Factory_vfunc_5(void* self) {

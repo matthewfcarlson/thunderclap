@@ -12,7 +12,7 @@ class Base {
     int x;
     Base(const char*, int);
 };
-extern "C" unsigned char __cdecl get(unsigned int);
+extern "C" unsigned char __cdecl get(hulk_uintptr);
 class Middle : public Base {
   public:
     virtual void f();

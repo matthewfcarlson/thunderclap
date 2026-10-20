@@ -1,9 +1,9 @@
 #include "compat/ptr.h"
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 extern int tdcVtable;
 class TDC_12a410 {
   public:
-    int vf;
+    hulk_intptr vf;
     char pad[8];
     int x;
     int y;

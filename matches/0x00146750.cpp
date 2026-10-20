@@ -6,7 +6,7 @@ class Motion_146750 {
   public:
     void Init();
 };
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::MotionTrailStopTrack>::vfunc_5() {
     Motion_146750* p = (Motion_146750*)Alloc(0x14);

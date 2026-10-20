@@ -3,7 +3,7 @@ extern "C" int vtable_170460;
 void thunk(int);
 class DriftToPositionTrack {
   public:
-    int vf;
+    hulk_intptr vf;
     char pad[0x24];
     int value;
     void f();

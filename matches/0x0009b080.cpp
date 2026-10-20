@@ -8,7 +8,7 @@ extern char DAT_00404cc0[];
 
 class Callback_9b080 {
 public:
-    int vptr;
+    hulk_intptr vptr;
     char pad04[12];
     char b10, b11, b12, b13, b14, b15;
     char pad16[2];

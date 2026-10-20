@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 class Condition_16d860 {
@@ -10,7 +11,7 @@ class Condition_16d860 {
     virtual void F();
     void Init(int);
 };
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 extern int LocomotionVTable;
 struct Locomotion_16d860 {
     int* vptr;

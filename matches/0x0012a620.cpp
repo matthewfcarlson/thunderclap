@@ -4,13 +4,13 @@
 extern "C" char DAT_0040fdd4[];
 typedef unsigned int u32_12a620;
 typedef unsigned char u8;
-extern void* Alloc(unsigned int);
+extern void* Alloc(hulk_uintptr);
 class InitBase_12a620 {
   public:
     void Init(int);
 };
 struct TargetDistanceYCondition_12a620 : InitBase_12a620 {
-    u32_12a620 vptr;
+    hulk_uintptr vptr;
     u32_12a620 pad1;
     u32_12a620 pad2;
     int a;

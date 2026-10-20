@@ -12,7 +12,7 @@ extern void cdel(void*);
 extern int vftable_13a8e0;
 class AnimationChargeTrack {
   public:
-    int vf;
+    hulk_intptr vf;
     char pad1[0x18 - 4];
     Sub_13a8e0 a;
     char pad2[0x28 - 0x18 - 1];

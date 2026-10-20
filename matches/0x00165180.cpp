@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_165180;
@@ -11,7 +12,7 @@ struct Factory_165180 {
 };
 extern void* Allocate(unsigned int);
 struct Product {
-    u32_165180 Initialize();
+    hulk_uintptr Initialize();
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HeliLocomotionTrack>::vfunc_5() {

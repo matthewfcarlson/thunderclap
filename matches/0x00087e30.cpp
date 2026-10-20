@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_87e30;
 extern unsigned __int64 FUN_00267f40();
-extern int FUN_001d4c90();
+extern hulk_intptr FUN_001d4c90();
 struct Obj_87e30;
 struct Handler_87e30 {
     void Register(const char*, Obj_87e30*, void (*)());

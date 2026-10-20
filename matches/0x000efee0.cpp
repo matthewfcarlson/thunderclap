@@ -1,8 +1,8 @@
 #include "compat/ptr.h"
 extern "C" char DAT_0040c5c4[];
-extern void* alloc(unsigned int);
+extern void* alloc(hulk_uintptr);
 struct MapThing {
-    unsigned int vf;
+    hulk_uintptr vf;
     char pad[0x114];
     int value;
     void init(void*);

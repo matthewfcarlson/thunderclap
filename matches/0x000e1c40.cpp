@@ -2,7 +2,7 @@
 extern int vtable_e1c40;
 class FEDoPopDialog {
   public:
-    int vptr;
+    hulk_intptr vptr;
     int a;
     int b;
     int c;

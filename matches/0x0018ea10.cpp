@@ -3,7 +3,7 @@
 
 extern "C" char DAT_0041aaa8[];
 struct TimerSetTrack_18ea10 {
-    int vptr;
+    hulk_intptr vptr;
     int pad4;
     int m8;
     int mc;

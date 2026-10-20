@@ -1,10 +1,11 @@
+#include "compat/ptr.h"
 extern char zero_b0810;
 class Obj_b0810 {
   public:
     char pad[0x110];
     struct E {
         int count;
-        int base;
+        hulk_intptr base;
     } e[11];
     char* get(int a, int b);
 };

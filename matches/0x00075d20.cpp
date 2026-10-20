@@ -1,10 +1,11 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_75d20;
 struct CAutoTargetTrack_75d20 {
-    u32_75d20 initialize();
+    hulk_uintptr initialize();
 };
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<CAutoTargetTrack>::vfunc_5() {
     CAutoTargetTrack_75d20* p = (CAutoTargetTrack_75d20*)alloc(0x3c);

@@ -1,10 +1,10 @@
 #include "compat/ptr.h"
 extern "C" char DAT_00417d18[];
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 class Track {
   public:
     void Init();
-    int vfptr;
+    hulk_intptr vfptr;
     int a4;
     int a8;
     int a12;

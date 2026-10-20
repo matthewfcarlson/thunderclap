@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int U32_18c9d0;
 struct Obj_18c9d0 {
-    U32_18c9d0 run();
+    hulk_uintptr run();
 };
 extern void* operator new(unsigned int);
 

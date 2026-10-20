@@ -6,7 +6,7 @@ class Sub_1c7a00 {
 };
 class ShadowGenerator {
   public:
-    int mVft;
+    hulk_intptr mVft;
     int mValue;
     Sub_1c7a00 mSub;
     ShadowGenerator();

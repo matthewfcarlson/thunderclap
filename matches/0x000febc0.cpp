@@ -14,7 +14,7 @@ class Factory_febc0 {
   public:
     V* Make(Owner_febc0*);
 };
-extern "C" void* __cdecl FUN_00266da0(int);
+extern "C" void* __cdecl FUN_00266da0(hulk_intptr);
 extern "C" void* __cdecl FUN_0008d690(int);
 void __cdecl FUN_000febc0(Owner_febc0* owner, V** out) {
     X_febc0* p = owner->Find(typeid(V));

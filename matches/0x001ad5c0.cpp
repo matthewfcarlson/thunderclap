@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Rec_1ad5c0 {
     int a, b, c, d, e;
 };
@@ -10,7 +11,7 @@ struct Buffer_1ad5c0 {
     Rec_1ad5c0* cur;
     Rec_1ad5c0* end;
 };
-extern "C" void* Alloc(unsigned int);
+extern "C" void* Alloc(hulk_uintptr);
 char FUN_001ad5c0(Buffer_1ad5c0* b, Node* n) {
     unsigned int count = 0;
     Node* p = n;

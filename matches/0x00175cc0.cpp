@@ -12,7 +12,7 @@ class Helper_175cc0 {
 };
 class Teleport {
   public:
-    int vptr;
+    hulk_intptr vptr;
     char pad[0x18];
     int value;
     Ref_175cc0* ref;

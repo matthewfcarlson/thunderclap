@@ -12,8 +12,8 @@ class Closure1_1d4210 {
     char pad11[7];
     char m18;
     char pad19[3];
-    int m1c;
-    int m20;
+    hulk_intptr m1c;
+    hulk_intptr m20;
     Closure1_1d4210* Run(const char*, const char*, const char*);
 };
 Closure1_1d4210* Closure1_1d4210::Run(const char* a, const char* b, const char* c) {

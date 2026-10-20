@@ -6,7 +6,7 @@ class Ref_13f9c0 {
 };
 class Base_13f9c0 {
   public:
-    int v;
+    hulk_intptr v;
     Base_13f9c0();
 };
 extern int wallvt;

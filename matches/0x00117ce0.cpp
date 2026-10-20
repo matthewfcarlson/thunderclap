@@ -13,7 +13,7 @@ struct Name_117ce0 {
 };
 
 struct MotionClosestWaypointAction {
-    int vptr;
+    hulk_intptr vptr;
     char pad04[0x18];
     int f1c;
     RefObj_117ce0 *f20;

@@ -1,5 +1,5 @@
 #include "compat/ptr.h"
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 extern int LocationVtable_132a00;
 struct GameStateCondition_132a00 {
     virtual void f0();

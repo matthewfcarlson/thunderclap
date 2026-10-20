@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 typedef unsigned int uint;
-void* Alloc(unsigned int);
+void* Alloc(hulk_uintptr);
 uint CopyString(uint);
 extern char baseVftable[];
 extern char stringVftable[];

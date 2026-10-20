@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Src_1aecb0 {
     int a;
     int b;
@@ -11,7 +12,7 @@ struct Out_1aecb0 {
     Obj_1aecb0* o;
     void* t;
 };
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 void CallbackA();
 void CallbackB();
 class T_1aecb0 {

@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 extern "C" void __cdecl thunk_FUN_00267090(char*);
-extern "C" char* __cdecl FUN_0008d6d0(unsigned int);
+extern "C" char* __cdecl FUN_0008d6d0(hulk_uintptr);
 extern "C" unsigned int strlen(const char*);
 extern "C" char* strcpy(char*, const char*);
 class Obj_1a4560 {

@@ -3,7 +3,7 @@
 
 extern "C" char DAT_0041306c[];
 typedef unsigned int u32_144af0;
-void* __cdecl Alloc(unsigned int);
+void* __cdecl Alloc(hulk_uintptr);
 struct SlowMotionAction_144af0 {
     void init();
     char pad[0x1c];

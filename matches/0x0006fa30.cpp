@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_6fa30;
 struct Grapple_6fa30 {
-    u32_6fa30 BuildTrack();
+    hulk_uintptr BuildTrack();
 };
 extern void* operator new(unsigned int);
 

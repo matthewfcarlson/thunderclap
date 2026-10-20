@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 extern "C" int CollisionThrownObjectCondition_vftable;
 
 struct Helper_15a530 {

@@ -1,8 +1,9 @@
 // Same code shape as 0x0006f100 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 struct Allocated_6ffa0 {
-    int Finish();
+    hulk_intptr Finish();
 };
 extern void* Allocate(unsigned int);
 

@@ -1,4 +1,5 @@
-extern "C" void* Alloc(unsigned int);
+#include "compat/ptr.h"
+extern "C" void* Alloc(hulk_uintptr);
 class Arena_1b6380 {
   public:
     unsigned int *mStart, *mFree, *mEnd;

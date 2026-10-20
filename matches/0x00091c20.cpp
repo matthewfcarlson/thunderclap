@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 void __cdecl freebuf(void*);
-void* __cdecl allocbuf(unsigned);
+void* __cdecl allocbuf(hulk_uintptr);
 extern "C" unsigned __cdecl strlen(const char*);
 extern "C" char* __cdecl strcpy(char*, const char*);
 class X {

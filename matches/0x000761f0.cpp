@@ -10,7 +10,7 @@ class TrackFactoryTemplate {
     virtual void f();
 };
 struct CDamageTrack {
-    int vptr;
+    hulk_intptr vptr;
     int pad4;
     int pad8;
     int x;
@@ -18,7 +18,7 @@ struct CDamageTrack {
     int z;
     void ctor();
 };
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 void* __cdecl target() {
     CDamageTrack* p = (CDamageTrack*)alloc(0x18);
     if (p) {

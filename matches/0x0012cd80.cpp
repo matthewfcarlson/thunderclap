@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/ai.h"
 
 inline void* operator new(unsigned int, void* memory) {
     return memory;
 }
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 void __cdecl FUN_0012b190();
 void __cdecl FUN_0012b1a0();
 void __cdecl FUN_0012b1b0();

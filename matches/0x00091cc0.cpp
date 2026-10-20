@@ -5,7 +5,7 @@ class Helper_91cc0 {
   public:
     void Run();
 };
-extern void __cdecl thunk_FUN_00267090(int);
+extern void __cdecl thunk_FUN_00267090(hulk_intptr);
 class CUnlockableBlonskyFile {
   public:
     void Destroy();

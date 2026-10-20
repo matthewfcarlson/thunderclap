@@ -2,7 +2,7 @@
 class Obj_17f450 {
   public:
     char pad[0x10];
-    int m10;
+    hulk_intptr m10;
     bool Set(void* p);
 };
 

@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 struct ChargeTrack_17e070 {
-    int vt;
+    hulk_intptr vt;
     int pad4;
     int enabled;
     float padc;

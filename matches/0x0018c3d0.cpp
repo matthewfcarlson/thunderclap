@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_0041956c[];
-extern "C" void* Alloc(unsigned int);
+extern "C" void* Alloc(hulk_uintptr);
 class Track_18c3d0 {
   public:
     Track_18c3d0();

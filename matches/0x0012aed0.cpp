@@ -1,4 +1,5 @@
-extern "C" void* __cdecl alloc(unsigned int);
+#include "compat/ptr.h"
+extern "C" void* __cdecl alloc(hulk_uintptr);
 extern "C" void* g_TargetClearTrackVtable;
 struct Obj_12aed0 {
     void* vptr;

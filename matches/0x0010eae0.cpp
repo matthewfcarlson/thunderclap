@@ -2,7 +2,7 @@
 extern "C" char DAT_0040dc14[];
 namespace hulkfight { namespace ai { class HulkActionTrack {
   public:
-    unsigned int vf;
+    hulk_uintptr vf;
     char pad[0x14];
     HulkActionTrack* vfunc_5(unsigned int);
 }; }}

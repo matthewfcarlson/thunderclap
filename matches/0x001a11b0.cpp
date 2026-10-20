@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_1a11b0;
 struct Track_1a11b0 {
     char x[0x148];
-    u32_1a11b0 Init();
+    hulk_uintptr Init();
 };
 void* operator new(unsigned int);
 

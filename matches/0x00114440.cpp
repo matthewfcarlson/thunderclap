@@ -3,13 +3,13 @@
 
 class InActiveCondition_114440 {
   public:
-    unsigned int vptr;
+    hulk_uintptr vptr;
     char pad4[8];
     int fieldC;
     char field10;
     void Init(int);
 };
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 extern int g_InActiveVftable;
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::InActiveCondition>::vfunc_5() {

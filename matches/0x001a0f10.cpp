@@ -7,7 +7,7 @@ struct Sub_1a0f10 {
     void Init();
 };
 struct MPT {
-    int vf;
+    hulk_intptr vf;
     int a;
     int b;
     int c;

@@ -13,7 +13,7 @@ class HoverTrack_1397a0 {
     int b;
     int c;
 };
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 void __fastcall Init(HoverTrack_1397a0*);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HoverTrack>::vfunc_5() {

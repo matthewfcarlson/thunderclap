@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 struct MotionFleeTrack_11b2a0 {
-    int vtable;
+    hulk_intptr vtable;
     char pad4[8];
     int a;
     int b;

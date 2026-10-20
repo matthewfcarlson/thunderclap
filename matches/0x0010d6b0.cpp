@@ -11,7 +11,7 @@ class Q_10d6b0 {
   public:
     void* query();
 };
-extern int __cdecl FUN_00344e74(void*, int, int, int, int);
+extern int __cdecl FUN_00344e74(void*, int, hulk_intptr, hulk_intptr, int);
 
 bool hulkfight::ai::LeashedCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; void * params = (void *)__p1; hulk_intptr unused2 = (hulk_intptr)__p2;
 

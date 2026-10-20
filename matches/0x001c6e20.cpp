@@ -3,7 +3,7 @@ typedef unsigned int u32_1c6e20;
 struct Sub_1c6e20 {
     void clean();
 };
-void finish(u32_1c6e20);
+void finish(hulk_uintptr);
 struct Container_1c6e20 {
     char* begin;
     char* end;

@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 extern "C" char DAT_0040dc14[];
 typedef unsigned int u32_114a70;
-void* __cdecl Alloc(unsigned int);
+void* __cdecl Alloc(hulk_uintptr);
 class Base_114a70 {
   public:
     void Init();

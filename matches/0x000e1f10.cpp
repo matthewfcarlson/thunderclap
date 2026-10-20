@@ -59,7 +59,7 @@ class Manager_e1f10 {
 class FELayout {
   public:
     FELayout* init(Manager_e1f10* p, int arg);
-    int vt;
+    hulk_intptr vt;
     int a;
     Manager_e1f10* m;
     int b;

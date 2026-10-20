@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 void __cdecl FUN_00068250();
 void __cdecl FUN_00069730();
 void __cdecl FUN_00069750();

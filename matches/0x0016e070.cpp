@@ -6,7 +6,7 @@ extern "C" void* __cdecl operator_new(unsigned int);
 class Obj {
   public:
     Obj(int);
-    unsigned int vf;
+    hulk_uintptr vf;
     int a;
     int b;
     int c;

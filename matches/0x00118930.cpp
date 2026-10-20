@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern "C" int FUN_00344e74(int, int, void*, void*, int);
+extern "C" int FUN_00344e74(hulk_intptr, int, void*, void*, int);
 class ConditionFactoryCaster_118930 {
   public:
     virtual void f0();

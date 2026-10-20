@@ -3,7 +3,7 @@
 
 extern "C" char DAT_0041916c[];
 typedef unsigned int uint;
-void* __cdecl Alloc(uint);
+void* __cdecl Alloc(hulk_uintptr);
 struct Base_18c540 {
     void Init(int);
 };

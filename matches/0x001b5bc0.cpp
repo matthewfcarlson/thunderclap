@@ -7,7 +7,7 @@ struct This_FUN_001d0480 {
 extern char str1_1b5bc0, str2;
 class Method3_1b5bc0 {
   public:
-    int vtable;
+    hulk_intptr vtable;
     char pad04[12];
     char value10, value11, value12;
     char pad13[5];

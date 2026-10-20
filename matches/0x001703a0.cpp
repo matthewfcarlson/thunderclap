@@ -7,7 +7,7 @@ class Part_1703a0 {
 };
 class Obj_1703a0 {
   public:
-    int vt;
+    hulk_intptr vt;
     char pad[0x14];
     Part_1703a0 p18;
     Part_1703a0 p20;

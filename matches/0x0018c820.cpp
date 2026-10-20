@@ -1,6 +1,7 @@
 // Same code shape as 0x0014c420 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
-void* __cdecl alloc(unsigned int);
+void* __cdecl alloc(hulk_uintptr);
 struct PropAnimationTrack_nv_18c820 {
     void* init();
 };

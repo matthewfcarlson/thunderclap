@@ -4,7 +4,7 @@
 extern "C" char DAT_00411bb8[];
 class FlyingDashTrack_139430 {
   public:
-    unsigned int vt;
+    hulk_uintptr vt;
     unsigned int pad[2];
     unsigned int a;
     unsigned int b;
@@ -14,7 +14,7 @@ class FlyingDashTrack_139430 {
     unsigned int f;
     void Init();
 };
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::FlyingDashTrack>::vfunc_5() {
     FlyingDashTrack_139430* p = (FlyingDashTrack_139430*)Alloc(0x24);

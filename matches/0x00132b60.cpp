@@ -3,7 +3,7 @@
 
 extern "C" char DAT_004112e4[];
 typedef unsigned int u32_132b60;
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 class Track_132b60 {
   public:
     Track_132b60();

@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_1a0ca0;
 extern int __cdecl Check(void*, int, const void*, const void*, int);
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 struct NewThing {
     int Init(hulkfight::motion::FireBeamTrack*, void*);
 };

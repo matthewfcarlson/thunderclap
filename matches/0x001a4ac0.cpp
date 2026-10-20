@@ -2,7 +2,7 @@
 #include "gen/hulkfight.h"
 
 extern int RTTI1_1a4ac0, RTTI2;
-extern int FUN_00344e74(int, int, int, int, int);
+extern hulk_intptr FUN_00344e74(hulk_intptr, int, hulk_intptr, hulk_intptr, int);
 struct Result_1a4ac0 {
     int pad;
     int type;

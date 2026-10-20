@@ -8,7 +8,7 @@ class Ref_195150 {
 extern int vt_195150;
 class FireProjectileAction {
   public:
-    int vptr;
+    hulk_intptr vptr;
     char pad[0x18];
     int m1c;
     Ref_195150* m20;

@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 struct Inner_1c3cc0 {
-    void Do(int, int, int, int, int);
+    void Do(hulk_intptr, int, int, int, int);
 };
 class X_1c3cc0 {
   public:

@@ -1,4 +1,5 @@
-extern void* Alloc(unsigned n);
+#include "compat/ptr.h"
+extern void* Alloc(hulk_uintptr n);
 
 class Obj_f86f0 {
   public:

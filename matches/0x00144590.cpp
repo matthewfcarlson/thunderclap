@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct X_144590 {
     X_144590* a();
     X_144590* b();
@@ -12,7 +13,7 @@ class MotionTrailStopAction {
         char pad[0x10];
         int value;
     }* mA;
-    int mCheck;
+    hulk_intptr mCheck;
     void vfunc_4();
 };
 void MotionTrailStopAction::vfunc_4() {

@@ -7,7 +7,7 @@ class Sub_92230 {
 };
 class CUnlockableGallery {
   public:
-    unsigned long v;
+    hulk_ulongptr v;
     char pad4[4];
     unsigned char flag;
     char pad9[7];

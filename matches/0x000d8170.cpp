@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 class B_d8170 {
   public:
-    int f();
+    hulk_intptr f();
 };
 class C_d8170 {
   public:

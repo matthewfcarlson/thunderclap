@@ -2,9 +2,9 @@
 extern "C" unsigned int strlen(const char*);
 class Hash {
   public:
-    int Calc(const char* s);
+    hulk_intptr Calc(const char* s);
 };
-int Hash::Calc(const char* s) {
+hulk_intptr Hash::Calc(const char* s) {
     hulk_intptr n = strlen(s);
     hulk_intptr sum = n;
     int product = 1;

@@ -2,10 +2,10 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_0040fd14[];
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 class TargetDirectionYCondition_12a2b0 {
   public:
-    int v0;
+    hulk_intptr v0;
     int pad4;
     int pad8;
     int x;

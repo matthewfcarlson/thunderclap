@@ -3,7 +3,7 @@
 
 extern "C" char DAT_0041932c[];
 typedef unsigned int size_t;
-extern "C" void* __cdecl Alloc(size_t);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 struct Track_18be50 {
     unsigned char pad[0x14];
     void Init();

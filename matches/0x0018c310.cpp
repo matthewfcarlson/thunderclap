@@ -1,11 +1,11 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 extern int vtable_18c310;
 class Prop_18c310 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     int pad;
     int x;
     int a;

@@ -1,7 +1,8 @@
 // Same code shape as 0x00113f80 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 class Condition_1328a0 {
   public:
     virtual void a();

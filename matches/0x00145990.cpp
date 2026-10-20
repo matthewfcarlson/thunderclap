@@ -10,11 +10,11 @@ extern "C" void __cdecl FUN_001436b0();
 extern "C" char DAT_0041324c[];
 extern int gCounter_145990;
 extern int gArray_145990;
-extern "C" void* Alloc(unsigned int);
+extern "C" void* Alloc(hulk_uintptr);
 struct Obj_145990 {
     void* vf;
     char pad[12];
-    int v;
+    hulk_intptr v;
     char rest[4];
     void Init(const char*);
 };

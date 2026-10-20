@@ -11,7 +11,7 @@ class Base_1aabf0 {
     virtual void e();
     virtual void f();
 };
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 class Obj_1aabf0 {
   public:
     virtual void a();

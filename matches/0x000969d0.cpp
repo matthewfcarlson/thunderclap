@@ -1,10 +1,11 @@
+#include "compat/ptr.h"
 extern const float gZero_969d0;
 struct Q_969d0 {
     float Get();
 };
 struct C_969d0 {
     char pad[0x12c];
-    int v;
+    hulk_intptr v;
 };
 struct B_969d0 {
     char pad[0xc];

@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_00414150[];
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 class CollisionChargeCondition_159880 {
   public:
     virtual void V0();

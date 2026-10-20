@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 void* __cdecl operator_new(unsigned int);
 struct Init_191c30 {
-    int initialize();
+    hulk_intptr initialize();
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::TankLocomotionTrack>::vfunc_5() {

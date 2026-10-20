@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 typedef unsigned int u32_18b6f0;
-void* __cdecl alloc(unsigned int);
+void* __cdecl alloc(hulk_uintptr);
 struct InitObj_18b6f0 {
     void init(int);
 };

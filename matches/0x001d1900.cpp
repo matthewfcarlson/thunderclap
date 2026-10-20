@@ -1,4 +1,5 @@
-extern "C" void __cdecl helper(int, int, int);
+#include "compat/ptr.h"
+extern "C" void __cdecl helper(hulk_intptr, int, int);
 class Obj_1d1900 {
   public:
     char pad[8];

@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_00417d48[];
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 struct Track_17ed70 {
     virtual void a();
     virtual void b();

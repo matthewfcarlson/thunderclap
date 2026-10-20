@@ -2,13 +2,13 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_0040fe74[];
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 class Init_12a980 {
   public:
     void Start(int);
 };
 struct Obj_12a980 {
-    unsigned int vt;
+    hulk_uintptr vt;
     int a;
     int b;
     int c;

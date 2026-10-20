@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 typedef unsigned int u32_76080;
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 extern int ComboVtable;
 class CComboMessageTrack_76080 {
   public:

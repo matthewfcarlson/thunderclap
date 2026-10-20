@@ -1,10 +1,11 @@
 // Same code shape as 0x00077d00 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_18c940;
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 struct CKeyPoseTrack_18c940 {
-    u32_18c940 init();
+    hulk_uintptr init();
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::BallAndChainReturnTrack>::vfunc_5() {

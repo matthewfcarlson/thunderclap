@@ -4,7 +4,7 @@ extern int vtAction;
 extern void __cdecl thunk_FUN_00267090(void*);
 class FEDoFunction {
   public:
-    int vptr;
+    hulk_intptr vptr;
     int pad[13];
     int count;
     void** items;

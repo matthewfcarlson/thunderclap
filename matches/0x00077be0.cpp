@@ -1,10 +1,11 @@
 // Same code shape as 0x0006f220 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_77be0;
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 struct InitObj_77be0 {
-    u32_77be0 Init();
+    hulk_uintptr Init();
 };
 
 template <> void* fight::TrackFactoryTemplate<CHeadTrackerTrack>::vfunc_5() {

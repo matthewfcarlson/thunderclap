@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Effect_144cd0 {
@@ -5,7 +6,7 @@ class Effect_144cd0 {
     int init(int, hulkfight::motion::HitEffectTrack*, int);
 };
 extern int check(void*, int, const void*, const void*, int);
-extern void* alloc(unsigned int);
+extern void* alloc(hulk_uintptr);
 extern const char type1_144cd0[];
 extern const char type2_144cd0[];
 

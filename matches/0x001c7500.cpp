@@ -3,7 +3,7 @@ extern "C" char DAT_00421a3c[];
 void thunk(int);
 class StoreBase {
   public:
-    int vp;
+    hulk_intptr vp;
     int a[4];
     int b;
     void Fn();

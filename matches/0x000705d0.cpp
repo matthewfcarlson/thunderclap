@@ -1,10 +1,11 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_705d0;
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 class CWeaponCollisionTrack_705d0 {
   public:
-    u32_705d0 Init();
+    hulk_uintptr Init();
 };
 
 template <> void* fight::TrackFactoryTemplate<CWeaponCollisionTrack>::vfunc_5() {

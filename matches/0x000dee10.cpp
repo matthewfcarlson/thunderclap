@@ -2,7 +2,7 @@
 extern "C" char DAT_0040bf00[];
 class CGlowDisplayEffect {
   public:
-    unsigned int vptr;
+    hulk_uintptr vptr;
     int a;
     int b;
     unsigned int c;

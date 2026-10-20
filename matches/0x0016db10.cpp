@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 extern char VT_16db10[];
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 class TargetCondition {
   public:
     virtual void A();

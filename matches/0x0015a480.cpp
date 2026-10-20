@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 extern "C" char DAT_004144e0[];
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 class Obj_15a480 {
   public:
     virtual void* A();

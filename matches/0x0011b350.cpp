@@ -3,11 +3,11 @@
 
 extern "C" char DAT_0040eb50[];
 typedef unsigned int u32_11b350;
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 class MotionStopTrack_11b350 {
   public:
     MotionStopTrack_11b350();
-    u32_11b350 a;
+    hulk_uintptr a;
     u32_11b350 b;
     u32_11b350 c;
     int x;

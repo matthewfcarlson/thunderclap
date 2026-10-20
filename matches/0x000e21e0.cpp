@@ -4,7 +4,7 @@ class VScroll {
   public:
     void init(int, int);
     VScroll(int a, int q);
-    unsigned int vf;
+    hulk_uintptr vf;
     char pre[0x3c];
     unsigned int arr[0x80];
     unsigned int a[7];

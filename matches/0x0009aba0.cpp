@@ -9,7 +9,7 @@ struct InitBase_9aba0 {
 class Method4_9aba0 : public InitBase_9aba0 {
   public:
     Method4_9aba0* Init(void*, void*);
-    int vf;
+    hulk_intptr vf;
     char pad04[0x0c];
     unsigned char b10, b11, b12, b13;
     char pad14[4];

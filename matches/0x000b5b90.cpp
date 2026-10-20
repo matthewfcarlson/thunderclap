@@ -31,7 +31,7 @@ class FEObject {
     virtual void Set(int);
 };
 extern int __cdecl FindName(const char*);
-extern int __cdecl LookupThing(int, int, int*, int*, int);
+extern hulk_intptr __cdecl LookupThing(int, int, int*, int*, int);
 extern int __cdecl GetFlagThing(int);
 struct Result_b5b90 {
     char Check(int);

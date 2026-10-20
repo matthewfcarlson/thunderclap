@@ -8,7 +8,7 @@ class Function_9cf20 {
     virtual void f1();
     virtual void f2();
 };
-void __cdecl invoke(int, int, int, int);
+void __cdecl invoke(int, hulk_intptr, hulk_intptr, int);
 
 template <> void Closure5<CCameraManager, bool, float, float, float, float, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr x = (hulk_intptr)__p0; hulk_intptr y = (hulk_intptr)__p1; hulk_intptr z = (hulk_intptr)__p2;
 

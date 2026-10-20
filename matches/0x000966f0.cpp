@@ -1,4 +1,5 @@
-extern "C" int Alloc(int);
+#include "compat/ptr.h"
+extern "C" hulk_intptr Alloc(hulk_intptr);
 class Inner_966f0 {
   public:
     virtual void a();

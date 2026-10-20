@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 extern "C" char DAT_00410c34[];
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 struct Obj_12d530 {
     void* vt;
     unsigned int a;

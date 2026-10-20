@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 struct Init_11afc0 {
@@ -9,7 +10,7 @@ struct HasGroundPointCondition_11afc0 {
     unsigned char x;
     unsigned char y;
 };
-void* __cdecl alloc(unsigned int);
+void* __cdecl alloc(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::HasGroundPointCondition>::vfunc_5() {
     HasGroundPointCondition_11afc0* p = (HasGroundPointCondition_11afc0*)alloc(0x10);

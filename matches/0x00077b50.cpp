@@ -2,10 +2,10 @@
 #include "gen/fight.h"
 
 typedef unsigned int u32_77b50;
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 extern u32_77b50 track_vftable;
 struct CGrappleKeyPoseTrack_77b50 {
-    u32_77b50 vf;
+    hulk_uintptr vf;
     void init();
 };
 

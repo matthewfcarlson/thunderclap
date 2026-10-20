@@ -11,7 +11,7 @@ extern int vtable_184880;
 class BallAndChainShootAction : public Ctor_00232660 {
   public:
     BallAndChainShootAction(int, Ref_184880*);
-    int vt;
+    hulk_intptr vt;
     char pad04[0x18];
     int mA;
     Ref_184880* mRef;

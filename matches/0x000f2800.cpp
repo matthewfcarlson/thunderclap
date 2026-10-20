@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 struct FEParticleAnimation_nv_f2800 {
     int Build(int, int, int);
 };

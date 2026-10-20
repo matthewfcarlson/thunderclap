@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int size_t;
-void* Alloc(unsigned int);
+void* Alloc(hulk_uintptr);
 class Obj_1a1240 {
   public:
     void* Init();

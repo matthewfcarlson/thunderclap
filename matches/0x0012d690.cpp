@@ -3,12 +3,12 @@
 
 extern "C" char DAT_00410bf4[];
 typedef unsigned int u32_12d690;
-extern void* Alloc(unsigned int);
+extern void* Alloc(hulk_uintptr);
 struct Sub_12d690 {
     void Setup();
 };
 struct ThreatDistanceCondition_12d690 {
-    u32_12d690 vf;
+    hulk_uintptr vf;
     char pad04[8];
     u32_12d690 mC;
     u32_12d690 mD;

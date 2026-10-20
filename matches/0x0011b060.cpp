@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_0040eac0[];
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 class LocatorDistanceCondition_11b060 {
   public:
     LocatorDistanceCondition_11b060(int);

@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 struct CMotionHitGroundHeightTrack_77020 {
-    int vptr;
+    hulk_intptr vptr;
     int pad;
     int c;
     int d;

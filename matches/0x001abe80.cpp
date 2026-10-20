@@ -5,13 +5,13 @@ extern "C" void __cdecl FUN_001aacf0();
 extern "C" char DAT_0041d4ac[];
 extern int gCount_1abe80;
 extern int gSlot_1abe80;
-extern void* Alloc(unsigned int);
+extern void* Alloc(hulk_uintptr);
 struct Obj_1abe80 {
-    int v;
+    hulk_intptr v;
     char pad4[12];
-    int a;
+    hulk_intptr a;
     int b;
-    int c;
+    hulk_intptr c;
     void Init(const char*);
 };
 extern void Register(int*, Obj_1abe80**, int);

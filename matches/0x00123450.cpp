@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct TypeDesc_123450 {
@@ -5,7 +6,7 @@ struct TypeDesc_123450 {
     int b;
 };
 extern int TypeCheck(void*, int, const void*, const void*, int);
-extern void* Alloc(unsigned int);
+extern void* Alloc(hulk_uintptr);
 struct NewTrack {
     int run(hulkfight::ai::PathTrack* t, void* p);
 };

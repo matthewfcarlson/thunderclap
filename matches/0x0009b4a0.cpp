@@ -8,7 +8,7 @@ struct ThisCall_001d0480 {
 };
 class Method6_9b4a0 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     char pad4[12];
     char b10, b11, b12, b13, b14, b15;
     char pad16[2];

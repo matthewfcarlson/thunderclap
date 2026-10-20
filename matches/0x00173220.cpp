@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class TeleportToLocatorTrack {
   public:
     virtual void v0();
@@ -15,7 +16,7 @@ class TeleportToLocatorTrack {
     int m10;
     void trackCall();
 };
-extern void __cdecl thunk_FUN_00267090(int);
+extern void __cdecl thunk_FUN_00267090(hulk_intptr);
 TeleportToLocatorTrack::~TeleportToLocatorTrack() {
     thunk_FUN_00267090(m10);
     trackCall();

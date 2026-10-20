@@ -10,9 +10,9 @@ struct Y_f2860 {
     int pad;
     void* field;
     void* slots[32];
-    int f(void*);
+    hulk_intptr f(void*);
 };
-int Y_f2860::f(void* p) {
+hulk_intptr Y_f2860::f(void* p) {
     if (!field)
         return 0;
     FETextureAnimation* x = (FETextureAnimation*)FUN_0008d690(0x60);

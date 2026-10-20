@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 extern "C" char DAT_00414420[];
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 class Track {
   public:
     virtual void v0();

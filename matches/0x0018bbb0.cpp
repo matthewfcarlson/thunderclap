@@ -4,7 +4,7 @@
 extern "C" char DAT_0041926c[];
 typedef unsigned int u32_18bbb0;
 typedef unsigned char u8;
-void* __cdecl alloc(unsigned int);
+void* __cdecl alloc(hulk_uintptr);
 class Condition_18bbb0 {
   public:
     virtual void a();

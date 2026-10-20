@@ -3,7 +3,7 @@ extern "C" char DAT_00412fd4[];
 struct MotionBlurTrack {
   public:
     void Init();
-    int vf;
+    hulk_intptr vf;
     int mHdr;
     int mOne;
     int mZero;

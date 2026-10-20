@@ -8,7 +8,7 @@ class Base_7d380 {
 };
 class Target_7d380 : public Base_7d380 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     char pad4[12];
     char b10;
     char b11;

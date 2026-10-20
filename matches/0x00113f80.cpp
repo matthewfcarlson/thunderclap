@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 class Condition_113f80 {
   public:
     virtual void a();

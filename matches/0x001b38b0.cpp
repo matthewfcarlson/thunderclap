@@ -6,7 +6,7 @@ extern "C" char DAT_0041d9a4[];
 struct Ctor_001d0480 {
     Ctor_001d0480(int, int);
 };
-extern char __cdecl FUN_001d04d0(int);
+extern char __cdecl FUN_001d04d0(hulk_intptr);
 class Target_1b38b0 : public Ctor_001d0480 {
   public:
     char pad0[0x10];

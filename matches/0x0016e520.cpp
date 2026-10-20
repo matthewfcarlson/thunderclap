@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 extern "C" void _ReadWriteBarrier();
@@ -10,7 +11,7 @@ class Sub {
     Sub();
 };
 extern char VT_16e520[];
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::RayCastTargetCondition>::vfunc_5() {
     Child* p = (Child*)FUN_0008d690(0x38);

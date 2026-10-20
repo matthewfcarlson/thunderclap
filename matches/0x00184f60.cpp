@@ -12,7 +12,7 @@ class Base_184f60 {
 };
 class BallAndChainReturnAction {
   public:
-    volatile int vptr;
+    volatile hulk_intptr vptr;
     char pad[0x18];
     void* mOne;
     Ref_184f60* mTwo;

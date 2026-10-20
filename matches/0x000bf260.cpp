@@ -4,7 +4,7 @@
 
 class D {
   public:
-    void Init(int, int, int, int, int, int, int, int);
+    void Init(hulk_intptr, hulk_intptr, hulk_intptr, hulk_intptr, hulk_intptr, int, int, int);
 };
 class C_bf260 {
   public:

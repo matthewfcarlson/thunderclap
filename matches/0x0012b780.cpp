@@ -3,7 +3,7 @@
 
 extern const char kRttiA[];
 extern const char kRttiB[];
-int CheckFn(int a, int b, const void* c, const void* d, int e);
+int CheckFn(hulk_intptr a, int b, const void* c, const void* d, int e);
 
 class Obj2_12b780 {
   public:

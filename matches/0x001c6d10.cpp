@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 extern "C" char DAT_00421a04[];
 struct RoomLoader {
-    int vft;
+    hulk_intptr vft;
     int a;
     int b;
     int c;

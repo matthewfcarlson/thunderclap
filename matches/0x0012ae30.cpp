@@ -5,13 +5,13 @@ extern "C" char DAT_0040ff54[];
 typedef unsigned char u8;
 class CanSeeTargetCondition_12ae30 {
   public:
-    int vt;
+    hulk_intptr vt;
     char pad[8];
     u8 a;
     u8 b;
     void Init(int);
 };
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::CanSeeTargetCondition>::vfunc_5() {
     CanSeeTargetCondition_12ae30* p = (CanSeeTargetCondition_12ae30*)alloc(16);

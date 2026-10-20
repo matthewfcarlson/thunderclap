@@ -26,7 +26,7 @@ class RestPoseTrack_17eeb0 {
     int q;
     void Init();
 };
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::RestPoseTrack>::vfunc_5() {
     RestPoseTrack_17eeb0* p = (RestPoseTrack_17eeb0*)Alloc(0x30);

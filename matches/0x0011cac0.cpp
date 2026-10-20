@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Helper_11cac0 {
-    int First();
+    hulk_intptr First();
     void Second();
 };
 

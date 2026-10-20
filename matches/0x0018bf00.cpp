@@ -5,7 +5,7 @@ extern "C" char DAT_0041935c[];
 class PropDropTrack_18bf00 {
   public:
     void Init();
-    int vt;
+    hulk_intptr vt;
     int pad;
     int e;
     int c;

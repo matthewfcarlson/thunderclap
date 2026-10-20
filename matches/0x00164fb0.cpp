@@ -9,14 +9,14 @@ struct Sub_164fb0 {
     void setup();
 };
 struct Obj_164fb0 {
-    unsigned vptr;
+    hulk_uintptr vptr;
     char pad[12];
     Sub_164fb0 sub;
     char pad2[4];
     int x;
     unsigned char flag;
 };
-void* __cdecl Alloc(unsigned int);
+void* __cdecl Alloc(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::JointPlantedCondition>::vfunc_5() {
     Obj_164fb0* p = (Obj_164fb0*)Alloc(0x20);

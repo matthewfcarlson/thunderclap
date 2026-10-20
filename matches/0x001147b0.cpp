@@ -4,12 +4,12 @@
 extern "C" char DAT_0040db64[];
 class Condition_1147b0 {
   public:
-    int vt;
+    hulk_intptr vt;
     char pad[8];
     int m;
     void Init(int);
 };
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::FightingOtherNPCCondition>::vfunc_5() {
     Condition_1147b0* p = (Condition_1147b0*)Alloc(0x10);

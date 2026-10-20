@@ -1,7 +1,8 @@
 // FUN_000f4e90 @ 0x000f4e90
+#include "compat/ptr.h"
 class Param {
 public:
-    int FUN_000fad90();
+    hulk_intptr FUN_000fad90();
     void FUN_000fa0a0();
 };
 
@@ -73,7 +74,7 @@ public:
         virtual void vfunc_0(int a, int b);
         FEThingsBase *mObj;
         void (FEThingsBase::*mFn)(Param *, int, Target_f4e90 *, Args_f4e90 *);
-        int mC;
+        hulk_intptr mC;
         Target_f4e90 *mD;
     };
 

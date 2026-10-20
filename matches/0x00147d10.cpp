@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 namespace fight {
 class Track {
   public:
@@ -13,7 +14,7 @@ class Track {
 };
 class Param {};
 } // namespace fight
-extern "C" int __cdecl helper(int);
+extern "C" int __cdecl helper(hulk_intptr);
 namespace hulkfight {
 namespace motion {
 class GrappleHitReactionTrack : public fight::Track, public fight::Param {

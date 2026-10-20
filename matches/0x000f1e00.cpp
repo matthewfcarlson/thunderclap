@@ -2,7 +2,7 @@
 #include "gen/global.h"
 
 extern "C" char DAT_0040c61c[];
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 class TextLabel_f1e00 {
   public:
     virtual void f0();

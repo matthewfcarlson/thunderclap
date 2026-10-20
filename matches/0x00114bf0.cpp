@@ -4,7 +4,7 @@
 extern "C" char DAT_0040dc74[];
 typedef unsigned int u32_114bf0;
 struct ButtonTrack_114bf0 {
-    u32_114bf0 vft;
+    hulk_uintptr vft;
     u32_114bf0 q0;
     u32_114bf0 q1;
     u32_114bf0 a;

@@ -9,7 +9,7 @@ class Base_9aaf0 {
 extern unsigned char __cdecl GetValue(const char*);
 class Obj_9aaf0 : public Base_9aaf0 {
   public:
-    int vt;
+    hulk_intptr vt;
     char pad4[0x0c];
     unsigned char b10, b11, b12;
     char pad13[5];

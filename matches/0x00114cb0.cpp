@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 extern "C" char DAT_0040dca4[];
-extern void* Alloc(unsigned int);
+extern void* Alloc(hulk_uintptr);
 class Sub_114cb0 {
   public:
     void Init();

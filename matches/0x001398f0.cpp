@@ -1,11 +1,12 @@
 // Same code shape as 0x00075d20 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_1398f0;
 struct CAutoTargetTrack_1398f0 {
-    u32_1398f0 initialize();
+    hulk_uintptr initialize();
 };
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::FlyingAutoTargetTrack>::vfunc_5() {
     CAutoTargetTrack_1398f0* p = (CAutoTargetTrack_1398f0*)alloc(0x3c);

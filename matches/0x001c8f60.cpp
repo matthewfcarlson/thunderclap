@@ -7,7 +7,7 @@ struct Thing_1c8f60 {
 extern Thing_1c8f60* __cdecl Alloc(unsigned n);
 class LevelLoader {
   public:
-    unsigned vptr;
+    hulk_uintptr vptr;
     int m4, m8, mc, m10;
     unsigned m14, m18;
     Thing_1c8f60* m1c;

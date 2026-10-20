@@ -4,7 +4,7 @@
 extern "C" char DAT_003fc058[];
 extern "C" void* __cdecl FUN_0008d690(int);
 struct Obj_774c0 {
-    int vptr;
+    hulk_intptr vptr;
     int x4;
     int m8;
     int mc;

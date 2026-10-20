@@ -9,11 +9,11 @@ class IRefCount {
 };
 class CGolem {
   public:
-    int vf;
+    hulk_intptr vf;
     char pad04[8];
     IRefCount* items[16];
     char pad4c[12];
-    int memory;
+    hulk_intptr memory;
     void destroy();
 };
 void CGolem::destroy() {

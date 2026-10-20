@@ -7,7 +7,7 @@ class Ref_116a30 {
 };
 class Base_116a30 {
   public:
-    volatile int v;
+    volatile hulk_intptr v;
     Base_116a30();
 };
 class MotionTargetAction : public Base_116a30 {

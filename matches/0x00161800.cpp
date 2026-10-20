@@ -3,7 +3,7 @@ extern "C" char DAT_00415c50[];
 extern "C" void _ReadWriteBarrier();
 class LocomotingAction {
   public:
-    volatile int vptr;
+    volatile hulk_intptr vptr;
     char pad[0x1c - 4];
     class Obj_161800* mObj;
     void Base();

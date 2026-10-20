@@ -1,4 +1,5 @@
-extern int __cdecl FUN_00213260(void*, int);
+#include "compat/ptr.h"
+extern hulk_intptr __cdecl FUN_00213260(void*, int);
 extern void __cdecl FUN_002136d0(void*, int);
 extern void __cdecl FUN_00212ed0(void*, int);
 extern void __cdecl FUN_00213600(void*, int);

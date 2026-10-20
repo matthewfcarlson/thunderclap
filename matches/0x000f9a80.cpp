@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 struct Node {
     virtual void F(int);
     Node* next;
 };
-void thunk_FUN_00267090(int);
+void thunk_FUN_00267090(hulk_intptr);
 struct Obj_f9a80 {
     Node* head;
     int value;

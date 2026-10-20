@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
 inline void* operator new(unsigned int, void* p) {
     return p;
 }
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 extern void __cdecl FUN_001330b0();
 extern void __cdecl FUN_001330c0();
 extern void __cdecl FUN_001330e0();

@@ -6,7 +6,7 @@ class Event_1ac740 {
   public:
     void Init(int);
 };
-void* __cdecl Alloc(unsigned int);
+void* __cdecl Alloc(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::scenario::Event_FirstTimeCondition>::vfunc_5() {
     Event_1ac740* p = (Event_1ac740*)Alloc(0x10);

@@ -11,7 +11,7 @@ class Base_1762c0 {
 };
 class TargetIconDistanceAction : public Base_1762c0 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     char pad04[0x18];
     Obj_1762c0* m1c;
     Obj_1762c0* m20;

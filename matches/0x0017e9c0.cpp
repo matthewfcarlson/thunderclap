@@ -1,10 +1,10 @@
 #include "compat/ptr.h"
 extern "C" char DAT_00417c58[];
-extern "C" void* __cdecl alloc(unsigned int);
+extern "C" void* __cdecl alloc(hulk_uintptr);
 class S_17e9c0 {
   public:
     void Init();
-    int vp;
+    hulk_intptr vp;
     int unk4;
     int unk8;
     int f0c;

@@ -2,9 +2,9 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_00413fd0[];
-extern "C" void* __cdecl Alloc(int);
+extern "C" void* __cdecl Alloc(hulk_intptr);
 struct Obj_159140 {
-    int vf;
+    hulk_intptr vf;
     int pad[4];
     void Init(int);
 };

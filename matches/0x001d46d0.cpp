@@ -8,7 +8,7 @@ struct Closure4 {
     void init(int, int);
     void task(int);
 };
-void* __cdecl alloc(unsigned int);
+void* __cdecl alloc(hulk_uintptr);
 void __cdecl taskC(int, Closure4*);
 void __cdecl taskD(int, void*, int);
 void __cdecl taskE(int, int, int);

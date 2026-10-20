@@ -4,7 +4,7 @@
 extern "C" char DAT_0040f500[];
 class StrafeLateralHBTrack_122f70 {
   public:
-    int vf;
+    hulk_intptr vf;
     char pad4[8];
     int zc;
     int x10;

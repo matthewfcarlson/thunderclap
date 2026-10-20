@@ -12,9 +12,9 @@ class Owner_1c5fb0 {
     char pad0[4];
     Item_1c5fb0** items;
     unsigned int count;
-    int Find(Checker_1c5fb0*);
+    hulk_intptr Find(Checker_1c5fb0*);
 };
-int Owner_1c5fb0::Find(Checker_1c5fb0* arg) {
+hulk_intptr Owner_1c5fb0::Find(Checker_1c5fb0* arg) {
     unsigned int i = 0;
     if (count > 0) {
         do {

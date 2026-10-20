@@ -7,7 +7,7 @@ class Ref_1847a0 {
 };
 class ShieldArcAction {
   public:
-    volatile int vft;
+    volatile hulk_intptr vft;
     char pad[0x18];
     int m1c;
     Ref_1847a0* volatile m20;

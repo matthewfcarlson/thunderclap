@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 extern "C" void freeBuf(void*);
-extern "C" void* allocBuf(unsigned int);
+extern "C" void* allocBuf(hulk_uintptr);
 extern "C" unsigned int strlen(const char*);
 extern "C" char* strcpy(char*, const char*);
 class X_1a41e0 {

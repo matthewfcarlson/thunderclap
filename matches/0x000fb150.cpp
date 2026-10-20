@@ -10,9 +10,9 @@ struct Obj_fb150 {
     Node* cur;
     char pad10[4];
     char done;
-    int next();
+    hulk_intptr next();
 };
-int Obj_fb150::next() {
+hulk_intptr Obj_fb150::next() {
     Node* n = root;
     if (!n)
         return 0;

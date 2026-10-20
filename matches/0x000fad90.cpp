@@ -11,7 +11,7 @@ struct Obj_fad90 {
     char pad10[4];
     unsigned char mDone;
 };
-extern int __cdecl GetThing(Base_fad90*, int, void*, void*, int);
+extern hulk_intptr __cdecl GetThing(Base_fad90*, int, void*, void*, int);
 extern int desc1_fad90;
 extern int desc2_fad90;
 int __fastcall Target(Obj_fad90* self) {

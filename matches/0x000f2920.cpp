@@ -1,6 +1,7 @@
 // Same code shape as 0x000f27a0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/global.h"
-extern void* Alloc(unsigned int);
+extern void* Alloc(hulk_uintptr);
 struct FEBillboardAnimation_nv_f2920 {
     int Create(int, int);
 };

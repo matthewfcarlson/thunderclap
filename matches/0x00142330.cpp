@@ -4,7 +4,7 @@
 extern int IsType(void*, int, const void*, const void*, int);
 extern void* Alloc(int);
 struct Result_142330 {
-    unsigned int init(hulkfight::motion::WallJumpTrack*, unsigned int);
+    unsigned int init(hulkfight::motion::WallJumpTrack*, hulk_uintptr);
 };
 extern Result_142330* MakeResult(void*);
 extern const int RT1;

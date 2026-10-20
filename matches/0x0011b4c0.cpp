@@ -3,7 +3,7 @@
 
 extern "C" char DAT_0040ebb0[];
 typedef unsigned int u32_11b4c0;
-void* __cdecl alloc(unsigned int);
+void* __cdecl alloc(hulk_uintptr);
 struct TrackFactoryTemplate_nv_11b4c0 {
     void initialize();
 };

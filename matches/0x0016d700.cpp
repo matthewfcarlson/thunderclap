@@ -2,14 +2,14 @@
 #include "gen/fight.h"
 
 struct Turning {
-    int vptr;
+    hulk_intptr vptr;
     int x;
     int y;
     int z;
     int w;
     void Init(int);
 };
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 extern int turning_vftable;
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::TurningVelocityCondition>::vfunc_5() {

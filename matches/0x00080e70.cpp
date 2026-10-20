@@ -2,7 +2,7 @@
 class Target_80e70 {
   public:
     char pad[0xec];
-    int member;
+    hulk_intptr member;
     void Set(char* p);
 };
 void Target_80e70::Set(char* p) {

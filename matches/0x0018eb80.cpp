@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 class Child {
@@ -9,7 +10,7 @@ class Sub {
     Sub();
 };
 extern char VT_18eb80[];
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VarCompareCondition>::vfunc_5() {
     Child* p = (Child*)FUN_0008d690(0x20);

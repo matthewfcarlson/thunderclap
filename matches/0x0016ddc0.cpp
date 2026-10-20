@@ -15,7 +15,7 @@ class Character {
     int y;
     Character(int);
 };
-extern "C" void* Alloc(unsigned int);
+extern "C" void* Alloc(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CharacterPropStatusCondition>::vfunc_5() {
     Character* p = (Character*)Alloc(0x14);

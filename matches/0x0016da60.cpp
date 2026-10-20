@@ -16,7 +16,7 @@ namespace motion {
 class VelocityAnimatedYCondition_16da60 {
   public:
     void Init(int);
-    int vptr;
+    hulk_intptr vptr;
     int m4;
     int m8;
     int mC;
@@ -24,7 +24,7 @@ class VelocityAnimatedYCondition_16da60 {
 };
 } // namespace motion
 } // namespace hulkfight
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAnimatedYCondition>::vfunc_5() {
     hulkfight::motion::VelocityAnimatedYCondition_16da60* p =

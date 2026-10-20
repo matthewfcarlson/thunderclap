@@ -14,7 +14,7 @@ class CamCfg {
     void ConfigPart(const char*);
 };
 struct Blend_983d0 {
-    int vft;
+    hulk_intptr vft;
     char pad1[0x1a8 - 4];
     int field1a8;
 };

@@ -2,10 +2,10 @@
 extern "C" char DAT_004192cc[];
 typedef unsigned int u32_18bda0;
 typedef unsigned char u8;
-void* __cdecl alloc(unsigned int);
+void* __cdecl alloc(hulk_uintptr);
 class PropTrack {
   public:
-    u32_18bda0 v;
+    hulk_uintptr v;
     u32_18bda0 pad[2];
     u32_18bda0 a;
     u32_18bda0 b;

@@ -11,7 +11,7 @@ class CGrappleInvulnerableTrack_769a0 {
     virtual void f();
     CGrappleInvulnerableTrack_769a0();
 };
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 extern int vtable_769a0;
 
 template <> void* fight::TrackFactoryTemplate<CGrappleInvulnerableTrack>::vfunc_5() {

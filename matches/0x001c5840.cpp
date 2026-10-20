@@ -8,7 +8,7 @@ struct StoreBase {
     void Init(unsigned int, int);
 };
 struct ObjectManager {
-    u32_1c5840 vft;
+    hulk_uintptr vft;
     char pad4[4];
     StoreBase objects;
     StoreBase templates;

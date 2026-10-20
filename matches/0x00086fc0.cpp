@@ -8,7 +8,7 @@ struct Ctor_001d0480 {
 };
 class Target_86fc0 : public Ctor_001d0480 {
   public:
-    int vt;
+    hulk_intptr vt;
     char pad04[12];
     unsigned char b10, b11, b12, b13, b14, b15, b16, b17, b18;
     char pad19[3];

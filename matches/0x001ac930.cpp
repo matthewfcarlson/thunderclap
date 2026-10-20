@@ -14,7 +14,7 @@ class OffsetInitializer {
 };
 class Condition_1ac930 {
   public:
-    u32_1ac930 vf;
+    hulk_uintptr vf;
     char pad4[8];
     int x;
     int y;

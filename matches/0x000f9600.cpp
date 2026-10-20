@@ -1,12 +1,13 @@
+#include "compat/ptr.h"
 struct Sub_f9600 {
     void Write(char* out, int a, int b, int c);
 };
 struct Owner_f9600 {
     char pad[0x284];
     Sub_f9600* sub;
-    int Fn(int p);
+    hulk_intptr Fn(hulk_intptr p);
 };
-int Owner_f9600::Fn(int p) {
+hulk_intptr Owner_f9600::Fn(hulk_intptr p) {
     unsigned char tmp[4];
     sub->Write((char*)tmp + 3, 1, 1, 1);
     unsigned int n = tmp[3];

@@ -1,4 +1,5 @@
-extern void* __cdecl Alloc(unsigned int);
+#include "compat/ptr.h"
+extern void* __cdecl Alloc(hulk_uintptr);
 extern void* vtable_1591f0;
 class Condition {
   public:

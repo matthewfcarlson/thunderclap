@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_004195cc[];
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 class Track_18c490 {
   public:
     void Init();

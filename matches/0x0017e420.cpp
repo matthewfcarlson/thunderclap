@@ -6,7 +6,7 @@ class DriftTrack {
   public:
     volatile int a[8];
 };
-void* __cdecl Alloc(unsigned int);
+void* __cdecl Alloc(hulk_uintptr);
 class InitObj_17e420 {
   public:
     void Init();

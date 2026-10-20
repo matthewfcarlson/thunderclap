@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_77d00;
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 struct CKeyPoseTrack_77d00 {
-    u32_77d00 init();
+    hulk_uintptr init();
 };
 
 template <> void* fight::TrackFactoryTemplate<CKeyPoseTrack>::vfunc_5() {

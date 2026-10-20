@@ -3,7 +3,7 @@
 
 extern "C" void __cdecl FUN_0014c730();
 extern "C" char DAT_00414ad0[];
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 class Param {
   public:
     void Init(const char*);

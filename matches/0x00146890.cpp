@@ -1,9 +1,10 @@
 // Same code shape as 0x0006fa30 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_146890;
 struct Grapple_146890 {
-    u32_146890 BuildTrack();
+    hulk_uintptr BuildTrack();
 };
 extern void* operator new(unsigned int);
 

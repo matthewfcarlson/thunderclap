@@ -9,7 +9,7 @@ class Base_1b9d80 {
 };
 class Obj_1b9d80 : public Base_1b9d80 {
   public:
-    int v;
+    hulk_intptr v;
     char p[12];
     char a[9];
     char p2[3];

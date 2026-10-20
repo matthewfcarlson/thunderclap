@@ -1,4 +1,5 @@
 // Same code shape as 0x0006fb80 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 struct CHitAnimationTrack_13e7a0 {
@@ -6,7 +7,7 @@ struct CHitAnimationTrack_13e7a0 {
     void init();
 };
 extern int hit_vftable;
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GrappleAnimationTrack>::vfunc_5() {
     CHitAnimationTrack_13e7a0* p = (CHitAnimationTrack_13e7a0*)alloc(0x50);

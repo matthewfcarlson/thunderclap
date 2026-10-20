@@ -11,7 +11,7 @@ struct LuaTrack_1a1e40 {
     int q;
     void initialize();
 };
-extern void* alloc(unsigned int);
+extern void* alloc(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::scenario::LuaTrack>::vfunc_5() {
     LuaTrack_1a1e40* p = (LuaTrack_1a1e40*)alloc(0x1c);

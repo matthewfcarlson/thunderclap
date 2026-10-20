@@ -4,13 +4,13 @@
 extern "C" char DAT_00410bd4[];
 typedef unsigned int u32_12d5e0;
 typedef unsigned char u8;
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 struct Sub_12d5e0 {
     char pad[8];
     void init();
 };
 struct Threat_12d5e0 {
-    u32_12d5e0 vptr;
+    hulk_uintptr vptr;
     char pad4[8];
     u8 flagC;
     char padD[3];

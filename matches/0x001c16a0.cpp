@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 class Target_1c16a0 {
     char pad[0xbc];
-    int value;
+    hulk_intptr value;
 
   public:
     void f(void*);

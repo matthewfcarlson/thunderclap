@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight/motion.h"
@@ -6,7 +7,7 @@
 typedef unsigned int uint;
 void __cdecl FUN_001656c0();
 void __cdecl FUN_001656d0();
-void* __cdecl FUN_0008d690(uint);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 void __cdecl FUN_002347b0(void*, void*, uint);
 inline void* operator new(unsigned int, void* p) {
     return p;

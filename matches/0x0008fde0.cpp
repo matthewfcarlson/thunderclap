@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 extern "C" void* memset(void*, int, unsigned);
 int Push(int);
-void* Alloc(unsigned);
+void* Alloc(hulk_uintptr);
 class CStaticAllocator {
   public:
     virtual void f0();

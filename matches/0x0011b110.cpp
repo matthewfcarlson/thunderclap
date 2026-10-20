@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_0040eae0[];
-extern void* Alloc(unsigned int);
+extern void* Alloc(hulk_uintptr);
 class Obj_11b110 {
   public:
     void Init(int);

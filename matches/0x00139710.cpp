@@ -1,9 +1,10 @@
 // Same code shape as 0x0006fac0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/hulkfight.h"
 
 struct AirToGroundTargetTrack_nv_139710 {
-    int method();
+    hulk_intptr method();
 };
 extern void* __cdecl operator_new(unsigned int);
 

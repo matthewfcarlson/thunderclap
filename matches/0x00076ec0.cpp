@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 struct Jump {
-    int construct();
+    hulk_intptr construct();
 };
 extern "C" void* __cdecl alloc_54(unsigned int);
 

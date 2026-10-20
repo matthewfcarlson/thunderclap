@@ -4,7 +4,7 @@
 typedef unsigned int u32_1571a0;
 extern int RTTI1_1571a0, RTTI2;
 struct Result_1571a0 {
-    u32_1571a0 setup(hulkfight::motion::HitPushbackTrack*, u32_1571a0);
+    u32_1571a0 setup(hulkfight::motion::HitPushbackTrack*, hulk_uintptr);
 };
 extern int check(void*, int, int*, int*, int);
 extern Result_1571a0* alloc(int);

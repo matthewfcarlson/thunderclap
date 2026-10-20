@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -7,7 +8,7 @@ inline void* __cdecl operator new(unsigned int, void* p) {
 }
 extern void FUN_0014c4d0();
 extern void FUN_0014c4e0();
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 namespace hulkfight {
 namespace motion {
 class CollisionSourceSizeCondition;

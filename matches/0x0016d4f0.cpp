@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 extern "C" char DAT_004166b8[];
-extern "C" void* alloc(unsigned int);
+extern "C" void* alloc(hulk_uintptr);
 class Condition {
   public:
     void init(int);

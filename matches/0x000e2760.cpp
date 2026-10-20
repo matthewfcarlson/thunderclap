@@ -31,7 +31,7 @@ class FELayout_e2760 {
     virtual void vfunc_3();
     virtual void vfunc_4();
 };
-extern FEObject_e2760* castFE(void*, int, int, int, int);
+extern FEObject_e2760* castFE(void*, int, hulk_intptr, hulk_intptr, int);
 
 void VScroll::vfunc_12() {
     for (int i = 0; i < this->f_240; ++i) {

@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 #include "gen/pure3d.h"
 typedef unsigned int u32_1b7740;
-extern "C" int __cdecl alloc(int);
+extern "C" int __cdecl alloc(hulk_intptr);
 extern int movieVtable;
 struct Inner_1b7740 {
     virtual void a();
@@ -20,7 +20,7 @@ struct Shader_nv_1b7740 {
     Made_1b7740* make();
 };
 struct CRadMovieRenderLoop_1b7740 {
-    u32_1b7740 vptr;
+    hulk_uintptr vptr;
     int state;
     int zero;
     Made_1b7740* made;

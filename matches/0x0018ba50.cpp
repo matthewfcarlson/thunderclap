@@ -4,7 +4,7 @@
 extern "C" char DAT_0041922c[];
 class PropStateByIndexCondition_18ba50 {
   public:
-    int a;
+    hulk_intptr a;
     int b;
     int c;
     int d;
@@ -12,7 +12,7 @@ class PropStateByIndexCondition_18ba50 {
     int f;
     void Init(int);
 };
-extern void* Alloc(unsigned int);
+extern void* Alloc(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::PropStateByIndexCondition>::vfunc_5() {
     PropStateByIndexCondition_18ba50* p = (PropStateByIndexCondition_18ba50*)Alloc(0x18);

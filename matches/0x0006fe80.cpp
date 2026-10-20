@@ -1,9 +1,10 @@
 // Same code shape as 0x0006f340 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int u32_6fe80;
 struct Helper_6fe80 {
-    u32_6fe80 run();
+    hulk_uintptr run();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 

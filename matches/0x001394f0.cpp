@@ -2,10 +2,10 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_00411be8[];
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 class Track_1394f0 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     int pad;
     int m2;
     int m3;

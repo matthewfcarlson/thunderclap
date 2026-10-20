@@ -12,7 +12,7 @@ class Member_15c0c0 {
 class GrappleLocomotionSteerTrack {
   public:
     void Kill();
-    int vf;
+    hulk_intptr vf;
     char pad[0x14];
     Member_15c0c0 a;
     Member_15c0c0 b;

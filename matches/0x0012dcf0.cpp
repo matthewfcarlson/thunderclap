@@ -6,7 +6,7 @@ struct Ref_12dcf0 {
     virtual void f0();
     virtual void f1();
 };
-extern void* Alloc(unsigned int);
+extern void* Alloc(hulk_uintptr);
 struct Memory_12dcf0 {
     void Init();
 };

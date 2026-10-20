@@ -10,7 +10,7 @@ class TrackPart {
 };
 class FireBeamTrack {
   public:
-    int vptr;
+    hulk_intptr vptr;
     char pad[0xbc];
     FireBeamTrack* vfunc_5(unsigned char);
 };

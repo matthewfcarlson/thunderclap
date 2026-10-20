@@ -12,7 +12,7 @@ class Manager_15c600 {
 };
 class Setter_15c600 {
   public:
-    void set(int, int, int);
+    void set(hulk_intptr, int, int);
 };
 class Fin {
   public:

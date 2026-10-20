@@ -1,4 +1,5 @@
-extern "C" int FUN_00344e74(int, int, int, int, int);
+#include "compat/ptr.h"
+extern "C" int FUN_00344e74(hulk_intptr, int, hulk_intptr, hulk_intptr, int);
 class TrackFactoryCaster {
   public:
     virtual int vfunc_0(int);

@@ -1,8 +1,8 @@
 #include "compat/ptr.h"
 extern "C" char DAT_004112c4[];
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 struct CondObj {
-    int v0;
+    hulk_intptr v0;
     int x04;
     int x08;
     int x0c;

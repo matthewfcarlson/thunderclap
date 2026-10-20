@@ -6,7 +6,7 @@ extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class TargetHealthPercentCondition_16dbc0 {
   public:
     void Init(int);
-    unsigned int vt;
+    hulk_uintptr vt;
     int pad[2];
     int a, b;
 };

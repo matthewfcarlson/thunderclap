@@ -9,7 +9,7 @@ struct Arg_1b3f90 {
 };
 struct Obj_1b3f90 {
     char p[0x4f0];
-    int a, b, c;
+    hulk_intptr a, b, c;
     void target(Arg_1b3f90*);
 };
 struct Callee_1b3f90 {

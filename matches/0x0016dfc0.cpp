@@ -3,7 +3,7 @@
 
 extern "C" char DAT_00416918[];
 struct Obj_16dfc0 {
-    unsigned int vt;
+    hulk_uintptr vt;
     int a;
     int b;
     int c;

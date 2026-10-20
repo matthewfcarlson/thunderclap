@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
-void* __cdecl alloc(unsigned int);
+void* __cdecl alloc(hulk_uintptr);
 struct CivilianAnimationTrack_nv_14c420 {
     void* init();
 };

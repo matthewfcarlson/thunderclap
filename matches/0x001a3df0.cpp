@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 extern "C" void freeMem(void*);
-extern "C" void* allocMem(unsigned int);
+extern "C" void* allocMem(hulk_uintptr);
 extern "C" unsigned int strlen(const char*);
 class Obj_1a3df0 {
     char pad[0xd0];

@@ -20,7 +20,7 @@ class NISAnimationTrack : public Track, public Param {
 };
 class X_1a9ac0 {
   public:
-    int helper(int, int);
+    int helper(hulk_intptr, int);
 };
 extern "C" void* __cdecl FUN_0008d690(int);
 int NISAnimationTrack::v10(int a, int b, int c) {

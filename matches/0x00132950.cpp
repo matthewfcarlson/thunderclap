@@ -2,9 +2,9 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_00411284[];
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 struct DebugPrintCondition_132950 {
-    unsigned int vptr;
+    hulk_uintptr vptr;
     int a;
     int b;
     int c;

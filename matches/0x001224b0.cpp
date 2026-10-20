@@ -6,7 +6,7 @@ extern int g1_1224b0;
 extern int g2_1224b0;
 
 struct NewObj_1224b0 {
-    U_1224b0 Init(hulkfight::ai::RoutTrack*, U_1224b0);
+    U_1224b0 Init(hulkfight::ai::RoutTrack*, hulk_uintptr);
 };
 extern int IsType(void*, int, int*, int*, int);
 extern NewObj_1224b0* Allocate(int);

@@ -15,7 +15,7 @@ class FormationReadyCondition {
     FormationReadyCondition* vfunc_5(int);
     void Cleanup();
 };
-extern "C" void __cdecl helper(int);
+extern "C" void __cdecl helper(hulk_intptr);
 extern "C" void __cdecl helper2(FormationReadyCondition*);
 extern int formation_vtable;
 FormationReadyCondition* FormationReadyCondition::vfunc_5(int flag) {

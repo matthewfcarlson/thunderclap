@@ -2,7 +2,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern void* __cdecl Alloc(unsigned int);
+extern void* __cdecl Alloc(hulk_uintptr);
 extern int shakeVtable;
 class CCameraShakeTrack_18bfb0 {
   public:

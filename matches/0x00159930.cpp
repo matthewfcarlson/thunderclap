@@ -5,7 +5,7 @@ extern "C" char DAT_00414190[];
 typedef unsigned int uint;
 extern void* __cdecl Allocate(uint);
 struct Obj_159930 {
-    unsigned int vt;
+    hulk_uintptr vt;
     int a;
     int b;
     int c;

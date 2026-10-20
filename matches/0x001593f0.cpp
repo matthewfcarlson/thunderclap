@@ -13,7 +13,7 @@ class HitPushbackCondition_1593f0 {
     unsigned char flag;
     void Init(int);
 };
-extern "C" void* __cdecl Alloc(unsigned int);
+extern "C" void* __cdecl Alloc(hulk_uintptr);
 extern int vtable_1593f0;
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::HitPushbackCondition>::vfunc_5() {

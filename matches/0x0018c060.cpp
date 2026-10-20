@@ -4,7 +4,7 @@
 extern "C" char DAT_0041944c[];
 class PropSetStateByIndexTrack_18c060 {
   public:
-    int a;
+    hulk_intptr a;
     int b;
     int c;
     int d;

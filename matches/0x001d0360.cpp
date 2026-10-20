@@ -5,7 +5,7 @@ struct DataInit {
     void Init();
 };
 struct CScenarioParams {
-    unsigned int vf;
+    hulk_uintptr vf;
     unsigned int pad4;
     unsigned int id;
     unsigned int padc;

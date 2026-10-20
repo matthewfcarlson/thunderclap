@@ -5,7 +5,7 @@ extern "C" char DAT_004169d8[];
 struct ConditionFactoryTemplate_nv_16e3c0 {
     void Init(int);
 };
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern void* __cdecl FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAnimatedCondition>::vfunc_5() {
     fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAnimatedCondition>* p = (fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAnimatedCondition>*)FUN_0008d690(0x14);

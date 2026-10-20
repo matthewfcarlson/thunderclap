@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 typedef unsigned int u32_13e370;
-extern void* __cdecl alloc(unsigned int);
+extern void* __cdecl alloc(hulk_uintptr);
 struct Init_13e370 {
     void f(int);
 };
@@ -10,7 +10,7 @@ struct Sub_13e370 {
     void f();
 };
 struct FrameReachedCondition_13e370 {
-    u32_13e370 vptr;
+    hulk_uintptr vptr;
     char pad[0x1c];
 };
 extern u32_13e370 frame_vtable;

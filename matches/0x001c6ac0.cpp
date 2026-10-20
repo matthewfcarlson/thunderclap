@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 extern "C" unsigned char gFlagByte;
 extern "C" unsigned int gFlagWord;
 extern "C" unsigned char gBuffer_1c6ac0;
 struct Obj_1c6ac0 {
     char pad[0x10];
-    int value;
+    hulk_intptr value;
 };
 extern "C" void* __fastcall FUN_001c6ac0(Obj_1c6ac0* self, void*) {
     if (self->value)

@@ -23,7 +23,7 @@ struct Owner_1c6050 {
     void* vf;
     char pad[4];
     Sub_1c6050 s;
-    int b;
+    hulk_intptr b;
     Owner_1c6050* Target(int arg1, int arg2);
 };
 Owner_1c6050* Owner_1c6050::Target(int arg1, int arg2) {

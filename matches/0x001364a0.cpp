@@ -10,7 +10,7 @@ struct Ctor_00232660 {
 };
 class BounceAction : public Ctor_00232660 {
   public:
-    int vptr;
+    hulk_intptr vptr;
     int pad04[6];
     int m1c;
     Ref_1364a0* m20;

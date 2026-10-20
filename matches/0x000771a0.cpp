@@ -12,7 +12,7 @@ struct CMoveAddTrack_771a0 {
     unsigned int x18;
     void Init();
 };
-extern void* Alloc(unsigned int);
+extern void* Alloc(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<CMoveAddTrack>::vfunc_5() {
     CMoveAddTrack_771a0* p = (CMoveAddTrack_771a0*)Alloc(0x1c);

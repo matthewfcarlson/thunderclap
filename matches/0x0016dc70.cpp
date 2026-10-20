@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 class GrappleHealthCondition_16dc70 {
@@ -23,7 +24,7 @@ GrappleHealthCondition_16dc70::GrappleHealthCondition_16dc70() {
     m20 = 0;
 }
 
-void* Alloc(unsigned int);
+void* Alloc(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::GrappleHealthCondition>::vfunc_5() {
     GrappleHealthCondition_16dc70* p = (GrappleHealthCondition_16dc70*)Alloc(0x18);

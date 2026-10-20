@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Thing_1c5f30 {
   public:
     int pad0;
@@ -6,7 +7,7 @@ class Thing_1c5f30 {
     unsigned int capacity;
     void Add(unsigned int value);
 };
-extern "C" void* Alloc(unsigned int);
+extern "C" void* Alloc(hulk_uintptr);
 extern "C" void Free(void*);
 void Thing_1c5f30::Add(unsigned int value) {
     unsigned int* p;

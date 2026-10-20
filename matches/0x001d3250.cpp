@@ -5,7 +5,7 @@ extern const char text100[];
 extern const char text0f0[];
 class Method4_1d3250 {
   public:
-    int vft;
+    hulk_intptr vft;
     char pad4[0x0c];
     char b10, b11, b12, b13;
     char pad14[4];

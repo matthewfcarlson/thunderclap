@@ -27,7 +27,7 @@ struct FELayout_e2130 {
     virtual void v21();
     virtual void v22();
 };
-extern "C" u32_e2130 __cdecl helper(u32_e2130, int, const void*, const void*, int);
+extern "C" u32_e2130 __cdecl helper(hulk_uintptr, int, const void*, const void*, int);
 extern const char typeA_e2130[];
 extern const char typeB_e2130[];
 

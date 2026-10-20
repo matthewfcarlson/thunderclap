@@ -10,7 +10,7 @@ struct Ctor_00232660 {
 };
 class Hit_151bc0 : public Ctor_00232660 {
   public:
-    volatile int v;
+    volatile hulk_intptr v;
     char pad[0x18];
     volatile int a;
     Obj_151bc0* b;

@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
-void* __cdecl FUN_0008d690(unsigned int);
+void* __cdecl FUN_0008d690(hulk_uintptr);
 struct Thing_70300 {
-    unsigned int go();
+    hulk_uintptr go();
 };
 
 template <> void* fight::TrackFactoryTemplate<CSmartPropThrowTrack>::vfunc_5() {

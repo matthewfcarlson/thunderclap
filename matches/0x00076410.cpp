@@ -3,7 +3,7 @@
 
 extern "C" char DAT_003fbfa4[];
 struct CDriftTrack_76410 {
-    unsigned int vptr;
+    hulk_uintptr vptr;
     unsigned int pad4;
     int field8;
     unsigned int fieldc;

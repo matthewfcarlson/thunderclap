@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
-extern "C" void* __cdecl Alloc(unsigned int) throw();
+extern "C" void* __cdecl Alloc(hulk_uintptr) throw();
 struct ButtonBase {
     ButtonBase(int) throw();
     virtual void g();
