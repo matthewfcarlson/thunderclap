@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 20023 inputs, branch coverage 22/22)
 // FUN_0001b280 @ 0x0001b280
 struct Object {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual int type(); virtual void v7(); virtual void v8(); virtual void update(); virtual void notify();
@@ -6,8 +6,10 @@ struct Object {
 };
 void __cdecl FUN_0001b170(Object*, Object**, float*, int*);
 void __stdcall FUN_0001b280(Object* source, float factor) {
- Object* target=0; float limit=0; int axis=-1;
- FUN_0001b170(source,&target,&limit,&axis);
+ struct { float limit; int axis; Object* target; } l; // one frame block: the callee fills it, the original lays it out limit, axis, target
+ l.target=0; l.limit=0; l.axis=-1;
+ FUN_0001b170(source,&l.target,&l.limit,&l.axis);
+ Object* target=l.target; float limit=l.limit; int axis=l.axis;
  if (!target) return;
  int type=target->type();
  if (type==2) {
