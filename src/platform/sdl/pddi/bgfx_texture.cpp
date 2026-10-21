@@ -133,8 +133,11 @@ void bgfxTexture::flush()
     if (!m_dirtyLevels || !bgfx::getCaps())
         return;
     if (m_handle == bgfx::kInvalidHandle) {
+        // exactly the levels the game supplies (m_mips extra ones): hasMips alone makes the full chain down to 1x1, and
+        // the levels nothing uploads sample as black, so far surfaces went dark (sky1). Direct3D clamps to the last level.
         bgfx::TextureHandle h = bgfx::createTexture2D((uint16_t)m_width, (uint16_t)m_height, m_mips > 0, 1,
-                                                      (bgfx::TextureFormat::Enum)m_format, BGFX_TEXTURE_NONE);
+                                                      (bgfx::TextureFormat::Enum)m_format,
+                                                      m_mips > 0 ? BGFX_TEXTURE_MIP_COUNT(m_mips + 1) : BGFX_TEXTURE_NONE);
         if (!bgfx::isValid(h))
             return;
         m_handle = h.idx;

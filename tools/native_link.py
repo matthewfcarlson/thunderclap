@@ -686,6 +686,9 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
             by_key[re.sub(r"@fn_[0-9a-f]{8}@", "@", s_)].add(b_["addr"])
     for s in sorted(undef):
         b = binding.get(s)
+        if not b and s in DATA_REBIND:
+            b = {"addr": DATA_REBIND[s]}
+            how["bound by DATA_REBIND (a symbol no relocation names)"] += 1
         if not b and "@fn_" in s and s not in ambiguous:
             k = by_key.get(re.sub(r"@fn_[0-9a-f]{8}@", "@", s), set())
             if len(k) == 1:
@@ -1022,6 +1025,12 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
 # ---------------------------------------------------------------------------------------------
 # native10: per-call-site bindings to platform functions (build/rp1/for-native9.md, docs/native-replay.md)
 # (caller address, callee address, the platform definition its calls go to instead, why)
+# sky1: data symbols the verified sources name but no relocation binds (build/native/unbound.txt, "no relocation names
+# it"): they linked as zero stubs. `float pure3d::scenegraph::one` (matches/0x00295e20.cpp, Node::vfunc_17's
+# `return &one` for a node with no parent) is the identity Matrix at 0x004c9f38 (tbl_004c9f38 in config/data.json); as
+# a stub every TransformNode's world matrix was local x 0 (the sky and every static scenegraph object drew nothing).
+DATA_REBIND = {"?one@scenegraph@pure3d@@3MA": "0x004c9f38"}
+
 SITE_REBIND = [
     (0x002692c0, 0x003eb91f, "_hulk_xdk_XInputGetStateInit@8",
      "ControllerSystemXBox's pad object constructor reads a new pad 20 times: not polls (replay request A)"),

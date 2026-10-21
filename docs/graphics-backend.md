@@ -1103,6 +1103,51 @@ combiner precision and `def` constant rounding (the fx proofs take float and exa
 real default on the Xbox (a hybrid capture of a scaled lit mesh would settle it); two-sided lighting for vertex
 programs; spot-light cones (no data light is a spot).
 
+## 14. sky1: fog, haze and sky against the original (2026-10-21)
+
+native16's replay shots (native | the original in xemu, same game frame) differed by ~20/255 even where the game state was
+identical: no haze, flat grey sky, dark faceted rock. Two causes, neither of them the fog.
+
+1. **Mip chains (the renderer's, `bgfx_texture.cpp`).** The game supplies `mips` extra levels (a 128x256 DXT1 with 3 =
+   4 levels) and Direct3D clamps sampling to the last one. `createTexture2D(.., hasMips = true)` made bgfx's full
+   chain (9 levels, down to 1x1) and nothing ever uploaded the levels below the game's, so every surface far enough
+   to want them sampled **black** (cliffs, mid-distance ground: the dark triangle facets). Fix: create the texture with
+   `BGFX_TEXTURE_MIP_COUNT(mips + 1)` (this bgfx has the flag), the level count the game made.
+2. **`pure3d::scenegraph::one` (the native link, `tools/native_link.py` `DATA_REBIND`).** `Node::vfunc_17` (0x00295e20)
+   returns `&one` for a node without a parent, the identity Matrix at 0x004c9f38 (config/data.json `tbl_004c9f38`);
+   the verified source names it `extern float one` inside `pure3d::scenegraph`, no relocation names it, so it linked as
+   a zero stub (`build/native/unbound.txt`: "no relocation names it"). The root TransformNode's world matrix was
+   local x 0 and so was every child's: the sky domes and every static scenegraph object (`TransformNode::vfunc_8`
+   0x002968b0 pushes `Transform()` x parent through pddi slot 22) were pushed with a zero 3x3 and drew nothing. With
+   the symbol bound the sky draws its clouds. (How it was found: per-draw trace of the modelview ffConstants saw
+   zero 3x3 for draws #0-#10 of frame 810; `mtx108`/`push22` logs gave the caller `TransformNode::vfunc_8`; native
+   probes (`HULK_TRACE_FUNCS`/`HULK_TRACE_SPAN`) on `TransformNode::vfunc_17` showed the world matrix staying
+   zero after its `combine`; the combine's parent argument was the stub.)
+
+What the investigation ruled out (all as the game sets them, no change needed): **fog** is linear table fog,
+colour 0x808080 (black while an additive shader is active), 50..650, enabled per draw; the clear colour is the same
+0x808080 (the present pass lifts it to ~b8b4ae). The fog state reaches the stage shader (`u_pddiFrag[1..2]`) and the
+formula matches Direct3D's; fog off makes frame 810 worse (26.8 vs 21.9). The sky's cloud dome (r = 1753 around the
+camera, far plane ~3333) is fogged to the clear colour by design (start 50, end 650); the visible clouds are the
+unfogged layers (`fog` off per draw). Vertex colours and the stage combiners are right (the `HULK_SKY_TEX` experiment
+showed smooth warm vertex lighting). Textures decode right (DXT1/3/5 dumps).
+
+Mean |native - original| per pixel (0-255; same replay and image, only these two fixes differ; physics divergence at
+810 onwards keeps the rest, the later frames show other scenes):
+
+| frame | before | after |
+|---|---|---|
+| 810 | 21.9 | 11.2 |
+| 1200 | 25.8 | 21.9 |
+| 3000 | 45.1 | 45.9 (different scene: the state diverged) |
+| 4200 | 78.7 | 46.1 |
+| 6000 | 87.6 | 54.2 |
+
+Checks: replay checkpoints 0-420 and 480-840 match, identical to the run before the fixes (450 and 870+ diverge as in
+native16: rendering does not touch game state); `tools/native_gfx.py smoke` on Metal 548 of 548 probes; the self-test
+under Wine/Vulkan 19 of 19. Other symbols in `unbound.txt` under "no relocation names it" (24; e.g.
+`g_pool_2579f0`) linked as zero stubs too and deserve the same look.
+
 ## Open questions
 
 - Confirm on the hybrid build that the eight shader classes the data never names are never constructed (log the
