@@ -1072,6 +1072,57 @@ without re-running whole sessions. Results live in `build/traces/` (never commit
 - Threads and DMA writing memory during a capture show up as failed self-checks (about 1%).
 - `equiv-conv` functions aren't replayed.
 
+## x87 operation order check (cl7)
+
+`tools/x87_order.py` finds sources whose float arithmetic is *grouped* differently from the original's. MSVC 7.1
+reassociates float sums and products (and turns `x/W` into `x*(1/W)`), so a source can byte-match, or be proven
+equivalent, while its C++ text computes `(a+b)+c` where the original computes `a+(b+c)`. clang (the native build)
+evaluates in source order, and at 53-bit precision random inputs almost never show the different rounding (native16
+found `Mat::Transform` 0x22c2b0 and normalize 0x22d180 by replay divergence).
+
+```sh
+build/venv/bin/python tools/x87_order.py SRC.cpp [0xADDR] [--json] [--no-msvc]
+build/venv/bin/python tools/x87_order.py --list FILE --jobs 4 --out findings-raw.jsonl
+build/venv/bin/python tests/equiv/test_x87_order.py     # unit cases + the cases in tests/equiv/x87_order_cases/
+```
+
+**Method.** The x87 code of three functions is executed symbolically into expression trees: (a) the original (XBE),
+(b) the source compiled as the native build does (`equiv.compile_native`: clang i686 -O0 x87
+`-ffp-eval-method=double -ffp-contract=off`), (c) the source's MSVC object. The model has integer registers and
+stack slots (so clang's spilled `this`/arguments and MSVC's register arguments name the same loads), the x87
+stack including `fxch`, `fld st(i)` and the reverse/pop forms, float and int conversions, stores (a store to a
+`float` slot is a rounding point), `fabs`/`fchs` done with integer masks (`and 0x7fffffff`, `and byte [x+3], 0x7f`),
+`sqrt` and `sin`/`cos`/`atan2` as calls or instructions, `__ftol`, calls (an opaque leaf named by target and
+ordinal; the callee's `ret N` decides the stack), same-object helper functions (clang does not inline them, MSVC
+does: they are executed in place), constants in `.rdata` (read from the XBE; `__real@...` literals by name), and
+branches (state is merged at joins, values that differ become a `phi`; a loop head forgets everything). Symbols of
+the object are bound to addresses by aligning its instructions with the original's (as `tools/native_link.py` does
+for a `matches/` source) or, for an `equivalent/` source, by its `DAT_<addr>`/`FUN_<addr>` names and `equiv-map` lines.
+
+The *roots* are the trees stored to memory, returned in `st(0)`, compared, or converted to int. An original root is
+paired with a root of the other side by its multiset of leaves (a reassociation keeps the leaves; a lone `1.0` is
+ignored for the reciprocal case), and the two trees are compared modulo **commutativity of + and \*** (plus
+`x + -y` = `x - y`, an exact identity). A difference is reported as
+`assoc` (same operators, different grouping: **the finding that matters**), `recip` (`x/y` against `x*(1/y)`),
+`round` (same tree, a rounding point on one side only: low priority, `tools/x87_scan.py` covers these), `other`
+(same operators, different shape). The same comparison runs against the MSVC object, so each finding is classed
+`native_only` (MSVC reassociated it back: the source text's order is wrong for native, fix it by writing the
+original's order, which MSVC still compiles to the same bytes) or `src_differs` (the source differs from the original
+even under MSVC).
+
+**Limits (conservative by construction).** A root with an unknown leaf (loop-carried value, memory the model lost, a
+call it cannot name) or without a counterpart of the same leaves is `unmatched`, never a finding: about two thirds of
+the original's roots are unmatched in the tree-wide scan (spills, partial sums with no counterpart, big functions with
+many calls and loops, `equivalent/` sources that are not structurally close to the original). A clean verdict
+therefore means "no grouping difference among the matched roots", not "none anywhere". Operand-position
+differences of non-commutative operators (`a-b` vs `b-a`) are findings only through a leaf match. Calls are matched by
+target and ordinal, an indirect call by its address expression. Memory written through pointers is only forwarded
+to later loads of the same base. A subtraction rewritten as an addition of a negation is folded; other algebraic
+rewrites are not (so they are `unmatched`). The tool does not look at SSE code, at the CRT, or at integer code.
+Hazard seen in the scan: a `matches/` source whose names say one address while the byte match bound another by
+position (`bind_name_conflicts` in the JSON: MSVC emits the later constant of `x*A*B` first, so `matches/0x000bbc50.cpp`
+names `DAT_00407b04` for the address `0x3f3358`); the native link follows the position.
+
 ## Limits
 
 - **Loops kept going by callees.** A loop that ends only through a callee's side effect (a teardown
