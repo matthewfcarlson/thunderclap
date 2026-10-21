@@ -18,6 +18,7 @@ extern "C" void HULK_CDECL hulk_native_log(const char* line);
 static hulk_u32 hulk_io_posts, hulk_io_waits, hulk_io_timeouts, hulk_snd_calls;
 extern "C" hulk_u32 hulk_native_frame_no;    // (startup.cpp: the probes' frame number)
 static void hulk_io_frame_sync(void);
+static void hulk_ls_log_stats(void);
 extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
     hulk_io_frame_sync();
     hulk_native_frame_no++;
@@ -63,7 +64,13 @@ extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
         hulk_ckpt_stats(&s);
     // the first 64 checkpoints in the trace too (HULK_CKPT; SDL_Log has them all), then the first 16 divergences and
     // every 50th checkpoint
-    if (r >= 0 && (logged < 64 || (r == 0 && bad < 16) || (s.frame - 1) % 1500 == 0)) {
+    // (native17: HULK_CKPT_ALL=1 logs every checkpoint: comparing two runs' hashes)
+    static int log_all = -1;
+    if (log_all < 0) {
+        const char* v = hulk_host_getenv("HULK_CKPT_ALL");
+        log_all = v && *v == '1';
+    }
+    if (r >= 0 && (log_all || logged < 64 || (r == 0 && bad < 16) || (s.frame - 1) % 1500 == 0)) {
         int first_bad = r == 0 && bad++ == 0;
         unsigned want = 0;
         int have = hulk_replay_expected_hash(s.frame - 1, &want);
@@ -94,6 +101,7 @@ extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
                                 c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7], c[8], c[9], c[10], c[11]);
             hulk_native_log(line);
         }
+        hulk_ls_log_stats();
         logged++;
     }
 }
@@ -217,6 +225,7 @@ extern "C" int HULK_CDECL hulk_seq_randint(int lo, int hi) {
 // pending after 300 ms is a persistent stream (its class, the node's vftable, is logged and not waited on again).
 // HULK_SYNCIO_LOG=1: one `io` line per post (frame, node class, queue count before).
 static int hulk_syncio = -1, hulk_io_log = -1;
+static hulk_u32 hulk_io_idle_env = 4;
 struct HulkIoLock {
     virtual void enter();
     virtual void leave();
@@ -228,9 +237,12 @@ static HulkIoPending hulk_io_pending[256];
 static hulk_u32 hulk_io_npending, hulk_io_persistent[16], hulk_io_npersistent;
 static void hulk_io_settings(void) {
     const char* e = hulk_host_getenv("HULK_SYNCIO");
-    hulk_syncio = e && *e ? e[0] - '0' : 0;
+    hulk_syncio = e && *e ? e[0] - '0' : replay_open(0) ? 5 : 0;    // (native17: lockstep by default in a replay)
     e = hulk_host_getenv("HULK_SYNCIO_LOG");
     hulk_io_log = e && *e == '1';
+    e = hulk_host_getenv("HULK_IO_IDLE");
+    if (e && *e >= '1' && *e <= '9')
+        hulk_io_idle_env = (hulk_u32)(*e - '0');
 }
 // 1: done; 0: still queued or something is running
 static int hulk_io_done(hulk_u32 drive, hulk_u32 node) {
@@ -266,9 +278,223 @@ static void hulk_io_wait(const HulkIoPending& r) {
         hulk_io_waits++;
     }
 }
+// ---------------------------------------------------------------------------------------------------------------
+// native17: HULK_SYNCIO=5, the drive in lockstep with the main thread (the default with a recording open). The
+// hybrid capture on play3 (native16: 1,089 posts to frame 1,000) saw every request retired in the frame that posted
+// it; natively the drive thread ran beside the main thread, so which frame a result landed in followed the host
+// (0x00203a80's first call at 914 or 915, docs/native-replay.md). Here a drive thread (core::DriveThread's routine
+// 0x002731d0, started through 0x0026dc50 / CreateThread with the worker whose +8 is the routine and +0xc the drive)
+// runs one request step at a time, and only while the main thread hands it a turn and waits for it:
+//   - after each post of the main thread (0x00272fc0's exit hook): the drive runs until its queue is empty or
+//     HULK_IO_IDLE (default 4) steps in a row retire nothing (a request that waits for later main-thread work,
+//     e.g. the audio stream's persistent read, is re-queued by the routine and tried again at the next turn);
+//   - at each GameClock::Update entry, and when the main thread sleeps (a loader polling for a result): the same;
+//   - when the main thread waits on a handle: one step at a time while the handle is unsignalled and the drive has
+//     work, then the real wait.
+// A step boundary is the routine's wait on its `ready` semaphore (drive +0x68; threads.cpp's WaitForSingleObject
+// calls hulk_io_drive_wait for it): the drive thread reports its arrival and blocks until granted the next step. So
+// the order of every drive step relative to the main thread's work is fixed, whatever the host's speed. A step that
+// blocks on something else for more than 5 s (it needs the main thread) is logged and left to finish on its own.
+// Host time is not read anywhere in the scheme, except for that guard.
+struct HulkLsDrive {
+    hulk_u32 drive, ready, tid;
+    void* arrive;          // the drive thread releases it at each step boundary
+    void* grant;           // the main thread releases it to start a step
+    int need_arrival;      // a step was granted (or the thread started) and its arrival not yet seen
+    hulk_u32 done;         // the drive's error semaphore (+0x84): the routine waits on it for the main thread
+    int in_done;           // the drive thread is paused in that wait
+};
+static HulkLsDrive hulk_ls[4];
+static int hulk_nls;
+static hulk_u32 hulk_ls_steps, hulk_ls_blocked;
+extern "C" void HULK_CDECL FUN_002731d0(void);    // core::DriveThread's thread routine
+extern "C" void HULK_CDECL FUN_0026db70(void);    // the thread trampoline 0x0026dc50 passes to CreateThread
+static int hulk_ls_on(void) {
+    if (hulk_syncio < 0)
+        hulk_io_settings();
+    return hulk_syncio == 5;
+}
+extern "C" void HULK_CDECL hulk_io_thread_created(hulk_u32 start, hulk_u32 param) {
+    if (start != (hulk_u32)(__SIZE_TYPE__)&FUN_0026db70 || !param || !hulk_ls_on())
+        return;
+    if (*(hulk_u32*)(param + 8) != (hulk_u32)(__SIZE_TYPE__)&FUN_002731d0 || hulk_nls == 4)
+        return;
+    HulkLsDrive& d = hulk_ls[hulk_nls];
+    d.drive = *(hulk_u32*)(param + 0xc);
+    d.ready = *(hulk_u32*)(d.drive + 0x68);
+    d.done = *(hulk_u32*)(d.drive + 0x84);
+    d.arrive = hulk_host_CreateSemaphoreA(0, 0, 0x7fffffff, 0);
+    d.grant = hulk_host_CreateSemaphoreA(0, 0, 0x7fffffff, 0);
+    d.need_arrival = 1;
+    hulk_nls++;
+    char line[96];
+    hulk_host__snprintf(line, sizeof(line), "io lockstep: drive %d at %08x (ready semaphore %08x)", hulk_nls - 1,
+                        d.drive, d.ready);
+    hulk_native_log(line);
+}
+// the drive thread at a step boundary (its wait on `ready`): 1 = handled, *result = the wait's result
+extern "C" int HULK_CDECL hulk_io_drive_wait(hulk_u32 handle, hulk_u32 ms, hulk_u32* result) {
+    if (hulk_syncio != 5 || ms != 0xffffffffu || hulk_host_GetCurrentThreadId() == hulk_main_tid)
+        return 0;
+    for (int i = 0; i < hulk_nls; i++) {
+        HulkLsDrive& d = hulk_ls[i];
+        if (d.done == handle && d.tid == hulk_host_GetCurrentThreadId()) {
+            // a request failed (FUN_00272aa0 told the main thread) and the routine waits until the main thread's
+            // drive pump has handled it: the step pauses here; the main thread resumes it once `done` is
+            // signalled (it consumes the signal for the drive, hulk_ls_step)
+            d.in_done = 1;
+            hulk_host_ReleaseSemaphore(d.arrive, 1, 0);
+            hulk_host_WaitForSingleObject(d.grant, 0xffffffffu);
+            d.in_done = 0;
+            *result = 0;
+            return 1;
+        }
+        if (d.ready != handle)
+            continue;
+        if (!d.tid) {
+            d.tid = hulk_host_GetCurrentThreadId();
+            char line[64];
+            hulk_host__snprintf(line, sizeof(line), "io lockstep: drive %d thread %u", i, d.tid);
+            hulk_native_log(line);
+        }
+        hulk_host_ReleaseSemaphore(d.arrive, 1, 0);
+        hulk_host_WaitForSingleObject(d.grant, 0xffffffffu);
+        *result = hulk_host_WaitForSingleObject((void*)handle, 0xffffffffu);
+        return 1;
+    }
+    return 0;
+}
+static hulk_u32 hulk_ls_count(const HulkLsDrive& d) {
+    return *(volatile hulk_u32*)(d.drive + 0x8c);
+}
+// one step of drive d (main thread): 1 = the step ran and the drive is back at its boundary
+static int hulk_ls_step(HulkLsDrive& d) {
+    if (d.need_arrival) {
+        if (hulk_host_WaitForSingleObject(d.arrive, 5000) != 0)
+            return 0;
+        d.need_arrival = 0;
+    }
+    if (d.in_done) {      // paused in the error wait: resumes only when the main thread has signalled `done`
+        if (hulk_host_WaitForSingleObject((void*)d.done, 0) != 0)
+            return 0;
+    } else if (!hulk_ls_count(d))
+        return 0;
+    hulk_u32 vt = 0;
+    for (int i = 0; i < 3 && !vt; i++) {
+        hulk_u32 p = *(volatile hulk_u32*)(d.drive + 0x6c + 4 * i);
+        if (p)
+            vt = *(hulk_u32*)p;
+    }
+    hulk_host_ReleaseSemaphore(d.grant, 1, 0);
+    d.need_arrival = 1;
+    hulk_ls_steps++;
+    if (hulk_host_WaitForSingleObject(d.arrive, 5000) != 0) {
+        hulk_ls_blocked++;
+        char line[128];
+        hulk_host__snprintf(line, sizeof(line), "io lockstep frame %u: a step of request class %08x still running after "
+                            "5 s (it waits for the main thread); left to finish on its own", hulk_native_frame_no, vt);
+        hulk_native_log(line);
+        return 0;
+    }
+    d.need_arrival = 0;
+    if (hulk_io_log) {
+        char line[96];
+        hulk_host__snprintf(line, sizeof(line), "io step frame %u class %08x count after %u", hulk_native_frame_no, vt,
+                            hulk_ls_count(d));
+        hulk_native_log(line);
+    }
+    return 1;
+}
+// run every drive until its queue is empty or HULK_IO_IDLE steps in a row retire nothing (main thread)
+static void hulk_ls_settle(void) {
+    for (int i = 0; i < hulk_nls; i++) {
+        HulkLsDrive& d = hulk_ls[i];
+        hulk_u32 idle = 0;
+        for (int n = 0; n < 100000; n++) {
+            hulk_u32 before = hulk_ls_count(d);
+            if (!before || !hulk_ls_step(d))
+                break;
+            if (hulk_ls_count(d) < before)
+                idle = 0;
+            else if (++idle >= hulk_io_idle_env)
+                break;
+        }
+    }
+}
+extern "C" void HULK_CDECL hulk_io_main_sleep(void) {
+    if (hulk_nls && hulk_ls_on() && hulk_host_GetCurrentThreadId() == hulk_main_tid)
+        hulk_ls_settle();
+}
+// A post's turn: right after it, as the hybrid's drive thread starts on it at once, but only once the main thread
+// holds no critical section (library.cpp counts them: the post's caller may hold a lock the step takes, e.g. the
+// file's); until then the turn is pending and runs at the main thread's last leave
+static hulk_u32 hulk_ls_cs_depth, hulk_ls_now, hulk_ls_later;
+static int hulk_ls_post_pending;
+extern "C" void HULK_CDECL hulk_io_cs_enter(void) {
+    if (hulk_main_tid && hulk_host_GetCurrentThreadId() == hulk_main_tid)
+        hulk_ls_cs_depth++;
+}
+extern "C" void HULK_CDECL hulk_io_cs_leave(void) {
+    if (!hulk_main_tid || hulk_host_GetCurrentThreadId() != hulk_main_tid)
+        return;
+    if (hulk_ls_cs_depth)
+        hulk_ls_cs_depth--;
+    if (!hulk_ls_cs_depth && hulk_ls_post_pending) {
+        hulk_ls_post_pending = 0;
+        hulk_ls_settle();
+    }
+}
+static void hulk_ls_log_stats(void) {    // (HULK_SYNCIO_LOG=1, at each logged checkpoint)
+    if (hulk_syncio != 5 || !hulk_io_log)
+        return;
+    char line[128];
+    hulk_host__snprintf(line, sizeof(line), "io lockstep: %u steps, %u blocked, post turns %u at once %u deferred",
+                        hulk_ls_steps, hulk_ls_blocked, hulk_ls_now, hulk_ls_later);
+    hulk_native_log(line);
+}
+static void hulk_ls_post(void) {
+    if (hulk_ls_cs_depth) {
+        hulk_ls_post_pending = 1;
+        hulk_ls_later++;
+    } else {
+        hulk_ls_now++;
+        hulk_ls_settle();
+    }
+}
+// core::Drive::vfunc_3 0x00272df0 entry (tools/native_link.py ENTRY_HOOKS): the main thread's drive pump
+extern "C" int HULK_CDECL hulk_hook_drive_pump(hulk_u32* regs) {
+    (void)regs;
+    hulk_io_main_sleep();
+    return 0;
+}
+// the main thread about to wait on `handle`: drive steps while it is unsignalled and a drive has work. 1 = the
+// handle was signalled meanwhile (the zero-time wait that saw it consumed it, as the real wait would): *result
+extern "C" int HULK_CDECL hulk_io_main_wait(hulk_u32 handle, hulk_u32* result) {
+    if (!hulk_nls || !hulk_ls_on() || hulk_host_GetCurrentThreadId() != hulk_main_tid)
+        return 0;
+    for (int n = 0; n < 100000; n++) {
+        hulk_u32 r = hulk_host_WaitForSingleObject((void*)handle, 0);
+        if (r != 0x102u) {
+            *result = r;
+            return 1;
+        }
+        int stepped = 0;
+        for (int i = 0; i < hulk_nls && !stepped; i++)
+            if (hulk_ls_count(hulk_ls[i]))
+                stepped = hulk_ls_step(hulk_ls[i]);
+        if (!stepped)
+            return 0;
+    }
+    return 0;
+}
+
 static void hulk_io_frame_sync(void) {
     if (hulk_syncio < 0)
         hulk_io_settings();
+    if (hulk_syncio == 5) {
+        hulk_ls_settle();
+        return;
+    }
     for (hulk_u32 i = 0; i < hulk_io_npending; i++)
         hulk_io_wait(hulk_io_pending[i]);
     hulk_io_npending = 0;
@@ -287,7 +513,9 @@ extern "C" void HULK_CDECL hulk_hook_drive_post(hulk_u32 drive, hulk_u32 before,
                             before);
         hulk_native_log(line);
     }
-    if (hulk_syncio == 1) {    // the hybrid's syncio: the whole queue
+    if (hulk_syncio == 5) {
+        hulk_ls_post();
+    } else if (hulk_syncio == 1) {    // the hybrid's syncio: the whole queue
         for (int n = 0; *(volatile hulk_u32*)(drive + 0x8c) != 0; n++) {
             if (n == 2000) {
                 hulk_io_timeouts++;
@@ -363,6 +591,28 @@ extern "C" void HULK_CDECL hulk_hook_drive_post(hulk_u32 drive, hulk_u32 before,
     (void)drive;
     (void)before;
     (void)node;
+}
+extern "C" void HULK_CDECL hulk_io_thread_created(hulk_u32 start, hulk_u32 param) {
+    (void)start;
+    (void)param;
+}
+extern "C" int HULK_CDECL hulk_io_drive_wait(hulk_u32 handle, hulk_u32 ms, hulk_u32* result) {
+    (void)handle;
+    (void)ms;
+    (void)result;
+    return 0;
+}
+extern "C" void HULK_CDECL hulk_io_main_sleep(void) {}
+extern "C" void HULK_CDECL hulk_io_cs_enter(void) {}
+extern "C" void HULK_CDECL hulk_io_cs_leave(void) {}
+extern "C" int HULK_CDECL hulk_hook_drive_pump(hulk_u32* regs) {
+    (void)regs;
+    return 0;
+}
+extern "C" int HULK_CDECL hulk_io_main_wait(hulk_u32 handle, hulk_u32* result) {
+    (void)handle;
+    (void)result;
+    return 0;
 }
 extern "C" int HULK_CDECL hulk_hook_fmv_queue(hulk_u32* regs) {
     (void)regs;

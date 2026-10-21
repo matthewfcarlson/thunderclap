@@ -93,13 +93,19 @@ static void HULK_STDCALL hulk_lib_RtlInitializeCriticalSection(hulk_u32* cs) {
             cs[i] = 0;
     hulk_cs_host(cs);
 }
+// native17: the main thread's critical-section depth goes to replay_hooks.cpp (lockstep I/O runs the drive's turn
+// for a post once the main thread holds no lock: hulk_io_cs_enter / hulk_io_cs_leave)
+void HULK_CDECL hulk_io_cs_enter(void);
+void HULK_CDECL hulk_io_cs_leave(void);
 static void HULK_STDCALL hulk_lib_RtlEnterCriticalSection(hulk_u32* cs) {
     HULK_XDK_TRACE("kernel:RtlEnterCriticalSection");
     hulk_host_EnterCriticalSection(hulk_cs_host(cs));
+    hulk_io_cs_enter();
 }
 static void HULK_STDCALL hulk_lib_RtlLeaveCriticalSection(hulk_u32* cs) {
     HULK_XDK_TRACE("kernel:RtlLeaveCriticalSection");
     hulk_host_LeaveCriticalSection(hulk_cs_host(cs));
+    hulk_io_cs_leave();
 }
 void* hulk_lib_slot_RtlInitializeCriticalSection = (void*)hulk_lib_RtlInitializeCriticalSection;
 void* hulk_lib_slot_RtlEnterCriticalSection = (void*)hulk_lib_RtlEnterCriticalSection;

@@ -7,6 +7,11 @@
 #include "imports.h"
 #include "../crt/host_crt.h"
 
+extern "C" void HULK_CDECL hulk_io_thread_created(hulk_u32 start, hulk_u32 param);
+extern "C" int HULK_CDECL hulk_io_drive_wait(hulk_u32 handle, hulk_u32 ms, hulk_u32* result);
+extern "C" int HULK_CDECL hulk_io_main_wait(hulk_u32 handle, hulk_u32* result);
+extern "C" void HULK_CDECL hulk_io_main_sleep(void);
+
 extern "C" hulk_u32 HULK_STDCALL hulk_xdk_SetThreadPriority(hulk_u32 thread, hulk_u32 priority) {
     HULK_XDK_TRACE("SetThreadPriority");
     // (Xbox priorities are Win32's: -15..15 with THREAD_PRIORITY_TIME_CRITICAL 15; the host accepts the same values)
@@ -42,6 +47,7 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_CreateThread(hulk_u32 sa, hulk_u32 sta
         *(hulk_u32*)tid = own;
     if (hulk_xdk_game_ntids < 8)  // (the start-up trace's hang watchdog samples these: startup.cpp HULK_HANG)
         hulk_xdk_game_tids[hulk_xdk_game_ntids++] = own;
+    hulk_io_thread_created(start, param);    // (replay_hooks.cpp: a drive thread runs in lockstep in a replay)
     return h;
 }
 
@@ -76,6 +82,11 @@ static int hulk_on_main(void) {
 
 extern "C" hulk_u32 HULK_STDCALL hulk_xdk_WaitForSingleObject(hulk_u32 handle, hulk_u32 ms) {
     HULK_XDK_TRACE("WaitForSingleObject");
+    // native17 (replay_hooks.cpp, HULK_SYNCIO=5): a drive thread's step boundary, or the main thread giving the drive
+    // its steps before it blocks
+    hulk_u32 r0;
+    if (hulk_io_drive_wait(handle, ms, &r0) || (ms && hulk_io_main_wait(handle, &r0)))
+        return r0;
     if (ms > 50 && hulk_on_main()) {
         for (;;) {
             hulk_u32 slice = ms > 50 ? 50 : ms;
@@ -92,6 +103,7 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_WaitForSingleObject(hulk_u32 handle, h
 
 extern "C" hulk_u32 HULK_STDCALL hulk_xdk_Sleep(hulk_u32 ms) {
     HULK_XDK_TRACE("Sleep");
+    hulk_io_main_sleep();
     hulk_host_Sleep(ms);
     if (hulk_on_main())
         hulk_platform_pump();
@@ -112,6 +124,7 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_DeleteFiber(hulk_u32 fiber) {
 
 extern "C" hulk_u32 HULK_STDCALL hulk_xdk_SwitchToFiber(hulk_u32 fiber) {
     HULK_XDK_TRACE("SwitchToFiber");
+    hulk_io_main_sleep();    // (native17: a loader polling a request switches fibers without sleeping: a drive turn)
     hulk_host_SwitchToFiber((void*)fiber);
     return 0;
 }

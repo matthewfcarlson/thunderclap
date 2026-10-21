@@ -1061,6 +1061,10 @@ ENTRY_HOOKS = [
     # native11, request F no-fmv (tools/patch_xbe.py TWEAKS): (address, hook, why, bytes `ret` pops when it skips)
     (0x001b7310, "_hulk_hook_fmv_queue",
      "no-fmv: CFMVManager::QueueMovie returns at once (the hybrid's `ret 0xc` at its entry)", 12),
+    # native17: core::Drive::vfunc_3, the main thread's drive pump (completed requests are delivered here): the drive
+    # threads run their queued steps first, in lockstep with the main thread (xdk/replay_hooks.cpp HULK_SYNCIO=5)
+    (0x00272df0, "_hulk_hook_drive_pump",
+     "core::Drive::vfunc_3: the drive threads' turn before the main thread collects completions (lockstep I/O)"),
     (0x001b7d10, "_hulk_hook_fmv_render",
      "no-fmv: the FMV render reads the movie's status as 0 (finished) and stops it (the hybrid's `xor eax, eax` "
      "for the call at 0x1b7d38): the hook takes that path itself", 8),
