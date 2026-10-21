@@ -35,7 +35,8 @@ Configurations (all 32-bit x86 unless named 64; see docs/native-build.md):
 The link probe's undefined symbols before binding; tools/native_link.py binds them by address (fix 5a) and
 reports what is left with the same groups (Grouper below).
 
-The compiler is Homebrew LLVM (/opt/homebrew/opt/llvm/bin/clang++) if present, else `clang++` on PATH.
+The compiler is the LLVM in $HULK_LLVM (its bin/), else Homebrew LLVM (/opt/homebrew/opt/llvm/bin/clang++), else
+~/llvm/bin (the llvm.org release tarball, as on the checker boxes), else `clang++` on PATH.
 At most --jobs (default 4) compiler processes run at once.
 """
 import argparse
@@ -56,7 +57,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.environ.get("HULK_CLANG_PROBE_DIR") or os.path.join(ROOT, "build/clang-probe")
 SNAP = os.path.join(OUT, "snap")
 CACHE = os.environ.get("HULK_CLANG_PROBE_CACHE") or os.path.join(OUT, "cache")
-LLVM = "/opt/homebrew/opt/llvm/bin"
+LLVMS = [os.path.join(os.environ["HULK_LLVM"], "bin")] if os.environ.get("HULK_LLVM") else []
+LLVMS += ["/opt/homebrew/opt/llvm/bin", os.path.expanduser("~/llvm/bin")]
+LLVM = next((d for d in LLVMS if os.path.exists(os.path.join(d, "clang++"))), LLVMS[0])
 
 
 def tool(name):

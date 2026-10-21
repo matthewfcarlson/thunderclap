@@ -6720,6 +6720,9 @@ def pick_symbol(obj, addr, target_bytes, symbol=None):
     return best[1] if best else None
 
 
+_NATIVE_CLANG_OK = {}
+
+
 def compile_native(src, outdir, extra=()):
     """(round 18, native) SRC compiled the way the native build compiles it (tools/clang_probe.py's `msvc`
     configuration: i686-pc-windows-msvc, -O0, x87, compat/native.h, the same dialect switches), to a COFF object in
@@ -6728,6 +6731,11 @@ def compile_native(src, outdir, extra=()):
     clang = cp.tool("clang++")
     if not clang:
         raise CompileError("native mode needs clang++ (clang_probe.tool): not found")
+    if clang not in _NATIVE_CLANG_OK:  # Apple's clang is a different compiler: its code would not be the build's
+        v = subprocess.run([clang, "--version"], capture_output=True, text=True).stdout
+        _NATIVE_CLANG_OK[clang] = "Apple" not in v
+    if not _NATIVE_CLANG_OK[clang]:
+        raise CompileError("native mode needs LLVM's clang (Homebrew llvm, ~/llvm or $HULK_LLVM), not " + clang)
     flags = list(cp.CONFIGS["msvc"]["flags"]) + cp.COMMON + ["-Wno-everything"]
     obj = os.path.join(outdir, "native.obj")
     r = subprocess.run([clang] + flags + list(extra) + ["-I" + os.path.join(ROOT, "include"), src, "-o", obj],
