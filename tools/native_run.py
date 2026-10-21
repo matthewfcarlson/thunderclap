@@ -27,9 +27,10 @@ import time
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 OUT_DEFAULT = os.environ.get("HULK_NATIVE_DIR") or os.path.join(ROOT, "build/native")
-WINE = os.environ.get("WINE") or os.path.expanduser(
-    "~/Library/Application Support/com.isaacmarovitz.Whisky/Libraries/Wine/bin/wine64")
-LLVM = "/opt/homebrew/opt/llvm/bin"
+WINE = os.environ.get("WINE") or next((p for p in (os.path.expanduser(q) for q in (
+    "~/Library/Application Support/com.isaacmarovitz.Whisky/Libraries/Wine/bin/wine64",
+    "~/wine-whisky/Wine/bin/wine64")) if os.path.exists(p)), "wine64")     # ~/wine-whisky: a copy on the queue's remote hosts
+from clang_probe import LLVM  # noqa: E402  (resolver: $HULK_LLVM, Homebrew, ~/llvm)
 
 
 def wine_env(prefix):

@@ -31,7 +31,7 @@ import tempfile
 import clang.cindex as ci
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ci.Config.set_library_file(os.environ.get("HULK_LIBCLANG", "/opt/homebrew/opt/llvm/lib/libclang.dylib"))
+ci.Config.set_library_file(os.environ.get("HULK_LIBCLANG") or os.path.join(os.path.dirname(__import__("clang_probe").LLVM), "lib/libclang.dylib"))
 CK, TK = ci.CursorKind, ci.TypeKind
 WARNS = ("-Wpointer-to-int-cast", "-Wint-to-pointer-cast", "-Wvoid-pointer-to-int-cast", "-Wint-to-void-pointer-cast",
          "-Wshorten-64-to-32")

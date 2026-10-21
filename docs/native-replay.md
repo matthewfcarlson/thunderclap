@@ -17,6 +17,14 @@ $PY tools/replay_pack.py synth --check  # the committed synthetic recording is c
 HULK_INPUT_SOURCE=replay:build/replays/play3.json HULK_AUDIO_CLOCK=frame HULK_CKPT=1 <native image>   # (needs native9, below)
 ```
 
+Native replays as queue jobs (any host, headless; docs/compute.md "Native replays"):
+
+```sh
+id=$(build/venv/bin/python tools/native_replay_job.py submit --name ME --timeout 200)   # image build/native/link, recording build/rp1/play3.hrp
+build/venv/bin/python tools/native_replay_job.py wait $id     # build/jobs/out/$id/wine-out/{ckpt.txt,trace.txt,result.json}
+build/venv/bin/python tools/native_replay_job.py compare $id1 $id2   # common checkpoint frames identical across hosts
+```
+
 ## What a recording is
 
 `{"version": 2, "key": "polls", "flags": [...], "seed", "tweaks", "inputs": [[poll, buttons, [8 analog], [4 thumbs]]],
@@ -170,6 +178,22 @@ differing word, and `HULK_TRACE_WATCH` (now also absolute addresses) to the nati
 frame it was posted. The hybrid therefore behaves as "every request completes before the next frame"; natively the
 914/915 race is a request that stays pending (more than 300 ms) while the main thread waits, i.e. a dependency on
 main-thread work, not xemu latency.
+
+### Status (native17, 2026-10-21)
+
+Checkpoints as native16 (0-420, 480-840), and now **deterministic**: `HULK_SYNCIO=5` ("lockstep", the default when a
+recording is open) runs the drive threads (start routine 0x26db70, worker 0x2731d0) one request at a time and only
+on the main thread's turn: after a post made while the main thread holds no critical section, at
+`GameClock::Update`'s entry, at the drive pump 0x272df0 (`core::Drive::vfunc_3`, a new `ENTRY_HOOKS` entry), and when
+the main thread sleeps, switches fibers or waits; the drive's error wait (a failed open) is a turn too
+(src/platform/sdl/xdk/replay_hooks.cpp, threads.cpp, library.cpp). Three runs give 0x00203a80's first call at frame
+917 every time (it was 914 or 915 by run; the hybrid: 914) and two runs with `HULK_CKPT_ALL=1` are identical at all
+326 checkpoints to 9,750. The 3 frames to the hybrid's 914: natively the sound code requests .rsd files that no RCF
+holds (`sound\rsd\3\346494a868380c06.rsd` from frame 2, `1\1903a420eb3c5dce` and `e\e828675c1d7e5e29` every frame from
+~440), each through the drive's error path and retried every frame; the hybrid posts none of them. The ranged
+enemy (CRangedAgent) that the hybrid spawns at 857 spawns natively at 891 although the spawner, camera, visibility
+and distance (68.72) agree. 0x000a75d0 (`CChaseCamera::vfunc_35`) rewritten with its square root unrounded (cl7's
+`x87_order.py`); its two reassociated sums cannot be spelled without MSVC reordering an unrelated sum.
 
 ### Status (native15, 2026-10-20)
 

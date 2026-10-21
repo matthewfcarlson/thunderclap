@@ -40,7 +40,7 @@ PIDF = os.path.join(JOBS, "daemon.pid")
 DLOG = os.path.join(JOBS, "daemon.log")
 HOSTS_STATE = os.path.join(JOBS, "hosts-state.json")
 BASE_PATHS = ["tools", "include", "tests", "config"]
-NEEDS = ["any", "equiv", "msvc", "clang", "wine", "xemu"]
+NEEDS = ["any", "equiv", "msvc", "clang", "wine", "wine-gfx", "xemu"]
 TERMINAL = ("done", "failed", "gaveup", "cancelled")
 SSH = ["ssh", "-o", "ConnectTimeout=20", "-o", "ServerAliveInterval=20", "-o", "ServerAliveCountMax=3",
        "-o", "BatchMode=yes"]
@@ -445,7 +445,7 @@ def load_hosts():
                 h.setdefault("path", ["~/llvm/bin"])
                 hs.append(h)
         hs.append({"name": "local", "local": True, "slots": 3, "pref": 90,
-                   "caps": ["equiv", "msvc", "clang", "wine"], "path": ["/opt/homebrew/opt/llvm/bin"]})
+                   "caps": ["equiv", "msvc", "clang", "wine"], "path": [__import__("clang_probe").LLVM]})
         os.makedirs(JOBS, exist_ok=True)
         json.dump({"hosts": hs}, open(path, "w"), indent=1)
     return json.load(open(path))["hosts"]
@@ -567,6 +567,7 @@ class Daemon:
         self.lock = threading.Lock()
         self.idle_since = time.time()
         self.last_gc = 0
+        self.last_reload, self.hosts_mtime = 0, None
 
     # --- state transitions (DB) ---
     def claim(self, c, job, h):
@@ -778,6 +779,24 @@ class Daemon:
             json.dump(st, f)
         os.replace(tmp, HOSTS_STATE)
 
+    def reload_caps(self):
+        """hosts.json edits to a known host's caps / xemu_max take effect without a restart (running jobs keep going)."""
+        path = os.environ.get("JOBQ_HOSTS") or os.path.join(JOBS, "hosts.json")
+        try:
+            m = os.path.getmtime(path)
+            if m == self.hosts_mtime:
+                return
+            self.hosts_mtime = m
+            cfgs = {h["name"]: h for h in json.load(open(path))["hosts"]}
+        except (OSError, ValueError):
+            return
+        for h in self.hosts:
+            cfg = cfgs.get(h.name)
+            if cfg is not None and set(cfg.get("caps", [])) != h.caps:
+                h.caps = set(cfg.get("caps", []))
+                h.xemu_max = cfg.get("xemu_max", 1) if "xemu" in h.caps else 0
+                log("%s: caps now %s" % (h.name, ",".join(sorted(h.caps))))
+
     def recover(self, c):
         """Jobs left 'running' by a dead daemon go back to the queue; their remote leftovers are killed."""
         rows = c.execute("SELECT id,host,attempts FROM jobs WHERE state='running'").fetchall()
@@ -824,6 +843,9 @@ class Daemon:
             elif now - self.idle_since > IDLE_EXIT:
                 log("idle for %ds, exiting" % IDLE_EXIT)
                 return
+            if now - self.last_reload > 30:
+                self.last_reload = now
+                self.reload_caps()
             if now - self.last_gc > 3600:
                 self.last_gc = now
                 for h in self.hosts:

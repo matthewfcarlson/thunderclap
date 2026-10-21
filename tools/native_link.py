@@ -198,7 +198,7 @@ def undname(names):
     """{mangled: demangled} through llvm-undname (cached; names it can't demangle map to themselves)."""
     want = sorted({n for n in names if n not in _UNDNAME})
     if want:
-        p = subprocess.run([os.path.join("/opt/homebrew/opt/llvm/bin", "llvm-undname")], input="\n".join(want) + "\n",
+        p = subprocess.run([os.path.join(native_host.LLVM, "llvm-undname")], input="\n".join(want) + "\n",
                            capture_output=True, text=True, errors="replace")
         blocks = [b.split("\n") for b in p.stdout.strip("\n").split("\n\n")]
         for b in blocks:
@@ -290,7 +290,7 @@ def build_map(jobs):
     multi = sorted(sym for (tu, sym), cs in groups.items() if len(cs) > 1 and sym.startswith("?"))
     dem = {}
     if multi:
-        out_ = subprocess.run(["/opt/homebrew/opt/llvm/bin/llvm-undname"], input="\n".join(multi) + "\n",
+        out_ = subprocess.run([native_host.LLVM + "/llvm-undname"], input="\n".join(multi) + "\n",
                               capture_output=True, text=True, errors="replace").stdout.splitlines()
         for i in range(len(out_) - 1):
             if out_[i] in multi and out_[i] not in dem:
@@ -491,10 +491,10 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
     # by address and name
     shim = platform_shim(cp)
     if SDL_LIBS:        # (the backends' and SDL3's own symbols: never stubbed, the libraries define them)
-        r_ = subprocess.run(["/opt/homebrew/opt/llvm/bin/llvm-nm", "--defined-only", "-g"] + SDL_LIBS,
+        r_ = subprocess.run([native_host.LLVM + "/llvm-nm", "--defined-only", "-g"] + SDL_LIBS,
                             capture_output=True, text=True)
         shim["defined"] |= {l.split()[-1] for l in r_.stdout.splitlines() if len(l.split()) >= 3}
-        r_ = subprocess.run(["/opt/homebrew/opt/llvm/bin/llvm-nm", "--undefined-only", "-g"] + SDL_LIBS,
+        r_ = subprocess.run([native_host.LLVM + "/llvm-nm", "--undefined-only", "-g"] + SDL_LIBS,
                             capture_output=True, text=True)
         sdl_undef = {l.split()[-1] for l in r_.stdout.splitlines() if l.strip().startswith("U ")}
     else:
@@ -1142,7 +1142,7 @@ GFX_CXX = {"??2@YAPAXI@Z": "op_new", "??3@YAXPAX@Z": "op_delete", "??_U@YAPAXI@Z
 def gfx_nm(paths):
     """(defined, undefined) external symbols over objects and archives (every member)."""
     d, u = set(), set()
-    p = subprocess.run([os.path.join("/opt/homebrew/opt/llvm/bin", "llvm-nm"), "--no-sort"] + list(paths),
+    p = subprocess.run([os.path.join(native_host.LLVM, "llvm-nm"), "--no-sort"] + list(paths),
                        capture_output=True, text=True, errors="replace")
     for line in p.stdout.splitlines():
         parts = line.split()
@@ -1220,7 +1220,7 @@ def graphics_backend(outdir):
         with open(df, "w") as f:
             f.write("LIBRARY %s.dll\nEXPORTS\n%s\n" % (dll, "\n".join(sorted(lines))))
         lib = os.path.join(gd, "gfx_%s.lib" % dll)
-        r = subprocess.run([os.path.join("/opt/homebrew/opt/llvm/bin", "llvm-dlltool"), "-m", "i386", "-d", df,
+        r = subprocess.run([os.path.join(native_host.LLVM, "llvm-dlltool"), "-m", "i386", "-d", df,
                             "-l", lib], capture_output=True, text=True)
         if r.returncode:
             raise RuntimeError("llvm-dlltool %s: %s" % (dll, r.stderr[-1000:]))
@@ -1230,7 +1230,7 @@ def graphics_backend(outdir):
         f.write("".join("%s %s\n" % kv for kv in sorted(renames.items())))
     for src, dst_dir in [(o, os.path.join(gd, "obj")) for o in objs] + [(l, gd) for l in libs]:
         dst = os.path.join(dst_dir, os.path.basename(src))
-        r = subprocess.run(["/opt/homebrew/opt/llvm/bin/llvm-objcopy", "--redefine-syms=" + lst, src, dst],
+        r = subprocess.run([native_host.LLVM + "/llvm-objcopy", "--redefine-syms=" + lst, src, dst],
                            capture_output=True, text=True)
         if r.returncode:
             raise RuntimeError("llvm-objcopy %s: %s" % (src, r.stderr[-1000:]))
@@ -1351,7 +1351,7 @@ def rename_object(obj, pairs):
     lst = out + ".syms"
     with open(lst, "w") as f:
         f.write("".join("%s %s\n" % (a, b) for a, b in pairs))
-    r = subprocess.run(["/opt/homebrew/opt/llvm/bin/llvm-objcopy", "--redefine-syms=" + lst, obj, out],
+    r = subprocess.run([native_host.LLVM + "/llvm-objcopy", "--redefine-syms=" + lst, obj, out],
                        capture_output=True, text=True)
     return out if r.returncode == 0 else obj
 
@@ -1617,12 +1617,12 @@ def lld_link(objects, aliases, undefined, vt_asm=None, dd_asm=None, startup_asm=
         with open(os.path.join(d, name + ".s"), "w") as f:
             f.write(text)
         vobj = os.path.join(d, name + ".obj")
-        r = subprocess.run([os.path.join("/opt/homebrew/opt/llvm/bin", "clang"), "--target=i686-pc-windows-msvc", "-c",
+        r = subprocess.run([os.path.join(native_host.LLVM, "clang"), "--target=i686-pc-windows-msvc", "-c",
                             os.path.join(d, name + ".s"), "-o", vobj], capture_output=True, text=True)
         if r.returncode != 0:
             return {"status": "%s object failed" % name, "log": r.stderr[-2000:]}
         objects = objects + [vobj]
-    llvm = "/opt/homebrew/opt/llvm/bin"
+    llvm = native_host.LLVM
     lld = os.path.join(llvm, "lld-link") if os.path.exists(os.path.join(llvm, "lld-link")) else \
         (subprocess.run(["which", "lld-link"], capture_output=True, text=True).stdout.strip() or None)
     if not lld:

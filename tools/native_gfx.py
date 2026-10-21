@@ -48,7 +48,7 @@ TP = os.path.join(ROOT, "build/third_party")
 DL = os.path.join(TP, "dl")
 SRC = os.path.join(TP, "src")
 OUT = os.path.join(TP, "out")
-LLVM = "/opt/homebrew/opt/llvm/bin"
+from clang_probe import LLVM  # noqa: E402  (resolver: $HULK_LLVM, Homebrew, ~/llvm)
 PDDI = os.path.join(ROOT, "src/platform/sdl/pddi")
 
 # Pinned upstream sources: (name, GitHub repo, commit or tag, sha256 of codeload's tar.gz, members to keep)

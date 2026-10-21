@@ -26,7 +26,7 @@ import struct
 import subprocess
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-LLVM = "/opt/homebrew/opt/llvm/bin"
+from clang_probe import LLVM  # noqa: E402  (resolver: $HULK_LLVM, Homebrew, ~/llvm)
 CRT_DIR = os.path.join(ROOT, "src/platform/sdl/crt")
 CRT_TABLE = os.path.join(CRT_DIR, "host_crt_table.h")
 LIB_TABLE = os.path.join(ROOT, "src/platform/sdl/xdk/library.h")

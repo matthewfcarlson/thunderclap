@@ -48,6 +48,7 @@ import re
 import struct
 import subprocess
 import sys
+import clang_probe as _cp  # noqa: E402  (LLVM resolver)
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 TABLES = [os.path.join(ROOT, "src/platform/sdl/xdk", f) for f in ("imports.h", "library.h")]
@@ -661,7 +662,7 @@ def check_returns(roots=("matches", "equivalent"), tree_report=TREE_REPORT, call
     syms = sorted({c["symbol"] for c in checks if c["symbol"].startswith("?")})
     dem = {}
     try:
-        exe = "/opt/homebrew/opt/llvm/bin/llvm-undname"
+        exe = _cp.tool("llvm-undname")
         out = subprocess.run([exe], input="\n".join(syms) + "\n", capture_output=True, text=True, errors="replace").stdout
         lines = out.splitlines()
         for i in range(0, len(lines) - 1):
@@ -880,7 +881,7 @@ def check_pops(path=BINDINGS, objects_rsp=None):
     b = bj["bindings"]
     syms = sorted(s for s in b if s.startswith("?"))
     dem = {}
-    out = subprocess.run(["/opt/homebrew/opt/llvm/bin/llvm-undname"], input="\n".join(syms) + "\n",
+    out = subprocess.run([_cp.tool("llvm-undname")], input="\n".join(syms) + "\n",
                          capture_output=True, text=True, errors="replace").stdout.splitlines()
     for i in range(len(out) - 1):
         if out[i] in b and out[i] not in dem:
@@ -902,7 +903,7 @@ def check_pops(path=BINDINGS, objects_rsp=None):
             dem[v["symbol"]] = None
     missing = [k for k, v in dem.items() if v is None]
     if missing:
-        out = subprocess.run(["/opt/homebrew/opt/llvm/bin/llvm-undname"], input="\n".join(missing) + "\n",
+        out = subprocess.run([_cp.tool("llvm-undname")], input="\n".join(missing) + "\n",
                              capture_output=True, text=True, errors="replace").stdout.splitlines()
         for i in range(len(out) - 1):
             if out[i] in dem and dem[out[i]] is None:
@@ -1105,7 +1106,7 @@ def classify_definition_convs(path=BINDINGS, objects_rsp=None):
     names = sorted({x for s, d, _a in todo for x in (s, d) if x.startswith("?")})
     dem = {}
     if names:
-        out = subprocess.run(["/opt/homebrew/opt/llvm/bin/llvm-undname"], input="\n".join(names) + "\n",
+        out = subprocess.run([_cp.tool("llvm-undname")], input="\n".join(names) + "\n",
                              capture_output=True, text=True, errors="replace").stdout.splitlines()
         for i in range(len(out) - 1):
             if out[i] in names and out[i] not in dem:
@@ -1192,7 +1193,7 @@ def check_return_widths(path=BINDINGS):
     names = sorted({x for s_, d, _a in pairs for x in (s_, d) if x.startswith("?")})
     dem = {}
     try:
-        out = subprocess.run(["/opt/homebrew/opt/llvm/bin/llvm-undname"], input="\n".join(names) + "\n",
+        out = subprocess.run([_cp.tool("llvm-undname")], input="\n".join(names) + "\n",
                              capture_output=True, text=True, errors="replace").stdout.splitlines()
         for i in range(len(out) - 1):
             if out[i] in names and out[i] not in dem:
@@ -1226,7 +1227,7 @@ def check_virtual_returns(tree_report=TREE_REPORT, rtti=os.path.join(ROOT, "buil
     syms = sorted({c["symbol"] for c in checks if c["symbol"].startswith("?")})
     dem = {}
     try:
-        out = subprocess.run(["/opt/homebrew/opt/llvm/bin/llvm-undname"], input="\n".join(syms) + "\n",
+        out = subprocess.run([_cp.tool("llvm-undname")], input="\n".join(syms) + "\n",
                              capture_output=True, text=True, errors="replace").stdout.splitlines()
         for i in range(len(out) - 1):
             if out[i] in syms and out[i] not in dem:

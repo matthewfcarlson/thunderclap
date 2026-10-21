@@ -136,7 +136,7 @@ def cmd_run(a):
     if cmd[0] in ("python", "python3") and os.path.exists(os.path.join(d, "build/venv/bin/python")):
         cmd[0] = "build/venv/bin/python"
     elif cmd[0] in ("wine64", "wine"):
-        cmd[0] = os.environ.get("WINE") or WHISKY
+        cmd[0] = os.environ.get("WINE") or (WHISKY if os.path.exists(WHISKY) else os.path.expanduser("~/wine-whisky/Wine/bin/wine64"))
     logp = os.path.join(d, ".jq-log")
     t0, code, timed_out = time.time(), None, False
     with open(logp, "wb") as lg:

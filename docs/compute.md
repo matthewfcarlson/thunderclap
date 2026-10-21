@@ -17,7 +17,7 @@ $J $Q cancel $id | --name MYNAME
 $J $Q submit-many cmds.txt --name MYNAME --needs equiv    # one shell command per line, or jsonl; one id per line
 ```
 
-- Options: `--needs any|equiv|msvc|clang|wine|xemu`, `--files PATH|SRC=DEST ...`, `--dirty`, `--out PATH ...` (paths relative
+- Options: `--needs any|equiv|msvc|clang|wine|wine-gfx|xemu`, `--files PATH|SRC=DEST ...`, `--dirty`, `--out PATH ...` (paths relative
   to the workspace, fetched to `build/jobs/out/ID/PATH`), `--limit S` (wall clock per attempt, default 1800),
   `--slots N` (cores the job uses, default 1), `--attempts N` (default 3), `--prio N`, `--base PATHS`.
 - The command is an argv after `--`; use `python` for `build/venv/bin/python`. Use `sh -c '...'` for pipes and redirects.
@@ -43,7 +43,8 @@ is appended as results arrive and addresses already in it are skipped (rerun to 
 | `--needs` | hosts |
 | --- | --- |
 | `equiv`, `msvc`, `clang`, `any` | mac2, mac1 first; the laptop only when they are full (it has few slots) |
-| `wine` | laptop only (Whisky's Wine; `wine64` in argv0 is expanded to it) |
+| `wine` | all three (headless native replays; `wine64` in argv0 is expanded to the host's Whisky Wine: the app's copy on the laptop, `~/wine-whisky` on the Macs) |
+| `wine-gfx` | laptop only (a native run that draws through MoltenVK; see Native replays) |
 | `xemu` | mac2 only, one at a time, never the laptop |
 
 Hosts and capabilities: `build/jobs/hosts.json` (untracked: it holds user and host names; created from
@@ -73,3 +74,31 @@ Macs), so the jobs share its compilers, venv and caches. Consequences:
 The queue is the default (2026-10-21): `equiv_batch.py` and `promote_dispatch.py` (so `promote-remote.sh` too) submit
 through it unless given `--no-jobq`. Inside a queue job (`JOBQ_JOB` set) `equiv_batch.py` runs locally, and
 `promote_dispatch.py --no-jobq` (its own ssh dispatcher) passes `--no-jobq` to the remote `equiv_batch.py`.
+
+## Native replays (Wine)
+
+`tools/native_replay_job.py` runs the native image's replay as a job on any host:
+
+```sh
+J=build/venv/bin/python
+id=$($J tools/native_replay_job.py submit --name ME [--img build/native/link] [--rec build/rp1/play3.hrp] [--timeout 200] [--host mac2] [--env K=V])
+$J tools/native_replay_job.py wait $id                      # then: ckpt.txt (frame hash), trace.txt, result.json in build/jobs/out/ID/wine-out/
+$J tools/native_replay_job.py compare ID1 ID2 ...           # common checkpoint frames must be identical (exit 1 otherwise)
+```
+
+- The job ships the image and its DLLs (`hulk-strict.exe`, SDL3, hulkmovie, avutil/avcodec/avformat) and the `.hrp`
+  recording as overlay files (content-hashed by jobq); the game data is never shipped: it is the host's own
+  `~/hulk-permute/isos/extracted` (`HULK_DATA_DIR`), put there once with
+  `rsync -a --exclude default.xbe isos/extracted/ HOST:hulk-permute/isos/extracted/` (2.3 GB; the `default.xbe` is already there).
+- Wine on the Macs: a copy of Whisky's `Libraries/Wine` + `WhiskyWineVersion.plist` in `~/wine-whisky` (873 MB, needs
+  Rosetta); `rsync -a "$HOME/Library/Application Support/com.isaacmarovitz.Whisky/Libraries/Wine" HOST:wine-whisky/` (read-only
+  use of the app's folder). `WINE=...` overrides. No per-host setting is needed. Each host makes one Wine prefix
+  (`~/hulk-jobs/wine-template`, first job only, about a minute) and every job runs in a private clone of it.
+- **Headless works over ssh**: the job sets `HULK_GFX_RENDERER=noop` (bgfx's null renderer), no window session is needed,
+  and checkpoint hashes do not depend on it. A graphics run (`--gfx`, Vulkan on MoltenVK) also started and ran over ssh on
+  mac2 (which has a console login) but nobody has looked at its pixels there; `HULK_GFX_SHOT` crashed (frame - 210) in
+  that image on mac2, so use `wine-gfx` (laptop only) when a picture matters.
+- `HULK_SYNCIO=5` (lockstep, the default with a recording) makes runs deterministic: play3 gave identical checkpoint
+  hashes on the laptop, mac2 and mac1 (2026-10-21, 120 s runs: 7,440, 8,460 and 2,040 frames; mac1 was loaded at the time).
+- The queue daemon reads `hosts.json` once at start: after changing `caps` restart it (`jobs survive`), or the new capability is ignored.
+

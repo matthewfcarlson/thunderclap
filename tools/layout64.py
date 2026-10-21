@@ -35,7 +35,8 @@ import rn_layout  # noqa: E402
 ROOT = rn_layout.ROOT
 OUT = os.environ.get("HULK_NATIVE64_DIR") or os.path.join(ROOT, "build/native64")
 CONFIG = os.path.join(ROOT, "config/layout64.json")
-CLANG = os.path.join("/opt/homebrew/opt/llvm/bin", "clang")
+from clang_probe import LLVM  # noqa: E402
+CLANG = os.path.join(LLVM, "clang")
 TARGETS = {
     "i686": ["-target", "i686-pc-windows-msvc", "-fms-compatibility"],
     "x64": ["-target", "x86_64-pc-windows-msvc", "-fms-compatibility"],
