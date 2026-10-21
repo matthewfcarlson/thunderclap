@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 30/30)
 // FUN_00081420 @ 0x00081420
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
@@ -133,7 +133,7 @@ void Fx_81420::FUN_00081420(Source_81420* src)
     }
 
     m34.FUN_0022ba70(angle + f8c);
-    f20 -= (int)src->f78;
+    f20 -= (int)(__int64)src->f78;
 
     if (src->f84) {
         fa0 = src->f88;

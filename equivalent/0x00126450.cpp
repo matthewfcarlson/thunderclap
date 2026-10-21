@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 112 inputs, branch coverage 28/28)
+// STATUS: equivalent (tools/equiv.py level 3: 20013 inputs, branch coverage 28/28)
 // hulkfight::ai::TargetDirectionYCondition::vfunc_6 @ 0x00126450
+#include "compat/ptr.h"
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -63,7 +64,7 @@ char TargetDirectionYCondition::vfunc_6(int unused1, Owner_126450 *owner, int un
     v.z = 0;
     actor->locator->FUN_00059a50(&v);
 
-    float d = (v.y - t->pos.y) * t->scale;
+    hulk_freg d = (v.y - t->pos.y) * t->scale;
     float s;
     if (d < 0.0f)
         s = -1.0f;

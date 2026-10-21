@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 20029 inputs, branch coverage 10/10)
 // FUN_002beb20 @ 0x002beb20
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d.h"
 extern "C" double sqrt(double);
@@ -184,7 +185,7 @@ Sprite::Sprite(Desc_2beb20 *d, Res_2beb20 *r, int s, int a4, int a5, int a6)
     z80 = 0;
     z7c = 0;
     z78 = 0;
-    float inv = 1.0f / (float)a4;
+    hulk_freg inv = 1.0f / (float)a4;
     inv70 = inv;
     inv74 = inv;
     w84 = d->width * inv;

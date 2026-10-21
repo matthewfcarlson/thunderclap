@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 75/76, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19807 inputs, branch coverage 75/76, incomplete)
 // CHand2HandAgent::vfunc_22 @ 0x00101270
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" double sqrt(double);
@@ -110,7 +111,7 @@ void CHand2HandAgent::v22(Arg1_101270* actor, Out_101270* out, float timeStep) {
         b7e = 0;
     else if (fc8 < fdc)
         b7e = 1;
-    float limit = 1.0f;
+    hulk_freg limit = 1.0f;
     if (fc8 > fdc && fc8 < fe0 && !(*(char*)&DAT_004a1bfc))
         limit = (fdc - fc8) / quarterRange;
     Rng_101270* rng = FUN_000964d0();
@@ -161,8 +162,8 @@ void CHand2HandAgent::v22(Arg1_101270* actor, Out_101270* out, float timeStep) {
     v138.z = 0;
     v138.y = 0;
     v138.x = 0;
-    float threshold = p58->b129 ? 1.5f : 0.9900000095367432f;
-    float result = FUN_0010ae50(DAT_004dd700, actor, 1.5f, &v150, &v138, 0, 0);
+    hulk_freg threshold = p58->b129 ? 1.5f : 0.9900000095367432f;
+    hulk_freg result = FUN_0010ae50(DAT_004dd700, actor, 1.5f, &v150, &v138, 0, 0);
     if (result < 0.0f || result > threshold) {
         p58->b129 = 0;
         v138.z = 0;
@@ -208,7 +209,7 @@ void CHand2HandAgent::v22(Arg1_101270* actor, Out_101270* out, float timeStep) {
     } else
         recoiling = false;
     double magnitude = sqrt(v168.x * v168.x + v168.y * v168.y + v168.z * v168.z);
-    float strength = 1.0f < magnitude ? 1.0f : (float)magnitude;
+    hulk_freg strength = 1.0f < magnitude ? 1.0f : (float)magnitude;
     if (sqrt(v168.x * v168.x + v168.y * v168.y + v168.z * v168.z) < DAT_004a1c04) {
         v168.z = 0;
         v168.y = 0;
@@ -224,7 +225,7 @@ void CHand2HandAgent::v22(Arg1_101270* actor, Out_101270* out, float timeStep) {
         out->v10c.y = v168.y;
         out->v10c.z = v168.z;
     }
-    float zeroForce = DAT_004a1c0c * 0.0f;
+    hulk_freg zeroForce = DAT_004a1c0c * 0.0f;
     volatile float smoothX = zeroForce;
     volatile float smoothY = zeroForce;
     double damping = 1.0f - DAT_004a1c0c;

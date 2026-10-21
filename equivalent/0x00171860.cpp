@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 19924 inputs, branch coverage 8/8)
 // hulkfight::motion::ChargeAction::vfunc_3 @ 0x00171860
 // Charge action update: track which action step is running and publish its progress ratio.
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class ActionDef {
@@ -45,8 +46,8 @@ bool hulkfight::motion::ChargeAction::vfunc_3(int a, int b) {
     }
     fighter->lastStep = step;
 
-    float length = (*(ActionDef * *)&this->f_1c)->GetLength();
-    float elapsed = (*(ActionDef * *)&this->f_1c)->elapsed;
+    hulk_freg length = (*(ActionDef * *)&this->f_1c)->GetLength();
+    hulk_freg elapsed = (*(ActionDef * *)&this->f_1c)->elapsed;
     if (length > 0.0f) {
         if (elapsed < 1.0f) {
             elapsed -= fighter->baseline;

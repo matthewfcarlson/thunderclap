@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 12/12)
 // pure3d::Camera::vfunc_19 @ 0x00292a90
+#include "compat/ptr.h"
 struct Vec3_292a90 {
     float x, y, z;
 };
@@ -23,9 +24,9 @@ public:
 // Frustum outcode of a point: bit 0/1 near/far, 2/3 top/bottom, 4/5 left/right.
 unsigned int Camera::vfunc_19(const Vec3_292a90 *p) {
     unsigned int code = 0;
-    float z = p->z;
-    float x = xFactor * p->x;
-    float y = yFactor * p->y;
+    hulk_freg z = p->z;
+    hulk_freg x = xFactor * p->x;
+    hulk_freg y = yFactor * p->y;
     if (z > farDist)
         code = 2;
     else if (z < nearDist)

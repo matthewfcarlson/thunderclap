@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 6/6)
 // FUN_001de360 @ 0x001de360
 struct Sub_1de360 {
     virtual void v0();
@@ -30,9 +30,9 @@ void Owner_1de360::FUN_001de360(int a)
     else
         item = 0;
     if (item)
-        item->sub.v0();
+        (&item->sub)->v0();
     if (current)
-        current->sub.v1();
+        (&current->sub)->v1();
     current = item;
     arg = a;
     z0 = 0;

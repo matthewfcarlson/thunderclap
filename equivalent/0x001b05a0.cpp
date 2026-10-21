@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3142 inputs, branch coverage 127/134, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20127 inputs, branch coverage 133/134, incomplete)
 // FUN_001b05a0 @ 0x001b05a0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -193,7 +194,7 @@ char __stdcall FUN_001b05a0(Entity* self, HitObj_1b05a0* hit, Contact_1b05a0* c)
                 return 1;
             Tri_1b05a0* tri = &geo->f44->tris[(unsigned short)s.index.triangleIndex];
             s.upper = 1000.0f;
-            float maximum = -1000.0f;
+            hulk_freg maximum = -1000.0f;
             unsigned short* vertices = (unsigned short*)((char*)tri + 0x10);
             for (int k = 0; k < 3; ++k) {
                 geo->FUN_001af890(&s.normal, vertices[k]);
@@ -268,7 +269,7 @@ char __stdcall FUN_001b05a0(Entity* self, HitObj_1b05a0* hit, Contact_1b05a0* c)
             s.direction.x = position->x - previous->x;
             s.direction.y = position->y - previous->y;
             s.direction.z = position->z - previous->z;
-            float threshold = 15.0f;
+            hulk_freg threshold = 15.0f;
             double speedSquared;
             if (body) {
                 ((Entity*)body)->FUN_00035660(&s.normal);
@@ -333,11 +334,11 @@ char __stdcall FUN_001b05a0(Entity* self, HitObj_1b05a0* hit, Contact_1b05a0* c)
                     state2->f70->FUN_0016fc60(&s.normal);
                 else
                     self->FUN_001d69f0(&s.normal);
-                float height = 0.0f;
+                hulk_freg height = 0.0f;
                 if (state2->f74 && state2->f74->f20)
                     height = state2->f74->f20->f34;
-                float contactHeight = (void*)state2 == c->info->f18 ? c->q.y : c->p.y;
-                float delta = contactHeight - (s.normal.y - height);
+                hulk_freg contactHeight = (void*)state2 == c->info->f18 ? c->q.y : c->p.y;
+                hulk_freg delta = contactHeight - (s.normal.y - height);
                 if (!(height * 0.75f > delta) && !(AbsF(c->n.y) > 0.3f))
                     activate = true;
             }

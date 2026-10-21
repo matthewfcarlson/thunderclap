@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 152 inputs, branch coverage 53/54, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20042 inputs, branch coverage 54/54)
 // FUN_001d6ec0 @ 0x001d6ec0
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -118,7 +118,7 @@ bool Receiver_1d6ec0::FUN_001d6ec0(int amount, Ref_1d6ec0* victim, bool forced)
         if (scene) {
             int a = scene->stats.FUN_00088fa0();
             int b = scene->stats.FUN_00088fb0();
-            if (a == 10 && b == 0x1c && lo == (unsigned int)(*(unsigned __int64*)&DAT_004e25f0) && hi == (unsigned int)((*(unsigned __int64*)&DAT_004e25f0) >> 32))
+            if (a == 10 && b == 0x1c && lo == (unsigned int)(__int64)(*(unsigned __int64*)&DAT_004e25f0) && hi == (unsigned int)(__int64)((*(unsigned __int64*)&DAT_004e25f0) >> 32))
                 return false;
         }
     }
@@ -132,10 +132,10 @@ bool Receiver_1d6ec0::FUN_001d6ec0(int amount, Ref_1d6ec0* victim, bool forced)
             return false;
         bool isMode2 = meter->FUN_001d5e80(f40) == 2;
         if (meter->FUN_001d4e90() > 0.0f) {
-            dmg = (int)(meter->FUN_001d4e90() * amount);
+            dmg = (int)(__int64)(meter->FUN_001d4e90() * amount);
             amount = dmg;
         } else if (isMode2) {
-            dmg = (int)(amount * 0.05f);
+            dmg = (int)(__int64)(amount * 0.05f);
             if (dmg > 1) {
                 amount = dmg;
             } else {
@@ -159,7 +159,7 @@ bool Receiver_1d6ec0::FUN_001d6ec0(int amount, Ref_1d6ec0* victim, bool forced)
         Fighter_1d6ec0* ft = victim->fighter;
         if (ft->body) {
             if (ft->body->kind == kindMatch)
-                dmg = (int)(amount * kindScale);
+                dmg = (int)(__int64)(amount * kindScale);
         }
         World* g = DAT_004dd700;
         if (ft == g->roster->player) {
@@ -174,7 +174,7 @@ bool Receiver_1d6ec0::FUN_001d6ec0(int amount, Ref_1d6ec0* victim, bool forced)
             forced = true;
         health = h - dmg;
         if (forced) {
-            amount = (int)0xffc84040;
+            amount = (int)(__int64)0xffc84040;
             effect->FUN_001c4ac0(&amount, 0.4f);
         }
         FUN_001d6e10(victim);

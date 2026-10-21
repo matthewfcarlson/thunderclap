@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3022 inputs, branch coverage 44/44)
+// STATUS: equivalent (tools/equiv.py level 3: 19908 inputs, branch coverage 44/44)
 // CProceduralDurationAnimationAction::vfunc_6 @ 0x00022990
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
@@ -255,7 +255,8 @@ bool CProceduralDurationAnimationAction::vfunc_6(int arg)
         float v = FUN_000964e0() * span + lo2;
         driver->FUN_00225cf0(v);
     } else if (created) {
-        driver->FUN_00225cf0(FUN_00225be0(f24, driver->f22c, driver->f230, 0));
+        float value = FUN_00225be0(f24, driver->f22c, driver->f230, 0);
+        driver->FUN_00225cf0(value);
     }
     return true;
 }

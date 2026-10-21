@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 10436 inputs, branch coverage 33/34, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20136 inputs, branch coverage 33/34, incomplete)
 // FUN_000d3f10 @ 0x000d3f10
 // cl-flags: /GS
 #include "compat/ptr.h"
@@ -27,7 +27,7 @@ struct Provider_d3f10 {
     hulk_intptr FUN_000ad580(int a, int b, int c);
 };
 extern "C" int strcmp(const char*, const char*);
-extern "C" const char* strstr(const char*, const char*);
+extern "C" char* strstr(const char*, const char*);
 extern "C" int sprintf(char*, const char*, ...);
 extern "C" unsigned int strlen(const char*);
 const char* __cdecl FUN_000b09c0(int a, int b);

@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3076 inputs, branch coverage 51/52, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20134 inputs, branch coverage 51/52, incomplete)
 // FUN_00107410 @ 0x00107410
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
 extern "C" double sqrt(double);
@@ -76,7 +77,7 @@ bool Self_107410::FUN_00107410(int a, int b)
     w.x = v2.x - v1.x;
     w.y = 0.0f;
     w.z = v2.z - v1.z;
-    float dist = (float)sqrt(w.z * w.z + w.x * w.x);
+    hulk_freg dist = (float)sqrt(w.z * w.z + w.x * w.x);
     w.FUN_0022d110();
     V3_107410 n1;
     e->FUN_00035550(&n1);

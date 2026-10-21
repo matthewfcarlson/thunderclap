@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 74/84, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20138 inputs, branch coverage 81/84, incomplete)
 // CWeaponCollisionAction::vfunc_8 @ 0x0001c9b0
 #include "decls/data/game/global.h"
 
@@ -116,7 +116,7 @@ bool CWeaponCollisionAction::vfunc_8(int a1)
             FUN_0001c430(sm);
         } else {
             double n = maxd / f.s0;
-            int cnt = (int)n;
+            int cnt = (int)(__int64)n;
             if ((double)(n - (double)cnt) > 0.0)
                 cnt++;
             if (cnt > 0x40)
@@ -184,7 +184,7 @@ bool CWeaponCollisionAction::vfunc_8(int a1)
             FUN_0001c770(&f.M, m);
         } else {
             double r = len / m2;
-            int cnt = (int)r;
+            int cnt = (int)(__int64)r;
             if ((double)(r - (double)cnt) > 0.0)
                 cnt++;
             if (cnt > 0x40)

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 19910 inputs, branch coverage 8/8)
 // FUN_001962b0 @ 0x001962b0
 // equiv-map: ?thunk_FUN_0027d410@Node@@QAEXPAUId64@@@Z = 0x001d6630
 // equiv-map: ??0CProjectile@@QAE@XZ = 0x001b6800
@@ -215,7 +215,7 @@ hulkfight::motion::ProjectileMissile::ProjectileMissile(MissileCfg *src, int nam
     fd4 = src->f84;
     f98 = 0;
     b38 = src->b75;
-    f18 = (int)src->f90;
+    f18 = (int)(__int64)src->f90;
     b1c = src->b94;
     b1d = src->b95;
     b1e = src->b96;
@@ -231,7 +231,7 @@ hulkfight::motion::ProjectileMissile::ProjectileMissile(MissileCfg *src, int nam
         Rng_1962b0 *rng = FUN_000964d0();
         rng->s0 = (rng->s0 & 0xffff) * 0x9069 + (rng->s0 >> 16);
         rng->s1 = (rng->s1 & 0xffff) * 0x4650 + (rng->s1 >> 16);
-        pick = (int)(((rng->s0 << 16) + (rng->s1 & 0xffff)) % 3) - 1;
+        pick = (int)(__int64)(((rng->s0 << 16) + (rng->s1 & 0xffff)) % 3) - 1;
     } else {
         pick = f18;
     }

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 10/10)
 // FUN_000b50d0 @ 0x000b50d0
 #include "decls/address.h"
 class FEObject {
@@ -60,7 +60,8 @@ void JumpMarkerHud::FUN_000b50d0()
     int id = marker->FUN_00089960(sel->selected);
     if (id == -1)
         return;
-    marker->FUN_000899d0(table->FUN_00093260(id));
+    int value = table->FUN_00093260(id);
+    marker->FUN_000899d0(value);
     marker->FUN_00089980();
     Message_b50d0 msg;
     msg.FUN_001cae40("JumpMarkerSelected");

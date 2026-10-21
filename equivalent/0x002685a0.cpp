@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 12/12)
 // core::ControllerXBox::vfunc_17 @ 0x002685a0
 struct InputState {
     int packet;
@@ -81,8 +81,8 @@ void ControllerXBox::vfunc_17(int arg) {
     }
     if (feedbackStatus == 0x3e5)
         return;
-    short left = (short)(int)(leftMotor.m5() * 65535.0f);
-    short right = (short)(int)(rightMotor.m5() * 65535.0f);
+    short left = (short)(int)((&leftMotor)->m5() * 65535.0f);
+    short right = (short)(int)((&rightMotor)->m5() * 65535.0f);
     if (left != lastLeft || right != lastRight) {
         feedbackStatus = 0;
         feedbackField = 0;

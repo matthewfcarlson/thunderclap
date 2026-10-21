@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 49/50, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19936 inputs, branch coverage 50/50)
 // CMoveAgent::vfunc_4 @ 0x00102cd0
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct V3_102cd0 {
@@ -164,8 +165,8 @@ void CMoveAgent::F(Arg1_102cd0* a1, int a2, int a3)
                         F.z = G.z - H.z;
                         H.x = pos.x - w.x;
                         H.z = pos.z - w.z;
-                        float lh = H.FUN_00018990();
-                        float lf = F.FUN_00018990();
+                        hulk_freg lh = H.FUN_00018990();
+                        hulk_freg lf = F.FUN_00018990();
                         if (lf < lh)
                             flag76 = 1;
                     }
@@ -180,8 +181,8 @@ void CMoveAgent::F(Arg1_102cd0* a1, int a2, int a3)
     D.z = C.z + A.z;
     double sx = C.x + A.x;
     double sy = C.y + A.y;
-    float ty = B.y * 0.25f;
-    float tz = B.z * 0.25f;
+    hulk_freg ty = B.y * 0.25f;
+    hulk_freg tz = B.z * 0.25f;
     D.x = (float)(B.x * 0.25f + sx);
     D.y = (float)(ty + sy);
     D.z = tz + D.z;

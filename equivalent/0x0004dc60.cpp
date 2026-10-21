@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 16/16)
 // CMotionClimbAngleCondition::vfunc_7 @ 0x0004dc60
+#include "compat/ptr.h"
 struct Vec3_4dc60 {
     float x, y, z;
     bool FUN_0022d2b0(const Vec3_4dc60* other, float epsilon);
@@ -97,8 +98,8 @@ bool CMotionClimbAngleCondition::vfunc_7(void* params)
         return 0;
 
     f.a = FUN_00018a20(f.vel.y);
-    float fz = AbsF(f.vel.y);
-    float diff = fz - 1.0f;
+    hulk_freg fz = AbsF(f.vel.y);
+    hulk_freg diff = fz - 1.0f;
     if (!(AbsF(diff) <= 1e-5f)) {
         f.tmp.x = 0.0f;
         f.tmp.y = 1.0f;
@@ -108,7 +109,7 @@ bool CMotionClimbAngleCondition::vfunc_7(void* params)
         if (c < 0.0)
             f.a = -f.a;
     }
-    float r = FUN_00224fc0(f.a, angleTolerance);
-    float limit = limitAngle * 0.5f;
+    hulk_freg r = FUN_00224fc0(f.a, angleTolerance);
+    hulk_freg limit = limitAngle * 0.5f;
     return limit > AbsF(r);
 }

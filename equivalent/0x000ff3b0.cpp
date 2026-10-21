@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 36/36)
+// STATUS: equivalent (tools/equiv.py level 3: 19994 inputs, branch coverage 36/36)
 // CHand2HandAgent::vfunc_11 @ 0x000ff3b0
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct NameKey_ff3b0 {
     unsigned lo;
@@ -96,8 +97,8 @@ char CHand2HandAgent::vfunc_11(Player_ff3b0 *player, float a, float b)
 {
     char result = 0;
     RandState_ff3b0 *rng = FUN_000964d0();
-    float scale = player->scale;
-    float limitA = player->limitA;
+    hulk_freg scale = player->scale;
+    hulk_freg limitA = player->limitA;
     rng->s0 = (rng->s0 & 0xffff) * 0x9069 + (rng->s0 >> 16);
     rng->s1 = (rng->s1 & 0xffff) * 0x4650 + (rng->s1 >> 16);
     union {
@@ -105,9 +106,9 @@ char CHand2HandAgent::vfunc_11(Player_ff3b0 *player, float a, float b)
         float f;
     } bits;
     bits.u = (((rng->s0 << 16) + (rng->s1 & 0xffff)) & 0x7fffff) | 0x3f800000;
-    float rv0 = (bits.f - 1.0f + 1.0f) * scale;
+    hulk_freg rv0 = (bits.f - 1.0f + 1.0f) * scale;
     char ready = player->check.FUN_00231ee0();
-    float chance = player->chance;
+    hulk_freg chance = player->chance;
     Gate_ff3b0 *gate = DAT_004dd700->gate;
     if (gate) {
         if (gate->FUN_00099730() || gate->FUN_00099750() || gate->FUN_00099760() || gate->FUN_00099790())
@@ -139,7 +140,7 @@ char CHand2HandAgent::vfunc_11(Player_ff3b0 *player, float a, float b)
                 result = 1;
             }
         } else {
-            float rnd = rng->FUN_00078780();
+            hulk_freg rnd = rng->FUN_00078780();
             if (rnd < 0.33f) {
                 player->flagA = 1;
             } else if (rnd < 0.66f) {

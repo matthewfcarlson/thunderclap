@@ -1,7 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 12541 inputs, branch coverage 31/32, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20051 inputs, branch coverage 31/32, incomplete)
 // hulkfight::motion::SyncToLocatorAction::vfunc_3 @ 0x00171e60
 // cl-flags: /GS
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct V3_171e60 {
     float x, y, z;
@@ -163,9 +164,9 @@ bool SyncToLocatorAction::vfunc_3(int a, int b)
         return false;
     }
     Timing_171e60 *timing = clock->FUN_00059a30();
-    float c4c = cfg->f4c;
-    float c48 = cfg->f48;
-    float c44 = cfg->f44;
+    hulk_freg c4c = cfg->f4c;
+    hulk_freg c48 = cfg->f48;
+    hulk_freg c44 = cfg->f44;
     void *mem = thunk_FUN_0008d690(0x70);
     JointDriver *drv = 0;
     if (mem)
@@ -200,15 +201,15 @@ bool SyncToLocatorAction::vfunc_3(int a, int b)
     }
     f34 = obj->v9();
     f34 = f34 + cfg->f34;
-    float ang = timing->FUN_000354c0();
+    hulk_freg ang = timing->FUN_000354c0();
     f.d = FUN_00224fc0(f34, ang);
     int mode = cfg->mode30;
     if (mode == 2 && f.d < 0.0f)
         f.d = f.d + 6.2831855f;
     else if (mode == 1 && f.d > 0.0f)
         f.d = f.d - 6.2831855f;
-    float c14 = cfg->f14;
-    float x = c14 - cfg->v6();
+    hulk_freg c14 = cfg->f14;
+    hulk_freg x = c14 - cfg->v6();
     if (!(x <= 0.0f))
         f44 = f.d / x;
     else
@@ -221,14 +222,14 @@ bool SyncToLocatorAction::vfunc_3(int a, int b)
     f.tmp = cfg->v38;
     v38.FUN_00011220(&f.tmp);
     timing->anchor->FUN_00059a50(&f.p);
-    float nx = v38.x - f.p.x;
-    float ny = v38.y - f.p.y;
-    float nz = v38.z - f.p.z;
+    hulk_freg nx = v38.x - f.p.x;
+    hulk_freg ny = v38.y - f.p.y;
+    hulk_freg nz = v38.z - f.p.z;
     v48.z = nz;
     v48.x = nx;
     v48.y = ny;
-    float c18 = cfg->f18;
-    float y = c18 - cfg->v6();
+    hulk_freg c18 = cfg->f18;
+    hulk_freg y = c18 - cfg->v6();
     if (!(y <= 0.0f))
         v48.FUN_00011140(1.0f / y);
     else

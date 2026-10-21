@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 124 inputs, branch coverage 43/44, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 155 inputs, branch coverage 43/44, incomplete)
 // movie::RenderStrategyBink::vfunc_6 @ 0x00334620
 #include "decls/data/game/global.h"
 
@@ -23,8 +23,8 @@ void movie::RenderStrategyBink::vfunc_6(unsigned w,unsigned h,int mode,float rat
  sy=y;
  union {float f; unsigned u;} ax,ay; ax.f=(float)(x-1.0f); ax.u &=0x7fffffff; ay.f=(float)((double)y-1.0f); ay.u &=0x7fffffff;
  if(ax.f<=0.001f && ay.f<=0.001f) { sx=1.0f; sy=1.0f; }
- int sw=(int)(*(Display_334620**)&DAT_0052c2a4)->width(); left=(int)(((double)sw-(double)width*sx)*0.5f);
- int sh=(int)(*(Display_334620**)&DAT_0052c2a4)->height(); top=(int)(((double)sh-(double)height*sy)*0.5f);
+ int sw=(int)(__int64)(*(Display_334620**)&DAT_0052c2a4)->width(); left=(int)(__int64)(((double)sw-(double)width*sx)*0.5f);
+ int sh=(int)(__int64)(*(Display_334620**)&DAT_0052c2a4)->height(); top=(int)(__int64)(((double)sh-(double)height*sy)*0.5f);
  unsigned rows=(h+1023)>>10, cols=(w+1023)>>10; count=rows*cols;
  Tile_334620* t=tiles; unsigned yy=0;
  for(unsigned row=0;row<rows;++row,yy+=1024) { unsigned xx=0; for(unsigned col=0;col<cols;++col,++t) {

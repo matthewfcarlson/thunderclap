@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 2/2)
 // FUN_000aa130 @ 0x000aa130
+#include "compat/ptr.h"
 struct Vec3_aa130 { float x, y, z; void FUN_0022d210(struct Mat_aa130* m); };
 struct Mat_aa130 {
     float m[16];
@@ -65,7 +66,7 @@ bool Obj_aa130::FUN_000aa130(int a, Mat_aa130* b, float* out)
     t.y = sm->m[13];
     t.z = sm->m[14];
     t.FUN_0022d210(b);
-    float dx = t.x - out[0];
+    hulk_freg dx = t.x - out[0];
     volatile float dy = t.y - out[1];
     volatile float dz = t.z - out[2];
     out[9] = dx * 999.99994f;

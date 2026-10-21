@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 722 inputs, branch coverage 19/22, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 10373 inputs, branch coverage 19/22, incomplete)
 // CGlowDisplayEffect::vfunc_0 @ 0x000df110
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
@@ -232,8 +232,8 @@ void CGlowDisplayEffect::vfunc_0(Target1 *t)
         }
         if (n < 0)
             pw = 1.0 / pw;
-        int alpha = (int)((double)(int)(origColor >> 24) * (int)c3 * pw * f14 * 0.0039215688f);
-        unsigned int color = ((((((unsigned int)alpha << 8) | c2) << 8) | c1) << 8) | c0;
+        int alpha = (int)(__int64)((double)(int)(__int64)(origColor >> 24) * (int)(__int64)c3 * pw * f14 * 0.0039215688f);
+        unsigned int color = ((((((unsigned int)(__int64)alpha << 8) | c2) << 8) | c1) << 8) | c0;
         t->v04(color);
         t->v00();
         (*(Holder_df110**)&DAT_0052c2ac)->device->v40(0);

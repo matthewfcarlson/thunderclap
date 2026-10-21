@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 14/14)
 // audio::SeqTrack::vfunc_1 @ 0x002620e0
 typedef unsigned int uint;
 extern bool __cdecl FUN_0024f010(void*, uint*);
@@ -29,7 +29,7 @@ bool audio::SeqTrack::vfunc_1(void* stream) {
  if (!FUN_0025abd0(stream,&b)) return false;
  if (!FUN_0025aa80(stream,&c)) return false;
  if (!FUN_0025aa80(stream,&d)) return false;
- if (!embedded.read(stream)) return false;
+ if (!(&embedded)->read(stream)) return false;
  flags=(flags & 0xfffffc00u) | ((b & 31u)<<5) | (a & 31u);
  byteFlags=(unsigned char)((byteFlags & 0xfcu) | ((d & 1u)<<1) | (c & 1u));
  return true;

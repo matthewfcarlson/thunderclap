@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3076 inputs, branch coverage 141/142, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20078 inputs, branch coverage 142/142)
 // FUN_00084c40 @ 0x00084c40
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
 struct V3_84c40 {
@@ -337,7 +338,7 @@ void Mover_84c40::FUN_00084c40(float dt)
         fr.s18.dyu &= 0x7fffffff;
         if (fr.s18.B < 0.01745329238474369f) {
             fr.s28.t28 = FUN_00224fc0(fr.s38.A, fr.s14.lo);
-            float sg = FUN_00083d90(&fr.s28.t28);
+            hulk_freg sg = FUN_00083d90(&fr.s28.t28);
             if (sg == 0.0f)
                 sg = 1.0f;
             f84.z = DAT_0049bf88;

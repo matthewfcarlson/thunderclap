@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 19806 inputs, branch coverage 2/2)
 // FUN_000872a0 @ 0x000872a0
 #include "decls/address.h"
 struct Vec3_872a0 {
@@ -89,7 +89,8 @@ void Tracker_872a0::FUN_000872a0()
     Vec3_872a0 pos;
     holder->entity->body->pos->FUN_00059a50(&pos);
     camera->FUN_000898a0(pos);
-    camera->FUN_00089900(holder->entity->body->FUN_000354c0() * 57.295776f);
+    float angle = holder->entity->body->FUN_000354c0() * 57.295776f;
+    camera->FUN_00089900(angle);
     sub1->FUN_000bd1b0(0);
     FUN_00086980(camera->FUN_00089a40());
     if (camera->FUN_00089a40()) {

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 39 inputs, branch coverage 28/32, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 1274 inputs, branch coverage 31/32, incomplete)
 // FUN_0029ccb0 @ 0x0029ccb0
 #include "decls/data/engine/unknown.h"
 
@@ -57,7 +57,7 @@ void Shader::FUN_0029ccb0(ItemList_29ccb0 *list, float amount)
                             m = g;
                         if (!(b < m))
                             m = b;
-                        int c = (int)((float)m * scale / sum * amount * m);
+                        int c = (int)(__int64)((float)m * scale / sum * amount * m);
                         if (c < 0)
                             c = 0;
                         else if (c > 255)

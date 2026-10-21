@@ -1,7 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3184 inputs, branch coverage 113/150, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19400 inputs, branch coverage 118/150, incomplete)
 // FUN_00039c60 @ 0x00039c60
 // equiv-conv: FUN_00035e70 eax stack
 // equiv-dead: +0x59 not taken, +0x405 not taken: a2 < 0 (or NaN) cannot also be > 2pi; ii < 100 with bestRank >= 100 is skipped at +0x26e before +0x405
+#include "compat/ptr.h"
 extern "C" double cos(double);
 
 struct V3 {
@@ -144,7 +145,7 @@ Thing *Picker::FUN_00039c60(V3 *a0, V3 *a1, float a2, float a3, int a4, Thing **
     f.v40.x = v80.x;
     f.v40.y = v80.y;
     f.v40.z = v80.z;
-    float len = f.v40.FUN_0022d110();
+    hulk_freg len = f.v40.FUN_0022d110();
     float m;
     if (len <= 0.0f) {
         FUN_00035550(&f.v40);
@@ -154,7 +155,7 @@ Thing *Picker::FUN_00039c60(V3 *a0, V3 *a1, float a2, float a3, int a4, Thing **
     } else {
         m = len;
     }
-    float hh = m * 0.5f;
+    hulk_freg hh = m * 0.5f;
     f.w.x = f.v40.x;
     f.w.y = f.v40.y;
     f.w.z = f.v40.z;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 7827 inputs, branch coverage 17/20, incomplete; run with --inputs 12000)
+// STATUS: equivalent (tools/equiv.py level 3: 20066 inputs, branch coverage 17/20, incomplete)
 // FUN_003287a0 @ 0x003287a0
 #include "decls/data/platform/xbox/pure3d.h"
 
@@ -20,9 +20,9 @@ void __cdecl FUN_003287a0() {
  else {
  float scale=1.0f / (*(int*)&DAT_00555b84);
  item->enable(1);
- int r=(int)(DAT_00555b80 * scale);
- int g=(int)(DAT_00555b7c * scale);
- int b=(int)(DAT_00555b78 * scale);
+ int r=(int)(__int64)(DAT_00555b80 * scale);
+ int g=(int)(__int64)(DAT_00555b7c * scale);
+ int b=(int)(__int64)(DAT_00555b78 * scale);
  if(r<0) r=0; else if(r>255) r=255;
  if(g<0) g=0; else if(g>255) g=255;
  if(b<0) b=0; else if(b>255) b=255;

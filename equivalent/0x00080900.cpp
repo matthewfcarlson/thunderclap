@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 6470 inputs, branch coverage 42/42)
+// STATUS: equivalent (tools/equiv.py level 3: 19094 inputs, branch coverage 42/42)
 // FUN_00080900 @ 0x00080900
 #include "decls/data/game/global.h"
 
@@ -77,7 +77,7 @@ void PropList_80900::FUN_00080900(int arg)
     Table_80900 *table = world->table;
     int n = table->count;
     if (n >= 3)
-        limit = limit - (int)((double)n / DAT_0049b894 * DAT_004dd040);
+        limit = limit - (int)(__int64)((double)n / DAT_0049b894 * DAT_004dd040);
     if (count < limit && pending > 0)
         FUN_00080820();
 

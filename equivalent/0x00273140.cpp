@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 19878 inputs, branch coverage 8/8)
 // FUN_00273140 @ 0x00273140
 struct Lock_273140 {
     virtual void acquire();
@@ -17,7 +17,7 @@ struct Queue_273140 {
     Node* FUN_00273140(unsigned int* index);
 };
 Node* Queue_273140::FUN_00273140(unsigned int* index) {
-    lock.acquire();
+    (&lock)->acquire();
     Node* result = 0;
     for (unsigned int i = 0; i < 3; ++i) {
         if (heads[i]) {
@@ -29,6 +29,6 @@ Node* Queue_273140::FUN_00273140(unsigned int* index) {
             break;
         }
     }
-    lock.release();
+    (&lock)->release();
     return result;
 }

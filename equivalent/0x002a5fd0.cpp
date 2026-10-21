@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 52 inputs, branch coverage 42/42)
+// STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 42/42)
 // FUN_002a5fd0 @ 0x002a5fd0
+#include "compat/ptr.h"
 #include "decls/data/engine/pure3d.h"
 
 struct V2_2a5fd0 {
@@ -116,7 +117,7 @@ void FUN_002a5fd0(float t, SrcMesh *a, DstMesh *b, unsigned int flags, Params *c
     f.qptr = (unsigned char *)f.Q + n * 4 + 1;
     V3_2a5fd0 *s = src0 + n;
     int i = n;
-    float s2 = 0.0f;
+    hulk_freg s2 = 0.0f;
     do {
         i--;
         f.dstcur = f.dstcur - 1;
@@ -134,11 +135,11 @@ void FUN_002a5fd0(float t, SrcMesh *a, DstMesh *b, unsigned int flags, Params *c
             f.w90.x = s->x;
             f.w90.y = s->y;
             f.w90.z = f.tp;
-            float f3 = f.noise->FUN_00356fa0(&f.w90);
+            hulk_freg f3 = f.noise->FUN_00356fa0(&f.w90);
             s2 = c->posScale;
             volatile float m1 = f.f1 * s2;
             volatile float m2 = f.f2 * s2;
-            float m3 = f3 * s2;
+            hulk_freg m3 = f3 * s2;
             f.dstcur->x = m1 + s->x;
             f.dstcur->y = m2 + s->y;
             f.dstcur->z = m3 + s->z;
@@ -149,34 +150,34 @@ void FUN_002a5fd0(float t, SrcMesh *a, DstMesh *b, unsigned int flags, Params *c
             unsigned int ch1 = q[0];
             unsigned int ch0 = q[-1] & 0xff;
             unsigned int ch3 = q[2];
-            const float k = 0.003921569f;
+            const hulk_freg k = 0.003921569f;
             f.v2 = (float)(int)ch2 * k;
             f.v1 = (float)(int)ch1 * k;
             f.v0 = (float)(int)ch0 * k;
-            float v3 = (float)(int)ch3 * k;
+            hulk_freg v3 = (float)(int)ch3 * k;
             f.wb4.x = f.tp;
             f.wb4.y = f.v1;
             f.wb4.z = f.v0;
-            float Fa = f.noise->FUN_00356fa0(&f.wb4);
+            hulk_freg Fa = f.noise->FUN_00356fa0(&f.wb4);
             volatile float G1 = Fa * c->colScale;
             f.w9c.x = f.v2;
             f.w9c.y = f.tp;
             f.w9c.z = f.v0;
-            float Fb = f.noise->FUN_00356fa0(&f.w9c);
+            hulk_freg Fb = f.noise->FUN_00356fa0(&f.w9c);
             volatile float G2 = Fb * c->colScale;
             f.wa8.x = f.v2;
             f.wa8.y = f.v1;
             f.wa8.z = f.tp;
-            float Fc = f.noise->FUN_00356fa0(&f.wa8);
+            hulk_freg Fc = f.noise->FUN_00356fa0(&f.wa8);
             volatile float G3 = Fc * c->colScale;
             f.w88.x = v3;
             f.w88.y = f.tp;
-            float Fd = f.noise->FUN_00356e50(&f.w88);
+            hulk_freg Fd = f.noise->FUN_00356e50(&f.w88);
             volatile float G4 = Fd * c->alphaScale;
-            float T1 = Clamp01(G1 + f.v2);
-            float T2 = Clamp01(G2 + f.v1);
-            float T3 = Clamp01(G3 + f.v0);
-            float T4 = Clamp01(G4 + v3);
+            hulk_freg T1 = Clamp01(G1 + f.v2);
+            hulk_freg T2 = Clamp01(G2 + f.v1);
+            hulk_freg T3 = Clamp01(G3 + f.v0);
+            hulk_freg T4 = Clamp01(G4 + v3);
             unsigned int col = (int)(T4 * 255.0f);
             col <<= 8;
             col |= (int)(T1 * 255.0f);
@@ -193,10 +194,10 @@ void FUN_002a5fd0(float t, SrcMesh *a, DstMesh *b, unsigned int flags, Params *c
                 volatile float Fu = f.noise->FUN_00356e50(&f.uvp);
                 f.uvq.x = f.as_[k][i].y;
                 f.uvq.y = f.tp;
-                float Fv = f.noise->FUN_00356e50(&f.uvq);
-                float s3 = c->uvScale;
+                hulk_freg Fv = f.noise->FUN_00356e50(&f.uvq);
+                hulk_freg s3 = c->uvScale;
                 volatile float mu = Fu * s3;
-                float mv = Fv * s3;
+                hulk_freg mv = Fv * s3;
                 f.bs[k][i].x = f.as_[k][i].x + mu;
                 f.bs[k][i].y = f.as_[k][i].y + mv;
             }

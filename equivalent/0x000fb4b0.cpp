@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 19921 inputs, branch coverage 14/14)
 // FUN_000fb4b0 @ 0x000fb4b0
 struct Vec3_fb4b0 { float x, y, z; };
 struct Target_fb4b0 {
@@ -58,8 +58,8 @@ bool Fade_fb4b0::FUN_000fb4b0(float dt)
     float w0 = (float)(v * scale[0]);
     float w1 = (float)(v * scale[1]);
     float w2 = (float)(v * scale[2]);
-    int a = (int)(((1.0 - floor) * u + floor) * (int)alpha);
-    unsigned int c = ((unsigned int)a << 8) | b2;
+    int a = (int)(__int64)(((1.0 - floor) * u + floor) * (int)(__int64)alpha);
+    unsigned int c = ((unsigned int)(__int64)a << 8) | b2;
     c = (c << 8) | b1;
     c = (c << 8) | b0;
     target->color = c;

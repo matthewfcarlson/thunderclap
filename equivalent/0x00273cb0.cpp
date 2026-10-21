@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 19867 inputs, branch coverage 2/2)
 // core::SaveGameOpenRequest::vfunc_1 @ 0x00273cb0
 struct Info_273cb0 { char pad[12]; unsigned value; };
 struct Backend_273cb0 {
@@ -47,9 +47,9 @@ int SaveGameOpenRequest::vfunc_1() {
  state->value164 = info->value;
  }
  unsigned status = backend->FUN_00272880();
- state->guard.lock();
+ (&state->guard)->lock();
  state->status = status;
- state->guard.unlock();
+ (&state->guard)->unlock();
  return result;
 }
 }

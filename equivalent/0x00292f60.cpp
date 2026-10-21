@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 19525 inputs, branch coverage 22/22)
 // FUN_00292f60 @ 0x00292f60
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 extern "C" double floor(double);
 
@@ -26,11 +27,11 @@ public:
 void FUN_00292f60(Sampler_292f60 *a, Sampler_292f60 *b, float *p)
 {
     Frame_292f60 f;
-    float lo = (float)floor((double)*p);
-    float hi = (float)floor((double)(*p + 1.0f));
+    hulk_freg lo = (float)floor((double)*p);
+    hulk_freg hi = (float)floor((double)(*p + 1.0f));
     bool bad = false;
-    float dist = 0.0f;
-    float dot = 0.0f;
+    hulk_freg dist = 0.0f;
+    hulk_freg dot = 0.0f;
 
     if (a) {
         a->v4(lo, &f.a.x);

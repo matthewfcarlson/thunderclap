@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // FUN_00308b20 @ 0x00308b20
 struct Vec3_308b20 { float x, y, z; };
 
@@ -34,5 +34,5 @@ bool Mover_308b20::FUN_00308b20() {
     Vec3_308b20 lo = { a, a, a };
     float half = b;
     v0(&lo, &hi, &hi);
-    return sink.v0(f44, 0.5f * half, 0);
+    return (&sink)->v0(f44, 0.5f * half, 0);
 }

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 19866 inputs, branch coverage 4/4)
 // core::DriveFindFirstRequest::vfunc_1 @ 0x002747d0
 namespace core {
 struct Lock_2747d0 { virtual void lock(); virtual void unlock(); };
@@ -17,9 +17,9 @@ int DriveFindFirstRequest::vfunc_1() {
  int result = drive->find(buffer, flags, &state->handle, state->active == 0);
  state->active = result == 1 ? 1 : 0;
  unsigned int status = drive->FUN_00272880();
- state->lock.lock();
+ (&state->lock)->lock();
  state->result = status;
- state->lock.unlock();
+ (&state->lock)->unlock();
  return result;
 }
 }

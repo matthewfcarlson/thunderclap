@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 19905 inputs, branch coverage 10/10)
 // core::FileReadRequest::vfunc_1 @ 0x00273f00
 #include "compat/ptr.h"
 typedef unsigned int uint;
@@ -35,9 +35,9 @@ int FileReadRequest::vfunc_1() {
   if(result==1) file->position+=transferred;
  } else result=1;
  uint status=device->FUN_00272880();
- file->lock.enter();
+ (&file->lock)->enter();
  file->status=status;
- file->lock.leave();
+ (&file->lock)->leave();
  return result;
 }
 }

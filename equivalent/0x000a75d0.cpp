@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3091 inputs, branch coverage 130/130)
+// STATUS: equivalent (tools/equiv.py level 3: 20052 inputs, branch coverage 130/130)
 // CChaseCamera::vfunc_35 @ 0x000a75d0
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" double __cdecl sqrt(double);
@@ -201,12 +202,12 @@ void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
             if (AbsF(f4ac) <= 1e-005f && AbsF(f4b0) <= 1e-005f)
                 b4b8 = 0;
         }
-        float dx = p1b8.x - p290.x;
-        float dy = p1b8.y - p290.y;
-        float dz = p1b8.z - p290.z;
+        hulk_freg dx = p1b8.x - p290.x;
+        hulk_freg dy = p1b8.y - p290.y;
+        hulk_freg dz = p1b8.z - p290.z;
         f.F14 = 0.0f;
         if (state == 0) {
-            float dot = dx * dx + dy * dy + dz * dz;
+            hulk_freg dot = dx * dx + dy * dy + dz * dz;
             if (!(AbsF(dot) <= 0.01f)) {
                 f.u.M = *v14();
                 f.vB.x = f.u.M.m[12];
@@ -268,9 +269,9 @@ void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
         b4b9 = 0;
         f.F10 = 0.0f;
         if (f350->f140 == 3) {
-            float ex = p1b8.x - f350->f1a60.x;
-            float ey = p1b8.y - f350->f1a60.y;
-            float ez = p1b8.z - f350->f1a60.z;
+            hulk_freg ex = p1b8.x - f350->f1a60.x;
+            hulk_freg ey = p1b8.y - f350->f1a60.y;
+            hulk_freg ez = p1b8.z - f350->f1a60.z;
             if (ex * ex + ey * ey + ez * ez >= DAT_0049ecd0 * DAT_0049ecd0) {
                 if (f350->FUN_00035550(&f.vC)) {
                     f.u.M = *v14();
@@ -371,7 +372,7 @@ void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
             f34c = DAT_0049ecac;
         if (state != 6) {
             if (!(AbsF(dt) <= 1e-005f)) {
-                float inv = 1.0f / dt;
+                hulk_freg inv = 1.0f / dt;
                 volatile float *u = &p1a0.x;
                 u[0] = p170.x - p248.x;
                 u[1] = p170.y - p248.y;
@@ -392,23 +393,23 @@ void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
                 f.F10 = FUN_000a02a0(FUN_000a0450(&p1d0) + 180.0f);
             FUN_000a5a90(0.0f, 360.0f, f.F10, -10.0f, 60.0f, 0, dt);
         }
-        float ddx = p194.x - p1c4.x;
-        float ddy = p194.y - p1c4.y;
-        float ddz = p194.z - p1c4.z;
+        hulk_freg ddx = p194.x - p1c4.x;
+        hulk_freg ddy = p194.y - p1c4.y;
+        hulk_freg ddz = p194.z - p1c4.z;
         f.F10 = (float)sqrt(ddx * ddx + (ddy * ddy + ddz * ddz));
-        float cur = f.F10;
-        float diff = cur - f318;
+        hulk_freg cur = f.F10;
+        hulk_freg diff = cur - f318;
         if (b244) {
             if (!b490) {
                 b490 = 1;
             } else if (diff > 0.02f) {
-                float r = FUN_000a00e0(f318, f.F10, 15.0f, dt, 0.5f);
+                hulk_freg r = FUN_000a00e0(f318, f.F10, 15.0f, dt, 0.5f);
                 p194.FUN_00078710(&p1c4, &p194, r / f.F10);
                 cur = r;
             }
         } else {
             if (b490 && diff > 0.02f) {
-                float r = FUN_000a00e0(f318, f.F10, 15.0f, dt, 0.5f);
+                hulk_freg r = FUN_000a00e0(f318, f.F10, 15.0f, dt, 0.5f);
                 p194.FUN_00078710(&p1c4, &p194, r / f.F10);
                 cur = r;
             } else if (diff <= 0.02f) {

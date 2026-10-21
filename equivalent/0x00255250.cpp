@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 574 inputs, branch coverage 17/18, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 18813 inputs, branch coverage 18/18)
 // audio::SeqCommandLogicOr::vfunc_0 @ 0x00255250
 #include "decls/data/game/unknown.h"
 
@@ -19,7 +19,7 @@ struct SeqCommandLogicOr : SeqCommand { virtual void vfunc_0(Context*); virtual 
 void SeqCommandLogicOr::vfunc_0(Context* context) {
  CommandList_255250* l = list;
  if (l->count != 0) {
-  unsigned range = (unsigned)(int)((double)(int)l->count * (double)l->fraction);
+  unsigned range = (unsigned)(int)(__int64)((double)(int)(__int64)l->count * (double)l->fraction);
   if (!range) range = 1;
   RandomState_255250* r = (*(RandomState_255250**)&DAT_004e5acc);
   r->first = 36969u * (r->first & 65535u) + (r->first >> 16);

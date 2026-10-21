@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 5/6, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 6/6)
 // pure3d::CompressedQuaternionChannel<math::CompressedQuaternion4>::vfunc_5 @ 0x0028d920
+#include "compat/ptr.h"
 struct Quat_28d920 {
     float x, y, z, w;
     void FUN_0022b750(const Quat_28d920 *a, const Quat_28d920 *b, float t);
@@ -40,11 +41,11 @@ void CompressedQuaternionChannel::vfunc_5(float time, Quat_28d920 *out)
     Frame_28d920 f;
 
     if (FUN_00289f80(time, &f.lo, &f.hi) && field04 != 0) {
-        float dt = time - (float)times[f.lo];
+        hulk_freg dt = time - (float)times[f.lo];
         if (dt != 0.0f) {
             int hi = f.hi;
             int span = times[hi] - times[f.lo];
-            float frac = dt / (float)span;
+            hulk_freg frac = dt / (float)span;
             CompressedQuaternion4 *vals = values;
             f.q0 = *vals[f.lo].FUN_0028d820(&f.tmp);
             f.q1 = *vals[hi].FUN_0028d820(&f.tmp);

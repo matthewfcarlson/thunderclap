@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3038 inputs, branch coverage 62/62)
+// STATUS: equivalent (tools/equiv.py level 3: 20037 inputs, branch coverage 62/62)
 // FUN_000c3900 @ 0x000c3900
 // cl-flags: /GS
 // FUN_000c3900 @ 0x000c3900
@@ -46,14 +46,14 @@ if(!start) {
 if((*(Obj**)&DAT_004dde34)) { DAT_0052c2a8->select(7); FUN_000b9230((*(Obj**)&DAT_004dde34)); }
 if(mode==1) FUN_000bd050();
 elapsed=FUN_00267f80()-start;
-if(elapsed<fade) FUN_000b9470((int)(((double)fade-(double)elapsed)/(double)fade*255.0f),(*(Resource**)&DAT_004dde30));
+if(elapsed<fade) FUN_000b9470((int)(__int64)(((double)fade-(double)elapsed)/(double)fade*255.0f),(*(Resource**)&DAT_004dde30));
 bool fading=false;
 if(!(*(unsigned char*)&DAT_004dde2c)) {
  if(mode==0 && elapsed>duration-(*(U*)&DAT_0049fb30)-100) {
  fading=true;
- FUN_000b9470((int)((1.0f-((double)duration-((double)elapsed+100.0f))/(double)(*(U*)&DAT_0049fb30))*255.0f),(*(Resource**)&DAT_004dde30));
+ FUN_000b9470((int)(__int64)((1.0f-((double)duration-((double)elapsed+100.0f))/(double)(*(U*)&DAT_0049fb30))*255.0f),(*(Resource**)&DAT_004dde30));
  }
-} else { FUN_000b9470((int)((1.0f-(double)((*(U*)&DAT_004dde28)-elapsed)/(double)(*(U*)&DAT_0049fb2c))*255.0f),(*(Resource**)&DAT_004dde30)); }
+} else { FUN_000b9470((int)(__int64)((1.0f-(double)((*(U*)&DAT_004dde28)-elapsed)/(double)(*(U*)&DAT_0049fb2c))*255.0f),(*(Resource**)&DAT_004dde30)); }
 if(elapsed>threshold && !(*(unsigned char*)&DAT_004dde2c) && !fading) {
  if(FUN_000bdf50(mode==1,0)) { (*(unsigned char*)&DAT_004dde2c)=1; (*(U*)&DAT_004dde28)=(*(U*)&DAT_0049fb2c)+elapsed; }
 }

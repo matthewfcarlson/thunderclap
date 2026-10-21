@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 6/6)
 // FUN_000a0dc0 @ 0x000a0dc0
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct Vec3_a0dc0 { float x, y, z; };
@@ -26,8 +27,8 @@ void Body_a0dc0::FUN_000a0dc0(float a1, float a2, float a3)
     float absA3 = a3 < 0.0f ? -a3 : a3;
     if (!(absA3 <= eps)) {
         float len = (float)sqrt(vel.x * vel.x + vel.y * vel.y + vel.z * vel.z);
-        float inv = 1.0f / a3;
-        float t = inv * a1;
+        hulk_freg inv = 1.0f / a3;
+        hulk_freg t = inv * a1;
         if (inv * len > 20.0f)
             t = a1 / len * 20.0f;
         float m = limit * 0.6f;

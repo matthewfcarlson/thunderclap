@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 19896 inputs, branch coverage 4/4)
 // core::FileWriteRequest::vfunc_1 @ 0x00274060
 namespace core {
 struct Backend_274060 {
@@ -41,9 +41,9 @@ int FileWriteRequest::vfunc_1() {
  if (result == 1) file->position += written;
  }
  unsigned status = backend->FUN_00272880();
- file->lock.lock();
+ (&file->lock)->lock();
  file->status = status;
- file->lock.unlock();
+ (&file->lock)->unlock();
  return result;
 }
 }

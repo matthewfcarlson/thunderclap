@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3219 inputs, branch coverage 155/162, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20147 inputs, branch coverage 155/162, incomplete)
 // FUN_001da540 @ 0x001da540
 #include "compat/ptr.h"
 #include "decls/address.h"
@@ -315,7 +315,7 @@ int Entity::FUN_001da540(Ref_1da540 *a1, V3_1da540 *a2, V3_1da540 *a3, float a4)
                         return 1;
                     o->FUN_001d82d0();
                     if (f230 > 0.0f)
-                        o->FUN_001d6ec0((int)f230, f1fc, 0);
+                        o->FUN_001d6ec0((int)(__int64)f230, f1fc, 0);
                     int lvl = o->FUN_001d73f0();
                     if (lvl <= -10)
                         f.b13 = 0;
@@ -437,7 +437,7 @@ int Entity::FUN_001da540(Ref_1da540 *a1, V3_1da540 *a2, V3_1da540 *a3, float a4)
             else
                 m = m * 0.1f;
         }
-        int n = (int)m;
+        int n = (int)(__int64)m;
         if (n > 0)
             FUN_001d6ec0(n, f1fc, 0);
     } else {

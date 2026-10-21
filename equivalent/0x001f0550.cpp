@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 14/14)
 // CSoundCommand_StopTunableEvent::vfunc_1 @ 0x001f0550
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
@@ -25,15 +25,15 @@ void CSoundCommand_StopTunableEvent::vfunc_1(unsigned int arg, unsigned int unus
   Entry_1f0550& entry=event->entries[i];
   if (entry.key.low==low && entry.key.high==high && entry.id==id) {
    unsigned __int64 value=FUN_002672f0(0,0,0);
-   entry.key.low=(unsigned int)value;
-   entry.key.high=(unsigned int)(value>>32);
+   entry.key.low=(unsigned int)(__int64)value;
+   entry.key.high=(unsigned int)(__int64)(value>>32);
    entry.id=FUN_002673a0(0,0);
    break;
   }
  }
  Playing_1f0550* playing=(*(SoundSystem_1f0550**)&DAT_004e370c)->manager->FUN_001f2f30(found,arg);
  if (playing) {
-  int duration=(int)fade;
+  int duration=(int)(__int64)fade;
   playing->FUN_001f34a0(&id,duration);
  }
 }

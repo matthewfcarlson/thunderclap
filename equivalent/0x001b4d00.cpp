@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2403 inputs, branch coverage 120/122, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 13977 inputs, branch coverage 120/122, incomplete)
 // FUN_001b4d00 @ 0x001b4d00
 extern "C" double __cdecl sqrt(double);
 extern unsigned int DAT_004dc0e0;
@@ -161,7 +161,7 @@ void Combat::FUN_001b4d00(Ctx1f4 *ctx, int arg2)
             continue;
         }
         Vec *vec = f8->FUN_002ed700();
-        for (unsigned int i = 0; i < (unsigned int)(vec->end - vec->begin); i++) {
+        for (unsigned int i = 0; i < (unsigned int)(__int64)(vec->end - vec->begin); i++) {
             Obj *elem = vec->begin[i];
             Obj *obj = elem->f18;
             if (!obj)
@@ -258,7 +258,7 @@ void Combat::FUN_001b4d00(Ctx1f4 *ctx, int arg2)
                 if (mode == 3 || mode == 2)
                     continue;
                 if (distF > 0.0f)
-                    E->FUN_001d6ec0((int)distF, slot->FUN_001b3300(), 0);
+                    E->FUN_001d6ec0((int)(__int64)distF, slot->FUN_001b3300(), 0);
                 if (!E->FUN_001d7300())
                     continue;
                 if (E->f114 != 0)

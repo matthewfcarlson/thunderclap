@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 19916 inputs, branch coverage 18/18)
 // FUN_000810f0 @ 0x000810f0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
@@ -152,7 +152,8 @@ CCivilian::CCivilian(int a1, Device_810f0* dev, int a3, int a4, int a5, char fla
     if (ff0)
         ff0->Release();
     ff0 = skel;
-    ff0->FUN_00288080(fe8->s11());
+    int value = fe8->s11();
+    ff0->FUN_00288080(value);
     ff0->FUN_00284ad0(0);
     *(int*)((char*)ff0 + 0x148) = 0;
 

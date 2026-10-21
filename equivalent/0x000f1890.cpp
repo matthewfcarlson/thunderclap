@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 16/16)
 // FUN_000f1890 @ 0x000f1890
+#include "compat/ptr.h"
 class Curve_f1890 {
 public:
     virtual void v0();
@@ -59,16 +60,16 @@ public:
 void Slider_f1890::FUN_000f1890(float dt)
 {
     state = 2;
-    float x = a->b->c->curve->v1(curveArg0, curveArg1);
-    float curve = x * x * x * x * x * x * x;
-    float k = rate * 0.5f + 0.01f;
+    hulk_freg x = a->b->c->curve->v1(curveArg0, curveArg1);
+    hulk_freg curve = x * x * x * x * x * x * x;
+    hulk_freg k = rate * 0.5f + 0.01f;
     if (k >= 0.0f) {
         if (k > 1.0f)
             k = 1.0f;
     } else {
         k = 0.0f;
     }
-    float v = value - (hi - lo) * (k * curve) * dt * 0.5f;
+    hulk_freg v = value - (hi - lo) * (k * curve) * dt * 0.5f;
     if (v < lo)
         v = lo;
     value = v;

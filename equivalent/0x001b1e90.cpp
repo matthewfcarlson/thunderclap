@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3088 inputs, branch coverage 96/96)
+// STATUS: equivalent (tools/equiv.py level 3: 20064 inputs, branch coverage 96/96)
 // FUN_001b1e90 @ 0x001b1e90
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
 typedef unsigned __int64 u64_1b1e90;
@@ -231,7 +232,7 @@ int Self_1b1e90::FUN_001b1e90(Holder_1b1e90 *h1, Holder_1b1e90 *h2, int arg3, in
     }
     if (B->FUN_001d6a80()) {
         if (A->FUN_001d7300()) {
-            float ns = -arg6;
+            hulk_freg ns = -arg6;
             f.n1.x = dir->x * ns;
             f.n1.y = dir->y * ns;
             f.n1.z = dir->z * ns;

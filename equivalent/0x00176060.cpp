@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 153 inputs, branch coverage 31/32, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20041 inputs, branch coverage 31/32, incomplete)
 // hulkfight::motion::SuckInPropsAction::vfunc_5 @ 0x00176060
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct Vec3_176060 {
     float x, y, z;
@@ -160,8 +161,8 @@ bool SuckInPropsAction::vfunc_5(int skip, float dt)
         toPlayer.y = playerPos.y - propPos.y;
         toPlayer.z = playerPos.z - propPos.z;
         toPlayer.FUN_0022d110();
-        float num = cfg->strength;
-        float scale = num / prop->controller->owner->scaler->GetScale();
+        hulk_freg num = cfg->strength;
+        hulk_freg scale = num / prop->controller->owner->scaler->GetScale();
         toPlayer.FUN_000344b0(scale);
         Config_176060* c = cfg;
         if (!(toProp.FUN_00018990() < c->range))

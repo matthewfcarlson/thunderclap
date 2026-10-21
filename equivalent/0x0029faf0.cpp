@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 17/20, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20058 inputs, branch coverage 17/20, incomplete)
 // FUN_0029faf0 @ 0x0029faf0
 struct Vec_29faf0 { float x,y,z; };
 struct Pool_29faf0 { void* FUN_0029f280(); };
@@ -16,13 +16,13 @@ void Object::target(void* arg, Item_29faf0* item) {
  Vec_29faf0 v;
  FUN_0029ce40(&v,arg);
  FUN_0029df90(handle,&v,arg);
- int b=(int)v.z;
- int g=(int)v.y;
- int r=(int)v.x;
+ int b=(int)(__int64)v.z;
+ int g=(int)(__int64)v.y;
+ int r=(int)(__int64)v.x;
  if(b<0)b=0; else if(b>255)b=255;
  if(g<0)g=0; else if(g>255)g=255;
  if(r<0)r=0; else if(r>255)r=255;
- color=0xff000000u | ((unsigned int)r<<16) | ((unsigned int)g<<8) | b;
+ color=0xff000000u | ((unsigned int)(__int64)r<<16) | ((unsigned int)(__int64)g<<8) | b;
  item->value18=value18;
  item->FUN_0029e7f0(handle,arg,value24);
  item->color=color;

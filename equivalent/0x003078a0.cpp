@@ -124,8 +124,8 @@ physics::CollisionMesh *FUN_003078a0(Slot_3078a0 a1)
             stream->reader->FUN_002647e0(p, n, 2, 1);
         } else if (id == 0x7000006) {
             stream->reader->FUN_002647e0(&f.t38, 1, 4, 1);
-            unsigned int n = (unsigned short)f.t38;
-            g->n20 = (unsigned short)f.t38;
+            unsigned int n = (unsigned short)(__int64)f.t38;
+            g->n20 = (unsigned short)(__int64)f.t38;
             unsigned int *raw = (unsigned int *)FUN_0008d6d0(n * 24 + 4);
             Face_3078a0 *arr;
             if (raw != 0) {
@@ -145,20 +145,20 @@ physics::CollisionMesh *FUN_003078a0(Slot_3078a0 a1)
                     stream->reader->FUN_002647e0(&a1.u, 1, 2, 1);
                     e->a = a1.w;
                     stream->reader->FUN_002647e0(&f.s10, 1, 2, 1);
-                    e->b = (unsigned short)f.s10;
+                    e->b = (unsigned short)(__int64)f.s10;
                     stream->reader->FUN_002647e0(&f.s14, 1, 2, 1);
-                    e->d = (unsigned short)f.s14;
+                    e->d = (unsigned short)(__int64)f.s14;
                     stream->reader->FUN_002647e0(&f.s18, 1, 2, 1);
-                    unsigned int v = (unsigned short)f.s18;
-                    e->e = (unsigned short)((((((((v >> 4) & 0xfff) << 1) | ((v >> 2) & 1)) << 1) | ((v >> 1) & 1)) << 1) | (v & 1));
+                    unsigned int v = (unsigned short)(__int64)f.s18;
+                    e->e = (unsigned short)(__int64)((((((((v >> 4) & 0xfff) << 1) | ((v >> 2) & 1)) << 1) | ((v >> 1) & 1)) << 1) | (v & 1));
                     i++;
                 } while (i < f.saved20->n20);
             }
             g = f.saved20;
         } else if (id == 0x7000003) {
             stream->reader->FUN_002647e0(&f.t3c, 1, 4, 1);
-            unsigned int n = (unsigned short)f.t3c;
-            g->n1c = (unsigned short)f.t3c;
+            unsigned int n = (unsigned short)(__int64)f.t3c;
+            g->n1c = (unsigned short)(__int64)f.t3c;
             float *raw = (float *)FUN_0008d6d0(n * 12);
             f.x28 = (hulk_uintptr)raw;
             float *r;
@@ -175,7 +175,7 @@ physics::CollisionMesh *FUN_003078a0(Slot_3078a0 a1)
             f.i1c = 0;
             if (f.n2c != 0) {
                 do {
-                    unsigned int off = (unsigned int)(unsigned short)f.i1c * 24;
+                    unsigned int off = (unsigned int)(__int64)(unsigned short)(__int64)f.i1c * 24;
                     unsigned int k = 0;
                     f.x28 = off;
                     do {
@@ -184,7 +184,7 @@ physics::CollisionMesh *FUN_003078a0(Slot_3078a0 a1)
                         ((unsigned char *)(*(Geom_3078a0 * *)&mesh->f_44)->faces)[off + k + 0xc] = 0xff;
                         k++;
                         f.x28 += 4;
-                    } while ((int)k < 3);
+                    } while ((int)(__int64)k < 3);
                     ((unsigned char *)(*(Geom_3078a0 * *)&mesh->f_44)->faces)[off + 0xf] = 0;
                     f.i1c++;
                 } while (f.i1c < f.n2c);
@@ -195,7 +195,7 @@ physics::CollisionMesh *FUN_003078a0(Slot_3078a0 a1)
             f.i1c = 0;
             if (f.n30 != 0) {
                 do {
-                    unsigned int off = (unsigned int)(unsigned short)f.i1c * 24;
+                    unsigned int off = (unsigned int)(__int64)(unsigned short)(__int64)f.i1c * 24;
                     unsigned int pos = off;
                     f.x28 = 3;
                     do {
@@ -206,15 +206,15 @@ physics::CollisionMesh *FUN_003078a0(Slot_3078a0 a1)
                     int k = 0;
                     do {
                         stream->reader->FUN_002647e0(&f.f4c, 1, 4, 1);
-                        unsigned int q = (unsigned int)(int)(f.f4c * 32.0f);
+                        unsigned int q = (unsigned int)(__int64)(int)(__int64)(f.f4c * 32.0f);
                         if (q >= 0x100)
                             q = 0xff;
-                        ((unsigned char *)(*(Geom_3078a0 * *)&mesh->f_44)->faces)[off + k + 0xc] = (unsigned char)q;
+                        ((unsigned char *)(*(Geom_3078a0 * *)&mesh->f_44)->faces)[off + k + 0xc] = (unsigned char)(__int64)q;
                         k++;
                     } while (k < 3);
                     stream->reader->FUN_002647e0(&f.v54, 1, 4, 1);
                     stream->reader->FUN_002647e0(&f.v50, 1, 4, 1);
-                    ((unsigned char *)(*(Geom_3078a0 * *)&mesh->f_44)->faces)[off + 0xf] = (unsigned char)(int)((1.0f - *(float *)&f.v50) * 255.0f);
+                    ((unsigned char *)(*(Geom_3078a0 * *)&mesh->f_44)->faces)[off + 0xf] = (unsigned char)(__int64)(int)(__int64)((1.0f - *(float *)&f.v50) * 255.0f);
                     stream->reader->FUN_002647e0(&f.v58, 1, 4, 1);
                     f.i1c++;
                 } while (f.i1c < f.n30);

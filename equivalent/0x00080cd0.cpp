@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 7/8, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 8/8)
 // FUN_00080cd0 @ 0x00080cd0
+#include "compat/ptr.h"
 struct Vec3_80cd0 {
     float x, y, z;
 };
@@ -37,10 +38,10 @@ void Pusher_80cd0::FUN_00080cd0(Vec3_80cd0 *dir, bool keep)
     if (keep)
         return;
 
-    float a = cur.x - origin.x;
-    float b = cur.y - origin.y;
-    float c = cur.z - origin.z;
-    float sum = b * dir->y + c * dir->z + a * dir->x;
+    hulk_freg a = cur.x - origin.x;
+    hulk_freg b = cur.y - origin.y;
+    hulk_freg c = cur.z - origin.z;
+    hulk_freg sum = b * dir->y + c * dir->z + a * dir->x;
     if (sum > 0.0f) {
         Vec3_80cd0 old = cur;
         cur = prev;

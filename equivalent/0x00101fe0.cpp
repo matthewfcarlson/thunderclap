@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 28/28)
+// STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 28/28)
 // CHand2HandAgent::vfunc_15 @ 0x00101fe0
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct Vec3_101fe0 {
@@ -93,10 +94,10 @@ char CHand2HandAgent::vfunc_15(World *a1, Ctx *a2)
     f.Lb = (float)sqrt(f.B.x * f.B.x + f.B.z * f.B.z);
     f.B.FUN_0022d110();
     f.A.FUN_0022d110();
-    float t = f11c + 5.0f;
+    hulk_freg t = f11c + 5.0f;
     b60 = 0;
     if (t > f.Lb) {
-        float v = f.Lb - 2.0f;
+        hulk_freg v = f.Lb - 2.0f;
         f11c = (1.5f < v) ? v : 1.5f;
         b60 = 1;
     }
@@ -167,7 +168,7 @@ char CHand2HandAgent::vfunc_15(World *a1, Ctx *a2)
         d3.f = f.A.z * f.C.z + f.A.x * f.C.x + f.C.y * f.A.y;
         d3.u &= 0x7fffffff;
         if (d3.f < 0.97f) {
-            float dot4 = f.E.z * v110.z + v110.y * 0.0f + f.E.x * v110.x;
+            hulk_freg dot4 = f.E.z * v110.z + v110.y * 0.0f + f.E.x * v110.x;
             v144.y = 0.0f;
             if (dot4 > 0.0f) {
                 v144.x = f.E.x;

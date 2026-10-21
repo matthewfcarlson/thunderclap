@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 15/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 16/16)
 // hulkfight::motion::ShoreNearCondition::vfunc_6 @ 0x00166e30
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"
 struct V3_166e30 {
@@ -88,7 +89,7 @@ char ShoreNearCondition::FUN_00166e30(int a1, fight::Params *params, int a3)
     d.x = shore->x;
     d.y = shore->y;
     d.z = shore->z;
-    float dist2 = (d.z - pos.z) * (d.z - pos.z) + (d.x - pos.x) * (d.x - pos.x);
+    hulk_freg dist2 = (d.z - pos.z) * (d.z - pos.z) + (d.x - pos.x) * (d.x - pos.x);
     d.y = 0.0f;
     if ((DAT_004e12d4 & 1) == 0) {
         DAT_004e12d4 |= 1;

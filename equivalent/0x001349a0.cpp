@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 6/6)
 // hulkfight::motion::AirToGroundTargetAction::vfunc_3 @ 0x001349a0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct V3_1349a0 {
@@ -81,9 +82,9 @@ bool AirToGroundTargetAction::vfunc_3(int a, int b)
     if (skel == 0)
         return false;
     Config_1349a0* c = cfg;
-    float c30 = c->f30;
-    float c34 = c->f34;
-    float c2c = c->f2c;
+    hulk_freg c30 = c->f30;
+    hulk_freg c34 = c->f34;
+    hulk_freg c2c = c->f2c;
     void* mem = FUN_00263ea0(0x70);
     JointDriver* d;
     if (mem != 0)
@@ -109,7 +110,7 @@ bool AirToGroundTargetAction::vfunc_3(int a, int b)
     timing->FUN_000356c0(&vel);
     lateral = vel.y;
     vel.y = 0.0f;
-    float s = vel.x * fwd.x + vel.z * fwd.z + fwd.y * 0.0f;
+    hulk_freg s = vel.x * fwd.x + vel.z * fwd.z + fwd.y * 0.0f;
     if (s < 0.0f)
         speed = 0.0f;
     else

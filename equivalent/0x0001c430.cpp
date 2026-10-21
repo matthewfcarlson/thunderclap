@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2769 inputs, branch coverage 32/32)
+// STATUS: equivalent (tools/equiv.py level 3: 18597 inputs, branch coverage 32/32)
 // FUN_0001c430 @ 0x0001c430
 #include "compat/ptr.h"
 #include "decls/address.h"
@@ -94,7 +94,7 @@ void Tracker_1c430::FUN_0001c430(Source_1c430* src)
     d.z = p.z - q.z;
     d.FUN_0022d110();
 
-    float radius = cfg->scale * 0.25f;
+    hulk_freg radius = cfg->scale * 0.25f;
     EntityList_1c430* list = DAT_004dd700->entities;
     int count = list->count;
     Vec3_1c430 hit;
@@ -118,15 +118,15 @@ void Tracker_1c430::FUN_0001c430(Source_1c430* src)
     // The original keeps s and s*s on the x87 stack unrounded (floats near FLT_MAX overflow if s*s is stored as float).
     double s = slot.dist + radius;
     double s2 = s * s;
-    float dx = c.x - hit.x;
-    float dy = c.y - hit.y;
-    float dz = c.z - hit.z;
-    float sum1 = dz * dz + dy * dy + dx * dx;
+    hulk_freg dx = c.x - hit.x;
+    hulk_freg dy = c.y - hit.y;
+    hulk_freg dz = c.z - hit.z;
+    hulk_freg sum1 = dz * dz + dy * dy + dx * dx;
     bool nearC = sum1 <= s2;
-    float ex = p.x - hit.x;
-    float ey = p.y - hit.y;
-    float ez = p.z - hit.z;
-    float sum2 = ez * ez + ey * ey + ex * ex;
+    hulk_freg ex = p.x - hit.x;
+    hulk_freg ey = p.y - hit.y;
+    hulk_freg ez = p.z - hit.z;
+    hulk_freg sum2 = ez * ez + ey * ey + ex * ex;
     bool nearP = sum2 <= s2;
     if (!nearC && !nearP)
         return;

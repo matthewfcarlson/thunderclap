@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 280 inputs, branch coverage 4/4)
 // FUN_002692c0 @ 0x002692c0
 #include "decls/data/platform/xbox/core.h"
 
@@ -51,7 +51,7 @@ void Device_2692c0::FUN_002692c0(unsigned int a,unsigned int b,unsigned int c,un
             unsigned char state[22];
             for(int k=0;k<22;k++) state[k]=0;
             XAPILIB::XInputGetState(handle,state);
-            entries[j].input.f12(state+4);
+            (&entries[j].input)->f12(state+4);
         }
     }
     leftName=((char*)&DAT_0042b2e4);

@@ -266,7 +266,7 @@ void HSlider::vfunc_5()
             Hold_e9af0 *h2 = owner->hold;
             Obj978_e9af0 *o978 = &h2->o978;
             unsigned saved = o978->col10;
-            o978->col10 = (255 - (int)a) << 24;
+            o978->col10 = (255 - (int)(__int64)a) << 24;
             layout.FUN_000f87f0(&str18, &owner->hold->o978);
             o978->col10 = saved;
             layout.entries[layout.index].f12 = ((((unsigned)f3c >> 24) & 0xff) << 24) | 0xffffff;
@@ -286,7 +286,7 @@ void HSlider::vfunc_5()
         float s = f1f0;
         (*(Wrapper_e9af0**)&DAT_0052c2ac)->FUN_00293da0(s, s, s);
         a190[0]->v8(0, 0);
-        int n = (int)floor((double)f150);
+        int n = (int)(__int64)floor((double)f150);
         int cnt = (n + 5) / 10;
         for (int i = 0; i < cnt - 1 && i < 10; i++) {
             if (a190[1 + i] != 0)

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2970 inputs, branch coverage 28/28)
+// STATUS: equivalent (tools/equiv.py level 3: 19543 inputs, branch coverage 28/28)
 // pure3d::d3dRefractVertexShader::vfunc_14 @ 0x0032efa0
 #include "decls/data/platform/xbox/pure3d.h"
 
@@ -155,7 +155,7 @@ void RefractShader::vfunc_14(int) {
     ctx->viewport->FUN_0031b1e0();
     Surface* surf = ctx->viewport->surface;
     tex84->FUN_00326300(surf);
-    unsigned int factor = ((unsigned int)(int)(alpha * 255.0f) << 24) | (color & 0xffffff);
+    unsigned int factor = ((unsigned int)(__int64)(int)(__int64)(alpha * 255.0f) << 24) | (color & 0xffffff);
     if (factor != cache->textureFactor) {
         cache->textureFactor = factor;
         D3D8::D3DDevice_SetRenderState_TextureFactor(factor);

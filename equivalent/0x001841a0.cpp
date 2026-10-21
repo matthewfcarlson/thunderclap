@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 41/42, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19963 inputs, branch coverage 41/42, incomplete)
 // hulkfight::motion::PropThrowAction::vfunc_4 @ 0x001841a0
 #include "gen/hulkfight.h"
 
@@ -124,7 +124,7 @@ void hulkfight::motion::PropThrowAction::vfunc_4() {
     volatile float L1 = (qf[0x34 / 4] - qf[0x30 / 4]) * tv + qf[0x30 / 4];
     volatile float L2 = (qf[0x3c / 4] - qf[0x38 / 4]) * tv + qf[0x38 / 4];
     volatile float L3 = (qf[0x44 / 4] - qf[0x40 / 4]) * tv + qf[0x40 / 4];
-    int v = lo + (int)((hi - lo) * tv);
+    int v = lo + (int)(__int64)((hi - lo) * tv);
     volatile float L4 = (qf[0x58 / 4] - qf[0x54 / 4]) * tv + qf[0x54 / 4];
     Thing *th = ag->p328;
     volatile float L5 = (qf[0x60 / 4] - qf[0x5c / 4]) * tv + qf[0x5c / 4];

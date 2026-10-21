@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 7/8, incomplete)
 // FUN_0009fd50 @ 0x0009fd50
+#include "compat/ptr.h"
 extern "C" double sin(double);
 extern "C" double cos(double);
 
@@ -12,14 +13,14 @@ float __cdecl FUN_00018a20(float x);
 
 V3_9fd50 *FUN_0009fd50(V3_9fd50 *out, V3_9fd50 *a, V3_9fd50 *b, float t)
 {
-    float dot = a->x * b->x + b->z * a->z;
+    hulk_freg dot = a->x * b->x + b->z * a->z;
     dot = dot + b->y * a->y;
     if (!(dot >= -1.0f))
         dot = -1.0f;
     else if (!(dot <= 1.0f))
         dot = 1.0f;
 
-    float gap = dot - 1.0f;
+    hulk_freg gap = dot - 1.0f;
     if (gap < 0.0f)
         gap = -gap;
 
@@ -27,9 +28,9 @@ V3_9fd50 *FUN_0009fd50(V3_9fd50 *out, V3_9fd50 *a, V3_9fd50 *b, float t)
         volatile float tx = (b->x - a->x) * t;
         volatile float ty = (b->y - a->y) * t;
         volatile float dz = b->z - a->z;
-        float rz = dz * t + a->z;
-        float ry = ty + a->y;
-        float rx = tx + a->x;
+        hulk_freg rz = dz * t + a->z;
+        hulk_freg ry = ty + a->y;
+        hulk_freg rx = tx + a->x;
         out->x = rx;
         out->y = ry;
         out->z = rz;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 782 inputs, branch coverage 10/10)
 // audio::SeqEventNestTrack::vfunc_2 @ 0x0024e870
 // audio::SeqEventNestTrack::vfunc_2: find the nested event for a key and forward to it
 // equiv-map: ??0Key@@QAE@XZ = 0x0023fac0
@@ -68,7 +68,7 @@ void SeqEventNestTrack::FUN_0024e870(Event_24e870 *e) throw()
         } else if (id <= node->key) {
             Node *hit = (Node *)((char *)node - 4);
             if (hit != 0)
-                node->handler.v2(e);
+                (&node->handler)->v2(e);
             break;
         } else {
             node = node->right;

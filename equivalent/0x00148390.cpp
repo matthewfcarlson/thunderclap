@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 6/6)
 // hulkfight::motion::GrappleOrientationCondition::vfunc_6 @ 0x00148390
+#include "compat/ptr.h"
 struct Vec3_148390 {
     float x, y, z;
     float FUN_0022d110();
@@ -81,17 +82,17 @@ char GrappleOrientationCondition::vfunc_6(int a1, fight::Params *params, float a
     v.y = 0;
     v.z = v.z - b.z;
     v.FUN_0022d110();
-    float r1 = FUN_00224f10(&v);
-    float r2 = actor->FUN_000354c0();
-    float r3 = FUN_00224fc0(r2, r1);
-    float r4 = FUN_00224fc0(r3, f0c);
+    hulk_freg r1 = FUN_00224f10(&v);
+    hulk_freg r2 = actor->FUN_000354c0();
+    hulk_freg r3 = FUN_00224fc0(r2, r1);
+    hulk_freg r4 = FUN_00224fc0(r3, f0c);
     union {
         float f;
         unsigned int u;
     } d;
     d.f = r4;
     d.u &= 0x7fffffff;
-    float limit = f10 * 0.5f;
+    hulk_freg limit = f10 * 0.5f;
     if (limit > d.f)
         return 1;
     return 0;

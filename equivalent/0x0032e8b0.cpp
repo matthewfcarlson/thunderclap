@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2969 inputs, branch coverage 35/35)
+// STATUS: equivalent (tools/equiv.py level 3: 19759 inputs, branch coverage 35/35)
 // pure3d::d3dLayeredLMapShader::vfunc_14 @ 0x0032e8b0
 #include "decls/data/platform/xbox/pure3d.h"
 
@@ -85,7 +85,8 @@ void pure3d::d3dLayeredLMapShader::vfunc_14(int unused) {
         n = 1;
     }
     if (tex1) {
-        state->FUN_00329e50(n, FUN_0032da40(tex1Kind), 1, 2);
+        int kind = FUN_0032da40(tex1Kind);
+        state->FUN_00329e50(n, kind, 1, 2);
         if (tex1 != state->tex[n]) {
             state->tex[n] = tex1;
             if (tex1) {

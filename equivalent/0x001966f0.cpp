@@ -1,7 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 116/116)
+// STATUS: equivalent (tools/equiv.py level 3: 19869 inputs, branch coverage 116/116)
 // hulkfight::motion::FireBeamAction::vfunc_3 @ 0x001966f0
 // cl-flags: /GS
 // equiv-map: ?thunk_FUN_0027d410@Obj64@@QAEXPAUKey@@@Z = 0x001d6630
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"
 extern "C" int atexit(void (*)());
@@ -406,24 +407,24 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
                                 f.u = f1c->fd4;
                                 f.arr[i] = rng->FUN_00078780() * f.u.x;
                             }
-                            float Ax = (((f.arr[0] + f.arr[1]) + f.arr[2]) + f.arr[3]) * 0.25f;
+                            hulk_freg Ax = (((f.arr[0] + f.arr[1]) + f.arr[2]) + f.arr[3]) * 0.25f;
                             f.delta = f1c->fd4;
-                            float ya = (Rand1(rng, f.rb) - 1.0f) * f.delta.y;
+                            hulk_freg ya = (Rand1(rng, f.rb) - 1.0f) * f.delta.y;
                             f.delta = f1c->fd4;
-                            float yb = (Rand1(rng, f.rb) - 1.0f) * f.delta.y;
+                            hulk_freg yb = (Rand1(rng, f.rb) - 1.0f) * f.delta.y;
                             f.delta = f1c->fd4;
-                            float yc = (Rand1(rng, f.rb) - 1.0f) * f.delta.y;
+                            hulk_freg yc = (Rand1(rng, f.rb) - 1.0f) * f.delta.y;
                             f.delta = f1c->fd4;
-                            float yd = (Rand1(rng, f.rb) - 1.0f) * f.delta.y;
-                            float Ay = (((ya + yb) + yc) + yd) * 0.25f;
+                            hulk_freg yd = (Rand1(rng, f.rb) - 1.0f) * f.delta.y;
+                            hulk_freg Ay = (((ya + yb) + yc) + yd) * 0.25f;
                             f.delta = f1c->fd4;
-                            float ze = (Rand1(rng, f.rb) - 1.0f) * f.delta.z;
+                            hulk_freg ze = (Rand1(rng, f.rb) - 1.0f) * f.delta.z;
                             f.delta = f1c->fd4;
-                            float zf = (Rand1(rng, f.rb) - 1.0f) * f.delta.z;
+                            hulk_freg zf = (Rand1(rng, f.rb) - 1.0f) * f.delta.z;
                             f.delta = f1c->fd4;
-                            float zg = (Rand1(rng, f.rb) - 1.0f) * f.delta.z;
+                            hulk_freg zg = (Rand1(rng, f.rb) - 1.0f) * f.delta.z;
                             f.delta = f1c->fd4;
-                            float zh = (Rand1(rng, f.rb) - 1.0f) * f.delta.z;
+                            hulk_freg zh = (Rand1(rng, f.rb) - 1.0f) * f.delta.z;
                             volatile float *azSlot = &f.arr[2];
                             *azSlot = (((ze + zf) + zg) + zh) * 0.25f;
                             f.w.x = Ax + f.w.x;
@@ -448,7 +449,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
                                 f.u.y = f.t.y - f.d.y;
                                 f.u.z = f.t.z - f.d.z;
                                 FUN_00224d70((float)f90 * f.m44, &f.u);
-                                float k = f.u1c.len * f1c->fec;
+                                hulk_freg k = f.u1c.len * f1c->fec;
                                 // the original rounds the y and z products to floats (kept in the c slot), not x
                                 volatile float *cy = &f.u1c.c.y;
                                 volatile float *cz = &f.u1c.c.z;
@@ -486,7 +487,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
                                 f.u1c.len = f.delta.FUN_0022d110();
                                 if (f.u1c.len <= 0.0f)
                                     tg->FUN_00035550(&f.delta);
-                                float sc = f.u1c.len * f1c->f118;
+                                hulk_freg sc = f.u1c.len * f1c->f118;
                                 f.t = f.delta;
                                 f.t.x = f.t.x * sc;
                                 f.t.y = f.t.y * sc;

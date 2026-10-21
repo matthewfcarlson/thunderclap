@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3029 inputs, branch coverage 15/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20030 inputs, branch coverage 15/16, incomplete)
 // hulkfight::motion::GrapplePropDamageAction::vfunc_3 @ 0x00182380
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Pad_182380 {
@@ -60,7 +61,7 @@ bool hulkfight::motion::GrapplePropDamageAction::vfunc_3(int a, int b) {
     }
     if (pad == 0)
         return false;
-    float v = (*(Info_182380 * *)&this->f_1c)->from;
+    hulk_freg v = (*(Info_182380 * *)&this->f_1c)->from;
     if (v < (*(Info_182380 * *)&this->f_1c)->to)
         v += ((*(Info_182380 * *)&this->f_1c)->to - v) * stats->blend;
     pad->FUN_001d6ec0((int)v, stats->padValue, 0);

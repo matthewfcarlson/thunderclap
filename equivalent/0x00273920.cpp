@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 19788 inputs, branch coverage 14/14)
 // core::FileOpenRequest::vfunc_1 @ 0x00273920
 struct FileData;
 struct Match { FileData* FUN_00277cb0(); int FUN_00277cd0(); char bytes[0x30]; };
@@ -19,16 +19,16 @@ int core::FileOpenRequest::vfunc_1() {
  int status=1;
  if(!found) {
  status=backend->open(file->name,flags,mode,&file->handle,&file->size);
- if(status==1) { file->opened=1; Info_273920* info=backend->FUN_002728d0(); file->metadata=info->value; int result=backend->FUN_00272880(); file->lock.acquire(); file->result=result; file->lock.release(); return 1; }
+ if(status==1) { file->opened=1; Info_273920* info=backend->FUN_002728d0(); file->metadata=info->value; int result=backend->FUN_00272880(); (&file->lock)->acquire(); file->result=result; (&file->lock)->release(); return 1; }
  it->FUN_002775f0(1);
  candidate=it->FUN_00277600();
  while(candidate) { if(candidate->FUN_00277b40(file->name,&file->match)) { found=true; break; } candidate=it->FUN_00277600(); }
- if(!found) { int result=backend->FUN_00272880(); file->lock.acquire(); file->result=result; file->lock.release(); return status; }
+ if(!found) { int result=backend->FUN_00272880(); (&file->lock)->acquire(); file->result=result; (&file->lock)->release(); return status; }
  }
  FileData* source=file->match.FUN_00277cb0();
  file->handle=source->handle;
  int size=file->match.FUN_00277cd0(); file->size=size;
  file->opened=1;
  file->metadata=source->metadata;
- file->lock.acquire(); file->result=0; file->lock.release(); return 1;
+ (&file->lock)->acquire(); file->result=0; (&file->lock)->release(); return 1;
 }

@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 13934 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 4/4)
 // FUN_0030be90 @ 0x0030be90
+#include "compat/ptr.h"
    // 0.0f
 #include "decls/data/game/global.h"
 
@@ -27,7 +28,7 @@ void Contact_30be90::FUN_0030be90() {
     ((ThisCall_0030ad10*)(this))->FUN_0030ad10(flagF8, &f154);
     f158 = aa0 * n140 + a9c * n13c + a98 * n138;
     if (flagF8) {
-        float d = b104 * n140 + b100 * n13c + b0fc * n138;
+        hulk_freg d = b104 * n140 + b100 * n13c + b0fc * n138;
         if (d < 0.0f)
             f154 = -f154;
     }

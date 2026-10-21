@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 9/10, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20011 inputs, branch coverage 10/10)
 // hulkfight::motion::BounceAction::vfunc_3 @ 0x001347c0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"
 struct Vec3_1347c0 { float x, y, z; };
@@ -95,9 +96,9 @@ char BounceAction::vfunc_3(int a, int b)
         return 0;
 
     BounceData_1347c0 *d = data;
-    float b28 = d->f28;
-    float b2c = d->f2c;
-    float b30 = d->f30;
+    hulk_freg b28 = d->f28;
+    hulk_freg b2c = d->f2c;
+    hulk_freg b30 = d->f30;
 
     void *mem = FUN_00263ea0(0x70);
     JointObject_1347c0 *obj = 0;
@@ -123,16 +124,16 @@ char BounceAction::vfunc_3(int a, int b)
     stats->FUN_000356c0(&x);
 
     d = data;
-    float dot = w.z * x.z + w.y * x.y + x.x * w.x;
+    hulk_freg dot = w.z * x.z + w.y * x.y + x.x * w.x;
     f2c = dot;
-    float lo = d->f20;
+    hulk_freg lo = d->f20;
     if (dot < lo)
         f2c = lo;
     if (f2c < 0.0f)
         f2c = 0;
-    float dur = d->f14;
+    hulk_freg dur = d->f14;
     if (dur > 0.0f) {
-        float twice = d->f18 + d->f18;
+        hulk_freg twice = d->f18 + d->f18;
         f28 = twice / dur;
         f30 = twice / (dur * dur);
     }

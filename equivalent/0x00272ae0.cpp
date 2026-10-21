@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20017 inputs, branch coverage 2/2)
 // FUN_00272ae0 @ 0x00272ae0
 struct Guard_272ae0 {
     virtual void begin();
@@ -23,13 +23,13 @@ struct Object {
     bool FUN_00272ae0(unsigned int *first, unsigned int *second);
 };
 bool Object::FUN_00272ae0(unsigned int *first, unsigned int *second) {
-    guard.begin();
+    (&guard)->begin();
     if (available) {
         *first = provider->getFirst();
         *second = provider->getSecond();
-        guard.end();
+        (&guard)->end();
         return true;
     }
-    guard.end();
+    (&guard)->end();
     return false;
 }

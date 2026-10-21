@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3090 inputs, branch coverage 37/40, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19966 inputs, branch coverage 40/40)
 // hulkfight::motion::AnimationLinkedAction::vfunc_3 @ 0x0013e070
 // equiv-map: ?FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
@@ -185,7 +185,8 @@ bool AnimationLinkedAction::vfunc_3(int a, int b)
     AnimData_13e070 *dd = data;
     V3_13e070 pa = dd->posA;
     V3_13e070 pb = dd->posB;
-    driver->FUN_00225e00(dd->GetValue(), pa);
+    float value = dd->GetValue();
+    driver->FUN_00225e00(value, pa);
     driver->FUN_00225cf0(data->posA.y);
     float lim = data->posA.z;
     if (best > 0.0f && best < lim) {

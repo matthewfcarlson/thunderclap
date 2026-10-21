@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 9287 inputs, branch coverage 23/26, incomplete; run with --inputs 12000)
+// STATUS: equivalent (tools/equiv.py level 3: 20060 inputs, branch coverage 23/26, incomplete)
 // FUN_0029fe60 @ 0x0029fe60
 #include "decls/data/engine/unknown.h"
 
@@ -61,9 +61,9 @@ void Brush::FUN_0029fe60(Item_29fe60 *item, void *ctx, Target_29fe60 *target)
     Vec3_29fe60 v;
     FUN_0029ce40(&v, ctx);
     FUN_0029df90(item, &v, ctx);
-    int b = (int)v.z;
-    int g = (int)v.y;
-    int r = (int)v.x;
+    int b = (int)(__int64)v.z;
+    int g = (int)(__int64)v.y;
+    int r = (int)(__int64)v.x;
     b = Clamp255(b);
     g = Clamp255(g);
     r = Clamp255(r);

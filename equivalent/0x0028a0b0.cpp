@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 6/6)
 // FUN_0028a0b0 @ 0x0028a0b0
 struct Track {
     int unknown;
@@ -16,14 +16,14 @@ void Track::sample(float time, int* result) {
         *result = values[first];
         return;
     }
-    double delta = (double)time - (int)times[first];
+    double delta = (double)time - (int)(__int64)times[first];
     if (delta == 0.0f) {
         *result = values[first];
         return;
     }
     int base = values[first];
-    int difference = (int)((unsigned int)values[second] - (unsigned int)base);
-    int duration = (int)times[second] - (int)times[first];
-    int step = (int)(((double)difference / duration) * delta);
-    *result = (int)((unsigned int)base + (unsigned int)step);
+    int difference = (int)(__int64)((unsigned int)(__int64)values[second] - (unsigned int)(__int64)base);
+    int duration = (int)(__int64)times[second] - (int)(__int64)times[first];
+    int step = (int)(__int64)(((double)difference / duration) * delta);
+    *result = (int)(__int64)((unsigned int)(__int64)base + (unsigned int)(__int64)step);
 }
