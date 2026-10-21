@@ -171,13 +171,13 @@ CASES = {
     # frame only, so the call through a stack argument pops its six words
     "0x0009b560_epilogue_frame": ("equivalent", None),
     # a running sum kept on the x87 stack across a call: the `fadd` after it doesn't consume a float result
-    "0x00295270_x87_live_across_call": ("equivalent", None, 0.9),
+    "0x00295270_x87_live_across_call": ("equivalent", None, 0.9, {"equiv_off": "ftolexact"}),
     # loop repair takes the outer loop's patchable back edge (or a top-tested loop's exit), not the hottest
     # back edge (an inner loop over a constant bound, `cmp edx, 8; jb`)
     # (random input 164 fails, as under the round-5 checker: an aliasing-dependent write to arg2+0x18. Round 9's
     # small loop counts can reach a real difference of this source on seed 128 (128+small: the original writes
     # 0xff000000 through a null-page pointer, ours doesn't), so the case stops before it)
-    "0x002cb2b0_loop_exit_order": ("equivalent", None, 0.75, {"n_inputs": 3000, "seeds": list(range(128))}),
+    "0x002cb2b0_loop_exit_order": ("equivalent", None, 0.75, {"n_inputs": 3000, "seeds": list(range(128)), "equiv_off": "ftolexact"}),
     # a float result returned untouched across the /GS cookie check (ours spills it around the call)
     "0x000dfbf0_float_ret_cookie": ("equivalent", None),
     # `rep stosd` over a fuzzed count read from memory: repaired like a loop bound, so 50 inputs complete
@@ -189,7 +189,7 @@ CASES = {
     # the 32-inconclusive cap of the random phase
     # (round 9: the small-count input 2551+small shows a float difference at fuzzed extremes in this source, -inf
     # where the original stores -5.3e33 for an argument of call #10; the case stops before it)
-    "0x0003c1d0_count_cap": ("equivalent", None, 0.75, {"n_inputs": 3000, "seeds": list(range(2500))}),
+    "0x0003c1d0_count_cap": ("equivalent", None, 0.75, {"n_inputs": 3000, "seeds": list(range(2500)), "equiv_off": "ftolexact"}),
     # std::_Unguarded_partition over [first, last) of 0x44-byte items: a pointer argument a few elements
     # past the first one, in a step the code advances by (fuzzed ranges ran millions of elements)
     "0x003037f0_iterator_range": ("equivalent", None, 0.75, {"n_inputs": 3000}),
@@ -310,7 +310,7 @@ CASES = {
     "0x000f3dc0_ftol_range_wrong": ("fail", "write to", 0, {"n_inputs": 3000}),
     # `fst [esi+0xb4]; fld [pi/2]; fsubr st(1); fstp [esp+8]; and [esp+8], 0x7fffffff; fld [esp+8]; fcomp [eps]`:
     # a stub's float result through register arithmetic, a store, a fabs in memory and a reload (7/10 -> 10/10)
-    "0x00083e60_fabs_fret": ("equivalent", None, 0.95, {"n_inputs": 3000}),
+    "0x00083e60_fabs_fret": ("equivalent", None, 0.95, {"n_inputs": 3000, "equiv_off": "ftolexact"}),
     # `|f218 + step * clamp(f218^2 k) - 0.6| <= 0.02` with the mask in a register (`and [esp+4], edx`); 0.02 is
     # a float the original keeps in .data and ours as a literal: planting it changed the original alone (3 false
     # failures before the plant was limited to words our code reads too) (11/18 -> 17/18)
@@ -339,7 +339,7 @@ CASES = {
     # `char hit = 0; this->v8(&a, &b, &hit); if (hit) ...`: a byte out-parameter the function set itself is left
     # alone by random inputs, a directed input has the callee write it (45/70 -> 70/70); a sign error in the
     # newly reached half is caught
-    "0x0015d920_byte_outparam_set": ("equivalent", None, 0.95, {"n_inputs": 3000}),
+    "0x0015d920_byte_outparam_set": ("equivalent", None, 0.95, {"n_inputs": 3000, "equiv_off": "ftolexact"}),
     "0x0015d920_byte_outparam_set_wrong": ("fail", None, 0, {"n_inputs": 3000}),
     # 128 groups, each destroying an array-new'd array whose count is the word before it: every input ran
     # away, and the 8M-step probe took 100 s. The loads that fed the runaway loops' bounds read small counts in
@@ -353,7 +353,7 @@ CASES = {
     # end are re-read after every call (a new memory epoch each round), so a planted count held for one round only.
     # Small-count steering plants end = begin + a few elements at the `sub`, in every epoch, relative to that epoch's
     # begin (81/122 -> 120/122); a sign error in the newly reached knockback code is caught
-    "0x001b4d00_vector_bound": ("equivalent", None, 0.9, {"n_inputs": 3000}),
+    "0x001b4d00_vector_bound": ("equivalent", None, 0.9, {"n_inputs": 3000, "equiv_off": "thisdecl"}),
     "0x001b4d00_vector_bound_wrong": ("fail", None, 0, {"n_inputs": 3000}),
     # Lua adjust_varargs: `missing = nfixargs - (L->top - base) / 8` (a stack argument minus a difference of a load
     # and a register), the nil-fill `do {} while (--missing)` writes as it runs away (too_many_pages, not a timeout):
@@ -385,7 +385,7 @@ CASES = {
     # `if (start == 0) return;` then ~65k straight-line steps (Perlin tables): inputs 0 and 1 return in 6 steps, so
     # the four timeouts the long budget waited for never came (20 early returns, 1/22). Early returns don't count
     # (inconclusive -> equivalent 21/22); a wrong gradient offset in the newly reached tables is caught
-    "0x003572b0_early_returns": ("equivalent", None, 0.9, {"n_inputs": 3000}),
+    "0x003572b0_early_returns": ("equivalent", None, 0.9, {"n_inputs": 3000, "equiv_off": "ftolexact"}),
     "0x003572b0_early_returns_wrong": ("fail", None, 0, {"n_inputs": 3000}),
     # libpng build_gamma_table: `fld x; fld e; call __CIpow` takes its arguments in x87 registers; the stub left them
     # there, so `end = (int)(pow(...) * n)` was the exponent times n (65536) and the 0x480 path never ended. The stub
@@ -460,6 +460,17 @@ CASES = {
     # `w->out = 3`: `inc dword [3 + 0x24]` is unaligned; Unicorn delivered the instruction's hook again after its
     # store and the increment was applied twice, in our code only (rmwundo): "write to 0x24 ... was 0x2000000"
     "0x0025b970_rmw_restart": ("equivalent", None, 0.75, {"n_inputs": 3000}),
+    # exact floats (ftolexact): the original runs the x87 at 53-bit precision and so do both emulated runs, so equal
+    # arithmetic gives equal bits. equivalent/0x00097320 spells `float ar = (float)na` where the original keeps na in
+    # a register: returns 15.243244 for 15.243256 (relative 7.5e-7, inside the old 1e-5 tolerance)
+    "0x0009faa0_float_exact": ("equivalent", None),
+    "0x00097320_float_exact_wrong": ("fail", "returned 15.24", 0, {"n_inputs": 3000}),
+    "0x00097320_float_tolerance": ("equivalent", None, 0.9, {"n_inputs": 3000, "equiv_off": "ftolexact"}),
+    # round 17 (cl5). A local passed by pointer to a virtual call: its first words are filled by a constructor stub, the
+    # rest stored by the function (`ev.type = -1; ev.value = 0`); the growth over the function's stores started at a
+    # word it wrote itself and compared only the first word (ptrext). native14 stop 38: the listeners got only the id
+    "0x0027dca0_event_words": ("equivalent", None),
+    "0x0027dca0_event_words_wrong": ("fail", "the local passed as argument 1 differs at +0x8"),
     # round 15 (cl3). A jump table's coverage counts case indices, not targets (caseidx): 0x0028aea0 has 21 indices
     # over 12 targets; before native10's fix it had no case 0x12110e and 0x121111 in the wrong group, and passed
     "0x0028aea0_case_index": ("equivalent", None, 0.95),
@@ -498,6 +509,11 @@ RELOC_CASES = {
     # a wide literal compared only up to its first NUL: L"()" passed for the original's L"()[]{}=;" (native13 stop 34)
     "0x003388d0_literal": ("ok", None),
     "0x003388d0_literal_wrong": ("bad", "string_mismatch"),
+    # round 17 (cl5). native14 stop 37: matches/0x00042930 called the member 0x00042890 through `void __stdcall
+    # helper(int, float)`; ecx held the caller's `this` in the original, natively it is the first argument
+    "0x00042930_thiscall_decl": ("ok", None),
+    "0x00042930_thiscall_decl_wrong": ("bad", "free_decl_of_thiscall"),
+    "0x00336f10_thiscall_decl_wrong": ("bad", "free_decl_of_thiscall"),      # `void FUN_00019420()` for 0x003352b0
 }
 
 # cases that must also complete this many inputs (the promotion bar is 50)
@@ -509,7 +525,18 @@ MIN_RUN = {"0x0028c2a0_rep_count": 50, "0x000e36c0_small_counts": 50, "0x002155f
 def job(name):
     equiv = __import__(os.environ.get("EQUIV_MODULE", "equiv"))
     addr = int(name.split("_")[0], 16)
-    kw = CASES[name][3] if len(CASES[name]) > 3 else {}
+    kw = dict(CASES[name][3]) if len(CASES[name]) > 3 else {}
+    # (round 17) `equiv_off`: switches this case runs with (a source kept for what it tests that also trips a stricter
+    # rule: exact floats, ftolexact, or a free-function declaration of a thiscall callee, thisdecl)
+    off = [x for x in kw.pop("equiv_off", "").split(",") if x]
+    equiv.EQUIV_OFF.update(off)
+    try:
+        return _job(name, equiv, addr, kw)
+    finally:
+        equiv.EQUIV_OFF.difference_update(off)
+
+
+def _job(name, equiv, addr, kw):
     tree = os.path.join(CASES_DIR, name + ".tree.cpp")
     if os.path.exists(tree):
         # NAME.tree.cpp: the same source wrapped in `namespace fn_<addr>` as tools/build_tree.py merges it; its

@@ -401,6 +401,33 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     slots: the two look the same from the original alone, and a rule that flags the first flags the second, the
     only committed equivalent it flags). The real callee's pop count is what decides: a rewrite that declares an
     indirect call with arguments should be checked against the callee's own source.
+- (round 17, cl5) Three gaps native14 found, each switchable (`EQUIV_OFF=name`; `RELOC_OFF=thisdecl` / `COMPARE_OFF=thisdecl`
+  for compare.py and verify_relocs). Old behaviour = `EQUIV_OFF=ftolexact,ptrext,thisdecl`.
+  - `ptrext`: the bytes a callee reads through a pointer into the caller's frame. The extent of a scalar or unknown
+    pointee grew over the words the function itself wrote, starting at the pointer: a local whose first words a callee
+    fills (`ev.id.FUN_0027af00()`, a constructor stub) and whose later words the function stores (`ev.type = -1;
+    ev.value = 0`) stopped at word 0 and only that word was compared. Now a leading run of callee-written words (up to
+    ARRAY_WINDOW) is stepped over when the function's own stores follow it. native14's stop 38: `equivalent/0x0027dca0`
+    passed its listeners `{id}` instead of `{id, type -1, 0}` and the listener switched on garbage (pre-fix source =
+    `tests/equiv/cases/0x0027dca0_event_words_wrong.cpp`: EQUIVALENT at 3000 inputs before, `the local passed as
+    argument 1 differs at +0x8 (0x0, expected 0xffffffff)` now).
+  - `ftolexact`: float comparison is exact by default. The original runs the x87 at 53-bit precision (control word
+    0x027F; docs/native-float.md) and both emulated runs write that word, so equal arithmetic gives equal bits and a
+    1-ULP difference is a real one: the native build reproduces the original's rounding bit for bit or it drifts
+    (native14's camera y). `_feq` is `==` (+0 and -0 are different); a returned `st(0)` is compared over its full
+    64-bit mantissa (`st0raw`), the control word at return must match, and the "same float but for the last bit" rule
+    for stack words is off. An explicit tolerance in a directed-input search is unchanged. Unicorn honours the
+    precision bits (`build/cl5/pctest.py`). This changes verdicts; the flips are listed in `build/cl5/flips.txt`.
+    `tools/equiv_replay.py` compares through `equiv.compare_runs`, so recorded-state replays are exact too.
+  - `thisdecl`: a callee our source declares as a free `__cdecl`/`__stdcall` function (not a member, not
+    `__fastcall`) that the original's callee takes `this` in ecx (its body reads ecx before writing it, found by
+    `Program.reg_inputs`, or it is in a vtable). Byte-identical code can't show it (the caller's ecx happened to hold the
+    right value), the native build passes the first argument there. `compare.py` reports status `thiscall_decl` for such
+    an exact match (so farm promotion, which wants `match`, drops it), `verify_relocs.check` the issue
+    `free_decl_of_thiscall`, equiv.py a level-2 issue of that kind. A callee with an `// equiv-conv` line and CRT
+    helpers (`__aullshr`) are left out. native14's stop 37: `matches/0x00042930` (`void __stdcall helper(int, float)` for
+    the member 0x00042890); the pre-fix sources of 0x00042930, 0x00042960, 0x00336f10 and 0x00337330 all report it.
+    `build/cl5/thiscall.json` has the sweep over `equivalent/` and `matches/`.
 
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check
@@ -542,8 +569,9 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   a struct passed by value) is equal: each image has its own addresses.
 - Values that point into the stack compare as "a stack address". Floats stored by `fst`/`fstp` (on either
   side) and float arguments (stored by `fstp` on either side, a word copied with `push` on the other)
-  compare with relative tolerance 1e-5; a word that is the same normal float
-  but for its last bit (rounded once more on one side, then copied through a register) is equal too.
+  compare exactly (round 17, `ftolexact`: the same bits, +0 and -0 apart; `EQUIV_OFF=ftolexact` restores the old
+  relative tolerance 1e-5 and the rule that a word that is the same normal float but for its last bit, rounded once
+  more on one side and copied through a register, is equal).
 
 An input on which either side stores into code (our object at `0x60000000`, or the original's `.text`,
 through a fuzzed pointer) is inconclusive: the store rewrites one side's instructions only (`statuses`
@@ -643,7 +671,21 @@ Mismatch strings are written for a model to act on. Examples:
 
 ## Validation
 
-Latest run (2026-10-20, checker round 16, cl4): `regress.py` 187/187 (6 new cases: 0x003388d0 literal, 0x0030ed60
+Latest run (2026-10-20, checker round 17, cl5): `regress.py` 195/195 (8 new cases: 0x0027dca0 event words, 0x0009faa0 and
+0x00097320 exact floats, 0x00042930 and 0x00336f10 thiscall declarations, each `_wrong` is `equivalent`/`match` under
+round 16; a case can run with `"equiv_off"` switches: six older float-sensitive cases keep the tolerance, 0x001b4d00's
+free declaration of FUN_00080cd0 keeps `thisdecl` off); `test_equiv.py` 14/14; `replay_regress.py` 16/16.
+60-function sample of `equivalent/` at 3000 inputs (25 x87 functions the scanner lists with extra rounding, 15 with a
+frame object passed by pointer, 20 random; `build/cl5/sample60.txt`), round 16 vs 17: 56 identical, 4 `equivalent` ->
+`fail` (0x0003d350, 0x00134330, 0x0015f6b0, 0x0022ff50: a float differing in the last bit(s), exact comparison), none
+the other way; time 3514.8 s vs 3560.8 s of summed per-function time (+1.3%). All 288 `equivalent/` sources among
+`build/x87/scan-o0.json`'s candidates at 3000 inputs and the 2,113 sources with x87 code or a pointer-to-frame-store shape
+at 300 inputs (`build/cl5/static.json`): 99 newly fail (`build/cl5/flips.txt`): 90 exact floats, 7 `ptrext`, 2 both
+(attributed by re-running each with one switch off); 12 of the float ones are +0/-0 differences. `thiscall.json`: all
+5,138 `equivalent/` sources and the 4,790 `matches/` sources that can hit: one finding (0x00321ea0, a vtable function
+declared free `__stdcall`), none in `matches/`. `build/cl5/recheck.txt`: 2,114 sources (the 99 observed flips first).
+
+Previous run (2026-10-20, checker round 16, cl4): `regress.py` 187/187 (6 new cases: 0x003388d0 literal, 0x0030ed60
 recursive edx, 0x002f2fc0 vcall, each with a `_wrong` that the previous round passes); `test_equiv.py` 14/14.
 60-function sample of `equivalent/` at 3000 inputs (9 whose callees changed register writes, 31 with indirect calls,
 20 random; `build/cl4/sample60.txt`), round 15 vs 16: 60 equivalent under both, no verdict change; time +2.9% (a
@@ -999,7 +1041,12 @@ without re-running whole sessions. Results live in `build/traces/` (never commit
   self-modifying code, `in`/`out`. LTCG register-argument functions work when registers carry the
   arguments, because all registers start as valid pointers. Callee-saved registers are never compared as
   callee inputs.
-- **x87:** float results compare with tolerance, and integer results of `fistp` compare exactly.
+- **x87:** float results, stores and float arguments compare exactly (round 17; a returned `st(0)` over its full
+  64-bit mantissa, and the control word at return must be the same). Both emulated runs start with the original's
+  control word 0x027F (round to nearest, 53-bit precision; Unicorn honours the precision bits:
+  `build/cl5/pctest.py` stores 1/3 with 53, 64 and 24 mantissa bits for 0x027F, 0x037F and 0x007F). MSVC-compiled
+  code that is not byte-identical can still differ in the last bit (a `float` local stored and reloaded where the
+  original keeps the register); that is a real difference for the native build (docs/native-float.md).
 - **Function bounds** come from `build/functions.csv`. Code past the listed size is still followed, as a
   chunk, but some sizes are wrong: 0x001bb0b0 is listed at 320 bytes but returns at +0x47d, so its
   packet showed only part of the function.

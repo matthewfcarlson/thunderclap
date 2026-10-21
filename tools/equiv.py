@@ -3163,6 +3163,17 @@ class Run:
             # count, so neighbouring out-parameters stay out)
             ext = 0
             if not is_class:
+                if "ptrext" not in EQUIV_OFF:
+                    # (round 17, ptrext) the first words of the object are filled by a callee (`id.FUN_0027af00()`:
+                    # a constructor stub), the rest stored by the function itself (`ev.type = -1; ev.value = 0`) and
+                    # the whole is passed by pointer to the first: the callee reads them all. The growth below
+                    # started only at a word the function wrote, so it stopped at once and compared one word.
+                    sk = 0
+                    while sk + 4 <= grow and not any(x in self.func_stack_written for x in range(v + sk, v + sk + 4)) \
+                            and any(x in self.stack_written for x in range(v + sk, v + sk + 4)) and sk < ARRAY_WINDOW:
+                        sk += 4
+                    if sk and sk + 4 <= grow and any(x in self.func_stack_written for x in range(v + sk, v + sk + 4)):
+                        ext = sk
                 # past ARRAY_WINDOW only over words stored like array elements: neighbouring scalars written
                 # at fixed frame offsets are other locals, laid out differently in ours
                 while ext + 4 <= grow and any(x in (self.func_stack_written if ext < ARRAY_WINDOW else
@@ -4814,6 +4825,10 @@ class Run:
         top = (fpsw >> 11) & 7
         out["fdepth"] = (8 - top) % 8
         out["st0"] = _x87_value(self.uc.reg_read(u.UC_X86_REG_FP0 + top)) if out["fdepth"] else None
+        # (round 17, ftolexact) the register's full 64-bit mantissa (a float result stays in st0 with more bits than
+        # the double above keeps), and the control word the run ends with (53-bit precision, 0x027F, on both sides)
+        out["st0raw"] = tuple(self.uc.reg_read(u.UC_X86_REG_FP0 + top)) if out["fdepth"] else None
+        out["fpcw"] = self.uc.reg_read(u.UC_X86_REG_FPCW)
         out["calls"] = self.calls
         out["cookie_bad"] = self.cookie_bad
         out["abi_mismatch"] = self.abi_mismatch
@@ -5524,11 +5539,19 @@ def make_input(seed, sig, prog_globals, ptr_pool=(), int_pool=(), strides=(), mi
 FTOL = (1e-5, 1e-6)
 
 
-def _feq(a, b, rel=FTOL[0], ab=FTOL[1]):
+def _feq(a, b, rel=None, ab=None):
+    """Float equality.  (Round 17, ftolexact) Exact by default: the original runs the x87 at 53-bit precision (control
+    word 0x027F) and so do both emulated runs, so a compiler that spells the same arithmetic gets the same bits; a
+    1-ULP difference is a precision bug the native build reproduces (docs/native-float.md).  EQUIV_OFF=ftolexact
+    restores the old tolerance FTOL; an explicit rel/ab (directed-input searches) is always a tolerance."""
     if a is None or b is None:
         return a is b
     if math.isnan(a) or math.isnan(b):
         return math.isnan(a) and math.isnan(b)
+    if rel is None and ab is None:
+        if "ftolexact" not in EQUIV_OFF:
+            return a == b and (a != 0 or math.copysign(1.0, a) == math.copysign(1.0, b))
+        rel, ab = FTOL
     if math.isinf(a) or math.isinf(b):
         return a == b
     return abs(a - b) <= max(ab, rel * max(abs(a), abs(b)))
@@ -5750,7 +5773,7 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
                 ob4 = bytes(os_.get(w0 + i, machine.byte(w0 + i, s)) for i in range(4))
                 rb4 = bytes(rs.get(w0 + i, machine.byte(w0 + i, s)) for i in range(4))
                 ow4, rw4 = struct.unpack("<I", ob4)[0], struct.unpack("<I", rb4)[0]
-                if abs(ow4 - rw4) == 1 and 0x0C800000 <= (ow4 & 0x7FFFFFFF) < 0x72000000 and \
+                if "ftolexact" in EQUIV_OFF and abs(ow4 - rw4) == 1 and 0x0C800000 <= (ow4 & 0x7FFFFFFF) < 0x72000000 and \
                         (ow4 ^ rw4) >> 23 == 0 and not (HEAP <= ow4 < HEAP + HEAP_SIZE or OURS <= ow4 < OURS + OURS_SIZE):
                     done.update(range(w0, w0 + 4))
                     continue
@@ -5785,11 +5808,17 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
                 out.append("%s not preserved the same way (%s vs %s)" % (reg, _fmt(_norm(r["saved"][reg])),
                                                                         _fmt(_norm(o["saved"][reg]))))
         rk = ret_kind
+        if "ftolexact" not in EQUIV_OFF and o.get("fpcw") is not None and o["fpcw"] != r.get("fpcw"):
+            out.append("x87 control word at return 0x%04x, expected 0x%04x" % (r.get("fpcw") or 0, o["fpcw"]))
         if rk in ("f32", "f64"):
             if o["fdepth"] != r["fdepth"]:
                 out.append("x87 stack depth at return %d, expected %d" % (r["fdepth"], o["fdepth"]))
             elif not _feq(o["st0"], r["st0"]):
                 out.append("returned %r, expected %r" % (r["st0"], o["st0"]))
+            elif "ftolexact" not in EQUIV_OFF and o.get("st0raw") is not None and o["st0raw"] != r.get("st0raw") \
+                    and not math.isnan(o["st0"] or 0.0):
+                out.append("returned st(0) %s, expected %s (same double, different 80-bit register: precision)" % (
+                    "0x%x:%x" % tuple(reversed(r["st0raw"])), "0x%x:%x" % tuple(reversed(o["st0raw"]))))
         else:
             if o["fdepth"] != r["fdepth"]:
                 out.append("x87 stack depth at return %d, expected %d" % (r["fdepth"], o["fdepth"]))
@@ -6570,6 +6599,17 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
         if sym is not None and typ == REL32 and sym[0] in resolved:
             decls.setdefault(resolved[sym[0]], parse_signature(sym[0]))
     convs, bad = resolve_conventions(prog, conv_lines, ours, resolved, addr, fsym)
+    if "thisdecl" not in EQUIV_OFF:
+        # (round 17, thisdecl) a callee our source declares as a free __cdecl/__stdcall function that the original
+        # takes `this` in ecx (verify_relocs.thiscall_decl_issue): the code is the same where ecx happens to hold it
+        from verify_relocs import thiscall_decl_issue
+        seen_ = set()
+        for off, sym, typ, _ in ours.relocs + ours.local_relocs():
+            if sym is not None and typ == REL32 and sym[0] in resolved and sym[0] not in seen_:
+                seen_.add(sym[0])
+                rec_ = thiscall_decl_issue(sym[0], resolved[sym[0]], prog, convs)
+                if rec_:
+                    bad.append(rec_)
     if convs:
         rep["conventions"] = {"0x%08x" % a: " ".join(v) for a, v in convs.items()}
     if bad:

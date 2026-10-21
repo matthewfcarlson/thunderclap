@@ -164,11 +164,61 @@ def xbe_read(xbe):
     return read
 
 
+# (cl5) Declarations of thiscall callees. Byte-identical code can't show that a source declares a callee as a free
+# __stdcall/__cdecl function when the original's callee takes `this` in ecx: the caller's ecx happened to hold the
+# right value (matches/0x00042930 called the member 0x00042890 through `void __stdcall helper(int, float)`; ecx still
+# held the caller's `this`, but natively ecx is the first argument). The callee's own body is the evidence: it reads
+# ecx before writing it (equiv.Program.reg_inputs), or it sits in a vtable. A callee bound to an `// equiv-conv` line
+# takes its registers as declared and is left out. RELOC_OFF=thisdecl switches the check off.
+def free_decl_conv(name):
+    """'cdecl' / 'stdcall' / 'fastcall' / 'thiscall' / 'static' of a callee symbol as our source declares it; None
+    when it can't be told (a C name without decoration is cdecl)."""
+    if name.startswith("?"):
+        import equiv
+        sig = equiv.parse_signature(name)
+        if not sig:
+            return None
+        if sig.get("this"):
+            return "thiscall" if sig.get("cc") == "thiscall" else sig.get("cc")
+        return sig.get("cc") if sig.get("cc") in ("cdecl", "stdcall", "fastcall") else None
+    if re.match(r"_\w+@\d+$", name):
+        return "stdcall"
+    if re.match(r"@\w+@\d+$", name):
+        return "fastcall"
+    return "cdecl" if re.match(r"_\w+$", name) else None
+
+
+def thiscall_decl_issue(name, target, prog=None, convs=()):
+    """None, or a record when SYMBOL (our declaration of the function at TARGET) is a non-member __cdecl/__stdcall
+    function but the original's function reads ecx (`this`) on entry or is a virtual function."""
+    if "thisdecl" in os.environ.get("RELOC_OFF", ""):
+        return None
+    if prog is None:
+        import equiv
+        prog = equiv.Program.get()
+    if target in convs or name.startswith("__"):        # (__aullshr, __allmul ...: CRT helpers take registers)
+        return None
+    conv = free_decl_conv(name)
+    if conv not in ("cdecl", "stdcall") or not prog.is_code(target):
+        return None
+    why = []
+    regs = prog.reg_inputs(target)
+    if regs and "ecx" in regs:
+        why.append("the original reads ecx before writing it")
+    if target in prog.virtual_funcs:
+        why.append("the original is a virtual function")
+    if not why:
+        return None
+    return {"kind": "free_decl_of_thiscall", "symbol": name, "target": "0x%08x" % target, "declared": conv,
+            "why": " and ".join(why)}
+
+
+
 def check(src, addr):
     st = state()
     xbe = st["xbe"]
     r = compare(src, addr)
-    if r["status"] != "match":
+    if r["status"] not in ("match", "thiscall_decl"):       # (cl5: thiscall_decl is reported as an issue below)
         return {"addr": "0x%08x" % addr, "status": "not_matching", "detail": r["status"]}
     with tempfile.TemporaryDirectory() as tmp:
         try:
@@ -178,6 +228,7 @@ def check(src, addr):
             return {"addr": "0x%08x" % addr, "status": "compile_error", "detail": str(e)[:200]}
     sym = next(s for s in coff.function_symbols() if s[0] == r["symbol"])
     issues, mapping = [], {}
+    calls, thisdecls = {}, []
     for off, target_sym, typ, addend_bytes in coff.function_relocs(sym):
         if target_sym is None:
             issues.append(("unknown_symbol", off))
@@ -193,6 +244,8 @@ def check(src, addr):
             issues.append(("reloc_type_%#x" % typ, name))
             continue
         kind = classify(name)
+        if typ == REL32 and kind == "symbol":
+            calls[name] = target
         if mapping.get(name, target) != target:
             issues.append(("inconsistent", name))
         mapping[name] = target
@@ -229,6 +282,12 @@ def check(src, addr):
             elif sec.name == ".text" and not (addr <= target < addr + 0x10000):
                 issues.append(("data_in_code", name))
             # Other sections (.rdata/.data, XDK D3D/XGRPH/DSOUND data, BINKDATA) hold real globals.
+    # (cl5) a callee declared as a free __cdecl/__stdcall function that takes `this` in ecx
+    for name, target in sorted(calls.items()):
+        rec = thiscall_decl_issue(name, target)
+        if rec:
+            issues.append(("free_decl_of_thiscall", name))
+            thisdecls.append(rec)
     # (cl3) a global the source defines: its initial bytes must be the original's
     inits = initializer_diffs(coff.data, mapping, xbe_read(xbe))
     for rec in inits:
@@ -241,7 +300,7 @@ def check(src, addr):
     hard = [i for i in issues if i[0] not in SOFT]
     return {"addr": "0x%08x" % addr, "status": "ok" if not hard else "bad", "relocs": len(mapping),
             "issues": issues, "map": {k: "0x%08x" % v for k, v in mapping.items()},
-            **({"initializers": inits} if inits else {})}
+            **({"initializers": inits} if inits else {}), **({"thiscall_decls": thisdecls} if thisdecls else {})}
 
 
 _STRIP = re.compile(r'//[^\n]*|/\*.*?\*/|"(?:\\.|[^"\\\n])*"|\'(?:\\.|[^\'\\\n])*\'', re.S)

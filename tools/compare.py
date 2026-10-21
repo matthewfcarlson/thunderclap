@@ -210,6 +210,26 @@ def diff(target, ours, mask):
             "target_bytes": len(target), "our_bytes": len(ours), "rows": rows}
 
 
+def thiscall_decls(coff, sym, addr, target):
+    """(cl5) Callees this function calls (relocated REL32 targets, resolved from the original's bytes: the code is
+    byte-identical) that the source declares as free __cdecl/__stdcall functions while the original's callee takes
+    `this` in ecx (verify_relocs.thiscall_decl_issue). COMPARE_OFF=thisdecl switches it off."""
+    if "thisdecl" in os.environ.get("COMPARE_OFF", "") or "thisdecl" in os.environ.get("RELOC_OFF", ""):
+        return []
+    from verify_relocs import thiscall_decl_issue
+    out, seen = [], set()
+    for off, tsym, typ, addend in coff.function_relocs(sym):
+        if tsym is None or typ != 0x14 or tsym[2] > 0 or tsym[0] in seen or off + 4 > len(target):
+            continue
+        seen.add(tsym[0])
+        rel, = struct.unpack_from("<i", target, off)
+        t = (addr + off + 4 + rel - struct.unpack("<i", addend)[0]) & 0xFFFFFFFF
+        rec = thiscall_decl_issue(tsym[0], t)
+        if rec:
+            out.append(rec)
+    return out
+
+
 def compare(src, addr, symbol=None, flags=()):
     """Compile src and compare against the function at addr. Returns a result dict."""
     tname, target = target_bytes(addr)
@@ -225,24 +245,36 @@ def compare(src, addr, symbol=None, flags=()):
         return {"status": "no_function", "target": tname,
                 "error": "no function body found in the object" + (" matching %r" % symbol if symbol else "")}
     best = None
+    best_sym = None
     for sym in syms:
         name, ours, mask = coff.function(sym)
         d = diff(target, strip_padding(ours), mask)
         key = (d["exact"], d["matched"] / d["total"], -abs(d["target_bytes"] - d["our_bytes"]))
         if best is None or key > best[0]:
             best = (key, name, d)
+            best_sym = sym
     _, name, d = best
-    return dict(d, status="match" if d["exact"] else "diff", symbol=name, target=tname,
-                score=round(d["matched"] / d["total"], 3))
+    status = "match" if d["exact"] else "diff"
+    extra = {}
+    if d["exact"]:
+        # (cl5) byte-identical code can't show a wrong declaration of a thiscall callee
+        tdecl = thiscall_decls(coff, best_sym, addr, target)
+        if tdecl:
+            status, extra = "thiscall_decl", {"thiscall_decls": tdecl}
+    return dict(d, status=status, symbol=name, target=tname, score=round(d["matched"] / d["total"], 3), **extra)
 
 
 def render(r, full=False, context=1):
     """Human/LLM-readable report. Compact mode shows only mismatches with a little context."""
     if r["status"] in ("compile_error", "no_function"):
         return "%s\n%s" % (r["status"].upper(), r["error"])
-    out = ["%s %s  vs  %s" % ("MATCH" if r["exact"] else "DIFF", r["symbol"], r["target"]),
+    out = ["%s %s  vs  %s" % ("MATCH" if r["exact"] and r["status"] == "match" else "DIFF" if not r["exact"] else
+                              "THISCALL_DECL", r["symbol"], r["target"]),
            "bytes target=%d ours=%d, target instructions matched %d/%d" % (
                r["target_bytes"], r["our_bytes"], r["matched"], r["total"])]
+    for t in r.get("thiscall_decls", []):
+        out.append("  %s is declared %s, but %s (%s): declare it as a member (thiscall) of the callee's class" % (
+            t["symbol"], t["declared"], t["why"], t["target"]))
     if r["exact"]:
         return "\n".join(out)
     rows = r["rows"]
