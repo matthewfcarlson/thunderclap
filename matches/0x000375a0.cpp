@@ -10,7 +10,7 @@ extern "C" bool __fastcall FUN_000375a0(V3_375a0* p) {
         float f;
         unsigned int i;
     } u;
-    u.f = p->z * p->z + p->y * p->y + p->x * p->x - gOne_375a0;
+    u.f = p->x * p->x + p->y * p->y + p->z * p->z - gOne_375a0;  // the listing's order (MSVC 7.1 reassociates; clang does not)
     u.i &= 0x7fffffff;
     return u.f <= gEpsilon;
 }

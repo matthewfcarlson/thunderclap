@@ -18,7 +18,7 @@ unsigned char Obj_a2370::Fn(float scale, float* out1, float* out2, unsigned char
     unsigned char r = 0;
     if (x.f > 0.0f || c != 0.0f) {
         r = 1;
-        *out1 = (x.f * a + c + c) * scale * 100.0f;
+        *out1 = (c + c + x.f * a) * scale * 100.0f;
     }
     union {
         float f;

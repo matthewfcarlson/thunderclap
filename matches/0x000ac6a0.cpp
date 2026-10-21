@@ -24,5 +24,5 @@ hulk_freg Curve_ac6a0::Evaluate(float x) {
     hulk_freg c = b * cubic;
     hulk_freg d = a * quad;
     hulk_freg e = t * linear;
-    return e + d + c + constant;
+    return c + d + e + constant;  // the listing's order (MSVC 7.1 reassociates; clang does not)
 }

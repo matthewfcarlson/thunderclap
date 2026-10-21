@@ -5,10 +5,10 @@ extern "C" void _ReadWriteBarrier();
 extern const float gOne_24cdd0;
 extern const float gZero_24cdd0;
 hulk_freg FUN_0024cdd0(float* a, float* b) {
-    float x = a[0] - b[0];
-    float y = a[1] - b[1];
-    float z = a[2] - b[2];
-    double s = sqrt(x * x + y * y + z * z);
+    hulk_freg x = a[0] - b[0];
+    hulk_freg y = a[1] - b[1];
+    hulk_freg z = a[2] - b[2];
+    double s = sqrt(y * y + z * z + x * x);  // the listing's order (MSVC 7.1 reassociates; clang does not)
     float d = (float)s;
     if ((float)s <= b[15])
         return gOne_24cdd0;
