@@ -1438,6 +1438,12 @@ class CodeView:
                     if i.target is not None and self.internal_target(i.target):
                         a = i.target
                         continue
+                    if i.target is not None and "tailfret" not in EQUIV_OFF and i.target in self.prog.funcs:
+                        # (round 19) `call f; ...; jmp g` with g a function: g's result is the return value, f's
+                        # st0 is only consumed if g takes x87 arguments
+                        if d < self.prog.x87_args(i.target):
+                            res = True
+                        break
                     if i.target is not None and own_float_ret and d == 0:
                         res = True
                     break
@@ -1807,6 +1813,27 @@ class CodeView:
             if j.mnemonic in ("test", "and") and j.op_str.replace(" ", "") in ("al,1", "al,0x1"):
                 return True
             if j.kind != "other" or (j.mnemonic not in ("mov", "movzx", "movsx") and not j.op_str.startswith("al")):
+                return False
+            a += j.size
+        return False
+
+    def sret_after(self, call_addr):
+        """(round 19, sretret) The code right after the call reads memory through the returned eax before writing it
+        (`call eax; mov ecx, [eax]; mov edx, [eax+4]`): the callee returns a struct through a hidden pointer and
+        returns that pointer in eax (the MSVC convention; clang's caller reads the sret slot and ignores eax)."""
+        i = self.decode(call_addr)
+        a = call_addr + i.size if i is not None else None
+        alias = {"eax"}
+        for _ in range(8 if a is not None else 0):
+            j = self.decode(a)
+            if j is None or j.kind != "other":
+                return False
+            if j.mem and j.mnemonic != "lea" and (j.mem[1] in alias or j.mem[2] in alias):
+                return True
+            if j.mnemonic == "mov" and len(j.ops) == 2 and j.ops[0][0] == "reg" and j.ops[1] == ("reg", "eax"):
+                alias.add(j.ops[0][1])
+            elif j.ops and j.ops[0][0] == "reg" and j.ops[0][1] == "eax" and j.mnemonic in (
+                    "mov", "lea", "xor", "movzx", "movsx", "pop", "sub", "and"):
                 return False
             a += j.size
         return False
@@ -2282,9 +2309,12 @@ def x87_math(name, args):
 
 
 TRACE_OURS = bool(os.environ.get("EQUIV_TRACE"))   # debugging: print every instruction address of our run
+NATIVE_SRET = [0, 0]         # (round 19, nrvo) the hidden return slot of the function under test (native mode, struct return)
+NATIVE_CTOR = False         # (round 19) native mode, the function under test is a constructor (`??0...`)
 NATIVE_DTOR = False         # (round 18) native mode, the function under test is a destructor (`??1...`)
 NATIVE_CI = {}              # (round 18, native) math name -> original address of its `__CI<name>` (x87-register-argument CRT routine)
 NATIVE_MODE = False         # (round 18) verify(native=True) is running
+NATIVE_NARROW = {}        # (round 19, natnarrow) original address -> {stack word index: bit width} of declared bool/char/short parameters
 NATIVE_BOOL = set()         # (round 18, native) original addresses of callees our source declares to return bool
 X87_NAN = struct.unpack("<d", bytes.fromhex("000000000000f8ff"))[0]     # the x87 "indefinite" NaN
 # MSVC's `vector constructor iterator` & co: our compile emits its own copy (a COMDAT), the original calls the
@@ -3099,6 +3129,13 @@ class Run:
             if p is None:
                 p = 4 * len(self.inp.get("own_args", [])) if self.inp.get("own_pop") is None else self.inp["own_pop"]
             nargs = p // 4 if p else len(self.inp.get("own_args", []))
+            if NATIVE_MODE and known and not p and "tailarity" not in EQUIV_OFF:
+                # (round 19, tailarity) `jmp g` with g a cdecl function that reads more stack words than the wrapper
+                # declares: g reads the wrapper's frame (the caller's words), so those words are g's arguments. Ours
+                # (clang, a real call) passes the words our declaration says: the rest is what the source dropped.
+                sem_ = self.prog.callee_stack_args(target)
+                if sem_:
+                    nargs = max(nargs, min(sem_, 32))
             if self.convs.get(self.orig_entry) and "tailconv" not in EQUIV_OFF:
                 # (round 7) a tail call out of an equiv-conv function: each side passes on its own incoming
                 # stack words (ours has the C++ declaration's, the original the annotation's), so as many as
@@ -3416,6 +3453,9 @@ class Run:
             self.prog.returns_this(target) and self.prog.callee_writes(target).get("ecx", 0) > 0
         if ret_this:
             eax = self.reg("ecx")
+        elif not tail and args and in_frame(args[0][0]) and "sretret" not in EQUIV_OFF and \
+                self.view.sret_after(insn.addr):
+            eax = args[0][0]            # (round 19) a struct-returning callee returns its hidden pointer in eax
         if self.view.native and self.view.is_ours and not tail and "boolret" not in EQUIV_OFF and \
                 self.view.bool_after(insn.addr):
             eax = 1 if eax & 0xFF else 0        # (round 18) `testb $1, %al` after the call: a bool, 0 or 1; same branch
@@ -3491,8 +3531,19 @@ class Run:
                     # the callee writes its byte, nothing more (its neighbours are other out-parameters)
                     sz = declared.get(j, 1)
                     sz = 1 if isinstance(sz, tuple) or not 0 < sz < 4 else sz
+                    if NATIVE_MODE and "natfill" not in EQUIV_OFF and sz == 1:
+                        # (round 19, natfill) clang lays a `char buf[N]` out at any address; the original's aligned
+                        # buffer got a whole word from the callee. Fill the bytes up to the next local whose address
+                        # the function takes or a byte it stored itself (a lone `char found` keeps its one byte)
+                        while sz < 4 and v + sz < ENTRY_ESP and v + sz not in self.addr_taken and v + sz not in sp \
+                                and not any(x in self.func_stack_written for x in (v + sz,)) and \
+                                v + sz not in self.stack_written and \
+                                not any(x <= v + sz < x + 4 for x in self.save_slots):
+                            sz += 1
                     b = bytearray(struct.pack("<I", fuzz_value(mix(self.inp["seed"], 0x0B7, k, j))))
                     for (k_, j_, off_, bi, n_), val in self.inp.get("fill_override", {}).items():
+                        if sz > 1 and (k_, j_, off_) == (k, j, 0):      # (a widened fill takes the word's overrides)
+                            b[bi:bi + n_] = (val & ((1 << (8 * n_)) - 1)).to_bytes(n_, "little")[:4 - bi]
                         if (k_, j_, off_) == (k, j, -1):          # (-1: a byte fill, bi counts from v)
                             b[bi:bi + n_] = (val & ((1 << (8 * n_)) - 1)).to_bytes(n_, "little")[:4 - bi]
                     uc.mem_write(v, bytes(b[:sz]))
@@ -3680,7 +3731,7 @@ class Run:
     def _frame_room(self, v):
         """Bytes from stack address v up to the next thing that isn't free frame space (a saved register,
         a return address, the top of our locals or of our declared arguments), and what that thing is."""
-        nargs = len(self.inp.get("own_args", []))
+        nargs = len(self.inp.get("own_args", [])) + self.inp.get("sret_words", 0)
         if v < ENTRY_ESP:
             top, what = ENTRY_ESP, "the return address"
         else:
@@ -4729,6 +4780,17 @@ class Run:
                         self.bool_ub = True
                 except Exception:   # noqa: BLE001
                     pass
+            if NATIVE_MODE and self.view.native and self.view.is_ours and insn is not None and \
+                    insn.mnemonic == "movzx" and len(insn.ops) == 2 and insn.ops[0][0] == "reg" and \
+                    insn.ops[1][0] == "reg" and insn.ops[1][1] in ("al", "bl", "cl", "dl") and "boolub" not in EQUIV_OFF:
+                # (round 19, boolub) clang normalises a bool it passes on: `movzx esi, bl; and esi, 1`
+                nx_ = self.view.decode(addr + insn.size)
+                if nx_ is not None and nx_.mnemonic == "and" and nx_.ops[:1] == [insn.ops[0]] and nx_.imms == [1]:
+                    try:
+                        if self.reg({"al": "eax", "bl": "ebx", "cl": "ecx", "dl": "edx"}[insn.ops[1][1]]) & 0xFE:
+                            self.bool_ub = True
+                    except Exception:   # noqa: BLE001
+                        pass
             # Unicorn sometimes restarts an instruction (the code hook fires again for the same address)
             # and loses lazily computed flags on the way (a cmp; mov [m], r; jb then branches differently
             # in two runs of identical code). Put back the flags it had the first time.
@@ -4897,6 +4959,19 @@ class Run:
                 self.reg_width[r_] = b_
                 if m != "pop" and not nop_move:
                     self.reg_dirty.add(r_)
+            if NATIVE_MODE and not self.view.is_ours and m == "mov" and len(insn.ops) == 2 and insn.ops[0][0] == "reg" \
+                    and insn.ops[0][1] in ("eax", "ecx", "edx", "ebx", "esi", "edi") and insn.mem is not None \
+                    and insn.mem[5] == 4 and insn.mem[1] in ("esp", "ebp") and not insn.mem[2] and \
+                    "natnarrow" not in EQUIV_OFF:
+                # (round 19, natnarrow) `mov [esp+16], dl; mov edx, [esp+16]; push edx`: a dword load of a stack slot
+                # the function wrote only partly: the upper bytes are stale, the callee reads a byte or a word
+                ea_ = self._ea(insn.mem)
+                wr_ = self.func_stack_written | self.stack_written
+                nb_ = 0
+                while nb_ < 4 and ea_ + nb_ in wr_:
+                    nb_ += 1
+                if 0 < nb_ < 3:
+                    self.reg_width[insn.ops[0][1]] = 8 * nb_
             if m == "push":
                 # (not a register the function set itself that happens to hold its entry value: `xor edi, edi;
                 # push edi` with edi 0 on entry, as a recorded game state has it)
@@ -5072,6 +5147,9 @@ class Run:
         # the double above keeps), and the control word the run ends with (53-bit precision, 0x027F, on both sides)
         out["st0raw"] = tuple(self.uc.reg_read(u.UC_X86_REG_FP0 + top)) if out["fdepth"] else None
         out["fpcw"] = self.uc.reg_read(u.UC_X86_REG_FPCW)
+        if NATIVE_MODE and NATIVE_SRET[1] and "nrvo" not in EQUIV_OFF:
+            out["sret"] = bytes(self.uc.mem_read(NATIVE_SRET[0], NATIVE_SRET[1] - NATIVE_SRET[0]))
+            out["sret_w"] = {a - NATIVE_SRET[0] for a in self.func_stack_written if NATIVE_SRET[0] <= a < NATIVE_SRET[1]}
         out["calls"] = self.calls
         out["cookie_bad"] = self.cookie_bad
         out["abi_mismatch"] = self.abi_mismatch
@@ -5805,6 +5883,18 @@ def _feq(a, b, rel=None, ab=None):
     return abs(a - b) <= max(ab, rel * max(abs(a), abs(b)))
 
 
+_NAN_SIGN = [0]
+
+
+def _nan_sign_only(a, b):
+    """(round 19, nansign) Two float words that are NaNs with the same payload and opposite signs. MSVC 7.1 turns
+    `x * -1.0f` into `fchs` (flips the sign of a NaN), clang keeps `fmul` by -1 (x87 returns the NaN operand
+    unchanged): IEEE leaves the sign of an arithmetic NaN unspecified, so this is not a behaviour difference unless
+    a NaN is produced, which the game does not rely on. Native mode only; the input is counted inconclusive."""
+    return NATIVE_MODE and "nansign" not in EQUIV_OFF and (a ^ b) == 0x80000000 and (a & 0x7F800000) == 0x7F800000 \
+        and (a & 0x7FFFFF) != 0
+
+
 def _norm(v):
     if STACK_LO <= v < STACK_HI:
         return "stack"
@@ -5850,6 +5940,7 @@ def _last_ret(calls, k, v):
 def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=0, skip_saved=(), void_eax=False):
     """List of human-readable behaviour differences (empty = same)."""
     out = []
+    _NAN_SIGN[0] = 0
     oc, rc = o["calls"], r["calls"]
     if r.get("cookie_bad") and not o.get("cookie_bad"):
         out.append("__security_check_cookie (before call #%d) doesn't get the cookie in ecx: it is __fastcall, "
@@ -5872,6 +5963,13 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
         if a.get("float_ret") != b.get("float_ret"):
             pass
         oa, ra = a["args"], b["args"]
+        if len(oa) != len(ra) and NATIVE_MODE and "cdecl0" not in EQUIV_OFF and a.get("known") and \
+                a["target"] in prog.funcs and prog.callee_stack_args(a["target"]) == 0 and \
+                prog.callee_pop(a["target"]) == 0:
+            # (round 19, cdecl0) a cdecl callee that reads no stack word (a stripped `printf`-style no-op, `ret`):
+            # the words pushed to it are unobservable. The original's count is a guess when the cleanup is shared
+            # with a later call; clang's is the declaration's (`...`). No words to compare.
+            oa, ra = [], []
         if len(oa) != len(ra):
             out.append("call #%d to %s: %d argument words, expected %d" % (k + 1, _fmt(a["target"]), len(ra), len(oa)))
             break
@@ -5886,10 +5984,16 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
                 j += 1
                 continue
             w_ = min((a.get("argw") or [])[j:j + 1] + (b.get("argw") or [])[j:j + 1] + [32])
+            if NATIVE_NARROW and w_ == 32:
+                w_ = NATIVE_NARROW.get(a["target"], {}).get(j, 32)      # (round 19) the callee reads only its low bits
             if w_ < 32 and (ov ^ rv) & ((1 << w_) - 1) == 0:
                 j += 1                  # only the low byte(s) were set on one side: the rest is garbage
                 continue
             if _norm(ov) == _norm(rv):
+                j += 1
+                continue
+            if _nan_sign_only(ov, rv):
+                _NAN_SIGN[0] += 1
                 j += 1
                 continue
             if of == 4 and rf == 4 and _feq(*struct.unpack("<ff", struct.pack("<II", ov, rv))):
@@ -5989,10 +6093,11 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
         if not addrs:
             continue
         diffs = []
+        in_ret = NATIVE_MODE and NATIVE_SRET[1] and s < len(oc) and "nrvo" not in EQUIV_OFF
         for a in sorted(addrs):
             ov = os_[a] if a in os_ else machine.byte(a, s)
             rv = rs[a] if a in rs else machine.byte(a, s)
-            if ov != rv:
+            if ov != rv and not (in_ret and NATIVE_SRET[0] <= a < NATIVE_SRET[1]):
                 diffs.append(a)
         if not diffs:
             continue
@@ -6026,6 +6131,19 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
                     # (round 18, dtorvptr) a destructor's last store of the vptr (the base class's vftable): MSVC and
                     # the original write each base's, clang -O0 omits the store of a trivial `~Base() {}`. A destroyed
                     # object's vptr is not observable
+                    done.update(range(w0, w0 + 4))
+                    continue
+                if _nan_sign_only(ow4, rw4):
+                    done.update(range(w0, w0 + 4))
+                    _NAN_SIGN[0] += 1
+                    continue
+                if NATIVE_CTOR and "ctorvptr" not in EQUIV_OFF and s < len(oc) and namer(w0) == "this+0x0" and \
+                        rw4 in prog.vftables and (ow4 in prog.vftables or not any(w0 + i in os_ for i in range(4))):
+                    # (round 19, ctorvptr) a constructor whose base is built in the source by a comma expression
+                    # (`Base((init(), *this))`): clang stores the base's vptr before evaluating the init call, MSVC
+                    # and the original store each vptr after their base constructor. A later store of the class's
+                    # own vftable (compared at the next segments and at the return) makes the object's final
+                    # vptr the same; only the callee of that init call could see the earlier value
                     done.update(range(w0, w0 + 4))
                     continue
                 if "ftolexact" in EQUIV_OFF and abs(ow4 - rw4) == 1 and 0x0C800000 <= (ow4 & 0x7FFFFFFF) < 0x72000000 and \
@@ -6062,6 +6180,17 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
             if _norm(o["saved"][reg]) != _norm(r["saved"][reg]):
                 out.append("%s not preserved the same way (%s vs %s)" % (reg, _fmt(_norm(r["saved"][reg])),
                                                                         _fmt(_norm(o["saved"][reg]))))
+        if o.get("sret") is not None and r.get("sret") is not None:
+            # (round 19, nrvo) the struct returned through the hidden pointer: the bytes the original wrote there
+            for i_ in sorted(o["sret_w"]):
+                if o["sret"][i_] != r["sret"][i_]:
+                    w_ = i_ & ~3
+                    ow_, rw_ = struct.unpack_from("<I", o["sret"], w_)[0], struct.unpack_from("<I", r["sret"], w_)[0]
+                    if _nan_sign_only(ow_, rw_):
+                        _NAN_SIGN[0] += 1
+                    else:
+                        out.append("the returned struct differs at +0x%x (%s, expected %s)" % (w_, _desc(rw_), _desc(ow_)))
+                        break
         rk = ret_kind
         if "ftolexact" not in EQUIV_OFF and o.get("fpcw") is not None and o["fpcw"] != r.get("fpcw"):
             out.append("x87 control word at return 0x%04x, expected 0x%04x" % (r.get("fpcw") or 0, o["fpcw"]))
@@ -6128,6 +6257,8 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
                    "takes %d: the other %d bytes belong to another call (a virtual declared with extra words that "
                    "the next call passes again gives the same bytes; natively the callee pops only its own). "
                    "Declare the words on the call that takes them" % (k_ + 1, dpop_, real_, dpop_ - real_))
+    if not out and _NAN_SIGN[0]:
+        r["nan_sign"] = True
     return out[:max_report]
 
 
@@ -6180,6 +6311,12 @@ def _first_diff(ob, rb, ofp, rfp, written=None):
             fmt = "<f" if sz == 4 else "<d"
             if _feq(struct.unpack_from(fmt, ob, off)[0], struct.unpack_from(fmt, rb, off)[0]):
                 skip.update(range(off, off + sz))
+    if NATIVE_MODE and "nansign" not in EQUIV_OFF:
+        for off in range(0, n - 3, 4):
+            wo_, wr_ = struct.unpack_from("<I", ob, off)[0], struct.unpack_from("<I", rb, off)[0]
+            if _nan_sign_only(wo_, wr_) and (written is None or off in written):
+                skip.update(range(off, off + 4))
+                _NAN_SIGN[0] += 1
     for i in range(n):
         if ob[i] != rb[i] and i not in skip and (written is None or i in written):
             return i
@@ -6956,14 +7093,38 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
             decls.setdefault(resolved[sym[0]], parse_signature(sym[0]))
     NATIVE_BOOL.clear()
     NATIVE_CI.clear()
+    NATIVE_NARROW.clear()
+    NATIVE_SRET[:] = [0, 0]
     if native:
         for n_, a_ in resolved.items():
             if n_.startswith("__CI") and a_ and prog.text[0] <= a_ < prog.text[1]:
                 NATIVE_CI[n_[4:]] = a_
     global NATIVE_MODE
     NATIVE_MODE = bool(native)
+    global NATIVE_CTOR
+    NATIVE_CTOR = bool(native) and fsym[0].startswith("??0")
     global NATIVE_DTOR
     NATIVE_DTOR = bool(native) and fsym[0].startswith(("??1", "??_G", "??_E"))
+    if native and "natnarrow" not in EQUIV_OFF:
+        # (round 19, natnarrow) a bool/char/short parameter of a callee our source declares: the callee reads its
+        # low byte or word (the ABI says the caller extends, the original's caller leaves stale upper bits, and
+        # the callee ignores them), so the upper bits of the pushed word are not compared. Trust: the declaration.
+        for t_, sg_ in decls.items():
+            if not sg_ or not sg_.get("params"):
+                continue
+            wi_, nm_ = 0, {}
+            for k_ in sg_["params"]:
+                if k_ in ("b8", "i8"):
+                    nm_[wi_] = 8
+                elif k_ == "i16":
+                    nm_[wi_] = 16
+                elif k_ in ("i64", "f64"):
+                    wi_ += 1
+                elif k_ not in ("i32", "ptr", "f32"):
+                    break
+                wi_ += 1
+            if nm_:
+                NATIVE_NARROW[t_] = nm_
     if native and "boolret" not in EQUIV_OFF:
         NATIVE_BOOL.update(t_ for t_, sg_ in decls.items() if sg_ and sg_.get("ret") == "b8")
         if NATIVE_BOOL:
@@ -7306,6 +7467,14 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         inp = make_input(seed, sig, globals_, rdata_ptrs, consts if seed % 3 == 2 else (), strides, own_words)
         inp["arity_by_call"] = {}
         inp["ret_override"] = {}
+        if NATIVE_MODE and sig and sig.get("ret") == "struct" and "nrvo" not in EQUIV_OFF and len(inp["stack"]) > 16:
+            # (round 19, nrvo) a struct returned through the hidden pointer: clang builds a named local in the return
+            # slot (NRVO), the original in a local of its frame and copies it out. The slot is the caller's argument
+            # area (one frame region on both sides: its fill and snapshots work as for a local); writes to it before
+            # the last segment are not compared (compare_runs)
+            inp["stack"][0] = ENTRY_ESP + 4 + 4 * (len(inp["stack"]) - 16)
+            inp["sret_words"] = 16
+            NATIVE_SRET[:] = [inp["stack"][0], inp["stack"][0] + 64]
         if stack_patch:
             for k, v in stack_patch.items():
                 if isinstance(k, tuple) and k[0] == "ret":     # a stub's return value
@@ -7399,6 +7568,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         inp.setdefault("wext_by_call", {})
         inp.setdefault("extra_by_call", {})
         inp.setdefault("tail_arity", {})
+        if "convshare" not in EQUIV_OFF:
+            inp.setdefault("nargs_by_call", {})     # (round 19) shared with the original's converted copy of the input
         inp_o = _conv_input(inp, own_layout, target_conv) if target_conv else inp
         return inp, inp_o, mach
 
@@ -7685,6 +7856,10 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 for c_ in rn_["calls"]:
                     print("   call %x args=%s regs ecx=%x ret_to=%x" % (c_["target"], [hex(a_[0]) for a_ in c_["args"]],
                                                                     c_["regs"]["ecx"], c_["ret_to"]), file=sys.stderr)
+        if not diffs and r.get("nan_sign"):
+            res["inputs_inconclusive"] += 1         # (round 19) the only differences are NaN signs, see _nan_sign_only
+            res["statuses"]["nan_sign"] += 1
+            return None
         if diffs and r.get("bool_ub") and "boolub" not in EQUIV_OFF:
             res["inputs_inconclusive"] += 1         # (round 18) native bool read of a non-bool byte: undefined, see _on_code
             res["statuses"]["bool_ub"] += 1

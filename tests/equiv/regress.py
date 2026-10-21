@@ -546,7 +546,7 @@ CASES = {
     # a tail jump to a callee that reads a stack word of the original's own caller: MSVC's `jmp` passes it on, clang's
     # `call` has nothing there (the callee reads 2 words, the source declares 1)
     "0x0024b0c0_tail_thunk": ("equivalent", None),
-    "0x0024b0c0_native_tail_thunk": ("fail", "2 argument words, expected 1", 0, {"native": True}),
+    "0x0024b0c0_native_tail_thunk": ("fail", "argument 2", 0, {"native": True}),
     # the original calls `__CIasin` with the argument in st(0); clang calls `asin(double)` on the stack: the same call (natci).
     # A callee whose pop count is unknown (a thunk) follows our declaration (`ret 4` of FUN_002a07a0 declared 1 argument);
     # an indirect call with five cdecl arguments takes the original's count
@@ -560,6 +560,52 @@ CASES = {
     # other order it fails (an MSVC-mode pass cannot tell: MSVC 7.1 reassociates the sum itself)
     "0x0022ff50_native_sum_order": ("equivalent", None, 0.9, {"native": True, "n_inputs": 3000}),
     "0x0022ff50_native_sum_order_wrong": ("fail", "returned", 0, {"native": True, "n_inputs": 3000}),
+    # round 19 (cl8): gaps nf1 found in --native mode (each switchable with EQUIV_OFF)
+    # tailfret: `call Get(); ...; jmp Calc` - the float Calc returns is the function's own result, not Get's
+    "0x000354c0_native_tail_fret": ("equivalent", None, 0.9, {"native": True, "n_inputs": 60}),
+    "0x000354c0_native_tail_fret_off": ("fail", "x87 stack depth", 0, {"src": "0x000354c0_native_tail_fret", "native": True, "n_inputs": 60, "equiv_off": "tailfret"}),
+    "0x000354c0_native_tail_fret_wrong": ("fail", "this (ecx)", 0, {"native": True, "n_inputs": 60}),
+    # sretret: a struct-returning indirect call; the original reads the result through the returned eax
+    "0x001e0230_native_sret": ("equivalent", None, 0, {"native": True, "n_inputs": 100}),
+    "0x001e0230_native_sret_off": ("fail", "write to arg", 0, {"src": "0x001e0230_native_sret", "native": True, "n_inputs": 100, "equiv_off": "sretret"}),
+    "0x001e0230_native_sret_wrong": ("fail", "write to arg", 0, {"native": True, "n_inputs": 100}),
+    # natfill: a char[257] at an odd frame offset gets the whole word the original's aligned buffer got
+    "0x0026f7b0_native_buf": ("equivalent", None, 0.9, {"native": True, "n_inputs": 300}),
+    "0x0026f7b0_native_buf_off": ("fail", None, 0, {"src": "0x0026f7b0_native_buf", "native": True, "n_inputs": 300, "equiv_off": "natfill"}),
+    "0x0026f7b0_native_buf_wrong": ("fail", None, 0, {"native": True, "n_inputs": 300}),
+    # boolub (movzx r32, r8; and r32, 1): clang normalises the bool byte it passes on; a byte other than 0/1 is no bool
+    "0x0002e910_native_bool": ("equivalent", None, 0, {"native": True, "n_inputs": 100}),
+    "0x0002e910_native_bool_off": ("fail", "argument 3", 0, {"src": "0x0002e910_native_bool", "native": True, "n_inputs": 100, "equiv_off": "boolub"}),
+    "0x0002e910_native_bool_wrong": ("fail", "argument 3", 0, {"native": True, "n_inputs": 100}),
+    # natnarrow: a dword load of a partly written stack slot (`mov [esp+16], dl; mov edx, [esp+16]; push edx`)
+    "0x001e14b0_native_narrow": ("equivalent", None, 0.9, {"native": True, "n_inputs": 100}),
+    "0x001e14b0_native_narrow_off": ("fail", "argument 2", 0, {"src": "0x001e14b0_native_narrow", "native": True, "n_inputs": 100, "equiv_off": "natnarrow"}),
+    "0x001e14b0_native_narrow_wrong": ("fail", "argument 2", 0, {"native": True, "n_inputs": 100}),
+    # tailarity: `jmp g` with g reading more stack words than the wrapper declares; the full parameter list passes
+    "0x001e8800_native_tail_arity": ("equivalent", None, 0.9, {"native": True, "n_inputs": 60}),
+    "0x0024a370_native_tail_arity_wrong": ("fail", "argument 2", 0, {"native": True, "n_inputs": 60}),
+    # ctorvptr: clang stores the base's vptr before the init call of `Base((init(), *this))`
+    "0x001a5e50_native_ctor_vptr": ("equivalent", None, 0.9, {"native": True, "n_inputs": 100}),
+    "0x001a5e50_native_ctor_vptr_off": ("fail", "unexpected write to this+0x0", 0, {"src": "0x001a5e50_native_ctor_vptr", "native": True, "n_inputs": 100, "equiv_off": "ctorvptr"}),
+    "0x001a5e50_native_ctor_vptr_wrong": ("fail", None, 0, {"native": True, "n_inputs": 100}),
+    # nansign: `x *= -1.0f` is fchs in MSVC 7.1 (flips a NaN's sign) and fmul in clang (keeps it): inputs whose only
+    # difference is a NaN sign are inconclusive. A real difference (y not negated) still fails
+    "0x00301410_native_nan_sign": ("equivalent", None, 0, {"native": True, "n_inputs": 100}),
+    "0x00301410_native_nan_sign_off": ("fail", "unexpected write to this+0x14", 0, {"src": "0x00301410_native_nan_sign", "native": True, "n_inputs": 100, "equiv_off": "nansign"}),
+    "0x00301410_native_nan_sign_wrong": ("fail", "this+0x18", 0, {"native": True, "n_inputs": 100}),
+    # cdecl0: the words pushed to a cdecl callee that reads no stack word (a no-op printf) are not compared
+    "0x002deca0_native_cdecl0": ("equivalent", None, 0.9, {"native": True, "n_inputs": 100}),
+    "0x002deca0_native_cdecl0_off": ("fail", "argument words", 0, {"src": "0x002deca0_native_cdecl0", "native": True, "n_inputs": 100, "equiv_off": "cdecl0"}),
+    "0x002deca0_native_cdecl0_wrong": ("fail", "extra call", 0, {"native": True, "n_inputs": 100}),
+    # convshare: a function under test with an equiv-conv note (its original gets a converted copy of the input): the
+    # words the original's call site passes to a `...` callee reach our run
+    "0x00214900_native_conv_share": ("equivalent", None, 0.7, {"native": True, "n_inputs": 100}),
+    "0x00214900_native_conv_share_off": ("fail", "argument words", 0, {"src": "0x00214900_native_conv_share", "native": True, "n_inputs": 100, "equiv_off": "convshare"}),
+    "0x00214900_native_conv_share_wrong": ("fail", "argument 4", 0, {"native": True, "n_inputs": 100}),
+    # nrvo: clang builds the returned struct in the hidden slot, the original in a local it copies out
+    "0x000a92c0_native_nrvo": ("equivalent", None, 0.9, {"native": True, "n_inputs": 100}),
+    "0x000a92c0_native_nrvo_off": ("fail", "argument 1", 0, {"native": True, "n_inputs": 100, "equiv_off": "nrvo", "src": "0x000a92c0_native_nrvo"}),
+    "0x000a92c0_native_nrvo_wrong": ("fail", "returned struct", 0, {"native": True, "n_inputs": 100}),
 }
 
 # verify_relocs.py cases: name -> (expected status, issue kind it must report or None)
@@ -595,6 +641,7 @@ def job(name):
 
 
 def _job(name, equiv, addr, kw):
+    src = kw.pop("src", None)        # (round 19) the case file when it is another case's source (`_off` variants)
     tree = os.path.join(CASES_DIR, name + ".tree.cpp")
     if os.path.exists(tree):
         # NAME.tree.cpp: the same source wrapped in `namespace fn_<addr>` as tools/build_tree.py merges it; its
@@ -604,7 +651,7 @@ def _job(name, equiv, addr, kw):
             obj = equiv.compile_obj(tree, equiv.DEFAULT_FLAGS, d)
             r = equiv.verify(os.path.join(CASES_DIR, name + ".cpp"), addr, obj_path=obj, **kw)
     else:
-        r = equiv.verify(os.path.join(CASES_DIR, name + ".cpp"), addr, **kw)
+        r = equiv.verify(os.path.join(CASES_DIR, (src or name) + ".cpp"), addr, **kw)
     diffs = [d for m in (r.get("level3") or {}).get("mismatches", []) for d in m["diffs"]]
     # (level-2 issues too, as "L2 kind symbol": round 13's float constants fail there)
     diffs += ["L2 %s %s" % (i.get("kind"), i.get("symbol") or i.get("target") or "")

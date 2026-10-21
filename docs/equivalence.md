@@ -488,6 +488,52 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   0x00207580), and a tail `jmp` whose callee reads the caller's stack words (0x0024b0c0). `build/cl6/native-sample.json`
   has the sample, `build/cl6/native-recheck.txt` the sources to re-check.
 
+- (round 19, cl8) **Native-mode gaps nf1 found** (`build/nf1/notes.md`), each switchable with `EQUIV_OFF=name`, each with
+  a passing case, an `_off` case (the gap is real without the change) and a deliberately wrong source in
+  `tests/equiv/cases/*_native_*`. MSVC-mode verdicts are unchanged: all rules except `tailfret` and `sretret` are
+  gated on `--native`, and those two only change what the original's own code shape decides (re-run of the MSVC-mode
+  regress suite: same verdicts).
+  - `tailfret`: `call Get(); ...; jmp Calc` - a tail `jmp` to a function leaves *its* result as the return value; the
+    earlier call's st(0) is only consumed if the target takes x87 arguments (`float_ret_after` treated it as a float
+    result, depth 1 vs 2; matches/0x000354c0, and the "x87 depth at return 7, expected 0" of 0x2a960, 0x39c60,
+    0x2fa6b0).
+  - `sretret`: a call whose code reads `[eax]` right after it, with a local pointer as first stack argument, returns that
+    pointer in eax (MSVC's hidden-pointer convention; clang reads the sret slot instead). 0x001e0230.
+  - `natfill`: clang places `char buf[257]` at any address; the stub's one-byte out-parameter fill (meant for a lone
+    `char found`) widens to the bytes up to the next address-taken local, a stored byte, a save slot (and a directed
+    input's word overrides apply). 0x0026f7b0 (the "W:" directed string).
+  - `boolub` (extended): `movzx esi, bl; and esi, 1`, clang's bool normalisation on a pass-on, makes a differing input
+    inconclusive when the byte is not 0/1 (fuzzed memory is no bool). Not a change in what is compared, 0x0002e910.
+  - `natnarrow`: (a) the original's dword load of a stack slot it wrote only partly (`mov [esp+16], dl; mov edx,
+    [esp+16]; push edx`) is a byte/word argument (upper bytes stale, the callee reads the low byte); (b) a callee our
+    source declares with `bool`/`char`/`short` parameters is compared on those bits (trust: the declaration). 0x001e14b0.
+    Decision: the callee reads only the low part, so the upper bytes are not behaviour. A bool byte that is not 0/1
+    on either side stays inconclusive (above).
+  - `cdecl0`: words pushed to a cdecl callee that reads no stack word (the stripped debug `printf`, 0x0028fcc0) are
+    not compared; the original's count is a guess when the cleanup is shared (0x001c9160, 0x002bc790, 0x002deca0).
+  - `tailarity`: the original's `jmp g` (g cdecl) passes the words g reads from the wrapper's frame; a source that
+    declares fewer parameters now fails with `argument 2 is ..., expected ...` instead of `2 argument words, expected 0`
+    (0x0024a370, 0x0024b0c0's case message); declaring the full list passes (0x001e8800).
+  - `ctorvptr`: a constructor whose base is built by `Base((init(), *this))`: clang stores the base's vptr before the
+    init call; a vftable store to this+0 before a call is not compared, the final vptr is (0x001a5e50).
+  - `nrvo`: a struct-returning function's hidden pointer is placed in the caller's argument area on both sides
+    (`sret_words`), so NRVO in clang (the named local is the return slot) and the original's local-then-copy see the
+    same buffers; writes into the slot before the last segment are not compared, the bytes the original wrote there
+    are compared at return ("the returned struct differs at +0x4"). 0x000a92c0.
+  - `convshare`: **the equiv-conv gap.** Native mode can compare sources with `// equiv-conv`; nothing needs a thunk. The
+    original of a function under test with a conv note runs on a converted *copy* of the input (`_conv_input`), and
+    `nargs_by_call`, the original's word count per call that clang's direct/`...` calls reuse, was created inside the
+    run, so ours never saw it (`2 argument words, expected 5`). It is created with the input now. 50 sources: 27 pass at
+    60 inputs (was 0); the rest are other classes (floats, timeouts, indirect cdecl arity guesses).
+  - `nansign`: `x *= -1.0f` is `fchs` for MSVC 7.1 (flips a NaN's sign) and a multiply for clang (x87 keeps the NaN
+    operand's sign). In IEEE terms they differ, but only for NaN inputs; the game's own data are not NaN (the fuzz
+    pool is). Decision: an input whose only differences are NaN-sign words (segment writes, pointee words, argument
+    words, the returned struct) is counted inconclusive (`statuses.nan_sign`), never equal; any other difference still
+    fails. 0x00301410 (35 sources have the pattern). Float returns were already NaN-agnostic (`_feq`).
+  Not done: the indirect cdecl arity guess (an original call through `[esi+4]` whose deferred cleanup makes it count the
+  next call's words, 0x0021acc0), stale-stack reads (an uninitialised local stored by one side as `0x5a5a5a5a`, the other
+  as stale data: 0x003272f0) and the 49 `vptr-loaded-before-call` cases (no C++ spelling).
+
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check
   `__security_check_cookie` is skipped on both sides, because its caller's `add esp` releases the frame
