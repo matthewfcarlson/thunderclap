@@ -396,8 +396,8 @@ void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
         hulk_freg ddx = p194.x - p1c4.x;
         hulk_freg ddy = p194.y - p1c4.y;
         hulk_freg ddz = p194.z - p1c4.z;
-        f.F10 = (float)sqrt(ddx * ddx + (ddy * ddy + ddz * ddz));
-        hulk_freg cur = f.F10;
+        hulk_freg cur = sqrt(ddx * ddx + (ddy * ddy + ddz * ddz));   // st(0): compared unrounded (x87_order)
+        f.F10 = (float)cur;
         hulk_freg diff = cur - f318;
         if (b244) {
             if (!b490) {
