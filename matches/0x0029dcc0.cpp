@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_29dcc0 {
   public:
     char pad[0x18];
@@ -8,9 +9,9 @@ class Obj_29dcc0 {
     float B(int, int);
     float C(int, int);
     float D(int, int);
-    float F(int, int);
+    hulk_freg F(int, int);
 };
-float Obj_29dcc0::F(int a, int b) {
+hulk_freg Obj_29dcc0::F(int a, int b) {
     field = 0;
     float r = A(a, b);
     r = r + B(a, b);

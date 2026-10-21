@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 namespace core {
 class Timer {
   public:
@@ -14,13 +15,13 @@ class Timer {
     virtual void vfunc_10();
     virtual void vfunc_11();
     virtual void vfunc_12();
-    virtual float vfunc_13();
+    virtual hulk_freg vfunc_13();
     int a[2];
     unsigned int denominator;
     int b;
     unsigned int numerator;
 };
-float Timer::vfunc_13() {
+hulk_freg Timer::vfunc_13() {
     return (float)numerator / (float)denominator;
 }
 } // namespace core

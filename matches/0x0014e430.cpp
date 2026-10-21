@@ -1,4 +1,5 @@
 // Same code shape as 0x0012b630 (propagated; names are from that function)
+#include "compat/ptr.h"
 struct Param {
   public:
     virtual void vfunc1();
@@ -18,7 +19,7 @@ struct HitPushbackTrack_14e430 : Track, Param {
     virtual void vfunc0();
     virtual void vfunc5();
     virtual void vfunc6();
-    virtual float GetExtent();
+    virtual hulk_freg GetExtent();
     virtual void vfunc10();
 
     int mFlags;
@@ -28,6 +29,6 @@ struct HitPushbackTrack_14e430 : Track, Param {
     float mHeight;
 };
 
-float HitPushbackTrack_14e430::GetExtent() {
+hulk_freg HitPushbackTrack_14e430::GetExtent() {
     return mMaxX - mMinX;
 }

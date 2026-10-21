@@ -1,5 +1,5 @@
 #include "compat/ptr.h"
-float __cdecl FUN_000df0b0(float x, int n) {
+hulk_freg __cdecl FUN_000df0b0(float x, int n) {
     unsigned int p = n < 0 ? -n : n;
     hulk_freg r = 1.0f;
     do {

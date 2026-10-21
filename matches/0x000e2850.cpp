@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Outer_e2850;
 class Inner_e2850 {
   public:
@@ -24,8 +25,8 @@ class Outer_e2850 {
   public:
     char pad[0x14];
     Inner_e2850* p;
-    float call();
+    hulk_freg call();
 };
-float Outer_e2850::call() {
+hulk_freg Outer_e2850::call() {
     return p->f17(this);
 }

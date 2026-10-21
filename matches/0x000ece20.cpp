@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct TextWindow;
 struct Sub_ece20 {
     virtual void f0();
@@ -20,9 +21,9 @@ struct Sub_ece20 {
 struct TextWindow {
     char pad[0x14];
     Sub_ece20* sub;
-    float vfunc_9();
+    hulk_freg vfunc_9();
 };
-float TextWindow::vfunc_9() {
+hulk_freg TextWindow::vfunc_9() {
     char local[12];
     sub->f15((float*)local, this);
     return *(float*)local * 1.05f;

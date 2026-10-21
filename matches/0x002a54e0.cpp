@@ -7,7 +7,7 @@ extern float threshold_2a54e0;
 extern float reciprocal;
 extern float zero_2a54e0;
 extern "C" double sqrt(double);
-float __fastcall Vec2Normalize(Vec2_2a54e0* v) {
+hulk_freg __fastcall Vec2Normalize(Vec2_2a54e0* v) {
     hulk_freg n = v->x * v->x + v->y * v->y;
     if (n >= threshold_2a54e0) {
         hulk_freg r = reciprocal / (hulk_freg)sqrt(n);

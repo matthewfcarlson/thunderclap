@@ -1,4 +1,5 @@
+#include "compat/ptr.h"
 extern "C" float sqrt(float);
-float Sqrt(float x) {
+hulk_freg Sqrt(float x) {
     return sqrt(x);
 }

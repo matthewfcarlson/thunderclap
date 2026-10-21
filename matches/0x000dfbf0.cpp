@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 2/2)
 // FUN_000dfbf0 @ 0x000dfbf0
 // cl-flags: /GS
+#include "compat/ptr.h"
 
 int __cdecl FUN_00294c70(const char* src, unsigned short* dst, int max);
 
@@ -17,10 +18,10 @@ public:
     virtual void v8();
     virtual void v9();
     virtual float Measure(unsigned short* wide);    // slot 10
-    float FUN_000dfbf0(const char* text);
+    hulk_freg FUN_000dfbf0(const char* text);
 };
 
-float TextSink::FUN_000dfbf0(const char* text)
+hulk_freg TextSink::FUN_000dfbf0(const char* text)
 {
     struct Frame {
         unsigned short wide[0x200];

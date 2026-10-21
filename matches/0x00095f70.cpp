@@ -3,9 +3,9 @@ extern "C" unsigned int __cdecl tick();
 struct Timer {
     float scale;
     unsigned int last;
-    float Delta();
+    hulk_freg Delta();
 };
-float Timer::Delta() {
+hulk_freg Timer::Delta() {
     unsigned int t = tick();
     unsigned int d = t - last;
     hulk_freg result = (hulk_freg)d * scale;

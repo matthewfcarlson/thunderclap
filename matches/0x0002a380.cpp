@@ -3,7 +3,7 @@ struct Vec {
     float x, y, z;
 };
 extern "C" double __cdecl sqrt(double);
-float __cdecl FUN_0002a380(const Vec* a, const Vec* b) {
+hulk_freg __cdecl FUN_0002a380(const Vec* a, const Vec* b) {
     hulk_freg x = a->x - b->x;
     hulk_freg y = a->y - b->y;
     hulk_freg z = a->z - b->z;

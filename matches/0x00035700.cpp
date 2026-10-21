@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" double __cdecl sqrt(double);
 struct V {
     char pad[0x80];
@@ -5,6 +6,6 @@ struct V {
     char pad2[4];
     float b;
 };
-float __fastcall FUN_00035700(V* p) {
+hulk_freg __fastcall FUN_00035700(V* p) {
     return (float)sqrt((double)p->b * p->b + (double)p->a * p->a);
 }

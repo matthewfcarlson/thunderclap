@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Vec_2fb860 {
     float x, y, z;
 };
@@ -10,10 +11,10 @@ struct Obj_2fb860 {
     void FUN_002fb860(Vec_2fb860* out, int index);
 };
 void Obj_2fb860::FUN_002fb860(Vec_2fb860* out, int index) {
-    float sign = index > 3 ? -1.0f : 1.0f;
-    float x = sign * sx;
-    float y = sign * sy;
-    float z = sign * sz;
+    hulk_freg sign = index > 3 ? -1.0f : 1.0f;
+    hulk_freg x = sign * sx;
+    hulk_freg y = sign * sy;
+    hulk_freg z = sign * sz;
     if (index % 4 > 1)
         y = y * -1.0f;
     if (index % 2 == 1)

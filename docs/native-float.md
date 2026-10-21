@@ -386,6 +386,28 @@ intrinsics for the transcendentals.
   native14's natcheck (equiv.py on the clang object) finds the clang-side ones for leaf functions. The scanner's
   counts are a heuristic (volatile copies and unions inflate them); the locator plus natcheck are the reliable pair.
 
+## 9. Status (native16, 2026-10-21)
+
+- **Flags adopted**: `-ffp-eval-method=double -ffp-contract=off` are in tools/clang_probe.py's x87 flags. The
+  prerequisite from section 8 is in place: 277 functions whose listing returns a computed st0 now return
+  `hulk_freg` (151 of native15's 159 "lost" returns; the other 8 are members declared in shared headers), and
+  tools/native_link.py binds a caller's `float` reference (`...M...`) to the `double` definition (`...N...`) that
+  differs only in the return code (x87-only: in st0 both come back alike; listed in native-build.md "Bridges to
+  remove"). The flags image gives the same checkpoint hashes as the image without them at every checkpoint both
+  reached (0-6,000); strict link 0 errors with and without `--gfx`.
+- **Replay**: 0-420 and 480-840 match. The physics divergences behind 810 and 840 were all this document's classes:
+  register-kept locals and returns (`hulk_freg`), and two sums MSVC 7.1 reassociates (0x0022d180 normalize,
+  0x0022c2b0 Mat::Transform's x row: `v1*m4 + v2*m8 + v0*m0 + m12`). The second kind is invisible to random-input
+  checks (two summation orders at 53 bits almost always round to the same float), so neither `equiv.py` nor
+  `--native` flags it; a listing-vs-source order check for fadd chains in byte-matched sources is the tool to build.
+- **Transcendentals**: the 769 box-matrix difference was first suspected to be `fsin`/`fcos` (QEMU uses the host
+  libm, Rosetta its own); the input to them already differed, so no transcendental divergence has been seen on the
+  replay path yet. The software-implementation plan of section 3 stands for 64-bit.
+- **`equiv.py --native` sweep** (cl6's round 18, 300 inputs, all 2,779 functions with x87 code): 2,374 equivalent,
+  403 fail (57 ULP-sized, 35 NaN-payload sign after `x * -1.0f` (clang flips the sign bit, x87 `fmul` keeps the
+  NaN's sign: harmless for real values), 12 unrounded returns of header virtuals, 296 other). 15 fixed by the
+  greedy `autofix.py` (float/`hulk_freg` toggles until native-mode agrees), more by hand on the replay path.
+
 ## Files
 
 - `tools/x87_scan.py`: the scanner (tracked).

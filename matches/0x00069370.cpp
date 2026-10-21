@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_69370 {
   public:
     char pad[0x30];
@@ -5,9 +6,9 @@ class Obj_69370 {
     int b;
     int c;
     int d;
-    float f(int);
+    hulk_freg f(int);
 };
 float callee(int, int, int, int, int);
-float Obj_69370::f(int x) {
+hulk_freg Obj_69370::f(int x) {
     return callee(b, a, d, c, x);
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern const float gOne_285a70;
 extern const float gZero_285a70;
 struct Data_285a70 {
@@ -21,7 +22,7 @@ struct Target_285a70 {
 void __fastcall FUN_00285a70(Target_285a70* p) {
     p->a = 0;
     p->b = 0;
-    float v;
+    hulk_freg v;
     if (p->data == 0 || (v = p->data->value - gOne_285a70, v < gZero_285a70))
         v = gZero_285a70;
     p->result = v;

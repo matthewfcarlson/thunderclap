@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Sub_266790 {
   public:
     int f();
@@ -10,12 +11,12 @@ class Obj_266790 {
     Sub_266790* sub;
 
   public:
-    float run();
+    hulk_freg run();
 };
 extern const float one;
 extern const float zero_266790;
 extern const float fix;
-float Obj_266790::run() {
+hulk_freg Obj_266790::run() {
     switch (mode) {
     case 3:
         return 1.0f;

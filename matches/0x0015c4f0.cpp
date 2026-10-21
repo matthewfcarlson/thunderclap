@@ -4,9 +4,9 @@ class C_15c4f0 {
   public:
     char pad[0x28];
     float m;
-    float f(float x);
+    hulk_freg f(float x);
 };
-float C_15c4f0::f(float x) {
+hulk_freg C_15c4f0::f(float x) {
     if (x <= kZero_15c4f0)
         return kZero_15c4f0;
     hulk_freg t = x;

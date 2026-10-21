@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct V3_22e180 {
     float x, y, z;
 };
@@ -15,7 +16,7 @@ struct Plane_22e180 {
 };
 void Plane_22e180::Set(Mat_22e180* m, P4* p) {
     m->Xform(p, this);
-    float f = -p->w;
+    hulk_freg f = -p->w;
     V3_22e180 v;
     v.x = f * x;
     v.y = f * y;

@@ -12,7 +12,7 @@ struct CSPHulkPropInstance_nv_1d6670 {
 extern const float g_one_1d6670;
 extern const float g_hundredth;
 extern const float g_factor;
-float __fastcall FUN_001d6670(Obj_1d6670* self) {
+hulk_freg __fastcall FUN_001d6670(Obj_1d6670* self) {
     int result = ((CSPHulkPropInstance_nv_1d6670*)(((CSPHulkPropInstance*)self->context)))->Get(self->value);
     bool scale = result == 2;
     hulk_freg value = 1.0f;

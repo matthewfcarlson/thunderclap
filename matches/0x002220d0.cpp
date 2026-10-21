@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Result {
     char data[12];
 };
@@ -11,10 +12,10 @@ struct Obj {
     char pad[0x40];
     Sub sub;
     int mode;
-    float FUN_002220d0();
+    hulk_freg FUN_002220d0();
     void FUN_0022c3b0(float*, Result*);
 };
-float Obj::FUN_002220d0() {
+hulk_freg Obj::FUN_002220d0() {
     Result result;
     switch (mode) {
     case 0:

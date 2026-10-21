@@ -226,7 +226,11 @@ static int trace_func_impl(hulk_u32 addr, const hulk_u32* f) {
         }
     }
     if (w_ptr) {
-        hulk_u32 obj = w_abs ? w_ptr : *(const hulk_u32*)w_ptr;
+        hulk_u32 obj = w_abs ? w_ptr : *(const hulk_u32*)w_ptr, wmb[7] = {0};
+        // native16: an absolute address may not be mapped yet (heap not grown that far)
+        if (obj && (hulk_host_VirtualQuery((const void*)(obj + w_off), wmb, sizeof(wmb)) != sizeof(wmb) || wmb[4] != 0x1000 ||
+                    (wmb[5] & 0x101) || obj + w_off + 12 > wmb[0] + wmb[3]))
+            obj = 0;
         if (obj) {
             const hulk_u32* m = (const hulk_u32*)(obj + w_off);
             if (m[0] != w_old[0] || m[1] != w_old[1] || m[2] != w_old[2]) {
@@ -258,6 +262,62 @@ static int trace_func_impl(hulk_u32 addr, const hulk_u32* f) {
     }
     hulk_trace_line("fcall 0x%08x ecx=0x%08x edx=0x%08x ret=0x%08x args 0x%08x 0x%08x 0x%08x 0x%08x tid=%u f=%u", addr, f[1],
                     f[2], f[3], f[4], f[5], f[6], f[7], hulk_host_GetCurrentThreadId(), hulk_native_frame_no);
+    // native16: HULK_TRACE_SPAN=[<hex function>/]<slot 0-8>+<hex offset>[@+<hex offset>...]:<hex words>[,...]: that many
+    // words at (slot value + offset) (an array inside an object: a manager's entry table), 8 per line, when committed
+    // memory; `@` reads the word at the address so far (a pointer field) and goes on from there; a `<function>/` prefix
+    // limits a spec to that probed function (several specs: comma-separated)
+    static const char* span = (const char*)1;
+    if (span == (const char*)1)
+        span = hulk_host_getenv("HULK_TRACE_SPAN");
+    for (const char* sp = span; sp && *sp;) {
+        const char* q = sp;
+        hulk_u32 only = 0;
+        for (const char* r = sp; *r && *r != ','; r++)
+            if (*r == '/') {
+                for (; q < r; q++)
+                    only = only * 16 + (hulk_u32)(*q <= '9' ? *q - '0' : (*q | 0x20) - 'a' + 10);
+                q = r + 1;
+                break;
+            }
+        const char* end = q;
+        while (*end && *end != ',')
+            end++;
+        sp = *end ? end + 1 : end;
+        if ((only && only != addr) || *q < '0' || *q > '8')
+            continue;
+        hulk_u32 base = *q == '0' ? f[1] : f[3 + (*q - '0')], off = 0, n = 0, *acc = &off;
+        for (q++; q < end; q++) {
+            if (*q == '+')
+                continue;
+            if (*q == '@') {
+                hulk_u32 at0 = base + off, mb[7] = {0};
+                if (at0 < 0x10000 || hulk_host_VirtualQuery((const void*)at0, mb, sizeof(mb)) != sizeof(mb) || mb[4] != 0x1000 ||
+                    (mb[5] & 0x101)) {
+                    base = 0;
+                    break;
+                }
+                base = *(const hulk_u32*)at0;
+                off = 0;
+                continue;
+            }
+            if (*q == ':') {
+                acc = &n;
+                continue;
+            }
+            *acc = *acc * 16 + (hulk_u32)(*q <= '9' ? *q - '0' : (*q | 0x20) - 'a' + 10);
+        }
+        hulk_u32 at = base + off, mbi[7] = {0};
+        n = (n + 7) & ~7u;
+        if (n > 0x4000)
+            n = 0x4000;
+        if (at >= 0x10000 && hulk_host_VirtualQuery((const void*)at, mbi, sizeof(mbi)) == sizeof(mbi) && mbi[4] == 0x1000 &&
+            !(mbi[5] & 0x101) && at + 4 * n <= mbi[0] + mbi[3]) {
+            const hulk_u32* m = (const hulk_u32*)at;
+            for (hulk_u32 k = 0; k < n; k += 8)
+                hulk_trace_line("  span +0x%04x: %08x %08x %08x %08x %08x %08x %08x %08x", k * 4, m[k], m[k + 1], m[k + 2],
+                                m[k + 3], m[k + 4], m[k + 5], m[k + 6], m[k + 7]);
+        }
+    }
     // native12: HULK_TRACE_STR=<digits 1-8>: the NUL-terminated string (up to 96 chars) each of these stack arguments
     // points at, when committed memory (varargs too: `5` is luaG_runerror's name)
     static const char* strs = (const char*)1;

@@ -117,6 +117,10 @@ static Callback s_callback;
 static void* s_window;
 static bgfxDisplay* s_display;
 static unsigned s_shots[16], s_shotCount, s_drawlogLast, s_exitAfter;
+// native16: HULK_GFX_SHOT_GAME=<game frame>,...: screenshots by GameClock frame (the replay checkpoints' numbering), at
+// the first present after that frame's update, as game-<frame>.tga
+static unsigned s_gameShots[64], s_gameShotCount;
+extern "C" unsigned int hulk_native_frame_no;   // src/platform/sdl/xdk/startup.cpp (counted by replay_hooks.cpp)
 static char s_shotDir[260] = ".";
 static char s_drawlogOut[260];
 static bool s_drawlogDumped;
@@ -154,6 +158,13 @@ static void readOptions(unsigned* w, unsigned* h)
     s = getenv("HULK_GFX_SHOT");
     while (s && *s && s_shotCount < 16) {
         s_shots[s_shotCount++] = (unsigned)strtoul(s, (char**)&s, 10);
+        if (*s != ',')
+            break;
+        s++;
+    }
+    s = getenv("HULK_GFX_SHOT_GAME");
+    while (s && *s && s_gameShotCount < 64) {
+        s_gameShots[s_gameShotCount++] = (unsigned)strtoul(s, (char**)&s, 10);
         if (*s != ',')
             break;
         s++;
@@ -252,6 +263,15 @@ void platformBeforeFrame(unsigned frame)
             _snprintf(path, sizeof(path) - 1, "%s\\shot-%u.tga", s_shotDir, frame);
             path[sizeof(path) - 1] = 0;
             bgfx::requestScreenShot(BGFX_INVALID_HANDLE, path);
+        }
+    for (unsigned i = 0; i < s_gameShotCount; i++)
+        if (s_gameShots[i] && hulk_native_frame_no >= s_gameShots[i]) {
+            char path[300];
+            _snprintf(path, sizeof(path) - 1, "%s\\game-%u.tga", s_shotDir, s_gameShots[i]);
+            path[sizeof(path) - 1] = 0;
+            logf("pddi: game frame %u (present %u): screenshot requested\n", hulk_native_frame_no, frame);
+            bgfx::requestScreenShot(BGFX_INVALID_HANDLE, path);
+            s_gameShots[i] = 0;
         }
 }
 

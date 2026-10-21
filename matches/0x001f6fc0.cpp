@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Item {
   public:
     float Apply(float*);
@@ -7,9 +8,9 @@ class Obj {
     char pad[0x24];
     float val;
     Item* GetItem();
-    float Run();
+    hulk_freg Run();
 };
-float Obj::Run() {
+hulk_freg Obj::Run() {
     volatile float f = 10000.0f;
     Item* p = GetItem();
     if (p)

@@ -13,7 +13,7 @@ inline float Abs(float x) {
     t.u &= 0x7fffffff;
     return t.f;
 }
-float Angle(float a, float b) {
+hulk_freg Angle(float a, float b) {
     if (Abs(a) <= kEps && Abs(b) <= kEps)
         return kZero_224ea0;
     hulk_freg r = (hulk_freg)atan2(-a, -b);

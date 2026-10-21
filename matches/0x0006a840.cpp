@@ -1,4 +1,5 @@
 // Same code shape as 0x0012b630 (propagated; names are from that function)
+#include "compat/ptr.h"
 struct Param {
   public:
     virtual void vfunc1();
@@ -18,7 +19,7 @@ struct CDriftTrack_6a840 : CTrack_6a840, Param {
     virtual void vfunc0();
     virtual void vfunc5();
     virtual void vfunc6();
-    virtual float GetExtent();
+    virtual hulk_freg GetExtent();
     virtual void vfunc10();
 
     int mFlags;
@@ -28,6 +29,6 @@ struct CDriftTrack_6a840 : CTrack_6a840, Param {
     float mHeight;
 };
 
-float CDriftTrack_6a840::GetExtent() {
+hulk_freg CDriftTrack_6a840::GetExtent() {
     return mMaxX - mMinX;
 }

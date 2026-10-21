@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Input_f6a70 {
     char p0[0x10];
     float angle;
@@ -30,7 +31,7 @@ class Service_f6a70 {
 };
 extern Service_f6a70* gService;
 extern "C" double tan(double);
-float __cdecl Calc(Input_f6a70* a, Camera* b, void* c) {
+hulk_freg __cdecl Calc(Input_f6a70* a, Camera* b, void* c) {
     if (!a || !c)
         return 1.0f;
     float pad[4];

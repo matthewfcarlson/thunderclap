@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern const float zero;
 struct Value {
     char pad[0x14];
@@ -18,9 +19,9 @@ class Obj {
     void* second;
     char c[0x5f];
     char flag;
-    float Get();
+    hulk_freg Get();
 };
-float Obj::Get() {
+hulk_freg Obj::Get() {
     if (flag)
         return zero;
     if (first && second) {

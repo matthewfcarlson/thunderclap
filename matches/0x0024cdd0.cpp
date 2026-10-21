@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 extern "C" double pow(double, double);
 extern "C" void _ReadWriteBarrier();
 extern const float gOne_24cdd0;
 extern const float gZero_24cdd0;
-float FUN_0024cdd0(float* a, float* b) {
+hulk_freg FUN_0024cdd0(float* a, float* b) {
     float x = a[0] - b[0];
     float y = a[1] - b[1];
     float z = a[2] - b[2];

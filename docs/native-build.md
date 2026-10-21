@@ -260,6 +260,101 @@ MSVC 7.1 to an identical object; `verify_relocs.py` ok on the 2,316 changed `mat
 modes among neighbours that share `GetLastError`-style declarations); the strict i686 native link of that tree:
 lld-link rc 0, no messages.
 
+## native16: the physics precision chase to 840, float returns, native-mode equivalence (2026-10-21)
+
+Inputs: HEAD 4ecbc09d (native15) plus the same untracked other-session sources as native15's workspace; during the
+round HEAD moved to 08e440d0 (fx24's round-17 fixes, cl6's `equiv.py --native`). Changed sources:
+`build/native16/sources.txt`; files: `build/native16/files.txt`; equivalents for the 20,000-input promotion:
+`build/native16/equivalents.txt`.
+
+**Replay (play3)**: checkpoints 0-420 and 480-840 match (28; native15: 0-420, 480-780). 450 is still -1 ULP in the
+camera's y. 870 differs only in the RNG (14 draws behind, camera exact): the first RNG caller missing natively is
+an AI agent at frame 857 (CRangedAgent::vfunc_9 0x00107300, FUN_00107140, FUN_00037860, FUN_000fee10); the prop
+physics already differs at 840 (another prop's velocity, 1-4 ULP). The image plays play3 to frame 103,500 without
+a crash or hang (native15's stop near 4,600 is gone: the game no longer reaches that diverged state; the original
+makes the same unchecked call, see below).
+
+**What 810 was.** The checkpoint brute force (`$S/n16/bf.c`: the recorded hash from the native camera and clock
+with the hybrid RNG stepped k draws past frame 780) showed the camera right at 810 and the RNG 10 draws behind. An
+rng-log hybrid replay of play3 (`rl3`, mac2) against native probes of every RNG accessor (`rngcmp.py`) named the
+missing draws: two awake CSPHulkPropInstance props (`FUN_001d8fc0` draws for a non-sleeping articulated body) fall
+asleep at 800 and 814 natively and the prop manager 0x001e6390 deactivates them; in the hybrid the collision
+solver's impulse (PhysicsObject::vfunc_19, 0x002f5db0) wakes them again. Guest-side loggers written over GDB into
+the hybrid (`rl4`: function entries, instruction sites and memory chains logged per frame into the unused
+`record[]` ring) against native `HULK_TRACE_SPAN` dumps then walked the props' physics back to its first
+difference, fixed it, and repeated; each fix moved the first differing frame later (441 -> 444 -> 450 -> 678 ->
+742 -> 769 -> 840):
+
+| frame | where (first difference) | cause | fix |
+|---|---|---|---|
+| 441 | a triangle contact normal's z (FUN_002fa6b0 -> normalize 0x0022d180) | MSVC 7.1 computes (x*x + y*y) + z*z, root and reciprocal in registers; the source said z*z + y*y + x*x and `(float)sqrt` | listing order, `hulk_freg` (matches/, MATCH) |
+| 444-678 | capsule depth 0x00314380, restitution `vfunc_4` 0x002f8730, `FUN_002f7ca0`, triangle/capsule tests 0x00358630 / 0x003577c0, inertia 0x002fcd60, impulse lever 0x002f5a20, quaternion 0x0022b370, PhysicsObject::vfunc_7 0x002f5870 | locals and returns the original keeps in st0 | `hulk_freg` locals / returns |
+| 677 / 739 | box-triangle contact depth (0x002faa30 -> 0x0035a2a0 -> clip 0x00359a80, SAT 0x00359510) | clip interpolation and plane distances in registers | `hulk_freg` (MSVC objects identical) |
+| 739 | contact velocity from SimState::vfunc_8 0x002ef530 | the workspace lacked 18 of fx24's committed round-17 fixes (`cycle.sh` copies only this round's sources) | workspace synced with HEAD |
+| 769 | box centre (Mat::Transform 0x0022c2b0) | MSVC 7.1 reassociates x = v1*m4 + v2*m8 + v0*m0 + m12 | listing order (MATCH) |
+| 768 | body-body capsule contact 0x00315620 | cross product and 1/(s*s) kept in registers | `hulk_freg` (MSVC object identical) |
+
+The classes and how many sources each touched:
+
+| class | sites | fix |
+|---|---|---|
+| float locals MSVC keeps in x87 registers (53 bits), rounded natively | the scanner's "image rounds more" functions | `hulk_freg` locals by hand from the listing, `localfreg.py` (78 replay-path candidates; 10 reverted where the original spills) and `autofix.py` (greedy float/`hulk_freg` toggles until `equiv.py --native` agrees: 15 sources) |
+| float returns the original leaves unrounded in st0 | 299 functions whose listing returns a computed st0 (`retscan.py`) | `hulk_freg` return type (`retfreg.py`, 277 sources; 3 overrides of header virtuals reverted, 19 header-declared members left) + the binding rule below |
+| sums MSVC 7.1 reassociates | 0x0022d180, 0x0022c2b0 | the listing's order. Random inputs rarely see these (at 53 bits two orders round to the same float almost always), so `--native` passes them: they need a listing-vs-source order check (next round) |
+| `--native` sweep | 2,779 x87 functions: 2,374 equivalent natively, 403 fail (57 ULP-sized, 35 NaN-payload sign, 12 unrounded returns of header virtuals, 296 other: uninitialised frame words, stack-depth reports, harness gaps) | autofix (87 of 393 tried) + by hand; the rest listed for the next round (`$S/n16/af2*.txt`) |
+
+**The binding rule.** A definition whose return is `hulk_freg` is mangled `N` (double) natively where its MSVC 7.1
+symbol (the tree's `defs`) says `M`; `tools/native_link.py` now binds that address to the clang definition that
+differs only in the return-type code (`@@Y?`, `@@[ABEFIJMNQRUV][A-D]?`, `@@[CDKLST]?` then M/N; never a parameter,
+whose size differs). On x87 a float and a double come back the same way (st0), so a caller declared `float f()`
+reads the unrounded value as the original's callers do. 186 definitions bound this way; the strict link stays at 0
+errors (1,366 unresolved names, as before). x87-only: listed in "Bridges to remove".
+
+**Flags.** **Adopted** (tools/clang_probe.py: `-ffp-eval-method=double -ffp-contract=off` added to the x87 flags). Evidence:
+an image built with them (workspace wsn16f, all TUs compile) gives the same checkpoint hashes as the image without
+them at all 67 checkpoints both runs reached (0-6,000: 28 matching, the diverged ones with identical hashes); strict
+lld-link 0 errors with and without `--gfx` (1,366 unresolved names, as before). native15's blocker, the 159
+functions whose unrounded return the flags would round, is down to 8: 151 now return `hulk_freg` and are bound by
+the rule above; the 8 left are members declared in shared headers or overrides of header virtuals (0x000dd8b0,
+0x000dd8d0, 0x000dd920, 0x000e85b0, 0x00143840, 0x00181270, 0x00268ea0, 0x002f60f0). `equiv.py --native` uses
+clang_probe's flags, so native-mode checks now compile the same way.
+
+**Crash near 4,600.** Not reproduced: the image plays all of play3 (to 103,500) without a crash or hang. native15's
+stop was `Obj_2250e0::set` with a null driver reached from AnimationPhaseMatchedAction 0x0013d7b0 on the diverged
+path; the original makes the same unchecked call, so it is a state the original never reaches. No guard added
+(it would change a byte-matched source for a path the replay no longer takes).
+
+**I/O capture (stop 41).** rl4 loggers on DriveThread's post (0x272fc0), request step (0x273210) and retirement
+(0x27336c) on play3 to frame 1,000 in the hybrid: 1,089 posts, every request retired in the frame it was posted
+(post-to-retire latency 0 frames). So the hybrid's model is "complete before the next frame" (native15's
+`HULK_SYNCIO=3`/`4`); the 914/915 race natively comes from the request still pending >300 ms, not from xemu taking
+frames.
+
+**Screenshots.** `HULK_GFX_SHOT_GAME=<game frames>` (src/platform/sdl/pddi/sdl_platform.cpp; rebuild the pddi
+objects with `tools/native_gfx.py pddi --target win32`) saves `game-<frame>.tga` at the first present after that
+GameClock frame; mac2's `~/hulk-tr1/shots-native16.py UNTIL F1,...` stops the hybrid over GDB at the same frames and
+saves the scan-out buffer. Side-by-sides stay in scratch (game imagery is never committed).
+
+**Tools (scratch `$S/n16`).** `rl3.py` / `rl4.py` (hybrid loggers; `--mem ADDR:NB:CHAIN:K` with an
+instruction-boundary check; `esp` chains are 0xc above the real esp, the logger pushes three registers),
+`cmpmem.py`, `cmpq.py`, `cmpphy.py`, `seqcmp.py`, `rngcmp.py`, `bf.c` + `ckbf.sh`, `retscan.py`, `retfreg.py`,
+`localfreg.py`, `autofix.py` + `autofix-batch.sh`, `msvcsame.py` (MSVC objects identical before and after: the proof
+that a float -> `hulk_freg` spelling changes nothing for MSVC; compare under the same file name), `natdis.sh`.
+Probe aids in startup.cpp: `HULK_TRACE_SPAN=[fn/]slot+off[@+off]:words` (slot 0 = ecx, 1.. = stack arguments),
+the watch's readability check; replay_hooks.cpp: `HULK_CKPT_EVERY=a-b`.
+
+**Checker gaps found.** (1) `--native` cannot see reassociated sums (above). (2) Native-mode reports that are
+artefacts: "x87 stack depth at return 7, expected 0" (0x0002a960, 0x00316410, 0x00317700, 0x00039c60,
+0x000418f0), 0x002fa6b0's tail `jmp` to 0x0022d180 read as a call with 0 argument words, NaN sign after `x * -1.0f`
+(clang emits a sign flip, the x87 `fmul` keeps the NaN's sign: 35 functions, harmless for real values).
+
+**Next.** (1) The prop that differs at 840 (another CSPHulkPropInstance; same method: `rl4 --mem
+0x2f58e0:7:ecx+10@+40:16` from 800, then contacts/impulses with `cmpq.py`) and the AI agent draws at 857. (2) A
+listing-order check for sums in byte-matched sources (compare the operand order of each fadd chain with the clang
+object's). (3) The remaining 306 `--native` failures (autofix on `$S/n16/af2*.txt`, 87 done). (4) 450: the chase camera (0x000a75d0's object, 192 words compared per frame against the hybrid)
+is equal at frame 442 and differs at 443 by 1-2 ULP in a direction vector (+0x50 / +0x64 / +0x70) and +0x80; the writer during
+442 is next (the heap address moves between probe runs: watch it through a pointer, not an absolute address).
+
 ## native15: float precision through 780, the I/O timing of stop 41, check 7 (2026-10-20)
 
 Inputs: native14's workspace (HEAD e6b732c9 + the same untracked sources), x87's study ([native-float.md](native-float.md)),
@@ -664,6 +759,7 @@ instead of compiling our own source as written. Accepted as tech debt (2026-10-1
 | (native12) pooled game strings copied from the XBE (native_host.data_block `want`) | 37 strings (`"sub"` 0x00434bbc, ...) | the inventory gives a literal the linker shared with a library object to that object, so no data TU defines it | data_gen emits game-referenced strings whatever object the inventory names |
 | (native12) RTTI TD match without the `_<address>` suffix (native_link.py) | the renamed classes' descriptors (0x002abfb0, 0x002abd90, 0x00297680 casts) | consolidation renames make the class name differ from the game's | the real class names (include/gen) in the casting sources |
 | the empty stubs for a virtual the original doesn't own (the 0x002777c0 class) | 14 sources with an adjustor thunk and an empty out-of-line body: 10 fixed (`stub-body`), 2 are other sessions' untracked files (matches/0x002777e0, 0x002777f0), 2 are constructor/destructor bodies the vftable emission needs (0x00268010, 0x0026e350) | — | (the 2 untracked ones: the same rewrite once they are committed) |
+| (native16) return-type binding (native_link.py): a caller's `float f()` reference bound to the definition returning `hulk_freg` (`double`, mangling `N` for `M`) | 186 definitions | MSVC 7.1 leaves those returns unrounded in st0 and the callers' declarations (headers, other TUs) still say `float`; on x87 both come back in st0 | callers declared with `hulk_freg` returns (the headers' members first), then the rule goes; x86-64 needs it gone (a `float` return is a single in xmm0, a `double` a double) |
 
 ## Graphics boundary crossed (G1, 2026-10-19)
 

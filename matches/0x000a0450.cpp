@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" double atan2(double y, double x);
 extern const float gZero_a0450;
 extern const float gEps;
@@ -7,7 +8,7 @@ union Bits_a0450 {
     float f;
     unsigned long u;
 };
-float __cdecl Fn(float* p) {
+hulk_freg __cdecl Fn(float* p) {
     Bits_a0450 a;
     a.f = p[0];
     a.u &= 0x7fffffffUL;

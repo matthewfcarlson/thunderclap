@@ -150,6 +150,27 @@ first calls agrees with the hybrid's to frame 914, where a streamed resource com
 `HULK_TRACE_XDEREF`; `HULK_CKPT_REGIONS=1` plus a brute force over small ULP changes of the camera tells a
 precision difference from a logic one.
 
+### Status (native16, 2026-10-21)
+
+Checkpoints 0-420 and 480-840 match (28); 450 is still -1 ULP in the camera's y (the frame is black, mid-fade, in
+both); 870 differs only in the RNG (14 draws behind, camera exact): an AI agent's draws (CRangedAgent::vfunc_9
+0x00107300 and FUN_00107140 / FUN_00037860 / FUN_000fee10) are missing natively at 857, after a prop's physics
+first differs at 840. The image plays play3 to frame 103,500 with no crash or hang. Side-by-side screenshots of
+the diverged checkpoints (native | hybrid, scratch only): same scene and camera up to 1,050 with small pose
+differences, Hulk doing something else by 1,500, a different tutorial page by 6,000.
+
+**Method that found 810 and the rest** ([native-build.md](native-build.md) "native16"): the checkpoint brute force
+(camera exact? RNG how many draws behind?), then an rng-log hybrid (`rl3`) against native RNG-accessor probes to
+name the missing draws' caller, then hybrid loggers written over GDB (`rl4 --fn/--site/--mem`, per-frame records in
+the unused `record[]` ring) against native `HULK_TRACE_SPAN` dumps of the same objects, frame by frame, to the first
+differing word, and `HULK_TRACE_WATCH` (now also absolute addresses) to the native writer.
+
+**I/O (stop 41).** The instrumented hybrid capture: loggers at DriveThread's post (0x272fc0), request step
+(0x273210) and retirement (0x27336c) on play3 to frame 1,000 saw 1,089 posts, every request retired within the
+frame it was posted. The hybrid therefore behaves as "every request completes before the next frame"; natively the
+914/915 race is a request that stays pending (more than 300 ms) while the main thread waits, i.e. a dependency on
+main-thread work, not xemu latency.
+
 ### Status (native15, 2026-10-20)
 
 Checkpoints 0-420 and 480-780 match (24 of 27); 450 differs by -1 ULP in the camera's y; from 810 the gameplay

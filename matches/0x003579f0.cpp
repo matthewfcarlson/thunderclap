@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct V {
     float x, y, z;
 };
@@ -14,7 +15,7 @@ void Proj(V* d, V** t, float* mn, float* mx) {
         *mn = v1;
     else if (v1 > *mx)
         *mx = v1;
-    float v2 = dot(d, t[2]);
+    hulk_freg v2 = dot(d, t[2]);
     if (v2 < *mn)
         *mn = v2;
     else if (v2 > *mx)

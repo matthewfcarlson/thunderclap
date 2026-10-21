@@ -27,6 +27,35 @@ extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
     st.camera_ptr = (const void* const*)DAT_004e231c;
     st.clock = clock;
     st.clock_at_entry = 1;
+    // native16: HULK_CKPT_EVERY=<from>-<to>: the RNG and the camera position at every frame in that range (before the
+    // frame's update, as the checkpoint sees them), to bracket a divergence between two checkpoints
+    {
+        static int ev = -1;
+        static hulk_u32 ev_from, ev_to;
+        if (ev < 0) {
+            const char* v = hulk_host_getenv("HULK_CKPT_EVERY");
+            ev = 0;
+            if (v && *v) {
+                for (; *v >= '0' && *v <= '9'; v++)
+                    ev_from = ev_from * 10 + (hulk_u32)(*v - '0');
+                if (*v == '-')
+                    v++;
+                for (; *v >= '0' && *v <= '9'; v++)
+                    ev_to = ev_to * 10 + (hulk_u32)(*v - '0');
+                ev = 1;
+            }
+        }
+        hulk_u32 fno = hulk_native_frame_no - 1;
+        if (ev && fno >= ev_from && fno <= ev_to) {
+            const hulk_u32* r = (const hulk_u32*)st.rng;
+            const void* cam = *st.camera_ptr;
+            const hulk_u32* p = cam ? (const hulk_u32*)((const char*)cam + 0x4c) : 0;
+            char line[160];
+            hulk_host__snprintf(line, sizeof(line), "ckpt every f=%u rng %08x %08x camera %08x %08x %08x", fno, r[0], r[1],
+                                p ? p[0] : 0, p ? p[1] : 0, p ? p[2] : 0);
+            hulk_native_log(line);
+        }
+    }
     int r = hulk_ckpt_update(&st);
     static unsigned logged, bad;
     HulkCkptStats s;

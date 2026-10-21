@@ -3,11 +3,12 @@ extern "C" double sqrt(double);
 extern const float gSmall, gOne, gZero;
 struct Vec_22d110 {
     float x, y, z;
-    float Normalize();
+    hulk_freg Normalize();
 };
-// x87: the squared length, the root and its reciprocal stay in registers (MSVC also returns the length unrounded in
-// st0; natively the float return rounds it); the sum is x*x + y*y, then + z*z (the listing order)
-float Vec_22d110::Normalize() {
+// x87: the squared length, the root and its reciprocal stay in registers, and the length comes back unrounded in st0
+// (hulk_freg return: double natively, bound to the callers' float declarations by tools/native_link.py, which on x87
+// read it from st0 the same way); the sum is x*x + y*y, then + z*z (the listing order)
+hulk_freg Vec_22d110::Normalize() {
     hulk_freg n = (hulk_freg)x * x + (hulk_freg)y * y + (hulk_freg)z * z;
     if (n >= gSmall) {
         hulk_freg s = sqrt(n);

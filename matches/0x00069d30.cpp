@@ -12,10 +12,10 @@ public:
     char pad4[0x10 - 4];
     float unused10;
     float scale;
-    float Get();
+    hulk_freg Get();
 };
 
-float Obj_69d30::Get()
+hulk_freg Obj_69d30::Get()
 {
     hulk_freg base = GetBase();
     if (base <= 0.0f)

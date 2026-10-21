@@ -458,6 +458,25 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
         if a not in by_addr_def and len(ss) == 1:
             by_addr_def[a] = next(iter(ss))
             how["definition under clang's spelling of its name"] += 1
+    # native16: a definition whose float return is `hulk_freg` (include/compat/ptr.h: float under MSVC
+    # 7.1, double natively) is mangled with `N` (double) where the MSVC symbol says `M` (float). On x87 both come
+    # back in st0, so a caller declared `float f()` reads the unrounded value the original's callers read: the
+    # binding goes to the clang definition that differs from the MSVC symbol in the return type's code only (never a
+    # parameter's: a double parameter takes 8 bytes of the caller's stack)
+    def_names = set(defs.values())
+    ret_rx = re.compile(r"@@(Y[A-Z]|[ABEFIJMNQRUV][A-D][A-Z]|[CDKLST][A-Z])([MN])")
+    for a, s in defs.items():
+        if a in by_addr_def or s in defined or not s.startswith("?"):
+            continue
+        ms = list(ret_rx.finditer(s))
+        if not ms:
+            continue
+        i = ms[-1].start(2)
+        cand = {s[:i] + ("N" if s[i] == "M" else "M") + s[i + 1:]}
+        cand = {c for c in cand if c in defined and c not in def_names}
+        if len(cand) == 1:
+            by_addr_def[a] = next(iter(cand))
+            how["definition with a hulk_freg (double) return (native16)"] += 1
     # fix 6b: the verified scalar deleting destructors clang doesn't emit (build/native/link/deleting.s)
     dd = deleting_destructors(defs, defined)
     for s, addrs in dd["symbols"].items():

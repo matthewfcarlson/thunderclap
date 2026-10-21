@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef long long QWORD_3214e0;
 extern "C" void __stdcall QueryPerformanceCounter(QWORD_3214e0*);
 class d3dContext {
@@ -109,12 +110,12 @@ class d3dContext {
     virtual void f104();
     virtual void f105();
     virtual void f106();
-    virtual float vfunc_107();
+    virtual hulk_freg vfunc_107();
     char pad[0x410];
     QWORD_3214e0 start;
     float scale;
 };
-float d3dContext::vfunc_107() {
+hulk_freg d3dContext::vfunc_107() {
     QWORD_3214e0 q;
     QueryPerformanceCounter(&q);
     return (float)(q - start) * scale;

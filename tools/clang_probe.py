@@ -84,7 +84,11 @@ COMMON = ["-fno-color-diagnostics", "-fno-caret-diagnostics", "-fdiagnostics-sho
 # of the full expression as under MSVC) is accepted.
 DIALECT = ["-Xclang", "-fno-wchar", "-fno-operator-names", "-Wno-c++11-narrowing", "-Wno-address-of-temporary"]
 NATIVE = ["-include", "compat/native.h", "-fno-strict-aliasing", "-fwrapv", "-fno-delete-null-pointer-checks"] + DIALECT
-X87 = ["-mno-sse", "-mfpmath=387"]
+# native16: float expressions evaluated in double (one rounding per store, as MSVC 7.1's 53-bit x87 code rounds
+# at its stores) and no fused multiply-adds; adopted after the play3 replay gave the same checkpoint hashes as without
+# them to frame 6,000 (docs/native-float.md section 9). 151 of the 159 functions whose unrounded return this would
+# otherwise round now return hulk_freg (native_link.py binds the callers' float references).
+X87 = ["-mno-sse", "-mfpmath=387", "-ffp-eval-method=double", "-ffp-contract=off"]
 CONFIGS = {
     "msvc": dict(flags=["--target=i686-pc-windows-msvc", "-fms-extensions", "-fms-compatibility",
                         "-fms-compatibility-version=13.10", "-std=c++14", "-O0", "-c"] + NATIVE + X87, obj=True),

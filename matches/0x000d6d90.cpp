@@ -1,10 +1,11 @@
+#include "compat/ptr.h"
 class Slots_d6d90 {
   public:
     char pad[12];
     int values[8];
-    float Add(int value);
+    hulk_freg Add(int value);
 };
-float Slots_d6d90::Add(int value) {
+hulk_freg Slots_d6d90::Add(int value) {
     int i = 0;
     do {
         if (values[i] == 0) {

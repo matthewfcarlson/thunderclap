@@ -1,4 +1,5 @@
 // choreo2::LocomotionStrafeDriver::vfunc_9 @ 0x002284d0
+#include "compat/ptr.h"
 struct Vec3_2284d0 {
     float x, y, z;
 };
@@ -33,8 +34,8 @@ void LocomotionStrafeDriver::vfunc_9(float dt) {
         Vec3_2284d0 d;
         ((ThisCall_00226250*)(this))->FUN_00226250(&d);
         volatile float* scaledZ = &d.z;
-        float x = d.x * dt;
-        float y = d.y * dt;
+        hulk_freg x = d.x * dt;
+        hulk_freg y = d.y * dt;
         *scaledZ = d.z * dt;
         offset.x = x + offset.x;
         offset.y = y + offset.y;

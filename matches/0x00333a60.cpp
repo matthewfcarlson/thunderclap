@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct BinkInfo {
     char pad[0x14];
     unsigned width;
@@ -20,12 +21,12 @@ class PlayerBink {
     virtual void v11();
     virtual void v12();
     virtual void v13();
-    virtual float vfunc_14();
+    virtual hulk_freg vfunc_14();
     virtual void v15();
     char pad[0x18];
     BinkInfo* info;
 };
-float PlayerBink::vfunc_14() {
+hulk_freg PlayerBink::vfunc_14() {
     if (info)
         return (float)info->width / (float)info->height;
     return 0.0f;

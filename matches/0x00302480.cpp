@@ -13,7 +13,7 @@ class Obj_302480 {
     char pad[0x34];
     float radius;
 };
-float dist(Obj_302480* a, Obj_302480* b) {
+hulk_freg dist(Obj_302480* a, Obj_302480* b) {
     float* p = ((VecSource*)a)->Get();
     float* q = ((VecSource*)b)->Get();
     hulk_freg x = q[0] - p[0];

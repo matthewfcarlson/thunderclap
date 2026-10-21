@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Y_350c0 {
     char p0[0x14];
     int kind;
@@ -23,7 +24,7 @@ bool C_350c0::F(float* p) {
     x->Fn(p);
     Y_350c0* q;
     if (mode == 1 && (q = y) != 0) {
-        float v = q->f30;
+        hulk_freg v = q->f30;
         if (v <= 0.0f)
             v = q->f34 + q->f34;
         double r = v * 0.5f + (double)p[1];

@@ -5,9 +5,9 @@ class A_15c590 {
   public:
     float x;
     float y;
-    float F(float v);
+    hulk_freg F(float v);
 };
-float A_15c590::F(float v) {
+hulk_freg A_15c590::F(float v) {
     if (v <= 0.0f)
         return 0.0f;
     if (v <= 0.5f)

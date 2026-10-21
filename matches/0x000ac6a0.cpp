@@ -13,9 +13,9 @@ class Curve_ac6a0 {
     float quad;
     float linear;
     float constant;
-    float Evaluate(float x);
+    hulk_freg Evaluate(float x);
 };
-float Curve_ac6a0::Evaluate(float x) {
+hulk_freg Curve_ac6a0::Evaluate(float x) {
     hulk_freg t = ((one - x) * pi + halfpi);
     t = (hulk_freg)(sin((double)t) + one) * half - x;
     t = t * scale + x;

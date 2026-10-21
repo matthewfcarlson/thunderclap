@@ -1,4 +1,5 @@
+#include "compat/ptr.h"
 extern "C" double cos(double);
-float FUN_00011440(float x) {
+hulk_freg FUN_00011440(float x) {
     return (float)cos(x);
 }

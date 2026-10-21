@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Result_1fd830 {
   public:
     virtual void f0();
@@ -13,13 +14,13 @@ class Result_1fd830 {
 };
 class Owner_1fd830 {
   public:
-    float Probe(unsigned int arg);
+    hulk_freg Probe(unsigned int arg);
     Result_1fd830* Find(unsigned long long key);
 };
 extern unsigned long long FUN_0027b020(unsigned int);
 extern const float zero_1fd830;
 extern const float scale_1fd830;
-float Owner_1fd830::Probe(unsigned int arg) {
+hulk_freg Owner_1fd830::Probe(unsigned int arg) {
     unsigned long long k = FUN_0027b020(arg);
     Result_1fd830* r = Find(k);
     if (!r)
