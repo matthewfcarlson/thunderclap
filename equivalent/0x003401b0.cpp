@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 676 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 8833 inputs, branch coverage 4/4)
 // FUN_003401b0 @ 0x003401b0
 // FUN_003401b0: radix-four complex FFT pass over interleaved samples.
 // equiv-conv: FUN_003401b0 eax ecx stack
@@ -8,12 +8,12 @@ void FUN_003401b0(volatile float* d, int n, volatile float* tw) {
     const int full = 4 * quarter;
     const int threeHalf = 6 * quarter;
 
-    float a = d[0];
-    float b = d[half];
-    float c = d[full];
-    float e = d[threeHalf];
-    float ai = d[1];
-    float ci = d[full + 1];
+    double a = d[0];
+    double b = d[half];
+    double c = d[full];
+    double e = d[threeHalf];
+    double ai = d[1];
+    double ci = d[full + 1];
     volatile float sumImag = d[half + 1] + d[threeHalf + 1];
     volatile float diffReal = d[half] - d[threeHalf];
     volatile float diffImag = d[half + 1] - d[threeHalf + 1];
@@ -28,13 +28,13 @@ void FUN_003401b0(volatile float* d, int n, volatile float* tw) {
     d[threeHalf] = diffImag + deltaReal;
     d[threeHalf + 1] = deltaImag - diffReal;
 
-    const float diagonal = tw[1];
-    const float scale = tw[2];
-    const float otherScale = tw[3];
-    float prevReal = 0.0f;
-    float prevImag = 1.0f;
-    float prevNegative = 0.0f;
-    float carry = 1.0f;
+    const double diagonal = tw[1];
+    const double scale = tw[2];
+    const double otherScale = tw[3];
+    double prevReal = 0.0f;
+    double prevImag = 1.0f;
+    double prevNegative = 0.0f;
+    double carry = 1.0f;
 
     if (quarter > 4) {
         volatile float* front0 = d + 4;
@@ -52,24 +52,24 @@ void FUN_003401b0(volatile float* d, int n, volatile float* tw) {
             volatile float wB = (prevReal + factors[3]) * scale;
             volatile float wC = (prevImag + factors[4]) * otherScale;
             volatile float wD = (prevNegative - factors[5]) * otherScale;
-            float currentImag = factors[2];
+            double currentImag = factors[2];
             prevReal = factors[3];
             prevImag = factors[4];
             prevNegative = -factors[5];
             factors += 4;
 
-            float x0 = front0[-2];
-            float y0 = front1[-2];
-            float x1 = front0[-1];
-            float y1 = front1[-1];
+            double x0 = front0[-2];
+            double y0 = front1[-2];
+            double x1 = front0[-1];
+            double y1 = front1[-1];
             volatile float dx0 = front0[-2] - front1[-2];
             volatile float dx1 = front0[-1] - front1[-1];
             volatile float sx2 = front0[0] + front1[0];
             volatile float sy2 = front0[1] + front1[1];
             volatile float dx2 = front0[0] - front1[0];
             volatile float dy2 = front0[1] - front1[1];
-            float u0 = front3[-2];
-            float v0 = front2[-2];
+            double u0 = front3[-2];
+            double v0 = front2[-2];
             volatile float su1 = front3[-1] + front2[-1];
             volatile float du0 = front2[-2] - front3[-2];
             volatile float du1 = front2[-1] - front3[-1];
@@ -94,18 +94,18 @@ void FUN_003401b0(volatile float* d, int n, volatile float* tw) {
             front3[0] = prevNegative * (dy2 - du2) + prevImag * (dv2 + dx2);
             front3[1] = prevImag * (dy2 - du2) - prevNegative * (dv2 + dx2);
 
-            float p0 = back0[2];
-            float q0 = back2[2];
-            float p1 = back0[3];
-            float q1 = back2[3];
+            double p0 = back0[2];
+            double q0 = back2[2];
+            double p1 = back0[3];
+            double q1 = back2[3];
             volatile float dp0 = back0[2] - back2[2];
             volatile float dp1 = back0[3] - back2[3];
             volatile float sp2 = back0[0] + back2[0];
             volatile float sq2 = back0[1] + back2[1];
             volatile float dp2 = back0[0] - back2[0];
             volatile float dq2 = back0[1] - back2[1];
-            float t0 = back1[2];
-            float v3 = back3[2];
+            double t0 = back1[2];
+            double v3 = back3[2];
             volatile float st1 = back3[3] + back1[3];
             volatile float dt0 = back1[2] - back3[2];
             volatile float dt1 = back1[3] - back3[3];
@@ -169,14 +169,14 @@ void FUN_003401b0(volatile float* d, int n, volatile float* tw) {
     d[q7 - 2] = finalD * (di0 - er0) + finalC * (ei0 + dr0);
     d[q7 - 1] = finalC * (di0 - er0) - finalD * (ei0 + dr0);
 
-    float a1 = d[q1];
-    float b1 = d[q5];
-    float ai1 = d[q1 + 1];
-    float bi1 = d[q5 + 1];
+    double a1 = d[q1];
+    double b1 = d[q5];
+    double ai1 = d[q1 + 1];
+    double bi1 = d[q5 + 1];
     volatile float dr1 = d[q1] - d[q5];
     volatile float di1 = d[q1 + 1] - d[q5 + 1];
-    float c1 = d[q3];
-    float e1 = d[q7];
+    double c1 = d[q3];
+    double e1 = d[q7];
     volatile float ci1 = d[q3 + 1] + d[q7 + 1];
     volatile float er1 = d[q3] - d[q7];
     volatile float ei1 = d[q3 + 1] - d[q7 + 1];
@@ -189,14 +189,14 @@ void FUN_003401b0(volatile float* d, int n, volatile float* tw) {
     d[q7] = -(((di1 - er1) + (ei1 + dr1)) * diagonal);
     d[q7 + 1] = -(((di1 - er1) - (ei1 + dr1)) * diagonal);
 
-    float a2 = d[q1 + 2];
-    float b2 = d[q5 + 2];
-    float ai2 = d[q1 + 3];
-    float bi2 = d[q5 + 3];
+    double a2 = d[q1 + 2];
+    double b2 = d[q5 + 2];
+    double ai2 = d[q1 + 3];
+    double bi2 = d[q5 + 3];
     volatile float dr2 = d[q1 + 2] - d[q5 + 2];
     volatile float di2 = d[q1 + 3] - d[q5 + 3];
-    float c2 = d[q7 + 2];
-    float e2 = d[q3 + 2];
+    double c2 = d[q7 + 2];
+    double e2 = d[q3 + 2];
     volatile float ci2 = d[q7 + 3] + d[q3 + 3];
     volatile float er2 = d[q3 + 2] - d[q7 + 2];
     volatile float ei2 = d[q3 + 3] - d[q7 + 3];

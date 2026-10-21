@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 44/46, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20043 inputs, branch coverage 46/46)
 // FUN_00197ff0 @ 0x00197ff0
 #include "compat/ptr.h"
 #include "decls/address.h"
@@ -175,11 +175,13 @@ void Proj_197ff0::FUN_00197ff0(float dt)
     L.w.z = f24.z;
     L.w.FUN_0022d110();
     float s = params->f50;
-    float ty = L.w.y * s;
-    float tz = L.w.z * s;
-    L.w.x = L.w.x * s + f18.x;
-    L.w.y = ty + f18.y;
-    L.w.z = tz + f18.z;
+    struct { hulk_freg x; float y, z; } t;      // w * s: x stays in a register, y and z are stored (rounded)
+    t.x = L.w.x * s;
+    t.y = L.w.y * s;
+    t.z = L.w.z * s;
+    L.w.x = t.x + f18.x;
+    L.w.y = t.y + f18.y;
+    L.w.z = t.z + f18.z;
 
     void *owner = 0;
     Obj_197ff0 *o = world->list->FUN_00059c10(f10);

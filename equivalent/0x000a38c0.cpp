@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3096 inputs, branch coverage 95/100, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20097 inputs, branch coverage 96/100, incomplete)
 // FUN_000a38c0 @ 0x000a38c0
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 extern "C" double __cdecl sqrt(double);
 
@@ -157,12 +158,17 @@ void Cam_a38c0::Update(float unused, float dt)
             p194.x = p248.x;
             p194.y = p248.y;
             p194.z = p248.z;
-            p194.x = f.w.x * (((f.w.x * f.dv.x + f.w.y * f.dv.y) + f.w.z * f.dv.z) * dt) + p194.x;
-            p194.y = f.w.y * (((f.w.x * f.dv.x + f.w.y * f.dv.y) + f.w.z * f.dv.z) * dt) + p194.y;
-            p194.z = f.w.z * (((f.w.x * f.dv.x + f.w.y * f.dv.y) + f.w.z * f.dv.z) * dt) + p194.z;
-            f.u.x = p194.x - p1c4.x;
-            f.u.y = p194.y - p1c4.y;
-            f.u.z = p194.z - p1c4.z;
+            double k = f.w.x * f.dv.x;      // the projection length, once, in a register (double: MSVC spills it)
+            k += f.w.y * f.dv.y;
+            k += f.w.z * f.dv.z;
+            k *= dt;
+            p194.x = f.w.x * k + p194.x;
+            p194.y = f.w.y * k + p194.y;
+            p194.z = f.w.z * k + p194.z;
+            // the original reloads the stored (rounded) components
+            f.u.x = *(volatile float *)&p194.x - p1c4.x;
+            f.u.y = *(volatile float *)&p194.y - p1c4.y;
+            f.u.z = *(volatile float *)&p194.z - p1c4.z;
             FUN_000a04c0(&f.u, &f.yaw, &f.pitch, &f.len);
             f.pitch = FUN_000186b0(&f.pitch, &DAT_0049ec60, &DAT_0049ec5c);
             f3c0 = f.pitch;
@@ -190,7 +196,7 @@ void Cam_a38c0::Update(float unused, float dt)
             break;
         case 2:
             if (AbsF(dt) > 1e-005f) {
-                float inv = 1.0f / dt;
+                hulk_freg inv = 1.0f / dt;
                 f.w.y = 0.0f;
                 f.dv.x = f.dv.x * inv;
                 f.dv.y = f.dv.y * inv;
@@ -311,7 +317,7 @@ void Cam_a38c0::Update(float unused, float dt)
     FUN_000a0940((*(float*)&DAT_0049ec80));
 
     if (state == 0) {
-        float t = f3e0 - p1e8.y;
+        hulk_freg t = f3e0 - p1e8.y;
         if (t >= -10.0f) {
             if (t > 0.0f)
                 t = 0.0f;

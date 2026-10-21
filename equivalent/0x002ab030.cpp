@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 151 inputs, branch coverage 43/44, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 5724 inputs, branch coverage 43/44, incomplete)
 // pure3d::ParticleSystemLoader::vfunc_5 @ 0x002ab030
 // pure3d::ParticleSystemLoader::vfunc_5 @ 0x002ab030
 #include "compat/ptr.h"
@@ -151,7 +151,8 @@ public:
 };
 
 struct Frame_2ab030 {
-    char pad10[4];
+    char pad10[3];
+    unsigned char nameLen;          // 0x13
     unsigned f14;
     unsigned f18;
     int f1c;
@@ -187,8 +188,8 @@ unsigned Loader_2ab030::FUN_002ab030(Particle_2ab030 **out, Key_2ab030 *outId, R
     Frame_2ab030 f;
     f.self = this;
     reader->stream->FUN_002647e0(&f.f28, 1, 4, 1);
-    reader->stream->FUN_002647e0(&f.name[0xff], 1, 1, 1);
-    unsigned char len = (unsigned char)f.name[0xff];
+    reader->stream->FUN_002647e0(&f.nameLen, 1, 1, 1);
+    unsigned char len = f.nameLen;
     reader->stream->FUN_002647e0(f.name, len, 1, 1);
     f.name[len] = 0;
     reader->stream->FUN_002647e0(&f.f1c, 1, 4, 1);
@@ -263,7 +264,8 @@ unsigned Loader_2ab030::FUN_002ab030(Particle_2ab030 **out, Key_2ab030 *outId, R
                 Emitter_2ab030 *e = p->slots[off].emitter;
                 unsigned i;
                 for (i = 0; i < self->count; i++) {
-                    if (self->list[i]->v3() == e->v11()) {
+                    f.f30 = self->list[i]->v3();    // the original keeps the id in this frame word across the call
+                    if (f.f30 == e->v11()) {
                         e->v25((Object *)self->list[i]);
                         break;
                     }

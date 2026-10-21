@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 36/36)
+// STATUS: equivalent (tools/equiv.py level 3: 19999 inputs, branch coverage 36/36)
 // hulkfight::motion::WallRunAction::vfunc_3 @ 0x00142990
+#include "compat/ptr.h"
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-conv: FUN_00142940 eax
 extern "C" double sqrt(double);
@@ -168,13 +169,11 @@ char WallRunAction::vfunc_3(int a0, int a1)
         float dot = v.z * w.z + v.y * w.y + v.x * w.x;
         if (dot < 0.0f) {
             float nd = -dot;
-            V3_142990 t;
-            t.ix = v.ix;
-            t.iy = v.iy;
-            t.iz = v.iz;
-            t.y = t.y * nd;
-            t.z = t.z * nd;
-            w.x = t.x * nd + w.x;
+            struct { hulk_freg x; float y, z; } t;   // v * nd: x stays in a register, y and z are stored
+            t.x = v.x * nd;
+            t.y = v.y * nd;
+            t.z = v.z * nd;
+            w.x = t.x + w.x;
             w.y = t.y + w.y;
             w.z = t.z + w.z;
         }
@@ -206,13 +205,11 @@ char WallRunAction::vfunc_3(int a0, int a1)
         float dot = v.z * w.z + v.y * w.y + v.x * w.x;
         if (dot < 0.0f) {
             float nd = -dot;
-            V3_142990 t;
-            t.ix = v.ix;
-            t.iy = v.iy;
-            t.iz = v.iz;
-            t.y = t.y * nd;
-            t.z = t.z * nd;
-            w.x = t.x * nd + w.x;
+            struct { hulk_freg x; float y, z; } t;   // v * nd: x stays in a register, y and z are stored
+            t.x = v.x * nd;
+            t.y = v.y * nd;
+            t.z = v.z * nd;
+            w.x = t.x + w.x;
             w.y = t.y + w.y;
             w.z = t.z + w.z;
         }

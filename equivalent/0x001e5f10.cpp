@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3038 inputs, branch coverage 46/46)
+// STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 46/46)
 // CSPManager::vfunc_1 @ 0x001e5f10
 // CSPManager::vfunc_1 @ 0x001e5f10
 typedef unsigned __int64 Key_1e5f10;
@@ -77,7 +77,8 @@ struct Frame_1e5f10 {
     char pad10[3];
     char persistent;
     int unlockable, collision, fade, initialState, rooms, usage;
-    Key_1e5f10 key;
+    char pad2c[4];
+    unsigned keyHi;             // 0x30: the original keeps the key's low word in ebp and spills its high word here
     float rx, ry, rz;
     float tx, ty, tz;
     Quat_1e5f10 q;
@@ -130,10 +131,13 @@ bool CSPManager::vfunc_1(Element_1e5f10 *e)
     Key_1e5f10 key = FUN_002672f0(drawable, 0);
     key = FUN_002672f0("_", key);
     key = FUN_002672f0(drawable, key);
+    f.keyHi = (unsigned)(key >> 32);
     static Key_1e5f10 streetLight = FUN_002672f0("streetLight_streetLight", 0);
     Unlocks_1e5f10 *u = DAT_004dd700->opt->FUN_00086340();
-    if (key == streetLight && u->FUN_00092940(0x1a))
+    if (key == streetLight && u->FUN_00092940(0x1a)) {
         key = FUN_002672f0("gorilla_gorilla", 0);
+        f.keyHi = (unsigned)(key >> 32);
+    }
     if (DAT_004dd700->opt->FUN_00086310()->s80.FUN_00088fa0() != 8 && f.unlockable >= 0) {
         if (!DAT_004dd700->opt->FUN_00086340()->FUN_00092860(f.unlockable))
             return false;

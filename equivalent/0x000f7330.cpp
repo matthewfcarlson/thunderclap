@@ -2,6 +2,7 @@
 // FUN_000f7330 @ 0x000f7330
 #include "decls/data/engine/pure3d/prop.h"
 #include "gen/pure3d.h"
+#include "compat/ptr.h"
 
 struct Font_f7330 {
     virtual void v0();
@@ -114,7 +115,13 @@ struct Frame_f7330 {
     } u1c;
     float h1;               // 0x20
     float lineH;            // 0x24
-    Probe_f7330 probe;            // 0x28
+    union {
+        Probe_f7330 probe;        // 0x28
+        struct {
+            char pad[0xc];
+            float tokEnd;         // 0x34: the token's end, copied here while the probe is not yet live
+        } scratch;
+    } u28;
     Run_f7330 runs[16];           // 0x40
 };
 
@@ -173,16 +180,16 @@ void GlyphRun::FUN_000f7330(unsigned short *text, int font, int unused, int mode
             r->tok = table->FUN_000d3f10(name);
             Token_f7330 *tok = r->tok;
             if (tok != 0) {
-                float a = tok->f14;
-                float b = tok->f18;
-                int eInt = *(int *)&tok->f20;
-                float d = tok->f24 - b;
+                hulk_freg a = tok->f14;
+                hulk_freg b = tok->f18;
+                f.u28.scratch.tokEnd = tok->f20;
+                hulk_freg d = tok->f24 - b;
                 if (d == 0.0f)
                     r->scale = 1.0f;
                 else
                     r->scale = f118 / d * f.h1;
                 r->tokY = b;
-                r->tokW = (*(float *)&eInt - a) * r->scale;
+                r->tokW = (f.u28.scratch.tokEnd - a) * r->scale;
             }
             r++;
         } while (*f.u1c.text != 0);
@@ -200,7 +207,7 @@ void GlyphRun::FUN_000f7330(unsigned short *text, int font, int unused, int mode
         } while (r->text != 0);
     }
     if (mode != 0) {
-        float k;
+        hulk_freg k;
         if (mode == 1)
             k = -0.5f;
         else
@@ -211,15 +218,15 @@ void GlyphRun::FUN_000f7330(unsigned short *text, int font, int unused, int mode
         Run_f7330 *r = &f.runs[0];
         do {
             if (cb != 0) {
-                f.probe.FUN_000ded90(r->text, fonts[font]);
-                cb->v0(&f.probe);
+                f.u28.probe.FUN_000ded90(r->text, fonts[font]);
+                cb->v0(&f.u28.probe);
             }
             fonts[font]->v11(r->text, 0);
             (*(Holder_f7330**)&DAT_0052c2ac)->FUN_00293d40(r->width, 0, 0);
             Token_f7330 *tok = r->tok;
             if (tok != 0) {
                 (*(Holder_f7330**)&DAT_0052c2ac)->mgr->v15(0);
-                float y = (-f.lineH - r->tokY * r->scale) - (f118 - 1.0f) * f.h1 * 0.5f;
+                hulk_freg y = (-f.lineH - r->tokY * r->scale) - (f118 - 1.0f) * f.h1 * 0.5f;
                 (*(Holder_f7330**)&DAT_0052c2ac)->FUN_00293d40(r->tokW * 0.5f, y, 0);
                 (*(Holder_f7330**)&DAT_0052c2ac)->FUN_00293da0(r->scale, r->scale, r->scale);
                 fonts[font]->v14(&f.u1c.color);

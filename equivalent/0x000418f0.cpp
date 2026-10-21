@@ -1,8 +1,16 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3130 inputs, branch coverage 131/132, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20118 inputs, branch coverage 132/132)
 // FUN_000418f0 @ 0x000418f0
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 extern "C" double __cdecl sqrt(double);
+
+// the value a float slot holds after a store: the original reloads it (rounded) where MSVC 7.1 would reuse the
+// unrounded register
+static inline float Stored_418f0(const float &v)
+{
+    return *(const volatile float *)&v;
+}
 
 struct V3_418f0 {
     float x, y, z;
@@ -252,10 +260,10 @@ void Chara_418f0::FUN_000418f0(Ctx_418f0 *a1, float a2)
                 f.w88.y = 0.0f;
                 f.w88.z = f.B.z;
                 f.w88.FUN_0022d110();
-                float k = -f84;
+                hulk_freg k = -f84;
                 if (!(40.0f < k))
                     k = 40.0f;
-                float g = k * a2;
+                hulk_freg g = k * a2;
                 f.w88.y = g * f.w88.y;
                 f.w88.z = f.w88.z * g;
                 f1c0 = f.w88.x * g + f1c0;
@@ -275,9 +283,10 @@ void Chara_418f0::FUN_000418f0(Ctx_418f0 *a1, float a2)
                 if (f.w88.FUN_0022d110() < a2) {
                     f.w74 = p1a54;
                 } else {
+                    f.w74.z = f.w88.z * a2;     // z goes through w74.z (rounded) before the add
                     f.w74.x = f.w88.x * a2 + f.w58.x;
                     f.w74.y = f.w88.y * a2 + f.w58.y;
-                    f.w74.z = f.w88.z * a2 + f.w58.z;
+                    f.w74.z = Stored_418f0(f.w74.z) + f.w58.z;
                 }
                 f.obj18->FUN_002226f0(&f.w74);
                 FUN_00038c40();
@@ -287,7 +296,7 @@ void Chara_418f0::FUN_000418f0(Ctx_418f0 *a1, float a2)
         p1a6c = f.B;
         p1a84 = f.w64;
         if ((mode == 3 || mode == 4) && ignoreB == 0 && !(f1b20 > 0)) {
-            float lim = f.A.y + f.thr;
+            hulk_freg lim = f.A.y + f.thr;
             if (f134 == 7 || f.ctype == 5)
                 lim = lim - f.thr;
             if (f.pos.y < lim) {
@@ -306,7 +315,7 @@ void Chara_418f0::FUN_000418f0(Ctx_418f0 *a1, float a2)
                 f.pos.y = f.A.y;
                 f.obj18->FUN_002226f0(&f.pos);
             } else {
-                float lim2 = f.A.y + 0.25f;
+                hulk_freg lim2 = f.A.y + 0.25f;
                 if (f.pos.y > lim2) {
                     f.pos.y = lim2;
                     f.obj18->FUN_002226f0(&f.pos);
@@ -364,16 +373,18 @@ void Chara_418f0::FUN_000418f0(Ctx_418f0 *a1, float a2)
             f.w88.x = f.w74.x;
             f.w88.y = f.w74.y;
             f.w88.z = f.w74.z;
-            float ns = -f.thr;
+            hulk_freg ns = -f.thr;
             f.w74.y = f.w74.y * ns;
             f.w74.z = f.w74.z * ns;
             f.w74.x = f.w74.x * ns + f.obj18->p40.x;
-            f.w74.y = f.w74.y + f.obj18->p40.y;
-            f.w74.z = f.w74.z + f.obj18->p40.z;
-            float k = f.thr * 4.5f;
-            f.w88.x = f.w88.x * k + f.w74.x;
-            f.w88.y = f.w88.y * k + f.w74.y;
-            f.w88.z = f.w88.z * k + f.w74.z;
+            f.w74.y = Stored_418f0(f.w74.y) + f.obj18->p40.y;
+            f.w74.z = Stored_418f0(f.w74.z) + f.obj18->p40.z;
+            double k = f.thr * 4.5f;
+            f.w88.y = f.w88.y * k;
+            f.w88.z = f.w88.z * k;
+            f.w88.x = f.w88.x * k + Stored_418f0(f.w74.x);
+            f.w88.y = Stored_418f0(f.w88.y) + Stored_418f0(f.w74.y);
+            f.w88.z = Stored_418f0(f.w88.z) + Stored_418f0(f.w74.z);
             char ok = FUN_0003f7b0(&f.w74, &f.w88, &p1aec, &p1af8, 0, 0, 0);
             b1b08 = ok;
             if (ok) {
@@ -392,10 +403,12 @@ void Chara_418f0::FUN_000418f0(Ctx_418f0 *a1, float a2)
         f.w58.x = f.pos.x;
         f.w58.y = f.pos.y;
         f.w58.z = f.pos.z;
-        float m3 = f.thr * -3.0f;
-        f.w88.x = f.w88.x * m3 + f.w74.x;
-        f.w88.y = f.w88.y * m3 + f.w74.y;
-        f.w88.z = f.w88.z * m3 + f.w74.z;
+        double m3 = f.thr * -3.0f;
+        f.w88.y = f.w88.y * m3;
+        f.w88.z = f.w88.z * m3;
+        f.w88.x = f.w88.x * m3 + Stored_418f0(f.w74.x);
+        f.w88.y = Stored_418f0(f.w88.y) + Stored_418f0(f.w74.y);
+        f.w88.z = Stored_418f0(f.w88.z) + Stored_418f0(f.w74.z);
         f.w58.x = f.w58.x - f.cur.x;
         f.w58.y = f.w58.y - f.cur.y;
         f.w58.z = f.w58.z - f.cur.z;
@@ -412,12 +425,12 @@ void Chara_418f0::FUN_000418f0(Ctx_418f0 *a1, float a2)
             p1aec = f.w18;
             f.obj18->FUN_002226f0(&p1aec);
             p1af8 = f.w64;
-            float ang0 = ((Sub14 *)((char *)this + 0x14))->FUN_002220d0();
-            float ang1 = FUN_00224ea0(-p1af8.x, -p1af8.z);
+            hulk_freg ang0 = ((Sub14 *)((char *)this + 0x14))->FUN_002220d0();
+            hulk_freg ang1 = FUN_00224ea0(-p1af8.x, -p1af8.z);
             static float k1 = K1();
             f.fl = k1 * a2;
-            float dif = FUN_00224fc0(ang0, ang1);
-            float adif = dif < 0.0f ? -dif : dif;
+            hulk_freg dif = FUN_00224fc0(ang0, ang1);
+            hulk_freg adif = dif < 0.0f ? -dif : dif;
             if (adif <= f.fl)
                 f.fl = ang1;
             else if (dif < 0.0f)
@@ -425,7 +438,7 @@ void Chara_418f0::FUN_000418f0(Ctx_418f0 *a1, float a2)
             else
                 f.fl = f.fl + ang0;
             static float k2 = K2();
-            float res = FUN_00224fc0(ang1, f.fl);
+            hulk_freg res = FUN_00224fc0(ang1, f.fl);
             if (res < -k2)
                 f.fl = ang1 - k2;
             else if (res > k2)
@@ -449,7 +462,7 @@ void Chara_418f0::FUN_000418f0(Ctx_418f0 *a1, float a2)
     f.w64.y = 0.0f;
     f.w64.z = 0.0f;
     Mover_418f0 *m2 = f10->FUN_00059a40();
-    float xx, zz;
+    hulk_freg xx, zz;
     if (m2) {
         m2->s10.FUN_00222120(&f.w88);
         f.w64.y = f.w88.y;
@@ -459,7 +472,7 @@ void Chara_418f0::FUN_000418f0(Ctx_418f0 *a1, float a2)
         xx = f.w64.x;
         zz = f.w64.z;
     }
-    float ns2 = -f11c->f34;
+    hulk_freg ns2 = -f11c->f34;
     f.w58.x = ns2 * xx + f.w58.x;
     f.w58.y = f.w64.y * ns2 + f.w58.y;
     f.w58.z = zz * ns2 + f.w58.z;

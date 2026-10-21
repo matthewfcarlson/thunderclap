@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20047 inputs, branch coverage 122/122)
+// STATUS: equivalent (tools/equiv.py level 3: 17856 inputs, branch coverage 122/122)
 // hulkfight::motion::HeliLocomotionAction::vfunc_5 @ 0x0015f6b0
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
 extern "C" double sqrt(double);
@@ -322,9 +323,11 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
         Vec3_15f6b0 raw = v90;
         n.FUN_0022d110();
         Vec3_15f6b0 end;
-        end.x = start.x + raw.x * settings->fa8;
+        hulk_freg reach = settings->fa8;
+        end.z = raw.z * reach;          // the z product goes through the frame (rounded)
+        end.x = start.x + raw.x * reach;
         end.y = start.y;
-        end.z = start.z + raw.z * settings->fa8;
+        end.z = start.z + *(volatile float *)&end.z;
         Vec3_15f6b0 hit;
         Vec3_15f6b0 hitN;
         if (FUN_002027c0(&start, &end, 0, 0, &hit, &hitN, 0, 0)) {

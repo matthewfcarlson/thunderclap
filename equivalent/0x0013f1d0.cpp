@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 20023 inputs, branch coverage 18/18)
 // hulkfight::motion::WallExitAction::vfunc_3 @ 0x0013f1d0
 #include "decls/address.h"
 extern "C" double sqrt(double);
@@ -13,6 +13,8 @@ struct V3_13f1d0 {
     float x, y, z;
     float FUN_0022d110();
     bool FUN_0022d2b0(V3_13f1d0 *other, float eps);
+    void Scale(float s) { x = s * x; y = s * y; z = s * z; }
+    void Add(const V3_13f1d0 &o) { x = o.x + x; y = o.y + y; z = o.z + z; }
 };
 
 struct Name_13f1d0 {
@@ -146,12 +148,8 @@ bool WallExitAction::vfunc_3(int a, int b)
             fr.z.z = 0.0f;
             fighter->FUN_00059a50(&fr.z);
             v28 = fr.t;
-            v28.x = fr.s10.f * v28.x;
-            v28.y = fr.s10.f * v28.y;
-            v28.z = fr.s10.f * v28.z;
-            v28.x = fr.z.x + v28.x;
-            v28.y = fr.z.y + v28.y;
-            v28.z = fr.z.z + v28.z;
+            v28.Scale(fr.s10.f);
+            v28.Add(fr.z);
         }
     }
 

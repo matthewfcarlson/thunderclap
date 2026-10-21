@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 35/36, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19953 inputs, branch coverage 35/36, incomplete)
 // physics::PhysicsObject::vfunc_38 @ 0x002f6af0
 #include "decls/data/engine/physics.h"
+#include "compat/ptr.h"
 
 extern "C" double sqrt(double);
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
@@ -171,7 +172,7 @@ void PhysicsObject::vfunc_38(float dt)
     f10->v8(&v98, &f.Q, -1);
     double qxo = f.Q.x;
     double qyo = f.Q.y;
-    float qzo = f.Q.z;
+    hulk_freg qzo = f.Q.z;
     f.A.z = qzo;
     double h = dt * f44;
     f.Q.x = h * v130.x + f.Q.x;
@@ -182,13 +183,15 @@ void PhysicsObject::vfunc_38(float dt)
     f.A.y = a->y;
     f.A.z = a->z;
     char b = b1d0;
-    f.Y.x = (float)(qxo + f.Q.x);
-    double ys = qyo + f.Q.y;
-    double zs = f.Q.z + qzo;
-    f.s0 = (float)(dt * 0.5f);
-    f.Y.x = f.Y.x * f.s0;
-    f.Y.y = ys * f.s0;
-    f.Y.z = zs * f.s0;
+    struct { float x; hulk_freg y, z; } sum;   // old + new: x goes through Y.x (rounded), y and z stay in registers
+    sum.x = qxo + f.Q.x;
+    sum.y = qyo + f.Q.y;
+    sum.z = f.Q.z + qzo;
+    hulk_freg half = dt * 0.5f;
+    f.s0 = half;
+    f.Y.x = sum.x * half;
+    f.Y.y = sum.y * half;
+    f.Y.z = sum.z * half;
     if (b != 0) {
         vc0.x = dt * v13c.x + vc0.x;
         vc0.y = dt * v13c.y + vc0.y;
@@ -257,12 +260,13 @@ void PhysicsObject::vfunc_38(float dt)
         f.Y.z = va8.z + vb4.z;
         f.Y.FUN_0022d260(&mat58);
         double sc = f10->f68;
-        double txs = f.Y.x * sc;
-        f.Y.y = f.Y.y * sc;
-        f.Y.z = f.Y.z * sc;
-        f.Y.x = v98.x - txs;
-        f.Y.y = v98.y - f.Y.y;
-        f.Y.z = v98.z - f.Y.z;
+        struct { hulk_freg x; float y, z; } ts;   // Y * sc: x stays in a register, y and z are stored
+        ts.x = f.Y.x * sc;
+        ts.y = f.Y.y * sc;
+        ts.z = f.Y.z * sc;
+        f.Y.x = v98.x - ts.x;
+        f.Y.y = v98.y - ts.y;
+        f.Y.z = v98.z - ts.z;
         f.M2.FUN_0022be40(&f.Y);
     } else {
         f.M2.FUN_0022be40(&v98);

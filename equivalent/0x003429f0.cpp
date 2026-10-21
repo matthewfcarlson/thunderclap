@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_003429f0 @ 0x003429f0
 struct Block16_3429f0 {
     float v[16];
@@ -18,57 +18,63 @@ struct Twiddle_3429f0 {
 void Twiddle_3429f0::FUN_003429f0(Block16_3429f0 *d)
 {
     float *v = d->v;
-    float fVar1 = c1;
-    float fVar2 = c2;
-    float fVar3 = c3;
-    float fVar4 = v[0];
-    float fVar5 = v[1];
-    float fVar6 = v[9];
-    float fVar7 = v[0];
-    float fVar8 = v[1];
-    float fVar9 = v[8];
-    float fVar10 = ((v[4] - v[13]) - (v[12] + v[5])) * fVar1;
-    float fVar11 = (v[12] + v[5] + (v[4] - v[13])) * fVar1;
-    float fVar12 = ((v[13] + v[4]) - (v[5] - v[12])) * fVar1;
-    fVar1 = ((v[5] - v[12]) + v[13] + v[4]) * fVar1;
-    float fVar19 = (v[2] - v[11]) * fVar2 - (v[3] + v[10]) * fVar3;
-    float fVar18 = (v[3] + v[10]) * fVar2 + (v[2] - v[11]) * fVar3;
-    float fVar17 = (v[11] + v[2]) * fVar3 - (v[3] - v[10]) * fVar2;
-    float fVar16 = (v[11] + v[2]) * fVar2 + (v[3] - v[10]) * fVar3;
-    float fVar15 = (v[6] - v[15]) * fVar3 - (v[7] + v[14]) * fVar2;
-    float fVar14 = (v[6] - v[15]) * fVar2 + (v[7] + v[14]) * fVar3;
-    float fVar13 = (v[15] + v[6]) * fVar2 - (v[7] - v[14]) * fVar3;
-    fVar2 = (v[7] - v[14]) * fVar2 + (v[15] + v[6]) * fVar3;
-    fVar3 = fVar10 + (fVar4 - v[9]);
-    float fVar21 = fVar11 + v[8] + fVar5;
-    float fVar20 = fVar15 + fVar19;
-    float fVar22 = fVar14 + fVar18;
-    v[0] = fVar20 + fVar3;
-    v[1] = fVar22 + fVar21;
-    v[2] = fVar3 - fVar20;
-    v[3] = fVar21 - fVar22;
-    fVar10 = (fVar4 - v[9]) - fVar10;
-    fVar11 = (v[8] + fVar5) - fVar11;
-    fVar19 = fVar19 - fVar15;
-    fVar18 = fVar18 - fVar14;
-    v[4] = fVar10 - fVar18;
-    v[5] = fVar19 + fVar11;
-    v[6] = fVar18 + fVar10;
-    v[7] = fVar11 - fVar19;
-    fVar4 = (fVar6 + fVar7) - fVar1;
-    fVar10 = fVar12 + (fVar8 - fVar9);
-    fVar5 = fVar17 - fVar13;
-    fVar3 = fVar16 - fVar2;
-    v[8] = fVar5 + fVar4;
-    v[9] = fVar3 + fVar10;
-    v[10] = fVar4 - fVar5;
-    v[11] = fVar10 - fVar3;
-    fVar1 = fVar1 + fVar6 + fVar7;
-    fVar12 = (fVar8 - fVar9) - fVar12;
-    fVar13 = fVar13 + fVar17;
-    fVar2 = fVar2 + fVar16;
-    v[12] = fVar1 - fVar2;
-    v[13] = fVar13 + fVar12;
-    v[14] = fVar2 + fVar1;
-    v[15] = fVar12 - fVar13;
+
+    // The original keeps these in its frame as rounded floats (volatile here); everything else is combined in
+    // x87 registers (double), including the second stage's sums and differences.
+    volatile float d09 = v[0] - v[9];
+    volatile float s18 = v[8] + v[1];
+    volatile float s90 = v[9] + v[0];
+    volatile float d18 = v[1] - v[8];
+
+    volatile float m10 = ((v[4] - v[13]) - (v[12] + v[5])) * c1;
+    double s125 = v[12] + v[5];             // the listing adds the two pairs: MSVC 7.1 regroups a + b + (c - d)
+    volatile float m11 = (s125 + (v[4] - v[13])) * c1;
+    volatile float m12 = ((v[13] + v[4]) - (v[5] - v[12])) * c1;
+    double s134 = v[13] + v[4];
+    volatile float m1 = ((v[5] - v[12]) + s134) * c1;
+
+    volatile float a19 = (v[2] - v[11]) * c2 - (v[3] + v[10]) * c3;
+    volatile float a18 = (v[3] + v[10]) * c2 + (v[2] - v[11]) * c3;
+    volatile float a17 = (v[11] + v[2]) * c3 - (v[3] - v[10]) * c2;
+    volatile float a16 = (v[11] + v[2]) * c2 + (v[3] - v[10]) * c3;
+    volatile float a15 = (v[6] - v[15]) * c3 - (v[7] + v[14]) * c2;
+    volatile float a14 = (v[6] - v[15]) * c2 + (v[7] + v[14]) * c3;
+    volatile float a13 = (v[15] + v[6]) * c2 - (v[7] - v[14]) * c3;
+    double a2 = (v[7] - v[14]) * c2 + (v[15] + v[6]) * c3;
+
+    double f3 = m10 + d09;
+    double f21 = m11 + s18;
+    double f20 = a15 + a19;
+    volatile float f22 = a14 + a18;
+    v[0] = f20 + f3;
+    v[1] = f22 + f21;
+    v[2] = f3 - f20;
+    v[3] = f21 - f22;
+
+    double g10 = d09 - m10;
+    double g11 = s18 - m11;
+    double g19 = a19 - a15;
+    double g18 = a18 - a14;
+    v[4] = g10 - g18;
+    v[5] = g19 + g11;
+    v[6] = g18 + g10;
+    v[7] = g11 - g19;
+
+    double h4 = s90 - m1;
+    double h10 = m12 + d18;
+    double h5 = a17 - a13;
+    volatile float h3 = a16 - a2;
+    v[8] = h5 + h4;
+    v[9] = h3 + h10;
+    v[10] = h4 - h5;
+    v[11] = h10 - h3;
+
+    double i1 = m1 + s90;
+    volatile float i12 = d18 - m12;
+    volatile float i13 = a13 + a17;
+    double i2 = a2 + a16;
+    v[12] = i1 - i2;
+    v[13] = i13 + i12;
+    v[14] = i2 + i1;
+    v[15] = i12 - i13;
 }

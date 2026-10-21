@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 706 inputs, branch coverage 9/10, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19136 inputs, branch coverage 9/10, incomplete)
 // pure3d::ParticlePlaneGenerator::vfunc_6 @ 0x002d2630
+#include "compat/ptr.h"
 #include "decls/data/engine/pure3d.h"
 
 struct Vec3_2d2630 {
@@ -118,14 +119,14 @@ unsigned int ParticlePlaneGenerator::vfunc_6(unsigned int count, MatArg from, Ma
     } f;
 
     f.p = from.mat->pos;
-    float dx = f.p.x - to.mat->pos.x;
-    float dy = f.p.y - to.mat->pos.y;
-    float dz = f.p.z - to.mat->pos.z;
+    hulk_freg dx = (hulk_freg)f.p.x - to.mat->pos.x;   // x and y stay in registers, z goes through d.z
+    hulk_freg dy = (hulk_freg)f.p.y - to.mat->pos.y;
+    f.d.z = f.p.z - to.mat->pos.z;
     to.f = 1.0f / (float)count;
-    f.d.x = dx * to.f;
-    f.d.y = dy * to.f;
-    f.d.z = dz * to.f;
-    float inv = to.f;
+    float inv = *(volatile float *)&to.f;   // the original reloads the stored (rounded) reciprocal
+    f.d.x = dx * inv;
+    f.d.y = dy * inv;
+    f.d.z = f.d.z * inv;
     step = inv * step;
     f.t = 0.0f;
     f.n = 0;
@@ -153,12 +154,12 @@ unsigned int ParticlePlaneGenerator::vfunc_6(unsigned int count, MatArg from, Ma
         f.q.y = 0.0f;
         f.q.z = (f.u4 - 1.0f) * f3c + f.c68;
         fromMat->FUN_0022c3b0(&f.q, &f.r);
-        float ax = f.r.x + f.p.x;
-        float ay = f.r.y + f.p.y;
+        hulk_freg ax = (hulk_freg)f.r.x + f.p.x;
+        hulk_freg ay = (hulk_freg)f.r.y + f.p.y;
         f.r.z = f.r.z + f.p.z;
         f.r.x = f.w.x * em.f + ax;
         f.r.y = f.w.y * em.f + ay;
-        f.r.z = f.w.z * em.f + f.r.z;
+        f.r.z = f.w.z * em.f + *(volatile float *)&f.r.z;   // the original reloads the stored (rounded) sum
         if (!emitter->v14(&f.w, &f.r, f.t))
             break;
         f.n++;

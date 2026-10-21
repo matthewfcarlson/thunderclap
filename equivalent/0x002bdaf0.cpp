@@ -1,5 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 19780 inputs, branch coverage 2/2)
 // FUN_002bdaf0 @ 0x002bdaf0
+#include "compat/ptr.h"
+
 struct QuadVertex {
     float x, y, z;
     int color;
@@ -39,28 +41,28 @@ public:
 
 void QuadBatch::FUN_002bdaf0(int index, const RectInts *r, int w, int h)
 {
-    float s0, s1, s2, bottomV;
+    // x87 (docs/native-float.md): the int->float conversions are exact in the register; W, H, bf, Q, R and bottomV
+    // go through float frame slots (rounded), the texture coordinates s0..s2 stay in registers until stored.
+    hulk_freg s0, s1, s2;
+    float bottomV;
     if (noBorder) {
         s0 = 0.0f;
-        s1 = (float)r->i14;
+        s1 = r->i14;
         s2 = 0.0f;
         bottomV = (float)r->i10;
     } else {
-        float W = (float)w;
         int borderI = border;
         int right = r->i14 + borderI;
-        float Q = 1.0f / (W + W);
-        float H = (float)h;
-        float R = 1.0f / (H * 4.0f);
-        float bf = (float)borderI;
         int bottom = r->i10 + borderI;
-        float t1 = bf / W + Q;
-        float t2 = (float)right / W + Q;
-        bottomV = 1.0f - bf / H - R;
-        float t4 = 1.0f - (float)bottom / H - R;
-        s0 = t4;
-        s1 = t2;
-        s2 = t1;
+        volatile float W = (float)w;   // volatile: MSVC 7.1 turns two divisions by W (or H) into a reciprocal multiply
+        float Q = (float)(1.0 / ((double)w + w));
+        volatile float H = (float)h;
+        float R = (float)(1.0 / ((double)h * 4.0f));
+        float bf = (float)borderI;
+        s2 = (double)borderI / W + Q;
+        s1 = (double)right / W + Q;
+        bottomV = (float)(1.0 - bf / H - R);
+        s0 = 1.0 - (double)bottom / H - R;
     }
 
     quads[index].v[0].color = -1;

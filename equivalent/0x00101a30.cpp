@@ -175,8 +175,8 @@ void CHand2HandAgent::v23(Arg1_101a30 *a1, Out_101a30 *out, int a3)
         v174.y = a1_ + ly;
     }
     v168.z = *(volatile float *)&v174.z + v150.z;
-    v168.x = v150.x + v174.x;
-    v168.y = v174.y + v150.y;
+    v168.x = v150.x + *(volatile float *)&v174.x;
+    v168.y = *(volatile float *)&v174.y + v150.y;
     p5c->v10.x = v168.x;
     p5c->v10.y = v168.y;
     p5c->v10.z = v168.z;

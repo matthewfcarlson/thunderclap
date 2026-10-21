@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 31/32, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20037 inputs, branch coverage 31/32, incomplete)
 // hulkfight::motion::ProjectileGroundShockwave::vfunc_4 @ 0x00198b30
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"
 extern "C" double sqrt(double);
@@ -253,13 +254,13 @@ void ProjectileGroundShockwave::vfunc_4(float dt)
         f.s0 = FUN_0004af40(f.s4, hi, want);
         f.g = (*(V3_198b30*)&DAT_004c1368);
         FUN_00224d70(f.s0, &f.g);
-        float gx = f.g.x * f.f64;
-        float gy = f.g.y * f.f64;
-        float gz = f.g.z * f.f64;
-        f.disp.z = gz;
+        hulk_freg gx = f.g.x * f.f64;
+        hulk_freg gy = f.g.y * f.f64;
+        f.disp.z = f.g.z * f.f64;       // the z product goes through disp.z (rounded) and is read back
         f.disp.x = f.mat.m[12] + gx;
-        f.disp.z = f.mat.m[14] + f.disp.z;
-        f.disp.y = f.mat.m[13] + gy + f.c3c;
+        f.disp.z = f.mat.m[14] + *(volatile float *)&f.disp.z;
+        hulk_freg ty = f.mat.m[13] + gy;   // (m13 + gy) + c3c, in that order
+        f.disp.y = ty + f.c3c;
         if (f.ray->FUN_00201f20(&f.disp, 1, &f.hitA, &f.hitB, &f.o3, &f.o4)) {
             f.s44 = 0;
             mgr->spawn->FUN_001f6cd0(f.o3, f.o4, &f.hitA, &f.hitB, &f.g, f.a1, ebx, ebx, &f.s44, 0);

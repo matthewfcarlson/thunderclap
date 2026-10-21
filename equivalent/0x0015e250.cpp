@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 28/28)
+// STATUS: equivalent (tools/equiv.py level 3: 19963 inputs, branch coverage 28/28)
 // hulkfight::motion::LocomotionSprintAction::vfunc_5 @ 0x0015e250
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
 extern "C" double sqrt(double);
@@ -216,11 +217,13 @@ bool LocomotionSprintAction::vfunc_5(Slot_15e250 a1, Slot_15e250 a2)
             outA = f.s0;
             outB = a1.f;
         } else {
-            float zs = f.w.z * a2.f;
-            f.w.z = zs;
-            f.w.x = f.w.x * a2.f + f.v2.x;
-            f.w.y = f.w.y * a2.f + f.v2.y;
-            f.w.z = f.w.z + f.v2.z;
+            struct { hulk_freg x, y; float z; } t;   // w * a2: z is stored (rounded), x and y stay in registers
+            t.x = f.w.x * a2.f;
+            t.y = f.w.y * a2.f;
+            t.z = f.w.z * a2.f;
+            f.w.x = t.x + f.v2.x;
+            f.w.y = t.y + f.v2.y;
+            f.w.z = t.z + f.v2.z;
             outA = FUN_00224f10(&f.w);
             outB = sqrt(f.w.z * f.w.z + f.w.y * f.w.y + f.w.x * f.w.x);
         }

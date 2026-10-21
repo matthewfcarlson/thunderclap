@@ -1,11 +1,13 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 25/26, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20033 inputs, branch coverage 26/26)
 // FUN_00315ca0 @ 0x00315ca0
 // equiv-map: ?thunk_FUN_002fb860@Body@@QAEXPAUVec3@@H@Z = 0x002fb940
+#include "compat/ptr.h"
 extern "C" double __cdecl sqrt(double);
 
 struct Vec3 {
     float x, y, z;
     float FUN_0022d110();
+    void MulAdd(float s, const Vec3 &d, const Vec3 &a) { x = s * d.x + a.x; y = s * d.y + a.y; z = s * d.z + a.z; }
 };
 
 union FloatBits {
@@ -67,7 +69,7 @@ void Resolver::FUN_00315ca0(Body *a1, Body *a2)
         FloatBits at;
         a1->thunk_FUN_002fb860(&v, i);
 
-        float dot = v.z * offset.z + v.y * offset.y + v.x * offset.x;
+        hulk_freg dot = v.z * offset.z + v.y * offset.y + v.x * offset.x;
         ad.f = dot;
         ad.u &= 0x7fffffff;
         if (!(ad.f > 1e-6f))
@@ -87,7 +89,7 @@ void Resolver::FUN_00315ca0(Body *a1, Body *a2)
         if (!(dist - skip <= threshold))
             continue;
 
-        float nt = -tr.t;
+        hulk_freg nt = -tr.t;
         dir.x = nt * a2->n.x;
         dir.y = nt * a2->n.y;
         dir.z = nt * a2->n.z;
@@ -101,7 +103,7 @@ void Resolver::FUN_00315ca0(Body *a1, Body *a2)
             continue;
 
         if (a2->b58 == 0 && at.f >= a2->f50) {
-            float s2 = -(FUN_00083d90(&tr.t) * a2->f50);
+            hulk_freg s2 = -(FUN_00083d90(&tr.t) * a2->f50);
             dir.x = s2 * a2->n.x;
             dir.y = s2 * a2->n.y;
             dir.z = s2 * a2->n.z;
@@ -115,27 +117,26 @@ void Resolver::FUN_00315ca0(Body *a1, Body *a2)
             v.x = v.x + p->x;
             v.y = v.y + p->y;
             v.z = v.z + p->z;
-            float nr = -tr.r;
-            float yp = nr * dir.y;
-            float zp = nr * dir.z;
-            c.x = nr * dir.x + v.x;
-            c.y = yp + v.y;
-            c.z = zp + v.z;
+            hulk_freg nr = -tr.r;
+            struct { hulk_freg x; float y, z; } sc;   // dir * nr: x stays in a register, y and z are stored
+            sc.x = nr * dir.x;
+            sc.y = nr * dir.y;
+            sc.z = nr * dir.z;
+            c.x = sc.x + v.x;
+            c.y = sc.y + v.y;
+            c.z = sc.z + v.z;
         } else {
             Vec3 *p = a1->vfunc_4();
             v.x = v.x + p->x;
             v.y = v.y + p->y;
             v.z = v.z + p->z;
             if (a2->b58 != 0 && -threshold < dist) {
-                float sg = FUN_00083d90(&tr.t);
+                hulk_freg sg = FUN_00083d90(&tr.t);
                 tr.r = dist;
                 dir.x = sg * a2->n.x;
                 dir.y = sg * a2->n.y;
                 dir.z = sg * a2->n.z;
-                float nd = -dist;
-                c.x = nd * dir.x + v.x;
-                c.y = nd * dir.y + v.y;
-                c.z = nd * dir.z + v.z;
+                c.MulAdd(-dist, dir, v);
             } else {
                 if (tr.r == -a2->f54)
                     continue;
@@ -143,12 +144,15 @@ void Resolver::FUN_00315ca0(Body *a1, Body *a2)
                 dir.x = inv * dir.x;
                 dir.y = inv * dir.y;
                 dir.z = inv * dir.z;
-                float zp = tr.r * dv[2];
-                c.x = tr.r * dv[0] + v.x;
-                c.y = tr.r * dv[1] + v.y;
-                c.z = zp + v.z;
+                struct { hulk_freg x, y; float z; } sc;   // dir * r: x and y stay in registers, z is stored
+                sc.x = tr.r * dv[0];
+                sc.y = tr.r * dv[1];
+                sc.z = tr.r * dv[2];
+                c.x = sc.x + v.x;
+                c.y = sc.y + v.y;
+                c.z = sc.z + v.z;
                 if (dist > 0.0f) {
-                    float sd = -(FUN_00083d90(&tr.t) * dist);
+                    hulk_freg sd = -(FUN_00083d90(&tr.t) * dist);
                     c.x = sd * a2->n.x + c.x;
                     c.y = sd * a2->n.y + c.y;
                     c.z = sd * a2->n.z + c.z;

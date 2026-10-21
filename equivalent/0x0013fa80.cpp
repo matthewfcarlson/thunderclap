@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19902 inputs, branch coverage 44/44)
+// STATUS: equivalent (tools/equiv.py level 3: 19986 inputs, branch coverage 44/44)
 // hulkfight::motion::WallRunAction::vfunc_5 @ 0x0013fa80
 #include "decls/data/game/hulkfight/motion.h"
 
@@ -11,6 +11,12 @@ struct Vec3_13fa80 {
     char FUN_0022d2b0(const Vec3_13fa80 *z, float eps) throw();
     void FUN_000111b0(const Vec3_13fa80 *a, const Vec3_13fa80 *b) throw();
 };
+
+// |v| read back from memory (the original reloads the components it just stored, rounded)
+static double Length_13fa80(const Vec3_13fa80 *v)
+{
+    return sqrt(v->x * v->x + v->y * v->y + v->z * v->z);
+}
 
 struct Quat_13fa80 {
     float q[4];
@@ -191,8 +197,11 @@ char WallRunAction::vfunc_5(Arg1_13fa80 a1, Arg2_13fa80 a2)
         }
     }
     v2c.y = v2c.y - a2.f * f1c->f28;
-    a1.f = (float)sqrt(v2c.x * v2c.x + v2c.y * v2c.y + v2c.z * v2c.z);
-    double nd = -(f.U.z * v2c.z + f.U.y * v2c.y + f.U.x * v2c.x);
+    a1.f = (float)Length_13fa80(&v2c);
+    double dot = f.U.z * v2c.z;      // one term per statement, in the listing's order
+    dot += f.U.y * v2c.y;
+    dot += f.U.x * v2c.x;
+    double nd = -dot;
     v2c.x = f.U.x * nd + v2c.x;
     v2c.y = f.U.y * nd + v2c.y;
     v2c.z = f.U.z * nd + v2c.z;

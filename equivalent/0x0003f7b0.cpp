@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3031 inputs, branch coverage 71/72, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20092 inputs, branch coverage 71/72, incomplete)
 // FUN_0003f7b0 @ 0x0003f7b0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" double __cdecl sin(double);
@@ -201,13 +202,16 @@ char Chara_3f7b0::Probe(V3_3f7b0 *p1, V3_3f7b0 *p2, V3_3f7b0 *out1, V3_3f7b0 *ou
         f.s.y = p1->y + f.arr2[f.i].y;
         f.s.z = p1->z + f.arr2[f.i].z;
         f.c = *p2;
-        f.tmp18 = f.nn.z * p1->z + f.nn.y * p1->y + f.nn.x * p1->x + f.dd;
-        float cx = f.c.x + f.arr2[f.i].x;
-        f.w1c = f.c.y + f.arr2[f.i].y;
+        hulk_freg dist = f.nn.z * p1->z;     // plane distance of p1, kept in a register (listing order)
+        dist += f.nn.y * p1->y;
+        dist += f.nn.x * p1->x;
+        dist += f.dd;
+        hulk_freg cx = f.c.x + f.arr2[f.i].x;
+        hulk_freg cy = f.c.y + f.arr2[f.i].y;
         f.c.z = f.c.z + f.arr2[f.i].z;
-        f.c.x = f.w.x * f.tmp18 + cx;
-        f.c.y = f.w.y * f.tmp18 + f.w1c;
-        f.c.z = f.w.z * f.tmp18 + f.c.z;
+        f.c.x = f.w.x * dist + cx;
+        f.c.y = f.w.y * dist + cy;
+        f.c.z = f.w.z * dist + f.c.z;
         f.found = 0;
         FUN_00035fa0(0);
         char ok2 = FUN_002027c0(&f.s, &f.c, 0, f.flagArg, &f.hp2, &f.hn, 0, &f.info);

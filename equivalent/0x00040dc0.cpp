@@ -1,5 +1,13 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 78/78)
+// STATUS: equivalent (tools/equiv.py level 3: 20049 inputs, branch coverage 78/78)
 // FUN_00040dc0 @ 0x00040dc0
+#include "compat/ptr.h"
+// the value a float slot holds after a store: the original reloads it (rounded) where MSVC 7.1 would reuse the
+// unrounded register
+static inline float Stored_40dc0(const float &v)
+{
+    return *(const volatile float *)&v;
+}
+
 struct V3_40dc0 {
     float x, y, z;
     float FUN_0022d110();
@@ -269,15 +277,15 @@ void Fighter_40dc0::FUN_00040dc0(Args_40dc0 *a1, float a2)
     V3_40dc0 *sp = &scene->xf.mat.trans;
     V3_40dc0 cp = *sp;
     V3_40dc0 &w = f.vB;
-    w.x = cp.x + v19c.x;
-    w.y = cp.y + v19c.y;
+    hulk_freg wx = (hulk_freg)cp.x + v19c.x;   // x and y stay in registers, z goes through w.z (rounded)
+    hulk_freg wy = (hulk_freg)cp.y + v19c.y;
     w.z = cp.z + v19c.z;
     v1a8.x = a2 * v1a8.x;
     v1a8.y = a2 * v1a8.y;
     v1a8.z = a2 * v1a8.z;
-    w.x = w.x + v1a8.x;
-    w.y = w.y + v1a8.y;
-    w.z = w.z + v1a8.z;
+    w.x = wx + Stored_40dc0(v1a8.x);
+    w.y = wy + Stored_40dc0(v1a8.y);
+    w.z = Stored_40dc0(w.z) + Stored_40dc0(v1a8.z);
     scene->FUN_002226f0(&w);
     v19c.z = 0.0f;
     v19c.y = 0.0f;
@@ -290,9 +298,10 @@ void Fighter_40dc0::FUN_00040dc0(Args_40dc0 *a1, float a2)
         v80.x = v80.x - x14.mat.trans.x;
         v80.y = v80.y - x14.mat.trans.y;
         v80.z = v80.z - x14.mat.trans.z;
-        v80.x = (1.0f / a2) * v80.x;
-        v80.y = (1.0f / a2) * v80.y;
-        v80.z = (1.0f / a2) * v80.z;
+        hulk_freg inv = 1.0f / a2;
+        v80.x = inv * Stored_40dc0(v80.x);
+        v80.y = inv * Stored_40dc0(v80.y);
+        v80.z = inv * Stored_40dc0(v80.z);
     }
 
     V3_40dc0 &w2 = f.vC;
@@ -307,20 +316,22 @@ void Fighter_40dc0::FUN_00040dc0(Args_40dc0 *a1, float a2)
             d.y = w2.y - x14.mat.trans.y;
             d.z = w2.z - x14.mat.trans.z;
             d.FUN_0022d110();
-            float dot = d.z * v1e8.z + d.y * v1e8.y + d.x * v1e8.x;
-            float t = 1.0f;
+            double dot = d.z * v1e8.z;        // dot, t and s stay in registers (double: MSVC spills dot)
+            dot += d.y * v1e8.y;
+            dot += d.x * v1e8.x;
+            double t = 1.0f;
             if (dot > 0.0f)
                 t = 1.0f - dot;
-            float s = t * f1f4 * a2;
+            double s = t * f1f4 * a2;
             V3_40dc0 &p = f.vA;
             p.x = v1e8.x;
             p.y = v1e8.y;
             p.z = v1e8.z;
             w2.x = p.x * s + w2.x;
             p.y = p.y * s;
-            w2.y = p.y + w2.y;
             p.z = p.z * s;
-            w2.z = p.z + w2.z;
+            w2.y = Stored_40dc0(p.y) + w2.y;
+            w2.z = Stored_40dc0(p.z) + w2.z;
             if (f1f4 >= 1.0f)
                 a1->f8->FUN_00099d00(a1, this, 0);
         }
@@ -380,9 +391,10 @@ void Fighter_40dc0::FUN_00040dc0(Args_40dc0 *a1, float a2)
             z3.y = 0.0f;
             z3.z = 0.0f;
             v190.z = v190.z - o18.z;
-            v190.x = (-1.0f / a2) * v190.x;
-            v190.y = (-1.0f / a2) * v190.y;
-            v190.z = (-1.0f / a2) * v190.z;
+            hulk_freg ninv = -1.0f / a2;
+            v190.x = ninv * Stored_40dc0(v190.x);
+            v190.y = ninv * Stored_40dc0(v190.y);
+            v190.z = ninv * Stored_40dc0(v190.z);
             if (!v190.FUN_0022d2b0(&z3, 1e-05f))
                 FUN_00038c40();
         }
@@ -417,9 +429,9 @@ void Fighter_40dc0::FUN_00040dc0(Args_40dc0 *a1, float a2)
         v74.x = v74.x - f.P0.x;
         v74.y = v74.y - f.P0.y;
         v74.z = v74.z - f.P0.z;
-        v74.x = inv * v74.x;
-        v74.y = inv * v74.y;
-        v74.z = inv * v74.z;
+        v74.x = Stored_40dc0(inv) * Stored_40dc0(v74.x);
+        v74.y = Stored_40dc0(inv) * Stored_40dc0(v74.y);
+        v74.z = Stored_40dc0(inv) * Stored_40dc0(v74.z);
         Scene_40dc0 *s3 = holder->FUN_00059a40();
         float &ang0 = f.ang0;
         if (s3 == 0)

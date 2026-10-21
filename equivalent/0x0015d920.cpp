@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3066 inputs, branch coverage 69/70, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 69/70, incomplete)
 // hulkfight::motion::LocomotionStrafeAction::vfunc_5 @ 0x0015d920
+#include "compat/ptr.h"
 extern "C" double fabs(double);
 
 struct V3 {
@@ -341,10 +342,13 @@ bool LocomotionStrafeAction::v5(int a0, float dt)
                 p4 = f.s20;
                 p8 = f.s10;
             } else {
-                f.H.z = f.H.z * f.s24;
-                f.H.x = f.H.x * f.s24 + f.Vv.x;
-                f.H.y = f.H.y * f.s24 + f.Vv.y;
-                f.H.z = f.H.z + f.Vv.z;
+                struct { hulk_freg x, y; float z; } hs;   // H * s24: z is stored (rounded), x and y stay in registers
+                hs.x = f.H.x * f.s24;
+                hs.y = f.H.y * f.s24;
+                hs.z = f.H.z * f.s24;
+                f.H.x = hs.x + f.Vv.x;
+                f.H.y = hs.y + f.Vv.y;
+                f.H.z = hs.z + f.Vv.z;
                 p4 = FUN_00224f10(&f.H);
                 p8 = f.H.FUN_00018990();
             }

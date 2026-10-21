@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 26/26)
+// STATUS: equivalent (tools/equiv.py level 3: 19967 inputs, branch coverage 26/26)
 // hulkfight::motion::ClimbLocomotionAction::vfunc_5 @ 0x0015f070
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
 struct V3_15f070 {
@@ -208,10 +209,13 @@ char ClimbLocomotionAction::vfunc_5(int a0, float a1)
             if (len <= s) {
                 direct = true;
             } else {
-                w.x = w.x * s + t.x;
-                w.y = w.y * s + t.y;
-                w.z = w.z * s;
-                w.z = w.z + t.z;
+                struct { hulk_freg x, y; float z; } ws;   // w * s: z is stored (rounded), x and y stay in registers
+                ws.x = w.x * s;
+                ws.y = w.y * s;
+                ws.z = w.z * s;
+                w.x = ws.x + t.x;
+                w.y = ws.y + t.y;
+                w.z = ws.z + t.z;
                 ang = FUN_00224f10(&w);
                 val = w.FUN_00018990();
             }

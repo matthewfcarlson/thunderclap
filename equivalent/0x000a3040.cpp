@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 73/74, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20043 inputs, branch coverage 73/74, incomplete)
 // FUN_000a3040 @ 0x000a3040
 #include "decls/data/game/global.h"
 
@@ -253,9 +253,9 @@ void Cam_a3040::Update(float unused, float dt)
     double ex = f.out.x - dx;
     double ey = f.out.y - dy;
     double ez = f.out.z - dz;
-    float exf = (float)ex;
-    float eyf = (float)ey;
-    float ezf = (float)ez;
+    volatile float exf = (float)ex;   // the original stores the offsets rounded (fst) and scales the stored copies
+    volatile float eyf = (float)ey;
+    volatile float ezf = (float)ez;
     double L = sqrt(ez * ez + ey * ey + ex * ex);
     float M = DAT_0049ec54 * dt;
     if (L > M) {

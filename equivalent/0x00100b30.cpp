@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2718 inputs, branch coverage 68/72, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19818 inputs, branch coverage 68/72, incomplete)
 // CHand2HandAgent::vfunc_21 @ 0x00100b30
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -7,6 +7,7 @@ extern "C" double sqrt(double);
 struct V3_100b30 {
     float x, y, z;
     float FUN_0022d110();
+    void Add(const V3_100b30 &o) { x = x + o.x; y = o.y + y; z = o.z + z; }
 };
 
 struct Name_100b30 {
@@ -216,15 +217,9 @@ void CHand2HandAgent::v21(Arg1_100b30 *a0, Out_100b30 *a1, float a2)
     v174.x = DAT_004a1c08 * v138.x + f.Tx;
     v174.y = f.Ty + f.Wy;
 
-    v168.x = v168.x + v174.x;
-    v168.y = v174.y + v168.y;
-    v168.z = v174.z + v168.z;
-    v168.x = v168.x + v144.x;
-    v168.y = v144.y + v168.y;
-    v168.z = v144.z + v168.z;
-    v168.x = v15c.x + v168.x;
-    v168.y = v15c.y + v168.y;
-    v168.z = v15c.z + v168.z;
+    v168.Add(v174);
+    v168.Add(v144);
+    v168.Add(v15c);
 
     if (!hit && f.b2) {
         v168.z = 0.0f;

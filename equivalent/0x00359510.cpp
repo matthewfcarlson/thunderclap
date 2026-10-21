@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 17/18, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20022 inputs, branch coverage 17/18, incomplete)
 // FUN_00359510 @ 0x00359510
+#include "compat/ptr.h"
 struct Vec3 {
     float x, y, z;
 };
@@ -33,9 +34,9 @@ bool __cdecl FUN_00359510(const Vec3* center, const float* half, const Vec3* ax0
     for (f.j = 0; f.j < 3; f.j++, h++) {
         f.v = **(const Vec3* const*)((const char*)h + f.diff);
         FUN_003579f0(&f.v, f.tri, &f.mn, &f.mx);
-        double d = f.v.x * center->x;
-        d = d + f.v.y * center->y;
-        d = d + f.v.z * center->z;
+        double d = (double)f.v.x * center->x;
+        d = d + (double)f.v.y * center->y;
+        d = d + (double)f.v.z * center->z;
         f.lo = (float)(d - *h);
         double hi = d + *h;
         f.hi = (float)hi;
@@ -57,8 +58,11 @@ bool __cdecl FUN_00359510(const Vec3* center, const float* half, const Vec3* ax0
     f.edge[2].z = f.e2.z - f.e1.z;
     f.v.x = f.e2.z * f.e1.y - f.e2.y * f.e1.z;
     f.v.y = f.e1.z * f.e2.x - f.e2.z * f.e1.x;
-    f.v.z = f.e2.y * f.e1.x - f.e1.y * f.e2.x;
-    float dd = f.v.z * t0->z + f.v.y * t0->y + f.v.x * t0->x;
+    hulk_freg vz = f.e2.y * f.e1.x - f.e1.y * f.e2.x;   // stored rounded, used unrounded
+    f.v.z = vz;
+    hulk_freg dd = vz * t0->z;     // one term per statement, in the listing's order
+    dd += f.v.y * t0->y;
+    dd += f.v.x * t0->x;
     f.mn = dd;
     f.mx = dd;
     FUN_00359450(&f.v, center, half, ax0, ax1, ax2, &f.lo, &f.hi);
