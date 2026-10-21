@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 6/6)
 // FUN_003024d0 @ 0x003024d0
 struct Vec3_3024d0 {
     float x, y, z;
@@ -56,7 +56,7 @@ float __cdecl FUN_003024d0(Box_3024d0 *box, Other_3024d0 *other)
     d.y = q->y - p->y;
     d.z = q->z - p->z;
 
-    float a;
+    double a; // register value in the original (b and c are frame copies)
     volatile float b;
     volatile float c;
     if (box->axisAligned == 0) {
@@ -71,7 +71,7 @@ float __cdecl FUN_003024d0(Box_3024d0 *box, Other_3024d0 *other)
         b = Abs(d.y) - (box->extentY + other->margin);
         c = Abs(d.z) - (box->extentZ + other->margin);
     }
-    float best = a;
+    double best = a;
     if (best < b)
         best = b;
     if (best < c)

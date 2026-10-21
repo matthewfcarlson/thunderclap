@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 12/12)
 // FUN_00315620 @ 0x00315620
 struct Vec3_315620 {
     float x, y, z;
@@ -35,20 +35,23 @@ bool Resolver_315620::FUN_00315620(Vec3_315620* p0, Vec3_315620* axis0, float k0
 
     d.x = (p1->x - p0->x) + offset.x;
     d.y = (p1->y - p0->y) + offset.y;
-    d.z = (p1->z - p0->z) + offset.z;
+    volatile float dzr = p1->z - p0->z; // the original rounds the z difference before adding the offset
+    d.z = dzr + offset.z;
 
     float cx = d.y * ref->z - d.z * ref->y;
     float cy = d.z * ref->x - d.x * ref->z;
     float cz = d.x * ref->y - d.y * ref->x;
     float inv = 1.0f / (scale * scale);
 
-    float t0 = (cz * axis0->z + cy * axis0->y + cx * axis0->x) * k0 * inv;
+    double u0 = (cz * axis0->z + cy * axis0->y + cx * axis0->x) * k0; // MSVC would reassociate dot*k0*inv
+    float t0 = u0 * inv;
     bits.f = t0;
     bits.u &= 0x7fffffff;
     if (!(bits.f <= 1.0f))
         return false;
 
-    float t1 = (cz * axis1->z + cy * axis1->y + cx * axis1->x) * k1 * inv;
+    double u1 = (cz * axis1->z + cy * axis1->y + cx * axis1->x) * k1;
+    float t1 = u1 * inv;
     bits.f = t1;
     bits.u &= 0x7fffffff;
     if (!(bits.f <= 1.0f))

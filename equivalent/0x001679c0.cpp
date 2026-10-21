@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 32/34, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20081 inputs, branch coverage 32/34, incomplete)
 // hulkfight::motion::RayCastCondition::vfunc_6 @ 0x001679c0
 #include "decls/address.h"
 extern char DAT_00494b44[];
@@ -124,11 +124,12 @@ char RayCastCondition::vfunc_6(int arg0, Obj1_1679c0* target, int arg2)
         f.dir.FUN_0022d110();
 
         float len = length;
-        f.res.y = f.dir.y * len;
-        f.res.z = f.dir.z * len;
+        volatile float *rv = &f.res.x; // y and z products are rounded through the frame in the original
+        rv[1] = f.dir.y * len;
+        rv[2] = f.dir.z * len;
         f.res.x = f.dir.x * len + f.from.x;
-        f.res.y = f.res.y + f.from.y;
-        f.res.z = f.res.z + f.from.z;
+        rv[1] = rv[1] + f.from.y;
+        rv[2] = rv[2] + f.from.z;
 
         Entity* cur = DAT_004dd700->player->current;
         int notIgnored = 0;

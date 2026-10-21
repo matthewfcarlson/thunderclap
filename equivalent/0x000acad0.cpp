@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 10/10)
 // CScriptCamera::vfunc_35 @ 0x000acad0
 // cl-flags: /GS
 
@@ -127,14 +127,14 @@ void CScriptCamera::vfunc_35(CameraArgs* args, float dt, int flag, int extra)
         v2a0.y = (v294.y - v288.y) * t + v288.y;
         v2a0.z = (v294.z - v288.z) * t + v288.z;
 
-        Vec3_acad0 fwd;
-        fwd.x = m.m[8] * a0;
-        fwd.y = m.m[9] * a0;
-        fwd.z = m.m[10] * a0;
+        // fwd.x/y stay in registers; fwd.z is a rounded frame copy; v2a0 is reloaded (rounded) from the members
+        double fwdx = m.m[8] * a0;
+        double fwdy = m.m[9] * a0;
+        volatile float fwdz = m.m[10] * a0;
         Vec3_acad0 d;
-        d.x = v2a0.x - fwd.x;
-        d.y = v2a0.y - fwd.y;
-        d.z = v2a0.z - fwd.z;
+        d.x = *(volatile float *)&v2a0.x - fwdx;
+        d.y = *(volatile float *)&v2a0.y - fwdy;
+        d.z = *(volatile float *)&v2a0.z - fwdz;
         m.FUN_0022be40(&d);
         vfunc_21(&m);
 

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 17/18, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 18/18)
 // FUN_000a00e0 @ 0x000a00e0
 float FUN_000186b0(float *p0, float *p1, float *p2);
 float FUN_0009f760(float x);
@@ -13,6 +13,7 @@ float FUN_000a00e0(float a, float b, float c, float d, float e)
         return a;
 
     f.vc = a;
+    double vcd = a; // the register copy of f.vc (unrounded)
     unsigned bits = *(unsigned *)&f.L0 & 0x7fffffff;
     f.t = *(float *)&bits - e;
         if (f.t > 0.0f) {
@@ -27,11 +28,12 @@ float FUN_000a00e0(float a, float b, float c, float d, float e)
         f.t = FUN_000186b0(&f.L0, &f.vc, &f.t);
         if (lim)
             f.q = d;
-        f.vc = f.t + a;
+        vcd = f.t + a;
+        f.vc = vcd;
         f.L0 = f.L0 - f.t;
         d = d - f.q;
     }
-    float x = f.vc;
+    double x = vcd; // returned unrounded (st0) by the original
     if (e > 0.0f && d > 0.0f) {
         unsigned bits2 = *(unsigned *)&f.L0 & 0x7fffffff;
         if (!(e * 0.001f >= *(float *)&bits2)) {

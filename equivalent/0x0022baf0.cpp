@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_0022baf0 @ 0x0022baf0
 extern "C" double __cdecl sin(double);
 extern "C" double __cdecl cos(double);
@@ -11,8 +11,9 @@ void Matrix::build(const Vec_22baf0* axis,float angle) {
  double z=v.z*s;
  double xx2=(double)x+x;
  float y2=y+y,z2=(float)(z+z);
- float xc=(float)(xx2*c),yc=(float)(y2*c),zc=(float)(z2*c);
- float xx=(float)(xx2*x),xy=y2*x,xz=z2*x,yy=y2*y,yz=z2*y;
+ volatile float xc=(float)(xx2*c),yc=(float)(y2*c),zc=(float)(z2*c);
+ volatile float xx=(float)(xx2*x); /* kept as a rounded frame copy in the original */
+ volatile float xy=y2*x,xz=z2*x,yy=y2*y,yz=z2*y;
  double zz=z2*z;
  m[0]=(float)(1.0-((double)yy+zz)); m[1]=xy-zc; m[2]=xz+yc;
  m[4]=xy+zc; m[5]=(float)(1.0-(zz+xx)); m[6]=yz-xc;

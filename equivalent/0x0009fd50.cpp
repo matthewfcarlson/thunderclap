@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 12018 inputs, branch coverage 7/8, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 7/8, incomplete)
 // FUN_0009fd50 @ 0x0009fd50
 extern "C" double sin(double);
 extern "C" double cos(double);
@@ -36,8 +36,8 @@ V3_9fd50 *FUN_0009fd50(V3_9fd50 *out, V3_9fd50 *a, V3_9fd50 *b, float t)
         return out;
     }
 
-    float py = dot * a->y;
-    float pz = dot * a->z;
+    volatile float py = dot * a->y;
+    volatile float pz = dot * a->z;
     V3_9fd50 perp;
     perp.x = b->x - dot * a->x;
     perp.y = b->y - py;
@@ -47,11 +47,12 @@ V3_9fd50 *FUN_0009fd50(V3_9fd50 *out, V3_9fd50 *a, V3_9fd50 *b, float t)
     double theta = FUN_00018a20(dot) * t;
     double s = sin(theta);
     double c = cos(theta);
-    float sx = (float)(perp.x * s);
-    float sy = (float)(perp.y * s);
+    // sx, sy, cy, cz (and py, pz above) are rounded frame copies in the original; sz stays in a register
+    volatile float sx = (float)(perp.x * s);
+    volatile float sy = (float)(perp.y * s);
     double sz = perp.z * s;
-    float cy = (float)(c * a->y);
-    float cz = (float)(c * a->z);
+    volatile float cy = (float)(c * a->y);
+    volatile float cz = (float)(c * a->z);
     out->x = (float)(c * a->x + sx);
     out->y = cy + sy;
     out->z = (float)(cz + sz);

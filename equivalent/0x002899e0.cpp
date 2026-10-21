@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20031 inputs, branch coverage 56/56)
 // FUN_002899e0 @ 0x002899e0
+#include "compat/ptr.h"
+
 double __cdecl FUN_00047970(float x);
 extern "C" double fmod(double, double);
 
@@ -27,11 +29,11 @@ float FUN_002899e0(float *p, char *st, float v, float step, float lo, float hi, 
             *p = 0;
             return hi;
         }
-        double vp = (double)v + step;
-        v = (float)vp;
+        hulk_freg vp = (double)v + step;
+        volatile float vr = (float)vp; // rounded frame copy; the unrounded vp is what gets returned
         if (!(vp > hi))
             return vp;
-        return fmod(v - hi, range) + lo;
+        return fmod(vr - hi, range) + lo;
     }
     case 3: {
         *st = 0;
@@ -39,11 +41,11 @@ float FUN_002899e0(float *p, char *st, float v, float step, float lo, float hi, 
             *p = 0;
             return lo;
         }
-        double vp = (double)v - step;
-        v = (float)vp;
+        hulk_freg vp = (double)v - step;
+        volatile float vr = (float)vp; // rounded frame copy; the unrounded vp is what gets returned
         if (!(vp < lo))
             return vp;
-        return fmod(v - lo, range) + hi;
+        return fmod(vr - lo, range) + hi;
     }
     case 4:
         if (flag == 0 && t <= 0.0f) {
@@ -59,41 +61,41 @@ float FUN_002899e0(float *p, char *st, float v, float step, float lo, float hi, 
         break;
     default: {
         *st = 1;
-        double vp = (double)v + step;
-        v = (float)vp;
+        hulk_freg vp = (double)v + step;
+        volatile float vr = (float)vp; // rounded frame copy; the unrounded vp is what gets returned
         if (!(vp > hi))
             return vp;
         if (flag != 1) {
             *p = 0;
             return hi;
         }
-        return fmod(v - lo, range) + lo;
+        return fmod(vr - lo, range) + lo;
     }
     }
 
     if (*st == 1) {
-        double vp = (double)v + step;
+        hulk_freg vp = (double)v + step;
         if (!(vp > hi))
             return vp;
-        step = range + range;
-        volatile float tt = (float)((vp - hi) / step);
+        volatile float step2 = range + range; // the doubled range is a rounded frame slot in the original
+        volatile float tt = (float)((vp - hi) / step2);
         double fr = (double)tt - FUN_00047970(tt);
         if (!(fr > 0.5f)) {
             *st = 0;
-            return hi - fr * step;
+            return hi - fr * step2;
         }
-        return (fr - 0.5f) * step + lo;
+        return (fr - 0.5f) * step2 + lo;
     }
-    double vp = (double)v - step;
+    hulk_freg vp = (double)v - step;
     if (!(vp < lo))
         return vp;
-    step = range + range;
-    volatile float tt = (float)((vp - lo) / step);
+    volatile float step2 = range + range;
+    volatile float tt = (float)((vp - lo) / step2);
     if (tt < 0)
         tt = -tt;
     double fr = (double)tt - FUN_00047970(tt);
     if (fr > 0.5f)
-        return hi - (fr - 0.5f) * step;
+        return hi - (fr - 0.5f) * step2;
     *st = 1;
-    return fr * step + lo;
+    return fr * step2 + lo;
 }

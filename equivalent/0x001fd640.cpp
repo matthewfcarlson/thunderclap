@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 2/2)
 // FUN_001fd640 @ 0x001fd640
 struct Vec3_1fd640 { float x,y,z; };
 extern "C" double __cdecl sqrt(double);
@@ -21,8 +21,8 @@ void __cdecl FUN_001fd640(void* context, Vec3_1fd640* start, Vec3_1fd640* end, V
     direction.z = (float)(dz*inv);
     FUN_0022d3a0(context,start,&direction,length,&length);
     double x = (double)direction.x * length;
-    float y = direction.y * length;
-    float z = direction.z * length;
+    volatile float y = direction.y * length; // rounded frame copies in the original
+    volatile float z = direction.z * length;
     double ox = x + start->x;
     double oy = (double)y + start->y;
     double oz = (double)z + start->z;

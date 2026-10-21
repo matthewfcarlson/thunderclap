@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 22/22)
 // FUN_00230160 @ 0x00230160
 extern "C" double sqrt(double);
 struct Vec3_230160 {
@@ -82,5 +82,6 @@ float Segment_230160::FUN_00230160(Segment_230160* other) {
     volatile float nearestZ = suz + wz;
     volatile float dx = nearestX - tvx, dy = nearestY - tvy;
     double dz = nearestZ - tvz;
-    return sqrt(dz * dz + dy * dy + dx * dx);
+    double zy = dz * dz + dy * dy; // keep the original's summation order
+    return sqrt(zy + dx * dx);
 }

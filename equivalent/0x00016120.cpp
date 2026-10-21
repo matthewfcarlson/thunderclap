@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 24/24)
 // CSmartPropThrowAction::vfunc_6 @ 0x00016120
 #include "decls/data/game/global.h"
 
@@ -168,9 +168,12 @@ bool CSmartPropThrowAction::vfunc_6(int arg)
         f.u8.anchor->FUN_00059a50(&f.g);
         f.g.y = (fighter->f140 == 3 ? 0.0f : 3.0f) + f.g.y;
         f.w = f.l;
-        f.w.x = f.g.x + f.w.x * 3.0f;
-        f.w.y = f.w.y * 3.0f + f.g.y;
-        f.w.z = f.g.z + f.w.z * 3.0f;
+        f.w.x = f.w.x * 3.0f;
+        f.w.y = f.w.y * 3.0f;
+        f.w.z = f.w.z * 3.0f;
+        f.w.x = f.g.x + f.w.x;
+        f.w.y = f.w.y + f.g.y;
+        f.w.z = f.g.z + f.w.z;
         f.u8.zero = 0;
         if (fighter->FUN_00038de0(&f.g, &f.w, 0, 1, &f.out4, &f.out3, &f.u8.zero, 0)) {
             f.out1.FUN_0022d110();

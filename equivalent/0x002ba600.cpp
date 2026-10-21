@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 7/8, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 8/8)
 // pure3d::BillboardCutOffQuadGroup::vfunc_11 @ 0x002ba600
 extern "C" double sqrt(double);
 
@@ -73,7 +73,8 @@ float BillboardCutOffQuadGroup::vfunc_11(Slot_2ba600 a, Slot_2ba600 b)
     f.dx = pb->pos.x - pa->pos.x;
     f.dy = pb->pos.y - pa->pos.y;
     f.dz = pb->pos.z - pa->pos.z;
-    a.f = (float)sqrt(f.dx * f.dx + f.dy * f.dy + f.dz * f.dz);
+    double xy = f.dx * f.dx + f.dy * f.dy; // MSVC reorders three-term sums; dz is reloaded (rounded)
+    a.f = (float)sqrt(xy + *(volatile float *)&f.dz * *(volatile float *)&f.dz);
 
     unsigned int bits = a.u;
     b.u = bits & 0x7fffffff;
@@ -110,7 +111,11 @@ float BillboardCutOffQuadGroup::vfunc_11(Slot_2ba600 a, Slot_2ba600 b)
             w = 0.0f;
         }
     }
-    return w * b.f * f.outB0 * f.outA1 * f.outA0;
+    // MSVC reassociates the product chain; spell the original's order
+    double p1 = w * b.f;
+    double p2 = p1 * f.outB0;
+    double p3 = p2 * f.outA1;
+    return p3 * f.outA0;
 }
 
 }

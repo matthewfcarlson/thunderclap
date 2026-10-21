@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3113 inputs, branch coverage 88/90, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20092 inputs, branch coverage 90/90)
 // FUN_0003d350 @ 0x0003d350
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
@@ -157,11 +157,14 @@ void Fighter_3d350::Update(Arg1_3d350 *a1, float a2)
                     hitV.x = hitPos.x - c2.x;
                     hitV.y = hitPos.y - c2.y;
                     hitV.z = hitPos.z - c2.z;
-                    float L = hitV.FUN_0022d110();
-                    float sc = L - 0.1f;
-                    hitV.x = hitV.x * sc + c2.x;
-                    hitV.y = hitV.y * sc + c2.y;
-                    hitV.z = hitV.z * sc + c2.z;
+                    double L = hitV.FUN_0022d110();
+                    double sc = L - 0.1f;
+                    hitV.x = hitV.x * sc;
+                    hitV.y = hitV.y * sc;
+                    hitV.z = hitV.z * sc;
+                    hitV.x = hitV.x + c2.x;
+                    hitV.y = hitV.y + c2.y;
+                    hitV.z = hitV.z + c2.z;
                 } else {
                     hitV = c;
                 }
@@ -265,10 +268,12 @@ void Fighter_3d350::Update(Arg1_3d350 *a1, float a2)
             N.y = 0;
             N.FUN_0022d110();
         }
-        float s = a2 * 10.0f;
+        double s = a2 * 10.0f; // stays in a register
+        volatile float py = s * N.y; // y and z products are rounded frame copies in the original
+        volatile float pz = N.z * s;
         f1c0 = N.x * s + f1c0;
-        f1c4 = s * N.y + f1c4;
-        f1c8 = N.z * s + f1c8;
+        f1c4 = py + f1c4;
+        f1c8 = pz + f1c8;
         return;
     }
 

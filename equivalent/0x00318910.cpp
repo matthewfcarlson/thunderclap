@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 5574 inputs, branch coverage 21/22, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20042 inputs, branch coverage 21/22, incomplete)
 // FUN_00318910 @ 0x00318910
 extern "C" double sqrt(double);
 
@@ -88,7 +88,7 @@ void Solver_318910::FUN_00318910(Probe_318910 *a1, Probe_318910 *a2)
         dx = q0->x - fr.p.x;
         dy = q0->y - fr.p.y;
         dz = q0->z - fr.p.z;
-        lenSq = dz * dz + dy * dy + dx * dx;
+        lenSq = *(volatile float *)&dz * *(volatile float *)&dz + dy * dy + dx * dx; // dz is reloaded (rounded) from the member
         if (FUN_00314430(y, &fr.p, x->ref, &fr.d, &lenSq, &fr.out2, &fr.out1, 1)) {
             fr.sq = fr.d.z * fr.d.z + fr.d.y * fr.d.y + fr.d.x * fr.d.x;
             if (fr.sq > 0.0f) {
@@ -123,7 +123,7 @@ void Solver_318910::FUN_00318910(Probe_318910 *a1, Probe_318910 *a2)
             dx = q0->x - fr.p.x;
             dy = q0->y - fr.p.y;
             dz = q0->z - fr.p.z;
-            lenSq = dz * dz + dy * dy + dx * dx;
+            lenSq = *(volatile float *)&dz * *(volatile float *)&dz + dy * dy + dx * dx; // dz is reloaded (rounded) from the member
             if (!FUN_00314430(y, &fr.p, x->ref, &fr.d, &lenSq, &fr.out2, &fr.out1, 1))
                 continue;
             if (fr.n < count) {

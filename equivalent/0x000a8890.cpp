@@ -7,12 +7,13 @@ struct Box_a8890 { float minX,minY,minZ,maxX,maxY,maxZ; Sphere_a8890* FUN_000a88
 Sphere_a8890* Box_a8890::FUN_000a8890(Sphere_a8890* out) {
  float x,y,z,r;
  if (!(minX > maxX) && !(minY > maxY) && !(minZ > maxZ)) {
-  float hx = (maxX-minX)*0.5f;
-  float dz = maxZ-minZ;
+  volatile float hx = (maxX-minX)*0.5f;
+  volatile float dz = maxZ-minZ;
   double hy = ((double)maxY-minY)*0.5;
   double hz = (double)dz*0.5;
   x = hx+minX; y = (float)(hy+minY); z = (float)(hz+minZ);
-  r = (float)sqrt(hz*hz+hy*hy+(double)hx*hx);
+  double zy = hz*hz+hy*hy; // keep the original's summation order
+  r = (float)sqrt(zy+(double)hx*hx);
  } else { x=y=z=r=0.0f; }
  out->radius=r; out->x=x; out->y=y; out->z=z;
     return out;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 15363 inputs, branch coverage 24/24)
 // FUN_002be440 @ 0x002be440
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
@@ -106,14 +106,14 @@ pure3d::Sprite::Sprite(Item_2be440 **items_, int w_, int h_, int count_, Holder_
     f70 = (float)r;
     f74 = (float)r;
     double t = (double)w_ * r;
-    float tf = (float)t;
+    volatile float tf = (float)t; // rounded frame copy (the original reuses it for f90 and f9c)
     f84 = tf;
     double u = r * h_;
     f88 = (float)u;
     f98 = 0;
     f94 = (float)(u * 0.5f);
     f90 = tf * 0.5f;
-    f9c = (float)sqrt(f84 * f84 + f88 * f88);
+    f9c = (float)sqrt(*(volatile float *)&f84 * *(volatile float *)&f84 + *(volatile float *)&f88 * *(volatile float *)&f88);
     Holder_2be440 *mm;
     if (mgr == 0) {
         void *mem = thunk_FUN_0008d690(0x20);

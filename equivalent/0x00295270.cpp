@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2755 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 18349 inputs, branch coverage 12/12)
 // pure3d::TextureFont::vfunc_18 @ 0x00295270
 struct Glyph_295270 {
     char pad0[0xc];
@@ -39,7 +39,7 @@ float TextureFont::vfunc_18(const unsigned short* text) {
     unsigned short ch = *text;
     if (ch == 0 || ch == 10)
         return 0.0f;
-    float width = 0.0f;
+    double width = 0.0f; // the original accumulates in an x87 register
     while (ch != 10) {
         int idx = FUN_00294ed0(ch);
         if (idx >= 0)

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // FUN_002d1970 @ 0x002d1970
 #include "decls/data/engine/pure3d.h"
 
@@ -21,10 +21,11 @@ void Integrate(float dt, Owner_2d1970* o, Particle_2d1970* p) {
  p->f38 = (float)p->s3c * o->k1a4 * DAT_004d0ed4 * dt + p->f38;
  double x = t * p->vx * dt + p->x;
  p->x = (float)x;
- float y = (p->f24 + p->f38) * t * dt + p->y;
+ volatile float y = (p->f24 + p->f38) * t * dt + p->y;
  p->y = y;
- float z = t * p->vz * dt + p->z;
+ volatile float z = t * p->vz * dt + p->z;
  p->z = z;
+ // y and z are spilled (rounded) in the original and reloaded below; x stays in a register
  Vec_2d1970* q = &o->src->v30;
  p->x = (float)(x + q->x);
  p->y = y + q->y;

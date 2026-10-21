@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 2/2)
 // CJumpAttackAction::vfunc_7 @ 0x00017270
 struct Vec_17270 { float x,y,z; void FUN_0022be40(const Vec_17270*); };
 struct Mode_17270 { void FUN_000359c0(int); };
@@ -17,8 +17,8 @@ bool CJumpAttackAction::vfunc_7(float dt) {
  Vec_17270 position; position.x=0; position.y=0; position.z=0;
  actor->FUN_00059a50(&position);
  double scale=(double)dt*speed->value;
- float y=(float)(velocity.y*scale);
- float z=(float)(velocity.z*scale);
+ volatile float y=(float)(velocity.y*scale); // rounded copies in the original's velocity temporary
+ volatile float z=(float)(velocity.z*scale);
  position.x=(float)(position.x+velocity.x*scale);
  position.y+=y; position.z+=z;
  destination->position.FUN_0022be40(&position);

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // FUN_00224db0 @ 0x00224db0
 struct Vec_224db0 { float x,y,z; }; struct Matrix { float m[4][4]; };
 void __cdecl FUN_00224db0(Matrix* out, const Vec_224db0* a, const Vec_224db0* b) {
@@ -9,9 +9,9 @@ void __cdecl FUN_00224db0(Matrix* out, const Vec_224db0* a, const Vec_224db0* b)
  volatile float zz=(float)(z*z); double yy=y*y,xx=x*x;
  volatile float factor=(float)((1.0f-dot)/((xx+yy)+zz));
  out->m[0][0]=(float)(xx*factor+dot);
- double xy=x*y*factor; out->m[0][1]=(float)(xy+z);
- double xz=x*z*factor; volatile float sxz=(float)xz; out->m[0][2]=(float)(xz-y);
+ double xyp=x*y; double xy=xyp*factor; out->m[0][1]=(float)(xy+z);
+ double xzp=x*z; double xz=xzp*factor; volatile float sxz=(float)xz; out->m[0][2]=(float)(xz-y);
  out->m[1][0]=(float)(xy-z); out->m[1][1]=(float)(yy*factor+dot);
- double yz=z*y*factor; volatile float syz=(float)yz; out->m[1][2]=(float)(yz+x);
+ double yzp=z*y; double yz=yzp*factor; volatile float syz=(float)yz; out->m[1][2]=(float)(yz+x);
  out->m[2][0]=(float)((double)sxz+y); out->m[2][1]=(float)((double)syz-x); out->m[2][2]=zz*factor+dot;
 }

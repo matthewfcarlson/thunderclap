@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 6/6)
 // FUN_00312fa0 @ 0x00312fa0
 struct Vec3_312fa0 { float x,y,z; };
 struct Bounds_312fa0 {
@@ -14,8 +14,8 @@ void Bounds_312fa0::FUN_00312fa0(const Vec3_312fa0* value) {
  if(value->x > maximum.x) maximum.x = value->x;
  if(value->y > maximum.y) maximum.y = value->y;
  if(value->z > maximum.z) maximum.z = value->z;
- float halfY = 0.5f * maximum.y;
- float halfZ = 0.5f * maximum.z;
+ volatile float halfY = 0.5f * maximum.y; // the original stores these two halves (rounded) in its frame
+ volatile float halfZ = 0.5f * maximum.z;
  float resultZ = 1.0f / halfZ;
  inverse.x = 1.0f / (0.5f * maximum.x);
  inverse.z = resultZ;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 75 inputs, branch coverage 16/18, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20031 inputs, branch coverage 16/18, incomplete)
 // FUN_0024cf20 @ 0x0024cf20
 extern "C" double sqrt(double);
 
@@ -22,7 +22,8 @@ void FUN_0024cf20(Edge_24cf20 *e, const Vec3_24cf20 *p, float *outCross, float *
     if (e->FUN_0022d2b0(p, 1e-5f)) {
         q = 0.0f;
     } else {
-        Vec3_24cf20 d;
+        // the offset is a rounded frame copy in the original
+        struct { volatile float x, y, z; } d;
         d.x = e->origin.x - p->x;
         d.y = e->origin.y - p->y;
         d.z = e->origin.z - p->z;
@@ -43,7 +44,7 @@ void FUN_0024cf20(Edge_24cf20 *e, const Vec3_24cf20 *p, float *outCross, float *
         if (e->FUN_0022d2b0(p, 1e-5f)) {
             r = 0.0f;
         } else {
-            Vec3_24cf20 d;
+            struct { volatile float x, y, z; } d;
             d.x = e->origin.x - p->x;
             d.y = e->origin.y - p->y;
             d.z = e->origin.z - p->z;

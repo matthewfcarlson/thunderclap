@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 55 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 14682 inputs, branch coverage 14/14)
 // FUN_000a8670 @ 0x000a8670
 struct Matrix;
 
@@ -55,7 +55,7 @@ int PathSampler::FUN_000a8670(Vec3_a8670 *out, int count)
     Vec3_a8670 pos;
 
     if (count > 0) {
-        float denom = (float)(count - 1);
+        volatile float denom = (float)(count - 1); // volatile: MSVC would turn the division into a reciprocal multiply
         lastIndex = count - 1;
         for (int i = 0; i < count; i++) {
             curve->v12((float)i * length / denom);

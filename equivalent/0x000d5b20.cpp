@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3046 inputs, branch coverage 27/28, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20046 inputs, branch coverage 27/28, incomplete)
 // MessageOverlay::vfunc_4 @ 0x000d5b20
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
@@ -163,7 +163,9 @@ void MessageOverlay::v4()
             if (it->f0 < 1.0f) {
                 Obj24_d5b20 *o = owner->p24;
                 if (o) {
-                    f.s = *tbl * f7b4 * (14.0f / o->v7());
+                    double q = 14.0f / o->v7();
+                    double tf = *tbl * f7b4; // MSVC would reassociate the product
+                    f.s = tf * q;
                     f.t1 = o->v10(it) * f.s;
                     f.s = o->v9(it) * f.s;
                     (*(Ctx_d5b20**)&DAT_0052c2ac)->dev->v15(0);

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 14/14)
 // FUN_00097320 @ 0x00097320
 float __cdecl FUN_00097320(float a, float b) {
     bool negative = a < 0.0f;
@@ -6,7 +6,7 @@ float __cdecl FUN_00097320(float a, float b) {
     int whole = (int)magnitude;
     double na = (magnitude - whole) + (whole % 360);
     if (negative) na = 360.0f - na;
-    float ar = (float)na;
+    volatile float ar = (float)na; // the original reloads the rounded copy from its frame slot
     negative = b < 0.0f;
     magnitude = negative ? -(double)b : (double)b;
     whole = (int)magnitude;

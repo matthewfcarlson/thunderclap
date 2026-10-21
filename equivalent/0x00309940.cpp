@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // FUN_00309940 @ 0x00309940
 union Word_309940 {
     int i;
@@ -36,5 +36,6 @@ void Obj_309940::FUN_00309940(Src_309940 *s)
     f58.i = f74;
     f5c.i = f78;
     f60.i = f7c;
-    ff0 = (((volatile Word_309940 *)&f60)->f + ((volatile Word_309940 *)&f58)->f + ((volatile Word_309940 *)&f4c)->f) * 0.33f;
+    double partial = ((volatile Word_309940 *)&f60)->f + ((volatile Word_309940 *)&f58)->f; // MSVC reorders three-term sums
+    ff0 = (partial + ((volatile Word_309940 *)&f4c)->f) * 0.33f;
 }

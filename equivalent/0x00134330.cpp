@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 18/18)
 // hulkfight::motion::FlyingBrakeAction::vfunc_5 @ 0x00134330
 struct V3_134330 {
     float x, y, z;
@@ -129,9 +129,11 @@ char FlyingBrakeAction::vfunc_5(int skip, float dt)
         }
     }
 
-    float tx = vel.x * dt;
-    float ty = vel.y * dt;
-    float tz = vel.z * dt;
+    // the original reads the rounded velocity back from the members; tz is a rounded frame copy
+    volatile float *vv = &vel.x;
+    double tx = vv[0] * dt;
+    double ty = vv[1] * dt;
+    volatile float tz = vv[2] * dt;
     p.x = p.x + tx;
     p.y = p.y + ty;
     p.z = p.z + tz;

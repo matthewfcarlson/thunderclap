@@ -94,15 +94,19 @@ public:
 
 int Loader_2be720::Load(Source_2be720 *src, pure3d::ImageConverter *aux)
 {
-    int rowCount;
-    int recCount;
-    Row_2be720 **rows = 0;
+    // frame layout of the original: rows, rowCount, a spare word, recCount, and a zeroed word that a callee
+    // reads past &recCount
+    struct { Row_2be720 **rows; int rowCount; int spare; int recCount; volatile int zero; } fr;
+    int &rowCount = fr.rowCount;
+    int &recCount = fr.recCount;
+    fr.zero = 0;
+    fr.rows = 0;
 
     count = FUN_002bd570(0, &rowCount, &recCount);
-    rows = (Row_2be720 **)FUN_00266e00(1, rowCount * 4);
+    fr.rows = (Row_2be720 **)FUN_00266e00(1, rowCount * 4);
     for (int i = 0; i < rowCount; i++)
-        rows[i] = (Row_2be720 *)FUN_00266e00(1, recCount * 24);
-    FUN_002bd570(rows, &rowCount, &recCount);
+        fr.rows[i] = (Row_2be720 *)FUN_00266e00(1, recCount * 24);
+    FUN_002bd570(fr.rows, &rowCount, &recCount);
 
     f48 = FUN_0008d6d0(count * 4);
     f44 = FUN_0008d6d0(count * 4 * 3 * 8);
@@ -142,7 +146,7 @@ int Loader_2be720::Load(Source_2be720 *src, pure3d::ImageConverter *aux)
 
     int step = f5c * 2;
     int index = 0;
-    Row_2be720 **row = rows;
+    Row_2be720 **row = fr.rows;
     for (int r = rowCount; r > 0; r--) {
         int off = 0;
         for (int c = recCount; c > 0; c--) {
@@ -168,6 +172,6 @@ int Loader_2be720::Load(Source_2be720 *src, pure3d::ImageConverter *aux)
 
     obj->v1();
     for (int i = 0; i < rowCount; i++)
-        FUN_00267090(rows[i]);
-    return FUN_00267090(rows);
+        FUN_00267090(fr.rows[i]);
+    return FUN_00267090(fr.rows);
 }

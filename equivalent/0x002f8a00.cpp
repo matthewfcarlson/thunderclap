@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 48/48)
+// STATUS: equivalent (tools/equiv.py level 3: 20038 inputs, branch coverage 48/48)
 // physics::ImpulseBasedCollisionSolver::vfunc_1 @ 0x002f8a00
 struct V3_2f8a00 {
     float x;
@@ -142,7 +142,7 @@ void ImpulseBasedCollisionSolver::vfunc_1()
                     p74.x = p5c.x - p68.x;
                     p74.y = p5c.y - p68.y;
                     p74.z = p5c.z - p68.z;
-                    t = normal.z * p74.z + normal.y * p74.y + normal.x * p74.x;
+                    t = normal.z * *(volatile float *)&p74.z + normal.y * *(volatile float *)&p74.y + normal.x * *(volatile float *)&p74.x; // the original reloads the rounded p74 members
                 }
                 if (hit2)
                     break;
@@ -151,7 +151,7 @@ void ImpulseBasedCollisionSolver::vfunc_1()
             p74.x = p5c.x - p68.x;
             p74.y = p5c.y - p68.y;
             p74.z = p5c.z - p68.z;
-            t = normal.z * p74.z + normal.y * p74.y + normal.x * p74.x;
+            t = normal.z * *(volatile float *)&p74.z + normal.y * *(volatile float *)&p74.y + normal.x * *(volatile float *)&p74.x; // the original reloads the rounded p74 members
         }
         if (flags & 1)
             break;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 19979 inputs, branch coverage 4/4)
 // physics::PhysicsObject::vfunc_19 @ 0x002f5db0
 struct Vec_2f5db0 { float x,y,z; };
 struct Matrix { char pad[0x24]; void FUN_002fd020(Vec_2f5db0*,Vec_2f5db0*); };
@@ -13,13 +13,13 @@ void PhysicsObject::vfunc_19(int,int,int) {
   if(vfunc_11()) vfunc_13();
   Vec_2f5db0 transformed; matrix.FUN_002fd020(&angularImpulse,&transformed);
   State_2f5db0* s=state;
-  float dx=position.x-s->position.x;
-  float dy=position.y-s->position.y;
-  float dz=position.z-s->position.z;
+  double dx=position.x-s->position.x;
+  double dy=position.y-s->position.y;
+  double dz=position.z-s->position.z;
   volatile float cx=dy*transformed.z-dz*transformed.y;
   volatile float cy=dz*transformed.x-dx*transformed.z;
   float cz=dx*transformed.y-dy*transformed.x;
-  float vx=cx+linearImpulse.x;
+  double vx=cx+linearImpulse.x; // stays in a register (unrounded) in the original
   volatile float vy=cy+linearImpulse.y;
   volatile float vz=cz+linearImpulse.z;
   s->velocity.x=vx+s->velocity.x;

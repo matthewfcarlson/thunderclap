@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 36/36)
+// STATUS: equivalent (tools/equiv.py level 3: 20021 inputs, branch coverage 36/36)
 // FUN_002f0230 @ 0x002f0230
 #include "decls/data/game/global.h"
 
@@ -26,7 +26,7 @@ float FUN_002f0230(const V3_2f0230 *origin, const V3_2f0230 *dir, const V3_2f023
 {
     float tx = 2.0f;
     float ty = 2.0f;
-    float tz = DAT_003f5cf8;
+    double tz = DAT_003f5cf8; // the original keeps tz in an x87 register (unrounded)
 
     if (FUN_002f01c0(origin, extent))
         return 0.0f;
@@ -52,16 +52,16 @@ float FUN_002f0230(const V3_2f0230 *origin, const V3_2f0230 *dir, const V3_2f023
             ty = 2.0f;
     }
     if (origin->z * dir->z < 0.0f) {
-        tz = absf(origin->z) - extent->z;
-        bool hit = tz >= 0.0f && tz <= absf(dir->z);
+        float tzd = absf(origin->z) - extent->z;
+        bool hit = tzd >= 0.0f && tzd <= absf(dir->z);
         if (hit) {
-            tz = tz / absf(dir->z);
+            tz = tzd / absf(dir->z);
             hit = !(absf(tz * dir->x + origin->x) >= extent->x) && !(absf(tz * dir->y + origin->y) >= extent->y);
         }
         if (!hit)
             tz = DAT_003f5cf8;
     }
-    float r = tz;
+    double r = tz;
     if (ty < r)
         r = ty;
     if (tx < r)

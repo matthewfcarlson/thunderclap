@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // FUN_000cb6f0 @ 0x000cb6f0
 #include "decls/data/game/global.h"
 
@@ -27,5 +27,6 @@ float Object::FUN_000cb6f0(int position, int index) {
     volatile float* value = (volatile float*)((char*)this + 8 + chosen * 16);
     float result = item->evaluate(table->FUN_000f7220(position));
     float divisor = base->getDivisor();
-    return (*value / divisor) * result * (*(float*)&DAT_0040cc38);
+    double product = (*value / divisor) * result; // keep the original's multiplication order
+    return product * (*(float*)&DAT_0040cc38);
 }

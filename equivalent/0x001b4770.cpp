@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // FUN_001b4770 @ 0x001b4770
 // FUN_001b4770 @ 0x001b4770: centroid of one triangle of a mesh
 struct Vec3_1b4770 {
@@ -32,7 +32,9 @@ void __stdcall FUN_001b4770(Vec3_1b4770 *out, Model_1b4770 *model, unsigned shor
     Vec3_1b4770 *c = &mesh->vertices[t->c];
     volatile float sumX = a->x + b->x + c->x;
     volatile float sumZ01 = a->z + b->z;
-    out->x = sumX * 0.33333334f;
-    out->y = (a->y + b->y + c->y) * 0.33333334f;
-    out->z = (sumZ01 + c->z) * 0.33333334f;
+    Vec3_1b4770 r; // the original builds the result in a frame temporary and copies it, so out may alias the vertices
+    r.x = sumX * 0.33333334f;
+    r.y = (a->y + b->y + c->y) * 0.33333334f;
+    r.z = (sumZ01 + c->z) * 0.33333334f;
+    *out = r;
 }

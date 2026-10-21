@@ -20,7 +20,7 @@ bool physics::ArticulatedPhysicsObject::vfunc_24(const Vec3_310910 *point, Vec3_
   if(node->active) {
    Vec3_310910 delta; delta.x=point->x-node->position.x; delta.y=point->y-node->position.y; delta.z=point->z-node->position.z;
    Vec3_310910 velocity; node->vfunc_22(&velocity);
-   float z=velocity.x*delta.y-velocity.y*delta.x;
+   volatile float z=velocity.x*delta.y-velocity.y*delta.x; // the original rounds z through its frame
    result->x += velocity.y*delta.z-velocity.z*delta.y;
    result->y += velocity.z*delta.x-velocity.x*delta.z;
    result->z += z;

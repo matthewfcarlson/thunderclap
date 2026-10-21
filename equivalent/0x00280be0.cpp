@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 60 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 17260 inputs, branch coverage 14/14)
 // FUN_00280be0 @ 0x00280be0
 struct Vtx_280be0 {
     float x, y, z;
@@ -16,7 +16,8 @@ struct Plane_280be0 {
 void FUN_00280be0(Plane_280be0* plane, Vtx_280be0* verts, int count, Vtx_280be0* out, int* outCount)
 {
     bool prevInside = (-plane->d >= (verts->z * plane->nz + verts->y * plane->ny + plane->nx * verts->x));
-    struct { float tOutgoing; float unused; float tIncoming; } f;
+    // the original keeps the destination vertex pointer in the frame word right after each t
+    struct { float tOutgoing; Vtx_280be0* dstOut; float tIncoming; Vtx_280be0* dstIn; } f;
     *outCount = 0;
     for (int i = 1; i <= count; i++) {
         Vtx_280be0* prev = &verts[i - 1];
@@ -24,18 +25,18 @@ void FUN_00280be0(Plane_280be0* plane, Vtx_280be0* verts, int count, Vtx_280be0*
         bool curInside = (-plane->d >= (cur->z * plane->nz + cur->y * plane->ny + plane->nx * cur->x));
         if (prevInside) {
             if (!curInside) {
-                Vtx_280be0* dst = &out[*outCount];
+                f.dstOut = &out[*outCount];
                 plane->FUN_0022e1f0(prev, cur, &f.tOutgoing);
-                dst->FUN_0027f070(prev, cur, f.tOutgoing);
+                f.dstOut->FUN_0027f070(prev, cur, f.tOutgoing);
                 (*outCount)++;
             } else {
                 out[*outCount] = *cur;
                 (*outCount)++;
             }
         } else if (curInside) {
-            Vtx_280be0* dst = &out[*outCount];
+            f.dstIn = &out[*outCount];
             plane->FUN_0022e1f0(prev, cur, &f.tIncoming);
-            dst->FUN_0027f070(prev, cur, f.tIncoming);
+            f.dstIn->FUN_0027f070(prev, cur, f.tIncoming);
             (*outCount)++;
             out[*outCount] = *cur;
             (*outCount)++;

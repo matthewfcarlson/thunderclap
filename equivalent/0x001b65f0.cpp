@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 19439 inputs, branch coverage 12/12)
 // FUN_001b65f0 @ 0x001b65f0
 #include "decls/data/game/global.h"
 
@@ -65,10 +65,11 @@ char Mgr_1b65f0::FUN_001b65f0(int id, int slot)
 
     float sx = p2->x + p1->x;
     float sy = p2->y + p1->y;
-    float sz = p1->z + p2->z;
-    float mx = sx * 0.5f;
-    float my = sy * 0.5f;
-    float mz = sz * 0.5f;
+    volatile float sz = p1->z + p2->z;
+    // mx, my, mz are rounded frame copies in the original
+    volatile float mx = sx * 0.5f;
+    volatile float my = sy * 0.5f;
+    volatile float mz = sz * 0.5f;
 
     Vec3_1b65f0 d;
     d.x = p1->x - p2->x;

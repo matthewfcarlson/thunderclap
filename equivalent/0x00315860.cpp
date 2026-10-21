@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 30/30)
 // FUN_00315860 @ 0x00315860
 union Bits_315860 {
     float f;
@@ -138,8 +138,9 @@ void Tester_315860::FUN_00315860(BoxData *box, Shape_315860 *shape)
                         fr.P.y = fr.P.y + cc->y;
                         fr.P.z = fr.P.z + cc->z;
                         double t = fr.sgn * d;
-                        float y1 = t * row->y;
-                        float z1 = t * row->z;
+                        // y1 and z1 are rounded frame copies in the original
+                        volatile float y1 = t * row->y;
+                        volatile float z1 = t * row->z;
                         fr.q48.x = t * row->x + fr.P.x;
                         fr.q48.y = y1 + fr.P.y;
                         fr.q48.z = z1 + fr.P.z;

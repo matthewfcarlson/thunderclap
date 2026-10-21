@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 45 inputs, branch coverage 17/18, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 17/18, incomplete)
 // FUN_00288eb0 @ 0x00288eb0
 #include "compat/ptr.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
@@ -71,10 +71,11 @@ pure3d::AnimationGroup *Loader_288eb0::FUN_00288eb0(Reader *r, int ctx, Alloc_28
         char pad[3];
         unsigned char len;
         int v;
-        int spare;
+        Loader_288eb0 *self; // the original spills `this` into the word after the value slot
         char name[0x100];
     } fr;
 
+    fr.self = this;
     r->stream->FUN_002647e0(&fr.v, 1, 4, 1);
     r->stream->FUN_002647e0(&fr.len, 1, 1, 1);
     unsigned int n = fr.len;
@@ -118,7 +119,7 @@ pure3d::AnimationGroup *Loader_288eb0::FUN_00288eb0(Reader *r, int ctx, Alloc_28
         if (r->FUN_002669f0()) {
             while (i < obj->f14) {
                 r->FUN_00266a30();
-                obj->f18[i] = (hulk_intptr)child->FUN_0028b0b0(r, ctx, obj->f1c);
+                obj->f18[i] = (hulk_intptr)fr.self->child->FUN_0028b0b0(r, ctx, obj->f1c);
                 r->FUN_00266be0();
                 i++;
                 if (!r->FUN_002669f0())

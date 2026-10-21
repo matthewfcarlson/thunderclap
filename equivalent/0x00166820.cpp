@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 104 inputs, branch coverage 27/28, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19389 inputs, branch coverage 28/28)
 // hulkfight::motion::RayCastConeCondition::vfunc_6 @ 0x00166820
 #include "decls/address.h"
 struct V3_166820 {
@@ -148,11 +148,12 @@ bool RayCastConeCondition::vfunc_6(int a0, fight::Params* a1, int a2)
                     f.m.FUN_0022c2b0(&f.q18, &f.z0);
                     f.m.FUN_0022c3b0(&f.p, &f.dirZ);
                     f.dirZ.FUN_0022d110();
-                    f.end.y = f.dirZ.y * len;
-                    f.end.z = f.dirZ.z * len;
+                    volatile float *ev = &f.end.x; // y and z products are rounded through the frame in the original
+                    ev[1] = f.dirZ.y * len;
+                    ev[2] = f.dirZ.z * len;
                     f.end.x = f.dirZ.x * len + f.z0.x;
-                    f.end.y = f.end.y + f.z0.y;
-                    f.end.z = f.end.z + f.z0.z;
+                    ev[1] = ev[1] + f.z0.y;
+                    ev[2] = ev[2] + f.z0.z;
                     void* g = DAT_004dd700->f20->f124;
                     int notSelf = 0;
                     if (g != (void*)f.fighter && f.fighter->f338 != g && f.fighter->f334 != g)

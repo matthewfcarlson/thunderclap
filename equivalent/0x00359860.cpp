@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 20021 inputs, branch coverage 18/18)
 // FUN_00359860 @ 0x00359860
 extern "C" double __cdecl fabs(double);
 
@@ -56,19 +56,19 @@ float FUN_00359860(Vec3_359860 *origin, Vec3_359860 *extent, Vec3_359860 *axisX,
 
     if (!(fabsf_(f.q.x) <= 1e-5f)) {
         double t = (extent->x + (f.q.x < 0.0f ? f.p.x : -f.p.x)) / fabs(f.q.x);
-        float r = (float)t;
+        volatile float r = (float)t; // rounded through the frame in the original
         if (t < best)
             best = r;
     }
     if (!(fabsf_(f.q.y) <= 1e-5f)) {
         double t = (extent->y + (f.q.y < 0.0f ? f.p.y : -f.p.y)) / fabs(f.q.y);
-        float r = (float)t;
+        volatile float r = (float)t; // rounded through the frame in the original
         if (t < best)
             best = r;
     }
     if (!(fabsf_(f.q.z) <= 1e-5f)) {
         double t = (extent->z + (f.q.z < 0.0f ? f.p.z : -f.p.z)) / fabs(f.q.z);
-        float r = (float)t;
+        volatile float r = (float)t; // rounded through the frame in the original
         if (t < best)
             best = r;
     }

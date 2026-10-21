@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // FUN_00096020 @ 0x00096020
 struct Vec_96020 { float x,y,z; };
 struct Matrix { float m[12]; };
@@ -12,14 +12,17 @@ void __cdecl FUN_00096020(Matrix* out, const Vec_96020* a, const Vec_96020* b) {
     float xx = x*x;
     volatile float f = (1.0f-dot)/(xx+yy+zz);
     out->m[0] = xx*f+dot;
-    float xy = x*y*f;
+    double xyp = x*y;
+    float xy = xyp*f;
     out->m[1] = xy+z;
-    float xz = x*z*f;
+    double xzp = x*z;
+    float xz = xzp*f;
     volatile float xzf=xz;
     out->m[2] = xz-y;
     out->m[4] = xy-z;
     out->m[5] = yy*f+dot;
-    float yz = y*z*f;
+    double yzp = y*z;
+    float yz = yzp*f;
     volatile float yzf=yz;
     out->m[6] = yz+x;
     out->m[8] = xzf+y;

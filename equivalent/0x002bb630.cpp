@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 38/44, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 44/44)
 // pure3d::BillboardQuad::vfunc_5 @ 0x002bb630
 extern "C" double sqrt(double);
 
@@ -139,21 +139,23 @@ void BillboardQuad::vfunc_5()
 
     float mxx = bmax.x, mxy = bmax.y, mxz = bmax.z;
     float mnx = bmin.x, mny = bmin.y, mnz = bmin.z;
-    ctr.x = mxx - mnx;
-    ctr.y = mxy - mny;
-    ctr.z = mxz - mnz;
-    ctr.x = ctr.x * 0.5f;
-    ctr.y = ctr.y * 0.5f;
-    ctr.z = ctr.z * 0.5f;
+    // every stage goes through the ctr members (rounded to float) in the original
     volatile float *vc = &ctr.x;
-    float len = (float)sqrt(vc[0] * vc[0] + vc[1] * vc[1] + vc[2] * vc[2]);
+    vc[0] = mxx - mnx;
+    vc[1] = mxy - mny;
+    vc[2] = mxz - mnz;
+    vc[0] = vc[0] * 0.5f;
+    vc[1] = vc[1] * 0.5f;
+    vc[2] = vc[2] * 0.5f;
+    double xy = vc[0] * vc[0] + vc[1] * vc[1]; // MSVC reorders three-term sums; keep x, y, z
+    float len = (float)sqrt(xy + vc[2] * vc[2]);
     FloatBits_2bb630 fb;
     fb.f = len;
     fb.u &= 0x7fffffff;
     radius = fb.f;
-    ctr.x = mnx + ctr.x;
-    ctr.y = mny + ctr.y;
-    ctr.z = mnz + ctr.z;
+    vc[0] = mnx + vc[0];
+    vc[1] = mny + vc[1];
+    vc[2] = mnz + vc[2];
 }
 
 }

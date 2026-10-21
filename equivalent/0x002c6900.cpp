@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // FUN_002c6900 @ 0x002c6900
 struct Src_2c6900 {
     char pad00[0x14];
@@ -17,7 +17,7 @@ struct Obj_2c6900 {
 
 void Obj_2c6900::FUN_002c6900(Src_2c6900* s, float f)
 {
-    float k = f * -0.65f;
+    double k = f * -0.65f; // kept in a register, unrounded
     w4 = s->f14;
     float sx = s->v[0], sy = s->v[1], sz = s->v[2];
     struct Frame { float A[3]; float t[3]; float S[3]; float B[3]; } fr;
@@ -37,7 +37,7 @@ void Obj_2c6900::FUN_002c6900(Src_2c6900* s, float f)
     B[0] = A[0];
     B[1] = A[1];
     B[2] = A[2];
-    float m = f * 0.3f;
+    double m = f * 0.3f;
     B[0] = sx * m + B[0];
     B[1] = sy * m + B[1];
     B[2] = sz * m + B[2];

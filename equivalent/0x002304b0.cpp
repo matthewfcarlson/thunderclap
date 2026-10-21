@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 3/4, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 4/4)
 // FUN_002304b0 @ 0x002304b0
 extern "C" double sqrt(double);
 
@@ -30,7 +30,7 @@ float Segment_2304b0::FUN_002304b0(const Segment_2304b0* o)
 
     double s;
     double t;
-    float denom = c * a - b * b;
+    double denom = c * a - b * b; // compared unrounded
     if (denom < 1e-5f) {
         s = 0.0f;
         if (b > c)
@@ -53,5 +53,6 @@ float Segment_2304b0::FUN_002304b0(const Segment_2304b0* o)
     volatile float dx = xx - c2x;
     volatile float dy = yy - c2y;
     double dz = zz - c2z;
-    return (float)sqrt(dz * dz + dy * dy + dx * dx);
+    double zy = dz * dz + dy * dy; // keep the original's summation order
+    return (float)sqrt(zy + dx * dx);
 }

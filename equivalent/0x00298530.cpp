@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // FUN_00298530 @ 0x00298530
 struct Matrix3_298530 { float r[3][4]; };
 struct Box_298530 { float min[3]; float max[3]; void FUN_00298530(const Matrix3_298530* m, const Box_298530* src); };
@@ -16,7 +16,6 @@ void Box_298530::FUN_00298530(const Matrix3_298530* m, const Box_298530* src)
 {
     Pt_298530 c;
     float ext[3];
-    float h[3];
     float p[3][3];
     int i, j;
 
@@ -24,9 +23,12 @@ void Box_298530::FUN_00298530(const Matrix3_298530* m, const Box_298530* src)
         c.v[i] = (src->max[i] + src->min[i]) * 0.5f;
     }
     for (i = 0; i < 3; i++) {
-        h[i] = src->max[i] - c.v[i];
-        for (j = 0; j < 3; j++) {
-            p[i][j] = h[i] * m->r[i][j];
+        // the original multiplies the unrounded half-extent for column 0 and the rounded copy for the others
+        double hd = src->max[i] - c.v[i];
+        volatile float hs = hd;
+        p[i][0] = hd * m->r[i][0];
+        for (j = 1; j < 3; j++) {
+            p[i][j] = hs * m->r[i][j];
         }
     }
     for (j = 0; j < 3; j++) {

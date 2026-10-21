@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // physics::PhysicsObject::vfunc_18 @ 0x002f5c70
 struct Vec_2f5c70 { float x,y,z; };
 namespace physics {
@@ -18,9 +18,10 @@ bool physics::PhysicsObject::vfunc_18(const Vec_2f5c70* point, const Vec_2f5c70*
  angular.x=point->x-position.x;
  angular.y=point->y-position.y;
  angular.z=point->z-position.z;
- double y=(double)force->x*angular.z-(double)angular.x*force->z;
+ double az=*(volatile float*)&angular.z; // the original reads the rounded member back
+ double y=(double)force->x*az-(double)angular.x*force->z;
  double z=(double)force->y*angular.x-(double)force->x*angular.y;
- double x=(double)angular.y*force->z-(double)force->y*angular.z;
+ double x=(double)angular.y*force->z-(double)force->y*az;
  angular.x=(float)x;
  angular.y=(float)y;
  angular.z=(float)z;

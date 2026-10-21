@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // physics::SimState::vfunc_8 @ 0x002ef530
 struct Vec3_2ef530 {
     float x, y, z;
@@ -30,12 +30,13 @@ public:
 
 void SimState::vfunc_8(const Vec3_2ef530 *p, Vec3_2ef530 *out, int unused)
 {
-    float dx = p->x - origin.x;
-    float dy = p->y - origin.y;
-    float dz = p->z - origin.z;
-    float ny = dx * axis.z - dz * axis.x;
-    float nz = dy * axis.x - dx * axis.y;
-    float nx = dz * axis.y - dy * axis.z;
+    double dx = p->x - origin.x;
+    double dy = p->y - origin.y;
+    double dz = p->z - origin.z;
+    // ny and nz are rounded frame copies in the original; nx stays in a register
+    volatile float ny = dx * axis.z - dz * axis.x;
+    volatile float nz = dy * axis.x - dx * axis.y;
+    double nx = dz * axis.y - dy * axis.z;
     volatile float *o = &out->x;
     o[1] = ny;
     o[2] = nz;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 62 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 19853 inputs, branch coverage 14/14)
 // FEContainer::vfunc_10 @ 0x000eef30
 extern "C" double __cdecl sin(double);
 struct Item_eef30 {
@@ -40,12 +40,14 @@ void FEContainer::vfunc_10() {
             break;
         groupB[i]->v2();
     }
-    float t = DAT_004de948() * 6.2831855f + phase;
-    pulse = ((float)sin((double)t) + 1.0f) * 0.5f;
+    double t = DAT_004de948() // t stays unrounded in an x87 register
+         * 6.2831855f + phase;
+    pulse = (sin(t) + 1.0f) * 0.5f;
     phase = t - (float)(int)(t * 0.15915494f) * 6.2831855f;
-    if (phase >= 0.0f && phase <= 6.2831855f) {
-        phase = phase;
-    } else if (phase > 6.2831855f) {
+    volatile float *ph = &phase; // the original compares and reloads the rounded member
+    if (*ph >= 0.0f && *ph <= 6.2831855f) {
+        phase = *ph;
+    } else if (*ph > 6.2831855f) {
         phase = 6.2831855f;
     } else {
         phase = 0.0f;

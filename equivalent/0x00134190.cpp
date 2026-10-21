@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 19951 inputs, branch coverage 8/8)
 // hulkfight::motion::FlyingBrakeAction::vfunc_3 @ 0x00134190
 struct V3_134190 {
     float x, y, z;
@@ -106,17 +106,19 @@ bool FlyingBrakeAction::vfunc_3(int a, int b)
         float s = cfg->maxSpeed;
         if (s > len)
             s = len;
-        vel.x = dir.x * s;
-        vel.z = dir.z * s;
-        vel.y = s * dir.y;
-        vel.x = vel.x - pos.x;
-        vel.y = vel.y - pos.y;
-        vel.z = vel.z - pos.z;
-        vel.y = 0.0f;
-        float r = 1.0f / f;
-        vel.x = vel.x * r;
-        vel.y = vel.y * r;
-        vel.z = vel.z * r;
+        // the original rounds each stage through the vel members
+        volatile float *v = &vel.x;
+        v[0] = dir.x * s;
+        v[2] = dir.z * s;
+        v[1] = s * dir.y;
+        v[0] = v[0] - pos.x;
+        v[1] = v[1] - pos.y;
+        v[2] = v[2] - pos.z;
+        v[1] = 0.0f;
+        double r = 1.0f / f;
+        v[0] = v[0] * r;
+        v[1] = v[1] * r;
+        v[2] = v[2] * r;
     }
     return true;
 }

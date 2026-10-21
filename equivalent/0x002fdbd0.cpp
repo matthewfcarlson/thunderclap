@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // FUN_002fdbd0 @ 0x002fdbd0
 struct Vec_2fdbd0 { float x,y,z; };
 struct Matrix { char pad[0x30]; Vec_2fdbd0 position; };
@@ -28,12 +28,13 @@ void Object::FUN_002fdbd0(Vec_2fdbd0* input, Vec_2fdbd0* output) {
  double dy = (double)input->y - m->position.y;
  double dz = (double)input->z - m->position.z;
  float y = (float)(dx * axis.z - dz * axis.x);
- float z = (float)(dy * axis.x - dx * axis.y);
+// z is spilled (rounded) and reloaded in the original
+ volatile float z = (float)(dy * axis.x - dx * axis.y);
  double x = dz * axis.y - dy * axis.z;
  output->y = y;
  output->z = z;
  output->x = (float)x;
- output->x = output->x + base.x;
+ output->x = *(volatile float*)&output->x + base.x; // reloaded from the destination in the original
  output->y = y + base.y;
  output->z = z + base.z;
 }

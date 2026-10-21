@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 160 inputs, branch coverage 29/30, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19994 inputs, branch coverage 30/30)
 // pure3d::MultiController::vfunc_20 @ 0x002b1c40
 #include "gen/pure3d.h"
 
@@ -27,7 +27,9 @@ struct Controller_2b1c40 {
 
 float pure3d::MultiController::vfunc_20() {
     float a = this->f_28 * this->f_1c;
-    float dur = this->f_2c * this->f_1c - a;
+    double endp = this->f_2c * this->f_1c; // unrounded for dur, a rounded frame copy (end) for the later uses
+    volatile float end = endp;
+    float dur = endp - a;
 
     switch (this->f_3c) {
     case 0: {
@@ -44,20 +46,20 @@ float pure3d::MultiController::vfunc_20() {
     case 3:
         if ((*(unsigned int *)&this->f_38) == 0)
             return 3.4028235e+38f;
-        return (float)(*(unsigned int *)&this->f_38) * dur - (this->f_2c * this->f_1c - this->f_24);
+        return (float)(*(unsigned int *)&this->f_38) * dur - (end - this->f_24);
     case 4:
         if ((*(unsigned int *)&this->f_38) == 0)
             return 3.4028235e+38f;
         {
-            float v = (float)(*(unsigned int *)&this->f_38) * dur;
+            double v = (float)(*(unsigned int *)&this->f_38) * dur;
             return (v + v) - (this->f_24 - a);
         }
     case 5:
         if ((*(unsigned int *)&this->f_38) == 0)
             return 3.4028235e+38f;
         {
-            float v = (float)(*(unsigned int *)&this->f_38) * dur;
-            return (v + v) - (this->f_2c * this->f_1c - this->f_24);
+            double v = (float)(*(unsigned int *)&this->f_38) * dur;
+            return (v + v) - (end - this->f_24);
         }
     default:
         return 0.0f;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 2/2)
 // pure3d::VectorChannel::vfunc_5 @ 0x0028a3b0
 namespace pure3d {
 struct Vector { float x,y,z; };
@@ -19,7 +19,7 @@ void VectorChannel::vfunc_5(float start,float end,Vector* out) {
  } else {
  slot4(0.0f,&v[2]);
  slot4((float)keys[count-1],&v[3]);
- float dz=v[0].z-v[2].z;
+ volatile float dz=v[0].z-v[2].z; // stored (rounded) into v[2].z's slot in the original
  out->x=(v[3].x-v[1].x)+(v[0].x-v[2].x);
  out->y=(v[3].y-v[1].y)+(v[0].y-v[2].y);
  out->z=(v[3].z-v[1].z)+dz;
