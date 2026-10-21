@@ -68,8 +68,8 @@ Macs), so the jobs share its compilers, venv and caches. Consequences:
   `Application Support/xemu` are refused at submit, at dispatch and on the host. xemu never runs on the laptop.
 - Other agents' processes are not yours: `cancel` only your own jobs.
 
-## Switching defaults
+## Defaults
 
-Agents use the queue by calling these entry points. To make it the default for `equiv_batch.py` or `promote_dispatch.py`,
-change the `--jobq` default in the argparse line of the
-tool (one line each). `promote-remote.sh` is still the old dispatcher until it passes `--jobq` to `promote_dispatch.py`.
+The queue is the default (2026-10-21): `equiv_batch.py` and `promote_dispatch.py` (so `promote-remote.sh` too) submit
+through it unless given `--no-jobq`. Inside a queue job (`JOBQ_JOB` set) `equiv_batch.py` runs locally, and
+`promote_dispatch.py --no-jobq` (its own ssh dispatcher) passes `--no-jobq` to the remote `equiv_batch.py`.

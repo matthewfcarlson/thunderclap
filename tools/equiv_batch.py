@@ -47,7 +47,10 @@ def main():
     p.add_argument("list")
     p.add_argument("out")
     p.add_argument("--jobs", type=int, default=4)
-    p.add_argument("--jobq", action="store_true", help="run through tools/jobq.py")
+    # the shared queue is the default on the submitting machine; a queue job (JOBQ_JOB) or a remote batch of
+    # promote_dispatch's own (--no-jobq) runs locally where it is
+    p.add_argument("--jobq", action=argparse.BooleanOptionalAction, default=not os.environ.get("JOBQ_JOB"),
+                   help="run through tools/jobq.py (default, except inside a queue job)")
     p.add_argument("--name", default=os.environ.get("USER", "agent"), help="submitter name for --jobq")
     p.add_argument("--per", type=int, default=2, help="functions per job for --jobq")
     a = p.parse_args(argv)

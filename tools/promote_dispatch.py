@@ -95,8 +95,8 @@ def main():
     ap.add_argument("--margin", type=int, default=600, help="seconds added to the time budget for the wall-clock limit")
     ap.add_argument("--limit", type=int, help="wall-clock limit per batch in seconds (overrides budget+margin)")
     ap.add_argument("--only", help="comma-separated host names to use")
-    ap.add_argument("--jobq", action="store_true",
-                    help="send the batches through the shared queue (tools/jobq.py) instead of dispatching here; "
+    ap.add_argument("--jobq", action=argparse.BooleanOptionalAction, default=True,
+                    help="send the batches through the shared queue (tools/jobq.py; default) instead of dispatching here; "
                          "--hosts/--only/--no-adapt/--margin are then ignored (hosts: build/jobs/hosts.json)")
     ap.add_argument("--no-adapt", action="store_true", help="ignore load average when sizing slots")
     a = ap.parse_args()
@@ -175,7 +175,7 @@ def main():
                 data = open(src, "rb").read()
                 ti = tarfile.TarInfo("%s/%s.cpp" % (d, ad)); ti.size = len(data); t.addfile(ti, io.BytesIO(data))
         cmd = ("cd ~/%s && tar xzf - && perl -e 'alarm shift; exec @ARGV' %d build/venv/bin/python "
-               "tools/equiv_batch.py %s/list.txt %s/out.jsonl --jobs %d -- --inputs %d --max-inputs %d %s "
+               "tools/equiv_batch.py %s/list.txt %s/out.jsonl --jobs %d --no-jobq -- --inputs %d --max-inputs %d %s "
                ">%s/log 2>&1; cat %s/out.jsonl; rm -rf %s"
                % (h.dir, limit, d, d, k, a.inputs, a.inputs, a.extra, d, d, d))
         recs, why = [], None
