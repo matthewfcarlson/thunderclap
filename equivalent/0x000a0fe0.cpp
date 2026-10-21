@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 2/2)
 // FUN_000a0fe0 @ 0x000a0fe0
+#include "compat/ptr.h"
 extern "C" double __cdecl tan(double);
 extern "C" double __cdecl atan(double);
 extern "C" double __cdecl sqrt(double);
@@ -21,5 +22,7 @@ void CChaseCamera_a0fe0::update(float v) {
  angleY=(float)(atan(0.45f * ty)*114.591552734375f);
  float distance=v8();
  x=tx*distance; y=ty*distance; z=distance;
- radius=(float)(sqrt(x*x+y*y+z*z)+0.1f);
+ // the original reloads the stored (rounded) x, y, z for the radius: volatile reads keep MSVC from reusing its registers
+ float rz=*(volatile float*)&z, ry=*(volatile float*)&y, rx=*(volatile float*)&x;
+ radius=(float)(sqrt((hulk_freg)rx*rx+(hulk_freg)ry*ry+(hulk_freg)rz*rz)+0.1f);
 }

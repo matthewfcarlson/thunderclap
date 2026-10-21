@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 6/6)
 // FUN_002fb190 @ 0x002fb190
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 struct V3_2fb190 { float x, y, z; };
 
@@ -50,6 +51,7 @@ static inline float absf(float f)
     return x.f;
 }
 
+// x87: the three edge tests and the plane distance stay in registers (53 bits)
 char Tri_2fb190::run(V3_2fb190* p, Context* ctx, int flags)
 {
     struct Frame {
@@ -64,11 +66,11 @@ char Tri_2fb190::run(V3_2fb190* p, Context* ctx, int flags)
     V3_2fb190* v1 = &verts[i1];
     V3_2fb190* v2 = &verts[i2];
 
-    float t1 = (v2->z - v1->z) * (p->x - v1->x) - (v2->x - v1->x) * (p->z - v1->z);
-    float t2 = (v1->z - v0->z) * (p->x - v0->x) - (p->z - v0->z) * (v1->x - v0->x);
+    hulk_freg t1 = (v2->z - v1->z) * (p->x - v1->x) - (v2->x - v1->x) * (p->z - v1->z);
+    hulk_freg t2 = (v1->z - v0->z) * (p->x - v0->x) - (p->z - v0->z) * (v1->x - v0->x);
     if (!(t2 * t1 >= 0.0f))
         return 0;
-    float t3 = (v0->z - v2->z) * (p->x - v2->x) - (p->z - v2->z) * (v0->x - v2->x);
+    hulk_freg t3 = (v0->z - v2->z) * (p->x - v2->x) - (p->z - v2->z) * (v0->x - v2->x);
     if (!(t3 * t1 >= 0.0f))
         return 0;
 
@@ -76,7 +78,7 @@ char Tri_2fb190::run(V3_2fb190* p, Context* ctx, int flags)
     if (absf(f.n.y) <= 1e-5f)
         return 0;
 
-    float plane = f.n.y * v0->y + f.n.x * v0->x + f.n.z * v0->z;
+    hulk_freg plane = f.n.y * v0->y + f.n.x * v0->x + f.n.z * v0->z;
     f.hit.x = p->x;
     f.hit.z = p->z;
     f.dir.x = 0.0f;
