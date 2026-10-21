@@ -1047,12 +1047,18 @@ def _uc_regs():
     return UC_REGS
 
 
+# Capstone spells clang's x87 compare-and-pop forms (DF E8+i / DF F0+i) `fucompi`/`fcompi`; the rest of this file
+# knows them by their Intel names (round 18, found by nf1)
+MNEMONIC_ALIASES = {"fucompi": "fucomip", "fcompi": "fcomip"}
+
+
 class Insn:
     __slots__ = ("addr", "size", "mnemonic", "op_str", "kind", "target", "mem", "regs", "imms",
                  "ret_imm", "x87", "is_fpu_store", "ops")
 
     def __init__(self, ci, md):
-        self.addr, self.size, self.mnemonic, self.op_str = ci.address, ci.size, ci.mnemonic, ci.op_str
+        self.addr, self.size, self.op_str = ci.address, ci.size, ci.op_str
+        self.mnemonic = MNEMONIC_ALIASES.get(ci.mnemonic, ci.mnemonic)
         self.target = None
         self.mem = None       # (seg, base, index, scale, disp, size)
         self.regs = []
