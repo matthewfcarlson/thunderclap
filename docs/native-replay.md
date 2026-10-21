@@ -150,6 +150,32 @@ first calls agrees with the hybrid's to frame 914, where a streamed resource com
 `HULK_TRACE_XDEREF`; `HULK_CKPT_REGIONS=1` plus a brute force over small ULP changes of the camera tells a
 precision difference from a logic one.
 
+### Status (native15, 2026-10-20)
+
+Checkpoints 0-420 and 480-780 match (24 of 27); 450 differs by -1 ULP in the camera's y; from 810 the gameplay
+RNG and the camera part (docs/native-build.md "native15": the x87 precision fixes located with x87's mixed build).
+The census of first calls agrees with the hybrid's to frame 914; the next difference is the action at 953.
+
+**I/O timing (stop 41).** Every request of the game goes through one `core::DriveThread` (vftable 0x42b8f8):
+FileOpenRequest (most posts), FileReadRequest, FileCloseRequest, DriveFindNextRequest, and the audio stream's
+persistent read. Without a wait the frame a result lands in follows the host's threads: the same image gave
+0x00203a80's first call at frame 914 in some runs and 915 in others (the hybrid: 914), with identical checkpoint
+hashes through frame 1,900 and more. Guest-time models (`HULK_SYNCIO`, off by default; `HULK_SYNCIO_LOG=1` logs
+each post's frame, request class and queue count): 1 = the hybrid's syncio (whole queue; stalls 2 s at a time on
+the audio stream's persistent read); 3 = every request completes before the next frame (wait at
+GameClock::Update's entry for each request posted before it); 4 = every request completes at once (wait after the
+post). A request counts as done when it is no longer queued and the drive runs nothing else; one still pending
+after 300 ms is treated as a stream (its class is logged and not waited on again). Result: 3 and 4 still give 914
+or 915 depending on the run, because a FileOpenRequest stays pending for more than 300 ms while the main thread
+waits (its completion depends on work the main thread does later), so the model drops it and the race returns;
+the tr1 trace sessions don't pair posts with completions, and gdb breakpoints in xemu stop the VM and change the
+very timing to be measured. What would settle what xemu does: an instrumented hybrid build (hooks.cpp recording
+each post and each request's retirement with the frame and poll count, as the checkpoint ring does) on play3.
+Until then 914/915 is a host-timing difference that no checkpoint sees. Proposal: measure xemu's post-to-retire
+latency per request class that way, then complete each class natively after that many frames (the drive
+thread's work run at fixed points of the main loop), and re-record with syncio for any recording that has to pin
+it (not verified here).
+
 ### Limits and expectations
 
 - **What has to be exactly equal.** The hash covers the gameplay RNG, the camera and the clock, so it is a

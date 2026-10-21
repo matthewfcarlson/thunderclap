@@ -1,4 +1,5 @@
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 struct Fader_1b7170 {
     virtual void vf0();
@@ -127,10 +128,10 @@ void CRadMovieRenderLoop::vfunc_3(Fader_1b7170* fader) {
         FUN_001b6fd0(0xff);
     DAT_004dd700->sub->FUN_001bf8b0();
     if (fade >= 0) {
-        float frac = (float)(10 - fade) * 0.1f;
+        hulk_freg frac = (hulk_freg)(10 - fade) * 0.1f;
         FUN_001b6fd0((int)(frac * 255.0f));
         fade--;
-        float level = fader->vf11() - 0.1f;
+        hulk_freg level = fader->vf11() - 0.1f;
         if (level < 0.0f)
             level = 0.0f;
         fader->vf10(level);

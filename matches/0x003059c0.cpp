@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" double cos(double);
 extern "C" double sin(double);
 struct Vec_3059c0 {
@@ -10,11 +11,11 @@ struct Q_3059c0 {
 bool FUN_003059c0(Vec_3059c0* a, Q_3059c0* b) {
     Vec_3059c0 v = *a;
     bool r = false;
-    float t = v.Len();
+    hulk_freg t = v.Len();
     if (t > 0.0001f) {
         t = t * 0.5f;
-        b->w = (float)cos(t);
-        float s = (float)sin(t);
+        b->w = (hulk_freg)cos(t);
+        hulk_freg s = (hulk_freg)sin(t);
         b->x = v.x * s;
         b->y = v.y * s;
         b->z = v.z * s;

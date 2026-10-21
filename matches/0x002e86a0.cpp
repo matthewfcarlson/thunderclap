@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 // FUN_002e86a0 @ 0x002e86a0
 #include "decls/data/engine/core.h"
 
@@ -60,7 +61,7 @@ void FUN_002e86a0(png_struct_2e86a0* png, png_info_2e86a0* info, unsigned int le
         return;
     }
 
-    float gamma = (float)igamma * 1e-5f;
+    hulk_freg gamma = (hulk_freg)igamma * 1e-5f;
     png->gamma = gamma;
     FUN_002eb1f0(png, info, gamma);
 }

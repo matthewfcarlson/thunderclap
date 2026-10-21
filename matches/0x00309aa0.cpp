@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Vec_309aa0 {
     char p[4];
     float a;
@@ -44,7 +45,7 @@ void PJ_309aa0::v13(void* x, Vec_309aa0* y) {
         other->v13(x, y);
     if (limit > 1e-5f && flag) {
         y->apply(1.0f - limit);
-        float t = force * limit;
+        hulk_freg t = force * limit;
         y->a += t;
         y->b += t;
         y->c += t;

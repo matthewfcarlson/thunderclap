@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Thing_ac7a0 {
   public:
     char pad14[0x14];
@@ -12,7 +13,7 @@ class Thing_ac7a0 {
 extern const float one;
 void Thing_ac7a0::Set(float a, float b) {
     flag = 1;
-    float d = mB - mA;
+    hulk_freg d = mB - mA;
     x = (one - a) * d;
     y = (one - b) * d;
 }

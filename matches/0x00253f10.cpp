@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_253f10;
 struct Sub_253f10 {
     char x[16];
@@ -18,7 +19,7 @@ struct Param {
 };
 void __cdecl Sink(u32_253f10, float);
 void __stdcall Target(Param* p) {
-    float x = p->b->v;
+    hulk_freg x = p->b->v;
     x = x * p->f;
     x = x * *p->c->p;
     x = x * p->c->s;

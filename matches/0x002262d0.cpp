@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern const float gzero;
 extern const float gone;
 struct Entry_2262d0 {
@@ -22,9 +23,9 @@ void Obj_2262d0::Add(unsigned int id, float w, float v) {
     unsigned int i;
     for (i = 0; i < count; i++) {
         if (e[i].id == id) {
-            float nw = w + e[i].w;
+            hulk_freg nw = w + e[i].w;
             e[i].w = nw;
-            float t = w / nw;
+            hulk_freg t = w / nw;
             e[i].v = t * v + (gone - t) * e[i].v;
             return;
         }

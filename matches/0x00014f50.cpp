@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 // CMoveAddYAction::vfunc_7 @ 0x00014f50
 struct Vec3_14f50 { float x, y, z; };
 
@@ -45,14 +46,14 @@ public:
 bool CMoveAddYAction::vfunc_7(float scale)
 {
     Target_14f50 *target = (Target_14f50 *)owner->FUN_000592a0()->FUN_00059a30();
-    float rate = driver->v7();
+    hulk_freg rate = driver->v7();
     if (rate <= 0.0f)
         return false;
     Vec3_14f50 v;
     v.x = 0.0f;
     v.y = 1.0f;
     v.z = 0.0f;
-    float t = driver->f14 / rate * scale;
+    hulk_freg t = driver->f14 / rate * scale;
     v.x = 0.0f * t;
     v.y = t;
     v.z = 0.0f * t;

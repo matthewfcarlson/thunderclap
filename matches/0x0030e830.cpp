@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class CollisionVolume {
   public:
     virtual void f0();
@@ -30,7 +31,7 @@ extern const float one;
 void physics::CollisionWall::vfunc_7(float x) {
     Vec3_30e830* p = &v;
     p->Normalize();
-    float q = one / x;
+    hulk_freg q = one / x;
     p->x *= q;
     p->y *= q;
     p->z *= q;

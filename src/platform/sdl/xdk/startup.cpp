@@ -594,6 +594,18 @@ static void hulk_map_xbe_window(void) {
     hulk_trace_line("xbe-window 0x%08x-0x%08x bytes=%u", hulk_win_lo, hulk_win_hi, copied);
 }
 
+// The x87 control word the game runs with (docs/native-float.md): XAPI's _cinit calls the CRT's _fpmath(1), which
+// sets 53-bit precision (_controlfp(_PC_53, _MCW_PC)); rounding to nearest, all exceptions masked: 0x027f. Windows
+// and Wine start every thread with the same word, so this only pins it (and logs what the host gave us).
+static void hulk_x87_init(void) {
+#if defined(_M_IX86) || defined(__i386__)
+    unsigned short was = 0, want = 0x027f;
+    __asm__ volatile("fnstcw %0" : "=m"(was));
+    __asm__ volatile("fnclex\n\tfldcw %0" : : "m"(want));
+    hulk_trace_line("x87 control word 0x%04x -> 0x%04x", was, want);
+#endif
+}
+
 extern "C" void HULK_CDECL hulk_native_entry(void) {
     const char* path = hulk_host_getenv("HULK_TRACE_FILE");
     const char* child = hulk_host_getenv("HULK_NATIVE_CHILD");
@@ -604,6 +616,7 @@ extern "C" void HULK_CDECL hulk_native_entry(void) {
     hulk_host_SetUnhandledExceptionFilter((void*)hulk_crash_filter);
     hulk_map_xbe_window();
     hulk_main_tid_ = hulk_host_GetCurrentThreadId();
+    hulk_x87_init();
     if (hulk_u32 hang = hulk_env_u32("HULK_HANG", 0))
         hulk_host_CreateThread(0, 0, (void*)hulk_watchdog, (void*)hang, 0, 0);
     hulk_trace_line("start initializers=%u", hulk_game_initializer_count);

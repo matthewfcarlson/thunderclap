@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_69d30 {
 public:
     virtual void v0();
@@ -16,7 +17,7 @@ public:
 
 float Obj_69d30::Get()
 {
-    float base = GetBase();
+    hulk_freg base = GetBase();
     if (base <= 0.0f)
         return -1.0f;
     if (scale <= 0.0f)

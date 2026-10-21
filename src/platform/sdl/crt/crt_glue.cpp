@@ -130,6 +130,62 @@ int HULK_HOST_CDECL hulk_crt_fprintf(void* f, const char* fmt, ...) {
     return r;
 }
 
+// ---------------------------------------------------------------------------------------------------------------
+// native15: the transcendental intrinsics as the original computes them (docs/native-float.md, "soft intrinsics").
+// MSVC 7.1 (/Oi) inlined sin, cos, tan, atan and atan2 as the x87 instructions fsin, fcos, fptan, fpatan; the game's
+// sources call the library functions, which msvcrt.dll implements with its own algorithms (1 ULP apart in a few
+// percent of arguments). These run the instruction the original runs, at the game's precision control (53 bits).
+// On x87 hardware that is the original's result; under an x87 emulator it is the emulator's (QEMU and Rosetta 2
+// both compute fpatan with the host's atan2). A 64-bit build needs software versions instead.
+#if defined(__i386__) || defined(_M_IX86)
+double HULK_HOST_CDECL hulk_crt_sin(double x) {
+    double r;
+    __asm__("fsin" : "=t"(r) : "0"(x));
+    return r;
+}
+double HULK_HOST_CDECL hulk_crt_cos(double x) {
+    double r;
+    __asm__("fcos" : "=t"(r) : "0"(x));
+    return r;
+}
+double HULK_HOST_CDECL hulk_crt_tan(double x) {
+    double r;
+    __asm__("fptan\n\tfstp %%st(0)" : "=t"(r) : "0"(x));  // fptan pushes 1.0 after tan(x)
+    return r;
+}
+double HULK_HOST_CDECL hulk_crt_atan(double x) {
+    double r;
+    __asm__("fld1\n\tfpatan" : "=t"(r) : "0"(x));  // atan(x / 1)
+    return r;
+}
+double HULK_HOST_CDECL hulk_crt_atan2(double y, double x) {
+    double r;
+    __asm__("fpatan" : "=t"(r) : "0"(x), "u"(y) : "st(1)");  // atan(st1 / st0), pops
+    return r;
+}
+// exp: MSVC 7.1's inline sequence (the game's only exp: fldl2e, frndint, f2xm1, fscale; 8 functions)
+double HULK_HOST_CDECL hulk_crt_exp(double x) {
+    double r;
+    __asm__("fldl2e\n\tfmulp\n\tfld %%st(0)\n\tfrndint\n\tfxch %%st(1)\n\tfsub %%st(1), %%st\n\tf2xm1\n\t"
+            "fld1\n\tfaddp\n\tfscale\n\tfstp %%st(1)"
+            : "=t"(r) : "0"(x));
+    return r;
+}
+#else
+double HULK_HOST_CDECL hulk_host_sin(double);
+double HULK_HOST_CDECL hulk_host_cos(double);
+double HULK_HOST_CDECL hulk_host_tan(double);
+double HULK_HOST_CDECL hulk_host_atan(double);
+double HULK_HOST_CDECL hulk_host_atan2(double, double);
+double HULK_HOST_CDECL hulk_host_exp(double);
+double HULK_HOST_CDECL hulk_crt_sin(double x) { return hulk_host_sin(x); }
+double HULK_HOST_CDECL hulk_crt_cos(double x) { return hulk_host_cos(x); }
+double HULK_HOST_CDECL hulk_crt_tan(double x) { return hulk_host_tan(x); }
+double HULK_HOST_CDECL hulk_crt_atan(double x) { return hulk_host_atan(x); }
+double HULK_HOST_CDECL hulk_crt_atan2(double y, double x) { return hulk_host_atan2(y, x); }
+double HULK_HOST_CDECL hulk_crt_exp(double x) { return hulk_host_exp(x); }
+#endif
+
 }  // extern "C"
 
 // ---------------------------------------------------------------------------------------------------------------

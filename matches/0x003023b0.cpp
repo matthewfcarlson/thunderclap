@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct V {
     float x, y, z;
 };
@@ -33,10 +34,10 @@ bool Test_3023b0::Check(Shape_3023b0* a, Shape_3023b0* b) {
     d.z = pa->z - pb->z;
     float* q = &dist2;
     volatile V* dv = &d;
-    float t = dv->z * dv->z + dv->y * dv->y;
+    hulk_freg t = dv->z * dv->z + dv->y * dv->y;
     *q = t + dv->x * dv->x;
     if (*q < 1e-6f)
         return false;
-    float r = a->radius + b->radius + margin;
+    hulk_freg r = a->radius + b->radius + margin;
     return *q < r * r;
 }

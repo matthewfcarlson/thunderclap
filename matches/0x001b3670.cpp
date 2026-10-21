@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern const float kMinDist = 0.02f;
 extern "C" double sqrt(double);
 class Vec_1b3670 {
@@ -8,11 +9,11 @@ class Vec_1b3670 {
     unsigned char Compare(const Vec_1b3670*);
 };
 unsigned char Vec_1b3670::Compare(const Vec_1b3670* other) {
-    float dx = other->x - x, dy = other->y - y, dz = other->z - z;
-    float a = dz * dz;
+    hulk_freg dx = other->x - x, dy = other->y - y, dz = other->z - z;
+    hulk_freg a = dz * dz;
     a += dx * dx;
     a += dy * dy;
-    a = (float)sqrt(a);
+    a = (hulk_freg)sqrt(a);
     if (a < kMinDist)
         a = kMinDist;
     return a <= limit;

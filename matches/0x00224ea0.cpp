@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" double atan2(double, double);
 extern const float kEps;
 extern const float kZero_224ea0;
@@ -15,7 +16,7 @@ inline float Abs(float x) {
 float Angle(float a, float b) {
     if (Abs(a) <= kEps && Abs(b) <= kEps)
         return kZero_224ea0;
-    float r = (float)atan2(-a, -b);
+    hulk_freg r = (hulk_freg)atan2(-a, -b);
     if (r < kZero_224ea0)
         r += kTwoPi;
     return r;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned long DWORD;
 struct Viewport_323df0 {
     DWORD X, Y, Width, Height;
@@ -152,8 +153,8 @@ void pure3d::d3dContext::vfunc_4() {
         vfunc_102(-1);
     }
     pddiBaseContext::vfunc_4();
-    float h = (float)target->GetHeight();
-    float w = (float)target->GetWidth();
+    hulk_freg h = (hulk_freg)target->GetHeight();
+    hulk_freg w = (hulk_freg)target->GetWidth();
     D3D8::D3DDevice_GetViewport(&vp);
     vp.X = 0;
     vp.Y = 0;

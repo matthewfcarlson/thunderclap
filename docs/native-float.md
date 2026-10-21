@@ -364,6 +364,28 @@ run; the replay decides the order. A mixture is the plan: compiler flags for wha
 32-bit, `-ffp-eval-method=double -ffp-contract=off` on 64-bit), source spellings for the rounding points, soft
 intrinsics for the transcendentals.
 
+## 8. Status (native15, 2026-10-20)
+
+- Applied: the control-word pin + log (startup.cpp: `x87 control word 0x027f -> 0x027f` in the trace), the
+  0x00256d40 two-word release, the FUN_0004af40 / FUN_00247890 declaration fixes (every TU now compiles with
+  `-ffp-eval-method=double -ffp-contract=off`). The flags themselves are **not** switched on: the replay is
+  identical through 750 but the image rounds 159 more returns than the original (list:
+  `build/native15/flags-ret-lost.txt`); they need `double` returns first, and a `double` return type changes the
+  callers' symbol (a binding rule in native_link is the prerequisite).
+- Source spelling: `hulk_freg` (include/compat/ptr.h) for locals the original keeps in registers (`float` under
+  MSVC 7.1, so byte-matched sources keep matching; `double` elsewhere); volatile reads where MSVC would reuse a
+  register but the original reloads the rounded store; sums in the listing's order (MSVC 7.1 reassociates them).
+  49 byte-matched and 9 equivalent sources rewritten (docs/native-build.md "native15").
+- Transcendentals: sin, cos, tan, atan, atan2 and exp now run the original's x87 instructions natively
+  (crt_glue.cpp); no checkpoint changed by it alone through 870.
+- Replay: 0-420 and 480-780 match (the 540/600/660/690/720/750/780 differences were the precision class: the
+  mixed-build locator named `physics/unk_2fa6b0.cpp`, `unknown/unk_22baf0.cpp` and `CChaseCamera.cpp`); 450
+  is still -1 ULP (no candidate TU of the mixed build changes it: a function outside the scanner's "rounds more"
+  list, or a transcendental); 810 differs in RNG and camera.
+- cl5's round 17 makes equiv.py exact, so it now finds MSVC-side precision differences (99 flips, build/cl5/flips.txt);
+  native14's natcheck (equiv.py on the clang object) finds the clang-side ones for leaf functions. The scanner's
+  counts are a heuristic (volatile copies and unions inflate them); the locator plus natcheck are the reliable pair.
+
 ## Files
 
 - `tools/x87_scan.py`: the scanner (tracked).

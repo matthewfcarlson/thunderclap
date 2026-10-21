@@ -154,7 +154,7 @@ u64 __cdecl FUN_0027b020(const char *s);
 u64 __cdecl FUN_002672f0(const char *s, int a, int b);
 void __cdecl FUN_00267760(char *buf, int n, const char *fmt, ...);
 void __cdecl FUN_00224d70(float a, V3 *v);
-float __cdecl FUN_0004af40(int a, float b, float c);
+float __cdecl FUN_0004af40(float a, float b, float c);
 
 class Self;
 
@@ -332,7 +332,7 @@ void Self::FUN_001f9810(float dt)
                         f.tmp.y = f.tmp.y + f.v40.y;
                         f.tmp.z = f.tmp.z + f.v40.z;
                         DAT_004e58e0 = DAT_004e58e0 + 1.7453293f;
-                        DAT_004e58e0 = FUN_0004af40(0, 6.2831855f, DAT_004e58e0);
+                        DAT_004e58e0 = FUN_0004af40(0.0f, 6.2831855f, DAT_004e58e0);
                         if (!f.W->FUN_0002bf80(E->obj->FUN_00044360(), f.tmp, f.rr, name, "none", 0, f.buf2))
                             continue;
                         if (s > 0)

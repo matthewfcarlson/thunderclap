@@ -1,17 +1,19 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 19923 inputs, branch coverage 30/30)
 // FUN_00248670 @ 0x00248670
 extern "C" double __cdecl sqrt(double);
 struct Sound_248670 {
  float volume;
  unsigned FUN_0025d3e0();
 };
+// the sound's Run functions take no argument (matches/0x0025d740.cpp, 0x0025d780.cpp: thiscall, plain `ret`); the
+// original reaches them with a tail jump that leaves this function's own stack word in place
 struct ThisNote_0025d740 {
-    // equiv-conv: FUN_0025d740 ecx stack
-    void FUN_0025d740(unsigned ticks);
+    // equiv-conv: FUN_0025d740 ecx
+    void FUN_0025d740();
 };
 struct ThisNote_0025d780 {
-    // equiv-conv: FUN_0025d780 ecx stack
-    void FUN_0025d780(unsigned ticks);
+    // equiv-conv: FUN_0025d780 ecx
+    void FUN_0025d780();
 };
 struct Owner_248670 { char reserved[48]; unsigned active; };
 struct Fade_248670 {
@@ -55,10 +57,10 @@ void __cdecl FUN_00248670(Owner_248670* owner, Fade_248670* fade, unsigned ticks
  switch (state) {
  case 2:
  case 4:
-  if (fade->phase && owner->active) ((ThisNote_0025d740*)(fade->sound))->FUN_0025d740(ticks);
+  if (fade->phase && owner->active) ((ThisNote_0025d740*)(fade->sound))->FUN_0025d740();
   break;
  case 3:
-  if (!owner->active) ((ThisNote_0025d780*)(fade->sound))->FUN_0025d780(ticks);
+  if (!owner->active) ((ThisNote_0025d780*)(fade->sound))->FUN_0025d780();
   break;
  case 0:
  case 5:

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class A_15c590 {
     char pad[0x28];
 
@@ -12,7 +13,7 @@ float A_15c590::F(float v) {
     if (v <= 0.5f)
         return (v + v) * x;
     if (v < 1.0f) {
-        float t = v - 0.5f;
+        hulk_freg t = v - 0.5f;
         t = t + t;
         return t * y + (1.0f - t) * x;
     }

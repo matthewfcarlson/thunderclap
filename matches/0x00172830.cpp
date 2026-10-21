@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Vec_172830 {
     float x, y, z;
     float elapsed;
@@ -50,16 +51,16 @@ bool MomentumXZAddAction::vfunc_5(int flag, float dt) {
     Body_172830* body = actor->FUN_00059a30();
     if (!body)
         return false;
-    float rate = source->rate;
+    hulk_freg rate = source->rate;
     if (rate >= 0.0f) {
-        float duration = source->v7();
+        hulk_freg duration = source->v7();
         if (duration >= 0.0f) {
-            float remaining = duration - momentum.elapsed;
+            hulk_freg remaining = duration - momentum.elapsed;
             if (remaining <= 0.0f) {
                 momentum.FUN_0022d110();
                 momentum.FUN_00011140(rate);
             } else {
-                float current = momentum.FUN_0022d110();
+                hulk_freg current = momentum.FUN_0022d110();
                 momentum.FUN_00011140(current + (rate - current) * (dt / remaining));
             }
         }

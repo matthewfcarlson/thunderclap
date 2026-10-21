@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 17/18, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 6536 inputs, branch coverage 17/18, incomplete)
 // choreo2::LocomotionSteerDriver::vfunc_11 @ 0x00229140
 struct Quat_229140 {
     float x, y, z, w;
@@ -53,7 +53,7 @@ struct Blend_229140 {
     int pad;
 };
 
-float __cdecl FUN_0004af40(int mode, float a, float b);
+float __cdecl FUN_0004af40(float lo, float a, float b);
 
 namespace choreo2 {
 class LocomotionSteerDriver {
@@ -106,7 +106,7 @@ char choreo2::LocomotionSteerDriver::vfunc_11(unsigned int a, unsigned int b, Po
             continue;
         double d = src->length - 1.0f;
         float dd = (float)d;
-        float frame = FUN_0004af40(0, dd, (float)(d * rate + slot->bias));
+        float frame = FUN_0004af40(0.0f, dd, (float)(d * rate + slot->bias));
         Channel *rotCh = set->FUN_00288960(0x544f52, 0x544f52);
         if (rotCh != 0) {
             rotCh->vf5(frame, &fr.rot);

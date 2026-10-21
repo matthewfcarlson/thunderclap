@@ -1,13 +1,13 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 6/6)
 // FUN_001f32b0 @ 0x001f32b0
 #include "decls/data/game/global.h"
 
 struct Resource_1f32b0 { char pad[0x18]; int id; void FUN_001e8a90(); };
 struct Manager_1f32b0 { char pad[0x518]; int context; };
-struct State_1f32b0 { char pad[0x334]; int value; };
+struct State_1f32b0 { char pad[0x334]; float value; };
 extern int __cdecl FUN_00240750(int, int*);
 extern int __cdecl FUN_0024ace0(int, int*, int, int);
-extern void __cdecl FUN_00247890(int, int);
+extern void __cdecl FUN_00247890(int, float);
 extern void __cdecl FUN_002478b0(int, float);
 extern void __cdecl FUN_002478d0(int, int);
 extern void __cdecl FUN_00247900(int, int);

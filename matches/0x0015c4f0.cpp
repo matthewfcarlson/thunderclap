@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern const float kZero_15c4f0;
 class C_15c4f0 {
   public:
@@ -8,9 +9,9 @@ class C_15c4f0 {
 float C_15c4f0::f(float x) {
     if (x <= kZero_15c4f0)
         return kZero_15c4f0;
-    float t = x;
+    hulk_freg t = x;
     *(int*)&x = 1;
     if (!(t > kZero_15c4f0))
         *(int*)&x = 0;
-    return (float)*(int*)&x * m;
+    return (hulk_freg)*(int*)&x * m;
 }

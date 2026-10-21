@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Vec_2f2f60 {
   public:
     void normalize();
@@ -34,7 +35,7 @@ void CollisionCylinder::vfunc_7(float p) {
     x54 = p * x80;
     Vec_2f2f60* q = &v;
     q->normalize();
-    float f = one / p;
+    hulk_freg f = one / p;
     q->x = f * q->x;
     q->y = f * q->y;
     q->z = f * q->z;

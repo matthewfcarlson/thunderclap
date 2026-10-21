@@ -253,14 +253,14 @@
     C(0, strcat, "strcat") \
     C(0, hulk_crt_malloc, "malloc") \
     C(0, sqrt, "sqrt") \
-    C(0, sin, "sin") \
-    C(0, cos, "cos") \
-    C(0, tan, "tan") \
+    C(0, hulk_crt_sin, "sin") \
+    C(0, hulk_crt_cos, "cos") \
+    C(0, hulk_crt_tan, "tan") \
     C(0, asin, "asin") \
     C(0, acos, "acos") \
-    C(0, atan, "atan") \
-    C(0, atan2, "atan2") \
-    C(0, exp, "exp") \
+    C(0, hulk_crt_atan, "atan") \
+    C(0, hulk_crt_atan2, "atan2") \
+    C(0, hulk_crt_exp, "exp") \
     C(0, log, "log") \
     C(0, log10, "log10") \
     C(0, pow, "pow") \

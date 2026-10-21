@@ -600,18 +600,26 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
         defined.add(lab)
         how["entry hook (native10) 0x%08x -> %s" % (t, hook)] += 1
     # native11: EXIT_HOOKS (thiscall functions with a hook after them)
-    for t, hook, nb, _why in EXIT_HOOKS:
+    for t, hook, nb, _why, *pre in EXIT_HOOKS:
         d = by_addr_def.get(t)
         if not d or hook not in shim["defined"]:
             how["exit hook skipped (no definition or hook): 0x%08x" % t] += 1
             continue
         lab = "_hulk_xh_%08x" % t
         wrapped[d] = lab
-        clock_asm += ("\t.text\n\t.globl\t%s\n\t.p2align\t4\n%s:\n\tpushl\t%%ecx\n" % (lab, lab)
-                      + "\tpushl\t%d(%%esp)\n" % (nb + 4) * (nb // 4)
-                      + "\tmovl\t%d(%%esp), %%ecx\n\tcalll\t\"%s\"\n" % (nb, d)
-                      + "\tpushl\t%%eax\n\tpushl\t4(%%esp)\n\tcalll\t%s\n\taddl\t$4, %%esp\n"
-                        "\tpopl\t%%eax\n\tpopl\t%%ecx\n\tretl\t$%d\n" % (hook, nb))
+        if pre:   # hook(this, [this+pre] before the call, the first stack argument)
+            clock_asm += ("\t.text\n\t.globl\t%s\n\t.p2align\t4\n%s:\n\tpushl\t%%ecx\n\tpushl\t%d(%%ecx)\n"
+                          % (lab, lab, pre[0])
+                          + "\tpushl\t%d(%%esp)\n" % (nb + 8) * (nb // 4)
+                          + "\tmovl\t%d(%%esp), %%ecx\n\tcalll\t\"%s\"\n" % (nb + 4, d)
+                          + "\tpushl\t%%eax\n\tpushl\t16(%%esp)\n\tpushl\t8(%%esp)\n\tpushl\t16(%%esp)\n\tcalll\t%s\n"
+                            "\taddl\t$12, %%esp\n\tpopl\t%%eax\n\taddl\t$4, %%esp\n\tpopl\t%%ecx\n\tretl\t$%d\n" % (hook, nb))
+        else:
+            clock_asm += ("\t.text\n\t.globl\t%s\n\t.p2align\t4\n%s:\n\tpushl\t%%ecx\n" % (lab, lab)
+                          + "\tpushl\t%d(%%esp)\n" % (nb + 4) * (nb // 4)
+                          + "\tmovl\t%d(%%esp), %%ecx\n\tcalll\t\"%s\"\n" % (nb, d)
+                          + "\tpushl\t%%eax\n\tpushl\t4(%%esp)\n\tcalll\t%s\n\taddl\t$4, %%esp\n"
+                            "\tpopl\t%%eax\n\tpopl\t%%ecx\n\tretl\t$%d\n" % (hook, nb))
         by_addr_def[t] = lab
         defined.add(lab)
         how["exit hook (native11) 0x%08x -> %s" % (t, hook)] += 1
@@ -1020,8 +1028,10 @@ SITE_REBIND = [
 # native11: exit hooks: a wrapper calls the (thiscall) definition with the caller's stack arguments, then
 # `void hook(u32 this)`, then returns as the definition did (eax kept). (address, hook, argument bytes, why)
 EXIT_HOOKS = [
+    # native15: (..., pre) = the hook is `hook(this, word, first argument)` with the dword at this+pre read before the
+    # call (the drive's request count before the post) and the call's first stack argument (the posted request)
     (0x00272fc0, "_hulk_hook_drive_post", 12,
-     "core::DriveThread's post: the main thread waits for the drive to go idle (request H, syncio)"),
+     "core::DriveThread's post: the main thread waits for the drive to go idle (request H, syncio)", 0x8c),
 ]
 # native10: entry hooks: a wrapper in front of the function (every caller bound by address and every vftable slot
 # goes through it, as HULK_TRACE_FUNCS' probes) calls `int hook(u32* regs)` (eax, ecx, edx, the return address, the

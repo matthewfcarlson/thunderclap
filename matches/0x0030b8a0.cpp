@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class PhysicsJoint3D {
   public:
     virtual void f0();
@@ -20,10 +21,10 @@ class PhysicsJoint3D {
     virtual void vfunc_17(float*, float, float*);
 };
 void PhysicsJoint3D::vfunc_17(float* a, float s, float* b) {
-    float d = b[2] * a[2];
+    hulk_freg d = b[2] * a[2];
     d = d + b[1] * a[1];
     d = d + a[0] * b[0];
-    float t = -(d / (s * s));
+    hulk_freg t = -(d / (s * s));
     b[0] = t * a[0] + b[0];
     b[1] = t * a[1] + b[1];
     b[2] = t * a[2] + b[2];

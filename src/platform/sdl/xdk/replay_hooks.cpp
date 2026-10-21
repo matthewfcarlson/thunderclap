@@ -17,7 +17,9 @@ extern "C" void HULK_CDECL hulk_native_log(const char* line);
 
 static hulk_u32 hulk_io_posts, hulk_io_waits, hulk_io_timeouts, hulk_snd_calls;
 extern "C" hulk_u32 hulk_native_frame_no;    // (startup.cpp: the probes' frame number)
+static void hulk_io_frame_sync(void);
 extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
+    hulk_io_frame_sync();
     hulk_native_frame_no++;
     HulkCkptState st;
     st.rng = DAT_004e5ad0;
@@ -175,22 +177,102 @@ extern "C" int HULK_CDECL hulk_seq_randint(int lo, int hi) {
 // were made without the hybrid's syncio flag, and an .hrp cannot carry it (its bit 13 is seq-rng, the hybrid's
 // HF_SYNCIO is 8192 too). Measured on play3 (native11): with the wait, the audio stream drive (HalRsdFileStream)
 // keeps a request in flight, the main thread times out 35 times in 30 frames; without it 420+ frames match.
-static int hulk_syncio = -1;
-extern "C" void HULK_CDECL hulk_hook_drive_post(hulk_u32 drive) {
-    if (hulk_syncio < 0) {
-        const char* e = hulk_host_getenv("HULK_SYNCIO");
-        hulk_syncio = e && *e && e[0] == '1';
-    }
-    hulk_io_posts++;
-    if (!hulk_syncio || !drive || hulk_host_GetCurrentThreadId() != hulk_main_tid)
-        return;
-    for (int n = 0; *(volatile hulk_u32*)(drive + 0x8c) != 0; n++) {
-        if (n == 2000) {
+// native15: without a wait, which frame a request's result lands in follows the host's thread timing (the same image
+// and replay saw 0x00203a80's first call at frame 914 in one run and 915 in the next: play3, docs/native-replay.md).
+// Guest-time models, per request (the posted node, the wrapper's third argument), not per drive: every request of
+// the game goes through one DriveThread, which also carries the audio stream's persistent read.
+//   HULK_SYNCIO=3: a request completes before the next frame (the main thread waits at GameClock::Update's entry
+//                  for every request posted before it);
+//   HULK_SYNCIO=4: a request completes at once (the main thread waits right after the post).
+// A request is done when it is no longer queued and the drive runs nothing else (count = queued). A request still
+// pending after 300 ms is a persistent stream (its class, the node's vftable, is logged and not waited on again).
+// HULK_SYNCIO_LOG=1: one `io` line per post (frame, node class, queue count before).
+static int hulk_syncio = -1, hulk_io_log = -1;
+struct HulkIoLock {
+    virtual void enter();
+    virtual void leave();
+};
+struct HulkIoPending {
+    hulk_u32 drive, node, vt;
+};
+static HulkIoPending hulk_io_pending[256];
+static hulk_u32 hulk_io_npending, hulk_io_persistent[16], hulk_io_npersistent;
+static void hulk_io_settings(void) {
+    const char* e = hulk_host_getenv("HULK_SYNCIO");
+    hulk_syncio = e && *e ? e[0] - '0' : 0;
+    e = hulk_host_getenv("HULK_SYNCIO_LOG");
+    hulk_io_log = e && *e == '1';
+}
+// 1: done; 0: still queued or something is running
+static int hulk_io_done(hulk_u32 drive, hulk_u32 node) {
+    HulkIoLock* lock = (HulkIoLock*)(drive + 0xc);
+    lock->enter();
+    hulk_u32 queued = 0;
+    int found = 0;
+    for (int i = 0; i < 3; i++)
+        for (hulk_u32 p = *(hulk_u32*)(drive + 0x6c + 4 * i); p && queued < 100000; p = *(hulk_u32*)(p + 4)) {
+            queued++;
+            found |= p == node;
+        }
+    hulk_u32 count = *(volatile hulk_u32*)(drive + 0x8c);
+    lock->leave();
+    return !found && count <= queued;
+}
+static void hulk_io_wait(const HulkIoPending& r) {
+    for (hulk_u32 i = 0; i < hulk_io_npersistent; i++)
+        if (hulk_io_persistent[i] == r.vt)
+            return;
+    for (int n = 0; !hulk_io_done(r.drive, r.node); n++) {
+        if (n == 300 + 64) {
             hulk_io_timeouts++;
+            if (hulk_io_npersistent < 16)
+                hulk_io_persistent[hulk_io_npersistent++] = r.vt;
+            char line[128];
+            hulk_host__snprintf(line, sizeof(line), "io frame %u: request class %08x still pending after 300 ms: a stream, "
+                                "not waited on", hulk_native_frame_no, r.vt);
+            hulk_native_log(line);
             return;
         }
-        hulk_host_Sleep(1);
+        hulk_host_Sleep(n < 64 ? 0 : 1);
         hulk_io_waits++;
+    }
+}
+static void hulk_io_frame_sync(void) {
+    if (hulk_syncio < 0)
+        hulk_io_settings();
+    for (hulk_u32 i = 0; i < hulk_io_npending; i++)
+        hulk_io_wait(hulk_io_pending[i]);
+    hulk_io_npending = 0;
+}
+
+extern "C" void HULK_CDECL hulk_hook_drive_post(hulk_u32 drive, hulk_u32 before, hulk_u32 node) {
+    if (hulk_syncio < 0)
+        hulk_io_settings();
+    hulk_io_posts++;
+    if (!drive || !node || hulk_host_GetCurrentThreadId() != hulk_main_tid)
+        return;
+    HulkIoPending r = {drive, node, *(hulk_u32*)node};
+    if (hulk_io_log) {
+        char line[96];
+        hulk_host__snprintf(line, sizeof(line), "io post frame %u class %08x count before %u", hulk_native_frame_no, r.vt,
+                            before);
+        hulk_native_log(line);
+    }
+    if (hulk_syncio == 1) {    // the hybrid's syncio: the whole queue
+        for (int n = 0; *(volatile hulk_u32*)(drive + 0x8c) != 0; n++) {
+            if (n == 2000) {
+                hulk_io_timeouts++;
+                return;
+            }
+            hulk_host_Sleep(1);
+            hulk_io_waits++;
+        }
+    } else if (hulk_syncio == 4) {
+        hulk_io_wait(r);
+    } else if (hulk_syncio == 3) {
+        if (hulk_io_npending == sizeof(hulk_io_pending) / sizeof(hulk_io_pending[0]))
+            hulk_io_frame_sync();
+        hulk_io_pending[hulk_io_npending++] = r;
     }
 }
 
@@ -248,8 +330,10 @@ extern "C" int HULK_CDECL FUN_000113e0(int lo, int hi);
 extern "C" int HULK_CDECL hulk_seq_randint(int lo, int hi) {
     return FUN_000113e0(lo, hi);
 }
-extern "C" void HULK_CDECL hulk_hook_drive_post(hulk_u32 drive) {
+extern "C" void HULK_CDECL hulk_hook_drive_post(hulk_u32 drive, hulk_u32 before, hulk_u32 node) {
     (void)drive;
+    (void)before;
+    (void)node;
 }
 extern "C" int HULK_CDECL hulk_hook_fmv_queue(hulk_u32* regs) {
     (void)regs;

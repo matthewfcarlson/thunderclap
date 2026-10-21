@@ -260,6 +260,54 @@ MSVC 7.1 to an identical object; `verify_relocs.py` ok on the 2,316 changed `mat
 modes among neighbours that share `GetLastError`-style declarations); the strict i686 native link of that tree:
 lld-link rc 0, no messages.
 
+## native15: float precision through 780, the I/O timing of stop 41, check 7 (2026-10-20)
+
+Inputs: native14's workspace (HEAD e6b732c9 + the same untracked sources), x87's study ([native-float.md](native-float.md)),
+cl5's round 17 of equiv.py (exact floats at 53-bit precision, committed as c807a962). Changed sources:
+`build/native15/sources.txt`; equivalents for the 20,000-input promotion: `build/native15/equivalents.txt`.
+
+**Replay (play3)**: checkpoints 0-420 and 480-780 match (native14: 0-420, 480, 510, 570, 630); 450 differs by
+-1 ULP in the camera's y; from 810 the RNG and the camera differ (not a precision-sized difference). The trace
+census agrees with the hybrid's first calls to frame 914; next difference: the 953 group (0x00013f20 / 0x00014210 /
+0x00043350 ..., a throw / hit action) starts at 1007-1477 natively. The image now stops at frame ~4,600 in
+`Obj_2250e0::set` (null+0x20, under AnimationPhaseMatchedAction 0x0013d7b0) on the diverged path.
+
+| # | what | cause | fix (class) |
+|---|---|---|---|
+| float | camera y 7 / -14 / -4 / -1 ULP at 540 / 600 / 660 / 690 (and the 720-780 differences) | x87 precision: clang -O0 rounds named `float` locals where MSVC kept them in 53-bit registers. Located with x87's mixed build (TUs at o1dyn, the rest -O0; `$S/n15/bis.sh`, ddmin over the 172 TUs): 600/660/690/720 need `physics/unk_2fa6b0.cpp` alone; 540/690 need `unknown/unk_22baf0.cpp` (vector/matrix library) and `CChaseCamera.cpp` together | **`hulk_freg`** (include/compat/ptr.h): `float` for MSVC 7.1, `double` elsewhere, for locals the original keeps in registers; byte-matched sources keep matching. Rewritten: 0x002fa6b0 (cross product), 0x002fb190 (triangle test), 0x0022d110 / 0x0022d1c0 (normalize), 0x0022cc90 / 0x0022ccf0 / 0x0022cd50 (axis matrices, with the original's spilled copy), 0x0022cdb0 (matrix inverse), 0x0022de70 (ray/plane), 0x0022dfe0 (plane), 0x00292bd0 (camera), 0x000a0fe0 (chase camera FOV: the radius from the reloaded x, y, z), 0x000418f0 (Hulk: products the original spills), 0x00228da0 / 0x00226b40 (locomotion drivers); and 43 byte-matched sources whose listing has no float round trip at all (`$S/n15/fregify.py`: every `float` local and `(float)` cast -> `hulk_freg`, MATCH + relocs ok each) |
+| float | MSVC reassociates sums | MSVC 7.1 compiles `z*z + y*y + x*x` and `x*x + y*y + z*z` to the same code ((x*x + y*y) + z*z in 0x0022d110); clang keeps the source's order | write the listing's order (0x0022d110, 0x0022d1c0, 0x000a0fe0) |
+| float | x87 intrinsics | the original runs fsin / fcos / fptan / fpatan / the f2xm1-fscale exp inline; the image called msvcrt | `hulk_crt_sin`, `_cos`, `_tan`, `_atan`, `_atan2`, `_exp` (src/platform/sdl/crt/crt_glue.cpp, host_crt_table.h): the same x87 instructions (on x86 hardware the original's results; under Rosetta 2 / QEMU fpatan is the host's atan2). No checkpoint changed through 870 when added alone |
+| float | `-ffp-eval-method=double -ffp-contract=off` | x87's proposed flags | **not adopted** (yet): the header conflict is fixed (FUN_0004af40 `(int, float, float)` in 7 equivalents, FUN_00247890 `(int, int)` / `(void*, int)` in 0x001f32b0 / 0x001f6580 retyped to float; all TUs compile with the flags) and a flags image replays identically to the -O0 image through 750, but differs from 780 on, and the scanner shows why: 159 functions that return an unrounded st0 in the original (and at -O0) round their return under the flags (`build/native15/flags-ret-lost.txt`; unrounded returns 208 -> 44, "image rounds more" 353 -> 519 functions). Switch on after those returns are spelled; note that a `double` return type changes the symbol callers bind to (tried: unresolved stubs), so it needs a binding rule first |
+| 41 | 0x00203a80 first call 914 (hybrid) vs 915 | native I/O completion follows host thread timing: the same image gave 914 in some runs and 915 in others (io post counts differ run to run; checkpoint hashes identical through frame 1,900+ in all runs) | not a source bug; guest-time models added (off by default, below); none makes 914 deterministic (see native-replay.md) |
+| check 7 | 26 callee-pops mismatches | | 0x00248670 (no-argument Run callees + `equiv-conv: FUN_0025d740 ecx`; the -O1 frame-0 crash), the save streams 0x002786a0 / 0x002786c0 (9 / 10-word tail calls declared as such: both byte-match the original, relocs ok), 0x002ad7f0 (the PNG free callback, `__cdecl (png, pointer)`: MATCH). Left: 14, all deleting-destructor / adjustor tail thunks (`declared popping 0, callee ret 4`), which jump_shapes re-emits |
+| fsescape | the 15 untriaged frame-store candidates | | all 21 pass round 17's equiv.py (which compares bytes a callee reads through a pointer into the caller's frame) except 0x0007bf80 (CAmbientsManager): its "no table entry" path compares uninitialized frame words in the original too (first runs at 2,110) |
+| audio | 0x00256d40 | the pool release takes two words; the source passed one and relied on the stack word the previous call left | x87's patch (EQUIVALENT 1,527, time budget) |
+
+**Locator pitfall**: clang_probe's object cache is keyed by the compiler path, so a mixed build must use a new path
+per step (x87's bisect.sh symlinks x87cc-bisN; native15's bis.sh `$S/n15/cc/x87cc-bis-TAG`); with one path every
+step after the first reuses the first step's objects (native15's first locator results were void for that reason).
+
+**Tools (scratch, `$S/n15`)**: `bis.sh TAG LIST` (mixed image + replay), `ddmin.py NAME FRAMES LIST` (minimal TU
+set keeping checkpoints), `fregify.py`, `natcheck.py` (native14's: equiv.py on the clang object with exact floats;
+reliable for leaf functions, the clang-specific failure list: 0x0022d110, 0x0022dfe0, 0x0022cdb0, 0x0022de70,
+0x002fb190 pass natively), `sym.py MAP ADDR...`. Probe aids: `HULK_SYNCIO_LOG=1` (one `io post` line per request:
+frame, request class, queue count).
+
+**Bridges**: none new. The drive-post exit hook (native11) now passes the drive's count before the post and the
+posted request (`EXIT_HOOKS` `pre`), for the guest-time I/O models.
+
+**Proof**: MSVC tree build 2,818 TUs, 22,342 matches still matching, 0 lost, 0 failed (one more `wrap`,
+0x0021e300, "code differs from its standalone build", a Lua parser function no change touches); every changed
+matches/ source MATCH + verify_relocs ok; changed equivalents EQUIVALENT under round 17 (`equivalents.txt`;
+0x001f9810's coverage 52/94 at 3,000 needs the 20,000 run, as before); strict lld-link 0 errors plain and --gfx
+(1,366 unresolved names, as native14).
+
+**Checker gaps**: (1) equiv.py models `exp`/`sin`/... by Python's math library while the original runs x87 inline
+sequences (f2xm1/fscale, fsin): 0x0009fb20 fails exactly on the last bit of exp (its native rewrite is parked in
+build/native15/pending/). (2) natcheck (the clang object under equiv.py) misaligns on functions with calls
+(wild jumps, argument words): only leaf functions are checked natively. (3) MSVC 7.1 reassociates float sums, so
+an exact equiv pass doesn't show that a source's order is the one clang should compute.
+
 ## native14: the head tracker, prop events, cows (2026-10-20)
 
 Inputs: native13's workspace, equal to HEAD 4ffd8334 plus the 21 untracked sources of other sessions plus the
@@ -612,7 +660,7 @@ instead of compiling our own source as written. Accepted as tech debt (2026-10-1
 | (native10) `ENTRY_HOOKS`: a wrapper at 0x269170 writing ControllerSystemXBox +0x12a4 from +0x12a0 | 1 (2 field offsets) | the replay pin C needs the poll's rate limit off | a named member of the real class (include/gen) and a platform poll policy |
 | (native11) `SITE_REBIND` for the sound/sequencer RNG (native_link.py) | 9 sites (0x1ef2a0, 0x1efe20, 0x1f7320, 0x260ae0, 0x2526b0, 0x253680, 0x255250 (data 0x4e5acc), 0x2549a0, 0x254c80) | replay pins G (sound-rng, seq-rng) act on single call sites of verified code | a sound RNG of its own in the sources (the audio code's generator as a named object) |
 | (native11) `ENTRY_HOOKS` that return at once (no-fmv) | 2 (0x1b7310 `ret 0xc`, 0x1b7d10 `ret 8`) | the hybrid's no-fmv patches bytes of two functions | a movie-policy interface the FMV manager asks |
-| (native11) `EXIT_HOOKS` | 1 (0x272fc0, `ret 0xc`) | replay pin H (syncio) after the drive's post | a drive interface with a synchronous mode |
+| (native11) `EXIT_HOOKS` | 1 (0x272fc0, `ret 0xc`; native15: passes the count before the post and the request) | replay pin H (syncio) and native15's guest-time I/O models after the drive's post | a drive interface with a synchronous mode |
 | (native12) pooled game strings copied from the XBE (native_host.data_block `want`) | 37 strings (`"sub"` 0x00434bbc, ...) | the inventory gives a literal the linker shared with a library object to that object, so no data TU defines it | data_gen emits game-referenced strings whatever object the inventory names |
 | (native12) RTTI TD match without the `_<address>` suffix (native_link.py) | the renamed classes' descriptors (0x002abfb0, 0x002abd90, 0x00297680 casts) | consolidation renames make the class name differ from the game's | the real class names (include/gen) in the casting sources |
 | the empty stubs for a virtual the original doesn't own (the 0x002777c0 class) | 14 sources with an adjustor thunk and an empty out-of-line body: 10 fixed (`stub-body`), 2 are other sessions' untracked files (matches/0x002777e0, 0x002777f0), 2 are constructor/destructor bodies the vftable emission needs (0x00268010, 0x0026e350) | — | (the 2 untracked ones: the same rewrite once they are committed) |

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" double __cdecl sin(double);
 extern const float one;
 extern const float pi;
@@ -15,13 +16,13 @@ class Curve_ac6a0 {
     float Evaluate(float x);
 };
 float Curve_ac6a0::Evaluate(float x) {
-    float t = ((one - x) * pi + halfpi);
-    t = (float)(sin((double)t) + one) * half - x;
+    hulk_freg t = ((one - x) * pi + halfpi);
+    t = (hulk_freg)(sin((double)t) + one) * half - x;
     t = t * scale + x;
-    float a = t * t;
-    float b = a * t;
-    float c = b * cubic;
-    float d = a * quad;
-    float e = t * linear;
+    hulk_freg a = t * t;
+    hulk_freg b = a * t;
+    hulk_freg c = b * cubic;
+    hulk_freg d = a * quad;
+    hulk_freg e = t * linear;
     return e + d + c + constant;
 }

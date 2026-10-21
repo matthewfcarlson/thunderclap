@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 class VecSource {
   public:
@@ -15,8 +16,8 @@ class Obj_302480 {
 float dist(Obj_302480* a, Obj_302480* b) {
     float* p = ((VecSource*)a)->Get();
     float* q = ((VecSource*)b)->Get();
-    float x = q[0] - p[0];
-    float y = q[1] - p[1];
-    float z = q[2] - p[2];
-    return (float)sqrt(x * x + y * y + z * z) - (a->radius + b->radius);
+    hulk_freg x = q[0] - p[0];
+    hulk_freg y = q[1] - p[1];
+    hulk_freg z = q[2] - p[2];
+    return (hulk_freg)sqrt(x * x + y * y + z * z) - (a->radius + b->radius);
 }

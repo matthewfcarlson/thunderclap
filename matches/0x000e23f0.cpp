@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 // FUN_000e23f0 @ 0x000e23f0
 struct Cell_e23f0 {
     float out;
@@ -23,7 +24,7 @@ public:
 
 void Spreader::FUN_000e23f0()
 {
-    float acc = 0.0f;
+    hulk_freg acc = 0.0f;
     for (int i = 0; i < count; i++) {
         if (i < skip) {
             cells[i].on = 0;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 63 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 15968 inputs, branch coverage 22/22)
 // choreo2::LocomotionSteerDriver::vfunc_12 @ 0x00229360
 struct Source_229360 {
     char pad0[8];
@@ -25,7 +25,7 @@ struct Blend_229360 {
     float pad;
 };
 
-float FUN_0004af40(int zero, float t, float x);
+float FUN_0004af40(float lo, float t, float x);
 
 class LocomotionSteerDriver {
 public:
@@ -77,7 +77,7 @@ bool LocomotionSteerDriver::vfunc_12(Source_229360 *src, float *out)
                 float lowT = anim->FUN_00288de0(0, 0, a, b);
                 float highT = anim->FUN_00288de0(1, 0, a, b);
                 float t = anim->weight - 1.0f;
-                float c = FUN_0004af40(0, t, t * scale + e->bias);
+                float c = FUN_0004af40(0.0f, t, t * scale + e->bias);
                 float r;
                 if (highT >= lowT) {
                     if (!(c >= lowT))

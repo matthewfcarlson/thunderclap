@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 26/26)
+// STATUS: equivalent (tools/equiv.py level 3: 493 inputs, branch coverage 26/26)
 // choreo2::LocomotionSteerDriver::vfunc_10 @ 0x00228da0
 struct Quat_228da0 {
     float x, y, z, w;
@@ -74,7 +74,7 @@ struct Blend_228da0 {
     int pad;
 };
 
-float __cdecl FUN_0004af40(int mode, float a, float b);
+float __cdecl FUN_0004af40(float lo, float a, float b);
 
 union ArgBase_228da0 {
     Base_228da0 *base;
@@ -153,17 +153,18 @@ void choreo2::LocomotionSteerDriver::vfunc_10(ArgBase_228da0 a, ArgPose_228da0 p
         if (b89c) {
             Vec3_228da0 *acc = &this->acc;
             f.c = *acc;
-            float s0 = f.c.x + a.base->v.x;
-            float s1 = f.c.y + a.base->v.y;
-            float s2 = f.c.z + a.base->v.z;
-            f.c.z = s2;
-            f.c.x = s0 * t;
-            float s1t = s1 * t;
-            float s2t = f.c.z * t;
-            float u = 1.0f - t;
-            f.c.x = u * pose->position.x + f.c.x;
-            f.c.y = u * pose->position.y + s1t;
-            f.c.z = u * pose->position.z + s2t;
+            // x87: the sums, s1 * t, f.c.z * t and 1 - t stay in registers (53 bits); only the stores round
+            double s0 = (double)f.c.x + a.base->v.x;
+            double s1 = (double)f.c.y + a.base->v.y;
+            f.c.z = (float)((double)f.c.z + a.base->v.z);
+            f.c.x = (float)(s0 * t);
+            double s1t = s1 * t;
+            // the original reloads the stored (rounded) x and z: the volatile reads keep MSVC from reusing its register copies
+            double s2t = (double)*(volatile float *)&f.c.z * t;
+            double u = 1.0 - (double)t;
+            f.c.x = (float)(u * pose->position.x + *(volatile float *)&f.c.x);
+            f.c.y = (float)(u * pose->position.y + s1t);
+            f.c.z = (float)(u * pose->position.z + s2t);
             pose->FUN_0022be40(&f.c);
             acc->z = 0;
             acc->y = 0;
@@ -191,7 +192,7 @@ void choreo2::LocomotionSteerDriver::vfunc_10(ArgBase_228da0 a, ArgPose_228da0 p
                 double d = src->length - 1.0f;
                 float dd = (float)d;
                 f.frame = dd;
-                f.frame = FUN_0004af40(0, dd, (float)(d * rate + *(float *)(slot + 0x238)));
+                f.frame = FUN_0004af40(0.0f, dd, (float)(d * rate + *(float *)(slot + 0x238)));
                 if (first <= last) {
                     Chans_228da0 *ch = (Chans_228da0 *)(slot + 0x38);
                     unsigned int i = first;
