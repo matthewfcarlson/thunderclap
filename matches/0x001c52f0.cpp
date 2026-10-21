@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 22/22)
 // FUN_001c52f0 @ 0x001c52f0
 #include "decls/address.h"
@@ -29,12 +30,12 @@ public:
 
 void Blender_1c52f0::FUN_001c52f0(float unused)
 {
-    float dt = DAT_004dd700->clock->FUN_00085f80();
+    hulk_freg dt = DAT_004dd700->clock->FUN_00085f80();
     if (!(dt < 0.1f))
         dt = 0.1f;
 
     if (accel != 0.0f) {
-        float v = dt * accel + value;
+        hulk_freg v = dt * accel + value;
         value = v;
         if ((accel > 0.0f && v >= limit) || (accel < 0.0f && v <= limit)) {
             value = limit;
@@ -47,10 +48,10 @@ void Blender_1c52f0::FUN_001c52f0(float unused)
     fresh = 0;
 
     if (current != target) {
-        float s = dt * rate;
+        hulk_freg s = dt * rate;
         if (!(s < 1.0f))
             s = 1.0f;
-        float c = s * (target - current) + current;
+        hulk_freg c = s * (target - current) + current;
         current = c;
         union { float f; unsigned int u; } d;
         d.f = c - target;

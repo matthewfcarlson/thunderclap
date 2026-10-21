@@ -52,6 +52,6 @@ void hulkfight::ai::HulkAction::vfunc_4() {
     } else
         value = (*(Settings_10f3a0 * *)&this->f_1c)->value;
     pair = (*(Settings_10f3a0 * *)&this->f_1c)->pair;
-    int result = (int)value;
+    int result = (int)(__int64)value;
     FUN_000678d0()->FUN_000670a0(&pair, result);
 }

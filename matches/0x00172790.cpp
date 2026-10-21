@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Obj_172790 {
@@ -30,7 +31,7 @@ bool hulkfight::motion::CriticalMassDrainAction::vfunc_3(int x, int y) {
     Obj_172790* o = m->GetObj();
     if (!o)
         return (bool)(0);
-    float amt = o->amount;
+    hulk_freg amt = o->amount;
     if (amt >= o->Get())
         o->Set(amt - (*(Param_172790 * *)&this->f_1c)->amount, 1);
     return (bool)(0);

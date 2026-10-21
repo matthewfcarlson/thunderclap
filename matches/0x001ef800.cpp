@@ -23,5 +23,5 @@ class CSoundCommand_ReturnToDefaultMix : public CSoundCommand {
 };
 
 void CSoundCommand_ReturnToDefaultMix::vfunc_1(int a, int b) {
-    gOwner->mgr->Set((int)mValue);
+    gOwner->mgr->Set((int)(__int64)mValue);
 }

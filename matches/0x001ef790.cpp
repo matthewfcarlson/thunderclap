@@ -22,5 +22,5 @@ class CSoundCommand_InstallMixer : public CSoundCommand {
     virtual void vfunc_1(int, int);
 };
 void CSoundCommand_InstallMixer::vfunc_1(int, int) {
-    gManager->mixer->Install(data, (int)value);
+    gManager->mixer->Install(data, (int)(__int64)value);
 }
