@@ -1,8 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3093 inputs, branch coverage 20/22, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20100 inputs, branch coverage 20/22, incomplete)
 // FUN_00260d00 @ 0x00260d00
 // atof-style parser: optional '-', digits, optional '.', up to six fractional digits.
 // Any other character gives 0.
-float __cdecl FUN_00260d00(const char *s)
+#include "compat/ptr.h"
+hulk_freg __cdecl FUN_00260d00(const char *s)
 {
     int whole = 0;
     int frac = 0;

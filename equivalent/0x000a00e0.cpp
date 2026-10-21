@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 18/18)
 // FUN_000a00e0 @ 0x000a00e0
+#include "compat/ptr.h"
 float FUN_000186b0(float *p0, float *p1, float *p2);
 float FUN_0009f760(float x);
 
 struct Frame_a00e0 { float L0, t, q, vc; };
 
-float FUN_000a00e0(float a, float b, float c, float d, float e)
+hulk_freg FUN_000a00e0(float a, float b, float c, float d, float e)
 {
     Frame_a00e0 f;
     f.L0 = b - a;

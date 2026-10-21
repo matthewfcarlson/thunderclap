@@ -7,7 +7,7 @@ extern "C" double fmod(double, double);
 
 float __cdecl FUN_000186b0(float *v, float *lo, float *hi);
 
-float FUN_002899e0(float *p, char *st, float v, float step, float lo, float hi, char flag, int mode)
+hulk_freg FUN_002899e0(float *p, char *st, float v, float step, float lo, float hi, char flag, int mode)
 {
     if (step == 0.0f)
         return v;

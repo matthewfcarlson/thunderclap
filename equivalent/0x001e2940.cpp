@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3130 inputs, branch coverage 83/88, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19661 inputs, branch coverage 87/88, incomplete)
 // FUN_001e2940 @ 0x001e2940
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
@@ -308,10 +308,10 @@ Prop_1e2940 *Mgr_1e2940::F(int idx)
     if (!(slot->flags & 2)) {
         Camera *cam = FUN_001c3d90();
         V3_1e2940 *cp = cam->FUN_001c39d0();
-        float dx = cp->x - M.trans.x;
-        float dy = cp->y - M.trans.y;
-        float dz = cp->z - M.trans.z;
-        float d = dz * dz + dy * dy + dx * dx;
+        hulk_freg dx = cp->x - M.trans.x;
+        hulk_freg dy = cp->y - M.trans.y;
+        hulk_freg dz = cp->z - M.trans.z;
+        hulk_freg d = dz * dz + dy * dy + dx * dx;
         if (d < 4900.0f) {
             prop->holder->FUN_001c5080((*(float*)&DAT_00421898), 0.0f);
         } else {
@@ -339,7 +339,7 @@ Prop_1e2940 *Mgr_1e2940::F(int idx)
     if (fl & 0x80)
         mode += 2;
     if (mode == 0) {
-        float v = prop->p9c->f38;
+        hulk_freg v = prop->p9c->f38;
         int i;
         for (i = 1; i < 4; i++) {
             if (v <= ((float*)&DAT_00423198)[i])

@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 13/14, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 14/14)
 // physics::PhysicsJoint3D::vfunc_25 @ 0x0030b8f0
 #include "decls/data/engine/physics.h"
+#include "compat/ptr.h"
 
 extern "C" double sqrt(double);
 
@@ -25,9 +26,9 @@ public:
 
 void Joint3D::FUN_0030b8f0()
 {
-    float lenSq = (dir[0] * dir[0] + dir[1] * dir[1]) + dir[2] * dir[2];
+    hulk_freg lenSq = (dir[0] * dir[0] + dir[1] * dir[1]) + dir[2] * dir[2];
     if (lenSq > (*(const float*)&DAT_004d31d4)) {
-        float s = (*(const float*)&DAT_004d3198) / (float)sqrt(lenSq);
+        hulk_freg s = (*(const float*)&DAT_004d3198) / (float)sqrt(lenSq);
         dir[0] = dir[0] * s;
         dir[1] = dir[1] * s;
         dir[2] = dir[2] * s;
@@ -52,13 +53,13 @@ void Joint3D::FUN_0030b8f0()
     }
 
     if (speed > maxSpeed) {
-        float r = maxSpeed / speed;
+        hulk_freg r = maxSpeed / speed;
         impulse[0] = impulse[0] * r;
         impulse[1] = impulse[1] * r;
         impulse[2] = impulse[2] * r;
         speed = maxSpeed;
     } else if (speed < minSpeed && minSpeed < 0.0f) {
-        float r = maxSpeed / speed;
+        hulk_freg r = maxSpeed / speed;
         impulse[0] = impulse[0] * r;
         impulse[1] = impulse[1] * r;
         impulse[2] = impulse[2] * r;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 22/22)
 // FUN_00230160 @ 0x00230160
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 struct Vec3_230160 {
     float x, y, z;
@@ -11,9 +12,9 @@ union FloatBits_230160 {
 class Segment_230160 {
   public:
     Vec3_230160 p0, p1;
-    float FUN_00230160(Segment_230160* other);
+    hulk_freg FUN_00230160(Segment_230160* other);
 };
-float Segment_230160::FUN_00230160(Segment_230160* other) {
+hulk_freg Segment_230160::FUN_00230160(Segment_230160* other) {
     float ux = p1.x - p0.x, uy = p1.y - p0.y, uz = p1.z - p0.z;
     float vx = other->p1.x - other->p0.x, vy = other->p1.y - other->p0.y, vz = other->p1.z - other->p0.z;
     float wx = p0.x - other->p0.x, wy = p0.y - other->p0.y, wz = p0.z - other->p0.z;

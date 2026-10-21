@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 19987 inputs, branch coverage 16/16)
 // FUN_002027c0 @ 0x002027c0
 #include "compat/ptr.h"
 #include "decls/data/engine/physics.h"
@@ -85,9 +85,9 @@ bool FUN_002027c0(V3_2027c0 *from, V3_2027c0 *to, float radius, int a4, V3_2027c
     fr.dist = 3.4028235e38f;
     if (fr.hit1) {
         fr.q = *a5;
-        float dx = fr.q.x - from->x;
-        float dy = fr.q.y - from->y;
-        float dz = fr.q.z - from->z;
+        hulk_freg dx = fr.q.x - from->x;
+        hulk_freg dy = fr.q.y - from->y;
+        hulk_freg dz = fr.q.z - from->z;
         fr.dist = (float)sqrt(dz * dz + dy * dy + dx * dx);
     }
 
@@ -102,7 +102,7 @@ bool FUN_002027c0(V3_2027c0 *from, V3_2027c0 *to, float radius, int a4, V3_2027c
     bool result = fr.hit1;
     if (fr.game->holder->world->FUN_002ee140(list, from, to, 0)) {
         Hit_2027c0 *h = list->hits;
-        float t = h->scale;
+        hulk_freg t = h->scale;
         Node *node = h->node;
         int value = h->value;
         fr.q.x = t;
@@ -114,9 +114,9 @@ bool FUN_002027c0(V3_2027c0 *from, V3_2027c0 *to, float radius, int a4, V3_2027c
             a5->z = a5->z - from->z;
             a5->FUN_0022d110();
             fr.tmp = 0;
-            float px = fr.q.x * a5->x;
-            float py = fr.q.x * a5->y;
-            float pz = fr.q.x * a5->z;
+            hulk_freg px = fr.q.x * a5->x;
+            hulk_freg py = fr.q.x * a5->y;
+            hulk_freg pz = fr.q.x * a5->z;
             a5->x = px;
             a5->y = py;
             a5->z = pz;

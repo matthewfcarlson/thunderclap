@@ -1,9 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 17897 inputs, branch coverage 136/140, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20186 inputs, branch coverage 136/140, incomplete)
 // FUN_001bcef0 @ 0x001bcef0
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "compat/ptr.h"
 extern "C" double __cdecl sqrt(double);
 extern "C" void * __cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 
@@ -354,7 +355,7 @@ void Fx_1bcef0::FUN_001bcef0()
             f.u8.r = FUN_00018a20(f.v.y);
             f.u4.f = f.u8.r * 0.636619747f - 1.0f;
             f.u4.f = f.u4.f < 0.0f ? -f.u4.f : f.u4.f;
-            float s = 1.0f - f.u4.f * 0.25f;
+            hulk_freg s = 1.0f - f.u4.f * 0.25f;
             f.v.x = f.v.x * s;
             f.v.y = s * f.v.y;
             if (f.v.x > 0.0f)
@@ -416,7 +417,7 @@ void Fx_1bcef0::FUN_001bcef0()
 
                 Obj40 *p40 = f.u8.p40;
                 f.u2c.ac.A = p40->f1c;
-                float Bp = p40->f20;
+                hulk_freg Bp = p40->f20;
                 f.u2c.ac.C = p40->f24;
                 f.u2c.ac.D = p40->f28;
                 static float lim0 = K0557();
@@ -431,16 +432,16 @@ void Fx_1bcef0::FUN_001bcef0()
                     f.u2c.ac.D = -lim1;
                 static float lim2 = K003();
                 f.u28.e = f.u2c.ac.C - f.u2c.ac.A;
-                float u = f.u28.e - (lim2 + lim2);
+                hulk_freg u = f.u28.e - (lim2 + lim2);
                 if (u < 0.0f) {
-                    float hh = u * 0.5f;
+                    hulk_freg hh = u * 0.5f;
                     f.u2c.ac.A = f.u2c.ac.A + hh;
                     f.u2c.ac.C = f.u2c.ac.C - hh;
                     f.u28.e = f.u2c.ac.C - f.u2c.ac.A;
                 }
                 static float lim3 = K003975();
                 f.u4.f = Bp - f.u2c.ac.D;
-                float v2 = f.u4.f - (lim3 + lim3);
+                hulk_freg v2 = f.u4.f - (lim3 + lim3);
                 if (v2 < 0.0f) {
                     Bp = Bp - v2 * 0.5f;
                     double Dn = v2 * 0.5f + f.u2c.ac.D;
@@ -468,7 +469,7 @@ void Fx_1bcef0::FUN_001bcef0()
                 if (f.u4.f > 0.7f)
                     f.u4.f = 0.7f;
                 f.arr2[0] = f.u28.e * 40.0f;
-                float ff = f.u4.f;
+                hulk_freg ff = f.u4.f;
                 f.u4.ang = 1.57079637f;
                 f.arr2[1] = ff * 30.0f;
                 f.arr2[2] = f.u28.e * 40.0f;

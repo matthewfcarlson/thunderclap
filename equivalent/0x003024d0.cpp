@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 6/6)
 // FUN_003024d0 @ 0x003024d0
+#include "compat/ptr.h"
 struct Vec3_3024d0 {
     float x, y, z;
 };
@@ -47,7 +48,7 @@ public:
 };
 
 // Signed distance bound of a point-ish object against an oriented (or axis-aligned) box: max over axes.
-float __cdecl FUN_003024d0(Box_3024d0 *box, Other_3024d0 *other)
+hulk_freg __cdecl FUN_003024d0(Box_3024d0 *box, Other_3024d0 *other)
 {
     Vec3_3024d0 *p = other->vfunc_4();
     Vec3_3024d0 *q = box->vfunc_4();

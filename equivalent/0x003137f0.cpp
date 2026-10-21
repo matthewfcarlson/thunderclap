@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 16/16)
 // FUN_003137f0 @ 0x003137f0
+#include "compat/ptr.h"
 struct Vec3_3137f0 {
     float x, y, z;
 };
@@ -19,21 +20,21 @@ void __stdcall FUN_003137f0(Body_3137f0 *body, Vec3_3137f0 *pos, float a, float 
 {
     int i = (index < 2) ? index + 1 : 0;
     Vec3_3137f0 *p = body->position();
-    float dx = pos->x - p->x;
-    float dy = pos->y - p->y;
-    float dz = pos->z - p->z;
+    hulk_freg dx = pos->x - p->x;
+    hulk_freg dy = pos->y - p->y;
+    hulk_freg dz = pos->z - p->z;
 
     if (a > 0.0f) {
         const Vec3_3137f0 *n = &body->normals[i];
-        float dot = dz * n->z + dy * n->y + dx * n->x;
-        float s;
+        hulk_freg dot = dz * n->z + dy * n->y + dx * n->x;
+        hulk_freg s;
         if (dot < 0.0f)
             s = -1.0f;
         else if (dot > 0.0f)
             s = 1.0f;
         else
             s = 0.0f;
-        float t = -s * a;
+        hulk_freg t = -s * a;
         pos->x = t * n->x + pos->x;
         pos->y = t * n->y + pos->y;
         pos->z = t * n->z + pos->z;
@@ -41,15 +42,15 @@ void __stdcall FUN_003137f0(Body_3137f0 *body, Vec3_3137f0 *pos, float a, float 
     if (b > 0.0f) {
         i = (i < 2) ? i + 1 : 0;
         const Vec3_3137f0 *n = &body->normals[i];
-        float dot = dz * n->z + dy * n->y + dx * n->x;
-        float s;
+        hulk_freg dot = dz * n->z + dy * n->y + dx * n->x;
+        hulk_freg s;
         if (dot < 0.0f)
             s = -1.0f;
         else if (dot > 0.0f)
             s = 1.0f;
         else
             s = 0.0f;
-        float t = -s * b;
+        hulk_freg t = -s * b;
         pos->x = t * n->x + pos->x;
         pos->y = t * n->y + pos->y;
         pos->z = t * n->z + pos->z;

@@ -1,7 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 112 inputs, branch coverage 47/48, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20028 inputs, branch coverage 48/48)
 // CCharacterGolem::vfunc_3 @ 0x000fe680
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 extern "C" double sqrt(double);
 
@@ -104,7 +105,7 @@ void CCharacterGolem::vfunc_3(Entity *a1, float dt)
     Target_fe680 *t = vfunc_6();
     a1->part54->FUN_00086310();
     if (!a1->sub20->FUN_00025d30(t)) {
-        float x = dt + f12c;
+        hulk_freg x = dt + f12c;
         f12c = x;
         if (x < (*(float*)&DAT_0040d0f4))
             return;
@@ -135,9 +136,9 @@ void CCharacterGolem::vfunc_3(Entity *a1, float dt)
     if (q != 0 && t != 0) {
         t->skel->FUN_00059a50(&fr.pos0);
         fr.qpos = q->pos;
-        float dx = fr.qpos.x - fr.pos0.x;
-        float dy = fr.qpos.y - fr.pos0.y;
-        float dz = fr.qpos.z - fr.pos0.z;
+        hulk_freg dx = fr.qpos.x - fr.pos0.x;
+        hulk_freg dy = fr.qpos.y - fr.pos0.y;
+        hulk_freg dz = fr.qpos.z - fr.pos0.z;
         fr.dist = (float)sqrt((double)(dz * dz + dy * dy + dx * dx));
         bool near = false;
         if (t->FUN_00042990(a1, q, 100.0f, &fr.b12, &fr.b13)) {
@@ -152,7 +153,7 @@ void CCharacterGolem::vfunc_3(Entity *a1, float dt)
                     f124 = 0;
             }
         }
-        float rem = f124 - dt;
+        hulk_freg rem = f124 - dt;
         f124 = rem;
         if (rem <= 0.0f && !a1->sub20->FUN_00024300(t))
             f124 = (fr.rng->FUN_00078780() + 1.0f) * (*(float*)&DAT_0040d0e8);

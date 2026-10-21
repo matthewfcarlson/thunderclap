@@ -1,8 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 36/36)
+// STATUS: equivalent (tools/equiv.py level 3: 19839 inputs, branch coverage 36/36)
 // FUN_002ba220 @ 0x002ba220
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 struct Vec3_2ba220 {
     float x, y, z;
     void FUN_0022d240(Vec3_2ba220 *v, void *matrix);
@@ -212,10 +213,10 @@ class BillboardQuadGroup {
 public:
     char pad00[0x70];
     Vec3_2ba220 pos70;
-    float FUN_002ba220();
+    hulk_freg FUN_002ba220();
 };
 
-float BillboardQuadGroup::FUN_002ba220()
+hulk_freg BillboardQuadGroup::FUN_002ba220()
 {
     struct Frame {
         float x0;

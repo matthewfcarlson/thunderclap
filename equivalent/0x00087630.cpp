@@ -1,8 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 287 inputs, branch coverage 36/36)
+// STATUS: equivalent (tools/equiv.py level 3: 17507 inputs, branch coverage 36/36)
 // FUN_00087630 @ 0x00087630
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "compat/ptr.h"
 struct Target_87630;
 struct Queue_87630 { void FUN_0008db00(); bool FUN_0008db20(Target_87630*); };
 bool __cdecl FUN_0008db80(); void __cdecl FUN_0008db90();
@@ -31,7 +32,7 @@ void Target_87630::run() {
  unsigned int start=FUN_00267f80(); FUN_00086a40(clock->ticks * 0.000001f);
  if(state->mode==8) return;
  unsigned int start2=0; if((*(unsigned char*)&DAT_004dd8e4)) start2=FUN_00267f00();
- if(state->mode==4) { (*(UI_87630**)&DAT_004dd6e8)->FUN_0023f6b0(); (*(UI_87630**)&DAT_004dd6e8)->FUN_0023f720(&DAT_0049c218,0); if((*(UI_87630**)&DAT_004dd6e8)->FUN_0023f760("Enable simulation",83,1)) { float v=clock->FUN_000860c0(); sim->FUN_00088c30(state,v); } (*(UI_87630**)&DAT_004dd6e8)->FUN_0023f740(); void* item=sim->item; unsigned int result=DAT_004dd6ec->gate->FUN_000b4f20(); unsigned int disabled=(result & 0xffffff00u) | ((result & 255u)==0 ? 1u:0u); if(check->FUN_00089e80(item,disabled)) { state->mode=5; DAT_004dd700->sub->notify->FUN_000afe80(); } (*(UI_87630**)&DAT_004dd6e8)->FUN_0023f6c0(); if(sim->FUN_00088e40()) { state->mode=5; DAT_004dd700->sub->notify->FUN_000afe80(); return; } }
+ if(state->mode==4) { (*(UI_87630**)&DAT_004dd6e8)->FUN_0023f6b0(); (*(UI_87630**)&DAT_004dd6e8)->FUN_0023f720(&DAT_0049c218,0); if((*(UI_87630**)&DAT_004dd6e8)->FUN_0023f760("Enable simulation",83,1)) { hulk_freg v=clock->FUN_000860c0(); sim->FUN_00088c30(state,v); } (*(UI_87630**)&DAT_004dd6e8)->FUN_0023f740(); void* item=sim->item; unsigned int result=DAT_004dd6ec->gate->FUN_000b4f20(); unsigned int disabled=(result & 0xffffff00u) | ((result & 255u)==0 ? 1u:0u); if(check->FUN_00089e80(item,disabled)) { state->mode=5; DAT_004dd700->sub->notify->FUN_000afe80(); } (*(UI_87630**)&DAT_004dd6e8)->FUN_0023f6c0(); if(sim->FUN_00088e40()) { state->mode=5; DAT_004dd700->sub->notify->FUN_000afe80(); return; } }
  unsigned int end=FUN_00267f80(); unsigned __int64 elapsed=(unsigned __int64)end-(unsigned __int64)start; update->FUN_001eb2a0(elapsed*0.001f,1);
  if((*(unsigned char*)&DAT_004dd8e4)) { unsigned int e=FUN_00267f00(); if((*(unsigned char*)&DAT_004dd8e4)) DAT_004dd914=FUN_00085e60(e-start2,0); }
  if(DAT_0049caa0 && state->mode!=7) FUN_00240bb0();

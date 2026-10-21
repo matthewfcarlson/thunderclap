@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19979 inputs, branch coverage 4/4)
 // physics::PhysicsObject::vfunc_19 @ 0x002f5db0
+#include "compat/ptr.h"
 struct Vec_2f5db0 { float x,y,z; };
 struct Matrix { char pad[0x24]; void FUN_002fd020(Vec_2f5db0*,Vec_2f5db0*); };
 struct State_2f5db0 { char pad[0x40]; Vec_2f5db0 position; char gap[4]; Vec_2f5db0 velocity; Vec_2f5db0 result; };
@@ -18,7 +19,7 @@ void PhysicsObject::vfunc_19(int,int,int) {
   double dz=position.z-s->position.z;
   volatile float cx=dy*transformed.z-dz*transformed.y;
   volatile float cy=dz*transformed.x-dx*transformed.z;
-  float cz=dx*transformed.y-dy*transformed.x;
+  hulk_freg cz=dx*transformed.y-dy*transformed.x;
   double vx=cx+linearImpulse.x; // stays in a register (unrounded) in the original
   volatile float vy=cy+linearImpulse.y;
   volatile float vz=cz+linearImpulse.z;

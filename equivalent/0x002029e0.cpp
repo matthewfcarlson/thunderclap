@@ -1,8 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 20/22, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19948 inputs, branch coverage 21/22, incomplete)
 // FUN_002029e0 @ 0x002029e0
 #include "decls/address.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct Vec3_2029e0 {
@@ -100,14 +101,14 @@ bool FUN_002029e0(Vec3_2029e0* from, Vec3_2029e0* to, int tag, int mode, Vec3_20
     Flagged_2029e0* hidden[8];
     Contact_2029e0 contact;
     int hiddenCount;
-    float dist;
+    hulk_freg dist;
 
     bool result = space->FUN_00201e00(from, to, mode, outPoint, outNormal, 0, 0);
     dist = 3.40282347e+38f;
     if (result) {
-        float dx = outPoint->x - from->x;
-        float dy = outPoint->y - from->y;
-        float dz = outPoint->z - from->z;
+        hulk_freg dx = outPoint->x - from->x;
+        hulk_freg dy = outPoint->y - from->y;
+        hulk_freg dz = outPoint->z - from->z;
         contact.py = outPoint->y;
         dist = (float)sqrt(dz * dz + dy * dy + dx * dx);
     }
@@ -125,7 +126,7 @@ bool FUN_002029e0(Vec3_2029e0* from, Vec3_2029e0* to, int tag, int mode, Vec3_20
     if (sweeper->FUN_002ee140(list, from, to, 0)) {
         for (;;) {
             SweepEntry_2029e0* e = list->entries;
-            float t = e->t;
+            hulk_freg t = e->t;
             Entity* entity = e->entity;
             Body_2029e0* body = e->body;
             if (!(t > 0.0f))
@@ -161,9 +162,9 @@ bool FUN_002029e0(Vec3_2029e0* from, Vec3_2029e0* to, int tag, int mode, Vec3_20
             contact.zero = 0;
             contact.t = t;
             contact.body = body;
-            float tx = t * outPoint->x;
-            float ty = t * outPoint->y;
-            float tz = t * outPoint->z;
+            hulk_freg tx = t * outPoint->x;
+            hulk_freg ty = t * outPoint->y;
+            hulk_freg tz = t * outPoint->z;
             outPoint->x = tx;
             outPoint->y = ty;
             outPoint->z = tz;

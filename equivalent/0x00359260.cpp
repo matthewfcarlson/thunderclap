@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20023 inputs, branch coverage 14/14)
 // FUN_00359260 @ 0x00359260
+#include "compat/ptr.h"
 extern "C" double __cdecl sqrt(double);
 
 struct Vec3_359260 {
@@ -22,12 +23,12 @@ bool FUN_00359260(Vec3_359260* origin, float eps, Vec3_359260* a, Vec3_359260* b
                   float* dist, Vec3_359260* hit, Vec3_359260* outDir, bool e0, bool e1, bool e2)
 {
     double zx = (origin->z - b->z) * normal->z + (origin->x - b->x) * normal->x; // keep the original's summation order
-    float d = zx + (origin->y - b->y) * normal->y;
+    hulk_freg d = zx + (origin->y - b->y) * normal->y;
     *dist = d;
     if (fabsf_(d) > eps)
         return false;
 
-    float mx = d * normal->x;
+    hulk_freg mx = d * normal->x;
     volatile float my = d * normal->y;
     volatile float mz = d * normal->z;
     hit->x = origin->x - mx;

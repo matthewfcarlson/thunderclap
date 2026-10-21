@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // FUN_002fcd60 @ 0x002fcd60
+#include "compat/ptr.h"
 struct Mat34 {
     float m00, m01, m02, m03;
     float m10, m11, m12, m13;
@@ -12,27 +13,34 @@ public:
     float yy, yz, zz;
     void FUN_002fcd60(const Mat34* a);
 };
+// x87 (the listing's precision): vx and vy go through the frame (rounded); vz is used once from its register and
+// then from a rounded copy; the new xx, xy, xz and the row sums stay in registers (53 bits) until they are stored;
+// yy, yz, zz are rounded frame copies. Sums in the listing's order.
 void SymTensor::FUN_002fcd60(const Mat34* a)
 {
-    // Local copy keeps the compiler from sharing x87 temporaries between the products below
-    // (the original keeps them unrounded in registers rather than spilling to float).
-    Mat34 m = *a;
     float a0 = a->m00, a4 = a->m01, a8 = a->m02;
     float a10 = a->m10, a14 = a->m11, a18 = a->m12;
     float a20 = a->m20, a24 = a->m21, a28 = a->m22;
-    float vx = (a0 * xx + a20 * xz) + a10 * xy;
-    float vy = (a20 * yz + a10 * yy) + a0 * xy;
-    float vz = (a10 * yz + a20 * zz) + a0 * xz;
-    float nxx = (((m.m10 * yz + m.m20 * zz) + m.m00 * xz) * a20 + vy * a10) + vx * a0;
-    float nxy = (vz * a24 + vy * a14) + vx * a4;
-    float nxz = (vy * a18 + vz * a28) + vx * a8;
-    float nz = ((a28 * yz + a18 * yy) + a8 * xy) * a18 + ((a8 * xx + a28 * xz) + a18 * xy) * a8 + ((a18 * yz + a28 * zz) + a8 * xz) * a28;
-    float nyz = ((m.m11 * yz + m.m21 * zz) + m.m01 * xz) * m.m22 + ((m.m21 * yz + m.m11 * yy) + m.m01 * xy) * m.m12 + ((m.m01 * xx + m.m21 * xz) + m.m11 * xy) * m.m02;
-    float ny = a24 * ((a14 * yz + a24 * zz) + a4 * xz) + ((a24 * yz + a14 * yy) + a4 * xy) * a14 + ((a4 * xx + a24 * xz) + a14 * xy) * a4;
+    volatile float vx = ((hulk_freg)a0 * xx + (hulk_freg)a20 * xz) + (hulk_freg)a10 * xy;
+    volatile float vy = ((hulk_freg)a20 * yz + (hulk_freg)a10 * yy) + (hulk_freg)a0 * xy;
+    hulk_freg vzu = ((hulk_freg)a10 * yz + (hulk_freg)a20 * zz) + (hulk_freg)a0 * xz;
+    volatile float vz = (float)vzu;
+    hulk_freg nxx = (vzu * a20 + (hulk_freg)vy * a10) + (hulk_freg)vx * a0;
+    hulk_freg nxz = ((hulk_freg)vy * a18 + (hulk_freg)vz * a28) + (hulk_freg)vx * a8;
+    hulk_freg nxy = ((hulk_freg)vz * a24 + (hulk_freg)vy * a14) + (hulk_freg)vx * a4;
+    hulk_freg u1 = ((hulk_freg)a4 * xx + (hulk_freg)a24 * xz) + (hulk_freg)a14 * xy;
+    hulk_freg u2 = ((hulk_freg)a24 * yz + (hulk_freg)a14 * yy) + (hulk_freg)a4 * xy;
+    hulk_freg u3 = ((hulk_freg)a14 * yz + (hulk_freg)a24 * zz) + (hulk_freg)a4 * xz;
+    volatile float ny = (a24 * u3 + u2 * a14) + u1 * a4;
+    volatile float nyz = (u3 * a28 + u2 * a18) + u1 * a8;
+    hulk_freg w2 = ((hulk_freg)a28 * yz + (hulk_freg)a18 * yy) + (hulk_freg)a8 * xy;
+    hulk_freg w1 = ((hulk_freg)a8 * xx + (hulk_freg)a28 * xz) + (hulk_freg)a18 * xy;
+    hulk_freg w3 = ((hulk_freg)a18 * yz + (hulk_freg)a28 * zz) + (hulk_freg)a8 * xz;
+    volatile float nz = (w2 * a18 + w1 * a8) + w3 * a28;
     yy = ny;
     yz = nyz;
     zz = nz;
-    xx = nxx;
-    xy = nxy;
-    xz = nxz;
+    xx = (float)nxx;
+    xy = (float)nxy;
+    xz = (float)nxz;
 }

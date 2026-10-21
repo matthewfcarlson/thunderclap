@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // FUN_002d17b0 @ 0x002d17b0
+#include "compat/ptr.h"
 struct Curves_2d17b0 {
     char pad0[0x14];
     float *tableA;      // 0x14
@@ -34,8 +35,9 @@ void __cdecl FUN_002d17b0(float dt, int index, float t, Owner_2d17b0 *owner, Sta
     float *a = owner->curves->tableA;
     float *b = owner->curves->tableB;
     float w = owner->weight;
-    float ia = a[index] + (a[index + 1] - a[index]) * t;
-    float ib = b[index] + (b[index + 1] - b[index]) * t;
+    // x87: the interpolated values stay in registers (53 bits)
+    hulk_freg ia = a[index] + ((hulk_freg)a[index + 1] - a[index]) * t;
+    hulk_freg ib = b[index] + ((hulk_freg)b[index + 1] - b[index]) * t;
     state->accum += ib * (int)state->steps * owner->gain * 0.00390625f * dt;
     state->x += ia * state->vx * w * dt;
     state->y += (ia * state->vy + state->accum) * w * dt;

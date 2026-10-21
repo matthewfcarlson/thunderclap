@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 11/12, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 12/12)
 // FUN_000a0330 @ 0x000a0330
 // Wrap an angle in degrees into [0, 360). NaN and values beyond +-3600 give 0.
+#include "compat/ptr.h"
 extern "C" int __cdecl _isnan(double);
 
 union FloatBits_a0330 {
@@ -8,7 +9,7 @@ union FloatBits_a0330 {
     unsigned int u;
 };
 
-float FUN_000a0330(float degrees)
+hulk_freg FUN_000a0330(float degrees)
 {
     if (_isnan(degrees)) {
         return 0.0f;

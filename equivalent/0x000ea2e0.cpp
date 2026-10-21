@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 4146 inputs, branch coverage 52/52)
+// STATUS: equivalent (tools/equiv.py level 3: 4098 inputs, branch coverage 52/52)
 // TextSelector::vfunc_3 @ 0x000ea2e0
 // TextSelector::vfunc_3 @ 0x000ea2e0: measure the selector's text entries
+#include "compat/ptr.h"
 struct Vec3 {
     float x, y, z;
 };
@@ -247,7 +248,7 @@ void TextSelector::vfunc_3()
             f1d64 = f.t;
     } else {
         host->v15(&f.tmpA, this);
-        float xw = f1d6c + f1d74;
+        hulk_freg xw = f1d6c + f1d74;
         int n = (int)(f.tmpA.x / xw);
         f1d7c = 0;
         f1d80 = count - 1;

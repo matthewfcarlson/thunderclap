@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // FUN_000e8600 @ 0x000e8600
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 struct Source {
     virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
@@ -13,9 +14,9 @@ struct Target {
     char unused[4];
     Entry entries[8];
     int selected;
-    float FUN_000e8600(int parameter, int index);
+    hulk_freg FUN_000e8600(int parameter, int index);
 };
-float Target::FUN_000e8600(int parameter, int index) {
+hulk_freg Target::FUN_000e8600(int parameter, int index) {
     Evaluator* evaluator = functions[9 + index];
     Entry* entry = &entries[selected];
     Source* source = (Source*)functions[9];

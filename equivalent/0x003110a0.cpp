@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 19796 inputs, branch coverage 12/12)
 // physics::ArticulatedPhysicsObject::vfunc_5 @ 0x003110a0
+#include "compat/ptr.h"
 class Child_3110a0 {
 public:
     virtual void vfunc_0();
@@ -68,7 +69,7 @@ void physics::ArticulatedPhysicsObject::vfunc_5(float dtArg)
     float b = 1.0f - dtArg * dampAngular;
     if (!(0.0f < b))
         b = 0.0f;
-    float c = 1.0f - dtArg * dampOverall;
+    hulk_freg c = 1.0f - dtArg * dampOverall;
     if (!(0.0f < c))
         c = 0.0f;
 

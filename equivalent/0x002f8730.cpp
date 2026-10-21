@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 6/6)
 // physics::ImpulseBasedCollisionSolver::vfunc_4 @ 0x002f8730
 #include "decls/data/engine/physics.h"
+#include "compat/ptr.h"
 
 extern float __cdecl FUN_002f2900(unsigned int, unsigned int);
 extern unsigned char DAT_004d2c52;
@@ -8,10 +9,11 @@ extern "C" double __cdecl sqrt(double);
 struct Body_2f8730 { char pad[0x1c]; unsigned int value; };
 namespace physics {
 struct ImpulseBasedCollisionSolver {
- virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual float vfunc_4();
+ virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual hulk_freg vfunc_4();
  char pad04[0x10]; Body_2f8730* first; Body_2f8730* second; char pad1c[0x14]; float threshold; char pad34[0x4c]; float velocity; char pad84[0x64]; float energy; float scale; char padf0[2]; unsigned char flag;
 };
-float ImpulseBasedCollisionSolver::vfunc_4() {
+// x87: the result comes back unrounded in st0 (hulk_freg return: double natively; callers declared `float` read st0)
+hulk_freg ImpulseBasedCollisionSolver::vfunc_4() {
  float saved = threshold;
  float result = FUN_002f2900(first->value, second->value);
  if (!(result > 1.0f)) result = 1.0f;
@@ -23,7 +25,7 @@ float ImpulseBasedCollisionSolver::vfunc_4() {
   bits.f=velocity; bits.u &= 0x7fffffff;
   double factor=(double)DAT_004d2c54/bits.f;
   flag=DAT_004d2c52;
-  return (float)(factor*limit+1.0f);
+  return factor*limit+1.0f;
  }
  flag=1; return result;
 }

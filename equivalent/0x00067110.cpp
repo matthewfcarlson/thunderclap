@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 4/4)
 // FUN_00067110 @ 0x00067110
+#include "compat/ptr.h"
 struct Rec_67110 { char pad[0x18]; float v18; };
 void FUN_00066980();
 struct Inner_67110 { float FUN_00086080(); };
@@ -14,9 +15,9 @@ public:
     float f34c;
     char pad3[0x378 - 0x350];
     float f378;
-    float FUN_00067110(int key);
+    hulk_freg FUN_00067110(int key);
 };
-float Target_67110::FUN_00067110(int key)
+hulk_freg Target_67110::FUN_00067110(int key)
 {
     Rec_67110 *r = sub.FUN_00230ba0(FUN_00066980, key);
     if (r == 0)

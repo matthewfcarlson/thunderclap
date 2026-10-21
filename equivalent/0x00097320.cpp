@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 14/14)
 // FUN_00097320 @ 0x00097320
-float __cdecl FUN_00097320(float a, float b) {
+#include "compat/ptr.h"
+hulk_freg __cdecl FUN_00097320(float a, float b) {
     bool negative = a < 0.0f;
     double magnitude = negative ? -(double)a : (double)a;
     int whole = (int)magnitude;

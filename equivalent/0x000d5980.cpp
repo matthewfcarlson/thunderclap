@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 13/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 16/16)
 // MessageOverlay::vfunc_3 @ 0x000d5980
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 extern "C" double sin(double);
 extern "C" double fabs(double);
@@ -43,14 +44,14 @@ public:
 
 void MessageOverlay::vfunc_3(float dt)
 {
-    float margin = DAT_004a06b8 + DAT_004a06ac + DAT_004a06a8;
+    hulk_freg margin = DAT_004a06b8 + DAT_004a06ac + DAT_004a06a8;
     if (*byteAt(0x7bc))
         return;
     for (int i = 0; i < 2; i++) {
         Slot_d5980 *s = slot(i);
         if (s->active) {
             FUN_000d49b0(s->to, s->from);
-            float d = *floatAt(0x7cc) - DAT_004a06d4;
+            hulk_freg d = *floatAt(0x7cc) - DAT_004a06d4;
             if (fabs(d) <= 1e-5f)
                 s->cur += dt;
             if (margin + s->limit < s->cur)
@@ -61,11 +62,11 @@ void MessageOverlay::vfunc_3(float dt)
     *floatAt(0x69c) += dt;
     *floatAt(0x7a8) += dt;
     FUN_000d5290(dt);
-    float phase = dt * 6.2831855f + *floatAt(0x804);
+    hulk_freg phase = dt * 6.2831855f + *floatAt(0x804);
     *floatAt(0x7fc) = ((float)sin(phase) + 1.0f) * 0.5f;
     int turns = (int)(phase * 0.15915494f);
     *floatAt(0x804) = phase - (float)turns * 6.2831855f;
-    float v = *floatAt(0x804);
+    hulk_freg v = *floatAt(0x804);
     if (v >= 0.0f && v <= 6.2831855f)
         *floatAt(0x804) = v;
     else if (!(v > 6.2831855f))

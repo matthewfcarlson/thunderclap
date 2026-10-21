@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 0/0)
 // FUN_00356e50 @ 0x00356e50
 #include "decls/data/engine/pure3d.h"
+#include "compat/ptr.h"
 
 struct Grad_356e50 {
     float x, y;
@@ -8,7 +9,7 @@ struct Grad_356e50 {
 
 
 // 2D gradient (Perlin) noise at point p[0], p[1].
-float __stdcall FUN_00356e50(const float *p)
+hulk_freg __stdcall FUN_00356e50(const float *p)
 {
     float xs = p[0] + 4096.0f;
     int xi = (int)xs;

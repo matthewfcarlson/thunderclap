@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 126 inputs, branch coverage 24/28, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 28/28)
 // pure3d::AnimationFrameController::vfunc_20 @ 0x00284b70
+#include "compat/ptr.h"
 struct Status_284b70 {
     char pad[0x18];
     char state;
@@ -27,7 +28,7 @@ class AnimController {
     virtual int getMode();
     virtual void v18();
     virtual unsigned getCycles();
-    virtual float vfunc_20();
+    virtual hulk_freg vfunc_20();
     virtual void v21();
     virtual void v22();
     virtual void v23();
@@ -36,7 +37,7 @@ class AnimController {
     virtual void v26();
 };
 
-float AnimController::vfunc_20()
+hulk_freg AnimController::vfunc_20()
 {
     float start;
     float end;

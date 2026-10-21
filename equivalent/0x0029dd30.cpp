@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1432 inputs, branch coverage 25/26, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 130 inputs, branch coverage 25/26, incomplete)
 // FUN_0029dd30 @ 0x0029dd30
+#include "compat/ptr.h"
 struct Node {
     float key;
     int f4;
@@ -33,10 +34,10 @@ public:
     Block *blocks[4];
     char pad40[8];
     Sorter *sorter;
-    float FUN_0029dd30(Block *out);
+    hulk_freg FUN_0029dd30(Block *out);
 };
 
-float SortedMerge::FUN_0029dd30(Block *out)
+hulk_freg SortedMerge::FUN_0029dd30(Block *out)
 {
     float sum = 0.0f;
     int n = out->hdr->count;

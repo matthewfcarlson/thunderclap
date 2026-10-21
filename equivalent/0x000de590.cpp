@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 43/47, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20060 inputs, branch coverage 47/47)
 // ControllerPollerBase::vfunc_1 @ 0x000de590
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 struct ButtonEntry {
     float value;
@@ -34,12 +35,12 @@ float __cdecl FUN_000de530(float x, float lo, float hi);
 class ControllerPollerBase {
 public:
     virtual void vfunc_0();
-    virtual float vfunc_1(unsigned int cmd, int index);
+    virtual hulk_freg vfunc_1(unsigned int cmd, int index);
     char pad04[0xc];
     Device_de590 *devices[4];
 };
 
-float ControllerPollerBase::vfunc_1(unsigned int cmd, int index)
+hulk_freg ControllerPollerBase::vfunc_1(unsigned int cmd, int index)
 {
     Device_de590 *dev = devices[index];
     float best = 0.0f;

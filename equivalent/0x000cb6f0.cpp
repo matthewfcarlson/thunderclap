@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // FUN_000cb6f0 @ 0x000cb6f0
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 struct Segment {
     virtual void unused0(); virtual void unused1(); virtual void unused2(); virtual void unused3();
@@ -17,9 +18,9 @@ struct Object {
     Table* table;
     char reserved[0x84];
     int selected;
-    float FUN_000cb6f0(int position, int index);
+    hulk_freg FUN_000cb6f0(int position, int index);
 };
-float Object::FUN_000cb6f0(int position, int index) {
+hulk_freg Object::FUN_000cb6f0(int position, int index) {
     if (position < 0) return (*(float*)&DAT_003f32e0);
     Segment* base = table->segments[0];
     Segment* item = table->segments[index];

@@ -1,14 +1,15 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 6/8, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20018 inputs, branch coverage 6/8, incomplete)
 // FUN_00226a70 @ 0x00226a70
+#include "compat/ptr.h"
 extern float __cdecl FUN_0004af40(float low, float high, float value);
 extern double __cdecl __floor_default(double value);
 struct Curve_226a70 {
  char pad[0x2c];
  unsigned int count;
  float FUN_00226960(unsigned int index, float angle);
- float FUN_00226a70(float position, float angle);
+ hulk_freg FUN_00226a70(float position, float angle);
 };
-float Curve_226a70::FUN_00226a70(float position, float angle) {
+hulk_freg Curve_226a70::FUN_00226a70(float position, float angle) {
  angle = FUN_0004af40(0.0f, 6.283185307179586f, angle);
  double base = __floor_default(position);
  if (base < 0.0f) return 0.0f;

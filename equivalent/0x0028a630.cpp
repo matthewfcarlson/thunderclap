@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 17314 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 17318 inputs, branch coverage 6/6)
 // pure3d::Vector2DOFChannel::vfunc_4 @ 0x0028a630
+#include "compat/ptr.h"
 union OutSlot;
 struct Key2 {
     float a;
@@ -57,7 +58,7 @@ void Vector2DOFChannel::vfunc_4(TimeArg targ, OutSlot slot)
     if (FUN_00289f80(targ.t, &slot.index, &f.indexB) && keyData != 0) {
         int indexA = slot.index;
         slot.index = keyTimes[indexA];
-        float d = targ.t - (float)slot.index;
+        hulk_freg d = targ.t - (float)slot.index;
         if (d != 0.0f) {
             targ.span = keyTimes[f.indexB] - keyTimes[indexA];
             int span = targ.span;

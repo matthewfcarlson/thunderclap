@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 9/10, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 16142 inputs, branch coverage 10/10)
 // pure3d::SpriteParticleUpdater::vfunc_4 @ 0x002d1db0
 #include "decls/data/engine/pure3d.h"
+#include "compat/ptr.h"
 
 struct Vec3_2d1db0 {
     float x, y, z;
@@ -63,7 +64,7 @@ void SpriteParticleUpdater::FUN_002d1db0(float dt, Emitter_2d1db0 *em)
     unsigned int i;
     for (i = 0; i < count; i++) {
         Particle_2d1db0 *p = em->particles[i];
-        float step = dt;
+        hulk_freg step = dt;
         if (p->age >= 0.0f) {
             p->age = dt + p->age;
         } else {
@@ -71,13 +72,13 @@ void SpriteParticleUpdater::FUN_002d1db0(float dt, Emitter_2d1db0 *em)
             p->age = step;
         }
         if (p->age < p->life) {
-            float t = (p->age / p->life) * 20.0f;
+            hulk_freg t = (p->age / p->life) * 20.0f;
             int idx = (int)t;
-            float frac = t - (float)idx;
+            hulk_freg frac = t - (float)idx;
             Vec3_2d1db0 pos = p->pos;
             float *tbl = curve->table;
-            float a = tbl[idx];
-            float b = tbl[idx + 1];
+            hulk_freg a = tbl[idx];
+            hulk_freg b = tbl[idx + 1];
             p->scaled = ((b - a) * frac + a) * (float)p->size * DAT_004d0ed4;
             onUpdate(step, idx, em, p);
             onUpdate2(step, idx, em, p);

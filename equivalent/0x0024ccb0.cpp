@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 16/16)
 // FUN_0024ccb0 @ 0x0024ccb0
+#include "compat/ptr.h"
 struct Body_24ccb0 {
  float x,y,z,vx,vy,vz; char pad[0x18]; float a,b;
  bool FUN_0022d2b0(Body_24ccb0*,float);
 };
 extern "C" double __cdecl sqrt(double);
-float __cdecl FUN_0024ccb0(Body_24ccb0* p, Body_24ccb0* q) {
+hulk_freg __cdecl FUN_0024ccb0(Body_24ccb0* p, Body_24ccb0* q) {
  double value;
  if (p->FUN_0022d2b0(q,0.00001f)) value=0.0;
  else {

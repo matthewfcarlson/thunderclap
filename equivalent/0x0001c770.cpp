@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 18589 inputs, branch coverage 24/24)
 // FUN_0001c770 @ 0x0001c770
 #include "compat/ptr.h"
 #include "decls/address.h"
@@ -105,7 +105,7 @@ void Tracker_1c770::FUN_0001c770(Source_1c770* src, float radius)
     float dx = c.x - hit.x;
     float dy = c.y - hit.y;
     float dz = c.z - hit.z;
-    float sum = dz * dz + dy * dy + dx * dx;
+    hulk_freg sum = dz * dz + dy * dy + dx * dx;
     if (!(sum <= s * s))
         return;
     Vec3_1c770 mid;

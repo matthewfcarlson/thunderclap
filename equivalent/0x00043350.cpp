@@ -1,7 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3095 inputs, branch coverage 65/76, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20076 inputs, branch coverage 66/76, incomplete)
 // FUN_00043350 @ 0x00043350
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 struct Unit_43350;
 struct Target_43350;
 
@@ -180,7 +181,7 @@ char Unit_43350::FUN_00043350(float dt, Arg2_43350 p2, int a, float one, char c,
     if (f1b28 == 0) {
         dt = (float)(v * o->f310);
     } else {
-        float sel;
+        hulk_freg sel;
         if (!(o->f18c >= f1b2c))
             sel = o->f174;
         else

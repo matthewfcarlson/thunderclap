@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 20017 inputs, branch coverage 18/18)
 // hulkfight::ai::HasGroundPointExtendedCondition::vfunc_6 @ 0x00118050
 #include "decls/address.h"
+#include "compat/ptr.h"
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -107,7 +108,7 @@ char HasGroundPointExtendedCondition::vfunc_6(int a, void *obj, int c)
     }
     Hit_118050 *hit = 0;
     if (useVel) {
-        float s = scale;
+        hulk_freg s = scale;
         f.tmp.x = s * r->vel.x;
         f.tmp.y = s * r->vel.y;
         f.tmp.z = s * r->vel.z + f.pos.z;
@@ -128,7 +129,7 @@ char HasGroundPointExtendedCondition::vfunc_6(int a, void *obj, int c)
     DAT_004dd700->slot->FUN_00025260(1, 0, 0);
     DAT_004dd700->mgr->FUN_001dcf60(1);
     if (found) {
-        float v = f.outA.y - f.w.y;
+        hulk_freg v = f.outA.y - f.w.y;
         if (useAbs) {
             union {
                 float f;

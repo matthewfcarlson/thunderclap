@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 157 inputs, branch coverage 10/10)
 // FUN_0035a2a0 @ 0x0035a2a0
+#include "compat/ptr.h"
 struct Vec3_35a2a0 {
     float x, y, z;
 };
@@ -36,9 +37,9 @@ bool FUN_0035a2a0(Vec3_35a2a0 *a1, Vec3_35a2a0 *a2, Vec3_35a2a0 *axisX, Vec3_35a
     centre->y = 0.0f;
     centre->x = 0.0f;
     if (f.count > 0) {
-        float sx = 0.0f;
-        float sy = 0.0f;
-        float sz = 0.0f;
+        hulk_freg sx = 0.0f;
+        hulk_freg sy = 0.0f;
+        hulk_freg sz = 0.0f;
         const Vec3_35a2a0 *p = f.pts;
         int n = f.count;
         do {
@@ -52,7 +53,7 @@ bool FUN_0035a2a0(Vec3_35a2a0 *a1, Vec3_35a2a0 *a2, Vec3_35a2a0 *axisX, Vec3_35a
         centre->y = sy;
         centre->x = sx;
     }
-    float inv = 1.0f / (float)f.count;
+    hulk_freg inv = 1.0f / (float)f.count;
     centre->x = inv * centre->x;
     centre->y = inv * centre->y;
     centre->z = inv * centre->z;
@@ -60,7 +61,7 @@ bool FUN_0035a2a0(Vec3_35a2a0 *a1, Vec3_35a2a0 *a2, Vec3_35a2a0 *axisX, Vec3_35a
     f.neg.x = dir->x * -1.0f;
     f.neg.y = dir->y * -1.0f;
     f.neg.z = dir->z * -1.0f;
-    float d = FUN_00359860(a1, a2, axisX, axisY, axisZ, &f.neg, centre);
+    hulk_freg d = FUN_00359860(a1, a2, axisX, axisY, axisZ, &f.neg, centre);
     *depth = d;
     if (!(d > 0.0f)) {
         *normal = *dir;

@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 20013 inputs, branch coverage 16/16)
 // FUN_000aa2b0 @ 0x000aa2b0
 #include "decls/address.h"
+#include "compat/ptr.h"
 struct Vec3_aa2b0 { float x, y, z; };
 
 class Query_aa2b0 {
@@ -14,7 +15,7 @@ struct World {
 };
 
 
-float __stdcall FUN_000aa2b0(Vec3_aa2b0 *v1, Vec3_aa2b0 *v2, float a3, float a4, float a5)
+hulk_freg __stdcall FUN_000aa2b0(Vec3_aa2b0 *v1, Vec3_aa2b0 *v2, float a3, float a4, float a5)
 {
     float m = (v1->y < v2->y) ? v2->y : v1->y;
     if (a3 < m)

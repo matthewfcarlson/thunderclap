@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 19895 inputs, branch coverage 16/16)
 // FUN_002fda20 @ 0x002fda20
 #include "decls/data/engine/physics.h"
+#include "compat/ptr.h"
 
 extern "C" double sqrt(double);
 
@@ -86,7 +87,7 @@ void Tracker_2fda20::Update()
             FUN_002ef760(s->sub, s->src->FUN_0030edf0()->FUN_0030f100(), 1.0f, s->f60, &s->dir);
         }
         Vec3_2fda20 *v = &slots[index].dir;
-        float lenSq = v->z * v->z + v->y * v->y + v->x * v->x;
+        hulk_freg lenSq = v->z * v->z + v->y * v->y + v->x * v->x;
         float h = DAT_004d2960 * range;
         if (lenSq > h * h) {
             range = (float)sqrt(lenSq);

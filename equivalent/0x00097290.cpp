@@ -1,9 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
 // FUN_00097290 @ 0x00097290
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 float __cdecl FUN_00018a20(float cosine);
 
-float FUN_00097290(float ax, float ay, float az, float bx, float by, float bz)
+hulk_freg FUN_00097290(float ax, float ay, float az, float bx, float by, float bz)
 {
     double lenB = sqrt(bz * bz + by * by + bx * bx);
     double lenA = sqrt(az * az + ay * ay + ax * ax);

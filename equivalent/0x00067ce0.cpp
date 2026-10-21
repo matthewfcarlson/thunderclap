@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 22/22)
 // FUN_00067ce0 @ 0x00067ce0
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 struct Rec_67ce0 {
     int tag;
@@ -44,18 +45,18 @@ bool Tracker_67ce0::run(const ObjId* id, int skipTag, const Sphere_67ce0* s, V3_
             if (r->idLo != id->lo || r->idHi != id->hi)
                 continue;
         }
-        float rad = r->radius + s->radius;
-        float dx = s->x - r->x;
-        float dy = s->y - r->y;
-        float dz = s->z - r->z;
-        float d2 = dz * dz + dy * dy + dx * dx;
+        hulk_freg rad = r->radius + s->radius;
+        hulk_freg dx = s->x - r->x;
+        hulk_freg dy = s->y - r->y;
+        hulk_freg dz = s->z - r->z;
+        hulk_freg d2 = dz * dz + dy * dy + dx * dx;
         if (!(rad * rad >= d2))
             continue;
         if (*outObj != 0 && *outObj == obj)
             continue;
         count++;
         *outObj = obj;
-        float w = 1.0f / count;
+        hulk_freg w = 1.0f / count;
         outPos->x = (r->x - outPos->x) * w + outPos->x;
         outPos->y = (r->y - outPos->y) * w + outPos->y;
         outPos->z = (r->z - outPos->z) * w + outPos->z;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 12/12)
 // FUN_00315620 @ 0x00315620
+#include "compat/ptr.h"
 struct Vec3_315620 {
     float x, y, z;
     void FUN_00011160(float amount, Vec3_315620* dir);
@@ -38,10 +39,10 @@ bool Resolver_315620::FUN_00315620(Vec3_315620* p0, Vec3_315620* axis0, float k0
     volatile float dzr = p1->z - p0->z; // the original rounds the z difference before adding the offset
     d.z = dzr + offset.z;
 
-    float cx = d.y * ref->z - d.z * ref->y;
-    float cy = d.z * ref->x - d.x * ref->z;
-    float cz = d.x * ref->y - d.y * ref->x;
-    float inv = 1.0f / (scale * scale);
+    hulk_freg cx = d.y * ref->z - d.z * ref->y;
+    hulk_freg cy = d.z * ref->x - d.x * ref->z;
+    hulk_freg cz = d.x * ref->y - d.y * ref->x;
+    hulk_freg inv = 1.0f / (scale * scale);
 
     double u0 = (cz * axis0->z + cy * axis0->y + cx * axis0->x) * k0; // MSVC would reassociate dot*k0*inv
     float t0 = u0 * inv;

@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 14/14)
 // COrientAction::vfunc_7 @ 0x0001fab0
+#include "compat/ptr.h"
 struct Vec3_1fab0 {
     float x, y, z;
     bool FUN_0022d2b0(const Vec3_1fab0 *other, float epsilon);
@@ -58,7 +59,7 @@ char COrientAction::vfunc_7(float dt)
         return 0;
 
     Stats_1fab0 *stats = FUN_00059a30(FUN_000592a0(owner));
-    float angle = stats->FUN_000354c0();
+    hulk_freg angle = stats->FUN_000354c0();
 
     Vec3_1fab0 dir;
     dir.x = 0.0f;
@@ -80,12 +81,12 @@ char COrientAction::vfunc_7(float dt)
             stats->FUN_00035550(&dir);
     }
 
-    float heading = FUN_00224f10(&dir);
-    float target = heading + data->offset;
-    float rate = data->turnRate;
+    hulk_freg heading = FUN_00224f10(&dir);
+    hulk_freg target = heading + data->offset;
+    hulk_freg rate = data->turnRate;
     if (!(rate < 0.0f)) {
-        float diff = FUN_00224fc0(angle, target);
-        float step = rate * dt;
+        hulk_freg diff = FUN_00224fc0(angle, target);
+        hulk_freg step = rate * dt;
         union {
             float f;
             unsigned int u;

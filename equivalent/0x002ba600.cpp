@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 8/8)
 // pure3d::BillboardCutOffQuadGroup::vfunc_11 @ 0x002ba600
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct Vec2_2ba600 {
@@ -50,7 +51,7 @@ public:
     virtual void v8();
     virtual void v9();
     virtual void v10();
-    virtual float vfunc_11(Slot_2ba600 a, Slot_2ba600 b);
+    virtual hulk_freg vfunc_11(Slot_2ba600 a, Slot_2ba600 b);
 
     char pad04[0x98 - 4];
     int field98;
@@ -64,7 +65,7 @@ public:
     float fadeEnd;
 };
 
-float BillboardCutOffQuadGroup::vfunc_11(Slot_2ba600 a, Slot_2ba600 b)
+hulk_freg BillboardCutOffQuadGroup::vfunc_11(Slot_2ba600 a, Slot_2ba600 b)
 {
     Probe_2ba600* pa = a.p;
     Probe_2ba600* pb = b.p;

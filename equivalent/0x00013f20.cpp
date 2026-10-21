@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3080 inputs, branch coverage 66/66)
+// STATUS: equivalent (tools/equiv.py level 3: 20090 inputs, branch coverage 66/66)
 // FUN_00013f20 @ 0x00013f20
 #include "decls/address.h"
+#include "compat/ptr.h"
 struct Slot_13f20;
 struct Slot_13f20 {
     int FUN_001d5e80(int id);
@@ -144,7 +145,7 @@ void Self_13f20::FUN_00013f20(float k, Target_13f20 *t, float *outA, float *outB
         }
     }
     {
-        float s = p->ctrl->scale;
+        hulk_freg s = p->ctrl->scale;
         if (p->flag != 0)
             s = s * p->ctrl->mult;
         *outA = s * *outA;

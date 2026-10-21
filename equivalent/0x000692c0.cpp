@@ -1,11 +1,12 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 10/10)
 // FUN_000692c0 @ 0x000692c0
+#include "compat/ptr.h"
 struct Curve_692c0 {
  char pad[0x14];
  float a0, a1, b0, b1;
- float FUN_000692c0(float t);
+ hulk_freg FUN_000692c0(float t);
 };
-float Curve_692c0::FUN_000692c0(float t) {
+hulk_freg Curve_692c0::FUN_000692c0(float t) {
  float db = b1-b0;
  float da = a1-a0;
  double b=b0, a=a0;

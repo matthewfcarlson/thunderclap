@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 11/12, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20013 inputs, branch coverage 12/12)
 // FUN_00314a10 @ 0x00314a10
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct V3_314a10 {
@@ -22,7 +23,7 @@ int Capsule::FUN_00314a10(const V3_314a10* a1, const V3_314a10* a2, const V3_314
     d.x = a2->x - a1->x;
     d.y = a2->y - a1->y;
     d.z = a2->z - a1->z;
-    float dd = d.z * d.z + d.x * d.x + d.y * d.y;
+    hulk_freg dd = d.z * d.z + d.x * d.x + d.y * d.y;
     float reach = radius + radius + f4 + f5;
     if (dd > reach * reach)
         return -1;
@@ -32,11 +33,11 @@ int Capsule::FUN_00314a10(const V3_314a10* a1, const V3_314a10* a2, const V3_314
         *out = *a1;
         return 0;
     }
-    float f4sq = f4 * f4;
-    float u = (f4sq - f5 * f5) + lenf * lenf;
-    float w = u / (lenf + lenf);
+    hulk_freg f4sq = f4 * f4;
+    hulk_freg u = (f4sq - f5 * f5) + lenf * lenf;
+    hulk_freg w = u / (lenf + lenf);
     float v = f4sq - w * w;
-    float r = w / lenf;
+    hulk_freg r = w / lenf;
     out->x = d.x * r + a1->x;
     out->y = d.y * r + a1->y;
     out->z = d.z * r + a1->z;

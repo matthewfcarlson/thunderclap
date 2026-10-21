@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3061 inputs, branch coverage 63/64, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20058 inputs, branch coverage 64/64)
 // CHeadTrackerAction::vfunc_7 @ 0x000202f0
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 extern "C" int __cdecl _isnan(double d);
 
@@ -340,7 +341,7 @@ char CHeadTrackerAction::vfunc_7(float dt)
 
     f.s24.f = FUN_00224ea0(f.v18.x, f.v18.z);
     f.s14.f = F->FUN_000354c0();
-    float diff = FUN_00224fc0(f.s14.f, f.s24.f);
+    hulk_freg diff = FUN_00224fc0(f.s14.f, f.s24.f);
     cfg = f20;
     if (diff < cfg->f44) {
         f.v18.x = (*(float*)&DAT_0048e054);

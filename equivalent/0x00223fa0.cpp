@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 34/34)
+// STATUS: equivalent (tools/equiv.py level 3: 13934 inputs, branch coverage 34/34)
 // FUN_00223fa0 @ 0x00223fa0
+#include "compat/ptr.h"
 struct Matrix {
     float m[16];
 };
@@ -69,12 +70,12 @@ void Blender_223fa0::FUN_00223fa0()
     }
     Pose pose;
     pose.FUN_00221b30(&xform);
-    float sum = elems[0].weight;
+    hulk_freg sum = elems[0].weight;
     int key0 = elems[0].key;
     int curKey = key0;
     unsigned int start = 0;
     unsigned int i = 1;
-    float weight;
+    hulk_freg weight;
     volatile float acc;
     volatile float wt;
     if (count > 1) {
@@ -94,8 +95,8 @@ void Blender_223fa0::FUN_00223fa0()
                 acc = elems[i].factor * elems[i].weight;
                 elems[start].layer->Apply(&pose, &xform, target, weight);
                 for (unsigned int j = start + 1; j < i; j++) {
-                    float p = elems[j].weight * elems[j].factor;
-                    float t = acc + p;
+                    hulk_freg p = elems[j].weight * elems[j].factor;
+                    hulk_freg t = acc + p;
                     acc = t;
                     if (t > 0.0f)
                         wt = p / acc * weight;
@@ -124,8 +125,8 @@ void Blender_223fa0::FUN_00223fa0()
     acc = elems[start].weight * elems[start].factor;
     elems[start].layer->Apply(&pose, &xform, target, weight);
     for (unsigned int j = start + 1; j < count; j++) {
-        float p = elems[j].weight * elems[j].factor;
-        float t = acc + p;
+        hulk_freg p = elems[j].weight * elems[j].factor;
+        hulk_freg t = acc + p;
         acc = t;
         if (t > 0.0f)
             wt = p / acc * weight;

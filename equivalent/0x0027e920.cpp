@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1907 inputs, branch coverage 65/66, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 16356 inputs, branch coverage 66/66)
 // pure3d::prop::StateProp::vfunc_6 @ 0x0027e920
+#include "compat/ptr.h"
 struct V3_27e920 {
     float x, y, z;
 };
@@ -249,7 +250,7 @@ void StateProp::v6(float dt, Arg2_27e920 a2)
             if (bits.f <= 1e-05f)
                 break;
         }
-        float rem = t - seg->f8;
+        hulk_freg rem = t - seg->f8;
         v16(seg->f4, 0);
         dt = rem;
         t = dt;

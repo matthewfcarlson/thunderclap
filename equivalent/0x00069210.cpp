@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 11/12, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20023 inputs, branch coverage 11/12, incomplete)
 // FUN_00069210 @ 0x00069210
+#include "compat/ptr.h"
 struct Curve_69210 {
  char pad0[0x14];
  float startScale;
@@ -7,9 +8,9 @@ struct Curve_69210 {
  char pad1[8];
  float startValue;
  float endValue;
- float FUN_00069210(float t);
+ hulk_freg FUN_00069210(float t);
 };
-float Curve_69210::FUN_00069210(float t) {
+hulk_freg Curve_69210::FUN_00069210(float t) {
  volatile float scale = startScale;
  volatile float delta = endScale - startScale;
  if (!(scale > 0.0f)) return 0.0f;

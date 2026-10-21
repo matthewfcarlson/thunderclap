@@ -1,8 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 11838 inputs, branch coverage 34/34)
+// STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 34/34)
 // FUN_001ed0b0 @ 0x001ed0b0
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/hulkfight.h"
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 extern "C" char * __cdecl strcat(char *, const char *);
 
@@ -93,7 +94,7 @@ void Footsteps::FUN_001ed0b0(Actor_1ed0b0 *a)
     } else {
         strcat(f.buf, "fast");
     }
-    float thr = f.scale * 0.1f;
+    hulk_freg thr = f.scale * 0.1f;
     if (a->leftDown == 0) {
         if (f.foot.y < thr) {
             a->leftDown = 1;
@@ -103,7 +104,7 @@ void Footsteps::FUN_001ed0b0(Actor_1ed0b0 *a)
         a->leftDown = 0;
     }
 
-    float ry = skel->bones[skel->FUN_002843a0(FUN_002672f0("Ball_R", 0, 0))].pos.y - f.groundCopy;
+    hulk_freg ry = skel->bones[skel->FUN_002843a0(FUN_002672f0("Ball_R", 0, 0))].pos.y - f.groundCopy;
     if (a->rightDown == 0) {
         if (ry < thr) {
             a->rightDown = 1;

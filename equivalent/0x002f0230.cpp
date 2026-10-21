@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20021 inputs, branch coverage 36/36)
 // FUN_002f0230 @ 0x002f0230
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 struct V3_2f0230 {
     float x, y, z;
@@ -22,7 +23,7 @@ static float absf(float v)
     return b.f;
 }
 
-float FUN_002f0230(const V3_2f0230 *origin, const V3_2f0230 *dir, const V3_2f0230 *extent)
+hulk_freg FUN_002f0230(const V3_2f0230 *origin, const V3_2f0230 *dir, const V3_2f0230 *extent)
 {
     float tx = 2.0f;
     float ty = 2.0f;

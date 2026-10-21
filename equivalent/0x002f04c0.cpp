@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 12000 inputs, branch coverage 8/8; run with --inputs 12000)
+// STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 8/8)
 // FUN_002f04c0 @ 0x002f04c0
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct Vec3_2f04c0 {
@@ -10,7 +11,7 @@ bool FUN_002f04c0(const Vec3_2f04c0 *c, const Vec3_2f04c0 *d, float maxDist, flo
 {
     radius = radius * radius;
 
-    float cc = c->x * c->x + c->y * c->y + c->z * c->z;
+    hulk_freg cc = c->x * c->x + c->y * c->y + c->z * c->z;
     if (cc <= radius) {
         *out = 0.0f;
         return true;

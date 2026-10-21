@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 35/36, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 35/36, incomplete)
 // physics::PhysicsJoint1D::vfunc_11 @ 0x0030aef0
+#include "compat/ptr.h"
   // 1.0
   // 0.0
   // -pi
@@ -66,7 +67,7 @@ void PhysicsJoint1D::vfunc_11(float a1, float a2, float a3)
 
     switch (mode) {
     case 0: {
-        float v = FUN_00083d90(&vel) * ((*(float*)&DAT_003f32dc) - a1) * DAT_004d31b4;
+        hulk_freg v = FUN_00083d90(&vel) * ((*(float*)&DAT_003f32dc) - a1) * DAT_004d31b4;
         if (Abs(v) < Abs(newVel))
             vel = newVel - v;
         else
@@ -85,13 +86,13 @@ void PhysicsJoint1D::vfunc_11(float a1, float a2, float a3)
     float x = xs;
     vel = x;
     if (x > (*(float*)&DAT_00431dbc)) {
-        float v = vel;
+        hulk_freg v = vel;
         do {
             v -= (*(float*)&DAT_00431dbc);
         } while (v > (*(float*)&DAT_00431dbc));
         vel = v;
     } else if (x < (*(float*)&DAT_00431dbc) && x < (*(float*)&DAT_00417e28)) {
-        float v = vel;
+        hulk_freg v = vel;
         do {
             v += (*(float*)&DAT_00431dbc);
         } while (v < (*(float*)&DAT_00417e28));

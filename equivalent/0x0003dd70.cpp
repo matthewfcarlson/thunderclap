@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 68/70, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20072 inputs, branch coverage 68/68)
 // FUN_0003dd70 @ 0x0003dd70
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "compat/ptr.h"
@@ -204,7 +204,7 @@ void Host_3dd70::FUN_0003dd70(Arg0 *a0, float dt)
     if (cross) {
         update = true;
     } else {
-        float sumsq = (w74.x * w74.x + w74.y * w74.y) + w74.z * w74.z;
+        hulk_freg sumsq = (w74.x * w74.x + w74.y * w74.y) + w74.z * w74.z;
         if (sumsq > 0.0f) {
             P11c *pc = p11c;
             float s0 = pc->f30;

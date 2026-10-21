@@ -1,7 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 34/34)
+// STATUS: equivalent (tools/equiv.py level 3: 19972 inputs, branch coverage 34/34)
 // FUN_001a9b10 @ 0x001a9b10
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
+#include "compat/ptr.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
 
@@ -304,11 +305,11 @@ bool AnimSetup::FUN_001a9b10(Out_1a9b10 *out, const char *animName, const char *
     drv->FUN_00225e00(owner->vf7(), v);
     layers->FUN_00222890(drv, drv->FUN_00225b30(), 1, 1.0f, 0.0f, 0.0f, -1.0f);
 
-    float f18 = owner->f18;
-    float val;
+    hulk_freg f18 = owner->f18;
+    hulk_freg val;
     if (f18 < 0.0f) {
-        float lo = drv->f22c;
-        float span = drv->f230 - lo;
+        hulk_freg lo = drv->f22c;
+        hulk_freg span = drv->f230 - lo;
         val = FUN_000964e0() * span + lo;
     } else {
         val = FUN_00225be0(f18, drv->f22c, drv->f230, 0);
@@ -319,7 +320,7 @@ bool AnimSetup::FUN_001a9b10(Out_1a9b10 *out, const char *animName, const char *
     if (!isCustom) {
         Vec3_1a9b10 pos;
         float angle;
-        float r = owner->f2c;
+        hulk_freg r = owner->f2c;
         FUN_001a54a0(&pos, &angle);
         if (d) {
             r += 3.55338573f;

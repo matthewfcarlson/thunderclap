@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 18/18)
 // FUN_00358030 @ 0x00358030
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 extern "C" double sqrt(double);
 
@@ -51,8 +52,8 @@ void FUN_00358030(V3_358030 *S, V3_358030 *D, char useSegment, V3_358030 *P1, V3
     f.dist[2] = 3.4028235e38f;
 
     if (doEdge0) {
-        float dx = P1->x - P0->x;
-        float dy = P1->y - P0->y;
+        hulk_freg dx = P1->x - P0->x;
+        hulk_freg dy = P1->y - P0->y;
         f.t40 = P1->z - P0->z;
         f.len[0] = (float)sqrt(dx * dx + f.t40 * f.t40 + dy * dy);
         f.inv = DAT_003f32dc / f.len[0];
@@ -77,8 +78,8 @@ void FUN_00358030(V3_358030 *S, V3_358030 *D, char useSegment, V3_358030 *P1, V3
         f.dist[0] = (float)sqrt(sq);
     }
     if (doEdge1) {
-        float dx = P0->x - P2->x;
-        float dy = P0->y - P2->y;
+        hulk_freg dx = P0->x - P2->x;
+        hulk_freg dy = P0->y - P2->y;
         f.rz = P0->z - P2->z;
         f.len[1] = (float)sqrt(dx * dx + f.rz * f.rz + dy * dy);
         f.inv = DAT_003f32dc / f.len[1];
@@ -103,8 +104,8 @@ void FUN_00358030(V3_358030 *S, V3_358030 *D, char useSegment, V3_358030 *P1, V3
         f.dist[1] = (float)sqrt(sq);
     }
     if (doEdge2) {
-        float dx = P2->x - P1->x;
-        float dy = P2->y - P1->y;
+        hulk_freg dx = P2->x - P1->x;
+        hulk_freg dy = P2->y - P1->y;
         f.rz = P2->z - P1->z;
         f.len[2] = (float)sqrt(dx * dx + f.rz * f.rz + dy * dy);
         f.inv = DAT_003f32dc / f.len[2];

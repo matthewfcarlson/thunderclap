@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 20030 inputs, branch coverage 20/20)
 // FUN_0007e740 @ 0x0007e740
 // cl-flags: /GS
+#include "compat/ptr.h"
 extern "C" double sin(double);
 extern "C" double cos(double);
 
@@ -125,7 +126,7 @@ void Game_7e740::FUN_0007e740()
                     }
                 }
                 if (!blocked) {
-                    float phi = FUN_000964d0()->FUN_000787e0(0.0f, 6.2831855f);
+                    hulk_freg phi = FUN_000964d0()->FUN_000787e0(0.0f, 6.2831855f);
                     int n = DAT_004dd074 + 1;
                     DAT_004dd074 = n;
                     f.w.x = (float)cos((double)phi);

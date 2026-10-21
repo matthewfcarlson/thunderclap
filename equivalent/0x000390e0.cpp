@@ -2,6 +2,7 @@
 // FUN_000390e0 @ 0x000390e0
 #include "decls/data/game/global.h"
 #include "gen/global.h"
+#include "compat/ptr.h"
 
 struct Vec3_390e0 { float x, y, z; };
 
@@ -56,7 +57,7 @@ int Probe_390e0::FUN_000390e0(const Vec3_390e0* origin, const Vec3_390e0* dir, f
         d.z = pos.z - origin->z;
         float dot = d.y * dir->y + d.z * dir->z + d.x * dir->x;
         if (!(dot <= 0.0f)) {
-            float len2 = dir->y * dir->y + dir->z * dir->z + dir->x * dir->x;
+            hulk_freg len2 = dir->y * dir->y + dir->z * dir->z + dir->x * dir->x;
             if (dot < len2) {
                 float t = -(dot / len2);
                 d.x = t * dir->x + d.x;

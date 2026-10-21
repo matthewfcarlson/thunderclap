@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 18/18)
 // FUN_0030adc0 @ 0x0030adc0
-float __stdcall FUN_0030adc0(float start, float delta, float lower, float upper)
+#include "compat/ptr.h"
+hulk_freg __stdcall FUN_0030adc0(float start, float delta, float lower, float upper)
 {
     union { float f; unsigned int u; } magnitude;
     magnitude.f = delta;

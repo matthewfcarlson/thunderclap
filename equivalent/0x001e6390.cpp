@@ -202,10 +202,10 @@ void Mgr_1e6390::FUN_001e6390()
             if (hi < 0 || hi < lo)
                 hi = lo;
         } else {
-            float dx = e->pos.x - f.L.x;
-            float dz = e->pos.z - f.L.z;
+            float dx = e->pos.x - f.L.x;   // x87: dx goes through the frame (rounded), dz and d2 stay in registers
+            hulk_freg dz = e->pos.z - f.L.z;
             int sh = ((fl >> 10) & 2) + ((fl >> 10) & 1);
-            float d2 = dz * dz + dx * dx;
+            hulk_freg d2 = dz * dz + (hulk_freg)dx * dx;
             if (sh > 0)
                 d2 = d2 * (3600.0f / ((float*)&DAT_004237cc)[sh]);
             e->d2 = d2;

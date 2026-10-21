@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 85 inputs, branch coverage 25/26, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 18162 inputs, branch coverage 26/26)
 // FUN_001af2b0 @ 0x001af2b0
+#include "compat/ptr.h"
 struct Vec3_1af2b0 {
     float x, y, z;
 };
@@ -63,13 +64,13 @@ struct Frame_1af2b0 {
 struct Owner_1af2b0 {
     int pad0;
     int f4;
-    float FUN_001af2b0(Info_1af2b0 *info, Target_1af2b0 *pos, float scale, float alpha, Out_1af2b0 *out, unsigned a6, unsigned a7);
+    hulk_freg FUN_001af2b0(Info_1af2b0 *info, Target_1af2b0 *pos, float scale, float alpha, Out_1af2b0 *out, unsigned a6, unsigned a7);
 };
 
 Vec3_1af2b0 *__cdecl FUN_001acdd0(Vec3_1af2b0 *out, Reg_1af2b0 *reg, int id);
 float __cdecl FUN_001af150(ElemVec_1af2b0 *vec, Elem_1af2b0 *b, Elem_1af2b0 *a, Query_1af2b0 *q, unsigned a6);
 
-float Owner_1af2b0::FUN_001af2b0(Info_1af2b0 *info, Target_1af2b0 *pos, float scale, float alpha, Out_1af2b0 *out, unsigned a6, unsigned a7)
+hulk_freg Owner_1af2b0::FUN_001af2b0(Info_1af2b0 *info, Target_1af2b0 *pos, float scale, float alpha, Out_1af2b0 *out, unsigned a6, unsigned a7)
 {
     Frame_1af2b0 fr;
     unsigned want = (unsigned)(int)(scale * 0.7f * 32.0f);

@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 21/24, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 21/24, incomplete)
 // physics::SimState::vfunc_6 @ 0x002ef900
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct Mat_2ef900 {
@@ -100,8 +101,8 @@ void SimState::vfunc_6(Mat_2ef900 *mat, float dt)
     if (lockedNow != 0)
         return;
 
-    float lenSq = delta.z * delta.z + delta.y * delta.y + delta.x * delta.x;
-    float limit = 2.0f * radius;
+    hulk_freg lenSq = delta.z * delta.z + delta.y * delta.y + delta.x * delta.x;
+    hulk_freg limit = 2.0f * radius;
     if (lenSq > limit * limit) {
         radius = (float)sqrt((double)lenSq);
         Target_2ef900 *t = target;

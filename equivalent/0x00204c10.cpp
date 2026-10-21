@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19593 inputs, branch coverage 28/28)
 // FUN_00204c10 @ 0x00204c10
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct Vec3_204c10 {
@@ -82,17 +83,17 @@ int Finder_204c10::FUN_00204c10(char wantNear)
     Items_204c10 *items = FUN_001c3d90()->items;
     int count = items->counter.FUN_001c7520();
     int bestIndex = -1;
-    float bestDist = wantNear ? 999999.0f : -999999.0f;
+    hulk_freg bestDist = wantNear ? 999999.0f : -999999.0f;
     for (int i = 0; i < count; i++) {
         Item_204c10 *item = items->FUN_001c7f80(i);
         int idx = item->index;
         char k = kind[idx];
         if ((k == 2 && wantNear) || (k == 3 && !wantNear)) {
             Vec3_204c10 p = item->pos;
-            float dx = p.x - origin.x;
-            float dy = p.y - origin.y;
-            float dz = p.z - origin.z;
-            float d = (float)sqrt(dz * dz + dx * dx + dy * dy);
+            hulk_freg dx = p.x - origin.x;
+            hulk_freg dy = p.y - origin.y;
+            hulk_freg dz = p.z - origin.z;
+            hulk_freg d = (float)sqrt(dz * dz + dx * dx + dy * dy);
             if (d < bestDist) {
                 if (wantNear) {
                     bestDist = d;

@@ -2,6 +2,7 @@
 // FUN_000a9630 @ 0x000a9630
 // cl-flags: /GS
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 extern "C" double sqrt(double);
 
@@ -77,14 +78,14 @@ void Manager_a9630::FUN_000a9630(Holder_a9630* holder) {
             continue;
         Camera* cam = vfunc_14();
         Vec3_a9630 c = cam->pos;
-        float dx = s.x - c.x;
-        float dy = s.y - c.y;
-        float dz = s.z - c.z;
+        hulk_freg dx = s.x - c.x;
+        hulk_freg dy = s.y - c.y;
+        hulk_freg dz = s.z - c.z;
         double dist = sqrt((double)(dx * dx + dy * dy + dz * dz));
         if (!(dist < s.radius))
             continue;
-        float a = (*(const float*)&DAT_004218a8);
-        float b = (*(const float*)&DAT_004218b8);
+        hulk_freg a = (*(const float*)&DAT_004218a8);
+        hulk_freg b = (*(const float*)&DAT_004218b8);
         if (holder->list->FUN_000242d0(item)) {
             a = (*(const float*)&DAT_004218ac);
             b = (*(const float*)&DAT_004218bc);

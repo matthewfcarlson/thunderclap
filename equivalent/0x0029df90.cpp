@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1951 inputs, branch coverage 44/50, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 8244 inputs, branch coverage 47/50, incomplete)
 // FUN_0029df90 @ 0x0029df90
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 struct V3 {
     float x, y, z;
 };
@@ -80,12 +81,12 @@ void Manager::FUN_0029df90(Group *group, Arg2 a2, Arg3 a3)
     int count = group->count;
     table->FUN_0029c660();
     table->slots->FUN_002a1180(count + 1);
-    float k = FUN_0029dcc0(a3.mode, 0x10);
+    hulk_freg k = FUN_0029dcc0(a3.mode, 0x10);
     float *rgb = a2.rgb;
-    float a = rgb[0] < 0.0f ? rgb[0] : 0.0f;
-    float b = rgb[1] < 0.0f ? rgb[1] : 0.0f;
-    float c = rgb[2] < 0.0f ? rgb[2] : 0.0f;
-    float m = (c + b + a) * 0.333f;
+    hulk_freg a = rgb[0] < 0.0f ? rgb[0] : 0.0f;
+    hulk_freg b = rgb[1] < 0.0f ? rgb[1] : 0.0f;
+    hulk_freg c = rgb[2] < 0.0f ? rgb[2] : 0.0f;
+    hulk_freg m = (c + b + a) * 0.333f;
     a2.scale = 1.0f;
     a3.flag = 0;
     if (k > 0.0f && m < -0.0001f) {
@@ -95,7 +96,7 @@ void Manager::FUN_0029df90(Group *group, Arg2 a2, Arg3 a3)
         if (t < 0.0)
             a2.scale = 0.0f;
     }
-    float ret = FUN_0029dd30(table);
+    hulk_freg ret = FUN_0029dd30(table);
     Entry *first = &table->entries[count];
     double total = (k - ret) + first->weight;
     int ival = 0;
@@ -105,7 +106,7 @@ void Manager::FUN_0029df90(Group *group, Arg2 a2, Arg3 a3)
         if (first->weight > prod)
             v = first->weight;
         ival = (int)(v * a2.scale);
-        float d = (float)ival;
+        hulk_freg d = (float)ival;
         rgb[0] = d + rgb[0];
         rgb[1] = d + rgb[1];
         rgb[2] = d + rgb[2];

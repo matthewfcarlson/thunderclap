@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 20022 inputs, branch coverage 14/14)
 // FUN_002f8f10 @ 0x002f8f10
 #include "decls/data/engine/unknown.h"
+#include "compat/ptr.h"
 
 extern "C" double sqrt(double);
 
@@ -42,7 +43,7 @@ class Pair_2f8f10 {
 public:
     Body_2f8f10 *a;
     Body_2f8f10 *b;
-    float FUN_002f8f10(float t);
+    hulk_freg FUN_002f8f10(float t);
 };
 
 static float AxisDot(Shape_2f8f10 *s, Vec3_2f8f10 *v)
@@ -52,7 +53,7 @@ static float AxisDot(Shape_2f8f10 *s, Vec3_2f8f10 *v)
     return *(float *)&bits;
 }
 
-float Pair_2f8f10::FUN_002f8f10(float t)
+hulk_freg Pair_2f8f10::FUN_002f8f10(float t)
 {
     Vec3_2f8f10 v;
     if (a->active) {

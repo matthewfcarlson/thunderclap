@@ -2,6 +2,7 @@
 // MessageOverlay::vfunc_4 @ 0x000d5b20
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 struct Rec_d5b20 {
     int a, b, c;
@@ -125,7 +126,7 @@ void MessageOverlay::v4()
                 alpha = 0xff;
             } else {
                 f.u = (DAT_004a06b8 - (((e->f0 - DAT_004a06a8) - DAT_004a06ac) - e->f4)) / DAT_004a06b8;
-                float u;
+                hulk_freg u;
                 if (1.0f < f.u)
                     u = 1.0f;
                 else if (0.0f < f.u)

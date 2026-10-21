@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 18811 inputs, branch coverage 18/20, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20047 inputs, branch coverage 18/20, incomplete)
 // FUN_001b1080 @ 0x001b1080
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 extern "C" double sqrt(double);
 
@@ -45,15 +46,15 @@ int __stdcall FUN_001b1080(Obj_1b1080 *obj, Mover_1b1080 *mover, V3_1b1080 *out,
     }
     V3_1b1080 v;
     mover->FUN_00035660(&v);
-    float vlen2 = v.z * v.z + v.y * v.y + v.x * v.x;
+    hulk_freg vlen2 = v.z * v.z + v.y * v.y + v.x * v.x;
     V3_1b1080 w = *out;
     Slots_1b1080 s;
     s.d = (float)sqrt(vlen2);
     if (!(s.d >= 0.01f))
         return 0;
-    float dot = w.z * v.z + w.y * v.y + w.x * v.x;
-    float wlen = (float)sqrt(w.z * w.z + w.y * w.y + w.x * w.x);
-    float c = dot / (wlen * s.d);
+    hulk_freg dot = w.z * v.z + w.y * v.y + w.x * v.x;
+    hulk_freg wlen = (float)sqrt(w.z * w.z + w.y * w.y + w.x * w.x);
+    hulk_freg c = dot / (wlen * s.d);
     if (c >= -1.0f && c <= 1.0f) {
         s.d = c;
     } else {
@@ -75,7 +76,7 @@ int __stdcall FUN_001b1080(Obj_1b1080 *obj, Mover_1b1080 *mover, V3_1b1080 *out,
     FUN_000186b0(&s.d, &s.lo, &s.hi);
     if (obj->clampFlag && s.d < 200.0f)
         s.d = 200.0f;
-    float inv = 1.0f / (float)sqrt(s.d);
+    hulk_freg inv = 1.0f / (float)sqrt(s.d);
     out->x = out->x * inv;
     out->y = out->y * inv;
     out->z = out->z * inv;

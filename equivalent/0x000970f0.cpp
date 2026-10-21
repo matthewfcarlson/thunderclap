@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20059 inputs, branch coverage 17/20, incomplete)
 // FUN_000970f0 @ 0x000970f0
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 extern "C" double fabs(double);
 
@@ -10,7 +11,7 @@ struct Vec3_970f0 {
 
 float __cdecl FUN_000189c0(float v);
 
-float FUN_000970f0(float x, float z)
+hulk_freg FUN_000970f0(float x, float z)
 {
     if (fabs(x) <= 1e-5f && fabs(z) <= 1e-5f)
         return 0.0f;

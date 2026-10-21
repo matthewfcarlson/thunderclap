@@ -2,6 +2,7 @@
 // FUN_0003d350 @ 0x0003d350
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 struct V3_3d350 {
     float x, y, z;
@@ -129,7 +130,7 @@ void Fighter_3d350::Update(Arg1_3d350 *a1, float a2)
     V3_3d350 q = p44;
     Hit202 *a1f24 = a1->f24;
     V3_3d350 pc;
-    float len;
+    hulk_freg len;
     V3_3d350 hitV;
     if (f338 != 0) {
         V3_3d350 c;
@@ -187,7 +188,7 @@ void Fighter_3d350::Update(Arg1_3d350 *a1, float a2)
     dd.x = p.x - q.x;
     dd.y = p.y - q.y;
     dd.z = p.z - q.z;
-    float lenSq = dd.x * dd.x + dd.y * dd.y + dd.z * dd.z;
+    hulk_freg lenSq = dd.x * dd.x + dd.y * dd.y + dd.z * dd.z;
     Fighter_3d350 *cur = a1->f20->f124;
     union { unsigned int w; unsigned char b; } flag34;
     if (cur == this || f334 == cur || f338 == cur)
@@ -208,8 +209,8 @@ void Fighter_3d350::Update(Arg1_3d350 *a1, float a2)
         ebx = 0;
     }
     Gear_3d350 *gear = f11c;
-    float g30 = gear->f30;
-    float g34 = gear->f34;
+    hulk_freg g30 = gear->f30;
+    hulk_freg g34 = gear->f34;
     V3_3d350 r = r68;
     V3_3d350 P3 = p;
     if (mode == 1 || mode == 2) {
@@ -226,16 +227,16 @@ void Fighter_3d350::Update(Arg1_3d350 *a1, float a2)
     D.x = P3.x - r.x;
     D.y = P3.y - r.y;
     D.z = P3.z - r.z;
-    float dl = D.FUN_0022d110();
+    hulk_freg dl = D.FUN_0022d110();
     V3_3d350 U = D;
     P3.x = D.x * dl;
     P3.y = D.y * dl;
     P3.z = D.z * dl;
     if (mode != 4)
         U.y = 0;
-    float ux = U.x * g34;
-    float uy = U.y * g34;
-    float uz = U.z * g34;
+    hulk_freg ux = U.x * g34;
+    hulk_freg uy = U.y * g34;
+    hulk_freg uz = U.z * g34;
     P3.x = ux + P3.x;
     P3.y = uy + P3.y;
     P3.z = uz + P3.z;
@@ -245,7 +246,7 @@ void Fighter_3d350::Update(Arg1_3d350 *a1, float a2)
     D.x = P3.x - r.x;
     D.y = P3.y - r.y;
     D.z = P3.z - r.z;
-    float len2 = D.FUN_0022d110();
+    hulk_freg len2 = D.FUN_0022d110();
     if (!D.FUN_000375a0())
         return;
 

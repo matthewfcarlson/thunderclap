@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 18349 inputs, branch coverage 12/12)
 // pure3d::TextureFont::vfunc_18 @ 0x00295270
+#include "compat/ptr.h"
 struct Glyph_295270 {
     char pad0[0xc];
     float advance;
@@ -26,14 +27,14 @@ public:
     virtual void v15();
     virtual void v16();
     virtual void v17();
-    virtual float vfunc_18(const unsigned short* text);
+    virtual hulk_freg vfunc_18(const unsigned short* text);
     char pad04[0x34 - 4];
     int defaultGlyph;
     char pad38[4];
     Glyph_295270* glyphs;
     int FUN_00294ed0(unsigned int ch);
 };
-float TextureFont::vfunc_18(const unsigned short* text) {
+hulk_freg TextureFont::vfunc_18(const unsigned short* text) {
     if (text == 0)
         return 0.0f;
     unsigned short ch = *text;

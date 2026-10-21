@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 216 inputs, branch coverage 58/60, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 16969 inputs, branch coverage 60/60)
 // FUN_0007efc0 @ 0x0007efc0
+#include "compat/ptr.h"
 struct V3_7efc0 {
     float x, y, z;
 };
@@ -112,8 +113,8 @@ void Mgr_7efc0::FUN_0007efc0(int arg)
         }
         if (e->f10 == 0x13) {
             f.world->FUN_001dd520(e->f34, &f.mat);
-            float dx = f.pos.x - f.mat.m[12];
-            float dz = f.pos.z - f.mat.m[14];
+            hulk_freg dx = f.pos.x - f.mat.m[12];
+            hulk_freg dz = f.pos.z - f.mat.m[14];
             if (dz * dz + dx * dx > 32400.0f) {
                 FUN_0007b880(i);
                 i--;

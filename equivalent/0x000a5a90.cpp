@@ -1,7 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3038 inputs, branch coverage 55/56, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20029 inputs, branch coverage 55/56, incomplete)
 // FUN_000a5a90 @ 0x000a5a90
 // 0xa5a90: character-controller step: slide the position v194 along the ground / walls with sweep tests.
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 extern "C" double sqrt(double);
 extern "C" double fabs(double);
@@ -95,7 +96,7 @@ char Obj_a5a90::FUN_000a5a90(unsigned a1, unsigned a2, unsigned a3, unsigned a4,
     f.dir = *dirv;
     f.f32 = (float)sqrt(f.dir.y * f.dir.y + (f.dir.x * f.dir.x + f.dir.z * f.dir.z));
     f.f0 = (float)sqrt(f.dir.x * f.dir.x + f.dir.z * f.dir.z);
-    float scale = f.f0 * 0.05f > DAT_0049ecdc ? DAT_0049ecdc / f.f0 : 0.05f;
+    hulk_freg scale = f.f0 * 0.05f > DAT_0049ecdc ? DAT_0049ecdc / f.f0 : 0.05f;
     f.dir.x = f.dir.x * scale;
     f.dir.y = 0.0f * scale;
     f.dir.z = f.dir.z * scale;
@@ -114,9 +115,9 @@ char Obj_a5a90::FUN_000a5a90(unsigned a1, unsigned a2, unsigned a3, unsigned a4,
         f.d.x = cur->x - prev->x;
         f.d.y = cur->y - prev->y;
         f.d.z = cur->z - prev->z;
-        float dist = f.d.FUN_0022d110();
-        float dot = (f.d.z * dirv->z + f.d.y * dirv->y + f.d.x * dirv->x) * 0.1f;
-        float c = dot >= -1.0f ? (dot > DAT_0049eca0 ? DAT_0049eca0 : dot) : (dot > DAT_0049eca0 ? DAT_0049eca0 : -1.0f);
+        hulk_freg dist = f.d.FUN_0022d110();
+        hulk_freg dot = (f.d.z * dirv->z + f.d.y * dirv->y + f.d.x * dirv->x) * 0.1f;
+        hulk_freg c = dot >= -1.0f ? (dot > DAT_0049eca0 ? DAT_0049eca0 : dot) : (dot > DAT_0049eca0 ? DAT_0049eca0 : -1.0f);
         if (dist < DAT_0049eca0 + c && mode != 7 && f488 == 0.0f && f34c == 0.0f &&
             FUN_000a2800(a1, a2, a3, a4, a5, DAT_0049eca0 + 2.0f, f444 + 5.0f, &f.pos, &f.vB, &f.f4)) {
             if (f.f4 > f444) {
@@ -134,7 +135,7 @@ char Obj_a5a90::FUN_000a5a90(unsigned a1, unsigned a2, unsigned a3, unsigned a4,
                 flagA = f.f4 < f444;
             }
             b349 = 1;
-            float k = DAT_0049ecac;
+            hulk_freg k = DAT_0049ecac;
             if (mode == 6)
                 k = k + k;
             f34c = k;
@@ -153,7 +154,7 @@ char Obj_a5a90::FUN_000a5a90(unsigned a1, unsigned a2, unsigned a3, unsigned a4,
     }
     flagB = 0;
 
-    float sign = f.d.y < 0.0f ? -1.0f : (f.d.y > 0.0f ? 1.0f : 0.0f);
+    hulk_freg sign = f.d.y < 0.0f ? -1.0f : (f.d.y > 0.0f ? 1.0f : 0.0f);
     f.n.x = 0.0f;
     f.n.y = sign;
     f.n.z = 0.0f;
@@ -182,7 +183,7 @@ char Obj_a5a90::FUN_000a5a90(unsigned a1, unsigned a2, unsigned a3, unsigned a4,
     f.n.x = f.d.x;
     f.n.y = 0.0f;
     f.n.z = f.d.z;
-    float len = f.n.FUN_0022d110();
+    hulk_freg len = f.n.FUN_0022d110();
     f.f0 = (float)fabs(len);
     if (!(f.f0 <= 1e-5f)) {
         f.vB.x = f.n.x * f468;

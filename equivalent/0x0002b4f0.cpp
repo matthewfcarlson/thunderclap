@@ -1,7 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 8/8)
 // FUN_0002b4f0 @ 0x0002b4f0
 // Distance from a named pawn to an object found by id (-1 when either is missing).
 #include "decls/address.h"
+#include "compat/ptr.h"
 
 struct Vec3_2b4f0 {
     float x, y, z;
@@ -37,10 +38,10 @@ float __cdecl FUN_0002a380(Vec3_2b4f0 *a, Vec3_2b4f0 *b);
 struct Group_2b4f0 {
     Env_2b4f0 *env;
     Pawn_2b4f0 *FUN_00024280(unsigned __int64 key);
-    float FUN_0002b4f0(const char *name, int objectKey);
+    hulk_freg FUN_0002b4f0(const char *name, int objectKey);
 };
 
-float Group_2b4f0::FUN_0002b4f0(const char *name, int objectKey)
+hulk_freg Group_2b4f0::FUN_0002b4f0(const char *name, int objectKey)
 {
     struct Frame {
         Vec3_2b4f0 copy;

@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // physics::DoubleKalmann1D::vfunc_1 @ 0x00319a40
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 class Filter_319a40 {
 public:
@@ -10,7 +11,7 @@ public:
 class DoubleKalmann1D {
 public:
     virtual void vfunc_0();
-    virtual float vfunc_1(float x, float dt);
+    virtual hulk_freg vfunc_1(float x, float dt);
     virtual void vfunc_2();
     float f4;
     float f8;
@@ -23,7 +24,7 @@ public:
     float f38;
 };
 
-float DoubleKalmann1D::vfunc_1(float x, float dt)
+hulk_freg DoubleKalmann1D::vfunc_1(float x, float dt)
 {
     float vel = (x - f38) / dt;
     f4 = vel;

@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 34/34)
+// STATUS: equivalent (tools/equiv.py level 3: 145 inputs, branch coverage 30/34, incomplete)
 // FUN_00242860 @ 0x00242860
+#include "compat/ptr.h"
 struct Source_242860 {
     char pad0[0x18];
     float f18;
@@ -54,8 +55,8 @@ void FUN_00242860(Tree_242860 *tree)
         node = node->left;
 
     do {
-        float a = 1.0f;
-        float b = 1.0f;
+        hulk_freg a = 1.0f;
+        hulk_freg b = 1.0f;
 
         if (node->links != 0) {
             Entry_242860 *e = node->links->entry();
@@ -67,12 +68,12 @@ void FUN_00242860(Tree_242860 *tree)
                 } else {
                     b = b * (1.0f - (1.0f - src->f1c) * mod->f2c);
                 }
-                float x;
+                hulk_freg x;
                 if (src->disabled == 0)
                     x = src->f18;
                 else
                     x = 0.0f;
-                float m = x + (1.0f - src->f18) * (1.0f - mod->f30);
+                hulk_freg m = x + (1.0f - src->f18) * (1.0f - mod->f30);
                 a = a * (m + (1.0f - mod->f2c) * (1.0f - m));
                 e = e->next ? e->next->entry() : 0;
             }

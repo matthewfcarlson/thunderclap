@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/10, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20029 inputs, branch coverage 8/10, incomplete)
 // FUN_0022b370 @ 0x0022b370
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct Quat_22b370 {
@@ -8,6 +9,7 @@ struct Quat_22b370 {
 };
 
 // Rotation matrix (row-major 4x4) to quaternion; the result has its w negated.
+// x87: the trace, the sums and the differences stay in registers (53 bits) until they are stored
 void Quat_22b370::FUN_0022b370(const float *m)
 {
     int next[3];
@@ -16,14 +18,14 @@ void Quat_22b370::FUN_0022b370(const float *m)
     next[1] = 2;
     next[2] = 0;
 
-    float trace = m[5] + m[0] + m[10];
+    hulk_freg trace = (hulk_freg)m[5] + m[0] + m[10];
     if (trace > 0.0f) {
         double s = sqrt((double)(trace + 1.0f));
         w = (float)(-0.5f * s);
         double inv = (s != 0.0f) ? 0.5f / s : s;
-        x = (float)((m[9] - m[6]) * inv);
-        y = (float)((m[2] - m[8]) * inv);
-        z = (float)((m[4] - m[1]) * inv);
+        x = (float)(((hulk_freg)m[9] - m[6]) * inv);
+        y = (float)(((hulk_freg)m[2] - m[8]) * inv);
+        z = (float)(((hulk_freg)m[4] - m[1]) * inv);
         return;
     }
 
@@ -35,12 +37,12 @@ void Quat_22b370::FUN_0022b370(const float *m)
     int j = next[i];
     int k = next[j];
 
-    double s = sqrt((double)(m[i * 5] - (m[k * 5] + m[j * 5]) + 1.0f));
+    double s = sqrt((double)((hulk_freg)m[i * 5] - ((hulk_freg)m[k * 5] + m[j * 5]) + 1.0f));
     q[i] = (float)(0.5f * s);
     double inv = (s != 0.0f) ? 0.5f / s : s;
-    q[3] = (float)((m[j + 4 * k] - m[k + 4 * j]) * inv);
-    q[j] = (float)((m[i + 4 * j] + m[j + 4 * i]) * inv);
-    q[k] = (float)((m[i + 4 * k] + m[k + 4 * i]) * inv);
+    q[3] = (float)(((hulk_freg)m[j + 4 * k] - m[k + 4 * j]) * inv);
+    q[j] = (float)(((hulk_freg)m[i + 4 * j] + m[j + 4 * i]) * inv);
+    q[k] = (float)(((hulk_freg)m[i + 4 * k] + m[k + 4 * i]) * inv);
     x = q[0];
     y = q[1];
     z = q[2];

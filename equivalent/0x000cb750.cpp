@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 2/2)
 // FUN_000cb750 @ 0x000cb750
+#include "compat/ptr.h"
 class Curve_cb750 {
 public:
     virtual void v0();
@@ -29,10 +30,10 @@ struct Sampler_cb750 {
     Slot_cb750 slots[1];            // 0x08 (16 bytes each)
     char pad18[0x88 - 0x18];
     int current;              // 0x88
-    float Sample(int a, int b);
+    hulk_freg Sample(int a, int b);
 };
 
-float Sampler_cb750::Sample(int a, int b)
+hulk_freg Sampler_cb750::Sample(int a, int b)
 {
     if (a < 0)
         return 0.0f;

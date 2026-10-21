@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 20013 inputs, branch coverage 12/12)
 // FUN_002f8300 @ 0x002f8300
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 struct V3_2f8300 {
     float x, y, z;
@@ -95,7 +96,7 @@ int Owner_2f8300::FUN_002f8300()
     fr.m54.FUN_002fca90();
     fr.m54.FUN_002fd0c0(&mat);
     mat.FUN_002fd020(&fr.d, &fr.v3c);
-    float s = (-1.0f / (fr.v3c.z * fr.d.z + fr.v3c.y * fr.d.y + fr.v3c.x * fr.d.x)) * f80;
+    hulk_freg s = (-1.0f / (fr.v3c.z * fr.d.z + fr.v3c.y * fr.d.y + fr.v3c.x * fr.d.x)) * f80;
     fr.a30.x = fr.d.x * s;
     fr.a30.y = fr.d.y * s;
     fr.a30.z = fr.d.z * s;

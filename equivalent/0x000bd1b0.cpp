@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3085 inputs, branch coverage 78/80, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20098 inputs, branch coverage 78/80, incomplete)
 // FUN_000bd1b0 @ 0x000bd1b0
 #include "compat/ptr.h"
 #include "decls/address.h"
@@ -315,7 +315,7 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
         if (f.dt >= 0x80)
             f.dt = 0x80;
         if (f.dt >= 0x40 && !FUN_0008db80()) {
-            float aspect = 1.33333f / (*(Viewport_bd1b0**)&DAT_0052c2a4)->v16();
+            hulk_freg aspect = 1.33333f / (*(Viewport_bd1b0**)&DAT_0052c2a4)->v16();
             DAT_004dd700->f54->FUN_00086330()->FUN_000afe80();
             FUN_002684c0();
             FUN_002684c0();
@@ -361,7 +361,7 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
                         DAT_004dde24 = (float)f.dt * 0.001f + DAT_004dde24;
                         f.e1.FUN_000f7930();
                         f.s0.f = 1.0f;
-                        float t = FUN_000186f0(&DAT_004dde24, &f.s0.f);
+                        hulk_freg t = FUN_000186f0(&DAT_004dde24, &f.s0.f);
                         f.s0.f = t;
                         f.e1.f0 = 1;
                         st->FUN_000f78f0();
@@ -394,7 +394,7 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
                                 f.s0.f = DAT_004dde24 - (float)(k + 1) * 0.25f;
                                 f.lo = 0.01f;
                                 f.hi = 1.0f;
-                                float c = FUN_000186b0(&f.s0.f, &f.lo, &f.hi);
+                                hulk_freg c = FUN_000186b0(&f.s0.f, &f.lo, &f.hi);
                                 int a8 = (int)(c * 255.0f);
                                 st->slots[st->index].value = (a8 << 24) | 0xffffff;
                                 (*(Canvas**)&DAT_0052c2ac)->layer->v15(0);
@@ -427,7 +427,7 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
 
             f.s0.f = (float)f.dt * 0.001f;
             {
-                float v = DAT_004dde20 + *(volatile float *)&f.s0.f;
+                hulk_freg v = DAT_004dde20 + *(volatile float *)&f.s0.f;
                 DAT_004dde20 = v;
                 if (v > DAT_0049f5e0) {
                     do {
@@ -467,7 +467,7 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
                 st->slots[st->index].a = 1;
                 unsigned int base = ((c1 << 8) | cA) << 8;
                 for (int i = 0; i < 2; i++) {
-                    float t = ((float)i * DAT_0049f5e0 * 0.5f + DAT_004dde20) / DAT_0049f5e0;
+                    hulk_freg t = ((float)i * DAT_0049f5e0 * 0.5f + DAT_004dde20) / DAT_0049f5e0;
                     while (t > 1.0f)
                         t = t - 1.0f;
                     int a8 = (int)(255.0f * t);
@@ -492,7 +492,7 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
                 DAT_004dde18 = 0.0f;
             } else {
                 DAT_004dde18 = DAT_004dde18 + f.s0.f;
-                float m;
+                hulk_freg m;
                 if (DAT_004dde18 < 1.0f)
                     m = DAT_004dde18;
                 else

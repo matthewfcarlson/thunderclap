@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 16/16)
 // FUN_00036480 @ 0x00036480
+#include "compat/ptr.h"
 struct Vec3_36480 { float x, y, z; };
 
 struct Mat_36480 {
@@ -91,7 +92,7 @@ void Actor_36480::FUN_00036480(int unused, int arg)
         f.shadowMat = f.bodyMat;
         if (mode == 4) {
             FUN_00035550(&f.offset);
-            float k = props->f34 * -1.1f;
+            hulk_freg k = props->f34 * -1.1f;
             f.offset.y = f.offset.y * k;
             f.offset.z = f.offset.z * k;
             f.shadowMat.m[12] = f.shadowMat.m[12] + f.offset.x * k;

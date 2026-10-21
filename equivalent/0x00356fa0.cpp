@@ -1,13 +1,14 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 0/0)
 // FUN_00356fa0 @ 0x00356fa0
 #include "decls/data/engine/pure3d.h"
+#include "compat/ptr.h"
 
 struct Grad_356fa0 {
     float x, y, z;
 };
 
 
-float __stdcall FUN_00356fa0(float *p)
+hulk_freg __stdcall FUN_00356fa0(float *p)
 {
     double x = p[0] + 4096.0f;
     int xa = (int)x;

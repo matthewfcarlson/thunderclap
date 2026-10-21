@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3694 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 24/24)
 // TextButton::vfunc_5 @ 0x000e9370
 #include "decls/data/engine/pure3d/prop.h"
+#include "compat/ptr.h"
 
 struct Vec3_e9370 {
     float x, y, z;
@@ -233,7 +234,7 @@ void TextButton::vfunc_5()
             f.x.FUN_000f87f0(&str18, 0);
         } else {
             Hold_e9370 *h1 = owner->hold;
-            float t = h1->o958.f14 * 255.0f;
+            hulk_freg t = h1->o958.f14 * 255.0f;
             f.x.cells[f.x.cursor].d.u = 0;
             Hold_e9370 *h2 = owner->hold;
             Obj978_e9370 *o978 = &h2->o978;

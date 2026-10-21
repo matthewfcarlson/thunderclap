@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20021 inputs, branch coverage 18/18)
 // FUN_00359860 @ 0x00359860
+#include "compat/ptr.h"
 extern "C" double __cdecl fabs(double);
 
 struct Vec3_359860 {
@@ -20,7 +21,7 @@ static inline float fabsf_(float f)
 }
 
 // Slab test of a ray against an oriented box: returns the negated smallest per-axis ratio.
-float FUN_00359860(Vec3_359860 *origin, Vec3_359860 *extent, Vec3_359860 *axisX, Vec3_359860 *axisY, Vec3_359860 *axisZ, Vec3_359860 *dir, Vec3_359860 *point)
+hulk_freg FUN_00359860(Vec3_359860 *origin, Vec3_359860 *extent, Vec3_359860 *axisX, Vec3_359860 *axisY, Vec3_359860 *axisZ, Vec3_359860 *dir, Vec3_359860 *point)
 {
     struct Frame {
         Vec3_359860 v;

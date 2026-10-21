@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2926 inputs, branch coverage 39/40, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19593 inputs, branch coverage 39/40, incomplete)
 // FUN_000cda90 @ 0x000cda90
 #include "compat/ptr.h"
 #include "decls/address.h"
@@ -164,7 +164,7 @@ void Obj_cda90::FUN_000cda90()
         return;
     if (p250 == 0)
         return;
-    float T = f49c;
+    hulk_freg T = f49c;
     if (T == -1.0f)
         T = f488;
     f.s2c.i = 0xfa0;
@@ -248,14 +248,14 @@ void Obj_cda90::FUN_000cda90()
     }
     obj1->Flush(0, 0);
     f.s2c.f = f.s2c.f;
-    float X1 = p464->f10 - f.g1 * f470;
+    hulk_freg X1 = p464->f10 - f.g1 * f470;
     f.s10 = *(unsigned int *)&p464->f10;
     f.s14 = p464->f18;
     f.s18.f = X1;
     f.s1c.u = p468->f18;
     int edi;
     if (f480 > f484 && (f.s28.f = f480 - f484, f.s28.u &= 0x7fffffff, f.s28.f > 1e-5f)) {
-        float Y2 = p464->f10 - f.s2c.f * f470;
+        hulk_freg Y2 = p464->f10 - f.s2c.f * f470;
         f.s18.f = Y2;
         Batch_cda90 *b = DAT_0052c2a8->Begin(p90->id, 1, 0x2020, 4, 0);
         unsigned int *pp = b->pos;
@@ -342,7 +342,7 @@ void Obj_cda90::FUN_000cda90()
         DAT_0052c2a8->End(b);
         f.s18.f = p464->f10 - f.s2c.f * f470;
         f.s10 = 0;
-        float x1 = p464->f10 - f.g1 * f470;
+        hulk_freg x1 = p464->f10 - f.g1 * f470;
         *(float *)&f.s10 = x1;
         b = DAT_0052c2a8->Begin(p90->id, 1, 0x2020, 4, 0);
         pp = b->pos;

@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3022 inputs, branch coverage 28/28)
+// STATUS: equivalent (tools/equiv.py level 3: 20022 inputs, branch coverage 28/28)
 // physics::PhysicsJoint3D::vfunc_20 @ 0x0030bac0
 #include "decls/data/engine/physics.h"
+#include "compat/ptr.h"
 
 struct Vec3_30bac0 {
     float x, y, z;
@@ -36,7 +37,7 @@ public:
     virtual void vfunc_17();
     virtual void vfunc_18();
     virtual void vfunc_19();
-    virtual float vfunc_20(Vec3_30bac0 *dir);
+    virtual hulk_freg vfunc_20(Vec3_30bac0 *dir);
     virtual void vfunc_21();
     virtual void vfunc_22();
     virtual void vfunc_23();
@@ -63,7 +64,7 @@ public:
     float f158;
 };
 
-float PhysicsJoint3D::vfunc_20(Vec3_30bac0 *dir)
+hulk_freg PhysicsJoint3D::vfunc_20(Vec3_30bac0 *dir)
 {
     float cap = DAT_004d3198;
     float r1 = 1.0f;

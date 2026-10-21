@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 62/62)
+// STATUS: equivalent (tools/equiv.py level 3: 19957 inputs, branch coverage 62/62)
 // FUN_000d4b60 @ 0x000d4b60
 // cl-flags: /GS
+#include "compat/ptr.h"
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 struct Holder_d4b60 {
@@ -217,10 +218,10 @@ void HudMgr::FUN_000d4b60(const char* a1, const void* a2, const void* a3, const 
             Face9* font = layout.p->tbl[DAT_004ddf98];
             volatile float scaledHeight = 14.0f * layout.e[layout.idx].v;
             float* elementHeight = &layout.e[layout.idx].v;
-            float fontHeight = ((Face7*)layout.p->tbl[0])->v7();
+            hulk_freg fontHeight = ((Face7*)layout.p->tbl[0])->v7();
             volatile float ratio = *elementHeight / fontHeight;
             FUN_000d4400(message->f22c, font->v9(message) * ratio * 14.0f + scaledHeight * 0.1f);
-            float remainingTime = *(float*)&previous->f21c - *(float*)&previous->f218;
+            hulk_freg remainingTime = *(float*)&previous->f21c - *(float*)&previous->f218;
             if (remainingTime > *(float*)&message->f21c)
                 *(float*)&message->f21c = remainingTime;
             else

@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 14/14)
 // FUN_00038c70 @ 0x00038c70
+#include "compat/ptr.h"
 struct V3_38c70 { float x, y, z; };
 
 struct Target_38c70 {
@@ -44,7 +45,7 @@ bool Probe_38c70::FUN_00038c70(int a0, int a1, int a2, int a3, int a4, int a5)
     if (holder == 0)
         return false;
 
-    float m = margin;
+    hulk_freg m = margin;
     if (!anchor->FUN_00059a40())
         return false;
 
@@ -72,16 +73,16 @@ bool Probe_38c70::FUN_00038c70(int a0, int a1, int a2, int a3, int a4, int a5)
         p.y = m * 0.25f + p.y;
 
     if (mode == 4) {
-        float s = holder->scale;
+        hulk_freg s = holder->scale;
         p.x = s * offsetX + p.x;
         p.y = s * offsetY + p.y;
         p.z = s * offsetZ + p.z;
     }
 
-    float d = p.y - base.y;
+    hulk_freg d = p.y - base.y;
     if (!(d >= 0.0f) && d == d)
         d = 0.0f;
 
-    float h = (m + m + d) + 35.0f;
+    hulk_freg h = (m + m + d) + 35.0f;
     return FUN_00038660(&p, h, a0, a1, a2, a3, a4, a5, &lo) != 0;
 }

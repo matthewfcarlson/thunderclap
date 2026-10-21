@@ -1,7 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1269 inputs, branch coverage 32/32)
+// STATUS: equivalent (tools/equiv.py level 3: 19992 inputs, branch coverage 32/32)
 // hulkfight::motion::FireProjectileAction::vfunc_5 @ 0x0019ae50
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
@@ -264,9 +265,9 @@ bool FireProjectileAction::vfunc_5(int a1, Slot_19ae50 a2)
             }
             proj->f40 = f.b;
             Cfg_19ae50 *c4 = cfg;
-            float f5c = c4->f5c;
+            hulk_freg f5c = c4->f5c;
             proj->f4c = f5c;
-            float m = f5c * f24;
+            hulk_freg m = f5c * f24;
             double bxm = (double)f.b.x * m;
             f.bm.y = f.b.y * m;
             f.bm.z = f.b.z * m;

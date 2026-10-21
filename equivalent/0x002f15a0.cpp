@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3037 inputs, branch coverage 59/68, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20100 inputs, branch coverage 62/68, incomplete)
 // FUN_002f15a0 @ 0x002f15a0
+#include "compat/ptr.h"
 union Bits_2f15a0 {
     float f;
     unsigned int u;
@@ -119,7 +120,7 @@ bool FUN_002f15a0(V3_2f15a0 *p, V3_2f15a0 *dir, V3_2f15a0 *a3, int a4, Arg5 a5, 
     fr.s.y = st->f4.f;
     fr.s.z = st->f4.f;
     if (st->mode == 0 && obj->radius > 0.0f) {
-        float w = st->f4.f + obj->radius;
+        hulk_freg w = st->f4.f + obj->radius;
         fr.s.x = w;
         fr.s.y = w;
         fr.s.z = w;
@@ -178,7 +179,7 @@ bool FUN_002f15a0(V3_2f15a0 *p, V3_2f15a0 *dir, V3_2f15a0 *a3, int a4, Arg5 a5, 
         return true;
     }
     if (obj->kind() == 2 && st->mode == 2) {
-        float v = obj->f50;
+        hulk_freg v = obj->f50;
         if (!obj->b58)
             v = v + obj->f54;
         if (!FUN_002f08d0(&fr.q, &fr.r, &obj->box44, v + st->f4.f, obj->f54 + st->f4.f, &st->pos))

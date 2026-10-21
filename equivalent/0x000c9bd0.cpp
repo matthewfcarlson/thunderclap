@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 4289 inputs, branch coverage 28/28)
+// STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 28/28)
 // FUN_000c9bd0 @ 0x000c9bd0
 // cl-flags: /GS
 #include "compat/ptr.h"
@@ -219,10 +219,10 @@ void CHudMap::FUN_000c9bd0(char *name)
     res->inner->set(0x584554, l != 0 ? (hulk_uintptr)l->impl : 0);
     inv->i1();
     if (tex != 0) {
-        float w = (float)tex->impl->width();
+        hulk_freg w = (float)tex->impl->width();
         f40 = w / (f2c - f24);
-        float h = (float)tex->impl->height();
-        float sy = h / (f30 - f28);
+        hulk_freg h = (float)tex->impl->height();
+        hulk_freg sy = h / (f30 - f28);
         f44 = sy;
         f48 = -(f40 * f24);
         f4c = -(sy * f28);

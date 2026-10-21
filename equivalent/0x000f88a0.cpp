@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1320 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 19991 inputs, branch coverage 8/8)
 // FUN_000f88a0 @ 0x000f88a0
+#include "compat/ptr.h"
 class Font {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
@@ -34,7 +35,7 @@ public:
     int style;              // 0x88
     float spacing;          // 0x8c
 
-    float FUN_000f88a0(Run_f88a0 *run);
+    hulk_freg FUN_000f88a0(Run_f88a0 *run);
 };
 
 static __forceinline int CountBackspaces(const unsigned short *p)
@@ -49,7 +50,7 @@ static __forceinline int CountBackspaces(const unsigned short *p)
     return count;
 }
 
-float Label_f88a0::FUN_000f88a0(Run_f88a0 *run)
+hulk_freg Label_f88a0::FUN_000f88a0(Run_f88a0 *run)
 {
     const unsigned short *text = run->FUN_000f83f0(owner, this);
     Font *font = owner->fonts[run->fontIndex];

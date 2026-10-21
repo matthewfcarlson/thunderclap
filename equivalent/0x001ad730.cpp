@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20011 inputs, branch coverage 8/8)
 // FUN_001ad730 @ 0x001ad730
+#include "compat/ptr.h"
 struct Vec3_1ad730 { float x, y, z; };
 struct Skeleton {
     void FUN_001b5760(int a);
@@ -16,8 +17,8 @@ bool __cdecl FUN_001ad730(int a, Skeleton** skel)
 {
     Skeleton* s = *skel;
     s->FUN_001b5760(a);
-    float hi = -1000000000000.0f;
-    float lo = 1000000000000.0f;
+    hulk_freg hi = -1000000000000.0f;
+    hulk_freg lo = 1000000000000.0f;
     for (int i = 0; i < 3; i++) {
         Vec3_1ad730* p = s->FUN_001b56a0(a, i);
         if (hi < p->y)

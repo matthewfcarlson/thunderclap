@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
 // FUN_0022f760 @ 0x0022f760
 #include "decls/data/engine/unknown.h"
+#include "compat/ptr.h"
 
 extern "C" double sqrt(double);
 
@@ -14,7 +15,7 @@ struct Sampler_22f760 {
 
 
 // equiv-conv: FUN_0022f760 edi stack
-float FUN_0022f760(Sampler_22f760* s, float t)
+hulk_freg FUN_0022f760(Sampler_22f760* s, float t)
 {
     float half = t * 0.5f;
     float acc = 0.0f;

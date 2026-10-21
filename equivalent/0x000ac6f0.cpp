@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 12/12)
 // FUN_000ac6f0 @ 0x000ac6f0
 // FUN_000ac6f0 @ 0x000ac6f0
+#include "compat/ptr.h"
 struct ThisCall_000ac6a0 {
     float FUN_000ac6a0(float t);
 };
@@ -17,10 +18,10 @@ public:
     float after;
     char dirty;
     void FUN_000ac610();
-    float Evaluate(float t, float end);
+    hulk_freg Evaluate(float t, float end);
 };
 
-float Curve_ac6f0::Evaluate(float t, float end)
+hulk_freg Curve_ac6f0::Evaluate(float t, float end)
 {
     if (mode == 0)
         return constant;

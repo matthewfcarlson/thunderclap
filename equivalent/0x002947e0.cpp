@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 19853 inputs, branch coverage 4/4)
 // FUN_002947e0 @ 0x002947e0
+#include "compat/ptr.h"
 struct V3_2947e0 {
     float x, y, z;
 };
@@ -46,7 +47,7 @@ void Holder_2947e0::FUN_002947e0(V3_2947e0 in, V3_2947e0 *out) {
         out->y = 0;
         out->z = 1.0f;
     } else {
-        float h = 0.5f / local.z;
+        hulk_freg h = 0.5f / local.z;
         *(unsigned *)&out->z = *(unsigned *)&local.z;  // raw copy, no FPU round trip
         out->x = local.x * h;
         out->y = local.y * h;

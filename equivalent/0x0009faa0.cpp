@@ -1,8 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 4/4)
 // FUN_0009faa0 @ 0x0009faa0
+#include "compat/ptr.h"
 extern "C" double exp(double x);
 
-float __cdecl FUN_0009faa0(float from, float to, float a, float b)
+hulk_freg __cdecl FUN_0009faa0(float from, float to, float a, float b)
 {
     float t;
     if (b == 0.0f)

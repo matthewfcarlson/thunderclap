@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 122 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 20015 inputs, branch coverage 24/24)
 // hulkfight::motion::JointPlantedCondition::vfunc_6 @ 0x0015d200
+#include "compat/ptr.h"
 struct Mat_15d200 {
     float m[16];
 };
@@ -106,7 +107,7 @@ bool JointPlantedCondition::vfunc_6(int a1, fight::Params *params, int a3)
         }
     }
 
-    float ax, ay, az, dot;
+    hulk_freg ax, ay, az, dot;
     if (stats->mode == 4) {
         if (stats->f1b08 == 0) {
             ax = stats->f1ae0;
@@ -126,7 +127,7 @@ bool JointPlantedCondition::vfunc_6(int a1, fight::Params *params, int a3)
         dot = (stats->f1a50 * 0.0f + stats->f1a48 * 0.0f) + stats->f1a4c;
     }
     float *p = skel->matrices[id].m + 12;
-    float val = ((p[2] * az + p[1] * ay) + p[0] * ax) + (-dot);
+    hulk_freg val = ((p[2] * az + p[1] * ay) + p[0] * ax) + (-dot);
     return (val < threshold) == expected;
 }
 }

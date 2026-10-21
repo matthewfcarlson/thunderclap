@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 8/8)
 // FUN_0002b450 @ 0x0002b450
 #include "decls/address.h"
+#include "compat/ptr.h"
 typedef unsigned __int64 Key_2b450;
 
 struct Vec3_2b450 {
@@ -19,10 +20,10 @@ struct Entry_2b450 {
 
 struct Owner_2b450 {
     Entry_2b450* FUN_00024280(Key_2b450 key);
-    float FUN_0002b450(const char* nameA, const char* nameB);
+    hulk_freg FUN_0002b450(const char* nameA, const char* nameB);
 };
 
-float Owner_2b450::FUN_0002b450(const char* nameA, const char* nameB)
+hulk_freg Owner_2b450::FUN_0002b450(const char* nameA, const char* nameB)
 {
     struct {
         Vec3_2b450 b;

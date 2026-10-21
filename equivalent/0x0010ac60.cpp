@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 8/8)
 // FUN_0010ac60 @ 0x0010ac60
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct Vec3_10ac60 {
@@ -21,7 +22,7 @@ struct Body_10ac60 {
     char FUN_000359e0(Vec4_10ac60 *out);
 };
 
-float FUN_0010ac60(Body_10ac60 *a, Body_10ac60 *b, float radius, Vec3_10ac60 *out)
+hulk_freg FUN_0010ac60(Body_10ac60 *a, Body_10ac60 *b, float radius, Vec3_10ac60 *out)
 {
     Vec3_10ac60 pa;
     Vec3_10ac60 pb;

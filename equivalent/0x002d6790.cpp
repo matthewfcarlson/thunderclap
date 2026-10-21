@@ -1,8 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 126 inputs, branch coverage 8/10, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 159 inputs, branch coverage 8/10, incomplete)
 // pure3d::SpriteParticleRenderer::vfunc_4 @ 0x002d6790
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 extern "C" double cos(double);
 extern "C" double sin(double);
 
@@ -195,30 +196,30 @@ void SpriteParticleRenderer::vfunc_4(Emitter_2d6790 *e)
     VertexBuffer_2d6790 *vb = DAT_0052c2a8->v30(handle, 0, 0x2021, count * 6, 0);
     for (unsigned int i = 0; i < count; i++) {
         Particle_2d6790 *p = e->particles[i];
-        float a = p->angle + 0.7853982f;
-        float c = (float)cos(a) * p->size;
-        float s = (float)sin(a) * p->size;
-        float x = (m.m[0] * p->pos.x + m.m[8] * p->pos.z) + m.m[4] * p->pos.y + m.m[12];
-        float y = (m.m[1] * p->pos.x + m.m[9] * p->pos.z) + m.m[5] * p->pos.y + m.m[13];
-        float z = (m.m[2] * p->pos.x + m.m[10] * p->pos.z) + m.m[6] * p->pos.y + m.m[14];
-        float ax = x + c;
-        float ay = y + s;
-        float bx = x - s;
-        float by = y + c;
-        float cx = x - c;
-        float cy = y - s;
-        float dx = x + s;
-        float dy = y - c;
-        float az = z;
-        float bz = z;
-        float cz = z;
-        float dz = z;
+        hulk_freg a = p->angle + 0.7853982f;
+        hulk_freg c = (float)cos(a) * p->size;
+        hulk_freg s = (float)sin(a) * p->size;
+        hulk_freg x = (m.m[0] * p->pos.x + m.m[8] * p->pos.z) + m.m[4] * p->pos.y + m.m[12];
+        hulk_freg y = (m.m[1] * p->pos.x + m.m[9] * p->pos.z) + m.m[5] * p->pos.y + m.m[13];
+        hulk_freg z = (m.m[2] * p->pos.x + m.m[10] * p->pos.z) + m.m[6] * p->pos.y + m.m[14];
+        hulk_freg ax = x + c;
+        hulk_freg ay = y + s;
+        hulk_freg bx = x - s;
+        hulk_freg by = y + c;
+        hulk_freg cx = x - c;
+        hulk_freg cy = y - s;
+        hulk_freg dx = x + s;
+        hulk_freg dy = y - c;
+        hulk_freg az = z;
+        hulk_freg bz = z;
+        hulk_freg cz = z;
+        hulk_freg dz = z;
         float *cols = atlas->cols + p->index;
-        float u0 = cols[0];
-        float u1 = cols[1];
+        hulk_freg u0 = cols[0];
+        hulk_freg u1 = cols[1];
         unsigned int color = p->color;
-        float r = p->size / z;
-        float r2 = r * r;
+        hulk_freg r = p->size / z;
+        hulk_freg r2 = r * r;
         if (r2 > 0.225f) {
             if (r2 > 0.45f) {
                 az = -1.0f;

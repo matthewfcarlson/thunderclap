@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 206/224, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 17878 inputs, branch coverage 208/224, incomplete)
 // FUN_0003c1d0 @ 0x0003c1d0
 // cl-flags: /GS
+#include "compat/ptr.h"
 
 struct V3_3c1d0 {
     float x, y, z;
@@ -227,7 +228,7 @@ void Character_3c1d0::FUN_0003c1d0(int unused, float dt)
         fr.kin = &kin14;
         fr.ang.f = kin14.FUN_002220d0();
         Body_3c1d0 *b2 = part->FUN_00059a40();
-        float t = (b2 == 0) ? 0.0f : b2->kin.FUN_002220d0();
+        hulk_freg t = (b2 == 0) ? 0.0f : b2->kin.FUN_002220d0();
         hitNrm.z = 0;
         hitNrm.y = 0;
         hitNrm.x = 0;
@@ -254,7 +255,7 @@ void Character_3c1d0::FUN_0003c1d0(int unused, float dt)
                         fr.u.y = fr.u.y - q->pos.y;
                         fr.u.z = fr.u.z - q->pos.z;
                         if (((fr.u.z * q->n.z + fr.u.y * q->n.y) + fr.u.x * q->n.x) > 0.0f) {
-                            float cs = (p->n.z * q->n.z + p->n.y * q->n.y) + q->n.x * p->n.x;
+                            hulk_freg cs = (p->n.z * q->n.z + p->n.y * q->n.y) + q->n.x * p->n.x;
                             if (cs < -9.99999975e-06f && cs > -0.99999f) {
                                 fr.s.x = p->n.x + q->n.x;
                                 fr.s.y = p->n.y + q->n.y;
@@ -310,8 +311,8 @@ void Character_3c1d0::FUN_0003c1d0(int unused, float dt)
                     continue;
                 o = fr.t10.o;
             } else if (f140 != 4 && o != f328) {
-                float t1 = e->pos.y - fr.cur.y;
-                float x;
+                hulk_freg t1 = e->pos.y - fr.cur.y;
+                hulk_freg x;
                 if (f140 == 3) {
                     t1 = t1 + fr.rad;
                     x = 0.155f;
@@ -330,7 +331,7 @@ void Character_3c1d0::FUN_0003c1d0(int unused, float dt)
             if (!(f11c != 0 && f11c->FUN_000456e0())) {
                 if (e->n.y > 0.5f) {
                     e->n.y = 0;
-                    float len = e->n.FUN_0022d110();
+                    hulk_freg len = e->n.FUN_0022d110();
                     if (fr.mode == 5 && len < 0.8f)
                         continue;
                     fr.t8c.f = len;
@@ -382,9 +383,9 @@ void Character_3c1d0::FUN_0003c1d0(int unused, float dt)
                                     if (fr.w.y > 0.5f || cl)
                                         fr.w.y = 0;
                                 }
-                                float lim = (f1d4d ? 2.0f : 10.0f) * dt;
+                                hulk_freg lim = (f1d4d ? 2.0f : 10.0f) * dt;
                                 fr.t10.f = fr.nd - fr.s216;
-                                float amt = (lim > fr.t10.f) ? fr.t10.f : lim;
+                                hulk_freg amt = (lim > fr.t10.f) ? fr.t10.f : lim;
                                 fr.w.x = fr.w.x * amt;
                                 fr.w.y = fr.w.y * amt;
                                 fr.disp.x = fr.w.x + fr.disp.x;
@@ -428,7 +429,7 @@ void Character_3c1d0::FUN_0003c1d0(int unused, float dt)
                 fr.t10.u &= 0x7fffffff;
                 bool goB = !(fr.t10.f <= 0.1f);
                 if (!goB && f140 == 1) {
-                    float t = e->pos.y - fr.cur.y;
+                    hulk_freg t = e->pos.y - fr.cur.y;
                     if (!(t > fr.half * -0.8f))
                         goB = true;
                     else if (!(t < fr.half * 0.8f))
@@ -523,8 +524,8 @@ void Character_3c1d0::FUN_0003c1d0(int unused, float dt)
                                     fr.w.y = 0;
                             }
                             fr.t10.f = -e->d;
-                            float lim = dt * 4.0f;
-                            float amt = (lim > fr.t10.f) ? fr.t10.f : lim;
+                            hulk_freg lim = dt * 4.0f;
+                            hulk_freg amt = (lim > fr.t10.f) ? fr.t10.f : lim;
                             fr.w.x = fr.w.x * amt;
                             fr.w.y = fr.w.y * amt;
                             fr.disp.x = fr.w.x + fr.disp.x;

@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 19976 inputs, branch coverage 8/8)
 // FUN_00079c80 @ 0x00079c80
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 struct Item_79c80 {
     float f0;
@@ -46,8 +47,8 @@ void Mesh_79c80::FUN_00079c80(Item_79c80 *p, int i2, int i3, int i4, int a5, int
     volatile float f5 = (float)a5;
     volatile float la = a5 * DAT_004dd048 * 90.0f;
     volatile float l18 = a6 * DAT_004dd04c * 90.0f;
-    float x = it2->f0;
-    float w = 35.0f;
+    hulk_freg x = it2->f0;
+    hulk_freg w = 35.0f;
     Item_79c80 *it3 = &p[i3];
     if (it3->flag != 0) {
         w = 35.0f - (it3->f8 + it3->f8 + it3->f4 * 0.5f + it3->fc);
@@ -61,11 +62,11 @@ void Mesh_79c80::FUN_00079c80(Item_79c80 *p, int i2, int i3, int i4, int a5, int
     volatile float l2c = na5 * w;
     volatile float q = (it2->f4 + it2->f8 + 3.0f) * i3 + x;
     volatile float l24 = -q;
-    float a = la;
+    hulk_freg a = la;
     recs[*cnt + k].f10 = 0;
     recs[*cnt + k].f0c = a;
     recs[*cnt + k].f14 = l24 + l18;
-    float r = DAT_004dd048 * l2c + la;
+    hulk_freg r = DAT_004dd048 * l2c + la;
     recs[*cnt + k].f00 = r;
     recs[*cnt + k].f04 = 0;
     recs[*cnt + k].f08 = recs[*cnt + k].f14;
@@ -80,7 +81,7 @@ void Mesh_79c80::FUN_00079c80(Item_79c80 *p, int i2, int i3, int i4, int a5, int
     recs[*cnt + k].f44 = 1;
     *cnt = *cnt + 1;
     recs[*cnt + k].f10 = 0;
-    float t = (it2->f4 + it2->f8 + 3.0f) * f5;
+    hulk_freg t = (it2->f4 + it2->f8 + 3.0f) * f5;
     recs[*cnt + k].f00 = a;
     l24 = -(q - t);
     recs[*cnt + k].f04 = 0;

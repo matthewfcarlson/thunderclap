@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 11/12, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 12/12)
 // FUN_0015d4f0 @ 0x0015d4f0
 #include "decls/data/game/hulkfight/motion.h"
+#include "compat/ptr.h"
 
 float __cdecl FUN_00224fc0(float a, float b);
 float __cdecl FUN_0004af40(float lo, float hi, float v);
@@ -10,10 +11,10 @@ public:
     char pad0[0x24];
     float lo[4];
     float hi[4];
-    float FUN_0015d4f0(float t, float a, float b);
+    hulk_freg FUN_0015d4f0(float t, float a, float b);
 };
 
-float Table_15d4f0::FUN_0015d4f0(float t, float a, float b)
+hulk_freg Table_15d4f0::FUN_0015d4f0(float t, float a, float b)
 {
     if (!(t > 0.0f))
         return 0.0f;

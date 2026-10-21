@@ -1,11 +1,12 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2969 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 19809 inputs, branch coverage 0/0)
 // FUN_000964e0 @ 0x000964e0
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "compat/ptr.h"
 
 typedef unsigned int uint;
 struct RandomState { uint first; uint second; };
-float FUN_000964e0()
+hulk_freg FUN_000964e0()
 {
     RandomState *state = (*(RandomState**)&DAT_004e5acc);
     uint first = state->first;

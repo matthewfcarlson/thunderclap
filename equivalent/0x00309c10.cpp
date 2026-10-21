@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // physics::PhysicsJoint1D::vfunc_17 @ 0x00309c10
+#include "compat/ptr.h"
 struct V3_309c10 {
     float x, y, z;
 };
@@ -32,14 +33,14 @@ void PhysicsJoint1D::vfunc_17(V3_309c10 *a, float s, V3_309c10 *out)
 {
     V3_309c10 l;
     GetAxis(&l);
-    float cx = l.y * a->z - l.z * a->y;
-    float cy = l.z * a->x - l.x * a->z;
+    hulk_freg cx = l.y * a->z - l.z * a->y;
+    hulk_freg cy = l.z * a->x - l.x * a->z;
     l.z = l.x * a->y - l.y * a->x;
     volatile float inv = 1.0f / s;
     l.x = cx * inv;
-    float sy = cy * inv;
-    float sz = l.z * inv;
-    float dot = sy * out->y + l.x * out->x + sz * out->z;
+    hulk_freg sy = cy * inv;
+    hulk_freg sz = l.z * inv;
+    hulk_freg dot = sy * out->y + l.x * out->x + sz * out->z;
     out->x = l.x * dot;
     out->y = sy * dot;
     out->z = sz * dot;

@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 26/26)
+// STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 26/26)
 // FUN_002a0d00 @ 0x002a0d00
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct Vec3_2a0d00 {
@@ -28,10 +29,10 @@ public:
     float outerZ;
     float sinA;
     float cosA;
-    float FUN_002a0d00(const Vec3_2a0d00* p);
+    hulk_freg FUN_002a0d00(const Vec3_2a0d00* p);
 };
 
-float Falloff::FUN_002a0d00(const Vec3_2a0d00* p)
+hulk_freg Falloff::FUN_002a0d00(const Vec3_2a0d00* p)
 {
     if (mode == 0)
         return 1.0f;

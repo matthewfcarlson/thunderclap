@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 7/8, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20021 inputs, branch coverage 7/8, incomplete)
 // FUN_0015cf40 @ 0x0015cf40
+#include "compat/ptr.h"
 extern "C" double __cdecl floor(double);
 
 union FloatBits_15cf40 {
@@ -8,7 +9,7 @@ union FloatBits_15cf40 {
 };
 
 // Wraps x into [0, 1); results within 1e-5 of 0 or 1 snap to 0.
-float __cdecl FUN_0015cf40(float x)
+hulk_freg __cdecl FUN_0015cf40(float x)
 {
     if (!(x < 0.0f) && !(x >= 1.0f))
         return x;

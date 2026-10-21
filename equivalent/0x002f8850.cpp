@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 8/8)
 // physics::CollisionSolverAgent::vfunc_8 @ 0x002f8850
 #include "decls/data/engine/physics.h"
+#include "compat/ptr.h"
 
 struct Vec_2f8850 { float x,y,z; };
 struct Body_2f8850 {
@@ -17,12 +18,12 @@ int CollisionSolverAgent::vfunc_8(Contact_2f8850* c,int unused) {
  if(!b || b->state) return 0;
  Vec_2f8850 v=c->velocity, a,d;
  b->s25(&a,&d,-1);
- float radius=b->s14();
- float rr=radius*radius;
- float vv=v.z*v.z+v.x*v.x+v.y*v.y;
+ hulk_freg radius=b->s14();
+ hulk_freg rr=radius*radius;
+ hulk_freg vv=v.z*v.z+v.x*v.x+v.y*v.y;
  volatile float stored=vv;
  if(!(vv<rr)) rr=stored;
- float aa=a.z*a.z+a.y*a.y+a.x*a.x;
+ hulk_freg aa=a.z*a.z+a.y*a.y+a.x*a.x;
  if((*(const float*)&DAT_004d2c58)*rr<aa) { c->FUN_002ef8b0(1); return 1; }
  return 0;
 }

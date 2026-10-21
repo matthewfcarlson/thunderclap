@@ -1,7 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 2/2)
 // physics::PhysicsJoint1D::vfunc_26 @ 0x0030c300
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 struct Vec3_30c300 { float x,y,z; };
 extern "C" double __cdecl sqrt(double);
@@ -15,14 +16,14 @@ struct PhysicsJoint1D {
 };
 }
 bool physics::PhysicsJoint1D::vfunc_26(const Vec3_30c300* input, Vec3_30c300* output) {
- float x = direction.y * axis.z - direction.z * axis.y;
- float y = direction.z * axis.x - direction.x * axis.z;
- float z = direction.x * axis.y - direction.y * axis.x;
+ hulk_freg x = direction.y * axis.z - direction.z * axis.y;
+ hulk_freg y = direction.z * axis.x - direction.x * axis.z;
+ hulk_freg z = direction.x * axis.y - direction.y * axis.x;
  float amount = (float)(-(sqrt(z*z+y*y+x*x) * (z*input->z+y*input->y+x*input->x) * strength * DAT_004d31bc));
  union { float f; unsigned int u; } absolute;
  absolute.f = amount; absolute.u &= 0x7fffffff;
  if (!(absolute.f > (*(float*)&DAT_003f32e0))) return false;
- float scale = FUN_0030b2c0(amount) * amount;
+ hulk_freg scale = FUN_0030b2c0(amount) * amount;
  output->x = scale * direction.x;
  output->y = scale * direction.y;
  output->z = scale * direction.z;

@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 0/0)
 // FUN_000f8840 @ 0x000f8840
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 struct Item {
     virtual void a0(); virtual void a1(); virtual void a2(); virtual void a3();
@@ -15,9 +16,9 @@ struct Context {
     char pad0[4];
     struct Entry { float value; char pad[12]; } entries[8];
     int index;
-    float FUN_000f8840(Choice *choice);
+    hulk_freg FUN_000f8840(Choice *choice);
 };
-float Context::FUN_000f8840(Choice *choice) {
+hulk_freg Context::FUN_000f8840(Choice *choice) {
     int slot = choice->slot;
     int argument = choice->FUN_000f83f0(root, this);
     int current = index;

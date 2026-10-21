@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 19273 inputs, branch coverage 20/20)
 // FUN_00204ad0 @ 0x00204ad0
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct Vec3_204ad0 {
@@ -77,7 +78,7 @@ int Owner_204ad0::FUN_00204ad0(int count, int *ignore)
     ItemList_204ad0 *items = FUN_001c3d90()->items;
     int total = items->sub.FUN_001c7520();
     int bestId = -1;
-    float bestDist = -999999.0f;
+    hulk_freg bestDist = -999999.0f;
     for (int i = 0; i < total; i++) {
         Item_204ad0 *it = items->FUN_001c7f80(i);
         if (it->skip != 0)
@@ -94,9 +95,9 @@ int Owner_204ad0::FUN_00204ad0(int count, int *ignore)
             continue;
         if (id == excludedId || flags[id] != 1)
             continue;
-        float dx = it->pos.x - origin.x;
-        float dy = it->pos.y - origin.y;
-        float dz = it->pos.z - origin.z;
+        hulk_freg dx = it->pos.x - origin.x;
+        hulk_freg dy = it->pos.y - origin.y;
+        hulk_freg dz = it->pos.z - origin.z;
         double dist = sqrt((double)(dx * dx + dy * dy + dz * dz));
         if (dist > bestDist) {
             bestDist = (float)dist;

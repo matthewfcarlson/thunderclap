@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 19971 inputs, branch coverage 14/14)
 // FUN_00358700 @ 0x00358700
+#include "compat/ptr.h"
 extern "C" double __cdecl sqrt(double);
 
 struct Vec3_358700 {
@@ -48,7 +49,7 @@ bool FUN_00358700(Vec3_358700 *a, Vec3_358700 *dir, float radius, float len, Vec
     f.hi.y = len * dir->y + a->y;
     f.hi.z = f.ad.f + a->z;
 
-    float d = ((f.lo.z - p6->z) * n->z + (f.lo.y - p6->y) * n->y) + (f.lo.x - p6->x) * n->x;
+    hulk_freg d = ((f.lo.z - p6->z) * n->z + (f.lo.y - p6->y) * n->y) + (f.lo.x - p6->x) * n->x;
     *dist = d;
     f.ad.f = d;
     f.ad.u &= 0x7fffffff;

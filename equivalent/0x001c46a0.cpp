@@ -1,8 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 19783 inputs, branch coverage 12/12)
 // FUN_001c46a0 @ 0x001c46a0
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 struct Vertex_1c46a0 {
     char pad0[8];
     float *pos;
@@ -85,10 +86,10 @@ public:
 void Bar::FUN_001c46a0()
 {
     if (fraction != 0.0f && alpha != 0.0f) {
-        float width = (float)(*(Device_1c46a0**)&DAT_0052c2a4)->Width();
-        float height = (float)(*(Device_1c46a0**)&DAT_0052c2a4)->Height();
-        float frac = fraction;
-        float half = height * 0.5f;
+        hulk_freg width = (float)(*(Device_1c46a0**)&DAT_0052c2a4)->Width();
+        hulk_freg height = (float)(*(Device_1c46a0**)&DAT_0052c2a4)->Height();
+        hulk_freg frac = fraction;
+        hulk_freg half = height * 0.5f;
         DAT_0052c2a8->SetMode(2);
         DAT_0052c2a8->SetA(0);
         DAT_0052c2a8->SetB(0);
@@ -99,7 +100,7 @@ void Bar::FUN_001c46a0()
         color = (((color << 8) | r) << 8 | g) << 8 | b;
 
         Vertex_1c46a0 *v = DAT_0052c2a8->Begin(surface->handle, 1, 0x2020, 4, 0);
-        float split = frac * half;
+        hulk_freg split = frac * half;
         v->color[0] = color;
         v->pos[0] = 0.0f;
         v->pos[1] = split;
@@ -123,7 +124,7 @@ void Bar::FUN_001c46a0()
         DAT_0052c2a8->End(v);
 
         Vertex_1c46a0 *w = DAT_0052c2a8->Begin(surface->handle, 1, 0x2020, 4, 0);
-        float rest = height - split;
+        hulk_freg rest = height - split;
         w->color[0] = color;
         w->pos[0] = 0.0f;
         w->pos[1] = rest;

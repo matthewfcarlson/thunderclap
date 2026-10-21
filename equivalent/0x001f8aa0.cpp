@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 8/8)
 // FUN_001f8aa0 @ 0x001f8aa0
+#include "compat/ptr.h"
 struct Vec3_1f8aa0 {
     float x, y, z;
 };
@@ -34,7 +35,7 @@ bool Sensor_1f8aa0::FUN_001f8aa0(Source_1f8aa0 *src, Target_1f8aa0 *target)
     Vec3_1f8aa0 origin;
     if (!src->owner->FUN_00059a50(&origin))
         return false;
-    float r = radius;
+    hulk_freg r = radius;
     if (r <= 0.0f)
         return false;
     if (target == 0)
@@ -42,9 +43,9 @@ bool Sensor_1f8aa0::FUN_001f8aa0(Source_1f8aa0 *src, Target_1f8aa0 *target)
 
     Vec3_1f8aa0 pos;
     target->GetPosition(&pos);
-    float dx = pos.x - origin.x;
-    float dy = pos.y - origin.y;
-    float dz = pos.z - origin.z;
-    float sum = dz * dz + dy * dy + dx * dx;
+    hulk_freg dx = pos.x - origin.x;
+    hulk_freg dy = pos.y - origin.y;
+    hulk_freg dz = pos.z - origin.z;
+    hulk_freg sum = dz * dz + dy * dy + dx * dx;
     return sum <= r * r;
 }

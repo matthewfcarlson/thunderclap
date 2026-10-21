@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19923 inputs, branch coverage 2/2)
 // FUN_002f5a20 @ 0x002f5a20
+#include "compat/ptr.h"
 // FUN_002f5a20: move the pivot (or, when free, the cross product of the offset and the axis) onto a position
 struct V3_2f5a20 {
     float x, y, z;
@@ -31,13 +32,13 @@ void Anchor_2f5a20::FUN_002f5a20(V3_2f5a20 *target)
         b->pos = *target;
         return;
     }
-    float dx = b->x - px;
-    float dy = b->y - py;
-    float dz = b->z - pz;
-    // cx and cy are rounded frame copies in the original; cz stays in a register
+    // x87: the differences and cz stay in registers (53 bits); cx and cy are rounded frame copies
+    hulk_freg dx = b->x - px;
+    hulk_freg dy = b->y - py;
+    hulk_freg dz = b->z - pz;
     volatile float cx = dz * b->ay - dy * b->az;
     volatile float cy = dx * b->az - dz * b->ax;
-    float cz = dy * b->ax - dx * b->ay;
+    hulk_freg cz = dy * b->ax - dx * b->ay;
     b->pos.x = cx + target->x;
     b->pos.y = cy + target->y;
     b->pos.z = cz + target->z;

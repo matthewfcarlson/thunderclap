@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // FUN_00225c90 @ 0x00225c90
+#include "compat/ptr.h"
 struct EntityData { char pad[0x14]; float scale; };
 struct Object {
  char pad0[0x20]; EntityData* data;
@@ -8,9 +9,9 @@ struct Object {
  int valueA;
  int valueB;
  char pad3[8]; float offset;
- float FUN_00225c90(float amount);
+ hulk_freg FUN_00225c90(float amount);
 };
 float __cdecl FUN_00225be0(float, int, int, unsigned char, unsigned char, int, int);
-float Object::FUN_00225c90(float amount) {
+hulk_freg Object::FUN_00225c90(float amount) {
  return FUN_00225be0(data->scale * factor * amount + offset, valueA, valueB, flag, flag, valueB, valueA);
 }
