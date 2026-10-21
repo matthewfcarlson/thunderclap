@@ -76,6 +76,7 @@ ACCEPT_INPUTS = 50          # `promotable` in the report; `status` keeps its loo
 RMW_MNEMS = frozenset(("inc", "dec", "add", "sub", "and", "or", "xor", "adc", "sbb", "not", "neg", "shl", "shr", "sar",
                        "sal", "rol", "ror", "rcl", "rcr", "xchg", "xadd", "cmpxchg", "bts", "btr", "btc"))
 EQUIV_OFF = set(os.environ.get("EQUIV_OFF", "").split(","))   # A/B experiments: switch named round-6 changes off
+MAX_FAIL = int(os.environ.get("EQUIV_MAXFAIL", "3"))     # (round 18) stop after this many failing inputs (triage: more)
 ONLY_SEEDS = {int(x) for x in os.environ.get("EQUIV_SEEDS", "").split(",") if x.strip()}
 DEFAULT_POINTEE = 4         # ... when the callee's parameter type is unknown (e.g. virtual calls)
 
@@ -1152,6 +1153,7 @@ class CodeView:
         self.body = body          # (lo, hi) of the function body, or None
         self.prog = prog
         self.is_ours = is_ours
+        self.native = False       # (round 18) ours is clang's -O0 object (native mode)
         self.insns = {}
         self.extra_starts = set()  # function starts functions.csv misses (named by our source)
         self.jcc = []             # conditional branch addresses
@@ -1745,6 +1747,64 @@ class CodeView:
             a += j.size
         return None
 
+    def frame_of(self, call_addr):
+        """(round 18, native) The frame bytes the prologue of the function holding CALL_ADDR reserves: `sub esp, N`, or a
+        `push eax/ecx` for a 4-byte frame (clang's small helpers: `push eax; ...; add esp, 4`)."""
+        starts = [a for a in getattr(self, "fn_starts", ()) if a <= call_addr]
+        entry = max(starts) if starts else self.entry
+        n, a = 0, entry
+        for _ in range(8):
+            j = self.decode(a)
+            if j is None or j.kind != "other":
+                break
+            if j.mnemonic == "sub" and j.ops and j.ops[0] == ("reg", "esp") and j.imms:
+                return n + j.imms[0]
+            if j.mnemonic == "push" and j.regs and j.regs[0] in ("eax", "ecx") and a != entry:
+                n += 4
+            a += j.size
+        return n
+
+    def clang_pop_after(self, call_addr):
+        """(round 18, native) clang -O0 reserves the outgoing-argument area in the prologue and stores arguments
+        with `mov [esp+k], x`. A callee that pops its arguments (thiscall, stdcall) is followed by `sub esp, N`
+        that re-reserves them, or, when the epilogue comes next, by an `add esp, X` that is the frame minus N.
+        Returns N (what our declaration says the callee pops), or None when nothing says so (cdecl, no stack
+        arguments, a `leave`/`mov esp, ebp` epilogue)."""
+        i = self.decode(call_addr)
+        a = call_addr + i.size if i is not None else None
+        for _ in range(10 if a is not None else 0):
+            j = self.decode(a)
+            if j is None:
+                return None
+            if j.mnemonic == "sub" and j.ops and j.ops[0] == ("reg", "esp") and j.imms:
+                return j.imms[0] if 0 < j.imms[0] <= 0x400 and j.imms[0] % 4 == 0 else None
+            if j.mnemonic == "add" and j.ops and j.ops[0] == ("reg", "esp") and j.imms:
+                nx = self.decode(a + j.size)
+                f = self.frame_of(call_addr)
+                if nx is not None and (nx.kind == "ret" or nx.mnemonic == "pop") and 0 < j.imms[0] < f:
+                    return f - j.imms[0]
+                return None
+            if j.kind != "other" or j.mnemonic in ("push", "pop", "leave") or (j.ops and j.ops[0] == ("reg", "esp")):
+                return None
+            a += j.size
+        return None
+
+    def bool_after(self, call_addr):
+        """(round 18, native) The call's result is used as a bool by clang's convention: `test al, 1` / `and al, 1`
+        (bit 0 only) right after the call (or after a store of al)."""
+        i = self.decode(call_addr)
+        a = call_addr + i.size if i is not None else None
+        for _ in range(3 if a is not None else 0):
+            j = self.decode(a)
+            if j is None:
+                return False
+            if j.mnemonic in ("test", "and") and j.op_str.replace(" ", "") in ("al,1", "al,0x1"):
+                return True
+            if j.kind != "other" or (j.mnemonic not in ("mov", "movzx", "movsx") and not j.op_str.startswith("al")):
+                return False
+            a += j.size
+        return False
+
     def pop_ret_cleanup(self, call_addr):
         """(round 13, popret) Bytes `pop ecx` (once or twice) right after a call releases when a `ret` follows
         them, else None. Whether they are the call's cleanup or the frame's release is for the caller to tell
@@ -2165,6 +2225,61 @@ MATH1 = {"sin": math.sin, "cos": math.cos, "tan": math.tan, "sqrt": math.sqrt, "
          "log10": math.log10, "fabs": abs, "floor": math.floor, "ceil": math.ceil, "atan": math.atan,
          "asin": math.asin, "acos": math.acos, "sinh": math.sinh, "cosh": math.cosh, "tanh": math.tanh}
 MATH2 = {"atan2": math.atan2, "pow": math.pow, "fmod": math.fmod}
+# (round 18, x87math) the inline x87 sequences MSVC 7.1 (/Oi) emits for these library calls, and the native build's
+# crt_glue.cpp runs the same: executed by Unicorn's own x87 (at the game's control word, 53-bit precision) in a
+# scratch machine, so ours computes with the instructions the original's inline code runs instead of Python's libm.
+# The result keeps the full 64-bit mantissa (st0 is returned to our code unrounded, as the original's inline code
+# leaves it). pow, log & co. are library routines in the original (`__CIpow`: a callee, stubbed), still Python.
+X87_SEQ = {
+    "sin": b"\xd9\xfe",                                              # fsin
+    "cos": b"\xd9\xff",                                              # fcos
+    "tan": b"\xd9\xf2\xdd\xd8",                                      # fptan; fstp st(0)
+    "atan": b"\xd9\xe8\xd9\xf3",                                     # fld1; fpatan
+    "sqrt": b"\xd9\xfa",                                             # fsqrt
+    # fldl2e; fmulp; fld st0; frndint; fxch st1; fsub st0, st1; f2xm1; fld1; faddp; fscale; fstp st1
+    "exp": b"\xd9\xea\xde\xc9\xd9\xc0\xd9\xfc\xd9\xc9\xd8\xe1\xd9\xf0\xd9\xe8\xde\xc1\xd9\xfd\xdd\xd9",
+}
+X87_SEQ2 = {"atan2": b"\xd9\xf3"}                                     # fld y; fld x; fpatan
+_X87_M = {}
+
+
+def x87_math(name, args):
+    """st0 (10 bytes, extended) after the x87 sequence for NAME over the double ARGS, or None if NAME has none."""
+    seq = X87_SEQ.get(name) if len(args) == 1 else X87_SEQ2.get(name)
+    if seq is None or "x87math" in EQUIV_OFF:
+        return None
+    from unicorn import Uc, UC_ARCH_X86, UC_MODE_32
+    from unicorn import x86_const as u
+    m = _X87_M.get("uc")
+    code, data = 0x10000, 0x20000
+    if m is None:
+        m = _X87_M["uc"] = Uc(UC_ARCH_X86, UC_MODE_32)
+        m.mem_map(code, PAGE)
+        m.mem_map(data, PAGE)
+        m.mem_write(data, struct.pack("<H", 0x027F))
+    # fldcw [data]; fld qword [data+0x10 (+8)]...; sequence; fstp tbyte [data+0x40]; hlt
+    c = b"\xd9\x2d" + struct.pack("<I", data)
+    for i in range(len(args)):
+        c += b"\xdd\x05" + struct.pack("<I", data + 0x10 + 8 * i)
+    c += seq + b"\xdb\x3d" + struct.pack("<I", data + 0x40) + b"\xf4"
+    m.mem_write(code, c)
+    for i, a in enumerate(args):
+        m.mem_write(data + 0x10 + 8 * i, struct.pack("<d", a))
+    m.reg_write(u.UC_X86_REG_FPCW, 0x027F)
+    m.reg_write(u.UC_X86_REG_FPSW, 0)
+    m.reg_write(u.UC_X86_REG_FPTAG, 0xFFFF)
+    try:
+        m.emu_start(code, code + len(c) - 1, count=64)
+    except Exception:   # noqa: BLE001 - hlt ends the run
+        pass
+    return bytes(m.mem_read(data + 0x40, 10))
+
+
+TRACE_OURS = bool(os.environ.get("EQUIV_TRACE"))   # debugging: print every instruction address of our run
+NATIVE_DTOR = False         # (round 18) native mode, the function under test is a destructor (`??1...`)
+NATIVE_CI = {}              # (round 18, native) math name -> original address of its `__CI<name>` (x87-register-argument CRT routine)
+NATIVE_MODE = False         # (round 18) verify(native=True) is running
+NATIVE_BOOL = set()         # (round 18, native) original addresses of callees our source declares to return bool
 X87_NAN = struct.unpack("<d", bytes.fromhex("000000000000f8ff"))[0]     # the x87 "indefinite" NaN
 # MSVC's `vector constructor iterator` & co: our compile emits its own copy (a COMDAT), the original calls the
 # XBE's one out of line (FUN_00011520), so they pair like any callee instead of running in place
@@ -2178,7 +2293,7 @@ INTRINSIC_NAMES = {"_memcpy", "_memmove", "_memset", "_strlen", "_strcmp", "_str
 # The XBE's own CRT routines, found by behaviour (memcpy & co. are inlined in some code and called in
 # other code; executing the real routine on both sides makes that difference disappear).
 CRT_REGION = (0x340000, 0x364840)
-CRT_CACHE = os.path.join(ROOT, "build/equiv/crt.json")
+CRT_CACHE = os.path.join(ROOT, "build/equiv/crt2.json")      # (round 18: tightened _strcmp probe)
 
 
 def _crt_probe(prog, addr, args, buffers, float_args=None, steps=200000):
@@ -2249,6 +2364,12 @@ def _is_crt(prog, addr, name):
             a3 = _crt_probe(prog, addr, [A, B] + n3, {A: b"ABC\0", B: b"abc\0"})
             if not (a1 and a2 and a3):
                 return False
+            if "crtprobe" not in EQUIV_OFF:
+                # (round 18, crtprobe) equal one-byte strings with different bytes behind their NUL: a wide-character
+                # compare (0x346e5a, `_wcscmp`) passed the three probes above and was bound as `_strcmp`
+                a4 = _crt_probe(prog, addr, [A, B] + n3, {A: b"a\0zzzzz\0", B: b"a\0yyyyy\0"})
+                if not a4 or a4[0] != 0:
+                    return False
             sgn = lambda v: 0 if v == 0 else (-1 if v & 0x80000000 else 1)
             want = {"_strcmp": (-1, 1, -1), "__stricmp": (-1, 1, 0), "_strncmp": (0, 1, -1)}[name]
             return (sgn(a1[0]), sgn(a2[0]), sgn(a3[0])) == want
@@ -2529,11 +2650,13 @@ class Run:
         self.push_width = {}        # stack slot -> bits of the register pushed there
         self.array_written = set()  # stack bytes stored like array elements (indexed, via a pointer, rep)
         self.fill_byte = {}         # stack byte -> (call, argument, -1, start) of a byte out-parameter fill
+        self.spec_fill = set()      # (round 18) words only a stub's speculative window fill wrote
         self.fill_src = {}          # stack word -> (call, argument, offset) of the stub fill that wrote it
         self.fill_owner = {}        # stack word -> the out-parameter pointer whose fill wrote it  # ... by the function itself (not by a stub's out-param write)
         self.helper_ret = None
         self.prev_jcc = None
         self.fault = None
+        self.bool_ub = False        # (round 18) a `testb $1` over a byte that is neither 0 nor 1
         self.code_write = None      # first store into code (ours or the original's .text): self-modifying
         self.cur_insn = None
         self.edges = set()
@@ -2602,6 +2725,7 @@ class Run:
         self.addr_taken = set()     # stack addresses the function computed with lea (starts of its objects)
         self.self_alias = None      # our run: the original's address of the function under test
         self.huge_rep = False       # a rep string instruction ran with a count over 4 MB
+        self.big_rep = False        # (round 18) ... or over 2048: clang's -O0 loops need 8x the steps of one rep
         self.max_mapped = 0         # most pages mapped at once (memory-hungry runs)
         self.vcall_mismatch = None  # (cl4) (call index, bytes our indirect call takes, bytes the original's takes)
         self.abi_mismatch = None    # (call index, callee, bytes our declaration pops, bytes it really pops)
@@ -2651,6 +2775,7 @@ class Run:
                 struct.pack("<H", 4 * k)
             tr[0x800 + k * 16:0x800 + k * 16 + 9] = b"\xd9\x05" + struct.pack("<I", FSLOT) + b"\xc2" + \
                 struct.pack("<H", 4 * k)
+        tr[0xD00:0xD07] = b"\xdb\x2d" + struct.pack("<I", FSLOT) + b"\xc3"    # (round 18) fld tbyte [FSLOT]; ret
         # (round 11, x87args) [0xC00 + 2 * (3 - n)]: n x `fstp st(0)` (a callee's x87 register arguments), then on
         # to the trampoline whose address is at FSLOT + 0x10
         tr[0xC00:0xC0C] = b"\xdd\xd8" * 3 + b"\xff\x25" + struct.pack("<I", FSLOT + 0x10)
@@ -2885,7 +3010,7 @@ class Run:
         base = esp + 4 if tail else esp
         w = [self._read_u32(base + 4 * i) for i in range(4)]
         n = name.lstrip("_")
-        eax, fres = 0, None
+        eax, fres, fext = 0, None, None
         dbl = lambda i: struct.unpack("<d", struct.pack("<II", w[i], w[i + 1]))[0]
         if n in ("memcpy", "memmove"):
             self._mem(w[0], w[2], self._mem(w[1], w[2])) if w[2] else None
@@ -2903,11 +3028,18 @@ class Run:
             if n in ("stricmp", "_stricmp", "strcmpi", "strnicmp", "_strnicmp"):
                 a_, b_ = a_.lower(), b_.lower()
             eax = 0 if a_ == b_ else (M32 if a_ < b_ else 1)
+            if os.environ.get("X87DBG"):
+                print("intrinsic", n, a_, b_, eax, file=sys.stderr)
         elif n in ("strcpy", "strcat"):
             s_ = self._cstr(w[1]) + b"\0"
             dst = w[0] + (len(self._cstr(w[0])) if n == "strcat" else 0)
             self._mem(dst, len(s_), s_)
             eax = w[0]
+        elif (n in X87_SEQ and "x87math" not in EQUIV_OFF) or (n in X87_SEQ2 and "x87math" not in EQUIV_OFF):
+            fext = x87_math(n, [dbl(0)] if n in X87_SEQ else [dbl(0), dbl(2)])
+            fres = 0.0
+            if os.environ.get("X87DBG"):
+                print("x87", n, dbl(0), fext.hex(), file=sys.stderr)
         elif n in MATH1 or n in MATH2:
             x = dbl(0)
             try:
@@ -2926,7 +3058,10 @@ class Run:
             esp -= 4
             uc.mem_write(esp, struct.pack("<I", insn.addr + insn.size))
             uc.reg_write(u.UC_X86_REG_ESP, esp)
-        if fres is not None:
+        if fext is not None:
+            uc.mem_write(FSLOT, fext)
+            uc.reg_write(u.UC_X86_REG_EIP, TRAMP + 0xD00)         # fld tbyte [FSLOT]; ret
+        elif fres is not None:
             uc.mem_write(FSLOT, struct.pack("<d", fres))
             uc.reg_write(u.UC_X86_REG_EIP, TRAMP + 0x400)
         else:
@@ -2944,7 +3079,7 @@ class Run:
         except Exception:
             return False
 
-    def _stub(self, insn, target, tail):
+    def _stub(self, insn, target, tail, x87_override=None):
         u = self.u
         uc = self.uc
         esp = self.reg("esp")
@@ -2982,6 +3117,8 @@ class Run:
                 if n_ and esp + n_ == ENTRY_ESP:
                     cleanup = n_
             tracked = sorted(s for s in self.tracked if s >= esp)
+            if self.view.native and self.view.is_ours and not tracked and cleanup is not None and "clangpop" not in EQUIV_OFF:
+                cleanup = None      # (round 18) clang pushed nothing for this call: a later `add esp` is its frame's epilogue
             if not known and tracked and "ccall" not in EQUIV_OFF:
                 # (round 8) an indirect call whose caller releases every word pushed for it right after the
                 # call (`push esi; call [ecx+0xc]; add esp, 4`): the callee left its arguments on the stack.
@@ -3007,6 +3144,8 @@ class Run:
                         self.cdecl_site = True
             else:
                 self.cdecl_site = False
+            if TRACE_OURS and self.view.is_ours:
+                print("pre ours target=%x p=%s cleanup=%s tracked=%d known=%s" % (target, p, cleanup, len(tracked), known), file=sys.stderr)
             semantic = self.prog.callee_stack_args(target) if known else None
             # (round 11, ptrpop) a call through a fixed function pointer (`call [0x4de948]`) whose target is not
             # code (a fuzzed global): the pointer's other call sites tell its stack use. With `push 0; call
@@ -3066,7 +3205,8 @@ class Run:
                     # arguments where the original's caller cleaned them up: the target is unknown either
                     # way); compare as many words as the original's call took
                     nargs = learned[k_call][1]
-                    if "vcall" not in EQUIV_OFF and learned[k_call][0] > 0 and p > learned[k_call][0]:
+                    if "vcall" not in EQUIV_OFF and learned[k_call][0] > 0 and p > learned[k_call][0] and \
+                            not self.view.native:
                         # (cl4, vcall) our call takes more stack words than the original's k-th call, which
                         # takes some (an indirect call: the words pushed for it are decided by the code around
                         # the call, on both sides). Declared with extra words that the next call passes again
@@ -3099,6 +3239,45 @@ class Run:
                     # declared as an ordinary thiscall member). The real callee decides.
                     self.abi_mismatch = self.abi_mismatch or (len(self.calls), target, dpop, real)
                     p = real
+            if self.view.native and self.view.is_ours and insn.target is not None and target in self.decls and \
+                    "clangpop" not in EQUIV_OFF:
+                # (round 18, native) a direct call in clang's object: nothing was pushed (arguments are stored into
+                # the reserved area), so the words it passes are those of our declaration
+                dl_, dp_ = decl_layout(self.decls[target])
+                if dl_ is not None and dp_ is not None and self.prog.callee_pop(target) is None and \
+                        target not in self.convs:
+                    p = dp_      # the callee's pop is unknown (a thunk, a computed jump): clang's code follows our declaration
+                if dl_ is not None:
+                    stack_words = len([x for x in dl_ if x == "stack"])
+                    nargs = semantic if semantic is not None and p is not None else stack_words
+                    lrn2_ = self.inp.get("nargs_by_call", {}).get(len(self.calls))
+                    if lrn2_ is not None and lrn2_ < nargs and p == 0 and not self.decls[target].get("varargs") \
+                            and target not in self.varargs:
+                        # a caller-cleaned callee the original passes fewer words than our declaration: the extra ones
+                        # are words it never reads (a declaration with parameters the callee ignores)
+                        stack_words = nargs = lrn2_
+                    if (self.decls[target].get("varargs") or target in self.varargs) and \
+                            len(self.calls) in self.inp.get("nargs_by_call", {}):
+                        # `...`: as many words as the original's call site passes (clang pushes nothing to count)
+                        stack_words = nargs = max(stack_words, self.inp["nargs_by_call"][len(self.calls)])
+                elif len(self.calls) in self.inp.get("nargs_by_call", {}):
+                    stack_words = nargs = self.inp["nargs_by_call"][len(self.calls)]      # C name: as the original
+            elif self.view.native and self.view.is_ours and insn.target is not None \
+                    and len(self.calls) in self.inp.get("nargs_by_call", {}) and target not in self.decls:
+                stack_words = nargs = self.inp["nargs_by_call"][len(self.calls)]
+            if self.view.native and self.view.is_ours and insn.target is None and (p is None or not known) \
+                    and "clangpop" not in EQUIV_OFF:
+                # (round 18, native) an indirect call in clang's object: the `sub esp, N` after it says how many
+                # bytes the callee pops; the words compared are as many as the original's k-th call took
+                cp_ = self.view.clang_pop_after(insn.addr)
+                p = cp_ or 0
+                lrn_ = self.inp.get("arity_by_call", {}).get(len(self.calls))
+                nargs = lrn_[1] if lrn_ is not None else self.inp.get("nargs_by_call", {}).get(len(self.calls), p // 4)
+                stack_words = nargs
+                if lrn_ is not None and "vcall" not in EQUIV_OFF and lrn_[0] > 0 and p > lrn_[0]:
+                    self.vcall_mismatch = self.vcall_mismatch or (len(self.calls), p, lrn_[0])
+        if self.coverage and not tail:
+            self.inp.setdefault("nargs_by_call", {})[len(self.calls)] = nargs      # (round 18) for native mode's ours
         args, argw = [], []
         for k in range(min(nargs, 32)):
             a = argbase + 4 * k
@@ -3189,7 +3368,9 @@ class Run:
                     if in_frame(w) and w != v and any(x in self.func_stack_written for x in range(v + off, v + off + 4)):
                         nested[off] = snap(w, DEFAULT_POINTEE, False, depth + 1)
             return (data, {a - v: sz for a, sz in self.stack_fpu.items() if v <= a < v + limit},
-                    {a - v for a in range(v, v + limit) if a in self.stack_written}, n_, nested)
+                    {a - v for a in range(v, v + limit) if a in self.stack_written and not (
+                        NATIVE_MODE and a in self.spec_fill and a not in self.func_stack_written)}, n_, nested,
+                    0 if is_class else size)
         pointees = {}
         for n, v in enumerate(sp):
             size = declared.get(argidx.get(v), DEFAULT_POINTEE)
@@ -3205,7 +3386,9 @@ class Run:
         # (round 12, x87cmp) the x87 register arguments themselves (`fld x; call __CIasin`): inputs of the call like
         # its stack words, compared with the float tolerance; an argument the caller never loaded is None
         x87a = []
-        if known and not tail and "x87cmp" not in EQUIV_OFF:
+        if x87_override is not None:
+            x87a = list(x87_override)
+        elif known and not tail and "x87cmp" not in EQUIV_OFF:
             x87a = [self._st_val(i) if i < fdepth else None for i in range(self.prog.x87_args(target))]
         h = mix(self.inp["seed"], 0xCA11, k)
         d = self.inp.get("dictionary")
@@ -3227,6 +3410,15 @@ class Run:
             self.prog.returns_this(target) and self.prog.callee_writes(target).get("ecx", 0) > 0
         if ret_this:
             eax = self.reg("ecx")
+        if self.view.native and self.view.is_ours and not tail and "boolret" not in EQUIV_OFF and \
+                self.view.bool_after(insn.addr):
+            eax = 1 if eax & 0xFF else 0        # (round 18) `testb $1, %al` after the call: a bool, 0 or 1; same branch
+        if NATIVE_BOOL and target in NATIVE_BOOL and not tail:
+            # (round 18, boolret) clang tests only bit 0 of a `bool` result (`testb $1, %al`: the ABI says a bool is
+            # 0 or 1), the original tests the whole byte. A callee our source declares `bool` returns a normalised
+            # byte on both sides (a model assumption, listed in the report: a callee that returns other bytes in al
+            # is mis-declared)
+            eax = 1 if eax & 0xFF else 0
         edx = fuzz_value(mix(self.inp["seed"], 0xCA12, k))
         fv = FLOATS[mix(self.inp["seed"], 0xCA13, k) % len(FLOATS)]
         if self.inp.get("stub_floats") is not None:
@@ -3316,6 +3508,8 @@ class Run:
                         and (self.fill_owner.get(w, v) == v or not any(x in self.stack_written for x in range(w, w + 4)))
                     if exact_size or free:
                         put(w, j, w - v, v)
+                        if not exact_size:
+                            self.spec_fill.update(range(w, w + 4))
             self._callee_extent(insn, target, known, conv, k, argbase, put, in_frame, firsts)
             for (k_, j_), val in self.inp.get("pfill_override", {}).items():
                 # (round 9, pfill) the byte the directed input has the callee write, whatever the pointer's
@@ -3370,6 +3564,11 @@ class Run:
             esp -= 4
             uc.mem_write(esp, struct.pack("<I", insn.addr + insn.size))
             uc.reg_write(u.UC_X86_REG_ESP, esp)
+        if os.environ.get("EQUIV_STUBDBG"):
+            print("stubret", "ours" if self.view.is_ours else "orig", "k=%d target=%x eax=%x edx=%x clob=%s" % (
+                len(self.calls) - 1, target, eax, edx, sorted(clobbers)), file=sys.stderr)
+        if TRACE_OURS and self.view.is_ours:
+            print("stub ours target=%x p=%d nargs=%d esp=%x at=%x" % (target, p, nargs, esp, insn.addr), file=sys.stderr)
         if p % 4 or p > 0x10000:
             raise Fault("odd_pop_%d" % p)
         if fret:
@@ -4477,6 +4676,12 @@ class Run:
 
     def _on_code(self, uc, addr, size, _):
         self.nsteps += 1
+        if TRACE_OURS and self.view.is_ours:
+            print("trace ours %x" % addr, file=sys.stderr)
+        if TRACE_OURS and addr in (0x346e5a,):
+            e_ = self.reg("esp")
+            print("strcmp", "ours" if self.view.is_ours else "orig", [hex(self._read_u32(e_ + 4 + 4 * i)) for i in range(2)],
+                  [self._mem(self._read_u32(e_ + 4 + 4 * i), 6) for i in range(2)], file=sys.stderr)
         try:
             if TRAMP <= addr < TRAMP + PAGE:
                 return
@@ -4504,6 +4709,20 @@ class Run:
                 uc.emu_stop()
                 return
             insn = self.view.decode(addr)
+            if NATIVE_MODE and self.view.native and self.view.is_ours and insn is not None and \
+                    insn.mnemonic in ("test", "and") and insn.op_str.endswith(", 1") and "boolub" not in EQUIV_OFF \
+                    and (insn.op_str.startswith("byte ptr") or insn.op_str.split(",")[0] in ("al", "bl", "cl", "dl")):
+                # (round 18, boolub) clang reads a bool with `testb $1, mem`: a byte other than 0 and 1 (fuzzed memory) is
+                # undefined behaviour natively, not a bool; the original tests the whole byte
+                try:
+                    if insn.op_str.startswith("byte ptr") and insn.mem is not None:
+                        bv_ = self._mem(self._ea(insn.mem), 1)[0]
+                    else:
+                        bv_ = self.reg({"al": "eax", "bl": "ebx", "cl": "ecx", "dl": "edx"}[insn.op_str.split(",")[0]]) & 0xFF
+                    if bv_ > 1:
+                        self.bool_ub = True
+                except Exception:   # noqa: BLE001
+                    pass
             # Unicorn sometimes restarts an instruction (the code hook fires again for the same address)
             # and loses lazily computed flags on the way (a cmp; mov [m], r; jb then branches differently
             # in two runs of identical code). Put back the flags it had the first time.
@@ -4594,6 +4813,8 @@ class Run:
                 self._check_readback(insn)
             if insn.mnemonic.startswith("rep") and self.reg("ecx") > 0x100000:
                 self.huge_rep = True
+            if insn.mnemonic.startswith("rep") and self.reg("ecx") > 0x800:
+                self.big_rep = True
             if insn.mnemonic.startswith("rep") and self.reg("ecx") > 0x2000 and "rep" not in EQUIV_OFF:
                 if self.coverage is not None and self.rep_obs is None:
                     # a fill or copy of a fuzzed, absurd size (`rep stosd` over count*4 bytes): loop repair
@@ -4681,7 +4902,9 @@ class Run:
                 elif addr not in self.prologue:
                     self.tracked.add(esp - 4)
             elif m == "sub" and insn.op_str.startswith("esp,") and insn.imms and addr not in self.prologue \
-                    and insn.imms[0] <= 64 and (self.calls or self.tracked or esp != ENTRY_ESP):
+                    and insn.imms[0] <= 64 and (self.calls or self.tracked or esp != ENTRY_ESP) \
+                    and not (self.view.native and self.view.is_ours):
+                # (round 18: not in clang's object: its `sub esp, N` re-reserves what a callee popped)
                 # (sub esp, N before anything was pushed or called is the frame, even after a few movs)
                 self.tracked.update(range(esp - insn.imms[0], esp, 4))
             if insn.kind == "call":
@@ -4701,6 +4924,10 @@ class Run:
                         n = a2 if self.helpers[target] == "_strncmp" else None
                         self._note_str(addr, a1, a0, n)
                         self._note_str(addr, a0, a1, n)
+                    if os.environ.get("X87DBG") and self.helpers[target] in STRCMP_HELPERS:
+                        a0, a1 = (self._read_u32(esp + 4 * i) for i in range(2))
+                        print("helper", self.helpers[target], "ours" if self.view.is_ours else "orig", hex(a0), hex(a1),
+                              self._mem(a0, 8), self._mem(a1, 8), file=sys.stderr)
                     self.helper_ret = addr + size
                     self.eax_def, self.eax_read = ("helper", 32), False      # CRT helper: not ours to return
                     self.ax_status = False
@@ -4734,6 +4961,16 @@ class Run:
                     self.tracked = set()      # the words pushed for it are its arguments
                     return
                 if direct and target in self.intrinsics:
+                    nm_ = self.intrinsics[target].lstrip("_")
+                    if self.view.is_ours and self.view.native and nm_ in NATIVE_CI and "natci" not in EQUIV_OFF:
+                        # (round 18, natci) the original calls `__CI<name>` with its argument(s) in x87 registers and
+                        # takes the result from st(0); clang calls `<name>(double)` on the stack. Same call: the
+                        # stack doubles are its x87 arguments (st0 = the last pushed)
+                        e_ = self.reg("esp")
+                        dd_ = [struct.unpack("<d", struct.pack("<II", self._read_u32(e_ + 8 * i), self._read_u32(e_ + 8 * i + 4)))[0]
+                               for i in range(2 if nm_ in MATH2 else 1)]
+                        self._stub(insn, NATIVE_CI[nm_], False, x87_override=list(reversed(dd_)))
+                        return
                     self._intrinsic(insn, self.intrinsics[target], tail=False)
                     return
                 self._stub(insn, target, tail=False)
@@ -4854,6 +5091,8 @@ class Run:
         out["epochs"] = self.epoch
         out["max_mapped"] = max(self.max_mapped, len(self.mapped))
         out["huge_rep"] = self.huge_rep
+        out["big_rep"] = self.big_rep
+        out["bool_ub"] = self.bool_ub
         out["steps"] = self.nsteps
         return out
 
@@ -5250,7 +5489,10 @@ def resolve_symbols(prog, ours, oview, orefs, explicit=None, use_names=True):
                     v = None
             if v:
                 cand = (v, "rtti")
-        if cand is None and use_names:
+        if cand is None and use_names and not (sym[2] > 0 and sym[3] == 0x20 and "?1??" in name and
+                                               "localscope" not in EQUIV_OFF):
+            # (round 18, localscope: a member of a class local to the function, `??0Locals@?1??FUN_0009d1b0@...`,
+            # that our object defines has the function's address in its name only as the scope: it runs in place)
             na = name_address(prog, name)
             if na:
                 cand = na
@@ -5773,6 +6015,13 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
                 ob4 = bytes(os_.get(w0 + i, machine.byte(w0 + i, s)) for i in range(4))
                 rb4 = bytes(rs.get(w0 + i, machine.byte(w0 + i, s)) for i in range(4))
                 ow4, rw4 = struct.unpack("<I", ob4)[0], struct.unpack("<I", rb4)[0]
+                if NATIVE_DTOR and "dtorvptr" not in EQUIV_OFF and namer(w0) == "this+0x0" and \
+                        ow4 in prog.vftables and (rw4 in prog.vftables or not any(w0 + i in rs for i in range(4))):
+                    # (round 18, dtorvptr) a destructor's last store of the vptr (the base class's vftable): MSVC and
+                    # the original write each base's, clang -O0 omits the store of a trivial `~Base() {}`. A destroyed
+                    # object's vptr is not observable
+                    done.update(range(w0, w0 + 4))
+                    continue
                 if "ftolexact" in EQUIV_OFF and abs(ow4 - rw4) == 1 and 0x0C800000 <= (ow4 & 0x7FFFFFFF) < 0x72000000 and \
                         (ow4 ^ rw4) >> 23 == 0 and not (HEAP <= ow4 < HEAP + HEAP_SIZE or OURS <= ow4 < OURS + OURS_SIZE):
                     done.update(range(w0, w0 + 4))
@@ -5814,7 +6063,13 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
             if o["fdepth"] != r["fdepth"]:
                 out.append("x87 stack depth at return %d, expected %d" % (r["fdepth"], o["fdepth"]))
             elif not _feq(o["st0"], r["st0"]):
-                out.append("returned %r, expected %r" % (r["st0"], o["st0"]))
+                note = ""
+                try:
+                    if NATIVE_MODE and rk == "f32" and r["st0"] == struct.unpack("<f", struct.pack("<f", o["st0"]))[0]:
+                        note = " (unrounded-return class: the original leaves st(0) unrounded for its caller, clang rounds a float return to 24 bits)"
+                except (OverflowError, struct.error, TypeError):
+                    pass
+                out.append("returned %r, expected %r%s" % (r["st0"], o["st0"], note))
             elif "ftolexact" not in EQUIV_OFF and o.get("st0raw") is not None and o["st0raw"] != r.get("st0raw") \
                     and not math.isnan(o["st0"] or 0.0):
                 out.append("returned st(0) %s, expected %s (same double, different 80-bit register: precision)" % (
@@ -5827,6 +6082,8 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
                 mask &= (1 << o["eax_fnstsw"]) - 1      # (status-word bytes of the original's eax: not compared)
             if rk != "void":
                 ov, rv = _norm(o["eax"] & mask), _norm(r["eax"] & mask)
+                if NATIVE_MODE and rk == "b8" and "natbool" not in EQUIV_OFF and ov and rv:
+                    ov = rv = 1          # (round 18, natbool) a bool: clang returns 0/1, the original's flag bits (0x41)
                 if ov != rv:
                     out.append("returned %s, expected %s%s" % (_fmt(rv), _fmt(ov),
                                                               "" if rk else " (return type unknown)"))
@@ -5874,7 +6131,8 @@ def _pointee_diff(o, r, path=""):
     The original decides: as many bytes as it filled in (or the declared size), and only bytes it wrote;
     ours initialising more than the original isn't a difference. Locals that a compared word points to
     (another local of the same frame) are compared too."""
-    (ob, ofp, ow, oe, onest), (rb, rfp, rw, re_, rnest) = o, r
+    (ob, ofp, ow, oe, onest), (rb, rfp, rw, re_, rnest) = o[:5], r[:5]
+    osz = o[5] if len(o) > 5 else 0
     # a word that points into the stack on both sides is a pointer to a local: frames differ, so the value
     # does (what it points to is compared below)
     ob, rb = bytearray(ob), bytearray(rb)
@@ -5888,6 +6146,11 @@ def _pointee_diff(o, r, path=""):
     # past the first ARRAY_WINDOW bytes (an array behind a scalar pointer), only bytes both sides wrote: a
     # neighbouring local in the original's frame may be somewhere else (or nothing) in ours
     written = {i for i in ow if i < ARRAY_WINDOW or i in rw}
+    if NATIVE_MODE and osz and "natwin" not in EQUIV_OFF:
+        # (round 18, natwin) a scalar pointee (`char*`, `int*`): the bytes behind its declared size are whatever
+        # neighbouring locals the original's frame holds there (clang lays locals out in another order); compared
+        # only where both runs wrote them (an array the function fills is written by both)
+        written = {i for i in ow if i < osz or i in rw}
     off = _first_diff(ob[:oe], rb[:oe], ofp, rfp, written)
     if off is not None:
         w = lambda b: struct.unpack_from("<I", b.ljust(off + 4, b"\0"), off & ~3)[0]
@@ -6457,6 +6720,23 @@ def pick_symbol(obj, addr, target_bytes, symbol=None):
     return best[1] if best else None
 
 
+def compile_native(src, outdir, extra=()):
+    """(round 18, native) SRC compiled the way the native build compiles it (tools/clang_probe.py's `msvc`
+    configuration: i686-pc-windows-msvc, -O0, x87, compat/native.h, the same dialect switches), to a COFF object in
+    OUTDIR. Raises CompileError. `hulk_freg` is `double` here (include/compat/ptr.h), `float` under MSVC 7.1."""
+    import clang_probe as cp
+    clang = cp.tool("clang++")
+    if not clang:
+        raise CompileError("native mode needs clang++ (clang_probe.tool): not found")
+    flags = list(cp.CONFIGS["msvc"]["flags"]) + cp.COMMON + ["-Wno-everything"]
+    obj = os.path.join(outdir, "native.obj")
+    r = subprocess.run([clang] + flags + list(extra) + ["-I" + os.path.join(ROOT, "include"), src, "-o", obj],
+                       capture_output=True, text=True, errors="replace", timeout=300)
+    if r.returncode:
+        raise CompileError((r.stderr or "")[-1500:])
+    return obj
+
+
 def clang_check(src):
     """Host-clang syntax check (warning only)."""
     clang = "/usr/bin/clang++" if os.path.exists("/usr/bin/clang++") else None
@@ -6470,7 +6750,7 @@ def clang_check(src):
 
 def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mapping=None, max_level=3,
            max_steps=50000, use_names=True, clang=False, obj_path=None, keep_runs=False, time_budget=120,
-           conventions=None, level3_fn=None, seeds=None):
+           conventions=None, level3_fn=None, seeds=None, native=False):
     """Run levels 1-3 for SRC against the original function at ADDR. Returns the report dict.
 
     seeds: run only these random seeds (a regression case for one input out of thousands); EQUIV_SEEDS=1,2 too.
@@ -6505,7 +6785,10 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
         tmp = tempfile.TemporaryDirectory(dir=os.path.join(ROOT, "build")) if os.path.isdir(os.path.join(ROOT, "build")) \
             else tempfile.TemporaryDirectory()
         try:
-            obj_path = compile_obj(src, DEFAULT_FLAGS + list(flags), tmp.name)
+            if native:
+                obj_path = compile_native(src, tmp.name, flags)
+            else:
+                obj_path = compile_obj(src, DEFAULT_FLAGS + list(flags), tmp.name)
         except CompileError as e:
             rep.update(status="compile_error", error=str(e), time=round(time.time() - t0, 2))
             tmp.cleanup()
@@ -6513,6 +6796,7 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     obj = Obj(obj_path)
     if tmp:
         tmp.cleanup()
+    rep["native"] = bool(native)
     # (round 7: a function wrapped in `namespace fn_<addr>` in a merged tree object has other mangled names
     # than its source's equiv-map / equiv-conv lines say)
     ren = _tree_names(obj, list(explicit) + [n for n, _ in conv_lines])
@@ -6522,7 +6806,23 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     if clang:
         rep["level1"]["clang"] = clang_check(src)
     target = prog.read(addr, size)
+    mobj = msym = None
+    if native and "natmap" not in EQUIV_OFF:
+        # (round 18, natmap) the MSVC object of the same source: it names the function under test and binds the
+        # symbols (below); a function whose name carries no address (`vfunc_3`) is otherwise picked by byte
+        # similarity, which for clang's code can pick a constructor it calls
+        try:
+            tmp_m = tempfile.TemporaryDirectory(dir=os.path.join(ROOT, "build") if os.path.isdir(os.path.join(ROOT, "build")) else None)
+            mobj = Obj(compile_obj(src, DEFAULT_FLAGS + list(flags), tmp_m.name))
+            tmp_m.cleanup()
+            msym = pick_symbol(mobj, addr, target, symbol)
+        except (CompileError, Exception):    # noqa: BLE001 - the MSVC object is an aid, not a requirement
+            mobj = msym = None
     fsym = pick_symbol(obj, addr, target, symbol)
+    if msym is not None:
+        same = [s_ for s_ in obj.functions() if s_[0] == msym[0]]
+        if same:
+            fsym = same[0]
     if fsym is None:
         rep.update(status="no_function", error="no function body in the object")
         return rep
@@ -6546,15 +6846,52 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     # first link with locals only, so that alignment can read our code
     ours.link({})
     resolved, how, conflicts, exact = resolve_symbols(prog, ours, oview, orefs, explicit, use_names)
+    native_notes = []
+    if native:
+        # (round 18) clang's section symbols (`.rdata` +offset: a jump table, a literal, a switch's case table) are its
+        # own local data, never an original address a pairing rule found
+        for n_ in [n_ for n_ in resolved if n_.startswith(".")]:
+            del resolved[n_]
+            how[n_] = "local section"
+    if native and "natmap" not in EQUIV_OFF and mobj is not None:
+        # (round 18, natmap) clang's code pairs badly with the original's (`lea ecx, [0]; mov [esp+4], ecx` for a
+        # `push offset`), so the instruction-pairing rules that bind a symbol to an address (a type descriptor, a
+        # literal, a stub class's RTTI) don't work on it. The MSVC object of the same source is what level 2 proved:
+        # the names it bound are bound the same way here (clang's mangling matches MSVC's for the same declarations)
+        try:
+            mours = Ours(mobj, msym)
+            mours.link({})
+            r_m, how_m, _, _ = resolve_symbols(prog, mours, oview, orefs, explicit, use_names)
+            ours_fn = {s_[0] for s_ in obj.syms.values() if s_[2] > 0 and s_[3] == 0x20}   # run in place
+            for n_, a_ in r_m.items():
+                if n_ in ours_fn:
+                    continue
+                if n_ not in resolved or resolved[n_] != a_:
+                    if n_ in resolved:
+                        native_notes.append("%s: clang pairing %s, MSVC object's binding 0x%08x" % (
+                            n_, "0x%08x" % resolved[n_], a_))
+                    resolved[n_] = a_
+                    how[n_] = "msvc:" + how_m.get(n_, "?")
+        except (CompileError, Exception) as e_:    # noqa: BLE001 - the MSVC object is an aid, not a requirement
+            native_notes.append("no MSVC binding map: %s" % str(e_)[:120])
     ours.orig_addr = addr
     ours.link(resolved)
     rview = CodeView(ours.read, ours.func_addr, (ours.func_addr, ours.func_addr + ours.func_len), prog,
-                     is_ours=True).build()
+                     is_ours=True)
+    rview.native = bool(native)      # (round 18) clang's object: reserved call frames, its own helpers
+    rview.fn_starts = sorted(ours.sec_addr[s_[2]] + s_[1] for s_ in obj.functions() if s_[2] in ours.sec_addr)
+    rview.build()
     ours_bytes = ours.bytes_at(addr, resolved)
     rep["byte_identical"] = ours_bytes == target or ours_bytes == strip_padding(target)
     # ---- level 2
     ours.orig_addr = addr
     issues = level2(prog, orefs, oview, ours, resolved, how, rview)
+    if native:
+        # level 2 compares references with the MSVC object's (proven separately); clang's differ in form (section
+        # symbols, `lea` of a symbol, its own helper calls): what matters here is behaviour, level 3
+        native_notes += ["level 2 skipped for clang's object: %s %s" % (i["kind"], i.get("symbol") or i.get("target"))
+                         for i in issues][:12]
+        issues = []
     if "initbytes" not in EQUIV_OFF:
         # (round 15) a global our source defines that binds to an original address: level 3 reads the original's
         # bytes there, so its initializer is never compared; the native build starts with ours
@@ -6563,7 +6900,7 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     # an immediate that merely looks like an address may legitimately be computed differently: warn only
     warnings = [i for i in issues if i["kind"] in SOFT_L2]
     issues = [i for i in issues if i["kind"] not in SOFT_L2]
-    rep["level2"] = {"ok": not issues, "issues": issues[:20], "warnings": warnings[:10],
+    rep["level2"] = {"ok": not issues, "issues": issues[:20], "warnings": warnings[:10], "native_notes": native_notes,
                      "mapping": {n: {"addr": "0x%08x" % resolved[n] if n in resolved else None, "how": how[n]}
                                  for n in how},
                      "conflicts": conflicts[:10]}
@@ -6588,6 +6925,11 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     # Reached only through a vtable or a function pointer, nobody can tell whether the callers use eax: when
     # we say void but the original leaves a meaningful value in eax, compare it anyway.
     void_eax = ret_kind == "void" and (addr in prog.virtual_funcs or nsites == 0)
+    if native and void_eax and "natvoid" not in EQUIV_OFF:
+        # (round 18, natvoid) the native callers are compiled from our sources, which declare this function void: none
+        # reads the eax clang leaves (a caller that did would declare a return type)
+        rep.setdefault("native_notes", []).append("eax of a void function reached through a vtable not compared")
+        void_eax = False
     rep["signature"] = sig
     callees = {sym[0] for off, sym, typ, _ in ours.relocs if sym is not None and typ == REL32 and sym[0] in resolved}
     psizes = {}
@@ -6598,6 +6940,22 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     for off, sym, typ, _ in ours.relocs + ours.local_relocs():
         if sym is not None and typ == REL32 and sym[0] in resolved:
             decls.setdefault(resolved[sym[0]], parse_signature(sym[0]))
+    NATIVE_BOOL.clear()
+    NATIVE_CI.clear()
+    if native:
+        for n_, a_ in resolved.items():
+            if n_.startswith("__CI") and a_ and prog.text[0] <= a_ < prog.text[1]:
+                NATIVE_CI[n_[4:]] = a_
+    global NATIVE_MODE
+    NATIVE_MODE = bool(native)
+    global NATIVE_DTOR
+    NATIVE_DTOR = bool(native) and fsym[0].startswith(("??1", "??_G", "??_E"))
+    if native and "boolret" not in EQUIV_OFF:
+        NATIVE_BOOL.update(t_ for t_, sg_ in decls.items() if sg_ and sg_.get("ret") == "b8")
+        if NATIVE_BOOL:
+            rep["level2"].setdefault("native_notes", []).append(
+                "bool results of 0x%s are normalised to 0/1 on both sides (clang tests bit 0 only)" %
+                ", 0x".join("%08x" % t_ for t_ in sorted(NATIVE_BOOL)))
     convs, bad = resolve_conventions(prog, conv_lines, ours, resolved, addr, fsym)
     if "thisdecl" not in EQUIV_OFF:
         # (round 17, thisdecl) a callee our source declares as a free __cdecl/__stdcall function that the original
@@ -6900,7 +7258,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         """Re-run an input whose original ran away in a loop with that loop's bound patched (it then ends
         after a round or two); a run that hangs in the next loop is repaired again, up to 4 loops deep."""
         queue = [entry + (0,)]
-        while queue and repair_left[0] > 0 and res["inputs_failed"] < 3 and not out_of_time():
+        while queue and repair_left[0] > 0 and res["inputs_failed"] < MAX_FAIL and not out_of_time():
             seed0, ov0, sp0, hot, depth = queue.pop(0)
             for j, ob in hot:
                 done = False
@@ -7287,6 +7645,12 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             res["statuses"]["code_write"] += 1
             return None
         readback = any(orun.fill_pre.get(f) != rrun.fill_pre.get(f) for f in orun.fill_readback | rrun.fill_readback)
+        if NATIVE_MODE and r["status"] == "timeout" and o["status"] == "ret" and o["big_rep"]:
+            # (round 18) the original filled or copied thousands of elements with one `rep stos/movs`; clang's -O0
+            # loop for the same statement needs thousands of steps: the same work, past the step budget
+            res["inputs_inconclusive"] += 1
+            res["statuses"]["ours_slow_rep"] += 1
+            return None
         if r["status"] == "fault:too_many_pages" and o["status"] == "ret" and o["huge_rep"]:
             # a fill or copy of a fuzzed, absurd size (over 4 MB): Unicorn's rep string op got through it
             # in the original, our inlined/semantic copy hit the page limit. An emulator artefact.
@@ -7299,6 +7663,18 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             return None
         diffs = compare_runs(o, r, ret_kind, mach, Namer(inp, sig, prog), prog, esp_adjust=esp_adjust,
                              skip_saved=set(target_conv or ()), void_eax=void_eax)
+        if diffs and os.environ.get("EQUIV_DUMP"):
+            # debugging: the calls of both runs (target, args) and the return values of the failing input
+            print("DUMP input %s diffs %s" % (label or seed, diffs[:2]), file=sys.stderr)
+            for nm_, rn_ in (("orig", o), ("ours", r)):
+                print("  %s ret eax=%x st0=%r status=%s" % (nm_, rn_.get("eax", 0), rn_.get("st0"), rn_["status"]), file=sys.stderr)
+                for c_ in rn_["calls"]:
+                    print("   call %x args=%s regs ecx=%x ret_to=%x" % (c_["target"], [hex(a_[0]) for a_ in c_["args"]],
+                                                                    c_["regs"]["ecx"], c_["ret_to"]), file=sys.stderr)
+        if diffs and r.get("bool_ub") and "boolub" not in EQUIV_OFF:
+            res["inputs_inconclusive"] += 1         # (round 18) native bool read of a non-bool byte: undefined, see _on_code
+            res["statuses"]["bool_ub"] += 1
+            return None
         if ub and diffs:
             # (round 8) an input that is undefined behaviour in the original (above) and shows a difference
             # is inconclusive: no real input does that. One that agrees counts as before.
@@ -7326,7 +7702,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             res["inputs_faulted"] += 1    # compared up to the fault, but not counted as a passing input
         if diffs:
             res["inputs_failed"] += 1
-            if len(res["mismatches"]) < 5:
+            if len(res["mismatches"]) < max(5, MAX_FAIL if MAX_FAIL > 3 else 0):
                 res["mismatches"].append({"input": label or seed, "diffs": diffs, "original_status": o["status"],
                                           "calls": len(o["calls"])})
         return new
@@ -7504,7 +7880,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         """soft: hand over to the directed phase once half the time budget is gone and 50 inputs completed
         (with --inputs 3000 the random inputs alone would use all of it); the rest of the random inputs
         run after the directed ones."""
-        while rs["seed"] < max_inputs and res["inputs_failed"] < 3 and not out_of_time():
+        while rs["seed"] < max_inputs and res["inputs_failed"] < MAX_FAIL and not out_of_time():
             seed = rs["seed"]
             if until_run is not None and res["inputs_run"] >= until_run:
                 return
@@ -7678,7 +8054,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     def directed_phase():
         progress = True
         via_mode[0] = False
-        while dstate["budget"] > 0 and res["inputs_failed"] < 3 and not out_of_time():
+        while dstate["budget"] > 0 and res["inputs_failed"] < MAX_FAIL and not out_of_time():
             if not (progress or more[0]):
                 if via_mode[0] or "via" in EQUIV_OFF:
                     break
@@ -7707,7 +8083,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             # (at most half the budget left per pass: the compares' own patches need their turn too, a chain
             # of keyword tests through a stubbed compare wrapper behind an inline name compare)
             str_cap = dstate["budget"] - max(8, dstate["budget"] // 2) if "strcap" not in EQUIV_OFF else -1 << 30
-            while missing and str_queue and dstate["budget"] > max(0, str_cap) and res["inputs_failed"] < 3 \
+            while missing and str_queue and dstate["budget"] > max(0, str_cap) and res["inputs_failed"] < MAX_FAIL \
                     and not out_of_time():
                 qi = 0
                 if "strrr" not in EQUIV_OFF:
@@ -7745,7 +8121,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                     rnd = random.Random(mix(len(edges), word_left[0], 0x0B5))
                     miss_run = 0
                     for _ in range(min(word_left[0], 1024)):
-                        if out_of_time() or res["inputs_failed"] >= 3 or miss_run >= 256 or \
+                        if out_of_time() or res["inputs_failed"] >= MAX_FAIL or miss_run >= 256 or \
                                 word_time[0] > 0.3 * time_budget:
                             break
                         t_w = time.process_time()
@@ -7854,9 +8230,9 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                         elif all(hits[e] >= RARE_HITS for e in sides):
                             done = True
                             active.discard(j)
-                        if done or dstate["budget"] <= 0 or res["inputs_failed"] >= 3:
+                        if done or dstate["budget"] <= 0 or res["inputs_failed"] >= MAX_FAIL:
                             break
-                    if done or dstate["budget"] <= 0 or res["inputs_failed"] >= 3:
+                    if done or dstate["budget"] <= 0 or res["inputs_failed"] >= MAX_FAIL:
                         break
                     if breadth:
                         jcur[j] = (pick + oi + 1) % max(1, len(observations[j]))
@@ -7869,7 +8245,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         # makes the two equal (where a transform maps the planted value onto the other exactly)
         n_t = 0
         for j in sorted(observations):
-            if n_t >= TIE_INPUTS or out_of_time() or res["inputs_failed"] >= 3:
+            if n_t >= TIE_INPUTS or out_of_time() or res["inputs_failed"] >= MAX_FAIL:
                 break
             for seed0, ob, ov0, sp0 in observations[j]:
                 pl = _tie_plants(ob, ov0, sp0, len(make_input(seed0, sig, globals_, min_words=own_words)["stack"]))
@@ -7892,7 +8268,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         # object whose words all differ, so reading the wrong field reads another value. An input choice, the same
         # on both sides; the plants of the input it came from stay (a chain of objects, OBJ_DEPTH deep)
         n_o = 0
-        while objptr_queue and n_o < OBJ_INPUTS and not out_of_time() and res["inputs_failed"] < 3:
+        while objptr_queue and n_o < OBJ_INPUTS and not out_of_time() and res["inputs_failed"] < MAX_FAIL:
             seed0, pc, src, disp, ov0, sp0 = objptr_queue.pop(0)
             ov, pt = dict(ov0 or {}), dict(sp0 or {})
             depth = sum(1 for k_ in ov if k_[0] == "*" and isinstance(k_[1], int) and
@@ -7915,32 +8291,32 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     directed_repair = [64]
     random_phase(soft=True)
     directed_phase()
-    if "ties" not in EQUIV_OFF and not out_of_time() and res["inputs_failed"] < 3:
+    if "ties" not in EQUIV_OFF and not out_of_time() and res["inputs_failed"] < MAX_FAIL:
         tie_phase()
-    if "objptr" not in EQUIV_OFF and not out_of_time() and res["inputs_failed"] < 3:
+    if "objptr" not in EQUIV_OFF and not out_of_time() and res["inputs_failed"] < MAX_FAIL:
         objptr_phase()
-    if not rs["done"] and not out_of_time() and res["inputs_failed"] < 3:
+    if not rs["done"] and not out_of_time() and res["inputs_failed"] < MAX_FAIL:
         # (round 9, morein) with --inputs over 3000, the random inputs past 3000 stop at 80% of the time, so the
         # directed inputs after them still run (they ran out of time before: 12000 inputs covered less than 3000)
         random_phase(soft=False, stop_frac=0.8 if n_inputs > 3000 and "morein" not in EQUIV_OFF else None)
         directed_phase()        # (new observations from the later random inputs)
-        if not rs["done"] and not out_of_time() and res["inputs_failed"] < 3 and n_inputs > 3000:
+        if not rs["done"] and not out_of_time() and res["inputs_failed"] < MAX_FAIL and n_inputs > 3000:
             random_phase(soft=False)
             directed_phase()
     if res.get("inconclusive_cap_hit") and 5 * rs["rinc"] <= res["inputs_run"] and rs["seed"] < max_inputs and \
-            not out_of_time() and res["inputs_failed"] < 3 and "rate" not in EQUIV_OFF:
+            not out_of_time() and res["inputs_failed"] < MAX_FAIL and "rate" not in EQUIV_OFF:
         # the random phase stopped at 32 inconclusive inputs though most complete (a few fuzzed counts run
         # away): with the directed inputs done, the time left goes to more random ones, then directed again
         random_phase(soft=False, nocap=True)
         directed_phase()
     if res.get("inconclusive_cap_hit") and res["inputs_run"] < 50 and rs["seed"] < max_inputs and \
-            not out_of_time() and res["inputs_failed"] < 3 and "capfix" not in EQUIV_OFF:
+            not out_of_time() and res["inputs_failed"] < MAX_FAIL and "capfix" not in EQUIV_OFF:
         # the random phase stopped at 32 inconclusive inputs (fuzzed counts that run away) short of the 50
         # completed inputs `promotable` asks for: with the directed inputs done, spend the time left on more
         # random ones (each runaway is repaired, as before)
         random_phase(soft=False, until_run=50)
     if res.get("inconclusive_cap_hit") and rs["seed"] < max_inputs and not out_of_time() and \
-            res["inputs_failed"] < 3 and "covcap" not in EQUIV_OFF:
+            res["inputs_failed"] < MAX_FAIL and "covcap" not in EQUIV_OFF:
         cov_ = coverage_of(oview, edges)
         if cov_["edges_total"] and cov_["edges_covered"] < 0.75 * cov_["edges_total"]:
             # (round 8) the cap stopped the random inputs while branch coverage is under the promotion bar
@@ -8839,6 +9215,9 @@ def main(argv):
     p.add_argument("--map", help="JSON {symbol: '0xaddr'} binding our symbols to original addresses")
     p.add_argument("--no-names", action="store_true", help="ignore addresses encoded in symbol names")
     p.add_argument("--clang", action="store_true", help="also run a host-clang syntax check (warning only)")
+    p.add_argument("--native", action="store_true",
+                   help="(round 18) check the object the native build runs: compile SRC with clang (the native "
+                        "flags, hulk_freg = double) and run it against the original")
     p.add_argument("--json", action="store_true")
     a = p.parse_args(argv)
     mapping = None
@@ -8846,7 +9225,7 @@ def main(argv):
         mapping = {k: int(v, 16) if isinstance(v, str) else v for k, v in json.load(open(a.map)).items()}
     rep = verify(a.src, int(a.addr, 16), symbol=a.symbol, flags=extra, n_inputs=a.inputs, max_inputs=a.max_inputs,
                  mapping=mapping, max_level=a.level, max_steps=a.steps, use_names=not a.no_names, clang=a.clang,
-                 time_budget=a.time_budget)
+                 time_budget=a.time_budget, native=a.native)
     print(json.dumps(rep, default=str) if a.json else render(rep))
     return 0 if rep["status"] == "equivalent" else 1
 

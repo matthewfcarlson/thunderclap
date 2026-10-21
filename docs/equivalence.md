@@ -429,6 +429,65 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     the member 0x00042890); the pre-fix sources of 0x00042930, 0x00042960, 0x00336f10 and 0x00337330 all report it.
     `build/cl5/thiscall.json` has the sweep over `equivalent/` and `matches/`.
 
+- (round 18, cl6) **Native mode**: `equiv.py SRC 0xADDR --native` (`verify(native=True)`, `tools/equiv_native_sample.py` for
+  lists) compiles the source the way the native build does (`tools/clang_probe.py`'s `msvc` configuration: clang i686
+  `-O0` x87, `compat/native.h`, `hulk_freg` = `double`) and runs that COFF object against the original in the same
+  harness, calls included. Before, only leaf functions could be run (calls hit wild jumps and argument-count errors).
+  What the harness had to learn about clang's object:
+  - the MSVC object of the same source names the function under test (`pick_symbol` by byte similarity could pick a
+    constructor the function calls) and its symbol bindings are reused (`natmap`: clang's code pairs badly with the
+    original's, so type descriptors, vftables, literals bind as the proven MSVC object has them; section symbols such as
+    `.rdata` stay local data; functions the object defines run in place). Level 2 is not applied to clang's object.
+  - clang reserves the outgoing-argument area in the prologue and stores arguments with `mov [esp+k], x`; a callee that
+    pops its arguments is followed by `sub esp, N` (or, before the epilogue, a smaller `add esp`). `CodeView.clang_pop_after`
+    reads that for indirect calls, direct calls take the words of our declaration (or the original's count for C names and
+    `...` calls), `sub esp, N` is not a frame allocation to track, and an `add esp` far on is the epilogue, not cleanup
+    (`clangpop`). A declaration that pops differently from the real callee is still reported (`abi_mismatch`, `vcall`).
+  - bool results: clang tests bit 0 only, the original the byte; a callee declared `bool`, or a call followed by `test al, 1`,
+    returns 0/1 (same branch; `boolret`), and a function returning `bool` compares by truthiness (`natbool`). `eax` of a void
+    function reached through a vtable is not compared (`natvoid`): native callers are compiled from sources that declare it void.
+  - destructors: clang omits the last vptr store of a trivial `~Base() {}`; a final `[this]` difference between two vftable
+    addresses in a destructor is not reported (`dtorvptr`). Words only a stub's speculative window fill wrote and scalar
+    pointee windows behind the declared size are compared where both runs wrote them (`natwin`: clang orders locals
+    differently). An original that fills thousands of elements with one `rep stos` where clang's loop outruns the step
+    budget is inconclusive (`ours_slow_rep`).
+  - a float return mismatch where ours is the original's `st(0)` rounded to 24 bits is labelled "unrounded-return class"
+    (the by-design native15 difference); the verdict stays `fail`.
+  - triage aids: `EQUIV_TRACE=1` (instruction trace and stub lines of our run), `EQUIV_DUMP=1` (calls of both runs on a
+    failing input), `EQUIV_MAXFAIL=N` (do not stop at three failing inputs), `X87DBG=1`.
+  - more of clang's object: `frame_of` (the prologue of the function holding the call, `push eax` frames included) so
+    `add esp, X` before the epilogue is read against the right frame; a callee whose pop is unknown follows our declaration;
+    the original's word count is reused for C-named callees, `...` calls and indirect cdecl calls; a library routine the
+    original calls as `__CI<name>` with st(0) arguments (`__CIasin`) is the same call as clang's `asin(double)`
+    (`natci`, the stack doubles become the x87 arguments); `testb $1` over a byte that is neither 0 nor 1 makes an input
+    that differs inconclusive (`boolub`: a bool field of fuzzed memory is undefined natively).
+  - **`_strcmp` was bound to the XBE's `_wcscmp`** (0x346e5a): the CRT probes (`abc`/`abd` shaped strings) cannot tell a
+    wide compare. A fourth probe (equal one-byte strings with different bytes behind the NUL) fixes it
+    (`crtprobe`); the table is cached in `build/equiv/crt2.json` (`_strcmp` 0x3473c6, `_strcpy` 0x346f3e now found).
+    MSVC mode never reached it (MSVC inlines strcmp).
+  - **x87 math** (`x87math`): `exp`, `sin`, `cos`, `tan`, `atan`, `atan2`, `sqrt` called by our code run the instruction
+    sequences MSVC 7.1 inlines (and native15's `crt_glue.cpp` uses) in a scratch Unicorn machine at control word 0x027F;
+    the result comes back as the full 80-bit st(0). Unicorn 2.1.4 (QEMU 5) implements fsin/fcos/fptan/fpatan/f2xm1 with the
+    host's double libm and rounds their results to 53 bits whatever the control word (real x87: 64-bit results), so
+    for sin/cos/tan/atan/atan2/sqrt this is the same value Python's `math` gave; `exp` is a sequence of 53-bit steps and
+    differs from `math.exp` in the last bit for roughly one input in three (`matches/0x0009f760` native: EQUIVALENT with
+    the sequence, `returned 1.0136074813942127e+23, expected ...107e+23` with Python). Residual: the missing 11 mantissa
+    bits of the transcendental results (a real CPU's st(0) feeds the next 53-bit operation with them; a double rounding at
+    one operation in ~2000) and `fsin` of |x| >= 2^63; not measurable here (no x86 hardware; Rosetta computes fpatan with
+    the host's atan2). `pow`, `log` & co. are library routines (a callee in the original, stubbed) and stay Python.
+  - **Sum order**: MSVC 7.1 reassociates float sums, so an MSVC-mode pass cannot show the order clang computes is right;
+    native mode can. native15's parked `0x0022ff50` (hulk_freg) is EQUIVALENT natively at 3000 inputs (its MSVC-mode run
+    differs: `hulk_freg` is `float` there); summing the endpoint distance in the other order fails natively. The parked
+    `0x0009fb20` fails in MSVC mode on the order of its final sum (MSVC inlines exp itself, so the Python model was not
+    the cause), and natively on two things only: the by-design 24-bit rounding of the float return and the x87 register's
+    larger exponent range (a `double` local holds inf where the original's st(0) holds 1e434; 35 of 3003 inputs, all
+    `exp` of a huge argument; with a `double` return the other 2968 agree).
+  Findings that are real native differences (not harness gaps) fall in a few classes: explicit `(float)` casts of register
+  values that MSVC 7.1 drops (0x0033ed90, 0x00150a10), float locals the original keeps unrounded (needs `hulk_freg`),
+  unrounded float returns, an operand read before a call where the original reads it after (evaluation order: 0x001247d0,
+  0x00207580), and a tail `jmp` whose callee reads the caller's stack words (0x0024b0c0). `build/cl6/native-sample.json`
+  has the sample, `build/cl6/native-recheck.txt` the sources to re-check.
+
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check
   `__security_check_cookie` is skipped on both sides, because its caller's `add esp` releases the frame

@@ -502,6 +502,60 @@ CASES = {
     # 1 word (the original's call pops 4) and the transform call the other two; the source before native13's fix
     "0x002f2fc0_vcall_words": ("equivalent", None),
     "0x002f2fc0_vcall_words_wrong": ("fail", "belong to another call"),
+    # round 18 (cl6): `native=True` checks the object the native build links, clang's -O0 i686 compile of the same source
+    # (the MSVC object's symbol binding, clang's reserved call frames, its own helpers), against the original.
+    # exp: the original's inline fldl2e/f2xm1/fscale sequence; ours calls exp, run as the same x87 sequence in Unicorn
+    # (x87math: Python's libm differs in the last bit for 1 input in 3) - the wrong sources scale the result by 1e-7,
+    # and the pre-round-18 model fails the right one
+    "0x0009f760_native_exp": ("equivalent", None, 0, {"native": True, "n_inputs": 300}),
+    "0x0009f760_native_exp_wrong": ("fail", "returned 1.0", 0, {"native": True, "n_inputs": 300}),
+    "0x0009f760_native_exp_python": ("fail", "returned 1.01", 0, {"native": True, "n_inputs": 300, "equiv_off": "x87math"}),
+    # calls from clang's object: args stored into the reserved area (the words are our declaration's), a callee that pops
+    # them re-reserved by `sub esp, N`, virtual calls (clangpop); a stub's bool result tested by bit 0 (boolret)
+    "0x0027dca0_native": ("equivalent", None, 0, {"native": True}),
+    "0x0027dca0_native_wrong": ("fail", "the local passed as argument 1 differs at +0x8", 0, {"native": True}),
+    "0x002b8840_native_bool": ("equivalent", None, 0.9, {"native": True, "n_inputs": 150}),
+    "0x002b8840_native_bool_wrong": ("fail", "argument 2", 0, {"native": True, "n_inputs": 150}),
+    "0x000f80e0_native_vcall_pop": ("equivalent", None, 0, {"native": True, "n_inputs": 100}),
+    "0x000f80e0_native_vcall_pop_wrong": ("fail", "argument 1", 0, {"native": True, "n_inputs": 100}),
+    # the function under test is named by the MSVC object (a `vfunc_3` with no address in its name; the constructor it
+    # calls is not it) and the vftable it stores is bound as in the MSVC object (natmap)
+    "0x00252d80_native_ctor": ("equivalent", None, 0, {"native": True}),
+    "0x00252d80_native_ctor_wrong": ("fail", "write to", 0, {"native": True}),
+    # a destructor's last vptr store (the base class's vftable) that clang omits (dtorvptr); a wrong slot is caught
+    "0x0028c040_native_dtor_vptr": ("equivalent", None, 0, {"native": True, "n_inputs": 100}),
+    "0x0028c040_native_dtor_vptr_wrong": ("fail", None, 0, {"native": True, "n_inputs": 100}),
+    # a switch's jump table lives in clang's .rdata; its section symbol is local data, never an original address
+    "0x001837e0_native_jumptable": ("equivalent", None, 0.9, {"native": True, "n_inputs": 150}),
+    "0x001837e0_native_jumptable_wrong": ("fail", None, 0, {"native": True, "n_inputs": 150}),
+    # clang calls the CRT strcmp the original inlined: the XBE's `_wcscmp` passed the three strcmp probes and was bound as
+    # `_strcmp` (crtprobe); `...` calls pass as many words as the original's call site
+    "0x000c1790_native_crt_strcmp": ("equivalent", None, 0.9, {"native": True, "n_inputs": 100}),
+    "0x000c1790_native_crt_strcmp_wrong": ("fail", "argument 2", 0, {"native": True, "n_inputs": 100}),
+    # a char out-parameter at an odd frame offset: the bytes behind it are other locals in the original's frame (natwin)
+    "0x0025c490_native_scalar_window": ("equivalent", None, 0.9, {"native": True, "n_inputs": 100}),
+    "0x0025c490_native_scalar_window_wrong": ("fail", None, 0, {"native": True, "n_inputs": 100}),
+    # the point of native mode: MSVC 7.1 drops an explicit `(float)` cast of an x87 register value (`x = (float)x * 3.0f`),
+    # clang rounds. The same source is EQUIVALENT in MSVC mode (3000 inputs earlier) and fails natively by 1 ulp
+    "0x0033ed90_msvc_cast": ("equivalent", None, 0.9, {"n_inputs": 100}),
+    "0x0033ed90_native_cast": ("fail", "write to arg2", 0, {"native": True, "n_inputs": 100}),
+    # a tail jump to a callee that reads a stack word of the original's own caller: MSVC's `jmp` passes it on, clang's
+    # `call` has nothing there (the callee reads 2 words, the source declares 1)
+    "0x0024b0c0_tail_thunk": ("equivalent", None),
+    "0x0024b0c0_native_tail_thunk": ("fail", "2 argument words, expected 1", 0, {"native": True}),
+    # the original calls `__CIasin` with the argument in st(0); clang calls `asin(double)` on the stack: the same call (natci).
+    # A callee whose pop count is unknown (a thunk) follows our declaration (`ret 4` of FUN_002a07a0 declared 1 argument);
+    # an indirect call with five cdecl arguments takes the original's count
+    "0x000189c0_native_ci": ("equivalent", None, 0.9, {"native": True, "n_inputs": 100}),
+    "0x000189c0_native_ci_wrong": ("fail", None, 0, {"native": True, "n_inputs": 100}),
+    "0x002a16c0_native_decl_pop": ("equivalent", None, 0.9, {"native": True, "n_inputs": 100}),
+    "0x002a16c0_native_decl_pop_wrong": ("fail", None, 0, {"native": True, "n_inputs": 100}),
+    "0x001df600_native_indirect": ("equivalent", None, 0, {"native": True, "n_inputs": 100}),
+    "0x001df600_native_indirect_wrong": ("fail", "argument", 0, {"native": True, "n_inputs": 100}),
+    # native15's parked source (hulk_freg return, the listing's sum order): EQUIVALENT natively at 3000 inputs; summed in the
+    # other order it fails (an MSVC-mode pass cannot tell: MSVC 7.1 reassociates the sum itself)
+    "0x0022ff50_native_sum_order": ("equivalent", None, 0.9, {"native": True, "n_inputs": 3000}),
+    "0x0022ff50_native_sum_order_wrong": ("fail", "returned", 0, {"native": True, "n_inputs": 3000}),
 }
 
 # verify_relocs.py cases: name -> (expected status, issue kind it must report or None)
