@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """Regression cases for tools/equiv.py: sources that a checker bug once got wrong.
 
-  build/venv/bin/python tests/equiv/regress.py [--jobs 4] [--only NAME]
+  build/venv/bin/python tests/equiv/regress.py [--jobs 4] [--only NAME] [--jobq [--name AGENT] [--per N]]
+
+--jobq runs the cases as jobs of the shared queue (tools/jobq.py, docs/compute.md), spread over the hosts, with the
+working tree's uncommitted tools/ and tests/ files shipped along.
 
 Each case is a source in tests/equiv/cases/ (named 0xADDR_what.cpp) with the status it must get, a
 piece of the mismatch text that shows the right thing was caught, and for some a minimum branch coverage.
@@ -10,6 +13,7 @@ Skips when the game files are absent.
 import argparse
 import os
 import sys
+import time
 from multiprocessing import Pool
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
@@ -610,15 +614,59 @@ def _job(name, equiv, addr, kw):
     return name, r["status"], diffs, ratio, (r.get("level3") or {}).get("inputs_run") or 0
 
 
+def run_jobq(a, names):
+    """Shard the cases over the job queue; print the same lines as a local run and the total."""
+    import jobq
+    per = a.per
+    commit = jobq.head_commit()
+    files = jobq.collect_files([], True)
+    jobs = [jobq.make_job(a.name, ["python", "tests/equiv/regress.py", "--names", ",".join(names[i:i + per]), "--jobs", "2"],
+                          "equiv", files, [], 3600, 2, 3, 0, commit) for i in range(0, len(names), per)]
+    ids = jobq.submit_jobs(jobs)
+    print("%d cases in %d jobs (%d-%d)" % (len(names), len(ids), ids[0], ids[-1]), flush=True)
+    c = jobq.conn()
+    pending, bad, total = dict(zip(ids, [names[i:i + per] for i in range(0, len(names), per)])), 0, 0
+    while pending:
+        for r in c.execute("SELECT id,state,host,reason FROM jobs WHERE id IN (%s)" % ",".join(map(str, pending))).fetchall():
+            if r["state"] not in jobq.TERMINAL:
+                continue
+            ch = pending.pop(r["id"])
+            lp = os.path.join(jobq.OUT, str(r["id"]), "log")
+            lines = [l for l in open(lp, errors="replace").read().splitlines()] if os.path.exists(lp) else []
+            seen = 0
+            for l in lines:
+                if l.startswith("ok ") or l.startswith("FAIL"):
+                    print("%s  [%s]" % (l, r["host"]), flush=True)
+                    seen += 1
+                    bad += l.startswith("FAIL")
+                elif l.startswith("skip:"):
+                    print(l)
+            if seen < len(ch):
+                bad += len(ch) - seen
+                print("FAIL job %d (%s): %d of %d cases reported (%s)" % (r["id"], r["state"], seen, len(ch), r["reason"]))
+            total += len(ch)
+        if pending:
+            time.sleep(1)
+    print("%d/%d cases ok" % (total - bad, total))
+    return 1 if bad else 0
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--jobs", type=int, default=4)
     p.add_argument("--only")
+    p.add_argument("--names", help="comma-separated exact case names")
+    p.add_argument("--jobq", action="store_true", help="run the cases through tools/jobq.py")
+    p.add_argument("--name", default=os.environ.get("USER", "agent"), help="submitter name for --jobq")
+    p.add_argument("--per", type=int, default=6, help="cases per job for --jobq")
     a = p.parse_args()
+    sel = set(a.names.split(",")) if a.names else None
+    if a.jobq:
+        return run_jobq(a, [n for n in list(CASES) + list(RELOC_CASES) if (not a.only or a.only in n) and (not sel or n in sel)])
     if not os.path.exists(os.path.join(ROOT, "isos/extracted/default.xbe")):
         print("skip: no isos/extracted/default.xbe")
         return 0
-    names = [n for n in CASES if not a.only or a.only in n]
+    names = [n for n in CASES if (not a.only or a.only in n) and (not sel or n in sel)]
     bad = 0
     with Pool(a.jobs) as pool:
         for name, status, diffs, ratio, nrun in pool.imap_unordered(job, names):
@@ -630,7 +678,7 @@ def main():
             print("%-4s %-32s %-12s %3.0f%% %s" % ("ok" if ok else "FAIL", name, status, 100 * ratio,
                                                  "" if ok else (diffs[:2] or "")))
     import verify_relocs
-    for name in [n for n in RELOC_CASES if not a.only or a.only in n]:
+    for name in [n for n in RELOC_CASES if (not a.only or a.only in n) and (not sel or n in sel)]:
         want, kind = RELOC_CASES[name]
         r = verify_relocs.check(os.path.join(CASES_DIR, name + ".cpp"), int(name.split("_")[0], 16))
         ok = r["status"] == want and (kind is None or any(i[0] == kind for i in r["issues"]))

@@ -95,11 +95,24 @@ def main():
     ap.add_argument("--margin", type=int, default=600, help="seconds added to the time budget for the wall-clock limit")
     ap.add_argument("--limit", type=int, help="wall-clock limit per batch in seconds (overrides budget+margin)")
     ap.add_argument("--only", help="comma-separated host names to use")
+    ap.add_argument("--jobq", action="store_true",
+                    help="send the batches through the shared queue (tools/jobq.py) instead of dispatching here; "
+                         "--hosts/--only/--no-adapt/--margin are then ignored (hosts: build/jobs/hosts.json)")
     ap.add_argument("--no-adapt", action="store_true", help="ignore load average when sizing slots")
     a = ap.parse_args()
 
     items = [tuple(l.split()[:2]) for l in open(a.list) if l.strip()]
     total = len(items)
+    if a.jobq:
+        import jobq_equiv
+        extra = ["--inputs", str(a.inputs), "--max-inputs", str(a.inputs)] + a.extra.split()
+        res = jobq_equiv.run_items(a.name, items, a.out, extra, a.batch, a.attempts, a.limit or limit_of(a.extra, a.margin),
+                                   True, a.status)
+        left = sorted(i for i, _ in items if i not in res)
+        print("checked through jobq: %d results" % len(res))
+        if left:
+            print("unfinished (gave up after %d attempts): %s" % (a.attempts, left))
+        return 0
     cfg = json.load(open(a.hosts))["hosts"]
     if a.only:
         cfg = [c for c in cfg if c["name"] in a.only.split(",")]

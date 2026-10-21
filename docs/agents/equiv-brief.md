@@ -14,6 +14,7 @@ Run everything from the repository root.
    - Fix the earliest differing call or write first.
    - `docs/equivalence.md` explains the report.
    - Optionally, check `tools/compare.py SRC 0xADDR` for a free byte-match, but don't chase one.
+   - Quick single checks may run locally (at most 2 processes); larger or repeated runs go through `tools/jobq.py` (`docs/compute.md`).
 4. Cap: **10 equiv.py runs per function**. Then move on and record it as failed, with your best attempt left in `work/`.
 5. When the function passes, copy it to `build/farm/bench/claude-equiv/pass/0xADDR.cpp`.
 6. Log every function as one JSON line appended to `build/farm/bench/claude-equiv/log.jsonl`:

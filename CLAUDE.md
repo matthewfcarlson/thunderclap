@@ -37,6 +37,13 @@ Source files are one function each and self-contained (`equivalent/` ones start 
 `tools/format_equivalents.py` format them. Briefs for matching and equivalence work: `docs/agents/match-brief.md`
 and `docs/agents/equiv-brief.md`. Pitfall recipes live in `farm/src/prompt.ts`.
 
+## Compute
+
+Heavy jobs (`equiv.py` beyond quick single checks, `build_tree`, regress suites, scans, sweeps) go through the shared queue,
+`tools/jobq.py`, which spreads them over the laptop, mac2 and mac1 (`docs/compute.md`): `submit`, `wait`, `status`. Batches of
+equivalence checks: `tools/jobq_equiv.py`, or `--jobq` on `equiv_batch.py`, `promote_dispatch.py` and `tests/equiv/regress.py`.
+At most 2 local processes for interactive debugging. Native Wine runs are `--needs wine`. xemu jobs always carry `-snapshot`.
+
 ## Hard rules
 
 - **Never commit game assets or derived game content**: ISO/XBE/RCF, `build/`, `*.sqlite`, BIOS/MCPX/HDD images,

@@ -5,7 +5,8 @@ For offloading equivalence checks to another machine with the same checkout (e.g
 the results come back as a JSONL file, and the full report of each run is kept for review.
 
 Usage:
-  tools/equiv_batch.py LIST OUT.jsonl [--jobs N] [-- extra equiv.py args]
+  tools/equiv_batch.py LIST OUT.jsonl [--jobs N] [--jobq [--name AGENT] [--per N]] [-- extra equiv.py args]
+--jobq sends the checks through the shared queue (tools/jobq.py: spread over all hosts) instead of running them here.
 LIST has one "0xADDR path/to/source.cpp" per line. Lines already in OUT.jsonl are skipped, so an
 interrupted run resumes where it stopped.
 """
@@ -46,7 +47,16 @@ def main():
     p.add_argument("list")
     p.add_argument("out")
     p.add_argument("--jobs", type=int, default=4)
+    p.add_argument("--jobq", action="store_true", help="run through tools/jobq.py")
+    p.add_argument("--name", default=os.environ.get("USER", "agent"), help="submitter name for --jobq")
+    p.add_argument("--per", type=int, default=2, help="functions per job for --jobq")
     a = p.parse_args(argv)
+    if a.jobq:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import jobq_equiv
+        items = [tuple(l.split()[:2]) for l in open(a.list) if l.strip()]
+        res = jobq_equiv.run_items(a.name, items, a.out, extra, a.per)
+        return sys.exit(1 if any(i not in res for i, _ in items) else 0)
     done = set()
     if os.path.exists(a.out):
         done = {json.loads(l)["addr"] for l in open(a.out) if l.strip()}

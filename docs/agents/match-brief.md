@@ -15,6 +15,7 @@ For each address A (skip it if `matches/A.cpp` already exists):
    - forbidden: inline asm, `_emit`, `naked`, `#pragma`;
    - ebp frame (`push ebp / mov ebp,esp ... leave`): make the first line `// cl-flags: /Oy-`. Size-optimized code: `// cl-flags: /Oy- /O1`.
 3. **Compare:** `build/venv/bin/python tools/compare.py build/farm/agent-work/B/A_N.cpp A`. It prints MATCH or an aligned diff (`!!` differs, `--` missing in ours, `++` extra in ours). Fix the earliest difference first. If compare picks the wrong function from your object, pass the mangled symbol as a third argument.
+   Sweeps over many functions go through `tools/jobq.py` (`docs/compute.md`), not a pile of local processes.
 4. **Verify references** on MATCH: `build/venv/bin/python tools/verify_relocs.py build/farm/agent-work/B/A_N.cpp --addr A --json` must report status "ok". Otherwise fix the string literals, constants, or which function or global each reference names.
 5. **Install** on MATCH + ok: `cp build/farm/agent-work/B/A_N.cpp matches/A.cpp && build/venv/bin/python tools/format_matches.py matches/A.cpp`.
 6. **Budget:** at most 8 attempts per function; move on when the score stops improving. Skip immediately if arguments arrive in registers other than ecx (eax/ebx/edi with a plain ret), if it uses the CRT `__SEH_prolog` helper, or if it's an SEH funclet. If only a this/argument register swap remains after ~4 attempts, move on.
