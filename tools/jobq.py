@@ -537,7 +537,11 @@ class Host:
         if needs == "xemu" or "xemu" in job["cmd"].lower():
             if self.local or self.xemu_used >= self.xemu_max:
                 return False
-        return self.cap - self.used >= job["slots"] or (self.used == 0 and self.cap > 0)
+        if self.cap - self.used >= job["slots"]:
+            return True
+        # an idle remote may take a job bigger than its load-sized cap (it would starve otherwise); the laptop never
+        # does, except for what only it can run: it also hosts the interactive work and native gfx runs
+        return self.used == 0 and self.cap > 0 and (not self.local or needs == "wine-gfx")
 
 
 def choose_host(job, hosts, now=None):
