@@ -54,6 +54,119 @@ static void sdl_up()
     g_sdl.up = 1;
 }
 
+// ---------------------------------------------------------------------------------------------
+// play1: the keyboard as a virtual pad on port 0 while no real gamepad is connected (and a window exists).
+// HULK_KEYBOARD=0 turns it off; it is also off for a hidden window (unattended runs). Mapping (docs/native-play.md):
+//   WASD left stick, IJKL right stick, arrows D-pad, Space A, F B, R X, G Y, Z White, X Black,
+//   Left Shift left trigger, Left Ctrl right trigger, Enter Start, Esc Back, Tab L3, V R3.
+#define KB_GEN 0x4b42u
+static int kb_active(void)
+{
+    static int env = -1;
+    if (env < 0) {
+        const char* e = SDL_getenv("HULK_KEYBOARD");
+        const char* h = SDL_getenv("HULK_GFX_HIDDEN");
+        env = !((e && *e == '0') || (h && *h && *h != '0'));
+    }
+    if (!env || !SDL_WasInit(SDL_INIT_VIDEO))
+        return 0;
+    for (int p = 0; p < HULK_INPUT_PORTS; p++)
+        if (g_sdl.port[p].id)
+            return 0;
+    static int logged;
+    if (!logged) {
+        logged = 1;
+        SDL_Log("input: no gamepad: the keyboard is pad 0 (WASD IJKL arrows Space F R G Enter Esc; docs/native-play.md)");
+    }
+    return 1;
+}
+
+// HULK_KEY_SCRIPT="from-to:Key[+Key],...": hold keys (SDL key names, e.g. Return, Space, W) while the time since the first
+// pad poll, in tenths of a second, is in [from, to). For unattended runs of the live path (tools/play.py --script).
+struct KbScript { unsigned from, to; SDL_Scancode code[4]; int n; };
+static KbScript g_script[64];
+static int g_script_n = -1;
+static unsigned g_polls;
+static void kb_script_load()
+{
+    g_script_n = 0;
+    const char* e = SDL_getenv("HULK_KEY_SCRIPT");
+    while (e && *e && g_script_n < 64) {
+        KbScript* sc = &g_script[g_script_n];
+        SDL_memset(sc, 0, sizeof(*sc));
+        char* end;
+        sc->from = (unsigned)SDL_strtoul(e, &end, 10);
+        if (*end != '-')
+            break;
+        sc->to = (unsigned)SDL_strtoul(end + 1, &end, 10);
+        if (*end != ':')
+            break;
+        e = end + 1;
+        while (*e && *e != ',' && sc->n < 4) {
+            char name[24];
+            int l = 0;
+            while (*e && *e != '+' && *e != ',' && l < 23)
+                name[l++] = *e++;
+            name[l] = 0;
+            SDL_Scancode c = SDL_GetScancodeFromName(name);
+            if (c != SDL_SCANCODE_UNKNOWN)
+                sc->code[sc->n++] = c;
+            if (*e == '+')
+                e++;
+        }
+        g_script_n++;
+        if (*e == ',')
+            e++;
+    }
+}
+
+static int kb_read(HulkPadState* s)
+{
+    const bool* real = SDL_GetKeyboardState(0);
+    bool ks[SDL_SCANCODE_COUNT];
+    SDL_memset(s, 0, sizeof(*s));
+    SDL_memset(ks, 0, sizeof(ks));
+    if (real)
+        for (int i = 0; i < SDL_SCANCODE_COUNT; i++)
+            ks[i] = real[i];
+    if (g_script_n < 0)
+        kb_script_load();
+    g_polls++;
+    if (g_polls == 1 || g_polls % 5000 == 0)
+        SDL_Log("input: keyboard pad poll %u", g_polls);
+    static Uint64 t0;
+    if (!t0)
+        t0 = SDL_GetTicks();
+    unsigned dsec = (unsigned)((SDL_GetTicks() - t0) / 100);       // tenths of a second since the first poll
+    for (int i = 0; i < g_script_n; i++)
+        if (dsec >= g_script[i].from && dsec < g_script[i].to)
+            for (int j = 0; j < g_script[i].n; j++)
+                ks[g_script[i].code[j]] = true;
+    const bool* k = ks;
+    static const struct { SDL_Scancode c; unsigned short bit; } kDig[] = {
+        {SDL_SCANCODE_UP, HULK_PAD_DPAD_UP}, {SDL_SCANCODE_DOWN, HULK_PAD_DPAD_DOWN},
+        {SDL_SCANCODE_LEFT, HULK_PAD_DPAD_LEFT}, {SDL_SCANCODE_RIGHT, HULK_PAD_DPAD_RIGHT},
+        {SDL_SCANCODE_RETURN, HULK_PAD_START}, {SDL_SCANCODE_ESCAPE, HULK_PAD_BACK},
+        {SDL_SCANCODE_TAB, HULK_PAD_LEFT_THUMB}, {SDL_SCANCODE_V, HULK_PAD_RIGHT_THUMB},
+    };
+    for (unsigned i = 0; i < sizeof(kDig) / sizeof(kDig[0]); i++)
+        if (k[kDig[i].c])
+            s->buttons |= kDig[i].bit;
+    static const struct { SDL_Scancode c; int slot; } kAn[] = {
+        {SDL_SCANCODE_SPACE, HULK_PAD_A}, {SDL_SCANCODE_F, HULK_PAD_B}, {SDL_SCANCODE_R, HULK_PAD_X},
+        {SDL_SCANCODE_G, HULK_PAD_Y}, {SDL_SCANCODE_X, HULK_PAD_BLACK}, {SDL_SCANCODE_Z, HULK_PAD_WHITE},
+        {SDL_SCANCODE_LSHIFT, HULK_PAD_LEFT_TRIGGER}, {SDL_SCANCODE_LCTRL, HULK_PAD_RIGHT_TRIGGER},
+    };
+    for (unsigned i = 0; i < sizeof(kAn) / sizeof(kAn[0]); i++)
+        if (k[kAn[i].c])
+            s->analog[kAn[i].slot] = 255;
+    s->thumb[HULK_THUMB_LX] = (short)((k[SDL_SCANCODE_D] ? 32767 : 0) - (k[SDL_SCANCODE_A] ? 32767 : 0));
+    s->thumb[HULK_THUMB_LY] = (short)((k[SDL_SCANCODE_W] ? 32767 : 0) - (k[SDL_SCANCODE_S] ? 32767 : 0));
+    s->thumb[HULK_THUMB_RX] = (short)((k[SDL_SCANCODE_L] ? 32767 : 0) - (k[SDL_SCANCODE_J] ? 32767 : 0));
+    s->thumb[HULK_THUMB_RY] = (short)((k[SDL_SCANCODE_I] ? 32767 : 0) - (k[SDL_SCANCODE_K] ? 32767 : 0));
+    return 1;
+}
+
 static void sdl_update(void*)
 {
     sdl_up();
@@ -113,7 +226,7 @@ static void sdl_update(void*)
 
 static unsigned sdl_connected(void*)
 {
-    unsigned m = 0;
+    unsigned m = kb_active() ? 1u : 0u;
     for (int p = 0; p < HULK_INPUT_PORTS; p++)
         if (g_sdl.port[p].id)
             m |= 1u << p;
@@ -122,11 +235,15 @@ static unsigned sdl_connected(void*)
 
 static unsigned sdl_generation(void*, unsigned port)
 {
+    if (port == 0 && kb_active())
+        return KB_GEN;
     return port < HULK_INPUT_PORTS ? g_sdl.port[port].gen : 0;
 }
 
 static int sdl_read(void*, unsigned port, HulkPadState* s)
 {
+    if (port == 0 && kb_active())
+        return kb_read(s);
     if (port >= HULK_INPUT_PORTS || !g_sdl.port[port].pad)
         return 0;
     SDL_Gamepad* g = g_sdl.port[port].pad;

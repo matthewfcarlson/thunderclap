@@ -575,6 +575,30 @@ static void render_locked(float* out, unsigned frames)
     g_audio.rendered += frames;
     if (g_audio.cap)
         capture_write(out, frames);
+    // play1: HULK_AUDIO_LOG=1: every 5 s of rendered audio, the peak and the number of playing / created voices
+    static int logOn = -1;
+    static float peak;
+    static unsigned long long next;
+    if (logOn < 0) {
+        const char* e = SDL_getenv("HULK_AUDIO_LOG");
+        logOn = e && *e && *e != '0';
+    }
+    if (logOn) {
+        for (unsigned i = 0; i < frames * 2; i++) {
+            float a = out[i] < 0 ? -out[i] : out[i];
+            if (a > peak)
+                peak = a;
+        }
+        if (g_audio.rendered >= next) {
+            unsigned np = 0;
+            for (HulkVoice* v = g_audio.voices; v; v = v->next)
+                np += v->playing != 0;
+            alog("level t=%us peak %.3f voices playing %u of %u", (unsigned)(g_audio.rendered / HULK_AUDIO_RATE), peak, np,
+                 (unsigned)g_audio.nvoices);
+            peak = 0;
+            next = g_audio.rendered + 5ull * HULK_AUDIO_RATE;
+        }
+    }
 }
 
 void hulk_audio_render(float* out, unsigned frames)

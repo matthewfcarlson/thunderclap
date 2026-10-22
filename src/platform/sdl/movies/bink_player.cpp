@@ -50,6 +50,15 @@ static bool movie_api()
 {
     if (g_api_state)
         return g_api_state > 0;
+    {
+        // play1: HULK_MOVIES=0 skips every movie (the game treats a failed open as "no movie")
+        const char* m = SDL_getenv("HULK_MOVIES");
+        if (m && *m == '0') {
+            g_api_state = -1;
+            mlog("HULK_MOVIES=0: movies are skipped");
+            return false;
+        }
+    }
 #if defined(HULK_MOVIE_STATIC)
 #define X(n) g_api.n = hulk_movie_##n;
     MOVIE_FUNCS(X)
