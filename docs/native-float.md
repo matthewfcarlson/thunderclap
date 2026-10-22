@@ -424,9 +424,38 @@ into the `(__int64)` step of the already-faithful `(int)(__int64)` spelling (0 o
 `int`/`unsigned` conversion overflowed. Limits: the path diverges from the recording at ~frame 1,020 and needed four
 workspace-only crash guards after frame 3,900; see build/ubsan1/notes.md.
 
+## 11. What xemu's fsin/fcos/fptan/fpatan really compute (cap1, 2026-10-21)
+
+Measured, not read from source: `tools/xemu_x87_probe.py` boots the hybrid image in xemu 0.8.136 (`-S -snapshot`, muted),
+stops at the first call of an early game function, writes `fninit; fldcw 0x37f; fld tbyte [..]; OP` under the stack and
+single-steps it over the GDB stub, then reads all 80 bits of ST(0) from the `g` packet (offset 100, 10 bytes per register).
+Inputs are exact 80-bit values with full 64-bit mantissas (126 for fsin/fcos/fptan: magnitudes 1e-6 to 1e10 plus 2^40 and
+2^62; 40 pairs for fpatan). Reference: mpmath at 400 bits, rounded to nearest at 64 bits.
+
+| op | result |
+|---|---|
+| `fsin`, `fcos`, `fptan` (42 each) | **the host double libm**: every result has its low 11 mantissa bits zero (42/42) and equals `sin`/`cos`/`tan` of the input *rounded to double*, computed in double and widened, bit for bit (42/42 each). Errors against the exact value reach thousands of 64-bit ULPs (an input rounded to 53 bits, then libm). `fptan` pushes exactly 1.0 |
+| `fpatan` (40) | **correct 80-bit arithmetic**: bit-identical to the correctly rounded 64-bit-mantissa value in 40/40, no zero low bits (softfloat, not libm) |
+
+So xemu's three trig helpers are the double path (as Unicorn 2.1.4's are, cl6 / equivalence.md round 18); `fpatan` is not.
+Real hardware computes all four in extended precision (an `fsin` result has a full 64-bit mantissa, within about 1 ULP of the
+64-bit value for arguments below 2^63; I could not run hardware here, so that part is Intel's documented behaviour).
+Consequences for the soft intrinsics:
+- **Follow real hardware, not xemu**, for `fsin`/`fcos`/`fptan`: compute in extended or at least double-double and round
+  once. A float-returning game function then agrees with the original to the last bit of the float in nearly every
+  case, while xemu's own results differ from hardware by up to ~2^-53 relative (a double ULP).
+- **`fpatan`**: xemu already equals the correctly rounded value, so a correct implementation matches both xemu and
+  hardware (to within hardware's ~1 ULP).
+- The recordings made under xemu (all traces) carry the double-libm `fsin`/`fcos`/`fptan` results of the macOS host's libm:
+  replay of recorded callee results is unaffected, but golden outputs of the *native* image compared with them can differ
+  in the last double bit wherever the result is kept as a double. Where the hybrid build must reproduce xemu bit for bit
+  (xemu A/B tests only), a `sin(double)` through host libm is what matches.
+- Raw results: `build/cap1/x87-probe.json` (local, not tracked); scorer `build/cap1/x87_score.py`.
+
 ## Files
 
 - `tools/x87_scan.py`: the scanner (tracked).
+- `tools/xemu_x87_probe.py`: the xemu x87 probe of section 11 (tracked; mac2 only).
 - `build/x87/` (local): `x87cc.py` (compiler stand-in: modes o0, o1, o1dyn, sroadyn, m2rdyn, o0sroa, bis*),
   `mkws.sh`, `link.sh`, `rrun.sh`, `bisect.sh`, `bisect_loop.sh`, `scan-*.{txt,json}`, `intrinsics.{py,json}`,
   `wfloat.py`, `conv-pops.{txt,json}`, `patch-x87-control-word.diff`, `RESUME.md`; the probes `cw/` (host control word,

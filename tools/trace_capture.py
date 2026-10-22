@@ -52,7 +52,8 @@ from xemu_gdb import Gdb  # noqa: E402
 
 ROOT = equiv.ROOT
 DEFAULT_SCRIPT = os.path.join(ROOT, "tests/replays/capture-gameplay.json")
-CAP_STEPS = 400000          # Unicorn steps per captured call (the real data can loop long)
+CAP_STEPS = int(os.environ.get("HULK_CAP_STEPS", "400000"))   # Unicorn steps per captured call (the real data can
+                            # loop long; cap1: HULK_CAP_STEPS=8000000 for 0x002731d0, which loops ~40,000 callee calls)
 SYNC_TIMEOUT = 60           # seconds the game may take inside one callee (nested captures not counted)
 BELOW = 0x2000              # guest stack bytes read below esp at each sync
 MAX_DEPTH = 3               # nested captures

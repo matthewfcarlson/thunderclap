@@ -495,6 +495,24 @@ class TraceRun(Run):
                     if a + i < self.prefix_hi:
                         unk[i] = True
             how = ("args", a - entry, b - entry) if a >= entry + 4 else None
+            redirect = None
+            if how is not None and fbase is not None and not is_fill and "widen" not in REPLAY_OFF and \
+                    "redirwiden" not in REPLAY_OFF:
+                # (cap1, redirwiden) the original's callee wrote into its incoming-argument slots (a pointer to a
+                # dead parameter slot reused as a local); ours keeps a local of its own and the write is placed
+                # behind it (_place_piece). As `widen` does for frame writes: the bytes of the word the delta
+                # leaves alone get the game's, where the original's code never wrote them
+                gat2 = lambda x: g[x - fbase] if 0 <= x - fbase < len(g) else None
+                wd, wk, wa = bytearray(data), list(keep), a
+                for lo, hi in ((a & ~3, a), (a + n, (a + n + 3) & ~3)):
+                    if lo < hi and all(gat2(x) is not None and x not in self.func_stack_written for x in range(lo, hi)):
+                        ext = bytearray(gat2(x) for x in range(lo, hi))
+                        if lo < wa:
+                            wd, wk, wa = ext + wd, [True] * (hi - lo) + wk, lo
+                        else:
+                            wd, wk = wd + ext, wk + [True] * (hi - lo)
+                if len(wd) != len(data):
+                    redirect = (wa - a, bytes(wd), wk, [False] * (a - wa) + list(unk) + [False] * (len(wd) - n - (a - wa)))
             if how is None:
                 alt = None
                 if key[0] == "reg":
@@ -502,7 +520,13 @@ class TraceRun(Run):
                     # passes as a stack argument: ours may not have it in that register)
                     alt = next((("arg", j) for j, (v, _) in enumerate(c["args"]) if v == b), None)
                 how = ("frame", alt)
-            pieces = [dict(key=key, off=off, data=bytes(data), how=how, keep=keep, unk=unk, a=a, b=b)]
+            altkey = None
+            if how is not None and key[0] == "reg" and "redirwiden" not in REPLAY_OFF:
+                # (cap1) ours may not hold the pointer in that register (a callee `// equiv-conv` takes it in ecx, our
+                # declaration passes it on the stack): the call's argument that has its value finds it
+                altkey = next((("arg", j) for j, (v, _) in enumerate(c["args"]) if v == b), None)
+            pieces = [dict(key=key, off=off, data=bytes(data), how=how, keep=keep, unk=unk, a=a, b=b, redirect=redirect,
+                           altkey=altkey)]
             out.extend(pieces)
         return out
 
@@ -519,10 +543,16 @@ class TraceRun(Run):
         elif how[0] == "args":
             a = entry + how[1]
             b = self.base_value(key, k) if key[0] != "entry" else None
+            if b is None and pc.get("altkey"):
+                b = self.base_value(pc["altkey"], k)
             if b is not None and b != entry + how[2] and not (b + off < entry + 4 and b + off + n > entry):
                 # the original passed a pointer into its incoming argument slots (a dead parameter
                 # reused as a local) and ours a local of its own: the write goes behind ours
                 a = b + off
+                if pc.get("redirect") and not (self.skip_unknown is not None):
+                    sh, data, keep, unk_ = pc["redirect"]
+                    data, keep, a, n = bytearray(data), list(keep), a + sh, len(data)
+                    pc = dict(pc, unk=unk_)
         else:
             if len(how) > 1 and how[1] is not None:
                 key = how[1]
@@ -543,8 +573,11 @@ class TraceRun(Run):
                     # there, as long as the write stays within our incoming arguments and the original's own
                     # slots there are dead after the call
                     orun = self.trace.get("_orun")
+                    # (cap1, ownconv) when the function under test has its own `// equiv-conv`, the incoming-argument
+                    # slots hold different words on the two sides (the original's register arguments are our stack
+                    # words): the original's liveness there says nothing about ours
                     if "deadarg" in REPLAY_OFF or orun is None or a < entry + 4 or a + n > self.stack_top() or \
-                            not orun.arg_dead_after(k, a, a + n):
+                            (not getattr(self, "own_conv", False) and not orun.arg_dead_after(k, a, a + n)):
                         a = None
         if a is None:
             self.base_misses += 1
@@ -657,10 +690,17 @@ def replay_level3(store, addr, max_calls=None, max_steps=2000000, time_budget=12
     def fn(prog, oview, rview, ours, orefs, sig, ret_kind, psizes, convs, decls, void_eax, issues):
         res = {"captured": 0, "replayed": 0, "agreed": 0, "mismatched": 0, "incomplete": 0, "mismatches": [],
                "incomplete_reasons": [], "notes": [], "level2_ok": not issues}
-        if (convs or {}).get(oview.entry):
-            res["unsupported"] = "the function itself has an equiv-conv annotation (register arguments)"
-            res["status"] = "unsupported"
-            return res
+        target_conv = (convs or {}).get(oview.entry)
+        own_layout, esp_adjust = [], 0
+        if target_conv:
+            # (cap1, ownconv) the function under test has `// equiv-conv`: the recorded entry is the original's
+            # layout; ours gets the same values where its declaration takes them (inverse of equiv._conv_input)
+            own_layout = equiv.decl_layout(sig)[0] if "ownconv" not in REPLAY_OFF else None
+            if not own_layout:
+                res["unsupported"] = "the function itself has an equiv-conv annotation (register arguments)"
+                res["status"] = "unsupported"
+                return res
+            esp_adjust = (equiv.decl_layout(sig)[1] or 0) - (prog.callee_pop(oview.entry) or 0)
         traces = store.calls_spread(addr, max_calls) if spread else store.calls(addr, only_ok=True, limit=max_calls)
         res["captured"] = len(traces)
         res["capture_failed"] = (store.db.execute("SELECT COUNT(*) FROM calls WHERE func = ? AND ok = 0",
@@ -677,7 +717,28 @@ def replay_level3(store, addr, max_calls=None, max_steps=2000000, time_budget=12
         if pre_fix:
             res["pre_st0_fix"] = 0
 
+        def ours_input(inp):
+            if not target_conv:
+                return inp
+            vals, si = [], 0
+            for loc in target_conv:
+                if loc == "stack":
+                    vals.append(inp["stack"][si] if si < len(inp["stack"]) else 0)
+                    si += 1
+                else:
+                    vals.append(inp["regs"][loc])
+            regs = dict(inp["regs"])
+            stack = []
+            for li, loc in enumerate(own_layout):
+                v = vals[li] if li < len(vals) else 0
+                if loc == "stack":
+                    stack.append(v)
+                else:
+                    regs[loc] = v
+            return dict(inp, regs=regs, stack=stack + list(inp["stack"][si:]), own_args=list(stack), own_pop=None)
+
         def run_ours(tr, inp, skip_unknown, steps):
+            inp = ours_input(inp)
             rmach = TraceMemory(prog, tr["pages"], store)
             rrun = TraceRun(prog, rview, rmach, inp, ours_image=(equiv.OURS, ours.image), sig=sig,
                             max_steps=steps * 2, own_float_ret=own_float, helpers=helpers, trace=tr, side="ours",
@@ -686,6 +747,7 @@ def replay_level3(store, addr, max_calls=None, max_steps=2000000, time_budget=12
             rrun.intrinsics = {a: n for a, n in ours.poison.items() if n in equiv.INTRINSIC_NAMES}
             rrun.local_code = (equiv.OURS, ours.end)
             rrun.self_alias = oview.entry
+            rrun.own_conv = bool(target_conv)
             rrun.convs = convs or {}
             rrun.decls = decls or {}
             rrun.varargs = varargs
@@ -723,7 +785,8 @@ def replay_level3(store, addr, max_calls=None, max_steps=2000000, time_budget=12
                 edges.update(orun.edges)
             rmach, rrun, r = run_ours(tr, inp, None, steps)
             # compare against the original's memory as recorded (both runs read the same pages)
-            diffs = equiv.compare_runs(o, r, ret_kind, mach, TraceNamer(inp, sig, prog), prog, void_eax=void_eax)
+            diffs = equiv.compare_runs(o, r, ret_kind, mach, TraceNamer(inp, sig, prog), prog, void_eax=void_eax,
+                                       esp_adjust=esp_adjust, skip_saved=set(target_conv or ()))
             note = []
             if diffs and orun.unknown_placed > len(orun.unk_read) and "unknown" not in REPLAY_OFF:
                 # (round 12, unknown) the difference may come from recorded bytes no callee wrote: they lay below
@@ -736,7 +799,8 @@ def replay_level3(store, addr, max_calls=None, max_steps=2000000, time_budget=12
                 if not selfcheck(o2, orun2, mach2, tr):
                     _, rrun2, r2 = run_ours(tr, inp2, keep_, steps)
                     if not equiv.compare_runs(o2, r2, ret_kind, mach2, TraceNamer(inp2, sig, prog), prog,
-                                              void_eax=void_eax):
+                                              void_eax=void_eax, esp_adjust=esp_adjust,
+                                              skip_saved=set(target_conv or ())):
                         res["incomplete"] += 1
                         res["unknown_bytes"] = res.get("unknown_bytes", 0) + 1
                         if len(res["incomplete_reasons"]) < 3:
