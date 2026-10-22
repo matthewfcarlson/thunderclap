@@ -577,7 +577,8 @@ class TraceRun(Run):
                     # slots hold different words on the two sides (the original's register arguments are our stack
                     # words): the original's liveness there says nothing about ours
                     if "deadarg" in REPLAY_OFF or orun is None or a < entry + 4 or a + n > self.stack_top() or \
-                            (not getattr(self, "own_conv", False) and not orun.arg_dead_after(k, a, a + n)):
+                            (not (getattr(self, "own_conv", False) and "ownconvdead" not in REPLAY_OFF) and
+                             not orun.arg_dead_after(k, a, a + n)):
                         a = None
         if a is None:
             self.base_misses += 1

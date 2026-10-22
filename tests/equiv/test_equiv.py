@@ -46,6 +46,37 @@ class Logic(unittest.TestCase):
         self.assertEqual(equiv.decl_layout(equiv.parse_signature("?f@@YAHHHHPAX@Z")), (["stack"] * 4, 0))
         self.assertEqual(equiv.decl_layout(equiv.parse_signature("?f@@YIHHHH@Z")), (["ecx", "edx", "stack"], 4))
 
+    def test_vptr_use(self):
+        # (cl10, vptrkeep) a pointer word loaded before stubs and used after them is kept across the stubs' memory havoc, unless
+        # a known callee writes there (a constructor stores its vptr through ecx) - then the old model stays
+        class FakeProg:
+            def __init__(self, pure, writes):
+                self.pure, self.writes = pure, writes
+
+            def callee_pure(self, t):
+                return t in self.pure
+
+            def callee_writes(self, t):
+                return self.writes.get(t, {})
+
+        def run(calls, prog, A=0x40001000):
+            r = equiv.Run.__new__(equiv.Run)
+            r.epoch, r.calls, r.prog, r.vp_havoc = len(calls), calls, prog, {}
+            r._read_u32 = lambda a: 0x1234          # the word now (memory was replaced by the stub's havoc)
+            r._vptr_use((A, 0x5678, 0, 0, None))
+            return r.vp_havoc
+
+        def call(target, known=True, ecx=0, args=()):
+            return {"target": target, "known": known, "tail": False, "regs": {"ecx": ecx, "edx": 0, "eax": 0},
+                    "args": [(a, None) for a in args]}
+        prog = FakeProg({0x500}, {0x600: {"ecx": 4}})
+        self.assertTrue(run([call(0x700, ecx=0x3000)], prog))                 # a stub elsewhere: the word is kept
+        self.assertTrue(run([call(0x700, known=False, ecx=0x40001000)], prog))   # a virtual call writes no vptr
+        self.assertTrue(run([call(0x500, ecx=0x40001000)], prog))               # a getter writes nothing
+        self.assertFalse(run([call(0x600, ecx=0x40001000)], prog))              # a constructor: stores its vptr at ecx+0
+        self.assertTrue(run([call(0x600, ecx=0x40000f00)], prog))               # ... on another object
+        self.assertFalse(run([call(0x700, args=(0x40001000,))], FakeProg(set(), {0x700: {0: 8}})))   # writes through arg 0
+
     def test_write_only_idioms(self):
         import capstone
         md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)

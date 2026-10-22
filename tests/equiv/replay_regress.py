@@ -61,6 +61,12 @@ CASES = {
     "0x00308fe0_rounding_wrong": ("s2", "mismatch", "0x0022c3b0"),
     "0x00358030_tie_wrong": ("p4-1", "mismatch", None),
     "0x002251d0_vec4_wrong": ("ringfeed2", "mismatch", None),
+    # (round 21) a function with its own `// equiv-conv` is replayed (cap1, ownconv), and the callee's out-parameter written into
+    # our dead argument slots is placed without the original's liveness test (its slots hold other words): 0x0021ee70.
+    # _off: REPLAY_OFF=ownconvdead (the 6th element) restores the test and the call no longer agrees; _wrong still fails
+    "0x0021ee70_own_conv": ("g-play2b", "agreed", None, 1),
+    "0x0021ee70_own_conv_off": ("g-play2b", "mismatch", "argument 2", 0, "ownconvdead"),
+    "0x0021ee70_own_conv_wrong": ("g-play2b", "mismatch", "argument 2"),
 }
 
 
@@ -92,10 +98,15 @@ def job(name):
     if not os.path.exists(os.path.join(path, "trace.sqlite")):
         return name, "skip", None
     addr = int(name.split("_")[0], 16)
+    off = set(CASES[name][4].split(",")) if len(CASES[name]) > 4 else set()
+    off -= er.REPLAY_OFF
+    er.REPLAY_OFF.update(off)       # (a case's 5th element: REPLAY_OFF switches for this case only)
     try:
         r = er.replay(os.path.join(CASES_DIR, name + ".cpp"), addr, er.TraceStore(path))
     except Exception as e:      # noqa: BLE001
         return name, "error", {"error": repr(e)[:300]}
+    finally:
+        er.REPLAY_OFF.difference_update(off)
     return name, r.get("status"), r
 
 

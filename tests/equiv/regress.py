@@ -629,6 +629,41 @@ CASES = {
     "0x003272f0_native_uninit": ("equivalent", None, 0.9, {"native": True, "n_inputs": 300}),
     "0x003272f0_native_uninit_off": ("fail", "0x5a5a5a5a", 0, {"src": "0x003272f0_native_uninit", "native": True, "n_inputs": 100, "equiv_off": "uninitmask"}),
     "0x003272f0_native_uninit_wrong": ("fail", None, 0, {"native": True, "n_inputs": 300}),
+    # round 21 (cl10)
+    # natsteps: clang -O0 code needs several times the original's instructions; ours gets 8x the original's step budget in --native
+    "0x000f7790_native_steps": ("equivalent", None, 0, {"native": True, "n_inputs": 80}),
+    "0x000f7790_native_steps_off": ("fail", "ours timeout", 0, {"src": "0x000f7790_native_steps", "native": True, "n_inputs": 80, "equiv_off": "natsteps"}),
+    "0x000f7790_native_steps_wrong": ("fail", None, 0, {"native": True, "n_inputs": 80}),
+    # vptrkeep: the original loads the item's vptr before the table lookup call (a stub: its memory havoc replaces the vptr word)
+    "0x000cb6f0_native_vptr": ("equivalent", None, 0, {"native": True, "n_inputs": 80}),
+    "0x000cb6f0_native_vptr_off": ("fail", "went to", 0, {"src": "0x000cb6f0_native_vptr", "native": True, "n_inputs": 80, "equiv_off": "vptrkeep"}),
+    "0x000cb6f0_native_vptr_wrong": ("fail", None, 0, {"native": True, "n_inputs": 80}),
+    # helpers64: the original calls __allmul, clang multiplies inline
+    "0x00096d80_native_int64": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    "0x00096d80_native_int64_off": ("fail", "missing call", 0, {"src": "0x00096d80_native_int64", "native": True, "n_inputs": 60, "equiv_off": "helpers64"}),
+    "0x00096d80_native_int64_wrong": ("fail", "returned", 0, {"native": True, "n_inputs": 60}),
+    # gstail: `jmp __security_check_cookie` ends the original
+    "0x001f6650_native_gstail": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    "0x001f6650_native_gstail_off": ("fail", "missing call", 0, {"src": "0x001f6650_native_gstail", "native": True, "n_inputs": 60, "equiv_off": "gstail"}),
+    "0x001f6650_native_gstail_wrong": ("fail", None, 0, {"native": True, "n_inputs": 60}),
+    # x87range: fptan of an operand beyond 2^63 pushes nothing, the original's x87 stack is shifted for the rest of the run
+    "0x000a0fe0_native_x87range": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    "0x000a0fe0_native_x87range_off": ("fail", "x87 stack depth", 0, {"src": "0x000a0fe0_native_x87range", "native": True, "n_inputs": 60, "equiv_off": "x87range"}),
+    "0x000a0fe0_native_x87range_wrong": ("fail", None, 0, {"native": True, "n_inputs": 60}),
+    # retwidth: every caller reads only al of the bool this extern "C" function returns; clang leaves 0xffffff00 above it
+    "0x000375a0_native_retwidth": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    "0x000375a0_native_retwidth_off": ("fail", "returned 0x", 0, {"src": "0x000375a0_native_retwidth", "native": True, "n_inputs": 60, "equiv_off": "retwidth"}),
+    "0x000375a0_native_retwidth_wrong": ("fail", None, 0, {"native": True, "n_inputs": 60}),
+    # varcleanup: `push n; push fmt; push 0x20; push buf; call f; add esp, 4`: the callee takes all four words, n included
+    "0x0007e740_native_varargs": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    "0x0007e740_native_varargs_off": ("fail", "argument words", 0, {"src": "0x0007e740_native_varargs", "native": True, "n_inputs": 60, "equiv_off": "varcleanup"}),
+    "0x0007e740_native_varargs_wrong": ("fail", "argument 4", 0, {"native": True, "n_inputs": 60}),
+    # wglobals: the original reads writable floats that scripts set (`fcomp [0x4c7df8]`); a source with the load-time value passed
+    "0x001f56b0_wglobal": ("equivalent", None, 0, {"n_inputs": 100}),
+    "0x001f56b0_wglobal_off": ("equivalent", None, 0, {"src": "0x001f56b0_wglobal_wrong", "n_inputs": 100, "equiv_off": "wglobals"}),
+    "0x001f56b0_wglobal_wrong": ("fail", None, 0, {"n_inputs": 100}),
+    "0x0007a420_wglobal": ("equivalent", None, 0, {"n_inputs": 100}),
+    "0x0007a420_wglobal_wrong": ("fail", None, 0, {"n_inputs": 100}),
 }
 
 # verify_relocs.py cases: name -> (expected status, issue kind it must report or None)

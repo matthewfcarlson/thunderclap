@@ -244,6 +244,7 @@ extern World *DAT_004dd700;
 extern Gravity *DAT_00554c10;
 extern Vec3 DAT_0049bf1c;
 extern float DAT_00421894;
+extern float DAT_0049b8a4;
 int __cdecl FUN_00098190(float a, float b, float c, int d, Releasable *o, float e, Vec3 *pos, Vec3 *va, int f, int g, int h, int i);
 extern int DAT_003ff488[];
 extern int DAT_003ff508[];
@@ -501,7 +502,7 @@ void CAnimState::FUN_00081b20(float dt)
         tgt->FUN_00035660(&v48);
         if ((v48.z * v10.z + v48.y * v10.y) + v48.x * v10.x < 0.0f) {
             float l2 = (v10.z * v10.z + v10.x * v10.x) + v10.y * v10.y;
-            if (l2 < 225.0f) {
+            if (l2 < DAT_0049b8a4) {   // a writable global (225.0 at load; round 21 wglobals)
                 double d = sqrt(l2);
                 v30.x = 0.0f;
                 v30.y = 0.0f;

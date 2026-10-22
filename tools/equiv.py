@@ -91,6 +91,10 @@ CALLEE_SAVED = ("ebx", "esi", "edi", "ebp")
 STRCMP_HELPERS = ("_strcmp", "__stricmp", "_strncmp")     # their .rdata operand is planted (directed inputs)
 # CRT helpers that are executed for real instead of stubbed (pure: registers/stack only).
 HELPERS = {0x0034483C: "__ftol2", 0x00345880: "__chkstk"}
+# (round 21, helpers64) the 64-bit integer helpers: pure functions of the stack words/registers, executed for real too, so a
+# source whose compiler inlines the operation (clang's mul/shift/div sequences) is compared by what it computes
+HELPERS64 = {0x003457D0: "__allmul", 0x00346DB0: "__alldiv", 0x00347010: "__aulldiv", 0x00347680: "__aulldvrm",
+             0x00347720: "__aullshr", 0x0035A7B0: "__aullrem", 0x0035A9B0: "__allshr"}
 # Calls that are skipped on both sides: no trace entry, registers and memory untouched. The /GS check
 # compares a stack cookie and returns; its caller's `add esp, N` afterwards releases the frame.
 IGNORED_CALLS = {0x0034502E: "__security_check_cookie"}
@@ -699,6 +703,50 @@ class Program:
         rthis[target] = steps < 4000 and bool(rets) and all(x == ("ecx", 0) for x in rets)
         return cache[target]
 
+    def callee_pure(self, target, depth=0):
+        """(round 21, vptrkeep) Does a function write no memory outside its own frame? Straight scan of its body: every
+        instruction whose destination operand is memory must address the frame (`[esp+..]`, `[ebp-..]`), no string
+        write, no indirect call or jump; direct calls and jumps must be pure functions themselves (depth 3). Used only
+        to prove that a stubbed call cannot have changed a word of the caller's objects."""
+        cache = self.__dict__.setdefault("_cpure", {})
+        if target in cache:
+            return cache[target]
+        if depth > 3 or not self.is_code(target) or target not in self.funcs:
+            return False
+        cache[target] = False           # (recursion)
+        ok = True
+        end = target + self.funcs[target][0]
+        for ci in self.md.disasm(self.read(target, end - target), target):
+            m = ci.mnemonic
+            if m.startswith(("rep", "stos", "movs", "ins", "outs")) or m in ("fxsave", "enter", "xchg", "cmpxchg", "xadd"):
+                ok = False
+                break
+            if m in ("call", "jmp"):
+                if ci.operands and ci.operands[0].type == capstone.x86.X86_OP_IMM:
+                    t = ci.operands[0].imm
+                    if target <= t < end:
+                        continue
+                    if not self.callee_pure(t, depth + 1):
+                        ok = False
+                        break
+                    continue
+                ok = False
+                break
+            if m in ("push", "pop", "ret", "nop", "lea", "cmp", "test") or m.startswith(("j", "ucomis", "fcom", "fld", "fucom", "fist")):
+                # (pop [mem] writes memory: handled below by the operand scan; fist* writes: handled too)
+                if not m.startswith("fist") and m not in ("pop",):
+                    continue
+            _, wr = ci.regs_access()
+            for op in ci.operands:
+                if op.type == capstone.x86.X86_OP_MEM and (op.access & capstone.CS_AC_WRITE):
+                    base = ci.reg_name(op.mem.base) if op.mem.base else None
+                    if base not in ("esp", "ebp") or op.mem.index:
+                        ok = False
+            if not ok:
+                break
+        cache[target] = ok
+        return ok
+
     def returns_this(self, target):
         """Does the function return its incoming ecx in eax on every path (a constructor, `return *this`)?"""
         self.callee_writes(target)
@@ -1007,6 +1055,89 @@ class Program:
                 k = data.find(b"\xe8", k + 1)
             self._sites = idx
         return idx.get(target, [])
+
+    def global_writers(self, addr):
+        """(round 21, wglobals) Functions (from the data inventory's xrefs) that store to the global at `addr` through its
+        absolute address: a game global the scripts or other code change at run time (`tvm_SetSpawnDistanceOnCamera`)."""
+        idx = self.__dict__.get("_gw_idx")
+        if idx is None:
+            idx = {}
+            try:
+                for it in json.load(open(os.path.join(ROOT, "config/data.json")))["items"]:
+                    if it.get("size", 99) <= 8 and it.get("xrefs"):
+                        idx[int(it["addr"], 16)] = [int(x, 16) for x in it["xrefs"]]
+            except (OSError, ValueError, KeyError):
+                pass
+            self._gw_idx = idx
+        cache = self.__dict__.setdefault("_gw_cache", {})
+        if addr in cache:
+            return cache[addr]
+        out = []
+        for f in idx.get(addr, ()):
+            sz = self.funcs.get(f, (0,))[0]
+            if not sz:
+                continue
+            for ci in self.md.disasm(self.read(f, sz), f):
+                if not ci.operands or ci.operands[0].type != capstone.x86.X86_OP_MEM:
+                    continue
+                m_ = ci.operands[0].mem
+                if m_.base or m_.index or m_.disp != addr:
+                    continue
+                mn = ci.mnemonic
+                if (mn.startswith(("mov", "fst", "fist", "inc", "dec", "add", "sub", "and", "or", "xor", "neg", "not", "shl",
+                                   "shr", "sar", "set", "xchg", "fnst", "cmpxchg", "stos")) and not mn.startswith("movs")
+                        and not (len(ci.operands) == 1 and mn.startswith("mov"))) or (mn.startswith("movs") and len(ci.operands) == 2):
+                    out.append(f)
+                    break
+        cache[addr] = out
+        return out
+
+    def callers_use_width(self, target):
+        """(round 21, retwidth) 8 or 16 when every direct caller that reads the original's return value reads only `al` (or
+        `ax`) of it (`test al, al`, `movzx ecx, al`, `cmp al, imm`), at least one does, and the function is not reached
+        through a vtable; else 32. A bool/char/short function's caller never sees the upper bytes of eax: they are
+        whatever the code left there (clang leaves the 0xffffff00 of a `setbe al`), not behaviour."""
+        cache = self.__dict__.setdefault("_ruw", {})
+        if target in cache:
+            return cache[target]
+        res = 32
+        if target not in self.virtual_funcs:
+            width, n = 0, 0
+            for site in self.call_sites(target)[:40]:
+                view = CodeView(self.read, site, None, self)
+                first = view.decode(site)
+                if first is None or first.kind != "call" or first.target != target:
+                    continue
+                n += 1
+                a = site + 5
+                for _ in range(10):
+                    ci = next(self.md.disasm(self.read(a, 16), a, 1), None)
+                    if ci is None:
+                        break
+                    i = view.decode(a)
+                    try:
+                        r_, w_ = ci.regs_access()
+                        rd = {ci.reg_name(x) for x in r_}
+                    except Exception:   # noqa: BLE001
+                        rd = set()
+                    rn, wn = self._regs_rw(ci)
+                    if "eax" in rn:
+                        full = {"eax"} & rd
+                        if full or not rd & {"al", "ax"}:
+                            width = 32
+                            n = -999
+                        else:
+                            width = max(width, 16 if "ax" in rd else 8)
+                        break
+                    if "eax" in wn or i.kind != "other":
+                        break
+                    a += ci.size
+                if n < 0:
+                    break
+            if n > 0 and width:
+                res = width
+        cache[target] = res
+        return res
 
     def callers_use_return(self, target):
         """('eax'|'st0'|None, sites checked): does any direct caller consume the original's return value?"""
@@ -2332,6 +2463,9 @@ NATIVE_SRET = [0, 0]         # (round 19, nrvo) the hidden return slot of the fu
 NATIVE_CTOR = False         # (round 19) native mode, the function under test is a constructor (`??0...`)
 NATIVE_DTOR = False         # (round 18) native mode, the function under test is a destructor (`??1...`)
 NATIVE_CI = {}              # (round 18, native) math name -> original address of its `__CI<name>` (x87-register-argument CRT routine)
+# (round 21, natsteps) clang -O0 runs about 4-8x the instructions of MSVC's code for the same source: ours gets 8x
+# the original's budget in --native (the original's budget is unchanged); 12 of 23 nf2 timeouts passed with --steps 400000.
+NATIVE_STEP_MULT = 8
 NATIVE_MODE = False         # (round 18) verify(native=True) is running
 NATIVE_NARROW = {}        # (round 19, natnarrow) original address -> {stack word index: bit width} of declared bool/char/short parameters
 NATIVE_BOOL = set()         # (round 18, native) original addresses of callees our source declares to return bool
@@ -2803,6 +2937,9 @@ class Run:
         self.wild_check = False     # stop at control flow that leaves known code (fault:wild_jump/wild_call)
         self.rep_obs = None         # the first rep string instruction with a huge count: where ecx came from
         self.fill_pre = {}          # (call, arg, offset) -> the function's own word a callee-extent fill replaced
+        self.x87_range = False      # (round 21, x87range) the original ran fptan/fsin/fcos on an operand beyond +-2^63
+        self.vp = {}                # (round 21, vptrkeep) register -> (word address, value, epoch, calls so far, base entry)
+        self.vp_havoc = {}          # ... word address -> (value, epoch) of a pointer-word the stubs' memory havoc changed under a register
         self.fill_watch = {}        # stack byte -> such a fill, until the function rewrites it
         self.fill_readback = set()  # fills whose replaced word the function read back before rewriting it
 
@@ -3259,6 +3396,14 @@ class Run:
                 p = 0
                 if cleanup:
                     nargs = min(cleanup // 4, len(tracked)) if tracked else cleanup // 4
+                    if known and tracked and target in self.varargs and "varcleanup" not in EQUIV_OFF and \
+                            not (self.view.native and self.view.is_ours) and insn.target is not None and \
+                            cleanup // 4 < len(tracked):
+                        # (round 21, varcleanup) a call of a function our source declares with `...`, whose caller releases fewer
+                        # words than it pushed (`push n; push fmt; push 0x20; push buf; call f; add esp, 4`: the other three
+                        # slots are reused as the next call's arguments). The callee takes every word pushed for it, the
+                        # variadic payload included: it is what the variadic callers compare (clang pushes none to count)
+                        nargs = len(tracked)
                 else:
                     nargs = len(tracked)
                     # nobody pops after this call: pending pushes that the next call pops belong to it
@@ -4778,6 +4923,81 @@ class Run:
             self.uc.reg_write(_uc_regs()[v32], nb)
             self.count_plants[(self.epoch, s2[0])] = nb.to_bytes(4, "little")
 
+    def _vptr_track(self, insn):
+        """(round 21, vptrkeep) A pointer word (an object's vptr) the original loaded into a register before a stubbed call
+        and used after it (`mov esi, [item]; call F; call [esi+0x24]`). Every stub replaces all non-stack memory
+        (`_perturb`), so a source that loads the vptr after the call (clang; MSVC when the order of evaluation is left
+        open) reads a fuzzed word where the original used the real one: stub havoc, not behaviour. The words found
+        here are kept across the stubs (an overlay, see run_input) when no call in between can write them: the callee
+        is a known function that writes nothing outside its frame or none of its pointer arguments' written extents
+        (`callee_writes`: a constructor's vptr store covers its `this`) covers the word; a virtual call writes no vptr.
+        A register's entry is (word address it was loaded from, value, epoch, calls so far, entry of the base register of
+        that load); a `call [R+k]` uses R's word, a `call Q` with Q loaded from `[R+k]` uses R's word."""
+        A = Program._ALIAS
+        vp = self.vp
+        m = insn.mnemonic
+        ops = insn.ops
+        if insn.kind in ("call", "jmp"):
+            ent = None
+            if insn.target is None and insn.mem is not None and insn.mem[1] and not insn.mem[2]:
+                ent = vp.get(A.get(insn.mem[1], insn.mem[1]))
+            elif insn.target is None and insn.mem is None and insn.regs:
+                ent = vp.get(A.get(insn.regs[0], insn.regs[0]))
+                ent = ent[4] if ent is not None else None
+            if ent is not None:
+                self._vptr_use(ent)
+            if insn.kind == "call":
+                for r_ in ("eax", "ecx", "edx"):
+                    vp.pop(r_, None)
+            return
+        dst = ops[0] if ops else None
+        for r_ in self.view.write_widths(insn.addr):
+            if not (m == "mov" and dst is not None and dst[0] == "reg" and A.get(dst[1], dst[1]) == r_):
+                vp.pop(r_, None)
+        if m == "mov" and len(ops) == 2 and dst[0] == "reg" and dst[1] in Program._REGS:
+            r = dst[1]
+            if ops[1][0] == "mem" and ops[1][1][5] == 4:
+                mem = ops[1][1]
+                base = vp.get(mem[1]) if mem[1] and not mem[2] else None
+                vp.pop(r, None)
+                if mem[1] in ("esp", "ebp"):
+                    return
+                try:
+                    ea = self._ea(mem)
+                    if STACK_LO <= ea < STACK_HI or _reserved(ea) or self.prog.is_code(ea):
+                        return
+                    vp[r] = (ea, self._read_u32(ea), self.epoch, len(self.calls), base)
+                except Exception:   # noqa: BLE001
+                    pass
+            elif ops[1][0] == "reg" and ops[1][1] in vp:
+                vp[r] = vp[ops[1][1]]
+            else:
+                vp.pop(r, None)
+
+    def _vptr_use(self, ent):
+        a, val, ep, nc, _ = ent
+        if ep == self.epoch or a in self.vp_havoc:
+            return
+        try:
+            cur = self._read_u32(a)
+        except Exception:   # noqa: BLE001
+            return
+        if cur == val:
+            return
+        for c in self.calls[nc:]:
+            if c["tail"]:
+                return
+            if not c["known"] or (self.prog.callee_pure(c["target"]) and "vptrpure" not in EQUIV_OFF):
+                continue            # (a virtual call writes no vptr; a getter writes nothing outside its frame)
+            ext = self.prog.callee_writes(c["target"]) or {}
+            argv = [(w[0] if isinstance(w, tuple) else w) for w in c["args"]]
+            locs = [(c["regs"].get(r_), ext[r_]) for r_ in ("ecx", "edx", "eax") if r_ in ext] + \
+                [(v_, ext[i_]) for i_, v_ in enumerate(argv) if i_ in ext]
+            for v_, e_ in locs:
+                if isinstance(v_, int) and v_ >= NULL_HI and v_ <= a < v_ + e_ + 4:
+                    return          # the callee writes there (a constructor stores its vptr): stays modelled as before
+        self.vp_havoc[a] = (val, ep)
+
     def _on_code(self, uc, addr, size, _):
         self.nsteps += 1
         if TRACE_OURS and self.view.is_ours:
@@ -4970,6 +5190,21 @@ class Run:
                     self.idx_fills.add(tuple(ix_[0][1:4]))
             if self.fill_watch:
                 self._check_readback(insn)
+            if self.coverage is not None and "vptrkeep" not in EQUIV_OFF:
+                self._vptr_track(insn)
+            if self.coverage is not None and insn.mnemonic in ("fptan", "fsin", "fcos", "fsincos") and "x87range" not in EQUIV_OFF \
+                    and not self.x87_range:
+                # (round 21, x87range) the operand is beyond +-2^63: the instruction sets C2 and leaves the stack alone (fptan
+                # pushes nothing), so MSVC's code that pops the result runs on a shifted x87 stack. Undefined in the original
+                # (no real angle is that big); see run_input
+                try:
+                    top_ = (self.uc.reg_read(self.u.UC_X86_REG_FPSW) >> 11) & 7
+                    if (8 - top_) % 8:
+                        v_ = _x87_value(self.uc.reg_read(self.u.UC_X86_REG_FP0 + top_))
+                        if not (abs(v_) < 9.223372036854775808e18):      # (NaN and inf too)
+                            self.x87_range = True
+                except Exception:   # noqa: BLE001
+                    pass
             if insn.mnemonic.startswith("rep") and self.reg("ecx") > 0x100000:
                 self.huge_rep = True
             if insn.mnemonic.startswith("rep") and self.reg("ecx") > 0x800:
@@ -5168,6 +5403,13 @@ class Run:
                     if self.view.in_body(target) and target != self.view.entry:
                         return
                 direct = insn.target is not None
+                if direct and target in IGNORED_CALLS and "gstail" not in EQUIV_OFF:
+                    # (round 21, gstail) `pop esi; mov ecx, [esp]; add esp, 4; jmp __security_check_cookie`: the check is the
+                    # function's last act and returns for it. Skipped like the call form, the cookie it got is still checked
+                    if self.reg("ecx") not in self.cookies:
+                        self.cookie_bad = self.cookie_bad or len(self.calls) + 1
+                    uc.reg_write(self.u.UC_X86_REG_EIP, TRAMP)       # ret
+                    return
                 if direct and self.self_alias is not None and target == self.view.entry:
                     self._stub(insn, self.self_alias, tail=True)
                     return
@@ -7176,6 +7418,12 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     # Reached only through a vtable or a function pointer, nobody can tell whether the callers use eax: when
     # we say void but the original leaves a meaningful value in eax, compare it anyway.
     void_eax = ret_kind == "void" and (addr in prog.virtual_funcs or nsites == 0)
+    if native and ret_kind in (None, "i32") and used == "eax" and "retwidth" not in EQUIV_OFF and \
+            prog.callers_use_width(addr) < 32:
+        # (round 21, retwidth) every caller reads only al/ax: the function returns a bool/char/short, whatever its (extern "C")
+        # declaration lacks. The upper bytes of eax are not behaviour (clang's `setbe al; ret` leaves 0xffffff00)
+        ret_kind = {8: "i8", 16: "i16"}[prog.callers_use_width(addr)]
+        rep["return_note"] = "every caller of the original reads only %d bits of the return value" % prog.callers_use_width(addr)
     if native and void_eax and "natvoid" not in EQUIV_OFF:
         # (round 18, natvoid) the native callers are compiled from our sources, which declare this function void: none
         # reads the eax clang leaves (a caller that did would declare a return type)
@@ -7374,9 +7622,19 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
            time_budget=120, directed=96, psizes=None, convs=None, decls=None, void_eax=False, seeds=None):
     only_seeds = set(seeds) if seeds else ONLY_SEEDS
     globals_ = sorted({t for _, k, t in orefs if k in ("data", "imm") and prog.section_name(t) in (".data", "BINKDATA", "DOLBY")})
+    if "wglobals" not in EQUIV_OFF:
+        # (round 21, wglobals) a writable float global the original loads as a constant (`fcomp [0x4c83ec]`, 70.0 at load) that other
+        # code stores to (a script sets it): level 2 only warns that a source without it is "missing a float constant", and a source
+        # that hard-codes the load-time value passed every input. It is fuzzed like the other globals the original reads, so
+        # a source must read it
+        extra_ = {t for _, k, t in orefs if k == "float" and prog.section_name(t) == ".data" and
+                  any(w_ != oview.entry for w_ in prog.global_writers(t))}
+        globals_ = sorted(set(globals_) | extra_)
     own_float = ret_kind in ("f32", "f64")
     varargs = {a for a, d in (decls or {}).items() if d and d.get("varargs")}
     helpers = dict(HELPERS)
+    if "helpers64" not in EQUIV_OFF:
+        helpers.update(HELPERS64)
     helpers.update({a: n for n, a in crt_table(prog).items()})     # executed for real on both sides
     consts = sorted({v for i in oview.insns.values() if i.mnemonic in ("cmp", "test", "sub", "and")
                      for v in i.imms for v in (v, (v + 1) & M32, (v - 1) & M32)} | {0, 1})[:64]
@@ -7673,7 +7931,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         inp_o = _conv_input(inp, own_layout, target_conv) if target_conv else inp
         return inp, inp_o, mach
 
-    def run_input(seed, overlay=None, stack_patch=None, label=None):
+    def run_input(seed, overlay=None, stack_patch=None, label=None, _vk=False):
         """Run one input on both sides; returns the set of new original edges (None if inconclusive)."""
         inp, inp_o, mach = build(seed, overlay, stack_patch)
         # (round 8, overlap) strncat(d, d + 12, n): overlapping copies are undefined behaviour, and the
@@ -7691,6 +7949,13 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         orun.varargs = varargs
         orun.wild_check = True
         o = orun.run(oview.entry)
+        if orun.vp_havoc and not _vk and not mach.stable:
+            # (round 21, vptrkeep) the original used a pointer word it loaded before a stub, after the stub's memory havoc
+            # replaced it: the real callee leaves it alone, so both sides keep it (from the epoch it was loaded in on)
+            ov_ = dict(overlay or {})
+            for a_, (v_, ep_) in orun.vp_havoc.items():
+                ov_[(("after", ep_), a_)] = v_.to_bytes(4, "little")
+            return run_input(seed, ov_, stack_patch, label, _vk=True)
         # only a run that returned proves anything about the edges it took (a fault both sides share, e.g.
         # a stub that can't model the call, leaves the code after it unverified)
         conclusive = o["status"] == "ret"
@@ -7914,7 +8179,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             res["inputs_inconclusive"] += 1
             res["statuses"]["wild"] += 1
             return None
-        rrun = Run(prog, rview, mach, inp, ours_image=(OURS, ours.image), sig=sig, max_steps=steps[0] * 2,
+        rrun = Run(prog, rview, mach, inp, ours_image=(OURS, ours.image), sig=sig, max_steps=steps[0] * (NATIVE_STEP_MULT if NATIVE_MODE and "natsteps" not in EQUIV_OFF else 2),
                    own_float_ret=own_float, helpers=helpers)
         rrun.pointee_sizes = psizes or {}
         rrun.intrinsics = {a: n for a, n in ours.poison.items() if n in INTRINSIC_NAMES}
@@ -7968,6 +8233,12 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         if diffs and r.get("bool_ub") and "boolub" not in EQUIV_OFF:
             res["inputs_inconclusive"] += 1         # (round 18) native bool read of a non-bool byte: undefined, see _on_code
             res["statuses"]["bool_ub"] += 1
+            return None
+        if diffs and orun.x87_range and "x87range" not in EQUIV_OFF:
+            # (round 21, x87range) the original's trig instruction got an operand it does not handle (C2 set, no result
+            # pushed): its x87 stack is shifted from there on, which no real input does. Inconclusive, never equal
+            res["inputs_inconclusive"] += 1
+            res["statuses"]["x87_range"] += 1
             return None
         if diffs and orun.uninit_read is not None and "uninitmask" not in EQUIV_OFF and \
                 all(_uninit_diff(d_, orun.uninit_vals) for d_ in diffs):

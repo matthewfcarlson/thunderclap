@@ -601,6 +601,69 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     now `frame_overrun`. Its 77% inconclusive rate is unchanged (8791 of 11402; 7766 `timeout`, 1022 `stack_smash` + `wild`). Both
     sources are in `build/cl9/pending/` with the STATUS line (not in `equivalent/`).
 
+- (round 21, cl10) **Native-mode gaps nf2 left open** (the Wine-build sources failing `--native` at 60 inputs,
+  `build/cl10/nf2open.txt`), each switchable with `EQUIV_OFF=name`, each with a passing case, an `_off` case and a
+  deliberately wrong source in `tests/equiv/cases/` (`regress.py`, "round 21"). `natsteps` and `retwidth` are
+  `--native` only; the others apply in MSVC mode as well (sample below).
+  - `natsteps`: clang -O0 runs about 4-8x the instructions MSVC's code needs for the same source; in `--native` ours gets
+    8x the original's step budget (`NATIVE_STEP_MULT`, was 2x; the original's budget is unchanged). 12 of 23 nf2 timeouts
+    passed with a bigger budget. 0x000f7790.
+  - `vptrkeep`: **a vptr loaded before a stub and used after it.** `mov esi, [item]; call F; call [esi+0x24]`: every stub
+    replaces all non-stack memory (`_perturb`), so a source that loads the vptr after the call (clang, or MSVC where the order
+    of evaluation is open) reads a fuzzed word where the original used the real one - stub havoc, not behaviour (the 49
+    `vptr-loaded-before-call` sources rounds 19-20 left). The original's run tracks registers loaded from memory before a
+    stub and used as `call [R+k]` (or `call Q`, Q loaded from `[R+k]`) after it; when no call in between can write that
+    word, the input is re-run with the word kept at its value from the epoch it was loaded in, on both sides (an overlay).
+    "Can write" is decided per call: a known callee that writes no memory outside its frame (`callee_pure`, straight scan
+    to depth 3, no indirect calls) or whose pointer arguments' written extents (`callee_writes`) miss the word; a virtual
+    call writes no vptr; a constructor storing its vptr through `ecx` keeps the old model. Unit test `test_vptr_use`.
+    Of 59 such sources, 31 pass at 60 inputs (was 8). 0x000cb6f0.
+  - `helpers64`: the 64-bit integer helpers (`__allmul`, `__alldiv`, `__aulldiv`, `__aulldvrm`, `__aullshr`, `__aullrem`,
+    `__allshr`) are executed for real on both sides like the other pure CRT helpers, so a source whose compiler inlines the
+    operation (clang's mul/shift sequences) is compared by what it computes ("missing call" before). 0x00096d80.
+  - `gstail`: `pop esi; mov ecx, [esp]; add esp, 4; jmp __security_check_cookie` - the `/GS` check reached by a tail `jmp`
+    is skipped like the `call` form (the cookie in `ecx` is still checked). 0x001f6650.
+  - `x87range`: `fptan`/`fsin`/`fcos` with an operand beyond +-2^63 set C2 and push nothing, so MSVC's code that pops the
+    result runs on a shifted x87 stack for the rest of the run. No real angle is that big (the fuzz pool's are): an input on
+    which the original did that and the sides differ is inconclusive (`statuses.x87_range`), never equal. 0x000a0fe0.
+  - `retwidth`: in `--native`, a function whose return type is unknown or `int` (an `extern "C"` declaration) and whose
+    every direct caller reads only `al` (or `ax`) of the result (`test al, al`, `movzx ecx, al`, `cmp al, imm`; at least one
+    does; not reached through a vtable) is compared on 8 (16) bits: clang's `setbe al; ret` leaves 0xffffff00 above a bool,
+    which no caller sees. The report says so (`return_note`). 0x000375a0.
+  - `varcleanup`: an original call of a callee our source declares with `...`, whose `add esp, N` releases fewer words than
+    were pushed (`push n; push fmt; push 0x20; push buf; call f; add esp, 4`: three slots are reused by the next call):
+    every pushed word is the callee's (the variadic payload is compared), where the cleanup count used to cut the list.
+    0x0007e740.
+  - `wglobals`: a writable `.data` float the original loads like a constant (`fcomp [0x4c7df8]`) that other code stores to
+    (`config/data.json` xrefs: a script setter such as `tvm_SetSpawnDistanceOnCamera`) is fuzzed like the other globals,
+    so a source that hard-codes its load-time value now fails (it passed every input; level 2 only warned "missing a float
+    constant"). 0x001f56b0, 0x0007a420.
+  - Replay (`tools/equiv_replay.py`): a function with its own `// equiv-conv` places a callee's out-parameter in our dead
+    argument slots without the original's liveness test (its slots hold different words); `REPLAY_OFF=ownconvdead` turns it
+    off. 3 cases in `replay_regress.py` (0x0021ee70).
+  - Tried and **not adopted**: `smashargs` (an indexed frame store past the argument words counted as an overrun): no clean
+    case, and 0x002f4eb0's native failure is a reused stack slot plus `bool_ub`, not this. Decided **no change** (real
+    differences): a reused stack slot / an uninitialised local read by ours (0x001f7320, 0x002f4eb0's `unitsName`).
+  - **Verification.** `regress.py` through the queue with the round-21 checker: 297/299, then 299 after one case fix; the
+    31 round-21 cases plus the fixed case pass again with the promoted `tools/equiv.py` (32/32). The case fix:
+    `0x00081b20_ctor_returns_this`'s source (an older 0x00081b20) hard-coded `l2 < 225.0f`, where the original reads the writable
+    global `DAT_0049b8a4`. `wglobals` now fuzzes that global and the case failed on every host (it passes with the
+    round-20 checker). It is the same bug fx26 fixed in `equivalent/0x00081b20.cpp`. The case now reads the global and
+    passes with both checkers (its purpose, `new (buf) Cue(...)` handing on the stub's eax, is unchanged). The other
+    FAIL, 0x000ffef0_compare_chain, is the known 1-ulp mac2-only flake (round 20). It fails the same way with the round-20 checker there
+    and passes on mac1. `test_equiv.py` 15 ok (new `test_vptr_use`), `replay_regress.py` 19/19.
+  - **MSVC-mode verdicts** (the same 900 `equivalent/` sources as round 20, 60 inputs, round-20 against round-21 checker, through
+    the queue): 894 equivalent, then 893. The only change is **0x002ece90**, a real difference that `wglobals` found. `ScaledVec::Set`
+    scales by `flt_004d287c` (1.0 at load; other code stores to it). With 1.0 every product is exact. With any other value our
+    build keeps `sz` unrounded (`fst [ecx+0x24]`) and sums in a different order, where the original reloads the three
+    stored floats. The result is 1 ulp off ("this+0x28 was 0x460ade97, expected 0x460ade96"). The source needs a fix (it stays
+    in `equivalent/` until someone fixes or demotes it). The other 6 non-equivalent sources (0x000d3170, 0x000f8970, 0x0018f6d0,
+    0x00244430 fail; 0x00088020 unsupported; 0x000c9bd0 inconclusive) get the same verdict from both checkers.
+  - **Native mode** (nf2's 328 open failures, `--native`, 60 inputs, both checkers, through the queue): 17 equivalent before,
+    71 after (54 flips, none the other way); 253 still fail, plus 2 unsupported, 1 inconclusive and 1 compile error. These are
+    60-input results: re-run a source at 3000 inputs before promoting it. Earlier, for vptrkeep alone, the 59 `vptr-loaded-before-call`
+    sources went from 8 to 31 equivalent (`build/cl10/out/vptr59*.jsonl`).
+
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check
   `__security_check_cookie` is skipped on both sides, because its caller's `add esp` releases the frame
