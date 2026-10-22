@@ -19,5 +19,5 @@ hulk_freg dist(Obj_302480* a, Obj_302480* b) {
     hulk_freg x = q[0] - p[0];
     hulk_freg y = q[1] - p[1];
     hulk_freg z = q[2] - p[2];
-    return (hulk_freg)sqrt(x * x + y * y + z * z) - (a->radius + b->radius);
+    return (hulk_freg)sqrt(y * y + z * z + x * x) - (a->radius + b->radius);
 }

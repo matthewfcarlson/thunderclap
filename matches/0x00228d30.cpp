@@ -14,5 +14,5 @@ void C_228d30::F(V* v) {
     V t = *v;
     t.y = 0.0f;
     a = Ang(&t);
-    b = sqrt(t.y * t.y + t.z * t.z + t.x * t.x);
+    b = sqrt(t.z * t.z + t.x * t.x + t.y * t.y);
 }

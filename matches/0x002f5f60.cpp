@@ -17,7 +17,7 @@ float physics::PhysicsObject::vfunc_31() {
     float t[3];
     if (vfunc_11()) {
         (*(class Helper_2f5f60 * *)&this->f_10)->i((*(float (*)[3])&this->f_98), t, -1);
-        return (t[1] * t[1] + t[0] * t[0] + t[2] * t[2]) * this->f_40 * 0.5f;
+        return (t[1] * t[1] + (t[0] * t[0] + t[2] * t[2])) * this->f_40 * 0.5f;
     }
     return 0.0f;
 }
