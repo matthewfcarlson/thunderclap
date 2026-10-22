@@ -5,11 +5,11 @@ struct CtorV_001d0480 {
 extern "C" unsigned char __cdecl lookup(const char*);
 extern const char keyA[];
 extern const char keyB[];
-class SetupBase : public CtorV_001d0480 {
+class Function_d73a0 : public CtorV_001d0480 {
   public:
-    SetupBase(int a) : CtorV_001d0480(a, 1) { }
+    Function_d73a0(int a) : CtorV_001d0480(a, 1) { }
 };
-class Method1 : public SetupBase {
+class Method1 : public Function_d73a0 {
   public:
     virtual void run();
     char pad0[12];
@@ -18,7 +18,7 @@ class Method1 : public SetupBase {
     unsigned char flag2;
     char pad2[3];
     int value;
-    Method1(int a, int c) : SetupBase(a) {
+    Method1(int a, int c) : Function_d73a0(a) {
         value = c;
         flag2 = lookup(keyA);
         flag1 = lookup(keyB);

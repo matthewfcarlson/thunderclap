@@ -5,12 +5,12 @@ class Ref_10f360 {
     virtual void F0();
     virtual void Release();
 };
-class Base_10f360 {
+class Action_10f360 {
   public:
     void* vptr;
     void Fin();
 };
-class HulkAction_10f360 : public Base_10f360 {
+class HulkAction_10f360 : public Action_10f360 {
   public:
     char pad[0x18];
     void* m1c;

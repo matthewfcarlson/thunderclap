@@ -1,7 +1,7 @@
 extern "C" void _ReadWriteBarrier();
-class Base_ef7c0 {
+class FEContainer_ef7c0 {
   public:
-    Base_ef7c0(int a, int b);
+    FEContainer_ef7c0(int a, int b);
     virtual void v0();
     char pad[0x98c - 4];
 };
@@ -16,7 +16,7 @@ struct Init1_ef7c0 {
         m9a0 = 0;
     }
 };
-class FEDialog : public Base_ef7c0, public Init1_ef7c0 {
+class FEDialog : public FEContainer_ef7c0, public Init1_ef7c0 {
   public:
     FEDialog(int a, int b);
     virtual void v0();
@@ -25,7 +25,7 @@ class FEDialog : public Base_ef7c0, public Init1_ef7c0 {
     char pad9a9[3];
     int m9ac;
 };
-FEDialog::FEDialog(int a, int b) : Base_ef7c0(a, b) {
+FEDialog::FEDialog(int a, int b) : FEContainer_ef7c0(a, b) {
     _ReadWriteBarrier();
     m9a8 = 1;
     m9ac = 3;

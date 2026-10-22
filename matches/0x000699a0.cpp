@@ -1,11 +1,11 @@
-class Base {
+class CTrack_699a0 {
   public:
-    Base();
+    CTrack_699a0();
     virtual void f();
     char pad[4];
     int a;
 };
-class CMoveAddTrack : public Base {
+class CMoveAddTrack : public CTrack_699a0 {
   public:
     CMoveAddTrack();
     virtual void f();
@@ -13,7 +13,7 @@ class CMoveAddTrack : public Base {
     float x, y;
     int w;
 };
-CMoveAddTrack::CMoveAddTrack() : Base() {
+CMoveAddTrack::CMoveAddTrack() : CTrack_699a0() {
     z = 0;
     x = 1.0f;
     y = 1.0f;

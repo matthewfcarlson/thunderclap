@@ -7,20 +7,20 @@ class Ref_217e0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_217e0 {
+class CAction_217e0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_217e0 : public Base_217e0 {
+class CDropAction_217e0 : public CAction_217e0 {
   public:
     char pad[0x1c - 4];
     Ref_217e0* m1c;
     char pad2[4];
     Ref_217e0* m24;
-    Obj_217e0* f2(unsigned char flags);
+    CDropAction_217e0* f2(unsigned char flags);
 };
-Obj_217e0* Obj_217e0::f2(unsigned char flags) {
+CDropAction_217e0* CDropAction_217e0::f2(unsigned char flags) {
     vptr = g_vA;
     _ReadWriteBarrier();
     if (m24) {

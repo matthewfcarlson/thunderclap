@@ -1,10 +1,10 @@
-struct Base {
+struct Partition_27beb0 {
     virtual void unused();
     char pad[12];
     int value;
-    Base() : value(0) {}
+    Partition_27beb0() : value(0) {}
 };
-struct Limb : Base {
+struct Limb : Partition_27beb0 {
     char extra[20];
     virtual void other();
 };

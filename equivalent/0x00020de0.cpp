@@ -17,7 +17,7 @@ struct ResourceName_20de0 {
     void FUN_0027b040(const char *name);
 };
 
-class JointObject_20de0 {
+class JointDriver_20de0 {
 public:
     virtual void vfunc_0();
     char pad04[4];
@@ -25,11 +25,11 @@ public:
     char pad14[0x18 - 0x14];
     Transform_20de0 transform;
     char rest[0x70 - 0x18 - sizeof(Transform_20de0)];
-    JointObject_20de0 *FUN_002248f0(unsigned int id);
+    JointDriver_20de0 *FUN_002248f0(unsigned int id);
 };
 
 struct Scene_20de0 {
-    void FUN_00222890(JointObject_20de0 *obj, float a, int b, float c, float d, float e, float f);
+    void FUN_00222890(JointDriver_20de0 *obj, float a, int b, float c, float d, float e, float f);
 };
 
 struct Tracker_20de0 {
@@ -83,7 +83,7 @@ public:
     char pad04[0x1c - 4 - 0x0];
     Owner_20de0 *owner;
     Shape_20de0 *shape;
-    JointObject_20de0 *joint;
+    JointDriver_20de0 *joint;
     float k;
     Vec3_20de0 slide;
 };
@@ -150,9 +150,9 @@ bool CWallSlideAction::vfunc_6(int arg)
     float g2c = sh->f2c;
     int g24 = sh->f24;
     void *mem = FUN_00263ea0(0x70);
-    JointObject_20de0 *obj = 0;
+    JointDriver_20de0 *obj = 0;
     if (mem)
-        obj = ((JointObject_20de0 *)mem)->FUN_002248f0(0);
+        obj = ((JointDriver_20de0 *)mem)->FUN_002248f0(0);
     joint = obj;
     obj->name.FUN_0027b040("wallSlide");
     joint->vfunc_0();

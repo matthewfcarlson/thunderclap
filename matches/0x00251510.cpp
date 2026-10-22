@@ -8,14 +8,14 @@ class Temp {
     ~Temp() throw();
     char pad[12];
 };
-class Base {
+class SeqEventType_251510 {
   public:
-    Base(Temp*, const U64&, int, int) throw();
+    SeqEventType_251510(Temp*, const U64&, int, int) throw();
     virtual void v0();
 };
-class SeqEventPlayTrackType : public Base {
+class SeqEventPlayTrackType : public SeqEventType_251510 {
   public:
     SeqEventPlayTrackType();
     virtual void v0();
 };
-SeqEventPlayTrackType::SeqEventPlayTrackType() : Base(Temp().Init(playName, 0), MakeId(trackName, 0, 0), 32, 4) {}
+SeqEventPlayTrackType::SeqEventPlayTrackType() : SeqEventType_251510(Temp().Init(playName, 0), MakeId(trackName, 0, 0), 32, 4) {}

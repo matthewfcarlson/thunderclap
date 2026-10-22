@@ -12,7 +12,7 @@ class Data_28f020 {
     virtual void i();
     virtual void j(int, int*);
 };
-class RenderThing_28f020 {
+class ShaderVectorBroadcast_28f020 {
   public:
     virtual void a();
     virtual void b();
@@ -26,7 +26,7 @@ class RenderThing_28f020 {
         int a, b, c;
     } vec;
 };
-int RenderThing_28f020::vfunc_3(int p) {
+int ShaderVectorBroadcast_28f020::vfunc_3(int p) {
     V local;
     if (p) {
         local = vec;

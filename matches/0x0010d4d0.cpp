@@ -1,10 +1,10 @@
-class Base {
+class Track_10d4d0 {
   public:
-    Base();
+    Track_10d4d0();
     virtual void f();
     char pad[4];
 };
-class TokenTrack : public Base {
+class TokenTrack : public Track_10d4d0 {
   public:
     TokenTrack();
     virtual void f();

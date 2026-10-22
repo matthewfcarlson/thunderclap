@@ -1,6 +1,6 @@
-class Base {
+class Track_10d550 {
   public:
-    Base();
+    Track_10d550();
     virtual void f();
 };
 class Part {
@@ -8,7 +8,7 @@ class Part {
     Part();
     char pad[8];
 };
-class SemaphoreWaitTrack : public Base {
+class SemaphoreWaitTrack : public Track_10d550 {
     char gap[8];
     int a;
     float b;
@@ -22,4 +22,4 @@ class SemaphoreWaitTrack : public Base {
     SemaphoreWaitTrack();
     virtual void f();
 };
-SemaphoreWaitTrack::SemaphoreWaitTrack() : Base(), a(0), b(-1.0f), part(), x(1), y(1), z(0) {}
+SemaphoreWaitTrack::SemaphoreWaitTrack() : Track_10d550(), a(0), b(-1.0f), part(), x(1), y(1), z(0) {}

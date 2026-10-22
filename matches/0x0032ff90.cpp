@@ -1,19 +1,19 @@
-class Base_32ff90 {
+class d3dShader_32ff90 {
   public:
     virtual void v();
-    Base_32ff90(int);
+    d3dShader_32ff90(int);
     char pad[0x7c];
     int a, b, c;
     char p[0x44];
     float d;
     int e, f;
 };
-class d3dToon2VertexShader_32ff90 : public Base_32ff90 {
+class d3dToon2VertexShader_32ff90 : public d3dShader_32ff90 {
   public:
     virtual void v();
     d3dToon2VertexShader_32ff90(int);
 };
-d3dToon2VertexShader_32ff90::d3dToon2VertexShader_32ff90(int x) : Base_32ff90(x) {
+d3dToon2VertexShader_32ff90::d3dToon2VertexShader_32ff90(int x) : d3dShader_32ff90(x) {
     c = 0;
     b = 0;
     a = 0;

@@ -6,18 +6,18 @@ class Ref_1321d0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_1321d0 {
+class Action_1321d0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_1321d0 : public Base_1321d0 {
+class DebugPrintAction_1321d0 : public Action_1321d0 {
   public:
     char pad[28];
     Ref_1321d0* m;
-    Obj_1321d0* f2(unsigned char flags);
+    DebugPrintAction_1321d0* f2(unsigned char flags);
 };
-Obj_1321d0* Obj_1321d0::f2(unsigned char flags) {
+DebugPrintAction_1321d0* DebugPrintAction_1321d0::f2(unsigned char flags) {
     vptr = g_vftable_1321d0;
     _ReadWriteBarrier();
     if (m) {

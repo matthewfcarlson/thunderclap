@@ -1,7 +1,7 @@
 #include "decls/address.h"
 class CSPManager;
 extern const char s1[], s2[];
-struct Base {
+struct Function_1e1f40 {
     virtual void run();
     char pad[0x0c];
     char a;
@@ -9,11 +9,11 @@ struct Base {
     char b;
     char pad3[3];
     const char* name;
-    Base(const char*, int);
+    Function_1e1f40(const char*, int);
 };
-struct Method1 : Base {
+struct Method1 : Function_1e1f40 {
     virtual void run();
-    Method1(const char* x, const char* z) : Base(x, 1) {
+    Method1(const char* x, const char* z) : Function_1e1f40(x, 1) {
         name = z;
         b = FUN_001d04d0(s1);
         a = FUN_001d04d0(s2);

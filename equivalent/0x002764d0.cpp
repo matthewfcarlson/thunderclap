@@ -15,7 +15,7 @@ int __cdecl thunk_FUN_00271cf0(char*, const char*, int);
 char* __cdecl _strncpy(char*, const char*, unsigned);
 void* __cdecl FUN_00273560(unsigned);
 namespace core { struct File; }
-struct Helper_2764d0 { void* FUN_00274f20(core::File*, unsigned, unsigned); };
+struct FileOpenRequest_2764d0 { void* FUN_00274f20(core::File*, unsigned, unsigned); };
 namespace core {
 struct File : Primary_2764d0, IMutable {
  virtual void file_slot(); virtual void mutable_slot();
@@ -43,7 +43,7 @@ File::File(Provider_2764d0* p,const char* name,unsigned a3,unsigned a4,unsigned 
  if(thunk_FUN_00271cf0(filename,name,0x100)<0) { _strncpy(filename,name,0x100); filename[0x100]=0; }
  provider->slot6();
  if(a9) {
- Helper_2764d0* h=(Helper_2764d0*)FUN_00273560(0x14);
+ FileOpenRequest_2764d0* h=(FileOpenRequest_2764d0*)FUN_00273560(0x14);
  void* result=0;
  if(h) result=h->FUN_00274f20(this,a4,a3);
  provider->FUN_00272b60(result,key,0);

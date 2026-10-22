@@ -8,7 +8,7 @@ class Params_156cf0 {
 extern Params_156cf0 TypeA_156cf0;
 extern Params_156cf0 TypeB_156cf0;
 int __cdecl Check(void*, int, Params_156cf0*, Params_156cf0*, int);
-struct InterruptPriorityAction_nv_156cf0 {
+struct InterruptPriorityAction_156cf0 {
     int Init(hulkfight::motion::InterruptPriorityTrack*, int);
 };
 hulkfight::motion::InterruptPriorityAction* __cdecl Alloc(int);
@@ -18,7 +18,7 @@ int hulkfight::motion::InterruptPriorityTrack::vfunc_10(int a, int b, int c) {
     if (result) {
         hulkfight::motion::InterruptPriorityAction* p = Alloc(0x24);
         if (p)
-            return ((InterruptPriorityAction_nv_156cf0*)(p))->Init(this, c);
+            return ((InterruptPriorityAction_156cf0*)(p))->Init(this, c);
     }
     return 0;
 }

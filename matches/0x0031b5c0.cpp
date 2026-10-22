@@ -2,12 +2,12 @@
 #include "gen/pure3d.h"
 extern int vtD_31b5c0;
 extern int vtP;
-class D {
+class d3dDisplay_31b5c0 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    virtual D* f3(unsigned char);
+    virtual d3dDisplay_31b5c0* f3(unsigned char);
     virtual void f4();
     virtual void f5();
     virtual void f6();
@@ -32,8 +32,8 @@ void __stdcall D3DResource_Release(int);
 struct d3dDisplay_nv_31b5c0 {
     void Run();
 };
-void thunk_FUN_00267090(D*);
-D* D::f3(unsigned char flag) {
+void thunk_FUN_00267090(d3dDisplay_31b5c0*);
+d3dDisplay_31b5c0* d3dDisplay_31b5c0::f3(unsigned char flag) {
     *(hulk_intptr*)this = (hulk_intptr)&vtD_31b5c0;
     if (x10)
         D3DDevice_Release();

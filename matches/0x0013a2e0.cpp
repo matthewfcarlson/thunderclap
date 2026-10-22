@@ -1,7 +1,7 @@
-class Base {
+class Track_13a2e0 {
   public:
     virtual void v();
-    Base();
+    Track_13a2e0();
     char pad[8];
 };
 class Part {
@@ -9,7 +9,7 @@ class Part {
     Part();
     char pad[8];
 };
-class AnimationLinkedTrack : public Base {
+class AnimationLinkedTrack : public Track_13a2e0 {
   public:
     virtual void v();
     AnimationLinkedTrack();
@@ -23,4 +23,4 @@ class AnimationLinkedTrack : public Base {
     float r, s, t;
 };
 AnimationLinkedTrack::AnimationLinkedTrack()
-    : Base(), a(0), b(-1.0f), p(), x(1.0f), y(0.0f), z(-1.0f), q(), r(0.0f), s(0.1f), t(0.1f) {}
+    : Track_13a2e0(), a(0), b(-1.0f), p(), x(1.0f), y(0.0f), z(-1.0f), q(), r(0.0f), s(0.1f), t(0.1f) {}

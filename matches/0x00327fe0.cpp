@@ -1,10 +1,10 @@
 typedef unsigned int size_t;
 void* operator new(size_t) throw();
-class Item {
+class d3dRefractVertexShader_327fe0 {
   public:
-    Item(void*) throw();
+    d3dRefractVertexShader_327fe0(void*) throw();
     char pad[0x9c];
 };
-Item* __cdecl makeItem(void* p) {
-    return new Item(p);
+d3dRefractVertexShader_327fe0* __cdecl makeItem(void* p) {
+    return new d3dRefractVertexShader_327fe0(p);
 }

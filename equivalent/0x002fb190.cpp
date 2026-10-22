@@ -19,14 +19,14 @@ struct Context {
     Mesh_2fb190* mesh;
 };
 
-struct Query_2fb190 {
+struct CollisionRay_2fb190 {
     char data[0x84];
     void FUN_00306ef0(const V3_2fb190* origin, const V3_2fb190* dir, unsigned int mask);
     void FUN_00306fb0();
 };
 
 struct Registry_2fb190 {
-    char FUN_00304530(Query_2fb190* shape, unsigned int index, float depth, V3_2fb190* o1, V3_2fb190* o2, Context* ctx, int flags);
+    char FUN_00304530(CollisionRay_2fb190* shape, unsigned int index, float depth, V3_2fb190* o1, V3_2fb190* o2, Context* ctx, int flags);
 };
 struct Manager_2fb190 { char pad[0x1b0]; Registry_2fb190 reg; };
 
@@ -59,7 +59,7 @@ char Tri_2fb190::run(V3_2fb190* p, Context* ctx, int flags)
         V3_2fb190 n;
         V3_2fb190 hit;
         V3_2fb190 dir;
-        Query_2fb190 obj;
+        CollisionRay_2fb190 obj;
     } f;
     V3_2fb190* verts = ctx->mesh->verts;
     V3_2fb190* v0 = &verts[i0];

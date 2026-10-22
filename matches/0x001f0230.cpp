@@ -2,13 +2,13 @@ typedef unsigned __int64 U64;
 U64 __cdecl FUN_002672f0(int, int, int);
 int __cdecl FUN_002673a0(int, int);
 
-class SoundCommandBase {
+class CSoundCommand_1f0230 {
 public:
     virtual void vfunc_0();
     int field4;
     int field8;
     int fieldC;
-    SoundCommandBase(int c) : field4(0), field8(0), fieldC(c) {}
+    CSoundCommand_1f0230(int c) : field4(0), field8(0), fieldC(c) {}
 };
 
 struct SoundId {
@@ -16,7 +16,7 @@ struct SoundId {
     SoundId(int name) : value(0) { value = FUN_002672f0(name, 0, 0); }
 };
 
-class CSoundCommand_PlayTunableEvent : public SoundCommandBase {
+class CSoundCommand_PlayTunableEvent : public CSoundCommand_1f0230 {
 public:
     SoundId event;
     int tuning;
@@ -28,7 +28,7 @@ public:
 };
 
 CSoundCommand_PlayTunableEvent::CSoundCommand_PlayTunableEvent(int name, int tuningName, int c, int d, int e, int f)
-    : SoundCommandBase(f), event(name)
+    : CSoundCommand_1f0230(f), event(name)
 {
     tuning = FUN_002673a0(tuningName, 0);
     field1C = c;

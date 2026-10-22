@@ -3,20 +3,20 @@ class Ref_2dfce0 {
     virtual void f0();
     virtual void f1();
 };
-class Base_2dfce0 {
+class DrawablePrimitive_2dfce0 {
   public:
     virtual void v();
-    Base_2dfce0(const Base_2dfce0&);
+    DrawablePrimitive_2dfce0(const DrawablePrimitive_2dfce0&);
     char pad[0x3c];
     Ref_2dfce0* ref;
     int a, b, c, d;
 };
-class PrimGroup : public Base_2dfce0 {
+class PrimGroup : public DrawablePrimitive_2dfce0 {
   public:
     virtual void v();
     PrimGroup(const PrimGroup&);
 };
-PrimGroup::PrimGroup(const PrimGroup& other) : Base_2dfce0(other) {
+PrimGroup::PrimGroup(const PrimGroup& other) : DrawablePrimitive_2dfce0(other) {
     ref = 0;
     a = other.a;
     b = other.b;

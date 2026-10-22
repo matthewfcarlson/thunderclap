@@ -5,10 +5,10 @@ class Ref_15d460 {
     virtual void B();
 };
 extern int vtable_15d460;
-struct Base_15d460 {
+struct Action_15d460 {
     void InitBase();
 };
-struct LocomotionStrafeAction : Base_15d460 {
+struct LocomotionStrafeAction : Action_15d460 {
     char pad[0x1c];
     Ref_15d460* mRef;
     int mOther;

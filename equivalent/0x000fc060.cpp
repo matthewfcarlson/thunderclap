@@ -7,17 +7,17 @@
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 
-class Manager;
+class FEThings_fc060;
 
 class ControllerPoller_fc060 {
 public:
-    ControllerPoller_fc060(int a, Manager* mgr) throw();
+    ControllerPoller_fc060(int a, FEThings_fc060* mgr) throw();
     virtual void v0();
 };
 
-class Manager {
+class FEThings_fc060 {
 public:
-    Manager(int a) throw();
+    FEThings_fc060(int a) throw();
     char pad0[0x182c];
     ControllerPoller_fc060* overlay;
     void FUN_000dddc0(int a, int b);
@@ -26,16 +26,16 @@ public:
 
 void FUN_000fc060(int a1, int a2, int a3, int a4) {
     void* mem = FUN_0008d690(0x223c);
-    Manager* mgr = 0;
+    FEThings_fc060* mgr = 0;
     if (mem)
-        mgr = new (mem) Manager(a4);
-    (*(Manager**)&DAT_004e0a60) = mgr;
+        mgr = new (mem) FEThings_fc060(a4);
+    (*(FEThings_fc060**)&DAT_004e0a60) = mgr;
     mgr->FUN_000dddc0(a1, a3);
     void* mem2 = FUN_0008d690(0x3c);
     ControllerPoller_fc060* ov = 0;
     if (mem2)
-        ov = new (mem2) ControllerPoller_fc060(a2, (*(Manager**)&DAT_004e0a60));
+        ov = new (mem2) ControllerPoller_fc060(a2, (*(FEThings_fc060**)&DAT_004e0a60));
     (*(ControllerPoller_fc060**)&DAT_004e0a64) = ov;
     ov->v0();
-    (*(Manager**)&DAT_004e0a60)->overlay = (*(ControllerPoller_fc060**)&DAT_004e0a64);
+    (*(FEThings_fc060**)&DAT_004e0a60)->overlay = (*(ControllerPoller_fc060**)&DAT_004e0a64);
 }

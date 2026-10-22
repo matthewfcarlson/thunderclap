@@ -1,10 +1,10 @@
-class Base_6a9a0 {
+class CTrack_6a9a0 {
   public:
     virtual void BPlaceholder();
-    Base_6a9a0();
+    CTrack_6a9a0();
 };
 
-class CInvulnerableTrack : public Base_6a9a0 {
+class CInvulnerableTrack : public CTrack_6a9a0 {
   public:
     virtual void Placeholder();
     int m4;

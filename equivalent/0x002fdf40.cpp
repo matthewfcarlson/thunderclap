@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2862 inputs, branch coverage 48/50, incomplete)
 // FUN_002fdf40 @ 0x002fdf40
-class Shape_2fdf40;
+class CollisionObject_2fdf40;
 
 struct Name_2fdf40 {
     int lo;
@@ -35,12 +35,12 @@ public:
     void FUN_00306600(int arg);
 };
 
-class NodeCtor : public Node {
+class CollisionAABB_2fdf40 : public Node {
 public:
-    NodeCtor *FUN_00312900();
+    CollisionAABB_2fdf40 *FUN_00312900();
 };
 
-class Shape_2fdf40 {
+class CollisionObject_2fdf40 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -51,7 +51,7 @@ public:
     virtual void vfunc_6(int a, int b);
     char pad04[4];
     Name_2fdf40 name;
-    Shape_2fdf40 *FUN_00304f50(Node *source);
+    CollisionObject_2fdf40 *FUN_00304f50(Node *source);
 };
 
 class Made_2fdf40 {
@@ -89,7 +89,7 @@ struct Table_2fdf40 {
 
 void *__cdecl FUN_0008d690(unsigned int size);
 void *__cdecl FUN_00263ea0(unsigned int size);
-void *__cdecl FUN_002efa90(Shape_2fdf40 *shape, Made_2fdf40 *made, int zero);
+void *__cdecl FUN_002efa90(CollisionObject_2fdf40 *shape, Made_2fdf40 *made, int zero);
 
 class Builder {
 public:
@@ -104,7 +104,7 @@ void *Builder::FUN_002fdf40(int id, int nameLo, int nameHi)
     Node *node = 0;
     int matchCount = 0;
     Made_2fdf40 *made = 0;
-    Shape_2fdf40 *shape = 0;
+    CollisionObject_2fdf40 *shape = 0;
 
     if (registry != 0) {
         node = registry->lookup->FUN_00306190(id, 0);
@@ -127,9 +127,9 @@ void *Builder::FUN_002fdf40(int id, int nameLo, int nameHi)
                     matchCount = (int)(list->end - list->begin) - mismatch;
                     if (matchCount > 1) {
                         void *mem = FUN_0008d690(0x44);
-                        NodeCtor *merged = 0;
+                        CollisionAABB_2fdf40 *merged = 0;
                         if (mem != 0)
-                            merged = ((NodeCtor *)mem)->FUN_00312900();
+                            merged = ((CollisionAABB_2fdf40 *)mem)->FUN_00312900();
                         for (unsigned i = 0; i < (unsigned)(node->children->end - node->children->begin); i++) {
                             Node *c = node->children->begin[i];
                             if (c->id == id)
@@ -151,7 +151,7 @@ void *Builder::FUN_002fdf40(int id, int nameLo, int nameHi)
             void *mem = FUN_00263ea0(0x80);
             shape = 0;
             if (mem != 0)
-                shape = ((Shape_2fdf40 *)mem)->FUN_00304f50(copy);
+                shape = ((CollisionObject_2fdf40 *)mem)->FUN_00304f50(copy);
             shape->vfunc_6(0, 1);
             if ((nameLo | nameHi) != 0)
                 shape->name.FUN_0027af60(nameLo, nameHi);

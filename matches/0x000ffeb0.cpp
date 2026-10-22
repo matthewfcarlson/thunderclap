@@ -4,7 +4,7 @@ struct Thing_ffeb0 {
     virtual void b();
 };
 extern int handVtable;
-struct Helper_ffeb0 {
+struct CHand2HandAgent_ffeb0 {
     void run();
 };
 void __cdecl thunk_FUN_00267090(void*);
@@ -42,7 +42,7 @@ CHand2HandAgent* CHand2HandAgent::vfunc_2(unsigned char param) {
     *(hulk_intptr*)this = (hulk_intptr)&handVtable;
     t->b();
     thing = 0;
-    ((Helper_ffeb0*)this)->run();
+    ((CHand2HandAgent_ffeb0*)this)->run();
     if (param & 1)
         thunk_FUN_00267090(this);
     return this;

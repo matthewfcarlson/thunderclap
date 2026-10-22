@@ -29,16 +29,16 @@ struct Matrix {
     void FUN_0022c3b0(V3_13f1d0 *in, V3_13f1d0 *out);
 };
 
-class FlyDriver_13f1d0 {
+class JointDriver_13f1d0 {
 public:
     virtual void AddRef();
     char pad4[4];
     Name_13f1d0 name;
-    FlyDriver_13f1d0 *FUN_002248f0(int a);
+    JointDriver_13f1d0 *FUN_002248f0(int a);
 };
 
 struct Tracker_13f1d0 {
-    void FUN_00222890(FlyDriver_13f1d0 *d, float a, float b, float c, float e, float f, float g);
+    void FUN_00222890(JointDriver_13f1d0 *d, float a, float b, float c, float e, float f, float g);
 };
 
 struct Fighter_13f1d0 {
@@ -102,7 +102,7 @@ public:
     char pad04[0x1c - 4];
     Config_13f1d0 *cfg;                // 0x1c
     Holder_13f1d0 *holder;             // 0x20
-    FlyDriver_13f1d0 *driver;          // 0x24
+    JointDriver_13f1d0 *driver;          // 0x24
     V3_13f1d0 v28;                     // 0x28
     V3_13f1d0 v34;                     // 0x34
     V3_13f1d0 v40;                     // 0x40
@@ -197,9 +197,9 @@ bool WallExitAction::vfunc_3(int a, int b)
     fr.s10 = cfg->f30;
     fr.s14 = cfg->f34;
     void *mem = FUN_00263ea0(0x70);
-    FlyDriver_13f1d0 *d;
+    JointDriver_13f1d0 *d;
     if (mem != 0)
-        d = ((FlyDriver_13f1d0 *)mem)->FUN_002248f0(0);
+        d = ((JointDriver_13f1d0 *)mem)->FUN_002248f0(0);
     else
         d = 0;
     driver = d;

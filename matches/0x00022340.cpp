@@ -7,20 +7,20 @@ class Ref_22340 {
     virtual void F0();
     virtual void Release();
 };
-class Base_22340 {
+class CAction_22340 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_22340 : public Base_22340 {
+class CJumpAttackAction_22340 : public CAction_22340 {
   public:
     char pad[0x18];
     Ref_22340* m2;
     char pad2[0x4];
     Ref_22340* m1;
-    Obj_22340* f2(unsigned char flags);
+    CJumpAttackAction_22340* f2(unsigned char flags);
 };
-Obj_22340* Obj_22340::f2(unsigned char flags) {
+CJumpAttackAction_22340* CJumpAttackAction_22340::f2(unsigned char flags) {
     vptr = g_vftable_22340;
     _ReadWriteBarrier();
     if (m1) {

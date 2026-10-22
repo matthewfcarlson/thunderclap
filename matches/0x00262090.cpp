@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 typedef unsigned int u32_262090;
 extern int vtable_262090;
-struct Sub_262090 {
+struct SeqEventLogicRepeat_262090 {
     void init();
 };
 extern u32_262090 __cdecl makeobj(const char*, int);
@@ -9,7 +9,7 @@ extern int zeroData;
 struct Obj_262090 {
     hulk_uintptr vt;
     char pad[0x18];
-    Sub_262090 s;
+    SeqEventLogicRepeat_262090 s;
     char pad2[0x1b];
     u32_262090 a;
     u32_262090 b;

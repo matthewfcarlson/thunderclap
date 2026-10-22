@@ -5,14 +5,14 @@ class RefObj_175fd0 {
     virtual void Release();
 };
 
-class ActionBase_175fd0 {
+class Action_175fd0 {
   public:
-    ActionBase_175fd0();
+    Action_175fd0();
     virtual void Update();
     char pad[0x18];
 };
 
-class SuckInPropsAction_175fd0 : public ActionBase_175fd0 {
+class SuckInPropsAction_175fd0 : public Action_175fd0 {
   public:
     int mTarget;
     RefObj_175fd0* mObj;

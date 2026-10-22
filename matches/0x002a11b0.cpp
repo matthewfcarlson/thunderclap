@@ -6,20 +6,20 @@ class Ref_2a11b0 {
     virtual void f0();
     virtual void Release();
 };
-class Root_2a11b0 {
+class Entity_2a11b0 {
   public:
     void* vptr;
-    ~Root_2a11b0() throw();
+    ~Entity_2a11b0() throw();
 };
-class D : public Root_2a11b0 {
+class LightGroup_2a11b0 : public Entity_2a11b0 {
   public:
     char p[0xc];
     int n;
     int cap;
     Ref_2a11b0** arr;
-    ~D() throw();
+    ~LightGroup_2a11b0() throw();
 };
-D::~D() throw() {
+LightGroup_2a11b0::~LightGroup_2a11b0() throw() {
     vptr = &vt1_2a11b0;
     for (int i = 0; i < n; i++) {
         Ref_2a11b0* r = arr[i];

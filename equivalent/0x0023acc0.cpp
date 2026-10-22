@@ -9,7 +9,7 @@ struct Entry_23acc0 {
     Node* head;           // 0x04
     char pad08[0x18 - 8];
 };
-struct Table_23acc0 {
+struct ScriptReader_23acc0 {
     char pad00[0x12c];
     int count;            // 0x12c
     char pad130[8];
@@ -17,7 +17,7 @@ struct Table_23acc0 {
     bool TotalLength(int index, int* total);
 };
 
-bool Table_23acc0::TotalLength(int index, int* total)
+bool ScriptReader_23acc0::TotalLength(int index, int* total)
 {
     if (index < 0 || index >= count)
         return false;

@@ -12,7 +12,7 @@ union FloatBits_d5290 {
     unsigned int u;
 };
 
-class MessageBox {
+class MessageOverlay_d5290 {
 public:
     char pad0[0x10];
     MessageSink *sink;
@@ -29,7 +29,7 @@ public:
     void Update(float dt);
 };
 
-void MessageBox::Update(float dt)
+void MessageOverlay_d5290::Update(float dt)
 {
     bool open = false;
     if (f240 == 0 && b248)

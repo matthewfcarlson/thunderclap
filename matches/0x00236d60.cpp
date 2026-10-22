@@ -8,12 +8,12 @@ class Ref_236d60 {
     virtual void e();
     virtual void Release(int);
 };
-class Parent_236d60 {
+class Param_236d60 {
   public:
     virtual void p();
 };
 void __fastcall FUN_00234210(void* self);
-class Track_236d60 : public Parent_236d60 {
+class Track_236d60 : public Param_236d60 {
   public:
     virtual ~Track_236d60();
     Ref_236d60* mRef;

@@ -1,9 +1,9 @@
-class Base {
+class Track_16ff70 {
   public:
     virtual void f();
-    virtual ~Base() throw();
+    virtual ~Track_16ff70() throw();
 };
-class SnapToGroundTrack : public Base {
+class SnapToGroundTrack : public Track_16ff70 {
   public:
     virtual ~SnapToGroundTrack() throw();
 };

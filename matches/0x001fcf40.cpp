@@ -1,5 +1,5 @@
 #include "compat/ptr.h"
-class C_1fcf40 {
+class CTriggerVolumeManager_1fcf40 {
   public:
     char pad[0x20c];
     int count;
@@ -7,7 +7,7 @@ class C_1fcf40 {
     hulk_intptr foo();
 };
 extern void __fastcall FUN_001fb970(void*);
-hulk_intptr C_1fcf40::foo() {
+hulk_intptr CTriggerVolumeManager_1fcf40::foo() {
     hulk_intptr result = 0;
     if (count < 256) {
         char* p = (char*)buffer + (count << 6);

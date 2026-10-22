@@ -33,14 +33,14 @@ class Param {
     virtual void f14(int, void*);
     virtual void f15(int);
 };
-class pure3d_d3dProjectedTextureShader_32caf0 : public d3dShader {
+class d3dProjectedTextureShader_32caf0 : public d3dShader {
   public:
     char pad[0x10 - sizeof(d3dShader)];
     Param* p;
     char rest[0x88 - 0x14];
     void vfunc_12();
 };
-void pure3d_d3dProjectedTextureShader_32caf0::vfunc_12() {
+void d3dProjectedTextureShader_32caf0::vfunc_12() {
     d3dShader::vfunc_12();
     p->f15(2);
     p->f14(2, (char*)this + 0x88);

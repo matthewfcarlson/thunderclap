@@ -1,4 +1,4 @@
-class PddiObject {
+class pddiShader_327a40 {
   public:
     virtual void f0();
     virtual void f1();
@@ -17,7 +17,7 @@ struct Entry_327a40 {
     int p1;
     int p2;
 };
-class PddiBaseShader : public PddiObject {
+class pddiBaseShader_327a40 : public pddiShader_327a40 {
   public:
     virtual void f3();
     virtual void f4();
@@ -41,7 +41,7 @@ class PddiBaseShader : public PddiObject {
     int member;
 };
 extern int counter;
-bool PddiBaseShader::f6(int key, int arg) {
+bool pddiBaseShader_327a40::f6(int key, int arg) {
     Entry_327a40* e = f16();
     if (e && e->key) {
         do {

@@ -5,12 +5,12 @@ struct S1_5ad80 {
 struct S2_5ad80 {
     void Fin();
 };
-class Base_5ad80 {
+class Track_5ad80 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_5ad80 : public Base_5ad80 {
+class CGrappleOpportunityTrack_5ad80 : public Track_5ad80 {
   public:
     char pad0[0x14];
     S2_5ad80 s2;
@@ -18,7 +18,7 @@ class Obj_5ad80 : public Base_5ad80 {
     S1_5ad80 s1;
     void f();
 };
-void Obj_5ad80::f() {
+void CGrappleOpportunityTrack_5ad80::f() {
     vptr = g_a_5ad80;
     s1.Fin();
     s2.Fin();

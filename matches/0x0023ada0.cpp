@@ -4,12 +4,12 @@ struct B_23ada0 {
 extern "C" void* F238190(int a);
 extern "C" void* F266e00(void* a, int n);
 extern "C" void F267090(void* p);
-struct A_23ada0 {
+struct ScriptReader_23ada0 {
     bool Size(int a, int* n);
     bool Fill(int a, void* p, int n);
     bool Fn(int a, B_23ada0* b);
 };
-bool A_23ada0::Fn(int a, B_23ada0* b) {
+bool ScriptReader_23ada0::Fn(int a, B_23ada0* b) {
     int n = 0;
     if (!Size(a, &n))
         return false;

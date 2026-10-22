@@ -9,13 +9,13 @@ class Ref_232700 {
     virtual void F0();
     virtual void Release();
 };
-struct Target_232700 {
+struct Action_232700 {
     void* vf;
     int p4;
     Ref_232700* p8;
-    Target_232700* Dtor(unsigned char flag) throw();
+    Action_232700* Dtor(unsigned char flag) throw();
 };
-Target_232700* Target_232700::Dtor(unsigned char flag) throw() {
+Action_232700* Action_232700::Dtor(unsigned char flag) throw() {
     vf = vAction;
     _ReadWriteBarrier();
     if (p8) {

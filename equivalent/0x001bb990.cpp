@@ -21,9 +21,9 @@ class ControlObj {
     virtual void vfn5();
     virtual void vfn6(int tag, int flag);
 };
-class OverlayObj {
+class Shader_1bb990 {
   public:
-    OverlayObj* FUN_0028edb0();
+    Shader_1bb990* FUN_0028edb0();
     virtual void vfn0();
     char pad[0x10 - 4];
     ControlObj* control;
@@ -147,7 +147,7 @@ class CRenderManager {
     char f18;
     char pad19[3];
     int f1c, f20, f24, f28;
-    OverlayObj* overlay;     // 0x2c
+    Shader_1bb990* overlay;     // 0x2c
     char flags30[4];
     int f34, f38, f3c;
     int f40, f44, f48, f4c;
@@ -180,8 +180,8 @@ class Closure4 : public Method4<T, R, A, B, C, D> {
     T* owner;
 };
 
-struct ClosureFogPlanes {
-    ClosureFogPlanes* FUN_001ba510(const char* name, CRenderManager* owner, void (CRenderManager::*fn)(float, float));
+struct Closure2_1bb990 {
+    Closure2_1bb990* FUN_001ba510(const char* name, CRenderManager* owner, void (CRenderManager::*fn)(float, float));
 };
 struct ClosureShaderLight {
     ClosureShaderLight* FUN_001ba980(const char* name, CRenderManager* owner, void (CRenderManager::*fn)(int));
@@ -241,9 +241,9 @@ CRenderManager::CRenderManager()
     reg->FUN_001d3b70("rm_SetFogColour", fogColour);
 
     mem = FUN_0008d690(0x24);
-    ClosureFogPlanes* fogPlanes = 0;
+    Closure2_1bb990* fogPlanes = 0;
     if (mem)
-        fogPlanes = ((ClosureFogPlanes*)mem)->FUN_001ba510("rm_SetFogPlanes", this, &CRenderManager::FUN_001b88c0);
+        fogPlanes = ((Closure2_1bb990*)mem)->FUN_001ba510("rm_SetFogPlanes", this, &CRenderManager::FUN_001b88c0);
     reg->FUN_001d3b70("rm_SetFogPlanes", fogPlanes);
 
     mem = FUN_0008d690(0x24);
@@ -347,7 +347,7 @@ CRenderManager::CRenderManager()
 
     FUN_001c3d90();
 
-    OverlayObj* ov = (OverlayObj*)FUN_00263ea0(0x20);
+    Shader_1bb990* ov = (Shader_1bb990*)FUN_00263ea0(0x20);
     if (ov)
         ov = ov->FUN_0028edb0();
     overlay = ov;

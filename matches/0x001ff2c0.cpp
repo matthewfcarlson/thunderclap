@@ -1,11 +1,11 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" char DAT_00425374[];
-struct Base_1ff2c0 {
+struct Function_1ff2c0 {
     void Init(const char*, int);
 };
 extern char g0_1ff2c0, g1, g2, g3;
-class Method3_1ff2c0 : public Base_1ff2c0 {
+class Method3_1ff2c0 : public Function_1ff2c0 {
   public:
     Method3_1ff2c0(const char*, int);
     hulk_intptr m0;

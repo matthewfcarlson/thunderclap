@@ -9,11 +9,11 @@ class Base_2dfe20 {
     virtual void f();
     char pad[0x3c];
 };
-class Mid_2dfe20 : public Base_2dfe20 {
+class PrimGroup_2dfe20 : public Base_2dfe20 {
   public:
     int a, b, c, d, e;
     char pad2[4];
-    Mid_2dfe20(int x, int y) : Base_2dfe20() {
+    PrimGroup_2dfe20(int x, int y) : Base_2dfe20() {
         a = 0;
         b = 0;
         c = x;
@@ -21,7 +21,7 @@ class Mid_2dfe20 : public Base_2dfe20 {
         e = -1;
     }
 };
-class PrimGroupOptimized : public Mid_2dfe20 {
+class PrimGroupOptimized : public PrimGroup_2dfe20 {
   public:
     PrimGroupOptimized(Ref_2dfe20*, int, int);
     virtual void f();
@@ -35,7 +35,7 @@ inline void PrimGroupOptimized::SetRef(Ref_2dfe20* p) {
         ref->Release();
     ref = p;
 }
-PrimGroupOptimized::PrimGroupOptimized(Ref_2dfe20* p, int x, int y) : Mid_2dfe20(x, y) {
+PrimGroupOptimized::PrimGroupOptimized(Ref_2dfe20* p, int x, int y) : PrimGroup_2dfe20(x, y) {
     ref = 0;
     SetRef(p);
 }

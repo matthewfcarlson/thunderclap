@@ -5,16 +5,16 @@ struct Sub8_5aa00 {
     void FUN_0027af00();
 };
 
-class __declspec(novtable) TrackBase_5aa00 {
+class __declspec(novtable) CTrack_5aa00 {
 public:
     virtual void b0();
     int pad04;
     int pad08;
     void FUN_00236d40();
-    TrackBase_5aa00() { FUN_00236d40(); }
+    CTrack_5aa00() { FUN_00236d40(); }
 };
 
-class CGrappleAttachTrack : public TrackBase_5aa00 {
+class CGrappleAttachTrack : public CTrack_5aa00 {
 public:
     virtual unsigned int vfunc_0(unsigned int);
     virtual void v1();

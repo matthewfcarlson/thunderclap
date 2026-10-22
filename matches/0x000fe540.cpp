@@ -10,14 +10,14 @@ struct Vec_fe540 {
     int a;
     void Destroy();
 };
-class Base_fe540 {
+class CActorGolem_fe540 {
   public:
     void* vptr;
     char padb[0xf8 - 4];
     int mf8;
-    ~Base_fe540() throw();
+    ~CActorGolem_fe540() throw();
 };
-class Obj_fe540 : public Base_fe540 {
+class CCharacterGolem_fe540 : public CActorGolem_fe540 {
   public:
     char padc[4];
     Ref_fe540* m100;
@@ -27,9 +27,9 @@ class Obj_fe540 : public Base_fe540 {
     Ref_fe540* m110;
     Ref_fe540* m114;
     Vec_fe540 m118;
-    ~Obj_fe540() throw();
+    ~CCharacterGolem_fe540() throw();
 };
-Obj_fe540::~Obj_fe540() throw() {
+CCharacterGolem_fe540::~CCharacterGolem_fe540() throw() {
     vptr = g_vftable_fe540;
     _ReadWriteBarrier();
     if (m100) {

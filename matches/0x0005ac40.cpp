@@ -1,14 +1,14 @@
-class CGrappleDetachTrackBase {
+class CTrack_5ac40 {
   public:
-    virtual ~CGrappleDetachTrackBase();
+    virtual ~CTrack_5ac40();
     virtual void F0();
     virtual void F1();
     virtual void F2();
     virtual void F3();
-    CGrappleDetachTrackBase();
+    CTrack_5ac40();
     char pad[8];
 };
-class CGrappleDetachTrack : public CGrappleDetachTrackBase {
+class CGrappleDetachTrack : public CTrack_5ac40 {
   public:
     virtual ~CGrappleDetachTrack();
     int m0xc;

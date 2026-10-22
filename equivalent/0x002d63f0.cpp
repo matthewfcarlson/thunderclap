@@ -9,14 +9,14 @@ public:
     virtual void release();
 };
 
-class __declspec(novtable) EmitterBase_2d63f0 {
+class __declspec(novtable) ParticleEmitter_2d63f0 {
 public:
     virtual void b0();
     char pad04[0x94 - 4];
     unsigned int count;      // 0x94
     char pad98[0xa8 - 0x98];
-    void FUN_002d4a20(const EmitterBase_2d63f0 *other);
-    EmitterBase_2d63f0(const EmitterBase_2d63f0 &other) { FUN_002d4a20(&other); }
+    void FUN_002d4a20(const ParticleEmitter_2d63f0 *other);
+    ParticleEmitter_2d63f0(const ParticleEmitter_2d63f0 &other) { FUN_002d4a20(&other); }
 };
 
 class EmitterState {
@@ -26,7 +26,7 @@ public:
     EmitterState(const EmitterState &other) { FUN_002d4e80(&other); }
 };
 
-class SpriteParticleEmitter : public EmitterBase_2d63f0 {
+class SpriteParticleEmitter : public ParticleEmitter_2d63f0 {
 public:
     virtual void f1();
     EmitterState state;      // 0xa8
@@ -52,7 +52,7 @@ public:
 };
 
 SpriteParticleEmitter::SpriteParticleEmitter(const SpriteParticleEmitter &other)
-    : EmitterBase_2d63f0(other), state(other.state)
+    : ParticleEmitter_2d63f0(other), state(other.state)
 {
     ref1bc = 0;
     ref1c0 = 0;

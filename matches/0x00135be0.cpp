@@ -3,9 +3,9 @@ class Ref {
     virtual void Add();
     virtual void Release();
 };
-class Base {
+class Action_135be0 {
   public:
-    Base();
+    Action_135be0();
     virtual void Fn();
     char pad[24];
 };
@@ -22,13 +22,13 @@ struct Fields {
         d = 0;
     }
 };
-class FlyingDashAction : public Base {
+class FlyingDashAction : public Action_135be0 {
   public:
     FlyingDashAction(int, Ref*);
     virtual void Fn();
     Fields fields;
 };
-FlyingDashAction::FlyingDashAction(int x, Ref* p) : Base() {
+FlyingDashAction::FlyingDashAction(int x, Ref* p) : Action_135be0() {
     fields.val = x;
     if (p)
         p->Add();

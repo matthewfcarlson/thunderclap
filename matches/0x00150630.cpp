@@ -5,18 +5,18 @@ class Mem_150630 {
   public:
     ~Mem_150630();
 };
-class Base_150630 {
+class Track_150630 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_150630 : public Base_150630 {
+class HitReactionFloatTrack_150630 : public Track_150630 {
   public:
     char pad[20];
     Mem_150630 m;
-    Obj_150630* f2(unsigned char flags);
+    HitReactionFloatTrack_150630* f2(unsigned char flags);
 };
-Obj_150630* Obj_150630::f2(unsigned char flags) {
+HitReactionFloatTrack_150630* HitReactionFloatTrack_150630::f2(unsigned char flags) {
     vptr = g_vftable_150630;
 
     m.~Mem_150630();

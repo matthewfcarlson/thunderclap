@@ -3,12 +3,12 @@ class Ref {
     virtual void AddRef();
     virtual void Release();
 };
-class Root {
+class Action_1d9b0 {
   public:
-    Root();
+    Action_1d9b0();
     virtual void f();
 };
-class CAction : public Root {
+class CAction : public Action_1d9b0 {
   public:
     CAction(Ref* p, int x) : ref(0) {
         if (p)

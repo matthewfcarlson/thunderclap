@@ -16,12 +16,12 @@ struct Param {};
 struct LuaTrack : Track, Param {
     virtual u32_1a1c40 f10(u32_1a1c40, u32_1a1c40, u32_1a1c40);
 };
-struct Helper_1a1c40 {
+struct LuaAction_1a1c40 {
     u32_1a1c40 call(u32_1a1c40, hulk_uintptr, u32_1a1c40);
 };
 extern "C" void* __cdecl FUN_0008d690(int);
 u32_1a1c40 LuaTrack::f10(u32_1a1c40 a, u32_1a1c40 b, u32_1a1c40 c) {
-    Helper_1a1c40* p = (Helper_1a1c40*)FUN_0008d690(0x108);
+    LuaAction_1a1c40* p = (LuaAction_1a1c40*)FUN_0008d690(0x108);
     if (p)
         return p->call(a, (hulk_uintptr)this, c);
     return 0;

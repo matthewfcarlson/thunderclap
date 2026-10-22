@@ -1,12 +1,12 @@
 extern char a_942a0[], b[], c[];
 extern "C" unsigned char __cdecl check(const char*);
-class Base_942a0 {
+class Function_942a0 {
   public:
-    Base_942a0(int, int);
+    Function_942a0(int, int);
     virtual void f();
     char pad[9];
 };
-class Method3 : public Base_942a0 {
+class Method3 : public Function_942a0 {
   public:
     Method3(int, int);
     virtual void f();
@@ -16,7 +16,7 @@ class Method3 : public Base_942a0 {
     char pad4[3];
     int arg;
 };
-Method3::Method3(int x, int y) : Base_942a0(x, 3) {
+Method3::Method3(int x, int y) : Function_942a0(x, 3) {
     arg = y;
     v4 = check(a_942a0);
     v1 = check(b);

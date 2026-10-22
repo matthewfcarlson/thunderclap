@@ -4,12 +4,12 @@ class Obj_135ef0 {
     virtual void A();
     virtual void B();
 };
-class Base_135ef0 {
+class Action_135ef0 {
   public:
     virtual void X();
-    Base_135ef0();
+    Action_135ef0();
 };
-class FlyingAutoTargetAction_135ef0 : public Base_135ef0 {
+class FlyingAutoTargetAction_135ef0 : public Action_135ef0 {
   public:
     virtual void A();
     virtual void B();
@@ -20,7 +20,7 @@ class FlyingAutoTargetAction_135ef0 : public Base_135ef0 {
     int m28;
     FlyingAutoTargetAction_135ef0(int, Obj_135ef0*);
 };
-FlyingAutoTargetAction_135ef0::FlyingAutoTargetAction_135ef0(int v, Obj_135ef0* p) : Base_135ef0() {
+FlyingAutoTargetAction_135ef0::FlyingAutoTargetAction_135ef0(int v, Obj_135ef0* p) : Action_135ef0() {
     volatile int* q = &m1c;
     q[0] = 0;
     q[1] = 0;

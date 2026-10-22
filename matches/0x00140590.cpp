@@ -3,15 +3,15 @@ class Obj_140590 {
     virtual void f();
     virtual void g();
 };
-class Base_140590 {
+class Action_140590 {
   public:
-    Base_140590();
+    Action_140590();
     virtual void a();
     char pad[0x18];
 };
-class Wall : public Base_140590 {
+class WallJumpAction_140590 : public Action_140590 {
   public:
-    Wall(int p, Obj_140590* o);
+    WallJumpAction_140590(int p, Obj_140590* o);
     virtual void a();
     int m1;
     Obj_140590* m2;
@@ -27,7 +27,7 @@ class Wall : public Base_140590 {
     int m48;
     int m4c;
 };
-Wall::Wall(int p, Obj_140590* o) {
+WallJumpAction_140590::WallJumpAction_140590(int p, Obj_140590* o) {
     int* q = &m1;
     *q = 0;
     m2 = 0;

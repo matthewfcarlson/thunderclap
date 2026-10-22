@@ -16,7 +16,7 @@ struct Menu_d9080 {
               const char* f3, const char* f4);
 };
 
-struct Obj_d9080 {
+struct FEMemCardControl_d9080 {
     char pad[0x21c];
     int v21c;
     char pad2[0x3b0 - 0x220];
@@ -30,7 +30,7 @@ struct Obj_d9080 {
 extern const char kZero_d9080[];
 extern const char kOk[];
 
-void Obj_d9080::Run(int a, int b) {
+void FEMemCardControl_d9080::Run(int a, int b) {
     Menu_d9080* m = GetMenu();
     const char* s;
     if (!f3eb) {

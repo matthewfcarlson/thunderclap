@@ -7,18 +7,18 @@ class Ref_21c00 {
     virtual void F0();
     virtual void Release();
 };
-class Base_21c00 {
+class CAction_21c00 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_21c00 : public Base_21c00 {
+class CDamageAction_21c00 : public CAction_21c00 {
   public:
     char pad[0x1c - 4];
     Ref_21c00* m1c;
-    Obj_21c00* f2(unsigned char flags);
+    CDamageAction_21c00* f2(unsigned char flags);
 };
-Obj_21c00* Obj_21c00::f2(unsigned char flags) {
+CDamageAction_21c00* CDamageAction_21c00::f2(unsigned char flags) {
     vptr = g_vftable_21c00;
     _ReadWriteBarrier();
     if (m1c) {

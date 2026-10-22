@@ -8,7 +8,7 @@ class Params_12ca10 {
 extern Params_12ca10 TypeA_12ca10;
 extern Params_12ca10 TypeB_12ca10;
 int __cdecl Check(void*, int, Params_12ca10*, Params_12ca10*, int);
-struct ThreatDodgeAction_nv_12ca10 {
+struct ThreatDodgeAction_12ca10 {
     int Init(hulkfight::ai::ThreatDodgeTrack*, int);
 };
 hulkfight::ai::ThreatDodgeAction* __cdecl Alloc(int);
@@ -18,7 +18,7 @@ int hulkfight::ai::ThreatDodgeTrack::vfunc_10(int a, int b, int c) {
     if (result) {
         hulkfight::ai::ThreatDodgeAction* p = Alloc(0x24);
         if (p)
-            return ((ThreatDodgeAction_nv_12ca10*)(p))->Init(this, c);
+            return ((ThreatDodgeAction_12ca10*)(p))->Init(this, c);
     }
     return 0;
 }

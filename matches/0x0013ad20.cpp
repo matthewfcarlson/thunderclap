@@ -3,9 +3,9 @@ class Other_13ad20 {
     virtual void AddRef();
     virtual void Release();
 };
-class Base_13ad20 {
+class Action_13ad20 {
   public:
-    Base_13ad20();
+    Action_13ad20();
     virtual void X();
     char pad[0x18];
 };
@@ -19,7 +19,7 @@ struct S_13ad20 {
         c = 0;
     }
 };
-class AnimationAction : public Base_13ad20 {
+class AnimationAction : public Action_13ad20 {
   public:
     virtual void A();
     S_13ad20 s;

@@ -5,7 +5,7 @@ class Ref_f11f0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_f11f0 {
+class FEPoseAnimation_f11f0 {
   public:
     void* vptr;
     void Fin();
@@ -17,13 +17,13 @@ struct Sub_f11f0 {
 void __fastcall SubFini(Sub_f11f0*) throw();
 void __fastcall SubFini2(Sub_f11f0*) throw();
 void __fastcall SubFini3(Sub_f11f0*) throw();
-class Obj_f11f0 : public Base_f11f0 {
+class FEParticleAnimation_f11f0 : public FEPoseAnimation_f11f0 {
   public:
     char p64[96];
     Ref_f11f0* m64;
-    Obj_f11f0* f(unsigned char fl);
+    FEParticleAnimation_f11f0* f(unsigned char fl);
 };
-Obj_f11f0* Obj_f11f0::f(unsigned char fl) {
+FEParticleAnimation_f11f0* FEParticleAnimation_f11f0::f(unsigned char fl) {
     vptr = g_vftable_f11f0;
     _ReadWriteBarrier();
     if (m64) {

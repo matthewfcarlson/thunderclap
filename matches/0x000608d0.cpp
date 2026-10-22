@@ -1,14 +1,14 @@
-class Base_608d0 {
+class CTrack_608d0 {
   public:
-    Base_608d0();
+    CTrack_608d0();
     virtual void A();
     virtual void B();
     int m4;
 };
 
-class Derived_608d0 : public Base_608d0 {
+class CEffectStopTrack_608d0 : public CTrack_608d0 {
   public:
-    Derived_608d0();
+    CEffectStopTrack_608d0();
     virtual void C();
     int m8;
     int mC;
@@ -16,7 +16,7 @@ class Derived_608d0 : public Base_608d0 {
     int m14;
 };
 
-Derived_608d0::Derived_608d0() : Base_608d0() {
+CEffectStopTrack_608d0::CEffectStopTrack_608d0() : CTrack_608d0() {
     mC = 0;
     m10 = 0;
     m14 = -1;

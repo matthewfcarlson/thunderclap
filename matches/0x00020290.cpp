@@ -6,12 +6,12 @@ class Ref_20290 {
     virtual void F0();
     virtual void Release();
 };
-class Base_20290 {
+class CAction_20290 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_20290 : public Base_20290 {
+class CHeadTrackerAction_20290 : public CAction_20290 {
   public:
     char pad_1c[0x18];
     Ref_20290* m1c;
@@ -19,9 +19,9 @@ class Obj_20290 : public Base_20290 {
     Ref_20290* m24;
     char pad_88[0x60];
     Ref_20290* m88;
-    ~Obj_20290();
+    ~CHeadTrackerAction_20290();
 };
-Obj_20290::~Obj_20290() {
+CHeadTrackerAction_20290::~CHeadTrackerAction_20290() {
     vptr = gD;
     _ReadWriteBarrier();
     if (m88) {

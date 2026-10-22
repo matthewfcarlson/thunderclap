@@ -9,7 +9,7 @@ class RefObj_2aa000 {
     virtual void Release();
 };
 
-class Base_2aa000 {
+class ExpressionAnimationController_2aa000 {
   public:
     void BaseDtor();
 };
@@ -35,7 +35,7 @@ ExpressionAnimationController* ExpressionAnimationController::vfunc_2(int flag) 
     }
     _ReadWriteBarrier();
     freefn(*(void**)(b + 0x4c));
-    ((Base_2aa000*)this)->BaseDtor();
+    ((ExpressionAnimationController_2aa000*)this)->BaseDtor();
     if (flag & 1) {
         opdel(this);
     }

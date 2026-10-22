@@ -5,18 +5,18 @@ class Ref_d79c0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_d79c0 {
+class FEControl_d79c0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_d79c0 : public Base_d79c0 {
+class FEBackground_d79c0 : public FEControl_d79c0 {
   public:
     char pad[0x14c];
     Ref_d79c0* m150;
-    ~Obj_d79c0() throw();
+    ~FEBackground_d79c0() throw();
 };
-Obj_d79c0::~Obj_d79c0() throw() {
+FEBackground_d79c0::~FEBackground_d79c0() throw() {
     vptr = g_vftable_d79c0;
     _ReadWriteBarrier();
     if (m150) {

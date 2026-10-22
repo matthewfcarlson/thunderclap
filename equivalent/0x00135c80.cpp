@@ -17,7 +17,7 @@ struct ResourceName_135c80 {
     void FUN_0027b040(const char* name);
 };
 
-class RigObject {
+class JointDriver_135c80 {
 public:
     virtual void vfunc_0();
     char pad04[4];
@@ -25,13 +25,13 @@ public:
     unsigned int flags;
     Transform_135c80 transform;
     char rest[0x70 - 0x18 - sizeof(Transform_135c80)];
-    RigObject* FUN_002248f0(unsigned int id);
+    JointDriver_135c80* FUN_002248f0(unsigned int id);
 };
 
 struct Scene_135c80 {
     char pad0[0x10];
     V3_135c80 pos;
-    void FUN_00222890(RigObject* obj, float a, float b, float c, float d, float e, float f);
+    void FUN_00222890(JointDriver_135c80* obj, float a, float b, float c, float d, float e, float f);
 };
 
 struct Config_135c80 {
@@ -98,7 +98,7 @@ public:
     char pad04[0x18];
     Config_135c80* cfg;                // 0x1c
     Owner_135c80* owner;               // 0x20
-    RigObject* rig;             // 0x24
+    JointDriver_135c80* rig;             // 0x24
     V3_135c80 dir;                     // 0x28
 };
 
@@ -115,9 +115,9 @@ char FlyingDashAction::vfunc_3(int a, int b)
     float f20 = cfg->f20;
 
     void* mem = thunk_FUN_0008d690(0x70);
-    RigObject* obj = 0;
+    JointDriver_135c80* obj = 0;
     if (mem)
-        obj = ((RigObject*)mem)->FUN_002248f0(0);
+        obj = ((JointDriver_135c80*)mem)->FUN_002248f0(0);
     rig = obj;
     obj->name.FUN_0027b040("flyingDash");
     rig->vfunc_0();

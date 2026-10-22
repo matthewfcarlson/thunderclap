@@ -5,12 +5,12 @@ class Root {
     Root();
     char pad[8];
 };
-class Base : public Root {
+class Track_147590 : public Root {
   public:
-    Base() { a = 0; }
+    Track_147590() { a = 0; }
     int a;
 };
-class CivilianThrowTrack : public Base {
+class CivilianThrowTrack : public Track_147590 {
   public:
     virtual void fn();
     CivilianThrowTrack();

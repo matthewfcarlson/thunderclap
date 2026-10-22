@@ -7,20 +7,20 @@ class Ref_21960 {
     virtual void F0();
     virtual void Release();
 };
-class Base_21960 {
+class CAction_21960 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_21960 : public Base_21960 {
+class CStunAnimationAction_21960 : public CAction_21960 {
   public:
     char pad[0x18];
     Ref_21960* m2;
     char pad2[0x4];
     Ref_21960* m1;
-    Obj_21960* f2(unsigned char flags);
+    CStunAnimationAction_21960* f2(unsigned char flags);
 };
-Obj_21960* Obj_21960::f2(unsigned char flags) {
+CStunAnimationAction_21960* CStunAnimationAction_21960::f2(unsigned char flags) {
     vptr = g_vftable_003f3574;
     _ReadWriteBarrier();
     if (m1) {

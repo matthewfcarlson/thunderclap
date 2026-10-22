@@ -5,19 +5,19 @@ class Ref_198520 {
     virtual void F0();
     virtual void Release();
 };
-class Base_198520 {
+class Action_198520 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_198520 : public Base_198520 {
+class AccuracyLatencyAction_198520 : public Action_198520 {
   public:
     char pad[0x1c - 4];
     void* m1c;
     Ref_198520* m20;
-    ~Obj_198520();
+    ~AccuracyLatencyAction_198520();
 };
-Obj_198520::~Obj_198520() {
+AccuracyLatencyAction_198520::~AccuracyLatencyAction_198520() {
     vptr = g_vftable_198520;
     _ReadWriteBarrier();
     if (m20) {

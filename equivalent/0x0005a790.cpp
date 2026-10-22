@@ -20,7 +20,7 @@ struct Owner_5a790 {
     Context_5a790* FUN_000592a0();
 };
 
-struct CAutoTargetAction_nv_5a790 {
+struct CAutoTargetAction_5a790 {
     void* FUN_0001d4c0(CGrappleAutoTargetTrack* track, Settings* settings);
 };
 void* __cdecl FUN_0008d690(unsigned int size);
@@ -46,5 +46,5 @@ int CGrappleAutoTargetTrack::vfunc_12(int __p0) { Owner_5a790 * owner = (Owner_5
     CAutoTargetAction* c = static_cast<CAutoTargetAction*>(FUN_0008d690(0x30));
     if (c == 0)
         return (int)(0);
-    return (hulk_intptr)(((CAutoTargetAction_nv_5a790*)(c))->FUN_0001d4c0(this, settings));
+    return (hulk_intptr)(((CAutoTargetAction_5a790*)(c))->FUN_0001d4c0(this, settings));
 }

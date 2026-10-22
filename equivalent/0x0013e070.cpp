@@ -44,13 +44,13 @@ public:
     Id64_13e070 id;            // 8
 };
 
-class choreo2_AnimationDriver_13e070 : public choreo2_Driver_13e070 {
+class AnimationDriver_13e070 : public choreo2_Driver_13e070 {
 public:
     char pad10[0x10];
     Animation *anim;    // 0x20
     char pad24[0x218];
     float value;        // 0x23c
-    choreo2_AnimationDriver_13e070 *FUN_00225950(void *rig, Animation *anim);
+    AnimationDriver_13e070 *FUN_00225950(void *rig, Animation *anim);
     void FUN_002224a0(int v);
     void FUN_00225e00(float t, V3_13e070 v);
     void FUN_00225cf0(float v);
@@ -74,7 +74,7 @@ struct LayerSet_13e070 {
     Rig_13e070 *FUN_002226b0();
     choreo2_Driver_13e070 *FUN_00222e20(unsigned int index);
     int FUN_00222bf0(choreo2_Driver_13e070 *d);
-    void FUN_00222890(choreo2_AnimationDriver_13e070 *d, float r, float a, float b, float c, float e, float f);
+    void FUN_00222890(AnimationDriver_13e070 *d, float r, float a, float b, float c, float e, float f);
 };
 LayerSet_13e070 *__fastcall FUN_00059a40(Context *ctx);
 
@@ -124,7 +124,7 @@ public:
     char pad04[0x18];
     AnimData_13e070 *data;                 // 0x1c
     void *owner;                    // 0x20
-    choreo2_AnimationDriver_13e070 *driver; // 0x24
+    AnimationDriver_13e070 *driver; // 0x24
 };
 
 bool AnimationLinkedAction::vfunc_3(int a, int b)
@@ -159,7 +159,7 @@ bool AnimationLinkedAction::vfunc_3(int a, int b)
         int key = layers->FUN_00222bf0(d);
         if (key > bestKey)
             continue;
-        choreo2_AnimationDriver_13e070 *ad = dynamic_cast<choreo2_AnimationDriver_13e070 *>(d);
+        AnimationDriver_13e070 *ad = dynamic_cast<AnimationDriver_13e070 *>(d);
         if (ad == 0 || ad->anim != anim)
             continue;
         float v = ad->value;
@@ -168,7 +168,7 @@ bool AnimationLinkedAction::vfunc_3(int a, int b)
             bestKey = key;
         }
     }
-    choreo2_AnimationDriver_13e070 *nd = (choreo2_AnimationDriver_13e070 *)FUN_0008d690(0x240);
+    AnimationDriver_13e070 *nd = (AnimationDriver_13e070 *)FUN_0008d690(0x240);
     if (nd != 0)
         nd = nd->FUN_00225950(rig, anim);
     if (nd != 0)

@@ -1,10 +1,10 @@
-class CSmartPropEventTrackBase {
+class CTrack_62b50 {
   public:
-    CSmartPropEventTrackBase();
+    CTrack_62b50();
     virtual void BaseFn();
 };
 
-class CSmartPropEventTrack : public CSmartPropEventTrackBase {
+class CSmartPropEventTrack : public CTrack_62b50 {
   public:
     CSmartPropEventTrack();
     virtual void Fn();

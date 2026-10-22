@@ -6,11 +6,11 @@ class Thing_1a1900 {
     virtual void A();
     virtual void Release();
 };
-class Base_1a1900 {
+class Action_1a1900 {
   public:
-    virtual ~Base_1a1900() throw();
+    virtual ~Action_1a1900() throw();
 };
-class LuaAction : public Base_1a1900 {
+class LuaAction : public Action_1a1900 {
   public:
     char pad[0x1c];
     Thing_1a1900* mThing;

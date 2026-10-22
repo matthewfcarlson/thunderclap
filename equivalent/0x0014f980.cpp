@@ -17,14 +17,14 @@ struct ResourceName_14f980 {
     void FUN_0027b040(const char *name);
 };
 
-class FloatObject_14f980 {
+class JointDriver_14f980 {
 public:
     virtual void vfunc_0();
     char pad04[4];
     ResourceName_14f980 name;
     int mode;
     Transform_14f980 transform;
-    FloatObject_14f980 *FUN_002248f0(int id);
+    JointDriver_14f980 *FUN_002248f0(int id);
 };
 
 struct Target_14f980 {
@@ -37,7 +37,7 @@ struct Target_14f980 {
 struct Scene_14f980 {
     char pad0[0x40];
     Vec3_14f980 origin;
-    void FUN_00222890(FloatObject_14f980 *obj, float a, float b, float c, float d, float e, float f);
+    void FUN_00222890(JointDriver_14f980 *obj, float a, float b, float c, float d, float e, float f);
 };
 
 struct HitData_14f980 {
@@ -73,7 +73,7 @@ public:
     char pad04[0x18];
     HitData_14f980 *data;
     Owner_14f980 *owner;
-    FloatObject_14f980 *floatObj;
+    JointDriver_14f980 *floatObj;
     char pad28[4];
     float outLen;
     float outA;
@@ -99,9 +99,9 @@ bool HitFloatAction::vfunc_3(int a, int b)
     hulk_freg r = data->r;
 
     void *mem = FUN_00263ea0(0x70);
-    FloatObject_14f980 *obj = 0;
+    JointDriver_14f980 *obj = 0;
     if (mem)
-        obj = ((FloatObject_14f980 *)mem)->FUN_002248f0(0);
+        obj = ((JointDriver_14f980 *)mem)->FUN_002248f0(0);
     floatObj = obj;
     obj->name.FUN_0027b040("hitFloat");
 

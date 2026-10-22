@@ -2,7 +2,7 @@ class Item {
   public:
     void Send(int, int, int);
 };
-class Obj {
+class CTriggerVolumeManager_1fd920 {
     char pad[0x238];
 
   public:
@@ -11,7 +11,7 @@ class Obj {
     void Setup(int, int);
     void Run(int a, int b, int c);
 };
-void Obj::Run(int a, int b, int c) {
+void CTriggerVolumeManager_1fd920::Run(int a, int b, int c) {
     Setup(a, c);
     for (int i = 0; i < count; i++)
         items[i]->Send(b, 0, 0);

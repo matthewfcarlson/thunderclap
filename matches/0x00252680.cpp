@@ -7,7 +7,7 @@ class Ref_252680 {
     virtual void F0();
     virtual void Release();
 };
-class Base_252680 {
+class SeqAction_252680 {
   public:
     void* vptr;
     void Fin();
@@ -15,11 +15,11 @@ class Base_252680 {
 
 extern char g_pool_252680;
 void Free(void*, void*);
-class Obj_252680 : public Base_252680 {
+class SeqActionVarVolumeRand_252680 : public SeqAction_252680 {
   public:
-    Obj_252680* f2(unsigned char flags);
+    SeqActionVarVolumeRand_252680* f2(unsigned char flags);
 };
-Obj_252680* Obj_252680::f2(unsigned char flags) {
+SeqActionVarVolumeRand_252680* SeqActionVarVolumeRand_252680::f2(unsigned char flags) {
     vptr = g_vftable_252680;
     if (flags & 1)
         Free(&g_pool_252680, this);

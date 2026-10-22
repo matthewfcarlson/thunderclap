@@ -5,12 +5,12 @@ class Ref_1267d0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_1267d0 {
+class Action_1267d0 {
   public:
     void* vptr;
     void Fin();
 };
-class AcquireTargetAction_1267d0 : public Base_1267d0 {
+class AcquireTargetAction_1267d0 : public Action_1267d0 {
   public:
     char pad[0x18];
     void* m1c;

@@ -2,7 +2,7 @@
 // FUN_00104c60 @ 0x00104c60
 struct Vec_104c60 { int x, y, z; };
 struct Sub_104c60 { char pad[0x75]; char v75; };
-struct Obj_104c60 {
+struct CPathAgent_104c60 {
  char pad0[0x60]; Sub_104c60* sub; char pad1[4];
  int v68, v6c;
  Vec_104c60 p70, p7c;
@@ -13,7 +13,7 @@ struct Obj_104c60 {
  int vd8, vdc, ve0, ve4;
  int Reset(int a, int b, const Vec_104c60* pos, int c, char d, int e, int unused);
 };
-int Obj_104c60::Reset(int, int, const Vec_104c60* pos, int c, char d, int e, int) {
+int CPathAgent_104c60::Reset(int, int, const Vec_104c60* pos, int c, char d, int e, int) {
  v6c = 0;
  sub->v75 = 0;
  v68 = 0;

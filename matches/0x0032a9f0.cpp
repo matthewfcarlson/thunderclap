@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 #include "gen/pure3d.h"
 extern "C" char DAT_0043386c[];
-class ShaderBase_32a9f0 {
+class d3dShader_32a9f0 {
   public:
     hulk_intptr v;
     char pad[0x7c];
@@ -14,11 +14,11 @@ class ShaderBase_32a9f0 {
 struct d3dSimpleShader_nv_32a9f0 {
     void BaseInit(int);
 };
-class SimpleShader : public ShaderBase_32a9f0 {
+class d3dSimpleShader_32a9f0 : public d3dShader_32a9f0 {
   public:
-    SimpleShader* Init(int);
+    d3dSimpleShader_32a9f0* Init(int);
 };
-SimpleShader* SimpleShader::Init(int x) {
+d3dSimpleShader_32a9f0* d3dSimpleShader_32a9f0::Init(int x) {
     ((d3dSimpleShader_nv_32a9f0*)(((pure3d::d3dSimpleShader*)(this))))->BaseInit(x);
     a = 0;
     b = 0;

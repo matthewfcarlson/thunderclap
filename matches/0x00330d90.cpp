@@ -3,12 +3,12 @@ class Ref_330d90 {
     virtual void f0();
     virtual void f1();
 };
-class pure3d_d3dToonVertexShader {
+class d3dToonVertexShader_330d90 {
   public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual pure3d_d3dToonVertexShader* vfunc_3(unsigned char);
+    virtual d3dToonVertexShader_330d90* vfunc_3(unsigned char);
     virtual void v4();
     virtual void v5();
     virtual void v6();
@@ -36,8 +36,8 @@ class pure3d_d3dToonVertexShader {
     void helper();
 };
 extern char toon_vftable;
-void thunk_FUN_00267090(pure3d_d3dToonVertexShader*);
-pure3d_d3dToonVertexShader* pure3d_d3dToonVertexShader::vfunc_3(unsigned char p) {
+void thunk_FUN_00267090(d3dToonVertexShader_330d90*);
+d3dToonVertexShader_330d90* d3dToonVertexShader_330d90::vfunc_3(unsigned char p) {
     Ref_330d90* r = m98;
     *(void**)this = &toon_vftable;
     if (r)

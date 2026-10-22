@@ -11,7 +11,7 @@ struct Entry_46140 {
     void FUN_00044430();
 };
 
-class Registry_46140 {
+class CCharacterTemplateManager_46140 {
 public:
     char pad00[0xc];
     int count;
@@ -22,7 +22,7 @@ public:
 
 u64_46140 __cdecl FUN_0027b020(void *p);
 
-void Registry_46140::FUN_00046140(void *name)
+void CCharacterTemplateManager_46140::FUN_00046140(void *name)
 {
     u64_46140 key = FUN_0027b020(name);
     for (int i = 0; i < count; i++) {

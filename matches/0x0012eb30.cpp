@@ -1,11 +1,11 @@
-class Base {
+class Track_12eb30 {
   public:
-    Base();
+    Track_12eb30();
     virtual void f();
     int x;
 };
 namespace hulkfight {
-class DialogueTrack : public Base {
+class DialogueTrack : public Track_12eb30 {
   public:
     DialogueTrack();
     virtual void f();
@@ -13,6 +13,6 @@ class DialogueTrack : public Base {
     char flag;
 };
 } // namespace hulkfight
-hulkfight::DialogueTrack::DialogueTrack() : Base(), a(0), b(0), c(0), d(0), e(0), g(0), flag(0) {
+hulkfight::DialogueTrack::DialogueTrack() : Track_12eb30(), a(0), b(0), c(0), d(0), e(0), g(0), flag(0) {
     unknown = 1;
 }

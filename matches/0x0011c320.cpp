@@ -1,13 +1,13 @@
-class Base_11c320 {
+class Track_11c320 {
   public:
-    Base_11c320();
+    Track_11c320();
     virtual void f();
     char pad[8];
     void* p0;
     float x;
     void* p1;
 };
-class RoutTrack : public Base_11c320 {
+class RoutTrack : public Track_11c320 {
   public:
     RoutTrack();
     virtual void f();
@@ -16,7 +16,7 @@ class RoutTrack : public Base_11c320 {
     char pad2[3];
     float g, h, i, j;
 };
-RoutTrack::RoutTrack() : Base_11c320() {
+RoutTrack::RoutTrack() : Track_11c320() {
     p0 = 0;
     p1 = 0;
     x = -1.0f;

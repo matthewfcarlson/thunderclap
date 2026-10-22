@@ -12,8 +12,8 @@ extern Menu_d9d40* __cdecl FUN_000fc3d0();
 extern void __cdecl FUN_000fc020(unsigned short*, int, const char*, const char*);
 struct State_d9d40 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d9d40* FUN_00086280(); };
-struct Target_d9d40 { char pad0[0x21c]; int value; char pad1[0x190]; unsigned char active; char pad2[0x3a]; unsigned char mode; void FUN_000d9d40(); };
-void Target_d9d40::FUN_000d9d40() {
+struct FEMemCardControl_d9d40 { char pad0[0x21c]; int value; char pad1[0x190]; unsigned char active; char pad2[0x3a]; unsigned char mode; void FUN_000d9d40(); };
+void FEMemCardControl_d9d40::FUN_000d9d40() {
 unsigned short buffer[512];
 Menu_d9d40* menu = FUN_000fc3d0();
 TextService_d9d40* text = menu->v44();

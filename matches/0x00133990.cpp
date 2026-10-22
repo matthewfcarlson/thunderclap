@@ -4,9 +4,9 @@ class Base {
     virtual void f();
     char pad[8];
 };
-class Middle : public Base {
+class Track_133990 : public Base {
   public:
-    Middle() {
+    Track_133990() {
         a = 0;
         b = 0;
         c = 0;
@@ -18,7 +18,7 @@ class Middle : public Base {
     int b;
     int c;
 };
-class FlyingDashTrack : public Middle {
+class FlyingDashTrack : public Track_133990 {
   public:
     FlyingDashTrack();
     virtual void f();

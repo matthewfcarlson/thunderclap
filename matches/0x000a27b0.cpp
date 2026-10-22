@@ -6,16 +6,16 @@ class Ref_a27b0 {
     virtual void F0();
     virtual void Release();
 };
-class Obj_a27b0 {
+class CChaseCamera_a27b0 {
   public:
     void* vptr;
     char pad[0x34c];
     Ref_a27b0* m350;
     void Cam29();
     void Fin();
-    Obj_a27b0* f2(unsigned char flags);
+    CChaseCamera_a27b0* f2(unsigned char flags);
 };
-Obj_a27b0* Obj_a27b0::f2(unsigned char flags) {
+CChaseCamera_a27b0* CChaseCamera_a27b0::f2(unsigned char flags) {
     vptr = g_vftable_a27b0;
     _ReadWriteBarrier();
     if (m350) {

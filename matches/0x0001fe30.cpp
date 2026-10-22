@@ -5,12 +5,12 @@ class Ref_1fe30 {
     virtual void F0();
     virtual void Release();
 };
-class Base_1fe30 {
+class Action_1fe30 {
   public:
     void* vptr;
     void Fin();
 };
-class CAction_1fe30 : public Base_1fe30 {
+class CAction_1fe30 : public Action_1fe30 {
   public:
     char pad[0x18];
     Ref_1fe30* m1c;

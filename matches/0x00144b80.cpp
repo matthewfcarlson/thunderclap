@@ -5,14 +5,14 @@ class RefObj_144b80 {
     virtual void Release();
 };
 
-class ActionBase_144b80 {
+class Action_144b80 {
   public:
-    ActionBase_144b80();
+    Action_144b80();
     virtual void Update();
     char pad[0x18];
 };
 
-class MotionTrailStopAction_144b80 : public ActionBase_144b80 {
+class MotionTrailStopAction_144b80 : public Action_144b80 {
   public:
     int mTarget;
     RefObj_144b80* mObj;

@@ -3,13 +3,13 @@
 struct Object { virtual void AddRef(); virtual void Release(); };
 extern char DAT_004c532c, DAT_004c534c, DAT_004c5368, DAT_004cf634, DAT_004cf658;
 extern void* __cdecl FUN_00344e74(Object*, int, const void*, const void*, int);
-struct Owner_2a8aa0 {
+struct LightAnimationController_2a8aa0 {
  char pad[0x110];
  int kind;
  Object* object;
  void Set(Object* value);
 };
-void Owner_2a8aa0::Set(Object* value) {
+void LightAnimationController_2a8aa0::Set(Object* value) {
  if (value) value->AddRef();
  if (object) object->Release();
  object = value;

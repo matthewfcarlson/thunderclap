@@ -9,20 +9,20 @@ struct S_c7280 {
     char c[0x20];
     void Fini();
 };
-class Base_c7280 {
+class Entity_c7280 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_c7280 : public Base_c7280 {
+class CHudIcons_c7280 : public Entity_c7280 {
   public:
     char pad[0x14 - 4];
     Ref_c7280* refs[9][2];
     char pad2[0x70 - 0x5c];
     S_c7280 arr[16];
-    ~Obj_c7280();
+    ~CHudIcons_c7280();
 };
-Obj_c7280::~Obj_c7280() {
+CHudIcons_c7280::~CHudIcons_c7280() {
     vptr = gV;
     _ReadWriteBarrier();
     for (int i = 0; i < 9; i++)

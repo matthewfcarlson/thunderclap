@@ -1,13 +1,13 @@
 extern void* vShader[];
-class pddiShaderBase {
+class pddiObject_327910 {
   public:
     void* vptr;
-    pddiShaderBase();
+    pddiObject_327910();
 };
-class pddiShader : public pddiShaderBase {
+class pddiShader : public pddiObject_327910 {
   public:
     pddiShader();
 };
-pddiShader::pddiShader() : pddiShaderBase() {
+pddiShader::pddiShader() : pddiObject_327910() {
     vptr = vShader;
 }

@@ -1,10 +1,10 @@
 typedef unsigned int u32_12e590;
 void thunk_FUN_00267090(u32_12e590);
 extern int DebugPrintCondition_vftable;
-struct Base_12e590 {
+struct Condition_12e590 {
     void finish();
 };
-struct DebugPrintCondition : Base_12e590 {
+struct DebugPrintCondition : Condition_12e590 {
     void* vt;
     char pad4[8];
     u32_12e590 a;
@@ -16,5 +16,5 @@ void DebugPrintCondition::dtorish() {
     vt = &DebugPrintCondition_vftable;
     thunk_FUN_00267090(x);
     thunk_FUN_00267090(b);
-    Base_12e590::finish();
+    Condition_12e590::finish();
 }

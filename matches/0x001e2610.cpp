@@ -1,11 +1,11 @@
 extern char gKey[];
 extern "C" unsigned char __cdecl lookup(const char*);
-class Root {
+class Function_1e2610 {
   public:
-    Root(const char*, int) throw();
+    Function_1e2610(const char*, int) throw();
     virtual void action();
 };
-class Method : public Root {
+class Method1_1e2610 : public Function_1e2610 {
   public:
     unsigned char pad[12];
     unsigned char flag1;
@@ -13,19 +13,19 @@ class Method : public Root {
     unsigned char flag2;
     char p2[3];
     const char* third;
-    Method(const char* a, const char* c) throw() : Root(a, 1) {
+    Method1_1e2610(const char* a, const char* c) throw() : Function_1e2610(a, 1) {
         third = c;
         flag2 = lookup(gKey);
         flag1 = lookup(gKey);
     }
     virtual void action();
 };
-class Closure : public Method {
+class Closure1_1e2610 : public Method1_1e2610 {
   public:
     const char* second;
-    Closure(const char* a, const char* b, const char* c) throw();
+    Closure1_1e2610(const char* a, const char* b, const char* c) throw();
     virtual void action();
 };
-Closure::Closure(const char* a, const char* b, const char* c) throw() : Method(a, c) {
+Closure1_1e2610::Closure1_1e2610(const char* a, const char* b, const char* c) throw() : Method1_1e2610(a, c) {
     second = b;
 }

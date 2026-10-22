@@ -1,11 +1,11 @@
-class Base {
+class Function_1ee120 {
   public:
     virtual void F0();
-    Base(int, int);
+    Function_1ee120(int, int);
 };
 extern "C" unsigned char Check(const char*);
 extern char a[], b[];
-class Method1 : public Base {
+class Method1 : public Function_1ee120 {
   public:
     virtual void F();
     char pad[12];
@@ -14,7 +14,7 @@ class Method1 : public Base {
     unsigned char y;
     char pad3[3];
     void* p;
-    Method1(int v, void* q) : Base(v, 1), p(q) {
+    Method1(int v, void* q) : Function_1ee120(v, 1), p(q) {
         y = Check(a);
         x = Check(b);
     }

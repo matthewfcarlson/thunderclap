@@ -6,23 +6,23 @@ class Ref_138f60 {
     virtual void F0();
     virtual void Release();
 };
-class Base_138f60 {
+class Action_138f60 {
   public:
     void* vptr;
     void Fin();
 };
 
 void operator delete(void*);
-class Obj_138f60 : public Base_138f60 {
+class FlyingAutoTargetAction_138f60 : public Action_138f60 {
   public:
     char pad[0x1c - 4];
     void* m1c;
     Ref_138f60* m20;
     Ref_138f60* m24;
     Ref_138f60* m28;
-    Obj_138f60* f2(unsigned char flags);
+    FlyingAutoTargetAction_138f60* f2(unsigned char flags);
 };
-Obj_138f60* Obj_138f60::f2(unsigned char flags) {
+FlyingAutoTargetAction_138f60* FlyingAutoTargetAction_138f60::f2(unsigned char flags) {
     vptr = g_vftable_138f60;
     _ReadWriteBarrier();
     if (m28) {

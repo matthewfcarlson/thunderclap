@@ -1,13 +1,13 @@
 extern "C" unsigned char __cdecl getFlag(const char*);
 extern char labelA[];
 extern char labelB[];
-class Base {
+class Function_1ce060 {
   public:
     virtual void f();
-    Base(void*, int);
+    Function_1ce060(void*, int);
     char pad[12];
 };
-class Method1 : public Base {
+class Method1 : public Function_1ce060 {
   public:
     virtual void f();
     char m10;
@@ -23,7 +23,7 @@ class Closure1 : public Method1 {
     int m20;
     Closure1(void*, int, int);
 };
-inline Method1::Method1(void* p, int x, int y) : Base(p, 1) {
+inline Method1::Method1(void* p, int x, int y) : Function_1ce060(p, 1) {
     m1c = y;
     m18 = getFlag(labelA);
     m10 = getFlag(labelB);

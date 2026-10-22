@@ -6,7 +6,7 @@
 #include "decls/data/game/unknown.h"
 extern "C" char DAT_00404c90[];
 
-class Callback_9ae50 {
+class Method7_9ae50 {
   public:
     hulk_intptr vptr;
     char pad4[12];
@@ -16,10 +16,10 @@ class Callback_9ae50 {
     char pad19[3];
     void* owner;
     void FUN_001d0480(void*, int);
-    Callback_9ae50* Init(void*, void*);
+    Method7_9ae50* Init(void*, void*);
 };
 
-Callback_9ae50* Callback_9ae50::Init(void* name, void* value) {
+Method7_9ae50* Method7_9ae50::Init(void* name, void* value) {
     FUN_001d0480(name, 7);
     vptr = (hulk_intptr)DAT_00404c90;
     owner = value;

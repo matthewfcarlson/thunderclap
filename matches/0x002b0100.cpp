@@ -23,12 +23,12 @@ template <int N> struct Buf_2b0100 {
             FreeMem(p);
     }
 };
-class Base_2b0100 {
+class Entity_2b0100 {
   public:
-    virtual ~Base_2b0100() throw();
+    virtual ~Entity_2b0100() throw();
     int pad[3];
 };
-class ExpressionGroup : public Base_2b0100 {
+class ExpressionGroup : public Entity_2b0100 {
   public:
     Vec_2b0100<Item_2b0100*> items;
     char pad2[0xc];

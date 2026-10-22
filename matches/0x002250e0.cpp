@@ -4,7 +4,7 @@ class Inner_2250e0 {
   public:
     float value;
 };
-class Obj_2250e0 {
+class AnimationDriver_2250e0 {
     char pad[0x20];
 
   public:
@@ -13,7 +13,7 @@ class Obj_2250e0 {
     float result;
     void set(float x);
 };
-void Obj_2250e0::set(float x) {
+void AnimationDriver_2250e0::set(float x) {
     float v = p->value - 1.0f;
     if (x < 0.0f)
         result = 0.0f;

@@ -1,9 +1,9 @@
-class Base {
+class Track_180d20 {
   public:
-    Base();
+    Track_180d20();
     virtual void f();
 };
-class PropDropTrack : public Base {
+class PropDropTrack : public Track_180d20 {
   public:
     PropDropTrack();
     char pad[4];
@@ -11,7 +11,7 @@ class PropDropTrack : public Base {
     int b;
     int c;
 };
-PropDropTrack::PropDropTrack() : Base() {
+PropDropTrack::PropDropTrack() : Track_180d20() {
     b = 0;
     c = -1;
     a = 1;

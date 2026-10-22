@@ -9,7 +9,7 @@ class Mid {
   public:
     Helper* helper;
 };
-class Obj {
+class CTriggerVolumeManager_1fcc80 {
     char pad[4];
 
   public:
@@ -17,7 +17,7 @@ class Obj {
     Item* Find(int);
     void Run(int, int);
 };
-void Obj::Run(int a, int b) {
+void CTriggerVolumeManager_1fcc80::Run(int a, int b) {
     Item* p = Find(a);
     if (p)
         mid->helper->Apply(p, b);

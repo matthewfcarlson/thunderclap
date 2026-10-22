@@ -1,15 +1,15 @@
-class Base {
+class Track_13a210 {
   public:
     virtual void fn();
     char pad[8];
-    Base();
+    Track_13a210();
 };
 class Sub {
   public:
     Sub();
     char pad[8];
 };
-class AnimationChargeTrack : public Base {
+class AnimationChargeTrack : public Track_13a210 {
   public:
     int a;
     float b;

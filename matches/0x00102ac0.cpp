@@ -4,15 +4,15 @@ class Obj_102ac0 {
   public:
     virtual void Init();
 };
-class Helper_102ac0 {
+class CAvoidBehaviour_102ac0 {
   public:
     Obj_102ac0* Make();
 };
-struct Ctor_000fc760 {
-    Ctor_000fc760(void*);
+struct CCharacterAgent_000fc760 {
+    CCharacterAgent_000fc760(void*);
 };
 extern void* Alloc(hulk_uintptr);
-class CMoveAgent : public Ctor_000fc760 {
+class CMoveAgent : public CCharacterAgent_000fc760 {
   public:
     char pad[0x68];
     Obj_102ac0* p;
@@ -24,9 +24,9 @@ class CMoveAgent : public Ctor_000fc760 {
     unsigned char b76;
     CMoveAgent(void*);
 };
-CMoveAgent::CMoveAgent(void* arg) : Ctor_000fc760(arg) {
+CMoveAgent::CMoveAgent(void* arg) : CCharacterAgent_000fc760(arg) {
     *(hulk_uintptr*)this = ((hulk_intptr)DAT_0040d418);
-    Helper_102ac0* h = (Helper_102ac0*)Alloc(0x38);
+    CAvoidBehaviour_102ac0* h = (CAvoidBehaviour_102ac0*)Alloc(0x38);
     Obj_102ac0* q;
     if (h)
         q = h->Make();

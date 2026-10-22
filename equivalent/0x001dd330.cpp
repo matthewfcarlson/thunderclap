@@ -6,8 +6,8 @@ struct Link_1dd330 { unsigned int data[2]; void FUN_0027af70(void*); };
 struct State_1dd330 { char pad[6]; unsigned short id; char rest[10]; unsigned short recordIndex; char pad2[2]; unsigned char active,inverted; void FUN_001db780(Temp_1dd330*); };
 struct Item_1dd330 { Link_1dd330 first,second; State_1dd330 state; void FUN_001dbba0(); };
 struct Record_1dd330 { unsigned int x,y,z; float distance; union { unsigned short flags; struct { unsigned char low,high; } bytes; }; unsigned short itemIndex; };
-struct Manager_1dd330 { char pad[0x608]; Item_1dd330 items[2048]; Record_1dd330 records[2048]; int nextItem; char gap[8]; int count; void FUN_001dbe60(); void FUN_001dcd30(int); int target(void*,void*,Source_1dd330*,unsigned char,unsigned char,unsigned char,unsigned char); };
-int Manager_1dd330::target(void* a,void* b,Source_1dd330* source,unsigned char mark,unsigned char notify,unsigned char flag,unsigned char enabled) {
+struct CSPManager_1dd330 { char pad[0x608]; Item_1dd330 items[2048]; Record_1dd330 records[2048]; int nextItem; char gap[8]; int count; void FUN_001dbe60(); void FUN_001dcd30(int); int target(void*,void*,Source_1dd330*,unsigned char,unsigned char,unsigned char,unsigned char); };
+int CSPManager_1dd330::target(void* a,void* b,Source_1dd330* source,unsigned char mark,unsigned char notify,unsigned char flag,unsigned char enabled) {
  if(count>=2048) return -1;
  Item_1dd330* item=&items[nextItem]; Record_1dd330* record=&records[count];
  item->FUN_001dbba0();

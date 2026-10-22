@@ -16,11 +16,11 @@ struct Context {
     char pad0[8];
     int index;
 };
-class Walker_304c40 {
+class CollisionObject_304c40 {
 public:
     void FUN_00304c40(Node* node, Context* ctx);
 };
-void Walker_304c40::FUN_00304c40(Node* node, Context* ctx) {
+void CollisionObject_304c40::FUN_00304c40(Node* node, Context* ctx) {
     node->value = node->bits[ctx->index];
     if (node->children == 0)
         return;

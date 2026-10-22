@@ -7,12 +7,12 @@ class Item {
   public:
     void Update(Data*);
 };
-class Owner {
+class CTriggerVolumeManager_1fd870 {
   public:
     Item* Find(U64);
     bool Do(int, Data);
 };
-bool Owner::Do(int n, Data d) {
+bool CTriggerVolumeManager_1fd870::Do(int n, Data d) {
     U64 id = Convert(n);
     Item* item = Find(id);
     if (!item)

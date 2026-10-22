@@ -5,12 +5,12 @@ class Ref_1510b0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_1510b0 {
+class Action_1510b0 {
   public:
     void* vptr;
     void Fin();
 };
-class InterruptPriorityAction_1510b0 : public Base_1510b0 {
+class InterruptPriorityAction_1510b0 : public Action_1510b0 {
   public:
     char pad[0x18];
     void* m1c;

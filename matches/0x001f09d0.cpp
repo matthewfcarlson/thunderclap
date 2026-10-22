@@ -1,13 +1,13 @@
 typedef unsigned __int64 U64;
 U64 __cdecl FUN_002672f0(int, int, int);
 
-class SoundCommandBase {
+class CSoundCommand_1f09d0 {
 public:
     virtual void vfunc_0();
     int field4;
     int field8;
     int fieldC;
-    SoundCommandBase(int c) : field4(0), field8(0), fieldC(c) {}
+    CSoundCommand_1f09d0(int c) : field4(0), field8(0), fieldC(c) {}
 };
 
 struct SoundId {
@@ -15,7 +15,7 @@ struct SoundId {
     SoundId(int name) : value(0) { value = FUN_002672f0(name, 0, 0); }
 };
 
-class CSoundCommand_InstallEffect : public SoundCommandBase {
+class CSoundCommand_InstallEffect : public CSoundCommand_1f09d0 {
 public:
     SoundId effect;
     CSoundCommand_InstallEffect(int name, int unused);
@@ -23,6 +23,6 @@ public:
 };
 
 CSoundCommand_InstallEffect::CSoundCommand_InstallEffect(int name, int unused)
-    : SoundCommandBase(0), effect(name)
+    : CSoundCommand_1f09d0(0), effect(name)
 {
 }

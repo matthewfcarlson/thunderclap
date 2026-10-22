@@ -6,12 +6,12 @@ class Ref_29bdc0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_29bdc0 {
+class Entity_29bdc0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_29bdc0 : public Base_29bdc0 {
+class DisplayList_29bdc0 : public Entity_29bdc0 {
   public:
     char pad[0xc];
     unsigned m10;
@@ -21,9 +21,9 @@ class Obj_29bdc0 : public Base_29bdc0 {
     char pad2[8];
     void* m28;
     void Clear();
-    ~Obj_29bdc0() throw();
+    ~DisplayList_29bdc0() throw();
 };
-Obj_29bdc0::~Obj_29bdc0() throw() {
+DisplayList_29bdc0::~DisplayList_29bdc0() throw() {
     vptr = g_vftable_29bdc0;
     _ReadWriteBarrier();
     Clear();

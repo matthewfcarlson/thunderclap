@@ -5,18 +5,18 @@ class Ref_2930d0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_2930d0 {
+class BlendFrameController_2930d0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_2930d0 : public Base_2930d0 {
+class CameraAnimationController_2930d0 : public BlendFrameController_2930d0 {
   public:
     char pad[272];
     Ref_2930d0* m;
-    ~Obj_2930d0();
+    ~CameraAnimationController_2930d0();
 };
-Obj_2930d0::~Obj_2930d0() {
+CameraAnimationController_2930d0::~CameraAnimationController_2930d0() {
     vptr = g_vftable_0042cf7c;
     _ReadWriteBarrier();
     if (m) {

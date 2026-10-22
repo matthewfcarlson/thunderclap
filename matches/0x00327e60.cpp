@@ -1,10 +1,10 @@
 typedef unsigned int size_t;
 void* __cdecl operator new(size_t) throw();
-class Thing {
+class d3dErrorShader_327e60 {
   public:
-    Thing(int) throw();
+    d3dErrorShader_327e60(int) throw();
     char pad[0x80];
 };
-Thing* __cdecl FUN_00327e60(int x) {
-    return new Thing(x);
+d3dErrorShader_327e60* __cdecl FUN_00327e60(int x) {
+    return new d3dErrorShader_327e60(x);
 }

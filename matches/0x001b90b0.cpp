@@ -1,4 +1,4 @@
-struct Thing_1b90b0 {
+struct CRenderManager_1b90b0 {
     char pad[0x24];
     unsigned flags;
     char pad2[0x32 - 0x28];
@@ -27,7 +27,7 @@ struct Item_1b90b0 {
     void Act(int, float, int, int);
 };
 Item_1b90b0* __stdcall Make();
-void Thing_1b90b0::Fn() {
+void CRenderManager_1b90b0::Fn() {
     unsigned x = g_1b90b0->part->Get();
     g_1b90b0->part->Set(flags | x);
     Make()->Act(1, 0.5f, 0, 0);

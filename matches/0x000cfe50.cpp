@@ -1,11 +1,11 @@
 #include "decls/address.h"
 extern char a_cfe50, b, c;
-class Base_cfe50 {
+class Function_cfe50 {
   public:
     virtual void f();
-    Base_cfe50(void*, int);
+    Function_cfe50(void*, int);
 };
-class Method2 : public Base_cfe50 {
+class Method2 : public Function_cfe50 {
   public:
     virtual void g();
     char pad[0xc];
@@ -14,7 +14,7 @@ class Method2 : public Base_cfe50 {
     unsigned char z;
     char pad3[3];
     void* obj;
-    Method2(void* p, void* q) : Base_cfe50(p, 2) {
+    Method2(void* p, void* q) : Function_cfe50(p, 2) {
         obj = q;
         z = FUN_001d04d0(&a_cfe50);
         x = FUN_001d04d0(&b);

@@ -5,12 +5,12 @@ class Ref_130110 {
     virtual void F0();
     virtual void Release();
 };
-class Base_130110 {
+class Action_130110 {
   public:
     void* vptr;
     void Fin();
 };
-class StatBeginTrialAction_130110 : public Base_130110 {
+class StatBeginTrialAction_130110 : public Action_130110 {
   public:
     char pad[0x18];
     void* m1c;

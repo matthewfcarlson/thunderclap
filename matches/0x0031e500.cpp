@@ -14,12 +14,12 @@ class Big_31e500 {
   public:
     void Fin();
 };
-class Base_31e500 {
+class pddiRenderContext_31e500 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_31e500 : public Base_31e500 {
+class pddiBaseContext_31e500 : public pddiRenderContext_31e500 {
   public:
     char pad[4];
     Ref_31e500* m8;
@@ -36,7 +36,7 @@ class Obj_31e500 : public Base_31e500 {
     Big_31e500* m144;
     void f();
 };
-void Obj_31e500::f() {
+void pddiBaseContext_31e500::f() {
     Ref_31e500* a = m10;
     vptr = g_a_31e500;
     a->Release();

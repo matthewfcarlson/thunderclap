@@ -45,7 +45,7 @@ public:
     Id64_22d00 id;            // 8
 };
 
-class choreo2_AnimationDriver_22d00 : public choreo2_Driver_22d00 {
+class AnimationDriver_22d00 : public choreo2_Driver_22d00 {
 public:
     char pad10[0x10];
     Animation *anim;    // 0x20
@@ -56,7 +56,7 @@ public:
     float f22c;
     float f230;
     char pad234[0xc];
-    choreo2_AnimationDriver_22d00 *FUN_00225950(void *rig, Animation *anim);
+    AnimationDriver_22d00 *FUN_00225950(void *rig, Animation *anim);
     void FUN_002224a0(int v);
     void FUN_00225e00(float t, V3_22d00 v);
     void FUN_00225cf0(float v);
@@ -85,7 +85,7 @@ struct LayerSet_22d00 {
     unsigned int count;
     void *FUN_002226b0();
     choreo2_Driver_22d00 *FUN_00222e20(unsigned int index);
-    void FUN_00222890(choreo2_AnimationDriver_22d00 *d, float r, float a, float b, float c, float e, float f);
+    void FUN_00222890(AnimationDriver_22d00 *d, float r, float a, float b, float c, float e, float f);
 };
 LayerSet_22d00 *__fastcall FUN_00059a40(Context *ctx);
 
@@ -150,7 +150,7 @@ public:
     char pad04[0x18];
     Owner_22d00 *owner;                    // 0x1c
     StunData *data;                  // 0x20
-    choreo2_AnimationDriver_22d00 *driver; // 0x24
+    AnimationDriver_22d00 *driver; // 0x24
 };
 
 bool CStunAnimationAction::vfunc_6(int arg)
@@ -175,7 +175,7 @@ bool CStunAnimationAction::vfunc_6(int arg)
             choreo2_Driver_22d00 *d = layers->FUN_00222e20(i);
             if (d->id.lo != lo || d->id.hi != hi)
                 continue;
-            choreo2_AnimationDriver_22d00 *ad = dynamic_cast<choreo2_AnimationDriver_22d00 *>(d);
+            AnimationDriver_22d00 *ad = dynamic_cast<AnimationDriver_22d00 *>(d);
             if (ad != 0 && ad->anim == anim) {
                 driver = ad;
                 break;
@@ -187,7 +187,7 @@ bool CStunAnimationAction::vfunc_6(int arg)
 
     bool created;
     if (driver == 0) {
-        choreo2_AnimationDriver_22d00 *nd = (choreo2_AnimationDriver_22d00 *)thunk_FUN_0008d690(0x240);
+        AnimationDriver_22d00 *nd = (AnimationDriver_22d00 *)thunk_FUN_0008d690(0x240);
         if (nd != 0)
             nd = nd->FUN_00225950(layers->FUN_002226b0(), anim);
         driver = nd;
@@ -201,7 +201,7 @@ bool CStunAnimationAction::vfunc_6(int arg)
     StunData *cfg = data;
     unsigned int key2Lo = cfg->key2Lo;
     unsigned int key2Hi = cfg->key2Hi;
-    choreo2_AnimationDriver_22d00 *drv = driver;
+    AnimationDriver_22d00 *drv = driver;
     if ((key2Lo | key2Hi) != 0) {
         int r = FUN_00059a30(FUN_000592a0(owner))->inner->rig->FUN_0027b670(key2Lo, key2Hi);
         if (r != 0)

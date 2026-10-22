@@ -5,12 +5,12 @@ class Ref_18d440 {
     virtual void F0();
     virtual void Release();
 };
-class Base_18d440 {
+class Action_18d440 {
   public:
     void* vptr;
     void Fin();
 };
-class VarAssignAction_18d440 : public Base_18d440 {
+class VarAssignAction_18d440 : public Action_18d440 {
   public:
     char pad[0x18];
     void* m1c;

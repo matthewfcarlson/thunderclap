@@ -4,13 +4,13 @@ class Ref_13f9c0 {
     virtual void First();
     virtual void Release();
 };
-class Base_13f9c0 {
+class Action_13f9c0 {
   public:
     hulk_intptr v;
-    Base_13f9c0();
+    Action_13f9c0();
 };
 extern int wallvt;
-class WallRunAction : public Base_13f9c0 {
+class WallRunAction : public Action_13f9c0 {
   public:
     char pad[0x18];
     int m1c;

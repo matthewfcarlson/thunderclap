@@ -1,17 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0018f2a0 @ 0x0018f2a0
-class __declspec(novtable) TrackBase_18f2a0 {
+class __declspec(novtable) Track_18f2a0 {
 public:
     virtual void b0();
     int pad04;
     int pad08;
     void FUN_00236d40();
-    TrackBase_18f2a0() { FUN_00236d40(); }
+    Track_18f2a0() { FUN_00236d40(); }
 };
 
 namespace hulkfight {
 namespace motion {
-class TankLocomotionTrack : public TrackBase_18f2a0 {
+class TankLocomotionTrack : public Track_18f2a0 {
 public:
     virtual unsigned int vfunc_0(unsigned int);
     virtual void v1();

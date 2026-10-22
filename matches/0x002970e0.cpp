@@ -15,19 +15,19 @@ struct Input {
     char pad[0x40];
     Source* source;
 };
-class Base {
+class DrawableHierarchy_2970e0 {
   public:
-    Base(Input*);
+    DrawableHierarchy_2970e0(Input*);
     virtual void vf();
     char pad[0x3c];
 };
-class Scenegraph : public Base {
+class Scenegraph : public DrawableHierarchy_2970e0 {
   public:
     Scenegraph(Input*);
     virtual void vf();
     Node* node;
 };
-Scenegraph::Scenegraph(Input* src) : Base(src) {
+Scenegraph::Scenegraph(Input* src) : DrawableHierarchy_2970e0(src) {
     node = 0;
     if (src->source) {
         Node* p = src->source->Get();

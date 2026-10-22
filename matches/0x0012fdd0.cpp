@@ -3,7 +3,7 @@ void __cdecl operator delete(void* p);
 
 extern "C" char DAT_00411344[];
 
-class hulkfight_DialogueTrack {
+class DialogueTrack_12fdd0 {
   public:
     void* vptr;
     char pad4[0x10 - 0x4];
@@ -14,10 +14,10 @@ class hulkfight_DialogueTrack {
     void* m20;
 
     void FUN_00236d60();
-    hulkfight_DialogueTrack* vfunc_5(int param);
+    DialogueTrack_12fdd0* vfunc_5(int param);
 };
 
-hulkfight_DialogueTrack* hulkfight_DialogueTrack::vfunc_5(int param) {
+DialogueTrack_12fdd0* DialogueTrack_12fdd0::vfunc_5(int param) {
     vptr = (void*)DAT_00411344;
     FUN_00267090(m10);
     FUN_00267090(m14);

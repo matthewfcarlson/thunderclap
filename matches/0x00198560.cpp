@@ -5,14 +5,14 @@ class RefObj_198560 {
     virtual void Release();
 };
 
-class ActionBase_198560 {
+class Action_198560 {
   public:
-    ActionBase_198560();
+    Action_198560();
     virtual void Update();
     char pad[0x18];
 };
 
-class MissileThrowAction_198560 : public ActionBase_198560 {
+class MissileThrowAction_198560 : public Action_198560 {
   public:
     int mTarget;
     RefObj_198560* mObj;

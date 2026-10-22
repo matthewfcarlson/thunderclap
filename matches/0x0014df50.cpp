@@ -9,19 +9,19 @@ class Zero {
     int x;
     Zero() : x(0) {}
 };
-class Mid : public Base {
+class Track_14df50 : public Base {
   public:
     Zero a;
     float val;
     Zero b;
-    Mid() : a(), b() {}
+    Track_14df50() : a(), b() {}
 };
-class hulkfight_motion_InterruptPriorityTrack : public Mid {
+class InterruptPriorityTrack_14df50 : public Track_14df50 {
   public:
-    hulkfight_motion_InterruptPriorityTrack();
+    InterruptPriorityTrack_14df50();
     virtual void f();
 };
-hulkfight_motion_InterruptPriorityTrack::hulkfight_motion_InterruptPriorityTrack() {
+InterruptPriorityTrack_14df50::InterruptPriorityTrack_14df50() {
     val = -1.0f;
     *(int*)((char*)this + 8) = 1;
 }

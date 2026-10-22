@@ -6,11 +6,11 @@ struct CtorV_001d0480 {
 u8 __cdecl query(const char*);
 extern const char a[];
 extern const char b[];
-class Base : public CtorV_001d0480 {
+class Function_1b15f0 : public CtorV_001d0480 {
   public:
-    Base(int n) : CtorV_001d0480(n, 2) { }
+    Function_1b15f0(int n) : CtorV_001d0480(n, 2) { }
 };
-class Function2 : public Base {
+class Function2 : public Function_1b15f0 {
   public:
     virtual void f();
     char pad[12];
@@ -22,7 +22,7 @@ class Function2 : public Base {
     int data;
     Function2(int, int);
 };
-Function2::Function2(int n, int d) : Base(n) {
+Function2::Function2(int n, int d) : Function_1b15f0(n) {
     data = d;
     z = query(a);
     x = query(b);

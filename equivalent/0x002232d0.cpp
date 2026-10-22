@@ -10,11 +10,11 @@ struct Ref_2232d0 {
 };
 struct BasePart_2232d0 { char data[0x54]; void FUN_00221be0(BasePart_2232d0*); };
 struct Entry_2232d0 { Ref_2232d0* object; unsigned value; unsigned char flag; char pad[3]; unsigned a,b,c,d,e,f,g; };
-struct Container_2232d0 {
+struct Puppet_2232d0 {
  char prefix[0x10]; BasePart_2232d0 base; Ref_2232d0* ref; unsigned count; Entry_2232d0 entries[1];
- Container_2232d0* assign(Container_2232d0* source);
+ Puppet_2232d0* assign(Puppet_2232d0* source);
 };
-Container_2232d0* Container_2232d0::assign(Container_2232d0* source) {
+Puppet_2232d0* Puppet_2232d0::assign(Puppet_2232d0* source) {
  base.FUN_00221be0(&source->base);
  Ref_2232d0* incoming=source->ref;
  if(incoming) incoming->AddRef();

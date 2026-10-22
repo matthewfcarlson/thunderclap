@@ -4,12 +4,12 @@ class Thing_176f50 {
     virtual void B();
 };
 extern char g_vftable_176f50[];
-class Base_176f50 {
+class Action_176f50 {
   public:
     void* vptr;
-    Base_176f50();
+    Action_176f50();
 };
-class RestPoseAction : public Base_176f50 {
+class RestPoseAction : public Action_176f50 {
   public:
     char pad[0x18];
     int a;

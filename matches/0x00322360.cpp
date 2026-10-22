@@ -1,11 +1,11 @@
 typedef unsigned char u8;
-class D {
+class d3dExtVertexProgram_322360 {
   public:
     virtual void a0();
     virtual void a1();
     virtual void a2();
     virtual void a3();
-    virtual void f4(D*, char);
+    virtual void f4(d3dExtVertexProgram_322360*, char);
     virtual void a5();
     virtual void a6();
     virtual void a7();
@@ -27,7 +27,7 @@ class D {
     char pad[0x79];
     u8 flag;
 };
-void D::f4(D* self, char on) {
+void d3dExtVertexProgram_322360::f4(d3dExtVertexProgram_322360* self, char on) {
     if (on)
         self->flag = 1;
     self->a22();

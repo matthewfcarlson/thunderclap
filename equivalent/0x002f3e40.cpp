@@ -29,14 +29,14 @@ struct Bounds_2f3e40 {
     Vec3_2f3e40 scale;
 };
 
-class RayClipper {
+class CollisionMesh_2f3e40 {
 public:
     char pad00[0x44];
     Bounds_2f3e40 *bounds;
     void Clip(ClipOut *out, const Segment_2f3e40 *seg);
 };
 
-void RayClipper::Clip(ClipOut *out, const Segment_2f3e40 *seg)
+void CollisionMesh_2f3e40::Clip(ClipOut *out, const Segment_2f3e40 *seg)
 {
     Bounds_2f3e40 *bd = bounds;
     float tmin;

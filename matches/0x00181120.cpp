@@ -1,12 +1,12 @@
-class Base {
+class Track_181120 {
   public:
-    Base();
+    Track_181120();
     virtual void f();
     int x;
     int y;
     int z;
 };
-class PropSetStateByIndexTrack : public Base {
+class PropSetStateByIndexTrack : public Track_181120 {
   public:
     PropSetStateByIndexTrack();
     virtual void f();

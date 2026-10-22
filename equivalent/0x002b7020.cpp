@@ -70,9 +70,9 @@ public:
     Ref_2b7020 *FUN_0027b240();
 };
 
-class SkinTopo18 : public Ref_2b7020 {
+class ShadowMeshVertices_2b7020 : public Ref_2b7020 {
 public:
-    SkinTopo18 *FUN_002b5070(int a, hulk_intptr b);
+    ShadowMeshVertices_2b7020 *FUN_002b5070(int a, hulk_intptr b);
 };
 
 struct Rec0_2b7020 {
@@ -258,9 +258,9 @@ unsigned __int64 pure3d::ShadowSkinLoader::v5(Target_2b7020 **objOut, unsigned _
     A->topo = topo;
 
     void *m2 = FUN_0008d690(0x18);
-    SkinTopo18 *st;
+    ShadowMeshVertices_2b7020 *st;
     if (m2)
-        st = ((SkinTopo18 *)m2)->FUN_002b5070(nvv, nfv);
+        st = ((ShadowMeshVertices_2b7020 *)m2)->FUN_002b5070(nvv, nfv);
     else
         st = 0;
     if (st)

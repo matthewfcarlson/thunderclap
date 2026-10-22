@@ -5,7 +5,7 @@
 
 extern "C" double sqrt(double);
 
-class Joint3D {
+class PhysicsJoint3D_30b8f0 {
 public:
     int vptr;
     char pad04[0x0c];
@@ -24,7 +24,7 @@ public:
     void FUN_0030b8f0();
 };
 
-void Joint3D::FUN_0030b8f0()
+void PhysicsJoint3D_30b8f0::FUN_0030b8f0()
 {
     hulk_freg lenSq = (dir[0] * dir[0] + dir[1] * dir[1]) + dir[2] * dir[2];
     if (lenSq > (*(const float*)&DAT_004d31d4)) {

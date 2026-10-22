@@ -55,13 +55,13 @@ public:
     void FUN_00284ad0(int a);
 };
 
-class Controller_810f0 {
+class CollisionSphere_810f0 {
 public:
     virtual void AddRef();
     virtual void Release();
     char pad04[0x70];
     char* f74;
-    Controller_810f0* FUN_002efe50(Vec3_810f0* v, float f);
+    CollisionSphere_810f0* FUN_002efe50(Vec3_810f0* v, float f);
 };
 
 struct Camera {
@@ -76,7 +76,7 @@ struct World {
 
 void* FUN_0008d690(unsigned int size);
 void* thunk_FUN_0008d690(unsigned int size);
-Controller_810f0* FUN_002efca0(void* mem, int arg);
+CollisionSphere_810f0* FUN_002efca0(void* mem, int arg);
 
 class CCivilian : public pure3d::Entity {
 public:
@@ -104,7 +104,7 @@ public:
     int fec;
     Skeleton* ff0;
     char padf4[0x100 - 0xf4];
-    Controller_810f0* f100;
+    CollisionSphere_810f0* f100;
 };
 
 CCivilian::CCivilian(int a1, Device_810f0* dev, int a3, int a4, int a5, char flag)
@@ -162,9 +162,9 @@ CCivilian::CCivilian(int a1, Device_810f0* dev, int a3, int a4, int a5, char fla
     v.y = 0.8f;
     v.z = 0.0f;
     mem = FUN_0008d690(0x48);
-    Controller_810f0* ctl = 0;
+    CollisionSphere_810f0* ctl = 0;
     if (mem)
-        ctl = ((Controller_810f0*)mem)->FUN_002efe50(&v, 0.801f);
+        ctl = ((CollisionSphere_810f0*)mem)->FUN_002efe50(&v, 0.801f);
     ctl = FUN_002efca0(ctl, a1);
     if (ctl)
         ctl->AddRef();

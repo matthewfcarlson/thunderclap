@@ -1,5 +1,5 @@
-struct Base_2d3de0 {
-    Base_2d3de0();
+struct DrawablePrimitive_2d3de0 {
+    DrawablePrimitive_2d3de0();
     virtual void f();
     char p[0x3c];
 };
@@ -7,14 +7,14 @@ struct Sub_2d3de0 {
     void Init();
     char q[0x40];
 };
-struct PE : Base_2d3de0 {
+struct ParticleEmitter_2d3de0 : DrawablePrimitive_2d3de0 {
     Sub_2d3de0 s;
     int a[9];
     char b0, b1, b2;
-    PE();
+    ParticleEmitter_2d3de0();
     virtual void f();
 };
-PE::PE() {
+ParticleEmitter_2d3de0::ParticleEmitter_2d3de0() {
     a[0] = 0;
     a[1] = 0;
     a[2] = 0;

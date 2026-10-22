@@ -1,5 +1,5 @@
 void* __cdecl FUN_00273560(int);
-struct Entry {
+struct DriveCancelRequest_276bd0 {
     void* FUN_00275c80(void*);
 };
 struct DriveObject {
@@ -13,7 +13,7 @@ struct InstanceDrive {
     int vfunc_18();
 };
 int InstanceDrive::vfunc_18() {
-    Entry* entry = (Entry*)FUN_00273560(12);
+    DriveCancelRequest_276bd0* entry = (DriveCancelRequest_276bd0*)FUN_00273560(12);
     void* result = entry ? entry->FUN_00275c80(this) : 0;
     return object->FUN_00272b60(result, field10, 1);
 }

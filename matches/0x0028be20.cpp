@@ -7,9 +7,9 @@ class Mem_28be20 {
   public:
     void* Make(unsigned int, int);
 };
-class Base_28be20 {
+class VectorChannel_28be20 {
   public:
-    Base_28be20(int, int);
+    VectorChannel_28be20(int, int);
     virtual void v0();
     int m4, m8;
     Mem_28be20* mc;
@@ -24,14 +24,14 @@ struct Z4 {
         d = 0;
     }
 };
-class V2_28be20 : public Base_28be20 {
+class Vector2DOFChannel_28be20 : public VectorChannel_28be20 {
   public:
     Z4 z;
     hulk_intptr m28;
-    V2_28be20(int, int);
+    Vector2DOFChannel_28be20(int, int);
     virtual void v1();
 };
-V2_28be20::V2_28be20(int x, int y) : Base_28be20(x, y) {
+Vector2DOFChannel_28be20::Vector2DOFChannel_28be20(int x, int y) : VectorChannel_28be20(x, y) {
 
     m28 = 0;
     if (mc == 0) {

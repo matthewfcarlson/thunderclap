@@ -7,7 +7,7 @@
 extern char DAT_00494b44, DAT_00494b60;
 extern "C" void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 struct Local_148730 { char data[0x98]; void FUN_00059820(); void FUN_00059300(); };
-struct CFightParamsCollision_nv_148730 {
+struct CFightParamsCollision_148730 {
     ::CFightParamsCollision* FUN_000598e0(void*, Local_148730*);
 };
 struct Manager_148730 { unsigned char FUN_00231a40(void*, ::CFightParamsCollision*); };
@@ -31,7 +31,7 @@ if (!FUN_00344e74(actor,0,&DAT_00494b44,&DAT_00494b60,0)) return 1;
 Local_148730 local; local.FUN_00059820();
 FUN_00148580(FUN_0005a470(actor), &local, this);
 ::CFightParamsCollision* item = (::CFightParamsCollision*)FUN_0008d690(0xb0);
-if (item) item = ((CFightParamsCollision_nv_148730*)(item))->FUN_000598e0(*FUN_0005a430(actor)->value,&local);
+if (item) item = ((CFightParamsCollision_148730*)(item))->FUN_000598e0(*FUN_0005a430(actor)->value,&local);
 item->vfunc_0();
 Manager_148730* manager = actor->FUN_000592a0()->FUN_00059a30()->FUN_000392e0(item);
 actor->FUN_00059760(manager);

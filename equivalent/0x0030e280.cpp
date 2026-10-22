@@ -2,7 +2,7 @@
 // FUN_0030e280 @ 0x0030e280
 #include "compat/ptr.h"
 struct Item { int a,b,c,d,e; };
-struct Obj {
+struct CollisionAnalyser_30e280 {
  char pad0[4];
  Item* first;
  Item* last;
@@ -12,7 +12,7 @@ struct Obj {
  Item* limit;
  Item* FUN_0030e280();
 };
-Item* Obj::FUN_0030e280() {
+Item* CollisionAnalyser_30e280::FUN_0030e280() {
  Item* result = 0;
  if ((hulk_ulongptr)end < (hulk_ulongptr)limit) {
   Item* p = end;

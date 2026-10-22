@@ -1,8 +1,8 @@
-class Thing {
+class SeqEventChannelSendVolumesType_364470 {
   public:
     void go();
 };
-extern Thing globalThing;
+extern SeqEventChannelSendVolumesType_364470 globalThing;
 void __cdecl FUN_00364470() {
     globalThing.go();
 }

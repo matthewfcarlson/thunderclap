@@ -8,19 +8,19 @@ class Ref_28df60 {
     virtual void F0();
     virtual void Release();
 };
-class Base_28df60 {
+class Channel_28df60 {
   public:
     void* vptr;
 };
-class Obj_28df60 : public Base_28df60 {
+class SimpleChannel_28df60 : public Channel_28df60 {
   public:
     char pad[8];
     Ref_28df60* mc;
     void* m10;
     void* m14;
-    Obj_28df60* f0(unsigned char flags);
+    SimpleChannel_28df60* f0(unsigned char flags);
 };
-Obj_28df60* Obj_28df60::f0(unsigned char flags) {
+SimpleChannel_28df60* SimpleChannel_28df60::f0(unsigned char flags) {
     vptr = g_vftable_28df60;
     if (!mc) {
         operator delete[](m14);

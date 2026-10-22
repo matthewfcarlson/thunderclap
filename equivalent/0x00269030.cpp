@@ -3,7 +3,7 @@
 #include "decls/data/engine/core.h"
 #include "decls/data/platform/xbox/core.h"
 
-struct Pad_269030 {
+struct ControllerXBox_269030 {
     virtual void m0(); virtual void m1(); virtual void m2(); virtual void m3(); virtual void m4();
     virtual void m5(); virtual void m6(); virtual void m7(); virtual void m8(); virtual void m9();
     virtual void m10(); virtual void m11(); virtual void m12(); virtual void m13(); virtual void m14();
@@ -34,7 +34,7 @@ struct ControllerSystemXBox : IControllerSystem, Object {
     ControllerSystemXBox(int first, int second);
 };
 ControllerSystemXBox::ControllerSystemXBox(int first, int second) {
-    Pad_269030* pads = (Pad_269030*)padBytes;
+    ControllerXBox_269030* pads = (ControllerXBox_269030*)padBytes;
     valuec = 0; value10 = 0; value14 = 0; value18 = 0; value1c = 0;
     for (int i = 0; i < 4; ++i) pads[i].FUN_00268fa0();
     FUN_002705f0();

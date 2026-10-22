@@ -10,17 +10,17 @@ struct Handle_1945b0 {
     void FUN_00233dd0();
 };
 
-class __declspec(novtable) TrackBase_1945b0 {
+class __declspec(novtable) Track_1945b0 {
 public:
     virtual void b0();
     int pad04;
     int mode;
     void FUN_00236d40();
-    TrackBase_1945b0() { FUN_00236d40(); }
+    Track_1945b0() { FUN_00236d40(); }
 };
 
 namespace hulkfight { namespace motion {
-class FireGroundShockwaveTrack : public TrackBase_1945b0 {
+class FireGroundShockwaveTrack : public Track_1945b0 {
 public:
     virtual void v1();
     virtual void v2();

@@ -2,17 +2,17 @@
 struct Member_23c900 {
     void Release();
 };
-struct Base_23c900 {
+struct Condition_23c900 {
     virtual void g();
     void Shutdown();
 };
-struct Derived_23c900 : Base_23c900 {
+struct SubConditionGroupCondition_23c900 : Condition_23c900 {
     char pad[8];
     Member_23c900 m;
-    ~Derived_23c900();
+    ~SubConditionGroupCondition_23c900();
     virtual void f();
 };
-Derived_23c900::~Derived_23c900() {
+SubConditionGroupCondition_23c900::~SubConditionGroupCondition_23c900() {
     m.Release();
     Shutdown();
 }

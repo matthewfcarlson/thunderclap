@@ -13,7 +13,7 @@ class H10_305320 {
   public:
     void run10();
 };
-class H0_305320 {
+class CollisionObject_305320 {
   public:
     void run0();
 };
@@ -45,7 +45,7 @@ physics::CollisionObject* physics::CollisionObject::vfunc_2(unsigned char p) {
     if (field30)
         freeA((char*)field30 - 4);
     ((H10_305320*)((char*)this + 0x10))->run10();
-    ((H0_305320*)this)->run0();
+    ((CollisionObject_305320*)this)->run0();
     if (p & 1)
         freeB(this);
     return this;

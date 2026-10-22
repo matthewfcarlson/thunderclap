@@ -9,18 +9,18 @@ struct Sub0C_194290 {
     void FUN_00233dd0();
 };
 
-class __declspec(novtable) TrackBase_194290 {
+class __declspec(novtable) Track_194290 {
 public:
     virtual void b0();
     int pad04;
     int pad08;
     void FUN_00236d40();
-    TrackBase_194290() { FUN_00236d40(); }
+    Track_194290() { FUN_00236d40(); }
 };
 
 namespace hulkfight {
 namespace motion {
-class FireMissileTrack : public TrackBase_194290 {
+class FireMissileTrack : public Track_194290 {
 public:
     virtual unsigned int vfunc_0(unsigned int);
     virtual void v1();

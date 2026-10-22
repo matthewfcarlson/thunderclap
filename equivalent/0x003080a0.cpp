@@ -35,27 +35,27 @@ struct Node {
     void FUN_00306930(Node* child);
 };
 
-struct NodeA_3080a0 : Node {
+struct CollisionSphere_3080a0 : Node {
     char pad18[0x48 - 0x18];
     Node* FUN_002efe50(V3_3080a0* pos, int d);
 };
 
-struct NodeB_3080a0 : Node {
+struct CollisionCylinder_3080a0 : Node {
     char pad18[0x8c - 0x18];
     Node* FUN_002f3070(V3_3080a0* a, V3_3080a0* b, int r2, int r1, int flag);
 };
 
-struct NodeC_3080a0 : Node {
+struct CollisionOBB_3080a0 : Node {
     char pad18[0xbc - 0x18];
     Node* FUN_002fbed0(V3_3080a0* a, int* tri, V3_3080a0* b, V3_3080a0* c, V3_3080a0* d);
 };
 
-struct NodeD : Node {
+struct CollisionWall_3080a0 : Node {
     char pad18[0x60 - 0x18];
     Node* FUN_0030e630(V3_3080a0* a, V3_3080a0* b);
 };
 
-struct NodeE : Node {
+struct CollisionAABB_3080a0 : Node {
     char pad18[0x44 - 0x18];
     Node* FUN_00312900();
 };
@@ -100,7 +100,7 @@ Node* __cdecl FUN_003080a0(Reader* r)
             obj = 0;
             break;
         }
-        obj = ((NodeA_3080a0*)mem)->FUN_002efe50(&f.v[0], f.u4.d);
+        obj = ((CollisionSphere_3080a0*)mem)->FUN_002efe50(&f.v[0], f.u4.d);
         break;
     }
     case 0x07010003: {
@@ -114,7 +114,7 @@ Node* __cdecl FUN_003080a0(Reader* r)
             obj = 0;
             break;
         }
-        obj = ((NodeB_3080a0*)mem)->FUN_002f3070(&f.v[3], &f.v[5], f.scratch, f.r1, f.u4.word);
+        obj = ((CollisionCylinder_3080a0*)mem)->FUN_002f3070(&f.v[3], &f.v[5], f.scratch, f.r1, f.u4.word);
         break;
     }
     case 0x07010004: {
@@ -133,7 +133,7 @@ Node* __cdecl FUN_003080a0(Reader* r)
             obj = 0;
             break;
         }
-        obj = ((NodeC_3080a0*)mem)->FUN_002fbed0(&f.v[4], f.tri, &f.v[2], &f.v[1], &f.v[7]);
+        obj = ((CollisionOBB_3080a0*)mem)->FUN_002fbed0(&f.v[4], f.tri, &f.v[2], &f.v[1], &f.v[7]);
         break;
     }
     case 0x07010005: {
@@ -144,13 +144,13 @@ Node* __cdecl FUN_003080a0(Reader* r)
             obj = 0;
             break;
         }
-        obj = ((NodeD*)mem)->FUN_0030e630(&f.v[8], &f.v[6]);
+        obj = ((CollisionWall_3080a0*)mem)->FUN_0030e630(&f.v[8], &f.v[6]);
         break;
     }
     case 0x07010006: {
         void* mem = FUN_0008d690(0x44);
         if (mem != 0)
-            obj = ((NodeE*)mem)->FUN_00312900();
+            obj = ((CollisionAABB_3080a0*)mem)->FUN_00312900();
         else
             obj = 0;
         r->stream->FUN_002647e0(&f.scratch, 1, 4, 1);

@@ -5,21 +5,21 @@ class Ref_151f80 {
     virtual void F0();
     virtual void Release();
 };
-class Base_151f80 {
+class Action_151f80 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_151f80 : public Base_151f80 {
+class HitThrowAction_151f80 : public Action_151f80 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_151f80* m20;
     Ref_151f80* m24;
     Ref_151f80* m28;
-    ~Obj_151f80();
+    ~HitThrowAction_151f80();
 };
-Obj_151f80::~Obj_151f80() {
+HitThrowAction_151f80::~HitThrowAction_151f80() {
     vptr = g_vftable_151f80;
     _ReadWriteBarrier();
     if (m28) {

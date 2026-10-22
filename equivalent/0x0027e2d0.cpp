@@ -13,9 +13,9 @@ struct Registry_27e2d0 { void FUN_002834b0(unsigned); };
 extern Registry_27e2d0 *__cdecl FUN_0027f250();
 extern void __cdecl FUN_0008d330(void*);
 extern void __cdecl FUN_0008d340(void*);
-struct Base_27e2d0 { virtual void slot0(); void FUN_002a35f0(); };
+struct DrawableHierarchy_27e2d0 { virtual void slot0(); void FUN_002a35f0(); };
 namespace pure3d { namespace prop {
-struct StateProp : Base_27e2d0 {
+struct StateProp : DrawableHierarchy_27e2d0 {
  virtual void slot0();
  ~StateProp();
  char pad0[0x3c]; int stateIndex; char pad1[0x44]; Ref_27e2d0 *resource; char pad2[0xc]; Data_27e2d0 *data; Ref_27e2d0 *other1; Ref_27e2d0 *other2; Entry_27e2d0 *entries; unsigned entryCount; Item_27e2d0 **items; unsigned unknown; int attachmentCount; Attachment_27e2d0 attachments[1];

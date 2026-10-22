@@ -7,7 +7,7 @@ struct Vec3_1fc150 {
 
 void __cdecl FUN_00224d70(float angle, Vec3_1fc150 *v);
 
-class Volume_1fc150 {
+class CTriggerVolume_1fc150 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -27,7 +27,7 @@ public:
     Vec3_1fc150 *FUN_001fc150(Vec3_1fc150 *out, const Vec3_1fc150 *a, const Vec3_1fc150 *b);
 };
 
-Vec3_1fc150 *Volume_1fc150::FUN_001fc150(Vec3_1fc150 *out, const Vec3_1fc150 *a, const Vec3_1fc150 *b)
+Vec3_1fc150 *CTriggerVolume_1fc150::FUN_001fc150(Vec3_1fc150 *out, const Vec3_1fc150 *a, const Vec3_1fc150 *b)
 {
     struct Frame {
         Vec3_1fc150 p;

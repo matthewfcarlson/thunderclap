@@ -5,12 +5,12 @@ class Ref_1775a0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_1775a0 {
+class Action_1775a0 {
   public:
     void* vptr;
     void Fin();
 };
-class VisibilityAction_1775a0 : public Base_1775a0 {
+class VisibilityAction_1775a0 : public Action_1775a0 {
   public:
     char pad[0x18];
     void* m1c;

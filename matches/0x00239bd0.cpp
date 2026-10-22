@@ -6,12 +6,12 @@ struct ExecuteTrack {
     char field24;
     int vfunc_10(int a, int b, int c);
 };
-struct Work {
+struct ExecuteAction_239bd0 {
     int FUN_002397c0(int, ExecuteTrack*, int, int, void*, int, int);
 };
-extern "C" Work* __cdecl FUN_0008d690(int);
+extern "C" ExecuteAction_239bd0* __cdecl FUN_0008d690(int);
 int ExecuteTrack::vfunc_10(int a, int b, int c) {
-    Work* p = FUN_0008d690(0x68);
+    ExecuteAction_239bd0* p = FUN_0008d690(0x68);
     int result;
     if (p) {
         int x = field20;

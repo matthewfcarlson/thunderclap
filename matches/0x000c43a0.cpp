@@ -87,13 +87,13 @@ void Mc2b90();
 void Mc3e50();
 void Mc3e70();
 void Mc4000();
-class Obj_c43a0 {
+class CFrontEndCallback_c43a0 {
   public:
     void* vptr;
     void* m4;
-    Obj_c43a0* ctor(void* arg);
+    CFrontEndCallback_c43a0* ctor(void* arg);
 };
-Obj_c43a0* Obj_c43a0::ctor(void* arg) {
+CFrontEndCallback_c43a0* CFrontEndCallback_c43a0::ctor(void* arg) {
     vptr = gV;
     m4 = arg;
     R1e0("Print", new H0_c43a0(this, (void*)Mb45e0));

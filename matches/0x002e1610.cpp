@@ -6,18 +6,18 @@ class Ref_2e1610 {
     virtual void F0();
     virtual void Release();
 };
-class Base_2e1610 {
+class RenderObjectLoader_2e1610 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_2e1610 : public Base_2e1610 {
+class PrimGroupLoader_2e1610 : public RenderObjectLoader_2e1610 {
   public:
     char pad[4];
     Ref_2e1610* m;
-    Obj_2e1610* f2(unsigned char flags);
+    PrimGroupLoader_2e1610* f2(unsigned char flags);
 };
-Obj_2e1610* Obj_2e1610::f2(unsigned char flags) {
+PrimGroupLoader_2e1610* PrimGroupLoader_2e1610::f2(unsigned char flags) {
     vptr = g_vftable_2e1610;
     _ReadWriteBarrier();
     if (m) {

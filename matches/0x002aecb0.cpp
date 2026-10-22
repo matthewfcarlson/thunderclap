@@ -1,8 +1,8 @@
 struct Input;
-struct Resource_2aecb0 {
+struct LoadStream_2aecb0 {
     virtual void slot0() = 0;
     virtual void slot1() = 0;
-    Resource_2aecb0* FUN_00264430(Input*, int, int);
+    LoadStream_2aecb0* FUN_00264430(Input*, int, int);
 };
 void* __cdecl thunk_FUN_0008d690(unsigned int);
 struct Sub_2aecb0 {
@@ -30,7 +30,7 @@ struct Container_2aecb0 {
     virtual void s6() = 0;
     virtual void s7() = 0;
     virtual void s8() = 0;
-    virtual void s9(Resource_2aecb0*, pure3d::ImageBuilder*) = 0;
+    virtual void s9(LoadStream_2aecb0*, pure3d::ImageBuilder*) = 0;
 };
 struct Owner_2aecb0 {
     char pad[0x8c];
@@ -39,8 +39,8 @@ struct Owner_2aecb0 {
     Result_2aecb0* target(Input*);
 };
 Result_2aecb0* Owner_2aecb0::target(Input* input) {
-    Resource_2aecb0* mem = (Resource_2aecb0*)thunk_FUN_0008d690(0x48);
-    Resource_2aecb0* r = mem ? mem->FUN_00264430(input, 0, 1) : 0;
+    LoadStream_2aecb0* mem = (LoadStream_2aecb0*)thunk_FUN_0008d690(0x48);
+    LoadStream_2aecb0* r = mem ? mem->FUN_00264430(input, 0, 1) : 0;
     r->slot0();
     Container_2aecb0* c = FUN_002ae980(input);
     if (!c) {

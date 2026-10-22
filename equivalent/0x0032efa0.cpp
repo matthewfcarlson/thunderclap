@@ -122,7 +122,7 @@ class Context {
     char pad4[0x154 - 4];
     Viewport_32efa0* viewport;
 };
-class RefractShader {
+class d3dRefractVertexShader_32efa0 {
   public:
     void FUN_0032a320(int a, int b);
     void FUN_0032a260();
@@ -151,7 +151,7 @@ class RefractShader {
     unsigned char b98;
     unsigned char b99;
 };
-void RefractShader::vfunc_14(int) {
+void d3dRefractVertexShader_32efa0::vfunc_14(int) {
     ctx->viewport->FUN_0031b1e0();
     Surface* surf = ctx->viewport->surface;
     tex84->FUN_00326300(surf);

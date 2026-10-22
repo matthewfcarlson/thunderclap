@@ -5,12 +5,12 @@ class Ref_175630 {
     virtual void F0();
     virtual void Release();
 };
-class Base_175630 {
+class Action_175630 {
   public:
     void* vptr;
     void Fin();
 };
-class DriftToHulkAction_175630 : public Base_175630 {
+class DriftToHulkAction_175630 : public Action_175630 {
   public:
     char pad[0x18];
     void* m1c;

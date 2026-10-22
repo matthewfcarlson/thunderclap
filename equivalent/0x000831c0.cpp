@@ -2,10 +2,10 @@
 // FUN_000831c0 @ 0x000831c0
 #include "decls/address.h"
 struct Handle_831c0 { void FUN_0027b040(unsigned); };
-struct Resource_831c0 {
+struct PoseAnimationController_831c0 {
  virtual void slot0(); virtual void slot1();
  char pad[0x144]; unsigned mode;
- Resource_831c0* FUN_00287860();
+ PoseAnimationController_831c0* FUN_00287860();
  void FUN_00284ad0(unsigned);
  void FUN_00288080(unsigned);
 };
@@ -20,7 +20,7 @@ struct CCow : FUN_0027b070 {
  unsigned id, value, type;
  unsigned char flag1,flag2; char pad1[2];
  unsigned f20,f24,f28,f2c,f30,f34,f38;
- Resource_831c0* resource;
+ PoseAnimationController_831c0* resource;
  unsigned f40,f44,f48;
  virtual void v0();
  CCow(unsigned h,unsigned i,unsigned v,unsigned a,unsigned b);
@@ -29,7 +29,7 @@ CCow::CCow(unsigned h,unsigned i,unsigned v,unsigned a,unsigned b) {
  id=i; value=v; type=9; flag1=0; flag2=0;
  f20=f24=f28=f2c=f30=f34=f38=0; resource=0; f40=f44=f48=0;
  handle.FUN_0027b040(h);
- Resource_831c0* p=(Resource_831c0*)FUN_00263ea0(0x150);
+ PoseAnimationController_831c0* p=(PoseAnimationController_831c0*)FUN_00263ea0(0x150);
  if(p) p=p->FUN_00287860();
  if(p) p->slot0();
  if(resource) resource->slot1();

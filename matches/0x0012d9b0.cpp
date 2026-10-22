@@ -1,6 +1,6 @@
-class Base {
+class Track_12d9b0 {
   public:
-    Base();
+    Track_12d9b0();
     virtual void f();
     char fields[8];
 };
@@ -8,7 +8,7 @@ class Member {
   public:
     Member();
 };
-class PostEvent_StringTrack : public Base {
+class PostEvent_StringTrack : public Track_12d9b0 {
   public:
     PostEvent_StringTrack();
     virtual void f();
@@ -17,4 +17,4 @@ class PostEvent_StringTrack : public Base {
     char pad[7];
     char a, b;
 };
-PostEvent_StringTrack::PostEvent_StringTrack() : Base(), n(0), member(), a(0), b(0) {}
+PostEvent_StringTrack::PostEvent_StringTrack() : Track_12d9b0(), n(0), member(), a(0), b(0) {}

@@ -4,17 +4,17 @@ class Ref_1517b0 {
     virtual void F();
     virtual void G();
 };
-class Root_1517b0 {
+class Action_1517b0 {
   public:
     virtual void V();
-    Root_1517b0();
+    Action_1517b0();
 };
 class Sub_1517b0 {
   public:
     Sub_1517b0();
     char pad[0x28];
 };
-class HitReactionAction_1517b0 : public Root_1517b0 {
+class HitReactionAction_1517b0 : public Action_1517b0 {
   public:
     char pad[0x18];
     int* mA;

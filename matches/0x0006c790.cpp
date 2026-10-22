@@ -1,15 +1,15 @@
-class Base {
+class ParamValueFloat_6c790 {
   public:
     virtual void Fn();
-    Base(float);
+    ParamValueFloat_6c790(float);
     char pad[12];
 };
-class Derived_06c790 : public Base {
+class ParamFloatConstRange_06c790 : public ParamValueFloat_6c790 {
   public:
     virtual void Fn();
     float val;
-    Derived_06c790(float a, float b);
+    ParamFloatConstRange_06c790(float a, float b);
 };
-Derived_06c790::Derived_06c790(float a, float b) : Base(a) {
+ParamFloatConstRange_06c790::ParamFloatConstRange_06c790(float a, float b) : ParamValueFloat_6c790(a) {
     val = b;
 }

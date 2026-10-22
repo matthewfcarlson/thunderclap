@@ -5,12 +5,12 @@ class Ref_12fff0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_12fff0 {
+class Action_12fff0 {
   public:
     void* vptr;
     void Fin();
 };
-class NISSoundAction_12fff0 : public Base_12fff0 {
+class NISSoundAction_12fff0 : public Action_12fff0 {
   public:
     char pad[0x18];
     void* m1c;

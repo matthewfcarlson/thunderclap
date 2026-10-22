@@ -5,12 +5,12 @@ class Ref_152710 {
     virtual void F0();
     virtual void Release();
 };
-class Base_152710 {
+class Action_152710 {
   public:
     void* vptr;
     void Fin();
 };
-class ClearFightParamsHitRecordAction_152710 : public Base_152710 {
+class ClearFightParamsHitRecordAction_152710 : public Action_152710 {
   public:
     char pad[0x18];
     void* m1c;

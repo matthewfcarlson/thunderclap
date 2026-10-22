@@ -14,12 +14,12 @@ struct CSPManager_nv_1dc720 {
 };
 struct Record_1dc720 { char pad[0x18]; CSPManager* object; char extra[6]; short index; char tail[4]; };
 struct Flag_1dc720 { unsigned char bits; char pad[19]; };
-struct Manager_1dc720 {
+struct CSPManager_1dc720 {
  char pad[0x608]; Record_1dc720 records[2048]; char gap[16]; Flag_1dc720 flags[32768];
  int FUN_001dbfe0(int);
  bool FUN_001dc720(int id, Vec_1dc720 position);
 };
-bool Manager_1dc720::FUN_001dc720(int id, Vec_1dc720 position) {
+bool CSPManager_1dc720::FUN_001dc720(int id, Vec_1dc720 position) {
  int i = FUN_001dbfe0(id);
  if(i < 0) return false;
  Record_1dc720* r = &records[i];

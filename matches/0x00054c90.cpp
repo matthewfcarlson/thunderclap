@@ -1,9 +1,9 @@
-class Caster {
+class ConditionFactoryCasterTemplate_54c90 {
   public:
     virtual void cast();
 };
-void __cdecl fun(void*, Caster*);
+void __cdecl fun(void*, ConditionFactoryCasterTemplate_54c90*);
 void target(void* p) {
-    Caster c;
+    ConditionFactoryCasterTemplate_54c90 c;
     fun(p, &c);
 }

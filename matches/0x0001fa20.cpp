@@ -3,12 +3,12 @@ class Ref {
     virtual void AddRef();
     virtual void Release();
 };
-class Root {
+class Action_1fa20 {
   public:
-    Root();
+    Action_1fa20();
     virtual void v0();
 };
-class CAction : public Root {
+class CAction : public Action_1fa20 {
   public:
     CAction(Ref* r);
     virtual void v0();
@@ -22,7 +22,7 @@ class COrientAction : public CAction {
     virtual void v0();
     int extra;
 };
-inline CAction::CAction(Ref* r) : Root() {
+inline CAction::CAction(Ref* r) : Action_1fa20() {
     ref = 0;
     if (r)
         r->AddRef();

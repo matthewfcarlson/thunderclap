@@ -4,12 +4,12 @@ struct Temp {
     Temp* Init(const char*, int) throw();
     ~Temp() throw();
 };
-struct Base {
-    Base(Temp*, const __int64&, int, int) throw();
+struct SeqEventType_2540a0 {
+    SeqEventType_2540a0(Temp*, const __int64&, int, int) throw();
     virtual void foo();
 };
-struct SeqEventStreamType : Base {
+struct SeqEventStreamType : SeqEventType_2540a0 {
     SeqEventStreamType();
     virtual void foo();
 };
-SeqEventStreamType::SeqEventStreamType() : Base(Temp().Init("Stream", 0), MakeId("SeqEventStream", 0, 0), 32, 8) {}
+SeqEventStreamType::SeqEventStreamType() : SeqEventType_2540a0(Temp().Init("Stream", 0), MakeId("SeqEventStream", 0, 0), 32, 8) {}

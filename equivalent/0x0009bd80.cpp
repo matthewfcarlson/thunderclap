@@ -35,7 +35,7 @@ struct Handle_9bd80 {
     void FUN_00098480(Owner_9bd80* owner);
 };
 
-class Solver_9bd80 {
+class CDramaticCamera_9bd80 {
 public:
     virtual void s0();
     virtual void s1();
@@ -67,7 +67,7 @@ public:
     virtual void s27();
     virtual void Start();
     char pad[0x1c0 - 4];
-    Solver_9bd80* FUN_000a8400();
+    CDramaticCamera_9bd80* FUN_000a8400();
     int FUN_000a89c0(Owner_9bd80* owner, Releasable_9bd80** items, void* data, int count, int arg5, Matrix* m, V3_9bd80* t);
     void FUN_000a84c0(Releasable_9bd80* a, int b, Matrix* m);
 };
@@ -93,11 +93,11 @@ public:
     Releasable_9bd80* items[8];
     int ids[8];
     char data[0x50];
-    Solver_9bd80* solver;
+    CDramaticCamera_9bd80* solver;
     char padb4[8];
     Handle_9bd80* handle;
     int FUN_0009bd80(Owner_9bd80* owner, Matrix* m, V3_9bd80 pos, int arg5);
-    void FUN_000991b0(Owner_9bd80* owner, int a, Solver_9bd80* s, int c, int d);
+    void FUN_000991b0(Owner_9bd80* owner, int a, CDramaticCamera_9bd80* s, int c, int d);
 };
 
 int Tracker_9bd80::FUN_0009bd80(Owner_9bd80* owner, Matrix* m, V3_9bd80 pos, int arg5)
@@ -119,7 +119,7 @@ int Tracker_9bd80::FUN_0009bd80(Owner_9bd80* owner, Matrix* m, V3_9bd80 pos, int
             f.mat.m[14] = f.local.z;
             probe->FUN_000382c0(&f.tmp);
             if (solver == 0) {
-                Solver_9bd80* s = (Solver_9bd80*)FUN_00263ea0(0x1c0);
+                CDramaticCamera_9bd80* s = (CDramaticCamera_9bd80*)FUN_00263ea0(0x1c0);
                 if (s != 0)
                     s = s->FUN_000a8400();
                 solver = s;

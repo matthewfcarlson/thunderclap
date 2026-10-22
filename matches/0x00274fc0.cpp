@@ -1,15 +1,15 @@
 #include "compat/ptr.h"
 extern "C" char DAT_0042ba20[];
-class Thing_274fc0 {
+class FileOpenByKeyRequest_274fc0 {
   public:
     char pad[12];
     int y;
     int z;
     void Init(int);
-    Thing_274fc0(int, int, int);
+    FileOpenByKeyRequest_274fc0(int, int, int);
 };
 extern void Finish();
-Thing_274fc0::Thing_274fc0(int x, int yy, int zz) {
+FileOpenByKeyRequest_274fc0::FileOpenByKeyRequest_274fc0(int x, int yy, int zz) {
     Init(x);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0042ba20);
     y = yy;

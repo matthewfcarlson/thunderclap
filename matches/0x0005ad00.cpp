@@ -1,7 +1,7 @@
-class Base_5ad00 {
+class Track_5ad00 {
   public:
     virtual void B0();
-    Base_5ad00();
+    Track_5ad00();
 };
 
 class Sub1_5ad00 {
@@ -16,7 +16,7 @@ class Sub2_5ad00 {
     char m[0x100];
 };
 
-class CGrappleOpportunityTrack : public Base_5ad00 {
+class CGrappleOpportunityTrack : public Track_5ad00 {
   public:
     virtual void Fn();
     char pad4[4];

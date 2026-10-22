@@ -2,7 +2,7 @@
 // FUN_00060a00 @ 0x00060a00
 inline void *operator new(unsigned int, void *p) { return p; }
 
-struct Base12 {
+struct CEffectTrack_60a00 {
     char data[12];
     void FUN_00236d40();
 };
@@ -44,7 +44,7 @@ public:
 
 CMotionTrailTrack *CMotionTrailTrack::FUN_00060a00()
 {
-    ((Base12 *)this)->FUN_00236d40();
+    ((CEffectTrack_60a00 *)this)->FUN_00236d40();
     new (this) CMotionTrailTrack;
     f0c = 0;
     f10 = -1.0f;

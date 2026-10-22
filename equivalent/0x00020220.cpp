@@ -6,14 +6,14 @@ public:
     virtual void Release();
 };
 
-class ActionBase {
+class Action_20220 {
 public:
-    ActionBase() throw();
+    Action_20220() throw();
     virtual void v0();
     char pad04[0x1c - 4];
 };
 
-class CAction : public ActionBase {
+class CAction : public Action_20220 {
 public:
     CAction(RefCounted_20220 *r) throw() {
         owner = 0;

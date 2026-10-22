@@ -3,10 +3,12 @@
 
   build/venv/bin/python tools/rn_plan.py --state <state.json>      # build/rn1/plan.json + plan-summary.txt
   build/venv/bin/python tools/rn_plan.py --batches          # build/rn1/batches/b*.json for migrate_gen --family rn
+                                                           #   (b1-b3, b4 relabel)
   build/venv/bin/python tools/rn_plan.py --refine build/rn1/batches/b2-genref-matches.json --state <state.json> \
       --bindings build/native/bindings.json [--refine-out PATH]
                                        # keep only the sources whose rewrite costs no merge and no link binding
-                                       # (generator in the loop; see refine())
+                                       # (generator in the loop; see refine()). A batch item {"source", "rule":
+                                       # "text", "path"} is a source already rewritten elsewhere (the gen family, b6)
   build/venv/bin/python tools/rn_plan.py --metrics BEFORE_ROOT AFTER_ROOT list.txt   # pads, stub virtuals, casts
 
 Generates the tree in memory (tools/gen_tree.py, with the given fallback state; nothing is written to build/tree/),
@@ -143,7 +145,15 @@ BATCHES = [
     ("b2-genref-matches", "gen-ref", "matches",
      "stubs the source only uses, whose used members fit their include/gen/ class: onto the header"),
     ("b3-equivalent", "unclash,gen-ref", "equivalent", "b1 and b2 for equivalent/ (equiv.py --inputs 3000)"),
+    ("b4-relabel-matches", "relabel", "matches",
+     "suffixed/invented stubs with a known real class: real short name + placeholder suffix (readability)"),
+    ("b4-relabel-equivalent", "relabel", "equivalent", "b4 for equivalent/ (equiv.py --inputs 3000)"),
 ]
+
+
+# b4 leaves alone: gen-ref's declaration structs (`CAction_nv_1c5a70`) and wrappers named after the function they
+# call (`FUN_0027b070`, `ThisCall_0023c640`): their names already say what they are
+NOT_RELABELED = re.compile(r"^(?:FUN_|ThisCall|ThisWrap)|_nv_[0-9a-f]+$")
 
 
 def make_batches(out_dir, rmap_path, fit_path):
@@ -176,6 +186,36 @@ def make_batches(out_dir, rmap_path, fit_path):
             items[("gen-ref", d)].append(dict(it, rule="gen-ref", fit=f["verdict"]))
         elif "::" not in st and st in taken and rn_transform.short(e["real"]) != st:
             items[("unclash", d)].append(dict(it, rule="unclash"))
+    # b4 relabel: suffixed (`Obj_2d5ec0`) and invented (`Node`) stubs that collide with no include/gen/ name (those
+    # are unclash's), named after their real class. A suffixed stub keeps its suffix, so every source carrying a copy
+    # of it (`touches`) gets the same name; a name whose entries disagree on the real class is left alone.
+    want = collections.defaultdict(set)         # (source, stub) -> {(real, new name)}
+    for e in rmap:
+        st = e["stub"]
+        if (not e["real"] or e["confidence"] not in ("high", "medium") or e["kind"] not in ("suffixed", "invented")
+                or "::" in st or st in taken or NOT_RELABELED.match(st)):
+            continue
+        addr = int(os.path.basename(e["source"])[2:10], 16)
+        new = rn_transform.relabel_name(st, e["real"], addr)
+        if new == st:
+            continue
+        srcs = set(e.get("touches") or ()) | {e["source"]} if rn_transform.SUFFIXED.match(st) else {e["source"]}
+        for src in srcs:
+            want[(src, st)].add((e["real"], new, e["confidence"], e["own"] if src == e["source"] else False))
+    for (src, st), opts in sorted(want.items()):
+        if len({(r, n) for r, n, _c, _o in opts}) != 1:
+            continue
+        real, new, conf, own = sorted(opts)[0]
+        d, fn = src.split("/")
+        if d == "equivalent" and fn in in_matches:
+            continue
+        # a base stub whose derived class in the source carries the real class's name: the map's most-derived
+        # evidence names the base after its derived class (`Base_2b96d0` under `OldBillboardQuadGroupLoader`)
+        text = open(os.path.join(ROOT, src), encoding="latin1").read()
+        if re.search(r"\b(?:class|struct)\s+%s\s*:[^{;]*\b%s\b" % (re.escape(rn_transform.short(real)), re.escape(st)), text):
+            continue
+        items[("relabel", d)].append({"source": src, "stub": st, "real": real, "confidence": conf, "own": own,
+                                      "new": new, "rule": "relabel", "keep": sorted(keep[src])})
     os.makedirs(out_dir, exist_ok=True)
     out = []
     for name, rules, d, what in BATCHES:
@@ -332,6 +372,10 @@ def refine(batch_path, state, out_path, rounds=8, bindings=None):
     for src, its in sorted(per.items()):
         text = open(os.path.join(ROOT, src), encoding="latin1", newline="").read()
         addr = int(os.path.basename(src)[2:10], 16)
+        if its[0]["rule"] == "text":
+            # an already rewritten source (`path`: e.g. a migrate_gen gen-family rewrite), refined like the others
+            texts[src] = open(its[0]["path"], encoding="latin1", newline="").read()
+            continue
         try:
             rule, new, hdr, what = migrate_gen.rn_apply(src, addr, text, its, hdb, taken, work)
             texts[src] = new
@@ -342,8 +386,8 @@ def refine(batch_path, state, out_path, rounds=8, bindings=None):
     for src, its in per.items():
         addr = int(os.path.basename(src)[2:10], 16)
         for it in its:
-            if it["rule"] == "unclash":
-                new = rn_transform.placeholder(it["real"], addr)
+            if it["rule"] in ("unclash", "relabel"):
+                new = it.get("new") or rn_transform.placeholder(it["real"], addr)
                 renames[src][it["stub"]] = new
                 renames[src][it["stub"] + "_vftable"] = new + "_vftable"
     amb0 = set()

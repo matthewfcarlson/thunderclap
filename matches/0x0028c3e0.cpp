@@ -8,7 +8,7 @@ class Res_28c3e0 {
     virtual void F0();
     virtual void Release();
 };
-class Obj_28c3e0 {
+class BoolChannel_28c3e0 {
   public:
     void* vptr;
     char pad[8];
@@ -30,7 +30,7 @@ class Obj_28c3e0 {
     }
     void F();
 };
-void Obj_28c3e0::F() {
+void BoolChannel_28c3e0::F() {
     vptr = g_f2;
     if (!p0)
         Drop(p2);

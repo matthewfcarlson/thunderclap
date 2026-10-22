@@ -1,10 +1,10 @@
 extern "C" int __cdecl atexit(void (*)(void));
 extern "C" void __cdecl FUN_003644d0();
-class Obj_3606d0 {
+class SeqEventVarVolumeType_3606d0 {
   public:
     void Run();
 };
-extern Obj_3606d0 gTarget;
+extern SeqEventVarVolumeType_3606d0 gTarget;
 void __cdecl FUN_003606d0() {
     gTarget.Run();
     atexit(FUN_003644d0);

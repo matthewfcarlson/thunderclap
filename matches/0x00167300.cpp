@@ -10,7 +10,7 @@ class Arg {
   public:
     Mid* get();
 };
-class State {
+class LocomotionMotionStateCondition_167300 {
   public:
     virtual void f0();
     virtual void f1();
@@ -23,7 +23,7 @@ class State {
     int mode;
     int number;
 };
-bool State::vfunc_6(int a, Arg* b, int c) {
+bool LocomotionMotionStateCondition_167300::vfunc_6(int a, Arg* b, int c) {
     Obj* p = b->get()->get();
     int x = number;
     switch (mode) {

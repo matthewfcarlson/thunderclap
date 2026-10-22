@@ -1,19 +1,19 @@
 #include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
-class Base_2a5060 {
+class Entity_2a5060 {
   public:
     virtual void B();
     int b[3];
-    Base_2a5060();
+    Entity_2a5060();
 };
-class DrawablePrimitive : public Base_2a5060 {
+class DrawablePrimitive : public Entity_2a5060 {
   public:
     virtual void B();
     int a[11];
     DrawablePrimitive();
 };
 extern int drawable_vtable;
-DrawablePrimitive::DrawablePrimitive() : Base_2a5060() {
+DrawablePrimitive::DrawablePrimitive() : Entity_2a5060() {
     a[0] = 0;
     *((hulk_intptr*)this) = (hulk_intptr)&drawable_vtable;
     _ReadWriteBarrier();

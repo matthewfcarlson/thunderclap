@@ -5,18 +5,18 @@ class Str_1831b0 {
   public:
     void Init();
 };
-class Base_1831b0 {
+class Track_1831b0 {
   public:
     void* vptr;
     char pad[20];
     Str_1831b0 s;
     void Fin();
 };
-class Cond_1831b0 : public Base_1831b0 {
+class PropSetStateByNameTrack_1831b0 : public Track_1831b0 {
   public:
     void* Del(unsigned char flags);
 };
-void* Cond_1831b0::Del(unsigned char flags) {
+void* PropSetStateByNameTrack_1831b0::Del(unsigned char flags) {
     vptr = g_vftable_1831b0;
     s.Init();
     Fin();

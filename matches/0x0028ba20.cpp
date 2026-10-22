@@ -8,7 +8,7 @@ class Res_28ba20 {
     virtual void F0();
     virtual void Release();
 };
-class Obj_28ba20 {
+class IntChannel_28ba20 {
   public:
     void* vptr;
     char pad[8];
@@ -30,7 +30,7 @@ class Obj_28ba20 {
     }
     void F();
 };
-void Obj_28ba20::F() {
+void IntChannel_28ba20::F() {
     vptr = g_f2;
     if (!p0)
         Drop(p2);

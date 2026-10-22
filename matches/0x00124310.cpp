@@ -1,12 +1,12 @@
-class Base {
+class Track_124310 {
   public:
-    Base();
+    Track_124310();
     virtual void A();
     char pad[4];
     int m8;
 };
 
-class TargetClearTrack : public Base {
+class TargetClearTrack : public Track_124310 {
   public:
     TargetClearTrack();
     int m_c;

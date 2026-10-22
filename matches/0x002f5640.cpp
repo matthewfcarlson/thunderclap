@@ -4,7 +4,7 @@ class Big_2f5640 {
   public:
     void Init();
 };
-class Small_2f5640 {
+class SymMatrix_2f5640 {
   public:
     void Init();
 };
@@ -22,9 +22,9 @@ class PhysicsObject {
 void PhysicsObject::Setup() {
     vt = (void*)((hulk_intptr)DAT_004315dc);
     ((Big_2f5640*)((char*)this + 0x168))->Init();
-    ((Small_2f5640*)((char*)this + 0x114))->Init();
-    ((Small_2f5640*)((char*)this + 0xf8))->Init();
-    ((Small_2f5640*)((char*)this + 0xdc))->Init();
+    ((SymMatrix_2f5640*)((char*)this + 0x114))->Init();
+    ((SymMatrix_2f5640*)((char*)this + 0xf8))->Init();
+    ((SymMatrix_2f5640*)((char*)this + 0xdc))->Init();
     ((Base_2f5640*)((char*)this + 0x30))->Init();
     Finish();
 }

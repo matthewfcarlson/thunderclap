@@ -55,7 +55,7 @@ public:
 
 Camera *FUN_001c3d90();
 
-class ViewSwitcher {
+class CCameraManager_9bb50 {
 public:
     void FUN_0009bb50(int a, int b);
     void FUN_00098e60();
@@ -73,7 +73,7 @@ public:
     Transition_9bb50 *transition;
 };
 
-void ViewSwitcher::FUN_0009bb50(int a, int b)
+void CCameraManager_9bb50::FUN_0009bb50(int a, int b)
 {
     FUN_00098e60();
     View *view;

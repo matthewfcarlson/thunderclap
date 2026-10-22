@@ -1,12 +1,12 @@
 #include "compat/ptr.h"
 extern char VT_004179e8[];
-class Base {
+class Track_170270 {
   public:
-    Base();
+    Track_170270();
     virtual void f();
     char pad[4];
 };
-class LocomotionStateTrack : public Base {
+class LocomotionStateTrack : public Track_170270 {
   public:
     LocomotionStateTrack();
     virtual void f();

@@ -5,12 +5,12 @@ class Ref_177510 {
     virtual void F0();
     virtual void Release();
 };
-class Base_177510 {
+class Action_177510 {
   public:
     void* vptr;
     void Fin();
 };
-class MomentumXZAddAction_177510 : public Base_177510 {
+class MomentumXZAddAction_177510 : public Action_177510 {
   public:
     char pad[0x18];
     void* m1c;

@@ -97,12 +97,12 @@ struct Item_203e00 {
     void run();
 };
 extern void helper();
-struct Obj_203e00 {
+struct CWorldStreamManager_203e00 {
     char pad[0x578];
     Item_203e00* items[1];
     void target(int index);
 };
-void Obj_203e00::target(int index) {
+void CWorldStreamManager_203e00::target(int index) {
     DAT_0052c2a8->cn();
     if (items[index])
         items[index]->run();

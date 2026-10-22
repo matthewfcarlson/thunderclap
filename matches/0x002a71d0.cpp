@@ -15,11 +15,11 @@ class Item {
     virtual void f12();
     virtual unsigned int Count();
 };
-class Base {
+class SimpleFrameController_2a71d0 {
   public:
     virtual unsigned char vfunc_22();
 };
-class ParticleController : public Base {
+class ParticleController : public SimpleFrameController_2a71d0 {
     char pad[0x4c];
     Item** begin;
     Item** end;
@@ -28,7 +28,7 @@ class ParticleController : public Base {
     virtual unsigned char vfunc_22();
 };
 unsigned char ParticleController::vfunc_22() {
-    if (Base::vfunc_22() == 1) {
+    if (SimpleFrameController_2a71d0::vfunc_22() == 1) {
         for (unsigned int i = 0; i < (unsigned int)(end - begin); ++i) {
             if (begin[i]->Count() > 0)
                 return 0;

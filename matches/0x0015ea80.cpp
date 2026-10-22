@@ -1,8 +1,8 @@
 #include "compat/ptr.h"
 extern "C" char DAT_00415bb4[];
-class Base_15ea80 {
+class Action_15ea80 {
   public:
-    Base_15ea80();
+    Action_15ea80();
     virtual void A();
     virtual void B();
     virtual void C();
@@ -12,7 +12,7 @@ class Ref_15ea80 {
     virtual void X();
     virtual void Release();
 };
-class GrappleLocomotionSteerAction : public Base_15ea80 {
+class GrappleLocomotionSteerAction : public Action_15ea80 {
   public:
     virtual void A();
     virtual void B();

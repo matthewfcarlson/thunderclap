@@ -9,14 +9,14 @@ struct Item {
     short index;
     char end[4];
 };
-class C {
+class CSPManager_1ddd50 {
   public:
     char pad[0x608];
     Item items[1];
     int Find(int);
     void Set(int, int);
 };
-void C::Set(int key, int value) {
+void CSPManager_1ddd50::Set(int key, int value) {
     int i = Find(key);
     if (i >= 0) {
         Item* p = &items[i];

@@ -1,4 +1,4 @@
-class Elem_1fc600 {
+class CEncounterGenerator_1fc600 {
   public:
     void Destroy();
 };
@@ -22,7 +22,7 @@ CEncounterGenerator* CEncounterGenerator::vfunc_2(unsigned char flags) {
             int i = test + 1;
             do {
                 end -= 0xc70;
-                ((Elem_1fc600*)end)->Destroy();
+                ((CEncounterGenerator_1fc600*)end)->Destroy();
                 --i;
             } while (i != 0);
         }
@@ -30,7 +30,7 @@ CEncounterGenerator* CEncounterGenerator::vfunc_2(unsigned char flags) {
             BaseDestroyVec(base);
         return (CEncounterGenerator*)base;
     }
-    ((Elem_1fc600*)this)->Destroy();
+    ((CEncounterGenerator_1fc600*)this)->Destroy();
     if (flags & 1)
         BaseDestroy(this);
     return this;

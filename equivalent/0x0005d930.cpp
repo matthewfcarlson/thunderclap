@@ -2,7 +2,7 @@
 // FUN_0005d930 @ 0x0005d930
 inline void *operator new(unsigned int, void *p) { return p; }
 
-struct Base12 {
+struct CCollisionTrack_5d930 {
     char data[12];
     void FUN_00236d40();
 };
@@ -81,7 +81,7 @@ public:
 
 CCollisionTrack *CCollisionTrack::FUN_0005d930()
 {
-    ((Base12 *)this)->FUN_00236d40();
+    ((CCollisionTrack_5d930 *)this)->FUN_00236d40();
     new (this) CCollisionTrack;
     fc = 0;
     f10 = -1.0f;

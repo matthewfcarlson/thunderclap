@@ -3,7 +3,7 @@ class Item_ad990 {
   public:
     void Release();
 };
-class Obj_ad990 {
+class CController_ad990 {
   public:
     void Reset();
     char pad0[16];
@@ -15,7 +15,7 @@ class Obj_ad990 {
     unsigned int c[17];
     unsigned int d[17];
 };
-void Obj_ad990::Reset() {
+void CController_ad990::Reset() {
     int i = count;
     while (--i >= 0) {
         Item_ad990* p = items[i];

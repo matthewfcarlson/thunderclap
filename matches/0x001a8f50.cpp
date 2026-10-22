@@ -17,13 +17,13 @@ class EffectTrack : public Track, public Param {
   public:
     int vfunc_10(int, int, int);
 };
-class Helper_1a8f50 {
+class EffectAction_1a8f50 {
   public:
     int Call(EffectTrack*, int);
 };
-extern Helper_1a8f50* GetThing(int);
+extern EffectAction_1a8f50* GetThing(int);
 int EffectTrack::vfunc_10(int x, int, int) {
-    Helper_1a8f50* p = GetThing(0x6c);
+    EffectAction_1a8f50* p = GetThing(0x6c);
     if (p)
         return p->Call(this, x);
     return 0;

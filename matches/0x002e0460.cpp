@@ -9,10 +9,10 @@ class PrimGroup {
     PrimGroup(const PrimGroup&);
     char pad[0x54];
 };
-class Streamed : public PrimGroup {
+class PrimGroupStreamed_2e0460 : public PrimGroup {
   public:
     virtual void v();
-    Streamed(const Streamed& o) : PrimGroup(o) {
+    PrimGroupStreamed_2e0460(const PrimGroupStreamed_2e0460& o) : PrimGroup(o) {
         r1 = 0;
         x58 = o.x58;
         Ref_2e0460* p = o.r1;
@@ -25,14 +25,14 @@ class Streamed : public PrimGroup {
     int x58;
     Ref_2e0460* r1;
 };
-class Skinned : public Streamed {
+class PrimGroupSkinnedStreamed_2e0460 : public PrimGroupStreamed_2e0460 {
   public:
     virtual void v();
-    Skinned(const Skinned& o);
+    PrimGroupSkinnedStreamed_2e0460(const PrimGroupSkinnedStreamed_2e0460& o);
     int x60;
     Ref_2e0460* r2;
 };
-Skinned::Skinned(const Skinned& o) : Streamed(o) {
+PrimGroupSkinnedStreamed_2e0460::PrimGroupSkinnedStreamed_2e0460(const PrimGroupSkinnedStreamed_2e0460& o) : PrimGroupStreamed_2e0460(o) {
     x60 = 0;
     r2 = 0;
     Ref_2e0460* p = o.r2;

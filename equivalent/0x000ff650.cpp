@@ -18,13 +18,13 @@ struct Player_ff650 {
     unsigned char evading;
 };
 
-class CAgentBase {
+class CCharacterAgent_ff650 {
 public:
     virtual void v0();
     virtual void v1();
 };
 
-class CHand2HandAgent : public CAgentBase {
+class CHand2HandAgent : public CCharacterAgent_ff650 {
 public:
     virtual void v2();
     virtual void v3();

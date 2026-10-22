@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000e4510 @ 0x000e4510
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
-struct PartA_e4510 { char data[28]; void FUN_000dee10(); };
-struct PartB_e4510 { void FUN_000dee40(); };
+struct CGlowDisplayEffect_e4510 { char data[28]; void FUN_000dee10(); };
+struct CDropShadowDisplayEffect_e4510 { void FUN_000dee40(); };
 struct FEContainer {
  virtual void slot0();
  unsigned int owner;
@@ -18,9 +18,9 @@ struct FEContainer {
  int index;
  unsigned char flag;
  char padding[255];
- PartA_e4510 a;
+ CGlowDisplayEffect_e4510 a;
  float factor;
- PartB_e4510 b;
+ CDropShadowDisplayEffect_e4510 b;
  FEContainer(unsigned int, const char*);
 };
 FEContainer::FEContainer(unsigned int id, const char* text) {

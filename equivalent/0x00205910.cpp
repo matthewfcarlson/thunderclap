@@ -4,7 +4,7 @@
 #include "decls/data/game/global.h"
 #include "gen/content.h"
 
-struct LoadInventory_nv_205910 {
+struct LoadInventory_205910 {
     content::LoadInventory* FUN_00266480(int);
 };
 extern "C" void* __cdecl FUN_00263ea0(unsigned int);
@@ -28,7 +28,7 @@ struct Object_205910 {
 };
 void Object_205910::target() {
  content::LoadInventory* memory = (content::LoadInventory*)FUN_00263ea0(0x14);
- content::LoadInventory* replacement = memory ? ((LoadInventory_nv_205910*)(memory))->FUN_00266480(0x400) : 0;
+ content::LoadInventory* replacement = memory ? ((LoadInventory_205910*)(memory))->FUN_00266480(0x400) : 0;
  if (replacement) replacement->vfunc_0();
  if (resource) resource->vfunc_1();
  resource = replacement;

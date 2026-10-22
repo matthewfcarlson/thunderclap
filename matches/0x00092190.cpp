@@ -4,7 +4,7 @@ struct S_92190 {
     int a, b;
     void Init();
 };
-class Mov {
+class CUnlockableMovie_92190 {
   public:
     void* vptr;
     char pad[4];
@@ -18,9 +18,9 @@ class Mov {
     unsigned char m28;
     char pad4[7];
     unsigned char m30;
-    Mov* ctor();
+    CUnlockableMovie_92190* ctor();
 };
-Mov* Mov::ctor() {
+CUnlockableMovie_92190* CUnlockableMovie_92190::ctor() {
     vptr = gB_92190;
     m8 = 1;
     s10.Init();

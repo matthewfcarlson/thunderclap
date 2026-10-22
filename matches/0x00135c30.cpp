@@ -6,21 +6,21 @@ class Ref_135c30 {
     virtual void F0();
     virtual void Release();
 };
-class Base_135c30 {
+class Action_135c30 {
   public:
     void* vptr;
     void Fin();
 };
 
-class Obj_135c30 : public Base_135c30 {
+class FlyingDashAction_135c30 : public Action_135c30 {
   public:
     char pad[0x1c - 4];
     void* m1c;
     Ref_135c30* m20;
     Ref_135c30* m24;
-    ~Obj_135c30();
+    ~FlyingDashAction_135c30();
 };
-Obj_135c30::~Obj_135c30() {
+FlyingDashAction_135c30::~FlyingDashAction_135c30() {
     vptr = g_vftable_135c30;
     _ReadWriteBarrier();
     if (m24) {

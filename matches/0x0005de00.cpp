@@ -1,6 +1,6 @@
-class Base {
+class CTrack_5de00 {
   public:
-    Base();
+    CTrack_5de00();
     virtual void f();
     char pad[8];
 };
@@ -9,7 +9,7 @@ class Elem {
     Elem();
     char pad[8];
 };
-class CStunAnimationTrack : public Base {
+class CStunAnimationTrack : public CTrack_5de00 {
   public:
     CStunAnimationTrack();
     virtual void f();
@@ -24,4 +24,4 @@ class CStunAnimationTrack : public Base {
     int i, j, k;
 };
 CStunAnimationTrack::CStunAnimationTrack()
-    : Base(), z(0), a(), x(1.0f), y(0), z2(0), neg(-1.0f), q(0), b(), i(0), j(0), k(0) {}
+    : CTrack_5de00(), z(0), a(), x(1.0f), y(0), z2(0), neg(-1.0f), q(0), b(), i(0), j(0), k(0) {}

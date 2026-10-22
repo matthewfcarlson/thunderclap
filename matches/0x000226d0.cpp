@@ -7,20 +7,20 @@ class Ref_226d0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_226d0 {
+class CAction_226d0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_226d0 : public Base_226d0 {
+class CSnapToWallAction_226d0 : public CAction_226d0 {
   public:
     char pad[0x18];
     Ref_226d0* m2;
     char pad2[0x4];
     Ref_226d0* m1;
-    Obj_226d0* f2(unsigned char flags);
+    CSnapToWallAction_226d0* f2(unsigned char flags);
 };
-Obj_226d0* Obj_226d0::f2(unsigned char flags) {
+CSnapToWallAction_226d0* CSnapToWallAction_226d0::f2(unsigned char flags) {
     vptr = g_vftable_226d0;
     _ReadWriteBarrier();
     if (m1) {

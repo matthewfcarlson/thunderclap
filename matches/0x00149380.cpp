@@ -5,12 +5,12 @@ class Ref_149380 {
     virtual void F0();
     virtual void Release();
 };
-class Base_149380 {
+class Action_149380 {
   public:
     void* vptr;
     void Fin();
 };
-class CivilianDetachAction_149380 : public Base_149380 {
+class CivilianDetachAction_149380 : public Action_149380 {
   public:
     char pad[0x18];
     void* m1c;

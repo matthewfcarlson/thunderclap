@@ -6,7 +6,7 @@ class Ref_184f60 {
     virtual void A();
     virtual void B();
 };
-class Base_184f60 {
+class PropThrowAction_184f60 {
   public:
     void Finish();
 };
@@ -27,5 +27,5 @@ void BallAndChainReturnAction::Reset() {
     }
     if (mOne)
         mOne = 0;
-    ((Base_184f60*)this)->Finish();
+    ((PropThrowAction_184f60*)this)->Finish();
 }

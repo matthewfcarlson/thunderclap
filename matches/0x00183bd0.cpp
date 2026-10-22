@@ -5,12 +5,12 @@ class Ref_183bd0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_183bd0 {
+class Action_183bd0 {
   public:
     void* vptr;
     void Fin();
 };
-class PropAddToMissileCountAction_183bd0 : public Base_183bd0 {
+class PropAddToMissileCountAction_183bd0 : public Action_183bd0 {
   public:
     char pad[0x18];
     void* m1c;

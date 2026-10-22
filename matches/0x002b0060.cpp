@@ -1,20 +1,20 @@
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
-class Base_2b0060 {
+class Entity_2b0060 {
   public:
-    Base_2b0060();
+    Entity_2b0060();
     virtual void f0();
     char pad[0x0c];
 };
-class ExprGroup_2b0060 : public Base_2b0060 {
+class ExpressionGroup_2b0060 : public Entity_2b0060 {
   public:
     unsigned int *a, *a2;
     char pad2[8];
     unsigned int *b, *b2;
     unsigned int *c, *c2;
-    ExprGroup_2b0060(unsigned int n);
+    ExpressionGroup_2b0060(unsigned int n);
     virtual void f1();
 };
-ExprGroup_2b0060::ExprGroup_2b0060(unsigned int n) {
+ExpressionGroup_2b0060::ExpressionGroup_2b0060(unsigned int n) {
     if (n > 0) {
         a = (unsigned int*)FUN_0008d6d0(n * 4);
         if (a) {

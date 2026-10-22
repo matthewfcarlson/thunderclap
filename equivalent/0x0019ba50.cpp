@@ -46,7 +46,7 @@ public:
     char pad4[0xc];
     Mat_19ba50 mat;
 };
-class Shock {
+class ProjectileGroundShockwave_19ba50 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -57,14 +57,14 @@ public:
     float f20;
     Child_19ba50* child;
     V3_19ba50 aim;
-    Shock* FUN_00198990(Source_19ba50* src);
+    ProjectileGroundShockwave_19ba50* FUN_00198990(Source_19ba50* src);
 };
 struct Pool_19ba50 {
     void* FUN_0008fe90(unsigned int size);
 };
 struct Mgr_19ba50 {
     int FUN_001b6b00(int id, V3_19ba50* pos);
-    int FUN_001b6d00(int idx, Shock* s);
+    int FUN_001b6d00(int idx, ProjectileGroundShockwave_19ba50* s);
 };
 struct World {
     char pad0[0x14];
@@ -92,9 +92,9 @@ bool hulkfight::motion::FireGroundShockwaveAction::vfunc_5(int a, int b) {
     if (handle < 0)
         return false;
     void* mem = (*(Pool_19ba50*)&DAT_004e2210).FUN_0008fe90(0xc0);
-    Shock* s;
+    ProjectileGroundShockwave_19ba50* s;
     if (mem != 0)
-        s = ((Shock*)mem)->FUN_00198990((*(Source_19ba50 * *)&this->f_1c));
+        s = ((ProjectileGroundShockwave_19ba50*)mem)->FUN_00198990((*(Source_19ba50 * *)&this->f_1c));
     else
         s = 0;
     s->AddRef();

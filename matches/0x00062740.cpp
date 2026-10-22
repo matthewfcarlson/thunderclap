@@ -1,11 +1,11 @@
-class Base {
+class CTrack_62740 {
   public:
     virtual void f();
     char pad[8];
     int a, b;
-    Base();
+    CTrack_62740();
 };
-class CSmartPropSetStateTrack : public Base {
+class CSmartPropSetStateTrack : public CTrack_62740 {
   public:
     virtual void f();
     CSmartPropSetStateTrack();

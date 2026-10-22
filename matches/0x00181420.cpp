@@ -1,12 +1,12 @@
-class Base {
+class Track_181420 {
   public:
     virtual void f();
     int x;
-    Base();
+    Track_181420();
 };
 namespace hulkfight {
 namespace motion {
-class PropAddToCollisionTrack : public Base {
+class PropAddToCollisionTrack : public Track_181420 {
   public:
     int a;
     int b;
@@ -15,7 +15,7 @@ class PropAddToCollisionTrack : public Base {
     PropAddToCollisionTrack();
     virtual void f();
 };
-PropAddToCollisionTrack::PropAddToCollisionTrack() : Base() {
+PropAddToCollisionTrack::PropAddToCollisionTrack() : Track_181420() {
     b = 0;
     c = 0;
     d = 1;

@@ -3,11 +3,11 @@
 #include "decls/data/game/global.h"
 extern "C" char DAT_00423318[];
 extern "C" char DAT_0048e10c[];
-class Base_1dfae0 {
+class Function_1dfae0 {
   public:
-    Base_1dfae0(const char*, int);
+    Function_1dfae0(const char*, int);
 };
-class Target_1dfae0 : public Base_1dfae0 {
+class Method6_1dfae0 : public Function_1dfae0 {
   public:
     char pad[0x10];
     char m10;
@@ -20,9 +20,9 @@ class Target_1dfae0 : public Base_1dfae0 {
     char m18;
     char pad19[3];
     int m1c;
-    Target_1dfae0(const char*, int);
+    Method6_1dfae0(const char*, int);
 };
-Target_1dfae0::Target_1dfae0(const char* p, int n) : Base_1dfae0(p, 6) {
+Method6_1dfae0::Method6_1dfae0(const char* p, int n) : Function_1dfae0(p, 6) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00423318);
     m1c = n;
     m18 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));

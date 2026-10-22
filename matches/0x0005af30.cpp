@@ -1,6 +1,6 @@
-class Base_5af30 {
+class Track_5af30 {
   public:
-    Base_5af30();
+    Track_5af30();
     virtual void f0();
 };
 class SubC_5af30 {
@@ -14,7 +14,7 @@ class Sub1C {
   public:
     Sub1C();
 };
-class CGrappleSequenceTrack : public Base_5af30 {
+class CGrappleSequenceTrack : public Track_5af30 {
   public:
     CGrappleSequenceTrack();
     virtual void g0();
@@ -26,6 +26,6 @@ class CGrappleSequenceTrack : public Base_5af30 {
     int m18;
     Sub1C m1C;
 };
-CGrappleSequenceTrack::CGrappleSequenceTrack() : Base_5af30(), mC(), m18(1), m1C() {
+CGrappleSequenceTrack::CGrappleSequenceTrack() : Track_5af30(), mC(), m18(1), m1C() {
     m8 = 1;
 }

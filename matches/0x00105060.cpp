@@ -6,12 +6,12 @@ class Obj_105060 {
 extern void thunk(unsigned int);
 extern void thunk2(void*);
 extern void* g_vft_105060;
-class Base_105060 {
+class CCharacterAgent_105060 {
   public:
     void* vptr;
-    ~Base_105060() throw();
+    ~CCharacterAgent_105060() throw();
 };
-class CPathAgent : public Base_105060 {
+class CPathAgent : public CCharacterAgent_105060 {
   public:
     char pad[0x5c];
     Obj_105060* m60;

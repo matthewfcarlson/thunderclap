@@ -15,7 +15,7 @@ class CSmartPropGrabbableNameCondition : public CCondition {
     char pad[12];
     CSmartPropGrabbableNameCondition* vfunc_5(int);
 };
-class H {
+class CSmartPropCSMableCondition_4cb70 {
   public:
     void a();
     void b();
@@ -26,9 +26,9 @@ void thunk_FUN_00267090(void*);
 CSmartPropGrabbableNameCondition* CSmartPropGrabbableNameCondition::vfunc_5(int p) {
     CSmartPropGrabbableNameCondition* s = this;
     *(void (**)())s = &vt_name;
-    ((H*)((char*)s + 0x10))->a();
+    ((CSmartPropCSMableCondition_4cb70*)((char*)s + 0x10))->a();
     *(void (**)())s = &vt_cond;
-    ((H*)s)->b();
+    ((CSmartPropCSMableCondition_4cb70*)s)->b();
     if (p & 1)
         thunk_FUN_00267090(s);
     return s;

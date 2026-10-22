@@ -1,9 +1,9 @@
 extern "C" char __cdecl getFlag(const char*);
 extern const char flagA[];
 extern const char flagB[];
-class Base {
+class Function_1cbe20 {
   public:
-    Base(void*, int);
+    Function_1cbe20(void*, int);
     virtual void f0();
     char pad[12];
     char a;
@@ -12,21 +12,21 @@ class Base {
     char pad3[3];
     void* handler;
 };
-class Method : public Base {
+class Method1_1cbe20 : public Function_1cbe20 {
   public:
     virtual void f1();
-    Method(void* p, void* h) : Base(p, 1) {
+    Method1_1cbe20(void* p, void* h) : Function_1cbe20(p, 1) {
         handler = h;
         b = getFlag(flagA);
         a = getFlag(flagB);
     }
 };
-class Closure : public Method {
+class Closure1_1cbe20 : public Method1_1cbe20 {
   public:
     virtual void f2();
     void* extra;
-    Closure(void* p, void* q, void* h);
+    Closure1_1cbe20(void* p, void* q, void* h);
 };
-Closure::Closure(void* p, void* q, void* h) : Method(p, h) {
+Closure1_1cbe20::Closure1_1cbe20(void* p, void* q, void* h) : Method1_1cbe20(p, h) {
     extra = q;
 }

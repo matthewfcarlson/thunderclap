@@ -160,8 +160,8 @@ public:
 };
 
 // closures whose constructors were out of line too
-struct ClosureCreateObject {
-    ClosureCreateObject *FUN_001f1cf0(const char *name, CSoundSystem *owner, void (CSoundSystem::*fn)());
+struct Closure2_1f2730 {
+    Closure2_1f2730 *FUN_001f1cf0(const char *name, CSoundSystem *owner, void (CSoundSystem::*fn)());
 };
 struct ClosureDefaultMix {
     ClosureDefaultMix *FUN_001f21b0(const char *name, CSoundSystem *owner, void (CSoundSystem::*fn)());
@@ -182,9 +182,9 @@ void CSoundSystem::FUN_001f2730()
     void *mem;
 
     mem = FUN_0008d690(0x24);
-    ClosureCreateObject *obj = 0;
+    Closure2_1f2730 *obj = 0;
     if (mem)
-        obj = ((ClosureCreateObject *)mem)->FUN_001f1cf0("snd_CreateObject", this, &CSoundSystem::FUN_001f13b0);
+        obj = ((Closure2_1f2730 *)mem)->FUN_001f1cf0("snd_CreateObject", this, &CSoundSystem::FUN_001f13b0);
     reg->FUN_001d3b70("snd_CreateObject", obj);
 
     mem = FUN_0008d690(0x24);

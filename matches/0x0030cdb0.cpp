@@ -1,10 +1,10 @@
 #include "compat/ptr.h"
 extern "C" char DAT_00431ed4[];
-class PhysicsJointBase {
+class PhysicsJoint_30cdb0 {
   public:
     void Init(int, int, int);
 };
-class PhysicsJoint1D : public PhysicsJointBase {
+class PhysicsJoint1D : public PhysicsJoint_30cdb0 {
   public:
     char pad0[0xf8];
     volatile unsigned char mFlag;
@@ -13,7 +13,7 @@ class PhysicsJoint1D : public PhysicsJointBase {
     PhysicsJoint1D* Init1(int, int, int);
 };
 PhysicsJoint1D* PhysicsJoint1D::Init1(int a, int b, int c) {
-    PhysicsJointBase::Init(a, b, c);
+    PhysicsJoint_30cdb0::Init(a, b, c);
     mFlag = 0;
     m108 = 0;
     m11c = 0;

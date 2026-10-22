@@ -13,14 +13,14 @@ struct Record {
     unsigned char flags;
     char rest[19];
 };
-class Owner {
+class CSPManager_1ddb30 {
   public:
     char pad[0x608];
     Entry entries[1];
     int Find(int);
     void Set(int, unsigned char);
 };
-void Owner::Set(int id, unsigned char v) {
+void CSPManager_1ddb30::Set(int id, unsigned char v) {
     int i = Find(id);
     if (i >= 0) {
         Entry* e = &entries[i];

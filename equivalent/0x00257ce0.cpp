@@ -13,9 +13,9 @@ public:
 };
 }
 
-struct Pool_257ce0 { audio::SeqTrack *FUN_00262090(); };
+struct SeqTrack_257ce0 { audio::SeqTrack *FUN_00262090(); };
 void *__cdecl FUN_00262030();
-Pool_257ce0 *__cdecl FUN_00247530(void *pool);
+SeqTrack_257ce0 *__cdecl FUN_00247530(void *pool);
 void __cdecl FUN_00247550(void *pool, audio::SeqTrack *t);
 bool __cdecl FUN_0025abd0(Stream *s, unsigned int *count);
 
@@ -37,7 +37,7 @@ bool Mix::FUN_00257ce0(StreamArg_257ce0 arg)
     if (!FUN_0025abd0(s, &arg.count))
         return false;
     for (unsigned int i = 0; i < arg.count; i++) {
-        Pool_257ce0 *p = FUN_00247530(FUN_00262030());
+        SeqTrack_257ce0 *p = FUN_00247530(FUN_00262030());
         audio::SeqTrack *t = p ? p->FUN_00262090() : 0;
         if (!t->vfunc_1(s)) {
             t->audio::SeqTrack::~SeqTrack();

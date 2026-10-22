@@ -1,10 +1,10 @@
 #include "compat/ptr.h"
 extern "C" char DAT_0042a45c[];
-class Base_2551b0 {
+class SeqEventContainer_2551b0 {
   public:
-    Base_2551b0();
+    SeqEventContainer_2551b0();
 };
-class SeqEventLogicOr : public Base_2551b0 {
+class SeqEventLogicOr : public SeqEventContainer_2551b0 {
   public:
     char pad[8];
     int b, c, d;

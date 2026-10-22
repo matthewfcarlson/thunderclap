@@ -4,12 +4,12 @@ class Base {
     char pad[8];
     Base();
 };
-class Mid : public Base {
+class Track_181540 : public Base {
   public:
     int a, b, c;
-    Mid() : a(0), b(0), c(0) {}
+    Track_181540() : a(0), b(0), c(0) {}
 };
-class PropDamageTrack : public Mid {
+class PropDamageTrack : public Track_181540 {
   public:
     PropDamageTrack();
     virtual void f();

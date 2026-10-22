@@ -4,14 +4,14 @@ class Ref_10f900 {
     virtual void A();
     virtual void Release();
 };
-class Base_10f900 {
+class Action_10f900 {
   public:
     virtual void A();
     virtual void B();
     void Finish();
 };
 extern void* vtable_10f900[];
-class AIHistorySetAction : public Base_10f900 {
+class AIHistorySetAction : public Action_10f900 {
   public:
     virtual void A();
     virtual void B();
@@ -29,5 +29,5 @@ void AIHistorySetAction::Clean() {
     }
     if (mRef)
         mRef = 0;
-    ((Base_10f900*)this)->Finish();
+    ((Action_10f900*)this)->Finish();
 }

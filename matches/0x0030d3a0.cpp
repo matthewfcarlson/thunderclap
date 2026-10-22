@@ -1,6 +1,6 @@
 // Same code shape as 0x0030d320 (propagated; names are from that function)
 #include "compat/ptr.h"
-struct Sub_30d3a0 {
+struct SymMatrix_30d3a0 {
     void Destruct();
 };
 
@@ -15,15 +15,15 @@ class PhysicsJoint0D_30d3a0 {
     int m20;
     hulk_intptr m24;
     char pad2[0x48 - 0x28];
-    Sub_30d3a0 m48;
+    SymMatrix_30d3a0 m48;
     char pad3[0x64 - 0x49];
-    Sub_30d3a0 m64;
+    SymMatrix_30d3a0 m64;
 
     void* vfunc_0(int flags);
 };
 
 void* PhysicsJoint0D_30d3a0::vfunc_0(int flags) {
-    Sub_30d3a0* p = &m64;
+    SymMatrix_30d3a0* p = &m64;
     vptr = (void*)DAT_00431de4;
     p->Destruct();
     m48.Destruct();

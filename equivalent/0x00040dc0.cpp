@@ -100,9 +100,9 @@ struct Obj388 {
     Xform_40dc0 xf;
 };
 
-struct Fighter_40dc0;
+struct CCharacter_40dc0;
 struct Sink_40dc0 {
-    void FUN_00099d00(struct Args_40dc0 *a, Fighter_40dc0 *f, int z);
+    void FUN_00099d00(struct Args_40dc0 *a, CCharacter_40dc0 *f, int z);
 };
 struct Args_40dc0 {
     char pad0[8];
@@ -128,7 +128,7 @@ struct Frame_40dc0 {
     Mat4_40dc0 M19c;      // 0x18c
 };
 
-class Fighter_40dc0 {
+class CCharacter_40dc0 {
 public:
     char pad0[0x10];
     Holder10_40dc0 *holder;
@@ -187,7 +187,7 @@ public:
     void FUN_00040dc0(Args_40dc0 *a1, float a2);
 };
 
-void Fighter_40dc0::FUN_00040dc0(Args_40dc0 *a1, float a2)
+void CCharacter_40dc0::FUN_00040dc0(Args_40dc0 *a1, float a2)
 {
     Scene_40dc0 *scene = holder->FUN_00059a40();
     Frame_40dc0 f;

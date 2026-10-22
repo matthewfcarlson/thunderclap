@@ -1,12 +1,12 @@
 extern "C" unsigned char __cdecl Func(const void*);
 extern int X;
 extern int Y;
-class Base {
+class Function_1ea4d0 {
   public:
-    Base(int, int);
+    Function_1ea4d0(int, int);
     virtual void run();
 };
-class Method1 : public Base {
+class Method1 : public Function_1ea4d0 {
   public:
     int a[3];
     unsigned char b;
@@ -14,7 +14,7 @@ class Method1 : public Base {
     unsigned char c;
     char pad2[3];
     int value;
-    Method1(int x, int v) : Base(x, 1), value(v) {
+    Method1(int x, int v) : Function_1ea4d0(x, 1), value(v) {
         c = Func(&X);
         b = Func(&Y);
     }

@@ -6,7 +6,7 @@ extern const char* g_str1; // 0x48e100
 extern const char* g_str2; // 0x48e0f0
 extern const char* g_str3; // 0x48e134
 
-class Method6Base {
+class Function_94000 {
   public:
     virtual void Invoke(const char*, int, const char*, const char*, const char*, const char*);
     virtual void AddRef();
@@ -14,10 +14,10 @@ class Method6Base {
     int m_base1;
     int m_base2;
     int m_base3;
-    Method6Base(const char* name, int index);
+    Function_94000(const char* name, int index);
 };
 
-class Method6_94000 : public Method6Base {
+class Method6_94000 : public Function_94000 {
     char m_flag1; // 0x10
     char m_flag2; // 0x11
     char m_flag3; // 0x12
@@ -31,7 +31,7 @@ class Method6_94000 : public Method6Base {
     Method6_94000(const char* name, int data);
 };
 
-Method6_94000::Method6_94000(const char* name, int data) : Method6Base(name, 6) {
+Method6_94000::Method6_94000(const char* name, int data) : Function_94000(name, 6) {
     m_data = data;
     m_flag7 = CheckString(&g_str1);
     m_flag1 = CheckString(&g_str2);

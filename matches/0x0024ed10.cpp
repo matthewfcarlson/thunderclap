@@ -13,15 +13,15 @@ class Data {
     Data* Init(const char*, int) throw();
     ~Data() throw();
 };
-class Base {
+class SeqEventType_24ed10 {
   public:
-    Base(Data*, void*, int, int) throw();
+    SeqEventType_24ed10(Data*, void*, int, int) throw();
     virtual void f();
 };
-class audio_SeqEventChannelSendVolumesType : public Base {
+class SeqEventChannelSendVolumesType_24ed10 : public SeqEventType_24ed10 {
   public:
-    audio_SeqEventChannelSendVolumesType() throw();
+    SeqEventChannelSendVolumesType_24ed10() throw();
     virtual void f();
 };
-audio_SeqEventChannelSendVolumesType::audio_SeqEventChannelSendVolumesType() throw()
-    : Base(Data().Init("ChSendVol", 0), Key(Lookup("SeqEventChannelSendVolumes", 0, 0)), 0x50, 4) {}
+SeqEventChannelSendVolumesType_24ed10::SeqEventChannelSendVolumesType_24ed10() throw()
+    : SeqEventType_24ed10(Data().Init("ChSendVol", 0), Key(Lookup("SeqEventChannelSendVolumes", 0, 0)), 0x50, 4) {}

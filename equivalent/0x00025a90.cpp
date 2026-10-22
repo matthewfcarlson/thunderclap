@@ -31,8 +31,8 @@ struct Slot_25a90 {
 
 struct Thing_25a90;
 
-struct Obj14_25a90 {
-    Obj14_25a90 *FUN_00047890(Thing_25a90 *owner, int n);
+struct CCharacterTemplateManager_25a90 {
+    CCharacterTemplateManager_25a90 *FUN_00047890(Thing_25a90 *owner, int n);
 };
 
 struct Obj908 {
@@ -58,7 +58,7 @@ struct ThisNote_00031310 {
 
 struct Thing_25a90 {
     int f00;
-    Obj14_25a90 *f04;
+    CCharacterTemplateManager_25a90 *f04;
     Obj908 *f08;
     int f0c;
     char pad10[0x50 - 0x10];
@@ -147,7 +147,7 @@ Thing_25a90 *Thing_25a90::FUN_00025a90()
 
     void *mem = FUN_0008d690(0x14);
     if (mem)
-        f04 = ((Obj14_25a90 *)mem)->FUN_00047890(this, 0x20);
+        f04 = ((CCharacterTemplateManager_25a90 *)mem)->FUN_00047890(this, 0x20);
     else
         f04 = 0;
     mem = FUN_0008d690(0x908);

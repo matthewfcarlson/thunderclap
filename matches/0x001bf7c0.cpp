@@ -3,7 +3,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 extern "C" char DAT_00421520[];
-class CSubtitleManager {
+class Method3_1bf7c0 {
   public:
     hulk_intptr vptr;
     char pad04[0x0c];
@@ -15,9 +15,9 @@ class CSubtitleManager {
     char pad19[3];
     hulk_intptr m1c;
     void Init(const char*, int);
-    CSubtitleManager* Setup(const char*, const char*);
+    Method3_1bf7c0* Setup(const char*, const char*);
 };
-CSubtitleManager* CSubtitleManager::Setup(const char* a, const char* b) {
+Method3_1bf7c0* Method3_1bf7c0::Setup(const char* a, const char* b) {
     Init(a, 3);
     vptr = ((hulk_intptr)DAT_00421520);
     m1c = (hulk_intptr)b;

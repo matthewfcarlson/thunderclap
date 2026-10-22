@@ -5,12 +5,12 @@ class Ref_10fab0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_10fab0 {
+class Action_10fab0 {
   public:
     void* vptr;
     void Fin();
 };
-class KeywordWaitAction_10fab0 : public Base_10fab0 {
+class KeywordWaitAction_10fab0 : public Action_10fab0 {
   public:
     char pad[0x18];
     void* m1c;

@@ -15,7 +15,7 @@ class CCharacterTemplateCondition : public CCondition {
     char pad[12];
     CCharacterTemplateCondition* vfunc_5(int);
 };
-class H {
+class CClimbableCondition_4cfe0 {
   public:
     void a();
     void b();
@@ -26,9 +26,9 @@ void thunk_FUN_00267090(void*);
 CCharacterTemplateCondition* CCharacterTemplateCondition::vfunc_5(int p) {
     CCharacterTemplateCondition* s = this;
     *(void (**)())s = &vt_name;
-    ((H*)((char*)s + 0x10))->a();
+    ((CClimbableCondition_4cfe0*)((char*)s + 0x10))->a();
     *(void (**)())s = &vt_cond;
-    ((H*)s)->b();
+    ((CClimbableCondition_4cfe0*)s)->b();
     if (p & 1)
         thunk_FUN_00267090(s);
     return s;

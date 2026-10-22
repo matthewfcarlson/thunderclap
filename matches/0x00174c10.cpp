@@ -3,12 +3,12 @@ class Obj_174c10 {
     virtual void A();
     virtual void B();
 };
-class Base_174c10 {
+class Action_174c10 {
   public:
     virtual void X();
-    Base_174c10();
+    Action_174c10();
 };
-class FootPivotAction : public Base_174c10 {
+class FootPivotAction : public Action_174c10 {
   public:
     virtual void A();
     virtual void B();
@@ -19,7 +19,7 @@ class FootPivotAction : public Base_174c10 {
     int m28;
     FootPivotAction(int, Obj_174c10*);
 };
-FootPivotAction::FootPivotAction(int v, Obj_174c10* p) : Base_174c10() {
+FootPivotAction::FootPivotAction(int v, Obj_174c10* p) : Action_174c10() {
     volatile int* q = &m1c;
     q[0] = 0;
     q[1] = 0;

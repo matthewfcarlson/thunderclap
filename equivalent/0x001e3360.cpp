@@ -55,7 +55,7 @@ struct Entry_1e3360 {
     char pad4[0x28 - 0x27];
 };
 
-class Manager_1e3360 {
+class CSPManager_1e3360 {
 public:
     int FUN_001e3360(int name);
     int FUN_001dbfe0(int name);
@@ -64,7 +64,7 @@ public:
     Entry_1e3360 entries[1];        // 0x608
 };
 
-int Manager_1e3360::FUN_001e3360(int name)
+int CSPManager_1e3360::FUN_001e3360(int name)
 {
     int idx = FUN_001dbfe0(name);
     if (idx < 0)

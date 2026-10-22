@@ -6,7 +6,7 @@ struct Status_284b70 {
     char state;
 };
 
-class AnimController {
+class AnimationFrameController_284b70 {
   public:
     virtual void v0();
     virtual void v1();
@@ -37,7 +37,7 @@ class AnimController {
     virtual void v26();
 };
 
-hulk_freg AnimController::vfunc_20()
+hulk_freg AnimationFrameController_284b70::vfunc_20()
 {
     float start;
     float end;

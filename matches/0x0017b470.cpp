@@ -4,7 +4,7 @@
 typedef unsigned int u32_17b470;
 extern int TypeA_17b470;
 extern int TypeB_17b470;
-struct PushOutAction_nv_17b470 {
+struct PushOutAction_17b470 {
     u32_17b470 Init(void*, void*);
 };
 extern int Check(void*, int, int*, int*, int);
@@ -15,7 +15,7 @@ int hulkfight::motion::PushOutTrack::vfunc_10(int __p0, int __p1, int __p2) { u3
     if (Check(p, 0, &TypeA_17b470, &TypeB_17b470, 0)) {
         hulkfight::motion::PushOutAction* q = Alloc(0x28);
         if (q)
-            return (int)(((PushOutAction_nv_17b470*)(q))->Init(this, p));
+            return (int)(((PushOutAction_17b470*)(q))->Init(this, p));
     }
     return (int)(0);
 }

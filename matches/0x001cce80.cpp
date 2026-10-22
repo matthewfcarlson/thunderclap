@@ -1,4 +1,4 @@
-class Obj_1cce80 {
+class CScenarioManager_1cce80 {
   public:
     char pad[0x11b4];
     int count;
@@ -7,7 +7,7 @@ class Obj_1cce80 {
     void Add(float value, const void* src);
 };
 extern void Copy(void*, const void*, int);
-void Obj_1cce80::Add(float value, const void* src) {
+void CScenarioManager_1cce80::Add(float value, const void* src) {
     if (count < 16) {
         values[count] = value;
         Copy(data + count * 0x20, src, 0x20);

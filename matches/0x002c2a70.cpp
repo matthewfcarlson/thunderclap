@@ -6,20 +6,20 @@ class Ref_2c2a70 {
     virtual void F0();
     virtual void Release();
 };
-class Base_2c2a70 {
+class SimpleChunkHandler_2c2a70 {
   public:
     void* vptr;
     void Fin();
 };
 
-class Obj_2c2a70 : public Base_2c2a70 {
+class GeometryLoader_2c2a70 : public SimpleChunkHandler_2c2a70 {
   public:
     char pad[0x1c - 4];
     Ref_2c2a70* m1c;
     Ref_2c2a70* m20;
-    ~Obj_2c2a70() throw();
+    ~GeometryLoader_2c2a70() throw();
 };
-Obj_2c2a70::~Obj_2c2a70() throw() {
+GeometryLoader_2c2a70::~GeometryLoader_2c2a70() throw() {
     vptr = g_vftable_2c2a70;
     _ReadWriteBarrier();
     if (m1c) {

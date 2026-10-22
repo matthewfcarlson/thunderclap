@@ -2,18 +2,18 @@ struct Sub_2d63a0 {
     void Init();
     char pad[0x114];
 };
-struct Base_2d63a0 {
-    Base_2d63a0();
+struct ParticleEmitter_2d63a0 {
+    ParticleEmitter_2d63a0();
     virtual void V1();
 };
-struct Emitter_2d63a0 : Base_2d63a0 {
-    Emitter_2d63a0();
+struct SpriteParticleEmitter_2d63a0 : ParticleEmitter_2d63a0 {
+    SpriteParticleEmitter_2d63a0();
     virtual void V1();
     char pad[0xa8 - 4];
     Sub_2d63a0 sub;
     int f1bc, f1c0, f1c4, f1c8, f1cc, f1d0, f1d4, f1d8;
 };
-Emitter_2d63a0::Emitter_2d63a0() {
+SpriteParticleEmitter_2d63a0::SpriteParticleEmitter_2d63a0() {
     sub.Init();
     f1bc = 0;
     f1c0 = 0;

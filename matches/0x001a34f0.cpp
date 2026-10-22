@@ -1,11 +1,11 @@
 extern void* g_vftable_1a34f0[];
 void Free(void*) throw();
-class Base_1a34f0 {
+class Track_1a34f0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_1a34f0 : public Base_1a34f0 {
+class NISAnimationTrack_1a34f0 : public Track_1a34f0 {
   public:
     char p24[32];
     void* m24;
@@ -71,9 +71,9 @@ class Obj_1a34f0 : public Base_1a34f0 {
     char p18c[8];
     void* m18c;
     void* m190;
-    ~Obj_1a34f0() throw();
+    ~NISAnimationTrack_1a34f0() throw();
 };
-Obj_1a34f0::~Obj_1a34f0() throw() {
+NISAnimationTrack_1a34f0::~NISAnimationTrack_1a34f0() throw() {
     vptr = g_vftable_1a34f0;
     Free(m24);
     Free(m4c);

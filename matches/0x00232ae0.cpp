@@ -9,7 +9,7 @@ void *__cdecl FUN_0008d6d0(unsigned int size);
 void *thunk_FUN_0008d690(unsigned int size);
 void __cdecl thunk_FUN_00267090(void *p);
 
-struct LoadStream_nv_232ae0 {
+struct LoadStream_232ae0 {
     content::LoadStream *FUN_00264190(void *data, unsigned int size);
 };
 
@@ -55,7 +55,7 @@ int Loader_232ae0::FUN_00232ae0(Source_232ae0 *source, unsigned int size)
     source->Read(buffer, size, 1);
     source->Rewind();
     void *memory = thunk_FUN_0008d690(0x48);
-    content::LoadStream *stream = memory ? ((LoadStream_nv_232ae0*)(((content::LoadStream *)memory)))->FUN_00264190(buffer, size) : 0;
+    content::LoadStream *stream = memory ? ((LoadStream_232ae0*)(((content::LoadStream *)memory)))->FUN_00264190(buffer, size) : 0;
     stream->vfunc_0();
     int result = FUN_00232870(buffer, stream, size, source->GetOption());
     stream->vfunc_1();

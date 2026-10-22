@@ -6,18 +6,18 @@ class Ref_21f20 {
     virtual void F0();
     virtual void Release();
 };
-class Base_21f20 {
+class CAction_21f20 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_21f20 : public Base_21f20 {
+class CSmartPropSetStateAction_21f20 : public CAction_21f20 {
   public:
     char pad[24];
     Ref_21f20* m;
-    Obj_21f20* f2(unsigned char flags);
+    CSmartPropSetStateAction_21f20* f2(unsigned char flags);
 };
-Obj_21f20* Obj_21f20::f2(unsigned char flags) {
+CSmartPropSetStateAction_21f20* CSmartPropSetStateAction_21f20::f2(unsigned char flags) {
     vptr = g_vftable_21f20;
     _ReadWriteBarrier();
     if (m) {

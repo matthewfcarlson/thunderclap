@@ -1,12 +1,12 @@
 #include "decls/address.h"
-class Base_be840 {
+class Function_be840 {
   public:
-    Base_be840(void* a, int n);
+    Function_be840(void* a, int n);
     virtual void Call();
     char pad[0x0c];
 };
 
-class Method7 : public Base_be840 {
+class Method7 : public Function_be840 {
   public:
     Method7(void* a, int b);
     virtual void Call();
@@ -19,7 +19,7 @@ class Method7 : public Base_be840 {
 extern const char s0_be840[];
 extern const char s1_be840[];
 
-Method7::Method7(void* a, int b) : Base_be840(a, 7) {
+Method7::Method7(void* a, int b) : Function_be840(a, 7) {
     m1c = b;
     m18 = FUN_001d04d0(s1_be840);
     m10 = FUN_001d04d0(s0_be840);

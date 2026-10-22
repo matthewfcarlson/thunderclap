@@ -6,7 +6,7 @@ struct Elem_1b6530 {
     char b[0x138];
     void Fini();
 };
-class Obj_1b6530 {
+class CCollisionManager_1b6530 {
   public:
     void* vptr;
     char pad[0xc];
@@ -14,9 +14,9 @@ class Obj_1b6530 {
     char pad2[0xa4];
     void* m594;
     void* m598;
-    ~Obj_1b6530();
+    ~CCollisionManager_1b6530();
 };
-Obj_1b6530::~Obj_1b6530() {
+CCollisionManager_1b6530::~CCollisionManager_1b6530() {
     *(void* volatile*)&vptr = g_vftable_1b6530;
 
     void* t = *(void* volatile*)&m594;

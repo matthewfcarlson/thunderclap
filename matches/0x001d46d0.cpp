@@ -15,13 +15,13 @@ void __cdecl taskE(int, int, int);
 struct List_1d46d0 {
     void attach(Closure4*);
 };
-struct Handler_1d46d0 {
+struct ScriptHandler_1d46d0 {
     char pad[8];
     int x8;
     List_1d46d0 list;
     void target(int, int, int);
 };
-void Handler_1d46d0::target(int a, int b, int c) {
+void ScriptHandler_1d46d0::target(int a, int b, int c) {
     Closure4* p = (Closure4*)alloc(0x24);
     if (p) {
         p->init(a, c);

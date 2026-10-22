@@ -21,7 +21,7 @@ struct Entry_1ddc20 {
 
 extern "C" int __cdecl FUN_00345475(int c);
 
-class Manager_1ddc20 {
+class CSPManager_1ddc20 {
 public:
     char pad00[0x608];
     Entry_1ddc20 entries[0x800];
@@ -31,7 +31,7 @@ public:
     void FUN_001ddc20(int key, const char *name);
 };
 
-void Manager_1ddc20::FUN_001ddc20(int key, const char *name)
+void CSPManager_1ddc20::FUN_001ddc20(int key, const char *name)
 {
     int i = FUN_001dbfe0(key);
     if (i < 0)

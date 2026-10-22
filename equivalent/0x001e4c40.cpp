@@ -70,7 +70,7 @@ struct Node {
     void FUN_001d86d0(Vec3_1e4c40 *dir, Vec3_1e4c40 *pos);
 };
 
-struct Factory_1e4c40 {
+struct CSPManager_1e4c40 {
     Node *FUN_001e4760(Prop_1e4c40 *prop, char *name, int a, Mat4_1e4c40 *m, int b, int c, int d);
     Node *FUN_001e4c40(const char *key, Vec3_1e4c40 *pos, int type, char *name, Vec3_1e4c40 *dir, int c);
 };
@@ -79,11 +79,11 @@ struct Factory_1e4c40 {
 int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
 extern "C" int __cdecl sprintf(char *, const char *, ...);
 
-Node *Factory_1e4c40::FUN_001e4c40(const char *key, Vec3_1e4c40 *pos, int type, char *name, Vec3_1e4c40 *dir, int c)
+Node *CSPManager_1e4c40::FUN_001e4c40(const char *key, Vec3_1e4c40 *pos, int type, char *name, Vec3_1e4c40 *dir, int c)
 {
     struct Frame {
         char caster[4];
-        Factory_1e4c40 *self;
+        CSPManager_1e4c40 *self;
         Mat4_1e4c40 m;
         char buf[0x80];
     } f;

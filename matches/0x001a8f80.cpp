@@ -16,7 +16,7 @@ class EffectAction {
     Ref_1a8f80* m28;
     EffectAction* f2(int);
 };
-class Helper_1a8f80 {
+class EffectAction_1a8f80 {
   public:
     void Fn();
 };
@@ -34,7 +34,7 @@ EffectAction* EffectAction::f2(int flags) {
     }
     if (m1c)
         m1c = 0;
-    ((Helper_1a8f80*)this)->Fn();
+    ((EffectAction_1a8f80*)this)->Fn();
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;

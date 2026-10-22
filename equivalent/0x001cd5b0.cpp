@@ -15,7 +15,7 @@ struct Owner_1cd5b0 {
 struct Clock_1cd5b0 { int *FUN_00025930(float *out, int n); };
 struct World { char pad[0x20]; Clock_1cd5b0 *clock; };
 
-class Anim_1cd5b0 {
+class CScenarioManager_1cd5b0 {
 public:
     char pad0[4];
     Owner_1cd5b0 *owner;
@@ -29,7 +29,7 @@ public:
     void FUN_001cd5b0(float dt);
 };
 
-void Anim_1cd5b0::FUN_001cd5b0(float dt)
+void CScenarioManager_1cd5b0::FUN_001cd5b0(float dt)
 {
     acc = dt + acc;
     prev = cur;

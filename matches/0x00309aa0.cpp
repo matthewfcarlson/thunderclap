@@ -8,12 +8,12 @@ struct Vec_309aa0 {
     float c;
     void apply(float);
 };
-class PJ_309aa0;
+class PhysicsJoint_309aa0;
 struct Manager_309aa0 {
     char p[0x218];
-    PJ_309aa0* joint;
+    PhysicsJoint_309aa0* joint;
 };
-class PJ_309aa0 {
+class PhysicsJoint_309aa0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -32,13 +32,13 @@ class PJ_309aa0 {
     char flag;
     char pad5[0x18 - 5];
     Manager_309aa0* mgr;
-    PJ_309aa0* other;
+    PhysicsJoint_309aa0* other;
     char q[0xe8 - 0x20];
     float limit;
     char r[4];
     float force;
 };
-void PJ_309aa0::v13(void* x, Vec_309aa0* y) {
+void PhysicsJoint_309aa0::v13(void* x, Vec_309aa0* y) {
     if (this == mgr->joint)
         return;
     if (other)

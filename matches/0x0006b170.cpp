@@ -1,10 +1,10 @@
-class Base {
+class CTrack_6b170 {
   public:
-    Base();
+    CTrack_6b170();
     virtual void vf();
     char pad[8];
 };
-class CWallSlideTrack : public Base {
+class CWallSlideTrack : public CTrack_6b170 {
   public:
     CWallSlideTrack();
     int a;
@@ -14,7 +14,7 @@ class CWallSlideTrack : public Base {
     int g, h, i;
     virtual void vf();
 };
-CWallSlideTrack::CWallSlideTrack() : Base() {
+CWallSlideTrack::CWallSlideTrack() : CTrack_6b170() {
     a = 0;
     b = -1.0f;
     c = 20.0f;

@@ -39,13 +39,13 @@ struct Frame_ff8c0 {
     Id64_ff8c0 t5;                // 0x38
 };
 
-class CAgentBase {
+class CCharacterAgent_ff8c0 {
 public:
     virtual void v0();
     virtual void v1();
 };
 
-class CHand2HandAgent : public CAgentBase {
+class CHand2HandAgent : public CCharacterAgent_ff8c0 {
 public:
     virtual void v2();
     virtual void v3();

@@ -1,10 +1,10 @@
-class Base {
+class Camera_2c32a0 {
   public:
     virtual void f();
     char pad[0xcc];
-    Base();
+    Camera_2c32a0();
 };
-class PointCamera : public Base {
+class PointCamera : public Camera_2c32a0 {
   public:
     int a, b, c, d, e, f0, g;
     float h;

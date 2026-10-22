@@ -48,14 +48,14 @@ struct Registry_d75c0 {
 };
 Registry_d75c0 *FUN_001d4c90();
 
-struct Panel_d75c0 {
+struct MessageOverlay_d75c0 {
     char pad[0x810];
-    Panel_d75c0 *FUN_000d6640();
+    MessageOverlay_d75c0 *FUN_000d6640();
 };
 
-struct Overlays_d75c0 {
+struct HUDOverlay_d75c0 {
     char pad[0x510];
-    Overlays_d75c0 *FUN_000d1720();
+    HUDOverlay_d75c0 *FUN_000d1720();
 };
 
 void FUN_000d6fb0();
@@ -70,16 +70,16 @@ class CSimOverlayManager {
 public:
     CSimOverlayManager();
     virtual void v0();
-    Panel_d75c0 *panel;
-    Overlays_d75c0 *overlays;
+    MessageOverlay_d75c0 *panel;
+    HUDOverlay_d75c0 *overlays;
     int f0c;
 };
 
 CSimOverlayManager::CSimOverlayManager()
 {
-    Panel_d75c0 *p = new Panel_d75c0;
+    MessageOverlay_d75c0 *p = new MessageOverlay_d75c0;
     panel = p ? p->FUN_000d6640() : 0;
-    Overlays_d75c0 *o = new Overlays_d75c0;
+    HUDOverlay_d75c0 *o = new HUDOverlay_d75c0;
     overlays = o ? o->FUN_000d1720() : 0;
     f0c = 0;
     Registry_d75c0 *r = FUN_001d4c90();

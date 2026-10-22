@@ -1,10 +1,10 @@
-class Base {
+class ParamValueNameList_551f0 {
   public:
-    Base(int arg);
+    ParamValueNameList_551f0(int arg);
     virtual void f();
 };
 
-class ParamNameConstList : public Base {
+class ParamNameConstList : public ParamValueNameList_551f0 {
   public:
     ParamNameConstList(int a, int b);
     virtual void f();
@@ -12,6 +12,6 @@ class ParamNameConstList : public Base {
     int m10;
 };
 
-ParamNameConstList::ParamNameConstList(int a, int b) : Base(a) {
+ParamNameConstList::ParamNameConstList(int a, int b) : ParamValueNameList_551f0(a) {
     m10 = b;
 }

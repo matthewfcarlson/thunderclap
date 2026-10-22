@@ -5,12 +5,12 @@ class Ref_184840 {
     virtual void F0();
     virtual void Release();
 };
-class Base_184840 {
+class Action_184840 {
   public:
     void* vptr;
     void Fin();
 };
-class BallAndChainSpinAction_184840 : public Base_184840 {
+class BallAndChainSpinAction_184840 : public Action_184840 {
   public:
     char pad[0x18];
     void* m1c;

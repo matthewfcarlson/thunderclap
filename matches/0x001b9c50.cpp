@@ -2,11 +2,11 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" char DAT_00420e24[];
-class Base_1b9c50 {
+class Function_1b9c50 {
   public:
     void Init(void*, int);
 };
-class Target_1b9c50 : public Base_1b9c50 {
+class Method3_1b9c50 : public Function_1b9c50 {
   public:
     int pad0;
     char pad4[0x0c];
@@ -21,9 +21,9 @@ class Target_1b9c50 : public Base_1b9c50 {
     char b18;
     char pad19[3];
     int member1c;
-    Target_1b9c50(void* p, int x);
+    Method3_1b9c50(void* p, int x);
 };
-Target_1b9c50::Target_1b9c50(void* p, int x) {
+Method3_1b9c50::Method3_1b9c50(void* p, int x) {
     Init(p, 3);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00420e24);
     member1c = x;

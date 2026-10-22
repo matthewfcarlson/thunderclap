@@ -10,7 +10,7 @@ class Motion_1489d0 {
   public:
     C2_1489d0* Get();
 };
-class BaseAction_1489d0 {
+class Action_1489d0 {
   public:
     virtual void a();
     virtual void b();
@@ -32,7 +32,7 @@ class Sub_1489d0 {
     void Set2(int);
     int Finish();
 };
-class GrappleHitReactionAction : public BaseAction_1489d0 {
+class GrappleHitReactionAction : public Action_1489d0 {
   public:
     char pad4[0x1c];
     Motion_1489d0* motion;

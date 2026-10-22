@@ -62,7 +62,7 @@ union SelfOrDist {
     float dist;
 };
 
-class Tracker_1c430 {
+class CWeaponCollisionAction_1c430 {
 public:
     char pad0[0x1c];
     void* owner;
@@ -73,7 +73,7 @@ public:
     void FUN_0001c430(Source_1c430* src);
 };
 
-void Tracker_1c430::FUN_0001c430(Source_1c430* src)
+void CWeaponCollisionAction_1c430::FUN_0001c430(Source_1c430* src)
 {
     SelfOrDist slot;
     slot.self = FUN_00059a30(FUN_000592a0(owner));

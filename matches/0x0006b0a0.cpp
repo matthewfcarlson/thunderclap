@@ -1,10 +1,10 @@
-class Base {
+class CTrack_6b0a0 {
   public:
-    Base();
+    CTrack_6b0a0();
     virtual void v();
     int baseField;
 };
-class CMotionHitGroundHeightTrack : public Base {
+class CMotionHitGroundHeightTrack : public CTrack_6b0a0 {
   public:
     CMotionHitGroundHeightTrack();
     int state;
@@ -12,7 +12,7 @@ class CMotionHitGroundHeightTrack : public Base {
     float b;
     float c;
 };
-CMotionHitGroundHeightTrack::CMotionHitGroundHeightTrack() : Base() {
+CMotionHitGroundHeightTrack::CMotionHitGroundHeightTrack() : CTrack_6b0a0() {
     a = 0;
     b = -1.0f;
     c = 1.0f;

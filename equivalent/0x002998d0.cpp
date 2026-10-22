@@ -43,13 +43,13 @@ struct Source_2998d0 {
     Entry_2998d0 *end;
 };
 
-class Bundle {
+class ActiveControllerList_2998d0 {
 public:
     virtual void addRef();
     virtual void release();
     char pad04[0x24 - 4];
     RefCounted_2998d0 **slots;      // 0x24
-    Bundle *FUN_00299680(unsigned count);
+    ActiveControllerList_2998d0 *FUN_00299680(unsigned count);
     void FUN_00298a60();
 };
 
@@ -57,7 +57,7 @@ class Owner_2998d0 {
 public:
     char pad00[0x44];
     Source_2998d0 *source;          // 0x44
-    Bundle *bundle;          // 0x48
+    ActiveControllerList_2998d0 *bundle;          // 0x48
     RefCounted_2998d0 *extraA;      // 0x4c
     RefCounted_2998d0 *extraB;      // 0x50
 
@@ -90,7 +90,7 @@ void Owner_2998d0::FUN_002998d0(unsigned char release)
     if (extraB != 0)
         total++;
 
-    Bundle *b = (Bundle *)FUN_0008d690(0x30);
+    ActiveControllerList_2998d0 *b = (ActiveControllerList_2998d0 *)FUN_0008d690(0x30);
     if (b != 0)
         b = b->FUN_00299680(total);
     bundle = b;

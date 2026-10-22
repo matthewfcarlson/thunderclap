@@ -8,7 +8,7 @@ class Params_188ce0 {
 extern Params_188ce0 TypeA_188ce0;
 extern Params_188ce0 TypeB_188ce0;
 int __cdecl Check(void*, int, Params_188ce0*, Params_188ce0*, int);
-struct PropDropAction_nv_188ce0 {
+struct PropDropAction_188ce0 {
     int Init(hulkfight::motion::PropDropTrack*, int);
 };
 hulkfight::motion::PropDropAction* __cdecl Alloc(int);
@@ -18,7 +18,7 @@ int hulkfight::motion::PropDropTrack::vfunc_10(int a, int b, int c) {
     if (result) {
         hulkfight::motion::PropDropAction* p = Alloc(0x24);
         if (p)
-            return ((PropDropAction_nv_188ce0*)(p))->Init(this, c);
+            return ((PropDropAction_188ce0*)(p))->Init(this, c);
     }
     return 0;
 }

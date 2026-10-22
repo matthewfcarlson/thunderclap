@@ -11,7 +11,7 @@ struct Source_277110 {
 struct Context {
     void FUN_002705f0();
 };
-struct Helper_277110 {
+struct DriveOpenRequest_277110 {
     void* FUN_002756c0(core::InstanceDrive*);
 };
 void* __cdecl FUN_00273560(unsigned int);
@@ -38,7 +38,7 @@ InstanceDrive::InstanceDrive(Source_277110* s, Context* c) {
     flag = 0;
     c->FUN_002705f0();
     source->first();
-    Helper_277110* h = (Helper_277110*)FUN_00273560(12);
+    DriveOpenRequest_277110* h = (DriveOpenRequest_277110*)FUN_00273560(12);
     void* result = h ? h->FUN_002756c0(this) : 0;
     source->FUN_00272b60(result, context, 0);
 }

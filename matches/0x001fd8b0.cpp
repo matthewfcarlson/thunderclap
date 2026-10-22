@@ -1,7 +1,7 @@
 struct Item {
     void SetAngle(float);
 };
-struct Owner {
+struct CTriggerVolumeManager_1fd8b0 {
     Item* Find(int, int);
     bool Set(int key, float angle);
 };
@@ -9,7 +9,7 @@ struct Pair {
     int a, b;
 };
 Pair __cdecl Lookup(int);
-bool Owner::Set(int key, float angle) {
+bool CTriggerVolumeManager_1fd8b0::Set(int key, float angle) {
     Pair p = Lookup(key);
     Item* item = Find(p.a, p.b);
     if (!item)

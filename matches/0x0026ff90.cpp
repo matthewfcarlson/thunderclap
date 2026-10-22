@@ -10,7 +10,7 @@ class Ref_26ff90 {
 };
 extern void Cleanup(int, int);
 extern volatile int g_value_26ff90;
-class Pool_26ff90 {
+class MemoryPool_26ff90 {
   public:
     virtual void v0();
     virtual void v1();
@@ -23,7 +23,7 @@ class Pool_26ff90 {
     Ref_26ff90* field30;
     void Destroy();
 };
-void Pool_26ff90::Destroy() {
+void MemoryPool_26ff90::Destroy() {
     Ref_26ff90* p = field30;
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0042b5b4);
     *((int*)this + 1) = ((hulk_intptr)DAT_0042b5ac);

@@ -7,15 +7,15 @@ class Arg {
     Arg* Init(const char*, int) throw();
     ~Arg() throw();
 };
-class Base {
+class SeqEventType_254f40 {
   public:
-    Base(Arg*, const __int64&, int, int) throw();
+    SeqEventType_254f40(Arg*, const __int64&, int, int) throw();
     virtual void f();
 };
-class audioSeqEventLogicOrType : public Base {
+class SeqEventLogicOrType_254f40 : public SeqEventType_254f40 {
   public:
-    audioSeqEventLogicOrType() throw();
+    SeqEventLogicOrType_254f40() throw();
     virtual void g();
 };
-audioSeqEventLogicOrType::audioSeqEventLogicOrType() throw()
-    : Base(Arg().Init(&data, 0), make("SeqEventLogicOr", 0, 0), 0x18, 4) {}
+SeqEventLogicOrType_254f40::SeqEventLogicOrType_254f40() throw()
+    : SeqEventType_254f40(Arg().Init(&data, 0), make("SeqEventLogicOr", 0, 0), 0x18, 4) {}

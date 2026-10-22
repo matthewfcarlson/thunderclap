@@ -4,13 +4,13 @@ struct Node {
 };
 bool __cdecl Read(unsigned a, unsigned* out);
 char* __cdecl Alloc(unsigned a);
-struct C_2607c0 {
+struct SeqEventContainer_2607c0 {
     virtual bool v0(unsigned a);
     int m4, m8;
     Node* mc;
     Node* m10;
 };
-bool C_2607c0::v0(unsigned a) {
+bool SeqEventContainer_2607c0::v0(unsigned a) {
     unsigned n;
     if (!Read(a, &n))
         return false;

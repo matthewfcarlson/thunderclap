@@ -1,9 +1,9 @@
 extern "C" unsigned char __cdecl Find(void*);
 extern char gOne;
 extern char gTwo;
-class Base {
+class Function_1ce860 {
   public:
-    Base(int, int);
+    Function_1ce860(int, int);
     virtual void f();
     char pad[12];
     unsigned char a;
@@ -12,9 +12,9 @@ class Base {
     char pad3[3];
     int c;
 };
-class Method1 : public Base {
+class Method1 : public Function_1ce860 {
   public:
-    Method1(int x, int y) : Base(x, 1) {
+    Method1(int x, int y) : Function_1ce860(x, 1) {
         c = y;
         b = Find(&gOne);
         a = Find(&gTwo);

@@ -42,7 +42,7 @@ public:
     char FUN_000242d0(Actor_403f0 *a);
 };
 
-class Owner_403f0 {
+class CCharacter_403f0 {
 public:
     char pad0[0x10];
     Node *node;
@@ -64,7 +64,7 @@ struct World {
 };
 
 
-void Owner_403f0::FUN_000403f0()
+void CCharacter_403f0::FUN_000403f0()
 {
     if (DAT_004dd700->roster->FUN_000242d0((Actor_403f0 *)this))
         return;

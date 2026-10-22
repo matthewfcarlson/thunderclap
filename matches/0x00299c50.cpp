@@ -7,9 +7,9 @@ class Base_299c50 {
     int mA;
 };
 
-class ActiveList : public Base_299c50 {
+class ActivePrimitiveList_299c50 : public Base_299c50 {
   public:
-    ActiveList();
+    ActivePrimitiveList_299c50();
     virtual void f0();
     char* mBuf1;
     char* mEnd1;
@@ -31,7 +31,7 @@ class ActiveList : public Base_299c50 {
 
 void Base_299c50::f0() {}
 
-ActiveList::ActiveList() {
+ActivePrimitiveList_299c50::ActivePrimitiveList_299c50() {
     char* p = (char*)operator new(0x20);
     mBuf1 = p;
     if (p) {
@@ -61,4 +61,4 @@ ActiveList::ActiveList() {
     }
 }
 
-void ActiveList::f0() {}
+void ActivePrimitiveList_299c50::f0() {}

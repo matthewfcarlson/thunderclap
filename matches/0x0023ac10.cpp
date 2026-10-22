@@ -1,4 +1,4 @@
-class Obj {
+class ScriptReader_23ac10 {
     char pad[0x12c];
     int count;
     char gap[0x8];
@@ -11,7 +11,7 @@ class Obj {
   public:
     char get(int index, int* out);
 };
-char Obj::get(int index, int* out) {
+char ScriptReader_23ac10::get(int index, int* out) {
     if (index >= 0 && index < count) {
         switch (entries[index].type) {
         case 1:

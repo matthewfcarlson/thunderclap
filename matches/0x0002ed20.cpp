@@ -5,7 +5,7 @@ extern "C" char DAT_003f410c[];
 extern "C" char DAT_003f442c[];
 struct CActorManager {};
 extern char GetName(const char*);
-class Obj_2ed20 {
+class Closure1_2ed20 {
   public:
     hulk_intptr vt;
     char pad4[0x0c];
@@ -16,9 +16,9 @@ class Obj_2ed20 {
     CActorManager* p1c;
     void* p20;
     void Init(const char*, int);
-    Obj_2ed20(const char*, void*, CActorManager*);
+    Closure1_2ed20(const char*, void*, CActorManager*);
 };
-Obj_2ed20::Obj_2ed20(const char* arg, void* p, CActorManager* cm) {
+Closure1_2ed20::Closure1_2ed20(const char* arg, void* p, CActorManager* cm) {
     Init(arg, 1);
     vt = ((hulk_intptr)DAT_003f410c);
     p1c = cm;

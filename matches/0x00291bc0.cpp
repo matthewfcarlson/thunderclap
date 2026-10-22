@@ -1,9 +1,9 @@
-class Base_291bc0 {
+class ImageHandler_291bc0 {
   public:
-    Base_291bc0();
+    ImageHandler_291bc0();
     virtual void F();
 };
-class PNGHandler : public Base_291bc0 {
+class PNGHandler : public ImageHandler_291bc0 {
   public:
     PNGHandler();
 };

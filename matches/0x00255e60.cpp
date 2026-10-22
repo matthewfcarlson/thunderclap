@@ -1,5 +1,5 @@
 struct Result_255e60 {};
-class Obj_255e60 {
+class SeqActionClip_255e60 {
   public:
     char pad[0x14];
     int field;
@@ -10,7 +10,7 @@ extern void __cdecl SetA(Result_255e60*, int*);
 extern void __cdecl SetB(Result_255e60*, int*);
 extern void __cdecl SetC(Result_255e60*, int, int);
 extern void __cdecl SetD(Result_255e60*, int);
-void Obj_255e60::Run(void* data) {
+void SeqActionClip_255e60::Run(void* data) {
     Result_255e60* r = Find(field, 0);
     if (!r)
         return;

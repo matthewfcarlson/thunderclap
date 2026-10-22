@@ -3,18 +3,18 @@ class Str_1ab0c0 {
   public:
     void Init();
 };
-class Base_1ab0c0 {
+class Condition_1ab0c0 {
   public:
     void* vptr;
     char pad[12];
     Str_1ab0c0 s;
     void Fin();
 };
-class Cond_1ab0c0 : public Base_1ab0c0 {
+class Event_PathNameCondition_1ab0c0 : public Condition_1ab0c0 {
   public:
-    ~Cond_1ab0c0();
+    ~Event_PathNameCondition_1ab0c0();
 };
-Cond_1ab0c0::~Cond_1ab0c0() {
+Event_PathNameCondition_1ab0c0::~Event_PathNameCondition_1ab0c0() {
     vptr = g_vftable_1ab0c0;
     s.Init();
     Fin();

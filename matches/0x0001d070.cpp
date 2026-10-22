@@ -3,18 +3,18 @@ class Obj {
     virtual void Add();
     virtual void Release();
 };
-class Root {
+class Action_1d070 {
   public:
     virtual void v();
     char pad[24];
     Obj* object;
     int val;
-    Root();
+    Action_1d070();
 };
-class CAction : public Root {
+class CAction : public Action_1d070 {
   public:
     virtual void v();
-    CAction(Obj* obj, int n) : Root() {
+    CAction(Obj* obj, int n) : Action_1d070() {
         object = 0;
         if (obj)
             obj->Add();

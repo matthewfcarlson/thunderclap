@@ -20,7 +20,7 @@ struct Owner_5a960 {
     Context_5a960* FUN_000592a0();
 };
 
-struct CGrappleLocoStrafe4Action_nv_5a960 {
+struct CGrappleLocoStrafe4Action_5a960 {
     void* FUN_0001dc40(CGrappleLocoStrafe4Track* track, Settings* settings);
 };
 void* __cdecl FUN_0008d690(unsigned int size);
@@ -46,5 +46,5 @@ int CGrappleLocoStrafe4Track::vfunc_12(int __p0) { Owner_5a960 * owner = (Owner_
     CGrappleLocoStrafe4Action* c = static_cast<CGrappleLocoStrafe4Action*>(FUN_0008d690(0x28));
     if (c == 0)
         return (int)(0);
-    return (hulk_intptr)(((CGrappleLocoStrafe4Action_nv_5a960*)(c))->FUN_0001dc40(this, settings));
+    return (hulk_intptr)(((CGrappleLocoStrafe4Action_5a960*)(c))->FUN_0001dc40(this, settings));
 }

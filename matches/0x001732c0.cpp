@@ -5,18 +5,18 @@ class Mem_1732c0 {
   public:
     ~Mem_1732c0();
 };
-class Base_1732c0 {
+class Track_1732c0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_1732c0 : public Base_1732c0 {
+class FootPivotTrack_1732c0 : public Track_1732c0 {
   public:
     char pad[20];
     Mem_1732c0 m;
-    Obj_1732c0* f2(unsigned char flags);
+    FootPivotTrack_1732c0* f2(unsigned char flags);
 };
-Obj_1732c0* Obj_1732c0::f2(unsigned char flags) {
+FootPivotTrack_1732c0* FootPivotTrack_1732c0::f2(unsigned char flags) {
     vptr = g_vftable_1732c0;
 
     m.~Mem_1732c0();

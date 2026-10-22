@@ -11,7 +11,7 @@ class Res_42890 {
   public:
     void Scale(float);
 };
-class Obj_42890 {
+class CCharacter_42890 {
   public:
     char p0[0x10];
     Check_42890* thing;
@@ -21,7 +21,7 @@ class Obj_42890 {
     void Finish(int, float);
     void Do(int, float);
 };
-void Obj_42890::Do(int a, float b) {
+void CCharacter_42890::Do(int a, float b) {
     inner.Init(0);
     if (thing->Ready()) {
         if (res)

@@ -6,16 +6,16 @@ class Chunk {
     int Find(int a, int b);
 };
 
-class Base_2d2570 {
+class NonCopyable_2d2570 {
   public:
-    Base_2d2570() : mA(0) {}
+    NonCopyable_2d2570() : mA(0) {}
     virtual void f0();
     int mA;
 };
 
-class GenState : public Base_2d2570 {
+class GeneratorBlendState_2d2570 : public NonCopyable_2d2570 {
   public:
-    GenState(Chunk* c);
+    GeneratorBlendState_2d2570(Chunk* c);
     virtual void f0();
     int m8;
     int mC;
@@ -24,7 +24,7 @@ class GenState : public Base_2d2570 {
     int m18;
 };
 
-GenState::GenState(Chunk* c) {
+GeneratorBlendState_2d2570::GeneratorBlendState_2d2570(Chunk* c) {
     m8 = 0;
     mC = 0;
     m10 = 0;

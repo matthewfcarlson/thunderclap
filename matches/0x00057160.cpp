@@ -1,17 +1,17 @@
 void* operator new(unsigned int) throw();
-class Base {
+class CAxisTimeCondition_57160 {
     char pad[20];
 
   public:
-    Base() throw();
+    CAxisTimeCondition_57160() throw();
     virtual void f();
 };
-class CAxisUpCondition : public Base {
+class CAxisUpCondition : public CAxisTimeCondition_57160 {
   public:
     CAxisUpCondition() throw();
     virtual void f();
 };
-CAxisUpCondition::CAxisUpCondition() throw() : Base() {}
+CAxisUpCondition::CAxisUpCondition() throw() : CAxisTimeCondition_57160() {}
 class Factory {
   public:
     virtual void a();
@@ -19,8 +19,8 @@ class Factory {
     virtual void c();
     virtual void d();
     virtual void e();
-    virtual Base* make();
+    virtual CAxisTimeCondition_57160* make();
 };
-Base* Factory::make() {
+CAxisTimeCondition_57160* Factory::make() {
     return new CAxisUpCondition;
 }

@@ -1,13 +1,13 @@
-class Base {
+class Track_12b6a0 {
   public:
-    Base();
+    Track_12b6a0();
     virtual void f();
 };
 class Sub {
   public:
     Sub();
 };
-class ThreatDodgeTrack : public Base {
+class ThreatDodgeTrack : public Track_12b6a0 {
   public:
     ThreatDodgeTrack();
     virtual void f();
@@ -18,4 +18,4 @@ class ThreatDodgeTrack : public Base {
     char pad2[7];
     Sub sub;
 };
-ThreatDodgeTrack::ThreatDodgeTrack() : Base(), a(0), b(-1.0f), c(1.0f), d(1), sub() {}
+ThreatDodgeTrack::ThreatDodgeTrack() : Track_12b6a0(), a(0), b(-1.0f), c(1.0f), d(1), sub() {}

@@ -7,7 +7,7 @@ struct Node {
     bool FUN_00309b20(Node *other);
 };
 
-class Scanner {
+class ArticulatedPhysicsObject_310b30 {
 public:
     char pad00[0x1fc];
     Node **nodes;
@@ -15,10 +15,10 @@ public:
     Node *first;
     Node *cursor;
     unsigned char active;
-    void FUN_00310b30(Scanner *owner, int a, int b);
+    void FUN_00310b30(ArticulatedPhysicsObject_310b30 *owner, int a, int b);
 };
 
-void Scanner::FUN_00310b30(Scanner *owner, int a, int b)
+void ArticulatedPhysicsObject_310b30::FUN_00310b30(ArticulatedPhysicsObject_310b30 *owner, int a, int b)
 {
     if (a < 0)
         return;

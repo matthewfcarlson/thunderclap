@@ -5,18 +5,18 @@ class Ref_2a98c0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_2a98c0 {
+class SimpleFrameController_2a98c0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_2a98c0 : public Base_2a98c0 {
+class BillboardQuadGroupAnimationController_2a98c0 : public SimpleFrameController_2a98c0 {
   public:
     char pad[60];
     Ref_2a98c0* m;
-    ~Obj_2a98c0();
+    ~BillboardQuadGroupAnimationController_2a98c0();
 };
-Obj_2a98c0::~Obj_2a98c0() {
+BillboardQuadGroupAnimationController_2a98c0::~BillboardQuadGroupAnimationController_2a98c0() {
     vptr = g_vftable_2a98c0;
     _ReadWriteBarrier();
     if (m) {

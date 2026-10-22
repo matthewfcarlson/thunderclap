@@ -2,7 +2,7 @@ class D {
   public:
     void Cleanup(int);
 };
-class C_e4020 {
+class ImageSelector_e4020 {
   public:
     virtual void V();
     char pad[0x2a4];
@@ -10,7 +10,7 @@ class C_e4020 {
     D* b;
     void Run();
 };
-void C_e4020::Run() {
+void ImageSelector_e4020::Run() {
     if (b)
         b->Cleanup(a);
     V();

@@ -6,12 +6,12 @@ class Ref_12dba0 {
     virtual void f();
     virtual void Release();
 };
-class Base_12dba0 {
+class Action_12dba0 {
   public:
     virtual void Dummy();
     void Finish();
 };
-class PostEvent_StringAction : public Base_12dba0 {
+class PostEvent_StringAction : public Action_12dba0 {
   public:
     void Clean();
     char pad0[0x20 - 4];

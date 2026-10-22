@@ -5,15 +5,15 @@ class Ref_197f90 {
     virtual void F0();
     virtual void Release();
 };
-class Obj_197f90 {
+class BeamEffect_197f90 {
   public:
     void* vptr;
     void* m4;
     char pad[0xc];
     Ref_197f90* m14;
-    ~Obj_197f90() throw();
+    ~BeamEffect_197f90() throw();
 };
-Obj_197f90::~Obj_197f90() throw() {
+BeamEffect_197f90::~BeamEffect_197f90() throw() {
     vptr = g_vftable_197f90;
     _ReadWriteBarrier();
     if (m14) {

@@ -5,11 +5,11 @@ struct CtorV_001d0480 {
     virtual void v_001d0480();
 };
 extern int gA_9c440, gB;
-class Parent_9c440 : public CtorV_001d0480 {
+class Function_9c440 : public CtorV_001d0480 {
   public:
-    Parent_9c440(void* a) : CtorV_001d0480(a, 2) { }
+    Function_9c440(void* a) : CtorV_001d0480(a, 2) { }
 };
-class Method2 : public Parent_9c440 {
+class Method2 : public Function_9c440 {
   public:
     virtual void Fn();
     char pad[0xc];
@@ -19,7 +19,7 @@ class Method2 : public Parent_9c440 {
     char pad3[3];
     void* p1;
     void* p2;
-    Method2(void* a, void* b) : Parent_9c440(a) {
+    Method2(void* a, void* b) : Function_9c440(a) {
         p1 = b;
         b18 = FUN_001d04d0(&gA_9c440);
         b10 = FUN_001d04d0(&gB);

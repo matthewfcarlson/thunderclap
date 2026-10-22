@@ -1,19 +1,19 @@
 #include "compat/ptr.h"
 extern "C" __int64 FUN_0027b020(hulk_intptr);
-struct Caster {
+struct DynamicCaster_fb1c0 {
     virtual void cast();
 };
 struct Inventory {
     virtual void a();
     virtual void b();
     virtual void c();
-    virtual int get(Caster*, __int64);
+    virtual int get(DynamicCaster_fb1c0*, __int64);
     virtual void d();
     virtual void use(int);
 };
 extern Inventory* inventory;
 inline int find(Inventory* inv, __int64 key) {
-    Caster caster;
+    DynamicCaster_fb1c0 caster;
     return inv->get(&caster, key);
 }
 char FUN_000fb1c0(int id) {

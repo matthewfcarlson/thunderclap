@@ -1,14 +1,14 @@
 extern char gName[];
 extern unsigned char __cdecl GetFlag(const char*);
-class Base {
+class Function_200440 {
   public:
-    Base(const char*, int);
+    Function_200440(const char*, int);
     virtual void Fn();
     char pad[0xc];
 };
-class Method1 : public Base {
+class Method1 : public Function_200440 {
   public:
-    Method1(const char* s, const char* t) : Base(s, 1) {
+    Method1(const char* s, const char* t) : Function_200440(s, 1) {
         m = t;
         a = GetFlag(gName);
         b = GetFlag(gName);

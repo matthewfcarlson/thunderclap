@@ -23,14 +23,14 @@ struct Xform_135520 {
     Matrix* FUN_00221c40();
 };
 
-class FlyDriver_135520 {
+class JointDriver_135520 {
 public:
     virtual void AddRef();
     char pad4[4];
     Name_135520 name;
     char pad10[8];
     Xform_135520 xform;
-    FlyDriver_135520* FUN_002248f0(int a);
+    JointDriver_135520* FUN_002248f0(int a);
 };
 
 struct Linked_135520 {
@@ -49,7 +49,7 @@ public:
 struct Tracker_135520 {
     char pad0[0x10];
     Xform_135520 xf;
-    void FUN_00222890(FlyDriver_135520* d, float a, float b, float c, float e, float f, float g);
+    void FUN_00222890(JointDriver_135520* d, float a, float b, float c, float e, float f, float g);
 };
 
 struct Stats_135520 {
@@ -94,7 +94,7 @@ public:
     char pad04[0x1c - 4];
     Config_135520* cfg;
     Holder_135520* holder;
-    FlyDriver_135520* driver;
+    JointDriver_135520* driver;
     RefObj_135520* ref;
     int f2c;
     V3_135520 dir;
@@ -119,9 +119,9 @@ bool FlyingAttackAction::vfunc_3(int a, int b)
     fr.f38 = c->f38;
     fr.f3c = c->f3c;
     void* mem = FUN_00263ea0(0x70);
-    FlyDriver_135520* d;
+    JointDriver_135520* d;
     if (mem != 0)
-        d = ((FlyDriver_135520*)mem)->FUN_002248f0(0);
+        d = ((JointDriver_135520*)mem)->FUN_002248f0(0);
     else
         d = 0;
     driver = d;

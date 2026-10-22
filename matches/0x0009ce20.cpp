@@ -1,8 +1,8 @@
 #include "decls/address.h"
 extern int a_9ce20, b, c;
-class Root_9ce20 {
+class Function_9ce20 {
   public:
-    Root_9ce20(int, int) throw();
+    Function_9ce20(int, int) throw();
     virtual void f();
     char pad[12];
     char x;
@@ -12,9 +12,9 @@ class Root_9ce20 {
     char pad3[3];
     int p;
 };
-class Method2 : public Root_9ce20 {
+class Method2 : public Function_9ce20 {
   public:
-    Method2(int arg1, int arg3) throw() : Root_9ce20(arg1, 2) {
+    Method2(int arg1, int arg3) throw() : Function_9ce20(arg1, 2) {
         p = arg3;
         z = FUN_001d04d0(&a_9ce20);
         x = FUN_001d04d0(&b);

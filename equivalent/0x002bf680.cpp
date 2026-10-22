@@ -61,17 +61,17 @@ struct Registry_2bf680 {
 };
 
 
-class __declspec(novtable) ImageFontBase {
+class __declspec(novtable) Entity_2bf680 {
 public:
     virtual void v0();
     char pad04[4];
     NameField_2bf680 name;
     void FUN_0027b070();
-    ImageFontBase() { FUN_0027b070(); }
+    Entity_2bf680() { FUN_0027b070(); }
 };
 
 namespace pure3d {
-class ImageFont : public ImageFontBase {
+class ImageFont : public Entity_2bf680 {
 public:
     int f10;
     int f14;

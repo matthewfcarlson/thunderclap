@@ -1,7 +1,7 @@
 extern "C" unsigned char __cdecl query(const void*);
 extern const char g1;
 extern const char g2;
-class Base {
+class Function_1e1320 {
   public:
     virtual void fn();
     char pad[12];
@@ -10,23 +10,23 @@ class Base {
     unsigned char b;
     char pad3[3];
     int x;
-    Base(void*, int);
+    Function_1e1320(void*, int);
 };
-class Method : public Base {
+class Method1_1e1320 : public Function_1e1320 {
   public:
     virtual void fn();
-    Method(void* p, int v) : Base(p, 1) {
+    Method1_1e1320(void* p, int v) : Function_1e1320(p, 1) {
         x = v;
         b = query(&g1);
         a = query(&g2);
     }
 };
-class Derived : public Method {
+class Closure1_1e1320 : public Method1_1e1320 {
   public:
     virtual void fn();
     int y;
-    Derived(void*, int, int);
+    Closure1_1e1320(void*, int, int);
 };
-Derived::Derived(void* p, int v, int w) : Method(p, w) {
+Closure1_1e1320::Closure1_1e1320(void* p, int v, int w) : Method1_1e1320(p, w) {
     y = v;
 }

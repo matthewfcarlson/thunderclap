@@ -1,9 +1,9 @@
 extern "C" unsigned char __cdecl Query(const void*);
 extern int keyA;
 extern int keyB;
-class Root {
+class Function_7e370 {
   public:
-    Root(int, int);
+    Function_7e370(int, int);
     virtual void f();
     char pad[12];
     unsigned char b;
@@ -13,9 +13,9 @@ class Root {
     int x;
     int y;
 };
-class Method1 : public Root {
+class Method1 : public Function_7e370 {
   public:
-    Method1(int n, int xx) : Root(n, 1) {
+    Method1(int n, int xx) : Function_7e370(n, 1) {
         x = xx;
         a = Query(&keyA);
         b = Query(&keyB);

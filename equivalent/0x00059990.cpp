@@ -2,7 +2,7 @@
 // CFightParamsCollision::vfunc_4 @ 0x00059990
 typedef unsigned int size_t;
 void* __cdecl FUN_0008d690(unsigned int);
-struct Base { void FUN_00236a60(); };
+struct CFightParamsCollision_59990 { void FUN_00236a60(); };
 struct CollisionData {
     char pad0[0x4c]; unsigned int a,b;
     char pad1[0x0c]; unsigned int c;
@@ -28,7 +28,7 @@ CFightParamsCollision* CFightParamsCollision::vfunc_4() {
     CFightParamsCollision* result = (CFightParamsCollision*)FUN_0008d690(0xb0);
     if (!result) return 0;
     unsigned int savedValue = value8;
-    ((Base*)result)->FUN_00236a60();
+    ((CFightParamsCollision_59990*)result)->FUN_00236a60();
     new (result) CFightParamsCollision;
     result->value8 = savedValue;
     result->valueC = 0;

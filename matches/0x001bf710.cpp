@@ -1,9 +1,9 @@
 extern char gOne[];
 extern char gTwo[];
 extern "C" char __cdecl ReadFlag(const char*);
-class Base_1bf710 {
+class Function_1bf710 {
   public:
-    Base_1bf710(int, int);
+    Function_1bf710(int, int);
     virtual void Fn();
     char pad[0xc];
     char f10, f11, f12;
@@ -12,12 +12,12 @@ class Base_1bf710 {
     char pad3[3];
     int field;
 };
-class Method3 : public Base_1bf710 {
+class Method3 : public Function_1bf710 {
   public:
     Method3(int, int);
     virtual void Fn();
 };
-Method3::Method3(int a, int b) : Base_1bf710(a, 3) {
+Method3::Method3(int a, int b) : Function_1bf710(a, 3) {
     field = b;
     f18 = ReadFlag(gOne);
     f10 = ReadFlag(gTwo);

@@ -5,11 +5,11 @@ struct CtorV_001d0480 {
 };
 extern const char name1[];
 extern const char name2[];
-class Base : public CtorV_001d0480 {
+class Function_2c790 : public CtorV_001d0480 {
   public:
-    Base(const char* s) : CtorV_001d0480(s, 1) { }
+    Function_2c790(const char* s) : CtorV_001d0480(s, 1) { }
 };
-class Method1 : public Base {
+class Method1 : public Function_2c790 {
   public:
     virtual void fn();
     char pad[12];
@@ -20,7 +20,7 @@ class Method1 : public Base {
     int c;
     Method1(const char*, int);
 };
-Method1::Method1(const char* s, int v) : Base(s) {
+Method1::Method1(const char* s, int v) : Function_2c790(s) {
     c = v;
     b = FUN_001d04d0(name1);
     a = FUN_001d04d0(name2);

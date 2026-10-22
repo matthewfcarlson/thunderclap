@@ -1,10 +1,10 @@
-class Base {
+class Track_115d00 {
   public:
-    Base();
+    Track_115d00();
     virtual void vf();
     char pad[8];
 };
-class MotionClosestWaypointTrack : public Base {
+class MotionClosestWaypointTrack : public Track_115d00 {
   public:
     MotionClosestWaypointTrack();
     int a;
@@ -16,4 +16,4 @@ class MotionClosestWaypointTrack : public Base {
     virtual void vf();
 };
 MotionClosestWaypointTrack::MotionClosestWaypointTrack()
-    : Base(), a(0), b(-1.0f), c(1.0f), d(0), e(0), f0(0), g(0), h(0), i(0), j(0.2f), k(3.0f) {}
+    : Track_115d00(), a(0), b(-1.0f), c(1.0f), d(0), e(0), f0(0), g(0), h(0), i(0), j(0.2f), k(3.0f) {}

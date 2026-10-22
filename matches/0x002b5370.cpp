@@ -10,7 +10,7 @@ class Helper_2b5370 {
   public:
     void Fn();
 };
-class A_2b5370 {
+class ShadowMeshImpl_2b5370 {
   public:
     void* vptr;
     char p[0x3c];
@@ -19,7 +19,7 @@ class A_2b5370 {
     Ref_2b5370* m48;
     void f();
 };
-void A_2b5370::f() {
+void ShadowMeshImpl_2b5370::f() {
     vptr = g_vftable_2b5370;
     _ReadWriteBarrier();
     if (m40) {

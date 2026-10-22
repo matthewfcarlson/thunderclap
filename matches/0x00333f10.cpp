@@ -5,10 +5,10 @@ extern void* v3_333f10[];
 extern void* v4_333f10[];
 extern int g_id_333f10;
 extern "C" void _ReadWriteBarrier();
-class O_333f10;
-extern O_333f10* g_o;
+class PlayerBink_333f10;
+extern PlayerBink_333f10* g_o;
 void FUN_002705f0() throw();
-class O_333f10 {
+class PlayerBink_333f10 {
   public:
     void* p0;
     void* p1;
@@ -17,9 +17,9 @@ class O_333f10 {
     int a, b, c, d;
     float f;
     char x, y;
-    O_333f10() throw();
+    PlayerBink_333f10() throw();
 };
-O_333f10::O_333f10() throw() {
+PlayerBink_333f10::PlayerBink_333f10() throw() {
     *(void* volatile*)&p0 = v0;
     *(void* volatile*)&p1 = v1_333f10;
     id = g_id_333f10;

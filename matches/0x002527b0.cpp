@@ -1,10 +1,10 @@
 #include "compat/ptr.h"
 extern "C" char DAT_00429fac[];
-class Base_2527b0 {
+class SeqEvent_2527b0 {
   public:
     void Init();
 };
-class SeqEventVarVolume : public Base_2527b0 {
+class SeqEventVarVolume : public SeqEvent_2527b0 {
   public:
     hulk_intptr vtable;
     int pad;

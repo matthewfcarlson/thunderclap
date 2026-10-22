@@ -3,8 +3,8 @@
 #include "decls/data/engine/physics.h"
 
 struct Part30_2f5480 { char data[0xac]; void FUN_0027af00(); };
-struct Part1c { char data[0x1c]; void FUN_002fca90(); };
-struct Part168 { char data[0x6c]; void FUN_00308cc0(); };
+struct SymMatrix_2f5480 { char data[0x1c]; void FUN_002fca90(); };
+struct SimpleFilterAbs3D_2f5480 { char data[0x6c]; void FUN_00308cc0(); };
 struct FUN_002fe640 {
  virtual void slot0();
  char pad04[0x20];
@@ -16,9 +16,9 @@ namespace physics {
 struct PhysicsObject : FUN_002fe640 {
  virtual void slot0();
  Part30_2f5480 part30;
- Part1c partdc, partf8, part114;
+ SymMatrix_2f5480 partdc, partf8, part114;
  char pad130[0x38];
- Part168 part168;
+ SimpleFilterAbs3D_2f5480 part168;
  unsigned int field1d4;
  float field1d8;
  unsigned int field1dc;

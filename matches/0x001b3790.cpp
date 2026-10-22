@@ -3,13 +3,13 @@ struct Vector {
 };
 extern int a, b, c;
 unsigned char __cdecl lookup(const void*);
-class Base {
+class Function_1b3790 {
   public:
     virtual void f();
-    Base(int, int);
+    Function_1b3790(int, int);
     char pad[12];
 };
-class Function2 : public Base {
+class Function2 : public Function_1b3790 {
   public:
     virtual void f();
     Function2(int, int);
@@ -19,7 +19,7 @@ class Function2 : public Base {
     char pad3[3];
     int val;
 };
-Function2::Function2(int arg, int v) : Base(arg, 2) {
+Function2::Function2(int arg, int v) : Function_1b3790(arg, 2) {
     val = v;
     z = lookup(&a);
     x = lookup(&b);

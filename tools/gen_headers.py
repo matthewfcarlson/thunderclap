@@ -595,7 +595,12 @@ class Gen:
         votes = collections.defaultdict(collections.Counter)
         ev = self.evidence
         curated_keys = set()
-        for src, items in (("mined", ev.get("sigs", {}).items()), ("curated", CURATED_SIGS.items())):
+        # include/gen/evidence-rn.json "sigs" (batch b6, tools/rn_sigs.py): slot signatures from the sources that define
+        # the slot's overrides, curated like CURATED_SIGS (which win)
+        rn = os.path.join(OUT_DIR, "evidence-rn.json")
+        rn_sigs = json.load(open(rn)).get("sigs", {}) if os.path.exists(rn) else {}
+        rn_sigs = [(k, (v[0], v[1])) for k, v in rn_sigs.items() if not k.startswith("_")]
+        for src, items in (("mined", ev.get("sigs", {}).items()), ("curated", rn_sigs + list(CURATED_SIGS.items()))):
             for fname, sig in items:
                 m = re.match(r"(.*)::vfunc_(\d+)$", fname)
                 c = self.by_csv.get(m.group(1)) if m else None
@@ -1381,6 +1386,11 @@ def map_type(qt):
     return None
 
 
+def _slot_detail(key, fn):
+    return (tuple(key), fn["type"]["qualType"],
+            [_clean_qt(c["type"]["qualType"]) for c in fn.get("inner", []) if c.get("kind") == "ParmVarDecl"])
+
+
 def split_fn_type(qt):
     """'int *(float, int) __attribute__((thiscall))' -> return type text."""
     t = qt.replace(" __attribute__((thiscall))", "").strip()
@@ -1555,7 +1565,10 @@ def mine(jobs=2, limit=None):
 # Swap-in measurement: recompile matches/ with the stub class replaced by the generated header
 
 class SwapFail(Exception):
-    pass
+    """`slot`: for a signature refusal, (slot key, the stub's function type, its parameter types) (tools/rn_sigs.py)."""
+    def __init__(self, msg, slot=None):
+        super().__init__(msg)
+        self.slot = slot
 
 
 def _rng(n):
@@ -1754,7 +1767,7 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
                             edits.append((dot, (2, 0), dot + 1, "->"))
         if k == "ReturnStmt" and n.get("inner") and hret != split_fn_type(fn["type"]["qualType"]):
             if hret == "void":
-                raise SwapFail("header slot returns void, stub returns a value")
+                raise SwapFail("header slot returns void, stub returns a value", _slot_detail(key, fn))
             eb, ee = _rng(n["inner"][0])
             edits.append((eb, (1, depth), eb, "(%s)(" % hret))
             edits.append((ee, (0, -depth), ee, ")"))
@@ -1764,7 +1777,7 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
     # parameters
     params = [c for c in fn.get("inner", []) if c.get("kind") == "ParmVarDecl"]
     if len(params) != len(hparams):
-        raise SwapFail("arity differs from header (%d vs %d)" % (len(params), len(hparams)))
+        raise SwapFail("arity differs from header (%d vs %d)" % (len(params), len(hparams)), _slot_detail(key, fn))
     plist, prologue = [], []
     for i, (pn, ht) in enumerate(zip(params, hparams)):
         qt, nm = _clean_qt(pn["type"]["qualType"]), pn.get("name")
@@ -1772,7 +1785,7 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
             plist.append("%s %s" % (ht, nm or ""))
             continue
         if (qt in ("float", "double")) != (ht in ("float", "double")):
-            raise SwapFail("parameter %d: stub %s vs header %s" % (i, qt, ht))
+            raise SwapFail("parameter %d: stub %s vs header %s" % (i, qt, ht), _slot_detail(key, fn))
         plist.append("%s __p%d" % (ht, i))
         if nm:
             if qt.endswith("&"):

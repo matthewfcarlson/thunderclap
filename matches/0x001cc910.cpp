@@ -25,7 +25,7 @@ struct Link_1cc910 {
     Part_1cc910 *f28;
 };
 
-class Screen_1cc910 {
+class CScenarioManager_1cc910 {
 public:
     char pad0[4];
     Link_1cc910 *link;
@@ -36,7 +36,7 @@ public:
 
 Mgr_1cc910 *FUN_001d4c90();
 
-void Screen_1cc910::FUN_001cc910(int m)
+void CScenarioManager_1cc910::FUN_001cc910(int m)
 {
     mode = m;
     if (link != 0 && link->fc != 0)

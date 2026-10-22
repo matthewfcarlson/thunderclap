@@ -7,12 +7,12 @@ class Ref_21aa0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_21aa0 {
+class CAction_21aa0 {
   public:
     void* vptr;
     void Fin();
 };
-class CMoveAction_21aa0 : public Base_21aa0 {
+class CMoveAction_21aa0 : public CAction_21aa0 {
   public:
     char pad[0x18];
     Ref_21aa0* m1c;

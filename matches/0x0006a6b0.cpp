@@ -1,9 +1,9 @@
-class Base_6a6b0 {
+class CTrack_6a6b0 {
   public:
-    Base_6a6b0();
+    CTrack_6a6b0();
     virtual void B();
 };
-class COrientTrack : public Base_6a6b0 {
+class COrientTrack : public CTrack_6a6b0 {
   public:
     COrientTrack();
     virtual ~COrientTrack() throw();

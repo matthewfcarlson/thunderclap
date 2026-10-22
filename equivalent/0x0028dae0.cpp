@@ -8,9 +8,9 @@ struct SharedPool {
     void *FUN_002888c0(int size, int stride);
 };
 
-class ChannelBase {
+class RotationChannel_28dae0 {
 public:
-    ChannelBase(int a, int b) throw();
+    RotationChannel_28dae0(int a, int b) throw();
     virtual void v0();
 
     char pad04[8];
@@ -20,7 +20,7 @@ public:
 };
 
 // equiv-map: ??0ChannelBase@@QAE@HH@Z = 0x0028b420
-class CompressedQuaternionChannel : public ChannelBase {
+class CompressedQuaternionChannel : public RotationChannel_28dae0 {
 public:
     CompressedQuaternionChannel(int a, int b);
     virtual void v0();
@@ -29,7 +29,7 @@ public:
 };
 
 // Allocates (or borrows from the shared pool) 3 bytes per element.
-CompressedQuaternionChannel::CompressedQuaternionChannel(int a, int b) : ChannelBase(a, b) {
+CompressedQuaternionChannel::CompressedQuaternionChannel(int a, int b) : RotationChannel_28dae0(a, b) {
     data = 0;
     if (shared == 0) {
         int n = count;

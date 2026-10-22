@@ -6,7 +6,7 @@ extern "C" char DAT_003f425c[];
 struct ThisCall_001d0480 {
     void FUN_001d0480(void*, int);
 };
-class CActorManager {
+class Method3_2db20 {
   public:
     hulk_intptr vftable;
     char pad04[0x0c];
@@ -15,9 +15,9 @@ class CActorManager {
     char flag18;
     char pad19[3];
     void* member1c;
-    CActorManager* Init(void*, void*);
+    Method3_2db20* Init(void*, void*);
 };
-CActorManager* CActorManager::Init(void* arg1, void* arg2) {
+Method3_2db20* Method3_2db20::Init(void* arg1, void* arg2) {
     ((ThisCall_001d0480*)(this))->FUN_001d0480(arg1, 3);
     vftable = ((hulk_intptr)DAT_003f425c);
     member1c = arg2;

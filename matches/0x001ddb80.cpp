@@ -5,14 +5,14 @@ struct Entry {
     short n;
     char c[4];
 };
-class X {
+class CSPManager_1ddb80 {
   public:
     int Find(int);
     void Set(int, unsigned char);
     char pad[0x608];
     Entry entries[1];
 };
-void X::Set(int id, unsigned char v) {
+void CSPManager_1ddb80::Set(int id, unsigned char v) {
     int i = Find(id);
     if (i >= 0) {
         Entry* e = &entries[i];

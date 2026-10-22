@@ -5,9 +5,9 @@
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 
-class Sub {
+class VertexList_2e01d0 {
 public:
-    Sub(int a, int b, int c) throw();
+    VertexList_2e01d0(int a, int b, int c) throw();
     virtual void AddRef();
     virtual void Release();
 };
@@ -25,7 +25,7 @@ public:
     int f50;
     char pad54[4];
     int f58;
-    Sub* f5c;
+    VertexList_2e01d0* f5c;
     PrimGroupBase() throw();
 };
 
@@ -43,9 +43,9 @@ PrimGroupStreamed::PrimGroupStreamed(int a, int b, int c) : PrimGroupBase() {
     f50 = -1;
     f5c = 0;
     void* mem = FUN_0008d690(0x5c);
-    Sub* sub = 0;
+    VertexList_2e01d0* sub = 0;
     if (mem)
-        sub = new (mem) Sub(f48, b, c);
+        sub = new (mem) VertexList_2e01d0(f48, b, c);
     f5c = sub;
     sub->AddRef();
     f58 = 0;

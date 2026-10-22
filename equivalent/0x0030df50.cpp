@@ -13,7 +13,7 @@ struct Range_30df50 {
     int offset;
 };
 
-class Pool_30df50 {
+class CollisionAnalyser_30df50 {
 public:
     hulk_intptr FUN_0030df50();
 
@@ -29,7 +29,7 @@ public:
     Elem_30df50 *elemCap;
 };
 
-hulk_intptr Pool_30df50::FUN_0030df50()
+hulk_intptr CollisionAnalyser_30df50::FUN_0030df50()
 {
     if ((((char *)freeEnd - (char *)freeBegin) & ~3) != 0) {
         freeEnd = freeEnd - 1;

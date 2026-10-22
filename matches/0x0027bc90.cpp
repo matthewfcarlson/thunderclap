@@ -14,12 +14,12 @@ struct E18 {
 struct M2c {
     void Fin() throw();
 };
-class Base_27bc90 {
+class Entity_27bc90 {
   public:
     void* vptr;
-    ~Base_27bc90() throw();
+    ~Entity_27bc90() throw();
 };
-class A_27bc90 : public Base_27bc90 {
+class Skeleton_27bc90 : public Entity_27bc90 {
   public:
     char pad[0x2c - 4];
     M2c* m2c;
@@ -29,9 +29,9 @@ class A_27bc90 : public Base_27bc90 {
     char pad2[0x44 - 0x3c];
     E28* m44;
     E28* m48;
-    ~A_27bc90() throw();
+    ~Skeleton_27bc90() throw();
 };
-A_27bc90::~A_27bc90() throw() {
+Skeleton_27bc90::~Skeleton_27bc90() throw() {
     vptr = g_vt_27bc90;
     if (--g_cnt == 0) {
         if (g_shared)

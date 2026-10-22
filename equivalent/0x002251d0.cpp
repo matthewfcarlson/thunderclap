@@ -9,8 +9,8 @@ void __cdecl FUN_0022b080(Quat_2251d0*,Quat_2251d0*,Vec4_2251d0*);
 struct Input_2251d0 { Quat_2251d0* FUN_00221cd0(); Matrix* FUN_00221c40(); };
 struct PairSource { virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void sample(void*,void*,Vec_2251d0*); };
 struct SingleSource { virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void sample(void*,Vec4_2251d0*); };
-struct Target_2251d0 { char pad0[0x24]; PairSource* pair; SingleSource* single; char pad1[0x228-0x2c]; float direction; void run(Input_2251d0*,void*,void*,Vec_2251d0*); };
-void Target_2251d0::run(Input_2251d0* input, void* a, void* b, Vec_2251d0* out) {
+struct AnimationDriver_2251d0 { char pad0[0x24]; PairSource* pair; SingleSource* single; char pad1[0x228-0x2c]; float direction; void run(Input_2251d0*,void*,void*,Vec_2251d0*); };
+void AnimationDriver_2251d0::run(Input_2251d0* input, void* a, void* b, Vec_2251d0* out) {
  Vec_2251d0 offset;
  if(pair) {
   if(direction >= 0.0f) pair->sample(a,b,&offset);

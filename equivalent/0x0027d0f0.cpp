@@ -41,11 +41,11 @@ public:
     void FUN_002998d0(int arg);
 };
 
-class Collider_27d0f0 : public RefCounted_27d0f0 {
+class WorldCollisionObject_27d0f0 : public RefCounted_27d0f0 {
 public:
     char pad04[0xc];
     void *source;
-    Collider_27d0f0 *FUN_002fe1a0(void *source);
+    WorldCollisionObject_27d0f0 *FUN_002fe1a0(void *source);
 };
 
 struct Shape_27d0f0 {
@@ -56,8 +56,8 @@ struct Shape_27d0f0 {
     char pad30[0x1c];
 };
 
-struct ShapeObj_27d0f0 {
-    ShapeObj_27d0f0 *FUN_002f3630(void *source);
+struct CollisionMesh_27d0f0 {
+    CollisionMesh_27d0f0 *FUN_002f3630(void *source);
     void FUN_002f39e0(Matrix16_27d0f0 *m);
 };
 
@@ -66,7 +66,7 @@ struct PtrVec_27d0f0 {
     Shape_27d0f0 **end;
 };
 
-class Holder_27d0f0;
+class PhysicsInstance_27d0f0;
 
 class Group_27d0f0 : public RefCounted_27d0f0 {
 public:
@@ -83,11 +83,11 @@ struct Part_27d0f0 {
     Part_27d0f0 *p10;
 };
 
-class Holder_27d0f0 : public RefCounted_27d0f0 {
+class PhysicsInstance_27d0f0 : public RefCounted_27d0f0 {
 public:
     char pad04[0xc];
     Part_27d0f0 *p10;
-    Holder_27d0f0 *FUN_002fc740(int a, int b, int c, int d);
+    PhysicsInstance_27d0f0 *FUN_002fc740(int a, int b, int c, int d);
     void *FUN_002fc6f0();
     void FUN_002fc700(void *a, int b);
 };
@@ -117,10 +117,10 @@ public:
     int f94;
     Group_27d0f0 *group;
     Material_27d0f0 *material;
-    Holder_27d0f0 *holder;
+    PhysicsInstance_27d0f0 *holder;
     void *table;
     unsigned int count;
-    Collider_27d0f0 **colliders;
+    WorldCollisionObject_27d0f0 **colliders;
     char dirty;
 
     StateProp(StateProp *src);
@@ -166,19 +166,19 @@ StateProp::StateProp(StateProp *src)
     if (((int)((char *)group->shapes.end - (char *)group->shapes.begin) & ~3) > 0) {
         int i = 0;
         do {
-            Collider_27d0f0 *c = src->colliders[i];
+            WorldCollisionObject_27d0f0 *c = src->colliders[i];
             if (c == 0) {
                 colliders[i] = 0;
             } else {
                 void *source = c->source;
-                ShapeObj_27d0f0 *s = (ShapeObj_27d0f0 *)FUN_0008d690(0xd4);
-                ShapeObj_27d0f0 *obj;
+                CollisionMesh_27d0f0 *s = (CollisionMesh_27d0f0 *)FUN_0008d690(0xd4);
+                CollisionMesh_27d0f0 *obj;
                 if (s)
                     obj = s->FUN_002f3630(source);
                 else
                     obj = 0;
                 obj->FUN_002f39e0(&matrix);
-                Collider_27d0f0 *w = (Collider_27d0f0 *)thunk_FUN_0008d690(0x18);
+                WorldCollisionObject_27d0f0 *w = (WorldCollisionObject_27d0f0 *)thunk_FUN_0008d690(0x18);
                 if (w)
                     w = w->FUN_002fe1a0(obj);
                 colliders[i] = w;
@@ -190,7 +190,7 @@ StateProp::StateProp(StateProp *src)
     }
 
     if (group->f14) {
-        Holder_27d0f0 *h = (Holder_27d0f0 *)FUN_0008d690(0x18);
+        PhysicsInstance_27d0f0 *h = (PhysicsInstance_27d0f0 *)FUN_0008d690(0x18);
         if (h) {
             int a = group->f14;
             int b = group->f18;

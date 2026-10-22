@@ -5,7 +5,7 @@ class Ref_175db0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_175db0 {
+class Action_175db0 {
   public:
     void* vptr;
     void Fin();
@@ -16,7 +16,7 @@ struct Sub_175db0 {
 };
 void __fastcall SubFini(Sub_175db0*) throw();
 void __fastcall SubFini2(Sub_175db0*) throw();
-class Obj_175db0 : public Base_175db0 {
+class SyncToLocatorAction_175db0 : public Action_175db0 {
   public:
     char p1c[24];
     void* m1c;
@@ -25,9 +25,9 @@ class Obj_175db0 : public Base_175db0 {
     Sub_175db0 s28;
     char p30[7];
     Ref_175db0* m30;
-    ~Obj_175db0() throw();
+    ~SyncToLocatorAction_175db0() throw();
 };
-Obj_175db0::~Obj_175db0() throw() {
+SyncToLocatorAction_175db0::~SyncToLocatorAction_175db0() throw() {
     vptr = g_vftable_175db0;
     _ReadWriteBarrier();
     if (m30) {

@@ -44,7 +44,7 @@ struct Frame_a4b90 {
     V3_a4b90 tmp;             // 0x50 (out / up vector)
 };
 
-class Cam_a4b90 {
+class CChaseCamera_a4b90 {
 public:
     char pad000[0x194];
     V3_a4b90 p194;
@@ -104,7 +104,7 @@ public:
     void Update(float unused, float dt);
 };
 
-void Cam_a4b90::Update(float unused, float dt)
+void CChaseCamera_a4b90::Update(float unused, float dt)
 {
     FUN_000a0dc0(DAT_0049ec74, DAT_0049ec7c * 0.5f, dt);
 

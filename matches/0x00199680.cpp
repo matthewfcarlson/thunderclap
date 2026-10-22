@@ -5,19 +5,19 @@ class Ref_199680 {
     virtual void F0();
     virtual void Release();
 };
-class Base_199680 {
+class Action_199680 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_199680 : public Base_199680 {
+class MissilePunchAction_199680 : public Action_199680 {
   public:
     char pad[0x1c - 4];
     void* m1c;
     Ref_199680* m20;
-    ~Obj_199680();
+    ~MissilePunchAction_199680();
 };
-Obj_199680::~Obj_199680() {
+MissilePunchAction_199680::~MissilePunchAction_199680() {
     vptr = g_vftable_199680;
     _ReadWriteBarrier();
     if (m20) {

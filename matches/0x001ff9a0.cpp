@@ -1,13 +1,13 @@
 extern char a[], b[];
 char __cdecl check(const char*);
-class Parent {
+class Function_1ff9a0 {
   public:
-    Parent(const char*, int);
+    Function_1ff9a0(const char*, int);
     virtual void f();
 };
-class Root : public Parent {
+class Method1_1ff9a0 : public Function_1ff9a0 {
   public:
-    inline Root(const char* n, void* ctx) : Parent(n, 1) {
+    inline Method1_1ff9a0(const char* n, void* ctx) : Function_1ff9a0(n, 1) {
         v = ctx;
         y = check(b);
         x = check(a);
@@ -21,11 +21,11 @@ class Root : public Parent {
     void* v;
     void* w;
 };
-class Closure : public Root {
+class Closure1_1ff9a0 : public Method1_1ff9a0 {
   public:
-    Closure(const char*, void*, void*);
+    Closure1_1ff9a0(const char*, void*, void*);
     virtual void g();
 };
-Closure::Closure(const char* name, void* vec, void* ctx) : Root(name, ctx) {
+Closure1_1ff9a0::Closure1_1ff9a0(const char* name, void* vec, void* ctx) : Method1_1ff9a0(name, ctx) {
     w = vec;
 }

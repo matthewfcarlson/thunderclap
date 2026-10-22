@@ -5,12 +5,12 @@ class Ref_1368a0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_1368a0 {
+class Action_1368a0 {
   public:
     void* vptr;
     void Fin();
 };
-class AirToGroundTargetAction_1368a0 : public Base_1368a0 {
+class AirToGroundTargetAction_1368a0 : public Action_1368a0 {
   public:
     char pad[0x18];
     void* m1c;

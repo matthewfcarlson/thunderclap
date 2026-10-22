@@ -3,9 +3,9 @@ class Other_1178e0 {
     virtual void AddRef();
     virtual void Release();
 };
-class Base_1178e0 {
+class Action_1178e0 {
   public:
-    Base_1178e0();
+    Action_1178e0();
     virtual void X();
     char pad[0x18];
 };
@@ -19,7 +19,7 @@ struct S_1178e0 {
         c = 0;
     }
 };
-class MotionFleeAction : public Base_1178e0 {
+class MotionFleeAction : public Action_1178e0 {
   public:
     virtual void A();
     S_1178e0 s;

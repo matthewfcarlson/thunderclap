@@ -8,7 +8,7 @@ class Params_188ec0 {
 extern Params_188ec0 TypeA_188ec0;
 extern Params_188ec0 TypeB_188ec0;
 int __cdecl Check(void*, int, Params_188ec0*, Params_188ec0*, int);
-struct PropDestroyAction_nv_188ec0 {
+struct PropDestroyAction_188ec0 {
     int Init(hulkfight::motion::PropDestroyTrack*, int);
 };
 hulkfight::motion::PropDestroyAction* __cdecl Alloc(int);
@@ -18,7 +18,7 @@ int hulkfight::motion::PropDestroyTrack::vfunc_10(int a, int b, int c) {
     if (result) {
         hulkfight::motion::PropDestroyAction* p = Alloc(0x24);
         if (p)
-            return ((PropDestroyAction_nv_188ec0*)(p))->Init(this, c);
+            return ((PropDestroyAction_188ec0*)(p))->Init(this, c);
     }
     return 0;
 }

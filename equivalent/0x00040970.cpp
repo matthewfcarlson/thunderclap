@@ -44,7 +44,7 @@ struct Ref_40970 {
     unsigned int *id;
 };
 
-struct Obj11c_40970 {
+struct CCharacter_40970 {
     char pad00[0x130];
     float f130;
     float f134;
@@ -81,7 +81,7 @@ public:
     char pad114[4];
     char b118;                  // 0x118
     char pad119[3];
-    Obj11c_40970 *o11c;               // 0x11c
+    CCharacter_40970 *o11c;               // 0x11c
     char pad120[0x1e0];
     float f300;
     float f304;
@@ -146,7 +146,7 @@ void Actor_40970::FUN_00040970(World *w, float dt)
     f1e4c = dt + f1e4c;
     if (f1b28 != 0)
         f1b2c = dt + f1b2c;
-    Obj11c_40970 *o = o11c;
+    CCharacter_40970 *o = o11c;
     if (o != 0) {
         double v = f1b30 - dt * o->f15c;
         if (!(0.0 < v))
@@ -163,7 +163,7 @@ void Actor_40970::FUN_00040970(World *w, float dt)
         if (f1b0c.f > 0.0f) {
             f.av = f1b0c;
             f.limit = o11c->f130 * f1b14;
-            Obj11c_40970 *oc = o11c;
+            CCharacter_40970 *oc = o11c;
             bool proceed;
             if (b1b34 == 0) {
                 if (f1e4c > oc->f154) {

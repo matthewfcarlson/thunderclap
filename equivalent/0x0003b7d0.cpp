@@ -72,7 +72,7 @@ struct Pool_3b7d0 {
     void FUN_00060170();
 };
 
-class Actor_3b7d0 {
+class CCharacter_3b7d0 {
 public:
     char pad0[0xb4];
     Anim_3b7d0 anim;  // 0xb4
@@ -119,7 +119,7 @@ public:
     void FUN_0003b7d0(int a, float dt);
 };
 
-void Actor_3b7d0::FUN_0003b7d0(int a, float dt)
+void CCharacter_3b7d0::FUN_0003b7d0(int a, float dt)
 {
     V3_3b7d0 zero;
     if (dead)

@@ -1,10 +1,10 @@
-class Base {
+class CTrack_6b250 {
   public:
-    Base();
+    CTrack_6b250();
     virtual void f();
     char pad[4];
 };
-class CTargetTrack : public Base {
+class CTargetTrack : public CTrack_6b250 {
   public:
     CTargetTrack();
     virtual void f();

@@ -15,7 +15,7 @@ public:
     virtual void setColor(unsigned int tag, unsigned int value);
 };
 
-class Res_2821d0 {
+class Shader_2821d0 {
 public:
     virtual void addRef();
     char pad04[0xc];
@@ -24,7 +24,7 @@ public:
     char pad15[3];
     int mode;                // 0x18
     char pad1c[4];
-    Res_2821d0 *FUN_0028edf0(const char *name, int flags);
+    Shader_2821d0 *FUN_0028edf0(const char *name, int flags);
 };
 
 namespace pure3d {
@@ -40,7 +40,7 @@ public:
 
 class CLightQueue : public QueueBase {
 public:
-    Res_2821d0 *res;                // 0x14
+    Shader_2821d0 *res;                // 0x14
     int f18;
     int f1c;
     int f20;
@@ -61,13 +61,13 @@ CLightQueue::CLightQueue()
     f20 = 0;
     f54 = 0;
     void *mem = FUN_00263ea0(0x20);
-    Res_2821d0 *r = 0;
+    Shader_2821d0 *r = 0;
     if (mem)
-        r = static_cast<Res_2821d0 *>(mem)->FUN_0028edf0("simple", 0);
+        r = static_cast<Shader_2821d0 *>(mem)->FUN_0028edf0("simple", 0);
     res = r;
     res->addRef();
 
-    Res_2821d0 *e = res;
+    Shader_2821d0 *e = res;
     e->attr->setInt(0x54494c, 1);
     e->locked = 1;
     res->attr->setInt(0x44495332, 0);

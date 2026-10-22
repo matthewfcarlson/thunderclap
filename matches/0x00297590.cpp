@@ -5,18 +5,18 @@ class Ref_297590 {
     virtual void f0();
     virtual void Release();
 };
-class Root_297590 {
+class BranchNode_297590 {
   public:
     void* vptr;
-    ~Root_297590() throw();
+    ~BranchNode_297590() throw();
 };
-class D : public Root_297590 {
+class VisibilityNode_297590 : public BranchNode_297590 {
   public:
     char p2c[40];
     Ref_297590* a2c;
-    ~D() throw();
+    ~VisibilityNode_297590() throw();
 };
-D::~D() throw() {
+VisibilityNode_297590::~VisibilityNode_297590() throw() {
     vptr = &vt1_297590;
     _ReadWriteBarrier();
     if (a2c) {

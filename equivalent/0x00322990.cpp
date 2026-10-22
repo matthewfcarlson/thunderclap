@@ -12,9 +12,9 @@ struct Ctx_322990;
 struct HeapObj {
     static void* operator new(unsigned size) throw();
 };
-class TexRef_322990 : public HeapObj {
+class d3dTexture_322990 : public HeapObj {
   public:
-    TexRef_322990(Ctx_322990* ctx, int arg) throw();
+    d3dTexture_322990(Ctx_322990* ctx, int arg) throw();
     virtual void v0();
     void FUN_00326300(Surface_322990* s);
     char pad4[0xf8 - 4];
@@ -26,7 +26,7 @@ class ShaderObj_322990 {
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void SetTexture(int slot, TexRef_322990* tex);
+    virtual void SetTexture(int slot, d3dTexture_322990* tex);
     virtual void SetMode(int mode, int on);
 };
 class Factory_322990 {
@@ -132,7 +132,7 @@ class Overlay {
     char pad0[4];
     Ctx_322990* ctx;
     ShaderObj_322990* shader;
-    TexRef_322990* tex;
+    d3dTexture_322990* tex;
     unsigned char enabled;
     char pad11[3];
     float alpha;
@@ -145,7 +145,7 @@ void Overlay::Draw() {
         return;
     if (shader == 0) {
         shader = ctx->factory->CreateShader("simple", 0);
-        tex = new TexRef_322990(ctx, 0);
+        tex = new d3dTexture_322990(ctx, 0);
         shader->v0();
         tex->v0();
         shader->SetTexture(0x584554, tex);

@@ -6,15 +6,15 @@ class Ref_19b830 {
     virtual void F0();
     virtual void Release();
 };
-class Obj_19b830 {
+class BeamEffect_19b830 {
   public:
     void* vptr;
     void* m4;
     char pad[0xc];
     Ref_19b830* m14;
-    Obj_19b830* f2(unsigned char flags);
+    BeamEffect_19b830* f2(unsigned char flags);
 };
-Obj_19b830* Obj_19b830::f2(unsigned char flags) {
+BeamEffect_19b830* BeamEffect_19b830::f2(unsigned char flags) {
     vptr = g_vftable_19b830;
     _ReadWriteBarrier();
     if (m14) {

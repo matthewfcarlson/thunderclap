@@ -5,12 +5,12 @@ class Item_2893b0 {
     virtual void Del(int);
     virtual void Release();
 };
-class Base_2893b0 {
+class Entity_2893b0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_2893b0 : public Base_2893b0 {
+class Animation_2893b0 : public Entity_2893b0 {
   public:
     char pad[0x24];
     int count;
@@ -18,9 +18,9 @@ class Obj_2893b0 : public Base_2893b0 {
     Item_2893b0* owner;
     char pad2[4];
     void* m38;
-    ~Obj_2893b0();
+    ~Animation_2893b0();
 };
-Obj_2893b0::~Obj_2893b0() {
+Animation_2893b0::~Animation_2893b0() {
     vptr = g_vftable_2893b0;
     if (owner == 0) {
         for (int i = 0; i < count; ++i) {

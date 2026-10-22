@@ -30,15 +30,15 @@ struct Name_2b16a0 {
 
 struct ExprGroup;
 
-struct ExprMixer {
+struct VertexOffsetExpressionMixer_2b16a0 {
     char pad0[8];
     Name_2b16a0 name;
     char pad10[0x38 - 0x10];
-    ExprMixer *FUN_002b15d0(ExprGroup *group);
+    VertexOffsetExpressionMixer_2b16a0 *FUN_002b15d0(ExprGroup *group);
 };
 
 struct SkinHolder_2b16a0 {
-    void FUN_002a9ea0(ExprMixer *mixer);
+    void FUN_002a9ea0(VertexOffsetExpressionMixer_2b16a0 *mixer);
 };
 
 struct Skin_2b16a0 {
@@ -79,10 +79,10 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual void vfunc_5(ExprMixer **out, unsigned __int64 *outId, Stream *s, LoadContext_2b16a0 *ctx);
+    virtual void vfunc_5(VertexOffsetExpressionMixer_2b16a0 **out, unsigned __int64 *outId, Stream *s, LoadContext_2b16a0 *ctx);
 };
 
-void VertexOffsetExpressionMixerLoader::vfunc_5(ExprMixer **out, unsigned __int64 *outId, Stream *s, LoadContext_2b16a0 *ctx)
+void VertexOffsetExpressionMixerLoader::vfunc_5(VertexOffsetExpressionMixer_2b16a0 **out, unsigned __int64 *outId, Stream *s, LoadContext_2b16a0 *ctx)
 {
     Frame_2b16a0 f;
     s->reader->FUN_002647e0(&f.cell, 1, 4, 1);
@@ -107,9 +107,9 @@ void VertexOffsetExpressionMixerLoader::vfunc_5(ExprMixer **out, unsigned __int6
         FUN_0028fcc0("Warning : can't find expression group '%s' for mixer '%s'\n", f.groupName, f.mixerName);
 
     void *mem = FUN_00263ea0(0x38);
-    ExprMixer *mixer = 0;
+    VertexOffsetExpressionMixer_2b16a0 *mixer = 0;
     if (mem)
-        mixer = static_cast<ExprMixer *>(mem)->FUN_002b15d0(group);
+        mixer = static_cast<VertexOffsetExpressionMixer_2b16a0 *>(mem)->FUN_002b15d0(group);
     mixer->name.FUN_0027b040(f.mixerName);
 
     unsigned __int64 skinId = FUN_0027b020(f.skinName);

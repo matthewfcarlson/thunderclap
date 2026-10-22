@@ -10,12 +10,12 @@ class Ref_123310 {
     virtual void F0();
     virtual void Release();
 };
-class Base_123310 {
+class Action_123310 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_123310 : public Base_123310 {
+class PathAction_123310 : public Action_123310 {
   public:
     char pad4[0x4c];
     void* m50;
@@ -29,9 +29,9 @@ class Obj_123310 : public Base_123310 {
     void* ma0;
     char pada4[0x2c];
     T1 md0;
-    ~Obj_123310() throw();
+    ~PathAction_123310() throw();
 };
-Obj_123310::~Obj_123310() throw() {
+PathAction_123310::~PathAction_123310() throw() {
     vptr = g_vftable_123310;
     _ReadWriteBarrier();
     if (m94) {

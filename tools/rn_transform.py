@@ -8,6 +8,8 @@
             (`CTrack_vftable` -> `ConditionFactory_23d3d0_vftable`: merged, two sources' `CTrack_vftable` would be one
             symbol for two vftables); comments, strings, preprocessor and `// equiv-*` lines don't. In a TU on
             include/gen/ the stub no longer collides with the header's class.
+  relabel   (b4) the same rename for a suffixed or invented stub that collides with nothing (`Obj_2d5ec0` ->
+            `SpriteParticleEmitter_2d5ec0`): readability, and the name says which class a later batch moves it onto.
   gen-ref   a stub the source only uses (no member defined in the source) whose real class is an include/gen/
             class goes: the source includes the class's header, names the class (`Ref_1d1e0` ->
             `pure3d::NonCopyable`), its field accesses become the header's `f_XX` fields (a `(*(T*)&p->f_XX)` cast
@@ -98,11 +100,26 @@ def placeholder(real, addr):
 
 
 # ---------------------------------------------------------------------------------------------
-def unclash_transform(text, addr, stub, real):
-    """(new text, what) or SwapFail."""
+SUFFIXED = re.compile(r"^(\w+?)_([0-9a-f]{4,8})$")
+
+
+def relabel_name(stub, real, addr):
+    """b4's name for a suffixed or invented stub whose real class the rename map knows: the real class's short name
+    with the stub's own placeholder suffix (`Obj_2d5ec0` -> `SpriteParticleEmitter_2d5ec0`, the same in every
+    source that carries a copy of it) or, for an invented name, the source's (`Node` -> `Object_1c5a70`)."""
+    m = SUFFIXED.match(stub)
+    if m:
+        return "%s_%s" % (short(real), m.group(2))
+    return placeholder(real, addr)
+
+
+def unclash_transform(text, addr, stub, real, new=None):
+    """(new text, what) or SwapFail. `new`: the stub's new name (default: the real name + the source's suffix)."""
     if "::" in stub:
         raise SwapFail("namespaced stub")
-    new = placeholder(real, addr)
+    new = new or placeholder(real, addr)
+    if not re.fullmatch(r"[A-Za-z_]\w*", new):
+        raise SwapFail("not an identifier: %s" % new)
     if stub == new:
         raise SwapFail("already its placeholder name")
     eq = equiv_text(text)

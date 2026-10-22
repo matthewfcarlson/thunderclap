@@ -1,9 +1,9 @@
 #include "compat/ptr.h"
-class Obj {
+class CTriggerVolumeManager_1ff200 {
   public:
-    typedef unsigned char (Obj::*Fn)(int, int, int, int);
+    typedef unsigned char (CTriggerVolumeManager_1ff200::*Fn)(int, int, int, int);
 };
-void f(Obj* obj, int* args, unsigned char* out, Obj::Fn fn) {
+void f(CTriggerVolumeManager_1ff200* obj, int* args, unsigned char* out, CTriggerVolumeManager_1ff200::Fn fn) {
     int* p = args;
     int a = *p++;
     int b = *p;

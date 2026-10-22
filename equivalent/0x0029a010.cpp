@@ -17,12 +17,12 @@ struct ChildEntry {
     Peer_29a010 *item;
 };
 
-struct Children_29a010 {
+struct ActivePrimitiveList_29a010 {
     virtual void c0();
     char pad04[0x3c - 4];
     ChildEntry *begin;
     ChildEntry *end;
-    Children_29a010 *FUN_00299da0(Children_29a010 *src);
+    ActivePrimitiveList_29a010 *FUN_00299da0(ActivePrimitiveList_29a010 *src);
     void FUN_00298870();
 };
 
@@ -48,16 +48,16 @@ struct Sink50 {
     void FUN_002a8310(pure3d::CompositeDrawable *cd);
 };
 
-class __declspec(novtable) DrawableBase_29a010 {
+class __declspec(novtable) DrawableHierarchy_29a010 {
 public:
     virtual void b0();
     char pad04[0x3c];
-    void FUN_002a3530(const DrawableBase_29a010 *src);
-    DrawableBase_29a010(const DrawableBase_29a010 &src) { FUN_002a3530(&src); }
+    void FUN_002a3530(const DrawableHierarchy_29a010 *src);
+    DrawableHierarchy_29a010(const DrawableHierarchy_29a010 &src) { FUN_002a3530(&src); }
 };
 
 namespace pure3d {
-class CompositeDrawable : public DrawableBase_29a010 {
+class CompositeDrawable : public DrawableHierarchy_29a010 {
 public:
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -72,7 +72,7 @@ public:
     virtual void vfunc_11();
     virtual void vfunc_12();
     Clock_29a010 *clock;
-    Children_29a010 *children;
+    ActivePrimitiveList_29a010 *children;
     void *f48;
     Sink4c *sink4c;
     Sink50 *sink50;
@@ -82,7 +82,7 @@ public:
 }
 
 pure3d::CompositeDrawable::CompositeDrawable(const CompositeDrawable &src)
-    : DrawableBase_29a010(src)
+    : DrawableHierarchy_29a010(src)
 {
     clock = 0;
     children = 0;
@@ -92,9 +92,9 @@ pure3d::CompositeDrawable::CompositeDrawable(const CompositeDrawable &src)
 
     if (src.children != 0) {
         void *mem = FUN_0008d690(0x48);
-        Children_29a010 *c = 0;
+        ActivePrimitiveList_29a010 *c = 0;
         if (mem)
-            c = ((Children_29a010 *)mem)->FUN_00299da0(src.children);
+            c = ((ActivePrimitiveList_29a010 *)mem)->FUN_00299da0(src.children);
         children = c;
         children->c0();
         children->FUN_00298870();

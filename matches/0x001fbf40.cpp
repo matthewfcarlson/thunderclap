@@ -1,10 +1,10 @@
 extern "C" void _ReadWriteBarrier();
-class Base {
+class Entity_1fbf40 {
   public:
-    Base();
+    Entity_1fbf40();
     virtual void fn();
 };
-class CLocator : public Base {
+class CLocator : public Entity_1fbf40 {
   public:
     CLocator();
     char pad[12];

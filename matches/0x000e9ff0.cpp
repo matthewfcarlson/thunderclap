@@ -18,7 +18,7 @@ struct Sub_e9ff0 {
     char c;
     void Fin() throw();
 };
-class Obj_e9ff0 {
+class HSlider_e9ff0 {
   public:
     void* vptr;
     char p[0x14];
@@ -37,9 +37,9 @@ class Obj_e9ff0 {
     Ref_e9ff0* m190;
     Ref_e9ff0* a[10];
     Ref_e9ff0* b[10];
-    ~Obj_e9ff0() throw();
+    ~HSlider_e9ff0() throw();
 };
-Obj_e9ff0::~Obj_e9ff0() throw() {
+HSlider_e9ff0::~HSlider_e9ff0() throw() {
     vptr = g_vftable_e9ff0;
     if (m180)
         ma8->m8->Rem(m180 + 0x18);

@@ -1,7 +1,7 @@
 extern "C" void _ReadWriteBarrier();
-class Base {
+class DrawablePrimitive_2bc580 {
   public:
-    Base();
+    DrawablePrimitive_2bc580();
     virtual void f();
     char pad[0x3c];
 };
@@ -10,7 +10,7 @@ class Sub {
     void Init();
     char pad[0x40];
 };
-class BillboardQuadGroup : public Base {
+class BillboardQuadGroup : public DrawablePrimitive_2bc580 {
   public:
     BillboardQuadGroup();
     virtual void f();
@@ -20,7 +20,7 @@ class BillboardQuadGroup : public Base {
     char b, c, d, pad3;
     int e, g;
 };
-BillboardQuadGroup::BillboardQuadGroup() : Base() {
+BillboardQuadGroup::BillboardQuadGroup() : DrawablePrimitive_2bc580() {
     scale = 1.0f;
     a = 0;
     b = 1;

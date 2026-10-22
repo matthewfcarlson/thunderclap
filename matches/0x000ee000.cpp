@@ -21,7 +21,7 @@ struct Item_ee000 {
 struct Sub_ee000 {
     void Fin() throw();
 };
-class Obj_ee000 {
+class ImageSelector_ee000 {
   public:
     void* vptr;
     char pad0[0x14];
@@ -40,7 +40,7 @@ class Obj_ee000 {
     Item_ee000* m2ac;
     void f();
 };
-void Obj_ee000::f() {
+void ImageSelector_ee000::f() {
     Item_ee000* it = m2ac;
     vptr = g_a_ee000;
     if (it) {

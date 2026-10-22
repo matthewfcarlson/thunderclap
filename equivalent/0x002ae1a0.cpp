@@ -5,21 +5,21 @@
 struct Surface_2ae1a0 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual void slot9(); virtual void slot10(); virtual void setPalette(int count, void* palette);
 };
-struct Resource_2ae1a0 {
+struct Texture_2ae1a0 {
  virtual void slot0(); virtual void release();
  char pad[12]; Surface_2ae1a0* surface;
- Resource_2ae1a0* FUN_002c1c30();
+ Texture_2ae1a0* FUN_002c1c30();
  void FUN_002c1c70(int width,int height,int depth,int a,int b,int palette,int c);
 };
 struct Manager_2ae1a0 { virtual void slot0(); virtual void slot1(); virtual int slot2(); };
 extern void* __cdecl FUN_00263ea0(int);
 struct Object {
- int field0; Resource_2ae1a0* resource; char pad[24]; int field20; int field24; int field28; int field2c; int depth;
+ int field0; Texture_2ae1a0* resource; char pad[24]; int field20; int field24; int field28; int field2c; int depth;
  int run(int width,int height,int requestedDepth,int unused,void* palette);
 };
 int Object::run(int width,int height,int requestedDepth,int unused,void* palette) {
  if(resource) resource->release();
- Resource_2ae1a0* p=(Resource_2ae1a0*)FUN_00263ea0(24);
+ Texture_2ae1a0* p=(Texture_2ae1a0*)FUN_00263ea0(24);
  if(p) p=p->FUN_002c1c30();
  resource=p;
  if(depth==16) resource->FUN_002c1c70(width,height,16,field20,field24,0,field2c);

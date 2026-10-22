@@ -8,22 +8,22 @@ struct Transform_3a680 {
     void FUN_00221c60(int v);
 };
 
-class JointObject_3a680 {
+class JointDriver_3a680 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     char pad04[0x14];
     Transform_3a680 transform;
     char rest[0x70 - 0x18 - sizeof(Transform_3a680)];
-    JointObject_3a680 *FUN_002248f0(unsigned int id);
+    JointDriver_3a680 *FUN_002248f0(unsigned int id);
 };
 
 struct Scene_3a680 {
     char pad0[0x10];
     Pose pose;
-    void FUN_00222970(JointObject_3a680 *obj, int flag);
-    void FUN_00222d70(JointObject_3a680 *obj, float v);
-    void FUN_00222890(JointObject_3a680 *obj, float a, float b, float c, float d, float e, float f);
+    void FUN_00222970(JointDriver_3a680 *obj, int flag);
+    void FUN_00222d70(JointDriver_3a680 *obj, float v);
+    void FUN_00222890(JointDriver_3a680 *obj, float a, float b, float c, float d, float e, float f);
 };
 
 struct Matrix {
@@ -50,7 +50,7 @@ public:
     int idB;
     int idC;
     Matrix matrix;
-    JointObject_3a680 *joint;
+    JointDriver_3a680 *joint;
     int f38c;
     Entity *prevTarget;
     void FUN_00037000();
@@ -78,9 +78,9 @@ char Entity::SetTarget(Entity *t, int a, int b, int c, const Matrix *m, float e5
         if (scene != 0) {
             scene->FUN_00222970(joint, 0);
             void *mem = FUN_00263ea0(0x70);
-            JointObject_3a680 *obj = 0;
+            JointDriver_3a680 *obj = 0;
             if (mem)
-                obj = ((JointObject_3a680 *)mem)->FUN_002248f0(0);
+                obj = ((JointDriver_3a680 *)mem)->FUN_002248f0(0);
             if (obj)
                 obj->vfunc_0();
             if (joint)

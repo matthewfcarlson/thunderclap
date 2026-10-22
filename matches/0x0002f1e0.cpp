@@ -4,11 +4,11 @@ struct CtorV_001d0480 {
 };
 unsigned char __cdecl Lookup(const char*);
 extern const char text1[], text2[];
-class Base : public CtorV_001d0480 {
+class Function_2f1e0 : public CtorV_001d0480 {
   public:
-    Base(void* x) : CtorV_001d0480(x, 1) { }
+    Function_2f1e0(void* x) : CtorV_001d0480(x, 1) { }
 };
-class Method1 : public Base {
+class Method1 : public Function_2f1e0 {
   public:
     virtual void Fn();
     char pad[12];
@@ -18,7 +18,7 @@ class Method1 : public Base {
     char pad3[3];
     void* p;
     void* q;
-    Method1(void* x, void* y) : Base(x) {
+    Method1(void* x, void* y) : Function_2f1e0(x) {
         p = y;
         b = Lookup(text1);
         a = Lookup(text2);

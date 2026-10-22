@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1510 inputs, branch coverage 10/10)
 // FUN_001c7870 @ 0x001c7870
-class SlotPool {
+class StoreBase_1c7870 {
 public:
     char pad0[8];
     int capacity;       // 0x8
@@ -12,7 +12,7 @@ public:
 };
 
 // Stores value in the first empty slot, or appends it (growing the pool when full).
-void SlotPool::FUN_001c7870(int unused, int value)
+void StoreBase_1c7870::FUN_001c7870(int unused, int value)
 {
     if (freeCount != 0 && top >= 0) {
         int* p = slots;

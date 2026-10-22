@@ -1,7 +1,7 @@
-struct S1_2ef050 {
+struct CollisionDetector_2ef050 {
     void f();
 };
-struct S2_2ef050 {
+struct ImpulseBasedCollisionSolver_2ef050 {
     void f();
 };
 struct S3_2ef050 {
@@ -14,8 +14,8 @@ struct C_2ef050 {
 };
 C_2ef050* C_2ef050::target() {
     f();
-    ((S1_2ef050*)(pad + 0x70))->f();
-    ((S2_2ef050*)(pad + 0xb0))->f();
+    ((CollisionDetector_2ef050*)(pad + 0x70))->f();
+    ((ImpulseBasedCollisionSolver_2ef050*)(pad + 0xb0))->f();
     ((S3_2ef050*)(pad + 0x1b0))->f();
     pad[0x6c] = 0;
     return this;

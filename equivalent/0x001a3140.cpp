@@ -5,18 +5,18 @@ struct Sub8_1a3140 {
     void FUN_0027af00();
 };
 
-class __declspec(novtable) TrackBase_1a3140 {
+class __declspec(novtable) Track_1a3140 {
 public:
     virtual void b0();
     int pad04;
     int pad08;
     void FUN_00236d40();
-    TrackBase_1a3140() { FUN_00236d40(); }
+    Track_1a3140() { FUN_00236d40(); }
 };
 
 namespace hulkfight {
 namespace scenario {
-class EffectTrack : public TrackBase_1a3140 {
+class EffectTrack : public Track_1a3140 {
 public:
     virtual unsigned int vfunc_0(unsigned int);
     virtual void v1();

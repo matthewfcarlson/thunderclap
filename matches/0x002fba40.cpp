@@ -9,7 +9,7 @@ class H2_2fba40 {
   public:
     void f();
 };
-class H3_2fba40 {
+class CollisionOBB_2fba40 {
   public:
     void f();
 };
@@ -60,7 +60,7 @@ physics::CollisionOBB* physics::CollisionOBB::vfunc_2(byte_2fba40 flag) {
     *(hulk_ulongptr*)self = ((hulk_intptr)DAT_004317dc);
     ((H1*)((char*)self + 0x7c))->f();
     ((H2_2fba40*)((char*)self + 0x3c))->f();
-    ((H3_2fba40*)self)->f();
+    ((CollisionOBB_2fba40*)self)->f();
     if (flag & 1)
         cleanup(self);
     return self;

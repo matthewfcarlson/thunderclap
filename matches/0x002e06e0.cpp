@@ -5,18 +5,18 @@ class Ref_2e06e0 {
     virtual void f0();
     virtual void Release();
 };
-class Base_2e06e0 {
+class PrimGroupSkinnedOptimized_2e06e0 {
   public:
     void* vptr;
     char pad[0x64];
     Ref_2e06e0* child;
-    ~Base_2e06e0() throw();
+    ~PrimGroupSkinnedOptimized_2e06e0() throw();
 };
-class D : public Base_2e06e0 {
+class PrimGroupSkinnedPC_2e06e0 : public PrimGroupSkinnedOptimized_2e06e0 {
   public:
-    ~D() throw();
+    ~PrimGroupSkinnedPC_2e06e0() throw();
 };
-D::~D() throw() {
+PrimGroupSkinnedPC_2e06e0::~PrimGroupSkinnedPC_2e06e0() throw() {
     vptr = &vt1_2e06e0;
     _ReadWriteBarrier();
     if (child) {

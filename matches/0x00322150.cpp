@@ -6,13 +6,13 @@ class RefCounted_322150 {
     virtual void f0();
     virtual void Release();
 };
-class ProjectedTexture {
+class d3dExtGlobalProjectedTexture_322150 {
   public:
     void* vftable;
     RefCounted_322150* items[16];
     void f();
 };
-void ProjectedTexture::f() {
+void d3dExtGlobalProjectedTexture_322150::f() {
     vftable = (void*)((hulk_intptr)DAT_00433094);
     for (int i = 0; i < 16; ++i)
         if (items[i])

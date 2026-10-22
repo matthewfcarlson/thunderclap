@@ -10,7 +10,7 @@ void __cdecl FUN_0026d840(void *);
 int __cdecl FUN_00270c10(const char *);
 void __cdecl FUN_00270f10(char *, int);
 void * __cdecl FUN_00276680(unsigned int);
-struct InstanceDrive_nv_271410 {
+struct InstanceDrive_271410 {
     core::InstanceDrive * FUN_00277110(void *, void *);
 };
 struct Entry_271410 { void *object; char padding[0x118]; };
@@ -39,7 +39,7 @@ void __cdecl FUN_00271410(core::InstanceDrive **result, const char *name, void *
     if (entry) {
         core::InstanceDrive *object = (core::InstanceDrive *)FUN_00276680(0x24);
         if (object)
-            object = ((InstanceDrive_nv_271410*)(object))->FUN_00277110(entry->object, argument);
+            object = ((InstanceDrive_271410*)(object))->FUN_00277110(entry->object, argument);
         *result = object;
     } else {
         *result = 0;

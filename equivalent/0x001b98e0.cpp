@@ -119,7 +119,7 @@ static int clamp255(int v)
     return v;
 }
 
-class LightSetup_1b98e0 {
+class CRenderManager_1b98e0 {
 public:
     char pad00[0x34];
     int r1;     // 0x34
@@ -137,7 +137,7 @@ public:
     int FUN_001b98e0(float a0, float a1, float a2, float a3, float a4, float a5);
 };
 
-int LightSetup_1b98e0::FUN_001b98e0(float a0, float a1, float a2, float a3, float a4, float a5)
+int CRenderManager_1b98e0::FUN_001b98e0(float a0, float a1, float a2, float a3, float a4, float a5)
 {
     p0 = a0;
     p1 = a1;

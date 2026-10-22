@@ -30,7 +30,7 @@ struct Channel {
     int FUN_00288960(int a, int b);
 };
 
-class Binder_225030 {
+class AnimationDriver_225030 {
 public:
     char pad00[0x10];
     Table_225030 *table;
@@ -41,7 +41,7 @@ public:
     void FUN_00225030(Skeleton *s);
 };
 
-void Binder_225030::FUN_00225030(Skeleton *s)
+void AnimationDriver_225030::FUN_00225030(Skeleton *s)
 {
     skel = s;
     s->AddRef();

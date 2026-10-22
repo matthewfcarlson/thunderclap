@@ -2,7 +2,7 @@
 extern "C" char DAT_004272f0[];
 extern int gCount_2248a0;
 extern int gMax_2248a0;
-class Base_2248a0 {
+class JointDriver_2248a0 {
   public:
     void Init();
 };
@@ -20,7 +20,7 @@ class JointDriver {
     JointDriver* Init();
 };
 JointDriver* JointDriver::Init() {
-    ((Base_2248a0*)this)->Init();
+    ((JointDriver_2248a0*)this)->Init();
     this->vptr = (int*)((hulk_intptr)DAT_004272f0);
     mValue = 0;
     mState = 3;

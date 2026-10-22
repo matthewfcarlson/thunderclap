@@ -10,10 +10,10 @@ public:
     virtual void Release();
 };
 
-class Sub_2e0880 : public RefObj_2e0880 {
+class VertexOffsetList_2e0880 : public RefObj_2e0880 {
 public:
     char pad04[0x2c];
-    Sub_2e0880 *FUN_002c84a0(Sub_2e0880 *other);
+    VertexOffsetList_2e0880 *FUN_002c84a0(VertexOffsetList_2e0880 *other);
 };
 
 class Provider_2e0880 {
@@ -43,7 +43,7 @@ public:
     int f50;
     char pad54[4];
     Provider_2e0880 *prov58;
-    Sub_2e0880 *sub5c;
+    VertexOffsetList_2e0880 *sub5c;
     void FUN_002a5060();
     void *FUN_002a50b0();
     DrawablePrimitive(int a, int b)
@@ -98,8 +98,8 @@ VertexAnimPrimGroup::VertexAnimPrimGroup(const VertexAnimPrimGroup &src) : Drawa
     prov58 = (Provider_2e0880 *)p;
 
     if (src.sub5c) {
-        Sub_2e0880 *mem = (Sub_2e0880 *)FUN_0008d690(0x30);
-        Sub_2e0880 *s;
+        VertexOffsetList_2e0880 *mem = (VertexOffsetList_2e0880 *)FUN_0008d690(0x30);
+        VertexOffsetList_2e0880 *s;
         if (mem)
             s = mem->FUN_002c84a0(src.sub5c);
         else

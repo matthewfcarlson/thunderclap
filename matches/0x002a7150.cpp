@@ -22,7 +22,7 @@ struct Vec_2a7150 {
     hulk_uintptr size() const { return end - begin; }
     Item_2a7150* at(unsigned i) const { return begin[i]; }
 };
-class PC_2a7150 {
+class ParticleController_2a7150 {
   public:
     virtual void v0();
     virtual void v1();
@@ -45,7 +45,7 @@ class PC_2a7150 {
     float m4c;
     Vec_2a7150 v;
 };
-void PC_2a7150::vfunc_7() {
+void ParticleController_2a7150::vfunc_7() {
     float delta = m48 * m4c * 0.001f;
     m34 = FUN_002899e0(&m28, &m38, m34, delta, m2c, m30, m24 == 0, m20);
     unsigned i = 0;

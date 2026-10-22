@@ -5,7 +5,7 @@ class Ref_2c89b0 {
     virtual void f0();
     virtual void Release();
 };
-class D {
+class VertexList_2c89b0 {
   public:
     void* vptr;
     int a4, a8, ac, a10;
@@ -14,9 +14,9 @@ class D {
     void* r[2];
     void *p50, *p54;
     Ref_2c89b0* a58;
-    ~D();
+    ~VertexList_2c89b0();
 };
-D::~D() {
+VertexList_2c89b0::~VertexList_2c89b0() {
     vptr = &vt1_2c89b0;
     Free(p14);
     Free(p18);

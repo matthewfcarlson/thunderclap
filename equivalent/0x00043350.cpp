@@ -16,7 +16,7 @@ union Arg6 {
     int neg;
 };
 
-struct Obj11c_43350 {
+struct CCharacter_43350 {
     char pad0[0x174];
     float f174;
     char pad178[0x188 - 0x178];
@@ -74,7 +74,7 @@ struct Target_43350 {
 
 struct Link128 {
     char pad0[0x11c];
-    Obj11c_43350 *obj;
+    CCharacter_43350 *obj;
 };
 
 struct Out_43350 {
@@ -85,7 +85,7 @@ struct Unit_43350 {
     char pad0[0x10];
     Unit_43350 *link10;               // 0x10
     char pad14[0x11c - 0x14];
-    Obj11c_43350 *obj;                // 0x11c
+    CCharacter_43350 *obj;                // 0x11c
     char pad120[4];
     Unit_43350 *link124;              // 0x124
     Link128 *link128;           // 0x128
@@ -177,7 +177,7 @@ char Unit_43350::FUN_00043350(float dt, Arg2_43350 p2, int a, float one, char c,
     } else {
         v = dt;
     }
-    Obj11c_43350 *o = obj;
+    CCharacter_43350 *o = obj;
     if (f1b28 == 0) {
         dt = (float)(v * o->f310);
     } else {

@@ -8,7 +8,7 @@ class Elem_2687e0 {
     virtual const char* Name();
     char pad[0x30];
 };
-class C_2687e0 {
+class ControllerXBox_2687e0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -23,7 +23,7 @@ class C_2687e0 {
     unsigned int mCount;
     Elem_2687e0 mElems[1];
 };
-int C_2687e0::Count(const char* name) {
+int ControllerXBox_2687e0::Count(const char* name) {
     int n = 0;
     for (unsigned int i = 0; i < mCount; i++) {
         if (strcmp(mElems[i].Name(), name) == 0)

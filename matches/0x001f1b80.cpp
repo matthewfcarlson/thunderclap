@@ -12,7 +12,7 @@ public:
     void FUN_001ef260(void *p);
 };
 
-struct CSoundCommand_CueNISEvent_nv_1f1b80 {
+struct CSoundCommand_CueNISEvent_1f1b80 {
     void *FUN_001f0960(const char *name, int b, int c);
 };
 
@@ -34,7 +34,7 @@ void __stdcall FUN_001f1b80(const char *name, int b, int c)
                 memset(f.buf, 0, sizeof f.buf);
                 strcat(f.buf, name);
                 CSoundCommand_CueNISEvent *j = (CSoundCommand_CueNISEvent *)FUN_0008d710(0x20, 6);
-                f.mgr->FUN_001ef260(j != 0 ? ((CSoundCommand_CueNISEvent_nv_1f1b80*)(j))->FUN_001f0960(name, b, c) : 0);
+                f.mgr->FUN_001ef260(j != 0 ? ((CSoundCommand_CueNISEvent_1f1b80*)(j))->FUN_001f0960(name, b, c) : 0);
             }
         }
     }

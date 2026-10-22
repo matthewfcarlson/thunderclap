@@ -9,7 +9,7 @@ class Obj_32ef10 {
 struct d3dRefractVertexShader_nv_32ef10 {
     void Go();
 };
-class Target_32ef10 {
+class d3dRefractVertexShader_32ef10 {
   public:
     virtual void A();
     char pad[0x7c];
@@ -17,7 +17,7 @@ class Target_32ef10 {
     Obj_32ef10* b;
     void F();
 };
-void Target_32ef10::F() {
+void d3dRefractVertexShader_32ef10::F() {
     Obj_32ef10* x = a;
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00433cac);
     if (x)

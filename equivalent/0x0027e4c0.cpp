@@ -45,7 +45,7 @@ struct Layout_27e4c0 {
 };
 Layout_27e4c0 *FUN_0027f250();
 
-class Scene_27e4c0 {
+class StateProp_27e4c0 {
 public:
     virtual void vfn0();
     virtual void vfn1();
@@ -74,7 +74,7 @@ public:
     void FUN_0027e4c0(int index, bool notify);
 };
 
-void Scene_27e4c0::FUN_0027e4c0(int index, bool notify)
+void StateProp_27e4c0::FUN_0027e4c0(int index, bool notify)
 {
     if (index < 0) return;
     if (index >= (int)(table->entriesEnd - table->entries)) return;

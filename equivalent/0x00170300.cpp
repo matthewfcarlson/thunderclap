@@ -5,18 +5,18 @@ struct Name_170300 {
     void FUN_0027af00();
 };
 
-class __declspec(novtable) TrackBase_170300 {
+class __declspec(novtable) Track_170300 {
 public:
     virtual void b0();
     int pad04;
     int pad08;
     void FUN_00236d40();
-    TrackBase_170300() { FUN_00236d40(); }
+    Track_170300() { FUN_00236d40(); }
 };
 
 namespace hulkfight {
 namespace motion {
-class MoveJointTrack : public TrackBase_170300 {
+class MoveJointTrack : public Track_170300 {
 public:
     virtual unsigned int vfunc_0(unsigned int);
     virtual void v1();

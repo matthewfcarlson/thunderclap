@@ -46,8 +46,8 @@ struct Desc_3dd70 {
     void FUN_00059300();
 };
 
-struct Obj2_3dd70 : public Releasable_3dd70 {
-    Obj2_3dd70 *FUN_000598e0(void *a, Desc_3dd70 *d);
+struct CFightParamsCollision_3dd70 : public Releasable_3dd70 {
+    CFightParamsCollision_3dd70 *FUN_000598e0(void *a, Desc_3dd70 *d);
 };
 
 struct ListHead_3dd70 {
@@ -65,9 +65,9 @@ public:
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual Emitter_3dd70 *v8(Obj2_3dd70 *o, int z);
-    bool FUN_00231a40(ListHead_3dd70 *h, Obj2_3dd70 *o);
-    void FUN_00231ad0(ListHead_3dd70 *h, Obj2_3dd70 *o, unsigned int flags);
+    virtual Emitter_3dd70 *v8(CFightParamsCollision_3dd70 *o, int z);
+    bool FUN_00231a40(ListHead_3dd70 *h, CFightParamsCollision_3dd70 *o);
+    void FUN_00231ad0(ListHead_3dd70 *h, CFightParamsCollision_3dd70 *o, unsigned int flags);
 };
 
 struct Singleton_3dd70 {
@@ -320,9 +320,9 @@ void Host_3dd70::FUN_0003dd70(Arg0 *a0, float dt)
             f.desc.rel.y = f.d.y - f.v.y;
             f.desc.rel.z = f.d.z - f.v.z;
             void *mem = FUN_0008d690(0xb0);
-            Obj2_3dd70 *o = 0;
+            CFightParamsCollision_3dd70 *o = 0;
             if (mem)
-                o = ((Obj2_3dd70 *)mem)->FUN_000598e0(*(void **)p10, &f.desc);
+                o = ((CFightParamsCollision_3dd70 *)mem)->FUN_000598e0(*(void **)p10, &f.desc);
             o->v0();
             Emitter_3dd70 *em2 = emit->v8(o, 0);
             if (em2 != 0) {

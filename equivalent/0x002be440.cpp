@@ -21,11 +21,11 @@ public:
     virtual void m6(int tag, int flag);
 };
 
-struct Holder_2be440 {
+struct Shader_2be440 {
     virtual void h0();
     char pad04[0xc];
     Mode_2be440 *mode;             // 0x10
-    Holder_2be440 *FUN_0028edb0();
+    Shader_2be440 *FUN_0028edb0();
 };
 
 struct Gfx {
@@ -57,14 +57,14 @@ public:
 
 class Sprite : public SpriteBase_2be440 {
 public:
-    Sprite(Item_2be440 **items, int w, int h, int count, Holder_2be440 *mgr, int margin, int a7, int a8, int a9);
+    Sprite(Item_2be440 **items, int w, int h, int count, Shader_2be440 *mgr, int margin, int a7, int a8, int a9);
     virtual void a1(); virtual void a2(); virtual void a3(); virtual void a4(); virtual void a5();
     virtual void a6(); virtual void a7(); virtual void a8(); virtual void a9(); virtual void a10();
     virtual void a11(); virtual void a12();
     int count;              // 0x40
     void *buf;              // 0x44
     Item_2be440 **items;           // 0x48
-    Holder_2be440 *holder;         // 0x4c
+    Shader_2be440 *holder;         // 0x4c
     char pad50[4];
     int h;                  // 0x54
     int w;                  // 0x58
@@ -84,7 +84,7 @@ public:
 
 }
 
-pure3d::Sprite::Sprite(Item_2be440 **items_, int w_, int h_, int count_, Holder_2be440 *mgr, int margin_, int a7, int a8, int a9)
+pure3d::Sprite::Sprite(Item_2be440 **items_, int w_, int h_, int count_, Shader_2be440 *mgr, int margin_, int a7, int a8, int a9)
 {
     fa0 = 0;
     DAT_004d0898 = 0x20;
@@ -114,11 +114,11 @@ pure3d::Sprite::Sprite(Item_2be440 **items_, int w_, int h_, int count_, Holder_
     f94 = (float)(u * 0.5f);
     f90 = tf * 0.5f;
     f9c = (float)sqrt(*(volatile float *)&f84 * *(volatile float *)&f84 + *(volatile float *)&f88 * *(volatile float *)&f88);
-    Holder_2be440 *mm;
+    Shader_2be440 *mm;
     if (mgr == 0) {
         void *mem = thunk_FUN_0008d690(0x20);
         if (mem != 0)
-            mm = ((Holder_2be440 *)mem)->FUN_0028edb0();
+            mm = ((Shader_2be440 *)mem)->FUN_0028edb0();
         else
             mm = 0;
     } else {

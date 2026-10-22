@@ -5,7 +5,7 @@ class Ref_136850 {
     virtual void Fn();
     virtual void Release();
 };
-class Base_136850 {
+class AirToGroundTargetAction_136850 {
   public:
     void Init();
 };
@@ -17,7 +17,7 @@ class AirToGroundTargetAction {
     AirToGroundTargetAction(int x, Ref_136850* r);
 };
 AirToGroundTargetAction::AirToGroundTargetAction(int x, Ref_136850* r) {
-    ((Base_136850*)this)->Init();
+    ((AirToGroundTargetAction_136850*)this)->Init();
     Ref_136850* q = r;
     volatile int* p = &vf;
     *p = ((hulk_intptr)DAT_00411e34);

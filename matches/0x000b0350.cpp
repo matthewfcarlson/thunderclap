@@ -4,11 +4,11 @@ struct CtorV_001d0480 {
     virtual void v_001d0480();
 };
 extern const char a[], b[];
-class Base : public CtorV_001d0480 {
+class Function_b0350 : public CtorV_001d0480 {
   public:
-    Base(int n) : CtorV_001d0480(n, 1) { }
+    Function_b0350(int n) : CtorV_001d0480(n, 1) { }
 };
-class Method1 : public Base {
+class Method1 : public Function_b0350 {
   public:
     virtual void f0();
     virtual void f1();
@@ -20,7 +20,7 @@ class Method1 : public Base {
     unsigned char y;
     char p3[3];
     int arg;
-    Method1(int n, int v) : Base(n) {
+    Method1(int n, int v) : Function_b0350(n) {
         arg = v;
         y = FUN_001d04d0(a);
         x = FUN_001d04d0(b);

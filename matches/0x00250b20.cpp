@@ -6,15 +6,15 @@ class Expr {
     ~Expr() throw();
     char data[12];
 };
-class Base {
+class SeqEventType_250b20 {
   public:
     virtual void v();
-    Base(Expr*, const U64&, int, int) throw();
+    SeqEventType_250b20(Expr*, const U64&, int, int) throw();
 };
-class audioSeqEventExpressionType : public Base {
+class SeqEventExpressionType_250b20 : public SeqEventType_250b20 {
   public:
-    audioSeqEventExpressionType();
+    SeqEventExpressionType_250b20();
     virtual void v();
 };
-audioSeqEventExpressionType::audioSeqEventExpressionType()
-    : Base(Expr().Init("$Exp", 0), MakeId("SeqEventExpression", 0, 0), 20, 4) {}
+SeqEventExpressionType_250b20::SeqEventExpressionType_250b20()
+    : SeqEventType_250b20(Expr().Init("$Exp", 0), MakeId("SeqEventExpression", 0, 0), 20, 4) {}

@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 extern "C" char DAT_0042dd24[];
-class Ref_2a8700 {
+class SimpleFrameController_2a8700 {
   public:
     virtual void v0();
     virtual void v1();
@@ -30,28 +30,28 @@ class Ref_2a8700 {
     virtual void v25();
     virtual void v26();
 };
-class ShaderAnimationController_2a8700 : public Ref_2a8700 {
+class ShaderAnimationController_2a8700 : public SimpleFrameController_2a8700 {
   public:
-    char pad[0x40 - sizeof(Ref_2a8700)];
-    Ref_2a8700* mRef;
-    virtual Ref_2a8700* own4();
+    char pad[0x40 - sizeof(SimpleFrameController_2a8700)];
+    SimpleFrameController_2a8700* mRef;
+    virtual SimpleFrameController_2a8700* own4();
     void setup(ShaderAnimationController_2a8700*);
 };
 extern void* __cdecl alloc(hulk_uintptr);
-Ref_2a8700* ShaderAnimationController_2a8700::own4() {
+SimpleFrameController_2a8700* ShaderAnimationController_2a8700::own4() {
     ShaderAnimationController_2a8700* self = this;
     ShaderAnimationController_2a8700* p = (ShaderAnimationController_2a8700*)alloc(0x48);
     if (p) {
         p->setup(self);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_0042dd24);
         p->mRef = 0;
-        Ref_2a8700* q = self->mRef;
+        SimpleFrameController_2a8700* q = self->mRef;
         if (q)
             q->v0();
         if (p->mRef)
             p->mRef->v1();
         p->mRef = q;
-        return (Ref_2a8700*)p;
+        return (SimpleFrameController_2a8700*)p;
     }
     return 0;
 }

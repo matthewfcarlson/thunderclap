@@ -67,12 +67,12 @@ struct Obj_2ba8d0 {
     int ff4, ff8, ffc, f100, f104, f108;
 };
 
-struct Big_2ba8d0 : Obj_2ba8d0 {
-    Big_2ba8d0 *FUN_002b9520();
+struct BillboardCutOffQuad_2ba8d0 : Obj_2ba8d0 {
+    BillboardCutOffQuad_2ba8d0 *FUN_002b9520();
 };
 
-struct Small_2ba8d0 : Obj_2ba8d0 {
-    Small_2ba8d0 *FUN_002b8e80();
+struct BillboardQuad_2ba8d0 : Obj_2ba8d0 {
+    BillboardQuad_2ba8d0 *FUN_002b8e80();
 };
 
 int __cdecl FUN_002b87d0(int v);
@@ -134,13 +134,13 @@ Obj_2ba8d0 *__stdcall FUN_002ba8d0(Reader *r, int unused)
     bool big = (f.t1a4 != 0);
     f.flag = big;
     if (big) {
-        Big_2ba8d0 *b = (Big_2ba8d0 *)thunk_FUN_0008d690(0x110);
+        BillboardCutOffQuad_2ba8d0 *b = (BillboardCutOffQuad_2ba8d0 *)thunk_FUN_0008d690(0x110);
         if (b != 0)
             o = b->FUN_002b9520();
         else
             o = 0;
     } else {
-        Small_2ba8d0 *s = (Small_2ba8d0 *)thunk_FUN_0008d690(0xc8);
+        BillboardQuad_2ba8d0 *s = (BillboardQuad_2ba8d0 *)thunk_FUN_0008d690(0xc8);
         if (s != 0)
             o = s->FUN_002b8e80();
         else

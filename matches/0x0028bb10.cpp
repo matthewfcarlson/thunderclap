@@ -9,7 +9,7 @@ class Ref_28bb10 {
     virtual void F0();
     virtual void Release();
 };
-class Obj_28bb10 {
+class Float1Channel_28bb10 {
   public:
     void* vptr;
     char pad[8];
@@ -17,9 +17,9 @@ class Obj_28bb10 {
     char pad2[4];
     void* m14;
     void* m18;
-    ~Obj_28bb10() throw();
+    ~Float1Channel_28bb10() throw();
 };
-Obj_28bb10::~Obj_28bb10() throw() {
+Float1Channel_28bb10::~Float1Channel_28bb10() throw() {
     vptr = g_vF;
     if (!m0c)
         operator delete(m18);

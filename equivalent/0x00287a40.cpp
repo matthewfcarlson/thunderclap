@@ -69,7 +69,7 @@ struct Mask_287a40 {
     BitSet_287a40* bits;
 };
 
-class Blender_287a40 {
+class PoseAnimationController_287a40 {
 public:
     char pad0[0x110];
     PoseSet_287a40* set;
@@ -83,7 +83,7 @@ public:
     void FUN_00287a40(int unused, float v, float t, ChannelPair* pairs);
 };
 
-void Blender_287a40::FUN_00287a40(int unused, float v, float t, ChannelPair* pairs)
+void PoseAnimationController_287a40::FUN_00287a40(int unused, float v, float t, ChannelPair* pairs)
 {
     t = 1.0f - t;
     PoseSet_287a40* s0 = set;

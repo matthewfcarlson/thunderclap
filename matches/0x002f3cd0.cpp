@@ -5,7 +5,7 @@ struct Ref_2f3cd0 {
     virtual void a() throw();
     virtual void release() throw();
 };
-class D {
+class CollisionMesh_2f3cd0 {
   public:
     void* vptr;
     char pad[0x40];
@@ -13,7 +13,7 @@ class D {
     void Fini() throw();
     void dtor() throw();
 };
-void D::dtor() throw() {
+void CollisionMesh_2f3cd0::dtor() throw() {
     vptr = vD;
     _ReadWriteBarrier();
     if (ref) {

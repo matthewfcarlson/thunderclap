@@ -4,11 +4,11 @@ struct CtorV_001d0480 {
     virtual void v_001d0480();
 };
 extern const char a[], b[];
-class Init : public CtorV_001d0480 {
+class Function_7e120 : public CtorV_001d0480 {
   public:
-    Init(const char* s) : CtorV_001d0480(s, 1) { }
+    Function_7e120(const char* s) : CtorV_001d0480(s, 1) { }
 };
-class Method1 : public Init {
+class Method1 : public Function_7e120 {
   public:
     virtual void f();
     char pad[0xc];
@@ -17,7 +17,7 @@ class Method1 : public Init {
     char x;
     char pad3[3];
     void* name;
-    Method1(const char* s, void* p) : Init(s) {
+    Method1(const char* s, void* p) : Function_7e120(s) {
         name = p;
         x = FUN_001d04d0(a);
         y = FUN_001d04d0(b);

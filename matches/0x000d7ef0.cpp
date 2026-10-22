@@ -51,7 +51,7 @@ class Control_d7ef0 {
   public:
     void SetLabel(const char*, int);
 };
-class Widget_d7ef0 {
+class FEMemCardControl_d7ef0 {
   public:
     char pad0[0x150];
     Control_d7ef0* mControl;
@@ -61,7 +61,7 @@ class Widget_d7ef0 {
     unsigned char mFlag;
     void Run(int);
 };
-void Widget_d7ef0::Run(int unused) {
+void FEMemCardControl_d7ef0::Run(int unused) {
     Thing_d7ef0* p = GetThing();
     p->f44();
     mControl->SetLabel("DynamicControlButtonLabel", 3);

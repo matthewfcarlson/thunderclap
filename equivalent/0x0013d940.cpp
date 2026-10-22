@@ -52,7 +52,7 @@ struct Anim_13d940 {
     char b18;
 };
 
-struct Player_13d940 : public choreo2::Driver {
+struct AnimationDriver_13d940 : public choreo2::Driver {
     char pad10[0x20 - 0x10];
     struct Node *node;
     char pad24[0x224 - 0x24];
@@ -61,7 +61,7 @@ struct Player_13d940 : public choreo2::Driver {
     char pad226[0x22c - 0x226];
     int e0;
     int e1;
-    Player_13d940 *FUN_00225950(void *h, Anim_13d940 *a);
+    AnimationDriver_13d940 *FUN_00225950(void *h, Anim_13d940 *a);
     void FUN_002250e0(float v);
     void FUN_00225140(float v);
     void FUN_00225cf0(float v);
@@ -101,7 +101,7 @@ struct LayerSet_13d940 {
     char pad6c[0x10 - 0xc];
     Rig_13d940 *FUN_002226b0();
     choreo2::Driver *FUN_00222e20(unsigned int index);
-    void FUN_00222890(Player_13d940 *d, float dur, int a, float b, int c, int e, float f);
+    void FUN_00222890(AnimationDriver_13d940 *d, float dur, int a, float b, int c, int e, float f);
 };
 LayerSet_13d940 *__fastcall FUN_00059a40(Context *ctx);
 
@@ -166,7 +166,7 @@ public:
     char pad04[0x18];
     Cfg_13d940 *cfg;       // 0x1c
     Owner_13d940 *owner;   // 0x20
-    Player_13d940 *player; // 0x24
+    AnimationDriver_13d940 *player; // 0x24
 };
 
 struct Frame_13d940 {
@@ -228,9 +228,9 @@ char AnimationVelocityScaledAction::vfunc_3(int a0, int a1)
     }
 
     void *mem = thunk_FUN_0008d690(0x240);
-    Player_13d940 *p = 0;
+    AnimationDriver_13d940 *p = 0;
     if (mem)
-        p = ((Player_13d940 *)mem)->FUN_00225950(h, anim);
+        p = ((AnimationDriver_13d940 *)mem)->FUN_00225950(h, anim);
     if (p)
         p->AddRef();
     if (player)

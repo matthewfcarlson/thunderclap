@@ -10,7 +10,7 @@ class Owner_febc0 {
   public:
     X_febc0* Find(const type_info&);
 };
-class Factory_febc0 {
+class CPathAgent_febc0 {
   public:
     V* Make(Owner_febc0*);
 };
@@ -31,7 +31,7 @@ void __cdecl FUN_000febc0(Owner_febc0* owner, V** out) {
         void* a = FUN_0008d690(0xfc);
         V* q;
         if (a)
-            q = ((Factory_febc0*)a)->Make(owner);
+            q = ((CPathAgent_febc0*)a)->Make(owner);
         else
             q = 0;
         if (q)

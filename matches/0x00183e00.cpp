@@ -5,12 +5,12 @@ class Ref_183e00 {
     virtual void F0();
     virtual void Release();
 };
-class Base_183e00 {
+class Action_183e00 {
   public:
     void* vptr;
     void Fin();
 };
-class PropSetStateByNameAction_183e00 : public Base_183e00 {
+class PropSetStateByNameAction_183e00 : public Action_183e00 {
   public:
     char pad[0x18];
     void* m1c;

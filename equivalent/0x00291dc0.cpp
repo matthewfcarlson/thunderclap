@@ -5,7 +5,7 @@
 extern "C" void* __cdecl FUN_00263ea0(unsigned int size);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 
-class __declspec(novtable) LoaderBase_291dc0 {
+class __declspec(novtable) SimpleChunkHandler_291dc0 {
   public:
     virtual void slot0();
     int f04;
@@ -14,23 +14,23 @@ class __declspec(novtable) LoaderBase_291dc0 {
     int f10;
 };
 
-class __declspec(novtable) FileLoaderBase {
+class __declspec(novtable) FileLoader_291dc0 {
   public:
     virtual void slot0();
     int f04;
     int f08;
 };
 
-class __declspec(novtable) ImageHandlerBase {
+class __declspec(novtable) ImageHandler_291dc0 {
   public:
     virtual void slot0();
     char pad[0x14];
     void FUN_002af0c0();
-    ImageHandlerBase() { FUN_002af0c0(); }
+    ImageHandler_291dc0() { FUN_002af0c0(); }
 };
 
 namespace content {
-class P3DFileHandler : public FileLoaderBase {
+class P3DFileHandler : public FileLoader_291dc0 {
   public:
     P3DFileHandler() { f04 = 0; f08 = 0; }
     virtual void slot0();
@@ -41,7 +41,7 @@ class P3DFileHandler : public FileLoaderBase {
 }
 
 namespace pure3d {
-class PNGHandler : public ImageHandlerBase {
+class PNGHandler : public ImageHandler_291dc0 {
   public:
     PNGHandler() {}
     virtual void slot0();
@@ -61,7 +61,7 @@ class PNGHandler : public ImageHandlerBase {
     virtual void slot14();
     virtual void slot15();
 };
-class BMPHandler : public ImageHandlerBase {
+class BMPHandler : public ImageHandler_291dc0 {
   public:
     BMPHandler() {}
     virtual void slot0();
@@ -81,7 +81,7 @@ class BMPHandler : public ImageHandlerBase {
     virtual void slot14();
     virtual void slot15();
 };
-class IgnoreLoader : public LoaderBase_291dc0 {
+class IgnoreLoader : public SimpleChunkHandler_291dc0 {
   public:
     IgnoreLoader() { f04 = 0; id = 0; f0c = 0; f10 = 0; }
     virtual void slot0();
@@ -94,33 +94,33 @@ class IgnoreLoader : public LoaderBase_291dc0 {
 }
 
 struct Raw_291dc0 {
-    LoaderBase_291dc0* FUN_002c29b0();
-    LoaderBase_291dc0* FUN_002c25b0();
-    LoaderBase_291dc0* FUN_0028f280();
-    LoaderBase_291dc0* FUN_002c1b30();
-    LoaderBase_291dc0* FUN_002c1480();
-    LoaderBase_291dc0* FUN_002c1930();
-    LoaderBase_291dc0* FUN_002c14c0();
-    LoaderBase_291dc0* FUN_002c0c40();
-    LoaderBase_291dc0* FUN_002955c0();
-    LoaderBase_291dc0* FUN_002bfa30();
-    LoaderBase_291dc0* FUN_002beca0();
-    LoaderBase_291dc0* FUN_002bc3d0();
-    LoaderBase_291dc0* FUN_0027b980();
-    LoaderBase_291dc0* FUN_002b7d30();
-    LoaderBase_291dc0* FUN_00299410();
-    LoaderBase_291dc0* FUN_002b6150();
-    LoaderBase_291dc0* FUN_002b6870();
-    LoaderBase_291dc0* FUN_002b68c0();
-    LoaderBase_291dc0* FUN_00289e00();
-    LoaderBase_291dc0* FUN_00286520();
-    LoaderBase_291dc0* FUN_002b23a0();
-    LoaderBase_291dc0* FUN_002acc60();
-    LoaderBase_291dc0* FUN_00297150();
-    LoaderBase_291dc0* FUN_002aff60();
-    LoaderBase_291dc0* FUN_002b0f40();
-    LoaderBase_291dc0* FUN_002aff20();
-    LoaderBase_291dc0* FUN_00290740();
+    SimpleChunkHandler_291dc0* FUN_002c29b0();
+    SimpleChunkHandler_291dc0* FUN_002c25b0();
+    SimpleChunkHandler_291dc0* FUN_0028f280();
+    SimpleChunkHandler_291dc0* FUN_002c1b30();
+    SimpleChunkHandler_291dc0* FUN_002c1480();
+    SimpleChunkHandler_291dc0* FUN_002c1930();
+    SimpleChunkHandler_291dc0* FUN_002c14c0();
+    SimpleChunkHandler_291dc0* FUN_002c0c40();
+    SimpleChunkHandler_291dc0* FUN_002955c0();
+    SimpleChunkHandler_291dc0* FUN_002bfa30();
+    SimpleChunkHandler_291dc0* FUN_002beca0();
+    SimpleChunkHandler_291dc0* FUN_002bc3d0();
+    SimpleChunkHandler_291dc0* FUN_0027b980();
+    SimpleChunkHandler_291dc0* FUN_002b7d30();
+    SimpleChunkHandler_291dc0* FUN_00299410();
+    SimpleChunkHandler_291dc0* FUN_002b6150();
+    SimpleChunkHandler_291dc0* FUN_002b6870();
+    SimpleChunkHandler_291dc0* FUN_002b68c0();
+    SimpleChunkHandler_291dc0* FUN_00289e00();
+    SimpleChunkHandler_291dc0* FUN_00286520();
+    SimpleChunkHandler_291dc0* FUN_002b23a0();
+    SimpleChunkHandler_291dc0* FUN_002acc60();
+    SimpleChunkHandler_291dc0* FUN_00297150();
+    SimpleChunkHandler_291dc0* FUN_002aff60();
+    SimpleChunkHandler_291dc0* FUN_002b0f40();
+    SimpleChunkHandler_291dc0* FUN_002aff20();
+    SimpleChunkHandler_291dc0* FUN_00290740();
 };
 
 struct Registry_291dc0 {
@@ -141,7 +141,7 @@ void FUN_00291dc0(){
     pure3d::BMPHandler* bmp = 0;
     if (mem) bmp = new (mem) pure3d::BMPHandler();
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265240(bmp, "bmp");
-    LoaderBase_291dc0* l;
+    SimpleChunkHandler_291dc0* l;
     mem = FUN_00263ea0(0x2c);
     l = mem ? ((Raw_291dc0*)mem)->FUN_002c29b0() : 0;
     (*(Registry_291dc0**)&DAT_00527c58)->FUN_00265210(l, 0x10000);

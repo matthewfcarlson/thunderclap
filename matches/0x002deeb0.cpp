@@ -5,18 +5,18 @@ class MeshData {
     char pad[0x70];
     MeshData() throw();
 };
-class ShadowBase {
+class Shadow_2deeb0 {
   public:
-    ShadowBase(int) throw();
+    Shadow_2deeb0(int) throw();
     void Set(int, MeshData*) throw();
     virtual void dummy();
 };
-class ShadowMesh : public ShadowBase {
+class ShadowMesh : public Shadow_2deeb0 {
   public:
     ShadowMesh() throw();
     virtual void dummy();
 };
-ShadowMesh::ShadowMesh() throw() : ShadowBase(1) {
+ShadowMesh::ShadowMesh() throw() : Shadow_2deeb0(1) {
     MeshData* p = new MeshData;
     Set(0, p);
 }

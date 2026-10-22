@@ -5,19 +5,19 @@ class Ref_1301a0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_1301a0 {
+class Action_1301a0 {
   public:
     void* vptr;
-    ~Base_1301a0() throw();
+    ~Action_1301a0() throw();
 };
-class A_1301a0 : public Base_1301a0 {
+class StatEndTrialAction_1301a0 : public Action_1301a0 {
   public:
     char pad[0x1c - 4];
     void* m1c;
     Ref_1301a0* m20;
-    ~A_1301a0() throw();
+    ~StatEndTrialAction_1301a0() throw();
 };
-A_1301a0::~A_1301a0() throw() {
+StatEndTrialAction_1301a0::~StatEndTrialAction_1301a0() throw() {
     vptr = g_vt_1301a0;
     _ReadWriteBarrier();
     if (m20) {

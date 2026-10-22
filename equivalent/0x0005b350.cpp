@@ -18,7 +18,7 @@ struct Link2_5b350 {
 struct Link1_5b350 {
     Link2_5b350 *FUN_000592a0();
 };
-struct Effect_5b350 {
+struct CUninterruptibleAction_5b350 {
     void *FUN_00020020(Weapon *weapon, int value);
 };
 
@@ -60,7 +60,7 @@ void *CGrappleUninterruptibleTrack::vfunc_12(Link1_5b350 *owner)
     Weapon *weapon = fighter->weapon;
     if (weapon == 0)
         return 0;
-    Effect_5b350 *effect = (Effect_5b350 *)FUN_0008d690(0x24);
+    CUninterruptibleAction_5b350 *effect = (CUninterruptibleAction_5b350 *)FUN_0008d690(0x24);
     if (effect == 0)
         return 0;
     return effect->FUN_00020020(weapon, f14);

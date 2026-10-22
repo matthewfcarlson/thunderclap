@@ -1,9 +1,9 @@
-class Base {
+class Track_170ce0 {
   public:
-    Base();
+    Track_170ce0();
     virtual void f();
 };
-class IntentionClearTrack : public Base {
+class IntentionClearTrack : public Track_170ce0 {
   public:
     IntentionClearTrack();
     char pad[4];
@@ -11,7 +11,7 @@ class IntentionClearTrack : public Base {
     int b;
     float c;
 };
-IntentionClearTrack::IntentionClearTrack() : Base() {
+IntentionClearTrack::IntentionClearTrack() : Track_170ce0() {
     b = 0;
     c = -1.0f;
     a = 1;

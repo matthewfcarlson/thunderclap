@@ -5,7 +5,7 @@
 extern "C" char DAT_0040a5c0[];
 extern "C" char DAT_0048e10c[];
 
-class Callback_cf2b0 {
+class Method5_cf2b0 {
   public:
     hulk_intptr vptr;
     char pad4[12];
@@ -15,10 +15,10 @@ class Callback_cf2b0 {
     char pad19[3];
     void* p1c;
     void FUN_001d0480(void*, int);
-    Callback_cf2b0* Init(void*, void*);
+    Method5_cf2b0* Init(void*, void*);
 };
 
-Callback_cf2b0* Callback_cf2b0::Init(void* arg, void* value) {
+Method5_cf2b0* Method5_cf2b0::Init(void* arg, void* value) {
     FUN_001d0480(arg, 5);
     vptr = (hulk_intptr)DAT_0040a5c0;
     p1c = value;

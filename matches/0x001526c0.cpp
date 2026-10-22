@@ -5,14 +5,14 @@ class RefObj_1526c0 {
     virtual void Release();
 };
 
-class ActionBase_1526c0 {
+class Action_1526c0 {
   public:
-    ActionBase_1526c0();
+    Action_1526c0();
     virtual void Update();
     char pad[0x18];
 };
 
-class ClearFightParamsHitRecordAction_1526c0 : public ActionBase_1526c0 {
+class ClearFightParamsHitRecordAction_1526c0 : public Action_1526c0 {
   public:
     int mTarget;
     RefObj_1526c0* mObj;

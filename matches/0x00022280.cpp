@@ -6,18 +6,18 @@ class Ref_22280 {
     virtual void F0();
     virtual void Release();
 };
-class Base_22280 {
+class CAction_22280 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_22280 : public Base_22280 {
+class CCameraShakeAction_22280 : public CAction_22280 {
   public:
     char pad[24];
     Ref_22280* m;
-    Obj_22280* f2(unsigned char flags);
+    CCameraShakeAction_22280* f2(unsigned char flags);
 };
-Obj_22280* Obj_22280::f2(unsigned char flags) {
+CCameraShakeAction_22280* CCameraShakeAction_22280::f2(unsigned char flags) {
     vptr = g_vftable_22280;
     _ReadWriteBarrier();
     if (m) {

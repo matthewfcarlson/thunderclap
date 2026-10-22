@@ -1,16 +1,16 @@
 extern "C" unsigned char probe(const char*);
 extern const char s1[];
 extern const char s2[];
-class Core {
+class Function_1ba410 {
   public:
-    Core(int, int);
+    Function_1ba410(int, int);
     virtual void f();
     char pad[0x1c - 4];
 };
-class Method1 : public Core {
+class Method1 : public Function_1ba410 {
   public:
     int x;
-    Method1(int a, int c) : Core(a, 1), x(c) {
+    Method1(int a, int c) : Function_1ba410(a, 1), x(c) {
         *((unsigned char*)this + 0x18) = probe(s1);
         *((unsigned char*)this + 0x10) = probe(s2);
     }

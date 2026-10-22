@@ -22,7 +22,7 @@ struct Obj_60980 {
     char pad[0x104];
     int field;
 };
-struct Tgt_60980 {
+struct CEffectStopAction_60980 {
     char pad[0x104];
     int field;
     int method(hulk_intptr, int);
@@ -31,7 +31,7 @@ extern void* FUN_0008d690(int);
 extern Obj_60980* FUN_0005a430(int);
 
 int CGrappleEffectStopTrack::vfunc_12(int arg) {
-    Tgt_60980* p = (Tgt_60980*)FUN_0008d690(0x24);
+    CEffectStopAction_60980* p = (CEffectStopAction_60980*)FUN_0008d690(0x24);
     if (p) {
         Obj_60980* o = FUN_0005a430(arg);
         int v = o->field;

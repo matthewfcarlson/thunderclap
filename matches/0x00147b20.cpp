@@ -1,6 +1,6 @@
 int __cdecl findThing(int);
 void* __cdecl allocThing(int);
-class Built {
+class ExecuteAction_147b20 {
   public:
     int init(int, void*, int, int, void*, int, int);
 };
@@ -17,7 +17,7 @@ class GrappleExecuteTrack {
 int GrappleExecuteTrack::vfunc_10(int x, int y, int z) {
     int v = findThing(z);
     if (v) {
-        Built* p = (Built*)allocThing(0x68);
+        ExecuteAction_147b20* p = (ExecuteAction_147b20*)allocThing(0x68);
         if (p) {
             int bb = b;
             int aa = a;

@@ -7,7 +7,7 @@ struct A_23ec10 {
 struct B_23ec10 {
     void init();
 };
-struct C_23ec10 {
+struct SpawnTrack_23ec10 {
     void init();
 };
 namespace fight {
@@ -33,7 +33,7 @@ fight::SpawnTrack* fight::SpawnTrack::vfunc_5(u8_23ec10 flag) {
     *(hulk_intptr*)this = (hulk_intptr)&spawn_vftable;
     ((A_23ec10*)((char*)this + 0x20))->init();
     ((B_23ec10*)((char*)this + 0x14))->init();
-    ((C_23ec10*)this)->init();
+    ((SpawnTrack_23ec10*)this)->init();
     if (flag & 1) {
         extern void del(fight::SpawnTrack*);
         del(this);

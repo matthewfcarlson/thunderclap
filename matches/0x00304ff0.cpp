@@ -24,7 +24,7 @@ class H10_304ff0 {
   public:
     void run();
 };
-class Htail {
+class CollisionObject_304ff0 {
   public:
     void run();
 };
@@ -38,5 +38,5 @@ void CollisionObject::destroy() {
     if (mPtr)
         thunk((char*)mPtr - 4);
     ((H10_304ff0*)((char*)this + 0x10))->run();
-    ((Htail*)this)->run();
+    ((CollisionObject_304ff0*)this)->run();
 }

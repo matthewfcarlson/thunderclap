@@ -6,7 +6,7 @@ class Ref_193da0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_193da0 {
+class Track_193da0 {
   public:
     void* vptr;
     void Fin();
@@ -18,7 +18,7 @@ struct Sub_193da0 {
 };
 void __fastcall SubFini(Sub_193da0*) throw();
 void __fastcall SubFini2(Sub_193da0*) throw();
-class Obj_193da0 : public Base_193da0 {
+class FireProjectileTrack_193da0 : public Track_193da0 {
   public:
     char p[0x14];
     Sub_193da0 s18;
@@ -30,9 +30,9 @@ class Obj_193da0 : public Base_193da0 {
     Sub_193da0 s9c;
     char p4[0xb];
     Sub_193da0 sa8;
-    ~Obj_193da0() throw();
+    ~FireProjectileTrack_193da0() throw();
 };
-Obj_193da0::~Obj_193da0() throw() {
+FireProjectileTrack_193da0::~FireProjectileTrack_193da0() throw() {
     vptr = g_vftable_193da0;
     SubFini2(&sa8);
     SubFini2(&s9c);

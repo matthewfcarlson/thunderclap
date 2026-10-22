@@ -6,7 +6,7 @@ extern "C" char DAT_003f5d4c[];
 struct Ctor_001d0480 {
     Ctor_001d0480(const char*, int);
 };
-class Target_3efb0 : public Ctor_001d0480 {
+class Function3_3efb0 : public Ctor_001d0480 {
   public:
     hulk_intptr vptr;
     char pad04[12];
@@ -15,9 +15,9 @@ class Target_3efb0 : public Ctor_001d0480 {
     unsigned char b18;
     char pad19[3];
     int m1c;
-    Target_3efb0(const char*, int);
+    Function3_3efb0(const char*, int);
 };
-Target_3efb0::Target_3efb0(const char* a, int b) : Ctor_001d0480(a, 3) {
+Function3_3efb0::Function3_3efb0(const char* a, int b) : Ctor_001d0480(a, 3) {
     vptr = ((hulk_intptr)DAT_003f5d4c);
     m1c = b;
     b18 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));

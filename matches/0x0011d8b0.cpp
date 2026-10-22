@@ -6,21 +6,21 @@ class Ref_11d8b0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_11d8b0 {
+class Action_11d8b0 {
   public:
     void* vptr;
     void Fin();
 };
 
-class Obj_11d8b0 : public Base_11d8b0 {
+class StrafeCircleAction_11d8b0 : public Action_11d8b0 {
   public:
     char pad[0x1c - 4];
     void* m1c;
     Ref_11d8b0* m20;
     Ref_11d8b0* m24;
-    ~Obj_11d8b0();
+    ~StrafeCircleAction_11d8b0();
 };
-Obj_11d8b0::~Obj_11d8b0() {
+StrafeCircleAction_11d8b0::~StrafeCircleAction_11d8b0() {
     vptr = g_vftable_11d8b0;
     _ReadWriteBarrier();
     if (m24) {

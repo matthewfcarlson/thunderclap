@@ -5,18 +5,18 @@ class Ref_81340 {
     virtual void F0();
     virtual void Release();
 };
-class Base_81340 {
+class Entity_81340 {
   public:
     void* vptr;
     void Fin();
 };
-class Civ;
+class CCivilian_81340;
 class Plr {
   public:
     char pad[0x328];
     Ref_81340* m328;
-    Civ* F36020();
-    Civ* F36030();
+    CCivilian_81340* F36020();
+    CCivilian_81340* F36030();
     void F3b160(int);
     void F3b190(int);
     void F3ffa0(int, int);
@@ -33,14 +33,14 @@ struct Pl {
     Plr* m124;
 };
 struct Sub_81340 {
-    void F1b43f0(Civ*);
+    void F1b43f0(CCivilian_81340*);
 };
 struct Tmp_81340 {
     void F1c3b80(void*);
 };
 Tmp_81340* __stdcall F1c3d90();
 extern Mgr_81340* g_mgr_81340;
-class Civ : public Base_81340 {
+class CCivilian_81340 : public Entity_81340 {
   public:
     char pad[0xb8 - 4];
     Ref_81340* mb8;
@@ -50,9 +50,9 @@ class Civ : public Base_81340 {
     Ref_81340* mf0;
     char pad4[0x100 - 0xf4];
     Ref_81340* m100;
-    ~Civ();
+    ~CCivilian_81340();
 };
-Civ::~Civ() {
+CCivilian_81340::~CCivilian_81340() {
     vptr = gV;
     _ReadWriteBarrier();
     Pl* pl = g_mgr_81340->m20;

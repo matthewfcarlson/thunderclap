@@ -6,7 +6,7 @@ extern "C" char DAT_003f428c[];
 struct Ctor_001d0480 {
     Ctor_001d0480(const char*, int);
 };
-class CActorManager : public Ctor_001d0480 {
+class Method4_2dd00 : public Ctor_001d0480 {
   public:
     hulk_intptr vptr;
     char pad04[0x0c];
@@ -15,9 +15,9 @@ class CActorManager : public Ctor_001d0480 {
     char m18;
     char pad19[3];
     int m1c;
-    CActorManager(const char*, int);
+    Method4_2dd00(const char*, int);
 };
-CActorManager::CActorManager(const char* a, int b) : Ctor_001d0480(a, 4) {
+Method4_2dd00::Method4_2dd00(const char* a, int b) : Ctor_001d0480(a, 4) {
     vptr = ((hulk_intptr)DAT_003f428c);
     m1c = b;
     m18 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));

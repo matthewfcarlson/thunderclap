@@ -1,19 +1,19 @@
 extern char gOne[];
 extern char gTwo[];
 extern unsigned char __cdecl GetFlag(const char*);
-class Base {
+class Function_2c700 {
   public:
     virtual void V();
-    Base(int a, int b) throw();
+    Function_2c700(int a, int b) throw();
     char pad[0x1c - 4];
 };
-class Method1 : public Base {
+class Method1 : public Function_2c700 {
   public:
     virtual void V();
     Method1(int a, int b) throw();
     unsigned char x;
 };
-Method1::Method1(int a, int b) throw() : Base(a, 1) {
+Method1::Method1(int a, int b) throw() : Function_2c700(a, 1) {
     *(int*)((char*)this + 0x1c) = b;
     *(unsigned char*)((char*)this + 0x18) = GetFlag(gOne);
     *(unsigned char*)((char*)this + 0x10) = GetFlag(gTwo);

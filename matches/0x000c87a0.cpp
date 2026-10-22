@@ -8,12 +8,12 @@ struct T1 {
     char c;
     void Fini();
 };
-class Base_c87a0 {
+class Entity_c87a0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_c87a0 : public Base_c87a0 {
+class CHudMap_c87a0 : public Entity_c87a0 {
   public:
     char pad4[0xc];
     Ref_c87a0* m10;
@@ -22,9 +22,9 @@ class Obj_c87a0 : public Base_c87a0 {
     Ref_c87a0* m1c;
     char pad20[0x22c - 0x20];
     Ref_c87a0* m22c[10];
-    ~Obj_c87a0() throw();
+    ~CHudMap_c87a0() throw();
 };
-Obj_c87a0::~Obj_c87a0() throw() {
+CHudMap_c87a0::~CHudMap_c87a0() throw() {
     *(void* volatile*)&vptr = g_vftable_c87a0;
     Ref_c87a0* t10 = *(Ref_c87a0* volatile*)&m10;
     if (t10) {

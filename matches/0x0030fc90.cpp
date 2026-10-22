@@ -5,7 +5,7 @@ class Ref_30fc90 {
 };
 extern void* vt1_30fc90;
 extern void* vt2_30fc90;
-class T_30fc90 {
+class PoseEngine_30fc90 {
   public:
     virtual void V();
     int a4;
@@ -17,7 +17,7 @@ class T_30fc90 {
     Ref_30fc90*** rows;
 };
 void __cdecl drop(void*);
-void T_30fc90::V() {
+void PoseEngine_30fc90::V() {
     int i = count - 1;
     *(void**)this = &vt1_30fc90;
     if (i >= 0) {

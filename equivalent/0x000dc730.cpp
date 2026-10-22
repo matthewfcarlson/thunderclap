@@ -30,7 +30,7 @@ struct Singleton_4dd6ec {
 };
 
 
-class ControlPrompt {
+class FETextInput_dc730 {
 public:
     char pad00[0x14];
     Middle *middle;         // 0x14
@@ -39,7 +39,7 @@ public:
     void FUN_000dc730();
 };
 
-void ControlPrompt::FUN_000dc730()
+void FETextInput_dc730::FUN_000dc730()
 {
     bool pressed = middle->inner->session->settings->flag != 0;
     int id;

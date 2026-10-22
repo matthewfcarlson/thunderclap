@@ -57,12 +57,12 @@ struct Holder_7d700 {
     Node* node;
 };
 
-class Vehicle_7d700 {
+class CVehicle_7d700 {
 public:
     virtual void v0();
     virtual void v1();
     char pad04[0xc8 - 4];
-    Vehicle_7d700* FUN_00083c30(const char* name, int id, int rowField, int a4, int f18, Vec3_7d700 a, Vec3_7d700 b, float speed, int idx);
+    CVehicle_7d700* FUN_00083c30(const char* name, int id, int rowField, int a4, int f18, Vec3_7d700 a, Vec3_7d700 b, float speed, int idx);
     void FUN_00083d50(float v);
     void FUN_00083d60(float v);
     void FUN_00083d70(float v);
@@ -94,7 +94,7 @@ public:
     Holder_7d700* holder;
     int FUN_000798a0(unsigned __int64 id);
     int FUN_000796e0(Entry_7d700* entry, const char* name, Cell_7d700* cell, Vec3_7d700* dir, int a, int b, int c);
-    int FUN_0007b820(Vehicle_7d700* v);
+    int FUN_0007b820(CVehicle_7d700* v);
     void FUN_0007d700(const char* name, int idx, int row, int col);
 };
 
@@ -159,11 +159,11 @@ void Spawner_7d700::FUN_0007d700(const char* name, int idx, int row, int col)
     slot.speed = sim->FUN_000787e0((unsigned __int64)id37a8 << 32 | id37a4);
     if (flags->FUN_00092940(0x25))
         slot.speed = slot.speed + slot.speed;
-    Vehicle_7d700* v;
+    CVehicle_7d700* v;
     void* mem = FUN_00263ea0(0xc8);
     if (mem != 0) {
         Cell_7d700* rowCell = (Cell_7d700*)((char*)this + row * 0x3f0 + 0x1904);
-        v = ((Vehicle_7d700*)mem)->FUN_00083c30(name, id, rowCell->f1c, col, cell->f18, cell->a, cell->b, slot.speed, idx);
+        v = ((CVehicle_7d700*)mem)->FUN_00083c30(name, id, rowCell->f1c, col, cell->f18, cell->a, cell->b, slot.speed, idx);
     } else {
         v = 0;
     }

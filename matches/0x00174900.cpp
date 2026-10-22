@@ -6,11 +6,11 @@ class Action {
     virtual void A();
     virtual void B();
 };
-class Base_174900 {
+class Action_174900 {
   public:
     void Finish();
 };
-class PushOutAction : public Base_174900 {
+class PushOutAction : public Action_174900 {
   public:
     volatile hulk_intptr vptr;
     char pad[0x18];

@@ -8,14 +8,14 @@ class Condition_23cff0 {
     void Destroy(); // FUN_00236d60, __thiscall, this in ecx
 };
 
-class CSweepTrack_23cff0 : public Condition_23cff0 {
+class OrCondition_23cff0 : public Condition_23cff0 {
   public:
-    CSweepTrack_23cff0* vfunc_5(signed char flags);
+    OrCondition_23cff0* vfunc_5(signed char flags);
 };
 
 void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
 
-CSweepTrack_23cff0* CSweepTrack_23cff0::vfunc_5(signed char flags) {
+OrCondition_23cff0* OrCondition_23cff0::vfunc_5(signed char flags) {
     *(void***)this = Condition_23cff0_vftable;
     Destroy();
     if (flags & 1) {

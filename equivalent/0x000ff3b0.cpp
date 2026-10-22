@@ -64,13 +64,13 @@ struct Player_ff3b0 {
     int FUN_00035ef0(int a);
 };
 
-class CAgentBase {
+class CCharacterAgent_ff3b0 {
 public:
     virtual void v0();
     virtual void v1();
 };
 
-class CHand2HandAgent : public CAgentBase {
+class CHand2HandAgent : public CCharacterAgent_ff3b0 {
 public:
     virtual void v2();
     virtual void v3();

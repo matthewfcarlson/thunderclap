@@ -1,6 +1,6 @@
 typedef unsigned int uint;
 extern uint __cdecl Decode(uint*, int);
-struct Obj_262d40 {
+struct HalRadicalAdpcmDecodeStream_262d40 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -21,7 +21,7 @@ struct Obj_262d40 {
     int p10;
     int p14;
 };
-void Obj_262d40::f7(int a, int b, int d) {
+void HalRadicalAdpcmDecodeStream_262d40::f7(int a, int b, int d) {
     uint v = Decode((uint*)((char*)this + 8), d);
     uint q = v >> 5;
     uint m = *((uint*)((char*)this + 8)) >> 4;
@@ -30,5 +30,5 @@ void Obj_262d40::f7(int a, int b, int d) {
     pC = a;
     p14 = bytes;
     p10 = a - n * 20 + d;
-    ((Obj_262d40*)buf)->f7(p10, b, bytes);
+    ((HalRadicalAdpcmDecodeStream_262d40*)buf)->f7(p10, b, bytes);
 }

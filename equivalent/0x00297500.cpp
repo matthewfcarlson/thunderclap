@@ -9,8 +9,8 @@ struct Resource {
     virtual Resource* clone();
     void FUN_002a7cf0(VisibilityNode* node);
 };
-struct BaseNode {};
-struct VisibilityNode : BaseNode {
+struct BranchNode_297500 {};
+struct VisibilityNode : BranchNode_297500 {
     virtual void reserved0();
     char pad[0x24];
     unsigned char visible;
@@ -20,7 +20,7 @@ struct VisibilityNode : BaseNode {
     VisibilityNode(VisibilityNode* other);
 };
 VisibilityNode::VisibilityNode(VisibilityNode* other)
-    : BaseNode((FUN_002971f0(other), BaseNode())) {
+    : BranchNode_297500((FUN_002971f0(other), BranchNode_297500())) {
     visible = other->visible;
     resource = 0;
     if (other->resource) {

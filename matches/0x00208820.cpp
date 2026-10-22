@@ -3,7 +3,7 @@ class Subject_208820 {
     int GetState();
     void OnGlobal();
 };
-class Obj_208820 {
+class CWorldStreamManager_208820 {
   public:
     char pad[4];
     char b4;
@@ -23,7 +23,7 @@ class Obj_208820 {
     void Run();
 };
 extern "C" unsigned char gFlag_208820;
-void Obj_208820::Run() {
+void CWorldStreamManager_208820::Run() {
     if (field) {
         int r = field->GetState();
         flag = 1;

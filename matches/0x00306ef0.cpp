@@ -2,14 +2,14 @@ struct Vec3_306ef0 {
     float x, y, z;
 };
 
-class BaseObj {
+class CollisionVolume_306ef0 {
   public:
     virtual void BaseFn();
     char m_pad[0x64];
-    BaseObj();
+    CollisionVolume_306ef0();
 };
 
-class CollisionRay : public BaseObj {
+class CollisionRay : public CollisionVolume_306ef0 {
   public:
     virtual void RayFn();
     Vec3_306ef0 m_a; // 0x68

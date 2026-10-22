@@ -27,7 +27,7 @@ struct Owner_1fccf0 {
     char pad[12];
     Collection_1fccf0* collection;
 };
-struct Target_1fccf0 {
+struct CTriggerVolumeManager_1fccf0 {
     char pad0[4];
     Owner_1fccf0* owner;
     char pad1[0x230];
@@ -36,7 +36,7 @@ struct Target_1fccf0 {
     Filter_1fccf0* FUN_001fc7f0(unsigned int arg);
     void FUN_001fccf0(unsigned int arg, unsigned char active);
 };
-void Target_1fccf0::FUN_001fccf0(unsigned int arg, unsigned char active) {
+void CTriggerVolumeManager_1fccf0::FUN_001fccf0(unsigned int arg, unsigned char active) {
     Filter_1fccf0* filter = FUN_001fc7f0(arg);
     if (!filter)
         return;

@@ -46,12 +46,12 @@ struct Inner_ca3a0 {
     virtual void enable(unsigned int, unsigned int);
 };
 
-struct Resource_ca3a0 : Obj_ca3a0 {
+struct Shader_ca3a0 : Obj_ca3a0 {
     char pad[12];
     Inner_ca3a0 *inner;           // 0x10
     int f14;
     int f18;
-    Resource_ca3a0 *FUN_0028edb0();
+    Shader_ca3a0 *FUN_0028edb0();
 };
 
 struct Loaded_ca3a0 : Obj_ca3a0 {
@@ -105,7 +105,7 @@ struct Frame_ca3a0 {
 class CHudMap : public pure3d::Entity {
 public:
     int f10;
-    Resource_ca3a0 *res;          // 0x14
+    Shader_ca3a0 *res;          // 0x14
     Loaded_ca3a0 *radar;          // 0x18
     Loaded_ca3a0 *arrow;          // 0x1c
     char b20;
@@ -186,7 +186,7 @@ CHudMap::CHudMap()
     }
     b2958 = 1;
     b2959 = 0;
-    Resource_ca3a0 *r = (Resource_ca3a0 *)thunk_FUN_0008d690(0x20);
+    Shader_ca3a0 *r = (Shader_ca3a0 *)thunk_FUN_0008d690(0x20);
     if (r != 0)
         r = r->FUN_0028edb0();
     else
@@ -194,7 +194,7 @@ CHudMap::CHudMap()
     res = r;
     r->init();
     res->inner->set(0x584554, 0);
-    Resource_ca3a0 *r2 = res;
+    Shader_ca3a0 *r2 = res;
     r2->inner->enable(0x444d4c42, 1);
     r2->f18 = 1;
     FUN_000c9bd0(DAT_004dd700->window->FUN_00086310()->FUN_000897e0());

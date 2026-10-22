@@ -1,6 +1,6 @@
-class Root {
+class Track_170a70 {
   public:
-    Root();
+    Track_170a70();
     virtual void fn();
     int a;
     int flag;
@@ -10,7 +10,7 @@ class Root {
     float y;
     void* r;
 };
-class TargetIconDistanceTrack_170a70 : public Root {
+class TargetIconDistanceTrack_170a70 : public Track_170a70 {
   public:
     TargetIconDistanceTrack_170a70();
     virtual void fn();

@@ -5,14 +5,14 @@ class RefObj_183c10 {
     virtual void Release();
 };
 
-class ActionBase_183c10 {
+class Action_183c10 {
   public:
-    ActionBase_183c10();
+    Action_183c10();
     virtual void Update();
     char pad[0x18];
 };
 
-class PropAddToCollisionAction_183c10 : public ActionBase_183c10 {
+class PropAddToCollisionAction_183c10 : public Action_183c10 {
   public:
     int mTarget;
     RefObj_183c10* mObj;

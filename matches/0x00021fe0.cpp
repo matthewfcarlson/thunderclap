@@ -13,7 +13,7 @@ class CSmartPropThrowingAction {
     Ref_21fe0* member;
     CSmartPropThrowingAction* V2(int);
 };
-class Helper_21fe0 {
+class CSmartPropThrowingAction_21fe0 {
   public:
     void Go();
 };
@@ -25,7 +25,7 @@ CSmartPropThrowingAction* CSmartPropThrowingAction::V2(int flag) {
         member->Release();
         member = 0;
     }
-    ((Helper_21fe0*)this)->Go();
+    ((CSmartPropThrowingAction_21fe0*)this)->Go();
     if (flag & 1)
         thunk_FUN_00267090(this);
     return this;

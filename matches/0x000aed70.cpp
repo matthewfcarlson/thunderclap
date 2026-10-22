@@ -1,9 +1,9 @@
 extern "C" unsigned char ReadFlag(const char*);
 extern const char gA[];
 extern const char gB[];
-class Parent {
+class Function_aed70 {
   public:
-    Parent(void*, int);
+    Function_aed70(void*, int);
     virtual void v();
     char pad[12];
     unsigned char x;
@@ -13,21 +13,21 @@ class Parent {
     void* p;
     void* q;
 };
-class Core : public Parent {
+class Method1_aed70 : public Function_aed70 {
   public:
-    Core(void* a, void* c) : Parent(a, 1) {
+    Method1_aed70(void* a, void* c) : Function_aed70(a, 1) {
         p = c;
         y = ReadFlag(gA);
         x = ReadFlag(gB);
     }
     virtual void v();
 };
-class Closure : public Core {
+class Closure1_aed70 : public Method1_aed70 {
   public:
-    Closure(void*, void*, void*);
+    Closure1_aed70(void*, void*, void*);
     virtual void v();
     virtual void v2();
 };
-Closure::Closure(void* a, void* b, void* c) : Core(a, c) {
+Closure1_aed70::Closure1_aed70(void* a, void* b, void* c) : Method1_aed70(a, c) {
     q = b;
 }

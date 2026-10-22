@@ -10,16 +10,16 @@ class Ref_161770 {
 struct HeliLocomotionAction_nv_161770 {
     void Fn();
 };
-class A_161770 {
+class HeliLocomotionAction_161770 {
   public:
     void* vptr;
     char p[0x1c];
     Ref_161770* m20;
     Ref_161770* m24;
-    A_161770* f2(unsigned char flags);
+    HeliLocomotionAction_161770* f2(unsigned char flags);
 };
 void operator delete(void*);
-A_161770* A_161770::f2(unsigned char flags) {
+HeliLocomotionAction_161770* HeliLocomotionAction_161770::f2(unsigned char flags) {
     vptr = g_vftable_161770;
     _ReadWriteBarrier();
     if (m24) {

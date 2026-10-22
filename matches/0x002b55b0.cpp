@@ -1,12 +1,12 @@
 #include "compat/ptr.h"
 extern "C" char DAT_0042e5e4[];
-class B_2b55b0 {
+class ShadowMeshImpl_2b55b0 {
   public:
     char p[0x10];
     int x;
-    B_2b55b0();
+    ShadowMeshImpl_2b55b0();
 };
-class ShadowSkinImpl : public B_2b55b0 {
+class ShadowSkinImpl : public ShadowMeshImpl_2b55b0 {
   public:
     char q[0x70 - 0x14];
     int a, b, c, d;

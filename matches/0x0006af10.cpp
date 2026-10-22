@@ -1,6 +1,6 @@
-class Base_6af10 {
+class CTrack_6af10 {
   public:
-    Base_6af10();
+    CTrack_6af10();
     virtual void A();
     virtual void B();
 };
@@ -11,7 +11,7 @@ class Elem_6af10 {
     char pad[16];
 };
 
-class CAIHintTrack : public Base_6af10 {
+class CAIHintTrack : public CTrack_6af10 {
   public:
     char pad0[4];
     int mCount;   // offset 0x8

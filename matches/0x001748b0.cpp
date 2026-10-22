@@ -3,11 +3,11 @@ class Ref {
     virtual void Add();
     virtual void Release();
 };
-class Base {
+class Action_1748b0 {
   public:
     virtual void dummy();
     char pad[24];
-    Base();
+    Action_1748b0();
 };
 struct Group {
     Ref* a;
@@ -15,7 +15,7 @@ struct Group {
     Ref* c;
     Group() : a(0), b(0), c(0) {}
 };
-class PushOutAction : public Base {
+class PushOutAction : public Action_1748b0 {
   public:
     Group g;
     PushOutAction(int, Ref*);

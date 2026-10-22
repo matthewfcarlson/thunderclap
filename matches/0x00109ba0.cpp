@@ -1,5 +1,5 @@
 extern void* g_vftable_109ba0[];
-class Obj_109ba0 {
+class CAvoidBehaviour_109ba0 {
   public:
     void* vptr;
     void* m4;
@@ -16,9 +16,9 @@ class Obj_109ba0 {
     void* m2c;
     void* m30;
     char m34;
-    Obj_109ba0() throw();
+    CAvoidBehaviour_109ba0() throw();
 };
-Obj_109ba0::Obj_109ba0() throw() {
+CAvoidBehaviour_109ba0::CAvoidBehaviour_109ba0() throw() {
     m4 = 0;
     m8 = 0;
     mc = 0;

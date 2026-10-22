@@ -1,13 +1,13 @@
-class Base_5a830 {
+class Track_5a830 {
   public:
     virtual void A();
     virtual void B();
-    Base_5a830();
+    Track_5a830();
 };
-class X_5a830 : public Base_5a830 {
+class CTrack_5a830 : public Track_5a830 {
   public:
     virtual void A();
     virtual void B();
-    X_5a830();
+    CTrack_5a830();
 };
-X_5a830::X_5a830() {}
+CTrack_5a830::CTrack_5a830() {}

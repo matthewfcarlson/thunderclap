@@ -2,7 +2,7 @@
 // FUN_00180f00 @ 0x00180f00
 inline void *operator new(unsigned int, void *p) { return p; }
 
-struct Base12 {
+struct PropThrowTrack_180f00 {
     char data[12];
     void FUN_00236d40();
 };
@@ -46,7 +46,7 @@ public:
 
 hulkfight::motion::PropThrowTrack *hulkfight::motion::PropThrowTrack::FUN_00180f00()
 {
-    ((Base12 *)this)->FUN_00236d40();
+    ((PropThrowTrack_180f00 *)this)->FUN_00236d40();
     new (this) PropThrowTrack;
     f10 = -1.0f;
     f0c = 0;

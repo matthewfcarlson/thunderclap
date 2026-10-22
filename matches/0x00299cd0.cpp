@@ -19,7 +19,7 @@ struct Buf_299cd0 {
 struct Sub_299cd0 {
     void Fill(unsigned, const unsigned char*) throw();
 };
-class D {
+class ActivePrimitiveList_299cd0 {
   public:
     void* vptr;
     int a4;
@@ -34,9 +34,9 @@ class D {
     Buf_299cd0 x30;
     int p38;
     Sub_299cd0 s3c;
-    D(unsigned char n) throw();
+    ActivePrimitiveList_299cd0(unsigned char n) throw();
 };
-D::D(unsigned char n) throw() {
+ActivePrimitiveList_299cd0::ActivePrimitiveList_299cd0(unsigned char n) throw() {
     a4 = 0;
     vptr = &vt1_299cd0;
     x8.Init(0x20);

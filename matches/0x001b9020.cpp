@@ -49,7 +49,7 @@ public:
 
 Fader_1b9020* __cdecl FUN_001c3d90();
 
-class Screen_1b9020 {
+class CRenderManager_1b9020 {
 public:
     char pad0[0x24];
     int cursorId;
@@ -59,7 +59,7 @@ public:
     void FUN_001b9020();
 };
 
-void Screen_1b9020::FUN_001b9020()
+void CRenderManager_1b9020::FUN_001b9020()
 {
     cursorId = DAT_004dd700->cursor->FUN_000d6f50();
     DAT_004dd700->cursor->FUN_000d7030(0x100);

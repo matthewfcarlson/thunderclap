@@ -18,7 +18,7 @@ struct Names_245680 {
     const char *FUN_0023fb00();
 };
 
-struct OmHalStream_nv_245680 {
+struct OmHalStream_245680 {
     void *FUN_0025cbc0(Stream_245680 *stream, void *context, hulk_uintptr version, void *source);
 };
 
@@ -42,7 +42,7 @@ bool audio::Clip::vfunc_5(int __p0) { Loader_245680 * loader = (Loader_245680 *)
     if (decoder) {
         void *source = l->source;
         ((Clip_nv_245680*)this)->FUN_00243390();
-        decoded = ((OmHalStream_nv_245680*)(decoder))->FUN_0025cbc0(l->stream, FUN_0024c710(), (hulk_uintptr)loader, source);
+        decoded = ((OmHalStream_245680*)(decoder))->FUN_0025cbc0(l->stream, FUN_0024c710(), (hulk_uintptr)loader, source);
     } else {
         decoded = 0;
     }

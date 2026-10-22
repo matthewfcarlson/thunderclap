@@ -5,18 +5,18 @@ class Ref_21400 {
     virtual void F0();
     virtual void Release();
 };
-class Base_21400 {
+class Action_21400 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_21400 : public Base_21400 {
+class CAction_21400 : public Action_21400 {
   public:
     char pad[24];
     Ref_21400* m;
-    ~Obj_21400();
+    ~CAction_21400();
 };
-Obj_21400::~Obj_21400() {
+CAction_21400::~CAction_21400() {
     vptr = g_vftable_21400;
     _ReadWriteBarrier();
     if (m) {

@@ -1,10 +1,10 @@
-class Caster {
+class TrackFactoryCaster_10bf20 {
   public:
     virtual void f();
 };
-class TargetCaster : public Caster {};
-class MotionCaster : public Caster {};
-extern int __cdecl lookup(const char*, Caster*);
+class TargetCaster : public TrackFactoryCaster_10bf20 {};
+class TrackFactoryCasterTemplate_10bf20 : public TrackFactoryCaster_10bf20 {};
+extern int __cdecl lookup(const char*, TrackFactoryCaster_10bf20*);
 class Factory {
   public:
     void add(int);
@@ -15,7 +15,7 @@ void setup(Factory* p) {
         p->add(lookup("faceTarget", &a));
     }
     {
-        MotionCaster b;
+        TrackFactoryCasterTemplate_10bf20 b;
         p->add(lookup("faceMotion", &b));
     }
 }

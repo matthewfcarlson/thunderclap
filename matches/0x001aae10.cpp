@@ -4,11 +4,11 @@ class Sub_1aae10 {
   public:
     void Init();
 };
-class Base_1aae10 {
+class Condition_1aae10 {
   public:
     void Tail();
 };
-class Event_TriggerVolumeNameCondition : public Base_1aae10 {
+class Event_TriggerVolumeNameCondition : public Condition_1aae10 {
   public:
     void* vptr;
     char pad[0x0c];

@@ -8,15 +8,15 @@ struct Name_304ed0 {
     void FUN_0027af00();
 };
 
-class ObjectBase {
+class Entity_304ed0 {
 public:
-    ObjectBase() throw();
+    Entity_304ed0() throw();
     virtual void vfunc_0();
     int f04, f08, f0c;
 };
 
 namespace physics {
-class CollisionObject : public ObjectBase {
+class CollisionObject : public Entity_304ed0 {
 public:
     Name_304ed0 name;              // 0x10
     int f18, f1c, f20, f24, f28, f2c, f30;

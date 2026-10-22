@@ -1,8 +1,8 @@
 extern "C" unsigned char parse(const char*);
 extern char str1_aecd0[], str2[], str3[];
-class Root_aecd0 {
+class Function_aecd0 {
   public:
-    Root_aecd0(void*, int);
+    Function_aecd0(void*, int);
     virtual void f();
     char pad[12];
     unsigned char a, b;
@@ -12,9 +12,9 @@ class Root_aecd0 {
     int val;
     int other;
 };
-class Method2 : public Root_aecd0 {
+class Method2 : public Function_aecd0 {
   public:
-    Method2(void* p, int n) : Root_aecd0(p, 2) {
+    Method2(void* p, int n) : Function_aecd0(p, 2) {
         val = n;
         c = parse(str1_aecd0);
         a = parse(str2);

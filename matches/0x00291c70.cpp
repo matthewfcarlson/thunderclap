@@ -1,9 +1,9 @@
-class Base_291c70 {
+class ImageHandler_291c70 {
   public:
-    Base_291c70();
+    ImageHandler_291c70();
     virtual void F();
 };
-class BMPHandler : public Base_291c70 {
+class BMPHandler : public ImageHandler_291c70 {
   public:
     BMPHandler();
     virtual void F();

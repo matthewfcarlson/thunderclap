@@ -5,12 +5,12 @@ class Ref_174750 {
     virtual void F0();
     virtual void Release();
 };
-class Base_174750 {
+class Action_174750 {
   public:
     void* vptr;
     void Fin();
 };
-class IntentionClearAction_174750 : public Base_174750 {
+class IntentionClearAction_174750 : public Action_174750 {
   public:
     char pad[0x18];
     void* m1c;

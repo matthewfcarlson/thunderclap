@@ -175,7 +175,7 @@ public:
 };
 extern Device *DAT_0052c2a8;
 
-class __declspec(novtable) GroupBase {
+class __declspec(novtable) PrimGroupStreamed_2e3bd0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -191,17 +191,17 @@ public:
     char pad48[0x10];
     int f58;
     VData *vdata;
-    GroupBase *FUN_002e01d0(unsigned int a, unsigned int b, unsigned int c);
-    GroupBase(unsigned int a, unsigned int b, unsigned int c) { FUN_002e01d0(a, b, c); }
+    PrimGroupStreamed_2e3bd0 *FUN_002e01d0(unsigned int a, unsigned int b, unsigned int c);
+    PrimGroupStreamed_2e3bd0(unsigned int a, unsigned int b, unsigned int c) { FUN_002e01d0(a, b, c); }
 };
 
 namespace pure3d {
-class PrimGroupSkinnedStreamed : public GroupBase {
+class PrimGroupSkinnedStreamed : public PrimGroupStreamed_2e3bd0 {
 public:
     virtual void s0();
     RefObj *pal;
     MatrixPaletteList *list;
-    PrimGroupSkinnedStreamed(unsigned int a, unsigned int b, unsigned int c) : GroupBase(a, b, c)
+    PrimGroupSkinnedStreamed(unsigned int a, unsigned int b, unsigned int c) : PrimGroupStreamed_2e3bd0(a, b, c)
     {
         pal = 0;
         list = 0;
@@ -227,7 +227,7 @@ public:
     unsigned int flags;
     unsigned int f18;
     unsigned int f1c;
-    void FUN_002a46d0(Slot1 a1, GroupBase *g);
+    void FUN_002a46d0(Slot1 a1, PrimGroupStreamed_2e3bd0 *g);
     void FUN_002e3bd0(Slot1 a1, Slot2 a2, int a3, PalSrc *a4);
 };
 
@@ -267,7 +267,7 @@ void Loader::FUN_002e3bd0(Slot1 a1, Slot2 a2, int a3, PalSrc *a4)
         f.vA = 0;
     f.lim = fl & 0xf;
     f.obj = 0;
-    GroupBase *g;
+    PrimGroupStreamed_2e3bd0 *g;
     if (a4 != 0 && (unsigned int)((a4->end - a4->begin) >> 6) > 0) {
         void *mem = thunk_FUN_0008d690(0x68);
         pure3d::PrimGroupSkinnedStreamed *sg = 0;
@@ -279,7 +279,7 @@ void Loader::FUN_002e3bd0(Slot1 a1, Slot2 a2, int a3, PalSrc *a4)
         void *mem = thunk_FUN_0008d690(0x60);
         g = 0;
         if (mem != 0)
-            g = ((GroupBase *)mem)->FUN_002e01d0(flags, f18, f1c);
+            g = ((PrimGroupStreamed_2e3bd0 *)mem)->FUN_002e01d0(flags, f18, f1c);
     }
     g->SetName(f08);
     g->f44 = f0c;

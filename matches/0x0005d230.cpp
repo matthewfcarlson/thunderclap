@@ -1,10 +1,10 @@
-class Base_5d230 {
+class CTrack_5d230 {
   public:
-    Base_5d230();
+    CTrack_5d230();
     virtual void Fn();
 };
 
-class CHapticTrack : public Base_5d230 {
+class CHapticTrack : public CTrack_5d230 {
   public:
     CHapticTrack();
     virtual void Fn0();

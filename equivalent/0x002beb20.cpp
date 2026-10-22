@@ -17,13 +17,13 @@ public:
     virtual void v6(unsigned int tag, int value);
 };
 
-class Res_2beb20 {
+class Shader_2beb20 {
 public:
     virtual void v0();
     char pad04[0xc];
     Attr_2beb20 *attr;
     char pad14[0xc];
-    Res_2beb20 *FUN_0028edb0();
+    Shader_2beb20 *FUN_0028edb0();
 };
 
 struct Desc_2beb20 {
@@ -135,7 +135,7 @@ public:
 
 class Sprite : public SpriteBase_2beb20 {
 public:
-    Res_2beb20 *res;
+    Shader_2beb20 *res;
     int pad50;
     int height;
     int width;
@@ -161,10 +161,10 @@ public:
     virtual void v2();
     void FUN_002be720(Desc_2beb20 *d, int a);
     void FUN_002bdd00(int a);
-    Sprite(Desc_2beb20 *d, Res_2beb20 *r, int s, int a4, int a5, int a6);
+    Sprite(Desc_2beb20 *d, Shader_2beb20 *r, int s, int a4, int a5, int a6);
 };
 
-Sprite::Sprite(Desc_2beb20 *d, Res_2beb20 *r, int s, int a4, int a5, int a6)
+Sprite::Sprite(Desc_2beb20 *d, Shader_2beb20 *r, int s, int a4, int a5, int a6)
 {
     flagA0 = (*(char*)&DAT_004d0894);
     if ((*(char*)&DAT_004d0894) != 0) {
@@ -197,7 +197,7 @@ Sprite::Sprite(Desc_2beb20 *d, Res_2beb20 *r, int s, int a4, int a5, int a6)
     if (r != 0) {
         res = r;
     } else {
-        Res_2beb20 *m = (Res_2beb20 *)FUN_00263ea0(0x20);
+        Shader_2beb20 *m = (Shader_2beb20 *)FUN_00263ea0(0x20);
         if (m)
             res = m->FUN_0028edb0();
         else

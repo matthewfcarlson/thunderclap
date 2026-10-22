@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // core::File::vfunc_18 @ 0x00276160
 namespace core { struct File; }
-struct Result_276160 { unsigned int FUN_00274ca0(void* node, core::File* file, unsigned int a, unsigned int b); };
+struct FileCompletionRequest_276160 { unsigned int FUN_00274ca0(void* node, core::File* file, unsigned int a, unsigned int b); };
 struct Sink_276160 { void FUN_00272b60(unsigned int value, unsigned int context, unsigned int flags); };
-extern Result_276160* __cdecl FUN_00273560(unsigned int size);
+extern FileCompletionRequest_276160* __cdecl FUN_00273560(unsigned int size);
 extern void* __cdecl FUN_0026dbb0();
 namespace core {
 struct File {
@@ -17,7 +17,7 @@ struct File {
  unsigned int context;
 };
 void File::vfunc_18(unsigned int a, unsigned int b) {
- Result_276160* result = FUN_00273560(24);
+ FileCompletionRequest_276160* result = FUN_00273560(24);
  unsigned int value = 0;
  if (result) {
   value = result->FUN_00274ca0(FUN_0026dbb0(), this, a, b);

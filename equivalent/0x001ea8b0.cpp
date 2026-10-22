@@ -57,9 +57,9 @@ struct SoundConfig {
     void FUN_00240060();
 };
 
-struct Streams {
+struct LoadInventory_1ea8b0 {
     char pad0[0x14];
-    Streams *FUN_00266480(int bufSize);
+    LoadInventory_1ea8b0 *FUN_00266480(int bufSize);
 };
 
 class CSoundResourceManager;
@@ -79,7 +79,7 @@ int FUN_001e91c0();
 class CSoundResourceManager {
 public:
     char pad000[0x518];
-    Streams *streams;
+    LoadInventory_1ea8b0 *streams;
     int param;
 
     void FUN_001ea0c0(const char *);
@@ -106,9 +106,9 @@ int CSoundResourceManager::FUN_001ea8b0(int arg)
     cfg.FUN_00240060();
 
     void *raw = FUN_00263ed0(0x14, 6);
-    Streams *s = 0;
+    LoadInventory_1ea8b0 *s = 0;
     if (raw != 0)
-        s = ((Streams *)raw)->FUN_00266480(0x400);
+        s = ((LoadInventory_1ea8b0 *)raw)->FUN_00266480(0x400);
     streams = s;
 
     (*(Fx_1ea8b0**)&DAT_00527c58)->FUN_00265240(this, "clips");

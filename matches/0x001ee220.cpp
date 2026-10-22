@@ -1,8 +1,8 @@
 extern "C" unsigned char __cdecl lookup(const void*);
 extern int g1, g2;
-class Base {
+class Function_1ee220 {
   public:
-    Base(void*, int);
+    Function_1ee220(void*, int);
     virtual void invoke();
     char pad[12];
     unsigned char b;
@@ -11,9 +11,9 @@ class Base {
     char pad3[3];
     void* obj;
 };
-class Method1 : public Base {
+class Method1 : public Function_1ee220 {
   public:
-    Method1(void* x, void* z) : Base(x, 1) {
+    Method1(void* x, void* z) : Function_1ee220(x, 1) {
         obj = z;
         a = lookup(&g1);
         b = lookup(&g2);

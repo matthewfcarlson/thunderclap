@@ -4,26 +4,26 @@ struct Target_17470;
 struct Owner_17470 { Target_17470* FUN_000592a0(); };
 struct Angle_17470 { float FUN_002220d0(); void FUN_00221d20(float); };
 struct Label_17470 { void FUN_0027b040(const char*); };
-struct Task_17470 {
+struct JointDriver_17470 {
  virtual void slot0();
  char pad4[4];
  Label_17470 label;
  char pad9[11];
  int mode;
  Angle_17470 angle;
- Task_17470* FUN_002248f0(int);
+ JointDriver_17470* FUN_002248f0(int);
 };
 struct Target_17470 {
  char pad0[16];
  Angle_17470 angle;
  void FUN_00059a30();
  Target_17470* FUN_00059a40();
- void FUN_00222890(Task_17470*,float,float,float,float,float,float);
+ void FUN_00222890(JointDriver_17470*,float,float,float,float,float,float);
 };
 struct Config_17470 { char pad[32]; float x,y,z; };
 void* __cdecl FUN_00263ea0(unsigned int);
 struct COrientTargetAction {
- char pad[28]; Owner_17470* owner; Config_17470* config; int unknown; Task_17470* task;
+ char pad[28]; Owner_17470* owner; Config_17470* config; int unknown; JointDriver_17470* task;
  bool vfunc_6(int);
 };
 bool COrientTargetAction::vfunc_6(int) {
@@ -32,7 +32,7 @@ bool COrientTargetAction::vfunc_6(int) {
  t=t->FUN_00059a40();
  if(!t) return false;
  float x=config->x, y=config->y, z=config->z;
- Task_17470* p=(Task_17470*)FUN_00263ea0(0x70);
+ JointDriver_17470* p=(JointDriver_17470*)FUN_00263ea0(0x70);
  if(p) p=p->FUN_002248f0(0);
  task=p;
  task->label.FUN_0027b040("orientTarget");

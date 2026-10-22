@@ -12,20 +12,20 @@ struct ResourceName_a8400 {
 
 class Target;
 
-class Rig_a8400 {
+class VectorCamera_a8400 {
 public:
     virtual void AddRef();
-    Rig_a8400 *FUN_002939a0();
+    VectorCamera_a8400 *FUN_002939a0();
 };
 
-class Controller_a8400 {
+class CameraAnimationController_a8400 {
 public:
     virtual void AddRef();
-    Controller_a8400 *FUN_00292eb0();
-    void FUN_00293100(Rig_a8400 *rig);
+    CameraAnimationController_a8400 *FUN_00292eb0();
+    void FUN_00293100(VectorCamera_a8400 *rig);
 };
 
-class __declspec(novtable) CCameraBase_a8400 {
+class __declspec(novtable) CGameCamera_a8400 {
 public:
     virtual void v0();
     char pad04[4];
@@ -33,16 +33,16 @@ public:
     char pad0c[0xd0 - 0xc];
     int mode;               // 0xd0
     char padd4[0x170 - 0xd4];
-    CCameraBase_a8400 *FUN_000a9400();
-    CCameraBase_a8400() { FUN_000a9400(); }
+    CGameCamera_a8400 *FUN_000a9400();
+    CGameCamera_a8400() { FUN_000a9400(); }
 };
 
 
-class CDramaticCamera : public CCameraBase_a8400 {
+class CDramaticCamera : public CGameCamera_a8400 {
 public:
     virtual void v0();
-    Controller_a8400 *controller;     // 0x170
-    Rig_a8400 *rig;                   // 0x174
+    CameraAnimationController_a8400 *controller;     // 0x170
+    VectorCamera_a8400 *rig;                   // 0x174
     float f178;
     CDramaticCamera();
 };
@@ -52,15 +52,15 @@ CDramaticCamera::CDramaticCamera()
     mode = 1;
     name.FUN_0027b040((*(const char**)&DAT_0049ed3c));
     void *mem = thunk_FUN_0008d690(0x118);
-    Controller_a8400 *c = 0;
+    CameraAnimationController_a8400 *c = 0;
     if (mem != 0)
-        c = ((Controller_a8400 *)mem)->FUN_00292eb0();
+        c = ((CameraAnimationController_a8400 *)mem)->FUN_00292eb0();
     controller = c;
     c->AddRef();
     mem = thunk_FUN_0008d690(0xf8);
-    Rig_a8400 *r = 0;
+    VectorCamera_a8400 *r = 0;
     if (mem != 0)
-        r = ((Rig_a8400 *)mem)->FUN_002939a0();
+        r = ((VectorCamera_a8400 *)mem)->FUN_002939a0();
     rig = r;
     r->AddRef();
     controller->FUN_00293100(rig);

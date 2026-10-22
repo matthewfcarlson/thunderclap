@@ -3,10 +3,10 @@ class Ref_2b52e0 {
     virtual void A();
     virtual void B();
 };
-class Base_2b52e0 {
+class DrawablePrimitive_2b52e0 {
   public:
     virtual void Q();
-    Base_2b52e0();
+    DrawablePrimitive_2b52e0();
 };
 extern Ref_2b52e0* gGlobal_2b52e0;
 inline Ref_2b52e0* Acq(Ref_2b52e0* x) {
@@ -14,7 +14,7 @@ inline Ref_2b52e0* Acq(Ref_2b52e0* x) {
         x->A();
     return x;
 }
-class ShadowMeshImpl : public Base_2b52e0 {
+class ShadowMeshImpl : public DrawablePrimitive_2b52e0 {
   public:
     virtual void V();
     int pad10[3];

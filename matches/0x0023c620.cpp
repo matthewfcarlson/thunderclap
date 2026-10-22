@@ -1,10 +1,10 @@
-class Base_23c620 {
+class Branch_23c620 {
   public:
     virtual void f();
-    Base_23c620(int);
+    Branch_23c620(int);
 };
-class Bank : public Base_23c620 {
+class Bank : public Branch_23c620 {
   public:
     Bank();
 };
-Bank::Bank() : Base_23c620(0) {}
+Bank::Bank() : Branch_23c620(0) {}

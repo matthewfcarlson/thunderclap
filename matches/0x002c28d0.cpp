@@ -5,21 +5,21 @@ class Ref_2c28d0 {
     virtual void f0();
     virtual void Release();
 };
-class Root_2c28d0 {
+class DrawableContainer_2c28d0 {
   public:
     void* vptr;
-    ~Root_2c28d0() throw();
+    ~DrawableContainer_2c28d0() throw();
 };
-class D : public Root_2c28d0 {
+class Geometry_2c28d0 : public DrawableContainer_2c28d0 {
   public:
     char p58[84];
     Ref_2c28d0* a58;
     Ref_2c28d0* a5c;
     Ref_2c28d0* a60;
     Ref_2c28d0* a64;
-    ~D() throw();
+    ~Geometry_2c28d0() throw();
 };
-D::~D() throw() {
+Geometry_2c28d0::~Geometry_2c28d0() throw() {
     vptr = &vt1_2c28d0;
     _ReadWriteBarrier();
     if (a58) {

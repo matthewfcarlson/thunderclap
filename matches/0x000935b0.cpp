@@ -6,7 +6,7 @@ struct S_935b0 {
     int a, b;
     void Fini();
 };
-class Gal {
+class CUnlockableGallery_935b0 {
   public:
     void* vptr;
     char pad[0x10 - 4];
@@ -14,9 +14,9 @@ class Gal {
     void* m18;
     char pad2[0xa8 - 0x1c];
     S_935b0 sa8;
-    Gal* f0(unsigned char flags);
+    CUnlockableGallery_935b0* f0(unsigned char flags);
 };
-Gal* Gal::f0(unsigned char flags) {
+CUnlockableGallery_935b0* CUnlockableGallery_935b0::f0(unsigned char flags) {
     vptr = gG_935b0;
     sa8.Fini();
     void* p = m18;

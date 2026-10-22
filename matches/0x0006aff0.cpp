@@ -1,10 +1,10 @@
-class Base {
+class CTrack_6aff0 {
   public:
-    Base();
+    CTrack_6aff0();
     virtual void f();
     char pad[8];
 };
-class CClearCollisionStun : public Base {
+class CClearCollisionStun : public CTrack_6aff0 {
   public:
     CClearCollisionStun();
     virtual void f();

@@ -12,7 +12,7 @@ class Ref_29bba0 {
     virtual void a();
     virtual void Destroy();
 };
-class Obj_29bba0 {
+class DisplayList_29bba0 {
   public:
     char pad0[0x10];
     unsigned int count;
@@ -23,7 +23,7 @@ class Obj_29bba0 {
     void* entries;
     void Clear();
 };
-void Obj_29bba0::Clear() {
+void DisplayList_29bba0::Clear() {
     unsigned int i = 0;
     while (i < count) {
         items[i]->f();

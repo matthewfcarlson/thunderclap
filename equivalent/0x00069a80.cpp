@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00069a80 @ 0x00069a80
-struct BaseTrack {
+struct CTrack_69a80 {
     virtual void update();
     char reserved[4];
-    BaseTrack();
+    CTrack_69a80();
 };
 
-struct CMoveAddYTrack : BaseTrack {
+struct CMoveAddYTrack : CTrack_69a80 {
     int enabled;
     int other;
     float scale;

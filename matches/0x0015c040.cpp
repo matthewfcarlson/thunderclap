@@ -1,6 +1,6 @@
-class Base_15c040 {
+class Track_15c040 {
   public:
-    Base_15c040();
+    Track_15c040();
     virtual void f();
     char pad[4];
 };
@@ -9,7 +9,7 @@ class Elem_15c040 {
     Elem_15c040();
     char pad[8];
 };
-class GrappleLocomotionSteerTrack_15c040 : public Base_15c040 {
+class GrappleLocomotionSteerTrack_15c040 : public Track_15c040 {
   public:
     GrappleLocomotionSteerTrack_15c040();
     virtual void f();

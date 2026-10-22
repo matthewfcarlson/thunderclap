@@ -1,12 +1,12 @@
-class Base_69dd0 {
+class CTrack_69dd0 {
   public:
-    Base_69dd0();
+    CTrack_69dd0();
     virtual void f0();
     virtual void f1();
     int m4;
 };
 
-class CDamageTrack : public Base_69dd0 {
+class CDamageTrack : public CTrack_69dd0 {
   public:
     CDamageTrack();
     int m8;

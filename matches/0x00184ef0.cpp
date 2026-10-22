@@ -3,13 +3,13 @@ class Ref_184ef0 {
     virtual void A();
     virtual void B();
 };
-class Base_184ef0 {
+class Action_184ef0 {
   public:
-    Base_184ef0();
+    Action_184ef0();
     virtual void V0();
     char pad[0x18];
 };
-class BallAndChainReturnAction_184ef0 : public Base_184ef0 {
+class BallAndChainReturnAction_184ef0 : public Action_184ef0 {
   public:
     int mArg;
     Ref_184ef0* mRef;
@@ -19,7 +19,7 @@ class BallAndChainReturnAction_184ef0 : public Base_184ef0 {
     BallAndChainReturnAction_184ef0(int, Ref_184ef0*);
     virtual void V0();
 };
-BallAndChainReturnAction_184ef0::BallAndChainReturnAction_184ef0(int a, Ref_184ef0* b) : Base_184ef0() {
+BallAndChainReturnAction_184ef0::BallAndChainReturnAction_184ef0(int a, Ref_184ef0* b) : Action_184ef0() {
     int* q = &mArg;
     *q = 0;
     mRef = 0;

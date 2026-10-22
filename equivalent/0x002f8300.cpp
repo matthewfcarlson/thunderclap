@@ -35,7 +35,7 @@ struct Target_2f8300 {
 
 float FUN_002f2950(float a, float b);
 
-struct Owner_2f8300 {
+struct ImpulseBasedCollisionSolver_2f8300 {
     virtual void s0();
     virtual void s1();
     virtual void s2();
@@ -64,7 +64,7 @@ struct Owner_2f8300 {
     int FUN_002f8300();
 };
 
-int Owner_2f8300::FUN_002f8300()
+int ImpulseBasedCollisionSolver_2f8300::FUN_002f8300()
 {
     volatile V3_2f8300 *r = &res;
     struct Frame {

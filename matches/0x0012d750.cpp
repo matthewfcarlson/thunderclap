@@ -7,7 +7,7 @@ struct Sub_12d750 {
     int b;
     void Init();
 };
-struct ThreatDistanceCondition_nv_12d750 {
+struct ThreatDistanceCondition_12d750 {
     void Init(int);
 };
 class ThreatAngleCondition_12d750 {
@@ -24,7 +24,7 @@ class ThreatAngleCondition_12d750 {
 ThreatAngleCondition_12d750* factory_vfunc5() {
     ThreatAngleCondition_12d750* p = (ThreatAngleCondition_12d750*)alloc28(0x28);
     if (p) {
-        ((ThreatDistanceCondition_nv_12d750*)(((hulkfight::ai::ThreatDistanceCondition*)p)))->Init(0);
+        ((ThreatDistanceCondition_12d750*)(((hulkfight::ai::ThreatDistanceCondition*)p)))->Init(0);
         p->vtable = ((hulk_intptr)DAT_00410c14);
         p->c = 0;
         p->f = 0x3fc90fdb;

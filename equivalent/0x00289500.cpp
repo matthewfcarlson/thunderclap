@@ -24,13 +24,13 @@ struct Name_289500 {
     void FUN_0027b040(const char *s);
 };
 
-class __declspec(novtable) NamedBase_289500 {
+class __declspec(novtable) Entity_289500 {
 public:
     virtual void v0();
     char pad04[4];
     Name_289500 name;
     void FUN_0027b070();
-    NamedBase_289500() { FUN_0027b070(); }
+    Entity_289500() { FUN_0027b070(); }
 };
 
 struct Alloc_289500 {
@@ -55,7 +55,7 @@ struct Reader {
 };
 
 namespace pure3d {
-class Animation : public NamedBase_289500 {
+class Animation : public Entity_289500 {
 public:
     int f10;
     float f14;

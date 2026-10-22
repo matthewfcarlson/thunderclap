@@ -1,10 +1,10 @@
-class Base {
+class Track_1474f0 {
   public:
-    Base();
+    Track_1474f0();
     virtual void f();
     char pad[4];
 };
-class GrappleStruggleTrack : public Base {
+class GrappleStruggleTrack : public Track_1474f0 {
   public:
     GrappleStruggleTrack();
     virtual void f();
@@ -13,7 +13,7 @@ class GrappleStruggleTrack : public Base {
     float c;
     int d, e, g, h;
 };
-GrappleStruggleTrack::GrappleStruggleTrack() : Base() {
+GrappleStruggleTrack::GrappleStruggleTrack() : Track_1474f0() {
     b = 0;
     d = 0;
     e = 0;

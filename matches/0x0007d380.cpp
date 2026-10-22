@@ -2,11 +2,11 @@
 #include "decls/address.h"
 extern "C" char DAT_003ff014[];
 extern const char s0_7d380[], s1[], s2[], s3[];
-class Base_7d380 {
+class Function_7d380 {
   public:
     void Init(const char*, int);
 };
-class Target_7d380 : public Base_7d380 {
+class Method4_7d380 : public Function_7d380 {
   public:
     hulk_intptr vptr;
     char pad4[12];
@@ -18,9 +18,9 @@ class Target_7d380 : public Base_7d380 {
     char b18;
     char pad19[3];
     int member1c;
-    Target_7d380(const char*, int);
+    Method4_7d380(const char*, int);
 };
-Target_7d380::Target_7d380(const char* p, int x) {
+Method4_7d380::Method4_7d380(const char* p, int x) {
     Init(p, 4);
     vptr = ((hulk_intptr)DAT_003ff014);
     member1c = x;

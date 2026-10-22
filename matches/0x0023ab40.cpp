@@ -3,14 +3,14 @@ struct Obj_23ab40 {
     Obj_23ab40* next;
 };
 extern void __cdecl thunk_FUN_00267090(Obj_23ab40*);
-class C_23ab40 {
+class ScriptReader_23ab40 {
   public:
     char pad[0x12c];
     int count;
     char pad1[0x0c];
     void f();
 };
-void C_23ab40::f() {
+void ScriptReader_23ab40::f() {
     int n = count;
     if (--n >= 0) {
         char* p = (char*)this + 0x13c + n * 0x18;

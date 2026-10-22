@@ -6,12 +6,12 @@ class Ref_19420 {
     virtual void F0();
     virtual void Release();
 };
-class Base_19420 {
+class CAction_19420 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_19420 : public Base_19420 {
+class CCollisionAction_19420 : public CAction_19420 {
   public:
     char pad_1c[0x18];
     Ref_19420* m1c;
@@ -19,9 +19,9 @@ class Obj_19420 : public Base_19420 {
     Ref_19420* m3c;
     char pad_48[0x8];
     Ref_19420* m48;
-    ~Obj_19420();
+    ~CCollisionAction_19420();
 };
-Obj_19420::~Obj_19420() {
+CCollisionAction_19420::~CCollisionAction_19420() {
     vptr = gD;
     _ReadWriteBarrier();
     if (m3c) {

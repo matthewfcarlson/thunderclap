@@ -1,10 +1,10 @@
-class Base {
+class Track_1705a0 {
   public:
     virtual void f();
-    Base();
+    Track_1705a0();
     char pad[4];
 };
-class MotionStateTrack : public Base {
+class MotionStateTrack : public Track_1705a0 {
   public:
     virtual void f();
     MotionStateTrack();

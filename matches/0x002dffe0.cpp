@@ -1,10 +1,10 @@
 #include "compat/ptr.h"
 extern "C" char DAT_0042fbd4[];
-class Base_2dffe0 {
+class PrimGroupOptimized_2dffe0 {
   public:
     void Init();
 };
-class PrimGroupSkinnedOptimized : public Base_2dffe0 {
+class PrimGroupSkinnedOptimized : public PrimGroupOptimized_2dffe0 {
   public:
     char pad[0x40];
     int a40, a44, a48, a4c, a50;

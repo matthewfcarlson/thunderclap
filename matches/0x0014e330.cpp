@@ -1,9 +1,9 @@
-class Base {
+class Track_14e330 {
   public:
-    Base();
+    Track_14e330();
     virtual void func();
 };
-class GroundSlideTrack : public Base {
+class GroundSlideTrack : public Track_14e330 {
   public:
     GroundSlideTrack();
     virtual void func();

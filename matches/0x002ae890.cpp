@@ -15,12 +15,12 @@ class ImageHandler {
         virtual void f10();
     };
 };
-class pure3d_TextureBuilder : public ImageHandler::Builder {
+class TextureBuilder_2ae890 : public ImageHandler::Builder {
   public:
     char pad[8];
     void* mPtr;
     unsigned int vfunc_5();
 };
-unsigned int pure3d_TextureBuilder::vfunc_5() {
+unsigned int TextureBuilder_2ae890::vfunc_5() {
     return *(unsigned int*)((char*)mPtr + 0x54);
 }

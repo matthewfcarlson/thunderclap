@@ -3,7 +3,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 extern "C" char DAT_00424d6c[];
-class CEffectManager {
+class Method3_1f78c0 {
   public:
     hulk_intptr vtable;
     char pad4[0x0c];
@@ -12,9 +12,9 @@ class CEffectManager {
     char pad19[3];
     int field1c;
     void Base(int, int);
-    CEffectManager* Build(int, int);
+    Method3_1f78c0* Build(int, int);
 };
-CEffectManager* CEffectManager::Build(int a, int b) {
+Method3_1f78c0* Method3_1f78c0::Build(int a, int b) {
     Base(a, 3);
     vtable = ((hulk_intptr)DAT_00424d6c);
     field1c = b;

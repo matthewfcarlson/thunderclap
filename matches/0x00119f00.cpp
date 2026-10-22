@@ -4,7 +4,7 @@
 typedef unsigned int u32_119f00;
 extern int TypeA_119f00;
 extern int TypeB_119f00;
-struct MotionChaseAction_nv_119f00 {
+struct MotionChaseAction_119f00 {
     u32_119f00 Init(void*, void*);
 };
 extern int Check(void*, int, int*, int*, int);
@@ -15,7 +15,7 @@ int hulkfight::ai::MotionChaseTrack::vfunc_10(int __p0, int __p1, int __p2) { u3
     if (Check(p, 0, &TypeA_119f00, &TypeB_119f00, 0)) {
         hulkfight::ai::MotionChaseAction* q = Alloc(0x28);
         if (q)
-            return (int)(((MotionChaseAction_nv_119f00*)(q))->Init(this, p));
+            return (int)(((MotionChaseAction_119f00*)(q))->Init(this, p));
     }
     return (int)(0);
 }

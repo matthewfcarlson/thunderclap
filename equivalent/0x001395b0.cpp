@@ -2,12 +2,12 @@
 // fight::TrackFactoryTemplate<hulkfight::motion::FlyingBrakeTrack>::vfunc_5 @ 0x001395b0
 typedef unsigned int size_t;
 void* __cdecl FUN_0008d690(size_t);
-struct TrackBase {
+struct Track_1395b0 {
     virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5();
     char gap[8];
     void FUN_00236d40();
 };
-struct FlyingBrakeTrack : TrackBase {
+struct FlyingBrakeTrack : Track_1395b0 {
     float field0c, field10, field14, field18, field1c, field20;
     int field24, field28, field2c;
     virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5();

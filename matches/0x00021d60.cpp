@@ -7,18 +7,18 @@ class Ref_21d60 {
     virtual void F0();
     virtual void Release();
 };
-class Base_21d60 {
+class CAction_21d60 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_21d60 : public Base_21d60 {
+class CGrappleSwapAction_21d60 : public CAction_21d60 {
   public:
     char pad[0x1c - 4];
     Ref_21d60* m1c;
-    Obj_21d60* f2(unsigned char flags);
+    CGrappleSwapAction_21d60* f2(unsigned char flags);
 };
-Obj_21d60* Obj_21d60::f2(unsigned char flags) {
+CGrappleSwapAction_21d60* CGrappleSwapAction_21d60::f2(unsigned char flags) {
     vptr = g_vftable_21d60;
     _ReadWriteBarrier();
     if (m1c) {

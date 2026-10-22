@@ -1,9 +1,9 @@
-class Mgr_360310 {
+class SeqEventStopTrackType_360310 {
   public:
     void Run();
 };
 
-extern Mgr_360310 g_mgr_360310;
+extern SeqEventStopTrackType_360310 g_mgr_360310;
 
 void Cleanup() throw() {}
 

@@ -25,7 +25,7 @@ struct SymMatrix {
     void FUN_002fca90() throw();
 };
 
-struct Filter_2f65f0 {
+struct SimpleFilterAbs3D_2f65f0 {
     char data[0x64];
     void FUN_00308cc0() throw();
     void FUN_00308a70(void *owner) throw();
@@ -102,7 +102,7 @@ public:
     V3_2f65f0 v14c;
     V3_2f65f0 v158;
     float f164;
-    Filter_2f65f0 filt168;
+    SimpleFilterAbs3D_2f65f0 filt168;
     int f1cc;
     char b1d0;
     char pad1d1[3];

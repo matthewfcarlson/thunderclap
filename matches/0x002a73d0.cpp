@@ -1,11 +1,11 @@
 extern "C" void _ReadWriteBarrier();
-struct Base_2a73d0 {
+struct SimpleFrameController_2a73d0 {
     virtual void f0();
-    Base_2a73d0();
+    SimpleFrameController_2a73d0();
     char pad[0x3c];
 };
-struct PC_2a73d0 : Base_2a73d0 {
-    PC_2a73d0();
+struct ParticleController_2a73d0 : SimpleFrameController_2a73d0 {
+    ParticleController_2a73d0();
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -37,7 +37,7 @@ struct PC_2a73d0 : Base_2a73d0 {
     int m50;
     int m54;
 };
-PC_2a73d0::PC_2a73d0() {
+ParticleController_2a73d0::ParticleController_2a73d0() {
     m40 = 1;
     m44 = 100.0f;
     m48 = 30.0f;

@@ -2,7 +2,7 @@
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_17b7a0;
-struct TeleportRelativeAction_nv_17b7a0 {
+struct TeleportRelativeAction_17b7a0 {
     u32_17b7a0 init(hulkfight::motion::TeleportRelativeTrack*, u32_17b7a0);
 };
 extern int MatchType(u32_17b7a0, int, const void*, const void*, int);
@@ -15,7 +15,7 @@ int hulkfight::motion::TeleportRelativeTrack::vfunc_10(int __p0, int __p1, int _
     if (MatchType(c, 0, ParamDesc, FightParamsDesc, 0)) {
         hulkfight::motion::TeleportRelativeAction* p = Alloc(0x30);
         if (p)
-            return (int)(((TeleportRelativeAction_nv_17b7a0*)(p))->init(this, c));
+            return (int)(((TeleportRelativeAction_17b7a0*)(p))->init(this, c));
     }
     return (int)(0);
 }

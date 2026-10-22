@@ -1,9 +1,9 @@
 extern const char gName[];
-class Effect {
+class MetaType_35fa20 {
   public:
     void Init(const char*, int);
 };
-extern Effect gEffect;
+extern MetaType_35fa20 gEffect;
 extern "C" int __cdecl atexit(void(__cdecl*)());
 extern "C" void __cdecl cleanup();
 void __cdecl initEffect() {

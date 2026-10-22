@@ -1,6 +1,6 @@
-class Base {
+class Track_170810 {
   public:
-    Base();
+    Track_170810();
     virtual void v0();
     char pad[8];
 };
@@ -11,7 +11,7 @@ struct Pair {
         c = 0;
     }
 };
-class TeleportTrack : public Base {
+class TeleportTrack : public Track_170810 {
   public:
     TeleportTrack();
     virtual void v0();
@@ -19,7 +19,7 @@ class TeleportTrack : public Base {
     Pair pair;
     float d;
 };
-TeleportTrack::TeleportTrack() : Base(), a(0) {
+TeleportTrack::TeleportTrack() : Track_170810(), a(0) {
     pair.reset();
     d = -1.0f;
     *(int*)((char*)this + 8) = 1;

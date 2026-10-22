@@ -4,11 +4,11 @@ struct CtorV_001d0480 {
     virtual void v_001d0480();
 };
 extern int g1, g2;
-class Parent : public CtorV_001d0480 {
+class Function_1d4170 : public CtorV_001d0480 {
   public:
-    Parent(void* x) : CtorV_001d0480(x, 1) { }
+    Function_1d4170(void* x) : CtorV_001d0480(x, 1) { }
 };
-class Method : public Parent {
+class Method1_1d4170 : public Function_1d4170 {
   public:
     virtual void f();
     char p[12];
@@ -17,18 +17,18 @@ class Method : public Parent {
     unsigned char b;
     char p3[3];
     void* obj;
-    Method(void* x, void* z) : Parent(x) {
+    Method1_1d4170(void* x, void* z) : Function_1d4170(x) {
         obj = z;
         b = FUN_001d04d0(&g2);
         a = FUN_001d04d0(&g1);
     }
 };
-class Closure : public Method {
+class Closure1_1d4170 : public Method1_1d4170 {
   public:
     virtual void f();
     void* val;
-    Closure(void*, void*, void*);
+    Closure1_1d4170(void*, void*, void*);
 };
-Closure::Closure(void* x, void* y, void* z) : Method(x, z) {
+Closure1_1d4170::Closure1_1d4170(void* x, void* y, void* z) : Method1_1d4170(x, z) {
     val = y;
 }

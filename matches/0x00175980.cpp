@@ -9,13 +9,13 @@ class Helper_175980 {
   public:
     void Clean();
 };
-class Base_175980 {
+class Action_175980 {
   public:
     int* vptr;
     char pad[0x18];
     void BaseClean();
 };
-class TeleportRelativeAction : public Base_175980 {
+class TeleportRelativeAction : public Action_175980 {
   public:
     int m1c;
     Ref_175980* m20;

@@ -6,21 +6,21 @@ class Ref_1d520 {
     virtual void F0();
     virtual void Release();
 };
-class Base_1d520 {
+class CAction_1d520 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_1d520 : public Base_1d520 {
+class CAutoTargetAction_1d520 : public CAction_1d520 {
   public:
     char pad_1c[0x18];
     Ref_1d520* m1c;
     char pad_24[0x4];
     Ref_1d520* m24;
     Ref_1d520* m28;
-    ~Obj_1d520();
+    ~CAutoTargetAction_1d520();
 };
-Obj_1d520::~Obj_1d520() {
+CAutoTargetAction_1d520::~CAutoTargetAction_1d520() {
     vptr = gD;
     _ReadWriteBarrier();
     if (m28) {

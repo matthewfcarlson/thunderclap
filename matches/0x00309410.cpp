@@ -11,7 +11,7 @@ struct Part_309410 {
     char pad31[3];
 };
 
-class Body_309410 {
+class HairclubPhysicsObject_309410 {
 public:
     void FUN_00308fe0();
     void FUN_00309410();
@@ -27,7 +27,7 @@ public:
     int partCount;
 };
 
-void Body_309410::FUN_00309410() {
+void HairclubPhysicsObject_309410::FUN_00309410() {
     sumX = 0;
     sumY = 0;
     for (int i = 0; i < partCount; i++) {

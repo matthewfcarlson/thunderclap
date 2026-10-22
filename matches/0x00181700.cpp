@@ -1,10 +1,10 @@
-class Base {
+class Track_181700 {
   public:
-    Base();
+    Track_181700();
     virtual void f();
     int pad;
 };
-class PropDestroyTrack : public Base {
+class PropDestroyTrack : public Track_181700 {
   public:
     PropDestroyTrack();
     virtual void f();
@@ -12,6 +12,6 @@ class PropDestroyTrack : public Base {
     int b;
     int c;
 };
-PropDestroyTrack::PropDestroyTrack() : Base(), b(0), c(0) {
+PropDestroyTrack::PropDestroyTrack() : Track_181700(), b(0), c(0) {
     a = 1;
 }

@@ -2,7 +2,7 @@ class Gate_e30a0 {
   public:
     void H(int);
 };
-class Obj_e30a0 {
+class TextSelector_e30a0 {
   public:
     virtual void End();
     void Run();
@@ -11,7 +11,7 @@ class Obj_e30a0 {
     char pad2[0x1d94 - 0x158];
     Gate_e30a0* gate;
 };
-void Obj_e30a0::Run() {
+void TextSelector_e30a0::Run() {
     if (gate)
         gate->H(val);
     End();

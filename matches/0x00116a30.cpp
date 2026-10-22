@@ -5,12 +5,12 @@ class Ref_116a30 {
     virtual void AddRef();
     virtual void Release();
 };
-class Base_116a30 {
+class Action_116a30 {
   public:
     volatile hulk_intptr v;
-    Base_116a30();
+    Action_116a30();
 };
-class MotionTargetAction : public Base_116a30 {
+class MotionTargetAction : public Action_116a30 {
   public:
     char pad[24];
     volatile int a;
@@ -18,7 +18,7 @@ class MotionTargetAction : public Base_116a30 {
     int c;
     MotionTargetAction(int x, Ref_116a30* r);
 };
-MotionTargetAction::MotionTargetAction(int x, Ref_116a30* r) : Base_116a30() {
+MotionTargetAction::MotionTargetAction(int x, Ref_116a30* r) : Action_116a30() {
     v = ((hulk_intptr)DAT_0040ecd8);
     a = 0;
     b = 0;

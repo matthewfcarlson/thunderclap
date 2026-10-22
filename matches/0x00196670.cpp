@@ -7,14 +7,14 @@ class Del_196670 {
   public:
     virtual void Dtor(int f);
 };
-class Base_196670 {
+class Action_196670 {
   public:
-    virtual ~Base_196670() throw();
+    virtual ~Action_196670() throw();
     int b[6];
 };
 namespace hulkfight {
 namespace motion {
-class FireBeamAction : public Base_196670 {
+class FireBeamAction : public Action_196670 {
   public:
     virtual ~FireBeamAction() throw();
     int i1c;

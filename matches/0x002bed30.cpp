@@ -14,16 +14,16 @@ class Ref2 {
   public:
     virtual void Del(int);
 };
-class D {
+class SpriteLoader_2bed30 {
   public:
     void* vptr;
     char p[0x10];
     Ref2* a14;
     Ref_2bed30* a18;
     Obj_2bed30* a1c;
-    D* vfunc2(unsigned char f);
+    SpriteLoader_2bed30* vfunc2(unsigned char f);
 };
-D* D::vfunc2(unsigned char f) {
+SpriteLoader_2bed30* SpriteLoader_2bed30::vfunc2(unsigned char f) {
     Ref_2bed30* r = a18;
     vptr = &vt1_2bed30;
     r->Rel();

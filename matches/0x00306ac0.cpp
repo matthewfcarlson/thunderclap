@@ -11,14 +11,14 @@ struct Vec_306ac0 {
     Ref_306ac0** b;
     Ref_306ac0** e;
 };
-class A_306ac0 {
+class CollisionVolume_306ac0 {
   public:
     void* vptr;
     char pad[0x14 - 4];
     Vec_306ac0* v;
-    ~A_306ac0() throw();
+    ~CollisionVolume_306ac0() throw();
 };
-A_306ac0::~A_306ac0() throw() {
+CollisionVolume_306ac0::~CollisionVolume_306ac0() throw() {
     vptr = g_vt_306ac0;
     if (v) {
         for (unsigned i = 0; i < (unsigned)(v->e - v->b); i++)

@@ -45,14 +45,14 @@ class Function2 : public Function {
 
 struct Registry_1b2e50 { void FUN_001d3b70(const char*, void*); };
 
-class __declspec(novtable) CollisionSolverAgentBase {
+class __declspec(novtable) CollisionSolverAgent_1b2e50 {
   public:
     virtual void f0();
     void FUN_002f8800();
-    CollisionSolverAgentBase() { FUN_002f8800(); }
+    CollisionSolverAgent_1b2e50() { FUN_002f8800(); }
 };
 
-class AICollisionSolverAgent : public CollisionSolverAgentBase {
+class AICollisionSolverAgent : public CollisionSolverAgent_1b2e50 {
   public:
     AICollisionSolverAgent();
     virtual void f1();

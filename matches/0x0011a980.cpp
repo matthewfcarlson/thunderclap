@@ -1,12 +1,12 @@
-class Caster {
+class ConditionFactoryCasterTemplate_11a980 {
   public:
     virtual void Cast();
 };
-class SpecificCaster : public Caster {
+class SpecificCaster : public ConditionFactoryCasterTemplate_11a980 {
   public:
     virtual void Cast();
 };
-extern void* Find(int, Caster*);
+extern void* Find(int, ConditionFactoryCasterTemplate_11a980*);
 class Owner {
   public:
     void Set(void*);

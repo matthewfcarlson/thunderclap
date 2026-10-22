@@ -6,7 +6,7 @@ struct SubA_62d70 {
 struct SubB_62d70 {
     void init2();
 };
-struct Base_62d70 {
+struct CWeaponCollisionTrack_62d70 {
     void finish();
 };
 class CWeaponCollisionTrack {
@@ -26,7 +26,7 @@ CWeaponCollisionTrack* CWeaponCollisionTrack::vfunc_5(unsigned char p) {
     s48.init2();
     s38.init();
     s2c.init();
-    ((Base_62d70*)this)->finish();
+    ((CWeaponCollisionTrack_62d70*)this)->finish();
     if (p & 1)
         destroy(this);
     return this;

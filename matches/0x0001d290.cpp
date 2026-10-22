@@ -2,12 +2,12 @@ struct Ref_1d290 {
     virtual void AddRef();
     virtual void Release();
 };
-struct B_1d290 {
-    B_1d290() throw();
+struct Action_1d290 {
+    Action_1d290() throw();
     virtual void V0();
     char pad04[0x18];
 };
-struct CAction : B_1d290 {
+struct CAction : Action_1d290 {
     Ref_1d290* m1c;
     int m20;
     CAction(Ref_1d290* r, int a) {

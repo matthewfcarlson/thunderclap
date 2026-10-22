@@ -10,21 +10,21 @@ struct S_597c0 {
     int a;
     void Fini();
 };
-class Base_597c0 {
+class CFightParams_597c0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_597c0 : public Base_597c0 {
+class CFightParamsCollision_597c0 : public CFightParams_597c0 {
   public:
     char pad[0xc - 4];
     Ref_597c0* mc;
     Ref_597c0* m10;
     char pad2[4];
     S_597c0 s18;
-    ~Obj_597c0();
+    ~CFightParamsCollision_597c0();
 };
-Obj_597c0::~Obj_597c0() {
+CFightParamsCollision_597c0::~CFightParamsCollision_597c0() {
     vptr = gA_597c0;
     s18.Fini();
     vptr = gB_597c0;

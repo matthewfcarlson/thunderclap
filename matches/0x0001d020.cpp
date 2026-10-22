@@ -9,16 +9,16 @@ struct Ctor_00232660 {
 };
 extern int ActionVtable;
 extern int HitVtable;
-class Hit_1d020 : public Ctor_00232660 {
+class CPushBackAnimationAction_1d020 : public Ctor_00232660 {
   public:
     int* vptr;
     char pad[0x18];
     Ref_1d020* mRef;
     int mValue;
     int mZero;
-    Hit_1d020(int a, Ref_1d020* b);
+    CPushBackAnimationAction_1d020(int a, Ref_1d020* b);
 };
-Hit_1d020::Hit_1d020(int a, Ref_1d020* b) : Ctor_00232660() {
+CPushBackAnimationAction_1d020::CPushBackAnimationAction_1d020(int a, Ref_1d020* b) : Ctor_00232660() {
     vptr = &ActionVtable;
     mRef = 0;
     if (b)

@@ -6,18 +6,18 @@ class Ref_2a6f00 {
     virtual void F0();
     virtual void Release();
 };
-class Base_2a6f00 {
+class SimpleFrameController_2a6f00 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_2a6f00 : public Base_2a6f00 {
+class VertexAnimController_2a6f00 : public SimpleFrameController_2a6f00 {
   public:
     char pad[60];
     Ref_2a6f00* m;
-    Obj_2a6f00* f2(unsigned char flags);
+    VertexAnimController_2a6f00* f2(unsigned char flags);
 };
-Obj_2a6f00* Obj_2a6f00::f2(unsigned char flags) {
+VertexAnimController_2a6f00* VertexAnimController_2a6f00::f2(unsigned char flags) {
     vptr = g_vftable_2a6f00;
     _ReadWriteBarrier();
     if (m) {

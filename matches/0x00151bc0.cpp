@@ -8,16 +8,16 @@ class Obj_151bc0 {
 struct Ctor_00232660 {
     Ctor_00232660();
 };
-class Hit_151bc0 : public Ctor_00232660 {
+class HitPushbackAction_151bc0 : public Ctor_00232660 {
   public:
     volatile hulk_intptr v;
     char pad[0x18];
     volatile int a;
     Obj_151bc0* b;
     char gap[0x1c];
-    Hit_151bc0(int p, Obj_151bc0* q);
+    HitPushbackAction_151bc0(int p, Obj_151bc0* q);
 };
-Hit_151bc0::Hit_151bc0(int p, Obj_151bc0* q) : Ctor_00232660() {
+HitPushbackAction_151bc0::HitPushbackAction_151bc0(int p, Obj_151bc0* q) : Ctor_00232660() {
     v = ((hulk_intptr)DAT_0041460c);
     a = 0;
     b = 0;

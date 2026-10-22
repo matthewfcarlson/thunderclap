@@ -10,7 +10,7 @@ class Ref_2a9de0 {
 struct ExpressionAnimationController_nv_2a9de0 {
     void Fn();
 };
-class A_2a9de0 {
+class ExpressionAnimationController_2a9de0 {
   public:
     void* vptr;
     char p[0x3c];
@@ -21,7 +21,7 @@ class A_2a9de0 {
     void f();
 };
 void operator delete[](void*);
-void A_2a9de0::f() {
+void ExpressionAnimationController_2a9de0::f() {
     vptr = g_vftable_2a9de0;
     _ReadWriteBarrier();
     if (m40) {

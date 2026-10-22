@@ -7,18 +7,18 @@ class Ref_22520 {
     virtual void F0();
     virtual void Release();
 };
-class Base_22520 {
+class CAction_22520 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_22520 : public Base_22520 {
+class CRageModeAction_22520 : public CAction_22520 {
   public:
     char pad[0x18];
     Ref_22520* m;
-    Obj_22520* f2(unsigned char flags);
+    CRageModeAction_22520* f2(unsigned char flags);
 };
-Obj_22520* Obj_22520::f2(unsigned char flags) {
+CRageModeAction_22520* CRageModeAction_22520::f2(unsigned char flags) {
     vptr = g_vftable_22520;
     _ReadWriteBarrier();
     if (m) {

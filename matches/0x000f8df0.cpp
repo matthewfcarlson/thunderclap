@@ -10,7 +10,7 @@ class Inner_f8df0 {
     Mgr_f8df0* mMgr;
 };
 
-struct NamedValueFloat_nv_f8df0 {
+struct NamedValueFloat_f8df0 {
     NamedValueFloat* Init_000f8a90(Inner_f8df0* a, int b, int c, int d);
 };
 
@@ -31,7 +31,7 @@ NamedValueFloat* Owner_f8df0::Create(int a, int b, int c) {
     if (c && mInner->mMgr->Check_000dfa60(c)) {
         NamedValueFloat* p = (NamedValueFloat*)operator new(0x4c);
         if (p) {
-            r = ((NamedValueFloat_nv_f8df0*)(p))->Init_000f8a90(mInner, a, b, c);
+            r = ((NamedValueFloat_f8df0*)(p))->Init_000f8a90(mInner, a, b, c);
         } else {
             r = 0;
         }

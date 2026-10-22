@@ -14,7 +14,7 @@ struct Owner_3dd00 {
     Mgr_3dd00 *FUN_00059a40();
 };
 
-struct Widget_3dd00 {
+struct CCharacter_3dd00 {
     char pad00[0x10];
     Owner_3dd00 *owner;
     char pad14[0xb4 - 0x14];
@@ -31,7 +31,7 @@ struct Widget_3dd00 {
     void FUN_0003dd00(bool enable);
 };
 
-void Widget_3dd00::FUN_0003dd00(bool enable)
+void CCharacter_3dd00::FUN_0003dd00(bool enable)
 {
     enabled = enable;
     if (enable) {

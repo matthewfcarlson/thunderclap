@@ -2,15 +2,15 @@
 // FUN_001076f0 @ 0x001076f0
 void *__cdecl FUN_0008d690(unsigned int size);
 
-class Weapon_1076f0 {
+class CAvoidBehaviour_1076f0 {
 public:
     virtual void AddRef();
-    Weapon_1076f0 *FUN_00109ba0();
+    CAvoidBehaviour_1076f0 *FUN_00109ba0();
 };
 
-class AgentBase {
+class CCharacterAgent_1076f0 {
 public:
-    AgentBase(int arg);
+    CCharacterAgent_1076f0(int arg);
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -25,11 +25,11 @@ public:
 };
 
 // equiv-map: ??0AgentBase@@QAE@H@Z = 0x000fc760
-class CRangedAgent : public AgentBase {
+class CRangedAgent : public CCharacterAgent_1076f0 {
 public:
     CRangedAgent(int arg);
     virtual void vfunc_9();
-    Weapon_1076f0 *f5c;
+    CAvoidBehaviour_1076f0 *f5c;
     int f60;
     int f64;
     int f68;
@@ -38,12 +38,12 @@ public:
     char b81;
 };
 
-CRangedAgent::CRangedAgent(int arg) : AgentBase(arg)
+CRangedAgent::CRangedAgent(int arg) : CCharacterAgent_1076f0(arg)
 {
-    Weapon_1076f0 *w = 0;
+    CAvoidBehaviour_1076f0 *w = 0;
     void *mem = FUN_0008d690(0x38);
     if (mem != 0)
-        w = ((Weapon_1076f0 *)mem)->FUN_00109ba0();
+        w = ((CAvoidBehaviour_1076f0 *)mem)->FUN_00109ba0();
     f5c = w;
     w->AddRef();
     b80 = 1;

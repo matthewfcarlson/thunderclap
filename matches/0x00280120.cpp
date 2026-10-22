@@ -1,9 +1,9 @@
-class Base_280120 {
+class Entity_280120 {
   public:
-    Base_280120();
+    Entity_280120();
     virtual void v();
 };
-class EffectQueue : public Base_280120 {
+class EffectQueue : public Entity_280120 {
   public:
     char pad[12];
     int one;

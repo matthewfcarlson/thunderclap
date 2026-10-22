@@ -1,17 +1,17 @@
-class Base {
+class Track_143ac0 {
   public:
-    Base();
+    Track_143ac0();
     virtual void f();
     char pad[4];
 };
-class MotionTrailStopTrack : public Base {
+class MotionTrailStopTrack : public Track_143ac0 {
   public:
     MotionTrailStopTrack();
     int a;
     int b;
     int c;
 };
-MotionTrailStopTrack::MotionTrailStopTrack() : Base() {
+MotionTrailStopTrack::MotionTrailStopTrack() : Track_143ac0() {
     b = 0;
     c = 0;
     a = 1;

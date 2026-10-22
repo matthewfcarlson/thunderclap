@@ -9,7 +9,7 @@ class Link_175d50 {
     virtual void A();
     virtual void B();
 };
-class Base_175d50 {
+class Action_175d50 {
   public:
     void Init();
 };
@@ -17,7 +17,7 @@ class Part_175d50 {
   public:
     void Init();
 };
-class Obj_175d50 : public Base_175d50 {
+class SyncToLocatorAction_175d50 : public Action_175d50 {
   public:
     char pad0[0x1c];
     int mA;
@@ -29,9 +29,9 @@ class Obj_175d50 : public Base_175d50 {
     int mY;
     char pad38[12];
     int mZ;
-    Obj_175d50* Func(int a, Ref_175d50* r);
+    SyncToLocatorAction_175d50* Func(int a, Ref_175d50* r);
 };
-Obj_175d50* Obj_175d50::Func(int a, Ref_175d50* r) {
+SyncToLocatorAction_175d50* SyncToLocatorAction_175d50::Func(int a, Ref_175d50* r) {
     Init();
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00417f64);
     mA = 0;

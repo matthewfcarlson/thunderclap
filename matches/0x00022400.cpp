@@ -7,20 +7,20 @@ class Ref_22400 {
     virtual void F0();
     virtual void Release();
 };
-class Base_22400 {
+class CAction_22400 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_22400 : public Base_22400 {
+class COrientTargetAction_22400 : public CAction_22400 {
   public:
     char pad_1c[0x18];
     Ref_22400* m1c;
     char pad_28[0x8];
     Ref_22400* m28;
-    Obj_22400* f2(unsigned char flags);
+    COrientTargetAction_22400* f2(unsigned char flags);
 };
-Obj_22400* Obj_22400::f2(unsigned char flags) {
+COrientTargetAction_22400* COrientTargetAction_22400::f2(unsigned char flags) {
     vptr = gD;
     _ReadWriteBarrier();
     if (m28) {

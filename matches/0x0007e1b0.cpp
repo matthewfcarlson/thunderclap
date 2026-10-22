@@ -4,11 +4,11 @@ struct CtorV_001d0480 {
 };
 extern "C" unsigned char Decode(const void*);
 extern int key1, key2;
-class Seed : public CtorV_001d0480 {
+class Function_7e1b0 : public CtorV_001d0480 {
   public:
-    Seed(void* p) : CtorV_001d0480(p, 1) { }
+    Function_7e1b0(void* p) : CtorV_001d0480(p, 1) { }
 };
-class Method1 : public Seed {
+class Method1 : public Function_7e1b0 {
   public:
     virtual void Invoke(int);
     char padding[0xc];
@@ -17,7 +17,7 @@ class Method1 : public Seed {
     unsigned char b;
     char padding3[3];
     int arg;
-    Method1(void* p, int x) : Seed(p) {
+    Method1(void* p, int x) : Function_7e1b0(p) {
         arg = x;
         b = Decode(&key1);
         a = Decode(&key2);

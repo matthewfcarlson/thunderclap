@@ -32,7 +32,7 @@ struct PlayerHolder_107140 {
     virtual Player_107140 *GetPlayer();
 };
 
-struct Agent_107140 {
+struct CRangedAgent_107140 {
     char pad0[0x58];
     PlayerHolder_107140 *holder;
     char pad5c[0x84 - 0x5c];
@@ -47,7 +47,7 @@ struct Agent_107140 {
     void Init();
 };
 
-void Agent_107140::Init()
+void CRangedAgent_107140::Init()
 {
     Clock_107140 *clock = FUN_000964d0();
     Player_107140 *player = holder->GetPlayer();

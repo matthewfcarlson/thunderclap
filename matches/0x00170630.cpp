@@ -1,10 +1,10 @@
-class Base {
+class Track_170630 {
   public:
-    Base();
+    Track_170630();
     virtual void f();
     char pad[4];
 };
-class MomentumXZAddTrack : public Base {
+class MomentumXZAddTrack : public Track_170630 {
   public:
     MomentumXZAddTrack();
     virtual void f();
@@ -12,7 +12,7 @@ class MomentumXZAddTrack : public Base {
     int zero;
     float x, y;
 };
-MomentumXZAddTrack::MomentumXZAddTrack() : Base() {
+MomentumXZAddTrack::MomentumXZAddTrack() : Track_170630() {
     x = -1.0f;
     y = -1.0f;
     zero = 0;

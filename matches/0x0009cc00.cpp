@@ -1,13 +1,13 @@
 extern float gFloat;
 extern "C" unsigned char __cdecl Check(const float*);
-class Root {
+class Function_9cc00 {
   public:
-    Root(void*, int);
+    Function_9cc00(void*, int);
     virtual void Invoke();
 };
-class Method0 : public Root {
+class Method0 : public Function_9cc00 {
   public:
-    Method0(void* p, void* q) : Root(p, 0) {
+    Method0(void* p, void* q) : Function_9cc00(p, 0) {
         first = q;
         flag = Check(&gFloat);
     }

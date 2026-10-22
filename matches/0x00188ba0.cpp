@@ -8,7 +8,7 @@ class Params_188ba0 {
 extern Params_188ba0 TypeA_188ba0;
 extern Params_188ba0 TypeB_188ba0;
 int __cdecl Check(void*, int, Params_188ba0*, Params_188ba0*, int);
-struct PropSetStateByNameAction_nv_188ba0 {
+struct PropSetStateByNameAction_188ba0 {
     int Init(hulkfight::motion::PropSetStateByNameTrack*, int);
 };
 hulkfight::motion::PropSetStateByNameAction* __cdecl Alloc(int);
@@ -18,7 +18,7 @@ int hulkfight::motion::PropSetStateByNameTrack::vfunc_10(int a, int b, int c) {
     if (result) {
         hulkfight::motion::PropSetStateByNameAction* p = Alloc(0x24);
         if (p)
-            return ((PropSetStateByNameAction_nv_188ba0*)(p))->Init(this, c);
+            return ((PropSetStateByNameAction_188ba0*)(p))->Init(this, c);
     }
     return 0;
 }

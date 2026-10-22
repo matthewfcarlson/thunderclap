@@ -8,7 +8,7 @@ class Res_28c310 {
     virtual void F0();
     virtual void Release();
 };
-class Obj_28c310 {
+class EntityChannel_28c310 {
   public:
     void* vptr;
     char pad[8];
@@ -31,7 +31,7 @@ class Obj_28c310 {
     void Clear();
     void F();
 };
-void Obj_28c310::F() {
+void EntityChannel_28c310::F() {
     vptr = g_f2;
     Clear();
     vptr = g_s;

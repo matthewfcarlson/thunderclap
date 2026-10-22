@@ -6,14 +6,14 @@ class Res_28c130 {
     virtual void F0();
     virtual void Release();
 };
-class Base_28c130 {
+class RotationChannel_28c130 {
   public:
     void* vptr;
     char pad[8];
     Res_28c130* p0;
     void Fin();
 };
-class Obj_28c130 : public Base_28c130 {
+class QuaternionChannel_28c130 : public RotationChannel_28c130 {
   public:
     char pad2[4];
     void* p1;
@@ -21,7 +21,7 @@ class Obj_28c130 : public Base_28c130 {
     void* p2;
     void F();
 };
-void Obj_28c130::F() {
+void QuaternionChannel_28c130::F() {
     if (!p0) {
         vptr = g_f2;
         Drop(p2);

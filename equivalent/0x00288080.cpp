@@ -32,7 +32,7 @@ void FUN_0008d340(void *p);
 void *FUN_0008d6d0(unsigned int size);
 Pair_288080 FUN_002672f0(const char *name, int a, int b);
 
-class SkeletonUser {
+class PoseAnimationController_288080 {
 public:
     char pad000[0x110];
     Skeleton *skeleton;       // 0x110
@@ -56,7 +56,7 @@ public:
     void FUN_00288080(Skeleton *sk);
 };
 
-void SkeletonUser::FUN_00288080(Skeleton *sk)
+void PoseAnimationController_288080::FUN_00288080(Skeleton *sk)
 {
     if (sk == skeleton)
         return;

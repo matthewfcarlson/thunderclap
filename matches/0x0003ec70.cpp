@@ -4,14 +4,14 @@ struct Part {
     char b;
     void Copy(const Part*);
 };
-class Obj {
+class CCharacter_3ec70 {
     char pad[0x22b8];
     Part part;
 
   public:
     void Set(const Part* p);
 };
-void Obj::Set(const Part* p) {
+void CCharacter_3ec70::Set(const Part* p) {
     Part* q = &part;
     q->Copy(p);
     q->a = p->a;

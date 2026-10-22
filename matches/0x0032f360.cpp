@@ -6,12 +6,12 @@ class Ref_32f360 {
     virtual void f1();
 };
 extern int vtable_32f360;
-class pure3d_d3dLightMapShader_32f360 {
+class d3dRefractVertexShader_32f360 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    virtual pure3d_d3dLightMapShader_32f360* vfunc_3(unsigned int);
+    virtual d3dRefractVertexShader_32f360* vfunc_3(unsigned int);
     virtual void f4();
     virtual void f5();
     virtual void f6();
@@ -38,8 +38,8 @@ class pure3d_d3dLightMapShader_32f360 {
     Ref_32f360* a;
     Ref_32f360* b;
 };
-void __cdecl destroy(pure3d_d3dLightMapShader_32f360*);
-pure3d_d3dLightMapShader_32f360* pure3d_d3dLightMapShader_32f360::vfunc_3(unsigned int x) {
+void __cdecl destroy(d3dRefractVertexShader_32f360*);
+d3dRefractVertexShader_32f360* d3dRefractVertexShader_32f360::vfunc_3(unsigned int x) {
     *(hulk_intptr*)this = (hulk_intptr)&vtable_32f360;
     if (a)
         a->f1();

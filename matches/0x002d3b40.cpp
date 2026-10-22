@@ -9,9 +9,9 @@ class Base {
     char gap2[4];
     int e;
 };
-class Mid : public Base {
+class ParticleGenerator_2d3b40 : public Base {
   public:
-    Mid() {
+    ParticleGenerator_2d3b40() {
         flag = 0;
         a = 0;
         b = 0;
@@ -30,7 +30,7 @@ struct Floats {
     float j, k;
     Floats() : h(1.0f), i(0), j(1.0f), k(1.0f) {}
 };
-class ParticleSphereGenerator : public Mid {
+class ParticleSphereGenerator : public ParticleGenerator_2d3b40 {
   public:
     ParticleSphereGenerator();
     virtual void fn();

@@ -4,7 +4,7 @@ class Item_2a68b0 {
     virtual void Release();
 };
 void Free(void*);
-class Owner_2a68b0 {
+class ProceduralVertexAnimController_2a68b0 {
   public:
     char pad[0x40];
     int x40;
@@ -13,7 +13,7 @@ class Owner_2a68b0 {
     Item_2a68b0** items;
     void Run();
 };
-void Owner_2a68b0::Run() {
+void ProceduralVertexAnimController_2a68b0::Run() {
     unsigned int i = 0;
     if (0 < count) {
         do {

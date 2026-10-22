@@ -6,13 +6,13 @@ struct Ent_124540 {
     int target;
 };
 struct Holder_124540 {};
-struct Base1_124540 {
+struct Condition_124540 {
     virtual void a();
 };
 struct Base2 {
     virtual void b();
 };
-class HasTargetCondition : public Base1_124540, public Base2 {
+class HasTargetCondition : public Condition_124540, public Base2 {
   public:
     char pad[4];
     bool mWant;

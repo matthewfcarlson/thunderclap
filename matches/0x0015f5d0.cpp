@@ -6,12 +6,12 @@ class Ref_15f5d0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_15f5d0 {
+class ClimbLocomotionAction_15f5d0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_15f5d0 : public Base_15f5d0 {
+class ClimbLocomotion4Action_15f5d0 : public ClimbLocomotionAction_15f5d0 {
   public:
     char p[0x18];
     Ref_15f5d0* m1c;
@@ -19,9 +19,9 @@ class Obj_15f5d0 : public Base_15f5d0 {
     Ref_15f5d0* m24;
     char p2[0x20];
     void* m48;
-    ~Obj_15f5d0() throw();
+    ~ClimbLocomotion4Action_15f5d0() throw();
 };
-Obj_15f5d0::~Obj_15f5d0() throw() {
+ClimbLocomotion4Action_15f5d0::~ClimbLocomotion4Action_15f5d0() throw() {
     vptr = g_vftable_15f5d0;
     _ReadWriteBarrier();
     if (m48)

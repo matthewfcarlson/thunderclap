@@ -1,12 +1,12 @@
 #include "compat/ptr.h"
 extern "C" void* __cdecl Alloc(hulk_uintptr);
-class Obj {
+class d3dLightMapShader_327ec0 {
   public:
-    Obj* init(int) throw();
+    d3dLightMapShader_327ec0* init(int) throw();
     char pad[0x94];
 };
-Obj* __cdecl FUN_00327ec0(int a) {
-    Obj* p = (Obj*)Alloc(sizeof(Obj));
+d3dLightMapShader_327ec0* __cdecl FUN_00327ec0(int a) {
+    d3dLightMapShader_327ec0* p = (d3dLightMapShader_327ec0*)Alloc(sizeof(d3dLightMapShader_327ec0));
     if (p)
         return p->init(a);
     return 0;

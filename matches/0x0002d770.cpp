@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" char DAT_003f420c[];
-class CActorManager {
+class Method4_2d770 {
   public:
     hulk_intptr vt;
     char pad4[0x0c];
@@ -10,13 +10,13 @@ class CActorManager {
     unsigned char b18;
     char pad19[3];
     int m1c;
-    CActorManager(const char*, int);
+    Method4_2d770(const char*, int);
 };
 struct ThisCall_001d0480 {
     void FUN_001d0480(const char*, int);
 };
 extern const char s0_2d770[], s1[], s2[], s3[];
-CActorManager::CActorManager(const char* p, int q) {
+Method4_2d770::Method4_2d770(const char* p, int q) {
     ((ThisCall_001d0480*)(this))->FUN_001d0480(p, 4);
     vt = ((hulk_intptr)DAT_003f420c);
     m1c = q;

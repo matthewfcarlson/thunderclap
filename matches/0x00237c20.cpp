@@ -5,12 +5,12 @@ struct S1_237c20 {
 struct S2_237c20 {
     void Fin();
 };
-class Base_237c20 {
+class Track_237c20 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_237c20 : public Base_237c20 {
+class SequenceTrack_237c20 : public Track_237c20 {
   public:
     char pad0[8];
     S2_237c20 s2;
@@ -18,7 +18,7 @@ class Obj_237c20 : public Base_237c20 {
     S1_237c20 s1;
     void f();
 };
-void Obj_237c20::f() {
+void SequenceTrack_237c20::f() {
     vptr = g_a_237c20;
     s1.Fin();
     s2.Fin();

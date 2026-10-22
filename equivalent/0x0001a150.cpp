@@ -77,12 +77,12 @@ public:
     Flags_1a150 *flags;
 };
 
-struct EffectInit_1a150 {
-    EffectInit_1a150 *FUN_002efe50(Vec3_1a150 *v, int handle);
+struct CollisionSphere_1a150 {
+    CollisionSphere_1a150 *FUN_002efe50(Vec3_1a150 *v, int handle);
 };
 
 void *__cdecl FUN_0008d690(unsigned int size);
-Effect_1a150 *__cdecl FUN_002efca0(EffectInit_1a150 *init, const char *name);
+Effect_1a150 *__cdecl FUN_002efca0(CollisionSphere_1a150 *init, const char *name);
 
 struct Sys_1a150 {
     char pad0[8];
@@ -155,14 +155,14 @@ char CCollisionAction::vfunc_6(int arg)
         }
     }
 
-    EffectInit_1a150 *init = 0;
+    CollisionSphere_1a150 *init = 0;
     void *mem = FUN_0008d690(0x48);
     if (mem != 0) {
         off.x = 0;
         off.y = 0;
         off.z = 0;
         int handle = data->handle;
-        init = ((EffectInit_1a150 *)mem)->FUN_002efe50(&off, handle);
+        init = ((CollisionSphere_1a150 *)mem)->FUN_002efe50(&off, handle);
     }
     Effect_1a150 *e = FUN_002efca0(init, 0);
     e->mode = 3;

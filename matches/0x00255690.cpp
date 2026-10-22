@@ -1,8 +1,8 @@
-class Base {
+class SeqEvent_255690 {
   public:
     virtual void f();
     char pad[4];
-    Base();
+    SeqEvent_255690();
 };
 class Track {
   public:
@@ -17,7 +17,7 @@ struct Ptr {
         return *this;
     }
 };
-class SeqEventCrossFade : public Base {
+class SeqEventCrossFade : public SeqEvent_255690 {
   public:
     int a, b, c, d;
     char e, f;

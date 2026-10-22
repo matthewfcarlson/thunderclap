@@ -35,7 +35,7 @@ struct Link124_3b620 {
     Bank *owner;
 };
 
-class Actor_3b620 {
+class CCharacter_3b620 {
 public:
     char pad00[0xb4];
     Sub_3b620 sub0;
@@ -47,15 +47,15 @@ public:
     Bank *bank;
     char pad120[0x124 - 0x120];
     Link124_3b620 *f124;
-    Actor_3b620 *f128;
+    CCharacter_3b620 *f128;
     char pad12c[0x300 - 0x12c];
     int f300;
     int f304;
     char pad308[0x320 - 0x308];
     int f320;
     char pad324[0x334 - 0x324];
-    Actor_3b620 *f334;
-    Actor_3b620 *f338;
+    CCharacter_3b620 *f334;
+    CCharacter_3b620 *f338;
     char pad33c[0x3a8 - 0x33c];
     Slot_3b620 slots[8];
     char pad628[4];
@@ -70,12 +70,12 @@ public:
     int f1e58;
     void FUN_00038c40();
     void FUN_000393c0();
-    void FUN_0003a680(Actor_3b620 *target, int a, int b, int c, Mat *m, float e5, float e6, float e7);
+    void FUN_0003a680(CCharacter_3b620 *target, int a, int b, int c, Mat *m, float e5, float e6, float e7);
     void FUN_0003acf0(int a, int b, int c, int d, int e, int f);
     char FUN_0003b620(char reset);
 };
 
-char Actor_3b620::FUN_0003b620(char reset)
+char CCharacter_3b620::FUN_0003b620(char reset)
 {
     f1b64 = 0;
     FUN_00038c40();

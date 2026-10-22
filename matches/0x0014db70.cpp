@@ -1,10 +1,10 @@
-class Base {
+class Track_14db70 {
   public:
-    Base();
+    Track_14db70();
     virtual void f();
     int x;
 };
-class InterruptAccumulatorSetTrack : public Base {
+class InterruptAccumulatorSetTrack : public Track_14db70 {
   public:
     InterruptAccumulatorSetTrack();
     virtual void f();

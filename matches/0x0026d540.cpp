@@ -3,7 +3,7 @@ typedef unsigned int size_t;
 inline void* operator new(size_t, void* p) {
     return p;
 }
-struct Obj {
+struct MemoryTwoWayAllocator_26d540 {
     char pad0[8];
     int size;
     char pad1[4];
@@ -12,15 +12,15 @@ struct Obj {
     char* cur;
     char* limit;
     char pad2[12];
-    Obj();
+    MemoryTwoWayAllocator_26d540();
 };
 extern "C" void* __cdecl Alloc(hulk_intptr, int);
 extern "C" void __cdecl Other();
 extern int g;
-Obj* __cdecl Make(int n, int heap) {
+MemoryTwoWayAllocator_26d540* __cdecl Make(int n, int heap) {
     g = heap;
     void* p = Alloc(heap, 44);
-    Obj* o = new (p) Obj;
+    MemoryTwoWayAllocator_26d540* o = new (p) MemoryTwoWayAllocator_26d540;
     Other();
     char* q = (char*)Alloc(o->size, n);
     char* e = q + n;

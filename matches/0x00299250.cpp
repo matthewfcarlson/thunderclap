@@ -3,14 +3,14 @@ class Ref_299250 {
     virtual void AddRef();
     virtual void Release();
 };
-class Base_299250 {
+class DrawableHierarchy_299250 {
   public:
-    virtual ~Base_299250() throw();
+    virtual ~DrawableHierarchy_299250() throw();
     char pad[0x3c];
 };
-class Comp_299250 : public Base_299250 {
+class CompositeDrawable_299250 : public DrawableHierarchy_299250 {
   public:
-    virtual ~Comp_299250() throw();
+    virtual ~CompositeDrawable_299250() throw();
     void Clear();
     Ref_299250* a;
     Ref_299250* b;
@@ -18,7 +18,7 @@ class Comp_299250 : public Base_299250 {
     Ref_299250* d;
     Ref_299250* e;
 };
-Comp_299250::~Comp_299250() throw() {
+CompositeDrawable_299250::~CompositeDrawable_299250() throw() {
     Clear();
     if (a) {
         a->Release();

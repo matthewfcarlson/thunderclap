@@ -84,7 +84,7 @@ public:
 
 struct Target_19e430 { char pad[4]; };
 
-class Projectile_19e430 {
+class ProjectileMissile_19e430 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -98,13 +98,13 @@ public:
     float f78;
     int f7c;
     char pad80[0xdc - 0x80];
-    Projectile_19e430 *FUN_001962b0(struct Cfg_19e430 *cfg, Prop_19e430 *prop);
+    ProjectileMissile_19e430 *FUN_001962b0(struct Cfg_19e430 *cfg, Prop_19e430 *prop);
     void FUN_00196640(Target_19e430 *t);
 };
 
 struct Pool_19e430 {
     int FUN_001b6b00(int id, V3_19e430 *a);
-    void FUN_001b6d00(int id, Projectile_19e430 *p);
+    void FUN_001b6d00(int id, ProjectileMissile_19e430 *p);
 };
 
 struct Allocator {
@@ -279,9 +279,9 @@ char FireMissileAction::vfunc_5(int a0, int a1)
     if (f.id < 0)
         return 0;
     void *mem = (*(Allocator*)&DAT_004e2210).FUN_0008fe90(0xdc);
-    Projectile_19e430 *proj;
+    ProjectileMissile_19e430 *proj;
     if (mem)
-        proj = ((Projectile_19e430 *)mem)->FUN_001962b0(cfg, f.s10.prop);
+        proj = ((ProjectileMissile_19e430 *)mem)->FUN_001962b0(cfg, f.s10.prop);
     else
         proj = 0;
     proj->AddRef();

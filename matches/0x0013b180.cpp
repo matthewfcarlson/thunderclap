@@ -3,9 +3,9 @@ class Ref {
     virtual void AddRef();
     virtual void Release();
 };
-class Base {
+class Action_13b180 {
   public:
-    Base();
+    Action_13b180();
     virtual void Fn();
     char pad[0x18];
 };
@@ -17,7 +17,7 @@ struct Val {
         return *this;
     }
 };
-class AnimationChargeAction : public Base {
+class AnimationChargeAction : public Action_13b180 {
   public:
     virtual void Fn();
     Val value;

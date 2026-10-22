@@ -6,18 +6,18 @@ class Ref_1a1c70 {
     virtual void F0();
     virtual void Release();
 };
-class Base_1a1c70 {
+class Action_1a1c70 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_1a1c70 : public Base_1a1c70 {
+class LuaAction_1a1c70 : public Action_1a1c70 {
   public:
     char pad[28];
     Ref_1a1c70* m;
-    Obj_1a1c70* f2(unsigned char flags);
+    LuaAction_1a1c70* f2(unsigned char flags);
 };
-Obj_1a1c70* Obj_1a1c70::f2(unsigned char flags) {
+LuaAction_1a1c70* LuaAction_1a1c70::f2(unsigned char flags) {
     vptr = g_vftable_1a1c70;
     _ReadWriteBarrier();
     if (m) {

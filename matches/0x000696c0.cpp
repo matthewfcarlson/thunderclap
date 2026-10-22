@@ -1,11 +1,11 @@
-class Base_696c0 {
+class CTrack_696c0 {
   public:
-    Base_696c0();
+    CTrack_696c0();
     virtual void v0();
     int m4;
 };
 
-class CSoundTrack : public Base_696c0 {
+class CSoundTrack : public CTrack_696c0 {
   public:
     CSoundTrack();
     virtual void v0();

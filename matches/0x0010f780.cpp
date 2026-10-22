@@ -6,12 +6,12 @@ class RefObj_10f780 {
 };
 extern "C" int __cdecl GetSingleton();
 extern char g_vftable_10f780[];
-class ActionBase_10f780 {
+class Action_10f780 {
   public:
     void* vptr;
-    ActionBase_10f780();
+    Action_10f780();
 };
-class TokenSupressAction : public ActionBase_10f780 {
+class TokenSupressAction : public Action_10f780 {
   public:
     char pad[0x18];
     int m1c;

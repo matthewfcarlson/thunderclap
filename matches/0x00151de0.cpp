@@ -1,6 +1,6 @@
-class Base {
+class Action_151de0 {
   public:
-    Base();
+    Action_151de0();
     virtual void f();
     char pad[24];
 };
@@ -14,7 +14,7 @@ struct Value {
     Value() : v(0) {}
     void Set(int x) { v = x; }
 };
-class HitFloatAction : public Base {
+class HitFloatAction : public Action_151de0 {
   public:
     HitFloatAction(int, Ref*);
     virtual void f();
@@ -22,7 +22,7 @@ class HitFloatAction : public Base {
     Ref* b;
     int c, d, e, f0, g;
 };
-HitFloatAction::HitFloatAction(int x, Ref* r) : Base(), b(0), c(0), d(0), e(0), f0(0), g(0) {
+HitFloatAction::HitFloatAction(int x, Ref* r) : Action_151de0(), b(0), c(0), d(0), e(0), f0(0), g(0) {
     a.Set(x);
     if (r)
         r->Add();

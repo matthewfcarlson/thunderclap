@@ -5,12 +5,12 @@ class ShadowMeshBuffer_2df0b0 {
     virtual void f();
     ShadowMeshBuffer_2df0b0* construct(void*);
 };
-struct ShadowSkin_nv_2df0b0 {
+struct ShadowSkin_2df0b0 {
     void InitRestPose(void*);
 };
 extern void* RestPoseVtable;
 ShadowMeshBuffer_2df0b0* ShadowMeshBuffer_2df0b0::construct(void* arg) {
-    ((ShadowSkin_nv_2df0b0*)(((pure3d::ShadowSkin*)(this))))->InitRestPose(arg);
+    ((ShadowSkin_2df0b0*)(((pure3d::ShadowSkin*)(this))))->InitRestPose(arg);
     *(void**)this = &RestPoseVtable;
     return this;
 }

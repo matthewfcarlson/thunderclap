@@ -3,7 +3,7 @@ class Service_263f50 {
     int Get();
 };
 extern Service_263f50* g_263f50;
-class Thing_263f50 {
+class LoadStream_263f50 {
   public:
     char p[8];
     int a;
@@ -13,7 +13,7 @@ class Thing_263f50 {
     int e;
     void Init();
 };
-void Thing_263f50::Init() {
+void LoadStream_263f50::Init() {
     a = 0;
     b[0] = 0;
     b[1] = 0;

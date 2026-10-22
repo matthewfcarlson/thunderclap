@@ -1,7 +1,7 @@
 extern "C" void _ReadWriteBarrier();
-class Base_16ffb0 {
+class Track_16ffb0 {
   public:
-    Base_16ffb0();
+    Track_16ffb0();
     virtual void f();
     char pad[4];
     int count;
@@ -11,7 +11,7 @@ class Sub_16ffb0 {
     Sub_16ffb0();
     char pad[8];
 };
-class JointRelativeTrack : public Base_16ffb0 {
+class JointRelativeTrack : public Track_16ffb0 {
   public:
     JointRelativeTrack();
     virtual void f();
@@ -29,7 +29,7 @@ class JointRelativeTrack : public Base_16ffb0 {
     float x44, x48;
 };
 JointRelativeTrack::JointRelativeTrack()
-    : Base_16ffb0(), a(0), b(-1.0f), sub(), flag0(0), flag1(0), x24(0), x28(0), x2c(0), flag30(0), x34(0), x38(0),
+    : Track_16ffb0(), a(0), b(-1.0f), sub(), flag0(0), flag1(0), x24(0), x28(0), x2c(0), flag30(0), x34(0), x38(0),
       x3c(0) {
     _ReadWriteBarrier();
     x44 = 0.1f;

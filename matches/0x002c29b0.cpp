@@ -5,14 +5,14 @@ class Ref_2c29b0 {
     virtual void AddRef();
     virtual void Release();
 };
-class A_2c29b0 : public Ref_2c29b0 {
+class PrimGroupLoader_2c29b0 : public Ref_2c29b0 {
   public:
-    A_2c29b0() throw();
+    PrimGroupLoader_2c29b0() throw();
     char pad[0x2c - 4];
 };
-class B_2c29b0 : public Ref_2c29b0 {
+class OldPrimGroupLoader_2c29b0 : public Ref_2c29b0 {
   public:
-    B_2c29b0() throw();
+    OldPrimGroupLoader_2c29b0() throw();
     char pad[0x24 - 4];
 };
 struct RP_2c29b0 {
@@ -37,7 +37,7 @@ struct Pad_2c29b0 {
         b2a = 0x20;
     }
 };
-class Obj_2c29b0 {
+class GeometryLoader_2c29b0 {
   public:
     void* vptr;
     int m4;
@@ -49,9 +49,9 @@ class Obj_2c29b0 {
     RP_2c29b0 m1c;
     RP_2c29b0 m20;
     Pad_2c29b0 pd;
-    Obj_2c29b0();
+    GeometryLoader_2c29b0();
 };
-Obj_2c29b0::Obj_2c29b0() {
+GeometryLoader_2c29b0::GeometryLoader_2c29b0() {
     m8 = 0x10000;
     vptr = g_vftable_2c29b0;
     m14 = 1;
@@ -62,6 +62,6 @@ Obj_2c29b0::Obj_2c29b0() {
     m1c.p = 0;
     m20.p = 0;
     pd.Set();
-    m1c.Set(new A_2c29b0);
-    m20.Set(new B_2c29b0);
+    m1c.Set(new PrimGroupLoader_2c29b0);
+    m20.Set(new OldPrimGroupLoader_2c29b0);
 }

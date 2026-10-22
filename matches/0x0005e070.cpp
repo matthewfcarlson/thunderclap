@@ -6,7 +6,7 @@ struct H1 {
 struct H2_5e070 {
     void f();
 };
-struct H3_5e070 {
+struct CCollisionTrack_5e070 {
     void f();
 };
 struct CCollisionTrack {
@@ -32,7 +32,7 @@ CCollisionTrack* CCollisionTrack::vfunc_5(int flag) {
     ((H2_5e070*)((char*)this + 0x58))->f();
     ((H2_5e070*)((char*)this + 0x4c))->f();
     ((H1*)((char*)this + 0x18))->f();
-    ((H3_5e070*)this)->f();
+    ((CCollisionTrack_5e070*)this)->f();
     if (flag & 1)
         thunk_FUN_00267090(this);
     return this;

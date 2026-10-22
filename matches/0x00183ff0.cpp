@@ -5,14 +5,14 @@ class RefObj_183ff0 {
     virtual void Release();
 };
 
-class ActionBase_183ff0 {
+class Action_183ff0 {
   public:
-    ActionBase_183ff0();
+    Action_183ff0();
     virtual void Update();
     char pad[0x18];
 };
 
-class GrapplePropDamageAction_183ff0 : public ActionBase_183ff0 {
+class GrapplePropDamageAction_183ff0 : public Action_183ff0 {
   public:
     int mTarget;
     RefObj_183ff0* mObj;

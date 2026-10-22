@@ -5,12 +5,12 @@ class Ref_2a8620 {
     virtual void F0();
     virtual void Release();
 };
-class Base_2a8620 {
+class SimpleFrameController_2a8620 {
   public:
     void* vptr;
     void Fin();
 };
-class ShaderAnimationController_2a8620 : public Base_2a8620 {
+class ShaderAnimationController_2a8620 : public SimpleFrameController_2a8620 {
   public:
     char pad[60];
     Ref_2a8620* m;

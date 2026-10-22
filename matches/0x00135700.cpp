@@ -19,7 +19,7 @@ struct Inner_135700 {
     P8* p8;
     int kind;
 };
-class Target_135700 {
+class FlyingAttackAction_135700 {
   public:
     char pad[0x20];
     Obj_135700* mA;
@@ -27,7 +27,7 @@ class Target_135700 {
     Inner_135700* mItem;
     void Run();
 };
-void Target_135700::Run() {
+void FlyingAttackAction_135700::Run() {
     if (mItem != 0 && mItem->kind == 1) {
         Tail_135700* t = mA->GetMid()->GetTail();
         P8* p = mItem->p8;

@@ -5,11 +5,11 @@ class Ref_23e8c0 {
     virtual void f0();
     virtual void f1();
 };
-class fight_StopAction {
+class StopAction_23e8c0 {
   public:
     virtual void f0();
     virtual void f1();
-    virtual fight_StopAction* vfunc_2(unsigned char);
+    virtual StopAction_23e8c0* vfunc_2(unsigned char);
     virtual void f3();
     virtual void f4();
     virtual void f5();
@@ -19,8 +19,8 @@ class fight_StopAction {
     Ref_23e8c0* volatile m28;
     void cleanup();
 };
-void destroy(fight_StopAction*);
-fight_StopAction* fight_StopAction::vfunc_2(unsigned char param) {
+void destroy(StopAction_23e8c0*);
+StopAction_23e8c0* StopAction_23e8c0::vfunc_2(unsigned char param) {
     *(volatile hulk_intptr*)this = ((hulk_intptr)DAT_00428de0);
     Ref_23e8c0* r = m28;
     if (r) {

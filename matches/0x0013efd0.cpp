@@ -1,16 +1,16 @@
 // FUN_0013efd0 @ 0x0013efd0
-class __declspec(novtable) TrackBase_13efd0 {
+class __declspec(novtable) Track_13efd0 {
 public:
     virtual void b0();
     int pad04;
     int pad08;
     void FUN_00236d40();
-    TrackBase_13efd0() { FUN_00236d40(); }
+    Track_13efd0() { FUN_00236d40(); }
 };
 
 namespace hulkfight {
 namespace motion {
-class WallJumpTrack : public TrackBase_13efd0 {
+class WallJumpTrack : public Track_13efd0 {
 public:
     virtual unsigned int vfunc_0(unsigned int);
     virtual void v1();

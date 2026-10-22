@@ -5,11 +5,11 @@ class Ref_2fe3a0 {
     virtual void First();
     virtual void Release();
 };
-class Base_2fe3a0 {
+class SimState_2fe3a0 {
   public:
-    Base_2fe3a0(void*);
+    SimState_2fe3a0(void*);
 };
-class SimStateHairclub : public Base_2fe3a0 {
+class SimStateHairclub : public SimState_2fe3a0 {
   public:
     char pad0[0x85];
     unsigned char flag;
@@ -17,7 +17,7 @@ class SimStateHairclub : public Base_2fe3a0 {
     Ref_2fe3a0* mRef;
     SimStateHairclub(Ref_2fe3a0* r, void* p);
 };
-SimStateHairclub::SimStateHairclub(Ref_2fe3a0* r, void* p) : Base_2fe3a0(p) {
+SimStateHairclub::SimStateHairclub(Ref_2fe3a0* r, void* p) : SimState_2fe3a0(p) {
     *(void**)this = (void*)((hulk_intptr)DAT_004319a4);
     mRef = 0;
     if (r)

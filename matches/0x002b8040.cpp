@@ -6,15 +6,15 @@ class Ref_2b8040 {
     virtual void f0();
     virtual void Release();
 };
-class D {
+class PolySkinLoader_2b8040 {
   public:
     void* vptr;
     char p[0x18];
     Ref_2b8040* a1c;
     Ref_2b8040* a20;
-    D* vfunc2(unsigned char f);
+    PolySkinLoader_2b8040* vfunc2(unsigned char f);
 };
-D* D::vfunc2(unsigned char f) {
+PolySkinLoader_2b8040* PolySkinLoader_2b8040::vfunc2(unsigned char f) {
     vptr = &vt1_2b8040;
     _ReadWriteBarrier();
     if (a1c) {

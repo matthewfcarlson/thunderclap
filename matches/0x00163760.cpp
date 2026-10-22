@@ -1,4 +1,4 @@
-class Caster_163760 {
+class TrackFactoryCasterTemplate_163760 {
   public:
     virtual void Cast();
 };
@@ -6,9 +6,9 @@ class Receiver {
   public:
     void Use(void*);
 };
-void* Find(void*, Caster_163760*);
+void* Find(void*, TrackFactoryCasterTemplate_163760*);
 void Target(Receiver* receiver, void* value) {
-    Caster_163760 caster;
+    TrackFactoryCasterTemplate_163760 caster;
     void* result = Find(value, &caster);
     receiver->Use(result);
 }

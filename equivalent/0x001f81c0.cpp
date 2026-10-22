@@ -122,8 +122,8 @@ struct ClosureWorld {
                                int (CEffectManager::*fn)(const char *, math::Vector));
 };
 
-struct ClosureSetPos {
-    ClosureSetPos *FUN_001f7c40(const char *name, CEffectManager *owner,
+struct Closure2_1f81c0 {
+    Closure2_1f81c0 *FUN_001f7c40(const char *name, CEffectManager *owner,
                                 int (CEffectManager::*fn)(int, math::Vector));
 };
 
@@ -163,9 +163,9 @@ void CEffectManager::FUN_001f81c0()
     reg->FUN_001d3b70("em_AddWorldEffectOriented", oriented);
 
     mem = FUN_0008d690(0x24);
-    ClosureSetPos *setpos = 0;
+    Closure2_1f81c0 *setpos = 0;
     if (mem)
-        setpos = ((ClosureSetPos *)mem)->FUN_001f7c40("em_SetPositionWorldEffect", this, &CEffectManager::FUN_001f7280);
+        setpos = ((Closure2_1f81c0 *)mem)->FUN_001f7c40("em_SetPositionWorldEffect", this, &CEffectManager::FUN_001f7280);
     reg->FUN_001d3b70("em_SetPositionWorldEffect", setpos);
 
     mem = FUN_0008d690(0x24);

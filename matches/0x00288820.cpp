@@ -1,9 +1,9 @@
 extern void* __cdecl FUN_0008d6d0(unsigned int);
-struct B_288820 {
+struct NonCopyable_288820 {
     int a;
-    B_288820() { a = 0; }
+    NonCopyable_288820() { a = 0; }
 };
-class AMB : public B_288820 {
+class AnimationMemoryBlock_288820 : public NonCopyable_288820 {
   public:
     virtual void f0();
     unsigned int sz1;
@@ -12,9 +12,9 @@ class AMB : public B_288820 {
     int c;
     void* buf1;
     void* buf2;
-    AMB(unsigned int s1, unsigned int s2);
+    AnimationMemoryBlock_288820(unsigned int s1, unsigned int s2);
 };
-AMB::AMB(unsigned int s1, unsigned int s2) {
+AnimationMemoryBlock_288820::AnimationMemoryBlock_288820(unsigned int s1, unsigned int s2) {
     sz1 = s1;
     b = 0;
     buf1 = s1 > 0 ? FUN_0008d6d0(s1) : 0;

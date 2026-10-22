@@ -55,7 +55,7 @@ struct Keys_226610 {
     unsigned __int64 *keys;
 };
 
-class Table_226610 {
+class LocomotionStrafeDriver_226610 {
 public:
     char pad0[0x10];
     Keys_226610 *keysOwner;
@@ -69,7 +69,7 @@ public:
     void FUN_00226610(unsigned row, IdObj_226610 **ids, float *weights);
 };
 
-void Table_226610::FUN_00226610(unsigned row, IdObj_226610 **ids, float *weights)
+void LocomotionStrafeDriver_226610::FUN_00226610(unsigned row, IdObj_226610 **ids, float *weights)
 {
     if (row >= rows)
         return;

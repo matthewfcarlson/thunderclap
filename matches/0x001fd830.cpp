@@ -12,7 +12,7 @@ class Result_1fd830 {
     virtual void f8();
     virtual float Get();
 };
-class Owner_1fd830 {
+class CTriggerVolumeManager_1fd830 {
   public:
     hulk_freg Probe(unsigned int arg);
     Result_1fd830* Find(unsigned long long key);
@@ -20,7 +20,7 @@ class Owner_1fd830 {
 extern unsigned long long FUN_0027b020(unsigned int);
 extern const float zero_1fd830;
 extern const float scale_1fd830;
-hulk_freg Owner_1fd830::Probe(unsigned int arg) {
+hulk_freg CTriggerVolumeManager_1fd830::Probe(unsigned int arg) {
     unsigned long long k = FUN_0027b020(arg);
     Result_1fd830* r = Find(k);
     if (!r)

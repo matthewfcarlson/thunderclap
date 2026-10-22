@@ -68,7 +68,7 @@ struct Ctx_418f0 {
     Holder_418f0 *f54;
 };
 
-struct Ctrl_418f0 {
+struct CCharacter_418f0 {
     char pad0[0x14];
     int f14;
     char pad18[0x34 - 0x18];
@@ -135,7 +135,7 @@ public:
     char pad74[0x84 - 0x74];
     float f84;
     char pad88[0x11c - 0x88];
-    Ctrl_418f0 *f11c;
+    CCharacter_418f0 *f11c;
     char pad120[0x134 - 0x120];
     int f134;
     int f138;

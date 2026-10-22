@@ -11,13 +11,13 @@ extern "C" int __stdcall FUN_0021007a(int, hulk_intptr, int, void *, int);
 namespace XAPILIB { extern "C" hulk_intptr __stdcall GetLastError(); }
 struct DataBlock_278de0 { DWORD words[5]; };
 struct Scratch_278de0 { DWORD unused; DataBlock_278de0 block; };
-struct Target_278de0 {
+struct XboxSaveDrive_278de0 {
  char pad[0xb4];
  int error;
  int FUN_002787c0(hulk_intptr);
  bool FUN_00278de0();
 };
-bool Target_278de0::FUN_00278de0() {
+bool XboxSaveDrive_278de0::FUN_00278de0() {
  if ((*(int*)((char*)&DAT_0052c270 + 12)) != 2) return true;
  int length = FUN_002109b6((*(int*)((char*)&DAT_0052c270 + 4)), 0);
  if (length == -1) {

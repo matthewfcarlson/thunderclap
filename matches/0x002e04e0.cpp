@@ -7,12 +7,12 @@ class Ref_2e04e0 {
     virtual void f0();
     virtual void Release();
 };
-class Root_2e04e0 {
+class PrimGroupStreamed_2e04e0 {
   public:
     void* vptr;
-    ~Root_2e04e0() throw();
+    ~PrimGroupStreamed_2e04e0() throw();
 };
-class D : public Root_2e04e0 {
+class PrimGroupSkinnedStreamed_2e04e0 : public PrimGroupStreamed_2e04e0 {
   public:
     char p40[60];
     Ref_2e04e0* a40;
@@ -20,9 +20,9 @@ class D : public Root_2e04e0 {
     Ref_2e04e0* a5c;
     Ref_2e04e0* a60;
     Ref_2e04e0* a64;
-    ~D() throw();
+    ~PrimGroupSkinnedStreamed_2e04e0() throw();
 };
-D::~D() throw() {
+PrimGroupSkinnedStreamed_2e04e0::~PrimGroupSkinnedStreamed_2e04e0() throw() {
     vptr = &vt1_2e04e0;
     _ReadWriteBarrier();
     if (a60) {

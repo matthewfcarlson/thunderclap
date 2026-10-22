@@ -1,17 +1,17 @@
 extern void* g_vftable[];
-class Base {
+class Track_16ff30 {
   public:
-    Base();
+    Track_16ff30();
     void* vptr;
 };
-class SnapToGroundTrack : public Base {
+class SnapToGroundTrack : public Track_16ff30 {
   public:
     SnapToGroundTrack();
     char pad[4];
     int m8;
     int mC;
 };
-SnapToGroundTrack::SnapToGroundTrack() : Base() {
+SnapToGroundTrack::SnapToGroundTrack() : Track_16ff30() {
     *(void* volatile*)&vptr = (void*)((char*)g_vftable);
     mC = 0;
     m8 = 1;

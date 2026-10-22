@@ -9,14 +9,14 @@ class Result_1a1880 {
   public:
     Sub_1a1880* Convert();
 };
-struct Base_1a1880 {
+struct Action_1a1880 {
     virtual void V();
-    Base_1a1880();
+    Action_1a1880();
     char pad[0x18];
 };
 Result_1a1880* __cdecl MakeResult(Sub_1a1880*, int, int, int, int);
 extern "C" void* memcpy(void*, const void*, unsigned int);
-class LuaAction : public Base_1a1880 {
+class LuaAction : public Action_1a1880 {
   public:
     LuaAction(int a, int b, Sub_1a1880* arg);
     virtual void V();

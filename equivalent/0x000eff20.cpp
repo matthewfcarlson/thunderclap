@@ -43,7 +43,7 @@ public:
     virtual void b();
 };
 
-class __declspec(novtable) FEBase_eff20 {
+class __declspec(novtable) FEDoAction_eff20 {
 public:
     virtual void v0();
     virtual void v1();
@@ -55,7 +55,7 @@ public:
     int id2;
     void *parent;
     char name[0x20];
-    FEBase_eff20(void *p)
+    FEDoAction_eff20(void *p)
     {
         id1 = -1;
         id2 = -1;
@@ -64,13 +64,13 @@ public:
     }
 };
 
-class FEDoWait : public FEBase_eff20 {
+class FEDoWait : public FEDoAction_eff20 {
 public:
     float limit;
     float elapsed;
     Callback_eff20 *callback;
     unsigned char done;
-    FEDoWait(void *p, float lim) : FEBase_eff20(p)
+    FEDoWait(void *p, float lim) : FEDoAction_eff20(p)
     {
         limit = lim;
         callback = 0;
@@ -79,11 +79,11 @@ public:
     }
 };
 
-class FEDoBackScreen : public FEBase_eff20 {
+class FEDoBackScreen : public FEDoAction_eff20 {
 public:
     unsigned char b34;
     unsigned char b35;
-    FEDoBackScreen(void *p, unsigned char b, unsigned char c) : FEBase_eff20(p)
+    FEDoBackScreen(void *p, unsigned char b, unsigned char c) : FEDoAction_eff20(p)
     {
         b34 = b;
         b35 = c;
@@ -91,44 +91,44 @@ public:
     FEDoBackScreen *FUN_000e1cf0(void *p, unsigned char b, unsigned char c);
 };
 
-struct CmdA : FEBase_eff20 {
-    char padA[0x54 - sizeof(FEBase_eff20)];
-    CmdA *FUN_000e1970(void *p, const char *s);
+struct FEDoSound_eff20 : FEDoAction_eff20 {
+    char padA[0x54 - sizeof(FEDoAction_eff20)];
+    FEDoSound_eff20 *FUN_000e1970(void *p, const char *s);
 };
-struct CmdB : FEBase_eff20 {
-    char padB[0x34 - sizeof(FEBase_eff20)];
-    CmdB *FUN_000e1c40(void *p);
+struct FEDoPopDialog_eff20 : FEDoAction_eff20 {
+    char padB[0x34 - sizeof(FEDoAction_eff20)];
+    FEDoPopDialog_eff20 *FUN_000e1c40(void *p);
 };
-struct CmdC : FEBase_eff20 {
-    char padC[0x34 - sizeof(FEBase_eff20)];
-    CmdC *FUN_000e1c60(void *p);
+struct FEDoBackMenu_eff20 : FEDoAction_eff20 {
+    char padC[0x34 - sizeof(FEDoAction_eff20)];
+    FEDoBackMenu_eff20 *FUN_000e1c60(void *p);
 };
-struct CmdE : FEBase_eff20 {
-    char padE[0x54 - sizeof(FEBase_eff20)];
-    CmdE *FUN_000e1b30(void *p, const char *s);
+struct FEDoMenu_eff20 : FEDoAction_eff20 {
+    char padE[0x54 - sizeof(FEDoAction_eff20)];
+    FEDoMenu_eff20 *FUN_000e1b30(void *p, const char *s);
 };
-struct CmdF : FEBase_eff20 {
-    char padF[0x54 - sizeof(FEBase_eff20)];
-    CmdF *FUN_000e1c90(void *p, const char *s);
+struct FEDoScreen_eff20 : FEDoAction_eff20 {
+    char padF[0x54 - sizeof(FEDoAction_eff20)];
+    FEDoScreen_eff20 *FUN_000e1c90(void *p, const char *s);
 };
-struct CmdG : FEBase_eff20 {
-    char padG[0x1b8 - sizeof(FEBase_eff20)];
-    CmdG *FUN_000e1b90(void *p, const char *a, const char *b, const char *c, const char *d, const char *e, int mode);
+struct FEDoPushDialog_eff20 : FEDoAction_eff20 {
+    char padG[0x1b8 - sizeof(FEDoAction_eff20)];
+    FEDoPushDialog_eff20 *FUN_000e1b90(void *p, const char *a, const char *b, const char *c, const char *d, const char *e, int mode);
 };
-struct CmdSeq : FEBase_eff20 {
-    char padS[0x3c - sizeof(FEBase_eff20)];
+struct FEDoFunction_eff20 : FEDoAction_eff20 {
+    char padS[0x3c - sizeof(FEDoAction_eff20)];
     int *items;
-    CmdSeq *FUN_000e19d0(void *p, const char *name, int count);
+    FEDoFunction_eff20 *FUN_000e19d0(void *p, const char *name, int count);
 };
-struct CmdH : FEBase_eff20 {
-    char padH[0x40 - sizeof(FEBase_eff20)];
+struct FEDoAnimation_eff20 : FEDoAction_eff20 {
+    char padH[0x40 - sizeof(FEDoAction_eff20)];
     unsigned int f40;
     char pad44[4];
     unsigned int f48;
     unsigned int f4c;
     char pad50;
     unsigned char b51;
-    CmdH *FUN_000e8a90(void *p, const char *s);
+    FEDoAnimation_eff20 *FUN_000e8a90(void *p, const char *s);
     void FUN_000e8650(unsigned int v);
     void FUN_000e86a0(unsigned int v);
 };
@@ -158,17 +158,17 @@ struct Parent_eff20 {
     virtual void p17();
     virtual void p18();
     virtual void p19();
-    virtual void Add(FEBase_eff20 *c);
+    virtual void Add(FEDoAction_eff20 *c);
 };
 struct Sink_eff20 {
-    void FUN_000e2c60(FEBase_eff20 *c);
+    void FUN_000e2c60(FEDoAction_eff20 *c);
 };
 
 union Slot1 {
     Parser_eff20 *p;
     float f;
     unsigned char b;
-    FEBase_eff20 *cmd;
+    FEDoAction_eff20 *cmd;
     const char *s;
 };
 
@@ -185,7 +185,7 @@ struct Frame_eff20 {
 
 class Builder {
 public:
-    void FUN_000e76a0(FEBase_eff20 *c);
+    void FUN_000e76a0(FEDoAction_eff20 *c);
     void FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4);
 };
 
@@ -193,7 +193,7 @@ void Builder::FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4)
 {
     Frame_eff20 f;
     Parser_eff20 *p = a1.p;
-    FEBase_eff20 *cmd = 0;
+    FEDoAction_eff20 *cmd = 0;
     int type = a4;
     f.self = this;
     f.objA = 0;
@@ -231,21 +231,21 @@ void Builder::FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4)
             p->FUN_000fa0a0();
         void *mem = FUN_0008d690(0x54);
         if (mem != 0)
-            cmd = ((CmdA *)mem)->FUN_000e1970(parent, s);
+            cmd = ((FEDoSound_eff20 *)mem)->FUN_000e1970(parent, s);
         cmd->type = type;
         break;
     }
     case (int)0x8df5383d: {
         void *mem = FUN_0008d690(0x34);
         if (mem != 0)
-            cmd = ((CmdB *)mem)->FUN_000e1c40(parent);
+            cmd = ((FEDoPopDialog_eff20 *)mem)->FUN_000e1c40(parent);
         cmd->type = type;
         break;
     }
     case (int)0xbe65b9e4: {
         void *mem = FUN_0008d690(0x34);
         if (mem != 0)
-            cmd = ((CmdC *)mem)->FUN_000e1c60(parent);
+            cmd = ((FEDoBackMenu_eff20 *)mem)->FUN_000e1c60(parent);
         cmd->type = type;
         break;
     }
@@ -261,9 +261,9 @@ void Builder::FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4)
             } while (p->FUN_000fb150() != 0);
         }
         void *mem = FUN_0008d690(0x40);
-        CmdSeq *seq = 0;
+        FEDoFunction_eff20 *seq = 0;
         if (mem != 0)
-            seq = ((CmdSeq *)mem)->FUN_000e19d0(a2, nm, count);
+            seq = ((FEDoFunction_eff20 *)mem)->FUN_000e19d0(a2, nm, count);
         a1.cmd = seq;
         cmd = a1.cmd;
         p->FUN_000fa100(f.state);
@@ -277,14 +277,14 @@ void Builder::FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4)
                 const char *str = ts->str;
                 if (str == 0)
                     str = "";
-                CmdSeq *s2 = (CmdSeq *)a1.cmd;
+                FEDoFunction_eff20 *s2 = (FEDoFunction_eff20 *)a1.cmd;
                 if (s2->items != 0)
-                    *(hulk_intptr *)((char *)((CmdSeq *)a1.cmd)->items + f.off) = (hulk_intptr)FUN_000f6610(str);
+                    *(hulk_intptr *)((char *)((FEDoFunction_eff20 *)a1.cmd)->items + f.off) = (hulk_intptr)FUN_000f6610(str);
                 f.off += 4;
                 t = p->FUN_000fb150();
             } while (t != 0);
         }
-        ((CmdSeq *)a1.cmd)->type = type;
+        ((FEDoFunction_eff20 *)a1.cmd)->type = type;
         break;
     }
     case (int)0x22989fa8:
@@ -294,9 +294,9 @@ void Builder::FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4)
         if (s == 0)
             p->FUN_000fa0a0();
         void *mem = FUN_0008d690(0x54);
-        CmdH *ch = 0;
+        FEDoAnimation_eff20 *ch = 0;
         if (mem != 0)
-            ch = ((CmdH *)mem)->FUN_000e8a90(parent, s);
+            ch = ((FEDoAnimation_eff20 *)mem)->FUN_000e8a90(parent, s);
         ch->b51 = a1.b;
         ch->type = type;
         DollyScript::CScriptToken *t = p->FUN_000fb150();
@@ -340,7 +340,7 @@ void Builder::FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4)
             p->FUN_000fa0a0();
         void *mem = FUN_0008d690(0x54);
         if (mem != 0)
-            cmd = ((CmdF *)mem)->FUN_000e1c90(parent, s);
+            cmd = ((FEDoScreen_eff20 *)mem)->FUN_000e1c90(parent, s);
         cmd->type = type;
         break;
     }
@@ -350,7 +350,7 @@ void Builder::FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4)
             p->FUN_000fa0a0();
         void *mem = FUN_0008d690(0x54);
         if (mem != 0)
-            cmd = ((CmdE *)mem)->FUN_000e1b30(parent, s);
+            cmd = ((FEDoMenu_eff20 *)mem)->FUN_000e1b30(parent, s);
         cmd->type = type;
         break;
     }
@@ -401,9 +401,9 @@ void Builder::FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4)
         else if (mh == 0x5ebd3822)
             mode = 2;
         void *mem = FUN_0008d690(0x1b8);
-        CmdG *g = 0;
+        FEDoPushDialog_eff20 *g = 0;
         if (mem != 0)
-            g = ((CmdG *)mem)->FUN_000e1b90(a2, f.v1, (const char *)f.off, a1.s, v4, v5, mode);
+            g = ((FEDoPushDialog_eff20 *)mem)->FUN_000e1b90(a2, f.v1, (const char *)f.off, a1.s, v4, v5, mode);
         g->type = a4;
         cmd = g;
         break;

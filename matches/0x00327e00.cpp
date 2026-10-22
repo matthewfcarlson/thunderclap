@@ -1,10 +1,10 @@
 extern int gCounter_327e00;
-class Base_327e00 {
+class pddiShader_327e00 {
   public:
-    Base_327e00();
+    pddiShader_327e00();
     virtual void f();
 };
-class pddiBaseShader_327e00 : public Base_327e00 {
+class pddiBaseShader_327e00 : public pddiShader_327e00 {
   public:
     pddiBaseShader_327e00();
     int pad[2];

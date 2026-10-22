@@ -119,7 +119,7 @@ struct BindTable {
     void FUN_002aa720(Slot16_2ab030 *slot, Reader *r, unsigned arg);
 };
 
-class Particle_2ab030 {
+class ParticleSystem_2ab030 {
 public:
     virtual void v0();
     char pad4[4];
@@ -139,15 +139,15 @@ public:
     int f60;
     Mat4_2ab030 mat;             // 0x64
     char pad_a4_[0xa4 - 0xa4];
-    Particle_2ab030 *FUN_002a3660(int a);
+    ParticleSystem_2ab030 *FUN_002a3660(int a);
     void FUN_002a3c80(void *child);
 };
 
-class Child_2ab030 {
+class ParticleController_2ab030 {
 public:
     char pad0[8];
     NameHolder_2ab030 name;
-    Child_2ab030 *FUN_002a73d0();
+    ParticleController_2ab030 *FUN_002a73d0();
 };
 
 struct Frame_2ab030 {
@@ -169,7 +169,7 @@ struct Frame_2ab030 {
     char name[0x100];
 };
 
-class Loader_2ab030 {
+class ParticleSystemLoader_2ab030 {
 public:
     virtual void v0();
     virtual void v1();
@@ -180,10 +180,10 @@ public:
     unsigned count;
     Gen_2ab030 *list[8];
     BindTable *table;
-    unsigned FUN_002ab030(Particle_2ab030 **out, Key_2ab030 *outId, Reader *reader, unsigned arg);
+    unsigned FUN_002ab030(ParticleSystem_2ab030 **out, Key_2ab030 *outId, Reader *reader, unsigned arg);
 };
 
-unsigned Loader_2ab030::FUN_002ab030(Particle_2ab030 **out, Key_2ab030 *outId, Reader *reader, unsigned arg)
+unsigned ParticleSystemLoader_2ab030::FUN_002ab030(ParticleSystem_2ab030 **out, Key_2ab030 *outId, Reader *reader, unsigned arg)
 {
     Frame_2ab030 f;
     f.self = this;
@@ -200,9 +200,9 @@ unsigned Loader_2ab030::FUN_002ab030(Particle_2ab030 **out, Key_2ab030 *outId, R
     reader->stream->FUN_002647e0(&f.pos, 3, 4, 1);
     reader->stream->FUN_002647e0(&f.f14, 1, 4, 1);
     void *mem = FUN_00263ea0(0xb0);
-    Particle_2ab030 *p;
+    ParticleSystem_2ab030 *p;
     if (mem)
-        p = ((Particle_2ab030 *)mem)->FUN_002a3660(f.f14);
+        p = ((ParticleSystem_2ab030 *)mem)->FUN_002a3660(f.f14);
     else
         p = 0;
     p->name.FUN_0027b040(f.name);
@@ -258,7 +258,7 @@ unsigned Loader_2ab030::FUN_002ab030(Particle_2ab030 **out, Key_2ab030 *outId, R
             break;
         }
         default: {
-            Loader_2ab030 *self = (Loader_2ab030 *)f.self;
+            ParticleSystemLoader_2ab030 *self = (ParticleSystemLoader_2ab030 *)f.self;
             if (self->table->FUN_002aa6d0(reader->FUN_00266c30()) == 1) {
                 self->table->FUN_002aa720(&p->slots[off], reader, arg);
                 Emitter_2ab030 *e = p->slots[off].emitter;
@@ -279,9 +279,9 @@ unsigned Loader_2ab030::FUN_002ab030(Particle_2ab030 **out, Key_2ab030 *outId, R
     }
     if (*(void **)((char *)p + 0xa4) == 0) {
         void *m2 = FUN_00263ea0(0x60);
-        Child_2ab030 *c;
+        ParticleController_2ab030 *c;
         if (m2)
-            c = ((Child_2ab030 *)m2)->FUN_002a73d0();
+            c = ((ParticleController_2ab030 *)m2)->FUN_002a73d0();
         else
             c = 0;
         c->name.FUN_0027af70(&p->name);

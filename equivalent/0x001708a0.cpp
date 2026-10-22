@@ -2,7 +2,7 @@
 // FUN_001708a0 @ 0x001708a0
 inline void *operator new(unsigned int, void *p) { return p; }
 
-struct Base12 {
+struct JointPivotTrackerTrack_1708a0 {
     char data[12];
     void FUN_00236d40();
 };
@@ -40,7 +40,7 @@ public:
 
 hulkfight::motion::JointPivotTrackerTrack *hulkfight::motion::JointPivotTrackerTrack::FUN_001708a0()
 {
-    ((Base12 *)this)->FUN_00236d40();
+    ((JointPivotTrackerTrack_1708a0 *)this)->FUN_00236d40();
     new (this) JointPivotTrackerTrack;
     f0c = 0;
     f10 = -1.0f;

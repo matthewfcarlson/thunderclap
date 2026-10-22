@@ -8,9 +8,9 @@ struct Chunk {
     int FUN_00266c30();
 };
 
-class BillboardBase {
+class DrawableContainer_2bd300 {
 public:
-    BillboardBase(int arg) throw();
+    DrawableContainer_2bd300(int arg) throw();
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -24,16 +24,16 @@ public:
 };
 
 namespace pure3d {
-class BillboardObject : public BillboardBase {
+class BillboardObject : public DrawableContainer_2bd300 {
 public:
-    BillboardObject(int arg) throw() : BillboardBase(arg) { scale = 1.0f; }
+    BillboardObject(int arg) throw() : DrawableContainer_2bd300(arg) { scale = 1.0f; }
     virtual void v13();
 };
 }
 
 class Builder {
 public:
-    void FUN_002bcf30(BillboardBase* obj, Chunk* chunk, int arg);
+    void FUN_002bcf30(DrawableContainer_2bd300* obj, Chunk* chunk, int arg);
 };
 
 struct IdPair_2bd300 {
@@ -44,18 +44,18 @@ class OldBillboardObjectLoader {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4();
-    virtual void vfunc_5(BillboardBase** out, IdPair_2bd300* id, Chunk* chunk, int arg);
+    virtual void vfunc_5(DrawableContainer_2bd300** out, IdPair_2bd300* id, Chunk* chunk, int arg);
     char pad04[0x14 - 4];
     Builder* builder;       // 0x14
 };
 
 // equiv-map: ??0BillboardBase@@QAE@H@Z = 0x002a4e10
-void OldBillboardObjectLoader::vfunc_5(BillboardBase** out, IdPair_2bd300* id, Chunk* chunk, int arg)
+void OldBillboardObjectLoader::vfunc_5(DrawableContainer_2bd300** out, IdPair_2bd300* id, Chunk* chunk, int arg)
 {
     if (chunk->FUN_00266c30() != 0x17002)
         return;
     void* mem = thunk_FUN_0008d690(0x60);
-    BillboardBase* obj = 0;
+    DrawableContainer_2bd300* obj = 0;
     if (mem != 0)
         obj = new (mem) pure3d::BillboardObject(1);
     builder->FUN_002bcf30(obj, chunk, arg);

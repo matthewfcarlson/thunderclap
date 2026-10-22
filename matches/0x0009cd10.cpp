@@ -1,9 +1,9 @@
 extern char nameA[];
 extern char nameB[];
 extern char __cdecl lookup(const char*);
-class Base {
+class Function_9cd10 {
   public:
-    Base(const char*, int);
+    Function_9cd10(const char*, int);
     virtual void f();
     char pad[12];
     char a;
@@ -12,9 +12,9 @@ class Base {
     char pad3[3];
     int p;
 };
-class Method1 : public Base {
+class Method1 : public Function_9cd10 {
   public:
-    Method1(const char* n, int p) : Base(n, 1) {
+    Method1(const char* n, int p) : Function_9cd10(n, 1) {
         this->p = p;
         b = lookup(nameA);
         a = lookup(nameB);

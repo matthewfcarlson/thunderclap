@@ -3,11 +3,11 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 extern "C" char DAT_004246cc[];
-struct Base_1f0af0 {
+struct Function_1f0af0 {
     hulk_uintptr vt;
     void Init(void*, int);
 };
-struct Target_1f0af0 : Base_1f0af0 {
+struct Method3_1f0af0 : Function_1f0af0 {
     char pad04[0x0c];
     char m10;
     char m11;
@@ -16,9 +16,9 @@ struct Target_1f0af0 : Base_1f0af0 {
     char m18;
     char pad19[3];
     void* m1c;
-    Target_1f0af0* Run(void*, void*);
+    Method3_1f0af0* Run(void*, void*);
 };
-Target_1f0af0* Target_1f0af0::Run(void* a, void* b) {
+Method3_1f0af0* Method3_1f0af0::Run(void* a, void* b) {
     Init(a, 3);
     vt = ((hulk_intptr)DAT_004246cc);
     m1c = b;

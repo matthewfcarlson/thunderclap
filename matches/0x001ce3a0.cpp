@@ -1,8 +1,8 @@
 extern "C" unsigned char __cdecl getFlag(const void*);
 extern int flagA, flagB;
-class Base {
+class Function_1ce3a0 {
   public:
-    Base(int, int);
+    Function_1ce3a0(int, int);
     virtual void f();
     char pad[0xc];
     unsigned char a;
@@ -12,9 +12,9 @@ class Base {
     int x;
     int y;
 };
-class Method1 : public Base {
+class Method1 : public Function_1ce3a0 {
   public:
-    Method1(int a, int c) : Base(a, 1) {
+    Method1(int a, int c) : Function_1ce3a0(a, 1) {
         x = c;
         b = getFlag(&flagA);
         this->a = getFlag(&flagB);

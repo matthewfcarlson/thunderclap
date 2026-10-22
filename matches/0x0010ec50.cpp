@@ -5,12 +5,12 @@ class Ref_10ec50 {
     virtual void F0();
     virtual void Release();
 };
-class Base_10ec50 {
+class Action_10ec50 {
   public:
     void* vptr;
     void Fin();
 };
-class ButtonAction_10ec50 : public Base_10ec50 {
+class ButtonAction_10ec50 : public Action_10ec50 {
   public:
     char pad[0x18];
     void* m1c;

@@ -1,14 +1,14 @@
 #include "compat/ptr.h"
-class Base_31b790 {
+class d3dDevice_31b790 {
   public:
-    Base_31b790();
+    d3dDevice_31b790();
 };
 extern int device_vftable;
-class Device_31b790 {
+class pddiDevice_31b790 {
   public:
-    Base_31b790 base;
-    Device_31b790();
+    d3dDevice_31b790 base;
+    pddiDevice_31b790();
 };
-Device_31b790::Device_31b790() {
+pddiDevice_31b790::pddiDevice_31b790() {
     *(hulk_intptr*)this = (hulk_intptr)&device_vftable;
 }

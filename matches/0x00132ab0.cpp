@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 extern "C" char DAT_004112c4[];
 extern void* __cdecl Alloc(hulk_uintptr);
-struct CondObj {
+struct GameStateCondition_132ab0 {
     hulk_intptr v0;
     int x04;
     int x08;
@@ -11,8 +11,8 @@ struct CondObj {
     int x18;
     void InitBase(int);
 };
-CondObj* Factory_vfunc5(void) {
-    CondObj* p = (CondObj*)Alloc(0x1c);
+GameStateCondition_132ab0* Factory_vfunc5(void) {
+    GameStateCondition_132ab0* p = (GameStateCondition_132ab0*)Alloc(0x1c);
     if (p) {
         p->InitBase(0);
         p->x10 = -1;

@@ -7,7 +7,7 @@ struct Stk {
     int top;
     Mat_31e930* data;
 };
-class Ctx_31e930 {
+class pddiBaseContext_31e930 {
   public:
     virtual void f0();
     virtual void f1();
@@ -124,7 +124,7 @@ class Ctx_31e930 {
     Stk* stk[4];
     void Push(int w, void* a);
 };
-void Ctx_31e930::Push(int w, void* a) {
+void pddiBaseContext_31e930::Push(int w, void* a) {
     Stk* s = stk[w];
     s->top++;
     s->data[s->top] = s->data[s->top - 1];

@@ -5,7 +5,7 @@ class Ref_17b110 {
     virtual void f0();
     virtual void f1();
 };
-class Helper_17b110 {
+class IntentionClearAction_17b110 {
   public:
     void cleanup();
 };
@@ -44,7 +44,7 @@ JointTrackerAction* JointTrackerAction::vfunc_2(int flag) {
     }
     if (m1c)
         m1c = 0;
-    ((Helper_17b110*)this)->cleanup();
+    ((IntentionClearAction_17b110*)this)->cleanup();
     if (flag & 1)
         delthis(this);
     return this;

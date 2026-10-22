@@ -19,7 +19,7 @@ struct Base_1cd150 {
     void* vptr;
     Base_1cd150() throw() { vptr = g_vftable_1cd150; }
 };
-class Obj_1cd150 : public Base_1cd150 {
+class CScenarioManager_1cd150 : public Base_1cd150 {
   public:
     int m4;
     int m8;
@@ -36,10 +36,10 @@ class Obj_1cd150 : public Base_1cd150 {
     int d[4];
     char m14a8;
     char m14a9;
-    Obj_1cd150() throw();
+    CScenarioManager_1cd150() throw();
     void Init() throw();
 };
-Obj_1cd150::Obj_1cd150() throw() {
+CScenarioManager_1cd150::CScenarioManager_1cd150() throw() {
     m4 = 0;
     mc = 0;
     m1198 = 0;

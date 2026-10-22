@@ -1,7 +1,7 @@
 void* operator new(unsigned int) throw();
 int Push(int) throw();
 
-struct Sub_1be170 {
+struct CDropShadowDisplayEffect_1be170 {
     void Init() throw();
 };
 struct Node2_1be170 {
@@ -20,13 +20,13 @@ struct Shader_1be170 {
     virtual void init();
     Shader_1be170() throw();
 };
-class Base_1be170 {
+class Overlay_1be170 {
   public:
     virtual void f0();
     bool b4;
-    Base_1be170() throw() { b4 = true; }
+    Overlay_1be170() throw() { b4 = true; }
 };
-class CSubtitleOverlay : public Base_1be170 {
+class CSubtitleOverlay : public Overlay_1be170 {
   public:
     int m8;
     char mc;
@@ -37,7 +37,7 @@ class CSubtitleOverlay : public Base_1be170 {
     char b11c;
     char b11d;
     char pad2[2];
-    Sub_1be170 sub;
+    CDropShadowDisplayEffect_1be170 sub;
     virtual void f0();
     CSubtitleOverlay() throw();
 };

@@ -89,7 +89,7 @@ int __cdecl FUN_00096600(const char *a, const char *b);
 float __cdecl FUN_003458c1(const char *s);
 void *__cdecl FUN_00263ea0(unsigned int size);
 
-struct PropObj {
+struct CSPHulkProp_1d57d0 {
     char pad0[8];
     NameKey_1d57d0 name;
     char pad10[0x90 - 0x10];
@@ -112,7 +112,7 @@ struct PropObj {
     float *weights;
     char padbc[4];
     NameKey_1d57d0 set;
-    PropObj *FUN_001d4d50();
+    CSPHulkProp_1d57d0 *FUN_001d4d50();
     void FUN_001d5730(PropData *d);
 };
 
@@ -121,18 +121,18 @@ public:
     void FUN_00290bf0(PropData **out, NameKey_1d57d0 *id, Reader_1d57d0 *r, int unused);
 };
 
-struct CSPHulkPropLoader_nv_1d57d0 {
+struct CSPHulkPropLoader_1d57d0 {
     void FUN_00290bf0(PropData **out, NameKey_1d57d0 *id, Reader_1d57d0 *r, int unused);
 };
 
-void CSPHulkPropLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int unused) { PropObj ** out = (PropObj **)__p0; NameKey_1d57d0 * outId = (NameKey_1d57d0 *)__p1; Reader_1d57d0 * r = (Reader_1d57d0 *)__p2;
+void CSPHulkPropLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int unused) { CSPHulkProp_1d57d0 ** out = (CSPHulkProp_1d57d0 **)__p0; NameKey_1d57d0 * outId = (NameKey_1d57d0 *)__p1; Reader_1d57d0 * r = (Reader_1d57d0 *)__p2;
 
     PropData *data;
     NameKey_1d57d0 id;
-    ((CSPHulkPropLoader_nv_1d57d0*)this)->FUN_00290bf0(&data, &id, r, unused);
+    ((CSPHulkPropLoader_1d57d0*)this)->FUN_00290bf0(&data, &id, r, unused);
 
-    PropObj *obj = (PropObj *)FUN_00263ea0(0xc8);
-    PropObj *n = 0;
+    CSPHulkProp_1d57d0 *obj = (CSPHulkProp_1d57d0 *)FUN_00263ea0(0xc8);
+    CSPHulkProp_1d57d0 *n = 0;
     if (obj)
         n = obj->FUN_001d4d50();
     n->FUN_001d5730(data);

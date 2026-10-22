@@ -1,10 +1,10 @@
-class Base {
+class Track_170ba0 {
   public:
-    Base();
+    Track_170ba0();
     virtual void f();
     int baseField;
 };
-class SuckInPropsTrack : public Base {
+class SuckInPropsTrack : public Track_170ba0 {
   public:
     SuckInPropsTrack();
     virtual void f();

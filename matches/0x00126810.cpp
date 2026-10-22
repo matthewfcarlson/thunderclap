@@ -5,14 +5,14 @@ class RefObj_126810 {
     virtual void Release();
 };
 
-class ActionBase_126810 {
+class Action_126810 {
   public:
-    ActionBase_126810();
+    Action_126810();
     virtual void Update();
     char pad[0x18];
 };
 
-class ClearProjectileDistanceAction_126810 : public ActionBase_126810 {
+class ClearProjectileDistanceAction_126810 : public Action_126810 {
   public:
     int mTarget;
     RefObj_126810* mObj;

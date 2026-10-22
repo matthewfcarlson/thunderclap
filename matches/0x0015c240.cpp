@@ -10,7 +10,7 @@ struct C {
 };
 extern int t1, t2;
 extern "C" void* __cdecl cast(void*, int, void*, void*, int);
-class Cond {
+class LocomotingCondition_15c240 {
   public:
     virtual void f0();
     virtual void f1();
@@ -22,7 +22,7 @@ class Cond {
     char pad[8];
     unsigned char flag;
 };
-bool Cond::f6(int x, C* obj, int z) {
+bool LocomotingCondition_15c240::f6(int x, C* obj, int z) {
     if (!cast(obj, 0, &t1, &t2, 0))
         return false;
     unsigned char v = obj->get()->get()->n > 0;

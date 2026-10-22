@@ -1,5 +1,5 @@
 #include "compat/ptr.h"
-struct Sub_30d320 {
+struct SymMatrix_30d320 {
     void Destruct();
 };
 
@@ -14,15 +14,15 @@ class PhysicsJoint {
     int m20;
     hulk_intptr m24;
     char pad2[0x48 - 0x28];
-    Sub_30d320 m48;
+    SymMatrix_30d320 m48;
     char pad3[0x64 - 0x49];
-    Sub_30d320 m64;
+    SymMatrix_30d320 m64;
 
     void* vfunc_0(int flags);
 };
 
 void* PhysicsJoint::vfunc_0(int flags) {
-    Sub_30d320* p = &m64;
+    SymMatrix_30d320* p = &m64;
     vptr = (void*)DAT_00431de4;
     p->Destruct();
     m48.Destruct();

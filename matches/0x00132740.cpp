@@ -3,7 +3,7 @@
 #include "gen/fight.h"
 
 extern void* __cdecl Alloc(hulk_uintptr);
-class Condition_132740 {
+class GameStateCondition_132740 {
   public:
     virtual void a();
     virtual void b();
@@ -21,7 +21,7 @@ class Condition_132740 {
 extern int AIHistoryNameCondition_vftable;
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::MissionProgressCondition>::vfunc_5() {
-    Condition_132740* p = (Condition_132740*)Alloc(0x18);
+    GameStateCondition_132740* p = (GameStateCondition_132740*)Alloc(0x18);
     void* result;
     if (p) {
         p->Init(0);

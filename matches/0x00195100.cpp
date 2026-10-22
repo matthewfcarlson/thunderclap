@@ -1,23 +1,23 @@
-class Base_195100 {
+class Action_195100 {
   public:
     virtual void F();
     virtual void G();
     char pad[0x18];
-    Base_195100();
+    Action_195100();
 };
-class FPA : public Base_195100 {
+class FireProjectileAction_195100 : public Action_195100 {
   public:
     int a;
-    Base_195100* b;
+    Action_195100* b;
     int c;
     int d;
     int e;
     int f;
-    FPA(int x, Base_195100* p);
+    FireProjectileAction_195100(int x, Action_195100* p);
     virtual void F();
     virtual void G();
 };
-FPA::FPA(int x, Base_195100* p) : Base_195100() {
+FireProjectileAction_195100::FireProjectileAction_195100(int x, Action_195100* p) : Action_195100() {
     int* q = &a;
     *q = 0;
     b = 0;

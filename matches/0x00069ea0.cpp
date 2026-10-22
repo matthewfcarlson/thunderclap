@@ -1,4 +1,4 @@
-class Base_69ea0 {
+class CTrack_69ea0 {
   public:
     virtual void g0();
     virtual void g1();
@@ -10,11 +10,11 @@ class Base_69ea0 {
     virtual void g7();
     virtual void g8();
     virtual void g9();
-    Base_69ea0();
+    CTrack_69ea0();
     int m4;
 };
 
-class CDrainHealthTrack : public Base_69ea0 {
+class CDrainHealthTrack : public CTrack_69ea0 {
   public:
     virtual void f0();
     virtual void f1();

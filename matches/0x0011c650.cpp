@@ -1,10 +1,10 @@
-class Base {
+class Track_11c650 {
   public:
-    Base();
+    Track_11c650();
     virtual void vf();
     char pad[8];
 };
-class StrafeCircleHBTrack : public Base {
+class StrafeCircleHBTrack : public Track_11c650 {
   public:
     StrafeCircleHBTrack();
     int a;
@@ -13,4 +13,4 @@ class StrafeCircleHBTrack : public Base {
     float g;
     virtual void vf();
 };
-StrafeCircleHBTrack::StrafeCircleHBTrack() : Base(), a(0), b(-1.0f), c(0), d(0), e(0), h(0), g(1.0f) {}
+StrafeCircleHBTrack::StrafeCircleHBTrack() : Track_11c650(), a(0), b(-1.0f), c(0), d(0), e(0), h(0), g(1.0f) {}

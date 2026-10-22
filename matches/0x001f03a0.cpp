@@ -9,12 +9,12 @@ struct Pair {
         hi = (int)(v >> 32);
     }
 };
-class Base {
+class CSoundCommand_1f03a0 {
   public:
     int a, b, c;
-    Base() : a(0), b(0), c(0) {}
+    CSoundCommand_1f03a0() : a(0), b(0), c(0) {}
 };
-class CSoundCommand_SetLoopPitchEvent : public Base {
+class CSoundCommand_SetLoopPitchEvent : public CSoundCommand_1f03a0 {
   public:
     virtual void Fn();
     Pair value;

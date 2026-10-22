@@ -1,4 +1,4 @@
-class Caster {
+class DynamicCaster_f20f0 {
   public:
     virtual void a();
 };
@@ -7,9 +7,9 @@ class Object {
     virtual void a();
     virtual void b();
     virtual void c();
-    virtual void d(Caster*, void*, void*);
+    virtual void d(DynamicCaster_f20f0*, void*, void*);
 };
 void FUN_000f20f0(Object* obj, void* x, void* y) {
-    Caster caster;
+    DynamicCaster_f20f0 caster;
     obj->d(&caster, x, y);
 }

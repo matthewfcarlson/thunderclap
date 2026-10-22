@@ -1,16 +1,16 @@
-class Base {
+class Track_18ce10 {
   public:
-    Base();
+    Track_18ce10();
     virtual void f();
     char pad[8];
 };
-class TimerSetTrack : public Base {
+class TimerSetTrack : public Track_18ce10 {
   public:
     TimerSetTrack();
     virtual void f();
     int a, b, c;
 };
-TimerSetTrack::TimerSetTrack() : Base() {
+TimerSetTrack::TimerSetTrack() : Track_18ce10() {
     a = 0;
     b = 0;
     c = 0;

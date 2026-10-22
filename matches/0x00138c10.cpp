@@ -6,18 +6,18 @@ class Ref_138c10 {
     virtual void F0();
     virtual void Release();
 };
-class Base_138c10 {
+class Action_138c10 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_138c10 : public Base_138c10 {
+class HoverAction_138c10 : public Action_138c10 {
   public:
     char pad[0x20 - 4];
     Ref_138c10* m;
-    Obj_138c10* f2(unsigned char flags);
+    HoverAction_138c10* f2(unsigned char flags);
 };
-Obj_138c10* Obj_138c10::f2(unsigned char flags) {
+HoverAction_138c10* HoverAction_138c10::f2(unsigned char flags) {
     vptr = g_vftable_138c10;
     _ReadWriteBarrier();
     if (m) {

@@ -2,7 +2,7 @@
 // FUN_001dcd30 @ 0x001dcd30
 struct Entry_1dcd30 { char pad[22]; short active; char pad2[10]; short recordIndex; char pad3[4]; };
 struct Record_1dcd30 { char pad[16]; unsigned short flags; char pad2[2]; };
-struct Manager_1dcd30 {
+struct CSPManager_1dcd30 {
  char pad[0x608];
  Entry_1dcd30 entries[2048];
  Record_1dcd30 records[2048];
@@ -12,7 +12,7 @@ struct Manager_1dcd30 {
  void FUN_001e5bc0(int index);
  void FUN_001dcd30(int index);
 };
-void Manager_1dcd30::FUN_001dcd30(int index) {
+void CSPManager_1dcd30::FUN_001dcd30(int index) {
  if (index < 0 || index > 2048) return;
  if (count >= 64) {
   int removed = 0;

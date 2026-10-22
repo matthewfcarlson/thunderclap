@@ -1,4 +1,4 @@
-class Base_235650 {
+class ParamValueInventoryEntity_235650 {
   public:
     virtual void f0();
     virtual void f1();
@@ -21,7 +21,7 @@ class Iter_235650 {
     int First();
     int Next();
 };
-int Base_235650::f7(int wanted, int limit) {
+int ParamValueInventoryEntity_235650::f7(int wanted, int limit) {
     if (limit <= 0)
         return 0;
     Manager_235650* m = gManager_235650;

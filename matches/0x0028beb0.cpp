@@ -6,14 +6,14 @@ class Res_28beb0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_28beb0 {
+class VectorChannel_28beb0 {
   public:
     void* vptr;
     char pad[8];
     Res_28beb0* p0;
     void Fin();
 };
-class Obj_28beb0 : public Base_28beb0 {
+class Vector2DOFChannel_28beb0 : public VectorChannel_28beb0 {
   public:
     char pad2[4];
     void* p1;
@@ -21,7 +21,7 @@ class Obj_28beb0 : public Base_28beb0 {
     void* p2;
     void F();
 };
-void Obj_28beb0::F() {
+void Vector2DOFChannel_28beb0::F() {
     if (!p0) {
         vptr = g_f2;
         Drop(p2);

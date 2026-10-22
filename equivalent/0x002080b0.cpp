@@ -132,10 +132,10 @@ public:
 };
 
 
-class Obj_2080b0;
+class CWorldStreamManager_2080b0;
 class Aux_2080b0 { public: int FUN_00266710(); };
 
-class Obj_2080b0 {
+class CWorldStreamManager_2080b0 {
 public:
     char pad0[0x578];
     Slot_2080b0 *slots[3];
@@ -153,7 +153,7 @@ public:
     void FUN_002080b0();
 };
 
-void Obj_2080b0::FUN_002080b0()
+void CWorldStreamManager_2080b0::FUN_002080b0()
 {
     if (!af1)
         return;

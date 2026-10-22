@@ -4,17 +4,17 @@ class Ref {
     virtual void Add();
     virtual void Release();
 };
-class Base {
+class Action_173c00 {
   public:
     virtual void Fn();
     char pad[0x18];
-    Base();
+    Action_173c00();
 };
 struct Slot {
     volatile int value;
     Slot() : value(0) {}
 };
-class JointPivotTrackerAction : public Base {
+class JointPivotTrackerAction : public Action_173c00 {
   public:
     virtual void Fn();
     Slot a;
@@ -23,7 +23,7 @@ class JointPivotTrackerAction : public Base {
     int d;
     JointPivotTrackerAction(int, Ref*);
 };
-JointPivotTrackerAction::JointPivotTrackerAction(int x, Ref* r) : Base() {
+JointPivotTrackerAction::JointPivotTrackerAction(int x, Ref* r) : Action_173c00() {
     b = 0;
     c = 0;
     d = 0;

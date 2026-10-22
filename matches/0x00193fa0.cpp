@@ -1,9 +1,9 @@
-class Base {
+class Track_193fa0 {
   public:
-    Base();
+    Track_193fa0();
     virtual void f();
 };
-class AccuracyLatencyTrack : public Base {
+class AccuracyLatencyTrack : public Track_193fa0 {
   public:
     AccuracyLatencyTrack();
     char pad[4];

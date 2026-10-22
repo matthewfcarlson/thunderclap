@@ -9,7 +9,7 @@ class Shader_32d8e0 {
 struct d3dLayeredShader_nv_32d8e0 {
     void Cleanup();
 };
-class Thing_32d8e0 {
+class d3dLayeredShader_32d8e0 {
   public:
     virtual void V();
     char pad[0x7c];
@@ -17,7 +17,7 @@ class Thing_32d8e0 {
     Shader_32d8e0* b;
     void Fn();
 };
-void Thing_32d8e0::Fn() {
+void d3dLayeredShader_32d8e0::Fn() {
     Shader_32d8e0* a = this->a;
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_00433b9c);
     if (a)

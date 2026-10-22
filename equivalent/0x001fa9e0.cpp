@@ -2,8 +2,8 @@
 // MyBufferStream::vfunc_3 @ 0x001fa9e0
 typedef unsigned char byte;
 extern "C" void * __cdecl memcpy(void *, const void *, unsigned int);
-struct TokenizerStream { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(void *, unsigned int); virtual void vfunc_4(); };
-struct MyBufferStream : TokenizerStream { byte *data; int length; int position; virtual void vfunc_3(void *destination, unsigned int count); };
+struct Stream_1fa9e0 { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(void *, unsigned int); virtual void vfunc_4(); };
+struct MyBufferStream : Stream_1fa9e0 { byte *data; int length; int position; virtual void vfunc_3(void *destination, unsigned int count); };
 void MyBufferStream::vfunc_3(void *destination, unsigned int count) {
     int available = length - position;
     if ((int)(position + count) > length) count = available;

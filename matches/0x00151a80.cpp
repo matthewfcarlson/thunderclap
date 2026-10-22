@@ -5,12 +5,12 @@ class Ref_151a80 {
     virtual void F0();
     virtual void Release();
 };
-class Base_151a80 {
+class Action_151a80 {
   public:
     void* vptr;
     void Fin();
 };
-class HitPushbackAddAction_151a80 : public Base_151a80 {
+class HitPushbackAddAction_151a80 : public Action_151a80 {
   public:
     char pad[0x18];
     void* m1c;

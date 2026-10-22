@@ -5,7 +5,7 @@ class Ref_176370 {
     virtual void F0();
     virtual void Release();
 };
-class Base_176370 {
+class Action_176370 {
   public:
     void* vptr;
     void Fin();
@@ -16,16 +16,16 @@ struct Sub_176370 {
 };
 void __fastcall SubFini(Sub_176370*) throw();
 void __fastcall SubFini2(Sub_176370*) throw();
-class Obj_176370 : public Base_176370 {
+class MoveJointAction_176370 : public Action_176370 {
   public:
     char p1c[24];
     void* m1c;
     Ref_176370* m20;
     Ref_176370* m24;
     Ref_176370* m28;
-    ~Obj_176370() throw();
+    ~MoveJointAction_176370() throw();
 };
-Obj_176370::~Obj_176370() throw() {
+MoveJointAction_176370::~MoveJointAction_176370() throw() {
     vptr = g_vftable_176370;
     _ReadWriteBarrier();
     if (m24) {

@@ -29,7 +29,7 @@ struct Sprite {
 };
 
 
-class Effect_cab50 {
+class HUDOverlay_cab50 {
 public:
     char pad0[0x28];
     Sprite *sprites[5][2];   // 0x28, stride 8
@@ -37,7 +37,7 @@ public:
     void FUN_000cab50();
 };
 
-void Effect_cab50::FUN_000cab50()
+void HUDOverlay_cab50::FUN_000cab50()
 {
     (*(PassHolder_cab50**)&DAT_0052c2ac)->pass->v15(0);
     (*(PassHolder_cab50**)&DAT_0052c2ac)->FUN_00293d00(((Vec3_cab50*)&DAT_004ddebc));

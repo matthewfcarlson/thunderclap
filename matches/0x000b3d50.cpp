@@ -6,13 +6,13 @@ class Ref_b3d50 {
     virtual void F0();
     virtual void Release();
 };
-class Obj_b3d50 {
+class CSimControllerManager_b3d50 {
   public:
     void* vptr;
     Ref_b3d50* m4;
-    Obj_b3d50* f2(unsigned char flags);
+    CSimControllerManager_b3d50* f2(unsigned char flags);
 };
-Obj_b3d50* Obj_b3d50::f2(unsigned char flags) {
+CSimControllerManager_b3d50* CSimControllerManager_b3d50::f2(unsigned char flags) {
     vptr = g_vftable_b3d50;
     _ReadWriteBarrier();
     m4->Release();

@@ -5,14 +5,14 @@ class RefObj_151b30 {
     virtual void Release();
 };
 
-class ActionBase_151b30 {
+class Action_151b30 {
   public:
-    ActionBase_151b30();
+    Action_151b30();
     virtual void Update();
     char pad[0x18];
 };
 
-class NoHitPushbackAction_151b30 : public ActionBase_151b30 {
+class NoHitPushbackAction_151b30 : public Action_151b30 {
   public:
     int mTarget;
     RefObj_151b30* mObj;

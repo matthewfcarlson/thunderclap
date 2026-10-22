@@ -1,22 +1,22 @@
 typedef unsigned int size_t;
 void* __cdecl operator new(size_t) throw();
-class Base {
+class CCondition_58c10 {
   public:
-    Base(int) throw();
+    CCondition_58c10(int) throw();
     virtual void f0();
     virtual void f1();
     virtual void f2();
     int a;
     int b;
 };
-class CStageCondition : public Base {
+class CStageCondition : public CCondition_58c10 {
   public:
     CStageCondition() throw();
     virtual void f0();
     int stage;
     int other;
 };
-CStageCondition::CStageCondition() throw() : Base(0) {
+CStageCondition::CStageCondition() throw() : CCondition_58c10(0) {
     stage = 2;
     other = 0;
 }

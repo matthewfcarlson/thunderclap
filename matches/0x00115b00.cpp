@@ -1,6 +1,6 @@
-class Base {
+class Track_115b00 {
   public:
-    Base();
+    Track_115b00();
     virtual void f();
     char pad[4];
 };
@@ -8,7 +8,7 @@ class Sub {
   public:
     void Init();
 };
-class MotionLocatorTrack : public Base {
+class MotionLocatorTrack : public Track_115b00 {
   public:
     MotionLocatorTrack();
     virtual void f();
@@ -20,7 +20,7 @@ class MotionLocatorTrack : public Base {
     char pad3[4];
     Sub sub;
 };
-MotionLocatorTrack::MotionLocatorTrack() : Base() {
+MotionLocatorTrack::MotionLocatorTrack() : Track_115b00() {
     a = 0;
     b = -1.0f;
     c = 1.0f;

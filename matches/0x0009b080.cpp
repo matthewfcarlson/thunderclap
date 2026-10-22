@@ -6,7 +6,7 @@
 #include "decls/data/game/unknown.h"
 extern char DAT_00404cc0[];
 
-class Callback_9b080 {
+class Method6_9b080 {
 public:
     hulk_intptr vptr;
     char pad04[12];
@@ -16,10 +16,10 @@ public:
     char pad19[3];
     void* p1c;
     void FUN_001d0480(void*, int);
-    Callback_9b080* Init(void* arg, void* value);
+    Method6_9b080* Init(void* arg, void* value);
 };
 
-Callback_9b080* Callback_9b080::Init(void* arg, void* value)
+Method6_9b080* Method6_9b080::Init(void* arg, void* value)
 {
     FUN_001d0480(arg, 6);
     vptr = (hulk_intptr)DAT_00404cc0;

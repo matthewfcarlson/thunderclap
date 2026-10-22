@@ -1,11 +1,11 @@
-class Base_1069c0 {
+class Function_1069c0 {
   public:
     virtual void f();
-    Base_1069c0(const char*, int);
+    Function_1069c0(const char*, int);
 };
 extern const char s1_1069c0[], s2[], s3[];
 extern unsigned char __cdecl get(const char*);
-class Method3 : public Base_1069c0 {
+class Method3 : public Function_1069c0 {
   public:
     virtual void f();
     char pad[12];
@@ -16,7 +16,7 @@ class Method3 : public Base_1069c0 {
     int value;
     Method3(const char*, int);
 };
-Method3::Method3(const char* p, int v) : Base_1069c0(p, 3) {
+Method3::Method3(const char* p, int v) : Function_1069c0(p, 3) {
     value = v;
     d = get(s1_1069c0);
     a = get(s2);

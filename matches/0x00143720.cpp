@@ -1,6 +1,6 @@
-class Base {
+class Track_143720 {
   public:
-    Base();
+    Track_143720();
     virtual void f();
     char pad[8];
 };
@@ -9,7 +9,7 @@ class Vec {
     Vec();
     char pad[8];
 };
-class HitEffectTrack : public Base {
+class HitEffectTrack : public Track_143720 {
   public:
     HitEffectTrack();
     virtual void f();
@@ -23,6 +23,6 @@ class HitEffectTrack : public Base {
     float m30;
     int m34;
 };
-HitEffectTrack::HitEffectTrack() : Base(), mC(0), m10(-1.0f), v18(), m20(1.0f), v28(), m30(1.0f), m34(0) {
+HitEffectTrack::HitEffectTrack() : Track_143720(), mC(0), m10(-1.0f), v18(), m20(1.0f), v28(), m30(1.0f), m34(0) {
     *(int*)((char*)this + 8) = 1;
 }

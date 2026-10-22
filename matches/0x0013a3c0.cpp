@@ -1,6 +1,6 @@
-class Base_13a3c0 {
+class Track_13a3c0 {
   public:
-    Base_13a3c0();
+    Track_13a3c0();
     virtual void v();
     char pad[4];
     int flag;
@@ -10,7 +10,7 @@ class Elem_13a3c0 {
     Elem_13a3c0();
     char bytes[8];
 };
-class AnimationPhaseMatchedTrack : public Base_13a3c0 {
+class AnimationPhaseMatchedTrack : public Track_13a3c0 {
   public:
     AnimationPhaseMatchedTrack();
     virtual void v();
@@ -26,6 +26,6 @@ class AnimationPhaseMatchedTrack : public Base_13a3c0 {
     float x, y;
 };
 AnimationPhaseMatchedTrack::AnimationPhaseMatchedTrack()
-    : Base_13a3c0(), c(0), ten(-1.0f), e(), a(0), b(0), neg(-1.0f), e2(), color(-1), x(0.1f), y(0.1f) {
+    : Track_13a3c0(), c(0), ten(-1.0f), e(), a(0), b(0), neg(-1.0f), e2(), color(-1), x(0.1f), y(0.1f) {
     flag = 1;
 }

@@ -1,6 +1,6 @@
-class Base {
+class CTrack_5e0c0 {
   public:
-    Base();
+    CTrack_5e0c0();
     virtual void v0();
     char pad[4];
 };
@@ -20,7 +20,7 @@ struct Fields {
     int one;
     Fields() : x(0), y(0), z(0), f(0.1f), one(1) {}
 };
-class COpportunityBallTrack : public Base {
+class COpportunityBallTrack : public CTrack_5e0c0 {
   public:
     COpportunityBallTrack();
     virtual void v0();
@@ -33,6 +33,6 @@ class COpportunityBallTrack : public Base {
     B b;
     B c;
 };
-COpportunityBallTrack::COpportunityBallTrack() : Base(), mc(0), m10(-1.0f), a(), fields(), b(), c() {
+COpportunityBallTrack::COpportunityBallTrack() : CTrack_5e0c0(), mc(0), m10(-1.0f), a(), fields(), b(), c() {
     m8 = 1;
 }

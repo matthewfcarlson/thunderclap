@@ -15,7 +15,7 @@ class CFightNodePrevCondition : public CCondition {
     char pad[12];
     CFightNodePrevCondition* vfunc_5(int);
 };
-class H {
+class CIntentionSpeedCondition_4dab0 {
   public:
     void a();
     void b();
@@ -26,9 +26,9 @@ void thunk_FUN_00267090(void*);
 CFightNodePrevCondition* CFightNodePrevCondition::vfunc_5(int p) {
     CFightNodePrevCondition* s = this;
     *(void (**)())s = &vt_name;
-    ((H*)((char*)s + 0x10))->a();
+    ((CIntentionSpeedCondition_4dab0*)((char*)s + 0x10))->a();
     *(void (**)())s = &vt_cond;
-    ((H*)s)->b();
+    ((CIntentionSpeedCondition_4dab0*)s)->b();
     if (p & 1)
         thunk_FUN_00267090(s);
     return s;

@@ -4,7 +4,7 @@
 extern "C" char DAT_00423418[];
 extern "C" char DAT_0048e10c[];
 class CSPManager;
-class Target_1e0710 {
+class Method4_1e0710 {
   public:
     char p00[0x10];
     unsigned char b10, b11, b12, b13;
@@ -12,12 +12,12 @@ class Target_1e0710 {
     unsigned char b18;
     char p19[3];
     CSPManager* mgr;
-    Target_1e0710(const char*, CSPManager*);
+    Method4_1e0710(const char*, CSPManager*);
 };
 struct ThisCall_001d0480 {
     void FUN_001d0480(const char*, int);
 };
-Target_1e0710::Target_1e0710(const char* s, CSPManager* m) {
+Method4_1e0710::Method4_1e0710(const char* s, CSPManager* m) {
     ((ThisCall_001d0480*)(this))->FUN_001d0480(s, 4);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00423418);
     mgr = m;

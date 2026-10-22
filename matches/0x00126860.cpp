@@ -5,12 +5,12 @@ class Ref_126860 {
     virtual void F0();
     virtual void Release();
 };
-class Base_126860 {
+class Action_126860 {
   public:
     void* vptr;
     void Fin();
 };
-class ClearProjectileDistanceAction_126860 : public Base_126860 {
+class ClearProjectileDistanceAction_126860 : public Action_126860 {
   public:
     char pad[0x18];
     void* m1c;

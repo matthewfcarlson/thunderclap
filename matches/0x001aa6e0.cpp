@@ -1,6 +1,6 @@
 typedef unsigned int size_t;
 void* __cdecl operator new(size_t) throw();
-class Base {
+class Condition_1aa6e0 {
   public:
     virtual void a();
     virtual void b();
@@ -10,11 +10,11 @@ class Base {
     virtual void f();
     char pad[8];
     int val;
-    Base(int) throw();
+    Condition_1aa6e0(int) throw();
 };
-class Event : public Base {
+class Event_PropStateDescCondition_1aa6e0 : public Condition_1aa6e0 {
   public:
-    Event() throw() : Base(0) { val = 0; }
+    Event_PropStateDescCondition_1aa6e0() throw() : Condition_1aa6e0(0) { val = 0; }
     virtual void a();
 };
 class Factory {
@@ -24,8 +24,8 @@ class Factory {
     virtual void c();
     virtual void d();
     virtual void e();
-    virtual Base* f();
+    virtual Condition_1aa6e0* f();
 };
-Base* Factory::f() {
-    return new Event;
+Condition_1aa6e0* Factory::f() {
+    return new Event_PropStateDescCondition_1aa6e0;
 }

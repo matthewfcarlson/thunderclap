@@ -5,14 +5,14 @@ class RefObj_12c080 {
     virtual void Release();
 };
 
-class ActionBase_12c080 {
+class Action_12c080 {
   public:
-    ActionBase_12c080();
+    Action_12c080();
     virtual void Update();
     char pad[0x18];
 };
 
-class ThreatDodgeAction_12c080 : public ActionBase_12c080 {
+class ThreatDodgeAction_12c080 : public Action_12c080 {
   public:
     int mTarget;
     RefObj_12c080* mObj;

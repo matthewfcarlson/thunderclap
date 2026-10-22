@@ -5,11 +5,11 @@ struct CtorV_001d0480 {
     virtual void v_001d0480();
 };
 extern int g1, g2;
-class Base : public CtorV_001d0480 {
+class Function_2030c0 : public CtorV_001d0480 {
   public:
-    Base(const char* s) : CtorV_001d0480(s, 1) { }
+    Function_2030c0(const char* s) : CtorV_001d0480(s, 1) { }
 };
-class Method1 : public Base {
+class Method1 : public Function_2030c0 {
   public:
     virtual void Invoke();
     char pad[0xc];
@@ -18,7 +18,7 @@ class Method1 : public Base {
     unsigned char b18;
     char pad3[3];
     CWorldCollisionManager* obj;
-    Method1(const char* s, CWorldCollisionManager* o) : Base(s) {
+    Method1(const char* s, CWorldCollisionManager* o) : Function_2030c0(s) {
         obj = o;
         b18 = FUN_001d04d0(&g1);
         b10 = FUN_001d04d0(&g2);

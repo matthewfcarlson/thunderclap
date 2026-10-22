@@ -1,9 +1,9 @@
-class Base {
+class Track_14e480 {
   public:
-    Base();
+    Track_14e480();
     virtual void f();
 };
-class NoHitPushbackTrack : public Base {
+class NoHitPushbackTrack : public Track_14e480 {
   public:
     NoHitPushbackTrack();
     char pad[4];

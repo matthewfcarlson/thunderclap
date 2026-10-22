@@ -5,12 +5,12 @@ class Ref_15e200 {
     virtual void F0();
     virtual void Release();
 };
-class Base_15e200 {
+class Action_15e200 {
   public:
     void* vptr;
     void Fin();
 };
-class LocomotionSprintAction_15e200 : public Base_15e200 {
+class LocomotionSprintAction_15e200 : public Action_15e200 {
   public:
     char pad[0x18];
     void* m1c;

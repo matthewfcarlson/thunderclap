@@ -3,7 +3,7 @@
 
 extern "C" char DAT_00411be8[];
 extern "C" void* __cdecl Alloc(hulk_uintptr);
-class Track_1394f0 {
+class FallTrack_1394f0 {
   public:
     hulk_intptr vptr;
     int pad;
@@ -13,7 +13,7 @@ class Track_1394f0 {
     int m5;
     void Init();
 };
-class GrappleHoverTrack_1394f0 : public Track_1394f0 {};
+class GrappleHoverTrack_1394f0 : public FallTrack_1394f0 {};
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GrappleHoverTrack>::vfunc_5() {
     GrappleHoverTrack_1394f0* p = (GrappleHoverTrack_1394f0*)Alloc(0x18);

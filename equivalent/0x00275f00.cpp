@@ -2,11 +2,11 @@
 // core::File::vfunc_4 @ 0x00275f00
 void* __cdecl FUN_00273560(unsigned int size);
 namespace core { struct File; }
-struct Operation {
- Operation* FUN_002752e0(core::File* file, unsigned int a, unsigned int b, unsigned int c);
+struct FileWriteRequest_275f00 {
+ FileWriteRequest_275f00* FUN_002752e0(core::File* file, unsigned int a, unsigned int b, unsigned int c);
 };
 struct Manager_275f00 {
- unsigned int FUN_00272b60(Operation* operation, unsigned int value, unsigned int zero);
+ unsigned int FUN_00272b60(FileWriteRequest_275f00* operation, unsigned int value, unsigned int zero);
 };
 namespace core {
 struct File {
@@ -20,7 +20,7 @@ struct File {
  unsigned int value;
 };
 unsigned int File::vfunc_4(unsigned int a, unsigned int b, unsigned int c) {
- Operation* operation = static_cast<Operation*>(FUN_00273560(24));
+ FileWriteRequest_275f00* operation = static_cast<FileWriteRequest_275f00*>(FUN_00273560(24));
  if (operation) operation = operation->FUN_002752e0(this, a, b, c);
  return manager->FUN_00272b60(operation, value, 0);
 }

@@ -3,12 +3,12 @@ class Str_13a1b0 {
   public:
     void Init();
 };
-class Base_13a1b0 {
+class Track_13a1b0 {
   public:
     void* vptr;
     void Fin();
 };
-class AnimationTrack_13a1b0 : public Base_13a1b0 {
+class AnimationTrack_13a1b0 : public Track_13a1b0 {
   public:
     char pad[0x14];
     Str_13a1b0 s18;

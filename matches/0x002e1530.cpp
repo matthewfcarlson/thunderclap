@@ -6,17 +6,17 @@ struct Ref_2e1530 {
     virtual void a() throw();
     virtual void release() throw();
 };
-class D {
+class PrimGroupStreamed_2e1530 {
   public:
     void* vptr;
     char pad[0x3c];
     Ref_2e1530* r40;
     char pad2[0x5c - 0x44];
     Ref_2e1530* r5c;
-    D* vfunc_2(unsigned char f) throw();
+    PrimGroupStreamed_2e1530* vfunc_2(unsigned char f) throw();
     void Fini() throw();
 };
-D* D::vfunc_2(unsigned char f) throw() {
+PrimGroupStreamed_2e1530* PrimGroupStreamed_2e1530::vfunc_2(unsigned char f) throw() {
     vptr = vD;
     _ReadWriteBarrier();
     if (r5c) {

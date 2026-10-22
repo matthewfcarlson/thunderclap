@@ -1,4 +1,4 @@
-class Caster_1a9420 {
+class DynamicCaster_1a9420 {
   public:
     virtual void a();
     virtual void b();
@@ -11,10 +11,10 @@ class LoadInventory {
     virtual void a();
     virtual void b();
     virtual void c();
-    virtual int d(Caster_1a9420*, __int64);
+    virtual int d(DynamicCaster_1a9420*, __int64);
     int Load(void* p);
 };
 int LoadInventory::Load(void* p) {
-    Caster_1a9420 caster;
+    DynamicCaster_1a9420 caster;
     return d(&caster, lookup(p, 0, 0));
 }

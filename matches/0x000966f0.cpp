@@ -10,18 +10,18 @@ class Inner_966f0 {
     virtual void f();
     virtual void Send(int, int);
 };
-class Obj_966f0 {
+class Shader_966f0 {
   public:
     virtual void v0();
-    Obj_966f0* Init();
+    Shader_966f0* Init();
     char pad[12];
     Inner_966f0* inner;
 };
 extern "C" unsigned char gEnabled_966f0;
-extern "C" Obj_966f0* gObject_966f0;
+extern "C" Shader_966f0* gObject_966f0;
 void Target() {
     if (gEnabled_966f0 && gObject_966f0 == 0) {
-        Obj_966f0* p = (Obj_966f0*)Alloc(0x20);
+        Shader_966f0* p = (Shader_966f0*)Alloc(0x20);
         if (p)
             p = p->Init();
         else

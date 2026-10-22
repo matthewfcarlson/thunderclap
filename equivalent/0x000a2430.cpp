@@ -7,7 +7,7 @@ struct ResourceName_a2430 {
     void FUN_0027b040(const char *name);
 };
 
-class __declspec(novtable) CCameraBase_a2430 {
+class __declspec(novtable) CGameCamera_a2430 {
 public:
     virtual void v0();
     char pad04[4];
@@ -16,8 +16,8 @@ public:
     int mode;
     float f0d4;
     char padd8[0x170 - 0xd8];
-    CCameraBase_a2430 *FUN_000a9400();
-    CCameraBase_a2430() { FUN_000a9400(); }
+    CGameCamera_a2430 *FUN_000a9400();
+    CGameCamera_a2430() { FUN_000a9400(); }
 };
 
 
@@ -46,7 +46,7 @@ struct World {
 };
 
 
-class CChaseCamera : public CCameraBase_a2430 {
+class CChaseCamera : public CGameCamera_a2430 {
 public:
     virtual void v0();
     int f170;

@@ -6,15 +6,15 @@ struct Sub_23a2a0 {
     Sub_23a2a0();
     char p[0x28];
 };
-struct Base_23a2a0 {
-    Base_23a2a0();
+struct Action_23a2a0 {
+    Action_23a2a0();
     virtual void f();
     char pad[0xc];
     int a;
     int b;
     int c;
 };
-struct QueuedNodeAction : Base_23a2a0 {
+struct QueuedNodeAction : Action_23a2a0 {
     Ref_23a2a0* mNode;
     int mA;
     int mB;

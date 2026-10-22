@@ -5,12 +5,12 @@ class Ref_184040 {
     virtual void F0();
     virtual void Release();
 };
-class Base_184040 {
+class Action_184040 {
   public:
     void* vptr;
     void Fin();
 };
-class GrapplePropDamageAction_184040 : public Base_184040 {
+class GrapplePropDamageAction_184040 : public Action_184040 {
   public:
     char pad[0x18];
     void* m1c;

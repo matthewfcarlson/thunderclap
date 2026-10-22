@@ -1,10 +1,10 @@
 extern void* g_vftable[];
-class Base {
+class Track_14e2b0 {
   public:
-    Base();
+    Track_14e2b0();
     void* vptr;
 };
-class HitDamageTrack : public Base {
+class HitDamageTrack : public Track_14e2b0 {
   public:
     HitDamageTrack();
     char pad[8];

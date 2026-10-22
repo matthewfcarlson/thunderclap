@@ -29,12 +29,12 @@ struct Loaded_c9bd0 {
     void FUN_00263e90();
 };
 
-struct Inventory_c9bd0 {
+struct LoadInventory_c9bd0 {
     virtual void i0();
     virtual void i1();
     virtual void i2();
     virtual Loaded_c9bd0 *find(void *caster, unsigned __int64 key);
-    Inventory_c9bd0 *FUN_00266480(int n);
+    LoadInventory_c9bd0 *FUN_00266480(int n);
 };
 
 struct Inner_c9bd0 {
@@ -80,7 +80,7 @@ public:
     float f210;
     char pad214[4];
     float f218;
-    void FUN_000c9550(const char *path, Inventory_c9bd0 *inv, int n);
+    void FUN_000c9550(const char *path, LoadInventory_c9bd0 *inv, int n);
     void FUN_000c9bd0(char *name);
 };
 
@@ -202,7 +202,7 @@ void CHudMap::FUN_000c9bd0(char *name)
         }
     }
     FUN_000964a0(f.path, 0x100, "frontend/art/hud_maps/%s.p3d", name);
-    Inventory_c9bd0 *inv = (Inventory_c9bd0 *)FUN_00263ed0(0x14, 1);
+    LoadInventory_c9bd0 *inv = (LoadInventory_c9bd0 *)FUN_00263ed0(0x14, 1);
     if (inv != 0)
         inv = inv->FUN_00266480(0x400);
     else

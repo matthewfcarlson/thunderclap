@@ -1,9 +1,9 @@
-class Base {
+class Track_18f220 {
   public:
-    Base();
+    Track_18f220();
     virtual void f();
 };
-class SimulationTrack : public Base {
+class SimulationTrack : public Track_18f220 {
   public:
     SimulationTrack();
     char pad[8];

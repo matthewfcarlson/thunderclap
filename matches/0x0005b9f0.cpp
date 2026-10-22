@@ -1,17 +1,17 @@
 #include "compat/ptr.h"
 extern int gVtable;
-class Base {
+class ParamValueBool_5b9f0 {
   public:
     virtual void V();
-    Base(int);
+    ParamValueBool_5b9f0(int);
 };
-class Obj : public Base {
+class ParamBool_5b9f0 : public ParamValueBool_5b9f0 {
   public:
-    Obj(int a, int b);
+    ParamBool_5b9f0(int a, int b);
     char pad[0xc];
     int m10;
 };
-Obj::Obj(int a, int b) : Base(a) {
+ParamBool_5b9f0::ParamBool_5b9f0(int a, int b) : ParamValueBool_5b9f0(a) {
     *(hulk_intptr*)this = (hulk_intptr)&gVtable;
     m10 = b;
 }

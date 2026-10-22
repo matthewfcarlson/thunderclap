@@ -1,14 +1,14 @@
-class Base_2757f0 {
+class DriveRequest_2757f0 {
   public:
     virtual void V();
-    Base_2757f0(int);
+    DriveRequest_2757f0(int);
 };
-class DriveFormatRequest : public Base_2757f0 {
+class DriveFormatRequest : public DriveRequest_2757f0 {
   public:
     virtual void W();
     DriveFormatRequest(int);
 };
 extern void FinishInit();
-DriveFormatRequest::DriveFormatRequest(int x) : Base_2757f0(x) {
+DriveFormatRequest::DriveFormatRequest(int x) : DriveRequest_2757f0(x) {
     FinishInit();
 }

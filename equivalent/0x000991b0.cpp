@@ -79,7 +79,7 @@ public:
     void FUN_000fd8a0(void *owner, int arg, int a, float b);
 };
 
-class Helper_991b0 {
+class CBlendCamera_991b0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -110,7 +110,7 @@ public:
     virtual void v26();
     virtual void v27();
     virtual void v28();
-    Helper_991b0 *FUN_000983d0();
+    CBlendCamera_991b0 *FUN_000983d0();
     void FUN_00098480(void *owner);
     char FUN_000989d0(void *owner, Node *node, int zero, Node *target);
 };
@@ -143,7 +143,7 @@ public:
     char pad8[8];
     Node *target;
     char pad14[0xbc - 0x14];
-    Helper_991b0 *helper;
+    CBlendCamera_991b0 *helper;
     void FUN_000991b0(Owner_991b0 *owner, Node *node, Node *tgt, bool arg4, bool arg5);
 };
 
@@ -173,10 +173,10 @@ void Controller_991b0::FUN_000991b0(Owner_991b0 *owner, Node *node, Node *tgt, b
         v = *p;
         if (!arg5 && v.x != 0) {
             int fl = flags | 0x20;
-            Helper_991b0 *h = helper;
+            CBlendCamera_991b0 *h = helper;
             flags = fl;
             if (!h) {
-                Helper_991b0 *mem = (Helper_991b0 *)FUN_00263ea0(0x1b8);
+                CBlendCamera_991b0 *mem = (CBlendCamera_991b0 *)FUN_00263ea0(0x1b8);
                 if (mem)
                     h = mem->FUN_000983d0();
                 else

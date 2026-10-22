@@ -10,30 +10,30 @@ struct Ref_2c3060 {
  virtual void SetOwner(pure3d::Geometry*);
  void FUN_002a6930(pure3d::Geometry*);
 };
-struct Helper_2c3060 : Ref_2c3060 { Helper_2c3060* FUN_002d1090(pure3d::Geometry*); };
+struct VertexAnimObject_2c3060 : Ref_2c3060 { VertexAnimObject_2c3060* FUN_002d1090(pure3d::Geometry*); };
 void* __cdecl FUN_0008d690(unsigned int);
-struct Base_2c3060 {
+struct DrawableContainer_2c3060 {
  virtual void slot0();
  char padding[0x54];
- Base_2c3060(pure3d::Geometry*);
+ DrawableContainer_2c3060(pure3d::Geometry*);
 };
 namespace pure3d {
-struct Geometry : Base_2c3060 {
+struct Geometry : DrawableContainer_2c3060 {
  Ref_2c3060* resource;
- Helper_2c3060* helper;
+ VertexAnimObject_2c3060* helper;
  Ref_2c3060* first;
  Ref_2c3060* second;
  virtual void slot0();
  Geometry(Geometry* source);
 };
-Geometry::Geometry(Geometry* source) : Base_2c3060(source) {
+Geometry::Geometry(Geometry* source) : DrawableContainer_2c3060(source) {
  resource=0; helper=0; first=0; second=0;
  Ref_2c3060* r=source->resource;
  if(r) r->AddRef();
  if(resource) resource->Release();
  resource=r;
  if(source->helper) {
-  Helper_2c3060* h=(Helper_2c3060*)FUN_0008d690(0x18);
+  VertexAnimObject_2c3060* h=(VertexAnimObject_2c3060*)FUN_0008d690(0x18);
   if(h) h=h->FUN_002d1090(this);
   helper=h;
   h->AddRef();

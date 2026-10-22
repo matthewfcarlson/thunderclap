@@ -1,13 +1,13 @@
-class Base {
+class Condition_1a2ff0 {
   public:
-    Base(int);
+    Condition_1a2ff0(int);
     virtual void f();
 };
 class Part {
   public:
     Part();
 };
-class Event_PropTypeCondition : public Base {
+class Event_PropTypeCondition : public Condition_1a2ff0 {
     char pad[12];
     Part part;
 
@@ -15,4 +15,4 @@ class Event_PropTypeCondition : public Base {
     Event_PropTypeCondition();
     virtual void f();
 };
-Event_PropTypeCondition::Event_PropTypeCondition() : Base(0), part() {}
+Event_PropTypeCondition::Event_PropTypeCondition() : Condition_1a2ff0(0), part() {}

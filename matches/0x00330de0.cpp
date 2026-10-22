@@ -12,10 +12,10 @@ extern "C" hulk_intptr Alloc(hulk_intptr);
 struct Obj_330de0 {
     virtual void Fn();
 };
-struct d3dTexture_nv_330de0 {
+struct d3dTexture_330de0 {
     Obj_330de0* Build(int, int);
 };
-class Device_330de0 {
+class d3dToonVertexShader_330de0 {
     char pad[0x10];
 
   public:
@@ -25,7 +25,7 @@ class Device_330de0 {
     void Update();
     void Tail();
 };
-void Device_330de0::Update() {
+void d3dToonVertexShader_330de0::Update() {
     if (texture == 0) {
         int s = GetBackBuffer2(0);
         Desc_330de0 d;
@@ -34,7 +34,7 @@ void Device_330de0::Update() {
         int t = CreateTexture2(0x40, 1, 1, 1, 0, d.format, 3);
         Obj_330de0* o = (Obj_330de0*)Alloc(0xf8);
         if (o)
-            o = ((d3dTexture_nv_330de0*)(((pure3d::d3dTexture*)o)))->Build(m, t);
+            o = ((d3dTexture_330de0*)(((pure3d::d3dTexture*)o)))->Build(m, t);
         else
             o = (Obj_330de0*)0;
         texture = o;

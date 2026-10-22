@@ -2,7 +2,7 @@ struct Inner_2d5ec0 {
     void A(int, int, void*);
     void B(int, int, int, int, void*);
 };
-struct Obj_2d5ec0 {
+struct SpriteParticleEmitter_2d5ec0 {
     char pad0[0x40];
     char field40[0x58];
     int index;
@@ -15,7 +15,7 @@ struct Obj_2d5ec0 {
     int* items;
     void target(int arg);
 };
-void Obj_2d5ec0::target(int arg) {
+void SpriteParticleEmitter_2d5ec0::target(int arg) {
     if (!flag)
         inner.A(arg, items[index], (char*)this + 0x40);
     else {

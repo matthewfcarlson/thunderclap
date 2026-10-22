@@ -7,12 +7,12 @@ class Ref_2b56e0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_2b56e0 {
+class ShadowMeshImpl_2b56e0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_2b56e0 : public Base_2b56e0 {
+class ShadowSkinImpl_2b56e0 : public ShadowMeshImpl_2b56e0 {
   public:
     char pad[0x40 - 4];
     Ref_2b56e0* m40;
@@ -23,9 +23,9 @@ class Obj_2b56e0 : public Base_2b56e0 {
     void* m74;
     Ref_2b56e0* m78;
     Ref_2b56e0* m7c;
-    ~Obj_2b56e0();
+    ~ShadowSkinImpl_2b56e0();
 };
-Obj_2b56e0::~Obj_2b56e0() {
+ShadowSkinImpl_2b56e0::~ShadowSkinImpl_2b56e0() {
     vptr = g_vftable_2b56e0;
     _ReadWriteBarrier();
     if (m70) {

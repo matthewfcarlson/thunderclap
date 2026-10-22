@@ -3,16 +3,16 @@ extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_1aed70[];
 void operator delete(void*);
 void operator delete[](void*);
-class A_1aed70 {
+class CPathManager_1aed70 {
   public:
     void* vptr;
     char p[0x14];
     hulk_intptr m18;
     hulk_intptr m1c;
     int m20;
-    A_1aed70* f(unsigned char flags);
+    CPathManager_1aed70* f(unsigned char flags);
 };
-A_1aed70* A_1aed70::f(unsigned char flags) {
+CPathManager_1aed70* CPathManager_1aed70::f(unsigned char flags) {
     vptr = g_vftable_1aed70;
     _ReadWriteBarrier();
     volatile hulk_intptr old = m1c;

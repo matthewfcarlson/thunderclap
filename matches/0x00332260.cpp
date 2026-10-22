@@ -5,7 +5,7 @@ class Ref_332260 {
     virtual void Release();
 };
 extern int vtable_332260;
-class Building {
+class d3dBuildingShader_332260 {
   public:
     virtual void v();
     char pad[0x7c];
@@ -15,7 +15,7 @@ class Building {
     void init();
     void cleanup();
 };
-void Building::init() {
+void d3dBuildingShader_332260::init() {
     *(hulk_intptr*)this = (hulk_intptr)&vtable_332260;
     if (a)
         a->Release();

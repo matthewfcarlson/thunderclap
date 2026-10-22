@@ -1,10 +1,10 @@
 #include "compat/ptr.h"
 extern "C" char DAT_0042e9bc[];
 typedef unsigned int u32_2bf100;
-struct Ctor_0027b070 {
-    Ctor_0027b070();
+struct Entity_0027b070 {
+    Entity_0027b070();
 };
-struct ImageFont : public Ctor_0027b070 {
+struct ImageFont : public Entity_0027b070 {
     volatile hulk_uintptr vt;
     char pad[12];
     volatile u32_2bf100 a, b, c, d, e;
@@ -12,7 +12,7 @@ struct ImageFont : public Ctor_0027b070 {
     volatile u32_2bf100 g, h, i, j;
     ImageFont();
 };
-ImageFont::ImageFont() : Ctor_0027b070() {
+ImageFont::ImageFont() : Entity_0027b070() {
     a = 0;
     b = 0;
     c = 0;

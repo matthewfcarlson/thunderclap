@@ -1,9 +1,9 @@
-class Base {
+class Track_10b4d0 {
   public:
-    Base();
+    Track_10b4d0();
     virtual void f();
 };
-class FaceMotionTrack : public Base {
+class FaceMotionTrack : public Track_10b4d0 {
   public:
     FaceMotionTrack();
     char pad[4];
@@ -11,7 +11,7 @@ class FaceMotionTrack : public Base {
     int b;
     float c;
 };
-FaceMotionTrack::FaceMotionTrack() : Base() {
+FaceMotionTrack::FaceMotionTrack() : Track_10b4d0() {
     b = 0;
     c = -1.0f;
     a = 1;

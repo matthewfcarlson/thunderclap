@@ -43,7 +43,7 @@ struct Name_142990 {
     void FUN_0027b040(const char *s);
 };
 
-struct Rig_142990 {
+struct LocomotionSteerDriver_142990 {
     virtual void v0();
     virtual void v1();
     char pad04[4];
@@ -51,15 +51,15 @@ struct Rig_142990 {
     char pad10[0x89c - 0x10];
     bool b89c;
     bool b89d;
-    Rig_142990 *FUN_00229760(int a, int b, int c, int *desc, int d);
+    LocomotionSteerDriver_142990 *FUN_00229760(int a, int b, int c, int *desc, int d);
 };
 
-struct Root_142990 {
+struct JointDriver_142990 {
     virtual void v0();
     virtual void v1();
     char pad04[4];
     Name_142990 name;
-    Root_142990 *FUN_002248f0(unsigned int id);
+    JointDriver_142990 *FUN_002248f0(unsigned int id);
 };
 
 struct Stats_142990 {
@@ -77,7 +77,7 @@ struct Stats_142990 {
 
 struct Scene_142990 {
     int FUN_002226b0();
-    void FUN_00222890(Rig_142990 *r, float a, int b, float c, int d, int e, float f);
+    void FUN_00222890(LocomotionSteerDriver_142990 *r, float a, int b, float c, int d, int e, float f);
 };
 
 struct Pool_142990 {
@@ -105,7 +105,7 @@ struct Config_142990 {
     int i58;
 };
 
-extern "C" void __cdecl FUN_0015cfd0(int h, Rig_142990 *r);
+extern "C" void __cdecl FUN_0015cfd0(int h, LocomotionSteerDriver_142990 *r);
 
 namespace hulkfight { namespace motion {
 
@@ -120,8 +120,8 @@ public:
     char pad04[0x18];
     Config_142990 *cfg;    // 0x1c
     Owner_142990 *owner;   // 0x20
-    Rig_142990 *rig;       // 0x24
-    Root_142990 *root;     // 0x28
+    LocomotionSteerDriver_142990 *rig;       // 0x24
+    JointDriver_142990 *root;     // 0x28
     V3_142990 w;           // 0x2c
     V3_142990 a;           // 0x38
     V3_142990 b;           // 0x44
@@ -254,9 +254,9 @@ char WallRunAction::vfunc_3(int a0, int a1)
     desc[8] = 0;
     desc[9] = id3;
     void *mem = thunk_FUN_0008d690(0x910);
-    Rig_142990 *obj = 0;
+    LocomotionSteerDriver_142990 *obj = 0;
     if (mem)
-        obj = ((Rig_142990 *)mem)->FUN_00229760(h, 4, 2, desc, 0);
+        obj = ((LocomotionSteerDriver_142990 *)mem)->FUN_00229760(h, 4, 2, desc, 0);
     if (obj)
         obj->v0();
     if (rig)
@@ -272,13 +272,13 @@ char WallRunAction::vfunc_3(int a0, int a1)
     scene->FUN_00222890(rig, -1.0f, c50, 1.0f, c54, c58, -1.0f);
 
     void *mem2 = thunk_FUN_0008d690(0x70);
-    Root_142990 *r2 = 0;
+    JointDriver_142990 *r2 = 0;
     if (mem2)
-        r2 = ((Root_142990 *)mem2)->FUN_002248f0(0);
+        r2 = ((JointDriver_142990 *)mem2)->FUN_002248f0(0);
     root = r2;
     r2->name.FUN_0027b040("wallRunRoot");
     root->v0();
-    scene->FUN_00222890((Rig_142990 *)root, -1.0f, c50 - 1, 1.0f, c54, c58, -1.0f);
+    scene->FUN_00222890((LocomotionSteerDriver_142990 *)root, -1.0f, c50 - 1, 1.0f, c54, c58, -1.0f);
     return 1;
 }
 

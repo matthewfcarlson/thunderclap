@@ -1,10 +1,10 @@
-class Base {
+class Track_13f0a0 {
   public:
-    Base();
+    Track_13f0a0();
     virtual void vf();
     char pad[8];
 };
-class WallExitTrack : public Base {
+class WallExitTrack : public Track_13f0a0 {
   public:
     WallExitTrack();
     virtual void vf();

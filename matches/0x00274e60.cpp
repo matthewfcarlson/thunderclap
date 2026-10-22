@@ -17,10 +17,10 @@ struct Request {
     File* file;
 };
 void init();
-struct Target_274e60 : Request {
+struct FileRequest_274e60 : Request {
     Request* run(hulk_uintptr arg);
 };
-Request* Target_274e60::run(hulk_uintptr arg) {
+Request* FileRequest_274e60::run(hulk_uintptr arg) {
     vf = ((hulk_intptr)DAT_0042b914);
     field = 0;
     init();

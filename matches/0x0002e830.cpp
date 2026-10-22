@@ -9,7 +9,7 @@ struct ThisCall_001d0480 {
     void InitHelper(const char*, int);
 };
 u8 GetHelper(const void*);
-struct Obj_2e830 {
+struct Closure1_2e830 {
     hulk_uintptr vptr;
     char p4[12];
     u8 b10;
@@ -18,9 +18,9 @@ struct Obj_2e830 {
     char p19[3];
     void* m1c;
     void* m20;
-    Obj_2e830* Build(const char*, void*, void*);
+    Closure1_2e830* Build(const char*, void*, void*);
 };
-Obj_2e830* Obj_2e830::Build(const char* a, void* b, void* c) {
+Closure1_2e830* Closure1_2e830::Build(const char* a, void* b, void* c) {
     ((ThisCall_001d0480*)(this))->InitHelper(a, 1);
     vptr = ((hulk_intptr)DAT_003f407c);
     m1c = c;

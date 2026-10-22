@@ -4,7 +4,7 @@ struct Inner_225140 {
     char pad[0x10];
     float f;
 };
-class Obj_225140 {
+class AnimationDriver_225140 {
   public:
     char pad[0x20];
     Inner_225140* p;
@@ -12,7 +12,7 @@ class Obj_225140 {
     float value;
     void Set(float x);
 };
-void Obj_225140::Set(float x) {
+void AnimationDriver_225140::Set(float x) {
     float v = p->f - one;
     if (x < zero_225140) {
         value = 0;

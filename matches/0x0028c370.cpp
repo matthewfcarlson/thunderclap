@@ -2,22 +2,22 @@
 extern "C" void* memset(void*, int, unsigned);
 void* Alloc(hulk_uintptr n);
 struct Allocator_28c370 { void* Alloc2(unsigned n, int f); };
-class Base_28c370 {
+class SimpleChannel_28c370 {
   public:
-    Base_28c370(int a, int b);
+    SimpleChannel_28c370(int a, int b);
     virtual void f0();
     int pad[2];
     hulk_intptr m0;
     unsigned cnt;
 };
-class BoolChannel : public Base_28c370 {
+class BoolChannel : public SimpleChannel_28c370 {
   public:
     BoolChannel(int a, int b);
     virtual void f0();
     int pad2;
     unsigned* bits;
 };
-BoolChannel::BoolChannel(int a, int b) : Base_28c370(a, b) {
+BoolChannel::BoolChannel(int a, int b) : SimpleChannel_28c370(a, b) {
     int n = ((cnt - 1) >> 5) + 1;
     bits = 0;
     if (m0 == 0)

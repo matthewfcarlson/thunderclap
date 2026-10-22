@@ -5,14 +5,14 @@ struct Ref_e8980 {
 extern int billboardVtable;
 extern int animationVtable;
 void thunk(unsigned int);
-struct Obj_e8980 {
+struct FEBillboardAnimation_e8980 {
     int* vptr;
     unsigned int resource;
     char pad[4];
     Ref_e8980* child;
     void cleanup();
 };
-void Obj_e8980::cleanup() {
+void FEBillboardAnimation_e8980::cleanup() {
     vptr = &billboardVtable;
     Ref_e8980* volatile* pc = &child;
     Ref_e8980* c = *pc;

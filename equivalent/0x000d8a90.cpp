@@ -13,8 +13,8 @@ void __cdecl FUN_000fc020(unsigned short*, int, const char*, const char*);
 struct Entry_d8a90 { char data[0x38]; const char* FUN_000f83f0(UI_d8a90*,int); };
 struct State_d8a90 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d8a90* FUN_00086280(); };
-struct Target_d8a90 { char pad0[0x21c]; int value; char pad1[0x35c-0x220]; Entry_d8a90 entries[1]; char pad2[0x3b0-0x394]; unsigned char active; char pad3[0x3eb-0x3b1]; unsigned char mode; void run(int index); };
-void Target_d8a90::run(int index) {
+struct FEMemCardControl_d8a90 { char pad0[0x21c]; int value; char pad1[0x35c-0x220]; Entry_d8a90 entries[1]; char pad2[0x3b0-0x394]; unsigned char active; char pad3[0x3eb-0x3b1]; unsigned char mode; void run(int index); };
+void FEMemCardControl_d8a90::run(int index) {
 unsigned short text[512];
 UI_d8a90* ui = FUN_000fc3d0()->v44();
 int id = ui->FUN_000f7d30((*(const char**)&DAT_004a0cbc));

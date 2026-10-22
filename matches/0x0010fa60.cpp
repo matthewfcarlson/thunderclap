@@ -5,14 +5,14 @@ class RefObj_10fa60 {
     virtual void Release();
 };
 
-class ActionBase_10fa60 {
+class Action_10fa60 {
   public:
-    ActionBase_10fa60();
+    Action_10fa60();
     virtual void Update();
     char pad[0x18];
 };
 
-class KeywordWaitAction_10fa60 : public ActionBase_10fa60 {
+class KeywordWaitAction_10fa60 : public Action_10fa60 {
   public:
     int mTarget;
     RefObj_10fa60* mObj;

@@ -6,13 +6,13 @@ struct Sub_174fb0 {
     void Init();
     char d[8];
 };
-class Base_174fb0 {
+class Action_174fb0 {
   public:
-    Base_174fb0();
+    Action_174fb0();
     virtual void v0();
     char pad[0x18];
 };
-class Drift : public Base_174fb0 {
+class DriftToPositionAction_174fb0 : public Action_174fb0 {
   public:
     int a;
     Ref_174fb0* r;
@@ -28,10 +28,10 @@ class Drift : public Base_174fb0 {
     char f50;
     char f51;
     char f52;
-    Drift(int x, Ref_174fb0* p);
+    DriftToPositionAction_174fb0(int x, Ref_174fb0* p);
     virtual void v0();
 };
-Drift::Drift(int x, Ref_174fb0* p) {
+DriftToPositionAction_174fb0::DriftToPositionAction_174fb0(int x, Ref_174fb0* p) {
     a = 0;
     r = 0;
     flag24 = 1;

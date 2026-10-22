@@ -5,14 +5,14 @@ class RefObj_10f9d0 {
     virtual void Release();
 };
 
-class ActionBase_10f9d0 {
+class Action_10f9d0 {
   public:
-    ActionBase_10f9d0();
+    Action_10f9d0();
     virtual void Update();
     char pad[0x18];
 };
 
-class SemaphoreClearAction_10f9d0 : public ActionBase_10f9d0 {
+class SemaphoreClearAction_10f9d0 : public Action_10f9d0 {
   public:
     int mTarget;
     RefObj_10f9d0* mObj;

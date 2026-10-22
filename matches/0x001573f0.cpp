@@ -6,21 +6,21 @@ class Ref_1573f0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_1573f0 {
+class Action_1573f0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_1573f0 : public Base_1573f0 {
+class HitThrowAction_1573f0 : public Action_1573f0 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_1573f0* m20;
     Ref_1573f0* m24;
     Ref_1573f0* m28;
-    Obj_1573f0* f2(unsigned char flags);
+    HitThrowAction_1573f0* f2(unsigned char flags);
 };
-Obj_1573f0* Obj_1573f0::f2(unsigned char flags) {
+HitThrowAction_1573f0* HitThrowAction_1573f0::f2(unsigned char flags) {
     vptr = g_vftable_1573f0;
     _ReadWriteBarrier();
     if (m28) {

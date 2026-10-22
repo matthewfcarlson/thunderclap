@@ -21,9 +21,9 @@ struct Elem_1ff770 {
     const char *FUN_003365b0(const char *attr);
 };
 
-struct Item_1ff770 {
+struct CTriggerVolume_1ff770 {
     virtual void v0();
-    Item_1ff770 *FUN_001fbb30();
+    CTriggerVolume_1ff770 *FUN_001fbb30();
     void FUN_001fbd00(Elem_1ff770 *e);
     void FUN_001fc3c0(Elem_1ff770 *e);
 };
@@ -66,16 +66,16 @@ public:
 
     Parent_1ff770 *parent;
     int itemCount;
-    Item_1ff770 *items[0x80];
+    CTriggerVolume_1ff770 *items[0x80];
     char pad20c[8];
     Bucket_1ff770 *buckets[7];        // 0x214
     int curBucket;                    // 0x230
 
-    Item_1ff770 *FUN_001fc7f0(const char *name);
+    CTriggerVolume_1ff770 *FUN_001fc7f0(const char *name);
     int FUN_001fd390(const char *type);
     void FUN_001fd130(char *slot, int idx);
-    Item_1ff770 *FUN_001fc8c0(int lo, int hi);
-    Item_1ff770 *FUN_001fcf40();
+    CTriggerVolume_1ff770 *FUN_001fc8c0(int lo, int hi);
+    CTriggerVolume_1ff770 *FUN_001fcf40();
 };
 
 bool CTriggerVolumeManager::v1(Elem_1ff770 *e)
@@ -93,13 +93,13 @@ bool CTriggerVolumeManager::v1(Elem_1ff770 *e)
                     return false;
             }
         }
-        Item_1ff770 *item = FUN_001fc7f0(name);
+        CTriggerVolume_1ff770 *item = FUN_001fc7f0(name);
         if (itemCount >= 0x80)
             return false;
         if (!item) {
             void *mem = FUN_00263ea0(0xd8);
             if (mem)
-                item = ((Item_1ff770 *)mem)->FUN_001fbb30();
+                item = ((CTriggerVolume_1ff770 *)mem)->FUN_001fbb30();
             else
                 item = 0;
             item->v0();
@@ -111,7 +111,7 @@ bool CTriggerVolumeManager::v1(Elem_1ff770 *e)
     }
     if (strcmp(e->tag->name, "Locator") == 0) {
         char streamed = 0;
-        Item_1ff770 *item;
+        CTriggerVolume_1ff770 *item;
         e->FUN_00336490("IsStreamed", &streamed);
         if (streamed) {
             if (curBucket == -1)
@@ -122,7 +122,7 @@ bool CTriggerVolumeManager::v1(Elem_1ff770 *e)
             Bucket_1ff770 *b = &buckets[idx][curBucket];
             if (b->count >= DAT_00425168[idx])
                 return true;
-            item = (Item_1ff770 *)(b->buf + b->count * 64);
+            item = (CTriggerVolume_1ff770 *)(b->buf + b->count * 64);
             b->count++;
             FUN_001fd130((char *)item, idx);
         } else {

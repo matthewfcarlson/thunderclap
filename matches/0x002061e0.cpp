@@ -8,7 +8,7 @@ class Ref_2061e0 {
 extern void __fastcall FUN_00263e90(Ref_2061e0*);
 extern void FUN_00267110(int);
 extern void FUN_00267090(void*);
-struct Pool_2061e0 {
+struct CWorldStreamManager_2061e0 {
     void* vf;
     char b4;
     char b5;
@@ -21,7 +21,7 @@ struct Pool_2061e0 {
     Ref_2061e0* p38;
     void Fini() throw();
 };
-void Pool_2061e0::Fini() throw() {
+void CWorldStreamManager_2061e0::Fini() throw() {
     vf = vPool;
     if (p38) {
         FUN_00263e90(p38);
@@ -44,13 +44,13 @@ void Pool_2061e0::Fini() throw() {
 struct Target_2061e0 {
     void* vf;
     char pad[0x44];
-    Pool_2061e0 a[0x14];
-    Pool_2061e0 b[2];
+    CWorldStreamManager_2061e0 a[0x14];
+    CWorldStreamManager_2061e0 b[2];
     void Dtor() throw();
 };
 void Target_2061e0::Dtor() throw() {
     vf = vWSM;
-    Pool_2061e0* p = b + 2;
+    CWorldStreamManager_2061e0* p = b + 2;
     for (int i = 2; i; --i) {
         --p;
         p->Fini();

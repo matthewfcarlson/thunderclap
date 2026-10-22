@@ -5,13 +5,13 @@ class IRef_1f780 {
     virtual void Release();
 };
 
-class CBase_1f780 {
+class Action_1f780 {
   public:
     virtual void VFunc();
-    CBase_1f780();
+    Action_1f780();
 };
 
-class CAction : public CBase_1f780 {
+class CAction : public Action_1f780 {
   public:
     char m_pad[0x18];
     IRef_1f780* m_pRef;

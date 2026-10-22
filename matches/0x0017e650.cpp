@@ -11,9 +11,9 @@ class TrackFactory {
     virtual void* vfunc_5();
 };
 } // namespace fight
-class BaseTrack {
+class Track_17e650 {
   public:
-    BaseTrack() throw();
+    Track_17e650() throw();
     virtual void f();
     char pad[4];
     int one;
@@ -21,14 +21,14 @@ class BaseTrack {
 };
 namespace hulkfight {
 namespace motion {
-class TargetBreakTrack : public BaseTrack {
+class TargetBreakTrack : public Track_17e650 {
   public:
     TargetBreakTrack() throw();
     virtual void f();
 };
 } // namespace motion
 } // namespace hulkfight
-hulkfight::motion::TargetBreakTrack::TargetBreakTrack() throw() : BaseTrack() {
+hulkfight::motion::TargetBreakTrack::TargetBreakTrack() throw() : Track_17e650() {
     zero = 0;
     one = 1;
 }

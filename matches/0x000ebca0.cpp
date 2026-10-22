@@ -25,7 +25,7 @@ struct Elt {
     char p2[0xc];
     void Fin() throw();
 };
-class Obj_ebca0 {
+class TextSelector_ebca0 {
   public:
     void* vptr;
     char p[0x14];
@@ -45,9 +45,9 @@ class Obj_ebca0 {
     Ref_ebca0* m1d90;
     char* m1d94;
     void Pre() throw();
-    ~Obj_ebca0() throw();
+    ~TextSelector_ebca0() throw();
 };
-Obj_ebca0::~Obj_ebca0() throw() {
+TextSelector_ebca0::~TextSelector_ebca0() throw() {
     vptr = g_vftable_ebca0;
     if (m1d94) {
         ma8->m8->Rem(m1d94 + 0x18);

@@ -15,7 +15,7 @@ class CGrappleCharacterTemplateCondition : public CCondition {
     char pad[12];
     CGrappleCharacterTemplateCondition* vfunc_5(int);
 };
-class H {
+class CClimbableCondition_4d060 {
   public:
     void a();
     void b();
@@ -26,9 +26,9 @@ void thunk_FUN_00267090(void*);
 CGrappleCharacterTemplateCondition* CGrappleCharacterTemplateCondition::vfunc_5(int p) {
     CGrappleCharacterTemplateCondition* s = this;
     *(void (**)())s = &vt_name;
-    ((H*)((char*)s + 0x10))->a();
+    ((CClimbableCondition_4d060*)((char*)s + 0x10))->a();
     *(void (**)())s = &vt_cond;
-    ((H*)s)->b();
+    ((CClimbableCondition_4d060*)s)->b();
     if (p & 1)
         thunk_FUN_00267090(s);
     return s;

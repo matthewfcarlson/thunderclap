@@ -1,10 +1,10 @@
-class Base {
+class Track_12e870 {
   public:
-    Base();
+    Track_12e870();
     virtual void f();
     char pad[4];
 };
-class StatBeginTrialTrack : public Base {
+class StatBeginTrialTrack : public Track_12e870 {
   public:
     StatBeginTrialTrack();
     char pad2[4];

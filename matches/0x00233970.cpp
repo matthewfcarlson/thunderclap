@@ -13,7 +13,7 @@ class Branch {
     char pad[0x18 - 4];
     void run();
 };
-class Helper_233970 {
+class Branch_233970 {
   public:
     void init();
     void finish();
@@ -21,6 +21,6 @@ class Helper_233970 {
 void Branch::run() {
     *(void**)this = (void*)((hulk_intptr)DAT_00427898);
     Branch::f7();
-    ((Helper_233970*)((char*)this + 0x18))->init();
-    ((Helper_233970*)this)->finish();
+    ((Branch_233970*)((char*)this + 0x18))->init();
+    ((Branch_233970*)this)->finish();
 }

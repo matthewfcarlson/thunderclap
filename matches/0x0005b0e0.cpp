@@ -1,6 +1,6 @@
-class Base {
+class Track_5b0e0 {
   public:
-    Base();
+    Track_5b0e0();
     virtual void f();
     char pad[8];
 };
@@ -18,7 +18,7 @@ struct Triple {
     int u, v, w;
     Triple() : u(0), v(0), w(0) {}
 };
-class CGrabTrack : public Base {
+class CGrabTrack : public Track_5b0e0 {
   public:
     CGrabTrack();
     virtual void f();
@@ -33,6 +33,6 @@ class CGrabTrack : public Base {
     char pad1[3];
     B b, c;
 };
-CGrabTrack::CGrabTrack() : Base(), x(0), y(-1.0f), a(), triple(), z(0.25f), t(0), flag(0), b(), c() {
+CGrabTrack::CGrabTrack() : Track_5b0e0(), x(0), y(-1.0f), a(), triple(), z(0.25f), t(0), flag(0), b(), c() {
     *(int*)((char*)this + 8) = 1;
 }

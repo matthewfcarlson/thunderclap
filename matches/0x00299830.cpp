@@ -9,7 +9,7 @@ class Ref_299830 {
     virtual void F0();
     virtual void Release();
 };
-class Obj_299830 {
+class ActiveControllerList_299830 {
   public:
     void* vptr;
     char pad[8];
@@ -19,9 +19,9 @@ class Obj_299830 {
     char pad3[8];
     Ref_299830** m24;
     Ref_299830** m28;
-    ~Obj_299830();
+    ~ActiveControllerList_299830();
 };
-Obj_299830::~Obj_299830() {
+ActiveControllerList_299830::~ActiveControllerList_299830() {
     vptr = g_vftable_299830;
     _ReadWriteBarrier();
     hulk_uintptr n = m28 - m24;

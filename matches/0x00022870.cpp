@@ -6,18 +6,18 @@ class Ref_22870 {
     virtual void F0();
     virtual void Release();
 };
-class Base_22870 {
+class CAction_22870 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_22870 : public Base_22870 {
+class CExplosionAction_22870 : public CAction_22870 {
   public:
     char pad[24];
     Ref_22870* m;
-    Obj_22870* f2(unsigned char flags);
+    CExplosionAction_22870* f2(unsigned char flags);
 };
-Obj_22870* Obj_22870::f2(unsigned char flags) {
+CExplosionAction_22870* CExplosionAction_22870::f2(unsigned char flags) {
     vptr = g_vftable_22870;
     _ReadWriteBarrier();
     if (m) {

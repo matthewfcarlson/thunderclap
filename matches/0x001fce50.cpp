@@ -1,7 +1,7 @@
 struct Trip {
     int a, b, c;
 };
-class Obj {
+class CTriggerVolumeManager_1fce50 {
   public:
     virtual void v0();
     virtual void v1();
@@ -16,11 +16,11 @@ class Obj {
     unsigned char flag;
 };
 struct ThisWrap_001fce50 {
-    Obj* Find(int);
+    CTriggerVolumeManager_1fce50* Find(int);
     unsigned char Target(int a, int b, int c, int id, unsigned char enabled);
 };
 unsigned char ThisWrap_001fce50::Target(int a, int b, int c, int id, unsigned char enabled) {
-    Obj* p = this->Find(id);
+    CTriggerVolumeManager_1fce50* p = this->Find(id);
     if (!p)
         return 0;
     if (enabled && !p->flag)

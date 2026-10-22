@@ -5,12 +5,12 @@ class Ref_2d4b50 {
     virtual void F0();
     virtual void Release();
 };
-class Base_2d4b50 {
+class DrawablePrimitive_2d4b50 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_2d4b50 : public Base_2d4b50 {
+class ParticleEmitter_2d4b50 : public DrawablePrimitive_2d4b50 {
   public:
     char pad[0x7c];
     Ref_2d4b50* m80;
@@ -18,9 +18,9 @@ class Obj_2d4b50 : public Base_2d4b50 {
     Ref_2d4b50* m88;
     Ref_2d4b50* m8c;
     Ref_2d4b50* m90;
-    ~Obj_2d4b50();
+    ~ParticleEmitter_2d4b50();
 };
-Obj_2d4b50::~Obj_2d4b50() {
+ParticleEmitter_2d4b50::~ParticleEmitter_2d4b50() {
     vptr = g_vftable_2d4b50;
     _ReadWriteBarrier();
     if (m80) {

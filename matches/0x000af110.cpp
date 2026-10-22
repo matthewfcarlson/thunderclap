@@ -4,15 +4,15 @@ class Arg_af110 {
   public:
     virtual void V0();
 };
-class Ctl_af110 {
+class CGameController_af110 {
   public:
     void* vptr;
-    Ctl_af110* m4;
+    CGameController_af110* m4;
     Arg_af110* m8;
     int arr[0x29];
-    Ctl_af110* ctor(Arg_af110* a);
+    CGameController_af110* ctor(Arg_af110* a);
 };
-Ctl_af110* Ctl_af110::ctor(Arg_af110* a) {
+CGameController_af110* CGameController_af110::ctor(Arg_af110* a) {
     m4 = 0;
     vptr = g_vftable_af110;
     m8 = a;

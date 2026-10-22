@@ -7,12 +7,12 @@ class Ref_287f40 {
     virtual void F0();
     virtual void Release();
 };
-class Base_287f40 {
+class BlendFrameController_287f40 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_287f40 : public Base_287f40 {
+class PoseAnimationController_287f40 : public BlendFrameController_287f40 {
   public:
     char pad[0x10c];
     Ref_287f40* m110;
@@ -25,9 +25,9 @@ class Obj_287f40 : public Base_287f40 {
     int m12c;
     char pad3[4];
     void* m134;
-    ~Obj_287f40() throw();
+    ~PoseAnimationController_287f40() throw();
 };
-Obj_287f40::~Obj_287f40() throw() {
+PoseAnimationController_287f40::~PoseAnimationController_287f40() throw() {
     vptr = g_vftable_287f40;
     _ReadWriteBarrier();
     if (m110) {

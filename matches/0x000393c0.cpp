@@ -73,7 +73,7 @@ struct Glob2 {
 };
 extern Glob2* g_glob;
 
-struct T3 {
+struct CCharacter_393c0 {
     char pad0[0x328];
     LinkB* mLink;
     char pad1[0x1b48 - 0x32c];
@@ -81,7 +81,7 @@ struct T3 {
     void Fn();
 };
 
-void T3::Fn() {
+void CCharacter_393c0::Fn() {
     if (mFlag)
         return;
     g_glob->sub->Check(this);

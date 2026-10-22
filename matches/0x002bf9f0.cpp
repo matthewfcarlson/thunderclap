@@ -6,20 +6,20 @@ class Ref_2bf9f0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_2bf9f0 {
+class Entity_2bf9f0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_2bf9f0 : public Base_2bf9f0 {
+class ImageFont_2bf9f0 : public Entity_2bf9f0 {
   public:
     char pad4[0x24];
     Ref_2bf9f0* m28;
     char pad2c[8];
     char* m34;
-    ~Obj_2bf9f0() throw();
+    ~ImageFont_2bf9f0() throw();
 };
-Obj_2bf9f0::~Obj_2bf9f0() throw() {
+ImageFont_2bf9f0::~ImageFont_2bf9f0() throw() {
     vptr = g_vftable_2bf9f0;
     _ReadWriteBarrier();
     if (m28) {

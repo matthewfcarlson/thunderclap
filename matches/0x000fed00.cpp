@@ -4,7 +4,7 @@ struct Sub_fed00 {
     void* vptr;
     void Init() throw();
 };
-class A_fed00 {
+class CGolem_fed00 {
   public:
     void* vptr;
     int m4, m8;
@@ -17,9 +17,9 @@ class A_fed00 {
     char pad3[0xf0 - 0xea];
     int mf0;
     char mf4;
-    A_fed00() throw();
+    CGolem_fed00() throw();
 };
-A_fed00::A_fed00() throw() {
+CGolem_fed00::CGolem_fed00() throw() {
     m4 = 0;
     vptr = g_vt_fed00;
     m8 = 0;

@@ -1,10 +1,10 @@
-class Base_62c10 {
+class CTrack_62c10 {
   public:
-    Base_62c10();
-    virtual ~Base_62c10();
+    CTrack_62c10();
+    virtual ~CTrack_62c10();
 };
 
-class CSmartPropRemoveInstanceTrack : public Base_62c10 {
+class CSmartPropRemoveInstanceTrack : public CTrack_62c10 {
   public:
     CSmartPropRemoveInstanceTrack();
     virtual ~CSmartPropRemoveInstanceTrack();

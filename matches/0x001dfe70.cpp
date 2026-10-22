@@ -5,7 +5,7 @@
 #include "decls/data/game/unknown.h"
 extern "C" char DAT_00423368[];
 
-class Callback_1dfe70 {
+class Method5_1dfe70 {
   public:
     hulk_intptr vptr;
     char pad4[12];
@@ -15,10 +15,10 @@ class Callback_1dfe70 {
     char pad19[3];
     void* p1c;
     void FUN_001d0480(void*, int);
-    Callback_1dfe70* Init(void*, void*);
+    Method5_1dfe70* Init(void*, void*);
 };
 
-Callback_1dfe70* Callback_1dfe70::Init(void* arg, void* value) {
+Method5_1dfe70* Method5_1dfe70::Init(void* arg, void* value) {
     FUN_001d0480(arg, 5);
     vptr = (hulk_intptr)DAT_00423368;
     p1c = value;

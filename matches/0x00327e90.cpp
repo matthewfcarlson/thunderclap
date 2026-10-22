@@ -1,10 +1,10 @@
 void* FUN_0008d690(unsigned int);
-class MyObj {
+class d3dSimpleShader_327e90 {
   public:
-    MyObj* Init(void* arg);
+    d3dSimpleShader_327e90* Init(void* arg);
 };
-MyObj* FUN_00327e90(void* arg) {
-    MyObj* r = (MyObj*)FUN_0008d690(0x94);
+d3dSimpleShader_327e90* FUN_00327e90(void* arg) {
+    d3dSimpleShader_327e90* r = (d3dSimpleShader_327e90*)FUN_0008d690(0x94);
     if (r)
         return r->Init(arg);
     return 0;

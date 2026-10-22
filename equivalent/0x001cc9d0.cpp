@@ -2,13 +2,13 @@
 // FUN_001cc9d0 @ 0x001cc9d0
 extern "C" void __cdecl FUN_00267830(char* destination, const char* source, int size);
 struct Entry_1cc9d0 { float time; char text[256]; int id; };
-struct Manager_1cc9d0 {
+struct CScenarioManager_1cc9d0 {
  char padding[0x110];
  Entry_1cc9d0 entries[16];
  int nextId;
  int FUN_001cc9d0(float time, const char* text);
 };
-int Manager_1cc9d0::FUN_001cc9d0(float time, const char* text) {
+int CScenarioManager_1cc9d0::FUN_001cc9d0(float time, const char* text) {
  if (time < 0.0f) return -1;
  const char* end = text;
  while (*end) ++end;

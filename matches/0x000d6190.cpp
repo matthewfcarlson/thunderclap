@@ -6,11 +6,11 @@ struct CtorV_001d0480 {
 extern "C" u8 __cdecl Check(const char*);
 extern const char name1[];
 extern const char name2[];
-class Core : public CtorV_001d0480 {
+class Function_d6190 : public CtorV_001d0480 {
   public:
-    Core(void* x) : CtorV_001d0480(x, 1) { }
+    Function_d6190(void* x) : CtorV_001d0480(x, 1) { }
 };
-class Method1 : public Core {
+class Method1 : public Function_d6190 {
   public:
     virtual void Invoke();
     char pad[12];
@@ -19,7 +19,7 @@ class Method1 : public Core {
     u8 flag2;
     char pad3[3];
     void* member;
-    Method1(void* x, void* y) : Core(x) {
+    Method1(void* x, void* y) : Function_d6190(x) {
         member = y;
         flag2 = Check(name1);
         flag1 = Check(name2);

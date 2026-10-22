@@ -11,7 +11,7 @@ extern TypeInfo_293100 tiB;
 
 extern "C" void* __cdecl DynCast(void* p, int off, void* src, void* dst, int isRef);
 
-class Holder_293100 {
+class CameraAnimationController_293100 {
   public:
     char pad[0x110];
     int mType;
@@ -19,7 +19,7 @@ class Holder_293100 {
     void Set(Base_293100* p);
 };
 
-void Holder_293100::Set(Base_293100* p) {
+void CameraAnimationController_293100::Set(Base_293100* p) {
     if (mObj) {
         mObj->Release();
         mObj = 0;

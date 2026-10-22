@@ -13,12 +13,12 @@ struct Reg_198ab0 {
 };
 Mgr_198ab0* GetMgr();
 Reg_198ab0* __stdcall GetReg();
-class Base_198ab0 {
+class CProjectile_198ab0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_198ab0 : public Base_198ab0 {
+class ProjectileGroundShockwave_198ab0 : public CProjectile_198ab0 {
   public:
     char pad4[0x14];
     void* m18;
@@ -28,9 +28,9 @@ class Obj_198ab0 : public Base_198ab0 {
     void* m34;
     char pad38[4];
     Ref_198ab0* m3c[32];
-    ~Obj_198ab0() throw();
+    ~ProjectileGroundShockwave_198ab0() throw();
 };
-Obj_198ab0::~Obj_198ab0() throw() {
+ProjectileGroundShockwave_198ab0::~ProjectileGroundShockwave_198ab0() throw() {
     vptr = g_vftable_198ab0;
     _ReadWriteBarrier();
     Ref_198ab0** p = m3c;

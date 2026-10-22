@@ -6,20 +6,20 @@ class Ref_2dffa0 {
     virtual void f0();
     virtual void Release();
 };
-class Root_2dffa0 {
+class PrimGroup_2dffa0 {
   public:
     void* vptr;
-    ~Root_2dffa0() throw();
+    ~PrimGroup_2dffa0() throw();
 };
-class D : public Root_2dffa0 {
+class PrimGroupOptimized_2dffa0 : public PrimGroup_2dffa0 {
   public:
     char p40[60];
     Ref_2dffa0* a40;
     char p58[20];
     Ref_2dffa0* a58;
-    ~D() throw();
+    ~PrimGroupOptimized_2dffa0() throw();
 };
-D::~D() throw() {
+PrimGroupOptimized_2dffa0::~PrimGroupOptimized_2dffa0() throw() {
     vptr = &vt1_2dffa0;
     _ReadWriteBarrier();
     if (a58) {

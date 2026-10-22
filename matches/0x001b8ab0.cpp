@@ -9,7 +9,7 @@ class Timer {
     virtual int Get();
 };
 extern Timer* gTimer;
-class Obj {
+class CRenderManager_1b8ab0 {
     char pad0[0x18];
 
   public:
@@ -23,7 +23,7 @@ class Obj {
     char m30;
     void Init();
 };
-void Obj::Init() {
+void CRenderManager_1b8ab0::Init() {
     m30 = 1;
     m18 = 1;
     int t = gTimer->Get();

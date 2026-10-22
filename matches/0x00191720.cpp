@@ -8,7 +8,7 @@ class Params_191720 {
 extern Params_191720 TypeA_191720;
 extern Params_191720 TypeB_191720;
 int __cdecl Check(void*, int, Params_191720*, Params_191720*, int);
-struct SimulationAction_nv_191720 {
+struct SimulationAction_191720 {
     int Init(hulkfight::motion::SimulationTrack*, int);
 };
 hulkfight::motion::SimulationAction* __cdecl Alloc(int);
@@ -18,7 +18,7 @@ int hulkfight::motion::SimulationTrack::vfunc_10(int a, int b, int c) {
     if (result) {
         hulkfight::motion::SimulationAction* p = Alloc(0x24);
         if (p)
-            return ((SimulationAction_nv_191720*)(p))->Init(this, c);
+            return ((SimulationAction_191720*)(p))->Init(this, c);
     }
     return 0;
 }

@@ -1,14 +1,14 @@
 #include "compat/ptr.h"
 extern "C" char DAT_00433eec[];
-class BuildingShader {
+class d3dBuildingShader_332800 {
   public:
     char pad[0x80];
     int a, b, c;
     unsigned char d;
     void BaseCtor(int);
-    BuildingShader* Target(int);
+    d3dBuildingShader_332800* Target(int);
 };
-BuildingShader* BuildingShader::Target(int arg) {
+d3dBuildingShader_332800* d3dBuildingShader_332800::Target(int arg) {
     BaseCtor(arg);
     a = 0;
     b = 0;

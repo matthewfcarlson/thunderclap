@@ -6,16 +6,16 @@ struct Name_62db0 {
     void FUN_0027b040(const char* s);
 };
 
-class __declspec(novtable) TrackBase_62db0 {
+class __declspec(novtable) CTrack_62db0 {
 public:
     virtual void b0();
     int pad04;
     int pad08;
     void FUN_00236d40();
-    TrackBase_62db0() { FUN_00236d40(); }
+    CTrack_62db0() { FUN_00236d40(); }
 };
 
-class CSmartPropAttachTrack : public TrackBase_62db0 {
+class CSmartPropAttachTrack : public CTrack_62db0 {
 public:
     virtual unsigned int vfunc_0(unsigned int);
     virtual void v1();

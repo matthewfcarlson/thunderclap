@@ -5,11 +5,11 @@ struct CtorV_001d0480 {
 };
 extern const char a[];
 extern const char b[];
-class Init : public CtorV_001d0480 {
+class Function_910f0 : public CtorV_001d0480 {
   public:
-    Init(const char* s) : CtorV_001d0480(s, 1) { }
+    Function_910f0(const char* s) : CtorV_001d0480(s, 1) { }
 };
-class Method1 : public Init {
+class Method1 : public Function_910f0 {
   public:
     virtual void f();
     char pad[12];
@@ -18,7 +18,7 @@ class Method1 : public Init {
     unsigned char y;
     char pad3[3];
     int z;
-    Method1(const char* s, int n) : Init(s) {
+    Method1(const char* s, int n) : Function_910f0(s) {
         z = n;
         y = FUN_001d04d0(a);
         x = FUN_001d04d0(b);

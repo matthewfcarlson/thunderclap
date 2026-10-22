@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00174660 @ 0x00174660
 struct Ref { virtual void retain(); virtual void release(); };
-struct Base { virtual void slot0(); void FUN_00232660(); };
+struct Action_174660 { virtual void slot0(); void FUN_00232660(); };
 extern void *DAT_00417e30[];
-struct JointRelativeAction : Base {
+struct JointRelativeAction : Action_174660 {
     char gap[0x18];
     unsigned int joint;
     Ref *reference;

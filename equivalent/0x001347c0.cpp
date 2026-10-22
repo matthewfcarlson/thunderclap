@@ -18,7 +18,7 @@ struct ResourceName_1347c0 {
     void FUN_0027b040(const char *name);
 };
 
-class JointObject_1347c0 {
+class JointDriver_1347c0 {
 public:
     virtual void vfunc_0();
     char pad04[4];
@@ -26,13 +26,13 @@ public:
     unsigned int flags;
     Transform_1347c0 transform;
     char rest[0x70 - 0x18 - sizeof(Transform_1347c0)];
-    JointObject_1347c0 *FUN_002248f0(unsigned int id);
+    JointDriver_1347c0 *FUN_002248f0(unsigned int id);
 };
 
 struct Scene_1347c0 {
     char pad0[0x10];
     Pose pose;
-    void FUN_00222890(JointObject_1347c0 *obj, float a, float b, float c, float d, float e, float f);
+    void FUN_00222890(JointDriver_1347c0 *obj, float a, float b, float c, float d, float e, float f);
 };
 
 struct Stats_1347c0 {
@@ -81,7 +81,7 @@ public:
     char pad04[0x18];
     BounceData_1347c0 *data;
     void *owner;
-    JointObject_1347c0 *joint;
+    JointDriver_1347c0 *joint;
     float f28;
     float f2c;
     float f30;
@@ -101,9 +101,9 @@ char BounceAction::vfunc_3(int a, int b)
     hulk_freg b30 = d->f30;
 
     void *mem = FUN_00263ea0(0x70);
-    JointObject_1347c0 *obj = 0;
+    JointDriver_1347c0 *obj = 0;
     if (mem)
-        obj = ((JointObject_1347c0 *)mem)->FUN_002248f0(0);
+        obj = ((JointDriver_1347c0 *)mem)->FUN_002248f0(0);
     joint = obj;
 
     obj->name.FUN_0027b040("bounce");

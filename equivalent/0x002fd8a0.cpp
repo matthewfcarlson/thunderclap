@@ -6,8 +6,8 @@ struct Item_2fd8a0 { Transform_2fd8a0* FUN_0030edf0(); };
 struct Resource_2fd8a0 { virtual void AddRef() = 0; virtual void Release() = 0; int FUN_0030f450(); Item_2fd8a0* FUN_0030f490(int index); };
 struct Child_2fd8a0 { char padding[0x24]; int state; void FUN_00312240(Resource_2fd8a0* resource); };
 struct Entry_2fd8a0 { Item_2fd8a0* item; char padding[0x1c]; Matrix matrix; char tail[4]; };
-struct Owner_2fd8a0 { char padding[0x70]; Child_2fd8a0* child; char padding2[0x14]; Resource_2fd8a0* resource; Entry_2fd8a0* entries; void FUN_002fd8a0(Resource_2fd8a0* incoming); };
-void Owner_2fd8a0::FUN_002fd8a0(Resource_2fd8a0* incoming) {
+struct SimStateArticulated_2fd8a0 { char padding[0x70]; Child_2fd8a0* child; char padding2[0x14]; Resource_2fd8a0* resource; Entry_2fd8a0* entries; void FUN_002fd8a0(Resource_2fd8a0* incoming); };
+void SimStateArticulated_2fd8a0::FUN_002fd8a0(Resource_2fd8a0* incoming) {
  if (incoming) incoming->AddRef();
  if (resource) resource->Release();
  resource = incoming;

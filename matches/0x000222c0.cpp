@@ -6,18 +6,18 @@ class Ref_222c0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_222c0 {
+class CAction_222c0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_222c0 : public Base_222c0 {
+class CCameraDramaticAction_222c0 : public CAction_222c0 {
   public:
     char pad[0x1c - 4];
     Ref_222c0* m;
-    Obj_222c0* f2(unsigned char flags);
+    CCameraDramaticAction_222c0* f2(unsigned char flags);
 };
-Obj_222c0* Obj_222c0::f2(unsigned char flags) {
+CCameraDramaticAction_222c0* CCameraDramaticAction_222c0::f2(unsigned char flags) {
     vptr = g_vftable_222c0;
     _ReadWriteBarrier();
     if (m) {

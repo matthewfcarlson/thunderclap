@@ -1,4 +1,4 @@
-class V {
+class CollisionVolume_30e7d0 {
   public:
     virtual void a();
     virtual void b();
@@ -16,16 +16,16 @@ class V {
     virtual void f13();
     virtual void f14(void*);
 };
-class W_30e7d0 : public V {
+class CollisionWall_30e7d0 : public CollisionVolume_30e7d0 {
   public:
-    char pad[0x38 - sizeof(V)];
+    char pad[0x38 - sizeof(CollisionVolume_30e7d0)];
     int x38, x3c, x40, x44;
     int x48, x4c, x50;
     virtual void w13();
-    virtual void vfunc_14(W_30e7d0*);
+    virtual void vfunc_14(CollisionWall_30e7d0*);
 };
-void W_30e7d0::vfunc_14(W_30e7d0* out) {
-    V::f14(out);
+void CollisionWall_30e7d0::vfunc_14(CollisionWall_30e7d0* out) {
+    CollisionVolume_30e7d0::f14(out);
     int* a = this->q();
     int* b = out->q();
     b[0] = a[0];

@@ -25,7 +25,7 @@ struct Parent_320330 {
     char pad[0x154];
     Viewport_320330* viewport;
 };
-class BlurEffect {
+class d3dExtFramebufferEffects_320330 {
   public:
     unsigned char FUN_003202b0(const char* src, int* out);
     void Setup();
@@ -44,7 +44,7 @@ class BlurEffect {
     float scaleX;
     float scaleY;
 };
-void BlurEffect::Setup() {
+void d3dExtFramebufferEffects_320330::Setup() {
     if (tex0 != 0)
         return;
     if (busy)

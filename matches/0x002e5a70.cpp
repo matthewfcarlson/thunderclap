@@ -33,7 +33,7 @@ struct VP {
             operator delete(b);
     }
 };
-class Obj_2e5a70 {
+class VertexAnimKeyFrame_2e5a70 {
   public:
     void* vptr;
     char pad[0x10];
@@ -45,7 +45,7 @@ class Obj_2e5a70 {
     VE v[2];
     void f();
 };
-void Obj_2e5a70::f() {
+void VertexAnimKeyFrame_2e5a70::f() {
     vptr = g_vt_2e5a70;
     {
         VE* p = v + 2;

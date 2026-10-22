@@ -5,12 +5,12 @@ class Ref_1758e0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_1758e0 {
+class Action_1758e0 {
   public:
     void* vptr;
     void Fin();
 };
-class TeleportAction_1758e0 : public Base_1758e0 {
+class TeleportAction_1758e0 : public Action_1758e0 {
   public:
     char pad[0x18];
     void* m1c;

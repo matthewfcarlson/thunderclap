@@ -1,12 +1,12 @@
-class Base {
+class Condition_1809e0 {
   public:
-    Base(int);
+    Condition_1809e0(int);
     virtual void f();
     char pad[8];
 };
 namespace hulkfight {
 namespace motion {
-class PropMissileCountCondition : public Base {
+class PropMissileCountCondition : public Condition_1809e0 {
   public:
     PropMissileCountCondition();
     virtual void f();
@@ -14,4 +14,4 @@ class PropMissileCountCondition : public Base {
 };
 } // namespace motion
 } // namespace hulkfight
-hulkfight::motion::PropMissileCountCondition::PropMissileCountCondition() : Base(0), a(0), b(0), c(0) {}
+hulkfight::motion::PropMissileCountCondition::PropMissileCountCondition() : Condition_1809e0(0), a(0), b(0), c(0) {}

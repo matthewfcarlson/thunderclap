@@ -9,15 +9,15 @@ class Param {
 struct ThisCall_00232660 {
     void BaseInit();
 };
-class Obj_20a40 {
+class CHapticEventAction_20a40 {
   public:
     void* v;
     char pad[0x18];
     Param* p;
     volatile int value;
-    Obj_20a40* ctor(int value, Param* p);
+    CHapticEventAction_20a40* ctor(int value, Param* p);
 };
-Obj_20a40* Obj_20a40::ctor(int value, Param* p) {
+CHapticEventAction_20a40* CHapticEventAction_20a40::ctor(int value, Param* p) {
     ((ThisCall_00232660*)(this))->BaseInit();
     v = (void*)((hulk_intptr)DAT_003f3390);
     this->p = 0;

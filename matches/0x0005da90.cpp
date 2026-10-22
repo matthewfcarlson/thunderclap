@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 extern "C" char DAT_003fa214[];
-class Base_5da90 {
+class CCollisionTrack_5da90 {
   public:
     void Done();
 };
@@ -30,5 +30,5 @@ void CCollisionTrack::Fini() {
     ((TypeB*)a58)->Done();
     ((TypeB*)a4c)->Done();
     ((TypeA*)a18)->Done();
-    ((Base_5da90*)this)->Done();
+    ((CCollisionTrack_5da90*)this)->Done();
 }

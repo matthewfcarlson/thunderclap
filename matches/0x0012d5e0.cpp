@@ -9,7 +9,7 @@ struct Sub_12d5e0 {
     char pad[8];
     void init();
 };
-struct Threat_12d5e0 {
+struct ThreatDistanceCondition_12d5e0 {
     hulk_uintptr vptr;
     char pad4[8];
     u8 flagC;
@@ -20,7 +20,7 @@ struct Threat_12d5e0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::ThreatCondition>::vfunc_5() {
-    Threat_12d5e0* p = (Threat_12d5e0*)alloc(0x20);
+    ThreatDistanceCondition_12d5e0* p = (ThreatDistanceCondition_12d5e0*)alloc(0x20);
     if (p) {
         p->init(0);
         p->vptr = ((hulk_intptr)DAT_00410bd4);

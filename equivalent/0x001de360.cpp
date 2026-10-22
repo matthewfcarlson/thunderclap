@@ -4,16 +4,16 @@ struct Sub_1de360 {
     virtual void v0();
     virtual void v1();
 };
-struct Item_1de360 {
+struct CSPListener_1de360 {
     int pad0;
     Sub_1de360 sub;
-    Item_1de360 *FUN_001db1c0(int arg);
+    CSPListener_1de360 *FUN_001db1c0(int arg);
 };
 void *FUN_0008d690(unsigned int size);
 
 struct Owner_1de360 {
     char pad[0x1e824];
-    Item_1de360 *current;
+    CSPListener_1de360 *current;
     char pad1e828[8];
     int arg;
     char pad1e834[0x1ec40 - 0x1e834];
@@ -23,8 +23,8 @@ struct Owner_1de360 {
 
 void Owner_1de360::FUN_001de360(int a)
 {
-    Item_1de360 *raw = (Item_1de360 *)FUN_0008d690(0x10);
-    Item_1de360 *item;
+    CSPListener_1de360 *raw = (CSPListener_1de360 *)FUN_0008d690(0x10);
+    CSPListener_1de360 *item;
     if (raw)
         item = raw->FUN_001db1c0(a);
     else

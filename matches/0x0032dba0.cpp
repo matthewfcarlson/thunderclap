@@ -1,9 +1,9 @@
-class Base_32dba0 {
+class d3dShader_32dba0 {
   public:
     virtual void V();
-    Base_32dba0(int);
+    d3dShader_32dba0(int);
 };
-class d3dLayeredShader_32dba0 : public Base_32dba0 {
+class d3dLayeredShader_32dba0 : public d3dShader_32dba0 {
   public:
     char pad[0x7c];
     int a;
@@ -17,7 +17,7 @@ class d3dLayeredShader_32dba0 : public Base_32dba0 {
     int g;
     d3dLayeredShader_32dba0(int);
 };
-d3dLayeredShader_32dba0::d3dLayeredShader_32dba0(int x) : Base_32dba0(x), special(4) {
+d3dLayeredShader_32dba0::d3dLayeredShader_32dba0(int x) : d3dShader_32dba0(x), special(4) {
     a = 0;
     b = 0;
     c = 0;

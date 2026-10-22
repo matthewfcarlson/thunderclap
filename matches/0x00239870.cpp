@@ -9,11 +9,11 @@ class Part_239870 {
   public:
     void Fini() throw();
 };
-struct Base_239870 {
+struct Action_239870 {
     void* vf;
     void Dtor() throw();
 };
-struct Target_239870 : Base_239870 {
+struct ExecuteAction_239870 : Action_239870 {
     char pad[0x18];
     Ref_239870* p1c;
     void* p20;
@@ -23,7 +23,7 @@ struct Target_239870 : Base_239870 {
     Part_239870 p38;
     void Dtor2() throw();
 };
-void Target_239870::Dtor2() throw() {
+void ExecuteAction_239870::Dtor2() throw() {
     vf = vSeq;
     _ReadWriteBarrier();
     if (p34) {
@@ -41,5 +41,5 @@ void Target_239870::Dtor2() throw() {
         p1c = 0;
     }
     p38.Fini();
-    Base_239870::Dtor();
+    Action_239870::Dtor();
 }

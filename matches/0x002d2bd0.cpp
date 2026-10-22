@@ -4,12 +4,12 @@ struct Owner_2d2bd0 {
     int Find(int, int);
 };
 extern int vtab;
-struct BlendState {
+struct GeneratorBlendState_2d2bd0 {
     int* vptr;
     int a, b, c;
-    BlendState(Owner_2d2bd0*);
+    GeneratorBlendState_2d2bd0(Owner_2d2bd0*);
 };
-BlendState::BlendState(Owner_2d2bd0* arg) {
+GeneratorBlendState_2d2bd0::GeneratorBlendState_2d2bd0(Owner_2d2bd0* arg) {
     a = 0;
     vptr = &vtab;
     b = 0;

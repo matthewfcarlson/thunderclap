@@ -1,10 +1,10 @@
-class Base_5dff0 {
+class CTrack_5dff0 {
   public:
     virtual void f();
-    Base_5dff0();
+    CTrack_5dff0();
 };
 
-class CClearHitRecordsTrack : public Base_5dff0 {
+class CClearHitRecordsTrack : public CTrack_5dff0 {
   public:
     CClearHitRecordsTrack();
     virtual void f();

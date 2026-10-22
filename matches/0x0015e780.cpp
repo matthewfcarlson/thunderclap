@@ -5,12 +5,12 @@ class Ref_15e780 {
     virtual void F0();
     virtual void Release();
 };
-class Base_15e780 {
+class Action_15e780 {
   public:
     void* vptr;
     void Fin();
 };
-class LocomotionSteerAction_15e780 : public Base_15e780 {
+class LocomotionSteerAction_15e780 : public Action_15e780 {
   public:
     char pad[0x18];
     void* m1c;

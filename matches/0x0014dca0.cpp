@@ -1,6 +1,6 @@
-class Base_14dca0 {
+class Track_14dca0 {
   public:
-    Base_14dca0();
+    Track_14dca0();
     virtual void f();
     char pad[8];
 };
@@ -9,7 +9,7 @@ class Part_14dca0 {
     Part_14dca0();
     char pad[8];
 };
-class HitReactionFloatTrack : public Base_14dca0 {
+class HitReactionFloatTrack : public Track_14dca0 {
   public:
     HitReactionFloatTrack();
     virtual void f();

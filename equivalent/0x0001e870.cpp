@@ -38,7 +38,7 @@ struct Request_1e870 {
     void FUN_00059300();
 };
 
-struct CFightParamsCollision_nv_1e870 {
+struct CFightParamsCollision_1e870 {
     CFightParamsCollision *FUN_000598e0(void *a, Request_1e870 *req);
     void FUN_00059790(RefObj_1e870 *obj);
 };
@@ -132,9 +132,9 @@ bool Spawner_1e870::FUN_0001e870(Source_1e870 *src, const V3_1e870 *pos)
 
     CFightParamsCollision *job = (CFightParamsCollision *)FUN_0008d690(0xb0);
     if (job)
-        job = ((CFightParamsCollision_nv_1e870*)(job))->FUN_000598e0(*pad->chain, &req);
+        job = ((CFightParamsCollision_1e870*)(job))->FUN_000598e0(*pad->chain, &req);
     job->vfunc_0();
-    ((CFightParamsCollision_nv_1e870*)(job))->FUN_00059790(src->FUN_001d72e0());
+    ((CFightParamsCollision_1e870*)(job))->FUN_00059790(src->FUN_001d72e0());
     Slot_1e870 *slot = holder->queue->Submit(job, 0);
     if (slot) {
         slot->FUN_00231ad0((Sink *)&pad->f0dc, job, 0);

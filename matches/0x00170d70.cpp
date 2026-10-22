@@ -8,22 +8,22 @@ struct Pair {
     int a, b;
     Pair() : a(0), b(0) {}
 };
-class Mid : public Base {
+class Track_170d70 : public Base {
   public:
     Pair pair;
-    Mid() : pair() {}
+    Track_170d70() : pair() {}
 };
 struct Tail {
     int a, b;
     float t;
     Tail() : a(0), b(0), t(-1.0f) {}
 };
-class hulkfight_motion_TeleportToLocatorTrack : public Mid {
+class TeleportToLocatorTrack_170d70 : public Track_170d70 {
   public:
     virtual void f();
-    hulkfight_motion_TeleportToLocatorTrack();
+    TeleportToLocatorTrack_170d70();
     Tail tail;
 };
-hulkfight_motion_TeleportToLocatorTrack::hulkfight_motion_TeleportToLocatorTrack() {
+TeleportToLocatorTrack_170d70::TeleportToLocatorTrack_170d70() {
     *(int*)((char*)this + 8) = 1;
 }

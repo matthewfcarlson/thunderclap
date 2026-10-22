@@ -2,7 +2,7 @@
 // FUN_00181020 @ 0x00181020
 inline void *operator new(unsigned int, void *p) { return p; }
 
-struct Base12 {
+struct BallAndChainReturnTrack_181020 {
     char data[12];
     void FUN_00236d40();
 };
@@ -42,7 +42,7 @@ public:
 
 hulkfight::motion::BallAndChainReturnTrack *hulkfight::motion::BallAndChainReturnTrack::FUN_00181020()
 {
-    ((Base12 *)this)->FUN_00236d40();
+    ((BallAndChainReturnTrack_181020 *)this)->FUN_00236d40();
     new (this) BallAndChainReturnTrack;
     f0c = 0;
     f14 = 0;

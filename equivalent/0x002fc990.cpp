@@ -25,12 +25,12 @@ public:
 
 void *__cdecl FUN_0008d690(unsigned int size);
 
-struct Body_2fc990 {
+struct PhysicsInstance_2fc990 {
     char data[0x18];
-    Body_2fc990 *FUN_002fc740(void *collision, void *physics, unsigned int a, unsigned int b);
+    PhysicsInstance_2fc990 *FUN_002fc740(void *collision, void *physics, unsigned int a, unsigned int b);
 };
 
-Body_2fc990 *__cdecl FUN_002fc990(unsigned int lo, unsigned int hi, Inventory_2fc990 *inv, unsigned int extra)
+PhysicsInstance_2fc990 *__cdecl FUN_002fc990(unsigned int lo, unsigned int hi, Inventory_2fc990 *inv, unsigned int extra)
 {
     content::LoadInventory::DynamicCaster<physics::CollisionObject> collisionCaster;
     void *collision = inv->get(&collisionCaster, lo, hi);
@@ -45,7 +45,7 @@ Body_2fc990 *__cdecl FUN_002fc990(unsigned int lo, unsigned int hi, Inventory_2f
         inv->get(&articulatedCaster, lo, hi);
     }
 
-    Body_2fc990 *body = (Body_2fc990 *)FUN_0008d690(sizeof(Body_2fc990));
+    PhysicsInstance_2fc990 *body = (PhysicsInstance_2fc990 *)FUN_0008d690(sizeof(PhysicsInstance_2fc990));
     if (body == 0)
         return 0;
     return body->FUN_002fc740(collision, physics, extra, 0);

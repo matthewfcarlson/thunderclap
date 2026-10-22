@@ -101,9 +101,9 @@ class IDevice_b0500 {
     virtual void release();
 };
 
-class DeviceImpl : public IDevice_b0500 {
+class CHapticController_b0500 : public IDevice_b0500 {
   public:
-    DeviceImpl* FUN_000afbf0(void* source);
+    CHapticController_b0500* FUN_000afbf0(void* source);
     void FUN_000afb80(int flag);
 };
 
@@ -126,7 +126,7 @@ CHapticControllerManager::CHapticControllerManager(Source_b0500* source) {
     field_05 = 1;
     device = 0;
 
-    DeviceImpl* dev = (DeviceImpl*)FUN_0008d690(0x1c);
+    CHapticController_b0500* dev = (CHapticController_b0500*)FUN_0008d690(0x1c);
     if (dev != 0)
         dev = dev->FUN_000afbf0(source->FUN_000ae640(0));
     if (dev != 0)

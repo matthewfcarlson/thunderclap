@@ -19,7 +19,7 @@ struct ResourceName_13a00 {
     void FUN_0027b040(const char *name);
 };
 
-class JointObject_13a00 {
+class JointDriver_13a00 {
 public:
     virtual void vfunc_0();
     char pad04[4];
@@ -27,7 +27,7 @@ public:
     unsigned int flags;
     Transform_13a00 transform;
     char rest[0x70 - 0x18 - sizeof(Transform_13a00)];
-    JointObject_13a00 *FUN_002248f0(unsigned int id);
+    JointDriver_13a00 *FUN_002248f0(unsigned int id);
 };
 
 struct JointFinder_13a00 {
@@ -36,7 +36,7 @@ struct JointFinder_13a00 {
 
 struct Scene_13a00 {
     JointFinder_13a00 *FUN_002226b0();
-    void FUN_00222890(JointObject_13a00 *obj, float a, float b, float c, float d, float e, float f);
+    void FUN_00222890(JointDriver_13a00 *obj, float a, float b, float c, float d, float e, float f);
 };
 
 struct JointData_13a00 {
@@ -72,7 +72,7 @@ public:
     char pad04[0x18];
     void *owner;
     JointData_13a00 *data;
-    JointObject_13a00 *joint;
+    JointDriver_13a00 *joint;
 };
 
 char CJointAction::vfunc_6(int arg)
@@ -91,9 +91,9 @@ char CJointAction::vfunc_6(int arg)
         return 0;
 
     void *mem = FUN_00263ea0(0x70);
-    JointObject_13a00 *obj = 0;
+    JointDriver_13a00 *obj = 0;
     if (mem)
-        obj = ((JointObject_13a00 *)mem)->FUN_002248f0(id);
+        obj = ((JointDriver_13a00 *)mem)->FUN_002248f0(id);
     joint = obj;
 
     obj->name.FUN_0027b040("joint");

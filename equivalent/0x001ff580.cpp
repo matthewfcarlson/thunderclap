@@ -4,20 +4,20 @@
 
 extern void* __cdecl FUN_00263ec0(unsigned);
 extern void* __cdecl FUN_0008d6d0(unsigned);
-struct Volume_1ff580 { char data[64]; void FUN_001fbf40(); };
-struct Group_1ff580 { char data[0xc70]; void FUN_001fa630(); };
-struct Entry_1ff580 { unsigned count; Volume_1ff580* volumes; };
+struct CLocator_1ff580 { char data[64]; void FUN_001fbf40(); };
+struct CEncounterGenerator_1ff580 { char data[0xc70]; void FUN_001fa630(); };
+struct Entry_1ff580 { unsigned count; CLocator_1ff580* volumes; };
 struct CTriggerVolumeManager {
  virtual void slot0();
  unsigned untouched;
  unsigned count;
  unsigned table[128];
  unsigned active;
- Volume_1ff580* volumes;
+ CLocator_1ff580* volumes;
  Entry_1ff580* entries[6];
  int* indices;
  int selected;
- Group_1ff580* groups;
+ CEncounterGenerator_1ff580* groups;
  unsigned groupCount;
  CTriggerVolumeManager();
 };
@@ -25,9 +25,9 @@ CTriggerVolumeManager::CTriggerVolumeManager() {
  for(int i=0;i<128;++i) table[i]=0;
  count=0;
  unsigned* allocation=(unsigned*)FUN_00263ec0(0x4004);
- Volume_1ff580* first=0;
+ CLocator_1ff580* first=0;
  if(allocation) {
-  first=(Volume_1ff580*)(allocation+1); *allocation=256;
+  first=(CLocator_1ff580*)(allocation+1); *allocation=256;
   for(int i=0;i<256;++i) first[i].FUN_001fbf40();
  }
  volumes=first;
@@ -36,11 +36,11 @@ CTriggerVolumeManager::CTriggerVolumeManager() {
   for(int j=0;j<20;++j) {
    unsigned n=((unsigned*)&DAT_00425168)[type];
    unsigned* block=(unsigned*)(n ? FUN_00263ec0((n<<6)+4) : FUN_0008d6d0(4));
-   Volume_1ff580* result=0;
+   CLocator_1ff580* result=0;
    if(block) {
-    result=(Volume_1ff580*)(block+1); *block=n;
+    result=(CLocator_1ff580*)(block+1); *block=n;
     if((int)(n-1)>=0) {
-     Volume_1ff580* p=result;
+     CLocator_1ff580* p=result;
      do { p->FUN_001fbf40(); ++p; } while(--n);
     }
    }
@@ -52,9 +52,9 @@ CTriggerVolumeManager::CTriggerVolumeManager() {
  for(int k=0;k<20;++k) indices[k]=-1;
  selected=-1; active=0;
  unsigned* block=(unsigned*)FUN_00263ec0(0x6384);
- Group_1ff580* result=0;
+ CEncounterGenerator_1ff580* result=0;
  if(block) {
-  result=(Group_1ff580*)(block+1); *block=8;
+  result=(CEncounterGenerator_1ff580*)(block+1); *block=8;
   for(int k=0;k<8;++k) result[k].FUN_001fa630();
  }
  groups=result; groupCount=0;

@@ -54,7 +54,7 @@ struct Registry_2abfb0 {
 };
 
 
-struct GeneratorBlendState_nv_2abfb0 {
+struct GeneratorBlendState_2abfb0 {
     ::pure3d::ParticleSphereGenerator::GeneratorBlendState* FUN_002d2bd0(Item_2abfb0* item);
 };
 
@@ -71,7 +71,7 @@ struct ElementList_2abfb0 {
     char FUN_002aba00(unsigned int n, ::pure3d::ParticleSphereGenerator::GeneratorBlendState* const* fill);
 };
 
-class Generator_2abfb0 {
+class ParticleSphereGenerator_2abfb0 {
 public:
     virtual void v0();
     char pad04[0x18];
@@ -83,7 +83,7 @@ public:
     unsigned int dim0;
     unsigned int dim1;
     char pad40[8];
-    Generator_2abfb0* FUN_002d3b40();
+    ParticleSphereGenerator_2abfb0* FUN_002d3b40();
 };
 
 struct Frame_2abfb0 {
@@ -95,14 +95,14 @@ struct Frame_2abfb0 {
     unsigned int pad14;
 };
 
-Generator_2abfb0* __stdcall FUN_002abfb0(Reader_2abfb0* r, void* arg)
+ParticleSphereGenerator_2abfb0* __stdcall FUN_002abfb0(Reader_2abfb0* r, void* arg)
 {
     Frame_2abfb0 f;
     r->stream->FUN_002647e0(&f.old, 1, 4, 1);
-    Generator_2abfb0* gen = 0;
+    ParticleSphereGenerator_2abfb0* gen = 0;
     void* mem = FUN_00263ea0(0x48);
     if (mem != 0)
-        gen = ((Generator_2abfb0*)mem)->FUN_002d3b40();
+        gen = ((ParticleSphereGenerator_2abfb0*)mem)->FUN_002d3b40();
     r->stream->FUN_002647e0(&f.y, 1, 4, 1);
     gen->dim0 = f.y;
     r->stream->FUN_002647e0(&f.y, 1, 4, 1);
@@ -127,7 +127,7 @@ Generator_2abfb0* __stdcall FUN_002abfb0(Reader_2abfb0* r, void* arg)
                     ::pure3d::ParticleSphereGenerator::GeneratorBlendState* e = (::pure3d::ParticleSphereGenerator::GeneratorBlendState*)FUN_0008d690(0x10);
                     f.z = e;
                     if (e != 0)
-                        e = ((GeneratorBlendState_nv_2abfb0*)(e))->FUN_002d2bd0(f.out0->FUN_00288a10(i));
+                        e = ((GeneratorBlendState_2abfb0*)(e))->FUN_002d2bd0(f.out0->FUN_00288a10(i));
                     gen->elements.begin[gen->used] = e;
                     gen->elements.begin[gen->used]->vfunc_0();
                     gen->used++;

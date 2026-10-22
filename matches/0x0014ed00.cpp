@@ -19,7 +19,7 @@ class FightObject {
     virtual BattleObj* GetBattleObj();
 };
 
-class fight_Condition {
+class Condition_14ed00 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -36,7 +36,7 @@ class fight_Param {
     virtual void pfunc_2();
 };
 
-namespace hulkfight { namespace motion { class CollisionDevastatorCondition : public fight_Condition, public fight_Param {
+namespace hulkfight { namespace motion { class CollisionDevastatorCondition : public Condition_14ed00, public fight_Param {
   public:
     virtual void dfunc_0();
     virtual void dfunc_1();

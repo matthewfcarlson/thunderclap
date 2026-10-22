@@ -11,10 +11,10 @@ class Sub_151810 {
   public:
     void Fn();
 };
-struct GroundSlideAction_nv_151810 {
+struct GroundSlideAction_151810 {
     void Fn();
 };
-class A_151810 {
+class HitReactionAction_151810 {
   public:
     void* vptr;
     char p[0x18];
@@ -25,7 +25,7 @@ class A_151810 {
     Ref_151810* m4c;
     void f();
 };
-void A_151810::f() {
+void HitReactionAction_151810::f() {
     vptr = g_vftable_151810;
     _ReadWriteBarrier();
     if (m4c) {
@@ -39,5 +39,5 @@ void A_151810::f() {
     if (m1c)
         m1c = 0;
     m24.Fn();
-    ((GroundSlideAction_nv_151810*)(((hulkfight::motion::GroundSlideAction*)this)))->Fn();
+    ((GroundSlideAction_151810*)(((hulkfight::motion::GroundSlideAction*)this)))->Fn();
 }

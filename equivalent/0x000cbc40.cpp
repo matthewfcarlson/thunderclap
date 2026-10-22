@@ -65,7 +65,7 @@ struct World {
     Obj54_cbc40 *f54;
 };
 
-class Panel_cbc40 {
+class HUDOverlay_cbc40 {
 public:
     char pad0[0x14];
     Pawn_cbc40 *p14;
@@ -96,7 +96,7 @@ public:
     void FUN_000cbc40(float dt);
 };
 
-void Panel_cbc40::FUN_000cbc40(float dt)
+void HUDOverlay_cbc40::FUN_000cbc40(float dt)
 {
     if (p14 == 0)
         return;

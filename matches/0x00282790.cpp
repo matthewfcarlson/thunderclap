@@ -1,10 +1,10 @@
 #include "compat/ptr.h"
-class Base_282790 {
+class DrawablePrimitive_282790 {
   public:
     virtual void Dummy();
-    Base_282790();
+    DrawablePrimitive_282790();
 };
-class CMotionTrail : public Base_282790 {
+class CMotionTrail : public DrawablePrimitive_282790 {
   public:
     virtual void V();
     char p0[0x0c];

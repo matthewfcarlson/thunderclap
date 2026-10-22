@@ -10,14 +10,14 @@ class Name {
     Name* Init(const char*, int) throw();
     ~Name() throw();
 };
-class Base {
+class SeqEventType_250f60 {
   public:
-    Base(Name*, const Arg&, int, int) throw();
+    SeqEventType_250f60(Name*, const Arg&, int, int) throw();
     virtual void f();
 };
-class audioSeq : public Base {
+class SeqEventStopTrackType_250f60 : public SeqEventType_250f60 {
   public:
-    audioSeq();
+    SeqEventStopTrackType_250f60();
     virtual void f();
 };
-audioSeq::audioSeq() : Base(Name().Init("Stop", 0), Arg(), 32, 4) {}
+SeqEventStopTrackType_250f60::SeqEventStopTrackType_250f60() : SeqEventType_250f60(Name().Init("Stop", 0), Arg(), 32, 4) {}

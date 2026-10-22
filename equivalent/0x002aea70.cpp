@@ -16,15 +16,15 @@ struct Request {
     int allocTag;
 };
 
-struct Loader_2aea70;
+struct LoadInventory_2aea70;
 
 struct Context {
     char pad0[0x18];
-    Loader_2aea70* loader;
+    LoadInventory_2aea70* loader;
     File* file;
     File* FUN_00266880();
     void FUN_00266850(File* f);
-    void FUN_00266820(Loader_2aea70* l);
+    void FUN_00266820(LoadInventory_2aea70* l);
 };
 
 struct NameField_2aea70 {
@@ -73,13 +73,13 @@ struct Sprite {
     Sprite* FUN_002beb20(Resource_2aea70* image, int zero, int one, int a, int b, int c);
 };
 
-struct Loader_2aea70 {
+struct LoadInventory_2aea70 {
     virtual void v0();
     virtual void Release();
     virtual void v2();
     virtual void v3();
     virtual void add(unsigned int keyLo, unsigned int keyHi, void* obj);
-    Loader_2aea70* FUN_00266480(int size);
+    LoadInventory_2aea70* FUN_00266480(int size);
 };
 
 namespace pure3d {
@@ -175,9 +175,9 @@ void pure3d::ImageHandler::vfunc_3(Request* req, Context* ctx)
     }
 
     void* lmem = FUN_00263ed0(0x14, req->allocTag);
-    Loader_2aea70* loader = 0;
+    LoadInventory_2aea70* loader = 0;
     if (lmem)
-        loader = ((Loader_2aea70*)lmem)->FUN_00266480(0x400);
+        loader = ((LoadInventory_2aea70*)lmem)->FUN_00266480(0x400);
 
     if (mode == 1) {
         pure3d::TextureBuilder builder;

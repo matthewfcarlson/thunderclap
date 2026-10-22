@@ -18,7 +18,7 @@ struct Link2_5b420 {
 struct Link1_5b420 {
     Link2_5b420 *FUN_000592a0();
 };
-struct Effect_5b420 {
+struct CInvulnerableAction_5b420 {
     void *FUN_000200a0(Weapon *weapon, int value);
 };
 
@@ -60,7 +60,7 @@ void *CGrappleInvulnerableTrack::vfunc_12(Link1_5b420 *owner)
     Weapon *weapon = fighter->weapon;
     if (weapon == 0)
         return 0;
-    Effect_5b420 *effect = (Effect_5b420 *)FUN_0008d690(0x24);
+    CInvulnerableAction_5b420 *effect = (CInvulnerableAction_5b420 *)FUN_0008d690(0x24);
     if (effect == 0)
         return 0;
     return effect->FUN_000200a0(weapon, f14);

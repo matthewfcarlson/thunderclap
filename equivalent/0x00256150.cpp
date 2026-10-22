@@ -44,14 +44,14 @@ struct Arg_256150 {
     Extra_256150 *extra;
 };
 
-class Blender_256150 {
+class SeqActionClip_256150 {
 public:
     char pad0[0x14];
     int handle;
     void FUN_00256150(Arg_256150 *arg);
 };
 
-void Blender_256150::FUN_00256150(Arg_256150 *arg)
+void SeqActionClip_256150::FUN_00256150(Arg_256150 *arg)
 {
     Frame_256150 f;
     int count = FUN_0024c2d0(FUN_0025d060(FUN_00258b70(handle)));

@@ -1,12 +1,12 @@
-class Base {
+class Function_1ce200 {
   public:
     virtual void Invoke(float);
-    Base(void*, int);
+    Function_1ce200(void*, int);
 };
 extern "C" unsigned char __cdecl Check(const char*);
 extern const char a[];
 extern const char b[];
-class Method1 : public Base {
+class Method1 : public Function_1ce200 {
   public:
     virtual void Invoke(float);
     char pad[12];
@@ -15,7 +15,7 @@ class Method1 : public Base {
     unsigned char y;
     char pad3[3];
     void* obj;
-    Method1(void* p, void* q) : Base(p, 1) {
+    Method1(void* p, void* q) : Function_1ce200(p, 1) {
         obj = q;
         y = Check(a);
         x = Check(b);

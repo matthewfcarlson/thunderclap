@@ -3,13 +3,13 @@ class Ref_140100 {
     virtual void Add();
     virtual void Rel();
 };
-class Base_140100 {
+class Action_140100 {
   public:
-    Base_140100();
+    Action_140100();
     virtual void f0();
     char pad[0x18];
 };
-class WallExitAction : public Base_140100 {
+class WallExitAction : public Action_140100 {
   public:
     WallExitAction(int a, Ref_140100* b);
     virtual void g0();

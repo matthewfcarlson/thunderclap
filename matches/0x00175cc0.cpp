@@ -10,7 +10,7 @@ class Helper_175cc0 {
     void Init();
     void InitSub();
 };
-class Teleport {
+class TeleportToLocatorAction_175cc0 {
   public:
     hulk_intptr vptr;
     char pad[0x18];
@@ -18,9 +18,9 @@ class Teleport {
     Ref_175cc0* ref;
     char pad2[4];
     Helper_175cc0 sub;
-    Teleport(int x, Ref_175cc0* r);
+    TeleportToLocatorAction_175cc0(int x, Ref_175cc0* r);
 };
-Teleport::Teleport(int x, Ref_175cc0* r) {
+TeleportToLocatorAction_175cc0::TeleportToLocatorAction_175cc0(int x, Ref_175cc0* r) {
     ((Helper_175cc0*)this)->Init();
     vptr = ((hulk_intptr)DAT_00417f48);
     value = 0;

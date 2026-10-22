@@ -1,11 +1,11 @@
 #include "decls/address.h"
 struct MessageOverlay;
 extern int g1, g2;
-struct Base {
+struct Function_d6290 {
     virtual void f();
-    Base(void*, int);
+    Function_d6290(void*, int);
 };
-struct Method1 : Base {
+struct Method1 : Function_d6290 {
     char pad[0xc];
     unsigned char b;
     char pad2[7];
@@ -20,7 +20,7 @@ struct Closure1 : Method1 {
     Closure1(void*, void*, void*);
     virtual void f();
 };
-inline Method1::Method1(void* x, void* y) : Base(x, 1) {
+inline Method1::Method1(void* x, void* y) : Function_d6290(x, 1) {
     p = y;
     a = FUN_001d04d0(&g1);
     b = FUN_001d04d0(&g2);

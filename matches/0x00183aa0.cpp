@@ -4,12 +4,12 @@ class Obj_183aa0 {
     virtual void A();
     virtual void B();
 };
-class Base_183aa0 {
+class Action_183aa0 {
   public:
     virtual void X();
-    Base_183aa0();
+    Action_183aa0();
 };
-class PropAnimationAction_183aa0 : public Base_183aa0 {
+class PropAnimationAction_183aa0 : public Action_183aa0 {
   public:
     virtual void A();
     virtual void B();
@@ -20,7 +20,7 @@ class PropAnimationAction_183aa0 : public Base_183aa0 {
     int m28;
     PropAnimationAction_183aa0(int, Obj_183aa0*);
 };
-PropAnimationAction_183aa0::PropAnimationAction_183aa0(int v, Obj_183aa0* p) : Base_183aa0() {
+PropAnimationAction_183aa0::PropAnimationAction_183aa0(int v, Obj_183aa0* p) : Action_183aa0() {
     volatile int* q = &m1c;
     q[0] = 0;
     q[1] = 0;

@@ -7,20 +7,20 @@ class Ref_21cc0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_21cc0 {
+class CAction_21cc0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_21cc0 : public Base_21cc0 {
+class CGrappleLocoStrafe4Action_21cc0 : public CAction_21cc0 {
   public:
     char pad[0x1c - 4];
     Ref_21cc0* m1c;
     char pad2[4];
     Ref_21cc0* m24;
-    Obj_21cc0* f2(unsigned char flags);
+    CGrappleLocoStrafe4Action_21cc0* f2(unsigned char flags);
 };
-Obj_21cc0* Obj_21cc0::f2(unsigned char flags) {
+CGrappleLocoStrafe4Action_21cc0* CGrappleLocoStrafe4Action_21cc0::f2(unsigned char flags) {
     vptr = g_vA;
     _ReadWriteBarrier();
     if (m24) {

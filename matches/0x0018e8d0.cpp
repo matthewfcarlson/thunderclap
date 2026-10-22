@@ -2,7 +2,7 @@ class VarCaster {
   public:
     virtual void f();
 };
-class TimerCaster {
+class TrackFactoryCasterTemplate_18e8d0 {
   public:
     virtual void f();
 };
@@ -17,7 +17,7 @@ void setup(Factory* p) {
         p->add(lookup("varAssign", &a));
     }
     {
-        TimerCaster b;
+        TrackFactoryCasterTemplate_18e8d0 b;
         p->add(lookup("timerSet", &b));
     }
 }

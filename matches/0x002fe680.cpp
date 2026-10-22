@@ -3,7 +3,7 @@ class Child_2fe680 {
     virtual void f0();
     virtual void f1();
 };
-struct TailTarget {
+struct SimulatedObject_2fe680 {
     void Tail();
 };
 extern int gVtable_2fe680;
@@ -18,5 +18,5 @@ void SimulatedObject::Finish() {
     vftable = &gVtable_2fe680;
     if (member)
         member->f1();
-    ((TailTarget*)this)->Tail();
+    ((SimulatedObject_2fe680*)this)->Tail();
 }

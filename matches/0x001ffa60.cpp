@@ -1,9 +1,9 @@
 struct CTriggerVolumeManager;
 extern char gA, gB;
 char __cdecl getFlag(const char*);
-class Root {
+class Function_1ffa60 {
   public:
-    Root(const char*, int);
+    Function_1ffa60(const char*, int);
     virtual void f();
     char pad[12];
     char b10;
@@ -12,9 +12,9 @@ class Root {
     char pad3[3];
     CTriggerVolumeManager* owner;
 };
-class Method1 : public Root {
+class Method1 : public Function_1ffa60 {
   public:
-    Method1(const char* s, CTriggerVolumeManager* m) : Root(s, 1) {
+    Method1(const char* s, CTriggerVolumeManager* m) : Function_1ffa60(s, 1) {
         owner = m;
         b18 = getFlag(&gA);
         b10 = getFlag(&gB);

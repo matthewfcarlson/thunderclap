@@ -5,14 +5,14 @@ class RefObj_18d610 {
     virtual void Release();
 };
 
-class ActionBase_18d610 {
+class Action_18d610 {
   public:
-    ActionBase_18d610();
+    Action_18d610();
     virtual void Update();
     char pad[0x18];
 };
 
-class TimerSetAction_18d610 : public ActionBase_18d610 {
+class TimerSetAction_18d610 : public Action_18d610 {
   public:
     int mTarget;
     RefObj_18d610* mObj;

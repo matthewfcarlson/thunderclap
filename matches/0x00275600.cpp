@@ -10,13 +10,13 @@ class Obj_275600 {
     virtual void A();
 };
 extern void FUN_002705f0();
-struct Target_275600 {
+struct DriveRequest_275600 {
     void* vf;
     int p4;
     Obj_275600* p8;
-    Target_275600(Obj_275600*);
+    DriveRequest_275600(Obj_275600*);
 };
-Target_275600::Target_275600(Obj_275600* a) {
+DriveRequest_275600::DriveRequest_275600(Obj_275600* a) {
     vf = vReq;
     p4 = 0;
     FUN_002705f0();

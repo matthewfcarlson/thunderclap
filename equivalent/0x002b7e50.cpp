@@ -28,15 +28,15 @@ public:
 };
 }
 
-struct SkinInfo : RefObj_2b7e50 {
+struct BoneMatrixList_2b7e50 : RefObj_2b7e50 {
     char pad04[0x10];
-    SkinInfo(void* src);
-    SkinInfo* FUN_002e17c0(void* src);
+    BoneMatrixList_2b7e50(void* src);
+    BoneMatrixList_2b7e50* FUN_002e17c0(void* src);
 };
 
-struct Binder_2b7e50 : RefObj_2b7e50 {
+struct VertexAnimObject_2b7e50 : RefObj_2b7e50 {
     char pad04[0x14];
-    Binder_2b7e50* FUN_002d0fa0(void* owner);
+    VertexAnimObject_2b7e50* FUN_002d0fa0(void* owner);
 };
 
 struct LinkedA : RefObj_2b7e50 {
@@ -60,7 +60,7 @@ struct Part_2b7e50 {
 
 class PolySkin;
 
-class __declspec(novtable) DrawableContainerBase_2b7e50 {
+class __declspec(novtable) DrawableContainer_2b7e50 {
 public:
     virtual void v0();
     char pad04[0x44];
@@ -68,23 +68,23 @@ public:
     Part_2b7e50* partsEnd;
     char pad50[8];
     void FUN_002a4e40(const PolySkin* src);
-    DrawableContainerBase_2b7e50(const PolySkin* src) { FUN_002a4e40(src); }
+    DrawableContainer_2b7e50(const PolySkin* src) { FUN_002a4e40(src); }
 };
 
-class PolySkin : public DrawableContainerBase_2b7e50 {
+class PolySkin : public DrawableContainer_2b7e50 {
 public:
     virtual void v0();
-    SkinInfo* info;
+    BoneMatrixList_2b7e50* info;
     RefObj_2b7e50* shared;
     int field60;
     RefObj_2b7e50* binderShared;
-    Binder_2b7e50* binder;
+    VertexAnimObject_2b7e50* binder;
     LinkedA* linkA;
     LinkedB* linkB;
     PolySkin(const PolySkin* src);
 };
 
-PolySkin::PolySkin(const PolySkin* src) : DrawableContainerBase_2b7e50(src)
+PolySkin::PolySkin(const PolySkin* src) : DrawableContainer_2b7e50(src)
 {
     info = 0;
     shared = 0;
@@ -101,9 +101,9 @@ PolySkin::PolySkin(const PolySkin* src) : DrawableContainerBase_2b7e50(src)
         shared = s;
         if (src->info != 0) {
             void* mem = FUN_0008d690(0x14);
-            SkinInfo* n = 0;
+            BoneMatrixList_2b7e50* n = 0;
             if (mem != 0) {
-                n = (SkinInfo*)mem;
+                n = (BoneMatrixList_2b7e50*)mem;
                 n = n->FUN_002e17c0(src->info);
             }
             info = n;
@@ -131,9 +131,9 @@ PolySkin::PolySkin(const PolySkin* src) : DrawableContainerBase_2b7e50(src)
     binderShared = b;
     if (src->binder != 0) {
         void* mem = FUN_0008d690(0x18);
-        Binder_2b7e50* n = 0;
+        VertexAnimObject_2b7e50* n = 0;
         if (mem != 0) {
-            n = (Binder_2b7e50*)mem;
+            n = (VertexAnimObject_2b7e50*)mem;
             n = n->FUN_002d0fa0(this);
         }
         binder = n;

@@ -16,7 +16,7 @@ struct Event_1cbfe0 {
     void FUN_001caf10(float dt);
 };
 
-struct CScenarioParams_nv_1cbfe0 {
+struct CScenarioParams_1cbfe0 {
     CScenarioParams *FUN_001d0360(const Item_1cbfe0 *item);
 };
 
@@ -191,7 +191,7 @@ void ItemQueue::FUN_001cbfe0(float dt)
                     void *mem = FUN_0008d690(0xf0);
                     CScenarioParams *task;
                     if (mem)
-                        task = ((CScenarioParams_nv_1cbfe0*)(((CScenarioParams *)mem)))->FUN_001d0360(item);
+                        task = ((CScenarioParams_1cbfe0*)(((CScenarioParams *)mem)))->FUN_001d0360(item);
                     else
                         task = 0;
                     task->vfunc_0();

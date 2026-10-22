@@ -1,6 +1,6 @@
-class Base {
+class Track_10d090 {
   public:
-    Base();
+    Track_10d090();
     virtual void f();
     char p[4];
 };
@@ -9,7 +9,7 @@ class Sub {
     Sub();
     char data[8];
 };
-class SemaphoreClearTrack : public Base {
+class SemaphoreClearTrack : public Track_10d090 {
   public:
     SemaphoreClearTrack();
     virtual void f();
@@ -20,6 +20,6 @@ class SemaphoreClearTrack : public Base {
     Sub sub;
     char x, y;
 };
-SemaphoreClearTrack::SemaphoreClearTrack() : Base(), n(0), v(-1.0f), sub(), x(0), y(0) {
+SemaphoreClearTrack::SemaphoreClearTrack() : Track_10d090(), n(0), v(-1.0f), sub(), x(0), y(0) {
     *(int*)((char*)this + 8) = 1;
 }

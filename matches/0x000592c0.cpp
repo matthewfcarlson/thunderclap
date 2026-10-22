@@ -3,14 +3,14 @@ extern void* Alloc(hulk_uintptr);
 inline void* operator new(unsigned int, void* p) {
     return p;
 }
-class FightBase {
+class Params_592c0 {
   public:
     virtual void b0();
-    FightBase();
+    Params_592c0();
 };
-class CFightParams : public FightBase {
+class CFightParams : public Params_592c0 {
   public:
-    CFightParams(int x) : FightBase() {
+    CFightParams(int x) : Params_592c0() {
         field8 = x;
         fieldc = 0;
         field10 = 0;

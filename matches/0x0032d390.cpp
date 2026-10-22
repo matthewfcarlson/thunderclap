@@ -5,7 +5,7 @@ struct Ref_32d390 {
     virtual void f0();
     virtual void f1();
 };
-struct d3dPointSpriteShader_nv_32d390 {
+struct d3dPointSpriteShader_32d390 {
     void run();
 };
 extern void thunk_FUN_00267090(void*);
@@ -43,7 +43,7 @@ pure3d_d3dSimpleShader_32d390* pure3d_d3dSimpleShader_32d390::vfunc_3(u8_32d390 
     *(int**)this = (int*)DAT_00433b14;
     if (member)
         member->f1();
-    ((d3dPointSpriteShader_nv_32d390*)(((pure3d::d3dPointSpriteShader*)this)))->run();
+    ((d3dPointSpriteShader_32d390*)(((pure3d::d3dPointSpriteShader*)this)))->run();
     if (destroy & 1)
         thunk_FUN_00267090(this);
     return this;

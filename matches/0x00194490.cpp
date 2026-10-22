@@ -7,12 +7,12 @@ struct T1 {
 struct T2 {
     void Fini();
 };
-class Base_194490 {
+class Track_194490 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_194490 : public Base_194490 {
+class FireMissileTrack_194490 : public Track_194490 {
   public:
     char pad10[0xc];
     T1 m10;
@@ -34,9 +34,9 @@ class Obj_194490 : public Base_194490 {
     T2 m100;
     char pad128[0x27];
     T1 m128;
-    ~Obj_194490() throw();
+    ~FireMissileTrack_194490() throw();
 };
-Obj_194490::~Obj_194490() throw() {
+FireMissileTrack_194490::~FireMissileTrack_194490() throw() {
     vptr = g_vftable_194490;
     operator delete[](mdc);
     m128.Fini();

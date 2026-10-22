@@ -5,12 +5,12 @@ class Ref_151020 {
     virtual void F0();
     virtual void Release();
 };
-class Base_151020 {
+class Action_151020 {
   public:
     void* vptr;
     void Fin();
 };
-class InterruptAccumulatorSetAction_151020 : public Base_151020 {
+class InterruptAccumulatorSetAction_151020 : public Action_151020 {
   public:
     char pad[0x18];
     void* m1c;

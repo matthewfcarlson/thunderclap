@@ -1,6 +1,6 @@
 extern void* g_vftable_1aec00[];
 void* Alloc(int);
-class Obj_1aec00 {
+class CPathManager_1aec00 {
   public:
     void* vptr;
     int m4, m8, mc, m10;
@@ -9,9 +9,9 @@ class Obj_1aec00 {
     int* m1c;
     int* m20;
     int* m24;
-    Obj_1aec00();
+    CPathManager_1aec00();
 };
-Obj_1aec00::Obj_1aec00() {
+CPathManager_1aec00::CPathManager_1aec00() {
     vptr = g_vftable_1aec00;
     int* q = &m4;
     *q = 0;

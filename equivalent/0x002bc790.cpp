@@ -61,7 +61,7 @@ public:
     void FUN_0022be40(const Vec3_2bc790 *t);
 };
 
-class Quad_2bc790 {
+class BillboardCutOffQuadGroup_2bc790 {
 public:
     virtual void v0();
     virtual void v1();
@@ -93,8 +93,8 @@ public:
     float fa4, fa8, fac, fb0, fb4, fb8, fbc, fc0;
     int fc4, fc8;
     char padcc[4];
-    Quad_2bc790 *FUN_002bc580();
-    Quad_2bc790 *FUN_002bc660();
+    BillboardCutOffQuadGroup_2bc790 *FUN_002bc580();
+    BillboardCutOffQuadGroup_2bc790 *FUN_002bc660();
 };
 
 struct Shader_nv_2bc790 {
@@ -156,7 +156,7 @@ struct Frame_2bc790 {
 
 class Group_2bc790 {
 public:
-    void FUN_002a46d0(void *a, Quad_2bc790 *q);
+    void FUN_002a46d0(void *a, BillboardCutOffQuadGroup_2bc790 *q);
     Child_2bc790 *FUN_002ba8d0(Reader_2bc790 *r, Factory_2bc790 *factory);
     void FUN_002a4b00(void *a, Reader_2bc790 *r, Factory_2bc790 *factory);
     void FUN_002bc790(Parent_2bc790 *parent, Reader_2bc790 *r, Factory_2bc790 *factory);
@@ -179,17 +179,17 @@ void Group_2bc790::FUN_002bc790(Parent_2bc790 *parent, Reader_2bc790 *r, Factory
     name2[n2] = 0;
     r->stream->FUN_002647e0(&fr.count, 1, 4, 1);
     fr.len = fr.count != 0;
-    Quad_2bc790 *o;
+    BillboardCutOffQuadGroup_2bc790 *o;
     if (fr.len == 1) {
         void *mem = FUN_00263ea0(0xd0);
         o = 0;
         if (mem != 0)
-            o = ((Quad_2bc790 *)mem)->FUN_002bc660();
+            o = ((BillboardCutOffQuadGroup_2bc790 *)mem)->FUN_002bc660();
     } else {
         void *mem = FUN_00263ea0(0x98);
         o = 0;
         if (mem != 0)
-            o = ((Quad_2bc790 *)mem)->FUN_002bc580();
+            o = ((BillboardCutOffQuadGroup_2bc790 *)mem)->FUN_002bc580();
     }
     FUN_002a46d0(parent->p48, o);
     parent->name.FUN_0027b040(name1);

@@ -5,12 +5,12 @@ struct Tmp {
     Tmp* Init(const char*, int) throw();
     ~Tmp() throw();
 };
-struct Base {
-    Base(Tmp*, const U64*, int, int) throw();
+struct SeqEventType_2555c0 {
+    SeqEventType_2555c0(Tmp*, const U64*, int, int) throw();
     virtual void f();
 };
-struct Cross : Base {
-    Cross() throw();
+struct SeqEventCrossFadeType_2555c0 : SeqEventType_2555c0 {
+    SeqEventCrossFadeType_2555c0() throw();
     virtual void f();
 };
-Cross::Cross() throw() : Base(Tmp().Init("X-Fade", 0), &(U64 const&)(GetType("SeqEventCrossFade", 0, 0)), 0x34, 4) {}
+SeqEventCrossFadeType_2555c0::SeqEventCrossFadeType_2555c0() throw() : SeqEventType_2555c0(Tmp().Init("X-Fade", 0), &(U64 const&)(GetType("SeqEventCrossFade", 0, 0)), 0x34, 4) {}

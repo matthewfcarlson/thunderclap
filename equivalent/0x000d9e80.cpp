@@ -13,11 +13,11 @@ struct State_d9e80 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d9e80* FUN_00086280(); };
 Menu_d9e80* __cdecl FUN_000fc3d0();
 void __cdecl FUN_000fc020(char*, int, int, int);
-struct Target_d9e80 {
+struct FEMemCardControl_d9e80 {
  char pad0[0x21c]; int field21c; char pad1[0x35c-0x220]; Item_d9e80 items[1]; char pad2[0x3b0-0x394]; unsigned char flag3b0; char pad3[0x3eb-0x3b1]; unsigned char flag3eb;
  void FUN_000d9e80(int index);
 };
-void Target_d9e80::FUN_000d9e80(int index) {
+void FEMemCardControl_d9e80::FUN_000d9e80(int index) {
  char buffer[1024];
  Menu_d9e80* menu=FUN_000fc3d0();
  Save* save=menu->v44();

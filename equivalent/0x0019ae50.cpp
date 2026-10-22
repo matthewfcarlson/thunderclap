@@ -29,7 +29,7 @@ public:
 
 struct Pool_19ae50 {
     int FUN_001b6b00(int id, V3_19ae50 *a);
-    void FUN_001b6d00(int id, class Projectile_19ae50 *p);
+    void FUN_001b6d00(int id, class ProjectileEffect_19ae50 *p);
 };
 
 struct World {
@@ -58,7 +58,7 @@ struct Cfg_19ae50 {
     int f7c;
 };
 
-class Projectile_19ae50 : public Refd_19ae50 {
+class ProjectileEffect_19ae50 : public Refd_19ae50 {
 public:
     char pad04[0x14 - 4];
     int f14;
@@ -69,7 +69,7 @@ public:
     V3_19ae50 f34;
     V3_19ae50 f40;
     float f4c;
-    Projectile_19ae50 *FUN_00195a90(Cfg_19ae50 *cfg);
+    ProjectileEffect_19ae50 *FUN_00195a90(Cfg_19ae50 *cfg);
 };
 
 struct Target_19ae50 : Refd_19ae50 {
@@ -208,9 +208,9 @@ bool FireProjectileAction::vfunc_5(int a1, Slot_19ae50 a2)
         int slot = f.pool->FUN_001b6b00(id, &f.a);
         if (slot >= 0) {
             void *mem = (*(Allocator*)&DAT_004e2210).FUN_0008fe90(0x50);
-            Projectile_19ae50 *proj;
+            ProjectileEffect_19ae50 *proj;
             if (mem)
-                proj = ((Projectile_19ae50 *)mem)->FUN_00195a90(cfg);
+                proj = ((ProjectileEffect_19ae50 *)mem)->FUN_00195a90(cfg);
             else
                 proj = 0;
             proj->AddRef();

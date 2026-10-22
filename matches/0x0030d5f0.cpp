@@ -6,9 +6,9 @@ struct Trio_30d5f0 {
         c = 0;
     }
 };
-struct Sub_30d5f0 {
+struct SymMatrix_30d5f0 {
     char pad[0x1c];
-    Sub_30d5f0() throw();
+    SymMatrix_30d5f0() throw();
 };
 void* operator new(unsigned) throw();
 
@@ -47,8 +47,8 @@ class PhysicsJoint {
     char pad1[0x1c];
     Trio_30d5f0 t;
     char pad2[0x1c];
-    Sub_30d5f0 s48;
-    Sub_30d5f0 s64;
+    SymMatrix_30d5f0 s48;
+    SymMatrix_30d5f0 s64;
     char pad3[0x120 - 0x80];
 };
 

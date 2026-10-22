@@ -9,9 +9,9 @@ class Chunk {
     void init();
     char pad[0x1c];
 };
-class physics_ImpulseBasedCollisionSolver_2f7fc0 {
+class ImpulseBasedCollisionSolver_2f7fc0 {
   public:
-    virtual ~physics_ImpulseBasedCollisionSolver_2f7fc0();
+    virtual ~ImpulseBasedCollisionSolver_2f7fc0();
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
@@ -24,8 +24,8 @@ class physics_ImpulseBasedCollisionSolver_2f7fc0 {
     char pad2[0x14];
     Ref_2f7fc0* rfc;
 };
-void thunk_FUN_00267090(physics_ImpulseBasedCollisionSolver_2f7fc0*);
-physics_ImpulseBasedCollisionSolver_2f7fc0::~physics_ImpulseBasedCollisionSolver_2f7fc0() {
+void thunk_FUN_00267090(ImpulseBasedCollisionSolver_2f7fc0*);
+ImpulseBasedCollisionSolver_2f7fc0::~ImpulseBasedCollisionSolver_2f7fc0() {
     if (r4)
         r4->f1();
     if (rfc)

@@ -11,7 +11,7 @@ struct Node {
     int context;
     char pad10[8];
 };
-class BaseShader {
+class pddiBaseShader_327aa0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -37,7 +37,7 @@ class BaseShader {
     char pad4[8];
     int id;
 };
-unsigned char BaseShader::f7(int key, int arg) {
+unsigned char pddiBaseShader_327aa0::f7(int key, int arg) {
     Node* p = get();
     if (p) {
         while (p->key) {

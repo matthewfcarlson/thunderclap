@@ -1,6 +1,6 @@
-class Base {
+class Track_1477a0 {
   public:
-    Base();
+    Track_1477a0();
     virtual void f();
     char pad[8];
 };
@@ -13,7 +13,7 @@ class PartB {
   public:
     PartB();
 };
-class GrappleExecuteTrack : public Base {
+class GrappleExecuteTrack : public Track_1477a0 {
   public:
     GrappleExecuteTrack();
     virtual void f();
@@ -23,4 +23,4 @@ class GrappleExecuteTrack : public Base {
     int c;
     PartB q;
 };
-GrappleExecuteTrack::GrappleExecuteTrack() : Base(), a(0), b(-1.0f), p(), c(-1000), q() {}
+GrappleExecuteTrack::GrappleExecuteTrack() : Track_1477a0(), a(0), b(-1.0f), p(), c(-1000), q() {}

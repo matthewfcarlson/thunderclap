@@ -2,7 +2,7 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" char DAT_00424b0c[];
-class CSoundVoiceManager {
+class Method3_1f4980 {
   public:
     void Init(void*, int);
     hulk_intptr vf;
@@ -14,9 +14,9 @@ class CSoundVoiceManager {
     char b18;
     char pad19[3];
     int a;
-    CSoundVoiceManager* Fn(void*, int);
+    Method3_1f4980* Fn(void*, int);
 };
-CSoundVoiceManager* CSoundVoiceManager::Fn(void* p, int v) {
+Method3_1f4980* Method3_1f4980::Fn(void* p, int v) {
     Init(p, 3);
     vf = ((hulk_intptr)DAT_00424b0c);
     a = v;

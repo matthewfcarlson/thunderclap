@@ -3,9 +3,9 @@ class Ref {
     virtual void AddRef();
     virtual void Release();
 };
-class Base {
+class Action_1170b0 {
   public:
-    Base();
+    Action_1170b0();
     virtual void Fn();
     char pad[24];
 };
@@ -22,7 +22,7 @@ struct Triple {
         p = r;
     }
 };
-class MotionBoostAction : public Base {
+class MotionBoostAction : public Action_1170b0 {
   public:
     MotionBoostAction(int, Ref*);
     virtual void Fn();
@@ -31,7 +31,7 @@ class MotionBoostAction : public Base {
     int d;
     int e;
 };
-MotionBoostAction::MotionBoostAction(int x, Ref* r) : Base() {
+MotionBoostAction::MotionBoostAction(int x, Ref* r) : Action_1170b0() {
     t.a = x;
     t.Set(r);
     e = 0;

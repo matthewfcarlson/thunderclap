@@ -6,12 +6,12 @@ class Ref_1b120 {
     virtual void F0();
     virtual void Release();
 };
-class Base_1b120 {
+class CAction_1b120 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_1b120 : public Base_1b120 {
+class CWeaponCollisionAction_1b120 : public CAction_1b120 {
   public:
     char pad_1c[0x18];
     Ref_1b120* m1c;
@@ -19,9 +19,9 @@ class Obj_1b120 : public Base_1b120 {
     Ref_1b120* m24;
     char pad_7c[0x54];
     Ref_1b120* m7c;
-    ~Obj_1b120();
+    ~CWeaponCollisionAction_1b120();
 };
-Obj_1b120::~Obj_1b120() {
+CWeaponCollisionAction_1b120::~CWeaponCollisionAction_1b120() {
     vptr = gD;
     _ReadWriteBarrier();
     if (m24) {

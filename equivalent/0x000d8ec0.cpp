@@ -13,11 +13,11 @@ extern Provider_d8ec0* __cdecl FUN_000fc3d0();
 extern void __cdecl FUN_000fc020(char*, int, const char*);
 struct State_d8ec0 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d8ec0* FUN_00086280(); };
-struct Target_d8ec0 {
+struct FEMemCardControl_d8ec0 {
  char p0[0x21c]; int state; char p1[0x3b0-0x220]; unsigned char active; char p2[0x3eb-0x3b1]; unsigned char mode;
  void FUN_000d8ec0(int, int);
 };
-void Target_d8ec0::FUN_000d8ec0(int, int) {
+void FEMemCardControl_d8ec0::FUN_000d8ec0(int, int) {
  char buffer[1024];
  Menu_d8ec0* menu = FUN_000fc3d0()->v44();
  int id = menu->FUN_000f7d30((*(const char**)&DAT_004a0c94));

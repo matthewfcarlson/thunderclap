@@ -6,20 +6,20 @@ class Ref_2e14b0 {
     virtual void f0();
     virtual void Release();
 };
-class Root_2e14b0 {
+class PrimGroup_2e14b0 {
   public:
     void* vptr;
     void Fini();
 };
-class D : public Root_2e14b0 {
+class PrimGroupOptimized_2e14b0 : public PrimGroup_2e14b0 {
   public:
     char p[0x3c];
     Ref_2e14b0* a40;
     char q[0x14];
     Ref_2e14b0* a58;
-    D* vfunc2(unsigned char f);
+    PrimGroupOptimized_2e14b0* vfunc2(unsigned char f);
 };
-D* D::vfunc2(unsigned char f) {
+PrimGroupOptimized_2e14b0* PrimGroupOptimized_2e14b0::vfunc2(unsigned char f) {
     vptr = &vt1_2e14b0;
     _ReadWriteBarrier();
     if (a58) {

@@ -52,7 +52,7 @@ struct StageCache_32c520 {
     char pad104[0x108 - 0x104];
     unsigned int textureFactor;
 };
-class ReflShader {
+class d3dReflShader_32c520 {
   public:
     void FUN_0032a320(int a, int b);
     void FUN_0032a260();
@@ -73,7 +73,7 @@ class ReflShader {
     unsigned int color;
     void vfunc_14(int unused);
 };
-void ReflShader::vfunc_14(int) {
+void d3dReflShader_32c520::vfunc_14(int) {
     unsigned int c = color;
     unsigned int t1 = (0xff - alpha) * ((c >> 8) & 0xffff0000);
     unsigned int t2 = (0xff - alpha) * ((c >> 8) & 0xff0000);

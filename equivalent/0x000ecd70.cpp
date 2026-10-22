@@ -5,14 +5,14 @@
 
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 
-class WindowBase {
+class FEControl_ecd70 {
 public:
-    WindowBase(int arg) throw();
+    FEControl_ecd70(int arg) throw();
     virtual void vfunc_0();
     char pad04[0x150 - 4];
 };
 
-class TextWindow : public WindowBase {
+class TextWindow : public FEControl_ecd70 {
 public:
     int f150, f154, f158, f15c, f160;
     int cells[0x200];       // 0x164
@@ -26,7 +26,7 @@ public:
 };
 
 TextWindow::TextWindow(int arg) throw()
-    : WindowBase(arg)
+    : FEControl_ecd70(arg)
 {
     f150 = 0;
     f154 = 0;

@@ -9,15 +9,15 @@ class Ref_2c2620 {
   public:
     virtual void Del(int);
 };
-class D {
+class TextureLoader_2c2620 {
   public:
     void* vptr;
     char p[0x10];
     Obj_2c2620* a14;
     Ref_2c2620* a18;
-    D* vfunc2(unsigned char f);
+    TextureLoader_2c2620* vfunc2(unsigned char f);
 };
-D* D::vfunc2(unsigned char f) {
+TextureLoader_2c2620* TextureLoader_2c2620::vfunc2(unsigned char f) {
     Obj_2c2620* o = a14;
     vptr = &vt1_2c2620;
     if (o) {

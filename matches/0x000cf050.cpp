@@ -3,21 +3,21 @@
 
 extern "C" char DAT_0040a590[];
 extern "C" char DAT_0048e10c[];
-class Base_cf050 {
+class Function_cf050 {
   public:
     void Init(int, int);
 };
 extern "C" char __cdecl GetFlag(const char*);
-class Obj_cf050 : public Base_cf050 {
+class Method4_cf050 : public Function_cf050 {
   public:
     hulk_intptr v;
     char pad[0x14];
     char m18;
     char pad2[3];
     int n;
-    Obj_cf050(int, int);
+    Method4_cf050(int, int);
 };
-Obj_cf050::Obj_cf050(int a, int b) {
+Method4_cf050::Method4_cf050(int a, int b) {
     Init(a, 4);
     v = ((hulk_intptr)DAT_0040a590);
     n = b;

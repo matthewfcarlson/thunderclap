@@ -5,14 +5,14 @@ class RefObj_10f8b0 {
     virtual void Release();
 };
 
-class ActionBase_10f8b0 {
+class Action_10f8b0 {
   public:
-    ActionBase_10f8b0();
+    Action_10f8b0();
     virtual void Update();
     char pad[0x18];
 };
 
-class AIHistorySetAction_10f8b0 : public ActionBase_10f8b0 {
+class AIHistorySetAction_10f8b0 : public Action_10f8b0 {
   public:
     int mTarget;
     RefObj_10f8b0* mObj;

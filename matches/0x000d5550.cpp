@@ -5,7 +5,7 @@
 #include "decls/data/game/global.h"
 extern "C" char DAT_0040b1a8[];
 
-class Callback_d5550 {
+class Method7_d5550 {
   public:
     hulk_intptr vptr;
     char pad4[12];
@@ -15,10 +15,10 @@ class Callback_d5550 {
     char pad19[3];
     void* owner;
     void FUN_001d0480(void*, int);
-    Callback_d5550* Init(void*, void*);
+    Method7_d5550* Init(void*, void*);
 };
 
-Callback_d5550* Callback_d5550::Init(void* name, void* value) {
+Method7_d5550* Method7_d5550::Init(void* name, void* value) {
     FUN_001d0480(name, 7);
     vptr = (hulk_intptr)DAT_0040b1a8;
     owner = value;

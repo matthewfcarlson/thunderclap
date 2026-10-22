@@ -29,13 +29,13 @@ struct World {
     Sink_3acf0 *sink;
 };
 
-struct Fighter_3acf0;
+struct CCharacter_3acf0;
 
 struct Obj_3acf0;
 
 struct Owner_3acf0 {
     char pad0[8];
-    Fighter_3acf0 *holder;
+    CCharacter_3acf0 *holder;
     int count;
 };
 
@@ -60,7 +60,7 @@ struct Slot_3acf0 {
     Matrix m;
 };
 
-struct Fighter_3acf0 {
+struct CCharacter_3acf0 {
     char pad0[0x10];
     int *f10;
     char pad14[0x12c - 0x14];
@@ -74,7 +74,7 @@ struct Fighter_3acf0 {
 };
 
 
-char Fighter_3acf0::FUN_0003acf0(int slot, Obj_3acf0 *newObj, int a3, int a4, int a5, Matrix *m)
+char CCharacter_3acf0::FUN_0003acf0(int slot, Obj_3acf0 *newObj, int a3, int a4, int a5, Matrix *m)
 {
     World *g = DAT_004dd700;
     if (slot < 0 || slot >= 8)
@@ -94,7 +94,7 @@ char Fighter_3acf0::FUN_0003acf0(int slot, Obj_3acf0 *newObj, int a3, int a4, in
     if (newObj != 0) {
         Owner_3acf0 *o = newObj->owner;
         if (o != 0 && o->count == 1 && o->holder != 0) {
-            Fighter_3acf0 *h = o->holder;
+            CCharacter_3acf0 *h = o->holder;
             for (int j = 0; j < 8; j++) {
                 if (h->FUN_00035ef0(j) == newObj && (h != this || j != slot)) {
                     h->FUN_0003acf0(j, 0, -1, 0, 0, 0);

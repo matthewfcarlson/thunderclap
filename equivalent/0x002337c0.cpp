@@ -24,7 +24,7 @@ public:
     void FUN_00232c90();
 };
 
-class Parser_2337c0;
+class Branch_2337c0;
 
 class Handler_2337c0 {
 public:
@@ -39,17 +39,17 @@ public:
     virtual void vfunc_8();
     virtual void Parse(int a0, Lexer *lexer, int index);
     char pad04[0x10];
-    Parser_2337c0 *parent;
+    Branch_2337c0 *parent;
 };
 
 struct NodeCtorA { Handler_2337c0 *FUN_0023c620(); };
-struct Node_nv_2337c0 {
+struct Node_2337c0 {
     Handler_2337c0 *FUN_00231940();
 };
-struct Store_nv_2337c0 {
+struct Store_2337c0 {
     Handler_2337c0 *FUN_0023c500();
 };
-struct Reference_nv_2337c0 {
+struct Reference_2337c0 {
     Handler_2337c0 *FUN_0023c2c0();
 };
 
@@ -63,14 +63,14 @@ extern "C" int FUN_00266da0(hulk_intptr v);
 extern "C" void FUN_00232cc0(Lexer *lexer, const char *msg);
 void *__cdecl FUN_00263ea0(unsigned int size);
 
-class Parser_2337c0 {
+class Branch_2337c0 {
 public:
     char pad0[0x1c];
     ScopeNode *scopes;
     char ParseBlock(int a0, Lexer *lexer, int index);
 };
 
-char Parser_2337c0::ParseBlock(int a0, Lexer *lexer, int index)
+char Branch_2337c0::ParseBlock(int a0, Lexer *lexer, int index)
 {
     int saved = FUN_00266da0(FUN_00238190(2));
 
@@ -89,15 +89,15 @@ char Parser_2337c0::ParseBlock(int a0, Lexer *lexer, int index)
         } else if (lexer->TokenType() == DAT_004e5b70) {
             mem = FUN_00263ea0(0x30);
             if (mem)
-                h = ((Node_nv_2337c0*)(((fight::Node *)mem)))->FUN_00231940();
+                h = ((Node_2337c0*)(((fight::Node *)mem)))->FUN_00231940();
         } else if (lexer->TokenType() == (*(__int64*)&DAT_004e5ba8)) {
             mem = FUN_00263ea0(0x28);
             if (mem)
-                h = ((Store_nv_2337c0*)(((fight::Store *)mem)))->FUN_0023c500();
+                h = ((Store_2337c0*)(((fight::Store *)mem)))->FUN_0023c500();
         } else if (lexer->TokenType() == (*(__int64*)&DAT_004e5b10)) {
             mem = FUN_00263ea0(0x38);
             if (mem)
-                h = ((Reference_nv_2337c0*)(((fight::Reference *)mem)))->FUN_0023c2c0();
+                h = ((Reference_2337c0*)(((fight::Reference *)mem)))->FUN_0023c2c0();
         } else {
             FUN_00232cc0(lexer, "Unexpected token.");
             lexer->FUN_00232c90();

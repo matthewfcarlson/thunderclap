@@ -7,12 +7,12 @@ class Ref_21e60 {
     virtual void F0();
     virtual void Release();
 };
-class Base_21e60 {
+class CAction_21e60 {
   public:
     void* vptr;
     void Fin();
 };
-class CSmartPropUpdateAttachmentAction_21e60 : public Base_21e60 {
+class CSmartPropUpdateAttachmentAction_21e60 : public CAction_21e60 {
   public:
     char pad[0x18];
     Ref_21e60* m1c;

@@ -1,4 +1,4 @@
-class Caster {
+class TrackFactoryCasterTemplate_19c6f0 {
   public:
     virtual void Cast();
 };
@@ -6,9 +6,9 @@ class Obj {
   public:
     void Set(void*);
 };
-extern void* Find(void*, Caster*);
+extern void* Find(void*, TrackFactoryCasterTemplate_19c6f0*);
 void target(Obj* o, void* name) {
-    Caster c;
+    TrackFactoryCasterTemplate_19c6f0 c;
     void* p = Find(name, &c);
     o->Set(p);
 }

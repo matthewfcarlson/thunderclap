@@ -46,7 +46,7 @@ public:
     Id64_22990 id;            // 8
 };
 
-class choreo2_AnimationDriver_22990 : public choreo2_Driver_22990 {
+class AnimationDriver_22990 : public choreo2_Driver_22990 {
 public:
     char pad10[0x10];
     Animation *anim;    // 0x20
@@ -58,7 +58,7 @@ public:
     float f230;
     char b234;
     char pad235[0xb];
-    choreo2_AnimationDriver_22990 *FUN_00225950(void *rig, Animation *anim);
+    AnimationDriver_22990 *FUN_00225950(void *rig, Animation *anim);
     void FUN_002224a0(int v);
     void FUN_00225e00(float t, V3_22990 v);
     void FUN_00225cf0(float v);
@@ -87,7 +87,7 @@ struct LayerSet_22990 {
     unsigned int count;
     void *FUN_002226b0();
     choreo2_Driver_22990 *FUN_00222e20(unsigned int index);
-    void FUN_00222890(choreo2_AnimationDriver_22990 *d, float r, float a, float b, float c, float e, float f);
+    void FUN_00222890(AnimationDriver_22990 *d, float r, float a, float b, float c, float e, float f);
 };
 LayerSet_22990 *__fastcall FUN_00059a40(Context *ctx);
 
@@ -156,7 +156,7 @@ public:
     char pad04[0x18];
     Owner_22990 *owner;                    // 0x1c
     ProcData *data;                  // 0x20
-    choreo2_AnimationDriver_22990 *driver; // 0x24
+    AnimationDriver_22990 *driver; // 0x24
 };
 
 bool CProceduralDurationAnimationAction::vfunc_6(int arg)
@@ -183,7 +183,7 @@ bool CProceduralDurationAnimationAction::vfunc_6(int arg)
             choreo2_Driver_22990 *d = layers->FUN_00222e20(i);
             if (d->id.lo != lo || d->id.hi != hi)
                 continue;
-            choreo2_AnimationDriver_22990 *ad = dynamic_cast<choreo2_AnimationDriver_22990 *>(d);
+            AnimationDriver_22990 *ad = dynamic_cast<AnimationDriver_22990 *>(d);
             if (ad != 0 && ad->anim == anim) {
                 driver = ad;
                 break;
@@ -195,7 +195,7 @@ bool CProceduralDurationAnimationAction::vfunc_6(int arg)
 
     bool created;
     if (driver == 0) {
-        choreo2_AnimationDriver_22990 *nd = (choreo2_AnimationDriver_22990 *)thunk_FUN_0008d690(0x240);
+        AnimationDriver_22990 *nd = (AnimationDriver_22990 *)thunk_FUN_0008d690(0x240);
         if (nd != 0)
             nd = nd->FUN_00225950(layers->FUN_002226b0(), anim);
         driver = nd;
@@ -209,7 +209,7 @@ bool CProceduralDurationAnimationAction::vfunc_6(int arg)
     ProcData *cfg = data;
     unsigned int key2Lo = cfg->key2Lo;
     unsigned int key2Hi = cfg->key2Hi;
-    choreo2_AnimationDriver_22990 *drv = driver;
+    AnimationDriver_22990 *drv = driver;
     if ((key2Lo | key2Hi) != 0) {
         int r = FUN_00059a30(FUN_000592a0(owner))->inner->rig->FUN_0027b670(key2Lo, key2Hi);
         if (r != 0)

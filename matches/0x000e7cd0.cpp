@@ -13,13 +13,13 @@ class Out_e7cd0 {
   public:
     virtual void Fn(Arg_e7cd0*, unsigned int);
 };
-class Obj_e7cd0 {
+class FEThingsBase_e7cd0 {
   public:
     char pad[0x2220];
     char flag;
     void Target(Arg_e7cd0*, Out_e7cd0*);
 };
-void Obj_e7cd0::Target(Arg_e7cd0* arg, Out_e7cd0* out) {
+void FEThingsBase_e7cd0::Target(Arg_e7cd0* arg, Out_e7cd0* out) {
     bool b = false;
     char c = arg->F90();
     while (c) {

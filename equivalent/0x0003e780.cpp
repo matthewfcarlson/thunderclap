@@ -45,7 +45,7 @@ struct AnchorOwner {
     Anchor_3e780 *FUN_00059a40();
 };
 
-struct CCharacter_nv_3e780 {
+struct CCharacter_3e780 {
     unsigned __int64 FUN_000443c0();
 };
 
@@ -103,7 +103,7 @@ bool Actor_3e780::FUN_0003e780(void *a1, Vec3_3e780 *target, float maxDist, bool
     Vec3_3e780 &W = fr.W;
     Vec3_3e780 &tmp = fr.tmp;
     P = elems->items[index].pos;
-    if (((CCharacter_nv_3e780*)(hasher))->FUN_000443c0() == FUN_0027b020("tank"))
+    if (((CCharacter_3e780*)(hasher))->FUN_000443c0() == FUN_0027b020("tank"))
         P.y = P.y + 1.0f;
 
     D.x = target->x - P.x;

@@ -1,9 +1,9 @@
-class Base_292d70 {
+class Entity_292d70 {
   public:
     virtual void b0();
-    Base_292d70();
+    Entity_292d70();
 };
-class Camera : public Base_292d70 {
+class Camera : public Entity_292d70 {
   public:
     virtual void v0() = 0;
     virtual void v1() = 0;
@@ -22,7 +22,7 @@ class Camera : public Base_292d70 {
     unsigned char flag;
     Camera();
 };
-Camera::Camera() : Base_292d70() {
+Camera::Camera() : Entity_292d70() {
     vfunc_5(1.5707964f, 1.0f);
     a = 1.0f;
     b = 1000.0f;

@@ -6,7 +6,7 @@ struct Name_106900 {
     void FUN_0027b040(const char* s);
 };
 
-class Entry_106900 {
+class CPatrolPath_106900 {
 public:
     virtual void v0();
     virtual void v1();
@@ -15,7 +15,7 @@ public:
     char pad09[15];
     char flag;
     char pad19[7];
-    Entry_106900* FUN_00106510(int n);
+    CPatrolPath_106900* FUN_00106510(int n);
 };
 
 unsigned __int64 __cdecl FUN_0027afb0(const char* s);
@@ -24,7 +24,7 @@ void* __cdecl thunk_FUN_0008d690(unsigned int size);
 class Registry_106900 {
 public:
     int FUN_00106290(unsigned __int64 key);
-    void FUN_001062d0(Entry_106900* e);
+    void FUN_001062d0(CPatrolPath_106900* e);
     bool Add(const char* name, char flag, int n);
 };
 
@@ -36,9 +36,9 @@ bool Registry_106900::Add(const char* name, char flag, int n)
         return false;
 
     void* mem = thunk_FUN_0008d690(0x20);
-    Entry_106900* e = 0;
+    CPatrolPath_106900* e = 0;
     if (mem != 0)
-        e = ((Entry_106900*)mem)->FUN_00106510(n);
+        e = ((CPatrolPath_106900*)mem)->FUN_00106510(n);
     e->v0();
     e->name.FUN_0027b040(name);
     e->flag = flag;

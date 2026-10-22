@@ -1,10 +1,10 @@
-class Base {
+class Track_124440 {
   public:
-    Base();
+    Track_124440();
     virtual void f();
     char pad[4];
 };
-class ClearProjectileDistanceTrack : public Base {
+class ClearProjectileDistanceTrack : public Track_124440 {
   public:
     ClearProjectileDistanceTrack();
     int a;

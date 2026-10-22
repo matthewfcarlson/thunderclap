@@ -6,7 +6,7 @@ class Base_15f680 {
     virtual void f0();
     virtual void f1();
 };
-class Obj_15f680 {
+class HeliLocomotionAction_15f680 {
   public:
     virtual void slot0();
     void tail();
@@ -14,7 +14,7 @@ class Obj_15f680 {
     Base_15f680* p20;
     Base_15f680* p24;
 };
-void Obj_15f680::slot0() {
+void HeliLocomotionAction_15f680::slot0() {
     *(void**)this = (void*)((hulk_intptr)DAT_00415b00);
     _ReadWriteBarrier();
     if (p24) {

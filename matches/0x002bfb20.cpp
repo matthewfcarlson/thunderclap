@@ -1,12 +1,12 @@
 extern int ImageVtable;
-struct Ctor_0027b070 {
-    Ctor_0027b070();
+struct Entity_0027b070 {
+    Entity_0027b070();
 };
 class Sub_2bfb20 {
   public:
     void Copy(const Sub_2bfb20*);
 };
-struct Image : public Ctor_0027b070 {
+struct Image : public Entity_0027b070 {
     int* vt;
     char pad4[0x0c];
     int m10;
@@ -19,7 +19,7 @@ struct Image : public Ctor_0027b070 {
     unsigned char m29;
     Image(const Image*);
 };
-Image::Image(const Image* src) : Ctor_0027b070() {
+Image::Image(const Image* src) : Entity_0027b070() {
     vt = &ImageVtable;
     if (src)
         ((Sub_2bfb20*)((char*)this + 8))->Copy((const Sub_2bfb20*)((const char*)src + 8));

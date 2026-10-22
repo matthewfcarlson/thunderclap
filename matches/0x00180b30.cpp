@@ -1,8 +1,8 @@
-class Base {
+class Condition_180b30 {
   public:
-    virtual ~Base() throw();
+    virtual ~Condition_180b30() throw();
 };
-class CSMPropIsCharacterCondition : public Base {
+class CSMPropIsCharacterCondition : public Condition_180b30 {
   public:
     virtual ~CSMPropIsCharacterCondition() throw();
 };

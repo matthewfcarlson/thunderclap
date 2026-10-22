@@ -48,7 +48,7 @@ struct Base {
     Base *FUN_002b8e80();
 };
 
-struct Obj : public Base {
+struct BillboardCutOffQuad_2bb0b0 : public Base {
     char padd0[4];
     int d4;
     int d8;
@@ -59,7 +59,7 @@ struct Obj : public Base {
     int ec;
     int f0;
     char padf4[0x110 - 0xf4];
-    Obj *FUN_002b9520();
+    BillboardCutOffQuad_2bb0b0 *FUN_002b9520();
 };
 
 union FI {
@@ -156,9 +156,9 @@ Base *__stdcall FUN_002bb0b0(Stream *s, void *ctx)
 
         if (kind == 0x474e53 || kind == 0x4c4244) {
             void *mem = thunk_FUN_0008d690(0x110);
-            Obj *o = 0;
+            BillboardCutOffQuad_2bb0b0 *o = 0;
             if (mem)
-                o = ((Obj *)mem)->FUN_002b9520();
+                o = ((BillboardCutOffQuad_2bb0b0 *)mem)->FUN_002b9520();
             int a = f.f4.i;
             int b = f.f8.i;
             o->ic8 = 3;
@@ -171,9 +171,9 @@ Base *__stdcall FUN_002bb0b0(Stream *s, void *ctx)
             generic = false;
         } else if (kind == 0x4d4143) {
             void *mem = thunk_FUN_0008d690(0x110);
-            Obj *o = 0;
+            BillboardCutOffQuad_2bb0b0 *o = 0;
             if (mem)
-                o = ((Obj *)mem)->FUN_002b9520();
+                o = ((BillboardCutOffQuad_2bb0b0 *)mem)->FUN_002b9520();
             int a = f.f4.i;
             int b = f.f8.i;
             o->ic8 = 0;

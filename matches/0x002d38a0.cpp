@@ -7,21 +7,21 @@ class Ref_2d38a0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_2d38a0 {
+class ParticleGenerator_2d38a0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_2d38a0 : public Base_2d38a0 {
+class ParticlePointGenerator_2d38a0 : public ParticleGenerator_2d38a0 {
   public:
     char pad[0x18];
     unsigned m1c;
     char pad2[0x08];
     Ref_2d38a0* m28;
     Ref_2d38a0** m2c;
-    ~Obj_2d38a0();
+    ~ParticlePointGenerator_2d38a0();
 };
-Obj_2d38a0::~Obj_2d38a0() {
+ParticlePointGenerator_2d38a0::~ParticlePointGenerator_2d38a0() {
     vptr = g_vftable_0042f0d8;
     _ReadWriteBarrier();
     if (m28) {

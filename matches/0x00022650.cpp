@@ -6,18 +6,18 @@ class Ref_22650 {
     virtual void F0();
     virtual void Release();
 };
-class Base_22650 {
+class CAction_22650 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_22650 : public Base_22650 {
+class CDeathAction_22650 : public CAction_22650 {
   public:
     char pad[0x1c - 4];
     Ref_22650* m;
-    Obj_22650* f2(unsigned char flags);
+    CDeathAction_22650* f2(unsigned char flags);
 };
-Obj_22650* Obj_22650::f2(unsigned char flags) {
+CDeathAction_22650* CDeathAction_22650::f2(unsigned char flags) {
     vptr = g_vftable_22650;
     _ReadWriteBarrier();
     if (m) {

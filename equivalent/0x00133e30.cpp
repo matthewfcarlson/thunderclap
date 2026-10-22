@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00133e30 @ 0x00133e30
 inline void* operator new(unsigned int, void* p) { return p; }
-struct Base { virtual void dummy(); char pad[4]; int enabled; int state; void FUN_00236d40(); };
-struct FlyingAutoTargetTrack : Base {
+struct Track_133e30 { virtual void dummy(); char pad[4]; int enabled; int state; void FUN_00236d40(); };
+struct FlyingAutoTargetTrack : Track_133e30 {
  float a,b,c,d,e,f,g,h; int i,j,k;
  virtual void dummy();
  FlyingAutoTargetTrack* FUN_00133e30();

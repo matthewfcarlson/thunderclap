@@ -2,12 +2,12 @@
 #include "decls/data/game/global.h"
 
 extern "C" char DAT_00404c50[];
-class Base_9aaf0 {
+class Function_9aaf0 {
   public:
     void Init(int, int);
 };
 extern unsigned char __cdecl GetValue(const char*);
-class Obj_9aaf0 : public Base_9aaf0 {
+class Method3_9aaf0 : public Function_9aaf0 {
   public:
     hulk_intptr vt;
     char pad4[0x0c];
@@ -16,9 +16,9 @@ class Obj_9aaf0 : public Base_9aaf0 {
     unsigned char b18;
     char pad19[3];
     int field1c;
-    Obj_9aaf0(int a, int b);
+    Method3_9aaf0(int a, int b);
 };
-Obj_9aaf0::Obj_9aaf0(int a, int b) {
+Method3_9aaf0::Method3_9aaf0(int a, int b) {
     Init(a, 3);
     vt = ((hulk_intptr)DAT_00404c50);
     field1c = b;

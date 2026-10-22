@@ -19,7 +19,7 @@ struct ResourceName_13b90 {
     void FUN_0027b040(const char *name);
 };
 
-class JointObject_13b90 {
+class JointDriver_13b90 {
 public:
     virtual void vfunc_0();
     char pad04[4];
@@ -27,13 +27,13 @@ public:
     unsigned int flags;
     Transform_13b90 transform;
     char rest[0x70 - 0x18 - sizeof(Transform_13b90)];
-    JointObject_13b90 *FUN_002248f0(unsigned int id);
+    JointDriver_13b90 *FUN_002248f0(unsigned int id);
 };
 
 struct Scene_13b90 {
     char pad0[0x10];
     Pose pose;
-    void FUN_00222890(JointObject_13b90 *obj, float a, int b, float c, float d, float e, float f);
+    void FUN_00222890(JointDriver_13b90 *obj, float a, int b, float c, float d, float e, float f);
 };
 
 struct Mount_13b90 {
@@ -124,7 +124,7 @@ public:
     char pad04[0x18];
     void *owner;
     Input_13b90 *input;
-    JointObject_13b90 *joint;
+    JointDriver_13b90 *joint;
     float f28;
     float f2c;
     float f30;
@@ -139,9 +139,9 @@ char CJumpAction::vfunc_6(int arg)
         return 0;
 
     void *mem = FUN_00263ea0(0x70);
-    JointObject_13b90 *obj = 0;
+    JointDriver_13b90 *obj = 0;
     if (mem)
-        obj = ((JointObject_13b90 *)mem)->FUN_002248f0(0);
+        obj = ((JointDriver_13b90 *)mem)->FUN_002248f0(0);
     joint = obj;
 
     obj->name.FUN_0027b040("jump");

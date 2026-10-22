@@ -75,7 +75,7 @@ struct Screen_d92c0 {
                       int n, const char* s1, const char* s2);
 };
 
-class Menu_d92c0 {
+class FEMemCardControl_d92c0 {
 public:
     void run(int idx);
     char p0[0x21c];
@@ -94,7 +94,7 @@ public:
 extern TextOwner* FUN_000fc3d0();
 void FUN_000fc020(char* buf, int n, const char* fmt, ...);
 
-void Menu_d92c0::run(int idx)
+void FEMemCardControl_d92c0::run(int idx)
 {
     char buf[0x400];
     Screen_d92c0* screen = (Screen_d92c0*)FUN_000fc3d0();

@@ -10,12 +10,12 @@ class Del_ef400 {
   public:
     virtual void D(int);
 };
-class Base_ef400 {
+class FEContainer_ef400 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_ef400 : public Base_ef400 {
+class FEScreenBase_ef400 : public FEContainer_ef400 {
   public:
     char p[0x98c];
     Ref_ef400* m990;
@@ -26,9 +26,9 @@ class Obj_ef400 : public Base_ef400 {
     void* hvptr;
     char pad[4];
     Del_ef400* e[32];
-    ~Obj_ef400() throw();
+    ~FEScreenBase_ef400() throw();
 };
-Obj_ef400::~Obj_ef400() throw() {
+FEScreenBase_ef400::~FEScreenBase_ef400() throw() {
     *(void* volatile*)&vptr = g_vftable_ef400;
     Ref_ef400* t = *(Ref_ef400* volatile*)&m990;
     if (t) {

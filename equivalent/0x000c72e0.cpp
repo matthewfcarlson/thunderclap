@@ -28,10 +28,10 @@ struct Pos_c72e0 {
     void FUN_00059a50(V3_c72e0 *out);
 };
 
-struct Fade_c72e0 {
+struct ShaderFloatBroadcast_c72e0 {
     virtual void v0();
     virtual void v1();
-    Fade_c72e0 *FUN_0028ee60(int tag, float f);
+    ShaderFloatBroadcast_c72e0 *FUN_0028ee60(int tag, float f);
 };
 
 struct Eff_c72e0 {
@@ -39,7 +39,7 @@ struct Eff_c72e0 {
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(int a, int b);
     virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12();
-    virtual void v13(Fade_c72e0 *f);
+    virtual void v13(ShaderFloatBroadcast_c72e0 *f);
     virtual void v14();
 };
 
@@ -160,9 +160,9 @@ void Self_c72e0::FUN_000c72e0()
             d = 60.0f;
         float f = (float)(d / 60.0f * 0.6f);
         void *mem = FUN_0008d690(0x10);
-        Fade_c72e0 *fd = 0;
+        ShaderFloatBroadcast_c72e0 *fd = 0;
         if (mem != 0)
-            fd = ((Fade_c72e0 *)mem)->FUN_0028ee60(0x45444146, f);
+            fd = ((ShaderFloatBroadcast_c72e0 *)mem)->FUN_0028ee60(0x45444146, f);
         fd->v0();
         int i0 = e->idx;
         if (slots[i0].a != 0) {

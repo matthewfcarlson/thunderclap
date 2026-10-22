@@ -5,13 +5,13 @@ class Ref_2863d0 {
     virtual void F0();
     virtual void Release();
 };
-struct Target_2863d0 {
+struct FrameControllerLoader_2863d0 {
     void* vf;
     char pad[0x14];
     Ref_2863d0* arr[4];
     void Dtor() throw();
 };
-void Target_2863d0::Dtor() throw() {
+void FrameControllerLoader_2863d0::Dtor() throw() {
     vf = vFCL;
     Ref_2863d0** p = arr;
     for (int i = 4; i; --i) {

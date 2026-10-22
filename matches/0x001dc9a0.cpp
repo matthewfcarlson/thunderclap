@@ -12,14 +12,14 @@ struct Flag_1dc9a0 {
     char pad[16];
     unsigned char bits;
 };
-class Obj_1dc9a0 {
+class CSPManager_1dc9a0 {
   public:
     char pad[0x608];
     Entry_1dc9a0 entries[1];
     int Find(int);
     void Func(int key, int val);
 };
-void Obj_1dc9a0::Func(int key, int val) {
+void CSPManager_1dc9a0::Func(int key, int val) {
     int n = Find(key);
     if (n >= 0) {
         Entry_1dc9a0* e = &entries[n];

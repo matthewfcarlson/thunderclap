@@ -63,13 +63,13 @@ struct Anims {
     Handle_164690 *a3;
 };
 
-class Blend_164690 {
+class LocomotionSteerDriver_164690 {
 public:
     virtual void AddRef();
     virtual void Release();
     char pad4[4];
     Name_164690 name;
-    Blend_164690 *FUN_00229760(Sub_164690 *skel, int zero, int mode, Anims *anims, int zero2);
+    LocomotionSteerDriver_164690 *FUN_00229760(Sub_164690 *skel, int zero, int mode, Anims *anims, int zero2);
     void FUN_00222550(int a, int b);
 };
 
@@ -81,14 +81,14 @@ struct Track {
     unsigned int count;
     Item *FUN_00222e20(unsigned int index);
     Sub_164690 *FUN_002226b0();
-    void FUN_00222890(Blend_164690 *a, float t, int c40, float one, int c44, int c48, float m1);
+    void FUN_00222890(LocomotionSteerDriver_164690 *a, float t, int c40, float one, int c44, int c48, float m1);
 };
 
 struct Fighter_164690 { char pad[4]; };
 Fighter_164690 *__fastcall FUN_000592a0(void *owner);
 void *__fastcall FUN_00059a30(Fighter_164690 *f);
 Track *__fastcall FUN_00059a40(Fighter_164690 *f);
-void __cdecl FUN_0015cfd0(Sub_164690 *skel, Blend_164690 *b);
+void __cdecl FUN_0015cfd0(Sub_164690 *skel, LocomotionSteerDriver_164690 *b);
 
 class Config_164690 {
 public:
@@ -121,7 +121,7 @@ public:
     char pad04[0x18];
     Config_164690 *cfg;
     void *owner;
-    Blend_164690 *cur;
+    LocomotionSteerDriver_164690 *cur;
 };
 
 bool GrappleLocomotionSteerAction::vfunc_3(int a, int b)
@@ -171,7 +171,7 @@ bool GrappleLocomotionSteerAction::vfunc_3(int a, int b)
         fr.s0.found->AddRef();
     if (cur)
         cur->Release();
-    cur = (Blend_164690 *)fr.s0.found;
+    cur = (LocomotionSteerDriver_164690 *)fr.s0.found;
 
     if (!fr.s0.found) {
         Config_164690 *c0 = cfg;
@@ -223,10 +223,10 @@ bool GrappleLocomotionSteerAction::vfunc_3(int a, int b)
         fr.anims.a1 = fr.s1.anim1;
         fr.anims.a2 = anim2;
         fr.anims.a3 = anim3;
-        Blend_164690 *created;
+        LocomotionSteerDriver_164690 *created;
         void *mem = FUN_00263ea0(0x910);
         if (mem)
-            created = ((Blend_164690 *)mem)->FUN_00229760(fr.skel, 0, mode, &fr.anims, 0);
+            created = ((LocomotionSteerDriver_164690 *)mem)->FUN_00229760(fr.skel, 0, mode, &fr.anims, 0);
         else
             created = 0;
         if (created)

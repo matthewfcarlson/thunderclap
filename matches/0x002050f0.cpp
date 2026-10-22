@@ -3,13 +3,13 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 extern "C" char DAT_00425b54[];
-class Base_2050f0 {
+class Function_2050f0 {
   public:
     void Init(int, int);
 };
-class Target_2050f0 : public Base_2050f0 {
+class Method3_2050f0 : public Function_2050f0 {
   public:
-    Target_2050f0(int, int);
+    Method3_2050f0(int, int);
     void* vf;
     char pad04[0x0c];
     unsigned char b10, b11, b12;
@@ -18,7 +18,7 @@ class Target_2050f0 : public Base_2050f0 {
     char pad19[3];
     int mgr;
 };
-Target_2050f0::Target_2050f0(int a, int b) {
+Method3_2050f0::Method3_2050f0(int a, int b) {
     Init(a, 3);
     vf = (void*)((hulk_intptr)DAT_00425b54);
     mgr = b;

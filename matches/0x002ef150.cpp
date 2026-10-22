@@ -1,9 +1,9 @@
-class A {
+class CollisionDetector_2ef150 {
   public:
     void f();
     char pad[0x40];
 };
-class B {
+class ImpulseBasedCollisionSolver_2ef150 {
   public:
     void f();
     char pad[0x100];
@@ -16,8 +16,8 @@ class Obj {
   public:
     void clean();
     char p0[0x70];
-    A a;
-    B b;
+    CollisionDetector_2ef150 a;
+    ImpulseBasedCollisionSolver_2ef150 b;
     C c;
 };
 extern Obj* gObj;

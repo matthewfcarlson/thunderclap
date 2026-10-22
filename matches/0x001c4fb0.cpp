@@ -15,7 +15,7 @@ class Ref_1c4fb0 {
     virtual void V9();
     virtual void V10(int);
 };
-class Base_1c4fb0 {
+class GameDrawableInfo_1c4fb0 {
   public:
     void* vptr;
     void Fin();
@@ -26,7 +26,7 @@ struct Sub_1c4fb0 {
     char c;
 };
 void __fastcall SubFini(Sub_1c4fb0*) throw();
-class Obj_1c4fb0 : public Base_1c4fb0 {
+class Object_1c4fb0 : public GameDrawableInfo_1c4fb0 {
   public:
     char pad[4];
     Sub_1c4fb0 sub;
@@ -34,9 +34,9 @@ class Obj_1c4fb0 : public Base_1c4fb0 {
     Ref_1c4fb0* m10;
     Ref_1c4fb0* m14;
     Ref_1c4fb0* m18;
-    ~Obj_1c4fb0() throw();
+    ~Object_1c4fb0() throw();
 };
-Obj_1c4fb0::~Obj_1c4fb0() throw() {
+Object_1c4fb0::~Object_1c4fb0() throw() {
     vptr = g_vftable_1c4fb0;
     if (m14)
         m14->V10(0);

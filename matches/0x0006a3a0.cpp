@@ -4,16 +4,16 @@ struct Name_6a3a0 {
     void FUN_0027af00();
 };
 
-class __declspec(novtable) TrackBase_6a3a0 {
+class __declspec(novtable) CTrack_6a3a0 {
 public:
     virtual void b0();
     int pad04;
     int mode;
     void FUN_00236d40();
-    TrackBase_6a3a0() { FUN_00236d40(); }
+    CTrack_6a3a0() { FUN_00236d40(); }
 };
 
-class CCameraDramaticTrack : public TrackBase_6a3a0 {
+class CCameraDramaticTrack : public CTrack_6a3a0 {
 public:
     virtual void v1();
     virtual void v2();

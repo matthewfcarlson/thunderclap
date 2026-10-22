@@ -1,9 +1,9 @@
 extern char keyA[];
 extern char keyB[];
 extern "C" unsigned char __cdecl Lookup(const char*);
-class Base {
+class Function_1fff10 {
   public:
-    Base(const char*, int);
+    Function_1fff10(const char*, int);
     virtual void Run();
     char pad[12];
     unsigned char a;
@@ -13,9 +13,9 @@ class Base {
     int v;
     int w;
 };
-class Method1 : public Base {
+class Method1 : public Function_1fff10 {
   public:
-    Method1(const char* s, int x, int y) : Base(s, 1) {
+    Method1(const char* s, int x, int y) : Function_1fff10(s, 1) {
         v = y;
         b = Lookup(keyA);
         a = Lookup(keyB);

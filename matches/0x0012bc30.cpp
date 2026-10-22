@@ -5,18 +5,18 @@ class Str_12bc30 {
   public:
     void Init();
 };
-class Base_12bc30 {
+class Condition_12bc30 {
   public:
     void* vptr;
     char pad[20];
     Str_12bc30 s;
     void Fin();
 };
-class Cond_12bc30 : public Base_12bc30 {
+class ThreatDistanceCondition_12bc30 : public Condition_12bc30 {
   public:
     void* Del(unsigned char flags);
 };
-void* Cond_12bc30::Del(unsigned char flags) {
+void* ThreatDistanceCondition_12bc30::Del(unsigned char flags) {
     vptr = g_vftable_12bc30;
     s.Init();
     Fin();

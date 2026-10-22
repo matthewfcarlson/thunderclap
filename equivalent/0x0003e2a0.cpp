@@ -43,7 +43,7 @@ struct MatList {
 };
 
 
-class Actor_3e2a0 {
+class CCharacter_3e2a0 {
 public:
     char pad00[0x10];
     Anchor_3e2a0* anchor;
@@ -59,7 +59,7 @@ public:
     void FUN_0003e2a0(int a, Vec3_3e2a0 off, float scale, int unused, bool enable);
 };
 
-void Actor_3e2a0::FUN_0003e2a0(int a, Vec3_3e2a0 off, float scale, int unused, bool enable)
+void CCharacter_3e2a0::FUN_0003e2a0(int a, Vec3_3e2a0 off, float scale, int unused, bool enable)
 {
     if (!enable)
         return;

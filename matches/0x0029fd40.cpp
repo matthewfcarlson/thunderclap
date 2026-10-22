@@ -27,12 +27,12 @@ struct S2_29fd40 {
         r0->Release();
     }
 };
-class Root_29fd40 {
+class Entity_29fd40 {
   public:
     void* vptr;
-    ~Root_29fd40() throw();
+    ~Entity_29fd40() throw();
 };
-class D : public Root_29fd40 {
+class LightsChooser_29fd40 : public Entity_29fd40 {
   public:
     void Fini() throw();
     char p[0x28];
@@ -44,9 +44,9 @@ class D : public Root_29fd40 {
     S_29fd40* s40;
     S2_29fd40* s44;
     void* a48;
-    ~D() throw();
+    ~LightsChooser_29fd40() throw();
 };
-D::~D() throw() {
+LightsChooser_29fd40::~LightsChooser_29fd40() throw() {
     vptr = &vt1_29fd40;
     Fini();
     if (s2c)

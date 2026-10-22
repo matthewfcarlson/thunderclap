@@ -1,9 +1,9 @@
-class Base_edf60 {
+class FEControl_edf60 {
   public:
-    Base_edf60(int);
-    virtual ~Base_edf60();
+    FEControl_edf60(int);
+    virtual ~FEControl_edf60();
 };
-class ImageSelector : public Base_edf60 {
+class ImageSelector : public FEControl_edf60 {
   public:
     char pad[0x14c];
     int b[0x40];
@@ -11,7 +11,7 @@ class ImageSelector : public Base_edf60 {
     int a[8];
     ImageSelector(int);
 };
-ImageSelector::ImageSelector(int arg) : Base_edf60(arg) {
+ImageSelector::ImageSelector(int arg) : FEControl_edf60(arg) {
     a[0] = 0;
     a[1] = 0;
     a[2] = 0;

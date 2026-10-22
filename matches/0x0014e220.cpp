@@ -1,15 +1,15 @@
-struct Base {
+struct Track_14e220 {
     int vptr;
-    Base();
+    Track_14e220();
 };
-struct H : Base {
+struct HealthTrack_14e220 : Track_14e220 {
     char pad[8];
     int m0c;
     int m10;
     char m14, m15, m16;
-    H();
+    HealthTrack_14e220();
 };
-H::H() : Base() {
+HealthTrack_14e220::HealthTrack_14e220() : Track_14e220() {
     m0c = 0;
     m10 = 0;
     m14 = 0;

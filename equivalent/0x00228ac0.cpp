@@ -55,7 +55,7 @@ struct Slot_228ac0 {
     int f204;
 };
 
-class Blender_228ac0 {
+class LocomotionSteerDriver_228ac0 {
 public:
     char pad00[0x10];
     Info_228ac0 *info;
@@ -70,7 +70,7 @@ public:
     void FUN_00228ac0(unsigned int index, Obj_228ac0 **objs, float weight);
 };
 
-void Blender_228ac0::FUN_00228ac0(unsigned int index, Obj_228ac0 **objs, float weight)
+void LocomotionSteerDriver_228ac0::FUN_00228ac0(unsigned int index, Obj_228ac0 **objs, float weight)
 {
     if (index >= maxIndex)
         return;

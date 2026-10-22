@@ -6,14 +6,14 @@ class Ref_2bb050 {
     virtual void F0();
     virtual void Release();
 };
-class Obj_2bb050 {
+class BillboardObjectLoader_2bb050 {
   public:
     void* vptr;
     char pad[0x10];
     Ref_2bb050* m14;
-    ~Obj_2bb050();
+    ~BillboardObjectLoader_2bb050();
 };
-Obj_2bb050::~Obj_2bb050() {
+BillboardObjectLoader_2bb050::~BillboardObjectLoader_2bb050() {
     vptr = g_vftable_2bb050;
     _ReadWriteBarrier();
     if (m14) {

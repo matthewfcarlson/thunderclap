@@ -3,13 +3,13 @@ class Ref {
     virtual void Add();
     virtual void Release();
 };
-class Base {
+class Action_15e1b0 {
   public:
     virtual void f();
     char pad[24];
-    Base();
+    Action_15e1b0();
 };
-class LocomotionSprintAction : public Base {
+class LocomotionSprintAction : public Action_15e1b0 {
   public:
     int x;
     Ref* p;
@@ -17,7 +17,7 @@ class LocomotionSprintAction : public Base {
     LocomotionSprintAction(int, Ref*);
     virtual void f();
 };
-LocomotionSprintAction::LocomotionSprintAction(int v, Ref* q) : Base() {
+LocomotionSprintAction::LocomotionSprintAction(int v, Ref* q) : Action_15e1b0() {
     volatile int* px = &x;
     *px = 0;
     p = 0;

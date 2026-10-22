@@ -9,7 +9,7 @@ class File {
 };
 } // namespace core
 extern "C" void* __cdecl alloc(hulk_intptr);
-class Obj {
+class FileCancelRequest_276120 {
   public:
     int init(core::File*);
 };
@@ -18,7 +18,7 @@ class Manager {
     void finish(int, int, int);
 };
 void core::File::vfunc_17() {
-    Obj* p = (Obj*)alloc(12);
+    FileCancelRequest_276120* p = (FileCancelRequest_276120*)alloc(12);
     int v = p ? p->init(this) : 0;
     ((Manager*)ptr)->finish(v, size, 1);
 }

@@ -1,6 +1,6 @@
-class Base {
+class Track_10d430 {
   public:
-    Base();
+    Track_10d430();
     virtual void f();
     char pad[8];
 };
@@ -8,7 +8,7 @@ class Sub {
   public:
     Sub();
 };
-class AIHistorySetTrack : public Base {
+class AIHistorySetTrack : public Track_10d430 {
   public:
     AIHistorySetTrack();
     virtual void f();
@@ -18,6 +18,6 @@ class AIHistorySetTrack : public Base {
     char gap[3];
     Sub sub;
 };
-AIHistorySetTrack::AIHistorySetTrack() : Base(), a(0), b(-1.0f), c(0), sub() {
+AIHistorySetTrack::AIHistorySetTrack() : Track_10d430(), a(0), b(-1.0f), c(0), sub() {
     *(int*)((char*)this + 8) = 1;
 }

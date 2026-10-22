@@ -39,7 +39,7 @@ public:
     Id64_22ff0 id;            // 8
 };
 
-class choreo2_AnimationDriver_22ff0 : public choreo2_Driver_22ff0 {
+class AnimationDriver_22ff0 : public choreo2_Driver_22ff0 {
 public:
     char pad10[0x214];
     char b224;
@@ -47,7 +47,7 @@ public:
     char pad226[0xe];
     char b234;
     char pad235[0xb];
-    choreo2_AnimationDriver_22ff0 *FUN_00225950(void *rig, Animation *anim);
+    AnimationDriver_22ff0 *FUN_00225950(void *rig, Animation *anim);
 };
 
 class Owner;
@@ -57,7 +57,7 @@ Context *__fastcall FUN_000592a0(Owner *owner);
 struct LayerSet_22ff0 {
     char pad0[0x64];
     void *FUN_002226b0();
-    void FUN_00222890(choreo2_AnimationDriver_22ff0 *d, float a, float b, float c, float e, float f, float g);
+    void FUN_00222890(AnimationDriver_22ff0 *d, float a, float b, float c, float e, float f, float g);
 };
 LayerSet_22ff0 *__fastcall FUN_00059a40(Context *ctx);
 
@@ -88,7 +88,7 @@ struct PoseBinding {
 };
 
 void *thunk_FUN_0008d690(unsigned int size);
-extern void __cdecl FUN_000139b0(void *sub, Owner *owner, choreo2_AnimationDriver_22ff0 *driver);
+extern void __cdecl FUN_000139b0(void *sub, Owner *owner, AnimationDriver_22ff0 *driver);
 
 class CKeyPoseAction {
 public:
@@ -105,7 +105,7 @@ public:
     char pad04[0x18];
     Owner *owner;                    // 0x1c
     PoseBinding *binding;            // 0x20
-    choreo2_AnimationDriver_22ff0 *driver; // 0x24
+    AnimationDriver_22ff0 *driver; // 0x24
 };
 
 bool CKeyPoseAction::vfunc_6(int arg)
@@ -122,7 +122,7 @@ bool CKeyPoseAction::vfunc_6(int arg)
     if (anim == 0)
         return false;
 
-    choreo2_AnimationDriver_22ff0 *nd = (choreo2_AnimationDriver_22ff0 *)thunk_FUN_0008d690(0x240);
+    AnimationDriver_22ff0 *nd = (AnimationDriver_22ff0 *)thunk_FUN_0008d690(0x240);
     if (nd != 0)
         nd = nd->FUN_00225950(layers->FUN_002226b0(), anim);
     driver = nd;

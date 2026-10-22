@@ -1,6 +1,6 @@
-class Base {
+class Track_170c40 {
   public:
-    Base();
+    Track_170c40();
     virtual void f();
     int b;
     int a;
@@ -15,7 +15,7 @@ struct Second {
     float x7;
     Second() : x4(0), x5(0), x6(0), x7(2.0f) {}
 };
-class TeleportRelativeTrack : public Base {
+class TeleportRelativeTrack : public Track_170c40 {
   public:
     TeleportRelativeTrack();
     virtual void f();

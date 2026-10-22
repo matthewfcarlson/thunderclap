@@ -1,9 +1,9 @@
-class Base {
+class Track_133ce0 {
   public:
-    Base();
+    Track_133ce0();
     virtual void f();
 };
-class HoverTrack : public Base {
+class HoverTrack : public Track_133ce0 {
   public:
     HoverTrack();
     char pad[4];

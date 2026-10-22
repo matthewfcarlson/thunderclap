@@ -14,13 +14,13 @@ class Obj_274900 {
     char rest[0x10];
     int count;
 };
-class Owner_274900 {
+class DriveRequest_274900 {
   public:
     void Fn();
     char pad[8];
     Obj_274900* mObj;
 };
-void Owner_274900::Fn() {
+void DriveRequest_274900::Fn() {
     Obj_274900* p = mObj;
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b9bc);
     p->sub.A();

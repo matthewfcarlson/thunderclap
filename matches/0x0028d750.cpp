@@ -7,21 +7,21 @@ class Mem_28d750 {
   public:
     void* Make(unsigned int, int);
 };
-class Base_28d750 {
+class RotationChannel_28d750 {
   public:
-    Base_28d750(int, int);
+    RotationChannel_28d750(int, int);
     virtual void v0();
     int m4, m8;
     Mem_28d750* mc;
     int m10, m14;
 };
-class Q_28d750 : public Base_28d750 {
+class CompressedQuaternionChannel_28d750 : public RotationChannel_28d750 {
   public:
     void* m18;
-    Q_28d750(int, int);
+    CompressedQuaternionChannel_28d750(int, int);
     virtual void v1();
 };
-Q_28d750::Q_28d750(int x, int y) : Base_28d750(x, y) {
+CompressedQuaternionChannel_28d750::CompressedQuaternionChannel_28d750(int x, int y) : RotationChannel_28d750(x, y) {
     m18 = 0;
     if (mc == 0) {
         int n = m10;

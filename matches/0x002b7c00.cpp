@@ -5,12 +5,12 @@ class Ref_2b7c00 {
     virtual void F0();
     virtual void Release();
 };
-class Base_2b7c00 {
+class DrawableContainer_2b7c00 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_2b7c00 : public Base_2b7c00 {
+class PolySkin_2b7c00 : public DrawableContainer_2b7c00 {
   public:
     char pad[0x54];
     Ref_2b7c00* m58;
@@ -20,9 +20,9 @@ class Obj_2b7c00 : public Base_2b7c00 {
     Ref_2b7c00* m68;
     Ref_2b7c00* m6c;
     Ref_2b7c00* m70;
-    ~Obj_2b7c00();
+    ~PolySkin_2b7c00();
 };
-Obj_2b7c00::~Obj_2b7c00() {
+PolySkin_2b7c00::~PolySkin_2b7c00() {
     vptr = g_vftable_2b7c00;
     _ReadWriteBarrier();
     if (m58) {

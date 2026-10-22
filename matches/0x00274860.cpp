@@ -13,14 +13,14 @@ class DriveSub {
     virtual void A();
     virtual void B();
 };
-class Obj_274860 {
+class DriveRequest_274860 {
   public:
     hulk_intptr vf;
     char pad[4];
     Drive* drive;
     void Run();
 };
-void Obj_274860::Run() {
+void DriveRequest_274860::Run() {
     vf = ((hulk_intptr)DAT_0042b9bc);
     ((DriveSub*)((char*)drive + 4))->A();
     --drive->count;

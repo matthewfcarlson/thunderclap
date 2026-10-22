@@ -3,13 +3,13 @@ class Ref_176300 {
     virtual void A();
     virtual void B();
 };
-class Base_176300 {
+class Action_176300 {
   public:
-    Base_176300();
+    Action_176300();
     virtual void V0();
     char pad[0x18];
 };
-class Move_176300 : public Base_176300 {
+class MoveJointAction_176300 : public Action_176300 {
   public:
     int f1c;
     Ref_176300* f20;
@@ -18,10 +18,10 @@ class Move_176300 : public Base_176300 {
     char f50;
     char p[3];
     int f54;
-    Move_176300(int, Ref_176300*);
+    MoveJointAction_176300(int, Ref_176300*);
     virtual void V1();
 };
-Move_176300::Move_176300(int p, Ref_176300* r) {
+MoveJointAction_176300::MoveJointAction_176300(int p, Ref_176300* r) {
     int* q = &f1c;
     *q = 0;
     f20 = 0;

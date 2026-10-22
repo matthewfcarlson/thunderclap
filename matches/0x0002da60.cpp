@@ -3,7 +3,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 extern "C" char DAT_003f424c[];
-class CActorManager {
+class Method3_2da60 {
   public:
     hulk_intptr vf;
     char pad04[0x0c];
@@ -15,9 +15,9 @@ class CActorManager {
     char pad19[3];
     int m1c;
     void Init(void*, int);
-    CActorManager(void*, int);
+    Method3_2da60(void*, int);
 };
-CActorManager::CActorManager(void* p, int x) {
+Method3_2da60::Method3_2da60(void* p, int x) {
     Init(p, 3);
     vf = ((hulk_intptr)DAT_003f424c);
     m1c = x;

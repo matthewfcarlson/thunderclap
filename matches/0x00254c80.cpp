@@ -7,11 +7,11 @@ struct Seq {
     int a;
     int b;
 };
-class Base {
+class SeqCommand_254c80 {
   public:
     virtual void f();
 };
-class Repeat : public Base {
+class SeqCommandLogicRepeat_254c80 : public SeqCommand_254c80 {
   public:
     virtual void f();
     char pad[4];
@@ -19,9 +19,9 @@ class Repeat : public Base {
     int zero;
     hulk_intptr val;
     int count;
-    Repeat(Seq*);
+    SeqCommandLogicRepeat_254c80(Seq*);
 };
-Repeat::Repeat(Seq* s) {
+SeqCommandLogicRepeat_254c80::SeqCommandLogicRepeat_254c80(Seq* s) {
     seq = s;
     zero = 0;
     int index = s->a;

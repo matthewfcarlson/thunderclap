@@ -5,12 +5,12 @@ class Ref_15ead0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_15ead0 {
+class Action_15ead0 {
   public:
     void* vptr;
     void Fin();
 };
-class GrappleLocomotionSteerAction_15ead0 : public Base_15ead0 {
+class GrappleLocomotionSteerAction_15ead0 : public Action_15ead0 {
   public:
     char pad[0x18];
     void* m1c;

@@ -15,9 +15,9 @@ union Quad_ef180 {
     char bytes[16];
 };
 
-class __declspec(novtable) FEWidget_ef180 {
+class __declspec(novtable) FEContainer_ef180 {
 public:
-    FEWidget_ef180(ScreenSource* src, int arg) { FUN_000e4510(src, arg); }
+    FEContainer_ef180(ScreenSource* src, int arg) { FUN_000e4510(src, arg); }
     virtual void v0();
     int f04;
     char pad08[0x990 - 8];
@@ -30,7 +30,7 @@ public:
     virtual void v0();
 };
 
-class FEScreenBase : public FEWidget_ef180 {
+class FEScreenBase : public FEContainer_ef180 {
 public:
     FEScreenBase(ScreenSource* src, int arg);
     virtual void v1();
@@ -76,7 +76,7 @@ public:
     char fbc2;  // 0xbc2
 };
 
-FEScreenBase::FEScreenBase(ScreenSource* src, int arg) : FEWidget_ef180(src, arg)
+FEScreenBase::FEScreenBase(ScreenSource* src, int arg) : FEContainer_ef180(src, arg)
 {
     int i;
     for (i = 0; i < 0x20; i++)

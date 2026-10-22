@@ -7,13 +7,13 @@ struct ThisCall_001d0480 {
 };
 extern const char g1_2fd70[];
 extern const char g2_2fd70[];
-class Target_2fd70 {
+class Closure1_2fd70 {
   public:
     hulk_intptr v;
     char p[0x24];
-    Target_2fd70* Fn(void* a, int b, void* c);
+    Closure1_2fd70* Fn(void* a, int b, void* c);
 };
-Target_2fd70* Target_2fd70::Fn(void* a, int b, void* c) {
+Closure1_2fd70* Closure1_2fd70::Fn(void* a, int b, void* c) {
     ((ThisCall_001d0480*)(this))->FUN_001d0480(a, 1);
     v = ((hulk_intptr)DAT_003f42cc);
     *(hulk_intptr*)((char*)this + 0x1c) = (hulk_intptr)c;

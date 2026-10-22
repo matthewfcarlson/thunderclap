@@ -6,10 +6,10 @@ class Res_310080 {
   public:
     virtual void F0();
 };
-struct Pose_nv_310080 {
+struct Pose_310080 {
     physics::Pose* Init(Res_310080* r);
 };
-class Obj_310080 {
+class PoseEngine_310080 {
   public:
     void* vptr;
     int m4;
@@ -19,16 +19,16 @@ class Obj_310080 {
     int m14;
     int** m18;
     int** m1c;
-    Obj_310080* ctor(Res_310080* a0, int a1, int a2);
+    PoseEngine_310080* ctor(Res_310080* a0, int a1, int a2);
 };
-Obj_310080* Obj_310080::ctor(Res_310080* a0, int a1, int a2) {
+PoseEngine_310080* PoseEngine_310080::ctor(Res_310080* a0, int a1, int a2) {
     m4 = 0;
     vptr = g_vftable_310080;
     m10 = a1;
     m14 = a2;
     physics::Pose* h = (physics::Pose*)operator new(0x10);
     if (h)
-        h = ((Pose_nv_310080*)(h))->Init(a0);
+        h = ((Pose_310080*)(h))->Init(a0);
     else
         h = 0;
     mc = h;

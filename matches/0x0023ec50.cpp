@@ -13,12 +13,12 @@ class Ref_23ec50 {
     virtual void Add();
     virtual void Release();
 };
-class Base_23ec50 {
+class Action_23ec50 {
   public:
-    Base_23ec50();
+    Action_23ec50();
     virtual void B();
 };
-class SpawnAction : public Base_23ec50 {
+class SpawnAction : public Action_23ec50 {
   public:
     SpawnAction(Owner_23ec50* owner, int value, Ref_23ec50* ref);
     virtual void V();
@@ -30,7 +30,7 @@ class SpawnAction : public Base_23ec50 {
     int m50;
     char flag;
 };
-SpawnAction::SpawnAction(Owner_23ec50* owner, int value, Ref_23ec50* ref) : Base_23ec50(), m24(0), inner() {
+SpawnAction::SpawnAction(Owner_23ec50* owner, int value, Ref_23ec50* ref) : Action_23ec50(), m24(0), inner() {
     m50 = 0;
     flag = 0;
     m20 = (hulk_intptr)owner;

@@ -1,9 +1,9 @@
 #include "compat/ptr.h"
 extern "C" char DAT_0042a3e4[];
-struct Base_254c20 {
-    Base_254c20();
+struct SeqEventContainer_254c20 {
+    SeqEventContainer_254c20();
 };
-struct SeqEventLogicRepeat : Base_254c20 {
+struct SeqEventLogicRepeat : SeqEventContainer_254c20 {
     char pad[8];
     int a[5];
     SeqEventLogicRepeat();

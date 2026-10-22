@@ -2,7 +2,7 @@
 extern "C" char DAT_00405b2c[];
 typedef unsigned int u32_ac3c0;
 extern void* gNisCam;
-class Base_ac3c0 {
+class CNISCamera_ac3c0 {
   public:
     void BaseInit();
 };
@@ -15,7 +15,7 @@ class CNISCamera {
     char pad[0x174];
 };
 CNISCamera* __fastcall target(CNISCamera* self) {
-    ((Base_ac3c0*)self)->BaseInit();
+    ((CNISCamera_ac3c0*)self)->BaseInit();
     void* p = gNisCam;
     *(hulk_uintptr*)self = ((hulk_intptr)DAT_00405b2c);
     *(u32_ac3c0*)((char*)self + 0xd0) = 3;

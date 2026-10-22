@@ -3,9 +3,9 @@ class Other_116c10 {
     virtual void AddRef();
     virtual void Release();
 };
-class Base_116c10 {
+class Action_116c10 {
   public:
-    Base_116c10();
+    Action_116c10();
     virtual void X();
     char pad[0x18];
 };
@@ -19,7 +19,7 @@ struct S_116c10 {
         c = 0;
     }
 };
-class MotionChaseAction : public Base_116c10 {
+class MotionChaseAction : public Action_116c10 {
   public:
     virtual void A();
     S_116c10 s;

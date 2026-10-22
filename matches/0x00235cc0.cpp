@@ -15,7 +15,7 @@ class CNameFlagConditionBase : public CCondition {
     char pad[12];
     CNameFlagConditionBase* vfunc_5(int);
 };
-class H {
+class FightNodeTimeCondition_235cc0 {
   public:
     void a();
     void b();
@@ -26,9 +26,9 @@ void thunk_FUN_00267090(void*);
 CNameFlagConditionBase* CNameFlagConditionBase::vfunc_5(int p) {
     CNameFlagConditionBase* s = this;
     *(void (**)())s = &vt_name;
-    ((H*)((char*)s + 0x10))->a();
+    ((FightNodeTimeCondition_235cc0*)((char*)s + 0x10))->a();
     *(void (**)())s = &vt_cond;
-    ((H*)s)->b();
+    ((FightNodeTimeCondition_235cc0*)s)->b();
     if (p & 1)
         thunk_FUN_00267090(s);
     return s;

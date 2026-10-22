@@ -9,7 +9,7 @@ struct ResourceName_ac7d0 {
 
 class CScriptCamera;
 
-class __declspec(novtable) CCameraBase_ac7d0 {
+class __declspec(novtable) CGameCamera_ac7d0 {
 public:
     virtual void v0();
     char pad04[4];
@@ -17,12 +17,12 @@ public:
     char pad0c[0xd0 - 0xc];
     int mode;               // 0xd0
     char padd4[0x170 - 0xd4];
-    CCameraBase_ac7d0 *FUN_000a9400();
-    CCameraBase_ac7d0() { FUN_000a9400(); }
+    CGameCamera_ac7d0 *FUN_000a9400();
+    CGameCamera_ac7d0() { FUN_000a9400(); }
 };
 
 
-class CScriptCamera : public CCameraBase_ac7d0 {
+class CScriptCamera : public CGameCamera_ac7d0 {
 public:
     virtual void v0();
     unsigned char f170;

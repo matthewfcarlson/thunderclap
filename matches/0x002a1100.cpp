@@ -5,12 +5,12 @@ class Root {
     virtual void f();
     char pad[12];
 };
-class Base : public Root {
+class Entity_2a1100 : public Root {
   public:
-    Base() : a(0), b(0) {}
+    Entity_2a1100() : a(0), b(0) {}
     int a, b;
 };
-class LightGroup : public Base {
+class LightGroup : public Entity_2a1100 {
   public:
     LightGroup();
     virtual void f();

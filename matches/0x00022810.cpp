@@ -7,20 +7,20 @@ class Ref_22810 {
     virtual void F0();
     virtual void Release();
 };
-class Base_22810 {
+class CAction_22810 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_22810 : public Base_22810 {
+class CHeliDeathSpiralAction_22810 : public CAction_22810 {
   public:
     char pad[0x1c - 4];
     Ref_22810* m1c;
     char pad2[4];
     Ref_22810* m24;
-    Obj_22810* f2(unsigned char flags);
+    CHeliDeathSpiralAction_22810* f2(unsigned char flags);
 };
-Obj_22810* Obj_22810::f2(unsigned char flags) {
+CHeliDeathSpiralAction_22810* CHeliDeathSpiralAction_22810::f2(unsigned char flags) {
     vptr = g_vA;
     _ReadWriteBarrier();
     if (m24) {

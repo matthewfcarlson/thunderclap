@@ -12,14 +12,14 @@ class Elem_274d80 {
     virtual void B();
 };
 extern void FUN_002705f0();
-struct Target_274d80 {
+struct DriveCompletionRequest_274d80 {
     hulk_intptr vf, p4, p8;
     Obj_274d80* pC;
     Obj_274d80* p10;
     int p14;
-    Target_274d80(int, int, Obj_274d80*, int);
+    DriveCompletionRequest_274d80(int, int, Obj_274d80*, int);
 };
-Target_274d80::Target_274d80(int a, int b, Obj_274d80* c, int d) {
+DriveCompletionRequest_274d80::DriveCompletionRequest_274d80(int a, int b, Obj_274d80* c, int d) {
     vf = ((hulk_intptr)DAT_0042b914);
     p4 = 0;
     FUN_002705f0();

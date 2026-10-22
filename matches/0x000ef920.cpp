@@ -18,7 +18,7 @@ struct B_ef920 {
     void Fin() throw();
 };
 extern Ref_ef920* g_ref_ef920;
-class Obj_ef920 {
+class FEThingsBase_ef920 {
   public:
     void* vptr;
     A_ef920* m4;
@@ -43,9 +43,9 @@ class Obj_ef920 {
     void* hvptr;
     char pp2080[4];
     Del_ef920* ii[32];
-    ~Obj_ef920() throw();
+    ~FEThingsBase_ef920() throw();
 };
-Obj_ef920::~Obj_ef920() throw() {
+FEThingsBase_ef920::~FEThingsBase_ef920() throw() {
     vptr = g_vftable_ef920;
     for (int i = 0; i < 64; i++)
         if (a[i]) {

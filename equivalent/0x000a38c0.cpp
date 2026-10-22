@@ -52,7 +52,7 @@ struct Frame_a38c0 {
     V3_a38c0 o;          // E-0x0c
 };
 
-class Cam_a38c0 {
+class CChaseCamera_a38c0 {
 public:
     char pad000[0x194];
     V3_a38c0 p194;
@@ -114,7 +114,7 @@ public:
     void Update(float unused, float dt);
 };
 
-void Cam_a38c0::Update(float unused, float dt)
+void CChaseCamera_a38c0::Update(float unused, float dt)
 {
     Frame_a38c0 f;
     float dt0 = dt;

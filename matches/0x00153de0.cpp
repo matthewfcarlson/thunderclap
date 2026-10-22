@@ -1,13 +1,13 @@
-class Base {
+class ParamValueInt_153de0 {
   public:
     virtual void f();
-    Base(int);
+    ParamValueInt_153de0(int);
 };
-class Range : public Base {
+class ParamIntConstRange_153de0 : public ParamValueInt_153de0 {
   public:
     virtual void f();
     char pad[12];
     int value;
-    Range(int a, int b);
+    ParamIntConstRange_153de0(int a, int b);
 };
-Range::Range(int a, int b) : Base(a), value(b) {}
+ParamIntConstRange_153de0::ParamIntConstRange_153de0(int a, int b) : ParamValueInt_153de0(a), value(b) {}

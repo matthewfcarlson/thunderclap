@@ -1,14 +1,14 @@
-class Base {
+class ParamValueInt_5bcf0 {
   public:
-    virtual ~Base();
-    Base(int a);
+    virtual ~ParamValueInt_5bcf0();
+    ParamValueInt_5bcf0(int a);
 };
-class Obj : public Base {
+class ParamIntConstRange_5bcf0 : public ParamValueInt_5bcf0 {
   public:
     char pad[12];
     int mVal;
-    Obj(int a, int b);
+    ParamIntConstRange_5bcf0(int a, int b);
 };
-Obj::Obj(int a, int b) : Base(a) {
+ParamIntConstRange_5bcf0::ParamIntConstRange_5bcf0(int a, int b) : ParamValueInt_5bcf0(a) {
     mVal = b;
 }

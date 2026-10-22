@@ -7,7 +7,7 @@ class Ref_e8730 {
     virtual void Release();
 };
 void operator delete[](void*) throw();
-class Obj_e8730 {
+class FEPoseAnimation_e8730 {
   public:
     void* vptr;
     char* m4;
@@ -15,9 +15,9 @@ class Obj_e8730 {
     Ref_e8730* mc;
     char p2[0x50];
     Ref_e8730* m60;
-    ~Obj_e8730() throw();
+    ~FEPoseAnimation_e8730() throw();
 };
-Obj_e8730::~Obj_e8730() throw() {
+FEPoseAnimation_e8730::~FEPoseAnimation_e8730() throw() {
     vptr = g_vftable_e8730;
     _ReadWriteBarrier();
     if (mc) {

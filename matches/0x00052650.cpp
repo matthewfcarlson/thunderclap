@@ -8,14 +8,14 @@ class ConditionFactory_52650 {
     void Destroy(); // FUN_00236d60, __thiscall, this in ecx
 };
 
-class CSweepTrack_052650 : public ConditionFactory_52650 {
+class ConditionFactoryTemplate_052650 : public ConditionFactory_52650 {
   public:
-    CSweepTrack_052650* vfunc_5(signed char flags);
+    ConditionFactoryTemplate_052650* vfunc_5(signed char flags);
 };
 
 void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
 
-CSweepTrack_052650* CSweepTrack_052650::vfunc_5(signed char flags) {
+ConditionFactoryTemplate_052650* ConditionFactoryTemplate_052650::vfunc_5(signed char flags) {
     *(void***)this = ConditionFactory_52650_vftable;
     Destroy();
     if (flags & 1) {

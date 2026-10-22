@@ -3,13 +3,13 @@
 struct Vec3_a2cc0 { float x,y,z; };
 void __cdecl FUN_000a04c0(Vec3_a2cc0*, float*, float*, float*);
 float __cdecl FUN_000a02a0(float);
-struct Actor_a2cc0 {
+struct CChaseCamera_a2cc0 {
  char pad0[0x170]; Vec3_a2cc0 position; char pad1[0x1c4-0x17c]; Vec3_a2cc0 previous; char pad2[0x320-0x1d0];
  int state, savedState, nextState; char pad3[0x394-0x32c];
  float speed, targetSpeed, angle, targetAngle, elevation, targetElevation, distance, targetDistance;
  void update(float a, float b, float c, float speedValue, int next);
 };
-void Actor_a2cc0::update(float a,float b,float c,float speedValue,int next) {
+void CChaseCamera_a2cc0::update(float a,float b,float c,float speedValue,int next) {
  savedState = state == 7 ? nextState : state;
  state = 7;
  speed = 0.0f;

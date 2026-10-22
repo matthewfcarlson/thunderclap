@@ -44,8 +44,8 @@ class Closure1 : public Method1<T, R, A> {
     T* owner;
 };
 
-struct ClosureAdjacent {
-    ClosureAdjacent* FUN_00205e30(const char* name, CWorldStreamManager* owner, int (CWorldStreamManager::*fn)(int, int));
+struct Closure2_208210 {
+    Closure2_208210* FUN_00205e30(const char* name, CWorldStreamManager* owner, int (CWorldStreamManager::*fn)(int, int));
 };
 
 class CWorldStreamManager {
@@ -177,9 +177,9 @@ CWorldStreamManager::CWorldStreamManager()
         reg->FUN_00206d50("wm_GetUniqueName", this, &CWorldStreamManager::FUN_00203740);
 
         mem = FUN_0008d690(0x24);
-        ClosureAdjacent* adjacent = 0;
+        Closure2_208210* adjacent = 0;
         if (mem)
-            adjacent = ((ClosureAdjacent*)mem)->FUN_00205e30("wm_GetAdjacentRoom", this, &CWorldStreamManager::FUN_002042a0);
+            adjacent = ((Closure2_208210*)mem)->FUN_00205e30("wm_GetAdjacentRoom", this, &CWorldStreamManager::FUN_002042a0);
         reg->FUN_001d3b70("wm_GetAdjacentRoom", adjacent);
 
         mem = FUN_0008d690(0x24);

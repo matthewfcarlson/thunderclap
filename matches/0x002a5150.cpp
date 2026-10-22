@@ -1,8 +1,8 @@
 // FUN_002a5150 @ 0x002a5150
 // equiv-map: ??0Resource@@QAE@XZ = 0x0027b070
-class Resource {
+class Entity_2a5150 {
 public:
-    Resource();
+    Entity_2a5150();
     virtual void vfunc_0();
     int refs;
 };
@@ -11,7 +11,7 @@ struct Sub_2a5150 {
     void FUN_0027af70(const Sub_2a5150* other);
 };
 namespace pure3d {
-class DrawablePrimitive : public Resource {
+class DrawablePrimitive : public Entity_2a5150 {
 public:
     DrawablePrimitive(const DrawablePrimitive& src);
     virtual void vfunc_0();
@@ -28,7 +28,7 @@ public:
     int f34;
     int f38;
 };
-DrawablePrimitive::DrawablePrimitive(const DrawablePrimitive& src) : Resource() {
+DrawablePrimitive::DrawablePrimitive(const DrawablePrimitive& src) : Entity_2a5150() {
     f10 = src.f10;
     sub.FUN_0027af70(&src.sub);
     f14 = src.f14;

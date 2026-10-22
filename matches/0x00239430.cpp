@@ -1,7 +1,7 @@
-class Base {
+class Track_239430 {
   public:
     virtual void Dummy();
-    Base();
+    Track_239430();
     char pad[8];
 };
 class A {
@@ -13,14 +13,14 @@ class B {
   public:
     B();
 };
-class fight_ExecuteTrack : public Base {
+class ExecuteTrack_239430 : public Track_239430 {
   public:
     virtual void Dummy();
-    fight_ExecuteTrack();
+    ExecuteTrack_239430();
     int x;
     float y;
     A a;
     int z;
     B b;
 };
-fight_ExecuteTrack::fight_ExecuteTrack() : x(0), y(-1.0f), z(-1000) {}
+ExecuteTrack_239430::ExecuteTrack_239430() : x(0), y(-1.0f), z(-1000) {}

@@ -1,13 +1,13 @@
 #include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
 extern int anim_vt;
-class Base_2889b0 {
+class Entity_2889b0 {
   public:
     virtual void B();
     int b[3];
-    Base_2889b0();
+    Entity_2889b0();
 };
-class Animation : public Base_2889b0 {
+class Animation : public Entity_2889b0 {
   public:
     virtual void B();
     Animation();
@@ -17,7 +17,7 @@ class Animation : public Base_2889b0 {
     char pad2[3];
     int x1c[8];
 };
-Animation::Animation() : Base_2889b0() {
+Animation::Animation() : Entity_2889b0() {
     x10 = 0;
     x18 = 0;
     x1c[0] = 0;

@@ -16,7 +16,7 @@ struct P_afd00 {
         }
     }
 };
-class Obj_afd00 {
+class CHapticController_afd00 {
   public:
     void* vptr;
     char pad[8];
@@ -25,7 +25,7 @@ class Obj_afd00 {
     P_afd00* arr;
     void f();
 };
-void Obj_afd00::f() {
+void CHapticController_afd00::f() {
     vptr = g_a_afd00;
     if (arr) {
         for (int i = 0; i < count; i++)

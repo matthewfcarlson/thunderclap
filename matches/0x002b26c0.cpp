@@ -1,6 +1,6 @@
-class Base {
+class FrameController_2b26c0 {
   public:
-    Base();
+    FrameController_2b26c0();
     virtual void vf();
     char pad[0x14];
 };
@@ -8,7 +8,7 @@ struct Tail {
     int l, m;
     Tail(int x) : l(x), m(x) {}
 };
-class MultiController : public Base {
+class MultiController : public FrameController_2b26c0 {
   public:
     MultiController();
     virtual void vf();

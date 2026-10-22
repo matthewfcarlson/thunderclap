@@ -10,8 +10,8 @@ struct Random_1e4e50 { float FUN_000787e0(float,float); };
 struct Vec_1e4e50 { float x,y,z; };
 struct Matrix { float m[16]; void FUN_0022b980(); void FUN_0022ba70(float); void FUN_0022c3b0(Vec_1e4e50*,Vec_1e4e50*); };
 extern void* __cdecl FUN_001d68e0(int);
-struct Effect_1e4e50 { void FUN_001e4c40(void*,Vec_1e4e50*,int,int,Vec_1e4e50*,int); void target(int,float,float,float,float,int); };
-void Effect_1e4e50::target(int type,float x,float y,float z,float scale,int count) {
+struct CSPManager_1e4e50 { void FUN_001e4c40(void*,Vec_1e4e50*,int,int,Vec_1e4e50*,int); void target(int,float,float,float,float,int); };
+void CSPManager_1e4e50::target(int type,float x,float y,float z,float scale,int count) {
  int active=DAT_004dd700->manager->FUN_00086310()->state.FUN_00088fa0();
  int mode=DAT_004dd700->manager->FUN_00086310()->state.FUN_00088fb0();
  if(active==0 && (mode==1 || mode==10) && (type==1 || type==2 || type==3 || type==4)) return;

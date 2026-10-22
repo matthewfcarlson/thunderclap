@@ -11,14 +11,14 @@ public:
     virtual void v1();
 };
 
-class StreamFig : public Stream {
+class StreamDataReader_232870 : public Stream {
 public:
-    StreamFig* FUN_0023bb00(int a, int b);
+    StreamDataReader_232870* FUN_0023bb00(int a, int b);
 };
 
-class StreamChunk : public Stream {
+class StreamStringReader_232870 : public Stream {
 public:
-    StreamChunk* FUN_0023b320(int a, int b);
+    StreamStringReader_232870* FUN_0023b320(int a, int b);
 };
 
 class Model_232870 {
@@ -27,17 +27,17 @@ public:
     virtual void v1();
 };
 
-class ModelFig : public Model_232870 {
+class BinReader_232870 : public Model_232870 {
 public:
-    ModelFig* FUN_0023c260(Stream* s);
+    BinReader_232870* FUN_0023c260(Stream* s);
 };
 
-class ModelChunk : public Model_232870 {
+class ScriptReader_232870 : public Model_232870 {
 public:
-    ModelChunk* FUN_0023b470(Stream* s, int flag);
+    ScriptReader_232870* FUN_0023b470(Stream* s, int flag);
 };
 
-class Dest_232870 {
+class Chunk_232870 {
 public:
     virtual void v0();
     virtual void v1();
@@ -49,10 +49,10 @@ public:
     virtual void v7();
     virtual void v8();
     virtual void v9(int a, Model_232870* m, int b);
-    Dest_232870* FUN_0023b540();
+    Chunk_232870* FUN_0023b540();
 };
 
-Dest_232870* __stdcall FUN_00232870(const char* data, int a1, unsigned int size, int a3)
+Chunk_232870* __stdcall FUN_00232870(const char* data, int a1, unsigned int size, int a3)
 {
     void* guard = FUN_00266da0(FUN_00238190(1));
     Stream* stream;
@@ -62,12 +62,12 @@ Dest_232870* __stdcall FUN_00232870(const char* data, int a1, unsigned int size,
         void* mem = FUN_00263ea0(0x10);
         stream = 0;
         if (mem)
-            stream = ((StreamFig*)mem)->FUN_0023bb00(a1, a3);
+            stream = ((StreamDataReader_232870*)mem)->FUN_0023bb00(a1, a3);
         stream->v0();
         mem = FUN_00263ea0(0x38);
         model = 0;
         if (mem)
-            model = ((ModelFig*)mem)->FUN_0023c260(stream);
+            model = ((BinReader_232870*)mem)->FUN_0023c260(stream);
     } else if (size > 0xc
                && ((const int*)data)[0] == ((const int*)"\r\nfightChunk")[0]
                && ((const int*)data)[1] == ((const int*)"\r\nfightChunk")[1]
@@ -75,12 +75,12 @@ Dest_232870* __stdcall FUN_00232870(const char* data, int a1, unsigned int size,
         void* mem = FUN_00263ea0(0x14);
         stream = 0;
         if (mem)
-            stream = ((StreamChunk*)mem)->FUN_0023b320(a1, a3);
+            stream = ((StreamStringReader_232870*)mem)->FUN_0023b320(a1, a3);
         stream->v0();
         mem = FUN_00263ea0(0x3130);
         model = 0;
         if (mem)
-            model = ((ModelChunk*)mem)->FUN_0023b470(stream, 1);
+            model = ((ScriptReader_232870*)mem)->FUN_0023b470(stream, 1);
     } else {
         FUN_00266da0((hulk_intptr)guard);
         return 0;
@@ -89,9 +89,9 @@ Dest_232870* __stdcall FUN_00232870(const char* data, int a1, unsigned int size,
     model->v0();
     void* inner = FUN_00266da0(FUN_00238190(2));
     void* mem = FUN_00263ea0(0x30);
-    Dest_232870* dest = 0;
+    Chunk_232870* dest = 0;
     if (mem)
-        dest = ((Dest_232870*)mem)->FUN_0023b540();
+        dest = ((Chunk_232870*)mem)->FUN_0023b540();
     dest->v9(0, model, -1);
     FUN_00266da0((hulk_intptr)inner);
     model->v1();

@@ -5,7 +5,7 @@ class Ref_ef820 {
     virtual void F0();
     virtual void Release();
 };
-class Base_ef820 {
+class FEContainer_ef820 {
   public:
     void* vptr;
     void Fin();
@@ -17,13 +17,13 @@ struct Sub_ef820 {
 void __fastcall SubFini(Sub_ef820*) throw();
 void __fastcall SubFini2(Sub_ef820*) throw();
 void __fastcall SubFini3(Sub_ef820*) throw();
-class Obj_ef820 : public Base_ef820 {
+class FEDialog_ef820 : public FEContainer_ef820 {
   public:
     char p9a4[2464];
     Ref_ef820* m9a4;
-    ~Obj_ef820() throw();
+    ~FEDialog_ef820() throw();
 };
-Obj_ef820::~Obj_ef820() throw() {
+FEDialog_ef820::~FEDialog_ef820() throw() {
     vptr = g_vftable_ef820;
     _ReadWriteBarrier();
     if (m9a4) {

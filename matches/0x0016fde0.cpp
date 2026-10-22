@@ -1,10 +1,10 @@
-class Base {
+class Track_16fde0 {
   public:
-    Base();
+    Track_16fde0();
     virtual void f();
     int m;
 };
-class ChargeTrack : public Base {
+class ChargeTrack : public Track_16fde0 {
   public:
     ChargeTrack();
     virtual void f();
@@ -16,7 +16,7 @@ class ChargeTrack : public Base {
     char pad1[3];
     float e;
 };
-ChargeTrack::ChargeTrack() : Base() {
+ChargeTrack::ChargeTrack() : Track_16fde0() {
     a = 0;
     c = 0;
     d = 0;

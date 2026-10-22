@@ -14,7 +14,7 @@ struct Body_2f5a20 {
     float ax, ay, az;
 };
 
-class Anchor_2f5a20 {
+class PhysicsObject_2f5a20 {
 public:
     char pad00[0x10];
     Body_2f5a20 *body;
@@ -25,7 +25,7 @@ public:
     void FUN_002f5a20(V3_2f5a20 *target);
 };
 
-void Anchor_2f5a20::FUN_002f5a20(V3_2f5a20 *target)
+void PhysicsObject_2f5a20::FUN_002f5a20(V3_2f5a20 *target)
 {
     Body_2f5a20 *b = body;
     if (locked) {

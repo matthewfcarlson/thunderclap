@@ -5,12 +5,12 @@ class Ref_10fa20 {
     virtual void F0();
     virtual void Release();
 };
-class Base_10fa20 {
+class Action_10fa20 {
   public:
     void* vptr;
     void Fin();
 };
-class SemaphoreClearAction_10fa20 : public Base_10fa20 {
+class SemaphoreClearAction_10fa20 : public Action_10fa20 {
   public:
     char pad[0x18];
     void* m1c;

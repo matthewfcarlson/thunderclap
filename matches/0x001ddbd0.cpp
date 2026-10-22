@@ -8,14 +8,14 @@ struct Item {
     short a;
     char tail[4];
 };
-class X {
+class CSPManager_1ddbd0 {
   public:
     int Find(int);
     void Run(int, int);
     char pad[0x608];
     Item items[1];
 };
-void X::Run(int id, int v) {
+void CSPManager_1ddbd0::Run(int id, int v) {
     int n = Find(id);
     if (n >= 0) {
         Item* p = &items[n];

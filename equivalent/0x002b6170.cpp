@@ -49,14 +49,14 @@ public:
 
 }
 
-class VertexSet {
+class ShadowMeshVertices_2b6170 {
 public:
     virtual void v0();
     virtual void v1();
     char pad04[0xc];
     V3_2b6170 *f10;
     V3_2b6170 *f14;
-    VertexSet *FUN_002b5070(int a, int b);
+    ShadowMeshVertices_2b6170 *FUN_002b5070(int a, int b);
 };
 
 struct Res_2b6170 {
@@ -65,7 +65,7 @@ struct Res_2b6170 {
     float f2c[4];
     char pad3c[0x44 - 0x3c];
     pure3d::ShadowMeshTopology *f44;
-    VertexSet *f48;
+    ShadowMeshVertices_2b6170 *f48;
 };
 
 struct Target_2b6170 {
@@ -130,9 +130,9 @@ void ShadowMeshLoader::vfunc_5(Target_2b6170 **out, unsigned __int64 *outId, Str
     f.r0->f44 = topo;
 
     void *mem2 = FUN_0008d690(0x18);
-    VertexSet *vs;
+    ShadowMeshVertices_2b6170 *vs;
     if (mem2 != 0)
-        vs = ((VertexSet *)mem2)->FUN_002b5070(f.cntA, f.nf);
+        vs = ((ShadowMeshVertices_2b6170 *)mem2)->FUN_002b5070(f.cntA, f.nf);
     else
         vs = 0;
     if (vs != 0)

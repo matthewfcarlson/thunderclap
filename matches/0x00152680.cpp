@@ -5,12 +5,12 @@ class Ref_152680 {
     virtual void F0();
     virtual void Release();
 };
-class Base_152680 {
+class Action_152680 {
   public:
     void* vptr;
     void Fin();
 };
-class HealthAction_152680 : public Base_152680 {
+class HealthAction_152680 : public Action_152680 {
   public:
     char pad[0x18];
     void* m1c;

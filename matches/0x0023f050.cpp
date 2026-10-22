@@ -24,13 +24,13 @@ class Base {
     int b;
     Base() throw();
 };
-class Child : public Base {
+class SpawnTrack_23f050 : public Base {
   public:
     int c;
     float d;
     PartA x;
     PartB y;
-    Child() throw() : c(0), d(-1.0f) { b = 1; }
+    SpawnTrack_23f050() throw() : c(0), d(-1.0f) { b = 1; }
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -40,5 +40,5 @@ class Child : public Base {
 };
 
 template <> void* fight::TrackFactoryTemplate<fight::SpawnTrack>::vfunc_5() {
-    return (void*)(new Child);
+    return (void*)(new SpawnTrack_23f050);
 }

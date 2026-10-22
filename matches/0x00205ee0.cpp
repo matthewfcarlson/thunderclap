@@ -1,8 +1,8 @@
 extern int g;
 extern unsigned char __cdecl f(int*);
-class Root {
+class Function_205ee0 {
   public:
-    Root(int, int);
+    Function_205ee0(int, int);
     virtual void v0();
     char pad[0x0c];
     unsigned char b10;
@@ -11,9 +11,9 @@ class Root {
     char pad3[3];
     int n1c;
 };
-class Method1 : public Root {
+class Method1 : public Function_205ee0 {
   public:
-    Method1(int x, int z) : Root(x, 1) {
+    Method1(int x, int z) : Function_205ee0(x, 1) {
         n1c = z;
         b18 = f(&g);
         b10 = f(&g);

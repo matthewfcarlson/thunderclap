@@ -1,6 +1,6 @@
-class Root {
+class Function_d0180 {
   public:
-    Root(void*, int);
+    Function_d0180(void*, int);
     virtual void run();
     char pad[12];
     unsigned char a;
@@ -12,9 +12,9 @@ class Root {
 extern "C" unsigned char fn(void*);
 extern void* g1;
 extern void* g2;
-class Method1 : public Root {
+class Method1 : public Function_d0180 {
   public:
-    Method1(void* x, void* y) : Root(x, 1) {
+    Method1(void* x, void* y) : Function_d0180(x, 1) {
         p = y;
         b = fn(&g1);
         a = fn(&g2);

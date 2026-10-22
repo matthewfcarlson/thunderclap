@@ -5,7 +5,7 @@ struct Item {
 };
 extern char buffer[];
 extern void __cdecl format(char*, int, int, int);
-class Obj {
+class CTriggerVolumeManager_1fccb0 {
     char pad[0x238];
     int count;
     Item* items[1];
@@ -13,7 +13,7 @@ class Obj {
   public:
     char* get(int index);
 };
-char* Obj::get(int index) {
+char* CTriggerVolumeManager_1fccb0::get(int index) {
     if (index >= count)
         return 0;
     Item* p = items[index];

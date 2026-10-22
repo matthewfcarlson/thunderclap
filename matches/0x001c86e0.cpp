@@ -23,7 +23,7 @@ struct H {
     int b[4];
     void Fin() throw();
 };
-class Obj_1c86e0 {
+class World_1c86e0 {
   public:
     void* vptr;
     char pad0[4];
@@ -38,7 +38,7 @@ class Obj_1c86e0 {
     Ref_1c86e0* m760;
     void f();
 };
-void Obj_1c86e0::f() {
+void World_1c86e0::f() {
     *(void* volatile*)&vptr = g_a_1c86e0;
     Ref_1c86e0* r8 = *(Ref_1c86e0* volatile*)&m8;
     if (r8) {

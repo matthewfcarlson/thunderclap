@@ -1,19 +1,19 @@
-class Base {
+class SeqEvent_2500e0 {
   public:
     virtual void V();
-    Base();
+    SeqEvent_2500e0();
     int x;
 };
 class Part {
   public:
     void Init(const char*, int);
 };
-class audio_SeqEventWait : public Base {
+class SeqEventWait_2500e0 : public SeqEvent_2500e0 {
   public:
     Part part;
-    audio_SeqEventWait();
+    SeqEventWait_2500e0();
     virtual void V();
 };
-audio_SeqEventWait::audio_SeqEventWait() {
+SeqEventWait_2500e0::SeqEventWait_2500e0() {
     part.Init("($= $myvar true)", 2);
 }

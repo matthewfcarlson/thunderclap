@@ -5,7 +5,7 @@ class Ref_175d10 {
     virtual void F0();
     virtual void Release();
 };
-class Base_175d10 {
+class Action_175d10 {
   public:
     void* vptr;
     void Fin();
@@ -14,16 +14,16 @@ struct Vec_175d10 {
     int a;
     void Destroy();
 };
-class Obj_175d10 : public Base_175d10 {
+class TeleportToLocatorAction_175d10 : public Action_175d10 {
   public:
     char pad[0x1c - 4];
     void* m1c;
     Ref_175d10* m20;
     char pad2[4];
     Vec_175d10 m28;
-    ~Obj_175d10();
+    ~TeleportToLocatorAction_175d10();
 };
-Obj_175d10::~Obj_175d10() {
+TeleportToLocatorAction_175d10::~TeleportToLocatorAction_175d10() {
     vptr = g_vftable_175d10;
     _ReadWriteBarrier();
     if (m20) {

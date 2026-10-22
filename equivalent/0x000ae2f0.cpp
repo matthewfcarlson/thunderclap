@@ -26,7 +26,7 @@ struct Entry_ae2f0 {
     void FUN_000b0740(const char *s);
     void FUN_000b2810();
 };
-struct Table_ae2f0 {
+struct CController_ae2f0 {
     char pad0[0xc];
     char flag;
     char pad1[3];
@@ -37,9 +37,9 @@ struct Table_ae2f0 {
     void FUN_000ae090(int n);
     void FUN_000ae2f0(const char *key);
 };
-void Table_ae2f0::FUN_000ae2f0(const char *key)
+void CController_ae2f0::FUN_000ae2f0(const char *key)
 {
-    Table_ae2f0 *self = this;
+    CController_ae2f0 *self = this;
     int n = count;
     Entry_ae2f0 **p = entries;
     Entry_ae2f0 *e = 0;

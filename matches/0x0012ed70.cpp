@@ -1,10 +1,10 @@
-class Base {
+class Track_12ed70 {
   public:
-    Base();
+    Track_12ed70();
     virtual void fn();
     char pad[4];
 };
-class DebugPrintTrack : public Base {
+class DebugPrintTrack : public Track_12ed70 {
   public:
     DebugPrintTrack();
     int count;
@@ -13,6 +13,6 @@ class DebugPrintTrack : public Base {
     int a;
     int b;
 };
-DebugPrintTrack::DebugPrintTrack() : Base(), p(0), value(-1.0f), a(0), b(0) {
+DebugPrintTrack::DebugPrintTrack() : Track_12ed70(), p(0), value(-1.0f), a(0), b(0) {
     count = 1;
 }

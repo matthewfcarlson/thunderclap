@@ -62,7 +62,7 @@ struct Table_2ad550 {
     void FUN_0027af70(StrField_2ad550 *name);
 };
 
-struct Block_2ad550 {
+struct ParticleSystem_2ad550 {
     char pad0[8];
     StrField_2ad550 name;
     char pad1[0x48 - 0x10];
@@ -74,15 +74,15 @@ struct Block_2ad550 {
     int value;
     char pad4[0xa4 - 0x64];
     void *extra;
-    Block_2ad550 *FUN_002a3660(int arg);
+    ParticleSystem_2ad550 *FUN_002a3660(int arg);
     void FUN_002a3c80(void *extra);
 };
 
-struct ExtraObj {
+struct ParticleController_2ad550 {
     char pad0[8];
     Table_2ad550 table;
     char pad1[0x60 - 0x8 - sizeof(Table_2ad550)];
-    ExtraObj *FUN_002a73d0();
+    ParticleController_2ad550 *FUN_002a73d0();
 };
 
 struct Stream {
@@ -114,7 +114,7 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual unsigned __int64 vfunc_5(Block_2ad550 **out, unsigned __int64 *outHash, Reader *r, int flag);
+    virtual unsigned __int64 vfunc_5(ParticleSystem_2ad550 **out, unsigned __int64 *outHash, Reader *r, int flag);
     char pad04[0x14 - 4];
     int f14;
     Host_2ad550 *f18;
@@ -122,7 +122,7 @@ public:
 };
 }
 
-unsigned __int64 pure3d::OldParticleSystemLoader::vfunc_5(Block_2ad550 **out, unsigned __int64 *outHash, Reader *r, int flag)
+unsigned __int64 pure3d::OldParticleSystemLoader::vfunc_5(ParticleSystem_2ad550 **out, unsigned __int64 *outHash, Reader *r, int flag)
 {
     struct Frame {
         union {
@@ -156,9 +156,9 @@ unsigned __int64 pure3d::OldParticleSystemLoader::vfunc_5(Block_2ad550 **out, un
         *sep = 0;
 
     void *mem = FUN_00263ea0(0xb0);
-    Block_2ad550 *b = 0;
+    ParticleSystem_2ad550 *b = 0;
     if (mem)
-        b = ((Block_2ad550 *)mem)->FUN_002a3660(fr.slot14);
+        b = ((ParticleSystem_2ad550 *)mem)->FUN_002a3660(fr.slot14);
     b->name.FUN_0027b040(fr.buf);
     b->value = fr.slot1c;
     b->count = (float)(unsigned int)fr.slot18;
@@ -179,9 +179,9 @@ unsigned __int64 pure3d::OldParticleSystemLoader::vfunc_5(Block_2ad550 **out, un
 
     if (b->extra == 0) {
         void *m2 = FUN_00263ea0(0x60);
-        ExtraObj *e = 0;
+        ParticleController_2ad550 *e = 0;
         if (m2)
-            e = ((ExtraObj *)m2)->FUN_002a73d0();
+            e = ((ParticleController_2ad550 *)m2)->FUN_002a73d0();
         e->table.FUN_0027af70(&b->name);
         b->FUN_002a3c80(e);
     }

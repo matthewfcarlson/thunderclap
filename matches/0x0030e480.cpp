@@ -11,14 +11,14 @@ struct Base_30e480 {
     void* vptr;
     Base_30e480() throw() { vptr = vA; }
 };
-class O_30e480 : public Base_30e480 {
+class CollisionAnalyser_30e480 : public Base_30e480 {
   public:
     int m4, m8, mc;
     char c10;
     Buf_30e480 b0, b1, b2, b3;
-    O_30e480() throw();
+    CollisionAnalyser_30e480() throw();
 };
-O_30e480::O_30e480() throw() {
+CollisionAnalyser_30e480::CollisionAnalyser_30e480() throw() {
     m8 = 0;
     m4 = 0x14;
     mc = 0;

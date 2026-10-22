@@ -1,8 +1,8 @@
 extern "C" unsigned char getFlag(void*);
 extern int gValue;
-class Root {
+class Function_1f7eb0 {
   public:
-    Root(int, int);
+    Function_1f7eb0(int, int);
     virtual void fn();
     char pad[12];
     unsigned char a;
@@ -12,9 +12,9 @@ class Root {
     int x;
     int y;
 };
-class Method1 : public Root {
+class Method1 : public Function_1f7eb0 {
   public:
-    Method1(int p, int q) : Root(p, 1) {
+    Method1(int p, int q) : Function_1f7eb0(p, 1) {
         x = q;
         b = getFlag(&gValue);
         a = getFlag(&gValue);

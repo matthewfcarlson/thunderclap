@@ -5,12 +5,12 @@ class Ref_18d660 {
     virtual void F0();
     virtual void Release();
 };
-class Base_18d660 {
+class Action_18d660 {
   public:
     void* vptr;
     void Fin();
 };
-class TimerSetAction_18d660 : public Base_18d660 {
+class TimerSetAction_18d660 : public Action_18d660 {
   public:
     char pad[0x18];
     void* m1c;

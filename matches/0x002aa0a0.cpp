@@ -4,16 +4,16 @@ inline void* operator new(unsigned int, void* where) {
     return where;
 }
 
-class Base_2aa0a0 {
+class SimpleFrameController_2aa0a0 {
   public:
-    Base_2aa0a0(void* parent);
+    SimpleFrameController_2aa0a0(void* parent);
     virtual void b0();
     char pad[0x3c];
 };
 
-class EAC : public Base_2aa0a0 {
+class ExpressionAnimationController_2aa0a0 : public SimpleFrameController_2aa0a0 {
   public:
-    EAC(void* parent) : Base_2aa0a0(parent) {
+    ExpressionAnimationController_2aa0a0(void* parent) : SimpleFrameController_2aa0a0(parent) {
         m[0] = 0;
         m[1] = 0;
         m[2] = 0;
@@ -23,16 +23,16 @@ class EAC : public Base_2aa0a0 {
     virtual void f1();
     virtual void f2();
     virtual void f3();
-    virtual EAC* f4();
+    virtual ExpressionAnimationController_2aa0a0* f4();
     void g(int v);
     int m[4];
 };
 
-EAC* EAC::f4() {
-    EAC* p = (EAC*)alloc(0x50);
-    EAC* z = 0;
+ExpressionAnimationController_2aa0a0* ExpressionAnimationController_2aa0a0::f4() {
+    ExpressionAnimationController_2aa0a0* p = (ExpressionAnimationController_2aa0a0*)alloc(0x50);
+    ExpressionAnimationController_2aa0a0* z = 0;
     if (p != z) {
-        new (p) EAC(this);
+        new (p) ExpressionAnimationController_2aa0a0(this);
         p->g(m[0]);
         return p;
     }

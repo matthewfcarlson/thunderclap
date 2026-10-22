@@ -1,6 +1,6 @@
-class Base {
+class CCondition_4a000 {
   public:
-    Base(int);
+    CCondition_4a000(int);
     virtual void v();
     char pad[8];
 };
@@ -8,11 +8,11 @@ class Member {
   public:
     Member();
 };
-class CCharacterTemplateVariationCondition : public Base {
+class CCharacterTemplateVariationCondition : public CCondition_4a000 {
   public:
     CCharacterTemplateVariationCondition();
     virtual void v();
     int x;
     Member m;
 };
-CCharacterTemplateVariationCondition::CCharacterTemplateVariationCondition() : Base(0), x(0), m() {}
+CCharacterTemplateVariationCondition::CCharacterTemplateVariationCondition() : CCondition_4a000(0), x(0), m() {}

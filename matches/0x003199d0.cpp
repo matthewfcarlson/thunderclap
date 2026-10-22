@@ -2,7 +2,7 @@ class Sub_3199d0 {
   public:
     virtual void Fn(float a, float b, float c);
 };
-class K_3199d0 {
+class DoubleKalmann1D_3199d0 {
   public:
     virtual bool Init(float a, float b, float c);
     int pad4;
@@ -15,7 +15,7 @@ class K_3199d0 {
     char p20[0x18];
     float m38;
 };
-bool K_3199d0::Init(float a, float b, float c) {
+bool DoubleKalmann1D_3199d0::Init(float a, float b, float c) {
     m18 = a;
     m10 = b * b;
     float v = c * c;

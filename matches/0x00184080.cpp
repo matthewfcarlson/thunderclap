@@ -5,14 +5,14 @@ class RefObj_184080 {
     virtual void Release();
 };
 
-class ActionBase_184080 {
+class Action_184080 {
   public:
-    ActionBase_184080();
+    Action_184080();
     virtual void Update();
     char pad[0x18];
 };
 
-class PropDestroyAction_184080 : public ActionBase_184080 {
+class PropDestroyAction_184080 : public Action_184080 {
   public:
     int mTarget;
     RefObj_184080* mObj;

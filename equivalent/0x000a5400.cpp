@@ -14,7 +14,7 @@ struct Sampler_a5400 {
     bool FUN_000a2370(int a, float *dx, float *dy, char *flag);
 };
 
-class Mover_a5400 {
+class CChaseCamera_a5400 {
 public:
     char pad0[0x194];
     float f194;
@@ -48,7 +48,7 @@ public:
     void FUN_000a5400(int arg, int flagWord);
 };
 
-void Mover_a5400::FUN_000a5400(int arg, int flagWord)
+void CChaseCamera_a5400::FUN_000a5400(int arg, int flagWord)
 {
     struct {
         float dx;

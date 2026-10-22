@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000e9240 @ 0x000e9240
-class FEBase {
+class FEObject_e9240 {
 public:
-    FEBase(int arg) throw();
+    FEObject_e9240(int arg) throw();
     virtual void v0();
     char pad04[0x44 - 4];
     int link;
     char pad48[0x118 - 0x48];
 };
 
-class FEControl : public FEBase {
+class FEControl : public FEObject_e9240 {
 public:
     FEControl(int arg) throw();
     virtual void c0();
@@ -25,7 +25,7 @@ public:
 };
 
 // equiv-map: ??0FEBase@@QAE@H@Z = 0x000e2860
-FEControl::FEControl(int arg) throw() : FEBase(arg)
+FEControl::FEControl(int arg) throw() : FEObject_e9240(arg)
 {
     for (int i = 0; i < 10; i++)
         slots[i] = 0;

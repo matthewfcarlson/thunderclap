@@ -5,17 +5,17 @@ struct Name_15baf0 {
     void FUN_0027af00();
 };
 
-class __declspec(novtable) TrackBase_15baf0 {
+class __declspec(novtable) Track_15baf0 {
 public:
     virtual void b0();
     int pad04;
     int pad08;
     void FUN_00236d40();
-    TrackBase_15baf0() { FUN_00236d40(); }
+    Track_15baf0() { FUN_00236d40(); }
 };
 
 namespace hulkfight { namespace motion {
-class LocomotionStrafe4Track : public TrackBase_15baf0 {
+class LocomotionStrafe4Track : public Track_15baf0 {
 public:
     virtual void v1();
     virtual void v2();

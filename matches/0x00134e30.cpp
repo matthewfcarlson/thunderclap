@@ -3,11 +3,11 @@ class Ref {
     virtual void AddRef();
     virtual void Release();
 };
-class Base {
+class Action_134e30 {
   public:
     virtual void fn();
     char pad[24];
-    Base();
+    Action_134e30();
 };
 struct Fields {
     volatile int a;
@@ -15,13 +15,13 @@ struct Fields {
     int c, d, e, f, g;
     Fields() : a(0), ref(0), c(0), d(0), e(0), f(0), g(0) {}
 };
-class FallAction : public Base {
+class FallAction : public Action_134e30 {
   public:
     Fields fields;
     FallAction(int, Ref*);
     virtual void fn();
 };
-FallAction::FallAction(int v, Ref* p) : Base(), fields() {
+FallAction::FallAction(int v, Ref* p) : Action_134e30(), fields() {
     fields.a = v;
     if (p)
         p->AddRef();

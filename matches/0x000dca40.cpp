@@ -1,5 +1,5 @@
 extern const char alphabet[];
-class Thing_dca40 {
+class FETextInput_dca40 {
   public:
     char pad0[0x150];
     int count;
@@ -9,7 +9,7 @@ class Thing_dca40 {
     int* values;
     bool Run();
 };
-bool Thing_dca40::Run() {
+bool FETextInput_dca40::Run() {
     int i = 0;
     if (count > 0) {
         do {

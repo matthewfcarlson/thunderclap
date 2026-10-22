@@ -8,7 +8,7 @@ extern char s0_94200;
 extern char s1_94200;
 extern char s2_94200;
 extern char s3_94200;
-class CUnlockablesManager : public Ctor_001d0480 {
+class Method3_94200 : public Ctor_001d0480 {
   public:
     hulk_intptr v;
     char pad4[12];
@@ -19,9 +19,9 @@ class CUnlockablesManager : public Ctor_001d0480 {
     char b18;
     char pad19[3];
     int value;
-    CUnlockablesManager(int a, int b);
+    Method3_94200(int a, int b);
 };
-CUnlockablesManager::CUnlockablesManager(int a, int b) : Ctor_001d0480(a, 3) {
+Method3_94200::Method3_94200(int a, int b) : Ctor_001d0480(a, 3) {
     v = ((hulk_intptr)DAT_004046dc);
     value = b;
     b18 = Query(&s0_94200);

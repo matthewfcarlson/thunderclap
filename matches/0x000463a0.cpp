@@ -1,4 +1,4 @@
-class Obj_463a0 {
+class DynamicCaster_463a0 {
   public:
     virtual void A();
     virtual void B();
@@ -14,6 +14,6 @@ class X_463a0 {
     void F(int a, int b);
 };
 void X_463a0::F(int a, int b) {
-    Obj_463a0 o;
+    DynamicCaster_463a0 o;
     D(&o, a, b);
 }

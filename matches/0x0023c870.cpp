@@ -8,14 +8,14 @@ class Branch_23c870 {
     void Destroy(); // FUN_00236d60, __thiscall, this in ecx
 };
 
-class CSweepTrack_23c870 : public Branch_23c870 {
+class Bank_23c870 : public Branch_23c870 {
   public:
-    CSweepTrack_23c870* vfunc_5(signed char flags);
+    Bank_23c870* vfunc_5(signed char flags);
 };
 
 void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
 
-CSweepTrack_23c870* CSweepTrack_23c870::vfunc_5(signed char flags) {
+Bank_23c870* Bank_23c870::vfunc_5(signed char flags) {
     *(void***)this = Branch_23c870_vftable;
     Destroy();
     if (flags & 1) {

@@ -47,7 +47,7 @@ class Obj_d9e40 {
     virtual void v44();
 };
 extern Obj_d9e40* __cdecl getObj();
-class Target_d9e40 {
+class FEMemCardControl_d9e40 {
   public:
     char pad0[0x1d0];
     int value;
@@ -58,7 +58,7 @@ class Target_d9e40 {
     void helper(int);
     void run(int);
 };
-void Target_d9e40::run(int unused) {
+void FEMemCardControl_d9e40::run(int unused) {
     Obj_d9e40* p = getObj();
     p->v44();
     helper(value);

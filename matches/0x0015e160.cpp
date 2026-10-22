@@ -6,21 +6,21 @@ class Ref_15e160 {
     virtual void F0();
     virtual void Release();
 };
-class Base_15e160 {
+class LocomotionStrafeAction_15e160 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_15e160 : public Base_15e160 {
+class LocomotionStrafe4Action_15e160 : public LocomotionStrafeAction_15e160 {
   public:
     char p[0x18];
     Ref_15e160* m1c;
     Ref_15e160* m20;
     char p2[0x20];
     void* m44;
-    ~Obj_15e160() throw();
+    ~LocomotionStrafe4Action_15e160() throw();
 };
-Obj_15e160::~Obj_15e160() throw() {
+LocomotionStrafe4Action_15e160::~LocomotionStrafe4Action_15e160() throw() {
     vptr = g_vftable_15e160;
     _ReadWriteBarrier();
     if (m44)

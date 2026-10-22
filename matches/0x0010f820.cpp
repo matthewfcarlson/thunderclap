@@ -5,14 +5,14 @@ class RefObj_10f820 {
     virtual void Release();
 };
 
-class ActionBase_10f820 {
+class Action_10f820 {
   public:
-    ActionBase_10f820();
+    Action_10f820();
     virtual void Update();
     char pad[0x18];
 };
 
-class TokenAction_10f820 : public ActionBase_10f820 {
+class TokenAction_10f820 : public Action_10f820 {
   public:
     int mTarget;
     RefObj_10f820* mObj;

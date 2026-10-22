@@ -23,7 +23,7 @@ struct Parent_323910 {
     char pad[0x154];
     Viewport_323910* viewport;
 };
-class RenderEffect {
+class d3dExtFramebufferEffects_323910 {
   public:
     bool FUN_00320540();
     void Setup();
@@ -37,7 +37,7 @@ class RenderEffect {
     float scaleX;
     float scaleY;
 };
-void RenderEffect::Setup() {
+void d3dExtFramebufferEffects_323910::Setup() {
     if (tex != 0)
         return;
     busy = 1;

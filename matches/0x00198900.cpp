@@ -5,14 +5,14 @@ class RefObj_198900 {
     virtual void Release();
 };
 
-class ActionBase_198900 {
+class Action_198900 {
   public:
-    ActionBase_198900();
+    Action_198900();
     virtual void Update();
     char pad[0x18];
 };
 
-class FireGroundShockwaveAction_198900 : public ActionBase_198900 {
+class FireGroundShockwaveAction_198900 : public Action_198900 {
   public:
     int mTarget;
     RefObj_198900* mObj;

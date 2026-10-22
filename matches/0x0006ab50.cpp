@@ -1,9 +1,9 @@
-struct CtorV_00236d40 {
-    CtorV_00236d40();
+struct CTrack_00236d40 {
+    CTrack_00236d40();
     virtual void v_00236d40();
 };
 
-class Base_6ab50 : public CtorV_00236d40 {
+class Base_6ab50 : public CTrack_00236d40 {
   public:
     Base_6ab50();
 };
@@ -18,7 +18,7 @@ class CStageTrack : public Base_6ab50 {
     int m10;
 };
 
-Base_6ab50::Base_6ab50() : CtorV_00236d40() {
+Base_6ab50::Base_6ab50() : CTrack_00236d40() {
 }
 
 CStageTrack::CStageTrack() {

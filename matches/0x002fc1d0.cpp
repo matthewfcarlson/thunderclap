@@ -7,12 +7,12 @@ class RootMatrixDriver {
     int value;
     RootMatrixDriver(int);
 };
-class Base_2fc1d0 {
+class PhysicsJointMatrixModifier_2fc1d0 {
   public:
     void Init();
 };
 RootMatrixDriver::RootMatrixDriver(int x) {
-    ((Base_2fc1d0*)this)->Init();
+    ((PhysicsJointMatrixModifier_2fc1d0*)this)->Init();
     value = x;
     vf = ((hulk_intptr)DAT_0043186c);
 }

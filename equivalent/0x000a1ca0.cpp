@@ -49,7 +49,7 @@ struct Owner_a1ca0 {
     Holder124_a1ca0 *f20;
 };
 
-class Cam_a1ca0 {
+class CChaseCamera_a1ca0 {
 public:
     virtual void s0();
     virtual void s1();
@@ -113,7 +113,7 @@ public:
     void FUN_000a1ca0(Owner_a1ca0 *owner, float dt);
 };
 
-void Cam_a1ca0::FUN_000a1ca0(Owner_a1ca0 *owner, float dt)
+void CChaseCamera_a1ca0::FUN_000a1ca0(Owner_a1ca0 *owner, float dt)
 {
     struct Frame {
         V3_a1ca0 tmp1;

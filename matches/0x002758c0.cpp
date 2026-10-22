@@ -22,14 +22,14 @@ extern void* g_a_2758c0[];
 extern void* g_b_2758c0[];
 void __cdecl Lk(void*);
 void __cdecl Ulk(void*);
-class Obj_2758c0 {
+class DriveCreateDirectoryRequest_2758c0 {
   public:
     void* vptr;
     int pad;
     Drive* drive;
-    Obj_2758c0* f0(unsigned char flags);
+    DriveCreateDirectoryRequest_2758c0* f0(unsigned char flags);
 };
-Obj_2758c0* Obj_2758c0::f0(unsigned char flags) {
+DriveCreateDirectoryRequest_2758c0* DriveCreateDirectoryRequest_2758c0::f0(unsigned char flags) {
     vptr = g_a_2758c0;
     drive->lk.lock();
     --drive->refs;

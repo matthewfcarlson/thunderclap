@@ -6,12 +6,12 @@ class Ref_1390c0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_1390c0 {
+class Action_1390c0 {
   public:
     void* vptr;
     void Fin();
 };
-class AirToGroundTargetAction_1390c0 : public Base_1390c0 {
+class AirToGroundTargetAction_1390c0 : public Action_1390c0 {
   public:
     char pad[0x18];
     void* m1c;

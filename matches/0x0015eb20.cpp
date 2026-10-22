@@ -3,12 +3,12 @@ class Thing_15eb20 {
     virtual void A();
     virtual void B();
 };
-class Base_15eb20 {
+class Action_15eb20 {
   public:
     virtual void X();
-    Base_15eb20();
+    Action_15eb20();
 };
-class ClimbLocomotionAction : public Base_15eb20 {
+class ClimbLocomotionAction : public Action_15eb20 {
   public:
     virtual void A();
     char pad[0x18];

@@ -9,14 +9,14 @@ struct Item {
     short index;
     char rest[4];
 };
-class C {
+class CSPManager_1ddda0 {
   public:
     char flags[0x608];
     Item items[1];
     float get(int x);
     int find(int);
 };
-float C::get(int x) {
+float CSPManager_1ddda0::get(int x) {
     int i = find(x);
     if (i >= 0) {
         Item* p = &items[i];

@@ -1,15 +1,15 @@
-class Base_144c10 {
+class Action_144c10 {
   public:
     virtual void V();
     char pad[0x18];
-    Base_144c10();
+    Action_144c10();
 };
 class Ref_144c10 {
   public:
     virtual void Add();
     virtual void Release();
 };
-class HitEffectAction : public Base_144c10 {
+class HitEffectAction : public Action_144c10 {
   public:
     Ref_144c10* a;
     int b;

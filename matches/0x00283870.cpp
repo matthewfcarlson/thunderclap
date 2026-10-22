@@ -5,12 +5,12 @@ class Ref_283870 {
     virtual void f0();
     virtual void f1();
 };
-class Base_283870 {
+class DrawablePrimitive_283870 {
   public:
     void BaseDtor();
 };
 extern void __cdecl thunk_FUN_00267090(void*);
-class CMotionTrail : public Base_283870 {
+class CMotionTrail : public DrawablePrimitive_283870 {
   public:
     void* vptr;
     char p[0x3c];

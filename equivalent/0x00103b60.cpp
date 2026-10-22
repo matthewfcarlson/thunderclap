@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00103b60 @ 0x00103b60
-struct Target_103b60;
+struct COccupationAgent_103b60;
 struct Vector { float x,y,z; };
 struct Source_103b60 { void FUN_00059a50(Vector*); };
 struct View { char pad[0x10]; Source_103b60* source; };
@@ -8,15 +8,15 @@ struct Provider_103b60 { virtual void v0(); virtual void v1(); virtual void v2()
 struct Resource_103b60 { int FUN_00106160(int); };
 struct Lookup_103b60 { Resource_103b60* FUN_00106230(const char*); };
 struct Context { char pad[0x18]; Lookup_103b60* lookup; };
-struct Manager_103b60 { void FUN_001048d0(Target_103b60*); int FUN_00104c60(Context*,Vector*,int,int,unsigned int,int,int); };
+struct Manager_103b60 { void FUN_001048d0(COccupationAgent_103b60*); int FUN_00104c60(Context*,Vector*,int,int,unsigned int,int,int); };
 extern "C" int __cdecl FUN_000964a0(char*,int,const char*,...);
-struct Target_103b60 {
+struct COccupationAgent_103b60 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9();
  int pad4; int state; char padC[0x4c]; Provider_103b60* provider; Manager_103b60* manager; Resource_103b60* resource; char name[0x40]; unsigned char enabled; char padA5[0x13]; int selection; int option; unsigned char flag; char padC1[3]; int extra;
  void FUN_00103a50();
  int target(Context* context,const char* text,unsigned char mode);
 };
-int Target_103b60::target(Context* context,const char* text,unsigned char mode) {
+int COccupationAgent_103b60::target(Context* context,const char* text,unsigned char mode) {
  v9();
  FUN_000964a0(name,0x40,"%s",text);
  resource=context->lookup->FUN_00106230(name);

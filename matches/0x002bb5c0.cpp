@@ -6,17 +6,17 @@ class Ref_2bb5c0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_2bb5c0 {
+class SimpleChunkHandler_2bb5c0 {
   public:
     void* vptr;
 };
-class Obj_2bb5c0 : public Base_2bb5c0 {
+class OldBillboardObjectLoader_2bb5c0 : public SimpleChunkHandler_2bb5c0 {
   public:
     char pad[0x10];
     Ref_2bb5c0* m;
-    ~Obj_2bb5c0();
+    ~OldBillboardObjectLoader_2bb5c0();
 };
-Obj_2bb5c0::~Obj_2bb5c0() {
+OldBillboardObjectLoader_2bb5c0::~OldBillboardObjectLoader_2bb5c0() {
     vptr = g_vftable_2bb5c0;
     _ReadWriteBarrier();
     if (m) {

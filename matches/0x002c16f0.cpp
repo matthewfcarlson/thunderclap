@@ -1,10 +1,10 @@
 extern "C" void _ReadWriteBarrier();
-class Base {
+class Entity_2c16f0 {
   public:
-    Base();
+    Entity_2c16f0();
     virtual void f();
 };
-class Locator : public Base {
+class Locator : public Entity_2c16f0 {
   public:
     Locator();
     virtual void f();

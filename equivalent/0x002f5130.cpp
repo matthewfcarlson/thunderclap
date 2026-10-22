@@ -5,20 +5,20 @@
 extern "C" void* __cdecl FUN_00263ea0(unsigned int size);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 
-class __declspec(novtable) LoaderBase_2f5130 {
+class __declspec(novtable) SimpleChunkHandler_2f5130 {
   public:
     virtual void slot0();
     int f04;
     int id;
     int f0c;
     int f10;
-    LoaderBase_2f5130(int i) { f04 = 0; id = i; f0c = 0; f10 = 0; }
+    SimpleChunkHandler_2f5130(int i) { f04 = 0; id = i; f0c = 0; f10 = 0; }
 };
 
 namespace physics {
-class ExportInfoLoader : public LoaderBase_2f5130 {
+class ExportInfoLoader : public SimpleChunkHandler_2f5130 {
   public:
-    ExportInfoLoader() : LoaderBase_2f5130(0x7030) {}
+    ExportInfoLoader() : SimpleChunkHandler_2f5130(0x7030) {}
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
@@ -29,17 +29,17 @@ class ExportInfoLoader : public LoaderBase_2f5130 {
 }
 
 struct Raw_2f5130 {
-    LoaderBase_2f5130* FUN_00308020();
-    LoaderBase_2f5130* FUN_00308060();
-    LoaderBase_2f5130* FUN_002f7060();
-    LoaderBase_2f5130* FUN_002f2c70();
+    SimpleChunkHandler_2f5130* FUN_00308020();
+    SimpleChunkHandler_2f5130* FUN_00308060();
+    SimpleChunkHandler_2f5130* FUN_002f7060();
+    SimpleChunkHandler_2f5130* FUN_002f2c70();
 };
 
-struct Registry_2f5130 { void FUN_00265210(LoaderBase_2f5130*, int); };
+struct Registry_2f5130 { void FUN_00265210(SimpleChunkHandler_2f5130*, int); };
 
 void FUN_002f5130(){
     void* mem = FUN_00263ea0(0x14);
-    LoaderBase_2f5130* l = 0;
+    SimpleChunkHandler_2f5130* l = 0;
     if (mem) l = new (mem) physics::ExportInfoLoader();
     (*(Registry_2f5130**)&DAT_00527c58)->FUN_00265210(l, 0x7030);
     mem = FUN_00263ea0(0x14);

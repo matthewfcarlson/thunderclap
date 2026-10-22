@@ -28,14 +28,14 @@ class LightPool : public HeapObj {
     LightPool(d3dContext* ctx) throw();
     char pad[0x3cf8];
 };
-class FrameBufferEffects : public HeapObj {
+class d3dExtFramebufferEffects_324e00 : public HeapObj {
   public:
-    FrameBufferEffects(d3dContext* ctx) throw();
+    d3dExtFramebufferEffects_324e00(d3dContext* ctx) throw();
     char pad[0x190];
 };
-class ShaderCache_324e00 : public HeapObj {
+class d3dSimpleShader_324e00 : public HeapObj {
   public:
-    ShaderCache_324e00(d3dContext* ctx) throw();
+    d3dSimpleShader_324e00(d3dContext* ctx) throw();
     virtual void f0();
     char pad[0x94 - 4];
 };
@@ -113,7 +113,7 @@ class d3dContext : public pddiBaseContext {
     AssetSource* src;
     Allocator* alloc;
     char pad15c[4];
-    ShaderCache_324e00* shaders;
+    d3dSimpleShader_324e00* shaders;
     int handle;
     int f168;
     int f16c;
@@ -139,7 +139,7 @@ class d3dContext : public pddiBaseContext {
     d3dExtHardwareSkinning* hwSkinning;
     d3dExtVisibilityTest* visTest;
     d3dExtVertexProgram* vertexProgram;
-    FrameBufferEffects* fbEffects;
+    d3dExtFramebufferEffects_324e00* fbEffects;
     d3dExtFrameBufferTexture* fbTexture;
     int f448;
     unsigned char f44c;
@@ -183,8 +183,8 @@ d3dContext::d3dContext(AssetSource* a, Allocator* b) throw() : pddiBaseContext(a
     hwSkinning = new d3dExtHardwareSkinning(this);
     visTest = new d3dExtVisibilityTest(this);
     vertexProgram = new d3dExtVertexProgram(this);
-    fbEffects = new FrameBufferEffects(this);
+    fbEffects = new d3dExtFramebufferEffects_324e00(this);
     fbTexture = new d3dExtFrameBufferTexture(this);
-    shaders = new ShaderCache_324e00(this);
+    shaders = new d3dSimpleShader_324e00(this);
     shaders->f0();
 }

@@ -19,7 +19,7 @@ struct Row_d88f0 {
 
 unsigned int __cdecl FUN_0008c580();
 
-class Panel_d88f0 {
+class FEMemCardControl_d88f0 {
 public:
     char pad0[0x150];
     Source_d88f0 *source;     // 0x150
@@ -28,7 +28,7 @@ public:
     void FUN_000d88f0(int key, char *foundNone, char *foundOther);
 };
 
-void Panel_d88f0::FUN_000d88f0(int key, char *foundNone, char *foundOther)
+void FEMemCardControl_d88f0::FUN_000d88f0(int key, char *foundNone, char *foundOther)
 {
     *foundNone = 0;
     *foundOther = 0;

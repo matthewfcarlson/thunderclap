@@ -5,12 +5,12 @@ class Ref_116960 {
     virtual void F0();
     virtual void Release();
 };
-class Base_116960 {
+class Action_116960 {
   public:
     void* vptr;
     void Fin();
 };
-class MotionStopAction_116960 : public Base_116960 {
+class MotionStopAction_116960 : public Action_116960 {
   public:
     char pad[0x18];
     void* m1c;

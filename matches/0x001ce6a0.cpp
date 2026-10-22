@@ -3,9 +3,9 @@ struct Item {
 };
 extern Item g1, g2;
 extern "C" unsigned char check(Item*);
-class Base {
+class Function_1ce6a0 {
   public:
-    Base(const char*, int);
+    Function_1ce6a0(const char*, int);
     virtual void invoke();
     char pad[12];
     unsigned char f10;
@@ -14,22 +14,22 @@ class Base {
     char pad3[3];
     void* target;
 };
-class Method : public Base {
+class Method1_1ce6a0 : public Function_1ce6a0 {
   public:
-    Method(const char*, void*);
+    Method1_1ce6a0(const char*, void*);
     virtual void invoke();
 };
-inline Method::Method(const char* name, void* a) : Base(name, 1) {
+inline Method1_1ce6a0::Method1_1ce6a0(const char* name, void* a) : Function_1ce6a0(name, 1) {
     target = a;
     f18 = check(&g1);
     f10 = check(&g2);
 }
-class Closure : public Method {
+class Closure1_1ce6a0 : public Method1_1ce6a0 {
   public:
-    Closure(const char*, void*, void*);
+    Closure1_1ce6a0(const char*, void*, void*);
     virtual void invoke();
     void* arg;
 };
-Closure::Closure(const char* name, void* p, void* a) : Method(name, a) {
+Closure1_1ce6a0::Closure1_1ce6a0(const char* name, void* p, void* a) : Method1_1ce6a0(name, a) {
     arg = p;
 }

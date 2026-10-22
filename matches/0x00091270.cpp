@@ -5,9 +5,9 @@ struct CtorV_001d0480 {
 extern "C" unsigned char read(const char*);
 extern const char a[];
 extern const char b[];
-class Storage : public CtorV_001d0480 {
+class Function_91270 : public CtorV_001d0480 {
   public:
-    Storage(const char* s) : CtorV_001d0480(s, 1) { }
+    Function_91270(const char* s) : CtorV_001d0480(s, 1) { }
     char pad[0xc];
     unsigned char f10;
     char pad2[7];
@@ -15,10 +15,10 @@ class Storage : public CtorV_001d0480 {
     char pad3[3];
     int f1c;
 };
-class Method1 : public Storage {
+class Method1 : public Function_91270 {
   public:
     virtual void invoke();
-    Method1(const char* s, int n) : Storage(s) {
+    Method1(const char* s, int n) : Function_91270(s) {
         f1c = n;
         f18 = read(a);
         f10 = read(b);

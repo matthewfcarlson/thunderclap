@@ -1,10 +1,10 @@
 extern "C" unsigned char __cdecl Lookup(const char*);
 extern const char keyA[];
 extern const char keyB[];
-class Base {
+class Function_1ea3b0 {
   public:
     virtual void Invoke(const char*);
-    Base(const char*, int);
+    Function_1ea3b0(const char*, int);
     char pad[12];
     unsigned char flagB;
     char pad2[7];
@@ -12,10 +12,10 @@ class Base {
     char pad3[3];
     void* member;
 };
-class Method1 : public Base {
+class Method1 : public Function_1ea3b0 {
   public:
     virtual void Invoke(const char*);
-    Method1(const char* s, void* p) : Base(s, 1) {
+    Method1(const char* s, void* p) : Function_1ea3b0(s, 1) {
         member = p;
         flagA = Lookup(keyA);
         flagB = Lookup(keyB);

@@ -5,14 +5,14 @@ class RefObj_1732f0 {
     virtual void Release();
 };
 
-class ActionBase_1732f0 {
+class Action_1732f0 {
   public:
-    ActionBase_1732f0();
+    Action_1732f0();
     virtual void Update();
     char pad[0x18];
 };
 
-class LocomotionStateAction_1732f0 : public ActionBase_1732f0 {
+class LocomotionStateAction_1732f0 : public Action_1732f0 {
   public:
     int mTarget;
     RefObj_1732f0* mObj;

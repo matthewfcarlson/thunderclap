@@ -8,12 +8,12 @@ class Ref_ddfc0 {
 struct Sub_ddfc0 {
     void Fini();
 };
-class Base_ddfc0 {
+class FEThingsBase_ddfc0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_ddfc0 : public Base_ddfc0 {
+class FEThings_ddfc0 : public FEThingsBase_ddfc0 {
   public:
     char pad4[0x1824];
     Ref_ddfc0* m1828;
@@ -21,9 +21,9 @@ class Obj_ddfc0 : public Base_ddfc0 {
     Ref_ddfc0* m2224;
     char pad2228[8];
     Sub_ddfc0* m2230;
-    ~Obj_ddfc0() throw();
+    ~FEThings_ddfc0() throw();
 };
-Obj_ddfc0::~Obj_ddfc0() throw() {
+FEThings_ddfc0::~FEThings_ddfc0() throw() {
     Sub_ddfc0* p = m2230;
     vptr = g_vftable_ddfc0;
     if (p) {

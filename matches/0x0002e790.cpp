@@ -21,12 +21,12 @@ class Method : public Base {
     float val;
     Method(const char*, float, const char*);
 };
-class Closure : public Method {
+class Closure1_2e790 : public Method {
   public:
     virtual void g();
-    Closure(const char*, float, const char*);
+    Closure1_2e790(const char*, float, const char*);
 };
-Closure::Closure(const char* x, float y, const char* z) : Method(x, y, z) {
+Closure1_2e790::Closure1_2e790(const char* x, float y, const char* z) : Method(x, y, z) {
     val = y;
 }
 Method::Method(const char* x, float y, const char* z) : Base(x) {

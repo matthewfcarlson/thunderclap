@@ -2,7 +2,7 @@ struct Ref_222430 {
     virtual void a();
     virtual void b();
 };
-struct Aux_222430 {
+struct PartitionDriver_222430 {
     void helper();
 };
 struct PartitionDriver {
@@ -28,7 +28,7 @@ void destroy(PartitionDriver*);
 PartitionDriver* PartitionDriver::vfunc_2(unsigned char param) {
     *(void**)this = &vtable_222430;
     member->b();
-    ((Aux_222430*)this)->helper();
+    ((PartitionDriver_222430*)this)->helper();
     if (param & 1)
         destroy(this);
     return this;

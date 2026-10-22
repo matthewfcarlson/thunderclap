@@ -4,16 +4,16 @@ class Temp {
     ~Temp() throw();
     char pad[12];
 };
-class Base {
+class SeqEventType_252d00 {
   public:
     virtual void f();
-    Base(Temp*, const __int64&, int, int) throw();
+    SeqEventType_252d00(Temp*, const __int64&, int, int) throw();
 };
-class audio_SeqEventVarTempoType : public Base {
+class SeqEventVarTempoType_252d00 : public SeqEventType_252d00 {
   public:
     virtual void f();
-    audio_SeqEventVarTempoType();
+    SeqEventVarTempoType_252d00();
 };
 extern __int64 __cdecl Make(const char*, int, int);
-audio_SeqEventVarTempoType::audio_SeqEventVarTempoType()
-    : Base(Temp().Init("4/4", 0), Make("SeqEventVarTempo", 0, 0), 20, 4) {}
+SeqEventVarTempoType_252d00::SeqEventVarTempoType_252d00()
+    : SeqEventType_252d00(Temp().Init("4/4", 0), Make("SeqEventVarTempo", 0, 0), 20, 4) {}

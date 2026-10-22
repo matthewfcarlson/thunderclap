@@ -6,7 +6,7 @@ public:
     virtual void v2();
     virtual float v3(int a, int b);
 };
-class Target_fc4e0 {
+class CAgent_fc4e0 {
 public:
     char pad0[0x10];
     int count;
@@ -14,7 +14,7 @@ public:
     int selected;
     float FUN_000fc4e0(int a, int b);
 };
-float Target_fc4e0::FUN_000fc4e0(int a, int b)
+float CAgent_fc4e0::FUN_000fc4e0(int a, int b)
 {
     float best = 0.0f;
     int idx = -1;

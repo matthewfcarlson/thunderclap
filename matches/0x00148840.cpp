@@ -3,17 +3,17 @@ class Ref_148840 {
     virtual void F();
     virtual void G();
 };
-class Root_148840 {
+class Action_148840 {
   public:
     virtual void V();
-    Root_148840();
+    Action_148840();
 };
 class Sub_148840 {
   public:
     Sub_148840();
     char pad[0x28];
 };
-class GrappleHitReactionAction_148840 : public Root_148840 {
+class GrappleHitReactionAction_148840 : public Action_148840 {
   public:
     char pad[0x18];
     int* mA;

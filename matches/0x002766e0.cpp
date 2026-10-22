@@ -6,14 +6,14 @@ struct V {
     virtual void A();
     virtual void B();
 };
-struct Obj_2766e0 {
+struct InstanceDrive_2766e0 {
     void** v;
     void** v4;
     int pad;
     V* p;
     void f();
 };
-void Obj_2766e0::f() {
+void InstanceDrive_2766e0::f() {
     v = (void**)((hulk_intptr)DAT_0042bddc);
     v4 = (void**)((hulk_intptr)DAT_0042bdd0);
     p->B();

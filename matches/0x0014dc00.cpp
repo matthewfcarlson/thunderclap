@@ -1,6 +1,6 @@
-class Base {
+class Track_14dc00 {
   public:
-    Base();
+    Track_14dc00();
     virtual void a();
     char pad[8];
     int a0;
@@ -10,12 +10,12 @@ class Base {
     int a2;
     int a3;
 };
-class HitThrowTrack : public Base {
+class HitThrowTrack : public Track_14dc00 {
   public:
     HitThrowTrack();
     virtual void a();
 };
-HitThrowTrack::HitThrowTrack() : Base() {
+HitThrowTrack::HitThrowTrack() : Track_14dc00() {
     a0 = 0;
     a1 = 0;
     a2 = 0;

@@ -6,14 +6,14 @@ struct Ref_e8a10 {
 extern int billboardVtable;
 extern int animationVtable;
 void thunk(unsigned int);
-struct Obj_e8a10 {
+struct FETextureAnimation_e8a10 {
     int* vptr;
     unsigned int resource;
     char pad[4];
     Ref_e8a10* child;
     void cleanup();
 };
-void Obj_e8a10::cleanup() {
+void FETextureAnimation_e8a10::cleanup() {
     vptr = &billboardVtable;
     Ref_e8a10* volatile* pc = &child;
     Ref_e8a10* c = *pc;

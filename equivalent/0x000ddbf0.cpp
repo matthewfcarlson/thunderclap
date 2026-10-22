@@ -24,10 +24,10 @@ public:
     void FUN_00293a90(V3_ddbf0* v);
 };
 
-class Screen_ddbf0 {
+class View_ddbf0 {
 public:
     virtual void AddRef();
-    Screen_ddbf0* FUN_00294880();
+    View_ddbf0* FUN_00294880();
     void FUN_00293e90(unsigned int color);
     void FUN_00294980(Camera* cam);
     char pad4[0x1c - 4];
@@ -55,24 +55,24 @@ public:
 
 class FEThings : public FEThingsBase {
 public:
-    FEThings(Screen_ddbf0* existing);
+    FEThings(View_ddbf0* existing);
     virtual void vfunc_0();
-    Screen_ddbf0* screen;
+    View_ddbf0* screen;
     char ownsScreen;
     char pad2229[3];
     int f222c;
     Widget_ddbf0* widget;
 };
 
-FEThings::FEThings(Screen_ddbf0* existing)
+FEThings::FEThings(View_ddbf0* existing)
 {
-    Screen_ddbf0* s = existing;
+    View_ddbf0* s = existing;
     if (existing != 0) {
         ownsScreen = 0;
     } else {
         void* mem = FUN_0008d690(0x140);
         if (mem != 0)
-            s = ((Screen_ddbf0*)mem)->FUN_00294880();
+            s = ((View_ddbf0*)mem)->FUN_00294880();
         else
             s = 0;
         ownsScreen = 1;

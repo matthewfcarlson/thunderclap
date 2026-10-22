@@ -5,7 +5,7 @@ class Obj_190a00 {
     virtual void A();
     virtual void B();
 };
-class Base_190a00 {
+class TankLocomotionAction_190a00 {
   public:
     void Finish();
 };
@@ -25,5 +25,5 @@ void ImpulseVelocityAction::Cleanup() {
     }
     if (m1c)
         m1c = 0;
-    ((Base_190a00*)this)->Finish();
+    ((TankLocomotionAction_190a00*)this)->Finish();
 }

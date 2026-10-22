@@ -6,7 +6,7 @@ struct MetaTypeAttribScalar {
 extern "C" void __cdecl FUN_00247550(void*, void*);
 extern "C" void* g_BaseVftable;
 
-struct Buffer_24de80 {
+struct TypeT_24de80 {
     char pad[0x48];
     void* Build();
     void Destroy();
@@ -15,7 +15,7 @@ struct Buffer_24de80 {
 MetaTypeAttribScalar* MetaTypeAttribScalar::vfunc_0(unsigned char flags) {
     *(void**)this = &g_BaseVftable;
     if (flags & 1) {
-        Buffer_24de80 buf;
+        TypeT_24de80 buf;
         FUN_00247550(buf.Build(), this);
         buf.Destroy();
     }

@@ -1,4 +1,4 @@
-class Obj {
+class CTriggerVolumeManager_1fcbe0 {
   public:
     virtual void V0();
     virtual void V1();
@@ -15,12 +15,12 @@ class Obj {
 };
 
 struct ThisWrap_001fcbe0 {
-    Obj* FUN_001fc7f0(int);
+    CTriggerVolumeManager_1fcbe0* FUN_001fc7f0(int);
     char FUN_001fcbe0(int a);
 };
 
 char ThisWrap_001fcbe0::FUN_001fcbe0(int a) {
-    Obj* r = this->FUN_001fc7f0(a);
+    CTriggerVolumeManager_1fcbe0* r = this->FUN_001fc7f0(a);
     if (!r)
         return 1;
     return r->V11();

@@ -5,12 +5,12 @@ class Ref_177630 {
     virtual void F0();
     virtual void Release();
 };
-class Base_177630 {
+class Action_177630 {
   public:
     void* vptr;
     void Fin();
 };
-class SnapToGroundAction_177630 : public Base_177630 {
+class SnapToGroundAction_177630 : public Action_177630 {
   public:
     char pad[0x18];
     void* m1c;

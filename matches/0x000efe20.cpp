@@ -1,6 +1,6 @@
 typedef unsigned int uint_efe20;
 extern void* __cdecl FUN_0008d690(uint_efe20);
-class H {
+class TextTable_efe20 {
   public:
     uint_efe20 run(uint_efe20);
 };
@@ -63,7 +63,7 @@ class FEThingsBase {
     virtual uint_efe20 vfunc_54(uint_efe20);
 };
 uint_efe20 FEThingsBase::vfunc_54(uint_efe20 a) {
-    H* p = (H*)FUN_0008d690(0x4990);
+    TextTable_efe20* p = (TextTable_efe20*)FUN_0008d690(0x4990);
     if (p)
         return p->run(a);
     return 0;

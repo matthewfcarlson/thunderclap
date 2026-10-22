@@ -5,14 +5,14 @@ class RefObj_174820 {
     virtual void Release();
 };
 
-class ActionBase_174820 {
+class Action_174820 {
   public:
-    ActionBase_174820();
+    Action_174820();
     virtual void Update();
     char pad[0x18];
 };
 
-class ChargeClearAction_174820 : public ActionBase_174820 {
+class ChargeClearAction_174820 : public Action_174820 {
   public:
     int mTarget;
     RefObj_174820* mObj;

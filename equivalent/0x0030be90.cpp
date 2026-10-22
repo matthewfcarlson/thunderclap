@@ -4,7 +4,7 @@
    // 0.0f
 #include "decls/data/game/global.h"
 
-class Contact_30be90 {
+class PhysicsJoint3D_30be90 {
 public:
     char pad00[0x98];
     float a98, a9c, aa0;     // 0x98
@@ -24,7 +24,7 @@ struct ThisCall_0030ad10 {
     void FUN_0030ad10(int mode, float *out);
 };
 
-void Contact_30be90::FUN_0030be90() {
+void PhysicsJoint3D_30be90::FUN_0030be90() {
     ((ThisCall_0030ad10*)(this))->FUN_0030ad10(flagF8, &f154);
     f158 = aa0 * n140 + a9c * n13c + a98 * n138;
     if (flagF8) {

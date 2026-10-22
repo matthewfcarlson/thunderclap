@@ -5,7 +5,7 @@ class Ref_f1d30 {
     virtual void F0();
     virtual void Release();
 };
-class Base_f1d30 {
+class FEContainer_f1d30 {
   public:
     void* vptr;
     void Fin();
@@ -17,13 +17,13 @@ struct Sub_f1d30 {
 void __fastcall SubFini(Sub_f1d30*) throw();
 void __fastcall SubFini2(Sub_f1d30*) throw();
 void __fastcall SubFini3(Sub_f1d30*) throw();
-class Obj_f1d30 : public Base_f1d30 {
+class FEDialog_f1d30 : public FEContainer_f1d30 {
   public:
     char p9a4[2464];
     Ref_f1d30* m9a4;
-    Obj_f1d30* f(unsigned char fl);
+    FEDialog_f1d30* f(unsigned char fl);
 };
-Obj_f1d30* Obj_f1d30::f(unsigned char fl) {
+FEDialog_f1d30* FEDialog_f1d30::f(unsigned char fl) {
     vptr = g_vftable_f1d30;
     _ReadWriteBarrier();
     if (m9a4) {

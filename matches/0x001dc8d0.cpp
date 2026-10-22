@@ -17,14 +17,14 @@ struct Rec_1dc8d0 {
     unsigned flags;
     char p[16];
 };
-class Mgr_1dc8d0 {
+class CSPManager_1dc8d0 {
   public:
     int Find(int key);
     hulk_freg Get(int key);
     char pad[0x608];
     Slot_1dc8d0 slots[1];
 };
-hulk_freg Mgr_1dc8d0::Get(int key) {
+hulk_freg CSPManager_1dc8d0::Get(int key) {
     hulk_freg r = -1.0f;
     int i = Find(key);
     if (i >= 0) {

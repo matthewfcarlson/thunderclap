@@ -4,7 +4,7 @@
 #include "decls/data/game/unknown.h"
 extern "C" char DAT_00420e84[];
 extern "C" char DAT_0048e10c[];
-struct C_1ba090 {
+struct Method4_1ba090 {
     hulk_intptr v;
     char pad4[0xc];
     char b10;
@@ -16,9 +16,9 @@ struct C_1ba090 {
     char pad19[3];
     int p1c;
     void Init(const char*, int);
-    C_1ba090(const char*, int);
+    Method4_1ba090(const char*, int);
 };
-C_1ba090::C_1ba090(const char* x, int y) {
+Method4_1ba090::Method4_1ba090(const char* x, int y) {
     Init(x, 4);
     v = ((hulk_intptr)DAT_00420e84);
     p1c = y;

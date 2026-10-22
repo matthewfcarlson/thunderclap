@@ -1,6 +1,6 @@
-class Base {
+class Track_1812e0 {
   public:
-    Base();
+    Track_1812e0();
     virtual void vf();
     char pad[4];
     int flag;
@@ -9,7 +9,7 @@ struct Tail {
     int h, i, j;
     Tail() : h(0), i(0), j(0) {}
 };
-class BallAndChainSpinTrack : public Base {
+class BallAndChainSpinTrack : public Track_1812e0 {
   public:
     BallAndChainSpinTrack();
     virtual void vf();
@@ -22,6 +22,6 @@ class BallAndChainSpinTrack : public Base {
     Tail tail;
 };
 BallAndChainSpinTrack::BallAndChainSpinTrack()
-    : Base(), a(0), b(-1.0f), c(0), d(10.0f), e(3.0f), x(0), angle(6.2831855f) {
+    : Track_1812e0(), a(0), b(-1.0f), c(0), d(10.0f), e(3.0f), x(0), angle(6.2831855f) {
     flag = 1;
 }

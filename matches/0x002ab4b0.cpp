@@ -5,15 +5,15 @@ class Ref_2ab4b0 {
     virtual void f0();
     virtual void Release();
 };
-class D {
+class OldParticleSystemLoader_2ab4b0 {
   public:
     void* vptr;
     char p[0x10];
     Ref_2ab4b0* a14;
     Ref_2ab4b0* a18;
-    ~D() throw();
+    ~OldParticleSystemLoader_2ab4b0() throw();
 };
-D::~D() throw() {
+OldParticleSystemLoader_2ab4b0::~OldParticleSystemLoader_2ab4b0() throw() {
     vptr = &vt1_2ab4b0;
     _ReadWriteBarrier();
     if (a14) {

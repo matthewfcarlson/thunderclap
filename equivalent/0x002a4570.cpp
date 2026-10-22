@@ -38,7 +38,7 @@ struct Slot_2a4570 {
     char pad[12];
 };
 
-class Container_2a4570 {
+class DrawableContainer_2a4570 {
 public:
     void run();
     char p0[0x14];
@@ -49,7 +49,7 @@ public:
     Slot_2a4570* end;
 };
 
-void Container_2a4570::run()
+void DrawableContainer_2a4570::run()
 {
     unsigned int count = (unsigned int)(end - begin);
     Temp_2a4570 t;

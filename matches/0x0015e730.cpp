@@ -3,12 +3,12 @@ class Ref_15e730 {
     virtual void A();
     virtual void B();
 };
-class Base_15e730 {
+class Action_15e730 {
   public:
     virtual void X();
-    Base_15e730();
+    Action_15e730();
 };
-class LocomotionSteerAction_15e730 : public Base_15e730 {
+class LocomotionSteerAction_15e730 : public Action_15e730 {
   public:
     virtual void A();
     virtual void B();
@@ -19,7 +19,7 @@ class LocomotionSteerAction_15e730 : public Base_15e730 {
     int m3;
     LocomotionSteerAction_15e730(int, Ref_15e730*);
 };
-LocomotionSteerAction_15e730::LocomotionSteerAction_15e730(int a, Ref_15e730* b) : Base_15e730() {
+LocomotionSteerAction_15e730::LocomotionSteerAction_15e730(int a, Ref_15e730* b) : Action_15e730() {
     int* q = &m1;
     *q = 0;
     m2 = 0;

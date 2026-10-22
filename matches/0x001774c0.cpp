@@ -3,14 +3,14 @@ class Ref_1774c0 {
     virtual void A();
     virtual void Drop();
 };
-class Base_1774c0 {
+class Action_1774c0 {
   public:
     virtual void V();
     char pad[0x18];
-    Base_1774c0();
+    Action_1774c0();
 };
 extern void* g_vft_1774c0;
-class MomentumXZAddAction_1774c0 : public Base_1774c0 {
+class MomentumXZAddAction_1774c0 : public Action_1774c0 {
   public:
     int a;
     Ref_1774c0* b;

@@ -5,12 +5,12 @@ class Ref_135420 {
     virtual void F0();
     virtual void Release();
 };
-class Base_135420 {
+class Action_135420 {
   public:
     void* vptr;
     void Fin();
 };
-class FlyingBrakeAction_135420 : public Base_135420 {
+class FlyingBrakeAction_135420 : public Action_135420 {
   public:
     char pad[0x18];
     void* m1c;

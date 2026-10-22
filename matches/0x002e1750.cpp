@@ -4,13 +4,13 @@ struct Mat_2e1750 {
     void Init();
 };
 void* Alloc(hulk_uintptr n);
-class Base_2e1750 {
+class NonCopyable_2e1750 {
   public:
-    Base_2e1750() { a = 0; }
+    NonCopyable_2e1750() { a = 0; }
     virtual void f0();
     int a;
 };
-class BoneMatrixList : public Base_2e1750 {
+class BoneMatrixList : public NonCopyable_2e1750 {
   public:
     BoneMatrixList(unsigned n);
     virtual void f0();

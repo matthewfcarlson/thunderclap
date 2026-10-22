@@ -2,7 +2,7 @@
 // FUN_00062010 @ 0x00062010
 inline void *operator new(unsigned int, void *p) { return p; }
 
-struct Base12 {
+struct CWeaponCollisionTrack_62010 {
     char data[12];
     void FUN_00236d40();
 };
@@ -71,7 +71,7 @@ public:
 
 CWeaponCollisionTrack *CWeaponCollisionTrack::FUN_00062010()
 {
-    ((Base12 *)this)->FUN_00236d40();
+    ((CWeaponCollisionTrack_62010 *)this)->FUN_00236d40();
     new (this) CWeaponCollisionTrack;
     fc = 0;
     f10 = -1.0f;

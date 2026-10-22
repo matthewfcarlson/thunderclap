@@ -16,9 +16,9 @@ struct TrackImpl {
     void setup(void* arg);
 };
 
-class TrackFactoryTemplate_18ea90 {
+class ConditionFactoryTemplate_18ea90 {
   public:
-    TrackFactoryTemplate_18ea90() {}
+    ConditionFactoryTemplate_18ea90() {}
     virtual void vf0();
     virtual void vf1();
     int mPad;
@@ -32,7 +32,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Grapp
     void* mem = operator new(0x10);
     if (mem) {
         ((InitHelper*)mem)->init();
-        TrackFactoryTemplate_18ea90* t = new (mem) TrackFactoryTemplate_18ea90();
+        ConditionFactoryTemplate_18ea90* t = new (mem) ConditionFactoryTemplate_18ea90();
         t->mTrack.setup(arg);
         postInit();
         return (void*)(t);

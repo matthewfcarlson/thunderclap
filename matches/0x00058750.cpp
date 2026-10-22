@@ -1,21 +1,21 @@
 typedef unsigned int size_t;
 void* operator new(size_t) throw();
-class Base {
+class CCondition_58750 {
   public:
-    Base(int) throw();
+    CCondition_58750(int) throw();
     virtual void f0();
     virtual void f1();
     virtual void f2();
     char pad[8];
 };
-class CSmartPropAngleCondition : public Base {
+class CSmartPropAngleCondition : public CCondition_58750 {
   public:
     CSmartPropAngleCondition() throw();
     virtual void f0();
     float b;
     float c;
 };
-CSmartPropAngleCondition::CSmartPropAngleCondition() throw() : Base(0) {
+CSmartPropAngleCondition::CSmartPropAngleCondition() throw() : CCondition_58750(0) {
     b = 0.0f;
     c = 1.57079637f;
 }

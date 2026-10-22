@@ -5,7 +5,7 @@ class Ref_2e0090 {
     virtual void Release();
 };
 extern int vtSkin, vtOpt, vtBase;
-class Obj_2e0090 {
+class PrimGroupSkinnedOptimized_2e0090 {
   public:
     void* vptr;
     char p4[0x3c];
@@ -18,7 +18,7 @@ class Obj_2e0090 {
     void Cleanup();
     void BaseCleanup();
 };
-void Obj_2e0090::Cleanup() {
+void PrimGroupSkinnedOptimized_2e0090::Cleanup() {
     *(void* volatile*)&vptr = &vtSkin;
     _ReadWriteBarrier();
     if (m60) {

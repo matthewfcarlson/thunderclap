@@ -11,12 +11,12 @@ struct Menu_d95a0 {
 struct State_d95a0 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d95a0* FUN_00086280(); };
 void __cdecl FUN_000fc020(unsigned short*, int, const unsigned short*);
-struct Screen_d95a0 {
+struct FEMemCardControl_d95a0 {
  char pad0[0x21c]; int field21c; char pad1[0x3b0-0x220]; unsigned char field3b0; char pad2[0x3eb-0x3b1]; unsigned char field3eb;
  Menu_d95a0* FUN_000fc3d0();
  void target(int);
 };
-void Screen_d95a0::target(int) {
+void FEMemCardControl_d95a0::target(int) {
  unsigned short text[512];
  Menu_d95a0* menu = FUN_000fc3d0();
  TextBank* bank = menu->v44();

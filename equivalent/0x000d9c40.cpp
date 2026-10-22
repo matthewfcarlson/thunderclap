@@ -13,8 +13,8 @@ extern Screen_d9c40* __cdecl FUN_000fc3d0();
 struct State_d9c40 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d9c40* FUN_00086280(); };
 struct Control_d9c40 { void FUN_000bc9f0(const char*, int); };
-struct Target_d9c40 { char p0[0x150]; Control_d9c40* control; char p1[0x21c-0x154]; int value; char p2[0x34c-0x220]; int blocks; char p3[0x3b0-0x350]; unsigned char active; char p4[0x3eb-0x3b1]; unsigned char mode; void run(); };
-void Target_d9c40::run() {
+struct FEMemCardControl_d9c40 { char p0[0x150]; Control_d9c40* control; char p1[0x21c-0x154]; int value; char p2[0x34c-0x220]; int blocks; char p3[0x3b0-0x350]; unsigned char active; char p4[0x3eb-0x3b1]; unsigned char mode; void run(); };
+void FEMemCardControl_d9c40::run() {
  char text[1024];
  Screen_d9c40* screen=FUN_000fc3d0();
  TextTable* table=screen->v44();

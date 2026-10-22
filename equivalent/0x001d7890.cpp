@@ -24,14 +24,14 @@ struct SubB_1d7890 {
     SubB_1d7890 *FUN_0027af00();
 };
 
-class __declspec(novtable) CSPHulkPropBase {
+class __declspec(novtable) StateProp_1d7890 {
 public:
-    CSPHulkPropBase(ItemList_1d7890 *list, int arg) { FUN_0027def0(list, arg); }
+    StateProp_1d7890(ItemList_1d7890 *list, int arg) { FUN_0027def0(list, arg); }
     virtual void v0();
-    CSPHulkPropBase *FUN_0027def0(ItemList_1d7890 *list, int arg);
+    StateProp_1d7890 *FUN_0027def0(ItemList_1d7890 *list, int arg);
 };
 
-class CSPHulkPropInstance : public CSPHulkPropBase {
+class CSPHulkPropInstance : public StateProp_1d7890 {
 public:
     CSPHulkPropInstance(Indexer_1d7890 *idx, int arg);
     virtual void v1();
@@ -147,7 +147,7 @@ public:
 };
 
 CSPHulkPropInstance::CSPHulkPropInstance(Indexer_1d7890 *idx, int arg)
-    : CSPHulkPropBase(idx->FUN_001d4fc0(), arg)
+    : StateProp_1d7890(idx->FUN_001d4fc0(), arg)
 {
     indexer = idx;
     fe8 = 0;

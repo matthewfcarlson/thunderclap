@@ -11,10 +11,10 @@ class Sub_1488a0 {
   public:
     void Fn();
 };
-struct GrappleThrowAction_nv_1488a0 {
+struct GrappleThrowAction_1488a0 {
     void Fn();
 };
-class A_1488a0 {
+class GrappleHitReactionAction_1488a0 {
   public:
     void* vptr;
     char p[0x18];
@@ -25,7 +25,7 @@ class A_1488a0 {
     Ref_1488a0* m4c;
     void f();
 };
-void A_1488a0::f() {
+void GrappleHitReactionAction_1488a0::f() {
     vptr = g_vftable_1488a0;
     _ReadWriteBarrier();
     if (m4c) {
@@ -39,5 +39,5 @@ void A_1488a0::f() {
     if (m1c)
         m1c = 0;
     m24.Fn();
-    ((GrappleThrowAction_nv_1488a0*)(((hulkfight::motion::GrappleThrowAction*)this)))->Fn();
+    ((GrappleThrowAction_1488a0*)(((hulkfight::motion::GrappleThrowAction*)this)))->Fn();
 }

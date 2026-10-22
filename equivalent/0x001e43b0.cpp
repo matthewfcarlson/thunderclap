@@ -84,14 +84,14 @@ union KeyArg {
     int caster;
 };
 
-struct Spawn_1e43b0 {
+struct CSPManager_1e43b0 {
     char pad[0x1e830];
     Manager_1e43b0 *manager;               // 0x1e830
     Spawned_1e43b0 *FUN_001e4310(Found_1e43b0 *found, int a, int zero1, int b, int zero2, int c, int zero3);
     void FUN_001e43b0(int a, KeyArg key, int b, int c);
 };
 
-void Spawn_1e43b0::FUN_001e43b0(int a, KeyArg key, int b, int c)
+void CSPManager_1e43b0::FUN_001e43b0(int a, KeyArg key, int b, int c)
 {
     Inventory_1e43b0 *inv = DAT_004dd700->f54->FUN_000862a0()->FUN_00203d70();
     unsigned __int64 id = *key.key;

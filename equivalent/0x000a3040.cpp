@@ -52,7 +52,7 @@ struct Frame_a3040 {
     V3_a3040 dir;             // 0x3c
 };
 
-class Cam_a3040 {
+class CChaseCamera_a3040 {
 public:
     char pad000[0x194];
     V3_a3040 p194;
@@ -101,7 +101,7 @@ public:
     void Update(float unused, float dt);
 };
 
-void Cam_a3040::Update(float unused, float dt)
+void CChaseCamera_a3040::Update(float unused, float dt)
 {
     FUN_000a0dc0((*(float*)&DAT_0049ec78), DAT_0049ec7c, dt);
 

@@ -11,7 +11,7 @@ class Obj_2fc520 {
     virtual void Dummy();
     virtual void Release();
 };
-class Physics_2fc520 {
+class PhysicsInstance_2fc520 {
   public:
     void* vptr;
     char pad[12];
@@ -24,7 +24,7 @@ class Global_2fc520 {
     void call(int);
 };
 extern Global_2fc520* global_2fc520;
-void Physics_2fc520::Destroy() {
+void PhysicsInstance_2fc520::Destroy() {
     vptr = (void*)((hulk_intptr)DAT_00431898);
     global_2fc520->call(*(int*)((char*)obj + 0x74));
     if (ref)

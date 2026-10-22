@@ -1,8 +1,8 @@
 #include "compat/ptr.h"
 extern int vt_3277b0;
-class PrimBuf {
+class d3dPrimBuffer_3277b0 {
   public:
-    PrimBuf(int arg);
+    d3dPrimBuffer_3277b0(int arg);
     void InitBase();
     int p0, p4, p8;
     int m0c;
@@ -12,7 +12,7 @@ class PrimBuf {
     int m38;
 };
 
-PrimBuf::PrimBuf(int arg) {
+d3dPrimBuffer_3277b0::d3dPrimBuffer_3277b0(int arg) {
     InitBase();
     m18 = 0;
     m1c = 0;

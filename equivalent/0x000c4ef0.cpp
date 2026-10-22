@@ -37,7 +37,7 @@ class VectorCamera_c4ef0 {
     void FUN_00293a90(Vec3_c4ef0 *v);
 };
 
-class Renderer_c4ef0 {
+class View_c4ef0 {
   public:
     virtual void v0();
     char pad[0x20 - 4];
@@ -46,7 +46,7 @@ class Renderer_c4ef0 {
     int field_28;
     int field_2c;
 
-    Renderer_c4ef0 *FUN_00294880();
+    View_c4ef0 *FUN_00294880();
     void FUN_00293e90(unsigned color);
     void FUN_00294980(VectorCamera_c4ef0 *cam);
 };
@@ -67,13 +67,13 @@ class CFESoundManager {
     CFESoundManager() : field_04(0) {}
 };
 
-struct Obj68_c4ef0 {
+struct Shader_c4ef0 {
     virtual void v0();
-    Obj68_c4ef0 *FUN_0028edb0();
+    Shader_c4ef0 *FUN_0028edb0();
 };
 
-struct Obj64_c4ef0 {
-    Obj64_c4ef0 *FUN_000c43a0(void *owner);
+struct CFrontEndCallback_c4ef0 {
+    CFrontEndCallback_c4ef0 *FUN_000c43a0(void *owner);
 };
 
 struct Singleton_c4ef0 {
@@ -153,7 +153,7 @@ struct Input_c4ef0 {
 
 struct Frontend_c4ef0 {
     char pad0[0x20];
-    Renderer_c4ef0 *renderer;
+    View_c4ef0 *renderer;
     VectorCamera_c4ef0 *camera;
     char pad1[0x34 - 0x28];
     void *field_34;
@@ -167,8 +167,8 @@ struct Frontend_c4ef0 {
     void *field_58;
     void *field_5c;
     FEControllerSystem *controllers;
-    Obj64_c4ef0 *field_64;
-    Obj68_c4ef0 *field_68;
+    CFrontEndCallback_c4ef0 *field_64;
+    Shader_c4ef0 *field_68;
     char pad4[0x1880 - 0x6c];
     int field_1880;
     char text1[0x80];
@@ -182,14 +182,14 @@ struct Frontend_c4ef0 {
 };
 
 Singleton_c4ef0 *FUN_000fc3d0();
-void FUN_000fc060(const char *file, FEControllerSystem *ctl, CFESoundManager *snd, Renderer_c4ef0 *r);
+void FUN_000fc060(const char *file, FEControllerSystem *ctl, CFESoundManager *snd, View_c4ef0 *r);
 void FUN_00294c70(void *src, void *dst, int n);
 void FUN_000d3d80();
 
 void Frontend_c4ef0::FUN_000c4ef0(void *a1, void *a2, void *a3, Input_c4ef0 *a4, void *a5, void *a6, void *a7)
 {
     void *p = FUN_0008d690(0x140);
-    renderer = p ? ((Renderer_c4ef0 *)p)->FUN_00294880() : 0;
+    renderer = p ? ((View_c4ef0 *)p)->FUN_00294880() : 0;
     renderer->v0();
     renderer->field_28 = 0;
     renderer->field_2c = 6;
@@ -242,10 +242,10 @@ void Frontend_c4ef0::FUN_000c4ef0(void *a1, void *a2, void *a3, Input_c4ef0 *a4,
     FUN_000fc3d0()->registerCallback(FUN_000d3d80, this);
 
     p = FUN_0008d690(8);
-    field_64 = p ? ((Obj64_c4ef0 *)p)->FUN_000c43a0(this) : 0;
+    field_64 = p ? ((CFrontEndCallback_c4ef0 *)p)->FUN_000c43a0(this) : 0;
 
     p = FUN_00263ea0(0x20);
-    field_68 = p ? ((Obj68_c4ef0 *)p)->FUN_0028edb0() : 0;
+    field_68 = p ? ((Shader_c4ef0 *)p)->FUN_0028edb0() : 0;
     field_68->v0();
 
     field_48 = a3;

@@ -20,19 +20,19 @@ struct DynamicCaster {
     virtual void f0();
 };
 
-struct Base_f2560 {
+struct FEAnimation_f2560 {
     virtual void bv();
     int a;
     int b;
-    Base_f2560(int x, int y);
+    FEAnimation_f2560(int x, int y);
 };
 
-struct FEShaderAnimation : Base_f2560 {
+struct FEShaderAnimation : FEAnimation_f2560 {
     Result_f2560* m_c;
     FEShaderAnimation(int p1, int p2);
 };
 
-FEShaderAnimation::FEShaderAnimation(int p1, int p2) : Base_f2560(p1, p2) {
+FEShaderAnimation::FEShaderAnimation(int p1, int p2) : FEAnimation_f2560(p1, p2) {
     Obj_f2560* obj = g_dat_f2560;
     __int64 v = fun_p2(p2);
     m_c = obj->cast(&DynamicCaster(), v);

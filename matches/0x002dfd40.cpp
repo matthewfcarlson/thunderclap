@@ -5,12 +5,12 @@ class Ref_2dfd40 {
     virtual void F0();
     virtual void Release();
 };
-class Base_2dfd40 {
+class DrawablePrimitive_2dfd40 {
   public:
     void* vptr;
     void Fin();
 };
-class PrimGroup_2dfd40 : public Base_2dfd40 {
+class PrimGroup_2dfd40 : public DrawablePrimitive_2dfd40 {
   public:
     char pad[0x3c];
     Ref_2dfd40* m40;

@@ -1,11 +1,11 @@
-struct Obj_2042a0 {
+struct CWorldStreamManager_2042a0 {
     char pad[0x58c];
     short* entries;
     int pad2;
     int count;
     int FUN_002042a0(int, int);
 };
-int Obj_2042a0::FUN_002042a0(int param_2, int param_3) {
+int CWorldStreamManager_2042a0::FUN_002042a0(int param_2, int param_3) {
     int n = count;
     int found = 0;
     int i = 0;

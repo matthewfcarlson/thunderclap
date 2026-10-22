@@ -1,12 +1,12 @@
 extern "C" char fn(char*);
 extern char g1[];
 extern char g2[];
-class Pre {
+class Function_2f150 {
   public:
-    Pre(void*, int);
+    Function_2f150(void*, int);
     virtual void v();
 };
-class Method1 : public Pre {
+class Method1 : public Function_2f150 {
   public:
     char pad0[12];
     char a;
@@ -14,7 +14,7 @@ class Method1 : public Pre {
     char b;
     char pad2[3];
     int value;
-    Method1(void* p, int x) : Pre(p, 1) {
+    Method1(void* p, int x) : Function_2f150(p, 1) {
         value = x;
         b = fn(g1);
         a = fn(g2);

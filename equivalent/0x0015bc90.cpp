@@ -6,10 +6,10 @@ struct Vec2_15bc90 {
     int a, b;
     void FUN_0027af00();
 };
-struct Base_15bc90 {
+struct Track_15bc90 {
     void FUN_00236d40();
 };
-struct HeliLocomotionTrack : Base_15bc90 {
+struct HeliLocomotionTrack : Track_15bc90 {
     void *vptr_unused;
     char pad4[0x0c - 4];
     int f0c;

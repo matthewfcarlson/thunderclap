@@ -8,7 +8,7 @@ struct Helper1_10d710 {
 struct Helper2_10d710 {
     void* Get();
 };
-class Cond_10d710 {
+class DefendingCondition_10d710 {
   public:
     virtual void v0();
     virtual void v1();
@@ -20,7 +20,7 @@ class Cond_10d710 {
     char pad[8];
     u8 value;
 };
-bool Cond_10d710::vfunc_6(void* a, void* p, void* b) {
+bool DefendingCondition_10d710::vfunc_6(void* a, void* p, void* b) {
     if (cast(p, 0, type1_10d710, type2_10d710, 0)) {
         void* x = ((Helper1_10d710*)p)->Get();
         void* q = ((Helper2_10d710*)x)->Get();

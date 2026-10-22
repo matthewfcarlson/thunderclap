@@ -5,12 +5,12 @@ class Ref_140600 {
     virtual void F0();
     virtual void Release();
 };
-class Base_140600 {
+class Action_140600 {
   public:
     void* vptr;
     void Fin();
 };
-class WallJumpAction_140600 : public Base_140600 {
+class WallJumpAction_140600 : public Action_140600 {
   public:
     char pad[0x18];
     void* m1c;

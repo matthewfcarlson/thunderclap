@@ -52,10 +52,10 @@ struct Factory_2b3340 {
                            unsigned int lo, unsigned int hi);
 };
 
-struct Loaded_2b3340 {
+struct MultiController_2b3340 {
     char pad0[8];
     ResourceName_2b3340 name;
-    Loaded_2b3340 *FUN_002b2710(int a, int b, int c);
+    MultiController_2b3340 *FUN_002b2710(int a, int b, int c);
     void FUN_002b1eb0(Controller_2b3340 *c);
 };
 
@@ -68,10 +68,10 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual unsigned __int64 vfunc_5(Loaded_2b3340 **out, unsigned __int64 *id, Stream *s, Factory_2b3340 *factory);
+    virtual unsigned __int64 vfunc_5(MultiController_2b3340 **out, unsigned __int64 *id, Stream *s, Factory_2b3340 *factory);
 };
 
-unsigned __int64 OldMultiControllerLoader::vfunc_5(Loaded_2b3340 **out, unsigned __int64 *id, Stream *s, Factory_2b3340 *factory)
+unsigned __int64 OldMultiControllerLoader::vfunc_5(MultiController_2b3340 **out, unsigned __int64 *id, Stream *s, Factory_2b3340 *factory)
 {
     struct Frame {
         char pad0[2];
@@ -99,7 +99,7 @@ unsigned __int64 OldMultiControllerLoader::vfunc_5(Loaded_2b3340 **out, unsigned
     s->reader->FUN_002647e0(&f.v18, 1, 4, 1);
     s->reader->FUN_002647e0(&f.v14, 1, 4, 1);
     s->reader->FUN_002647e0(&f.v10, 1, 4, 1);
-    Loaded_2b3340 *loaded = (Loaded_2b3340 *)FUN_0008d690(0x58);
+    MultiController_2b3340 *loaded = (MultiController_2b3340 *)FUN_0008d690(0x58);
     if (loaded != 0)
         loaded = loaded->FUN_002b2710(f.v10, f.v18, f.v14);
     loaded->name.FUN_0027b040(f.name);

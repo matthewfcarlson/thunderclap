@@ -24,7 +24,7 @@ struct Entry_3341c0 {
     Mid_3341c0* p;
     char pad[16];
 };
-class movie_RenderStrategyBink {
+class RenderStrategyBink_3341c0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -39,7 +39,7 @@ class movie_RenderStrategyBink {
     Entry_3341c0 entries[1];
     char flag;
 };
-void movie_RenderStrategyBink::v5() {
+void RenderStrategyBink_3341c0::v5() {
     Mid_3341c0* m = entries[index].p;
     m->q->o(0);
     ++index;

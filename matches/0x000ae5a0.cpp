@@ -17,7 +17,7 @@ class Entry_ae5a0 {
     virtual void e();
     virtual int Value();
 };
-class Owner_ae5a0 {
+class CController_ae5a0 {
   public:
     char pad[0x134];
     char flag;
@@ -25,7 +25,7 @@ class Owner_ae5a0 {
     void Process();
 };
 Item_ae5a0* GetItems();
-void Owner_ae5a0::Process() {
+void CController_ae5a0::Process() {
     flag = 0;
     int i = 0;
     int n = GetItems()->Count();

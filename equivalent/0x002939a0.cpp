@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_002939a0 @ 0x002939a0
-class __declspec(novtable) CameraBase {
+class __declspec(novtable) Camera_2939a0 {
   public:
     virtual void slot0();
     char pad[0xd0 - 4];
     void FUN_00292d70();
-    CameraBase() { FUN_00292d70(); }
+    Camera_2939a0() { FUN_00292d70(); }
 };
 namespace pure3d {
-class VectorCamera : public CameraBase {
+class VectorCamera : public Camera_2939a0 {
   public:
     VectorCamera();
     virtual void slot1();

@@ -26,13 +26,13 @@ struct Triple_1e5070 {
 
 void *__cdecl FUN_001d68e0(unsigned kind);
 
-class Emitter_1e5070 {
+class CSPManager_1e5070 {
 public:
     void FUN_001e4c40(void *entry, Triple_1e5070 *v, unsigned kind, unsigned w, unsigned x, unsigned y);
     void FUN_001e5070(unsigned kind, unsigned a, unsigned b, unsigned c, unsigned w);
 };
 
-void Emitter_1e5070::FUN_001e5070(unsigned kind, unsigned a, unsigned b, unsigned c, unsigned w)
+void CSPManager_1e5070::FUN_001e5070(unsigned kind, unsigned a, unsigned b, unsigned c, unsigned w)
 {
     int flag = DAT_004dd700->manager->FUN_00086310()->settings.FUN_00088fa0();
     int mode = DAT_004dd700->manager->FUN_00086310()->settings.FUN_00088fb0();

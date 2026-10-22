@@ -7,12 +7,12 @@ class Ref_21b80 {
     virtual void F0();
     virtual void Release();
 };
-class Base_21b80 {
+class CAction_21b80 {
   public:
     void* vptr;
     void Fin();
 };
-class CSweepAction_21b80 : public Base_21b80 {
+class CSweepAction_21b80 : public CAction_21b80 {
   public:
     char pad[0x18];
     Ref_21b80* m1c;

@@ -12,13 +12,13 @@ class M_d8220 {
   public:
     A_d8220* Get();
 };
-class C_d8220 {
+class FEMemCardControl_d8220 {
   public:
     int Run(int x);
     char pad[0x150];
     M_d8220* m;
 };
-int C_d8220::Run(int x) {
+int FEMemCardControl_d8220::Run(int x) {
     m->Get()->Inner()->F1(x);
     int r = m->Get()->Inner()->F2(x);
     m->Get()->Inner()->F3(x);

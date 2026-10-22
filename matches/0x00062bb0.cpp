@@ -1,5 +1,5 @@
 typedef unsigned int u32_62bb0;
-struct Helper_62bb0 {
+struct CSmartPropEventAction_62bb0 {
     u32_62bb0 call(u32_62bb0, u32_62bb0, u32_62bb0);
 };
 struct CSmartPropEventTrack {
@@ -26,6 +26,6 @@ extern void* __cdecl FUN_0008d690(int);
 u32_62bb0 CSmartPropEventTrack::vfunc_12(u32_62bb0 arg) {
     void* p = FUN_0008d690(0x28);
     if (p)
-        return ((Helper_62bb0*)p)->call(arg, d, c);
+        return ((CSmartPropEventAction_62bb0*)p)->call(arg, d, c);
     return 0;
 }

@@ -22,14 +22,14 @@ extern void* g_fr[];
 extern void* g_rq[];
 void __cdecl Lk(void*);
 void __cdecl Ulk(void*);
-class Obj_2751c0 {
+class FileCommitRequest_2751c0 {
   public:
     void* vptr;
     int pad;
     Drive* drive;
-    Obj_2751c0* f0(unsigned char flags);
+    FileCommitRequest_2751c0* f0(unsigned char flags);
 };
-Obj_2751c0* Obj_2751c0::f0(unsigned char flags) {
+FileCommitRequest_2751c0* FileCommitRequest_2751c0::f0(unsigned char flags) {
     vptr = g_fr;
     drive->lk.lock();
     --drive->refs;

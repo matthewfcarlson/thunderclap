@@ -6,18 +6,18 @@ class Ref_2a3620 {
     virtual void F0();
     virtual void Release();
 };
-class Base_2a3620 {
+class Entity_2a3620 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_2a3620 : public Base_2a3620 {
+class DrawableHierarchy_2a3620 : public Entity_2a3620 {
   public:
     char pad[12];
     Ref_2a3620* m;
-    Obj_2a3620* f2(unsigned char flags);
+    DrawableHierarchy_2a3620* f2(unsigned char flags);
 };
-Obj_2a3620* Obj_2a3620::f2(unsigned char flags) {
+DrawableHierarchy_2a3620* DrawableHierarchy_2a3620::f2(unsigned char flags) {
     vptr = g_vftable_2a3620;
     _ReadWriteBarrier();
     if (m) {

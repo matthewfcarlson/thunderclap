@@ -6,18 +6,18 @@ class Ref_220e0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_220e0 {
+class CAction_220e0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_220e0 : public Base_220e0 {
+class CInvincibleAction_220e0 : public CAction_220e0 {
   public:
     char pad[0x1c - 4];
     Ref_220e0* m;
-    Obj_220e0* f2(unsigned char flags);
+    CInvincibleAction_220e0* f2(unsigned char flags);
 };
-Obj_220e0* Obj_220e0::f2(unsigned char flags) {
+CInvincibleAction_220e0* CInvincibleAction_220e0::f2(unsigned char flags) {
     vptr = g_vftable_220e0;
     _ReadWriteBarrier();
     if (m) {

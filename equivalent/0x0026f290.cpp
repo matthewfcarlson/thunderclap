@@ -4,7 +4,7 @@
 
 extern void __stdcall FUN_00208b9c(char *, unsigned int *, unsigned char *, unsigned char *);
 extern unsigned int __stdcall FUN_00209a8e(char *);
-struct Resource {
+struct XboxDrive_26f290 {
     char pad0[0x64];
     unsigned int size;
     unsigned int count;
@@ -13,7 +13,7 @@ struct Resource {
     char name[1];
     void FUN_0026f290();
 };
-void Resource::FUN_0026f290()
+void XboxDrive_26f290::FUN_0026f290()
 {
     struct Locals {
         char path[4];

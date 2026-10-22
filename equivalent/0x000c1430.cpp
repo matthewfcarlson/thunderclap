@@ -85,7 +85,7 @@ public:
 void FUN_000b45a0(const char *);
 void FUN_000b45b0(const char *);
 void FUN_000b45d0(const char *);
-struct Registry_c1430;
+struct CFEManager_c1430;
 
 class CFEManager {
 public:
@@ -126,7 +126,7 @@ public:
     void FUN_000c1430();
 };
 
-struct Registry_c1430 {
+struct CFEManager_c1430 {
     void FUN_000c0a20(const char *, CFEManager *, void (CFEManager::*)());
     void FUN_000c0aa0(const char *, CFEManager *, void (CFEManager::*)());
     void FUN_000c0b80(const char *, CFEManager *, void (CFEManager::*)());
@@ -138,13 +138,13 @@ struct Registry_c1430 {
     void FUN_001d26d0(const char *, MethodBase_c1430 *);
 };
 
-Registry_c1430 *FUN_001d4c90();
+CFEManager_c1430 *FUN_001d4c90();
 void FUN_000fc3e0();
 
 void CFEManager::FUN_000c1430()
 {
     new (this) CFEManager;
-    Registry_c1430 *reg = FUN_001d4c90();
+    CFEManager_c1430 *reg = FUN_001d4c90();
     if (reg) {
         reg->FUN_000c0a20("fe_StartNextMission", this, &CFEManager::FUN_000bc750);
         reg->FUN_000bfd20("fe_changeScreen", FUN_000b45a0);

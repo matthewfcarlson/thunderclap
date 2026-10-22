@@ -11,8 +11,8 @@ struct Singleton_4dd6ec { State_d8dd0* FUN_00086280(); };
 struct Widget_d8dd0 { void FUN_000bc9f0(const char*, int); };
 extern Provider_d8dd0* __cdecl FUN_000fc3d0();
 extern void __cdecl FUN_000fc020(unsigned short*, int, const char*);
-struct Target_d8dd0 { char pad0[0x150]; Widget_d8dd0* widget; char pad1[0x21c-0x154]; int value; char pad2[0x3b0-0x220]; unsigned char enabled; char pad3[0x3eb-0x3b1]; unsigned char mode; void run(int); };
-void Target_d8dd0::run(int) {
+struct FEMemCardControl_d8dd0 { char pad0[0x150]; Widget_d8dd0* widget; char pad1[0x21c-0x154]; int value; char pad2[0x3b0-0x220]; unsigned char enabled; char pad3[0x3eb-0x3b1]; unsigned char mode; void run(int); };
+void FEMemCardControl_d8dd0::run(int) {
  unsigned short buffer[512];
  Provider_d8dd0* p=FUN_000fc3d0();
  Manager_d8dd0* m=p->v44();

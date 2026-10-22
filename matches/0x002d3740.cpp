@@ -1,7 +1,7 @@
 extern "C" void _ReadWriteBarrier();
-class Base_2d3740 {
+class ParticleGenerator_2d3740 {
   public:
-    Base_2d3740() throw();
+    ParticleGenerator_2d3740() throw();
     virtual void a();
     char pad[0xc];
 };
@@ -17,14 +17,14 @@ struct Init1_2d3740 {
     char m10;
     int m14, m18, m1c, m20, m24, m28;
 };
-class PPG : public Base_2d3740, public Init1_2d3740 {
+class ParticlePointGenerator_2d3740 : public ParticleGenerator_2d3740, public Init1_2d3740 {
   public:
-    PPG() throw();
+    ParticlePointGenerator_2d3740() throw();
     virtual void a();
     int m2c, m30, m34, m38, m3c, m40;
     float m44, m48, m4c;
 };
-PPG::PPG() throw() {
+ParticlePointGenerator_2d3740::ParticlePointGenerator_2d3740() throw() {
     _ReadWriteBarrier();
     m2c = 0;
     m30 = 0;

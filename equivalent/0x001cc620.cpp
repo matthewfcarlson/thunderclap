@@ -42,13 +42,13 @@ struct Singleton_4dd6ec {
 
 void __fastcall FUN_001cc600(char flag);
 
-struct Screen_1cc620 {
+struct CScenarioManager_1cc620 {
     char pad0[0xc];
     int state;
     void FUN_001cc620(int next);
 };
 
-void Screen_1cc620::FUN_001cc620(int next)
+void CScenarioManager_1cc620::FUN_001cc620(int next)
 {
     switch (next) {
     case 1:

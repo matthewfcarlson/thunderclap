@@ -1,13 +1,13 @@
-class Base_69430 {
+class CTrack_69430 {
   public:
     virtual void F0();
     virtual void F1();
-    virtual ~Base_69430() throw();
-    Base_69430();
+    virtual ~CTrack_69430() throw();
+    CTrack_69430();
     char pad[8];
 };
 
-class CDropTrack : public Base_69430 {
+class CDropTrack : public CTrack_69430 {
   public:
     virtual void F0();
     virtual ~CDropTrack() throw();

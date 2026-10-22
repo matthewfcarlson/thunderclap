@@ -2,9 +2,9 @@
 
 typedef unsigned int size_t;
 void* operator new(size_t);
-class BaseTrack {
+class CTrack_76e00 {
   public:
-    BaseTrack() throw();
+    CTrack_76e00() throw();
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -14,7 +14,7 @@ class BaseTrack {
     int x;
     int flag;
 };
-class CInvulnerableTrack_76e00 : public BaseTrack {
+class CInvulnerableTrack_76e00 : public CTrack_76e00 {
   public:
     CInvulnerableTrack_76e00() throw();
     virtual void f0();

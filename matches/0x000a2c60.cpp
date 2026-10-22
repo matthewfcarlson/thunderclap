@@ -1,5 +1,5 @@
 extern const float zero_a2c60;
-class Obj_a2c60 {
+class CChaseCamera_a2c60 {
     char pad[0x450];
     float oldVal;
     float target;
@@ -9,7 +9,7 @@ class Obj_a2c60 {
     void Set(float value, float time);
     void helper(float);
 };
-void Obj_a2c60::Set(float value, float time) {
+void CChaseCamera_a2c60::Set(float value, float time) {
     target = value;
     speed = 0.0f;
     if (oldVal != value) {

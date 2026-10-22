@@ -3,13 +3,13 @@ class RefCounted_1510f0 {
     virtual void AddRef() throw() = 0;
     virtual void Release() throw() = 0;
 };
-class Base_1510f0 {
+class Action_1510f0 {
   public:
-    Base_1510f0() throw();
+    Action_1510f0() throw();
     virtual void BaseVirtual() throw();
     char pad[0x18];
 };
-class HitWaitAction : public Base_1510f0 {
+class HitWaitAction : public Action_1510f0 {
   public:
     HitWaitAction(void* a, RefCounted_1510f0* b) throw();
     virtual void V1() throw();

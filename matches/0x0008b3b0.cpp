@@ -4,10 +4,10 @@ struct CtorV_001d0480 {
 };
 extern "C" unsigned char __cdecl get(const char*);
 extern const char key[];
-struct Init : public CtorV_001d0480 {
-    Init(const char* s) : CtorV_001d0480(s, 1) { }
+struct Function_8b3b0 : public CtorV_001d0480 {
+    Function_8b3b0(const char* s) : CtorV_001d0480(s, 1) { }
 };
-class Method1 : public Init {
+class Method1 : public Function_8b3b0 {
   public:
     virtual void f();
     char p0[12];
@@ -16,7 +16,7 @@ class Method1 : public Init {
     unsigned char b;
     char p2[3];
     const char* name;
-    Method1(const char* s, const char* n) : Init(s) {
+    Method1(const char* s, const char* n) : Function_8b3b0(s) {
         name = n;
         b = get(key);
         a = get(key);

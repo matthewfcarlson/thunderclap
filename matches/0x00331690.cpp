@@ -5,7 +5,7 @@ class Shader {
     virtual void F0();
     virtual void F1();
 };
-class Obj_331690 {
+class d3dSpheremapVertexShader_331690 {
   public:
     hulk_intptr vft;
     char pad[0x7c];
@@ -14,7 +14,7 @@ class Obj_331690 {
     void Fn();
     void End();
 };
-void Obj_331690::Fn() {
+void d3dSpheremapVertexShader_331690::Fn() {
     Shader* x = a;
     vft = ((hulk_intptr)DAT_00433e64);
     if (x)

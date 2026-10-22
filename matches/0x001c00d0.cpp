@@ -1,15 +1,15 @@
 extern char __cdecl ReadFlag(const char*);
 extern char flagA[];
 extern char flagB[];
-class Base {
+class Function_1c00d0 {
   public:
-    Base(void*, int);
+    Function_1c00d0(void*, int);
     virtual void Run();
     char pad[12];
 };
-class Method1 : public Base {
+class Method1 : public Function_1c00d0 {
   public:
-    Method1(void* a, void* c) : Base(a, 1) {
+    Method1(void* a, void* c) : Function_1c00d0(a, 1) {
         p = c;
         y = ReadFlag(flagA);
         x = ReadFlag(flagB);

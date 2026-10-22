@@ -17,14 +17,14 @@ struct Store {
     void A();
     void B();
 };
-struct Mgr_1c5890 {
+struct ObjectManager_1c5890 {
     void* vptr;
     char pad[4];
     Store base;
     Store tmpl;
-    ~Mgr_1c5890();
+    ~ObjectManager_1c5890();
 };
-Mgr_1c5890::~Mgr_1c5890() {
+ObjectManager_1c5890::~ObjectManager_1c5890() {
     int n = base.m10;
     vptr = g_vtMgr;
     for (int i = 0; i < n; i++) {

@@ -6,14 +6,14 @@ class Ref_2894d0 {
     virtual void F0();
     virtual void Release();
 };
-class Obj_2894d0 {
+class AnimationLoader_2894d0 {
   public:
     void* vptr;
     char pad[0x10];
     Ref_2894d0* m14;
-    ~Obj_2894d0();
+    ~AnimationLoader_2894d0();
 };
-Obj_2894d0::~Obj_2894d0() {
+AnimationLoader_2894d0::~AnimationLoader_2894d0() {
     vptr = g_vftable_0042c8e8;
     _ReadWriteBarrier();
     if (m14) {

@@ -7,11 +7,11 @@ struct Key_287e20 { unsigned a,b; };
 struct Keys_287e20 { char pad[0x24]; Key_287e20* entries; };
 struct Info_287e20 { char pad[8]; Keys_287e20* keys; unsigned count; };
 struct Result_287e20 { unsigned rotation,translation,other; };
-struct Target_287e20 {
+struct PoseAnimationController_287e20 {
  char pad0[0x28]; unsigned count; Group_287e20 groups[5]; char pad1[8]; Info_287e20* info; char pad2[8]; Result_287e20* results[5]; unsigned char dirty;
  unsigned char FUN_00285340(); void update();
 };
-void Target_287e20::update() {
+void PoseAnimationController_287e20::update() {
  dirty |= FUN_00285340();
  if (!dirty) return;
  dirty=0;

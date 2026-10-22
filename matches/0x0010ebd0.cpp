@@ -5,18 +5,18 @@ class Str_10ebd0 {
   public:
     void Init();
 };
-class Base_10ebd0 {
+class Track_10ebd0 {
   public:
     void* vptr;
     char pad[20];
     Str_10ebd0 s;
     void Fin();
 };
-class Cond_10ebd0 : public Base_10ebd0 {
+class SemaphoreWaitTrack_10ebd0 : public Track_10ebd0 {
   public:
     void* Del(unsigned char flags);
 };
-void* Cond_10ebd0::Del(unsigned char flags) {
+void* SemaphoreWaitTrack_10ebd0::Del(unsigned char flags) {
     vptr = g_vftable_10ebd0;
     s.Init();
     Fin();

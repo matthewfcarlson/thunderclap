@@ -5,14 +5,14 @@ class RefObj_12ffa0 {
     virtual void Release();
 };
 
-class ActionBase_12ffa0 {
+class Action_12ffa0 {
   public:
-    ActionBase_12ffa0();
+    Action_12ffa0();
     virtual void Update();
     char pad[0x18];
 };
 
-class NISSoundAction_12ffa0 : public ActionBase_12ffa0 {
+class NISSoundAction_12ffa0 : public Action_12ffa0 {
   public:
     int mTarget;
     RefObj_12ffa0* mObj;

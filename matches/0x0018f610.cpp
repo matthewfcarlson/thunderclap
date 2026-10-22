@@ -2,13 +2,13 @@ struct Ref_18f610 {
     virtual void AddRef();
     virtual void Release();
 };
-struct Base_18f610 {
-    Base_18f610();
+struct Action_18f610 {
+    Action_18f610();
     virtual void f0();
     char p[0x18];
 };
-struct Tank : Base_18f610 {
-    Tank(int a, Ref_18f610* r);
+struct TankLocomotionAction_18f610 : Action_18f610 {
+    TankLocomotionAction_18f610(int a, Ref_18f610* r);
     virtual void f1();
     int m1c;
     Ref_18f610* m20;
@@ -18,7 +18,7 @@ struct Tank : Base_18f610 {
     int m90;
     int arr[4];
 };
-Tank::Tank(int a, Ref_18f610* r) {
+TankLocomotionAction_18f610::TankLocomotionAction_18f610(int a, Ref_18f610* r) {
     int* q = &m1c;
     *q = 0;
     m20 = 0;

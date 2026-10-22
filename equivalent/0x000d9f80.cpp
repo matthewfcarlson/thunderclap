@@ -13,12 +13,12 @@ struct Singleton_4dd6ec { Status_d9f80* FUN_00086280(); };
 struct Entry_d9f80 { char pad[0x38]; void* FUN_000f83f0(Resource_d9f80*,int); };
    
 extern void __cdecl FUN_000fc020(char*,int,void*,void*);
-struct Target_d9f80 {
+struct FEMemCardControl_d9f80 {
  char pad0[0x21c]; int state; char pad1[0x13c]; Entry_d9f80 entries[2]; char pad2[0x1f]; unsigned char special;
  Menu_d9f80* FUN_000fc3d0();
  void FUN_000d9f80(int index);
 };
-void Target_d9f80::FUN_000d9f80(int index) {
+void FEMemCardControl_d9f80::FUN_000d9f80(int index) {
  char text[1024];
  Menu_d9f80* menu = FUN_000fc3d0();
  Resource_d9f80* resource = menu->v44();

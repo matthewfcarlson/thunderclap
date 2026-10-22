@@ -1,4 +1,4 @@
-struct FileStream_1faf70 {
+struct MyFileStream_1faf70 {
     virtual void v0();
     int a, b, c;
 };
@@ -8,7 +8,7 @@ struct Failure {
 struct Helper_1faf70 {
     int x, y, z;
     void Init();
-    bool Try(FileStream_1faf70*, int, Failure*, void*, int);
+    bool Try(MyFileStream_1faf70*, int, Failure*, void*, int);
     void Close();
 };
 struct Obj_1faf70 {
@@ -18,7 +18,7 @@ struct Obj_1faf70 {
 };
 bool Obj_1faf70::Target(int arg) {
     Helper_1faf70 h;
-    FileStream_1faf70 fs;
+    MyFileStream_1faf70 fs;
     fs.a = 0;
     fs.b = 0;
     fs.c = 0;

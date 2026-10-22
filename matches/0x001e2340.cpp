@@ -2,12 +2,12 @@
 class CSPManager;
 extern const char a[];
 extern const char b[];
-class Base {
+class Function_1e2340 {
   public:
     virtual void f();
-    Base(void*, int);
+    Function_1e2340(void*, int);
 };
-class Method1 : public Base {
+class Method1 : public Function_1e2340 {
   public:
     virtual void f();
     char pad[12];
@@ -16,7 +16,7 @@ class Method1 : public Base {
     unsigned char y;
     char pad3[3];
     void* data;
-    Method1(void* p, void* d) : Base(p, 1) {
+    Method1(void* p, void* d) : Function_1e2340(p, 1) {
         data = d;
         y = FUN_001d04d0(a);
         x = FUN_001d04d0(b);

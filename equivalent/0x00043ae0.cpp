@@ -65,7 +65,7 @@ struct Params {
 };
 
 
-struct Inner_43ae0 {
+struct CCharacter_43ae0 {
     char pad00[0x14];
     int f14;
     unsigned __int64 FUN_000443c0();
@@ -79,7 +79,7 @@ struct Obj_43ae0 {
     float f110;
     int f114;
     char pad118[4];
-    Inner_43ae0 *f11c;
+    CCharacter_43ae0 *f11c;
     char pad120[0x12c - 0x120];
     RefObj_43ae0 *f12c;
     char FUN_00043350(float dt, RefObj_43ae0 *r, int a, int b, int c, int d);

@@ -1,6 +1,6 @@
-class Base {
+class Track_1815d0 {
   public:
-    Base();
+    Track_1815d0();
     virtual void f();
     int x;
     int flag;
@@ -10,7 +10,7 @@ class Sub {
     Sub();
     char pad[8];
 };
-class PropSpawnTrack : public Base {
+class PropSpawnTrack : public Track_1815d0 {
   public:
     PropSpawnTrack();
     virtual void f();

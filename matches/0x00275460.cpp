@@ -25,14 +25,14 @@ extern Holder_275460* g_holder;
 extern char g_buf;
 void Init(void*);
 void Fini(void*);
-class Req_275460 {
+class FileGetPositionRequest_275460 {
   public:
     void* vptr;
     int pad;
     Obj_275460* file;
-    Req_275460* f0(unsigned char flags);
+    FileGetPositionRequest_275460* f0(unsigned char flags);
 };
-Req_275460* Req_275460::f0(unsigned char flags) {
+FileGetPositionRequest_275460* FileGetPositionRequest_275460::f0(unsigned char flags) {
     vptr = g_vfFile;
     file->sub.f0();
     --file->cnt;

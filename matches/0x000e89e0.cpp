@@ -5,7 +5,7 @@ class Ref_e89e0 {
     virtual void f();
     virtual void g();
 };
-class Mid_e89e0 {
+class FEPoseAnimation_e89e0 {
   public:
     void Done();
 };
@@ -23,5 +23,5 @@ void FEParticleAnimation::Cleanup() {
         r->g();
         mRef = 0;
     }
-    ((Mid_e89e0*)this)->Done();
+    ((FEPoseAnimation_e89e0*)this)->Done();
 }

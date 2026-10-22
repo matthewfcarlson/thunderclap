@@ -1,17 +1,17 @@
 extern void* g_vftable[];
-class Base {
+class ParamValueBool_6c600 {
   public:
-    Base(int);
+    ParamValueBool_6c600(int);
     virtual void f();
     char pad[0x0c];
 };
-class Derived : public Base {
+class ParamBool_6c600 : public ParamValueBool_6c600 {
   public:
-    Derived(int a, int b);
+    ParamBool_6c600(int a, int b);
     virtual void g();
     int m10;
 };
-Derived::Derived(int a, int b) : Base(a) {
+ParamBool_6c600::ParamBool_6c600(int a, int b) : ParamValueBool_6c600(a) {
     *(void**)this = g_vftable;
     m10 = b;
 }

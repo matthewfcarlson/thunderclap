@@ -1,10 +1,10 @@
-class Base {
+class Track_170f00 {
   public:
-    Base();
+    Track_170f00();
     virtual void f();
     char pad[4];
 };
-class VisibilityTrack : public Base {
+class VisibilityTrack : public Track_170f00 {
   public:
     VisibilityTrack();
     virtual void f();
@@ -12,7 +12,7 @@ class VisibilityTrack : public Base {
     int other;
     char flag;
 };
-VisibilityTrack::VisibilityTrack() : Base() {
+VisibilityTrack::VisibilityTrack() : Track_170f00() {
     flag = 1;
     value = 1;
     other = 0;

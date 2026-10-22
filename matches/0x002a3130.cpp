@@ -8,17 +8,17 @@ struct Inner_2a3130 {
     virtual void f5();
     virtual void f6(int, int);
 };
-struct Obj_2a3130 {
+struct Shader_2a3130 {
     virtual void init();
     char pad[12];
     Inner_2a3130* inner;
-    Obj_2a3130* build();
+    Shader_2a3130* build();
 };
-Obj_2a3130* gObj_2a3130;
+Shader_2a3130* gObj_2a3130;
 extern void* alloc(hulk_uintptr);
 void FUN_002a3130() {
     if (gObj_2a3130 == 0) {
-        Obj_2a3130* p = (Obj_2a3130*)alloc(0x20);
+        Shader_2a3130* p = (Shader_2a3130*)alloc(0x20);
         if (p)
             gObj_2a3130 = p->build();
         else

@@ -52,7 +52,7 @@ struct VecV {
     char FUN_002e5640(unsigned int n, const ElemV *def);
 };
 
-class Mesh_2e5b20 {
+class VertexAnimKeyFrame_2e5b20 {
 public:
     virtual void v0();
     char pad04[4];
@@ -67,11 +67,11 @@ public:
     VecF vu3;
     VecC clr0;
     VecC clr1;
-    Mesh_2e5b20 *FUN_002e5a10();
+    VertexAnimKeyFrame_2e5b20 *FUN_002e5a10();
 };
 
 struct Frame_2e5b20 {
-    Mesh_2e5b20 *mesh;       // 8
+    VertexAnimKeyFrame_2e5b20 *mesh;       // 8
     unsigned int c12; // 12
     unsigned int remain;
     unsigned int c20, c24, c28, c32, c36, c40;
@@ -85,14 +85,14 @@ struct Frame_2e5b20 {
     } d;
 };
 
-Mesh_2e5b20 *__stdcall FUN_002e5b20(Stream *s, int unused)
+VertexAnimKeyFrame_2e5b20 *__stdcall FUN_002e5b20(Stream *s, int unused)
 {
     Frame_2e5b20 f;
     s->reader->FUN_002647e0(&f.t88, 1, 4, 1);
     void *mem = FUN_0008d690(0x74);
-    Mesh_2e5b20 *m;
+    VertexAnimKeyFrame_2e5b20 *m;
     if (mem != 0) {
-        m = ((Mesh_2e5b20 *)mem)->FUN_002e5a10();
+        m = ((VertexAnimKeyFrame_2e5b20 *)mem)->FUN_002e5a10();
         f.mesh = m;
     } else {
         f.mesh = 0;

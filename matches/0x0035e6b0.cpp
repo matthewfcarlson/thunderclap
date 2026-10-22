@@ -1,8 +1,8 @@
-class Obj {
+class CStaticAllocator_35e6b0 {
   public:
     void Init(int, int, int, int);
 };
-extern Obj gObj;
+extern CStaticAllocator_35e6b0 gObj;
 extern "C" int __cdecl atexit(void(__cdecl*)());
 void __cdecl cleanup();
 void __cdecl FUN_0035e6b0() {

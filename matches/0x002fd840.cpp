@@ -9,7 +9,7 @@ class Obj_2fd840 {
   public:
     void cleanup(int);
 };
-class Sim_2fd840 {
+class SimStateArticulated_2fd840 {
   public:
     void* vptr;
     char p1[0x6c];
@@ -20,7 +20,7 @@ class Sim_2fd840 {
     void tail();
     void run();
 };
-void Sim_2fd840::run() {
+void SimStateArticulated_2fd840::run() {
     vptr = (void*)((hulk_intptr)DAT_004318f4);
     if (m8c)
         release((char*)m8c - 4);

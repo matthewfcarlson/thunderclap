@@ -5,9 +5,9 @@ void* operator new(unsigned int, void* p) {
     return p;
 }
 
-class Base_132d80 {
+class Track_132d80 {
   public:
-    Base_132d80();
+    Track_132d80();
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -15,7 +15,7 @@ class Base_132d80 {
     virtual void f4();
 };
 
-class DebugPrintTrack_132d80 : public Base_132d80 {
+class DebugPrintTrack_132d80 : public Track_132d80 {
   public:
     DebugPrintTrack_132d80();
     virtual void f5();

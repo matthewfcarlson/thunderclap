@@ -13,7 +13,7 @@ class CMotionTrailAction {
     Ref_221a0* mRef;
 };
 extern void* CActionVftable;
-class Helper_221a0 {
+class CCameraHintAction_221a0 {
   public:
     void Destroy();
 };
@@ -25,7 +25,7 @@ CMotionTrailAction* CMotionTrailAction::vfunc_2(int flags) {
         mRef->Release();
         mRef = 0;
     }
-    ((Helper_221a0*)this)->Destroy();
+    ((CCameraHintAction_221a0*)this)->Destroy();
     if (flags & 1)
         thunk(this);
     return this;

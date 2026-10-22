@@ -1,18 +1,18 @@
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable[];
-class Base {
+class Track_14e110 {
   public:
-    Base();
+    Track_14e110();
     void* vptr;
 };
-class Obj : public Base {
+class ClearFightParamsHitRecordTrack_14e110 : public Track_14e110 {
   public:
-    Obj();
+    ClearFightParamsHitRecordTrack_14e110();
     char pad[4];
     int mA;
     int mB;
 };
-Obj::Obj() {
+ClearFightParamsHitRecordTrack_14e110::ClearFightParamsHitRecordTrack_14e110() {
     vptr = g_vftable;
     _ReadWriteBarrier();
     mB = 0;

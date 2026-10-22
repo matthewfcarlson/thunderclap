@@ -4,7 +4,7 @@
 typedef unsigned int u32_157450;
 extern int TypeA_157450;
 extern int TypeB_157450;
-struct HitOrientToPushbackAction_nv_157450 {
+struct HitOrientToPushbackAction_157450 {
     u32_157450 Init(void*, void*);
 };
 extern int Check(void*, int, int*, int*, int);
@@ -15,7 +15,7 @@ int hulkfight::motion::HitOrientToPushbackTrack::vfunc_10(int __p0, int __p1, in
     if (Check(p, 0, &TypeA_157450, &TypeB_157450, 0)) {
         hulkfight::motion::HitOrientToPushbackAction* q = Alloc(0x28);
         if (q)
-            return (int)(((HitOrientToPushbackAction_nv_157450*)(q))->Init(this, p));
+            return (int)(((HitOrientToPushbackAction_157450*)(q))->Init(this, p));
     }
     return (int)(0);
 }

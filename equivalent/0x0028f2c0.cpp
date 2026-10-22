@@ -38,13 +38,13 @@ struct Name_28f2c0 {
     void FUN_0027b040(const char *s);
 };
 
-class __declspec(novtable) NamedBase_28f2c0 {
+class __declspec(novtable) Entity_28f2c0 {
 public:
     virtual void v0();
     char pad04[4];
     Name_28f2c0 name;
     void FUN_0027b070();
-    NamedBase_28f2c0() { FUN_0027b070(); }
+    Entity_28f2c0() { FUN_0027b070(); }
 };
 
 class Impl_28f2c0 {
@@ -106,7 +106,7 @@ struct Reader {
 };
 
 namespace pure3d {
-class Shader : public NamedBase_28f2c0 {
+class Shader : public Entity_28f2c0 {
 public:
     Impl_28f2c0 *f10;
     char f14;

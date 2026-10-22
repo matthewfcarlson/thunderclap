@@ -28,7 +28,7 @@ struct Name_2b970 {
 };
 
 struct Comp_2b970;
-struct Char_2b970;
+struct CCharacter_2b970;
 
 struct Ent_2b970 {
     char pad0[0x60];
@@ -60,7 +60,7 @@ struct Registry_2b970 {
 };
 
 struct Owner_2b970 {
-    void FUN_00059cd0(Char_2b970 *c);
+    void FUN_00059cd0(CCharacter_2b970 *c);
 };
 struct Factory_2b970 {
     int *FUN_00059b60();
@@ -103,7 +103,7 @@ struct Comp_2b970 {
     void FUN_001034b0(int a);
 };
 
-class Char_2b970 {
+class CCharacter_2b970 {
 public:
     virtual void v0();
     virtual void v1();
@@ -115,7 +115,7 @@ public:
     Ent_2b970 *p1ca0;
     char pad1ca4[0x1d7c - 0x1ca4];
     int f1d7c;
-    Char_2b970 *FUN_00037860(int *x);
+    CCharacter_2b970 *FUN_00037860(int *x);
     void FUN_00036d60(char *name);
     void FUN_00042b40(Def *d);
     void FUN_0003f650();
@@ -138,7 +138,7 @@ public:
     int f584;
     char b588;
     int FUN_00024280(unsigned int lo, unsigned int hi);
-    int FUN_0002a3c0(Char_2b970 *c);
+    int FUN_0002a3c0(CCharacter_2b970 *c);
     void FUN_0002b590();
     char F(const char *defName, V3_2b970 pos, float angle, const char *name2, const char *anim, char flag8,
            const char *name9, char arg10);
@@ -215,9 +215,9 @@ char Spawner_2b970::F(const char *defName, V3_2b970 pos, float angle, const char
     Factory_2b970 *fac = p0->p44;
     int *fx = fac->FUN_00059b60();
     void *mem = thunk_FUN_0008d690(0x2300);
-    Char_2b970 *ch;
+    CCharacter_2b970 *ch;
     if (mem)
-        ch = ((Char_2b970 *)mem)->FUN_00037860(fx);
+        ch = ((CCharacter_2b970 *)mem)->FUN_00037860(fx);
     else
         ch = 0;
     ch->v0();

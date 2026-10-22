@@ -48,7 +48,7 @@ public:
     Id64_13d410 id;            // 8
 };
 
-class choreo2_AnimationDriver_13d410 : public choreo2_Driver_13d410 {
+class AnimationDriver_13d410 : public choreo2_Driver_13d410 {
 public:
     char pad10[0x10];
     Animation *anim;    // 0x20
@@ -62,7 +62,7 @@ public:
     char b235;
     char pad236[6];
     float f23c;
-    choreo2_AnimationDriver_13d410 *FUN_00225950(void *rig, Animation *anim);
+    AnimationDriver_13d410 *FUN_00225950(void *rig, Animation *anim);
     void FUN_002224a0(int v);
     void FUN_00225e00(float t, V3_13d410 v);
     void FUN_00225cf0(float v);
@@ -82,7 +82,7 @@ struct LayerSet_13d410 {
     unsigned int count;
     Rig_13d410 *FUN_002226b0();
     choreo2_Driver_13d410 *FUN_00222e20(unsigned int index);
-    void FUN_00222890(choreo2_AnimationDriver_13d410 *d, float r, float a, float b, float c, float e, float f);
+    void FUN_00222890(AnimationDriver_13d410 *d, float r, float a, float b, float c, float e, float f);
 };
 LayerSet_13d410 *__fastcall FUN_00059a40(Context *ctx);
 
@@ -141,7 +141,7 @@ public:
     char pad04[0x18];
     AnimData_13d410 *data;                  // 0x1c
     void *owner;                     // 0x20
-    choreo2_AnimationDriver_13d410 *driver; // 0x24
+    AnimationDriver_13d410 *driver; // 0x24
 };
 
 bool AnimationAction::vfunc_3(int a, int b)
@@ -176,7 +176,7 @@ bool AnimationAction::vfunc_3(int a, int b)
             choreo2_Driver_13d410 *d = layers->FUN_00222e20(i);
             if (d->id.lo != lo || d->id.hi != hi)
                 continue;
-            choreo2_AnimationDriver_13d410 *ad = dynamic_cast<choreo2_AnimationDriver_13d410 *>(d);
+            AnimationDriver_13d410 *ad = dynamic_cast<AnimationDriver_13d410 *>(d);
             if (ad != 0 && ad->anim == anim) {
                 u.v = ad->f23c;
                 found = true;
@@ -188,7 +188,7 @@ bool AnimationAction::vfunc_3(int a, int b)
     }
 
     bool created;
-    choreo2_AnimationDriver_13d410 *nd = (choreo2_AnimationDriver_13d410 *)thunk_FUN_0008d690(0x240);
+    AnimationDriver_13d410 *nd = (AnimationDriver_13d410 *)thunk_FUN_0008d690(0x240);
     if (nd != 0)
         nd = nd->FUN_00225950(rig, anim);
     if (nd != 0)

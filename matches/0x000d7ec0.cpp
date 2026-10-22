@@ -45,7 +45,7 @@ struct Y_d7ec0 {
     virtual void f43();
     virtual void f44();
 };
-struct X_d7ec0 {
+struct FEMemCardControl_d7ec0 {
     char p[0x21c];
     int field;
     char q[0x190];
@@ -53,7 +53,7 @@ struct X_d7ec0 {
     Y_d7ec0* getY();
     void target(int);
 };
-void X_d7ec0::target(int arg) {
+void FEMemCardControl_d7ec0::target(int arg) {
     Y_d7ec0* y = getY();
     y->f44();
     flag = 1;

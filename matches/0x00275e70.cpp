@@ -15,7 +15,7 @@ class File {
     int value;
 };
 } // namespace core
-class Alloc {
+class FileCommitRequest_275e70 {
   public:
     int Init(core::File*);
 };
@@ -25,7 +25,7 @@ class Context {
     void Set(int, int, int);
 };
 void core::File::vfunc_8() {
-    Alloc* a = (Alloc*)Allocate(12);
+    FileCommitRequest_275e70* a = (FileCommitRequest_275e70*)Allocate(12);
     int x = a ? a->Init(this) : 0;
     ((Context*)context)->Set(x, value, 0);
 }

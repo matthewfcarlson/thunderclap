@@ -1,4 +1,4 @@
-class Obj {
+class CTriggerVolumeManager_1fcc00 {
   public:
     virtual void f0();
     virtual void f1();
@@ -15,12 +15,12 @@ class Obj {
     char enabled;
 };
 struct ThisWrap_001fcc00 {
-    Obj* lookup(int);
+    CTriggerVolumeManager_1fcc00* lookup(int);
     char FUN_001fcc00(int a, int b);
 };
 extern "C" __int64 __cdecl convert(int);
 char ThisWrap_001fcc00::FUN_001fcc00(int a, int b) {
-    Obj* o = this->lookup(b);
+    CTriggerVolumeManager_1fcc00* o = this->lookup(b);
     if (!o)
         return 0;
     if (!o->enabled)

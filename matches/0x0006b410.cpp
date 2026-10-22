@@ -1,6 +1,6 @@
-class Base {
+class CTrack_6b410 {
   public:
-    Base();
+    CTrack_6b410();
     virtual void f();
     char pad[4];
     int n;
@@ -10,7 +10,7 @@ class Sub {
     Sub();
     char pad[8];
 };
-class CJointTrack : public Base {
+class CJointTrack : public CTrack_6b410 {
   public:
     CJointTrack();
     int a;

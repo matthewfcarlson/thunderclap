@@ -19,7 +19,7 @@ struct Node {
     short item;
 };
 
-class Pool_1e5bc0 {
+class CSPManager_1e5bc0 {
 public:
     char pad000[0x608];
     Item_1e5bc0 items[0x800];
@@ -34,7 +34,7 @@ public:
     void FUN_001e5bc0(int idx);
 };
 
-void Pool_1e5bc0::FUN_001e5bc0(int idx)
+void CSPManager_1e5bc0::FUN_001e5bc0(int idx)
 {
     if (idx < 0 || idx >= 0x800)
         return;

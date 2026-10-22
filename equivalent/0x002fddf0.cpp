@@ -128,14 +128,14 @@ struct Chain_2fddf0 {
     PoseItem *FUN_0030f490(int index);
 };
 
-struct SkeletonInfo_nv_2fddf0 {
+struct SkeletonInfo_2fddf0 {
     physics::SkeletonInfo *FUN_00312440(void *owner);
 };
 
 void *__cdecl FUN_0008d690(unsigned int size);
 void *__cdecl FUN_00263ea0(unsigned int size);
 
-struct SimStateArticulated_nv_2fddf0 {
+struct SimStateArticulated_2fddf0 {
     Sink_2fddf0 *FUN_002fdc90(Chain_2fddf0 *chain, int arg);
 };
 
@@ -148,7 +148,7 @@ Sink_2fddf0 *__cdecl FUN_002fddf0(Chain_2fddf0 *chain, Source_2fddf0 *source, Pr
     physics::SimStateArticulated *mem = (physics::SimStateArticulated *)FUN_0008d690(0x98);
     if (mem == 0)
         return 0;
-    Sink_2fddf0 *sink = ((SimStateArticulated_nv_2fddf0*)(mem))->FUN_002fdc90(chain, 0);
+    Sink_2fddf0 *sink = ((SimStateArticulated_2fddf0*)(mem))->FUN_002fdc90(chain, 0);
     if (sink == 0)
         return 0;
 
@@ -157,7 +157,7 @@ Sink_2fddf0 *__cdecl FUN_002fddf0(Chain_2fddf0 *chain, Source_2fddf0 *source, Pr
         if (provider->kind == 1 && provider->extra == 0) {
             physics::SkeletonInfo *h = (physics::SkeletonInfo *)FUN_00263ea0(0x18);
             if (h != 0)
-                h = ((SkeletonInfo_nv_2fddf0*)(h))->FUN_00312440(chain->owner);
+                h = ((SkeletonInfo_2fddf0*)(h))->FUN_00312440(chain->owner);
             provider->FUN_00310e90(h);
         }
         if (provider->flagged != 0) {

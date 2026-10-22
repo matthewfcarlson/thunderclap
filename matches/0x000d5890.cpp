@@ -6,7 +6,7 @@
 extern "C" char DAT_0040b1f8[];
 extern "C" char DAT_0048e10c[];
 
-class Callback_d5890 {
+class Method5_d5890 {
   public:
     hulk_intptr vptr;
     char pad4[12];
@@ -16,10 +16,10 @@ class Callback_d5890 {
     char pad19[3];
     void* p1c;
     void FUN_001d0480(void*, int);
-    Callback_d5890* Init(void*, void*);
+    Method5_d5890* Init(void*, void*);
 };
 
-Callback_d5890* Callback_d5890::Init(void* arg, void* value) {
+Method5_d5890* Method5_d5890::Init(void* arg, void* value) {
     FUN_001d0480(arg, 5);
     vptr = (hulk_intptr)DAT_0040b1f8;
     p1c = value;

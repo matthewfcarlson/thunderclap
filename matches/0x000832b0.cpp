@@ -5,18 +5,18 @@ class Ref_832b0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_832b0 {
+class Entity_832b0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_832b0 : public Base_832b0 {
+class CCow_832b0 : public Entity_832b0 {
   public:
     char pad[0x3c - 4];
     Ref_832b0* m3c;
-    ~Obj_832b0();
+    ~CCow_832b0();
 };
-Obj_832b0::~Obj_832b0() {
+CCow_832b0::~CCow_832b0() {
     vptr = g_vftable_832b0;
     _ReadWriteBarrier();
     if (m3c) {

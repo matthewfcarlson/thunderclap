@@ -1,15 +1,15 @@
-class Base {
+class ParamValueFloat_153720 {
   public:
-    Base(int);
+    ParamValueFloat_153720(int);
     virtual void f();
 };
-class Range : public Base {
+class ParamFloatConstRange_153720 : public ParamValueFloat_153720 {
   public:
-    Range(int, int);
+    ParamFloatConstRange_153720(int, int);
     char pad[12];
     int value;
     virtual void f();
 };
-Range::Range(int a, int b) : Base(a) {
+ParamFloatConstRange_153720::ParamFloatConstRange_153720(int a, int b) : ParamValueFloat_153720(a) {
     value = b;
 }

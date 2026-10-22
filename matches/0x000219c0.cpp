@@ -7,20 +7,20 @@ class Ref_219c0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_219c0 {
+class CAction_219c0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_219c0 : public Base_219c0 {
+class CKeyPoseAction_219c0 : public CAction_219c0 {
   public:
     char pad[0x1c - 4];
     Ref_219c0* m1c;
     char pad2[4];
     Ref_219c0* m24;
-    Obj_219c0* f2(unsigned char flags);
+    CKeyPoseAction_219c0* f2(unsigned char flags);
 };
-Obj_219c0* Obj_219c0::f2(unsigned char flags) {
+CKeyPoseAction_219c0* CKeyPoseAction_219c0::f2(unsigned char flags) {
     vptr = g_vA;
     _ReadWriteBarrier();
     if (m24) {

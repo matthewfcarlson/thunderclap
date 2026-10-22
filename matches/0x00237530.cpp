@@ -5,11 +5,11 @@ class Ref_237530 {
     virtual void F0();
     virtual void Release();
 };
-struct Base_237530 {
+struct Action_237530 {
     void* vf;
     void Dtor() throw();
 };
-struct Target_237530 : Base_237530 {
+struct OpportunityAction_237530 : Action_237530 {
     char pad[0x18];
     Ref_237530* p1c;
     void* p20;
@@ -21,7 +21,7 @@ struct Target_237530 : Base_237530 {
     Ref_237530* p4c;
     void Dtor2() throw();
 };
-void Target_237530::Dtor2() throw() {
+void OpportunityAction_237530::Dtor2() throw() {
     vf = vSeq;
     _ReadWriteBarrier();
     if (p4c) {
@@ -42,5 +42,5 @@ void Target_237530::Dtor2() throw() {
         p1c->Release();
         p1c = 0;
     }
-    Base_237530::Dtor();
+    Action_237530::Dtor();
 }

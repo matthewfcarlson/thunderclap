@@ -2,4 +2,4 @@
 // FUN_001efd60 @ 0x001efd60
 #include "decls/data/game/unknown.h"
 
-struct Item { int FUN_001ef730(int, int, int); }; struct Manager { void FUN_001ef260(int); };  extern "C" void * __cdecl FUN_0008d710(int, int); void __stdcall FUN_001efd60(int a, int b, int c) { if (a != 0 && (*(Manager**)&DAT_004e3710) != 0) { Manager *manager = (*(Manager**)&DAT_004e3710); Item *p = (Item*)FUN_0008d710(0x34,6); manager->FUN_001ef260(p ? p->FUN_001ef730(a,b,c) : 0); } }
+struct CSoundCommand_InstallMixer_1efd60 { int FUN_001ef730(int, int, int); }; struct Manager { void FUN_001ef260(int); };  extern "C" void * __cdecl FUN_0008d710(int, int); void __stdcall FUN_001efd60(int a, int b, int c) { if (a != 0 && (*(Manager**)&DAT_004e3710) != 0) { Manager *manager = (*(Manager**)&DAT_004e3710); CSoundCommand_InstallMixer_1efd60 *p = (CSoundCommand_InstallMixer_1efd60*)FUN_0008d710(0x34,6); manager->FUN_001ef260(p ? p->FUN_001ef730(a,b,c) : 0); } }

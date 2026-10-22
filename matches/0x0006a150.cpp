@@ -1,11 +1,11 @@
-class CBase_6a150 {
+class CTrack_6a150 {
   public:
     virtual void f0();
     virtual void f1();
-    CBase_6a150();
+    CTrack_6a150();
 };
 
-class CIntangibleTrack : public CBase_6a150 {
+class CIntangibleTrack : public CTrack_6a150 {
   public:
     virtual void f0();
     char pad4[4];

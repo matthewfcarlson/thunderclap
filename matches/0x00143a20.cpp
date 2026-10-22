@@ -1,10 +1,10 @@
-class Base {
+class Track_143a20 {
   public:
-    Base();
+    Track_143a20();
     virtual void f();
     char pad[4];
 };
-class MotionBlurTrack : public Base {
+class MotionBlurTrack : public Track_143a20 {
   public:
     MotionBlurTrack();
     char p[4];

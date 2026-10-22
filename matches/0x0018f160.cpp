@@ -1,6 +1,6 @@
-class Base {
+class Track_18f160 {
   public:
-    Base();
+    Track_18f160();
     virtual void f();
     char pad[4];
     int n;
@@ -10,7 +10,7 @@ class Sub {
     Sub();
     int a, b;
 };
-class ImpulseVelocityTrack : public Base {
+class ImpulseVelocityTrack : public Track_18f160 {
   public:
     ImpulseVelocityTrack();
     virtual void f();
@@ -21,7 +21,7 @@ class ImpulseVelocityTrack : public Base {
     char pad2[3];
     float scale;
 };
-ImpulseVelocityTrack::ImpulseVelocityTrack() : Base(), x(0), sub() {
+ImpulseVelocityTrack::ImpulseVelocityTrack() : Track_18f160(), x(0), sub() {
     for (int i = 0; i < 9; i++)
         vals[i] = 0;
     flag = 0;

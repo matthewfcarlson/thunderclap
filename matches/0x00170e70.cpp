@@ -1,10 +1,10 @@
-class Base {
+class Track_170e70 {
   public:
-    Base();
+    Track_170e70();
     virtual void f();
     char pad[4];
 };
-class ChargeClearTrack : public Base {
+class ChargeClearTrack : public Track_170e70 {
   public:
     ChargeClearTrack();
     int a;
@@ -13,7 +13,7 @@ class ChargeClearTrack : public Base {
     char c;
     virtual void f();
 };
-ChargeClearTrack::ChargeClearTrack() : Base() {
+ChargeClearTrack::ChargeClearTrack() : Track_170e70() {
     c = 1;
     a = 1;
     zero = 0;

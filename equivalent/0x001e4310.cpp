@@ -10,7 +10,7 @@ struct Entry_1e4310 {
     char pad24[4];
 };
 
-class Table_1e4310 {
+class CSPManager_1e4310 {
 public:
     char pad0[0x608];
     Entry_1e4310 entries[0x800];
@@ -19,7 +19,7 @@ public:
     int FUN_001e4310(Info_1e4310 *info, const Key_1e4310 *key, int unused, int a, int b, int c, int d);
 };
 
-int Table_1e4310::FUN_001e4310(Info_1e4310 *info, const Key_1e4310 *key, int unused, int a, int b, int c, int d)
+int CSPManager_1e4310::FUN_001e4310(Info_1e4310 *info, const Key_1e4310 *key, int unused, int a, int b, int c, int d)
 {
     for (int i = 0; i < 0x800; i++) {
         if (entries[i].lo == key->lo && entries[i].hi == key->hi)

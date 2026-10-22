@@ -38,7 +38,7 @@ public:
     void FUN_00329f70(int a, int b, const void* p);
 };
 class d3dProjectedTextureShader;
-class ShaderBase_32cc50 {
+class d3dShader_32cc50 {
 public:
     virtual void vf0();
     virtual void vf1();
@@ -56,7 +56,7 @@ public:
     virtual void vf13();
     virtual void vf14(int arg);
 };
-class pure3d_d3dProjectedTextureShader_32cc50 : public ShaderBase_32cc50 {
+class d3dProjectedTextureShader_32cc50 : public d3dShader_32cc50 {
 public:
     char pad04[0x14 - 4];
     DeviceState_32cc50* dev;
@@ -73,7 +73,7 @@ public:
     void FUN_0032a260();
     virtual void vf14(int arg);
 };
-void pure3d_d3dProjectedTextureShader_32cc50::vf14(int arg) {
+void d3dProjectedTextureShader_32cc50::vf14(int arg) {
     dev->FUN_0032a920(2, tex0, tex1, 0, 0);
     dev->FUN_00329e50(0, 4, 1, 2);
     if (dev->texCoord0 != 0) {

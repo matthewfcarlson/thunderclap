@@ -1,6 +1,6 @@
-class Base_170080 {
+class Track_170080 {
   public:
-    Base_170080();
+    Track_170080();
     virtual void a();
     virtual void b();
     int x, y;
@@ -10,7 +10,7 @@ class Sub_170080 {
     Sub_170080();
     int a, b;
 };
-class SyncToLocatorTrack : public Base_170080 {
+class SyncToLocatorTrack : public Track_170080 {
   public:
     SyncToLocatorTrack();
     virtual void a();

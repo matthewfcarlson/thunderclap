@@ -1,6 +1,6 @@
-class Base {
+class Entity_295f50 {
   public:
-    Base();
+    Entity_295f50();
     virtual void f0();
     int pad;
 };
@@ -9,9 +9,9 @@ class Part {
     void Copy(const Part&);
     char x[8];
 };
-class Node : public Base {
+class Node : public Entity_295f50 {
   public:
-    Node(const Node& other) : Base() {
+    Node(const Node& other) : Entity_295f50() {
         a = other.a;
         b = other.b;
         p.Copy(other.p);

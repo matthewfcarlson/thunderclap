@@ -5,12 +5,12 @@ class Ref_11dd60 {
     virtual void F0();
     virtual void Release();
 };
-class Base_11dd60 {
+class Action_11dd60 {
   public:
     void* vptr;
     void Fin();
 };
-class StrafeCircleHBAction_11dd60 : public Base_11dd60 {
+class StrafeCircleHBAction_11dd60 : public Action_11dd60 {
   public:
     char pad[0x18];
     void* m1c;

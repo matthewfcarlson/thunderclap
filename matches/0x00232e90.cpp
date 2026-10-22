@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 extern "C" char DAT_00427898[];
 typedef unsigned int u32_232e90;
-struct Base_232e90 {
+struct Branch_232e90 {
     void Init();
 };
 struct Inner_232e90 {
@@ -19,7 +19,7 @@ class Branch {
     Branch* Build(u32_232e90);
 };
 Branch* Branch::Build(u32_232e90 param) {
-    ((Base_232e90*)this)->Init();
+    ((Branch_232e90*)this)->Init();
     *((hulk_uintptr*)this) = ((hulk_intptr)DAT_00427898);
     arg = param;
     field14 = 0;

@@ -8,21 +8,21 @@ struct V3_2b5100 {
         c = s.c;
     }
 };
-struct B0_2b5100 {
-    virtual ~B0_2b5100() throw();
+struct NonCopyable_2b5100 {
+    virtual ~NonCopyable_2b5100() throw();
 };
 struct Init1_2b5100 {
     unsigned m4;
     Init1_2b5100() throw() { m4 = 0; }
 };
-struct M_2b5100 : B0_2b5100, Init1_2b5100 {
+struct ShadowMeshVertices_2b5100 : NonCopyable_2b5100, Init1_2b5100 {
     unsigned m8, mc;
     V3_2b5100* m10;
     V3_2b5100* m14;
-    M_2b5100(const M_2b5100& o) throw();
-    virtual ~M_2b5100() throw();
+    ShadowMeshVertices_2b5100(const ShadowMeshVertices_2b5100& o) throw();
+    virtual ~ShadowMeshVertices_2b5100() throw();
 };
-M_2b5100::M_2b5100(const M_2b5100& o) throw() {
+ShadowMeshVertices_2b5100::ShadowMeshVertices_2b5100(const ShadowMeshVertices_2b5100& o) throw() {
     unsigned i = 0;
     m8 = o.m8;
     mc = o.mc;

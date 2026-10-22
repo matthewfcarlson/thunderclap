@@ -5,7 +5,7 @@ class Ref_fc7c0 {
     virtual void F0();
     virtual void Release();
 };
-class Agent_fc7c0 {
+class CCharacterAgent_fc7c0 {
   public:
     void* vptr;
     char pad[0x54];
@@ -13,7 +13,7 @@ class Agent_fc7c0 {
     void Fin();
     void* Del(unsigned char flags);
 };
-void* Agent_fc7c0::Del(unsigned char flags) {
+void* CCharacterAgent_fc7c0::Del(unsigned char flags) {
     Ref_fc7c0* r = m58;
     vptr = g_vftable_fc7c0;
     r->Release();

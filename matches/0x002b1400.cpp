@@ -31,17 +31,17 @@ struct Range_2b1400 {
         }
     }
 };
-class Base0 {
+class Entity_2b1400 {
   public:
-    virtual ~Base0() throw();
+    virtual ~Entity_2b1400() throw();
     char pad[0xc];
 };
-class Obj_2b1400 : public Base0 {
+class VertexOffsetExpressionMixer_2b1400 : public Entity_2b1400 {
   public:
     Ref_2b1400<V> m10;
     Buf_2b1400<0xc> m14;
     Buf_2b1400<0xc> m20;
     Range_2b1400 m2c;
-    virtual ~Obj_2b1400() throw();
+    virtual ~VertexOffsetExpressionMixer_2b1400() throw();
 };
-Obj_2b1400::~Obj_2b1400() throw() {}
+VertexOffsetExpressionMixer_2b1400::~VertexOffsetExpressionMixer_2b1400() throw() {}

@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 extern "C" double __cdecl __floor_default(double);
-struct Owner_2d5f20;
+struct SpriteParticleEmitter_2d5f20;
 struct Backend_2d5f20 {
     virtual void slot0();
     virtual void slot1();
@@ -8,9 +8,9 @@ struct Backend_2d5f20 {
     virtual void slot3();
     virtual void slot4();
     virtual void update(int);
-    virtual int consume(int, void*, int, int, Owner_2d5f20*);
+    virtual int consume(int, void*, int, int, SpriteParticleEmitter_2d5f20*);
 };
-struct Owner_2d5f20 {
+struct SpriteParticleEmitter_2d5f20 {
     char pad0[0x88];
     Backend_2d5f20* backend;
     char pad1[0xb0 - 0x8c];
@@ -22,7 +22,7 @@ struct Owner_2d5f20 {
     int* end;
     void target(int a, int b, int c);
 };
-void Owner_2d5f20::target(int a, int b, int c) {
+void SpriteParticleEmitter_2d5f20::target(int a, int b, int c) {
     if (!backend)
         return;
     backend->update(a);

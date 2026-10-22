@@ -71,19 +71,19 @@ struct Request {
     void FUN_00059300();
 };
 
-struct Job_1da540 : RefObj_1da540 {
-    Job_1da540 *FUN_000598e0(void *a, Request *req);
+struct CFightParamsCollision_1da540 : RefObj_1da540 {
+    CFightParamsCollision_1da540 *FUN_000598e0(void *a, Request *req);
     void FUN_00059790(Sub_1da540 *s);
 };
 
 struct Handle_1da540 {
-    char FUN_00231ad0(void *sink, Job_1da540 *job, int n);
+    char FUN_00231ad0(void *sink, CFightParamsCollision_1da540 *job, int n);
 };
 
 struct Queue_1da540 {
     virtual void q0(); virtual void q1(); virtual void q2(); virtual void q3();
     virtual void q4(); virtual void q5(); virtual void q6(); virtual void q7();
-    virtual Handle_1da540 *Submit(Job_1da540 *job, int n);
+    virtual Handle_1da540 *Submit(CFightParamsCollision_1da540 *job, int n);
 };
 
 struct Ctrl_1da540 {
@@ -379,7 +379,7 @@ int Entity::FUN_001da540(Ref_1da540 *a1, V3_1da540 *a2, V3_1da540 *a3, float a4)
                     if (f1fc)
                         FUN_00018810(&f.rq.req.f4c, f1fc);
                     FUN_00018810(&f.rq.req.f50, tgt->f12c);
-                    Job_1da540 *job = (Job_1da540 *)FUN_0008d690(0xb0);
+                    CFightParamsCollision_1da540 *job = (CFightParamsCollision_1da540 *)FUN_0008d690(0xb0);
                     if (job)
                         job = job->FUN_000598e0(*tgt->f10, &f.rq.req);
                     job->AddRef();

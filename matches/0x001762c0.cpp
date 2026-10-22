@@ -5,11 +5,11 @@ class Obj_1762c0 {
     virtual void F0();
     virtual void F1();
 };
-class Base_1762c0 {
+class Action_1762c0 {
   public:
     void Finish();
 };
-class TargetIconDistanceAction : public Base_1762c0 {
+class TargetIconDistanceAction : public Action_1762c0 {
   public:
     hulk_intptr vptr;
     char pad04[0x18];

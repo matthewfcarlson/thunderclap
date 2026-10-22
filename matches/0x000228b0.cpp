@@ -6,18 +6,18 @@ class Ref_228b0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_228b0 {
+class CAction_228b0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_228b0 : public Base_228b0 {
+class CPropActorSetStateAction_228b0 : public CAction_228b0 {
   public:
     char pad[0x1c - 4];
     Ref_228b0* m;
-    Obj_228b0* f2(unsigned char flags);
+    CPropActorSetStateAction_228b0* f2(unsigned char flags);
 };
-Obj_228b0* Obj_228b0::f2(unsigned char flags) {
+CPropActorSetStateAction_228b0* CPropActorSetStateAction_228b0::f2(unsigned char flags) {
     vptr = g_vftable_228b0;
     _ReadWriteBarrier();
     if (m) {

@@ -22,14 +22,14 @@ extern void* g_fr[];
 extern void* g_rq[];
 void __cdecl Lk(void*);
 void __cdecl Ulk(void*);
-class Obj_275130 {
+class FileCloseRequest_275130 {
   public:
     void* vptr;
     int pad;
     Drive* drive;
-    Obj_275130* f0(unsigned char flags);
+    FileCloseRequest_275130* f0(unsigned char flags);
 };
-Obj_275130* Obj_275130::f0(unsigned char flags) {
+FileCloseRequest_275130* FileCloseRequest_275130::f0(unsigned char flags) {
     vptr = g_fr;
     drive->lk.lock();
     --drive->refs;

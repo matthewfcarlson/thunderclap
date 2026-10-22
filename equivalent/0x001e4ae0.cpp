@@ -54,14 +54,14 @@ struct Frame_1e4ae0 {
     char text[0x100];
 };
 
-class Spawner_1e4ae0 {
+class CSPManager_1e4ae0 {
 public:
     int FUN_001dbfe0(const char *key);
     int FUN_001e4760(Handle_1e4ae0 *h, const char *text, int a, Mat_1e4ae0 *mat, int p5, int p6, int p7);
     int FUN_001e4ae0(const char *key, const char *name, const char *prefix, int p3, int p4, int p5);
 };
 
-int Spawner_1e4ae0::FUN_001e4ae0(const char *key, const char *name, const char *prefix, int p3, int p4, int p5)
+int CSPManager_1e4ae0::FUN_001e4ae0(const char *key, const char *name, const char *prefix, int p3, int p4, int p5)
 {
     Frame_1e4ae0 f;
     Factory_1e4ae0 *factory = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();

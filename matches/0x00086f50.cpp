@@ -1,11 +1,11 @@
 #include "decls/address.h"
 extern const char g[];
-class Base {
+class Function_86f50 {
   public:
     virtual void f();
-    Base(const char*, int);
+    Function_86f50(const char*, int);
 };
-class Function2 : public Base {
+class Function2 : public Function_86f50 {
   public:
     virtual void f();
     char pad[12];
@@ -16,7 +16,7 @@ class Function2 : public Base {
     int d;
     Function2(const char*, int);
 };
-Function2::Function2(const char* s, int v) : Base(s, 2) {
+Function2::Function2(const char* s, int v) : Function_86f50(s, 2) {
     d = v;
     c = FUN_001d04d0(g);
     a = FUN_001d04d0(g);

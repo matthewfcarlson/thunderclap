@@ -7,7 +7,7 @@ class RefObj_1ecb0 {
     virtual void Release();
 };
 
-struct Tidier {
+struct CSmartPropUpdateAttachmentAction_1ecb0 {
     void Tidy();
 };
 
@@ -33,5 +33,5 @@ void CSmartPropUpdateAttachmentAction::Shutdown() {
         a->Release();
         mA = 0;
     }
-    ((Tidier*)this)->Tidy();
+    ((CSmartPropUpdateAttachmentAction_1ecb0*)this)->Tidy();
 }

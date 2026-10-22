@@ -13,7 +13,7 @@ struct SubA_2368d0 {
     void Fini();
     char pad[0x20];
 };
-class Base_2368d0 {
+class Context_2368d0 {
   public:
     void Dtor();
 };
@@ -37,6 +37,6 @@ Context::~Context() {
     a38.Fini();
     b14.Init();
     b14.Fini();
-    Base_2368d0* b = (Base_2368d0*)this;
+    Context_2368d0* b = (Context_2368d0*)this;
     b->Dtor();
 }

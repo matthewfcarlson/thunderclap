@@ -14,7 +14,7 @@ public:
     int *end;
 };
 
-class Binder_2a9ea0 {
+class ExpressionAnimationController_2a9ea0 {
 public:
     char pad00[0x40];
     Source_2a9ea0 *source;
@@ -25,7 +25,7 @@ public:
 };
 
 // Switches to a new source and allocates one zeroed value per element it holds.
-void Binder_2a9ea0::FUN_002a9ea0(Source_2a9ea0 *src)
+void ExpressionAnimationController_2a9ea0::FUN_002a9ea0(Source_2a9ea0 *src)
 {
     count = 0;
     thunk_FUN_00267090(values);

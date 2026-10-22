@@ -22,7 +22,7 @@ struct Font_f7330 {
     virtual void v14(unsigned int *color);
 };
 
-struct ShaderFloatBroadcast_nv_f7330 {
+struct ShaderFloatBroadcast_f7330 {
     pure3d::ShaderFloatBroadcast *FUN_0028ee60(int tag, float f);
 };
 
@@ -70,13 +70,13 @@ struct Holder_f7330 {
     void FUN_00293da0(float a, float b, float c);
 };
 
-struct Probe_f7330 {
+struct DrawableText_f7330 {
     char pad[0x18];
     void FUN_000ded90(const unsigned short *text, Font_f7330 *font);
 };
 
 struct Callback_f7330 {
-    virtual void v0(Probe_f7330 *p);
+    virtual void v0(DrawableText_f7330 *p);
 };
 
 struct Run_f7330 {
@@ -116,7 +116,7 @@ struct Frame_f7330 {
     float h1;               // 0x20
     float lineH;            // 0x24
     union {
-        Probe_f7330 probe;        // 0x28
+        DrawableText_f7330 probe;        // 0x28
         struct {
             char pad[0xc];
             float tokEnd;         // 0x34: the token's end, copied here while the probe is not yet live
@@ -235,7 +235,7 @@ void GlyphRun::FUN_000f7330(unsigned short *text, int font, int unused, int mode
                 void *mem = FUN_0008d690(0x10);
                 pure3d::ShaderFloatBroadcast *fd = 0;
                 if (mem != 0)
-                    fd = ((ShaderFloatBroadcast_nv_f7330*)(((pure3d::ShaderFloatBroadcast *)mem)))->FUN_0028ee60(0x45444146, f.u14.fade);
+                    fd = ((ShaderFloatBroadcast_f7330*)(((pure3d::ShaderFloatBroadcast *)mem)))->FUN_0028ee60(0x45444146, f.u14.fade);
                 tok->v13(fd);
                 tok->v8(0, 0);
                 tok->v14();

@@ -1,10 +1,10 @@
-class Base {
+class CTrack_78080 {
   public:
-    Base();
+    CTrack_78080();
     virtual void vf();
     char pad[4];
 };
-class CHeliDeathSpiralTrack : public Base {
+class CHeliDeathSpiralTrack : public CTrack_78080 {
   public:
     CHeliDeathSpiralTrack();
     virtual void vf();

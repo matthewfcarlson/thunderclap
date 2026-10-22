@@ -13,11 +13,11 @@ class Obj_1233a0 {
     virtual void Release();
 };
 extern char VT_1233a0[];
-class D {
+class PathFormationAction_1233a0 {
   public:
-    D* init(int a, Obj_1233a0* b);
+    PathFormationAction_1233a0* init(int a, Obj_1233a0* b);
 };
-D* D::init(int a, Obj_1233a0* b) {
+PathFormationAction_1233a0* PathFormationAction_1233a0::init(int a, Obj_1233a0* b) {
     char* p = (char*)this;
     ((Base*)this)->Base::Base();
     *(void**)p = VT_1233a0;

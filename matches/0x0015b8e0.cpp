@@ -1,9 +1,9 @@
-class Base {
+class Track_15b8e0 {
   public:
-    Base();
+    Track_15b8e0();
     virtual void f();
 };
-class LocomotingTrack : public Base {
+class LocomotingTrack : public Track_15b8e0 {
   public:
     LocomotingTrack();
     char pad[4];

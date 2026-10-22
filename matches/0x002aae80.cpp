@@ -5,7 +5,7 @@ class Ref_2aae80 {
     virtual void A();
     virtual void Release();
 };
-class Loader_2aae80 {
+class ParticleEmitterLoader_2aae80 {
   public:
     int* vt;
     int pad4;
@@ -15,7 +15,7 @@ class Loader_2aae80 {
     void BaseDestroy();
     void F();
 };
-void Loader_2aae80::F() {
+void ParticleEmitterLoader_2aae80::F() {
     unsigned i = 0;
     vt = (int*)((hulk_intptr)DAT_0042e064);
     if (count > 0) {

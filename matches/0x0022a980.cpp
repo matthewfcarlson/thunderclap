@@ -2,10 +2,10 @@
 extern "C" char DAT_00427534[];
 extern int gCount_22a980;
 extern int gHigh_22a980;
-struct Base_22a980 {
+struct PartitionDriver_22a980 {
     void Init(int);
 };
-struct LocomotionDriver : Base_22a980 {
+struct LocomotionDriver : PartitionDriver_22a980 {
     hulk_intptr vptr;
     char pad[0x1b];
     int a;
@@ -13,7 +13,7 @@ struct LocomotionDriver : Base_22a980 {
     LocomotionDriver* Init(int);
 };
 LocomotionDriver* LocomotionDriver::Init(int x) {
-    Base_22a980::Init(x);
+    PartitionDriver_22a980::Init(x);
     a = 0;
     b = 0;
     vptr = ((hulk_intptr)DAT_00427534);

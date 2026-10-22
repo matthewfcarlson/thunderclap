@@ -1,6 +1,6 @@
-class Base {
+class Track_180db0 {
   public:
-    Base();
+    Track_180db0();
     virtual void f();
     char pad[8];
 };
@@ -9,7 +9,7 @@ class Part {
     Part();
     char pad[8];
 };
-class PropAnimationTrack : public Base {
+class PropAnimationTrack : public Track_180db0 {
   public:
     PropAnimationTrack();
     virtual void f();
@@ -23,6 +23,6 @@ class PropAnimationTrack : public Base {
     int g;
 };
 PropAnimationTrack::PropAnimationTrack()
-    : Base(), a(0), b(-1.0f), c(0), part(), e(1.0f), d(0), h(-1.0f), g(0) {
+    : Track_180db0(), a(0), b(-1.0f), c(0), part(), e(1.0f), d(0), h(-1.0f), g(0) {
     *(int*)((char*)this + 8) = 1;
 }

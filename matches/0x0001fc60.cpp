@@ -3,19 +3,19 @@ class Target {
     virtual void Add();
     virtual void Release();
 };
-class Base {
+class Action_1fc60 {
   public:
-    Base();
+    Action_1fc60();
     virtual void V();
 };
-class CAction : public Base {
+class CAction : public Action_1fc60 {
   public:
     virtual void V();
     char pad[24];
     Target* target;
     int arg;
     int val;
-    CAction(Target* t, int b) : Base() {
+    CAction(Target* t, int b) : Action_1fc60() {
         target = 0;
         if (t)
             t->Add();

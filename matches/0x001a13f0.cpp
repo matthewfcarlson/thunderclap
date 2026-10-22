@@ -1,9 +1,9 @@
-class Base {
+class Track_1a13f0 {
   public:
-    Base();
+    Track_1a13f0();
     virtual void f();
 };
-class LuaTrack : public Base {
+class LuaTrack : public Track_1a13f0 {
   public:
     LuaTrack();
     char pad[8];
@@ -12,4 +12,4 @@ class LuaTrack : public Base {
     int c;
     int d;
 };
-LuaTrack::LuaTrack() : Base(), a(0), b(-1.0f), c(0), d(0) {}
+LuaTrack::LuaTrack() : Track_1a13f0(), a(0), b(-1.0f), c(0), d(0) {}

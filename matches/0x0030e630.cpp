@@ -2,13 +2,13 @@ struct V3_30e630 {
     int x, y, z;
     void Fix();
 };
-struct Base_30e630 {
-    Base_30e630();
+struct CollisionVolume_30e630 {
+    CollisionVolume_30e630();
     virtual void v0();
     char p[0x18];
 };
 namespace physics {
-struct CollisionWall : Base_30e630 {
+struct CollisionWall : CollisionVolume_30e630 {
     V3_30e630 a;
     char q[0x0c];
     int k;

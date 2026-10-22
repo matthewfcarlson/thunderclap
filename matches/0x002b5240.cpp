@@ -4,13 +4,13 @@ class Ref {
     virtual void Release();
 };
 extern Ref* gRef;
-class Base {
+class DrawablePrimitive_2b5240 {
   public:
     virtual void v0();
     char pad[0x0c];
     int n;
     char rest[0x2c];
-    Base();
+    DrawablePrimitive_2b5240();
 };
 struct Handle {
     Ref* ptr;
@@ -23,7 +23,7 @@ struct Handle {
         ptr = p;
     }
 };
-class ShadowMeshImpl : public Base {
+class ShadowMeshImpl : public DrawablePrimitive_2b5240 {
   public:
     virtual void v0();
     Handle handle;
@@ -33,7 +33,7 @@ class ShadowMeshImpl : public Base {
     void* d;
     ShadowMeshImpl();
 };
-ShadowMeshImpl::ShadowMeshImpl() : Base(), handle(), a(0), b(0), c(0), d(0) {
+ShadowMeshImpl::ShadowMeshImpl() : DrawablePrimitive_2b5240(), handle(), a(0), b(0), c(0), d(0) {
     n = 2;
     handle = gRef;
 }

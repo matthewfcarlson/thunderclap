@@ -5,13 +5,13 @@ struct V {
     virtual void a();
     virtual void b();
 };
-struct X_2469c0 {
+struct CoreFileStream_2469c0 {
     void** vptr;
     char pad[0x18];
     V* m;
     void f();
 };
-void X_2469c0::f() {
+void CoreFileStream_2469c0::f() {
     vptr = (void**)((hulk_intptr)DAT_00429214);
     m->b();
     vptr = (void**)((hulk_intptr)DAT_00423f20);

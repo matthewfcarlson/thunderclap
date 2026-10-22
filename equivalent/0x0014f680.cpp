@@ -16,7 +16,7 @@ struct Sub18_14f680 {
     void FUN_00221d20(float f);
 };
 
-struct Push {
+struct JointDriver_14f680 {
     virtual void v0();
     char pad04[0x8 - 0x4];
     Str_14f680 name;               // 0x8
@@ -24,7 +24,7 @@ struct Push {
     int flags;              // 0x14
     Sub18_14f680 sub;              // 0x18
     char pad19[0x70 - 0x19];
-    Push *FUN_002248f0(int a);
+    JointDriver_14f680 *FUN_002248f0(int a);
 };
 
 struct Params {
@@ -63,7 +63,7 @@ struct Player_14f680 {
 struct Body_14f680 {
     char pad0[0x40];
     V3_14f680 pos;                 // 0x40
-    void FUN_00222890(Push *p, float a, float b, float c, float d, float e, float f);
+    void FUN_00222890(JointDriver_14f680 *p, float a, float b, float c, float d, float e, float f);
 };
 
 struct Owner_14f680 {
@@ -91,7 +91,7 @@ public:
     char pad04[0x18];
     Params *params;         // 0x1c
     Link_14f680 *link;             // 0x20
-    Push *push;             // 0x24
+    JointDriver_14f680 *push;             // 0x24
     float f28;
     V3_14f680 v;                   // 0x2c
     float f38;
@@ -118,9 +118,9 @@ bool HitPushbackAction::vfunc_3(void *a, void *b)
     float w1 = pa->w1;
     float w0 = pa->w0;
     void *mem = thunk_FUN_0008d690(0x70);
-    Push *o;
+    JointDriver_14f680 *o;
     if (mem != 0)
-        o = ((Push *)mem)->FUN_002248f0(0);
+        o = ((JointDriver_14f680 *)mem)->FUN_002248f0(0);
     else
         o = 0;
     push = o;

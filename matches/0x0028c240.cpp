@@ -8,7 +8,7 @@ class Res_28c240 {
     virtual void F0();
     virtual void Release();
 };
-class Obj_28c240 {
+class StringChannel_28c240 {
   public:
     void* vptr;
     char pad[8];
@@ -31,7 +31,7 @@ class Obj_28c240 {
     void Clear();
     void F();
 };
-void Obj_28c240::F() {
+void StringChannel_28c240::F() {
     vptr = g_f2;
     Clear();
     vptr = g_s;

@@ -6,21 +6,21 @@ class Ref_2e09e0 {
     virtual void f0();
     virtual void Release();
 };
-class Root_2e09e0 {
+class PrimGroup_2e09e0 {
   public:
     void* vptr;
-    ~Root_2e09e0() throw();
+    ~PrimGroup_2e09e0() throw();
 };
-class D : public Root_2e09e0 {
+class VertexAnimPrimGroup_2e09e0 : public PrimGroup_2e09e0 {
   public:
     char p40[60];
     Ref_2e09e0* a40;
     char p58[20];
     Ref_2e09e0* a58;
     Ref_2e09e0* a5c;
-    ~D() throw();
+    ~VertexAnimPrimGroup_2e09e0() throw();
 };
-D::~D() throw() {
+VertexAnimPrimGroup_2e09e0::~VertexAnimPrimGroup_2e09e0() throw() {
     vptr = &vt1_2e09e0;
     _ReadWriteBarrier();
     if (a40) {

@@ -9,12 +9,12 @@ class Sub_23a320 {
   public:
     void Fini();
 };
-class Base_23a320 {
+class Action_23a320 {
   public:
     void* vptr;
     void Fin();
 };
-class QueuedNodeAction_23a320 : public Base_23a320 {
+class QueuedNodeAction_23a320 : public Action_23a320 {
   public:
     char pad[0x18];
     Ref_23a320* m1c;

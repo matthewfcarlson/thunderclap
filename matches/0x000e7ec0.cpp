@@ -2,11 +2,11 @@ class Other {
   public:
     void F();
 };
-class Obj {
+class FEThingsBase_e7ec0 {
   public:
     int Lookup(int a, int b, Other* c);
 };
-int Obj::Lookup(int a, int b, Other* c) {
+int FEThingsBase_e7ec0::Lookup(int a, int b, Other* c) {
     int result = 0;
     switch (a) {
     case 0xce85a963:

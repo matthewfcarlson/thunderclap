@@ -3,10 +3,10 @@
 
 extern "C" char DAT_00424398[];
 extern "C" char Read(int*);
-class Obj_1edcf0 {
+class Method3_1edcf0 {
   public:
     void Init(char*, int);
-    Obj_1edcf0* Fn(char*, int);
+    Method3_1edcf0* Fn(char*, int);
 };
 struct Layout_1edcf0 {
     void* v;
@@ -17,7 +17,7 @@ struct Layout_1edcf0 {
     char pad19[3];
     int m1c;
 };
-Obj_1edcf0* Obj_1edcf0::Fn(char* p, int x) {
+Method3_1edcf0* Method3_1edcf0::Fn(char* p, int x) {
     Layout_1edcf0* s = (Layout_1edcf0*)this;
     Init(p, 3);
     s->v = (void*)((hulk_intptr)DAT_00424398);

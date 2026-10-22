@@ -5,7 +5,7 @@ class Ref_15d4b0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_15d4b0 {
+class Action_15d4b0 {
   public:
     void* vptr;
     void Fin();
@@ -17,14 +17,14 @@ struct Sub_15d4b0 {
 void __fastcall SubFini(Sub_15d4b0*) throw();
 void __fastcall SubFini2(Sub_15d4b0*) throw();
 void __fastcall SubFini3(Sub_15d4b0*) throw();
-class Obj_15d4b0 : public Base_15d4b0 {
+class LocomotionStrafeAction_15d4b0 : public Action_15d4b0 {
   public:
     char p1c[24];
     Ref_15d4b0* m1c;
     Ref_15d4b0* m20;
-    ~Obj_15d4b0() throw();
+    ~LocomotionStrafeAction_15d4b0() throw();
 };
-Obj_15d4b0::~Obj_15d4b0() throw() {
+LocomotionStrafeAction_15d4b0::~LocomotionStrafeAction_15d4b0() throw() {
     vptr = g_vftable_15d4b0;
     _ReadWriteBarrier();
     if (m20) {

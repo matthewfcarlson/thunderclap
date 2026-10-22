@@ -1,8 +1,8 @@
 extern "C" void _ReadWriteBarrier();
-class Collision {
+class CollisionVolume_312900 {
   public:
     virtual void f();
-    Collision();
+    CollisionVolume_312900();
 };
 struct Z {
     int a, b, c;
@@ -13,11 +13,11 @@ struct Z {
         c = 0;
     }
 };
-class CollisionAABB : public Collision {
+class CollisionAABB : public CollisionVolume_312900 {
   public:
     virtual void f();
     CollisionAABB();
     char pad[0x34];
     Z z;
 };
-CollisionAABB::CollisionAABB() : Collision() {}
+CollisionAABB::CollisionAABB() : CollisionVolume_312900() {}

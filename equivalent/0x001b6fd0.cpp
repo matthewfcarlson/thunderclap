@@ -108,14 +108,14 @@ struct Holder_1b6fd0 {
     Surface *surface;
 };
 
-class Fader_1b6fd0 {
+class CRadMovieRenderLoop_1b6fd0 {
 public:
     void FUN_001b6fd0(int alpha);
     char pad0[0xc];
     Holder_1b6fd0 *holder;
 };
 
-void Fader_1b6fd0::FUN_001b6fd0(int alpha)
+void CRadMovieRenderLoop_1b6fd0::FUN_001b6fd0(int alpha)
 {
     float w = (float)(*(Screen_1b6fd0**)&DAT_0052c2a4)->vfn7();
     float h = (float)(*(Screen_1b6fd0**)&DAT_0052c2a4)->vfn6();

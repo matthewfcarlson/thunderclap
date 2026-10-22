@@ -5,7 +5,7 @@ class Ref_10ea50 {
     virtual void F0();
     virtual void Release();
 };
-class Base_10ea50 {
+class Track_10ea50 {
   public:
     void* vptr;
     void Fin();
@@ -17,13 +17,13 @@ struct Sub_10ea50 {
 void __fastcall SubFini(Sub_10ea50*) throw();
 void __fastcall SubFini2(Sub_10ea50*) throw();
 void __fastcall SubFini3(Sub_10ea50*) throw();
-class Obj_10ea50 : public Base_10ea50 {
+class SemaphoreClearTrack_10ea50 : public Track_10ea50 {
   public:
     char p18[20];
     Sub_10ea50 s18;
-    Obj_10ea50* f(unsigned char fl);
+    SemaphoreClearTrack_10ea50* f(unsigned char fl);
 };
-Obj_10ea50* Obj_10ea50::f(unsigned char fl) {
+SemaphoreClearTrack_10ea50* SemaphoreClearTrack_10ea50::f(unsigned char fl) {
     vptr = g_vftable_10ea50;
     SubFini(&s18);
     Fin();

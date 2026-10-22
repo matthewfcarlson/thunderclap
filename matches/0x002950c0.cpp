@@ -5,12 +5,12 @@ class Base {
     char pad[12];
     Base();
 };
-class Mid : public Base {
+class Font_2950c0 : public Base {
   public:
     int a, b, c, d, e;
-    Mid() : Base(), a(0), b(0), c(0), d(0), e(0) {}
+    Font_2950c0() : Base(), a(0), b(0), c(0), d(0), e(0) {}
 };
-class TextureFont : public Mid {
+class TextureFont : public Font_2950c0 {
     int x;
     int g, h, i, j, k, l, m;
 
@@ -18,7 +18,7 @@ class TextureFont : public Mid {
     virtual void f();
     TextureFont();
 };
-TextureFont::TextureFont() : Mid() {
+TextureFont::TextureFont() : Font_2950c0() {
     _ReadWriteBarrier();
     x = -1;
     _ReadWriteBarrier();

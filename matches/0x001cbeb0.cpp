@@ -5,11 +5,11 @@ struct CtorV_001d0480 {
 extern "C" unsigned char lookup(const char*);
 extern const char key1[];
 extern const char key2[];
-class Root : public CtorV_001d0480 {
+class Function_1cbeb0 : public CtorV_001d0480 {
   public:
-    Root(const char* s) : CtorV_001d0480(s, 1) { }
+    Function_1cbeb0(const char* s) : CtorV_001d0480(s, 1) { }
 };
-class Method1 : public Root {
+class Method1 : public Function_1cbeb0 {
   public:
     virtual void f();
     char pad[12];
@@ -18,7 +18,7 @@ class Method1 : public Root {
     unsigned char b18;
     char pad3[3];
     void* owner;
-    Method1(const char* s, void* o) : Root(s) {
+    Method1(const char* s, void* o) : Function_1cbeb0(s) {
         owner = o;
         b18 = lookup(key1);
         b10 = lookup(key2);

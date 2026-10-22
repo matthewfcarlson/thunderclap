@@ -13,7 +13,7 @@ class Obj3_1b77e0 : public RC {
 
 class Res_1b77e0 : public RC {};
 
-struct CRadMovieRenderLoop_nv_1b77e0 {
+struct CRadMovieRenderLoop_1b77e0 {
     CRadMovieRenderLoop* Init();
 };
 
@@ -44,7 +44,7 @@ void Target_1b77e0::Run() {
     void* mem = Alloc(0x10, 7);
     RC* s;
     if (mem)
-        s = (RC*)((CRadMovieRenderLoop_nv_1b77e0*)(((CRadMovieRenderLoop*)mem)))->Init();
+        s = (RC*)((CRadMovieRenderLoop_1b77e0*)(((CRadMovieRenderLoop*)mem)))->Init();
     else
         s = 0;
     mSub = s;

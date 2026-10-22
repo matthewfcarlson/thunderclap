@@ -5,7 +5,7 @@ class Ref_175020 {
     virtual void F0();
     virtual void Release();
 };
-class Base_175020 {
+class Action_175020 {
   public:
     void* vptr;
     void Fin();
@@ -16,16 +16,16 @@ struct Sub_175020 {
 };
 void __fastcall SubFini(Sub_175020*) throw();
 void __fastcall SubFini2(Sub_175020*) throw();
-class Obj_175020 : public Base_175020 {
+class DriftToPositionAction_175020 : public Action_175020 {
   public:
     char p1c[24];
     void* m1c;
     Ref_175020* m20;
     char p38[20];
     Sub_175020 s38;
-    ~Obj_175020() throw();
+    ~DriftToPositionAction_175020() throw();
 };
-Obj_175020::~Obj_175020() throw() {
+DriftToPositionAction_175020::~DriftToPositionAction_175020() throw() {
     vptr = g_vftable_175020;
     _ReadWriteBarrier();
     if (m20) {

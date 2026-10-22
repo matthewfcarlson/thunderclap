@@ -5,12 +5,12 @@ class Ref_176020 {
     virtual void F0();
     virtual void Release();
 };
-class Base_176020 {
+class Action_176020 {
   public:
     void* vptr;
     void Fin();
 };
-class SuckInPropsAction_176020 : public Base_176020 {
+class SuckInPropsAction_176020 : public Action_176020 {
   public:
     char pad[0x18];
     void* m1c;

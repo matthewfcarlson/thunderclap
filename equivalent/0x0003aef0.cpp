@@ -52,7 +52,7 @@ struct World {
     Inventory_3aef0* inv;             // 0xc
 };
 
-class Actor_3aef0 {
+class CCharacter_3aef0 {
 public:
     char pad00[0x10];
     Cam_3aef0* cam;                   // 0x10
@@ -66,7 +66,7 @@ public:
     char FUN_0003aef0(int index);
 };
 
-char Actor_3aef0::FUN_0003aef0(int index)
+char CCharacter_3aef0::FUN_0003aef0(int index)
 {
     if (index < 0 || index >= 8)
         return 0;

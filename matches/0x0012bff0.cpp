@@ -3,9 +3,9 @@ class Ref {
     virtual void Add();
     virtual void Release();
 };
-class Base {
+class Action_12bff0 {
   public:
-    Base();
+    Action_12bff0();
     virtual void f();
     char pad[24];
 };
@@ -15,13 +15,13 @@ struct Fields {
     int c;
     Fields() : a(0), p(0), c(0) {}
 };
-class ThreatBallAction : public Base {
+class ThreatBallAction : public Action_12bff0 {
   public:
     ThreatBallAction(int, Ref*);
     virtual void f();
     Fields m;
 };
-ThreatBallAction::ThreatBallAction(int v, Ref* q) : Base() {
+ThreatBallAction::ThreatBallAction(int v, Ref* q) : Action_12bff0() {
     m.a = v;
     if (q)
         q->Add();

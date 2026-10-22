@@ -5,12 +5,12 @@ class Ref_183f20 {
     virtual void F0();
     virtual void Release();
 };
-class Base_183f20 {
+class Action_183f20 {
   public:
     void* vptr;
     void Fin();
 };
-class PropDropAction_183f20 : public Base_183f20 {
+class PropDropAction_183f20 : public Action_183f20 {
   public:
     char pad[0x18];
     void* m1c;

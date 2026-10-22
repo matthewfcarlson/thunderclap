@@ -10,15 +10,15 @@ struct Ref_30f810 {
     virtual void a() throw();
     virtual void release() throw();
 };
-class O_30f810 {
+class Pose_30f810 {
   public:
     void* vptr;
     int pad;
     Ref_30f810* ref;
     Elem_30f810* arr;
-    ~O_30f810() throw();
+    ~Pose_30f810() throw();
 };
-O_30f810::~O_30f810() throw() {
+Pose_30f810::~Pose_30f810() throw() {
     Elem_30f810* a = arr;
     vptr = vP;
     if (a) {

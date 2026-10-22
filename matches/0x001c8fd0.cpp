@@ -7,19 +7,19 @@ class Ref_1c8fd0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_1c8fd0 {
+class SimpleChunkHandler_1c8fd0 {
   public:
     void* vptr;
     void Fin();
 };
 
-class Obj_1c8fd0 : public Base_1c8fd0 {
+class LevelLoader_1c8fd0 : public SimpleChunkHandler_1c8fd0 {
   public:
     char pad[0x18];
     Ref_1c8fd0* m;
-    Obj_1c8fd0* f2(unsigned char flags);
+    LevelLoader_1c8fd0* f2(unsigned char flags);
 };
-Obj_1c8fd0* Obj_1c8fd0::f2(unsigned char flags) {
+LevelLoader_1c8fd0* LevelLoader_1c8fd0::f2(unsigned char flags) {
     vptr = g_vftable_1c8fd0;
     _ReadWriteBarrier();
     if (m) {

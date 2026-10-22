@@ -10,11 +10,11 @@ class Part_1d55d0 {
   public:
     void Fini() throw();
 };
-struct Base_1d55d0 {
+struct Entity_1d55d0 {
     void* vf;
     void Dtor() throw();
 };
-struct Target_1d55d0 : Base_1d55d0 {
+struct CSPHulkProp_1d55d0 : Entity_1d55d0 {
     char pad[0x8c];
     Ref_1d55d0* p90;
     char pad2[0x24];
@@ -23,7 +23,7 @@ struct Target_1d55d0 : Base_1d55d0 {
     Part_1d55d0 pc0;
     void Dtor2() throw();
 };
-void Target_1d55d0::Dtor2() throw() {
+void CSPHulkProp_1d55d0::Dtor2() throw() {
     vf = vProp;
     _ReadWriteBarrier();
     if (p90) {
@@ -35,5 +35,5 @@ void Target_1d55d0::Dtor2() throw() {
         pb8 = 0;
     }
     pc0.Fini();
-    Base_1d55d0::Dtor();
+    Entity_1d55d0::Dtor();
 }

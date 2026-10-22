@@ -1,9 +1,9 @@
-struct Base_2f33c0 {
+struct CollisionVolume_2f33c0 {
     virtual void f0();
-    Base_2f33c0();
+    CollisionVolume_2f33c0();
 };
-struct WCV : Base_2f33c0 {
-    WCV();
+struct WorldCollisionVolume_2f33c0 : CollisionVolume_2f33c0 {
+    WorldCollisionVolume_2f33c0();
     virtual void f0();
 };
-WCV::WCV() {}
+WorldCollisionVolume_2f33c0::WorldCollisionVolume_2f33c0() {}

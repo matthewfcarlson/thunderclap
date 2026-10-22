@@ -13,12 +13,12 @@ struct Result_1dc660 { char pad[112]; Node* node; };
 struct Handle_1dc660 { Result_1dc660* FUN_001d72e0(); Vec_1dc660* FUN_001d77c0(); };
 struct Record_1dc660 { char pad0[24]; Handle_1dc660* handle; char pad1[6]; short index; char pad2[4]; };
 struct Flag_1dc660 { unsigned char bits; char pad[19]; };
-struct Owner_1dc660 {
+struct CSPManager_1dc660 {
  union { struct { char pad[0x608]; Record_1dc660 records[4096]; } entries; Flag_1dc660 flags[65536]; };
  int FUN_001dbfe0(int);
  Vec_1dc660* target(Vec_1dc660*, int);
 };
-Vec_1dc660* Owner_1dc660::target(Vec_1dc660* out, int id) {
+Vec_1dc660* CSPManager_1dc660::target(Vec_1dc660* out, int id) {
  Vec_1dc660 value; value.x=0; value.y=0; value.z=0;
  int i=FUN_001dbfe0(id);
  if(i>=0) {

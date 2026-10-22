@@ -8,7 +8,7 @@ class Params_144a50 {
 extern Params_144a50 TypeA_144a50;
 extern Params_144a50 TypeB_144a50;
 int __cdecl Check(void*, int, Params_144a50*, Params_144a50*, int);
-struct WorldConeDamageAction_nv_144a50 {
+struct WorldConeDamageAction_144a50 {
     int Init(hulkfight::motion::WorldConeDamageTrack*, int);
 };
 hulkfight::motion::WorldConeDamageAction* __cdecl Alloc(int);
@@ -18,7 +18,7 @@ int hulkfight::motion::WorldConeDamageTrack::vfunc_10(int a, int b, int c) {
     if (result) {
         hulkfight::motion::WorldConeDamageAction* p = Alloc(0x24);
         if (p)
-            return ((WorldConeDamageAction_nv_144a50*)(p))->Init(this, c);
+            return ((WorldConeDamageAction_144a50*)(p))->Init(this, c);
     }
     return 0;
 }

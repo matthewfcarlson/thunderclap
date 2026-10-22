@@ -5,11 +5,11 @@ struct CtorV_001d0480 {
 extern "C" unsigned char readFlag(const char*);
 extern char flagA[];
 extern char flagB[];
-class InitBase : public CtorV_001d0480 {
+class Function_94a30 : public CtorV_001d0480 {
   public:
-    InitBase(const char* s) : CtorV_001d0480(s, 1) { }
+    Function_94a30(const char* s) : CtorV_001d0480(s, 1) { }
 };
-class Method1 : public InitBase {
+class Method1 : public Function_94a30 {
   public:
     virtual void run();
     char pad0[12];
@@ -18,7 +18,7 @@ class Method1 : public InitBase {
     unsigned char b;
     char pad2[3];
     int value;
-    Method1(const char* s, int v) : InitBase(s) {
+    Method1(const char* s, int v) : Function_94a30(s) {
         value = v;
         b = readFlag(flagA);
         a = readFlag(flagB);

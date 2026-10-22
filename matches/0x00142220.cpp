@@ -6,21 +6,21 @@ class Ref_142220 {
     virtual void F0();
     virtual void Release();
 };
-class Base_142220 {
+class Action_142220 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_142220 : public Base_142220 {
+class WallRunAction_142220 : public Action_142220 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_142220* m20;
     Ref_142220* m24;
     Ref_142220* m28;
-    Obj_142220* f2(unsigned char flags);
+    WallRunAction_142220* f2(unsigned char flags);
 };
-Obj_142220* Obj_142220::f2(unsigned char flags) {
+WallRunAction_142220* WallRunAction_142220::f2(unsigned char flags) {
     vptr = g_vftable_142220;
     _ReadWriteBarrier();
     if (m28) {

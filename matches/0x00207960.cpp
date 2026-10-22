@@ -11,7 +11,7 @@ union Flag_207960 {
     char on;
 };
 
-class Player_207960 {
+class CWorldStreamManager_207960 {
 public:
     char pad000[0x578];
     int table[3];
@@ -29,7 +29,7 @@ public:
     void FUN_00207960(int a, int index, Flag_207960 flag);
 };
 
-void Player_207960::FUN_00207960(int a, int index, Flag_207960 flag)
+void CWorldStreamManager_207960::FUN_00207960(int a, int index, Flag_207960 flag)
 {
     if (!flag.on)
         startTime = FUN_00267f80();

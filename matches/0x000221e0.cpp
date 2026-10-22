@@ -7,12 +7,12 @@ class Ref_221e0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_221e0 {
+class CAction_221e0 {
   public:
     void* vptr;
     void Fin();
 };
-class CEffectAction_221e0 : public Base_221e0 {
+class CEffectAction_221e0 : public CAction_221e0 {
   public:
     char pad[0x18];
     Ref_221e0* m1c;

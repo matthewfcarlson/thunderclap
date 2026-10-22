@@ -13,7 +13,7 @@ struct E2 {
     char pad[0xa4];
     void Fini();
 };
-class Obj_30e570 {
+class CollisionAnalyser_30e570 {
   public:
     void* vptr;
     E1* m4;
@@ -30,9 +30,9 @@ class Obj_30e570 {
     char pad4[8];
     void* m44;
     void* m48;
-    ~Obj_30e570() throw();
+    ~CollisionAnalyser_30e570() throw();
 };
-Obj_30e570::~Obj_30e570() throw() {
+CollisionAnalyser_30e570::~CollisionAnalyser_30e570() throw() {
     vptr = g_vftable_30e570;
     E1* p = m4;
     if (p <= m8) {

@@ -3,8 +3,8 @@ struct Ref_2397c0 {
     virtual void AddRef();
     virtual void Release();
 };
-struct B_2397c0 {
-    B_2397c0() throw();
+struct Action_2397c0 {
+    Action_2397c0() throw();
     virtual void V0();
     char pad04[0x18];
 };
@@ -12,7 +12,7 @@ struct S_2397c0 {
     S_2397c0() throw();
     char p[0x28];
 };
-struct EA : B_2397c0 {
+struct ExecuteAction_2397c0 : Action_2397c0 {
     Ref_2397c0* m1c;
     hulk_intptr m20;
     Ref_2397c0* m24;
@@ -23,10 +23,10 @@ struct EA : B_2397c0 {
     S_2397c0 s;
     int m60;
     char m64;
-    EA(Ref_2397c0* a, Ref_2397c0* b, Ref_2397c0* c, int d, Ref_2397c0* e, Ref_2397c0* f, Ref_2397c0* g);
+    ExecuteAction_2397c0(Ref_2397c0* a, Ref_2397c0* b, Ref_2397c0* c, int d, Ref_2397c0* e, Ref_2397c0* f, Ref_2397c0* g);
     virtual void V0();
 };
-EA::EA(Ref_2397c0* a, Ref_2397c0* b, Ref_2397c0* c, int d, Ref_2397c0* e, Ref_2397c0* f, Ref_2397c0* g)
+ExecuteAction_2397c0::ExecuteAction_2397c0(Ref_2397c0* a, Ref_2397c0* b, Ref_2397c0* c, int d, Ref_2397c0* e, Ref_2397c0* f, Ref_2397c0* g)
     : m1c(0), m20(0), m24(0), m28(d), m2c(e), m30(f), m34(0) {
     m60 = 0;
     m64 = 0;

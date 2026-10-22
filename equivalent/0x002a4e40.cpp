@@ -27,16 +27,16 @@ struct ElemVec_2a4e40 {
     bool FUN_002a4d10(hulk_uintptr count, Elem_2a4e40 *fill);
 };
 
-class __declspec(novtable) DrawableBase_2a4e40 {
+class __declspec(novtable) DrawableHierarchy_2a4e40 {
 public:
     virtual void b0();
     char pad04[0x3c];
-    void FUN_002a3530(const DrawableBase_2a4e40 *src);
-    DrawableBase_2a4e40(const DrawableBase_2a4e40 &src) { FUN_002a3530(&src); }
+    void FUN_002a3530(const DrawableHierarchy_2a4e40 *src);
+    DrawableHierarchy_2a4e40(const DrawableHierarchy_2a4e40 &src) { FUN_002a3530(&src); }
 };
 
 namespace pure3d {
-class DrawableContainer : public DrawableBase_2a4e40 {
+class DrawableContainer : public DrawableHierarchy_2a4e40 {
 public:
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -49,7 +49,7 @@ public:
 }
 
 pure3d::DrawableContainer::DrawableContainer(const DrawableContainer &src)
-    : DrawableBase_2a4e40(src)
+    : DrawableHierarchy_2a4e40(src)
 {
     f40 = src.f40;
     elems.begin = 0;

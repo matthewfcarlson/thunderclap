@@ -37,22 +37,22 @@ struct Id64_f25f0 { unsigned int lo; unsigned int hi; };
 Id64_f25f0 __cdecl FUN_0027b020(const char *name);
 
 // equiv-map: ??0FEBase@@QAE@HPBD@Z = 0x000e13c0
-class FEBase {
+class FEAnimation_f25f0 {
 public:
-    FEBase(int a, const char *name);
+    FEAnimation_f25f0(int a, const char *name);
     virtual void v0();
     char pad04[8];
     Ref_f25f0 *p0c;
     char pad10[0x50];
 };
 
-class FEBillboardAnimation : public FEBase {
+class FEBillboardAnimation : public FEAnimation_f25f0 {
 public:
     FEBillboardAnimation(int a, const char *name);
     virtual void v0();
 };
 
-FEBillboardAnimation::FEBillboardAnimation(int a, const char *name) : FEBase(a, name)
+FEBillboardAnimation::FEBillboardAnimation(int a, const char *name) : FEAnimation_f25f0(a, name)
 {
     char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     const char *start = name + 1;

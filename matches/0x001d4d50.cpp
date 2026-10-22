@@ -1,6 +1,6 @@
-class Base_1d4d50 {
+class Entity_1d4d50 {
   public:
-    Base_1d4d50();
+    Entity_1d4d50();
     virtual void G();
     char pad[0x90 - 4];
 };
@@ -9,7 +9,7 @@ class M_1d4d50 {
     void Init();
     char q[8];
 };
-class CSPHulkProp : public Base_1d4d50 {
+class CSPHulkProp : public Entity_1d4d50 {
   public:
     virtual void G();
     int a, b, c, d, e, f, g, h;

@@ -2,7 +2,7 @@
 // FUN_0005b6f0 @ 0x0005b6f0
 inline void *operator new(unsigned int, void *p) { return p; }
 
-struct Base12 {
+struct CGrappleOpportunityTrack_5b6f0 {
     char data[12];
     void FUN_00236d40();
 };
@@ -28,7 +28,7 @@ public:
 
 CGrappleLocoStrafe4Track *CGrappleLocoStrafe4Track::FUN_0005b6f0()
 {
-    ((Base12 *)this)->FUN_00236d40();
+    ((CGrappleOpportunityTrack_5b6f0 *)this)->FUN_00236d40();
     new (this) CGrappleLocoStrafe4Track;
     f0c = 0;
     f10 = 0;

@@ -13,13 +13,13 @@ class Base_1b7cd0 {
 };
 void Free(void*) throw();
 
-class Obj_1b7cd0 : public Base_1b7cd0 {
+class CFMVManager_1b7cd0 : public Base_1b7cd0 {
   public:
     char pad[8];
     Ref_1b7cd0* mc;
-    Obj_1b7cd0* f0(unsigned char fl);
+    CFMVManager_1b7cd0* f0(unsigned char fl);
 };
-Obj_1b7cd0* Obj_1b7cd0::f0(unsigned char fl) {
+CFMVManager_1b7cd0* CFMVManager_1b7cd0::f0(unsigned char fl) {
     vptr = g_vftable_1b7cd0;
     _ReadWriteBarrier();
     Ref_1b7cd0* t = mc;

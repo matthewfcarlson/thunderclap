@@ -8,11 +8,11 @@ struct Object { char pad[0x10]; Transform_1034e0* transform; };
 struct Provider_1034e0 { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual Object* slot6(); };
 struct Destination_1034e0 { void FUN_00104c60(unsigned,Vector*,Vector*,unsigned,unsigned,unsigned,unsigned); };
 extern unsigned DAT_004dd700;
-struct Target_1034e0 {
+struct COccupationAgent_1034e0 {
  char pad0[0x58]; Provider_1034e0* provider; Destination_1034e0* destination; Table_1034e0* table; char pad1[0x54]; int index; unsigned parameter; unsigned char flag; char pad2[3]; unsigned option; char pad3[4]; unsigned a,b,c,d,e; char pad4[12]; unsigned f;
  bool FUN_001034e0();
 };
-bool Target_1034e0::FUN_001034e0() {
+bool COccupationAgent_1034e0::FUN_001034e0() {
  if (!table) return false;
  c=0; b=0; a=0; d=0; e=0; f=0;
  if(index<0) return false;

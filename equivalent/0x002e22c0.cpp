@@ -48,7 +48,7 @@ public:
     int f50;
     char pad54[4];
     int f58;
-    struct Dest_2e22c0 *f5c;
+    struct VertexOffsetList_2e22c0 *f5c;
 };
 
 class RefObj_2e22c0 {
@@ -83,7 +83,7 @@ public:
 
 }
 
-struct Dest_2e22c0 {
+struct VertexOffsetList_2e22c0 {
     // (the vftable pointer is the first 4 bytes; the fields below are at the original's offsets)
     char pad4[8];
     int fc;
@@ -106,17 +106,17 @@ struct Dest_2e22c0 {
     void FUN_002c7240(int i);
     void FUN_002c72e0(int i);
     void FUN_002c7070();
-    Dest_2e22c0 *FUN_002c8460(int a);
+    VertexOffsetList_2e22c0 *FUN_002c8460(int a);
     virtual void v0();
     virtual void v1();
 };
 
-struct Obj60_2e22c0 {
+struct VertexAnimPrimGroup_2e22c0 {
     char pad0[0x50];
     int f50;
     char pad54[8];
-    Dest_2e22c0 *f5c;
-    Obj60_2e22c0 *FUN_002e0760(pure3d::PrimGroup *b);
+    VertexOffsetList_2e22c0 *f5c;
+    VertexAnimPrimGroup_2e22c0 *FUN_002e0760(pure3d::PrimGroup *b);
 };
 
 class Hub89 {
@@ -273,7 +273,7 @@ void Loader_2e22c0::FUN_002e22c0(void *a0, Reader *rd, int a2, VecObj *a3, int a
 {
     Frame_2e22c0 fr;
     unsigned int flags = f1c;
-    Dest_2e22c0 *D;
+    VertexOffsetList_2e22c0 *D;
     fr.self = this;
     fr.psk = 0;
 
@@ -305,14 +305,14 @@ void Loader_2e22c0::FUN_002e22c0(void *a0, Reader *rd, int a2, VecObj *a3, int a
     fr.B->f44 = fc;
 
     if (w12 == 1) {
-        Obj60_2e22c0 *N = 0;
+        VertexAnimPrimGroup_2e22c0 *N = 0;
         void *mem = thunk_FUN_0008d690(0x60);
         if (mem != 0)
-            N = ((Obj60_2e22c0 *)mem)->FUN_002e0760(fr.B);
+            N = ((VertexAnimPrimGroup_2e22c0 *)mem)->FUN_002e0760(fr.B);
         void *m30 = FUN_0008d690(0x30);
-        Dest_2e22c0 *d30;
+        VertexOffsetList_2e22c0 *d30;
         if (m30 != 0)
-            d30 = ((Dest_2e22c0 *)m30)->FUN_002c8460(f20);
+            d30 = ((VertexOffsetList_2e22c0 *)m30)->FUN_002c8460(f20);
         else
             d30 = 0;
         N->f5c = d30;
@@ -334,7 +334,7 @@ void Loader_2e22c0::FUN_002e22c0(void *a0, Reader *rd, int a2, VecObj *a3, int a
         N->f5c->FUN_002c7070();
         FUN_002a46d0(a0, N);
     } else if (w12 == 2) {
-        ((Obj60_2e22c0 *)fr.B)->f50 = f14;
+        ((VertexAnimPrimGroup_2e22c0 *)fr.B)->f50 = f14;
         FUN_002a46d0(a0, fr.B);
     } else {
         FUN_002a46d0(a0, fr.B);
@@ -347,7 +347,7 @@ void Loader_2e22c0::FUN_002e22c0(void *a0, Reader *rd, int a2, VecObj *a3, int a
         }
     }
     Reader *ebp = rd;
-    D = ((Obj60_2e22c0 *)fr.B)->f5c;
+    D = ((VertexAnimPrimGroup_2e22c0 *)fr.B)->f5c;
     if (!ebp->FUN_002669f0())
         return;
     do {

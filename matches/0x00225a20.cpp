@@ -1,4 +1,4 @@
-class Thing_225a20 {
+class AnimationDriver_225a20 {
   public:
     char pad0[0x20];
     int value20;
@@ -14,11 +14,11 @@ class Thing_225a20 {
     char pad236[2];
     int d238;
     int d23c;
-    void First(Thing_225a20*);
+    void First(AnimationDriver_225a20*);
     void Second(int);
-    Thing_225a20* Copy(Thing_225a20*);
+    AnimationDriver_225a20* Copy(AnimationDriver_225a20*);
 };
-Thing_225a20* Thing_225a20::Copy(Thing_225a20* src) {
+AnimationDriver_225a20* AnimationDriver_225a20::Copy(AnimationDriver_225a20* src) {
     First(src);
     Second(src->value20);
     b224 = src->b224;

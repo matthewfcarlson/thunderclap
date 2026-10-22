@@ -1,4 +1,4 @@
-class Thing_1c7720 {
+class StoreBase_1c7720 {
   public:
     virtual void A();
     virtual void B(void*);
@@ -9,7 +9,7 @@ class Thing_1c7720 {
     void** mItems;
     void Reset();
 };
-void Thing_1c7720::Reset() {
+void StoreBase_1c7720::Reset() {
     int i = 0;
     if (mCount >= 0) {
         do {

@@ -5,17 +5,17 @@ class Ref_2fe1f0 {
     virtual void f0();
     virtual void f1();
 };
-class Base_2fe1f0 {
+class Entity_2fe1f0 {
   public:
     void finish();
 };
-class Obj_2fe1f0 : public Base_2fe1f0 {
+class WorldCollisionObject_2fe1f0 : public Entity_2fe1f0 {
   public:
     char pad[16];
     Ref_2fe1f0* member;
     void run();
 };
-void Obj_2fe1f0::run() {
+void WorldCollisionObject_2fe1f0::run() {
     *(void**)this = (void*)((hulk_intptr)DAT_00431968);
     if (member)
         member->f1();

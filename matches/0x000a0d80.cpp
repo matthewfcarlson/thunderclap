@@ -5,19 +5,19 @@ class Ref_a0d80 {
     virtual void F0();
     virtual void Release();
 };
-class Base_a0d80 {
+class CGameCamera_a0d80 {
   public:
     void* vptr;
     void Fin();
     void Fin29();
 };
-class Cam_a0d80 : public Base_a0d80 {
+class CChaseCamera_a0d80 : public CGameCamera_a0d80 {
   public:
     char pad[0x350 - 4];
     Ref_a0d80* m350;
-    ~Cam_a0d80();
+    ~CChaseCamera_a0d80();
 };
-Cam_a0d80::~Cam_a0d80() {
+CChaseCamera_a0d80::~CChaseCamera_a0d80() {
     vptr = g_vftable_a0d80;
     _ReadWriteBarrier();
     if (m350) {

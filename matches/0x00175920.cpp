@@ -11,12 +11,12 @@ class Inner_175920 {
     void Init();
     void SetName(const char*);
 };
-class Base_175920 {
+class Action_175920 {
   public:
-    Base_175920();
+    Action_175920();
     virtual void A0();
 };
-class TeleportRelativeAction_175920 : public Base_175920 {
+class TeleportRelativeAction_175920 : public Action_175920 {
   public:
     TeleportRelativeAction_175920(int arg, Obj_175920* obj);
     virtual void A0();

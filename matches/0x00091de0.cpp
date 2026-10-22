@@ -4,7 +4,7 @@ struct Sub_91de0 {
     void Init();
     char pad[8];
 };
-struct UnlockCheat {
+struct CUnlockableCheat_91de0 {
     int* vptr;
     char p4[4];
     unsigned char flag;
@@ -14,10 +14,10 @@ struct UnlockCheat {
     char p1c[4];
     unsigned char field20;
     char p21[7];
-    UnlockCheat* ctor(const char* arg);
+    CUnlockableCheat_91de0* ctor(const char* arg);
 };
 void Format(void*, int, const char*, const char*);
-UnlockCheat* UnlockCheat::ctor(const char* arg) {
+CUnlockableCheat_91de0* CUnlockableCheat_91de0::ctor(const char* arg) {
     vptr = (int*)&vtBase_91de0;
     flag = 1;
     sub.Init();

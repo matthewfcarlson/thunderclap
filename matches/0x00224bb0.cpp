@@ -21,7 +21,7 @@ class JointDriver {
     virtual void n();
 };
 } // namespace choreo2
-class Helper_224bb0 {
+class JointDriver_224bb0 {
   public:
     void call();
 };
@@ -29,7 +29,7 @@ extern void thunk_FUN_00267090(choreo2::JointDriver*);
 choreo2::JointDriver* choreo2::JointDriver::vfunc_2(byte_224bb0 param) {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_004272f0);
     --g_refCount;
-    ((Helper_224bb0*)this)->call();
+    ((JointDriver_224bb0*)this)->call();
     if (param & 1)
         thunk_FUN_00267090(this);
     return this;

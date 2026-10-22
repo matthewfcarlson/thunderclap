@@ -1,10 +1,10 @@
-class Base_6a2d0 {
+class CTrack_6a2d0 {
   public:
-    Base_6a2d0();
+    CTrack_6a2d0();
     virtual void Fn();
 };
 
-class CCameraShakeTrack : public Base_6a2d0 {
+class CCameraShakeTrack : public CTrack_6a2d0 {
   public:
     CCameraShakeTrack();
     virtual void Fn();

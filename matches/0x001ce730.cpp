@@ -4,10 +4,10 @@ struct CtorV_001d0480 {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-struct Base : public CtorV_001d0480 {
-    Base(const char* a) : CtorV_001d0480(a, 1) { }
+struct Function_1ce730 : public CtorV_001d0480 {
+    Function_1ce730(const char* a) : CtorV_001d0480(a, 1) { }
 };
-class Method1 : public Base {
+class Method1 : public Function_1ce730 {
   public:
     virtual void fn();
     char pad[12];
@@ -25,7 +25,7 @@ class Closure1 : public Method1 {
     Closure1(const char*, int, int);
 };
 extern const char g0[], g1[];
-inline Method1::Method1(const char* a, int c) : Base(a) {
+inline Method1::Method1(const char* a, int c) : Function_1ce730(a) {
     arg = c;
     b18 = FUN_001d04d0(g0);
     b10 = FUN_001d04d0(g1);

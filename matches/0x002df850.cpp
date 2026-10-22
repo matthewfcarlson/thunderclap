@@ -1,10 +1,10 @@
-class Base {
+class RenderObjectLoader_2df850 {
   public:
-    Base();
+    RenderObjectLoader_2df850();
     virtual void Fn();
     int unused;
 };
-class OldPrimGroupLoader : public Base {
+class OldPrimGroupLoader : public RenderObjectLoader_2df850 {
   public:
     OldPrimGroupLoader();
     virtual void Fn();

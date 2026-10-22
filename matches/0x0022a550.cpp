@@ -4,7 +4,7 @@ struct V3_22a550 {
 struct ThisCall_00228720 {
     void GetVel(V3_22a550* out);
 };
-struct D {
+struct LocomotionSteerDriver_22a550 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -21,7 +21,7 @@ struct D {
     float px, py, pz;
     void Base(float dt);
 };
-void D::Update(float dt) {
+void LocomotionSteerDriver_22a550::Update(float dt) {
     if (enabled && *(int*)((char*)this + 0x18) == 0) {
         V3_22a550 v;
         ((ThisCall_00228720*)(this))->GetVel(&v);

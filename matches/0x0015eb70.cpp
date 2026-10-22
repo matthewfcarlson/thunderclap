@@ -7,10 +7,10 @@ class Ref_15eb70 {
     virtual void f0();
     virtual void f1();
 };
-struct HeliLocomotionAction_nv_15eb70 {
+struct HeliLocomotionAction_15eb70 {
     void Fn();
 };
-class A_15eb70 {
+class ClimbLocomotionAction_15eb70 {
   public:
     void* vptr;
     char p[0x18];
@@ -19,7 +19,7 @@ class A_15eb70 {
     Ref_15eb70* m24;
     void f();
 };
-void A_15eb70::f() {
+void ClimbLocomotionAction_15eb70::f() {
     vptr = g_vftable_15eb70;
     _ReadWriteBarrier();
     if (m24) {
@@ -34,5 +34,5 @@ void A_15eb70::f() {
         m1c->f1();
         m1c = 0;
     }
-    ((HeliLocomotionAction_nv_15eb70*)(((hulkfight::motion::HeliLocomotionAction*)this)))->Fn();
+    ((HeliLocomotionAction_15eb70*)(((hulkfight::motion::HeliLocomotionAction*)this)))->Fn();
 }

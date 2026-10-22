@@ -1,15 +1,15 @@
 extern "C" unsigned char __cdecl GetFlag(const char*);
 extern const char name1[];
 extern const char name2[];
-class Base {
+class Function_cfb90 {
   public:
-    Base(void*, int);
+    Function_cfb90(void*, int);
     virtual void f();
     char pad[0x0c];
 };
-class Method1 : public Base {
+class Method1 : public Function_cfb90 {
   public:
-    Method1(void* a, void* c) : Base(a, 1) {
+    Method1(void* a, void* c) : Function_cfb90(a, 1) {
         p = c;
         flag2 = GetFlag(name1);
         flag1 = GetFlag(name2);

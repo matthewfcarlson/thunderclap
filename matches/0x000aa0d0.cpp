@@ -10,7 +10,7 @@ class Ref_aa0d0 {
 struct CHypnoticCamera_nv_aa0d0 {
     void Fn();
 };
-class A_aa0d0 {
+class CHypnoticCamera_aa0d0 {
   public:
     void* vptr;
     char p[0x420];
@@ -20,7 +20,7 @@ class A_aa0d0 {
     Ref_aa0d0* m478;
     void f();
 };
-void A_aa0d0::f() {
+void CHypnoticCamera_aa0d0::f() {
     vptr = g_vftable_aa0d0;
     _ReadWriteBarrier();
     if (m478) {

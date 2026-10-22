@@ -3,17 +3,17 @@ struct Sub_2c3930 {
     void Set(int);
     char p[8];
 };
-struct Base_2c3930 {
-    Base_2c3930();
+struct Entity_2c3930 {
+    Entity_2c3930();
     virtual void h();
     int x;
     Sub_2c3930 s;
 };
-struct ILCC {
+struct ILanguageChangeCallback_2c3930 {
     virtual void f();
 };
 void* Alloc(hulk_uintptr);
-struct TextBible : Base_2c3930, ILCC {
+struct TextBible : Entity_2c3930, ILanguageChangeCallback_2c3930 {
     virtual void g();
     int* mBegin;
     int* mEnd;

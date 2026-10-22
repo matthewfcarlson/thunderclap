@@ -1,10 +1,10 @@
-class Base {
+class Track_14e070 {
   public:
-    Base();
+    Track_14e070();
     virtual void f();
     char pad[8];
 };
-class HitFloatTrack : public Base {
+class HitFloatTrack : public Track_14e070 {
   public:
     HitFloatTrack();
     int a;
@@ -16,7 +16,7 @@ class HitFloatTrack : public Base {
     int f;
     int g;
 };
-HitFloatTrack::HitFloatTrack() : Base() {
+HitFloatTrack::HitFloatTrack() : Track_14e070() {
     a = 0;
     b = 0;
     c = 0;

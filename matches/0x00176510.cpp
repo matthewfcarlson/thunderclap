@@ -6,11 +6,11 @@ class Ref_176510 {
     virtual void A();
     virtual void B();
 };
-class Base_176510 {
+class Action_176510 {
   public:
     void Tail();
 };
-class TargetBreakAction : public Base_176510 {
+class TargetBreakAction : public Action_176510 {
   public:
     void Finish();
     char* vptr;

@@ -37,10 +37,10 @@ struct Request {
     void FUN_00059300();
 };
 
-class Effect_195560 : public RefObj_195560 {
+class CFightParamsCollision_195560 : public RefObj_195560 {
 public:
     char pad04[0xb0 - 4];
-    Effect_195560 *FUN_000598e0(int id, Request *r);
+    CFightParamsCollision_195560 *FUN_000598e0(int id, Request *r);
 };
 
 struct Sub_195560 {
@@ -50,7 +50,7 @@ struct Sub_195560 {
 
 class Res_195560 {
 public:
-    void FUN_00231ad0(Sub_195560 *sub, Effect_195560 *e, int v);
+    void FUN_00231ad0(Sub_195560 *sub, CFightParamsCollision_195560 *e, int v);
 };
 
 class Mgr_195560 {
@@ -63,7 +63,7 @@ public:
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual Res_195560 *v8(Effect_195560 *e, int z);
+    virtual Res_195560 *v8(CFightParamsCollision_195560 *e, int z);
 };
 
 struct Inner_195560 {
@@ -163,9 +163,9 @@ bool FUN_00195560(V3_195560 *self, Src_195560 *src, V3_195560 *b, int id, Mgr_19
 
     if (m1) {
         void *mem = FUN_0008d690(0xb0);
-        Effect_195560 *e = 0;
+        CFightParamsCollision_195560 *e = 0;
         if (mem)
-            e = ((Effect_195560 *)mem)->FUN_000598e0(*esi->f10, &f.x);
+            e = ((CFightParamsCollision_195560 *)mem)->FUN_000598e0(*esi->f10, &f.x);
         e->AddRef();
         Res_195560 *res = m1->v8(e, 0);
         bool use;
@@ -186,9 +186,9 @@ bool FUN_00195560(V3_195560 *self, Src_195560 *src, V3_195560 *b, int id, Mgr_19
     Obj_195560 *p = f.o;
     if (p && m2) {
         void *mem = FUN_0008d690(0xb0);
-        Effect_195560 *e = 0;
+        CFightParamsCollision_195560 *e = 0;
         if (mem)
-            e = ((Effect_195560 *)mem)->FUN_000598e0(id, &f.x);
+            e = ((CFightParamsCollision_195560 *)mem)->FUN_000598e0(id, &f.x);
         e->AddRef();
         Res_195560 *res = m2->v8(e, 0);
         if (res) {

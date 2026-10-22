@@ -13,12 +13,12 @@ public:
 
 struct Binder;
 
-struct Made : public RefObj {
-    Made *FUN_000598e0(void *a, struct Obj *o) throw();
+struct CFightParamsCollision_1df20 : public RefObj {
+    CFightParamsCollision_1df20 *FUN_000598e0(void *a, struct Obj *o) throw();
 };
 
 struct Binder {
-    void FUN_00231ad0(struct Bind *b, Made *m, unsigned int flags) throw();
+    void FUN_00231ad0(struct Bind *b, CFightParamsCollision_1df20 *m, unsigned int flags) throw();
 };
 
 struct Bind {
@@ -37,7 +37,7 @@ public:
     virtual void v5() throw();
     virtual void v6() throw();
     virtual void v7() throw();
-    virtual Binder *v8(Made *m, int z) throw();
+    virtual Binder *v8(CFightParamsCollision_1df20 *m, int z) throw();
 };
 
 struct Obj {
@@ -247,10 +247,10 @@ void Ctrl::FUN_0001df20(Vec3 *a1, Vec3 *a2)
                     Factory *fac = f20->f44;
                     if (fac != 0) {
                         edi->FUN_0003b190(p);
-                        Binder *b = fac->v8((Made *)f1c, 0);
+                        Binder *b = fac->v8((CFightParamsCollision_1df20 *)f1c, 0);
                         if (b != 0) {
                             if (!edi->fdc.FUN_00231e80(b)) {
-                                b->FUN_00231ad0(&edi->fdc, (Made *)f1c, 0x80000000);
+                                b->FUN_00231ad0(&edi->fdc, (CFightParamsCollision_1df20 *)f1c, 0x80000000);
                                 if (edi->fdc.cur == b) {
                                     edi->FUN_0003b160(p);
                                     p->FUN_00080cb0(5);
@@ -286,9 +286,9 @@ void Ctrl::FUN_0001df20(Vec3 *a1, Vec3 *a2)
     char grabbed = 0;
     if (fac != 0) {
         void *mem = FUN_0008d690(0xb0);
-        Made *b;
+        CFightParamsCollision_1df20 *b;
         if (mem)
-            b = ((Made *)mem)->FUN_000598e0(f1c->f08, &fr.o);
+            b = ((CFightParamsCollision_1df20 *)mem)->FUN_000598e0(f1c->f08, &fr.o);
         else
             b = 0;
         b->AddRef();
@@ -311,9 +311,9 @@ void Ctrl::FUN_0001df20(Vec3 *a1, Vec3 *a2)
     Factory *fac2 = f20->f38;
     if (fac2 != 0) {
         void *mem = FUN_0008d690(0xb0);
-        Made *b;
+        CFightParamsCollision_1df20 *b;
         if (mem)
-            b = ((Made *)mem)->FUN_000598e0(*esi->f10, &fr.o);
+            b = ((CFightParamsCollision_1df20 *)mem)->FUN_000598e0(*esi->f10, &fr.o);
         else
             b = 0;
         b->AddRef();

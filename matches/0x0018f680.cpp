@@ -5,12 +5,12 @@ class Ref_18f680 {
     virtual void F0();
     virtual void Release();
 };
-class Base_18f680 {
+class Action_18f680 {
   public:
     void* vptr;
     void Fin();
 };
-class TankLocomotionAction_18f680 : public Base_18f680 {
+class TankLocomotionAction_18f680 : public Action_18f680 {
   public:
     char pad[0x18];
     void* m1c;

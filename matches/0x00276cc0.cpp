@@ -1,4 +1,4 @@
-class Primary_276cc0 {
+class IDrive_276cc0 {
   public:
     virtual void p0();
 };
@@ -7,7 +7,7 @@ class IDrive {
     virtual void a();
     virtual void b();
 };
-class InstanceDrive : public Primary_276cc0, public IDrive {
+class InstanceDrive : public IDrive_276cc0, public IDrive {
   public:
     virtual void v0();
     virtual void v1();

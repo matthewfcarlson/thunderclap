@@ -1,11 +1,11 @@
 class CCollisionHitLocationCondition {};
-class Caster {
+class ConditionFactoryCasterTemplate_54c30 {
   public:
     virtual void cast();
-    Caster() {}
+    ConditionFactoryCasterTemplate_54c30() {}
 };
-void __cdecl findCondition(void*, Caster*);
+void __cdecl findCondition(void*, ConditionFactoryCasterTemplate_54c30*);
 void __cdecl FUN_00054c30(void* p) {
-    Caster c;
+    ConditionFactoryCasterTemplate_54c30 c;
     findCondition(p, &c);
 }

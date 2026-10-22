@@ -56,7 +56,7 @@ union CountOrDist {
     float dist;
 };
 
-class Tracker_1c770 {
+class CWeaponCollisionAction_1c770 {
 public:
     char pad0[0x1c];
     void* owner;
@@ -67,7 +67,7 @@ public:
     void FUN_0001c770(Source_1c770* src, float radius);
 };
 
-void Tracker_1c770::FUN_0001c770(Source_1c770* src, float radius)
+void CWeaponCollisionAction_1c770::FUN_0001c770(Source_1c770* src, float radius)
 {
     Entity* self = FUN_00059a30(FUN_000592a0(owner));
 

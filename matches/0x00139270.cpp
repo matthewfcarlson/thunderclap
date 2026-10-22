@@ -1,14 +1,14 @@
-class Caster {
+class TrackFactoryCasterTemplate_139270 {
   public:
     virtual void f();
-    Caster() {}
+    TrackFactoryCasterTemplate_139270() {}
 };
 class Owner {
   public:
     void use(void*);
 };
-extern "C" void* __cdecl find(void*, Caster*);
+extern "C" void* __cdecl find(void*, TrackFactoryCasterTemplate_139270*);
 void func(Owner* owner, void* name) {
-    Caster caster;
+    TrackFactoryCasterTemplate_139270 caster;
     owner->use(find(name, &caster));
 }

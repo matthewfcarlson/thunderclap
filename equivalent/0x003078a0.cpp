@@ -49,7 +49,7 @@ struct Geom_3078a0 {
     float inv[3];
 };
 
-struct CollisionMesh_nv_3078a0 {
+struct CollisionMesh_3078a0 {
     physics::CollisionMesh *FUN_002f3530();
 };
 
@@ -94,7 +94,7 @@ physics::CollisionMesh *FUN_003078a0(Slot_3078a0 a1)
     void *mem = FUN_0008d690(0xd4);
     physics::CollisionMesh *mesh = 0;
     if (mem != 0)
-        mesh = ((CollisionMesh_nv_3078a0*)(((physics::CollisionMesh *)mem)))->FUN_002f3530();
+        mesh = ((CollisionMesh_3078a0*)(((physics::CollisionMesh *)mem)))->FUN_002f3530();
     Geom_3078a0 *g = (*(Geom_3078a0 * *)&mesh->f_44);
     f.saved20 = g;
     stream->reader->FUN_002647e0(&a1.u, 1, 4, 1);

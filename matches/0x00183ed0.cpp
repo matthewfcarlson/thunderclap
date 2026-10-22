@@ -5,14 +5,14 @@ class RefObj_183ed0 {
     virtual void Release();
 };
 
-class ActionBase_183ed0 {
+class Action_183ed0 {
   public:
-    ActionBase_183ed0();
+    Action_183ed0();
     virtual void Update();
     char pad[0x18];
 };
 
-class PropDropAction_183ed0 : public ActionBase_183ed0 {
+class PropDropAction_183ed0 : public Action_183ed0 {
   public:
     int mTarget;
     RefObj_183ed0* mObj;

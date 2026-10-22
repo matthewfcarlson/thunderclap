@@ -1,10 +1,10 @@
-class Owner_304b40;
+class CollisionObject_304b40;
 class Ref_304b40 {
   public:
     virtual void A();
     virtual void B();
     int Resolve(int, unsigned char);
-    void Update(Owner_304b40*);
+    void Update(CollisionObject_304b40*);
 };
 struct Entry_304b40 {
     int a;
@@ -13,7 +13,7 @@ struct Entry_304b40 {
     int x;
     int y;
 };
-class Owner_304b40 {
+class CollisionObject_304b40 {
   public:
     char pad0[0x20];
     Ref_304b40* current;
@@ -25,7 +25,7 @@ class Owner_304b40 {
     unsigned char flag;
     void Set(Ref_304b40*);
 };
-void Owner_304b40::Set(Ref_304b40* p) {
+void CollisionObject_304b40::Set(Ref_304b40* p) {
     if (p)
         p->A();
     if (current)

@@ -43,18 +43,18 @@ struct Owner_1c1a40 : public Base_1c1a40 {
     Owner_1c1a40* FUN_0029bea0(int a, int b);
     void FUN_0029b690(Base_1c1a40* child);
 };
-struct Root_1c1a40 : public Base_1c1a40 {
+struct View_1c1a40 : public Base_1c1a40 {
     char pad[0x2c - 4];
     int field2c;
-    Root_1c1a40* FUN_00294880();
+    View_1c1a40* FUN_00294880();
     void FUN_00294980(Base_1c1a40* other);
 };
-struct ObjA_1c1a40 : public Base_1c1a40 { char pad[0x1c - 4]; char flag; ObjA_1c1a40* FUN_002a2d50(int n); };
-struct ObjB_1c1a40 : public Base_1c1a40 { ObjB_1c1a40* FUN_002a2130(int n); };
-struct ObjC_1c1a40 : public Base_1c1a40 { ObjC_1c1a40* FUN_002a16c0(int n, int m); };
-struct ObjD : public Base_1c1a40 { ObjD* FUN_0029f600(int a, int b); void FUN_0029f800(Base_1c1a40* o); };
-struct ObjE : public Base_1c1a40 { ObjE* FUN_002a1140(int n); };
-struct ObjF : public Base_1c1a40 { ObjF* FUN_002a1230(); void FUN_002a07a0(unsigned int color); };
+struct OpaqueTraversal_1c1a40 : public Base_1c1a40 { char pad[0x1c - 4]; char flag; OpaqueTraversal_1c1a40* FUN_002a2d50(int n); };
+struct TranslucentTraversal_1c1a40 : public Base_1c1a40 { TranslucentTraversal_1c1a40* FUN_002a2130(int n); };
+struct ShadowTraversal_1c1a40 : public Base_1c1a40 { ShadowTraversal_1c1a40* FUN_002a16c0(int n, int m); };
+struct LightsChooser_1c1a40 : public Base_1c1a40 { LightsChooser_1c1a40* FUN_0029f600(int a, int b); void FUN_0029f800(Base_1c1a40* o); };
+struct LightGroup_1c1a40 : public Base_1c1a40 { LightGroup_1c1a40* FUN_002a1140(int n); };
+struct AmbientLight_1c1a40 : public Base_1c1a40 { AmbientLight_1c1a40* FUN_002a1230(); void FUN_002a07a0(unsigned int color); };
 struct ObjG : public Base_1c1a40 { ObjG* FUN_00292d70(); };
 
 void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
@@ -171,14 +171,14 @@ class SubObj_1c1a40 {
 class Hud_1c1a40 {
   public:
     int field0;
-    Root_1c1a40* root;
+    View_1c1a40* root;
     ObjG* objG;
     SubObj_1c1a40 sub;
     int fieldb8;
     Owner_1c1a40* owner;
-    ObjD* objc0;
-    ObjD* objc4;
-    ObjE* objc8;
+    LightsChooser_1c1a40* objc0;
+    LightsChooser_1c1a40* objc4;
+    LightGroup_1c1a40* objc8;
     char padcc[3];
     char flagcf;
     int fieldd0;
@@ -191,7 +191,7 @@ class Hud_1c1a40 {
     float fe4;
     float fe8;
     unsigned int colorec;
-    ObjC_1c1a40* objf0;
+    ShadowTraversal_1c1a40* objf0;
     int ff4[6];
     Hud_1c1a40* FUN_001c1a40();
 };
@@ -227,50 +227,50 @@ Hud_1c1a40* Hud_1c1a40::FUN_001c1a40() {
     o->v0();
 
     mem = FUN_0008d690(0x38);
-    ObjA_1c1a40* a = 0;
+    OpaqueTraversal_1c1a40* a = 0;
     if (mem)
-        a = ((ObjA_1c1a40*)mem)->FUN_002a2d50(0x400);
+        a = ((OpaqueTraversal_1c1a40*)mem)->FUN_002a2d50(0x400);
     owner->FUN_0029b690(a);
     a->flag = 1;
 
     mem = FUN_0008d690(0x34);
-    ObjB_1c1a40* b = 0;
+    TranslucentTraversal_1c1a40* b = 0;
     if (mem)
-        b = ((ObjB_1c1a40*)mem)->FUN_002a2130(0x400);
+        b = ((TranslucentTraversal_1c1a40*)mem)->FUN_002a2130(0x400);
     owner->FUN_0029b690(b);
 
     mem = FUN_0008d690(0x48);
-    ObjC_1c1a40* c = 0;
+    ShadowTraversal_1c1a40* c = 0;
     if (mem)
-        c = ((ObjC_1c1a40*)mem)->FUN_002a16c0(0x100, (*(int*)&DAT_0042d5fc));
+        c = ((ShadowTraversal_1c1a40*)mem)->FUN_002a16c0(0x100, (*(int*)&DAT_0042d5fc));
     objf0 = c;
     owner->FUN_0029b690(c);
 
     mem = thunk_FUN_0008d690(0x58);
-    ObjD* d = 0;
+    LightsChooser_1c1a40* d = 0;
     if (mem)
-        d = ((ObjD*)mem)->FUN_0029f600((*(int*)&DAT_0042d5f8), (*(int*)&DAT_0042d5fc));
+        d = ((LightsChooser_1c1a40*)mem)->FUN_0029f600((*(int*)&DAT_0042d5f8), (*(int*)&DAT_0042d5fc));
     objc0 = d;
     d->v0();
 
     mem = thunk_FUN_0008d690(0x58);
     d = 0;
     if (mem)
-        d = ((ObjD*)mem)->FUN_0029f600((*(int*)&DAT_0042d5f8), (*(int*)&DAT_0042d5fc));
+        d = ((LightsChooser_1c1a40*)mem)->FUN_0029f600((*(int*)&DAT_0042d5f8), (*(int*)&DAT_0042d5fc));
     objc4 = d;
     d->v0();
 
     mem = thunk_FUN_0008d690(0x28);
-    ObjE* e = 0;
+    LightGroup_1c1a40* e = 0;
     if (mem)
-        e = ((ObjE*)mem)->FUN_002a1140(2);
+        e = ((LightGroup_1c1a40*)mem)->FUN_002a1140(2);
     objc8 = e;
     e->v0();
 
     mem = thunk_FUN_0008d690(0x58);
-    ObjF* f = 0;
+    AmbientLight_1c1a40* f = 0;
     if (mem)
-        f = ((ObjF*)mem)->FUN_002a1230();
+        f = ((AmbientLight_1c1a40*)mem)->FUN_002a1230();
     f->v0();
     f->FUN_002a07a0(0xff4b4b4b);
     objc4->FUN_0029f800(f);
@@ -279,16 +279,16 @@ Hud_1c1a40* Hud_1c1a40::FUN_001c1a40() {
     mem = thunk_FUN_0008d690(0x58);
     f = 0;
     if (mem)
-        f = ((ObjF*)mem)->FUN_002a1230();
+        f = ((AmbientLight_1c1a40*)mem)->FUN_002a1230();
     f->v0();
     f->FUN_002a07a0(0xff4b4b4b);
     objc0->FUN_0029f800(f);
     f->v1();
 
     mem = FUN_0008d690(0x140);
-    Root_1c1a40* r = 0;
+    View_1c1a40* r = 0;
     if (mem)
-        r = ((Root_1c1a40*)mem)->FUN_00294880();
+        r = ((View_1c1a40*)mem)->FUN_00294880();
     root = r;
     r->v0();
 

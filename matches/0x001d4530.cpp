@@ -4,7 +4,7 @@ struct A_1d4530 {
 struct R_1d4530 {
     void Middle();
 };
-struct Obj_1d4530 {
+struct ScriptHandler_1d4530 {
     char pad[0x1064];
     unsigned char flag;
     void Init(A_1d4530*);
@@ -22,7 +22,7 @@ struct End_1d4530 {
 };
 extern H* g1_1d4530;
 extern T_1d4530* g2_1d4530;
-void __fastcall target(Obj_1d4530* self) {
+void __fastcall target(ScriptHandler_1d4530* self) {
     if (!self->flag) {
         self->flag = 1;
         self->Init((A_1d4530*)((char*)self + 8));

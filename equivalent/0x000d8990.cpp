@@ -29,11 +29,11 @@ extern Manager_d8990* __cdecl FUN_000fc3d0();
 extern void __cdecl FUN_000fc020(char*,int,const char*,const char*);
 struct Settings_d8990 { char pad[0x1bc8]; unsigned char active; };
 struct Singleton_4dd6ec { Settings_d8990* FUN_00086280(); };
-struct Screen_d8990 {
+struct FEMemCardControl_d8990 {
  char pad0[0x21c]; int state; char pad1[0x13c]; Entry_d8990 entries[2]; char pad2[0x1f]; unsigned char mode;
  void FUN_000d8990(int index);
 };
-void Screen_d8990::FUN_000d8990(int index) {
+void FEMemCardControl_d8990::FUN_000d8990(int index) {
  char text[1024];
  Manager_d8990* manager = FUN_000fc3d0()->slot44();
  int key = manager->FUN_000f7d30((*(const char**)&DAT_004a0cb8));

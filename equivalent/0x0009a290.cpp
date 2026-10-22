@@ -15,7 +15,7 @@ struct Matrix {
     void FUN_0022b980();
 };
 
-class __declspec(novtable) Emitter_9a290 {
+class __declspec(novtable) CHypnoticCamera_9a290 {
 public:
     virtual void v00();
     virtual void v04();
@@ -47,7 +47,7 @@ public:
     virtual void v6c();
     virtual void v70();
     char FUN_000aa450(void* ctx, Matrix* m, void* pos, int a, void* b, int c, int d);
-    Emitter_9a290* FUN_000ac2c0();
+    CHypnoticCamera_9a290* FUN_000ac2c0();
     char body[0x480 - 4];
 };
 
@@ -75,14 +75,14 @@ struct Ctx_9a290 {
     Obj4_9a290* p54;
 };
 
-class Spawner_9a290 {
+class CCameraManager_9a290 {
 public:
     char pad00[4];
     unsigned int flags;
     char pad08[4];
     Owner_9a290* owner;
-    Emitter_9a290* slot10;
-    Emitter_9a290* slot14;
+    CHypnoticCamera_9a290* slot10;
+    CHypnoticCamera_9a290* slot14;
     char pad18[0x68];
     char vec80[0xc];
     float angle;
@@ -91,13 +91,13 @@ public:
     int f98;
     int f9c;
     char vecA0[0x14];
-    Emitter_9a290* emitter;
+    CHypnoticCamera_9a290* emitter;
 
     void FUN_0009a220();
     void FUN_0009a290(Ctx_9a290* ctx);
 };
 
-void Spawner_9a290::FUN_0009a290(Ctx_9a290* ctx)
+void CCameraManager_9a290::FUN_0009a290(Ctx_9a290* ctx)
 {
     Matrix m;
     if (angle != (*(float*)&DAT_003f32e0))
@@ -105,9 +105,9 @@ void Spawner_9a290::FUN_0009a290(Ctx_9a290* ctx)
     m.FUN_0022be40(vec80);
     if (emitter == 0) {
         void* mem = FUN_00263ea0(0x480);
-        Emitter_9a290* e = 0;
+        CHypnoticCamera_9a290* e = 0;
         if (mem)
-            e = ((Emitter_9a290*)mem)->FUN_000ac2c0();
+            e = ((CHypnoticCamera_9a290*)mem)->FUN_000ac2c0();
         emitter = e;
         e->v00();
         emitter->v70();
@@ -125,8 +125,8 @@ void Spawner_9a290::FUN_0009a290(Ctx_9a290* ctx)
             obj6->FUN_000361c0(1);
             obj6->FUN_00036140(1);
         }
-        Emitter_9a290* e = emitter;
-        Emitter_9a290* old = slot10;
+        CHypnoticCamera_9a290* e = emitter;
+        CHypnoticCamera_9a290* old = slot10;
         slot10 = e;
         slot14 = old;
         flags |= 4;

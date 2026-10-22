@@ -1,16 +1,16 @@
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
-class Base_94100 {
+class Method6_94100 {
   public:
-    Base_94100(int a, int b);
+    Method6_94100(int a, int b);
     virtual void f0();
     char pad[0xc];
 };
 
 extern "C" char __cdecl Lookup(const char* s);
 
-class Derived_94100 : public Base_94100 {
+class Derived_94100 : public Method6_94100 {
   public:
     Derived_94100(int a, int b);
     virtual void f0();
@@ -21,10 +21,10 @@ class Derived_94100 : public Base_94100 {
     int m1c;
 };
 
-void Base_94100::f0() {}
+void Method6_94100::f0() {}
 void Derived_94100::f0() {}
 
-Derived_94100::Derived_94100(int a, int b) : Base_94100(a, 6) {
+Derived_94100::Derived_94100(int a, int b) : Method6_94100(a, 6) {
     m1c = b;
     c18 = Lookup((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
     c10 = Lookup((const char*)((hulk_intptr)((char*)&DAT_0048e134)));

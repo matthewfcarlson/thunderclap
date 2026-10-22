@@ -15,7 +15,7 @@ class Manager_1e5720 {
     void A(void*);
     void B(void*);
 };
-class Owner_1e5720 {
+class CSPManager_1e5720 {
   public:
     char pad[0x1e830];
     struct Sub {
@@ -26,7 +26,7 @@ class Owner_1e5720 {
     void Notify(Thing_1e5720*, int);
     void Run(Thing_1e5720*);
 };
-void Owner_1e5720::Run(Thing_1e5720* p) {
+void CSPManager_1e5720::Run(Thing_1e5720* p) {
     if (!p)
         return;
     p->Init();

@@ -1,12 +1,12 @@
 #include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
 extern char vt[];
-class Base {
+class Track_14dd70 {
   public:
-    Base();
+    Track_14dd70();
     char pad[8];
 };
-class HitPauseTrack : public Base {
+class HitPauseTrack : public Track_14dd70 {
   public:
     HitPauseTrack();
     int m8;
@@ -14,7 +14,7 @@ class HitPauseTrack : public Base {
     int m10;
     int m14;
 };
-HitPauseTrack::HitPauseTrack() : Base() {
+HitPauseTrack::HitPauseTrack() : Track_14dd70() {
     mC = 0;
     m10 = 0;
     m14 = 0;

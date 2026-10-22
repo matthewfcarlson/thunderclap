@@ -1,10 +1,10 @@
-class Base {
+class Track_11c6f0 {
   public:
-    Base();
+    Track_11c6f0();
     virtual void f();
     char data[8];
 };
-class StrafeCircleTrack : public Base {
+class StrafeCircleTrack : public Track_11c6f0 {
   public:
     StrafeCircleTrack();
     virtual void f();
@@ -18,4 +18,4 @@ class StrafeCircleTrack : public Base {
     char k;
 };
 StrafeCircleTrack::StrafeCircleTrack()
-    : Base(), a(0), b(-1.0f), c(0), d(0), e(0), f1(0), g(40.0f), h(1.5f), i(0), j(1.0f), k(0) {}
+    : Track_11c6f0(), a(0), b(-1.0f), c(0), d(0), e(0), f1(0), g(40.0f), h(1.5f), i(0), j(1.0f), k(0) {}

@@ -21,12 +21,12 @@ struct Src_292df0 {
     int pad[3];
     int a, b;
 };
-struct Base_292df0 {
-    Base_292df0(Src_292df0* s);
+struct Entity_292df0 {
+    Entity_292df0(Src_292df0* s);
     virtual void bv();
     int pad[6];
 };
-struct Camera : Base_292df0 {
+struct Camera : Entity_292df0 {
     virtual void v1();
     virtual void v2();
     virtual void v3();
@@ -38,7 +38,7 @@ struct Camera : Base_292df0 {
     Mat_292df0 m4c, m8c;
     char flag;
 };
-Camera::Camera(Src_292df0* s) : Base_292df0(s) {
+Camera::Camera(Src_292df0* s) : Entity_292df0(s) {
     Set(s->a, s->b);
     f1c = s->F8();
     f20 = s->F10();

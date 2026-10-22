@@ -1,15 +1,15 @@
-class Base {
+class Function_106c50 {
   public:
-    Base(const char*, int);
+    Function_106c50(const char*, int);
     virtual void f();
     char pad[12];
 };
 extern "C" char check(const void*);
 extern char key1[], key2[];
 class CPatrolPathManager;
-class Method1 : public Base {
+class Method1 : public Function_106c50 {
   public:
-    Method1(const char* s, CPatrolPathManager* p) : Base(s, 1), owner(p) {
+    Method1(const char* s, CPatrolPathManager* p) : Function_106c50(s, 1), owner(p) {
         b = check(key1);
         a = check(key2);
     }

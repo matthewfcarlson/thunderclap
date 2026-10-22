@@ -1,9 +1,9 @@
 void Free(void*);
 void* Alloc(int);
 class Image32;
-class Base_2c09e0 {
+class Image_2c09e0 {
   public:
-    Base_2c09e0(const Image32& o);
+    Image_2c09e0(const Image32& o);
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -24,12 +24,12 @@ class Base_2c09e0 {
     char pad3[1];
     char mFlag;
 };
-class Image32 : public Base_2c09e0 {
+class Image32 : public Image_2c09e0 {
   public:
     Image32(const Image32& o);
     virtual void v0();
 };
-Image32::Image32(const Image32& o) : Base_2c09e0(o) {
+Image32::Image32(const Image32& o) : Image_2c09e0(o) {
     mBpp = 0x20;
     int h = o.mH;
     int w = o.mW;
@@ -39,7 +39,7 @@ Image32::Image32(const Image32& o) : Base_2c09e0(o) {
     mData = (int*)Alloc(mH * mW * 4);
     char f = mFlag;
     mFlag = 0;
-    Base_2c09e0* b = this;
+    Image_2c09e0* b = this;
     b->Copy(&o, 0, 0, o.mW, o.mH, 0, 0);
     mFlag = f;
 }

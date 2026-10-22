@@ -22,14 +22,14 @@ extern void* g_fr[];
 extern void* g_rq[];
 void __cdecl Lk(void*);
 void __cdecl Ulk(void*);
-class Obj_275270 {
+class FileReadRequest_275270 {
   public:
     void* vptr;
     int pad;
     Drive* drive;
-    Obj_275270* f0(unsigned char flags);
+    FileReadRequest_275270* f0(unsigned char flags);
 };
-Obj_275270* Obj_275270::f0(unsigned char flags) {
+FileReadRequest_275270* FileReadRequest_275270::f0(unsigned char flags) {
     vptr = g_fr;
     drive->lk.lock();
     --drive->refs;

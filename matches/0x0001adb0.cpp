@@ -18,11 +18,11 @@ class CAction_1adb0 {
     int m54;
     int m58;
 };
-class Opportunity : public CAction_1adb0 {
+class COpportunityBallAction_1adb0 : public CAction_1adb0 {
   public:
-    Opportunity(int, Obj_1adb0*, int);
+    COpportunityBallAction_1adb0(int, Obj_1adb0*, int);
 };
-Opportunity::Opportunity(int p2, Obj_1adb0* p3, int p4) : CAction_1adb0() {
+COpportunityBallAction_1adb0::COpportunityBallAction_1adb0(int p2, Obj_1adb0* p3, int p4) : CAction_1adb0() {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_003f3390);
     mObj = 0;
     if (p3)

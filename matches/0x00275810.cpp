@@ -25,14 +25,14 @@ class Big_275810 {
     char pad[0xc];
     int cnt;
 };
-class Obj_275810 {
+class DriveFormatRequest_275810 {
   public:
     void* vptr;
     char pad[4];
     Big_275810* m8;
-    Obj_275810* f0(unsigned char flags);
+    DriveFormatRequest_275810* f0(unsigned char flags);
 };
-Obj_275810* Obj_275810::f0(unsigned char flags) {
+DriveFormatRequest_275810* DriveFormatRequest_275810::f0(unsigned char flags) {
     Big_275810* p = m8;
     vptr = g_vftable_275810;
     p->sub.v0();

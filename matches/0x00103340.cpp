@@ -7,12 +7,12 @@ class Str_103340 {
   public:
     Thing_103340* Find();
 };
-class AgentBase_103340 {
+class CCharacterAgent_103340 {
   public:
     virtual void Init();
-    AgentBase_103340(const char*);
+    CCharacterAgent_103340(const char*);
 };
-class OccupationAgent : public AgentBase_103340 {
+class COccupationAgent_103340 : public CCharacterAgent_103340 {
   public:
     virtual void Own();
     char pad04[0x58];
@@ -30,9 +30,9 @@ class OccupationAgent : public AgentBase_103340 {
     unsigned char mC8;
     char pC9[3];
     int mCC, mD0, mD4, mD8, mDC, mE0, mE4, mE8, mEC;
-    OccupationAgent(const char*);
+    COccupationAgent_103340(const char*);
 };
-OccupationAgent::OccupationAgent(const char* name) : AgentBase_103340(name) {
+COccupationAgent_103340::COccupationAgent_103340(const char* name) : CCharacterAgent_103340(name) {
     m60 = 0;
     _ReadWriteBarrier();
     mA4 = 1;

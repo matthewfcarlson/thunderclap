@@ -1,7 +1,7 @@
-class Base {
+class Track_1476d0 {
   public:
     virtual void f();
-    Base();
+    Track_1476d0();
     char pad[4];
     int mode;
 };
@@ -10,7 +10,7 @@ class Sub {
     Sub();
     char pad[8];
 };
-class GrappleHitReactionTrack : public Base {
+class GrappleHitReactionTrack : public Track_1476d0 {
   public:
     virtual void f();
     GrappleHitReactionTrack();
@@ -23,7 +23,7 @@ class GrappleHitReactionTrack : public Base {
     int h, i, j, k, l, m, o;
 };
 GrappleHitReactionTrack::GrappleHitReactionTrack()
-    : Base(), a(0), b(0), c(0), d(0), sub(), e(0), f1(0), g(0), h(0), i(0), j(0), k(0), l(0), m(0), o(0) {
+    : Track_1476d0(), a(0), b(0), c(0), d(0), sub(), e(0), f1(0), g(0), h(0), i(0), j(0), k(0), l(0), m(0), o(0) {
     flag = 1;
     mode = 3;
 }

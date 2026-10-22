@@ -7,7 +7,7 @@ class Ref_2a17c0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_2a17c0 {
+class DisplayTraversal_2a17c0 {
   public:
     void* vptr;
     void Fin();
@@ -16,7 +16,7 @@ struct Sub_2a17c0 {
     char c;
     void Fini();
 };
-class Obj_2a17c0 : public Base_2a17c0 {
+class ShadowTraversal_2a17c0 : public DisplayTraversal_2a17c0 {
   public:
     char pad[0x18 - 4];
     void* m18;
@@ -26,9 +26,9 @@ class Obj_2a17c0 : public Base_2a17c0 {
     Ref_2a17c0* m2c;
     char pad3[0x3c - 0x30];
     void* m3c;
-    ~Obj_2a17c0();
+    ~ShadowTraversal_2a17c0();
 };
-Obj_2a17c0::~Obj_2a17c0() {
+ShadowTraversal_2a17c0::~ShadowTraversal_2a17c0() {
     vptr = g_vftable_2a17c0;
     _ReadWriteBarrier();
     if (m2c) {

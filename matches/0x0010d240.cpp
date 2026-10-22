@@ -1,6 +1,6 @@
-class Base {
+class Track_10d240 {
   public:
-    Base();
+    Track_10d240();
     virtual void f();
     char pad[4];
 };
@@ -9,7 +9,7 @@ class Sub {
     Sub();
     char pad[8];
 };
-class HulkActionTrack : public Base {
+class HulkActionTrack : public Track_10d240 {
   public:
     HulkActionTrack();
     int flag;
@@ -20,7 +20,7 @@ class HulkActionTrack : public Base {
     int c;
     virtual void g();
 };
-HulkActionTrack::HulkActionTrack() : Base() {
+HulkActionTrack::HulkActionTrack() : Track_10d240() {
     a = 0;
     b = -1.0f;
     ((Sub*)sub)->Sub::Sub();

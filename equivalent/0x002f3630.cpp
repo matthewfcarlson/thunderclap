@@ -7,15 +7,15 @@ public:
     virtual void vfunc_0();
 };
 
-class MeshBase {
+class WorldCollisionVolume_2f3630 {
 public:
-    MeshBase() throw();
+    WorldCollisionVolume_2f3630() throw();
     virtual void vfunc_0();
     char pad04[0x34];
 };
 
 namespace physics {
-class CollisionMesh : public MeshBase {
+class CollisionMesh : public WorldCollisionVolume_2f3630 {
 public:
     int f38, f3c, f40;
     Ref_2f3630* ref;               // 0x44

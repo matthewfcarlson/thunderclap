@@ -44,10 +44,10 @@ struct Coll_19e910;
 struct Node_19e910;
 struct Actor_19e910;
 
-struct Job_19e910 {
+struct CFightParamsCollision_19e910 {
     virtual void AddRef() throw();
     virtual void Release() throw();
-    Job_19e910 *FUN_000598e0(int id, struct Request_19e910 *req) throw();
+    CFightParamsCollision_19e910 *FUN_000598e0(int id, struct Request_19e910 *req) throw();
 };
 
 struct Slots_19e910 {
@@ -55,7 +55,7 @@ struct Slots_19e910 {
 };
 
 struct Sink_19e910 {
-    void FUN_00231ad0(Slots_19e910 *slots, Job_19e910 *job, int prio) throw();
+    void FUN_00231ad0(Slots_19e910 *slots, CFightParamsCollision_19e910 *job, int prio) throw();
 };
 
 struct Queue_19e910 {
@@ -67,7 +67,7 @@ struct Queue_19e910 {
     virtual void v5() throw();
     virtual void v6() throw();
     virtual void v7() throw();
-    virtual Sink_19e910 *v8(Job_19e910 *job, int z) throw();
+    virtual Sink_19e910 *v8(CFightParamsCollision_19e910 *job, int z) throw();
 };
 
 struct Request_19e910 {
@@ -955,7 +955,7 @@ void ProjectileMissile::vfunc_4(float dt)
                     if (fr.owner != 0)
                         FUN_00018810(&fr.evt.f50, fr.owner->FUN_001d72e0());
                     fr.evt.b14 = 1;
-                    Job_19e910 *job = (Job_19e910 *)FUN_0008d690(0xb0);
+                    CFightParamsCollision_19e910 *job = (CFightParamsCollision_19e910 *)FUN_0008d690(0xb0);
                     job = job != 0 ? job->FUN_000598e0(actor->f10->id, &fr.evt) : 0;
                     job->AddRef();
                     fr.u04.sink = fr.u50.mgr->v8(job, 0);
@@ -1037,7 +1037,7 @@ void ProjectileMissile::vfunc_4(float dt)
             if (fr.ent != 0) {
                 Queue_19e910 *q = cfg->fc8;
                 if (q != 0) {
-                    Job_19e910 *job = (Job_19e910 *)FUN_0008d690(0xb0);
+                    CFightParamsCollision_19e910 *job = (CFightParamsCollision_19e910 *)FUN_0008d690(0xb0);
                     job = job != 0 ? job->FUN_000598e0(f44, &fr.evt) : 0;
                     job->AddRef();
                     Sink_19e910 *sink = q->v8(job, 0);
@@ -1054,7 +1054,7 @@ void ProjectileMissile::vfunc_4(float dt)
             }
             Queue_19e910 *q = cfg->fbc;
             if (q != 0) {
-                Job_19e910 *job = (Job_19e910 *)FUN_0008d690(0xb0);
+                CFightParamsCollision_19e910 *job = (CFightParamsCollision_19e910 *)FUN_0008d690(0xb0);
                 job = job != 0 ? job->FUN_000598e0(actor->f10->id, &fr.evt) : 0;
                 job->AddRef();
                 Sink_19e910 *sink = q->v8(job, 0);
@@ -1265,7 +1265,7 @@ done:
                         FUN_00018810(&fr.evt.f4c, fr.ent->f12c);
                     FUN_00018810(&fr.evt.f50, a->f12c);
                     fr.evt.b14 = 1;
-                    Job_19e910 *job = (Job_19e910 *)FUN_0008d690(0xb0);
+                    CFightParamsCollision_19e910 *job = (CFightParamsCollision_19e910 *)FUN_0008d690(0xb0);
                     job = job != 0 ? job->FUN_000598e0(a->f10->id, &fr.evt) : 0;
                     job->AddRef();
                     Sink_19e910 *sink = q->v8(job, 0);

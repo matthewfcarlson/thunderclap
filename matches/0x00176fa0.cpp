@@ -5,12 +5,12 @@ class Ref_176fa0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_176fa0 {
+class Action_176fa0 {
   public:
     void* vptr;
     void Fin();
 };
-class RestPoseAction_176fa0 : public Base_176fa0 {
+class RestPoseAction_176fa0 : public Action_176fa0 {
   public:
     char pad[0x18];
     void* m1c;

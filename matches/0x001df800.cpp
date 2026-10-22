@@ -1,11 +1,11 @@
-class Base {
+class Function_1df800 {
   public:
-    Base(const char*, int);
+    Function_1df800(const char*, int);
     virtual void a();
 };
 extern "C" unsigned char __cdecl F(const char*);
 extern const char s1[], s2[];
-class Method2 : public Base {
+class Method2 : public Function_1df800 {
   public:
     char p0[12];
     unsigned char b10, b11;
@@ -16,7 +16,7 @@ class Method2 : public Base {
     virtual void a();
     Method2(const char*, int);
 };
-Method2::Method2(const char* s, int x) : Base(s, 2) {
+Method2::Method2(const char* s, int x) : Function_1df800(s, 2) {
     x1c = x;
     b18 = F(s1);
     b10 = F(s2);

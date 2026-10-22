@@ -3,13 +3,13 @@ class Elem_ed820 {
     void Init();
     char d[0x24];
 };
-class Base_ed820 {
+class FEControl_ed820 {
   public:
-    Base_ed820(int);
+    FEControl_ed820(int);
     virtual void X();
     char pad[0x14c];
 };
-class TextTable : public Base_ed820 {
+class TextTable : public FEControl_ed820 {
   public:
     virtual void X();
     int m150, m154, m158;
@@ -19,7 +19,7 @@ class TextTable : public Base_ed820 {
     float f[8];
     TextTable(int);
 };
-TextTable::TextTable(int x) : Base_ed820(x) {
+TextTable::TextTable(int x) : FEControl_ed820(x) {
     for (int i = 0; i < 0x200; i++)
         arr[i].Init();
     m150 = 0;

@@ -24,7 +24,7 @@ public:
     void *FUN_00288a10(int index);
 };
 
-struct GeneratorBlendState_nv_2abd90 {
+struct GeneratorBlendState_2abd90 {
     ::pure3d::ParticlePlaneGenerator::GeneratorBlendState *FUN_002d2570(void *channels);
 };
 
@@ -34,7 +34,7 @@ struct ElemArray_2abd90 {
     bool FUN_002ab9a0(unsigned int count, int *init);
 };
 
-class Generator_2abd90 {
+class ParticlePlaneGenerator_2abd90 {
 public:
     virtual void v0();
     char pad04[0x1c - 4];
@@ -48,7 +48,7 @@ public:
     int f44;
     int f48;
     char pad4c[0x60 - 0x4c];
-    Generator_2abd90 *FUN_002d3930();
+    ParticlePlaneGenerator_2abd90 *FUN_002d3930();
 };
 
 namespace content {
@@ -79,7 +79,7 @@ struct Registry_2abd90 {
 void *FUN_00263ea0(unsigned int size);
 void *FUN_0008d690(unsigned int size);
 
-Generator_2abd90 * __stdcall FUN_002abd90(Reader_2abd90 *r, int flag)
+ParticlePlaneGenerator_2abd90 * __stdcall FUN_002abd90(Reader_2abd90 *r, int flag)
 {
     struct Frame {
         AnimObj *obj;
@@ -91,9 +91,9 @@ Generator_2abd90 * __stdcall FUN_002abd90(Reader_2abd90 *r, int flag)
 
     r->stream->FUN_002647e0(&fr.a, 1, 4, 1);
     void *mem = FUN_00263ea0(0x60);
-    Generator_2abd90 *g = 0;
+    ParticlePlaneGenerator_2abd90 *g = 0;
     if (mem)
-        g = ((Generator_2abd90 *)mem)->FUN_002d3930();
+        g = ((ParticlePlaneGenerator_2abd90 *)mem)->FUN_002d3930();
     r->stream->FUN_002647e0(&fr.b, 1, 4, 1);
     g->f38 = fr.b;
     r->stream->FUN_002647e0(&fr.b, 1, 4, 1);
@@ -126,7 +126,7 @@ Generator_2abd90 * __stdcall FUN_002abd90(Reader_2abd90 *r, int flag)
                     for (int i = 0; i < fr.b; i++) {
                         ::pure3d::ParticlePlaneGenerator::GeneratorBlendState *e = (::pure3d::ParticlePlaneGenerator::GeneratorBlendState *)FUN_0008d690(0x1c);
                         if (e != 0)
-                            e = ((GeneratorBlendState_nv_2abd90*)(e))->FUN_002d2570(fr.obj->FUN_00288a10(i));
+                            e = ((GeneratorBlendState_2abd90*)(e))->FUN_002d2570(fr.obj->FUN_00288a10(i));
                         g->array.data[g->used] = e;
                         g->array.data[g->used]->vfunc_0();
                         g->used++;

@@ -5,7 +5,7 @@ class Ref_148ac0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_148ac0 {
+class Action_148ac0 {
   public:
     void* vptr;
     void Fin();
@@ -17,15 +17,15 @@ struct Sub_148ac0 {
 void __fastcall SubFini(Sub_148ac0*) throw();
 void __fastcall SubFini2(Sub_148ac0*) throw();
 void __fastcall SubFini3(Sub_148ac0*) throw();
-class Obj_148ac0 : public Base_148ac0 {
+class GrappleThrowAction_148ac0 : public Action_148ac0 {
   public:
     char p1c[24];
     void* m1c;
     Ref_148ac0* m20;
     Sub_148ac0 s24;
-    ~Obj_148ac0() throw();
+    ~GrappleThrowAction_148ac0() throw();
 };
-Obj_148ac0::~Obj_148ac0() throw() {
+GrappleThrowAction_148ac0::~GrappleThrowAction_148ac0() throw() {
     vptr = g_vftable_148ac0;
     _ReadWriteBarrier();
     if (m20) {

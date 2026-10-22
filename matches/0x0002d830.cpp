@@ -5,7 +5,7 @@ struct Ctor_001d0480 {
     Ctor_001d0480(const char*, int);
 };
 extern const char g1_2d830[], g2[], g3[];
-class CActorManager : public Ctor_001d0480 {
+class Method4_2d830 : public Ctor_001d0480 {
   public:
     hulk_intptr vptr;
     char pad4[0xc];
@@ -14,9 +14,9 @@ class CActorManager : public Ctor_001d0480 {
     unsigned char b18;
     char pad19[3];
     int m1c;
-    CActorManager(const char*, int);
+    Method4_2d830(const char*, int);
 };
-CActorManager::CActorManager(const char* a, int b) : Ctor_001d0480(a, 4) {
+Method4_2d830::Method4_2d830(const char* a, int b) : Ctor_001d0480(a, 4) {
     vptr = ((hulk_intptr)DAT_003f421c);
     m1c = b;
     b18 = FUN_001d04d0(g1_2d830);

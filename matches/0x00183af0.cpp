@@ -15,23 +15,23 @@ class Ref_183af0 {
     virtual void V9();
     virtual void V10(int);
 };
-class Base_183af0 {
+class Action_183af0 {
   public:
     void* vptr;
     void Fin();
 };
 void Free(void*) throw();
 
-class Obj_183af0 : public Base_183af0 {
+class PropAnimationAction_183af0 : public Action_183af0 {
   public:
     char pad[0x18];
     void* m1c;
     Ref_183af0* m20;
     Ref_183af0* m24;
     Ref_183af0* m28;
-    ~Obj_183af0() throw();
+    ~PropAnimationAction_183af0() throw();
 };
-Obj_183af0::~Obj_183af0() throw() {
+PropAnimationAction_183af0::~PropAnimationAction_183af0() throw() {
     vptr = g_vftable_183af0;
     _ReadWriteBarrier();
     if (m20) {

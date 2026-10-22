@@ -5,12 +5,12 @@ struct CtorV_001d0480 {
 extern "C" unsigned char lookup(const char*);
 extern char key1[];
 extern char key2[];
-class Base : public CtorV_001d0480 {
+class Function_90f50 : public CtorV_001d0480 {
   public:
     char pad[4];
-    Base(const char* p) : CtorV_001d0480(p, 1) { }
+    Function_90f50(const char* p) : CtorV_001d0480(p, 1) { }
 };
-class Method1 : public Base {
+class Method1 : public Function_90f50 {
   public:
     virtual void fn();
     char pad[8];
@@ -20,7 +20,7 @@ class Method1 : public Base {
     char pad3[3];
     void* arg2;
     void* arg3;
-    Method1(const char* p, void* a) : Base(p) {
+    Method1(const char* p, void* a) : Function_90f50(p) {
         arg2 = a;
         flag2 = lookup(key1);
         flag1 = lookup(key2);

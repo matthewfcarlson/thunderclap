@@ -1,6 +1,6 @@
-class Root {
+class Action_1dc40 {
   public:
-    Root();
+    Action_1dc40();
     virtual void f();
     char pad[0x18];
 };
@@ -9,11 +9,11 @@ class Ref {
     virtual void add();
     virtual void release();
 };
-class CAction : public Root {
+class CAction : public Action_1dc40 {
   public:
     Ref* ref;
     int value;
-    CAction(int v, Ref* r) : Root() {
+    CAction(int v, Ref* r) : Action_1dc40() {
         ref = 0;
         if (r)
             r->add();

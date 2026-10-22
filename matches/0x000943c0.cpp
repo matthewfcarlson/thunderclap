@@ -6,7 +6,7 @@ extern "C" char DAT_0040470c[];
 struct ThisCall_001d0480 {
     void FUN_001d0480(void*, int);
 };
-class MethodCtor7_943c0 {
+class Method7_943c0 {
   public:
     hulk_intptr vptr;
     char pad4[12];
@@ -15,9 +15,9 @@ class MethodCtor7_943c0 {
     char result;
     char pad19[3];
     void* func;
-    MethodCtor7_943c0* Init(void* name, void* fn);
+    Method7_943c0* Init(void* name, void* fn);
 };
-MethodCtor7_943c0* MethodCtor7_943c0::Init(void* name, void* fn) {
+Method7_943c0* Method7_943c0::Init(void* name, void* fn) {
     ((ThisCall_001d0480*)(this))->FUN_001d0480(name, 7);
     vptr = (hulk_intptr)DAT_0040470c;
     func = fn;

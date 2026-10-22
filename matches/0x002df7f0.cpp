@@ -1,10 +1,10 @@
-class Base {
+class RenderObjectLoader_2df7f0 {
   public:
     virtual void f();
     char pad[4];
-    Base();
+    RenderObjectLoader_2df7f0();
 };
-class PrimGroupLoader : public Base {
+class PrimGroupLoader : public RenderObjectLoader_2df7f0 {
   public:
     virtual void g();
     int a, b;
@@ -14,4 +14,4 @@ class PrimGroupLoader : public Base {
     PrimGroupLoader();
 };
 PrimGroupLoader::PrimGroupLoader()
-    : Base(), a(0), b(0), c(0), e(0), f0(0), f3(0), f4(0), f5(0), d(1), f1(-1), f2(-1) {}
+    : RenderObjectLoader_2df7f0(), a(0), b(0), c(0), e(0), f0(0), f3(0), f4(0), f5(0), d(1), f1(-1), f2(-1) {}

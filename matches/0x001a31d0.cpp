@@ -3,14 +3,14 @@ struct Helper_1a31d0 {
     int x;
 };
 
-struct Base_1a31d0 {
-    virtual ~Base_1a31d0() throw(); // FUN_00236d60
+struct Track_1a31d0 {
+    virtual ~Track_1a31d0() throw(); // FUN_00236d60
 };
 
 namespace hulkfight {
 namespace scenario {
 
-struct EffectTrack : Base_1a31d0 {
+struct EffectTrack : Track_1a31d0 {
     virtual ~EffectTrack();
     virtual void f();
     char p4[0x18 - 4];

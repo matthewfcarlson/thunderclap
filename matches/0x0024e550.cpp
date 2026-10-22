@@ -1,12 +1,12 @@
 struct Inner_24e550 {
     void Init(const char*, int);
 };
-class Base_24e550 {
+class SeqEvent_24e550 {
   public:
-    Base_24e550();
+    SeqEvent_24e550();
     virtual void g();
 };
-class SeqEventNestTrack_24e550 : public Base_24e550 {
+class SeqEventNestTrack_24e550 : public SeqEvent_24e550 {
   public:
     SeqEventNestTrack_24e550();
     virtual void g();

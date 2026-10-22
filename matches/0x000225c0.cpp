@@ -7,11 +7,11 @@ class Obj_225c0 {
     virtual void a();
     virtual void b();
 };
-class Haptic {
+class CHapticEventAction_225c0 {
   public:
     virtual void f0();
     virtual void f1();
-    virtual Haptic* f2(unsigned char flags);
+    virtual CHapticEventAction_225c0* f2(unsigned char flags);
     virtual void f3();
     virtual void f4();
     virtual void f5();
@@ -23,8 +23,8 @@ class Haptic {
     Obj_225c0* mObj;
     int mHandle;
 };
-extern void thunk(Haptic*);
-Haptic* Haptic::f2(unsigned char flags) {
+extern void thunk(CHapticEventAction_225c0*);
+CHapticEventAction_225c0* CHapticEventAction_225c0::f2(unsigned char flags) {
     *(void**)this = (void*)((hulk_intptr)DAT_003f3c90);
     _ReadWriteBarrier();
     if (mHandle)

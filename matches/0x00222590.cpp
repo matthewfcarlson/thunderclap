@@ -3,13 +3,13 @@ class Obj_222590 {
     virtual void A();
     virtual void B();
 };
-class Base_222590 {
+class Driver_222590 {
   public:
     virtual void Init();
     char pad[12];
-    Base_222590();
+    Driver_222590();
 };
-class PartitionDriver : public Base_222590 {
+class PartitionDriver : public Driver_222590 {
   public:
     PartitionDriver(const PartitionDriver* src);
     virtual void Init();
@@ -18,7 +18,7 @@ class PartitionDriver : public Base_222590 {
     int b;
     int c;
 };
-PartitionDriver::PartitionDriver(const PartitionDriver* src) : Base_222590() {
+PartitionDriver::PartitionDriver(const PartitionDriver* src) : Driver_222590() {
     mObj = 0;
     Obj_222590* p = src->mObj;
     if (p)

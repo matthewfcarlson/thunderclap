@@ -1,10 +1,10 @@
 #include "compat/ptr.h"
-class Base_287860 {
+class BlendFrameController_287860 {
   public:
-    Base_287860();
+    BlendFrameController_287860();
 };
 extern int vtable_287860;
-class PoseAnimationController_287860 : public Base_287860 {
+class PoseAnimationController_287860 : public BlendFrameController_287860 {
   public:
     char pad[0x10f];
     PoseAnimationController_287860();

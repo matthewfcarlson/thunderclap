@@ -7,12 +7,12 @@ struct T_5dbb0 {
     int a;
     void Fini();
 };
-class Base_5dbb0 {
+class CTrack_5dbb0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_5dbb0 : public Base_5dbb0 {
+class COpportunityBallTrack_5dbb0 : public CTrack_5dbb0 {
   public:
     char pad[0x18 - 4];
     S_5dbb0 s18;
@@ -20,9 +20,9 @@ class Obj_5dbb0 : public Base_5dbb0 {
     T_5dbb0 t34;
     char pad3[0x40 - 0x38];
     T_5dbb0 t40;
-    ~Obj_5dbb0();
+    ~COpportunityBallTrack_5dbb0();
 };
-Obj_5dbb0::~Obj_5dbb0() {
+COpportunityBallTrack_5dbb0::~COpportunityBallTrack_5dbb0() {
     vptr = gA_5dbb0;
     t40.Fini();
     t34.Fini();

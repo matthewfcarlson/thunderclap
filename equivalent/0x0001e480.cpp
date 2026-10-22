@@ -70,12 +70,12 @@ public:
     Flags_1e480 *flags;
 };
 
-struct EffectInit_1e480 {
-    EffectInit_1e480 *FUN_002efe50(Vec3_1e480 *v, int handle);
+struct CollisionSphere_1e480 {
+    CollisionSphere_1e480 *FUN_002efe50(Vec3_1e480 *v, int handle);
 };
 
 void *__cdecl FUN_0008d690(unsigned int size);
-Effect_1e480 *__cdecl FUN_002efca0(EffectInit_1e480 *init, const char *name);
+Effect_1e480 *__cdecl FUN_002efca0(CollisionSphere_1e480 *init, const char *name);
 
 struct Sys_1e480 {
     char pad0[8];
@@ -122,13 +122,13 @@ char CGrabAction::vfunc_6(int arg)
     stats->f330 = 0;
     stats->FUN_0003b190(0);
     if (stats->active != 0) {
-        EffectInit_1e480 *init = 0;
+        CollisionSphere_1e480 *init = 0;
         void *mem = FUN_0008d690(0x48);
         if (mem != 0) {
             Vec3_1e480 zero;
             zero.x = 0; zero.y = 0; zero.z = 0;
             int handle = data->handle;
-            init = ((EffectInit_1e480 *)mem)->FUN_002efe50(&zero, handle);
+            init = ((CollisionSphere_1e480 *)mem)->FUN_002efe50(&zero, handle);
         }
         Effect_1e480 *e = FUN_002efca0(init, 0);
         e->mode = 4;

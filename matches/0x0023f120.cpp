@@ -1,13 +1,13 @@
-class Base {
+class Track_23f120 {
   public:
-    Base();
+    Track_23f120();
     virtual void f();
 };
 class Part {
   public:
     Part();
 };
-class BreakPointTrack : public Base {
+class BreakPointTrack : public Track_23f120 {
   public:
     BreakPointTrack();
     virtual void f();
@@ -16,6 +16,6 @@ class BreakPointTrack : public Base {
     int zero;
     Part part;
 };
-BreakPointTrack::BreakPointTrack() : Base(), zero(0), part() {
+BreakPointTrack::BreakPointTrack() : Track_23f120(), zero(0), part() {
     flag = 1;
 }

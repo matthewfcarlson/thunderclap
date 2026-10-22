@@ -6,18 +6,18 @@ class Ref_22610 {
     virtual void F0();
     virtual void Release();
 };
-class Base_22610 {
+class CAction_22610 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_22610 : public Base_22610 {
+class CAlertStatusAction_22610 : public CAction_22610 {
   public:
     char pad[24];
     Ref_22610* m;
-    Obj_22610* f2(unsigned char flags);
+    CAlertStatusAction_22610* f2(unsigned char flags);
 };
-Obj_22610* Obj_22610::f2(unsigned char flags) {
+CAlertStatusAction_22610* CAlertStatusAction_22610::f2(unsigned char flags) {
     vptr = g_vftable_22610;
     _ReadWriteBarrier();
     if (m) {

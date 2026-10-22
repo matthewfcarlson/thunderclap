@@ -15,7 +15,7 @@ struct Sub18_17e00 {
     void FUN_0022be40(const V3_17e00 *v);
 };
 
-class Obj70_17e00 {
+class JointDriver_17e00 {
 public:
     virtual void v0();
     char pad4[4];
@@ -23,11 +23,11 @@ public:
     char pad1[0x18 - 0x9];
     Sub18_17e00 s18;
     char pad2[0x70 - 0x19];
-    Obj70_17e00 *FUN_002248f0(int a);
+    JointDriver_17e00 *FUN_002248f0(int a);
 };
 
 struct Tracker_17e00 {
-    void FUN_00222890(Obj70_17e00 *o, float a, float b, float c, float d, float e, float f);
+    void FUN_00222890(JointDriver_17e00 *o, float a, float b, float c, float d, float e, float f);
 };
 
 struct Mgr_17e00;
@@ -81,7 +81,7 @@ public:
     char pad04[0x18];
     Holder_17e00 *f1c;
     Cfg_17e00 *f20;
-    Obj70_17e00 *f24;
+    JointDriver_17e00 *f24;
     V3_17e00 v28;
     V3_17e00 v34;
     float f40;
@@ -100,9 +100,9 @@ bool CHeliDeathSpiralAction::vfunc_6(int arg)
     float cf30 = c0->f30;
     float cf34 = c0->f34;
     void *mem = thunk_FUN_0008d690(0x70);
-    Obj70_17e00 *o = 0;
+    JointDriver_17e00 *o = 0;
     if (mem)
-        o = ((Obj70_17e00 *)mem)->FUN_002248f0(0);
+        o = ((JointDriver_17e00 *)mem)->FUN_002248f0(0);
     f24 = o;
     o->name.FUN_0027b040("heliDeathSpiral");
     f24->v0();

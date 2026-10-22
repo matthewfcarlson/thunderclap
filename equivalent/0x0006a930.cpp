@@ -1,3 +1,3 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // CUninterruptibleTrack::vfunc_12 @ 0x0006a930
-struct CUninterruptibleTrack { char pad[0x14]; int value; void* vfunc_12(int arg); }; void* __cdecl FUN_0008d690(int); struct Item { void* FUN_00020020(int arg, int value); }; void* CUninterruptibleTrack::vfunc_12(int arg) { Item* item = (Item*)FUN_0008d690(0x24); if (!item) return 0; return item->FUN_00020020(arg, value); }
+struct CUninterruptibleTrack { char pad[0x14]; int value; void* vfunc_12(int arg); }; void* __cdecl FUN_0008d690(int); struct CUninterruptibleAction_6a930 { void* FUN_00020020(int arg, int value); }; void* CUninterruptibleTrack::vfunc_12(int arg) { CUninterruptibleAction_6a930* item = (CUninterruptibleAction_6a930*)FUN_0008d690(0x24); if (!item) return 0; return item->FUN_00020020(arg, value); }

@@ -3,12 +3,12 @@ class Ref_13ae80 {
     virtual void Fn0();
     virtual void Fn();
 };
-class Base_13ae80 {
+class Action_13ae80 {
   public:
     virtual void F();
-    Base_13ae80();
+    Action_13ae80();
 };
-class AnimationPhaseMatchedAction : public Base_13ae80 {
+class AnimationPhaseMatchedAction : public Action_13ae80 {
   public:
     virtual void G();
     char pad04[0x18];
@@ -17,7 +17,7 @@ class AnimationPhaseMatchedAction : public Base_13ae80 {
     int mC;
     AnimationPhaseMatchedAction(int a, Ref_13ae80* r);
 };
-AnimationPhaseMatchedAction::AnimationPhaseMatchedAction(int a, Ref_13ae80* r) : Base_13ae80() {
+AnimationPhaseMatchedAction::AnimationPhaseMatchedAction(int a, Ref_13ae80* r) : Action_13ae80() {
     int* p = &mA;
     *p = 0;
     mRef = 0;

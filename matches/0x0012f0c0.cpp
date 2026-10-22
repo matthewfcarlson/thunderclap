@@ -1,11 +1,11 @@
-class Base_12f0c0 {
+class Track_12f0c0 {
   public:
-    Base_12f0c0();
+    Track_12f0c0();
     virtual void f();
     char pad[8];
 };
 
-class XPTrack : public Base_12f0c0 {
+class XPTrack : public Track_12f0c0 {
   public:
     int m12, m16;
     XPTrack();

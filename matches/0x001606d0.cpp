@@ -4,19 +4,19 @@ class Ref_1606d0 {
     virtual void AddRef();
     virtual void Release();
 };
-class Base_1606d0 {
+class Action_1606d0 {
   public:
     virtual void V();
-    Base_1606d0();
+    Action_1606d0();
 };
-class LocomotingAction_1606d0 : public Base_1606d0 {
+class LocomotingAction_1606d0 : public Action_1606d0 {
   public:
     virtual void V2();
     char pad[0x18];
     Ref_1606d0* mRef;
     LocomotingAction_1606d0(Ref_1606d0*);
 };
-LocomotingAction_1606d0::LocomotingAction_1606d0(Ref_1606d0* arg) : Base_1606d0() {
+LocomotingAction_1606d0::LocomotingAction_1606d0(Ref_1606d0* arg) : Action_1606d0() {
     mRef = 0;
     if (arg)
         arg->AddRef();

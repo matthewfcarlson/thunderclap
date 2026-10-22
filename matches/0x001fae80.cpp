@@ -7,13 +7,13 @@ extern "C" void* __cdecl FUN_0008d690(unsigned int) throw();
 struct Inner_1fae80 {
     Inner_1fae80() throw();
 };
-struct Target_1fae80 {
+struct CGameDataHandler_1fae80 {
     void* vf;
     Inner_1fae80* p4;
     int p8, pc, p10, p14, p18, p1c, p20, p24, p28, p2c, p30;
-    Target_1fae80() throw();
+    CGameDataHandler_1fae80() throw();
 };
-Target_1fae80::Target_1fae80() throw() {
+CGameDataHandler_1fae80::CGameDataHandler_1fae80() throw() {
     vf = vGDH;
     void* m = FUN_0008d690(0x5110);
     Inner_1fae80* i;

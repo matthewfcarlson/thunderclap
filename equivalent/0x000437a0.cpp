@@ -21,7 +21,7 @@ struct Key_437a0 {
 };
 
 
-struct CFightParamsCollision_nv_437a0 {
+struct CFightParamsCollision_437a0 {
     CFightParamsCollision* FUN_000598e0(int first, void* params);
 };
 
@@ -74,7 +74,7 @@ public:
     virtual Actor_437a0* v8(CFightParamsCollision* ev, int z);
 };
 
-struct Obj11c_437a0 {
+struct CCharacter_437a0 {
     char pad00[0x110];
     Holder110* f110;
     char pad114[0x1a4 - 0x114];
@@ -117,7 +117,7 @@ public:
     char padB5[0xdc - 0xb5];
     Vec3_437a0 fdc;
     char pade8[0x11c - 0xe8];
-    Obj11c_437a0* f11c;
+    CCharacter_437a0* f11c;
     char pad120[0x318 - 0x120];
     int f318;
     int f31c;
@@ -194,7 +194,7 @@ char Unit_437a0::FUN_000437a0(float dt, Params_437a0* p, Vec3_437a0* where, Acto
     }
     CFightParamsCollision* ev = (CFightParamsCollision*)FUN_0008d690(0xb0);
     if (ev != 0)
-        ev = ((CFightParamsCollision_nv_437a0*)(ev))->FUN_000598e0(f10->first, p);
+        ev = ((CFightParamsCollision_437a0*)(ev))->FUN_000598e0(f10->first, p);
     else
         ev = 0;
     ev->vfunc_0();

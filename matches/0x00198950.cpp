@@ -5,12 +5,12 @@ class Ref_198950 {
     virtual void F0();
     virtual void Release();
 };
-class Base_198950 {
+class Action_198950 {
   public:
     void* vptr;
     void Fin();
 };
-class FireGroundShockwaveAction_198950 : public Base_198950 {
+class FireGroundShockwaveAction_198950 : public Action_198950 {
   public:
     char pad[0x18];
     void* m1c;

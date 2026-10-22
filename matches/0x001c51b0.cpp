@@ -47,11 +47,11 @@ struct Parent_1c51b0 {
     char pad[0x23];
     unsigned char flag;
 };
-struct Owner_1c51b0;
+struct Object_1c51b0;
 struct Context {
-    void FUN_001c25c0(Item_1c51b0*, Owner_1c51b0*, float);
+    void FUN_001c25c0(Item_1c51b0*, Object_1c51b0*, float);
 };
-struct Owner_1c51b0 {
+struct Object_1c51b0 {
     char p0[0x10];
     Item_1c51b0* fallback;
     char p14[4];
@@ -66,7 +66,7 @@ struct Owner_1c51b0 {
     float b;
     int target(Context* context);
 };
-int Owner_1c51b0::target(Context* context) {
+int Object_1c51b0::target(Context* context) {
     (*(*(Render***)&DAT_0052c2ac))->v15(0);
     if (!parent || parent->flag)
         (*(*(Render***)&DAT_0052c2ac))->v17(0, state);

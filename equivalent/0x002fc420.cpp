@@ -13,8 +13,8 @@ struct RootMatrixDriver : FUN_0030eb10 { virtual void slot0(); };
 struct Container_2fc420 { void FUN_0030fda0(int, FUN_0030eb10*); };
 struct State_2fc420 { char pad[0x70]; unsigned char active; void FUN_003046f0(int); };
 struct Object { virtual void slot0(); char pad[0x6c]; void* source; State_2fc420* state; void FUN_002ef8b0(int); };
-struct Controller_2fc420 { char pad[8]; int mode; unsigned char flag; char pad2[3]; Object* object; Container_2fc420* container; void FUN_002fc420(); };
-void Controller_2fc420::FUN_002fc420() {
+struct PhysicsInstance_2fc420 { char pad[8]; int mode; unsigned char flag; char pad2[3]; Object* object; Container_2fc420* container; void FUN_002fc420(); };
+void PhysicsInstance_2fc420::FUN_002fc420() {
  if(container) {
   JointSet* set=FUN_00344e74(object->source,0,&DAT_004c60bc,&DAT_004d2d90,0);
   if(set) for(int i=0;i<set->count;++i) {

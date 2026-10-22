@@ -19,10 +19,10 @@ struct Manager_28edb0 {
     virtual Service_28edb0* Get(const char*, int);
 };
 extern Manager_28edb0* gManager_28edb0;
-struct Base_28edb0 {
-    Base_28edb0();
+struct Entity_28edb0 {
+    Entity_28edb0();
 };
-struct Shader : Base_28edb0 {
+struct Shader : Entity_28edb0 {
     void* vtable;
     char pad4[0xc];
     Service_28edb0* mService;

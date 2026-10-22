@@ -6,18 +6,18 @@ class Ref_21c40 {
     virtual void F0();
     virtual void Release();
 };
-class Base_21c40 {
+class CAction_21c40 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_21c40 : public Base_21c40 {
+class CDrainHealthAction_21c40 : public CAction_21c40 {
   public:
     char pad[0x1c - 4];
     Ref_21c40* m;
-    Obj_21c40* f2(unsigned char flags);
+    CDrainHealthAction_21c40* f2(unsigned char flags);
 };
-Obj_21c40* Obj_21c40::f2(unsigned char flags) {
+CDrainHealthAction_21c40* CDrainHealthAction_21c40::f2(unsigned char flags) {
     vptr = g_vftable_21c40;
     _ReadWriteBarrier();
     if (m) {

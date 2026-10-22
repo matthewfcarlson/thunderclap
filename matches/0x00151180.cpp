@@ -4,12 +4,12 @@ class Obj_151180 {
     virtual void A();
     virtual void B();
 };
-class Base_151180 {
+class Action_151180 {
   public:
     virtual void X();
-    Base_151180();
+    Action_151180();
 };
-class GroundSlideAction_151180 : public Base_151180 {
+class GroundSlideAction_151180 : public Action_151180 {
   public:
     virtual void A();
     virtual void B();
@@ -20,7 +20,7 @@ class GroundSlideAction_151180 : public Base_151180 {
     int m28;
     GroundSlideAction_151180(int, Obj_151180*);
 };
-GroundSlideAction_151180::GroundSlideAction_151180(int v, Obj_151180* p) : Base_151180() {
+GroundSlideAction_151180::GroundSlideAction_151180(int v, Obj_151180* p) : Action_151180() {
     volatile int* q = &m1c;
     q[0] = 0;
     q[1] = 0;

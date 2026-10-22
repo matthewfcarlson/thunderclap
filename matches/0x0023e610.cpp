@@ -4,12 +4,12 @@ class Ref_23e610 {
     virtual void Add();
     virtual void Release();
 };
-class Parent_23e610 {
+class Action_23e610 {
   public:
     void Init();
 };
 extern int StopVtable;
-class StopAction : public Parent_23e610 {
+class StopAction : public Action_23e610 {
   public:
     char pad[0x1c];
     Ref_23e610* mRef;

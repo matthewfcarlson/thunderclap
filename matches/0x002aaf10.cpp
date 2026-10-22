@@ -6,14 +6,14 @@ class Ref_2aaf10 {
     virtual void V0();
     virtual void Release();
 };
-class Loader_2aaf10 {
+class ParticleSystemLoader_2aaf10 {
   public:
     unsigned char pad[0x14];
     unsigned int count;
     Ref_2aaf10* items[8];
     void Destroy();
 };
-void Loader_2aaf10::Destroy() {
+void ParticleSystemLoader_2aaf10::Destroy() {
     unsigned int i = 0;
     *(hulk_intptr*)this = (hulk_intptr)&vtLoader;
     while (i < count) {

@@ -30,7 +30,7 @@ struct Listener_1e51b0 {
     void FUN_001d7460(Entity* e);
 };
 
-class Placer_1e51b0 {
+class CSPManager_1e51b0 {
 public:
     Vec3_1e51b0* FUN_001dcb00(Vec3_1e51b0* out, Vec3_1e51b0* in);
     Listener_1e51b0* FUN_001e4c40(void* p, Vec3_1e51b0* corners, int count, int a, int b, int c);
@@ -39,7 +39,7 @@ public:
     void FUN_001e51b0(Entity* e, int extra);
 };
 
-void Placer_1e51b0::FUN_001e51b0(Entity* e, int extra)
+void CSPManager_1e51b0::FUN_001e51b0(Entity* e, int extra)
 {
     Frame_1e51b0 f;
 

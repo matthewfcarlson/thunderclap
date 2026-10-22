@@ -6,9 +6,9 @@ inline void* operator new(unsigned int, void* p) {
 }
 extern char gPool_254d80[];
 void* __cdecl PoolAlloc(void*);
-struct Base_254d80 {
+struct SeqEventContainer_254d80 {
     virtual void f0();
-    Base_254d80() throw();
+    SeqEventContainer_254d80() throw();
     int b4;
 };
 struct Init_254d80 {
@@ -22,14 +22,14 @@ struct Init_254d80 {
         m18 = 1;
     }
 };
-struct Repeat : Base_254d80, Init_254d80 {
-    Repeat() throw() {}
+struct SeqEventLogicRepeat_254d80 : SeqEventContainer_254d80, Init_254d80 {
+    SeqEventLogicRepeat_254d80() throw() {}
     virtual void f0();
 };
 
 void* audio::SeqEventLogicRepeatType::vfunc_3() {
-    Repeat* r = (Repeat*)PoolAlloc(gPool_254d80);
+    SeqEventLogicRepeat_254d80* r = (SeqEventLogicRepeat_254d80*)PoolAlloc(gPool_254d80);
     if (r)
-        return (void*)(new (r) Repeat);
+        return (void*)(new (r) SeqEventLogicRepeat_254d80);
     return (void*)(0);
 }

@@ -7,17 +7,17 @@ struct Source {
     char pad[0x20];
     int value;
 };
-class Base {
+class Action_1847e0 {
   public:
     virtual void dummy();
-    Base();
+    Action_1847e0();
     char pad[0x18];
 };
 struct Slot {
     Source* ptr;
     Slot() : ptr(0) {}
 };
-class BallAndChainSpinAction : public Base {
+class BallAndChainSpinAction : public Action_1847e0 {
   public:
     virtual void dummy();
     BallAndChainSpinAction(Source*, Ref*);
@@ -25,7 +25,7 @@ class BallAndChainSpinAction : public Base {
     Ref* ref;
     int val;
 };
-BallAndChainSpinAction::BallAndChainSpinAction(Source* s, Ref* r) : Base(), source(), ref(0) {
+BallAndChainSpinAction::BallAndChainSpinAction(Source* s, Ref* r) : Action_1847e0(), source(), ref(0) {
     source.ptr = s;
     if (r)
         r->AddRef();

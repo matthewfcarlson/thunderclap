@@ -18,10 +18,10 @@ template <class T> struct Vec_2a4ff0 {
         }
     }
 };
-struct Base_2a4ff0 {
-    virtual ~Base_2a4ff0() throw();
+struct DrawableHierarchy_2a4ff0 {
+    virtual ~DrawableHierarchy_2a4ff0() throw();
 };
-class DrawableContainer : public Base_2a4ff0 {
+class DrawableContainer : public DrawableHierarchy_2a4ff0 {
   public:
     virtual ~DrawableContainer() throw();
     virtual void Update();

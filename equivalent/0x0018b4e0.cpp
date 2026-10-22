@@ -22,7 +22,7 @@ struct Anim_18b4e0 {
     char flag18;
 };
 
-class Controller_18b4e0 {
+class PoseAnimationController_18b4e0 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -50,7 +50,7 @@ public:
     virtual void v23();
     virtual void v24(Anim_18b4e0 *anim, unsigned int g, float t);
     char pad[0x150 - 4];
-    Controller_18b4e0 *FUN_00287860();
+    PoseAnimationController_18b4e0 *FUN_00287860();
     void FUN_00288080(int a);
     void FUN_00284ad0(int a);
 };
@@ -60,7 +60,7 @@ public:
     virtual void AddRef();
     virtual void Release();
     int FUN_001d68d0();
-    void FUN_0027e650(Controller_18b4e0 *c, unsigned int g, float t);
+    void FUN_0027e650(PoseAnimationController_18b4e0 *c, unsigned int g, float t);
 };
 
 struct Loader_18b4e0 {
@@ -117,7 +117,7 @@ public:
     Spec_18b4e0 *spec;
     void *owner;
     Entity *entity;
-    Controller_18b4e0 *ctrl;
+    PoseAnimationController_18b4e0 *ctrl;
 };
 
 bool PropAnimationAction::vfunc_3(int a, int b)
@@ -161,7 +161,7 @@ bool PropAnimationAction::vfunc_3(int a, int b)
         f.t = anim->f10;
 
     void *mem = FUN_00263ea0(0x150);
-    Controller_18b4e0 *c = mem ? ((Controller_18b4e0 *)mem)->FUN_00287860() : 0;
+    PoseAnimationController_18b4e0 *c = mem ? ((PoseAnimationController_18b4e0 *)mem)->FUN_00287860() : 0;
     if (c)
         c->AddRef();
     if (ctrl)

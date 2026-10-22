@@ -1,6 +1,6 @@
-class Base {
+class Track_14dfe0 {
   public:
-    Base();
+    Track_14dfe0();
     virtual void f();
     char pad[8];
     int a;
@@ -10,7 +10,7 @@ class Base {
     int e;
     int g;
 };
-class HitOrientToPushbackTrack : public Base {
+class HitOrientToPushbackTrack : public Track_14dfe0 {
   public:
     HitOrientToPushbackTrack();
     virtual void f();

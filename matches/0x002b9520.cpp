@@ -1,15 +1,15 @@
 // FUN_002b9520 @ 0x002b9520
 // equiv-map: ??0QuadBase@@QAE@XZ = 0x002b8e80
 
-class QuadBase {
+class BillboardQuad_2b9520 {
 public:
-    QuadBase() throw();
+    BillboardQuad_2b9520() throw();
     virtual void vfunc_0();
     char pad04[0xc8 - 4];
 };
 
 namespace pure3d {
-class BillboardCutOffQuad : public QuadBase {
+class BillboardCutOffQuad : public BillboardQuad_2b9520 {
 public:
     int f_c8, f_cc, f_d0, f_d4, f_d8, f_dc, f_e0, f_e4, f_e8, f_ec, f_f0;
     float f_f4, f_f8, f_fc, f_100;

@@ -3,9 +3,9 @@
 struct Ref_290910 { virtual void slot0(); virtual void release(); };
 void __cdecl FUN_00290500(void*, unsigned);
 void __cdecl FUN_0008d340(void*);
-struct Base_290910 { virtual void slot0(); char pad[12]; void FUN_0027afd0(); };
+struct Entity_290910 { virtual void slot0(); char pad[12]; void FUN_0027afd0(); };
 namespace pure3d { namespace prop {
-struct StatePropData : Base_290910 {
+struct StatePropData : Entity_290910 {
  Ref_290910* a; Ref_290910* b; Ref_290910* c; Ref_290910** begin; Ref_290910** end; Ref_290910** capacity; void* data; unsigned count;
  virtual ~StatePropData();
 };

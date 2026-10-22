@@ -7,17 +7,17 @@ class Ref_2bc430 {
     virtual void F0();
     virtual void Release();
 };
-class Base_2bc430 {
+class SimpleChunkHandler_2bc430 {
   public:
     void* vptr;
 };
-class Obj_2bc430 : public Base_2bc430 {
+class BillboardObjectLoader_2bc430 : public SimpleChunkHandler_2bc430 {
   public:
     char pad[0x10];
     Ref_2bc430* m14;
-    Obj_2bc430* f2(unsigned char flags);
+    BillboardObjectLoader_2bc430* f2(unsigned char flags);
 };
-Obj_2bc430* Obj_2bc430::f2(unsigned char flags) {
+BillboardObjectLoader_2bc430* BillboardObjectLoader_2bc430::f2(unsigned char flags) {
     vptr = g_vftable_2bc430;
     _ReadWriteBarrier();
     if (m14) {

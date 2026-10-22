@@ -23,7 +23,7 @@ struct ObjA_5b4f0 {
 struct Input_5b4f0 {
     ObjA_5b4f0* GetA();
 };
-struct CIntangibleAction_nv_5b4f0 {
+struct CIntangibleAction_5b4f0 {
     CIntangibleAction* Init(int);
 };
 void* __cdecl FUN_0008d690(int);
@@ -41,7 +41,7 @@ int CGrappleIntangibleTrack::vfunc_12(int __p0) { Input_5b4f0 * p = (Input_5b4f0
                     if (y) {
                         CIntangibleAction* z = (CIntangibleAction*)FUN_0008d690(0x20);
                         if (z)
-                            return (hulk_intptr)(((CIntangibleAction_nv_5b4f0*)(z))->Init(y));
+                            return (hulk_intptr)(((CIntangibleAction_5b4f0*)(z))->Init(y));
                     }
                 }
             }

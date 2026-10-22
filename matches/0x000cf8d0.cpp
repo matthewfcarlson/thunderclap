@@ -1,14 +1,14 @@
-class Base {
+class Function_cf8d0 {
   public:
-    Base(int, int);
+    Function_cf8d0(int, int);
     virtual void f();
     char pad[12];
 };
 extern const char str1[], str2[];
 char __cdecl query(const char*);
-class Method1 : public Base {
+class Method1 : public Function_cf8d0 {
   public:
-    Method1(int a, int b) : Base(a, 1) {
+    Method1(int a, int b) : Function_cf8d0(a, 1) {
         v = b;
         c = query(str1);
         d = query(str2);

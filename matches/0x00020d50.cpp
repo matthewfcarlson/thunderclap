@@ -3,13 +3,13 @@ class Other_20d50 {
     virtual void AddRef();
     virtual void Release();
 };
-class Base_20d50 {
+class Action_20d50 {
   public:
-    Base_20d50();
+    Action_20d50();
     virtual void X();
     char pad[0x18];
 };
-class CAction : public Base_20d50 {
+class CAction : public Action_20d50 {
   public:
     virtual void A();
     Other_20d50* m1c;

@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 extern "C" char DAT_004338f4[];
-class Helper_32b0c0 {
+class d3dErrorShader_32b0c0 {
   public:
     void Init(void*);
 };
@@ -12,7 +12,7 @@ class Obj_32b0c0 {
 };
 void Obj_32b0c0::f() {}
 Obj_32b0c0* Obj_32b0c0::Make(void* arg) {
-    ((Helper_32b0c0*)this)->Init(arg);
+    ((d3dErrorShader_32b0c0*)this)->Init(arg);
     *(unsigned int*)((char*)this + 0x58) = 0xff000000;
     *(unsigned int*)((char*)this + 0x50) = 0xff000000;
     *(unsigned int*)((char*)this + 0x54) = 0xff000000;

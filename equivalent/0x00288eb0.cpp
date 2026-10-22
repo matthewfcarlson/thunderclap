@@ -58,20 +58,20 @@ struct Child_288eb0 {
     void *FUN_0028b0b0(Reader *r, int ctx, Alloc_288eb0 *a);
 };
 
-class Loader_288eb0 {
+class AnimationLoader_288eb0 {
 public:
     char pad0[0x14];
     Child_288eb0 *child;
     pure3d::AnimationGroup *FUN_00288eb0(Reader *r, int ctx, Alloc_288eb0 *alloc);
 };
 
-pure3d::AnimationGroup *Loader_288eb0::FUN_00288eb0(Reader *r, int ctx, Alloc_288eb0 *alloc)
+pure3d::AnimationGroup *AnimationLoader_288eb0::FUN_00288eb0(Reader *r, int ctx, Alloc_288eb0 *alloc)
 {
     struct Frame {
         char pad[3];
         unsigned char len;
         int v;
-        Loader_288eb0 *self; // the original spills `this` into the word after the value slot
+        AnimationLoader_288eb0 *self; // the original spills `this` into the word after the value slot
         char name[0x100];
     } fr;
 

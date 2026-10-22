@@ -6,18 +6,18 @@ class Ref_21c80 {
     virtual void F0();
     virtual void Release();
 };
-class Base_21c80 {
+class CAction_21c80 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_21c80 : public Base_21c80 {
+class CComboTimerAction_21c80 : public CAction_21c80 {
   public:
     char pad[24];
     Ref_21c80* m;
-    Obj_21c80* f2(unsigned char flags);
+    CComboTimerAction_21c80* f2(unsigned char flags);
 };
-Obj_21c80* Obj_21c80::f2(unsigned char flags) {
+CComboTimerAction_21c80* CComboTimerAction_21c80::f2(unsigned char flags) {
     vptr = g_vftable_21c80;
     _ReadWriteBarrier();
     if (m) {

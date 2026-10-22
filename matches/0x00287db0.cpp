@@ -14,7 +14,7 @@ struct Mid_287db0 {
     Inner_287db0 *inner;
 };
 
-struct Anim_287db0 {
+struct PoseAnimationController_287db0 {
     char pad00[0x28];
     unsigned int numElems;
     Elem_287db0 elems[1];
@@ -27,7 +27,7 @@ struct Anim_287db0 {
     void FUN_00287db0();
 };
 
-void Anim_287db0::FUN_00287db0()
+void PoseAnimationController_287db0::FUN_00287db0()
 {
     if (!enabled)
         return;

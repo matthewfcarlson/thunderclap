@@ -4,13 +4,13 @@ struct Temp {
     Temp* Init(const char*, int) throw();
     ~Temp() throw();
 };
-struct Base {
+struct SeqEventType_2506d0 {
     virtual void vf();
-    Base(Temp*, const __int64&, int, int) throw();
+    SeqEventType_2506d0(Temp*, const __int64&, int, int) throw();
 };
-struct SeqEventWaitBeatType : Base {
+struct SeqEventWaitBeatType : SeqEventType_2506d0 {
     SeqEventWaitBeatType();
     virtual void vf();
 };
 SeqEventWaitBeatType::SeqEventWaitBeatType()
-    : Base(Temp().Init("Beat", 0), lookup("SeqEventWaitBeat", 0, 0), 20, 4) {}
+    : SeqEventType_2506d0(Temp().Init("Beat", 0), lookup("SeqEventWaitBeat", 0, 0), 20, 4) {}

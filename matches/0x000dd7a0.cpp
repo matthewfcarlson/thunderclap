@@ -1,7 +1,7 @@
 extern void* vtController;
 extern void* vtDolly;
 void __cdecl Release(void*);
-class State_dd7a0 {
+class ControllerState_dd7a0 {
   public:
     void* vt;
     char pad[8];
@@ -9,7 +9,7 @@ class State_dd7a0 {
     void* b;
     void Clear();
 };
-void State_dd7a0::Clear() {
+void ControllerState_dd7a0::Clear() {
     vt = &vtController;
     if (a) {
         Release(a);

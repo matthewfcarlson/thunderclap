@@ -6,7 +6,7 @@ class Thing_24400 {
     char pad[8];
     unsigned char ready;
 };
-class Factory_24400 {
+class LoadStream_24400 {
   public:
     Thing_24400* Make(int, int, int);
 };
@@ -15,17 +15,17 @@ class Manager_24400 {
     int Run(const char*, Thing_24400*, int);
 };
 extern "C" char gFlag_24400;
-extern "C" Factory_24400* gMaker;
+extern "C" LoadStream_24400* gMaker;
 extern "C" Manager_24400* gManager_24400;
 char gFlag_24400;
-Factory_24400* gMaker;
+LoadStream_24400* gMaker;
 Manager_24400* gManager_24400;
 int __stdcall FUN_00024400(int param, char skip) {
     Thing_24400* p;
     int result;
     if (skip && !gFlag_24400)
         return 0;
-    Factory_24400* f = (Factory_24400*)thunk_FUN_0008d690(0x48);
+    LoadStream_24400* f = (LoadStream_24400*)thunk_FUN_0008d690(0x48);
     if (f)
         p = f->Make(param, 0, 1);
     else

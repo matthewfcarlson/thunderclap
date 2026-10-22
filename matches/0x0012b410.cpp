@@ -4,7 +4,7 @@ class Sub_12b410 {
   public:
     void Init();
 };
-class FinishCall {
+class ThreatDistanceCondition_12b410 {
   public:
     void Finish();
 };
@@ -15,5 +15,5 @@ class ThreatCondition {
 void ThreatCondition::Run() {
     *(void**)this = (void*)((hulk_intptr)DAT_00410bd4);
     ((Sub_12b410*)((char*)this + 0x10))->Init();
-    ((FinishCall*)this)->Finish();
+    ((ThreatDistanceCondition_12b410*)this)->Finish();
 }

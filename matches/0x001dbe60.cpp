@@ -1,4 +1,4 @@
-class Obj_1dbe60 {
+class CSPManager_1dbe60 {
   public:
     char pad0[0x61e];
     short entries[0x800][20];
@@ -6,7 +6,7 @@ class Obj_1dbe60 {
     int index;
     void run();
 };
-void Obj_1dbe60::run() {
+void CSPManager_1dbe60::run() {
     int i = index + 1;
     if (i < 0x800) {
         short* p = &entries[i][0];

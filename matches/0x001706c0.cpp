@@ -1,9 +1,9 @@
-class Base {
+class Track_1706c0 {
   public:
-    Base();
+    Track_1706c0();
     virtual void v();
 };
-class TargetBreakTrack : public Base {
+class TargetBreakTrack : public Track_1706c0 {
   public:
     TargetBreakTrack();
     virtual void v();
@@ -11,7 +11,7 @@ class TargetBreakTrack : public Base {
     int a;
     int b;
 };
-TargetBreakTrack::TargetBreakTrack() : Base() {
+TargetBreakTrack::TargetBreakTrack() : Track_1706c0() {
     b = 0;
     a = 1;
 }

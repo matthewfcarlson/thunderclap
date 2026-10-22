@@ -1,11 +1,11 @@
 extern void* g_vftable_dc600[];
 void Free(void*) throw();
-class Base_dc600 {
+class FEControl_dc600 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_dc600 : public Base_dc600 {
+class FETextInput_dc600 : public FEControl_dc600 {
   public:
     char p[0x14c];
     int n;
@@ -16,9 +16,9 @@ class Obj_dc600 : public Base_dc600 {
     void** a;
     void** b;
     void* m16c;
-    ~Obj_dc600() throw();
+    ~FETextInput_dc600() throw();
 };
-Obj_dc600::~Obj_dc600() throw() {
+FETextInput_dc600::~FETextInput_dc600() throw() {
     vptr = g_vftable_dc600;
     if (m158) {
         Free(m158);

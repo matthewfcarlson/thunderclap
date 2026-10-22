@@ -4,14 +4,14 @@ struct Pair_44ad0 {
     U32_44ad0 hi;
 };
 Pair_44ad0 __cdecl Lookup(U32_44ad0);
-class Container_44ad0 {
+class RDLHandler_44ad0 {
   public:
     char pad[12];
     int count;
     int* items;
     int Find(U32_44ad0 a, U32_44ad0 b);
 };
-int Container_44ad0::Find(U32_44ad0 a, U32_44ad0 b) {
+int RDLHandler_44ad0::Find(U32_44ad0 a, U32_44ad0 b) {
     int i = 0;
     while (i < count) {
         int item = items[i];

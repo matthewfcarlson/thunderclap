@@ -13,11 +13,11 @@ struct Elem8 {
     char b[8];
     void Fini() throw();
 };
-struct Base_23b3b0 {
+struct Reader_23b3b0 {
     void* vf;
     void Dtor() throw();
 };
-struct Target_23b3b0 : Base_23b3b0 {
+struct ScriptReader_23b3b0 : Reader_23b3b0 {
     void Pre() throw();
     int p4;
     Ref_23b3b0* p8;
@@ -28,7 +28,7 @@ struct Target_23b3b0 : Base_23b3b0 {
     Elem_23b3b0 arr[0x200];
     void Dtor2() throw();
 };
-void Target_23b3b0::Dtor2() throw() {
+void ScriptReader_23b3b0::Dtor2() throw() {
     vf = vSR;
     _ReadWriteBarrier();
     Pre();
@@ -40,5 +40,5 @@ void Target_23b3b0::Dtor2() throw() {
     }
     e120.Fini();
     e118.Fini();
-    Base_23b3b0::Dtor();
+    Reader_23b3b0::Dtor();
 }

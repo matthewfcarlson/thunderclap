@@ -1,10 +1,10 @@
 #include "decls/address.h"
 class CTriggerVolumeManager;
 extern const char a[], b[];
-class Base {
+class Function_1ffc70 {
   public:
     virtual void invoke();
-    Base(const char*, int);
+    Function_1ffc70(const char*, int);
     char pad[0x0c];
     unsigned char x;
     char pad2[7];
@@ -12,10 +12,10 @@ class Base {
     char pad3[3];
     void* owner;
 };
-class Method1 : public Base {
+class Method1 : public Function_1ffc70 {
   public:
     virtual void invoke();
-    Method1(const char* s, void* o) : Base(s, 1) {
+    Method1(const char* s, void* o) : Function_1ffc70(s, 1) {
         owner = o;
         y = FUN_001d04d0(a);
         x = FUN_001d04d0(b);

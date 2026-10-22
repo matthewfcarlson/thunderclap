@@ -6,22 +6,22 @@ class Ref_1614a0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_1614a0 {
+class LocomotionStrafeAction_1614a0 {
   public:
     void* vptr;
     void Fin();
 };
 void Free(void*) throw();
-class Obj_1614a0 : public Base_1614a0 {
+class LocomotionStrafe4Action_1614a0 : public LocomotionStrafeAction_1614a0 {
   public:
     char p[0x18];
     Ref_1614a0* m1c;
     Ref_1614a0* m20;
     char p2[0x20];
     void* m44;
-    Obj_1614a0* f2(unsigned char fl);
+    LocomotionStrafe4Action_1614a0* f2(unsigned char fl);
 };
-Obj_1614a0* Obj_1614a0::f2(unsigned char fl) {
+LocomotionStrafe4Action_1614a0* LocomotionStrafe4Action_1614a0::f2(unsigned char fl) {
     vptr = g_vftable_1614a0;
     _ReadWriteBarrier();
     if (m44)

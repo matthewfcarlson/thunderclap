@@ -8,7 +8,7 @@ class Params_1887d0 {
 extern Params_1887d0 TypeA_1887d0;
 extern Params_1887d0 TypeB_1887d0;
 int __cdecl Check(void*, int, Params_1887d0*, Params_1887d0*, int);
-struct PropActorToPropAction_nv_1887d0 {
+struct PropActorToPropAction_1887d0 {
     int Init(hulkfight::motion::PropActorToPropTrack*, int);
 };
 hulkfight::motion::PropActorToPropAction* __cdecl Alloc(int);
@@ -18,7 +18,7 @@ int hulkfight::motion::PropActorToPropTrack::vfunc_10(int a, int b, int c) {
     if (result) {
         hulkfight::motion::PropActorToPropAction* p = Alloc(0x24);
         if (p)
-            return ((PropActorToPropAction_nv_1887d0*)(p))->Init(this, c);
+            return ((PropActorToPropAction_1887d0*)(p))->Init(this, c);
     }
     return 0;
 }

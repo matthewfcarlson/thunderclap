@@ -1,5 +1,5 @@
 typedef unsigned int u32_11c920;
-struct V {
+struct Action_11c920 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -34,7 +34,7 @@ struct Root_11c920 {
 };
 extern Root_11c920* gRoot_11c920;
 Obj_11c920* __stdcall Conv();
-struct PathFormationAction : V {
+struct PathFormationAction : Action_11c920 {
     char pad[0x80 - 4];
     Mid_11c920* mid;
     void vfunc_4();

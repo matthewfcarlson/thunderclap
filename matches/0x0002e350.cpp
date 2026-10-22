@@ -2,11 +2,11 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" char DAT_003f432c[];
-class Base_2e350 {
+class Function_2e350 {
   public:
     void Init(int, int);
 };
-class Method3 : public Base_2e350 {
+class Method3 : public Function_2e350 {
   public:
     hulk_intptr v;
     char p[0x0c];

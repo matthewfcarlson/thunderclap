@@ -1,5 +1,5 @@
 #include "compat/ptr.h"
-class Obj_2e0110 {
+class PrimGroupOptimized_2e0110 {
   public:
     virtual void f0();
     virtual void f1();
@@ -28,10 +28,10 @@ struct Base_2e0110 {
 };
 class Manager_2e0110 {
   public:
-    Obj_2e0110* get();
+    PrimGroupOptimized_2e0110* get();
 };
 extern Manager_2e0110* gMgr_2e0110;
-class Prim_2e0110 : public Obj_2e0110 {
+class PrimGroupSkinnedOptimized_2e0110 : public PrimGroupOptimized_2e0110 {
   public:
     char pad[0x3c];
     void* p40;
@@ -42,8 +42,8 @@ class Prim_2e0110 : public Obj_2e0110 {
     Arr_2e0110* p64;
     void f6();
 };
-void Prim_2e0110::f6() {
-    Obj_2e0110* s = gMgr_2e0110->get();
+void PrimGroupSkinnedOptimized_2e0110::f6() {
+    PrimGroupOptimized_2e0110* s = gMgr_2e0110->get();
     s->f2();
     Vec_2e0110* vv = &p64->v;
     unsigned n = vv->size();

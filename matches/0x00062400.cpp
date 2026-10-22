@@ -6,7 +6,7 @@ class Part_62400 {
     int x[2];
     void Init();
 };
-class Obj_62400 {
+class CSmartPropUpdateAttachmentTrack_62400 {
   public:
     hulk_intptr vt;
     char pad[0x14];
@@ -15,7 +15,7 @@ class Obj_62400 {
     void Final();
     void Run();
 };
-void Obj_62400::Run() {
+void CSmartPropUpdateAttachmentTrack_62400::Run() {
     vt = (hulk_intptr)&vtable_62400;
     p20.Init();
     p18.Init();

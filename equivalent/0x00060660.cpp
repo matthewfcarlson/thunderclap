@@ -2,7 +2,7 @@
 // FUN_00060660 @ 0x00060660
 inline void *operator new(unsigned int, void *p) { return p; }
 
-struct Base12 {
+struct CEffectTrack_60660 {
     char data[12];
     void FUN_00236d40();
 };
@@ -35,7 +35,7 @@ public:
 
 CEffectTrack *CEffectTrack::FUN_00060660()
 {
-    ((Base12 *)this)->FUN_00236d40();
+    ((CEffectTrack_60660 *)this)->FUN_00236d40();
     new (this) CEffectTrack;
     f0c = 0;
     f10 = -1.0f;

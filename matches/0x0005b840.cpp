@@ -6,12 +6,12 @@ struct T1 {
 struct T2 {
     void Fini();
 };
-class Base_5b840 {
+class Track_5b840 {
   public:
     void* vptr;
     void Fin();
 };
-class CGrappleOpportunityTrack : public Base_5b840 {
+class CGrappleOpportunityTrack : public Track_5b840 {
   public:
     char pad4[0x14];
     T2 a18;

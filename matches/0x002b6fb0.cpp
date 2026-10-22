@@ -7,18 +7,18 @@ class Ref_2b6fb0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_2b6fb0 {
+class DrawablePrimitive_2b6fb0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_2b6fb0 : public Base_2b6fb0 {
+class ShadowMeshBufferImpl_2b6fb0 : public DrawablePrimitive_2b6fb0 {
   public:
     char pad[0x3c];
     Ref_2b6fb0* m;
-    Obj_2b6fb0* f2(unsigned char flags);
+    ShadowMeshBufferImpl_2b6fb0* f2(unsigned char flags);
 };
-Obj_2b6fb0* Obj_2b6fb0::f2(unsigned char flags) {
+ShadowMeshBufferImpl_2b6fb0* ShadowMeshBufferImpl_2b6fb0::f2(unsigned char flags) {
     vptr = g_vftable_2b6fb0;
     _ReadWriteBarrier();
     if (m) {

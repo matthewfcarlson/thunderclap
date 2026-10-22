@@ -10,7 +10,7 @@ struct Sub_e9030 {
     char c;
     void Fin() throw();
 };
-class Obj_e9030 {
+class FEObject_e9030 {
   public:
     void* vptr;
     char p[0x14];
@@ -22,9 +22,9 @@ class Obj_e9030 {
     Ref_e9030* m64;
     char p4[0x44];
     char* mac;
-    ~Obj_e9030() throw();
+    ~FEObject_e9030() throw();
 };
-Obj_e9030::~Obj_e9030() throw() {
+FEObject_e9030::~FEObject_e9030() throw() {
     vptr = g_vftable_e9030;
     _ReadWriteBarrier();
     if (m50) {

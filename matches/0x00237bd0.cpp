@@ -1,6 +1,6 @@
-class Base {
+class Track_237bd0 {
   public:
-    Base();
+    Track_237bd0();
     virtual void f();
     char pad[4];
 };
@@ -13,7 +13,7 @@ class PartB {
   public:
     PartB();
 };
-class SequenceTrack : public Base {
+class SequenceTrack : public Track_237bd0 {
   public:
     SequenceTrack();
     virtual void f();
@@ -22,6 +22,6 @@ class SequenceTrack : public Base {
     int other;
     PartB b;
 };
-SequenceTrack::SequenceTrack() : Base(), a(), other(1), b() {
+SequenceTrack::SequenceTrack() : Track_237bd0(), a(), other(1), b() {
     flag = 1;
 }

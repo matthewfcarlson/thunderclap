@@ -16,9 +16,9 @@ class Method : public Base {
     char pad4[3];
     int value;
 };
-class Closure : public Method {
+class Closure1_8b0c0 : public Method {
   public:
-    Closure(const char*, int, int);
+    Closure1_8b0c0(const char*, int, int);
     virtual void Run();
     int extra;
 };
@@ -27,6 +27,6 @@ Method::Method(const char* name, int v) : Base(name, 1) {
     b = GetValue(&g1);
     a = GetValue(&g2);
 }
-Closure::Closure(const char* name, int v, int w) : Method(name, w) {
+Closure1_8b0c0::Closure1_8b0c0(const char* name, int v, int w) : Method(name, w) {
     extra = v;
 }

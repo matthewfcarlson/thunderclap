@@ -6,12 +6,12 @@ struct Obj_222330 {
     char pad[0x10];
     Bits_222330* bits;
 };
-struct Owner_222330 {
+struct PartitionDriver_222330 {
     char pad[0x14];
     Obj_222330* obj;
     bool Check(Obj_222330* other);
 };
-bool Owner_222330::Check(Obj_222330* other) {
+bool PartitionDriver_222330::Check(Obj_222330* other) {
     if (!other)
         return false;
     Obj_222330* p = obj;

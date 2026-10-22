@@ -8,13 +8,13 @@ class Sub_11fef0 {
     void Init();
     char d[8];
 };
-class Base_11fef0 {
+class Action_11fef0 {
   public:
-    Base_11fef0();
+    Action_11fef0();
     virtual void f();
     char b[0x30];
 };
-class RoutAction : public Base_11fef0 {
+class RoutAction : public Action_11fef0 {
   public:
     RoutAction(int, Ref_11fef0*);
     virtual void f();

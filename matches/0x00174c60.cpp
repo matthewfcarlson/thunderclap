@@ -10,7 +10,7 @@ class Helper_174c60 {
   public:
     void Fn();
 };
-class A_174c60 {
+class FootPivotAction_174c60 {
   public:
     void* vptr;
     char p[0x18];
@@ -20,7 +20,7 @@ class A_174c60 {
     Ref_174c60* m28;
     void f();
 };
-void A_174c60::f() {
+void FootPivotAction_174c60::f() {
     vptr = g_vftable_174c60;
     _ReadWriteBarrier();
     if (m28) {

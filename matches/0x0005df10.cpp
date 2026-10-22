@@ -5,12 +5,12 @@ class Base {
     virtual void f();
     char pad[8];
 };
-class Middle : public Base {
+class CTrack_5df10 : public Base {
   public:
     int a, b, c;
-    Middle() : Base(), a(0), b(0), c(0) {}
+    CTrack_5df10() : Base(), a(0), b(0), c(0) {}
 };
-class CSnapToWallTrack : public Middle {
+class CSnapToWallTrack : public CTrack_5df10 {
   public:
     CSnapToWallTrack();
     int d, e, f2;
@@ -19,7 +19,7 @@ class CSnapToWallTrack : public Middle {
     int g, h, i;
     virtual void f();
 };
-CSnapToWallTrack::CSnapToWallTrack() : Middle() {
+CSnapToWallTrack::CSnapToWallTrack() : CTrack_5df10() {
     _ReadWriteBarrier();
     d = 0;
     e = 0;

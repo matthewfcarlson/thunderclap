@@ -1,10 +1,10 @@
-class Base {
+class Track_115c60 {
   public:
-    Base();
+    Track_115c60();
     virtual void vf();
     char pad[8];
 };
-class MotionChaseTrack : public Base {
+class MotionChaseTrack : public Track_115c60 {
   public:
     MotionChaseTrack();
     virtual void vf();
@@ -14,7 +14,7 @@ class MotionChaseTrack : public Base {
     float h;
     int i;
 };
-MotionChaseTrack::MotionChaseTrack() : Base() {
+MotionChaseTrack::MotionChaseTrack() : Track_115c60() {
     a = 0;
     c = 0;
     d = 0;

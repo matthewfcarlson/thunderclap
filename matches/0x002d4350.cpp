@@ -3,14 +3,14 @@ typedef unsigned int U_2d4350;
 extern U_2d4350 vt1_2d4350;
 extern U_2d4350 vt2_2d4350;
 void drop(U_2d4350);
-class Obj_2d4350 {
+class OverLifeAttributes_2d4350 {
   public:
     hulk_uintptr vptr;
     U_2d4350 x[3];
     U_2d4350 a[8];
     void f();
 };
-void Obj_2d4350::f() {
+void OverLifeAttributes_2d4350::f() {
     vptr = (hulk_uintptr)&vt1_2d4350;
     drop(a[0]);
     drop(a[1]);

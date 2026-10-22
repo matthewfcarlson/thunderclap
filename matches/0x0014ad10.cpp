@@ -17,16 +17,16 @@ class GrappleHitReactionTrack : public Track, public Param {
   public:
     virtual int vfunc10(int, int, int);
 };
-class Result_14ad10 {
+class GrappleHitReactionAction_14ad10 {
   public:
     int Init(GrappleHitReactionTrack*, int);
 };
 extern int GetParam(int);
-extern Result_14ad10* Allocate(int);
+extern GrappleHitReactionAction_14ad10* Allocate(int);
 int GrappleHitReactionTrack::vfunc10(int a, int b, int c) {
     int x = GetParam(c);
     if (x) {
-        Result_14ad10* p = Allocate(0x58);
+        GrappleHitReactionAction_14ad10* p = Allocate(0x58);
         if (p)
             return p->Init(this, x);
     }

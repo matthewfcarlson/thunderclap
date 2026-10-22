@@ -5,12 +5,12 @@ class Ref_10f7e0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_10f7e0 {
+class Action_10f7e0 {
   public:
     void* vptr;
     void Fin();
 };
-class TokenSupressAction_10f7e0 : public Base_10f7e0 {
+class TokenSupressAction_10f7e0 : public Action_10f7e0 {
   public:
     char pad[0x18];
     void* m1c;

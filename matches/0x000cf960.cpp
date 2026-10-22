@@ -1,11 +1,11 @@
 #include "decls/address.h"
 extern const char g1[], g2[];
-class Base {
+class Function_cf960 {
   public:
     virtual void Invoke(float);
-    Base(void*, int);
+    Function_cf960(void*, int);
 };
-class Method1 : public Base {
+class Method1 : public Function_cf960 {
   public:
     virtual void Invoke(float);
     char pad[0x0c];
@@ -14,7 +14,7 @@ class Method1 : public Base {
     unsigned char b;
     char pad3[3];
     void* obj;
-    Method1(void* x, void* y) : Base(x, 1) {
+    Method1(void* x, void* y) : Function_cf960(x, 1) {
         obj = y;
         b = FUN_001d04d0(g1);
         a = FUN_001d04d0(g2);

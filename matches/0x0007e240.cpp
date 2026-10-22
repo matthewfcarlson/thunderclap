@@ -6,11 +6,11 @@ struct CtorV_001d0480 {
 extern "C" unsigned char __cdecl lookup(const char*);
 extern const char a[];
 extern const char b[];
-class Base : public CtorV_001d0480 {
+class Function_7e240 : public CtorV_001d0480 {
   public:
-    Base(void* x) : CtorV_001d0480(x, 1) { }
+    Function_7e240(void* x) : CtorV_001d0480(x, 1) { }
 };
-class Method1 : public Base {
+class Method1 : public Function_7e240 {
   public:
     virtual void Invoke(float);
     char pad[12];
@@ -19,7 +19,7 @@ class Method1 : public Base {
     char flag2;
     char pad3[3];
     void* obj;
-    Method1(void* x, void* z) : Base(x) {
+    Method1(void* x, void* z) : Function_7e240(x) {
         obj = z;
         flag2 = lookup(a);
         flag1 = lookup(b);

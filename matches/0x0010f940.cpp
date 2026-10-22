@@ -5,14 +5,14 @@ class RefObj_10f940 {
     virtual void Release();
 };
 
-class ActionBase_10f940 {
+class Action_10f940 {
   public:
-    ActionBase_10f940();
+    Action_10f940();
     virtual void Update();
     char pad[0x18];
 };
 
-class SemaphoreWaitAction_10f940 : public ActionBase_10f940 {
+class SemaphoreWaitAction_10f940 : public Action_10f940 {
   public:
     int mTarget;
     RefObj_10f940* mObj;

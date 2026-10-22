@@ -9,7 +9,7 @@ struct Node {
     void FUN_0022c2b0(Vec3_38f90 *src, Vec3_38f90 *out);
 };
 
-struct Table_38f90 {
+struct CCharacter_38f90 {
     unsigned int FUN_00044630(int id);
     Vec3_38f90 *FUN_00044650(int id);
     float FUN_000446a0(int id);
@@ -31,7 +31,7 @@ public:
     char pad0[0x10];
     void *scene;
     char pad14[0x11c - 0x14];
-    Table_38f90 *table;
+    CCharacter_38f90 *table;
     Nodes_38f90 *nodes;
 };
 

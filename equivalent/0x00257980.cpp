@@ -24,12 +24,12 @@ struct Sequence : om::EntityType {
 };
 struct SequenceType : om::EntityType { virtual Sequence* vfunc_2(); };
 }
-struct ConstructorBase { void FUN_00244ea0(void*); };
+struct Sequence_257980 { void FUN_00244ea0(void*); };
 __forceinline void* operator new(size_t, void* p) { return p; }
 audio::Sequence* audio::SequenceType::vfunc_2() {
     audio::Sequence* result = (audio::Sequence*)FUN_00247530(((char*)((char*)&DAT_004e75b8 + 104)));
     if (result) {
-        ((ConstructorBase*)result)->FUN_00244ea0(((char*)((char*)&DAT_004e75b8 + 104)));
+        ((Sequence_257980*)result)->FUN_00244ea0(((char*)((char*)&DAT_004e75b8 + 104)));
         result = new (result) audio::Sequence;
         result->firstCount = 0;
         result->firstHead = &result->firstAnchor;

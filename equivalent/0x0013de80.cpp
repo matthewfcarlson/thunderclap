@@ -47,7 +47,7 @@ struct Sub_13de80 {
     void *FUN_0027b670(int lo, int hi);
 };
 
-class Anim_13de80 {
+class AnimationDriver_13de80 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -60,7 +60,7 @@ public:
     int i228;
     float f22c;
     float f230;
-    Anim_13de80 *FUN_00225950(Sub_13de80 *skel, Handle_13de80 *h);
+    AnimationDriver_13de80 *FUN_00225950(Sub_13de80 *skel, Handle_13de80 *h);
     void FUN_00225e00(float a, int b, int c, int d);
     void FUN_00225cf0(float t);
     void FUN_002224a0(void *p);
@@ -69,7 +69,7 @@ public:
 
 struct Body_13de80 {
     Sub_13de80 *FUN_002226b0();
-    void FUN_00222890(Anim_13de80 *a, float t, int c30, float one, int c34, int c38, float m1);
+    void FUN_00222890(AnimationDriver_13de80 *a, float t, int c30, float one, int c34, int c38, float m1);
 };
 
 struct Fighter_13de80 { char pad[4]; };
@@ -106,7 +106,7 @@ public:
     char pad04[0x18];
     Config_13de80 *cfg;
     void *owner;
-    Anim_13de80 *anim;
+    AnimationDriver_13de80 *anim;
 };
 
 struct Frame_13de80 {
@@ -139,10 +139,10 @@ char AnimationChargeAction::vfunc_3(int a, int b)
     Handle_13de80 *handle = factory->f3(caster, c18, c1c);
     if (!handle)
         return 0;
-    Anim_13de80 *created;
+    AnimationDriver_13de80 *created;
     void *mem = FUN_00263ea0(0x240);
     if (mem)
-        created = ((Anim_13de80 *)mem)->FUN_00225950(fr.skel, handle);
+        created = ((AnimationDriver_13de80 *)mem)->FUN_00225950(fr.skel, handle);
     else
         created = 0;
     if (created)
@@ -155,7 +155,7 @@ char AnimationChargeAction::vfunc_3(int a, int b)
     anim->flag225 = 1;
     anim->FUN_00225e00(-1.0f, 0, cfg->f20, cfg->f24);
     anim->i228 = 0;
-    Anim_13de80 *a2 = anim;
+    AnimationDriver_13de80 *a2 = anim;
     float *lo = (float *)fr.slot0;
     *lo = a2->f22c;
     fr.u.time = fr.u.stats->time;

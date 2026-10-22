@@ -14,23 +14,23 @@ struct El {
     Ref_1a8db0* r4;
     Ref_1a8db0* r5;
 };
-class A_1a8db0;
-extern A_1a8db0* g_cur_1a8db0;
-class Base_1a8db0 {
+class NISAnimationAction_1a8db0;
+extern NISAnimationAction_1a8db0* g_cur_1a8db0;
+class Action_1a8db0 {
   public:
     void* vptr;
-    ~Base_1a8db0() throw();
+    ~Action_1a8db0() throw();
 };
-class A_1a8db0 : public Base_1a8db0 {
+class NISAnimationAction_1a8db0 : public Action_1a8db0 {
   public:
     char pad[0x1c - 4];
     void* m1c;
     Ref_1a8db0* m20;
     char pad2[0x2c - 0x24];
     El e[20];
-    ~A_1a8db0() throw();
+    ~NISAnimationAction_1a8db0() throw();
 };
-A_1a8db0::~A_1a8db0() throw() {
+NISAnimationAction_1a8db0::~NISAnimationAction_1a8db0() throw() {
     vptr = g_vt_1a8db0;
     if (g_cur_1a8db0 == this)
         g_cur_1a8db0 = 0;

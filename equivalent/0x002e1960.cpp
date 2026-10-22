@@ -15,7 +15,7 @@ void* __cdecl FUN_0008d690(unsigned int size);
 void* __cdecl FUN_00266e00(int a, int b);
 void __cdecl FUN_00267090(void* p);
 
-class Ref_2e1960 {
+class NonCopyable_2e1960 {
   public:
     virtual void AddRef();
     virtual void Release();
@@ -213,7 +213,7 @@ struct Desc_2e1960 {
     int f60;
 };
 
-class PalList_2e1960 : public Ref_2e1960 {
+class PalList_2e1960 : public NonCopyable_2e1960 {
   public:
     char pad04[4];
     char* begin;
@@ -263,7 +263,7 @@ class __declspec(novtable) PrimGroup : public PrimGroupBase {
     int f4c;
     int f50;
     char pad54[4];
-    Ref_2e1960* f58;
+    NonCopyable_2e1960* f58;
 };
 
 namespace pure3d {
@@ -283,8 +283,8 @@ class PrimGroupOptimized : public PrimGroup {
 class PrimGroupPalette_2e1960 : public PrimGroup {
   public:
     char pad5c[4];
-    Ref_2e1960* f60;
-    Ref_2e1960* f64;
+    NonCopyable_2e1960* f60;
+    NonCopyable_2e1960* f64;
     PrimGroupPalette_2e1960* FUN_002dffe0(int a, int b);
 };
 
@@ -295,7 +295,7 @@ struct IntVec_2e1960 {
 };
 
 namespace pure3d {
-class MatrixPaletteList : public Ref_2e1960 {
+class MatrixPaletteList : public NonCopyable_2e1960 {
   public:
     int f4;
     IntVec_2e1960 vec;
@@ -381,10 +381,10 @@ void Hdr_2e1960::Load(int a1, Reader* R, int a3, PalList_2e1960* a4, unsigned in
     d.f60 = f28;
     Builder* B = (*(Factory_2e1960**)&DAT_0052c2a0)->f10(&d);
     if (B)
-        ((Ref_2e1960*)B)->AddRef();
+        ((NonCopyable_2e1960*)B)->AddRef();
     if (obj->f58)
         obj->f58->Release();
-    obj->f58 = (Ref_2e1960*)B;
+    obj->f58 = (NonCopyable_2e1960*)B;
 
     Maker_2e1960* mk = DAT_0052c2a8->g89(0x106);
     if (mk) {

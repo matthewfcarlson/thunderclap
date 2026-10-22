@@ -15,14 +15,14 @@ class Ref_19adf0 {
     virtual void V9();
     virtual void V10(int);
 };
-class Base_19adf0 {
+class Action_19adf0 {
   public:
     void* vptr;
     void Fin();
 };
 void Free(void*) throw();
 
-class Obj_19adf0 : public Base_19adf0 {
+class FireProjectileAction_19adf0 : public Action_19adf0 {
   public:
     char pad[0x18];
     void* m1c;
@@ -30,9 +30,9 @@ class Obj_19adf0 : public Base_19adf0 {
     char p[4];
     Ref_19adf0* m28;
     Ref_19adf0* m2c;
-    Obj_19adf0* f2(unsigned char fl);
+    FireProjectileAction_19adf0* f2(unsigned char fl);
 };
-Obj_19adf0* Obj_19adf0::f2(unsigned char fl) {
+FireProjectileAction_19adf0* FireProjectileAction_19adf0::f2(unsigned char fl) {
     vptr = g_vftable_19adf0;
     _ReadWriteBarrier();
     if (m2c) {

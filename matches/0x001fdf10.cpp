@@ -1,5 +1,5 @@
 #include "gen/global.h"
-class Obj {
+class CTriggerVolumeManager_1fdf10 {
   public:
     char pad[0x234];
     char* data;
@@ -8,7 +8,7 @@ class Obj {
 struct CTriggerVolumeManager_nv_1fdf10 {
     int FUN_001fcff0(int);
 };
-char Obj::check(int x) {
+char CTriggerVolumeManager_1fdf10::check(int x) {
     int i = ((CTriggerVolumeManager_nv_1fdf10*)(((CTriggerVolumeManager*)this)))->FUN_001fcff0(x);
     if (i == -1)
         return 0;

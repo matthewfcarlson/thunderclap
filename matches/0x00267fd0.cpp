@@ -9,7 +9,7 @@ struct Callback_267fd0 {
 };
 void Init(int);
 extern int g_267fd0;
-struct X_267fd0 {
+struct TimerList_267fd0 {
     void* v0;
     void* v1;
     int value;
@@ -19,7 +19,7 @@ struct X_267fd0 {
     int arg;
     void F();
 };
-void X_267fd0::F() {
+void TimerList_267fd0::F() {
     v0 = (void*)((hulk_intptr)DAT_0042afd4);
     v1 = (void*)((hulk_intptr)DAT_0042afcc);
     Init(arg);

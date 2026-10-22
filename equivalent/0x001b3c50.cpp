@@ -46,8 +46,8 @@ class Function2 : public Function {
 
 struct Registry_1b3c50 { void FUN_001d3b70(const char*, void*); };
 
-struct FunctionB { FunctionB* FUN_001b3810(const char*, void (*)()); };
-struct FunctionC { FunctionC* FUN_001b38b0(const char*, void (*)()); };
+struct Function4_1b3c50 { Function4_1b3c50* FUN_001b3810(const char*, void (*)()); };
+struct Function5_1b3c50 { Function5_1b3c50* FUN_001b38b0(const char*, void (*)()); };
 
 void FUN_001b3360();
 void FUN_001b33d0();
@@ -92,12 +92,12 @@ void FUN_001b3c50()
             trigger = new (mem) Function2<void, int, math::Vector>("exp_Trigger", FUN_001b3320);
         reg->FUN_001d3b70("exp_Trigger", trigger);
 
-        FunctionB* profile = (FunctionB*)FUN_0008d690(0x20);
+        Function4_1b3c50* profile = (Function4_1b3c50*)FUN_0008d690(0x20);
         if (profile)
             profile = profile->FUN_001b3810("exp_DefineProfile", FUN_001b3360);
         reg->FUN_001d3b70("exp_DefineProfile", profile);
 
-        FunctionC* damage = (FunctionC*)FUN_0008d690(0x20);
+        Function5_1b3c50* damage = (Function5_1b3c50*)FUN_0008d690(0x20);
         if (damage) {
             damage = damage->FUN_001b38b0("exp_DefineProfileDamage", FUN_001b33d0);
             reg->FUN_001d3b70("exp_DefineProfileDamage", damage);

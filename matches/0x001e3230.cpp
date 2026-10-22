@@ -22,7 +22,7 @@ struct Item_1e3230 {
     void FUN_001d8350(int value);
 };
 
-class Manager_1e3230 {
+class CSPManager_1e3230 {
 public:
     void FUN_001e3230(const char *name, const char *state);
     Item_1e3230 *FUN_001def30(const char *name);
@@ -33,7 +33,7 @@ public:
     Owner_1e3230 *owner;
 };
 
-void Manager_1e3230::FUN_001e3230(const char *name, const char *state) {
+void CSPManager_1e3230::FUN_001e3230(const char *name, const char *state) {
     Item_1e3230 *item = FUN_001def30(name);
     if (item != 0 && item->FUN_001d6990() == 7 && strcmp(state, "collected") == 0) {
         item->FUN_001d8350(owner->config->value);

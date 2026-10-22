@@ -5,14 +5,14 @@ class RefObj_151060 {
     virtual void Release();
 };
 
-class ActionBase_151060 {
+class Action_151060 {
   public:
-    ActionBase_151060();
+    Action_151060();
     virtual void Update();
     char pad[0x18];
 };
 
-class InterruptPriorityAction_151060 : public ActionBase_151060 {
+class InterruptPriorityAction_151060 : public Action_151060 {
   public:
     int mTarget;
     RefObj_151060* mObj;

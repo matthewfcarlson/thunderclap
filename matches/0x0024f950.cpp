@@ -5,15 +5,15 @@ class Temp {
     ~Temp() throw();
     char pad[12];
 };
-class Base_24f950 {
+class SeqEventType_24f950 {
   public:
-    Base_24f950(Temp*, const __int64&, int, int) throw();
+    SeqEventType_24f950(Temp*, const __int64&, int, int) throw();
     virtual void v0();
 };
-class audio_SeqEventChannelSendsType : public Base_24f950 {
+class SeqEventChannelSendsType_24f950 : public SeqEventType_24f950 {
   public:
-    audio_SeqEventChannelSendsType();
+    SeqEventChannelSendsType_24f950();
     virtual void v0();
 };
-audio_SeqEventChannelSendsType::audio_SeqEventChannelSendsType()
-    : Base_24f950(Temp().Init("ChSends", 0), GetId("SeqEventChannelSends", 0, 0), 0x10c, 4) {}
+SeqEventChannelSendsType_24f950::SeqEventChannelSendsType_24f950()
+    : SeqEventType_24f950(Temp().Init("ChSends", 0), GetId("SeqEventChannelSends", 0, 0), 0x10c, 4) {}

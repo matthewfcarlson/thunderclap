@@ -1,6 +1,6 @@
-class Base {
+class CTrack_5dcb0 {
   public:
-    Base();
+    CTrack_5dcb0();
     virtual void f();
     char pad[4];
 };
@@ -9,7 +9,7 @@ class Sub {
     Sub();
     char pad[8];
 };
-class CProceduralDurationAnimationTrack : public Base {
+class CProceduralDurationAnimationTrack : public CTrack_5dcb0 {
   public:
     CProceduralDurationAnimationTrack();
     char p0[4];
@@ -27,4 +27,4 @@ class CProceduralDurationAnimationTrack : public Base {
     char l;
 };
 CProceduralDurationAnimationTrack::CProceduralDurationAnimationTrack()
-    : Base(), a(0), b(1.0f), c(0), s1(), d(1.0f), e(0), f(0), g(-1.0f), h(0), s2(), i(0), j(0), k(0), l(0) {}
+    : CTrack_5dcb0(), a(0), b(1.0f), c(0), s1(), d(1.0f), e(0), f(0), g(-1.0f), h(0), s2(), i(0), j(0), k(0), l(0) {}

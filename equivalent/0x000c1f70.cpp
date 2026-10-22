@@ -85,12 +85,12 @@ struct ShaderHolder {
     Slot_c1f70* slot;
 };
 
-struct Loader_c1f70 {
+struct LoadInventory_c1f70 {
     virtual void init();
     virtual void release();
     virtual void a2();
     virtual Resource_c1f70* find(content::LoadInventory::DynamicCaster<pure3d::Texture>* caster, unsigned __int64 key);
-    Loader_c1f70* FUN_00266480(int size);
+    LoadInventory_c1f70* FUN_00266480(int size);
 };
 
 struct Inventory_c1f70 {
@@ -113,7 +113,7 @@ class BlonskyScreen {
 public:
     char pad0[0x4c];
     ItemTable_c1f70* items;
-    void FUN_000bc3c0(const char* path, Loader_c1f70* loader, int kind);
+    void FUN_000bc3c0(const char* path, LoadInventory_c1f70* loader, int kind);
     void FUN_000c1f70(int index);
 };
 
@@ -158,7 +158,7 @@ void BlonskyScreen::FUN_000c1f70(int index)
 
             const char* name = file->FUN_00091d50();
             FUN_000964a0(frame.path, 0x100, "art/blonsky_file_images/%s.p3d", name);
-            Loader_c1f70* loader = (Loader_c1f70*)FUN_00263ea0(0x14);
+            LoadInventory_c1f70* loader = (LoadInventory_c1f70*)FUN_00263ea0(0x14);
             if (loader)
                 loader = loader->FUN_00266480(0x400);
             loader->init();

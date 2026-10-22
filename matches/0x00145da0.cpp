@@ -5,7 +5,7 @@ class Ref_145da0 {
     virtual void f0();
     virtual void f1();
 };
-class Helper_145da0 {
+class WorldConeDamageAction_145da0 {
   public:
     void Fn();
 };
@@ -32,7 +32,7 @@ HitEffectAction* HitEffectAction::f2(unsigned char flags) {
         m1c->f1();
         m1c = 0;
     }
-    ((Helper_145da0*)this)->Fn();
+    ((WorldConeDamageAction_145da0*)this)->Fn();
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;

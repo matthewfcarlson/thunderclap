@@ -9,18 +9,18 @@ class Part_23ecb0 {
   public:
     void Fini() throw();
 };
-struct Base_23ecb0 {
+struct Action_23ecb0 {
     void* vf;
     void Dtor() throw();
 };
-struct Target_23ecb0 : Base_23ecb0 {
+struct SpawnAction_23ecb0 : Action_23ecb0 {
     char pad[0x1c];
     Ref_23ecb0* p20;
     Ref_23ecb0* p24;
     Part_23ecb0 part;
     void Dtor2() throw();
 };
-void Target_23ecb0::Dtor2() throw() {
+void SpawnAction_23ecb0::Dtor2() throw() {
     vf = vSpawn;
     _ReadWriteBarrier();
     if (p24) {
@@ -29,5 +29,5 @@ void Target_23ecb0::Dtor2() throw() {
     }
     p20->Release();
     part.Fini();
-    Base_23ecb0::Dtor();
+    Action_23ecb0::Dtor();
 }

@@ -25,12 +25,12 @@ struct Table_5b1a0 {
     Binding_5b1a0 *FUN_00059a40();
 };
 
-class GrabAction;
+class CGrabAction_5b1a0;
 void *FUN_0008d690(unsigned int size);
 
-class GrabAction {
+class CGrabAction_5b1a0 {
 public:
-    GrabAction *FUN_0001de50(int a1, void *track, CFightParams *params, int index);
+    CGrabAction_5b1a0 *FUN_0001de50(int a1, void *track, CFightParams *params, int index);
 };
 
 class CGrabTrack {
@@ -45,14 +45,14 @@ public:
     virtual void vfunc_7();
     virtual void vfunc_8();
     virtual void vfunc_9();
-    virtual GrabAction *vfunc_10(int a1, int a2, fight::Params *params);
+    virtual CGrabAction_5b1a0 *vfunc_10(int a1, int a2, fight::Params *params);
     virtual void vfunc_11();
     char pad04[0x14];
     int key0;
     int key1;
 };
 
-GrabAction *CGrabTrack::vfunc_10(int a1, int a2, fight::Params *params)
+CGrabAction_5b1a0 *CGrabTrack::vfunc_10(int a1, int a2, fight::Params *params)
 {
     CFightParams *fp = dynamic_cast<CFightParams *>(params);
     if (fp == 0)
@@ -66,7 +66,7 @@ GrabAction *CGrabTrack::vfunc_10(int a1, int a2, fight::Params *params)
     int index = binding->FUN_002226b0()->FUN_0027b200(arg2_, arg1_);
     if (index < 0)
         return 0;
-    GrabAction *mem = (GrabAction *)FUN_0008d690(0x40);
+    CGrabAction_5b1a0 *mem = (CGrabAction_5b1a0 *)FUN_0008d690(0x40);
     if (mem == 0)
         return 0;
     return mem->FUN_0001de50(a1, this, fp, index);

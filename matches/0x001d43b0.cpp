@@ -8,11 +8,11 @@ struct Ctor_001d0480 {
 };
 extern int gName1;
 extern int gName2;
-class Closure_1d43b0 : public Ctor_001d0480 {
+class Closure1_1d43b0 : public Ctor_001d0480 {
   public:
-    Closure_1d43b0(void*, void*, void*);
+    Closure1_1d43b0(void*, void*, void*);
 };
-Closure_1d43b0::Closure_1d43b0(void* a, void* b, void* c) : Ctor_001d0480(a, 1) {
+Closure1_1d43b0::Closure1_1d43b0(void* a, void* b, void* c) : Ctor_001d0480(a, 1) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00422674);
     *(hulk_intptr*)((char*)this + 0x1c) = (hulk_intptr)c;
     *(char*)((char*)this + 0x18) = (char)FUN_001d04d0((const char*)&gName1);

@@ -4,7 +4,7 @@
 #include "decls/data/platform/xbox/core.h"
 
 typedef unsigned int uint_278ef0;
-struct Obj_278ef0 { char pad[0xb4]; uint_278ef0 error; bool FUN_00278de0(); uint_278ef0 FUN_002787c0(hulk_uintptr); void FUN_002789e0(hulk_uintptr); bool FUN_00278ef0(uint_278ef0 source, uint_278ef0 length, bool flag); };
+struct XboxSaveDrive_278ef0 { char pad[0xb4]; uint_278ef0 error; bool FUN_00278de0(); uint_278ef0 FUN_002787c0(hulk_uintptr); void FUN_002789e0(hulk_uintptr); bool FUN_00278ef0(uint_278ef0 source, uint_278ef0 length, bool flag); };
 namespace XAPILIB { extern "C" uint_278ef0 __stdcall XCalculateSignatureBegin(uint_278ef0); extern "C" hulk_uintptr __stdcall GetLastError(); }
 extern "C" void __stdcall FUN_002120f5(uint_278ef0, void *, uint_278ef0);
 extern "C" void __stdcall FUN_00212143(uint_278ef0, void *);
@@ -12,7 +12,7 @@ extern "C" uint_278ef0 __stdcall FUN_002101d4(uint_278ef0, hulk_uintptr, uint_27
 extern "C" uint_278ef0 __stdcall FUN_0021007a(uint_278ef0, void *, uint_278ef0, uint_278ef0 *, uint_278ef0);
 extern "C" bool __cdecl FUN_00278180(void *, uint_278ef0, void *);
 struct Signature { uint_278ef0 word[5]; };
-bool Obj_278ef0::FUN_00278ef0(uint_278ef0 source, uint_278ef0 length, bool flag) {
+bool XboxSaveDrive_278ef0::FUN_00278ef0(uint_278ef0 source, uint_278ef0 length, bool flag) {
  if (!FUN_00278de0()) return false;
  (*(uint_278ef0*)((char*)&DAT_0052c270 + 12)) = 0;
  unsigned char *buffer = (*(unsigned char**)&DAT_0052c270);

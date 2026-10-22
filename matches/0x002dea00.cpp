@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 typedef unsigned int u32_2dea00;
 void* alloc(hulk_uintptr);
-class Init_2dea00 {
+class Image32_2dea00 {
   public:
     void* run();
 };
@@ -22,7 +22,7 @@ void* ImageConverter::vfunc_4(void* p) {
     hulk_intptr t = (hulk_intptr)alloc(0x30);
     void* x;
     if (t) {
-        x = ((Init_2dea00*)t)->run();
+        x = ((Image32_2dea00*)t)->run();
     } else
         x = 0;
     struct Pair {

@@ -46,7 +46,7 @@ class PhysicsObject {
 struct A_2f61c0 {
     void a();
 };
-struct B_2f61c0 {
+struct SymMatrix_2f61c0 {
     void b();
 };
 struct C_2f61c0 {
@@ -61,7 +61,7 @@ struct E_2f61c0 {
 extern void destroy(PhysicsObject*);
 PhysicsObject::PhysicsObject(unsigned char flag) {
     ((A_2f61c0*)((char*)this + 0x168))->a();
-    ((B_2f61c0*)((char*)this + 0x114))->b();
+    ((SymMatrix_2f61c0*)((char*)this + 0x114))->b();
     ((C_2f61c0*)((char*)this + 0xf8))->c();
     ((D*)((char*)this + 0xdc))->d();
     ((E_2f61c0*)((char*)this + 0x30))->e();

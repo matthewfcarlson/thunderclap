@@ -5,14 +5,14 @@ class Obj_274ba0 {
     virtual void A();
 };
 extern void FUN_002705f0();
-struct Target_274ba0 {
+struct CompletionEventRequest_274ba0 {
     void* vf;
     int p4;
     int p8;
     Obj_274ba0* pC;
-    Target_274ba0(int, Obj_274ba0*);
+    CompletionEventRequest_274ba0(int, Obj_274ba0*);
 };
-Target_274ba0::Target_274ba0(int a, Obj_274ba0* b) {
+CompletionEventRequest_274ba0::CompletionEventRequest_274ba0(int a, Obj_274ba0* b) {
     vf = vReq;
     p4 = 0;
     FUN_002705f0();

@@ -4,11 +4,11 @@ struct CtorV_001d0480 {
     virtual void v_001d0480();
 };
 extern char g1_cfcf0[], g2[], g3[];
-class B_cfcf0 : public CtorV_001d0480 {
+class Function_cfcf0 : public CtorV_001d0480 {
   public:
-    B_cfcf0(int x) : CtorV_001d0480(x, 2) { }
+    Function_cfcf0(int x) : CtorV_001d0480(x, 2) { }
 };
-class Method2 : public B_cfcf0 {
+class Method2 : public Function_cfcf0 {
   public:
     virtual void f();
     char pad[0xc];
@@ -17,7 +17,7 @@ class Method2 : public B_cfcf0 {
     unsigned char c;
     char pad3[3];
     int d;
-    Method2(int x, int y) : B_cfcf0(x) {
+    Method2(int x, int y) : Function_cfcf0(x) {
         d = y;
         c = FUN_001d04d0(g1_cfcf0);
         a = FUN_001d04d0(g2);

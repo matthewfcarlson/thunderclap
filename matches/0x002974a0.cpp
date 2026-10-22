@@ -5,18 +5,18 @@ class Ref_2974a0 {
     virtual void f0();
     virtual void Release();
 };
-class Root_2974a0 {
+class BranchNode_2974a0 {
   public:
     void* vptr;
-    ~Root_2974a0() throw();
+    ~BranchNode_2974a0() throw();
 };
-class D : public Root_2974a0 {
+class TransformNode_2974a0 : public BranchNode_2974a0 {
   public:
     char pa8[164];
     Ref_2974a0* aa8;
-    ~D() throw();
+    ~TransformNode_2974a0() throw();
 };
-D::~D() throw() {
+TransformNode_2974a0::~TransformNode_2974a0() throw() {
     vptr = &vt1_2974a0;
     _ReadWriteBarrier();
     if (aa8) {

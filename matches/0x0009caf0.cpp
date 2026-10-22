@@ -5,11 +5,11 @@ struct CtorV_001d0480 {
 extern "C" unsigned char query(void*);
 extern void* gA;
 extern void* gB;
-class Parent : public CtorV_001d0480 {
+class Function_9caf0 : public CtorV_001d0480 {
   public:
-    Parent(void* p) : CtorV_001d0480(p, 1) { }
+    Function_9caf0(void* p) : CtorV_001d0480(p, 1) { }
 };
-class Method1 : public Parent {
+class Method1 : public Function_9caf0 {
   public:
     virtual void invoke();
     char pad[12];
@@ -18,7 +18,7 @@ class Method1 : public Parent {
     unsigned char flagB;
     char pad3[3];
     void* owner;
-    Method1(void* p, void* o) : Parent(p) {
+    Method1(void* p, void* o) : Function_9caf0(p) {
         owner = o;
         flagB = query(&gB);
         flagA = query(&gA);

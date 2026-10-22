@@ -8,7 +8,7 @@ struct A_323cd0 {
 struct B_323cd0 {
     void FUN_00329400();
 };
-struct C_323cd0 {
+struct d3dPrimStream_323cd0 {
     void FUN_0031bcf0();
 };
 void __cdecl thunk_FUN_00267090(void*);
@@ -25,7 +25,7 @@ struct d3dContext : Base_323cd0 {
     char pad15c[4];
     Resource_323cd0* r160;
     char pad164[0x204 - 0x164];
-    C_323cd0* c;
+    d3dPrimStream_323cd0* c;
     B_323cd0* b;
     char pad20c[0x424 - 0x20c];
     Resource_323cd0* r424;
@@ -70,7 +70,7 @@ d3dContext::~d3dContext() {
         pb->FUN_00329400();
         thunk_FUN_00267090(pb);
     }
-    C_323cd0* pc = c;
+    d3dPrimStream_323cd0* pc = c;
     if (pc) {
         pc->FUN_0031bcf0();
         thunk_FUN_00267090(pc);

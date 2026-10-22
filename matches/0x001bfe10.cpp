@@ -2,9 +2,9 @@ typedef unsigned int uint;
 extern "C" unsigned char __cdecl lookup(const char*);
 extern char firstName[];
 extern char secondName[];
-class Base {
+class Function_1bfe10 {
   public:
-    Base(void*, int);
+    Function_1bfe10(void*, int);
     virtual void v0();
     char pad[12];
     unsigned char a;
@@ -13,9 +13,9 @@ class Base {
     char pad3[3];
     void* p;
 };
-class Method1 : public Base {
+class Method1 : public Function_1bfe10 {
   public:
-    Method1(void* x, void* z) : Base(x, 1) {
+    Method1(void* x, void* z) : Function_1bfe10(x, 1) {
         p = z;
         b = lookup(firstName);
         a = lookup(secondName);

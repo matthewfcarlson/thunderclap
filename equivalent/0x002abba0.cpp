@@ -9,7 +9,7 @@ extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *d
 extern void *__cdecl FUN_00263ea0(unsigned int size);
 extern void *__cdecl FUN_0008d690(unsigned int size);
 
-struct GeneratorBlendState_nv_2abba0 {
+struct GeneratorBlendState_2abba0 {
     pure3d::ParticlePointGenerator::GeneratorBlendState *FUN_002d2130(void *src);
 };
 
@@ -59,7 +59,7 @@ public:
     void *FUN_00265310(int id);
 };
 
-class Result_2abba0 {
+class ParticlePointGenerator_2abba0 {
 public:
     char pad0[0x1c];
     int used;
@@ -70,7 +70,7 @@ public:
     int a3c;
     int a40;
     char pad44[0x50 - 0x44];
-    Result_2abba0 *FUN_002d3740();
+    ParticlePointGenerator_2abba0 *FUN_002d3740();
 };
 
 struct Frame_2abba0 {
@@ -82,14 +82,14 @@ struct Frame_2abba0 {
     int unused;
 };
 
-Result_2abba0 *__stdcall FUN_002abba0(Reader_2abba0 *r, int arg)
+ParticlePointGenerator_2abba0 *__stdcall FUN_002abba0(Reader_2abba0 *r, int arg)
 {
     Frame_2abba0 f;
     r->stream->FUN_002647e0(&f.state, 1, 4, 1);
     void *mem = FUN_00263ea0(0x50);
-    Result_2abba0 *res;
+    ParticlePointGenerator_2abba0 *res;
     if (mem)
-        res = ((Result_2abba0 *)mem)->FUN_002d3740();
+        res = ((ParticlePointGenerator_2abba0 *)mem)->FUN_002d3740();
     else
         res = 0;
     r->stream->FUN_002647e0(&f.count, 1, 4, 1);
@@ -120,7 +120,7 @@ Result_2abba0 *__stdcall FUN_002abba0(Reader_2abba0 *r, int arg)
                     pure3d::ParticlePointGenerator::GeneratorBlendState *n;
                     void *m = FUN_0008d690(0x14);
                     if (m)
-                        n = ((GeneratorBlendState_nv_2abba0*)(((pure3d::ParticlePointGenerator::GeneratorBlendState *)m)))->FUN_002d2130(f.it->FUN_00288a10(i));
+                        n = ((GeneratorBlendState_2abba0*)(((pure3d::ParticlePointGenerator::GeneratorBlendState *)m)))->FUN_002d2130(f.it->FUN_00288a10(i));
                     else
                         n = 0;
                     res->nodes.data[res->used] = n;

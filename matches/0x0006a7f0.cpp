@@ -1,9 +1,9 @@
-class CDriftTrackBase {
+class CTrack_6a7f0 {
   public:
-    CDriftTrackBase();
-    virtual ~CDriftTrackBase();
+    CTrack_6a7f0();
+    virtual ~CTrack_6a7f0();
 };
-class CDriftTrack : public CDriftTrackBase {
+class CDriftTrack : public CTrack_6a7f0 {
   public:
     CDriftTrack();
     virtual ~CDriftTrack();

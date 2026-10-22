@@ -5,14 +5,14 @@ class Obj {
 };
 extern Obj* gObj;
 void* operator new(unsigned int) throw();
-class Made : public Obj {
+class Shader_85d30 : public Obj {
     char pad[28];
 
   public:
-    Made() throw();
+    Shader_85d30() throw();
 };
 void target() {
-    Made* p = new Made;
+    Shader_85d30* p = new Shader_85d30;
     if (p)
         p->AddRef();
     if (gObj)

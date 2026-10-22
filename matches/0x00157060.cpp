@@ -8,7 +8,7 @@ class Params_157060 {
 extern Params_157060 TypeA_157060;
 extern Params_157060 TypeB_157060;
 int __cdecl Check(void*, int, Params_157060*, Params_157060*, int);
-struct HitPushbackAddAction_nv_157060 {
+struct HitPushbackAddAction_157060 {
     int Init(hulkfight::motion::HitPushbackAddTrack*, int);
 };
 hulkfight::motion::HitPushbackAddAction* __cdecl Alloc(int);
@@ -18,7 +18,7 @@ int hulkfight::motion::HitPushbackAddTrack::vfunc_10(int a, int b, int c) {
     if (result) {
         hulkfight::motion::HitPushbackAddAction* p = Alloc(0x24);
         if (p)
-            return ((HitPushbackAddAction_nv_157060*)(p))->Init(this, c);
+            return ((HitPushbackAddAction_157060*)(p))->Init(this, c);
     }
     return 0;
 }

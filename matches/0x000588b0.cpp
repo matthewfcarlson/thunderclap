@@ -1,17 +1,17 @@
 void* __cdecl operator new(unsigned int);
-class BaseCondition {
+class CCondition_588b0 {
   public:
     virtual void f0();
-    BaseCondition(int) throw();
+    CCondition_588b0(int) throw();
     char pad[8];
 };
-class CSmartPropCSMableCondition : public BaseCondition {
+class CSmartPropCSMableCondition : public CCondition_588b0 {
   public:
     CSmartPropCSMableCondition() throw();
     virtual void f0();
     int value;
 };
-CSmartPropCSMableCondition::CSmartPropCSMableCondition() throw() : BaseCondition(0) {
+CSmartPropCSMableCondition::CSmartPropCSMableCondition() throw() : CCondition_588b0(0) {
     value = 0;
 }
 namespace fight {

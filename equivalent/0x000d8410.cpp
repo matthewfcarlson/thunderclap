@@ -81,7 +81,7 @@ struct Timer {
     void FUN_000f8500(const char *name, int a, int flag);
 };
 
-class MemCardControl {
+class FEMemCardControl_d8410 {
 public:
     void FUN_000d8410();
 
@@ -105,7 +105,7 @@ public:
     int altMode;
 };
 
-void MemCardControl::FUN_000d8410()
+void FEMemCardControl_d8410::FUN_000d8410()
 {
     char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     unsigned int o1;

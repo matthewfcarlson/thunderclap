@@ -5,11 +5,11 @@ struct CtorV_001d0480 {
 extern "C" unsigned char check(const char*);
 extern char strA[];
 extern char strB[];
-class Root : public CtorV_001d0480 {
+class Function_2ffd0 : public CtorV_001d0480 {
   public:
-    Root(void* a) : CtorV_001d0480(a, 1) { }
+    Function_2ffd0(void* a) : CtorV_001d0480(a, 1) { }
 };
-class Method1 : public Root {
+class Method1 : public Function_2ffd0 {
   public:
     virtual void invoke();
     char pad[0xc];
@@ -18,7 +18,7 @@ class Method1 : public Root {
     unsigned char flagB;
     char pad3[3];
     void* data;
-    Method1(void* a, void* c) : Root(a) {
+    Method1(void* a, void* c) : Function_2ffd0(a) {
         data = c;
         flagB = check(strB);
         flagA = check(strA);

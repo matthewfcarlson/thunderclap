@@ -5,14 +5,14 @@ class RefObj_177550 {
     virtual void Release();
 };
 
-class ActionBase_177550 {
+class Action_177550 {
   public:
-    ActionBase_177550();
+    Action_177550();
     virtual void Update();
     char pad[0x18];
 };
 
-class VisibilityAction_177550 : public ActionBase_177550 {
+class VisibilityAction_177550 : public Action_177550 {
   public:
     int mTarget;
     RefObj_177550* mObj;

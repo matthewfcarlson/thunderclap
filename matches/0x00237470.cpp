@@ -4,14 +4,14 @@ class RefObj_237470 {
     virtual void Release();
 };
 
-class Base_237470 {
+class Action_237470 {
   public:
-    Base_237470();
+    Action_237470();
     virtual void f0();
     char pad[0x18];
 };
 
-class OpportunityAction : public Base_237470 {
+class OpportunityAction : public Action_237470 {
   public:
     OpportunityAction(RefObj_237470* a, int b, int c, int d, RefObj_237470* e, int f, int g, int h, RefObj_237470* i);
     virtual void f0();

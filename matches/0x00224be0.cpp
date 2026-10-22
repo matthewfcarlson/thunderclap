@@ -1,6 +1,6 @@
-class Base_224be0 {
+class Driver_224be0 {
   public:
-    Base_224be0();
+    Driver_224be0();
     virtual void g();
     char b[12];
 };
@@ -16,7 +16,7 @@ struct Arg_224be0 {
     int b;
     char c[4];
 };
-class JointDriver : public Base_224be0 {
+class JointDriver : public Driver_224be0 {
   public:
     JointDriver(Arg_224be0* p);
     virtual void f();

@@ -4,13 +4,13 @@ class Ref_1faa60 {
   public:
     virtual void Release(int);
 };
-class Obj_1faa60 {
+class CGameDataHandler_1faa60 {
   public:
     int* vptr;
     Ref_1faa60* mRef;
     void f();
 };
-void Obj_1faa60::f() {
+void CGameDataHandler_1faa60::f() {
     vptr = &gameVftable;
     if (mRef)
         mRef->Release(1);

@@ -1,16 +1,16 @@
 #include "compat/ptr.h"
 extern "C" char DAT_00421abc[];
-struct Thing_1c8f60 {
+struct RoomLoader_1c8f60 {
     virtual void Run();
-    Thing_1c8f60* Init(unsigned p);
+    RoomLoader_1c8f60* Init(unsigned p);
 };
-extern Thing_1c8f60* __cdecl Alloc(unsigned n);
+extern RoomLoader_1c8f60* __cdecl Alloc(unsigned n);
 class LevelLoader {
   public:
     hulk_uintptr vptr;
     int m4, m8, mc, m10;
     unsigned m14, m18;
-    Thing_1c8f60* m1c;
+    RoomLoader_1c8f60* m1c;
     LevelLoader(unsigned a, unsigned b);
 };
 LevelLoader::LevelLoader(unsigned a, unsigned b) {
@@ -21,8 +21,8 @@ LevelLoader::LevelLoader(unsigned a, unsigned b) {
     vptr = ((hulk_intptr)DAT_00421abc);
     m14 = a;
     m18 = b;
-    Thing_1c8f60* t = Alloc(0x18);
-    Thing_1c8f60* r;
+    RoomLoader_1c8f60* t = Alloc(0x18);
+    RoomLoader_1c8f60* r;
     if (t)
         r = t->Init(m14);
     else

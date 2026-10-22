@@ -1,4 +1,4 @@
-class Obj {
+class CTriggerVolumeManager_1fd8f0 {
   public:
     unsigned char Check(void*);
     void* Find(__int64);
@@ -8,7 +8,7 @@ class Other {
   public:
     unsigned char Valid();
 };
-unsigned char Obj::Check(void* p) {
+unsigned char CTriggerVolumeManager_1fd8f0::Check(void* p) {
     __int64 x = Convert(p);
     Other* o = (Other*)Find(x);
     if (!o)

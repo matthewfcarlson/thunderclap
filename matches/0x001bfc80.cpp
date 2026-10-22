@@ -6,20 +6,20 @@ class Ref_1bfc80 {
     virtual void F0();
     virtual void Release();
 };
-class Base_1bfc80 {
+class Overlay_1bfc80 {
   public:
     void* vptr;
     void Fin();
 };
 void Free(void*) throw();
 
-class Obj_1bfc80 : public Base_1bfc80 {
+class CSubtitleOverlay_1bfc80 : public Overlay_1bfc80 {
   public:
     char pad[0x14];
     Ref_1bfc80* m18;
-    Obj_1bfc80* f0(unsigned char fl);
+    CSubtitleOverlay_1bfc80* f0(unsigned char fl);
 };
-Obj_1bfc80* Obj_1bfc80::f0(unsigned char fl) {
+CSubtitleOverlay_1bfc80* CSubtitleOverlay_1bfc80::f0(unsigned char fl) {
     vptr = g_vftable_1bfc80;
     _ReadWriteBarrier();
     if (m18) {

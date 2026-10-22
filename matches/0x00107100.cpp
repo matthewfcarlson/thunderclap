@@ -5,7 +5,7 @@ struct Thing_107100 {
     virtual void b();
 };
 extern int handVtable;
-struct Helper_107100 {
+struct CRangedAgent_107100 {
     void run();
 };
 void __cdecl thunk_FUN_00267090(void*);
@@ -43,7 +43,7 @@ CRangedAgent* CRangedAgent::vfunc_2(unsigned char param) {
     *(hulk_intptr*)this = (hulk_intptr)&handVtable;
     t->b();
     thing = 0;
-    ((Helper_107100*)this)->run();
+    ((CRangedAgent_107100*)this)->run();
     if (param & 1)
         thunk_FUN_00267090(this);
     return this;

@@ -1,9 +1,9 @@
-class Base_252fc0 {
+class SeqEvent_252fc0 {
   public:
     virtual void f();
-    Base_252fc0();
+    SeqEvent_252fc0();
 };
-class SeqEventVarPosDist : public Base_252fc0 {
+class SeqEventVarPosDist : public SeqEvent_252fc0 {
   public:
     virtual void g();
     int pad;
@@ -11,4 +11,4 @@ class SeqEventVarPosDist : public Base_252fc0 {
     float y;
     SeqEventVarPosDist();
 };
-SeqEventVarPosDist::SeqEventVarPosDist() : Base_252fc0(), x(1.0f), y(100.0f) {}
+SeqEventVarPosDist::SeqEventVarPosDist() : SeqEvent_252fc0(), x(1.0f), y(100.0f) {}

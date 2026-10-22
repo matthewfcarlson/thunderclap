@@ -1,13 +1,13 @@
 extern void* g_vftable[];
 void operator delete(void*);
-class RefCounted {
+class Stream_1fae60 {
   public:
     virtual void AddRef();
     virtual void Release();
-    virtual ~RefCounted();
+    virtual ~Stream_1fae60();
     int mRefCount;
 };
-class MyBufferStream : public RefCounted {
+class MyBufferStream : public Stream_1fae60 {
   public:
     virtual void* vfunc_0(unsigned int flags);
 };

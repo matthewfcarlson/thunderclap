@@ -18,18 +18,18 @@ public:
 
 class Owner_2320d0;
 
-class Instance_2320d0 : public RefObj_2320d0 {
+class QueuedNodeAction_2320d0 : public RefObj_2320d0 {
 public:
     char pad04[0x5c - 4];
-    Instance_2320d0 *FUN_0023a2a0(Spec_2320d0 *spec, int a, Owner_2320d0 *owner, int b);
-    void FUN_002326d0(Instance_2320d0 *other);
+    QueuedNodeAction_2320d0 *FUN_0023a2a0(Spec_2320d0 *spec, int a, Owner_2320d0 *owner, int b);
+    void FUN_002326d0(QueuedNodeAction_2320d0 *other);
 };
 
 class Owner_2320d0 {
 public:
     char pad0[0x14];
     RefObj_2320d0 *primary;           // 0x14
-    Instance_2320d0 *secondary;           // 0x18
+    QueuedNodeAction_2320d0 *secondary;           // 0x18
     bool FUN_002320d0(Spec_2320d0 *spec, int a, int b);
 };
 
@@ -40,8 +40,8 @@ bool Owner_2320d0::FUN_002320d0(Spec_2320d0 *spec, int a, int b)
     if (spec->source == 0)
         return true;
     int oldPool = FUN_00266da0(FUN_00238190(3));
-    Instance_2320d0 *mem = (Instance_2320d0 *)FUN_0008d690(0x5c);
-    Instance_2320d0 *inst = 0;
+    QueuedNodeAction_2320d0 *mem = (QueuedNodeAction_2320d0 *)FUN_0008d690(0x5c);
+    QueuedNodeAction_2320d0 *inst = 0;
     if (mem)
         inst = mem->FUN_0023a2a0(spec, a, this, b);
     if (secondary == 0) {

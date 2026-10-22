@@ -1,10 +1,10 @@
-class Base_6ad90 {
+class CTrack_6ad90 {
   public:
-    Base_6ad90();
+    CTrack_6ad90();
     virtual void B();
 };
 
-class CAlertStatusTrack : public Base_6ad90 {
+class CAlertStatusTrack : public CTrack_6ad90 {
   public:
     CAlertStatusTrack();
     virtual void Dummy();

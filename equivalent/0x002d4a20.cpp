@@ -8,15 +8,15 @@ struct RefObj_2d4a20 {
     virtual RefObj_2d4a20 *clone();
 };
 
-class __declspec(novtable) EmitterBase_2d4a20 {
+class __declspec(novtable) DrawablePrimitive_2d4a20 {
   public:
     virtual void f0();
     char pad_04[0x3c];
-    void FUN_002a5150(const EmitterBase_2d4a20 &src);
-    EmitterBase_2d4a20(const EmitterBase_2d4a20 &src) { FUN_002a5150(src); }
+    void FUN_002a5150(const DrawablePrimitive_2d4a20 &src);
+    DrawablePrimitive_2d4a20(const DrawablePrimitive_2d4a20 &src) { FUN_002a5150(src); }
 };
 
-class ParticleEmitter : public EmitterBase_2d4a20 {
+class ParticleEmitter : public DrawablePrimitive_2d4a20 {
   public:
     ParticleEmitter(const ParticleEmitter &src);
     virtual void f0();
@@ -68,7 +68,7 @@ class ParticleEmitter : public EmitterBase_2d4a20 {
     char flag_a6;
 };
 
-ParticleEmitter::ParticleEmitter(const ParticleEmitter &src) : EmitterBase_2d4a20(src)
+ParticleEmitter::ParticleEmitter(const ParticleEmitter &src) : DrawablePrimitive_2d4a20(src)
 {
     field_80 = 0;
     ref_84 = 0;

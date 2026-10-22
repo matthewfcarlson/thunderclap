@@ -2,7 +2,7 @@
 #include "decls/data/game/global.h"
 
 extern "C" char DAT_00424b2c[];
-class Obj_1f4aa0 {
+class Method4_1f4aa0 {
   public:
     hulk_intptr vptr;
     char pad4[0xc];
@@ -14,13 +14,13 @@ class Obj_1f4aa0 {
     char b18;
     char pad19[3];
     hulk_intptr m1c;
-    Obj_1f4aa0(char*, char*);
+    Method4_1f4aa0(char*, char*);
 };
 struct ThisCall_001d0480 {
     void Init(void*, int);
 };
 extern "C" char __cdecl Get(void*);
-Obj_1f4aa0::Obj_1f4aa0(char* a, char* b) {
+Method4_1f4aa0::Method4_1f4aa0(char* a, char* b) {
     ((ThisCall_001d0480*)(this))->Init(a, 4);
     vptr = ((hulk_intptr)DAT_00424b2c);
     m1c = (hulk_intptr)b;

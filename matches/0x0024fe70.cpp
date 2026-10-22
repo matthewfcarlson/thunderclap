@@ -1,11 +1,11 @@
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable[];
-class Base {
+class SeqEvent_24fe70 {
   public:
     void* vptr;
-    ~Base() throw();
+    ~SeqEvent_24fe70() throw();
 };
-class SeqEventContainer : public Base {
+class SeqEventContainer : public SeqEvent_24fe70 {
   public:
     char pad[4];
     int m8;
@@ -14,7 +14,7 @@ class SeqEventContainer : public Base {
     SeqEventContainer();
 };
 SeqEventContainer::SeqEventContainer() {
-    Base::~Base();
+    SeqEvent_24fe70::~SeqEvent_24fe70();
     int* q = &m8;
     *q = 0;
     vptr = g_vftable;

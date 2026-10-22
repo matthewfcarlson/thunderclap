@@ -37,12 +37,12 @@ struct IntVec_2e2a70 {
 };
 
 // The reference count sits after the vptr and is cleared before the vptr is stored.
-struct RefCount_2e2a70 {
+struct NonCopyable_2e2a70 {
     int refCount;
-    RefCount_2e2a70() throw() { refCount = 0; }
+    NonCopyable_2e2a70() throw() { refCount = 0; }
 };
 
-class MatrixPaletteList : public RefCount_2e2a70 {
+class MatrixPaletteList : public NonCopyable_2e2a70 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -110,7 +110,7 @@ public:
 
 struct Vec3_2e2a70 { float x, y, z; };
 
-class PrimObj2 {
+class PrimGroupSkinnedPC_2e2a70 {
 public:
     virtual void v0();
     virtual void v1();
@@ -136,7 +136,7 @@ public:
     RefObj_2e2a70 *palShared;
     MatrixPaletteList *list;
     VData *vdata;
-    PrimObj2 *FUN_002e0620(unsigned int a, unsigned int b, unsigned int c);
+    PrimGroupSkinnedPC_2e2a70 *FUN_002e0620(unsigned int a, unsigned int b, unsigned int c);
 };
 
 union Slot2 {
@@ -162,13 +162,13 @@ public:
     unsigned int f20;
     unsigned int f24;
     unsigned int f28;
-    void FUN_002a46d0(int a1, PrimObj2 *o);
+    void FUN_002a46d0(int a1, PrimGroupSkinnedPC_2e2a70 *o);
     void FUN_002a4b00(int a1, Stream *s, int a3);
     void FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5_2e2a70 a5);
 };
 
 struct Frame_2e2a70 {
-    PrimObj2 *obj;     // 0x10
+    PrimGroupSkinnedPC_2e2a70 *obj;     // 0x10
     Buffer_2e2a70 *vb;        // 0x14
     unsigned int vA;   // 0x18
     unsigned int cnt;  // 0x1c
@@ -195,9 +195,9 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
     f.vA = vA;
     f.lim = fl & 0xf;
     void *mem = thunk_FUN_0008d690(0x70);
-    PrimObj2 *obj = 0;
+    PrimGroupSkinnedPC_2e2a70 *obj = 0;
     if (mem != 0)
-        obj = ((PrimObj2 *)mem)->FUN_002e0620(flags, f20, f24);
+        obj = ((PrimGroupSkinnedPC_2e2a70 *)mem)->FUN_002e0620(flags, f20, f24);
     f.obj = obj;
     obj->SetName(f08);
     obj->f44 = f0c;
@@ -378,7 +378,7 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
                     RefObj_2e2a70 *p = a4;
                     if (p != 0)
                         p->AddRef();
-                    PrimObj2 *o = f.obj;
+                    PrimGroupSkinnedPC_2e2a70 *o = f.obj;
                     if (o->palShared != 0)
                         o->palShared->Release();
                     o->palShared = p;

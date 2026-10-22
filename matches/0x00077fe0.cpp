@@ -5,18 +5,18 @@ class Base {
     virtual void f();
     char pad[8];
 };
-class Middle : public Base {
+class CTrack_77fe0 : public Base {
   public:
-    Middle() : a(0), b(0) {}
+    CTrack_77fe0() : a(0), b(0) {}
     int a, b;
 };
-class CExplosionTrack : public Middle {
+class CExplosionTrack : public CTrack_77fe0 {
   public:
     CExplosionTrack();
     int c, d, e;
     virtual void g() {}
 };
-CExplosionTrack::CExplosionTrack() : Middle() {
+CExplosionTrack::CExplosionTrack() : CTrack_77fe0() {
     _ReadWriteBarrier();
     c = 0;
     d = 0;

@@ -1,4 +1,4 @@
-class Caster_189f60 {
+class TrackFactoryCasterTemplate_189f60 {
   public:
     virtual void cast();
 };
@@ -6,8 +6,8 @@ class Obj {
   public:
     int Do(void*);
 };
-extern void* Find(int, Caster_189f60*);
+extern void* Find(int, TrackFactoryCasterTemplate_189f60*);
 int Func(Obj* obj, int name) {
-    Caster_189f60 c;
+    TrackFactoryCasterTemplate_189f60 c;
     return obj->Do(Find(name, &c));
 }

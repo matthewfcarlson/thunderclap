@@ -14,17 +14,17 @@ class Helper_23ef70 {
   public:
     void Fn();
 };
-class A_23ef70 {
+class SpawnAction_23ef70 {
   public:
     void* vptr;
     char p[0x1c];
     Ref_23ef70* m20;
     Ref_23ef70* m24;
     Sub_23ef70 m28;
-    A_23ef70* f2(unsigned char flags);
+    SpawnAction_23ef70* f2(unsigned char flags);
 };
 void operator delete(void*);
-A_23ef70* A_23ef70::f2(unsigned char flags) {
+SpawnAction_23ef70* SpawnAction_23ef70::f2(unsigned char flags) {
     vptr = g_vftable_23ef70;
     _ReadWriteBarrier();
     if (m24) {

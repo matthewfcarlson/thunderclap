@@ -2,18 +2,18 @@ struct Sub_2a3530 {
     void Copy(const Sub_2a3530* o);
     char p[8];
 };
-struct Base_2a3530 {
-    Base_2a3530();
+struct Entity_2a3530 {
+    Entity_2a3530();
     virtual void f0();
     int b4;
     Sub_2a3530 s;
 };
-struct DH : Base_2a3530 {
-    DH(const DH& o);
+struct DrawableHierarchy_2a3530 : Entity_2a3530 {
+    DrawableHierarchy_2a3530(const DrawableHierarchy_2a3530& o);
     virtual void f1();
     int m10, m14, m18, m1c, m20, m24, m28, m2c, m30, m34, m38;
 };
-DH::DH(const DH& o) {
+DrawableHierarchy_2a3530::DrawableHierarchy_2a3530(const DrawableHierarchy_2a3530& o) {
     m10 = 0;
     s.Copy(&o.s);
     m14 = o.m14;

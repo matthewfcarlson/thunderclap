@@ -13,11 +13,11 @@ struct Item {
     virtual void FUN_001fd7d0_slot8(Result* out);
 };
 unsigned __int64 __cdecl FUN_0027b020(unsigned int value);
-struct Owner {
+struct CTriggerVolumeManager_1fd7d0 {
     Item* FUN_001fc8c0(unsigned __int64 key);
     Result* FUN_001fd7d0(Result* out, unsigned int value);
 };
-Result* Owner::FUN_001fd7d0(Result* out, unsigned int value) {
+Result* CTriggerVolumeManager_1fd7d0::FUN_001fd7d0(Result* out, unsigned int value) {
     unsigned __int64 key = FUN_0027b020(value);
     Item* item = FUN_001fc8c0(key);
     if (!item) {

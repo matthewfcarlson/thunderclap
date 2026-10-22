@@ -1,6 +1,6 @@
 extern "C" unsigned char __cdecl check(const void*);
 extern char a[], b[];
-class Base {
+class Function_1e1590 {
   public:
     virtual void run();
     char pad[0x0c];
@@ -9,12 +9,12 @@ class Base {
     unsigned char y;
     char pad3[3];
     int id;
-    Base(const char*, int);
+    Function_1e1590(const char*, int);
 };
-class Method1 : public Base {
+class Method1 : public Function_1e1590 {
   public:
     virtual void run();
-    Method1(const char* name, int key) : Base(name, 1) {
+    Method1(const char* name, int key) : Function_1e1590(name, 1) {
         id = key;
         y = check(a);
         x = check(b);

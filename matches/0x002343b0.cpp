@@ -1,9 +1,9 @@
-class Base_2343b0 {
+class Entity_2343b0 {
   public:
-    Base_2343b0();
+    Entity_2343b0();
     virtual void Fn();
 };
-class ConditionFactory : public Base_2343b0 {
+class ConditionFactory : public Entity_2343b0 {
   public:
     ConditionFactory();
 };

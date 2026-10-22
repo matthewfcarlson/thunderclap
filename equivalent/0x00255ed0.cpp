@@ -37,7 +37,7 @@ int __cdecl FUN_00258f00(int id);
 int __cdecl FUN_0024c4d0(Pair_255ed0 *pair, int id);
 float __cdecl FUN_00261bb0(int word, int param, int a, unsigned int bits, int constant);
 
-class Sampler_255ed0 {
+class SeqActionClip_255ed0 {
 public:
     void FUN_00255ed0(Binding_255ed0 *binding);
 
@@ -47,7 +47,7 @@ public:
     int sourceId;       // +0x14
 };
 
-void Sampler_255ed0::FUN_00255ed0(Binding_255ed0 *binding) {
+void SeqActionClip_255ed0::FUN_00255ed0(Binding_255ed0 *binding) {
     Pair_255ed0 pair;
     FUN_0025be60(FUN_0025d060(source->handle), &pair);
     id = FUN_00258f00(sourceId);

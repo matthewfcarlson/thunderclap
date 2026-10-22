@@ -5,7 +5,7 @@ class Ref_11ff60 {
     virtual void F0();
     virtual void Release();
 };
-class Base_11ff60 {
+class Action_11ff60 {
   public:
     void* vptr;
     void Fin();
@@ -17,7 +17,7 @@ struct Sub_11ff60 {
 void __fastcall SubFini(Sub_11ff60*) throw();
 void __fastcall SubFini2(Sub_11ff60*) throw();
 void __fastcall SubFini3(Sub_11ff60*) throw();
-class Obj_11ff60 : public Base_11ff60 {
+class RoutAction_11ff60 : public Action_11ff60 {
   public:
     char p34[48];
     void* m34;
@@ -25,9 +25,9 @@ class Obj_11ff60 : public Base_11ff60 {
     Ref_11ff60* m3c;
     char p60[32];
     Sub_11ff60 s60;
-    ~Obj_11ff60() throw();
+    ~RoutAction_11ff60() throw();
 };
-Obj_11ff60::~Obj_11ff60() throw() {
+RoutAction_11ff60::~RoutAction_11ff60() throw() {
     vptr = g_vftable_11ff60;
     _ReadWriteBarrier();
     if (m3c) {

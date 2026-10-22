@@ -8,9 +8,9 @@ class Registry_2008b0 { public:
     void FUN_001d3b70(const char*, void*);
     void FUN_002008b0(const char* a1, Owner* a2, void (*a3)());
 };
-class Entry_2008b0 { public: void* FUN_001fffa0(const char*, Owner*, void (*)()); };
+class Closure2_2008b0 { public: void* FUN_001fffa0(const char*, Owner*, void (*)()); };
 void Registry_2008b0::FUN_002008b0(const char* a1, Owner* a2, void (*a3)()) {
-    Entry_2008b0* e = (Entry_2008b0*)FUN_0008d690(0x24);
+    Closure2_2008b0* e = (Closure2_2008b0*)FUN_0008d690(0x24);
     void* x = 0;
     if (e)
         x = e->FUN_001fffa0(a1, a2, a3);

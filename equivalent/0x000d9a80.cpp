@@ -25,14 +25,14 @@ struct Dialog_d9a80 {
 struct Status_d9a80 { char pad[0x1bc8]; unsigned char active; };
 struct Singleton_4dd6ec { Status_d9a80* FUN_00086280(); };
 void __cdecl FUN_000fc020(unsigned short*, int, const unsigned short*);
-struct Screen_d9a80 {
+struct FEMemCardControl_d9a80 {
  char pad0[0x21c]; int state;
  char pad1[0x3b0-0x220]; unsigned char visible;
  char pad2[0x3eb-0x3b1]; unsigned char mode;
  Dialog_d9a80* FUN_000fc3d0();
  void FUN_000d9a80(int);
 };
-void Screen_d9a80::FUN_000d9a80(int) {
+void FEMemCardControl_d9a80::FUN_000d9a80(int) {
  unsigned short text[512];
  Dialog_d9a80* dialog = FUN_000fc3d0();
  TextTable* table = dialog->slot44();

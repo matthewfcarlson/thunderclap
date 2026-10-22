@@ -18,7 +18,7 @@ struct Pool_1ddcc0 {
     char pad[19];
 };
 
-class Roster_1ddcc0 {
+class CSPManager_1ddcc0 {
 public:
     char pad0[0x608];
     Slot_1ddcc0 slots[0x800];
@@ -28,7 +28,7 @@ public:
     const char *FUN_001ddcc0(int key);
 };
 
-const char *Roster_1ddcc0::FUN_001ddcc0(int key)
+const char *CSPManager_1ddcc0::FUN_001ddcc0(int key)
 {
     int idx = FUN_001dbfe0(key);
     if (idx < 0)

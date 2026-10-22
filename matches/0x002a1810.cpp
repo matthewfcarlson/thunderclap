@@ -12,12 +12,12 @@ class Mem_2a1810 {
   public:
     ~Mem_2a1810();
 };
-class Base_2a1810 {
+class DisplayTraversal_2a1810 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_2a1810 : public Base_2a1810 {
+class ShadowTraversal_2a1810 : public DisplayTraversal_2a1810 {
   public:
     char pad[0x14];
     void* vptr2;
@@ -27,9 +27,9 @@ class Obj_2a1810 : public Base_2a1810 {
     Ref_2a1810* m2c;
     char pad3[0x0c];
     void* m3c;
-    Obj_2a1810* f2(unsigned char flags);
+    ShadowTraversal_2a1810* f2(unsigned char flags);
 };
-Obj_2a1810* Obj_2a1810::f2(unsigned char flags) {
+ShadowTraversal_2a1810* ShadowTraversal_2a1810::f2(unsigned char flags) {
     vptr = g_vftable_2a1810;
     _ReadWriteBarrier();
     if (m2c) {

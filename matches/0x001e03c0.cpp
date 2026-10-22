@@ -2,15 +2,15 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
-struct Base_1e03c0 {
-    Base_1e03c0(int a, int b);
+struct Function_1e03c0 {
+    Function_1e03c0(int a, int b);
     virtual void F0();
     int pad[3];
 };
 
 char ParseArg(const char* s);
 
-struct Method6 : Base_1e03c0 {
+struct Method6 : Function_1e03c0 {
     Method6(int a, int b);
     virtual void F0();
     char c10, c11, c12, c13, c14, c15;
@@ -20,7 +20,7 @@ struct Method6 : Base_1e03c0 {
     int m1c;
 };
 
-Method6::Method6(int a, int b) : Base_1e03c0(a, 6) {
+Method6::Method6(int a, int b) : Function_1e03c0(a, 6) {
     m1c = b;
     c18 = ParseArg((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
     c10 = ParseArg((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));

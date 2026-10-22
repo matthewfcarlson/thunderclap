@@ -6,18 +6,18 @@ class Ref_293890 {
     virtual void F0();
     virtual void Release();
 };
-class Base_293890 {
+class BlendFrameController_293890 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_293890 : public Base_293890 {
+class CameraAnimationController_293890 : public BlendFrameController_293890 {
   public:
     char pad[276 - 4];
     Ref_293890* m;
-    Obj_293890* f2(unsigned char flags);
+    CameraAnimationController_293890* f2(unsigned char flags);
 };
-Obj_293890* Obj_293890::f2(unsigned char flags) {
+CameraAnimationController_293890* CameraAnimationController_293890::f2(unsigned char flags) {
     vptr = g_vt_293890;
     _ReadWriteBarrier();
     if (m) {

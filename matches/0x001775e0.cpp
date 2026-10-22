@@ -5,14 +5,14 @@ class RefObj_1775e0 {
     virtual void Release();
 };
 
-class ActionBase_1775e0 {
+class Action_1775e0 {
   public:
-    ActionBase_1775e0();
+    Action_1775e0();
     virtual void Update();
     char pad[0x18];
 };
 
-class SnapToGroundAction_1775e0 : public ActionBase_1775e0 {
+class SnapToGroundAction_1775e0 : public Action_1775e0 {
   public:
     int mTarget;
     RefObj_1775e0* mObj;

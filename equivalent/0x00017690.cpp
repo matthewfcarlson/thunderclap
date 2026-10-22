@@ -15,7 +15,7 @@ struct NameField_17690 {
     void FUN_0027b040(const char* s);
 };
 
-class HeadTracker {
+class JointDriver_17690 {
 public:
     virtual void v0();
     char pad4[4];
@@ -24,7 +24,7 @@ public:
     unsigned int index;
     int mode;
     char pad18[0x70 - 0x18];
-    HeadTracker* FUN_002248a0();
+    JointDriver_17690* FUN_002248a0();
 };
 
 struct Table_17690 {
@@ -82,7 +82,7 @@ public:
     char pad04[0x1c - 4];
     Holder2_17690* holder;
     Cfg_17690* cfg;
-    HeadTracker* tracker;
+    JointDriver_17690* tracker;
     V3_17690 dir;
     Matrix basis;
     char pad74[0x8c - 0x74];
@@ -103,9 +103,9 @@ bool CHeadTrackerAction::vfunc_6(int arg)
     if (idx == 0xffff)
         return false;
     void* mem = FUN_00263ea0(0x70);
-    HeadTracker* o = 0;
+    JointDriver_17690* o = 0;
     if (mem)
-        o = ((HeadTracker*)mem)->FUN_002248a0();
+        o = ((JointDriver_17690*)mem)->FUN_002248a0();
     tracker = o;
     o->name.FUN_0027b040("headTracker");
     tracker->v0();

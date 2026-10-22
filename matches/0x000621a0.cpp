@@ -27,7 +27,7 @@ struct CWeaponCollisionTrack : Track, Param {
 };
 extern int query(u32_621a0, int, const void*, const void*, int);
 extern void* alloc(hulk_uintptr);
-struct Maker_621a0 {
+struct CWeaponCollisionAction_621a0 {
     u32_621a0 construct(u32_621a0, CWeaponCollisionTrack*, int);
 };
 extern const int rtti1;
@@ -37,7 +37,7 @@ u32_621a0 CWeaponCollisionTrack::v10(u32_621a0 a, u32_621a0 b, u32_621a0 c) {
     if (x) {
         void* p = alloc(0x80);
         if (p)
-            return ((Maker_621a0*)p)->construct(a, this, x);
+            return ((CWeaponCollisionAction_621a0*)p)->construct(a, this, x);
     }
     return 0;
 }

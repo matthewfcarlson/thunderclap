@@ -4,18 +4,18 @@ extern void* g_vftable_2a2e20[];
 struct OpaqueTraversal_nv_2a2e20 {
     void Fn();
 };
-class OT {
+class OpaqueTraversal_2a2e20 {
   public:
     void* vptr;
     char p4[0x1c];
     void* m20;
     char p24[8];
     void* m2c;
-    OT* f2(unsigned char flags);
+    OpaqueTraversal_2a2e20* f2(unsigned char flags);
 };
 void operator delete(void*);
 void operator delete[](void*);
-OT* OT::f2(unsigned char flags) {
+OpaqueTraversal_2a2e20* OpaqueTraversal_2a2e20::f2(unsigned char flags) {
     vptr = g_vftable_2a2e20;
     _ReadWriteBarrier();
     if (m2c)

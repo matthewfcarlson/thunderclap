@@ -1,4 +1,4 @@
-class Obj_2aa0f0 {
+class SimpleFrameController_2aa0f0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -30,11 +30,11 @@ class Obj_2aa0f0 {
 };
 extern void* __cdecl match(void*, int, void*, void*, int);
 extern int typeEntity, typeVertexMixer, typePolySkin;
-class ExpressionAnimationController : public Obj_2aa0f0 {
+class ExpressionAnimationController : public SimpleFrameController_2aa0f0 {
     char pad[0x40];
 
   public:
-    Obj_2aa0f0* mField;
+    SimpleFrameController_2aa0f0* mField;
     void assign(void*);
     void vfunc_5(void*);
 };
@@ -45,7 +45,7 @@ void ExpressionAnimationController::vfunc_5(void* arg) {
         return;
     }
     p = match(arg, 0, &typeEntity, &typePolySkin, 0);
-    Obj_2aa0f0* q = *(Obj_2aa0f0**)((char*)p + 0x68);
+    SimpleFrameController_2aa0f0* q = *(SimpleFrameController_2aa0f0**)((char*)p + 0x68);
     if (q)
         q->f0();
     if (mField)

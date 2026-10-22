@@ -4,18 +4,18 @@ struct Name_11c7a0 {
     void FUN_0027af00();
 };
 
-class __declspec(novtable) TrackBase_11c7a0 {
+class __declspec(novtable) Track_11c7a0 {
 public:
     virtual void b0();
     int pad04;
     int pad08;
     void FUN_00236d40();
-    TrackBase_11c7a0() { FUN_00236d40(); }
+    Track_11c7a0() { FUN_00236d40(); }
 };
 
 namespace hulkfight {
 namespace ai {
-class PathTrack : public TrackBase_11c7a0 {
+class PathTrack : public Track_11c7a0 {
 public:
     virtual unsigned int vfunc_0(unsigned int);
     virtual void v1();

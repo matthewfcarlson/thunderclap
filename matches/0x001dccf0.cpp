@@ -7,14 +7,14 @@ struct Entry {
     Item* item;
     char rest[0xc];
 };
-class Obj {
+class CSPManager_1dccf0 {
   public:
     char pad[0x608];
     Entry entries[1];
     int find(int);
     bool set(int key, unsigned char value);
 };
-bool Obj::set(int key, unsigned char value) {
+bool CSPManager_1dccf0::set(int key, unsigned char value) {
     bool result = false;
     int index = find(key);
     if (index >= 0) {

@@ -1,9 +1,9 @@
-class Base_2a87c0 {
+class BlendFrameController_2a87c0 {
   public:
     virtual void Fn();
-    Base_2a87c0();
+    BlendFrameController_2a87c0();
 };
-class LightAnimationController : public Base_2a87c0 {
+class LightAnimationController : public BlendFrameController_2a87c0 {
   public:
     char pad[0x10c];
     int a;

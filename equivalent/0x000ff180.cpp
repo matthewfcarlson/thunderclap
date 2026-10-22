@@ -3,15 +3,15 @@
 // CHand2HandAgent::CHand2HandAgent @ 0x000ff180
 void *__cdecl FUN_0008d690(unsigned int size);
 
-class Weapon_ff180 {
+class CAvoidBehaviour_ff180 {
 public:
     virtual void AddRef();
-    Weapon_ff180 *FUN_00109ba0();
+    CAvoidBehaviour_ff180 *FUN_00109ba0();
 };
 
-class AgentBase {
+class CCharacterAgent_ff180 {
 public:
-    AgentBase(int arg);
+    CCharacterAgent_ff180(int arg);
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -26,11 +26,11 @@ public:
 };
 
 // equiv-map: ??0AgentBase@@QAE@H@Z = 0x000fc760
-class CHand2HandAgent : public AgentBase {
+class CHand2HandAgent : public CCharacterAgent_ff180 {
 public:
     CHand2HandAgent(int arg);
     virtual void vfunc_9();
-    Weapon_ff180 *f5c;
+    CAvoidBehaviour_ff180 *f5c;
     unsigned char b60;
     char pad61[3];
     int f64;
@@ -58,12 +58,12 @@ public:
     int f18c;
 };
 
-CHand2HandAgent::CHand2HandAgent(int arg) : AgentBase(arg)
+CHand2HandAgent::CHand2HandAgent(int arg) : CCharacterAgent_ff180(arg)
 {
-    Weapon_ff180 *w = 0;
+    CAvoidBehaviour_ff180 *w = 0;
     void *mem = FUN_0008d690(0x38);
     if (mem != 0)
-        w = ((Weapon_ff180 *)mem)->FUN_00109ba0();
+        w = ((CAvoidBehaviour_ff180 *)mem)->FUN_00109ba0();
     f5c = w;
     w->AddRef();
     b60 = 0;

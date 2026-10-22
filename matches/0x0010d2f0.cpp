@@ -1,6 +1,6 @@
-class Base {
+class Track_10d2f0 {
   public:
-    Base();
+    Track_10d2f0();
     virtual void Fn();
     char pad[4];
     int c;
@@ -10,7 +10,7 @@ class Part {
     Part();
     char pad[4];
 };
-class KeywordWaitTrack : public Base {
+class KeywordWaitTrack : public Track_10d2f0 {
   public:
     KeywordWaitTrack();
     virtual void Fn();
@@ -21,7 +21,7 @@ class KeywordWaitTrack : public Base {
     char pad2[4];
     char flag;
 };
-KeywordWaitTrack::KeywordWaitTrack() : Base(), a(0), b(-1.0f), part() {
+KeywordWaitTrack::KeywordWaitTrack() : Track_10d2f0(), a(0), b(-1.0f), part() {
     flag = 0;
     c = 1;
 }

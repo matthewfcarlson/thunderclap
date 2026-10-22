@@ -10,7 +10,7 @@ class Helper_1765a0 {
   public:
     void Fn();
 };
-class A_1765a0 {
+class SurfAction_1765a0 {
   public:
     void* vptr;
     char p[0x18];
@@ -19,7 +19,7 @@ class A_1765a0 {
     Ref_1765a0* m24;
     void f();
 };
-void A_1765a0::f() {
+void SurfAction_1765a0::f() {
     vptr = g_vftable_1765a0;
     _ReadWriteBarrier();
     if (m24) {

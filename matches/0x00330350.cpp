@@ -13,7 +13,7 @@ void* __stdcall D3DDevice_CreateTexture2(unsigned int width, unsigned int height
                                          unsigned int pool);
 } // namespace D3D8
 void* __cdecl FUN_0008d690(unsigned int bytes);
-struct Renderer_330350 {
+struct d3dToon2VertexShader_330350 {
     char pad0[0x10];
     void* device;
     char pad1[0x70];
@@ -21,17 +21,17 @@ struct Renderer_330350 {
     void FUN_0032ff00();
     void FUN_00330350();
 };
-struct TextureObject {
-    TextureObject* FUN_00326110(void* device, void* texture);
+struct d3dTexture_330350 {
+    d3dTexture_330350* FUN_00326110(void* device, void* texture);
 };
-void Renderer_330350::FUN_00330350() {
+void d3dToon2VertexShader_330350::FUN_00330350() {
     if (texture == 0) {
         SurfaceDesc_330350 desc;
         void* backBuffer = D3D8::D3DDevice_GetBackBuffer2(0);
         D3D8::D3DSurface_GetDesc(backBuffer, &desc);
         D3D8::D3DResource_Release(backBuffer);
         void* newTexture = D3D8::D3DDevice_CreateTexture2(256, 1, 1, 1, 0, desc.format, 3);
-        TextureObject* object = (TextureObject*)FUN_0008d690(0xf8);
+        d3dTexture_330350* object = (d3dTexture_330350*)FUN_0008d690(0xf8);
         texture = object != 0 ? object->FUN_00326110(device, newTexture) : 0;
         FUN_0032ff00();
     }

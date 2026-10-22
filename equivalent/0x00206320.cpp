@@ -10,7 +10,7 @@ struct Obj_206320 {
   virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5();
   void FUN_00263e90(); void FUN_002660a0(Obj_206320*);
 };
-struct Alloc_206320 { Obj_206320* FUN_00266480(int); };
+struct LoadInventory_206320 { Obj_206320* FUN_00266480(int); };
 struct Sub_206320 { int FUN_00088fa0(); int FUN_00088fb0(); };
 struct Ctx_206320 {
   char pad0[0x80]; Sub_206320 sub;
@@ -90,7 +90,7 @@ void W_206320::FUN_00206320(Ctx_206320* g){
     if (ae4) { ae4->slot1(); ae4 = 0; }
     if (aa0) { aa0->slot1(); aa0 = 0; }
     void* mem = FUN_00263ea0(0x14);
-    aa0 = mem ? ((Alloc_206320*)mem)->FUN_00266480(0x800) : 0;
+    aa0 = mem ? ((LoadInventory_206320*)mem)->FUN_00266480(0x800) : 0;
     aa0->slot0();
     FUN_000964a0(buf, 0x100, "art/global_nonchar.p3d");
     FUN_00203e90(buf, 0, 1, 0, aa0, 0, 0x11)->FUN_00263e90();

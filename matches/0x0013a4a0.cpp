@@ -1,7 +1,7 @@
-class Base_13a4a0 {
+class Track_13a4a0 {
   public:
     virtual void f();
-    Base_13a4a0();
+    Track_13a4a0();
     char pad[8];
 };
 class Part_13a4a0 {
@@ -9,7 +9,7 @@ class Part_13a4a0 {
     Part_13a4a0();
     char pad[8];
 };
-class AnimationVelocityScaledTrack : public Base_13a4a0 {
+class AnimationVelocityScaledTrack : public Track_13a4a0 {
   public:
     AnimationVelocityScaledTrack();
     int a;

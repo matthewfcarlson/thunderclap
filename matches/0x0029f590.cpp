@@ -8,7 +8,7 @@ class End_29f590 {
   public:
     void Finish();
 };
-class Cache_29f590 {
+class CacheManager_29f590 {
   public:
     virtual void V();
     int pad04[9];
@@ -16,12 +16,12 @@ class Cache_29f590 {
     hulk_intptr m2c;
     hulk_intptr m30;
     int m34;
-    ~Cache_29f590();
+    ~CacheManager_29f590();
 };
 void __cdecl Free(void*);
 void __cdecl Free2(void*);
 void __cdecl Free3(void*);
-Cache_29f590::~Cache_29f590() {
+CacheManager_29f590::~CacheManager_29f590() {
     int i = 0;
     if (m34 > 0) {
         for (; i < m34; ++i) {

@@ -16,7 +16,7 @@ struct Sub18_17050 {
     void FUN_00221d20(float a);
 };
 
-class Obj70_17050 {
+class JointDriver_17050 {
 public:
     virtual void v0();
     char pad4[4];
@@ -24,7 +24,7 @@ public:
     char pad1[0x18 - 0x9];
     Sub18_17050 s18;
     char pad2[0x70 - 0x19];
-    Obj70_17050 *FUN_002248f0(int a);
+    JointDriver_17050 *FUN_002248f0(int a);
 };
 
 struct Aimed_17050 {
@@ -38,7 +38,7 @@ struct TrackerSub_17050 {
 struct Tracker_17050 {
     char pad0[0x10];
     TrackerSub_17050 sub;
-    void FUN_00222890(Obj70_17050 *o, float a, float b, float c, float d, float e, float f);
+    void FUN_00222890(JointDriver_17050 *o, float a, float b, float c, float d, float e, float f);
 };
 
 struct Target_17050 {
@@ -89,7 +89,7 @@ public:
     char pad[0x1c - 4];
     Holder_17050 *f1c;
     Cfg_17050 *f20;
-    Obj70_17050 *f24;
+    JointDriver_17050 *f24;
     V3_17050 dir;
 };
 
@@ -110,9 +110,9 @@ bool CJumpAttackAction::vfunc_6(int arg)
     fr.c[1] = c0->f30;
     fr.c[0] = c0->f34;
     void *mem = FUN_00263ea0(0x70);
-    Obj70_17050 *o = 0;
+    JointDriver_17050 *o = 0;
     if (mem)
-        o = ((Obj70_17050 *)mem)->FUN_002248f0(0);
+        o = ((JointDriver_17050 *)mem)->FUN_002248f0(0);
     f24 = o;
     o->name.FUN_0027b040("jumpAttack");
     f24->v0();

@@ -5,7 +5,7 @@ class Ref_173c50 {
     virtual void F0();
     virtual void Release();
 };
-class Base_173c50 {
+class Action_173c50 {
   public:
     void* vptr;
     void Fin();
@@ -16,7 +16,7 @@ struct Sub_173c50 {
 };
 void __fastcall SubFini(Sub_173c50*) throw();
 void __fastcall SubFini2(Sub_173c50*) throw();
-class Obj_173c50 : public Base_173c50 {
+class JointPivotTrackerAction_173c50 : public Action_173c50 {
   public:
     char p1c[24];
     void* m1c;
@@ -24,9 +24,9 @@ class Obj_173c50 : public Base_173c50 {
     Ref_173c50* m24;
     char p80[88];
     Ref_173c50* m80;
-    ~Obj_173c50() throw();
+    ~JointPivotTrackerAction_173c50() throw();
 };
-Obj_173c50::~Obj_173c50() throw() {
+JointPivotTrackerAction_173c50::~JointPivotTrackerAction_173c50() throw() {
     vptr = g_vftable_173c50;
     _ReadWriteBarrier();
     if (m80) {

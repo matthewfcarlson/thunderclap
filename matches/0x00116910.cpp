@@ -5,14 +5,14 @@ class RefObj_116910 {
     virtual void Release();
 };
 
-class ActionBase_116910 {
+class Action_116910 {
   public:
-    ActionBase_116910();
+    Action_116910();
     virtual void Update();
     char pad[0x18];
 };
 
-class MotionStopAction_116910 : public ActionBase_116910 {
+class MotionStopAction_116910 : public Action_116910 {
   public:
     int mTarget;
     RefObj_116910* mObj;

@@ -12,13 +12,13 @@ class Src_2d4040 {
   public:
     void* Find(unsigned a, unsigned b) throw();
 };
-class D {
+class EmitterBlendState_2d4040 {
   public:
     void* vptr;
     void* v[18];
-    D(Src_2d4040* s) throw();
+    EmitterBlendState_2d4040(Src_2d4040* s) throw();
 };
-D::D(Src_2d4040* s) throw() {
+EmitterBlendState_2d4040::EmitterBlendState_2d4040(Src_2d4040* s) throw() {
     v[0] = 0;
     vptr = &vt1_2d4040;
     v[1] = 0;

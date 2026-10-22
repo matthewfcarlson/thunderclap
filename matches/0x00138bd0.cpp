@@ -1,6 +1,6 @@
 #include "gen/hulkfight.h"
 
-struct HoverAction_nv_138bd0 {
+struct HoverAction_138bd0 {
     int build(int, int);
 };
 extern int __cdecl Lookup(int);
@@ -12,7 +12,7 @@ int hulkfight::motion::GrappleHoverTrack::vfunc_10(int a, int b, int c) {
         hulkfight::motion::HoverAction* p = Alloc(0x24);
         if (p) {
             int f = this->f_14;
-            return ((HoverAction_nv_138bd0*)(p))->build(f, x);
+            return ((HoverAction_138bd0*)(p))->build(f, x);
         }
     }
     return 0;

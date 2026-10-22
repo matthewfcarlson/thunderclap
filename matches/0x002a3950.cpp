@@ -5,19 +5,19 @@ class Ref_2a3950 {
     virtual void f0();
     virtual void Release();
 };
-class Root_2a3950 {
+class DrawableContainer_2a3950 {
   public:
     void* vptr;
-    ~Root_2a3950() throw();
+    ~DrawableContainer_2a3950() throw();
 };
-class D : public Root_2a3950 {
+class ParticleSystem_2a3950 : public DrawableContainer_2a3950 {
   public:
     char pa4[160];
     Ref_2a3950* aa4;
     Ref_2a3950* aa8;
-    ~D() throw();
+    ~ParticleSystem_2a3950() throw();
 };
-D::~D() throw() {
+ParticleSystem_2a3950::~ParticleSystem_2a3950() throw() {
     vptr = &vt1_2a3950;
     _ReadWriteBarrier();
     if (aa4) {

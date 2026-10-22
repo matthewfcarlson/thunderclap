@@ -7,12 +7,12 @@ struct Elem_268860 {
     virtual const char* Name();
     int pad[3];
 };
-struct C_268860 {
+struct ControllerXBox_268860 {
     char pad[0x428];
     Elem_268860 e[2];
     int Count(const char* s);
 };
-int C_268860::Count(const char* s) {
+int ControllerXBox_268860::Count(const char* s) {
     int n = 0;
     for (int i = 0; i < 2; i++) {
         if (strcmp(e[i].Name(), s) == 0)

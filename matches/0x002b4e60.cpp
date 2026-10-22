@@ -1,8 +1,8 @@
 #include "compat/ptr.h"
 void* __cdecl alloc(hulk_uintptr);
-class Mesh {
+class ShadowMeshBuffer_2b4e60 {
   public:
-    Mesh* Init(int) throw();
+    ShadowMeshBuffer_2b4e60* Init(int) throw();
 };
 class ShadowMeshBufferLoader {
   public:
@@ -12,10 +12,10 @@ class ShadowMeshBufferLoader {
     virtual void d();
     virtual void e();
     virtual void f();
-    virtual Mesh* vfunc_6(int);
+    virtual ShadowMeshBuffer_2b4e60* vfunc_6(int);
 };
-Mesh* ShadowMeshBufferLoader::vfunc_6(int x) {
-    Mesh* p = (Mesh*)alloc(0x58);
+ShadowMeshBuffer_2b4e60* ShadowMeshBufferLoader::vfunc_6(int x) {
+    ShadowMeshBuffer_2b4e60* p = (ShadowMeshBuffer_2b4e60*)alloc(0x58);
     if (p)
         return p->Init(x);
     return 0;

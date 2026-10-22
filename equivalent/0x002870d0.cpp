@@ -109,19 +109,19 @@ public:
     NameHolder_2870d0 nameHolder;
 };
 
-class Exp_2870d0 : public Base_2870d0 { public: Exp_2870d0 *FUN_002a9cb0(); void FUN_002a9ea0(void *r); };
-class Cam_2870d0 : public Base_2870d0 { public: Cam_2870d0 *FUN_00292eb0(); void FUN_00293100(void *r); };
-class Bqg : public Base_2870d0 { public: Bqg *FUN_002a9760(); void FUN_002a98f0(int v); };
-class Tex_2870d0 : public Base_2870d0 { public: Tex_2870d0 *FUN_002a9410(); void FUN_002a9540(void *r); };
-class Shad : public Base_2870d0 { public: Shad *FUN_002a83e0(); void FUN_002a8650(void *r); };
-class Efx : public Base_2870d0 { public: Efx *FUN_002a73d0(); void FUN_002a75a0(void *r); };
-class Lite : public Base_2870d0 { public: Lite *FUN_002a87c0(); void FUN_002a8aa0(void *r); };
-class Ptrn : public Base_2870d0 { public: Ptrn *FUN_00287860(); void FUN_00288080(int v); };
-class Strn : public Base_2870d0 { public: Strn *FUN_002a7730(); void FUN_002a77c0(pure3d::scenegraph::TransformNode *n); };
-class Pvis : public Base_2870d0 { public: Pvis *FUN_002a80c0(); void FUN_002a8310(SceneRes *r); };
-class Svis : public Base_2870d0 { public: Svis *FUN_002a7b90(); void FUN_002a7cf0(pure3d::scenegraph::VisibilityNode *n); };
-class Pvrt : public Base_2870d0 { public: Pvrt *FUN_002a5420(); void FUN_002a6930(void *r); };
-class Vrtx : public Base_2870d0 { public: Vrtx *FUN_002a6cb0(); void FUN_002a6ed0(void *r); };
+class ExpressionAnimationController_2870d0 : public Base_2870d0 { public: ExpressionAnimationController_2870d0 *FUN_002a9cb0(); void FUN_002a9ea0(void *r); };
+class CameraAnimationController_2870d0 : public Base_2870d0 { public: CameraAnimationController_2870d0 *FUN_00292eb0(); void FUN_00293100(void *r); };
+class BillboardQuadGroupAnimationController_2870d0 : public Base_2870d0 { public: BillboardQuadGroupAnimationController_2870d0 *FUN_002a9760(); void FUN_002a98f0(int v); };
+class TextureAnimationController_2870d0 : public Base_2870d0 { public: TextureAnimationController_2870d0 *FUN_002a9410(); void FUN_002a9540(void *r); };
+class ShaderAnimationController_2870d0 : public Base_2870d0 { public: ShaderAnimationController_2870d0 *FUN_002a83e0(); void FUN_002a8650(void *r); };
+class ParticleController_2870d0 : public Base_2870d0 { public: ParticleController_2870d0 *FUN_002a73d0(); void FUN_002a75a0(void *r); };
+class LightAnimationController_2870d0 : public Base_2870d0 { public: LightAnimationController_2870d0 *FUN_002a87c0(); void FUN_002a8aa0(void *r); };
+class PoseAnimationController_2870d0 : public Base_2870d0 { public: PoseAnimationController_2870d0 *FUN_00287860(); void FUN_00288080(int v); };
+class SceneGraphTransformAnimationController_2870d0 : public Base_2870d0 { public: SceneGraphTransformAnimationController_2870d0 *FUN_002a7730(); void FUN_002a77c0(pure3d::scenegraph::TransformNode *n); };
+class CompDrawVisibilityAnimationController_2870d0 : public Base_2870d0 { public: CompDrawVisibilityAnimationController_2870d0 *FUN_002a80c0(); void FUN_002a8310(SceneRes *r); };
+class SceneGraphVisibilityAnimationController_2870d0 : public Base_2870d0 { public: SceneGraphVisibilityAnimationController_2870d0 *FUN_002a7b90(); void FUN_002a7cf0(pure3d::scenegraph::VisibilityNode *n); };
+class ProceduralVertexAnimController_2870d0 : public Base_2870d0 { public: ProceduralVertexAnimController_2870d0 *FUN_002a5420(); void FUN_002a6930(void *r); };
+class VertexAnimController_2870d0 : public Base_2870d0 { public: VertexAnimController_2870d0 *FUN_002a6cb0(); void FUN_002a6ed0(void *r); };
 
 void *__cdecl FUN_00286750(Reader *r, const char *name);
 void *__cdecl FUN_000f23a0(Reader *r, const char *name);
@@ -176,8 +176,8 @@ Base_2870d0 *OldFrameControllerLoader::v7(const char *name, unsigned int tag, St
 
     switch (tag) {
     case 0x505845: {
-        Exp_2870d0 *p = (Exp_2870d0 *)thunk_FUN_0008d690(0x50);
-        Exp_2870d0 *o;
+        ExpressionAnimationController_2870d0 *p = (ExpressionAnimationController_2870d0 *)thunk_FUN_0008d690(0x50);
+        ExpressionAnimationController_2870d0 *o;
         if (p != 0)
             o = p->FUN_002a9cb0();
         else
@@ -191,8 +191,8 @@ Base_2870d0 *OldFrameControllerLoader::v7(const char *name, unsigned int tag, St
         return o;
     }
     case 0x4d4143: {
-        Cam_2870d0 *p = (Cam_2870d0 *)thunk_FUN_0008d690(0x118);
-        Cam_2870d0 *o;
+        CameraAnimationController_2870d0 *p = (CameraAnimationController_2870d0 *)thunk_FUN_0008d690(0x118);
+        CameraAnimationController_2870d0 *o;
         if (p != 0)
             o = p->FUN_00292eb0();
         else
@@ -206,8 +206,8 @@ Base_2870d0 *OldFrameControllerLoader::v7(const char *name, unsigned int tag, St
         return o;
     }
     case 0x584554: {
-        Tex_2870d0 *p = (Tex_2870d0 *)thunk_FUN_0008d690(0x48);
-        Tex_2870d0 *o;
+        TextureAnimationController_2870d0 *p = (TextureAnimationController_2870d0 *)thunk_FUN_0008d690(0x48);
+        TextureAnimationController_2870d0 *o;
         if (p != 0)
             o = p->FUN_002a9410();
         else
@@ -221,8 +221,8 @@ Base_2870d0 *OldFrameControllerLoader::v7(const char *name, unsigned int tag, St
         return o;
     }
     case 0x44414853: {
-        Shad *p = (Shad *)thunk_FUN_0008d690(0x48);
-        Shad *o;
+        ShaderAnimationController_2870d0 *p = (ShaderAnimationController_2870d0 *)thunk_FUN_0008d690(0x48);
+        ShaderAnimationController_2870d0 *o;
         if (p != 0)
             o = p->FUN_002a83e0();
         else
@@ -236,8 +236,8 @@ Base_2870d0 *OldFrameControllerLoader::v7(const char *name, unsigned int tag, St
         return o;
     }
     case 0x58545256: {
-        Vrtx *p = (Vrtx *)thunk_FUN_0008d690(0x48);
-        Vrtx *o;
+        VertexAnimController_2870d0 *p = (VertexAnimController_2870d0 *)thunk_FUN_0008d690(0x48);
+        VertexAnimController_2870d0 *o;
         if (p != 0)
             o = p->FUN_002a6cb0();
         else
@@ -251,8 +251,8 @@ Base_2870d0 *OldFrameControllerLoader::v7(const char *name, unsigned int tag, St
         return o;
     }
     case 0x475142: {
-        Bqg *p = (Bqg *)thunk_FUN_0008d690(0x48);
-        Bqg *o;
+        BillboardQuadGroupAnimationController_2870d0 *p = (BillboardQuadGroupAnimationController_2870d0 *)thunk_FUN_0008d690(0x48);
+        BillboardQuadGroupAnimationController_2870d0 *o;
         if (p != 0)
             o = p->FUN_002a9760();
         else
@@ -266,8 +266,8 @@ Base_2870d0 *OldFrameControllerLoader::v7(const char *name, unsigned int tag, St
         return o;
     }
     case 0x584645: {
-        Efx *p = (Efx *)thunk_FUN_0008d690(0x60);
-        Efx *o;
+        ParticleController_2870d0 *p = (ParticleController_2870d0 *)thunk_FUN_0008d690(0x60);
+        ParticleController_2870d0 *o;
         if (p != 0)
             o = p->FUN_002a73d0();
         else
@@ -279,8 +279,8 @@ Base_2870d0 *OldFrameControllerLoader::v7(const char *name, unsigned int tag, St
         return o;
     }
     case 0x4554494c: {
-        Lite *p = (Lite *)thunk_FUN_0008d690(0x118);
-        Lite *o;
+        LightAnimationController_2870d0 *p = (LightAnimationController_2870d0 *)thunk_FUN_0008d690(0x118);
+        LightAnimationController_2870d0 *o;
         if (p != 0)
             o = p->FUN_002a87c0();
         else
@@ -295,8 +295,8 @@ Base_2870d0 *OldFrameControllerLoader::v7(const char *name, unsigned int tag, St
         return o;
     }
     case 0x4e525450: {
-        Ptrn *p = (Ptrn *)thunk_FUN_0008d690(0x150);
-        Ptrn *o;
+        PoseAnimationController_2870d0 *p = (PoseAnimationController_2870d0 *)thunk_FUN_0008d690(0x150);
+        PoseAnimationController_2870d0 *o;
         if (p != 0)
             o = p->FUN_00287860();
         else
@@ -310,8 +310,8 @@ Base_2870d0 *OldFrameControllerLoader::v7(const char *name, unsigned int tag, St
         return o;
     }
     case 0x4e525453: {
-        Strn *p = (Strn *)thunk_FUN_0008d690(0x118);
-        Strn *o;
+        SceneGraphTransformAnimationController_2870d0 *p = (SceneGraphTransformAnimationController_2870d0 *)thunk_FUN_0008d690(0x118);
+        SceneGraphTransformAnimationController_2870d0 *o;
         if (p != 0)
             o = p->FUN_002a7730();
         else
@@ -327,8 +327,8 @@ Base_2870d0 *OldFrameControllerLoader::v7(const char *name, unsigned int tag, St
         return o;
     }
     case 0x53495650: {
-        Pvis *p = (Pvis *)thunk_FUN_0008d690(0x60);
-        Pvis *o;
+        CompDrawVisibilityAnimationController_2870d0 *p = (CompDrawVisibilityAnimationController_2870d0 *)thunk_FUN_0008d690(0x60);
+        CompDrawVisibilityAnimationController_2870d0 *o;
         if (p != 0)
             o = p->FUN_002a80c0();
         else
@@ -342,8 +342,8 @@ Base_2870d0 *OldFrameControllerLoader::v7(const char *name, unsigned int tag, St
         return o;
     }
     case 0x53495653: {
-        Svis *p = (Svis *)thunk_FUN_0008d690(0x48);
-        Svis *o;
+        SceneGraphVisibilityAnimationController_2870d0 *p = (SceneGraphVisibilityAnimationController_2870d0 *)thunk_FUN_0008d690(0x48);
+        SceneGraphVisibilityAnimationController_2870d0 *o;
         if (p != 0)
             o = p->FUN_002a7b90();
         else
@@ -360,8 +360,8 @@ Base_2870d0 *OldFrameControllerLoader::v7(const char *name, unsigned int tag, St
         return o;
     }
     case 0x54525650: {
-        Pvrt *p = (Pvrt *)thunk_FUN_0008d690(0x58);
-        Pvrt *o;
+        ProceduralVertexAnimController_2870d0 *p = (ProceduralVertexAnimController_2870d0 *)thunk_FUN_0008d690(0x58);
+        ProceduralVertexAnimController_2870d0 *o;
         if (p != 0)
             o = p->FUN_002a5420();
         else

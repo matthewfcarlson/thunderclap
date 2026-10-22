@@ -7,21 +7,21 @@ class Ref_2d3c90 {
     virtual void F0();
     virtual void Release();
 };
-class Base_2d3c90 {
+class ParticleGenerator_2d3c90 {
   public:
     void* vptr;
     void Fin();
 };
-class Gen_2d3c90 : public Base_2d3c90 {
+class ParticleSphereGenerator_2d3c90 : public ParticleGenerator_2d3c90 {
   public:
     char pad[0x18];
     unsigned n;
     char pad2[8];
     Ref_2d3c90* m28;
     Ref_2d3c90** arr;
-    ~Gen_2d3c90();
+    ~ParticleSphereGenerator_2d3c90();
 };
-Gen_2d3c90::~Gen_2d3c90() {
+ParticleSphereGenerator_2d3c90::~ParticleSphereGenerator_2d3c90() {
     vptr = g_vftable_2d3c90;
     _ReadWriteBarrier();
     if (m28) {

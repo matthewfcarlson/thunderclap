@@ -1,10 +1,10 @@
 typedef unsigned int u32_330d40;
-class Base_330d40 {
+class d3dShader_330d40 {
   public:
     void Init(u32_330d40);
 };
 extern int vtableSymbol;
-class d3dToonVertexShader_330d40 : public Base_330d40 {
+class d3dToonVertexShader_330d40 : public d3dShader_330d40 {
   public:
     char p[0x94];
     u32_330d40 x94;

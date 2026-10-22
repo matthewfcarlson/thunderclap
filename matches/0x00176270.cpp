@@ -5,14 +5,14 @@ class RefObj_176270 {
     virtual void Release();
 };
 
-class ActionBase_176270 {
+class Action_176270 {
   public:
-    ActionBase_176270();
+    Action_176270();
     virtual void Update();
     char pad[0x18];
 };
 
-class TargetIconDistanceAction_176270 : public ActionBase_176270 {
+class TargetIconDistanceAction_176270 : public Action_176270 {
   public:
     int mTarget;
     RefObj_176270* mObj;

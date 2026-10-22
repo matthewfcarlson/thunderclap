@@ -5,12 +5,12 @@ class Ref_144a10 {
     virtual void F0();
     virtual void Release();
 };
-class Base_144a10 {
+class Action_144a10 {
   public:
     void* vptr;
     void Fin();
 };
-class WorldConeDamageAction_144a10 : public Base_144a10 {
+class WorldConeDamageAction_144a10 : public Action_144a10 {
   public:
     char pad[0x18];
     void* m1c;

@@ -7,15 +7,15 @@ class Temp {
     Temp* Init(const char*, int) throw();
     ~Temp() throw();
 };
-class Base {
+class SeqEventType_2528b0 {
   public:
-    Base(Temp*, const U64&, int, int) throw();
+    SeqEventType_2528b0(Temp*, const U64&, int, int) throw();
     virtual void v();
 };
-class audioSeqEventVarVolumeType : public Base {
+class SeqEventVarVolumeType_2528b0 : public SeqEventType_2528b0 {
   public:
-    audioSeqEventVarVolumeType() throw();
+    SeqEventVarVolumeType_2528b0() throw();
     virtual void v();
 };
-audioSeqEventVarVolumeType::audioSeqEventVarVolumeType() throw()
-    : Base(Temp().Init("Vol", 0), MakeValue("SeqEventVarVolume", 0, 0), 12, 4) {}
+SeqEventVarVolumeType_2528b0::SeqEventVarVolumeType_2528b0() throw()
+    : SeqEventType_2528b0(Temp().Init("Vol", 0), MakeValue("SeqEventVarVolume", 0, 0), 12, 4) {}

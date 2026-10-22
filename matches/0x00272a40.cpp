@@ -7,7 +7,7 @@ class Other_272a40 {
   public:
     void Run(int);
 };
-class Obj_272a40 {
+class Drive_272a40 {
   public:
     char pad0[0x0c];
     Inner_272a40 inner;
@@ -18,7 +18,7 @@ class Obj_272a40 {
     Other_272a40* other;
     void Target(int);
 };
-void Obj_272a40::Target(int arg) {
+void Drive_272a40::Target(int arg) {
     inner.A();
     flag = 0;
     value = 0;

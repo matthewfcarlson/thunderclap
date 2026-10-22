@@ -3,7 +3,7 @@
 // cl-flags: /GS
 #include "decls/address.h"
 
-struct Actor_3ea10 {
+struct CCharacter_3ea10 {
     char pad0[0x328];
     void *target;            // 0x328
     char pad32c[0x1b48 - 0x32c];
@@ -15,7 +15,7 @@ struct Group_3ea10 {
     char pad0[0xc];
     int count;               // 0x0c
     char FUN_000242d0(void *owner);
-    Actor_3ea10 *FUN_00024190(int index);
+    CCharacter_3ea10 *FUN_00024190(int index);
 };
 
 struct Event_3ea10 {
@@ -73,7 +73,7 @@ void Controller_3ea10::FUN_0003ea10(int newMode)
             if (!DAT_004dd700->group->FUN_000242d0(this)) {
                 int count = DAT_004dd700->group->count;
                 for (int i = 0; i < count; i++) {
-                    Actor_3ea10 *a = DAT_004dd700->group->FUN_00024190(i);
+                    CCharacter_3ea10 *a = DAT_004dd700->group->FUN_00024190(i);
                     if (a->target && a->target == activeTarget) {
                         if (a->active)
                             a->active = 0;

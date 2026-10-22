@@ -8,7 +8,7 @@ public:
     void FUN_001ef260(void *p);
 };
 
-struct CSoundCommand_SetLoopPitchEvent_nv_1f1670 {
+struct CSoundCommand_SetLoopPitchEvent_1f1670 {
     void *FUN_001f03a0(int a, int b, int c, int d, int e);
 };
 
@@ -23,7 +23,7 @@ void __stdcall FUN_001f1670(int a, int b, int c, int d, int e)
         return;
     CSoundCommand_SetLoopPitchEvent *j = (CSoundCommand_SetLoopPitchEvent *)FUN_0008d710(0x28, 6);
     if (j != 0) {
-        m->FUN_001ef260(((CSoundCommand_SetLoopPitchEvent_nv_1f1670*)(j))->FUN_001f03a0(a, b, c, d, e));
+        m->FUN_001ef260(((CSoundCommand_SetLoopPitchEvent_1f1670*)(j))->FUN_001f03a0(a, b, c, d, e));
     } else {
         m->FUN_001ef260(0);
     }

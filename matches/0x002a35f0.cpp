@@ -5,18 +5,18 @@ class Ref_2a35f0 {
     virtual void F0();
     virtual void Release();
 };
-class Base_2a35f0 {
+class Entity_2a35f0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj_2a35f0 : public Base_2a35f0 {
+class DrawableHierarchy_2a35f0 : public Entity_2a35f0 {
   public:
     char pad[12];
     Ref_2a35f0* m;
-    ~Obj_2a35f0();
+    ~DrawableHierarchy_2a35f0();
 };
-Obj_2a35f0::~Obj_2a35f0() {
+DrawableHierarchy_2a35f0::~DrawableHierarchy_2a35f0() {
     vptr = g_vftable_2a35f0;
     _ReadWriteBarrier();
     if (m) {

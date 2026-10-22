@@ -1,14 +1,14 @@
-class Caster_139390 {
+class TrackFactoryCasterTemplate_139390 {
   public:
     virtual void cast();
 };
-extern "C" int __cdecl first(int, Caster_139390*);
+extern "C" int __cdecl first(int, TrackFactoryCasterTemplate_139390*);
 class Obj {
   public:
     void second(int);
 };
 void func(Obj* o, int n) {
-    Caster_139390 c;
+    TrackFactoryCasterTemplate_139390 c;
     int r = first(n, &c);
     o->second(r);
 }

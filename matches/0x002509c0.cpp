@@ -1,15 +1,15 @@
 #include "compat/ptr.h"
 extern "C" char DAT_00429c8c[];
 extern const char expr[];
-class Base_2509c0 {
+class SeqEvent_2509c0 {
   public:
-    Base_2509c0();
+    SeqEvent_2509c0();
 };
 class Text_2509c0 {
   public:
     void Set(const char*, int);
 };
-class SeqEventExpression : public Base_2509c0 {
+class SeqEventExpression : public SeqEvent_2509c0 {
   public:
     hulk_intptr vptr;
     char pad[4];

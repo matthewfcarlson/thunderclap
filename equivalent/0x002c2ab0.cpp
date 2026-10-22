@@ -80,8 +80,8 @@ struct Pair_2c2ab0 {
     unsigned int w20;
 };
 
-struct Obj18_2c2ab0 : public RefObj_2c2ab0 {
-    Obj18_2c2ab0* FUN_002d1090(Geometry* g) throw();
+struct VertexAnimObject_2c2ab0 : public RefObj_2c2ab0 {
+    VertexAnimObject_2c2ab0* FUN_002d1090(Geometry* g) throw();
 };
 
 struct NameObj_2c2ab0 {
@@ -89,7 +89,7 @@ struct NameObj_2c2ab0 {
     void FUN_0027b040(const char* s) throw();
 };
 
-class __declspec(novtable) GeometryBase {
+class __declspec(novtable) DrawableContainer_2c2ab0 {
 public:
     virtual void g0() throw();
     virtual void g1() throw();
@@ -105,12 +105,12 @@ public:
     char* buf48;
     char pad4c[0xc];
     void FUN_002a4e10(unsigned int n) throw();
-    GeometryBase(unsigned int n) { FUN_002a4e10(n); }
+    DrawableContainer_2c2ab0(unsigned int n) { FUN_002a4e10(n); }
 };
 
-class Geometry : public GeometryBase {
+class Geometry : public DrawableContainer_2c2ab0 {
 public:
-    Geometry(unsigned int n) : GeometryBase(n) { p58 = 0; p5c = 0; p60 = 0; p64 = 0; }
+    Geometry(unsigned int n) : DrawableContainer_2c2ab0(n) { p58 = 0; p5c = 0; p60 = 0; p64 = 0; }
     virtual void g0() throw();
     virtual void g1() throw();
     RefObj_2c2ab0* p58;
@@ -256,9 +256,9 @@ u64_2c2ab0 GeometryLoader::vfunc_5(Geometry** out, u64_2c2ab0* hashOut, Loader_2
                     g->p58->Release();
                 g->p58 = a;
                 void* m = FUN_0008d690(0x18);
-                Obj18_2c2ab0* o;
+                VertexAnimObject_2c2ab0* o;
                 if (m)
-                    o = ((Obj18_2c2ab0*)m)->FUN_002d1090(g);
+                    o = ((VertexAnimObject_2c2ab0*)m)->FUN_002d1090(g);
                 else
                     o = 0;
                 if (o)

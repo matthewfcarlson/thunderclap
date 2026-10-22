@@ -14,8 +14,8 @@ struct Owner_1e30f0 { char pad[0x54]; Context* context; };
 unsigned __int64 __cdecl FUN_0027b020(unsigned);
 struct Record_1e30f0 { char pad[8]; unsigned key1,key2; char pad2[8]; Object* object; char pad3[4]; short state; short type; char pad4[2]; signed char table; char pad5; };
 struct Flag_1e30f0 { unsigned flags; char pad[16]; };
-struct Game_1e30f0 { char pad[0x608]; Record_1e30f0 records[1923]; char rest[0x14618-0x608-1923*40]; Flag_1e30f0 flags[2073]; char tail[0x1e830-0x14618-2073*20]; Owner_1e30f0* owner; int FUN_001dbfe0(unsigned); void target(unsigned id,unsigned value); };
-void Game_1e30f0::target(unsigned id,unsigned value) {
+struct CSPManager_1e30f0 { char pad[0x608]; Record_1e30f0 records[1923]; char rest[0x14618-0x608-1923*40]; Flag_1e30f0 flags[2073]; char tail[0x1e830-0x14618-2073*20]; Owner_1e30f0* owner; int FUN_001dbfe0(unsigned); void target(unsigned id,unsigned value); };
+void CSPManager_1e30f0::target(unsigned id,unsigned value) {
  int n=FUN_001dbfe0(id); if(n<0) return;
  Record_1e30f0* r=&records[n];
  if((flags[r->type].flags&1) && r->object) { r->object->FUN_0027e760(value); return; }

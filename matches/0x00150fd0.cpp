@@ -5,14 +5,14 @@ class RefObj_150fd0 {
     virtual void Release();
 };
 
-class ActionBase_150fd0 {
+class Action_150fd0 {
   public:
-    ActionBase_150fd0();
+    Action_150fd0();
     virtual void Update();
     char pad[0x18];
 };
 
-class InterruptAccumulatorSetAction_150fd0 : public ActionBase_150fd0 {
+class InterruptAccumulatorSetAction_150fd0 : public Action_150fd0 {
   public:
     int mTarget;
     RefObj_150fd0* mObj;

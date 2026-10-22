@@ -18,12 +18,12 @@ class Action {
     int m10;
     int m11;
 };
-class KeyPoseAction : public Action {
+class CKeyPoseAction_1d100 : public Action {
   public:
-    KeyPoseAction(int, Ref_1d100*);
+    CKeyPoseAction_1d100(int, Ref_1d100*);
     virtual void A();
 };
-KeyPoseAction::KeyPoseAction(int value, Ref_1d100* ref) : Action() {
+CKeyPoseAction_1d100::CKeyPoseAction_1d100(int value, Ref_1d100* ref) : Action() {
     *(hulk_intptr*)this = (hulk_intptr)&actionVftable;
     mRef = 0;
     if (ref)

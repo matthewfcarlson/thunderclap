@@ -62,19 +62,19 @@ public:
     virtual pure3d::Shader* v3(content::LoadInventory::DynamicCaster<pure3d::Shader>* caster, unsigned __int64 hash);
 };
 
-class __declspec(novtable) SpriteObjectBase {
+class __declspec(novtable) DrawableContainer_2bed90 {
 public:
     virtual void v0();
     char pad04[4];
     NameField_2bed90 name;
     void FUN_002a4e10(int one);
-    SpriteObjectBase(int one) { FUN_002a4e10(one); }
+    DrawableContainer_2bed90(int one) { FUN_002a4e10(one); }
 };
 
 namespace pure3d {
-class SpriteObject : public SpriteObjectBase {
+class SpriteObject : public DrawableContainer_2bed90 {
 public:
-    SpriteObject() : SpriteObjectBase(1) {}
+    SpriteObject() : DrawableContainer_2bed90(1) {}
     virtual void v1();
     virtual void v2();
     virtual void v3();
