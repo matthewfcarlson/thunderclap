@@ -1,3 +1,5 @@
+// STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 2/2)
+// FUN_001fcea0 @ 0x001fcea0
 class Input_1fcea0 {
   public:
     virtual void v0();
@@ -30,7 +32,8 @@ bool Owner_1fcea0::add(Input_1fcea0* p) {
         char tmp[12];
         int a = p->get(tmp);
         records[count].first(a);
-        records[count].second(p->value());
+        float arg1 = p->value();
+        records[count].second(arg1);
         int b = p->process();
         records[count].third(b);
         ++count;
