@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3056 inputs, branch coverage 68/68)
+// STATUS: equivalent (tools/equiv.py level 3: 19433 inputs, branch coverage 68/68)
 // FUN_00197610 @ 0x00197610
+#include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" double __cdecl sqrt(double);
 
@@ -129,17 +130,20 @@ void Proj_197610::FUN_00197610(float dt)
     if (!tg)
         return;
     Cfg_197610 *c = cfg;
+    // the original keeps d (the facing below) and G (the FUN_00192ea0 output further down) in one frame slot,
+    // and FUN_00192ea0 sees d's old contents there
+    V3_197610 dG;
     if (c->bfd) {
         if (c->bfe) {
             V3_197610 P;
             tg->f10->FUN_00059a50(&P);
-            V3_197610 d;
+            V3_197610 &d = dG;
             d.x = 0;
             d.y = 0;
             d.z = 0;
             tg->FUN_000356c0(&d);
-            float len = d.FUN_0022d110();
-            float sc;
+            hulk_freg len = d.FUN_0022d110();
+            hulk_freg sc;
             if (len <= 0.0f) {
                 tg->FUN_00035550(&d);
                 sc = 4.0f;
@@ -152,9 +156,9 @@ void Proj_197610::FUN_00197610(float dt)
             sc = sc * cfg->f118;
             e.x = e.x * sc;
             e.y = e.y * sc;
-            float ez = sc * e.z;
-            f6c.x = P.x + e.x;
-            f6c.y = P.y + e.y;
+            hulk_freg ez = sc * e.z;
+            f6c.x = P.x + *(volatile float *)&e.x;     // the original reloads the stored (rounded) products
+            f6c.y = P.y + *(volatile float *)&e.y;
             f6c.z = P.z + ez;
         } else {
             tg->f10->FUN_00059a50(&f6c);
@@ -164,12 +168,14 @@ void Proj_197610::FUN_00197610(float dt)
     V3_197610 D;
     D.x = f6c.x - p->x;
     D.y = f6c.y - p->y;
-    D.z = f6c.z - p->z;
+    hulk_freg dz = f6c.z - p->z;   // stored, and its unrounded value is one factor of dz*dz below
+    D.z = dz;
     float v = f84;
     c = cfg;
     float k = 1.0f;
-    float L = (float)sqrt(D.z * D.z + D.y * D.y + D.x * D.x);
-    float ratio = f88 / c->c7();
+    float L = (float)sqrt(dz * D.z + D.y * D.y + D.x * D.x);
+    hulk_freg rate = c->c7();       // the original reads f88 after the call
+    hulk_freg ratio = f88 / rate;
     c = cfg;
     if (*(unsigned int *)&c->f134 != 0x3f800000) {
         if (!(ratio >= c->f134)) {
@@ -225,7 +231,7 @@ void Proj_197610::FUN_00197610(float dt)
         if (!q4.FUN_0022d2b0(&f24, 1e-05f)) {
             Target_197610 *t5 = f50;
             if (t5 && f64) {
-                V3_197610 G;
+                V3_197610 &G = dG;
                 cfg->FUN_00192ea0(&G);
                 V3_197610 &H = D;
                 t5->f10->FUN_00059a50(&H);

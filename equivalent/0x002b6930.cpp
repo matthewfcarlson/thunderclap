@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 185 inputs, branch coverage 34/36, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 16581 inputs, branch coverage 34/36, incomplete)
 // pure3d::ShadowMeshBufferLoader::vfunc_5 @ 0x002b6930
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ??0MeshBufferBase@pure3d@@QAE@XZ = 0x002a5060
@@ -125,7 +125,7 @@ struct Frame_2b6930 {
     char pad15[1];
     int v16;        // S16
     int v20;        // S20
-    int v24;
+    ShadowMeshBufferLoader *self;  // S24: the original keeps `this` here across the reads
     int v28;
     int v32;
     int v36;
@@ -141,6 +141,7 @@ struct Frame_2b6930 {
 void ShadowMeshBufferLoader::vfunc_5(Target_2b6930 **out, unsigned __int64 *outId, Stream *s, void *inv)
 {
     Frame_2b6930 f;
+    f.self = this;
     s->reader->FUN_002647e0(&f.useB, 1, 1, 1);
     unsigned int len = (unsigned char)f.useB;
     s->reader->FUN_002647e0(f.name, len, 1, 1);
@@ -227,7 +228,7 @@ void ShadowMeshBufferLoader::vfunc_5(Target_2b6930 **out, unsigned __int64 *outI
                 f.flags[6] = (char)f.v72;
             } else if (id == 0x10024) {
                 s->FUN_00266a30();
-                mgr->FUN_002e4d70(impl->f48, s, inv, 0, 1, f.flags);
+                f.self->mgr->FUN_002e4d70(impl->f48, s, inv, 0, 1, f.flags);
                 Res_2b6930 *r = *impl->f48;
                 r->v8(f.v20);
                 r->v0();
@@ -238,7 +239,7 @@ void ShadowMeshBufferLoader::vfunc_5(Target_2b6930 **out, unsigned __int64 *outI
                 s->FUN_00266be0();
             } else if (id == 0x10025) {
                 s->FUN_00266a30();
-                mgr->FUN_002e4d70(impl->f48 + 4, s, inv, 0, 1, f.flags);
+                f.self->mgr->FUN_002e4d70(impl->f48 + 4, s, inv, 0, 1, f.flags);
                 Res_2b6930 *r = impl->f48[4];
                 r->v8(f.v20);
                 r->v0();

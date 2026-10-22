@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 32 inputs, branch coverage 18/22, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 123 inputs, branch coverage 22/22)
 // FUN_00300780 @ 0x00300780
 #include "compat/ptr.h"
 struct Vec3_300780 {
@@ -75,12 +75,10 @@ void Broadphase_300780::FUN_00300780(int arg)
         for (int i = 0; i < count; i++) {
             Body_300780 *body = g->begin[i]->body;
             Vec3_300780 *c = body->vfunc_3();
-            boxes[i].lo.x = c->x - body->half.x;
-            boxes[i].lo.y = c->y - body->half.y;
-            boxes[i].lo.z = c->z - body->half.z;
-            boxes[i].hi.x = body->half.x + c->x;
-            boxes[i].hi.y = c->y + body->half.y;
-            boxes[i].hi.z = c->z + body->half.z;
+            Vec3_300780 lo = { c->x - body->half.x, c->y - body->half.y, c->z - body->half.z };
+            boxes[i].lo = lo;
+            Vec3_300780 hi = { body->half.x + c->x, c->y + body->half.y, c->z + body->half.z };
+            boxes[i].hi = hi;
         }
         int n = grid.FUN_00313450(count);
         short *links = grid.links;

@@ -1,5 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 42/42)
+// STATUS: equivalent (tools/equiv.py level 3: 110 inputs, branch coverage 42/42)
 // FUN_002c8a80 @ 0x002c8a80
+#include "compat/ptr.h"
+
 struct V3 { float x, y, z; };
 
 struct Mat4 { float m[16]; };
@@ -62,9 +64,9 @@ void Skin::Apply(Pal *a, Map *b)
         if (off14) {
             for (i = 0; i < *(volatile unsigned int *)&count; i++) {
                 Mat4 *M = &a->mats[b->idx[bones[i][0]]];
-                float x = off14[i].x + f1c[i].x;
-                float y = off14[i].y + f1c[i].y;
-                float z = f1c[i].z + off14[i].z;
+                hulk_freg x = off14[i].x + f1c[i].x;
+                hulk_freg y = off14[i].y + f1c[i].y;
+                hulk_freg z = f1c[i].z + off14[i].z;
                 PTR(f24)[i].x = ROT_X(M, x, y, z);
                 PTR(f24)[i].y = ROT_Y(M, x, y, z);
                 PTR(f24)[i].z = ROT_Z(M, x, y, z);
@@ -90,25 +92,25 @@ void Skin::Apply(Pal *a, Map *b)
                 w0 = weights[i][0];
             else
                 w0 = 1.0f;
-            double rx = XF_X(M, x, y, z) * w0;
-            volatile float ry = (float)(XF_Y(M, x, y, z) * w0);
-            volatile float rz = (float)(XF_Z(M, x, y, z) * w0);
+            double rx = ((z) * (M)->m[8] + (y) * (M)->m[4] + (x) * (M)->m[0] + (M)->m[12]) * w0;
+            volatile float ry = (float)(((z) * (M)->m[9] + (y) * (M)->m[5] + (x) * (M)->m[1] + (M)->m[13]) * w0);
+            volatile float rz = (float)(((z) * (M)->m[10] + (y) * (M)->m[6] + (x) * (M)->m[2] + (M)->m[14]) * w0);
             if (!(w0 == 1.0f)) {
                 float w1 = weights[i][1];
                 Mat4 *M1 = &a->mats[b->idx[bones[i][1]]];
-                double ax = rx + XF_X(M1, x, y, z) * w1;
-                double ay = XF_Y(M1, x, y, z) * w1 + ry;
-                rz = (float)(XF_Z(M1, x, y, z) * w1 + rz);
+                double ax = rx + ((z) * (M1)->m[8] + (y) * (M1)->m[4] + (x) * (M1)->m[0] + (M1)->m[12]) * w1;
+                double ay = ((z) * (M1)->m[9] + (y) * (M1)->m[5] + (x) * (M1)->m[1] + (M1)->m[13]) * w1 + ry;
+                rz = (float)(((z) * (M1)->m[10] + (y) * (M1)->m[6] + (x) * (M1)->m[2] + (M1)->m[14]) * w1 + rz);
                 float w2 = weights[i][2];
                 Mat4 *M2 = &a->mats[b->idx[bones[i][2]]];
-                volatile float bx = (float)(XF_X(M2, x, y, z) * w2 + ax);
-                ry = (float)(XF_Y(M2, x, y, z) * w2 + ay);
-                rz = (float)(XF_Z(M2, x, y, z) * w2 + rz);
+                volatile float bx = (float)(((z) * (M2)->m[8] + (y) * (M2)->m[4] + (x) * (M2)->m[0] + (M2)->m[12]) * w2 + ax);
+                ry = (float)(((z) * (M2)->m[9] + (y) * (M2)->m[5] + (x) * (M2)->m[1] + (M2)->m[13]) * w2 + ay);
+                rz = (float)(((z) * (M2)->m[10] + (y) * (M2)->m[6] + (x) * (M2)->m[2] + (M2)->m[14]) * w2 + rz);
                 float w3 = (float)(1.0f - (weights[i][2] + weights[i][0] + weights[i][1]));
                 Mat4 *M3 = &a->mats[b->idx[bones[i][3]]];
-                rx = XF_X(M3, x, y, z) * w3 + bx;
-                ry = (float)(XF_Y(M3, x, y, z) * w3 + ry);
-                rz = (float)(XF_Z(M3, x, y, z) * w3 + rz);
+                rx = ((z) * (M3)->m[8] + (y) * (M3)->m[4] + (x) * (M3)->m[0] + (M3)->m[12]) * w3 + bx;
+                ry = (float)(((z) * (M3)->m[9] + (y) * (M3)->m[5] + (x) * (M3)->m[1] + (M3)->m[13]) * w3 + ry);
+                rz = (float)(((z) * (M3)->m[10] + (y) * (M3)->m[6] + (x) * (M3)->m[2] + (M3)->m[14]) * w3 + rz);
             }
             V3 *dst3 = f20;
             dst3[i].x = (float)rx;
@@ -124,25 +126,25 @@ void Skin::Apply(Pal *a, Map *b)
             else
                 w0 = 1.0f;
             float x = f18[i].x, y = f18[i].y, z = f18[i].z;
-            double rx = XF_X(M, x, y, z) * w0;
-            volatile float ry = (float)(XF_Y(M, x, y, z) * w0);
-            volatile float rz = (float)(XF_Z(M, x, y, z) * w0);
+            double rx = ((z) * (M)->m[8] + (y) * (M)->m[4] + (x) * (M)->m[0] + (M)->m[12]) * w0;
+            volatile float ry = (float)(((z) * (M)->m[9] + (y) * (M)->m[5] + (x) * (M)->m[1] + (M)->m[13]) * w0);
+            volatile float rz = (float)(((z) * (M)->m[10] + (y) * (M)->m[6] + (x) * (M)->m[2] + (M)->m[14]) * w0);
             if (!(w0 == 1.0f)) {
                 float w1 = weights[i][1];
                 Mat4 *M1 = &a->mats[b->idx[bones[i][1]]];
-                double ax = rx + XF_X(M1, x, y, z) * w1;
-                double ay = XF_Y(M1, x, y, z) * w1 + ry;
-                rz = (float)(XF_Z(M1, x, y, z) * w1 + rz);
+                double ax = rx + ((z) * (M1)->m[8] + (y) * (M1)->m[4] + (x) * (M1)->m[0] + (M1)->m[12]) * w1;
+                double ay = ((z) * (M1)->m[9] + (x) * (M1)->m[1] + (y) * (M1)->m[5] + (M1)->m[13]) * w1 + ry;
+                rz = (float)(((z) * (M1)->m[10] + (x) * (M1)->m[2] + (y) * (M1)->m[6] + (M1)->m[14]) * w1 + rz);
                 float w2 = weights[i][2];
                 Mat4 *M2 = &a->mats[b->idx[bones[i][2]]];
-                volatile float bx = (float)(XF_X(M2, x, y, z) * w2 + ax);
-                ry = (float)(XF_Y(M2, x, y, z) * w2 + ay);
-                rz = (float)(XF_Z(M2, x, y, z) * w2 + rz);
+                volatile float bx = (float)(((z) * (M2)->m[8] + (y) * (M2)->m[4] + (x) * (M2)->m[0] + (M2)->m[12]) * w2 + ax);
+                ry = (float)(((z) * (M2)->m[9] + (x) * (M2)->m[1] + (y) * (M2)->m[5] + (M2)->m[13]) * w2 + ay);
+                rz = (float)(((z) * (M2)->m[10] + (x) * (M2)->m[2] + (y) * (M2)->m[6] + (M2)->m[14]) * w2 + rz);
                 float w3 = (float)(1.0f - (weights[i][2] + weights[i][0] + weights[i][1]));
                 Mat4 *M3 = &a->mats[b->idx[bones[i][3]]];
-                rx = XF_X(M3, x, y, z) * w3 + bx;
-                ry = (float)(XF_Y(M3, x, y, z) * w3 + ry);
-                rz = (float)(XF_Z(M3, x, y, z) * w3 + rz);
+                rx = ((z) * (M3)->m[8] + (y) * (M3)->m[4] + (x) * (M3)->m[0] + (M3)->m[12]) * w3 + bx;
+                ry = (float)(((z) * (M3)->m[9] + (x) * (M3)->m[1] + (y) * (M3)->m[5] + (M3)->m[13]) * w3 + ry);
+                rz = (float)(((z) * (M3)->m[10] + (x) * (M3)->m[2] + (y) * (M3)->m[6] + (M3)->m[14]) * w3 + rz);
             }
             V3 *dst3 = f20;
             dst3[i].x = (float)rx;

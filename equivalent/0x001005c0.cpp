@@ -176,7 +176,11 @@ void CHand2HandAgent::vfunc_20(Ctx1_1005c0 *a1, Out_1005c0 *a2, Arg3_1005c0 a3)
     } else {
         f58->b129 = 1;
     }
-    f5c->v10 = v144;
+    // member by member: f5c may point into this object, and the original copies one word at a time
+    Vec3_1005c0 *dst = &f5c->v10;
+    dst->x = v144.x;
+    dst->y = v144.y;
+    dst->z = v144.z;
     f5c->v3(DAT_004dd700, a1, &v15c, a3, 0);
     v15c.x = v15c.x + v15c.x;
     v15c.y = v15c.y + v15c.y;
