@@ -6,6 +6,7 @@
 #include <bgfx/bgfx.h>
 #include <bx/math.h>
 #include <stddef.h>
+#include <stdlib.h>
 #include <string.h>
 
 namespace hulk {
@@ -672,6 +673,18 @@ void bgfxContext::vfunc_109()
         float r = 1.0f / (f - n);
         m[10] = r;
         m[14] = -(r * n);
+    }
+    // sky2: Direct3D on the Xbox puts pixel centres at whole screen coordinates (the game's own pixel-mode projection
+    // subtracts 0.5 for it); bgfx/Vulkan/Metal sample at +0.5. Without this the picture sits half a pixel up and left of
+    // the original's (measured against the xemu shots: best shift (+0.5, +0.5), mean difference 3.2 -> 2.1).
+    // HULK_GFX_HALFPIXEL=0 turns it off. Row-vector matrices: x' = x + w / vw, y' = y - w / vh (0.5 px in ndc).
+    static const bool halfPixel = !getenv("HULK_GFX_HALFPIXEL") || atoi(getenv("HULK_GFX_HALFPIXEL")) != 0;
+    if (halfPixel && vw >= 1.0f && vh >= 1.0f) {
+        const float sx = 1.0f / vw, sy = -1.0f / vh;
+        for (int r = 0; r < 4; r++) {
+            m[r * 4 + 0] += sx * m[r * 4 + 3];
+            m[r * 4 + 1] += sy * m[r * 4 + 3];
+        }
     }
     memcpy(m_proj, m, sizeof(m));
     unsigned vp[4] = {(unsigned)(int)vx, (unsigned)(int)vy, (unsigned)(int)vw, (unsigned)(int)vh};
