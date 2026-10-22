@@ -261,6 +261,40 @@ MSVC 7.1 to an identical object; `verify_relocs.py` ok on the 2,316 changed `mat
 modes among neighbours that share `GetLastError`-style declarations); the strict i686 native link of that tree:
 lld-link rc 0, no messages.
 
+## native18: spawn thresholds, the .rsd names, two sound-path call bugs (2026-10-21)
+
+Inputs: HEAD 50490d84d plus the uncommitted fx25 fixes, 0x000a75d0's pass candidate, fx25/pending (3), fx25's start
+copy of 0x00359a80 and the other sessions' untracked sources (`$S/n18/sync.sh` rebuilds the workspace from those
+before every cycle). Changed files: `build/native18/sources.txt`. Result: play3 checkpoints 0-420 and 480-990 (native17:
+0-420, 480-840); [native-replay.md](native-replay.md) "native18".
+
+| frame | first difference | cause | fix |
+|---|---|---|---|
+| 857 (870) | CRangedAgent spawned in the hybrid at distance 68.72, natively not until 891 | equivalent/0x001f9810 compared with the literals 70 / 20; the original reads 0x004c83ec / 0x004c83e8, set from Lua (`tvm_SetSpawnDistanceOnCamera` 0x001fd4d0, `...OffCamera` 0x001fd4c0) | read the globals (EQUIVALENT 10000) |
+| 2, ~440 (stop 41) | .rsd ids no RCF holds, retried every frame; 0x00203a80 at 917 | host_crt_table.h mapped 0x00348380 to `_strupr`; its one caller (0x00253a90, the sound key) needs the lower-case fold (`_strlwr`) | the row and tools/platform_map.py's name |
+| ~300 (after the fix) | crash in 0x00258f40 | the definition (note `equiv-conv: FUN_00258f40 eax`) was a thiscall member; its caller 0x00259c50 pushes the argument | a cdecl function taking the player (EQUIVALENT 10000) |
+| ~430 (after that) | crash in 0x0024c2f0 | matches/0x0025d070 declared `FUN_0024c2f0()` and passed its argument to `FUN_0026fd80(a, b, &obj->link)` (same bytes for MSVC) | `FUN_0026fd80(a, FUN_0024c2f0(&obj->link))` (MATCH, relocs ok) |
+
+**Constant-for-global sweep** (`$S/n18/constscan.py`): for every scalar in initialized .data that some function
+stores to, list the equivalents that read it in the original but whose source never names its address. 8 found and
+fixed (0x0007a420 2500/4900, 0x00081b20 225, 0x000d50f0 3.0, the four sound volume scales 0x001f3af0, 0x001f4140,
+0x001f5640, 0x001f56b0, and 0x001f9810); the .bss variant found only two false positives (globals bound by
+pairing). **Checker gap (cl9):** equiv.py gives data its load-time values, so a source that reads a constant in place
+of such a global passes. Randomizing written globals, or flagging a missing reference to one, would catch it.
+
+**Other findings, not fixed:** equivalent/0x00334c70.cpp (another session's untracked file) calls 0x00334b00 (note
+`esi`, defined as a thiscall member) as a cdecl function. `native_conv_check.py` counts 1,208 cdecl callers of
+thiscall definitions without flagging them; 0x00258f40 was one that runs.
+
+**1020 (open):** Hulk's ground-contact depth (contact +0x24, passed from AICollisionSolverAgent::vfunc_5 0x001b2560 to
+0x001b1710 and on to the plane list 0x00038e80) has its low bits rounded off natively from frame 1009; the plane
+order flips at 1019 and with it Hulk's velocity (0x000418f0) and the camera. Next: the narrowphase function that
+fills the contact array before 0x002f8020 copies it (0x002eea80's subtree), with the same x87 method as native16.
+
+**Probe aids:** `HULK_TRACE_WATCH==<address>@+<offset>@+<offset>` (pointer chains) and six stack words on `fcall`
+lines (xdk/startup.cpp); mac2 `~/hulk-tr1/rl4-native18.py` (`--mem` chains may start at an absolute address).
+No new bridges.
+
 ## native16: the physics precision chase to 840, float returns, native-mode equivalence (2026-10-21)
 
 Inputs: HEAD 4ecbc09d (native15) plus the same untracked other-session sources as native15's workspace; during the

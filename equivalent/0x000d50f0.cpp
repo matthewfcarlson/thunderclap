@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 19840 inputs, branch coverage 2/2)
 // FUN_000d50f0 @ 0x000d50f0
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
@@ -134,9 +134,9 @@ void FadeQuad::FUN_000d50f0()
     VertexBuf_d50f0 *buf = DAT_0052c2a8->beginQuad(overlay->f10, 1, 0x2020, 4, 0);
 
     float x0 = 16.6f * -0.5f;
-    float y0 = 3.0f * -0.5f;
+    float y0 = DAT_004a06d0 * -0.5f;
     float x1 = amount * 0.5f;
-    float y1 = 3.0f * 0.5f;
+    float y1 = DAT_004a06d0 * 0.5f;
 
     V3_d50f0 *v = buf->vertex;
     v->y = y0;

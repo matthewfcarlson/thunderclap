@@ -140,6 +140,8 @@ struct World {
 };
 extern World *DAT_004dd700;
 extern float DAT_004e58e0;
+extern float DAT_004c83e8;   // tvm_SetSpawnDistanceOffCamera (FUN_001fd4c0), 20 at load
+extern float DAT_004c83ec;   // tvm_SetSpawnDistanceOnCamera (FUN_001fd4d0), 70 at load
 
 struct Hold2 {
     int FUN_001c59d0(Name *n);
@@ -297,7 +299,7 @@ void Self::FUN_001f9810(float dt)
                     f.s10.f = f.d.FUN_00018990();
                     Zone *zone = DAT_004dd700->f8;
                     char near_ = zone->FUN_00099d60(f.v40.x, f.v40.y, f.v40.z, 1.0f, 0);
-                    float thr = near_ ? 70.0f : 20.0f;
+                    float thr = near_ ? DAT_004c83ec : DAT_004c83e8;
                     if (f.s10.f < thr) {
                         finish = true;
                         break;

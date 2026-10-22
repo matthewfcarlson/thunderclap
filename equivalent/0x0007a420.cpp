@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2959 inputs, branch coverage 60/64, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19867 inputs, branch coverage 60/64, incomplete)
 // FUN_0007a420 @ 0x0007a420
 #include "decls/data/game/unknown.h"
+#include "decls/data/game/global.h"
 
 struct V3_7a420 {
     float x, y, z;
@@ -107,14 +108,14 @@ char Grid_7a420::FUN_0007a420(int *outRow, int *outCol, int *outSlot, int *outFl
                 double t2x = fr.A.z - c->z0;
                 fr.t2 = (float)t2x;
                 double d0 = t2x * fr.t2 + fr.t0 * fr.t0;
-                bool b4900 = d0 < 4900.0f;
-                bool b2500 = d0 < 2500.0f;
+                bool b4900 = d0 < DAT_0049b8e8;
+                bool b2500 = d0 < DAT_0049b8e4;
                 fr.u0 = fr.A.x - c->x1;
                 double u2x = fr.A.z - c->z1;
                 fr.u2 = (float)u2x;
                 double d1 = u2x * fr.u2 + fr.u0 * fr.u0;
-                bool c4900 = d1 < 4900.0f;
-                bool c2500 = d1 < 2500.0f;
+                bool c4900 = d1 < DAT_0049b8e8;
+                bool c2500 = d1 < DAT_0049b8e4;
                 if (b4900 && !b2500 && c2500) {
                     double dot = fr.B.z * fr.t2 + fr.t0 * fr.B.x + fr.B.y * 0.0f;
                     int flag;

@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 18514 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 19961 inputs, branch coverage 30/30)
 // FUN_001f4140 @ 0x001f4140
 // FUN_001f4140 @ 0x001f4140
+#include "decls/data/game/global.h"
 #include "compat/ptr.h"
 struct Sound;
 struct Voice_1f4140 {
@@ -72,7 +73,7 @@ void Player_1f4140::FUN_001f4140(bool force)
     }
     voice->owner = r;
     if (voice->sound != 0) {
-        FUN_00247890(voice->sound, 100.0f * gain * 0.01f);
+        FUN_00247890(voice->sound, DAT_004c7df4 * gain * 0.01f);
     }
     if (voice->FUN_001f3370(&fac) != 0) {
         f90 = count;

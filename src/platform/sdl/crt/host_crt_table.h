@@ -31,7 +31,7 @@
     I(msvcrt, strtok, -1, "") \
     I(msvcrt, strerror, -1, "") \
     I(msvcrt, _stricmp, -1, "") \
-    I(msvcrt, _strupr, -1, "") \
+    I(msvcrt, _strlwr, -1, "") \
     I(msvcrt, toupper, -1, "") \
     I(msvcrt, tolower, -1, "") \
     I(msvcrt, isalpha, -1, "") \
@@ -169,6 +169,9 @@
 
 // C(xbe address or 0, host import or hulk_crt_ glue function, "tree names"). The address rows are the library
 // functions the game calls (LIBCMT inside .text); the reason for each identification is the call sites' use.
+// 0x00348380 is _strlwr, not _strupr (native18): its one caller, the sound key constructor 0x00253a90, folds a
+// name before hashing it into a 64-bit .rsd id; with upper case the ids name files that no RCF holds
+// (sound\rsd\3\346494a868380c06.rsd ...), with lower case they are the ids the hybrid requests.
 #define HULK_HOST_CRT(C) \
     C(0x00344913, type_info_eq, "") \
     C(0x003449e4, __RTtypeid, "__RTtypeid") \
@@ -240,7 +243,7 @@
     C(0x00348010, ldexp, "ldexp") \
     C(0x00348290, memchr, "_memchr memchr") \
     C(0x00348340, strpbrk, "_strpbrk strpbrk") \
-    C(0x00348380, _strupr, "_strupr") \
+    C(0x00348380, _strlwr, "_strlwr") \
     C(0x00346672, _CIpow, "_CIpow") \
     C(0x0034777a, _CIfmod, "_CIfmod") \
     C(0x00356734, sprintf, "") \

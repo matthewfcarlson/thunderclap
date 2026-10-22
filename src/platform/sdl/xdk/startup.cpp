@@ -252,9 +252,10 @@ static int trace_func_impl(hulk_u32 addr, const hulk_u32* f) {
     }
     // native14: HULK_TRACE_WATCH=<pointer hex>:<offset hex> (or =<address hex>): the 3 words at (*pointer + offset) (a singleton's
     // field), compared at every probe call: a change is logged with this probe and the previous one (the write
-    // happened between them), from HULK_TRACE_FROM on
+    // happened between them), from HULK_TRACE_FROM on. native18: or a chain, `<address hex>@+<hex>@+<hex>` (`@` reads
+    // the pointer at the address so far, `+` adds), e.g. =4e231c@+350@+74 (the camera's target's velocity)
     static const char* watch = (const char*)1;
-    static hulk_u32 w_ptr, w_off, w_old[3], w_prev, w_abs;
+    static hulk_u32 w_ptr, w_off, w_old[3], w_prev, w_abs, w_step[8], w_nstep;
     if (watch == (const char*)1) {
         watch = hulk_host_getenv("HULK_TRACE_WATCH");
         if (watch && *watch == '=') {     // `=<hex>`: an absolute address (no pointer to read first)
@@ -265,12 +266,30 @@ static int trace_func_impl(hulk_u32 addr, const hulk_u32* f) {
         for (const char* q = watch; q && *q; q++) {
             if (*q == ':')
                 acc = &w_off;
-            else
+            else if (*q == '@' || *q == '+') {   // native18: a chain (`<hex>@+<hex>@+<hex>`, as HULK_TRACE_SPAN)
+                if (w_nstep < 8)
+                    w_step[w_nstep++] = *q == '@' ? 0xffffffffu : 0;
+                acc = *q == '@' ? 0 : &w_step[w_nstep - 1];
+                w_abs = 1;
+            } else if (acc)
                 *acc = *acc * 16 + (hulk_u32)(*q <= '9' ? *q - '0' : (*q | 0x20) - 'a' + 10);
         }
     }
     if (w_ptr) {
         hulk_u32 obj = w_abs ? w_ptr : *(const hulk_u32*)w_ptr, wmb[7] = {0};
+        // native18: walk the chain (each `@` reads a pointer, readable memory only)
+        for (hulk_u32 k = 0; k < w_nstep && obj; k++) {
+            if (w_step[k] != 0xffffffffu) {
+                obj += w_step[k];
+                continue;
+            }
+            hulk_u32 cmb[7] = {0};
+            if (obj < 0x10000 || hulk_host_VirtualQuery((const void*)obj, cmb, sizeof(cmb)) != sizeof(cmb) || cmb[4] != 0x1000 ||
+                (cmb[5] & 0x101))
+                obj = 0;
+            else
+                obj = *(const hulk_u32*)obj;
+        }
         // native16: an absolute address may not be mapped yet (heap not grown that far)
         if (obj && (hulk_host_VirtualQuery((const void*)(obj + w_off), wmb, sizeof(wmb)) != sizeof(wmb) || wmb[4] != 0x1000 ||
                     (wmb[5] & 0x101) || obj + w_off + 12 > wmb[0] + wmb[3]))
@@ -304,8 +323,10 @@ static int trace_func_impl(hulk_u32 addr, const hulk_u32* f) {
         if (seen_n[k]++ >= limit)
             return 0;
     }
-    hulk_trace_line("fcall 0x%08x ecx=0x%08x edx=0x%08x ret=0x%08x args 0x%08x 0x%08x 0x%08x 0x%08x tid=%u f=%u", addr, f[1],
-                    f[2], f[3], f[4], f[5], f[6], f[7], hulk_host_GetCurrentThreadId(), hulk_native_frame_no);
+    // native18: six stack words (a float sixth argument: the contact list's depth)
+    hulk_trace_line("fcall 0x%08x ecx=0x%08x edx=0x%08x ret=0x%08x args 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x tid=%u f=%u",
+                    addr, f[1], f[2], f[3], f[4], f[5], f[6], f[7], f[8], f[9], hulk_host_GetCurrentThreadId(),
+                    hulk_native_frame_no);
     // native16: HULK_TRACE_SPAN=[<hex function>/]<slot 0-8>+<hex offset>[@+<hex offset>...]:<hex words>[,...]: that many
     // words at (slot value + offset) (an array inside an object: a manager's entry table), 8 per line, when committed
     // memory; `@` reads the word at the address so far (a pointer field) and goes on from there; a `<function>/` prefix

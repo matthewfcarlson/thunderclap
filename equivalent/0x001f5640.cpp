@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 6/6)
 // FUN_001f5640 @ 0x001f5640
+#include "decls/data/game/global.h"
 class Inner_1f5640 {
 public:
     char pad0[8];
@@ -27,7 +28,7 @@ char Player_1f5640::FUN_001f5640(int obj, int arg)
         fc0->FUN_001f34f0();
         fc0->FUN_001f32b0(obj, 0, 0);
     }
-    FUN_001f3950(100.0f * f334);
+    FUN_001f3950(DAT_004c7df0 * f334);
     fc0->FUN_001f3370(arg);
     return 1;
 }

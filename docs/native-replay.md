@@ -195,6 +195,37 @@ enemy (CRangedAgent) that the hybrid spawns at 857 spawns natively at 891 althou
 and distance (68.72) agree. 0x000a75d0 (`CChaseCamera::vfunc_35`) rewritten with its square root unrounded (cl7's
 `x87_order.py`); its two reassociated sums cannot be spelled without MSVC reordering an unrelated sum.
 
+### Status (native18, 2026-10-21)
+
+**Checkpoints 0-420 and 480-990 match** (33; native17: 0-420, 480-840). The image still crashes near frame 3,900
+on the diverged path (native15's `Obj_2250e0::set` with a null AnimationDriver). What changed
+([native-build.md](native-build.md) "native18"):
+
+- **The ranged enemy at 857** (native17's goal): equivalent/0x001f9810 compared the spawn distance with the
+  literals 70 / 20. The original reads two globals that Lua sets (`tvm_SetSpawnDistanceOnCamera` /
+  `OffCamera`, 0x004c83ec / 0x004c83e8), and play3's script lowers them, so the hybrid spawned at distance 68.72.
+  A sweep for the same class (a writable global that the original reads, that other code writes, and that the
+  equivalent source never names) found 7 more: two AI distance-squared thresholds (0x0007a420, 0x00081b20), an overlay
+  quad height (0x000d50f0) and four sound volume scales (0x001f3af0, 0x001f4140, 0x001f5640, 0x001f56b0). The checker
+  can't see this class: it seeds data with the load-time values only.
+- **The missing .rsd files and stop 41's 3 frames:** the host CRT table mapped 0x00348380 to `_strupr`, but it is
+  `_strlwr`. The sound key constructor (0x00253a90) folds a name before hashing it into the 64-bit id that names
+  `sound\rsd\<c>\<id>.rsd`, so every stream and clip id was wrong. No .rsd open fails now, and 0x00203a80 first
+  runs at frame 914, as in the hybrid (native17: 917). With the sounds found, the newly reached sound code had two
+  native-only bugs: 0x00258f40 (an eax-convention function written as a thiscall member, its caller pushing the
+  argument) and matches/0x0025d070 (an argument passed to the wrong one of two nested calls).
+- **1020** (open): RNG callers are identical from 990 to 1033. The chase camera is equal through 1019 and differs
+  at 1020 because Hulk's walk velocity (CCharacter +0x74, written by FUN_000418f0) differs at 1019. Behind it:
+  Hulk's ground-contact plane list is sorted by depth (0x00038e80). From frame 1009 the depth of Hulk's capsule
+  contact, reported through AICollisionSolverAgent::vfunc_5 (0x001b2560, contact +0x24), has its low bits rounded
+  off natively (hybrid 0xbcb40858, native 0xbcb40800): a float rounding of a ~1,000-magnitude coordinate term in
+  the narrowphase, the same x87 precision class as native16's chase. At 1019 the two lists sort differently.
+- **450** is unchanged with 0x000a75d0's unrounded sqrt (hash 90d3d9ad, as native17).
+
+Probe aids: `HULK_TRACE_WATCH` takes pointer chains (`=<address>@+<offset>@+<offset>`), and `fcall` lines show six
+stack words. The hybrid logger `~/hulk-tr1/rl4-native18.py` (mac2) takes an absolute start address in `--mem`
+chains (`0x4e231c@+4c`).
+
 ### Status (native15, 2026-10-20)
 
 Checkpoints 0-420 and 480-780 match (24 of 27); 450 differs by -1 ULP in the camera's y; from 810 the gameplay

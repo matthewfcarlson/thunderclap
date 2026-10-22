@@ -74,7 +74,7 @@ IDENTIFIED = {
     0x3471a3: "_fcloseall",
     0x3472cb: "strtod",
     0x348010: "_CIexp",                    # matherr path
-    0x348380: "_strupr",
+    0x348380: "_strlwr",
     0x356734: "sprintf (vsprintf wrapper)",
     0x3441f0: "_CIsqrt-class 1-arg x87 helper",
     0x3442bc: "_CIlog-class 1-arg x87 helper",

@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 19971 inputs, branch coverage 16/16)
 // FUN_001f3af0 @ 0x001f3af0
+#include "decls/data/game/global.h"
 struct Item_1f3af0 { void FUN_001e8ac0(); };
 struct State_1f3af0 {
  char pad0[4]; void* handle; Item_1f3af0* item; char padC[8]; bool active;
@@ -30,7 +31,7 @@ bool Object::run(Item_1f3af0* item,void* arg,Input_1f3af0* input) {
    state->FUN_001f32b0(item,0,0);
   }
  } else state->FUN_001f32b0(item,0,0);
- if(state->handle) FUN_00247890(state->handle,100.0f * scale * 0.01f);
+ if(state->handle) FUN_00247890(state->handle,DAT_004c7df8 * scale * 0.01f);
  state->FUN_001f3370(arg);
  return true;
 }
