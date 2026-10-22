@@ -1285,7 +1285,9 @@ def platform_shim(cp):  # noqa: C901
         return out
     table = [(int(m.group(1), 16), m.group(2)) for m in map(SHIM_RX.match, open(hdr)) if m]
     out["objects"] = native_host.compile_dir(cp, SHIM_DIR, os.path.join(OUT, "link", "platform"), st,
-                                             ("HULK_NATIVE_SDL=1",) if SDL_LIBS else ())
+                                             (("HULK_NATIVE_SDL=1",) if SDL_LIBS else ())
+                                             + (("HULK_UBSAN_FLOAT=1",)      # ubsan1: clang_probe.py SANITIZE
+                                                if os.environ.get("HULK_NATIVE_SANITIZE") == "float-cast" else ()))
     st["SDL3 audio/input backends (HULK_NATIVE_SDL)"] = 1 if SDL_LIBS else 0
     for dset, _u in cp.nm(out["objects"]).values():
         out["defined"] |= dset

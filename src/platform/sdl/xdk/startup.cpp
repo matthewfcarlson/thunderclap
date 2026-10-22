@@ -194,6 +194,50 @@ static void hulk_peek(const char* peek) {
 extern "C" hulk_u32 hulk_native_frame_no;
 hulk_u32 hulk_native_frame_no;
 
+#ifdef HULK_UBSAN_FLOAT
+// ubsan1 (docs/native-float.md "float-cast-overflow"): the game's TUs built with HULK_NATIVE_SANITIZE=float-cast call
+// this for every float -> integer conversion whose value does not fit (the original's __ftol2 wraps it, x87 fistp and
+// SSE give 0x80000000). One `ubsan` trace line per site at its 1st, 2nd, 4th, 8th ... hit; the run goes on (the
+// conversion then gives what the native image always gave). Layouts: LLVM's ubsan_value.h (public ABI of -fsanitize).
+struct hulk_ubsan_type { unsigned short kind, info; char name[1]; };
+struct hulk_ubsan_data { const char* file; hulk_u32 line, col; const hulk_ubsan_type *from, *to; };
+extern "C" void HULK_CDECL __ubsan_handle_float_cast_overflow(const hulk_ubsan_data* d, hulk_u32 v) {
+    static const hulk_ubsan_data* site[4096];
+    static hulk_u32 count[4096], first[4096];
+    static volatile int lock;
+    while (__atomic_exchange_n(&lock, 1, __ATOMIC_ACQUIRE))
+        ;
+    hulk_u32 h = (((hulk_u32)d >> 2) * 2654435761u) >> 20;
+    while (site[h] && site[h] != d)
+        h = (h + 1) & 4095;
+    if (!site[h]) {
+        site[h] = d;
+        first[h] = hulk_native_frame_no;
+    }
+    hulk_u32 n = ++count[h];
+    if (!(n & (n - 1))) {
+        double x;
+        hulk_u32 bits0, bits1 = 0;
+        if (d->from->info <= 32) {
+            float f;
+            __builtin_memcpy(&f, &v, 4);
+            x = f;
+            bits0 = v;
+        } else {
+            const hulk_u32* p = (const hulk_u32*)v;
+            __builtin_memcpy(&x, p, 8);
+            bits0 = p[0];
+            bits1 = p[1];
+        }
+        hulk_trace_line("ubsan float-cast site=0x%08x ret=0x%08x file=%s line=%u col=%u from=%s to=%s count=%u first_frame=%u "
+                        "frame=%u bits=%08x%08x value=%g",
+                        (hulk_u32)d, (hulk_u32)__builtin_return_address(0), d->file, d->line, d->col, d->from->name,
+                        d->to->name, n, first[h], hulk_native_frame_no, bits1, bits0, x);
+    }
+    __atomic_store_n(&lock, 0, __ATOMIC_RELEASE);
+}
+#endif
+
 static int trace_func_impl(hulk_u32 addr, const hulk_u32* f) {
     static hulk_u32 seen_addr[64], seen_n[64];
     static hulk_u32 limit = 0;

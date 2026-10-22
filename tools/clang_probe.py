@@ -89,9 +89,17 @@ NATIVE = ["-include", "compat/native.h", "-fno-strict-aliasing", "-fwrapv", "-fn
 # them to frame 6,000 (docs/native-float.md section 9). 151 of the 159 functions whose unrounded return this would
 # otherwise round now return hulk_freg (native_link.py binds the callers' float references).
 X87 = ["-mno-sse", "-mfpmath=387", "-ffp-eval-method=double", "-ffp-contract=off"]
+# ubsan1 (docs/native-float.md "float-cast-overflow"): HULK_NATIVE_SANITIZE=float-cast checks every float -> int
+# conversion of the game's TUs (the `msvc` objects only) and calls __ubsan_handle_float_cast_overflow (our handler in
+# src/platform/sdl/xdk/startup.cpp, built with HULK_UBSAN_FLOAT=1 by native_link.py: it logs the site and the run goes on);
+# float-cast-trap compiles a ud2 instead (no handler: the crash address names the function). Unset: unchanged.
+SANITIZE = {"": [],
+            "float-cast": ["-fsanitize=float-cast-overflow"],
+            "float-cast-trap": ["-fsanitize=float-cast-overflow", "-fsanitize-trap=float-cast-overflow"]}[
+    os.environ.get("HULK_NATIVE_SANITIZE", "")]
 CONFIGS = {
     "msvc": dict(flags=["--target=i686-pc-windows-msvc", "-fms-extensions", "-fms-compatibility",
-                        "-fms-compatibility-version=13.10", "-std=c++14", "-O0", "-c"] + NATIVE + X87, obj=True),
+                        "-fms-compatibility-version=13.10", "-std=c++14", "-O0", "-c"] + NATIVE + X87 + SANITIZE, obj=True),
     "gnu": dict(flags=["--target=i686-unknown-linux-gnu", "-fms-extensions", "-std=gnu++17", "-fsyntax-only"]
                 + NATIVE + X87 + ["-fcheck-new"], obj=False),
     "gnu64": dict(flags=["--target=x86_64-unknown-linux-gnu", "-fms-extensions", "-std=gnu++17",

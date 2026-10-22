@@ -23,6 +23,7 @@ build/venv/bin/python tools/native_run.py               # run the image under Wi
 build/venv/bin/python tools/native_link.py --reuse-map --gfx   # with the pddi/bgfx graphics backend (docs/graphics-backend.md 8)
 build/venv/bin/python tools/native64.py --bindings build/native/bindings.json   # 64-bit probe: msvc64/arm64 compile, x64 link (64-bit section)
 build/venv/bin/python tools/layout64.py [--check]   # 32- vs 64-bit record layouts; file-format static_asserts (config/layout64.json)
+HULK_NATIVE_SANITIZE=float-cast build/venv/bin/python tools/clang_probe.py --configs msvc   # then native_link.py: float -> int overflow log (docs/native-float.md section 10)
 # beside another agent's runs: HULK_CLANG_PROBE_DIR=build/native5/clang-probe HULK_CLANG_PROBE_CACHE=build/clang-probe/cache
 #   HULK_NATIVE_DIR=build/native5 ... clang_probe.py --snapshot --configs msvc; native_link.py --tree build/native5/clang-probe/snap
 ```

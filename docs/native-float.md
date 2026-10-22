@@ -408,6 +408,22 @@ intrinsics for the transcendentals.
   NaN's sign: harmless for real values), 12 unrounded returns of header virtuals, 296 other). 15 fixed by the
   greedy `autofix.py` (float/`hulk_freg` toggles until native-mode agrees), more by hand on the replay path.
 
+## 10. float-cast-overflow build (ubsan1, 2026-10-21)
+
+`HULK_NATIVE_SANITIZE=float-cast` (tools/clang_probe.py `SANITIZE`, `msvc` objects = the game's TUs only; unset = unchanged)
+compiles every float -> integer conversion with `-fsanitize=float-cast-overflow`. native_link.py then builds
+src/platform/sdl/xdk/startup.cpp with `HULK_UBSAN_FLOAT=1`, which defines `__ubsan_handle_float_cast_overflow`: it logs one
+`ubsan float-cast` trace line per site at its 1st, 2nd, 4th ... hit (return address, source file:line:col, types, frame,
+value) and returns, so one replay lists every site (no UBSan runtime needed under Wine; the conversion then gives what the
+native image always gave). `HULK_NATIVE_SANITIZE=float-cast-trap` adds `-fsanitize-trap` (a ud2, no handler; not run).
+`tools/ubsan_sites.py TRACE --map hulk-strict.map` folds the log into `sites.jsonl` (function, XBE address, source line,
+hits, first frame, sample value). Run the replay with tools/native_replay_job.py as usual.
+
+Result on play3 (whole recording, then to frame 100,200): one site, `FUN_003078a0` (CollisionObjectLoader.cpp:820), a NaN
+into the `(__int64)` step of the already-faithful `(int)(__int64)` spelling (0 on x86 and arm64 alike). No direct
+`int`/`unsigned` conversion overflowed. Limits: the path diverges from the recording at ~frame 1,020 and needed four
+workspace-only crash guards after frame 3,900; see build/ubsan1/notes.md.
+
 ## Files
 
 - `tools/x87_scan.py`: the scanner (tracked).
