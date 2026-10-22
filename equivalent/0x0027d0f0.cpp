@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 40/40)
+// STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 40/40)
 // FUN_0027d0f0 @ 0x0027d0f0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 extern "C" void *memset(void *dst, int c, unsigned int n);
@@ -194,14 +194,16 @@ StateProp::StateProp(StateProp *src)
         if (h) {
             int a = group->f14;
             int b = group->f18;
-            h = h->FUN_002fc740(a, b, material->Hash(), 0);
+            int tmp1 = material->Hash();
+            h = h->FUN_002fc740(a, b, tmp1, 0);
         }
         if (h)
             h->AddRef();
         if (holder)
             holder->Release();
         holder = h;
-        holder->FUN_002fc700(src->holder->FUN_002fc6f0(), 0);
+        void * tmp1 = src->holder->FUN_002fc6f0();
+        holder->FUN_002fc700(tmp1, 0);
     }
 
     if (group) {

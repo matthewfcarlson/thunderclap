@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 22/22)
 // FUN_00107760 @ 0x00107760
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct V3_107760 {
@@ -112,13 +113,13 @@ char Brain_107760::FUN_00107760(void *a0, Ctx_107760 *a1, V3_107760 *outB, V3_10
     f.n3.iy = 0;
     f.n3.x = f.P.x - f.ox;
     f.n3.z = f.P.z - f.oz;
-    f.d = (float)sqrt(f.n3.x * f.n3.x + f.n3.z * f.n3.z);
+    f.d = sqrt(f.n3.x * f.n3.x + f.n3.z * f.n3.z);
     f.n3.FUN_0022d110();
     f.n2.FUN_0022d110();
 
     f.flagB = 0;
     if (f.f + 5.0f > f.d) {
-        float t = f.d - 2.0f;
+        hulk_freg t = f.d - 2.0f;
         if (1.5f < t)
             f.f = t;
         else
@@ -129,7 +130,7 @@ char Brain_107760::FUN_00107760(void *a0, Ctx_107760 *a1, V3_107760 *outB, V3_10
     if (f.d > f.lim) {
         f.ret = 1;
         volatile float *vz = &f.z.x;
-        float A = f.dir.x * f.f;
+        hulk_freg A = f.dir.x * f.f;
         vz[1] = f.dir.y * f.f;
         vz[2] = f.dir.z * f.f;
         outA->z = vz[2] + f.P.z;
@@ -137,7 +138,7 @@ char Brain_107760::FUN_00107760(void *a0, Ctx_107760 *a1, V3_107760 *outB, V3_10
         outA->y = vz[1] + f.P.y;
     } else {
         volatile float *vz = &f.z.x;
-        float A = f.n3.x * f.f;
+        hulk_freg A = f.n3.x * f.f;
         vz[1] = f.n3.y * f.f;
         vz[2] = f.n3.z * f.f;
         outA->z = f.P.z - vz[2];
@@ -149,7 +150,7 @@ char Brain_107760::FUN_00107760(void *a0, Ctx_107760 *a1, V3_107760 *outB, V3_10
     f.m1.x = va[0] - f.q.x;
     f.m1.iy = 0;
     f.m1.z = va[2] - f.q.z;
-    f.d = (float)sqrt(f.m1.x * f.m1.x + f.m1.z * f.m1.z);
+    f.d = sqrt(f.m1.x * f.m1.x + f.m1.z * f.m1.z);
     f.m1.FUN_0022d110();
     f.m2.x = va[0] - f.P.x;
     f.m2.iy = 0;
@@ -162,7 +163,7 @@ char Brain_107760::FUN_00107760(void *a0, Ctx_107760 *a1, V3_107760 *outB, V3_10
     f.m3.z = va[2] - f.oz;
     f.m3.FUN_0022d110();
 
-    float dotp = f.P.x * f.m1.x + f.P.z * f.m1.z + f.m1.y * 0.0f;
+    hulk_freg dotp = f.P.x * f.m1.x + f.P.z * f.m1.z + f.m1.y * 0.0f;
     f.lim = dotp;
     {
         union { float fl; unsigned int u; } ab;
@@ -190,15 +191,15 @@ char Brain_107760::FUN_00107760(void *a0, Ctx_107760 *a1, V3_107760 *outB, V3_10
         f.z.iy = 0;
         f.z.iz = 0;
         if (outB->FUN_0022d2b0(&f.z, 1e-5f)) {
-            float dq = f.m1.z * f.m2.z + f.m1.x * f.m2.x + f.m2.y * f.m1.y;
+            hulk_freg dq = f.m1.z * f.m2.z + f.m1.x * f.m2.x + f.m2.y * f.m1.y;
             if (dq > 0.0f) {
                 outB->iy = f.m2.iy;
                 outB->ix = f.m2.ix;
                 outB->iz = f.m2.iz;
             } else {
                 float nz = -f.m2.z;
-                float ny = -f.m2.y;
-                float nx = -f.m2.x;
+                hulk_freg ny = -f.m2.y;
+                hulk_freg nx = -f.m2.x;
                 outB->x = nx;
                 outB->iz = *(int *)&nz;
                 outB->y = ny;
@@ -206,7 +207,7 @@ char Brain_107760::FUN_00107760(void *a0, Ctx_107760 *a1, V3_107760 *outB, V3_10
             FUN_0010ae50(a0, a1, 0x3ff00000, outB, &f.dir, 0, 0);
         }
     } else {
-        float dr = f.n2.z * f.m2.z + f.n2.x * f.m2.x + f.n2.y * f.m2.y;
+        hulk_freg dr = f.n2.z * f.m2.z + f.n2.x * f.m2.x + f.n2.y * f.m2.y;
         {
             union { float fl; unsigned int u; } ab;
             ab.fl = dr;

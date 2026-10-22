@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 19948 inputs, branch coverage 10/10)
 // CJointAction::vfunc_6 @ 0x00013a00
 struct Vec3_13a00 {
     float x, y, z;
@@ -84,7 +84,9 @@ char CJointAction::vfunc_6(int arg)
     if (scene == 0)
         return 0;
 
-    unsigned int id = scene->FUN_002226b0()->FUN_0027b200(data->jointA, data->jointB);
+    int arg1_ = data->jointB;
+    int arg2_ = data->jointA;
+    unsigned int id = scene->FUN_002226b0()->FUN_0027b200(arg2_, arg1_);
     if (id == 0xffff)
         return 0;
 

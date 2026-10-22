@@ -57,6 +57,6 @@ hulk_freg Label_f88a0::FUN_000f88a0(Run_f88a0 *run)
     Font *first = owner->fonts[0];
     StyleEntry *entry = &styles[style];
     float scale = 14.0f / first->GetHeight();
-    float width = font->GetWidth(text) * entry->width * scale;
+    hulk_freg width = font->GetWidth(text) * entry->width * scale;
     return width - ((CountBackspaces(text) * 0.073f) * spacing);
 }

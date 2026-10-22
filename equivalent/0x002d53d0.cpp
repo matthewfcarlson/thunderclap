@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 12/12)
 // FUN_002d53d0 @ 0x002d53d0
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct Stream;
@@ -134,7 +135,7 @@ void Emitter_2d53d0::FUN_002d53d0(Stream* s, Desc_2d53d0* d, Matrix* parent)
     local = combined;
 
     d->c08->FUN_0028a1c0(s, &fac);
-    float p = fb0 * fac;
+    hulk_freg p = fb0 * fac;
     fac = (p < 0.0f) ? 0.0f : p;
 
     d->c0c->FUN_0028a1c0(s, &fb8);

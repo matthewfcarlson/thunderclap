@@ -18,5 +18,5 @@ hulk_freg Shape_2fbdc0::FUN_002fbdc0(const Vec_2fbdc0* v, int excluded) {
   if(excluded!=1) { b.f=v->y; b.u &= 0x7fffffff; sum+=(double)b.f*extentY; }
   if(excluded!=2) { b.f=v->z; b.u &= 0x7fffffff; sum+=(double)b.f*extentZ; }
  }
- return (float)sum;
+ return (hulk_freg)sum;
 }

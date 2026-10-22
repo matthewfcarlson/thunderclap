@@ -86,7 +86,7 @@ char COrientAction::vfunc_7(float dt)
     hulk_freg rate = data->turnRate;
     if (!(rate < 0.0f)) {
         hulk_freg diff = FUN_00224fc0(angle, target);
-        hulk_freg step = rate * dt;
+        float step = rate * dt;
         union {
             float f;
             unsigned int u;

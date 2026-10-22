@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 54/54)
+// STATUS: equivalent (tools/equiv.py level 3: 19929 inputs, branch coverage 54/54)
 // audio::ChannelVolumeFadeBehaviour::vfunc_1 @ 0x00251ce0
+#include "compat/ptr.h"
 namespace audio {
 class ChannelVolumeFadeBehaviour {
 public:
@@ -14,18 +15,18 @@ public:
 // Moves the 16 channel volumes toward their targets (targets[i] / 255); true when all arrived.
 bool ChannelVolumeFadeBehaviour::vfunc_1(int a1, int elapsed)
 {
-    float step;
+    hulk_freg step;
     if (duration == 0)
         step = 1.0f;
     else
-        step = (float)elapsed / duration;
+        step = (hulk_freg)elapsed / duration;
 
     int arrived = 0;
     for (int i = 0; i < 16; i++) {
-        float cur = volumes[i];
+        hulk_freg cur = volumes[i];
         float target = targets[i] * 0.003921569f;
         if (cur < target) {
-            float v = cur + step;
+            hulk_freg v = cur + step;
             if (!(v >= target)) {
                 volumes[i] = v;
             } else {
@@ -33,7 +34,7 @@ bool ChannelVolumeFadeBehaviour::vfunc_1(int a1, int elapsed)
                 arrived++;
             }
         } else {
-            float v = cur - step;
+            hulk_freg v = cur - step;
             if (!(v <= target)) {
                 volumes[i] = v;
             } else {

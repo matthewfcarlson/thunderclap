@@ -1,6 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20015 inputs, branch coverage 36/36)
 // FUN_00337a30 @ 0x00337a30
 extern "C" int memcmp(const void *a, const void *b, unsigned int n);
+// MSVC 7.1 expands memcmp against a string literal inline (repe cmpsb); so does this.
+static inline int memcmp_lit(const char *a, const char *b, unsigned n)
+{
+    for (; n != 0; n--, a++, b++)
+        if (*a != *b)
+            return (unsigned char)*a - (unsigned char)*b;
+    return 0;
+}
 extern "C" long atol(const char *s);
 
 void *__cdecl FUN_0008d690(unsigned int size);
@@ -61,14 +69,14 @@ bool Parser_337a30::FUN_00337a30(void *source, int a1, Registry_337a30 *registry
         const char *tok = FUN_00337980();
         if (tok) {
             do {
-                if (memcmp(tok, "version", 8) == 0) {
+                if (memcmp_lit(tok, "version", 8) == 0) {
                     FUN_003379b0();
                     tok = FUN_00337980();
                     if (!tok)
                         break;
                     atol(tok);
                     FUN_003379b0();
-                } else if (memcmp(tok, "object", 7) == 0) {
+                } else if (memcmp_lit(tok, "object", 7) == 0) {
                     if (node->hasOwner)
                         listener->OnNode(node);
                     FUN_003379b0();
@@ -87,7 +95,7 @@ bool Parser_337a30::FUN_00337a30(void *source, int a1, Registry_337a30 *registry
                         break;
                     node->FUN_003352c0(tok);
                     FUN_003379b0();
-                } else if (memcmp(tok, "attr", 5) == 0) {
+                } else if (memcmp_lit(tok, "attr", 5) == 0) {
                     FUN_003379b0();
                     if (!node->FUN_00335300(this))
                         break;

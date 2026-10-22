@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 53 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 17445 inputs, branch coverage 18/18)
 // FUN_0033ed90 @ 0x0033ed90
+#include "compat/ptr.h"
 extern "C" double __cdecl atan(double);
 extern "C" double __cdecl cos(double);
 extern "C" double __cdecl sin(double);
@@ -18,7 +19,7 @@ void FUN_0033ed90(TwiddleTable_33ed90 *ip, int nw, float *w)
     int nw1;
     int j;
     float delta;
-    float wn_re;
+    hulk_freg wn_re;
 
     ip->size = nw;
     ip->one = 1;
@@ -26,21 +27,21 @@ void FUN_0033ed90(TwiddleTable_33ed90 *ip, int nw, float *w)
         return;
 
     nwh = nw >> 1;
-    delta = (float)(atan(1.0) / nwh);
+    delta = (hulk_freg)(atan(1.0) / nwh);
     w[0] = 1.0f;
-    wn_re = (float)cos(nwh * delta);
+    wn_re = cos(nwh * delta);
     w[1] = wn_re;
     if (nwh >= 4) {
-        w[2] = (float)(0.5 / cos(delta + delta));
-        w[3] = (float)(0.5 / cos(delta * 6.0f));
+        w[2] = (hulk_freg)(0.5 / cos(delta + delta));
+        w[3] = (hulk_freg)(0.5 / cos(delta * 6.0f));
     }
     for (j = 4; j < nwh; j += 4) {
         double x = j * delta;
-        w[j] = (float)cos(x);
-        w[j + 1] = (float)sin(x);
-        x = (float)x * 3.0f;
-        w[j + 2] = (float)cos(x);
-        w[j + 3] = (float)sin(x);
+        w[j] = cos(x);
+        w[j + 1] = sin(x);
+        x = (hulk_freg)x * 3.0f;
+        w[j + 2] = cos(x);
+        w[j + 3] = sin(x);
     }
 
     nw0 = 0;

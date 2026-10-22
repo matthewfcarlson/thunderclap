@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 49 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 154 inputs, branch coverage 4/4)
 // FUN_002b4710 @ 0x002b4710
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct Stream {
     char pad0[0x8];
@@ -66,20 +67,20 @@ void Obj_2b4710::FUN_002b4710()
         const Vec3_2b4710 &p0 = v[idx[i].a];
         const Vec3_2b4710 &p1 = v[idx[i].b];
         const Vec3_2b4710 &p2 = v[idx[i].c];
-        float mx = (p1.x - p0.x) * 0.5f + p0.x;
-        float my = (p1.y - p0.y) * 0.5f + p0.y;
+        hulk_freg mx = (p1.x - p0.x) * 0.5f + p0.x;
+        hulk_freg my = (p1.y - p0.y) * 0.5f + p0.y;
         float mz = (p1.z - p0.z) * 0.5f + p0.z;
-        float nx = (p2.x - mx) * 0.5f + mx;
-        float ny = (p2.y - my) * 0.5f + my;
-        float nz = (p2.z - mz) * 0.5f + mz;
+        hulk_freg nx = (p2.x - mx) * 0.5f + mx;
+        hulk_freg ny = (p2.y - my) * 0.5f + my;
+        hulk_freg nz = (p2.z - mz) * 0.5f + mz;
         *s->flag = -1;
         s->pos[0] = nx;
         s->pos[1] = ny;
         s->pos[2] = nz;
         s->FUN_0008ef00();
-        float x2 = nx + q[i].x;
-        float y2 = ny + q[i].y;
-        float z2 = nz + q[i].z;
+        hulk_freg x2 = nx + q[i].x;
+        hulk_freg y2 = ny + q[i].y;
+        hulk_freg z2 = nz + q[i].z;
         *s->flag = -1;
         s->pos[0] = x2;
         s->pos[1] = y2;

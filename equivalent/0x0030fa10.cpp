@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 110 inputs, branch coverage 30/30)
 // FUN_0030fa10 @ 0x0030fa10
 struct Mat;
 
@@ -68,7 +68,10 @@ void Pose::FUN_0030fa10(Source_30fa10 *src)
         if (n == 0)
             return;
         for (unsigned int i = 0; i < n; i++)
-            elems[i].FUN_0030edc0(f.tmp.FUN_0030f070(src->data + i * 0x40));
+        {
+            void * tmp1 = f.tmp.FUN_0030f070(src->data + i * 0x40);
+            elems[i].FUN_0030edc0(tmp1);
+        }
         return;
     }
     if (sk)
@@ -100,14 +103,16 @@ void Pose::FUN_0030fa10(Source_30fa10 *src)
         FUN_00011520(arr, 0xc0, count, (void *)FUN_0030eba0);
     }
     elems = arr;
-    elems[0].FUN_0030edc0(f.tmp.FUN_0030f070(src->data));
+    void * tmp2 = f.tmp.FUN_0030f070(src->data);
+    elems[0].FUN_0030edc0(tmp2);
     f.off = 0x40;
     for (int i = 1; i < count; i++) {
         elems[i].index = i;
         Elem_30fa10 *parent = &elems[skeleton->parents[i]];
         elems[i].parent = parent;
         parent->FUN_0030ec20(parent->depth + 1);
-        elems[i].FUN_0030edc0(f.tmp.FUN_0030f070(src->data + f.off));
+        void * tmp3 = f.tmp.FUN_0030f070(src->data + f.off);
+        elems[i].FUN_0030edc0(tmp3);
         f.off += 0x40;
     }
     for (int i = 1; i < count; i++)

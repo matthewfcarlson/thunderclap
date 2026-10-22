@@ -1,9 +1,17 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3117 inputs, branch coverage 100/100)
+// STATUS: equivalent (tools/equiv.py level 3: 20068 inputs, branch coverage 100/100)
 // FUN_0002b970 @ 0x0002b970
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
 extern "C" int memcmp(const void *a, const void *b, unsigned int n);
+// MSVC 7.1 expands memcmp against a string literal inline (repe cmpsb); so does this.
+static inline int memcmp_lit(const char *a, const char *b, unsigned n)
+{
+    for (; n != 0; n--, a++, b++)
+        if (*a != *b)
+            return (unsigned char)*a - (unsigned char)*b;
+    return 0;
+}
 extern "C" int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 int FUN_00266da0(int mode);
 void *thunk_FUN_0008d690(unsigned int size);
@@ -248,7 +256,7 @@ char Spawner_2b970::F(const char *defName, V3_2b970 pos, float angle, const char
                     ent->FUN_000fdbd0(MakeComp4(ent));
                 if (def->b390) {
                     Comp_2b970 *c = MakeComp5(ent);
-                    if (memcmp(anim, "none", 5) != 0)
+                    if (memcmp_lit(anim, "none", 5) != 0)
                         c->FUN_00103b60(p0, anim, 0);
                     ent->FUN_000fdbd0(c);
                 }
@@ -264,7 +272,7 @@ char Spawner_2b970::F(const char *defName, V3_2b970 pos, float angle, const char
         Ent_2b970 *ent = ch->p1ca0;
         if (cd->b390) {
             Comp_2b970 *c = MakeComp5(ent);
-            if (memcmp(anim, "none", 5) != 0) {
+            if (memcmp_lit(anim, "none", 5) != 0) {
                 c->FUN_00103b60(p0, anim, 0);
                 if (ch->p11c->f14 == 5)
                     c->FUN_001034b0((*(unsigned char*)&DAT_004dc288));

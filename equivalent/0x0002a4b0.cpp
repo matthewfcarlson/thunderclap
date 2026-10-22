@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3086 inputs, branch coverage 62/64, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19683 inputs, branch coverage 62/64, incomplete)
 // FUN_0002a4b0 @ 0x0002a4b0
 // cl-flags: /GS
 struct Pair_2a4b0 {
@@ -156,7 +156,10 @@ char Mgr_2a4b0::FUN_0002a4b0(int index, char flag)
         Sink_2a4b0 *sink = FUN_0027f250();
         if (sink) {
             for (unsigned int i = 0; i < FUN_00036c80(); i++)
-                sink->FUN_0027ffb0(o->FUN_00036c60(i));
+            {
+                int tmp1 = o->FUN_00036c60(i);
+                sink->FUN_0027ffb0(tmp1);
+            }
         }
         if (!flag) {
             ctx->c28->FUN_001fe000(o);
@@ -166,9 +169,13 @@ char Mgr_2a4b0::FUN_0002a4b0(int index, char flag)
         UI_2a4b0 *ui = ctx->c3c->ui;
         if (inner && inner->f1b0 != 1 && ui && ui->FUN_000cae70()) {
             int v = o->FUN_00036d00();
-            int slot = ui->FUN_000cae70()->FUN_000c7c60(1, v);
+            int arg1_ = v;
+            int slot = ui->FUN_000cae70()->FUN_000c7c60(1, arg1_);
             if (slot >= 0)
-                ui->FUN_000cae70()->FUN_000c9100(slot);
+            {
+                int arg2_ = slot;
+                ui->FUN_000cae70()->FUN_000c9100(arg2_);
+            }
         }
         if (o->f128 && ctx->cc)
             ctx->cc->FUN_001e5720(o->f128);
@@ -177,10 +184,12 @@ char Mgr_2a4b0::FUN_0002a4b0(int index, char flag)
     ctx->c28->FUN_001fc890(o->f8, o->fc);
     f.pair.x = o->f8;
     f.pair.y = o->fc;
-    FUN_000678d0()->FUN_00065d10(&f.pair);
+    Pair_2a4b0 * arg3_ = &f.pair;
+    FUN_000678d0()->FUN_00065d10(arg3_);
     f.pair.x = o->f8;
     f.pair.y = o->fc;
-    FUN_000678d0()->FUN_00065e20(&f.pair);
+    Pair_2a4b0 * arg4_ = &f.pair;
+    FUN_000678d0()->FUN_00065e20(arg4_);
     FUN_00024720(o->f8, o->fc);
     ctx->c8->FUN_00098e30(ctx, o->f8, o->fc);
 
@@ -213,7 +222,8 @@ char Mgr_2a4b0::FUN_0002a4b0(int index, char flag)
     if (o == (Obj_2a4b0 *)h && h) {
         h->v1();
         f124 = 0;
-        FUN_001b6580()->FUN_001b4c40(f124);
+        Holder_2a4b0 * arg5_ = f124;
+        FUN_001b6580()->FUN_001b4c40(arg5_);
     }
     if (o->f20b0 == 0)
         o->FUN_0003ea10(1);

@@ -1,9 +1,18 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3071 inputs, branch coverage 42/42)
+// STATUS: equivalent (tools/equiv.py level 3: 19950 inputs, branch coverage 42/42)
 // FUN_000b89e0 @ 0x000b89e0
 // cl-flags: /GS
 #include "decls/data/game/global.h"
 
-extern "C" int memcmp(const void* a, const void* b, unsigned n);
+// MSVC 7.1 expands memcmp inline (repe cmpsb); so does this.
+static inline int memcmp_inline(const void *a, const void *b, unsigned n)
+{
+    const unsigned char *p = (const unsigned char *)a;
+    const unsigned char *q = (const unsigned char *)b;
+    for (; n != 0; n--, p++, q++)
+        if (*p != *q)
+            return *p - *q;
+    return 0;
+}
 extern char DAT_0049dba4[];
 extern char DAT_0049f470[];
 extern char DAT_0049f48c[];
@@ -83,7 +92,7 @@ void MissionFailMenu::FUN_000b89e0()
     hint[0] = 0;
     const char* id = mission->FUN_0008a2d0();
     const char* state = mission->FUN_0008a060(id);
-    if (memcmp(state, "complete", 9) != 0) {
+    if (memcmp_inline(state, "complete", 9) != 0) {
         Script_b89e0* script = FUN_001d4c90();
         if (script != 0) {
             f.args.FUN_001d1630();
@@ -105,7 +114,7 @@ void MissionFailMenu::FUN_000b89e0()
     int a = mission->progress.FUN_00088fa0();
     int b = mission->progress.FUN_00088fb0();
     if (a >= 1 && a <= 7) {
-        if (b == 0 || memcmp(state, "complete", 9) == 0)
+        if (b == 0 || memcmp_inline(state, "complete", 9) == 0)
             defeated = true;
     }
 

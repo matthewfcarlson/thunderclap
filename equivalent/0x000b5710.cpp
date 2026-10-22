@@ -1,6 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 5/6, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19955 inputs, branch coverage 5/5)
 // FUN_000b5710 @ 0x000b5710
-extern "C" int __cdecl memcmp(const void*, const void*, unsigned int);
 
 struct Head_b5710 {
     virtual void v0();
@@ -24,7 +23,7 @@ void Menu_b5710::FUN_000b5710(const char* name, int a2, int a3, int a4, int a5, 
     Entry_b5710* entry = FUN_000fc260("side_mission_success_new_record");
     if (entry == 0)
         return;
-    if (memcmp(name, "", 1) == 0) {
+    if (name[0] == 0) {
         entry->done = 0;
         return;
     }

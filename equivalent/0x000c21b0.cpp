@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3114 inputs, branch coverage 128/136, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20092 inputs, branch coverage 135/136, incomplete)
 // FUN_000c21b0 @ 0x000c21b0
 // cl-flags: /GS
 #include "decls/address.h"
@@ -172,7 +172,8 @@ void UnlockMenu::FUN_000c21b0(volatile int id) {
         return;
     }
     frame.text.FUN_000f7930();
-    frame.text.FUN_000f8500("", FUN_000fc1b0(), 1);
+    Manager* tmp1 = FUN_000fc1b0();
+    frame.text.FUN_000f8500("", tmp1, 1);
     bool refresh = true;
     do {
         if (id >= 0x34 && id <= 0x51) {
@@ -197,10 +198,12 @@ void UnlockMenu::FUN_000c21b0(volatile int id) {
                 key = table->FUN_00092bb0(i);
                 if (*key == 0)
                     continue;
-                int stringId = FUN_000fc1b0()->FUN_000f7240(*key);
+                unsigned long long arg1_ = *key;
+                int stringId = FUN_000fc1b0()->FUN_000f7240(arg1_);
                 if (stringId == -1)
                     continue;
-                frame.text.FUN_000f8500("", FUN_000fc1b0(), 1);
+                Manager* tmp2 = FUN_000fc1b0();
+                frame.text.FUN_000f8500("", tmp2, 1);
                 FUN_000fb690(frame.wide, FUN_000fc1b0()->FUN_000f7220(stringId), 0x80);
                 if (table->FUN_00092a40(i))
                     FUN_000fb790(frame.wide, " \bnu", 0x80);
@@ -247,9 +250,11 @@ void UnlockMenu::FUN_000c21b0(volatile int id) {
                 list->v19(&frame.text, 0, 0);
                 if (table->FUN_00092860(4)) {
                     FUN_000964a0(frame.numBuf, 0x10, "%d", 1000000);
-                    frame.text.FUN_000f8500(frame.numBuf, FUN_000fc1b0(), 0);
+                    Manager* tmp3 = FUN_000fc1b0();
+                    frame.text.FUN_000f8500(frame.numBuf, tmp3, 0);
                 } else {
-                    frame.text.FUN_000f8500("TBS_UNLOCKABLE_MOVE_ENABLED", FUN_000fc1b0(), 1);
+                    Manager* tmp4 = FUN_000fc1b0();
+                    frame.text.FUN_000f8500("TBS_UNLOCKABLE_MOVE_ENABLED", tmp4, 1);
                 }
                 list->v20(0, &frame.text);
                 frame.row = 1;
@@ -266,10 +271,12 @@ void UnlockMenu::FUN_000c21b0(volatile int id) {
                 key = table->FUN_00092bb0(idx);
                 if (*key == 0)
                     continue;
-                int stringId = FUN_000fc1b0()->FUN_000f7240(*key);
+                unsigned long long arg2_ = *key;
+                int stringId = FUN_000fc1b0()->FUN_000f7240(arg2_);
                 if (stringId == -1)
                     continue;
-                frame.text.FUN_000f8500("", FUN_000fc1b0(), 1);
+                Manager* tmp5 = FUN_000fc1b0();
+                frame.text.FUN_000f8500("", tmp5, 1);
                 FUN_000fb690(frame.wide, FUN_000fc1b0()->FUN_000f7220(stringId), 0x80);
                 if (table->FUN_00092a40(idx))
                     FUN_000fb790(frame.wide, " \bnu", 0x80);
@@ -282,18 +289,22 @@ void UnlockMenu::FUN_000c21b0(volatile int id) {
                 }
                 int cost = move->FUN_00091f70();
                 const unsigned long long* nameKey = move->FUN_00092050();
-                frame.nameId = FUN_000fc1b0()->FUN_000f7240(*nameKey);
+                unsigned long long arg3_ = *nameKey;
+                frame.nameId = FUN_000fc1b0()->FUN_000f7240(arg3_);
                 if (cost <= 0) {
-                    frame.text.FUN_000f8500("TBS_UNLOCKABLE_MOVE_GIFTED", FUN_000fc1b0(), 1);
+                    Manager* tmp6 = FUN_000fc1b0();
+                    frame.text.FUN_000f8500("TBS_UNLOCKABLE_MOVE_GIFTED", tmp6, 1);
                 } else if (move->FUN_00091f40()) {
                     if (state == 9) {
                         frame.text.FUN_000f7a10(frame.nameId, 0);
                     } else {
-                        frame.text.FUN_000f8500("TBS_UNLOCKABLE_MOVE_ENABLED", FUN_000fc1b0(), 1);
+                        Manager* tmp7 = FUN_000fc1b0();
+                        frame.text.FUN_000f8500("TBS_UNLOCKABLE_MOVE_ENABLED", tmp7, 1);
                     }
                 } else {
                     FUN_000964a0(frame.numBuf, 0x10, "%d", cost);
-                    frame.text.FUN_000f8500(frame.numBuf, FUN_000fc1b0(), 0);
+                    Manager* tmp8 = FUN_000fc1b0();
+                    frame.text.FUN_000f8500(frame.numBuf, tmp8, 0);
                 }
                 list->v20(frame.row, &frame.text);
                 frame.unlocked.b = 1;

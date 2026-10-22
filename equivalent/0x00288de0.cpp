@@ -27,7 +27,7 @@ hulk_freg Curve_288de0::FUN_00288de0(int slot, float x, unsigned int key0, unsig
     for (unsigned int i = 0; i < count; i++) {
         if (e->key0 == key0 && e->key1 == key1) {
             float *f = (float *)((char *)entries + (slot + i * 3) * 8);
-            float v = x * f[3] + f[2];
+            hulk_freg v = x * f[3] + f[2];
             if (!(v >= limit)) {
                 return v;
             }

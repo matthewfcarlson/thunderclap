@@ -44,7 +44,7 @@ hulk_freg AnimController::vfunc_20()
     getRange(&start, &end);
     float dur = end - start;
     unsigned cycles = getCycles();
-    float t = getTime();
+    hulk_freg t = getTime();
 
     switch (getMode()) {
     case 0: {
@@ -58,23 +58,23 @@ hulk_freg AnimController::vfunc_20()
     case 2:
         if (cycles == 0)
             return 3.4028235e+38f;
-        return (float)cycles * dur - (t - start);
+        return (hulk_freg)cycles * dur - (t - start);
     case 3:
         if (cycles == 0)
             return 3.4028235e+38f;
-        return (float)cycles * dur - (end - t);
+        return (hulk_freg)cycles * dur - (end - t);
     case 4:
         if (cycles == 0)
             return 3.4028235e+38f;
         {
-            float v = (float)cycles * dur;
+            hulk_freg v = (hulk_freg)cycles * dur;
             return (v + v) - (t - start);
         }
     case 5:
         if (cycles == 0)
             return 3.4028235e+38f;
         {
-            float v = (float)cycles * dur;
+            hulk_freg v = (hulk_freg)cycles * dur;
             return (v + v) - (end - t);
         }
     default:

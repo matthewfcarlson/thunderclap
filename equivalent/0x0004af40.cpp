@@ -11,7 +11,7 @@ hulk_freg __cdecl FUN_0004af40(float a, float b, float x) {
     if (d.f <= (*(float*)&DAT_003f6b28)) return a;
     float width = b-a;
     double n = __floor_default((double)((x-a)/width));
-    float result = (float)(x - n*width);
+    hulk_freg result = (hulk_freg)(x - n*width);
     d.f = result-b; d.u &= 0x7fffffff;
     if (d.f <= (*(float*)&DAT_003f6b28)) return a;
     d.f = result-a; d.u &= 0x7fffffff;

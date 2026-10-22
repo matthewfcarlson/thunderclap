@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 8/8)
 // CCollisionTrack::vfunc_10 @ 0x0005daf0
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
@@ -30,7 +30,9 @@ CollisionItem* CCollisionTrack::vfunc_10(void* a, void*, void* c) {
     Holder_5daf0* h = (Holder_5daf0*)FUN_00344e74(c, 0, DAT_00494b44, DAT_00494b60, 0);
     Lookup_5daf0* lk = h ? h->FUN_000592a0()->FUN_00059a40() : 0;
     if (!lk) return 0;
-    int index = lk->FUN_002226b0()->FUN_0027b200(idLo, idHi);
+    unsigned arg1_ = idHi;
+    unsigned arg2_ = idLo;
+    int index = lk->FUN_002226b0()->FUN_0027b200(arg2_, arg1_);
     if (index == 0xffff) return 0;
     CollisionItem* item = (CollisionItem*)FUN_0008d690(0x4c);
     if (!item) return 0;

@@ -55,5 +55,5 @@ hulk_freg Segment_2304b0::FUN_002304b0(const Segment_2304b0* o)
     volatile float dy = yy - c2y;
     double dz = zz - c2z;
     double zy = dz * dz + dy * dy; // keep the original's summation order
-    return (float)sqrt(zy + dx * dx);
+    return sqrt(zy + dx * dx);
 }

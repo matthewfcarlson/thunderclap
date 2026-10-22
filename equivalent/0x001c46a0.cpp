@@ -87,7 +87,7 @@ void Bar::FUN_001c46a0()
 {
     if (fraction != 0.0f && alpha != 0.0f) {
         hulk_freg width = (float)(*(Device_1c46a0**)&DAT_0052c2a4)->Width();
-        hulk_freg height = (float)(*(Device_1c46a0**)&DAT_0052c2a4)->Height();
+        float height = (float)(*(Device_1c46a0**)&DAT_0052c2a4)->Height();
         hulk_freg frac = fraction;
         hulk_freg half = height * 0.5f;
         DAT_0052c2a8->SetMode(2);
@@ -100,7 +100,7 @@ void Bar::FUN_001c46a0()
         color = (((color << 8) | r) << 8 | g) << 8 | b;
 
         Vertex_1c46a0 *v = DAT_0052c2a8->Begin(surface->handle, 1, 0x2020, 4, 0);
-        hulk_freg split = frac * half;
+        float split = frac * half;
         v->color[0] = color;
         v->pos[0] = 0.0f;
         v->pos[1] = split;

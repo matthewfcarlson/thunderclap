@@ -14,14 +14,14 @@ struct Curve_22fa60 {
 hulk_freg Curve_22fa60::FUN_0022fa60(float t) {
  if(t < 0.0f) t=0.0f;
  unsigned int limit=closed ? count : count-3;
- if((double)limit < t) t=(float)limit;
+ if((double)limit < t) t=(hulk_freg)limit;
  unsigned int index=(unsigned int)(int)t;
  float sum=0.0f;
- for(unsigned int i=0;i<index;++i) sum=(float)(FUN_0022f7e0(i)+sum);
+ for(unsigned int i=0;i<index;++i) sum=(hulk_freg)(FUN_0022f7e0(i)+sum);
  FUN_0022ef20(0,t);
  unsigned int n=count; Point_22fa60* p=points;
  Segment_22fa60 segment;
  segment.FUN_0022e670(degree+3,p+(index%n),p+((index+1)%n),p+((index+2)%n),p+((index+3)%n));
- float fraction=(float)(t-(double)index);
- return (float)(FUN_0022f760(&segment,fraction)+sum);
+ float fraction=(hulk_freg)(t-(double)index);
+ return (hulk_freg)(FUN_0022f760(&segment,fraction)+sum);
 }

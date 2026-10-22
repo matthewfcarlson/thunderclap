@@ -32,7 +32,7 @@ hulk_freg __cdecl FUN_00260d00(const char *s)
     int scale = 10;
     for (int k = 1; k < digits; k++)
         scale *= 10;
-    float value = whole + (1.0f / scale) * frac;
+    hulk_freg value = whole + (1.0f / scale) * frac;
     if (negative)
         value = -value;
     return value;

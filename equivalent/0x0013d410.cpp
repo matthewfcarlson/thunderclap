@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3055 inputs, branch coverage 52/52)
+// STATUS: equivalent (tools/equiv.py level 3: 19980 inputs, branch coverage 52/52)
 // hulkfight::motion::AnimationAction::vfunc_3 @ 0x0013d410
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) { return p; }
 
@@ -152,10 +153,10 @@ bool AnimationAction::vfunc_3(int a, int b)
         return false;
 
     union {
-        float v;
+        hulk_freg v;
         char slot0[4];
     } u;
-    float f24;
+    hulk_freg f24;
     Rig_13d410 *rig = layers->FUN_002226b0();
     unsigned int lo = data->idLo;
     unsigned int hi = data->idHi;
@@ -209,37 +210,40 @@ bool AnimationAction::vfunc_3(int a, int b)
             driver->FUN_002224a0(r);
     }
 
-    float f44 = data->f44;
-    float f48 = data->f48;
-    float f40 = data->f40;
+    hulk_freg f44 = data->f44;
+    hulk_freg f48 = data->f48;
+    hulk_freg f40 = data->f40;
     driver->b224 = reuse;
     driver->b225 = data->mode == 3;
 
     V3_13d410 dir;
-    float f28 = data->f28;
-    float f2c = data->f2c;
+    hulk_freg f28 = data->f28;
+    hulk_freg f2c = data->f2c;
     dir.x = data->f20;
     dir.y = f28;
     dir.z = f2c;
-    driver->FUN_00225e00(data->GetValue(), dir);
+    float arg1 = data->GetValue();
+    driver->FUN_00225e00(arg1, dir);
     if (!data->b34) {
         driver->b235 = 0;
         driver->b234 = data->b34;
     }
-    layers->FUN_00222890(driver, driver->FUN_00225b30(), f40, 1.0f, f44, f48, -1.0f);
+    float arg2 = driver->FUN_00225b30();
+    layers->FUN_00222890(driver, arg2, f40, 1.0f, f44, f48, -1.0f);
 
     f24 = data->f24;
     if (f24 < 0.0f) {
         if (driver->b224) {
-            float lo2 = driver->f22c;
-            float span = driver->f230 - lo2;
-            float v = FUN_000964e0() * span + lo2;
+            hulk_freg lo2 = driver->f22c;
+            hulk_freg span = driver->f230 - lo2;
+            hulk_freg v = FUN_000964e0() * span + lo2;
             driver->FUN_00225cf0(v);
         } else {
             driver->FUN_00225cf0(driver->f230);
         }
     } else if (created) {
-        driver->FUN_00225cf0(FUN_00225be0(f24, driver->f22c, driver->f230, 0));
+        float arg3 = FUN_00225be0(f24, driver->f22c, driver->f230, 0);
+        driver->FUN_00225cf0(arg3);
     }
     return true;
 }

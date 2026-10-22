@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 163 inputs, branch coverage 53/53)
+// STATUS: equivalent (tools/equiv.py level 3: 20036 inputs, branch coverage 53/53)
 // FUN_000faa40 @ 0x000faa40
 #include "decls/data/game/DollyScript.h"
 
@@ -72,7 +72,10 @@ bool Handler_faa40::FUN_000faa40(Node *a1)
                 if (current->head == 0)
                     current->head = n->Clone();
                 else
-                    current->head->FUN_000f9b40(n->Clone());
+                {
+                    Node * tmp1 = n->Clone();
+                    current->head->FUN_000f9b40(tmp1);
+                }
             } else {
                 Node *c = n->Clone();
                 c->flags = b->flags;

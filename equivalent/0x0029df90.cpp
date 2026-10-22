@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 8244 inputs, branch coverage 47/50, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 11440 inputs, branch coverage 47/50, incomplete)
 // FUN_0029df90 @ 0x0029df90
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "compat/ptr.h"
@@ -92,7 +92,7 @@ void Manager::FUN_0029df90(Group *group, Arg2 a2, Arg3 a3)
     if (k > 0.0f && m < -0.0001f) {
         a3.flag = 1;
         double t = (m + k) / k;
-        a2.scale = (float)t;
+        a2.scale = (hulk_freg)t;
         if (t < 0.0)
             a2.scale = 0.0f;
     }
@@ -105,14 +105,14 @@ void Manager::FUN_0029df90(Group *group, Arg2 a2, Arg3 a3)
         double v = prod;
         if (first->weight > prod)
             v = first->weight;
-        ival = (int)(v * a2.scale);
-        hulk_freg d = (float)ival;
+        ival = (int)(__int64)(v * a2.scale);
+        hulk_freg d = (hulk_freg)ival;
         rgb[0] = d + rgb[0];
         rgb[1] = d + rgb[1];
         rgb[2] = d + rgb[2];
     }
     for (int i = 0; i < count; i++) {
-        if ((int)table->entries[i].weight - ival <= 0) {
+        if ((int)(__int64)table->entries[i].weight - ival <= 0) {
             group->FUN_002a0fc0(i, 0);
             continue;
         }
@@ -130,19 +130,19 @@ void Manager::FUN_0029df90(Group *group, Arg2 a2, Arg3 a3)
         }
         unsigned int raw = table->entries[i].color;
         if (a3.flag) {
-            int r = (int)((float)((raw >> 16) & 0xff) * a2.scale);
+            int r = (int)(__int64)((hulk_freg)((raw >> 16) & 0xff) * a2.scale);
             unsigned int col = 0xffffff00 | r;
             col <<= 8;
-            int g = (int)((float)((raw >> 8) & 0xff) * a2.scale);
+            int g = (int)(__int64)((hulk_freg)((raw >> 8) & 0xff) * a2.scale);
             col |= g;
             col <<= 8;
-            int bl = (int)((float)(raw & 0xff) * a2.scale);
+            int bl = (int)(__int64)((hulk_freg)(raw & 0xff) * a2.scale);
             col |= bl;
             raw = col;
         }
-        int cb = (int)(raw & 0xff) - ival;
-        int cg = (int)((raw >> 8) & 0xff) - ival;
-        int cr = (int)((raw >> 16) & 0xff) - ival;
+        int cb = (int)(__int64)(raw & 0xff) - ival;
+        int cg = (int)(__int64)((raw >> 8) & 0xff) - ival;
+        int cr = (int)(__int64)((raw >> 16) & 0xff) - ival;
         if (cb < 0)
             cb = 0;
         else if (cb > 0xff)

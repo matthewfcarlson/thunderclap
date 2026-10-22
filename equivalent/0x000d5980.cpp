@@ -63,7 +63,7 @@ void MessageOverlay::vfunc_3(float dt)
     *floatAt(0x7a8) += dt;
     FUN_000d5290(dt);
     hulk_freg phase = dt * 6.2831855f + *floatAt(0x804);
-    *floatAt(0x7fc) = ((float)sin(phase) + 1.0f) * 0.5f;
+    *floatAt(0x7fc) = (sin(phase) + 1.0f) * 0.5f;
     int turns = (int)(phase * 0.15915494f);
     *floatAt(0x804) = phase - (float)turns * 6.2831855f;
     hulk_freg v = *floatAt(0x804);

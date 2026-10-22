@@ -21,6 +21,6 @@ double Owner::FUN_000d4950(float value, int index)
     Interface *selected = entries[9 + index];
     float *weight = &records[active].weight;
     hulk_freg divisor = entries[9]->getDivisor();
-    hulk_freg ratio = 14.0f / divisor;
+    float ratio = 14.0f / divisor;
     return (double)selected->evaluate(value) * *weight * ratio;
 }

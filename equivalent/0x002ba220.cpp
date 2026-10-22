@@ -219,10 +219,10 @@ public:
 hulk_freg BillboardQuadGroup::FUN_002ba220()
 {
     struct Frame {
-        float x0;
-        float y0;
-        float y1;
-        float x1;
+        hulk_freg x0;
+        hulk_freg y0;
+        hulk_freg y1;
+        hulk_freg x1;
         union {
             unsigned char flag;
             int word;
@@ -256,9 +256,10 @@ hulk_freg BillboardQuadGroup::FUN_002ba220()
     DAT_0052c2a8->v62(0);
     Scene_2ba220 *scene = (*(Camera**)&DAT_0052c2b4)->scene;
     Vec3_2ba220 tmp;
-    tmp.FUN_0022d240(&pos70, (*(Camera**)&DAT_0052c2b4)->FUN_0028faa0());
+    void * tmp1 = (*(Camera**)&DAT_0052c2b4)->FUN_0028faa0();
+    tmp.FUN_0022d240(&pos70, tmp1);
     scene->FUN_002940d0(&tmp, &fr.out);
-    float r = fr.out.z * 0.01f;
+    hulk_freg r = fr.out.z * 0.01f;
     fr.x0 = fr.out.x - r;
     fr.x1 = fr.out.x + r;
     fr.y0 = fr.out.y - r;
@@ -307,7 +308,7 @@ hulk_freg BillboardQuadGroup::FUN_002ba220()
     fr.p3.z = fr.out.z;
     xf->v23(&fr.p3, &fr.p3);
     scene->FUN_00294670(fr.p3, &fr.p3);
-    int area = (int)((fr.p3.x - fr.p1.x) * (fr.p1.y - fr.p2.y) * 0.8f) * mult;
+    int area = (int)(__int64)((fr.p3.x - fr.p1.x) * (fr.p1.y - fr.p2.y) * 0.8f) * mult;
     double ratio = (double)o->v4(0) / (double)area;
     if (ratio >= 0.0 && ratio <= 1.0)
         return ratio;

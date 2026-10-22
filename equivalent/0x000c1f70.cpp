@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 18/18)
 // FUN_000c1f70 @ 0x000c1f70
 // cl-flags: /GS
 #include "decls/address.h"
@@ -127,11 +127,14 @@ void BlonskyScreen::FUN_000c1f70(int index)
             TextLabel* title = dynamic_cast<TextLabel*>(FUN_000fc260("blonsky_file_title"));
             if (title != 0) {
                 Pair_c1f70* p = items->FUN_00092bb0(index);
-                int id = FUN_000fc1b0()->FUN_000f7240(p->a, p->b);
+                int arg1_ = p->b;
+                int arg2_ = p->a;
+                int id = FUN_000fc1b0()->FUN_000f7240(arg2_, arg1_);
                 if (id == -1) {
                     Manager_c1f70* m = FUN_000fc1b0();
                     NameSource_c1f70* ns = (NameSource_c1f70*)items->FUN_00092bb0(index);
-                    title->entry.FUN_000f8500(ns->FUN_0027b010(), m, 1);
+                    const char* tmp1 = ns->FUN_0027b010();
+                    title->entry.FUN_000f8500(tmp1, m, 1);
                 } else {
                     title->entry.FUN_000f7a10(id, 0);
                 }
@@ -139,11 +142,14 @@ void BlonskyScreen::FUN_000c1f70(int index)
             TextWindow* text = dynamic_cast<TextWindow*>(FUN_000fc260("blonsky_file_text"));
             if (text != 0) {
                 Pair_c1f70* q = file->FUN_00091d00();
-                int id = FUN_000fc1b0()->FUN_000f7240(q->a, q->b);
+                int arg3_ = q->b;
+                int arg4_ = q->a;
+                int id = FUN_000fc1b0()->FUN_000f7240(arg4_, arg3_);
                 if (id == -1) {
                     Manager_c1f70* m = FUN_000fc1b0();
                     NameSource_c1f70* ns = (NameSource_c1f70*)file->FUN_00091d00();
-                    text->entry.FUN_000f8500(ns->FUN_0027b010(), m, 1);
+                    const char* tmp2 = ns->FUN_0027b010();
+                    text->entry.FUN_000f8500(tmp2, m, 1);
                 } else {
                     text->entry.FUN_000f7a10(id, 0);
                 }

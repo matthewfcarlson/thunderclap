@@ -27,8 +27,8 @@ hulk_freg FUN_0010ac60(Body_10ac60 *a, Body_10ac60 *b, float radius, Vec3_10ac60
     Vec3_10ac60 pa;
     Vec3_10ac60 pb;
     Vec4_10ac60 info;
-    float ra;
-    float rb;
+    hulk_freg ra;
+    hulk_freg rb;
 
     out->x = 0.0f;
     out->y = 0.0f;
@@ -39,7 +39,7 @@ hulk_freg FUN_0010ac60(Body_10ac60 *a, Body_10ac60 *b, float radius, Vec3_10ac60
 
     float dx = pa.x - pb.x;
     ra = 0.0f;
-    float dz = pa.z - pb.z;
+    hulk_freg dz = pa.z - pb.z;
     float d2 = dz * dz + dx * dx;
 
     if (a->FUN_000359e0(&info))
@@ -48,7 +48,7 @@ hulk_freg FUN_0010ac60(Body_10ac60 *a, Body_10ac60 *b, float radius, Vec3_10ac60
     if (b->FUN_000359e0(&info))
         rb = info.w * 0.5f;
 
-    float reach = rb + ra + radius;
+    hulk_freg reach = rb + ra + radius;
     if (!(d2 < reach * reach))
         return -1.0f;
 
@@ -57,7 +57,7 @@ hulk_freg FUN_0010ac60(Body_10ac60 *a, Body_10ac60 *b, float radius, Vec3_10ac60
     out->z = dz;
     out->FUN_0022d110();
 
-    float gap = (float)sqrt((double)d2) - ra - rb;
+    hulk_freg gap = (hulk_freg)sqrt((double)d2) - ra - rb;
     if (gap < 0.0f)
         return 0.0f;
     return gap;

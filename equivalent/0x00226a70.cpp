@@ -19,11 +19,11 @@ hulk_freg Curve_226a70::FUN_00226a70(float position, float angle) {
   double value = FUN_00226960(last, angle);
   double lastValue = (double)(int)last;
   if ((int)last < 0) lastValue += 4294967296.0f;
-  return (float)(value * ((double)position - lastValue));
+  return (hulk_freg)(value * ((double)position - lastValue));
  }
  float first = FUN_00226960(index, angle);
  double second = FUN_00226960(index + 1, angle);
  double indexValue = (double)(int)index;
  if ((int)index < 0) indexValue += 4294967296.0f;
- return (float)((second - first) * ((double)position - indexValue) + first);
+ return (hulk_freg)((second - first) * ((double)position - indexValue) + first);
 }

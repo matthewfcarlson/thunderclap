@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 11542 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 8/8)
 // FUN_000f6680 @ 0x000f6680
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct Mat_f6680;
@@ -39,17 +40,17 @@ void FUN_000f6680(Obj_f6680 *p, float angle, float k)
     f.c.y = p->b.y;
     f.c.z = p->b.z;
 
-    float cx = f.c.y * f.a.z - f.c.z * f.a.y;
-    float cy = f.c.z * f.a.x - f.a.z * f.c.x;
-    float cz = f.a.y * f.c.x - f.c.y * f.a.x;
+    hulk_freg cx = f.c.y * f.a.z - f.c.z * f.a.y;
+    hulk_freg cy = f.c.z * f.a.x - f.a.z * f.c.x;
+    hulk_freg cz = f.a.y * f.c.x - f.c.y * f.a.x;
     f.c.x = cx;
     f.c.y = cy;
     f.c.z = cz;
 
     double la = sqrt(f.a.y * f.a.y + f.a.z * f.a.z + f.a.x * f.a.x);
     double dot = f.b.z * f.a.z + f.b.y * f.a.y + f.b.x * f.a.x;
-    float lb = (float)sqrt(f.b.z * f.b.z + f.b.y * f.b.y + f.b.x * f.b.x);
-    float r = FUN_00018a20((float)(dot / la * lb));
+    hulk_freg lb = sqrt(f.b.z * f.b.z + f.b.y * f.b.y + f.b.x * f.b.x);
+    hulk_freg r = FUN_00018a20((float)(dot / la * lb));
     f.b.FUN_0022d180();
 
     if ((k < 0.0f && r > 0.196349546f) || (k > 0.0f && r < 2.94524312f)) {

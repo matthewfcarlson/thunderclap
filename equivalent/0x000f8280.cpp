@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2819 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 18624 inputs, branch coverage 10/10)
 // FUN_000f8280 @ 0x000f8280
+#include "compat/ptr.h"
 struct ColorSlot {
     unsigned int color;
     char pad[12];
@@ -28,25 +29,25 @@ void Gradient::FUN_000f8280(unsigned int colorA, unsigned int colorB, unsigned i
     b[1] = (colorB >> 8) & 0xff;
     b[2] = colorB & 0xff;
 
-    float rate = DAT_004de948();
+    hulk_freg rate = DAT_004de948();
     if (rate > 1.0f)
         rate = 1.0f;
     else if (rate == 0.0f)
         rate = 0.001f;
 
-    float scale = 1.0f / rate;
-    float half = 0.5f * scale;
-    unsigned int period = (unsigned int)(int)scale;
+    hulk_freg scale = 1.0f / rate;
+    hulk_freg half = 0.5f * scale;
+    unsigned int period = (unsigned int)(__int64)(int)(__int64)scale;
     unsigned int rem = ticks % period;
-    float phase = (half - (double)rem) / scale;
-    float t;
+    hulk_freg phase = (half - (double)rem) / scale;
+    hulk_freg t;
     if (phase > 0.0f)
         t = phase + phase;
     else
         t = phase * -2.0f;
 
     for (int i = 0; i < 3; i++)
-        res[i] = (int)((double)a[i] - (double)(a[i] - b[i]) * t);
+        res[i] = (int)(__int64)((double)a[i] - (double)(a[i] - b[i]) * t);
 
     slots[current].color = (((0xffffff00u | res[0]) << 8 | res[1]) << 8) | res[2];
 }

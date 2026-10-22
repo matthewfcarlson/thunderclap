@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 19813 inputs, branch coverage 12/12)
 // FUN_001f4c50 @ 0x001f4c50
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -90,26 +90,30 @@ void Sound_1f4c50::FUN_001f4c50()
     vcc = vc;
     ID &h = *(ID *)nm.tail;
     h = FUN_002672f0("front_end", 0, 0);
-    vcc->FUN_001f32b0(mixer->FUN_001e98b0(&h), 0, 0);
+    void * arg1 = mixer->FUN_001e98b0(&h);
+    vcc->FUN_001f32b0(arg1, 0, 0);
     if (vcc->f4 != 0)
         FUN_00247890(vcc->f4, DAT_004c7df8 * 0.01f * volume);
 
     vc0 = v10;
     h = FUN_002672f0("fe", 0, 0);
-    vc0->FUN_001f32b0(mixer->FUN_001e98b0(&h), 0, 0);
+    void * arg2 = mixer->FUN_001e98b0(&h);
+    vc0->FUN_001f32b0(arg2, 0, 0);
     if (vc0->f4 != 0)
         FUN_00247890(vc0->f4, DAT_004c7df0 * 0.01f * volume);
 
     vc4 = v14;
     h = FUN_002672f0("bgambience", 0, 0);
-    vc4->FUN_001f32b0(mixer->FUN_001e98b0(&h), 0, 0);
+    void * arg3 = mixer->FUN_001e98b0(&h);
+    vc4->FUN_001f32b0(arg3, 0, 0);
     if (vc4->f4 != 0)
         FUN_00247890(vc4->f4, DAT_004c7df8 * 0.01f * volume);
     vc4->flag = 1;
 
     vc8 = v18;
     h = FUN_002672f0("explosions", 0, 0);
-    vc8->FUN_001f32b0(mixer->FUN_001e98b0(&h), 0, 1);
+    void * arg4 = mixer->FUN_001e98b0(&h);
+    vc8->FUN_001f32b0(arg4, 0, 1);
     if (vc8->f4 != 0)
         FUN_00247890(vc8->f4, DAT_004c7df8 * 0.01f * volume);
     vc8->flag = 1;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 8/8)
 // FUN_0007f450 @ 0x0007f450
 typedef unsigned __int64 Key_7f450;
 extern Key_7f450 __cdecl FUN_0027b020(int);
@@ -20,8 +20,10 @@ void Owner_7f450::target(int name,int arg,int flags,Vec3_7f450 position,float x,
  Key_7f450 key=FUN_0027b020(name);
  int index=FUN_00079220(key);
  if ((index<0 || list.objects[index]==0) && list.count>0) {
-  int a=FUN_000964d0()->FUN_00011330(list.count-1);
-  int b=FUN_000964d0()->FUN_00011330(records[a].count-1);
+  int arg1_ = list.count-1;
+  int a= FUN_000964d0()->FUN_00011330(arg1_);
+  int arg2_ = records[a].count-1;
+  int b= FUN_000964d0()->FUN_00011330(arg2_);
   Object* object=FUN_0007f310(name,arg,a,b);
   if(object) {
    object->start();

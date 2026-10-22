@@ -22,7 +22,7 @@ hulk_freg Target_67110::FUN_00067110(int key)
     Rec_67110 *r = sub.FUN_00230ba0(FUN_00066980, key);
     if (r == 0)
         return 0.0f;
-    float t = inner->FUN_00086080() - (f34c - f378);
+    hulk_freg t = inner->FUN_00086080() - (f34c - f378);
     if (t == 0.0f)
         return 0.0f;
     return r->v18 / (t * 30.0f);

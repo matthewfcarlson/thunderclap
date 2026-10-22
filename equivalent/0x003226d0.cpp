@@ -149,7 +149,7 @@ void Overlay::Draw() {
         tex->v0();
         shader->SetTexture(0x584554, tex);
     }
-    unsigned int color = ((unsigned char)(int)(alpha * 255.0f) << 24) | 0xffffff;
+    unsigned int color = ((unsigned char)(__int64)(int)(__int64)(alpha * 255.0f) << 24) | 0xffffff;
     float zNear, unusedB, farv;
     ctx->f29(&zNear, &unusedB, &unusedB, &farv);
     zNear = zNear * 1.01f;
@@ -162,12 +162,12 @@ void Overlay::Draw() {
     bb->common = (bb->common & 0xfffcffffu) | 0x40000;
     tex->FUN_00326300(bb);
     Prim_3226d0* p = ctx->f30(shader, 1, 0x2021, 4, 0);
-    float h = (float)ctx->viewport->GetHeight();
-    float w = (float)ctx->viewport->GetWidth();
-    float v = farv * scale;
-    float u = scale;
-    float uMax = w - scale;
-    float vMax = h - v;
+    float h = (hulk_freg)ctx->viewport->GetHeight();
+    float w = (hulk_freg)ctx->viewport->GetWidth();
+    hulk_freg v = farv * scale;
+    hulk_freg u = scale;
+    hulk_freg uMax = w - scale;
+    hulk_freg vMax = h - v;
     *p->color = color;
     p->uv[0] = u;
     p->uv[1] = v;

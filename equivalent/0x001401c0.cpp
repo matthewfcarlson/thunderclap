@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 22/22)
 // hulkfight::motion::WallExitAction::vfunc_5 @ 0x001401c0
+#include "compat/ptr.h"
 struct Vec3_1401c0 {
     float x, y, z;
     bool FUN_0022d2b0(const Vec3_1401c0* other, float eps);
@@ -92,19 +93,19 @@ bool WallExitAction::vfunc_5(int skip, float dt)
     Fighter_1401c0* fighter = anchor->FUN_00059a30();
     fighter->FUN_000359c0(3);
 
-    float s1 = FUN_00224f10(&vel);
+    hulk_freg s1 = FUN_00224f10(&vel);
     Vec3_1401c0 fv = fighter->vel;
-    float s2 = FUN_00224f10(&fv);
-    float held = s1;
-    float diff = FUN_00224fc0(s1, s2);
-    float v;
+    hulk_freg s2 = FUN_00224f10(&fv);
+    hulk_freg held = s1;
+    hulk_freg diff = FUN_00224fc0(s1, s2);
+    hulk_freg v;
     if (!(diff < 2.3561945f)) {
         v = held;
     } else {
         held = params->rate;
         if (!(held < 0.0f)) {
-            float diff2 = FUN_00224fc0(s1, s2);
-            float step = held * dt;
+            hulk_freg diff2 = FUN_00224fc0(s1, s2);
+            hulk_freg step = held * dt;
             FloatBits_1401c0 ab;
             ab.f = diff2;
             ab.u &= 0x7fffffff;
@@ -166,11 +167,11 @@ bool WallExitAction::vfunc_5(int skip, float dt)
     push.z = pos.z + push.z;
     Limits_1401c0* lim = fighter->limits;
     if (lim->halfHeight * 0.5f > push.y - g.y) {
-        float t = n.z * g.z + n.y * g.y + n.x * g.x;
-        float depth = n.x * push.x + n.y * push.y + n.z * push.z - t;
+        hulk_freg t = n.z * g.z + n.y * g.y + n.x * g.x;
+        hulk_freg depth = n.x * push.x + n.y * push.y + n.z * push.z - t;
         if (depth < lim->limit) {
             Vec3_1401c0 h;
-            float d = lim->limit - depth;
+            hulk_freg d = lim->limit - depth;
             h.x = n.x * d;
             h.y = n.y * d;
             h.z = n.z * d;
@@ -178,6 +179,7 @@ bool WallExitAction::vfunc_5(int skip, float dt)
         }
     }
     target->xform.FUN_0022be40(&push);
-    target->xform.FUN_00221d20(FUN_00224f10(&vel));
+    float arg1 = FUN_00224f10(&vel);
+    target->xform.FUN_00221d20(arg1);
     return true;
 }

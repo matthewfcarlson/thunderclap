@@ -1,11 +1,24 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2961 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 19662 inputs, branch coverage 20/20)
 // FUN_001ec100 @ 0x001ec100
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
-extern "C" int strcmp(const char *a, const char *b);
-extern "C" char *strcpy(char *dst, const char *src);
+static inline int strcmp_inline(const char *a, const char *b)
+{
+    while (*a && *a == *b) {
+        a++;
+        b++;
+    }
+    return (unsigned char)*a - (unsigned char)*b;
+}
+static inline char *strcpy_inline(char *d, const char *s)
+{
+    char *r = d;
+    while ((*d++ = *s++) != 0)
+        ;
+    return r;
+}
 
 struct Query_1ec100 {
     char data[0x44];
@@ -73,15 +86,15 @@ void Handler_1ec100::FUN_001ec100(Entity *entity, const char *name)
         for (i = 0; i < 0x40; i++) f.buf[i] = 0;
         bool flag = DAT_004dd6ec->FUN_00086340()->FUN_00092de0(2);
         long long id = entity->info->FUN_000443c0();
-        if ((int)id == (*(int*)&DAT_004dc0e0) && (int)(id >> 32) == (*(int*)((char*)&DAT_004dc0e0 + 4))) {
+        if ((int)(__int64)id == (*(int*)&DAT_004dc0e0) && (int)(__int64)(id >> 32) == (*(int*)((char*)&DAT_004dc0e0 + 4))) {
             if (!flag) {
                 return;
             }
-            strcpy(f.buf, "joefixit");
+            strcpy_inline(f.buf, "joefixit");
         } else {
-            strcpy(f.buf, entity->info->FUN_000443b0());
+            strcpy_inline(f.buf, entity->info->FUN_000443b0());
         }
-        if (strcmp(name, "spawn") == 0) {
+        if (strcmp_inline(name, "spawn") == 0) {
             if (env->logic->FUN_00027fc0("hulk", "//hulk/opening/holding/stealth_truck")) {
                 return;
             }

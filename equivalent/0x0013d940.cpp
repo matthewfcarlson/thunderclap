@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3051 inputs, branch coverage 68/68)
+// STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 68/68)
 // hulkfight::motion::AnimationVelocityScaledAction::vfunc_3 @ 0x0013d940
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
@@ -319,8 +319,10 @@ char AnimationVelocityScaledAction::vfunc_3(int a0, int a1)
     int c50 = cfg->i50;
     player->flagA = flagA;
     player->flagB = (cfg->mode3c == 3);
-    player->FUN_00225e00(cfg->v7(), v, e0, e1);
-    layers->FUN_00222890(player, player->FUN_00225b30(), c48, 1.0f, c4c, c50, -1.0f);
+    float arg1 = cfg->v7();
+    player->FUN_00225e00(arg1, v, e0, e1);
+    float arg2 = player->FUN_00225b30();
+    layers->FUN_00222890(player, arg2, c48, 1.0f, c4c, c50, -1.0f);
 
     float c30 = cfg->f30;
     float t;

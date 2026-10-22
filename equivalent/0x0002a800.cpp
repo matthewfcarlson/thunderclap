@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1254 inputs, branch coverage 8/10, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 1354 inputs, branch coverage 8/10, incomplete)
 // FUN_0002a800 @ 0x0002a800
 class Resource_2a800 {
 public:
@@ -41,7 +41,8 @@ bool ItemList_2a800::FUN_0002a800()
     if (resource != 0) {
         resource->Release();
         resource = 0;
-        FUN_001b6580()->FUN_001b4c40(resource);
+        Resource_2a800 * arg1_ = resource;
+        FUN_001b6580()->FUN_001b4c40(arg1_);
     }
 
     for (int i = count - 1; i >= 0; i--) {

@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 10/10)
+// FUN_00083080 @ 0x00083080
 // FUN_00083080 @ 0x00083080
 struct Vec3_83080 {
     float x, y, z;
@@ -30,10 +31,10 @@ bool Aligner::FUN_00083080(Xform_83080 *xf, Vec3_83080 *target, float angle)
         up.y = 0.0f;
         up.z = 1.0f;
         xf->FUN_0022c3b0(&up, &rotated);
-        float d = rotated.y * target->y + rotated.x * target->x + rotated.z * target->z;
+        hulk_freg d = rotated.y * target->y + rotated.x * target->x + rotated.z * target->z;
         if (d < -0.99f)
             return false;
-        float c = rotated.z * target->x - rotated.x * target->z;
+        hulk_freg c = rotated.z * target->x - rotated.x * target->z;
         if (c > 0.0f)
             FUN_00224d70(-angle, &rotated);
         else
@@ -41,10 +42,10 @@ bool Aligner::FUN_00083080(Xform_83080 *xf, Vec3_83080 *target, float angle)
         xf->FUN_0022cc90(&rotated);
         return true;
     }
-    float d = dir.y * target->y + dir.z * target->z + dir.x * target->x;
+    hulk_freg d = dir.y * target->y + dir.z * target->z + dir.x * target->x;
     if (d > 0.99f)
         return false;
-    float c = dir.z * target->x - dir.x * target->z;
+    hulk_freg c = dir.z * target->x - dir.x * target->z;
     if (c > 0.0f)
         FUN_00224d70(-angle, &dir);
     else

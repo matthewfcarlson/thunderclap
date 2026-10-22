@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2985 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 19784 inputs, branch coverage 0/0)
 // FUN_00086630 @ 0x00086630
 #include "decls/address.h"
 struct Target_86630;
@@ -36,7 +36,8 @@ void Target_86630::FUN_00086630() {
  context->flag->enabled=1;
  renderer->FUN_00208820();
  controller->FUN_000bd1b0(0);
- FUN_000964d0()->FUN_0022aba0(FUN_00267f00());
+ int arg1_ = FUN_00267f00();
+ FUN_000964d0()->FUN_0022aba0(arg1_);
  Manager_86630* manager=FUN_001d4c90();
  manager->FUN_001d2760();
  controller->FUN_000bc100();

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 15/16, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 19828 inputs, branch coverage 15/16, incomplete)
 // CCollisionAction::vfunc_6 @ 0x0001a150
 #include "decls/address.h"
 struct Vec3_1a150 { float x, y, z; };
@@ -174,7 +174,8 @@ char CCollisionAction::vfunc_6(int arg)
     Flags_1a150 *fl = e->flags;
     fl->on = 1;
     fl->off = 0;
-    FUN_001b6580()->FUN_001b4190(effect);
+    Effect_1a150 * arg1_ = effect;
+    FUN_001b6580()->FUN_001b4190(arg1_);
     Mat_1a150 t;
     t.FUN_0022b980();
     t.m[12] = pos.x;

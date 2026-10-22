@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_00342c20 @ 0x00342c20
+#include "compat/ptr.h"
 struct Butterfly_342c20 {
     float v[8];
 };
@@ -7,11 +8,11 @@ struct Butterfly_342c20 {
 // equiv-conv: FUN_00342c20 eax
 void FUN_00342c20(Butterfly_342c20 *p)
 {
-    float a = p->v[0] + p->v[4];
-    float b = p->v[1] + p->v[5];
+    hulk_freg a = p->v[0] + p->v[4];
+    hulk_freg b = p->v[1] + p->v[5];
     float c = p->v[0] - p->v[4];
     float d = p->v[1] - p->v[5];
-    float e = p->v[6] + p->v[2];
+    hulk_freg e = p->v[6] + p->v[2];
     float f = p->v[3] + p->v[7];
     float g = p->v[2] - p->v[6];
     float h = p->v[3] - p->v[7];

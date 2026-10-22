@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3103 inputs, branch coverage 70/70)
+// STATUS: equivalent (tools/equiv.py level 3: 20044 inputs, branch coverage 70/70)
 // FUN_000f5b20 @ 0x000f5b20
 #include "compat/ptr.h"
 class Param {
@@ -210,7 +210,10 @@ void FEThingsBase::FUN_000f5b20(ParamSlot slot, Source *c, void *d, Args_f5b20 *
         int name = param->FUN_000fad90();
         slot.f = param->FUN_000fad30();
         if (param->FUN_000f9e90())
-            field8->FUN_000f8df0(name, slot.f, param->FUN_000fad90());
+        {
+            int tmp1 = param->FUN_000fad90();
+            field8->FUN_000f8df0(name, slot.f, tmp1);
+        }
         else
             field8->FUN_000f8df0(name, slot.f, 0);
         return;

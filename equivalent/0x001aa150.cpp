@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3022 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 20021 inputs, branch coverage 12/12)
 // FUN_001aa150 @ 0x001aa150
 // FUN_001aa150 @ 0x001aa150
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct Placement_1aa150;
 namespace core {
@@ -132,7 +133,7 @@ public:
 void Controller_1aa150::FUN_001aa150()
 {
     struct Frame {
-        float f;
+        hulk_freg f;
         float extra;
         Cursor_1aa150 it;
         Vec3_1aa150 out1;
@@ -165,9 +166,11 @@ void Controller_1aa150::FUN_001aa150()
                 fr.xf.FUN_0022b980();
                 fr.xf.FUN_0022be40(&fr.out1);
                 fr.xf.FUN_0022ba70(fr.f + fr.extra);
-                tn->FUN_001a4990()->FUN_00098380(&fr.xf);
+                const Transform_1aa150 * arg1_ = &fr.xf;
+                tn->FUN_001a4990()->FUN_00098380(arg1_);
             }
         }
     }
-    DAT_004dd700->handle->FUN_00086290()->FUN_001b92c0(entity);
+    Entity * arg2_ = entity;
+    DAT_004dd700->handle->FUN_00086290()->FUN_001b92c0(arg2_);
 }

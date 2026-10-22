@@ -7,21 +7,21 @@ hulk_freg __cdecl FUN_00097320(float a, float b) {
     int whole = (int)magnitude;
     double na = (magnitude - whole) + (whole % 360);
     if (negative) na = 360.0f - na;
-    volatile float ar = (float)na; // the original reloads the rounded copy from its frame slot
+    volatile float ar = (hulk_freg)na; // the original reloads the rounded copy from its frame slot
     negative = b < 0.0f;
     magnitude = negative ? -(double)b : (double)b;
     whole = (int)magnitude;
     double nb = (magnitude - whole) + (whole % 360);
     if (negative) nb = 360.0f - nb;
-    float br = (float)nb;
-    float direct = (float)(nb - ar);
-    if (nb > 180.0f) br = (float)(nb - 360.0f);
+    hulk_freg br = (hulk_freg)nb;
+    float direct = (hulk_freg)(nb - ar);
+    if (nb > 180.0f) br = (hulk_freg)(nb - 360.0f);
     if (ar > 180.0f) na = (double)ar - 360.0f;
     double wrapped = (double)br - na;
-    float wr = (float)wrapped;
+    hulk_freg wr = (hulk_freg)wrapped;
     union Bits { float f; unsigned int u; } x,y;
     x.f = direct; x.u &= 0x7fffffff;
     y.f = wr; y.u &= 0x7fffffff;
     if (x.f < y.f) return direct;
-    return (float)wrapped;
+    return (hulk_freg)wrapped;
 }

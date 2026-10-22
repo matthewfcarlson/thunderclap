@@ -14,7 +14,7 @@ struct TextureFont {
 hulk_freg TextureFont::vfunc_9(const unsigned short* text)
 {
     if (!text) return (*(float*)&DAT_003f32e0);
-    float result = height;
+    hulk_freg result = height;
     float lineStep = spacing + height;
     while (*text) {
         if (*text == 10) result += lineStep;

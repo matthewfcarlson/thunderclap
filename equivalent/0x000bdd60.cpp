@@ -1,8 +1,17 @@
-// STATUS: equivalent (tools/equiv.py level 3: 12031 inputs, branch coverage 25/25; run with --inputs 12000)
+// STATUS: equivalent (tools/equiv.py level 3: 20038 inputs, branch coverage 25/25)
 // FUN_000bdd60 @ 0x000bdd60
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-extern "C" int memcmp(const void *a, const void *b, unsigned int n);
+// MSVC 7.1 expands memcmp inline (repe cmpsb); so does this.
+static inline int memcmp_inline(const void *a, const void *b, unsigned n)
+{
+    const unsigned char *p = (const unsigned char *)a;
+    const unsigned char *q = (const unsigned char *)b;
+    for (; n != 0; n--, p++, q++)
+        if (*p != *q)
+            return *p - *q;
+    return 0;
+}
 
 class FEObject {
 public:
@@ -79,7 +88,7 @@ void Menu_bdd60::FUN_000bdd60()
         FUN_000fc1a0();
         Screen_bdd60 *s = FUN_000fc310();
         if (s != 0) {
-            if (memcmp(s->GetName(), "blonsky_file", 13) == 0) {
+            if (memcmp_inline(s->GetName(), "blonsky_file", 13) == 0) {
                 if (widget != 0)
                     widget->FUN_001bf8b0();
             }
@@ -95,13 +104,13 @@ void Menu_bdd60::FUN_000bdd60()
         if (FUN_000fc310() != 0) {
             const char *name = FUN_000fc310()->GetName();
             if (name != 0) {
-                if (memcmp("fullscreen_message", name, 19) == 0 || memcmp("mission_accept", name, 15) == 0) {
+                if (memcmp_inline("fullscreen_message", name, 19) == 0 || memcmp_inline("mission_accept", name, 15) == 0) {
                     TextLabel *label = dynamic_cast<TextLabel *>(FUN_000fc260("DynamicControlButtonLabel"));
                     if (label != 0) {
                         float hi = 1.0f;
                         float lo = 0.01f;
                         float v = (timer - 2.0f) * 8.0f;
-                        label->color = ((unsigned int)(int)(FUN_000186b0(&v, &lo, &hi) * 255.0f) << 24) | 0xffffff;
+                        label->color = ((unsigned int)(__int64)(int)(__int64)(FUN_000186b0(&v, &lo, &hi) * 255.0f) << 24) | 0xffffff;
                     }
                 }
             }

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3044 inputs, branch coverage 45/48, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20032 inputs, branch coverage 48/48)
 // MyControllerCallback::vfunc_0 @ 0x0008dbb0
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -111,10 +111,12 @@ void MyControllerCallback::vfunc_0(IController *c)
     if (DAT_004dd700 != 0 && DAT_004dd700->mgr != 0 && FUN_000862c0(DAT_004dd700->mgr) != 0) {
         if (c->v3()) {
             Manager_8dbb0 *m = DAT_004dd700->mgr;
-            FUN_000862c0(m)->FUN_000ae8a0(c->v6());
+            const char * arg1_ = c->v6();
+            FUN_000862c0(m)->FUN_000ae8a0(arg1_);
         } else {
             Manager_8dbb0 *m = DAT_004dd700->mgr;
-            FUN_000862c0(m)->FUN_000ae8b0(c->v6());
+            const char * arg2_ = c->v6();
+            FUN_000862c0(m)->FUN_000ae8b0(arg2_);
         }
     }
 

@@ -26,14 +26,15 @@ public:
 
 hulk_freg DoubleKalmann1D::vfunc_1(float x, float dt)
 {
-    float vel = (x - f38) / dt;
+    hulk_freg vel = (x - f38) / dt;
     f4 = vel;
     Filter_319a40 *flt = &filter;
     f4 = flt->v1(vel, 0);
     f38 = x;
-    float k = fc / (f10 + fc);
+    hulk_freg k = fc / (f10 + fc);
     f8 = k;
     fc = (((*(float*)&DAT_003f32dc) - k) * fc) + f14;
-    f18 = (((x - f18) * *(volatile float *)&f8) + (dt * *(volatile float *)&f4)) + f18;
-    return f18;
+    hulk_freg est = (((x - f18) * *(volatile float *)&f8) + (dt * *(volatile float *)&f4)) + f18;
+    f18 = est;
+    return est;
 }

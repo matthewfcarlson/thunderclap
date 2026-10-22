@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 19901 inputs, branch coverage 4/4)
 // FUN_00198990 @ 0x00198990
 struct Vec3_198990 { float x,y,z; };
 struct Transform_198990 { char data[64]; void FUN_0022b980(); };
@@ -30,7 +30,8 @@ ProjectileGroundShockwave::ProjectileGroundShockwave(Params* p) {
  if(object) object->Release();
  object=obj;
  RenderState_198990* state=obj->state; state->enabled=1; state->flag=0;
- FUN_001b6580()->FUN_001b42b0(object);
+ Object* arg1_ = object;
+ FUN_001b6580()->FUN_001b42b0(arg1_);
  Transform_198990 transform; transform.FUN_0022b980();
  Manager_198990* manager=FUN_0027f250();
  field34=manager->FUN_00283a40(params->position,&transform,-1.0f,1.0f);

@@ -1,8 +1,15 @@
-// STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 29/38, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 7048 inputs, branch coverage 34/38, incomplete)
 // FUN_0008a120 @ 0x0008a120
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-extern "C" int memcmp(const void *a, const void *b, unsigned n);
+// MSVC expands memcmp against a string literal inline (repe cmpsb)
+static inline int memcmp(const char *a, const char *b, unsigned n)
+{
+    for (; n != 0; n--, a++, b++)
+        if (*a != *b)
+            return (unsigned char)*a - (unsigned char)*b;
+    return 0;
+}
 
 struct NameEntry_8a120 {
     unsigned __int64 key;

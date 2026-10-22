@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 14/14)
 // FUN_00343e10 @ 0x00343e10
 // FUN_00343e10 @ 0x00343e10
+#include "compat/ptr.h"
 struct TwiddleTable_343e10 {
     int size0;
     int size1;
@@ -39,11 +40,11 @@ void __stdcall FUN_00343e10(int n, int sign, float *pair, TwiddleTable_343e10 *t
         } else if (n == 4) {
             FUN_00343bb0(w, pair, 4, t->data, off);
         }
-        float d = pair[0] - pair[1];
+        hulk_freg d = pair[0] - pair[1];
         pair[0] = pair[0] + pair[1];
         pair[1] = d;
     } else {
-        float d = (pair[0] - pair[1]) * 0.5f;
+        hulk_freg d = (pair[0] - pair[1]) * 0.5f;
         pair[1] = d;
         pair[0] = pair[0] - d;
         if (n > 4) {

@@ -1,8 +1,16 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3148 inputs, branch coverage 120/133, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20177 inputs, branch coverage 125/133, incomplete)
 // FEScreenBase::vfunc_3 @ 0x000e5710
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" int memcmp(const void *, const void *, unsigned int);
+// MSVC 7.1 expands memcmp against a string literal inline (repe cmpsb); so does this.
+static inline int memcmp_lit(const char *a, const char *b, unsigned n)
+{
+    for (; n != 0; n--, a++, b++)
+        if (*a != *b)
+            return (unsigned char)*a - (unsigned char)*b;
+    return 0;
+}
 int __cdecl FUN_000f6660(int value, int modulus);
 
 class FELayout {
@@ -196,10 +204,10 @@ char FEScreenBase::vfunc_3(int key, Arg2_e5710 a2)
             return 1;
         }
         if (key == 0xb) {
-            if (memcmp(parent->names->v8(), "side_mission_fail", 0x12) != 0 &&
-                memcmp(parent->names->v8(), "story_mission_fail", 0x13) != 0 &&
-                memcmp(parent->names->v8(), "side_mission_success", 0x15) != 0 &&
-                memcmp(parent->names->v8(), "story_mission_success", 0x16) != 0 &&
+            if (memcmp_lit(parent->names->v8(), "side_mission_fail", 0x12) != 0 &&
+                memcmp_lit(parent->names->v8(), "story_mission_fail", 0x13) != 0 &&
+                memcmp_lit(parent->names->v8(), "side_mission_success", 0x15) != 0 &&
+                memcmp_lit(parent->names->v8(), "story_mission_success", 0x16) != 0 &&
                 *DAT_004dd700->sub->FUN_00086270() == 6) {
                 if (focus)
                     focus->v10(1);
@@ -219,12 +227,12 @@ char FEScreenBase::vfunc_3(int key, Arg2_e5710 a2)
         return 1;
     }
     if (key == 0xc) {
-        if (memcmp(text_b40, "", 1) != 0) {
+        if (memcmp_lit(text_b40, "", 1) != 0) {
             parent->v16(text_b40);
             return 1;
         }
     } else if (key == 0xd) {
-        if (memcmp(text_b80, "", 1) != 0) {
+        if (memcmp_lit(text_b80, "", 1) != 0) {
             parent->v18(text_b80);
             return 1;
         }

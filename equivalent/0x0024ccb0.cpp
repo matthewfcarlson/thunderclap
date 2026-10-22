@@ -22,7 +22,7 @@ hulk_freg __cdecl FUN_0024ccb0(Body_24ccb0* p, Body_24ccb0* q) {
  if(value<=-345.0) value=-344.99f;
  value=1.0/(345.0/(value+345.0));
  } else return 1.0f;
- if(value>=0.5 && value<=1.5) return (float)value;
+ if(value>=0.5 && value<=1.5) return (hulk_freg)value;
  if(value>1.5) return 1.5f;
  return 0.5f;
 }

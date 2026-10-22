@@ -11,23 +11,23 @@ struct Grad_356fa0 {
 hulk_freg __stdcall FUN_00356fa0(float *p)
 {
     double x = p[0] + 4096.0f;
-    int xa = (int)x;
+    int xa = (int)(__int64)x;
     double fx = x - xa;
     int xi = xa & 0xff;
-    float fx1 = (float)(fx - 1.0f);
+    float fx1 = (hulk_freg)(fx - 1.0f);
 
     double y = p[1] + 4096.0f;
-    int ya = (int)y;
+    int ya = (int)(__int64)y;
     double fy = y - ya;
     int yi = ya & 0xff;
     int yi1 = (yi + 1) & 0xff;
-    float fy1 = (float)(fy - 1.0f);
+    float fy1 = (hulk_freg)(fy - 1.0f);
 
     double z = p[2] + 4096.0f;
-    int za = (int)z;
+    int za = (int)(__int64)z;
     int zi = za & 0xff;
     int zi1 = (zi + 1) & 0xff;
-    float fz = (float)(z - za);
+    float fz = (hulk_freg)(z - za);
 
     int xi1 = (xi + 1) & 0xff;
     int a = DAT_0056bfc8[xi];
@@ -37,9 +37,9 @@ hulk_freg __stdcall FUN_00356fa0(float *p)
     int ba = DAT_0056bfc8[b + yi];
     int bb = DAT_0056bfc8[b + yi1];
 
-    float fz1 = fz - 1.0f;
-    float u = (float)((3.0f - (fx + fx)) * fx * fx);
-    float v = (float)((3.0f - (fy + fy)) * fy * fy);
+    hulk_freg fz1 = fz - 1.0f;
+    float u = (hulk_freg)((3.0f - (fx + fx)) * fx * fx);
+    float v = (hulk_freg)((3.0f - (fy + fy)) * fy * fy);
 
     const Grad_356fa0 &g000 = ((Grad_356fa0*)&DAT_0056c7d0)[zi + aa];
     const Grad_356fa0 &g100 = ((Grad_356fa0*)&DAT_0056c7d0)[zi + ba];
@@ -56,16 +56,16 @@ hulk_freg __stdcall FUN_00356fa0(float *p)
     double d010 = fz * g010.z + fy1 * g010.y + fx * g010.x;
     double d110 = fz * g110.z + fy1 * g110.y + fx1 * g110.x;
     double l10 = d010 + (d110 - d010) * u;
-    float m0 = (float)(l00 + (l10 - l00) * v);
+    float m0 = (hulk_freg)(l00 + (l10 - l00) * v);
 
     double d001 = fz1 * g001.z + fy * g001.y + fx * g001.x;
     double d101 = fz1 * g101.z + fy * g101.y + fx1 * g101.x;
-    float l01 = (float)(d001 + (d101 - d001) * u);
+    float l01 = (hulk_freg)(d001 + (d101 - d001) * u);
     double d011 = fz1 * g011.z + fy1 * g011.y + fx * g011.x;
     double d111 = fz1 * g111.z + fy1 * g111.y + fx1 * g111.x;
     double l11 = d011 + (d111 - d011) * u;
     double m1 = l01 + (l11 - l01) * v;
 
     double w = (3.0f - (fz + fz)) * fz * fz;
-    return (float)(m0 + (m1 - m0) * w);
+    return (hulk_freg)(m0 + (m1 - m0) * w);
 }

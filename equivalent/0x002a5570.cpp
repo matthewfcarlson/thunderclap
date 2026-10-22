@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 46 inputs, branch coverage 35/38, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 146 inputs, branch coverage 38/38)
 // FUN_002a5570 @ 0x002a5570
+#include "compat/ptr.h"
 #include "decls/data/engine/pure3d.h"
 
 extern "C" double sin(double);
@@ -68,12 +69,12 @@ void __cdecl FUN_002a5570(float t, Mesh_2a5570 *a, Mesh_2a5570 *b, unsigned int 
         i--;
         if (vflag) {
             volatile float w = 1.0f;
-            float dx = av[i].x - p->cx;
-            float dy = av[i].y - p->cy;
+            hulk_freg dx = av[i].x - p->cx;
+            hulk_freg dy = av[i].y - p->cy;
             volatile float dz = av[i].z - p->cz;
             if (p->radius > 0.0) {
                 double d = sqrt((double)((dy * dy + dz * dz) + dx * dx));
-                float r = (float)(p->radius - d);
+                hulk_freg r = (hulk_freg)(p->radius - d);
                 if (!(0.0f < r))
                     r = 0.0f;
                 w = r / p->radius;
@@ -82,8 +83,8 @@ void __cdecl FUN_002a5570(float t, Mesh_2a5570 *a, Mesh_2a5570 *b, unsigned int 
             double X = Smooth(w) * (cos((double)angle) * p->ampA);
             angle = dz + phase;
             double Z = Smooth(w) * (sin((double)angle) * p->ampA);
-            bv[i].x = (float)(X + av[i].x);
-            bv[i].z = (float)(Z + av[i].z);
+            bv[i].x = (hulk_freg)(X + av[i].x);
+            bv[i].z = (hulk_freg)(Z + av[i].z);
         }
         for (int j = 0; j < 4; j++) {
             if (!(((unsigned int*)&DAT_0042d9c0)[j] & mask))
@@ -99,7 +100,7 @@ void __cdecl FUN_002a5570(float t, Mesh_2a5570 *a, Mesh_2a5570 *b, unsigned int 
             volatile float dv = src[i].y - p->cy;
             if (p->radius > 0.0) {
                 double d = sqrt((double)(dv * dv + du * du));
-                float r = (float)(p->radius - d);
+                hulk_freg r = (hulk_freg)(p->radius - d);
                 if (!(0.0f < r))
                     r = 0.0f;
                 w = r / p->radius;
@@ -108,8 +109,8 @@ void __cdecl FUN_002a5570(float t, Mesh_2a5570 *a, Mesh_2a5570 *b, unsigned int 
             double X = Smooth(w) * (cos((double)angle) * p->ampB);
             angle = dv + phase;
             double Z = Smooth(w) * (sin((double)angle) * p->ampB);
-            dst[i].x = (float)(X + src[i].x);
-            dst[i].y = (float)(Z + src[i].y);
+            dst[i].x = (hulk_freg)(X + src[i].x);
+            dst[i].y = (hulk_freg)(Z + src[i].y);
         }
     } while (i != 0);
 }

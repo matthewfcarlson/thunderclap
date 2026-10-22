@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 30/30)
 // hulkfight::motion::PropAnimationAction::vfunc_3 @ 0x0018b4e0
+#include "compat/ptr.h"
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *FUN_00263ea0(unsigned int size);
@@ -145,7 +146,7 @@ bool PropAnimationAction::vfunc_3(int a, int b)
         return false;
 
     struct Frame {
-        float t;
+        hulk_freg t;
         content::LoadInventory::DynamicCaster<pure3d::Animation> caster;
         unsigned int g;
     } f;
@@ -167,9 +168,10 @@ bool PropAnimationAction::vfunc_3(int a, int b)
         ctrl->Release();
     ctrl = c;
     unsigned int g = f.g;
-    float t = f.t;
+    hulk_freg t = f.t;
     c->v24(anim, g, t);
-    ctrl->FUN_00288080(entity->FUN_001d68d0());
+    int arg1 = entity->FUN_001d68d0();
+    ctrl->FUN_00288080(arg1);
     ctrl->FUN_00284ad0(1);
     entity->FUN_0027e650(ctrl, g, t);
     ctrl->v14(g, t);

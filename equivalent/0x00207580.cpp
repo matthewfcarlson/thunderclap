@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1712 inputs, branch coverage 45/46, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 18876 inputs, branch coverage 45/46, incomplete)
 // FUN_00207580 @ 0x00207580
 // cl-flags: /GS
 #include "decls/data/game/global.h"
@@ -68,7 +68,8 @@ bool MapLoader::FUN_00207580(int a1, bool a2)
     } f;
 
     char *slot = 0;
-    f.node = FUN_001c3d90()->pool->FUN_001c7f10(a1);
+    int arg1_ = a1;
+    f.node = FUN_001c3d90()->pool->FUN_001c7f10(arg1_);
     if (f.node == 0) {
         return false;
     }
@@ -154,6 +155,7 @@ bool MapLoader::FUN_00207580(int a1, bool a2)
             q++;
         if (q < 2)
             keys[q] = f.key;
-        FUN_00203db0(f.key)->FUN_002660a0(f44);
+        int arg2_ = f44;
+        FUN_00203db0(f.key)->FUN_002660a0(arg2_);
     }
 }

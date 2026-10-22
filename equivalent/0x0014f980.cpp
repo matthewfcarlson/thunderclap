@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 19972 inputs, branch coverage 10/10)
 // hulkfight::motion::HitFloatAction::vfunc_3 @ 0x0014f980
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct Vec3_14f980 {
@@ -93,9 +94,9 @@ bool HitFloatAction::vfunc_3(int a, int b)
         return false;
 
     Vec3_14f980 pos = scene->origin;
-    float p = data->p;
-    float q = data->q;
-    float r = data->r;
+    hulk_freg p = data->p;
+    hulk_freg q = data->q;
+    hulk_freg r = data->r;
 
     void *mem = FUN_00263ea0(0x70);
     FloatObject_14f980 *obj = 0;
@@ -107,7 +108,8 @@ bool HitFloatAction::vfunc_3(int a, int b)
     int mode = 1;
     if (data->useSize) {
         mode = 3;
-        floatObj->transform.FUN_00221d20(FUN_00224f10(&target->size) + data->sizeBias);
+        float arg1 = FUN_00224f10(&target->size) + data->sizeBias;
+        floatObj->transform.FUN_00221d20(arg1);
     }
     floatObj->mode = mode;
     floatObj->vfunc_0();

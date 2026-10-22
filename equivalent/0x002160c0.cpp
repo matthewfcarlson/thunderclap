@@ -1,7 +1,14 @@
-// STATUS: equivalent (tools/equiv.py level 3: 146 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 16564 inputs, branch coverage 18/18)
 // FUN_002160c0 @ 0x002160c0
+#include "compat/ptr.h"
 extern "C" char *__cdecl strchr(const char *, int);
-extern "C" unsigned int __cdecl strlen(const char *);
+static inline unsigned strlen_inline(const char *s)
+{
+    const char *p = s;
+    while (*p)
+        p++;
+    return p - s;
+}
 
 struct TString_2160c0 {
     char hdr[0x10];
@@ -72,7 +79,7 @@ const char *FUN_002160c0(lua_State_2160c0 *L, const char *fmt, char *argp)
                 break;
             }
             case 'd': {
-                slot->value.n = (float)*(int *)argp;
+                slot->value.n = (hulk_freg)*(int *)argp;
                 argp += 4;
                 f.ap2 += 4;
                 slot->tt = 3;
@@ -82,7 +89,7 @@ const char *FUN_002160c0(lua_State_2160c0 *L, const char *fmt, char *argp)
                 break;
             }
             case 'f': {
-                slot->value.n = (float)*(double *)(f.ap2 + 8);
+                slot->value.n = (hulk_freg)*(double *)(f.ap2 + 8);
                 argp += 8;
                 f.ap2 += 8;
                 slot->tt = 3;
@@ -98,7 +105,7 @@ const char *FUN_002160c0(lua_State_2160c0 *L, const char *fmt, char *argp)
                 f.buff[0] = '%';
                 f.buff[1] = f.e[1];
                 f.buff[2] = 0;
-                TString_2160c0 *ds = FUN_00219430(L, f.buff, strlen(f.buff));
+                TString_2160c0 *ds = FUN_00219430(L, f.buff, strlen_inline(f.buff));
                 slot->value.ts = ds;
                 slot->tt = 4;
                 if ((char *)L->stack_last - (char *)L->top <= 8)

@@ -39,7 +39,7 @@ public:
 
 hulk_freg SortedMerge::FUN_0029dd30(Block *out)
 {
-    float sum = 0.0f;
+    hulk_freg sum = 0.0f;
     int n = out->hdr->count;
     sorter->head = &sorter->sentinel;
     sorter->capacity = n;

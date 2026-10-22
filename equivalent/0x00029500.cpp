@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 19977 inputs, branch coverage 10/10)
 // FUN_00029500 @ 0x00029500
 #include "decls/address.h"
 typedef unsigned __int64 Key_29500;
@@ -47,7 +47,8 @@ void Owner_29500::FUN_00029500(const char* name, const char* other)
         if (found) {
             value = found->handle;
         } else {
-            Item_29500* item = core->registry->FUN_001dee40(FUN_00096d80(other));
+            Key_29500 tmp1 = FUN_00096d80(other);
+            Item_29500* item = core->registry->FUN_001dee40(tmp1);
             if (item) {
                 value = item->FUN_001d72e0();
             }

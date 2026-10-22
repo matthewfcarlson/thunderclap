@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 19934 inputs, branch coverage 8/8)
 // CGrabAction::vfunc_6 @ 0x0001e480
 struct Vec3_1e480 { float x, y, z; };
 
@@ -140,7 +140,8 @@ char CGrabAction::vfunc_6(int arg)
         Flags_1e480 *fl = e->flags;
         fl->on = 1;
         fl->off = 0;
-        FUN_001b6580()->FUN_001b4230(effect);
+        Effect_1e480 * arg1_ = effect;
+        FUN_001b6580()->FUN_001b4230(arg1_);
         Mat_1e480 t;
         t.FUN_0022b980();
         t.m[12] = pos.x;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 19954 inputs, branch coverage 14/14)
 // FUN_00219430 @ 0x00219430
 // FUN_00219430 @ 0x00219430: Lua 5.0 luaS_newlstr, interning a string by hash
 struct TString_219430 {
@@ -28,7 +28,16 @@ struct lua_State_219430 {
     global_State_219430 *l_G;
 };
 
-extern "C" int __cdecl memcmp(const void *, const void *, unsigned int);
+// MSVC 7.1 expands memcmp inline (repe cmpsb); so does this.
+static inline int memcmp_inline(const void *a, const void *b, unsigned n)
+{
+    const unsigned char *p = (const unsigned char *)a;
+    const unsigned char *q = (const unsigned char *)b;
+    for (; n != 0; n--, p++, q++)
+        if (*p != *q)
+            return *p - *q;
+    return 0;
+}
 
 // equiv-conv: FUN_00219390 stack stack stack eax
 TString_219430 *__cdecl FUN_00219390(lua_State_219430 *L, const char *str, unsigned len, unsigned h);
@@ -42,7 +51,7 @@ TString_219430 *__cdecl FUN_00219430(lua_State_219430 *L, const char *str, unsig
 
     global_State_219430 *g = L->l_G;
     for (TString_219430 *ts = g->strt.hash[h & (g->strt.size - 1)]; ts != 0; ts = ts->next) {
-        if (ts->len == l && memcmp(str, ts->str, l) == 0) {
+        if (ts->len == l && memcmp_inline(str, ts->str, l) == 0) {
             global_State_219430 *g2 = L->l_G;
             if (ts->marked & (g2->currentwhite ^ 3))
                 ts->marked ^= 3;

@@ -13,5 +13,5 @@ hulk_freg __stdcall FUN_0030adc0(float start, float delta, float lower, float up
     if (start <= lower && delta < 0.0f) return 0.0f;
     double fraction = ((double)(delta > 0.0f ? upper : lower) - (double)start) / (double)delta;
     if (fraction > 1.0f) return 1.0f;
-    return (float)fraction;
+    return (hulk_freg)fraction;
 }

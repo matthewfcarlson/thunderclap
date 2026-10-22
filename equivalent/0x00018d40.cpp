@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 20/20)
 // CJumpAction::vfunc_7 @ 0x00018d40
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" double sqrt(double);
@@ -150,7 +151,7 @@ bool CJumpAction::vfunc_7(float dt)
             if (f.tmp < 0.0f) {
                 f.ang = f.ang2;
             } else {
-                float d2 = FUN_00224fc0(f.ang, f.ang2);
+                hulk_freg d2 = FUN_00224fc0(f.ang, f.ang2);
                 f.tmp = f.tmp * dt;
                 f.ad.f = d2;
                 f.ad.u &= 0x7fffffff;
@@ -170,7 +171,7 @@ bool CJumpAction::vfunc_7(float dt)
     f.fwd.y = (*(float*)((char*)&DAT_0048e054 + 4));
     f.fwd.z = (*(float*)((char*)&DAT_0048e054 + 8));
     FUN_00224d70(f.ang, &f.fwd);
-    float t = f.fwd.z * f.w.z + f.fwd.x * f.w.x + f.fwd.y * f.w.y;
+    hulk_freg t = f.fwd.z * f.w.z + f.fwd.x * f.w.x + f.fwd.y * f.w.y;
     t = t * f.tmp;
     f.tmp = -f2c;
     if (t < f.tmp)
@@ -184,7 +185,7 @@ bool CJumpAction::vfunc_7(float dt)
     f.q.z = f.q.z * t;
     FUN_00224d70(f.ang, &f.q);
     timing->FUN_000357a0(&f.q);
-    float u = dt * f2c;
+    hulk_freg u = dt * f2c;
     f.r.x = (*(float*)&DAT_0048e054);
     f.r.z = (*(float*)((char*)&DAT_0048e054 + 8));
     f.r.y = (*(float*)((char*)&DAT_0048e054 + 4));
@@ -197,7 +198,7 @@ bool CJumpAction::vfunc_7(float dt)
     f.p.y = f.p.y + f.r.y;
     f.p.z = f.p.z + f.r.z;
     driver->xform.FUN_0022be40(&f.p);
-    f38 = f38 - (float)sqrt(f.r.z * f.r.z + f.r.x * f.r.x + f.r.y * f.r.y);
+    f38 = f38 - sqrt(f.r.z * f.r.z + f.r.x * f.r.x + f.r.y * f.r.y);
     if (f28 < 0.0f) {
         if (chara->v30())
             return false;

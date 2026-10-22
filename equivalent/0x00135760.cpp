@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20015 inputs, branch coverage 32/32)
 // hulkfight::motion::FlyingAttackAction::vfunc_5 @ 0x00135760
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight.h"
 
 extern "C" double cos(double);
@@ -92,8 +93,8 @@ bool FlyingAttackAction::vfunc_5(int a, float dt)
 {
     struct Frame {
         Bits_135760 mag;
-        float acc;
-        float d;
+        hulk_freg acc;
+        hulk_freg d;
         V3_135760 t18;
         V3_135760 vel;
         V3_135760 w;
@@ -129,7 +130,7 @@ bool FlyingAttackAction::vfunc_5(int a, float dt)
         if (!FUN_00098190(dtb.u, accb.u, fr.mag.u, 0, r, 0, &fr.vel, &dir, 0, 0, 0, 1))
             FUN_00135700();
     } else {
-        float f2070 = stats->f2070;
+        hulk_freg f2070 = stats->f2070;
         V3_135760 *vc = &c->vec14;
         fr.t18 = *vc;
         fr.w = *vc;
@@ -201,6 +202,9 @@ bool FlyingAttackAction::vfunc_5(int a, float dt)
     if (cfg->flag30)
         driver->xform.FUN_00222180(&dir);
     else
-        driver->xform.FUN_00221d20(FUN_00224f10(&dir));
+    {
+        float tmp1 = FUN_00224f10(&dir);
+        driver->xform.FUN_00221d20(tmp1);
+    }
     return true;
 }

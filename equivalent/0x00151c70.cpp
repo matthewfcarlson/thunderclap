@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/12, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 12/12)
 // hulkfight::motion::HitPushbackAction::vfunc_5 @ 0x00151c70
+#include "compat/ptr.h"
 struct V3_151c70 { float x, y, z; };
 struct Mover_151c70 {
     char pad[0x24];
@@ -54,13 +55,15 @@ bool HitPushbackAction::vfunc_5(int a, float dt) {
     p->FUN_00059a30()->FUN_000359c0(1);
     if (obj->v3() == 0)
         return false;
-    timer = timer - dt;
-    if (timer < 0.0f) {
-        dt = timer + dt;
-        if (dt <= 0.0f)
+    hulk_freg left = timer - dt;
+    timer = left;
+    if (left < 0.0f) {
+        hulk_freg sum = left + dt;
+        dt = sum;
+        if (sum <= 0.0f)
             return false;
     }
-    float s = dt * speed;
+    hulk_freg s = dt * speed;
     V3_151c70 tmp;
     tmp.x = dir.x * s;
     tmp.y = dir.y;
@@ -73,9 +76,9 @@ bool HitPushbackAction::vfunc_5(int a, float dt) {
     target->sub.FUN_0022be40(&tmp);
     float x = dt * accel + speed;
     speed = x;
-    float v = FUN_00083d90(&spd40);
+    hulk_freg v = FUN_00083d90(&spd40);
     spd40 = v * owner->scale24 * x;
-    float r = target->sub.FUN_002220d0();
+    hulk_freg r = target->sub.FUN_002220d0();
     target->sub.FUN_00221d20(dt * spd40 + r);
     return timer > 0.0f;
 }

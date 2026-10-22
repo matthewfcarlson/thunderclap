@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1127 inputs, branch coverage 26/26)
+// STATUS: equivalent (tools/equiv.py level 3: 11601 inputs, branch coverage 26/26)
 // FUN_000bcbf0 @ 0x000bcbf0
 #include "decls/data/game/global.h"
 
@@ -124,7 +124,8 @@ void Owner_bcbf0::FUN_000bcbf0()
 
     TextEntry_bcbf0 entry;
     entry.FUN_000f7930();
-    entry.FUN_000f8500(((char*)&DAT_003f335c), FUN_000fc1b0(), 1);
+    Manager_bcbf0 * tmp1 = FUN_000fc1b0();
+    entry.FUN_000f8500(((char*)&DAT_003f335c), tmp1, 1);
     sel->FUN_000e36c0();
 
     for (int i = 0x266; i <= 0x2c9; i++) {
@@ -140,17 +141,22 @@ void Owner_bcbf0::FUN_000bcbf0()
         if (!move->FUN_00091f40() && !flag)
             continue;
         Pair_bcbf0 *q = items->FUN_00092bb0(slot);
-        int id = FUN_000fc1b0()->FUN_000f7240(q->a, q->b);
+        int arg1_ = q->b;
+        int arg2_ = q->a;
+        int id = FUN_000fc1b0()->FUN_000f7240(arg2_, arg1_);
         if (id != -1) {
             entry.FUN_000f7a10(id, 0);
         } else {
             Manager_bcbf0 *m = FUN_000fc1b0();
             NameSource_bcbf0 *ns = (NameSource_bcbf0 *)items->FUN_00092bb0(slot);
-            entry.FUN_000f8500(ns->FUN_0027b010(), m, 1);
+            const char * tmp2 = ns->FUN_0027b010();
+            entry.FUN_000f8500(tmp2, m, 1);
         }
         sel->vfunc_19(&entry, 0, 0);
         Pair_bcbf0 *r = move->FUN_00092050();
-        int id2 = FUN_000fc1b0()->FUN_000f7240(r->a, r->b);
+        int arg3_ = r->b;
+        int arg4_ = r->a;
+        int id2 = FUN_000fc1b0()->FUN_000f7240(arg4_, arg3_);
         entry.FUN_000f7a10(id2, 0);
         sel->vfunc_20(sel->count - 1, &entry);
     }

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 8/8)
 // CGrabTrack::vfunc_10 @ 0x0005b1a0
 namespace fight {
 class Params {
@@ -61,7 +61,9 @@ GrabAction *CGrabTrack::vfunc_10(int a1, int a2, fight::Params *params)
     Binding_5b1a0 *binding = table->FUN_00059a40();
     if (binding == 0)
         return 0;
-    int index = binding->FUN_002226b0()->FUN_0027b200(key0, key1);
+    int arg1_ = key1;
+    int arg2_ = key0;
+    int index = binding->FUN_002226b0()->FUN_0027b200(arg2_, arg1_);
     if (index < 0)
         return 0;
     GrabAction *mem = (GrabAction *)FUN_0008d690(0x40);

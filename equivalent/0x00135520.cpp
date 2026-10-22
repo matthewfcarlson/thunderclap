@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 20019 inputs, branch coverage 14/14)
 // hulkfight::motion::FlyingAttackAction::vfunc_3 @ 0x00135520
+#include "compat/ptr.h"
 struct V3_135520 {
     float x, y, z;
     float FUN_0022d110();
@@ -102,9 +103,9 @@ public:
 bool FlyingAttackAction::vfunc_3(int a, int b)
 {
     struct Frame {
-        float f3c;
-        float f38;
-        float f34;
+        hulk_freg f3c;
+        hulk_freg f38;
+        hulk_freg f34;
         V3_135520 pos;
         V3_135520 tmp;
     } fr;
@@ -155,7 +156,8 @@ bool FlyingAttackAction::vfunc_3(int a, int b)
     if (cfg->flag30) {
         driver->xform.FUN_00222180(&dir);
     } else {
-        driver->xform.FUN_00221d20(FUN_00224f10(&dir));
+        float arg1 = FUN_00224f10(&dir);
+        driver->xform.FUN_00221d20(arg1);
     }
     f2c = cfg->f20;
     return true;

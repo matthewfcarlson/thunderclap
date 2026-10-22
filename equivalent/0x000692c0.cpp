@@ -15,5 +15,5 @@ hulk_freg Curve_692c0::FUN_000692c0(float t) {
   a=(double)da*t+a0;
  }
  if (a <= 0.0) return 0.0f;
- return (float)((b+b)/(a*a));
+ return (hulk_freg)((b+b)/(a*a));
 }

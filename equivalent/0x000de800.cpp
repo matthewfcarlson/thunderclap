@@ -22,12 +22,12 @@ hulk_freg FUN_000de800(float x, float z)
     v.z = z;
     v.FUN_0022d110();
 
-    float a = v.z * 0.0f - v.y;
-    float b = v.x - v.z * 0.0f;
-    float c = v.y * 0.0f - v.x * 0.0f;
-    float m = (float)sqrt(c * c + b * b + a * a);
+    hulk_freg a = v.z * 0.0f - v.y;
+    hulk_freg b = v.x - v.z * 0.0f;
+    hulk_freg c = v.y * 0.0f - v.x * 0.0f;
+    hulk_freg m = sqrt(c * c + b * b + a * a);
 
-    float angle;
+    hulk_freg angle;
     if (fabs(m - 1.0f) <= 1e-5f)
         angle = 90.0f;
     else

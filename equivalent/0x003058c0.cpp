@@ -14,5 +14,5 @@ hulk_freg __cdecl FUN_003058c0(const Matrix* m, float tolerance) {
     delta.f = a-((double)m->z2*m->z2 + (double)m->y2*m->y2 + (double)m->x2*m->x2);
     delta.u &= 0x7fffffff;
     if (!(delta.f * inverse < tolerance)) return 1.0f;
-    return (float)sqrt(a);
+    return sqrt(a);
 }
