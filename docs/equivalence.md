@@ -531,8 +531,75 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     words, the returned struct) is counted inconclusive (`statuses.nan_sign`), never equal; any other difference still
     fails. 0x00301410 (35 sources have the pattern). Float returns were already NaN-agnostic (`_feq`).
   Not done: the indirect cdecl arity guess (an original call through `[esi+4]` whose deferred cleanup makes it count the
-  next call's words, 0x0021acc0), stale-stack reads (an uninitialised local stored by one side as `0x5a5a5a5a`, the other
-  as stale data: 0x003272f0) and the 49 `vptr-loaded-before-call` cases (no C++ spelling).
+  next call's words, 0x0021acc0) and stale-stack reads (an uninitialised local stored by one side as `0x5a5a5a5a`, the other
+  as stale data: 0x003272f0) - both done in round 20 below - and the 49 `vptr-loaded-before-call` cases (no C++ spelling).
+
+- (round 20, cl9) **The gaps fx25 and cl8 left open**, each switchable with `EQUIV_OFF=name`, each with a passing case, an `_off`
+  case (the gap is real without the change) and a deliberately wrong source in `tests/equiv/cases/` (`regress.py`, "round 20").
+  - `xlocal`: **an array overrun into another local is undefined behaviour.** 0x00359a80 (seeds 4693, 5061 at 20000 inputs): with
+    `n = 13` the original writes `dist[12]` past its 12-entry frame array into the slot MSVC also uses for a spilled pointer
+    difference, and reads it back through the array index. The decision: an out-of-bounds frame write by the *original* cannot be a
+    behaviour our source must reproduce (its result is the frame layout's, and no sane source reproduces MSVC's spill slots), so the
+    input is never counted equal; it is `statuses.frame_overrun`, inconclusive. The checker has no array extents (no symbols for
+    locals), so the rule is phrased on what it observes: each store to a frame word is classed *indexed* (through an index
+    register, a pointer or a string instruction: an array element) or *plain* (`[esp+k]`: a named local), and a word that both
+    kinds wrote and that is then read with the kind of access that did not write it last (`fld [esp+ecx*4+0x3c]` over a word the
+    spill `mov [esp+0x6c], eax` wrote) marks the input. An indexed access whose index register is 0 counts as plain: element 0 is
+    inside the array's extent, so its word is the array's own (without this, 0x0008e880's `arr[0]` set by name and read by
+    `[esp+edi*4+0x20]` marked 21 of 72 inputs). A store or load through a pointer register at the exact address of a local whose
+    address the function took with `lea` is plain too (`lea ebx, [esp+0x10]; mov [ebx], esi`, 0x002165c0: first version marked all
+    98 inputs and made the source `unsupported`; found by the MSVC-mode sweep below). It is deliberately conservative: a legitimate `arr[3] = sentinel` between
+    a loop that fills `arr` and a loop that reads it is also marked (inconclusive, never equal, and only when the original does
+    that). Not marked: reads by string instructions, words written only by one kind. The original only (ours is not consulted).
+  - why 77% of 0x00359a80's inputs are inconclusive: the fuzzed `*pcount` is huge on about a third of the inputs, so the original's
+    loop runs out of steps (`timeout` 931 of 2558 at 3000 inputs; the `smash`/`wild` ones are 123 each), and the discovery runs of
+    the small-count machinery count as inconclusive attempts as well as the retries that complete. The count planter
+    (`smallcount`, plants 1-4) does not engage at all for this function: the count is kept in a frame slot
+    (`mov ebp,[eax]; mov eax,ebp; mov [esp+0x34],eax`) and the register copy loses the load's pc, so the "load that fed the loop
+    bound" resolves to the stack reload, which is excluded. Propagating the pc through the copy makes the planter work (48/48 rescued)
+    but the random phase then stops at 199 inputs (its 20% inconclusive-rate rule counts the rescued ones) with less coverage (56/72
+    against 65/72), so it was **not** adopted. Planting 5-12 elements for one count in four (like `diffwide`) changed nothing. A
+    follow-up would be to stop counting rescued runaways toward the cap. Not changed in this round.
+  - `tailx87` and `cintrin`: **a tail `jmp` into a CRT helper that takes x87 arguments.** 0x00261bb0: the original `call`s
+    `__CIfmod` (`mov edx, <descriptor>; jmp __cintrindisp2`, 0x0034777a) and returns; MSVC compiles the same source to a tail `jmp`.
+    Two gaps: (a) `x87_args` scanned the helper's first instructions, which are `mov edx; jmp __cintrindisp2`, whose dispatcher
+    saves st0/st1 behind its first branch, so the helper "took no x87 argument" and the stub left both operands on the x87 stack
+    (depth 2, the result lost); `cintrin` reads the `__cintrindisp1/2` name: one or two x87 arguments. Note this changes every
+    caller of a `mov edx; jmp __cintrindispN` thunk, in MSVC mode too (their x87 arguments are now compared, the stack is
+    right); (b) a tail stub took the wrapper's own stack words as the callee's arguments ("5 argument words, expected 0") and no
+    x87 arguments; `tailx87` gives a tail `jmp` to a callee that takes x87 arguments and reads no stack word zero words and the
+    x87 arguments, like the call. `tailfret` (round 19) is the neighbouring rule (a jmp to a function whose result is the return
+    value).
+  - `cleanframe`: **the indirect cdecl arity over-count.** 0x0021acc0: `add esp, 0x40; pop ebx; add esp, 8; ret` - `cleanup_after`
+    took the `add` before a `pop` of a callee-saved register for the epilogue and subtracted the frame (8 bytes), so the first call
+    of four sharing the cleanup counted 2 words and the next 6. The frame is released on its own after the pops here, so the first
+    `add` is argument cleanup only and nothing is subtracted. (When the epilogue merges the frame into that `add`, as before, the
+    frame is still subtracted.) Applies in MSVC mode as well.
+  - `uninitmask`: **stale data from an uninitialised slot.** 0x003272f0: the original saves a count in `push ecx`'s reserved slot
+    on a path where it only ever holds the caller's `ecx`, and writes it back after a stub changed the flag; ours holds
+    `0x5a5a5a5a` there. The original reads a frame word nothing wrote (not a stored word, not a stub fill, not a saved register,
+    not an argument): undefined behaviour. When the original did that, differences that are exactly the uninitialised word (ours
+    holding the fill pattern, "was 0x5a5a5a5a, expected X" / "unexpected write (0x5a5a5a5a)", or the original's value being what
+    it read from that slot) make the input inconclusive (`statuses.uninit_read`), never equal; any other difference still fails, and
+    so does the same wrong value when the original read nothing uninitialised. Not covered: a local the original had *zeroed*
+    and ours leaves unset (a real difference), stale data from earlier pushes the original did not read directly.
+  - **Verification.** `regress.py` through the queue: 272/273 (the 258 earlier cases, 13 new for the five rules and 2 for the
+    `xlocal` false positives found by the sweeps); the one FAIL, 0x000ffef0_compare_chain, is a 1-ulp float difference on mac2 only
+    and fails the same way with the round-19 checker there (it passes on mac1 and the laptop). `test_equiv.py` 14 ok, `replay_regress.py`
+    16/16. The two coverage-threshold dips under load (0x002cb2b0, 0x003037f0) pass when re-run alone.
+  - **MSVC-mode verdicts** (sample of 900 `equivalent/` sources, 60 inputs, round-19 against round-20 checker): 899 equivalent, 1 fail
+    (0x000a4450, which the round-19 checker fails too). `xlocal` marked 0x001c3030 (55 of 81 inputs: a struct local filled by
+    pointer and `rep movs`, then fields set by name and read through the pointer: conservative, the 26 others pass) and 0x00280d90
+    (11 of 70); no source changed verdict. `uninitmask` marked none; `cleanframe` only changes sources whose original has
+    `add esp, N; pop <saved reg>; add esp, frame; ret`; `cintrin` changes the callers of the two `mov edx; jmp __cintrindisp1/2`
+    thunks (0x0034777a `__CIfmod`, 0x0035b0a0): `equivalent/` has 3 (0x00261bb0, 0x002899e0, 0x002a5290; the latter two keep
+    `equivalent`). Native mode: of the 262 sources cl8 left failing, 5 now pass at 60 inputs (0x0021acc0 `cleanframe`, 0x003272f0
+    `uninitmask`, 0x002618a0 and 0x0033b800 `cintrin`, 0x00092390 with one `frame_overrun` input hiding the old "ebp not preserved
+    the same way" - re-run these at 3000 inputs before use); the other 253 are unchanged.
+  - **Re-checks at 20000 inputs, 1200 s** (queue): 0x00261bb0 (fx25's work source) **passes**, 20003 inputs, 2/2 edges;
+    0x00359a80 (native16's source, `build/fx25/start`) **passes**, 11399 inputs, 0 failed, 67/72 edges, with seeds 4693 and 5061
+    now `frame_overrun`. Its 77% inconclusive rate is unchanged (8791 of 11402; 7766 `timeout`, 1022 `stack_smash` + `wild`). Both
+    sources are in `build/cl9/pending/` with the STATUS line (not in `equivalent/`).
 
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check

@@ -845,6 +845,8 @@ class Program:
         the stack it found (`__CIpow`: `fxch st(1); fstp qword [esp]; fst qword [esp+8]` takes st0 and st1 and
         leaves its result in their place). 0 for ordinary callees."""
         cache = self.__dict__.setdefault("_x87a", {})
+        if "cintrin" in EQUIV_OFF:      # (the switch changes the answer: its own cache, for a regress run that flips it)
+            cache = self.__dict__.setdefault("_x87a_nocintrin", {})
         if target in cache:
             return cache[target]
         cache[target] = 0
@@ -860,6 +862,12 @@ class Program:
                 if a == target:
                     cache[target] = self.x87_args(i.target, depth + 1)
                     return cache[target]
+                nm_ = self.funcs.get(i.target, (0, ""))[1]
+                if nm_ in ("__cintrindisp1", "__cintrindisp2") and "cintrin" not in EQUIV_OFF:
+                    # (round 20, cintrin) `__CIfmod`: `mov edx, <descriptor>; jmp __cintrindisp2`. The dispatcher saves
+                    # st0 (and st1) below its first branch, where the scan stops: one or two x87 arguments
+                    cache[target] = need = int(nm_[-1])
+                    return need
                 a = i.target
                 continue
             if i.kind != "other":
@@ -1731,7 +1739,18 @@ class CodeView:
                 if nx is not None and (nx.kind == "ret" or (nx.mnemonic == "pop" and nx.regs and
                                                               nx.regs[0] in CALLEE_SAVED)):
                     # an epilogue: the frame the prologue allocated (`sub esp, 0x10`) is part of it
-                    n -= self.frame_alloc()
+                    # (round 20, cleanframe) ... unless the frame is released on its own after the pops
+                    # (`add esp, 0x40; pop ebx; add esp, 8; ret`): then this `add` is only argument cleanup
+                    k_ = nx
+                    kb_ = a + j.size
+                    while "cleanframe" not in EQUIV_OFF and k_ is not None and k_.mnemonic == "pop" and k_.regs and \
+                            k_.regs[0] in CALLEE_SAVED:
+                        kb_ += k_.size
+                        k_ = self.decode(kb_)
+                    own_ = k_ is not None and k_.mnemonic == "add" and k_.op_str.startswith("esp,") and k_.imms and \
+                        k_.imms[0] == self.frame_alloc() and "cleanframe" not in EQUIV_OFF
+                    if not own_:
+                        n -= self.frame_alloc()
                 return n if n > 0 else None
             if j.mnemonic == "pop" and j.regs == ["ecx"] and later == 0:
                 n = 0
@@ -2768,6 +2787,11 @@ class Run:
         self.cookies = set()        # values read from the /GS cookie global
         self.cdecl_site = False     # (round 8) the current call is proven cdecl by the caller's cleanup
         self.smashed = None         # (round 8) where a store overran into the return address or a saved register
+        self.xl_last = {}           # (round 20, xlocal) stack word -> (kind of the last store, 'idx' or 'plain', insn)
+        self.xl_pending = {}        # ... words both kinds of store wrote: word -> kind of the latest store
+        self.xlocal = None          # ... the instruction that read such a word back with the other kind of access
+        self.uninit_read = None     # (round 20, uninitmask) the instruction that read a frame word nothing wrote
+        self.uninit_vals = set()    # ... the values it read (the caller's ecx in a reserved slot, stale stack)
         self.cdecl_slots = set()    # (operand, address) of the fields indirect calls proven cdecl went through
         self.eax_def = None         # what last set eax: ("call" | "insn", bits), and whether code read it since
         self.eax_read = False
@@ -2902,6 +2926,22 @@ class Run:
             elif self.helper_ret is not None:
                 pass        # _chkstk/_ftol scratch: not data the function wrote
             elif not (ci is not None and ci.mnemonic == "push" and ci.addr in self.prologue):
+                if ci is not None and ci.mnemonic not in ("push", "call") and addr < ENTRY_ESP and "xlocal" not in EQUIV_OFF:
+                    # (round 20, xlocal) which kind of store wrote each word: through an index or a pointer (an array
+                    # element), or at a plain frame offset (a named local); see the read check in _on_code
+                    kind_ = "idx" if (ci.mnemonic.startswith(("rep", "stos", "movs")) or
+                                      (ci.mem is not None and (ci.mem[2] or ci.mem[1] not in ("esp", "ebp")))) else "plain"
+                    if kind_ == "idx" and ci.mem is not None and ci.mem[2] and ci.mem[1] in ("esp", "ebp") and \
+                            not ci.mnemonic.startswith(("rep", "stos", "movs")) and self.reg(ci.mem[2]) == 0:
+                        kind_ = "plain"     # element 0 of a frame array is in the array's extent: it is the array's own word
+                    elif kind_ == "idx" and ci.mem is not None and not ci.mem[2] and ci.mem[1] not in ("esp", "ebp") and \
+                            not ci.mnemonic.startswith(("rep", "stos", "movs")) and (addr & ~3) in self.addr_taken:
+                        kind_ = "plain"     # `lea ebx, [esp+0x10]; mov [ebx], esi`: the local itself, through its address
+                    for w_ in range(addr & ~3, addr + size, 4):
+                        prev_ = self.xl_last.get(w_)
+                        if w_ in self.xl_pending or (prev_ is not None and prev_[0] != kind_ and prev_[1] != ci.addr):
+                            self.xl_pending[w_] = kind_
+                        self.xl_last[w_] = (kind_, ci.addr)
                 self.stack_written.update(range(addr, addr + size))    # (prologue pushes allocate/save)
                 self.func_stack_written.update(range(addr, addr + size))
                 if ci is not None and ci.mnemonic not in ("push", "call") and (
@@ -3136,6 +3176,12 @@ class Run:
                 sem_ = self.prog.callee_stack_args(target)
                 if sem_:
                     nargs = max(nargs, min(sem_, 32))
+            tailx87 = known and "tailx87" not in EQUIV_OFF and self.prog.x87_args(target) > 0
+            if tailx87 and not p and self.prog.callee_stack_args(target) == 0:
+                # (round 20, tailx87) `jmp __CIfmod`: MSVC jumps to a CRT helper that takes its arguments in x87 registers
+                # and reads no stack word, where the original calls it and returns. The wrapper's own stack words are
+                # not the helper's arguments (the original passes none)
+                nargs = 0
             if self.convs.get(self.orig_entry) and "tailconv" not in EQUIV_OFF:
                 # (round 7) a tail call out of an equiv-conv function: each side passes on its own incoming
                 # stack words (ours has the C++ declaration's, the original the annotation's), so as many as
@@ -3424,14 +3470,15 @@ class Run:
             fdepth = (8 - ((uc.reg_read(u.UC_X86_REG_FPSW) >> 11) & 7)) % 8
         # (round 11, x87args) a callee that takes x87 register arguments (`fld x; fld e; call __CIpow`) replaces
         # them with its result: they were not values kept across the call, and the code after it uses the result
-        x87n = min(self.prog.x87_args(target), fdepth) if known and not tail and "x87args" not in EQUIV_OFF else 0
+        tailx87 = tail and known and "tailx87" not in EQUIV_OFF and "x87args" not in EQUIV_OFF and self.prog.x87_args(target) > 0
+        x87n = min(self.prog.x87_args(target), fdepth) if known and (not tail or tailx87) and "x87args" not in EQUIV_OFF else 0
         fret = True if x87n else self.view.float_ret_after(insn.addr, self.own_float_ret, fdepth)
         # (round 12, x87cmp) the x87 register arguments themselves (`fld x; call __CIasin`): inputs of the call like
         # its stack words, compared with the float tolerance; an argument the caller never loaded is None
         x87a = []
         if x87_override is not None:
             x87a = list(x87_override)
-        elif known and not tail and "x87cmp" not in EQUIV_OFF:
+        elif known and (not tail or tailx87) and "x87cmp" not in EQUIV_OFF:
             x87a = [self._st_val(i) if i < fdepth else None for i in range(self.prog.x87_args(target))]
         h = mix(self.inp["seed"], 0xCA11, k)
         d = self.inp.get("dictionary")
@@ -4818,6 +4865,50 @@ class Run:
                 except Exception:
                     pass
             self.cur_insn = insn
+            if insn is not None and insn.mem is not None and insn.mem[1] in ("esp", "ebp") and \
+                    not insn.mem[2] and "uninitmask" not in EQUIV_OFF and \
+                    insn.mnemonic not in ("lea", "nop", "ret", "call") and not insn.mnemonic.startswith(("rep", "movs", "stos")) \
+                    and not (insn.ops[0][0] == "mem" and (insn.mnemonic in ("mov", "fst", "fstp", "fist", "fistp") or
+                                                          insn.mnemonic.startswith("set"))):
+                # (round 20, uninitmask) the function reads a word of its own frame that nothing wrote: not an argument,
+                # not a saved register, not a word a stub filled. Its value is stale stack (the prologue's `push ecx` that
+                # reserves a slot holds the caller's ecx), undefined behaviour; see the diff filter in run_input
+                try:
+                    ea_ = self._ea(insn.mem)
+                except Exception:   # noqa: BLE001
+                    ea_ = None
+                if ea_ is not None and STACK_LO <= ea_ < ENTRY_ESP:
+                    sz_ = insn.mem[5] or 4
+                    ws_ = range(ea_, ea_ + sz_)
+                    if not any(x in self.stack_written or x in self.fill_byte or x in self.prefill_src or x in self.spec_fill or
+                               (x & ~3) in self.fill_src or (x & ~3) in self.save_slots for x in ws_):
+                        self.uninit_read = self.uninit_read or addr
+                        if sz_ == 4 and len(self.uninit_vals) < 16:
+                            self.uninit_vals.add(self._read_u32(ea_))
+            if self.xl_pending and insn is not None and insn.mem is not None and self.xlocal is None and \
+                    insn.mnemonic not in ("lea", "nop") and not insn.mnemonic.startswith(("rep", "movs", "stos")) and \
+                    not (insn.ops[0][0] == "mem" and (insn.mnemonic in ("mov", "fst", "fstp", "fist", "fistp") or
+                                                      insn.mnemonic.startswith("set"))):
+                # (round 20, xlocal) a read of a frame word that both kinds of store wrote, with the kind of access
+                # that did not write it last. The original wrote an array element, a named local overwrote it, and
+                # an access through the array reads the local back (or the reverse): an index beyond the array's
+                # extent, into a slot MSVC uses for something else. Undefined behaviour whose result is the frame
+                # layout's, not a behaviour our source must have: the input is inconclusive, never equal.
+                try:
+                    ea_ = self._ea(insn.mem)
+                except Exception:   # noqa: BLE001
+                    ea_ = None
+                if ea_ is not None and STACK_LO <= ea_ < ENTRY_ESP:
+                    rk_ = "idx" if (insn.mem[2] or insn.mem[1] not in ("esp", "ebp")) else "plain"
+                    if rk_ == "idx" and insn.mem[2] and insn.mem[1] in ("esp", "ebp") and self.reg(insn.mem[2]) == 0:
+                        rk_ = "plain"       # (element 0, as for the stores)
+                    elif rk_ == "idx" and not insn.mem[2] and insn.mem[1] not in ("esp", "ebp") and (ea_ & ~3) in self.addr_taken:
+                        rk_ = "plain"       # (a local through its address, as for the stores)
+                    for w_ in range(ea_ & ~3, ea_ + (insn.mem[5] or 4), 4):
+                        pk_ = self.xl_pending.get(w_)
+                        if pk_ is not None and pk_ != rk_:
+                            self.xlocal = addr
+                            break
             if self.coverage is not None and insn is not None:
                 rd, wr = self.view.eax_rw(addr)
                 if rd:
@@ -5893,6 +5984,15 @@ def _nan_sign_only(a, b):
     a NaN is produced, which the game does not rely on. Native mode only; the input is counted inconclusive."""
     return NATIVE_MODE and "nansign" not in EQUIV_OFF and (a ^ b) == 0x80000000 and (a & 0x7F800000) == 0x7F800000 \
         and (a & 0x7FFFFF) != 0
+
+
+def _uninit_diff(d, vals):
+    """(round 20, uninitmask) A difference that is the uninitialised word itself: ours holds the fill pattern, or the original
+    holds a value it read from a frame word nothing wrote (`vals`)."""
+    if re.search(r"(?:was|is) 0x5a5a5a5a, expected|unexpected write.*\(0x5a5a5a5a\)", d):
+        return True
+    m = re.search(r"expected (0x[0-9a-f]{8})", d)
+    return bool(m) and int(m.group(1), 16) in vals
 
 
 def _norm(v):
@@ -7803,6 +7903,11 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 res["inputs_inconclusive"] += 1
                 res["statuses"][ub] += 1
                 return None
+        if orun.xlocal is not None and o["status"] == "ret":
+            # (round 20, xlocal) the original read back a frame word of another local through an array index (or the reverse)
+            res["inputs_inconclusive"] += 1
+            res["statuses"]["frame_overrun"] += 1
+            return None
         if o["status"] in ("fault:wild_jump", "fault:wild_call"):
             # the original's control flow went wild (a fuzzed pointer overwrote its return address or a
             # saved register, or a fuzzed code pointer lands inside the function): no real input does that
@@ -7863,6 +7968,14 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         if diffs and r.get("bool_ub") and "boolub" not in EQUIV_OFF:
             res["inputs_inconclusive"] += 1         # (round 18) native bool read of a non-bool byte: undefined, see _on_code
             res["statuses"]["bool_ub"] += 1
+            return None
+        if diffs and orun.uninit_read is not None and "uninitmask" not in EQUIV_OFF and \
+                all(_uninit_diff(d_, orun.uninit_vals) for d_ in diffs):
+            # (round 20, uninitmask) the original read a word of its frame nothing had written (a reserved slot holding the
+            # caller's ecx, stale stack) and ours holds the fill pattern where the original holds that data: every
+            # difference is the uninitialised word itself. Undefined behaviour, not a behaviour ours must reproduce.
+            res["inputs_inconclusive"] += 1
+            res["statuses"]["uninit_read"] += 1
             return None
         if ub and diffs:
             # (round 8) an input that is undefined behaviour in the original (above) and shows a difference

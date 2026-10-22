@@ -23,7 +23,12 @@ EXTRA = []
 
 def run(item):
     addr, src = item
-    r = subprocess.run([sys.executable, os.path.join(ROOT, "tools/equiv.py"), src, addr, "--json", *EXTRA],
+    extra, script = list(EXTRA), "tools/equiv.py"
+    if "--equiv-script" in extra:       # (cl9) a development copy of the checker, e.g. tools/equiv_cl9.py
+        k = extra.index("--equiv-script")
+        script = extra[k + 1]
+        del extra[k:k + 2]
+    r = subprocess.run([sys.executable, os.path.join(ROOT, script), src, addr, "--json", *extra],
                        capture_output=True, text=True, cwd=ROOT)
     try:
         rep = json.loads(r.stdout)
@@ -32,7 +37,8 @@ def run(item):
     l3 = rep.get("level3") or {}
     return {"addr": addr, "src": src, "status": rep.get("status"), "args": EXTRA,
             "conflicts": bool((rep.get("level2") or {}).get("conflicts")),
-            "inputs_run": l3.get("inputs_run"), "coverage": l3.get("coverage"), "target": rep.get("target")}
+            "inputs_run": l3.get("inputs_run"), "coverage": l3.get("coverage"), "target": rep.get("target"),
+            "inconclusive": l3.get("inputs_inconclusive"), "statuses": l3.get("statuses")}
 
 
 def init(extra):

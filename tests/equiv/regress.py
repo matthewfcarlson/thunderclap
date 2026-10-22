@@ -606,6 +606,29 @@ CASES = {
     "0x000a92c0_native_nrvo": ("equivalent", None, 0.9, {"native": True, "n_inputs": 100}),
     "0x000a92c0_native_nrvo_off": ("fail", "argument 1", 0, {"native": True, "n_inputs": 100, "equiv_off": "nrvo", "src": "0x000a92c0_native_nrvo"}),
     "0x000a92c0_native_nrvo_wrong": ("fail", "returned struct", 0, {"native": True, "n_inputs": 100}),
+    # round 20 (cl9)
+    # xlocal: n = 13 writes dist[12] into the slot MSVC spills a pointer difference to, then reads it back through the array
+    # (seeds 4693, 5061 failed 0x00359a80 at 20000 inputs): undefined behaviour, the input is inconclusive. A wrong lerp still fails
+    "0x00359a80_xlocal": ("equivalent", None, 0, {"seeds": list(range(32)) + [4693, 5061], "n_inputs": 5100}),
+    "0x00359a80_xlocal_off": ("fail", "missing write to arg3+0x6c", 0, {"src": "0x00359a80_xlocal", "seeds": list(range(32)) + [4693, 5061], "n_inputs": 5100, "equiv_off": "xlocal"}),
+    "0x00359a80_xlocal_wrong": ("fail", None, 0, {"seeds": list(range(32)) + [4693, 5061], "n_inputs": 5100}),
+    # xlocal must not fire on a local reached through its own address (`lea ebx, [esp+0x10]; mov [ebx], esi`, 0x002165c0: all 98 inputs were
+    # marked) or on element 0 of a frame array set by name (0x0008e880: 21 of 72 marked, hiding a real difference at seed 11)
+    "0x002165c0_xlocal_ptr": ("equivalent", None, 0, {"n_inputs": 100}),
+    "0x0008e880_native_xlocal_elem0": ("fail", "unexpected write to 0xbe7ef6d4", 0, {"native": True, "n_inputs": 60}),
+    # cintrin + tailx87: `jmp __CIfmod` (mov edx, <descriptor>; jmp __cintrindisp2) takes st0 and st1 and no stack word; the original calls it
+    "0x00261bb0_tail_fmod": ("equivalent", None, 0.9, {"n_inputs": 300}),
+    "0x00261bb0_tail_fmod_off": ("fail", "argument words", 0, {"src": "0x00261bb0_tail_fmod", "n_inputs": 100, "equiv_off": "cintrin"}),
+    "0x00261bb0_tail_fmod_off2": ("fail", "x87 stack depth", 0, {"src": "0x00261bb0_tail_fmod", "n_inputs": 100, "equiv_off": "tailx87"}),
+    "0x00261bb0_tail_fmod_wrong": ("fail", "x87", 0, {"n_inputs": 100}),
+    # cleanframe: `add esp, 0x40; pop ebx; add esp, 8; ret` - the first add is argument cleanup of four calls, the frame goes on its own
+    "0x0021acc0_native_cleanframe": ("equivalent", None, 0, {"native": True, "n_inputs": 100}),
+    "0x0021acc0_native_cleanframe_off": ("fail", "argument", 0, {"src": "0x0021acc0_native_cleanframe", "native": True, "n_inputs": 100, "equiv_off": "cleanframe"}),
+    "0x0021acc0_native_cleanframe_wrong": ("fail", "argument 3", 0, {"native": True, "n_inputs": 100}),
+    # uninitmask: the original saves an uninitialised `push ecx` slot (the caller's ecx) and writes it back; ours holds the fill pattern
+    "0x003272f0_native_uninit": ("equivalent", None, 0.9, {"native": True, "n_inputs": 300}),
+    "0x003272f0_native_uninit_off": ("fail", "0x5a5a5a5a", 0, {"src": "0x003272f0_native_uninit", "native": True, "n_inputs": 100, "equiv_off": "uninitmask"}),
+    "0x003272f0_native_uninit_wrong": ("fail", None, 0, {"native": True, "n_inputs": 300}),
 }
 
 # verify_relocs.py cases: name -> (expected status, issue kind it must report or None)
@@ -623,7 +646,7 @@ RELOC_CASES = {
 # cases that must also complete this many inputs (the promotion bar is 50)
 MIN_RUN = {"0x0028c2a0_rep_count": 50, "0x000e36c0_small_counts": 50, "0x002155f0_diff_bound": 50,
            "0x0024a800_walk_end": 50, "0x001fe380_tiny_counts": 50, "0x002a4e40_static_count": 50,
-           "0x00242da0_nil_addr_walk": 50}
+           "0x00242da0_nil_addr_walk": 50, "0x002165c0_xlocal_ptr": 50}
 
 
 def job(name):
@@ -667,7 +690,8 @@ def run_jobq(a, names):
     per = a.per
     commit = jobq.head_commit()
     files = jobq.collect_files([], True)
-    jobs = [jobq.make_job(a.name, ["python", "tests/equiv/regress.py", "--names", ",".join(names[i:i + per]), "--jobs", "2"],
+    jobs = [jobq.make_job(a.name, ["python", "tests/equiv/regress.py", "--names", ",".join(names[i:i + per]), "--jobs", "2"] +
+                          (["--module", a.module] if a.module else []),
                           "equiv", files, [], 3600, 2, 3, 0, commit) for i in range(0, len(names), per)]
     ids = jobq.submit_jobs(jobs)
     print("%d cases in %d jobs (%d-%d)" % (len(names), len(ids), ids[0], ids[-1]), flush=True)
@@ -706,7 +730,10 @@ def main():
     p.add_argument("--jobq", action="store_true", help="run the cases through tools/jobq.py")
     p.add_argument("--name", default=os.environ.get("USER", "agent"), help="submitter name for --jobq")
     p.add_argument("--per", type=int, default=6, help="cases per job for --jobq")
+    p.add_argument("--module", help="checker module to import instead of equiv (tools/NAME.py; a development copy)")
     a = p.parse_args()
+    if a.module:
+        os.environ["EQUIV_MODULE"] = a.module
     sel = set(a.names.split(",")) if a.names else None
     if a.jobq:
         return run_jobq(a, [n for n in list(CASES) + list(RELOC_CASES) if (not a.only or a.only in n) and (not sel or n in sel)])
