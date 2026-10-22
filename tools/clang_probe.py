@@ -51,6 +51,9 @@ import shutil
 import subprocess
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import hulk_env  # noqa: E402,F401  (HULK_NATIVE_* -> HULK_WINE_*)
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # HULK_CLANG_PROBE_DIR: another output directory (its own snapshot, report and undefined.txt), e.g. for a run beside
 # another agent's; HULK_CLANG_PROBE_CACHE: the per-TU cache to use (content-keyed, so it can be shared)
@@ -96,7 +99,7 @@ X87 = ["-mno-sse", "-mfpmath=387", "-ffp-eval-method=double", "-ffp-contract=off
 SANITIZE = {"": [],
             "float-cast": ["-fsanitize=float-cast-overflow"],
             "float-cast-trap": ["-fsanitize=float-cast-overflow", "-fsanitize-trap=float-cast-overflow"]}[
-    os.environ.get("HULK_NATIVE_SANITIZE", "")]
+    os.environ.get("HULK_WINE_SANITIZE", "")]
 CONFIGS = {
     "msvc": dict(flags=["--target=i686-pc-windows-msvc", "-fms-extensions", "-fms-compatibility",
                         "-fms-compatibility-version=13.10", "-std=c++14", "-O0", "-c"] + NATIVE + X87 + SANITIZE, obj=True),

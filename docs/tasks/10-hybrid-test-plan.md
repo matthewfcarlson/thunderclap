@@ -1,4 +1,4 @@
-# 10: Test plan for the hybrid build (and later the native build)
+# 10: Test plan for the hybrid build (and later the Wine build)
 
 ## Goal
 Once [task 06](06-hybrid-patch-build.md) can patch our functions into the original XBE, prove that the patched game behaves like the original. When it doesn't, find the responsible function automatically. The same harness later checks the native builds ([roadmap](../roadmap.md) step 6) and QoL changes (step 7).
@@ -65,7 +65,7 @@ A build **passes** when every scenario's checkpoints match the original exactly,
   - Gameplay constants of 1/30 and 1/60 are the first suspects for frame-rate dependence.
 - **Intro skip and faster loading:** the boot scenario must reach the same menu state.
 
-### 6. Native builds reuse all of it
+### 6. The Wine build and later native builds reuse all of it
 - The replay files, checkpoint hashes and scenarios are platform-independent. The native x86-32 build, then x86-64 (SteamOS) and arm64 (macOS), run the same suite against the original's checkpoints.
 - Exact matching is expected on x86-32 with x87 math.
 - On SSE/NEON, float results drift. Compare positions and other floats within a tolerance that tightens over time, and treat discrete state (flags, counts, level, RNG) as exact. A divergence then shows *where* drift starts, usually in physics or animation, instead of just "the replay desynced".

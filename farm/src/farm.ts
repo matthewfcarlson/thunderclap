@@ -472,18 +472,18 @@ function parseModel(m: string) {
 	return { provider: m.slice(0, i), modelId: m.slice(i + 1) };
 }
 
-// --upgrade must not re-match what the native build needs as an equivalent (docs/native-build.md "native12", process
-// note): a byte match can't pass a register argument. Skipped: the matches/ files tools/native_calls.py demoted
+// --upgrade must not re-match what the Wine build needs as an equivalent (docs/wine-build.md "native12", process
+// note): a byte match can't pass a register argument. Skipped: the matches/ files tools/wine_calls.py demoted
 // (DEMOTE), equivalent/ sources with an `// equiv-conv` register note (they call, or are, a register-convention
 // function), and sources naming a function whose own source has such a note. Returns addr -> reason.
 const CONV_NOTE = /\/\/[ \t]*equiv-conv:[ \t]*(\S+)[ \t]+([^\n]*)/g;
 const hasRegister = (locs: string) => locs.split(/\s+/).some((l) => l && l !== "stack");
 function nativeUpgradeBlocks(equivDir: string): Map<string, string> {
 	const out = new Map<string, string>();
-	const nc = join(ROOT, "tools/native_calls.py");
+	const nc = join(ROOT, "tools/wine_calls.py");
 	if (existsSync(nc)) {
 		const m = readFileSync(nc, "utf8").match(/^DEMOTE\s*=\s*\{([\s\S]*?)\}/m);
-		for (const d of m?.[1].matchAll(/matches\/(0x[0-9a-f]{8})\.cpp/g) ?? []) out.set(d[1], "native_calls.DEMOTE");
+		for (const d of m?.[1].matchAll(/matches\/(0x[0-9a-f]{8})\.cpp/g) ?? []) out.set(d[1], "wine_calls.DEMOTE");
 	}
 	const regFns = new Set<string>(); // FUN_xxxxxxxx with a register-convention note in any source
 	const notes = new Map<string, string>(); // equivalent/ addr -> its first register note

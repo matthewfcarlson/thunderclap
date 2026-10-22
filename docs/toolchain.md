@@ -41,9 +41,9 @@ Output is `coff-i386`, readable with `objdump -d --x86-asm-syntax=intel` and dif
 - GUI: `build/tools/ghidra_12.0.3_PUBLIC/ghidraRun`, then open `build/ghidra/hulk.gpr`.
 - Scripts live in `tools/ghidra_scripts/` (e.g. `ProjectStats.java`).
 
-## Native build compiler: clang
+## Wine build compiler: clang
 
-The native port builds the same sources with LLVM clang (22.1.8 from llvm.org; Apple clang is refused) as an i686 image, with `-ffp-eval-method=double -ffp-contract=off` so x87 floats behave like the original's. `tools/clang_probe.py` and `tools/equiv.py --native` look for it in `$HULK_LLVM` or `~/llvm`; the checker Macs have it there. See [native-build.md](native-build.md) and [native-float.md](native-float.md).
+The Wine build compiles the same sources with LLVM clang (22.1.8 from llvm.org; Apple clang is refused) as an i686 image, with `-ffp-eval-method=double -ffp-contract=off` so x87 floats behave like the original's. `tools/clang_probe.py` and `tools/equiv.py --wine` look for it in `$HULK_LLVM` or `~/llvm`; the checker Macs have it there. See [wine-build.md](wine-build.md) and [wine-float.md](wine-float.md).
 
 ## Preliminary codegen observations on `default.xbe` .text
 

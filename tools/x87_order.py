@@ -2200,7 +2200,7 @@ def is_equivalent_src(src):
 
 def explicit_binds(src, names=()):
     """Symbols bound by the source's `// equiv-map: name = 0xADDR` lines and, for an equivalent/ source (tools/
-    native_link.py takes equiv.py's binding: explicit lines, then names), by their `DAT_<addr>`/`FUN_<addr>` names.
+    wine_link.py takes equiv.py's binding: explicit lines, then names), by their `DAT_<addr>`/`FUN_<addr>` names.
     A matches/ source is bound by position (the MSVC object's relocations), whatever its names say."""
     out = {}
     if names:

@@ -10,7 +10,7 @@ with `build/venv/bin/python`.
 - `matches/0xADDR.cpp`: functions that compile (MSVC 7.1, `cl` 13.10.3077, via wibo) to the original's bytes.
 - `equivalent/0xADDR.cpp`: functions proven to behave like the original by `tools/equiv.py` (`docs/equivalence.md`).
 - `include/gen/` (classes generated from RTTI), `include/decls/` (addresses, data decls), `include/compat/`.
-- `src/platform/sdl/`: the native platform layer (SDL3 shims for XDK/CRT, audio, input, files, movies, pddi/bgfx
+- `src/platform/sdl/`: the SDL3 platform layer (shims for XDK/CRT, audio, input, files, movies, pddi/bgfx
   graphics backend). The merged source tree is generated into `build/tree/` by `tools/gen_tree.py`.
 - `tools/`: all scripts. `tools/equiv_gen/` generators for near-identical function families; `tools/ghidra_scripts/`.
 - `farm/`: the model farm (pi-durable, TypeScript; prompts in `farm/src/prompt.ts`, tiers in `farm/tiers-*.json`).
@@ -28,7 +28,8 @@ python tools/equiv.py SRC.cpp 0xADDR --json      # differential execution; promo
 python tools/progress.py --readme                # regenerate the README status table and docs/progress-map.svg
 python tools/packet.py show 0xADDR               # asm, Ghidra hint and referenced data for one function
 python tools/build_tree.py --rounds 16           # generate and verify the merged tree (slow)
-python tools/native_link.py --reuse-map --gfx    # native image link; see docs/native-build.md
+python tools/wine_link.py --reuse-map --gfx      # Wine build image link; see docs/wine-build.md
+python tools/equiv.py SRC.cpp 0xADDR --wine     # check the clang object the Wine build runs (--native is the old name); tools/x87_order.py checks float order
 python tools/hybrid_test.py compare ...          # hybrid build vs baseline in xemu; see docs/hybrid-build.md
 python tests/equiv/regress.py                    # checker regression cases (run after any change to equiv.py)
 ```
@@ -42,9 +43,11 @@ and `docs/agents/equiv-brief.md`. Pitfall recipes live in `farm/src/prompt.ts`.
 Heavy jobs (`equiv.py` beyond quick single checks, `build_tree`, regress suites, scans, sweeps) go through the shared queue,
 `tools/jobq.py`, which spreads them over the laptop, mac2 and mac1 (`docs/compute.md`): `submit`, `wait`, `status`. Batches of
 equivalence checks: `tools/jobq_equiv.py`, or `--jobq` on `equiv_batch.py`, `promote_dispatch.py` and `tests/equiv/regress.py`.
-At most 2 local processes for interactive debugging. Native Wine runs are `--needs wine`. xemu jobs always carry `-snapshot`.
-Full native builds (tree build, clang probe, native link, replay) go through `tools/native_build_job.py submit/wait` (mac2/mac1 by default;
-`--host local` only on purpose; graphics runs stay on the laptop): `docs/compute.md` "Native builds".
+At most 2 local processes for interactive debugging. Wine build runs are `--needs wine`. xemu jobs always carry `-snapshot`.
+Full Wine builds (tree build, clang probe, Wine link, replay) go through `tools/wine_build_job.py submit/wait` (mac2/mac1 by default;
+`--host local` only on purpose; graphics runs stay on the laptop), replays through `tools/wine_replay_job.py`: `docs/compute.md` "Wine builds".
+Terms: the *Wine build* is the 32-bit clang image run under Wine (`tools/wine_*.py`, `docs/wine-*.md`, `HULK_WINE_*`; the old `native_*` names, `HULK_NATIVE_*`
+and `--native` still work as aliases). *Native* means the future 64-bit builds (x86-64 Windows/SteamOS, arm64 macOS).
 
 ## Hard rules
 
@@ -62,7 +65,7 @@ Full native builds (tree build, clang probe, native link, replay) go through `to
   `git checkout`, `restore`, `stash` or `reset` files you didn't write. Don't delete untracked files.
 - Never relax a comparison in the checker to make something pass; a source that doesn't pass is not promoted.
   A byte match needs `compare.py` MATCH and `verify_relocs.py` ok; an equivalent needs a promotable `equiv.py` run.
-- Don't run xemu, the native build or other long jobs unless the task is that job; the farm DB (`build/farm/`) is
+- Don't run xemu, the Wine build or other long jobs unless the task is that job; the farm DB (`build/farm/`) is
   single-process.
 - Log notable findings in `docs/journal.md`. Keep docs accurate: regenerate the README status table with
   `tools/progress.py --readme` rather than editing it.

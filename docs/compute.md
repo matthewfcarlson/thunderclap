@@ -43,8 +43,8 @@ is appended as results arrive and addresses already in it are skipped (rerun to 
 | `--needs` | hosts |
 | --- | --- |
 | `equiv`, `msvc`, `clang`, `any` | mac2, mac1 first; the laptop only when they are full (it has few slots) |
-| `wine` | all three (headless native replays; `wine64` in argv0 is expanded to the host's Whisky Wine: the app's copy on the laptop, `~/wine-whisky` on the Macs) |
-| `wine-gfx` | laptop only (a native run that draws through MoltenVK; see Native replays) |
+| `wine` | all three (headless Wine replays; `wine64` in argv0 is expanded to the host's Whisky Wine: the app's copy on the laptop, `~/wine-whisky` on the Macs) |
+| `wine-gfx` | laptop only (a Wine run that draws through MoltenVK; see Wine replays) |
 | `xemu` | mac2 only, one at a time, never the laptop |
 
 Hosts and capabilities: `build/jobs/hosts.json` (untracked: it holds user and host names; created from
@@ -75,15 +75,15 @@ The queue is the default (2026-10-21): `equiv_batch.py` and `promote_dispatch.py
 through it unless given `--no-jobq`. Inside a queue job (`JOBQ_JOB` set) `equiv_batch.py` runs locally, and
 `promote_dispatch.py --no-jobq` (its own ssh dispatcher) passes `--no-jobq` to the remote `equiv_batch.py`.
 
-## Native replays (Wine)
+## Wine replays
 
-`tools/native_replay_job.py` runs the native image's replay as a job on any host:
+`tools/wine_replay_job.py` runs the Wine image's replay as a job on any host:
 
 ```sh
 J=build/venv/bin/python
-id=$($J tools/native_replay_job.py submit --name ME [--img build/native/link] [--rec build/rp1/play3.hrp] [--timeout 200] [--host mac2] [--env K=V])
-$J tools/native_replay_job.py wait $id                      # then: ckpt.txt (frame hash), trace.txt, result.json in build/jobs/out/ID/wine-out/
-$J tools/native_replay_job.py compare ID1 ID2 ...           # common checkpoint frames must be identical (exit 1 otherwise)
+id=$($J tools/wine_replay_job.py submit --name ME [--img build/native/link] [--rec build/rp1/play3.hrp] [--timeout 200] [--host mac2] [--env K=V])
+$J tools/wine_replay_job.py wait $id                      # then: ckpt.txt (frame hash), trace.txt, result.json in build/jobs/out/ID/wine-out/
+$J tools/wine_replay_job.py compare ID1 ID2 ...           # common checkpoint frames must be identical (exit 1 otherwise)
 ```
 
 - The job ships the image and its DLLs (`hulk-strict.exe`, SDL3, hulkmovie, avutil/avcodec/avformat) and the `.hrp`
@@ -94,6 +94,8 @@ $J tools/native_replay_job.py compare ID1 ID2 ...           # common checkpoint 
   Rosetta); `rsync -a "$HOME/Library/Application Support/com.isaacmarovitz.Whisky/Libraries/Wine" HOST:wine-whisky/` (read-only
   use of the app's folder). `WINE=...` overrides. No per-host setting is needed. Each host makes one Wine prefix
   (`~/hulk-jobs/wine-template`, first job only, about a minute) and every job runs in a private clone of it.
+- Both remote Macs run Python 3.12 and keep LLVM 22.1.8 in `~/llvm` (the clang jobs, `--needs clang`) beside `~/wine-whisky` (jobs
+  that run the Wine build, `--needs wine`).
 - **Headless works over ssh**: the job sets `HULK_GFX_RENDERER=noop` (bgfx's null renderer), no window session is needed,
   and checkpoint hashes do not depend on it. A graphics run (`--gfx`, Vulkan on MoltenVK) also started and ran over ssh on
   mac2 (which has a console login) but nobody has looked at its pixels there; `HULK_GFX_SHOT` crashed (frame - 210) in
@@ -103,14 +105,14 @@ $J tools/native_replay_job.py compare ID1 ID2 ...           # common checkpoint 
 - The queue daemon reads `hosts.json` once at start: after changing `caps` restart it (`jobs survive`), or the new capability is ignored.
 
 
-## Native builds
+## Wine builds
 
-`tools/native_build_job.py` runs a whole native build as one queue job: MSVC tree build (`build_tree`), clang probe, native
+`tools/wine_build_job.py` runs a whole Wine build as one queue job: MSVC tree build (`build_tree`), clang probe, Wine
 link, and optionally a headless replay on the host. Builds default to mac2/mac1 (the one with more free slots); `--host local`
 only on purpose; graphics and screenshot runs stay on the laptop (`wine-gfx`).
 
 ```sh
-J=build/venv/bin/python; N=tools/native_build_job.py
+J=build/venv/bin/python; N=tools/wine_build_job.py
 id=$($J $N submit --name ME [--workspace DIR] [--live tools src/platform] --gfx [--replay play3 --frames 1000] [--fetch image])
 $J $N wait $id          # summary (decision, wall times, link, replay); files in build/jobs/out/ID/nb-out/
 $J $N compare ID1 ID2   # image hashes (PE time stamp zeroed) and replay checkpoints must agree
@@ -125,7 +127,7 @@ $J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspa
   builds there, so build_tree's state, the clang snapshot and the binding map survive between jobs; object caches are per host
   and content-keyed. `--state auto` resumes build_tree only if nothing changed under `include/ config/` or in build_tree's
   imports since the last good build; `--map auto` reuses the binding map only if function sources were modified (none added or
-  removed) and native_link's imports are untouched. `--state fresh|resume`, `--map full|reuse` force it. A different toolchain
+  removed) and wine_link's imports are untouched. `--state fresh|resume`, `--map full|reuse` force it. A different toolchain
   (clang, lld-link, wibo, cl.exe, python minor version, disc) drops all derived state. Jobs on one lineage run one at a time.
 - **Local-only inputs** (`build/functions.csv rtti.json xbsymbols.txt port/platform_calls.json`, `build/data/src`, the prebuilt
   libraries under `build/third_party/out`: pddi-win32/obj, win32/lib, sdl-*, fs1, ffmpeg-win32) are rsynced by `submit` to
@@ -136,7 +138,7 @@ $J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspa
   (build 2 min of verification, probe 25 s, link 1.8 min) plus a 20 s replay to frame 1000. Laptop (2 slots, loaded): 12 min
   for the resumed link-only path, versus 5 min on mac2 and 8 min on mac1.
 - **Reproducible.** Images from mac2, mac1 and the laptop are byte-identical except the PE link time stamp, and the play3
-  checkpoints agree for every frame to 1020. Three things made them differ and are fixed: `native_link` sorted objects by cache
+  checkpoints agree for every frame to 1020. Three things made them differ and are fixed: `wine_link` sorted objects by cache
   file name, which embeds the compiler's path (now by TU); a cold `build/equiv/crt2.json` raced between workers and the failed
   equivalence checks were cached for good (errors are retried and not cached; the job links the host's `build/equiv` and purges
   cached errors); and `PYTHONHASHSEED=0` for the build.

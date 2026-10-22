@@ -24,7 +24,7 @@ class Sync(unittest.TestCase):
         put(self.run, "matches/0x1.cpp", "a")
         put(self.run, "tools/build_tree.py", "import gen_tree\n")
         put(self.run, "tools/gen_tree.py", "x = 1\n")
-        put(self.run, "tools/native_link.py", "import native_host\nL = '/opt/homebrew/opt/llvm/bin'\n")
+        put(self.run, "tools/wine_link.py", "import native_host\nL = '/opt/homebrew/opt/llvm/bin'\n")
         put(self.run, "tools/native_host.py", "")
         put(self.run, "tools/unrelated.py", "")
 
@@ -47,8 +47,8 @@ class Sync(unittest.TestCase):
         if os.path.exists(os.path.join(nb.HOMEBREW_LLVM, "llvm-undname")):
             self.skipTest("this host has Homebrew LLVM")
         m, ch = nb.sync_sources(self.run, self.lin, [])
-        self.assertNotIn("/opt/homebrew", open(os.path.join(self.lin, "tools/native_link.py")).read())
-        self.assertIn("/opt/homebrew", open(os.path.join(self.run, "tools/native_link.py")).read())
+        self.assertNotIn("/opt/homebrew", open(os.path.join(self.lin, "tools/wine_link.py")).read())
+        self.assertIn("/opt/homebrew", open(os.path.join(self.run, "tools/wine_link.py")).read())
 
     def test_closure(self):
         self.assertEqual(nb.closure(os.path.join(self.run, "tools"), "build_tree"), {"tools/build_tree.py", "tools/gen_tree.py"})
@@ -59,10 +59,10 @@ class Decide(unittest.TestCase):
         self.lin = tempfile.mkdtemp()
         put(self.lin, "tools/build_tree.py", "import gen_tree\n")
         put(self.lin, "tools/gen_tree.py", "")
-        put(self.lin, "tools/native_link.py", "")
+        put(self.lin, "tools/wine_link.py", "")
         put(self.lin, "build/tree/state.json", "{}")
         put(self.lin, "build/native/bindings.json", "{}")
-        self.base = {"matches/a.cpp": "1", "tools/gen_tree.py": "g", "tools/native_link.py": "n", "include/x.h": "h"}
+        self.base = {"matches/a.cpp": "1", "tools/gen_tree.py": "g", "tools/wine_link.py": "n", "include/x.h": "h"}
 
     def d(self, new, spec=None, built="same", mapped="same"):
         return nb.decide(spec or {}, self.base if built == "same" else built, self.base if mapped == "same" else mapped, new, self.lin)
@@ -82,7 +82,7 @@ class Decide(unittest.TestCase):
         self.assertEqual((r, m), (True, False))
 
     def test_link_tool_change_remaps_but_keeps_tree_state(self):
-        r, m, why = self.d(dict(self.base, **{"tools/native_link.py": "n2"}))
+        r, m, why = self.d(dict(self.base, **{"tools/wine_link.py": "n2"}))
         self.assertEqual((r, m), (True, False))
 
     def test_requests_and_first_build(self):

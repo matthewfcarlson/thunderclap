@@ -114,7 +114,7 @@ Template arguments that aren't RTTI classes (`CActorManager`, `hulkfight::Dialog
 them) are forward-declared in their namespace's header. Two enums named only in template
 arguments get empty definitions (enumerators unknown), and so does the nested one
 (`ScriptHandler::script_state`): an opaque `enum X;` is an MSVC extension that every non-MSVC clang target
-rejects (692 TUs, [native-build.md](native-build.md) fix 1), and MSVC 7.1 rejects the C++11 `enum X : int;`.
+rejects (692 TUs, [wine-build.md](wine-build.md) fix 1), and MSVC 7.1 rejects the C++11 `enum X : int;`.
 An empty enum has `int` as its underlying type, as MSVC gives the opaque one.
 **Member-pointer model.** `Method1<T,…>` stores a 4-byte member-function pointer (`f_1c`, proven by
 `method.cpp`). For an incomplete `T`, MSVC would pick the 16-byte general representation, so the

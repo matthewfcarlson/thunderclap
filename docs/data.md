@@ -382,7 +382,7 @@ differs from its standalone build; link check 6,477 references, **4,238 by name*
   `World` is the source's own stub). Now a wrapped or isolated source's declaration of a pinned name becomes a
   typed view of the TU's one C declaration, `#define DAT_004dd700 (*(World* *)&::DAT_004dd700)` inside its
   namespace, and a merged C++ declaration of one gets C linkage (`gen_tree.PINNED`, `pin_views`;
-  [native-build.md](native-build.md#after-the-next-fixes-1-3-2026-10-17) says why this and not an exemption or
+  [wine-build.md](wine-build.md#after-the-next-fixes-1-3-2026-10-17) says why this and not an exemption or
   an alias). Same code under MSVC 7.1 (`build_tree.py`: 21,817 / 21,817, no equivalent differs). Link check
   (`build_tree.py --resume --data` on the live tree: 6,171 references, **4,283 by name**, 917 C++ linkage, 1,342
   code-owned, 267 library, **266 by address**, 11 interior): pinned by address **0** (was 354); all references to the three names are
@@ -415,17 +415,17 @@ differs from its standalone build; link check 6,477 references, **4,238 by name*
 - **No absolute addresses.** Every `DAT_xxxxxxxx` becomes a named object defined in a data TU; every pointer
   word inside data becomes a pointer initializer (`&target + off`), which is what `data_gen.py` already emits.
   Pointer tables are real pointer arrays, relocated by the native linker.
-- **The XBE's layout** (done 2026-10-18, [native-build.md](native-build.md#start-up-continued-2026-10-18-evening)):
-  the native link doesn't link the data TU objects as they are; it copies each item (bytes and relocations) into
+- **The XBE's layout** (done 2026-10-18, [wine-build.md](wine-build.md#start-up-continued-2026-10-18-evening)):
+  the Wine link doesn't link the data TU objects as they are; it copies each item (bytes and relocations) into
   one block per XBE section at the XBE's distances, so items the inventory split out of one structure stay
-  adjacent (open problem 2 no longer breaks the native image; the item boundaries still matter for typed data).
+  adjacent (open problem 2 no longer breaks the Wine image; the item boundaries still matter for typed data).
 - **32-bit first** (as the code): the tables keep their byte layout, and `#pragma pack(1)` structs keep pointers
   at 4-byte offsets. For 64-bit, pointer-containing items need their real types (a `const void*` grows to 8 bytes
   and shifts every later field), so mixed `DataLayout_` structs have to become typed structs first.
-- **Names across linkage:** pointers to functions use `FUN_<addr>`; the native build needs the function's real
+- **Names across linkage:** pointers to functions use `FUN_<addr>`; the Wine build needs the function's real
   symbol (a C++ member such as `CFoo::vfunc_3` can't be named by an `extern "C"` alias). The inventory knows the
   target address, so the generator can emit the real name once functions.csv names are spellable.
-- **vftables and RTTI** come from the compiler (both MSVC and clang); the native build never needs the original
+- **vftables and RTTI** come from the compiler (both MSVC and clang); the Wine build never needs the original
   addresses. Pointers *to* vftables in data (rare) must become references to the class (e.g. a placement-new'd
   object), not to `??_7` symbols, which clang names differently.
 - **Float bits:** constants are emitted as decimal literals that MSVC 7.1 parses to the exact bits; clang does the

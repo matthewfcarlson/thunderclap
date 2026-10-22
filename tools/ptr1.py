@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Pointer-width cleanup of matches/ and equivalent/ sources (docs/native-build.md "64-bit").
+"""Pointer-width cleanup of matches/ and equivalent/ sources (docs/wine-build.md "64-bit").
 
   build/venv/bin/python tools/ptr1.py scan FILE...        # pointer-width diagnostics per source, with what would fix them
   build/venv/bin/python tools/ptr1.py fix [--write] FILE...   # apply the fixes (to the files with --write), iterating

@@ -52,28 +52,28 @@ into top-level items (`tools/cxx_items.py`: classes, forward declarations, typed
   `extern "C"` declaration that would clash (another type of a name the TU already declares, or an invented
   name such as `Lookup`) is given C++ linkage (`extern "C++"`, plus `__declspec(nothrow)` so /GX still treats
   the callee as not throwing) and becomes `fn_<addr>::name`: same code, another relocation symbol, which
-  `tools/native_link.py` binds by address for the native link ([native-build.md](native-build.md) fix 2).
+  `tools/wine_link.py` binds by address for the Wine link ([wine-build.md](wine-build.md) fix 2).
   Global `operator new` / `delete` are pulled out in front of the namespace, because `new (p) T` never looks
   inside one.
 
 Every TU that names `size_t` starts with `#include "tree_prelude.h"` (written by gen_tree): the tree's one
 `size_t` (`unsigned int` under MSVC, `__SIZE_TYPE__` under clang) and `HULK_NEW_THROW` (`throw()` under MSVC,
 empty off MS). The generator rewrites sources' own `typedef unsigned int size_t;`, `operator new(unsigned int,
-...)` and `operator new(size_t) throw()` onto it, line count unchanged ([native-build.md](native-build.md)
+...)` and `operator new(size_t) throw()` onto it, line count unchanged ([wine-build.md](wine-build.md)
 fix 1). Other TUs get a comment instead: one extra typedef in MSVC 7.1's symbol table swapped two commutative
 operands in one 5 KB function (`0x000ba040`), so the prelude stays out of TUs that don't need it.
 A source's own declaration of a C runtime function that `include/compat/crt.h` declares (`extern "C" float
 sin(float)`, `__security_check_cookie`) is emitted inside `#if !defined(HULK_COMPAT_CRT)` ... `#endif`: MSVC 7.1
-compiles the source's declaration, a native build only crt.h's ([native-build.md](native-build.md#after-fix-4-and-the-binding-fixes-2026-10-18)).
+compiles the source's declaration, a Wine build only crt.h's ([wine-build.md](wine-build.md#after-fix-4-and-the-binding-fixes-2026-10-18)).
 - **isolated**: the original source verbatim in its own TU `<File>.iso_<addr>.cpp`. Used when a wrapped
   function still fails to compile (it can see the TU's global declarations: an elaborated `struct Manager*`
   finds `::Manager` before declaring its own).
 
-**The TU namespace** (2026-10-17, [native-build.md](native-build.md#after-the-next-fixes-1-3-2026-10-17)): a TU's own
+**The TU namespace** (2026-10-17, [wine-build.md](wine-build.md#after-the-next-fixes-1-3-2026-10-17)): a TU's own
 declarations, its tree headers' TU-local items and its merged definitions live in `namespace fn_f<7 hex>` (one per
 TU, from a hash of its path; the `fn_<8 hex>` shape lets `equiv.py` and `clang_probe.py` look through it like a
 wrapped block's namespace). Invented stubs (`Action`, `Obj`), helper functions and variables of different TUs then
-have different symbols, which the native link needs (they were 1,211 duplicate-definition errors). Global stay:
+have different symbols, which the Wine link needs (they were 1,211 duplicate-definition errors). Global stay:
 names declared by `include/gen/` (when this TU's include/gen headers declare them; in the tree headers such items
 sit inside `#ifdef TREE_LOCAL_<name>`, which the TU defines for the names its gen headers don't declare) and by
 `include/decls/`, global `operator new/delete`, CRT names, anonymous namespaces, wrapped blocks; each TU says `using
@@ -286,13 +286,13 @@ lines untouched), logged to `build/reconcile-stubs.log`, list in `build/stubs-ch
   function `B::m` with the same member name and a plain global `B` (444 sources, e.g. `CJointAction` ->
   `CJumpAction` in `matches/0x00013d40.cpp`).
 
-- on request only (`--rule clone-c`, `--rule clone-stub`, with `--only` on the sources the native link
+- on request only (`--rule clone-c`, `--rule clone-stub`, with `--only` on the sources the Wine link
   reports as duplicate definitions; `--apply --verify` writes a rewrite only after `compare.py` MATCH or `equiv.py
   --inputs 3000` EQUIVALENT, and skips files changed meanwhile): `clone-c` gives a C-linkage definition under
   another name its own address name (`extern "C" int* FUN_0008ceb0()` in `matches/0x0024ea10.cpp` becomes
   `FUN_0024ea10`; C names ignore namespaces), `clone-stub` gives a reused donor stub class the source's own
   placeholder name (`CSweepTrack` -> `CSweepTrack_23c870`). Run 2026-10-17: 71 sources (46 clone-c, 25
-  clone-stub), all in `matches/`, all MATCH ([native-build.md](native-build.md) fix 3).
+  clone-stub), all in `matches/`, all MATCH ([wine-build.md](wine-build.md) fix 3).
 
 It skips template targets (`Method1<CActorManager,bool,math::Vector>::vfunc_0`: 5,788 sources, no source
 spelling for them yet), namespaced targets, names on `// equiv-*` or preprocessor lines, files with

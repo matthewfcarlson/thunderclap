@@ -79,7 +79,7 @@ gives 64-bit pointers, which breaks the `.p3d`/Lua assumptions below and has unc
 WebAssembly 3.0 standardizes Memory64 per [this summary](https://byteiota.com/webassembly-30-spec-release/) but I found
 no authoritative per-browser status.)
 
-What the MS ABI dependence means on wasm32 (counts from [native-build.md](native-build.md), scans of the tree):
+What the MS ABI dependence means on wasm32 (counts from [wine-build.md](wine-build.md), scans of the tree):
 
 | Dependence | Count | wasm32 effect |
 |---|---|---|
@@ -88,7 +88,7 @@ What the MS ABI dependence means on wasm32 (counts from [native-build.md](native
 | Virtual members of TU-local stub classes | 82,632 declarations | stubs that call by slot only work under the MS ABI |
 | `__RTDynamicCast` by descriptor address | 792 sites | MS RTTI descriptors; need `dynamic_cast` on real classes |
 | `__thiscall`/`__stdcall`/`__fastcall` annotations | ~2,689 sources | clang ignores them on wasm (1,893 TUs warned `ignored-calling-convention` in the probe); harmless, but see signatures below |
-| MS name mangling aliases (`native_link.py` fix 5a) | the link strategy of the current x86 build | not applicable: fix 5a's alias map only holds for MS ABI and 4-byte pointers |
+| MS name mangling aliases (`wine_link.py` fix 5a) | the link strategy of the current x86 build | not applicable: fix 5a's alias map only holds for MS ABI and 4-byte pointers |
 | Absolute-address casts (NV2A methods, D3D state words, fiber starts) | ~75 + 19 | all inside `platform/xbox` and seam code that the web layer replaces |
 
 **Does web depend on fix 5b / 6b? Yes.** 6b (constructors and non-trivial destructors defined once in `include/gen`
@@ -98,7 +98,7 @@ differs), and wasm adds a third reason: **WebAssembly calls a function only as i
 mismatched declaration, and its link fails on a direct call with a mismatched signature
 ([port/web/README.md "Calls"](https://github.com/OpenCommunityEdition/OpenCE/blob/main/port/web/README.md)). Our tree
 has ~11,700 callees referenced under another symbol and 1,199 free functions whose signature differs from the
-definition's (native-build.md), so 5b must be done properly (run the web link with fatal signature warnings as a gate).
+definition's (wine-build.md), so 5b must be done properly (run the web link with fatal signature warnings as a gate).
 There is no "compat shim" route for web equivalent to fix 5a. Wasm has no equivalent of the `/alternatename` alias trick
 for signature-mismatched calls.
 
@@ -236,7 +236,7 @@ The Xbox had a fixed budget (64 MB of RAM on retail hardware; the game reports a
 platform-boundary.md), so the game's own footprint is small. The pressure is on the host side: decoded textures
 (especially HD packs), streamed audio, and OPFS data are not in linear memory except what is read. Plan a fixed
 memory size (no growth, so pointers and shared-memory views stay valid), 256 MB initial as a first guess **(measure
-under the native build)**, and a memory watch only if the game depends on write-protect semantics (OpenCE needed it
+under the Wine build)**, and a memory watch only if the game depends on write-protect semantics (OpenCE needed it
 for a Halo texture-cache trick; our `pddi` backend does not have that constraint since we own the texture upload
 path).
 
@@ -246,7 +246,7 @@ license and the game's movies are Bink 1 (verified by mv1: all 28 `.rmv` files a
 repo; (3) transcode at asset-prep time on the player's machine to a format the browser decodes (WebCodecs / `<video>`
 with VP9 or H.264), which fits the "player supplies data" rule and needs an ffmpeg-class transcoder in the page
 (heavy) or a desktop helper; (4) a clean-room Bink 1 decoder (patent/license status **unverified**, legal review needed);
-(5) FFmpeg's LGPL Bink decoder, which the desktop build now uses ([native-movies.md](native-movies.md)): a wasm build of
+(5) FFmpeg's LGPL Bink decoder, which the desktop build now uses ([wine-movies.md](wine-movies.md)): a wasm build of
 the same minimal configuration links to a 549 KB module (linked, not yet run in a browser).
 Recommendation: ship v1 with movies skipped and a seam hook so a transcoded `.webm` can play through `RenderStrategy`
 later. Movies are about half of the disc, so skipping also halves the storage ask.
@@ -280,7 +280,7 @@ classified with `clang_probe.py`'s own rules, so categories are comparable. Resu
 | emcc wasm32, syntax only, whole snapshot (6 minutes, 1 process) | 2,557 | **2,481 (97.0%)** | 76 |
 | emcc wasm32, `-c -O1` objects, random 200 | 200 | 193 (96.5%) | 7 |
 | clang `gnu` (i686 Linux), same snapshot | 2,557 | 2,487 (97.3%) | 70 |
-| clang `gnu64` poc (for scale, from native-build.md) | 2,557 | about 92.4% (earlier snapshot) | |
+| clang `gnu64` poc (for scale, from wine-build.md) | 2,557 | about 92.4% (earlier snapshot) | |
 
 Object generation succeeds wherever syntax does, so there are no wasm backend errors in the sample.
 
@@ -310,7 +310,7 @@ Reading:
    signature-mismatch errors, which is the count 5b will drive to zero. I did not run a link: it needs stubs for the
    unresolved symbols (30,000 before fixes).
 3. Warnings: `ignored-calling-convention` in 1,893 TUs and `ignored-declspec` in 1,872 are noise; null-`this` and
-   array-bounds UB warnings (9 and 5 TUs) are the per-source review items already in native-build.md.
+   array-bounds UB warnings (9 and 5 TUs) are the per-source review items already in wine-build.md.
 
 Rerun any time with `python3 build/web-research/emcc_probe.py <N> <seed> [obj]` (6 minutes for the whole tree, 1 process).
 
@@ -354,7 +354,7 @@ build/web/             output only (ignored)
 ## Open questions
 
 - bgfx or SDL_gpu natively? (web favours bgfx; check SDL_gpu's current web status first.)
-- ~~Do `.rmv` movies use Bink 1?~~ Yes (mv1). A transcode would add about 1.2 GB ([native-movies.md](native-movies.md) section 3).
+- ~~Do `.rmv` movies use Bink 1?~~ Yes (mv1). A transcode would add about 1.2 GB ([wine-movies.md](wine-movies.md) section 3).
 - Does the game keep any state in the first 64 KB / absolute XBE addresses that wasm's flat memory must reproduce (the
   75 absolute-address casts)? They are in platform code today.
 - Browser memory in practice: can Safari and mobile browsers give the footprint (unverified; desktop Chrome, Edge and

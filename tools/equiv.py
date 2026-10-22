@@ -9788,9 +9788,9 @@ def main(argv):
     p.add_argument("--map", help="JSON {symbol: '0xaddr'} binding our symbols to original addresses")
     p.add_argument("--no-names", action="store_true", help="ignore addresses encoded in symbol names")
     p.add_argument("--clang", action="store_true", help="also run a host-clang syntax check (warning only)")
-    p.add_argument("--native", action="store_true",
-                   help="(round 18) check the object the native build runs: compile SRC with clang (the native "
-                        "flags, hulk_freg = double) and run it against the original")
+    p.add_argument("--wine", "--native", dest="native", action="store_true",
+                   help="(round 18) check the object the Wine build runs: compile SRC with clang (the Wine build's "
+                        "flags, hulk_freg = double) and run it against the original (--native is the old name)")
     p.add_argument("--json", action="store_true")
     a = p.parse_args(argv)
     mapping = None

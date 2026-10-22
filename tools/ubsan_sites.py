@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Float-cast-overflow sites of a native replay (ubsan1; docs/native-float.md "float-cast-overflow").
+"""Float-cast-overflow sites of a native replay (ubsan1; docs/wine-float.md "float-cast-overflow").
 
   build/venv/bin/python tools/ubsan_sites.py TRACE.txt --map build/native/link/hulk-strict.map \
         [--bindings build/native/bindings.json] [--out build/ubsan1/sites.jsonl]
 
-The image built with HULK_NATIVE_SANITIZE=float-cast (tools/clang_probe.py SANITIZE) logs one `ubsan float-cast` line per
+The image built with HULK_WINE_SANITIZE=float-cast (tools/clang_probe.py SANITIZE) logs one `ubsan float-cast` line per
 site at its 1st, 2nd, 4th, 8th ... hit (src/platform/sdl/xdk/startup.cpp). This folds them per site (the ubsan data
 record's address) and writes one JSON line each: the converting function (the map symbol containing the return address, and
 its XBE address), the source file and line the compiler recorded, the hit count (the last logged line's: a lower bound,
@@ -16,7 +16,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import native_run  # noqa: E402
+import wine_run  # noqa: E402
 
 LINE = re.compile(r"ubsan float-cast site=0x(\w+) ret=0x(\w+) file=(.*?) line=(\d+) col=(\d+) from=(\S+) to=(.+?) "
                   r"count=(\d+) first_frame=(\d+) frame=(\d+) bits=(\w+) value=(\S+)")
@@ -29,7 +29,7 @@ def main():
     ap.add_argument("--bindings", default="build/native/bindings.json")
     ap.add_argument("--out", default="build/ubsan1/sites.jsonl")
     a = ap.parse_args()
-    sym = native_run.Symbolizer(a.map, a.bindings)
+    sym = wine_run.Symbolizer(a.map, a.bindings)
     sites = {}
     for l in open(a.trace, errors="replace"):
         m = LINE.search(l)

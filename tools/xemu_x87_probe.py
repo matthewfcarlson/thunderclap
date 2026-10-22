@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Probe xemu's x87 transcendentals (fsin, fcos, fptan, fpatan) over the GDB stub (cap1; docs/native-float.md).
+"""Probe xemu's x87 transcendentals (fsin, fcos, fptan, fpatan) over the GDB stub (cap1; docs/wine-float.md).
 
   HULK_XEMU_INSTANCE=N tools/xemu_x87_probe.py --out build/cap1/x87-probe.json      # runs on mac2, one xemu, -snapshot
 

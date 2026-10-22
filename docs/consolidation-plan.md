@@ -3,7 +3,7 @@
 Plan for moving the sources' stub classes onto the game's real classes: which stub is which class (a rename map
 with evidence), how each stub fits its include/gen/ class, why the tree's functions are still wrapped, and the
 rewrite batches that remove those reasons, in order of risk and size. Background: [source-tree.md](source-tree.md)
-(stub reconciliation, include/gen migration), [native-build.md](native-build.md) ("How this feeds header
+(stub reconciliation, include/gen migration), [wine-build.md](wine-build.md) ("How this feeds header
 reconciliation and typed globals", "Bridges to remove"), [headers.md](headers.md). Measured 2026-10-19 on a
 snapshot of the working tree (27,474 verified functions in the tree).
 
@@ -22,8 +22,8 @@ build/venv/bin/python tools/rn_plan.py --metrics BEFORE_ROOT AFTER_ROOT list.txt
 ```
 
 `S` is a fallback state (`build/tree/state.json` of the last full build). All outputs under `build/rn1/` are
-regenerated. `tools/rn_map.py` and `--refine --bindings` need the binding map of a strict native link of the tree in
-question (`build/native/bindings.json`, `tools/native_link.py`): for a batch on top of another, the link of the tree
+regenerated. `tools/rn_map.py` and `--refine --bindings` need the binding map of a strict Wine link of the tree in
+question (`build/native/bindings.json`, `tools/wine_link.py`): for a batch on top of another, the link of the tree
 with the earlier batch applied.
 
 ## 1. The rename map (`tools/rn_map.py`)
@@ -38,7 +38,7 @@ the RTTI name itself (`rtti-named`). One entry per (stub name, source): 54,210.
 |---|---|---|
 | `self-vfunc` | `=` | the source's own function is a member of the stub and `build/functions.csv` names its address `X::vfunc_N` |
 | `self-vptr` | `=` | the source's own function is a member of the stub and the original stores vftable pointers through `this` at offset 0 (ecx, followed through register moves): the most derived of the stored classes (one inheritance chain). A factory that builds a `new X` inline stores through another register and doesn't count |
-| `vftable` | `=` | the stub's `??_7S@...` symbol is bound by the strict native link (relocation position) to the game's vftable of X (`config/data.json`) |
+| `vftable` | `=` | the stub's `??_7S@...` symbol is bound by the strict Wine link (relocation position) to the game's vftable of X (`config/data.json`) |
 | `base` | `=` | the stub is the source's base class of a stub known to be X (high or medium): X's primary base (RTTI, offset 0) |
 | `call` | `<=` | a member function the source calls on the stub is bound to address A whose owner is X (one of the above for A's own source, or A is `X::vfunc_N`) |
 | `called-as` | `>=` | the stub defines A, and a stub known to be X (high) calls A |
@@ -128,13 +128,13 @@ donors: `CSweepTrack` in a `CCharacterTemplateManager` destructor, `CTrack` for 
 
 Every batch: `tools/rn_plan.py --batches` writes it; `--refine` runs the generator with the rewrites and drops,
 until nothing more is dropped, (1) a source whose own function or whose TU's other functions get a worse mode,
-(2) with `--bindings` (the strict native link's binding map of the tree the batch applies to), a source whose merge
+(2) with `--bindings` (the strict Wine link's binding map of the tree the batch applies to), a source whose merge
 would make one invented name of the TU namespace stand for two addresses (`extern void* vftableD[]` declared by two
-sources for two vftables: the native link can bind neither), and (3) a source whose function would share its
+sources for two vftables: the Wine link can bind neither), and (3) a source whose function would share its
 definition's name with another merged function of the TU (overloads `Target(PhysicsJoint_30cbb0*)` /
-`Target(PhysicsJoint_30cd60*)`: build_tree.py and native_link.py find functions by mangled-name prefix and would take
+`Target(PhysicsJoint_30cd60*)`: build_tree.py and wine_link.py find functions by mangled-name prefix and would take
 one for the other). Then `tools/migrate_gen.py --family rn` rewrites and verifies (compare.py MATCH / equiv.py
---inputs 3000 EQUIVALENT) and keeps what verifies, `tools/build_tree.py` proves the tree and the strict native link
+--inputs 3000 EQUIVALENT) and keeps what verifies, `tools/build_tree.py` proves the tree and the strict Wine link
 proves the image. Ordered by risk (a rename < onto the header < header changes) and size.
 
 | batch | rule | scope | candidates -> refined -> verified | risk | status |
@@ -190,10 +190,10 @@ A snapshot of the working tree (2026-10-19 21:25) copied to mac2 (`~/hulk-tree/{
 compiler and wibo from `~/hulk-permute`, linked, not changed). Each refined batch (`c1` = b1, `c2` = b2, `c3` = b3,
 each refined on the tree with the previous one applied and that tree's binding map) was rewritten and verified there
 with `migrate_gen.py --family rn --apply`, then `build_tree.py --resume --rounds 16 --regression-rounds 4 --jobs 8`
-from the same fallback state (native11's last full build); the strict native link ran locally on each tree
-(`clang_probe.py --snapshot --configs msvc`, `native_link.py`, plain, without `--gfx`). The scripts and every report
+from the same fallback state (native11's last full build); the strict Wine link ran locally on each tree
+(`clang_probe.py --snapshot --configs msvc`, `wine_link.py`, plain, without `--gfx`). The scripts and every report
 are in `build/rn1/proof/` (`pipeline.sh`, `native_proof.sh`, `cmp_reports.py`; `*-report.json` of build_tree,
-`*-native-report.json` and `*-unbound.txt` of native_link, `*-probe.log` of clang_probe).
+`*-native-report.json` and `*-unbound.txt` of wine_link, `*-probe.log` of clang_probe).
 
 **MSVC 7.1 tree build** (`build_tree.py`; each row against the row above it, compared per function: `status` and
 `vs_standalone` of every one of the 27,474 functions):
@@ -215,7 +215,7 @@ merged, 27 wrapped, 6 isolated), and each was EQUIVALENT at 3,000 inputs before 
 254 -> 170, pads 49 -> 48, 76 sources newly include a gen header; c3 71 stub classes -> 71 `_nv_` structs, stub
 virtuals 2,211 -> 2,125, pads 552 -> 542, 48 new gen includes.
 
-**Strict native link** (`native_link.py`, plain; every tree links with 0 errors, `rc` 0 under `lld-link` strict):
+**Strict Wine link** (`wine_link.py`, plain; every tree links with 0 errors, `rc` 0 under `lld-link` strict):
 
 | tree | image | symbols stubbed | stub-class virtual members | ambiguous invented names | vftable / RTTI by address | dispatch stubs | probe: undefined symbols | declared in a wrapped `fn_<addr>` | stub-virtual / explicit-padding sites |
 |---|---|---|---|---|---|---|---|---|---|
@@ -239,7 +239,7 @@ can't bind. The MSVC build can't see this (relocations are masked; the bytes mat
 stub's companion variables with it (`CTrack_vftable` -> `ConditionFactory_23d3d0_vftable`), and `--refine --bindings`
 refuses merges that create such an ambiguity. b2's first version renamed `PhysicsJoint` apart in 0x30cbb0 and three
 clones, making `Target(PhysicsJoint_30cbb0*)` and `Target(PhysicsJoint_30cd60*)` overloads in one TU: build_tree.py
-checked all four against 0x30cbb0's symbol (all "match": they are clones) and the native link left their calls
+checked all four against 0x30cbb0's symbol (all "match": they are clones) and the Wine link left their calls
 unbound; refine now refuses merges that make two functions share a definition name.
 
 ## 6. Estimates
@@ -273,12 +273,12 @@ stub-virtual declarations in 4,182 sources (`clang_probe.py` scans, msvc configu
 a quarter of each; the rest belong to stubs without a known class (non-polymorphic helpers). Pointer<->integer casts
 (4,779 in the 2026-10-17 gnu64 probe) follow the fields: b7 turns `ptr-int` fits (9 used, 197 owner) into typed
 header fields; gen-ref keeps a `(*(int*)&p->f_XX)` cast where the stub read a pointer as an int.
-The casts and the locals / signatures that carry pointers were typed separately (ptr1, `hulk_intptr` etc., docs/native-build.md
+The casts and the locals / signatures that carry pointers were typed separately (ptr1, `hulk_intptr` etc., docs/wine-build.md
 "64-bit" item 9): msvc64 pointer<->integer casts 4,936 -> 1,163; what is left sits behind virtual and header-declared signatures.
 
 **Link stubs and bridges.** Strict link of the snapshot: 0 errors, 1,594 symbols stubbed (1,339 of them virtual
 members of stub classes that only clang's emitted stub vftables name), 1,233 virtual dispatch stubs, 70 ambiguous
-invented names. Per bridge of [native-build.md](native-build.md#bridges-to-remove):
+invented names. Per bridge of [wine-build.md](wine-build.md#bridges-to-remove):
 
 | bridge | count | removed by |
 |---|---|---|
@@ -293,10 +293,10 @@ invented names. Per bridge of [native-build.md](native-build.md#bridges-to-remov
 
 ## 7. Findings and caveats
 
-- **The binding map makes the rename map.** Most of the evidence is the strict native link's relocation-position
+- **The binding map makes the rename map.** Most of the evidence is the strict Wine link's relocation-position
   bindings: a stub's member call bound to an address whose owner is known, a stub's vftable symbol bound to the
   game's vftable. The map is as fresh as `build/native/bindings.json` (2026-10-17 here); re-run `tools/rn_map.py`
-  after a full native link.
+  after a full Wine link.
 - **Non-polymorphic classes stay unnamed.** RTTI is the only source of class names; 42,289 stub entries have no
   evidence, mostly helper structs. They can still be consolidated by layout (stubs of one address's `this`), not
   named.
@@ -311,7 +311,7 @@ invented names. Per bridge of [native-build.md](native-build.md#bridges-to-remov
 - **build_tree.py finds functions by mangled-name prefix.** Two functions of one TU defined under one name (overloads)
   are both checked against the first symbol; the snapshot has 643 such groups (2,387 functions), all copies of one
   template instantiation emitted in several objects (identical code, so harmless), but an overload pair would be
-  checked against the wrong function and bound to it by the native link (b2's first try). A uniqueness check in
+  checked against the wrong function and bound to it by the Wine link (b2's first try). A uniqueness check in
   build_tree.py (a symbol may stand for several addresses only when their sources define the same function) would
   catch it at the source; refine guards the batches meanwhile. (Done by x64-1, section 8.)
 - **equiv.py and renames.** One b3 unclash rename (`equivalent/0x001065b0.cpp`) turned EQUIVALENT into FAIL: equiv.py
@@ -329,7 +329,7 @@ apply the patch: sources and the tree move under other sessions, and both steps 
 ## 8. Applied to the tree (x64-1, 2026-10-20)
 
 b1-b3 re-planned and applied to the live tree rather than from the dry-run patch: a snapshot of HEAD 441f5270b
-(base), its strict native link's binding map for `rn_map.py` and `--refine --bindings`, each refined batch applied
+(base), its strict Wine link's binding map for `rn_map.py` and `--refine --bindings`, each refined batch applied
 with `migrate_gen.py --family rn` on mac2 and proven there with `build_tree.py --resume --rounds 16
 --regression-rounds 4` (same fallback state as section 5), the strict link locally, `verify_relocs.py` on every
 changed match. Sources with uncommitted changes or another agent's open work were excluded (none of the batches'
@@ -350,7 +350,7 @@ Merged 74.85% -> 76.75% after b1-b3 (+522 functions), 77.46% after b5 and b7 (+7
 sources, 239 rewritable -> 198; b3 341, 165 rewritable -> 138).
 
 Findings of section 7 addressed: **build_tree.py** checks that a symbol stands for one function of a TU (commit
-5b0eab47, [native-build.md](native-build.md#64-bit-the-probe-the-gap-by-class-and-what-replaces-each-bridge-x64-1-2026-10-20)
+5b0eab47, [wine-build.md](wine-build.md#64-bit-the-probe-the-gap-by-class-and-what-replaces-each-bridge-x64-1-2026-10-20)
 item 7: 832 functions re-checked under their own symbol, 3 fell back; strict link 1,600 -> 1,392 stubbed); the
 **migrate_gen gen family** accepts `#include "decls/..."` sources (commit 03de06ed: 711 -> 757 rewritable, the
 newly reachable ones mostly wait on header fields, b7). The batches' proofs used the tools of 441f5270b

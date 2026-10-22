@@ -19,7 +19,7 @@ $PY tools/d3d_combiner.py prove                 # G5: the 100 combiner keys vs t
 $PY -m unittest discover -s tests/shaders -v    # 65 tests (verdict tests need shaderc; game ones the XBE)
 ```
 
-Prerequisites: bgfx's sources and shaderc (`tools/native_gfx.py fetch`, `tools/native_gfx.py shaderc`) and the
+Prerequisites: bgfx's sources and shaderc (`tools/wine_gfx.py fetch`, `tools/wine_gfx.py shaderc`) and the
 player's XBE at `isos/extracted/default.xbe`. Pure Python; nothing to install.
 
 ## Clean room
@@ -307,7 +307,7 @@ structured vertex.
 `simple_multicbv`, `layered_multicbv`, `layered_proximity` (`simple_proximity` is done). The other nine are for
 classes no data uses. Each is a single batch item with this tool as its acceptance test.
 
-**Wired into the backend (G3, 2026-10-19; [graphics-backend.md](graphics-backend.md) section 9).** `tools/native_gfx.py
+**Wired into the backend (G3, 2026-10-19; [graphics-backend.md](graphics-backend.md) section 9).** `tools/wine_gfx.py
 shaders` compiles `shaders/vp/` with its own varying file and embeds the results; a draw's program is the prim
 buffer's (FUN_00327860: the name it was created with, else `skin`/`skin_onebone` for skinned vertex flags); the
 backend keeps a 192-register constant file and uploads c96..c191 as `u_vc`, exactly the mapping the annotations

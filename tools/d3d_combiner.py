@@ -231,7 +231,7 @@ def prove_key(key, stages, mod, se, n_inputs, seed):
 
 def prove(n_inputs=600, seed=1, only=None, stage_sh=None, quick=True):
     import shader_equiv as se
-    import native_gfx as ng
+    import wine_gfx as ng
     t0 = time.time()
     keys = ng.read_combiners()
     ng.generate_combiner_shaders()

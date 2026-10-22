@@ -871,7 +871,7 @@ class Gen:
                 # an enum named only in template arguments: an empty definition (underlying type int, as MSVC's
                 # opaque `enum X;` extension has). `enum X : int;` is C++11 and MSVC 7.1 rejects it; a plain
                 # `enum X;` has no underlying type and every non-MSVC clang target rejects it
-                # (docs/native-build.md fix 1)
+                # (docs/wine-build.md fix 1)
                 out.append("    enum %s { };" % n[2])
             elif isinstance(n, tuple):
                 out.append("    %s HULK_SINGLE_INHERITANCE %s;" % (n[1], n[2]))

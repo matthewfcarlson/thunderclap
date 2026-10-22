@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Hybrid recordings for the native replay input source (docs/native-replay.md).
+"""Hybrid recordings for the native replay input source (docs/wine-replay.md).
 
   tools/replay_pack.py pack IN.json OUT.hrp         # recording JSON (v1/v2, or a bare entry list) -> compact binary
   tools/replay_pack.py unpack IN.hrp OUT.json

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """x87 precision scan: where does the native build round a float that MSVC 7.1 kept in an x87 register?
 
-  build/venv/bin/python tools/x87_scan.py --native DIR [--out build/x87/scan] [--addr 0x350c0 ...]
+  build/venv/bin/python tools/x87_scan.py --wine DIR [--out build/x87/scan] [--addr 0x350c0 ...]
 
-DIR is a native link's output directory (tools/native_link.py --out; it holds bindings.json and
-link/hulk-strict.exe + .map). docs/native-float.md explains the model; in short:
+DIR is a native link's output directory (tools/wine_link.py --out; it holds bindings.json and
+link/hulk-strict.exe + .map). docs/wine-float.md explains the model; in short:
 
 The game runs the x87 with 53-bit precision control (the CRT's _fpmath -> _controlfp(_PC_53, _MCW_PC) from
 _cinit), so a value in an x87 register carries a 53-bit mantissa and a store to a `double` (qword) is exact.
@@ -325,7 +325,7 @@ def is_game(va):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--native", required=True, help="native link output dir (bindings.json, link/hulk-strict.*)")
+    ap.add_argument("--wine", "--native", dest="native", required=True, help="native link output dir (bindings.json, link/hulk-strict.*)")
     ap.add_argument("--image", help="image name in DIR/link (default hulk-strict)", default="hulk-strict")
     ap.add_argument("--out", default=os.path.join(ROOT, "build/x87/scan"))
     ap.add_argument("--addr", nargs="*", help="only these XBE addresses; prints the sites")

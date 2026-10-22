@@ -32,7 +32,7 @@ first. The essentials:
 - Use real structs with named fields, and loops instead of gotos.
 - **Register-argument callees** (eax, or other registers C++ can't express): declare them normally and add `// equiv-conv: FUN_x eax ecx stack`. See "Register conventions" in `docs/equivalence.md`.
 - **Hand-written stack cookie:** for a /GS cookie, see matches/0x001fc460.cpp, or just omit the cookie; the checker skips the cookie call.
-- **Native fidelity.** The same source also feeds the native clang build, which evaluates floats in source order (`-ffp-eval-method=double -ffp-contract=off`) where MSVC 7.1 reassociates. Write float sums in the original's order, and use `hulk_freg` (`include/compat/ptr.h`) for float locals and returns the original keeps unrounded in x87 registers. `tools/equiv.py SRC 0xADDR --native` and `tools/x87_order.py SRC 0xADDR` check this ([equivalence.md](../equivalence.md), [native-float.md](../native-float.md)).
+- **Wine-build fidelity.** The same source also feeds the Wine build (clang), which evaluates floats in source order (`-ffp-eval-method=double -ffp-contract=off`) where MSVC 7.1 reassociates. Write float sums in the original's order, and use `hulk_freg` (`include/compat/ptr.h`) for float locals and returns the original keeps unrounded in x87 registers. `tools/equiv.py SRC 0xADDR --wine (formerly --native)` and `tools/x87_order.py SRC 0xADDR` check this ([equivalence.md](../equivalence.md), [wine-float.md](../wine-float.md)).
 - `matches/*.cpp` has ~22k matched functions. Grep it for the same class or callee names to reuse layouts.
 
 ## Hard rules

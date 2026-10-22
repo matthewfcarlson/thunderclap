@@ -483,7 +483,7 @@ def prove(filter_src=None, blur_src=None, n_inputs=3000, seed=1, only=None, quic
                blur=os.path.relpath(os.path.abspath(blur_src), ROOT), params_from="pddi_smoke --fx-params",
                tolerance=dict(abs=TOL, cnd_margin=CND_MARGIN), level1={}, programs=[])
     if params is None:
-        out.update(status="error", error="no %s: run tools/native_gfx.py pddi" % os.path.relpath(SMOKE, ROOT))
+        out.update(status="error", error="no %s: run tools/wine_gfx.py pddi" % os.path.relpath(SMOKE, ROOT))
         return out
     mods = {}
     for kind, src in (("filter", filter_src), ("blur", blur_src)):

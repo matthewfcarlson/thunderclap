@@ -13,7 +13,7 @@ Self-contained briefs for work alongside the matching farm. Each brief has a goa
 | 07 | [Subsystem map for QoL (render/camera/HUD/game loop)](07-subsystem-map.md) | Ghidra, RTTI | M | *done: [platform-boundary.md](../platform-boundary.md), [subsystems.md](../subsystems.md), [port-priority.txt](../port-priority.txt)* |
 | 08 | [Farm: large-function strategies](08-large-functions.md) | farm | M | *farm session: aligned diffs, attempt history, similar-function examples built; A/B pending credits* |
 | 09 | [Equivalent decomp for large functions (behaviour verifier + farm mode)](09-equivalent-decomp.md) | 01, 02 | L | *verifier and farm mode done ([equivalence.md](../equivalence.md)); scaling up* |
-| 10 | [Test plan for the hybrid and native builds](10-hybrid-test-plan.md) | 06, 07, 09 | L | *hooks, determinism pins, compare, bisect, record and replay done; native replays reproduce the original's checkpoints through the first level ([native-replay.md](../native-replay.md)); open: scenario suite* |
+| 10 | [Test plan for the hybrid and Wine builds](10-hybrid-test-plan.md) | 06, 07, 09 | L | *hooks, determinism pins, compare, bisect, record and replay done; Wine replays reproduce the original's checkpoints through the first level ([wine-replay.md](../wine-replay.md)); open: scenario suite* |
 | 11 | [The functions over 4 KB (generators, look-alike pairs, the rest)](11-big-functions.md) | 09 | M | *done 2026-10-18* |
 
 ## Ground rules (read first)

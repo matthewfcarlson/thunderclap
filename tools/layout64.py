@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""32-bit vs 64-bit record layouts (docs/native-build.md "64-bit"): which classes and structs change their field
+"""32-bit vs 64-bit record layouts (docs/wine-build.md "64-bit"): which classes and structs change their field
 offsets when pointers are 8 bytes, and a gate for the ones whose layout is a file format.
 
   build/venv/bin/python tools/layout64.py                  # include/gen/ classes + config/layout64.json records

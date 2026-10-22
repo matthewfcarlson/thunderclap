@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Play the native image interactively (a real window, sound, keyboard or gamepad). docs/native-play.md.
+"""Play the native image interactively (a real window, sound, keyboard or gamepad). docs/wine-play.md.
 
   build/venv/bin/python tools/play.py                  # run build/native/link/hulk-strict.exe (the --gfx image)
-  build/venv/bin/python tools/play.py --build          # (re)build the backends and link first (tools/native_link.py --gfx)
+  build/venv/bin/python tools/play.py --build          # (re)build the backends and link first (tools/wine_link.py --gfx)
   build/venv/bin/python tools/play.py --no-movies --window 1280x960
   build/venv/bin/python tools/play.py --check          # only report the prerequisites
 
@@ -28,9 +28,9 @@ import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import native_run  # noqa: E402
+import wine_run  # noqa: E402
 
-ROOT = native_run.ROOT
+ROOT = wine_run.ROOT
 
 
 def prereqs(exe, data):
@@ -39,24 +39,24 @@ def prereqs(exe, data):
         nonlocal ok
         ok = ok and good
         print("  [%s] %s%s" % ("ok" if good else "MISSING", what, "" if good else "  -> " + hint))
-    line(os.path.exists(native_run.WINE), "Wine: %s" % native_run.WINE, "install Whisky (or set WINE=...)")
+    line(os.path.exists(wine_run.WINE), "Wine: %s" % wine_run.WINE, "install Whisky (or set WINE=...)")
     line(os.path.exists(os.path.join(data, "default.xbe")), "game files: %s" % data,
-         "extract your own disc into isos/extracted (docs/native-files-saves.md)")
+         "extract your own disc into isos/extracted (docs/wine-files-saves.md)")
     line(os.path.exists(exe), "image: %s" % exe, "run with --build")
     out3 = os.environ.get("HULK_SDL_OUT") or os.path.join(ROOT, "build/third_party/out")
     have_sdl = os.path.exists(os.path.join(os.path.dirname(exe), "SDL3.dll")) or os.path.exists(os.path.join(out3, "sdl-win32/SDL3.dll"))
-    line(have_sdl, "SDL3.dll", "python tools/native_sdl.py build")
+    line(have_sdl, "SDL3.dll", "python tools/wine_sdl.py build")
     have_ff = os.path.exists(os.path.join(os.path.dirname(exe), "hulkmovie.dll")) or os.path.exists(os.path.join(out3, "ffmpeg-win32/movies/hulkmovie.dll"))
     print("  [%s] FFmpeg movie decoder (hulkmovie.dll + avcodec/avformat/avutil)%s" %
-          ("ok" if have_ff else "absent", "" if have_ff else ": cut scenes will be skipped (python tools/native_ffmpeg.py)"))
+          ("ok" if have_ff else "absent", "" if have_ff else ": cut scenes will be skipped (python tools/wine_ffmpeg.py)"))
     return ok
 
 
 def build():
     py = sys.executable
     env = dict(os.environ)
-    # (native_link.py rebuilds hulk_sdl / hulk_movies / hulk_fs when their sources under src/platform/sdl are newer)
-    for cmd in ([py, "tools/native_link.py", "--reuse-map", "--gfx"],):
+    # (wine_link.py rebuilds hulk_sdl / hulk_movies / hulk_fs when their sources under src/platform/sdl are newer)
+    for cmd in ([py, "tools/wine_link.py", "--reuse-map", "--gfx"],):
         print("+", " ".join(cmd))
         if subprocess.run(cmd, cwd=ROOT, env=env).returncode:
             sys.exit("build step failed")
@@ -98,7 +98,7 @@ def main():
         dst = os.path.join(os.path.dirname(exe), os.path.basename(dll))
         if os.path.exists(src) and not os.path.exists(dst):
             shutil.copy2(src, dst)
-    w = native_run.to_wine_path
+    w = wine_run.to_wine_path
     env = {"HULK_TRACE_FILE": w(os.path.join(out, "run/trace.txt")), "HULK_DATA_DIR": w(data),
            "HULK_SAVE_DIR": w(os.path.join(out, "save")), "HULK_TDATA_DIR": w(os.path.join(out, "tdata")),
            "SDL_AUDIO_DRIVER": a.audio}
@@ -123,9 +123,9 @@ def main():
     prefix = os.path.join(ROOT, "build/native/wineprefix")
     print("starting %s (Ctrl-C or close the window to quit; trace: build/play/run/trace.txt)" % os.path.basename(exe))
     try:
-        r = native_run.run(exe, prefix, a.timeout or None, env, os.path.join(out, "run"))
+        r = wine_run.run(exe, prefix, a.timeout or None, env, os.path.join(out, "run"))
     except KeyboardInterrupt:
-        native_run.kill_wineserver(prefix)
+        wine_run.kill_wineserver(prefix)
         return 130
     print(r)
     return 0

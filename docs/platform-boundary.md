@@ -98,7 +98,7 @@ practice:
 
 1. **No Microsoft or RAD code in the tree, in any form.** Don't decompile, lift, translate or byte-match the
    library spans above or anything after `.text` (XAPILIB, LIBCMT, `xboxkrnl` stubs, D3D8, XGRAPHICS,
-   DSOUND, XPP, BINK). The hybrid build runs the player's own copy of that code; the native build replaces
+   DSOUND, XPP, BINK). The hybrid build runs the player's own copy of that code; the Wine build replaces
    it with our own implementations, from scratch. Batch agents log such functions `unsupported`.
 2. **No leaked material.** Never use or look at leaked XDKs, XDK headers or samples, Microsoft internal
    documentation, or the Bink SDK (the same rule as the leaked Simpsons Hit & Run source). Allowed
@@ -108,9 +108,9 @@ practice:
 3. **Shapes, not bodies.** An import stand-in may carry a name, a calling convention, argument bytes and a
    return register. Its body is our own (today: count the call, return a safe default). Constants and
    structure layouts the game itself depends on are recovered from the game's code, not from SDK headers.
-   The same holds for LIBCMT: the native build links the host's C runtime (`src/platform/sdl/crt/`, msvcrt.dll
+   The same holds for LIBCMT: the Wine build links the host's C runtime (`src/platform/sdl/crt/`, msvcrt.dll
    by name, no code copied) and decides which standard function each LIBCMT address is from the game's call sites.
-4. **The XDK-shaped layer is temporary.** `src/platform/sdl/xdk/` exists to get the native image to start.
+4. **The XDK-shaped layer is temporary.** `src/platform/sdl/xdk/` exists to get the Wine image to start.
    The target design puts SDL3 backends behind the game's own seams (`pddi`, sound, input, files; see
    below), so the shipped port carries as little XDK-shaped API as possible.
 5. **Movies:** decode Bink 1 with FFmpeg's decoder or transcode on the player's machine at first run; never
@@ -122,7 +122,7 @@ practice:
 Closed 2026-10-18: the library sources that predated this rule (108 in `matches/`, 9 tracked in `equivalent/`: 71
 inside `.text` in XAPILIB 15, LIBCMT+XAPILIB 54, EH 2, and 48 after it in BINK, D3D, DSOUND, XGRPH and XPP) were
 deleted from the repo. They were never in the generated tree (`config/splits.json` marks those objects `library`),
-the native build binds their addresses to the shim and host CRT, and the queue filters (see above) stop them coming
+the Wine build binds their addresses to the shim and host CRT, and the queue filters (see above) stop them coming
 back.
 
 Not legal advice: these rules keep the tree to our own code and the game's interfaces. The larger question,
@@ -238,9 +238,9 @@ from public documentation (xboxdevwiki, xemu, Cxbx-Reloaded).
 
 ## Full call inventory
 
-What the native link still imports from these (by function, with what each needs on SDL3):
-[native-build.md, platform-shim inventory](native-build.md#start-up-milestone-what-is-left-2026-10-18)
-(`tools/native_shim.py`).
+What the Wine link still imports from these (by function, with what each needs on SDL3):
+[wine-build.md, platform-shim inventory](wine-build.md#start-up-milestone-what-is-left-2026-10-18)
+(`tools/wine_shim.py`).
 
 Generated from `build/port/platform_calls.json`. "Called from" counts calling functions per seam;
 `LEAK` is a game function outside the seams. "Library" is where the callee lives (`XAPI`,

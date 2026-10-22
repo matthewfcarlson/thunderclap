@@ -773,7 +773,7 @@ def load(path_or_bytes):
 SHADERC = os.path.join(ROOT, "build/third_party/tools/shaderc")
 BGFX_SRC = os.path.join(ROOT, "build/third_party/src/bgfx/src")
 OUT_DIR = os.path.join(ROOT, "build/shaders/equiv")
-PROFILES = {                 # the host-compilable profiles tools/native_gfx.py uses (D3D needs Windows)
+PROFILES = {                 # the host-compilable profiles tools/wine_gfx.py uses (D3D needs Windows)
     "spirv": ("linux", "spirv"),
     "metal": ("osx", "metal"),
     "glsl": ("linux", "430"),
@@ -856,7 +856,7 @@ def parse_annotations(src_text):
 # ---------------------------------------------------------------------------------------------------------------
 def compile_sc(src, profile, out_dir, stype="vertex", varyingdef=None, includes=()):
     if not os.path.exists(SHADERC):
-        raise SystemExit("no shaderc at %s: run `tools/native_gfx.py fetch` and `tools/native_gfx.py shaderc`"
+        raise SystemExit("no shaderc at %s: run `tools/wine_gfx.py fetch` and `tools/wine_gfx.py shaderc`"
                          % os.path.relpath(SHADERC, ROOT))
     plat, prof = PROFILES[profile]
     vdef = varyingdef or os.path.join(os.path.dirname(os.path.abspath(src)), "varying.def.sc")

@@ -8,12 +8,13 @@ build/venv/bin/python tools/equiv.py SRC 0xADDR                 # human-readable
 build/venv/bin/python tools/equiv.py SRC 0xADDR --json          # one-line JSON (for the farm)
 build/venv/bin/python tools/equiv.py SRC 0xADDR --map map.json  # bind our symbols to original addresses
 build/venv/bin/python tools/equiv.py SRC 0xADDR -- /Oy-         # extra cl flags
+build/venv/bin/python tools/equiv.py SRC 0xADDR --wine          # the clang object the Wine build runs (--native is the old name)
 ```
 
 Library: `equiv.verify(src, addr, symbol=None, flags=(), n_inputs=64, mapping=None, use_names=True, ...)`
 returns the report dict. `seeds=[...]` (or `EQUIV_SEEDS=1,2` in the environment, whatever `--inputs` says) runs only those random
 inputs: a regression case for the one input in thousands that showed a bug. The exit status is 0 only for `equivalent`. A typical function takes 1–5 s
-(compile included); loops that run long on fuzzed inputs can take up to the 120 s level-3 budget. The
+(compile included; a `--wine` run also compiles with clang and takes longer); loops that run long on fuzzed inputs can take up to the 120 s level-3 budget. The
 budget is CPU time, so a loaded machine takes longer but gets the same result. `--time-budget S` changes it (slow
 functions need more to reach the 50 completed inputs `promotable` asks for). `--inputs N` raises the
 input cap to at least N.
@@ -25,6 +26,7 @@ input cap to at least N.
 | 1 | compiles with MSVC 7.1 (`compare.py` flags; `--clang` adds a host-clang syntax check, warning only) | compile errors |
 | 2 | same references: callees, globals, vftables, strings, float constants (in memory and in immediates), the initializers of globals the source defines | a missing or extra callee or global, an unresolvable symbol, a float constant a few ulps off the original's, a defined global whose initial bytes aren't the original's |
 | 3 | differential execution in Unicorn on fuzzed inputs | any difference in calls, memory writes, return value, callee-saved registers or stack balance |
+| Wine mode (`--wine`) | levels 1-3 with SRC compiled by clang the way the Wine build compiles it (i686, -O0, x87, `hulk_freg` = double), run against the original | the same, plus the Wine-specific rules (rounds 18-21) |
 
 `status` is `equivalent` (levels 1–3 pass), `fail`, `inconclusive` (no difference, but fewer than 8 inputs
 ran to completion or branch coverage is under 25%; byte-identical code is exempt), `unsupported` (level 3
@@ -49,7 +51,7 @@ original inlined. Level 3 still checks the behaviour behind them.
 1e-4 of it (relative) without being the same value as the loads read it (`0.0174533f` = 0x3c8efa39 where the
 original has pi/180 = 0x3c8efa35; `57.2958f` for 0x42652ee0; `0.00392157f * 255.0f` folded to 1.0000003 where
 the original has 1.0). Level 3's float tolerance passes such a source on every input, and a byte match masks the
-constant's bits; the native build would carry the wrong value. A double constant of exactly the float's value is
+constant's bits; the Wine build would carry the wrong value. A double constant of exactly the float's value is
 not a difference. Write the original's value with 9 significant digits (`0.0174532924f`).
 
 `tools/lint_floats.py` is the static companion (all of `matches/` and `equivalent/`, no inputs needed): it takes the
@@ -412,8 +414,8 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     `tests/equiv/cases/0x0027dca0_event_words_wrong.cpp`: EQUIVALENT at 3000 inputs before, `the local passed as
     argument 1 differs at +0x8 (0x0, expected 0xffffffff)` now).
   - `ftolexact`: float comparison is exact by default. The original runs the x87 at 53-bit precision (control word
-    0x027F; docs/native-float.md) and both emulated runs write that word, so equal arithmetic gives equal bits and a
-    1-ULP difference is a real one: the native build reproduces the original's rounding bit for bit or it drifts
+    0x027F; docs/wine-float.md) and both emulated runs write that word, so equal arithmetic gives equal bits and a
+    1-ULP difference is a real one: the Wine build reproduces the original's rounding bit for bit or it drifts
     (native14's camera y). `_feq` is `==` (+0 and -0 are different); a returned `st(0)` is compared over its full
     64-bit mantissa (`st0raw`), the control word at return must match, and the "same float but for the last bit" rule
     for stack words is off. An explicit tolerance in a directed-input search is unchanged. Unicorn honours the
@@ -422,15 +424,15 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   - `thisdecl`: a callee our source declares as a free `__cdecl`/`__stdcall` function (not a member, not
     `__fastcall`) that the original's callee takes `this` in ecx (its body reads ecx before writing it, found by
     `Program.reg_inputs`, or it is in a vtable). Byte-identical code can't show it (the caller's ecx happened to hold the
-    right value), the native build passes the first argument there. `compare.py` reports status `thiscall_decl` for such
+    right value), the Wine build passes the first argument there. `compare.py` reports status `thiscall_decl` for such
     an exact match (so farm promotion, which wants `match`, drops it), `verify_relocs.check` the issue
     `free_decl_of_thiscall`, equiv.py a level-2 issue of that kind. A callee with an `// equiv-conv` line and CRT
     helpers (`__aullshr`) are left out. native14's stop 37: `matches/0x00042930` (`void __stdcall helper(int, float)` for
     the member 0x00042890); the pre-fix sources of 0x00042930, 0x00042960, 0x00336f10 and 0x00337330 all report it.
     `build/cl5/thiscall.json` has the sweep over `equivalent/` and `matches/`.
 
-- (round 18, cl6) **Native mode**: `equiv.py SRC 0xADDR --native` (`verify(native=True)`, `tools/equiv_native_sample.py` for
-  lists) compiles the source the way the native build does (`tools/clang_probe.py`'s `msvc` configuration: clang i686
+- (round 18, cl6) **Native mode**: `equiv.py SRC 0xADDR --native` (`verify(native=True)`, `tools/equiv_wine_sample.py` for
+  lists) compiles the source the way the Wine build does (`tools/clang_probe.py`'s `msvc` configuration: clang i686
   `-O0` x87, `compat/native.h`, `hulk_freg` = `double`) and runs that COFF object against the original in the same
   harness, calls included. Before, only leaf functions could be run (calls hit wild jumps and argument-count errors).
   What the harness had to learn about clang's object:
@@ -906,7 +908,7 @@ Mismatch strings are written for a model to act on. Examples:
 
 ## Validation
 
-Latest run (2026-10-20, checker round 17, cl5): `regress.py` 195/195 (8 new cases: 0x0027dca0 event words, 0x0009faa0 and
+Previous run (2026-10-20, checker round 17, cl5; rounds 18-21 report their regress runs in their own sections above): `regress.py` 195/195 (8 new cases: 0x0027dca0 event words, 0x0009faa0 and
 0x00097320 exact floats, 0x00042930 and 0x00336f10 thiscall declarations, each `_wrong` is `equivalent`/`match` under
 round 16; a case can run with `"equiv_off"` switches: six older float-sensitive cases keep the tolerance, 0x001b4d00's
 free declaration of FUN_00080cd0 keeps `thisdecl` off); `test_equiv.py` 14/14; `replay_regress.py` 16/16.
@@ -935,7 +937,7 @@ should: its source declares FUN_000fd8a0 (`ret 0x10`) with 2 of its 4 words, see
 60-function sample of `equivalent/` at 3000 inputs (20 with jump tables of more indices than targets, 20 with chained
 callee-popped calls, 20 random; `build/cl3/sample60.txt`), round 14 vs 15: 59 equivalent under both, with 21 gaining
 index edges, all covered (0x0028aea0 12/12 -> 23/23); 0x000991b0 newly fails (the declaration above; a real bug for the
-native build); time 1358.6 s vs 1360.7 s (+0.2%). Level 2 over the 939 committed equivalents with float immediates:
+Wine build); time 1358.6 s vs 1360.7 s (+0.2%). Level 2 over the 939 committed equivalents with float immediates:
 no `float_immediate_differs` (fx20 fixed the known ones). Initializers (`verify_relocs.py --initializers`): 119
 violations in 116 `matches/` sources (89 a `gNegOne = -1.0f` propagated to functions whose original reads another
 constant, 15 placeholder vftables defined as zeros), none in `equivalent/` (`build/cl3/initializers.json`).
@@ -1252,7 +1254,7 @@ without re-running whole sessions. Results live in `build/traces/` (never commit
 
 `tools/x87_order.py` finds sources whose float arithmetic is *grouped* differently from the original's. MSVC 7.1
 reassociates float sums and products (and turns `x/W` into `x*(1/W)`), so a source can byte-match, or be proven
-equivalent, while its C++ text computes `(a+b)+c` where the original computes `a+(b+c)`. clang (the native build)
+equivalent, while its C++ text computes `(a+b)+c` where the original computes `a+(b+c)`. clang (the Wine build)
 evaluates in source order, and at 53-bit precision random inputs almost never show the different rounding (native16
 found `Mat::Transform` 0x22c2b0 and normalize 0x22d180 by replay divergence).
 
@@ -1263,7 +1265,7 @@ build/venv/bin/python tests/equiv/test_x87_order.py     # unit cases + the cases
 ```
 
 **Method.** The x87 code of three functions is executed symbolically into expression trees: (a) the original (XBE),
-(b) the source compiled as the native build does (`equiv.compile_native`: clang i686 -O0 x87
+(b) the source compiled as the Wine build does (`equiv.compile_native`: clang i686 -O0 x87
 `-ffp-eval-method=double -ffp-contract=off`), (c) the source's MSVC object. The model has integer registers and
 stack slots (so clang's spilled `this`/arguments and MSVC's register arguments name the same loads), the x87
 stack including `fxch`, `fld st(i)` and the reverse/pop forms, float and int conversions, stores (a store to a
@@ -1272,7 +1274,7 @@ stack including `fxch`, `fld st(i)` and the reverse/pop forms, float and int con
 ordinal; the callee's `ret N` decides the stack), same-object helper functions (clang does not inline them, MSVC
 does: they are executed in place), constants in `.rdata` (read from the XBE; `__real@...` literals by name), and
 branches (see the cl7b paragraph below: decided branches are followed, joins merge, values that differ become a `phi`). Symbols of
-the object are bound to addresses by aligning its instructions with the original's (as `tools/native_link.py` does
+the object are bound to addresses by aligning its instructions with the original's (as `tools/wine_link.py` does
 for a `matches/` source) or, for an `equivalent/` source, by its `DAT_<addr>`/`FUN_<addr>` names and `equiv-map` lines.
 
 The *roots* are the trees stored to memory, returned in `st(0)`, compared, or converted to int. An original root is
@@ -1297,7 +1299,7 @@ to later loads of the same base. A subtraction rewritten as an addition of a neg
 rewrites are not (so they are `unmatched`). The tool does not look at SSE code, at the CRT, or at integer code.
 Hazard seen in the scan: a `matches/` source whose names say one address while the byte match bound another by
 position (`bind_name_conflicts` in the JSON: MSVC emits the later constant of `x*A*B` first, so `matches/0x000bbc50.cpp`
-names `DAT_00407b04` for the address `0x3f3358`); the native link follows the position. The way out is a text that
+names `DAT_00407b04` for the address `0x3f3358`); the Wine link follows the position. The way out is a text that
 keeps both the match and the order: `DAT_00407b04 * ((*(volatile float*)&input) * DAT_003f3358)` (names and addresses agree,
 MSVC still emits the original's bytes).
 
@@ -1374,7 +1376,7 @@ objects (windows are 16 bytes), branch joins of registers that are undefined on 
   control word 0x027F (round to nearest, 53-bit precision; Unicorn honours the precision bits:
   `build/cl5/pctest.py` stores 1/3 with 53, 64 and 24 mantissa bits for 0x027F, 0x037F and 0x007F). MSVC-compiled
   code that is not byte-identical can still differ in the last bit (a `float` local stored and reloaded where the
-  original keeps the register); that is a real difference for the native build (docs/native-float.md).
+  original keeps the register); that is a real difference for the Wine build (docs/wine-float.md).
 - **Function bounds** come from `build/functions.csv`. Code past the listed size is still followed, as a
   chunk, but some sizes are wrong: 0x001bb0b0 is listed at 320 bytes but returns at +0x47d, so its
   packet showed only part of the function.

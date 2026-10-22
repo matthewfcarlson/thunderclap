@@ -29,8 +29,8 @@ layouts checked against the XBE. Migrating matches onto it is roadmap step 2.
 - *Verification build:* MSVC 7.1 under wibo, one object per recovered file. Every function is
   re-checked: byte-match for `matches/` (objdiff/`compare.py`), behaviour for `equivalent/` (`equiv.py`,
   trace replay). This keeps the merged tree honest as it's refactored.
-- *Native build:* the same tree under clang. Unverified functions are holes. The hybrid build covers them
-  with the original code; a native build can't, so it needs step 3 finished.
+- *Wine build:* the same tree under clang. Unverified functions are holes. The hybrid build covers them
+  with the original code; a Wine build can't, so it needs step 3 finished.
 
 **Platform layers (decided 2026-10-14).** One tree builds the Xbox game and the native ports. Pure3D/radcore
 was a multi-platform engine and every platform call goes through four seams ([platform-boundary.md](platform-boundary.md)),
@@ -41,8 +41,8 @@ src/game/…            portable game code (global C* classes, hulkfight, game-s
 src/engine/…          portable Pure3D / radcore / radsound / Lua / choreo2 / fight / physics (sim) code
 src/platform/xbox/    our decomp of the Xbox seam implementations: pddi D3D8, radcore Xbox layer, radsound HAL, Bink player
 src/platform/sdl/     native backends: SDL3 input, audio and files; pddi on Metal / Vulkan / D3D12 (SDL_gpu or bgfx)
-src/platform/sdl/xdk/ the first of them: stand-ins for the 167 XDK/XAPI/Bink imports, so the native build can run
-                      platform/xbox before the seams have SDL3 backends (started 2026-10-18, native-build.md), the
+src/platform/sdl/xdk/ the first of them: stand-ins for the 167 XDK/XAPI/Bink imports, so the Wine build can run
+                      platform/xbox before the seams have SDL3 backends (started 2026-10-18, wine-build.md), the
                       library code/data the game reaches by address (library.h) and the entry point (startup.cpp)
 src/platform/sdl/crt/ the host C runtime of the first (Windows / Wine) image: msvcrt.dll through our own import
                       tables (host_crt_table.h) and our glue (/GS cookie, atexit, stdio, game paths)
@@ -54,19 +54,19 @@ include/seams/        the seam interfaces both platform directories implement
   and are never shipped. A full relink would need the XDK, which isn't ours to distribute. Running
   identically on Xbox is the test that `game` and `engine` are right before any native backend exists.
 - **macOS, Windows, Linux:** `game` + `engine` + `platform/sdl` under clang (MSVC also works on Windows).
-- **Pointer size:** the first native build is 32-bit x86 (roadmap step 4), because `.p3d` chunks, Lua
+- **Pointer size:** the first Wine build is 32-bit x86 (roadmap step 4), because `.p3d` chunks, Lua
   bytecode and saves bake in 32-bit pointers and sizes. 64-bit (Apple Silicon, modern Windows) comes later
   with widening loaders.
 - **First native target (decided 2026-10-17): `i686-pc-windows-msvc`, built with clang-cl and linked with
   lld-link**, run on Windows x86 or under Wine. The verified code is MS-ABI code (stub classes whose vftable
   slots assume one slot per virtual destructor, hand-written vptr stores and slot calls, `__thiscall`), and the
-  link binds calls by MS-mangled name aliases ([native-build.md](native-build.md) fixes 0 and 5a). Linux and
+  link binds calls by MS-mangled name aliases ([wine-build.md](wine-build.md) fixes 0 and 5a). Linux and
   macOS (Itanium ABI) follow once callers use the real include/gen classes (fix 5b). Native flags:
   `-fms-extensions -fno-strict-aliasing -fwrapv -fno-delete-null-pointer-checks`, x87 math on 32-bit
   (`-mno-sse -mfpmath=387`), `include/compat/native.h` force-included (it brings `compat/crt.h`, the one
   declaration of each CRT function), and MSVC 7.1's dialect where clang has a switch: `-Xclang -fno-wchar`
   (`/Zc:wchar_t-`), `-fno-operator-names`, `-Wno-c++11-narrowing`, `-Wno-address-of-temporary`
-  ([native-build.md](native-build.md#after-fix-4-and-the-binding-fixes-2026-10-18)).
+  ([wine-build.md](wine-build.md#after-fix-4-and-the-binding-fixes-2026-10-18)).
 - Each recovered object in `config/splits.json` carries a `layer` (`game`, `engine`, `platform/xbox`,
   `library`); `tools/gen_tree.py` places files by layer. Done 2026-10-15: link order splits game from engine
   cleanly (`fight` and `physics` are linked with Radical's libraries, so they are `engine`), and
@@ -110,7 +110,7 @@ so an xemu-based release adds nothing. The hybrid ISO stays an internal test veh
   (or Vulkan) through the same pddi layer as macOS and Linux.
 - **SmartScreen.** Unsigned executables get an "unknown publisher" warning on first run ("More info" →
   "Run anyway"). Removing it needs an Authenticode code-signing certificate; not needed for testing.
-- **32-bit first.** The first native build is x86-32 (§1, pointer size), which Windows runs natively; the
+- **32-bit first.** The first Wine build is x86-32 (§1, pointer size), which Windows runs natively; the
   x86-64 build follows with the widening loaders.
 
 ## 5. Modding: textures, models, levels (roadmap steps 6 and 7)

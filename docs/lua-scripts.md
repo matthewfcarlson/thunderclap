@@ -383,6 +383,6 @@ Open questions:
 * `fig0` container format and the exact way `LuaCondition/Track/Action` chunks are extracted at load time.
 * How a new mission is entered from the front end: which of `gfm_SetNextMission`/`FUN_000bf560` consume the ids, and whether a location needs a
   new district `.p3d` set (`art/locations/<loc>/<loc>_district_%d.p3d`, `_r%03d.p3d`) and `rooms.rcf` entries.
-* Whether the loader accepts text for the files currently shipped compiled (should, per `FUN_001d2810`; test in xemu/native build).
+* Whether the loader accepts text for the files currently shipped compiled (should, per `FUN_001d2810`; test in xemu/Wine build).
 * Whether `SELF` exists in this VM (never emitted by the shipped compiler output).
 * Which of the 15 unresolved names are reachable (likely none).

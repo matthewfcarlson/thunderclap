@@ -1,14 +1,15 @@
 # Graphics backend: design and plan
 
-Planning document, written 2026-10-18. Stage G0 (the harness) is built: see [section 7](#7-g0-the-harness-built-2026-10-18).
-Stage G1 (the backend in the native image, first frames and draws) is [section 8](#8-g1-the-backend-in-the-native-image-2026-10-19).
+Planning document, written 2026-10-18 (the later sections are the build log). Stage G0 (the harness) is built: see [section 7](#7-g0-the-harness-built-2026-10-18).
+Stage G1 (the backend in the Wine image, first frames and draws) is [section 8](#8-g1-the-backend-in-the-wine-image-2026-10-19).
 G3's draw path (prim buffers, vertex programs, render state) is [section 9](#9-g3-the-draw-path-prim-buffers-vertex-programs-render-state-2026-10-19).
 G2's shader-class combiners, 2D mode, linear textures and movie strategy are [section 10](#10-g2-the-shader-classes-combiners-2d-textures-and-movies-2026-10-19).
 The window and the event pump moved to SDL3 in [section 11](#11-sdlwin-the-window-and-the-event-pump-on-sdl3-2026-10-19).
 G4's frame-buffer copy, refraction, framebuffer effects and the other extensions are [section 12](#12-g4-effects-the-frame-buffer-copy-refraction-and-the-extensions-2026-10-19).
 G5's clean-up (shader proofs, window scaling, copies without blits, two-sided lighting) is [section 13](#13-g5-clean-up-shader-proofs-window-scaling-portability-two-sided-lighting-2026-10-19).
+Section 14 is sky1: fog, haze and sky against the original ([section 14](#14-sky1-fog-haze-and-sky-against-the-original-2026-10-21)).
 The small prototypes and the scripts that produced the planning numbers were under `build/gfx-proto/` (not tracked). Inputs: [platform-boundary.md](platform-boundary.md),
-[seams.md](seams.md), [web-port.md](web-port.md), [native-build.md](native-build.md), [subsystems.md](subsystems.md),
+[seams.md](seams.md), [web-port.md](web-port.md), [wine-build.md](wine-build.md), [subsystems.md](subsystems.md),
 [formats/p3d.md](formats/p3d.md), [texture-packs.md](texture-packs.md), `src/platform/sdl/xdk/`,
 `build/native/shim-inventory.json`, `build/rtti.json`, `build/port/platform_calls.json`, `build/port/seams.json`,
 `config/splits.json`, the generated tree (`build/tree/src/platform/xbox/pure3d/`) and the player's own data
@@ -22,7 +23,7 @@ The small prototypes and the scripts that produced the planning numbers were und
 | 2. What to reproduce | Fixed-function T&L for the default (no-program) path; **17 NV2A vertex programs** (661 instructions total) of which the data needs about 10; D3D-style texture-stage combiners (up to 4 stages) through a state-keyed uber shader; **17 run-time-assembled `xps.1.1` pixel shaders** in the framebuffer effects; render targets, copies, occlusion queries, gamma. No swizzling: every texture on disc is linear DDS or PNG. |
 | 2b. Shader semantics, clean-room | Hand-write bgfx shaders for each program from the **game's own** program bytes (in the player's XBE) and the game's own `xps` text (already in our verified C sources), checked per vertex against **our own CPU interpreter of NV2A vertex programs**, written from public descriptions. A run-time translator is the fallback if hand-writing stalls. |
 | 3. Library | **bgfx** (BSD-2): D3D11/12, Metal, Vulkan, GL/GLES and WebGL2 from one API, so native and web share the backend. SDL_gpu has no web backend (Vulkan / D3D12 / Metal only). sokol_gfx is the credible runner-up. bgfx builds here with the installed toolchain (prototype below). |
-| 4. Testing | Per-draw **pddi state records** from the hybrid build (xemu) and the native build, compared draw by draw at the same frame of the same replay; plus scan-out screenshots vs native frames at replay checkpoints with a perceptual threshold; plus per-program vertex tests against the NV2A interpreter. |
+| 4. Testing | Per-draw **pddi state records** from the hybrid build (xemu) and the Wine build, compared draw by draw at the same frame of the same replay; plus scan-out screenshots vs native frames at replay checkpoints with a perceptual threshold; plus per-program vertex tests against the NV2A interpreter. |
 | 5. HD textures | In the new `pddiTexture` implementation, at the first upload of mip 0 (no engine edits); proposed key change for texture-packs.md below, or a two-line hook in the engine's image loader if the existing payload key must stay. |
 | 6. Plan | G0 harness → G1 first triangle → G2 front end → G3 a level → G4 effects → G5 web; about 10 to 16 weeks of agent-assisted work, with shaders, combiners and the effects extension as parallel batches. |
 
@@ -97,11 +98,11 @@ also build for wasm32 and Itanium targets, and it ships exactly the XDK-shaped A
 extensions), each written by reading the verified `platform/xbox/pure3d` source of its counterpart and replacing the
 D3D call with the backend call. The verified sources stay the specification and stay in the Xbox/hybrid build. The
 MS-ABI vtable slot order is kept for the 32-bit Windows build because portable code still calls by slot until fix 5b
-gives it real class declarations ([native-build.md](native-build.md)); after 5b the classes simply derive from the
+gives it real class declarations ([wine-build.md](wine-build.md)); after 5b the classes simply derive from the
 `include/gen` pddi bases.
 
 What the current `src/platform/sdl/xdk/graphics_d3d8.cpp` (73 stand-ins) and `graphics_xgraphics.cpp` (6) become:
-nothing. They keep the native image starting until the pddi backend links in its place, then the native link drops
+nothing. They keep the Wine image starting until the pddi backend links in its place, then the Wine link drops
 the `platform/xbox/pure3d` objects and these files together.
 
 ## 2. What the renderer has to reproduce
@@ -295,7 +296,7 @@ Ground truth is the original game in xemu, run through the hybrid build's determ
    native backend writes the same record at the same pddi calls. A diff tool aligns the two streams by frame and draw
    index and names the first mismatch: wrong state is found without looking at a pixel, independent of the GPU.
 2. **Screenshots at replay checkpoints.** The harness already saves xemu's scan-out (640x480 X8R8G8B8 from
-   `NV_PCRTC_START`, `tools/hybrid_run.py`). The native build runs the same recording with the same hooks, renders
+   `NV_PCRTC_START`, `tools/hybrid_run.py`). The Wine build runs the same recording with the same hooks, renders
    at 640x480 in test mode, and dumps the back buffer at the same frame numbers. Compare with a perceptual metric
    (SSIM / FLIP) and a per-scene threshold, plus a diff heat map in the report; exact equality is impossible (NV2A
    rasterisation, 16-bit back buffer at 720p, DXT decoders differ). Frames: one per scene type (title, menus, each
@@ -336,14 +337,14 @@ compress PNG replacements to BC3/BC7 at load (bimg can encode) or cache the conv
 ## 6. Staged plan
 
 Sizes assume one person directing agent batches, after the native 32-bit build runs the game loop with stubbed
-graphics (today's state: it links and starts, [native-build.md](native-build.md)).
+graphics (today's state: it links and starts, [wine-build.md](wine-build.md)).
 
 | Stage | Work | Size | Parallel batches |
 |---|---|---|---|
-| G0 Harness | bgfx (bx, bimg) built by `tools/native_gfx.py` for i686-pc-windows-msvc (D3D11) and macOS (Metal); `src/platform/sdl/pddi/` skeleton; the native link swaps `platform/xbox/pure3d` + `graphics_*.cpp` for it; SDL3 window; hybrid `drawlog` hook + record reader + diff tool. **Built 2026-10-18 except the link swap (section 7)** | 1 to 2 weeks | the drawlog hook and the bgfx build are independent |
-| G1 First triangle | `bgfxDisplay` (init, reset, swap, sizes, aspect), `bgfxDevice` (factories), `bgfxContext` clear + transforms + fixed-function vertex shader + one texture stage, `bgfxPrimStream` immediate draws, `bgfxTexture` for DXT1/3/5 and RGBA, `error` shader. **Linked and drawing in the native image 2026-10-19 (section 8): Vulkan under Wine; the game's own first frame waits for the native build** | 1 to 2 weeks | display/device vs texture vs prim stream |
-| G2 Menus and front end | the `simple` shader with its 1-3 stage combiners, texture-stage state key + shader cache, blend/z/cull/alpha test, 2D mode (`pddiBaseContext`), PNG/P8 textures, fonts, the copyright and title screens, movies' render strategy (frames as textures). Compare draw logs and screenshots for title → main menu → options. **Combiners done 2026-10-19 (section 10): every data-used class's pass set-up ported onto a D3D device-state model, 100 combiner keys with a generated program each (+ a generic combiner), the fade, blend table fixed, four stage samplers, texgen + texture matrices, linear textures (texel coordinates), 2D modes, the movie tile path; P8 is unreachable in this game. Self-test 464 probes on Metal and under Wine/Vulkan. The front end's own frames wait for the native build** | 2 to 3 weeks | combiner ops, state mapping, P8/palette, screenshot tooling |
-| G3 A level | `bgfxPrimBuffer` static meshes, vertex declarations from the flags word, `skin`/`skin_onebone`/`simple_*` programs (NV2A interpreter first), hardware-skinning extension, `layered` (+ lightmap pair) and `layeredReflect`, fog, stencil (shadows/decals), `environment`, lights from `pddiLightingState`. Target: the junkyard tutorial replay with matching draw logs. **Draw path done 2026-10-19 (section 9): prim buffers, the skin programs through the skinning extension, the fixed-function program with lights, render-state slots 54-80, views; self-test 19/19 probes on Metal and on Vulkan under Wine. The level waits for the native build; the shader classes' combiners are G2's** | 3 to 5 weeks | one batch per shader class; one per vertex program (interpreter-checked); state/fog/stencil |
+| G0 Harness | bgfx (bx, bimg) built by `tools/wine_gfx.py` for i686-pc-windows-msvc (D3D11) and macOS (Metal); `src/platform/sdl/pddi/` skeleton; the Wine link swaps `platform/xbox/pure3d` + `graphics_*.cpp` for it; SDL3 window; hybrid `drawlog` hook + record reader + diff tool. **Built 2026-10-18 except the link swap (section 7)** | 1 to 2 weeks | the drawlog hook and the bgfx build are independent |
+| G1 First triangle | `bgfxDisplay` (init, reset, swap, sizes, aspect), `bgfxDevice` (factories), `bgfxContext` clear + transforms + fixed-function vertex shader + one texture stage, `bgfxPrimStream` immediate draws, `bgfxTexture` for DXT1/3/5 and RGBA, `error` shader. **Linked and drawing in the Wine image 2026-10-19 (section 8): Vulkan under Wine; the game's own first frame waits for the Wine build** | 1 to 2 weeks | display/device vs texture vs prim stream |
+| G2 Menus and front end | the `simple` shader with its 1-3 stage combiners, texture-stage state key + shader cache, blend/z/cull/alpha test, 2D mode (`pddiBaseContext`), PNG/P8 textures, fonts, the copyright and title screens, movies' render strategy (frames as textures). Compare draw logs and screenshots for title → main menu → options. **Combiners done 2026-10-19 (section 10): every data-used class's pass set-up ported onto a D3D device-state model, 100 combiner keys with a generated program each (+ a generic combiner), the fade, blend table fixed, four stage samplers, texgen + texture matrices, linear textures (texel coordinates), 2D modes, the movie tile path; P8 is unreachable in this game. Self-test 464 probes on Metal and under Wine/Vulkan. The front end's own frames wait for the Wine build** | 2 to 3 weeks | combiner ops, state mapping, P8/palette, screenshot tooling |
+| G3 A level | `bgfxPrimBuffer` static meshes, vertex declarations from the flags word, `skin`/`skin_onebone`/`simple_*` programs (NV2A interpreter first), hardware-skinning extension, `layered` (+ lightmap pair) and `layeredReflect`, fog, stencil (shadows/decals), `environment`, lights from `pddiLightingState`. Target: the junkyard tutorial replay with matching draw logs. **Draw path done 2026-10-19 (section 9): prim buffers, the skin programs through the skinning extension, the fixed-function program with lights, render-state slots 54-80, views; self-test 19/19 probes on Metal and on Vulkan under Wine. The level waits for the Wine build; the shader classes' combiners are G2's** | 3 to 5 weeks | one batch per shader class; one per vertex program (interpreter-checked); state/fog/stencil |
 | G4 Effects | `d3dExtFramebufferEffects` (114 functions: glow levels, blur, colour passes, the 17 `xps` shaders), render targets, `CopyRects`, `refract` (+`skin_refract`), visibility tests, gamma, read pixels, antialias | 2 to 3 weeks | the 17 `xps` translations as one batch; targets/copies; queries/gamma |
 | | **Done 2026-10-19 (section 12): the frame drawn into a scene target with a present pass; the display's frame-buffer copy (blits ordered between views) and the refraction shader's constants and stage; the vertex program extension that gives meshes their program; the framebuffer effects (colour correction, the fbeffects shaders' average, bloom, the motion-trail overlay) with the xps programs translated; visibility tests as occlusion queries; antialias answers. Self-test 502 probes on Metal; 498 on Vulkan under Wine (page 5's four vertex-program-extension probes came after the last Wine run). Not done: two-sided lighting; the unused extensions (gamma, read pixels, framebuffer texture, render targets, projected texture)** | | |
 | G5 Web and polish | WebGL2 via the same backend (Emscripten bgfx build, `BGFX_CONFIG_MULTITHREADED=0`, blit fallback), HD textures + dump mode, resolution independence (640/480 literal), MSAA/anisotropy options; the unused shader classes only if a factory log shows them | 1 to 3 weeks | HD textures independent of everything after G1 |
@@ -355,26 +356,26 @@ batches well: each shader class is a self-contained port of one verified `platfo
 the interpreter as oracle; combiner ops are table rows. Keep Claude-side agents on the shader classes and effects
 (they need reading the verified C), and small mechanical items (state enum tables) on the cheaper lanes.
 
-Prerequisites outside this plan: the native build's game loop running past start-up with graphics stubbed; the radcore
-file shim reading extracted data; input replay in the native build (needed for the frame-matched comparisons).
+Prerequisites outside this plan: the Wine build's game loop running past start-up with graphics stubbed; the radcore
+file shim reading extracted data; input replay in the Wine build (needed for the frame-matched comparisons).
 
 ## 7. G0: the harness (built 2026-10-18)
 
 ```sh
 PY=build/venv/bin/python
-$PY tools/native_gfx.py fetch            # pinned tarballs -> build/third_party/{dl,src} (sha256-checked), notices
-$PY tools/native_gfx.py build            # bx/bimg/bgfx static libs: host (macOS arm64, Metal) and win32 (i686): ~10 s
-$PY tools/native_gfx.py shaderc          # bgfx's shaderc for the host (GENie + make -j2): ~5.5 min, once
-$PY tools/native_gfx.py pddi             # the skeleton: host lib + smoke test; win32 hulk_pddi.lib
-$PY tools/native_gfx.py smoke            # a window, clear + one triangle through the skeleton's context API
-$PY tools/native_gfx.py slots            # MS-ABI vtable layout of every skeleton class vs build/rtti.json
-$PY tools/native_gfx.py status
+$PY tools/wine_gfx.py fetch            # pinned tarballs -> build/third_party/{dl,src} (sha256-checked), notices
+$PY tools/wine_gfx.py build            # bx/bimg/bgfx static libs: host (macOS arm64, Metal) and win32 (i686): ~10 s
+$PY tools/wine_gfx.py shaderc          # bgfx's shaderc for the host (GENie + make -j2): ~5.5 min, once
+$PY tools/wine_gfx.py pddi             # the skeleton: host lib + smoke test; win32 hulk_pddi.lib
+$PY tools/wine_gfx.py smoke            # a window, clear + one triangle through the skeleton's context API
+$PY tools/wine_gfx.py slots            # MS-ABI vtable layout of every skeleton class vs build/rtti.json
+$PY tools/wine_gfx.py status
 $PY tools/hybrid_test.py replay build/replays/final1.json --until-frame 900 --drawlog 30:300:900 \
     --drawlog-out build/g0/drawlog-a.jsonl  # xemu: the replay with a per-draw log (checkpoints still compared)
 $PY tools/drawlog_diff.py build/g0/drawlog-a.jsonl build/g0/drawlog-b.jsonl   # IDENTICAL / first mismatches
 ```
 
-**bgfx as a dependency** (`tools/native_gfx.py`; everything under `build/third_party/`, nothing installed system-wide).
+**bgfx as a dependency** (`tools/wine_gfx.py`; everything under `build/third_party/`, nothing installed system-wide).
 Pinned upstream commits as GitHub tarballs with their sha256 in `PINS`: bx `dd261e27`, bimg `6d60464e`, bgfx `4410cdfc`
 (2026-10-16/18 heads; BSD-2-Clause, notices collected into `build/third_party/out/LICENSES.txt`), and the mingw-w64
 v14.0.0 **headers** (public domain / ZPL notices; compile-time only, nothing of mingw-w64 is linked). No build system of
@@ -384,7 +385,7 @@ with ASTC decoding off, `bgfx/src/amalgamated.cpp`), compiled directly, so the t
 | target | compiler | renderers | output |
 |---|---|---|---|
 | `host` (macOS arm64) | Apple clang, `-x objective-c++ -std=c++20` | Metal (+ noop) | `out/host/lib/{bx,bimg,bgfx}.a` (0.3 / 0.2 / 1.3 MB) |
-| `win32` (i686) | Homebrew LLVM clang `--target=i686-pc-windows-msvc` (native_link.py's toolchain): MS C++ ABI, `-msse4.2`, no exceptions/RTTI/`/GS`/thread-safe statics | Direct3D 11, OpenGL, Vulkan (all loaded at run time) | `out/win32/lib/{bx,bimg,bgfx}.lib` (0.4 / 0.3 / 1.8 MB) |
+| `win32` (i686) | Homebrew LLVM clang `--target=i686-pc-windows-msvc` (wine_link.py's toolchain): MS C++ ABI, `-msse4.2`, no exceptions/RTTI/`/GS`/thread-safe statics | Direct3D 11, OpenGL, Vulkan (all loaded at run time) | `out/win32/lib/{bx,bimg,bgfx}.lib` (0.4 / 0.3 / 1.8 MB) |
 
 Both use `BGFX_CONFIG_MULTITHREADED=0` (pddi drives bgfx from the game's render thread; no render thread, no TLS; the web
 build needs the same). The Windows build has no MSVC or Windows SDK headers here, so it compiles against mingw-w64's
@@ -394,10 +395,10 @@ see below), and bgfx's bundled DirectX headers. One local fix to the pinned sour
 `__stdcall` away for clang with the MSVC CRT, which on i686 turns every WINAPI and COM call into cdecl (found by the
 undecorated `__imp__CloseHandle`); it is kept on `_M_IX86` (worth reporting upstream). shaderc is built with upstream's
 GENie projects (`--with-tools`, `gmake-osx-arm64`, `make -j2 shaderc`) and copied to `build/third_party/tools/shaderc`;
-`native_gfx.py shaders` compiles `src/platform/sdl/pddi/shaders/*.sc` for Metal, SPIR-V, GLSL 430, ESSL 300 and WGSL
+`wine_gfx.py shaders` compiles `src/platform/sdl/pddi/shaders/*.sc` for Metal, SPIR-V, GLSL 430, ESSL 300 and WGSL
 (10/10). D3D bytecode still needs Windows (section 3).
 
-What the native link has to do with these libraries is in `build/g0/LINK.md` (not done here: `native_link.py` belongs
+What the Wine link has to do with these libraries is in `build/g0/LINK.md` (not done here: `wine_link.py` belongs
 to the native-build work): add `hulk_pddi.lib` + the three libraries, bind the skeleton's 95 `FUN_<address>`
 references to the tree's pddi base functions, bind `d3dCreateDevice` (0x31ba60) to `hulk_pddi_create_device`, and
 import libraries for the plain kernel32/user32/gdi32/msvcrt/ntdll names bgfx uses (listed there). The image skips
@@ -418,14 +419,14 @@ short: `d3dDisplay` slot 4 takes a config pointer, `d3dExtFramebufferEffects` sl
 corrected where the verified source shows one (display slots 9/13/17 return 0; device slots 7 and 9 return the new object). Each
 slot is either *ours* (the D3D backend's overrides and the slots the game leaves pure: a logged stub, counted per
 slot, or a minimal bgfx implementation) or *base* (inherited from a portable pddi base, i.e. engine code in the tree: in
-the native image it calls the tree's function by XBE address through `game_base.h`; on the host it is a logged stub).
+the Wine image it calls the tree's function by XBE address through `game_base.h`; on the host it is a logged stub).
 The context keeps the portable base's 0x148 bytes of data where the base's functions expect them and runs the base
-constructor (0x31f410) in the native image. Implemented: device factories, display init on a native window (SDL3 on
+constructor (0x31f410) in the Wine image. Implemented: device factories, display init on a native window (SDL3 on
 the host), sizes, aspect, swap (`bgfx::frame`), context begin/end frame, clear (pddi flags 1/2/4 from the base's clear
 block), immediate prims (slot 30 returns a prim stream with d3dPrimStream's field layout for the engine's inline vertex
 writes, slot 31 draws it through a transient buffer and a stand-in fixed-function program), cull mode. The prim kinds
 come from the game's table at 0x4d3650 (0 tri list, 1 tri strip, 2 line list, 3 line strip, 4 points). Everything
-else is G1+. `native_gfx.py slots` compiles the skeleton for i686 with clang's vtable dump: **all 23 classes have the
+else is G1+. `wine_gfx.py slots` compiles the skeleton for i686 with clang's vtable dump: **all 23 classes have the
 game's slot count and every `vfunc_N` sits at index N.**
 
 **Smoke test** (`smoke/smoke_main.cpp`, host): SDL3 window, `hulk_pddi_create_device` -> display (slot 7) ->
@@ -454,28 +455,28 @@ prim stream's pending-vertex carry-over, mid-frame clears (a new view), the clea
 display or texture (the skeleton keeps only the base's layout); include/gen returns that are `void` where the game's
 caller reads eax (only the ones above were corrected).
 
-## 8. G1: the backend in the native image (2026-10-19)
+## 8. G1: the backend in the Wine image (2026-10-19)
 
 ```sh
 PY=build/venv/bin/python
-$PY tools/native_gfx.py build --target win32 && $PY tools/native_gfx.py pddi   # libraries + hulk_pddi (host + win32)
-$PY tools/native_link.py --reuse-map --gfx          # the image with the pddi/bgfx backend (or HULK_NATIVE_GFX=1)
-HULK_GFX_SELFTEST=30 HULK_GFX_SHOT=10 HULK_GFX_SHOT_DIR='Z:/abs/dir' $PY tools/native_run.py
-HULK_GFX_DRAWLOG=0:1:9 HULK_GFX_DRAWLOG_OUT='Z:/abs/x.pdl' $PY tools/native_run.py   # the native draw log (PDL1)
+$PY tools/wine_gfx.py build --target win32 && $PY tools/wine_gfx.py pddi   # libraries + hulk_pddi (host + win32)
+$PY tools/wine_link.py --reuse-map --gfx          # the image with the pddi/bgfx backend (or HULK_WINE_GFX=1)
+HULK_GFX_SELFTEST=30 HULK_GFX_SHOT=10 HULK_GFX_SHOT_DIR='Z:/abs/dir' $PY tools/wine_run.py
+HULK_GFX_DRAWLOG=0:1:9 HULK_GFX_DRAWLOG_OUT='Z:/abs/x.pdl' $PY tools/wine_run.py   # the native draw log (PDL1)
 $PY tools/drawlog_diff.py build/g1/drawlog-boot-hybrid.jsonl x.pdl --ignore shader_id   # hybrid vs native
-$PY tools/native_gfx.py d3d4linux && $PY tools/native_gfx.py shaderc   # HLSL route (HULK_GFX_DXBC=1 shaders): see below
+$PY tools/wine_gfx.py d3d4linux && $PY tools/wine_gfx.py shaderc   # HLSL route (HULK_GFX_DXBC=1 shaders): see below
 ```
 
 Run-time options (environment, `src/platform/sdl/pddi/sdl_platform.cpp`): `HULK_GFX_RENDERER` (d3d11, the default
-on Windows; `tools/native_run.py` sets vulkan under Wine), `HULK_GFX_SIZE` (640x480), `HULK_GFX_SHOT` /
+on Windows; `tools/wine_run.py` sets vulkan under Wine), `HULK_GFX_SIZE` (640x480), `HULK_GFX_SHOT` /
 `HULK_GFX_SHOT_DIR` (TGA screenshots of given frames), `HULK_GFX_DRAWLOG` / `HULK_GFX_DRAWLOG_OUT`,
 `HULK_GFX_FRAMES` (exit after N presents), `HULK_GFX_HIDDEN`, `HULK_GFX_SELFTEST`. Backend log lines go to the
 image's trace as `gfx ...` (`hulk_native_log` in `src/platform/sdl/xdk/startup.cpp`).
 
-**Link** (`tools/native_link.py --gfx`, `graphics_backend`; build/g0/LINK.md done): the pddi objects are linked as
+**Link** (`tools/wine_link.py --gfx`, `graphics_backend`; build/g0/LINK.md done): the pddi objects are linked as
 objects, bgfx/bimg/bx as libraries. Every host function those reference is renamed `hulk_gfx_<name>` in copies of
 the objects and libraries (`build/native/link/gfx/`) and comes from import libraries of our own (`hulk_gfx_X == X`,
-kernel32/user32/gdi32/msvcrt/ntdll, a fixed name table in native_link.py). The renaming matters: the tree binds
+kernel32/user32/gdi32/msvcrt/ntdll, a fixed name table in wine_link.py). The renaming matters: the tree binds
 plain names to other things (`_free` and `??3@YAXPAX@Z` to the game's heap 0x267090, `_memcpy` to the host CRT,
 `_CloseHandle@4` to the XDK shim; `??2@YAPAXI@Z` is still a stub), and a real `_free` from an msvcrt import library
 would silently take over those references. The pddi objects' `GameBase::FUN_<address>` references are bound by
@@ -484,7 +485,7 @@ G1; 116 host imports renamed), `d3dCreateDevice` 0x31ba60 is bound to `hulk_pddi
 in `pure3d::InitPlatform` 0x292560 is aliased to it), and `hulk_pddi_create_device` runs bx/bgfx's `.CRT$XHU`
 initializers. **Strict lld-link: 0 errors** (8.81 MB; 1,722 symbols still stubbed, as without --gfx, which also
 links with 0 errors: 7.49 MB). The MSVC 7.1
-verification build can't be affected: no generator or source file changed (only native_link.py and
+verification build can't be affected: no generator or source file changed (only wine_link.py and
 `src/platform/sdl/`, which `gen_tree.py`/`build_tree.py` never read). The same change fixed `source_slots`'s symbol
 pattern (a namespace between the stub class and the TU's `fn_` namespace, `?acquire@Lock_2756e0@core@fn_f0fe475a@@`):
 10 more virtual-dispatch stubs (1,262 -> 1,272), for the --gfx and the plain link alike.
@@ -495,7 +496,7 @@ textures (9), prim buffers (10) and shaders (11): the engine only ever calls the
 registration point is the shader factory: `FUN_00328130` (in `pddiBaseShader.cpp`, engine layer) fills the
 name -> creator table at 0x5555c8 with 16 creators that construct `d3d*` shader classes, and `d3dDevice::vfunc_11`
 looks a name up in it (`FUN_00327c70`). `FUN_00328130`'s only caller is `d3dDevice`'s constructor (0x31ba00), which
-our device replaces, so in the native image the game's table stays empty and nothing reaches a `d3d*` shader
+our device replaces, so in the Wine image the game's table stays empty and nothing reaches a `d3d*` shader
 constructor; `bgfxDevice::vfunc_11` is the same lookup over our classes (`bgfxDevice::newShader`: simple/lightweight,
 layered, layeredReflect, environment, refract, fbeffectsshader; every other name, and unknown ones, the error shader,
 logged once, as the game falls back to entry 0). Considered and not done: binding the 15 creator functions
@@ -520,10 +521,10 @@ d3d objects (the text drawer 0x328270, `FUN_00328250`/`60`, `FUN_0031c180`): the
 **Renderers under Whisky's Wine 7.7 on this Mac:**
 
 - **Direct3D 11 (wined3d): presents.** Clear + present + screenshot work in the game image. No draws: there is no
-  D3D shader bytecode. The route to it is built and runs: `native_gfx.py shaderc` now builds upstream shaderc with
+  D3D shader bytecode. The route to it is built and runs: `wine_gfx.py shaderc` now builds upstream shaderc with
   its d3d4linux bridge on macOS (`SHADERC_CONFIG_HAS_D3DCOMPILER=1`; upstream enables it for Linux only; bgfx's copy of
   the DirectX-Headers WSL stubs needs `sal.h`, taken from mingw-w64's headers into a directory of its own), and
-  `native_gfx.py d3d4linux` builds upstream's `3rdparty/d3d4linux` server as an x86_64 PE with our toolchain (a
+  `wine_gfx.py d3d4linux` builds upstream's `3rdparty/d3d4linux` server as an x86_64 PE with our toolchain (a
   60-line std::string/vector stand-in of ours for the two STL types it uses; x86_64 because it calls D3DCompile
   through plain function pointers) next to a link to **Wine's own d3dcompiler_47** (Wine's implementation, no
   Microsoft code). shaderc -> d3d4linux -> D3DCompile works end to end, but Wine 7.7's HLSL compiler rejects bgfx's
@@ -535,7 +536,7 @@ d3d objects (the text drawer 0x328270, `FUN_00328250`/`60`, `FUN_0031c180`): the
   `DYLD_FALLBACK_LIBRARY_PATH` includes Whisky's lib directory (G0's "no ICD"). bgfx's Vulkan renderer then starts in
   the i686 image after one local fix (`PATCHES`: GPU timer queries off with `HULK_VK_NO_TIMER_QUERY`;
   `TimerQueryVK::begin` divided by zero). SPIR-V shaders come from the macOS shaderc as before.
-  `tools/native_run.py` sets both. Caveat: a second screenshot readback in one run hits an assertion in Wine 7.7's
+  `tools/wine_run.py` sets both. Caveat: a second screenshot readback in one run hits an assertion in Wine 7.7's
   32-bit winevulkan thunks (`loader_thunks.c:5445`); one screenshot per run works.
 - OpenGL: not retried (G0: bgfx asks for 4.3, macOS has 4.1).
 
@@ -552,7 +553,7 @@ walked our key table and called our setter.
 called any more; `pure3d::InitPlatform` completes (shader loaders, `tContext`), then physics init, the platform
 start-up (streams, drive thread) up to mounting the RCF archives from `rcfs.txt` in `CPlatformManager::FUN_0008e880`.
 Four native-only source bugs on the way were confirmed and probed with fixes in the scratch copy of the tree only
-(the repo's sources are untouched; see docs/native-build.md "Graphics boundary crossed"), and the run now stops in
+(the repo's sources are untouched; see docs/wine-build.md "Graphics boundary crossed"), and the run now stops in
 the RCF mount (`CementLibrary` 0x277a70 -> `FileCompletionRequest` 0x274d20 releases a `CementLibrary` through a bad
 `this`): native-build work. **The game's own first BeginFrame/EndFrame is not reached yet**, so there are no game
 draws to compare.
@@ -578,10 +579,10 @@ Wine), the second-screenshot assertion under winevulkan, bgfx::reset for mode ch
 
 ```sh
 PY=build/venv/bin/python
-$PY tools/native_gfx.py shaders && $PY tools/native_gfx.py pddi    # shaders/ and shaders/vp/, host lib + win32
-$PY tools/native_gfx.py smoke     # Metal: the self-test scene, 19 probes checked on a screenshot
-$PY tools/native_gfx.py slots     # 23 classes, every vfunc_N at index N (still ok)
-HULK_GFX_SELFTEST=30 HULK_GFX_SHOT=10 HULK_GFX_SHOT_DIR='Z:/abs/dir' $PY tools/native_run.py   # the same in the game
+$PY tools/wine_gfx.py shaders && $PY tools/wine_gfx.py pddi    # shaders/ and shaders/vp/, host lib + win32
+$PY tools/wine_gfx.py smoke     # Metal: the self-test scene, 19 probes checked on a screenshot
+$PY tools/wine_gfx.py slots     # 23 classes, every vfunc_N at index N (still ok)
+HULK_GFX_SELFTEST=30 HULK_GFX_SHOT=10 HULK_GFX_SHOT_DIR='Z:/abs/dir' $PY tools/wine_run.py   # the same in the game
 $PY tools/drawlog_diff.py HYBRID.jsonl NATIVE.pdl --align auto   # present-count native logs: the offset is found
 ```
 
@@ -617,7 +618,7 @@ the limit 0, so a long batch would have run past the buffer. Slot 30 now does wh
 shader's program constants (slots 22/24), the skin constants for skinned flags, and the pass (0x327d20).
 
 **Vertex programs.** The six proven shaders of `shaders/vp/` are compiled and embedded with the others
-(`native_gfx.py` compiles `shaders/vp/` with its own varying file). A draw's program is the prim buffer's (prim
+(`wine_gfx.py` compiles `shaders/vp/` with its own varying file). A draw's program is the prim buffer's (prim
 streams: fixed function); the constant file is `bgfxContext::m_vc` (192 registers, hardware numbering), uploaded as
 `u_vc` = c96..c191, which is what the shaders' annotations already said. Where the constants come from:
 
@@ -693,9 +694,9 @@ variants).
 
 ```sh
 PY=build/venv/bin/python
-$PY tools/native_gfx.py pddi && $PY tools/native_gfx.py smoke   # Metal: 5 self-test pages, 464 probes
-$PY tools/native_gfx.py combiners    # regenerate shaders/vp/combiners.txt from the shader classes (then pddi again)
-HULK_GFX_SELFTEST=30 HULK_GFX_SELFTEST_PAGE=N HULK_GFX_SHOT=10 HULK_GFX_SHOT_DIR='Z:/abs/dir' $PY tools/native_run.py
+$PY tools/wine_gfx.py pddi && $PY tools/wine_gfx.py smoke   # Metal: 5 self-test pages, 464 probes
+$PY tools/wine_gfx.py combiners    # regenerate shaders/vp/combiners.txt from the shader classes (then pddi again)
+HULK_GFX_SELFTEST=30 HULK_GFX_SELFTEST_PAGE=N HULK_GFX_SHOT=10 HULK_GFX_SHOT_DIR='Z:/abs/dir' $PY tools/wine_run.py
 ```
 
 Specification: the verified sources of each shader class's slots 12-14 (`d3dSimpleShader::vfunc_14` 0x32aa70,
@@ -749,7 +750,7 @@ and 2 (census below).
 
 **The combiner key and its programs.** The draw writes the active stages (up to the first disabled colour op) as a
 canonical key, `c<op>.<arg1>.<arg2>a<op>.<arg1>.<arg2>r<result>` per stage, arguments an op doesn't read as 0
-(`-`: no stage). One fragment program per key: `tools/native_gfx.py combiners` runs every class's slots 12/14/13
+(`-`: no stage). One fragment program per key: `tools/wine_gfx.py combiners` runs every class's slots 12/14/13
 in the host build over the parameters that change its stages (the textures present, LIT, BLMD, a fade, TBLM, CLYR,
 LRSA: `enumerateCombinerKeys`) and lists the keys, **100**, in `shaders/vp/combiners.txt` (tracked); the build
 writes `fs_cmb_<FNV-1a of the key>.sc` for each (the stages as constants for `fs_vp_stage.sh`), compiles it for
@@ -819,22 +820,22 @@ has simple (6,871 draws), layered (935) and layeredReflect (264) draws.
 Vulkan: the native7 tree + G2 linked `--gfx` (strict, 0 errors), one page per run (`build/g2/selftest-vulkan-page*`:
 screenshots and probe lines; Metal's: `build/g2/metal-*.png`), every key drawn by its generated program (no
 "no generated program" line). A deliberate error in one operation (modulateinvalpha_addcolor) fails 24 of the
-sweep's probes. Shader proofs: `tests/shaders` 42/42; `native_gfx.py slots` ok.
+sweep's probes. Shader proofs: `tests/shaders` 42/42; `wine_gfx.py slots` ok.
 
 **Open after G2:** two-sided lighting; flat shading (SHMD 0, logged; no data uses it); the frame-buffer copy
 refract samples (G4); projected texture coordinates (D3DTTFF_PROJECTED; unused); the bump-mapping operations
 (unused by the data's classes); a proof of `vs_vp_ff.sc` in the shader_equiv style (it would need the
 fixed-function equations as `.vp` programs of ours, one per light-type and texgen mix: not done); the front end's
-real draws and their draw-log diff, which wait for the native build to reach the game's first frame.
+real draws and their draw-log diff, which wait for the Wine build to reach the game's first frame.
 
 ## 11. sdlwin: the window and the event pump on SDL3 (2026-10-19)
 
 ```sh
 PY=build/venv/bin/python
-$PY tools/native_gfx.py pddi && $PY tools/native_gfx.py smoke          # host (Metal): the window is SDL3's; 464 probes
-$PY tools/native_gfx.py window-test [--target win32]                   # window + event pump + sa1's pad backend (host / Wine)
-$PY tools/native_sdl.py build --target win32                           # SDL3.dll (one local patch, below)
-$PY tools/native_link.py --reuse-map --gfx && HULK_GFX_SELFTEST=30 HULK_GFX_SELFTEST_PAGE=N ... $PY tools/native_run.py
+$PY tools/wine_gfx.py pddi && $PY tools/wine_gfx.py smoke          # host (Metal): the window is SDL3's; 464 probes
+$PY tools/wine_gfx.py window-test [--target win32]                   # window + event pump + sa1's pad backend (host / Wine)
+$PY tools/wine_sdl.py build --target win32                           # SDL3.dll (one local patch, below)
+$PY tools/wine_link.py --reuse-map --gfx && HULK_GFX_SELFTEST=30 HULK_GFX_SELFTEST_PAGE=N ... $PY tools/wine_run.py
 ```
 
 The Win32 window class, `WM_CLOSE` handler and `PeekMessage` loop of `win32_platform.cpp` are gone (the file is retired,
@@ -846,7 +847,7 @@ fullscreen.
 | piece | what |
 |---|---|
 | `src/platform/sdl/platform_events.{h,cpp}` | the program's **one** SDL event pump, a small C API without SDL types: `hulk_platform_video_init` (reference counted), `create_window`, `native_handles` (HWND on Windows, `NSWindow` on macOS, X11 display + window number or Wayland display + surface elsewhere, as bgfx's `swapChain.nwh/ndt` and `platformData.type` want them), `pump`, `quit_requested`, `has_focus`, `toggle_fullscreen` (F11 and Alt+Enter do it from the pump), a resize handler, and listeners. Every event goes to the listeners first, then the hub handles close/quit, focus, the window's pixel-size changes and the fullscreen keys; the rest is dropped. |
-| `src/platform/sdl/hulk_sdl_api.h` | the ~15 SDL entry points the window code uses as a table: direct on the host, resolved from `SDL3.dll` with `LoadLibrary`/`GetProcAddress` in the i686 image. A direct `_SDL_CreateWindow` reference from the pddi objects would be renamed by `native_link`'s graphics step (every host import of the graphics objects becomes `hulk_gfx_<name>` bound to msvcrt/kernel32/user32/gdi32) to a name no DLL exports. `SDL3.dll` is one module in the process, so the table and sa1's audio/input backends (direct imports of `SDL3.lib`) share one SDL: one video subsystem, one event queue. |
+| `src/platform/sdl/hulk_sdl_api.h` | the ~15 SDL entry points the window code uses as a table: direct on the host, resolved from `SDL3.dll` with `LoadLibrary`/`GetProcAddress` in the i686 image. A direct `_SDL_CreateWindow` reference from the pddi objects would be renamed by `wine_link`'s graphics step (every host import of the graphics objects becomes `hulk_gfx_<name>` bound to msvcrt/kernel32/user32/gdi32) to a name no DLL exports. `SDL3.dll` is one module in the process, so the table and sa1's audio/input backends (direct imports of `SDL3.lib`) share one SDL: one video subsystem, one event queue. |
 | `pddi/sdl_platform.cpp` | slot 4 of the display on SDL: video init, a resizable window (`HULK_GFX_SIZE`, hidden with `HULK_GFX_HIDDEN`), the native handle to `bgfxDisplay::hostInit`; `platformPump` is the hub's pump and ends the process when the window is closed (as `WM_CLOSE` did). Called once per present (display slot 14). |
 | `bgfxDisplay::hostResize` | the hub reports the window's pixel size changing (resize, fullscreen); the main swap chain is reset to it (`bgfx::reset` with a `SwapChain` carrying only the size) and the display's size slots follow. The probes run at a fixed size and see no resize. |
 
@@ -861,7 +862,7 @@ focus event still arrives), fullscreen on and off (Wine: 0 -> 1 -> 0 with one re
 is accepted but macOS completes it only for a foreground app, which a command-line run is not), and the pad state still
 updating after all of it.
 
-**One local fix to SDL (tools/native_sdl.py `PATCHES`).** `WIN_UpdateDarkModeForHWND` runs on every window creation
+**One local fix to SDL (tools/wine_sdl.py `PATCHES`).** `WIN_UpdateDarkModeForHWND` runs on every window creation
 and calls uxtheme's undocumented ordinals 104/132/133/135 (their Windows 10 meanings). Wine's uxtheme has other
 functions there: ordinal 104 is `IsThemePartDefined` (stdcall, 3 arguments) called with none, so `SDL_CreateWindow`
 returned to garbage (eip 0x0000000a) under Wine. It now returns early when SDL's own `WIN_IsWine()` is true; Wine has no
@@ -869,13 +870,13 @@ dark mode to switch on. Real Windows is untouched.
 
 **Results (2026-10-19).**
 
-- Host, Metal, `tools/native_gfx.py smoke`: 5 pages, **464 of 464 probes**, through the hub's window and pump.
+- Host, Metal, `tools/wine_gfx.py smoke`: 5 pages, **464 of 464 probes**, through the hub's window and pump.
 - i686 game image under Wine (Whisky 7.7) + Vulkan (MoltenVK), SDL3 window, `HULK_GFX_SELFTEST=30`, one page per run:
   page 0 19/19, page 1 13/13, page 2 13/13, page 3 19/19, page 4 400/400 = **464 of 464**. Direct3D 11 on the SDL
   window presents (clear colour correct) and draws nothing, as before (no DXBC under Wine 7.7).
-- sa1: `native_sdl.py test` host native_audio 34, native_input 73; `wine-test` i686 native_audio 58, native_input 75, all
+- sa1: `wine_sdl.py test` host native_audio 34, native_input 73; `wine-test` i686 native_audio 58, native_input 75, all
   passing; `window-test`: 13 checks on the host and under Wine.
-- After the self-test the game runs on and stops later in physics code (`Node::run` 0x306510), the native build's own
+- After the self-test the game runs on and stops later in physics code (`Node::run` 0x306510), the Wine build's own
   state, not the window's.
 
 **Open.** Resizing and fullscreen change the back buffer, but the game's viewports and 2D layouts are in the pixel
@@ -889,9 +890,9 @@ loading loop's yield.
 
 ```sh
 PY=build/venv/bin/python
-$PY tools/native_gfx.py fetch && $PY tools/native_gfx.py build --target win32   # bgfx with the two new PATCHES
-$PY tools/native_gfx.py pddi && $PY tools/native_gfx.py smoke     # Metal: 9 self-test pages, 502 probes
-HULK_GFX_SELFTEST=30 HULK_GFX_SELFTEST_PAGE=N HULK_GFX_SHOT=10 HULK_GFX_SHOT_DIR='Z:/abs/dir' $PY tools/native_run.py
+$PY tools/wine_gfx.py fetch && $PY tools/wine_gfx.py build --target win32   # bgfx with the two new PATCHES
+$PY tools/wine_gfx.py pddi && $PY tools/wine_gfx.py smoke     # Metal: 9 self-test pages, 502 probes
+HULK_GFX_SELFTEST=30 HULK_GFX_SELFTEST_PAGE=N HULK_GFX_SHOT=10 HULK_GFX_SHOT_DIR='Z:/abs/dir' $PY tools/wine_run.py
 HULK_GFX_DIRECT=1 ...   # no scene target: draws straight to the back buffer (G3's path; no copies, no effects)
 ```
 
@@ -971,7 +972,7 @@ and gets last frame's count for the same flare. **Antialias** (0x500001): slot 4
 (the scene target is not multisampled); slot 2 (the context's clear-by-quad flag) has no caller in the game: kept
 and logged. Slot 3 jumps into the XDK and has no caller.
 
-**Two bgfx fixes for Wine's 32-bit Vulkan** (`tools/native_gfx.py` PATCHES, defines in the win32 build only):
+**Two bgfx fixes for Wine's 32-bit Vulkan** (`tools/wine_gfx.py` PATCHES, defines in the win32 build only):
 `HULK_VK_MAP_WRAP`: Wine 7.7's 32-bit winevulkan writes a 64-bit pointer through vkMapMemory's ppData, zeroing the
 word after a 4-byte pointer member; in OcclusionQueryVK that word is its ring's size, so the first occlusion query
 divided by zero (TimerQueryVK has the same layout: the earlier timer-query patch avoided the same fault). bgfx's
@@ -999,7 +1000,7 @@ uninterruptible state from 18:14 on 2026-10-19, so page 5's four extension probe
 Without the copy, page 5 fails 11 of its first 14 probes; a missing doubling in one level's add chain fails 8 of
 page 6's 13. Screenshots and probe lines: `build/g4/` (`selftest-vulkan-page*.png`, `-probes.txt`). Direct3D 11
 under Wine: the present program has no DXBC build, so the frame goes to the back buffer as before (the clear colour;
-no draws). `tests/shaders` 42/42 (no vertex program changed); `native_gfx.py slots` ok.
+no draws). `tests/shaders` 42/42 (no vertex program changed); `wine_gfx.py slots` ok.
 
 **Not done / open after G4:**
 
@@ -1016,11 +1017,11 @@ no draws). `tests/shaders` 42/42 (no vertex program changed); `native_gfx.py slo
   section 13 (no OpenGL run yet).
 - ~~An `xps.1.1` interpreter proof of `fs_fx_filter`/`fs_fx_blur`~~: G5 (`tools/xps.py`); the NV2A combiners'
   internal precision and `def` rounding are still taken as float.
-- The game's own effects frames: the native image still stops in physics init after the self-test (native-build
+- The game's own effects frames: the Wine image still stops in physics init after the self-test (native-build
   work), so no in-game refraction, colour correction or bloom has been drawn yet.
 - Game code `dynamic_cast`s the effects extension (HulkShaderCallback FUN_001c1a40 keeps it in DAT_004e2318 for
-  the HUD's motion trail). Our extension objects carry no game RTTI, so in the native image that cast needs a
-  rebind (or a locator naming the game's types); noted for the native build (build/g4/for-native10.md).
+  the HUD's motion trail). Our extension objects carry no game RTTI, so in the Wine image that cast needs a
+  rebind (or a locator naming the game's types); noted for the Wine build (build/g4/for-native10.md).
 
 ## 13. G5 clean-up: shader proofs, window scaling, portability, two-sided lighting (2026-10-19)
 
@@ -1030,9 +1031,9 @@ $PY tools/xps.py prove                      # the 20 framebuffer-effects pixel p
 $PY tools/d3d_ff.py prove                   # vs_vp_ff.sc vs the Direct3D 8 fixed-function reference (10 configs)
 $PY tools/d3d_ff.py prove --src src/platform/sdl/pddi/shaders/vp/vs_vp_ff2s.sc   # + the back colours
 $PY tools/d3d_combiner.py prove --all-profiles   # the 100 combiner keys, generated and generic programs
-$PY tools/native_gfx.py pddi && $PY tools/native_gfx.py smoke      # Metal: 11 pages, 14 shots, 548 probes
-HULK_GFX_QUAD_COPY=1 $PY tools/native_gfx.py smoke                # the same with quad copies instead of blits
-HULK_GFX_WINDOW=960x540 HULK_GFX_SCALE=integer ... tools/native_run.py   # the game image in a larger window
+$PY tools/wine_gfx.py pddi && $PY tools/wine_gfx.py smoke      # Metal: 11 pages, 14 shots, 548 probes
+HULK_GFX_QUAD_COPY=1 $PY tools/wine_gfx.py smoke                # the same with quad copies instead of blits
+HULK_GFX_WINDOW=960x540 HULK_GFX_SCALE=integer ... tools/wine_run.py   # the game image in a larger window
 ```
 
 **Shader proofs** (docs/shaders.md has the details and tolerances). Everything the backend draws with is now proven
@@ -1091,12 +1092,12 @@ and away from the light (two-sided), and the same back faces through a one-sided
 `skin_refract` with two-sided lighting (11 `refract` chunks): what the NV2A does for a vertex program that writes no
 oB0/oB1 is unverified, so they keep the front colours.
 
-**Texture uploads deferred** (the native image's stop 27, `build/g5/for-native10.md`): an unlock queues the texture;
+**Texture uploads deferred** (the Wine image's stop 27, `build/g5/for-native10.md`): an unlock queues the texture;
 its data goes to bgfx when a draw binds it or at the next present, so a game that unlocks more often than it presents
 (the boot movies while it loads) keeps one copy per level instead of one per unlock.
 
 **Results.** Host Metal: 11 pages, 14 shots, **548 of 548** (also with quad copies forced). Wine + Vulkan, the game
-image (wsg1, linked `--gfx`, strict 0 errors): pages 0-10 one per run, **512 of 512** (19 + 13 + 13 + 19 + 400 + 18 + 13 + 5 + 2 + 4 + 6), page 9 in a 960x540 window 11/11 and in a 900x600 window with `HULK_GFX_SCALE=integer` 14/14, page 5 with quad copies forced 18/18 (`build/g5/wine-vulkan-results.txt`, screenshots `build/g5/selftest-vulkan-*`). `tests/shaders` 65 tests OK; `native_gfx.py slots` ok.
+image (wsg1, linked `--gfx`, strict 0 errors): pages 0-10 one per run, **512 of 512** (19 + 13 + 13 + 19 + 400 + 18 + 13 + 5 + 2 + 4 + 6), page 9 in a 960x540 window 11/11 and in a 900x600 window with `HULK_GFX_SCALE=integer` 14/14, page 5 with quad copies forced 18/18 (`build/g5/wine-vulkan-results.txt`, screenshots `build/g5/selftest-vulkan-*`). `tests/shaders` 65 tests OK; `wine_gfx.py slots` ok.
 
 **Open after G5:** an OpenGL/WebGL2 run (needs a bgfx with a GL context on some host, or the web build); the NV2A's
 combiner precision and `def` constant rounding (the fx proofs take float and exact constants); NORMALIZENORMALS'
@@ -1113,7 +1114,7 @@ identical: no haze, flat grey sky, dark faceted rock. Two causes, neither of the
    chain (9 levels, down to 1x1) and nothing ever uploaded the levels below the game's, so every surface far enough
    to want them sampled **black** (cliffs, mid-distance ground: the dark triangle facets). Fix: create the texture with
    `BGFX_TEXTURE_MIP_COUNT(mips + 1)` (this bgfx has the flag), the level count the game made.
-2. **`pure3d::scenegraph::one` (the native link, `tools/native_link.py` `DATA_REBIND`).** `Node::vfunc_17` (0x00295e20)
+2. **`pure3d::scenegraph::one` (the Wine link, `tools/wine_link.py` `DATA_REBIND`).** `Node::vfunc_17` (0x00295e20)
    returns `&one` for a node without a parent, the identity Matrix at 0x004c9f38 (config/data.json `tbl_004c9f38`);
    the verified source names it `extern float one` inside `pure3d::scenegraph`, no relocation names it, so it linked as
    a zero stub (`build/native/unbound.txt`: "no relocation names it"). The root TransformNode's world matrix was
@@ -1144,7 +1145,7 @@ Mean |native - original| per pixel (0-255; same replay and image, only these two
 | 6000 | 87.6 | 54.2 |
 
 Checks: replay checkpoints 0-420 and 480-840 match, identical to the run before the fixes (450 and 870+ diverge as in
-native16: rendering does not touch game state); `tools/native_gfx.py smoke` on Metal 548 of 548 probes; the self-test
+native16: rendering does not touch game state); `tools/wine_gfx.py smoke` on Metal 548 of 548 probes; the self-test
 under Wine/Vulkan 19 of 19. Other symbols in `unbound.txt` under "no relocation names it" (24; e.g.
 `g_pool_2579f0`) linked as zero stubs too and deserve the same look.
 
@@ -1159,6 +1160,6 @@ under Wine/Vulkan 19 of 19. Other symbols in `unbound.txt` under "no relocation 
 - Does `d3dExtReadPixels` need a synchronous result (bgfx reads back a frame or two later)? (G4: no game code asks
   for the extension, 0x500005; the display's capture, slot 15, is still a stub.)
 - Is the DXT mip-0 data the backend receives byte-identical to the payload's mip 0 (key option A)?
-- bgfx on the 32-bit Windows target: bgfx supports Windows x86, but the first native image is built with clang-cl +
+- bgfx on the 32-bit Windows target: bgfx supports Windows x86, but the first Wine image is built with clang-cl +
   lld-link; build bgfx with the same toolchain (GENie can emit a vs2022 or ninja project) rather than mixing CRTs.
 - Web: bgfx's WebGL2 path and `bgfx::blit` availability there; fall back to quad copies.

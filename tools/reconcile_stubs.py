@@ -16,7 +16,7 @@ Rules (each one renames identifier tokens only; comments, strings and preprocess
                source's stub of A is the stand-in for the target's own class.
 
 Two more rules, only on request (`--rule clone-c` / `--rule clone-stub`, normally with `--only` on the sources
-that tools/native_link.py's strict link still reports as duplicate definitions; docs/native-build.md fix 3):
+that tools/wine_link.py's strict link still reports as duplicate definitions; docs/wine-build.md fix 3):
 
   clone-c      The source's definition has C linkage under a name that isn't its own address name: a clone
                that defines its donor's name (`extern "C" int* FUN_0008ceb0()` in matches/0x0024ea10.cpp,

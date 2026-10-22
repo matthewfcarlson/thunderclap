@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""64-bit probe of the source tree: how far it is from a 64-bit native image (docs/native-build.md "64-bit").
+"""64-bit probe of the source tree: how far it is from a 64-bit native image (docs/wine-build.md "64-bit").
 
   build/venv/bin/python tools/native64.py                 # compile (msvc64, arm64, gnu64, gnu32w), classify, link probe
   build/venv/bin/python tools/native64.py --no-link       # compile and classify only
@@ -23,8 +23,8 @@ Classes reported (build/native64/report.json, summary on stdout):
   explicit pads    `char pad[N]` in sources and `_pad_` gaps in include/gen/: offsets fixed for 4-byte pointers
   layout           include/gen/ and include/decls/data/ records whose field offsets move on 64-bit (tools/layout64.py)
   link             the msvc64 objects linked with no bridge (lld-link /machine:x64): undefined symbols by
-                   clang_probe's groups, duplicate definitions; what each 32-bit bridge of native_link.py
-                   leaves for source to do (docs/native-build.md "64-bit", per-bridge table)
+                   clang_probe's groups, duplicate definitions; what each 32-bit bridge of wine_link.py
+                   leaves for source to do (docs/wine-build.md "64-bit", per-bridge table)
 """
 import argparse
 import collections
@@ -168,7 +168,7 @@ def norm(d):
 
 def binding_transfer(undef, dem, defined, path):
     """How many of the 64-bit link's undefined symbols the 32-bit link's binding map would resolve, matched by
-    demangled name (tools/native_link.py's map is names -> address -> definition name; no game bytes travel with
+    demangled name (tools/wine_link.py's map is names -> address -> definition name; no game bytes travel with
     it). An estimate of what reusing the map as a name table would do on 64-bit: an interim, not a bridge to keep."""
     b = json.load(open(path))
     defs = b["definitions"]
@@ -199,7 +199,7 @@ def binding_transfer(undef, dem, defined, path):
 
 
 def bridge_shapes(undef, dem, defined):
-    """Undefined symbols of the kinds the 32-bit link's bridges resolve (docs/native-build.md "Bridges to remove"):
+    """Undefined symbols of the kinds the 32-bit link's bridges resolve (docs/wine-build.md "Bridges to remove"):
     what is left for source to provide on 64-bit."""
     c = collections.Counter()
     for s in undef:
