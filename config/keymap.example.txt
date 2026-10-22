@@ -1,0 +1,31 @@
+# Keyboard map for the playable build: tools/play.py --keys FILE (or HULK_KEYMAP=FILE).
+# This file lists the built-in defaults; copy it, change what you want, and pass the copy. Controls you leave out keep
+# their defaults. One "Control = Key" per line, optionally two keys ("A = Space, Return"). Key names are SDL's:
+# letters and digits (W, 5), Space, Return (Enter), Escape (Esc), Tab, Up, Down, Left, Right, Left Shift, Right Shift,
+# Left Ctrl, Right Ctrl, Left Alt, Backspace, Keypad 8, F1 ... F12, and so on. Lines starting with # are comments.
+# The keyboard is pad 0 only while no gamepad is connected. F11 and Alt+Enter (fullscreen) are not remappable.
+
+LeftStickUp      = W
+LeftStickDown    = S
+LeftStickLeft    = A
+LeftStickRight   = D
+RightStickUp     = I
+RightStickDown   = K
+RightStickLeft   = J
+RightStickRight  = L
+DpadUp           = Up
+DpadDown         = Down
+DpadLeft         = Left
+DpadRight        = Right
+A                = Space
+B                = F
+X                = R
+Y                = G
+White            = Z
+Black            = X
+LeftTrigger      = Left Shift
+RightTrigger     = Left Ctrl
+Start            = Return
+Back             = Escape
+LeftStickClick   = Tab
+RightStickClick  = V

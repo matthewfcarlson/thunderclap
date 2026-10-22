@@ -1265,14 +1265,62 @@ SHIM_DIR = os.path.join(ROOT, "src/platform/sdl/xdk")
 # has built them; xdk/ is then compiled with HULK_NATIVE_SDL=1 (both or neither). HULK_NATIVE_SDL=0 turns them off.
 SDL_OUT = os.environ.get("HULK_SDL_OUT") or os.path.join(ROOT, "build/third_party/out")
 SDL_LIBS = [os.path.join(SDL_OUT, "sdl-backends/win32/hulk_sdl.lib"), os.path.join(SDL_OUT, "sdl-win32/SDL3.lib")]
-if os.environ.get("HULK_NATIVE_SDL") == "0" or not all(os.path.exists(x) for x in SDL_LIBS):
-    SDL_LIBS = []
-else:
+
+
+def refresh_platform_libs():
+    """play2: rebuild hulk_fs.lib / hulk_movies.lib / hulk_sdl.lib when their sources under src/platform/sdl are newer
+    (mtime), so edits to audio, input, fs or movies are not silently ignored. HULK_NATIVE_REFRESH_LIBS=0 skips this.
+    The fs and movie libraries are refreshed only if they were built before (the movie one needs the FFmpeg build)."""
+    plat = os.path.join(ROOT, "src/platform/sdl")
+    top = [os.path.join(plat, f) for f in os.listdir(plat) if os.path.isfile(os.path.join(plat, f))]
+
+    def newest(dirs, files=()):
+        m = 0.0
+        for d in dirs:
+            for dp, _dn, fn in os.walk(os.path.join(plat, d)):
+                m = max([m] + [os.path.getmtime(os.path.join(dp, f)) for f in fn])
+        return max([m] + [os.path.getmtime(f) for f in list(files) + top if os.path.exists(f)])
+
+    def stale(lib, dirs, files=()):
+        return not os.path.exists(lib) or os.path.getmtime(lib) < newest(dirs, files)
+
+    if os.environ.get("HULK_NATIVE_SDL") == "0" or os.environ.get("HULK_NATIVE_REFRESH_LIBS") == "0" \
+            or not os.path.exists(os.path.join(SDL_OUT, "sdl-win32/SDL3.lib")):
+        return
+    env = dict(os.environ, HULK_TP_OUT=SDL_OUT)
+    py = sys.executable
+    tools = os.path.dirname(os.path.abspath(__file__))
+    fs_lib = os.path.join(SDL_OUT, "fs1/win32/hulk_fs.lib")
+    mv_lib = os.path.join(SDL_OUT, "ffmpeg-win32/movies/hulk_movies.lib")
+    steps = []
+    if os.path.exists(fs_lib) and stale(fs_lib, ["fs"]):
+        steps.append(("hulk_fs.lib", [py, os.path.join(tools, "native_fs.py"), "backends", "--target", "win32"]))
+    if os.path.exists(mv_lib) and stale(mv_lib, ["movies"], [os.path.join(plat, "xdk/movies_bink.cpp")]):
+        steps.append(("hulk_movies.lib", [py, os.path.join(tools, "native_ffmpeg.py"), "movies"]))   # also rebuilds hulk_sdl.lib
+    for what, cmd in steps:
+        print("link: %s is older than its sources: %s" % (what, " ".join(cmd[1:])), flush=True)
+        if subprocess.run(cmd, cwd=ROOT, env=env).returncode:
+            raise SystemExit("rebuilding %s failed" % what)
+    if stale(os.path.join(SDL_OUT, "sdl-backends/win32/hulk_sdl.lib"), ["audio", "input", "replay"]):
+        cmd = [py, os.path.join(tools, "native_sdl.py"), "backends", "--target", "win32"]
+        print("link: hulk_sdl.lib is older than its sources: %s" % " ".join(cmd[1:]), flush=True)
+        if subprocess.run(cmd, cwd=ROOT, env=env).returncode:
+            raise SystemExit("rebuilding hulk_sdl.lib failed")
+
+
+def _sdl_libs():
+    libs = [os.path.join(SDL_OUT, "sdl-backends/win32/hulk_sdl.lib"), os.path.join(SDL_OUT, "sdl-win32/SDL3.lib")]
+    if os.environ.get("HULK_NATIVE_SDL") == "0" or not all(os.path.exists(x) for x in libs):
+        return []
     # fs1 (build/fs1/for-native9.md): files and saves on SDL3 (tools/native_fs.py backends --target win32); mv1
     # (build/mv1/for-native9.md): the movie player (tools/native_ffmpeg.py movies; FFmpeg is loaded at run time)
     for extra in ("fs1/win32/hulk_fs.lib", "ffmpeg-win32/movies/hulk_movies.lib"):
         if os.path.exists(os.path.join(SDL_OUT, extra)):
-            SDL_LIBS.insert(len(SDL_LIBS) - 1, os.path.join(SDL_OUT, extra))
+            libs.insert(len(libs) - 1, os.path.join(SDL_OUT, extra))
+    return libs
+
+
+SDL_LIBS = _sdl_libs()
 SHIM_RX = re.compile(r"^\s*X\((0x[0-9a-fA-F]{8}), (\w+), ")
 
 
@@ -1719,8 +1767,10 @@ def main(argv=None):
     ap.add_argument("--tree", help="the verification tree to bind from (default build/tree, or HULK_TREE_DIR): e.g. "
                     "build/clang-probe/snap, the snapshot tools/clang_probe.py compiled")
     a = ap.parse_args(argv)
-    global TREE, GFX
+    global TREE, GFX, SDL_LIBS
     GFX = GFX or a.gfx
+    refresh_platform_libs()          # play2: stale hulk_sdl / hulk_movies / hulk_fs libraries are rebuilt first
+    SDL_LIBS = _sdl_libs()
     if a.tree:
         TREE = os.path.abspath(a.tree)
     os.makedirs(OUT, exist_ok=True)

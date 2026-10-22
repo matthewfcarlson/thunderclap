@@ -47,7 +47,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 TP = os.path.join(ROOT, "build/third_party")
 DL = os.path.join(TP, "dl")
 SRC = os.path.join(TP, "src")
-OUT = os.path.join(TP, "out")
+OUT = os.environ.get("HULK_TP_OUT") or os.path.join(TP, "out")   # play2: a private output dir
 from clang_probe import LLVM  # noqa: E402  (resolver: $HULK_LLVM, Homebrew, ~/llvm)
 PDDI = os.path.join(ROOT, "src/platform/sdl/pddi")
 

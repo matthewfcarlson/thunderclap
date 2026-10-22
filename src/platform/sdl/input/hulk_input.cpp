@@ -120,6 +120,121 @@ static void kb_script_load()
     }
 }
 
+// play2: the keyboard map. Each control has up to two keys; HULK_KEYMAP=FILE (Windows path under Wine) overrides the
+// defaults. File format (config/keymap.example.txt): "#" comments, one "Control = Key[, Key]" line each, SDL key names
+// (Space, Return, Left Shift, W, Up, ...), control names as in the example file. Unknown lines are logged and skipped.
+enum { KC_LUP, KC_LDOWN, KC_LLEFT, KC_LRIGHT, KC_RUP, KC_RDOWN, KC_RLEFT, KC_RRIGHT, KC_DUP, KC_DDOWN, KC_DLEFT,
+       KC_DRIGHT, KC_A, KC_B, KC_X, KC_Y, KC_WHITE, KC_BLACK, KC_LTRIG, KC_RTRIG, KC_START, KC_BACK, KC_L3, KC_R3, KC_N };
+struct KbCtl { const char* name; SDL_Scancode def; SDL_Scancode code[2]; };
+#define KC(n, c) {n, c, {SDL_SCANCODE_UNKNOWN, SDL_SCANCODE_UNKNOWN}}
+static KbCtl g_kc[KC_N] = {
+    KC("LeftStickUp", SDL_SCANCODE_W), KC("LeftStickDown", SDL_SCANCODE_S), KC("LeftStickLeft", SDL_SCANCODE_A),
+    KC("LeftStickRight", SDL_SCANCODE_D), KC("RightStickUp", SDL_SCANCODE_I), KC("RightStickDown", SDL_SCANCODE_K),
+    KC("RightStickLeft", SDL_SCANCODE_J), KC("RightStickRight", SDL_SCANCODE_L), KC("DpadUp", SDL_SCANCODE_UP),
+    KC("DpadDown", SDL_SCANCODE_DOWN), KC("DpadLeft", SDL_SCANCODE_LEFT), KC("DpadRight", SDL_SCANCODE_RIGHT),
+    KC("A", SDL_SCANCODE_SPACE), KC("B", SDL_SCANCODE_F), KC("X", SDL_SCANCODE_R), KC("Y", SDL_SCANCODE_G),
+    KC("White", SDL_SCANCODE_Z), KC("Black", SDL_SCANCODE_X), KC("LeftTrigger", SDL_SCANCODE_LSHIFT),
+    KC("RightTrigger", SDL_SCANCODE_LCTRL), KC("Start", SDL_SCANCODE_RETURN), KC("Back", SDL_SCANCODE_ESCAPE),
+    KC("LeftStickClick", SDL_SCANCODE_TAB), KC("RightStickClick", SDL_SCANCODE_V),
+};
+static int g_kc_loaded;
+
+static SDL_Scancode kc_scancode(const char* name)
+{
+    static const struct { const char* a; const char* real; } kAlias[] = {
+        {"Enter", "Return"}, {"Esc", "Escape"}, {"Shift", "Left Shift"}, {"Ctrl", "Left Ctrl"}, {"Alt", "Left Alt"},
+        {"Control", "Left Ctrl"}, {"Backspace", "Backspace"}, {"Del", "Delete"},
+    };
+    for (unsigned i = 0; i < sizeof(kAlias) / sizeof(kAlias[0]); i++)
+        if (SDL_strcasecmp(name, kAlias[i].a) == 0)
+            name = kAlias[i].real;
+    return SDL_GetScancodeFromName(name);
+}
+
+static char* kc_trim(char* p)
+{
+    while (*p == ' ' || *p == '\t' || *p == '\r')
+        p++;
+    char* e = p + SDL_strlen(p);
+    while (e > p && (e[-1] == ' ' || e[-1] == '\t' || e[-1] == '\r'))
+        *--e = 0;
+    return p;
+}
+
+static void kc_load()
+{
+    g_kc_loaded = 1;
+    for (int i = 0; i < KC_N; i++) {
+        g_kc[i].code[0] = g_kc[i].def;
+        g_kc[i].code[1] = SDL_SCANCODE_UNKNOWN;
+    }
+    const char* path = SDL_getenv("HULK_KEYMAP");
+    if (!path || !*path)
+        return;
+    size_t len = 0;
+    char* text = (char*)SDL_LoadFile(path, &len);
+    if (!text) {
+        SDL_Log("input: HULK_KEYMAP %s: %s (default keys)", path, SDL_GetError());
+        return;
+    }
+    char* nl = (char*)SDL_malloc(len + 1);
+    SDL_memcpy(nl, text, len);
+    nl[len] = 0;
+    SDL_free(text);
+    int set = 0;
+    for (char* line = nl; line && *line;) {
+        char* next = SDL_strchr(line, '\n');
+        if (next)
+            *next++ = 0;
+        char* hash = SDL_strchr(line, '#');
+        if (hash)
+            *hash = 0;
+        line = kc_trim(line);
+        char* eq = SDL_strchr(line, '=');
+        if (*line && eq) {
+            *eq = 0;
+            char* key = kc_trim(line);
+            int ctl = -1;
+            for (int i = 0; i < KC_N; i++)
+                if (SDL_strcasecmp(key, g_kc[i].name) == 0)
+                    ctl = i;
+            if (ctl < 0)
+                SDL_Log("input: HULK_KEYMAP: unknown control '%s'", key);
+            else {
+                SDL_Scancode got[2] = {SDL_SCANCODE_UNKNOWN, SDL_SCANCODE_UNKNOWN};
+                int n = 0;
+                for (char* v = eq + 1; v && n < 2;) {
+                    char* comma = SDL_strchr(v, ',');
+                    if (comma)
+                        *comma = 0;
+                    char* nm = kc_trim(v);
+                    if (*nm) {
+                        SDL_Scancode c = kc_scancode(nm);
+                        if (c == SDL_SCANCODE_UNKNOWN)
+                            SDL_Log("input: HULK_KEYMAP: unknown key '%s' for %s", nm, g_kc[ctl].name);
+                        else
+                            got[n++] = c;
+                    }
+                    v = comma ? comma + 1 : 0;
+                }
+                if (n) {                       // an empty value keeps the default
+                    g_kc[ctl].code[0] = got[0];
+                    g_kc[ctl].code[1] = got[1];
+                    set++;
+                }
+            }
+        }
+        line = next;
+    }
+    SDL_free(nl);
+    SDL_Log("input: key map %s: %d controls set", path, set);
+}
+
+static bool kc_down(const bool* k, int c)
+{
+    return k[g_kc[c].code[0]] || (g_kc[c].code[1] != SDL_SCANCODE_UNKNOWN && k[g_kc[c].code[1]]);
+}
+
 static int kb_read(HulkPadState* s)
 {
     const bool* real = SDL_GetKeyboardState(0);
@@ -131,6 +246,8 @@ static int kb_read(HulkPadState* s)
             ks[i] = real[i];
     if (g_script_n < 0)
         kb_script_load();
+    if (!g_kc_loaded)
+        kc_load();
     g_polls++;
     if (g_polls == 1 || g_polls % 5000 == 0)
         SDL_Log("input: keyboard pad poll %u", g_polls);
@@ -143,27 +260,25 @@ static int kb_read(HulkPadState* s)
             for (int j = 0; j < g_script[i].n; j++)
                 ks[g_script[i].code[j]] = true;
     const bool* k = ks;
-    static const struct { SDL_Scancode c; unsigned short bit; } kDig[] = {
-        {SDL_SCANCODE_UP, HULK_PAD_DPAD_UP}, {SDL_SCANCODE_DOWN, HULK_PAD_DPAD_DOWN},
-        {SDL_SCANCODE_LEFT, HULK_PAD_DPAD_LEFT}, {SDL_SCANCODE_RIGHT, HULK_PAD_DPAD_RIGHT},
-        {SDL_SCANCODE_RETURN, HULK_PAD_START}, {SDL_SCANCODE_ESCAPE, HULK_PAD_BACK},
-        {SDL_SCANCODE_TAB, HULK_PAD_LEFT_THUMB}, {SDL_SCANCODE_V, HULK_PAD_RIGHT_THUMB},
+    static const struct { int c; unsigned short bit; } kDig[] = {
+        {KC_DUP, HULK_PAD_DPAD_UP}, {KC_DDOWN, HULK_PAD_DPAD_DOWN}, {KC_DLEFT, HULK_PAD_DPAD_LEFT},
+        {KC_DRIGHT, HULK_PAD_DPAD_RIGHT}, {KC_START, HULK_PAD_START}, {KC_BACK, HULK_PAD_BACK},
+        {KC_L3, HULK_PAD_LEFT_THUMB}, {KC_R3, HULK_PAD_RIGHT_THUMB},
     };
     for (unsigned i = 0; i < sizeof(kDig) / sizeof(kDig[0]); i++)
-        if (k[kDig[i].c])
+        if (kc_down(k, kDig[i].c))
             s->buttons |= kDig[i].bit;
-    static const struct { SDL_Scancode c; int slot; } kAn[] = {
-        {SDL_SCANCODE_SPACE, HULK_PAD_A}, {SDL_SCANCODE_F, HULK_PAD_B}, {SDL_SCANCODE_R, HULK_PAD_X},
-        {SDL_SCANCODE_G, HULK_PAD_Y}, {SDL_SCANCODE_X, HULK_PAD_BLACK}, {SDL_SCANCODE_Z, HULK_PAD_WHITE},
-        {SDL_SCANCODE_LSHIFT, HULK_PAD_LEFT_TRIGGER}, {SDL_SCANCODE_LCTRL, HULK_PAD_RIGHT_TRIGGER},
+    static const struct { int c; int slot; } kAn[] = {
+        {KC_A, HULK_PAD_A}, {KC_B, HULK_PAD_B}, {KC_X, HULK_PAD_X}, {KC_Y, HULK_PAD_Y}, {KC_BLACK, HULK_PAD_BLACK},
+        {KC_WHITE, HULK_PAD_WHITE}, {KC_LTRIG, HULK_PAD_LEFT_TRIGGER}, {KC_RTRIG, HULK_PAD_RIGHT_TRIGGER},
     };
     for (unsigned i = 0; i < sizeof(kAn) / sizeof(kAn[0]); i++)
-        if (k[kAn[i].c])
+        if (kc_down(k, kAn[i].c))
             s->analog[kAn[i].slot] = 255;
-    s->thumb[HULK_THUMB_LX] = (short)((k[SDL_SCANCODE_D] ? 32767 : 0) - (k[SDL_SCANCODE_A] ? 32767 : 0));
-    s->thumb[HULK_THUMB_LY] = (short)((k[SDL_SCANCODE_W] ? 32767 : 0) - (k[SDL_SCANCODE_S] ? 32767 : 0));
-    s->thumb[HULK_THUMB_RX] = (short)((k[SDL_SCANCODE_L] ? 32767 : 0) - (k[SDL_SCANCODE_J] ? 32767 : 0));
-    s->thumb[HULK_THUMB_RY] = (short)((k[SDL_SCANCODE_I] ? 32767 : 0) - (k[SDL_SCANCODE_K] ? 32767 : 0));
+    s->thumb[HULK_THUMB_LX] = (short)((kc_down(k, KC_LRIGHT) ? 32767 : 0) - (kc_down(k, KC_LLEFT) ? 32767 : 0));
+    s->thumb[HULK_THUMB_LY] = (short)((kc_down(k, KC_LUP) ? 32767 : 0) - (kc_down(k, KC_LDOWN) ? 32767 : 0));
+    s->thumb[HULK_THUMB_RX] = (short)((kc_down(k, KC_RRIGHT) ? 32767 : 0) - (kc_down(k, KC_RLEFT) ? 32767 : 0));
+    s->thumb[HULK_THUMB_RY] = (short)((kc_down(k, KC_RUP) ? 32767 : 0) - (kc_down(k, KC_RDOWN) ? 32767 : 0));
     return 1;
 }
 
@@ -177,6 +292,20 @@ static void sdl_update(void*)
     SDL_FlushEvents(SDL_EVENT_JOYSTICK_AXIS_MOTION, SDL_EVENT_JOYSTICK_AXIS_MOTION + 0xff);
     int n = 0;
     SDL_JoystickID* ids = SDL_GetGamepads(&n);
+    // play2: say what SDL sees whenever the numbers change (a pad that shows as a joystick but not a gamepad has no
+    // mapping; neither listed means the host (Wine's HID layer) did not hand the device over): docs/native-play.md
+    static int seen_j = -1, seen_g = -1;
+    int nj = 0;
+    SDL_JoystickID* js = SDL_GetJoysticks(&nj);
+    if (nj != seen_j || n != seen_g) {
+        seen_j = nj;
+        seen_g = n;
+        SDL_Log("input: SDL sees %d joystick(s), %d gamepad(s)", nj, n);
+        for (int i = 0; i < nj; i++)
+            SDL_Log("input:   joystick %d: %s%s", i, SDL_GetJoystickNameForID(js[i]) ? SDL_GetJoystickNameForID(js[i]) : "?",
+                    SDL_IsGamepad(js[i]) ? " (gamepad)" : " (no gamepad mapping)");
+    }
+    SDL_free(js);
     // gone
     for (int p = 0; p < HULK_INPUT_PORTS; p++) {
         SdlPort* sp = &g_sdl.port[p];

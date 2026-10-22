@@ -553,8 +553,34 @@ static void mix_voice(HulkVoice* v, float* out, float* send, unsigned n)
     }
 }
 
+// play2: the mix bus limiter. Samples up to the knee (0.8, -1.9 dBFS) pass untouched; above it a soft curve with the same
+// slope at the knee approaches full scale asymptotically (|y| < 1 for any sum), so bursts of loud voices no longer hard-clip.
+// HULK_AUDIO_LIMIT=0 gives the old hard clip.
+#define LIMIT_KNEE 0.8f
+static unsigned long long g_limited;        // samples the limiter touched (HULK_AUDIO_LOG)
+static float g_prepeak;                     // the largest |sample| before limiting since the last log line
+static inline float limit_sample(float x, int soft)
+{
+    float a = x < 0 ? -x : x;
+    if (a > g_prepeak)
+        g_prepeak = a;
+    if (!soft)
+        return x > 1.0f ? 1.0f : x < -1.0f ? -1.0f : x;
+    if (a <= LIMIT_KNEE)
+        return x;
+    g_limited++;
+    float t = (a - LIMIT_KNEE) / (1.0f - LIMIT_KNEE);
+    float y = LIMIT_KNEE + (1.0f - LIMIT_KNEE) * t / (1.0f + t);
+    return x < 0 ? -y : y;
+}
+
 static void render_locked(float* out, unsigned frames)
 {
+    static int soft = -1;
+    if (soft < 0) {
+        const char* e = SDL_getenv("HULK_AUDIO_LIMIT");
+        soft = !(e && *e == '0');
+    }
     // the send buffer: reuse scratch space in chunks
     unsigned done = 0;
     while (done < frames) {
@@ -569,7 +595,7 @@ static void render_locked(float* out, unsigned frames)
             mix_voice(v, o, send, n);
         hulk_reverb_process(&g_audio.reverb, send, o, n);
         for (unsigned i = 0; i < 2 * n; i++)
-            o[i] = o[i] > 1.0f ? 1.0f : o[i] < -1.0f ? -1.0f : o[i];
+            o[i] = limit_sample(o[i], soft);
         done += n;
     }
     g_audio.rendered += frames;
@@ -593,9 +619,10 @@ static void render_locked(float* out, unsigned frames)
             unsigned np = 0;
             for (HulkVoice* v = g_audio.voices; v; v = v->next)
                 np += v->playing != 0;
-            alog("level t=%us peak %.3f voices playing %u of %u", (unsigned)(g_audio.rendered / HULK_AUDIO_RATE), peak, np,
-                 (unsigned)g_audio.nvoices);
+            alog("level t=%us peak %.3f (before limiter %.3f, %llu samples limited so far) voices playing %u of %u",
+                 (unsigned)(g_audio.rendered / HULK_AUDIO_RATE), peak, g_prepeak, g_limited, np, (unsigned)g_audio.nvoices);
             peak = 0;
+            g_prepeak = 0;
             next = g_audio.rendered + 5ull * HULK_AUDIO_RATE;
         }
     }

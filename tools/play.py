@@ -14,6 +14,7 @@ Prerequisites (all local, nothing is downloaded or committed):
     build/third_party/out, SDL3.dll and (for the cut scenes) the FFmpeg DLLs plus hulkmovie.dll.
 Saves live in build/play/save and title storage in build/play/tdata (kept between runs).
 
+Keys can be remapped: --keys FILE (see config/keymap.example.txt, which lists the defaults).
 Controls (keyboard is pad 0 whenever no gamepad is connected; HULK_KEYBOARD=0 disables it):
   WASD left stick, IJKL right stick (camera), arrows D-pad, Space A, F B, R X, G Y, Z White, X Black,
   Left Shift left trigger, Left Ctrl right trigger, Enter Start, Esc Back, Tab L3, V R3. F11 / Alt+Enter: fullscreen.
@@ -54,8 +55,8 @@ def prereqs(exe, data):
 def build():
     py = sys.executable
     env = dict(os.environ)
-    for cmd in ([py, "tools/native_sdl.py", "backends", "--target", "win32"],
-                [py, "tools/native_link.py", "--reuse-map", "--gfx"]):
+    # (native_link.py rebuilds hulk_sdl / hulk_movies / hulk_fs when their sources under src/platform/sdl are newer)
+    for cmd in ([py, "tools/native_link.py", "--reuse-map", "--gfx"],):
         print("+", " ".join(cmd))
         if subprocess.run(cmd, cwd=ROOT, env=env).returncode:
             sys.exit("build step failed")
@@ -67,8 +68,11 @@ def main():
     ap.add_argument("--build", action="store_true", help="build the backends and link the image first")
     ap.add_argument("--check", action="store_true", help="only check the prerequisites")
     ap.add_argument("--no-movies", action="store_true", help="skip every movie (HULK_MOVIES=0)")
-    ap.add_argument("--window", metavar="WxH", help="window size (HULK_GFX_WINDOW); the frame keeps its aspect (bars)")
-    ap.add_argument("--fullscreen", action="store_true")
+    ap.add_argument("--window", metavar="WxH", default="1280x720",
+                    help="window size (HULK_GFX_WINDOW; default 1280x720, the game's own 16:9 frame); the frame keeps its "
+                         "aspect (bars), the window can be resized")
+    ap.add_argument("--fullscreen", action="store_true", help="start fullscreen (F11 / Alt+Enter toggle it anyway)")
+    ap.add_argument("--keys", metavar="FILE", help="keyboard map (HULK_KEYMAP); format: config/keymap.example.txt")
     ap.add_argument("--audio", default="wasapi", help="SDL audio driver under Wine: wasapi (default), winmm, dummy (mute)")
     ap.add_argument("--audio-log", action="store_true", help="log the mixer's peak level and voice counts every 5 s")
     ap.add_argument("--script", metavar="KEYS", help="HULK_KEY_SCRIPT: unattended key presses, 'from-to:Key+Key,...' in tenths of a second")
@@ -100,8 +104,12 @@ def main():
            "SDL_AUDIO_DRIVER": a.audio}
     if a.no_movies:
         env["HULK_MOVIES"] = "0"
-    if a.window:
+    if a.window and not a.fullscreen:
         env["HULK_GFX_WINDOW"] = a.window
+    if a.keys:
+        if not os.path.exists(a.keys):
+            sys.exit("--keys: no such file: %s" % a.keys)
+        env["HULK_KEYMAP"] = w(os.path.abspath(a.keys))
     if a.fullscreen:
         env["HULK_GFX_FULLSCREEN"] = "1"
     if a.audio_log:
