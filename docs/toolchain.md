@@ -41,6 +41,10 @@ Output is `coff-i386`, readable with `objdump -d --x86-asm-syntax=intel` and dif
 - GUI: `build/tools/ghidra_12.0.3_PUBLIC/ghidraRun`, then open `build/ghidra/hulk.gpr`.
 - Scripts live in `tools/ghidra_scripts/` (e.g. `ProjectStats.java`).
 
+## Native build compiler: clang
+
+The native port builds the same sources with LLVM clang (22.1.8 from llvm.org; Apple clang is refused) as an i686 image, with `-ffp-eval-method=double -ffp-contract=off` so x87 floats behave like the original's. `tools/clang_probe.py` and `tools/equiv.py --native` look for it in `$HULK_LLVM` or `~/llvm`; the checker Macs have it there. See [native-build.md](native-build.md) and [native-float.md](native-float.md).
+
 ## Preliminary codegen observations on `default.xbe` .text
 
 Heuristic byte counts (not a disassembly):
@@ -61,7 +65,7 @@ build/venv/bin/python tools/disasm.py 'CAction::vfunc_5'          # target asm (
 build/venv/bin/python tools/compare.py file.cpp <symbol> 0xADDR  # compile with cl 13.10 via wibo, diff vs XBE
 ```
 
-- `build/functions.csv` comes from `ExportFunctions.java`, plus two post-passes. Don't re-export it from scratch without re-applying them. `build/venv` needs `pip install capstone`.
+- `build/functions.csv` comes from `ExportFunctions.java`, plus two post-passes. Don't re-export it from scratch without re-applying them. `build/venv` needs `pip install capstone unicorn clang` (the last is libclang's Python binding, for the tree tools; the checker uses Unicorn). Python 3.12 or newer (the checker Macs run 3.12).
   - Size fixes: bodies Ghidra ended one instruction before the final `ret` are extended (see the journal, 2026-10-09).
   - Missing functions (2026-10-11): Ghidra never created functions that are reached only through pointers it didn't resolve (vtable slots, callback tables, element constructors passed to vector helpers). `CreateMissingFunctions.java` created them at the starts of uncovered code runs (two passes, about 17k). The 4,879 that are referenced (by a pointer in data, an immediate in code, or a direct call/jmp) were appended to `functions.csv`, with each size clamped to the next function start. The other 12,447 have no reference anywhere. They're listed in `build/farm/dead-code.txt` and left out of the function list and the progress denominator. The Ghidra project does contain them now, so a fresh `ExportFunctions` would include them.
   - Truncated bodies (2026-10-13, `tools/fix_truncated_sizes.py`): Ghidra ends a function at a call it believes never returns, and some of those beliefs were wrong (`FUN_00236d40`, a plain constructor). 658 functions were recorded only up to such a call. The pass extends each body that doesn't end in ret/jmp/int3 (and isn't followed by int3 padding, which a real noreturn call is) to its first ret or jmp that is followed by padding or the next listed function. Re-checking the verified ones afterwards: 21 equivalents still passed; 2 matches had only matched the cut-off start and were demoted.

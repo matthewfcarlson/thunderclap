@@ -6,8 +6,9 @@ Bink calls the game makes (plus two more that the library table lists), writes v
 and sends audio through the native mixer. Nothing from RAD is used or needed; no movie is converted, copied or
 committed.
 
-Status 2026-10-19: proven outside the game image, host (macOS arm64) and i686 under Wine; **not yet run by the game
-itself** (the image has not reached the movie player: see [Open items](#open-items)).
+Status 2026-10-21: proven outside the game image, host (macOS arm64) and i686 under Wine, and run by the game: the
+native image's normal run plays the five boot movies through this player (native-build.md, native11). Replays pin
+`no-fmv` and skip movies. See [Open items](#open-items).
 
 Contents: [1 What ships](#1-what-the-game-ships) - [2 What the game calls](#2-what-the-game-calls) -
 [3 Decision](#3-decision-ffmpeg-libraries-or-a-transcode) - [4 Implementation](#4-implementation) -
@@ -222,9 +223,10 @@ The reference decode needs the ffmpeg command line (`brew install ffmpeg`). Movi
 
 ## Open items
 
-* **Not run inside the game.** The native image stops before the movie player (RCF mount and start-up, see
-  [native-build.md](native-build.md)). What is proven is the player against the game's own I/O callbacks and the
-  engine's lock conventions as the code shows them. Things only the running game can confirm: that the stream
+* **Written before the game ran it** (the first boot-movie run came with native11, see [native-build.md](native-build.md)):
+  the proof below is the player against the game's own I/O callbacks and the engine's lock conventions as the code
+  shows them. The list that follows was what only a running game could confirm; the boot movies play, but the details
+  have not been re-checked one by one: that the stream
   behind the open callback serves the synchronous reads at the movie's offsets inside an archive (the callback's reads
   are 1 KB device reads; fine for a host-file stream, to be seen on the native drive layer); that
   `BinkCopyToBufferRect`'s non-zero-means-copied and `BinkDoFrame`'s zero-means-decoded are as read off `0x333de0`; the

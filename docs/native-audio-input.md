@@ -91,7 +91,7 @@ i686 Windows: SDL's own Windows configuration and source list compiled with clan
 DLL (the tree binds plain CRT names to game code, see graphics-backend.md 8). Import libraries for the DLL come from
 .def files built from the names SDL needs and Wine's i386 DLL export tables.
 
-## Status (2026-10-19)
+## Status (2026-10-19; the game has driven it since)
 
 **Built.** `tools/native_sdl.py build`: host libSDL3.a (CMake, 38 s) and i686 **SDL3.dll** (260 units, 17 s, 1.6 MB):
 SDL's Windows configuration without a C runtime (`HAVE_LIBC` off: SDL's own stdlib and libm, `SDL_mslibc.c` for

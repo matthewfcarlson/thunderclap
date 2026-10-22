@@ -7,6 +7,9 @@ tools/packet.py queue            # build/farm/queue.txt: game functions ≤96 by
 ExportDecomp.java <queue> <dir>  # Ghidra C hints → build/farm/ghidra_c/<addr>.c (optional, batch)
 tools/packet.py build --queue …  # build/farm/packets/<addr>.txt
 farm/run.sh --limit 200 --concurrency 8
+farm/run.sh --mode equiv ...     # accept behaviourally equivalent code (tools/equiv.py) instead of a byte-match
+farm/run.sh --upgrade ...        # retry an equivalent/ function for a byte-match; removes the equivalent/ copy when one lands
+farm/run.sh --rewrite ...        # equiv mode: readability rewrites of proven sources (docs/tech-debt.md)
 tools/farm_stats.py              # success and cost per tier
 ```
 
@@ -22,7 +25,7 @@ Setup: `cd farm && npm install`. The OpenRouter key comes from pi's credential s
   A worker gets one message and has no read/bash/edit tools to explore with.
 - **One tool, `submit_cpp`**: compiles with cl 13.10 under wibo and replies with a *compact* diff (mismatches ±1 line of context). On a match it writes `matches/<addr>.cpp` and returns `control: terminate`, so the run ends without another model call.
 - **Static system prompt** (`farm/src/prompt.ts`) holding the MSVC 7.1 idioms and a worked example. It's byte-stable so providers can cache the prefix.
-- **Tiered escalation** (`farm/tiers.json`): GLM-5.3-flash → DeepSeek-v4.1-flash → Claude Haiku 5.5, 5 submissions each. A higher tier starts fresh with the packet plus only the *best* previous attempt and its diff, not the whole transcript.
+- **Tiered escalation** (`farm/tiers.json`): GPT-6 Luna (5 submissions) → Claude Haiku 5.5 (5) → DeepSeek-v4.1-flash (4). `--tiers farm/tiers-*.json` picks another ladder (local-model, ChatGPT and big-function ones live beside it). A higher tier starts fresh with the packet plus only the *best* previous attempt and its diff, not the whole transcript.
 
 ## Design: why it's durable and parallel
 
@@ -33,5 +36,5 @@ Setup: `cd farm && npm install`. The OpenRouter key comes from pi's credential s
 
 ## Outputs and caveats
 
-- `matches/<addr>.cpp` holds one self-contained TU per function, with invented names and ad-hoc class stubs. These are **verified codegen**, not final source. Consolidation into real headers and files comes with the split/objdiff setup.
+- `matches/<addr>.cpp` holds one self-contained TU per function, with invented names and ad-hoc class stubs. These are **verified codegen**, not final source. Consolidation into real headers and files is the merged tree (`tools/gen_tree.py`, [source-tree.md](source-tree.md)).
 - The worker's code is untrusted model output compiled by `cl.exe` under wibo. It is never executed.

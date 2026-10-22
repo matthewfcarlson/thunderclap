@@ -8,20 +8,21 @@ Self-contained briefs for work alongside the matching farm. Each brief has a goa
 | 02 | [RTTI → class headers](02-rtti-headers.md) | `build/rtti.json` | M | *done: `include/gen/` (see [headers.md](../headers.md)); moving matches onto them is open* |
 | 03 | [RCF archive tool](03-rcf-tool.md) | ISO only | S–M | *done: exact names via game hash, byte-identical repack (branch `task/rcf-hash`)* |
 | 04 | [Pure3D `.p3d` reader](04-p3d-reader.md) | 03 | M–L | *done: verified on all 1,436 files; textures → PNG, meshes/skins/animations → glTF, whole cities (branches `task/p3d-verify`, `task/p3d-anim`). Open: collision, state props* |
-| 05 | [Translation-unit / split recovery](05-split-recovery.md) | Ghidra, 01 | L | |
+| 05 | [Translation-unit / split recovery](05-split-recovery.md) | Ghidra, 01 | L | *done: `tools/infer_splits.py`, [splits.md](../splits.md), the merged tree ([source-tree.md](../source-tree.md))* |
 | 06 | [Hybrid patch build in xemu](06-hybrid-patch-build.md) | matches/ | L | *done: 14,614 functions patched boot into gameplay cutscene ([hybrid-build.md](../hybrid-build.md)); open: `equiv-conv` adapters* |
 | 07 | [Subsystem map for QoL (render/camera/HUD/game loop)](07-subsystem-map.md) | Ghidra, RTTI | M | *done: [platform-boundary.md](../platform-boundary.md), [subsystems.md](../subsystems.md), [port-priority.txt](../port-priority.txt)* |
 | 08 | [Farm: large-function strategies](08-large-functions.md) | farm | M | *farm session: aligned diffs, attempt history, similar-function examples built; A/B pending credits* |
 | 09 | [Equivalent decomp for large functions (behaviour verifier + farm mode)](09-equivalent-decomp.md) | 01, 02 | L | *verifier and farm mode done ([equivalence.md](../equivalence.md)); scaling up* |
-| 10 | [Test plan for the hybrid and native builds](10-hybrid-test-plan.md) | 06, 07, 09 | L | *started: hooks, determinism check (front end), compare, bisect; open: post-load determinism, scenarios* |
-| 11 | [The functions over 4 KB (generators, look-alike pairs, the rest)](11-big-functions.md) | 09 | M | *planned for Sunday 2026-10-18, after the weekly usage reset* |
+| 10 | [Test plan for the hybrid and native builds](10-hybrid-test-plan.md) | 06, 07, 09 | L | *hooks, determinism pins, compare, bisect, record and replay done; native replays reproduce the original's checkpoints through the first level ([native-replay.md](../native-replay.md)); open: scenario suite* |
+| 11 | [The functions over 4 KB (generators, look-alike pairs, the rest)](11-big-functions.md) | 09 | M | *done 2026-10-18* |
 
 ## Ground rules (read first)
 
-**The farm sweep runs unattended on `main` in this checkout** (`farm/sweep.sh`). It commits and pushes `matches/` and `README.md` after every chunk. To avoid colliding with it:
-- Work in a **git worktree on a branch**: `git worktree add ../hulk-<task> -b task/<name>`. Commit there, push the branch, and open a PR (or ask the user to merge). Don't commit in the main checkout while the sweep runs.
+**The checkout is shared.** Many agents work in `matches/`, `equivalent/`, `src/` and `tools/` at once, uncommitted (see `CLAUDE.md`):
+- Work in the main checkout. Commit explicit paths only; never `git add -A`, never `checkout`/`restore`/`stash`/`reset` files you didn't write, never delete untracked files.
 - Don't touch `build/farm/` (the farm's SQLite DB, ledger and work dirs) and don't start the farm. The DB is single-process.
-- Read-only use of shared build outputs from the main checkout is fine: `build/functions.csv`, `build/rtti.json`, `build/farm/ghidra_c/`, `build/farm/packets/`, the Ghidra project `build/ghidra/` (open it `-readOnly` in headless mode; only one GUI or headless writer at a time), `isos/extracted/`. In a worktree, reference them by absolute path or symlink `build` and `isos`.
+- Heavy jobs (equivalence batches, tree builds, regress suites) go through the shared queue, `tools/jobq.py` ([compute.md](../compute.md)).
+- Read-only use of shared build outputs is fine: `build/functions.csv`, `build/rtti.json`, `build/farm/ghidra_c/`, `build/farm/packets/`, the Ghidra project `build/ghidra/` (open it `-readOnly` in headless mode; only one GUI or headless writer at a time), `isos/extracted/`.
 
 **Legal and clean-room:**
 - Never commit game data: no ISO, XBE, RCF, extracted assets or `build/` contents. Check `git ls-files` before pushing. Tests that need game files must skip when `isos/extracted/` is absent.

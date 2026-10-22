@@ -84,7 +84,7 @@ A build **passes** when every scenario's checkpoints match the original exactly,
 3. `tools/bisect_hybrid.py`.
 4. Snapshot capture over the GDB stub, plus `equiv.py --inputs-from` and the snapshot corpus.
 5. The coverage report.
-6. `docs/hybrid-testing.md`: how to record, run and read the reports.
+6. [`docs/hybrid-build.md`](../hybrid-build.md) and [`record-replay.md`](record-replay.md): how to record, run and read the reports.
 
 ## Done when
 - Two runs of every scenario on the original produce identical checkpoints.
