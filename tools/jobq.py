@@ -47,6 +47,7 @@ SSH = ["ssh", "-o", "ConnectTimeout=20", "-o", "ServerAliveInterval=20", "-o", "
 RUNNER_SRC = os.path.join(ROOT, "tools/jobq_run.py")
 IDLE_EXIT = int(os.environ.get("JOBQ_IDLE_EXIT", "900"))
 KEEP_BASES = 4
+BIG_SLOTS = 4       # a queued job this big reserves the hosts it could run on (dispatch), so small jobs cannot starve it
 FORBIDDEN = ("drive-backup", "blockdev-backup", "blockdev-create", "drive-mirror", "Application Support/xemu")
 
 SCHEMA = """
@@ -525,7 +526,7 @@ class Host:
         self.ready = True
         return True
 
-    def eligible(self, job, now):
+    def eligible(self, job, now, capacity=True):
         if now < self.down_until or not self.ready:
             return False
         needs = job["needs"]
@@ -537,6 +538,8 @@ class Host:
         if needs == "xemu" or "xemu" in job["cmd"].lower():
             if self.local or self.xemu_used >= self.xemu_max:
                 return False
+        if not capacity:
+            return self.cap >= job["slots"] or (self.cap > 0 and (not self.local or needs == "wine-gfx"))
         if self.cap - self.used >= job["slots"]:
             return True
         # an idle remote may take a job bigger than its load-sized cap (it would starve otherwise); the laptop never
@@ -544,14 +547,14 @@ class Host:
         return self.used == 0 and self.cap > 0 and (not self.local or needs == "wine-gfx")
 
 
-def choose_host(job, hosts, now=None):
+def choose_host(job, hosts, now=None, blocked=()):
     """The host a queued job should go to, or None: untried hosts first, then lowest preference value (remotes before
-    the laptop), then the least loaded in proportion to its slots."""
+    the laptop), then the least loaded in proportion to its slots. BLOCKED: names of hosts held for a bigger job."""
     now = now or time.time()
     tried = json.loads(job["tried"]) if isinstance(job["tried"], str) else job["tried"]
     best, bk = None, None
     for h in hosts:
-        if h.eligible(job, now):
+        if h.name not in blocked and h.eligible(job, now):
             k = (h.name in tried, h.pref, h.used / max(1, h.cap))
             if bk is None or k < bk:
                 best, bk = h, k
@@ -754,10 +757,13 @@ class Daemon:
         # fairness: the submitter with the fewest running jobs goes first, then the queue order
         order = sorted(range(len(rows)), key=lambda i: (-rows[i]["prio"], running.get(rows[i]["name"], 0), rows[i]["id"]))
         n = 0
+        blocked = set()       # hosts held for a queued job of BIG_SLOTS or more that does not fit yet (else 1-slot jobs starve it)
         for i in order:
             r = rows[i]
-            h = choose_host(r, self.hosts, now)
+            h = choose_host(r, self.hosts, now, blocked)
             if h is None:
+                if r["slots"] >= BIG_SLOTS:
+                    blocked |= {x.name for x in self.hosts if x.eligible(r, now, capacity=False)}
                 if all(x.cap - x.used <= 0 or now < x.down_until for x in self.hosts):
                     break
                 continue

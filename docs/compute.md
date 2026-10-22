@@ -102,3 +102,43 @@ $J tools/native_replay_job.py compare ID1 ID2 ...           # common checkpoint 
   hashes on the laptop, mac2 and mac1 (2026-10-21, 120 s runs: 7,440, 8,460 and 2,040 frames; mac1 was loaded at the time).
 - The queue daemon reads `hosts.json` once at start: after changing `caps` restart it (`jobs survive`), or the new capability is ignored.
 
+
+## Native builds
+
+`tools/native_build_job.py` runs a whole native build as one queue job: MSVC tree build (`build_tree`), clang probe, native
+link, and optionally a headless replay on the host. Builds default to mac2/mac1 (the one with more free slots); `--host local`
+only on purpose; graphics and screenshot runs stay on the laptop (`wine-gfx`).
+
+```sh
+J=build/venv/bin/python; N=tools/native_build_job.py
+id=$($J $N submit --name ME [--workspace DIR] [--live tools src/platform] --gfx [--replay play3 --frames 1000] [--fetch image])
+$J $N wait $id          # summary (decision, wall times, link, replay); files in build/jobs/out/ID/nb-out/
+$J $N compare ID1 ID2   # image hashes (PE time stamp zeroed) and replay checkpoints must agree
+$J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspaces and sizes
+```
+
+- **Sources.** The job's base tree is `git archive HEAD` of `matches equivalent include src tools config` (cached per host by
+  content hash). The overlay is what differs from HEAD: the checkout's dirty files, or with `--workspace DIR` the files of that
+  private workspace that differ (files it lacks are deleted). `--live PATH...` takes paths (`tools`, `src/platform`) from the
+  checkout instead: a private workspace's copy of the build tools can be older than HEAD's.
+- **Lineages.** The host copies the run's sources by content hash into `~/hulk-jobs/nb/ws/LINEAGE` (default `NAME-DIRNAME`) and
+  builds there, so build_tree's state, the clang snapshot and the binding map survive between jobs; object caches are per host
+  and content-keyed. `--state auto` resumes build_tree only if nothing changed under `include/ config/` or in build_tree's
+  imports since the last good build; `--map auto` reuses the binding map only if function sources were modified (none added or
+  removed) and native_link's imports are untouched. `--state fresh|resume`, `--map full|reuse` force it. A different toolchain
+  (clang, lld-link, wibo, cl.exe, python minor version, disc) drops all derived state. Jobs on one lineage run one at a time.
+- **Local-only inputs** (`build/functions.csv rtti.json xbsymbols.txt port/platform_calls.json`, `build/data/src`, the prebuilt
+  libraries under `build/third_party/out`: pddi-win32/obj, win32/lib, sdl-*, fs1, ffmpeg-win32) are rsynced by `submit` to
+  `~/hulk-jobs/nb/inputs-STAMP` (STAMP = content hash; immutable; newest 4 kept). Rebuild the libraries locally and the next
+  submit ships them. The extracted disc, compilers, wibo, the venv, LLVM and Wine are the host's own, as for every job.
+- **Timing (play3 workspace, `--gfx`, 8 slots).** Cold on mac2, empty caches: build 56 min, probe 1 min, link 5 min. Same
+  sources, warm caches, fresh state: build 17-19 min. One changed function source, state and map reused: 5 min in all
+  (build 2 min of verification, probe 25 s, link 1.8 min) plus a 20 s replay to frame 1000. Laptop (2 slots, loaded): 12 min
+  for the resumed link-only path, versus 5 min on mac2 and 8 min on mac1.
+- **Reproducible.** Images from mac2, mac1 and the laptop are byte-identical except the PE link time stamp, and the play3
+  checkpoints agree for every frame to 1020. Three things made them differ and are fixed: `native_link` sorted objects by cache
+  file name, which embeds the compiler's path (now by TU); a cold `build/equiv/crt2.json` raced between workers and the failed
+  equivalence checks were cached for good (errors are retried and not cached; the job links the host's `build/equiv` and purges
+  cached errors); and `PYTHONHASHSEED=0` for the build.
+- **Big jobs.** A queued job of 4+ slots now reserves the hosts it could run on (`BIG_SLOTS` in `jobq.py`), else one-slot jobs
+  starve it. This needs the daemon restarted; until then a build waits for an idle remote (or use `--slots 2`).

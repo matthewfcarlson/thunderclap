@@ -86,6 +86,17 @@ class Choose(unittest.TestCase):
         self.assertIsNone(jobq.choose_host(job("equiv", slots=9), [self.m2]))
 
 
+    def test_blocked_hosts_and_reservation(self):
+        self.assertIsNone(jobq.choose_host(job("equiv"), [self.m2], blocked={"m2"}))
+        self.assertIs(jobq.choose_host(job("equiv"), self.hs, blocked={"m2"}), self.m1)
+        self.m2.used = 3
+        big = job("equiv", slots=4)
+        self.assertIsNone(jobq.choose_host(big, [self.m2]))                     # does not fit now
+        self.assertTrue(self.m2.eligible(big, time.time(), capacity=False))     # but could once jobs finish: reserve m2
+        self.assertFalse(self.lo.eligible(big, time.time(), capacity=False))    # the laptop never takes big jobs
+        self.assertFalse(self.m1.eligible(job("xemu", slots=4), time.time(), capacity=False))
+
+
 class Parse(unittest.TestCase):
     def test_ids(self):
         self.assertEqual(jobq.parse_ids(["3", "5-7", "9,10"]), [3, 5, 6, 7, 9, 10])

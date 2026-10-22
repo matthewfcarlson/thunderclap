@@ -137,17 +137,58 @@ def ensure_template(wine):
     return tpl
 
 
-def cmd_run(a):
+def run_wine(native_run, exe, prefix, timeout, env_extra, rundir, trace=None, stop_frame=None):
+    """native_run.run() plus an optional early stop: kill the run once the trace has a checkpoint at STOP_FRAME."""
+    if stop_frame is None:
+        return native_run.run(exe, prefix, timeout, env_extra, rundir)
+    os.makedirs(rundir, exist_ok=True)
+    env = native_run.wine_env(prefix)
+    env.update(env_extra)
+    t0 = time.time()
+    stopped = False
+    with open(os.path.join(rundir, "stdout.txt"), "wb") as so, open(os.path.join(rundir, "stderr.txt"), "wb") as se:
+        p = subprocess.Popen([native_run.WINE, os.path.abspath(exe)], env=env, stdout=so, stderr=se, cwd=rundir)
+        pos, tail = 0, b""
+        rx = re.compile(rb"ckpt frame (\d+) hash")
+        rc = None
+        while True:
+            try:
+                rc = p.wait(timeout=0.5)
+                break
+            except subprocess.TimeoutExpired:
+                pass
+            if time.time() - t0 > timeout:
+                break
+            try:
+                with open(trace, "rb") as f:
+                    f.seek(pos)
+                    chunk = f.read()
+                pos += len(chunk)
+            except OSError:
+                continue
+            tail = (tail + chunk)[-4096:]
+            frames = [int(m.group(1)) for m in rx.finditer(tail)]
+            if frames and max(frames) >= stop_frame:
+                stopped = True
+                break
+        if rc is None:
+            p.kill()
+    if rc is None:
+        native_run.kill_wineserver(prefix)
+    return {"rc": rc, "timed_out": rc is None and not stopped, "stopped_at_frame": stopped,
+            "seconds": round(time.time() - t0, 1)}
+
+
+def replay(work, img, rec, home, timeout, gfx=False, env_extra=None, stop_frame=None, out=None, wine_lock=None):
+    """Run the image IMG (a directory with hulk-strict.exe and its DLLs) on the recording REC headless (or with
+    graphics) in a private Wine prefix; writes trace.txt, ckpt.txt and result.json into OUT. Returns (result, ckpts)."""
     import native_run
-    wine = native_run.WINE
-    if os.environ.get("WINE") or not os.path.exists(wine):
-        wine = os.environ.get("WINE") or wine
+    wine = os.environ.get("WINE") or next((p for p in (os.path.expanduser(q) for q in (
+        "~/Library/Application Support/com.isaacmarovitz.Whisky/Libraries/Wine/bin/wine64",
+        "~/wine-whisky/Wine/bin/wine64")) if os.path.exists(p)), native_run.WINE)     # (an older native_run only knows the app's copy)
     native_run.WINE = wine
-    work = os.getcwd()
-    img = os.path.join(work, "wine-img")
-    out = os.path.join(work, "wine-out")
+    out = out or os.path.join(work, "wine-out")
     os.makedirs(out, exist_ok=True)
-    home = os.environ.get("JOBQ_HOME") or ROOT
     data = os.path.join(home, "isos/extracted")
     if not os.path.exists(os.path.join(data, "art.rcf")):
         sys.exit("no game data at %s (rsync the player's isos/extracted there)" % data)
@@ -163,18 +204,17 @@ def cmd_run(a):
     os.makedirs(tdata, exist_ok=True)
     env = dict(DEFAULT_ENV)
     env.update({"HULK_TRACE_FILE": wpath(trace), "HULK_DATA_DIR": wpath(data), "HULK_SAVE_DIR": wpath(save),
-                "HULK_TDATA_DIR": wpath(tdata), "HULK_INPUT_SOURCE": "replay:" + wpath(os.path.join(img, "rec.hrp"))})
-    if not a.gfx:
+                "HULK_TDATA_DIR": wpath(tdata), "HULK_INPUT_SOURCE": "replay:" + wpath(rec)})
+    if not gfx:
         env["HULK_GFX_RENDERER"] = "noop"
-    for e in a.env or []:
-        k, _, v = e.partition("=")
-        env[k] = v
-    r = native_run.run(os.path.join(img, "hulk-strict.exe"), prefix, a.timeout, env, out)
+    env.update(env_extra or {})
+    r = run_wine(native_run, os.path.join(img, "hulk-strict.exe"), prefix, timeout, env, out, trace, stop_frame)
     ck = []
-    for l in open(trace, errors="replace"):
-        m = CKPT.search(l)
-        if m:
-            ck.append((int(m.group(1)), m.group(2)))
+    if os.path.exists(trace):
+        for l in open(trace, errors="replace"):
+            m = CKPT.search(l)
+            if m:
+                ck.append((int(m.group(1)), m.group(2)))
     with open(os.path.join(out, "ckpt.txt"), "w") as f:
         for fr, h in ck:
             f.write("%d %s\n" % (fr, h))
@@ -183,6 +223,17 @@ def cmd_run(a):
     json.dump(r, open(os.path.join(out, "result.json"), "w"), indent=1)
     shutil.rmtree(prefix, ignore_errors=True)
     shutil.rmtree(save, ignore_errors=True)
+    return r, ck
+
+
+def cmd_run(a):
+    work = os.getcwd()
+    env_extra = {}
+    for e in a.env or []:
+        k, _, v = e.partition("=")
+        env_extra[k] = v
+    r, ck = replay(work, os.path.join(work, "wine-img"), os.path.join(work, "wine-img", "rec.hrp"),
+                   os.environ.get("JOBQ_HOME") or ROOT, a.timeout, a.gfx, env_extra, getattr(a, "frames", None))
     print(json.dumps(r))
     return 0 if ck else 1
 
@@ -199,6 +250,7 @@ def main():
     s.add_argument("--host")
     s.add_argument("--env", action="append")
     s = sp.add_parser("run")
+    s.add_argument("--frames", type=int, help="stop once a checkpoint at this frame is in the trace")
     s.add_argument("--timeout", type=int, default=200)
     s.add_argument("--gfx", action="store_true")
     s.add_argument("--env", action="append")

@@ -43,6 +43,8 @@ Heavy jobs (`equiv.py` beyond quick single checks, `build_tree`, regress suites,
 `tools/jobq.py`, which spreads them over the laptop, mac2 and mac1 (`docs/compute.md`): `submit`, `wait`, `status`. Batches of
 equivalence checks: `tools/jobq_equiv.py`, or `--jobq` on `equiv_batch.py`, `promote_dispatch.py` and `tests/equiv/regress.py`.
 At most 2 local processes for interactive debugging. Native Wine runs are `--needs wine`. xemu jobs always carry `-snapshot`.
+Full native builds (tree build, clang probe, native link, replay) go through `tools/native_build_job.py submit/wait` (mac2/mac1 by default;
+`--host local` only on purpose; graphics runs stay on the laptop): `docs/compute.md` "Native builds".
 
 ## Hard rules
 

@@ -68,6 +68,7 @@ import re
 import struct
 import subprocess
 import sys
+import time
 from concurrent.futures import ProcessPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -176,18 +177,25 @@ def _equiv_job(args):
         return json.load(open(p))
     import equiv
     undefined = {s[0] for s in compare.Coff(obj).symbols if s[2] == 0 and s[4] == 2}
-    try:
-        rep = equiv.verify(os.path.join(ROOT, src), addr, symbol=symbol, obj_path=obj, max_level=2)
-        m = rep.get("level2", {}).get("mapping", {})
-        res = {"status": rep.get("status"),
-               "map": {n: [v["addr"], v["how"]] for n, v in m.items()
-                       if (n in undefined or n.startswith("??_7")) and v.get("addr")},
-               "unresolved": sorted(n for n, v in m.items() if n in undefined and not v.get("addr"))}
-    except Exception as e:  # noqa: BLE001 - one function's failure must not stop the map
-        res = {"status": "error: %s" % type(e).__name__, "map": {}, "unresolved": []}
+    for attempt in range(3):
+        try:
+            rep = equiv.verify(os.path.join(ROOT, src), addr, symbol=symbol, obj_path=obj, max_level=2)
+            m = rep.get("level2", {}).get("mapping", {})
+            res = {"status": rep.get("status"),
+                   "map": {n: [v["addr"], v["how"]] for n, v in m.items()
+                           if (n in undefined or n.startswith("??_7")) and v.get("addr")},
+                   "unresolved": sorted(n for n, v in m.items() if n in undefined and not v.get("addr"))}
+            break
+        except Exception as e:  # noqa: BLE001 - one function's failure must not stop the map
+            res = {"status": "error: %s" % type(e).__name__, "map": {}, "unresolved": []}
+            time.sleep(0.5)     # (jobq2: a transient error, e.g. another worker writing build/equiv/crt2.json, is retried)
+    if res["status"].startswith("error:"):
+        return res              # ... and a persistent one is not cached: the map must not depend on which run hit it
     os.makedirs(os.path.dirname(p), exist_ok=True)
-    with open(p, "w") as f:
+    tmp = p + ".%d.tmp" % os.getpid()
+    with open(tmp, "w") as f:
         json.dump(res, f)
+    os.replace(tmp, p)
     return res
 
 
@@ -957,7 +965,8 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
                                "groups": tally(after_g, after)}}
     if do_link:
         link_objs, data_objs = [], []
-        for o in sorted(objs.values()):
+        # (jobq2: by TU, not by object path: the clang cache names embed the compiler's path, so path order differs per host)
+        for o in sorted(objs.values(), key=lambda o_: (obj_tu.get(o_, ""), o_)):
             if standin_objs.get(o):
                 renames[o] = renames[o] + [(s_, s_ + "$standin") for s_ in sorted(standin_objs[o])]
             o2 = rename_object(o, renames[o]) if renames.get(o) else o
