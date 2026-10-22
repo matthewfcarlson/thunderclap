@@ -803,7 +803,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
     interior = {}
     own_rows = native_host.host_tables()[2] + native_host.library_table()[1]
     for s in sorted(after):
-        b = binding.get(s)
+        b = binding.get(s) or ({"addr": DATA_REBIND[s]} if s in DATA_REBIND else None)    # (unb1: DATA_REBIND into an item)
         a = int(b["addr"], 16) if b else name_address(s)
         if a is None or by_addr_def.get(a):
             continue
@@ -1029,7 +1029,17 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
 # it"): they linked as zero stubs. `float pure3d::scenegraph::one` (matches/0x00295e20.cpp, Node::vfunc_17's
 # `return &one` for a node with no parent) is the identity Matrix at 0x004c9f38 (tbl_004c9f38 in config/data.json); as
 # a stub every TransformNode's world matrix was local x 0 (the sky and every static scenegraph object drew nothing).
-DATA_REBIND = {"?one@scenegraph@pure3d@@3MA": "0x004c9f38"}
+# unb1: the audit of the rest ("no relocation names it" + data symbols no relocation reaches; build/unb1/notes.md).
+# `g2` (matches/0x0024e4c0.cpp): MSVC inlined TypeT_24e4c0's constructor into the function, so the verified relocation
+# is in `target` (0x4e6358, ambiguous with `Target`'s 0x4e6348, which is rebound per function); clang keeps the
+# constructor out of line, its reference to `g2` was left to the zero stub (bss at 0x4e6358: the pool bookkeeping the
+# temporary type object points at). `g_pool_2579f0` (matches/0x002579f0.cpp's operator delete): the audio pool at
+# 0x004e7620, inside DAT_004e75b8 (the interior retarget below). `_rttiBCA_00487908`: the base class array that
+# PTR_00438880 (data.s) points into at +4; tools/data_gen.py names it by kind and ADDR_RX does not match "rttiBCA".
+DATA_REBIND = {"?one@scenegraph@pure3d@@3MA": "0x004c9f38",
+               "?g2@fn_fb3c10a1@@3DA": "0x004e6358",
+               "?g_pool_2579f0@fn_002579f0@@3PADA": "0x004e7620",
+               "_rttiBCA_00487908": "0x00487908"}
 
 SITE_REBIND = [
     (0x002692c0, 0x003eb91f, "_hulk_xdk_XInputGetStateInit@8",
@@ -1409,7 +1419,8 @@ def code_owned_data(by_addr_def):
         while pos < n:
             if a + pos in labels:
                 out += ['\t.globl\t%s' % labels[a + pos], "%s:" % labels[a + pos]]
-            if pos + 4 <= n and (a + pos) % 4 == 0 and not any(a + pos + k in labels for k in (1, 2, 3)):
+            if pos + 4 <= n and (a + pos) % 4 == 0 and not any(a + pos + k in labels for k in (1, 2, 3)) \
+                    and not (it["kind"] == "rtti_td" and pos >= 8):     # unb1: a type descriptor's name is text
                 v, = struct.unpack_from("<I", raw, pos)
                 if lo <= v < hi:
                     t = target(v)
