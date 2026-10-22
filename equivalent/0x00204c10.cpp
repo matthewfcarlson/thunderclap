@@ -93,7 +93,7 @@ int Finder_204c10::FUN_00204c10(char wantNear)
             hulk_freg dx = p.x - origin.x;
             hulk_freg dy = p.y - origin.y;
             hulk_freg dz = p.z - origin.z;
-            hulk_freg d = (float)sqrt(dz * dz + dx * dx + dy * dy);
+            hulk_freg d = (float)sqrt(dy * dy + dz * dz + dx * dx);
             if (d < bestDist) {
                 if (wantNear) {
                     bestDist = d;

@@ -207,7 +207,7 @@ void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
         hulk_freg dz = p1b8.z - p290.z;
         f.F14 = 0.0f;
         if (state == 0) {
-            hulk_freg dot = dx * dx + dy * dy + dz * dz;
+            hulk_freg dot = dy * dy + dz * dz + dx * dx;
             if (!(AbsF(dot) <= 0.01f)) {
                 f.u.M = *v14();
                 f.vB.x = f.u.M.m[12];
@@ -272,7 +272,7 @@ void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
             hulk_freg ex = p1b8.x - f350->f1a60.x;
             hulk_freg ey = p1b8.y - f350->f1a60.y;
             hulk_freg ez = p1b8.z - f350->f1a60.z;
-            if (ex * ex + ey * ey + ez * ez >= DAT_0049ecd0 * DAT_0049ecd0) {
+            if (ey * ey + ez * ez + ex * ex >= DAT_0049ecd0 * DAT_0049ecd0) {
                 if (f350->FUN_00035550(&f.vC)) {
                     f.u.M = *v14();
                     f.vA.x = f.u.M.m[12];

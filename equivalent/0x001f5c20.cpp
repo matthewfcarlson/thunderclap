@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 397 inputs, branch coverage 97/102, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 18776 inputs, branch coverage 99/102, incomplete)
 // FUN_001f5c20 @ 0x001f5c20
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -213,7 +213,7 @@ void Mgr_1f5c20::FUN_001f5c20(int arg)
                         FUN_0024ac40(res->ref, r2, 1, 0, 0);
                 }
                 v = *p;
-                double dlen = sqrt(v->vz * v->vz + v->vy * v->vy + v->vx * v->vx);
+                double dlen = sqrt(v->vx * v->vx + v->vy * v->vy + v->vz * v->vz);
                 f.w.len = (float)dlen;
                 Row_1f5c20 *row = &v->rows[m];
                 if (row->flag == 0) {

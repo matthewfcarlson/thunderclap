@@ -279,7 +279,7 @@ char __stdcall FUN_001b05a0(Entity* self, HitObj_1b05a0* hit, Contact_1b05a0* c)
                 Obj1d72_1b05a0* state = self->FUN_001d72e0();
                 V3_1b05a0* velocity = &state->v50;
                 speedSquared =
-                    velocity->z * velocity->z + velocity->y * velocity->y + velocity->x * velocity->x;
+                    velocity->x * velocity->x + velocity->y * velocity->y + velocity->z * velocity->z;
             }
             if (speedSquared > threshold && s.direction.z * s.direction.z + s.direction.y * s.direction.y +
                                                     s.direction.x * s.direction.x >
@@ -323,7 +323,7 @@ char __stdcall FUN_001b05a0(Entity* self, HitObj_1b05a0* hit, Contact_1b05a0* c)
     if (hit->kind != 5 && self->b1c9) {
         Obj1d72_1b05a0* state = self->FUN_001d72e0();
         V3_1b05a0* velocity = &state->v50;
-        if (velocity->z * velocity->z + velocity->y * velocity->y + velocity->x * velocity->x > 25.0f) {
+        if (velocity->x * velocity->x + velocity->y * velocity->y + velocity->z * velocity->z > 25.0f) {
             bool activate = false;
             if (self->fec->FUN_001d5e80(self->f40) != 3)
                 activate = true;

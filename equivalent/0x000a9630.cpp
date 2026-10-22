@@ -81,7 +81,7 @@ void Manager_a9630::FUN_000a9630(Holder_a9630* holder) {
         hulk_freg dx = s.x - c.x;
         hulk_freg dy = s.y - c.y;
         hulk_freg dz = s.z - c.z;
-        double dist = sqrt((double)(dx * dx + dy * dy + dz * dz));
+        double dist = sqrt((double)(dy * dy + dz * dz + dx * dx));
         if (!(dist < s.radius))
             continue;
         hulk_freg a = (*(const float*)&DAT_004218a8);

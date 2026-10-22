@@ -15,5 +15,5 @@ struct Object {
 hulk_freg __cdecl FUN_003015c0(Object* a, Object* b) {
     Vec3* first = a->slot4();
     Vec3* second = b->slot4();
-    return ((second->x - first->x) * a->normalX + (second->y - first->y) * a->normalY + (second->z - first->z) * a->normalZ) - b->offset;
+    return ((second->y - first->y) * a->normalY + (second->z - first->z) * a->normalZ + (second->x - first->x) * a->normalX) - b->offset;
 }

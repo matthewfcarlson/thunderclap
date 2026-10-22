@@ -87,7 +87,7 @@ void Tracker_2fda20::Update()
             FUN_002ef760(s->sub, s->src->FUN_0030edf0()->FUN_0030f100(), 1.0f, s->f60, &s->dir);
         }
         Vec3_2fda20 *v = &slots[index].dir;
-        hulk_freg lenSq = v->z * v->z + v->y * v->y + v->x * v->x;
+        hulk_freg lenSq = v->x * v->x + v->y * v->y + v->z * v->z;
         float h = DAT_004d2960 * range;
         if (lenSq > h * h) {
             range = (float)sqrt(lenSq);

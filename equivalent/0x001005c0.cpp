@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2959 inputs, branch coverage 28/28)
+// STATUS: equivalent (tools/equiv.py level 3: 19831 inputs, branch coverage 28/28)
 // CHand2HandAgent::vfunc_20 @ 0x001005c0
 #include "decls/data/game/global.h"
 
@@ -219,7 +219,7 @@ void CHand2HandAgent::vfunc_20(Ctx1_1005c0 *a1, Out_1005c0 *a2, Arg3_1005c0 a3)
                 a3.u = 0;
         }
     } else {
-        double l3 = sqrt(v168.z * v168.z + v168.y * v168.y + v168.x * v168.x);
+        double l3 = sqrt(v168.x * v168.x + v168.y * v168.y + v168.z * v168.z);
         a3.f = (float)l3;
         if (1.0f < a3.f) {
             a3.f = 1.0f;
@@ -231,7 +231,7 @@ void CHand2HandAgent::vfunc_20(Ctx1_1005c0 *a1, Out_1005c0 *a2, Arg3_1005c0 a3)
                 a3.u = 0;
         }
     }
-    double l4 = sqrt(v168.z * v168.z + v168.y * v168.y + v168.x * v168.x);
+    double l4 = sqrt(v168.x * v168.x + v168.y * v168.y + v168.z * v168.z);
     if (l4 < DAT_004a1c04) {
         v168.z = 0.0f;
         v168.y = 0.0f;

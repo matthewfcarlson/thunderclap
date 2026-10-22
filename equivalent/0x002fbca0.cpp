@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // physics::CollisionOBB::vfunc_9 @ 0x002fbca0
 extern "C" double __cdecl sqrt(double);
 namespace physics {
@@ -17,7 +17,7 @@ struct CollisionOBB : CollisionVolume {
     virtual void vfunc_9();
 };
 void CollisionOBB::vfunc_9() {
-    radius = (float)sqrt(x*x + z*z + y*y);
+    radius = (float)sqrt(y*y + z*z + x*x);
     CollisionVolume::vfunc_9();
 }
 }
