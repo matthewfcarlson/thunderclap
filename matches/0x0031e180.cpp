@@ -88,5 +88,5 @@ class pddiBaseContext {
 };
 
 int pddiBaseContext::vfunc_82(int index) {
-    return (int)values[index];
+    return (int)(__int64)values[index];
 }

@@ -7,5 +7,5 @@ struct V {
     float b;
 };
 hulk_freg __fastcall FUN_00035700(V* p) {
-    return (float)sqrt((double)p->b * p->b + (double)p->a * p->a);
+    return sqrt((double)p->b * p->b + (double)p->a * p->a);
 }

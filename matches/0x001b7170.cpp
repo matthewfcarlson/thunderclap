@@ -129,7 +129,7 @@ void CRadMovieRenderLoop::vfunc_3(Fader_1b7170* fader) {
     DAT_004dd700->sub->FUN_001bf8b0();
     if (fade >= 0) {
         hulk_freg frac = (hulk_freg)(10 - fade) * 0.1f;
-        FUN_001b6fd0((int)(frac * 255.0f));
+        FUN_001b6fd0((int)(__int64)(frac * 255.0f));
         fade--;
         hulk_freg level = fader->vf11() - 0.1f;
         if (level < 0.0f)

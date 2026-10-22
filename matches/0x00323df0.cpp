@@ -153,8 +153,8 @@ void pure3d::d3dContext::vfunc_4() {
         vfunc_102(-1);
     }
     pddiBaseContext::vfunc_4();
-    hulk_freg h = (hulk_freg)target->GetHeight();
-    hulk_freg w = (hulk_freg)target->GetWidth();
+    float h = (hulk_freg)target->GetHeight();
+    float w = (hulk_freg)target->GetWidth();
     D3D8::D3DDevice_GetViewport(&vp);
     vp.X = 0;
     vp.Y = 0;

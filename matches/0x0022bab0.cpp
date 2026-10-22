@@ -1,5 +1,5 @@
-extern "C" float __cdecl sin(float);
-extern "C" float __cdecl cos(float);
+extern "C" double __cdecl sin(double);
+extern "C" double __cdecl cos(double);
 struct Mat_22bab0 {
     float v[11];
     void Set(float);

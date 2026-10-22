@@ -24,7 +24,7 @@ bool K_3199d0::Init(float a, float b, float c) {
         v = 1.0f;
     m0c = v;
     pad4 = 0;
-    sub.Fn(a, b, c);
+    (&sub)->Fn(a, b, c);
     m38 = a;
     return true;
 }

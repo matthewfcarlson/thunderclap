@@ -12,7 +12,7 @@ void Obj_79440::SetScale(int p) {
     if (p <= 0x14) {
         float local = (float)p / (float)divv;
         for (int i = 0; i < count; ++i) {
-            arr[i] = (int)((float)arr[i] * local);
+            arr[i] = (int)(__int64)((float)arr[i] * local);
         }
         divv = p;
     }

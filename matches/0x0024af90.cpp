@@ -10,5 +10,5 @@ extern const float big;
 unsigned int __cdecl target(X* p) {
     unsigned int n = get(p);
     hulk_freg f = (hulk_freg)(unsigned int)p->value * p->scale;
-    return n <= (unsigned int)(int)f;
+    return n <= (unsigned int)(int)(__int64)f;
 }

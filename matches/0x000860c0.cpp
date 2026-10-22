@@ -6,5 +6,5 @@ struct X {
 };
 extern const float scale;
 hulk_freg X::Get() {
-    return (float)((double)v * scale);
+    return (double)v * scale;
 }

@@ -15,5 +15,5 @@ struct Item {
 };
 void __cdecl FUN_002d1620(int unused, Owner* owner, Item* item) {
     Data* d = owner->data;
-    item->value = (char)((int)(item->amount / d->scale) % d->divisor);
+    item->value = (char)(__int64)((int)(__int64)(item->amount / d->scale) % d->divisor);
 }
