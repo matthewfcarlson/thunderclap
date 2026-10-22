@@ -1208,7 +1208,7 @@ stack including `fxch`, `fld st(i)` and the reverse/pop forms, float and int con
 `sqrt` and `sin`/`cos`/`atan2` as calls or instructions, `__ftol`, calls (an opaque leaf named by target and
 ordinal; the callee's `ret N` decides the stack), same-object helper functions (clang does not inline them, MSVC
 does: they are executed in place), constants in `.rdata` (read from the XBE; `__real@...` literals by name), and
-branches (state is merged at joins, values that differ become a `phi`; a loop head forgets everything). Symbols of
+branches (see the cl7b paragraph below: decided branches are followed, joins merge, values that differ become a `phi`). Symbols of
 the object are bound to addresses by aligning its instructions with the original's (as `tools/native_link.py` does
 for a `matches/` source) or, for an `equivalent/` source, by its `DAT_<addr>`/`FUN_<addr>` names and `equiv-map` lines.
 
@@ -1224,8 +1224,8 @@ original's order, which MSVC still compiles to the same bytes) or `src_differs` 
 even under MSVC).
 
 **Limits (conservative by construction).** A root with an unknown leaf (loop-carried value, memory the model lost, a
-call it cannot name) or without a counterpart of the same leaves is `unmatched`, never a finding: about two thirds of
-the original's roots are unmatched in the tree-wide scan (spills, partial sums with no counterpart, big functions with
+call it cannot name) or without a counterpart of the same leaves is `unmatched`, never a finding: about 41% of the
+original's roots are unmatched in the tree-wide scan (spills, partial sums with no counterpart, big functions with
 many calls and loops, `equivalent/` sources that are not structurally close to the original). A clean verdict
 therefore means "no grouping difference among the matched roots", not "none anywhere". Operand-position
 differences of non-commutative operators (`a-b` vs `b-a`) are findings only through a leaf match. Calls are matched by
@@ -1234,7 +1234,49 @@ to later loads of the same base. A subtraction rewritten as an addition of a neg
 rewrites are not (so they are `unmatched`). The tool does not look at SSE code, at the CRT, or at integer code.
 Hazard seen in the scan: a `matches/` source whose names say one address while the byte match bound another by
 position (`bind_name_conflicts` in the JSON: MSVC emits the later constant of `x*A*B` first, so `matches/0x000bbc50.cpp`
-names `DAT_00407b04` for the address `0x3f3358`); the native link follows the position.
+names `DAT_00407b04` for the address `0x3f3358`); the native link follows the position. The way out is a text that
+keeps both the match and the order: `DAT_00407b04 * ((*(volatile float*)&input) * DAT_003f3358)` (names and addresses agree,
+MSVC still emits the original's bytes).
+
+**Coverage work (cl7b).** The scan started with 72% of the roots unmatched (10,694 of 14,774 distinct original roots;
+reasons in `unmatched_why` of the `--json` output); it now leaves 41% (7,172 of 17,551), with 10,379 roots matched
+instead of 4,080. What changed in the model, each with unit cases in `tests/equiv/x87_order_synth/*.cpp` (a `ref`
+and a `test` function compiled from one file, `ref` by clang or, with `// ref-msvc`, by MSVC; the file says the
+statuses it must give, always with a negative case) and `tests/equiv/test_x87_order.py`:
+
+- **Control flow is followed, not linearised.** A conditional jump the constants decide (a loop over a constant
+  count, `for (i = 0; i < 3; i++)` against three unrolled statements) is taken or not; such a loop is unrolled
+  (up to 64 iterations, 200,000 instructions per run, else it is treated as a loop of unknown count). A loop of
+  unknown count is simulated once on the state it was entered with (those roots are real roots and are compared)
+  and once generically with what its body writes forgotten (registers by `regs_access`, stack slots, memory, x87
+  stack; those roots are counted in `orig_generic`, not compared). The paths of a function join in address order.
+- **Callee outputs.** A local whose address was passed to a call (`push eax` / `mov [esp+4], eax` / `ecx` of a
+  thiscall) and then read is the leaf `out(call#n).arg+delta`, the same on both sides whatever the frame layout. A
+  pointer argument is assumed not to be kept by the callee (only an address stored to memory is "retained" and
+  clobbered by every later call), so a loop whose calls do not receive the address keeps the value.
+- **Helpers executed in place.** A function of the same object (clang does not inline, MSVC does) is run on the
+  caller's state, not on a copy: its stores through pointer arguments and its roots count. Calls to unknown
+  symbols pop what their decoration says (`@@YA` cdecl, `_f@8`, thiscall) instead of a guess.
+- **Integers.** Constants fold through `add/sub/and/or/xor/shl/shr/sar/imul/neg/inc/dec/cdq` with flags, so branches
+  can be decided; other operations are pure atoms (`iop`) of their operands, so the same bit twiddling on both sides
+  names the same value (a random float built from a mantissa mask pairs). Pointer differences cancel
+  (`a + (b - a) = b`), `x*c`/`x<<k` are one atom, `movzx/movsx`, `div/idiv/mul`, `rep movs/stos` of a known count
+  (a struct copy by the original, `memcpy` by clang), a value that is a phi of pointers on two paths.
+- **Equal in IEEE, equal here.** `-(a-b) = b-a`, `(-a)+(-b) = -(a+b)`, `(-a)-b = -(a+b)`, `x*1`, `x*-1`; an unsigned
+  `int` to float (`fild` and `+2^32` against clang's 64-bit `fild`); a float stored on one path as bits and as a float
+  on the other; a compare after a branch join against the compares in each arm, and any tree whose phis were joined
+  elsewhere (the set of phi-free alternatives is equal); a virtual call as `call [vtable+n]` or `call reg` after the load.
+- **Original conventions.** `// equiv-conv: FUN_<addr> ecx stack ...` on the function under test maps the original's
+  register and stack parameters to the source's parameters.
+- **Pairing is stricter.** When several roots of one side share the leaves of the unpaired root (a symmetric
+  computation, the same value stored again with a constant added) a finding needs the closest kind of difference
+  (`assoc`, then `recip`, then `other`) to be unique on both sides, else the root is `unmatched` (`ambiguous`).
+
+Still unmatched (largest first): roots whose counterpart is missing or has an unknown leaf (loop-carried values,
+dynamic indexing of a stack array, spills of a layout the other side does not have), call-result leaves whose
+counterpart differs in call order or arity, stack slots written by callees through pointers inside bigger
+objects (windows are 16 bytes), branch joins of registers that are undefined on one path.
+
 
 ## Limits
 
