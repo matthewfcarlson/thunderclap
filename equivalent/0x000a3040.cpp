@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20043 inputs, branch coverage 73/74, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3043 inputs, branch coverage 73/74, incomplete; Wine build 3043 inputs, 73/74)
 // FUN_000a3040 @ 0x000a3040
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 extern "C" double __cdecl sqrt(double);
 struct V3_a3040 { float x, y, z; };
@@ -147,7 +148,7 @@ void CChaseCamera_a3040::Update(float unused, float dt)
             f.outB = f.pitch - f.v14 + f.outB + f.inv;
             f.outB = FUN_000186b0(&f.outB, &DAT_0049ec60, &DAT_0049ec5c);
             if (f.outB < f.angC) {
-                float t = f.angC - f.outB;
+                hulk_freg t = f.angC - f.outB;   // x87: the difference stays in st(0) for the add
                 f.outB = f.angC;
                 f.inv = t + f.inv;
             }
@@ -257,7 +258,7 @@ void CChaseCamera_a3040::Update(float unused, float dt)
     volatile float eyf = (float)ey;
     volatile float ezf = (float)ez;
     double L = sqrt(ez * ez + ey * ey + ex * ex);
-    float M = DAT_0049ec54 * dt;
+    hulk_freg M = DAT_0049ec54 * dt;     // x87: the limit stays in st(0) for the compare and the ratio
     if (L > M) {
         double ratio = M / L;
         f.out.x = (float)(exf * ratio + dx);
