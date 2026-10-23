@@ -331,6 +331,15 @@ class TraceRun(Run):
                 self.prefix_hi = esp
         return super()._on_code(uc, addr, size, _)
 
+    def _indirect_pop(self, target, tail):
+        # (cap2, vpop) an indirect call went to a real function (the recorded target, on both sides): its own `ret N` says what it
+        # pops, not the call site's guess (`push x4; call [edx+0x48]` with a `ret 4` callee, then `push eax; call cdecl;
+        # add esp, 0x14`: the guess left the stack 4 bytes low and every esp-relative local read its neighbour: 0xd3170)
+        if "vpop" in REPLAY_OFF or tail or target not in self.prog.funcs:
+            return None
+        rp = self.prog.callee_pop(target)
+        return rp if rp else None       # (a cdecl callee, pop 0: its arity is the call site's business)
+
     def stack_top(self):
         return equiv.ENTRY_ESP + 4 + 4 * len(self.inp["stack"])
 
@@ -370,13 +379,17 @@ class TraceRun(Run):
             return None
         return v
 
-    def resolve(self, enc, k):
+    def resolve(self, enc, k, reg=False):
         if enc is None:
             return None
         if enc[0] == "raw":
             return enc[1]
         b = self.base_value(enc[1], k)
-        if b is None or (self.syncer is None and enc[1][0] == "entry" and enc[2] < 0):
+        # (cap2, negentryreg) a result register holding a stale stack address below the entry (the high bytes of
+        # a bool-returning callee's eax): the function may test its low byte (`mov bl, al; test bl, bl`), and the
+        # replay's stack has the game's low 12 bits, so the value is reproduced instead of left to the stub
+        if b is None or (self.syncer is None and enc[1][0] == "entry" and enc[2] < 0 and
+                         not (reg and "negentryreg" not in REPLAY_OFF)):
             self.base_misses += 1
             return None
         return (b + enc[2]) & M32
@@ -389,7 +402,27 @@ class TraceRun(Run):
             frame = res.get("frame")
             if self.syncer is not None and frame:
                 off, data = frame               # capture: the game's frame after the call, byte for byte
+                esp_g = self.trace["entry"].get("esp_g")
+                if esp_g is not None and "capstackptr" not in REPLAY_OFF and len(data) >= 4 and snap:
+                    # (cap2, capstackptr) a stack address the function itself stored (the saved `ebp` of a
+                    # `push ebp; mov ebp, esp` frame, a pushed &local) stays Unicorn's own: the game's address in
+                    # `pop ebp; mov esp, ebp; ret` sends the run into the caller. (A pointer the callee wrote differs
+                    # from Unicorn's word and stays the game's, as in replay.) The recording keeps the game's bytes
+                    b = bytearray(data)
+                    d_ = (equiv.ENTRY_ESP - esp_g) & M32
+                    for j in range(0, min(len(b), len(snap)) - 3, 4):
+                        w_ = struct.unpack_from("<I", b, j)[0]
+                        sw_ = struct.unpack_from("<I", snap, j)[0]
+                        if (esp_g - FRAME_BELOW <= w_ < esp_g + 0x1000 and (w_ + d_) & M32 == sw_) or \
+                                ("ptrdiffmem" not in REPLAY_OFF and w_ != sw_ and sw_ in ((w_ + d_) & M32, (w_ - d_) & M32)):
+                            struct.pack_into("<I", b, j, sw_)
+                    data = bytes(b)
+                # (cap2, bigpop) a callee that pops more than 0xFC bytes (a struct passed by value, `ret 0x2bc`): the
+                # fuzzing stub put the return address in the last argument slot, inside the game's frame
+                ra_ = bytes(uc.mem_read(self.reg("esp"), 4)) if "bigpop" not in REPLAY_OFF else None
                 uc.mem_write(equiv.ENTRY_ESP + off, data)
+                if ra_ is not None:
+                    uc.mem_write(self.reg("esp"), ra_)
                 uc.mem_write(equiv.ENTRY_ESP, struct.pack("<I", equiv.SENTINEL))    # (not the game's return address)
                 return self._apply_regs(insn, target, res, k)
             # Replay, both sides alike: what the callee wrote into the frame, placed relative to the pointer it
@@ -607,7 +640,7 @@ class TraceRun(Run):
             clobbers = {"eax", "ecx", "edx"}
         for r in ("eax", "edx", "ecx"):
             if r in clobbers and r in res:
-                v = self.resolve(res[r], k)
+                v = self.resolve(res[r], k, reg=True)
                 if v is not None:
                     uc.reg_write(equiv._uc_regs()[r], v)
         if res.get("st0") is not None:

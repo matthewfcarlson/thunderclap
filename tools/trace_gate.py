@@ -160,13 +160,14 @@ class GateCapture(tc.Capture):
         t_end = t0 + SYNC_TIMEOUT
         nested_s = 0.0
         try:
+            self.step_off_bp()      # (trace_capture.Capture.cont_until: a guest sitting on a breakpoint)
             while True:
                 left = t_end + nested_s - time.time()
                 if left <= 0:
-                    cc.abort("the game did not get there in %ds" % SYNC_TIMEOUT)
+                    cc.abort("the game did not get there in %ds%s" % (SYNC_TIMEOUT, getattr(cc, "near", None) and " [callee-saved: %s]" % cc.near or ""))
                 rep = self.g.cont_timeout(left)
                 if rep is None:
-                    cc.abort("the game did not get there in %ds" % SYNC_TIMEOUT)
+                    cc.abort("the game did not get there in %ds%s" % (SYNC_TIMEOUT, getattr(cc, "near", None) and " [callee-saved: %s]" % cc.near or ""))
                 if not rep.startswith(("T", "S")):
                     cc.abort("stop reply %r" % rep[:40])
                 r = self.g.regs_full()
@@ -174,7 +175,7 @@ class GateCapture(tc.Capture):
                 if pred(r):
                     return r
                 if diverged and diverged(r):
-                    cc.abort("the game took another path (returned at %#x)" % r["eip"])
+                    cc.abort("the game took another path (returned at %#x)%s" % (r["eip"], getattr(cc, "near", None) and " [callee-saved: %s]" % cc.near or ""))
                 cc.stops = getattr(cc, "stops", 0) + 1
                 if self.a.max_stops and cc.stops > self.a.max_stops:
                     # a function whose call runs much of the game (a frame, a load) costs a stop per callee
@@ -193,7 +194,7 @@ class GateCapture(tc.Capture):
                         if pred(r):
                             return r
                         if diverged and diverged(r):
-                            cc.abort("the game took another path (returned at %#x)" % r["eip"])
+                            cc.abort("the game took another path (returned at %#x)%s" % (r["eip"], getattr(cc, "near", None) and " [callee-saved: %s]" % cc.near or ""))
                         if r["eip"] in self.g.bps and r["eip"] != self.gate:
                             self.g.step_over(r["eip"])
                         continue

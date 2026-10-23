@@ -3292,6 +3292,10 @@ class Run:
         except Exception:
             return False
 
+    def _indirect_pop(self, target, tail):
+        """The callee's pop for a call through a pointer (None: the call site's cleanup decides). Trace replay overrides it."""
+        return None
+
     def _stub(self, insn, target, tail, x87_override=None):
         u = self.u
         uc = self.uc
@@ -3300,7 +3304,7 @@ class Run:
         self.cdecl_site = False
         # Callee facts only for real call sites: a target read from fuzzed memory is just a number.
         known = insn.target is not None or (insn.mem is not None and insn.mem[1] is None and insn.mem[2] is None)
-        p = self.prog.callee_pop(target) if known else None
+        p = self.prog.callee_pop(target) if known else self._indirect_pop(target, tail)
         if tail:
             argbase = esp + 4
             if p is None:

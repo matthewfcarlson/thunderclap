@@ -67,6 +67,16 @@ CASES = {
     "0x0021ee70_own_conv": ("g-play2b", "agreed", None, 1),
     "0x0021ee70_own_conv_off": ("g-play2b", "mismatch", "argument 2", 0, "ownconvdead"),
     "0x0021ee70_own_conv_wrong": ("g-play2b", "mismatch", "argument 2"),
+    # (cap2, negentryreg) a bool-returning callee's eax held a stale stack address below the entry (low byte 1): the
+    # replay left it to the stub, the original took the other branch and its call targets differed (0x000396a0)
+    "0x000396a0_neg_entry_reg": ("cap2-b5", "agreed", None, 1),
+    "0x000396a0_neg_entry_reg_off": ("cap2-b5", "no_replay", "call targets differ", 0, "negentryreg"),
+    # (cap2, vpop) `push x5; call [edx+0x48]` to a `ret 4` callee, then `push eax; call cdecl; add esp, 0x14`: the call-site guess left
+    # the stack 4 bytes low and an esp-relative local read its neighbour (0x000d3170, captured with the real pop)
+    "0x000d3170_vcall_pop": ("cap2-d2", "agreed", None, 1),
+    "0x000d3170_vcall_pop_off": ("cap2-d2", "no_replay", None, 0, "vpop"),
+    # (cap2, ptrdiffmem; capture side) `sub eax, ecx` stored in the frame (arg - &array) differs by the stacks' offset: recaptured, 0x000a89c0
+    "0x000a89c0_ptrdiff_mem": ("cap2-e", "agreed", None, 1),
 }
 
 

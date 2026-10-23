@@ -39,7 +39,7 @@ import struct
 import sys
 import threading
 import time
-from collections import Counter
+from collections import Counter, deque
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import equiv  # noqa: E402
@@ -52,9 +52,10 @@ from xemu_gdb import Gdb  # noqa: E402
 
 ROOT = equiv.ROOT
 DEFAULT_SCRIPT = os.path.join(ROOT, "tests/replays/capture-gameplay.json")
+CAP_OFF = set(os.environ.get("HULK_CAP_OFF", "").split(","))    # switches: stepbp, stackptr, ptrdiff, bigargs
 CAP_STEPS = int(os.environ.get("HULK_CAP_STEPS", "400000"))   # Unicorn steps per captured call (the real data can
                             # loop long; cap1: HULK_CAP_STEPS=8000000 for 0x002731d0, which loops ~40,000 callee calls)
-SYNC_TIMEOUT = 60           # seconds the game may take inside one callee (nested captures not counted)
+SYNC_TIMEOUT = int(os.environ.get("HULK_CAP_SYNC", "60"))          # seconds the game may take inside one callee (nested captures not counted)
 BELOW = 0x2000              # guest stack bytes read below esp at each sync
 MAX_DEPTH = 3               # nested captures
 NO_FETCH = [(0xF0000000, 0x100000000)]       # MMIO (NV2A, APU, ...): never read through the stub
@@ -71,6 +72,7 @@ class CapGdb(Gdb):
     def __init__(self, *a, **kw):
         super().__init__(*a, **kw)
         self.bps = set()
+        self.pc = None              # where the guest last stopped (None once it has run on)
         self.ops = 0
         self.lock = threading.RLock()
 
@@ -83,6 +85,8 @@ class CapGdb(Gdb):
 
     def cmd(self, data):
         with self.lock:
+            if data[:1] in ("P", "G", "c", "s", "C", "S", "v"):
+                self.pc = None          # (the stop address is no longer where the guest is)
             self._send(data)
             while True:
                 r = self._recv_packet()
@@ -108,6 +112,7 @@ class CapGdb(Gdb):
         r = bytes.fromhex(self.cmd("g"))
         names = ("eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi", "eip", "eflags")
         d = dict(zip(names, struct.unpack_from("<10I", r)))
+        self.pc = d["eip"]
         # (xemu's stub sends fs_base, gs_base, k_gs_base, cr0, cr2, cr3, cr4, cr8, efer after the segment
         # registers: 344 bytes = 64 + 36 + 8 x 10 (st) + 8 x 4 (fctrl ...) + 8 x 16 (xmm) + 4 (mxcsr))
         d["fs_base"], d["cr0"] = struct.unpack_from("<I", r, 64)[0], struct.unpack_from("<I", r, 76)[0]
@@ -119,6 +124,7 @@ class CapGdb(Gdb):
     def cont_timeout(self, timeout):
         """Continue; the stop reply, or None after `timeout` seconds (the guest is then interrupted)."""
         with self.lock:
+            self.pc = None
             self._send("c")
             try:
                 return self._recv_packet(timeout)
@@ -130,6 +136,7 @@ class CapGdb(Gdb):
     def step_over(self, a):
         with self.lock:
             self.ops += 2
+            self.pc = None
             self.clear_break(a)
             self._send("s")
             self._recv_packet(30)
@@ -161,6 +168,19 @@ class CapGdb(Gdb):
 # ---------------------------------------------------------------------------------------------
 def insn_known(c):
     return c.get("known", True)
+
+
+class CapRun(er.TraceRun):
+    """TraceRun that remembers the last instructions it ran (the failure messages show them)."""
+
+    def __init__(self, *a, **kw):
+        super().__init__(*a, **kw)
+        self.ring = deque(maxlen=96)
+
+    def _on_code(self, uc, addr, size, _):
+        if not (addr < 0x11000 and self.ring and self.ring[-1] < 0x11000):     # (a jump into zeroed memory runs `add [eax], al` for ages)
+            self.ring.append(addr)
+        return super()._on_code(uc, addr, size, _)
 
 
 class CallCapture:
@@ -208,20 +228,31 @@ class CallCapture:
         self.cur_e = e_g
         want = {r: self.g_stack(run.reg(r)) for r in CALLEE_SAVED}
         entry_g, ret_g = self.entry_g, self.ret_g
+        # (cap2) a callee-saved register holding the difference of a stack address and another address
+        # (`sub ebx, eax` with eax = &local) differs by the two stacks' offset: P - &local, or &local - P
+        dlt = (entry_g - equiv.ENTRY_ESP) & 0xFFFFFFFF
+        self.near = None
+
+        def regs_ok(r):
+            bad = [x for x in CALLEE_SAVED if r[x] != want[x] and not (
+                "ptrdiff" not in CAP_OFF and
+                r[x] in ((run.reg(x) + dlt) & 0xFFFFFFFF, (run.reg(x) - dlt) & 0xFFFFFFFF))]
+            if bad:
+                if self.near is None or not str(self.near).startswith("first "):    # (the first mismatch, not the last)
+                    self.near = "first " + ", ".join("%s game %#x Unicorn %#x" % (x, r[x], want[x]) for x in bad)
+            return not bad
         if tail:
             ret = ret_g
 
             def ok(r):
-                return r["eip"] == ret_g and entry_g < r["esp"] <= entry_g + 0x404 and \
-                    all(r[x] == want[x] for x in CALLEE_SAVED)
+                return r["eip"] == ret_g and entry_g < r["esp"] <= entry_g + 0x404 and regs_ok(r)
             diverged = None
         else:
             ret = insn.addr + insn.size
             self.cap.bp_temp(ret, True)
 
             def ok(r):
-                return r["eip"] == ret and e_g <= r["esp"] <= e_g + 0x1000 and \
-                    all(r[x] == want[x] for x in CALLEE_SAVED)
+                return r["eip"] == ret and e_g <= r["esp"] <= e_g + 0x1000 and regs_ok(r)
 
             def diverged(r):
                 return r["eip"] == ret_g and entry_g < r["esp"] <= entry_g + 0x404
@@ -235,7 +266,7 @@ class CallCapture:
         if tail:
             self.final_regs = regs
         else:
-            top_g = entry_g + 4 + 4 * er.STACK_WORDS
+            top_g = entry_g + 4 + 4 * self.nw
             g = self.g.read_pages(e_g, top_g - e_g, must=e_g)
             if g is None:
                 self.abort("could not read the game's stack at %#x" % e_g)
@@ -273,14 +304,34 @@ class CallCapture:
         if tail:
             return
         e_g, g = rec.pop("_frame")
+        if os.environ.get("HULK_CAP_DBG"):
+            print("CAPDBG call %d %#x esp entry%+#x U %s G %s" % (k + 1, rec["target"], esp - equiv.ENTRY_ESP, snap[:0x60].hex(), g[:0x60].hex()),
+                  file=sys.stderr, flush=True)
         # Unicorn's frame equals the game's before the call (it started from the game's stack and takes the
         # game's frame after every call), so what differs now is what the callee wrote
         rec["frame"] = (esp - equiv.ENTRY_ESP, g)
         n = min(len(g), len(snap))
         runs = []
         ra = equiv.ENTRY_ESP - esp          # the return-address slot: the game's caller vs Unicorn's sentinel
+        entry_g = self.entry_g
+
+        def stackptr(i):
+            # (cap2) a stack address the function stored (`lea eax,[esp+..]; mov [esp+x],eax`, a push hoisted over
+            # the call): the game's word is its own stack, Unicorn's the same place in its stack. Not a callee write.
+            if "stackptr" in CAP_OFF:
+                return False
+            for j in range(max(0, i - 3), min(i, n - 4) + 1):
+                gw, sw = struct.unpack_from("<I", g, j)[0], struct.unpack_from("<I", snap, j)[0]
+                if abs(gw - entry_g) < 0x20000 and self.to_unicorn(gw) & 0xFFFFFFFF == sw:
+                    return True
+                if "ptrdiffmem" not in CAP_OFF and gw != sw and \
+                        sw in (self.to_unicorn(gw) & 0xFFFFFFFF, (2 * gw - self.to_unicorn(gw)) & 0xFFFFFFFF):
+                    # (cap2, ptrdiffmem) `sub eax, ecx` (a pointer less &local) stored in the frame: it differs by the
+                    # stacks' offset, like the register case (0xa89c0: [esp+0x20] = arg - &array)
+                    return True
+            return False
         for i in range(n):
-            if g[i] != snap[i] and not ra <= i < ra + 4:
+            if g[i] != snap[i] and not ra <= i < ra + 4 and not stackptr(i):
                 if runs and runs[-1][1] == i:
                     runs[-1][1] = i + 1
                 else:
@@ -293,7 +344,8 @@ class CallCapture:
             if key[0] == "entry" and i1 > argb and any(esp + i in run.seg_stack_w for i in range(max(i0, argb), i1)):
                 # the function itself wrote these bytes since the last call, and no pointer this call got
                 # reaches them: the game computed something else (the co-simulation diverged)
-                self.abort("the game's frame differs from Unicorn's at entry%+#x after call #%d" % (off, k + 1))
+                self.abort("the game's frame differs from Unicorn's at entry%+#x after call #%d (game %s, Unicorn %s)" %
+                           (off, k + 1, bytes(g[i0:min(i1, i0 + 16)]).hex(), bytes(snap[i0:min(i1, i0 + 16)]).hex()))
             rec["delta"].append((key, off, bytes(g[i0:i1])))
         # a callee may write a value that was there already: also keep what its static write extent covers
         # through each pointer into the frame (equiv.py's stubs fill the same extents)
@@ -315,12 +367,15 @@ class CallCapture:
         oview, own_float = cap.view(f)
         esp = regs["esp"]
         lo = esp - BELOW
-        top_g = esp + 4 + 4 * er.STACK_WORDS
+        # (cap2) arguments passed by value can fill more than the usual words (`ret 0x2c0`): all of them, and the
+        # usual caller frame above
+        self.nw = er.STACK_WORDS if "bigargs" in CAP_OFF else max(er.STACK_WORDS, ((cap.prog.callee_pop(f) or 0) >> 2) + 32)
+        top_g = esp + 4 + 4 * self.nw
         raw = g.read_pages(lo, top_g - lo, must=esp)
         if raw is None:
             return "stack unreadable"
         self.ret_g = ret_g = struct.unpack_from("<I", raw, esp - lo)[0]
-        stack = list(struct.unpack_from("<%dI" % er.STACK_WORDS, raw, esp + 4 - lo))
+        stack = list(struct.unpack_from("<%dI" % self.nw, raw, esp + 4 - lo))
         pop = cap.prog.callee_pop(f)
         nargs = cap.prog.callee_stack_args(f)
         if nargs is None:
@@ -329,7 +384,7 @@ class CallCapture:
         self.rec = rec = {
             "func": f, "n": n, "results": [], "pages": {},
             "entry": {"regs": {r: regs[r] for r in ("eax", "ecx", "edx", "ebx", "esi", "edi", "ebp")},
-                      "stack": stack, "own_args": min(nargs, er.STACK_WORDS), "own_pop": pop,
+                      "stack": stack, "own_args": min(nargs, self.nw), "own_pop": pop,
                       "fpcw": regs["fctrl"] & 0xFFFF, "fpsw": regs["fstat"] & 0xFFFF, "esp_g": esp, "ret_g": ret_g, "below": raw[:esp - lo]},
             "context": {"t": round(time.time() - cap.t0, 1), "polls": cap.polls, "frame": cap.frame,
                         "depth": self.depth}}
@@ -337,7 +392,7 @@ class CallCapture:
         cap.bp_temp(ret_g, True)
         mach = er.TraceMemory(cap.prog, fetch=cap.fetch_page)
         inp = er.make_input(rec["entry"])
-        run = er.TraceRun(cap.prog, oview, mach, inp, ours_image=None, sig=None, max_steps=CAP_STEPS,
+        run = CapRun(cap.prog, oview, mach, inp, ours_image=None, sig=None, max_steps=CAP_STEPS,
                           own_float_ret=own_float, coverage=True, helpers=cap.helpers, trace=rec, side="orig",
                           syncer=self)
         run.pointee_sizes, run.convs, run.slot_arity, run.loop_limits, run.varargs = {}, {}, {}, {}, set()
@@ -348,7 +403,7 @@ class CallCapture:
             if self.abort_why:
                 why = self.abort_why
             elif o["status"] != "ret":
-                why = "the original's run: %s" % o["status"]
+                why = "the original's run: %s at %#x after %s" % (o["status"], o.get("fault_at") or 0, self.fault_ctx(run)) if o["status"].startswith("fault") else "the original's run: %s" % o["status"]
             elif mach.bad:
                 why = "unreadable page %#x" % min(mach.bad)
             elif not self.noreturn:      # (a call that never returns: compared up to it)
@@ -368,6 +423,18 @@ class CallCapture:
         with cap.store_lock:
             cap.store.put_call(f, n, rec)
         return why
+
+    def fault_ctx(self, run):
+        """Where a faulted run was: the last instruction, esp (as an offset from the entry esp) and the top stack words."""
+        try:
+            ci = run.cur_insn
+            esp = run.reg("esp")
+            words = struct.unpack("<4I", bytes(run.uc.mem_read(esp, 16)))
+            return "%#x, esp entry%+#x, [esp] %s; last: %s" % (
+                ci.addr if ci is not None else 0, esp - equiv.ENTRY_ESP, " ".join("%#x" % w for w in words),
+                " ".join("%x" % a for a in list(run.ring)[-90:]))
+        except Exception as e:  # noqa: BLE001
+            return "(no context: %s)" % type(e).__name__
 
     def final_check(self, run, o):
         entry_g, ret_g = self.entry_g, self.ret_g
@@ -495,18 +562,27 @@ class Capture:
     def budget_left(self, f):
         return self.captured[f] < self.a.per_func and self.failed[f] < self.a.max_fail and self.consec_fail[f] < 4
 
+    def step_off_bp(self):
+        if "stepbp" not in CAP_OFF and self.g.pc is not None and self.g.pc in self.g.bps:
+            self.stepped["start"] += 1
+            self.g.step_over(self.g.pc)
+
     def cont_until(self, cc, pred, diverged=None):
         t0 = time.time()
         t_end = t0 + SYNC_TIMEOUT
         nested_s = 0.0
         try:
+            # A guest stopped on an address with a breakpoint (the return address of the previous call, when the
+            # next call returns to the same place: a loop) would stop there again at once, without running.
+            # (cap2: the loop's second call then saw the first one's state; "frame differs ... entry-8", timeouts)
+            self.step_off_bp()
             while True:
                 left = t_end + nested_s - time.time()
                 if left <= 0:
-                    cc.abort("the game did not get there in %ds" % SYNC_TIMEOUT)
+                    cc.abort("the game did not get there in %ds%s" % (SYNC_TIMEOUT, getattr(cc, "near", None) and " [callee-saved: %s]" % cc.near or ""))
                 rep = self.g.cont_timeout(left)
                 if rep is None:
-                    cc.abort("the game did not get there in %ds" % SYNC_TIMEOUT)
+                    cc.abort("the game did not get there in %ds%s" % (SYNC_TIMEOUT, getattr(cc, "near", None) and " [callee-saved: %s]" % cc.near or ""))
                 if not rep.startswith(("T", "S")):
                     cc.abort("stop reply %r" % rep[:40])
                 r = self.g.regs_full()
@@ -514,7 +590,7 @@ class Capture:
                 if pred(r):
                     return r
                 if diverged and diverged(r):
-                    cc.abort("the game took another path (returned at %#x)" % r["eip"])
+                    cc.abort("the game took another path (returned at %#x)%s" % (r["eip"], getattr(cc, "near", None) and " [callee-saved: %s]" % cc.near or ""))
                 if r["eip"] in self.armed:
                     t1 = time.time()
                     if cc.depth + 1 < MAX_DEPTH and abs(r["esp"] - cc.cur_e) < 0x10000:
@@ -525,7 +601,7 @@ class Capture:
                         if pred(r):
                             return r
                         if diverged and diverged(r):
-                            cc.abort("the game took another path (returned at %#x)" % r["eip"])
+                            cc.abort("the game took another path (returned at %#x)%s" % (r["eip"], getattr(cc, "near", None) and " [callee-saved: %s]" % cc.near or ""))
                         if r["eip"] in self.g.bps:
                             self.g.step_over(r["eip"])
                         continue

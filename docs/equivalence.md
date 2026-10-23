@@ -643,6 +643,19 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   - Replay (`tools/equiv_replay.py`): a function with its own `// equiv-conv` places a callee's out-parameter in our dead
     argument slots without the original's liveness test (its slots hold different words); `REPLAY_OFF=ownconvdead` turns it
     off. 3 cases in `replay_regress.py` (0x0021ee70).
+  - Capture/replay (cap2, the 27 functions the recorder could not capture; `tools/trace_capture.py`, `tools/equiv_replay.py`):
+    all 27 were recorder or replay-model failures, none a source difference. 25 are now captured and **agree** (67 calls).
+    Switches: recorder `HULK_CAP_OFF=stepbp,stackptr,ptrdiff,ptrdiffmem,bigargs`; replay `REPLAY_OFF=negentryreg,bigpop,vpop,ptrdiffmem`.
+    `stepbp`: a guest stopped on a temporary breakpoint (a loop calling from one site) re-hit it at once. `stackptr`/`ptrdiff`/
+    `ptrdiffmem`: a stack address, or a difference of a stack address and another address (`sub eax, ecx` with ecx = &local),
+    held in a register or stored in the frame differs by the two stacks' offset and is not a callee write (0x92390, 0xa89c0).
+    `bigargs`/`bigpop`: a by-value struct (`ret 0x2bc`): the fuzzing stub keeps the return address in the last argument slot,
+    which the game's frame copy overwrote (0xb86b0, 0xba040, 0x1f6cd0). `negentryreg`: a bool-returning callee's eax held a
+    stale stack address below the entry; its low byte is tested (0x000396a0). `vpop`: an indirect call to a real `ret N`
+    function takes N from the callee, not from the call-site guess (a guess of 0 left esp 4 low and an esp-relative local read
+    its neighbour: 0x000d3170). Not capturable: 0x00265390 (a worker queue loop) and 0x0026dc20 (a thread entry that runs
+    `fn(arg)` and does not return); a capture holds the gate for minutes and everything called meanwhile is skipped, so these
+    need their own session. 6 cases in `replay_regress.py`.
   - Tried and **not adopted**: `smashargs` (an indexed frame store past the argument words counted as an overrun): no clean
     case, and 0x002f4eb0's native failure is a reused stack slot plus `bool_ub`, not this. Decided **no change** (real
     differences): a reused stack slot / an uninitialised local read by ours (0x001f7320, 0x002f4eb0's `unitsName`).
