@@ -102,7 +102,7 @@ $J tools/wine_replay_job.py compare ID1 ID2 ...           # common checkpoint fr
   that image on mac2, so use `wine-gfx` (laptop only) when a picture matters.
 - `HULK_SYNCIO=5` (lockstep, the default with a recording) makes runs deterministic: play3 gave identical checkpoint
   hashes on the laptop, mac2 and mac1 (2026-10-21, 120 s runs: 7,440, 8,460 and 2,040 frames; mac1 was loaded at the time).
-- The queue daemon reads `hosts.json` once at start: after changing `caps` restart it (`jobs survive`), or the new capability is ignored.
+- The queue daemon re-reads `hosts.json` every 30 s: `caps`, `xemu_max` and `slots` edits apply without a restart.
 
 
 ## Wine builds

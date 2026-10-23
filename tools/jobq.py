@@ -790,7 +790,7 @@ class Daemon:
         os.replace(tmp, HOSTS_STATE)
 
     def reload_caps(self):
-        """hosts.json edits to a known host's caps / xemu_max take effect without a restart (running jobs keep going)."""
+        """hosts.json edits to a known host's caps / xemu_max / slots take effect without a restart (running jobs keep going)."""
         path = os.environ.get("JOBQ_HOSTS") or os.path.join(JOBS, "hosts.json")
         try:
             m = os.path.getmtime(path)
@@ -806,6 +806,9 @@ class Daemon:
                 h.caps = set(cfg.get("caps", []))
                 h.xemu_max = cfg.get("xemu_max", 1) if "xemu" in h.caps else 0
                 log("%s: caps now %s" % (h.name, ",".join(sorted(h.caps))))
+            if cfg is not None and cfg.get("slots", h.slots_cfg) != h.slots_cfg:
+                h.slots_cfg = cfg["slots"]
+                log("%s: configured slots now %d" % (h.name, h.slots_cfg))
 
     def recover(self, c):
         """Jobs left 'running' by a dead daemon go back to the queue; their remote leftovers are killed."""
