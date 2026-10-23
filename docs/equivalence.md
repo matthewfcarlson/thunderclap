@@ -26,7 +26,7 @@ input cap to at least N.
 | 1 | compiles with MSVC 7.1 (`compare.py` flags; `--clang` adds a host-clang syntax check, warning only) | compile errors |
 | 2 | same references: callees, globals, vftables, strings, float constants (in memory and in immediates), the initializers of globals the source defines | a missing or extra callee or global, an unresolvable symbol, a float constant a few ulps off the original's, a defined global whose initial bytes aren't the original's |
 | 3 | differential execution in Unicorn on fuzzed inputs | any difference in calls, memory writes, return value, callee-saved registers or stack balance |
-| Wine mode (`--wine`) | levels 1-3 with SRC compiled by clang the way the Wine build compiles it (i686, -O0, x87, `hulk_freg` = double), run against the original | the same, plus the Wine-specific rules (rounds 18-21) |
+| Wine mode (`--wine`) | levels 1-3 with SRC compiled by clang the way the Wine build compiles it (i686, -O0, x87, `hulk_freg` = double), run against the original | the same, plus the Wine-specific rules (rounds 18-22) |
 
 `status` is `equivalent` (levels 1–3 pass), `fail`, `inconclusive` (no difference, but fewer than 8 inputs
 ran to completion or branch coverage is under 25%; byte-identical code is exempt), `unsupported` (level 3
@@ -684,6 +684,108 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     71 after (54 flips, none the other way); 253 still fail, plus 2 unsupported, 1 inconclusive and 1 compile error. These are
     60-input results: re-run a source at 3000 inputs before promoting it. Earlier, for vptrkeep alone, the 59 `vptr-loaded-before-call`
     sources went from 8 to 31 equivalent (`build/cl10/out/vptr59*.jsonl`).
+
+- (round 22, cl11) **Wine-mode gaps nf3 left open** (the 195 Wine-build sources still failing `--wine` at 60 inputs after
+  nf3's fixes, `build/cl11/nf3open.txt`): stack bytes and words the function does not own, compared as if it did. Each rule is
+  switchable with `EQUIV_OFF=name` and has a passing case, an `_off` case and a deliberately wrong source in
+  `tests/equiv/cases/` (`regress.py`, "round 22"). `fillsame`, `vsplit`, `purecall` and the stored-word half of `stackval` are
+  `--wine` only; the others apply in MSVC mode as well (sample below).
+  - `calleext`: **a local passed by pointer is compared only as far as the callee can reach.** `Program.callee_reads(target)`
+    is a new over-approximating scan of a function (and its callees, depth 5): for each pointer argument (stack word or
+    ecx/edx/eax) the bytes it reads or writes through it, with every escape tracked: a pointer stored to memory, used as an
+    index, advanced in a loop (a register holding it on one path only is poisoned: any later use escapes it), used in other
+    arithmetic, passed to an unknown or indirect callee, a negative offset, a frame address passed on (`f(&p)` with p holding
+    the argument: the slots around a taken frame address escape). An escaped argument, an SEH frame (`[ebp+8]` with no `mov
+    ebp, esp`) or an unknown callee leave the old comparison. Where the extent is known, bytes past it are not compared: they
+    are the original's neighbouring locals (`FUN_00356bf0(r, az, pol, &d.x, &d.y, &d.z)` reads 4 bytes through each; clang's
+    frame has other locals next to `d.z`). Direct calls only: a vtable slot's implementations are mostly unknown to the scan
+    (slot 0x20 popping 8: 184 of 201). Unit test `test_callee_reads`. 0x002d21c0.
+  - `nofill`: the same scan's write extent caps the stub's speculative out-parameter fill (0: none). A callee that only reads
+    a vector (`FUN_002f0080(&p, &q, &box)`, a clip test) had its first word and up to 16 bytes "filled" on each side, by
+    different rules for the original's argument area and clang's local copy. 0x002f0780 (and 0x002f05f0, 0x002f0d80, 0x002f1010).
+  - `fillsame` (`--wine`): the fill of a pointer at an odd address was one byte, at an aligned one a word and more: `char
+    buf[32]` sits anywhere in clang's frame, so `snprintf(buf, ...)` twice left different bytes in it. Ours now writes the bytes
+    the original's fill wrote, at the same offsets from its pointer, within the room ours has (not over its own data, a save
+    slot or the next local whose address it takes). 0x001ca430.
+  - `stackval`: **the address of a local stored in memory** (`lea ecx, [esp+8]; mov [fs+0x14], ecx`, a Lua block linked into
+    its function state for the callee to find). The callee can read the local through the stored pointer, so the local is now
+    compared at the next call like a local passed by pointer (`the local whose address is stored at X differs`, both modes:
+    MSVC mode did not compare it at all). Only words stored since the last call count (a global still holding the address
+    of a local whose scope ended, from a stub result stored long before, is not a live object: 0x000c3900 in the MSVC
+    sample), and natively, past the local's first word, only bytes written since the last call (its type is unknown and
+    clang's neighbours differ). In `--wine` the stored word itself, a stack address on both sides, is not compared (frames
+    differ). 0x0021e080, 0x0021e300 and the other Lua parser block functions.
+  - `crtarity`: `__RTDynamicCast` (5 words) and `__RTtypeid` (1), CRT routines `tools/platform_map.py` identifies by hand
+    whose SEH frames stop `callee_stack_args`. `dynamic_cast<T*>(src->GetEntity())` compiles to `push 0; push T; push S; push
+    0; call [vt+0x10]; push eax; call __RTDynamicCast; add esp, 0x14`: the four early words are the cast's, where the original's
+    run gave them to the virtual call (ours passes it none: "argument 1 is 0x5a5a5a5a"). 0x000f1ab0.
+  - `vsplit` (`--wine`): **who takes the words pushed before an indirect call is sometimes open in the original's code**
+    (`push b; push a; push 0; call [dev+0x48]; push eax; call [vt+0x20]`: a and b are the second virtual's, pushed early; the
+    code is the same if the first takes all three). Before, the original's run guessed that the first callee pops them all.
+    When that guess had no evidence (no cleanup, no later call that pops them, no `ret N`) and the sides differ, the input is
+    re-run with the original's callee popping what clang's `sub esp, N` after our call says our declaration gives it (fewer
+    words than were pushed; the rest stay pending for the next call). The original's own stack balance and every later call
+    are still compared. Before the re-run, a trial run of the original alone with that split must return with the same stack
+    pointer and callee-saved registers as without it; otherwise the first comparison stands (without this check, a split
+    the original's code can't have sent its run wild and turned four real failures into inconclusive inputs: 0x000f0e60
+    below, case `0x000f0e60_native_vsplit_wrong`). `vsplit_reruns` in the report counts the re-runs. 0x00296160.
+  - `vslotkeep`: vptrkeep (round 21) kept the vptr word; a `call [R+k]` also reads the *slot* `[R+k]` of a vtable that lives in
+    fuzzed memory, which the stub's havoc replaced. The slot word is kept at its value from the epoch R was loaded in (a
+    vtable never changes; clang read the member-function pointer from the table before the call). 0x00296160.
+  - `purecall` (`--wine`): no memory havoc after a call that writes nothing but the stack: `callee_pure`, or `callee_reads`
+    showing writes only through pointer arguments that point into our frame here (a copy constructor building a by-value
+    argument, `Vec3::Transform(&v)`). The original reloads `this->slots` after such a call where clang loaded it before; in the
+    game both read the same word. 0x001fe000.
+  - `uninitarg`: an argument word the original never wrote (the harness's fill pattern, not in its written set): the padding of
+    a by-value struct whose copy constructor writes 10 of its 16 bytes. An indeterminate value no source can reproduce; not
+    compared. 0x001fe000.
+  - `narrowstruct`: natnarrow (round 19) stopped counting parameter words at a by-value struct, so `f(Name n, short v)`
+    compared all 32 bits of `v` (clang leaves the upper half stale). The struct's words are counted now (sizeof probe). 0x001fe000.
+  - `tailthis`: a tail `jmp` to a function that returns its `this` (an adjustor thunk `sub ecx, 4; jmp ~XboxSaveDrive`) leaves
+    that `this` in eax, as the call form already did; ours, a real call natively, returned it and the original's stub a fuzzed
+    word. 0x002786e0.
+  - `noeaxret`: a function with an unknown return type (a C name nobody calls directly) whose original run neither wrote eax
+    nor reads it as an argument: what is left in eax is its caller's, not a result. 0x0035d200 (`fcos` into a global).
+  - `fyl2x`: **an emulator bug.** Unicorn 2.1.4 runs `fyl2x` only for st(0) > 0 (`fyl2xp1`: st(0) + 1 > 0); otherwise it sets C2
+    and leaves the x87 stack alone, where the hardware pops and leaves the invalid-operand NaN (log of a negative), -inf/+inf
+    (log of zero, by the sign of st(1)) or the NaN operand. MSVC inlines `log()` as `fldln2; fxch; fyl2x`, so a fuzzed negative
+    argument shifted the original's x87 stack ("x87 stack depth at return 0, expected 1"). The hook puts the hardware's result
+    in (st(1) = R, st(0) = 2, so the instruction computes R * 1 and pops). Both runs, both modes. 0x0033b8d0, 0x00258f90.
+  - **Real differences, not changed** (the source is wrong natively; MSVC mode passes because the bytes coincide):
+    0x001f32b0 (`FUN_0024ace0` reads six stack words and passes them on; the source declares four and gives the other two to
+    `FUN_00240750`, which takes none), 0x001e95c0 (the same `FUN_00240750`: the float is `FUN_00243090`'s second argument),
+    0x000f0e60, 0x000ef4f0, 0x000e1610, 0x000e1670 (`DAT_004de948` takes no stack word: two sites call it with nothing pending;
+    the pushed 0 is the virtual `update(float, int)`'s second argument), evaluation order around a virtual call
+    (0x00264050: clang loads `stream` before `stream->v16()`), 1-ulp float order (0x003160f0, 0x00144360, 0x001441a0,
+    0x0022a0d0). A check for the first kind in MSVC mode (a cdecl callee that reads more words than our declaration passes)
+    would catch them there; not done.
+  - **Not done**: the pointee extent of a virtual callee (above); `this` (ecx) of a member call is still not snapshotted, so the
+    input of an in-place transform (`dir.FUN_0022d260(m)`) is not compared at the call (the callee's write extent is filled).
+  - **Verification.** `regress.py` through the queue (development module, before the vsplit trial and the stackval tightening):
+    330/336. The 37 round-22 cases of that run passed; two older `_off` cases now pass because a round-22 rule closes the same gap
+    (`0x0026f7b0_native_buf_off`: fillsame; `0x000cb6f0_native_vptr_off`: purecall), so they switch both rules off now; the
+    four coverage-threshold cases `0x002c96e0_loop_back_edge`, `0x002cb2b0_loop_exit_order`, `0x003037f0_iterator_range` and
+    `0x001fe380_tiny_counts` reached 60-72% on a loaded mac2 and fail the same way with the round-21 checker there (the load
+    dips of round 20). With the promoted `tools/equiv.py`: the 38 round-22 cases and the two changed `_off` cases pass, 40/40;
+    `test_equiv.py` 16 ok (new `test_callee_reads`), `replay_regress.py` 27/27 (`0x000d3170_vcall_pop_off` also switches
+    `crtarity` off: the case list's new sixth element names EQUIV_OFF switches).
+  - **MSVC-mode verdicts** (the 900 `equivalent/` sources of rounds 20-21, 60 inputs, through the queue; before = cl10's
+    round-21 results for the 811 sources unchanged since, and fresh round-21 runs for the 89 changed): 893 equivalent before,
+    894 after. **0x0018f6d0** now passes (241 inputs, and 719 at 600): one input of 247 failed with the round-21 checker
+    on a vector a callee only reads, which the stub's speculative fill wrote differently in the two frames (`nofill`).
+    0x000c3900 failed with the first version of `stackval` (a false positive, fixed above). The other six non-equivalent
+    sources get the same verdict from both checkers (0x000d3170, 0x000f8970, 0x00244430, 0x002ece90 fail - 0x002ece90 has
+    since been respelled by nf3 and passes; 0x00088020 unsupported; 0x000c9bd0 inconclusive).
+  - **Wine mode** (nf3's 195 open failures, `build/cl11/nf3open.txt`, `--wine`, 60 inputs, through the queue): 0 equivalent
+    before, 41 after (no flip the other way): 0x0007c5b0 0x0008a8f0 0x000a1930 0x000b78e0 0x000b99b0 0x000cc7e0 0x000d4b60
+    0x000f1ab0 0x001247d0 0x0013ab50 0x001ca430 0x001ca890 0x001fbd00 0x001fe000 0x0021e080 0x0021e300 0x0021e5b0 0x0021e700
+    0x0021ecd0 0x00227100 0x00258f90 0x00265cd0 0x00270e60 0x002786e0 0x0027bee0 0x00285460 0x00296160 0x002c4cb0 0x002d0fa0
+    0x002d21c0 0x002e82a0 0x002e96a0 0x002f05f0 0x002f0780 0x002f0d80 0x002f1010 0x002f9ed0 0x00316410 0x0033a970 0x0033b8d0
+    0x0033b900 (`build/cl11/out/nf3open-{old,final}.jsonl`). 60-input results: re-run a source at 3000 inputs before
+    promoting it. Of nf3's classes, the "local pointee extent" class gained 16, "stack argument words"/"residual" 9, the
+    "stored &local" class 6, the "checker gap" class 4 of 5 (0x0035d200 passes with nf3's `hulk_freg` source,
+    `build/nf3/w/`); most of what is left fails on float order, evaluation order around virtual calls, frame-array lifts or
+    the real declaration bugs listed above.
 
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check

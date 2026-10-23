@@ -76,6 +76,9 @@ ACCEPT_INPUTS = 50          # `promotable` in the report; `status` keeps its loo
 RMW_MNEMS = frozenset(("inc", "dec", "add", "sub", "and", "or", "xor", "adc", "sbb", "not", "neg", "shl", "shr", "sar",
                        "sal", "rol", "ror", "rcl", "rcr", "xchg", "xadd", "cmpxchg", "bts", "btr", "btc"))
 EQUIV_OFF = set(os.environ.get("EQUIV_OFF", "").split(","))   # A/B experiments: switch named round-6 changes off
+# (round 22, crtarity) stack words of CRT routines tools/platform_map.py identifies by hand, from their documented
+# signatures (the static scan stops at their SEH frames): __RTDynamicCast(5), __RTtypeid(1)
+CRT_ARITY = {0x344e74: 5, 0x3449e4: 1}
 MAX_FAIL = int(os.environ.get("EQUIV_MAXFAIL", "3"))     # (round 18) stop after this many failing inputs (triage: more)
 ONLY_SEEDS = {int(x) for x in os.environ.get("EQUIV_SEEDS", "").split(",") if x.strip()}
 DEFAULT_POINTEE = 4         # ... when the callee's parameter type is unknown (e.g. virtual calls)
@@ -703,6 +706,395 @@ class Program:
         rthis[target] = steps < 4000 and bool(rets) and all(x == ("ecx", 0) for x in rets)
         return cache[target]
 
+    def callee_reads(self, target, depth=0):
+        """(round 22, calleext/nofill/purecall) How far a function reads or writes through each pointer argument, with the
+        escapes tracked: (extents, ret, writes, wother) or None when unknown (an SEH frame, a stack the scan loses, an
+        untraceable jump). extents = {location: bytes, or None if the pointer escapes (stored to memory, indexed,
+        advanced in a loop, held on one path only and used after the join, used in arithmetic, passed to an unknown
+        callee, a negative offset, a frame slot holding it whose address is taken)}; a location missing from it is
+        never dereferenced. Locations as callee_writes ('ecx'/'edx'/'eax' or a stack argument index). ret is the
+        (location, offset) eax holds at every ret, or None. writes = {location: bytes written through it} for the
+        locations that did not escape; wother: a write to memory other than the frame and those arguments. Unlike
+        callee_writes this over-approximates: a byte outside [0, extent) is provably not accessed through that
+        argument by this function or its callees."""
+        cache = self.__dict__.setdefault("_creads", {})
+        if target in cache:
+            return cache[target]
+        if not self.is_code(target) or target not in self.funcs or depth > 5:
+            return None
+        cache[target] = None            # recursion guard (a recursive function: unknown)
+        A = self._ALIAS
+        body = (target, target + self.funcs[target][0])
+        view = CodeView(self.read, target, body, self)
+        ext = {}
+        wr = {}                         # {location: bytes written through it} (escaped locations: see ext)
+        wother = [False]                # a write to memory that is neither the frame nor through a tracked argument
+        rets = []
+        fail = [False]
+        ESC = None
+
+        GEN = ("#gen", 0)               # ebp written by this function as a general register (untracked)
+
+        def note(loc, e):
+            if loc in ("#gen", "#fa"):
+                return
+            if loc == "#p":
+                esc(("#p", e))
+                return
+            if loc in ext and ext[loc] is ESC:
+                return
+            if e is ESC:
+                ext[loc] = ESC
+            else:
+                ext[loc] = max(ext.get(loc, 0), e)
+
+        def esc(v):
+            if v is not None and v[0] == "#p":
+                for l_ in v[1]:
+                    esc((l_, 0))
+            elif v is not None and v[0] not in ("#gen", "#fa"):
+                ext[v[0]] = ESC
+
+        def poison(*vs):
+            """A register or slot that holds a tracked pointer on one path only: any later use of it escapes them."""
+            locs = set()
+            for v in vs:
+                if v is None or v[0] in ("#gen", "#fa"):
+                    continue
+                locs |= set(v[1]) if v[0] == "#p" else {v[0]}
+            return ("#p", frozenset(locs)) if locs else None
+
+        init_slots = frozenset((-4 - 4 * j, (j, 0)) for j in range(32))
+        init = (frozenset({"ecx": ("ecx", 0), "edx": ("edx", 0), "eax": ("eax", 0)}.items()), 0, None, init_slots)
+        states = {}
+        work = [(target, init)]
+        steps = 0
+
+        def meet(a, b):
+            if a is None:
+                return b
+            ra, rb = dict(a[0]), dict(b[0])
+            rg = {k: v for k, v in ra.items() if rb.get(k) == v}
+            for k in set(ra) | set(rb):
+                if ra.get(k) != rb.get(k):
+                    pv = poison(ra.get(k), rb.get(k))
+                    if pv is not None:
+                        rg[k] = pv
+            regs = frozenset(rg.items())
+            if a[1] != b[1] or a[2] != b[2]:
+                fail[0] = True
+            sa, sb = dict(a[3]), dict(b[3])
+            sg = {k: v for k, v in sa.items() if sb.get(k) == v}
+            for k in set(sa) | set(sb):
+                if sa.get(k) != sb.get(k):
+                    pv = poison(sa.get(k), sb.get(k))
+                    if pv is not None:
+                        sg[k] = pv
+            slots = frozenset(sg.items())
+            return (regs, a[1], a[2], slots)
+
+        def esc_window(slots, key0):
+            """The address of a frame slot (`lea eax, [esp+8]`: a local passed by pointer, `f(&p)` with p = our
+            argument) lets code read the slots around it: tracked pointers held there escape."""
+            lo_ = max(0, key0 - 64) if key0 > 0 else key0 - 64     # (a local never spans our return address)
+            for k_, v_ in list(slots.items()):
+                if lo_ < k_ <= key0:
+                    esc(v_)
+
+        def o_lea_reg(ci_):
+            return len(ci_.operands) == 2 and ci_.operands[0].type == cx.X86_OP_REG and \
+                ci_.reg_name(ci_.operands[0].reg) in self._REGS
+
+        def sdisp(x):
+            return x - (1 << 32) if x & 0x80000000 else x
+
+        while work and steps < 6000 and not fail[0]:
+            a, st = work.pop()
+            merged = meet(states.get(a), st)
+            if states.get(a) == merged:
+                continue
+            states[a] = merged
+            regs, d, fb, slots = dict(merged[0]), merged[1], merged[2], dict(merged[3])
+            while steps < 6000 and not fail[0]:
+                steps += 1
+                i = view.decode(a)
+                ci = next(self.md.disasm(self.read(a, 16), a, 1), None) if i is not None else None
+                if ci is None:
+                    fail[0] = True
+                    break
+                m = ci.mnemonic
+                try:
+                    rr, ww = ci.regs_access()
+                except Exception:   # noqa: BLE001
+                    fail[0] = True
+                    break
+                rn = {A.get(ci.reg_name(x), ci.reg_name(x)) for x in rr}
+                wn = {A.get(ci.reg_name(x), ci.reg_name(x)) for x in ww}
+                ops = ci.operands
+                modelled = set()            # tracked registers whose read here is modelled
+                new = {}
+                # memory operands: a tracked base is a dereference; a frame slot is a slot
+                mem_slot = None             # (key, is_write) of a [esp+k]/[ebp+k] operand
+                for op in ops:
+                    if op.type != cx.X86_OP_MEM:
+                        continue
+                    mb = ci.reg_name(op.mem.base) if op.mem.base else None
+                    mi = ci.reg_name(op.mem.index) if op.mem.index else None
+                    disp = sdisp(op.mem.disp & 0xFFFFFFFF)
+                    if mi in regs:
+                        esc(regs[mi])       # an index: unknown offset
+                    is_w = bool(op.access & capstone.CS_AC_WRITE) or m in X87_STORES
+                    if is_w and m != "lea":
+                        tr_ = regs.get(mb)
+                        if mb == "esp" or (mb == "ebp" and fb is not None) or (tr_ is not None and tr_[0] == "#fa"):
+                            pass            # the frame
+                        elif tr_ is None or tr_[0] in ("#gen", "#p") or mi or m.startswith(("rep", "stos", "movs")):
+                            wother[0] = True
+                        elif sdisp(op.mem.disp & 0xFFFFFFFF) + tr_[1] < 0:
+                            wother[0] = True
+                    if mb in regs and regs[mb][0] in ("#gen", "#fa") and not (mb == "ebp" and fb is not None):
+                        modelled.add(mb)    # ebp as a general register holding something untracked
+                        if regs[mb][0] == "#fa":
+                            esc_window(slots, regs[mb][1])      # a frame slot reached through its address
+                    elif mb in regs and regs[mb][0] == "#p" and not (mb == "ebp" and fb is not None):
+                        esc(regs[mb])
+                        modelled.add(mb)
+                        continue
+                    elif mb in regs and not (mb == "ebp" and fb is not None):
+                        loc, off = regs[mb]
+                        modelled.add(mb)
+                        if m == "lea":
+                            if mi:
+                                esc(regs[mb])
+                            continue
+                        if mi or off + disp < 0 or m.startswith(("rep", "stos", "movs", "lods", "scas", "cmps")):
+                            esc(regs[mb])
+                        else:
+                            note(loc, off + disp + max(op.size, 1))
+                            if op.access & capstone.CS_AC_WRITE or m in X87_STORES:
+                                wr[loc] = max(wr.get(loc, 0), off + disp + max(op.size, 1))
+                    elif mb == "esp" or (mb == "ebp" and fb is not None):
+                        base = d if mb == "esp" else fb
+                        if base is None:
+                            fail[0] = True
+                            break
+                        if mi is None and m != "lea":
+                            mem_slot = (base - disp, bool(op.access & capstone.CS_AC_WRITE) or m in X87_STORES,
+                                        bool(op.access & capstone.CS_AC_READ) and m not in X87_STORES and m != "mov")
+                        elif m == "lea" and o_lea_reg(ci):
+                            # the address of a slot (an argument's or a local's): a frame address
+                            new[ci.reg_name(ops[0].reg)] = ("#fa", base - disp)
+                            esc_window(slots, base - disp)
+                    elif mb == "ebp" and fb is None and "ebp" not in regs:
+                        fail[0] = True      # a frame set up elsewhere (an SEH prolog helper), or the caller's ebp
+                        break
+                if fail[0]:
+                    break
+                o = [(x.type, ci.reg_name(x.reg) if x.type == cx.X86_OP_REG else None) for x in ops]
+                if m == "mov" and len(ops) == 2 and o[0][0] == cx.X86_OP_REG and o[0][1] in self._REGS:
+                    if o[1][0] == cx.X86_OP_REG and o[1][1] in regs:
+                        new[o[0][1]] = regs[o[1][1]]
+                        modelled.add(o[1][1])
+                    elif mem_slot is not None and not mem_slot[1] and mem_slot[0] in slots:
+                        new[o[0][1]] = slots[mem_slot[0]]
+                elif m == "mov" and len(ops) == 2 and ops[0].type == cx.X86_OP_MEM and mem_slot is not None:
+                    if o[1][0] == cx.X86_OP_REG and o[1][1] in regs:
+                        slots[mem_slot[0]] = regs[o[1][1]]
+                        modelled.add(o[1][1])
+                    else:
+                        slots.pop(mem_slot[0], None)
+                elif mem_slot is not None and mem_slot[0] in slots and mem_slot[2] and not (
+                        m in ("cmp", "test") or (m == "push" and not mem_slot[1])):
+                    # a tracked slot read or changed by anything but a copy (`add [esp+8], 4`, `add eax, [esp+8]`)
+                    esc(slots.pop(mem_slot[0]))
+                elif mem_slot is not None and mem_slot[1]:
+                    slots.pop(mem_slot[0], None)    # another write into the slot
+                push_from = slots.get(mem_slot[0]) if m == "push" and mem_slot is not None and not mem_slot[1] else None
+                if m == "lea" and len(ops) == 2 and o[0][0] == cx.X86_OP_REG:
+                    mb = ci.reg_name(ops[1].mem.base) if ops[1].mem.base else None
+                    if mb in regs and not ops[1].mem.index and not (mb == "ebp" and fb is not None) and \
+                            regs[mb][0] not in ("#p", "#gen", "#fa"):
+                        loc, off = regs[mb]
+                        new[o[0][1]] = (loc, off + sdisp(ops[1].mem.disp & 0xFFFFFFFF))
+                if m in ("add", "sub") and len(ops) == 2 and o[0][0] == cx.X86_OP_REG and o[0][1] in regs and \
+                        ops[1].type == cx.X86_OP_IMM and regs[o[0][1]][0] not in ("#p", "#gen", "#fa"):
+                    loc, off = regs[o[0][1]]
+                    imm = sdisp(ops[1].imm & 0xFFFFFFFF)
+                    new[o[0][1]] = (loc, off + (imm if m == "add" else -imm))
+                    modelled.add(o[0][1])
+                if m in ("cmp", "test"):
+                    modelled |= rn
+                if m == "push":
+                    if o and o[0][0] == cx.X86_OP_REG and o[0][1] in regs:
+                        modelled.add(o[0][1])
+                if m in ("xor", "sub", "sbb") and len(ops) == 2 and o[0] == o[1] and o[0][0] == cx.X86_OP_REG:
+                    modelled.add(o[0][1])   # xor eax, eax: a write
+                if m == "mov" and len(ops) == 2 and o[0] == o[1]:
+                    modelled.add(o[0][1])
+                if m == "pop" and o and o[0][0] == cx.X86_OP_REG and o[0][1] in regs and \
+                        A.get(o[0][1], o[0][1]) == "esp":
+                    pass
+                # any other read of a tracked register: the pointer escapes
+                if i.kind not in ("call", "ret", "jmp", "jcc"):
+                    for r in rn:
+                        if r in regs and r not in modelled and r not in ("esp",) and \
+                                not (r == "ebp" and fb is not None):
+                            esc(regs[r])
+                # stack depth
+                if d is not None:
+                    if m == "push":
+                        d += 4
+                        if o and o[0][0] == cx.X86_OP_REG and o[0][1] in regs:
+                            slots[d] = regs[o[0][1]]
+                        elif push_from is not None:
+                            slots[d] = push_from        # push [esp+8]: an argument pointer passed on
+                        else:
+                            slots.pop(d, None)
+                    elif m == "pop":
+                        if o and o[0][0] == cx.X86_OP_REG:
+                            if d in slots:
+                                new[o[0][1]] = slots[d]
+                        d -= 4
+                    elif m in ("sub", "add") and len(ops) == 2 and o[0] == (cx.X86_OP_REG, "esp") and \
+                            ops[1].type == cx.X86_OP_IMM:
+                        d += ops[1].imm if m == "sub" else -ops[1].imm
+                    elif "esp" in wn and i.kind == "other" and m not in ("mov",) or \
+                            (m == "mov" and o and o[0] == (cx.X86_OP_REG, "esp") and ci.op_str != "esp, ebp"):
+                        fail[0] = True
+                        break
+                if m == "mov" and ci.op_str == "ebp, esp":
+                    fb = d
+                    regs.pop("ebp", None)
+                    new.pop("ebp", None)
+                elif m == "leave" or (m == "mov" and ci.op_str == "esp, ebp"):
+                    if fb is None:
+                        fail[0] = True
+                        break
+                    d = fb - 4 if m == "leave" else fb
+                    if m == "leave":
+                        fb = None
+                for r in wn:
+                    if r in regs and r not in new:
+                        regs.pop(r)
+                regs.update(new)
+                if "ebp" in wn and "ebp" not in new and not (m == "mov" and ci.op_str == "ebp, esp") and \
+                        m not in ("pop", "leave"):
+                    regs["ebp"] = GEN
+                if m == "pop" and o and o[0] == (cx.X86_OP_REG, "ebp") and fb is not None and "ebp" not in new:
+                    fb = None
+                if i.kind == "ret":
+                    rets.append(regs.get("eax"))
+                    break
+                if i.kind == "stop":
+                    break
+                if i.kind == "call" or (i.kind == "jmp" and not (i.target is not None and view.internal_target(i.target))):
+                    tail = i.kind == "jmp"
+                    if i.kind == "jmp" and i.target is None and i.mem is not None and i.mem[2]:
+                        fail[0] = True      # a jump table we can't follow as a tail call
+                        break
+                    if d is None:
+                        fail[0] = True
+                        break
+                    sub = self.callee_reads(i.target, depth + 1) if i.target is not None else None
+                    passed = []             # (callee location, our tracked value)
+                    for r in ("ecx", "edx", "eax"):
+                        if r in regs:
+                            passed.append((r, regs[r]))
+                    for key, v in slots.items():
+                        k_ = (d - key - (4 if tail else 0))
+                        if k_ >= 0 and k_ % 4 == 0 and k_ // 4 < 32 and (key > 0 or tail or sub is not None):
+                            # (an unknown callee reads its own words: pushed in our frame, not our incoming
+                            # arguments behind our return address, except through a tail jmp)
+                            passed.append((k_ // 4, v))
+                    for _, v in passed:
+                        if v[0] == "#fa":
+                            esc_window(slots, v[1])     # a callee given the address of our locals
+                    if sub is None:
+                        wother[0] = True
+                        for _, v in passed:
+                            esc(v)
+                        # a stored copy of a pointer deeper in the frame can't be reached by the callee (not an
+                        # argument), but we don't know how many words it takes: all of them escaped above
+                        if not tail:
+                            pop = self.callee_pop(i.target) if i.target is not None else None
+                            if pop is None:
+                                fail[0] = True
+                                break
+                    else:
+                        sext, sret, swr, swo = sub
+                        if swo:
+                            wother[0] = True
+                        for loc2 in swr:
+                            v_ = dict(passed).get(loc2)
+                            if v_ is None or v_[0] in ("#gen", "#p"):
+                                wother[0] = True        # it writes through a pointer we did not get from our caller
+                        for loc2, v in passed:
+                            if loc2 in sext:
+                                e2 = sext[loc2]
+                                if e2 is ESC or v[0] in ("#p", "#gen", "#fa"):
+                                    esc(v)
+                                elif v[1] + e2 > 0:
+                                    if v[1] < 0:
+                                        esc(v)
+                                    else:
+                                        note(v[0], v[1] + e2)
+                                        if swr.get(loc2):
+                                            wr[v[0]] = max(wr.get(v[0], 0), v[1] + swr[loc2])
+                    if tail:
+                        if sub is not None and sub[1] is not None:
+                            v = dict(passed).get(sub[1][0])
+                            rets.append((v[0], v[1] + sub[1][1]) if v is not None and v[0] not in ("#p", "#gen", "#fa") else v)
+                            if v is None:
+                                pass
+                        else:
+                            rets.append(None)
+                        break
+                    pop = self.callee_pop(i.target) if i.target is not None else None
+                    if pop is None:
+                        fail[0] = True
+                        break
+                    d -= pop
+                    slots = {k_: v_ for k_, v_ in slots.items() if k_ <= d}
+                    for r in ("eax", "ecx", "edx"):
+                        regs.pop(r, None)
+                    if sub is not None and sub[1] is not None:
+                        v = dict(passed).get(sub[1][0])
+                        if v is not None:
+                            regs["eax"] = (v[0], v[1] + sub[1][1]) if v[0] not in ("#p", "#gen", "#fa") else v
+                    a += ci.size
+                    continue
+                st_ = (frozenset(regs.items()), d, fb, frozenset(slots.items()))
+                if i.kind == "jcc":
+                    if i.target is not None and view.internal_target(i.target):
+                        work.append((i.target, st_))
+                    else:
+                        fail[0] = True
+                        break
+                elif i.kind == "jmp":
+                    if i.target is not None and view.internal_target(i.target):
+                        work.append((i.target, st_))
+                    elif i.target is None and i.mem is not None and i.mem[2]:
+                        for t in view._table(i):
+                            work.append((t, st_))
+                    else:
+                        fail[0] = True
+                    break
+                a += ci.size
+                if a in states:
+                    work.append((a, (frozenset(regs.items()), d, fb, frozenset(slots.items()))))
+                    break
+        if fail[0] or work or steps >= 6000:
+            cache[target] = None
+            return None
+        ret = rets[0] if rets and all(r == rets[0] for r in rets) else None
+        if ret is not None and ret[0] in ("#p", "#gen", "#fa"):
+            ret = None
+        if rets and ret is None:
+            for r in rets:
+                esc(r)
+        cache[target] = (ext, ret, {k_: v_ for k_, v_ in wr.items() if k_ in ext and ext[k_] is not None}, wother[0])
+        return cache[target]
+
     def callee_pure(self, target, depth=0):
         """(round 21, vptrkeep) Does a function write no memory outside its own frame? Straight scan of its body: every
         instruction whose destination operand is memory must address the frame (`[esp+..]`, `[ebp-..]`), no string
@@ -759,6 +1151,12 @@ class Program:
 
     def callee_stack_args(self, target, depth=0):
         """Number of stack argument words a function reads (its semantic arity), or None if unknown."""
+        if "crtarity" not in EQUIV_OFF and target in CRT_ARITY:
+            # (round 22, crtarity) CRT routines identified by hand (tools/platform_map.py IDENTIFIED) whose body the scan
+            # can't follow (an SEH frame): their documented parameter count. `__RTDynamicCast(ptr, vfdelta, src, target,
+            # isref)`: its arguments are pushed before the call that computes ptr (`push 0; push T; push S; push 0;
+            # call [vt+0x10]; push eax; call __RTDynamicCast; add esp, 0x14`), and are its words, not the virtual's
+            return CRT_ARITY[target]        # (not cached: EQUIV_OFF can change between checks in one process)
         cache = self.__dict__.setdefault("_nargs", {})
         if target in cache:
             return cache[target]
@@ -2825,6 +3223,8 @@ class Run:
         self.helpers = helpers or {}
         self.calls = []
         self.segments = []          # per call boundary: {addr: byte}
+        self.seg_stores = set()     # (round 22, stackval) non-stack bytes the code stored since the last call
+        self.seg_stack_written = set()  # ... and stack bytes
         self.seg_fpu = []           # per segment: {dword addr: size} written by fst/fstp
         self.cur_fpu = {}
         self.epoch = 0
@@ -2938,6 +3338,8 @@ class Run:
         self.rep_obs = None         # the first rep string instruction with a huge count: where ecx came from
         self.fill_pre = {}          # (call, arg, offset) -> the function's own word a callee-extent fill replaced
         self.x87_range = False      # (round 21, x87range) the original ran fptan/fsin/fcos on an operand beyond +-2^63
+        self.ambig_calls = {}       # (round 22, vsplit) indirect call -> words pending before it, its pop a guess
+        self.cpop = None
         self.vp = {}                # (round 21, vptrkeep) register -> (word address, value, epoch, calls so far, base entry)
         self.vp_havoc = {}          # ... word address -> (value, epoch) of a pointer-word the stubs' memory havoc changed under a register
         self.fill_watch = {}        # stack byte -> such a fill, until the function rewrites it
@@ -3045,6 +3447,10 @@ class Run:
                 if ci is not None and (ci.addr == self.fmem[x][2] or self.fmem_keep == (ci.addr, x)):
                     continue
                 self.fmem.pop(x, None)
+        if not STACK_LO <= addr < STACK_HI and size <= 8:
+            self.seg_stores.update(range(addr, addr + size))
+        elif size <= 16:
+            self.seg_stack_written.update(range(addr, addr + size))
         if STACK_LO <= addr < STACK_HI:
             ci = self.cur_insn
             if self.smashed is None and ci is not None and ci.mnemonic not in ("push", "call", "pushal", "pushfd") \
@@ -3299,6 +3705,7 @@ class Run:
     def _stub(self, insn, target, tail, x87_override=None):
         u = self.u
         uc = self.uc
+        self.cpop = None
         esp = self.reg("esp")
         self.save_slots = {x for x in self.save_slots if x >= esp}     # slots below esp are dead
         self.cdecl_site = False
@@ -3430,6 +3837,15 @@ class Run:
                     nxt = self.view.next_call_pop(insn.addr)
                     if nargs and nxt is not None and nxt[0] >= p + nxt[1]:
                         nargs, p = 0, 0          # the pending pushes belong to the outer call (it pops them all)
+                    elif self.coverage and not known and "vsplit" not in EQUIV_OFF:
+                        # (round 22, vsplit) nothing in the original's code says who takes these words (`push 1;
+                        # call [vt+0x40]; push eax; push edi; call f; add esp, 8; push eax; push x; call [vt+0xc]`:
+                        # the 1 is this call's argument, or the later virtual's, pushed early); the guess is that
+                        # this callee pops them all. A re-run may take the split our declaration makes (run_input)
+                        self.ambig_calls[len(self.calls)] = nargs
+                        ov_ = self.inp.get("arity_override", {}).get(len(self.calls))
+                        if ov_ is not None:
+                            p, nargs = ov_
                 # an indirect call of unknown arity: our k-th call reuses what the original's k-th call
                 # did on the same input, so argument pushes interleaved with an outer call in our code
                 # don't change the count (if the traces differ, they fail on the target anyway). Where our
@@ -3509,6 +3925,7 @@ class Run:
                 # bytes the callee pops; the words compared are as many as the original's k-th call took
                 cp_ = self.view.clang_pop_after(insn.addr)
                 p = cp_ or 0
+                self.cpop = p
                 lrn_ = self.inp.get("arity_by_call", {}).get(len(self.calls))
                 nargs = lrn_[1] if lrn_ is not None else self.inp.get("nargs_by_call", {}).get(len(self.calls), p // 4)
                 stack_words = nargs
@@ -3517,11 +3934,14 @@ class Run:
         if self.coverage and not tail:
             self.inp.setdefault("nargs_by_call", {})[len(self.calls)] = nargs      # (round 18) for native mode's ours
         args, argw = [], []
+        arg_unw = set()
         for k in range(min(nargs, 32)):
             a = argbase + 4 * k
             v = self._read_u32(a)
             args.append((v, self.stack_fpu.get(a)))
             argw.append(self.push_width.get(a, 32))
+            if v == STACK_FILL and a + 4 <= ENTRY_ESP and not any(x in self.stack_written for x in range(a, a + 4)):
+                arg_unw.add(k)      # (round 22, uninitarg) a word of the call's argument area nothing ever wrote
         conv = self.convs.get(target) if known else None
         if conv:
             # a declared convention: compare the arguments as a list, wherever each side passes them
@@ -3570,7 +3990,7 @@ class Run:
         argidx = {}
         for j, (v, _) in enumerate(args):
             argidx.setdefault(v, j)
-        def snap(v, size, is_class, depth=0):
+        def snap(v, size, is_class, depth=0, seg_only=False):
             limit = min([POINTEE_WINDOW, (ENTRY_ESP if v < ENTRY_ESP else arg_hi) - v] +
                         [x - v for x in self.save_slots if x > v])
             # an array grows at most up to the next local whose address the function takes (another object)
@@ -3607,7 +4027,8 @@ class Run:
                         nested[off] = snap(w, DEFAULT_POINTEE, False, depth + 1)
             return (data, {a - v: sz for a, sz in self.stack_fpu.items() if v <= a < v + limit},
                     {a - v for a in range(v, v + limit) if a in self.stack_written and not (
-                        NATIVE_MODE and a in self.spec_fill and a not in self.func_stack_written)}, n_, nested,
+                        NATIVE_MODE and a in self.spec_fill and a not in self.func_stack_written) and not (
+                        seg_only and a - v >= 4 and a not in self.seg_stack_written)}, n_, nested,
                     0 if is_class else size)
         pointees = {}
         for n, v in enumerate(sp):
@@ -3645,7 +4066,9 @@ class Run:
         # (only callees that also write through ecx: constructors. A stubbed accessor that returns its this,
         # `mov eax, ecx; ret`, keeps a stub result: a fuzzed or zero pointer lets the code after it reach
         # its empty-container paths, and both sides see the same value either way)
-        ret_this = insn.target is not None and not tail and "this" not in EQUIV_OFF and \
+        # (round 22, tailthis) also through a tail `jmp` (`sub ecx, 4; jmp Base::f`, an adjustor thunk): the function's
+        # result is the callee's, which returns its ecx; natively ours makes a real call and returns its result
+        ret_this = insn.target is not None and (not tail or "tailthis" not in EQUIV_OFF) and "this" not in EQUIV_OFF and \
             self.prog.returns_this(target) and self.prog.callee_writes(target).get("ecx", 0) > 0
         if ret_this:
             eax = self.reg("ecx")
@@ -3673,11 +4096,55 @@ class Run:
         self.calls.append({"target": target, "args": args, "regs": {r: self.reg(r) for r in Program._REGS},
                            "float_ret": fret, "at": insn.addr, "tail": tail, "pointees": pointees, "known": known,
                            "ret_to": insn.addr + insn.size,
-                           "conv": bool(conv), "argw": argw, "esp": esp,
+                           "conv": bool(conv), "argw": argw, "esp": esp, "arg_unw": arg_unw, "cpop": self.cpop,
                            "via_object": self._is_virtual_on_ecx(insn), "cdecl_site": self.cdecl_site,
                            "x87args": x87a})
         self._close_segment()
-        self._perturb()
+        if "stackval" not in EQUIV_OFF:
+            # (round 22, stackval) the address of a local stored into memory (`lea ecx, [esp+8]; mov [esi+0x14], ecx`: a
+            # node linked into a list for the callee to find): the callee can read the local through it, so the local is
+            # compared like a local passed by pointer (its contents, at this call; both modes). Natively the frames
+            # differ, so the stored word itself is not compared (below, in compare_runs)
+            seg_ = self.seg_stores      # (stored since the last call: an older pointer may be to a dead local)
+            stored = {}
+            for w0 in sorted({x - i for x in seg_ for i in range(4)}):
+                if (w0 in seg_ or w0 + 3 in seg_) and len(stored) < 8:
+                    try:
+                        v_ = struct.unpack("<I", bytes(self.uc.mem_read(w0, 4)))[0]
+                    except Exception:   # noqa: BLE001
+                        continue
+                    if in_frame(v_) and v_ < ENTRY_ESP and not any(w0 - 3 <= x < w0 + 4 for x in stored):
+                        # (natively the frames differ and the stored local's type is unknown: past its first word only
+                        # the bytes written since the last call, the object being linked in, not older neighbours)
+                        stored[w0] = snap(v_, DEFAULT_POINTEE, False, seg_only=NATIVE_MODE)
+            if stored:
+                self.calls[-1]["stored_locals"] = stored
+        self.seg_stores = set()
+        self.seg_stack_written = set()
+        if NATIVE_MODE and "purecall" not in EQUIV_OFF and known and target in self.prog.funcs and \
+                self._frame_only_callee(target, argbase, in_frame):
+            # (round 22, purecall) a callee that writes no memory but its own frame and our locals it gets pointers to
+            # (`Vec3::Transform(&v, m)`, a copy constructor building a by-value argument) leaves the caller's objects as
+            # they were: no memory havoc after it. The original reloads `this->slots` after such a call where clang
+            # loaded it before; both read the same word
+            pass
+        else:
+            self._perturb()
+        fill_log = None
+        if not tail and NATIVE_MODE and "fillsame" not in EQUIV_OFF:
+            # (round 22, fillsame) record every byte the out-parameter fills below write (see the end of this block)
+            fill_log = {}
+            real_uc = uc
+
+            class _FillRec:
+                def __getattr__(self_, n):
+                    return getattr(real_uc, n)
+
+                def mem_write(self_, a_, d_):
+                    for i_, b_ in enumerate(bytes(d_)):
+                        fill_log[a_ + i_] = b_
+                    real_uc.mem_write(a_, d_)
+            uc = _FillRec()
         if not tail:
             # out-parameters: the callee fills any local it got a pointer to. Write the declared size (at
             # least ARRAY_WINDOW bytes), but only words the function hasn't written itself (so initialised
@@ -3689,8 +4156,22 @@ class Run:
             # Values depend only on (call, argument, offset), so both sides agree.
             declared = self.pointee_sizes.get(target, {})
             vext = self._vslot_room(insn, k, p, args, in_frame, sp) if "vext" not in EQUIV_OFF else {}
+            # (round 22, nofill) a direct callee whose pointer use is fully known (Program.callee_reads: nothing escapes
+            # through that argument) writes at most wcap[j] bytes through it: no speculative fill past that (none at all
+            # for a pointer it only reads: `bool clip(Vec3 *p, ...)` left ours and the original's own values alone)
+            wcap = {}
+            if known and insn.target is not None and not conv and "nofill" not in EQUIV_OFF:
+                cr_ = self.prog.callee_reads(target)
+                if cr_ is not None:
+                    for j in range(len(args)):
+                        if j not in cr_[0]:
+                            wcap[j] = 0
+                        elif cr_[0][j] is not None:
+                            wcap[j] = cr_[2].get(j, 0)
             outs = []
             for j, (v, _) in enumerate(args):
+                if j in wcap and wcap[j] <= 0:
+                    continue
                 if in_frame(v) and v % 4 == 0:
                     sz = declared.get(j, 4)
                     if j in vext and not isinstance(sz, tuple):
@@ -3699,6 +4180,8 @@ class Run:
                     sz = sz[0] if exact_size else max(sz, ARRAY_WINDOW)
                     top = ENTRY_ESP if v < ENTRY_ESP else arg_hi
                     hi = min([v + sz, top] + [x for x in self.save_slots if x > v])
+                    if j in wcap:
+                        hi = min(hi, v + ((wcap[j] + 3) & ~3))
                     outs.append((j, v, hi, exact_size))
 
             def put(w, j, off, owner):
@@ -3722,6 +4205,8 @@ class Run:
                 put(v, j, 0, v)
             firsts = {v for _, v, _, _ in outs}
             for j, (v, _) in enumerate(args):
+                if j in wcap and wcap[j] <= 0:
+                    continue
                 if in_frame(v) and v % 4 and not any(x in self.func_stack_written for x in range(v, v + 1)):
                     # a byte out-parameter at an odd offset (`char found, flagA, flagB` passed by pointer):
                     # the callee writes its byte, nothing more (its neighbours are other out-parameters)
@@ -3792,6 +4277,9 @@ class Run:
                     self.fmem.pop(w, None)
                     self.stack_written.update(range(w, w + 4))
                     self.fill_src[w] = (k, j_, off_)
+        if fill_log is not None:
+            uc = real_uc
+            self._fill_same(k, args, fill_log, in_frame, sp, arg_hi)
         if conv and self.view.is_ours:
             # the callee receives its register arguments where the annotation says (as an adapter would put
             # them), so a register it preserves holds that argument afterwards, as in the original
@@ -3845,6 +4333,58 @@ class Run:
             uc.reg_write(u.UC_X86_REG_EIP, TRAMP + 0xC00 + 2 * (3 - x87n))
             return
         uc.reg_write(u.UC_X86_REG_EIP, TRAMP + (0x800 if fret else 0) + (p // 4) * 16)
+
+    def _frame_only_callee(self, target, argbase, in_frame):
+        """(round 22, purecall) Does this call write nothing outside the stack? callee_pure (writes only its frame), or
+        Program.callee_reads: no write but through its pointer arguments, each of which points into our frame here."""
+        if self.prog.callee_pure(target):
+            return True
+        cr = self.prog.callee_reads(target)
+        if cr is None or cr[3]:
+            return False
+        for loc in cr[2]:
+            v = self._read_u32(argbase + 4 * loc) if isinstance(loc, int) else self.reg(loc)
+            if not in_frame(v):
+                return False
+        return True
+
+    def _fill_same(self, k, args, fill_log, in_frame, sp, arg_hi):
+        """(round 22, fillsame) The stub's out-parameter fills depend on the pointer's alignment (a word at an aligned
+        address, a byte at an odd one: `char buf[32]` is at any address in clang's frame), so the same call filled
+        different bytes on the two sides (`snprintf(buf, ...)` twice: the second call's buffer differed at +1). The
+        original's run records, per call and argument, the bytes its fills wrote; ours writes the same bytes at the
+        same offsets from its pointer, within the room ours has there (not over bytes ours wrote itself, a saved
+        register or return address, or the next local whose address the function takes)."""
+        ptrs = sorted({(v, j) for j, (v, _) in enumerate(args) if in_frame(v)})
+        if self.coverage:
+            rec = {}
+            for a_, b_ in fill_log.items():
+                own = [(v, j) for v, j in ptrs if v <= a_ < v + POINTEE_WINDOW]
+                if own:
+                    v, j = own[-1]
+                    rec.setdefault(j, {})[a_ - v] = b_
+            self.inp.setdefault("fill_by_call", {})[k] = rec
+            return
+        if not self.view.is_ours:
+            return
+        rec = self.inp.get("fill_by_call", {}).get(k, {})
+        for j, offs in sorted(rec.items()):
+            if j >= len(args) or not in_frame(args[j][0]):
+                continue
+            v = args[j][0]
+            top = ENTRY_ESP if v < ENTRY_ESP else arg_hi
+            stop = min([top] + [x for x in self.save_slots if x > v] + [x for x in self.addr_taken if x > v] +
+                       [x for x in sp if x > v])
+            for off, b_ in sorted(offs.items()):
+                a_ = v + off
+                if a_ >= stop:
+                    break
+                if any(x <= a_ < x + 4 for x in self.save_slots):
+                    break
+                if off >= 4 and a_ in self.func_stack_written:
+                    continue            # ours's own data (the original's fill skipped its own words too)
+                self.uc.mem_write(a_, bytes([b_]))
+                self.stack_written.add(a_)
 
     def _vslot_room(self, insn, k, p, args, in_frame, sp):
         """(round 12, vext) A virtual call (`call [eax+0x14]`, eax = ecx's vptr) whose target is fuzzed: the
@@ -4950,6 +5490,15 @@ class Run:
                 ent = ent[4] if ent is not None else None
             if ent is not None:
                 self._vptr_use(ent)
+                if insn.target is None and insn.mem is not None and insn.mem[1] and not insn.mem[2] and \
+                        "vslotkeep" not in EQUIV_OFF:
+                    # (round 22, vslotkeep) the slot word too (`mov edi, [obj]; call g; call [edi+0x20]`): a vtable never
+                    # changes, but the vptr points into fuzzed memory that the stub's havoc replaced; clang read the slot
+                    # (a member-function pointer from the table) before the call
+                    try:
+                        self._vslot_keep(ent, self._ea(insn.mem))
+                    except Exception:   # noqa: BLE001
+                        pass
             if insn.kind == "call":
                 for r_ in ("eax", "ecx", "edx"):
                     vp.pop(r_, None)
@@ -4978,6 +5527,16 @@ class Run:
             else:
                 vp.pop(r, None)
 
+    def _vslot_keep(self, ent, slot):
+        """(round 22, vslotkeep) Keep the vtable slot word a `call [R+k]` reads at its value from the epoch R was loaded in."""
+        _, _, ep, _, _ = ent
+        if ep == self.epoch or slot in self.vp_havoc or STACK_LO <= slot < STACK_HI or _reserved(slot) or \
+                self.prog.is_code(slot) or IMAGE_LO <= slot < IMAGE_HI:
+            return
+        old = int.from_bytes(bytes(self.m.byte(slot + i, ep) for i in range(4)), "little")
+        if old != self._read_u32(slot):
+            self.vp_havoc[slot] = (old, ep)
+
     def _vptr_use(self, ent):
         a, val, ep, nc, _ = ent
         if ep == self.epoch or a in self.vp_havoc:
@@ -5001,6 +5560,39 @@ class Run:
                 if isinstance(v_, int) and v_ >= NULL_HI and v_ <= a < v_ + e_ + 4:
                     return          # the callee writes there (a constructor stores its vptr): stays modelled as before
         self.vp_havoc[a] = (val, ep)
+
+    def _fyl2x_fix(self, m):
+        """(round 22, fyl2x) Unicorn 2.1.4 (QEMU 5) runs `fyl2x` only for st(0) > 0 (`fyl2xp1`: st(0) + 1 > 0): otherwise it sets
+        C2 and leaves the stack alone, where the x87 pops and leaves NaN (invalid operand), -inf/+inf (log of zero) or the
+        NaN operand in st(1). MSVC inlines log() as `fldln2; fxch; fyl2x`, so a fuzzed negative argument shifted the
+        original's x87 stack for the rest of the run. Put in the x87's result: st(1) = R and st(0) = 2 (1 for fyl2xp1), so
+        the instruction computes R * 1 and pops, as the hardware does."""
+        uc, X = self.uc, self.u
+        try:
+            sw = uc.reg_read(X.UC_X86_REG_FPSW)
+            top = (sw >> 11) & 7
+            r0, r1 = X.UC_X86_REG_FP0 + top, X.UC_X86_REG_FP0 + (top + 1) % 8
+            t0, t1 = uc.reg_read(r0), uc.reg_read(r1)
+            x, y = _x87_value(t0), _x87_value(t1)
+        except Exception:   # noqa: BLE001
+            return
+        arg = x if m == "fyl2x" else x + 1.0
+        if arg > 0 or (math.isinf(arg) and arg > 0):
+            return                  # in Unicorn's domain: it computes this itself
+        indef = (0xC000000000000000, 0xFFFF)
+        if math.isnan(x):
+            res = (t0[0] | (1 << 62), t0[1])
+        elif math.isnan(y):
+            res = (t1[0] | (1 << 62), t1[1])
+        elif arg == 0:
+            if y == 0:
+                res = indef
+            else:
+                res = (0x8000000000000000, 0xFFFF if y > 0 else 0x7FFF)      # y * log2(0) = -inf * sign(y)
+        else:
+            res = indef             # log of a negative number: invalid, the default NaN
+        uc.reg_write(r1, res)
+        uc.reg_write(r0, (0x8000000000000000, 0x4000) if m == "fyl2x" else (0x8000000000000000, 0x3FFF))
 
     def _on_code(self, uc, addr, size, _):
         self.nsteps += 1
@@ -5089,6 +5681,8 @@ class Run:
                 except Exception:
                     pass
             self.cur_insn = insn
+            if insn is not None and insn.mnemonic in ("fyl2x", "fyl2xp1") and "fyl2x" not in EQUIV_OFF:
+                self._fyl2x_fix(insn.mnemonic)
             if insn is not None and insn.mem is not None and insn.mem[1] in ("esp", "ebp") and \
                     not insn.mem[2] and "uninitmask" not in EQUIV_OFF and \
                     insn.mnemonic not in ("lea", "nop", "ret", "call") and not insn.mnemonic.startswith(("rep", "movs", "stos")) \
@@ -5507,6 +6101,8 @@ class Run:
         # 0x221c], ebx`) is as ambiguous: `use(f()->x)` and `p = f(); use(p->x); return p` compile alike
         out["eax_defined"] = d[1] if d and ((d[0] == "call" and self.eax_read and self.eax_vread) or (d[0] == "insn" and not self.eax_read and
                                                                 self.view.eax_dead_after(d[2]))) else None
+        out["eax_untouched"] = self.eax_def is None     # (round 22, noeaxret) nothing on this path wrote eax
+        out["entry"] = self.orig_entry
         out["segments"] = self.segments
         out["seg_fpu"] = self.seg_fpu
         out["epochs"] = self.epoch
@@ -6329,6 +6925,12 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
                 # earlier call on each side (the padding of a struct passed by value): each image's own address
                 j += 1
                 continue
+            if j in a.get("arg_unw", ()) and not a.get("conv") and "uninitarg" not in EQUIV_OFF:
+                # (round 22, uninitarg) the original passes a word of its argument area that nothing wrote (the padding of a
+                # by-value struct whose copy constructor fills 10 of its 16 bytes): an indeterminate value, the harness's
+                # fill pattern, that no source can reproduce. Not compared
+                j += 1
+                continue
             w_ = min((a.get("argw") or [])[j:j + 1] + (b.get("argw") or [])[j:j + 1] + [32])
             if NATIVE_NARROW and w_ == 32:
                 w_ = NATIVE_NARROW.get(a["target"], {}).get(j, 32)      # (round 19) the callee reads only its low bits
@@ -6385,11 +6987,23 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
         # contents of locals passed by pointer, matched by argument position
         for j, ((ov, _), (rv, _)) in enumerate(zip(oa, ra)):
             if ov in a.get("pointees", {}) and rv in b.get("pointees", {}):
-                d_ = _pointee_diff(a["pointees"][ov], b["pointees"][rv])
+                d_ = _pointee_diff(a["pointees"][ov], b["pointees"][rv], cap=_callee_ext(prog, a, j))
                 if d_ is not None:
                     path, off, rwv, owv = d_
                     out.append("call #%d to %s: the local passed as argument %d differs at %s+0x%x (%s, expected %s)" % (
                         k + 1, _fmt(a["target"]), j + 1, path, off, _desc(rwv), _desc(owv)))
+                    bad = True
+                    break
+        if bad:
+            break
+        # (round 22, stackval) locals whose address the function stored into memory before this call
+        for w0, osn in sorted((a.get("stored_locals") or {}).items()):
+            rsn = (b.get("stored_locals") or {}).get(w0)
+            if rsn is not None:
+                d_ = _pointee_diff(osn, rsn)
+                if d_ is not None:
+                    out.append("call #%d to %s: the local whose address is stored at %s differs at %s+0x%x (%s, expected %s)" % (
+                        k + 1, _fmt(a["target"]), namer(w0), d_[0], d_[1], _desc(d_[2]), _desc(d_[3])))
                     bad = True
                     break
         if bad:
@@ -6411,7 +7025,7 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
                 break
             ov, rv = a["regs"][reg], b["regs"][reg]
             if ov in a.get("pointees", {}) and rv in b.get("pointees", {}):
-                d_ = _pointee_diff(a["pointees"][ov], b["pointees"][rv])
+                d_ = _pointee_diff(a["pointees"][ov], b["pointees"][rv], cap=_callee_ext(prog, a, reg))
                 if d_ is not None:
                     out.append("call #%d to %s: the local passed in %s differs at %s+0x%x" % (
                         k + 1, _fmt(a["target"]), reg, d_[0], d_[1]))
@@ -6483,6 +7097,20 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
                     done.update(range(w0, w0 + 4))
                     _NAN_SIGN[0] += 1
                     continue
+                if NATIVE_MODE and "stackval" not in EQUIV_OFF:
+                    # (round 22, stackval) both stored the address of one of their locals (at any alignment: a fuzzed
+                    # object pointer): frames differ; what it points to is compared at the next call (`stored_locals`)
+                    hit = None
+                    for b0 in range(a - 3, a + 1):
+                        if any(b0 + i in os_ for i in range(4)) and any(b0 + i in rs for i in range(4)):
+                            o_ = struct.unpack("<I", bytes(os_.get(b0 + i, machine.byte(b0 + i, s)) for i in range(4)))[0]
+                            r_ = struct.unpack("<I", bytes(rs.get(b0 + i, machine.byte(b0 + i, s)) for i in range(4)))[0]
+                            if STACK_LO <= o_ < ENTRY_ESP and STACK_LO <= r_ < ENTRY_ESP:
+                                hit = b0
+                                break
+                    if hit is not None:
+                        done.update(range(hit, hit + 4))
+                        continue
                 if NATIVE_CTOR and "ctorvptr" not in EQUIV_OFF and s < len(oc) and namer(w0) == "this+0x0" and \
                         rw4 in prog.vftables and (ow4 in prog.vftables or not any(w0 + i in os_ for i in range(4))):
                     # (round 19, ctorvptr) a constructor whose base is built in the source by a comma expression
@@ -6561,7 +7189,12 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
             mask = {"i8": 0xFF, "b8": 0xFF, "i16": 0xFFFF}.get(rk, M32)
             if o.get("eax_fnstsw") is not None:
                 mask &= (1 << o["eax_fnstsw"]) - 1      # (status-word bytes of the original's eax: not compared)
-            if rk != "void":
+            ri_ = prog.reg_inputs(o["entry"]) if rk is None and o.get("entry") else None
+            if rk is None and o.get("eax_untouched") and "noeaxret" not in EQUIV_OFF and ri_ is not None and "eax" not in ri_:
+                # (round 22, noeaxret) the return type is unknown (a C name nobody calls directly), and the original's run
+                # neither wrote eax nor reads it as an argument: what it leaves in eax is its caller's, not a result
+                pass
+            elif rk != "void":
                 ov, rv = _norm(o["eax"] & mask), _norm(r["eax"] & mask)
                 if NATIVE_MODE and rk == "b8" and "natbool" not in EQUIV_OFF and ov and rv:
                     ov = rv = 1          # (round 18, natbool) a bool: clang returns 0/1, the original's flag bits (0x41)
@@ -6608,8 +7241,24 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
     return out[:max_report]
 
 
-def _pointee_diff(o, r, path=""):
+def _callee_ext(prog, call, loc):
+    """(round 22, calleext) How many bytes the real callee of a call can reach through argument `loc` (a stack argument
+    index or a register): Program.callee_reads over the original's callee, or None (unknown: compare as before)."""
+    if "calleext" in EQUIV_OFF or not call.get("known") or call.get("conv") or call["target"] not in prog.funcs:
+        return None
+    cr = prog.callee_reads(call["target"])
+    if cr is None:
+        return None
+    if loc not in cr[0]:
+        return 0
+    return cr[0][loc]
+
+
+def _pointee_diff(o, r, path="", cap=None):
     """(path, offset, ours, expected) of the first difference between two pointee snapshots, or None.
+
+    (round 22, calleext) cap: the bytes the callee can reach through the pointer (Program.callee_reads); bytes past
+    it are neighbouring locals of the original's frame that no code behind the call reads: not compared.
 
     The original decides: as many bytes as it filled in (or the declared size), and only bytes it wrote;
     ours initialising more than the original isn't a difference. Locals that a compared word points to
@@ -6634,11 +7283,15 @@ def _pointee_diff(o, r, path=""):
         # neighbouring locals the original's frame holds there (clang lays locals out in another order); compared
         # only where both runs wrote them (an array the function fills is written by both)
         written = {i for i in ow if i < osz or i in rw}
+    if cap is not None:
+        oe = min(oe, cap)
     off = _first_diff(ob[:oe], rb[:oe], ofp, rfp, written)
     if off is not None:
         w = lambda b: struct.unpack_from("<I", b.ljust(off + 4, b"\0"), off & ~3)[0]
         return ("(in " + path.rstrip(", ") + ") ") if path else "", off, w(rb), w(ob)
     for noff, sub in sorted(onest.items()):
+        if cap is not None and noff + 4 > cap:
+            continue                # (the callee can't read that pointer word)
         if noff in rnest:
             d = _pointee_diff(sub, rnest[noff], path + "the local its +0x%x points to, " % noff)
             if d is not None:
@@ -7461,17 +8114,33 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
         # (round 19, natnarrow) a bool/char/short parameter of a callee our source declares: the callee reads its
         # low byte or word (the ABI says the caller extends, the original's caller leaves stale upper bits, and
         # the callee ignores them), so the upper bits of the pushed word are not compared. Trust: the declaration.
+        bv_sizes = {}
+        if "narrowstruct" not in EQUIV_OFF:
+            # (round 22, narrowstruct) a by-value struct before the narrow parameter (`f(Name n, short value)`): its words
+            # are counted (sizeof from a probe of our source), where the mapping used to stop at the struct
+            bv_ = sorted({pt_.split(" ", 1)[1] for sg_ in decls.values() if sg_ and sg_.get("params")
+                          for k_, pt_ in zip(sg_["params"], sg_.get("param_types") or []) if k_ == "struct" and
+                          pt_.startswith(("struct ", "class ", "union ")) and
+                          any(x in ("b8", "i8", "i16") for x in sg_["params"])})
+            if bv_ and src and os.path.exists(src):
+                try:
+                    bv_sizes = _probe_sizes(src, flags, bv_)
+                except Exception:   # noqa: BLE001
+                    bv_sizes = {}
         for t_, sg_ in decls.items():
             if not sg_ or not sg_.get("params"):
                 continue
             wi_, nm_ = 0, {}
-            for k_ in sg_["params"]:
+            for k_, pt_ in zip(sg_["params"], (sg_.get("param_types") or []) + [""] * len(sg_["params"])):
                 if k_ in ("b8", "i8"):
                     nm_[wi_] = 8
                 elif k_ == "i16":
                     nm_[wi_] = 16
                 elif k_ in ("i64", "f64"):
                     wi_ += 1
+                elif k_ == "struct" and bv_sizes.get(pt_.split(" ", 1)[-1]):
+                    wi_ += (bv_sizes[pt_.split(" ", 1)[-1]] + 3) // 4
+                    continue
                 elif k_ not in ("i32", "ptr", "f32"):
                     break
                 wi_ += 1
@@ -7850,7 +8519,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                     continue
                 if isinstance(k, tuple) and k[0] == "sentinel":      # walk sentinels planted in memory
                     continue
-                if isinstance(k, tuple) and k[0] == "stubmode":      # (round 11) every stub's result
+                if isinstance(k, tuple) and k[0] in ("stubmode", "arity"):   # (round 11) every stub's result; (round 22)
                     continue
                 if isinstance(k, tuple) and k[0] == "sbyte":         # bytes of a stack argument word
                     _, wi, bo, bn = k
@@ -7909,6 +8578,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         inp["stub_mode"] = ("normal", "normal", "normal", "zero", "one", "normal")[seed % 6]
         if stack_patch and ("stubmode",) in stack_patch:
             inp["stub_mode"] = stack_patch[("stubmode",)]
+        if stack_patch and ("arity",) in stack_patch:
+            inp["arity_override"] = stack_patch[("arity",)]     # (round 22, vsplit)
         mach = Machine(prog, seed, globals_, pristine=(seed == 0), dictionary=dictionary, pointers=pointers,
                        overlay=overlay, sentinels=(stack_patch or {}).get(("sentinel",), ()))
         # Callee write extents the original's run learns must reach our run too: create the dict
@@ -7935,7 +8606,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         inp_o = _conv_input(inp, own_layout, target_conv) if target_conv else inp
         return inp, inp_o, mach
 
-    def run_input(seed, overlay=None, stack_patch=None, label=None, _vk=False):
+    def run_input(seed, overlay=None, stack_patch=None, label=None, _vk=False, _ar=False):
         """Run one input on both sides; returns the set of new original edges (None if inconclusive)."""
         inp, inp_o, mach = build(seed, overlay, stack_patch)
         # (round 8, overlap) strncat(d, d + 12, n): overlapping copies are undefined behaviour, and the
@@ -7959,7 +8630,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             ov_ = dict(overlay or {})
             for a_, (v_, ep_) in orun.vp_havoc.items():
                 ov_[(("after", ep_), a_)] = v_.to_bytes(4, "little")
-            return run_input(seed, ov_, stack_patch, label, _vk=True)
+            return run_input(seed, ov_, stack_patch, label, _vk=True, _ar=_ar)
         # only a run that returned proves anything about the edges it took (a fault both sides share, e.g.
         # a stub that can't model the call, leaves the code after it unverified)
         conclusive = o["status"] == "ret"
@@ -8222,6 +8893,37 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             return None
         diffs = compare_runs(o, r, ret_kind, mach, Namer(inp, sig, prog), prog, esp_adjust=esp_adjust,
                              skip_saved=set(target_conv or ()), void_eax=void_eax)
+        if diffs and NATIVE_MODE and orun.ambig_calls and not _ar and "vsplit" not in EQUIV_OFF:
+            # (round 22, vsplit) an indirect call whose stack words the original's code leaves open (see _stub): clang's
+            # `sub esp, N` after our call says how many our declaration gives it. Re-run with the original's callee popping
+            # that many (fewer than were pushed: the rest stay pending for the next call); its own stack balance and every
+            # later call are still compared, so a split the original's code can't have fails as before
+            ov_ = {}
+            for k_, n_ in orun.ambig_calls.items():
+                if k_ < len(r["calls"]) and k_ < len(o["calls"]) and r["calls"][k_].get("cpop") is not None:
+                    cp_ = r["calls"][k_]["cpop"]
+                    if cp_ % 4 == 0 and cp_ // 4 < n_:
+                        ov_[k_] = (cp_, cp_ // 4)
+            if ov_:
+                sp_ = dict(stack_patch or {})
+                sp_[("arity",)] = ov_
+                # the split must be one the original's code can have: with it, the original's run still returns, with the
+                # stack pointer where it was (the later calls and pops balance); otherwise the first comparison stands
+                inp_t, inp_ot, mach_t = build(seed, overlay, sp_)
+                trun = Run(prog, oview, mach_t, inp_ot, ours_image=(OURS, ours.image), sig=sig, max_steps=steps[0],
+                           own_float_ret=own_float, coverage=True, helpers=helpers)
+                trun.pointee_sizes = psizes or {}
+                trun.convs = convs or {}
+                trun.orig_entry = oview.entry
+                trun.slot_arity = slot_arity
+                trun.loop_limits = loop_limits
+                trun.varargs = varargs
+                trun.wild_check = True
+                to_ = trun.run(oview.entry)
+                if to_["status"] == "ret" and to_["esp"] == o["esp"] and \
+                        all(to_["saved"][reg_] == o["saved"][reg_] for reg_ in CALLEE_SAVED):
+                    res["vsplit_reruns"] = res.get("vsplit_reruns", 0) + 1
+                    return run_input(seed, overlay, sp_, label, _vk=_vk, _ar=True)
         if diffs and os.environ.get("EQUIV_DUMP"):
             # debugging: the calls of both runs (target, args) and the return values of the failing input
             print("DUMP input %s diffs %s" % (label or seed, diffs[:2]), file=sys.stderr)

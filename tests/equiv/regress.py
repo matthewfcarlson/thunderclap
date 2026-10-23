@@ -571,7 +571,8 @@ CASES = {
     "0x001e0230_native_sret_wrong": ("fail", "write to arg", 0, {"native": True, "n_inputs": 100}),
     # natfill: a char[257] at an odd frame offset gets the whole word the original's aligned buffer got
     "0x0026f7b0_native_buf": ("equivalent", None, 0.9, {"native": True, "n_inputs": 300}),
-    "0x0026f7b0_native_buf_off": ("fail", None, 0, {"src": "0x0026f7b0_native_buf", "native": True, "n_inputs": 300, "equiv_off": "natfill"}),
+    # (round 22: fillsame, ours replaying the original's fill bytes, closes the same gap; both off)
+    "0x0026f7b0_native_buf_off": ("fail", None, 0, {"src": "0x0026f7b0_native_buf", "native": True, "n_inputs": 300, "equiv_off": "natfill,fillsame"}),
     "0x0026f7b0_native_buf_wrong": ("fail", None, 0, {"native": True, "n_inputs": 300}),
     # boolub (movzx r32, r8; and r32, 1): clang normalises the bool byte it passes on; a byte other than 0/1 is no bool
     "0x0002e910_native_bool": ("equivalent", None, 0, {"native": True, "n_inputs": 100}),
@@ -636,7 +637,8 @@ CASES = {
     "0x000f7790_native_steps_wrong": ("fail", None, 0, {"native": True, "n_inputs": 80}),
     # vptrkeep: the original loads the item's vptr before the table lookup call (a stub: its memory havoc replaces the vptr word)
     "0x000cb6f0_native_vptr": ("equivalent", None, 0, {"native": True, "n_inputs": 80}),
-    "0x000cb6f0_native_vptr_off": ("fail", "went to", 0, {"src": "0x000cb6f0_native_vptr", "native": True, "n_inputs": 80, "equiv_off": "vptrkeep"}),
+    # (round 22: purecall, no havoc after the table lookup that writes nothing, closes it too; both off)
+    "0x000cb6f0_native_vptr_off": ("fail", "went to", 0, {"src": "0x000cb6f0_native_vptr", "native": True, "n_inputs": 80, "equiv_off": "vptrkeep,purecall"}),
     "0x000cb6f0_native_vptr_wrong": ("fail", None, 0, {"native": True, "n_inputs": 80}),
     # helpers64: the original calls __allmul, clang multiplies inline
     "0x00096d80_native_int64": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
@@ -664,6 +666,56 @@ CASES = {
     "0x001f56b0_wglobal_wrong": ("fail", None, 0, {"n_inputs": 100}),
     "0x0007a420_wglobal": ("equivalent", None, 0, {"n_inputs": 100}),
     "0x0007a420_wglobal_wrong": ("fail", None, 0, {"n_inputs": 100}),
+    # round 22 (cl11)
+    # crtarity: `push 0; push T; push S; push 0; call [vt+0x10]; push eax; call __RTDynamicCast`: the four words are the cast's
+    "0x000f1ab0_native_crtarity": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    "0x000f1ab0_native_crtarity_off": ("fail", "argument 1", 0, {"src": "0x000f1ab0_native_crtarity", "native": True, "n_inputs": 60, "equiv_off": "crtarity,vsplit"}),
+    "0x000f1ab0_native_crtarity_wrong": ("fail", None, 0, {"native": True, "n_inputs": 60}),
+    # calleext: FUN_00356bf0(.., float *x, float *y, float *z) reads 4 bytes through each; the neighbours of &dir.z are other locals
+    "0x002d21c0_native_calleext": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    "0x002d21c0_native_calleext_off": ("fail", "local passed as argument 6", 0, {"src": "0x002d21c0_native_calleext", "native": True, "n_inputs": 60, "equiv_off": "calleext"}),
+    "0x002f0780_native_calleext_wrong": ("fail", "local passed as argument 3", 0, {"native": True, "n_inputs": 60}),
+    # stackval: `lea ecx, [esp+8]; mov [fs+0x14], ecx`: the stored &local differs by frame; the local itself is compared at the next call
+    "0x0021e080_native_stackval": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    "0x0021e080_native_stackval_off": ("fail", "write to", 0, {"src": "0x0021e080_native_stackval", "native": True, "n_inputs": 60, "equiv_off": "stackval"}),
+    "0x0021e080_native_stackval_wrong": ("fail", "stored at", 0, {"native": True, "n_inputs": 60}),
+    "0x0021e080_stackval_wrong": ("fail", "stored at", 0, {"src": "0x0021e080_native_stackval_wrong", "n_inputs": 60}),
+    # tailthis: `sub ecx, 4; jmp Base::~dtor`: the tail callee returns its this
+    "0x002786e0_native_tailthis": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    "0x002786e0_native_tailthis_off": ("fail", "returned", 0, {"src": "0x002786e0_native_tailthis", "native": True, "n_inputs": 60, "equiv_off": "tailthis"}),
+    "0x002786e0_native_tailthis_wrong": ("fail", "returned", 0, {"native": True, "n_inputs": 60}),
+    # noeaxret: an extern "C" void function nobody calls directly that never writes eax: its eax is the caller's
+    "0x0035d200_native_noeaxret": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    "0x0035d200_native_noeaxret_off": ("fail", "return type unknown", 0, {"src": "0x0035d200_native_noeaxret", "native": True, "n_inputs": 60, "equiv_off": "noeaxret"}),
+    "0x0035d200_native_noeaxret_wrong": ("fail", "write to", 0, {"native": True, "n_inputs": 60}),
+    # fyl2x: Unicorn leaves the x87 stack alone for `fyl2x` of a negative operand (log of a fuzzed negative float)
+    "0x0033b8d0_native_fyl2x": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    "0x0033b8d0_native_fyl2x_off": ("fail", "x87 stack depth", 0, {"src": "0x0033b8d0_native_fyl2x", "native": True, "n_inputs": 60, "equiv_off": "fyl2x"}),
+    "0x0033b8d0_native_fyl2x_wrong": ("fail", "argument 2", 0, {"native": True, "n_inputs": 60}),
+    # nofill: FUN_002f0080 only reads the vectors it gets: no speculative out-parameter fill
+    "0x002f0780_native_nofill": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    "0x002f0780_native_nofill_off": ("fail", "local passed as argument 1", 0, {"src": "0x002f0780_native_nofill", "native": True, "n_inputs": 60, "equiv_off": "nofill"}),
+    "0x002f0780_native_nofill_wrong": ("fail", None, 0, {"native": True, "n_inputs": 60}),
+    # fillsame: snprintf(buf, ...) twice: the stub's fill of `char buf[32]` depended on the buffer's alignment
+    "0x001ca430_native_fillsame": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    "0x001ca430_native_fillsame_off": ("fail", "local passed as argument 1", 0, {"src": "0x001ca430_native_fillsame", "native": True, "n_inputs": 60, "equiv_off": "fillsame"}),
+    "0x001ca430_native_fillsame_wrong": ("fail", None, 0, {"native": True, "n_inputs": 60}),
+    # vsplit: `push b; push a; push 0; call [dev+0x48]; push eax; call [vt+0x20]`: who takes a and b is open in the original
+    "0x00296160_native_vsplit": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    "0x00296160_native_vsplit_off": ("fail", "argument 2", 0, {"src": "0x00296160_native_vsplit", "native": True, "n_inputs": 60, "equiv_off": "vsplit"}),
+    "0x00296160_native_vslotkeep_off": ("fail", "went to", 0, {"src": "0x00296160_native_vsplit", "native": True, "n_inputs": 60, "equiv_off": "vslotkeep"}),
+    "0x00296160_native_vsplit_wrong": ("fail", None, 0, {"native": True, "n_inputs": 60}),
+    "0x00296160_native_vslotkeep_wrong": ("fail", None, 0, {"native": True, "n_inputs": 60}),
+    # ... and a split the original's code can't have (its stack would not balance) is not taken: a real wrong declaration
+    "0x000f0e60_native_vsplit_wrong": ("fail", "argument 2", 0, {"native": True, "n_inputs": 60}),
+    # uninitarg, purecall, narrowstruct: a by-value struct whose padding nothing writes, built by a copy constructor that writes only it
+    "0x001fe000_native_uninitarg": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    "0x001fe000_native_uninitarg_off": ("fail", "argument 4", 0, {"src": "0x001fe000_native_uninitarg", "native": True, "n_inputs": 60, "equiv_off": "uninitarg"}),
+    "0x001fe000_native_purecall_off": ("fail", "this (ecx)", 0, {"src": "0x001fe000_native_uninitarg", "native": True, "n_inputs": 60, "equiv_off": "purecall"}),
+    "0x001fe000_native_narrowstruct_off": ("fail", "argument 5", 0, {"src": "0x001fe000_native_uninitarg", "native": True, "n_inputs": 60, "equiv_off": "narrowstruct"}),
+    "0x001fe000_native_uninitarg_wrong": ("fail", "argument 3", 0, {"native": True, "n_inputs": 60}),
+    "0x001fe000_native_narrowstruct_wrong": ("fail", "argument 5", 0, {"native": True, "n_inputs": 60}),
+    "0x001fe000_native_purecall_wrong": ("fail", "this (ecx)", 0, {"native": True, "n_inputs": 60}),
 }
 
 # verify_relocs.py cases: name -> (expected status, issue kind it must report or None)

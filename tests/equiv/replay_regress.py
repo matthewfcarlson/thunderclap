@@ -19,7 +19,7 @@ from multiprocessing import get_context
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 CASES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "replay_cases")
 
-# name: (session, expected status, text or None[, minimum calls agreed])
+# name: (session, expected status, text or None[, minimum calls agreed[, REPLAY_OFF switches[, EQUIV_OFF switches]]])
 CASES = {
     # x87-argument callee (`fld x; call __CIasin`): the stub returns through TRAMP+0xC00, which took a fuzz float
     # instead of the recorded asin result (fx12)
@@ -74,7 +74,8 @@ CASES = {
     # (cap2, vpop) `push x5; call [edx+0x48]` to a `ret 4` callee, then `push eax; call cdecl; add esp, 0x14`: the call-site guess left
     # the stack 4 bytes low and an esp-relative local read its neighbour (0x000d3170, captured with the real pop)
     "0x000d3170_vcall_pop": ("cap2-d2", "agreed", None, 1),
-    "0x000d3170_vcall_pop_off": ("cap2-d2", "no_replay", None, 0, "vpop"),
+    # (round 22: crtarity also resolves this call's words from the original's code, the __RTDynamicCast after it)
+    "0x000d3170_vcall_pop_off": ("cap2-d2", "no_replay", None, 0, "vpop", "crtarity"),
     # (cap2, ptrdiffmem; capture side) `sub eax, ecx` stored in the frame (arg - &array) differs by the stacks' offset: recaptured, 0x000a89c0
     "0x000a89c0_ptrdiff_mem": ("cap2-e", "agreed", None, 1),
     # (cap2, partial) a callee the game never returned from within the capture's budget (a thread entry's `fn(arg)`) ends the
@@ -116,12 +117,19 @@ def job(name):
     off = set(CASES[name][4].split(",")) if len(CASES[name]) > 4 else set()
     off -= er.REPLAY_OFF
     er.REPLAY_OFF.update(off)       # (a case's 5th element: REPLAY_OFF switches for this case only)
+    eq = sys.modules["equiv"] if "equiv" in sys.modules else None
+    eoff = set(CASES[name][5].split(",")) if len(CASES[name]) > 5 and eq is not None else set()
+    eoff -= eq.EQUIV_OFF if eq is not None else set()
+    if eq is not None:
+        eq.EQUIV_OFF.update(eoff)   # (6th element: EQUIV_OFF switches of the checker, round 22)
     try:
         r = er.replay(os.path.join(CASES_DIR, name + ".cpp"), addr, er.TraceStore(path))
     except Exception as e:      # noqa: BLE001
         return name, "error", {"error": repr(e)[:300]}
     finally:
         er.REPLAY_OFF.difference_update(off)
+        if eq is not None:
+            eq.EQUIV_OFF.difference_update(eoff)
     return name, r.get("status"), r
 
 

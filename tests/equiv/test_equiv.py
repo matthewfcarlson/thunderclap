@@ -77,6 +77,40 @@ class Logic(unittest.TestCase):
         self.assertTrue(run([call(0x600, ecx=0x40000f00)], prog))               # ... on another object
         self.assertFalse(run([call(0x700, args=(0x40001000,))], FakeProg(set(), {0x700: {0: 8}})))   # writes through arg 0
 
+    def test_callee_reads(self):
+        # (cl11, calleext/nofill) how far a callee reaches through each pointer argument, with every escape tracked
+        import capstone
+        code = {
+            0x1000: "8b442404" "8b4808" "894804" "c3",          # mov eax,[esp+4]; mov ecx,[eax+8]; mov [eax+4],ecx; ret
+            0x1100: "8b442404" "a300500000" "c3",               # ...; mov [0x5000], eax: stored, escapes
+            0x1200: "ff742404" "e8f7fdffff" "83c404" "c3",      # push [esp+4]; call 0x1000; add esp, 4: passed on
+            0x1300: "8b442404" "83c004" "833800" "75f8" "c3",   # a loop advancing the pointer: escapes
+            0x1400: "8b442404" "8b0488" "c3",                   # an indexed load: escapes
+            0x1500: "8b4c2404" "85c9" "7403" "8b4104" "c3",     # a load on one path only (ecx is dead after the join)
+            0x1600: "8b442404" "85c0" "7403" "8b4004" "c3",     # ... but eax may return the pointer: escapes
+        }
+        mem = bytearray(0x2000)
+        for a, h in code.items():
+            mem[a:a + len(h) // 2] = bytes.fromhex(h)
+        prog = equiv.Program.__new__(equiv.Program)
+        prog.funcs = {a: (len(h) // 2, "f%x" % a) for a, h in code.items()}
+        prog.read = lambda va, n: bytes(mem[va:va + n]) if va + n <= len(mem) else b"\0" * n
+        prog.md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+        prog.md.detail = True
+        prog._pop_cache = {}
+        prog.text = (0x1000, 0x2000)
+        self.assertEqual(prog.callee_reads(0x1000)[0], {0: 12})
+        self.assertEqual(prog.callee_reads(0x1000)[2], {0: 8})        # writes 8 bytes (+4)
+        self.assertEqual(prog.callee_reads(0x1100)[0], {0: None})
+        self.assertEqual(prog.callee_reads(0x1200)[0], {0: 12})       # through its callee
+        self.assertEqual(prog.callee_reads(0x1300)[0][0], None)
+        self.assertEqual(prog.callee_reads(0x1400)[0][0], None)
+        self.assertEqual(prog.callee_reads(0x1500)[0][0], 8)
+        self.assertIsNone(prog.callee_reads(0x1600)[0][0])
+        self.assertEqual(equiv._callee_ext(prog, {"known": True, "target": 0x1000, "conv": False}, 0), 12)
+        self.assertEqual(equiv._callee_ext(prog, {"known": True, "target": 0x1000, "conv": False}, 1), 0)
+        self.assertIsNone(equiv._callee_ext(prog, {"known": True, "target": 0x1100, "conv": False}, 0))
+
     def test_write_only_idioms(self):
         import capstone
         md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
