@@ -4,7 +4,7 @@
 typedef unsigned int u32_122210;
 extern int TypeA_122210;
 extern int TypeB_122210;
-struct StrafeCircleHBAction_122210 {
+struct StrafeCircleHBAction_nv_122210 {
     u32_122210 Init(void*, void*);
 };
 extern int Check(void*, int, int*, int*, int);
@@ -15,7 +15,7 @@ int hulkfight::ai::StrafeCircleHBTrack::vfunc_10(int __p0, int __p1, int __p2) {
     if (Check(p, 0, &TypeA_122210, &TypeB_122210, 0)) {
         hulkfight::ai::StrafeCircleHBAction* q = Alloc(0x28);
         if (q)
-            return (int)(((StrafeCircleHBAction_122210*)(q))->Init(this, p));
+            return (int)(((StrafeCircleHBAction_nv_122210*)(((hulkfight::ai::StrafeCircleHBAction*)(q))))->Init(this, p));
     }
     return (int)(0);
 }

@@ -8,7 +8,7 @@ class Params_17bdc0 {
 extern Params_17bdc0 TypeA_17bdc0;
 extern Params_17bdc0 TypeB_17bdc0;
 int __cdecl Check(void*, int, Params_17bdc0*, Params_17bdc0*, int);
-struct CriticalMassDrainAction_17bdc0 {
+struct CriticalMassDrainAction_nv_17bdc0 {
     int Init(hulkfight::motion::CriticalMassDrainTrack*, int);
 };
 hulkfight::motion::CriticalMassDrainAction* __cdecl Alloc(int);
@@ -18,7 +18,7 @@ int hulkfight::motion::CriticalMassDrainTrack::vfunc_10(int a, int b, int c) {
     if (result) {
         hulkfight::motion::CriticalMassDrainAction* p = Alloc(0x24);
         if (p)
-            return ((CriticalMassDrainAction_17bdc0*)(p))->Init(this, c);
+            return ((CriticalMassDrainAction_nv_17bdc0*)(((hulkfight::motion::CriticalMassDrainAction*)(p))))->Init(this, c);
     }
     return 0;
 }

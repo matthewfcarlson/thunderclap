@@ -4,7 +4,7 @@
 #include "decls/data/game/unknown.h"
 #include "gen/global.h"
 
-struct CSoundCommand_PlayDialogueEvent_1f1740 {
+struct CSoundCommand_PlayDialogueEvent_nv_1f1740 {
     CSoundCommand_PlayDialogueEvent* FUN_001f0630(const char*, void*, unsigned, unsigned);
 };
 struct Manager_1f1740 { void FUN_001ef260(CSoundCommand_PlayDialogueEvent*); };
@@ -17,7 +17,7 @@ void __stdcall FUN_001f1740(const char* name, void* value, unsigned a, unsigned 
  unsigned i=0;
  do { buffer[i]=name[i]; } while(name[i++]);
  CSoundCommand_PlayDialogueEvent* p=(CSoundCommand_PlayDialogueEvent*)FUN_0008d710(32,6);
- if(p) p=((CSoundCommand_PlayDialogueEvent_1f1740*)(p))->FUN_001f0630(name,value,a,b);
+ if(p) p=((CSoundCommand_PlayDialogueEvent_nv_1f1740*)(((CSoundCommand_PlayDialogueEvent*)(p))))->FUN_001f0630(name,value,a,b);
  manager->FUN_001ef260(p);
  }
  }

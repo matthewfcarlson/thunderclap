@@ -11,7 +11,7 @@ struct Sprite_2c1d70 {
     StrField_2c1d70 name;
 };
 
-struct TextureBuilder_2c1d70 {
+struct TextureBuilder_nv_2c1d70 {
     Sprite_2c1d70 *FUN_002aedd0(const char *name);
     Sprite_2c1d70 *FUN_002aeec0(int h, int a, int b);
     void FUN_002aef60(const char *name, Sprite_2c1d70 *existing, int arg);
@@ -70,9 +70,9 @@ Sprite_2c1d70 *Loader_2c1d70::FUN_002c1d70(Reader_2c1d70 *r, pure3d::TextureBuil
                 r->stream->FUN_002647e0(&fr.a, 1, 4, 1);
                 int h = r->FUN_00266c90();
                 if (existing == 0)
-                    existing = ((TextureBuilder_2c1d70*)(sd))->FUN_002aeec0(h, fr.a, fr.b);
+                    existing = ((TextureBuilder_nv_2c1d70*)(((pure3d::TextureBuilder*)(sd))))->FUN_002aeec0(h, fr.a, fr.b);
                 else
-                    ((TextureBuilder_2c1d70*)(sd))->FUN_002af010(h, existing, fr.b, arg);
+                    ((TextureBuilder_nv_2c1d70*)(((pure3d::TextureBuilder*)(sd))))->FUN_002af010(h, existing, fr.b, arg);
                 r->FUN_00266ca0(h);
             } else if (id == 0x19003) {
                 r->stream->FUN_002647e0(&fr.len, 1, 1, 1);
@@ -81,9 +81,9 @@ Sprite_2c1d70 *Loader_2c1d70::FUN_002c1d70(Reader_2c1d70 *r, pure3d::TextureBuil
                 r->stream->FUN_002647e0(name2, m, 1, 1);
                 name2[m] = 0;
                 if (existing == 0)
-                    existing = ((TextureBuilder_2c1d70*)(sd))->FUN_002aedd0(name2);
+                    existing = ((TextureBuilder_nv_2c1d70*)(((pure3d::TextureBuilder*)(sd))))->FUN_002aedd0(name2);
                 else
-                    ((TextureBuilder_2c1d70*)(sd))->FUN_002aef60(name2, existing, arg);
+                    ((TextureBuilder_nv_2c1d70*)(((pure3d::TextureBuilder*)(sd))))->FUN_002aef60(name2, existing, arg);
             }
             r->FUN_00266be0();
         } while (r->FUN_002669f0());

@@ -8,7 +8,7 @@ class Params_17bf00 {
 extern Params_17bf00 TypeA_17bf00;
 extern Params_17bf00 TypeB_17bf00;
 int __cdecl Check(void*, int, Params_17bf00*, Params_17bf00*, int);
-struct VisibilityAction_17bf00 {
+struct VisibilityAction_nv_17bf00 {
     int Init(hulkfight::motion::VisibilityTrack*, int);
 };
 hulkfight::motion::VisibilityAction* __cdecl Alloc(int);
@@ -18,7 +18,7 @@ int hulkfight::motion::VisibilityTrack::vfunc_10(int a, int b, int c) {
     if (result) {
         hulkfight::motion::VisibilityAction* p = Alloc(0x24);
         if (p)
-            return ((VisibilityAction_17bf00*)(p))->Init(this, c);
+            return ((VisibilityAction_nv_17bf00*)(((hulkfight::motion::VisibilityAction*)(p))))->Init(this, c);
     }
     return 0;
 }

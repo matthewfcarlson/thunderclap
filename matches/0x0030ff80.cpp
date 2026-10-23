@@ -1,5 +1,5 @@
 #include "gen/physics.h"
-struct Pose_30ff80 {
+struct Pose_nv_30ff80 {
     void f650();
     void f4c0();
     void fa10(int);
@@ -13,10 +13,10 @@ class C_30ff80 {
     void target(char b);
 };
 void C_30ff80::target(char b) {
-    ((Pose_30ff80*)(mc))->f650();
+    ((Pose_nv_30ff80*)(((physics::Pose*)(mc))))->f650();
     if (b) {
-        ((Pose_30ff80*)(mc))->f4c0();
+        ((Pose_nv_30ff80*)(((physics::Pose*)(mc))))->f4c0();
         return;
     }
-    ((Pose_30ff80*)(mc))->fa10(m8);
+    ((Pose_nv_30ff80*)(((physics::Pose*)(mc))))->fa10(m8);
 }

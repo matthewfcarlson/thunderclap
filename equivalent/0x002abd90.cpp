@@ -24,7 +24,7 @@ public:
     void *FUN_00288a10(int index);
 };
 
-struct GeneratorBlendState_2abd90 {
+struct GeneratorBlendState_nv_2abd90 {
     ::pure3d::ParticlePlaneGenerator::GeneratorBlendState *FUN_002d2570(void *channels);
 };
 
@@ -126,7 +126,7 @@ ParticlePlaneGenerator_2abd90 * __stdcall FUN_002abd90(Reader_2abd90 *r, int fla
                     for (int i = 0; i < fr.b; i++) {
                         ::pure3d::ParticlePlaneGenerator::GeneratorBlendState *e = (::pure3d::ParticlePlaneGenerator::GeneratorBlendState *)FUN_0008d690(0x1c);
                         if (e != 0)
-                            e = ((GeneratorBlendState_2abd90*)(e))->FUN_002d2570(fr.obj->FUN_00288a10(i));
+                            e = ((GeneratorBlendState_nv_2abd90*)(((::pure3d::ParticlePlaneGenerator::GeneratorBlendState*)(e))))->FUN_002d2570(fr.obj->FUN_00288a10(i));
                         g->array.data[g->used] = e;
                         g->array.data[g->used]->vfunc_0();
                         g->used++;

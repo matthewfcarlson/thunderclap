@@ -4,16 +4,16 @@ struct Ref_32aa30 {
     virtual void f0();
     virtual void f1();
 };
-struct d3dSimpleShader_32aa30 {
+struct d3dSimpleShader_nv_32aa30 {
     void run();
 };
 extern void thunk_FUN_00267090(void*);
 extern "C" char DAT_0043386c[];
-struct pure3d_d3dSimpleShader_32aa30 {
+struct d3dSimpleShader_32aa30 {
     virtual void a0();
     virtual void a1();
     virtual void a2();
-    virtual pure3d_d3dSimpleShader_32aa30* vfunc_3(u8_32aa30);
+    virtual d3dSimpleShader_32aa30* vfunc_3(u8_32aa30);
     virtual void a4();
     virtual void a5();
     virtual void a6();
@@ -38,11 +38,11 @@ struct pure3d_d3dSimpleShader_32aa30 {
     char pad[0x80 - sizeof(void*)];
     Ref_32aa30* member;
 };
-pure3d_d3dSimpleShader_32aa30* pure3d_d3dSimpleShader_32aa30::vfunc_3(u8_32aa30 destroy) {
+d3dSimpleShader_32aa30* d3dSimpleShader_32aa30::vfunc_3(u8_32aa30 destroy) {
     *(int**)this = (int*)DAT_0043386c;
     if (member)
         member->f1();
-    ((d3dSimpleShader_32aa30*)(((pure3d::d3dSimpleShader*)this)))->run();
+    ((d3dSimpleShader_nv_32aa30*)(((pure3d::d3dSimpleShader*)(((pure3d::d3dSimpleShader*)this)))))->run();
     if (destroy & 1)
         thunk_FUN_00267090(this);
     return this;

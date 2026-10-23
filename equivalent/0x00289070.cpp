@@ -22,7 +22,7 @@ struct Table_289070 {
     Field_289070* FUN_0028b020(int key);
 };
 
-struct AnimationMemoryBlock_289070 {
+struct AnimationMemoryBlock_nv_289070 {
     pure3d::AnimationMemoryBlock* FUN_00288820(unsigned int total, unsigned int extra);
 };
 
@@ -96,5 +96,5 @@ pure3d::AnimationMemoryBlock* AnimationLoader_289070::FUN_00289070(Reader_289070
     pure3d::AnimationMemoryBlock* res = (pure3d::AnimationMemoryBlock*)FUN_0008d690(0x20);
     if (res == 0)
         return 0;
-    return ((AnimationMemoryBlock_289070*)(res))->FUN_00288820(f.total, extra);
+    return ((AnimationMemoryBlock_nv_289070*)(((pure3d::AnimationMemoryBlock*)(res))))->FUN_00288820(f.total, extra);
 }

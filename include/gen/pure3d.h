@@ -432,7 +432,8 @@ public:
     virtual void vfunc_24(int, int, int) = 0; // slot 24
     virtual int vfunc_25() = 0; // slot 25
     virtual bool vfunc_26(void*) = 0; // slot 26
-    char _pad_10[0x8];
+    char _pad_10[0x4];
+    float f_14;
     float f_18;
 };
 
@@ -543,7 +544,9 @@ public:
     virtual void vfunc_10(); // overrides pure3d::DrawablePrimitive slot 10
     virtual float vfunc_11(int, int); // slot 11
     int f_10;
-    char _pad_14[0x70];
+    char _pad_14[0x24];
+    int f_38;
+    char _pad_3c[0x48];
     unsigned int f_84;
 };
 
@@ -586,7 +589,8 @@ public:
     virtual int vfunc_16(); // slot 16
     virtual void* vfunc_17(int, int); // slot 17
     virtual int vfunc_18(int); // slot 18
-    char _pad_14[0x34];
+    char _pad_14[0x30];
+    void* f_44;
     void* f_48;
     void* f_4c;
 };
@@ -691,7 +695,7 @@ public:
     virtual void vfunc_27() = 0; // slot 27
     virtual void vfunc_28() = 0; // slot 28
     virtual void vfunc_29(); // slot 29
-    char _pad_1c[0x4];
+    int f_1c;
     int f_20;
     int f_24;
     unsigned int f_28;
@@ -1164,7 +1168,9 @@ public:
     virtual int vfunc_16(); // overrides pure3d::DrawableContainer slot 16
     virtual void* vfunc_17(int, int); // overrides pure3d::DrawableContainer slot 17
     virtual int vfunc_18(int); // overrides pure3d::DrawableContainer slot 18
-    char _pad_50[0x10];
+    char _pad_50[0x8];
+    void* f_58;
+    void* f_5c;
     void* f_60;
     void* f_64;
 };
@@ -1640,7 +1646,17 @@ public:
     virtual unsigned int vfunc_30(); // slot 30
     virtual void vfunc_31(void*); // slot 31
     virtual unsigned int vfunc_32(); // slot 32
-    char _pad_10[0x70];
+    int f_10;
+    char _pad_14[0x4];
+    float f_18;
+    float f_1c;
+    char _pad_20[0x4];
+    float f_24;
+    float f_28;
+    char _pad_2c[0x4];
+    float f_30;
+    float f_34;
+    char _pad_38[0x48];
     unsigned int f_80;
     unsigned int f_84;
     void* f_88;
@@ -1702,7 +1718,15 @@ public:
     virtual void vfunc_7(int, int); // overrides pure3d::ParticleGenerator slot 7
     virtual float vfunc_8(int); // overrides pure3d::ParticleGenerator slot 8
     virtual void vfunc_9(); // overrides pure3d::ParticleGenerator slot 9
-    char _pad_18[0x2c];
+    char _pad_18[0x4];
+    int f_1c;
+    int f_20;
+    int f_24;
+    void* f_28;
+    char _pad_2c[0x4];
+    void* f_30;
+    int f_34;
+    char _pad_38[0xc];
     float f_44;
     float f_48;
     float f_4c;
@@ -1734,7 +1758,9 @@ public:
     virtual void vfunc_7(int, int); // overrides pure3d::ParticleGenerator slot 7
     virtual float vfunc_8(int); // overrides pure3d::ParticleGenerator slot 8
     virtual void vfunc_9(); // overrides pure3d::ParticleGenerator slot 9
-    char _pad_18[0x28];
+    char _pad_18[0x18];
+    void* f_30;
+    char _pad_34[0xc];
     float f_40;
     float f_44;
 };
@@ -1759,7 +1785,9 @@ public:
     virtual int vfunc_16(); // overrides pure3d::DrawableContainer slot 16
     virtual void* vfunc_17(int, int); // overrides pure3d::DrawableContainer slot 17
     virtual int vfunc_18(int); // overrides pure3d::DrawableContainer slot 18
-    char _pad_50[0x54];
+    char _pad_50[0x8];
+    char f_58;
+    char _pad_59[0x4b];
     int f_a4;
 };
 
@@ -1813,7 +1841,8 @@ public:
     void* f_58;
     void* f_5c;
     void* f_60;
-    char _pad_64[0x8];
+    void* f_64;
+    void* f_68;
     int f_6c;
     int f_70;
 };
@@ -1855,7 +1884,8 @@ public:
     virtual void vfunc_8(void*); // overrides pure3d::DrawablePrimitive slot 8
     virtual unsigned char vfunc_9(); // overrides pure3d::DrawablePrimitive slot 9
     int f_10;
-    char _pad_14[0x28];
+    char _pad_14[0x24];
+    float f_38;
     int f_3c;
     void* f_40;
 };
@@ -2377,7 +2407,10 @@ public:
     virtual bool vfunc_7(); // slot 7
     virtual void vfunc_8(int, int); // slot 8
     virtual void vfunc_9(); // slot 9
-    char _pad_14[0xd];
+    char _pad_14[0x4];
+    void* f_18;
+    void* f_1c;
+    char f_20;
     unsigned char f_21;
 };
 
@@ -2419,11 +2452,46 @@ public:
     virtual unsigned char vfunc_21(); // overrides pure3d::ParticleEmitter slot 21
     virtual void vfunc_22(int); // overrides pure3d::ParticleEmitter slot 22
     virtual void vfunc_25(void*); // overrides pure3d::ParticleEmitter slot 25
-    char _pad_a4[0x4];
+    char f_a4;
+    char f_a5;
+    char f_a6;
+    char _pad_a7[0x1];
     void* f_a8;
-    char _pad_ac[0xa0];
+    char _pad_ac[0x8c];
+    char f_138;
+    char _pad_139[0x7];
+    void* f_140;
+    char _pad_144[0x8];
     unsigned int f_14c;
-    char _pad_150[0x78];
+    float f_150;
+    float f_154;
+    float f_158;
+    char f_15c;
+    char _pad_15d[0x3];
+    float f_160;
+    float f_164;
+    float f_168;
+    float f_16c;
+    float f_170;
+    float f_174;
+    float f_178;
+    float f_17c;
+    float f_180;
+    char _pad_184[0x8];
+    float f_18c;
+    float f_190;
+    float f_194;
+    float f_198;
+    float f_19c;
+    float f_1a0;
+    char _pad_1a4[0x4];
+    float f_1a8;
+    char _pad_1ac[0x4];
+    float f_1b0;
+    int f_1b4;
+    char f_1b8;
+    char f_1b9;
+    char _pad_1ba[0xe];
     void* f_1c8;
 };
 
@@ -2651,7 +2719,7 @@ public:
     int f_10;
     void* f_14;
     int f_18;
-    char _pad_1c[0x4];
+    int f_1c;
     int f_20;
     int f_24;
     void* f_28;
@@ -3174,7 +3242,8 @@ public:
     void* f_208;
     char _pad_20c[0x208];
     unsigned char f_414;
-    char _pad_415[0x7];
+    char _pad_415[0x3];
+    int f_418;
     int f_41c;
     float f_420;
 };
@@ -3351,9 +3420,10 @@ public:
     float f_78;
     char f_7c;
     char f_7d;
-    char _pad_7e[0x6];
+    char _pad_7e[0x2];
+    float f_80;
     float f_84;
-    char _pad_88[0x4];
+    float f_88;
     int f_8c;
     int f_90;
     int f_94;
@@ -3703,7 +3773,8 @@ public:
     int f_18;
     char _pad_1c[0x8];
     void* f_24;
-    char _pad_28[0x8];
+    void* f_28;
+    void* f_2c;
     void* f_30;
     void* f_34;
     void* f_38;
@@ -3921,7 +3992,8 @@ public:
     int f_20;
     char _pad_24[0x8];
     int f_2c;
-    char _pad_30[0x14];
+    int f_30;
+    char _pad_34[0x10];
     int f_44;
     int f_48;
     int f_4c;
@@ -3930,7 +4002,8 @@ public:
     int f_60;
     int f_64;
     void* f_68;
-    char _pad_6c[0x8];
+    char _pad_6c[0x4];
+    int f_70;
     int f_74;
     int f_78;
     int f_7c;
@@ -4208,7 +4281,14 @@ public:
     virtual void vfunc_14(); // overrides pure3d::DrawableHierarchy slot 14
     virtual void vfunc_15(); // slot 15
     virtual void vfunc_16(int, int); // slot 16
-    char _pad_14[0x88];
+    char _pad_14[0x2c];
+    int f_40;
+    char _pad_44[0x48];
+    char f_8c;
+    char _pad_8d[0x3];
+    int f_90;
+    int f_94;
+    void* f_98;
     void* f_9c;
 };
 

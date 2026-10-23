@@ -9,7 +9,7 @@ extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *d
 extern void *__cdecl FUN_00263ea0(unsigned int size);
 extern void *__cdecl FUN_0008d690(unsigned int size);
 
-struct GeneratorBlendState_2abba0 {
+struct GeneratorBlendState_nv_2abba0 {
     pure3d::ParticlePointGenerator::GeneratorBlendState *FUN_002d2130(void *src);
 };
 
@@ -120,7 +120,7 @@ ParticlePointGenerator_2abba0 *__stdcall FUN_002abba0(Reader_2abba0 *r, int arg)
                     pure3d::ParticlePointGenerator::GeneratorBlendState *n;
                     void *m = FUN_0008d690(0x14);
                     if (m)
-                        n = ((GeneratorBlendState_2abba0*)(((pure3d::ParticlePointGenerator::GeneratorBlendState *)m)))->FUN_002d2130(f.it->FUN_00288a10(i));
+                        n = ((GeneratorBlendState_nv_2abba0*)(((pure3d::ParticlePointGenerator::GeneratorBlendState*)(((pure3d::ParticlePointGenerator::GeneratorBlendState *)m)))))->FUN_002d2130(f.it->FUN_00288a10(i));
                     else
                         n = 0;
                     res->nodes.data[res->used] = n;

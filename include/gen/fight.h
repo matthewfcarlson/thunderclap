@@ -656,7 +656,8 @@ public:
     int f_18;
     int f_1c;
     unsigned int f_20;
-    char _pad_24[0x8];
+    char _pad_24[0x4];
+    int f_28;
     int f_2c;
     unsigned char f_30;
 };

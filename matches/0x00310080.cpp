@@ -6,7 +6,7 @@ class Res_310080 {
   public:
     virtual void F0();
 };
-struct Pose_310080 {
+struct Pose_nv_310080 {
     physics::Pose* Init(Res_310080* r);
 };
 class PoseEngine_310080 {
@@ -28,7 +28,7 @@ PoseEngine_310080* PoseEngine_310080::ctor(Res_310080* a0, int a1, int a2) {
     m14 = a2;
     physics::Pose* h = (physics::Pose*)operator new(0x10);
     if (h)
-        h = ((Pose_310080*)(h))->Init(a0);
+        h = ((Pose_nv_310080*)(((physics::Pose*)(h))))->Init(a0);
     else
         h = 0;
     mc = h;

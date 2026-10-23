@@ -8,7 +8,7 @@ class Params_17b3d0 {
 extern Params_17b3d0 TypeA_17b3d0;
 extern Params_17b3d0 TypeB_17b3d0;
 int __cdecl Check(void*, int, Params_17b3d0*, Params_17b3d0*, int);
-struct ChargeClearAction_17b3d0 {
+struct ChargeClearAction_nv_17b3d0 {
     int Init(hulkfight::motion::ChargeClearTrack*, int);
 };
 hulkfight::motion::ChargeClearAction* __cdecl Alloc(int);
@@ -18,7 +18,7 @@ int hulkfight::motion::ChargeClearTrack::vfunc_10(int a, int b, int c) {
     if (result) {
         hulkfight::motion::ChargeClearAction* p = Alloc(0x24);
         if (p)
-            return ((ChargeClearAction_17b3d0*)(p))->Init(this, c);
+            return ((ChargeClearAction_nv_17b3d0*)(((hulkfight::motion::ChargeClearAction*)(p))))->Init(this, c);
     }
     return 0;
 }

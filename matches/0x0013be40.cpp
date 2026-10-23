@@ -4,7 +4,7 @@
 typedef unsigned int u32_13be40;
 extern int TypeA_13be40;
 extern int TypeB_13be40;
-struct AnimationPhaseMatchedAction_13be40 {
+struct AnimationPhaseMatchedAction_nv_13be40 {
     u32_13be40 Init(void*, void*);
 };
 extern int Check(void*, int, int*, int*, int);
@@ -15,7 +15,7 @@ int hulkfight::motion::AnimationPhaseMatchedTrack::vfunc_10(int __p0, int __p1, 
     if (Check(p, 0, &TypeA_13be40, &TypeB_13be40, 0)) {
         hulkfight::motion::AnimationPhaseMatchedAction* q = Alloc(0x28);
         if (q)
-            return (int)(((AnimationPhaseMatchedAction_13be40*)(q))->Init(this, p));
+            return (int)(((AnimationPhaseMatchedAction_nv_13be40*)(((hulkfight::motion::AnimationPhaseMatchedAction*)(q))))->Init(this, p));
     }
     return (int)(0);
 }

@@ -2,7 +2,7 @@
 // FUN_002047c0 @ 0x002047c0
 #include "gen/content.h"
 struct Resource_2047c0 { virtual void activate(); };
-struct LoadInventory_2047c0 {
+struct LoadInventory_nv_2047c0 {
     content::LoadInventory* FUN_00266480(void*);
 };
 extern void* __cdecl FUN_00266e00(int, int);
@@ -26,7 +26,7 @@ void Object_2047c0::FUN_002047c0(const char* text, int identifier, int mode, int
  FUN_002670b0(id, amount, resource);
  int old = FUN_00266da0(id);
  content::LoadInventory* p = (content::LoadInventory*)FUN_00263ea0(20);
- if(p) p = ((LoadInventory_2047c0*)(p))->FUN_00266480(config);
+ if(p) p = ((LoadInventory_nv_2047c0*)(((content::LoadInventory*)(p))))->FUN_00266480(config);
  helper = p;
  helper->vfunc_0();
  FUN_00266da0(old);

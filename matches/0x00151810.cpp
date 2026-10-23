@@ -11,7 +11,7 @@ class Sub_151810 {
   public:
     void Fn();
 };
-struct GroundSlideAction_151810 {
+struct GroundSlideAction_nv_151810 {
     void Fn();
 };
 class HitReactionAction_151810 {
@@ -39,5 +39,5 @@ void HitReactionAction_151810::f() {
     if (m1c)
         m1c = 0;
     m24.Fn();
-    ((GroundSlideAction_151810*)(((hulkfight::motion::GroundSlideAction*)this)))->Fn();
+    ((GroundSlideAction_nv_151810*)(((hulkfight::motion::GroundSlideAction*)(((hulkfight::motion::GroundSlideAction*)this)))))->Fn();
 }

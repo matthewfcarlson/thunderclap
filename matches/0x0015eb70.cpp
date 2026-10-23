@@ -7,7 +7,7 @@ class Ref_15eb70 {
     virtual void f0();
     virtual void f1();
 };
-struct HeliLocomotionAction_15eb70 {
+struct HeliLocomotionAction_nv_15eb70 {
     void Fn();
 };
 class ClimbLocomotionAction_15eb70 {
@@ -34,5 +34,5 @@ void ClimbLocomotionAction_15eb70::f() {
         m1c->f1();
         m1c = 0;
     }
-    ((HeliLocomotionAction_15eb70*)(((hulkfight::motion::HeliLocomotionAction*)this)))->Fn();
+    ((HeliLocomotionAction_nv_15eb70*)(((hulkfight::motion::HeliLocomotionAction*)(((hulkfight::motion::HeliLocomotionAction*)this)))))->Fn();
 }

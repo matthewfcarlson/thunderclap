@@ -136,18 +136,23 @@ public:
     virtual void vfunc_37(); // slot 37
     virtual void vfunc_38(); // slot 38
     virtual void vfunc_39(); // slot 39
-    char _pad_20[0x18];
+    char f_20;
+    char _pad_21[0x3];
+    int f_24;
+    char _pad_28[0x10];
     float f_38;
     float f_3c;
     float f_40;
     float f_44;
-    char _pad_48[0x10];
+    int f_48;
+    char _pad_4c[0xc];
     int f_58;
     char _pad_5c[0x3c];
     float f_98;
     float f_9c;
     float f_a0;
-    char _pad_a4[0x3c];
+    char f_a4;
+    char _pad_a5[0x3b];
     int f_e0;
     int f_e4;
     char _pad_e8[0x30];
@@ -171,7 +176,8 @@ public:
     int f_158;
     int f_15c;
     int f_160;
-    char _pad_164[0x44];
+    float f_164;
+    char _pad_168[0x40];
     float f_1a8;
     float f_1ac;
     float f_1b0;
@@ -179,7 +185,16 @@ public:
     unsigned char f_1c4;
     char _pad_1c5[0xb];
     char f_1d0;
-    char _pad_1d1[0x23];
+    char _pad_1d1[0x7];
+    float f_1d8;
+    char _pad_1dc[0x4];
+    float f_1e0;
+    float f_1e4;
+    float f_1e8;
+    int f_1ec;
+    char _pad_1f0[0x1];
+    char f_1f1;
+    char _pad_1f2[0x2];
     unsigned char f_1f4;
 };
 
@@ -253,15 +268,19 @@ public:
     void* f_08;
     unsigned int f_0c;
     unsigned char f_10;
-    char _pad_11[0x7];
+    char _pad_11[0x3];
+    void* f_14;
     void* f_18;
     void* f_1c;
-    char _pad_20[0x8];
+    char _pad_20[0x4];
+    void* f_24;
     void* f_28;
-    char _pad_2c[0xc];
+    char _pad_2c[0x8];
+    void* f_34;
     void* f_38;
     void* f_3c;
-    char _pad_40[0x8];
+    char _pad_40[0x4];
+    void* f_44;
     void* f_48;
     char _pad_4c[0x8];
     unsigned int f_54;
@@ -286,12 +305,20 @@ public:
     virtual void vfunc_11(void*); // overrides physics::CollisionVolume slot 11
     virtual void vfunc_13(); // overrides physics::CollisionVolume slot 13
     virtual void vfunc_14(void*); // overrides physics::CollisionVolume slot 14
-    char _pad_1c[0x28];
+    char _pad_1c[0x4];
+    int f_20;
+    int f_24;
+    char _pad_28[0x4];
+    int f_2c;
+    int f_30;
+    float f_34;
+    char _pad_38[0xc];
     float f_44;
     char _pad_48[0x8];
     float f_50;
     float f_54;
-    char _pad_58[0x24];
+    char f_58;
+    char _pad_59[0x23];
     float f_7c;
     float f_80;
 };
@@ -356,7 +383,15 @@ public:
     virtual void vfunc_13(); // overrides physics::CollisionVolume slot 13
     virtual void vfunc_14(void*); // overrides physics::CollisionVolume slot 14
     virtual void vfunc_15(); // slot 15
-    char _pad_1c[0x38];
+    char _pad_1c[0x4];
+    int f_20;
+    int f_24;
+    char _pad_28[0x4];
+    int f_2c;
+    int f_30;
+    float f_34;
+    int f_38;
+    char _pad_3c[0x18];
     char f_54;
     char _pad_55[0xb];
     char f_60;
@@ -377,9 +412,12 @@ public:
     virtual void vfunc_5(int); // slot 5
     virtual void vfunc_6(int, int); // slot 6
     virtual void vfunc_7(int); // slot 7
-    char _pad_10[0x10];
+    char _pad_10[0xc];
+    int f_1c;
     int f_20;
-    char _pad_24[0xc];
+    int f_24;
+    int f_28;
+    int f_2c;
     int f_30;
 };
 
@@ -434,7 +472,13 @@ public:
     virtual void vfunc_7(float); // overrides physics::CollisionVolume slot 7
     virtual void vfunc_11(void*); // overrides physics::CollisionVolume slot 11
     virtual void vfunc_14(void*); // overrides physics::CollisionVolume slot 14
-    char _pad_1c[0x1c];
+    char _pad_1c[0x4];
+    int f_20;
+    int f_24;
+    int f_28;
+    int f_2c;
+    int f_30;
+    int f_34;
     float f_38;
 };
 
@@ -451,7 +495,8 @@ public:
     virtual void vfunc_13(); // overrides physics::CollisionVolume slot 13
     virtual void vfunc_14(void*); // overrides physics::CollisionVolume slot 14
     virtual void vfunc_15(void*); // slot 15
-    char _pad_1c[0x1c];
+    char _pad_1c[0x18];
+    int f_34;
     int f_38;
     int f_3c;
     int f_40;
@@ -574,7 +619,7 @@ public:
     char _pad_51[0x3];
     int f_54;
     int f_58;
-    char _pad_5c[0x4];
+    int f_5c;
     int f_60;
     int f_64;
     char _pad_68[0x4];
@@ -704,10 +749,12 @@ public:
     virtual void vfunc_25(); // overrides physics::PhysicsJoint slot 25
     virtual bool vfunc_26(int, int); // overrides physics::PhysicsJoint slot 26
     virtual void* vfunc_27(); // overrides physics::PhysicsJoint slot 27
-    char _pad_44[0xa4];
+    char _pad_44[0xa0];
+    float f_e4;
     float f_e8;
     char f_ec;
-    char _pad_ed[0xb];
+    char _pad_ed[0x7];
+    int f_f4;
     unsigned char f_f8;
     char _pad_f9[0x3];
     float f_fc;
@@ -715,7 +762,7 @@ public:
     float f_104;
     float f_108;
     float f_10c;
-    char _pad_110[0x4];
+    float f_110;
     float f_114;
 };
 
@@ -746,10 +793,15 @@ public:
     virtual void vfunc_25(); // overrides physics::PhysicsJoint slot 25
     virtual bool vfunc_26(int, int); // overrides physics::PhysicsJoint slot 26
     virtual void* vfunc_27(); // overrides physics::PhysicsJoint slot 27
-    char _pad_44[0xa4];
+    char _pad_44[0x58];
+    float f_9c;
+    float f_a0;
+    char _pad_a4[0x40];
+    float f_e4;
     float f_e8;
     char f_ec;
-    char _pad_ed[0xb];
+    char _pad_ed[0x7];
+    int f_f4;
     unsigned char f_f8;
     char _pad_f9[0x1b];
     float f_114;
@@ -762,7 +814,9 @@ public:
     unsigned int f_138;
     unsigned int f_13c;
     unsigned int f_140;
-    char _pad_144[0xc];
+    char _pad_144[0x4];
+    int f_148;
+    int f_14c;
     bool f_150;
     char f_151;
 };
@@ -863,7 +917,10 @@ public:
     virtual void vfunc_10(int); // overrides physics::SimState slot 10
     virtual bool vfunc_11(); // overrides physics::SimState slot 11
     virtual void vfunc_14(void*); // overrides physics::SimState slot 14
-    char _pad_78[0x10];
+    char _pad_78[0x8];
+    int f_80;
+    char f_84;
+    char _pad_85[0x3];
     void* f_88;
     void* f_8c;
 };

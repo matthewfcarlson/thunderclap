@@ -18,7 +18,7 @@ struct Renderer_320d30 {
  char pad[0x150]; DeviceInfo* device; char pad2[0x2c]; unsigned formats[30]; char pad3[8]; void* object;
  int FUN_00320c60(); unsigned char FUN_00320d30();
 };
-struct d3dPrimStream_320d30 {
+struct d3dPrimStream_nv_320d30 {
     void* FUN_0031bfa0(Renderer_320d30*);
 };
 unsigned char Renderer_320d30::FUN_00320d30() {
@@ -37,7 +37,7 @@ unsigned char Renderer_320d30::FUN_00320d30() {
    }
  }
  ::pure3d::d3dPrimStream* allocated=(::pure3d::d3dPrimStream*)FUN_0008d690(0x160);
- object=allocated ? ((d3dPrimStream_320d30*)(allocated))->FUN_0031bfa0(this) : 0;
+ object=allocated ? ((d3dPrimStream_nv_320d30*)(((::pure3d::d3dPrimStream*)(allocated))))->FUN_0031bfa0(this) : 0;
  v99();
  FUN_00320c60();
  return 1;

@@ -3,7 +3,7 @@ struct Obj_330990 {
     virtual void f();
     virtual void release();
 };
-struct d3dToonVertexShader_330990 {
+struct d3dToonVertexShader_nv_330990 {
     void destroy();
 };
 struct Toon {
@@ -19,5 +19,5 @@ void __fastcall target(Toon* self) {
         self->a->release();
     if (self->b)
         self->b->release();
-    ((d3dToonVertexShader_330990*)(((pure3d::d3dToonVertexShader*)self)))->destroy();
+    ((d3dToonVertexShader_nv_330990*)(((pure3d::d3dToonVertexShader*)(((pure3d::d3dToonVertexShader*)self)))))->destroy();
 }

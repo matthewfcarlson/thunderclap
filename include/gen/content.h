@@ -195,7 +195,7 @@ class LoadStream : public ::content::LoadObject {
 public:
     virtual ~LoadStream(); // overrides core::IRefCount slot 2
     void* f_08;
-    char _pad_0c[0x1];
+    char f_0c;
     char f_0d;
     char f_0e;
     char _pad_0f[0x1];

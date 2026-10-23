@@ -21,7 +21,7 @@ class IRefCount_1a1090 {
     virtual void h();
 };
 extern void* __cdecl operator_new(unsigned int);
-struct FireProjectileTrack_1a1090 {
+struct FireProjectileTrack_nv_1a1090 {
     u32_1a1090 init();
 };
 class Factory_1a1090 : public TrackFactory_1a1090, public Entity_1a1090, public LoadObject_1a1090, public IRefCount_1a1090 {
@@ -31,6 +31,6 @@ class Factory_1a1090 : public TrackFactory_1a1090, public Entity_1a1090, public 
 u32_1a1090 Factory_1a1090::vfunc_5() {
     hulkfight::motion::FireProjectileTrack* p = (hulkfight::motion::FireProjectileTrack*)operator_new(0xc0);
     if (p)
-        return ((FireProjectileTrack_1a1090*)(p))->init();
+        return ((FireProjectileTrack_nv_1a1090*)(((hulkfight::motion::FireProjectileTrack*)(p))))->init();
     return 0;
 }

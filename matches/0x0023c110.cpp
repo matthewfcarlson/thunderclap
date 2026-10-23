@@ -1,4 +1,6 @@
-class Stream {
+#include "gen/fight.h"
+
+class Stream_23c110 {
   public:
     virtual void f0();
     virtual void f1();
@@ -7,31 +9,17 @@ class Stream {
     virtual void Read(void*, int);
 };
 namespace fight {
-class BinReader {
-  public:
-    char pad0[8];
-    Stream* stream;
-    char padC[1];
-    char swap;
-    char padE[10];
-    int a;
-    int b;
-    char data[4];
-    char pad24[4];
-    int nextA;
-    int nextB;
-    char done;
+struct BinReader_nv_23c110 {
     void Prep();
-    __int64 vfunc_16(int, int);
 };
 } // namespace fight
-__int64 fight::BinReader::vfunc_16(int, int) {
-    Prep();
-    a = nextA;
-    b = nextB;
-    stream->Read(data, 4);
-    if (swap) {
-        unsigned char* p = (unsigned char*)data;
+__int64 fight::BinReader::vfunc_16(int , int ) {
+    ((BinReader_nv_23c110*)this)->Prep();
+    this->f_18 = this->f_28;
+    this->f_1c = this->f_2c;
+    (*(Stream_23c110 * *)&this->f_08)->Read((*(char (*)[4])&this->f_20), 4);
+    if (this->f_0d) {
+        unsigned char* p = (unsigned char*)(*(char (*)[4])&this->f_20);
         unsigned char* q = p + 3;
         if (p < q)
             do {
@@ -42,8 +30,8 @@ __int64 fight::BinReader::vfunc_16(int, int) {
                 --q;
             } while (p < q);
     }
-    nextA = 0;
-    nextB = 0;
-    done = 1;
-    return *(__int64*)&a;
+    this->f_28 = 0;
+    this->f_2c = 0;
+    (*(char *)&this->f_30) = 1;
+    return (__int64)(*(__int64*)&this->f_18);
 }

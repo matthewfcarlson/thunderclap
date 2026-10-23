@@ -41,21 +41,28 @@
    "0xd8": "float",
    "0xdc": "float",
    "0xf1": "char",
+   "0x170": "int",
    "0x174": "int",
    "0x178": "int",
+   "0x17c": "int",
    "0x180": "int",
    "0x184": "int",
    "0x188": "int",
    "0x18c": "int",
    "0x190": "int",
+   "0x1a0": "int",
    "0x1a4": "int",
    "0x1a8": "int",
+   "0x1ac": "int",
    "0x1b0": "int",
    "0x1b4": "int",
+   "0x1d0": "int",
    "0x1d4": "int",
    "0x1d8": "int",
+   "0x1dc": "int",
    "0x1e0": "int",
    "0x1e4": "int",
+   "0x1f4": "int",
    "0x1f8": "int",
    "0x1fc": "int",
    "0x200": "int",
@@ -63,8 +70,10 @@
    "0x240": "float",
    "0x244": "char",
    "0x245": "char",
+   "0x248": "float",
    "0x24c": "float",
    "0x250": "float",
+   "0x290": "float",
    "0x294": "float",
    "0x298": "float",
    "0x2e4": "float",
@@ -187,6 +196,7 @@
    "0x7d": "char",
    "0x7e": "char",
    "0x7f": "char",
+   "0x94": "float",
    "0x98": "float",
    "0x9c": "float"
   },
@@ -200,6 +210,7 @@
   },
   "CHeadTrackerAction": {
    "0x74": "char",
+   "0x78": "int",
    "0x7c": "int",
    "0x80": "int",
    "0x84": "float"
@@ -230,6 +241,7 @@
    "0x2c": "float"
   },
   "CLocator": {
+   "0x10": "int",
    "0x14": "int",
    "0x18": "int"
   },
@@ -281,6 +293,7 @@
    "0x60": "void*",
    "0x64": "void*",
    "0x68": "int",
+   "0x70": "int",
    "0x74": "int",
    "0x78": "int"
   },
@@ -295,6 +308,9 @@
   },
   "CRangedAgent": {
    "0x58": "void*"
+  },
+  "CSPHulkPropInstance": {
+   "0xe8": "char"
   },
   "CSmartPropAttachTrack": {
    "0x8": "int"
@@ -372,6 +388,11 @@
   "FEDoAction": {
    "0x10": "void*"
   },
+  "FEDoAnimation": {
+   "0x44": "float",
+   "0x48": "float",
+   "0x4c": "float"
+  },
   "FEObject": {
    "0x3c": "int",
    "0x40": "char",
@@ -394,6 +415,24 @@
    "0x98": "char",
    "0x9c": "float"
   },
+  "FETextInput": {
+   "0x140": "char",
+   "0x141": "char",
+   "0x142": "char",
+   "0x143": "char",
+   "0x144": "char",
+   "0x148": "int",
+   "0x14c": "int",
+   "0x154": "int",
+   "0x158": "void*",
+   "0x15c": "void*",
+   "0x160": "void*",
+   "0x164": "void*",
+   "0x168": "void*",
+   "0x16c": "void*",
+   "0x170": "int",
+   "0x174": "int"
+  },
   "FEThingsBase": {
    "0x4": "void*",
    "0x8": "void*",
@@ -413,6 +452,26 @@
    "0x2205": "char",
    "0x2208": "int",
    "0x220c": "int"
+  },
+  "HSlider": {
+   "0xa8": "void*",
+   "0xac": "void*",
+   "0x158": "int",
+   "0x164": "float",
+   "0x16c": "int"
+  },
+  "ImageSelector": {
+   "0xa8": "void*",
+   "0xac": "void*",
+   "0x290": "int",
+   "0x294": "int",
+   "0x298": "int",
+   "0x29c": "float",
+   "0x2a0": "float",
+   "0x2a4": "int"
+  },
+  "MapThing": {
+   "0xa4": "int"
   },
   "MessageOverlay": {
    "0x4": "char",
@@ -442,11 +501,31 @@
    "0x10": "int",
    "0x14": "int"
   },
+  "TextSelector": {
+   "0xa4": "int",
+   "0xac": "void*",
+   "0x140": "char",
+   "0x150": "int",
+   "0x1d5c": "int",
+   "0x1d64": "float",
+   "0x1d74": "float",
+   "0x1d78": "float",
+   "0x1d7c": "int",
+   "0x1d80": "int",
+   "0x1d84": "char"
+  },
+  "TextTable": {
+   "0x118": "int"
+  },
+  "TextWindow": {
+   "0xa4": "int"
+  },
   "VScroll": {
    "0x8": "void*",
    "0x30": "float",
    "0x254": "float",
    "0x258": "void*",
+   "0x25c": "float",
    "0x260": "float",
    "0x264": "float"
   },
@@ -507,6 +586,7 @@
    "0x14": "void*",
    "0x18": "int",
    "0x1c": "int",
+   "0x24": "void*",
    "0x28": "void*",
    "0x224": "char",
    "0x225": "char",
@@ -545,6 +625,7 @@
    "0x14": "int"
   },
   "content::LoadStream": {
+   "0xc": "char",
    "0xd": "char",
    "0xe": "char",
    "0x10": "int",
@@ -591,6 +672,7 @@
   },
   "fight::BinReader": {
    "0xe": "char",
+   "0x28": "int",
    "0x2c": "int"
   },
   "fight::BreakPointTrack": {
@@ -736,6 +818,7 @@
   "hulkfight::motion::DriftToPositionAction": {
    "0x24": "char",
    "0x3c": "int",
+   "0x40": "int",
    "0x44": "int",
    "0x48": "int",
    "0x4c": "int"
@@ -974,18 +1057,55 @@
    "0x1fc": "void*"
   },
   "physics::CollisionAnalyser": {
+   "0x14": "void*",
    "0x18": "void*",
    "0x1c": "void*",
+   "0x24": "void*",
    "0x28": "void*",
+   "0x34": "void*",
    "0x38": "void*",
    "0x3c": "void*",
+   "0x44": "void*",
    "0x48": "void*"
+  },
+  "physics::CollisionCylinder": {
+   "0x20": "int",
+   "0x24": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "float",
+   "0x58": "char"
+  },
+  "physics::CollisionOBB": {
+   "0x20": "int",
+   "0x24": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "float",
+   "0x38": "int"
+  },
+  "physics::CollisionObject": {
+   "0x1c": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int"
+  },
+  "physics::CollisionSphere": {
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int"
   },
   "physics::CollisionVolume": {
    "0x8": "int",
    "0xc": "int",
    "0x10": "int",
    "0x18": "char"
+  },
+  "physics::CollisionWall": {
+   "0x34": "int"
   },
   "physics::DoubleKalmann1D": {
    "0x8": "float"
@@ -1007,20 +1127,60 @@
    "0x34": "float",
    "0x38": "float"
   },
+  "physics::PhysicsJoint1D": {
+   "0xe4": "float",
+   "0xf4": "int",
+   "0x110": "float"
+  },
+  "physics::PhysicsJoint3D": {
+   "0x9c": "float",
+   "0xa0": "float",
+   "0xe4": "float",
+   "0xf4": "int",
+   "0x148": "int",
+   "0x14c": "int"
+  },
+  "physics::PhysicsObject": {
+   "0x20": "char",
+   "0x24": "int",
+   "0x48": "int",
+   "0xa4": "char",
+   "0x164": "float",
+   "0x1d8": "float",
+   "0x1e0": "float",
+   "0x1e4": "float",
+   "0x1e8": "float",
+   "0x1ec": "int",
+   "0x1f1": "char"
+  },
   "physics::SimState": {
    "0x8": "int",
    "0xc": "int",
    "0x54": "int",
    "0x58": "int",
+   "0x5c": "int",
    "0x60": "int",
    "0x64": "int"
+  },
+  "physics::SimStateArticulated": {
+   "0x80": "int",
+   "0x84": "char"
   },
   "physics::SimulatedObject": {
    "0x14": "int",
    "0x18": "int"
   },
+  "pure3d::AnimationFrameController": {
+   "0x14": "float"
+  },
   "pure3d::AnimationGroup": {
    "0x10": "int"
+  },
+  "pure3d::BillboardQuadGroup": {
+   "0x38": "int"
+  },
+  "pure3d::BlendFrameController": {
+   "0x1c": "int"
   },
   "pure3d::BoolChannel": {
    "0x8": "int",
@@ -1034,6 +1194,9 @@
   },
   "pure3d::CompDrawVisibilityAnimationController": {
    "0x48": "int"
+  },
+  "pure3d::DrawableContainer": {
+   "0x44": "void*"
   },
   "pure3d::EntityChannel": {
    "0x4": "int",
@@ -1050,6 +1213,10 @@
    "0x8": "int",
    "0xc": "void*",
    "0x10": "int"
+  },
+  "pure3d::Geometry": {
+   "0x58": "void*",
+   "0x5c": "void*"
   },
   "pure3d::Image32": {
    "0x18": "int",
@@ -1089,13 +1256,39 @@
    "0x14": "void*"
   },
   "pure3d::ParticleEmitter": {
+   "0x10": "int",
+   "0x18": "float",
+   "0x1c": "float",
+   "0x24": "float",
+   "0x28": "float",
+   "0x30": "float",
+   "0x34": "float",
    "0x94": "int",
    "0x98": "int"
   },
   "pure3d::ParticleGenerator": {
    "0x10": "char"
   },
+  "pure3d::ParticlePointGenerator": {
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "void*",
+   "0x30": "void*",
+   "0x34": "int"
+  },
+  "pure3d::ParticleSphereGenerator": {
+   "0x30": "void*"
+  },
+  "pure3d::ParticleSystem": {
+   "0x58": "char"
+  },
+  "pure3d::PolySkin": {
+   "0x64": "void*",
+   "0x68": "void*"
+  },
   "pure3d::PrimGroup": {
+   "0x38": "float",
    "0x3c": "int"
   },
   "pure3d::PrimGroupOptimized": {
@@ -1151,6 +1344,42 @@
    "0x88": "float",
    "0x8c": "int"
   },
+  "pure3d::SpriteLoader": {
+   "0x18": "void*",
+   "0x1c": "void*",
+   "0x20": "char"
+  },
+  "pure3d::SpriteParticleEmitter": {
+   "0xa4": "char",
+   "0xa5": "char",
+   "0xa6": "char",
+   "0x138": "char",
+   "0x140": "void*",
+   "0x150": "float",
+   "0x154": "float",
+   "0x158": "float",
+   "0x15c": "char",
+   "0x160": "float",
+   "0x164": "float",
+   "0x168": "float",
+   "0x16c": "float",
+   "0x170": "float",
+   "0x174": "float",
+   "0x178": "float",
+   "0x17c": "float",
+   "0x180": "float",
+   "0x18c": "float",
+   "0x190": "float",
+   "0x194": "float",
+   "0x198": "float",
+   "0x19c": "float",
+   "0x1a0": "float",
+   "0x1a8": "float",
+   "0x1b0": "float",
+   "0x1b4": "int",
+   "0x1b8": "char",
+   "0x1b9": "char"
+  },
   "pure3d::StringChannel": {
    "0x8": "int",
    "0xc": "void*",
@@ -1177,6 +1406,7 @@
    "0x8": "int",
    "0x10": "int",
    "0x18": "int",
+   "0x1c": "int",
    "0x20": "int",
    "0x24": "int"
   },
@@ -1206,6 +1436,7 @@
    "0x174": "int",
    "0x178": "int",
    "0x208": "void*",
+   "0x418": "int",
    "0x41c": "int"
   },
   "pure3d::d3dDisplay": {
@@ -1225,7 +1456,9 @@
    "0x78": "float",
    "0x7c": "char",
    "0x7d": "char",
+   "0x80": "float",
    "0x84": "float",
+   "0x88": "float",
    "0x8c": "int",
    "0x90": "int",
    "0x94": "int",
@@ -1270,6 +1503,8 @@
   "pure3d::d3dPrimBufferStream": {
    "0x10": "int",
    "0x18": "int",
+   "0x28": "void*",
+   "0x2c": "void*",
    "0x3c": "int",
    "0x40": "int"
   },
@@ -1313,12 +1548,14 @@
    "0x8": "int",
    "0x20": "int",
    "0x2c": "int",
+   "0x30": "int",
    "0x44": "int",
    "0x48": "int",
    "0x4c": "int",
    "0x5c": "int",
    "0x60": "int",
    "0x64": "int",
+   "0x70": "int",
    "0x74": "int",
    "0x78": "int",
    "0x7c": "int",
@@ -1395,6 +1632,13 @@
    "0x70": "int",
    "0x74": "void*",
    "0x78": "void*"
+  },
+  "pure3d::prop::StateProp": {
+   "0x40": "int",
+   "0x8c": "char",
+   "0x90": "int",
+   "0x94": "int",
+   "0x98": "void*"
   }
  },
  "sigs": {

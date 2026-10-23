@@ -11,7 +11,7 @@ class Sub_1488a0 {
   public:
     void Fn();
 };
-struct GrappleThrowAction_1488a0 {
+struct GrappleThrowAction_nv_1488a0 {
     void Fn();
 };
 class GrappleHitReactionAction_1488a0 {
@@ -39,5 +39,5 @@ void GrappleHitReactionAction_1488a0::f() {
     if (m1c)
         m1c = 0;
     m24.Fn();
-    ((GrappleThrowAction_1488a0*)(((hulkfight::motion::GrappleThrowAction*)this)))->Fn();
+    ((GrappleThrowAction_nv_1488a0*)(((hulkfight::motion::GrappleThrowAction*)(((hulkfight::motion::GrappleThrowAction*)this)))))->Fn();
 }

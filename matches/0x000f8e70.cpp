@@ -10,7 +10,7 @@ class Inner_f8e70 {
     Mgr_f8e70* mMgr;
 };
 
-struct NamedValueInt_f8e70 {
+struct NamedValueInt_nv_f8e70 {
     NamedValueInt* Init(Inner_f8e70* a, int b, int c, int d);
 };
 
@@ -31,7 +31,7 @@ NamedValueInt* Owner_f8e70::Create(int a, int b, int c) {
     if (c && mInner->mMgr->Check(c)) {
         NamedValueInt* p = (NamedValueInt*)operator new(0x4c);
         if (p) {
-            r = ((NamedValueInt_f8e70*)(p))->Init(mInner, a, b, c);
+            r = ((NamedValueInt_nv_f8e70*)(((NamedValueInt*)(p))))->Init(mInner, a, b, c);
         } else {
             r = 0;
         }

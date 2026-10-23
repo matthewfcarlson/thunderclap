@@ -2553,7 +2553,7 @@ public:
     char f_24;
     char _pad_25[0x17];
     int f_3c;
-    char _pad_40[0x4];
+    int f_40;
     int f_44;
     int f_48;
     int f_4c;

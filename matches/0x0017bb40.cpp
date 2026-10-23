@@ -3,7 +3,7 @@
 
 extern int RTTI1_17bb40;
 extern int RTTI2_17bb40;
-struct TargetBreakAction_17bb40 {
+struct TargetBreakAction_nv_17bb40 {
     int Make(void*);
 };
 extern int __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
@@ -14,7 +14,7 @@ int hulkfight::motion::TargetBreakTrack::vfunc_10(int __p0, int __p1, int __p2) 
     if (FUN_00344e74(c, 0, &RTTI1_17bb40, &RTTI2_17bb40, 0)) {
         hulkfight::motion::TargetBreakAction* p = FUN_0008d690(0x20);
         if (p)
-            return ((TargetBreakAction_17bb40*)(p))->Make(c);
+            return ((TargetBreakAction_nv_17bb40*)(((hulkfight::motion::TargetBreakAction*)(p))))->Make(c);
     }
     return 0;
 }

@@ -9,10 +9,10 @@ struct RefCounted_12c9c0 {
 extern char g_vt_12c9c0[];
 extern "C" void opdel(void*);
 
-class FaceTargetAction {
+class ThreatBallAction_12c9c0 {
   public:
     void Cleanup();
-    FaceTargetAction* vfunc_2(int flag);
+    ThreatBallAction_12c9c0* vfunc_2(int flag);
 
   private:
     char pad[0x1c];
@@ -20,7 +20,7 @@ class FaceTargetAction {
     RefCounted_12c9c0* m_20;
 };
 
-FaceTargetAction* FaceTargetAction::vfunc_2(int flag) {
+ThreatBallAction_12c9c0* ThreatBallAction_12c9c0::vfunc_2(int flag) {
     volatile int* p = (volatile int*)this;
     *p = (hulk_intptr)&g_vt_12c9c0;
     RefCounted_12c9c0* q = (RefCounted_12c9c0*)p[8];

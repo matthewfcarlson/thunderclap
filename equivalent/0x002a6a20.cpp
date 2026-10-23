@@ -37,7 +37,7 @@ public:
     virtual void Release();
 };
 
-class Skinner : public RefCounted_2a6a20 {
+class VertexList_2a6a20 : public RefCounted_2a6a20 {
 public:
     RefCounted_2a6a20 *FUN_002c8730(int handle);
 };
@@ -45,7 +45,7 @@ public:
 void *__cdecl FUN_0008d690(unsigned int size);
 void *__cdecl FUN_0008d6d0(unsigned int size);
 
-class Binder_2a6a20 {
+class ProceduralVertexAnimController_2a6a20 {
 public:
     char pad0[0x44];
     Source_2a6a20 *source;
@@ -56,7 +56,7 @@ public:
     void FUN_002a6a20(Source_2a6a20 *src);
 };
 
-void Binder_2a6a20::FUN_002a6a20(Source_2a6a20 *src)
+void ProceduralVertexAnimController_2a6a20::FUN_002a6a20(Source_2a6a20 *src)
 {
     FUN_002a68b0();
     source = src;
@@ -71,7 +71,7 @@ void Binder_2a6a20::FUN_002a6a20(Source_2a6a20 *src)
         RefCounted_2a6a20 *res;
         RefCounted_2a6a20 **slot;
         if (pc != 0) {
-            Skinner *mem = (Skinner *)FUN_0008d690(0x5c);
+            VertexList_2a6a20 *mem = (VertexList_2a6a20 *)FUN_0008d690(0x5c);
             if (mem != 0)
                 res = mem->FUN_002c8730(pc->geometryHandle);
             else
@@ -80,7 +80,7 @@ void Binder_2a6a20::FUN_002a6a20(Source_2a6a20 *src)
             pure3d_PrimGroupSkinnedStreamed *st = dynamic_cast<pure3d_PrimGroupSkinnedStreamed *>(source->begin[i].group);
             if (st == 0)
                 continue;
-            Skinner *mem = (Skinner *)FUN_0008d690(0x5c);
+            VertexList_2a6a20 *mem = (VertexList_2a6a20 *)FUN_0008d690(0x5c);
             if (mem != 0)
                 res = mem->FUN_002c8730(st->streamHandle);
             else

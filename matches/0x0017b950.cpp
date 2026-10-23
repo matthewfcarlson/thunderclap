@@ -8,7 +8,7 @@ class Params_17b950 {
 extern Params_17b950 TypeA_17b950;
 extern Params_17b950 TypeB_17b950;
 int __cdecl Check(void*, int, Params_17b950*, Params_17b950*, int);
-struct SuckInPropsAction_17b950 {
+struct SuckInPropsAction_nv_17b950 {
     int Init(hulkfight::motion::SuckInPropsTrack*, int);
 };
 hulkfight::motion::SuckInPropsAction* __cdecl Alloc(int);
@@ -18,7 +18,7 @@ int hulkfight::motion::SuckInPropsTrack::vfunc_10(int a, int b, int c) {
     if (result) {
         hulkfight::motion::SuckInPropsAction* p = Alloc(0x24);
         if (p)
-            return ((SuckInPropsAction_17b950*)(p))->Init(this, c);
+            return ((SuckInPropsAction_nv_17b950*)(((hulkfight::motion::SuckInPropsAction*)(p))))->Init(this, c);
     }
     return 0;
 }

@@ -4,7 +4,7 @@
 struct Toggle { void FUN_000361c0(int); void FUN_00036140(int); };
 struct Context_9bf50 { char pad[0x124]; Toggle* toggle; };
 struct Arg_9bf50 { char pad[0x20]; Context_9bf50* context; };
-struct CNISCamera_9bf50 {
+struct CNISCamera_nv_9bf50 {
     CNISCamera* FUN_000ac3c0();
     void FUN_000ac560(void*);
 };
@@ -24,12 +24,12 @@ void Target_9bf50::run(Arg_9bf50* arg, void* input) {
  saved = value;
  if (!item) {
   CNISCamera* p = (CNISCamera*)FUN_00263ea0(0x178);
-  if (p) p = ((CNISCamera_9bf50*)(p))->FUN_000ac3c0();
+  if (p) p = ((CNISCamera_nv_9bf50*)(((CNISCamera*)(p))))->FUN_000ac3c0();
   item = p;
   p->vfunc_0();
   item->vfunc_28();
  }
- ((CNISCamera_9bf50*)(item))->FUN_000ac560(input);
+ ((CNISCamera_nv_9bf50*)(((CNISCamera*)(item))))->FUN_000ac560(input);
  Toggle* toggle = arg->context->toggle;
  if (toggle) { toggle->FUN_000361c0(1); toggle->FUN_00036140(1); }
  FUN_000991b0(arg,value,item,0,0);

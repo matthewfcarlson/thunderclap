@@ -12,7 +12,7 @@ public:
     void FUN_001ef260(void *p);
 };
 
-struct CSoundCommand_PlaySFXEvent_1f1ad0 {
+struct CSoundCommand_PlaySFXEvent_nv_1f1ad0 {
     void *FUN_001f08f0(const char *name, int b, int c);
 };
 
@@ -34,7 +34,7 @@ void __stdcall FUN_001f1ad0(const char *name, int b, int c)
                 memset(f.buf, 0, sizeof f.buf);
                 strcat(f.buf, name);
                 CSoundCommand_PlaySFXEvent *j = (CSoundCommand_PlaySFXEvent *)FUN_0008d710(0x20, 6);
-                f.mgr->FUN_001ef260(j != 0 ? ((CSoundCommand_PlaySFXEvent_1f1ad0*)(j))->FUN_001f08f0(name, b, c) : 0);
+                f.mgr->FUN_001ef260(j != 0 ? ((CSoundCommand_PlaySFXEvent_nv_1f1ad0*)(((CSoundCommand_PlaySFXEvent*)(j))))->FUN_001f08f0(name, b, c) : 0);
             }
         }
     }

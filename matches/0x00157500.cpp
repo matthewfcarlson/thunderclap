@@ -8,7 +8,7 @@ class Params_157500 {
 extern Params_157500 TypeA_157500;
 extern Params_157500 TypeB_157500;
 int __cdecl Check(void*, int, Params_157500*, Params_157500*, int);
-struct HealthAction_157500 {
+struct HealthAction_nv_157500 {
     int Init(hulkfight::motion::HealthTrack*, int);
 };
 hulkfight::motion::HealthAction* __cdecl Alloc(int);
@@ -18,7 +18,7 @@ int hulkfight::motion::HealthTrack::vfunc_10(int a, int b, int c) {
     if (result) {
         hulkfight::motion::HealthAction* p = Alloc(0x24);
         if (p)
-            return ((HealthAction_157500*)(p))->Init(this, c);
+            return ((HealthAction_nv_157500*)(((hulkfight::motion::HealthAction*)(p))))->Init(this, c);
     }
     return 0;
 }

@@ -8,7 +8,7 @@ public:
     void FUN_001ef260(void *p);
 };
 
-struct CSoundCommand_PlayTunableEvent_1f1600 {
+struct CSoundCommand_PlayTunableEvent_nv_1f1600 {
     void *FUN_001f0230(int a, int b, int c, int d, int e, int f);
 };
 
@@ -23,7 +23,7 @@ void __stdcall FUN_001f1600(int a, int b, int c, int d, int e, int f)
         return;
     CSoundCommand_PlayTunableEvent *j = (CSoundCommand_PlayTunableEvent *)FUN_0008d710(0x28, 6);
     if (j != 0) {
-        m->FUN_001ef260(((CSoundCommand_PlayTunableEvent_1f1600*)(j))->FUN_001f0230(a, b, c, d, e, f));
+        m->FUN_001ef260(((CSoundCommand_PlayTunableEvent_nv_1f1600*)(((CSoundCommand_PlayTunableEvent*)(j))))->FUN_001f0230(a, b, c, d, e, f));
     } else {
         m->FUN_001ef260(0);
     }

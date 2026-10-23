@@ -1,4 +1,5 @@
 // Same code shape as 0x00042930 (propagated; names are from that function)
+#include "gen/global.h"
 class C_42960 {
   public:
     char pad0[0x118];
@@ -9,10 +10,10 @@ class C_42960 {
     int field338;
     void target(int, float);
 };
-struct ThisCall_000428e0 {
+struct CCharacter_nv_42960 {
     void helper(int, float);
 };
 void C_42960::target(int a, float b) {
     if (!flag && field338 == 0)
-        ((ThisCall_000428e0*)(this))->helper(a, b * scale);
+        ((CCharacter_nv_42960*)(((CCharacter*)(this))))->helper(a, b * scale);
 }

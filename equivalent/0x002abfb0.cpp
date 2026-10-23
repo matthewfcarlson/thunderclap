@@ -54,7 +54,7 @@ struct Registry_2abfb0 {
 };
 
 
-struct GeneratorBlendState_2abfb0 {
+struct GeneratorBlendState_nv_2abfb0 {
     ::pure3d::ParticleSphereGenerator::GeneratorBlendState* FUN_002d2bd0(Item_2abfb0* item);
 };
 
@@ -127,7 +127,7 @@ ParticleSphereGenerator_2abfb0* __stdcall FUN_002abfb0(Reader_2abfb0* r, void* a
                     ::pure3d::ParticleSphereGenerator::GeneratorBlendState* e = (::pure3d::ParticleSphereGenerator::GeneratorBlendState*)FUN_0008d690(0x10);
                     f.z = e;
                     if (e != 0)
-                        e = ((GeneratorBlendState_2abfb0*)(e))->FUN_002d2bd0(f.out0->FUN_00288a10(i));
+                        e = ((GeneratorBlendState_nv_2abfb0*)(((::pure3d::ParticleSphereGenerator::GeneratorBlendState*)(e))))->FUN_002d2bd0(f.out0->FUN_00288a10(i));
                     gen->elements.begin[gen->used] = e;
                     gen->elements.begin[gen->used]->vfunc_0();
                     gen->used++;

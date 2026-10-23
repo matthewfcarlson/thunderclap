@@ -1099,28 +1099,32 @@ public:
     float f_dc;
     char _pad_e0[0x11];
     char f_f1;
-    char _pad_f2[0x82];
+    char _pad_f2[0x7e];
+    int f_170;
     int f_174;
     int f_178;
-    char _pad_17c[0x4];
+    int f_17c;
     int f_180;
     int f_184;
     int f_188;
     int f_18c;
     int f_190;
-    char _pad_194[0x10];
+    char _pad_194[0xc];
+    int f_1a0;
     int f_1a4;
     int f_1a8;
-    char _pad_1ac[0x4];
+    int f_1ac;
     int f_1b0;
     int f_1b4;
-    char _pad_1b8[0x1c];
+    char _pad_1b8[0x18];
+    int f_1d0;
     int f_1d4;
     int f_1d8;
-    char _pad_1dc[0x4];
+    int f_1dc;
     int f_1e0;
     int f_1e4;
-    char _pad_1e8[0x10];
+    char _pad_1e8[0xc];
+    int f_1f4;
     int f_1f8;
     int f_1fc;
     int f_200;
@@ -1130,10 +1134,12 @@ public:
     float f_240;
     char f_244;
     char f_245;
-    char _pad_246[0x6];
+    char _pad_246[0x2];
+    float f_248;
     float f_24c;
     float f_250;
-    char _pad_254[0x40];
+    char _pad_254[0x3c];
+    float f_290;
     float f_294;
     float f_298;
     char _pad_29c[0x48];
@@ -2370,7 +2376,8 @@ public:
     char f_7f;
     char _pad_80[0xc];
     float f_8c;
-    char _pad_90[0x8];
+    char _pad_90[0x4];
+    float f_94;
     float f_98;
     float f_9c;
     char _pad_a0[0x8];
@@ -2431,7 +2438,8 @@ public:
     void* f_24;
     char _pad_28[0x4c];
     char f_74;
-    char _pad_75[0x7];
+    char _pad_75[0x3];
+    int f_78;
     int f_7c;
     int f_80;
     float f_84;
@@ -2773,7 +2781,7 @@ public:
     virtual void vfunc_8(int); // slot 8
     virtual float vfunc_9(); // slot 9
     virtual void vfunc_10(int); // slot 10
-    char _pad_10[0x4];
+    int f_10;
     int f_14;
     int f_18;
     float f_1c;
@@ -3078,7 +3086,8 @@ public:
     void* f_60;
     void* f_64;
     int f_68;
-    char _pad_6c[0x8];
+    char _pad_6c[0x4];
+    int f_70;
     int f_74;
     int f_78;
     int f_7c;
@@ -3268,7 +3277,9 @@ public:
     virtual void vfunc_15(); // overrides pure3d::prop::StateProp slot 15
     virtual void vfunc_16(int, int); // overrides pure3d::prop::StateProp slot 16
     void* f_a0;
-    char _pad_a4[0x48];
+    char _pad_a4[0x44];
+    char f_e8;
+    char _pad_e9[0x3];
     void* f_ec;
 };
 
@@ -5356,7 +5367,9 @@ public:
     int f_38;
     float f_3c;
     float f_40;
-    char _pad_44[0xc];
+    float f_44;
+    float f_48;
+    float f_4c;
     char f_50;
 };
 
@@ -5574,7 +5587,25 @@ public:
     virtual bool vfunc_12(int, int); // overrides FEControl slot 12
     virtual void vfunc_13(int); // overrides FEControl slot 13
     virtual void vfunc_14(int); // overrides FEControl slot 14
-    char _pad_a4[0xd4];
+    char _pad_a4[0x9c];
+    char f_140;
+    char f_141;
+    char f_142;
+    char f_143;
+    char f_144;
+    char _pad_145[0x3];
+    int f_148;
+    int f_14c;
+    char _pad_150[0x4];
+    int f_154;
+    void* f_158;
+    void* f_15c;
+    void* f_160;
+    void* f_164;
+    void* f_168;
+    void* f_16c;
+    int f_170;
+    int f_174;
     int f_178;
 };
 
@@ -5828,15 +5859,18 @@ public:
     virtual bool vfunc_12(int, int); // overrides FEControl slot 12
     virtual void vfunc_13(int); // overrides FEControl slot 13
     virtual void vfunc_14(int); // overrides FEControl slot 14
-    char _pad_a4[0xac];
+    char _pad_a4[0x4];
+    void* f_a8;
+    void* f_ac;
+    char _pad_b0[0xa0];
     int f_150;
     int f_154;
-    char _pad_158[0x4];
+    int f_158;
     float f_15c;
     float f_160;
-    char _pad_164[0x4];
+    float f_164;
     int f_168;
-    char _pad_16c[0x4];
+    int f_16c;
     int f_170;
     int f_174;
     float f_178;
@@ -5874,10 +5908,19 @@ public:
     virtual void vfunc_21(); // slot 21
     virtual void vfunc_22(int); // slot 22
     virtual int vfunc_23(); // slot 23
-    char _pad_a4[0xa4];
+    char _pad_a4[0x4];
+    void* f_a8;
+    void* f_ac;
+    char _pad_b0[0x98];
     int f_148;
     int f_14c;
-    char _pad_150[0x158];
+    char _pad_150[0x140];
+    int f_290;
+    int f_294;
+    int f_298;
+    float f_29c;
+    float f_2a0;
+    int f_2a4;
     int f_2a8;
     int f_2ac;
 };
@@ -5893,7 +5936,8 @@ public:
     virtual int vfunc_12(); // slot 12
     virtual void* vfunc_13(); // slot 13
     virtual int vfunc_14(); // slot 14
-    char _pad_a4[0x74];
+    int f_a4;
+    char _pad_a8[0x70];
     unsigned int f_118;
 };
 
@@ -5918,20 +5962,30 @@ public:
     virtual void vfunc_24(int); // slot 24
     virtual void vfunc_25(int); // slot 25
     virtual void vfunc_26(int, int); // slot 26
-    char _pad_a4[0xa4];
+    int f_a4;
+    char _pad_a8[0x4];
+    void* f_ac;
+    char _pad_b0[0x90];
+    char f_140;
+    char _pad_141[0x7];
     int f_148;
     int f_14c;
-    char _pad_150[0x4];
+    int f_150;
     int f_154;
     char _pad_158[0x1c00];
     int f_1d58;
-    char _pad_1d5c[0x4];
+    int f_1d5c;
     float f_1d60;
-    char _pad_1d64[0x4];
+    float f_1d64;
     unsigned int f_1d68;
     int f_1d6c;
     int f_1d70;
-    char _pad_1d74[0x14];
+    float f_1d74;
+    float f_1d78;
+    int f_1d7c;
+    int f_1d80;
+    char f_1d84;
+    char _pad_1d85[0x3];
     void* f_1d88;
     char _pad_1d8c[0x8];
     int f_1d94;
@@ -6136,7 +6190,9 @@ public:
     virtual bool vfunc_12(int, int); // overrides FEControl slot 12
     virtual void vfunc_13(int); // overrides FEControl slot 13
     virtual void vfunc_14(int); // overrides FEControl slot 14
-    char _pad_a4[0xa4];
+    char _pad_a4[0x74];
+    int f_118;
+    char _pad_11c[0x2c];
     int f_148;
     char _pad_14c[0x4];
     void* f_150;
@@ -6157,7 +6213,8 @@ public:
     virtual bool vfunc_12(int, int); // overrides FEControl slot 12
     virtual void vfunc_13(int); // overrides FEControl slot 13
     virtual void vfunc_14(int); // overrides FEControl slot 14
-    char _pad_a4[0xa4];
+    int f_a4;
+    char _pad_a8[0xa0];
     int f_148;
     char _pad_14c[0x4];
     void* f_150;
@@ -6205,7 +6262,7 @@ public:
     char _pad_24c[0x8];
     float f_254;
     void* f_258;
-    char _pad_25c[0x4];
+    float f_25c;
     float f_260;
     float f_264;
     int f_268;

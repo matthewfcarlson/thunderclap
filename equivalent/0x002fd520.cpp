@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2977 inputs, branch coverage 6/6)
 // physics::SimStateArticulated::vfunc_7 @ 0x002fd520
+#include "gen/physics.h"
+
 struct Joint_2fd520 {
     char pad0[4];
     int f4, f8, fc, f10, f14, f18;
@@ -13,38 +15,18 @@ struct Chain_2fd520 {
 };
 
 namespace physics {
-class SimStateArticulated {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    char pad04[0x50 - 4];
-    int f50, f54, f58, f5c, f60, f64;
-    char pad68[0x80 - 0x68];
-    int f80;
-    char pad84[4];
-    Chain_2fd520 *chain;
-    Joint_2fd520 *joints;
-};
 }
-
-void physics::SimStateArticulated::vfunc_7()
-{
-    f58 = 0;
-    f54 = 0;
-    f50 = 0;
-    f64 = 0;
-    f60 = 0;
-    f5c = 0;
-    f80 = 0;
-    if (chain != 0) {
-        for (int i = 0; i < chain->FUN_0030f450(); i++) {
-            Joint_2fd520 *j = &joints[i];
+void physics::SimStateArticulated::vfunc_7() {
+    this->f_58 = 0;
+    this->f_54 = 0;
+    (*(int *)&this->f_50) = 0;
+    this->f_64 = 0;
+    this->f_60 = 0;
+    this->f_5c = 0;
+    this->f_80 = 0;
+    if ((*(Chain_2fd520 * *)&this->f_88) != 0) {
+        for (int i = 0; i < (*(Chain_2fd520 * *)&this->f_88)->FUN_0030f450(); i++) {
+            Joint_2fd520 *j = &(*(Joint_2fd520 * *)&this->f_8c)[i];
             j->f1c = 1;
             j->fc = 0;
             j->f8 = 0;

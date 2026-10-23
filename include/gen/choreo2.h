@@ -61,7 +61,7 @@ public:
     int f_18;
     int f_1c;
     void* f_20;
-    char _pad_24[0x4];
+    void* f_24;
     void* f_28;
     char _pad_2c[0x1f8];
     char f_224;

@@ -8,7 +8,7 @@ class Params_119db0 {
 extern Params_119db0 TypeA_119db0;
 extern Params_119db0 TypeB_119db0;
 int __cdecl Check(void*, int, Params_119db0*, Params_119db0*, int);
-struct MotionFacingAction_119db0 {
+struct MotionFacingAction_nv_119db0 {
     int Init(hulkfight::ai::MotionFacingTrack*, int);
 };
 hulkfight::ai::MotionFacingAction* __cdecl Alloc(int);
@@ -18,7 +18,7 @@ int hulkfight::ai::MotionFacingTrack::vfunc_10(int a, int b, int c) {
     if (result) {
         hulkfight::ai::MotionFacingAction* p = Alloc(0x24);
         if (p)
-            return ((MotionFacingAction_119db0*)(p))->Init(this, c);
+            return ((MotionFacingAction_nv_119db0*)(((hulkfight::ai::MotionFacingAction*)(p))))->Init(this, c);
     }
     return 0;
 }

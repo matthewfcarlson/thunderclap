@@ -1,7 +1,7 @@
 // Same code shape as 0x0005aad0 (propagated; names are from that function)
 #include "gen/global.h"
 
-struct CSmartPropThrowingAction_62a00 {
+struct CSmartPropThrowingAction_nv_62a00 {
     int invoke(CSmartPropThrowingTrack*, int);
 };
 extern CSmartPropThrowingAction* FUN_0008d690(int);
@@ -9,6 +9,6 @@ extern CSmartPropThrowingAction* FUN_0008d690(int);
 int CSmartPropThrowingTrack::vfunc_12(int param) {
     CSmartPropThrowingAction* p = FUN_0008d690(0x24);
     if (p)
-        return ((CSmartPropThrowingAction_62a00*)(p))->invoke(this, param);
+        return ((CSmartPropThrowingAction_nv_62a00*)(((CSmartPropThrowingAction*)(p))))->invoke(this, param);
     return 0;
 }

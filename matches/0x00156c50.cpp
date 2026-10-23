@@ -8,7 +8,7 @@ class Params_156c50 {
 extern Params_156c50 TypeA_156c50;
 extern Params_156c50 TypeB_156c50;
 int __cdecl Check(void*, int, Params_156c50*, Params_156c50*, int);
-struct InterruptAccumulatorSetAction_156c50 {
+struct InterruptAccumulatorSetAction_nv_156c50 {
     int Init(hulkfight::motion::InterruptAccumulatorSetTrack*, int);
 };
 hulkfight::motion::InterruptAccumulatorSetAction* __cdecl Alloc(int);
@@ -18,7 +18,7 @@ int hulkfight::motion::InterruptAccumulatorSetTrack::vfunc_10(int a, int b, int 
     if (result) {
         hulkfight::motion::InterruptAccumulatorSetAction* p = Alloc(0x24);
         if (p)
-            return ((InterruptAccumulatorSetAction_156c50*)(p))->Init(this, c);
+            return ((InterruptAccumulatorSetAction_nv_156c50*)(((hulkfight::motion::InterruptAccumulatorSetAction*)(p))))->Init(this, c);
     }
     return 0;
 }

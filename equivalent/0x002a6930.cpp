@@ -5,7 +5,7 @@ struct TypeInfo_2a6930 { unsigned int value; }; extern TypeInfo_2a6930 DAT_004cf
 struct Resource_2a6930 { char pad[0x5c]; void* data; };
 struct Entry_2a6930 { void* object; char pad[12]; };
 struct Source_2a6930 { char pad[0x48]; Entry_2a6930* begin; Entry_2a6930* end; };
-struct VertexList_2a6930 {
+struct VertexList_nv_2a6930 {
     pure3d::VertexList* FUN_002c8730(void*);
 };
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
@@ -23,7 +23,7 @@ void ProceduralVertexAnimController_2a6930::target(Source_2a6930* input) {
   Resource_2a6930* resource=FUN_00344e74(*(void**)((char*)source->begin+offset),0,&DAT_004cf8e8,&DAT_004cf908,0);
   if(resource) {
    pure3d::VertexList* memory=(pure3d::VertexList*)FUN_0008d690(0x5c);
-   pure3d::VertexList* obj=memory ? ((VertexList_2a6930*)(memory))->FUN_002c8730(resource->data) : 0;
+   pure3d::VertexList* obj=memory ? ((VertexList_nv_2a6930*)(((pure3d::VertexList*)(memory))))->FUN_002c8730(resource->data) : 0;
    pure3d::VertexList** slot=items+index;
    if(obj) obj->vfunc_0();
    if(*slot) (*slot)->vfunc_1();

@@ -4,7 +4,7 @@
 typedef unsigned int u32_1133a0;
 extern int TypeA_1133a0;
 extern int TypeB_1133a0;
-struct SemaphoreWaitAction_1133a0 {
+struct SemaphoreWaitAction_nv_1133a0 {
     u32_1133a0 Init(void*, void*);
 };
 extern int Check(void*, int, int*, int*, int);
@@ -15,7 +15,7 @@ int hulkfight::ai::SemaphoreWaitTrack::vfunc_10(int __p0, int __p1, int __p2) { 
     if (Check(p, 0, &TypeA_1133a0, &TypeB_1133a0, 0)) {
         hulkfight::ai::SemaphoreWaitAction* q = Alloc(0x28);
         if (q)
-            return (int)(((SemaphoreWaitAction_1133a0*)(q))->Init(this, p));
+            return (int)(((SemaphoreWaitAction_nv_1133a0*)(((hulkfight::ai::SemaphoreWaitAction*)(q))))->Init(this, p));
     }
     return (int)(0);
 }

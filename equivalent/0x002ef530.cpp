@@ -1,47 +1,25 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // physics::SimState::vfunc_8 @ 0x002ef530
+#include "gen/physics.h"
+
 struct Vec3_2ef530 {
     float x, y, z;
 };
 
-class SimState {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    virtual void vfunc_8(const Vec3_2ef530 *p, Vec3_2ef530 *out, int unused);
-    virtual void vfunc_9();
-    virtual void vfunc_10();
-    virtual void vfunc_11();
-    virtual void vfunc_12();
-    virtual void vfunc_13();
-    virtual void vfunc_14();
-    char pad04[0x3c];
-    Vec3_2ef530 origin;
-    char pad4c[4];
-    Vec3_2ef530 offset;
-    Vec3_2ef530 axis;
-};
+void physics::SimState::vfunc_8(int __p0, int __p1, int unused) { const Vec3_2ef530 * p = (const Vec3_2ef530 *)__p0; Vec3_2ef530 * out = (Vec3_2ef530 *)__p1;
 
-void SimState::vfunc_8(const Vec3_2ef530 *p, Vec3_2ef530 *out, int unused)
-{
-    double dx = p->x - origin.x;
-    double dy = p->y - origin.y;
-    double dz = p->z - origin.z;
+    double dx = p->x - (*(Vec3_2ef530 *)&this->f_40).x;
+    double dy = p->y - (*(Vec3_2ef530 *)&this->f_40).y;
+    double dz = p->z - (*(Vec3_2ef530 *)&this->f_40).z;
     // ny and nz are rounded frame copies in the original; nx stays in a register
-    volatile float ny = dx * axis.z - dz * axis.x;
-    volatile float nz = dy * axis.x - dx * axis.y;
-    double nx = dz * axis.y - dy * axis.z;
+    volatile float ny = dx * (*(Vec3_2ef530 *)&this->f_5c).z - dz * (*(Vec3_2ef530 *)&this->f_5c).x;
+    volatile float nz = dy * (*(Vec3_2ef530 *)&this->f_5c).x - dx * (*(Vec3_2ef530 *)&this->f_5c).y;
+    double nx = dz * (*(Vec3_2ef530 *)&this->f_5c).y - dy * (*(Vec3_2ef530 *)&this->f_5c).z;
     volatile float *o = &out->x;
     o[1] = ny;
     o[2] = nz;
     o[0] = nx;
-    o[0] = o[0] + offset.x;
-    o[1] = ny + offset.y;
-    o[2] = nz + offset.z;
+    o[0] = o[0] + (*(Vec3_2ef530 *)&this->f_50).x;
+    o[1] = ny + (*(Vec3_2ef530 *)&this->f_50).y;
+    o[2] = nz + (*(Vec3_2ef530 *)&this->f_50).z;
 }

@@ -4,7 +4,7 @@
 typedef unsigned int u32_13bfa0;
 extern int TypeA_13bfa0;
 extern int TypeB_13bfa0;
-struct AnimationChargeAction_13bfa0 {
+struct AnimationChargeAction_nv_13bfa0 {
     u32_13bfa0 Init(void*, void*);
 };
 extern int Check(void*, int, int*, int*, int);
@@ -15,7 +15,7 @@ int hulkfight::motion::AnimationChargeTrack::vfunc_10(int __p0, int __p1, int __
     if (Check(p, 0, &TypeA_13bfa0, &TypeB_13bfa0, 0)) {
         hulkfight::motion::AnimationChargeAction* q = Alloc(0x28);
         if (q)
-            return (int)(((AnimationChargeAction_13bfa0*)(q))->Init(this, p));
+            return (int)(((AnimationChargeAction_nv_13bfa0*)(((hulkfight::motion::AnimationChargeAction*)(q))))->Init(this, p));
     }
     return (int)(0);
 }

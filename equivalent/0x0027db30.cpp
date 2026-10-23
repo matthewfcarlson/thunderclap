@@ -26,7 +26,7 @@ struct Spawned_27db30 {
 };
 struct Transform_27db30 { char pad[0x50]; U_27db30 position[3]; U_27db30 rotation[3]; };
 struct Child_27db30 { virtual void v0(); char pad[0xc]; Transform_27db30* transform; };
-struct PhysicsInstance_27db30 {
+struct PhysicsInstance_nv_27db30 {
     Child_27db30* FUN_002fc880(Spawned_27db30* object,U_27db30 zero);
 };
 struct Target_27db30 { char pad[0x9c]; Owner_27db30* owner; Holder_27db30* holder; void run(physics::PhysicsInstance* parent,U_27db30 a,U_27db30 b,U_27db30 x,U_27db30 y,U_27db30 z,U_27db30 rx,U_27db30 ry,U_27db30 rz); };
@@ -46,7 +46,7 @@ void Target_27db30::run(physics::PhysicsInstance* parent,U_27db30 a,U_27db30 b,U
  entity->FUN_002fd4a0();
  entity->FUN_002fd4b0(id,0);
  entity->FUN_002fd4f0();
- Child_27db30* child = parent ? ((PhysicsInstance_27db30*)(parent))->FUN_002fc880(object,0) : 0;
+ Child_27db30* child = parent ? ((PhysicsInstance_nv_27db30*)(((physics::PhysicsInstance*)(parent))))->FUN_002fc880(object,0) : 0;
  Transform_27db30* transform = child->transform;
  transform->position[0]=x;
  transform->position[1]=y;

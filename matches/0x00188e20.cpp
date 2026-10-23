@@ -8,7 +8,7 @@ class Params_188e20 {
 extern Params_188e20 TypeA_188e20;
 extern Params_188e20 TypeB_188e20;
 int __cdecl Check(void*, int, Params_188e20*, Params_188e20*, int);
-struct GrapplePropDamageAction_188e20 {
+struct GrapplePropDamageAction_nv_188e20 {
     int Init(hulkfight::motion::GrapplePropDamageTrack*, int);
 };
 hulkfight::motion::GrapplePropDamageAction* __cdecl Alloc(int);
@@ -18,7 +18,7 @@ int hulkfight::motion::GrapplePropDamageTrack::vfunc_10(int a, int b, int c) {
     if (result) {
         hulkfight::motion::GrapplePropDamageAction* p = Alloc(0x24);
         if (p)
-            return ((GrapplePropDamageAction_188e20*)(p))->Init(this, c);
+            return ((GrapplePropDamageAction_nv_188e20*)(((hulkfight::motion::GrapplePropDamageAction*)(p))))->Init(this, c);
     }
     return 0;
 }
