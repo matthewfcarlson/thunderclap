@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 77/78, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 117 inputs, branch coverage 77/78, incomplete; Wine build 117 inputs, 77/78)
 // FUN_000b30c0 @ 0x000b30c0
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 class Item_b30c0 {
 public:
@@ -40,8 +41,9 @@ public:
                        float *out1, float *out2, float *out3);
 };
 
-// The original keeps the normalised value unrounded on the FPU stack, so these are inlined helpers.
-static __forceinline float Normalise(const Blender_b30c0 *b, float v)
+// The original keeps the normalised value unrounded on the FPU stack, so these are inlined helpers returning
+// hulk_freg (float under MSVC 7.1, double in the clang builds, where a float return would round).
+static __forceinline hulk_freg Normalise(const Blender_b30c0 *b, float v)
 {
     if (v < b->lo)
         return 0.0f;
@@ -50,7 +52,7 @@ static __forceinline float Normalise(const Blender_b30c0 *b, float v)
     return (v - b->lo) / (b->hi - b->lo);
 }
 
-static __forceinline float Ratio(const Blender_b30c0 *b, float a, float range)
+static __forceinline hulk_freg Ratio(const Blender_b30c0 *b, float a, float range)
 {
     if (a < b->lo2)
         return 0.0f;
@@ -60,10 +62,10 @@ static __forceinline float Ratio(const Blender_b30c0 *b, float a, float range)
 }
 
 // Shrink factor for an (x, y) pair: derived from its larger magnitude.
-static __forceinline float PickRatio(const Blender_b30c0 *b, float ax, float ay, float range)
+static __forceinline hulk_freg PickRatio(const Blender_b30c0 *b, float ax, float ay, float range)
 {
     float m = 0.0f;
-    float r1 = 0.0f;
+    hulk_freg r1 = 0.0f;
     if (ax > 0.0f) {
         m = ax;
         r1 = Ratio(b, ax, range);
@@ -162,7 +164,9 @@ void Blender_b30c0::FUN_000b30c0(int groups, int pairs, int *counts, Item_b30c0 
         FS_b30c0 ay;
         ay.f = xy[1];
         ay.u &= 0x7fffffff;
-        xy[0] = scale * PickRatio(this, ax.f, ay.f, range) * xy[0];
-        xy[1] = PickRatio(this, ax.f, ay.f, range) * xy[1] * scale;
+        // x87: the original computes the ratio once and keeps it unrounded in st(1) for both products
+        hulk_freg r = PickRatio(this, ax.f, ay.f, range);
+        xy[0] = scale * r * xy[0];
+        xy[1] = r * xy[1] * scale;
     }
 }

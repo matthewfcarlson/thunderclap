@@ -1,8 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1891 inputs, branch coverage 251/270, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3086 inputs, branch coverage 255/270, incomplete; Wine build 3081 inputs, 265/270)
 // FUN_001d8fc0 @ 0x001d8fc0
 // CSPHulkPropInstance per-frame update (FUN_001d8fc0): steering of the prop's velocity vectors,
 // ground/water level crossings, StateProp event keys.
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 extern "C" double sqrt(double);
 
@@ -407,8 +408,10 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
     Frame_1d8fc0 F;
     float &sec = F.f140;
 
-    sec = dt * 0.001f;
-    f154 = f154 + sec;
+    // x87: the original stores the step with fst and adds the register copy (unrounded) to the clock
+    hulk_freg step = dt * 0.001f;
+    sec = step;
+    f154 = f154 + step;
     b111 = 0;
     if (f270 > 0.0f) {
         if (pa0) {
@@ -467,7 +470,7 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
 
         if (f218 > 0.0f) {
             F.dir = v200;
-            f218 = f218 - (float)sqrt(v200.x * v200.x + v200.y * v200.y + v200.z * v200.z) * sec;
+            f218 = f218 - sqrt(v200.x * v200.x + v200.y * v200.y + v200.z * v200.z) * sec;   // x87: root unrounded
             F.f134 = F.dir.FUN_0022d110();          // l2
             if (p21c != 0) {
                 F.v130.x = 0.0f;
@@ -713,7 +716,7 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
                 F.f140 = FUN_00083d90(&F.f100) * F.f110 + F.f140;
             F.v130 = (*(Vec3_1d8fc0*)&DAT_004c6068);
             FUN_00224d70(F.f140, &F.v130);
-            float step = F.f134 * f128;
+            hulk_freg step = F.f134 * f128;
             F.f118 = -1.5707964f;
             F.dir.x = F.v130.x * step + F.dir.x;
             F.dir.y = F.v130.y * step + F.dir.y;
