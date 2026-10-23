@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 160 inputs, branch coverage 31/32, incomplete)
 // FEThingsBase::vfunc_36 @ 0x000f07b0
-class Param {
+#include "gen/global.h"
+
+class Param_f07b0 {
 public:
     float FUN_000fad30();
     unsigned FUN_000faeb0();
@@ -23,65 +25,27 @@ struct Target_f07b0 {
     unsigned color;
 };
 
-class FEThingsBase {
-public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual void v13();
-    virtual void v14();
-    virtual void v15();
-    virtual void v16();
-    virtual void v17();
-    virtual void v18();
-    virtual void v19();
-    virtual void v20();
-    virtual void v21();
-    virtual void v22();
-    virtual void v23();
-    virtual void v24();
-    virtual void v25();
-    virtual void v26();
-    virtual void v27();
-    virtual void v28();
-    virtual void v29();
-    virtual void v30();
-    virtual void v31();
-    virtual void v32();
-    virtual void v33();
-    virtual void v34();
-    virtual void v35();
-    virtual bool FUN_000f07b0(Param *p, int b, Target_f07b0 *t, Args_f07b0 *a);
-    void FUN_000eff20(Param *p, int b, Target_f07b0 *t, int mode);
+struct FEThingsBase_nv_f07b0 {
+    void FUN_000eff20(Param_f07b0 *p, int b, Target_f07b0 *t, int mode);
 };
 
-bool FEThingsBase::FUN_000f07b0(Param *p, int b, Target_f07b0 *t, Args_f07b0 *a)
-{
+bool FEThingsBase::vfunc_36(int __p0, int b, int __p2, int __p3) { Param_f07b0 * p = (Param_f07b0 *)__p0; Target_f07b0 * t = (Target_f07b0 *)__p2; Args_f07b0 * a = (Args_f07b0 *)__p3;
+
     switch (a->GetKey()) {
     case 0x800e8237:
-        FUN_000eff20(p, b, t, 0);
+        ((FEThingsBase_nv_f07b0*)this)->FUN_000eff20(p, b, t, 0);
         return true;
     case 0x04605ef2:
-        FUN_000eff20(p, b, t, 1);
+        ((FEThingsBase_nv_f07b0*)this)->FUN_000eff20(p, b, t, 1);
         return true;
     case 0xfe1d4671:
-        FUN_000eff20(p, b, t, 2);
+        ((FEThingsBase_nv_f07b0*)this)->FUN_000eff20(p, b, t, 2);
         return true;
     case 0x67b8aefc:
-        FUN_000eff20(p, b, t, 3);
+        ((FEThingsBase_nv_f07b0*)this)->FUN_000eff20(p, b, t, 3);
         return true;
     case 0xeb227e7b:
-        FUN_000eff20(p, b, t, 4);
+        ((FEThingsBase_nv_f07b0*)this)->FUN_000eff20(p, b, t, 4);
         return true;
     case 0xfb26aca4:
         t->flag144 = p->FUN_000faeb0() != 0xa3c653f9;

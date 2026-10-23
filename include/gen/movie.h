@@ -91,7 +91,7 @@ struct RenderStrategy : public ::core::IRefCount {
 public:
     virtual ~RenderStrategy(); // overrides core::IRefCount slot 2
     virtual void vfunc_3() = 0; // slot 3
-    virtual void vfunc_4(int) = 0; // slot 4
+    virtual int vfunc_4(int) = 0; // slot 4
     virtual void vfunc_5() = 0; // slot 5
     virtual void vfunc_6() = 0; // slot 6
     virtual void vfunc_7() = 0; // slot 7
@@ -104,7 +104,7 @@ public:
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~RenderStrategyBink(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(); // overrides movie::RenderStrategy slot 3
-    virtual void vfunc_4(int); // overrides movie::RenderStrategy slot 4
+    virtual int vfunc_4(int); // overrides movie::RenderStrategy slot 4
     virtual void vfunc_5(); // overrides movie::RenderStrategy slot 5
     virtual void vfunc_6(); // overrides movie::RenderStrategy slot 6
     virtual void vfunc_7(); // overrides movie::RenderStrategy slot 7

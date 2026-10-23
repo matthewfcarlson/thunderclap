@@ -104,7 +104,7 @@ public:
     class DynamicCasterBase;
     template <class T0> class DynamicCaster;
     virtual ~LoadInventory(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int, int); // slot 3
+    virtual void* vfunc_3(int, int, int); // slot 3
     virtual void vfunc_4(void*, void*, void*); // slot 4
     virtual void vfunc_5(void*); // slot 5
     char f_08;

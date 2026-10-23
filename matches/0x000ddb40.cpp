@@ -1,4 +1,6 @@
-class ControllerPollerBase {
+#include "gen/global.h"
+
+class ControllerPollerBase_ddb40 {
   public:
     virtual void f0();
     virtual void f1();
@@ -7,14 +9,11 @@ class ControllerPollerBase {
     virtual bool f4(int, int);
     virtual void f5();
 };
-class ControllerPoller : public ControllerPollerBase {
-  public:
-    bool f3(int);
-};
-bool ControllerPoller::f3(int arg) {
+
+bool ControllerPoller::vfunc_3(int arg) {
     int i = 0;
     do {
-        if (f4(arg, i))
+        if (vfunc_4(arg, i))
             return true;
         ++i;
     } while (i < 1);

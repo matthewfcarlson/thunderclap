@@ -2305,7 +2305,7 @@ public:
     virtual bool vfunc_3(int, int); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(int, int); // overrides fight::Action slot 5
-    virtual void vfunc_6() = 0; // slot 6
+    virtual __int64 vfunc_6() = 0; // slot 6
     virtual void vfunc_7() = 0; // slot 7
     virtual void vfunc_8(void*) = 0; // slot 8
     char _pad_08[0x14];
@@ -2318,7 +2318,7 @@ public:
 class ClimbLocomotion4Action : public ::hulkfight::motion::ClimbLocomotionAction {
 public:
     virtual ~ClimbLocomotion4Action(); // overrides core::IRefCount slot 2
-    virtual void vfunc_6(); // overrides hulkfight::motion::ClimbLocomotionAction slot 6
+    virtual __int64 vfunc_6(); // overrides hulkfight::motion::ClimbLocomotionAction slot 6
     virtual void vfunc_7(); // overrides hulkfight::motion::ClimbLocomotionAction slot 7
     virtual void vfunc_8(void*); // overrides hulkfight::motion::ClimbLocomotionAction slot 8
     char _pad_28[0x20];
@@ -3759,7 +3759,7 @@ public:
     virtual bool vfunc_3(int, int); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(int, int); // overrides fight::Action slot 5
-    virtual void vfunc_6() = 0; // slot 6
+    virtual __int64 vfunc_6() = 0; // slot 6
     virtual void vfunc_7() = 0; // slot 7
     virtual void vfunc_8(void*, void*, void*) = 0; // slot 8
     char _pad_08[0x14];
@@ -3771,7 +3771,7 @@ public:
 class LocomotionStrafe4Action : public ::hulkfight::motion::LocomotionStrafeAction {
 public:
     virtual ~LocomotionStrafe4Action(); // overrides core::IRefCount slot 2
-    virtual void vfunc_6(); // overrides hulkfight::motion::LocomotionStrafeAction slot 6
+    virtual __int64 vfunc_6(); // overrides hulkfight::motion::LocomotionStrafeAction slot 6
     virtual void vfunc_7(); // overrides hulkfight::motion::LocomotionStrafeAction slot 7
     virtual void vfunc_8(void*, void*, void*); // overrides hulkfight::motion::LocomotionStrafeAction slot 8
     char _pad_24[0x20];

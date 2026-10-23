@@ -84,7 +84,7 @@ public:
     virtual float vfunc_15(); // slot 15
     virtual void vfunc_16(); // slot 16
     virtual void vfunc_17(int, int, int, int, int) = 0; // slot 17
-    virtual void vfunc_18(int, int, int, int, int, int) = 0; // slot 18
+    virtual bool vfunc_18(int, int, int, int, int, int) = 0; // slot 18
     virtual void vfunc_19(int, int, int) = 0; // slot 19
     virtual void vfunc_20(void*, void*, int, int, int) = 0; // slot 20
     virtual float vfunc_21(); // slot 21
@@ -118,7 +118,7 @@ public:
     virtual float vfunc_14(); // overrides physics::SimulatedObject slot 14
     virtual float vfunc_15(); // overrides physics::SimulatedObject slot 15
     virtual void vfunc_17(int, int, int, int, int); // overrides physics::SimulatedObject slot 17
-    virtual void vfunc_18(int, int, int, int, int, int); // overrides physics::SimulatedObject slot 18
+    virtual bool vfunc_18(int, int, int, int, int, int); // overrides physics::SimulatedObject slot 18
     virtual void vfunc_19(int, int, int); // overrides physics::SimulatedObject slot 19
     virtual void vfunc_20(void*, void*, int, int, int); // overrides physics::SimulatedObject slot 20
     virtual float vfunc_21(); // overrides physics::SimulatedObject slot 21
@@ -190,7 +190,7 @@ public:
     virtual void vfunc_5(int); // overrides physics::SimulatedObject slot 5
     virtual void vfunc_7(); // overrides physics::SimulatedObject slot 7
     virtual void vfunc_17(int, int, int, int, int); // overrides physics::SimulatedObject slot 17
-    virtual void vfunc_18(int, int, int, int, int, int); // overrides physics::SimulatedObject slot 18
+    virtual bool vfunc_18(int, int, int, int, int, int); // overrides physics::SimulatedObject slot 18
     virtual void vfunc_19(int, int, int); // overrides physics::SimulatedObject slot 19
     virtual void vfunc_20(void*, void*, int, int, int); // overrides physics::SimulatedObject slot 20
     virtual bool vfunc_24(int, int, int); // overrides physics::SimulatedObject slot 24
@@ -248,7 +248,7 @@ public:
     virtual void vfunc_1(void*, void*); // slot 1
     virtual void vfunc_2(int, int); // slot 2
     virtual bool vfunc_3(void*, int); // slot 3
-    virtual void vfunc_4(int, int, int, int, int, int, int); // slot 4
+    virtual int vfunc_4(int, int, int, int, int, int, int); // slot 4
     void* f_04;
     void* f_08;
     unsigned int f_0c;
@@ -312,8 +312,8 @@ public:
 class WorldCollisionVolume : public ::physics::CollisionVolume {
 public:
     virtual ~WorldCollisionVolume(); // overrides core::IRefCount slot 2
-    virtual void vfunc_15() = 0; // slot 15
-    virtual void vfunc_16(int, int, int) = 0; // slot 16
+    virtual char vfunc_15(int, int) = 0; // slot 15
+    virtual bool vfunc_16(int, int, int) = 0; // slot 16
     virtual void vfunc_17(int, int) = 0; // slot 17
     virtual void vfunc_18(int, void*, void*, void*) = 0; // slot 18
 };
@@ -327,8 +327,8 @@ public:
     virtual int vfunc_4(); // overrides physics::CollisionVolume slot 4
     virtual void vfunc_5(int, int); // overrides physics::CollisionVolume slot 5
     virtual int vfunc_6(); // overrides physics::CollisionVolume slot 6
-    virtual void vfunc_15(); // overrides physics::WorldCollisionVolume slot 15
-    virtual void vfunc_16(int, int, int); // overrides physics::WorldCollisionVolume slot 16
+    virtual char vfunc_15(int, int); // overrides physics::WorldCollisionVolume slot 15
+    virtual bool vfunc_16(int, int, int); // overrides physics::WorldCollisionVolume slot 16
     virtual void vfunc_17(int, int); // overrides physics::WorldCollisionVolume slot 17
     virtual void vfunc_18(int, void*, void*, void*); // overrides physics::WorldCollisionVolume slot 18
     char _pad_1c[0x28];
@@ -417,7 +417,7 @@ public:
     virtual unsigned int vfunc_6(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int); // slot 6
     virtual int vfunc_7(void*, int); // slot 7
     virtual void vfunc_8(int, int); // slot 8
-    virtual void vfunc_9(int, int); // slot 9
+    virtual int vfunc_9(int, int); // slot 9
     virtual bool vfunc_10(void*, void*); // slot 10
     virtual bool vfunc_11(void*); // slot 11
     void* f_08;
@@ -509,7 +509,7 @@ public:
 // .?AVFilter3D@physics@@  vftable 0x43233c (3)
 class Filter3D {
 public:
-    virtual void vfunc_0(int, int, int) = 0; // slot 0
+    virtual char vfunc_0(int, int, int) = 0; // slot 0
     virtual void vfunc_1(int, int) = 0; // slot 1
     virtual void vfunc_2() = 0; // slot 2
 };
@@ -615,7 +615,7 @@ public:
     virtual void vfunc_11(int, int, int) = 0; // slot 11
     virtual void vfunc_12(int, int, int, int, int, int, int) = 0; // slot 12
     virtual void vfunc_13(int, int); // slot 13
-    virtual void vfunc_14(int, int, int); // slot 14
+    virtual bool vfunc_14(int, int, int); // slot 14
     virtual void vfunc_15(void*) = 0; // slot 15
     virtual void vfunc_16(int, int) = 0; // slot 16
     virtual void vfunc_17(int, int, int) = 0; // slot 17
@@ -899,7 +899,7 @@ public:
 // .?AVSimpleFilter3D@physics@@  vftable 0x43235c (3)
 class SimpleFilter3D : public ::physics::Filter3D {
 public:
-    virtual void vfunc_0(int, int, int); // overrides physics::Filter3D slot 0
+    virtual char vfunc_0(int, int, int); // overrides physics::Filter3D slot 0
     virtual void vfunc_1(int, int); // overrides physics::Filter3D slot 1
     virtual void vfunc_2(); // overrides physics::Filter3D slot 2
 };
@@ -907,7 +907,7 @@ public:
 // .?AVSimpleFilterAbs3D@physics@@  vftable 0x431ce8 (3)
 class SimpleFilterAbs3D : public ::physics::SimpleFilter3D {
 public:
-    virtual void vfunc_0(int, int, int); // overrides physics::Filter3D slot 0
+    virtual char vfunc_0(int, int, int); // overrides physics::Filter3D slot 0
     virtual void vfunc_1(int, int); // overrides physics::Filter3D slot 1
 };
 

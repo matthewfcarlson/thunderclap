@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // physics::CollisionSolverAgent::vfunc_9 @ 0x002f8920
+#include "gen/physics.h"
+
 struct Vec3_2f8920 { float x,y,z; };
 struct Body_2f8920 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual void slot9(); virtual void slot10(); virtual bool slot11(); virtual void slot12(); virtual void slot13(); virtual float slot14(); virtual float slot15(); virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19(); virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23(); virtual void slot24(); virtual void slot25(Vec3_2f8920*,Vec3_2f8920*,int); virtual void slot26(); virtual void slot27(int);
@@ -8,10 +10,9 @@ struct AgentInput {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual Body_2f8920* slot9(int);
  char pad[0x68]; int mode;
 };
-namespace physics { struct CollisionSolverAgent {
- virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual int vfunc_9(AgentInput*, int); virtual void vfunc_10(); virtual void vfunc_11();
-}; }
-int physics::CollisionSolverAgent::vfunc_9(AgentInput* input,int index) {
+namespace physics {  }
+int physics::CollisionSolverAgent::vfunc_9(int __p0, int index) { AgentInput * input = (AgentInput *)__p0;
+
  Body_2f8920* body=input->slot9(index);
  if(input->mode!=1) { body->slot27(-1); return 0; }
  if(!body->slot11() || index>0) return 0;

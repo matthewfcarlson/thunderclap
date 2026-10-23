@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 10/10)
 // physics::CollisionAnalyser::vfunc_4 @ 0x0030e320
+#include "gen/physics.h"
+
 struct PairKey { unsigned first, firstData, second, secondData; };
 struct Entry_30e320 {
  char pad[0x84]; unsigned char active;
@@ -9,30 +11,28 @@ struct Entry_30e320 {
 };
 struct Link_30e320 { void FUN_0030d850(unsigned, unsigned, unsigned, unsigned, Entry_30e320*); };
 namespace physics {
-struct CollisionAnalyser {
- virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3();
- virtual int vfunc_4(unsigned a, unsigned ad, unsigned b, unsigned bd, unsigned x, unsigned y, unsigned z);
- char pad04[8]; unsigned context;
- char pad10[0x44]; unsigned state[3]; unsigned mode60, mode64, mode68;
- Entry_30e320* FUN_0030d900(PairKey*);
- Entry_30e320* FUN_0030df50();
- Link_30e320* FUN_0030e280();
+struct CollisionAnalyser_nv_30e320 {
+    Entry_30e320* FUN_0030d900(PairKey*);
+    Entry_30e320* FUN_0030df50();
+    Link_30e320* FUN_0030e280();
 };
-int CollisionAnalyser::vfunc_4(unsigned a, unsigned ad, unsigned b, unsigned bd, unsigned x, unsigned y, unsigned z) {
- if (!mode68 || a == b) return 1;
+
+}
+int physics::CollisionAnalyser::vfunc_4(int __p0, int __p1, int __p2, int __p3, int __p4, int __p5, int __p6) { unsigned int a = (unsigned int)__p0; unsigned int ad = (unsigned int)__p1; unsigned int b = (unsigned int)__p2; unsigned int bd = (unsigned int)__p3; unsigned int x = (unsigned int)__p4; unsigned int y = (unsigned int)__p5; unsigned int z = (unsigned int)__p6;
+
+ if (!this->f_68 || a == b) return 1;
  PairKey key;
  if (a < b) { key.first=a; key.firstData=ad; key.second=b; key.secondData=bd; }
  else { key.first=b; key.firstData=bd; key.second=a; key.secondData=ad; }
- Entry_30e320* entry=FUN_0030d900(&key);
+ Entry_30e320* entry=((CollisionAnalyser_nv_30e320*)this)->FUN_0030d900(&key);
  if (!entry) {
- entry=FUN_0030df50();
- unsigned flags=(((mode64 << 8) | mode60) << 8) | mode68;
+ entry=((CollisionAnalyser_nv_30e320*)this)->FUN_0030df50();
+ unsigned flags=(((this->f_64 << 8) | this->f_60) << 8) | this->f_68;
  entry->FUN_0031a380(a,ad,b,bd,flags);
- Link_30e320* link=FUN_0030e280();
+ Link_30e320* link=((CollisionAnalyser_nv_30e320*)this)->FUN_0030e280();
  link->FUN_0030d850(a, ad, b, bd, entry);
  }
- if (entry->active) entry->FUN_0030d760(x,state,y,z,context);
- else entry->FUN_0030d7c0(x,state,y,z);
+ if (entry->active) entry->FUN_0030d760(x,(*(unsigned int (*)[3])&this->f_54),y,z,this->f_0c);
+ else entry->FUN_0030d7c0(x,(*(unsigned int (*)[3])&this->f_54),y,z);
  return 0;
-}
 }

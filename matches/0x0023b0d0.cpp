@@ -1,18 +1,10 @@
+#include "gen/fight.h"
+
 namespace fight {
-class ScriptReader {
-  public:
-    virtual void f0();
-    char pad[12];
-    int index;
-    int values[67];
-    volatile int a;
-    int b;
-    int limit;
-    int vfunc_13();
-};
-int ScriptReader::vfunc_13() {
-    if ((a | b) && limit > values[index])
+
+} // namespace fight
+int fight::ScriptReader::vfunc_13() {
+    if (((*(volatile int *)&this->f_120) | this->f_124) && this->f_128 > (*(int (*)[67])&this->f_14)[this->f_10])
         return 1;
     return 0;
 }
-} // namespace fight

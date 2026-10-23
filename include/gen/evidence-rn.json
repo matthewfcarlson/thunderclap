@@ -1396,5 +1396,715 @@
    "0x74": "void*",
    "0x78": "void*"
   }
+ },
+ "sigs": {
+  "_comment": "slot signatures applied like gen_headers.CURATED_SIGS: native8's hand edits of the headers (2026-10-19) and tools/rn_sigs.py (batch b6)",
+  "core::IDrive::vfunc_24": [
+   "void",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "core::IDrive::vfunc_25": [
+   "void",
+   [
+    "int"
+   ]
+  ],
+  "core::IDrive::vfunc_26": [
+   "void",
+   [
+    "int"
+   ]
+  ],
+  "core::IDrive::vfunc_27": [
+   "void",
+   [
+    "int"
+   ]
+  ],
+  "core::IDrive::vfunc_29": [
+   "void",
+   [
+    "int"
+   ]
+  ],
+  "core::IDrive::vfunc_30": [
+   "void",
+   [
+    "int"
+   ]
+  ],
+  "core::IDrive::vfunc_31": [
+   "void",
+   [
+    "int"
+   ]
+  ],
+  "core::IDrive::vfunc_32": [
+   "void",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "FEThingsBase::vfunc_40": [
+   "void",
+   [
+    "int"
+   ]
+  ],
+  "pure3d::ShadowSkin::vfunc_24": [
+   "void",
+   [
+    "int"
+   ]
+  ],
+  "pure3d::pddiExtGammaControl::vfunc_1": [
+   "void",
+   [
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "pure3d::pddiExtGammaControl::vfunc_2": [
+   "void",
+   [
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "pure3d::pddiExtVertexProgram::vfunc_1": [
+   "void",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "CAxisCondition::vfunc_9": [
+   "bool",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "CButtonCondition::vfunc_9": [
+   "bool",
+   [
+    "int"
+   ]
+  ],
+  "CTriggerVolume::vfunc_12": [
+   "char",
+   [
+    "int"
+   ]
+  ],
+  "CTriggerVolume::vfunc_8": [
+   "bool",
+   [
+    "float",
+    "float",
+    "float"
+   ]
+  ],
+  "ControllerPollerBase::vfunc_4": [
+   "char",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "FEContainer::vfunc_23": [
+   "void*",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "FEContainer::vfunc_29": [
+   "void*",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "FEContainer::vfunc_31": [
+   "void*",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "FEThingsBase::vfunc_33": [
+   "char",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "FEThingsBase::vfunc_34": [
+   "bool",
+   [
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "FEThingsBase::vfunc_36": [
+   "bool",
+   [
+    "int",
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "FEThingsBase::vfunc_39": [
+   "char",
+   [
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "FEThingsBase::vfunc_54": [
+   "int",
+   [
+    "int"
+   ]
+  ],
+  "FEThingsBase::vfunc_61": [
+   "int",
+   [
+    "int"
+   ]
+  ],
+  "FEThingsBase::vfunc_7": [
+   "bool",
+   []
+  ],
+  "FEThingsBase::vfunc_9": [
+   "bool",
+   []
+  ],
+  "IDollyControllerState::vfunc_10": [
+   "float",
+   [
+    "int"
+   ]
+  ],
+  "MapThing::vfunc_13": [
+   "void*",
+   []
+  ],
+  "audio::HalStream::vfunc_3": [
+   "int",
+   []
+  ],
+  "audio::HalStream::vfunc_7": [
+   "int",
+   [
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "audio::MixBuss::vfunc_0": [
+   "int",
+   [
+    "int"
+   ]
+  ],
+  "audio::SeqTrack::vfunc_0": [
+   "bool",
+   [
+    "int"
+   ]
+  ],
+  "content::LoadInventory::vfunc_3": [
+   "void*",
+   [
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "core::Drive::vfunc_12": [
+   "int",
+   [
+    "int",
+    "int",
+    "int",
+    "int",
+    "int",
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "core::Drive::vfunc_18": [
+   "int",
+   [
+    "int",
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "core::IControllerBuffer::vfunc_6": [
+   "bool",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "core::IControllerInputPoint::vfunc_5": [
+   "void",
+   [
+    "float"
+   ]
+  ],
+  "core::IControllerSystem::vfunc_5": [
+   "void*",
+   [
+    "int"
+   ]
+  ],
+  "core::IDrive::vfunc_10": [
+   "int",
+   [
+    "int"
+   ]
+  ],
+  "core::IDrive::vfunc_18": [
+   "int",
+   []
+  ],
+  "core::IDrive::vfunc_19": [
+   "int",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "core::IDrive::vfunc_20": [
+   "int",
+   [
+    "int"
+   ]
+  ],
+  "core::IDrive::vfunc_33": [
+   "void*",
+   [
+    "int",
+    "int",
+    "int",
+    "int",
+    "int",
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "core::IDrive::vfunc_35": [
+   "void*",
+   [
+    "int",
+    "int",
+    "int",
+    "int",
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "core::IDrive::vfunc_4": [
+   "int",
+   [
+    "int"
+   ]
+  ],
+  "core::IDrive::vfunc_5": [
+   "int",
+   []
+  ],
+  "core::IDrive::vfunc_7": [
+   "int",
+   [
+    "int"
+   ]
+  ],
+  "core::IDrive::vfunc_9": [
+   "int",
+   [
+    "int"
+   ]
+  ],
+  "core::IFile::vfunc_24": [
+   "void*",
+   []
+  ],
+  "core::IFile::vfunc_4": [
+   "int",
+   [
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "core::IFile::vfunc_6": [
+   "int",
+   [
+    "int"
+   ]
+  ],
+  "core::IFile::vfunc_7": [
+   "int",
+   [
+    "int"
+   ]
+  ],
+  "fight::Branch::vfunc_9": [
+   "bool",
+   [
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "fight::ParamValue::vfunc_5": [
+   "int",
+   [
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "fight::ParamValueEntity::vfunc_10": [
+   "void*",
+   [
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "fight::ParamValueEntity::vfunc_7": [
+   "int",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "fight::ParamValueEntity::vfunc_8": [
+   "int",
+   [
+    "int"
+   ]
+  ],
+  "fight::Reader::vfunc_13": [
+   "int",
+   []
+  ],
+  "fight::Reader::vfunc_14": [
+   "__int64",
+   []
+  ],
+  "fight::Reader::vfunc_15": [
+   "__int64",
+   []
+  ],
+  "fight::Reader::vfunc_16": [
+   "__int64",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "fight::Reader::vfunc_5": [
+   "bool",
+   [
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "hulkfight::motion::ClimbLocomotionAction::vfunc_6": [
+   "__int64",
+   []
+  ],
+  "hulkfight::motion::LocomotionStrafeAction::vfunc_6": [
+   "__int64",
+   []
+  ],
+  "movie::RenderStrategy::vfunc_4": [
+   "int",
+   [
+    "int"
+   ]
+  ],
+  "om::MetaTypeAttribBase::vfunc_1": [
+   "int",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "physics::CollisionAnalyser::vfunc_4": [
+   "int",
+   [
+    "int",
+    "int",
+    "int",
+    "int",
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "physics::CollisionSolverAgent::vfunc_9": [
+   "int",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "physics::Filter3D::vfunc_0": [
+   "char",
+   [
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "physics::PhysicsJoint::vfunc_14": [
+   "bool",
+   [
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "physics::SimulatedObject::vfunc_18": [
+   "bool",
+   [
+    "int",
+    "int",
+    "int",
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "physics::WorldCollisionVolume::vfunc_15": [
+   "char",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "physics::WorldCollisionVolume::vfunc_16": [
+   "bool",
+   [
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "pure3d::Camera::vfunc_24": [
+   "void",
+   [
+    "float",
+    "float",
+    "float"
+   ]
+  ],
+  "pure3d::ChannelHandler::vfunc_3": [
+   "int",
+   [
+    "int"
+   ]
+  ],
+  "pure3d::ChannelHandler::vfunc_4": [
+   "int",
+   [
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "pure3d::DrawableContainer::vfunc_17": [
+   "void*",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "pure3d::Font::vfunc_14": [
+   "void*",
+   [
+    "int"
+   ]
+  ],
+  "pure3d::FrameController::vfunc_14": [
+   "void",
+   [
+    "float",
+    "float"
+   ]
+  ],
+  "pure3d::ImageConverter::vfunc_1": [
+   "void*",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "pure3d::ImageConverter::vfunc_2": [
+   "void*",
+   [
+    "int",
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "pure3d::ImageFont::vfunc_16": [
+   "int",
+   [
+    "int"
+   ]
+  ],
+  "pure3d::ImageFont::vfunc_9": [
+   "int",
+   [
+    "int"
+   ]
+  ],
+  "pure3d::OldFrameControllerLoader::vfunc_7": [
+   "void*",
+   [
+    "int",
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "pure3d::ParticleEmitterLoader::ParticleEmitterHandler::vfunc_3": [
+   "char",
+   [
+    "int"
+   ]
+  ],
+  "pure3d::ParticleGenerator::vfunc_6": [
+   "int",
+   [
+    "int",
+    "int",
+    "int",
+    "float",
+    "int"
+   ]
+  ],
+  "pure3d::ParticleGeneratorLoader::ParticleGeneratorHandler::vfunc_4": [
+   "int",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "pure3d::RotationChannel::vfunc_5": [
+   "void",
+   [
+    "float",
+    "int"
+   ]
+  ],
+  "pure3d::VectorChannel::vfunc_4": [
+   "void",
+   [
+    "float",
+    "int"
+   ]
+  ],
+  "pure3d::pddiDevice::vfunc_9": [
+   "void*",
+   [
+    "int"
+   ]
+  ],
+  "pure3d::pddiExtVertexProgram::vfunc_3": [
+   "void",
+   [
+    "int",
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "pure3d::pddiExtVisibilityTest::vfunc_4": [
+   "int",
+   [
+    "int"
+   ]
+  ],
+  "pure3d::pddiPrimBuffer::vfunc_7": [
+   "int",
+   []
+  ],
+  "pure3d::pddiRenderContext::vfunc_36": [
+   "void*",
+   [
+    "int"
+   ]
+  ],
+  "pure3d::pddiRenderContext::vfunc_7": [
+   "void*",
+   [
+    "int"
+   ]
+  ],
+  "pure3d::pddiRenderContext::vfunc_82": [
+   "int",
+   [
+    "int"
+   ]
+  ],
+  "pure3d::pddiRenderContext::vfunc_89": [
+   "int",
+   [
+    "int"
+   ]
+  ],
+  "pure3d::pddiShader::vfunc_5": [
+   "bool",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "pure3d::pddiShader::vfunc_8": [
+   "bool",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "pure3d::pddiTexture::vfunc_12": [
+   "int",
+   [
+    "int"
+   ]
+  ],
+  "pure3d::prop::CMotionTrail::vfunc_11": [
+   "void",
+   [
+    "float",
+    "int"
+   ]
+  ]
  }
 }

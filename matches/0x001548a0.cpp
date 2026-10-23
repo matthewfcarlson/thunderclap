@@ -1,17 +1,15 @@
+#include "gen/fight.h"
+
 extern "C" int __cdecl CastCheck(void*, void*, void*, void*, void*);
 extern char a, b;
 namespace fight {
-class TrackFactoryCaster {
-  public:
-    virtual bool Check(void*);
-    virtual void Other();
-};
-class TrackFactoryCasterTemplate : public TrackFactoryCaster {
+class TrackFactoryCaster_1548a0 {
   public:
     virtual bool Check(void*);
     virtual void Other();
 };
 } // namespace fight
-bool fight::TrackFactoryCasterTemplate::Check(void* p) {
+template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::InterruptAccumulatorSetTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
     return CastCheck(p, 0, &a, &b, 0) != 0;
 }

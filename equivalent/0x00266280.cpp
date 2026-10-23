@@ -1,10 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 11/12, incomplete)
 // content::LoadInventory::vfunc_3 @ 0x00266280
-struct Node;
+#include "gen/content.h"
+
+struct Node_266280;
 
 class Matcher {
 public:
-    virtual int Matches(Node *node);     // slot 0
+    virtual int Matches(Node_266280 *node);     // slot 0
 };
 
 struct Container;
@@ -12,37 +14,29 @@ struct Container;
 struct NodeIter {
     char data[0x18];
     void FUN_00231160(Container *c);
-    Node *FUN_00231180(int a, int b);
-    Node *FUN_00231230();
+    Node_266280 *FUN_00231180(int a, int b);
+    Node_266280 *FUN_00231230();
 };
 
 class Resolver_266280 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2();
-    virtual Node *Resolve(Matcher *m, int a, int b);     // slot 3
+    virtual Node_266280 *Resolve(Matcher *m, int a, int b);     // slot 3
 };
 
-class LoadInventory {
-public:
-    virtual void v0(); virtual void v1(); virtual void v2();
-    virtual Node *vfunc_3(Matcher *matcher, int a, int b);
-    char pad04[8];
-    Container *container;    // 0x0c
-    Resolver_266280 *fallback;      // 0x10
-};
+void* content::LoadInventory::vfunc_3(int __p0, int a, int b) { Matcher * matcher = (Matcher *)__p0;
 
-Node *LoadInventory::vfunc_3(Matcher *matcher, int a, int b) {
     if (a == 0 && b == 0)
-        return 0;
+        return (void*)(0);
     NodeIter it;
-    it.FUN_00231160(container);
-    Node *node = it.FUN_00231180(a, b);
+    it.FUN_00231160((*(Container * *)&this->f_0c));
+    Node_266280 *node = it.FUN_00231180(a, b);
     while (node != 0) {
         if (matcher->Matches(node))
-            return node;
+            return (void*)(node);
         node = it.FUN_00231230();
     }
-    if (fallback != 0)
-        return fallback->Resolve(matcher, a, b);
-    return 0;
+    if ((*(Resolver_266280 * *)&this->f_10) != 0)
+        return (void*)((*(Resolver_266280 * *)&this->f_10)->Resolve(matcher, a, b));
+    return (void*)(0);
 }

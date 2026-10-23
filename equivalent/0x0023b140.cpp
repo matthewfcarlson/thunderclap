@@ -1,41 +1,34 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // fight::ScriptReader::vfunc_16 @ 0x0023b140
+#include "gen/fight.h"
+
 struct Pair_23b140 {
  unsigned int low, high;
  void FUN_0027af70(Pair_23b140*);
  void FUN_0027b040(int);
 };
 namespace fight {
-struct ScriptReader {
- virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3();
- virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7();
- virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11();
- virtual void vfunc_12(); virtual void vfunc_13(); virtual void vfunc_14(); virtual void vfunc_15();
- virtual unsigned __int64 vfunc_16(unsigned int low, unsigned int high);
- char pad[12];
- int depth;
- int limits[65];
- Pair_23b140 result;
- Pair_23b140 pending;
- int pendingLimit;
- void FUN_0023ab40();
- void FUN_0023a6b0();
+struct ScriptReader_nv_23b140 {
+    void FUN_0023ab40();
+    void FUN_0023a6b0();
 };
-unsigned __int64 ScriptReader::vfunc_16(unsigned int low, unsigned int high) {
- ++depth;
- FUN_0023ab40();
- int level = depth;
- if (level >= 64) return 0;
- if ((pending.low | pending.high) != 0 && pendingLimit >= (&depth)[level] &&
-     ((low | high) == 0 || (pending.low == low && pending.high == high))) {
-   result.FUN_0027af70(&pending);
-   (&depth)[depth + 1] = pendingLimit;
-   pending.FUN_0027b040(0);
-   pendingLimit = 0;
-   FUN_0023a6b0();
-   return ((unsigned __int64)result.high << 32) | result.low;
- }
- (&depth)[level + 1] = (&depth)[level];
- return 0;
+
 }
+__int64 fight::ScriptReader::vfunc_16(int __p0, int __p1) { unsigned int low = (unsigned int)__p0; unsigned int high = (unsigned int)__p1;
+
+ ++this->f_10;
+ ((ScriptReader_nv_23b140*)this)->FUN_0023ab40();
+ int level = this->f_10;
+ if (level >= 64) return (__int64)(0);
+ if (((*(Pair_23b140 *)&this->f_120).low | (*(Pair_23b140 *)&this->f_120).high) != 0 && this->f_128 >= (&this->f_10)[level] &&
+     ((low | high) == 0 || ((*(Pair_23b140 *)&this->f_120).low == low && (*(Pair_23b140 *)&this->f_120).high == high))) {
+   (*(Pair_23b140 *)&this->f_118).FUN_0027af70(&(*(Pair_23b140 *)&this->f_120));
+   (&this->f_10)[this->f_10 + 1] = this->f_128;
+   (*(Pair_23b140 *)&this->f_120).FUN_0027b040(0);
+   this->f_128 = 0;
+   ((ScriptReader_nv_23b140*)this)->FUN_0023a6b0();
+   return (__int64)(((unsigned __int64)(*(Pair_23b140 *)&this->f_118).high << 32) | (*(Pair_23b140 *)&this->f_118).low);
+ }
+ (&this->f_10)[level + 1] = (&this->f_10)[level];
+ return (__int64)(0);
 }

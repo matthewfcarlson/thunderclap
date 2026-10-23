@@ -146,11 +146,11 @@ public:
     virtual void vfunc_0() = 0; // slot 0
     virtual int vfunc_1() = 0; // slot 1
     virtual void* vfunc_2() = 0; // slot 2
-    virtual void vfunc_3() = 0; // slot 3
+    virtual int vfunc_3() = 0; // slot 3
     virtual unsigned int vfunc_4() = 0; // slot 4
     virtual void vfunc_5(int) = 0; // slot 5
     virtual void vfunc_6(int, int, unsigned int) = 0; // slot 6
-    virtual void vfunc_7(int, int, int) = 0; // slot 7
+    virtual int vfunc_7(int, int, int) = 0; // slot 7
     virtual bool vfunc_8(void*) = 0; // slot 8
     virtual void* vfunc_9(int) = 0; // slot 9
     virtual void vfunc_10() = 0; // slot 10
@@ -164,11 +164,11 @@ public:
     virtual void vfunc_0(); // overrides audio::HalStream slot 0
     virtual int vfunc_1(); // overrides audio::HalStream slot 1
     virtual void* vfunc_2(); // overrides audio::HalStream slot 2
-    virtual void vfunc_3(); // overrides audio::HalStream slot 3
+    virtual int vfunc_3(); // overrides audio::HalStream slot 3
     virtual unsigned int vfunc_4(); // overrides audio::HalStream slot 4
     virtual void vfunc_5(int); // overrides audio::HalStream slot 5
     virtual void vfunc_6(int, int, unsigned int); // overrides audio::HalStream slot 6
-    virtual void vfunc_7(int, int, int); // overrides audio::HalStream slot 7
+    virtual int vfunc_7(int, int, int); // overrides audio::HalStream slot 7
     virtual bool vfunc_8(void*); // overrides audio::HalStream slot 8
     virtual void* vfunc_9(int); // overrides audio::HalStream slot 9
     virtual void vfunc_10(); // overrides audio::HalStream slot 10
@@ -190,11 +190,11 @@ public:
     virtual void vfunc_0(); // overrides audio::HalStream slot 0
     virtual int vfunc_1(); // overrides audio::HalStream slot 1
     virtual void* vfunc_2(); // overrides audio::HalStream slot 2
-    virtual void vfunc_3(); // overrides audio::HalStream slot 3
+    virtual int vfunc_3(); // overrides audio::HalStream slot 3
     virtual unsigned int vfunc_4(); // overrides audio::HalStream slot 4
     virtual void vfunc_5(int); // overrides audio::HalStream slot 5
     virtual void vfunc_6(int, int, unsigned int); // overrides audio::HalStream slot 6
-    virtual void vfunc_7(int, int, int); // overrides audio::HalStream slot 7
+    virtual int vfunc_7(int, int, int); // overrides audio::HalStream slot 7
     virtual bool vfunc_8(void*); // overrides audio::HalStream slot 8
     virtual void* vfunc_9(int); // overrides audio::HalStream slot 9
     virtual void vfunc_10(); // overrides audio::HalStream slot 10
@@ -299,7 +299,7 @@ public:
 // .?AVMixBuss@audio@@  vftable 0x42a6d8 (2)
 class MixBuss {
 public:
-    virtual void vfunc_0(int); // slot 0
+    virtual int vfunc_0(int); // slot 0
     virtual int vfunc_1(void*); // slot 1
     char _pad_04[0x10];
     int f_14;
@@ -322,11 +322,11 @@ public:
     virtual void vfunc_0(); // overrides audio::HalStream slot 0
     virtual int vfunc_1(); // overrides audio::HalStream slot 1
     virtual void* vfunc_2(); // overrides audio::HalStream slot 2
-    virtual void vfunc_3(); // overrides audio::HalStream slot 3
+    virtual int vfunc_3(); // overrides audio::HalStream slot 3
     virtual unsigned int vfunc_4(); // overrides audio::HalStream slot 4
     virtual void vfunc_5(int); // overrides audio::HalStream slot 5
     virtual void vfunc_6(int, int, unsigned int); // overrides audio::HalStream slot 6
-    virtual void vfunc_7(int, int, int); // overrides audio::HalStream slot 7
+    virtual int vfunc_7(int, int, int); // overrides audio::HalStream slot 7
     virtual bool vfunc_8(void*); // overrides audio::HalStream slot 8
     virtual void* vfunc_9(int); // overrides audio::HalStream slot 9
     virtual void vfunc_10(); // overrides audio::HalStream slot 10
@@ -1114,7 +1114,7 @@ public:
 // .?AVSeqTrack@audio@@  vftable 0x42a600 (2)
 class SeqTrack {
 public:
-    virtual void vfunc_0(int); // slot 0
+    virtual bool vfunc_0(int); // slot 0
     virtual void vfunc_1(int); // slot 1
 };
 

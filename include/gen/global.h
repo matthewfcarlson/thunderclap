@@ -502,7 +502,7 @@ public:
     virtual int vfunc_5(void*, void*); // overrides physics::CollisionSolverAgent slot 5
     virtual unsigned int vfunc_6(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int); // overrides physics::CollisionSolverAgent slot 6
     virtual int vfunc_7(void*, int); // overrides physics::CollisionSolverAgent slot 7
-    virtual void vfunc_9(int, int); // overrides physics::CollisionSolverAgent slot 9
+    virtual int vfunc_9(int, int); // overrides physics::CollisionSolverAgent slot 9
     virtual bool vfunc_10(void*, void*); // overrides physics::CollisionSolverAgent slot 10
     virtual bool vfunc_11(void*); // overrides physics::CollisionSolverAgent slot 11
 };
@@ -735,7 +735,7 @@ class CAxisCondition : public ::CControllerCondition {
 public:
     virtual ~CAxisCondition(); // overrides fight::Param slot 5
     virtual void vfunc_8(int); // overrides CControllerCondition slot 8
-    virtual void vfunc_9(int, int) = 0; // slot 9
+    virtual bool vfunc_9(int, int) = 0; // slot 9
     char _pad_08[0x4];
     int f_0c;
 };
@@ -745,7 +745,7 @@ class CAxisTimeCondition : public ::CAxisCondition {
 public:
     virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CAxisTimeCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_9(int, int); // overrides CAxisCondition slot 9
+    virtual bool vfunc_9(int, int); // overrides CAxisCondition slot 9
     virtual bool vfunc_10(void*, int) = 0; // slot 10
 };
 
@@ -770,7 +770,7 @@ class CAxisDoubleTapCondition : public ::CAxisCondition {
 public:
     virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CAxisDoubleTapCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_9(int, int); // overrides CAxisCondition slot 9
+    virtual bool vfunc_9(int, int); // overrides CAxisCondition slot 9
 };
 
 // .?AVCAxisValueCondition@@  vftable 0x3f6ea8 (11)
@@ -778,7 +778,7 @@ class CAxisValueCondition : public ::CAxisTimeCondition {
 public:
     virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CAxisValueCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_9(int, int); // overrides CAxisCondition slot 9
+    virtual bool vfunc_9(int, int); // overrides CAxisCondition slot 9
 };
 
 // .?AVCAxisDownCondition@@  vftable 0x3f9098 (11)
@@ -807,7 +807,7 @@ class CAxisSpeedCondition : public ::CAxisCondition {
 public:
     virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CAxisSpeedCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_9(int, int); // overrides CAxisCondition slot 9
+    virtual bool vfunc_9(int, int); // overrides CAxisCondition slot 9
 };
 
 // .?AVCAxisUpCondition@@  vftable 0x3f9198 (11)
@@ -847,7 +847,7 @@ public:
     virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CButtonCondition(); // overrides fight::Param slot 5
     virtual void vfunc_8(int); // overrides CControllerCondition slot 8
-    virtual void vfunc_9(int); // slot 9
+    virtual bool vfunc_9(int); // slot 9
     virtual bool vfunc_10(void*, int) = 0; // slot 10
     char _pad_08[0x4];
     int f_0c;
@@ -858,7 +858,7 @@ class CButtonValueCondition : public ::CButtonCondition {
 public:
     virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CButtonValueCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_9(int); // overrides CButtonCondition slot 9
+    virtual bool vfunc_9(int); // overrides CButtonCondition slot 9
 };
 
 // .?AVCButtonDownCondition@@  vftable 0x3f91e4 (11)
@@ -4032,11 +4032,11 @@ public:
     virtual void vfunc_5(); // slot 5
     virtual void vfunc_6(); // slot 6
     virtual void vfunc_7(int); // slot 7
-    virtual void vfunc_8(int, int, int); // slot 8
+    virtual bool vfunc_8(float, float, float); // slot 8
     virtual void vfunc_9(int, int, int); // slot 9
     virtual void vfunc_10(int, int); // slot 10
     virtual unsigned char vfunc_11(); // slot 11
-    virtual void vfunc_12(int); // slot 12
+    virtual char vfunc_12(int); // slot 12
     virtual void vfunc_13(int); // slot 13
     virtual void vfunc_14(int); // slot 14
     virtual void vfunc_15(int); // slot 15
@@ -5058,7 +5058,7 @@ public:
     virtual void vfunc_1(int, int); // slot 1
     virtual void vfunc_2() = 0; // slot 2
     virtual bool vfunc_3(int) = 0; // slot 3
-    virtual void vfunc_4(int, int) = 0; // slot 4
+    virtual char vfunc_4(int, int) = 0; // slot 4
     virtual int vfunc_5(int) = 0; // slot 5
 };
 
@@ -5067,7 +5067,7 @@ class ControllerPoller : public ::ControllerPollerBase {
 public:
     virtual void vfunc_2(); // overrides ControllerPollerBase slot 2
     virtual bool vfunc_3(int); // overrides ControllerPollerBase slot 3
-    virtual void vfunc_4(int, int); // overrides ControllerPollerBase slot 4
+    virtual char vfunc_4(int, int); // overrides ControllerPollerBase slot 4
     virtual int vfunc_5(int); // overrides ControllerPollerBase slot 5
     char _pad_04[0x4];
     int f_08;
@@ -5088,7 +5088,7 @@ public:
     virtual float vfunc_7(int) = 0; // slot 7
     virtual float vfunc_8(int) = 0; // slot 8
     virtual int vfunc_9() = 0; // slot 9
-    virtual void vfunc_10(int) = 0; // slot 10
+    virtual float vfunc_10(int) = 0; // slot 10
     virtual float vfunc_11(int) = 0; // slot 11
 };
 
@@ -5105,7 +5105,7 @@ public:
     virtual float vfunc_7(int); // overrides IDollyControllerState slot 7
     virtual float vfunc_8(int); // overrides IDollyControllerState slot 8
     virtual int vfunc_9(); // overrides IDollyControllerState slot 9
-    virtual void vfunc_10(int); // overrides IDollyControllerState slot 10
+    virtual float vfunc_10(int); // overrides IDollyControllerState slot 10
     virtual float vfunc_11(int); // overrides IDollyControllerState slot 11
     void* f_04;
     void* f_08;
@@ -5254,15 +5254,15 @@ public:
     virtual void vfunc_20(int); // slot 20
     virtual void vfunc_21(int); // slot 21
     virtual int vfunc_22(int); // slot 22
-    virtual void vfunc_23(int, int); // slot 23
+    virtual void* vfunc_23(int, int); // slot 23
     virtual unsigned int vfunc_24(unsigned int, unsigned int); // slot 24
     virtual void* vfunc_25(void*, void*); // slot 25
     virtual int vfunc_26(int, int); // slot 26
     virtual int vfunc_27(int, int); // slot 27
     virtual int vfunc_28(int, int); // slot 28
-    virtual void vfunc_29(int, int); // slot 29
+    virtual void* vfunc_29(int, int); // slot 29
     virtual int vfunc_30(int, int); // slot 30
-    virtual void vfunc_31(int, int); // slot 31
+    virtual void* vfunc_31(int, int); // slot 31
     virtual void* vfunc_32(int, int); // slot 32
     virtual int vfunc_33(int, int); // slot 33
     virtual int vfunc_34(); // slot 34
@@ -5500,7 +5500,7 @@ public:
     virtual void vfunc_15(); // overrides FEContainer slot 15
     virtual void vfunc_21(int); // overrides FEContainer slot 21
     virtual int vfunc_22(int); // overrides FEContainer slot 22
-    virtual void vfunc_23(int, int); // overrides FEContainer slot 23
+    virtual void* vfunc_23(int, int); // overrides FEContainer slot 23
     virtual int vfunc_34(); // overrides FEContainer slot 34
     virtual int vfunc_35(); // overrides FEContainer slot 35
 };
@@ -5596,9 +5596,9 @@ public:
     virtual void vfunc_4(); // slot 4
     virtual void vfunc_5(); // slot 5
     virtual void vfunc_6(); // slot 6
-    virtual void vfunc_7(); // slot 7
+    virtual bool vfunc_7(); // slot 7
     virtual void vfunc_8(); // slot 8
-    virtual void vfunc_9(); // slot 9
+    virtual bool vfunc_9(); // slot 9
     virtual void vfunc_10(); // slot 10
     virtual void vfunc_11(void*); // slot 11
     virtual void vfunc_12(int); // slot 12
@@ -5622,13 +5622,13 @@ public:
     virtual void vfunc_30(); // slot 30
     virtual void vfunc_31(); // slot 31
     virtual void vfunc_32(); // slot 32
-    virtual void vfunc_33(int, int); // slot 33
-    virtual void vfunc_34(int, int, int); // slot 34
+    virtual char vfunc_33(int, int); // slot 33
+    virtual bool vfunc_34(int, int, int); // slot 34
     virtual void vfunc_35(int, int, int, int); // slot 35
-    virtual void vfunc_36(int, int, int, int); // slot 36
+    virtual bool vfunc_36(int, int, int, int); // slot 36
     virtual void vfunc_37(int, int, int); // slot 37
     virtual void vfunc_38(void*, void*); // slot 38
-    virtual void vfunc_39(int, int, int); // slot 39
+    virtual char vfunc_39(int, int, int); // slot 39
     virtual void vfunc_40(int) = 0; // slot 40
     virtual void vfunc_41() = 0; // slot 41
     virtual void vfunc_42(int) = 0; // slot 42
@@ -5643,14 +5643,14 @@ public:
     virtual int vfunc_51(int, int); // slot 51
     virtual void vfunc_52(int); // slot 52
     virtual int vfunc_53(int); // slot 53
-    virtual void vfunc_54(int); // slot 54
+    virtual int vfunc_54(int); // slot 54
     virtual int vfunc_55(int); // slot 55
     virtual void* vfunc_56(int); // slot 56
     virtual int vfunc_57(int); // slot 57
     virtual int vfunc_58(void*); // slot 58
     virtual int vfunc_59(int); // slot 59
     virtual void vfunc_60(int); // slot 60
-    virtual void vfunc_61(int); // slot 61
+    virtual int vfunc_61(int); // slot 61
     virtual int vfunc_62(int); // slot 62
     virtual void vfunc_63(unsigned int, unsigned int); // slot 63
     virtual void vfunc_64(int, int, int) = 0; // slot 64
@@ -5891,7 +5891,7 @@ public:
     virtual void vfunc_10(unsigned int); // slot 10
     virtual void vfunc_11(int); // slot 11
     virtual int vfunc_12(); // slot 12
-    virtual void vfunc_13(); // slot 13
+    virtual void* vfunc_13(); // slot 13
     virtual int vfunc_14(); // slot 14
     char _pad_a4[0x74];
     unsigned int f_118;

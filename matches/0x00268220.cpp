@@ -1,7 +1,9 @@
+#include "gen/core.h"
+
 namespace core {
-class TimerList;
-struct Timer {
-    unsigned fun(TimerList*, unsigned, unsigned, unsigned, unsigned, unsigned);
+
+struct Timer_268220 {
+    unsigned fun(core::TimerList*, unsigned, unsigned, unsigned, unsigned, unsigned);
 };
 struct Source {
     virtual void f0();
@@ -17,19 +19,12 @@ struct Source {
     virtual void f10();
     virtual void f11();
     virtual void f12();
-    virtual Timer* get();
+    virtual Timer_268220* get();
 };
-class TimerList {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void vfunc_3(unsigned*, unsigned, unsigned, unsigned, unsigned, unsigned);
-    char pad[20];
-    Source* source;
-};
-void TimerList::vfunc_3(unsigned* result, unsigned a, unsigned b, unsigned c, unsigned d, unsigned e) {
-    Timer* timer = source->get();
+
+} // namespace core
+void core::TimerList::vfunc_3(int __p0, int __p1, int __p2, int __p3, int __p4, int __p5) { unsigned int * result = (unsigned int *)__p0; unsigned int a = (unsigned int)__p1; unsigned int b = (unsigned int)__p2; unsigned int c = (unsigned int)__p3; unsigned int d = (unsigned int)__p4; unsigned int e = (unsigned int)__p5;
+
+    Timer_268220* timer = (*(Source * *)&this->f_18)->get();
     *result = timer ? timer->fun(this, a, b, c, d, e) : 0;
 }
-} // namespace core

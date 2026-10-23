@@ -234,7 +234,7 @@ public:
     virtual void vfunc_3(int, int) = 0; // slot 3
     virtual void vfunc_4(int) = 0; // slot 4
     virtual unsigned int vfunc_5(void*) = 0; // slot 5
-    virtual void vfunc_6(int, int) = 0; // slot 6
+    virtual bool vfunc_6(int, int) = 0; // slot 6
     virtual bool vfunc_7(void*) = 0; // slot 7
     virtual void vfunc_8() = 0; // slot 8
 };
@@ -248,7 +248,7 @@ public:
     virtual void vfunc_3(int, int); // overrides core::IControllerBuffer slot 3
     virtual void vfunc_4(int); // overrides core::IControllerBuffer slot 4
     virtual unsigned int vfunc_5(void*); // overrides core::IControllerBuffer slot 5
-    virtual void vfunc_6(int, int); // overrides core::IControllerBuffer slot 6
+    virtual bool vfunc_6(int, int); // overrides core::IControllerBuffer slot 6
     virtual bool vfunc_7(void*); // overrides core::IControllerBuffer slot 7
     virtual void vfunc_8(); // overrides core::IControllerBuffer slot 8
     int f_0c;
@@ -266,7 +266,7 @@ struct IControllerInputPoint : public ::core::IRefCount {
 public:
     virtual int vfunc_3() = 0; // slot 3
     virtual void vfunc_4() = 0; // slot 4
-    virtual void vfunc_5(int) = 0; // slot 5
+    virtual void vfunc_5(float) = 0; // slot 5
     virtual float vfunc_6() = 0; // slot 6
     virtual void vfunc_7(int, int) = 0; // slot 7
     virtual void vfunc_8(int) = 0; // slot 8
@@ -293,7 +293,7 @@ public:
     virtual ~ControllerInputPointXBox(); // overrides core::IRefCount slot 2
     virtual int vfunc_3(); // overrides core::IControllerInputPoint slot 3
     virtual void vfunc_4(); // overrides core::IControllerInputPoint slot 4
-    virtual void vfunc_5(int); // overrides core::IControllerInputPoint slot 5
+    virtual void vfunc_5(float); // overrides core::IControllerInputPoint slot 5
     virtual float vfunc_6(); // overrides core::IControllerInputPoint slot 6
     virtual void vfunc_7(int, int); // overrides core::IControllerInputPoint slot 7
     virtual void vfunc_8(int); // overrides core::IControllerInputPoint slot 8
@@ -347,7 +347,7 @@ struct IControllerSystem : public ::core::IRefCount {
 public:
     virtual int vfunc_3() = 0; // slot 3
     virtual void* vfunc_4(int) = 0; // slot 4
-    virtual void vfunc_5(int) = 0; // slot 5
+    virtual void* vfunc_5(int) = 0; // slot 5
     virtual void vfunc_6(int) = 0; // slot 6
     virtual void vfunc_7(int, int) = 0; // slot 7
     virtual void vfunc_8(unsigned int) = 0; // slot 8
@@ -365,7 +365,7 @@ public:
     virtual ~ControllerSystemXBox(); // overrides core::IRefCount slot 2
     virtual int vfunc_3(); // overrides core::IControllerSystem slot 3
     virtual void* vfunc_4(int); // overrides core::IControllerSystem slot 4
-    virtual void vfunc_5(int); // overrides core::IControllerSystem slot 5
+    virtual void* vfunc_5(int); // overrides core::IControllerSystem slot 5
     virtual void vfunc_6(int); // overrides core::IControllerSystem slot 6
     virtual void vfunc_7(int, int); // overrides core::IControllerSystem slot 7
     virtual void vfunc_8(unsigned int); // overrides core::IControllerSystem slot 8
@@ -505,13 +505,13 @@ public:
     virtual int vfunc_9(int, int, int, int, int, int, int); // slot 9
     virtual int vfunc_10(void*, int) = 0; // slot 10
     virtual int vfunc_11(void*, void*); // slot 11
-    virtual void vfunc_12(int, int, int, int, int, int, int, int) = 0; // slot 12
+    virtual int vfunc_12(int, int, int, int, int, int, int, int) = 0; // slot 12
     virtual int vfunc_13(int, int, int, int, int, int, int, int, int); // slot 13
     virtual int vfunc_14(); // slot 14
     virtual int vfunc_15(int); // slot 15
     virtual int vfunc_16(int); // slot 16
     virtual int vfunc_17(int); // slot 17
-    virtual void vfunc_18(int, int, int, int); // slot 18
+    virtual int vfunc_18(int, int, int, int); // slot 18
     virtual int vfunc_19(void*, int); // slot 19
     virtual int vfunc_20(int); // slot 20
     virtual void vfunc_21(int); // slot 21
@@ -650,10 +650,10 @@ public:
 struct IFile : public ::core::IRefCount {
 public:
     virtual void vfunc_3(int, int, int) = 0; // slot 3
-    virtual void vfunc_4(int, int, int) = 0; // slot 4
+    virtual int vfunc_4(int, int, int) = 0; // slot 4
     virtual void vfunc_5(int) = 0; // slot 5
-    virtual void vfunc_6(int) = 0; // slot 6
-    virtual void vfunc_7(int) = 0; // slot 7
+    virtual int vfunc_6(int) = 0; // slot 6
+    virtual int vfunc_7(int) = 0; // slot 7
     virtual void vfunc_8() = 0; // slot 8
     virtual void vfunc_9(int, int, int) = 0; // slot 9
     virtual void vfunc_10(int, int, int) = 0; // slot 10
@@ -670,7 +670,7 @@ public:
     virtual void vfunc_21() = 0; // slot 21
     virtual int vfunc_22() = 0; // slot 22
     virtual bool vfunc_23() = 0; // slot 23
-    virtual void vfunc_24() = 0; // slot 24
+    virtual void* vfunc_24() = 0; // slot 24
     virtual void* vfunc_25() = 0; // slot 25
     virtual void vfunc_26() = 0; // slot 26
     virtual void vfunc_27(int) = 0; // slot 27
@@ -688,10 +688,10 @@ public:
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~File(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(int, int, int); // overrides core::IFile slot 3
-    virtual void vfunc_4(int, int, int); // overrides core::IFile slot 4
+    virtual int vfunc_4(int, int, int); // overrides core::IFile slot 4
     virtual void vfunc_5(int); // overrides core::IFile slot 5
-    virtual void vfunc_6(int); // overrides core::IFile slot 6
-    virtual void vfunc_7(int); // overrides core::IFile slot 7
+    virtual int vfunc_6(int); // overrides core::IFile slot 6
+    virtual int vfunc_7(int); // overrides core::IFile slot 7
     virtual void vfunc_8(); // overrides core::IFile slot 8
     virtual void vfunc_9(int, int, int); // overrides core::IFile slot 9
     virtual void vfunc_10(int, int, int); // overrides core::IFile slot 10
@@ -708,7 +708,7 @@ public:
     virtual void vfunc_21(); // overrides core::IFile slot 21
     virtual int vfunc_22(); // overrides core::IFile slot 22
     virtual bool vfunc_23(); // overrides core::IFile slot 23
-    virtual void vfunc_24(); // overrides core::IFile slot 24
+    virtual void* vfunc_24(); // overrides core::IFile slot 24
     virtual void* vfunc_25(); // overrides core::IFile slot 25
     virtual void vfunc_26(); // overrides core::IFile slot 26
     virtual void vfunc_27(int); // overrides core::IFile slot 27
@@ -863,13 +863,13 @@ public:
 struct IDrive : public ::core::IRefCount {
 public:
     virtual void vfunc_3() = 0; // slot 3
-    virtual void vfunc_4(int) = 0; // slot 4
-    virtual void vfunc_5() = 0; // slot 5
+    virtual int vfunc_4(int) = 0; // slot 4
+    virtual int vfunc_5() = 0; // slot 5
     virtual void vfunc_6(int) = 0; // slot 6
-    virtual void vfunc_7(int) = 0; // slot 7
+    virtual int vfunc_7(int) = 0; // slot 7
     virtual void vfunc_8(int, int) = 0; // slot 8
-    virtual void vfunc_9(int) = 0; // slot 9
-    virtual void vfunc_10(int) = 0; // slot 10
+    virtual int vfunc_9(int) = 0; // slot 9
+    virtual int vfunc_10(int) = 0; // slot 10
     virtual void vfunc_11(int) = 0; // slot 11
     virtual void vfunc_12() = 0; // slot 12
     virtual void vfunc_13(int) = 0; // slot 13
@@ -877,9 +877,9 @@ public:
     virtual void vfunc_15(int, int) = 0; // slot 15
     virtual void vfunc_16(int) = 0; // slot 16
     virtual void vfunc_17(int) = 0; // slot 17
-    virtual void vfunc_18() = 0; // slot 18
-    virtual void vfunc_19(int, int) = 0; // slot 19
-    virtual void vfunc_20(int) = 0; // slot 20
+    virtual int vfunc_18() = 0; // slot 18
+    virtual int vfunc_19(int, int) = 0; // slot 19
+    virtual int vfunc_20(int) = 0; // slot 20
     virtual bool vfunc_21() = 0; // slot 21
     virtual void vfunc_22() = 0; // slot 22
     virtual void vfunc_23() = 0; // slot 23
@@ -892,9 +892,9 @@ public:
     virtual void vfunc_30(int) = 0; // slot 30
     virtual void vfunc_31(int) = 0; // slot 31
     virtual void vfunc_32(int, int) = 0; // slot 32
-    virtual void vfunc_33(int, int, int, int, int, int, int, int) = 0; // slot 33
+    virtual void* vfunc_33(int, int, int, int, int, int, int, int) = 0; // slot 33
     virtual void vfunc_34(void*, int, int, int, int, int, int, int) = 0; // slot 34
-    virtual void vfunc_35(int, int, int, int, int, int, int) = 0; // slot 35
+    virtual void* vfunc_35(int, int, int, int, int, int, int) = 0; // slot 35
     virtual void vfunc_36(int, int, int, int, int, int, int) = 0; // slot 36
     virtual void vfunc_37(int) = 0; // slot 37
     virtual void vfunc_38() = 0; // slot 38
@@ -998,13 +998,13 @@ public:
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~InstanceDrive(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(); // overrides core::IDrive slot 3
-    virtual void vfunc_4(int); // overrides core::IDrive slot 4
-    virtual void vfunc_5(); // overrides core::IDrive slot 5
+    virtual int vfunc_4(int); // overrides core::IDrive slot 4
+    virtual int vfunc_5(); // overrides core::IDrive slot 5
     virtual void vfunc_6(int); // overrides core::IDrive slot 6
-    virtual void vfunc_7(int); // overrides core::IDrive slot 7
+    virtual int vfunc_7(int); // overrides core::IDrive slot 7
     virtual void vfunc_8(int, int); // overrides core::IDrive slot 8
-    virtual void vfunc_9(int); // overrides core::IDrive slot 9
-    virtual void vfunc_10(int); // overrides core::IDrive slot 10
+    virtual int vfunc_9(int); // overrides core::IDrive slot 9
+    virtual int vfunc_10(int); // overrides core::IDrive slot 10
     virtual void vfunc_11(int); // overrides core::IDrive slot 11
     virtual void vfunc_12(); // overrides core::IDrive slot 12
     virtual void vfunc_13(int); // overrides core::IDrive slot 13
@@ -1012,9 +1012,9 @@ public:
     virtual void vfunc_15(int, int); // overrides core::IDrive slot 15
     virtual void vfunc_16(int); // overrides core::IDrive slot 16
     virtual void vfunc_17(int); // overrides core::IDrive slot 17
-    virtual void vfunc_18(); // overrides core::IDrive slot 18
-    virtual void vfunc_19(int, int); // overrides core::IDrive slot 19
-    virtual void vfunc_20(int); // overrides core::IDrive slot 20
+    virtual int vfunc_18(); // overrides core::IDrive slot 18
+    virtual int vfunc_19(int, int); // overrides core::IDrive slot 19
+    virtual int vfunc_20(int); // overrides core::IDrive slot 20
     virtual bool vfunc_21(); // overrides core::IDrive slot 21
     virtual void vfunc_22(); // overrides core::IDrive slot 22
     virtual void vfunc_23(); // overrides core::IDrive slot 23
@@ -1027,9 +1027,9 @@ public:
     virtual void vfunc_30(int); // overrides core::IDrive slot 30
     virtual void vfunc_31(int); // overrides core::IDrive slot 31
     virtual void vfunc_32(int, int); // overrides core::IDrive slot 32
-    virtual void vfunc_33(int, int, int, int, int, int, int, int); // overrides core::IDrive slot 33
+    virtual void* vfunc_33(int, int, int, int, int, int, int, int); // overrides core::IDrive slot 33
     virtual void vfunc_34(void*, int, int, int, int, int, int, int); // overrides core::IDrive slot 34
-    virtual void vfunc_35(int, int, int, int, int, int, int); // overrides core::IDrive slot 35
+    virtual void* vfunc_35(int, int, int, int, int, int, int); // overrides core::IDrive slot 35
     virtual void vfunc_36(int, int, int, int, int, int, int); // overrides core::IDrive slot 36
     virtual void vfunc_37(int); // overrides core::IDrive slot 37
     virtual void vfunc_38(); // overrides core::IDrive slot 38
@@ -1238,13 +1238,13 @@ public:
     virtual int vfunc_7(); // overrides core::Drive slot 7
     virtual int vfunc_8(int, int, int, int, int); // overrides core::Drive slot 8
     virtual int vfunc_10(void*, int); // overrides core::Drive slot 10
-    virtual void vfunc_12(int, int, int, int, int, int, int, int); // overrides core::Drive slot 12
+    virtual int vfunc_12(int, int, int, int, int, int, int, int); // overrides core::Drive slot 12
     virtual int vfunc_13(int, int, int, int, int, int, int, int, int); // overrides core::Drive slot 13
     virtual int vfunc_14(); // overrides core::Drive slot 14
     virtual int vfunc_15(int); // overrides core::Drive slot 15
     virtual int vfunc_16(int); // overrides core::Drive slot 16
     virtual int vfunc_17(int); // overrides core::Drive slot 17
-    virtual void vfunc_18(int, int, int, int); // overrides core::Drive slot 18
+    virtual int vfunc_18(int, int, int, int); // overrides core::Drive slot 18
     virtual int vfunc_19(void*, int); // overrides core::Drive slot 19
     virtual int vfunc_20(int); // overrides core::Drive slot 20
     virtual void vfunc_21(int); // overrides core::Drive slot 21
@@ -1264,10 +1264,10 @@ public:
     virtual int vfunc_9(int, int, int, int, int, int, int); // overrides core::Drive slot 9
     virtual int vfunc_10(void*, int); // overrides core::Drive slot 10
     virtual int vfunc_11(void*, void*); // overrides core::Drive slot 11
-    virtual void vfunc_12(int, int, int, int, int, int, int, int); // overrides core::Drive slot 12
+    virtual int vfunc_12(int, int, int, int, int, int, int, int); // overrides core::Drive slot 12
     virtual int vfunc_13(int, int, int, int, int, int, int, int, int); // overrides core::Drive slot 13
     virtual int vfunc_17(int); // overrides core::Drive slot 17
-    virtual void vfunc_18(int, int, int, int); // overrides core::Drive slot 18
+    virtual int vfunc_18(int, int, int, int); // overrides core::Drive slot 18
     virtual int vfunc_19(void*, int); // overrides core::Drive slot 19
     virtual int vfunc_20(int); // overrides core::Drive slot 20
     virtual void vfunc_0_IMutable(); // overrides core::IMutable slot 0

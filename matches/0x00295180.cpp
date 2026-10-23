@@ -1,11 +1,10 @@
+#include "gen/pure3d.h"
+
 namespace pure3d {
-struct TextureFont {
-    char padding[0x24];
-    int value;
-    int* vfunc_14(int* output);
-};
-int* TextureFont::vfunc_14(int* output) {
-    *output = value;
-    return output;
-}
+
 } // namespace pure3d
+void* pure3d::TextureFont::vfunc_14(int __p0) { int * output = (int *)__p0;
+
+    *output = this->f_24;
+    return (void*)(output);
+}

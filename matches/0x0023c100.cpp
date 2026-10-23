@@ -1,31 +1,11 @@
+#include "gen/fight.h"
+
 namespace fight {
-class BinReader {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
-    virtual void f11();
-    virtual void f12();
-    virtual void f13();
-    virtual unsigned long long vfunc_14();
-    virtual void f15();
-    virtual void f16();
-    virtual void f17();
-    virtual void f18();
-    virtual void f19();
-    char pad[0x24];
+struct BinReader_nv_23c100 {
     void helper();
 };
 } // namespace fight
-unsigned long long fight::BinReader::vfunc_14() {
-    helper();
-    return *(unsigned long long*)((char*)this + 0x28);
+__int64 fight::BinReader::vfunc_14() {
+    ((BinReader_nv_23c100*)this)->helper();
+    return (__int64)(*(unsigned long long*)((char*)this + 0x28));
 }

@@ -1,29 +1,27 @@
-class Chunk {
+#include "gen/pure3d.h"
+
+class Chunk_2ac5b0 {
   public:
     int Type();
 };
-class DefaultParticleGeneratorHandler_2ac5b0 {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual int vfunc_4(Chunk*, int);
-    int A(Chunk*, int);
-    int B(Chunk*, int);
-    int C(Chunk*, int);
+struct DefaultParticleGeneratorHandler_nv_2ac5b0 {
+    int A(Chunk_2ac5b0*, int);
+    int B(Chunk_2ac5b0*, int);
+    int C(Chunk_2ac5b0*, int);
 };
-int DefaultParticleGeneratorHandler_2ac5b0::vfunc_4(Chunk* chunk, int arg) {
+
+int pure3d::DefaultParticleGeneratorHandler::vfunc_4(int __p0, int arg) { Chunk_2ac5b0 * chunk = (Chunk_2ac5b0 *)__p0;
+
     int result = 0;
     switch (chunk->Type()) {
     case 0x15b00:
-        result = A(chunk, arg);
+        result = ((DefaultParticleGeneratorHandler_nv_2ac5b0*)this)->A(chunk, arg);
         break;
     case 0x15b01:
-        result = B(chunk, arg);
+        result = ((DefaultParticleGeneratorHandler_nv_2ac5b0*)this)->B(chunk, arg);
         break;
     case 0x15b02:
-        result = C(chunk, arg);
+        result = ((DefaultParticleGeneratorHandler_nv_2ac5b0*)this)->C(chunk, arg);
         break;
     }
     return result;

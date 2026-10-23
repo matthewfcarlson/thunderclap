@@ -1,33 +1,27 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // pure3d::Vector3DOFChannel::vfunc_4 @ 0x0028a7c0
+#include "gen/pure3d.h"
+
 namespace pure3d {
-struct Vector { float x,y,z; };
-struct Vector3DOFChannel {
- virtual void vfunc_0();
- virtual void vfunc_1();
- virtual void vfunc_2();
- virtual void vfunc_3();
- virtual void vfunc_4(float time, Vector* out);
- virtual void vfunc_5();
- int interpolate;
- char pad[12];
- short* frames;
- Vector* values;
- bool FUN_00289f80(float time, int* first, int* second);
+struct Vector_28a7c0 { float x,y,z; };
+struct Vector3DOFChannel_nv_28a7c0 {
+    bool FUN_00289f80(float time, int* first, int* second);
 };
-void Vector3DOFChannel::vfunc_4(float time, Vector* out) {
+
+}
+void pure3d::Vector3DOFChannel::vfunc_4(float time, int __p1) { Vector_28a7c0 * out = (Vector_28a7c0 *)__p1;
+
  int first, second;
- bool found = FUN_00289f80(time, &first, &second);
- if (found && interpolate) {
-  double delta = (double)time - frames[first];
+ bool found = ((Vector3DOFChannel_nv_28a7c0*)this)->FUN_00289f80(time, &first, &second);
+ if (found && this->f_04) {
+  double delta = (double)time - (*(short * *)&this->f_14)[first];
   if (delta != 0.0) {
-   double t = delta / (int)(frames[second] - frames[first]);
-   out->x = (float)(((double)values[second].x - values[first].x) * t + values[first].x);
-   out->y = (float)(((double)values[second].y - values[first].y) * t + values[first].y);
-   out->z = (float)(((double)values[second].z - values[first].z) * t + values[first].z);
+   double t = delta / (int)((*(short * *)&this->f_14)[second] - (*(short * *)&this->f_14)[first]);
+   out->x = (float)(((double)(*(Vector_28a7c0 * *)&this->f_18)[second].x - (*(Vector_28a7c0 * *)&this->f_18)[first].x) * t + (*(Vector_28a7c0 * *)&this->f_18)[first].x);
+   out->y = (float)(((double)(*(Vector_28a7c0 * *)&this->f_18)[second].y - (*(Vector_28a7c0 * *)&this->f_18)[first].y) * t + (*(Vector_28a7c0 * *)&this->f_18)[first].y);
+   out->z = (float)(((double)(*(Vector_28a7c0 * *)&this->f_18)[second].z - (*(Vector_28a7c0 * *)&this->f_18)[first].z) * t + (*(Vector_28a7c0 * *)&this->f_18)[first].z);
    return;
   }
  }
- *out = values[first];
-}
+ *out = (*(Vector_28a7c0 * *)&this->f_18)[first];
 }

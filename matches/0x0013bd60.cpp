@@ -1,19 +1,17 @@
-class GrappleAnimationTrack;
-extern int __cdecl Check(GrappleAnimationTrack*, int, void*, void*, int);
+#include "gen/fight.h"
+
+class GrappleAnimationTrack_13bd60;
+extern int __cdecl Check(GrappleAnimationTrack_13bd60*, int, void*, void*, int);
 extern void* a;
 extern void* b;
 namespace fight {
-class TrackFactoryCaster {
+class TrackFactoryCaster_13bd60 {
   public:
-    virtual bool vfunc_0(GrappleAnimationTrack*);
-    virtual void vfunc_1();
-};
-class Caster : public TrackFactoryCaster {
-  public:
-    virtual bool vfunc_0(GrappleAnimationTrack*);
+    virtual bool vfunc_0(GrappleAnimationTrack_13bd60*);
     virtual void vfunc_1();
 };
 } // namespace fight
-bool fight::Caster::vfunc_0(GrappleAnimationTrack* p) {
+template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::GrappleAnimationTrack>::vfunc_0(void* __p0) { GrappleAnimationTrack_13bd60 * p = (GrappleAnimationTrack_13bd60 *)__p0;
+
     return Check(p, 0, &a, &b, 0) != 0;
 }

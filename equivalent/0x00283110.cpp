@@ -1,12 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 26/26)
 // pure3d::prop::CMotionTrail::vfunc_11 @ 0x00283110
+#include "gen/pure3d.h"
+
 extern "C" double __cdecl sqrt(double);
 
 struct Vec3_283110 {
     float x, y, z;
 };
 
-struct Skeleton {
+struct Skeleton_283110 {
     char pad0[0x1c];
     char *joints;
 };
@@ -28,41 +30,9 @@ struct TrailData {
 
 namespace pure3d {
 namespace prop {
-class CMotionTrail {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    virtual void vfunc_8();
-    virtual void vfunc_9();
-    virtual void vfunc_10();
-    virtual void vfunc_11(float dt, int unused);
-    virtual void vfunc_12();
-    virtual void vfunc_13();
-
-    char pad04[0x40 - 4];
-    void *active;
-    TrailData *skel;
-    int pointCount;
-    char pad4c[0x64 - 0x4c];
-    TrailSample *ring;
-    int head;
-    int length;
-    int joint;
-    int *jointIndex;
-    Vec3_283110 *outPos;
-    float timer;
-};
 }
 }
-
-void pure3d::prop::CMotionTrail::vfunc_11(float dt, int unused)
-{
+void pure3d::prop::CMotionTrail::vfunc_11(float dt, int unused) {
     struct Frame {
         Vec3_283110 d;
         float lenSq;
@@ -72,21 +42,21 @@ void pure3d::prop::CMotionTrail::vfunc_11(float dt, int unused)
         volatile float savedDt;
     } fr;
 
-    if (active == 0)
+    if ((*(void * *)&this->f_40) == 0)
         return;
-    if (timer > 0.0f && joint != 0xffff) {
-        const unsigned *root = (const unsigned *)(skel->joints + 64 * joint + 0x30);
+    if (this->f_7c > 0.0f && this->f_70 != 0xffff) {
+        const unsigned *root = (const unsigned *)((*(TrailData * *)&this->f_44)->joints + 64 * this->f_70 + 0x30);
         fr.p.x = root[0];
         fr.p.y = root[1];
         fr.p.z = root[2];
-        for (int i = 0; i < pointCount; i++) {
-            JointXform *m = (JointXform *)(skel->joints + 64 * jointIndex[i]);
-            m->FUN_0022c2b0(outPos + i, &fr.pts[i]);
+        for (int i = 0; i < this->f_48; i++) {
+            JointXform *m = (JointXform *)((*(TrailData * *)&this->f_44)->joints + 64 * (*(int * *)&this->f_74)[i]);
+            m->FUN_0022c2b0((*(Vec3_283110 * *)&this->f_78) + i, &fr.pts[i]);
         }
         float maxSq = 0.0f;
-        if (length > 0) {
-            TrailSample *s = ring + (head + length - 1) % 50;
-            int n = pointCount;
+        if (this->f_6c > 0) {
+            TrailSample *s = (*(TrailSample * *)&this->f_64) + (this->f_68 + this->f_6c - 1) % 50;
+            int n = this->f_48;
             const Vec3_283110 *cur = s->pos;
             Vec3_283110 *pt = fr.pts;
             Vec3_283110 *cr = fr.cross;
@@ -111,13 +81,13 @@ void pure3d::prop::CMotionTrail::vfunc_11(float dt, int unused)
             }
         }
         fr.savedDt = dt;
-        if (sqrt(maxSq) > 0.01f || length == 0) {
-            if (length < 49)
-                length++;
+        if (sqrt(maxSq) > 0.01f || this->f_6c == 0) {
+            if (this->f_6c < 49)
+                this->f_6c++;
             else
-                head = (head + 1) % 50;
-            ring[(head + length - 1) % 50].FUN_0027fa00(fr.pts);
+                this->f_68 = (this->f_68 + 1) % 50;
+            (*(TrailSample * *)&this->f_64)[(this->f_68 + this->f_6c - 1) % 50].FUN_0027fa00(fr.pts);
         }
     }
-    timer -= dt;
+    this->f_7c -= dt;
 }

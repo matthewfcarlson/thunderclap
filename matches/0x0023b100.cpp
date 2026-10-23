@@ -1,15 +1,7 @@
-class ScriptReader {
-  public:
-    char pad0[0x10];
-    int index;
-    int values[0x43];
-    int low;
-    int high;
-    int limit;
-    unsigned __int64 vfunc_14();
-};
-unsigned __int64 ScriptReader::vfunc_14() {
-    if (limit <= values[index])
-        return 0;
-    return *(unsigned __int64*)((char*)this + 0x120);
+#include "gen/fight.h"
+
+__int64 fight::ScriptReader::vfunc_14() {
+    if (this->f_128 <= (*(int (*)[67])&this->f_14)[this->f_10])
+        return (__int64)(0);
+    return (__int64)(*(unsigned __int64*)((char*)this + 0x120));
 }

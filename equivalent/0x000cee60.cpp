@@ -1,13 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method2<HUDOverlay,void,int,math::Vector>::vfunc_2 @ 0x000cee60
-struct Vector { float x, y, z; };
-struct HUDOverlay { void FUN_000cee60(int, Vector); };
-struct Arguments { int index; Vector position; };
-struct Method2 {
-    char reserved[0x1c];
-    void (HUDOverlay::*method)(int, Vector);
-    void target(HUDOverlay *owner, const Arguments *args, int unused);
-};
-void Method2::target(HUDOverlay *owner, const Arguments *args, int unused) {
-    (owner->*method)(args->index, args->position);
+#include "gen/global.h"
+
+struct Vector_cee60 { float x, y, z; };
+struct HUDOverlay_cee60 { void FUN_000cee60(int, Vector_cee60); };
+struct Arguments { int index; Vector_cee60 position; };
+
+template <> void Method2<HUDOverlay, void, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cee60 * owner = (HUDOverlay_cee60 *)__p0; const Arguments * args = (const Arguments *)__p1; int unused = (int)__p2;
+
+    (owner->*(*(void (HUDOverlay_cee60::**)(int, Vector_cee60))&this->f_1c))(args->index, args->position);
 }

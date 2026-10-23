@@ -182,7 +182,7 @@ public:
 class MetaTypeAttribBase {
 public:
     virtual ~MetaTypeAttribBase(); // slot 0
-    virtual void vfunc_1(int, int) = 0; // slot 1
+    virtual int vfunc_1(int, int) = 0; // slot 1
     virtual void vfunc_2(int, int) = 0; // slot 2
     virtual void vfunc_3(int); // slot 3
 };
@@ -194,7 +194,7 @@ template <class T0>
 class MetaTypeAttrib : public ::om::MetaTypeAttribBase {
 public:
     virtual ~MetaTypeAttrib(); // overrides om::MetaTypeAttribBase slot 0
-    virtual void vfunc_1(int, int); // overrides om::MetaTypeAttribBase slot 1
+    virtual int vfunc_1(int, int); // overrides om::MetaTypeAttribBase slot 1
     virtual void vfunc_2(int, int); // overrides om::MetaTypeAttribBase slot 2
 };
 

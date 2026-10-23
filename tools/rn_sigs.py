@@ -148,7 +148,8 @@ def defined_on_gen(g, props):
         for i in range(len(vt)):
             kk = g.resolve(c, 0, i)
             if kk in keys:
-                by_slot[i][c.name.split("::")[-1]] = keys[kk]
+                # template instantiations by their template's name: `template <> R X<T>::vfunc_N(` defines one
+                by_slot[i][re.sub(r"<.*", "", c.name).split("::")[-1]] = keys[kk]
     hits = collections.defaultdict(set)
     for d in ("matches", "equivalent"):
         for fn in os.listdir(os.path.join(ROOT, d)):
@@ -157,7 +158,7 @@ def defined_on_gen(g, props):
             t = open(os.path.join(ROOT, d, fn), encoding="latin1").read()
             if '#include "gen/' not in t:
                 continue
-            for m in re.finditer(r"\b(\w+)::vfunc_(\d+)\s*\(", t):
+            for m in re.finditer(r"\b(\w+)(?:\s*<(?:[^<>;{}()]|<[^<>;{}()]*>)*>)?\s*::vfunc_(\d+)\s*\(", t):
                 p = by_slot.get(int(m.group(2)), {}).get(m.group(1))
                 if p:
                     hits[p].add("%s/%s" % (d, fn))

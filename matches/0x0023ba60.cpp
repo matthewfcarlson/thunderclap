@@ -1,4 +1,6 @@
-class Reader {
+#include "gen/fight.h"
+
+class Reader_23ba60 {
   public:
     virtual void r0();
     virtual void r1();
@@ -22,12 +24,8 @@ class Reader {
     virtual void r19();
 };
 namespace fight {
-class BinReader : public Reader {
-  public:
-    char pad[0x18 - sizeof(void*)];
-    unsigned long long vfunc_15();
-};
-unsigned long long BinReader::vfunc_15() {
-    return *(unsigned long long*)((char*)this + 0x18);
-}
+
 } // namespace fight
+__int64 fight::BinReader::vfunc_15() {
+    return (__int64)(*(unsigned long long*)((char*)this + 0x18));
+}

@@ -201,14 +201,16 @@ def main(argv=None):
     # the same fields for tools/gen_headers.py's model (gen-swap / gen-ref read the generator's emitted fields,
     # not the header text): include/gen/evidence-rn.json, applied like CURATED_FIELDS
     ev = os.path.join(ROOT, "include/gen/evidence-rn.json")
-    old = json.load(open(ev))["fields"] if os.path.exists(ev) else {}
+    evd = json.load(open(ev)) if os.path.exists(ev) else {}
+    old = evd.get("fields", {})
     for cls, fl in done.items():
         old.setdefault(cls, {}).update(fl)
+    # keep the file's other entries ("sigs": tools/rn_sigs.py, batch b6)
+    evd["_comment"] = ("Fields added to include/gen/ by tools/rn_fields.py (consolidation batch b7): offsets "
+                       "every stub of the class agrees on, inside the class's own _pad_ gaps.")
+    evd["fields"] = {k: dict(sorted(v.items(), key=lambda kv: int(kv[0], 16))) for k, v in sorted(old.items())}
     with open(ev, "w") as f:
-        json.dump({"_comment": "Fields added to include/gen/ by tools/rn_fields.py (consolidation batch b7): offsets "
-                   "every stub of the class agrees on, inside the class's own _pad_ gaps.",
-                   "fields": {k: dict(sorted(v.items(), key=lambda kv: int(kv[0], 16))) for k, v in sorted(old.items())}},
-                  f, indent=1)
+        json.dump(evd, f, indent=1)
     print("applied: %d fields (%s); skipped: %s" % (sum(applied.values()), dict(applied), dict(skipped)))
     if a.check:
         after = rn_layout.build_db()
