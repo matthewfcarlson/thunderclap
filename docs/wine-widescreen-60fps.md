@@ -33,11 +33,8 @@ of the 4:3 region away from its middle, none within 0.05 of the middle (smoothst
 shape and their margin in units of the picture's height (0.12 H from the edge, as at 4:3). A draw is a frame model if
 its world matrix scales by 2 or more (`ffConstants`, `bgfx_draw.cpp`). It costs nothing when off: the constant is 0.
 
-Screenshots (play3 replay, game frame 840 and 3000, 1280x720; scratch, not committed):
-
-- default: `/private/tmp/claude-501/-Users-matthewcarlson-git-hulk-ultimate-destruction-decomp/b2f33896-95c9-4c81-9afe-5f89753bb2fd/scratchpad/sky3/w720-840.png`
-- 4:3 for comparison: `.../sky3/s43-840.png`
-- `HULK_HUD=edge`: `.../sky3/hud-edge-1280x720-840.png` and `.../sky3/hud-edge-1280x720-3000.png`
+Screenshots (play3 replay, game frame 840 and 3000, 1280x720; local only, never committed): take them with the replay
+screenshot knobs in [wine-play.md](wine-play.md) at the default HUD, at 640x480 (4:3) and with `HULK_HUD=edge`.
 
 **Refraction.** `bgfxRefractShader::vfunc_24` (`bgfx_shader.cpp`, the backend's own copy of 0x32f3b0) already uploads the
 back buffer's real size as the viewport (c107) and scales the frame texture by back buffer / mode size, so the 640 and
