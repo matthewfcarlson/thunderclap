@@ -2,7 +2,7 @@
 #include "compat/ptr.h"
 #include "gen/global.h"
 extern void* Alloc(hulk_uintptr);
-struct FEBillboardAnimation_f2920 {
+struct FEBillboardAnimation_nv_f2920 {
     int Create(int, int);
 };
 class Holder_f2920 {
@@ -18,7 +18,7 @@ int Holder_f2920::Run(int arg) {
     FEBillboardAnimation* obj = (FEBillboardAnimation*)Alloc(100);
     int result;
     if (obj != 0)
-        result = ((FEBillboardAnimation_f2920*)(obj))->Create(data, arg);
+        result = ((FEBillboardAnimation_nv_f2920*)(((FEBillboardAnimation*)(obj))))->Create(data, arg);
     else
         result = 0;
     int i;

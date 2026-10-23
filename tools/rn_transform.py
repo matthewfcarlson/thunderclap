@@ -207,7 +207,7 @@ def genref_transform(path, raw, stub, real, hdb, addr, taken, keep=()):
     eq = equiv_text(raw)
     if re.search(r"\b%s\b" % re.escape(sshort), eq):
         raise SwapFail("stub named on an equiv-* line")
-    if re.search(r"^\s*#\s*(?!include\s*\"(gen|decls)/)", raw, re.M):
+    if re.search(r"^\s*#\s*(?!include\s*\"(gen|decls|compat)/)", raw, re.M):
         raise SwapFail("preprocessor lines")
     ast = clang_ast(path)
     if ast is None:
@@ -457,7 +457,7 @@ def insert_include(text, line):
     lines = text.split(nl)
     i = 0
     while i < len(lines) and (lines[i].strip().startswith("//") or not lines[i].strip()
-                              or re.match(r'\s*#\s*include\s*"(gen|decls)/', lines[i])):
+                              or re.match(r'\s*#\s*include\s*"(gen|decls|compat)/', lines[i])):
         i += 1
     while i > 0 and not lines[i - 1].strip():
         i -= 1

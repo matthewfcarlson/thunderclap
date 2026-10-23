@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20013 inputs, branch coverage 28/28)
 // hulkfight::ai::TargetDirectionYCondition::vfunc_6 @ 0x00126450
+#include "gen/hulkfight.h"
+
 #include "compat/ptr.h"
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
@@ -9,7 +11,7 @@ struct Vec3_126450 {
     float x, y, z;
 };
 
-struct Locator {
+struct Locator_126450 {
     void FUN_00059a50(Vec3_126450 *out);
 };
 
@@ -22,7 +24,7 @@ struct Target_126450 {
 
 struct Actor_126450 {
     char pad0[0x10];
-    Locator *locator;
+    Locator_126450 *locator;
     char pad14[0x328 - 0x14];
     Target_126450 *target;
 };
@@ -35,28 +37,14 @@ struct Owner_126450 {
     Chain_126450 *FUN_000592a0();
 };
 
-class TargetDirectionYCondition {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual char vfunc_6(int unused1, Owner_126450 *owner, int unused3);
-    char pad4[8];
-    int mode;
-    int value;
-};
+bool hulkfight::ai::TargetDirectionYCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int unused1 = (int)__p0; Owner_126450 * owner = (Owner_126450 *)__p1; int unused3 = (int)__p2;
 
-char TargetDirectionYCondition::vfunc_6(int unused1, Owner_126450 *owner, int unused3)
-{
     if (!FUN_00344e74(owner, 0, DAT_00494b44, DAT_00494b60, 0))
-        return 0;
+        return (bool)(0);
     Actor_126450 *actor = owner->FUN_000592a0()->FUN_00059a30();
     Target_126450 *t = actor->target;
     if (!t)
-        return 0;
+        return (bool)(0);
 
     Vec3_126450 v;
     v.x = 0;
@@ -74,19 +62,19 @@ char TargetDirectionYCondition::vfunc_6(int unused1, Owner_126450 *owner, int un
         s = 0.0f;
     int dir = (int)s;
 
-    switch (mode) {
+    switch (this->f_0c) {
     case 0:
-        return dir < value;
+        return (bool)(dir < this->f_10);
     case 1:
-        return dir <= value;
+        return (bool)(dir <= this->f_10);
     case 2:
-        return dir == value;
+        return (bool)(dir == this->f_10);
     case 3:
-        return dir != value;
+        return (bool)(dir != this->f_10);
     case 4:
-        return dir >= value;
+        return (bool)(dir >= this->f_10);
     case 5:
-        return dir > value;
+        return (bool)(dir > this->f_10);
     }
-    return 0;
+    return (bool)(0);
 }

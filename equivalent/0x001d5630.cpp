@@ -7,7 +7,7 @@ extern "C" Query_1d5630* __cdecl FUN_0008ceb0(int,int,unsigned*,int,int,int);
 extern "C" unsigned __cdecl FUN_00266da0(hulk_uintptr);
 struct Owner_1d5630;
 struct Entry_1d5630;
-struct CSPHulkPropInstance_1d5630 {
+struct CSPHulkPropInstance_nv_1d5630 {
     CSPHulkPropInstance* FUN_001d7890(Owner_1d5630*,int);
     void FUN_001d7490(Entry_1d5630*);
 };
@@ -24,11 +24,11 @@ CSPHulkPropInstance* Owner_1d5630::target(unsigned a,unsigned b) {
  if(size<0xc800) return 0;
  unsigned old=FUN_00266da0(10);
  CSPHulkPropInstance* obj=FUN_00263ea0(0x278);
- if(obj) obj=((CSPHulkPropInstance_1d5630*)(obj))->FUN_001d7890(this,0);
+ if(obj) obj=((CSPHulkPropInstance_nv_1d5630*)(((CSPHulkPropInstance*)(obj))))->FUN_001d7890(this,0);
  FUN_00266da0(old);
  unsigned v=(*(unsigned int *)&obj->f_9c);
  FUN_001c3d90()->FUN_001c3a40(a,v);
  Entry_1d5630* entry=FUN_001c3d90()->table->FUN_001c59d0(a);
- if(entry) { entry->enabled=1; entry->object=obj; entry->flag=flag; ((CSPHulkPropInstance_1d5630*)(obj))->FUN_001d7490(entry); }
+ if(entry) { entry->enabled=1; entry->object=obj; entry->flag=flag; ((CSPHulkPropInstance_nv_1d5630*)(((CSPHulkPropInstance*)(obj))))->FUN_001d7490(entry); }
  return obj;
 }

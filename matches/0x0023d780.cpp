@@ -13,14 +13,14 @@ class Factory_23d780 {
     int m0c;
     int m10;
 };
-struct DebugCondition_23d780 {
+struct DebugCondition_nv_23d780 {
     void InitFn(int);
 };
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 void* Factory_23d780::V5() {
     Factory_23d780* p = (Factory_23d780*)Alloc(0x14);
     if (p) {
-        ((DebugCondition_23d780*)(((fight::DebugCondition*)p)))->InitFn(0);
+        ((DebugCondition_nv_23d780*)(((fight::DebugCondition*)(((fight::DebugCondition*)p)))))->InitFn(0);
         *(hulk_ulongptr*)p = ((hulk_intptr)DAT_00428b64);
         p->m0c = 0;
         p->m10 = 0;

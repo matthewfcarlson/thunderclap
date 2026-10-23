@@ -20,7 +20,7 @@ struct Owner_5b5b0 {
     Context_5b5b0* FUN_000592a0();
 };
 
-struct CSoundAction_5b5b0 {
+struct CSoundAction_nv_5b5b0 {
     void* FUN_0001d190(CGrappleSoundTrack* track, Settings* settings);
 };
 void* __cdecl FUN_0008d690(unsigned int size);
@@ -46,5 +46,5 @@ int CGrappleSoundTrack::vfunc_12(int __p0) { Owner_5b5b0 * owner = (Owner_5b5b0 
     CSoundAction* c = static_cast<CSoundAction*>(FUN_0008d690(0x24));
     if (c == 0)
         return (int)(0);
-    return (hulk_intptr)(((CSoundAction_5b5b0*)(c))->FUN_0001d190(this, settings));
+    return (hulk_intptr)(((CSoundAction_nv_5b5b0*)(((CSoundAction*)(c))))->FUN_0001d190(this, settings));
 }

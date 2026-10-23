@@ -16,7 +16,7 @@ struct Made_1b7740 {
     char pad[0x10];
     Inner_1b7740* p;
 };
-struct Shader_1b7740 {
+struct Shader_nv_1b7740 {
     Made_1b7740* make();
 };
 struct CRadMovieRenderLoop_1b7740 {
@@ -32,7 +32,7 @@ CRadMovieRenderLoop_1b7740* __fastcall FUN_001b7740(CRadMovieRenderLoop_1b7740* 
     hulk_intptr t = alloc(32);
     Made_1b7740* m;
     if (t)
-        m = ((Shader_1b7740*)(((pure3d::Shader*)t)))->make();
+        m = ((Shader_nv_1b7740*)(((pure3d::Shader*)(((pure3d::Shader*)t)))))->make();
     else
         m = 0;
     self->made = m;

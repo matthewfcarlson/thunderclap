@@ -22,7 +22,7 @@ struct Font_f7330 {
     virtual void v14(unsigned int *color);
 };
 
-struct ShaderFloatBroadcast_f7330 {
+struct ShaderFloatBroadcast_nv_f7330 {
     pure3d::ShaderFloatBroadcast *FUN_0028ee60(int tag, float f);
 };
 
@@ -235,7 +235,7 @@ void GlyphRun::FUN_000f7330(unsigned short *text, int font, int unused, int mode
                 void *mem = FUN_0008d690(0x10);
                 pure3d::ShaderFloatBroadcast *fd = 0;
                 if (mem != 0)
-                    fd = ((ShaderFloatBroadcast_f7330*)(((pure3d::ShaderFloatBroadcast *)mem)))->FUN_0028ee60(0x45444146, f.u14.fade);
+                    fd = ((ShaderFloatBroadcast_nv_f7330*)(((pure3d::ShaderFloatBroadcast*)(((pure3d::ShaderFloatBroadcast *)mem)))))->FUN_0028ee60(0x45444146, f.u14.fade);
                 tok->v13(fd);
                 tok->v8(0, 0);
                 tok->v14();

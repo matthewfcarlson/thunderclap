@@ -7,11 +7,11 @@ class PhysicsThing {
     int b;
     unsigned char c;
 };
-struct WorldCollisionObject_2fe1d0 {
+struct WorldCollisionObject_nv_2fe1d0 {
     void BaseCtor();
 };
 PhysicsThing* __fastcall Target(PhysicsThing* self) {
-    ((WorldCollisionObject_2fe1d0*)(((physics::WorldCollisionObject*)(self))))->BaseCtor();
+    ((WorldCollisionObject_nv_2fe1d0*)(((physics::WorldCollisionObject*)(((physics::WorldCollisionObject*)(self))))))->BaseCtor();
     *(hulk_intptr*)self = ((hulk_intptr)DAT_00431968);
     self->b = 0;
     self->c = 1;

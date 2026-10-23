@@ -217,7 +217,9 @@ def dtor_transform(g, C, raw):
     return rule, out, C.unit.header + ".h", C.name
 
 
-DECLS_INCLUDE = re.compile(r'^[ \t]*#[ \t]*include[ \t]*"decls/[^"]+"[ \t]*\r?$', re.M)
+# `#include "decls/..."` and `#include "compat/..."` (compat/ptr.h: the pointer-sized integer typedefs of the
+# 64-bit respellings, identical types on the 32-bit builds) are allowed in a rewritten source
+DECLS_INCLUDE = re.compile(r'^[ \t]*#[ \t]*include[ \t]*"(?:decls|compat)/[^"]+"[ \t]*\r?$', re.M)
 
 
 def skip_reason(text, target, g, names_on_equiv=True):
@@ -239,7 +241,7 @@ def insert_include(text, line):
     lines = text.split(nl)
     i = 0
     while i < len(lines) and (lines[i].strip().startswith("//") or not lines[i].strip()
-                              or re.match(r'\s*#\s*include\s*"(gen|decls)/', lines[i])):
+                              or re.match(r'\s*#\s*include\s*"(gen|decls|compat)/', lines[i])):
         i += 1
     while i > 0 and not lines[i - 1].strip():
         i -= 1

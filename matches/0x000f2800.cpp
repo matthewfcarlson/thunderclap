@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 #include "gen/global.h"
 extern void* __cdecl Alloc(hulk_uintptr);
-struct FEParticleAnimation_f2800 {
+struct FEParticleAnimation_nv_f2800 {
     int Build(int, int, int);
 };
 class Thing_f2800 {
@@ -17,7 +17,7 @@ int Thing_f2800::Run(int a, int b) {
     FEParticleAnimation* p = (FEParticleAnimation*)Alloc(0x68);
     int result;
     if (p != 0)
-        result = ((FEParticleAnimation_f2800*)(p))->Build(ref, a, b);
+        result = ((FEParticleAnimation_nv_f2800*)(((FEParticleAnimation*)(p))))->Build(ref, a, b);
     else
         result = 0;
     int i = 0;

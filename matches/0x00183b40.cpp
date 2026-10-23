@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 #include "compat/ptr.h"
 class Ref {
   public:
@@ -14,27 +16,16 @@ class Anim {
 };
 namespace hulkfight {
 namespace motion {
-class PropAnimationAction {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void vfunc_4();
-    virtual void f5();
-    char pad[0x20];
-    Anim* anim;
-    Ref* ref;
-};
-void PropAnimationAction::vfunc_4() {
-    if (anim) {
-        if (anim->state == -1 && anim->get() == (hulk_intptr)ref)
-            anim->set(0, 0, 0);
-        if (ref) {
-            ref->release();
-            ref = 0;
+
+} // namespace motion
+} // namespace hulkfight
+void hulkfight::motion::PropAnimationAction::vfunc_4() {
+    if ((*(Anim * *)&this->f_24)) {
+        if ((*(Anim * *)&this->f_24)->state == -1 && (*(Anim * *)&this->f_24)->get() == (hulk_intptr)(*(Ref * *)&this->f_28))
+            (*(Anim * *)&this->f_24)->set(0, 0, 0);
+        if ((*(Ref * *)&this->f_28)) {
+            (*(Ref * *)&this->f_28)->release();
+            (*(Ref * *)&this->f_28) = 0;
         }
     }
 }
-} // namespace motion
-} // namespace hulkfight

@@ -154,6 +154,8 @@ BATCHES = [
 # b4 leaves alone: gen-ref's declaration structs (`CAction_nv_1c5a70`) and wrappers named after the function they
 # call (`FUN_0027b070`, `ThisCall_0023c640`): their names already say what they are
 NOT_RELABELED = re.compile(r"^(?:FUN_|ThisCall|ThisWrap)|_nv_[0-9a-f]+$")
+# gen-ref / gen-swap's declaration structs (`CCharacter_nv_3ffa0`): already on include/gen/, not stubs to move
+NV_STRUCT = re.compile(r"_nv_[0-9a-f]+$")
 
 
 def make_batches(out_dir, rmap_path, fit_path):
@@ -179,6 +181,8 @@ def make_batches(out_dir, rmap_path, fit_path):
         if d == "equivalent" and fn in in_matches:
             continue
         st = e["stub"]
+        if NV_STRUCT.search(st):
+            continue
         f = fit.get((e["source"], st))
         it = {"source": e["source"], "stub": st, "real": e["real"], "confidence": e["confidence"], "own": e["own"],
               "keep": sorted(keep[e["source"]])}
@@ -193,7 +197,7 @@ def make_batches(out_dir, rmap_path, fit_path):
     for e in rmap:
         st = e["stub"]
         if (not e["real"] or e["confidence"] not in ("high", "medium") or e["kind"] not in ("suffixed", "invented")
-                or "::" in st or st in taken or NOT_RELABELED.match(st)):
+                or "::" in st or st in taken or NOT_RELABELED.search(st)):
             continue
         addr = int(os.path.basename(e["source"])[2:10], 16)
         new = rn_transform.relabel_name(st, e["real"], addr)

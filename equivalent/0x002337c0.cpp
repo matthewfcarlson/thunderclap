@@ -43,13 +43,13 @@ public:
 };
 
 struct NodeCtorA { Handler_2337c0 *FUN_0023c620(); };
-struct Node_2337c0 {
+struct Node_nv_2337c0 {
     Handler_2337c0 *FUN_00231940();
 };
-struct Store_2337c0 {
+struct Store_nv_2337c0 {
     Handler_2337c0 *FUN_0023c500();
 };
-struct Reference_2337c0 {
+struct Reference_nv_2337c0 {
     Handler_2337c0 *FUN_0023c2c0();
 };
 
@@ -89,15 +89,15 @@ char Branch_2337c0::ParseBlock(int a0, Lexer *lexer, int index)
         } else if (lexer->TokenType() == DAT_004e5b70) {
             mem = FUN_00263ea0(0x30);
             if (mem)
-                h = ((Node_2337c0*)(((fight::Node *)mem)))->FUN_00231940();
+                h = ((Node_nv_2337c0*)(((fight::Node*)(((fight::Node *)mem)))))->FUN_00231940();
         } else if (lexer->TokenType() == (*(__int64*)&DAT_004e5ba8)) {
             mem = FUN_00263ea0(0x28);
             if (mem)
-                h = ((Store_2337c0*)(((fight::Store *)mem)))->FUN_0023c500();
+                h = ((Store_nv_2337c0*)(((fight::Store*)(((fight::Store *)mem)))))->FUN_0023c500();
         } else if (lexer->TokenType() == (*(__int64*)&DAT_004e5b10)) {
             mem = FUN_00263ea0(0x38);
             if (mem)
-                h = ((Reference_2337c0*)(((fight::Reference *)mem)))->FUN_0023c2c0();
+                h = ((Reference_nv_2337c0*)(((fight::Reference*)(((fight::Reference *)mem)))))->FUN_0023c2c0();
         } else {
             FUN_00232cc0(lexer, "Unexpected token.");
             lexer->FUN_00232c90();

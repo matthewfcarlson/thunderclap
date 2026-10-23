@@ -2,12 +2,12 @@
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
 void* __cdecl alloc(hulk_uintptr);
-struct PropAnimationTrack_18c820 {
+struct PropAnimationTrack_nv_18c820 {
     void* init();
 };
 void* f() {
     hulkfight::motion::PropAnimationTrack* p = (hulkfight::motion::PropAnimationTrack*)alloc(0x30);
     if (p)
-        return ((PropAnimationTrack_18c820*)(p))->init();
+        return ((PropAnimationTrack_nv_18c820*)(((hulkfight::motion::PropAnimationTrack*)(p))))->init();
     return 0;
 }

@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 struct Local_3245d0 {
     unsigned a, b, c;
 };
@@ -87,22 +89,13 @@ struct Receiver_3245d0 {
     void FUN_003272f0();
 };
 namespace pure3d {
-struct d3dExtHardwareSkinning {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6(Skin_3245d0*, Receiver_3245d0*);
-    Device_3245d0* device;
-};
 } // namespace pure3d
-void pure3d::d3dExtHardwareSkinning::vfunc_6(Skin_3245d0* skin, Receiver_3245d0* receiver) {
+void pure3d::d3dExtHardwareSkinning::vfunc_6(int __p0, int __p1) { Skin_3245d0 * skin = (Skin_3245d0 *)__p0; Receiver_3245d0 * receiver = (Receiver_3245d0 *)__p1;
+
     Local_3245d0 data;
-    device->FUN_00324270(skin);
+    (*(Device_3245d0 * *)&this->f_04)->FUN_00324270(skin);
     skin->active = 1;
-    device->v47(0, &data);
+    (*(Device_3245d0 * *)&this->f_04)->v47(0, &data);
     skin->s9(0x5654494c, &data);
     if (skin->s22())
         skin->s24();

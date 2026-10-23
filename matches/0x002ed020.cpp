@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 #include "gen/physics.h"
-struct Environment_2ed020 {
+struct Environment_nv_2ed020 {
     physics::Environment* Init();
 };
 extern "C" void* __cdecl Alloc(hulk_uintptr);
@@ -10,7 +10,7 @@ void __cdecl Target() {
     if (p == 0) {
         p = (physics::Environment*)Alloc(0x38);
         if (p != 0)
-            p = ((Environment_2ed020*)(p))->Init();
+            p = ((Environment_nv_2ed020*)(((physics::Environment*)(p))))->Init();
         else
             p = 0;
         gObj_2ed020 = p;

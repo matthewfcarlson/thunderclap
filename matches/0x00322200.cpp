@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 namespace D3D8 {
 void __fastcall D3DDevice_SetVertexShaderConstantNotInline(int, const void*, int);
 }
@@ -23,22 +25,19 @@ struct Device_322200 {
     virtual void slot17();
     virtual unsigned int slot18(int);
 };
-struct Matrix {
+struct Matrix_322200 {
     float m[16];
     void FUN_0022ca90(unsigned int, unsigned int);
     void FUN_0022c0b0();
 };
-struct d3dExtHardwareSkinning {
-    void* vptr;
-    Device_322200* device;
-    void vfunc_5(int index, unsigned int value);
-};
-void d3dExtHardwareSkinning::vfunc_5(int index, unsigned int value) {
-    unsigned int result = device->slot18(0);
-    Matrix matrix;
+
+} // namespace pure3d
+void pure3d::d3dExtHardwareSkinning::vfunc_5(int index, int __p1) { unsigned int value = (unsigned int)__p1;
+
+    unsigned int result = (*(Device_322200 * *)&this->f_04)->slot18(0);
+    Matrix_322200 matrix;
     matrix.FUN_0022ca90(value, result);
-    Matrix transformed = matrix;
+    Matrix_322200 transformed = matrix;
     transformed.FUN_0022c0b0();
     D3D8::D3DDevice_SetVertexShaderConstantNotInline(index * 3 + 0x71, &transformed, 12);
 }
-} // namespace pure3d

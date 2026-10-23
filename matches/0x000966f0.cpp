@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/pure3d.h"
 extern "C" hulk_intptr Alloc(hulk_intptr);
 class Inner_966f0 {
   public:
@@ -10,24 +11,20 @@ class Inner_966f0 {
     virtual void f();
     virtual void Send(int, int);
 };
-class Shader_966f0 {
-  public:
-    virtual void v0();
-    Shader_966f0* Init();
-    char pad[12];
-    Inner_966f0* inner;
+struct Shader_nv_966f0 {
+    pure3d::Shader* Init();
 };
 extern "C" unsigned char gEnabled_966f0;
-extern "C" Shader_966f0* gObject_966f0;
+extern "C" pure3d::Shader* gObject_966f0;
 void Target() {
     if (gEnabled_966f0 && gObject_966f0 == 0) {
-        Shader_966f0* p = (Shader_966f0*)Alloc(0x20);
+        pure3d::Shader* p = (pure3d::Shader*)Alloc(0x20);
         if (p)
-            p = p->Init();
+            p = ((Shader_nv_966f0*)(p))->Init();
         else
             p = 0;
         gObject_966f0 = p;
-        gObject_966f0->v0();
-        gObject_966f0->inner->Send(0x444d4c42, 1);
+        gObject_966f0->vfunc_0();
+        (*(Inner_966f0 * *)&gObject_966f0->f_10)->Send(0x444d4c42, 1);
     }
 }

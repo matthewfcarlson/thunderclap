@@ -1,15 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 14900 inputs, branch coverage 18/18)
 // hulkfight::scenario::LuaCondition::vfunc_6 @ 0x001a14f0
 // cl-flags: /GS
+#include "gen/hulkfight.h"
+
 #include "compat/ptr.h"
 namespace fight {
-class Params {
+class Params_1a14f0 {
 public:
     virtual void v0();
 };
 }
 
-class CFightParams : public fight::Params {
+class CFightParams_1a14f0 : public fight::Params_1a14f0 {
 public:
     virtual void v1();
 };
@@ -19,7 +21,7 @@ struct Blob_1a14f0 {
     void FUN_001cb170();
 };
 
-class CScenarioParams : public fight::Params {
+class CScenarioParams_1a14f0 : public fight::Params_1a14f0 {
 public:
     virtual void v1();
     char pad[4];
@@ -27,14 +29,13 @@ public:
     Blob_1a14f0 *FUN_001d03c0();
 };
 
-
 struct LuaMgr {
     char pad0[8];
     void *L;
     bool FUN_001d1cb0();
     void FUN_001d1d50(const char *name, char *buf);
     bool FUN_001d1d30();
-    void FUN_001d2ee0(CFightParams *p);
+    void FUN_001d2ee0(CFightParams_1a14f0 *p);
     int FUN_001d35a0(const char *chunk, char *name, hulk_intptr len);
 };
 
@@ -47,23 +48,8 @@ void FUN_00212d80(void *L, int idx);
 unsigned int FUN_001d0440();
 void FUN_001d0430(unsigned int v);
 
+bool hulkfight::scenario::LuaCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; fight::Params_1a14f0 * params = (fight::Params_1a14f0 *)__p1; int c = (int)__p2;
 
-class LuaCondition {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual bool vfunc_6(int a, fight::Params *params, int c);
-    char pad[0xc - 4];
-    const char *script;
-    int scriptLen;
-};
-
-bool LuaCondition::vfunc_6(int a, fight::Params *params, int c)
-{
     struct Frame {
         char pad[0x18];
         char buf[0x100];
@@ -79,7 +65,7 @@ bool LuaCondition::vfunc_6(int a, fight::Params *params, int c)
     mgr->FUN_001d1cb0();
     mgr->FUN_001d1d50("node", fr.buf);
     mgr->FUN_001d1d30();
-    CScenarioParams *sp = dynamic_cast<CScenarioParams *>(params);
+    CScenarioParams_1a14f0 *sp = dynamic_cast<CScenarioParams_1a14f0 *>(params);
     if (sp != 0) {
         unsigned int v = sp->f8;
         if (FUN_001d0440() != v) {
@@ -88,19 +74,19 @@ bool LuaCondition::vfunc_6(int a, fight::Params *params, int c)
             fr.copy.FUN_001cb170();
         }
     } else {
-        CFightParams *fp = dynamic_cast<CFightParams *>(params);
+        CFightParams_1a14f0 *fp = dynamic_cast<CFightParams_1a14f0 *>(params);
         if (fp != 0)
             mgr->FUN_001d2ee0(fp);
     }
-    const char *chunk = script;
+    const char *chunk = (*(const char * *)&this->f_0c);
     if (chunk == 0) {
         return false;
     }
-    hulk_intptr len = scriptLen;
+    hulk_intptr len = this->f_10;
     bool allocated = false;
     if (*chunk != 0x1b) {
         char *tmp = (char *)FUN_0008d6d0(len + 0x10);
-        FUN_00267760(tmp, scriptLen + 0x10, "return (%s)", script);
+        FUN_00267760(tmp, this->f_10 + 0x10, "return (%s)", (*(const char * *)&this->f_0c));
         allocated = true;
         chunk = tmp;
         const char *e = tmp;

@@ -3,7 +3,7 @@
 #include "gen/global.h"
 typedef unsigned int uint;
 extern "C" void* __cdecl FUN_0008d690(uint);
-struct FEShaderAnimation_f28c0 {
+struct FEShaderAnimation_nv_f28c0 {
     int make(void*, void*);
 };
 struct Y_f28c0 {
@@ -16,7 +16,7 @@ hulk_intptr Y_f28c0::f(void* p) {
     if (!field)
         return 0;
     FEShaderAnimation* x = (FEShaderAnimation*)FUN_0008d690(0x60);
-    hulk_intptr r = x ? ((FEShaderAnimation_f28c0*)(x))->make(field, p) : 0;
+    hulk_intptr r = x ? ((FEShaderAnimation_nv_f28c0*)(((FEShaderAnimation*)(x))))->make(field, p) : 0;
     int i = 0;
     do {
         if (slots[i] == 0) {

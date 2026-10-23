@@ -21,7 +21,7 @@ struct Key_437a0 {
 };
 
 
-struct CFightParamsCollision_437a0 {
+struct CFightParamsCollision_nv_437a0 {
     CFightParamsCollision* FUN_000598e0(int first, void* params);
 };
 
@@ -194,7 +194,7 @@ char Unit_437a0::FUN_000437a0(float dt, Params_437a0* p, Vec3_437a0* where, Acto
     }
     CFightParamsCollision* ev = (CFightParamsCollision*)FUN_0008d690(0xb0);
     if (ev != 0)
-        ev = ((CFightParamsCollision_437a0*)(ev))->FUN_000598e0(f10->first, p);
+        ev = ((CFightParamsCollision_nv_437a0*)(((CFightParamsCollision*)(ev))))->FUN_000598e0(f10->first, p);
     else
         ev = 0;
     ev->vfunc_0();
