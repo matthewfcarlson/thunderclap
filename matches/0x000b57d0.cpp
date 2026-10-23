@@ -11,9 +11,9 @@ class Item {
     char pad[20];
     Sub sub;
 };
-extern Item* Find(const char*);
+extern Item* FUN_000fc260(const char*);
 void __stdcall Hint(int x) {
-    Item* p = Find("side_mission_fail_hint");
+    Item* p = FUN_000fc260("side_mission_fail_hint");
     if (p && &p->sub) {
         p->sub.Show(x, 0, 1);
         p->d();

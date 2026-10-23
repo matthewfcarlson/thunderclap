@@ -1,6 +1,6 @@
-extern int __cdecl Cast(void*, int, void*, void*, int);
-extern void* gA;
-extern void* gB;
+extern int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern void* DAT_0049850c;
+extern void* DAT_004996b8;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -14,5 +14,5 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
 };
 } // namespace fight
 bool fight::TrackFactoryCasterTemplate::vfunc_0(void* p) {
-    return Cast(p, 0, &gA, &gB, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004996b8, 0) != 0;
 }

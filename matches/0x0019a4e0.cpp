@@ -1,4 +1,4 @@
-extern "C" int __cdecl check(void*, int, void*, void*, int);
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -15,8 +15,8 @@ namespace motion {
 class FireBeamTrack {};
 } // namespace motion
 } // namespace hulkfight
-extern void* a;
-extern void* b;
+extern void* DAT_0049850c;
+extern void* DAT_004c0f88;
 template <> int fight::TrackFactoryCasterTemplate<hulkfight::motion::FireBeamTrack>::vfunc_0(void* p) {
-    return check(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004c0f88, 0) != 0;
 }

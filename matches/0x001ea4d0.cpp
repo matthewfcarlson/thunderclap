@@ -1,6 +1,6 @@
-extern "C" unsigned char __cdecl Func(const void*);
-extern int X;
-extern int Y;
+#include "decls/address.h"
+extern int DAT_0048e100;
+extern int DAT_0048e134;
 class Function_1ea4d0 {
   public:
     Function_1ea4d0(int, int);
@@ -15,8 +15,8 @@ class Method1 : public Function_1ea4d0 {
     char pad2[3];
     int value;
     Method1(int x, int v) : Function_1ea4d0(x, 1), value(v) {
-        c = Func(&X);
-        b = Func(&Y);
+        c = FUN_001d04d0(&DAT_0048e100);
+        b = FUN_001d04d0(&DAT_0048e134);
     }
     virtual void run();
 };

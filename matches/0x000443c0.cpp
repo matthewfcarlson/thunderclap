@@ -1,4 +1,4 @@
-unsigned __int64 __cdecl FUN_0027b020(void*);
+#include "decls/address.h"
 class CCharacter_443c0 {
   public:
     char pad[0x3f0];

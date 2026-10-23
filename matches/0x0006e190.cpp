@@ -1,6 +1,6 @@
 extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern int a;
-extern int b;
+extern int DAT_0049850c;
+extern int DAT_0049a410;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -14,5 +14,5 @@ class TrackFactoryCasterTemplate_COpportunityBallTrack : public TrackFactoryCast
 };
 } // namespace fight
 int fight::TrackFactoryCasterTemplate_COpportunityBallTrack::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_0049a410, 0) != 0;
 }

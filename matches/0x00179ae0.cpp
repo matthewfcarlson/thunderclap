@@ -1,6 +1,6 @@
-extern int gTypeA;
-extern int gTypeB;
-extern "C" void* __cdecl CastTrack(void*, int, const void*, const void*, int);
+extern int DAT_0049850c;
+extern int DAT_004bae48;
+extern "C" void* __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -19,5 +19,5 @@ class VisibilityTrack;
 }
 } // namespace hulkfight
 template <> int fight::TrackFactoryCasterTemplate<hulkfight::motion::VisibilityTrack>::vfunc_0(void* p) {
-    return CastTrack(p, 0, &gTypeA, &gTypeB, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004bae48, 0) != 0;
 }

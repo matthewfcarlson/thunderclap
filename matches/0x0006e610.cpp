@@ -1,5 +1,5 @@
 extern int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern int gA, gB;
+extern int DAT_0049850c, DAT_0049ae78;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -14,5 +14,5 @@ template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster 
 } // namespace fight
 class CSnapToWallTrack {};
 template <> bool fight::TrackFactoryCasterTemplate<CSnapToWallTrack>::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &gA, &gB, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_0049ae78, 0) != 0;
 }

@@ -1,4 +1,4 @@
-extern void* vA[];
+extern void* DAT_004316e8[];
 struct SubA_2f7ee0 {
     char pad[0x88];
     void Init() throw();
@@ -13,7 +13,7 @@ struct Cfg_2f7ee0 {
     int pad2;
     int b;
 };
-extern Cfg_2f7ee0* g_cfg;
+extern Cfg_2f7ee0* DAT_00554c10;
 struct CollisionWall_2f7ee0 {
     char pad[0x60];
     CollisionWall_2f7ee0* Ctor() throw();
@@ -46,7 +46,7 @@ class ImpulseBasedCollisionSolver_2f7ee0 {
     ImpulseBasedCollisionSolver_2f7ee0() throw();
 };
 ImpulseBasedCollisionSolver_2f7ee0::ImpulseBasedCollisionSolver_2f7ee0() throw() {
-    vptr = vA;
+    vptr = DAT_004316e8;
     m4 = 0;
     m8 = 0;
     sa.Init();
@@ -55,8 +55,8 @@ ImpulseBasedCollisionSolver_2f7ee0::ImpulseBasedCollisionSolver_2f7ee0() throw()
     s3.Init();
     cf4 = 0;
     mf8 = 3;
-    me8 = g_cfg->b;
-    mec = g_cfg->a;
+    me8 = DAT_00554c10->b;
+    mec = DAT_00554c10->a;
     CollisionWall_2f7ee0* p = (CollisionWall_2f7ee0*)FUN_0008d690(0x60);
     CollisionWall_2f7ee0* q = p ? p->Ctor() : 0;
     CollisionObject_2f7ee0* r = (CollisionObject_2f7ee0*)thunk_FUN_0008d690(0x80);

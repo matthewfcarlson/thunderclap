@@ -1,6 +1,6 @@
-extern char __cdecl ReadFlag(const char*);
-extern char flagA[];
-extern char flagB[];
+#include "decls/address.h"
+extern char DAT_0048e100[];
+extern char DAT_0048e128[];
 class Function_1c00d0 {
   public:
     Function_1c00d0(void*, int);
@@ -11,8 +11,8 @@ class Method1 : public Function_1c00d0 {
   public:
     Method1(void* a, void* c) : Function_1c00d0(a, 1) {
         p = c;
-        y = ReadFlag(flagA);
-        x = ReadFlag(flagB);
+        y = FUN_001d04d0(DAT_0048e100);
+        x = FUN_001d04d0(DAT_0048e128);
     }
     virtual void Run();
     char x;

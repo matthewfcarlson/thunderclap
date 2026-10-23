@@ -1,9 +1,9 @@
 typedef unsigned int uint;
-extern uint* gState_113e0;
+extern uint* DAT_004e5acc;
 int Random(int low, int high) {
-    uint* p = gState_113e0;
-    uint* q = gState_113e0 + 1;
-    *gState_113e0 = (*gState_113e0 & 65535) * 36969 + (*gState_113e0 >> 16);
+    uint* p = DAT_004e5acc;
+    uint* q = DAT_004e5acc + 1;
+    *DAT_004e5acc = (*DAT_004e5acc & 65535) * 36969 + (*DAT_004e5acc >> 16);
     uint b = *q;
     b = (b & 65535) * 18000 + (b >> 16);
     *q = b;

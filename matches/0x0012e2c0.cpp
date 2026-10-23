@@ -1,6 +1,6 @@
 typedef unsigned int size_t;
-extern "C" void free(void*);
-extern "C" void* malloc(size_t);
+extern "C" void FUN_0008d340(void*);
+extern "C" void* FUN_0008d6d0(size_t);
 extern "C" size_t strlen(const char*);
 extern "C" char* strcpy(char*, const char*);
 class X {
@@ -11,12 +11,12 @@ class X {
     bool Set(const char* s);
 };
 bool X::Set(const char* s) {
-    free(str);
+    FUN_0008d340(str);
     if (!s) {
         str = 0;
         return true;
     }
-    str = (char*)malloc(strlen(s) + 1);
+    str = (char*)FUN_0008d6d0(strlen(s) + 1);
     strcpy(str, s);
     return true;
 }

@@ -1,6 +1,6 @@
-extern "C" int __cdecl Check(void*, int, void*, void*, int);
-extern void* gA;
-extern void* gB;
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern void* DAT_0049850c;
+extern void* DAT_0049b198;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -14,5 +14,5 @@ class TrackFactoryCasterTemplate_CUninterruptibleTrack : public TrackFactoryCast
 };
 } // namespace fight
 int fight::TrackFactoryCasterTemplate_CUninterruptibleTrack::Cast(void* p) {
-    return Check(p, 0, &gA, &gB, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_0049b198, 0) != 0;
 }

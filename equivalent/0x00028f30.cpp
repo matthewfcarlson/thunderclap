@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00028f30 @ 0x00028f30
+#include "decls/address.h"
 typedef unsigned __int64 U64;
-U64 __cdecl FUN_002672f0(const char *, int, int);
 struct Result { char pad[0xb4]; int value; };
 struct Item { char pad[0x1ca0]; struct Query *query; };
 struct Query { Result *FUN_000fdc40(); };

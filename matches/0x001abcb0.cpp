@@ -1,6 +1,6 @@
 extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern void* a;
-extern void* b;
+extern void* DAT_00491ca8;
+extern void* DAT_004c3280;
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -20,5 +20,5 @@ class Event_WaypointCondition;
 } // namespace hulkfight
 template <>
 int fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Event_WaypointCondition>::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004c3280, 0) != 0;
 }

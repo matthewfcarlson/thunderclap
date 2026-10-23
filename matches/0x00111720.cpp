@@ -1,6 +1,6 @@
-extern int gOne;
-extern int gTwo;
-extern "C" int __cdecl factoryCheck(void*, int, int*, int*, int);
+extern int DAT_0049850c;
+extern int DAT_004a4558;
+extern "C" int __cdecl FUN_00344e74(void*, int, int*, int*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -19,5 +19,5 @@ class TokenSupressTrack;
 }
 } // namespace hulkfight
 template <> int fight::TrackFactoryCasterTemplate<hulkfight::ai::TokenSupressTrack>::vfunc_0(void* p) {
-    return factoryCheck(p, 0, &gOne, &gTwo, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004a4558, 0) != 0;
 }

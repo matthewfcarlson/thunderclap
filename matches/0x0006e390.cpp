@@ -1,7 +1,7 @@
 class CSmartPropAttachTrack;
-extern void* gA;
-extern void* gB;
-extern "C" int Find(void*, int, void*, void*, int);
+extern void* DAT_0049850c;
+extern void* DAT_0049a878;
+extern "C" int FUN_00344e74(void*, int, void*, void*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -14,6 +14,6 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
     virtual void vfunc_1();
 };
 int TrackFactoryCasterTemplate::vfunc_0(void* p) {
-    return Find(p, 0, &gA, &gB, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_0049a878, 0) != 0;
 }
 } // namespace fight

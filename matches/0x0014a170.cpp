@@ -1,5 +1,5 @@
 class Track {};
-extern int __cdecl Cast(Track*, int, void*, void*, int);
+extern int __cdecl FUN_00344e74(Track*, int, void*, void*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -12,7 +12,7 @@ class CivilianCaster : public TrackFactoryCaster {
     virtual void vfunc_1();
 };
 } // namespace fight
-extern int gA, gB;
+extern int DAT_0049850c, DAT_004af890;
 bool fight::CivilianCaster::vfunc_0(Track* p) {
-    return Cast(p, 0, &gA, &gB, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004af890, 0) != 0;
 }

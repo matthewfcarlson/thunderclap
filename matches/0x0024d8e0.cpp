@@ -1,5 +1,5 @@
+#include "decls/address.h"
 typedef unsigned __int64 U64;
-U64 __cdecl FUN_002672f0(const char*, int, int);
 namespace audio {
 class ListenerEffectGcBase {
   public:

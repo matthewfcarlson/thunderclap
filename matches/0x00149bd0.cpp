@@ -1,5 +1,5 @@
-extern "C" int __cdecl match(void*, void*, void*, void*, int);
-extern int a, b;
+extern "C" int __cdecl FUN_00344e74(void*, void*, void*, void*, int);
+extern int DAT_00491ca8, DAT_004aefb8;
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -18,5 +18,5 @@ class GrappleAttachJointCondition {};
 } // namespace hulkfight
 template <>
 bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::GrappleAttachJointCondition>::vfunc_0(void* p) {
-    return match(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004aefb8, 0) != 0;
 }

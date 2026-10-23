@@ -1,6 +1,6 @@
-extern "C" int __cdecl lookup(void*, int, void*, void*, int);
-extern void* a;
-extern void* b;
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern void* DAT_0049850c;
+extern void* DAT_00498e3c;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -15,5 +15,5 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
 };
 } // namespace fight
 int fight::TrackFactoryCasterTemplate::vfunc_0(void* p) {
-    return lookup(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_00498e3c, 0) != 0;
 }

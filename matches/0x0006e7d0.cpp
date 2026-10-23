@@ -1,6 +1,6 @@
 class CWallSlideTrack;
-extern int __cdecl Factory(CWallSlideTrack*, int, void*, void*, int);
-extern int a, b;
+extern int __cdecl FUN_00344e74(CWallSlideTrack*, int, void*, void*, int);
+extern int DAT_0049850c, DAT_0049b224;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -13,6 +13,6 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
     virtual void vfunc_1();
 };
 bool TrackFactoryCasterTemplate::vfunc_0(CWallSlideTrack* p) {
-    return Factory(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_0049b224, 0) != 0;
 }
 } // namespace fight

@@ -1,3 +1,4 @@
+#include "decls/address.h"
 class Writer_1cb0a0 {
   public:
     bool Open();
@@ -16,12 +17,11 @@ class Look_1cb0a0 {
   public:
     Info_1cb0a0* Find(int id);
 };
-struct G_1cb0a0 {
+struct World {
     char pad[0x44];
     Look_1cb0a0* look;
 };
-extern G_1cb0a0* g_game_1cb0a0;
-Writer_1cb0a0* GetWriter();
+Writer_1cb0a0* FUN_001d4c90();
 class Actor_1cb0a0 {
   public:
     char pad[0x10];
@@ -30,13 +30,13 @@ class Actor_1cb0a0 {
     bool Save();
 };
 bool Actor_1cb0a0::Save() {
-    Writer_1cb0a0* w = GetWriter();
+    Writer_1cb0a0* w = FUN_001d4c90();
     if (!w)
         return false;
     if (!w->Open())
         return false;
     w->Put("tv", &mName);
-    G_1cb0a0* g = g_game_1cb0a0;
+    World* g = DAT_004dd700;
     int id = mId;
     if (!g) {
         w->Close();

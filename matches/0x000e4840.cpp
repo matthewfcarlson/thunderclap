@@ -44,8 +44,8 @@ class FEContainer {
     virtual void f41();
     virtual void f42(int);
 };
-extern char a[], b[];
-extern "C" void helper(void*, int, char*, char*, int);
+extern char DAT_0049f4a4[], DAT_0049f4f0[];
+extern "C" void FUN_00344e74(void*, int, char*, char*, int);
 void FEContainer::f42(int x) {
-    helper(f39(x), 0, b, a, 0);
+    FUN_00344e74(f39(x), 0, DAT_0049f4f0, DAT_0049f4a4, 0);
 }

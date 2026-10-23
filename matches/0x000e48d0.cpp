@@ -47,9 +47,9 @@ class FEContainer {
     virtual void v44();
     virtual void vfunc_45(void*);
 };
-extern int g1;
-extern int g2;
-extern "C" void fun(void*, int, int*, int*, int);
+extern int DAT_0049f454;
+extern int DAT_0049f4f0;
+extern "C" void FUN_00344e74(void*, int, int*, int*, int);
 void FEContainer::vfunc_45(void* p) {
-    fun(v39(p), 0, &g2, &g1, 0);
+    FUN_00344e74(v39(p), 0, &DAT_0049f4f0, &DAT_0049f454, 0);
 }

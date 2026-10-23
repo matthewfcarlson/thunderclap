@@ -16,8 +16,8 @@ class PropThrowTrack {};
 } // namespace motion
 } // namespace hulkfight
 extern int FUN_00344e74(void*, int, void*, void*, int);
-extern void* g1;
-extern void* g2;
+extern void* DAT_0049850c;
+extern void* DAT_004be0d8;
 template <> int fight::TrackFactoryCasterTemplate<hulkfight::motion::PropThrowTrack>::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &g1, &g2, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004be0d8, 0) != 0;
 }

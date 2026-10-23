@@ -3,7 +3,7 @@ class Obj_2f2750 {
   public:
     int method(unsigned int, unsigned int);
 };
-extern Obj_2f2750* gObject_2f2750;
+extern Obj_2f2750* DAT_00554c30;
 extern "C" int FUN_002f2750(unsigned int param_1, unsigned int param_2) {
-    return gObject_2f2750->method(param_1, param_2);
+    return DAT_00554c30->method(param_1, param_2);
 }

@@ -16,9 +16,9 @@ namespace ai {
 class HulkActionCountCondition {};
 } // namespace ai
 } // namespace hulkfight
-extern int a;
-extern int b;
+extern int DAT_00491ca8;
+extern int DAT_004a4120;
 template <>
 int fight::ConditionFactoryCasterTemplate<hulkfight::ai::HulkActionCountCondition>::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004a4120, 0) != 0;
 }

@@ -5,7 +5,7 @@ extern int __cdecl FUN_00263970(void*, Pair_263d40*);
 extern Pair_263d40 __cdecl FUN_00263c90();
 extern void __cdecl FUN_00263bb0(void*, void*);
 extern void __cdecl FUN_002639c0(void*, void*, Pair_263d40*);
-extern int LOOP;
+extern int DAT_004cd4cc;
 class Obj_263d40 {
     char pad[0x18];
     Pair_263d40 value;
@@ -18,9 +18,9 @@ void Obj_263d40::Fn(int a, int b) {
     local.a = a;
     local.b = b;
     Pair_263d40 result = local;
-    if (FUN_00263970(&LOOP, &local))
+    if (FUN_00263970(&DAT_004cd4cc, &local))
         result = FUN_00263c90();
-    FUN_00263bb0(&LOOP, this);
+    FUN_00263bb0(&DAT_004cd4cc, this);
     value = result;
-    FUN_002639c0(&LOOP, this, &value);
+    FUN_002639c0(&DAT_004cd4cc, this, &value);
 }

@@ -8,17 +8,17 @@ class C_1d1c10 {
   public:
     bool f(int);
 };
-int __cdecl A(int);
-int __cdecl B(int, int);
-int __cdecl D(int, int);
+int __cdecl FUN_00212d70(int);
+int __cdecl FUN_00212d80(int, int);
+int __cdecl FUN_00213c50(int, int);
 bool C_1d1c10::f(int p) {
     if (idx < 0)
         return false;
-    int n = A(obj);
+    int n = FUN_00212d70(obj);
     int v = vals[idx];
     if (n != v + 1) {
-        B(obj, v);
+        FUN_00212d80(obj, v);
         return false;
     }
-    return D(obj, p) != 0;
+    return FUN_00213c50(obj, p) != 0;
 }

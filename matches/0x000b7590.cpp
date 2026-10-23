@@ -16,13 +16,13 @@ struct Menu_b7590 {
     void Func();
 };
 
-extern int gA_b7590;
-extern int gB_b7590;
+extern int DAT_0049dba4;
+extern int DAT_0049f4a4;
 extern int FUN_000fc260(const char* s);
 extern Obj2_b7590* __cdecl FUN_00344e74(int a, int b, int* c, int* d, int e);
 
 void Menu_b7590::Func() {
-    Obj2_b7590* o = FUN_00344e74(FUN_000fc260("restart_mission_button"), 0, &gA_b7590, &gB_b7590, 0);
+    Obj2_b7590* o = FUN_00344e74(FUN_000fc260("restart_mission_button"), 0, &DAT_0049dba4, &DAT_0049f4a4, 0);
     if (!o)
         return;
     if (!mInner)

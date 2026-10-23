@@ -1,3 +1,4 @@
+#include "decls/address.h"
 struct Field {
     char space[12];
     Field* FUN_0023fc40(const char*, int);
@@ -11,7 +12,6 @@ struct SeqEventNestTrackType {
 };
 } // namespace audio
 extern void* DAT_004298b0[];
-extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int);
 audio::SeqEventNestTrackType* audio::SeqEventNestTrackType::FUN_0024e670() {
     __int64 id = FUN_002672f0("SeqEventNestTrack", 0, 0);
     Field field;

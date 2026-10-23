@@ -1,11 +1,11 @@
+#include "decls/address.h"
 class CAmbientsManager;
 struct CtorV_001d0480 {
     CtorV_001d0480(void*, int);
     virtual void v_001d0480();
 };
-extern "C" unsigned char __cdecl lookup(const char*);
-extern const char a[];
-extern const char b[];
+extern const char DAT_0048e100[];
+extern const char DAT_0048e128[];
 class Function_7e240 : public CtorV_001d0480 {
   public:
     Function_7e240(void* x) : CtorV_001d0480(x, 1) { }
@@ -21,8 +21,8 @@ class Method1 : public Function_7e240 {
     void* obj;
     Method1(void* x, void* z) : Function_7e240(x) {
         obj = z;
-        flag2 = lookup(a);
-        flag1 = lookup(b);
+        flag2 = FUN_001d04d0(DAT_0048e100);
+        flag1 = FUN_001d04d0(DAT_0048e128);
     }
 };
 class Closure1 : public Method1 {

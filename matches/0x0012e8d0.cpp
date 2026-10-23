@@ -1,5 +1,5 @@
-extern "C" void free(void*);
-extern "C" void* malloc(unsigned int);
+extern "C" void FUN_0008d340(void*);
+extern "C" void* FUN_0008d6d0(unsigned int);
 extern "C" unsigned int strlen(const char*);
 inline void Copy(char* dst, const char* src) {
     char c;
@@ -18,12 +18,12 @@ class X {
     char Set(const char* s);
 };
 char X::Set(const char* s) {
-    free(str);
+    FUN_0008d340(str);
     if (!s) {
         str = 0;
         return 1;
     }
-    char* d = (char*)malloc(strlen(s) + 1);
+    char* d = (char*)FUN_0008d6d0(strlen(s) + 1);
     str = d;
     Copy(d, s);
     return 1;

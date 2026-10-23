@@ -1,6 +1,6 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable_e8730[];
-extern void* g_vftable2[];
+extern void* DAT_0040c390[];
+extern void* DAT_0040bfc0[];
 class Ref_e8730 {
   public:
     virtual void F0();
@@ -18,7 +18,7 @@ class FEPoseAnimation_e8730 {
     ~FEPoseAnimation_e8730() throw();
 };
 FEPoseAnimation_e8730::~FEPoseAnimation_e8730() throw() {
-    vptr = g_vftable_e8730;
+    vptr = DAT_0040c390;
     _ReadWriteBarrier();
     if (mc) {
         mc->Release();
@@ -28,7 +28,7 @@ FEPoseAnimation_e8730::~FEPoseAnimation_e8730() throw() {
         m60->Release();
         m60 = 0;
     }
-    vptr = g_vftable2;
+    vptr = DAT_0040bfc0;
     _ReadWriteBarrier();
     if (mc) {
         mc->Release();

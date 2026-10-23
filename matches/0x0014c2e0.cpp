@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 extern "C" char DAT_00413578[];
-extern "C" void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 class Base_14c2e0 {
   public:
     virtual void A();
@@ -26,7 +26,7 @@ class Factory_14c2e0 : public Base_14c2e0 {
     void* F();
 };
 void* Factory_14c2e0::F() {
-    Factory_14c2e0* p = (Factory_14c2e0*)alloc(0x18);
+    Factory_14c2e0* p = (Factory_14c2e0*)FUN_0008d690(0x18);
     if (p) {
         ((Cond_14c2e0*)p)->Init(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00413578);

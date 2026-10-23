@@ -1,4 +1,4 @@
-extern "C" int __cdecl FindType(void*, int, void*, void*, int);
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -15,9 +15,9 @@ namespace motion {
 class CivilianAttachedCondition {};
 } // namespace motion
 } // namespace hulkfight
-extern void* a;
-extern void* b;
+extern void* DAT_00491ca8;
+extern void* DAT_004af148;
 template <>
 bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::CivilianAttachedCondition>::vfunc_0(void* p) {
-    return FindType(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004af148, 0) != 0;
 }

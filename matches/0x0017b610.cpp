@@ -1,5 +1,5 @@
 #include "compat/ptr.h"
-extern int DriftVTable;
+extern int DAT_00417ed8;
 
 struct VObj_17b610 {
   public:
@@ -10,7 +10,7 @@ struct Sub38_17b610 {
     void Fn();
 };
 
-void __cdecl opdel(void* p);
+void __cdecl FUN_0008d330(void* p);
 
 class DriftToPositionAction {
   public:
@@ -33,7 +33,7 @@ class DriftToPositionAction {
 
 DriftToPositionAction* DriftToPositionAction::vfunc_2(unsigned char param) {
     volatile unsigned int* p = (volatile unsigned int*)this;
-    p[0] = (hulk_uintptr)&DriftVTable;
+    p[0] = (hulk_uintptr)&DAT_00417ed8;
     VObj_17b610* m = (VObj_17b610*)p[8];
     if (m != 0) {
         m->f1();
@@ -46,7 +46,7 @@ DriftToPositionAction* DriftToPositionAction::vfunc_2(unsigned char param) {
     m38.Fn();
     Cleanup();
     if (param & 1) {
-        opdel((void*)this);
+        FUN_0008d330((void*)this);
     }
     return this;
 }

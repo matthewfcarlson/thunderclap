@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00250290 @ 0x00250290
+#include "decls/address.h"
 typedef unsigned __int64 U64;
 extern "C" void * __cdecl memcpy(void *, const void *, unsigned int);
-U64 __cdecl FUN_002672f0(const char *, int, int);
 struct WaitName {
     char data[12];
     WaitName *FUN_0023fc40(const char *, int);

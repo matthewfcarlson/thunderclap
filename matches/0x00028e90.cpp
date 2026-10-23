@@ -1,4 +1,4 @@
-extern "C" __int64 __cdecl parse(const char*, int, int);
+#include "decls/address.h"
 class End {
   public:
     void act(int, int, int);
@@ -19,7 +19,7 @@ class Main {
     void fn(const char*, int);
 };
 void Main::fn(const char* text, int x) {
-    Obj* o = lookup(parse(text, 0, 0));
+    Obj* o = lookup(FUN_002672f0(text, 0, 0));
     if (!o)
         return;
     if (!o->mid)

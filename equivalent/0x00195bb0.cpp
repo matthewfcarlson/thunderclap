@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3047 inputs, branch coverage 58/58)
 // hulkfight::motion::ProjectileEffect::vfunc_4 @ 0x00195bb0
 #include "compat/ptr.h"
+#include "decls/address.h"
 union FloatBits {
     float f;
     unsigned u;
@@ -84,13 +85,12 @@ struct ImpactEvents {
     void FUN_001f6cd0(unsigned effect, unsigned object, hulk_uintptr point, hulk_uintptr normal, hulk_uintptr direction,
                       unsigned count, unsigned a, unsigned b, unsigned c, unsigned d);
 };
-struct GlobalContext {
+struct World {
     char pad[0x38];
     ImpactEvents* events;
     char pad3c[8];
     Registry* registry;
 };
-extern GlobalContext* DAT_004dd700;
 unsigned FUN_00098190(float dt, unsigned speed, unsigned distance, unsigned z1, hulk_uintptr object, unsigned z2,
                       hulk_uintptr position, hulk_uintptr direction, unsigned z3, unsigned z4, unsigned z5,
                       unsigned one);
@@ -190,7 +190,7 @@ void hulkfight::motion::ProjectileEffect::vfunc_4(float dt) {
     position.y = frame.orientation.y * dt + position.y;
     position.z = frame.orientation.z * dt + position.z;
 
-    GlobalContext* context = DAT_004dd700;
+    World* context = DAT_004dd700;
     frame.material.u = 0;
     hulk_uintptr materialObject = context->registry->FUN_00059c10(owner);
     if (materialObject)
@@ -324,7 +324,7 @@ void hulkfight::motion::ProjectileEffect::vfunc_4(float dt) {
     if (frame.effect) {
         int count = ((volatile ProjectileConfig*)config)->impactCount;
         if (count > 0)
-            ((GlobalContext*)frame.context)
+            ((World*)frame.context)
                 ->events->FUN_001f6cd0(frame.effect, frame.object, (hulk_uintptr)&frame.point,
                                        (hulk_uintptr)&frame.normal, (hulk_uintptr)&direction, count - 1, 0x3f800000,
                                        0x3f800000, 0, 0);

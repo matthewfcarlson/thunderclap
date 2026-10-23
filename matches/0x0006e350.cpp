@@ -12,7 +12,7 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
 };
 } // namespace fight
 extern int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern int a, b;
+extern int DAT_0049850c, DAT_0049a7e4;
 bool fight::TrackFactoryCasterTemplate::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_0049a7e4, 0) != 0;
 }

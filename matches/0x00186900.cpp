@@ -1,4 +1,4 @@
-extern "C" int __cdecl Check(void*, int, void*, void*, int);
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -16,8 +16,8 @@ namespace motion {
 class PropAtRestCondition {};
 } // namespace motion
 } // namespace hulkfight
-extern int a, b;
+extern int DAT_00491ca8, DAT_004bd670;
 template <>
 int fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropAtRestCondition>::vfunc_0(void* p) {
-    return Check(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004bd670, 0) != 0;
 }

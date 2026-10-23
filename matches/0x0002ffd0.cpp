@@ -1,10 +1,10 @@
+#include "decls/address.h"
 struct CtorV_001d0480 {
     CtorV_001d0480(void*, int);
     virtual void v_001d0480();
 };
-extern "C" unsigned char check(const char*);
-extern char strA[];
-extern char strB[];
+extern char DAT_0048e0e4[];
+extern char DAT_0048e100[];
 class Function_2ffd0 : public CtorV_001d0480 {
   public:
     Function_2ffd0(void* a) : CtorV_001d0480(a, 1) { }
@@ -20,8 +20,8 @@ class Method1 : public Function_2ffd0 {
     void* data;
     Method1(void* a, void* c) : Function_2ffd0(a) {
         data = c;
-        flagB = check(strB);
-        flagA = check(strA);
+        flagB = FUN_001d04d0(DAT_0048e100);
+        flagA = FUN_001d04d0(DAT_0048e0e4);
     }
 };
 class Closure1 : public Method1 {

@@ -6,8 +6,8 @@ class Owner {
   public:
     void Apply(void*);
 };
-void* __cdecl Find(const char*, ConditionFactoryCasterTemplate_1ac220*);
+void* __cdecl FUN_002343e0(const char*, ConditionFactoryCasterTemplate_1ac220*);
 void FUN_001ac220(Owner* owner, const char* name) {
     ConditionFactoryCasterTemplate_1ac220 c;
-    owner->Apply(Find(name, &c));
+    owner->Apply(FUN_002343e0(name, &c));
 }

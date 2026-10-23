@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00142940 @ 0x00142940
+#include "decls/address.h"
 namespace pure3d { struct Animation {}; }
 namespace content { namespace LoadInventory {
 template<class T> struct DynamicCaster { virtual void cast(); };
@@ -11,9 +12,8 @@ struct Inventory {
     virtual int slot3(content::LoadInventory::DynamicCaster<pure3d::Animation>*, int, int);
 };
 struct Provider { Inventory* FUN_00203d70(); };
-struct Manager { char pad[0x54]; struct Service* service; };
+struct World { char pad[0x54]; struct Service* service; };
 struct Service { Provider* FUN_000862a0(); };
-extern Manager* DAT_004dd700;
 struct Pair { int first; int second; };
 // equiv-conv: FUN_00142940 eax
 int FUN_00142940(Pair* pair) {

@@ -5,7 +5,7 @@ class A {
   public:
     V* Get();
 };
-A* __cdecl make();
+A* __cdecl FUN_001c3d90();
 V __stdcall target() {
-    return *make()->Get();
+    return *FUN_001c3d90()->Get();
 }

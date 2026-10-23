@@ -12,25 +12,25 @@ struct State_265c40 {
     hulk_intptr at2c;
     int at30;
 };
-void __cdecl Init(void*);
-void __cdecl Release(void*);
-void __cdecl Free(void*);
-State_265c40* g_state_265c40;
-char g_obj_265c40;
+void __cdecl FUN_0026d7a0(void*);
+void __cdecl FUN_0008d340(void*);
+void __cdecl FUN_0008d330(void*);
+State_265c40* DAT_00527c58;
+char DAT_00527c28;
 void __cdecl FUN_00265c40(void) {
-    State_265c40* s = g_state_265c40;
+    State_265c40* s = DAT_00527c58;
     s->flag = 1;
-    Init((void*)&g_obj_265c40);
+    FUN_0026d7a0((void*)&DAT_00527c28);
     hulk_intptr x = s->at30;
     s->at28 = x;
     s->at2c = x;
     if (x)
-        Release((void*)x);
+        FUN_0008d340((void*)x);
     x = s->at1c;
     s->at14 = x;
     s->at18 = x;
     if (x)
-        Release((void*)x);
-    Free(s);
-    g_state_265c40 = 0;
+        FUN_0008d340((void*)x);
+    FUN_0008d330(s);
+    DAT_00527c58 = 0;
 }

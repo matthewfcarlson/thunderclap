@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 extern "C" void* memset(void*, int, unsigned);
-void* Alloc(hulk_uintptr n);
+void* FUN_0008d6d0(hulk_uintptr n);
 struct Allocator_28c370 { void* Alloc2(unsigned n, int f); };
 class SimpleChannel_28c370 {
   public:
@@ -21,7 +21,7 @@ BoolChannel::BoolChannel(int a, int b) : SimpleChannel_28c370(a, b) {
     int n = ((cnt - 1) >> 5) + 1;
     bits = 0;
     if (m0 == 0)
-        bits = (unsigned*)Alloc(n * 4);
+        bits = (unsigned*)FUN_0008d6d0(n * 4);
     else
         bits = (unsigned*)((Allocator_28c370*)m0)->Alloc2(n * 4, 3);
     memset(bits, 0, n * 4);

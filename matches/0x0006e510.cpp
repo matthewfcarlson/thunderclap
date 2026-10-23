@@ -1,6 +1,6 @@
 extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern void* g1;
-extern void* g2;
+extern void* DAT_0049850c;
+extern void* DAT_0049ac10;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -15,5 +15,5 @@ template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster 
 } // namespace fight
 class CSmartPropSpawnTrack {};
 template <> bool fight::TrackFactoryCasterTemplate<CSmartPropSpawnTrack>::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &g1, &g2, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_0049ac10, 0) != 0;
 }

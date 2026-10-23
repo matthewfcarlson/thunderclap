@@ -1,6 +1,6 @@
 struct TypeDesc;
-extern TypeDesc a, b;
-extern "C" void* __cdecl cast(void*, int, TypeDesc*, TypeDesc*, int);
+extern TypeDesc DAT_00491ca8, DAT_00492f30;
+extern "C" void* __cdecl FUN_00344e74(void*, int, TypeDesc*, TypeDesc*, int);
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -12,6 +12,6 @@ class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
     virtual bool vfunc_0(void*);
 };
 bool ConditionFactoryCasterTemplate::vfunc_0(void* y) {
-    return cast(y, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(y, 0, &DAT_00491ca8, &DAT_00492f30, 0) != 0;
 }
 } // namespace fight

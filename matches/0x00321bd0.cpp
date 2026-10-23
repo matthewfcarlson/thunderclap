@@ -11,9 +11,9 @@ class d3dContext : public pddiBaseContext {
 namespace D3D8 {
 void __fastcall D3DDevice_SetRenderState_Simple(unsigned, unsigned);
 }
-extern unsigned state;
+extern unsigned DAT_0039de30;
 void pure3d::d3dContext::vfunc_70(unsigned x) {
     pddiBaseContext::vfunc_70(x);
     D3D8::D3DDevice_SetRenderState_Simple(0x4036c, x);
-    state = x;
+    DAT_0039de30 = x;
 }

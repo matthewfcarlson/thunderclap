@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20046 inputs, branch coverage 38/38)
 // CTriggerVolumeManager::vfunc_1 @ 0x001ff770
+#include "decls/address.h"
 extern "C" int __cdecl strcmp(const char *a, const char *b);
 extern "C" int __cdecl strncmp(const char *a, const char *b, unsigned n);
 void *__cdecl FUN_00263ea0(unsigned int size);
-unsigned __int64 __cdecl FUN_0027b020(const char *name);
 extern int DAT_00425168[];
 
 struct Tag_1ff770 {
@@ -45,12 +45,11 @@ struct Table_1ff770 {
     Unlocks_1ff770 *FUN_00086340();
 };
 
-struct Globals_1ff770 {
+struct World {
     char pad0[0x54];
     Table_1ff770 *table;
 };
 
-extern Globals_1ff770 *DAT_004dd700;
 
 struct Bucket_1ff770 {
     int count;

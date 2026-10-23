@@ -1,8 +1,8 @@
-extern void* g_vftable_257c90[];
-extern char g_pool_257c90[];
-void F1(void*);
-void F2(void*);
-void Release2(void*, void*);
+extern void* DAT_0042a640[];
+extern char DAT_004e7620[];
+void FUN_00256d40(void*);
+void FUN_00257730(void*);
+void FUN_00247550(void*, void*);
 class Entity_257c90 {
   public:
     void* vptr;
@@ -21,12 +21,12 @@ class Sequence_257c90 : public Entity_257c90 {
     Sequence_257c90* f2(unsigned char flags);
 };
 Sequence_257c90* Sequence_257c90::f2(unsigned char flags) {
-    vptr = g_vftable_257c90;
+    vptr = DAT_0042a640;
     sb.Reset();
-    F1(m3c);
-    F2(m44);
+    FUN_00256d40(m3c);
+    FUN_00257730(m44);
     Fin();
     if (flags & 1)
-        Release2(g_pool_257c90, this);
+        FUN_00247550(DAT_004e7620, this);
     return this;
 }

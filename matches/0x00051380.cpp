@@ -1,4 +1,4 @@
-extern "C" int __cdecl Check(void*, int, void*, void*, int);
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -12,8 +12,8 @@ template <class T> class ConditionFactoryCasterTemplate : public ConditionFactor
 };
 } // namespace fight
 class CSmartPropStateCondition {};
-extern void* a;
-extern void* b;
+extern void* DAT_00491ca8;
+extern void* DAT_00494278;
 template <> bool fight::ConditionFactoryCasterTemplate<CSmartPropStateCondition>::vfunc_0(void* p) {
-    return Check(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_00494278, 0) != 0;
 }

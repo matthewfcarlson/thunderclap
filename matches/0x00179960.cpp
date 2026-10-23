@@ -1,6 +1,6 @@
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
-extern char sourceType;
-extern char targetType;
+extern char DAT_0049850c;
+extern char DAT_004bac38;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -19,5 +19,5 @@ class IntentionClearTrack {};
 } // namespace motion
 } // namespace hulkfight
 template <> int fight::TrackFactoryCasterTemplate<hulkfight::motion::IntentionClearTrack>::vfunc_0(void* p) {
-    return __RTDynamicCast(p, 0, &sourceType, &targetType, 0) != 0;
+    return __RTDynamicCast(p, 0, &DAT_0049850c, &DAT_004bac38, 0) != 0;
 }

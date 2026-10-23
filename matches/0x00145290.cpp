@@ -1,5 +1,5 @@
-extern int gA, gB;
-extern "C" int __cdecl Lookup(void*, int, void*, void*, int);
+extern int DAT_0049850c, DAT_004adf98;
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -18,5 +18,5 @@ class SlowMotionTrack;
 }
 } // namespace hulkfight
 template <> int fight::TrackFactoryCasterTemplate<hulkfight::motion::SlowMotionTrack>::vfunc_0(void* p) {
-    return Lookup(p, 0, &gA, &gB, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004adf98, 0) != 0;
 }

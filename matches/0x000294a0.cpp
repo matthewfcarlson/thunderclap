@@ -1,5 +1,5 @@
+#include "decls/address.h"
 typedef __int64 I64;
-extern "C" I64 __cdecl lookup(const char*, int, int);
 class End {
   public:
     void Work(int, int, int, int);
@@ -20,7 +20,7 @@ class Owner {
     void Run(const char* name, int a, int b, int c, int d);
 };
 void Owner::Run(const char* name, int a, int b, int c, int d) {
-    Holder* h = Find(lookup(name, 0, 0));
+    Holder* h = Find(FUN_002672f0(name, 0, 0));
     if (h && h->value) {
         End* e = h->value->Get();
         if (e)

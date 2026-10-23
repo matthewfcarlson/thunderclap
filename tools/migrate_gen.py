@@ -341,7 +341,8 @@ def pin_transform(rel, addr, text, rtti):
     new = "".join(out)
     for old, nw in renames.items():
         new = tok_rename(new, old, nw)
-    new = insert_include(new, '#include "%s"' % DECLS)
+    if not re.search(r'^\s*#\s*include\s*"%s"' % re.escape(DECLS), new, re.M):
+        new = insert_include(new, '#include "%s"' % DECLS)
     return "pin-decl", new, DECLS, names + ["%s->%s" % kv for kv in renames.items()]
 
 
@@ -582,8 +583,9 @@ def main(argv=None):
                 continue
             text = open(os.path.join(ROOT, rel), encoding="latin1", newline="").read()
             if a.family == "pin":
-                why = (None if any(n in text for n in pins) else "no pinned name") if DECLS not in text else \
-                    "already includes " + DECLS
+                # (a source that includes decls/address.h but still declares a pinned name itself, e.g. one pinned
+                # since, is rewritten too: pin_transform drops its own declaration)
+                why = None if any(n in text for n in pins) else "no pinned name"
             elif a.family == "ns":
                 why = ns_skip(text) or ("its TU is on include/gen/" if rel in gen_tu_srcs else None)
             elif a.family == "rn":

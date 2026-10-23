@@ -3,6 +3,7 @@
 // equiv-conv: FUN_00035e70 eax stack
 // equiv-dead: +0x59 not taken, +0x405 not taken: a2 < 0 (or NaN) cannot also be > 2pi; ii < 100 with bestRank >= 100 is skipped at +0x26e before +0x405
 #include "compat/ptr.h"
+#include "decls/address.h"
 extern "C" double cos(double);
 
 struct V3 {
@@ -59,13 +60,12 @@ struct Mid {
     char pad0[8];
     ListOwner *p8;
 };
-struct Hub {
+struct World {
     char pad0[0x10];
     Mid *p10;
     char pad14[0x24 - 0x14];
     Ray *p24;
 };
-extern Hub *DAT_004dd700;
 
 Thing *__cdecl FUN_000969d0(int a);
 char FUN_00035e70(Thing *t, float score);
@@ -159,7 +159,7 @@ Thing *Picker::FUN_00039c60(V3 *a0, V3 *a1, float a2, float a3, int a4, Thing **
     f.w.x = f.v40.x;
     f.w.y = f.v40.y;
     f.w.z = f.v40.z;
-    Hub *hub = DAT_004dd700;
+    World *hub = DAT_004dd700;
     f.w.y = f.w.y * hh;
     f.best = 0;
     f.w.z = f.w.z * hh;

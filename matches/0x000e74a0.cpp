@@ -1,9 +1,9 @@
-extern int a, b, c;
+extern int DAT_0049f4a4, DAT_0049f4f0, DAT_0049dba4;
 struct ThisWrap_000e74a0 {
     int inner(int);
     int target(int x);
 };
-int __cdecl outer(int, int, int*, int*, int);
+int __cdecl FUN_00344e74(int, int, int*, int*, int);
 int ThisWrap_000e74a0::target(int x) {
-    return outer(outer(this->inner(x), 0, &c, &b, 0), 0, &b, &a, 0);
+    return FUN_00344e74(FUN_00344e74(this->inner(x), 0, &DAT_0049dba4, &DAT_0049f4f0, 0), 0, &DAT_0049f4f0, &DAT_0049f4a4, 0);
 }

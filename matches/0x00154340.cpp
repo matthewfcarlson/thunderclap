@@ -1,6 +1,6 @@
-extern char gType1;
-extern char gType2;
-extern "C" void* __cdecl DynamicCast(void*, int, const void*, const void*, int);
+extern char DAT_00491ca8;
+extern char DAT_004b2328;
+extern "C" void* __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -21,5 +21,5 @@ class CollisionTargetSizeCondition {};
 template <>
 bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::CollisionTargetSizeCondition>::vfunc_0(
     void* p) {
-    return DynamicCast(p, 0, &gType1, &gType2, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004b2328, 0) != 0;
 }

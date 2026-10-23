@@ -3,6 +3,7 @@
 // cl-flags: /GS
 // equiv-map: ___security_cookie = 0x004d9968
 #include "compat/ptr.h"
+#include "decls/address.h"
 typedef unsigned __int64 u64;
 extern "C" int memcmp(const void *a, const void *b, unsigned int n);
 
@@ -138,7 +139,6 @@ struct World {
     char pad34[0x44 - 0x34];
     X *f44;
 };
-extern World *DAT_004dd700;
 extern float DAT_004e58e0;
 extern float DAT_004c83e8;   // tvm_SetSpawnDistanceOffCamera (FUN_001fd4c0), 20 at load
 extern float DAT_004c83ec;   // tvm_SetSpawnDistanceOnCamera (FUN_001fd4d0), 70 at load
@@ -152,8 +152,6 @@ struct HolderObj {
 };
 HolderObj *__cdecl FUN_001c3d90();
 Inst *__cdecl FUN_001d4c90();
-u64 __cdecl FUN_0027b020(const char *s);
-u64 __cdecl FUN_002672f0(const char *s, int a, int b);
 void __cdecl FUN_00267760(char *buf, int n, const char *fmt, ...);
 void __cdecl FUN_00224d70(float a, V3 *v);
 float __cdecl FUN_0004af40(float a, float b, float c);

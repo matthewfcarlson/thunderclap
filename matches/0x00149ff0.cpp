@@ -16,9 +16,9 @@ namespace motion {
 class GrappleHitReactionTrack;
 }
 } // namespace hulkfight
-extern void* gA;
-extern void* gB;
+extern void* DAT_0049850c;
+extern void* DAT_004af720;
 template <>
 bool fight::TrackFactoryCasterTemplate<hulkfight::motion::GrappleHitReactionTrack>::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &gA, &gB, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004af720, 0) != 0;
 }

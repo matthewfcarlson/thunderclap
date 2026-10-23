@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002538a0 @ 0x002538a0
-unsigned __int64 __cdecl FUN_002672f0(const char*, int, int);
+#include "decls/address.h"
 struct Pitch {
     char pad[12];
     Pitch* FUN_0023fc40(const char*, int);

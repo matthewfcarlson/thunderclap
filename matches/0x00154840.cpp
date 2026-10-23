@@ -17,9 +17,9 @@ class CollisionSourceNameCondition {};
 } // namespace motion
 } // namespace hulkfight
 extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern void* g1;
-extern void* g2;
+extern void* DAT_00491ca8;
+extern void* DAT_004b2c00;
 template <>
 int fight::ConditionFactoryCasterTemplate<hulkfight::motion::CollisionSourceNameCondition>::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &g1, &g2, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004b2c00, 0) != 0;
 }

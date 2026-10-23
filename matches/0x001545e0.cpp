@@ -1,5 +1,5 @@
 class CollisionChargeCondition;
-extern "C" int __cdecl Check(void*, int, void*, void*, int);
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -12,8 +12,8 @@ template <class T> class ConditionFactoryCasterTemplate : public ConditionFactor
     virtual void vfunc_1();
 };
 } // namespace fight
-extern void* gA;
-extern void* gB;
+extern void* DAT_00491ca8;
+extern void* DAT_004b27f0;
 template <> int fight::ConditionFactoryCasterTemplate<CollisionChargeCondition>::vfunc_0(void* p) {
-    return Check(p, 0, &gA, &gB, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004b27f0, 0) != 0;
 }

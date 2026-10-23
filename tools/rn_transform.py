@@ -81,13 +81,14 @@ def tok_edit(text, fn):
 
 
 def pin_data_transform(text, renames):
-    """b11/b12: a source's invented names for global data (`extern int a, b;` whose addresses the strict Wine link
-    binds by relocation position) take their address names (`DAT_004985b8`), so two sources merged into one TU no
-    longer declare one invented name for two addresses. `renames`: {invented name: DAT_ name}. Token-level, like
+    """b11/b12: a source's invented names for global data or free functions (`extern int a, b;`, `extern "C" int
+    check(...)`, whose addresses the strict Wine link / verify_relocs bind by relocation position) take their address
+    names (`DAT_004985b8`, `FUN_00344e74`), so two sources merged into one TU no longer declare one invented name for
+    two addresses, nor two names for one. `renames`: {invented name: DAT_/FUN_ name}. Token-level, like
     unclash; refused where the name is also a member name or named on an `// equiv-*` line."""
     eq = equiv_text(text)
     for old, new in renames.items():
-        if not re.fullmatch(r"DAT_[0-9a-f]{8}", new):
+        if not re.fullmatch(r"(DAT|FUN)_[0-9a-f]{8}", new):
             raise SwapFail("not an address name: %s" % new)
         if re.search(r"\b%s\b" % re.escape(old), eq):
             raise SwapFail("%s named on an equiv-* line" % old)
@@ -107,6 +108,38 @@ def pin_data_transform(text, renames):
     if out == text:
         raise SwapFail("nothing renamed")
     return out, "; ".join("%s->%s" % kv for kv in sorted(renames.items()))
+
+
+def canon_decl_transform(text, canon):
+    """b12: a source's own top-level declaration of an address-named function takes one canonical spelling
+    (`canon`: {FUN_ name: declaration text}), so sources merged into one TU declare it identically (an `extern "C"`
+    declaration differing in a parameter's constness, or a C++ one beside it, is a conflict the generator wraps).
+    No header: sources that are not rewritten keep their own. Refused for a name the source also defines."""
+    try:
+        items = cxx_items.parse(text)
+    except ValueError:
+        raise SwapFail("does not parse")
+    cuts = []
+    for it in items:
+        if it.kind != "func" or it.scope or it.name not in canon:
+            continue
+        if "{" in it.text:
+            raise SwapFail("%s is defined here" % it.name)
+        if re.search(r"\b%s\b" % re.escape(it.name), equiv_text(text)):
+            raise SwapFail("%s named on an equiv-* line" % it.name)
+        cuts.append((it.toks[0].s, it.toks[-1].e, canon[it.name], it.name))
+    if not cuts:
+        raise SwapFail("nothing to canonicalize")
+    out, cur = [], 0
+    for s0, e0, new, _n in sorted(cuts):
+        out.append(text[cur:s0])
+        out.append(new)
+        cur = e0
+    out.append(text[cur:])
+    new = "".join(out)
+    if new == text:
+        raise SwapFail("already canonical")
+    return new, ", ".join(sorted(n for _s, _e, _t, n in cuts))
 
 
 def member_uses(text, name):

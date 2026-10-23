@@ -1,5 +1,5 @@
 extern "C" __stdcall unsigned long GetLastError();
-int __stdcall Api(char* path, int flag);
+int __stdcall FUN_00355c13(char* path, int flag);
 
 namespace core {
 class XboxDrive {
@@ -29,7 +29,7 @@ class XboxDrive {
 int XboxDrive::vfunc_15(const char* p) {
     char buf[0x101];
     MakePath(p, buf, 0x101);
-    if (Api(buf, 0)) {
+    if (FUN_00355c13(buf, 0)) {
         mErr = 0;
         return 1;
     }

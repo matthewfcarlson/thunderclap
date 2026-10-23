@@ -4,7 +4,7 @@ struct X {
     unsigned int hi;
     double Get();
 };
-extern const float scale;
+extern const float DAT_003ffaac;
 double X::Get() {
     struct Q {
         unsigned int lo;
@@ -17,5 +17,5 @@ double X::Get() {
     a.hi = h & 0x80000000;
     a.lo = 0;
     double n = -(double)*(__int64*)&a;
-    return (n + v) * scale;
+    return (n + v) * DAT_003ffaac;
 }

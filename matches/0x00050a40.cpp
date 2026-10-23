@@ -1,6 +1,6 @@
 extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern int a;
-extern int b;
+extern int DAT_00491ca8;
+extern int DAT_00492a78;
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -13,5 +13,5 @@ class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
 };
 } // namespace fight
 bool fight::ConditionFactoryCasterTemplate::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_00492a78, 0) != 0;
 }

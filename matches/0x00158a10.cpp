@@ -6,9 +6,9 @@ class Obj {
   public:
     void Set(void*);
 };
-extern "C" void* __cdecl Find(void*, TrackFactoryCasterTemplate_158a10*);
+extern "C" void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_158a10*);
 void __cdecl FUN_00158a10(Obj* obj, void* key) {
     TrackFactoryCasterTemplate_158a10 caster;
-    void* p = Find(key, &caster);
+    void* p = FUN_00236ac0(key, &caster);
     obj->Set(p);
 }

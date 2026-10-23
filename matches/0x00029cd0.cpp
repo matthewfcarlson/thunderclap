@@ -1,4 +1,4 @@
-extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int);
+#include "decls/address.h"
 struct Item {
     char Check();
 };

@@ -1,12 +1,12 @@
 // Same code shape as 0x001ca090 (propagated; names are from that function)
-extern const char checkpoint[];
+extern const char DAT_00421ca8[];
 class Thing_1cadb0 {
   public:
     bool ready();
     void mark(const char*, int);
     void finish();
 };
-Thing_1cadb0* GetThing();
+Thing_1cadb0* FUN_001d4c90();
 class Owner_1cadb0 {
   public:
     char pad[0x14];
@@ -14,12 +14,12 @@ class Owner_1cadb0 {
     bool run();
 };
 bool Owner_1cadb0::run() {
-    Thing_1cadb0* t = GetThing();
+    Thing_1cadb0* t = FUN_001d4c90();
     if (!t)
         return false;
     if (!t->ready())
         return false;
-    t->mark(checkpoint, value);
+    t->mark(DAT_00421ca8, value);
     t->finish();
     return true;
 }

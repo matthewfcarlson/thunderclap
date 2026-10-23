@@ -16,13 +16,13 @@ struct Obj_276340 {
     virtual void f13();
     virtual void f14(void*, void*, void*);
 };
-extern Obj_276340* gObj_276340;
-extern char gData_276340[];
-void init(void*);
+extern Obj_276340* DAT_0052a204;
+extern char DAT_0052a1e8[];
+void FUN_0026d830(void*);
 void target() {
     char a[4], b[4], c[4];
-    init(gData_276340);
-    gObj_276340->f14(a, b, c);
-    gObj_276340->f1();
-    gObj_276340 = 0;
+    FUN_0026d830(DAT_0052a1e8);
+    DAT_0052a204->f14(a, b, c);
+    DAT_0052a204->f1();
+    DAT_0052a204 = 0;
 }

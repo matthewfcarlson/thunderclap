@@ -1,5 +1,5 @@
-extern int a, b;
-extern "C" int __cdecl check(void*, int, const void*, const void*, int);
+extern int DAT_0049850c, DAT_004baa20;
+extern "C" int __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -12,7 +12,7 @@ template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster 
     virtual void vfunc_1();
 };
 template <class T> bool TrackFactoryCasterTemplate<T>::vfunc_0(void* p) {
-    return check(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004baa20, 0) != 0;
 }
 } // namespace fight
 namespace hulkfight {

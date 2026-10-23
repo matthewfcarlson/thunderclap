@@ -1,3 +1,4 @@
+#include "decls/address.h"
 namespace pure3d {
 class CompositeDrawable;
 }
@@ -21,8 +22,7 @@ class LoadInventory {
 };
 } // namespace content
 
-extern content::LoadInventory* gLoader;
-extern "C" __int64 Hash(const char* s);
+extern content::LoadInventory* DAT_004dd9cc;
 
 class FEContainer {
   public:
@@ -38,8 +38,8 @@ void FEContainer::Add(const char* name) {
     do {
         if (*p == 0) {
             if (i < 8) {
-                content::LoadInventory* ld = gLoader;
-                __int64 uid = Hash(name);
+                content::LoadInventory* ld = DAT_004dd9cc;
+                __int64 uid = FUN_0027b020(name);
                 Obj_f2ba0* o = ld->Find(content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>(), uid);
                 items[i] = o;
                 if (o)

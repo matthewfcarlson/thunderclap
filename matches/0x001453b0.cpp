@@ -1,5 +1,5 @@
-extern int g1, g2;
-extern "C" int __cdecl check(void*, int, void*, void*, int);
+extern int DAT_0049850c, DAT_004ae0f0;
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -12,6 +12,6 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
     virtual void vfunc_1();
 };
 int TrackFactoryCasterTemplate::vfunc_0(void* p) {
-    return check(p, 0, &g1, &g2, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004ae0f0, 0) != 0;
 }
 } // namespace fight

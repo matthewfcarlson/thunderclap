@@ -1,4 +1,4 @@
-extern int __cdecl check(void*, int, const void*, const void*, int);
+extern int __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -16,9 +16,9 @@ namespace motion {
 class VelocityAnimatedXZAngleCondition {};
 } // namespace motion
 } // namespace hulkfight
-extern const int a, b;
+extern const int DAT_00491ca8, DAT_004b7708;
 template <>
 bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::VelocityAnimatedXZAngleCondition>::vfunc_0(
     void* p) {
-    return check(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004b7708, 0) != 0;
 }

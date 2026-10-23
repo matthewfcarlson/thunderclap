@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3064 inputs, branch coverage 52/56, incomplete)
 // hulkfight::ai::MotionClosestWaypointAction::vfunc_5 @ 0x0011a250
+#include "decls/address.h"
 extern "C" double sqrt(double);
 
 struct Vec3_11a250 {
@@ -67,7 +68,6 @@ Ent_11a250 *__fastcall FUN_000592a0(void *owner) throw();
 Stats2_11a250 *__fastcall FUN_00059a30(Ent_11a250 *e) throw();
 float __cdecl FUN_0010b1c0(World *w, Stats2_11a250 *s, float thr, Vec3_11a250 *out) throw();
 float __cdecl FUN_000186f0(float *a, float *b) throw();
-extern World *DAT_004dd700;
 
 union Arg1_11a250 {
     int i;

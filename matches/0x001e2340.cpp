@@ -1,7 +1,7 @@
 #include "decls/address.h"
 class CSPManager;
-extern const char a[];
-extern const char b[];
+extern const char DAT_0048e100[];
+extern const char DAT_0048e0e4[];
 class Function_1e2340 {
   public:
     virtual void f();
@@ -18,8 +18,8 @@ class Method1 : public Function_1e2340 {
     void* data;
     Method1(void* p, void* d) : Function_1e2340(p, 1) {
         data = d;
-        y = FUN_001d04d0(a);
-        x = FUN_001d04d0(b);
+        y = FUN_001d04d0(DAT_0048e100);
+        x = FUN_001d04d0(DAT_0048e0e4);
     }
 };
 class Closure1 : public Method1 {

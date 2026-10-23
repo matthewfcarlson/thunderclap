@@ -1,8 +1,8 @@
 struct Info {
     int x;
 };
-extern Info a, b;
-extern "C" int __cdecl cast(void*, int, Info*, Info*, int);
+extern Info DAT_0049850c, DAT_0049a37c;
+extern "C" int __cdecl FUN_00344e74(void*, int, Info*, Info*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -15,6 +15,6 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
     virtual void vfunc_1();
 };
 bool TrackFactoryCasterTemplate::vfunc_0(void* p) {
-    return cast(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_0049a37c, 0) != 0;
 }
 } // namespace fight

@@ -3,9 +3,9 @@ namespace motion {
 class LocomotionStateTrack;
 }
 } // namespace hulkfight
-extern int gTypeA;
-extern int gTypeB;
-extern "C" int __cdecl CastCheck(void*, int, void*, void*, int);
+extern int DAT_0049850c;
+extern int DAT_004ba200;
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -18,6 +18,6 @@ template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster 
     virtual void vfunc_1();
 };
 template <> int TrackFactoryCasterTemplate<hulkfight::motion::LocomotionStateTrack>::vfunc_0(void* p) {
-    return CastCheck(p, 0, &gTypeA, &gTypeB, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004ba200, 0) != 0;
 }
 } // namespace fight

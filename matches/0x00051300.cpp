@@ -1,4 +1,4 @@
-extern "C" int __cdecl CastCheck(void*, int, void*, void*, int);
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -13,6 +13,6 @@ class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
     virtual void vfunc_1();
 };
 int ConditionFactoryCasterTemplate::vfunc_0(void* p) {
-    return CastCheck(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
 }
 } // namespace fight

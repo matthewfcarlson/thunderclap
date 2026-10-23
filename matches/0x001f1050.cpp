@@ -1,5 +1,5 @@
-extern char G100_1f1050[], G49[], G128[];
-char Lookup(char*);
+#include "decls/address.h"
+extern char DAT_0048e100[], DAT_0049cad8[], DAT_0048e128[];
 class Function_1f1050 {
   public:
     Function_1f1050(int, int);
@@ -17,8 +17,8 @@ class Method3_1f1050 : public Function_1f1050 {
 };
 Method3_1f1050::Method3_1f1050(int a, int c) : Function_1f1050(a, 3) {
     m1c = c;
-    b18 = Lookup(G100_1f1050);
-    b10 = Lookup(G49);
-    b11 = Lookup(G128);
-    b12 = Lookup(G128);
+    b18 = FUN_001d04d0(DAT_0048e100);
+    b10 = FUN_001d04d0(DAT_0049cad8);
+    b11 = FUN_001d04d0(DAT_0048e128);
+    b12 = FUN_001d04d0(DAT_0048e128);
 }

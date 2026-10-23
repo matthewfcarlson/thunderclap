@@ -1,6 +1,6 @@
-extern "C" int __cdecl castLookup(void*, int, void*, void*, int);
-extern int gA;
-extern int gB;
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern int DAT_0049850c;
+extern int DAT_00499588;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -15,5 +15,5 @@ template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster 
 } // namespace fight
 class CGrappleInvulnerableTrack {};
 template <> int fight::TrackFactoryCasterTemplate<CGrappleInvulnerableTrack>::vfunc_0(void* p) {
-    return castLookup(p, 0, &gA, &gB, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_00499588, 0) != 0;
 }

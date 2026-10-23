@@ -30,7 +30,7 @@ class This_10b2c0 {
 
 void* operator new(unsigned int) throw();
 
-extern float* gColors[3];
+extern float* DAT_004a1f60[3];
 
 void __cdecl FUN_00238b60(hulk_intptr a, int b);
 void __cdecl FUN_00238330(hulk_intptr a, int b);
@@ -38,13 +38,13 @@ void __cdecl FUN_00238330(hulk_intptr a, int b);
 This_10b2c0* This_10b2c0::Build() {
     List_10b2c0* list = GetList();
     Context_10b2c0* a = new Context_10b2c0();
-    a->ch.Set(gColors[0]);
+    a->ch.Set(DAT_004a1f60[0]);
     list->Add(a);
     Context_10b2c0* b = new Context_10b2c0();
-    b->ch.Set(gColors[1]);
+    b->ch.Set(DAT_004a1f60[1]);
     list->Add(b);
     Context_10b2c0* c = new Context_10b2c0();
-    c->ch.Set(gColors[2]);
+    c->ch.Set(DAT_004a1f60[2]);
     list->Add(c);
     FUN_00238b60(((hulk_intptr)(void (__cdecl*)())&FUN_0010b2a0), 0);
     FUN_00238330(((hulk_intptr)(void (__cdecl*)())&FUN_0010b2b0), 0);

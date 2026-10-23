@@ -16,8 +16,8 @@ namespace scenario {
 class NISAnimationTrack {};
 } // namespace scenario
 } // namespace hulkfight
-extern void* gA;
-extern void* gB;
+extern void* DAT_0049850c;
+extern void* DAT_004c2650;
 template <> int fight::TrackFactoryCasterTemplate<hulkfight::scenario::NISAnimationTrack>::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &gA, &gB, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004c2650, 0) != 0;
 }

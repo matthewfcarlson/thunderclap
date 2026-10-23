@@ -1,4 +1,4 @@
-extern int __cdecl check(void*, int, void*, void*, int);
+extern int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -16,9 +16,9 @@ namespace scenario {
 class NodeIsNotRunningCondition {};
 } // namespace scenario
 } // namespace hulkfight
-extern void* a;
-extern void* b;
+extern void* DAT_00491ca8;
+extern void* DAT_004c1e58;
 template <>
 int fight::ConditionFactoryCasterTemplate<hulkfight::scenario::NodeIsNotRunningCondition>::vfunc_0(void* p) {
-    return check(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004c1e58, 0) != 0;
 }

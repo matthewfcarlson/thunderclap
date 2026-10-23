@@ -1,8 +1,8 @@
 struct Token {
     int x;
 };
-extern Token a, b;
-extern "C" int findThing(void*, int, Token*, Token*, int);
+extern Token DAT_00491ca8, DAT_004aaa68;
+extern "C" int FUN_00344e74(void*, int, Token*, Token*, int);
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -19,5 +19,5 @@ namespace hulkfight {
 class ChapterMissionCondition {};
 } // namespace hulkfight
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ChapterMissionCondition>::vfunc_0(void* p) {
-    return findThing(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004aaa68, 0) != 0;
 }

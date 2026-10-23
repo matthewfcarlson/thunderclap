@@ -5,8 +5,8 @@ class Obj {
   public:
     Vec* get();
 };
-Obj* make();
+Obj* FUN_001c3d90();
 Vec __stdcall target() {
-    Obj* o = make();
+    Obj* o = FUN_001c3d90();
     return *o->get();
 }

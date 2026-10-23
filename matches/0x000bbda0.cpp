@@ -1,4 +1,4 @@
-extern unsigned char gFlag;
+extern unsigned char DAT_004dd83b;
 class Obj {
   public:
     void Fn(void* p);
@@ -7,5 +7,5 @@ class Obj {
 };
 void Obj::Fn(void* p) {
     if (m)
-        gFlag = (p == 0);
+        DAT_004dd83b = (p == 0);
 }

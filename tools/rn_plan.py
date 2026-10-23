@@ -354,7 +354,7 @@ def ambiguities(modes, idx, ns_of, renames):
     return out
 
 
-def refine(batch_path, state, out_path, rounds=8, bindings=None):
+def refine(batch_path, state, out_path, rounds=8, bindings=None, base_modes=None):
     """Generator in the loop: rewrite every source of the batch (no verification), generate the tree, and drop
       * the sources whose own function got a worse mode (merged < wrapped < isolated), and every source of a TU where
         another function got worse;
@@ -385,7 +385,14 @@ def refine(batch_path, state, out_path, rounds=8, bindings=None):
             texts[src] = new
         except migrate_gen.gh.SwapFail as e:
             fails[re.sub(r"\b\d+\b|0x[0-9a-f]+|_[0-9a-f]{5,6}\b", "N", str(e))[:60]] += 1
-    base, s0 = modes_of(state)
+    if base_modes:
+        # the reference tree's modes from another checkout (--base-modes, written by --dump-modes): a batch that also
+        # changes a shared header (b12's decls/address.h pins) is judged against the tree before the header changed
+        bm = json.load(open(base_modes))
+        base = {int(a, 16): tuple(v) for a, v in bm["modes"].items()}
+        s0 = {"modes": bm["summary"]}
+    else:
+        base, s0 = modes_of(state)
     renames = collections.defaultdict(dict)
     for src, its in per.items():
         addr = int(os.path.basename(src)[2:10], 16)
@@ -468,14 +475,24 @@ def main(argv=None):
     ap.add_argument("--metrics", nargs=3, metavar=("BEFORE_ROOT", "AFTER_ROOT", "LIST"),
                     help="textual counts (pads, stub virtuals, stub classes, casts) of the listed sources before/after")
     ap.add_argument("--fit", default=os.path.join(ROOT, "build/rn1/layout-fit.json"))
+    ap.add_argument("--dump-modes", metavar="PATH", help="write this tree's modes (with --state) for --base-modes")
+    ap.add_argument("--base-modes", metavar="PATH", help="refine: judge against these modes (--dump-modes of the "
+                                                         "reference tree) instead of this checkout's")
     a = ap.parse_args(argv)
+    if a.dump_modes:
+        m, s = modes_of(a.state)
+        json.dump({"summary": s["modes"], "modes": {"0x%08x" % k: list(v) for k, v in m.items()}},
+                  open(a.dump_modes, "w"))
+        print(s["modes"])
+        return 0
     if a.metrics:
         before, after, lst = a.metrics
         srcs = [x.strip() for x in open(lst) if x.strip()]
         print(json.dumps(metrics(before, after, srcs), indent=1))
         return 0
     if a.refine:
-        r = refine(a.refine, a.state, a.refine_out or re.sub(r"\.json$", "-refined.json", a.refine), bindings=a.bindings)
+        r = refine(a.refine, a.state, a.refine_out or re.sub(r"\.json$", "-refined.json", a.refine), bindings=a.bindings,
+                   base_modes=a.base_modes)
         print(json.dumps({k: v for k, v in r.items() if k != "rounds"}, indent=1))
         return 0
     if a.batches:

@@ -1,7 +1,7 @@
 class CButtonReleaseCondition;
-extern "C" int __cdecl check(CButtonReleaseCondition*, int, void*, void*, int);
-extern void* a;
-extern void* b;
+extern "C" int __cdecl FUN_00344e74(CButtonReleaseCondition*, int, void*, void*, int);
+extern void* DAT_00491ca8;
+extern void* DAT_00492368;
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -15,5 +15,5 @@ class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
 };
 } // namespace fight
 bool fight::ConditionFactoryCasterTemplate::vfunc_0(CButtonReleaseCondition* p) {
-    return check(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_00492368, 0) != 0;
 }

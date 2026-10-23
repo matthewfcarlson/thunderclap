@@ -1,7 +1,7 @@
 class CCollisionDirectionCondition;
-extern "C" int __cdecl Check(CCollisionDirectionCondition*, int, void*, void*, int);
-extern void* a;
-extern void* b;
+extern "C" int __cdecl FUN_00344e74(CCollisionDirectionCondition*, int, void*, void*, int);
+extern void* DAT_00491ca8;
+extern void* DAT_004927d8;
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -14,5 +14,5 @@ class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
 };
 } // namespace fight
 bool fight::ConditionFactoryCasterTemplate::vfunc_0(CCollisionDirectionCondition* p) {
-    return Check(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004927d8, 0) != 0;
 }

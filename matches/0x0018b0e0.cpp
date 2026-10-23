@@ -4,12 +4,12 @@ class TrackFactoryCasterTemplate_18b0e0 {
     TrackFactoryCasterTemplate_18b0e0() {}
 };
 class Track {};
-Track* __cdecl Find(const char*, TrackFactoryCasterTemplate_18b0e0*);
+Track* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_18b0e0*);
 class Owner {
   public:
     void Add(Track*);
 };
 void Register(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_18b0e0 caster;
-    owner->Add(Find(name, &caster));
+    owner->Add(FUN_00236ac0(name, &caster));
 }

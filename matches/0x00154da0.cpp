@@ -16,9 +16,9 @@ namespace motion {
 class ClearFightParamsHitRecordTrack {};
 } // namespace motion
 } // namespace hulkfight
-extern void* gA;
-extern void* gB;
+extern void* DAT_0049850c;
+extern void* DAT_004b3300;
 template <>
 int fight::TrackFactoryCasterTemplate<hulkfight::motion::ClearFightParamsHitRecordTrack>::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &gA, &gB, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004b3300, 0) != 0;
 }

@@ -1,6 +1,6 @@
-extern char a[];
-extern char b[];
-extern "C" int __cdecl lookup(void*, int, const void*, const void*, int);
+extern char DAT_0049850c[];
+extern char DAT_00498530[];
+extern "C" int __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -15,5 +15,5 @@ template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster 
 };
 } // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<fight::CAIHintTrack>::Cast(void* p) {
-    return lookup(p, 0, a, b, 0) != 0;
+    return FUN_00344e74(p, 0, DAT_0049850c, DAT_00498530, 0) != 0;
 }

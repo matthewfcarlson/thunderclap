@@ -1,6 +1,6 @@
-extern "C" unsigned char __cdecl GetFlag(const char*);
-extern const char name1[];
-extern const char name2[];
+#include "decls/address.h"
+extern const char DAT_0048e100[];
+extern const char DAT_0048e10c[];
 class Function_cfb90 {
   public:
     Function_cfb90(void*, int);
@@ -11,8 +11,8 @@ class Method1 : public Function_cfb90 {
   public:
     Method1(void* a, void* c) : Function_cfb90(a, 1) {
         p = c;
-        flag2 = GetFlag(name1);
-        flag1 = GetFlag(name2);
+        flag2 = FUN_001d04d0(DAT_0048e100);
+        flag1 = FUN_001d04d0(DAT_0048e10c);
     }
     virtual void g();
     char flag1;

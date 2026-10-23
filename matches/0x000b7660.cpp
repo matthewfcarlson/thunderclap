@@ -42,12 +42,12 @@ class Owner_b7660 {
   public:
     void update();
 };
-extern int rttiA_b7660, rttiB;
-extern int __cdecl find(const char*);
-extern Selector_b7660* __cdecl cast(int, int, void*, void*, int);
+extern int DAT_0049dba4, DAT_0049dbbc;
+extern int __cdecl FUN_000fc260(const char*);
+extern Selector_b7660* __cdecl FUN_00344e74(int, int, void*, void*, int);
 void Owner_b7660::update() {
     if (state) {
-        Selector_b7660* p = cast(find("subtitle_selector"), 0, &rttiA_b7660, &rttiB, 0);
+        Selector_b7660* p = FUN_00344e74(FUN_000fc260("subtitle_selector"), 0, &DAT_0049dba4, &DAT_0049dbbc, 0);
         if (p) {
             if (state->active) {
                 if (p->count > 0)

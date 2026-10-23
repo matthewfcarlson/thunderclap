@@ -1,6 +1,6 @@
-extern int __cdecl FUN(void*, int, const void*, const void*, int);
-extern "C" const char g1[];
-extern "C" const char g2[];
+extern int __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
+extern "C" const char DAT_00491ca8[];
+extern "C" const char DAT_004a8758[];
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -19,5 +19,5 @@ class TargetDistanceXZCondition;
 }
 } // namespace hulkfight
 template <> int fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetDistanceXZCondition>::f0(void* p) {
-    return FUN(p, 0, g1, g2, 0) != 0;
+    return FUN_00344e74(p, 0, DAT_00491ca8, DAT_004a8758, 0) != 0;
 }

@@ -1,20 +1,20 @@
 #include "compat/ptr.h"
-int gValue_31ba60;
-extern "C" hulk_intptr __cdecl Alloc(hulk_intptr);
+int DAT_005554a4;
+extern "C" hulk_intptr __cdecl FUN_0008d690(hulk_intptr);
 extern "C" int __stdcall MakeArg(int);
 struct d3dDevice_31ba60 {
     int Init(int);
 };
 int Target(int a, int b, int* out) {
     if (a == 0x12 && b == 0xb) {
-        int value = gValue_31ba60;
+        int value = DAT_005554a4;
         if (!value) {
-            d3dDevice_31ba60* p = (d3dDevice_31ba60*)Alloc(0x14);
+            d3dDevice_31ba60* p = (d3dDevice_31ba60*)FUN_0008d690(0x14);
             if (p)
                 value = p->Init(MakeArg(0));
             else
                 value = 0;
-            gValue_31ba60 = value;
+            DAT_005554a4 = value;
         }
         *out = value;
         return 1;

@@ -1,5 +1,5 @@
-extern "C" unsigned char __cdecl getFlag(const void*);
-extern int flagA, flagB;
+#include "decls/address.h"
+extern int DAT_0048e128, DAT_0048e134;
 class Function_1ce3a0 {
   public:
     Function_1ce3a0(int, int);
@@ -16,8 +16,8 @@ class Method1 : public Function_1ce3a0 {
   public:
     Method1(int a, int c) : Function_1ce3a0(a, 1) {
         x = c;
-        b = getFlag(&flagA);
-        this->a = getFlag(&flagB);
+        b = FUN_001d04d0(&DAT_0048e128);
+        this->a = FUN_001d04d0(&DAT_0048e134);
     }
     virtual void f();
 };

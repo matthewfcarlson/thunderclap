@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20013 inputs, branch coverage 39/43, incomplete)
 // hulkfight::ai::FaceTargetAction::vfunc_5 @ 0x0010b5b0
+#include "decls/address.h"
 extern "C" double fabs(double);
 
 struct V3 {
@@ -76,12 +77,11 @@ struct Hold {
     Me *me;                 // 0x124
 };
 
-struct Game {
+struct World {
     char pad0[0x20];
     Hold *hold;             // 0x20
 };
 
-extern Game *DAT_004dd700;
 extern unsigned __int64 DAT_004dc0c8;
 extern float __cdecl FUN_00224ea0(float a, float b);
 

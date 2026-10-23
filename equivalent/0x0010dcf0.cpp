@@ -3,6 +3,7 @@
 #include "gen/hulkfight.h"
 
 #include "decls/data/game/global.h"
+#include "decls/address.h"
 
 struct V3_10dcf0 {
     float x, y, z;
@@ -64,13 +65,12 @@ struct Player_10dcf0 {
     Obj124_10dcf0* p124;
 };
 
-struct Game_10dcf0 {
+struct World {
     char pad00[0x20];
     Player_10dcf0* player;
     char pad24[0x54 - 0x24];
     World_10dcf0* world;
 };
-extern Game_10dcf0* DAT_004dd700;
 
 namespace hulkfight {
 namespace ai {

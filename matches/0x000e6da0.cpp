@@ -1,6 +1,7 @@
 #include "gen/global.h"
 
 #include "decls/data/game/global.h"
+#include "decls/address.h"
 
 struct ResetObject {
     void FUN_000363d0();
@@ -9,11 +10,10 @@ struct ContextChild {
     char pad[0x124];
     ResetObject* reset;
 };
-struct Context_e6da0 {
+struct World {
     char pad[0x20];
     ContextChild* child;
 };
-extern Context_e6da0* DAT_004dd700;
 struct Panel_e6da0 {
     virtual void v0();
     virtual void v1();
@@ -50,7 +50,7 @@ void FEThingsBase::vfunc_21() {
         (*(Panel_e6da0 * *)&this->f_175c)->v15();
         (*(Panel_e6da0 * *)&this->f_175c)->FUN_000e5440(this->f_176c);
     }
-    Context_e6da0* context = DAT_004dd700;
+    World* context = DAT_004dd700;
     (*(unsigned char*)&DAT_004e222c) = 1;
     if (context->child && context->child->reset && (*(unsigned char*)&DAT_004e2518)) {
         (*(unsigned char*)&DAT_004e2518) = 0;

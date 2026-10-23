@@ -17,14 +17,14 @@ struct Node {
     int gap;
     Node* next;
 };
-extern int zero_219e50;
+extern int DAT_00426824;
 int* find(A_219e50* a, B_219e50* b) {
     uint x = 1u << a->shift;
     Node* p = (Node*)a->buckets + ((x - 1) & b->mask);
     while (p->type != 4 || p->owner != b) {
         p = p->next;
         if (!p)
-            return &zero_219e50;
+            return &DAT_00426824;
     }
     return (int*)p + 2;
 }

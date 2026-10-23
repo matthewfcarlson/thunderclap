@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001cbf40 @ 0x001cbf40
+#include "decls/address.h"
 typedef unsigned __int64 U64;
-U64 __cdecl FUN_002672f0(const char*, int, int);
 
 class Listener {
 public:

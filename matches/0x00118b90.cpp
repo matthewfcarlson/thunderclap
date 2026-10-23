@@ -16,7 +16,7 @@ namespace ai {
 class MotionFacingTrack {};
 } // namespace ai
 } // namespace hulkfight
-extern int g1, g2;
+extern int DAT_0049850c, DAT_004a58f0;
 template <> int fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionFacingTrack>::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &g1, &g2, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004a58f0, 0) != 0;
 }

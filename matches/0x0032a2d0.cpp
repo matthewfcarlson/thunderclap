@@ -21,14 +21,14 @@ class Obj_32a2d0 {
     unsigned char second;
 };
 extern void __fastcall D3DDevice_SetRenderState_Simple(const char*, int);
-extern int global_32a2d0;
+extern int DAT_0039de18;
 void __fastcall FUN_0032a2d0(Obj_32a2d0* self) {
     hulk_intptr x = self->value;
     if (x != self->dev->state) {
         self->dev->state = x;
         int v = (*(int*)(((hulk_intptr)((char*)&DAT_004d4f24)) + x * 4));
         D3DDevice_SetRenderState_Simple((const char*)0x4037c, v);
-        global_32a2d0 = v;
+        DAT_0039de18 = v;
     }
     self->dev->Do(self->first, self->second, (char*)self + 0x50);
 }

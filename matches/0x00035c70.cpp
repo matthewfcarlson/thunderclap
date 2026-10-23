@@ -1,4 +1,4 @@
-int __cdecl convert(int);
+int __cdecl FUN_000969d0(int);
 class Queue {
   public:
     char pad[0x200];
@@ -8,7 +8,7 @@ class Queue {
     void Add(int value);
 };
 void Queue::Add(int value) {
-    int result = convert(value);
+    int result = FUN_000969d0(value);
     if (count >= 64) {
         entries[index] = result;
         index = (index + 1) % 64;

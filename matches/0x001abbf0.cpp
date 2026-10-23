@@ -1,8 +1,8 @@
 struct TypeInfo {
     int x;
 };
-extern TypeInfo a, b;
-extern "C" void* __cdecl Find(void*, int, TypeInfo*, TypeInfo*, int);
+extern TypeInfo DAT_00491ca8, DAT_004c30f8;
+extern "C" void* __cdecl FUN_00344e74(void*, int, TypeInfo*, TypeInfo*, int);
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -21,5 +21,5 @@ class EventCondition {};
 } // namespace scenario
 } // namespace hulkfight
 template <> int fight::ConditionFactoryCasterTemplate<hulkfight::scenario::EventCondition>::vfunc_0(void* p) {
-    return Find(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004c30f8, 0) != 0;
 }

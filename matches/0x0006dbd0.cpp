@@ -1,6 +1,6 @@
 extern int FUN_00344e74(void* a, int b, void* c, void* d, int e);
-extern char CGrappleMotionTrailTrack[];
-extern char CGrappleMotionTrailTrackEnd[];
+extern char DAT_0049850c[];
+extern char DAT_00499750[];
 class TrackFactoryCaster {
   public:
     virtual bool vfunc_0(void* a);
@@ -12,5 +12,5 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
     virtual void vfunc_1();
 };
 bool TrackFactoryCasterTemplate::vfunc_0(void* a) {
-    return (int)FUN_00344e74(a, 0, CGrappleMotionTrailTrack, CGrappleMotionTrailTrackEnd, 0) != 0;
+    return (int)FUN_00344e74(a, 0, DAT_0049850c, DAT_00499750, 0) != 0;
 }

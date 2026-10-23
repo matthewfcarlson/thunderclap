@@ -1,6 +1,6 @@
-extern "C" int __cdecl Check(void*, int, void*, void*, int);
-extern void* a;
-extern void* b;
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern void* DAT_0049850c;
+extern void* DAT_004af7d8;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -19,5 +19,5 @@ class GrappleExecuteTrack;
 }
 } // namespace hulkfight
 template <> int fight::TrackFactoryCasterTemplate<hulkfight::motion::GrappleExecuteTrack>::vfunc_0(void* p) {
-    return Check(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004af7d8, 0) != 0;
 }

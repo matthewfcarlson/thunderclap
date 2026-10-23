@@ -1,5 +1,5 @@
-extern unsigned char __cdecl g(const char*);
-extern const char a_7e4d0[], b[], c[];
+#include "decls/address.h"
+extern const char DAT_0048e100[], DAT_0048e0f0[], DAT_0048e128[];
 class Function_7e4d0 {
   public:
     virtual void fn();
@@ -17,9 +17,9 @@ class Method2 : public Function_7e4d0 {
     virtual void fn();
     Method2(int p, int r) : Function_7e4d0(p, 2) {
         u = r;
-        z = g(a_7e4d0);
-        x = g(b);
-        y = g(c);
+        z = FUN_001d04d0(DAT_0048e100);
+        x = FUN_001d04d0(DAT_0048e0f0);
+        y = FUN_001d04d0(DAT_0048e128);
     }
 };
 class Closure2 : public Method2 {

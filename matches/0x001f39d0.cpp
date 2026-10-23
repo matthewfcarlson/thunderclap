@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 extern "C" float DAT_004c7df8;
-static const float gScale_1f39d0 = 0.01f;
-extern void __cdecl Apply(int, float);
+static const float DAT_003f3358 = 0.01f;
+extern void __cdecl FUN_00247890(int, float);
 class Obj_1f39d0 {
   public:
     char p0[8];
@@ -26,7 +26,7 @@ void Obj_1f39d0::Update(float x) {
                 if (v != at8c && v != skip) {
                     int q = *(int*)(v + 4);
                     if (q)
-                        Apply(q, DAT_004c7df8 * gScale_1f39d0);
+                        FUN_00247890(q, DAT_004c7df8 * DAT_003f3358);
                 }
                 ++i;
                 ++p;

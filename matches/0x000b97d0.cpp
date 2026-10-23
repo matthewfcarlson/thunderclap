@@ -21,19 +21,19 @@ struct Item_b97d0 {
     char pad[0x9a8];
     char busy;
 };
-extern Manager_b97d0* GetManager();
-extern void __cdecl Finish();
+extern Manager_b97d0* FUN_000fc3d0();
+extern void __cdecl FUN_000fc300();
 void State_b97d0::Target() {
     if (state == 0x15) {
-        Manager_b97d0* m = GetManager();
+        Manager_b97d0* m = FUN_000fc3d0();
         if (m->item == 0 || !((Item_b97d0*)m->item)->busy) {
             state = 9;
-            m = GetManager();
+            m = FUN_000fc3d0();
             if (m->value == 1 && state != 3) {
                 a->A();
                 if (b)
                     b->B(5);
-                Finish();
+                FUN_000fc300();
             }
         }
     }

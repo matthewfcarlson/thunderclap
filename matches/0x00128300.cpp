@@ -1,6 +1,6 @@
-extern "C" int __cdecl test(void*, int, void*, void*, int);
-extern void* gA;
-extern void* gB;
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern void* DAT_00491ca8;
+extern void* DAT_004a8bc8;
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -20,5 +20,5 @@ class CanSeeTargetCondition;
 } // namespace hulkfight
 template <>
 int fight::ConditionFactoryCasterTemplate<hulkfight::ai::CanSeeTargetCondition>::vfunc_0(void* p) {
-    return test(p, 0, &gA, &gB, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004a8bc8, 0) != 0;
 }

@@ -1,6 +1,6 @@
-extern char keyA[];
-extern char keyB[];
-extern "C" unsigned char __cdecl Lookup(const char*);
+#include "decls/address.h"
+extern char DAT_0048e100[];
+extern char DAT_0048e0f0[];
 class Function_1fff10 {
   public:
     Function_1fff10(const char*, int);
@@ -17,8 +17,8 @@ class Method1 : public Function_1fff10 {
   public:
     Method1(const char* s, int x, int y) : Function_1fff10(s, 1) {
         v = y;
-        b = Lookup(keyA);
-        a = Lookup(keyB);
+        b = FUN_001d04d0(DAT_0048e100);
+        a = FUN_001d04d0(DAT_0048e0f0);
     }
     virtual void Run();
 };

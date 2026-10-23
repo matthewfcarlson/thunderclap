@@ -6,10 +6,10 @@ class Owner_1a6e10 {
     void* Get();
     void* Find();
 };
-extern int Check(void*, int, void*, void*, int);
+extern int FUN_00344e74(void*, int, void*, void*, int);
 void* Owner_1a6e10::Find() {
     void* p = Get();
-    while (p != 0 && Check(p, 0, (void*)((hulk_intptr)DAT_0048d5bc), (void*)((hulk_intptr)DAT_004a15cc), 0) == 0) {
+    while (p != 0 && FUN_00344e74(p, 0, (void*)((hulk_intptr)DAT_0048d5bc), (void*)((hulk_intptr)DAT_004a15cc), 0) == 0) {
         p = Get();
     }
     return p;

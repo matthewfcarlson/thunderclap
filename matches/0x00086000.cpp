@@ -1,5 +1,5 @@
 extern "C" unsigned __int64 __cdecl FUN_00267f40();
-extern "C" const float scale;
+extern "C" const float DAT_003ffaa4;
 struct Bits {
     unsigned lo;
     unsigned hi;
@@ -18,5 +18,5 @@ extern "C" long double __cdecl FUN_00086000() {
     x.b.lo = 0;
     long double b = (__int64)x.n;
     b = -b;
-    return (b + a) * scale;
+    return (b + a) * DAT_003ffaa4;
 }

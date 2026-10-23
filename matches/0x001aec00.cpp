@@ -1,5 +1,5 @@
-extern void* g_vftable_1aec00[];
-void* Alloc(int);
+extern void* DAT_0041d800[];
+void* FUN_0008d6d0(int);
 class CPathManager_1aec00 {
   public:
     void* vptr;
@@ -12,7 +12,7 @@ class CPathManager_1aec00 {
     CPathManager_1aec00();
 };
 CPathManager_1aec00::CPathManager_1aec00() {
-    vptr = g_vftable_1aec00;
+    vptr = DAT_0041d800;
     int* q = &m4;
     *q = 0;
     int** pp = &m18;
@@ -22,7 +22,7 @@ CPathManager_1aec00::CPathManager_1aec00() {
     mc = 0;
     m10 = 0;
     m14 = 1;
-    int* p = (int*)Alloc(0x80);
+    int* p = (int*)FUN_0008d6d0(0x80);
     m18 = p;
     if (p) {
         m1c = p;

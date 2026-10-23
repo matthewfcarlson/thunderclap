@@ -1,3 +1,4 @@
+#include "decls/address.h"
 struct Field {
     char space[12];
     Field* FUN_0023fc40(const char*, int);
@@ -11,7 +12,6 @@ struct SeqEventVarPitchRandType {
 };
 } // namespace audio
 extern void* DAT_0042a16c[];
-extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int);
 audio::SeqEventVarPitchRandType* audio::SeqEventVarPitchRandType::FUN_002534b0() {
     __int64 id = FUN_002672f0("SeqEventVarPitchRand", 0, 0);
     Field field;

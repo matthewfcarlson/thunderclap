@@ -1,6 +1,6 @@
 class CInvulnerableTrack;
-extern int __cdecl FindTrack(void*, int, void*, void*, int);
-extern int a, b;
+extern int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern int DAT_0049850c, DAT_00499ec8;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -13,6 +13,6 @@ template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster 
     virtual void vfunc_1();
 };
 template <> int TrackFactoryCasterTemplate<CInvulnerableTrack>::vfunc_0(void* p) {
-    return FindTrack(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_00499ec8, 0) != 0;
 }
 } // namespace fight

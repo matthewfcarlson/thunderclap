@@ -1,5 +1,5 @@
-extern const float gEps;
-extern const float gNeg;
+extern const float DAT_00427350;
+extern const float DAT_003f3388;
 union Bits_225ab0 {
     float f;
     unsigned long u;
@@ -24,9 +24,9 @@ class AnimationDriver_225ab0 {
 };
 float AnimationDriver_225ab0::Fn() {
     float calc;
-    if (Abs(m228) <= gEps)
-        return gNeg;
-    if (Abs(m20->m14) <= gEps)
-        return gNeg;
+    if (Abs(m228) <= DAT_00427350)
+        return DAT_003f3388;
+    if (Abs(m20->m14) <= DAT_00427350)
+        return DAT_003f3388;
     return Abs((m230 - m22c) / (m20->m14 * m228));
 }

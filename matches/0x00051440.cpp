@@ -1,6 +1,6 @@
 struct CSmartPropWeaponTypeCondition;
-extern "C" int __cdecl Check(CSmartPropWeaponTypeCondition*, int, void*, void*, int);
-extern void *a, *b;
+extern "C" int __cdecl FUN_00344e74(CSmartPropWeaponTypeCondition*, int, void*, void*, int);
+extern void *DAT_00491ca8, *DAT_00494478;
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -12,6 +12,6 @@ class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
     virtual bool vfunc_0(void*);
 };
 bool ConditionFactoryCasterTemplate::vfunc_0(void* p) {
-    return Check((CSmartPropWeaponTypeCondition*)p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74((CSmartPropWeaponTypeCondition*)p, 0, &DAT_00491ca8, &DAT_00494478, 0) != 0;
 }
 } // namespace fight

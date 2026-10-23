@@ -1,7 +1,7 @@
 class CDeathTrack;
-extern void* gA;
-extern void* gB;
-extern "C" int __cdecl Find(void*, int, void*, void*, int);
+extern void* DAT_0049850c;
+extern void* DAT_00498c38;
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -15,5 +15,5 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
 };
 } // namespace fight
 bool fight::TrackFactoryCasterTemplate::vfunc_0(void* p) {
-    return Find(p, 0, &gA, &gB, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_00498c38, 0) != 0;
 }

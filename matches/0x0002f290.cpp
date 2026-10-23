@@ -1,6 +1,6 @@
-extern char str1[];
-extern char str2[];
-extern char __cdecl lookup(const char*);
+#include "decls/address.h"
+extern char DAT_0048e0f0[];
+extern char DAT_0048e10c[];
 class Function_2f290 {
   public:
     virtual void f();
@@ -17,8 +17,8 @@ class Method1_2f290 : public Function_2f290 {
     int c;
     Method1_2f290(const char* s, int x) : Function_2f290(s, 1) {
         c = x;
-        b = lookup(str1);
-        a = lookup(str2);
+        b = FUN_001d04d0(DAT_0048e0f0);
+        a = FUN_001d04d0(DAT_0048e10c);
     }
 };
 class Closure1_2f290 : public Method1_2f290 {

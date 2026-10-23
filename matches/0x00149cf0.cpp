@@ -1,5 +1,5 @@
 class CivilianTargetCondition;
-extern int __cdecl castfn(void*, int, void*, void*, int);
+extern int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -12,7 +12,7 @@ template <class T> class ConditionFactoryCasterTemplate : public ConditionFactor
     virtual void vfunc_1();
 };
 } // namespace fight
-extern void *a, *b;
+extern void *DAT_00491ca8, *DAT_004af210;
 template <> bool fight::ConditionFactoryCasterTemplate<CivilianTargetCondition>::vfunc_0(void* p) {
-    return castfn(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004af210, 0) != 0;
 }

@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
-extern "C" hulk_intptr Alloc(hulk_intptr, int);
-extern "C" int gValue_2702a0;
+extern "C" hulk_intptr FUN_00266e00(hulk_intptr, int);
+extern "C" int DAT_004cdbb0;
 class Obj_2702a0 {
   public:
     virtual void Finish();
@@ -11,8 +11,8 @@ class MemoryPool_2702a0 {
     Obj_2702a0* Create();
 };
 void Target(Obj_2702a0** out, int a, int b, int c, int d, int e, int f) {
-    gValue_2702a0 = d;
-    MemoryPool_2702a0* p = (MemoryPool_2702a0*)Alloc(d, 0x34);
+    DAT_004cdbb0 = d;
+    MemoryPool_2702a0* p = (MemoryPool_2702a0*)FUN_00266e00(d, 0x34);
     Obj_2702a0* obj;
     if (p)
         obj = p->Create();

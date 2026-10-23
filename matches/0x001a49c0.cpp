@@ -1,3 +1,4 @@
+#include "decls/address.h"
 typedef unsigned char u8;
 struct NodeIsNotRunningCondition {
     virtual void v0();
@@ -14,17 +15,16 @@ extern int FUN_00344e74(void*, int, const void*, const void*, int);
 struct Runner_1a49c0 {
     bool run(int);
 };
-struct Manager_1a49c0 {
+struct World {
     char pad[0x30];
     Runner_1a49c0* runner;
 };
-extern Manager_1a49c0* gManager_1a49c0;
-extern char typeNode;
-extern char typeBranch;
+extern char DAT_0048e0ac;
+extern char DAT_0048e090;
 bool NodeIsNotRunningCondition::vfunc_6(void* arg, void*, void*) {
     bool result = false;
-    int value = FUN_00344e74(arg, 0, &typeBranch, &typeNode, 0);
+    int value = FUN_00344e74(arg, 0, &DAT_0048e090, &DAT_0048e0ac, 0);
     if (value)
-        result = gManager_1a49c0->runner->run(value);
+        result = DAT_004dd700->runner->run(value);
     return result != mValue;
 }

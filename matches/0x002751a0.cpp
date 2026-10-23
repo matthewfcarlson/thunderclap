@@ -6,9 +6,9 @@ class FileCommitRequest {
     void Init(int);
     FileCommitRequest(int);
 };
-extern void __stdcall Finish();
+extern void __stdcall FUN_002705f0();
 FileCommitRequest::FileCommitRequest(int a) {
     Init(a);
     vt = ((hulk_intptr)DAT_0042ba80);
-    Finish();
+    FUN_002705f0();
 }

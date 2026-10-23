@@ -45,8 +45,8 @@ struct FEContainer {
     virtual void vfunc_42();
     virtual void vfunc_43(int);
 };
-extern int g1, g2;
-extern "C" void helper(hulk_intptr, int, int*, int*, int);
+extern int DAT_0049f4f0, DAT_0049f470;
+extern "C" void FUN_00344e74(hulk_intptr, int, int*, int*, int);
 void FEContainer::vfunc_43(int x) {
-    helper(vfunc_39(x), 0, &g1, &g2, 0);
+    FUN_00344e74(vfunc_39(x), 0, &DAT_0049f4f0, &DAT_0049f470, 0);
 }

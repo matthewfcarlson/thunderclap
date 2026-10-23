@@ -4,10 +4,10 @@ struct LARGE_INTEGER {
     DWORD high;
 };
 extern "C" int __stdcall QueryPerformanceCounter(LARGE_INTEGER*);
-extern "C" int __cdecl Convert(DWORD, DWORD, DWORD, DWORD, DWORD, DWORD);
-extern DWORD freqLow, freqHigh;
+extern "C" int __cdecl FUN_00267e20(DWORD, DWORD, DWORD, DWORD, DWORD, DWORD);
+extern DWORD DAT_00528380, DAT_00528384;
 int Timer() {
     LARGE_INTEGER n;
     QueryPerformanceCounter(&n);
-    return Convert(n.low, n.high, 1000, 0, freqLow, freqHigh);
+    return FUN_00267e20(n.low, n.high, 1000, 0, DAT_00528380, DAT_00528384);
 }

@@ -1,8 +1,8 @@
 struct TypeInfo {
     int x;
 };
-extern TypeInfo srcType, dstType;
-extern "C" void* __cdecl Cast(void*, int, TypeInfo*, TypeInfo*, int);
+extern TypeInfo DAT_0049850c, DAT_0049a650;
+extern "C" void* __cdecl FUN_00344e74(void*, int, TypeInfo*, TypeInfo*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -16,6 +16,6 @@ template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster 
 };
 class CPushBackAnimationTrack {};
 template <> int TrackFactoryCasterTemplate<CPushBackAnimationTrack>::vfunc_0(void* p) {
-    return Cast(p, 0, &srcType, &dstType, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_0049a650, 0) != 0;
 }
 } // namespace fight

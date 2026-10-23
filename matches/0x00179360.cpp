@@ -1,6 +1,6 @@
-extern int gA;
-extern int gB;
-extern "C" int __cdecl CastCheck(void*, int, const void*, const void*, int);
+extern int DAT_0049850c;
+extern int DAT_004ba410;
+extern "C" int __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
 namespace hulkfight {
 namespace motion {
 class DriftToHulkTrack;
@@ -18,6 +18,6 @@ template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster 
     virtual void vfunc_1();
 };
 template <> int TrackFactoryCasterTemplate<hulkfight::motion::DriftToHulkTrack>::vfunc_0(void* p) {
-    return CastCheck(p, 0, &gA, &gB, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004ba410, 0) != 0;
 }
 } // namespace fight

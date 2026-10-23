@@ -18,9 +18,9 @@ namespace motion {
 class CivilianDetachTrack {};
 } // namespace motion
 } // namespace hulkfight
-extern const void* g1;
-extern const void* g2;
+extern const void* DAT_0049850c;
+extern const void* DAT_004af398;
 template <>
 bool fight::TrackFactoryCasterTemplate<hulkfight::motion::CivilianDetachTrack>::vfunc_0(const char* s) {
-    return FUN_00344e74(s, 0, &g1, &g2, 0) != 0;
+    return FUN_00344e74(s, 0, &DAT_0049850c, &DAT_004af398, 0) != 0;
 }

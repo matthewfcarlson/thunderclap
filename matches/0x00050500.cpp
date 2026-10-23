@@ -1,5 +1,5 @@
-int __cdecl check(void*, int, void*, void*, int);
-extern int g1, g2;
+int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern int DAT_00491ca8, DAT_00491d68;
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -14,5 +14,5 @@ template <class T> class ConditionFactoryCasterTemplate : public ConditionFactor
 } // namespace fight
 class CAxisArcCondition {};
 template <> bool fight::ConditionFactoryCasterTemplate<CAxisArcCondition>::vfunc_0(void* p) {
-    return check(p, 0, &g1, &g2, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_00491d68, 0) != 0;
 }

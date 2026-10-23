@@ -178,7 +178,7 @@ class A_fc1b0 {
     virtual void f175();
     virtual void f176();
 };
-A_fc1b0* g_fc1b0;
+A_fc1b0* DAT_004e0a60;
 int FUN_000fc1b0() {
-    return g_fc1b0->f44();
+    return DAT_004e0a60->f44();
 }

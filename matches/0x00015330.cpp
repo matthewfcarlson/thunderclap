@@ -1,18 +1,18 @@
+#include "decls/address.h"
 struct Timer {
     float FUN_001ccc20();
     void FUN_001ccc30(float);
 };
-struct Manager {
+struct World {
     char pad[0x2c];
     Timer* timer;
 };
-extern Manager* DAT_004dd700;
 class CComboTimerAction {
   public:
     unsigned char vfunc_7(float);
 };
 unsigned char CComboTimerAction::vfunc_7(float delta) {
-    Manager* manager = DAT_004dd700;
+    World* manager = DAT_004dd700;
     if (manager) {
         Timer* timer = manager->timer;
         if (timer) {

@@ -1,7 +1,7 @@
 struct A {};
-extern "C" int __cdecl check(void*, int, void*, void*, int);
-extern void* g1;
-extern void* g2;
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern void* DAT_0049850c;
+extern void* DAT_00498cc0;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -14,6 +14,6 @@ class TrackFactoryCasterTemplate : public TrackFactoryCaster {
     virtual void vfunc_1();
 };
 int TrackFactoryCasterTemplate::vfunc_0(void* p) {
-    return check(p, 0, &g1, &g2, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_00498cc0, 0) != 0;
 }
 } // namespace fight

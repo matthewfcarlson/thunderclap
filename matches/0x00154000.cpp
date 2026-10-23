@@ -16,9 +16,9 @@ namespace motion {
 class CollisionSourceForceMagnitudeCondition {};
 } // namespace motion
 } // namespace hulkfight
-extern int a, b;
+extern int DAT_00491ca8, DAT_004b1cc8;
 template <>
 int fight::ConditionFactoryCasterTemplate<hulkfight::motion::CollisionSourceForceMagnitudeCondition>::vfunc_0(
     void* p) {
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004b1cc8, 0) != 0;
 }

@@ -1,5 +1,5 @@
-extern int table_238190[1];
+extern int DAT_004caa14[1];
 extern "C" int __cdecl FUN_00238190(int index) {
-    return table_238190[index];
+    return DAT_004caa14[index];
 }
-int table_238190[1];
+int DAT_004caa14[1];

@@ -11,7 +11,7 @@ template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster 
 } // namespace fight
 class CSoundTrack {};
 extern int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern char a, b;
+extern char DAT_0049850c, DAT_0049aef8;
 template <> int fight::TrackFactoryCasterTemplate<CSoundTrack>::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_0049aef8, 0) != 0;
 }

@@ -11,10 +11,10 @@ struct SlowMotionTrack {
     char flag;
     void Init();
 };
-extern "C" void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 
 SlowMotionTrack* __cdecl target() {
-    SlowMotionTrack* p = (SlowMotionTrack*)alloc(0x24);
+    SlowMotionTrack* p = (SlowMotionTrack*)FUN_0008d690(0x24);
     if (p) {
         p->Init();
         p->a = 1.0f;

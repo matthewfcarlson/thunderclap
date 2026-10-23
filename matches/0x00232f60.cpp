@@ -5,14 +5,14 @@ class Node {
     Node* next;
     void* run();
 };
-extern void* helper(Node*, int, const void*, const void*, int);
-extern const int desc1_232f60;
-extern const int desc2_232f60;
+extern void* FUN_00344e74(Node*, int, const void*, const void*, int);
+extern const int DAT_0048e090;
+extern const int DAT_004ca2b0;
 void* Node::run() {
     if (type == 3)
-        return helper(this, 0, &desc1_232f60, &desc2_232f60, 0);
+        return FUN_00344e74(this, 0, &DAT_0048e090, &DAT_004ca2b0, 0);
     Node* q = next;
     while (q != 0 && q->type != 3)
         q = q->next;
-    return helper(q, 0, &desc1_232f60, &desc2_232f60, 0);
+    return FUN_00344e74(q, 0, &DAT_0048e090, &DAT_004ca2b0, 0);
 }

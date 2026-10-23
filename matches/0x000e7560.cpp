@@ -1,9 +1,9 @@
-extern char g1[], g2[], g3[];
+extern char DAT_0049dba4[], DAT_0049f4f0[], DAT_0049f454[];
 struct ThisWrap_000e7560 {
     int helper(int);
     int target(int x);
 };
-extern "C" int __cdecl work(int, int, char*, char*, int);
+extern "C" int __cdecl FUN_00344e74(int, int, char*, char*, int);
 int ThisWrap_000e7560::target(int x) {
-    return work(work(this->helper(x), 0, g1, g2, 0), 0, g2, g3, 0);
+    return FUN_00344e74(FUN_00344e74(this->helper(x), 0, DAT_0049dba4, DAT_0049f4f0, 0), 0, DAT_0049f4f0, DAT_0049f454, 0);
 }

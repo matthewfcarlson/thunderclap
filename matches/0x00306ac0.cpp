@@ -1,7 +1,7 @@
-extern void* g_vt_306ac0[];
-extern void* g_vt2[];
-void Free(void*) throw();
-void Free2(void*) throw();
+extern void* DAT_00431b74[];
+extern void* DAT_003f6098[];
+void FUN_0008d330(void*) throw();
+void FUN_0008d340(void*) throw();
 class Ref_306ac0 {
   public:
     virtual void F0();
@@ -19,7 +19,7 @@ class CollisionVolume_306ac0 {
     ~CollisionVolume_306ac0() throw();
 };
 CollisionVolume_306ac0::~CollisionVolume_306ac0() throw() {
-    vptr = g_vt_306ac0;
+    vptr = DAT_00431b74;
     if (v) {
         for (unsigned i = 0; i < (unsigned)(v->e - v->b); i++)
             v->b[i]->Release();
@@ -28,9 +28,9 @@ CollisionVolume_306ac0::~CollisionVolume_306ac0() throw() {
         if (p) {
             p->e = p->b;
             if (p->b)
-                Free2(p->b);
-            Free(p);
+                FUN_0008d340(p->b);
+            FUN_0008d330(p);
         }
     }
-    vptr = g_vt2;
+    vptr = DAT_003f6098;
 }

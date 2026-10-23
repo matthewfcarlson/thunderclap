@@ -16,9 +16,9 @@ namespace ai {
 class RandomKeyWordWaitCondition {};
 } // namespace ai
 } // namespace hulkfight
-extern const char g1[];
-extern const char g2[];
+extern const char DAT_00491ca8[];
+extern const char DAT_004a4290[];
 template <>
 int fight::ConditionFactoryCasterTemplate<hulkfight::ai::RandomKeyWordWaitCondition>::vfunc_0(const char* s) {
-    return FUN_00344e74(s, 0, g1, g2, 0) != 0;
+    return FUN_00344e74(s, 0, DAT_00491ca8, DAT_004a4290, 0) != 0;
 }

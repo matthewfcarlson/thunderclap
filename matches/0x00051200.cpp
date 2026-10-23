@@ -10,9 +10,9 @@ class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
     virtual bool vfunc_0(const char*);
 };
 } // namespace fight
-extern int __cdecl lookup(const char*, int, void*, void*, int);
-extern void* g1;
-extern void* g2;
+extern int __cdecl FUN_00344e74(const char*, int, void*, void*, int);
+extern void* DAT_00491ca8;
+extern void* DAT_00493e80;
 bool fight::ConditionFactoryCasterTemplate::vfunc_0(const char* name) {
-    return lookup(name, 0, &g1, &g2, 0) != 0;
+    return FUN_00344e74(name, 0, &DAT_00491ca8, &DAT_00493e80, 0) != 0;
 }

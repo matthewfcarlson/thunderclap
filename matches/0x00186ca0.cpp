@@ -1,6 +1,6 @@
 class Actor;
 class Track;
-extern int __cdecl Find(void*, int, void*, void*, int);
+extern int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -18,8 +18,8 @@ namespace motion {
 class PropActorToPropTrack {};
 } // namespace motion
 } // namespace hulkfight
-extern void* a;
-extern void* b;
+extern void* DAT_0049850c;
+extern void* DAT_004bdca8;
 template <> int fight::TrackFactoryCasterTemplate<hulkfight::motion::PropActorToPropTrack>::vfunc_0(void* x) {
-    return Find(x, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(x, 0, &DAT_0049850c, &DAT_004bdca8, 0) != 0;
 }

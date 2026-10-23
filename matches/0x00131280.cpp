@@ -2,7 +2,7 @@ namespace hulkfight {
 class XPTrack;
 }
 extern int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern int a, b;
+extern int DAT_0049850c, DAT_004aaea8;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -15,6 +15,6 @@ template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster 
     virtual void vfunc_1();
 };
 template <> int TrackFactoryCasterTemplate<hulkfight::XPTrack>::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004aaea8, 0) != 0;
 }
 } // namespace fight

@@ -1,9 +1,9 @@
+#include "decls/address.h"
 struct CtorV_001d0480 {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-extern "C" unsigned char __cdecl look(const char*);
-extern const char s1_106af0[], s2[], s3[], s4[];
+extern const char DAT_0048e0e4[], DAT_0048e0f0[], DAT_0048e134[], DAT_0048e10c[];
 class Function_106af0 : public CtorV_001d0480 {
   public:
     Function_106af0(const char* name) : CtorV_001d0480(name, 3) { }
@@ -21,8 +21,8 @@ class Method3 : public Function_106af0 {
 };
 Method3::Method3(const char* name, int v) : Function_106af0(name) {
     value = v;
-    d = look(s1_106af0);
-    a = look(s2);
-    b = look(s3);
-    c = look(s4);
+    d = FUN_001d04d0(DAT_0048e0e4);
+    a = FUN_001d04d0(DAT_0048e0f0);
+    b = FUN_001d04d0(DAT_0048e134);
+    c = FUN_001d04d0(DAT_0048e10c);
 }

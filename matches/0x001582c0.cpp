@@ -6,8 +6,8 @@ class Track {
   public:
     void apply(void*);
 };
-extern "C" void* find(void*, TrackFactoryCasterTemplate_1582c0*);
+extern "C" void* FUN_00236ac0(void*, TrackFactoryCasterTemplate_1582c0*);
 void fun(Track* t, void* name) {
     TrackFactoryCasterTemplate_1582c0 caster;
-    t->apply(find(name, &caster));
+    t->apply(FUN_00236ac0(name, &caster));
 }

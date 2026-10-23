@@ -1,5 +1,5 @@
 #include "compat/ptr.h"
-void* __cdecl Alloc(hulk_uintptr) throw();
+void* __cdecl FUN_0008d6d0(hulk_uintptr) throw();
 class Mem_28bab0 {
   public:
     void* Make(unsigned int, int) throw();
@@ -20,7 +20,7 @@ struct Float1Channel_28bab0 : SimpleChannel_28bab0 {
 Float1Channel_28bab0::Float1Channel_28bab0(int x, int y) throw() : SimpleChannel_28bab0(x, y) {
     m18 = 0;
     if (mc == 0)
-        m18 = Alloc(m10 * 4);
+        m18 = FUN_0008d6d0(m10 * 4);
     else
         m18 = mc->Make(m10 * 4, 3);
 }

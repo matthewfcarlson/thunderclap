@@ -1,6 +1,6 @@
-extern "C" int __cdecl Search(void*, int, void*, void*, int);
-extern void* a;
-extern void* b;
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern void* DAT_0049850c;
+extern void* DAT_004af668;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -19,6 +19,6 @@ class CivilianAttachTrack {};
 } // namespace motion
 } // namespace hulkfight
 template <> int fight::TrackFactoryCasterTemplate<hulkfight::motion::CivilianAttachTrack>::vfunc_0(void* p) {
-    return Search(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004af668, 0) != 0;
 }
 template class fight::TrackFactoryCasterTemplate<hulkfight::motion::CivilianAttachTrack>;

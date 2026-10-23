@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00251b40 @ 0x00251b40
 // FUN_00251b40 @ 0x00251b40
+#include "decls/address.h"
 typedef __int64 Int64;
-extern "C" Int64 __cdecl FUN_002672f0(const char *, int, int);
 struct ChannelValue {
     char data[12];
     // equiv-conv: FUN_0023fc40 ecx stack stack

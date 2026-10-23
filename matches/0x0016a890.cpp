@@ -1,5 +1,5 @@
-extern "C" int __cdecl Check(void*, int, void*, void*, int);
-extern int a, b;
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern int DAT_00491ca8, DAT_004b7340;
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -12,5 +12,5 @@ class Caster : public ConditionFactoryCaster {
 };
 } // namespace fight
 int fight::Caster::vfunc_0(void* p) {
-    return Check(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004b7340, 0) != 0;
 }
