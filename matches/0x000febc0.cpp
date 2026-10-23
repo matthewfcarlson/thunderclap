@@ -1,25 +1,26 @@
 #include "compat/ptr.h"
 class type_info;
-class X_febc0 {
+class CAgent {
   public:
     virtual void F();
     virtual void D();
 };
-class V : public X_febc0 {};
+// the game's classes (RTTI 0x004a19e0 CAgent, 0x004a1bc0 CPathAgent): typeid and dynamic_cast compare them by name
+class CPathAgent : public CAgent {};
 class Owner_febc0 {
   public:
-    X_febc0* Find(const type_info&);
+    CAgent* Find(const type_info&);
 };
 class CPathAgent_febc0 {
   public:
-    V* Make(Owner_febc0*);
+    CPathAgent* Make(Owner_febc0*);
 };
 extern "C" void* __cdecl FUN_00266da0(hulk_intptr);
 extern "C" void* __cdecl FUN_0008d690(int);
-void __cdecl FUN_000febc0(Owner_febc0* owner, V** out) {
-    X_febc0* p = owner->Find(typeid(V));
+void __cdecl FUN_000febc0(Owner_febc0* owner, CPathAgent** out) {
+    CAgent* p = owner->Find(typeid(CPathAgent));
     if (p) {
-        V* q = dynamic_cast<V*>(p);
+        CPathAgent* q = dynamic_cast<CPathAgent*>(p);
         if (q)
             q->F();
         if (*out)
@@ -29,7 +30,7 @@ void __cdecl FUN_000febc0(Owner_febc0* owner, V** out) {
     if (!*out) {
         void* b = FUN_00266da0(0xc);
         void* a = FUN_0008d690(0xfc);
-        V* q;
+        CPathAgent* q;
         if (a)
             q = ((CPathAgent_febc0*)a)->Make(owner);
         else

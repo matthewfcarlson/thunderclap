@@ -33,6 +33,7 @@ public:
     virtual void vfunc_1();
     char pad04[0x14];
     TextEntry_b8f20 entry;
+    void FUN_000e2a60(void *p);
 };
 
 class TextHost : public FEObject {
@@ -41,12 +42,6 @@ public:
     void *locations[0x80];
     const char *names[0x80];
     void FUN_000b8f20();
-};
-
-class LocationLabel : public FEObject {
-public:
-    virtual void vfunc_1();
-    void FUN_000e2a60(void *p);
 };
 
 void TextHost::FUN_000b8f20()
@@ -58,7 +53,8 @@ void TextHost::FUN_000b8f20()
         if (idx >= 0 && idx < 0x80 && names[idx] != 0) {
             FUN_000964a0(name, 0x80, "%s", names[idx]);
             if (locations[idx] != 0) {
-                LocationLabel *loc = dynamic_cast<LocationLabel *>(FUN_000fc260("location_label"));
+                // the original casts "location_label" to TextLabel too (RTTI 0x0049f48c)
+                TextLabel *loc = dynamic_cast<TextLabel *>(FUN_000fc260("location_label"));
                 if (loc != 0)
                     loc->FUN_000e2a60(locations[idx]);
                 TextLabel *label = dynamic_cast<TextLabel *>(FUN_000fc260("description_label"));
