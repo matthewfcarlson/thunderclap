@@ -1,7 +1,7 @@
 # Compute: the shared job queue
 
 Heavy work does not run on the laptop. `tools/jobq.py` is a shared queue with a scheduler daemon that spreads jobs over
-this laptop, mac2 and mac1 by free capacity (it reads each host's load and sizes the slots from it). Everything that
+mac2 and mac1 by free capacity (the laptop takes only `wine-gfx` jobs: its `caps` in `hosts.json` are `["wine-gfx"]`) (it reads each host's load and sizes the slots from it). Everything that
 takes more than a minute or a few cores goes through it: `equiv.py` beyond a quick single check, `build_tree`, regress
 suites, scans and sweeps. At most 2 local processes for interactive debugging.
 
@@ -42,8 +42,8 @@ is appended as results arrive and addresses already in it are skipped (rerun to 
 
 | `--needs` | hosts |
 | --- | --- |
-| `equiv`, `msvc`, `clang`, `any` | mac2, mac1 first; the laptop only when they are full (it has few slots) |
-| `wine` | all three (headless Wine replays; `wine64` in argv0 is expanded to the host's Whisky Wine: the app's copy on the laptop, `~/wine-whisky` on the Macs) |
+| `equiv`, `msvc`, `clang`, `any` | mac2, mac1 (not the laptop) |
+| `wine` | mac2, mac1 (headless Wine replays; `wine64` in argv0 is expanded to the host's Whisky Wine: the app's copy on the laptop, `~/wine-whisky` on the Macs) |
 | `wine-gfx` | laptop only (a Wine run that draws through MoltenVK; see Wine replays) |
 | `xemu` | mac2 only, one at a time, never the laptop |
 
