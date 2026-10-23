@@ -31,10 +31,12 @@ void SlotList_794a0::FUN_000794a0(const char *name, int value, float amount)
 {
     Id64_794a0 id;
 
-    entries[count].id.FUN_0027af70(id.FUN_0027b0e0(name));
+    // MSVC evaluates the argument before the object expression
+    Id64_794a0 *src = id.FUN_0027b0e0(name);
+    entries[count].id.FUN_0027af70(src);
     id.FUN_0027af50();
     entries[count].value = value;
-    ints[count] = (int)(scale * amount);
+    ints[count] = (int)(__int64)(scale * amount);
     zeros[count] = 0;
     count++;
 }

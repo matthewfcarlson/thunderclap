@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 // FUN_00292cc0 @ 0x00292cc0
 // Screen-space scale of a point: projects the point through the view, then writes
 // (x, y) scale factors derived from the field of view and aspect ratio, and the depth.
@@ -47,9 +48,17 @@ void View::FUN_00292cc0(PosArg pos, Out *out)
     if (fr.v.z != 0.0f) {
         pos.f = 1.0f / fr.v.z;      // the argument slot is reused for 1/z
         GetFov(&fr.a, &fr.b);
+        #if defined(__clang__)
+        hulk_freg aspect = (*(Display**)&DAT_0052c2a4)->GetAspect() * fr.b; // kept unrounded by the original
+#else
         float aspect = (*(Display**)&DAT_0052c2a4)->GetAspect() * fr.b;
+#endif
         out->z = *(int *)&fr.v.z;
+        #if defined(__clang__)
+        hulk_freg cot = 1.0f / tan(fr.a * 0.5f);
+#else
         float cot = 1.0f / (float)tan(fr.a * 0.5f);
+#endif
         out->x = (float)(fr.v.x * cot * pos.f * 0.5f);
         out->y = (float)((cot * aspect) * fr.v.y * pos.f * 0.5f);
     }

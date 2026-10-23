@@ -215,7 +215,13 @@ void CHypnoticCamera::vfunc_36()
     DAT_0052c2a8->v60(1);
     (*(Renderer_a9f00**)&DAT_0052c2ac)->cam->v15(0);
     (*(Renderer_a9f00**)&DAT_0052c2ac)->cam->v13(0);
+#if defined(__clang__)
+    // MSVC evaluates the arguments (the clock call) before loading the renderer; clang loads the object first
+    float aspect = 1.0f / (*(Clock_a9f00**)&DAT_0052c2a4)->v16();
+    (*(Renderer_a9f00**)&DAT_0052c2ac)->FUN_00293da0(1.0f, aspect, 1.0f);
+#else
     (*(Renderer_a9f00**)&DAT_0052c2ac)->FUN_00293da0(1.0f, 1.0f / (*(Clock_a9f00**)&DAT_0052c2a4)->v16(), 1.0f);
+#endif
     (*(Renderer_a9f00**)&DAT_0052c2ac)->FUN_00293d40(0, 0, 1.0f);
     target->v8(0, 0);
     (*(Renderer_a9f00**)&DAT_0052c2ac)->cam->v16(0);

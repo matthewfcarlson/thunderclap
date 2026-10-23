@@ -19,7 +19,7 @@ class Elem_fc550 {
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual void Act(int a, int b, char c);
+    virtual void Act(int a, int b, int c);
     virtual void v5();
     virtual void v6();
     virtual void Fin(int x);
@@ -63,6 +63,6 @@ void Owner_fc550::Fn(int a, int b, char c) {
             }
         }
     }
-    items[cur]->Act(a, b, c);
+    items[cur]->Act(a, b, *(int*)&c);  // the original forwards the whole stack word of the char argument
     items[cur]->Fin(1);
 }

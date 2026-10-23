@@ -38,12 +38,12 @@ hulk_freg __cdecl Calc(Input_f6a70* a, Camera* b, void* c) {
     float d = a->value;
     pad[3] = d;
     pad[0] = a->angle;
-    float y = gService->Get();
+    hulk_freg y = gService->Get();
     float z = b->value - pad[3];
     int bits = *(int*)&z;
     bits &= 0x7fffffff;
     z = *(float*)&bits;
-    float r = (float)tan(pad[0] * 0.5f) / y;
+    hulk_freg r = tan(pad[0] * 0.5f) / y;
     r = r * z;
     r = r + r;
     return r * 9.5238094e-05f;

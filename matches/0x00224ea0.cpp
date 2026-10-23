@@ -7,7 +7,7 @@ union FU_224ea0 {
     float f;
     unsigned u;
 };
-inline float Abs(float x) {
+__forceinline float Abs(float x) {
     FU_224ea0 t;
     t.f = x;
     t.u &= 0x7fffffff;

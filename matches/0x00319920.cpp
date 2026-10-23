@@ -1,10 +1,11 @@
+#include "compat/ptr.h"
 // cl-flags: /O2 /GR /GX
 
 namespace physics {
 class Filter1D {
   public:
     virtual void vfunc_0();
-    virtual float vfunc_1(float, float);
+    virtual hulk_freg vfunc_1(float, float);
     virtual void vfunc_2();
 };
 
@@ -17,15 +18,24 @@ class Kalmann1D : public Filter1D {
     float m14; // offset 0x14
     float m18; // offset 0x18
 
-    virtual float vfunc_1(float param_2, float param_3);
+    virtual hulk_freg vfunc_1(float param_2, float param_3);
 };
 } // namespace physics
 
 extern const float ONE;
 
-float physics::Kalmann1D::vfunc_1(float param_2, float param_3) {
+hulk_freg physics::Kalmann1D::vfunc_1(float param_2, float param_3) {
+#if defined(__clang__)
+    hulk_freg q = mC / (m10 + mC);
+    m8 = q;
+    mC = (ONE - q) * mC + m14;
+    hulk_freg result = (param_2 - m18) * m8 + param_3 * m4 + m18;
+    m18 = result;
+    return result;
+#else
     m8 = mC / (m10 + mC);
     mC = (ONE - m8) * mC + m14;
     m18 = (param_2 - m18) * m8 + param_3 * m4 + m18;
     return m18;
+#endif
 }

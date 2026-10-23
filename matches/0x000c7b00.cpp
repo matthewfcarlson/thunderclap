@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern float scale;
 class Provider {
   public:
@@ -31,7 +32,13 @@ class Obj {
 void Obj::Update(float x) {
     enabled = 0;
     int n = holder->GetCount();
+#if defined(__clang__)
+    hulk_freg v = x * factor / ((float)n * scale);
+    first = v;
+    second = v * scale; // the original multiplies the unrounded quotient
+#else
     float v = x * factor / ((float)n * scale);
     first = v;
     second = first * scale;
+#endif
 }
