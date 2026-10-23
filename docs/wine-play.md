@@ -61,3 +61,8 @@ build/play/run/stderr.txt for `input: SDL sees N joystick(s), M gamepad(s)`:
 - joystick but "(no gamepad mapping)": SDL has no mapping for the device; set `SDL_GAMECONTROLLERCONFIG` to a mapping string.
 - gamepad: it becomes pad 0 and the keyboard is off. A real pad replaces the keyboard for the session; hot-plug is handled.
 Failing all that, a native macOS pad bridge (outside Wine) is the larger fallback.
+
+## Widescreen, HUD placement and frame rate (sky3)
+
+`HULK_HUD=edge|centre`, `HULK_FPS_CAP=30|60|0`, `HULK_FPS_LOG=1` and the 1280x720 / ultrawide window sizes: see
+[wine-widescreen-60fps.md](wine-widescreen-60fps.md) (what each does, measurements, what is left).

@@ -606,7 +606,13 @@ static int rs_read(void*, unsigned port, HulkPadState* s)
     if (!g_rp.open || port >= g_rp.vpad_count)
         return 0;
     g_rp.polls++;                                         // one poll, whichever pad it is (the stream is shared)
-    unsigned key = g_rp.frame_keyed ? g_rp.frame : g_rp.polls;
+    static unsigned stretch;                              // HULK_REPLAY_STRETCH=N: each recorded frame (poll) lasts N
+    if (!stretch) {                                       // (a 60 fps replay of a 30 fps recording: N=2 with HULK_VDT_US)
+        const char* e = SDL_getenv("HULK_REPLAY_STRETCH");
+        int n = e ? SDL_atoi(e) : 1;
+        stretch = n >= 1 && n <= 8 ? (unsigned)n : 1;
+    }
+    unsigned key = (g_rp.frame_keyed ? g_rp.frame : g_rp.polls) / stretch;
     unsigned pos = g_rp.pos;
     while (pos + 1 < g_rp.n && g_rp.e[pos + 1].key <= key)
         pos++;

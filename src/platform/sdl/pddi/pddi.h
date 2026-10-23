@@ -113,6 +113,7 @@ bool platformDisplayInit(bgfxDisplay* display, unsigned width, unsigned height);
 void platformPump();
 void platformBeforeFrame(unsigned frame);
 void platformAfterFrame(unsigned frame);
+void platformFramePace();     // HULK_FPS_CAP: wait out the rest of the frame period after the present
 class bgfxContext;
 void platformSelfTest(bgfxContext* context, bgfxDisplay* display);
 #endif

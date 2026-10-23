@@ -631,6 +631,37 @@ void bgfxContext::vfunc_109()
     identity(m);
     float vx = 0, vy = 0, vw = W, vh = H;
     float n = k->nearZ, f = k->farZ;
+#if HULK_PDDI_GAME
+    {
+        static const bool hudLog = getenv("HULK_HUD_LOG") != 0;
+        static float lf, la, lx0, lx1, ln, lfar;
+        static int lm = -1;
+        if (hudLog && (k->mode != lm || k->fov != lf || k->aspect != la || k->x0 != lx0 || k->x1 != lx1 || k->nearZ != ln || k->farZ != lfar)) {
+            lm = k->mode; lf = k->fov; la = k->aspect; lx0 = k->x0; lx1 = k->x1; ln = k->nearZ; lfar = k->farZ;
+            logf("pddi: projection mode %d fov %f aspect %f near %f far %f viewport x %f..%f y %f..%f (draw %u)\n", k->mode,
+                 (double)k->fov, (double)k->aspect, (double)k->nearZ, (double)k->farZ, (double)k->x0, (double)k->x1,
+                 (double)k->y0, (double)k->y1, drawCount());
+        }
+    }
+#endif
+    // HULK_HUD=edge (docs/wine-widescreen-60fps.md): the HUD's own camera (near 0.1, far 100, horizontal FOV from
+    // ComputeRealFOV, so tan(fov/2) = 0.75 x aspect) frames its 4:3 design as the middle of a wider picture: the
+    // fixed-function vertex path moves what lies towards either side outwards by the width the picture gained
+    m_hudShift = 0.0f;
+    m_hudRegion = 1.0f;
+#if HULK_PDDI_GAME
+    {
+        static const char* e = getenv("HULK_HUD");
+        static const bool edge = e && (e[0] == 'e' || e[0] == 'E');
+        if (edge && k->mode == 0 && k->aspect > 1.4f && k->nearZ > 0.09f && k->nearZ < 0.11f && k->farZ == 100.0f) {
+            float t = (float)bx::tan(k->fov * 0.5f) - 0.75f * k->aspect;
+            if (t > -0.02f && t < 0.02f) {
+                m_hudRegion = (4.0f / 3.0f) / k->aspect;
+                m_hudShift = 1.0f - m_hudRegion;
+            }
+        }
+    }
+#endif
     if (k->mode == 0) {
         float A = (float)bx::tan(k->fov * 0.5f) * k->nearZ;
         float X = A / k->aspect;

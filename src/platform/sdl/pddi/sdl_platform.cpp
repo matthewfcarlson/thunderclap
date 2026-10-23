@@ -18,6 +18,12 @@
 //   HULK_GFX_DIRECT     1: no scene target (G4): draw straight to the back buffer, no frame-buffer copies or effects
 //   HULK_GFX_FULLSCREEN 1: start in desktop-size fullscreen (F11 / Alt+Enter toggle it; the window is resizable and
 //                       the back buffer follows its pixel size)
+//   HULK_FPS_CAP       30 (default) | 60 | 0: the frame pacing the original gets from the vblank wait in
+//                       d3dDisplay::SwapBuffers (0x31b190: flag 0x5554a0 clear = two vblanks per frame = 30 fps, as in
+//                       gameplay; set = one = 60 fps, the front end). 30 = that (the game's flag picks 30 or 60), 60 =
+//                       always 60, 0 = no pacing beyond the swap chain's vsync. Unset it is off for replays
+//                       (HULK_INPUT_SOURCE) and the noop renderer; set explicitly it applies everywhere.
+//   HULK_FPS_LOG        1: log the measured frame time (average, worst, fps) every 120 presents
 //   HULK_GFX_SELFTEST   N: when the context is created, drive N frames of the self-test scene (selftest_scene.cpp:
 //                       prim streams, a texture, prim buffers, the skinning extension and its vertex program, z /
 //                       blend / stencil / cull / fog / colour-mask state, all through the slots the engine uses)
@@ -254,6 +260,10 @@ static void dumpDrawlog()
     }
 }
 
+// game globals the platform layer reads (the linked image binds them)
+extern "C" unsigned char DAT_005554a0[4];       // SwapBuffers' vsync flag
+extern "C" float DAT_004de600, DAT_004de604;    // the HUD layout frame (width, height)
+
 // before bgfx::frame() of frame `frame` (0-based, counting presents): request the screenshots asked for
 void platformBeforeFrame(unsigned frame)
 {
@@ -281,6 +291,14 @@ void platformAfterFrame(unsigned frame)
     platformPump();
     if (frame < 3 || (frame & (frame - 1)) == 0)
         logf("pddi: frame %u presented (%u draws)\n", frame, drawCount());
+    if (getenv("HULK_HUD_LOG")) {
+        static float lw = -1, lh = -1;
+        if (DAT_004de600 != lw || DAT_004de604 != lh) {
+            lw = DAT_004de600;
+            lh = DAT_004de604;
+            logf("pddi: hud layout %f x %f at present %u (game frame %u)\n", (double)lw, (double)lh, frame, hulk_native_frame_no);
+        }
+    }
     if (s_drawlogLast && frame == s_drawlogLast + 1)
         dumpDrawlog();
     if (s_exitAfter && frame + 1 >= s_exitAfter) {
@@ -290,6 +308,68 @@ void platformAfterFrame(unsigned frame)
         stubReport();
         logf("pddi: HULK_GFX_FRAMES=%u reached: exit\n", s_exitAfter);
         ExitProcess(0);
+    }
+}
+
+// HULK_FPS_CAP (see the top): after the present, wait until one frame period has passed since the last deadline
+// (sleep most of it, spin the rest). The period follows the game's SwapBuffers flag (0x5554a0) unless forced.
+static long long qpcNow()
+{
+    LARGE_INTEGER c;
+    QueryPerformanceCounter(&c);
+    return c.QuadPart;
+}
+void platformFramePace()
+{
+    static int mode = -1;              // 0 no pacing, 30 the game's flag decides, 60 always one vblank
+    static long long freq, deadline, lastNow, worst, sum;
+    static unsigned count, logEvery;
+    if (mode < 0) {
+        LARGE_INTEGER f;
+        QueryPerformanceFrequency(&f);
+        freq = f.QuadPart ? f.QuadPart : 1;
+        const char* e = getenv("HULK_FPS_CAP");
+        if (e && *e) {
+            mode = atoi(e) == 60 ? 60 : atoi(e) == 30 ? 30 : 0;
+        } else {
+            const char* r = getenv("HULK_INPUT_SOURCE");
+            const char* g = getenv("HULK_GFX_RENDERER");
+            mode = (r && !strncmp(r, "replay:", 7)) || (g && !strcmp(g, "noop")) ? 0 : 30;
+        }
+        const char* l = getenv("HULK_FPS_LOG");
+        logEvery = l && *l == '1' ? 120 : 0;
+        logf("pddi: frame pacing %s\n", mode == 0 ? "off" : mode == 60 ? "60 fps" : "30 fps in gameplay, 60 in the front end (the game's flag)");
+    }
+    long long now = qpcNow();
+    if (mode) {
+        long long period = freq / ((mode == 60 || DAT_005554a0[0]) ? 60 : 30);
+        if (!deadline || now > deadline + period * 2)
+            deadline = now;                         // first frame, or we fell behind (a load): don't catch up
+        deadline += period;
+        while ((now = qpcNow()) < deadline) {
+            long long ms = (deadline - now) * 1000 / freq;
+            if (ms > 2)
+                Sleep((DWORD)(ms - 1));
+            else
+                YieldProcessor();
+        }
+    }
+    if (logEvery) {
+        if (lastNow) {
+            long long dt = now - lastNow;
+            sum += dt;
+            if (dt > worst)
+                worst = dt;
+            if (++count == logEvery) {
+                long long avgUs = sum * 1000000 / count / freq, worstUs = worst * 1000000 / freq;
+                logf("pddi: frame time avg %d.%02d ms (%d.%d fps), worst %d.%02d ms over %u presents\n",
+                     (int)(avgUs / 1000), (int)(avgUs % 1000 / 10), (int)(1000000 / avgUs),
+                     (int)(10000000 / avgUs % 10), (int)(worstUs / 1000), (int)(worstUs % 1000 / 10), count);
+                count = 0;
+                sum = worst = 0;
+            }
+        }
+        lastNow = now;
     }
 }
 

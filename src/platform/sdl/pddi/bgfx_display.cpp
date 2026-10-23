@@ -370,6 +370,7 @@ void bgfxDisplay::vfunc_14()
         bgfx::frame();
     }
 #if HULK_PDDI_GAME && defined(_WIN32)
+    platformFramePace();
     platformAfterFrame(m_frame);
 #endif
     m_frame++;

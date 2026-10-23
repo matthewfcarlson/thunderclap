@@ -109,8 +109,9 @@ the nominal FOV per camera mode. **FOV slider**: scale the nominal FOV passed to
 HUD as a 3D overlay scene with its own `pure3d::Camera`: nominal FOV 90° through the same
 `ComputeRealFOV`, and a layout half-width `0x4de600 = 22.3 × aspect × 0.75` (22.3 at 4:3, 29.7 at
 16:9). `0xd6a20`, `0xd6b20`, `0xd6c70` recompute both when the aspect changes. HUD elements are
-therefore laid out against an aspect-dependent width, and anchored ones should move to the screen
-edges in 16:9. Front-end screens do the same (`FEScreenBase::vfunc_10`, `0xef4f0`, per-screen
+therefore laid out against an aspect-dependent width (text, message box and icons follow it; the corner-bracket
+frame is four static models at scale 4 and stays a 4:3 frame: measured in [wine-widescreen-60fps.md](wine-widescreen-60fps.md),
+which also has the `HULK_HUD=edge` option that moves them to the screen edges). Front-end screens do the same (`FEScreenBase::vfunc_10`, `0xef4f0`, per-screen
 nominal FOV at `+0x98c`). The TV-safe area is a debug overlay only (0.075–0.925, "Xbox Certification
 Safe Area" in `0xa97e0`). Not yet checked: which HUD elements are anchored to edges vs centred, and
 the 2D text/sprite path (`pddiBaseContext` 2D mode, `pure3d::TextureFont`). Movies letterbox via

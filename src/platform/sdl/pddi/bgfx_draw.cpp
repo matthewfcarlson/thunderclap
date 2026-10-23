@@ -592,7 +592,11 @@ void bgfxContext::refractConstants(bgfxShader* shader, const float* viewport, co
 static void ffConstants(bgfxContext* ctx, unsigned flags, float (*c)[4])
 {
     const bgfxContext::DeviceState& d = ctx->m_d3d;
-    memset(c, 0, 55 * 16);
+    memset(c, 0, 56 * 16);
+    // HULK_HUD=edge (vs_vp_ff.sh; 0 = off): only the HUD's frame models, which the game draws at scale 4 (the text, the
+    // message box and the icons are laid out from the wider layout width by the game itself, at scales below 1.5)
+    c[55][0] = ctx->m_world[0] >= 2.0f ? ctx->m_hudShift : 0.0f;
+    c[55][1] = ctx->m_hudRegion;
     columns(ctx->m_world, &c[0], false);
     columns(ctx->m_proj, &c[4], homogeneousDepth());
     colour4(d.material[0], c[8]);
@@ -937,9 +941,9 @@ void bgfxContext::draw(bgfxShader* sh, const DrawSource& src)
 
     // constants
     if (pi == 0 || pi == kProgramFF2S) {
-        float c[55][4];
+        float c[56][4];
         ffConstants(this, src.flags, c);
-        bgfx::setUniform(bgfx::UniformHandle{(uint16_t)m_uVc}, c, 55);
+        bgfx::setUniform(bgfx::UniformHandle{(uint16_t)m_uVc}, c, 56);
     } else {
         bgfx::setUniform(bgfx::UniformHandle{(uint16_t)m_uVc}, m_vc[96], 96);
     }

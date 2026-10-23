@@ -101,6 +101,20 @@ extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
                                 c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7], c[8], c[9], c[10], c[11]);
             hulk_native_log(line);
         }
+        // HULK_CKPT_CAM=1: the camera's position (+0x4c, floats as hex) and the clock block at every logged checkpoint
+        // (comparing a 30 fps run with a 60 fps one at equal game time: docs/wine-widescreen-60fps.md)
+        static int cam_log = -1;
+        if (cam_log < 0) {
+            const char* v = hulk_host_getenv("HULK_CKPT_CAM");
+            cam_log = v && *v == '1';
+        }
+        if (cam_log && *st.camera_ptr) {
+            const hulk_u32* p = (const hulk_u32*)((const char*)*st.camera_ptr + 0x4c);
+            const hulk_u32* c = (const hulk_u32*)((const char*)clock + 0x10);
+            hulk_host__snprintf(line, sizeof(line), "ckpt cam frame %u: %08x %08x %08x clock %08x %08x %08x %08x",
+                                s.frame - 1, p[0], p[1], p[2], c[0], c[2], c[4], c[6]);
+            hulk_native_log(line);
+        }
         hulk_ls_log_stats();
         logged++;
     }

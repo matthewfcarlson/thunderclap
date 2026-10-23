@@ -18,6 +18,7 @@
 //   u_vc[48+s]    stage s's texture coordinates: x the source (0-3 a uv set of the vertex, 10 the camera-space
 //                 normal, 11 the camera-space position, 12 the camera-space reflection vector: D3DTSS_TEXCOORDINDEX),
 //                 y the transform's output count (D3DTTFF: 0 none)
+//   u_vc[55]      x: HULK_HUD=edge shift, y: the 4:3 region (ndc half-width); x = 0 off (see main)
 //   u_vc[52..54]  the normal matrix's rows: the inverse transpose of the modelview's 3x3 (Direct3D's normal transform)
 // Lighting is in camera space (the lights come transformed by the modelview they were set with, D3D's VIEW is
 // the identity): diffuse N.L and Blinn specular with a local viewer, point lights attenuated within their range,
@@ -90,6 +91,13 @@ void main()
     vec4 view = vec4(dot(p, u_vc[0]), dot(p, u_vc[1]), dot(p, u_vc[2]), dot(p, u_vc[3]));
     gl_Position = vec4(dot(view, u_vc[4]), dot(view, u_vc[5]), dot(view, u_vc[6]), dot(view, u_vc[7]));
     v_fog = view.z;
+    // HULK_HUD=edge: u_vc[55] = (shift, half-width of the 4:3 design region), both in ndc; shift 0 is off. Whatever
+    // lies away from the middle of the design moves outwards by the shift: none within 0.05 of the region's middle,
+    // all beyond 0.2 of it (the game's HUD pieces sit at 0.4 and further, in separate left and right groups).
+    if (u_vc[55].x != 0.0 && gl_Position.w > 0.0) {
+        float xn = gl_Position.x / gl_Position.w / u_vc[55].y;
+        gl_Position.x += sign(xn) * u_vc[55].x * smoothstep(0.05, 0.2, abs(xn)) * gl_Position.w;
+    }
 
     vec4 vcol = a_color0.zyxw;
     vec4 diffuseMat = u_vc[13].y > 0.5 ? vcol : u_vc[8];

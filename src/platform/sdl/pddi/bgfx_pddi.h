@@ -375,6 +375,7 @@ class bgfxContext : public bgfxObject {
     bgfxShader* m_defaultShader;
     unsigned m_drawIndex;                     // draws in this frame (drawlog)
     RenderState m_rs;
+    float m_hudShift = 0.0f, m_hudRegion = 1.0f;   // HULK_HUD=edge: the overlay camera is current (ndc shift, 4:3 region half-width)
     float m_world[16], m_proj[16];            // D3DTS_WORLD (the modelview) and D3DTS_PROJECTION, row-vector
     float m_texMatrix[3][16];                 // stacks 1..3 (D3DTS_TEXTURE0..2): kept, not applied yet
     Light m_lights[kLights];

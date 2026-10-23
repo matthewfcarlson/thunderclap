@@ -19,8 +19,9 @@ static const unsigned long long hulk_xbox_hz = 733333333ull;
 #define HULK_HF_FIXED_DT 1u
 #define HULK_HF_VCLOCK 128u
 #define HULK_HF_VDATE 4096u
-static const unsigned long long hulk_vstart_us = 1000000ull, hulk_vbase_us = 300000000ull, hulk_dt_us = 33333ull,
-                                hulk_pre_step_us = 4000ull;
+static const unsigned long long hulk_vstart_us = 1000000ull, hulk_vbase_us = 300000000ull, hulk_pre_step_us = 4000ull;
+// the fixed step: 33,333 us (30 fps), or HULK_VDT_US (e.g. 16667 for a 60 fps replay; see docs/wine-widescreen-60fps.md)
+static unsigned long long hulk_dt_us = 33333ull;
 static int hulk_vflags = -1;
 static unsigned long long hulk_vt, hulk_vextra, hulk_fixed_base;
 static hulk_u32 hulk_vmain, hulk_vframe;
@@ -32,6 +33,14 @@ static hulk_u32 hulk_vmain, hulk_vframe;
 static unsigned hulk_vclock_flags(void) {
     if (hulk_vflags < 0) {
         unsigned f = 0;
+        const char* dt = hulk_host_getenv("HULK_VDT_US");
+        if (dt && dt[0] >= '1' && dt[0] <= '9') {
+            unsigned long long v = 0;
+            for (; *dt >= '0' && *dt <= '9'; dt++)
+                v = v * 10 + (unsigned)(*dt - '0');
+            if (v >= 1000 && v <= 66666)
+                hulk_dt_us = v;
+        }
         const char* e = hulk_host_getenv("HULK_VCLOCK");
         if (e && e[0] == '1')
             f = HULK_HF_FIXED_DT | HULK_HF_VCLOCK | HULK_HF_VDATE;
