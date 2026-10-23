@@ -804,6 +804,7 @@ def main(argv=None):
         return 0 if obj else 1
     gen, manifest, results, history, state = run(a.jobs, a.rounds, fresh=not a.resume)
     checks = verify(gen, manifest, results, a.jobs)
+    escalated = {}      # addr -> (state key, reason): wrapped -> isolated escalations made by the regression rounds
     for rnd in range(a.regression_rounds):
         # a function whose code changed in the tree falls back: merged -> wrapped -> isolated
         reg = regressions(checks)
@@ -843,9 +844,11 @@ def main(argv=None):
                 new += 1
             elif mode == "wrapped" and addr not in state["isolate"]:
                 state["isolate"][addr] = why
+                escalated[addr] = ("isolate", why)
                 new += 1
             elif mode == "isolated+ns" and addr not in state.setdefault("iso_plain", {}):
                 state["iso_plain"][addr] = why
+                escalated[addr] = ("iso_plain", why)
                 new += 1
         if not new and deferred:
             # nothing else moved: the deferred ones escalate now (their neighbours cannot settle any further)
@@ -853,19 +856,56 @@ def main(argv=None):
                 mode, why = reg[addr]
                 if mode == "wrapped" and addr not in state["isolate"]:
                     state["isolate"][addr] = why
+                    escalated[addr] = ("isolate", why)
                     new += 1
                 elif mode == "isolated+ns" and addr not in state.setdefault("iso_plain", {}):
                     state["iso_plain"][addr] = why
+                    escalated[addr] = ("iso_plain", why)
                     new += 1
             deferred = set()
         print("regressions: %d (%d new fallbacks%s)" % (len(reg), new,
                                                          ", %d deferred" % len(deferred) if deferred else ""), flush=True)
+        if deferred:
+            print("  deferred: %s" % " ".join("0x%08x" % x for x in sorted(deferred)), flush=True)
         if not new:
             break
         gen_tree.save_state(state)
         gen, manifest, results, h2, state = run(a.jobs, a.rounds, fresh=False)
         history += h2
         checks = verify(gen, manifest, results, a.jobs)
+    # Re-check the escalations once everything else has settled: a wrapped function isolated in an early round may
+    # have differed only because of a neighbour that a later round moved. Undo them, rebuild, and re-apply only those
+    # that still differ (fallbacks are otherwise never undone, which made the tree depend on the order of rounds).
+    if escalated and a.regression_rounds:
+        for addr, (key, _why) in escalated.items():
+            state[key].pop(addr, None)
+        gen_tree.save_state(state)
+        gen, manifest, results, h2, state = run(a.jobs, a.rounds, fresh=False)
+        history += h2
+        checks = verify(gen, manifest, results, a.jobs)
+        back = 0
+        for _ in range(2):
+            reg = regressions(checks)
+            new = 0
+            for addr, (mode, why) in sorted(reg.items()):
+                if mode == "merged" and addr not in state["wrap"]:
+                    state["wrap"][addr] = why
+                    new += 1
+                elif mode == "wrapped" and addr not in state["isolate"]:
+                    state["isolate"][addr] = why
+                    new += 1
+                elif mode == "isolated+ns" and addr not in state.setdefault("iso_plain", {}):
+                    state["iso_plain"][addr] = why
+                    new += 1
+            back += new
+            if not new:
+                break
+            gen_tree.save_state(state)
+            gen, manifest, results, h2, state = run(a.jobs, a.rounds, fresh=False)
+            history += h2
+            checks = verify(gen, manifest, results, a.jobs)
+        print("recheck: %d escalations undone, %d fallbacks re-applied; %d regressions left"
+              % (len(escalated), back, len(regressions(checks))), flush=True)
     rep = summarize(manifest, results, checks, history, gen, state)
     if a.equiv is not None:
         rep["equiv_on_merged_objects"] = run_equiv(checks, results, a.equiv)
