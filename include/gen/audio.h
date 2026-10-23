@@ -114,6 +114,9 @@ class ChannelSendVolumeFadeBehaviour : public ::om::DynBehaviour {
 public:
     virtual ~ChannelSendVolumeFadeBehaviour(); // overrides om::DynBehaviour slot 0
     virtual void vfunc_1(int, int); // overrides om::DynBehaviour slot 1
+    char _pad_04[0x18];
+    void* f_1c;
+    void* f_20;
 };
 
 // .?AVChannelVolumeFadeBehaviour@audio@@  vftable 0x429ecc (2)
@@ -121,6 +124,9 @@ class ChannelVolumeFadeBehaviour : public ::om::DynBehaviour {
 public:
     virtual ~ChannelVolumeFadeBehaviour(); // overrides om::DynBehaviour slot 0
     virtual void vfunc_1(int, int); // overrides om::DynBehaviour slot 1
+    char _pad_04[0x18];
+    void* f_1c;
+    void* f_20;
 };
 
 // .?AVClip@audio@@  vftable 0x42918c (9)
@@ -426,6 +432,8 @@ public:
     void* f_08;
     int f_0c;
     int f_10;
+    char _pad_14[0x4];
+    int f_18;
 };
 
 // .?AVSeqActionExpression@audio@@  vftable 0x429ce8 (7)
@@ -507,6 +515,8 @@ public:
     int f_18;
     int f_1c;
     int f_20;
+    int f_24;
+    int f_28;
 };
 
 // .?AVSeqActionVarPitch@audio@@  vftable 0x42a244 (7)
@@ -639,6 +649,9 @@ class SeqCommandCondition : public ::audio::SeqCommand {
 public:
     virtual void vfunc_0(int); // overrides audio::SeqCommand slot 0
     virtual ~SeqCommandCondition(); // overrides audio::SeqCommand slot 1
+    char _pad_04[0x4];
+    void* f_08;
+    void* f_0c;
 };
 
 // .?AVSeqCommandLogicOr@audio@@  vftable 0x42a450 (2)
@@ -646,6 +659,8 @@ class SeqCommandLogicOr : public ::audio::SeqCommand {
 public:
     virtual void vfunc_0(int); // overrides audio::SeqCommand slot 0
     virtual ~SeqCommandLogicOr(); // overrides audio::SeqCommand slot 1
+    int f_04;
+    void* f_08;
 };
 
 // .?AVSeqCommandLogicRepeat@audio@@  vftable 0x42a400 (2)
@@ -653,6 +668,10 @@ class SeqCommandLogicRepeat : public ::audio::SeqCommand {
 public:
     virtual void vfunc_0(int); // overrides audio::SeqCommand slot 0
     virtual ~SeqCommandLogicRepeat(); // overrides audio::SeqCommand slot 1
+    char _pad_04[0x4];
+    void* f_08;
+    int f_0c;
+    int f_10;
 };
 
 // .?AVSeqEvent@audio@@  vftable 0x42aa60 (6)
@@ -724,6 +743,13 @@ public:
     virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventChannelVolumes(); // overrides audio::SeqEvent slot 4
+    char _pad_04[0x4];
+    int f_08;
+    int f_0c;
+    int f_10;
+    int f_14;
+    char _pad_18[0x4];
+    int f_1c;
 };
 
 // .?AVSeqEventChannelVolumesType@audio@@  vftable 0x429e5c (4)
@@ -761,6 +787,8 @@ public:
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
     virtual ~SeqEventContainer(); // overrides audio::SeqEvent slot 4
     virtual int vfunc_5(); // overrides audio::SeqEvent slot 5
+    char _pad_04[0x4];
+    int f_08;
 };
 
 // .?AVSeqEventCondition@audio@@  vftable 0x429b38 (6)
@@ -771,6 +799,8 @@ public:
     virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventCondition(); // overrides audio::SeqEvent slot 4
+    int f_0c;
+    int f_10;
 };
 
 // .?AVSeqEventConditionType@audio@@  vftable 0x429ad4 (4)
@@ -790,6 +820,13 @@ public:
     virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventCrossFade(); // overrides audio::SeqEvent slot 4
+    char _pad_04[0x4];
+    int f_08;
+    int f_0c;
+    int f_10;
+    int f_14;
+    char f_18;
+    char f_19;
 };
 
 // .?AVSeqEventCrossFadeType@audio@@  vftable 0x42a48c (4)
@@ -828,6 +865,8 @@ public:
     virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventLogicOr(); // overrides audio::SeqEvent slot 4
+    int f_0c;
+    int f_10;
 };
 
 // .?AVSeqEventLogicOrType@audio@@  vftable 0x42a424 (4)
@@ -847,6 +886,9 @@ public:
     virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventLogicRepeat(); // overrides audio::SeqEvent slot 4
+    char _pad_0c[0x8];
+    int f_14;
+    int f_18;
 };
 
 // .?AVSeqEventLogicRepeatType@audio@@  vftable 0x42a3a0 (5)
@@ -886,6 +928,10 @@ public:
     virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventPlayTrack(); // overrides audio::SeqEvent slot 4
+    int f_04;
+    int f_08;
+    int f_0c;
+    int f_10;
 };
 
 // .?AVSeqEventPlayTrackType@audio@@  vftable 0x429de8 (4)
@@ -905,6 +951,7 @@ public:
     virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventSilence(); // overrides audio::SeqEvent slot 4
+    int f_04;
 };
 
 // .?AVSeqEventSilenceType@audio@@  vftable 0x42a328 (4)
@@ -924,6 +971,11 @@ public:
     virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventStopTrack(); // overrides audio::SeqEvent slot 4
+    int f_04;
+    int f_08;
+    int f_0c;
+    char _pad_10[0xc];
+    char f_1c;
 };
 
 // .?AVSeqEventStopTrackType@audio@@  vftable 0x429d38 (4)
@@ -962,6 +1014,8 @@ public:
     virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventVarPitch(); // overrides audio::SeqEvent slot 4
+    int f_04;
+    float f_08;
 };
 
 // .?AVSeqEventVarPitchRand@audio@@  vftable 0x42a150 (6)
@@ -1000,6 +1054,9 @@ public:
     virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventVarPosDist(); // overrides audio::SeqEvent slot 4
+    char _pad_04[0x4];
+    float f_08;
+    float f_0c;
 };
 
 // .?AVSeqEventVarPosDistType@audio@@  vftable 0x42a0e0 (4)
@@ -1019,6 +1076,8 @@ public:
     virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventVarTempo(); // overrides audio::SeqEvent slot 4
+    char _pad_04[0x8];
+    int f_0c;
 };
 
 // .?AVSeqEventVarTempoType@audio@@  vftable 0x42a04c (5)
@@ -1039,6 +1098,8 @@ public:
     virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventVarVolume(); // overrides audio::SeqEvent slot 4
+    char _pad_04[0x4];
+    float f_08;
 };
 
 // .?AVSeqEventVarVolumeRand@audio@@  vftable 0x429f0c (6)
@@ -1049,6 +1110,7 @@ public:
     virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventVarVolumeRand(); // overrides audio::SeqEvent slot 4
+    int f_04;
 };
 
 // .?AVSeqEventVarVolumeRandType@audio@@  vftable 0x429f28 (4)
@@ -1077,6 +1139,7 @@ public:
     virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventWait(); // overrides audio::SeqEvent slot 4
+    int f_04;
 };
 
 // .?AVSeqEventWaitBeat@audio@@  vftable 0x429c5c (6)
@@ -1116,6 +1179,8 @@ class SeqTrack {
 public:
     virtual bool vfunc_0(int); // slot 0
     virtual void vfunc_1(int); // slot 1
+    char _pad_04[0x40];
+    char f_44;
 };
 
 // .?AVSequence@audio@@  vftable 0x42a640 (9)
@@ -1126,6 +1191,19 @@ public:
     virtual bool vfunc_4(int); // overrides om::Entity slot 4
     virtual bool vfunc_5(int); // overrides om::Entity slot 5
     virtual void vfunc_8(); // overrides om::Entity slot 8
+    char _pad_24[0x4];
+    void* f_28;
+    void* f_2c;
+    void* f_30;
+    void* f_34;
+    int f_38;
+    int f_3c;
+    int f_40;
+    void* f_44;
+    void* f_48;
+    void* f_4c;
+    void* f_50;
+    int f_54;
 };
 
 // .?AVSequenceType@audio@@  vftable 0x42a614 (3)

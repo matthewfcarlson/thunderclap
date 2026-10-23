@@ -379,6 +379,12 @@ public:
     int f_1c;
     int f_20;
     int f_24;
+    char _pad_28[0x4];
+    int f_2c;
+    char _pad_30[0x18];
+    int f_48;
+    int f_4c;
+    int f_50;
 };
 
 // .?AVAmbientLight@pure3d@@  vftable 0x42d6c8 (10)
@@ -386,6 +392,7 @@ class AmbientLight : public ::pure3d::Light {
 public:
     virtual ~AmbientLight(); // overrides core::IRefCount slot 2
     virtual void vfunc_9(int); // overrides pure3d::Light slot 9
+    int f_54;
 };
 
 // .?AVAnimation@pure3d@@  vftable 0x42c8d0 (5)
@@ -394,6 +401,17 @@ public:
     virtual ~Animation(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(); // overrides pure3d::Entity slot 3
     virtual void* vfunc_4(); // overrides pure3d::Entity slot 4
+    int f_10;
+    float f_14;
+    char f_18;
+    char _pad_19[0x7];
+    int f_20;
+    int f_24;
+    int f_28;
+    void* f_2c;
+    void* f_30;
+    int f_34;
+    void* f_38;
 };
 
 // .?AVFrameController@pure3d@@  vftable 0x42c5bc (24)
@@ -454,6 +472,10 @@ class AnimationLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~AnimationLoader(); // overrides core::IRefCount slot 2
     virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
+    void* f_14;
+    int f_18;
+    int f_1c;
+    int f_20;
 };
 
 // .?AVNonCopyable@pure3d@@  vftable 0x3f6308 (3)
@@ -491,6 +513,9 @@ public:
     virtual void vfunc_15(); // slot 15
     int f_08;
     unsigned char f_0c;
+    char _pad_0d[0x3];
+    int f_10;
+    int f_14;
 };
 
 // .?AVBMPHandler@pure3d@@  vftable 0x42cdbc (16)
@@ -511,6 +536,34 @@ public:
     virtual ~BillboardQuad(); // overrides core::IRefCount slot 2
     virtual void vfunc_5(); // slot 5
     virtual void vfunc_6(int, int, int, int); // slot 6
+    char _pad_10[0x4];
+    int f_14;
+    int f_18;
+    char _pad_1c[0x4];
+    int f_20;
+    int f_24;
+    char _pad_28[0x4];
+    int f_2c;
+    int f_30;
+    char _pad_34[0x4];
+    char f_38;
+    char _pad_39[0x3];
+    int f_3c;
+    char _pad_40[0x44];
+    float f_84;
+    int f_88;
+    char f_8c;
+    char _pad_8d[0x3];
+    int f_90;
+    int f_94;
+    char _pad_98[0x28];
+    int f_c0;
+    int f_c4;
+    int f_c8;
+    int f_cc;
+    int f_d0;
+    char _pad_d4[0x34];
+    int f_108;
 };
 
 // .?AVBillboardCutOffQuad@pure3d@@  vftable 0x42e744 (7)
@@ -548,6 +601,10 @@ public:
     int f_38;
     char _pad_3c[0x48];
     unsigned int f_84;
+    char f_88;
+    char f_89;
+    char f_8a;
+    char f_8b;
 };
 
 // .?AVBillboardCutOffQuadGroup@pure3d@@  vftable 0x42e840 (12)
@@ -555,6 +612,12 @@ class BillboardCutOffQuadGroup : public ::pure3d::BillboardQuadGroup {
 public:
     virtual ~BillboardCutOffQuadGroup(); // overrides core::IRefCount slot 2
     virtual float vfunc_11(int, int); // overrides pure3d::BillboardQuadGroup slot 11
+    char _pad_8c[0x4];
+    int f_90;
+    char _pad_94[0x4];
+    int f_98;
+    int f_9c;
+    int f_a0;
 };
 
 // .?AVDrawableHierarchy@pure3d@@  vftable 0x42d82c (15)
@@ -574,6 +637,15 @@ public:
     virtual void vfunc_13(void*); // slot 13
     virtual void vfunc_14(); // slot 14
     void* f_10;
+    char _pad_14[0x4];
+    int f_18;
+    int f_1c;
+    int f_20;
+    int f_24;
+    int f_28;
+    char _pad_2c[0x4];
+    int f_30;
+    int f_34;
 };
 
 // .?AVDrawableContainer@pure3d@@  vftable 0x42d90c (19)
@@ -589,7 +661,7 @@ public:
     virtual int vfunc_16(); // slot 16
     virtual void* vfunc_17(int, int); // slot 17
     virtual int vfunc_18(int); // slot 18
-    char _pad_14[0x30];
+    char _pad_38[0xc];
     void* f_44;
     void* f_48;
     void* f_4c;
@@ -699,12 +771,18 @@ public:
     int f_20;
     int f_24;
     unsigned int f_28;
+    char _pad_2c[0x18];
+    float f_44;
+    char _pad_48[0xc0];
+    char f_108;
 };
 
 // .?AVBoneMatrixList@pure3d@@  vftable 0x42fcd4 (3)
 class BoneMatrixList : public ::pure3d::NonCopyable {
 public:
     virtual ~BoneMatrixList(); // overrides core::IRefCount slot 2
+    void* f_08;
+    void* f_0c;
 };
 
 // .?AVChannel@pure3d@@  vftable 0x42c920 (3)
@@ -817,6 +895,7 @@ public:
 class ChannelLoader : public ::pure3d::NonCopyable {
 public:
     virtual ~ChannelLoader(); // overrides core::IRefCount slot 2
+    int f_08;
 };
 
 // .?AVColourChannel@pure3d@@  vftable 0x42ca7c (3)
@@ -848,6 +927,7 @@ public:
     int f_48;
     char _pad_4c[0x4];
     void* f_50;
+    int f_54;
 };
 
 // .?AVCompositeDrawable@pure3d@@  vftable 0x42d484 (15)
@@ -868,7 +948,7 @@ public:
     virtual void vfunc_12(); // overrides pure3d::DrawableHierarchy slot 12
     virtual void vfunc_13(void*); // overrides pure3d::DrawableHierarchy slot 13
     virtual void vfunc_14(); // overrides pure3d::DrawableHierarchy slot 14
-    char _pad_14[0x2c];
+    char _pad_38[0x8];
     unsigned int f_40;
     void* f_44;
     void* f_48;
@@ -880,12 +960,25 @@ public:
 class CompositeDrawable::ActiveControllerList : public ::pure3d::NonCopyable {
 public:
     virtual ~ActiveControllerList(); // overrides core::IRefCount slot 2
+    char _pad_08[0x4];
+    void* f_0c;
+    char _pad_10[0x8];
+    void* f_18;
+    char _pad_1c[0x8];
+    void* f_24;
+    void* f_28;
 };
 
 // .?AVActivePrimitiveList@CompositeDrawable@pure3d@@  vftable 0x42d51c (3)
 class CompositeDrawable::ActivePrimitiveList : public ::pure3d::NonCopyable {
 public:
     virtual ~ActivePrimitiveList(); // overrides core::IRefCount slot 2
+    char _pad_08[0x4];
+    void* f_0c;
+    char _pad_10[0x8];
+    void* f_18;
+    char _pad_1c[0x4];
+    char f_20;
 };
 
 // .?AVCompositeDrawableLoader@pure3d@@  vftable 0x42d4d4 (6)
@@ -966,6 +1059,9 @@ class ParticleEmitterLoader : public ::pure3d::RenderObjectLoader {
 public:
     class ParticleEmitterHandler;
     virtual ~ParticleEmitterLoader(); // overrides core::IRefCount slot 2
+    int f_08;
+    char _pad_0c[0x20];
+    void* f_2c;
 };
 
 // .?AVParticleEmitterHandler@ParticleEmitterLoader@pure3d@@  vftable 0x42e024 (5)
@@ -989,6 +1085,7 @@ class ParticleGeneratorLoader : public ::pure3d::NonCopyable {
 public:
     class ParticleGeneratorHandler;
     virtual ~ParticleGeneratorLoader(); // overrides core::IRefCount slot 2
+    int f_08;
 };
 
 // .?AVParticleGeneratorHandler@ParticleGeneratorLoader@pure3d@@  vftable 0x42e00c (5)
@@ -1012,12 +1109,21 @@ class DirectionalLight : public ::pure3d::Light {
 public:
     virtual ~DirectionalLight(); // overrides core::IRefCount slot 2
     virtual void vfunc_9(int); // overrides pure3d::Light slot 9
+    int f_54;
 };
 
 // .?AVDisplayList@pure3d@@  vftable 0x42d59c (5)
 class DisplayList : public ::pure3d::Entity {
 public:
     virtual ~DisplayList(); // overrides core::IRefCount slot 2
+    int f_10;
+    int f_14;
+    char _pad_18[0x4];
+    void* f_1c;
+    void* f_20;
+    char _pad_24[0x4];
+    void* f_28;
+    void* f_2c;
 };
 
 // .?AVDisplayTraversal@pure3d@@  vftable 0x42ef74 (7)
@@ -1028,6 +1134,7 @@ public:
     virtual void vfunc_4() = 0; // slot 4
     virtual void vfunc_5() = 0; // slot 5
     virtual void vfunc_6(void*, unsigned int, float) = 0; // slot 6
+    char f_08;
 };
 
 // .?AVDrawableDisplayList@pure3d@@  vftable 0x42d5b4 (5)
@@ -1056,6 +1163,9 @@ public:
     virtual ~Expression(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(); // overrides pure3d::Entity slot 3
     virtual void* vfunc_4(); // overrides pure3d::Entity slot 4
+    int f_10;
+    void* f_14;
+    void* f_18;
 };
 
 // .?AVExpressionAnimationController@pure3d@@  vftable 0x42df6c (27)
@@ -1069,6 +1179,7 @@ public:
     virtual bool vfunc_26(void*); // overrides pure3d::AnimationFrameController slot 26
     int f_40;
     void* f_44;
+    int f_48;
 };
 
 // .?AVExpressionGroup@pure3d@@  vftable 0x42e35c (5)
@@ -1077,6 +1188,12 @@ public:
     virtual ~ExpressionGroup(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(); // overrides pure3d::Entity slot 3
     virtual void* vfunc_4(); // overrides pure3d::Entity slot 4
+    void* f_10;
+    void* f_14;
+    char _pad_18[0xc];
+    void* f_24;
+    void* f_28;
+    void* f_2c;
 };
 
 // .?AVExpressionGroupLoader@pure3d@@  vftable 0x42e340 (6)
@@ -1180,6 +1297,11 @@ class GeometryLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~GeometryLoader(); // overrides core::IRefCount slot 2
     virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
+    char f_14;
+    char _pad_15[0x3];
+    int f_18;
+    char _pad_1c[0xc];
+    int f_28;
 };
 
 // .?AVIgnoreLoader@pure3d@@  vftable 0x42ce14 (6)
@@ -1223,6 +1345,8 @@ public:
     int f_1c;
     int f_20;
     void* f_24;
+    char f_28;
+    char f_29;
 };
 
 // .?AVImage8@pure3d@@  vftable 0x42ea7c (21)
@@ -1287,6 +1411,7 @@ public:
     void* f_0c;
     unsigned int f_10;
     unsigned int f_14;
+    int f_18;
 };
 
 // .?AVImageConverter@pure3d@@  vftable 0x42f900 (9)
@@ -1328,6 +1453,10 @@ public:
     int f_1c;
     unsigned int f_20;
     int f_24;
+    void* f_28;
+    int f_2c;
+    int f_30;
+    void* f_34;
 };
 
 // .?AVImageFontLoader@pure3d@@  vftable 0x42ea08 (6)
@@ -1343,6 +1472,7 @@ public:
     virtual ~ImageLoader(); // overrides core::IRefCount slot 2
     virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
     void* f_14;
+    int f_18;
 };
 
 // .?AVIntChannel@pure3d@@  vftable 0x42c96c (3)
@@ -1395,6 +1525,10 @@ public:
     virtual ~LightGroup(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(); // overrides pure3d::Entity slot 3
     virtual void* vfunc_4(); // overrides pure3d::Entity slot 4
+    int f_10;
+    int f_14;
+    char _pad_18[0x4];
+    int f_1c;
 };
 
 // .?AVLightGroupLoader@pure3d@@  vftable 0x42eb60 (6)
@@ -1416,24 +1550,63 @@ class LightsChooser : public ::pure3d::Entity {
 public:
     class CacheManager;
     virtual ~LightsChooser(); // overrides core::IRefCount slot 2
+    int f_10;
+    float f_14;
+    int f_18;
+    int f_1c;
+    int f_20;
+    int f_24;
+    char f_28;
+    char _pad_29[0x3];
+    void* f_2c;
+    void* f_30;
+    void* f_34;
+    void* f_38;
+    void* f_3c;
+    void* f_40;
+    void* f_44;
+    void* f_48;
 };
 
 // .?AVCacheManager@LightsChooser@pure3d@@  vftable 0x42d628 (1)
 class LightsChooser::CacheManager {
 public:
     virtual ~CacheManager(); // slot 0
+    char _pad_04[0x24];
+    int f_28;
+    int f_2c;
+    int f_30;
+    int f_34;
 };
 
 // .?AVLightsChooserCache@pure3d@@  vftable 0x42d604 (5)
 class LightsChooserCache : public ::pure3d::Entity {
 public:
     virtual ~LightsChooserCache(); // overrides core::IRefCount slot 2
+    int f_10;
+    int f_14;
+    int f_18;
+    int f_1c;
+    float f_20;
+    char _pad_24[0x4];
+    int f_28;
+    int f_2c;
+    int f_30;
+    int f_34;
+    char f_38;
+    char _pad_39[0x3];
+    int f_3c;
+    int f_40;
 };
 
 // .?AVLocator@pure3d@@  vftable 0x42eb98 (5)
 class Locator : public ::pure3d::Entity {
 public:
     virtual ~Locator(); // overrides core::IRefCount slot 2
+    char _pad_10[0x10];
+    int f_20;
+    int f_24;
+    float f_28;
 };
 
 // .?AVLocatorLoader@pure3d@@  vftable 0x42ebb0 (6)
@@ -1447,6 +1620,8 @@ public:
 class MatrixPaletteList : public ::pure3d::NonCopyable {
 public:
     virtual ~MatrixPaletteList(); // overrides core::IRefCount slot 2
+    char _pad_08[0x8];
+    int f_10;
 };
 
 // .?AVMultiController@pure3d@@  vftable 0x42e4d4 (24)
@@ -1489,6 +1664,7 @@ public:
     char _pad_41[0x3];
     int f_44;
     void* f_48;
+    void* f_4c;
 };
 
 // .?AVMultiControllerLoader@pure3d@@  vftable 0x42e49c (6)
@@ -1503,6 +1679,7 @@ class OldBillboardObjectLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~OldBillboardObjectLoader(); // overrides core::IRefCount slot 2
     virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
+    void* f_14;
 };
 
 // .?AVOldBillboardQuadGroupLoader@pure3d@@  vftable 0x42e7c4 (3)
@@ -1540,6 +1717,8 @@ public:
     class OldParticleEmitterLoader;
     virtual ~OldParticleSystemLoader(); // overrides core::IRefCount slot 2
     virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
+    char _pad_14[0x4];
+    void* f_18;
 };
 
 // .?AVOldParticleEmitterLoader@OldParticleSystemLoader@pure3d@@  vftable 0x42e03c (3)
@@ -1552,6 +1731,13 @@ public:
 class OldPrimGroupLoader : public ::pure3d::RenderObjectLoader {
 public:
     virtual ~OldPrimGroupLoader(); // overrides core::IRefCount slot 2
+    char _pad_08[0x4];
+    int f_0c;
+    int f_10;
+    int f_14;
+    int f_18;
+    int f_1c;
+    int f_20;
 };
 
 // .?AVOpaqueTraversal@pure3d@@  vftable 0x42d78c (7)
@@ -1562,11 +1748,17 @@ public:
     virtual void vfunc_4(); // overrides pure3d::DisplayTraversal slot 4
     virtual void vfunc_5(); // overrides pure3d::DisplayTraversal slot 5
     virtual void vfunc_6(void*, unsigned int, float); // overrides pure3d::DisplayTraversal slot 6
-    char _pad_08[0x4];
     int f_0c;
     int f_10;
     void* f_14;
     int f_18;
+    char f_1c;
+    char _pad_1d[0x3];
+    void* f_20;
+    void* f_24;
+    char _pad_28[0x4];
+    void* f_2c;
+    void* f_30;
 };
 
 // .?AVPNGHandler@pure3d@@  vftable 0x42cd74 (16)
@@ -1647,13 +1839,13 @@ public:
     virtual void vfunc_31(void*); // slot 31
     virtual unsigned int vfunc_32(); // slot 32
     int f_10;
-    char _pad_14[0x4];
+    float f_14;
     float f_18;
     float f_1c;
-    char _pad_20[0x4];
+    float f_20;
     float f_24;
     float f_28;
-    char _pad_2c[0x4];
+    float f_2c;
     float f_30;
     float f_34;
     char _pad_38[0x48];
@@ -1698,12 +1890,23 @@ public:
     virtual void vfunc_7(int, int); // overrides pure3d::ParticleGenerator slot 7
     virtual float vfunc_8(int); // overrides pure3d::ParticleGenerator slot 8
     virtual void vfunc_9(); // overrides pure3d::ParticleGenerator slot 9
+    char _pad_18[0x4];
+    int f_1c;
+    int f_20;
+    int f_24;
+    char _pad_28[0xc];
+    int f_34;
 };
 
 // .?AVGeneratorBlendState@ParticlePlaneGenerator@pure3d@@  vftable 0x42f0b8 (3)
 class ParticlePlaneGenerator::GeneratorBlendState : public ::pure3d::NonCopyable {
 public:
     virtual ~GeneratorBlendState(); // overrides core::IRefCount slot 2
+    int f_08;
+    int f_0c;
+    int f_10;
+    int f_14;
+    int f_18;
 };
 
 // .?AVParticlePointGenerator@pure3d@@  vftable 0x42f0d8 (12)
@@ -1723,7 +1926,7 @@ public:
     int f_20;
     int f_24;
     void* f_28;
-    char _pad_2c[0x4];
+    void* f_2c;
     void* f_30;
     int f_34;
     char _pad_38[0xc];
@@ -1736,6 +1939,9 @@ public:
 class ParticlePointGenerator::GeneratorBlendState : public ::pure3d::NonCopyable {
 public:
     virtual ~GeneratorBlendState(); // overrides core::IRefCount slot 2
+    int f_08;
+    int f_0c;
+    int f_10;
 };
 
 // .?AVParticleRenderer@pure3d@@  vftable 0x42f334 (5)
@@ -1758,7 +1964,8 @@ public:
     virtual void vfunc_7(int, int); // overrides pure3d::ParticleGenerator slot 7
     virtual float vfunc_8(int); // overrides pure3d::ParticleGenerator slot 8
     virtual void vfunc_9(); // overrides pure3d::ParticleGenerator slot 9
-    char _pad_18[0x18];
+    char _pad_18[0x14];
+    void* f_2c;
     void* f_30;
     char _pad_34[0xc];
     float f_40;
@@ -1769,6 +1976,8 @@ public:
 class ParticleSphereGenerator::GeneratorBlendState : public ::pure3d::NonCopyable {
 public:
     virtual ~GeneratorBlendState(); // overrides core::IRefCount slot 2
+    int f_08;
+    int f_0c;
 };
 
 // .?AVParticleSystem@pure3d@@  vftable 0x42d88c (19)
@@ -1796,6 +2005,9 @@ class ParticleSystemLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~ParticleSystemLoader(); // overrides core::IRefCount slot 2
     virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
+    int f_14;
+    char _pad_18[0x20];
+    void* f_38;
 };
 
 // .?AVParticleUpdater@pure3d@@  vftable 0x42f018 (6)
@@ -1812,6 +2024,10 @@ class PointCamera : public ::pure3d::Camera {
 public:
     virtual ~PointCamera(); // overrides core::IRefCount slot 2
     virtual void vfunc_26(); // overrides pure3d::Camera slot 26
+    char _pad_d0[0x1c];
+    float f_ec;
+    char _pad_f0[0x4];
+    float f_f4;
 };
 
 // .?AVPointLight@pure3d@@  vftable 0x42eeb0 (10)
@@ -1821,6 +2037,10 @@ public:
     virtual void vfunc_7(int, int, int); // overrides pure3d::Light slot 7
     virtual void vfunc_8(void*); // overrides pure3d::Light slot 8
     virtual void vfunc_9(int); // overrides pure3d::Light slot 9
+    int f_54;
+    float f_58;
+    char _pad_5c[0x8];
+    int f_64;
 };
 
 // .?AVPolySkin@pure3d@@  vftable 0x42e694 (19)
@@ -1852,12 +2072,28 @@ class PolySkinLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~PolySkinLoader(); // overrides core::IRefCount slot 2
     virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
+    char f_14;
+    char _pad_15[0x3];
+    int f_18;
+    char _pad_1c[0xc];
+    int f_28;
 };
 
 // .?AVPose@pure3d@@  vftable 0x42c588 (3)
 class Pose : public ::pure3d::NonCopyable {
 public:
     virtual ~Pose(); // overrides core::IRefCount slot 2
+    void* f_08;
+    int f_0c;
+    void* f_10;
+    void* f_14;
+    void* f_18;
+    void* f_1c;
+    char _pad_20[0x2];
+    char f_22;
+    char f_23;
+    int f_24;
+    void* f_28;
 };
 
 // .?AVPoseAnimationController@pure3d@@  vftable 0x42c81c (30)
@@ -1873,6 +2109,17 @@ public:
     virtual bool vfunc_26(void*); // overrides pure3d::AnimationFrameController slot 26
     virtual void vfunc_27(); // overrides pure3d::BlendFrameController slot 27
     virtual void vfunc_28(); // overrides pure3d::BlendFrameController slot 28
+    char _pad_10c[0xc];
+    int f_118;
+    char _pad_11c[0x14];
+    char f_130;
+    char f_131;
+    char _pad_132[0x6];
+    void* f_138;
+    void* f_13c;
+    void* f_140;
+    void* f_144;
+    int f_148;
 };
 
 // .?AVPrimGroup@pure3d@@  vftable 0x42fb54 (11)
@@ -1894,6 +2141,17 @@ public:
 class PrimGroupLoader : public ::pure3d::RenderObjectLoader {
 public:
     virtual ~PrimGroupLoader(); // overrides core::IRefCount slot 2
+    char _pad_08[0x4];
+    int f_0c;
+    char f_10;
+    char f_11;
+    short f_12;
+    int f_14;
+    int f_18;
+    int f_1c;
+    int f_20;
+    int f_24;
+    int f_28;
 };
 
 // .?AVPrimGroupOptimized@pure3d@@  vftable 0x42fba4 (11)
@@ -1986,8 +2244,10 @@ public:
     virtual void vfunc_7(int, int, int); // overrides pure3d::Light slot 7
     virtual void vfunc_8(void*); // overrides pure3d::Light slot 8
     virtual void vfunc_9(int); // overrides pure3d::Light slot 9
-    char _pad_28[0x2c];
     int f_54;
+    char _pad_58[0x4];
+    int f_5c;
+    float f_60;
 };
 
 // .?AVQuaternionChannel@pure3d@@  vftable 0x42ca2c (7)
@@ -2028,7 +2288,7 @@ public:
     virtual bool vfunc_26(void*); // overrides pure3d::AnimationFrameController slot 26
     virtual void vfunc_27(); // overrides pure3d::BlendFrameController slot 27
     virtual void vfunc_28(); // overrides pure3d::BlendFrameController slot 28
-    char _pad_2c[0xe4];
+    char _pad_10c[0x4];
     int f_110;
 };
 
@@ -2050,6 +2310,9 @@ public:
 class Shader : public ::pure3d::Entity {
 public:
     virtual ~Shader(); // overrides core::IRefCount slot 2
+    void* f_10;
+    char _pad_14[0x4];
+    int f_18;
 };
 
 // .?AVShaderAnimationController@pure3d@@  vftable 0x42dd24 (27)
@@ -2080,6 +2343,8 @@ public:
     virtual int vfunc_3(void*); // overrides pure3d::ShaderCallback slot 3
     virtual int vfunc_4(void*); // overrides pure3d::ShaderCallback slot 4
     virtual int vfunc_5(int); // overrides pure3d::ShaderCallback slot 5
+    int f_08;
+    int f_0c;
 };
 
 // .?AVShaderFloatBroadcast@pure3d@@  vftable 0x42cb5c (6)
@@ -2126,6 +2391,8 @@ public:
     virtual int vfunc_3(void*); // overrides pure3d::ShaderCallback slot 3
     virtual int vfunc_4(void*); // overrides pure3d::ShaderCallback slot 4
     virtual int vfunc_5(int); // overrides pure3d::ShaderCallback slot 5
+    int f_08;
+    void* f_0c;
 };
 
 // .?AVShaderVectorBroadcast@pure3d@@  vftable 0x42cbb0 (6)
@@ -2153,6 +2420,8 @@ public:
 class ShadowGenerator : public ::pure3d::NonCopyable {
 public:
     virtual ~ShadowGenerator(); // overrides core::IRefCount slot 2
+    char _pad_08[0xc];
+    void* f_14;
 };
 
 // .?AVShadowMesh@pure3d@@  vftable 0x42f9fc (24)
@@ -2243,6 +2512,10 @@ public:
 class ShadowMeshVertices : public ::pure3d::NonCopyable {
 public:
     virtual ~ShadowMeshVertices(); // overrides core::IRefCount slot 2
+    int f_08;
+    int f_0c;
+    char _pad_10[0x4];
+    void* f_14;
 };
 
 // .?AVShadowSkin@pure3d@@  vftable 0x42fa64 (27)
@@ -2296,6 +2569,10 @@ public:
 class ShadowSkinTopology : public ::pure3d::NonCopyable {
 public:
     virtual ~ShadowSkinTopology(); // overrides core::IRefCount slot 2
+    char _pad_08[0xc];
+    int f_14;
+    int f_18;
+    int f_1c;
 };
 
 // .?AVShadowTraversal@pure3d@@  vftable 0x42d714 (7)
@@ -2306,7 +2583,6 @@ public:
     virtual void vfunc_4(); // overrides pure3d::DisplayTraversal slot 4
     virtual void vfunc_5(); // overrides pure3d::DisplayTraversal slot 5
     virtual void vfunc_6(void*, unsigned int, float); // overrides pure3d::DisplayTraversal slot 6
-    char _pad_08[0x4];
     int f_0c;
     int f_10;
     char _pad_14[0x1c];
@@ -2314,6 +2590,7 @@ public:
     int f_34;
     unsigned int f_38;
     void* f_3c;
+    void* f_40;
 };
 
 // .?AVSkeleton@pure3d@@  vftable 0x42c204 (5)
@@ -2324,13 +2601,27 @@ public:
     virtual ~Skeleton(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(); // overrides pure3d::Entity slot 3
     virtual void* vfunc_4(); // overrides pure3d::Entity slot 4
+    char _pad_10[0x8];
+    void* f_18;
+    char _pad_1c[0x8];
+    void* f_24;
+    void* f_28;
+    void* f_2c;
+    void* f_30;
+    void* f_34;
+    void* f_38;
+    char _pad_3c[0x8];
+    void* f_44;
+    void* f_48;
 };
 
 // .?AVPartition@Skeleton@pure3d@@  vftable 0x42c1b4 (1)
 class Skeleton::Partition {
 public:
     virtual ~Partition(); // slot 0
-    char _pad_04[0xc];
+    int f_04;
+    int f_08;
+    int f_0c;
     void* f_10;
 };
 
@@ -2345,6 +2636,7 @@ class SkeletonLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~SkeletonLoader(); // overrides core::IRefCount slot 2
     virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
+    char f_14;
 };
 
 // .?AVSpotLight@pure3d@@  vftable 0x42ef00 (10)
@@ -2354,6 +2646,17 @@ public:
     virtual void vfunc_7(int, int, int); // overrides pure3d::Light slot 7
     virtual void vfunc_8(void*); // overrides pure3d::Light slot 8
     virtual void vfunc_9(int); // overrides pure3d::Light slot 9
+    int f_54;
+    char _pad_58[0x4];
+    float f_5c;
+    float f_60;
+    float f_64;
+    float f_68;
+    float f_6c;
+    float f_70;
+    float f_74;
+    float f_78;
+    float f_7c;
 };
 
 // .?AVSprite@pure3d@@  vftable 0x42e8d8 (13)
@@ -2396,6 +2699,7 @@ public:
     unsigned int f_94;
     unsigned int f_98;
     unsigned int f_9c;
+    char f_a0;
 };
 
 // .?AVSpriteLoader@pure3d@@  vftable 0x42e974 (10)
@@ -2571,6 +2875,11 @@ public:
     virtual void vfunc_10(); // overrides pure3d::DrawablePrimitive slot 10
     virtual unsigned char vfunc_11(); // slot 11
     virtual unsigned char vfunc_12(); // slot 12
+    char _pad_10[0x30];
+    void* f_40;
+    int f_44;
+    int f_48;
+    int f_4c;
 };
 
 // .?AVTexture@pure3d@@  vftable 0x42ec20 (6)
@@ -2579,6 +2888,7 @@ public:
     virtual ~Texture(); // overrides core::IRefCount slot 2
     virtual void* vfunc_4(); // overrides pure3d::Entity slot 4
     virtual unsigned char vfunc_5(); // slot 5
+    void* f_10;
 };
 
 // .?AVTextureAnimationController@pure3d@@  vftable 0x42de4c (27)
@@ -2615,6 +2925,8 @@ public:
     int f_20;
     int f_24;
     int f_28;
+    int f_2c;
+    int f_30;
 };
 
 // .?AVTextureFont@pure3d@@  vftable 0x42d15c (20)
@@ -2642,6 +2954,10 @@ public:
     float f_20;
     int f_24;
     unsigned int f_28;
+    int f_2c;
+    char _pad_30[0x4];
+    int f_34;
+    int f_38;
 };
 
 // .?AVTextureFontLoader@pure3d@@  vftable 0x42d1b0 (6)
@@ -2656,6 +2972,8 @@ class TextureLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~TextureLoader(); // overrides core::IRefCount slot 2
     virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
+    void* f_14;
+    void* f_18;
 };
 
 // .?AVTranslucentTraversal@pure3d@@  vftable 0x42d750 (7)
@@ -2666,7 +2984,6 @@ public:
     virtual void vfunc_4(); // overrides pure3d::DisplayTraversal slot 4
     virtual void vfunc_5(); // overrides pure3d::DisplayTraversal slot 5
     virtual void vfunc_6(void*, unsigned int, float); // overrides pure3d::DisplayTraversal slot 6
-    char _pad_08[0x4];
     int f_0c;
     int f_10;
     void* f_14;
@@ -2675,6 +2992,7 @@ public:
     void* f_20;
     char _pad_24[0x4];
     void* f_28;
+    void* f_2c;
 };
 
 // .?AVVectorChannel@pure3d@@  vftable 0x42c99c (6)
@@ -2745,6 +3063,15 @@ class VectorCamera : public ::pure3d::Camera {
 public:
     virtual ~VectorCamera(); // overrides core::IRefCount slot 2
     virtual void vfunc_26(); // overrides pure3d::Camera slot 26
+    char _pad_d0[0x4];
+    int f_d4;
+    int f_d8;
+    int f_dc;
+    int f_e0;
+    float f_e4;
+    int f_e8;
+    float f_ec;
+    int f_f0;
 };
 
 // .?AVVertexAnimController@pure3d@@  vftable 0x42da6c (27)
@@ -2763,18 +3090,43 @@ public:
 class VertexAnimKeyFrame : public ::pure3d::NonCopyable {
 public:
     virtual ~VertexAnimKeyFrame(); // overrides core::IRefCount slot 2
+    int f_08;
+    int f_0c;
+    int f_10;
+    char _pad_14[0x4];
+    int f_18;
+    char _pad_1c[0x8];
+    int f_24;
+    char _pad_28[0x8];
+    int f_30;
+    char _pad_34[0x8];
+    int f_3c;
+    char _pad_40[0x8];
+    int f_48;
+    char _pad_4c[0x8];
+    int f_54;
+    char _pad_58[0x8];
+    int f_60;
+    char _pad_64[0x8];
+    int f_6c;
 };
 
 // .?AVVertexAnimKeyFrameList@pure3d@@  vftable 0x42fd58 (3)
 class VertexAnimKeyFrameList : public ::pure3d::NonCopyable {
 public:
     virtual ~VertexAnimKeyFrameList(); // overrides core::IRefCount slot 2
+    char _pad_08[0x4];
+    void* f_0c;
+    void* f_10;
+    char _pad_14[0x4];
+    void* f_18;
 };
 
 // .?AVVertexAnimObject@pure3d@@  vftable 0x42efec (3)
 class VertexAnimObject : public ::pure3d::NonCopyable {
 public:
     virtual ~VertexAnimObject(); // overrides core::IRefCount slot 2
+    void* f_08;
 };
 
 // .?AVVertexAnimPrimGroup@pure3d@@  vftable 0x42fca4 (11)
@@ -2786,12 +3138,34 @@ public:
     virtual int vfunc_5(); // overrides pure3d::DrawablePrimitive slot 5
     virtual void vfunc_6(); // overrides pure3d::DrawablePrimitive slot 6
     virtual void vfunc_10(); // overrides pure3d::DrawablePrimitive slot 10
+    int f_44;
+    int f_48;
+    int f_4c;
+    int f_50;
+    char _pad_54[0x4];
+    void* f_58;
 };
 
 // .?AVVertexList@pure3d@@  vftable 0x42efc0 (3)
 class VertexList : public ::pure3d::NonCopyable {
 public:
     virtual ~VertexList(); // overrides core::IRefCount slot 2
+    int f_08;
+    int f_0c;
+    int f_10;
+    char _pad_14[0x4];
+    void* f_18;
+    void* f_1c;
+    void* f_20;
+    void* f_24;
+    void* f_28;
+    void* f_2c;
+    void* f_30;
+    void* f_34;
+    char _pad_38[0x18];
+    void* f_50;
+    void* f_54;
+    void* f_58;
 };
 
 // .?AVVertexOffsetExpressionMixer@pure3d@@  vftable 0x42e3b8 (5)
@@ -2800,6 +3174,13 @@ public:
     virtual ~VertexOffsetExpressionMixer(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(); // overrides pure3d::Entity slot 3
     virtual void* vfunc_4(); // overrides pure3d::Entity slot 4
+    void* f_10;
+    char _pad_14[0xc];
+    int f_20;
+    int f_24;
+    char _pad_28[0x4];
+    int f_2c;
+    int f_30;
 };
 
 // .?AVVertexOffsetExpressionMixerLoader@pure3d@@  vftable 0x42e39c (6)
@@ -2813,12 +3194,37 @@ public:
 class VertexOffsetList : public ::pure3d::NonCopyable {
 public:
     virtual ~VertexOffsetList(); // overrides core::IRefCount slot 2
+    int f_08;
+    int f_0c;
+    char _pad_10[0x14];
+    int f_24;
+    char _pad_28[0x4];
+    int f_2c;
+    void* f_30;
+    char _pad_34[0x1c];
+    void* f_50;
+    void* f_54;
 };
 
 // .?AVView@pure3d@@  vftable 0x42d0bc (3)
 class View : public ::pure3d::NonCopyable {
 public:
     virtual ~View(); // overrides core::IRefCount slot 2
+    int f_08;
+    int f_0c;
+    float f_10;
+    float f_14;
+    char _pad_18[0x4];
+    int f_1c;
+    int f_20;
+    float f_24;
+    int f_28;
+    int f_2c;
+    int f_30;
+    int f_34;
+    int f_38;
+    char _pad_3c[0x80];
+    char f_bc;
 };
 
 // .?AVpddiExtension@pure3d@@  vftable 0x43276c (1)
@@ -2913,6 +3319,19 @@ public:
     virtual void* vfunc_23(); // overrides pure3d::d3dShader slot 23
     void* f_10;
     void* f_14;
+    char _pad_18[0x4];
+    int f_1c;
+    char _pad_20[0x18];
+    int f_38;
+    char _pad_3c[0x8];
+    int f_44;
+    char f_48;
+    char _pad_49[0x3];
+    int f_4c;
+    char _pad_50[0x2c];
+    char f_7c;
+    char _pad_7d[0xf];
+    char f_8c;
 };
 
 // .?AVd3dBumpMapVertexShader@pure3d@@  vftable 0x433f74 (25)
@@ -2944,6 +3363,8 @@ public:
     char _pad_57[0x29];
     void* f_80;
     void* f_84;
+    int f_88;
+    int f_8c;
 };
 
 // .?AVpddiRenderContext@pure3d@@  vftable 0x4325f4 (93)
@@ -3246,6 +3667,9 @@ public:
     int f_418;
     int f_41c;
     float f_420;
+    char _pad_424[0x24];
+    int f_448;
+    char f_44c;
 };
 
 // .?AVd3dDevice@pure3d@@  vftable 0x4324e4 (14)
@@ -3334,6 +3758,14 @@ public:
     virtual void vfunc_4(); // overrides pure3d::pddiShader slot 4
     virtual int vfunc_11(); // overrides pure3d::pddiBaseShader slot 11
     virtual void vfunc_14(int); // overrides pure3d::pddiBaseShader slot 14
+    char _pad_10[0x4];
+    void* f_14;
+    char _pad_18[0x30];
+    char f_48;
+    char _pad_49[0x3];
+    int f_4c;
+    char _pad_50[0x2c];
+    char f_7c;
 };
 
 // .?AVpddiExtAntialiasControl@pure3d@@  vftable 0x432e6c (5)
@@ -3500,6 +3932,7 @@ public:
     virtual void vfunc_4(int); // overrides pure3d::pddiExtHardwareSkinning slot 4
     virtual void vfunc_5(int, int); // overrides pure3d::pddiExtHardwareSkinning slot 5
     virtual void vfunc_6(int, int); // overrides pure3d::pddiExtHardwareSkinning slot 6
+    void* f_04;
 };
 
 // .?AVpddiExtReadPixels@pure3d@@  vftable 0x432e94 (2)
@@ -3578,6 +4011,13 @@ public:
     virtual void vfunc_16(); // overrides pure3d::pddiBaseShader slot 16
     virtual void vfunc_17(); // overrides pure3d::pddiBaseShader slot 17
     virtual void vfunc_18(); // overrides pure3d::pddiBaseShader slot 18
+    char _pad_10[0x70];
+    int f_80;
+    int f_84;
+    float f_88;
+    int f_8c;
+    int f_90;
+    char f_94;
 };
 
 // .?AVd3dLayeredShader@pure3d@@  vftable 0x433b9c (25)
@@ -3613,6 +4053,9 @@ public:
     int f_8c;
     unsigned char f_90;
     unsigned char f_91;
+    char _pad_92[0x2];
+    int f_94;
+    int f_98;
 };
 
 // .?AVd3dLayeredLMapShader@pure3d@@  vftable 0x433c24 (25)
@@ -3624,7 +4067,6 @@ public:
     virtual void vfunc_14(int); // overrides pure3d::pddiBaseShader slot 14
     virtual void vfunc_15(); // overrides pure3d::pddiBaseShader slot 15
     virtual void* vfunc_23(); // overrides pure3d::d3dShader slot 23
-    char _pad_94[0x8];
     void* f_9c;
 };
 
@@ -3656,6 +4098,9 @@ public:
     void* f_84;
     unsigned char f_88;
     unsigned char f_89;
+    char _pad_8a[0x2];
+    int f_8c;
+    int f_90;
 };
 
 // .?AVd3dPointSpriteShader@pure3d@@  vftable 0x433b14 (25)
@@ -3676,6 +4121,14 @@ public:
     int f_40;
     char _pad_44[0x3c];
     void* f_80;
+    char f_84;
+    char _pad_85[0x3];
+    int f_88;
+    int f_8c;
+    int f_90;
+    int f_94;
+    int f_98;
+    int f_9c;
 };
 
 // .?AVpddiPrimBuffer@pure3d@@  vftable 0x433424 (15)
@@ -3721,6 +4174,9 @@ public:
     void* f_30;
     char f_34;
     unsigned char f_35;
+    char _pad_36[0x2];
+    int f_38;
+    int f_3c;
 };
 
 // .?AVpddiPrimBufferStream@pure3d@@  vftable 0x433464 (18)
@@ -3783,6 +4239,7 @@ public:
     void* f_44;
     void* f_48;
     void* f_4c;
+    void* f_50;
 };
 
 // .?AVd3dPrimStream@pure3d@@  vftable 0x432578 (2)
@@ -3790,6 +4247,28 @@ class d3dPrimStream : public ::pure3d::d3dBasePrimStream {
 public:
     virtual void vfunc_0(int); // overrides pure3d::d3dBasePrimStream slot 0
     virtual void vfunc_1(); // overrides pure3d::d3dBasePrimStream slot 1
+    char _pad_04[0x4];
+    int f_08;
+    int f_0c;
+    int f_10;
+    int f_14;
+    char _pad_18[0x4];
+    int f_1c;
+    char _pad_20[0x104];
+    void* f_124;
+    int f_128;
+    void* f_12c;
+    char _pad_130[0x4];
+    char f_134;
+    char _pad_135[0x3];
+    int f_138;
+    int f_13c;
+    int f_140;
+    int f_144;
+    char _pad_148[0xc];
+    int f_154;
+    void* f_158;
+    int f_15c;
 };
 
 // .?AVd3dProjectedTextureShader@pure3d@@  vftable 0x433a8c (25)
@@ -3884,6 +4363,12 @@ public:
     char _pad_7e[0x2];
     void* f_80;
     void* f_84;
+    float f_88;
+    float f_8c;
+    int f_90;
+    int f_94;
+    char f_98;
+    char f_99;
 };
 
 // .?AVd3dSimpleShader@pure3d@@  vftable 0x43386c (25)
@@ -3919,6 +4404,8 @@ public:
     char _pad_85[0x3];
     int f_88;
     unsigned char f_8c;
+    char _pad_8d[0x3];
+    int f_90;
 };
 
 // .?AVd3dSpheremapVertexShader@pure3d@@  vftable 0x433e64 (25)
@@ -3943,6 +4430,7 @@ public:
     char _pad_18[0x68];
     void* f_80;
     void* f_84;
+    int f_88;
 };
 
 // .?AVpddiTexture@pure3d@@  vftable 0x433354 (21)
@@ -4069,6 +4557,9 @@ public:
     void* f_80;
     void* f_84;
     void* f_88;
+    char _pad_8c[0x48];
+    int f_d4;
+    int f_d8;
 };
 
 // .?AVd3dToonVertexShader@pure3d@@  vftable 0x433dcc (25)
@@ -4101,6 +4592,8 @@ public:
     int f_9c;
     char _pad_a0[0x40];
     int f_e0;
+    char _pad_e4[0x4];
+    int f_e8;
 };
 
 // .?AVd3dVertexProgram@pure3d@@  vftable 0x433774 (1)
@@ -4130,6 +4623,8 @@ public:
 class pddiLightingState : public ::pure3d::pddiState {
 public:
     virtual void vfunc_0(void*); // overrides pure3d::pddiState slot 0
+    char _pad_04[0x3e0];
+    int f_3e4;
 };
 
 // template family pure3d::pddiStack: 6 instantiation(s), 0 with their own specialization
@@ -4157,6 +4652,17 @@ public:
 class pddiRenderState : public ::pure3d::pddiState {
 public:
     virtual void vfunc_0(void*); // overrides pure3d::pddiState slot 0
+    int f_04;
+    char f_08;
+    char _pad_09[0x3];
+    int f_0c;
+    char f_10;
+    char _pad_11[0x3];
+    int f_14;
+    char f_18;
+    char f_19;
+    char f_1a;
+    char f_1b;
 };
 
 // .?AVpddiStencilState@pure3d@@  vftable 0x4329b8 (1)
@@ -4198,12 +4704,25 @@ namespace pure3d { namespace prop {
 class CDecalQueue : public ::pure3d::Entity {
 public:
     virtual ~CDecalQueue(); // overrides core::IRefCount slot 2
+    int f_10;
+    int f_14;
+    int f_18;
+    int f_1c;
 };
 
 // .?AVCLightQueue@prop@pure3d@@  vftable 0x42c514 (5)
 class CLightQueue : public ::pure3d::Entity {
 public:
     virtual ~CLightQueue(); // overrides core::IRefCount slot 2
+    char _pad_10[0x4];
+    void* f_14;
+    int f_18;
+    int f_1c;
+    int f_20;
+    char _pad_24[0x8];
+    int f_2c;
+    char _pad_30[0x24];
+    int f_54;
 };
 
 // .?AVCMotionTrail@prop@pure3d@@  vftable 0x42c52c (14)
@@ -4236,6 +4755,7 @@ public:
     void* f_78;
     float f_7c;
     float f_80;
+    int f_84;
 };
 
 // .?AVCMotionTrailQueue@prop@pure3d@@  vftable 0x42c48c (19)
@@ -4257,12 +4777,30 @@ public:
 class EffectQueue : public ::pure3d::Entity {
 public:
     virtual ~EffectQueue(); // overrides core::IRefCount slot 2
+    int f_10;
 };
 
 // .?AVStateData@prop@pure3d@@  vftable 0x42cc78 (5)
 class StateData : public ::pure3d::Entity {
 public:
     virtual ~StateData(); // overrides core::IRefCount slot 2
+    void* f_10;
+    int f_14;
+    void* f_18;
+    int f_1c;
+    void* f_20;
+    int f_24;
+    void* f_28;
+    int f_2c;
+    void* f_30;
+    int f_34;
+    void* f_38;
+    int f_3c;
+    void* f_40;
+    int f_44;
+    void* f_48;
+    char _pad_4c[0x4];
+    void* f_50;
 };
 
 // .?AVStateProp@prop@pure3d@@  vftable 0x42c314 (17)
@@ -4281,7 +4819,7 @@ public:
     virtual void vfunc_14(); // overrides pure3d::DrawableHierarchy slot 14
     virtual void vfunc_15(); // slot 15
     virtual void vfunc_16(int, int); // slot 16
-    char _pad_14[0x2c];
+    char _pad_38[0x8];
     int f_40;
     char _pad_44[0x48];
     char f_8c;
@@ -4296,6 +4834,13 @@ public:
 class StatePropData : public ::pure3d::Entity {
 public:
     virtual ~StatePropData(); // overrides core::IRefCount slot 2
+    void* f_10;
+    void* f_14;
+    void* f_18;
+    char _pad_1c[0x4];
+    void* f_20;
+    char _pad_24[0x8];
+    int f_2c;
 };
 
 // .?AVStatePropDataLoader@prop@pure3d@@  vftable 0x42cca0 (6)
@@ -4333,6 +4878,7 @@ class BoundingVolumeUpdater : public ::pure3d::scenegraph::Traversal::Visitor {
 public:
     virtual bool vfunc_0(void*); // overrides pure3d::scenegraph::Traversal::Visitor slot 0
     virtual ~BoundingVolumeUpdater(); // slot 1
+    char f_04;
 };
 
 // .?AVNode@scenegraph@pure3d@@  vftable 0x42d1ec (18)
@@ -4376,6 +4922,7 @@ public:
     virtual void vfunc_19(int); // slot 19
     unsigned int f_18;
     void* f_1c;
+    void* f_20;
 };
 
 // .?AVDrawableCounter@scenegraph@pure3d@@  vftable 0x42d324 (2)
@@ -4423,7 +4970,7 @@ public:
     virtual void vfunc_12(); // overrides pure3d::DrawableHierarchy slot 12
     virtual void vfunc_13(void*); // overrides pure3d::DrawableHierarchy slot 13
     virtual void vfunc_14(); // overrides pure3d::DrawableHierarchy slot 14
-    char _pad_14[0x2c];
+    char _pad_38[0x8];
     void* f_40;
 };
 
@@ -4455,7 +5002,7 @@ public:
     virtual void vfunc_9(); // overrides pure3d::scenegraph::Node slot 9
     virtual void* vfunc_16(); // overrides pure3d::scenegraph::Node slot 16
     virtual void* vfunc_17(); // overrides pure3d::scenegraph::Node slot 17
-    char _pad_20[0x88];
+    char _pad_24[0x84];
     void* f_a8;
 };
 
@@ -4470,7 +5017,7 @@ public:
     virtual bool vfunc_7(); // overrides pure3d::scenegraph::Node slot 7
     virtual void vfunc_8(int, int, int); // overrides pure3d::scenegraph::Node slot 8
     virtual void vfunc_9(); // overrides pure3d::scenegraph::Node slot 9
-    char _pad_20[0x8];
+    char _pad_24[0x4];
     unsigned char f_28;
     char _pad_29[0x3];
     void* f_2c;

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // pure3d::d3dBumpMapVertexShader::vfunc_12 @ 0x00332ec0
+#include "gen/pure3d.h"
+
 struct Color4 {
     float r, g, b, a;
 };
@@ -15,7 +17,7 @@ struct Light8_332ec0 {
     float attenuation0, attenuation1, attenuation2;
     float theta, phi;
 };
-struct Context {
+struct Context_332ec0 {
     char pad[0x110];
     unsigned int pixelShader;
 };
@@ -34,54 +36,31 @@ void __stdcall D3DDevice_SetPixelShader(unsigned int handle);
 }
 
 namespace pure3d {
-class d3dBumpMapVertexShader {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    virtual void vfunc_8();
-    virtual void vfunc_9();
-    virtual void vfunc_10();
-    virtual void vfunc_11();
-    virtual void vfunc_12();
-    char pad04[0xc];
-    LightSource_332ec0* lightSource;
-    Context* ctx;
-    char pad18[0x50 - 0x18];
-    unsigned char diffB, diffG, diffR, pad53;
-    unsigned char specB, specG, specR, pad57;
-    char pad58[0x88 - 0x58];
-    int flag88;
-    unsigned int pixelShader;
-};
-void d3dBumpMapVertexShader::vfunc_12() {
-    Context* c = ctx;
-    unsigned int shader = pixelShader;
+
+}
+void pure3d::d3dBumpMapVertexShader::vfunc_12() {
+    Context_332ec0* c = (*(Context_332ec0 * *)&this->f_14);
+    unsigned int shader = (*(unsigned int *)&this->f_8c);
     if (c->pixelShader != shader) {
         c->pixelShader = shader;
         D3D8::D3DDevice_SetPixelShader(shader);
     }
     LightQuery query;
-    lightSource->FUN_00321dc0(&query, 0);
+    (*(LightSource_332ec0 * *)&this->f_10)->FUN_00321dc0(&query, 0);
     int lightIndex = query.index;
     if (lightIndex == -1)
         lightIndex = 0;
     Light8_332ec0 light;
     D3D8::D3DDevice_GetLight(lightIndex, &light);
     float v[4];
-    v[0] = (float)diffR * light.diffuse.r * 0.003921569f;
-    v[1] = (float)diffG * light.diffuse.g * 0.003921569f;
-    v[2] = (float)diffB * light.diffuse.b * 0.003921569f;
+    v[0] = (float)(*(unsigned char *)&this->f_52) * light.diffuse.r * 0.003921569f;
+    v[1] = (float)(*(unsigned char *)&this->f_51) * light.diffuse.g * 0.003921569f;
+    v[2] = (float)(*(unsigned char *)&this->f_50) * light.diffuse.b * 0.003921569f;
     v[3] = 1.0f;
     D3D8::D3DDevice_SetPixelShaderConstant(1, v, 1);
-    v[0] = (float)specR * light.specular.r * 0.003921569f;
-    v[1] = (float)specG * light.specular.g * 0.003921569f;
-    v[2] = (float)specB * light.specular.b * 0.003921569f;
+    v[0] = (float)(*(unsigned char *)&this->f_56) * light.specular.r * 0.003921569f;
+    v[1] = (float)(*(unsigned char *)&this->f_55) * light.specular.g * 0.003921569f;
+    v[2] = (float)(*(unsigned char *)&this->f_54) * light.specular.b * 0.003921569f;
     v[3] = 1.0f;
     D3D8::D3DDevice_SetPixelShaderConstant(0, v, 1);
     v[0] = 0; v[1] = 0; v[2] = 0; v[3] = 0;
@@ -92,11 +71,10 @@ void d3dBumpMapVertexShader::vfunc_12() {
     D3D8::D3DDevice_SetVertexShaderConstant1(0x72, v);
     v[0] = 0; v[1] = 0; v[2] = 0; v[3] = 1.0f;
     D3D8::D3DDevice_SetVertexShaderConstant1(0x77, v);
-    if (flag88) {
+    if (this->f_88) {
         v[0] = 1.0f; v[1] = 1.0f; v[2] = 1.0f; v[3] = 1.0f;
     } else {
         v[0] = 0; v[1] = 0; v[2] = 0; v[3] = 0;
     }
     D3D8::D3DDevice_SetVertexShaderConstant1(0x71, v);
-}
 }

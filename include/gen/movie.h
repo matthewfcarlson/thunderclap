@@ -27,6 +27,7 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual void vfunc_3(int); // overrides core::IFileCompletionCallback slot 3
+    int f_0c;
 };
 
 // .?AUPlayer2@movie@@  vftable 0x43406c (16)

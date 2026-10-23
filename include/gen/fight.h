@@ -667,6 +667,8 @@ class BreakPointAction : public ::fight::Action {
 public:
     virtual ~BreakPointAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(int, int); // overrides fight::Action slot 3
+    char _pad_08[0x14];
+    int f_1c;
 };
 
 // .?AVParam@fight@@  vftable 0x427958 (6)
@@ -1265,6 +1267,8 @@ public:
 class Context : public ::pure3d::Entity {
 public:
     virtual ~Context(); // overrides core::IRefCount slot 2
+    char _pad_10[0x4c];
+    void* f_5c;
 };
 
 // .?AVDebugCondition@fight@@  vftable 0x428b64 (7)
@@ -1285,6 +1289,16 @@ public:
     virtual bool vfunc_3(int, int); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(int, int); // overrides fight::Action slot 5
+    char _pad_08[0x4];
+    int f_0c;
+    char _pad_10[0x14];
+    void* f_24;
+    int f_28;
+    void* f_2c;
+    void* f_30;
+    char _pad_34[0x2c];
+    int f_60;
+    char f_64;
 };
 
 // .?AVExecuteTrack@fight@@  vftable 0x428418 (11)
@@ -1298,6 +1312,8 @@ public:
     char _pad_08[0x4];
     float f_0c;
     float f_10;
+    char _pad_14[0xc];
+    int f_20;
 };
 
 // .?AVFalseCondition@fight@@  vftable 0x428ad0 (7)
@@ -1321,6 +1337,8 @@ public:
     virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~FightNodeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
+    char _pad_08[0x4];
+    int f_0c;
 };
 
 // .?AVFightNodeParentCondition@fight@@  vftable 0x427d14 (8)
@@ -1329,6 +1347,10 @@ public:
     virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~FightNodeParentCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
+    char _pad_08[0x4];
+    int f_0c;
+    char _pad_10[0xc];
+    char f_1c;
 };
 
 // .?AVFightNodeTimeCondition@fight@@  vftable 0x427d38 (8)
@@ -1337,6 +1359,8 @@ public:
     virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~FightNodeTimeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
+    char _pad_08[0x4];
+    int f_0c;
 };
 
 // .?AVIFileDataReader@fight@@  vftable 0x428744 (6)
@@ -1423,6 +1447,9 @@ public:
     virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
     int f_08;
     float f_0c;
+    float f_10;
+    char _pad_14[0x10];
+    int f_24;
 };
 
 // .?AVOrCondition@fight@@  vftable 0x428a44 (7)
@@ -1451,6 +1478,9 @@ public:
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual bool vfunc_6(int, int) = 0; // slot 6
+    int f_04;
+    char _pad_08[0x4];
+    int f_0c;
 };
 
 // template family fight::ParamBool: 146 instantiation(s), 0 with their own specialization
@@ -1606,7 +1636,6 @@ public:
     virtual ~ParamBool(); // overrides fight::ParamValue slot 0
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(int, int); // overrides fight::ParamValueBool slot 6
-    char _pad_04[0xc];
     int f_10;
 };
 
@@ -1618,7 +1647,6 @@ class ParamBoolPtr : public ::fight::ParamValueBool {
 public:
     virtual ~ParamBoolPtr(); // overrides fight::ParamValue slot 0
     virtual bool vfunc_6(int, int); // overrides fight::ParamValueBool slot 6
-    char _pad_04[0xc];
     int f_10;
 };
 
@@ -1631,6 +1659,8 @@ public:
     virtual void vfunc_4(int, int); // overrides fight::ParamValue slot 4
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual void vfunc_6(void*) = 0; // slot 6
+    char _pad_04[0x8];
+    int f_0c;
 };
 
 // template family fight::ParamBranch: 22 instantiation(s), 0 with their own specialization
@@ -1672,6 +1702,9 @@ public:
     virtual void vfunc_4(int, int); // overrides fight::ParamValue slot 4
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual void vfunc_6(void*) = 0; // slot 6
+    int f_04;
+    char _pad_08[0x4];
+    int f_0c;
 };
 
 // template family fight::ParamConditionGroup: 10 instantiation(s), 0 with their own specialization
@@ -1701,6 +1734,8 @@ public:
     virtual void* vfunc_6(int, int) = 0; // slot 6
     virtual int vfunc_7(int) = 0; // slot 7
     virtual bool vfunc_8(int, int) = 0; // slot 8
+    char _pad_04[0x8];
+    int f_0c;
 };
 
 // template family fight::ParamEnumConstList: 168 instantiation(s), 0 with their own specialization
@@ -1880,7 +1915,6 @@ public:
     virtual void* vfunc_6(int, int); // overrides fight::ParamValueEnum slot 6
     virtual int vfunc_7(int); // overrides fight::ParamValueEnum slot 7
     virtual bool vfunc_8(int, int); // overrides fight::ParamValueEnum slot 8
-    char _pad_04[0xc];
     void* f_10;
     int f_14;
     int f_18;
@@ -1893,6 +1927,9 @@ public:
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual bool vfunc_6(int, int) = 0; // slot 6
+    int f_04;
+    char _pad_08[0x4];
+    int f_0c;
 };
 
 // template family fight::ParamFloat: 1 instantiation(s), 0 with their own specialization
@@ -1903,7 +1940,6 @@ public:
     virtual ~ParamFloat(); // overrides fight::ParamValue slot 0
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(int, int); // overrides fight::ParamValueFloat slot 6
-    char _pad_04[0xc];
     int f_10;
 };
 
@@ -2222,7 +2258,6 @@ public:
     virtual ~ParamFloatConstRange(); // overrides fight::ParamValue slot 0
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(int, int); // overrides fight::ParamValueFloat slot 6
-    char _pad_04[0xc];
     int f_10;
 };
 
@@ -2234,7 +2269,6 @@ class ParamFloatPtrConstRange : public ::fight::ParamValueFloat {
 public:
     virtual ~ParamFloatPtrConstRange(); // overrides fight::ParamValue slot 0
     virtual bool vfunc_6(int, int); // overrides fight::ParamValueFloat slot 6
-    char _pad_04[0xc];
     int f_10;
 };
 
@@ -2245,6 +2279,8 @@ public:
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual bool vfunc_6(int, int) = 0; // slot 6
+    char _pad_04[0x8];
+    int f_0c;
 };
 
 // template family fight::ParamIntConstRange: 141 instantiation(s), 0 with their own specialization
@@ -2395,7 +2431,6 @@ public:
     virtual ~ParamIntConstRange(); // overrides fight::ParamValue slot 0
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(int, int); // overrides fight::ParamValueInt slot 6
-    char _pad_04[0xc];
     int f_10;
 };
 
@@ -2406,6 +2441,9 @@ public:
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual bool vfunc_6(int, int) = 0; // slot 6
+    int f_04;
+    char _pad_08[0x4];
+    int f_0c;
 };
 
 // .?AVParamValueName@fight@@  vftable 0x427a98 (8)
@@ -2415,6 +2453,7 @@ public:
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual bool vfunc_6(int, int); // overrides fight::ParamValueString slot 6
     virtual void vfunc_7(void*) = 0; // slot 7
+    int f_10;
 };
 
 // template family fight::ParamName: 77 instantiation(s), 0 with their own specialization
@@ -2509,6 +2548,8 @@ public:
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual bool vfunc_6(int, int) = 0; // slot 6
+    char _pad_04[0x8];
+    int f_0c;
 };
 
 // .?AVParamValueNameList@fight@@  vftable 0x427adc (8)
@@ -2581,6 +2622,8 @@ public:
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual void vfunc_6(int, int, int) = 0; // slot 6
+    char _pad_04[0x8];
+    int f_0c;
 };
 
 // template family fight::ParamScript: 3 instantiation(s), 0 with their own specialization
@@ -2593,7 +2636,6 @@ public:
     virtual ~ParamScript(); // overrides fight::ParamValue slot 0
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual void vfunc_6(int, int, int); // overrides fight::ParamValueScript slot 6
-    char _pad_04[0xc];
     int f_10;
 };
 
@@ -2638,7 +2680,6 @@ public:
     virtual ~ParamString(); // overrides fight::ParamValue slot 0
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(int, int); // overrides fight::ParamValueString slot 6
-    char _pad_04[0xc];
     int f_10;
 };
 
@@ -2650,7 +2691,6 @@ public:
     virtual ~ParamStringConstList(); // overrides fight::ParamValue slot 0
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(int, int); // overrides fight::ParamValueStringList slot 6
-    char _pad_04[0xc];
     int f_10;
 };
 
@@ -2661,6 +2701,9 @@ public:
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual void vfunc_6() = 0; // slot 6
+    int f_04;
+    int f_08;
+    int f_0c;
 };
 
 // .?AVParamValueEntity@fight@@  vftable 0x427bd4 (12)
@@ -2675,6 +2718,9 @@ public:
     virtual int vfunc_9(int, int); // slot 9
     virtual void* vfunc_10(int, int, int); // slot 10
     virtual void vfunc_11() = 0; // slot 11
+    int f_04;
+    int f_08;
+    int f_0c;
 };
 
 // .?AVParamValueInventoryEntity@fight@@  vftable 0x427c34 (12)
@@ -2694,6 +2740,8 @@ public:
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual bool vfunc_6(int, int) = 0; // slot 6
+    char _pad_04[0x8];
+    int f_0c;
 };
 
 // template family fight::ParamVector: 63 instantiation(s), 0 with their own specialization
@@ -2766,7 +2814,6 @@ public:
     virtual ~ParamVector(); // overrides fight::ParamValue slot 0
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(int, int); // overrides fight::ParamValueVector slot 6
-    char _pad_04[0xc];
     int f_10;
 };
 
@@ -2791,6 +2838,9 @@ class PrintAction : public ::fight::Action {
 public:
     virtual ~PrintAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(int, int); // overrides fight::Action slot 3
+    char _pad_08[0x14];
+    int f_1c;
+    void* f_20;
 };
 
 // .?AVPrintCondition@fight@@  vftable 0x4282dc (7)
@@ -2815,6 +2865,8 @@ public:
     virtual void vfunc_11(); // slot 11
     int f_08;
     float f_0c;
+    int f_10;
+    int f_14;
 };
 
 // .?AVQueuedNodeAction@fight@@  vftable 0x428558 (6)
@@ -3534,6 +3586,8 @@ public:
     virtual ~WaitAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(int, int); // overrides fight::Action slot 3
     virtual bool vfunc_5(int, int); // overrides fight::Action slot 5
+    char _pad_08[0x1c];
+    float f_24;
 };
 
 // .?AVWaitTrack@fight@@  vftable 0x428cf4 (11)
@@ -3546,6 +3600,8 @@ public:
     virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
     char _pad_08[0x4];
     float f_0c;
+    int f_10;
+    int f_14;
 };
 
 } // namespace fight

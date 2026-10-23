@@ -192,7 +192,7 @@ public:
     float f_1e4;
     float f_1e8;
     int f_1ec;
-    char _pad_1f0[0x1];
+    char f_1f0;
     char f_1f1;
     char _pad_1f2[0x2];
     unsigned char f_1f4;
@@ -217,6 +217,19 @@ public:
     void* f_1f8;
     void* f_1fc;
     int f_200;
+    char _pad_204[0x4];
+    void* f_208;
+    float f_20c;
+    char _pad_210[0xc];
+    char f_21c;
+    char f_21d;
+    char _pad_21e[0x2];
+    void* f_220;
+    float f_224;
+    float f_228;
+    float f_22c;
+    float f_230;
+    char f_234;
 };
 
 // .?AVCollisionVolume@physics@@  vftable 0x431b74 (15)
@@ -254,6 +267,10 @@ public:
     virtual void vfunc_8(); // overrides physics::CollisionVolume slot 8
     virtual void vfunc_11(void*); // overrides physics::CollisionVolume slot 11
     virtual void vfunc_14(void*); // overrides physics::CollisionVolume slot 14
+    char _pad_1c[0x4];
+    void* f_20;
+    char _pad_24[0x10];
+    float f_34;
 };
 
 // .?AVCollisionAnalyser@physics@@  vftable 0x431fe0 (5)
@@ -305,10 +322,10 @@ public:
     virtual void vfunc_11(void*); // overrides physics::CollisionVolume slot 11
     virtual void vfunc_13(); // overrides physics::CollisionVolume slot 13
     virtual void vfunc_14(void*); // overrides physics::CollisionVolume slot 14
-    char _pad_1c[0x4];
+    int f_1c;
     int f_20;
     int f_24;
-    char _pad_28[0x4];
+    int f_28;
     int f_2c;
     int f_30;
     float f_34;
@@ -327,6 +344,15 @@ public:
 class SubCollisionDetector {
 public:
     virtual ~SubCollisionDetector(); // slot 0
+    int f_04;
+    int f_08;
+    int f_0c;
+    int f_10;
+    char _pad_14[0x20];
+    char f_34;
+    char f_35;
+    char _pad_36[0x2];
+    int f_38;
 };
 
 // .?AVCollisionDetector@physics@@  vftable 0x431ac0 (1)
@@ -360,6 +386,8 @@ public:
     virtual void vfunc_18(int, void*, void*, void*); // overrides physics::WorldCollisionVolume slot 18
     char _pad_1c[0x28];
     int f_44;
+    char _pad_48[0x84];
+    char f_cc;
 };
 
 // .?AVSharedData@CollisionMesh@physics@@  vftable 0x43147c (3)
@@ -383,10 +411,10 @@ public:
     virtual void vfunc_13(); // overrides physics::CollisionVolume slot 13
     virtual void vfunc_14(void*); // overrides physics::CollisionVolume slot 14
     virtual void vfunc_15(); // slot 15
-    char _pad_1c[0x4];
+    int f_1c;
     int f_20;
     int f_24;
-    char _pad_28[0x4];
+    int f_28;
     int f_2c;
     int f_30;
     float f_34;
@@ -419,6 +447,33 @@ public:
     int f_28;
     int f_2c;
     int f_30;
+    char f_34;
+    char f_35;
+    char _pad_36[0xa];
+    int f_40;
+    char _pad_44[0x8];
+    char f_4c;
+    char f_4d;
+    char _pad_4e[0x2];
+    char f_50;
+    char f_51;
+    char _pad_52[0x2];
+    int f_54;
+    int f_58;
+    int f_5c;
+    int f_60;
+    int f_64;
+    char f_68;
+    char f_69;
+    char f_6a;
+    char f_6b;
+    int f_6c;
+    char f_70;
+    char f_71;
+    char f_72;
+    char _pad_73[0x1];
+    int f_74;
+    int f_78;
 };
 
 // .?AVCollisionObjectLoader@physics@@  vftable 0x431c90 (6)
@@ -472,7 +527,7 @@ public:
     virtual void vfunc_7(float); // overrides physics::CollisionVolume slot 7
     virtual void vfunc_11(void*); // overrides physics::CollisionVolume slot 11
     virtual void vfunc_14(void*); // overrides physics::CollisionVolume slot 14
-    char _pad_1c[0x4];
+    int f_1c;
     int f_20;
     int f_24;
     int f_28;
@@ -480,6 +535,8 @@ public:
     int f_30;
     int f_34;
     float f_38;
+    char _pad_3c[0x38];
+    void* f_74;
 };
 
 // .?AVCollisionWall@physics@@  vftable 0x43201c (16)
@@ -504,6 +561,9 @@ public:
     int f_48;
     int f_4c;
     int f_50;
+    char _pad_54[0x4];
+    int f_58;
+    int f_5c;
 };
 
 // .?AVFilter1D@physics@@  vftable 0x43232c (3)
@@ -542,6 +602,15 @@ public:
 class Environment : public ::pure3d::Entity {
 public:
     virtual ~Environment(); // overrides core::IRefCount slot 2
+    float f_10;
+    float f_14;
+    float f_18;
+    float f_1c;
+    float f_20;
+    float f_24;
+    float f_28;
+    float f_2c;
+    float f_30;
 };
 
 // .?AVExportInfoLoader@physics@@  vftable 0x431594 (6)
@@ -590,6 +659,21 @@ public:
     char _pad_24[0xc];
     float f_30;
     unsigned char f_34;
+    char _pad_35[0x4b];
+    float f_80;
+    void* f_84;
+    void* f_88;
+    void* f_8c;
+    void* f_90;
+    char _pad_94[0x5c];
+    char f_f0;
+    char f_f1;
+    char f_f2;
+    char f_f3;
+    char f_f4;
+    char _pad_f5[0x3];
+    int f_f8;
+    void* f_fc;
 };
 
 // .?AVSimState@physics@@  vftable 0x431214 (15)
@@ -626,6 +710,9 @@ public:
     int f_6c;
     void* f_70;
     void* f_74;
+    char f_78;
+    char _pad_79[0x3];
+    int f_7c;
 };
 
 // .?AVManualSimState@physics@@  vftable 0x431254 (15)
@@ -641,6 +728,11 @@ public:
 class PhysicsInstance : public ::pure3d::NonCopyable {
 public:
     virtual ~PhysicsInstance(); // overrides core::IRefCount slot 2
+    int f_08;
+    char f_0c;
+    char _pad_0d[0x3];
+    void* f_10;
+    void* f_14;
 };
 
 // .?AVPhysicsJoint@physics@@  vftable 0x431de4 (29)
@@ -693,6 +785,7 @@ public:
     float f_38;
     float f_3c;
     float f_40;
+    float f_44;
 };
 
 // .?AVPhysicsJoint0D@physics@@  vftable 0x431e5c (29)
@@ -749,7 +842,7 @@ public:
     virtual void vfunc_25(); // overrides physics::PhysicsJoint slot 25
     virtual bool vfunc_26(int, int); // overrides physics::PhysicsJoint slot 26
     virtual void* vfunc_27(); // overrides physics::PhysicsJoint slot 27
-    char _pad_44[0xa0];
+    char _pad_48[0x9c];
     float f_e4;
     float f_e8;
     char f_ec;
@@ -764,6 +857,8 @@ public:
     float f_10c;
     float f_110;
     float f_114;
+    float f_118;
+    float f_11c;
 };
 
 // .?AVPhysicsJoint3D@physics@@  vftable 0x431f4c (29)
@@ -793,7 +888,8 @@ public:
     virtual void vfunc_25(); // overrides physics::PhysicsJoint slot 25
     virtual bool vfunc_26(int, int); // overrides physics::PhysicsJoint slot 26
     virtual void* vfunc_27(); // overrides physics::PhysicsJoint slot 27
-    char _pad_44[0x58];
+    char _pad_48[0x50];
+    float f_98;
     float f_9c;
     float f_a0;
     char _pad_a4[0x40];
@@ -814,7 +910,7 @@ public:
     unsigned int f_138;
     unsigned int f_13c;
     unsigned int f_140;
-    char _pad_144[0x4];
+    int f_144;
     int f_148;
     int f_14c;
     bool f_150;
@@ -843,6 +939,7 @@ public:
     virtual void vfunc_9(int); // overrides physics::PoseDriver slot 9
     char _pad_14[0x4];
     void* f_18;
+    int f_1c;
 };
 
 // .?AVPhysicsObjectLoader@physics@@  vftable 0x431680 (6)
@@ -869,6 +966,12 @@ public:
 class PoseEngine : public ::pure3d::NonCopyable {
 public:
     virtual ~PoseEngine(); // overrides core::IRefCount slot 2
+    void* f_08;
+    void* f_0c;
+    int f_10;
+    int f_14;
+    void* f_18;
+    void* f_1c;
 };
 
 // .?AVRootMatrixDriver@physics@@  vftable 0x43186c (10)
@@ -879,6 +982,8 @@ public:
     virtual int vfunc_6(); // overrides physics::PoseDriver slot 6
     virtual void vfunc_8(int); // overrides physics::PoseDriver slot 8
     virtual void vfunc_9(int); // overrides physics::PoseDriver slot 9
+    char _pad_14[0x8];
+    int f_1c;
 };
 
 // .?AVSimUnits@physics@@  vftable 0x43117c (1)
@@ -895,6 +1000,7 @@ public:
     virtual float vfunc_2(); // slot 2
     virtual float vfunc_3(); // slot 3
     float f_04;
+    float f_08;
 };
 
 // .?AVSimLength@physics@@  vftable 0x4311b0 (4)
@@ -917,12 +1023,13 @@ public:
     virtual void vfunc_10(int); // overrides physics::SimState slot 10
     virtual bool vfunc_11(); // overrides physics::SimState slot 11
     virtual void vfunc_14(void*); // overrides physics::SimState slot 14
-    char _pad_78[0x8];
     int f_80;
     char f_84;
     char _pad_85[0x3];
     void* f_88;
     void* f_8c;
+    int f_90;
+    char f_94;
 };
 
 // .?AVSimStateHairclub@physics@@  vftable 0x4319a4 (15)
@@ -932,7 +1039,7 @@ public:
     virtual void* vfunc_4(void*); // overrides physics::SimState slot 4
     virtual void* vfunc_5(int); // overrides physics::SimState slot 5
     virtual void vfunc_14(void*); // overrides physics::SimState slot 14
-    char _pad_78[0x10];
+    char _pad_80[0x8];
     void* f_88;
 };
 
@@ -959,6 +1066,11 @@ public:
     virtual char vfunc_0(int, int, int); // overrides physics::Filter3D slot 0
     virtual void vfunc_1(int, int); // overrides physics::Filter3D slot 1
     virtual void vfunc_2(); // overrides physics::Filter3D slot 2
+    char _pad_04[0x4];
+    int f_08;
+    int f_0c;
+    char _pad_10[0x18];
+    float f_28;
 };
 
 // .?AVSimpleFilterAbs3D@physics@@  vftable 0x431ce8 (3)
@@ -966,12 +1078,26 @@ class SimpleFilterAbs3D : public ::physics::SimpleFilter3D {
 public:
     virtual char vfunc_0(int, int, int); // overrides physics::Filter3D slot 0
     virtual void vfunc_1(int, int); // overrides physics::Filter3D slot 1
+    char _pad_2c[0x14];
+    int f_40;
+    int f_44;
+    int f_48;
+    int f_4c;
+    float f_50;
+    float f_54;
+    float f_58;
+    char f_5c;
+    char f_5d;
+    char _pad_5e[0x2];
+    int f_60;
 };
 
 // .?AVSkeletonInfo@physics@@  vftable 0x43223c (5)
 class SkeletonInfo : public ::pure3d::Entity {
 public:
     virtual ~SkeletonInfo(); // overrides core::IRefCount slot 2
+    void* f_10;
+    int f_14;
 };
 
 // .?AVSymMatrix@physics@@  vftable 0x4315d0 (1)
@@ -985,6 +1111,7 @@ class WorldCollisionObject : public ::pure3d::Entity {
 public:
     virtual ~WorldCollisionObject(); // overrides core::IRefCount slot 2
     void* f_10;
+    char f_14;
 };
 
 // .?AVWorldCollisionObjectLoader@physics@@  vftable 0x431cac (6)

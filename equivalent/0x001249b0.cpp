@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 14/14)
 // hulkfight::ai::TargetInvincibleCondition::vfunc_6 @ 0x001249b0
+#include "gen/hulkfight.h"
+
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -27,20 +29,8 @@ struct Target_1249b0 {
     Resolver_1249b0 *FUN_000592a0();
 };
 
-class TargetInvincibleCondition {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual bool vfunc_6(int a, void *obj, int c);
-    char pad04[8];
-    char wanted;
-};
+bool hulkfight::ai::TargetInvincibleCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; void * obj = (void *)__p1; int c = (int)__p2;
 
-bool TargetInvincibleCondition::vfunc_6(int a, void *obj, int c) {
     if (!FUN_00344e74(obj, 0, DAT_00494b44, DAT_00494b60, 0)) {
         return false;
     }
@@ -52,10 +42,10 @@ bool TargetInvincibleCondition::vfunc_6(int a, void *obj, int c) {
         if (body->invincible == 0) {
             return false;
         }
-        return body->invincible->FUN_00036170() == wanted;
+        return body->invincible->FUN_00036170() == this->f_0c;
     }
     if (body->state == 5) {
-        return wanted == 0;
+        return this->f_0c == 0;
     }
     return false;
 }

@@ -1,35 +1,555 @@
 {
- "_comment": "Fields added to include/gen/ by tools/rn_fields.py (consolidation batch b7): offsets every stub of the class agrees on, inside the class's own _pad_ gaps.",
+ "_comment": "Fields added to include/gen/ by tools/rn_fields.py (consolidation batch b7): offsets every stub of the class agrees on, inside the class's own _pad_ gaps or (--grow) past its end.",
  "fields": {
   "CAIHintTrack": {
    "0x8": "int"
   },
+  "CAgent": {
+   "0xc": "char",
+   "0x10": "int",
+   "0x54": "int"
+  },
   "CAlertStatusTrack": {
    "0x8": "int"
   },
+  "CAmbientsManager": {
+   "0x3548": "int",
+   "0x359c": "int",
+   "0x3640": "int",
+   "0x3644": "float",
+   "0x3648": "float",
+   "0x364c": "char",
+   "0x3740": "int",
+   "0x3744": "int",
+   "0x3748": "int",
+   "0x379c": "int",
+   "0x37a0": "int",
+   "0x37a4": "float",
+   "0x37a8": "float",
+   "0x37fc": "int",
+   "0x3828": "int",
+   "0x382c": "int",
+   "0x3830": "int"
+  },
   "CAutoTargetAction": {
-   "0x20": "void*"
+   "0x20": "void*",
+   "0x2c": "float"
   },
   "CAutoTargetTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "float",
+   "0x18": "float",
+   "0x1c": "float",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "char"
+  },
+  "CAvoidBehaviour": {
+   "0x8": "void*",
+   "0xc": "char",
+   "0x14": "void*",
+   "0x18": "void*",
+   "0x20": "void*",
+   "0x24": "void*",
+   "0x28": "float",
+   "0x34": "char"
+  },
+  "CAxisDirectionCondition": {
+   "0xc": "int",
+   "0x10": "float",
+   "0x14": "float"
+  },
+  "CAxisDoubleTapCondition": {
+   "0x10": "int",
+   "0x14": "float",
+   "0x18": "float",
+   "0x1c": "float"
+  },
+  "CAxisSpeedCondition": {
+   "0x10": "int",
+   "0x14": "float"
+  },
+  "CAxisTimeCondition": {
+   "0x10": "int",
+   "0x18": "int",
+   "0x1c": "float"
+  },
+  "CBlendCamera": {
+   "0x170": "void*",
+   "0x174": "void*",
+   "0x178": "char",
+   "0x17c": "float",
+   "0x1a8": "int",
+   "0x1ac": "int",
+   "0x1b0": "float"
+  },
+  "CButtonCondition": {
+   "0x10": "int",
+   "0x14": "float"
+  },
+  "CButtonValueCondition": {
+   "0x18": "int",
+   "0x1c": "float"
   },
   "CCameraDramaticAction": {
    "0x1c": "void*"
   },
   "CCameraDramaticTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x80": "float",
+   "0x84": "char",
+   "0x88": "int",
+   "0x8c": "int",
+   "0x90": "int",
+   "0x94": "int",
+   "0x98": "int",
+   "0x9c": "int"
   },
   "CCameraHintTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int"
+  },
+  "CCameraManager": {
+   "0x4": "int",
+   "0x8": "int",
+   "0x18": "char",
+   "0x19": "char",
+   "0x1a": "char",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x84": "int",
+   "0x88": "int",
+   "0x94": "int",
+   "0x98": "int",
+   "0x9c": "int",
+   "0xa4": "int",
+   "0xa8": "int",
+   "0xac": "int",
+   "0xb0": "int",
+   "0xc0": "int",
+   "0xc4": "int"
+  },
+  "CCameraShakeAction": {
+   "0x1c": "void*"
   },
   "CCameraShakeTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int"
+  },
+  "CCharacter": {
+   "0x6c": "int",
+   "0x70": "int",
+   "0x78": "int",
+   "0x7c": "int",
+   "0x84": "int",
+   "0x88": "int",
+   "0x90": "int",
+   "0x94": "int",
+   "0x98": "int",
+   "0x9c": "int",
+   "0xa0": "int",
+   "0xa4": "int",
+   "0xa8": "int",
+   "0xac": "int",
+   "0xb0": "int",
+   "0x114": "int",
+   "0x118": "char",
+   "0x119": "char",
+   "0x134": "int",
+   "0x138": "int",
+   "0x13c": "int",
+   "0x140": "int",
+   "0x144": "int",
+   "0x194": "int",
+   "0x198": "int",
+   "0x1a0": "int",
+   "0x1a4": "int",
+   "0x1ac": "int",
+   "0x1b0": "int",
+   "0x1b8": "int",
+   "0x1bc": "int",
+   "0x1c4": "int",
+   "0x1c8": "int",
+   "0x1cc": "int",
+   "0x1d0": "int",
+   "0x1d4": "int",
+   "0x1d8": "int",
+   "0x1dc": "int",
+   "0x1e0": "int",
+   "0x1ec": "int",
+   "0x1f0": "int",
+   "0x1fc": "int",
+   "0x300": "int",
+   "0x304": "int",
+   "0x308": "int",
+   "0x30c": "int",
+   "0x310": "int",
+   "0x314": "float",
+   "0x318": "int",
+   "0x31c": "int",
+   "0x324": "int",
+   "0x32c": "char",
+   "0x32d": "char",
+   "0x32e": "char",
+   "0x330": "int",
+   "0x33c": "int",
+   "0x340": "int",
+   "0x344": "int",
+   "0x38c": "int",
+   "0x390": "int",
+   "0x394": "int",
+   "0x398": "char",
+   "0x39c": "int",
+   "0x3a0": "float",
+   "0x634": "int",
+   "0x1a38": "char",
+   "0x1a39": "char",
+   "0x1a3c": "int",
+   "0x1a40": "int",
+   "0x1a44": "int",
+   "0x1a48": "int",
+   "0x1a4c": "int",
+   "0x1a50": "int",
+   "0x1a54": "int",
+   "0x1a58": "int",
+   "0x1a5c": "int",
+   "0x1a60": "int",
+   "0x1a64": "int",
+   "0x1a68": "int",
+   "0x1a6c": "int",
+   "0x1a70": "float",
+   "0x1a74": "int",
+   "0x1a78": "int",
+   "0x1a7c": "float",
+   "0x1a80": "int",
+   "0x1a84": "int",
+   "0x1a88": "int",
+   "0x1a8c": "int",
+   "0x1a90": "int",
+   "0x1a94": "int",
+   "0x1a98": "int",
+   "0x1a9c": "int",
+   "0x1aa0": "int",
+   "0x1aa4": "int",
+   "0x1aa8": "int",
+   "0x1aac": "int",
+   "0x1ab0": "int",
+   "0x1ab4": "int",
+   "0x1ab8": "int",
+   "0x1abc": "int",
+   "0x1ac0": "int",
+   "0x1ac4": "int",
+   "0x1ac8": "int",
+   "0x1acc": "int",
+   "0x1ad4": "int",
+   "0x1ad8": "int",
+   "0x1adc": "int",
+   "0x1ae0": "int",
+   "0x1ae4": "int",
+   "0x1ae8": "int",
+   "0x1aec": "int",
+   "0x1af0": "int",
+   "0x1af4": "int",
+   "0x1af8": "int",
+   "0x1afc": "int",
+   "0x1b00": "int",
+   "0x1b04": "int",
+   "0x1b08": "char",
+   "0x1b0c": "float",
+   "0x1b14": "float",
+   "0x1b18": "int",
+   "0x1b1c": "int",
+   "0x1b20": "int",
+   "0x1b24": "int",
+   "0x1b28": "int",
+   "0x1b34": "char",
+   "0x1b38": "int",
+   "0x1b40": "int",
+   "0x1b44": "int",
+   "0x1b48": "char",
+   "0x1b49": "char",
+   "0x1b58": "int",
+   "0x1b5c": "int",
+   "0x1b64": "int",
+   "0x1b6c": "int",
+   "0x1b70": "int",
+   "0x1b74": "char",
+   "0x1b78": "int",
+   "0x1b7c": "int",
+   "0x1b80": "int",
+   "0x1b84": "char",
+   "0x1b88": "int",
+   "0x1b8c": "int",
+   "0x1b90": "char",
+   "0x1b91": "char",
+   "0x1ba0": "int",
+   "0x1ba4": "char",
+   "0x1c88": "int",
+   "0x1c8c": "char",
+   "0x1c8d": "char",
+   "0x1c90": "int",
+   "0x1ca0": "void*",
+   "0x1ca4": "void*",
+   "0x1cac": "float",
+   "0x1cb0": "float",
+   "0x1cb4": "float",
+   "0x1cb8": "float",
+   "0x1cbc": "int",
+   "0x1cc0": "int",
+   "0x1cc4": "int",
+   "0x1cc8": "int",
+   "0x1cd0": "int",
+   "0x1cd4": "int",
+   "0x1cd8": "int",
+   "0x1cdc": "int",
+   "0x1ce0": "float",
+   "0x1ce4": "float",
+   "0x1ce8": "float",
+   "0x1cec": "char",
+   "0x1ced": "char",
+   "0x1cee": "char",
+   "0x1cef": "char",
+   "0x1cf4": "char",
+   "0x1cf5": "char",
+   "0x1cf8": "float",
+   "0x1cfc": "int",
+   "0x1d00": "float",
+   "0x1d04": "char",
+   "0x1d05": "char",
+   "0x1d08": "int",
+   "0x1d0c": "float",
+   "0x1d10": "float",
+   "0x1d14": "int",
+   "0x1d18": "int",
+   "0x1d1c": "int",
+   "0x1d20": "float",
+   "0x1d24": "float",
+   "0x1d28": "char",
+   "0x1d2c": "int",
+   "0x1d30": "float",
+   "0x1d34": "float",
+   "0x1d38": "float",
+   "0x1d3c": "int",
+   "0x1d40": "char",
+   "0x1d44": "int",
+   "0x1d48": "float",
+   "0x1d4c": "char",
+   "0x1d4d": "char",
+   "0x1d50": "int",
+   "0x1d54": "int",
+   "0x1d58": "int",
+   "0x1d5c": "int",
+   "0x1d78": "char",
+   "0x1d79": "char",
+   "0x1d7c": "int",
+   "0x1d80": "int",
+   "0x1e44": "int",
+   "0x1e4c": "int",
+   "0x1e50": "int",
+   "0x1e54": "int",
+   "0x1e58": "int",
+   "0x1e5c": "int",
+   "0x1f50": "char",
+   "0x1f51": "char",
+   "0x1f54": "int",
+   "0x209c": "int",
+   "0x20a0": "char",
+   "0x20a8": "int",
+   "0x20ac": "int",
+   "0x20b0": "int",
+   "0x20b4": "int",
+   "0x20f8": "char",
+   "0x2138": "char",
+   "0x2140": "char",
+   "0x2144": "int",
+   "0x2148": "char",
+   "0x2149": "char",
+   "0x214c": "int",
+   "0x2250": "int",
+   "0x2298": "int",
+   "0x229c": "char",
+   "0x229d": "char",
+   "0x22a0": "int",
+   "0x22a4": "int",
+   "0x22a8": "int",
+   "0x22ac": "int",
+   "0x22b0": "char",
+   "0x22c0": "char",
+   "0x22c1": "char",
+   "0x22d4": "float",
+   "0x22d8": "int",
+   "0x22dc": "int",
+   "0x22e0": "char",
+   "0x22e8": "char",
+   "0x22e9": "char",
+   "0x22ec": "int",
+   "0x22f0": "int",
+   "0x22f4": "int",
+   "0x22f8": "float",
+   "0x22fc": "char"
+  },
+  "CCharacterBoolCondition": {
+   "0x10": "int"
+  },
+  "CCharacterFloatCondition": {
+   "0x10": "int",
+   "0x14": "float"
   },
   "CCharacterGolem": {
    "0xf4": "char",
    "0xf8": "int",
    "0x121": "char",
-   "0x124": "float"
+   "0x124": "float",
+   "0x12c": "float"
+  },
+  "CCharacterSizeCondition": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "CCharacterTemplate": {
+   "0x10": "char",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "float",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x40": "int",
+   "0x128": "int",
+   "0x12c": "float",
+   "0x130": "int",
+   "0x134": "int",
+   "0x138": "int",
+   "0x13c": "int",
+   "0x140": "int",
+   "0x144": "int",
+   "0x148": "int",
+   "0x14c": "int",
+   "0x150": "int",
+   "0x154": "int",
+   "0x158": "int",
+   "0x15c": "float",
+   "0x160": "int",
+   "0x164": "int",
+   "0x168": "int",
+   "0x170": "float",
+   "0x174": "float",
+   "0x178": "int",
+   "0x17c": "int",
+   "0x180": "int",
+   "0x184": "int",
+   "0x188": "float",
+   "0x18c": "int",
+   "0x190": "int",
+   "0x194": "int",
+   "0x198": "int",
+   "0x19c": "int",
+   "0x1a0": "int",
+   "0x1a4": "int",
+   "0x1a8": "int",
+   "0x1ac": "int",
+   "0x1b0": "int",
+   "0x2f8": "char",
+   "0x2fc": "int",
+   "0x300": "int",
+   "0x304": "int",
+   "0x308": "int",
+   "0x30c": "float",
+   "0x310": "float",
+   "0x314": "float",
+   "0x318": "float",
+   "0x31c": "float",
+   "0x320": "float",
+   "0x324": "float",
+   "0x328": "float",
+   "0x32c": "int",
+   "0x330": "int",
+   "0x334": "int",
+   "0x338": "int",
+   "0x33c": "int",
+   "0x340": "int",
+   "0x344": "int",
+   "0x348": "int",
+   "0x34c": "int",
+   "0x350": "int",
+   "0x354": "int",
+   "0x358": "int",
+   "0x35c": "int",
+   "0x360": "int",
+   "0x364": "int",
+   "0x368": "int",
+   "0x36c": "int",
+   "0x370": "float",
+   "0x374": "float",
+   "0x378": "float",
+   "0x37c": "char",
+   "0x37d": "char",
+   "0x37e": "char",
+   "0x37f": "char",
+   "0x380": "int",
+   "0x384": "char",
+   "0x388": "float",
+   "0x38c": "char",
+   "0x38d": "char",
+   "0x38e": "char",
+   "0x38f": "char",
+   "0x390": "char",
+   "0x394": "int",
+   "0x398": "int",
+   "0x39c": "int",
+   "0x3a0": "int",
+   "0x3a4": "int",
+   "0x3a8": "int",
+   "0x3ac": "int",
+   "0x3b0": "char",
+   "0x3f0": "char",
+   "0x438": "float",
+   "0x43c": "float",
+   "0x440": "int",
+   "0x444": "int",
+   "0x448": "int",
+   "0x44c": "int",
+   "0x450": "int",
+   "0x454": "char",
+   "0x458": "float",
+   "0x45c": "float",
+   "0x460": "float",
+   "0x464": "float",
+   "0x468": "float",
+   "0x46c": "int",
+   "0x470": "float",
+   "0x478": "float",
+   "0x47c": "float",
+   "0x560": "int"
+  },
+  "CCharacterTemplateCondition": {
+   "0xc": "int",
+   "0x14": "int"
+  },
+  "CCharacterTemplateVariationCondition": {
+   "0x8": "int",
+   "0xc": "int"
   },
   "CChaseAgent": {
    "0x58": "void*",
@@ -111,10 +631,67 @@
    "0x3b0": "float",
    "0x3b4": "int",
    "0x3c4": "float",
-   "0x3c8": "float"
+   "0x3c8": "float",
+   "0x3e0": "float",
+   "0x410": "int",
+   "0x424": "int",
+   "0x428": "int",
+   "0x42c": "int",
+   "0x430": "int",
+   "0x434": "int",
+   "0x438": "int",
+   "0x43c": "int",
+   "0x440": "float",
+   "0x454": "float",
+   "0x45c": "float",
+   "0x460": "float",
+   "0x464": "float",
+   "0x468": "float",
+   "0x46c": "float",
+   "0x470": "float",
+   "0x474": "float",
+   "0x490": "char",
+   "0x498": "float",
+   "0x49c": "float",
+   "0x4a4": "int",
+   "0x4a8": "int",
+   "0x4b8": "char",
+   "0x4b9": "char",
+   "0x4ba": "char",
+   "0x4bb": "char"
+  },
+  "CCivilian": {
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x74": "int",
+   "0x78": "int",
+   "0x7c": "int",
+   "0xb8": "void*",
+   "0xe8": "void*",
+   "0xec": "int",
+   "0xf0": "void*",
+   "0x100": "void*"
   },
   "CClearHitRecordsTrack": {
    "0x8": "int"
+  },
+  "CClimbEdgeCondition": {
+   "0xc": "int",
+   "0x10": "char"
+  },
+  "CClimbableCondition": {
+   "0x10": "float",
+   "0x14": "char"
+  },
+  "CClimbingAction": {
+   "0x20": "int"
   },
   "CClimbingTrack": {
    "0x8": "int"
@@ -126,30 +703,226 @@
    "0x40": "float",
    "0x44": "float"
   },
+  "CCollisionDirectionCondition": {
+   "0xc": "float",
+   "0x10": "float"
+  },
+  "CCollisionFlagCondition": {
+   "0xc": "int",
+   "0x10": "int",
+   "0x14": "int"
+  },
+  "CCollisionHeightCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
+  "CCollisionHitLocationCondition": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "CCollisionManager": {
+   "0x8": "int",
+   "0xc": "int",
+   "0x4f0": "int",
+   "0x4f4": "int",
+   "0x4f8": "int",
+   "0x598": "void*",
+   "0x5a8": "float"
+  },
+  "CCollisionPushbackDirectionCondition": {
+   "0xc": "float",
+   "0x10": "float"
+  },
+  "CCollisionPushbackVelocityCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
+  "CCollisionPushbackYAngleCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
+  "CCollisionPushbackYCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
+  "CCollisionStunTimeCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
   "CCollisionTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "float",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "char",
+   "0x39": "char",
+   "0x3a": "char",
+   "0x3b": "char",
+   "0x3c": "char",
+   "0x40": "int",
+   "0x44": "int",
+   "0x48": "int",
+   "0x78": "char",
+   "0xb8": "int",
+   "0xbc": "int",
+   "0xc0": "int",
+   "0xc4": "int",
+   "0xc8": "int",
+   "0xcc": "int",
+   "0xd0": "int",
+   "0xd4": "int",
+   "0xd8": "int",
+   "0xdc": "int",
+   "0xe0": "int",
+   "0xe4": "int",
+   "0xe8": "int",
+   "0xec": "int",
+   "0xf0": "char",
+   "0xf4": "int",
+   "0xf8": "int",
+   "0xfc": "int",
+   "0x100": "int",
+   "0x104": "int",
+   "0x108": "char",
+   "0x10c": "int",
+   "0x110": "int",
+   "0x114": "int",
+   "0x118": "int",
+   "0x11c": "int"
+  },
+  "CComboMessageAction": {
+   "0x1c": "void*"
   },
   "CComboMessageTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "char",
+   "0x50": "int"
+  },
+  "CComboTimerAction": {
+   "0x1c": "void*",
+   "0x20": "int"
   },
   "CComboTimerTrack": {
    "0x8": "int"
   },
+  "CController": {
+   "0x8": "int",
+   "0xc": "char",
+   "0x10": "int",
+   "0x14": "void*",
+   "0xa0": "int",
+   "0xa4": "int",
+   "0xa8": "int"
+  },
+  "CControllerAgent": {
+   "0x5c": "int",
+   "0x60": "int",
+   "0x64": "float",
+   "0x68": "float",
+   "0x6c": "char",
+   "0x6d": "char",
+   "0x70": "int",
+   "0x74": "int",
+   "0x78": "float",
+   "0x7c": "int",
+   "0x80": "float",
+   "0x84": "int",
+   "0xa0": "char",
+   "0xa1": "char",
+   "0xd4": "int"
+  },
+  "CControllerManager": {
+   "0x4": "void*",
+   "0x8": "int",
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "char"
+  },
+  "CCow": {
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "char",
+   "0x1d": "char",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "void*",
+   "0x40": "int",
+   "0x44": "int",
+   "0x48": "int"
+  },
+  "CDamageAction": {
+   "0x1c": "void*"
+  },
   "CDamageTrack": {
    "0x8": "int"
+  },
+  "CDataHandlerObject": {
+   "0x8": "int",
+   "0xc": "void*"
+  },
+  "CDrainHealthAction": {
+   "0x1c": "void*"
   },
   "CDrainHealthTrack": {
    "0x8": "int"
   },
+  "CDramaticCamera": {
+   "0xd0": "int",
+   "0xf1": "char",
+   "0x170": "void*",
+   "0x174": "void*",
+   "0x178": "float",
+   "0x17c": "float"
+  },
+  "CDriftAction": {
+   "0x1c": "void*"
+  },
   "CDriftTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x18": "float"
+  },
+  "CDropAction": {
+   "0x28": "float"
+  },
+  "CDropShadowDisplayEffect": {
+   "0x4": "int",
+   "0xc": "float",
+   "0x10": "int"
+  },
+  "CDropTrack": {
+   "0x14": "float",
+   "0x18": "float",
+   "0x1c": "float",
+   "0x20": "char",
+   "0x24": "float",
+   "0x28": "float",
+   "0x2c": "float",
+   "0x30": "int",
+   "0x34": "float",
+   "0x38": "float"
   },
   "CEffectAction": {
    "0x1c": "void*",
    "0x24": "void*"
   },
+  "CEffectStopAction": {
+   "0x104": "int"
+  },
   "CEffectStopTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int",
+   "0x14": "int"
   },
   "CEffectTrack": {
    "0x8": "int",
@@ -160,11 +933,161 @@
    "0x40": "int",
    "0x44": "int",
    "0x48": "int",
-   "0x4c": "int"
+   "0x4c": "int",
+   "0x54": "int",
+   "0x58": "float"
+  },
+  "CEncounterGenerator": {
+   "0xc6c": "void*"
   },
   "CEventManager": {
    "0x4": "int",
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "void*",
+   "0x1c": "char",
+   "0x20": "int",
+   "0x3e4": "int",
+   "0x3e8": "int",
+   "0x3ec": "int",
+   "0x3f0": "int",
+   "0x3f4": "int",
+   "0x3f8": "int",
+   "0x3fc": "char",
+   "0x400": "int"
+  },
+  "CExplosionTrack": {
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int"
+  },
+  "CFEManager": {
+   "0x8": "char",
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x20": "void*",
+   "0x28": "char",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x48": "int",
+   "0x54": "int",
+   "0x58": "int",
+   "0x5c": "int",
+   "0x64": "void*",
+   "0x1870": "char",
+   "0x1874": "int",
+   "0x1878": "char",
+   "0x187c": "int",
+   "0x1880": "int",
+   "0x1a04": "char",
+   "0x1a05": "char",
+   "0x1a06": "char",
+   "0x1bc8": "char",
+   "0x1bc9": "char",
+   "0x1bcc": "char",
+   "0x1c0c": "char",
+   "0x1c4c": "char",
+   "0x1c8c": "char",
+   "0x1cac": "char",
+   "0x1cec": "int",
+   "0x1cf0": "int",
+   "0x1cf4": "int",
+   "0x1cfc": "int",
+   "0x1d00": "char",
+   "0x1d04": "int",
+   "0x1d08": "int",
+   "0x1d0c": "int",
+   "0x1d10": "int",
+   "0x1d14": "int",
+   "0x1d18": "int",
+   "0x1d1c": "int",
+   "0x1d20": "float",
+   "0x1d24": "int",
+   "0x1d28": "int",
+   "0x1d2c": "int",
+   "0x1d30": "int",
+   "0x1d34": "int"
+  },
+  "CFMVManager": {
+   "0x4": "int",
+   "0x8": "char",
+   "0x9": "char",
+   "0x10": "int",
+   "0x14": "char",
+   "0x114": "char",
+   "0x118": "int",
+   "0x11c": "int",
+   "0x124": "int",
+   "0x128": "int",
+   "0x12c": "int",
+   "0x130": "char",
+   "0x131": "char",
+   "0x134": "int"
+  },
+  "CFightParamsCollision": {
+   "0x24": "char",
+   "0x48": "int",
+   "0x4c": "void*",
+   "0x50": "void*",
+   "0x54": "int",
+   "0x58": "float",
+   "0x68": "float",
+   "0x6c": "int",
+   "0x70": "int",
+   "0x74": "int",
+   "0x78": "int",
+   "0x7c": "float",
+   "0x80": "float",
+   "0x91": "char"
+  },
+  "CFrontEndCallback": {
+   "0x4": "void*"
+  },
+  "CGame": {
+   "0x4": "int",
+   "0x8": "int",
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x40": "int",
+   "0x44": "int",
+   "0x48": "int",
+   "0x4c": "int",
+   "0x50": "char"
+  },
+  "CGameControllerManager": {
+   "0x4": "void*"
+  },
+  "CGameDataHandler": {
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int"
+  },
+  "CGlowDisplayEffect": {
+   "0x4": "int",
+   "0x8": "int",
+   "0x11": "char",
+   "0x12": "char",
+   "0x13": "char"
   },
   "CGolem": {
    "0x8": "int",
@@ -175,13 +1098,89 @@
   },
   "CGrabAction": {
    "0x20": "void*",
-   "0x24": "int"
+   "0x24": "int",
+   "0x38": "char",
+   "0x3c": "void*"
+  },
+  "CGrabTrack": {
+   "0x1c": "int",
+   "0x2c": "float",
+   "0x30": "int",
+   "0x34": "char"
+  },
+  "CGrappleAttachAction": {
+   "0x1c": "void*"
   },
   "CGrappleAttachTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x20": "char",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x48": "int",
+   "0x4c": "int",
+   "0x50": "int",
+   "0x54": "int",
+   "0x58": "int",
+   "0x5c": "char",
+   "0x60": "int",
+   "0x64": "int"
+  },
+  "CGrappleCharacterTemplateCondition": {
+   "0x8": "int",
+   "0xc": "int",
+   "0x14": "int"
+  },
+  "CGrappleDetachTrack": {
+   "0x10": "int"
+  },
+  "CGrappleInvulnerableTrack": {
+   "0x14": "int"
+  },
+  "CGrappleLocoStrafe4Track": {
+   "0x70": "int",
+   "0x74": "int",
+   "0x78": "int"
   },
   "CGrappleOpportunityTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "float",
+   "0x14": "float",
+   "0x24": "int"
+  },
+  "CGrappleSequenceTrack": {
+   "0x8": "int",
+   "0x18": "int"
+  },
+  "CGrappleSizeCondition": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "CGrappleSwapAction": {
+   "0x1c": "void*"
+  },
+  "CGrappleSwapTrack": {
+   "0x20": "char",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int"
+  },
+  "CGrappleTimerCondition": {
+   "0xc": "int",
+   "0x10": "float",
+   "0x14": "char",
+   "0x18": "int"
+  },
+  "CGroundDistanceCondition": {
+   "0xc": "int",
+   "0x10": "float"
   },
   "CHand2HandAgent": {
    "0x58": "void*",
@@ -198,7 +1197,50 @@
    "0x7f": "char",
    "0x94": "float",
    "0x98": "float",
-   "0x9c": "float"
+   "0x9c": "float",
+   "0xb4": "float",
+   "0xb8": "float",
+   "0xc0": "float",
+   "0xc4": "float",
+   "0xcc": "char",
+   "0xcd": "char",
+   "0xce": "char",
+   "0xcf": "char",
+   "0xd0": "char",
+   "0xd1": "char",
+   "0xd2": "char",
+   "0xd3": "char",
+   "0xe0": "float",
+   "0xe4": "int",
+   "0xf0": "int",
+   "0xf4": "int",
+   "0xfc": "int",
+   "0x100": "int",
+   "0x124": "int",
+   "0x128": "int",
+   "0x12c": "char",
+   "0x130": "float",
+   "0x134": "void*",
+   "0x154": "float",
+   "0x158": "float",
+   "0x178": "int",
+   "0x17c": "int",
+   "0x180": "float",
+   "0x188": "int",
+   "0x18c": "int",
+   "0x190": "int"
+  },
+  "CHapticController": {
+   "0x8": "char",
+   "0xc": "void*",
+   "0x10": "int",
+   "0x14": "void*",
+   "0x18": "int"
+  },
+  "CHapticControllerManager": {
+   "0x4": "char",
+   "0x5": "char",
+   "0x8": "void*"
   },
   "CHapticEventAction": {
    "0x1c": "void*"
@@ -213,10 +1255,114 @@
    "0x78": "int",
    "0x7c": "int",
    "0x80": "int",
-   "0x84": "float"
+   "0x84": "float",
+   "0x8c": "int"
   },
   "CHeadTrackerTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x20": "float",
+   "0x24": "float",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "float",
+   "0x38": "float",
+   "0x3c": "float",
+   "0x40": "float",
+   "0x44": "float",
+   "0x48": "float",
+   "0x4c": "float",
+   "0x50": "float",
+   "0x54": "int",
+   "0x58": "float",
+   "0x5c": "float"
+  },
+  "CHeliDeathSpiralAction": {
+   "0x40": "float",
+   "0x44": "float"
+  },
+  "CHeliDeathSpiralTrack": {
+   "0x14": "float",
+   "0x18": "int",
+   "0x1c": "float",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int"
+  },
+  "CHudIcons": {
+   "0x10": "char",
+   "0x18": "int",
+   "0x1c": "void*",
+   "0x20": "void*",
+   "0x24": "void*",
+   "0x28": "void*",
+   "0x2c": "void*",
+   "0x30": "void*",
+   "0x34": "void*",
+   "0x38": "void*",
+   "0x3c": "void*",
+   "0x40": "void*",
+   "0x44": "int",
+   "0x48": "int",
+   "0x4c": "int",
+   "0x50": "int",
+   "0x54": "int",
+   "0x58": "int"
+  },
+  "CHudMap": {
+   "0x14": "void*",
+   "0x18": "void*",
+   "0x1c": "void*",
+   "0x20": "char",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x40": "int",
+   "0x44": "int",
+   "0x48": "int",
+   "0x4c": "int",
+   "0x214": "float",
+   "0x21c": "int",
+   "0x220": "int",
+   "0x224": "char",
+   "0x228": "int",
+   "0x2958": "char",
+   "0x2959": "char"
+  },
+  "CHypnoticCamera": {
+   "0xd0": "int",
+   "0xd4": "int",
+   "0xf1": "char",
+   "0x170": "void*",
+   "0x174": "float",
+   "0x1c0": "float",
+   "0x3fc": "int",
+   "0x400": "int",
+   "0x404": "float",
+   "0x408": "float",
+   "0x40c": "float",
+   "0x410": "float",
+   "0x414": "float",
+   "0x418": "float",
+   "0x41c": "float",
+   "0x420": "float",
+   "0x424": "void*",
+   "0x428": "void*",
+   "0x474": "char",
+   "0x478": "void*",
+   "0x47c": "char",
+   "0x47d": "char",
+   "0x47e": "char"
+  },
+  "CInactivityTimerCondition": {
+   "0xc": "int",
+   "0x10": "float"
   },
   "CIntangibleToActorsTrack": {
    "0x8": "int"
@@ -224,26 +1370,87 @@
   "CIntangibleTrack": {
    "0x8": "int"
   },
+  "CIntentionSpeedCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
   "CInvincibleTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int"
   },
   "CInvulnerableTrack": {
    "0x8": "int"
   },
   "CJointTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x20": "char",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "char",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x40": "int",
+   "0x44": "int",
+   "0x48": "int"
+  },
+  "CJumpAction": {
+   "0x28": "float",
+   "0x2c": "float",
+   "0x30": "float",
+   "0x38": "float"
   },
   "CJumpAttackAction": {
-   "0x20": "void*"
+   "0x20": "void*",
+   "0x2c": "void*",
+   "0x30": "void*"
+  },
+  "CJumpAttackTrack": {
+   "0x14": "float",
+   "0x18": "float",
+   "0x1c": "float",
+   "0x20": "float",
+   "0x24": "float",
+   "0x28": "float",
+   "0x2c": "float",
+   "0x30": "float",
+   "0x34": "float"
   },
   "CJumpTrack": {
    "0x8": "int",
-   "0x2c": "float"
+   "0x2c": "float",
+   "0x50": "char",
+   "0x51": "char"
+  },
+  "CKeyPoseTrack": {
+   "0x58": "char",
+   "0x68": "int",
+   "0x6c": "float",
+   "0x70": "float"
   },
   "CLocator": {
    "0x10": "int",
    "0x14": "int",
-   "0x18": "int"
+   "0x18": "int",
+   "0x20": "char"
+  },
+  "CLuaNumberCondition": {
+   "0xc": "int",
+   "0x50": "float"
+  },
+  "CMemoryCardManager": {
+   "0x4": "int",
+   "0x8": "int"
+  },
+  "CMotionClimbAngleCondition": {
+   "0xc": "float",
+   "0x10": "float",
+   "0x14": "float"
+  },
+  "CMotionHitCondition": {
+   "0xc": "int",
+   "0x10": "int"
   },
   "CMotionHitGroundHeightTrack": {
    "0x8": "int"
@@ -261,30 +1468,80 @@
    "0xb8": "int",
    "0xbc": "int",
    "0xc0": "int",
-   "0xc4": "int"
+   "0xc4": "int",
+   "0xcc": "int"
+  },
+  "CMoveAddAction": {
+   "0x1c": "void*"
   },
   "CMoveAddTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "float",
+   "0x18": "int"
+  },
+  "CMoveAddYAction": {
+   "0x1c": "void*"
   },
   "CMoveAddYTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "float",
+   "0x18": "int"
   },
   "CMoveAgent": {
-   "0x58": "void*"
+   "0x58": "void*",
+   "0x6c": "char",
+   "0x70": "float",
+   "0x74": "char",
+   "0x75": "char",
+   "0x76": "char"
   },
   "CMoveTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "float",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int"
   },
   "CNISCamera": {
    "0xf1": "char"
   },
   "COccupationAgent": {
-   "0x58": "void*"
+   "0x58": "void*",
+   "0xa4": "char",
+   "0xa5": "char",
+   "0xa8": "int",
+   "0xac": "int",
+   "0xb0": "int",
+   "0xb4": "int",
+   "0xb8": "int",
+   "0xc0": "char",
+   "0xc8": "char",
+   "0xe4": "int",
+   "0xe8": "int"
+  },
+  "COpportunityBallAction": {
+   "0x54": "int",
+   "0x58": "int"
   },
   "COpportunityBallTrack": {
    "0x8": "int"
   },
   "COrientTrack": {
+   "0x8": "int",
+   "0x14": "float",
+   "0x18": "int",
+   "0x1c": "char",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int"
+  },
+  "COutlineDisplayEffect": {
+   "0x4": "int",
+   "0xc": "float",
+   "0x10": "int"
+  },
+  "COverlayManager": {
    "0x8": "int"
   },
   "CPathAgent": {
@@ -295,10 +1552,114 @@
    "0x68": "int",
    "0x70": "int",
    "0x74": "int",
-   "0x78": "int"
+   "0x78": "int",
+   "0x88": "char",
+   "0x89": "char",
+   "0x90": "char",
+   "0x91": "char",
+   "0x9c": "int",
+   "0xac": "float",
+   "0xb4": "int",
+   "0xb8": "int",
+   "0xc0": "int",
+   "0xc4": "int",
+   "0xc8": "void*",
+   "0xd8": "int",
+   "0xdc": "int",
+   "0xe0": "int",
+   "0xec": "int",
+   "0xf0": "int",
+   "0xf8": "float"
+  },
+  "CPathGraphAgent": {
+   "0x58": "void*",
+   "0x5c": "char",
+   "0x5d": "char",
+   "0x64": "int",
+   "0x68": "int",
+   "0x70": "int",
+   "0x74": "int",
+   "0x78": "float",
+   "0x7c": "float",
+   "0x80": "float",
+   "0x84": "float",
+   "0x88": "int",
+   "0x90": "int",
+   "0x94": "int",
+   "0x98": "int",
+   "0xa0": "int",
+   "0xa8": "int",
+   "0xac": "int",
+   "0xb0": "int",
+   "0xb4": "int",
+   "0xb8": "int",
+   "0xbc": "int",
+   "0xc4": "int",
+   "0xc8": "int",
+   "0xcc": "int",
+   "0xd4": "int",
+   "0xd8": "int",
+   "0xdc": "int",
+   "0xe0": "int",
+   "0xe4": "int",
+   "0xe8": "int",
+   "0xec": "int",
+   "0xf0": "int"
+  },
+  "CPathManager": {
+   "0x4": "int",
+   "0x8": "int",
+   "0xc": "int",
+   "0x10": "int",
+   "0x14": "char",
+   "0x24": "void*"
+  },
+  "CPatrolPath": {
+   "0x18": "char"
+  },
+  "CPatrolPathManager": {
+   "0x4": "int",
+   "0x8": "int",
+   "0xc": "void*"
+  },
+  "CPhysicalController": {
+   "0x8": "int",
+   "0xc": "char",
+   "0xd": "char",
+   "0x10": "int",
+   "0x54": "int",
+   "0x488": "int",
+   "0x48c": "int",
+   "0x4a8": "int",
+   "0x4ac": "int"
+  },
+  "CPlatformManager": {
+   "0x4": "int",
+   "0x8": "int",
+   "0xc": "int",
+   "0x10": "int",
+   "0x14": "int"
+  },
+  "CProceduralDurationAnimationTrack": {
+   "0x10": "float",
+   "0x14": "int",
+   "0x20": "float",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "float",
+   "0x30": "int",
+   "0x40": "int",
+   "0x44": "int",
+   "0x48": "int",
+   "0x4c": "char"
   },
   "CPropActorSetStateTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int"
+  },
+  "CPropActorStateCondition": {
+   "0xc": "int",
+   "0x10": "int"
   },
   "CRadMovieRenderLoop": {
    "0x4": "int"
@@ -307,28 +1668,466 @@
    "0x8": "int"
   },
   "CRangedAgent": {
-   "0x58": "void*"
+   "0x58": "void*",
+   "0x60": "int",
+   "0x64": "int",
+   "0x68": "int",
+   "0x6c": "char",
+   "0x70": "float",
+   "0x74": "float",
+   "0x78": "int",
+   "0x7c": "float",
+   "0x80": "char",
+   "0x81": "char",
+   "0x84": "float",
+   "0x88": "float",
+   "0x8c": "float",
+   "0x90": "float",
+   "0x94": "float",
+   "0x98": "float",
+   "0x9c": "float",
+   "0xa0": "int",
+   "0xa4": "float",
+   "0xa8": "char",
+   "0xac": "int"
+  },
+  "CRenderManager": {
+   "0x4": "int",
+   "0x8": "int",
+   "0xc": "int",
+   "0x10": "float",
+   "0x14": "float",
+   "0x18": "char",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "void*",
+   "0x32": "char",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x40": "int",
+   "0x44": "int",
+   "0x48": "int",
+   "0x50": "float"
+  },
+  "CSPHulkProp": {
+   "0x94": "int",
+   "0x98": "int",
+   "0x9c": "int",
+   "0xa0": "int",
+   "0xa8": "int",
+   "0xac": "int",
+   "0xb0": "char",
+   "0xb1": "char",
+   "0xb2": "char",
+   "0xb3": "char",
+   "0xb4": "char",
+   "0xb5": "char",
+   "0xb6": "char"
   },
   "CSPHulkPropInstance": {
-   "0xe8": "char"
+   "0xe8": "char",
+   "0xf0": "int",
+   "0xf4": "int",
+   "0xf8": "char",
+   "0xf9": "char",
+   "0x100": "char",
+   "0x104": "int",
+   "0x108": "int",
+   "0x10c": "int",
+   "0x110": "char",
+   "0x111": "char",
+   "0x124": "int",
+   "0x128": "int",
+   "0x12c": "char",
+   "0x130": "int",
+   "0x138": "char",
+   "0x13c": "int",
+   "0x140": "int",
+   "0x144": "char",
+   "0x148": "int",
+   "0x14c": "char",
+   "0x14d": "char",
+   "0x14e": "char",
+   "0x150": "int",
+   "0x154": "int",
+   "0x158": "int",
+   "0x15c": "int",
+   "0x160": "int",
+   "0x194": "char",
+   "0x198": "int",
+   "0x19c": "int",
+   "0x1a0": "char",
+   "0x1a1": "char",
+   "0x1bc": "int",
+   "0x1c0": "int",
+   "0x1c4": "int",
+   "0x1c9": "char",
+   "0x1d0": "char",
+   "0x1d4": "int",
+   "0x1d8": "char",
+   "0x1d9": "char",
+   "0x1e0": "char",
+   "0x1e4": "int",
+   "0x1e8": "int",
+   "0x1ec": "char",
+   "0x1ed": "char",
+   "0x1f0": "int",
+   "0x1f4": "int",
+   "0x1f8": "int",
+   "0x1fc": "int",
+   "0x200": "int",
+   "0x204": "int",
+   "0x208": "int",
+   "0x20c": "int",
+   "0x210": "int",
+   "0x214": "int",
+   "0x218": "int",
+   "0x21c": "int",
+   "0x220": "int",
+   "0x224": "int",
+   "0x228": "int",
+   "0x22c": "int",
+   "0x230": "int",
+   "0x234": "int",
+   "0x238": "int",
+   "0x248": "int",
+   "0x250": "int",
+   "0x254": "int",
+   "0x258": "int",
+   "0x25c": "int",
+   "0x260": "int",
+   "0x264": "int",
+   "0x268": "int",
+   "0x26c": "char",
+   "0x270": "int"
+  },
+  "CSPListener": {
+   "0xc": "void*"
+  },
+  "CSPManager": {
+   "0x1e608": "int",
+   "0x1e60c": "int",
+   "0x1e610": "int",
+   "0x1e614": "int",
+   "0x1e618": "int",
+   "0x1e61c": "int",
+   "0x1e820": "int",
+   "0x1e824": "int",
+   "0x1e828": "int",
+   "0x1e82c": "int",
+   "0x1e834": "char",
+   "0x1e838": "int",
+   "0x1ec50": "int",
+   "0x1ec54": "int",
+   "0x1ec58": "int",
+   "0x1eee0": "float",
+   "0x1eee4": "int"
+  },
+  "CScenarioManager": {
+   "0xc": "int",
+   "0x1190": "int",
+   "0x1194": "int",
+   "0x1198": "int",
+   "0x11a0": "char",
+   "0x11ac": "int",
+   "0x11b4": "int",
+   "0x14a8": "char",
+   "0x14a9": "char"
+  },
+  "CScenarioParams": {
+   "0x8": "int",
+   "0xc": "int"
+  },
+  "CScriptCamera": {
+   "0xd0": "int",
+   "0xf1": "char",
+   "0x174": "int",
+   "0x178": "int",
+   "0x17c": "float",
+   "0x180": "int",
+   "0x184": "int",
+   "0x188": "int",
+   "0x18c": "char",
+   "0x190": "int",
+   "0x194": "int",
+   "0x1ac": "int",
+   "0x1b0": "int",
+   "0x1b4": "float",
+   "0x1b8": "int",
+   "0x1bc": "int",
+   "0x1c0": "int",
+   "0x1c4": "char",
+   "0x1c8": "int",
+   "0x1cc": "int",
+   "0x1e4": "int",
+   "0x1e8": "int",
+   "0x1ec": "float",
+   "0x1f0": "int",
+   "0x1f4": "int",
+   "0x1f8": "int",
+   "0x1fc": "char",
+   "0x200": "int",
+   "0x204": "int",
+   "0x21c": "int",
+   "0x220": "int",
+   "0x224": "float",
+   "0x228": "int",
+   "0x22c": "int",
+   "0x230": "int",
+   "0x234": "char",
+   "0x238": "int",
+   "0x23c": "int",
+   "0x254": "int",
+   "0x258": "int",
+   "0x25c": "float",
+   "0x260": "int",
+   "0x264": "int",
+   "0x268": "int",
+   "0x26c": "char",
+   "0x270": "int",
+   "0x274": "int",
+   "0x28c": "int",
+   "0x290": "int",
+   "0x298": "int",
+   "0x29c": "int",
+   "0x2ac": "char",
+   "0x2b4": "float",
+   "0x2b8": "float",
+   "0x2bc": "float",
+   "0x2c4": "float",
+   "0x2c8": "float",
+   "0x2cc": "char",
+   "0x2cd": "char"
+  },
+  "CSimControllerManager": {
+   "0x4": "void*",
+   "0x8": "char"
+  },
+  "CSimDb": {
+   "0x9d": "char"
+  },
+  "CSimOverlayManager": {
+   "0x4": "void*",
+   "0x8": "void*",
+   "0xc": "int"
+  },
+  "CSmartPropAngleCondition": {
+   "0xc": "float",
+   "0x10": "float"
+  },
+  "CSmartPropAttachAction": {
+   "0x1c": "void*",
+   "0x20": "void*",
+   "0x24": "void*"
   },
   "CSmartPropAttachTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x28": "char",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x40": "int",
+   "0x44": "int",
+   "0x48": "char",
+   "0x4c": "int",
+   "0x50": "int",
+   "0x54": "int"
+  },
+  "CSmartPropAttachedCondition": {
+   "0xc": "char",
+   "0x10": "int",
+   "0x14": "int"
+  },
+  "CSmartPropCSMableCondition": {
+   "0xc": "int"
+  },
+  "CSmartPropDetachAction": {
+   "0x1c": "void*"
   },
   "CSmartPropDetachTrack": {
    "0x8": "int"
   },
+  "CSmartPropDistanceCondition": {
+   "0xc": "int",
+   "0x10": "float",
+   "0x18": "int",
+   "0x1c": "int"
+  },
+  "CSmartPropDropAction": {
+   "0x1c": "void*"
+  },
+  "CSmartPropDropTrack": {
+   "0x10": "int"
+  },
+  "CSmartPropGrabbableNameCondition": {
+   "0xc": "int",
+   "0x14": "int"
+  },
+  "CSmartPropNameCondition": {
+   "0xc": "int",
+   "0x10": "int",
+   "0x1c": "int"
+  },
+  "CSmartPropSetStateTrack": {
+   "0x10": "int"
+  },
+  "CSmartPropSpawnAction": {
+   "0x1c": "void*"
+  },
   "CSmartPropSpawnTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "char",
+   "0x90": "int",
+   "0xa8": "char",
+   "0xac": "int",
+   "0xb0": "int",
+   "0xb4": "int",
+   "0xb8": "int",
+   "0xbc": "int",
+   "0xc0": "int",
+   "0xc4": "int"
+  },
+  "CSmartPropStateCondition": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "CSmartPropThrowAction": {
+   "0x1c": "void*"
+  },
+  "CSmartPropThrowTrack": {
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "float",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "float",
+   "0x2c": "int",
+   "0x30": "float",
+   "0x34": "float",
+   "0x38": "float",
+   "0x3c": "char",
+   "0x40": "int"
+  },
+  "CSmartPropThrowingAction": {
+   "0x20": "int"
   },
   "CSmartPropThrowingTrack": {
    "0x8": "int"
   },
+  "CSmartPropTypeCondition": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "CSmartPropUpdateAttachmentAction": {
+   "0x1c": "void*",
+   "0x20": "void*",
+   "0x24": "void*"
+  },
   "CSmartPropUpdateAttachmentTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x28": "char",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x40": "int",
+   "0x44": "int"
+  },
+  "CSmartPropWeaponTypeCondition": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "CSmartPropWeaponizableTypeCondition": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "CSnapToWallTrack": {
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "char",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int"
+  },
+  "CSoundCommand": {
+   "0x4": "int",
+   "0x8": "int",
+   "0xc": "int"
+  },
+  "CSoundCommand_CueNISEvent": {
+   "0x18": "int"
+  },
+  "CSoundCommand_InstallEffect": {
+   "0x14": "int"
+  },
+  "CSoundCommand_PlayDialogueEvent": {
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "char"
+  },
+  "CSoundCommand_PlayFightDialogueEvent": {
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "char"
+  },
+  "CSoundCommand_PlayMissionDialogueEvent": {
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x40": "char"
+  },
+  "CSoundCommand_PlayMusicEvent": {
+   "0x18": "int"
+  },
+  "CSoundCommand_PlaySFXEvent": {
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int"
+  },
+  "CSoundCommand_SetLoopPitchEvent": {
+   "0x18": "int",
+   "0x1c": "float",
+   "0x20": "float"
+  },
+  "CSoundCommand_StopTunableEvent": {
+   "0x18": "int"
+  },
+  "CSoundSequenceVoice": {
+   "0x8": "void*",
+   "0xc": "void*",
+   "0x10": "int",
+   "0x18": "void*"
   },
   "CSoundTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "char",
+   "0x50": "char"
+  },
+  "CSoundTriggerExecutionState": {
+   "0x8": "int",
+   "0xc": "int",
+   "0x10": "int",
+   "0x14": "char",
+   "0x20": "float",
+   "0x24": "int"
+  },
+  "CStageCondition": {
+   "0x8": "int",
+   "0xc": "int",
+   "0x10": "int"
   },
   "CStageTrack": {
    "0x8": "int"
@@ -336,7 +2135,18 @@
   "CStaticAllocator": {
    "0x4": "int",
    "0x8": "int",
-   "0xc": "int"
+   "0xc": "int",
+   "0x18": "int"
+  },
+  "CStunAnimationTrack": {
+   "0x18": "float",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "float",
+   "0x28": "int",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x40": "int"
   },
   "CSubtitleOverlay": {
    "0x4": "char",
@@ -346,10 +2156,19 @@
    "0x11c": "char"
   },
   "CSweepAction": {
-   "0x20": "void*"
+   "0x20": "void*",
+   "0x28": "float"
   },
   "CSweepTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int"
+  },
+  "CTargetAction": {
+   "0x1c": "void*",
+   "0x20": "int"
   },
   "CTargetTrack": {
    "0x8": "int"
@@ -361,29 +2180,206 @@
    "0xce": "char",
    "0xcf": "char"
   },
+  "CTriggerVolumeManager": {
+   "0x4": "void*",
+   "0x8": "int",
+   "0x20c": "int",
+   "0x210": "void*",
+   "0x22c": "void*",
+   "0x230": "int",
+   "0x238": "int"
+  },
   "CUninterruptibleTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int"
+  },
+  "CUnlockableBlonskyFile": {
+   "0x8": "char",
+   "0x18": "void*",
+   "0x28": "char",
+   "0x68": "char",
+   "0xa8": "char"
+  },
+  "CUnlockableCheat": {
+   "0x8": "char",
+   "0x20": "char",
+   "0x24": "int",
+   "0x28": "char"
+  },
+  "CUnlockableGallery": {
+   "0x8": "char",
+   "0x18": "void*",
+   "0x20": "int",
+   "0x24": "char"
+  },
+  "CUnlockableJumpMarker": {
+   "0x8": "char",
+   "0x20": "int"
   },
   "CUnlockableMove": {
-   "0x8": "char"
+   "0x8": "char",
+   "0x20": "char",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "char",
+   "0x48": "char"
+  },
+  "CUnlockableMovie": {
+   "0x30": "char"
+  },
+  "CVehicle": {
+   "0x14": "char",
+   "0x2c": "char",
+   "0x2d": "char"
+  },
+  "CWallSlideAction": {
+   "0x28": "float"
+  },
+  "CWallSlideTrack": {
+   "0x14": "float",
+   "0x18": "int",
+   "0x1c": "float",
+   "0x20": "float",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int"
+  },
+  "CWeaponCollisionAction": {
+   "0x1c": "void*",
+   "0x20": "void*",
+   "0x28": "char",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x74": "int",
+   "0x78": "int",
+   "0x7c": "void*"
   },
   "CWeaponCollisionTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x18": "float",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "char",
+   "0x28": "int",
+   "0x50": "char",
+   "0x90": "int",
+   "0x94": "int",
+   "0x98": "int",
+   "0x9c": "int",
+   "0xa0": "int",
+   "0xa4": "int",
+   "0xa8": "int",
+   "0xac": "int",
+   "0xb0": "int",
+   "0xb4": "int",
+   "0xb8": "int",
+   "0xbc": "int",
+   "0xc0": "int",
+   "0xc4": "int",
+   "0xc8": "float",
+   "0xcc": "char",
+   "0xd0": "int",
+   "0xd4": "int",
+   "0xd8": "int",
+   "0xdc": "int",
+   "0xe0": "int",
+   "0xe4": "char",
+   "0xe8": "int",
+   "0xec": "int",
+   "0xf0": "int",
+   "0xf4": "int",
+   "0xf8": "int"
+  },
+  "CWorldStreamManager": {
+   "0x4": "char",
+   "0x5": "char",
+   "0x24": "char",
+   "0x26": "short",
+   "0x2c": "void*",
+   "0x30": "void*",
+   "0x38": "void*",
+   "0x584": "int",
+   "0x58c": "void*",
+   "0x594": "int",
+   "0x9a4": "int",
+   "0x9a8": "int",
+   "0xa4c": "int",
+   "0xaec": "void*",
+   "0xaf0": "char",
+   "0xaf1": "char",
+   "0xaf2": "char",
+   "0xaf3": "char",
+   "0xaf4": "char",
+   "0xaf5": "char",
+   "0xafc": "int"
   },
   "ControllerPoller": {
    "0x8": "int"
   },
+  "ControllerPollerBase": {
+   "0x4": "int"
+  },
+  "DataHandlerRawLoader": {
+   "0x14": "void*"
+  },
+  "DollyScript::CScriptParser": {
+   "0x4": "int",
+   "0x8": "int",
+   "0xc": "int",
+   "0x10": "int",
+   "0x14": "char",
+   "0x15": "char"
+  },
+  "DollyScript::CTokenFloat": {
+   "0x4": "int",
+   "0x8": "int",
+   "0xc": "int"
+  },
+  "DollyScript::CTokenHashed": {
+   "0x4": "int",
+   "0x8": "int",
+   "0xc": "int",
+   "0x10": "int",
+   "0x14": "int"
+  },
+  "DollyScript::CTokenSectionEnd": {
+   "0x4": "int",
+   "0x8": "int",
+   "0xc": "int"
+  },
+  "DollyScript::CTokenSectionStart": {
+   "0x4": "int",
+   "0x8": "int",
+   "0xc": "int"
+  },
   "FEAnimation": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x58": "int",
+   "0x5c": "char"
+  },
+  "FEAnimationHolder": {
+   "0x4": "void*"
+  },
+  "FEBackground": {
+   "0x141": "char",
+   "0x150": "void*"
   },
   "FEContainer": {
-   "0x84c": "float"
+   "0x84c": "float",
+   "0x858": "char",
+   "0x96c": "float",
+   "0x974": "float"
+  },
+  "FEControllerSystem": {
+   "0x4": "int"
   },
   "FEDialog": {
    "0x998": "void*",
    "0x99c": "void*",
    "0x9a0": "void*",
-   "0x9a4": "void*"
+   "0x9a4": "void*",
+   "0x9ac": "int"
   },
   "FEDoAction": {
    "0x10": "void*"
@@ -392,6 +2388,41 @@
    "0x44": "float",
    "0x48": "float",
    "0x4c": "float"
+  },
+  "FEDoParticleSystem": {
+   "0x3c": "int",
+   "0x40": "int",
+   "0x44": "int"
+  },
+  "FEDoPushDialog": {
+   "0x1b4": "int"
+  },
+  "FEMemCardControl": {
+   "0xa8": "void*",
+   "0x1cc": "int",
+   "0x1d0": "int",
+   "0x1d4": "int",
+   "0x1d8": "char",
+   "0x1d9": "char",
+   "0x25c": "int",
+   "0x298": "int",
+   "0x2d4": "int",
+   "0x310": "int",
+   "0x350": "int",
+   "0x354": "int",
+   "0x380": "char",
+   "0x3a8": "char",
+   "0x3ac": "int",
+   "0x3b0": "char",
+   "0x3c8": "float",
+   "0x3e8": "char",
+   "0x3e9": "char",
+   "0x3ea": "char",
+   "0x3eb": "char",
+   "0x3ec": "char",
+   "0x418": "int",
+   "0x41c": "int",
+   "0x420": "int"
   },
   "FEObject": {
    "0x3c": "int",
@@ -415,6 +2446,25 @@
    "0x98": "char",
    "0x9c": "float"
   },
+  "FEParticleSystem": {
+   "0x70": "int"
+  },
+  "FEPoseAnimation": {
+   "0x60": "void*",
+   "0x64": "void*"
+  },
+  "FEScreenBase": {
+   "0x98c": "void*",
+   "0xa64": "char",
+   "0xaa4": "int",
+   "0xaa8": "float",
+   "0xaac": "int",
+   "0xab0": "char",
+   "0xab4": "int",
+   "0xab8": "char",
+   "0xab9": "char",
+   "0xb3c": "int"
+  },
   "FETextInput": {
    "0x140": "char",
    "0x141": "char",
@@ -423,6 +2473,7 @@
    "0x144": "char",
    "0x148": "int",
    "0x14c": "int",
+   "0x150": "int",
    "0x154": "int",
    "0x158": "void*",
    "0x15c": "void*",
@@ -431,7 +2482,14 @@
    "0x168": "void*",
    "0x16c": "void*",
    "0x170": "int",
-   "0x174": "int"
+   "0x174": "int",
+   "0x17c": "char"
+  },
+  "FEThings": {
+   "0x2228": "char",
+   "0x222c": "int",
+   "0x2230": "void*",
+   "0x2234": "void*"
   },
   "FEThingsBase": {
    "0x4": "void*",
@@ -451,14 +2509,82 @@
    "0x2104": "char",
    "0x2205": "char",
    "0x2208": "int",
-   "0x220c": "int"
+   "0x220c": "int",
+   "0x221c": "int",
+   "0x2220": "char"
+  },
+  "Function": {
+   "0x4": "int",
+   "0x8": "int",
+   "0xc": "int",
+   "0x10": "char",
+   "0x11": "char",
+   "0x12": "char",
+   "0x18": "char"
   },
   "HSlider": {
    "0xa8": "void*",
    "0xac": "void*",
    "0x158": "int",
    "0x164": "float",
-   "0x16c": "int"
+   "0x16c": "int",
+   "0x188": "int",
+   "0x18c": "int",
+   "0x1e4": "int",
+   "0x1e8": "int",
+   "0x1ec": "int",
+   "0x1f0": "float",
+   "0x1f4": "float"
+  },
+  "HUDOverlay": {
+   "0xc": "void*",
+   "0x14": "void*",
+   "0x18": "void*",
+   "0x50": "char",
+   "0x78": "float",
+   "0x7c": "void*",
+   "0x80": "void*",
+   "0x88": "void*",
+   "0x8c": "void*",
+   "0xa8": "float",
+   "0xac": "int",
+   "0xb0": "float",
+   "0xb4": "int",
+   "0xb8": "int",
+   "0x13c": "float",
+   "0x140": "float",
+   "0x144": "float",
+   "0x148": "int",
+   "0x14c": "float",
+   "0x150": "float",
+   "0x154": "float",
+   "0x158": "float",
+   "0x15c": "float",
+   "0x160": "int",
+   "0x168": "void*",
+   "0x16c": "float",
+   "0x170": "float",
+   "0x174": "float",
+   "0x178": "float",
+   "0x17c": "float",
+   "0x180": "float",
+   "0x184": "float",
+   "0x188": "float",
+   "0x18c": "float",
+   "0x190": "float",
+   "0x194": "float",
+   "0x19c": "void*",
+   "0x1a0": "int",
+   "0x1f8": "void*",
+   "0x244": "void*",
+   "0x248": "void*",
+   "0x24c": "int",
+   "0x4a0": "void*",
+   "0x4ac": "void*",
+   "0x4b0": "void*",
+   "0x4b4": "void*",
+   "0x504": "float",
+   "0x508": "void*"
   },
   "ImageSelector": {
    "0xa8": "void*",
@@ -480,7 +2606,24 @@
    "0x47c": "int",
    "0x484": "char",
    "0x7b4": "float",
-   "0x7b8": "float"
+   "0x7b8": "float",
+   "0x7c0": "void*",
+   "0x7c4": "char",
+   "0x80c": "char"
+  },
+  "MyControllerCallback": {
+   "0x5": "char",
+   "0x7": "char",
+   "0x8": "char",
+   "0x9": "char"
+  },
+  "MyDriveErrorCallback": {
+   "0x4": "void*",
+   "0x8": "void*",
+   "0xc": "char",
+   "0xd": "char",
+   "0xe": "char",
+   "0xf": "char"
   },
   "NamedValueFloat": {
    "0x14": "void*"
@@ -492,14 +2635,70 @@
    "0x10": "int",
    "0x14": "void*"
   },
+  "RDLHandler": {
+   "0x10": "void*"
+  },
+  "RDLObject": {
+   "0x10": "int",
+   "0x14": "int",
+   "0x37": "char"
+  },
+  "RDLReader": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "Render::CRenderableCharacter": {
+   "0x10": "int"
+  },
+  "Render::LevelLoader": {
+   "0x1c": "void*"
+  },
+  "Render::Object": {
+   "0x18": "void*",
+   "0x22": "char",
+   "0x84": "int",
+   "0x88": "int",
+   "0x8c": "char",
+   "0xa0": "int",
+   "0xa4": "int",
+   "0xa8": "char",
+   "0xa9": "char",
+   "0xac": "int"
+  },
   "Render::StoreBase": {
    "0x8": "int",
    "0xc": "int",
    "0x10": "int"
   },
+  "Render::World": {
+   "0x8": "int",
+   "0xc": "int",
+   "0x538": "int",
+   "0x54c": "int",
+   "0x750": "void*",
+   "0x760": "void*"
+  },
+  "ScriptHandler": {
+   "0x4": "int",
+   "0x100c": "int",
+   "0x1060": "int",
+   "0x1064": "char",
+   "0x546c": "int"
+  },
   "SingleLayout": {
    "0x10": "int",
    "0x14": "int"
+  },
+  "TextButton": {
+   "0x148": "int",
+   "0x14c": "int"
+  },
+  "TextLabel": {
+   "0xac": "void*",
+   "0x118": "int",
+   "0x11c": "int",
+   "0x120": "int",
+   "0x124": "int"
   },
   "TextSelector": {
    "0xa4": "int",
@@ -512,13 +2711,34 @@
    "0x1d78": "float",
    "0x1d7c": "int",
    "0x1d80": "int",
-   "0x1d84": "char"
+   "0x1d84": "char",
+   "0x1d98": "int",
+   "0x1d9c": "int",
+   "0x1da0": "int",
+   "0x1da4": "int"
   },
   "TextTable": {
-   "0x118": "int"
+   "0x118": "int",
+   "0x495c": "int",
+   "0x4960": "int",
+   "0x4964": "int",
+   "0x4968": "int",
+   "0x496c": "float"
   },
   "TextWindow": {
-   "0xa4": "int"
+   "0xa4": "int",
+   "0x15c": "int",
+   "0x160": "int",
+   "0x964": "int",
+   "0x968": "float",
+   "0x96c": "int",
+   "0x970": "int",
+   "0x974": "int",
+   "0x978": "int",
+   "0x97c": "float"
+  },
+  "TransitionsLoader": {
+   "0x14": "void*"
   },
   "VScroll": {
    "0x8": "void*",
@@ -528,6 +2748,14 @@
    "0x25c": "float",
    "0x260": "float",
    "0x264": "float"
+  },
+  "audio::ChannelSendVolumeFadeBehaviour": {
+   "0x1c": "void*",
+   "0x20": "void*"
+  },
+  "audio::ChannelVolumeFadeBehaviour": {
+   "0x1c": "void*",
+   "0x20": "void*"
   },
   "audio::HalRadicalAdpcmDecodeStream": {
    "0x18": "int"
@@ -549,7 +2777,8 @@
   },
   "audio::SeqActionCrossFade": {
    "0x4": "int",
-   "0x8": "void*"
+   "0x8": "void*",
+   "0x18": "int"
   },
   "audio::SeqActionPlayTrack": {
    "0x8": "void*"
@@ -562,7 +2791,9 @@
    "0x8": "void*"
   },
   "audio::SeqActionStream": {
-   "0x1c": "int"
+   "0x1c": "int",
+   "0x24": "int",
+   "0x28": "int"
   },
   "audio::SeqActionVarPitchRand": {
    "0x8": "void*"
@@ -577,10 +2808,105 @@
   "audio::SeqActionWait": {
    "0x8": "void*"
   },
+  "audio::SeqCommandCondition": {
+   "0x8": "void*",
+   "0xc": "void*"
+  },
+  "audio::SeqCommandLogicOr": {
+   "0x4": "int",
+   "0x8": "void*"
+  },
+  "audio::SeqCommandLogicRepeat": {
+   "0x8": "void*",
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "audio::SeqEventChannelVolumes": {
+   "0x8": "int",
+   "0xc": "int",
+   "0x10": "int",
+   "0x14": "int",
+   "0x1c": "int"
+  },
+  "audio::SeqEventCondition": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "audio::SeqEventContainer": {
+   "0x8": "int"
+  },
+  "audio::SeqEventCrossFade": {
+   "0x8": "int",
+   "0xc": "int",
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "char",
+   "0x19": "char"
+  },
+  "audio::SeqEventLogicOr": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "audio::SeqEventLogicRepeat": {
+   "0x14": "int",
+   "0x18": "int"
+  },
+  "audio::SeqEventPlayTrack": {
+   "0x4": "int",
+   "0x8": "int",
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "audio::SeqEventSilence": {
+   "0x4": "int"
+  },
+  "audio::SeqEventStopTrack": {
+   "0x4": "int",
+   "0x8": "int",
+   "0xc": "int",
+   "0x1c": "char"
+  },
+  "audio::SeqEventVarPitch": {
+   "0x4": "int",
+   "0x8": "float"
+  },
+  "audio::SeqEventVarPosDist": {
+   "0x8": "float",
+   "0xc": "float"
+  },
+  "audio::SeqEventVarTempo": {
+   "0xc": "int"
+  },
+  "audio::SeqEventVarVolume": {
+   "0x8": "float"
+  },
+  "audio::SeqEventVarVolumeRand": {
+   "0x4": "int"
+  },
+  "audio::SeqEventWait": {
+   "0x4": "int"
+  },
   "audio::SeqEventWaitBeat": {
    "0x4": "int",
    "0x8": "int",
    "0xc": "int"
+  },
+  "audio::SeqTrack": {
+   "0x44": "char"
+  },
+  "audio::Sequence": {
+   "0x28": "void*",
+   "0x2c": "void*",
+   "0x30": "void*",
+   "0x34": "void*",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x40": "int",
+   "0x44": "void*",
+   "0x48": "void*",
+   "0x4c": "void*",
+   "0x50": "void*",
+   "0x54": "int"
   },
   "choreo2::AnimationDriver": {
    "0x14": "void*",
@@ -593,6 +2919,9 @@
    "0x234": "char",
    "0x235": "char",
    "0x238": "int"
+  },
+  "choreo2::JointDriver": {
+   "0x10": "int"
   },
   "choreo2::LocomotionSteerDriver": {
    "0x14": "void*",
@@ -612,7 +2941,20 @@
    "0x20": "float",
    "0x24": "float",
    "0x28": "int",
-   "0x2c": "int"
+   "0x2c": "int",
+   "0x12dc": "char",
+   "0x12dd": "char",
+   "0x12ec": "int",
+   "0x1324": "int",
+   "0x1328": "int"
+  },
+  "choreo2::Puppet": {
+   "0x68": "int"
+  },
+  "choreo2::RestPoseDriver": {
+   "0x14": "void*",
+   "0x18": "int",
+   "0x1c": "int"
   },
   "content::LoadInventory": {
    "0x8": "char",
@@ -631,7 +2973,14 @@
    "0x10": "int",
    "0x14": "int",
    "0x18": "int",
-   "0x1c": "int"
+   "0x1c": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int",
+   "0x40": "int",
+   "0x44": "int"
   },
   "content::SimpleChunkHandler": {
    "0x8": "int",
@@ -648,12 +2997,56 @@
   "core::CompletionEventRequest": {
    "0x4": "int"
   },
+  "core::ControllerXBox": {
+   "0x458": "int",
+   "0x45c": "int",
+   "0x49a": "short",
+   "0x49c": "short",
+   "0x49e": "char"
+  },
+  "core::Drive": {
+   "0x10": "int",
+   "0x40": "int",
+   "0x44": "int",
+   "0x48": "int",
+   "0x50": "int",
+   "0x54": "char",
+   "0x5c": "char",
+   "0x5d": "char",
+   "0x60": "int",
+   "0x64": "int",
+   "0x68": "int",
+   "0x6c": "int"
+  },
   "core::DriveCompletionRequest": {
    "0x4": "int",
    "0x8": "int"
   },
+  "core::DriveDestroyDirectoryRequest": {
+   "0x1c": "char"
+  },
+  "core::DriveFileDestroyRequest": {
+   "0xc": "int"
+  },
+  "core::DriveFindFirstRequest": {
+   "0x110": "int"
+  },
   "core::DriveRequest": {
    "0x4": "int"
+  },
+  "core::DriveThread": {
+   "0x10": "int",
+   "0x14": "int",
+   "0x64": "char",
+   "0x6c": "int",
+   "0x70": "int",
+   "0x74": "int",
+   "0x78": "int",
+   "0x7c": "int",
+   "0x80": "int",
+   "0x88": "char",
+   "0x8c": "int",
+   "0x90": "int"
   },
   "core::File": {
    "0x10": "int"
@@ -662,18 +3055,53 @@
    "0x4": "int",
    "0x8": "int"
   },
+  "core::FileOpenByKeyRequest": {
+   "0xc": "int"
+  },
+  "core::FileOpenRequest": {
+   "0xc": "int",
+   "0x10": "char"
+  },
+  "core::FileWriteRequest": {
+   "0x10": "int",
+   "0x14": "int"
+  },
+  "core::InstanceDrive": {
+   "0x18": "void*",
+   "0x20": "char"
+  },
   "core::MemoryDlAllocator": {
    "0xc": "int",
    "0x10": "int",
    "0x18": "int"
   },
+  "core::SaveGameOpenRequest": {
+   "0xc": "int",
+   "0x10": "char",
+   "0x14": "int",
+   "0x18": "int"
+  },
   "core::TimerList": {
    "0x10": "char"
+  },
+  "core::XboxDrive": {
+   "0xc0": "int",
+   "0x1d8": "void*",
+   "0x1dc": "int"
+  },
+  "core::XboxSaveDrive": {
+   "0xcc": "char",
+   "0xd3": "char",
+   "0xd4": "char",
+   "0xdd": "char"
   },
   "fight::BinReader": {
    "0xe": "char",
    "0x28": "int",
    "0x2c": "int"
+  },
+  "fight::BreakPointAction": {
+   "0x1c": "int"
   },
   "fight::BreakPointTrack": {
    "0x8": "int"
@@ -684,14 +3112,94 @@
   "fight::CommentTrack": {
    "0x8": "int"
   },
+  "fight::Context": {
+   "0x5c": "void*"
+  },
+  "fight::ExecuteAction": {
+   "0xc": "int",
+   "0x24": "void*",
+   "0x28": "int",
+   "0x2c": "void*",
+   "0x30": "void*",
+   "0x60": "int",
+   "0x64": "char"
+  },
+  "fight::ExecuteTrack": {
+   "0x20": "int"
+  },
+  "fight::FightNodeCondition": {
+   "0xc": "int"
+  },
+  "fight::FightNodeParentCondition": {
+   "0xc": "int",
+   "0x1c": "char"
+  },
+  "fight::FightNodeTimeCondition": {
+   "0xc": "int"
+  },
   "fight::OpportunityAction": {
    "0x2c": "void*"
   },
   "fight::OpportunityTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "float",
+   "0x24": "int"
+  },
+  "fight::ParamValueBool": {
+   "0x4": "int",
+   "0xc": "int"
+  },
+  "fight::ParamValueBranch": {
+   "0xc": "int"
+  },
+  "fight::ParamValueColour": {
+   "0x4": "int",
+   "0x8": "int",
+   "0xc": "int"
+  },
+  "fight::ParamValueConditionGroup": {
+   "0x4": "int",
+   "0xc": "int"
+  },
+  "fight::ParamValueEntity": {
+   "0x4": "int",
+   "0x8": "int",
+   "0xc": "int"
+  },
+  "fight::ParamValueEnum": {
+   "0xc": "int"
+  },
+  "fight::ParamValueFloat": {
+   "0x4": "int",
+   "0xc": "int"
+  },
+  "fight::ParamValueInt": {
+   "0xc": "int"
+  },
+  "fight::ParamValueName": {
+   "0x10": "int"
+  },
+  "fight::ParamValueScript": {
+   "0xc": "int"
+  },
+  "fight::ParamValueString": {
+   "0x4": "int",
+   "0xc": "int"
+  },
+  "fight::ParamValueStringList": {
+   "0xc": "int"
+  },
+  "fight::ParamValueVector": {
+   "0xc": "int"
+  },
+  "fight::PrintAction": {
+   "0x1c": "int",
+   "0x20": "void*"
   },
   "fight::PrintTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int",
+   "0x14": "int"
   },
   "fight::QueuedNodeAction": {
    "0x10": "int",
@@ -708,14 +3216,40 @@
   "fight::StreamStringReader": {
    "0x8": "int"
   },
+  "fight::WaitAction": {
+   "0x24": "float"
+  },
+  "fight::WaitTrack": {
+   "0x10": "int",
+   "0x14": "int"
+  },
+  "hulkfight::ChapterMissionCondition": {
+   "0xc": "int",
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int"
+  },
+  "hulkfight::DebugPrintAction": {
+   "0x1c": "int",
+   "0x20": "void*"
+  },
   "hulkfight::DebugPrintTrack": {
    "0x8": "int"
   },
   "hulkfight::DialogueTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x18": "int",
+   "0x24": "char"
   },
   "hulkfight::GameStateCondition": {
-   "0x10": "int"
+   "0x10": "int",
+   "0x18": "int"
+  },
+  "hulkfight::LocationCondition": {
+   "0xc": "int",
+   "0x10": "void*",
+   "0x14": "int",
+   "0x18": "void*"
   },
   "hulkfight::MissionProgressCondition": {
    "0x10": "int"
@@ -723,8 +3257,66 @@
   "hulkfight::NISSoundTrack": {
    "0x8": "int"
   },
+  "hulkfight::PostEvent_StringAction": {
+   "0x20": "void*"
+  },
+  "hulkfight::PostEvent_StringTrack": {
+   "0x18": "char",
+   "0x19": "char"
+  },
+  "hulkfight::StatTrack": {
+   "0x10": "int"
+  },
+  "hulkfight::UnlockableCondition": {
+   "0xc": "int",
+   "0x10": "char"
+  },
+  "hulkfight::XPTrack": {
+   "0x10": "int"
+  },
+  "hulkfight::ai::AIHistoryCountTrack": {
+   "0xc": "int"
+  },
+  "hulkfight::ai::AIHistoryNameCondition": {
+   "0xc": "int",
+   "0x14": "float"
+  },
+  "hulkfight::ai::AIHistorySetTrack": {
+   "0x14": "char"
+  },
+  "hulkfight::ai::AcquireTargetCondition": {
+   "0xc": "int",
+   "0x10": "int",
+   "0x14": "char"
+  },
+  "hulkfight::ai::AcquireTargetTrack": {
+   "0x14": "float",
+   "0x18": "float",
+   "0x1c": "char",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "float"
+  },
+  "hulkfight::ai::ButtonTrack": {
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int"
+  },
+  "hulkfight::ai::CanSeeTargetCondition": {
+   "0xc": "char",
+   "0xd": "char"
+  },
   "hulkfight::ai::ClearProjectileDistanceTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "char"
+  },
+  "hulkfight::ai::ComputeDropZoneCondition": {
+   "0xc": "float",
+   "0x10": "float",
+   "0x14": "float",
+   "0x1c": "char",
+   "0x20": "float"
   },
   "hulkfight::ai::FaceMotionTrack": {
    "0x8": "int"
@@ -732,20 +3324,182 @@
   "hulkfight::ai::FaceTargetTrack": {
    "0x8": "int"
   },
+  "hulkfight::ai::FightingOtherNPCCondition": {
+   "0xc": "int"
+  },
   "hulkfight::ai::FormationReadyCondition": {
    "0xc": "int"
   },
+  "hulkfight::ai::HasGroundPointCondition": {
+   "0xc": "char",
+   "0xd": "char"
+  },
+  "hulkfight::ai::HasGroundPointExtendedCondition": {
+   "0xd": "char",
+   "0xf": "char",
+   "0x10": "char",
+   "0x11": "char",
+   "0x14": "float",
+   "0x18": "float"
+  },
+  "hulkfight::ai::HulkActionCountCondition": {
+   "0xc": "int",
+   "0x14": "float"
+  },
   "hulkfight::ai::HulkActionTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x20": "int"
+  },
+  "hulkfight::ai::InActiveCondition": {
+   "0x10": "char"
+  },
+  "hulkfight::ai::KeyWordWaitCondition": {
+   "0xc": "int",
+   "0x14": "float"
+  },
+  "hulkfight::ai::KeywordWaitAction": {
+   "0x24": "float"
   },
   "hulkfight::ai::KeywordWaitTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x20": "char"
+  },
+  "hulkfight::ai::LocatorDistanceCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
+  "hulkfight::ai::MotionBoostAction": {
+   "0x24": "void*",
+   "0x2c": "int",
+   "0x30": "int"
+  },
+  "hulkfight::ai::MotionBoostTrack": {
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "float",
+   "0x28": "int"
+  },
+  "hulkfight::ai::MotionChaseAction": {
+   "0x20": "void*",
+   "0x24": "void*"
+  },
+  "hulkfight::ai::MotionChaseTrack": {
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "float",
+   "0x28": "int"
   },
   "hulkfight::ai::MotionClosestWaypointAction": {
    "0x48": "int"
   },
+  "hulkfight::ai::MotionClosestWaypointTrack": {
+   "0x14": "float",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "char",
+   "0x29": "char",
+   "0x2c": "float",
+   "0x30": "float"
+  },
+  "hulkfight::ai::MotionFacingTrack": {
+   "0x14": "float",
+   "0x18": "float",
+   "0x1c": "float",
+   "0x20": "float",
+   "0x24": "float"
+  },
+  "hulkfight::ai::MotionFleeAction": {
+   "0x20": "void*",
+   "0x24": "void*"
+  },
   "hulkfight::ai::MotionFleeTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "float"
+  },
+  "hulkfight::ai::MotionLocatorTrack": {
+   "0x14": "float",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "char",
+   "0x29": "char",
+   "0x2a": "char",
+   "0x2b": "char"
+  },
+  "hulkfight::ai::MotionTargetAction": {
+   "0x20": "void*"
+  },
+  "hulkfight::ai::MotionTargetTrack": {
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "float",
+   "0x24": "float"
+  },
+  "hulkfight::ai::OnBlockedTriangleCondition": {
+   "0xc": "int",
+   "0x10": "char",
+   "0x14": "short"
+  },
+  "hulkfight::ai::PathAction": {
+   "0x1d": "char",
+   "0x38": "float",
+   "0x3c": "float",
+   "0x40": "float",
+   "0x44": "float",
+   "0x48": "int",
+   "0x58": "int",
+   "0x60": "int",
+   "0x74": "int",
+   "0x78": "int",
+   "0x7c": "int",
+   "0x84": "int",
+   "0x88": "int",
+   "0x90": "void*",
+   "0xa4": "int",
+   "0xac": "int",
+   "0xc8": "void*",
+   "0xd4": "int",
+   "0xd8": "char",
+   "0xe8": "int",
+   "0xec": "int"
+  },
+  "hulkfight::ai::PathFormationAction": {
+   "0x1d": "char",
+   "0x38": "float",
+   "0x3c": "float",
+   "0x40": "float",
+   "0x44": "float",
+   "0x48": "int",
+   "0x50": "void*",
+   "0x54": "void*",
+   "0x68": "int",
+   "0x6c": "int",
+   "0x70": "int",
+   "0x74": "int",
+   "0x78": "int",
+   "0x7c": "void*",
+   "0x80": "void*",
+   "0x84": "void*",
+   "0x8c": "void*",
+   "0x90": "void*",
+   "0xa0": "int",
+   "0xa4": "int",
+   "0xa8": "int",
+   "0xac": "int",
+   "0xb0": "int",
+   "0xb4": "int",
+   "0xb8": "void*",
+   "0xc4": "int",
+   "0xc8": "char",
+   "0xcc": "float"
   },
   "hulkfight::ai::PathFormationTrack": {
    "0x14": "int",
@@ -757,63 +3511,530 @@
    "0x2c": "int",
    "0x30": "int"
   },
+  "hulkfight::ai::PathLocatorTestCondition": {
+   "0x10": "int",
+   "0x19": "char",
+   "0x1a": "char",
+   "0x1b": "char",
+   "0x1c": "char",
+   "0x1d": "char",
+   "0x1e": "char",
+   "0x1f": "char",
+   "0x24": "float",
+   "0x28": "float"
+  },
   "hulkfight::ai::PathTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "float",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "char",
+   "0x3d": "char",
+   "0x48": "char",
+   "0x49": "char",
+   "0x4c": "int",
+   "0x50": "float",
+   "0x54": "float",
+   "0x58": "float",
+   "0x5c": "float"
+  },
+  "hulkfight::ai::ProjectileDistanceCondition": {
+   "0xc": "int",
+   "0x10": "float",
+   "0x14": "char",
+   "0x15": "char"
+  },
+  "hulkfight::ai::PropsToChuckCondition": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "hulkfight::ai::PropsToSuckCondition": {
+   "0xc": "int",
+   "0x10": "float",
+   "0x14": "char",
+   "0x18": "int"
+  },
+  "hulkfight::ai::RandomKeyWordWaitCondition": {
+   "0xc": "int",
+   "0x10": "int"
   },
   "hulkfight::ai::RoutAction": {
    "0x68": "char"
+  },
+  "hulkfight::ai::RoutTrack": {
+   "0x14": "void*",
+   "0x18": "float",
+   "0x1c": "float",
+   "0x20": "float",
+   "0x24": "float",
+   "0x28": "char",
+   "0x2c": "float",
+   "0x30": "float",
+   "0x34": "float",
+   "0x38": "float"
+  },
+  "hulkfight::ai::SemaphoreClearTrack": {
+   "0x20": "char",
+   "0x21": "char"
+  },
+  "hulkfight::ai::SemaphoreWaitTrack": {
+   "0x20": "char",
+   "0x21": "char",
+   "0x24": "int"
+  },
+  "hulkfight::ai::ShotFailCountCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
+  "hulkfight::ai::StrafeCircleHBAction": {
+   "0x20": "void*"
+  },
+  "hulkfight::ai::StrafeCircleHBTrack": {
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "float"
+  },
+  "hulkfight::ai::StrafeCircleTrack": {
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "float",
+   "0x28": "float",
+   "0x2c": "char",
+   "0x30": "float",
+   "0x34": "char"
+  },
+  "hulkfight::ai::StrafeLateralHBAction": {
+   "0x20": "void*"
+  },
+  "hulkfight::ai::StrafeLateralHBTrack": {
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "float"
   },
   "hulkfight::ai::StrafeRunAction": {
    "0x20": "void*",
    "0x28": "int"
   },
+  "hulkfight::ai::StrafeRunTrack": {
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "float",
+   "0x28": "float",
+   "0x2c": "char",
+   "0x2d": "char",
+   "0x30": "int",
+   "0x34": "float"
+  },
+  "hulkfight::ai::TargetAngleYCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
+  "hulkfight::ai::TargetArcCondition": {
+   "0xc": "float",
+   "0x10": "float",
+   "0x14": "char",
+   "0x1c": "int",
+   "0x2c": "char"
+  },
   "hulkfight::ai::TargetClearTrack": {
    "0x8": "int"
   },
+  "hulkfight::ai::TargetDirectionCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
+  "hulkfight::ai::TargetDirectionXZCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
+  "hulkfight::ai::TargetDirectionYCondition": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "hulkfight::ai::TargetDistanceCondition": {
+   "0xc": "int",
+   "0x10": "float",
+   "0x14": "char",
+   "0x15": "char"
+  },
+  "hulkfight::ai::TargetDistanceXZCondition": {
+   "0xc": "int",
+   "0x10": "float",
+   "0x14": "char",
+   "0x15": "char"
+  },
+  "hulkfight::ai::TargetDistanceYCondition": {
+   "0xc": "int",
+   "0x10": "float",
+   "0x14": "char",
+   "0x15": "char",
+   "0x16": "char"
+  },
+  "hulkfight::ai::TargetInvincibleCondition": {
+   "0xc": "char"
+  },
+  "hulkfight::ai::TargetOrientationCondition": {
+   "0xc": "float",
+   "0x10": "float"
+  },
+  "hulkfight::ai::TargetTypeCondition": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "hulkfight::ai::TargetVelocityCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
+  "hulkfight::ai::TargetVelocityXZCondition": {
+   "0xc": "int"
+  },
+  "hulkfight::ai::TargetVelocityYCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
+  "hulkfight::ai::ThreatAngleCondition": {
+   "0xc": "float",
+   "0x10": "float",
+   "0x20": "char"
+  },
+  "hulkfight::ai::ThreatBallTrack": {
+   "0x14": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int"
+  },
+  "hulkfight::ai::ThreatDistanceCondition": {
+   "0x20": "char"
+  },
+  "hulkfight::ai::ThreatDodgeTrack": {
+   "0x14": "float",
+   "0x18": "char"
+  },
+  "hulkfight::ai::TokenCondition": {
+   "0xc": "char",
+   "0xd": "char"
+  },
+  "hulkfight::ai::TokenSupressAction": {
+   "0x24": "int"
+  },
   "hulkfight::ai::TokenSupressTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "char",
+   "0x18": "float",
+   "0x1c": "char",
+   "0x1d": "char"
   },
   "hulkfight::ai::TokenTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "char"
+  },
+  "hulkfight::motion::AccuracyLatencyAction": {
+   "0x30": "int"
   },
   "hulkfight::motion::AccuracyLatencyTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x18": "float"
   },
   "hulkfight::motion::AirToGroundTargetTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "float",
+   "0x18": "float",
+   "0x1c": "float",
+   "0x20": "float",
+   "0x24": "float",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int"
+  },
+  "hulkfight::motion::AnimationChargeTrack": {
+   "0x20": "int",
+   "0x24": "float",
+   "0x30": "int",
+   "0x34": "float",
+   "0x38": "float"
+  },
+  "hulkfight::motion::AnimationLinkedTrack": {
+   "0x20": "float",
+   "0x24": "float",
+   "0x28": "float",
+   "0x38": "float",
+   "0x3c": "float",
+   "0x40": "float"
   },
   "hulkfight::motion::AnimationPhaseMatchedTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "float",
+   "0x38": "int",
+   "0x3c": "float",
+   "0x40": "float"
+  },
+  "hulkfight::motion::AnimationTrack": {
+   "0x20": "float",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "float",
+   "0x30": "int",
+   "0x34": "char",
+   "0x40": "int",
+   "0x44": "float",
+   "0x48": "float"
+  },
+  "hulkfight::motion::AnimationVelocityScaledTrack": {
+   "0x20": "int",
+   "0x24": "float",
+   "0x28": "int",
+   "0x2c": "float",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "float",
+   "0x3c": "int",
+   "0x48": "int",
+   "0x4c": "float",
+   "0x50": "float"
+  },
+  "hulkfight::motion::BallAndChainReturnAction": {
+   "0x28": "int",
+   "0x2c": "int",
+   "0x34": "int",
+   "0x38": "float",
+   "0x44": "int"
+  },
+  "hulkfight::motion::BallAndChainReturnTrack": {
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "float",
+   "0x20": "float",
+   "0x24": "int",
+   "0x28": "float",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "float",
+   "0x3c": "int",
+   "0x40": "int",
+   "0x50": "int",
+   "0x54": "int",
+   "0x58": "int",
+   "0x68": "int",
+   "0x6c": "int",
+   "0x70": "int"
+  },
+  "hulkfight::motion::BallAndChainShootAction": {
+   "0x44": "float",
+   "0x48": "float",
+   "0x50": "int"
   },
   "hulkfight::motion::BallAndChainShootTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "float",
+   "0x30": "float",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "float",
+   "0x40": "float",
+   "0x44": "float",
+   "0x48": "float",
+   "0x4c": "float",
+   "0x50": "float",
+   "0x54": "int",
+   "0x58": "int",
+   "0x68": "int",
+   "0x6c": "int",
+   "0x70": "int",
+   "0x80": "int",
+   "0x84": "int",
+   "0x88": "int",
+   "0x8c": "int",
+   "0x90": "float"
   },
   "hulkfight::motion::BallAndChainSpinTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x18": "float",
+   "0x1c": "float",
+   "0x20": "int",
+   "0x24": "float"
+  },
+  "hulkfight::motion::BeamEffect": {
+   "0x8": "int",
+   "0xc": "int",
+   "0x10": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "float",
+   "0x30": "int"
+  },
+  "hulkfight::motion::BounceAction": {
+   "0x28": "float",
+   "0x2c": "float",
+   "0x30": "float"
   },
   "hulkfight::motion::BounceTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "float",
+   "0x20": "float",
+   "0x24": "float",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int"
+  },
+  "hulkfight::motion::CSMPropIsCharacterCondition": {
+   "0xc": "char"
+  },
+  "hulkfight::motion::CharacterPropStatusCondition": {
+   "0xc": "int",
+   "0x10": "float"
   },
   "hulkfight::motion::ChargeClearTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "char"
+  },
+  "hulkfight::motion::ChargeCondition": {
+   "0xc": "int",
+   "0x10": "float",
+   "0x14": "int"
   },
   "hulkfight::motion::ChargeTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x18": "char",
+   "0x1c": "float"
+  },
+  "hulkfight::motion::CivilianAnimationTrack": {
+   "0x20": "float",
+   "0x24": "int",
+   "0x28": "char",
+   "0x2c": "float"
   },
   "hulkfight::motion::CivilianAttachTrack": {
    "0x8": "int"
+  },
+  "hulkfight::motion::CivilianDetachTrack": {
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int"
+  },
+  "hulkfight::motion::CivilianThrowTrack": {
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "float",
+   "0x1c": "float",
+   "0x20": "float",
+   "0x24": "float",
+   "0x28": "float",
+   "0x2c": "float",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "float"
   },
   "hulkfight::motion::ClearFightParamsHitRecordTrack": {
    "0x8": "int"
   },
   "hulkfight::motion::ClimbLocomotion4Track": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "float",
+   "0x90": "int",
+   "0x94": "float",
+   "0x98": "float"
+  },
+  "hulkfight::motion::CollisionChargeCondition": {
+   "0xc": "int",
+   "0x10": "float",
+   "0x14": "char"
+  },
+  "hulkfight::motion::CollisionDamageHealthCompareCondition": {
+   "0xc": "int",
+   "0x10": "float",
+   "0x14": "float",
+   "0x18": "char"
+  },
+  "hulkfight::motion::CollisionInterruptPriorityCondition": {
+   "0xc": "int"
+  },
+  "hulkfight::motion::CollisionSourceForceMagnitudeCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
+  "hulkfight::motion::CollisionSourceNameCondition": {
+   "0xc": "int",
+   "0x14": "int"
+  },
+  "hulkfight::motion::CollisionSourceNodeCondition": {
+   "0xc": "int",
+   "0x1c": "char"
+  },
+  "hulkfight::motion::CollisionSourceSizeCondition": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "hulkfight::motion::CollisionTargetIsTargetCondition": {
+   "0xc": "char"
+  },
+  "hulkfight::motion::CollisionTargetNameCondition": {
+   "0xc": "int",
+   "0x14": "int"
+  },
+  "hulkfight::motion::CollisionTargetPriorityCondition": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "hulkfight::motion::CollisionTargetSizeCondition": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "hulkfight::motion::CollisionTargetTypeCondition": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "hulkfight::motion::CollisionThrowCondition": {
+   "0xc": "char"
+  },
+  "hulkfight::motion::CollisionThrownObjectCondition": {
+   "0xc": "char"
   },
   "hulkfight::motion::CriticalMassDrainTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int"
   },
   "hulkfight::motion::DriftToHulkTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int"
   },
   "hulkfight::motion::DriftToPositionAction": {
    "0x24": "char",
@@ -824,211 +4045,1448 @@
    "0x4c": "int"
   },
   "hulkfight::motion::DriftToPositionTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "char",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "char",
+   "0x25": "char",
+   "0x28": "int"
+  },
+  "hulkfight::motion::FallAction": {
+   "0x2c": "float"
   },
   "hulkfight::motion::FallTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "char",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "float",
+   "0x38": "int",
+   "0x3c": "char",
+   "0x40": "int",
+   "0x44": "int",
+   "0x48": "int"
+  },
+  "hulkfight::motion::FireBeamAction": {
+   "0x20": "void*",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x3c": "int",
+   "0x58": "int",
+   "0x5c": "int",
+   "0x68": "void*",
+   "0x88": "int",
+   "0x8c": "float",
+   "0x90": "int"
   },
   "hulkfight::motion::FireBeamTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "float",
+   "0x2c": "int",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x40": "int",
+   "0x44": "int",
+   "0x48": "int",
+   "0x4c": "float",
+   "0x50": "float",
+   "0x54": "float",
+   "0x58": "float",
+   "0x5c": "int",
+   "0x60": "char",
+   "0x64": "float",
+   "0x68": "int",
+   "0x78": "int",
+   "0x7c": "int",
+   "0x80": "float",
+   "0x90": "int",
+   "0x94": "float",
+   "0x98": "float",
+   "0x9c": "char",
+   "0xa0": "int",
+   "0xa4": "int",
+   "0xa8": "int",
+   "0xac": "char",
+   "0xc8": "int",
+   "0xcc": "int",
+   "0xd0": "int",
+   "0xd4": "int",
+   "0xd8": "int",
+   "0xdc": "int",
+   "0xe0": "int",
+   "0xe4": "int",
+   "0xe8": "int",
+   "0xec": "float",
+   "0xf0": "char",
+   "0xf4": "float",
+   "0xf8": "float",
+   "0xfc": "char",
+   "0xfd": "char",
+   "0xfe": "char",
+   "0x100": "int",
+   "0x104": "int",
+   "0x108": "int",
+   "0x10c": "int",
+   "0x110": "int",
+   "0x114": "int",
+   "0x118": "float",
+   "0x11c": "int",
+   "0x120": "int",
+   "0x124": "int",
+   "0x128": "float",
+   "0x12c": "char",
+   "0x130": "float",
+   "0x134": "float"
   },
   "hulkfight::motion::FireGroundShockwaveTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "float",
+   "0x14": "float",
+   "0x18": "float",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "float",
+   "0x28": "float",
+   "0x2c": "float",
+   "0x30": "int",
+   "0x34": "float",
+   "0x38": "float",
+   "0x3c": "float",
+   "0x48": "int",
+   "0x4c": "int",
+   "0x50": "float",
+   "0x54": "int",
+   "0x58": "float",
+   "0x5c": "float",
+   "0x60": "int",
+   "0x64": "float",
+   "0x68": "float",
+   "0x6c": "int",
+   "0x70": "float",
+   "0x74": "int",
+   "0x78": "int",
+   "0x7c": "int",
+   "0x80": "int",
+   "0x84": "int",
+   "0x88": "int",
+   "0x8c": "int",
+   "0x90": "int",
+   "0x94": "int"
   },
   "hulkfight::motion::FireMissileTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "float",
+   "0x34": "int",
+   "0x40": "int",
+   "0x44": "int",
+   "0x48": "int",
+   "0x4c": "int",
+   "0x50": "int",
+   "0x54": "float",
+   "0x58": "char",
+   "0x5c": "float",
+   "0x60": "float",
+   "0x64": "int",
+   "0x68": "float",
+   "0x6c": "float",
+   "0x70": "int",
+   "0x74": "char",
+   "0x75": "char",
+   "0x76": "char",
+   "0x77": "char",
+   "0x78": "int",
+   "0x7c": "float",
+   "0x80": "float",
+   "0x84": "int",
+   "0x88": "float",
+   "0x8c": "float",
+   "0x90": "int",
+   "0x94": "char",
+   "0x95": "char",
+   "0x96": "char",
+   "0x98": "int",
+   "0x9c": "float",
+   "0xa0": "float",
+   "0xa4": "float",
+   "0xa8": "float",
+   "0xac": "float",
+   "0xb0": "float",
+   "0xb4": "int",
+   "0xb8": "int",
+   "0xd4": "int",
+   "0xd8": "int",
+   "0xe0": "int",
+   "0xf0": "int",
+   "0xf4": "int",
+   "0xf8": "int",
+   "0xfc": "int",
+   "0x10c": "int",
+   "0x110": "int",
+   "0x114": "int",
+   "0x118": "int",
+   "0x11c": "int",
+   "0x120": "int",
+   "0x124": "int",
+   "0x130": "int",
+   "0x134": "int",
+   "0x138": "int",
+   "0x13c": "int",
+   "0x140": "int",
+   "0x144": "int"
+  },
+  "hulkfight::motion::FireProjectileAction": {
+   "0x20": "void*",
+   "0x30": "int"
   },
   "hulkfight::motion::FireProjectileTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "float",
+   "0x2c": "float",
+   "0x30": "int",
+   "0x40": "int",
+   "0x44": "int",
+   "0x48": "int",
+   "0x4c": "int",
+   "0x50": "int",
+   "0x54": "float",
+   "0x58": "int",
+   "0x5c": "float",
+   "0x60": "float",
+   "0x64": "int",
+   "0x68": "float",
+   "0x6c": "float",
+   "0x70": "int",
+   "0x74": "char",
+   "0x75": "char",
+   "0x76": "char",
+   "0x78": "float",
+   "0x7c": "int",
+   "0x80": "int",
+   "0x90": "int",
+   "0x94": "int",
+   "0x98": "float",
+   "0xb4": "int",
+   "0xb8": "int",
+   "0xbc": "int"
   },
   "hulkfight::motion::FlyingAttackAction": {
-   "0x1c": "void*"
+   "0x1c": "void*",
+   "0x34": "int",
+   "0x38": "int"
+  },
+  "hulkfight::motion::FlyingAttackTrack": {
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "float",
+   "0x20": "float",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "float",
+   "0x30": "char",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "int"
+  },
+  "hulkfight::motion::FlyingAutoTargetAction": {
+   "0x28": "void*"
   },
   "hulkfight::motion::FlyingAutoTargetTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "float",
+   "0x18": "float",
+   "0x1c": "float",
+   "0x20": "float",
+   "0x24": "float",
+   "0x28": "float",
+   "0x2c": "float",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int"
+  },
+  "hulkfight::motion::FlyingBrakeTrack": {
+   "0x14": "float",
+   "0x18": "float",
+   "0x1c": "float",
+   "0x20": "float",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int"
+  },
+  "hulkfight::motion::FlyingDashTrack": {
+   "0x14": "float",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int"
   },
   "hulkfight::motion::FootPivotAction": {
    "0x24": "int"
   },
   "hulkfight::motion::FootPivotTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "float",
+   "0x34": "char",
+   "0x38": "int",
+   "0x3c": "float",
+   "0x40": "float"
+  },
+  "hulkfight::motion::FrameCondition": {
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "float"
+  },
+  "hulkfight::motion::FrameReachedCondition": {
+   "0x14": "int",
+   "0x18": "float"
+  },
+  "hulkfight::motion::GrappleAttachJointCondition": {
+   "0xc": "int",
+   "0x14": "int"
+  },
+  "hulkfight::motion::GrappleExecuteTrack": {
+   "0x20": "int"
+  },
+  "hulkfight::motion::GrappleHealthCondition": {
+   "0xc": "int",
+   "0x10": "int",
+   "0x14": "int"
+  },
+  "hulkfight::motion::GrappleHitReactionAction": {
+   "0xc": "int",
+   "0x20": "void*",
+   "0x50": "int",
+   "0x54": "char"
   },
   "hulkfight::motion::GrappleHitReactionTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "char",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x40": "int",
+   "0x44": "int",
+   "0x48": "int",
+   "0x4c": "int",
+   "0x50": "int"
   },
   "hulkfight::motion::GrappleHoverTrack": {
    "0x8": "int"
   },
+  "hulkfight::motion::GrappleLocomotionSteerTrack": {
+   "0x40": "float",
+   "0x44": "float",
+   "0x48": "float"
+  },
+  "hulkfight::motion::GrappleOrientationCondition": {
+   "0xc": "float",
+   "0x10": "float"
+  },
   "hulkfight::motion::GrapplePropDamageTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int"
+  },
+  "hulkfight::motion::GrapplePropStateByNameCondition": {
+   "0xc": "int",
+   "0x10": "int",
+   "0x1c": "int"
+  },
+  "hulkfight::motion::GrappleReactionTypeCondition": {
+   "0xc": "int",
+   "0x10": "int"
   },
   "hulkfight::motion::GrappleStruggleTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int"
   },
   "hulkfight::motion::GrappleThrowAction": {
    "0x20": "void*"
   },
+  "hulkfight::motion::GrappleThrowTrack": {
+   "0x10": "void*",
+   "0x14": "void*",
+   "0x18": "float",
+   "0x1c": "float",
+   "0x20": "float",
+   "0x24": "float",
+   "0x28": "float",
+   "0x2c": "float",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "float"
+  },
+  "hulkfight::motion::GrappleVarCompareCondition": {
+   "0x18": "int",
+   "0x1c": "int"
+  },
+  "hulkfight::motion::GroundSlideAction": {
+   "0x28": "float"
+  },
+  "hulkfight::motion::GroundSlideTrack": {
+   "0x14": "int",
+   "0x18": "float",
+   "0x1c": "float",
+   "0x20": "int",
+   "0x24": "float",
+   "0x28": "float",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int"
+  },
+  "hulkfight::motion::HealthCondition": {
+   "0xc": "void*",
+   "0x10": "int",
+   "0x14": "int"
+  },
+  "hulkfight::motion::HealthPercentCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
+  "hulkfight::motion::HealthTrack": {
+   "0x10": "int",
+   "0x14": "char",
+   "0x15": "char",
+   "0x16": "char"
+  },
   "hulkfight::motion::HeliLocomotionAction": {
-   "0x1c": "void*"
+   "0x1c": "void*",
+   "0x34": "int",
+   "0x38": "int"
+  },
+  "hulkfight::motion::HitDamageTrack": {
+   "0x10": "float"
+  },
+  "hulkfight::motion::HitEffectAction": {
+   "0x1c": "void*",
+   "0x24": "void*"
+  },
+  "hulkfight::motion::HitEffectTrack": {
+   "0x10": "float",
+   "0x20": "float",
+   "0x30": "float",
+   "0x34": "int"
+  },
+  "hulkfight::motion::HitFloatTrack": {
+   "0x14": "char",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int"
+  },
+  "hulkfight::motion::HitOrientToPushbackTrack": {
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int"
   },
   "hulkfight::motion::HitPauseTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int",
+   "0x14": "int"
+  },
+  "hulkfight::motion::HitPushbackAction": {
+   "0x28": "float",
+   "0x38": "float",
+   "0x3c": "float",
+   "0x40": "float"
   },
   "hulkfight::motion::HitPushbackAddTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "float"
+  },
+  "hulkfight::motion::HitPushbackTrack": {
+   "0x14": "float",
+   "0x18": "float",
+   "0x1c": "char",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int"
+  },
+  "hulkfight::motion::HitPushbackVelocityCondition": {
+   "0xc": "int"
+  },
+  "hulkfight::motion::HitReactionAction": {
+   "0xc": "int",
+   "0x20": "void*",
+   "0x50": "int",
+   "0x54": "char"
+  },
+  "hulkfight::motion::HitReactionFloatAction": {
+   "0xc": "int",
+   "0x1c": "void*",
+   "0x20": "void*",
+   "0x50": "int",
+   "0x54": "char"
+  },
+  "hulkfight::motion::HitReactionFloatTrack": {
+   "0x10": "int",
+   "0x14": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "float",
+   "0x2c": "float",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x40": "int",
+   "0x44": "int",
+   "0x48": "int",
+   "0x4c": "int",
+   "0x50": "char"
   },
   "hulkfight::motion::HitReactionTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int",
+   "0x14": "int",
+   "0x20": "float",
+   "0x24": "int",
+   "0x28": "char",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x40": "int",
+   "0x44": "char"
   },
   "hulkfight::motion::HitThrowAction": {
-   "0x1c": "void*"
+   "0x1c": "void*",
+   "0x30": "float"
+  },
+  "hulkfight::motion::HitThrowTrack": {
+   "0x18": "int",
+   "0x24": "int",
+   "0x28": "int"
+  },
+  "hulkfight::motion::HitWaitTrack": {
+   "0x10": "int"
+  },
+  "hulkfight::motion::HoverAction": {
+   "0x20": "void*"
   },
   "hulkfight::motion::HoverTrack": {
    "0x8": "int"
   },
   "hulkfight::motion::ImpulseVelocityTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x3c": "char",
+   "0x40": "float"
+  },
+  "hulkfight::motion::InLoadedRoomCondition": {
+   "0xc": "char"
+  },
+  "hulkfight::motion::IntentionButtonDownAnyCondition": {
+   "0xc": "char"
   },
   "hulkfight::motion::IntentionClearTrack": {
    "0x8": "int"
   },
+  "hulkfight::motion::IntentionInputCondition": {
+   "0xc": "char",
+   "0xd": "char",
+   "0xe": "char",
+   "0xf": "char"
+  },
+  "hulkfight::motion::InterruptAccumulatorCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
   "hulkfight::motion::InterruptAccumulatorSetTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int"
   },
   "hulkfight::motion::JointPivotTrackerTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "float",
+   "0x2c": "float",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "float",
+   "0x3c": "float",
+   "0x40": "float",
+   "0x44": "char",
+   "0x48": "float",
+   "0x4c": "float",
+   "0x50": "int",
+   "0x54": "int",
+   "0x58": "float",
+   "0x5c": "float"
+  },
+  "hulkfight::motion::JointPlantedCondition": {
+   "0x14": "int",
+   "0x18": "float",
+   "0x1c": "char"
   },
   "hulkfight::motion::JointRelativeTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x20": "char",
+   "0x21": "char",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "char",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x40": "int",
+   "0x44": "float",
+   "0x48": "float"
   },
   "hulkfight::motion::JointTrackerTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "float",
+   "0x2c": "float",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "float",
+   "0x3c": "float",
+   "0x40": "float",
+   "0x44": "float",
+   "0x48": "float",
+   "0x4c": "char",
+   "0x50": "float",
+   "0x54": "float",
+   "0x58": "int",
+   "0x5c": "int",
+   "0x60": "float",
+   "0x64": "float"
+  },
+  "hulkfight::motion::LocomotingCondition": {
+   "0xc": "char"
   },
   "hulkfight::motion::LocomotingTrack": {
    "0x8": "int"
   },
+  "hulkfight::motion::LocomotionMotionStateCondition": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "hulkfight::motion::LocomotionSprintTrack": {
+   "0x14": "float",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "float",
+   "0x58": "int",
+   "0x5c": "float",
+   "0x60": "float"
+  },
   "hulkfight::motion::LocomotionStateTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int"
+  },
+  "hulkfight::motion::LocomotionSteerAction": {
+   "0x28": "float",
+   "0x2c": "float"
+  },
+  "hulkfight::motion::LocomotionSteerTrack": {
+   "0x14": "float",
+   "0x18": "float",
+   "0x1c": "float",
+   "0x20": "float",
+   "0x24": "float",
+   "0x48": "char",
+   "0x58": "int",
+   "0x5c": "float",
+   "0x60": "float"
   },
   "hulkfight::motion::LocomotionStrafe4Track": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "float",
+   "0x18": "float",
+   "0x1c": "char",
+   "0x98": "int",
+   "0x9c": "float",
+   "0xa0": "float"
+  },
+  "hulkfight::motion::MissilePunchTrack": {
+   "0x14": "float"
   },
   "hulkfight::motion::MissileThrowTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "float",
+   "0x20": "float",
+   "0x24": "float",
+   "0x28": "float",
+   "0x2c": "float",
+   "0x30": "float",
+   "0x34": "float",
+   "0x38": "float",
+   "0x3c": "int",
+   "0x40": "int",
+   "0x44": "float"
+  },
+  "hulkfight::motion::MomentumXZAddAction": {
+   "0x2c": "int",
+   "0x30": "int"
   },
   "hulkfight::motion::MomentumXZAddTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "float"
+  },
+  "hulkfight::motion::MotionBlurTrack": {
+   "0x10": "float",
+   "0x14": "float",
+   "0x18": "float",
+   "0x1c": "int",
+   "0x20": "int"
   },
   "hulkfight::motion::MotionStateTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int"
   },
   "hulkfight::motion::MotionTrailStopTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int"
+  },
+  "hulkfight::motion::MoveJointAction": {
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x48": "int",
+   "0x4c": "int",
+   "0x50": "char"
   },
   "hulkfight::motion::MoveJointTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "float",
+   "0x40": "int",
+   "0x44": "float",
+   "0x48": "int",
+   "0x4c": "float",
+   "0x50": "float",
+   "0x54": "char",
+   "0x58": "int",
+   "0x5c": "int",
+   "0x60": "int"
   },
   "hulkfight::motion::NoHitPushbackTrack": {
    "0x8": "int"
   },
+  "hulkfight::motion::PhaseCondition": {
+   "0xc": "float",
+   "0x10": "float"
+  },
   "hulkfight::motion::ProjectileEffect": {
    "0x8": "int",
-   "0x14": "int"
+   "0x14": "int",
+   "0x48": "float"
+  },
+  "hulkfight::motion::ProjectileGroundShockwave": {
+   "0xc": "float",
+   "0x10": "char",
+   "0x14": "int",
+   "0x18": "void*",
+   "0x1c": "int",
+   "0x24": "void*",
+   "0x2c": "int",
+   "0x30": "float",
+   "0xbc": "int"
+  },
+  "hulkfight::motion::ProjectileMissile": {
+   "0xc": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "char",
+   "0x1d": "char",
+   "0x1e": "char",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "char",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "char",
+   "0x3c": "void*",
+   "0x48": "int",
+   "0x4c": "int",
+   "0x54": "float",
+   "0x58": "float",
+   "0x5c": "float",
+   "0x70": "int",
+   "0x74": "float",
+   "0x7c": "int",
+   "0x80": "int",
+   "0x84": "int",
+   "0x88": "int",
+   "0x8c": "float",
+   "0x90": "int",
+   "0x94": "int",
+   "0x98": "int",
+   "0x9c": "int",
+   "0xa0": "int",
+   "0xa4": "char",
+   "0xa8": "int",
+   "0xac": "int",
+   "0xb0": "int",
+   "0xb4": "int",
+   "0xb8": "int",
+   "0xbc": "int",
+   "0xc0": "int",
+   "0xc4": "int",
+   "0xc8": "int",
+   "0xcc": "int",
+   "0xd0": "float",
+   "0xd4": "int",
+   "0xd8": "float"
+  },
+  "hulkfight::motion::PropActorThinkingTrack": {
+   "0x10": "char"
+  },
+  "hulkfight::motion::PropActorToPropTrack": {
+   "0x10": "int",
+   "0x14": "char",
+   "0x15": "char"
   },
   "hulkfight::motion::PropAddToCollisionTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int",
+   "0x14": "char"
   },
   "hulkfight::motion::PropAddToMissileCountTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int",
+   "0x14": "int"
   },
   "hulkfight::motion::PropAnimationAction": {
-   "0x20": "void*"
+   "0x20": "void*",
+   "0x28": "void*"
+  },
+  "hulkfight::motion::PropAnimationTrack": {
+   "0x14": "int",
+   "0x20": "float",
+   "0x24": "int",
+   "0x28": "float",
+   "0x2c": "int"
+  },
+  "hulkfight::motion::PropAtRestCondition": {
+   "0xc": "char"
+  },
+  "hulkfight::motion::PropCollidedWithWorldCondition": {
+   "0xc": "int"
+  },
+  "hulkfight::motion::PropDamageTrack": {
+   "0x10": "int",
+   "0x14": "int"
   },
   "hulkfight::motion::PropDestroyTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int"
   },
   "hulkfight::motion::PropDropTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int"
+  },
+  "hulkfight::motion::PropGrabbableIsMissileCondition": {
+   "0xc": "char"
+  },
+  "hulkfight::motion::PropGrabbableIsThrownCondition": {
+   "0xc": "char"
+  },
+  "hulkfight::motion::PropIsAttachedCondition": {
+   "0xc": "int",
+   "0x10": "char"
+  },
+  "hulkfight::motion::PropIsMissileCondition": {
+   "0xc": "int",
+   "0x10": "char"
+  },
+  "hulkfight::motion::PropMassCondition": {
+   "0xc": "int",
+   "0x10": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "float"
+  },
+  "hulkfight::motion::PropMissileCountCondition": {
+   "0xc": "int",
+   "0x10": "int",
+   "0x14": "int"
+  },
+  "hulkfight::motion::PropMissionCriticalCondition": {
+   "0xc": "int",
+   "0x10": "char"
   },
   "hulkfight::motion::PropSetStateByIndexTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int",
+   "0x14": "int"
   },
   "hulkfight::motion::PropSetStateByNameTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int"
   },
   "hulkfight::motion::PropSpawnTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x40": "int",
+   "0x44": "int",
+   "0x48": "int",
+   "0x4c": "int"
+  },
+  "hulkfight::motion::PropStateByIndexCondition": {
+   "0xc": "int",
+   "0x10": "int",
+   "0x14": "int"
+  },
+  "hulkfight::motion::PropStateByNameCondition": {
+   "0xc": "int",
+   "0x10": "int",
+   "0x18": "int",
+   "0x1c": "int"
   },
   "hulkfight::motion::PropThrowTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x18": "char",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "float",
+   "0x28": "float",
+   "0x2c": "float",
+   "0x30": "float",
+   "0x34": "float",
+   "0x38": "float",
+   "0x3c": "float",
+   "0x40": "float",
+   "0x44": "int",
+   "0x48": "int",
+   "0x4c": "int",
+   "0x50": "int",
+   "0x54": "int",
+   "0x58": "int",
+   "0x5c": "float",
+   "0x60": "float",
+   "0x64": "int",
+   "0x80": "char"
+  },
+  "hulkfight::motion::PushOutAction": {
+   "0x24": "int"
+  },
+  "hulkfight::motion::PushOutTrack": {
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "float",
+   "0x38": "float",
+   "0x3c": "float",
+   "0x40": "char"
+  },
+  "hulkfight::motion::RayCastCondition": {
+   "0x14": "int",
+   "0x2c": "float",
+   "0x30": "float",
+   "0x34": "char",
+   "0x35": "char",
+   "0x38": "float"
+  },
+  "hulkfight::motion::RayCastConeCondition": {
+   "0x24": "float",
+   "0x28": "float",
+   "0x2c": "float",
+   "0x30": "char"
+  },
+  "hulkfight::motion::RayCastTargetCondition": {
+   "0x14": "int",
+   "0x30": "float",
+   "0x34": "char"
+  },
+  "hulkfight::motion::RestPoseTrack": {
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int"
   },
   "hulkfight::motion::ShieldArcTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int"
+  },
+  "hulkfight::motion::ShoreNearCondition": {
+   "0xc": "char"
+  },
+  "hulkfight::motion::SlowMotionAction": {
+   "0x24": "float"
   },
   "hulkfight::motion::SlowMotionTrack": {
    "0x8": "int",
    "0x10": "float",
-   "0x14": "float"
+   "0x14": "float",
+   "0x1c": "float",
+   "0x20": "char"
+  },
+  "hulkfight::motion::SmartPropGrabbableCondition": {
+   "0xc": "char",
+   "0x10": "int",
+   "0x14": "char",
+   "0x15": "char",
+   "0x16": "char",
+   "0x18": "int",
+   "0x1c": "char",
+   "0x20": "int",
+   "0x24": "char",
+   "0x28": "int"
+  },
+  "hulkfight::motion::SmartPropIsCargoCondition": {
+   "0xc": "int"
   },
   "hulkfight::motion::SnapToGroundTrack": {
    "0x8": "int"
   },
   "hulkfight::motion::SuckInPropsTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "float"
   },
   "hulkfight::motion::SuckTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int"
+  },
+  "hulkfight::motion::SurfAction": {
+   "0x28": "float",
+   "0x2c": "float",
+   "0x30": "float",
+   "0x34": "float",
+   "0x3c": "float",
+   "0x40": "int"
+  },
+  "hulkfight::motion::SurfTrack": {
+   "0x14": "float",
+   "0x18": "float",
+   "0x1c": "float",
+   "0x20": "float",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "float",
+   "0x30": "float",
+   "0x34": "float",
+   "0x38": "float",
+   "0x3c": "int",
+   "0x40": "int",
+   "0x44": "int"
   },
   "hulkfight::motion::SyncToLocatorAction": {
-   "0x1c": "void*"
+   "0x1c": "void*",
+   "0x34": "float",
+   "0x44": "float"
   },
   "hulkfight::motion::SyncToLocatorTrack": {
    "0x8": "int",
    "0x14": "float",
    "0x18": "float"
   },
+  "hulkfight::motion::TankLocomotionAction": {
+   "0x28": "int"
+  },
   "hulkfight::motion::TankLocomotionTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "float",
+   "0x30": "float",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x40": "float",
+   "0x44": "float",
+   "0x48": "float",
+   "0x4c": "float",
+   "0x50": "float",
+   "0x54": "float",
+   "0x58": "float",
+   "0x5c": "float",
+   "0x60": "float",
+   "0x64": "int",
+   "0x68": "int",
+   "0x6c": "int",
+   "0x70": "int"
   },
   "hulkfight::motion::TargetBreakTrack": {
    "0x8": "int"
   },
+  "hulkfight::motion::TargetHealthPercentCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
   "hulkfight::motion::TargetIconDistanceTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "void*",
+   "0x18": "float",
+   "0x1c": "void*"
+  },
+  "hulkfight::motion::TargetLocomotionMotionStateCondition": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "hulkfight::motion::TargetMotionStateCondition": {
+   "0xc": "int",
+   "0x10": "int"
   },
   "hulkfight::motion::TeleportRelativeTrack": {
    "0x8": "int"
   },
+  "hulkfight::motion::TeleportToLocatorAction": {
+   "0x2c": "int"
+  },
+  "hulkfight::motion::TeleportToLocatorTrack": {
+   "0x10": "int"
+  },
+  "hulkfight::motion::TeleportTrack": {
+   "0x18": "float"
+  },
+  "hulkfight::motion::TimerCondition": {
+   "0xc": "int",
+   "0x10": "int",
+   "0x18": "char",
+   "0x1c": "int"
+  },
+  "hulkfight::motion::TimerSetTrack": {
+   "0x10": "int",
+   "0x14": "int"
+  },
+  "hulkfight::motion::TurningVelocityCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
   "hulkfight::motion::VarAssignTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "char"
+  },
+  "hulkfight::motion::VarCompareCondition": {
+   "0x18": "int",
+   "0x1c": "int"
+  },
+  "hulkfight::motion::VelocityAnimatedCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
+  "hulkfight::motion::VelocityAnimatedXZAngleCondition": {
+   "0xc": "float",
+   "0x10": "float"
+  },
+  "hulkfight::motion::VelocityAnimatedXZCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
+  "hulkfight::motion::VelocityAnimatedYCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
+  "hulkfight::motion::VelocityCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
+  "hulkfight::motion::VelocityXZAngleCondition": {
+   "0xc": "float",
+   "0x10": "float"
+  },
+  "hulkfight::motion::VelocityXZCondition": {
+   "0xc": "int",
+   "0x10": "float"
+  },
+  "hulkfight::motion::VelocityYCondition": {
+   "0xc": "int",
+   "0x10": "float"
   },
   "hulkfight::motion::VisibilityTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "char"
+  },
+  "hulkfight::motion::WallExitAction": {
+   "0x2c": "int",
+   "0x30": "int",
+   "0x38": "int",
+   "0x3c": "float",
+   "0x44": "int",
+   "0x48": "int"
+  },
+  "hulkfight::motion::WallExitTrack": {
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "float",
+   "0x20": "int",
+   "0x24": "float",
+   "0x28": "float",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int"
+  },
+  "hulkfight::motion::WallJumpAction": {
+   "0x2c": "int",
+   "0x30": "int",
+   "0x38": "int",
+   "0x3c": "float",
+   "0x40": "char",
+   "0x48": "int",
+   "0x4c": "int"
   },
   "hulkfight::motion::WallJumpTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "float",
+   "0x2c": "float",
+   "0x30": "float",
+   "0x34": "float",
+   "0x38": "char",
+   "0x3c": "int",
+   "0x40": "float",
+   "0x44": "int",
+   "0x48": "int",
+   "0x4c": "int",
+   "0x50": "int"
+  },
+  "hulkfight::motion::WallRunAction": {
+   "0x30": "int",
+   "0x34": "int",
+   "0x3c": "int",
+   "0x40": "int",
+   "0x48": "int",
+   "0x4c": "int",
+   "0x50": "char"
+  },
+  "hulkfight::motion::WallRunTrack": {
+   "0x14": "float",
+   "0x18": "float",
+   "0x1c": "float",
+   "0x20": "float",
+   "0x24": "char",
+   "0x28": "float",
+   "0x2c": "float",
+   "0x30": "float",
+   "0x34": "float",
+   "0x50": "int",
+   "0x54": "float",
+   "0x58": "float"
+  },
+  "hulkfight::motion::WallVelocityCondition": {
+   "0xc": "int",
+   "0x10": "float"
   },
   "hulkfight::motion::WorldConeDamageTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "float",
+   "0x28": "int",
+   "0x2c": "float",
+   "0x30": "int",
+   "0x34": "float",
+   "0x38": "float",
+   "0x3c": "float",
+   "0x40": "float",
+   "0x44": "int",
+   "0x48": "int",
+   "0x4c": "float",
+   "0x50": "float",
+   "0x54": "int"
   },
   "hulkfight::motion::WorldDamageTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "float",
+   "0x30": "float",
+   "0x34": "int",
+   "0x38": "float",
+   "0x3c": "float"
   },
   "hulkfight::scenario::EffectAction": {
    "0x20": "void*"
   },
   "hulkfight::scenario::EffectTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x28": "int",
+   "0x38": "int",
+   "0x3c": "int",
+   "0x40": "int",
+   "0x44": "int",
+   "0x48": "int",
+   "0x4c": "int",
+   "0x50": "int",
+   "0x60": "float"
+  },
+  "hulkfight::scenario::EventCondition": {
+   "0xc": "int"
+  },
+  "hulkfight::scenario::Event_CharacterTemplateCondition": {
+   "0x10": "int"
+  },
+  "hulkfight::scenario::Event_CharacterTemplateVariationCondition": {
+   "0xc": "int",
+   "0x10": "int",
+   "0x1c": "int"
+  },
+  "hulkfight::scenario::Event_FirstTimeCondition": {
+   "0xc": "char"
+  },
+  "hulkfight::scenario::Event_LocomotionStateNameCondition": {
+   "0xc": "int",
+   "0x10": "int"
+  },
+  "hulkfight::scenario::Event_PathNameCondition": {
+   "0xc": "int",
+   "0x14": "int"
+  },
+  "hulkfight::scenario::Event_PropNameCondition": {
+   "0x14": "int"
+  },
+  "hulkfight::scenario::Event_PropStateNameCondition": {
+   "0x14": "int"
+  },
+  "hulkfight::scenario::Event_PropTypeCondition": {
+   "0x14": "int"
+  },
+  "hulkfight::scenario::Event_TriggerVolumeNameCondition": {
+   "0x10": "int",
+   "0x14": "int"
+  },
+  "hulkfight::scenario::Event_WaypointCondition": {
+   "0xc": "int",
+   "0x10": "int"
   },
   "hulkfight::scenario::LuaAction": {
    "0x20": "void*"
+  },
+  "hulkfight::scenario::LuaCondition": {
+   "0x10": "int"
+  },
+  "hulkfight::scenario::LuaTrack": {
+   "0x18": "int"
   },
   "hulkfight::scenario::NISAnimationAction": {
    "0x20": "void*",
    "0x28": "int"
   },
   "hulkfight::scenario::NISAnimationTrack": {
-   "0x8": "int"
+   "0x8": "int",
+   "0x14": "float",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "float",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "char",
+   "0x4c": "void*",
+   "0x50": "char",
+   "0x51": "char",
+   "0x52": "char",
+   "0x54": "int",
+   "0x58": "char",
+   "0x59": "char",
+   "0x60": "void*",
+   "0x6c": "void*",
+   "0x70": "void*",
+   "0x7c": "void*",
+   "0x80": "void*",
+   "0x8c": "void*",
+   "0x90": "void*",
+   "0x9c": "void*",
+   "0xa0": "void*",
+   "0xac": "void*",
+   "0xb0": "void*",
+   "0xbc": "void*",
+   "0xc0": "void*",
+   "0xcc": "void*",
+   "0xd0": "void*",
+   "0xdc": "void*",
+   "0xe0": "void*",
+   "0xec": "void*",
+   "0xf0": "void*",
+   "0xfc": "void*",
+   "0x100": "void*",
+   "0x10c": "void*",
+   "0x110": "void*",
+   "0x11c": "void*",
+   "0x120": "void*",
+   "0x12c": "void*",
+   "0x130": "void*",
+   "0x13c": "void*",
+   "0x140": "void*",
+   "0x14c": "void*",
+   "0x150": "void*",
+   "0x15c": "void*",
+   "0x160": "void*",
+   "0x16c": "void*",
+   "0x170": "void*",
+   "0x17c": "void*",
+   "0x180": "void*",
+   "0x194": "int"
+  },
+  "movie::BinkCallback": {
+   "0xc": "int"
   },
   "movie::PlayerBink": {
    "0x25": "char"
@@ -1049,12 +5507,53 @@
    "0x14": "int",
    "0x18": "char"
   },
+  "om::DynAttr": {
+   "0x14": "int"
+  },
   "om::Entity": {
    "0x18": "int",
    "0x1c": "int"
   },
+  "om::EntityLoader": {
+   "0x8": "void*"
+  },
+  "om::MemoryStream": {
+   "0x18": "char",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "char"
+  },
+  "om::MetaType": {
+   "0x14": "void*",
+   "0x1c": "void*",
+   "0x20": "void*",
+   "0x24": "int"
+  },
+  "om::Type": {
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int",
+   "0x3c": "int"
+  },
   "physics::ArticulatedPhysicsObject": {
-   "0x1fc": "void*"
+   "0x1fc": "void*",
+   "0x208": "void*",
+   "0x20c": "float",
+   "0x21c": "char",
+   "0x21d": "char",
+   "0x220": "void*",
+   "0x224": "float",
+   "0x228": "float",
+   "0x22c": "float",
+   "0x230": "float",
+   "0x234": "char"
+  },
+  "physics::CollisionAABB": {
+   "0x20": "void*",
+   "0x34": "float"
   },
   "physics::CollisionAnalyser": {
    "0x14": "void*",
@@ -1069,16 +5568,23 @@
    "0x48": "void*"
   },
   "physics::CollisionCylinder": {
+   "0x1c": "int",
    "0x20": "int",
    "0x24": "int",
+   "0x28": "int",
    "0x2c": "int",
    "0x30": "int",
    "0x34": "float",
    "0x58": "char"
   },
+  "physics::CollisionMesh": {
+   "0xcc": "char"
+  },
   "physics::CollisionOBB": {
+   "0x1c": "int",
    "0x20": "int",
    "0x24": "int",
+   "0x28": "int",
    "0x2c": "int",
    "0x30": "int",
    "0x34": "float",
@@ -1088,15 +5594,39 @@
    "0x1c": "int",
    "0x24": "int",
    "0x28": "int",
-   "0x2c": "int"
+   "0x2c": "int",
+   "0x34": "char",
+   "0x35": "char",
+   "0x40": "int",
+   "0x4c": "char",
+   "0x4d": "char",
+   "0x50": "char",
+   "0x51": "char",
+   "0x54": "int",
+   "0x58": "int",
+   "0x5c": "int",
+   "0x60": "int",
+   "0x64": "int",
+   "0x68": "char",
+   "0x69": "char",
+   "0x6a": "char",
+   "0x6b": "char",
+   "0x6c": "int",
+   "0x70": "char",
+   "0x71": "char",
+   "0x72": "char",
+   "0x74": "int",
+   "0x78": "int"
   },
   "physics::CollisionSphere": {
+   "0x1c": "int",
    "0x20": "int",
    "0x24": "int",
    "0x28": "int",
    "0x2c": "int",
    "0x30": "int",
-   "0x34": "int"
+   "0x34": "int",
+   "0x74": "void*"
   },
   "physics::CollisionVolume": {
    "0x8": "int",
@@ -1105,10 +5635,23 @@
    "0x18": "char"
   },
   "physics::CollisionWall": {
-   "0x34": "int"
+   "0x34": "int",
+   "0x58": "int",
+   "0x5c": "int"
   },
   "physics::DoubleKalmann1D": {
    "0x8": "float"
+  },
+  "physics::Environment": {
+   "0x10": "float",
+   "0x14": "float",
+   "0x18": "float",
+   "0x1c": "float",
+   "0x20": "float",
+   "0x24": "float",
+   "0x28": "float",
+   "0x2c": "float",
+   "0x30": "float"
   },
   "physics::ImpulseBasedCollisionSolver": {
    "0x8": "int",
@@ -1116,7 +5659,25 @@
    "0x18": "void*",
    "0x1c": "int",
    "0x20": "int",
-   "0x30": "float"
+   "0x30": "float",
+   "0x80": "float",
+   "0x84": "void*",
+   "0x88": "void*",
+   "0x8c": "void*",
+   "0x90": "void*",
+   "0xf0": "char",
+   "0xf1": "char",
+   "0xf2": "char",
+   "0xf3": "char",
+   "0xf4": "char",
+   "0xf8": "int",
+   "0xfc": "void*"
+  },
+  "physics::PhysicsInstance": {
+   "0x8": "int",
+   "0xc": "char",
+   "0x10": "void*",
+   "0x14": "void*"
   },
   "physics::PhysicsJoint": {
    "0x4": "char",
@@ -1125,20 +5686,28 @@
    "0x28": "int",
    "0x30": "float",
    "0x34": "float",
-   "0x38": "float"
+   "0x38": "float",
+   "0x44": "float"
   },
   "physics::PhysicsJoint1D": {
    "0xe4": "float",
    "0xf4": "int",
-   "0x110": "float"
+   "0x110": "float",
+   "0x118": "float",
+   "0x11c": "float"
   },
   "physics::PhysicsJoint3D": {
+   "0x98": "float",
    "0x9c": "float",
    "0xa0": "float",
    "0xe4": "float",
    "0xf4": "int",
+   "0x144": "int",
    "0x148": "int",
    "0x14c": "int"
+  },
+  "physics::PhysicsJointMatrixModifier": {
+   "0x1c": "int"
   },
   "physics::PhysicsObject": {
    "0x20": "char",
@@ -1151,7 +5720,22 @@
    "0x1e4": "float",
    "0x1e8": "float",
    "0x1ec": "int",
+   "0x1f0": "char",
    "0x1f1": "char"
+  },
+  "physics::PoseEngine": {
+   "0x8": "void*",
+   "0xc": "void*",
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "void*",
+   "0x1c": "void*"
+  },
+  "physics::RootMatrixDriver": {
+   "0x1c": "int"
+  },
+  "physics::SimCGSValue": {
+   "0x8": "float"
   },
   "physics::SimState": {
    "0x8": "int",
@@ -1160,15 +5744,67 @@
    "0x58": "int",
    "0x5c": "int",
    "0x60": "int",
-   "0x64": "int"
+   "0x64": "int",
+   "0x78": "char",
+   "0x7c": "int"
   },
   "physics::SimStateArticulated": {
    "0x80": "int",
-   "0x84": "char"
+   "0x84": "char",
+   "0x90": "int",
+   "0x94": "char"
+  },
+  "physics::SimpleFilter3D": {
+   "0x8": "int",
+   "0xc": "int",
+   "0x28": "float"
+  },
+  "physics::SimpleFilterAbs3D": {
+   "0x40": "int",
+   "0x44": "int",
+   "0x48": "int",
+   "0x4c": "int",
+   "0x50": "float",
+   "0x54": "float",
+   "0x58": "float",
+   "0x5c": "char",
+   "0x5d": "char",
+   "0x60": "int"
   },
   "physics::SimulatedObject": {
    "0x14": "int",
    "0x18": "int"
+  },
+  "physics::SkeletonInfo": {
+   "0x10": "void*",
+   "0x14": "int"
+  },
+  "physics::SubCollisionDetector": {
+   "0x4": "int",
+   "0x8": "int",
+   "0xc": "int",
+   "0x10": "int",
+   "0x34": "char",
+   "0x35": "char",
+   "0x38": "int"
+  },
+  "physics::WorldCollisionObject": {
+   "0x14": "char"
+  },
+  "pure3d::AmbientLight": {
+   "0x54": "int"
+  },
+  "pure3d::Animation": {
+   "0x10": "int",
+   "0x14": "float",
+   "0x18": "char",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x2c": "void*",
+   "0x30": "void*",
+   "0x34": "int",
+   "0x38": "void*"
   },
   "pure3d::AnimationFrameController": {
    "0x14": "float"
@@ -1176,15 +5812,61 @@
   "pure3d::AnimationGroup": {
    "0x10": "int"
   },
+  "pure3d::AnimationLoader": {
+   "0x14": "void*",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int"
+  },
+  "pure3d::BillboardCutOffQuadGroup": {
+   "0x90": "int",
+   "0x98": "int",
+   "0x9c": "int",
+   "0xa0": "int"
+  },
+  "pure3d::BillboardQuad": {
+   "0x14": "int",
+   "0x18": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x38": "char",
+   "0x3c": "int",
+   "0x84": "float",
+   "0x88": "int",
+   "0x8c": "char",
+   "0x90": "int",
+   "0x94": "int",
+   "0xc0": "int",
+   "0xc4": "int",
+   "0xc8": "int",
+   "0xcc": "int",
+   "0xd0": "int",
+   "0x108": "int"
+  },
   "pure3d::BillboardQuadGroup": {
-   "0x38": "int"
+   "0x38": "int",
+   "0x88": "char",
+   "0x89": "char",
+   "0x8a": "char",
+   "0x8b": "char"
   },
   "pure3d::BlendFrameController": {
-   "0x1c": "int"
+   "0x1c": "int",
+   "0x44": "float",
+   "0x108": "char"
+  },
+  "pure3d::BoneMatrixList": {
+   "0x8": "void*",
+   "0xc": "void*"
   },
   "pure3d::BoolChannel": {
    "0x8": "int",
    "0x10": "int"
+  },
+  "pure3d::ChannelLoader": {
+   "0x8": "int"
   },
   "pure3d::ColourChannel": {
    "0x4": "int",
@@ -1193,14 +5875,64 @@
    "0x10": "int"
   },
   "pure3d::CompDrawVisibilityAnimationController": {
-   "0x48": "int"
+   "0x48": "int",
+   "0x54": "int"
+  },
+  "pure3d::CompositeDrawable::ActiveControllerList": {
+   "0xc": "void*",
+   "0x18": "void*",
+   "0x24": "void*",
+   "0x28": "void*"
+  },
+  "pure3d::CompositeDrawable::ActivePrimitiveList": {
+   "0xc": "void*",
+   "0x18": "void*",
+   "0x20": "char"
+  },
+  "pure3d::DirectionalLight": {
+   "0x54": "int"
+  },
+  "pure3d::DisplayList": {
+   "0x10": "int",
+   "0x14": "int",
+   "0x1c": "void*",
+   "0x20": "void*",
+   "0x28": "void*",
+   "0x2c": "void*"
+  },
+  "pure3d::DisplayTraversal": {
+   "0x8": "char"
   },
   "pure3d::DrawableContainer": {
    "0x44": "void*"
   },
+  "pure3d::DrawableHierarchy": {
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int",
+   "0x30": "int",
+   "0x34": "int"
+  },
   "pure3d::EntityChannel": {
    "0x4": "int",
    "0x8": "int"
+  },
+  "pure3d::Expression": {
+   "0x10": "int",
+   "0x14": "void*",
+   "0x18": "void*"
+  },
+  "pure3d::ExpressionAnimationController": {
+   "0x48": "int"
+  },
+  "pure3d::ExpressionGroup": {
+   "0x10": "void*",
+   "0x14": "void*",
+   "0x24": "void*",
+   "0x28": "void*",
+   "0x2c": "void*"
   },
   "pure3d::Float1Channel": {
    "0x4": "int",
@@ -1218,10 +5950,17 @@
    "0x58": "void*",
    "0x5c": "void*"
   },
+  "pure3d::GeometryLoader": {
+   "0x14": "char",
+   "0x18": "int",
+   "0x28": "int"
+  },
   "pure3d::Image32": {
    "0x18": "int",
    "0x1c": "int",
-   "0x20": "int"
+   "0x20": "int",
+   "0x28": "char",
+   "0x29": "char"
   },
   "pure3d::Image8": {
    "0x18": "int",
@@ -1229,11 +5968,25 @@
    "0x28": "char",
    "0x29": "char"
   },
+  "pure3d::ImageBuilder": {
+   "0x18": "int"
+  },
   "pure3d::ImageFont": {
    "0x10": "int",
    "0x14": "int",
    "0x18": "int",
-   "0x1c": "int"
+   "0x1c": "int",
+   "0x28": "void*",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "void*"
+  },
+  "pure3d::ImageHandler": {
+   "0x10": "int",
+   "0x14": "int"
+  },
+  "pure3d::ImageLoader": {
+   "0x18": "int"
   },
   "pure3d::IntChannel": {
    "0x4": "int",
@@ -1248,48 +6001,210 @@
    "0x11": "char",
    "0x12": "char",
    "0x13": "char",
-   "0x14": "int"
+   "0x14": "int",
+   "0x2c": "int",
+   "0x48": "int",
+   "0x4c": "int",
+   "0x50": "int"
+  },
+  "pure3d::LightGroup": {
+   "0x10": "int",
+   "0x14": "int",
+   "0x1c": "int"
+  },
+  "pure3d::LightsChooser": {
+   "0x10": "int",
+   "0x14": "float",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "char",
+   "0x2c": "void*",
+   "0x30": "void*",
+   "0x34": "void*",
+   "0x38": "void*",
+   "0x3c": "void*",
+   "0x40": "void*",
+   "0x44": "void*",
+   "0x48": "void*"
+  },
+  "pure3d::LightsChooser::CacheManager": {
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int"
+  },
+  "pure3d::LightsChooserCache": {
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "float",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "char",
+   "0x3c": "int",
+   "0x40": "int"
+  },
+  "pure3d::Locator": {
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "float"
+  },
+  "pure3d::MatrixPaletteList": {
+   "0x10": "int"
+  },
+  "pure3d::MultiController": {
+   "0x4c": "void*"
+  },
+  "pure3d::OldBillboardObjectLoader": {
+   "0x14": "void*"
+  },
+  "pure3d::OldParticleSystemLoader": {
+   "0x18": "void*"
+  },
+  "pure3d::OldPrimGroupLoader": {
+   "0xc": "int",
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int"
   },
   "pure3d::OpaqueTraversal": {
    "0xc": "int",
    "0x10": "int",
-   "0x14": "void*"
+   "0x14": "void*",
+   "0x1c": "char",
+   "0x20": "void*",
+   "0x24": "void*",
+   "0x2c": "void*",
+   "0x30": "void*"
   },
   "pure3d::ParticleEmitter": {
    "0x10": "int",
+   "0x14": "float",
    "0x18": "float",
    "0x1c": "float",
+   "0x20": "float",
    "0x24": "float",
    "0x28": "float",
+   "0x2c": "float",
    "0x30": "float",
    "0x34": "float",
    "0x94": "int",
    "0x98": "int"
   },
+  "pure3d::ParticleEmitterLoader": {
+   "0x8": "int",
+   "0x2c": "void*"
+  },
   "pure3d::ParticleGenerator": {
    "0x10": "char"
+  },
+  "pure3d::ParticleGeneratorLoader": {
+   "0x8": "int"
+  },
+  "pure3d::ParticlePlaneGenerator": {
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x34": "int"
+  },
+  "pure3d::ParticlePlaneGenerator::GeneratorBlendState": {
+   "0x8": "int",
+   "0xc": "int",
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int"
   },
   "pure3d::ParticlePointGenerator": {
    "0x1c": "int",
    "0x20": "int",
    "0x24": "int",
    "0x28": "void*",
+   "0x2c": "void*",
    "0x30": "void*",
    "0x34": "int"
   },
+  "pure3d::ParticlePointGenerator::GeneratorBlendState": {
+   "0x8": "int",
+   "0xc": "int",
+   "0x10": "int"
+  },
   "pure3d::ParticleSphereGenerator": {
+   "0x2c": "void*",
    "0x30": "void*"
+  },
+  "pure3d::ParticleSphereGenerator::GeneratorBlendState": {
+   "0x8": "int",
+   "0xc": "int"
   },
   "pure3d::ParticleSystem": {
    "0x58": "char"
+  },
+  "pure3d::ParticleSystemLoader": {
+   "0x14": "int",
+   "0x38": "void*"
+  },
+  "pure3d::PointCamera": {
+   "0xec": "float",
+   "0xf4": "float"
+  },
+  "pure3d::PointLight": {
+   "0x54": "int",
+   "0x58": "float",
+   "0x64": "int"
   },
   "pure3d::PolySkin": {
    "0x64": "void*",
    "0x68": "void*"
   },
+  "pure3d::PolySkinLoader": {
+   "0x14": "char",
+   "0x18": "int",
+   "0x28": "int"
+  },
+  "pure3d::Pose": {
+   "0x8": "void*",
+   "0xc": "int",
+   "0x10": "void*",
+   "0x14": "void*",
+   "0x18": "void*",
+   "0x1c": "void*",
+   "0x22": "char",
+   "0x23": "char",
+   "0x24": "int",
+   "0x28": "void*"
+  },
+  "pure3d::PoseAnimationController": {
+   "0x118": "int",
+   "0x130": "char",
+   "0x131": "char",
+   "0x138": "void*",
+   "0x13c": "void*",
+   "0x140": "void*",
+   "0x144": "void*",
+   "0x148": "int"
+  },
   "pure3d::PrimGroup": {
    "0x38": "float",
    "0x3c": "int"
+  },
+  "pure3d::PrimGroupLoader": {
+   "0xc": "int",
+   "0x10": "char",
+   "0x11": "char",
+   "0x12": "short",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "int",
+   "0x28": "int"
   },
   "pure3d::PrimGroupOptimized": {
    "0x44": "int",
@@ -1304,13 +6219,37 @@
    "0x50": "int",
    "0x54": "int"
   },
+  "pure3d::ProximityLight": {
+   "0x5c": "int",
+   "0x60": "float"
+  },
   "pure3d::QuaternionChannel": {
    "0x4": "int",
    "0xc": "void*",
    "0x10": "int"
   },
+  "pure3d::Shader": {
+   "0x10": "void*",
+   "0x18": "int"
+  },
+  "pure3d::ShaderColourBroadcast": {
+   "0x8": "int",
+   "0xc": "int"
+  },
+  "pure3d::ShaderTextureBroadcast": {
+   "0x8": "int",
+   "0xc": "void*"
+  },
+  "pure3d::ShadowGenerator": {
+   "0x14": "void*"
+  },
   "pure3d::ShadowMeshBufferImpl": {
    "0x10": "int"
+  },
+  "pure3d::ShadowMeshVertices": {
+   "0x8": "int",
+   "0xc": "int",
+   "0x14": "void*"
   },
   "pure3d::ShadowSkinImpl": {
    "0x10": "int",
@@ -1318,11 +6257,48 @@
    "0x44": "void*",
    "0x48": "void*"
   },
+  "pure3d::ShadowSkinTopology": {
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int"
+  },
   "pure3d::ShadowTraversal": {
    "0xc": "int",
    "0x10": "int",
    "0x30": "int",
-   "0x34": "int"
+   "0x34": "int",
+   "0x40": "void*"
+  },
+  "pure3d::Skeleton": {
+   "0x18": "void*",
+   "0x24": "void*",
+   "0x28": "void*",
+   "0x2c": "void*",
+   "0x30": "void*",
+   "0x34": "void*",
+   "0x38": "void*",
+   "0x44": "void*",
+   "0x48": "void*"
+  },
+  "pure3d::Skeleton::Partition": {
+   "0x4": "int",
+   "0x8": "int",
+   "0xc": "int"
+  },
+  "pure3d::SkeletonLoader": {
+   "0x14": "char"
+  },
+  "pure3d::SpotLight": {
+   "0x54": "int",
+   "0x5c": "float",
+   "0x60": "float",
+   "0x64": "float",
+   "0x68": "float",
+   "0x6c": "float",
+   "0x70": "float",
+   "0x74": "float",
+   "0x78": "float",
+   "0x7c": "float"
   },
   "pure3d::Sprite": {
    "0x40": "int",
@@ -1342,7 +6318,8 @@
    "0x80": "int",
    "0x84": "float",
    "0x88": "float",
-   "0x8c": "int"
+   "0x8c": "int",
+   "0xa0": "char"
   },
   "pure3d::SpriteLoader": {
    "0x18": "void*",
@@ -1385,18 +6362,39 @@
    "0xc": "void*",
    "0x10": "int"
   },
+  "pure3d::TextString": {
+   "0x40": "void*",
+   "0x44": "int",
+   "0x48": "int",
+   "0x4c": "int"
+  },
+  "pure3d::Texture": {
+   "0x10": "void*"
+  },
   "pure3d::TextureBuilder": {
    "0x10": "int",
    "0x18": "int",
    "0x20": "int",
-   "0x24": "int"
+   "0x24": "int",
+   "0x2c": "int",
+   "0x30": "int"
+  },
+  "pure3d::TextureFont": {
+   "0x2c": "int",
+   "0x34": "int",
+   "0x38": "int"
+  },
+  "pure3d::TextureLoader": {
+   "0x14": "void*",
+   "0x18": "void*"
   },
   "pure3d::TranslucentTraversal": {
    "0xc": "int",
    "0x10": "int",
    "0x14": "void*",
    "0x1c": "void*",
-   "0x20": "void*"
+   "0x20": "void*",
+   "0x2c": "void*"
   },
   "pure3d::Vector1DOFChannel": {
    "0x4": "int",
@@ -1416,6 +6414,100 @@
    "0xc": "void*",
    "0x10": "int"
   },
+  "pure3d::VectorCamera": {
+   "0xd4": "int",
+   "0xd8": "int",
+   "0xdc": "int",
+   "0xe0": "int",
+   "0xe4": "float",
+   "0xe8": "int",
+   "0xec": "float",
+   "0xf0": "int"
+  },
+  "pure3d::VertexAnimKeyFrame": {
+   "0x8": "int",
+   "0xc": "int",
+   "0x10": "int",
+   "0x18": "int",
+   "0x24": "int",
+   "0x30": "int",
+   "0x3c": "int",
+   "0x48": "int",
+   "0x54": "int",
+   "0x60": "int",
+   "0x6c": "int"
+  },
+  "pure3d::VertexAnimKeyFrameList": {
+   "0xc": "void*",
+   "0x10": "void*",
+   "0x18": "void*"
+  },
+  "pure3d::VertexAnimObject": {
+   "0x8": "void*"
+  },
+  "pure3d::VertexAnimPrimGroup": {
+   "0x44": "int",
+   "0x48": "int",
+   "0x4c": "int",
+   "0x50": "int",
+   "0x58": "void*"
+  },
+  "pure3d::VertexList": {
+   "0x8": "int",
+   "0xc": "int",
+   "0x10": "int",
+   "0x18": "void*",
+   "0x1c": "void*",
+   "0x20": "void*",
+   "0x24": "void*",
+   "0x28": "void*",
+   "0x2c": "void*",
+   "0x30": "void*",
+   "0x34": "void*",
+   "0x50": "void*",
+   "0x54": "void*",
+   "0x58": "void*"
+  },
+  "pure3d::VertexOffsetExpressionMixer": {
+   "0x10": "void*",
+   "0x20": "int",
+   "0x24": "int",
+   "0x2c": "int",
+   "0x30": "int"
+  },
+  "pure3d::VertexOffsetList": {
+   "0x8": "int",
+   "0xc": "int",
+   "0x24": "int",
+   "0x2c": "int",
+   "0x30": "void*",
+   "0x50": "void*",
+   "0x54": "void*"
+  },
+  "pure3d::View": {
+   "0x8": "int",
+   "0xc": "int",
+   "0x10": "float",
+   "0x14": "float",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x24": "float",
+   "0x28": "int",
+   "0x2c": "int",
+   "0x30": "int",
+   "0x34": "int",
+   "0x38": "int",
+   "0xbc": "char"
+  },
+  "pure3d::d3dBuildingShader": {
+   "0x1c": "int",
+   "0x38": "int",
+   "0x44": "int",
+   "0x48": "char",
+   "0x4c": "int",
+   "0x7c": "char",
+   "0x8c": "char"
+  },
   "pure3d::d3dBumpMapVertexShader": {
    "0x10": "void*",
    "0x50": "char",
@@ -1423,7 +6515,9 @@
    "0x52": "char",
    "0x54": "char",
    "0x55": "char",
-   "0x56": "char"
+   "0x56": "char",
+   "0x88": "int",
+   "0x8c": "int"
   },
   "pure3d::d3dContext": {
    "0x14c": "int",
@@ -1437,7 +6531,9 @@
    "0x178": "int",
    "0x208": "void*",
    "0x418": "int",
-   "0x41c": "int"
+   "0x41c": "int",
+   "0x448": "int",
+   "0x44c": "char"
   },
   "pure3d::d3dDisplay": {
    "0x8": "int",
@@ -1450,6 +6546,12 @@
    "0x484": "float",
    "0x488": "float",
    "0x48c": "float"
+  },
+  "pure3d::d3dErrorShader": {
+   "0x14": "void*",
+   "0x48": "char",
+   "0x4c": "int",
+   "0x7c": "char"
   },
   "pure3d::d3dExtFramebufferEffects": {
    "0x68": "float",
@@ -1474,6 +6576,17 @@
    "0xdc": "int",
    "0xe8": "float"
   },
+  "pure3d::d3dExtHardwareSkinning": {
+   "0x4": "void*"
+  },
+  "pure3d::d3dFBEffectsShader": {
+   "0x80": "int",
+   "0x84": "int",
+   "0x88": "float",
+   "0x8c": "int",
+   "0x90": "int",
+   "0x94": "char"
+  },
   "pure3d::d3dLayeredShader": {
    "0x14": "void*",
    "0x1c": "int",
@@ -1481,24 +6594,37 @@
    "0x4c": "int",
    "0x7c": "char",
    "0x88": "int",
-   "0x8c": "int"
+   "0x8c": "int",
+   "0x94": "int",
+   "0x98": "int"
   },
   "pure3d::d3dLightMapShader": {
    "0x14": "void*",
    "0x1c": "int",
    "0x38": "int",
-   "0x7c": "char"
+   "0x7c": "char",
+   "0x8c": "int",
+   "0x90": "int"
   },
   "pure3d::d3dPointSpriteShader": {
    "0x14": "void*",
-   "0x40": "int"
+   "0x40": "int",
+   "0x84": "char",
+   "0x88": "int",
+   "0x8c": "int",
+   "0x90": "int",
+   "0x94": "int",
+   "0x98": "int",
+   "0x9c": "int"
   },
   "pure3d::d3dPrimBuffer": {
    "0xc": "int",
    "0x18": "int",
    "0x1c": "int",
    "0x20": "int",
-   "0x34": "char"
+   "0x34": "char",
+   "0x38": "int",
+   "0x3c": "int"
   },
   "pure3d::d3dPrimBufferStream": {
    "0x10": "int",
@@ -1506,7 +6632,26 @@
    "0x28": "void*",
    "0x2c": "void*",
    "0x3c": "int",
-   "0x40": "int"
+   "0x40": "int",
+   "0x50": "void*"
+  },
+  "pure3d::d3dPrimStream": {
+   "0x8": "int",
+   "0xc": "int",
+   "0x10": "int",
+   "0x14": "int",
+   "0x1c": "int",
+   "0x124": "void*",
+   "0x128": "int",
+   "0x12c": "void*",
+   "0x134": "char",
+   "0x138": "int",
+   "0x13c": "int",
+   "0x140": "int",
+   "0x144": "int",
+   "0x154": "int",
+   "0x158": "void*",
+   "0x15c": "int"
   },
   "pure3d::d3dProjectedTextureShader": {
    "0x14": "void*",
@@ -1531,7 +6676,13 @@
    "0x44": "int",
    "0x48": "char",
    "0x4c": "int",
-   "0x7c": "char"
+   "0x7c": "char",
+   "0x88": "float",
+   "0x8c": "float",
+   "0x90": "int",
+   "0x94": "int",
+   "0x98": "char",
+   "0x99": "char"
   },
   "pure3d::d3dSimpleShader": {
    "0x14": "void*",
@@ -1539,10 +6690,12 @@
    "0x38": "int",
    "0x4c": "int",
    "0x7c": "char",
-   "0x88": "int"
+   "0x88": "int",
+   "0x90": "int"
   },
   "pure3d::d3dSpheremapVertexShader": {
-   "0x10": "void*"
+   "0x10": "void*",
+   "0x88": "int"
   },
   "pure3d::d3dTexture": {
    "0x8": "int",
@@ -1592,14 +6745,17 @@
    "0x44": "int",
    "0x48": "char",
    "0x4c": "int",
-   "0x7c": "char"
+   "0x7c": "char",
+   "0xd4": "int",
+   "0xd8": "int"
   },
   "pure3d::d3dToonVertexShader": {
    "0x14": "void*",
    "0x38": "int",
    "0x50": "int",
    "0x7d": "char",
-   "0x9c": "int"
+   "0x9c": "int",
+   "0xe8": "int"
   },
   "pure3d::pddiBaseContext": {
    "0xc": "void*",
@@ -1620,6 +6776,34 @@
   "pure3d::pddiBaseShader": {
    "0x8": "int"
   },
+  "pure3d::pddiLightingState": {
+   "0x3e4": "int"
+  },
+  "pure3d::pddiRenderState": {
+   "0x4": "int",
+   "0x8": "char",
+   "0xc": "int",
+   "0x10": "char",
+   "0x14": "int",
+   "0x18": "char",
+   "0x19": "char",
+   "0x1a": "char",
+   "0x1b": "char"
+  },
+  "pure3d::prop::CDecalQueue": {
+   "0x10": "int",
+   "0x14": "int",
+   "0x18": "int",
+   "0x1c": "int"
+  },
+  "pure3d::prop::CLightQueue": {
+   "0x14": "void*",
+   "0x18": "int",
+   "0x1c": "int",
+   "0x20": "int",
+   "0x2c": "int",
+   "0x54": "int"
+  },
   "pure3d::prop::CMotionTrail": {
    "0x10": "int",
    "0x48": "int",
@@ -1631,7 +6815,29 @@
    "0x6c": "int",
    "0x70": "int",
    "0x74": "void*",
-   "0x78": "void*"
+   "0x78": "void*",
+   "0x84": "int"
+  },
+  "pure3d::prop::EffectQueue": {
+   "0x10": "int"
+  },
+  "pure3d::prop::StateData": {
+   "0x10": "void*",
+   "0x14": "int",
+   "0x18": "void*",
+   "0x1c": "int",
+   "0x20": "void*",
+   "0x24": "int",
+   "0x28": "void*",
+   "0x2c": "int",
+   "0x30": "void*",
+   "0x34": "int",
+   "0x38": "void*",
+   "0x3c": "int",
+   "0x40": "void*",
+   "0x44": "int",
+   "0x48": "void*",
+   "0x50": "void*"
   },
   "pure3d::prop::StateProp": {
    "0x40": "int",
@@ -1639,6 +6845,24 @@
    "0x90": "int",
    "0x94": "int",
    "0x98": "void*"
+  },
+  "pure3d::prop::StatePropData": {
+   "0x10": "void*",
+   "0x14": "void*",
+   "0x18": "void*",
+   "0x20": "void*",
+   "0x2c": "int"
+  },
+  "pure3d::scenegraph::BoundingVolumeUpdater": {
+   "0x4": "char"
+  },
+  "pure3d::scenegraph::BranchNode": {
+   "0x20": "void*"
+  },
+  "sControllerInputPointCallback": {
+   "0x4": "void*",
+   "0x8": "void*",
+   "0xc": "void*"
   }
  },
  "sigs": {

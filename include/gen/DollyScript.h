@@ -34,6 +34,12 @@ public:
 class CScriptParser {
 public:
     virtual ~CScriptParser(); // slot 0
+    int f_04;
+    int f_08;
+    int f_0c;
+    int f_10;
+    char f_14;
+    char f_15;
 };
 
 // .?AVCScriptToken@DollyScript@@  vftable 0x40ce3c (3)
@@ -56,6 +62,9 @@ public:
     virtual ~CTokenFloat(); // overrides DollyScript::CScriptToken slot 0
     virtual void vfunc_1(); // overrides DollyScript::CScriptToken slot 1
     virtual void* vfunc_2(); // overrides DollyScript::CScriptToken slot 2
+    int f_04;
+    int f_08;
+    int f_0c;
 };
 
 // .?AVCTokenHashed@DollyScript@@  vftable 0x40cebc (3)
@@ -64,6 +73,11 @@ public:
     virtual ~CTokenHashed(); // overrides DollyScript::CScriptToken slot 0
     virtual void vfunc_1(); // overrides DollyScript::CScriptToken slot 1
     virtual void* vfunc_2(); // overrides DollyScript::CScriptToken slot 2
+    int f_04;
+    int f_08;
+    int f_0c;
+    int f_10;
+    int f_14;
 };
 
 // .?AVCTokenSectionEnd@DollyScript@@  vftable 0x40ce7c (3)
@@ -72,6 +86,9 @@ public:
     virtual ~CTokenSectionEnd(); // overrides DollyScript::CScriptToken slot 0
     virtual void vfunc_1(); // overrides DollyScript::CScriptToken slot 1
     virtual void* vfunc_2(); // overrides DollyScript::CScriptToken slot 2
+    int f_04;
+    int f_08;
+    int f_0c;
 };
 
 // .?AVCTokenSectionStart@DollyScript@@  vftable 0x40ce6c (3)
@@ -80,6 +97,9 @@ public:
     virtual ~CTokenSectionStart(); // overrides DollyScript::CScriptToken slot 0
     virtual void vfunc_1(); // overrides DollyScript::CScriptToken slot 1
     virtual void* vfunc_2(); // overrides DollyScript::CScriptToken slot 2
+    int f_04;
+    int f_08;
+    int f_0c;
 };
 
 // .?AVCTokenString@DollyScript@@  vftable 0x40ce4c (3)

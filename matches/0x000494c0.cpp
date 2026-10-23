@@ -1,4 +1,6 @@
 // CSmartPropTypeCondition::vfunc_7 @ 0x000494c0
+#include "gen/global.h"
+
 struct Pad_494c0;
 
 struct Item_494c0 {
@@ -29,23 +31,8 @@ struct Owner_494c0 {
     PlayerRef_494c0 *FUN_000592a0();
 };
 
-class CSmartPropTypeCondition {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual bool vfunc_7(Owner_494c0 *owner);
-    char pad04[8];
-    int mode;               // 0xc
-    int wanted;             // 0x10
-};
+bool CSmartPropTypeCondition::vfunc_7(void* __p0) { Owner_494c0 * owner = (Owner_494c0 *)__p0;
 
-bool CSmartPropTypeCondition::vfunc_7(Owner_494c0 *owner)
-{
     Player_494c0 *player = owner->FUN_000592a0()->FUN_00059a30();
 
     Item_494c0 *item = 0;
@@ -58,11 +45,11 @@ bool CSmartPropTypeCondition::vfunc_7(Owner_494c0 *owner)
     if (item != 0 && item->kind == 5)
         current = item->holder->FUN_001d64a0();
 
-    switch (mode) {
+    switch (this->f_0c) {
     case 0:
-        return wanted == current;
+        return this->f_10 == current;
     case 1:
-        return wanted != current;
+        return this->f_10 != current;
     }
     return false;
 }

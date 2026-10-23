@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 #include "decls/data/engine/pure3d/prop.h"
 
 struct Device_2a2af0 {
@@ -57,30 +59,16 @@ struct Callback_2a2af0 {
     void FUN_002a06d0(void*);
 };
 namespace pure3d {
-struct OpaqueTraversal {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    char pad[16];
-    Callback_2a2af0* callback;
-    unsigned count;
-    char pad2[16];
-    Entry_2a2af0** entries;
-};
 } // namespace pure3d
 void pure3d::OpaqueTraversal::vfunc_4() {
     (*(*(Device_2a2af0***)&DAT_0052c2ac))->begin(0);
-    for (unsigned i = 0; i < count; ++i) {
-        Entry_2a2af0* e = entries[i];
+    for (unsigned i = 0; i < (*(unsigned int *)&this->f_18); ++i) {
+        Entry_2a2af0* e = (*(Entry_2a2af0 ** *)&this->f_2c)[i];
         Wrapper_2a2af0* w = e->wrapper;
         ItemData_2a2af0* data = e->data;
         (*(*(Device_2a2af0***)&DAT_0052c2ac))->bind(0, e->value);
-        if (w->material->test() == 1 && callback && data->value)
-            callback->FUN_002a06d0(data->value);
+        if (w->material->test() == 1 && (*(Callback_2a2af0 * *)&this->f_14) && data->value)
+            (*(Callback_2a2af0 * *)&this->f_14)->FUN_002a06d0(data->value);
         Modifier_2a2af0* mod = data->modifier;
         if (mod) {
             Material_2a2af0* m = w->material;

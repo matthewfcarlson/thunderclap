@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 13/14, incomplete)
 // CSmartPropWeaponTypeCondition::vfunc_7 @ 0x000493b0
 // CSmartPropWeaponTypeCondition::vfunc_7: does the held weapon's type match
+#include "gen/global.h"
+
 struct Weapon_493b0 {
     int FUN_001d5e80(int id);
 };
@@ -25,32 +27,21 @@ struct Owner_493b0 {
     Anchor_493b0 *FUN_000592a0();
 };
 
-class CSmartPropWeaponTypeCondition {
-public:
-    int pad00;
-    int pad04;
-    int pad08;
-    int wantedType;
-    int slot;
+bool CSmartPropWeaponTypeCondition::vfunc_7(void* __p0) { Owner_493b0 * owner = (Owner_493b0 *)__p0;
 
-    char Check(Owner_493b0 *owner);
-};
-
-char CSmartPropWeaponTypeCondition::Check(Owner_493b0 *owner)
-{
     Player_493b0 *p = owner->FUN_000592a0()->FUN_00059a30();
-    if (slot == -1) {
+    if (this->f_10 == -1) {
         if (!p->FUN_00035f20())
-            return 0;
+            return (bool)(0);
         for (int i = 0; i < 8; i++) {
             Item_493b0 *it = p->FUN_00035ef0(i);
             if (it != 0)
-                return it->weapon->FUN_001d5e80(it->id) == wantedType;
+                return (bool)(it->weapon->FUN_001d5e80(it->id) == this->f_0c);
         }
-        return 0;
+        return (bool)(0);
     }
-    Item_493b0 *it = p->FUN_00035ef0(slot);
+    Item_493b0 *it = p->FUN_00035ef0(this->f_10);
     if (it == 0)
-        return 0;
-    return it->weapon->FUN_001d5e80(it->id) == wantedType;
+        return (bool)(0);
+    return (bool)(it->weapon->FUN_001d5e80(it->id) == this->f_0c);
 }

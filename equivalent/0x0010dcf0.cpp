@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 30/30)
 // hulkfight::ai::TokenCondition::vfunc_6 @ 0x0010dcf0
+#include "gen/hulkfight.h"
+
 #include "decls/data/game/global.h"
 
 struct V3_10dcf0 {
@@ -25,13 +27,13 @@ struct Handle_10dcf0 {
 };
 
 namespace fight {
-class Params {
+class Params_10dcf0 {
 public:
     virtual void p0();
 };
 }
 
-class CFightParams : public fight::Params {
+class CFightParams_10dcf0 : public fight::Params_10dcf0 {
 public:
     Handle_10dcf0* FUN_000592a0();
 };
@@ -41,13 +43,13 @@ struct Info_10dcf0 {
     int FUN_00088fb0();
 };
 
-struct Entity {
+struct Entity_10dcf0 {
     char pad00[0x80];
     Info_10dcf0 info;
 };
 
-struct World {
-    Entity* FUN_00086310();
+struct World_10dcf0 {
+    Entity_10dcf0* FUN_00086310();
 };
 
 struct Obj10_10dcf0 {
@@ -66,28 +68,23 @@ struct Game_10dcf0 {
     char pad00[0x20];
     Player_10dcf0* player;
     char pad24[0x54 - 0x24];
-    World* world;
+    World_10dcf0* world;
 };
 extern Game_10dcf0* DAT_004dd700;
 
 namespace hulkfight {
 namespace ai {
-class TokenCondition {
-public:
-    char pad00[0xc];
-    char needsA;
-    char needsB;
-    bool vfunc_6(int arg0, fight::Params* params, int arg2);
-};
 
-bool TokenCondition::vfunc_6(int arg0, fight::Params* params, int arg2)
-{
-    if (!dynamic_cast<CFightParams*>(params))
+}
+}
+bool hulkfight::ai::TokenCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int arg0 = (int)__p0; fight::Params_10dcf0 * params = (fight::Params_10dcf0 *)__p1; int arg2 = (int)__p2;
+
+    if (!dynamic_cast<CFightParams_10dcf0*>(params))
         return false;
-    Actor_10dcf0* actor = ((CFightParams*)params)->FUN_000592a0()->FUN_00059a30();
+    Actor_10dcf0* actor = ((CFightParams_10dcf0*)params)->FUN_000592a0()->FUN_00059a30();
     if (!actor)
         return false;
-    Entity* e = DAT_004dd700->world->FUN_00086310();
+    Entity_10dcf0* e = DAT_004dd700->world->FUN_00086310();
     if (e) {
         Info_10dcf0* info = &e->info;
         int a = info->FUN_00088fa0();
@@ -107,14 +104,14 @@ bool TokenCondition::vfunc_6(int arg0, fight::Params* params, int arg2)
             return true;
     }
     bool blocked = false;
-    if (needsA) {
+    if (this->f_0c) {
         if (FUN_000678d0()->FUN_00065c50() == 0) {
             if (!FUN_000678d0()->FUN_00065ab0())
                 blocked = true;
         }
     }
     char f = actor->flag1b84;
-    if (needsB) {
+    if (this->f_0d) {
         if (f)
             return true;
     } else {
@@ -122,6 +119,4 @@ bool TokenCondition::vfunc_6(int arg0, fight::Params* params, int arg2)
             return true;
     }
     return blocked;
-}
-}
 }

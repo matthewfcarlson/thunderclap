@@ -1,18 +1,20 @@
 // STATUS: equivalent (tools/equiv.py level 3: 142 inputs, branch coverage 38/40, incomplete)
 // CSmartPropAttachAction::vfunc_4 @ 0x00015b20
+#include "gen/global.h"
+
 struct V3_15b20 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Matrix {
+struct Matrix_15b20 {
     float m[12];
     V3_15b20 pos;
     float w;
     void FUN_0022b980();
     void FUN_0022bc20(float x, float y, float z);
     void FUN_0022c120();
-    void FUN_0022ca90(Matrix* a, Matrix* b);
+    void FUN_0022ca90(Matrix_15b20* a, Matrix_15b20* b);
 };
 
 struct Key {
@@ -25,16 +27,16 @@ struct Fighter_15b20 {
     void* f328;
     char pad32c[0x20a8 - 0x32c];
     int f20a8;
-    void FUN_00035160(Matrix* out);
+    void FUN_00035160(Matrix_15b20* out);
     void FUN_000393c0();
-    void FUN_0003acf0(int a, void* target, unsigned int joint, int d, int e, Matrix* m);
+    void FUN_0003acf0(int a, void* target, unsigned int joint, int d, int e, Matrix_15b20* m);
 };
 
 struct JointFinder {
     unsigned int FUN_0027b200(unsigned int lo, unsigned int hi);
 };
 
-struct Skeleton {
+struct Skeleton_15b20 {
     char pad00[8];
     JointFinder* finder;
     char pad0c[0x1c - 0xc];
@@ -43,7 +45,7 @@ struct Skeleton {
 
 struct Rig {
     char pad00[0x64];
-    Skeleton* skel;
+    Skeleton_15b20* skel;
 };
 
 struct Anchor_15b20 {
@@ -105,7 +107,7 @@ struct Holder_15b20 {
     char pad00[8];
     Target* target;
     int kind;
-    Matrix mat;
+    Matrix_15b20 mat;
 };
 
 struct Frame_15b20 {
@@ -116,34 +118,20 @@ struct Frame_15b20 {
     Fighter_15b20* fighter;
     int p20;
     int p24;
-    Matrix m;
-    Matrix m2;
-    Matrix m3;
+    Matrix_15b20 m;
+    Matrix_15b20 m2;
+    Matrix_15b20 m3;
 };
 
 // equiv-map: ?thunk_FUN_0027d410@Target@@QAEXPBUKey@@@Z = 0x001d6630
 
-class CSmartPropAttachAction {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    char pad04[0x1c - 4];
-    Owner_15b20* owner;
-    Attach* attach;
-    Holder_15b20* holder;
-};
-
-void CSmartPropAttachAction::vfunc_4()
-{
+void CSmartPropAttachAction::vfunc_4() {
     Frame_15b20 f;
-    if (holder == 0)
+    if ((*(Holder_15b20 * *)&this->f_24) == 0)
         return;
-    if (holder->kind != 5)
+    if ((*(Holder_15b20 * *)&this->f_24)->kind != 5)
         return;
-    Target* t = holder->target;
+    Target* t = (*(Holder_15b20 * *)&this->f_24)->target;
     f.target = t;
     if (t == 0)
         return;
@@ -167,34 +155,34 @@ void CSmartPropAttachAction::vfunc_4()
         return;
 
     unsigned int joint = 0xffff;
-    Anchor_15b20* anchor = owner->FUN_000592a0();
+    Anchor_15b20* anchor = (*(Owner_15b20 * *)&this->f_1c)->FUN_000592a0();
     f.fighter = anchor->FUN_00059a30();
     Rig* rig = anchor->FUN_00059a40();
-    Skeleton* skel = 0;
+    Skeleton_15b20* skel = 0;
     if (rig != 0) {
         skel = rig->skel;
         if (skel != 0)
-            joint = skel->finder->FUN_0027b200(attach->joint.lo, attach->joint.hi);
+            joint = skel->finder->FUN_0027b200((*(Attach * *)&this->f_20)->joint.lo, (*(Attach * *)&this->f_20)->joint.hi);
     }
-    f.p24 = attach->f24;
-    f.p20 = attach->f20;
-    if (attach->hasLocal) {
+    f.p24 = (*(Attach * *)&this->f_20)->f24;
+    f.p20 = (*(Attach * *)&this->f_20)->f20;
+    if ((*(Attach * *)&this->f_20)->hasLocal) {
         f.m.FUN_0022b980();
-        f.m.FUN_0022bc20(attach->localPos.x, attach->localPos.y, attach->localPos.z);
-        f.d = attach->offset;
-        f.m.pos = attach->offset;
+        f.m.FUN_0022bc20((*(Attach * *)&this->f_20)->localPos.x, (*(Attach * *)&this->f_20)->localPos.y, (*(Attach * *)&this->f_20)->localPos.z);
+        f.d = (*(Attach * *)&this->f_20)->offset;
+        f.m.pos = (*(Attach * *)&this->f_20)->offset;
     } else {
         if (joint != 0xffff)
-            f.m2 = *(Matrix*)(skel->table + joint * 64);
+            f.m2 = *(Matrix_15b20*)(skel->table + joint * 64);
         else
             f.fighter->FUN_00035160(&f.m2);
         f.m2.FUN_0022c120();
-        f.m3 = holder->mat;
+        f.m3 = (*(Holder_15b20 * *)&this->f_24)->mat;
         f.m.FUN_0022ca90(&f.m3, &f.m2);
-        f.dist = attach->dist;
+        f.dist = (*(Attach * *)&this->f_20)->dist;
         if (f.dist > 0.0f) {
             f.d = f.m.pos;
-            f.q = attach->offset;
+            f.q = (*(Attach * *)&this->f_20)->offset;
             f.d.x = f.d.x - f.q.x;
             f.d.y = f.d.y - f.q.y;
             f.d.z = f.d.z - f.q.z;
@@ -202,7 +190,7 @@ void CSmartPropAttachAction::vfunc_4()
                 f.d.x = f.d.x * f.dist;
                 f.d.y = f.d.y * f.dist;
                 f.d.z = f.d.z * f.dist;
-                f.q = attach->offset;
+                f.q = (*(Attach * *)&this->f_20)->offset;
                 f.m.pos.x = f.q.x + f.d.x;
                 f.m.pos.y = f.q.y + f.d.y;
                 f.m.pos.z = f.q.z + f.d.z;
@@ -210,10 +198,10 @@ void CSmartPropAttachAction::vfunc_4()
         }
     }
     Fighter_15b20* fighter = f.fighter;
-    fighter->FUN_0003acf0(attach->f14, f.target, joint, f.p20, f.p24, &f.m);
-    if (fighter->f20a8 >= 0 && fighter->f328 == (void*)holder)
+    fighter->FUN_0003acf0((*(Attach * *)&this->f_20)->f14, f.target, joint, f.p20, f.p24, &f.m);
+    if (fighter->f20a8 >= 0 && fighter->f328 == (void*)(*(Holder_15b20 * *)&this->f_24))
         fighter->FUN_000393c0();
-    Attach* a = attach;
+    Attach* a = (*(Attach * *)&this->f_20);
     const Key* k = &a->key;
     if (k != 0 && (k->lo | k->hi) != 0)
         f.target->thunk_FUN_0027d410(k);

@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // RDLReader::vfunc_0 @ 0x0027adf0
-struct Stream {
+#include "gen/global.h"
+
+struct Stream_27adf0 {
     virtual void s0();
     virtual void release();
     virtual void s2();
@@ -15,33 +17,23 @@ struct Stream {
     virtual void s22();
     virtual bool valid();
 };
-extern "C" void __cdecl thunk_FUN_002710d0(Stream **, const char *, int, int, int, int, int, int);
+extern "C" void __cdecl thunk_FUN_002710d0(Stream_27adf0 **, const char *, int, int, int, int, int, int);
 char *__cdecl FUN_0008d690(int size);
 
-class RDLReader {
-public:
-    virtual void vfunc_0(const char *path);
-    virtual int vfunc_1();
-    Stream *stream;
-    char *data;
-    int unused;
-    int size;
-};
+void RDLReader::vfunc_0(int __p0) { const char * path = (const char *)__p0;
 
-void RDLReader::vfunc_0(const char *path)
-{
     vfunc_1();
-    thunk_FUN_002710d0(&stream, path, 0, 0, 1, 0, 1, 1);
-    stream->reset();
-    if (!stream->valid() || stream->size() == 0) {
-        stream->release();
-        stream = 0;
+    thunk_FUN_002710d0(&(*(Stream_27adf0 * *)&this->f_04), path, 0, 0, 1, 0, 1, 1);
+    (*(Stream_27adf0 * *)&this->f_04)->reset();
+    if (!(*(Stream_27adf0 * *)&this->f_04)->valid() || (*(Stream_27adf0 * *)&this->f_04)->size() == 0) {
+        (*(Stream_27adf0 * *)&this->f_04)->release();
+        (*(Stream_27adf0 * *)&this->f_04) = 0;
         return;
     }
-    stream->readSize(&size);
-    stream->reset();
-    data = FUN_0008d690(size);
-    stream->read(data, size, 1);
-    stream->reset();
-    unused = 0;
+    (*(Stream_27adf0 * *)&this->f_04)->readSize(&this->f_10);
+    (*(Stream_27adf0 * *)&this->f_04)->reset();
+    (*(char * *)&this->f_08) = FUN_0008d690(this->f_10);
+    (*(Stream_27adf0 * *)&this->f_04)->read((*(char * *)&this->f_08), this->f_10, 1);
+    (*(Stream_27adf0 * *)&this->f_04)->reset();
+    this->f_0c = 0;
 }

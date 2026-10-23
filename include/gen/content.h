@@ -205,6 +205,14 @@ public:
     int f_1c;
     void* f_20;
     void* f_24;
+    int f_28;
+    int f_2c;
+    int f_30;
+    int f_34;
+    int f_38;
+    char _pad_3c[0x4];
+    int f_40;
+    int f_44;
 };
 
 // .?AVObjectLoader@content@@  vftable 0x4219c4 (4)

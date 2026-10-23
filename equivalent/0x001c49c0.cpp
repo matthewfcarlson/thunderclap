@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 6/6)
 // FUN_001c49c0 @ 0x001c49c0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "gen/pure3d.h"
 void *thunk_FUN_0008d690(unsigned int size);
 
-class Channel {
+class Channel_1c49c0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -14,25 +15,19 @@ public:
     virtual void SetTag(unsigned int tag, int value);
 };
 
-class Shader_1c49c0 {
-public:
-    Shader_1c49c0 *FUN_0028edb0();
-    virtual void AddRef();
-    virtual void Release();
-
-    char pad4[0xc];
-    Channel *channel;   // +0x10
+struct Shader_nv_1c49c0 {
+    pure3d::Shader *FUN_0028edb0();
 };
 
-class Reader {
+class Reader_1c49c0 {
 public:
-    Reader *FUN_001c49c0();
+    Reader_1c49c0 *FUN_001c49c0();
 
     int f00;
     int f04;
     int f08;
     char f0c;
-    Shader_1c49c0 *stream;     // +0x10
+    pure3d::Shader *stream;     // +0x10
     char f14;
     int f18;
     int f1c;
@@ -44,7 +39,7 @@ public:
     char f34;
 };
 
-Reader *Reader::FUN_001c49c0() {
+Reader_1c49c0 *Reader_1c49c0::FUN_001c49c0() {
     f00 = 0;
     f04 = 0;
     f08 = 0;
@@ -60,18 +55,18 @@ Reader *Reader::FUN_001c49c0() {
     f30 = 0;
     f34 = 0;
 
-    Shader_1c49c0 *created = 0;
+    pure3d::Shader *created = 0;
     void *mem = thunk_FUN_0008d690(0x20);
     if (mem != 0) {
-        created = ((Shader_1c49c0 *)mem)->FUN_0028edb0();
+        created = ((Shader_nv_1c49c0*)(((pure3d::Shader *)mem)))->FUN_0028edb0();
     }
     if (created != 0) {
-        created->AddRef();
+        created->vfunc_0();
     }
     if (stream != 0) {
-        stream->Release();
+        stream->vfunc_1();
     }
     stream = created;
-    created->channel->SetTag(0x444d4c42, 1);
+    (*(Channel_1c49c0 * *)&created->f_10)->SetTag(0x444d4c42, 1);
     return this;
 }

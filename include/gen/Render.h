@@ -34,6 +34,8 @@ namespace Render {
 class CRenderableCharacter {
 public:
     virtual ~CRenderableCharacter(); // slot 0
+    char _pad_04[0xc];
+    int f_10;
 };
 
 } // namespace Render
@@ -65,6 +67,8 @@ class LevelLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~LevelLoader(); // overrides core::IRefCount slot 2
     virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
+    char _pad_14[0x8];
+    void* f_1c;
 };
 
 // .?AVObject@Render@@  vftable 0x4218c8 (9)
@@ -79,6 +83,21 @@ public:
     virtual void* vfunc_8(); // slot 8
     char _pad_08[0x8];
     void* f_10;
+    char _pad_14[0x4];
+    void* f_18;
+    char _pad_1c[0x6];
+    char f_22;
+    char _pad_23[0x61];
+    int f_84;
+    int f_88;
+    char f_8c;
+    char _pad_8d[0x13];
+    int f_a0;
+    int f_a4;
+    char f_a8;
+    char f_a9;
+    char _pad_aa[0x2];
+    int f_ac;
 };
 
 // .?AVObjectManager@Render@@  vftable 0x421934 (1)
@@ -125,6 +144,17 @@ public:
 class World {
 public:
     virtual ~World(); // slot 0
+    char _pad_04[0x4];
+    int f_08;
+    int f_0c;
+    char _pad_10[0x528];
+    int f_538;
+    char _pad_53c[0x10];
+    int f_54c;
+    char _pad_550[0x200];
+    void* f_750;
+    char _pad_754[0xc];
+    void* f_760;
 };
 
 } // namespace Render

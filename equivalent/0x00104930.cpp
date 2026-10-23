@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // CPathGraphAgent::vfunc_3 @ 0x00104930
+#include "gen/global.h"
+
 #include "decls/data/game/global.h"
 
 struct PathState {
@@ -11,22 +13,11 @@ struct PathState {
     float value;
 };
 
-struct CPathGraphAgent {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual float vfunc_3(int, int);
-    char pad[0x58 - 4];
-    PathState *state;
-    unsigned char flag5c;
-    unsigned char flag5d;
-};
-
-float CPathGraphAgent::vfunc_3(int, int) {
-    PathState *s = state;
+float CPathGraphAgent::vfunc_3(int , int ) {
+    PathState *s = (*(PathState * *)&this->f_58);
     if (!s->active && !(s->value < (*(float*)&DAT_003f5d00)) && !s->blocked)
         return (*(float*)&DAT_0040d510);
-    flag5d = 0;
-    flag5c = 0;
+    (*(unsigned char *)&this->f_5d) = 0;
+    (*(unsigned char *)&this->f_5c) = 0;
     return (*(float*)&DAT_003f32e0);
 }

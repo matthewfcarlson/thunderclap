@@ -1,18 +1,20 @@
 // STATUS: equivalent (tools/equiv.py level 3: 178 inputs, branch coverage 33/40, incomplete)
 // hulkfight::motion::CollisionDamageHealthCompareCondition::vfunc_6 @ 0x00150d80
+#include "gen/hulkfight.h"
+
 struct Member_150d80;
 
 namespace fight {
-class Params {
+class Params_150d80 {
 public:
     virtual void vfunc_0();
-    virtual Params *vfunc_1();
-    virtual Params *vfunc_2();
+    virtual Params_150d80 *vfunc_1();
+    virtual Params_150d80 *vfunc_2();
     virtual Member_150d80 *vfunc_3();
 };
 }
 
-class CFightParams : public fight::Params {
+class CFightParams_150d80 : public fight::Params_150d80 {
 public:
     virtual void vfunc_4();
     virtual void vfunc_5();
@@ -23,7 +25,7 @@ struct Member_150d80 {
     float value;
 };
 
-struct Context {
+struct Context_150d80 {
     char pad[4];
 };
 
@@ -33,42 +35,28 @@ struct Actor_150d80 {
     float scale;
 };
 
-Context *__fastcall FUN_000592a0(void *obj);
-Actor_150d80 *__fastcall FUN_00059a30(Context *ctx);
+Context_150d80 *__fastcall FUN_000592a0(void *obj);
+Actor_150d80 *__fastcall FUN_00059a30(Context_150d80 *ctx);
 bool __cdecl FUN_00018960(float a, float b, float eps);
 
 namespace hulkfight {
 namespace motion {
 
-class CollisionDamageHealthCompareCondition {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual bool vfunc_6(int arg0, fight::Params *params, int arg2);
-    char pad04[0xc - 4];
-    unsigned op;
-    float threshold;
-    float percentThreshold;
-    char percent;
-};
+}
+}
+bool hulkfight::motion::CollisionDamageHealthCompareCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int arg0 = (int)__p0; fight::Params_150d80 * params = (fight::Params_150d80 *)__p1; int arg2 = (int)__p2;
 
-bool CollisionDamageHealthCompareCondition::vfunc_6(int arg0, fight::Params *params, int arg2)
-{
-    if (dynamic_cast<CFightParams *>(params) == 0)
+    if (dynamic_cast<CFightParams_150d80 *>(params) == 0)
         return false;
     Member_150d80 *m = params->vfunc_3();
     if (m == 0)
         return false;
     Actor_150d80 *actor = FUN_00059a30(FUN_000592a0(params));
     float value = m->value;
-    float limit = threshold;
+    float limit = this->f_10;
 
-    if (!percent) {
-        switch (op) {
+    if (!this->f_18) {
+        switch ((*(unsigned int *)&this->f_0c)) {
         case 0:
             return value < limit;
         case 1:
@@ -98,22 +86,19 @@ bool CollisionDamageHealthCompareCondition::vfunc_6(int arg0, fight::Params *par
     else
         value = 0.0f;
 
-    switch (op) {
+    switch ((*(unsigned int *)&this->f_0c)) {
     case 0:
-        return value < percentThreshold;
+        return value < this->f_14;
     case 1:
-        return value <= percentThreshold;
+        return value <= this->f_14;
     case 2:
-        return FUN_00018960(value, percentThreshold, 1e-5f);
+        return FUN_00018960(value, this->f_14, 1e-5f);
     case 3:
-        return !FUN_00018960(value, percentThreshold, 1e-5f);
+        return !FUN_00018960(value, this->f_14, 1e-5f);
     case 4:
-        return value >= percentThreshold;
+        return value >= this->f_14;
     case 5:
-        return value > percentThreshold;
+        return value > this->f_14;
     }
     return false;
-}
-
-}
 }

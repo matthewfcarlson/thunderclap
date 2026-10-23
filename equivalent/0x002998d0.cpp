@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 118 inputs, branch coverage 41/44, incomplete)
 // FUN_002998d0 @ 0x002998d0
+#include "gen/pure3d.h"
 void *__cdecl FUN_0008d690(unsigned int size);
 
 class RefCounted_2998d0 {
@@ -43,13 +44,8 @@ struct Source_2998d0 {
     Entry_2998d0 *end;
 };
 
-class ActiveControllerList_2998d0 {
-public:
-    virtual void addRef();
-    virtual void release();
-    char pad04[0x24 - 4];
-    RefCounted_2998d0 **slots;      // 0x24
-    ActiveControllerList_2998d0 *FUN_00299680(unsigned count);
+struct ActiveControllerList_nv_2998d0 {
+    pure3d::CompositeDrawable::ActiveControllerList *FUN_00299680(unsigned count);
     void FUN_00298a60();
 };
 
@@ -57,7 +53,7 @@ class Owner_2998d0 {
 public:
     char pad00[0x44];
     Source_2998d0 *source;          // 0x44
-    ActiveControllerList_2998d0 *bundle;          // 0x48
+    pure3d::CompositeDrawable::ActiveControllerList *bundle;          // 0x48
     RefCounted_2998d0 *extraA;      // 0x4c
     RefCounted_2998d0 *extraB;      // 0x50
 
@@ -69,7 +65,7 @@ void Owner_2998d0::FUN_002998d0(unsigned char release)
     if (bundle != 0) {
         if (release == 1) {
             if (bundle != 0) {
-                bundle->release();
+                bundle->vfunc_1();
                 bundle = 0;
             }
         }
@@ -90,19 +86,19 @@ void Owner_2998d0::FUN_002998d0(unsigned char release)
     if (extraB != 0)
         total++;
 
-    ActiveControllerList_2998d0 *b = (ActiveControllerList_2998d0 *)FUN_0008d690(0x30);
+    pure3d::CompositeDrawable::ActiveControllerList *b = (pure3d::CompositeDrawable::ActiveControllerList *)FUN_0008d690(0x30);
     if (b != 0)
-        b = b->FUN_00299680(total);
+        b = ((ActiveControllerList_nv_2998d0*)(b))->FUN_00299680(total);
     bundle = b;
-    b->addRef();
+    b->vfunc_0();
 
     for (i = 0; i < n; i++) {
         Item_2998d0 *item = source->begin[(unsigned char)i].item;
         unsigned j = 0;
         if (item->count() != 0) {
             do {
-                *(RefCounted_2998d0 **)&bundle->slots[total - 1] = 0;
-                RefCounted_2998d0 **slot = (RefCounted_2998d0 **)&bundle->slots[total - 1];
+                *(RefCounted_2998d0 **)&(*(RefCounted_2998d0 ** *)&bundle->f_24)[total - 1] = 0;
+                RefCounted_2998d0 **slot = (RefCounted_2998d0 **)&(*(RefCounted_2998d0 ** *)&bundle->f_24)[total - 1];
                 RefCounted_2998d0 *r = item->get(j);
                 if (r != 0)
                     r->addRef();
@@ -117,9 +113,9 @@ void Owner_2998d0::FUN_002998d0(unsigned char release)
     }
 
     if (extraB != 0) {
-        *(RefCounted_2998d0 **)&bundle->slots[total - 1] = 0;
+        *(RefCounted_2998d0 **)&(*(RefCounted_2998d0 ** *)&bundle->f_24)[total - 1] = 0;
         RefCounted_2998d0 *r = extraB;
-        RefCounted_2998d0 **slot = (RefCounted_2998d0 **)&bundle->slots[total - 1];
+        RefCounted_2998d0 **slot = (RefCounted_2998d0 **)&(*(RefCounted_2998d0 ** *)&bundle->f_24)[total - 1];
         if (r != 0)
             r->addRef();
         RefCounted_2998d0 *old = *slot;
@@ -129,9 +125,9 @@ void Owner_2998d0::FUN_002998d0(unsigned char release)
         total--;
     }
     if (extraA != 0) {
-        *(RefCounted_2998d0 **)&bundle->slots[total - 1] = 0;
+        *(RefCounted_2998d0 **)&(*(RefCounted_2998d0 ** *)&bundle->f_24)[total - 1] = 0;
         RefCounted_2998d0 *r = extraA;
-        RefCounted_2998d0 **slot = (RefCounted_2998d0 **)&bundle->slots[total - 1];
+        RefCounted_2998d0 **slot = (RefCounted_2998d0 **)&(*(RefCounted_2998d0 ** *)&bundle->f_24)[total - 1];
         if (r != 0)
             r->addRef();
         RefCounted_2998d0 *old = *slot;
@@ -139,5 +135,5 @@ void Owner_2998d0::FUN_002998d0(unsigned char release)
             old->release();
         *slot = r;
     }
-    bundle->FUN_00298a60();
+    ((ActiveControllerList_nv_2998d0*)(bundle))->FUN_00298a60();
 }

@@ -1,4 +1,6 @@
-struct Drive {
+#include "gen/core.h"
+
+struct Drive_2749e0 {
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
@@ -27,30 +29,19 @@ struct State_2749e0 {
     unsigned int field0;
     Lock_2749e0 lock;
     unsigned int field8;
-    Drive* drive;
+    Drive_2749e0* drive;
     char padding[8];
     unsigned int result;
 };
 namespace core {
-struct DriveFileDestroyRequest {
-    virtual void vfunc_0();
-    virtual unsigned int vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    unsigned int field4;
-    State_2749e0* state;
-    unsigned int payload;
-};
-unsigned int DriveFileDestroyRequest::vfunc_1() {
-    Drive* drive = state->drive;
-    unsigned int result = drive->slot17(&payload);
-    unsigned int status = drive->FUN_00272880();
-    state->lock.acquire();
-    state->result = status;
-    state->lock.release();
-    return result;
-}
+
 } // namespace core
+int core::DriveFileDestroyRequest::vfunc_1() {
+    Drive_2749e0* drive = (*(State_2749e0 * *)&this->f_08)->drive;
+    unsigned int result = drive->slot17(&(*(unsigned int *)&this->f_0c));
+    unsigned int status = drive->FUN_00272880();
+    (*(State_2749e0 * *)&this->f_08)->lock.acquire();
+    (*(State_2749e0 * *)&this->f_08)->result = status;
+    (*(State_2749e0 * *)&this->f_08)->lock.release();
+    return (int)(result);
+}

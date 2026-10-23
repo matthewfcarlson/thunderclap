@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class Resolver {
   public:
     int Resolve(void*);
@@ -11,25 +13,16 @@ struct Global {
     Resolver* resolver;
 };
 extern Global* g;
-class CSoundCommand {
+class CSoundCommand_1ef530 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1(int, int);
 };
-class CSoundCommand_PlayFightDialogueEvent : public CSoundCommand {
-  public:
-    char pad[12];
-    int ident;
-    char pad2[8];
-    int data;
-    unsigned char type;
-    virtual void vfunc_0();
-    virtual void vfunc_1(int, int);
-};
+
 void CSoundCommand_PlayFightDialogueEvent::vfunc_1(int a, int b) {
     Global* global = g;
     Resolver* resolver = global->resolver;
-    int id = resolver->Resolve(&ident);
+    int id = resolver->Resolve(&this->f_10);
     if (id)
-        g->player->Play(id, &pad2[4], a, data, type);
+        g->player->Play(id, &(*(char (*)[8])&this->f_14)[4], a, this->f_1c, (*(unsigned char *)&this->f_20));
 }

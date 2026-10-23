@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 typedef unsigned int uint;
 struct Item_2a2a30 {
     virtual void v0();
@@ -16,35 +18,20 @@ struct Entry_2a2a30 {
 };
 void __cdecl FUN_002a27c0(uint pass, uint count, uint* input, uint* output);
 namespace pure3d {
-struct OpaqueTraversal {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    char pad[20];
-    uint count;
-    unsigned char enabled;
-    char pad2[3];
-    Entry_2a2a30* entries;
-    char pad3[8];
-    Entry_2a2a30** ordered;
-};
-void OpaqueTraversal::vfunc_3() {
+
+} // namespace pure3d
+void pure3d::OpaqueTraversal::vfunc_3() {
     uint keys[1024];
     uint temp[1024];
-    if (enabled) {
-        for (uint i = 0; i < count; ++i) {
-            uint h = (*entries[i].item)->v7();
+    if ((*(unsigned char *)&this->f_1c)) {
+        for (uint i = 0; i < (*(uint *)&this->f_18); ++i) {
+            uint h = (*(*(Entry_2a2a30 * *)&this->f_20)[i].item)->v7();
             keys[i] = ((h + (h >> 16)) & 0xffff) | (i << 22);
         }
-        uint n = count;
+        uint n = (*(uint *)&this->f_18);
         FUN_002a27c0(0, n, keys, temp);
         FUN_002a27c0(1, n, temp, keys);
-        for (uint j = 0; j < count; ++j)
-            ordered[j] = entries + (keys[j] >> 22);
+        for (uint j = 0; j < (*(uint *)&this->f_18); ++j)
+            (*(Entry_2a2a30 ** *)&this->f_2c)[j] = (*(Entry_2a2a30 * *)&this->f_20) + (keys[j] >> 22);
     }
 }
-} // namespace pure3d

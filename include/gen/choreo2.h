@@ -86,6 +86,7 @@ public:
     virtual void vfunc_10(int, int, int, int); // overrides choreo2::Driver slot 10
     virtual bool vfunc_11(int, int, int, int); // overrides choreo2::Driver slot 11
     virtual unsigned char vfunc_13(); // overrides choreo2::Driver slot 13
+    int f_10;
 };
 
 // .?AVLocomotionDriver@choreo2@@  vftable 0x427534 (15)
@@ -146,6 +147,14 @@ public:
     int f_28;
     int f_2c;
     unsigned int f_30;
+    char _pad_34[0x12a8];
+    char f_12dc;
+    char f_12dd;
+    char _pad_12de[0xe];
+    int f_12ec;
+    char _pad_12f0[0x34];
+    int f_1324;
+    int f_1328;
 };
 
 // .?AVPuppet@choreo2@@  vftable 0x4272b8 (6)
@@ -154,6 +163,8 @@ public:
     virtual ~Puppet(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(); // overrides pure3d::Entity slot 3
     virtual void* vfunc_5(); // slot 5
+    char _pad_10[0x58];
+    int f_68;
 };
 
 // .?AVRestPoseDriver@choreo2@@  vftable 0x427480 (14)
@@ -166,6 +177,9 @@ public:
     virtual void vfunc_10(int, int, int, int); // overrides choreo2::Driver slot 10
     virtual bool vfunc_11(int, int, int, int); // overrides choreo2::Driver slot 11
     virtual unsigned char vfunc_13(); // overrides choreo2::Driver slot 13
+    void* f_14;
+    int f_18;
+    int f_1c;
 };
 
 } // namespace choreo2

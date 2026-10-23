@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 24/24)
 // hulkfight::motion::CollisionInterruptPriorityCondition::vfunc_6 @ 0x0014e550
+#include "gen/hulkfight.h"
+
 extern char DAT_00494b44;
 extern char DAT_00494b60;
 extern "C" void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
@@ -11,12 +13,10 @@ struct Actor_14e550 {
  Intermediate_14e550* FUN_000592a0();
 };
 namespace hulkfight { namespace motion {
-struct CollisionInterruptPriorityCondition {
- virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5();
- virtual bool vfunc_6(void*, Actor_14e550*, void*);
- char pad[8]; unsigned int comparison;
-};
-bool CollisionInterruptPriorityCondition::vfunc_6(void*, Actor_14e550* actor, void*) {
+
+} }
+bool hulkfight::motion::CollisionInterruptPriorityCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { Actor_14e550 * actor = (Actor_14e550 *)__p1;
+
  if (!FUN_00344e74(actor, 0, &DAT_00494b44, &DAT_00494b60, 0)) return false;
  Collision_14e550* collision = actor->slot3();
  if (!collision) return false;
@@ -24,7 +24,7 @@ bool CollisionInterruptPriorityCondition::vfunc_6(void*, Actor_14e550* actor, vo
  PrioritySource* source = intermediate->FUN_00059a30();
  int priority = collision->priority;
  int other = source->FUN_00036270();
- switch (comparison) {
+ switch ((*(unsigned int *)&this->f_0c)) {
  case 0: return priority < other;
  case 1: return priority <= other;
  case 2: return priority == other;
@@ -34,4 +34,3 @@ bool CollisionInterruptPriorityCondition::vfunc_6(void*, Actor_14e550* actor, vo
  default: return false;
  }
 }
-} }

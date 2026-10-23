@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 struct Lookup {
     int FUN_001e98b0(int*);
 };
@@ -9,24 +11,15 @@ struct SoundSystem {
     Lookup* lookup;
 };
 extern SoundSystem* DAT_004e370c;
-class CSoundCommand_PlayDialogueEvent {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1(int, int);
-    char pad[12];
-    int lookupKey;
-    int identifier;
-    int data;
-    unsigned char flag;
-};
+
 void CSoundCommand_PlayDialogueEvent::vfunc_1(int value, int unused) {
     SoundSystem* sys = DAT_004e370c;
     Lookup* lookup = sys->lookup;
-    int result = lookup->FUN_001e98b0(&lookupKey);
+    int result = lookup->FUN_001e98b0(&this->f_10);
     if (result) {
         int v = value;
-        int* p = &data;
-        unsigned char f = flag;
+        int* p = &this->f_18;
+        unsigned char f = (*(unsigned char *)&this->f_1c);
         DAT_004e370c->player->FUN_001f3c00(result, p, v, 0, 0, f);
     }
 }

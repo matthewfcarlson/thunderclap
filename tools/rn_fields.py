@@ -58,20 +58,89 @@ def body_lines(lines, head):
     return out
 
 
-def owner(db, cls, off):
+def owner(db, cls, off, sizes=None):
     """(class, offset in it) that owns absolute offset `off` of `cls`: the base subobject whose extent holds it
-    (recursively), else `cls` itself."""
+    (recursively), else `cls` itself. `sizes`: class sizes that override the header's (--grow)."""
     for boff, bname, _ in db[cls].get("bases", []):
         b = db.get(bname)
-        if b and b["size"] and boff <= off < boff + b["size"]:
-            return owner(db, bname, off - boff)
+        bs = (sizes or {}).get(bname, b["size"] if b else 0)
+        if b and bs and boff <= off < boff + bs:
+            return owner(db, bname, off - boff, sizes)
     return cls, off
 
 
-def plan(db, adds):
+def descendants(db):
+    """{class: [(derived class, absolute offset of the class in it)]}, transitively."""
+    kids = collections.defaultdict(list)
+    for n, h in db.items():
+        for boff, b, _ in h.get("bases", []):
+            kids[b].append((n, boff))
+    out = {}
+
+    def walk(c, m, acc):
+        for k, o in kids.get(c, []):
+            acc.append((k, m + o))
+            walk(k, m + o, acc)
+    for c in db:
+        acc = []
+        walk(c, 0, acc)
+        out[c] = acc
+    return out
+
+
+def growth(db, adds):
+    """--grow: {class: new size} for classes whose stubs agree on fields past the header class's end. A class may
+    grow up to the first header field or base of a derived class that lies past its current end (where the
+    derived class's own part starts today); template instantiations are left alone (they share one generator
+    unit). The derived classes' fields keep their absolute offsets: the generator pads their own part from the
+    new base end."""
+    desc = descendants(db)
+    votes = collections.defaultdict(lambda: collections.defaultdict(set))
+    against = set()
+    for cls, a in adds.items():
+        if cls not in db:
+            continue
+        for off_s in a.get("disagree", {}):
+            against.add(owner(db, cls, int(off_s, 16)))
+        for off_s, f in a["agree"].items():
+            t = TYPES.get((f["size"], f["kind"]))
+            if t is None:
+                continue
+            c, o = owner(db, cls, int(off_s, 16))
+            if o >= db[c]["size"]:
+                votes[c][o].add((f["size"], t))
+    out = {}
+    for c, offs in votes.items():
+        if "<" in c:
+            continue
+        size = db[c]["size"]
+        lim = None
+        for k, m in desc[c]:
+            for fo, _ft, fn in db[k]["fields"]:
+                if not fn.startswith("_pad_") and fo >= m + size:
+                    lim = fo - m if lim is None else min(lim, fo - m)
+            for bo, _bn, _ in db[k].get("bases", []):
+                if bo >= m + size:
+                    lim = bo - m if lim is None else min(lim, bo - m)
+        end = size
+        for o, ts in offs.items():
+            if len(ts) != 1 or (c, o) in against:
+                continue
+            sz = next(iter(ts))[0]
+            if o % sz or (lim is not None and o + sz > lim):
+                continue
+            end = max(end, o + sz)
+        if end > size:
+            out[c] = end + (-end) % 4
+    return out
+
+
+def plan(db, adds, grow=None):
     """Fields to add, per header: [(owner class, offset, type)]. An offset a derived class's stubs agree on that
     lies in a base's extent goes to that base (every class derived from it sees the field), so it is kept only
-    if no class's stubs disagree on it there and every class that agrees names the same type."""
+    if no class's stubs disagree on it there and every class that agrees names the same type. `grow`
+    ({class: new size}, growth()): fields past a class's end up to its new size are planned too."""
+    grow = grow or {}
     votes = collections.defaultdict(set)       # (owner, off) -> {(size, type)}
     against = set()
     why = collections.Counter()
@@ -81,14 +150,14 @@ def plan(db, adds):
             why["class not in header-db (template or unknown)"] += len(a["agree"])
             continue
         for off_s in a.get("disagree", {}):
-            against.add(owner(db, cls, int(off_s, 16)))
+            against.add(owner(db, cls, int(off_s, 16), grow))
         for off_s, f in a["agree"].items():
             off, size = int(off_s, 16), f["size"]
             t = TYPES.get((size, f["kind"]))
             if t is None:
                 why["not a scalar (%s)" % f["kind"]] += 1
                 continue
-            votes[owner(db, cls, off)].add((size, t))
+            votes[owner(db, cls, off, grow)].add((size, t))
     out = collections.defaultdict(list)
     for (cls, off), ts in sorted(votes.items()):
         h = db[cls]
@@ -107,6 +176,10 @@ def plan(db, adds):
             why["misaligned"] += 1
             continue
         if not any(lo <= off and off + size <= hi for lo, hi in gaps):
+            if h["size"] <= off and off + size <= grow.get(cls, 0):
+                out[h["header"]].append((cls, off, t))
+                why["planned past the class's end (--grow)"] += 1
+                continue
             why["not inside a pad (past the class's end, straddles a field)"] += 1
             continue
         out[h["header"]].append((cls, off, t))
@@ -168,15 +241,15 @@ def apply(plan_):
     return applied, skipped, done
 
 
-def check(before, after):
-    """Old fields keep offsets and types, sizes stay: [problems]."""
+def check(before, after, may_grow=()):
+    """Old fields keep offsets and types, sizes stay (or grow, for `may_grow`): [problems]."""
     bad = []
     for cls, h in before.items():
         a = after.get(cls)
         if a is None:
             bad.append("%s: no longer laid out" % cls)
             continue
-        if a["size"] != h["size"]:
+        if a["size"] != h["size"] and not (cls in may_grow and a["size"] > h["size"]):
             bad.append("%s: size %s -> %s" % (cls, h["size"], a["size"]))
         af = {(o, t, n) for o, t, n in map(tuple, a["fields"])}
         for o, t, n in map(tuple, h["fields"]):
@@ -189,15 +262,28 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--apply", action="store_true")
     ap.add_argument("--check", action="store_true")
+    ap.add_argument("--grow", action="store_true",
+                    help="also fields past a class's end (growth()): written to evidence-rn.json, then include/gen/ "
+                         "is regenerated with tools/gen_headers.py (the derived classes' pads move with the base)")
     a = ap.parse_args(argv)
     db = rn_layout.load_db()
     adds = json.load(open(ADD))
-    pl, why = plan(db, adds)
+    grow = growth(db, adds) if a.grow else {}
+    pl, why = plan(db, adds, grow)
     json.dump({h: v for h, v in pl.items()}, open(PLAN, "w"), indent=0)
+    if grow:
+        print("grow: %d classes" % len(grow))
     print("plan: %s" % json.dumps(dict(why.most_common())))
     if not a.apply:
         return 0
-    applied, skipped, done = apply(pl)
+    if a.grow:
+        done, applied, skipped = {}, collections.Counter(), collections.Counter()
+        for hdr, items in pl.items():
+            for cls, off, t in items:
+                done.setdefault(cls, {})["0x%x" % off] = t
+                applied[hdr] += 1
+    else:
+        applied, skipped, done = apply(pl)
     # the same fields for tools/gen_headers.py's model (gen-swap / gen-ref read the generator's emitted fields,
     # not the header text): include/gen/evidence-rn.json, applied like CURATED_FIELDS
     ev = os.path.join(ROOT, "include/gen/evidence-rn.json")
@@ -207,14 +293,21 @@ def main(argv=None):
         old.setdefault(cls, {}).update(fl)
     # keep the file's other entries ("sigs": tools/rn_sigs.py, batch b6)
     evd["_comment"] = ("Fields added to include/gen/ by tools/rn_fields.py (consolidation batch b7): offsets "
-                       "every stub of the class agrees on, inside the class's own _pad_ gaps.")
+                       "every stub of the class agrees on, inside the class's own _pad_ gaps or (--grow) past "
+                       "its end.")
     evd["fields"] = {k: dict(sorted(v.items(), key=lambda kv: int(kv[0], 16))) for k, v in sorted(old.items())}
     with open(ev, "w") as f:
         json.dump(evd, f, indent=1)
     print("applied: %d fields (%s); skipped: %s" % (sum(applied.values()), dict(applied), dict(skipped)))
+    if a.grow:
+        import gen_headers
+        gen_headers.main([])
     if a.check:
         after = rn_layout.build_db()
-        bad = check(db, after)
+        may = set(grow)
+        for c in grow:
+            may |= {k for k, _ in descendants(db)[c]}
+        bad = check(db, after, may)
         print("check: %d classes, %d problems" % (len(db), len(bad)))
         for b in bad[:20]:
             print("  " + b)

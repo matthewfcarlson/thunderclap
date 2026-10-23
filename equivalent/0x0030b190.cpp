@@ -1,42 +1,32 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // physics::PhysicsJoint1D::vfunc_25 @ 0x0030b190
+#include "gen/physics.h"
+
 #include "decls/data/engine/physics.h"
 
 namespace physics {
-struct PhysicsJoint1D {
- char pad0[0x10];
- float lowerLimit;
- float upperLimit;
- char pad18[0xf4];
- float velocity;
- char pad110[4];
- float correction;
- char pad118[4];
- float position;
- void vfunc_25();
-};
 }
 void physics::PhysicsJoint1D::vfunc_25() {
  union { float f; unsigned int u; } absolute;
- absolute.f = velocity;
+ absolute.f = this->f_10c;
  absolute.u &= 0x7fffffff;
  if (absolute.f > DAT_004d3198) {
  float sign = 0.0f;
- if (velocity < 0.0f) sign = -1.0f;
- else if (velocity > 0.0f) sign = 1.0f;
- velocity = sign * DAT_004d3198;
+ if (this->f_10c < 0.0f) sign = -1.0f;
+ else if (this->f_10c > 0.0f) sign = 1.0f;
+ this->f_10c = sign * DAT_004d3198;
  }
  if (DAT_004d319c) {
- if (position > upperLimit) {
- double delta = (double)position - upperLimit;
- position = upperLimit;
- correction = (float)((double)correction - delta * DAT_004d31a0);
- if (velocity > 0.0f) velocity = DAT_004d31d8 * velocity;
- } else if (position < lowerLimit) {
- double delta = (double)position - lowerLimit;
- position = lowerLimit;
- correction = (float)((double)correction - delta * DAT_004d31a0);
- if (velocity < 0.0f) velocity = DAT_004d31d8 * velocity;
+ if (this->f_11c > (*(float *)&this->f_14)) {
+ double delta = (double)this->f_11c - (*(float *)&this->f_14);
+ this->f_11c = (*(float *)&this->f_14);
+ this->f_114 = (float)((double)this->f_114 - delta * DAT_004d31a0);
+ if (this->f_10c > 0.0f) this->f_10c = DAT_004d31d8 * this->f_10c;
+ } else if (this->f_11c < (*(float *)&this->f_10)) {
+ double delta = (double)this->f_11c - (*(float *)&this->f_10);
+ this->f_11c = (*(float *)&this->f_10);
+ this->f_114 = (float)((double)this->f_114 - delta * DAT_004d31a0);
+ if (this->f_10c < 0.0f) this->f_10c = DAT_004d31d8 * this->f_10c;
  }
  }
 }

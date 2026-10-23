@@ -447,6 +447,12 @@ public:
     unsigned int f_14;
     char _pad_18[0x43c];
     void* f_454;
+    int f_458;
+    int f_45c;
+    char _pad_460[0x3a];
+    short f_49a;
+    short f_49c;
+    char f_49e;
 };
 
 // .?AUIDebugConsole@core@@  vftable 0x42b440 (12)
@@ -515,7 +521,23 @@ public:
     virtual int vfunc_19(void*, int); // slot 19
     virtual int vfunc_20(int); // slot 20
     virtual void vfunc_21(int); // slot 21
-    char _pad_10[0xac]; // size 0xbc proven by a derived class's base offset
+    int f_10;
+    char _pad_14[0x2c];
+    int f_40;
+    int f_44;
+    int f_48;
+    char _pad_4c[0x4];
+    int f_50;
+    char f_54;
+    char _pad_55[0x7];
+    char f_5c;
+    char f_5d;
+    char _pad_5e[0x2];
+    int f_60;
+    int f_64;
+    int f_68;
+    int f_6c;
+    char _pad_70[0x4c]; // size 0xbc proven by a derived class's base offset
 };
 
 // .?AVDriveRequest@core@@  vftable 0x42b9bc (7)
@@ -570,6 +592,8 @@ public:
     virtual int vfunc_1(); // overrides core::Request slot 1
     virtual void* vfunc_5(); // overrides core::Request slot 5
     virtual int vfunc_6(); // overrides core::Request slot 6
+    char _pad_0c[0x10];
+    char f_1c;
 };
 
 // .?AVDriveFileDestroyRequest@core@@  vftable 0x42bc60 (7)
@@ -579,6 +603,7 @@ public:
     virtual int vfunc_1(); // overrides core::Request slot 1
     virtual void* vfunc_5(); // overrides core::Request slot 5
     virtual int vfunc_6(); // overrides core::Request slot 6
+    int f_0c;
 };
 
 // .?AVDriveFindCloseRequest@core@@  vftable 0x42bc40 (7)
@@ -597,6 +622,8 @@ public:
     virtual int vfunc_1(); // overrides core::Request slot 1
     virtual void* vfunc_5(); // overrides core::Request slot 5
     virtual int vfunc_6(); // overrides core::Request slot 6
+    char _pad_0c[0x104];
+    int f_110;
 };
 
 // .?AVDriveFindNextRequest@core@@  vftable 0x42bc20 (7)
@@ -644,6 +671,22 @@ public:
     virtual ~DriveThread(); // overrides core::IRefCount slot 2
     virtual void vfunc_0_IMutable(); // overrides core::IMutable slot 0
     virtual void vfunc_1_IMutable(); // overrides core::IMutable slot 1
+    int f_10;
+    int f_14;
+    char _pad_18[0x4c];
+    char f_64;
+    char _pad_65[0x7];
+    int f_6c;
+    int f_70;
+    int f_74;
+    int f_78;
+    int f_7c;
+    int f_80;
+    char _pad_84[0x4];
+    char f_88;
+    char _pad_89[0x3];
+    int f_8c;
+    int f_90;
 };
 
 // .?AUIFile@core@@  vftable 0x42bcac (32)
@@ -812,6 +855,7 @@ public:
     virtual ~FileOpenByKeyRequest(); // overrides core::Request slot 0
     virtual int vfunc_1(); // overrides core::Request slot 1
     virtual int vfunc_6(); // overrides core::Request slot 6
+    int f_0c;
 };
 
 // .?AVFileOpenRequest@core@@  vftable 0x42ba00 (7)
@@ -820,6 +864,8 @@ public:
     virtual ~FileOpenRequest(); // overrides core::Request slot 0
     virtual int vfunc_1(); // overrides core::Request slot 1
     virtual int vfunc_6(); // overrides core::Request slot 6
+    int f_0c;
+    char f_10;
 };
 
 // .?AVFileReadRequest@core@@  vftable 0x42baa0 (7)
@@ -845,6 +891,9 @@ public:
     virtual ~FileWriteRequest(); // overrides core::Request slot 0
     virtual int vfunc_1(); // overrides core::Request slot 1
     virtual int vfunc_6(); // overrides core::Request slot 6
+    char _pad_0c[0x4];
+    int f_10;
+    int f_14;
 };
 
 // .?AUIControllerConnectionChangeCallback@core@@  vftable 0x4007ec (1)
@@ -1041,6 +1090,9 @@ public:
     void* f_0c;
     char _pad_10[0x4];
     int f_14;
+    void* f_18;
+    char _pad_1c[0x4];
+    char f_20;
 };
 
 // .?AUMemoryAllocatorMalloc@core@@  vftable 0x42af2c (13)
@@ -1168,6 +1220,11 @@ public:
     virtual ~SaveGameOpenRequest(); // overrides core::Request slot 0
     virtual int vfunc_1(); // overrides core::Request slot 1
     virtual int vfunc_6(); // overrides core::Request slot 6
+    int f_0c;
+    char f_10;
+    char _pad_11[0x3];
+    int f_14;
+    int f_18;
 };
 
 // .?AVSignedReader@core@@  vftable 0x42c008 (3)
@@ -1251,6 +1308,10 @@ public:
     virtual void vfunc_0_IMutable(); // overrides core::IMutable slot 0
     virtual void vfunc_1_IMutable(); // overrides core::IMutable slot 1
     unsigned int f_bc;
+    int f_c0;
+    char _pad_c4[0x114];
+    void* f_1d8;
+    int f_1dc;
 };
 
 // .?AVXboxSaveDrive@core@@  vftable 0x42c064 (22) vftable@+0x4 0x42c058 (1) vftable@+0xc 0x42c048 (3) vftable@+0xbc 0x42c038 (3) vftable@+0xc0 0x42c028 (3)
@@ -1280,6 +1341,12 @@ public:
     virtual void vfunc_2(int); // overrides core::SignedWriter slot 2
     unsigned int f_c4;
     int f_c8;
+    char f_cc;
+    char _pad_cd[0x6];
+    char f_d3;
+    char f_d4;
+    char _pad_d5[0x8];
+    char f_dd;
 };
 
 } // namespace core

@@ -84,6 +84,8 @@ public:
 class DynAttr {
 public:
     virtual ~DynAttr(); // slot 0
+    char _pad_04[0x10];
+    int f_14;
 };
 
 // template family om::DynAttrT: 1 instantiation(s), 0 with their own specialization
@@ -124,6 +126,7 @@ class EntityLoader : public ::content::ObjectLoader {
 public:
     virtual ~EntityLoader(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(int, int, int, int, int); // overrides content::ObjectLoader slot 3
+    void* f_08;
 };
 
 // .?AVType@om@@  vftable 0x42a6ac (2)
@@ -131,6 +134,13 @@ class Type {
 public:
     virtual void vfunc_0(); // slot 0
     virtual void vfunc_1(); // slot 1
+    char _pad_04[0x24];
+    int f_28;
+    int f_2c;
+    int f_30;
+    int f_34;
+    int f_38;
+    int f_3c;
 };
 
 // .?AVEntityType@om@@  vftable 0x429114 (3)
@@ -151,6 +161,13 @@ public:
 class MemoryStream : public ::om::Stream {
 public:
     virtual ~MemoryStream(); // overrides om::Stream slot 0
+    char _pad_04[0x14];
+    char f_18;
+    char _pad_19[0x3];
+    int f_1c;
+    int f_20;
+    int f_24;
+    char f_28;
 };
 
 // .?AVMetaEntity@om@@  vftable 0x42aa18 (9)
@@ -176,6 +193,12 @@ public:
     virtual ~MetaType(); // slot 0
     virtual void vfunc_1(int, int); // slot 1
     virtual void vfunc_2(int, int); // slot 2
+    char _pad_04[0x10];
+    void* f_14;
+    char _pad_18[0x4];
+    void* f_1c;
+    void* f_20;
+    int f_24;
 };
 
 // .?AVMetaTypeAttribBase@om@@  vftable 0x429420 (4)

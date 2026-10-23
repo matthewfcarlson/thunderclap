@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 98 inputs, branch coverage 17/18, incomplete)
 // hulkfight::ai::TargetDirectionCondition::vfunc_6 @ 0x001260a0
+#include "gen/hulkfight.h"
+
 extern "C" double sqrt(double);
 
 struct V3_1260a0 {
@@ -31,14 +33,14 @@ struct Chain_1260a0 {
 };
 
 namespace fight {
-class Params {
+class Params_1260a0 {
 public:
     virtual void v0();
     Chain_1260a0 *FUN_000592a0();
 };
 }
 
-class CFightParams : public fight::Params {
+class CFightParams_1260a0 : public fight::Params_1260a0 {
 public:
     virtual void v0();
 };
@@ -46,7 +48,7 @@ public:
 bool FUN_00018960(float a, float b, float eps);
 
 namespace fight {
-class Condition {
+class Condition_1260a0 {
 public:
     virtual void c0();
 };
@@ -54,25 +56,11 @@ public:
 
 namespace hulkfight {
 namespace ai {
-class TargetDirectionCondition {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual bool vfunc_6(int a, fight::Params *params, int b);
-    char pad04[8];
-    int op;
-    float threshold;
-};
 }
 }
+bool hulkfight::ai::TargetDirectionCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; fight::Params_1260a0 * params = (fight::Params_1260a0 *)__p1; int b = (int)__p2;
 
-bool hulkfight::ai::TargetDirectionCondition::vfunc_6(int a, fight::Params *params, int b)
-{
-    CFightParams *fp = dynamic_cast<CFightParams *>(params);
+    CFightParams_1260a0 *fp = dynamic_cast<CFightParams_1260a0 *>(params);
     if (fp == 0)
         return 0;
     Fighter_1260a0 *fighter = params->FUN_000592a0()->FUN_00059a30();
@@ -92,19 +80,19 @@ bool hulkfight::ai::TargetDirectionCondition::vfunc_6(int a, fight::Params *para
     V3_1260a0 e = target->dir;
     e.FUN_0022d110();
     float dot = e.z * d.z + e.y * d.y + e.x * d.x;
-    switch (op) {
+    switch (this->f_0c) {
     case 0:
-        return dot < threshold;
+        return dot < this->f_10;
     case 1:
-        return dot <= threshold;
+        return dot <= this->f_10;
     case 2:
-        return FUN_00018960(dot, threshold, 1e-5f);
+        return FUN_00018960(dot, this->f_10, 1e-5f);
     case 3:
-        return !FUN_00018960(dot, threshold, 1e-5f);
+        return !FUN_00018960(dot, this->f_10, 1e-5f);
     case 4:
-        return dot >= threshold;
+        return dot >= this->f_10;
     case 5:
-        return dot > threshold;
+        return dot > this->f_10;
     }
     return 0;
 }
