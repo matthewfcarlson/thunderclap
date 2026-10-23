@@ -66,6 +66,10 @@ class Abort(Exception):
     pass
 
 
+class Unreturned(Exception):
+    """(cap2, unreturned) the game did not come back from a callee within the time budget."""
+
+
 # ---------------------------------------------------------------------------------------------
 # GDB: full registers, breakpoint bookkeeping, timeouts everywhere, stale stop replies skipped.
 class CapGdb(Gdb):
@@ -192,12 +196,21 @@ class CallCapture:
         self.entry_g = regs["esp"]
         self.abort_why = None
         self.noreturn = False
+        self.timeout_ok = False
+        self.unreturned = None
         self.final_regs = None
         self.cur_e = self.entry_g
 
     def abort(self, why):
         self.abort_why = self.abort_why or why
         raise Abort(why)
+
+    def timeout(self, why):
+        if os.environ.get("HULK_CAP_DBG"):
+            print("CAPDBG timeout ok=%s depth=%d %s" % (self.timeout_ok, self.depth, why), file=sys.stderr, flush=True)
+        if self.timeout_ok:
+            raise Unreturned(why)
+        self.abort(why)
 
     def to_guest(self, u):
         return (self.entry_g + (u - equiv.ENTRY_ESP)) & 0xFFFFFFFF
@@ -256,9 +269,18 @@ class CallCapture:
 
             def diverged(r):
                 return r["eip"] == ret_g and entry_g < r["esp"] <= entry_g + 0x404
+        # (cap2, unreturned) a callee that does not return within the budget (a thread entry, a worker's job loop) ends the
+        # call: recorded as the last one, flagged `unreturned`; replay compares everything up to it (like a noreturn call)
+        self.timeout_ok = not tail and "unreturned" not in CAP_OFF
         try:
             regs = self.cont_until(ok, diverged)
+        except Unreturned as e:
+            rec["noreturn"] = rec["unreturned"] = True
+            self.noreturn = True
+            self.unreturned = str(e)
+            return rec
         finally:
+            self.timeout_ok = False
             if not tail:
                 self.cap.bp_temp(ret, False)
         rec["_regs"] = regs
@@ -579,10 +601,10 @@ class Capture:
             while True:
                 left = t_end + nested_s - time.time()
                 if left <= 0:
-                    cc.abort("the game did not get there in %ds%s" % (SYNC_TIMEOUT, getattr(cc, "near", None) and " [callee-saved: %s]" % cc.near or ""))
+                    cc.timeout("the game did not get there in %ds%s" % (SYNC_TIMEOUT, getattr(cc, "near", None) and " [callee-saved: %s]" % cc.near or ""))
                 rep = self.g.cont_timeout(left)
                 if rep is None:
-                    cc.abort("the game did not get there in %ds%s" % (SYNC_TIMEOUT, getattr(cc, "near", None) and " [callee-saved: %s]" % cc.near or ""))
+                    cc.timeout("the game did not get there in %ds%s" % (SYNC_TIMEOUT, getattr(cc, "near", None) and " [callee-saved: %s]" % cc.near or ""))
                 if not rep.startswith(("T", "S")):
                     cc.abort("stop reply %r" % rep[:40])
                 r = self.g.regs_full()

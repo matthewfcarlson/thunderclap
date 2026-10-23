@@ -644,7 +644,7 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     argument slots without the original's liveness test (its slots hold different words); `REPLAY_OFF=ownconvdead` turns it
     off. 3 cases in `replay_regress.py` (0x0021ee70).
   - Capture/replay (cap2, the 27 functions the recorder could not capture; `tools/trace_capture.py`, `tools/equiv_replay.py`):
-    all 27 were recorder or replay-model failures, none a source difference. 25 are now captured and **agree** (67 calls).
+    all 27 were recorder or replay-model failures, none a source difference. 25 are captured and **agree** (67 calls), the other 2 are `agreed_partial` (below).
     Switches: recorder `HULK_CAP_OFF=stepbp,stackptr,ptrdiff,ptrdiffmem,bigargs`; replay `REPLAY_OFF=negentryreg,bigpop,vpop,ptrdiffmem`.
     `stepbp`: a guest stopped on a temporary breakpoint (a loop calling from one site) re-hit it at once. `stackptr`/`ptrdiff`/
     `ptrdiffmem`: a stack address, or a difference of a stack address and another address (`sub eax, ecx` with ecx = &local),
@@ -653,9 +653,15 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     which the game's frame copy overwrote (0xb86b0, 0xba040, 0x1f6cd0). `negentryreg`: a bool-returning callee's eax held a
     stale stack address below the entry; its low byte is tested (0x000396a0). `vpop`: an indirect call to a real `ret N`
     function takes N from the callee, not from the call-site guess (a guess of 0 left esp 4 low and an esp-relative local read
-    its neighbour: 0x000d3170). Not capturable: 0x00265390 (a worker queue loop) and 0x0026dc20 (a thread entry that runs
-    `fn(arg)` and does not return); a capture holds the gate for minutes and everything called meanwhile is skipped, so these
-    need their own session. 6 cases in `replay_regress.py`.
+    its neighbour: 0x000d3170). `unreturned` / `agreed_partial`: a callee the game does not come back from within the
+    capture's budget (`HULK_CAP_SYNC`, 60 s: a thread entry's `fn(arg)`, a worker's job loop) ends the recorded call. The
+    call is flagged `unreturned` and replay compares everything up to it through the `noreturn` path (the calls and their
+    arguments, the writes before it); what happens after the call is never observed. Such a function reports **`agreed_partial`**,
+    never `agreed` (per-session `partial` counts the calls), and a function with any partial call stays `agreed_partial`.
+    Off: recorder `HULK_CAP_OFF=unreturned` (the old capture failure), replay `REPLAY_OFF=partial` (the call is then
+    inconclusive). 0x00265390 (a worker queue loop, 3,756 calls recorded before it blocks) and 0x0026dc20 (calls
+    `fn(arg)` and does not return) are `agreed_partial`. A capture of such a function holds the gate for minutes
+    and everything called meanwhile is skipped, so give it its own session. 9 cases in `replay_regress.py`.
   - Tried and **not adopted**: `smashargs` (an indexed frame store past the argument words counted as an overrun): no clean
     case, and 0x002f4eb0's native failure is a reused stack slot plus `bool_ub`, not this. Decided **no change** (real
     differences): a reused stack slot / an uninitialised local read by ours (0x001f7320, 0x002f4eb0's `unitsName`).

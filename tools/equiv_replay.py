@@ -362,6 +362,11 @@ class TraceRun(Run):
             self.beyond_trace = True
             return
         if res.get("noreturn"):
+            if res.get("unreturned") and "partial" not in REPLAY_OFF:
+                # (cap2, partial) the game never came back from this call within the capture's time budget: the run ends
+                # here on both sides and is compared up to the call (calls, arguments, writes before it)
+                self.noreturn = True
+                self.uc.emu_stop()
             return
         if self.syncer is not None:
             self.syncer.finish(self, res, snap, esp, k, tail)
@@ -804,6 +809,9 @@ def replay_level3(store, addr, max_calls=None, max_steps=2000000, time_budget=12
                                                   convs, varargs, own_float, steps)
                 res["long_steps"] = res.get("long_steps", 0) + 1
             why = selfcheck(o, orun, mach, tr)
+            unret = bool(tr["results"]) and bool(tr["results"][-1].get("unreturned"))
+            if not why and unret and "partial" in REPLAY_OFF:
+                why = "the recorded call did not return (partial comparison off)"
             if not why and pre_fix and orun.st0_used:
                 # (round 12, st0fix) captured before b566e0d3: the x87 results this call took are the physical
                 # register, not ST(0) (s1's 0x00042680: cos(angle) recorded where the game returned the angle)
@@ -857,6 +865,8 @@ def replay_level3(store, addr, max_calls=None, max_steps=2000000, time_budget=12
                                               "context": tr.get("context")})
             else:
                 res["agreed"] += 1
+                if unret:
+                    res["partial"] = res.get("partial", 0) + 1
                 if note and len(res["notes"]) < 3:
                     res["notes"].append({"call": tr["n"], "notes": note})
             tr.pop("_orun", None)
@@ -865,7 +875,7 @@ def replay_level3(store, addr, max_calls=None, max_steps=2000000, time_budget=12
         if res["replayed"] == 0:
             res["status"] = "no_replay" if res["captured"] or res["incomplete"] else "not_reached"
         else:
-            res["status"] = "mismatch" if res["mismatched"] else "agreed"
+            res["status"] = "mismatch" if res["mismatched"] else "agreed_partial" if res.get("partial") else "agreed"
         return res
     return fn
 
@@ -892,12 +902,16 @@ def replay_level3_multi(stores, addr, max_calls=None, time_budget=120):
             tot["incomplete_reasons"] += r["incomplete_reasons"][:1]
             tot["per_session"][name] = {k: r[k] for k in ("captured", "replayed", "agreed", "mismatched", "incomplete",
                                                           "status")}
+            if r.get("partial"):
+                tot["per_session"][name]["partial"] = r["partial"]
             for k in ("st0fix", "pre_st0_fix", "unknown_bytes"):
                 if k in r:
                     tot["per_session"][name][k] = r[k]
             tot["coverage"] = r.get("coverage")
         tot["t_replay"] = round(time.time() - t0, 2)
-        tot["status"] = ("no_replay" if not tot["replayed"] else "mismatch" if tot["mismatched"] else "agreed") \
+        tot["partial"] = sum(v.get("partial", 0) for v in tot["per_session"].values())
+        tot["status"] = ("no_replay" if not tot["replayed"] else "mismatch" if tot["mismatched"] else
+                         "agreed_partial" if tot["partial"] else "agreed") \
             if tot["captured"] or tot["incomplete"] else "not_reached"
         return tot
     return fn

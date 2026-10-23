@@ -77,6 +77,11 @@ CASES = {
     "0x000d3170_vcall_pop_off": ("cap2-d2", "no_replay", None, 0, "vpop"),
     # (cap2, ptrdiffmem; capture side) `sub eax, ecx` stored in the frame (arg - &array) differs by the stacks' offset: recaptured, 0x000a89c0
     "0x000a89c0_ptrdiff_mem": ("cap2-e", "agreed", None, 1),
+    # (cap2, partial) a callee the game never returned from within the capture's budget (a thread entry's `fn(arg)`) ends the
+    # call; replay compares up to it and reports agreed_partial, never agreed. _off: REPLAY_OFF=partial; _wrong: a changed argument
+    "0x0026dc20_partial": ("cap2-g", "agreed_partial", None, 1),
+    "0x0026dc20_partial_off": ("cap2-g", "no_replay", "partial comparison off", 0, "partial"),
+    "0x0026dc20_partial_wrong": ("cap2-g", "mismatch", "argument 1"),
 }
 
 

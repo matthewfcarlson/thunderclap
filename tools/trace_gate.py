@@ -164,10 +164,10 @@ class GateCapture(tc.Capture):
             while True:
                 left = t_end + nested_s - time.time()
                 if left <= 0:
-                    cc.abort("the game did not get there in %ds%s" % (SYNC_TIMEOUT, getattr(cc, "near", None) and " [callee-saved: %s]" % cc.near or ""))
+                    cc.timeout("the game did not get there in %ds%s" % (SYNC_TIMEOUT, getattr(cc, "near", None) and " [callee-saved: %s]" % cc.near or ""))
                 rep = self.g.cont_timeout(left)
                 if rep is None:
-                    cc.abort("the game did not get there in %ds%s" % (SYNC_TIMEOUT, getattr(cc, "near", None) and " [callee-saved: %s]" % cc.near or ""))
+                    cc.timeout("the game did not get there in %ds%s" % (SYNC_TIMEOUT, getattr(cc, "near", None) and " [callee-saved: %s]" % cc.near or ""))
                 if not rep.startswith(("T", "S")):
                     cc.abort("stop reply %r" % rep[:40])
                 r = self.g.regs_full()
