@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3029 inputs, branch coverage 32/32)
+// STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 32/32)
 // FUN_001e5980 @ 0x001e5980
 #include "decls/address.h"
+#include "compat/ptr.h"
 struct V3_1e5980 {
     float x, y, z;
 };
@@ -213,11 +214,11 @@ void Manager_1e5980::FUN_001e5980(int idx)
 
     ent->flags &= 0xbffe;
 
-    float v = e->scale * 100.0f;
+    hulk_freg v = e->scale * 100.0f;
     if (!(v < 65000.0f))
         v = 65000.0f;
     slot->count26 = (unsigned char)e->nodeIndex;
-    slot->field20 = (short)(int)v;
+    slot->field20 = (short)(__int64)v;
     slot->field24 = e->word108;
 
     bool noBlock;

@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // FUN_002d1b00 @ 0x002d1b00
+#include "compat/ptr.h"
 struct Particle_2d1b00 {
  float x,y,z;
  char pad0[0x20-12];
@@ -22,7 +23,7 @@ struct Emitter_2d1b00 {
 void __cdecl FUN_002d1b00(float dt, Emitter_2d1b00* emitter, Particle_2d1b00* particle) {
  float speed = emitter->speed;
  particle->acceleration = (float)particle->factor * emitter->accelerationScale * 0.00390625f * dt + particle->acceleration;
- float x = speed * particle->vx * dt + particle->x;
+ hulk_freg x = speed * particle->vx * dt + particle->x;
  particle->x = x;
  float y = (particle->vy + particle->acceleration) * speed * dt + particle->y;
  particle->y = y;

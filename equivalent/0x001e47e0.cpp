@@ -88,8 +88,8 @@ public:
 
 Part_1e47e0 *CSPManager_1e47e0::FUN_001e47e0(Owner_1e47e0 *owner, Attach_1e47e0 *a)
 {
-    Matrix mat38;
     Matrix mat78;
+    Matrix mat38;
     char name[32];
     Part_1e47e0 *result = 0;
 

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 126 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 19720 inputs, branch coverage 24/24)
 // FUN_002a41e0 @ 0x002a41e0
 class Owner_2a41e0 {
 public:
@@ -36,6 +36,11 @@ struct Entry_2a41e0 {
     Child_2a41e0** end;
     Child_2a41e0** cap;
 };
+#if defined(__clang__)
+typedef int (__fastcall *Fn0)(void*, int);
+typedef void (__fastcall *Fn1)(void*, int, int);
+typedef int (__fastcall *Fn1r)(void*, int, int);
+#endif
 class Group_2a41e0;
 class Parent_2a41e0 {
 public:
@@ -61,7 +66,19 @@ void Group_2a41e0::FUN_002a41e0(Parent_2a41e0* parent, int arg)
     if (source != 0) {
         for (unsigned int k = 0; k < count; k++) {
             Owner_2a41e0* o = entries[k].owner;
+#if defined(__clang__)
+            {
+                // the original loads both vptrs before the first call and reads the slots after it
+                void** ovt = *(void***)o;
+                Source_2a41e0* s = source;
+                void** svt = *(void***)s;
+                int a = ((Fn0)ovt[7])(o, 0);
+                int b = ((Fn1r)svt[3])(s, 0, a);
+                ((Fn1)ovt[8])(o, 0, b);
+            }
+#else
             o->v8(source->v3(o->v7()));
+#endif
             Entry_2a41e0* e = &entries[k];
             unsigned int n = (unsigned int)(e->end - e->begin);
             for (unsigned int i = 0; i < n; i++) {
@@ -70,7 +87,19 @@ void Group_2a41e0::FUN_002a41e0(Parent_2a41e0* parent, int arg)
                     c->v6(0, 1);
             }
             e->owner->v6();
+#if defined(__clang__)
+            {
+                // the original loads both vptrs before the first call and reads the slots after it
+                void** ovt = *(void***)o;
+                Source_2a41e0* s = source;
+                void** svt = *(void***)s;
+                int a = ((Fn0)ovt[7])(o, 0);
+                int b = ((Fn1r)svt[4])(s, 0, a);
+                ((Fn1)ovt[8])(o, 0, b);
+            }
+#else
             o->v8(source->v4(o->v7()));
+#endif
         }
     } else {
         for (unsigned int k = 0; k < count; k++) {

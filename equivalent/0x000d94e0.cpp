@@ -23,9 +23,9 @@ const char* text;
 if(mode) text=(*(const char**)&DAT_004a0ce8);
 else if(DAT_004dd6ec->FUN_00086280()->flag) text=(*(const char**)&DAT_004a0ce4);
 else text=(*(const char**)&DAT_004a0ce0);
-static const float zero=0.0f;
+extern const float zero_d94e0; // the shared 0.0f constant in .rdata
 unsigned int setting=(*(unsigned int*)&DAT_004a0c60);
-service->FUN_000be310(text,buffer,&zero,&zero,&zero,3,setting,setting);
+service->FUN_000be310(text,buffer,&zero_d94e0,&zero_d94e0,&zero_d94e0,3,setting,setting);
 active=1;
 value=0;
 label->FUN_000bc9f0("DynamicControlButtonLabel",0);

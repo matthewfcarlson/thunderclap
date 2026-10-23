@@ -1,11 +1,12 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 8/8)
 // physics::SimpleFilter1D::vfunc_1 @ 0x003195d0
+#include "compat/ptr.h"
 namespace physics {
 
 class Filter1D {
 public:
     virtual void vfunc_0();
-    virtual float vfunc_1(float x, float target);
+    virtual hulk_freg vfunc_1(float x, float target);
     virtual void vfunc_2();
     float rate;         // 4
     float alpha;        // 8
@@ -16,11 +17,11 @@ public:
 class SimpleFilter1D : public Filter1D {
 public:
     virtual void vfunc_0();
-    virtual float vfunc_1(float x, float target);
+    virtual hulk_freg vfunc_1(float x, float target);
     virtual void vfunc_2();
 };
 
-float SimpleFilter1D::vfunc_1(float x, float target)
+hulk_freg SimpleFilter1D::vfunc_1(float x, float target)
 {
     if (lastTarget != target) {
         alpha = target * rate;
@@ -32,8 +33,9 @@ float SimpleFilter1D::vfunc_1(float x, float target)
             state = (state * 1.5f - x * alpha) / (1.0f - alpha);
         lastTarget = target;
     }
-    state = (x - state) * alpha + state;
-    return state;
+    hulk_freg result = (x - state) * alpha + state;
+    state = result;
+    return result; // the original returns the unrounded register
 }
 
 }

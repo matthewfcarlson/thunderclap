@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 8/8)
 // FUN_001b3440 @ 0x001b3440
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 class Timeline_1b3440 {
 public:
@@ -23,9 +24,11 @@ bool Timeline_1b3440::FUN_001b3440(float dt)
     int seg = FUN_001b3250(pos);
     if (((float*)((char*)&DAT_004e1830 + 144))[t * 45 + seg] == 0.0f && ((float*)((char*)&DAT_004e1830 + 160))[t * 45 + seg] == 0.0f)
         return false;
-    time = dt + time;
-    pos = time * rate;
-    if (pos >= ((float*)((char*)&DAT_004e1830 + 140))[t * 45])
+    hulk_freg t2 = dt + time; // the original keeps the sum and the product in x87 registers
+    time = t2;
+    hulk_freg p = t2 * rate;
+    pos = p;
+    if (p >= ((float*)((char*)&DAT_004e1830 + 140))[t * 45])
         return false;
     return true;
 }

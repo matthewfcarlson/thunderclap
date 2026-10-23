@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 23 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 144 inputs, branch coverage 16/16)
 // FUN_002af510 @ 0x002af510
 void *__cdecl FUN_00266e00(unsigned int count, unsigned int size);
 void __cdecl FUN_00267090(void *p);
@@ -53,7 +53,8 @@ void __cdecl FUN_002af510(Reader *reader, ImageHeader *img, Writer_2af510 *write
     }
 
     writer->vfunc_0(img->width, img->height, 4, 1, palette);
-    reader->FUN_00264510(img->dataEnd - reader->FUN_00263fc0());
+    int position = reader->FUN_00263fc0(); // MSVC evaluates the call before reading dataEnd
+    reader->FUN_00264510(img->dataEnd - position);
 
     int width = img->width;
     int packed = width / 2;

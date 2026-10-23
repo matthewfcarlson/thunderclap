@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 4/4)
 // FUN_002ac4a0 @ 0x002ac4a0
 // equiv-map: ??0ParticleAllocator@pure3d@@QAE@XZ = 0x002d3d90
 #include "compat/ptr.h"
@@ -50,7 +50,7 @@ ParticleAllocatorTemplate<SpriteParticle>::ParticleAllocatorTemplate(unsigned in
     count = bytes >> 6;
     bytes = 0;
     free.FUN_002ab880(count, &bytes);
-    char proto[0x40];   // callee takes a pointer 0xc bytes into this scratch
+    char proto[0x4c];   // callee takes a pointer 0xc bytes into this scratch
     pool.FUN_002aba80(count, (const SpriteParticle *)(proto + 0xc));
     for (unsigned int i = 0; i < count; i++)
         free.begin[i] = (hulk_uintptr)(pool.begin + (count - i - 1));

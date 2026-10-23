@@ -1,8 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 20028 inputs, branch coverage 18/18)
 // pure3d::d3dContext::vfunc_89 @ 0x00321ea0
 // Property getter: returns cached context values by property id; unknown ids fall through to the base default.
-int __stdcall FUN_0031e2d0(int property);
-
 namespace pure3d {
 class d3dContext {
 public:
@@ -10,6 +8,7 @@ public:
     char pad[0x424 - 4];
     int v424, v428, v42c, v430, v434, v438, v43c, v440, v444, v448;
     int vfunc_89(int property);
+    int FUN_0031e2d0(int property);
 };
 
 int d3dContext::vfunc_89(int property)

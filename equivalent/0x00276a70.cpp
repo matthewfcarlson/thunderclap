@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // core::InstanceDrive::vfunc_10 @ 0x00276a70
 struct ParsedData { char bytes[260]; };
 void __cdecl FUN_002697c0(const char*, ParsedData*, unsigned int*, unsigned int*, unsigned int*);
@@ -15,8 +15,8 @@ struct InstanceDrive {
  char padding[8]; Backend_276a70* backend; unsigned int context;
 };
 unsigned int InstanceDrive::vfunc_10(const char* name) {
- unsigned int alternate = 0, primary = 0, other;
  ParsedData parsed;
+ unsigned int other, primary = 0, alternate = 0;
  FUN_002697c0(name, &parsed, &other, &primary, &alternate);
  unsigned int selected = primary;
  if (backend->slot6() < 0) selected = alternate;

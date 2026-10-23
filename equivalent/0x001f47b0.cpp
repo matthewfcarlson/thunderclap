@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 10/10)
 // FUN_001f47b0 @ 0x001f47b0
 struct Key_1f47b0 {
     int lo, hi;
@@ -42,9 +42,12 @@ bool Owner_1f47b0::FUN_001f47b0(Key_1f47b0 *key) {
         timer.field18 = 0;
     }
     Target_1f47b0 *t = target;
-    if (t && t->expected == FUN_001f31a0(key)) {
-        t->FUN_001f3400(250);
-        return true;
+    if (t) {
+        int current = FUN_001f31a0(key); // MSVC calls this before reading t->expected; clang would read t->expected first
+        if (t->expected == current) {
+            t->FUN_001f3400(250);
+            return true;
+        }
     }
     return false;
 }

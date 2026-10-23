@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 4328 inputs, branch coverage 30/30)
 // FUN_00328270 @ 0x00328270
 #include "decls/data/platform/xbox/pure3d.h"
+#include "compat/ptr.h"
 
 struct Vertex_328270 {
     float x;
@@ -65,7 +66,7 @@ void TextDrawer::FUN_00328270(const char* text, int px, int py, int color, int e
     float lineAdvance = DAT_004d4cd4 * 5.0f + t0;
     float halfX = DAT_004d4cd0 * 0.5f;
     float halfY = DAT_004d4cd4 * 0.5f;
-    float x = (float)px;
+    hulk_freg x = (float)px; // the tab path keeps the exact integer in the register, the glyph path stores a float
     float xStart = x;
     float y = (float)py * DAT_004d4cd4 + t0;
     int count = 0;
@@ -83,15 +84,17 @@ void TextDrawer::FUN_00328270(const char* text, int px, int py, int color, int e
             x = xStart;
             y = y + lineAdvance;
         } else if (c == '\t') {
-            x = (float)(((int)x / 40 + 1) * 40);
+            x = ((int)(__int64)x / 40 + 1) * 40; // _ftol: low word of the 64-bit conversion; not rounded to float
         } else if (c >= 0x20 && c <= 0x7f) {
             const GlyphInfo& info = ((GlyphInfo*)&DAT_004d4ad0)[c];
             signed char* g = &((signed char*)&DAT_004d4120)[info.offset * 2];
             int width = g[0];
             if (width < 0)
                 width = -width;
-            float advance = (float)width * halfX + 0.5f;
-            float baseX = x + advance;
+            // baseX adds the unrounded sum; the stored (rounded) advance is read back later
+            hulk_freg advanceReg = (float)width * halfX + 0.5f;
+            float advance = (float)advanceReg;
+            float baseX = x + advanceReg;
             for (int i = 1; i < (int)info.numPoints - 1; ++i) {
                 if ((unsigned char)g[i * 2 + 2] == 0xce) {
                     ++i;
@@ -106,7 +109,7 @@ void TextDrawer::FUN_00328270(const char* text, int px, int py, int color, int e
                     }
                 }
             }
-            x = baseX + advance;
+            x = baseX + advance; // stays unrounded in the x87 register until the next glyph's baseX store
         }
     }
     if (count != 0)

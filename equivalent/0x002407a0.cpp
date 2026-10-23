@@ -99,19 +99,19 @@ void FUN_002407a0(unsigned int flags)
         l = FUN_00247530(FUN_0024d200());
         if (l != 0)
             l = ((EntityLoader_nv_2407a0*)(l))->FUN_0024d360(FUN_00245330());
-        (*(Registry_2407a0**)&DAT_00527c58)->FUN_00265210(l, FUN_00245330()->handle);
+        { int handleArg = FUN_00245330()->handle; (*(Registry_2407a0**)&DAT_00527c58)->FUN_00265210(l, handleArg); } // MSVC evaluates the argument first
         l = FUN_00247530(FUN_0024d200());
         if (l != 0)
             l = ((EntityLoader_nv_2407a0*)(l))->FUN_0024d360(FUN_00256660());
-        (*(Registry_2407a0**)&DAT_00527c58)->FUN_00265210(l, FUN_00256660()->handle);
+        { int handleArg = FUN_00256660()->handle; (*(Registry_2407a0**)&DAT_00527c58)->FUN_00265210(l, handleArg); } // MSVC evaluates the argument first
         l = FUN_00247530(FUN_0024d200());
         if (l != 0)
             l = ((EntityLoader_nv_2407a0*)(l))->FUN_0024d360(FUN_00241660());
-        (*(Registry_2407a0**)&DAT_00527c58)->FUN_00265210(l, FUN_00241660()->handle);
+        { int handleArg = FUN_00241660()->handle; (*(Registry_2407a0**)&DAT_00527c58)->FUN_00265210(l, handleArg); } // MSVC evaluates the argument first
         l = FUN_00247530(FUN_0024d200());
         if (l != 0)
             l = ((EntityLoader_nv_2407a0*)(l))->FUN_0024d360(FUN_0024d5a0());
-        (*(Registry_2407a0**)&DAT_00527c58)->FUN_00265210(l, FUN_0024d5a0()->handle);
+        { int handleArg = FUN_0024d5a0()->handle; (*(Registry_2407a0**)&DAT_00527c58)->FUN_00265210(l, handleArg); } // MSVC evaluates the argument first
     }
     DAT_004e5cac = FUN_00242bd0();
     DAT_004e5ca8 = FUN_00267f80();

@@ -186,7 +186,8 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, int arg1)
     if (tm)
         tm = ((CSimOverlayManager_nv_88670*)(tm))->FUN_000d75c0();
     m = tm;
-    ((CSimOverlayManager_nv_88670*)(m))->FUN_000d6f00(ctx->FUN_00086380()->v2c);
+    int arg_v2c = ctx->FUN_00086380()->v2c; // MSVC evaluates the argument before loading the receiver m
+    ((CSimOverlayManager_nv_88670*)(m))->FUN_000d6f00(arg_v2c);
 
     CExtraRenderingCallback *tn = (CExtraRenderingCallback *)FUN_0008d690(0x2c);
     if (tn)

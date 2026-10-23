@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 112 inputs, branch coverage 18/18)
 // pure3d::ParticleSystem::vfunc_8 @ 0x002a39a0
 #include "decls/data/engine/pure3d/prop.h"
 
@@ -57,6 +57,11 @@ public:
     virtual void v22(void* out);
 };
 
+#if defined(__clang__)
+typedef int (__fastcall *Fn0)(void*, int);
+typedef void (__fastcall *Fn1)(void*, int, int);
+typedef int (__fastcall *Fn1r)(void*, int, int);
+#endif
 class Helper_2a39a0 {
 public:
     virtual void v0();
@@ -117,9 +122,31 @@ void ParticleSystem::run(Renderer_2a39a0* renderer, int arg)
         if (helper != 0) {
             for (unsigned int i = 0; i < count; i++) {
                 Child_2a39a0* c = begin[i].child;
+#if defined(__clang__)
+                {
+                    // the original loads both vptrs before the first call and reads the slots after it
+                    void** cvt = *(void***)c;
+                    void** hvt = *(void***)helper;
+                    int a = ((Fn0)cvt[7])(c, 0);
+                    int b = ((Fn1r)hvt[3])(helper, 0, a);
+                    ((Fn1)cvt[8])(c, 0, b);
+                }
+#else
                 c->v8(helper->v3(c->v7()));
+#endif
                 begin[i].FUN_002a4060();
+#if defined(__clang__)
+                {
+                    // the original loads both vptrs before the first call and reads the slots after it
+                    void** cvt = *(void***)c;
+                    void** hvt = *(void***)helper;
+                    int a = ((Fn0)cvt[7])(c, 0);
+                    int b = ((Fn1r)hvt[4])(helper, 0, a);
+                    ((Fn1)cvt[8])(c, 0, b);
+                }
+#else
                 c->v8(helper->v4(c->v7()));
+#endif
             }
         } else {
             for (unsigned int i = 0; i < count; i++)

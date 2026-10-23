@@ -1,6 +1,15 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 19939 inputs, branch coverage 10/10)
 // FUN_000b76c0 @ 0x000b76c0
-extern "C" int __cdecl memcmp(const void *, const void *, unsigned int);
+// MSVC 7.1 expands memcmp inline (repe cmpsb); so does this.
+static inline int memcmp_inline(const void *a, const void *b, unsigned n)
+{
+    const unsigned char *p = (const unsigned char *)a;
+    const unsigned char *q = (const unsigned char *)b;
+    for (; n != 0; n--, p++, q++)
+        if (*p != *q)
+            return *p - *q;
+    return 0;
+}
 
 class FEObject {
 public:
@@ -39,8 +48,9 @@ void PauseScreen::FUN_000b76c0()
     if (button) {
         int state = stats->counter.FUN_00088fa0();
         int other = stats->counter.FUN_00088fb0();
-        const char *name = stats->FUN_0008a060(stats->FUN_0008a2d0());
-        if (state >= 1 && state <= 7 && (other == 0 || memcmp("complete", name, 9) == 0))
+        int nameId = stats->FUN_0008a2d0(); // the argument is evaluated (and stats reloaded) before the lookup call
+        const char *name = stats->FUN_0008a060(nameId);
+        if (state >= 1 && state <= 7 && (other == 0 || memcmp_inline("complete", name, 9) == 0))
             button->complete = 1;
         else
             button->complete = 0;

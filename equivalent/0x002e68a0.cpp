@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 12/12)
 // FUN_002e68a0 @ 0x002e68a0
 #include "decls/data/engine/physics.h"
 
@@ -31,6 +31,11 @@ void FUN_002e68a0(char* buffer, png_struct_2e68a0* png_ptr, const char* message)
     }
     buffer[pos] = ':';
     buffer[pos + 1] = ' ';
-    memcpy(buffer + pos + 2, message, 64);
+    // the original copies with an inline rep movs; a plain forward loop keeps clang from emitting a memcpy call
+    {
+        char *dst = buffer + pos + 2;
+        const char *src = message;
+        for (int k = 0; k < 16; k++) { *(unsigned int *)dst = *(const unsigned int *)src; dst += 4; src += 4; } // rep movsd x16
+    }
     buffer[pos + 2 + 63] = 0;
 }

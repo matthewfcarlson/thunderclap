@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 6/6)
 // FUN_001f3040 @ 0x001f3040
 // FUN_001f3040: look up an entry and fetch two sound handles from it (or default to "hulk")
 #include "decls/address.h"
@@ -43,7 +43,8 @@ void __cdecl FUN_001f3040(Dest_1f3040 *d, Key_1f3040 *k)
         d->flag = n->flag;
         return;
     }
-    if (k->key == FUN_0027b020("hulk")) {
+    u64_1f3040 hulk = FUN_0027b020("hulk"); // MSVC calls it before reading k->key
+    if (k->key == hulk) {
         d->handleA = (*(Sound_1f3040**)&DAT_004e3690)->FUN_001ea010("hulk_sfx");
         d->handleB = (*(Sound_1f3040**)&DAT_004e3690)->FUN_001ea010("hulk_vox");
         d->flag = 1;

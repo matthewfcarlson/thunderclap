@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 32/32)
+// STATUS: equivalent (tools/equiv.py level 3: 19957 inputs, branch coverage 32/32)
 // FUN_001bdb90 @ 0x001bdb90
 #include "compat/ptr.h"
 #include "decls/address.h"
@@ -82,8 +82,16 @@ void Widget_1bdb90::FUN_001bdb90()
     f.saved = FUN_00266da0(0x11);
     Inventory_1bdb90 *inv = DAT_004dd700->holder->FUN_000862a0()->inv;
     Res_1bdb90 *r;
+    // the original loads the inventory's vptr before each key lookup and the slot after it
+    typedef Res_1bdb90 *(__fastcall *GetFn)(Inventory_1bdb90 *, int, void *, unsigned __int64);
+    void **vtable;
+    void *caster;
+    unsigned __int64 key;
 
-    r = inv->get(new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>, FUN_002672f0((*(const char**)&DAT_004c4bfc), 0, 0));
+    vtable = *(void ***)inv;
+    caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>;
+    key = FUN_002672f0((*(const char**)&DAT_004c4bfc), 0, 0);
+    r = ((GetFn)vtable[3])(inv, 0, caster, key);
     if (r)
         r->AddRef();
     if (r4)
@@ -92,7 +100,10 @@ void Widget_1bdb90::FUN_001bdb90()
     if (r)
         ((Composite_1bdb90 *)r)->FUN_002998d0(0);
 
-    r = inv->get(new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>, FUN_002672f0((*(const char**)&DAT_004c4bf8), 0, 0));
+    vtable = *(void ***)inv;
+    caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>;
+    key = FUN_002672f0((*(const char**)&DAT_004c4bf8), 0, 0);
+    r = ((GetFn)vtable[3])(inv, 0, caster, key);
     if (r)
         r->AddRef();
     if (r8)
@@ -101,7 +112,10 @@ void Widget_1bdb90::FUN_001bdb90()
     if (r)
         ((Composite_1bdb90 *)r)->FUN_002998d0(0);
 
-    r = inv->get(new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>, FUN_002672f0((*(const char**)&DAT_004c4bf4), 0, 0));
+    vtable = *(void ***)inv;
+    caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>;
+    key = FUN_002672f0((*(const char**)&DAT_004c4bf4), 0, 0);
+    r = ((GetFn)vtable[3])(inv, 0, caster, key);
     if (r)
         r->AddRef();
     if (rc)
@@ -110,7 +124,10 @@ void Widget_1bdb90::FUN_001bdb90()
     if (r)
         ((Composite_1bdb90 *)r)->FUN_002998d0(0);
 
-    r = inv->get(new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>, FUN_002672f0((*(const char**)&DAT_004c4bf0), 0, 0));
+    vtable = *(void ***)inv;
+    caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>;
+    key = FUN_002672f0((*(const char**)&DAT_004c4bf0), 0, 0);
+    r = ((GetFn)vtable[3])(inv, 0, caster, key);
     if (r)
         r->AddRef();
     if (r10)
@@ -119,14 +136,20 @@ void Widget_1bdb90::FUN_001bdb90()
     if (r)
         ((Composite_1bdb90 *)r)->FUN_002998d0(0);
 
-    r = inv->get(new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>, FUN_002672f0((*(const char**)&DAT_004c4bec), 0, 0));
+    vtable = *(void ***)inv;
+    caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>;
+    key = FUN_002672f0((*(const char**)&DAT_004c4bec), 0, 0);
+    r = ((GetFn)vtable[3])(inv, 0, caster, key);
     if (r)
         r->AddRef();
     if (r14)
         r14->Release();
     r14 = r;
 
-    r = inv->get(new (f.caster) content::LoadInventory::DynamicCaster<pure3d::Locator>, FUN_002672f0((*(const char**)&DAT_004c4be8), 0, 0));
+    vtable = *(void ***)inv;
+    caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::Locator>;
+    key = FUN_002672f0((*(const char**)&DAT_004c4be8), 0, 0);
+    r = ((GetFn)vtable[3])(inv, 0, caster, key);
     if (r)
         r->AddRef();
     if (r18)

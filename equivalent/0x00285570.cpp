@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 2/2)
 // pure3d::OldFrameControllerLoader::vfunc_5 @ 0x00285570
 #include "decls/address.h"
 struct Reader { void FUN_002647e0(void*, unsigned, unsigned, unsigned); };
@@ -11,7 +11,9 @@ struct OldFrameControllerLoader {
  virtual void* vfunc_7(char* name, unsigned type, Chunk* chunk, void* context);
 };
 void OldFrameControllerLoader::vfunc_5(void** output, unsigned __int64* nameId, Chunk* chunk, void* context) {
- unsigned type; unsigned char length; char name[256];
+ char name[256];
+ unsigned type;
+ unsigned char length;
  chunk->reader->FUN_002647e0(&type,1,4,1);
  chunk->reader->FUN_002647e0(&length,1,1,1);
  unsigned n=length;

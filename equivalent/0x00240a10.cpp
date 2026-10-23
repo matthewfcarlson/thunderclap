@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 4/4)
 // FUN_00240a10 @ 0x00240a10
 #include "decls/data/engine/audio.h"
 #include "decls/data/engine/content.h"
@@ -58,10 +58,10 @@ void FUN_00240a10()
 {
     FUN_00242c10(((char*)&DAT_004e5cac));
     if ((*(unsigned char*)&DAT_004e5ca4) & 1) {
-        (*(Pool_240a10**)&DAT_00527c58)->FUN_002659a0(FUN_00245330()->id);
-        (*(Pool_240a10**)&DAT_00527c58)->FUN_002659a0(FUN_00256660()->id);
-        (*(Pool_240a10**)&DAT_00527c58)->FUN_002659a0(FUN_00241660()->id);
-        (*(Pool_240a10**)&DAT_00527c58)->FUN_002659a0(FUN_0024d5a0()->id);
+        { int poolId = FUN_00245330()->id; (*(Pool_240a10**)&DAT_00527c58)->FUN_002659a0(poolId); } // MSVC evaluates the argument first
+        { int poolId = FUN_00256660()->id; (*(Pool_240a10**)&DAT_00527c58)->FUN_002659a0(poolId); } // MSVC evaluates the argument first
+        { int poolId = FUN_00241660()->id; (*(Pool_240a10**)&DAT_00527c58)->FUN_002659a0(poolId); } // MSVC evaluates the argument first
+        { int poolId = FUN_0024d5a0()->id; (*(Pool_240a10**)&DAT_00527c58)->FUN_002659a0(poolId); } // MSVC evaluates the argument first
     }
     FUN_0024d630();
     FUN_00255d20()->v1();

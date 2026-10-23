@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 20018 inputs, branch coverage 8/8)
 // FUN_000c6c40 @ 0x000c6c40
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -70,7 +70,11 @@ void FUN_000c6c40(const char *name, const char *key, int value)
 {
     Loader_c6c40 *loader = (*(Loader_c6c40**)&DAT_004dd9cc);
     content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> caster;
-    Resource_c6c40 *res = loader->v3(&caster, FUN_002672f0(name, 0, 0));
+    // the original loads the loader's vptr before FUN_002672f0 and the slot after it
+    typedef Resource_c6c40 *(__fastcall *V3Fn)(Loader_c6c40*, int, content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> *, unsigned __int64);
+    void **vtable = *(void ***)loader;
+    unsigned __int64 id64 = FUN_002672f0(name, 0, 0);
+    Resource_c6c40 *res = ((V3Fn)vtable[3])(loader, 0, &caster, id64);
     if (res) {
         res->AddRef();
         Index_c6c40 *index = res->v11()->index;

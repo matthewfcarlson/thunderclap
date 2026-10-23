@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 20019 inputs, branch coverage 10/10)
 // FUN_0022d550 @ 0x0022d550
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct V3_22d550 {
@@ -21,25 +22,25 @@ char FUN_0022d550(const V3_22d550 *s, const V3_22d550 *dir, const V3_22d550 *p, 
     float len = (float)sqrt(d2.z * d2.z + d2.y * d2.y + d2.x * d2.x);
     d2.FUN_0022d180();
 
-    float a = dir->y * dir->y + dir->z * dir->z + dir->x * dir->x;
+    hulk_freg a = dir->y * dir->y + dir->z * dir->z + dir->x * dir->x;
     float b = d2.x * dir->x + d2.y * dir->y + d2.z * dir->z;
-    float e = d2.z * d2.z + d2.y * d2.y + d2.x * d2.x;
+    hulk_freg e = d2.z * d2.z + d2.y * d2.y + d2.x * d2.x;
     float c = d1.z * dir->z + d1.x * dir->x + d1.y * dir->y;
-    float f = d2.z * d1.z + d2.x * d1.x + d2.y * d1.y;
+    hulk_freg f = d2.z * d1.z + d2.x * d1.x + d2.y * d1.y;
 
-    float denom = e * a - b * b;
+    hulk_freg denom = e * a - b * b;
     if (denom < 1e-5f) {
         *outB = 0;
         *outA = -(c / a);
         return 0;
     }
-    float inv = 1.0f / denom;
+    hulk_freg inv = 1.0f / denom;
     *outA = (f * b - c * e) * inv;
-    float tt = (f * a - c * b) * inv;
+    hulk_freg tt = (f * a - c * b) * inv;
     *outB = tt;
     if (!(tt < 0.0f) && !(len < tt))
         return 1;
-    if (*outB < 0.0f)
+    if (tt < 0.0f)
         *outB = 0;
     if (*outB > len)
         *outB = len;

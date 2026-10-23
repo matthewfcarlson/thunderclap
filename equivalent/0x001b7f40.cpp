@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2503 inputs, branch coverage 28/28)
+// STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 28/28)
 // FUN_001b7f40 @ 0x001b7f40
 // cl-flags: /GS
 #include "decls/address.h"
@@ -40,10 +40,10 @@ void Target_1b7f40::run(const char* name, unsigned char useName) {
  char path[256];
  sprintf(path,"%s\\%s.rmv",(*(unsigned char*)&DAT_004dd839) ? "movies-pal":"movies",name);
  const char* result=FUN_001b73c0(name);
- float scale;
- if(!useName) result=(const char*)&scale;
- scale=(*(unsigned char*)&DAT_004dd839) ? 1.2f : 1.0f;
- movie->open(path,result,0,scale);
+ float scale[2]; // the callee writes 8 bytes through the pointer
+ if(!useName) result=(const char*)scale;
+ scale[0]=(*(unsigned char*)&DAT_004dd839) ? 1.2f : 1.0f;
+ movie->open(path,result,0,scale[0]);
  if(movie->state()==0) FUN_001b7970();
  else {
  float vol=DAT_004dd700->manager->FUN_000862e0()->FUN_001eba20()*0.01f;

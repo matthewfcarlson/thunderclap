@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 20/20)
 // hulkfight::motion::CharacterPropStatusCondition::vfunc_6 @ 0x001671d0
 // hulkfight::motion::CharacterPropStatusCondition::vfunc_6 @ 0x001671d0: compares a count against a threshold
 struct Player_1671d0 {
@@ -37,7 +37,7 @@ bool hulkfight::motion::CharacterPropStatusCondition::vfunc_6(int a, Source_1671
     source->FUN_000592a0()->FUN_00059a30();
     FUN_000678d0()->FUN_00066530();
     int count = FUN_000678d0()->FUN_00065f60();
-    int limit = (int)threshold;
+    int limit = (int)(__int64)threshold;  // _ftol: low word of the 64-bit conversion
     switch (op) {
     case 0:
         return count < limit;

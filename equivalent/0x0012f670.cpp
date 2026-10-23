@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 30022 inputs, branch coverage 28/32, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20043 inputs, branch coverage 28/32, incomplete)
 // hulkfight::MissionProgressCondition::vfunc_6 @ 0x0012f670
 #include "decls/address.h"
 struct Names_12f670 {
@@ -47,7 +47,8 @@ bool hulkfight::MissionProgressCondition::vfunc_6(int a, int b, int c)
 {
     if (expected == 0 || id == 0)
         return false;
-    const char *current = DAT_004dd700->table->FUN_00086310()->FUN_0008a060(id);
+    int key = id; // MSVC reads the argument before calling FUN_00086310; clang would read it after
+    const char *current = DAT_004dd700->table->FUN_00086310()->FUN_0008a060(key);
     switch (mode) {
     case 0:
         return StrCmp(current, expected) == 0;

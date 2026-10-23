@@ -79,11 +79,11 @@ hulk_freg BillboardCutOffQuadGroup::vfunc_11(Slot_2ba600 a, Slot_2ba600 b)
 
     unsigned int bits = a.u;
     b.u = bits & 0x7fffffff;
-    float nx;
-    float ny;
+    hulk_freg nx;
+    hulk_freg ny;
     if (!(b.f <= 1e-5f)) {
         b.f = 1.0f / a.f;
-        nx = b.f * f.dx;
+        nx = (1.0f / a.f) * f.dx; // nx uses the unrounded quotient, ny and dz the stored (rounded) one
         ny = b.f * f.dy;
         f.dz = b.f * f.dz;
     } else {
@@ -102,7 +102,7 @@ hulk_freg BillboardCutOffQuadGroup::vfunc_11(Slot_2ba600 a, Slot_2ba600 b)
     b.f = 1.0f;
     FUN_002b8b30(&f.outB0, &b.f, field9c, &rangeB4, &rangeBC, pb, &f.normal);
 
-    float w = 1.0f;
+    hulk_freg w = 1.0f;
     if (mode == 1) {
         if (a.f < fadeStart) {
             w = 1.0f;

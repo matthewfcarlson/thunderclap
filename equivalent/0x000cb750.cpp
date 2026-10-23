@@ -41,5 +41,9 @@ hulk_freg Sampler_cb750::Sample(int a, int b)
     Curve_cb750* first = bank->curves[0];
     Slot_cb750* slot = &slots[current];
     float inv = 14.0f / first->v7();
-    return curve->v10(bank->FUN_000f7220(a)) * slot->value * inv;
+    // the original loads the curve's vptr before the bank lookup call and the slot after it
+    typedef float (__fastcall *EvalFn)(Curve_cb750*, int, int);
+    void** vtable = *(void***)curve;
+    int arg = bank->FUN_000f7220(a);
+    return ((EvalFn)vtable[10])(curve, 0, arg) * slot->value * inv;
 }

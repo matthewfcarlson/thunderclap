@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 16741 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 12579 inputs, branch coverage 20/20)
 // FUN_000f5fa0 @ 0x000f5fa0
 #include "decls/data/engine/content.h"
 #include "decls/data/game/global.h"
@@ -190,7 +190,9 @@ void Runner_f5fa0::FUN_000f5fa0(const char *src, int arg)
                     int v = p->FUN_000fad90();
                     f.w = 0;
                     (*(Loader_f5fa0**)&DAT_00527c58)->FUN_00265920(v, &f.w, 0);
-                    (*(Sink_f5fa0**)&DAT_004dd9cc)->FUN_00266220(f.w->FUN_00266700());
+                    // MSVC evaluates the argument before loading the sink
+                    int sinkArg = f.w->FUN_00266700();
+                    (*(Sink_f5fa0**)&DAT_004dd9cc)->FUN_00266220(sinkArg);
                     count++;
                 }
             } while (p->FUN_000f9e50());

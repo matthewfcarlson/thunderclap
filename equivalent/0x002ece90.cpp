@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_002ece90 @ 0x002ece90
 #include "decls/data/engine/physics.h"
 #include "decls/data/engine/unknown.h"
@@ -35,7 +35,9 @@ void ScaledVec::Set(float vx, float vy, float vz)
     sx = DAT_004d287c * x;
     sy = DAT_004d287c * y;
     sz = DAT_004d287c * z;
-    length = (float)sqrt(sx * sx + sy * sy + sz * sz);
+    // sx..sz are read back from memory (rounded to float), as the original does
+    const float *p = &sx;
+    length = (float)sqrt(p[0] * p[0] + p[1] * p[1] + p[2] * p[2]);
     if ((*(SystemA**)&DAT_0055547c)) {
         (*(SystemA**)&DAT_0055547c)->listener.FUN_002f7a60();
     } else if ((*(SystemB**)&DAT_00554c14)) {

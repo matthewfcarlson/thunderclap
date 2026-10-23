@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3040 inputs, branch coverage 38/38)
+// STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 38/38)
 // hulkfight::ai::AIHistoryNameCondition::vfunc_6 @ 0x0010f480
 #include "decls/data/game/hulkfight/ai.h"
 
@@ -73,7 +73,7 @@ char AIHistoryNameCondition::FUN_0010f480(int a1, fight::Params *params, int a3)
     (*(Key_10f480*)&DAT_004e0c00).FUN_0027af70(&fighter->history);
     (*(Key_10f480*)&DAT_004e0c08).FUN_0027b040(name);
 
-    int limit = (int)threshold;
+    int limit = (int)(__int64)threshold;
     int count = fighter->count;
     Key_10f480 *hist = &fighter->history;
 

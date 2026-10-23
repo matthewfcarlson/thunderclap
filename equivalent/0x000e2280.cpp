@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 19494 inputs, branch coverage 8/8)
 // VScroll::vfunc_2 @ 0x000e2280
 #include "decls/data/engine/pure3d/prop.h"
 
@@ -98,7 +98,7 @@ void VScroll::vfunc_2()
 
     if (child != 0) {
         (*(Renderer_e2280**)&DAT_0052c2ac)->pen->vfunc_15(0);
-        (*(Renderer_e2280**)&DAT_0052c2ac)->FUN_00293d00(anchor.FUN_000f6370(&v));
+        { const V3_e2280 *anchorPos = anchor.FUN_000f6370(&v); (*(Renderer_e2280**)&DAT_0052c2ac)->FUN_00293d00(anchorPos); }
         v.x = 0.0f;
         v.y = 0.0f;
         v.z = 0.01f;
@@ -115,7 +115,7 @@ void VScroll::vfunc_2()
     }
 
     (*(Renderer_e2280**)&DAT_0052c2ac)->pen->vfunc_15(0);
-    (*(Renderer_e2280**)&DAT_0052c2ac)->FUN_00293d00(anchor.FUN_000f6370(&v));
+    { const V3_e2280 *anchorPos = anchor.FUN_000f6370(&v); (*(Renderer_e2280**)&DAT_0052c2ac)->FUN_00293d00(anchorPos); }
     V3_e2280 size;
     size.x = width * 1.1f;
     size.y = height * 1.1f;

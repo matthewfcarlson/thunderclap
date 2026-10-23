@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 2552 inputs, branch coverage 22/22)
 // FUN_00282a10 @ 0x00282a10
 union Word_282a10 {
     float f;
@@ -36,7 +36,7 @@ void VertexBuf_282a10::Blend(VertexBuf_282a10 *src, int count, float a3, float a
             s = 0.0f;
         y = y * s;
     }
-    int v = (int)(y * 255.0f);
+    int v = (int)(__int64)(y * 255.0f); // _ftol: the low word of the 64-bit conversion
     w[0x30].u = ((((0xffffff00u | v) << 8) | v) << 8) | v;
 
     double z = 1.0f - (double)a3 * a8;

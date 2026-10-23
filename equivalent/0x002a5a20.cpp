@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 104 inputs, branch coverage 44/54, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 5291 inputs, branch coverage 50/54, incomplete)
 // FUN_002a5a20 @ 0x002a5a20
 #include "decls/data/engine/pure3d.h"
 
@@ -108,15 +108,15 @@ void FUN_002a5a20(float time, Mesh_2a5a20 *a, Mesh_2a5a20 *b, unsigned int flags
         if ((flags & 0x40) && srcColor != 0) {
             float s = w + p->k30;
             double m1 = p->k28 * 255.0f;
-            int d1 = (int)(m1 * s);
+            int d1 = (int)(__int64)(m1 * s);
             double m2 = p->k2c * 255.0f;
-            int d2 = (int)(m2 * s);
+            int d2 = (int)(__int64)(m2 * s);
             unsigned char *e = &srcColor[i * 4];
             int r2 = Clamp255(e[2] + d1);
             int r1 = Clamp255(e[1] + d1);
             int r0 = Clamp255(e[0] + d1);
             int r3 = Clamp255(e[3] + d2);
-            ((unsigned int *)dstColor)[i] = (unsigned int)((((r3 << 8 | r2) << 8 | r1) << 8) | r0);
+            ((unsigned int *)dstColor)[i] = (unsigned int)(__int64)((((r3 << 8 | r2) << 8 | r1) << 8) | r0);
         }
         for (c = 0; c < 4; c++) {
             if ((((unsigned int*)&DAT_0042d9c0)[c] & flags) && src[c] != 0 && dst[c] != 0) {

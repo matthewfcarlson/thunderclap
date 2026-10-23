@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 287 inputs, branch coverage 22/22)
 // pure3d::BlendFrameController::vfunc_6 @ 0x00284fa0
+#include "compat/ptr.h"
 struct Owner_284fa0 {
     char pad00[0x14];
     float rate;
@@ -66,8 +67,9 @@ public:
 
 void BlendFrameController::vfunc_6(float dt, char force)
 {
-    dt = dt * timeScale;
-    float step = dt * 0.001f;
+    hulk_freg scaled = dt * timeScale;
+    dt = (float)scaled;                        // the callee gets the rounded value
+    float step = scaled * 0.001f;              // the original multiplies the unrounded one
     unsigned int done = 1;
     dirty = 0;
 

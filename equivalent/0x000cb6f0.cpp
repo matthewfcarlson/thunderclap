@@ -26,7 +26,11 @@ hulk_freg Object::FUN_000cb6f0(int position, int index) {
     Segment* item = table->segments[index];
     int chosen = selected;
     volatile float* value = (volatile float*)((char*)this + 8 + chosen * 16);
-    float result = item->evaluate(table->FUN_000f7220(position));
+    // the original loads the vptr before the table lookup call and the slot after it
+    typedef float (__fastcall *EvalFn)(Segment*, int, void*);
+    void** vtable = *(void***)item;
+    void* arg = table->FUN_000f7220(position);
+    float result = ((EvalFn)vtable[9])(item, 0, arg);
     float divisor = base->getDivisor();
     double product = (*value / divisor) * result; // keep the original's multiplication order
     return product * (*(float*)&DAT_0040cc38);

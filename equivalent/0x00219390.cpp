@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 134 inputs, branch coverage 4/4)
 // FUN_00219390 @ 0x00219390
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
@@ -39,7 +39,14 @@ TString_219390 *__cdecl FUN_00219390(lua_State_219390 *L, const char *str, unsig
     ts->marked = L->l_G->currentwhite;
     ts->tt = 4;
     ts->reserved = 0;
-    memcpy((char *)(ts + 1), str, l);
+    // the original copies with an inline rep movs; a plain forward loop keeps clang from emitting a memcpy call
+    {
+        char *dst = (char *)(ts + 1);
+        const char *src = str;
+        unsigned int w = l >> 2;          // rep movsd, then rep movsb
+        while (w--) { *(unsigned int *)dst = *(const unsigned int *)src; dst += 4; src += 4; }
+        for (unsigned int k = l & 3; k; k--) *dst++ = *src++;
+    }
     ((char *)(ts + 1))[l] = 0;
     StringTable_219390 *tb = &L->l_G->strt;
     h &= tb->size - 1;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 2/2)
 // FUN_000c6b60 @ 0x000c6b60
 inline void *operator new(unsigned int, void *p) { return p; }
 unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
@@ -55,7 +55,11 @@ void FUN_000c6b60(const char *name, const char *subName, Result *out)
 {
     Loader *loader = DAT_004dd9cc;
     content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> caster;
-    Resource *res = loader->v3(&caster, FUN_002672f0(name, 0, 0));
+    // the original loads the loader's vptr before FUN_002672f0 and the slot after it
+    typedef Resource *(__fastcall *V3Fn)(Loader*, int, content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> *, unsigned __int64);
+    void **vtable = *(void ***)loader;
+    unsigned __int64 id64 = FUN_002672f0(name, 0, 0);
+    Resource *res = ((V3Fn)vtable[3])(loader, 0, &caster, id64);
     if (res) {
         out->sub = res->v11();
         out->key = FUN_0027b020(subName);

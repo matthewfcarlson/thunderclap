@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 25/26, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 26/26)
 // FUN_000f0950 @ 0x000f0950
 // equiv-map: ?FUN_000f0950@FEThingsBase@@QAEXPAVParam@@HPAVEntity@@PAVArgs@@@Z = 0x000f0950
 #include "compat/ptr.h"
@@ -165,7 +165,12 @@ void FEThingsBase::FUN_000f0950(Param *param, int c, Entity *d, Args *args)
         Obj_f0950 *o = FUN_000efca0(name, d->v35());
         o->FUN_000e4610(buf2105);
         if (param->FUN_000f9e90()) {
-            if (memcmp(param->FUN_000fad90(), "hide", 5) == 0)
+            const char *hideText = param->FUN_000fad90();
+            // the original compares inline (repe cmpsb), byte by byte
+            int hideDiff = 0;
+            for (int hk = 0; hk < 5 && hideDiff == 0; hk++)
+                hideDiff = (int)(unsigned char)hideText[hk] - (int)(unsigned char)"hide"[hk];
+            if (hideDiff == 0)
                 o->flag = 0;
         }
         d->FUN_000e55e0(o);
@@ -186,7 +191,7 @@ void FEThingsBase::FUN_000f0950(Param *param, int c, Entity *d, Args *args)
         return;
     }
     if (type == 0x3752e43c) {
-        d->result = (int)param->FUN_000fad30();
+        d->result = (int)(__int64)param->FUN_000fad30();
         return;
     }
     if (v39(param, d->field9dc, args))

@@ -102,12 +102,13 @@ void Game_7e740::FUN_0007e740()
     f.ang = FUN_000964d0()->FUN_000787e0(-1.5707964f, 1.5707964f);
     FUN_00224d70(f.ang, &f.q);
 
-    f.q.x = f.q.x * DAT_003feed8;
-    f.q.y = f.q.y * DAT_003feed8;
-    f.q.z = f.q.z * DAT_003feed8;
-    f.q.x = f.p.x + f.q.x;
-    f.q.y = f.p.y + f.q.y;
-    f.q.z = f.p.z + f.q.z;
+    // the original keeps the x and y products unrounded until the sum is stored; z's is stored first
+    hulk_freg sx = f.q.x * DAT_003feed8;
+    hulk_freg sy = f.q.y * DAT_003feed8;
+    volatile float sz = f.q.z * DAT_003feed8;
+    f.q.x = f.p.x + sx;
+    f.q.y = f.p.y + sy;
+    f.q.z = f.p.z + sz;
 
     Cells *grid = mgr->grid->FUN_000862a0();
     int idx = grid->FUN_00204200(f.q);
