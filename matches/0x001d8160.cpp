@@ -1,7 +1,10 @@
-struct Base {
+namespace physics {
+class SimulatedObject {
+  public:
     virtual void s00();
 };
-struct ResultObject : Base {
+class PhysicsObject : public SimulatedObject {
+  public:
     virtual void s01();
     virtual void s02();
     virtual void s03();
@@ -39,10 +42,11 @@ struct ResultObject : Base {
     virtual void s35();
     virtual float s36();
 };
+}  // namespace physics
 struct Inner {
     char pad[0x70];
-    Base* object;
-    inline ResultObject* cast() { return dynamic_cast<ResultObject*>(object); }
+    physics::SimulatedObject* object;
+    inline physics::PhysicsObject* cast() { return dynamic_cast<physics::PhysicsObject*>(object); }
 };
 struct Middle {
     char pad[0x10];
@@ -55,7 +59,7 @@ struct Owner {
 };
 float Owner::FUN_001d8160() {
     if (middle && middle->inner && middle->inner->object) {
-        ResultObject* result = middle->inner->cast();
+        physics::PhysicsObject* result = middle->inner->cast();
         if (result)
             return result->s36();
     }

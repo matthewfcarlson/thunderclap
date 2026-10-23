@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20013 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 4/4)
 // FUN_00302620 @ 0x00302620
 #include "compat/ptr.h"
 extern "C" double __cdecl sqrt(double);
@@ -7,7 +7,7 @@ struct Shape_302620 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual Vec3_302620* position();
  char pad04[0x30]; float radius; char pad38[0xc]; Vec3_302620 normal; float extent; float thickness; unsigned char flag;
 };
-float __cdecl FUN_00302620(Shape_302620* a, Shape_302620* b) {
+hulk_freg __cdecl FUN_00302620(Shape_302620* a, Shape_302620* b) {
  float limit = a->flag ? a->extent : a->thickness + a->extent;
  Vec3_302620* pa=a->position(); Vec3_302620* pb=b->position();
  float dx=pb->x-pa->x, dy=pb->y-pa->y;

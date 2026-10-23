@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20033 inputs, branch coverage 26/26)
+// STATUS: equivalent (tools/equiv.py level 3: 3049 inputs, branch coverage 26/26)
 // FUN_00315ca0 @ 0x00315ca0
 // equiv-map: ?thunk_FUN_002fb860@Body@@QAEXPAUVec3@@H@Z = 0x002fb940
 #include "compat/ptr.h"
@@ -6,7 +6,7 @@ extern "C" double __cdecl sqrt(double);
 
 struct Vec3 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void MulAdd(float s, const Vec3 &d, const Vec3 &a) { x = s * d.x + a.x; y = s * d.y + a.y; z = s * d.z + a.z; }
 };
 
@@ -81,12 +81,15 @@ void Resolver::FUN_00315ca0(Body *a1, Body *a2)
         }
         w.x = v.x + offset.x;
         w.y = v.y + offset.y;
-        w.z = v.z + offset.z;
-        tr.t = w.z * a2->n.z + w.y * a2->n.y + w.x * a2->n.x;
+        // x87: w.z is stored with fst and the register copy feeds the dot product
+        hulk_freg wz = v.z + offset.z;
+        w.z = wz;
+        tr.t = wz * a2->n.z + w.y * a2->n.y + w.x * a2->n.x;
         at.f = tr.t;
         at.u &= 0x7fffffff;
-        float dist = at.f - a2->f50;
-        if (!(dist - skip <= threshold))
+        hulk_freg distw = at.f - a2->f50;     // stored with fst; the register copy is compared
+        float dist = distw;
+        if (!(distw - skip <= threshold))
             continue;
 
         hulk_freg nt = -tr.t;
@@ -98,8 +101,10 @@ void Resolver::FUN_00315ca0(Body *a1, Body *a2)
         dir.z = w.z + dir.z;
         // (the original reloads the stored float components here rather than reusing the unrounded sums)
         volatile float *dv = &dir.x;
-        tr.r = (float)sqrt(dv[0] * dv[0] + dv[1] * dv[1] + dv[2] * dv[2]) - a2->f54;
-        if (!(tr.r <= threshold))
+        // x87: the root and the gap stay in registers; the gap is stored with fst and compared unrounded
+        hulk_freg gap = sqrt(dv[0] * dv[0] + dv[1] * dv[1] + dv[2] * dv[2]) - a2->f54;
+        tr.r = gap;
+        if (!(gap <= threshold))
             continue;
 
         if (a2->b58 == 0 && at.f >= a2->f50) {
@@ -110,8 +115,9 @@ void Resolver::FUN_00315ca0(Body *a1, Body *a2)
             dir.x = w.x + dir.x;
             dir.y = w.y + dir.y;
             dir.z = w.z + dir.z;
-            tr.r = dir.FUN_0022d110() - a2->f54;
-            if (!(tr.r <= threshold))
+            hulk_freg gap2 = dir.FUN_0022d110() - a2->f54;
+            tr.r = gap2;
+            if (!(gap2 <= threshold))
                 continue;
             Vec3 *p = a1->vfunc_4();
             v.x = v.x + p->x;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 15/20, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3016 inputs, branch coverage 20/20)
 // FUN_003160f0 @ 0x003160f0
 extern "C" double sqrt(double);
 
@@ -86,8 +86,10 @@ void Collider_3160f0::FUN_003160f0(BoxA_3160f0* a, CapB* b)
         volatile float kf = (float)k;
         f.kx = (float)(k * cx);
         f.ky = (float)(cy * kf);
-        f.kz = (float)(cz * kf);
-        double Lx = f.kz * f.kz + f.ky * f.ky + f.kx * f.kx;
+        // x87: kz is stored with fst and its register copy multiplies the stored one in |k|^2
+        double kzw = cz * kf;
+        f.kz = (float)kzw;
+        double Lx = kzw * f.kz + f.ky * f.ky + f.kx * f.kx;
         volatile float L = (float)Lx;
         if (!(Lx > 9.99999997475243e-007f))
             continue;

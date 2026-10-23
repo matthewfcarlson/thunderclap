@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 17878 inputs, branch coverage 208/224, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3270 inputs, branch coverage 207/224, incomplete)
 // FUN_0003c1d0 @ 0x0003c1d0
 // cl-flags: /GS
 #include "compat/ptr.h"
@@ -441,8 +441,10 @@ void Character_3c1d0::FUN_0003c1d0(int unused, float dt)
                     fr.q.z = fr.delta.z;
                     fr.q.y = 0;
                     fr.q.FUN_0022d110();
-                    fr.t10.f = (fr.q.z * nn->z + fr.q.y * nn->y) + fr.q.x * nn->x;
-                    if (!(fr.t10.f < fr.lim1))
+                    // x87: the dot is stored with fst and the register copy is compared with the best so far
+                    hulk_freg facing = (fr.q.z * nn->z + fr.q.y * nn->y) + fr.q.x * nn->x;
+                    fr.t10.f = facing;
+                    if (!(facing < fr.lim1))
                         continue;
                     V3_3c1d0 *ep = &e->pos;
                     hitPos.x = ep->x;
