@@ -6,6 +6,7 @@
 // two-sided sweep (inside && sweep), and the general case that tests both ends of b.
 // The locals live in one Frame at the original's stack slots (several slots hold different values in
 // different blocks), because the callees get pointers into it.
+#include "compat/ptr.h"
 extern "C" double __cdecl sqrt(double);
 
 struct Vec3 {
@@ -112,13 +113,16 @@ void Resolver::FUN_00316410(Body *a, Vec3 *vel, Vec3 *axis, float range, Body *b
         // Sweeping along b's axis.
         fr.P.x = fr.s00.off->x + vel->x;
         fr.P.y = fr.s00.off->y + vel->y;
-        fr.P.z = fr.s00.off->z + vel->z;
-        lat = ((fr.P.z * b->n.z + fr.P.y * b->n.y) + fr.P.x * b->n.x);   // the dead argument slot holds the axial distance
-        fr.s10.f = (AbsIn(fr.s08, lat) - range) - b->f50;
-        if (!(fr.s10.f <= threshold))
+        // x87: P.z (stored with fst), the gap, sq and r stay in registers (53 bits)
+        hulk_freg pz = fr.s00.off->z + vel->z;
+        fr.P.z = pz;
+        lat = ((pz * b->n.z + fr.P.y * b->n.y) + fr.P.x * b->n.x);   // the dead argument slot holds the axial distance
+        hulk_freg gap = (AbsIn(fr.s08, lat) - range) - b->f50;
+        fr.s10.f = gap;
+        if (!(gap <= threshold))
             return;
-        float sq = ((fr.P.x * fr.P.x + fr.P.z * fr.P.z) + fr.P.y * fr.P.y) - lat * lat;
-        float r = threshold + b->f54;
+        hulk_freg sq = ((fr.P.x * fr.P.x + fr.P.z * fr.P.z) + fr.P.y * fr.P.y) - lat * lat;
+        hulk_freg r = threshold + b->f54;
         if (!(sq <= r * r))
             return;
         if (sq >= 9.99999997e-007f && sq < fr.s10.f * fr.s10.f) {
@@ -153,32 +157,38 @@ void Resolver::FUN_00316410(Body *a, Vec3 *vel, Vec3 *axis, float range, Body *b
         // Sweeping across b's axis.
         fr.P.x = fr.s00.off->x + vel->x;
         fr.P.y = fr.s00.off->y + vel->y;
-        fr.P.z = fr.s00.off->z + vel->z;
-        fr.dp = ((fr.P.z * b->n.z + fr.P.y * b->n.y) + fr.P.x * b->n.x);
-        fr.s08.f = AbsIn(fr.s08, fr.dp) - b->f50;
-        if (!(fr.s08.f <= threshold))
+        // x87: P.z (stored with fst), the gap, r, hh, pa and pm stay in registers (53 bits)
+        hulk_freg pz = fr.s00.off->z + vel->z;
+        fr.P.z = pz;
+        fr.dp = ((pz * b->n.z + fr.P.y * b->n.y) + fr.P.x * b->n.x);
+        hulk_freg gap = AbsIn(fr.s08, fr.dp) - b->f50;
+        fr.s08.f = gap;
+        if (!(gap <= threshold))
             return;
         fr.self->dir.FUN_000111b0(&b->n, axis);
         fr.s0c.f = ((fr.P.z * fr.self->dir.z + fr.P.y * fr.self->dir.y) + fr.P.x * fr.self->dir.x);
         fr.s10.u = fr.s0c.u & 0x7fffffff;
-        float r = fr.self->threshold + b->f54;
+        hulk_freg r = fr.self->threshold + b->f54;
         if (!(fr.s10.f <= r))
             return;
-        float hh = r * r - fr.s10.f * fr.s10.f;
+        hulk_freg hh = r * r - fr.s10.f * fr.s10.f;
         if (hh < 0.0f)
             return;
         fr.s20.f = (float)sqrt(hh);
-        fr.pa = ((fr.P.x * axis->x + fr.P.z * axis->z) + fr.P.y * axis->y);
-        fr.pp = fr.pa + range;
-        fr.pm = fr.pa - range;
-        fr.s0c.f = fr.pm * fr.pp;
+        hulk_freg pa = ((fr.P.x * axis->x + fr.P.z * axis->z) + fr.P.y * axis->y);
+        fr.pa = pa;
+        fr.pp = pa + range;
+        hulk_freg pm = *(volatile float *)&fr.pa - range;     // the original reloads the stored (rounded) pa
+        fr.pm = pm;
+        fr.s0c.f = pm * fr.pp;
         fr.s00.w.f = FUN_00083d90(&fr.s0c.f);
         if (!(fr.s00.w.f < 0.0f)) {
             if (!(AbsIn(fr.s04, fr.pp) <= fr.s20.f) && !(AbsIn(fr.s04, fr.pm) <= fr.s20.f))
                 return;
         }
-        fr.s10.f = fr.s10.f - b->f54;
-        if ((!(fr.s10.f > fr.s08.f) && !(AbsIn(fr.s04, fr.s08.f / b->f50) > 0.1f))
+        hulk_freg side = fr.s10.f - b->f54;
+        fr.s10.f = side;
+        if ((!(side > fr.s08.f) && !(AbsIn(fr.s04, fr.s08.f / b->f50) > 0.1f))
             || !(AbsIn(fr.s04, fr.s20.f - b->f54) >= 9.99999997e-007f)) {
             // Touching b's side.
             if (AbsIn(fr.s04, fr.pa) <= fr.s20.f) {
@@ -234,13 +244,18 @@ void Resolver::FUN_00316410(Body *a, Vec3 *vel, Vec3 *axis, float range, Body *b
         for (fr.count = 2; fr.count != 0; range = range * -1.0f, fr.count--) {
             fr.Q.x = range * axis->x + fr.P.x;
             fr.Q.y = range * axis->y + fr.P.y;
-            fr.Q.z = range * axis->z + fr.P.z;
-            fr.s04.f = ((fr.Q.z * b->n.z + fr.Q.y * b->n.y) + fr.Q.x * b->n.x);
-            float s2 = ((fr.Q.x * fr.Q.x + fr.Q.z * fr.Q.z) + fr.Q.y * fr.Q.y) - fr.s04.f * fr.s04.f;
-            float rr = s2 > 0.0f ? (float)sqrt(s2) : 0.0f;
+            // x87: the original keeps Q.z (stored with fst), the axial distance, s2, the root and the radial
+            // distance in registers (53 bits); only their stored copies are rounded
+            hulk_freg qz = range * axis->z + fr.P.z;
+            fr.Q.z = qz;
+            hulk_freg ax = (qz * b->n.z + fr.Q.y * b->n.y) + fr.Q.x * b->n.x;
+            fr.s04.f = ax;
+            hulk_freg s2 = ((fr.Q.x * fr.Q.x + fr.Q.z * fr.Q.z) + fr.Q.y * fr.Q.y) - ax * ax;
+            hulk_freg rr = s2 > 0.0f ? (hulk_freg)sqrt(s2) : (hulk_freg)0.0f;
             fr.s08.f = AbsIn(fr.s00.w, fr.s04.f) - b->f50;
-            fr.dist = rr - b->f54;
-            if (!(fr.dist < fr.self->threshold))
+            hulk_freg dist = rr - b->f54;
+            fr.dist = dist;
+            if (!(dist < fr.self->threshold))
                 continue;
             fr.s0c.f = FUN_00083d90(&fr.s04.f);
             Vec3 *c = b->vfunc_4();
@@ -266,8 +281,11 @@ void Resolver::FUN_00316410(Body *a, Vec3 *vel, Vec3 *axis, float range, Body *b
     // General case: test both ends of b.
     fr.P.x = fr.s00.off->x + vel->x;
     fr.P.y = fr.s00.off->y + vel->y;
-    fr.P.z = fr.s00.off->z + vel->z;
-    fr.s08.f = ((fr.P.z * b->n.z + fr.P.y * b->n.y) + fr.P.x * b->n.x);
+    // x87: P.z (stored with fst), L, the squared reach, g, w, the moved point's y and z, e, dl and r stay in
+    // registers (53 bits)
+    hulk_freg pz = fr.s00.off->z + vel->z;
+    fr.P.z = pz;
+    fr.s08.f = ((pz * b->n.z + fr.P.y * b->n.y) + fr.P.x * b->n.x);
     fr.s04.f = FUN_00083d90(&fr.s08.f);
     fr.s00.w.f = ((b->n.z * axis->z + b->n.y * axis->y) + axis->x * b->n.x);
     fr.s0c.f = ((fr.P.x * axis->x + fr.P.z * axis->z) + fr.P.y * axis->y);
@@ -276,31 +294,34 @@ void Resolver::FUN_00316410(Body *a, Vec3 *vel, Vec3 *axis, float range, Body *b
     fr.c2 = fr.s00.w.f * fr.s00.w.f;
     fr.sin2 = 1.0f - fr.c2;
     for (fr.i = 0; fr.i < 2; fr.i++) {
-        float L = fr.i == 0 ? b->f50 - fr.s08.f : fr.s08.f + b->f50;
+        hulk_freg L = fr.i == 0 ? b->f50 - fr.s08.f : fr.s08.f + b->f50;
         if (fr.c2 == 0.0f)
             continue;
-        fr.s20.f = L * ((fr.sin2 / fr.c2 + 1.0f) * L);
-        if (!(fr.s20.f < range * range))
+        hulk_freg reach = L * ((fr.sin2 / fr.c2 + 1.0f) * L);
+        fr.s20.f = reach;
+        if (!(reach < range * range))
             continue;
-        float g = -(fr.scn * fr.s04.f);
+        hulk_freg g = -(fr.scn * fr.s04.f);
         if (AbsIn(fr.s00.w, fr.s08.f) < b->f50
             && ((fr.s04.f > 0.0f && fr.i == 0) || (fr.s04.f < 0.0f && fr.i == 1)))
             g = g * -1.0f;
-        float w = g * (float)sqrt(fr.s20.f);
+        hulk_freg w = g * (hulk_freg)sqrt(fr.s20.f);
         vel->x = w * axis->x;
         vel->y = w * axis->y;
         vel->z = w * axis->z;
         fr.s00.w.f = fr.P.x + vel->x;
         vel->x = fr.s00.w.f;
-        vel->y = fr.P.y + vel->y;
-        vel->z = fr.P.z + vel->z;
-        fr.s20.f = ((vel->z * b->n.z + vel->y * b->n.y) + fr.s00.w.f * b->n.x);
-        float e = -(FUN_00083d90(&fr.s20.f) * b->f50);
+        hulk_freg vy = fr.P.y + vel->y;
+        vel->y = vy;
+        hulk_freg vz = fr.P.z + vel->z;
+        vel->z = vz;
+        fr.s20.f = ((vz * b->n.z + vy * b->n.y) + fr.s00.w.f * b->n.x);
+        hulk_freg e = -(FUN_00083d90(&fr.s20.f) * b->f50);
         fr.self->dir.x = e * b->n.x + fr.s00.w.f;
         fr.self->dir.y = e * b->n.y + vel->y;
         fr.self->dir.z = e * b->n.z + vel->z;
-        float dl = ((fr.self->dir.z * fr.self->dir.z + fr.self->dir.y * fr.self->dir.y) + fr.self->dir.x * fr.self->dir.x);
-        float r = fr.self->threshold + b->f54;
+        hulk_freg dl = ((fr.self->dir.z * fr.self->dir.z + fr.self->dir.y * fr.self->dir.y) + fr.self->dir.x * fr.self->dir.x);
+        hulk_freg r = fr.self->threshold + b->f54;
         if (!(dl < r * r))
             continue;
         fr.s00.w.f = (float)sqrt(dl);
