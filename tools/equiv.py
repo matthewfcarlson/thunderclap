@@ -1337,7 +1337,7 @@ class Program:
         e = starts[k]
         return (e, self.funcs[e][0]) if va < e + self.funcs[e][0] else None
 
-    def pending_at(self, entry, size, site):
+    def pending_at(self, entry, size, site, count_saves=False):
         """(round 11) The words pushed for calls but not yet taken at `site`, on every path from the entry of the
         function (entry, size) that holds it: a set of byte counts (None in it: unknown on some path). Pushes
         of untouched callee-saved registers and the prologue's are saves, not arguments; a call takes what its
@@ -1362,10 +1362,11 @@ class Program:
                 if a == site:
                     out.add(pend)
                 m, ops = i.mnemonic, i.op_str
-                if pend is not None and a not in prologue:
-                    if m == "push" and not (
-                            i.ops and i.ops[0][0] == "reg" and i.ops[0][1] in CALLEE_SAVED and i.ops[0][1] not in wr):
-                        pend += 4
+                if pend is not None and (a not in prologue or (count_saves and m == "push" and i.ops and
+                                                               i.ops[0][0] == "reg" and i.ops[0][1] in ("eax", "ecx", "edx"))):
+                    if m == "push" and (count_saves or not (
+                            i.ops and i.ops[0][0] == "reg" and i.ops[0][1] in CALLEE_SAVED and i.ops[0][1] not in wr)):
+                        pend += 4       # (round 23, declarity: count_saves, an upper bound: `push esi` passing esi)
                     elif m == "pop" and pend:
                         pend -= 4
                     elif m == "add" and ops.startswith("esp,") and i.imms:
@@ -7898,6 +7899,483 @@ def clang_check(src):
     return {"ok": r.returncode == 0, "error": (r.stderr or "")[:600]}
 
 
+# ---------------------------------------------------------------------------------------------
+# (round 23, declarity) Call declarations whose stack arity is not the callee's.
+#
+# MSVC mode passes a source whose declaration gives a callee the wrong number of stack words when the bytes happen to
+# coincide (`FUN_00240750(3000, &x); FUN_0024ace0(a, b, c, d)` with one merged cleanup: the original's
+# FUN_0024ace0 reads all six words). The Wine build (clang, its own frame) breaks. This diagnostic compares, for every
+# callee our function (and the local helpers it reaches) calls, the stack words our declaration passes with what the
+# original's callee takes, from evidence in the XBE only:
+#   - `ret N` (every ret the same): the callee pops N bytes, exactly N/4 words (stdcall, thiscall);
+#   - a plain `ret` (cdecl): at least the highest argument slot it (and its tail callees) reads (callee_stack_args,
+#     None for a va_list, an SEH frame or an unfollowable body), and at most the fewest words pending at any of the
+#     original's direct call sites (pending_at: a call can't take words nobody pushed);
+#   - a fixed function pointer `call [ea]`: a site with nothing pending says it takes none (ptr_call_pop "noargs").
+# Our side: the callee symbol's decoration (a C++ name or `_f@N`), an `// equiv-conv` note's stack locations, a
+# function-pointer global's mangled type; for a C name, the clang object's call sites (clang -O0 stores each
+# argument to the reserved outgoing area right before its call), else nothing. Varargs, by-value structs of
+# unknown size, virtual calls and unknown pointers are not judged. Report only, unless STRICT_DECL (--strict-decl).
+STRICT_DECL = False
+
+
+def _fnptr_signature(mangled):
+    """The signature a function-pointer global's mangled name gives (`?DAT_004de948@@3P6GMH@ZA`: a stdcall
+    float(int)), as parse_signature's dict; None for anything else."""
+    m = re.match(r"^\?[^@]+@@3P6([AGIE])(.*)A$", mangled)
+    if not m:
+        return None
+    sig = parse_signature("?f@@Y" + m.group(1) + m.group(2))
+    return sig if sig and sig.get("params") is not None else None
+
+
+def _decl_stack_words(sig, conv=None):
+    """Stack words our declaration passes (None: unknown), and whether it is varargs."""
+    if conv:
+        return sum(1 for l_ in conv if l_ == "stack"), False
+    if not sig or sig.get("params") is None:
+        return None, False
+    if sig.get("varargs"):
+        return None, True
+    locs, _ = decl_layout(sig)
+    if locs is None:
+        return None, False
+    return sum(1 for l_ in locs if l_ == "stack"), False
+
+
+def _struct_words(sig, src, flags, cache):
+    """Stack words of a declaration with by-value structs, their sizes from a sizeof probe of our source (None: unknown)."""
+    if not src or sig.get("varargs") or sig.get("cc") == "fastcall":
+        return None
+    types = sig.get("param_types") or []
+    if len(types) != len(sig["params"]):
+        return None
+    need = sorted({t.split(" ", 1)[1] for k, t in zip(sig["params"], types) if k == "struct" and
+                   t.startswith(("struct ", "class ", "union ")) and t.split(" ", 1)[1] not in cache})
+    if need:
+        try:
+            cache.update(_probe_sizes(src, flags, need))
+        except Exception:   # noqa: BLE001
+            pass
+        for t in need:
+            cache.setdefault(t, None)
+    n = 0
+    for k, t in zip(sig["params"], types):
+        if k == "struct":
+            sz = cache.get(t.split(" ", 1)[1]) if t.startswith(("struct ", "class ", "union ")) else None
+            if not sz:
+                return None
+            n += (sz + 3) // 4
+        else:
+            n += 2 if k in ("f64", "i64") else 1
+    return n
+
+
+def _decl_pops(sig):
+    """Bytes our declaration says the callee pops (None: unknown)."""
+    if not sig or sig.get("params") is None:
+        return None
+    _, pop = decl_layout(sig)
+    return pop
+
+
+def _ret_imms(prog, target):
+    """Every `ret N` immediate in the callee's body (an empty set: none found / not code)."""
+    cache = prog.__dict__.setdefault("_ret_imms", {})
+    if target in cache:
+        return cache[target]
+    out = set()
+    if prog.is_code(target) and target in prog.funcs:
+        view = CodeView(prog.read, target, (target, target + prog.funcs[target][0]), prog)
+        try:
+            view.build(limit=4000)
+            out = {i.ret_imm for i in view.insns.values() if i.kind == "ret"}
+        except Exception:   # noqa: BLE001
+            out = set()
+    cache[target] = out
+    return out
+
+
+def _site_pending_max(prog, site):
+    """Most words pending at an original call site on any path (None: unknown)."""
+    cache = prog.__dict__.setdefault("_site_pend", {})
+    if site in cache:
+        return cache[site]
+    res = None
+    f = prog.containing_func(site)
+    if f is not None:
+        try:
+            s = prog.pending_at(f[0], f[1], site, count_saves=True)
+        except Exception:   # noqa: BLE001
+            s = {None}
+        if s and None not in s:
+            res = max(s) // 4 if max(s) % 4 == 0 else None
+    cache[site] = res
+    return res
+
+
+def _indirect_tail(prog, target, depth=0):
+    """Does the function (or a function it tail-jumps to) leave through an indirect jmp that is not a switch table?"""
+    if depth > 3 or target not in prog.funcs:
+        return False
+    view = CodeView(prog.read, target, (target, target + prog.funcs[target][0]), prog)
+    try:
+        view.build(limit=4000)
+    except Exception:   # noqa: BLE001
+        return True
+    for i in view.insns.values():
+        if i.kind == "jmp" and i.target is None and not (i.mem is not None and i.mem[2]):
+            return True
+        if i.kind == "jmp" and i.target is not None and not view.internal_target(i.target) and \
+                _indirect_tail(prog, i.target, depth + 1):
+            return True
+    return False
+
+
+def real_arity(prog, target, max_sites=24):
+    """What the original's callee at TARGET takes: {'pop', 'lo', 'hi', 'sites', 'cleanup'} or None.
+    lo/hi bound its stack words (hi None: no site tells); pop is the bytes it pops (one value for every ret)."""
+    cache = prog.__dict__.setdefault("_real_arity", {})
+    if target in cache:
+        return cache[target]
+    res = None
+    if prog.is_code(target) and target in prog.funcs:
+        rets = _ret_imms(prog, target)
+        pop = prog.callee_pop(target)
+        if len(rets) > 1:
+            pop = None              # different ret immediates: not one convention
+        reads = prog.callee_stack_args(target)
+        if reads is not None and _indirect_tail(prog, target):
+            reads, fwd = None, True     # `jmp [eax+0xb0]`: the words a virtual it forwards to reads are not counted
+        else:
+            fwd = False
+        sites = [s for s in prog.call_sites(target) if prog.containing_func(s)]
+        pend = []
+        cleanup = collections_Counter()
+        for s in sites[:max_sites]:
+            p = _site_pending_max(prog, s)
+            if p is not None:
+                pend.append(p)
+            f = prog.containing_func(s)
+            v = CodeView(prog.read, f[0], (f[0], f[0] + f[1]), prog)
+            c = v.immediate_cleanup(s)
+            if c is not None and c % 4 == 0:
+                cleanup[c // 4] += 1
+        if pop is not None and pop > 0:
+            lo = hi = pop // 4
+        else:
+            # a cdecl callee: only one whose argument reads the scan can follow is bounded above (a va_list's `lea` of
+            # its last named argument, an SEH frame: the sites' pending words vary with the call, not the callee)
+            lo = reads
+            hi = min(pend) if pend and (reads is not None or fwd) else None
+        res = {"pop": pop, "reads": reads, "lo": lo, "hi": hi, "sites": len(sites), "sites_known": len(pend),
+               "pending_min": min(pend) if pend else None, "cleanup": dict(cleanup)}
+    cache[target] = res
+    return res
+
+
+def collections_Counter():
+    from collections import Counter
+    return Counter()
+
+
+_ESP_WRITES = ("mov", "fstp", "fst", "fistp", "fist", "fisttp", "movss", "movsd", "movq", "movd", "movaps", "movups",
+               "movdqa", "movdqu", "movlps", "movhps", "movapd", "movupd", "fbstp")
+
+
+def _code_calls(obj, fsyms):
+    """Call sites in the object's functions FSYMS: [(function name, offset, kind, symbol name, insns since the
+    previous call, the function's _esp_floor)], kind 'call' (rel32), 'ptr' (`call [sym]` or `call reg` loaded from [sym]) or 'tail' (jmp rel32)."""
+    md = Program.get().md
+    out = []
+    for fs in fsyms:
+        secnum, value, end = obj.func_extent(fs)
+        sec = obj.sections[secnum - 1]
+        raw = sec["raw"] or b""
+        rel = {}
+        for va, si, typ in sec["relocs"]:
+            if value <= va < end:
+                rel[va] = (obj.syms.get(si), typ)
+        loaded = {}             # reg -> data symbol name it holds (mov reg, [sym])
+        block = []
+        insns = list(md.disasm(raw[value:end], value))
+        floor = _esp_floor(insns)
+        if _dynamic_frame(insns):
+            floor = -1          # (clang's inalloca argument blocks, `push eax; sub esp, N` mid-body): no site is judged
+        for ci in insns:
+            mn = ci.mnemonic
+            b0 = raw[ci.address]
+            sym = None
+            kind = None
+            if mn == "call" and b0 == 0xE8 and (ci.address + 1) in rel:
+                kind, sym = "call", rel[ci.address + 1][0]
+            elif mn == "jmp" and b0 == 0xE9 and (ci.address + 1) in rel:
+                kind, sym = "tail", rel[ci.address + 1][0]
+            elif mn == "call" and b0 == 0xFF and raw[ci.address + 1] == 0x15 and (ci.address + 2) in rel:
+                kind, sym = "ptr", rel[ci.address + 2][0]
+            elif mn == "call" and len(ci.operands) == 1 and ci.operands[0].type == capstone.x86.X86_OP_REG:
+                r_ = ci.reg_name(ci.operands[0].reg)
+                if r_ in loaded:
+                    kind, sym = "ptr", loaded[r_]
+            if kind:
+                out.append((fs[0], ci.address - value, kind, sym[0] if sym else None, block, floor))
+            if mn == "call" or kind:
+                block = []
+                loaded = {}
+                continue
+            block.append(ci)
+            # register loads of a function pointer global, invalidated by any other write to the register
+            try:
+                _, wr = ci.regs_access()
+                written = {ci.reg_name(r_) for r_ in wr}
+            except Exception:   # noqa: BLE001
+                written = set()
+            if mn == "mov" and b0 in (0x8B, 0xA1) and len(ci.operands) == 2 and \
+                    ci.operands[0].type == capstone.x86.X86_OP_REG and ci.operands[1].type == capstone.x86.X86_OP_MEM \
+                    and not ci.operands[1].mem.base and not ci.operands[1].mem.index:
+                r_ = ci.reg_name(ci.operands[0].reg)
+                sym_ = next((rel[a_][0] for a_ in range(ci.address + 1, ci.address + ci.size) if a_ in rel), None)
+                for w_ in written:
+                    loaded.pop(w_, None)
+                if sym_ is not None:
+                    loaded[r_] = sym_
+                continue
+            for w_ in written:
+                loaded.pop(w_, None)
+    return out
+
+
+def _clang_words(block, floor=None):
+    """Stack words a clang -O0 call site stores its arguments to: the words [esp+0..4n) written since the previous call
+    (registers holding esp+c count: `mov eax, esp; fstp dword [eax]`), which must be all of 0..n-1. FLOOR: the lowest
+    [esp+k] the function ever reads (a realigned frame, `and esp, -8`, keeps its locals above the outgoing area): words
+    from there on are locals. None when the code says otherwise (a block copy, a store below esp, a gap, a push among
+    the stores). A push or an esp change before any store (the prologue) starts the count again."""
+    alias = {"esp": 0}
+    slots = set()
+    for ci in block:
+        mn = ci.mnemonic
+        ops = ci.operands
+        if mn.startswith("rep") or mn in ("movsb", "movsw", "movsd") and not ops:
+            return None
+        if mn.startswith(("push", "pop")) or mn in ("leave", "enter") or \
+                ops and ops[0].type == capstone.x86.X86_OP_REG and ci.reg_name(ops[0].reg) == "esp":
+            if slots:
+                return None             # a push among the argument stores (a dynamic frame): not clang's -O0 shape
+            alias = {"esp": 0}          # the frame set-up (a prologue, `sub esp, N` after a callee-pops call)
+            continue
+        if ops and ops[0].type == capstone.x86.X86_OP_MEM:
+            m_ = ops[0].mem
+            base = ci.reg_name(m_.base) if m_.base else None
+            if base in alias and mn in _ESP_WRITES:
+                if m_.index:
+                    return None
+                off = alias[base] + m_.disp
+                if off < 0:
+                    return None
+                if floor is None or off < floor:
+                    slots.update(range(off // 4, (off + max(ops[0].size, 1) + 3) // 4))
+        # esp aliases: mov r, esp / lea r, [esp + c]; any other write to r ends it
+        try:
+            _, wr = ci.regs_access()
+            written = {ci.reg_name(r_) for r_ in wr}
+        except Exception:   # noqa: BLE001
+            written = set()
+        new = None
+        if mn == "mov" and len(ops) == 2 and ops[1].type == capstone.x86.X86_OP_REG and \
+                ci.reg_name(ops[1].reg) in alias and ops[0].type == capstone.x86.X86_OP_REG:
+            new = (ci.reg_name(ops[0].reg), alias[ci.reg_name(ops[1].reg)])
+        elif mn == "lea" and len(ops) == 2 and ops[1].type == capstone.x86.X86_OP_MEM and ops[1].mem.base and \
+                ci.reg_name(ops[1].mem.base) in alias and not ops[1].mem.index:
+            new = (ci.reg_name(ops[0].reg), alias[ci.reg_name(ops[1].mem.base)] + ops[1].mem.disp)
+        for w_ in written:
+            if w_ != "esp":
+                alias.pop(w_, None)
+        if new and new[0] != "esp":
+            alias[new[0]] = new[1]
+    if slots and slots != set(range(max(slots) + 1)):
+        return None                     # a gap: not one argument list
+    return len(slots)
+
+
+def _dynamic_frame(insns):
+    """Is a clang -O0 function's call frame not the reserved one? Clang reserves the outgoing-argument area in the
+    prologue and changes esp afterwards only to re-reserve what a callee popped (`call f; sub esp, 8`). Otherwise
+    (`sub esp, 4; mov eax, esp; mov [eax], x; call f` per call, an inalloca block for a by-value class with a destructor:
+    `push eax; sub esp, 0x28`, words written through a pointer kept in a local) the stores since the last call are not
+    the argument list. Esp changes after the last call (the epilogue) don't count."""
+    last_call = max((k for k, ci in enumerate(insns) if ci.mnemonic == "call"), default=-1)
+    pro = True
+    for k, ci in enumerate(insns[:last_call]):
+        mn, ops = ci.mnemonic, ci.operands
+        esp_w = mn.startswith(("push", "pop")) or mn in ("leave", "enter") or \
+            (ops and ops[0].type == capstone.x86.X86_OP_REG and ci.reg_name(ops[0].reg) == "esp")
+        if pro:
+            if esp_w or (mn == "mov" and ci.op_str == "ebp, esp"):
+                continue
+            pro = False
+        if esp_w and not (mn == "sub" and k > 0 and insns[k - 1].mnemonic == "call"):
+            return True
+    return False
+
+
+def _esp_floor(insns):
+    """The lowest [esp+k] a function's code reads (its esp-addressed locals start there), or None."""
+    lo = None
+    for ci in insns:
+        for k, op in enumerate(ci.operands):
+            if op.type != capstone.x86.X86_OP_MEM or not op.mem.base or ci.reg_name(op.mem.base) != "esp" or \
+                    ci.mnemonic == "lea" or (k == 0 and ci.mnemonic in _ESP_WRITES):
+                continue
+            if op.mem.disp >= 0 and (lo is None or op.mem.disp < lo):
+                lo = op.mem.disp
+    return lo
+
+
+def _reached_functions(obj, fsym):
+    """Our function and the functions of the same object it reaches (local helpers, inline members)."""
+    fns = {s_[0]: s_ for s_ in obj.functions()}
+    seen, work, out = set(), [fsym], []
+    while work:
+        fs = work.pop()
+        if fs[0] in seen:
+            continue
+        seen.add(fs[0])
+        out.append(fs)
+        secnum, value, end = obj.func_extent(fs)
+        for va, si, typ in obj.sections[secnum - 1]["relocs"]:
+            if value <= va < end:
+                s_ = obj.syms.get(si)
+                if s_ is not None and s_[0] in fns and s_[0] not in seen:
+                    work.append(fns[s_[0]])
+    return out
+
+
+def _clang_site_words(src, flags, names, obj=None):
+    """{symbol: set of stack words clang's call sites store} for the C names NAMES (clang -O0 object of SRC)."""
+    out = {}
+    try:
+        if obj is None:
+            tmp = tempfile.TemporaryDirectory(dir=os.path.join(ROOT, "build") if os.path.isdir(os.path.join(ROOT, "build")) else None)
+            try:
+                obj = Obj(compile_native(src, tmp.name, flags))
+            finally:
+                tmp.cleanup()
+        for fn, off, kind, sym, block, floor in _code_calls(obj, obj.functions()):
+            if sym in names and kind in ("call", "ptr"):
+                out.setdefault(sym, set()).add(_clang_words(block, floor) if floor != -1 else None)
+    except Exception:   # noqa: BLE001 - no clang, a compile error: the C names are not judged
+        return None
+    return out
+
+
+def decl_arity(prog, obj, fsym, resolved, convs=None, src=None, flags=(), native=False, use_clang=True):
+    """(round 23, declarity) [{callee, symbol, kind ('too_many' / 'too_few' / 'pops'), ours, real, evidence}] for the
+    callees whose stack arity our declaration states wrongly (see the comment above STRICT_DECL)."""
+    convs = convs or {}
+    fns = _reached_functions(obj, fsym)
+    own = {s_[0] for s_ in obj.functions()}
+    calls = _code_calls(obj, fns)
+    by_sym = {}
+    for fn, off, kind, sym, block, _ in calls:
+        if sym is None or sym in own or sym not in resolved:
+            continue
+        by_sym.setdefault(sym, []).append((fn, off, kind, block))
+    out = []
+    c_names = {}
+    probe_cache = {}
+    for sym, sites in sorted(by_sym.items()):
+        a = resolved[sym]
+        kinds = {k for _, _, k, _ in sites}
+        if "ptr" in kinds and len(kinds) > 1:
+            continue
+        isptr = "ptr" in kinds
+        if isptr:
+            sig = _fnptr_signature(sym)
+            if sig is None and not sym.startswith("?"):
+                sig = {"cc": "cdecl", "params": None}      # a C name: clang's call sites tell
+            ra = None
+            if prog.section_name(a) is not None and not prog.is_code(a):
+                pp = prog.ptr_call_pop(a)
+                if pp == "noargs":
+                    ra = {"pop": None, "reads": None, "lo": 0, "hi": 0, "ptr": "noargs"}
+            if ra is None:
+                continue
+        else:
+            if not prog.is_code(a) or a not in prog.funcs or a in IGNORED_CALLS or a in HELPERS or a in HELPERS64:
+                continue
+            sig = parse_signature(sym)
+            ra = real_arity(prog, a)
+            if ra is None:
+                continue
+        if convs.get(a):
+            continue            # a register convention (`// equiv-conv`): not judged here
+        how = "declaration"
+        if sig and sig.get("params") is not None and sig.get("ret") == "struct":
+            ours, varargs = None, bool(sig.get("varargs"))   # a struct returned (in edx:eax or by a hidden pointer)
+        elif sig and sig.get("params") is not None and "struct" in sig["params"]:
+            ours, varargs = _struct_words(sig, src, flags, probe_cache), bool(sig.get("varargs"))   # sizeof probe
+            how = "declaration (sizeof probe)"
+        else:
+            ours, varargs = _decl_stack_words(sig, None)
+        if varargs:
+            continue
+        if ours is None:
+            if sig is not None and (sig.get("params") is not None or (sym.startswith("_") and not sym.startswith("__"))):
+                c_names[sym] = (a, ra, sites, isptr)       # a C name, a struct: clang's call sites tell (below)
+            continue
+        out += [dict(d_, via="tail jump") if kinds == {"tail"} else d_ for d_ in _judge(prog, sym, a, ra, ours, how, sig, isptr)]
+    if c_names and use_clang and "declclang" not in EQUIV_OFF:
+        # only the C names whose real arity is bounded can be judged: compile clang's object for those
+        judgeable = {s_: v for s_, v in c_names.items() if v[1].get("lo") is not None or v[1].get("hi") is not None}
+        if judgeable:
+            words = _clang_site_words(src, flags, set(judgeable), obj=obj if native else None) if src else None
+            for s_, (a, ra, sites, isptr) in sorted(judgeable.items()):
+                w = (words or {}).get(s_)
+                if not w or None in w or len(w) != 1:
+                    continue
+                out += _judge(prog, s_, a, ra, next(iter(w)), "clang call sites", None, isptr)
+    return out
+
+
+def _judge(prog, sym, a, ra, ours, how, sig, isptr):
+    lo, hi, pop = ra.get("lo"), ra.get("hi"), ra.get("pop")
+    if lo is not None and hi is not None and hi < lo:
+        return []           # the evidence disagrees with itself (a pending count the scan got wrong): no verdict
+    ev = []
+    if pop:
+        ev.append("ret %d" % pop)
+    elif ra.get("ptr"):
+        ev.append("a call through the pointer has nothing pending")
+    else:
+        if ra.get("reads") is not None:
+            ev.append("reads %d stack word%s" % (ra["reads"], "" if ra["reads"] == 1 else "s"))
+        if ra.get("pending_min") is not None:
+            ev.append("fewest pending at %d/%d sites: %d" % (ra["sites_known"], ra["sites"], ra["pending_min"]))
+    if ra.get("cleanup"):
+        ev.append("caller cleanup " + ", ".join("%d words x%d" % kv for kv in sorted(ra["cleanup"].items())))
+    rec = {"callee": "0x%08x" % a, "symbol": sym, "ours": ours, "ours_from": how,
+           "real": lo if lo == hi else [lo, hi], "evidence": "; ".join(ev)}
+    out = []
+    if lo is not None and ours < lo:
+        out.append(dict(rec, kind="too_few"))
+    elif hi is not None and ours > hi:
+        out.append(dict(rec, kind="too_many"))
+    elif sig is not None and pop is not None and not isptr and "declpops" not in EQUIV_OFF:
+        dp = _decl_pops(sig)
+        if dp is not None and dp != pop and ours > 0:
+            out.append(dict(rec, kind="pops", ours_pops=dp, real_pops=pop))
+    return out
+
+
+def render_decl_arity(items):
+    return ["  decl arity: %s %s (%s): ours passes %d stack word%s (%s), the original's takes %s (%s)%s" % (
+        d["kind"].replace("_", " "), d["symbol"], d["callee"], d["ours"], "" if d["ours"] == 1 else "s", d["ours_from"],
+        d["real"] if not isinstance(d["real"], list) else "%s..%s" % tuple("?" if x is None else x for x in d["real"]),
+        d["evidence"], "; ours pops %d, the original pops %d" % (d["ours_pops"], d["real_pops"]) if d["kind"] == "pops" else "")
+        for d in items]
+
+
 def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mapping=None, max_level=3,
            max_steps=50000, use_names=True, clang=False, obj_path=None, keep_runs=False, time_budget=120,
            conventions=None, level3_fn=None, seeds=None, native=False):
@@ -8054,6 +8532,22 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
                      "mapping": {n: {"addr": "0x%08x" % resolved[n] if n in resolved else None, "how": how[n]}
                                  for n in how},
                      "conflicts": conflicts[:10]}
+    if "declarity" not in EQUIV_OFF and not native:
+        # (round 23, declarity) callees whose stack arity our declaration states wrongly: reported; a failure with
+        # --strict-decl only (existing promotions keep their status). MSVC mode only: clang's object binds its own
+        # symbols by pairing (a destructor call MSVC inlined pairs with another callee), so its names can't be judged
+        try:
+            convs_da, _ = resolve_conventions(prog, conv_lines, ours, resolved, addr, fsym)
+            da = decl_arity(prog, obj, fsym, resolved, convs_da, src, flags, native)
+        except Exception as e_:     # noqa: BLE001 - a diagnostic: never fail the check because of it
+            da = []
+            rep["decl_arity_error"] = str(e_)[:200]
+        rep["decl_arity"] = da
+        if da and STRICT_DECL:
+            bad_da = [dict(d_, kind="decl_arity_" + d_["kind"]) for d_ in da]
+            issues = issues + bad_da
+            rep["level2"]["issues"] = rep["level2"]["issues"] + bad_da
+            rep["level2"]["ok"] = False
     if not issues:
         rep["level"] = 2
     if max_level < 3:
@@ -10453,6 +10947,8 @@ def render(rep):
             lines.append("  L2 %s" % " ".join("%s=%s" % kv for kv in i.items()))
         for c in l2.get("conflicts", [])[:5]:
             lines.append("  L2 note: %s" % c)
+    if rep.get("decl_arity"):
+        lines += render_decl_arity(rep["decl_arity"][:10])
     l3 = rep.get("level3")
     if l3:
         cov = l3["coverage"]
@@ -10497,8 +10993,13 @@ def main(argv):
     p.add_argument("--wine", "--native", dest="native", action="store_true",
                    help="(round 18) check the object the Wine build runs: compile SRC with clang (the Wine build's "
                         "flags, hulk_freg = double) and run it against the original (--native is the old name)")
+    p.add_argument("--strict-decl", action="store_true",
+                   help="(round 23) a callee whose stack arity our declaration states wrongly (decl_arity) fails level 2")
     p.add_argument("--json", action="store_true")
     a = p.parse_args(argv)
+    if a.strict_decl:
+        global STRICT_DECL
+        STRICT_DECL = True
     mapping = None
     if a.map:
         mapping = {k: int(v, 16) if isinstance(v, str) else v for k, v in json.load(open(a.map)).items()}

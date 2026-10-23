@@ -56,6 +56,8 @@ let MODE: "match" | "equiv" = "match";
 // drop tools/tech_debt.py's flags (no goto, no lifted frame array, under half the volatiles) and stay equivalent.
 let REWRITE = false;
 let UPGRADE = false;
+// (round 23) promotion needs a `--wine` pass too (tools/wine_gate.py); --no-wine-gate / HULK_NO_WINE_GATE=1 turn it off
+let WINE_GATE = ["", "0"].includes(process.env.HULK_NO_WINE_GATE ?? "");
 const debt = (code: string) => ({
 	gotos: (code.match(/\bgoto\s+\w+\s*;/g) ?? []).length,
 	vol: (code.match(/\bvolatile\b/g) ?? []).length,
@@ -158,9 +160,17 @@ async function verifyRefs(src: string, addr: string): Promise<{ status: string; 
 
 // Behaviour check (docs/equivalence.md). equiv.py exits 1 on anything but "equivalent" and still prints JSON.
 // A pass at the default input count is confirmed at 3000 inputs: the default let wrong sources through.
+// (round 23) A pass at 3000 inputs must also pass the Wine gate: equiv.py --wine (the clang object the Wine build runs)
+// at 600 inputs. A source that fails it gets the --wine report, so the model sees what the Wine build gets wrong.
 async function equiv(src: string, addr: string): Promise<any> {
 	const r = await equivRun(src, addr, []);
-	return r.status === "equivalent" ? equivRun(src, addr, ["--inputs", "3000"]) : r;
+	if (r.status !== "equivalent") return r;
+	const r3 = await equivRun(src, addr, ["--inputs", "3000"]);
+	if (r3.status !== "equivalent" || !WINE_GATE) return r3;
+	const w = await equivRun(src, addr, ["--wine", "--inputs", "600", "--max-inputs", "600"]);
+	if (w.status === "equivalent" && (w.level3?.inputs_run ?? 0) >= 50) return r3;
+	if (w.status === "compile_error" && /needs/.test(w.error ?? "")) return { ...r3, status: "tool_error", error: `Wine gate: ${w.error}` };
+	return { ...w, status: w.status === "equivalent" ? "inconclusive" : w.status, wine_gate: true };
 }
 
 async function equivRun(src: string, addr: string, extra: string[]): Promise<any> {
@@ -196,6 +206,7 @@ function equivReport(r: any): string {
 	if (r.status === "no_function") return `no_function: ${r.error ?? "the target function was not found in the object; define it with the given signature"}`;
 	if (r.status === "tool_error") return `checker error: ${r.error}`;
 	const out: string[] = [];
+	if (r.wine_gate) out.push("Equivalent in the MSVC check, but not in the Wine build's (clang, `equiv.py --wine`); promotion needs both:");
 	const l2 = r.level2 ?? {};
 	const sig = r.signature ? ` (${r.signature.cc}, returns ${r.signature.ret}, params ${JSON.stringify(r.signature.params)})` : "";
 	if (!l2.ok) {
@@ -532,6 +543,7 @@ async function main() {
 			upgrade: { type: "boolean" }, // match mode: start from the function's proven equivalent/ source
 			"dry-run": { type: "boolean" }, // print the filtered queue (and --upgrade's native skips), then exit
 			rewrite: { type: "boolean" }, // equiv mode: readability pass over the proven equivalent/ source
+			"no-wine-gate": { type: "boolean" }, // equiv mode: promote on the MSVC check alone (no Wine toolchain here)
 		},
 	});
 	const tiers: Tier[] = JSON.parse(readFileSync(values.tiers!, "utf8"));
@@ -554,6 +566,7 @@ async function main() {
 	MODE = values.mode;
 	REWRITE = !!values.rewrite;
 	UPGRADE = !!values.upgrade;
+	if (values["no-wine-gate"]) WINE_GATE = false;
 	if (REWRITE && MODE !== "equiv") throw new Error("--rewrite needs --mode equiv");
 	EQUIV_DIR = bench ? join(BUILD, "bench", bench, "equivalent") : join(ROOT, "equivalent");
 	WORK_TAG = bench ?? (lane ? `lane-${lane}` : "main");

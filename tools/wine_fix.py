@@ -752,6 +752,22 @@ def demote_verify(rel, addr, text):
             rep = json.loads(r.stdout.strip().splitlines()[-1])
         except (ValueError, IndexError):
             return "equiv.py: no result", None
+        if rep.get("status") == "equivalent" and rep.get("promotable"):
+            # (round 23) the Wine gate: --wine at 600 inputs too (tools/wine_gate.py; HULK_NO_WINE_GATE=1 or
+            # --no-wine-gate skips it)
+            import wine_gate
+            if not wine_gate.disabled():
+                n = str(wine_gate.WINE_INPUTS)
+                rw = subprocess.run([sys.executable, os.path.join(ROOT, "tools/equiv.py"), p, "0x%08x" % addr, "--wine",
+                                     "--inputs", n, "--max-inputs", n, "--json"], capture_output=True, text=True,
+                                    errors="replace", cwd=ROOT)
+                try:
+                    wrep = json.loads(rw.stdout.strip().splitlines()[-1])
+                except (ValueError, IndexError):
+                    wrep = None
+                ok, why = wine_gate.judge(wrep)
+                if not ok:
+                    return "rejected by the Wine gate: " + why, None
     finally:
         import shutil
         shutil.rmtree(d, ignore_errors=True)
@@ -2735,7 +2751,10 @@ def main(argv=None):
     ap.add_argument("--rule", action="append", choices=sorted(RULES))
     ap.add_argument("--only", nargs="*")
     ap.add_argument("--jobs", type=int, default=3, help="verifications at once (default 3)")
+    ap.add_argument("--no-wine-gate", action="store_true", help="verify without the --wine gate (no Wine toolchain here)")
     a = ap.parse_args(argv)
+    if a.no_wine_gate:
+        os.environ["HULK_NO_WINE_GATE"] = "1"
     # (the candidate rules, return-param / base-ctor / this-cand, run alone: --rule NAME)
     rules = a.rule or sorted(r for r in RULES if r not in CANDIDATE_RULES)
     if rules == ["return-param"]:

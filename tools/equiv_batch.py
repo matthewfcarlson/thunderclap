@@ -38,7 +38,20 @@ def run(item):
     return {"addr": addr, "src": src, "status": rep.get("status"), "args": EXTRA,
             "conflicts": bool((rep.get("level2") or {}).get("conflicts")),
             "inputs_run": l3.get("inputs_run"), "coverage": l3.get("coverage"), "target": rep.get("target"),
-            "inconclusive": l3.get("inputs_inconclusive"), "statuses": l3.get("statuses")}
+            "inconclusive": l3.get("inputs_inconclusive"), "statuses": l3.get("statuses"),
+            "first_diff": _first_diff(rep), "decl_arity": rep.get("decl_arity") or []}
+
+
+def _first_diff(rep):
+    """(round 23) the first thing that failed, for a rejection's reason: an error, a level-2 issue, a mismatch."""
+    if rep.get("error"):
+        return rep["error"][:300]
+    for i in (rep.get("level2") or {}).get("issues") or []:
+        return ("level 2: %s %s" % (i.get("kind"), i.get("symbol") or i.get("target") or ""))[:300]
+    for m in (rep.get("level3") or {}).get("mismatches") or []:
+        for d in m.get("diffs") or []:
+            return ("input %s: %s" % (m.get("input"), d))[:300]
+    return ""
 
 
 def init(extra):

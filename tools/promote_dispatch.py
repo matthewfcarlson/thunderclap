@@ -12,6 +12,12 @@ hosts.json (kept out of version control; it holds user and host names):
               "routes": [["user@host"], ["-J", "user@jump", "user@host"]]}]}
 Routes are tried in order (ssh arguments ending in the target). Each host needs build/venv and the data files
 already in <dir>; tools/ and include/ from git HEAD are shipped once per host per run.
+
+Wine gate (round 23, default on): the sources that pass the MSVC check (equivalent, no level-2 conflicts, >=75% branch
+coverage, >=50 inputs) are checked again with `--wine` at --wine-inputs (600) inputs, through the queue, into
+OUT.wine.jsonl; each OUT record then carries "wine_gate": {"ok", "reason", "status", "inputs_run"} (tools/wine_gate.py
+judges). Installers promote only records whose gate is ok. --no-wine-gate (or HULK_NO_WINE_GATE=1) skips the second
+check and marks the records "wine gate off", for a host without the Wine toolchain (LLVM clang).
 """
 import argparse, io, json, math, os, re, subprocess, sys, tarfile, tempfile, threading, time
 
@@ -99,7 +105,65 @@ def main():
                     help="send the batches through the shared queue (tools/jobq.py; default) instead of dispatching here; "
                          "--hosts/--only/--no-adapt/--margin are then ignored (hosts: build/jobs/hosts.json)")
     ap.add_argument("--no-adapt", action="store_true", help="ignore load average when sizing slots")
+    ap.add_argument("--wine-gate", action=argparse.BooleanOptionalAction, default=True,
+                    help="(default) check the MSVC passes again with --wine (tools/wine_gate.py); --no-wine-gate: the Wine "
+                         "toolchain is unavailable")
+    ap.add_argument("--wine-inputs", type=int, default=600, help="inputs of the --wine gate check")
     a = ap.parse_args()
+    if not a.wine_gate:
+        os.environ["HULK_NO_WINE_GATE"] = "1"
+    rc = dispatch(a)
+    wine_gate_pass(a)
+    return rc
+
+
+def msvc_pass(r):
+    """The MSVC bar of promote-remote.sh: equivalent, no level-2 conflicts, >=75% branch coverage, >=50 inputs."""
+    c = r.get("coverage") or {}
+    return r.get("status") == "equivalent" and not r.get("conflicts") and \
+        (not c.get("edges_total") or c["edges_covered"] / c["edges_total"] >= 0.75) and (r.get("inputs_run") or 0) >= 50
+
+
+def wine_gate_pass(a):
+    """(round 23) The --wine check of the MSVC passes in OUT; adds "wine_gate" to every OUT record that passed MSVC."""
+    if not os.path.exists(a.out):
+        return
+    import wine_gate
+    recs = [json.loads(l) for l in open(a.out) if l.strip()]
+    cands = [(r["addr"], r["src"]) for r in recs if msvc_pass(r) and r.get("src")]
+    wres = {}
+    if cands and not wine_gate.disabled():
+        import jobq_equiv
+        wout = a.out + ".wine.jsonl"
+        extra = ["--wine", "--inputs", str(a.wine_inputs), "--max-inputs", str(a.wine_inputs)] + a.extra.split()
+        log("wine gate: %d MSVC passes checked with --wine at %d inputs (%s)" % (len(cands), a.wine_inputs, wout))
+        wres = jobq_equiv.run_items(a.name + "-wine", cands, wout, extra, a.batch, a.attempts,
+                                    a.limit or limit_of(a.extra, a.margin), True, a.status)
+    for r in recs:
+        if not msvc_pass(r):
+            continue
+        if wine_gate.disabled():
+            r["wine_gate"] = wine_gate.gate(None, None)
+            continue
+        w = wres.get(r["addr"])
+        if w is None:
+            r["wine_gate"] = {"ok": False, "reason": "wine: no result (the check gave up)", "status": None, "inputs_run": 0}
+            continue
+        # equiv_batch.py records are flat: status, inputs_run, coverage, mismatch/error text
+        rep = {"status": w.get("status"), "error": w.get("first_diff") or w.get("detail") or "",
+               "level3": {"inputs_run": w.get("inputs_run") or 0}}
+        ok, why = wine_gate.judge(rep)
+        r["wine_gate"] = {"ok": ok, "reason": why, "status": w.get("status"), "inputs_run": w.get("inputs_run") or 0}
+    tmp = a.out + ".tmp"
+    with open(tmp, "w") as f:
+        for r in recs:
+            f.write(json.dumps(r) + "\n")
+    os.replace(tmp, a.out)
+    n_ok = sum(1 for r in recs if (r.get("wine_gate") or {}).get("ok"))
+    print("wine gate: %d of %d MSVC passes pass%s" % (n_ok, len(cands), " (gate off)" if wine_gate.disabled() else ""))
+
+
+def dispatch(a):
 
     items = [tuple(l.split()[:2]) for l in open(a.list) if l.strip()]
     total = len(items)

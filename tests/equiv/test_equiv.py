@@ -111,6 +111,52 @@ class Logic(unittest.TestCase):
         self.assertEqual(equiv._callee_ext(prog, {"known": True, "target": 0x1000, "conv": False}, 1), 0)
         self.assertIsNone(equiv._callee_ext(prog, {"known": True, "target": 0x1100, "conv": False}, 0))
 
+    def test_decl_arity(self):
+        # (round 23, declarity) a callee's real stack arity from the original's code, and the verdict on a declaration
+        import capstone
+        code = {
+            0x1000: "8b442408" "c3",                            # mov eax,[esp+8]; ret: cdecl, reads 2 words
+            0x1100: "c20800",                                   # ret 8: pops 2 words
+            0x1200: "33c0" "c3",                                # xor eax,eax; ret: reads none
+            0x1300: "6a02" "6a01" "e8f7fcffff" "83c408" "e8effeffff" "c3",   # f1000(1, 2); f1200()
+            0x1400: "8bc1" "56" "e8f8fdffff" "83c404" "c3",     # push esi mid-function, esi untouched: f1200(esi)?
+            0x1500: "6a02" "6a01" "e8f7fbffff" "c3",            # f1100(1, 2)
+        }
+        mem = bytearray(0x2000)
+        for a, h in code.items():
+            mem[a:a + len(h) // 2] = bytes.fromhex(h)
+        prog = equiv.Program.__new__(equiv.Program)
+        prog.funcs = {a: (len(h) // 2, "f%x" % a) for a, h in code.items()}
+        prog.read = lambda va, n: bytes(mem[va:va + n]) if va + n <= len(mem) else b"\0" * n
+        prog.md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+        prog.md.detail = True
+        prog._pop_cache = {}
+        prog.text = (0x1000, 0x2000)
+        self.assertEqual(prog.pending_at(0x1400, 0xc, 0x1403), {0})          # a save, by the old rule
+        self.assertEqual(prog.pending_at(0x1400, 0xc, 0x1403, count_saves=True), {4})
+        ra = equiv.real_arity(prog, 0x1000)
+        self.assertEqual((ra["lo"], ra["hi"]), (2, 2))
+        ra2 = equiv.real_arity(prog, 0x1100)
+        self.assertEqual((ra2["lo"], ra2["hi"], ra2["pop"]), (2, 2, 8))
+        ra3 = equiv.real_arity(prog, 0x1200)
+        self.assertEqual((ra3["lo"], ra3["hi"]), (0, 0))                  # one site has nothing pending
+        kinds = lambda ra_, n, sig=None: [d["kind"] for d in equiv._judge(prog, "f", 0x1000, ra_, n, "declaration", sig, False)]
+        self.assertEqual(kinds(ra, 1), ["too_few"])
+        self.assertEqual(kinds(ra, 2), [])
+        self.assertEqual(kinds(ra3, 1), ["too_many"])
+        self.assertEqual(kinds(ra2, 2, {"cc": "cdecl", "params": ["i32", "i32"]}), ["pops"])     # callee pops, ours cleans up
+        self.assertEqual(kinds(ra2, 2, {"cc": "stdcall", "params": ["i32", "i32"]}), [])
+        self.assertEqual(kinds(dict(ra, hi=1), 3), [])       # evidence that disagrees with itself: no verdict
+        sig = equiv._fnptr_signature("?DAT_004de948@@3P6GMH@ZA")
+        self.assertEqual((sig["cc"], sig["params"]), ("stdcall", ["i32"]))
+        self.assertEqual(equiv._decl_stack_words(sig), (1, False))
+        md = prog.md
+        blk = lambda h: list(md.disasm(bytes.fromhex(h), 0))
+        # clang -O0: `mov eax, esp; fstp dword [eax]` and `mov dword [esp+4], 0`: two words; a prologue first
+        self.assertEqual(equiv._clang_words(blk("55" "89e5" "83ec10" "89e0" "d918" "c744240400000000")), 2)
+        self.assertEqual(equiv._clang_words(blk("c7042400000000" "50")), None)     # a push among the stores
+        self.assertEqual(equiv._clang_words(blk("8b45f8")), 0)
+
     def test_write_only_idioms(self):
         import capstone
         md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)

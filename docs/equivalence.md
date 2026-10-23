@@ -40,6 +40,14 @@ aside as wild (below). When an `equivalent` run falls short, `promotable_note` s
 prints it (`not promotable (thin evidence): branch coverage 21/46 is under 75%`). `status` keeps its meaning,
 so tools that parse it are unaffected.
 
+**Promotion is gated on both modes** (round 23). A source goes into `equivalent/` (or replaces one there) only when it is
+`promotable` in MSVC mode at 3,000 inputs *and* `equivalent` with `--wine` at 600 inputs (at least 50 completed):
+MSVC mode alone passed sources whose call declarations or float order the Wine build gets wrong. `tools/wine_gate.py`
+judges; every installer applies it (`build/agent-tools/promote-remote.sh` through `tools/promote_dispatch.py`,
+`tools/clone_equivalent.py`, `tools/wine_fix.py`, the farm) and rejects a failing source with the `--wine` report's
+first difference as the reason. `--no-wine-gate` (`NO_WINE_GATE=1` for promote-remote.sh, `HULK_NO_WINE_GATE=1`
+anywhere) skips it where the Wine toolchain (LLVM clang) is unavailable; use it only then.
+
 Level 2 also lists **warnings**: differences that equivalent code can legitimately have. Examples are an
 immediate that only looks like an address, a float constant loaded another way (`fld1`, or a double
 instead of a float; the 2^32 bias of an unsigned-to-float conversion isn't even warned about), a string or global read in pieces, another element of a global the original
@@ -757,8 +765,7 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     0x000f0e60, 0x000ef4f0, 0x000e1610, 0x000e1670 (`DAT_004de948` takes no stack word: two sites call it with nothing pending;
     the pushed 0 is the virtual `update(float, int)`'s second argument), evaluation order around a virtual call
     (0x00264050: clang loads `stream` before `stream->v16()`), 1-ulp float order (0x003160f0, 0x00144360, 0x001441a0,
-    0x0022a0d0). A check for the first kind in MSVC mode (a cdecl callee that reads more words than our declaration passes)
-    would catch them there; not done.
+    0x0022a0d0). Round 23 (`declarity`, below) catches the first kind in MSVC mode.
   - **Not done**: the pointee extent of a virtual callee (above); `this` (ecx) of a member call is still not snapshotted, so the
     input of an in-place transform (`dir.FUN_0022d260(m)`) is not compared at the call (the callee's write extent is filled).
   - **Verification.** `regress.py` through the queue (development module, before the vsplit trial and the stackval tightening):
@@ -786,6 +793,47 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     "stored &local" class 6, the "checker gap" class 4 of 5 (0x0035d200 passes with nf3's `hulk_freg` source,
     `build/nf3/w/`); most of what is left fails on float order, evaluation order around virtual calls, frame-array lifts or
     the real declaration bugs listed above.
+
+- (round 23, cl12) **Call declarations whose stack arity is not the callee's** (`declarity`, `EQUIV_OFF=declarity`). MSVC mode
+  passed the six sources above because the bytes coincide: `FUN_00240750(3000, &x); FUN_0024ace0(a, b, c, d)` with one
+  merged `add esp, 0x18` pushes the same six words as `FUN_0024ace0(a, b, c, FUN_00240750(), 3000, &x)`. The Wine build
+  (clang, a cleanup or a reserved frame per call) breaks. Level 2 now compares, for every callee our function (and the
+  local helpers it reaches) calls directly, by `call [global]` or by a tail `jmp`, the stack words our declaration passes
+  with the original's callee, from the XBE only:
+  - `ret N` with every ret alike: exactly N/4 words (stdcall, thiscall);
+  - a plain `ret` (cdecl): at least `callee_stack_args` (the highest argument slot it and its tail callees read), and at most
+    the fewest words pending at any of the original's direct call sites (`pending_at(..., count_saves=True)`: a `push esi`
+    of an untouched esi counts, it passes esi on). The upper bound only when the read scan succeeded (a va_list's `lea`, an
+    SEH frame or an unfollowable body: the sites' words vary with the call) or the callee forwards through an indirect
+    `jmp [eax+0xb0]` (then no lower bound);
+  - a function-pointer global some site calls with nothing pending (`ptr_call_pop` "noargs"): none.
+  Our side: the callee's decoration (`decl_layout`), a by-value struct's size from a sizeof probe, a function-pointer
+  global's mangled type (`?DAT_004de948@@3P6GMH@ZA`); for a C name or a struct return, clang's call sites (clang -O0 stores
+  each argument into the reserved outgoing area right before the call: the words [esp+0..4n) written since the previous
+  call, all of them, below the lowest esp-addressed local; a function that changes esp mid-body, an inalloca block or
+  per-call `sub esp`, is not read; `EQUIV_OFF=declclang` skips that clang compile in MSVC mode). A callee our declaration
+  says pops differently from its `ret N` with the same word count is a `pops` entry (`EQUIV_OFF=declpops`). `// equiv-conv` callees, varargs, virtual calls and unknown pointers are not judged.
+  The report's `decl_arity` lists `{callee, symbol, kind: too_many | too_few | pops, ours, ours_from, real, evidence}`, the
+  text report a `decl arity:` line each. **Report only**: no status changes; `--strict-decl` (`STRICT_DECL`) makes each one
+  a level-2 issue (`decl_arity_too_few` ...), so the run fails. `tools/decl_lint.py` runs it alone over sources (level 2,
+  ~0.3 s a source; `--all --jobq`). Cases `*_declarity*` in `regress.py` (`DECL_CASES`: the six sources above plus
+  0x00277630 flagged, the corrected 0x001f32b0 clean, an `_off` and a `--strict-decl` case, and two tricky correct ones:
+  0x0021b520, whose callee one site gives `push esi`, and 0x000f2f50, an 8-byte struct returned in edx:eax); unit test
+  `test_decl_arity`.
+  - **Lint of all 27,480 sources** (`build/cl12/lint-all.jsonl`, `build/cl12/flagged.jsonl`): 31 flagged (21 `matches/`,
+    10 `equivalent/`), 37 callees: 10 too many words (a getter, `mov eax, 0x4e6208; ret`, given the word a later call
+    takes, as in 0x001e95c0), 9 too few (the callee reads `[esp+8]`: FUN_00247550, FUN_00243090, FUN_0026fd50 ...), 4 the
+    time pointer 0x004de948, 3 tail calls that forward the caller's words (0x00011c10, 0x001b8770, 0x002ad7e0: clang -O0
+    makes them real calls) and 11 adjustor thunks (`sub ecx, 4; jmp ??_G`) whose deleting destructor's flags word the
+    class declares as `vfunc_2()` (wrong, but the thunk forwards the stack). All 31 were checked by hand against the callee's
+    code and call sites: no false positive. The development runs had them (21 in one run, all from clang's call frames
+    with by-value classes: per-call `sub esp`, inalloca blocks, a realigned frame's esp locals) and two from the original's
+    side (a varargs callee bounded by its sites; a `push esi` passing esi on counted as a save); each is a rule above.
+    No `pops` mismatch was found. `--strict-decl` would fail the 10 `equivalent/` sources (0x00025e50 0x000bce10 0x000ef4f0
+    0x000f0e60 0x001d5630 0x001e95c0 0x001f32b0 0x00225c90 0x00259b40 0x0025a220); the `matches/` ones are byte matches.
+  - Not the same as `wine_conv_check.py`'s 1,208 "cdecl callers of thiscall definitions" (docs/wine-build.md): those are
+    symbol bindings whose convention differs (`this` in ecx or not), mostly with no stack words at all; round 17's
+    `thisdecl` covers the ones whose callee reads ecx.
 
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check

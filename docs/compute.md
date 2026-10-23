@@ -35,6 +35,13 @@ $J tools/equiv_batch.py LIST OUT.jsonl --jobq --name MYNAME -- --inputs 3000    
 $J tools/promote_dispatch.py NAME LIST OUT.jsonl --hosts X --jobq ...            # same queue, same output format
 $J tests/equiv/regress.py --jobq --name MYNAME                                   # all regress cases, sharded
 ```
+**Promotion is gated on both modes** (round 23): `promote_dispatch.py` (and so `promote-remote.sh`) re-checks the MSVC passes
+(3,000 inputs) with `--wine` at 600 inputs through the queue (`OUT.wine.jsonl`) and marks each record's `wine_gate`; the
+installers (`promote-remote.sh`, `clone_equivalent.py`, `wine_fix.py`, the farm) promote only sources that pass both
+(`tools/wine_gate.py`). `--no-wine-gate` (`NO_WINE_GATE=1` for `promote-remote.sh`, `HULK_NO_WINE_GATE=1` anywhere) skips
+the `--wine` check where the Wine toolchain (LLVM clang) is unavailable. `tools/decl_lint.py --all --jobq --name ME --out
+OUT.jsonl` runs round 23's declaration-arity lint over every source (level 2 only, ~0.3 s a source).
+
 LIST lines are `0xADDR path/to/source.cpp`. Sources travel with their job, so uncommitted candidates work. `OUT.jsonl`
 is appended as results arrive and addresses already in it are skipped (rerun to resume).
 

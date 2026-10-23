@@ -536,3 +536,18 @@ own entry are logged as conflicts and left alone. No `matches/` or `equivalent/`
 source exists at a new address); the eight pass-1 equivalents still pass locally at 400 inputs. Game functions
 27,435 -> 27,477, unverified 3,526 -> 3,568 (279,038 -> 282,267 bytes); the new game functions are queued
 smallest-first in `build/farm/new-functions.txt`.
+
+## cl12: declaration-arity check (checker round 23) and the Wine promotion gate (2026-10-23)
+
+MSVC mode passed sources whose call declarations give a callee the wrong number of stack words when the pushed bytes
+coincide (cl11's six). `equiv.py` now reports `decl_arity` at level 2 in MSVC mode: the callee's real arity from the XBE
+(`ret N`; a cdecl callee's highest argument read and the fewest words pending at the original's call sites; a function
+pointer some site calls with nothing pending) against the words our declaration passes (decoration, sizeof probe, clang's
+call sites for C names). Report only; `--strict-decl` fails it. `tools/decl_lint.py` ran it over all 27,480 sources: 31
+flagged (10 `equivalent/`, 21 `matches/`), all correct by hand; 11 of them are adjustor thunks to deleting destructors
+whose flags word the class leaves undeclared (harmless), 3 are tail calls that clang -O0 turns into real calls, the rest
+getters handed a later call's word or callees reading more than we pass (`build/cl12/flagged.jsonl`). Promotion into
+`equivalent/` now also needs `equiv.py --wine` at 600 inputs (`tools/wine_gate.py`; `--no-wine-gate` without LLVM).
+A `--wine` sweep at 60 inputs over all of `equivalent/` and the float-using `matches/` (7,466 sources): 6,934 equivalent,
+532 not, 154 of them already on nf3's list; 218 of the new ones are one checker artefact (clang emits no scalar deleting
+destructor for a source that defines only the destructor). Categories in `build/cl12/wine-sweep-summary.md`, for nf4.

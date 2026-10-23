@@ -730,10 +730,55 @@ RELOC_CASES = {
     "0x00336f10_thiscall_decl_wrong": ("bad", "free_decl_of_thiscall"),      # `void FUN_00019420()` for 0x003352b0
 }
 
+# (round 23, declarity) decl_arity cases, level 2 only: name -> ({(kind, callee)} the diagnostic must report, exactly;
+# verify() keyword arguments plus `equiv_off`, `src` and `strict` (STRICT_DECL: the status must then be "fail"))
+DECL_CASES = {
+    # FUN_0024ace0 reads six stack words, the source declares four and gives the other two to FUN_00240750 (none)
+    "0x001f32b0_declarity_wrong": ({("too_few", "0x0024ace0"), ("too_many", "0x00240750")}, {}),
+    "0x001f32b0_declarity_wrong_strict": ({("too_few", "0x0024ace0"), ("too_many", "0x00240750")},
+                                          {"src": "0x001f32b0_declarity_wrong", "strict": True}),
+    "0x001f32b0_declarity_off": (set(), {"src": "0x001f32b0_declarity_wrong", "equiv_off": "declarity"}),
+    "0x001f32b0_declarity": (set(), {}),           # the declarations corrected
+    # FUN_00240750 takes nothing: the float is FUN_00243090's second argument
+    "0x001e95c0_declarity_wrong": ({("too_few", "0x00243090"), ("too_many", "0x00240750")}, {}),
+    # the time function pointer at 0x004de948 takes no stack word (sites call it with nothing pending)
+    "0x000f0e60_declarity_wrong": ({("too_many", "0x004de948")}, {}),
+    "0x000ef4f0_declarity_wrong": ({("too_many", "0x004de948")}, {}),
+    "0x000e1670_declarity_wrong": ({("too_many", "0x004de948")}, {}),
+    "0x000e1610_declarity_wrong": ({("too_many", "0x004de948")}, {}),     # a C name: clang's call sites tell
+    # FUN_0026fd50(x, align) reads two words; the source declares one (a byte match: the original pushed c earlier)
+    "0x00277630_declarity_wrong": ({("too_few", "0x0026fd50")}, {}),
+    # correct: one site passes esi on (`push esi`, esi untouched there): an argument, not a register save
+    "0x0021b520_declarity_passon": (set(), {}),
+    # correct: an 8-byte struct returned in edx:eax, not through a hidden pointer (clang's call sites tell)
+    "0x000f2f50_declarity_structret": (set(), {}),
+}
+
 # cases that must also complete this many inputs (the promotion bar is 50)
 MIN_RUN = {"0x0028c2a0_rep_count": 50, "0x000e36c0_small_counts": 50, "0x002155f0_diff_bound": 50,
            "0x0024a800_walk_end": 50, "0x001fe380_tiny_counts": 50, "0x002a4e40_static_count": 50,
            "0x00242da0_nil_addr_walk": 50, "0x002165c0_xlocal_ptr": 50}
+
+
+def decl_job(name, equiv=None):
+    """(round 23) one DECL_CASES case: (ok, status, the reported {(kind, callee)})."""
+    equiv = equiv or __import__(os.environ.get("EQUIV_MODULE", "equiv"))
+    want, kw = DECL_CASES[name]
+    kw = dict(kw)
+    off = [x for x in kw.pop("equiv_off", "").split(",") if x]
+    strict = kw.pop("strict", False)
+    src = kw.pop("src", None) or name
+    equiv.EQUIV_OFF.update(off)
+    old = equiv.STRICT_DECL
+    equiv.STRICT_DECL = strict
+    try:
+        r = equiv.verify(os.path.join(CASES_DIR, src + ".cpp"), int(name.split("_")[0], 16), max_level=2, **kw)
+    finally:
+        equiv.EQUIV_OFF.difference_update(off)
+        equiv.STRICT_DECL = old
+    got = {(d["kind"], d["callee"]) for d in r.get("decl_arity") or []}
+    ok = got == want and (r["status"] == "fail") == bool(strict and want) and r["status"] in ("draft", "fail")
+    return ok, r["status"], got
 
 
 def job(name):
@@ -823,7 +868,7 @@ def main():
         os.environ["EQUIV_MODULE"] = a.module
     sel = set(a.names.split(",")) if a.names else None
     if a.jobq:
-        return run_jobq(a, [n for n in list(CASES) + list(RELOC_CASES) if (not a.only or a.only in n) and (not sel or n in sel)])
+        return run_jobq(a, [n for n in list(CASES) + list(RELOC_CASES) + list(DECL_CASES) if (not a.only or a.only in n) and (not sel or n in sel)])
     if not os.path.exists(os.path.join(ROOT, "isos/extracted/default.xbe")):
         print("skip: no isos/extracted/default.xbe")
         return 0
@@ -846,6 +891,11 @@ def main():
         bad += not ok
         names.append(name)
         print("%-4s %-32s %-12s %s" % ("ok" if ok else "FAIL", name, r["status"], "" if ok else r.get("issues")))
+    for name in [n for n in DECL_CASES if (not a.only or a.only in n) and (not sel or n in sel)]:
+        ok, status, got = decl_job(name)
+        bad += not ok
+        names.append(name)
+        print("%-4s %-32s %-12s %s" % ("ok" if ok else "FAIL", name, status, "" if ok else sorted(got)))
     print("%d/%d cases ok" % (len(names) - bad, len(names)))
     return 1 if bad else 0
 

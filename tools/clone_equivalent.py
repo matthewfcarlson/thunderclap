@@ -7,7 +7,8 @@ such pair this tool lines the two functions up instruction by instruction (same 
 instruction sequence), collects every referenced address that moved (callees, globals, vftables), renames
 the identifiers and `equiv-map`/`equiv-conv` lines in the proven source that embed the old address, and
 runs tools/equiv.py on the copy. A copy is installed when it is equivalent with no level-2 conflicts and
-at least 75% branch coverage, run at 3000 inputs, the same bar as an agent's pass.
+at least 75% branch coverage, run at 3000 inputs, the same bar as an agent's pass, and passes the Wine gate
+(`--wine` at 600 inputs, tools/wine_gate.py; --no-wine-gate or HULK_NO_WINE_GATE=1 skips it).
 
 Usage:
   tools/clone_equivalent.py [--dry-run] [--limit N] [--jobs N] [--skip FILE...]
@@ -110,6 +111,14 @@ def clone(pair):
             r = run_equiv(path, dst, "--inputs", "3000")
         except Exception as e:  # noqa: BLE001
             return {"addr": dst, "from": src_addr, "status": "error", "detail": repr(e)[:120]}
+        if accepted(r):
+            # (round 23) the Wine gate: --wine at 600 inputs as well (tools/wine_gate.py; --no-wine-gate skips it)
+            import wine_gate
+            w = wine_gate.gate(path, d) if wine_gate.disabled() else \
+                wine_gate.gate(path, d, rep=run_equiv(path, dst, "--wine", "--inputs", str(wine_gate.WINE_INPUTS),
+                                                      "--max-inputs", str(wine_gate.WINE_INPUTS)))
+            if not w["ok"]:
+                return {"addr": dst, "from": src_addr, "status": "wine_gate", "detail": w["reason"]}
     if not accepted(r):
         cv = (r.get("level3") or {}).get("coverage") or {}
         return {"addr": dst, "from": src_addr, "status": r.get("status", "?"),
@@ -125,12 +134,15 @@ def clone(pair):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--no-wine-gate", action="store_true", help="skip the --wine check (no Wine toolchain here)")
     p.add_argument("--limit", type=int, default=0)
     p.add_argument("--jobs", type=int, default=4)
     p.add_argument("--skip", nargs="*", default=[], help="files listing addresses to leave alone (agents' batches)")
     p.add_argument("--min-size", type=int, default=32)
     p.add_argument("--out", default=os.path.join(ROOT, "build/farm/clone-equivalent.jsonl"))
     a = p.parse_args()
+    if a.no_wine_gate:
+        os.environ["HULK_NO_WINE_GATE"] = "1"      # (pool workers inherit it)
     rows = list(csv.DictReader(open(os.path.join(ROOT, "build/functions.csv"))))
     addrs = ["0x%08x" % int(r["address"], 16) for r in rows if int(r["size"]) >= a.min_size]
     done = {x for x in addrs if os.path.exists(os.path.join(ROOT, "matches", x + ".cpp"))}

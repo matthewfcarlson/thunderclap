@@ -16,7 +16,10 @@ Run everything from the repository root.
    - Optionally, check `tools/compare.py SRC 0xADDR` for a free byte-match, but don't chase one.
    - Quick single checks may run locally (at most 2 processes); larger or repeated runs go through `tools/jobq.py` (`docs/compute.md`).
 4. Cap: **10 equiv.py runs per function**. Then move on and record it as failed, with your best attempt left in `work/`.
-5. When the function passes, copy it to `build/farm/bench/claude-equiv/pass/0xADDR.cpp`.
+5. When the function passes, also check the Wine build's object: `tools/equiv.py SRC 0xADDR --wine --json`. Promotion is
+   gated on both: `promote-remote.sh` re-checks a pass at 3,000 inputs in MSVC mode and at 600 with `--wine`, and rejects
+   a source that fails either (the reason is in its output). Then copy it to `build/farm/bench/claude-equiv/pass/0xADDR.cpp`.
+   `tools/decl_lint.py SRC` lists callees whose stack arity your declarations state wrongly (round 23): fix those first.
 6. Log every function as one JSON line appended to `build/farm/bench/claude-equiv/log.jsonl`:
    `{"addr": "0x...", "agent": "<your batch letter>", "status": "equivalent|fail|unsupported", "runs": N, "coverage": "covered/total", "note": "<short: what was hard>"}`
 
