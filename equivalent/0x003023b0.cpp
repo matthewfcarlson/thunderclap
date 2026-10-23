@@ -1,3 +1,7 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3016 inputs, branch coverage 8/8)
+// Test_3023b0::Check @ 0x003023b0
+// Demoted from matches/: the original compares the squared distance it just stored with fst (53-bit register
+// copy); MSVC 7.1 byte-matches only with the reload spelling, which clang rounds to float (Wine-build divergence).
 #include "compat/ptr.h"
 struct V {
     float x, y, z;
@@ -35,9 +39,11 @@ bool Test_3023b0::Check(Shape_3023b0* a, Shape_3023b0* b) {
     float* q = &dist2;
     volatile V* dv = &d;
     hulk_freg t = dv->z * dv->z + dv->y * dv->y;
-    *q = t + dv->x * dv->x;
-    if (*q < 1e-6f)
+    // x87: the original stores the squared distance with fst and compares the register copy (53 bits)
+    hulk_freg s = t + dv->x * dv->x;
+    *q = s;
+    if (s < 1e-6f)
         return false;
     hulk_freg r = a->radius + b->radius + margin;
-    return *q < r * r;
+    return s < r * r;
 }
