@@ -804,10 +804,23 @@ def main(argv=None):
         return 0 if obj else 1
     gen, manifest, results, history, state = run(a.jobs, a.rounds, fresh=not a.resume)
     checks = verify(gen, manifest, results, a.jobs)
-    for _ in range(a.regression_rounds):
+    for rnd in range(a.regression_rounds):
         # a function whose code changed in the tree falls back: merged -> wrapped -> isolated
         reg = regressions(checks)
         new = 0
+        # Escalations settle merged neighbours first: in a TU where a merged function regressed, a wrapped or
+        # isolated function of the same object that also regressed keeps its mode this round and is checked again
+        # once its merged neighbours have been wrapped (a merged neighbour's declarations can change a wrapped
+        # function's code: 0x2ea3c0 differed only while 0x2e9880 was merged next to it, and fallbacks are never
+        # undone, so escalating both at once made the result depend on which TUs failed first). Not on the last
+        # round: nothing whose code differs may be left in place.
+        # the object a TU belongs to: `X.cpp`, `X.GS.cpp`, `X.iso_<addr>.cpp`, `X.new_<n>.cpp` -> X
+        unit = {int(c["addr"], 16): os.path.join(os.path.dirname(c["tu"]), os.path.basename(c["tu"]).split(".", 1)[0])
+                for c in checks}
+        merged_units = {unit.get(addr) for addr, (mode, _w) in reg.items() if mode == "merged"}
+        last = rnd == a.regression_rounds - 1
+        deferred = {addr for addr, (mode, _w) in reg.items()
+                    if mode != "merged" and not last and unit.get(addr) in merged_units}
         # blocks wrapped only because a regressed merged function had the same definition would merge next
         # round in its place, usually with the same problem (one round per clone): wrap them now
         twins = collections.defaultdict(list)
@@ -818,6 +831,8 @@ def main(argv=None):
                     if m:
                         twins[int(m.group(1), 16)].append(int(b["addr"], 16))
         for addr, (mode, why) in reg.items():
+            if addr in deferred:
+                continue
             if mode == "merged":
                 for t in twins.get(addr, ()):
                     if t not in state["wrap"]:
@@ -832,7 +847,19 @@ def main(argv=None):
             elif mode == "isolated+ns" and addr not in state.setdefault("iso_plain", {}):
                 state["iso_plain"][addr] = why
                 new += 1
-        print("regressions: %d (%d new fallbacks)" % (len(reg), new), flush=True)
+        if not new and deferred:
+            # nothing else moved: the deferred ones escalate now (their neighbours cannot settle any further)
+            for addr in sorted(deferred):
+                mode, why = reg[addr]
+                if mode == "wrapped" and addr not in state["isolate"]:
+                    state["isolate"][addr] = why
+                    new += 1
+                elif mode == "isolated+ns" and addr not in state.setdefault("iso_plain", {}):
+                    state["iso_plain"][addr] = why
+                    new += 1
+            deferred = set()
+        print("regressions: %d (%d new fallbacks%s)" % (len(reg), new,
+                                                         ", %d deferred" % len(deferred) if deferred else ""), flush=True)
         if not new:
             break
         gen_tree.save_state(state)
