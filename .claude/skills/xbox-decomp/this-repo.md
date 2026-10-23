@@ -1,8 +1,52 @@
 # In this repo (Thunderclap: The Incredible Hulk: Ultimate Destruction)
 
-Concrete paths, tools and conventions behind the general rules in SKILL.md. CLAUDE.md is authoritative for layout,
-commands and hard rules; this file adds the operational lessons. Run everything from the repo root with
-`build/venv/bin/python` (written `$J` below).
+Concrete paths, tools, numbers and history behind the general rules in SKILL.md, matching.md, codegen-pitfalls.md
+and tooling-design.md. CLAUDE.md is authoritative for layout, commands and hard rules; this file adds the
+operational lessons. Run everything from the repo root with `build/venv/bin/python` (written `$J` below).
+
+## The project in numbers
+
+- About 27,000 game functions (2.7 MB of game code, plus ~14,000 unreferenced dead COMDAT bodies left out of the
+  denominator), all verified: byte-matched or proven equivalent. Engine: Radical's Pure3D/radcore (RTTI namespaces
+  `pure3d`, `choreo2`, `fight`, `physics`, `audio`, ...), Lua 5.1 game scripts, RCF ("Cement") archives on disc. A
+  leaked source of another game on this engine exists: never look at it (CLAUDE.md, `docs/prior-art.md`).
+- History and numbers behind the generic advice live in `docs/journal.md` (e.g. the 2026-10-08 model benchmark and
+  aligned-diff change, 2026-10-09 permuter and `/O1` regions, 2026-10-11 "research once, apply many" and the
+  vptr-sink recipes, 2026-10-12 the permuter's 0/70 on residue and the 36-of-1,451 re-check).
+
+## Tool map (tooling-design.md -> here)
+
+| Capability | Here |
+| --- | --- |
+| Compiler fetch / wibo | `tools/pull_compiler.py win32/msvc7.1`, `docs/toolchain.md` |
+| RTTI walker, demangler, headers | `tools/rtti.py` (-> `build/rtti.json`), `tools/msvc_demangle.py`, `tools/gen_headers.py` (-> `include/gen/`), `docs/headers.md` |
+| Function-list fixes | `tools/fix_function_list.py` (`--pass2` for gaps), `tools/fix_truncated_sizes.py`; list in `build/functions.csv` |
+| Packets, disassembly | `tools/packet.py show|build|queue`, `tools/disasm.py` |
+| Object splits | `tools/infer_splits.py` -> `config/splits.json`, `docs/splits.md` |
+| Compare, verifier, formatter | `tools/compare.py` (defaults `/O2 /GR /GX /Gy`, whitelist in `file_flags`, keep `tools/gen_tree.py` in sync), `tools/verify_relocs.py`, `tools/format_matches.py`, `tools/format_equivalents.py` |
+| Match repair scripts | `tools/fix_relocs.py` (split one name used for two targets), `tools/fix_literals.py` (integer addresses -> declared globals), `tools/fix_vptr.py` (barrier recipe over saved attempts) |
+| Permuter, cloning, generators, workbench | `tools/permute.py` (`--queue near.txt`), `tools/clone_matches.py`, `tools/clone_equivalent.py`, `tools/equiv_gen/` (README lists families), `tools/workbench/` |
+| Equivalence checker | `tools/equiv.py` (design and rounds: `docs/equivalence.md`), `tools/x87_order.py`, `tools/lint_floats.py` |
+| Traces, hybrid | `tools/trace_gate.py`, `tools/trace_capture.py`, `tools/equiv_replay.py`, `tools/patch_xbe.py`, `tools/hybrid_run.py`, `tools/hybrid_test.py` |
+| Wine build | `tools/wine_*.py`, `tools/build_tree.py`, `tools/gen_tree.py`, `tools/wine_build_job.py`, `tools/wine_replay_job.py` |
+| Queue | `tools/jobq.py`, `tools/jobq_equiv.py`, `docs/compute.md` |
+| Model farm | `farm/` (prompts `farm/src/prompt.ts`, compile-error hints `farm/src/hints.ts`, tiers `farm/tiers-*.json`), `docs/farm.md`, `tools/batch_run.py`, `tools/farm_stats.py` |
+| Reports | `tools/progress.py --readme`, `tools/tech_debt.py` |
+
+## Matching here
+
+- Compiler: `cl` 13.10.3077, base flags `/O2 /GR /GX` (`/Gy` in the tools); the game was built with `/GS`
+  (`// cl-flags: /GS` plus a plain `char buf[N]`). The CRT/XAPI region around 0x34xxxx-0x35xxxx is `/O1 /Oy-`;
+  a few game objects are `/Oy-`. LTCG register conventions appear mostly in the D3D/graphics backend.
+- `_ftol` is `FUN_0034483c`; the XBE's own CRT routines (memcpy, strcmp, strlen, ...) are identified by behaviour
+  in `tools/equiv.py`.
+- Briefs: `docs/agents/match-brief.md` (subagent loop, 8-attempt cap, vptr and register-allocation studies with
+  example addresses), `farm/src/prompt.ts` (symptom table; Pure3D idioms such as `p3d::find<T>(name)`,
+  `new(allocator) T(...)`, `DynamicCaster<T>`; keep it byte-stable, providers cache it).
+- Near-miss piles and experiments: `build/farm/queue-permute-r8.txt`, `build/farm/agent-work/regalloc/`,
+  `build/farm/work/lane-*/ADDR/` (earlier attempts per function).
+- Fine-tuned local matchers `ulk-1..3` (Qwen MoE + LoRA; journal 2026-10-09/13 and 10-13/17) run the small-function
+  lane on a local model host; the ChatGPT lane is paused (memory notes).
 
 ## Status and terms
 
@@ -101,6 +145,19 @@ $J tests/equiv/regress.py --jobq --name ME                 # after ANY change to
   days. Run it only with the user's OK; the permission system blocks bulk deletes, so the user may run it with `!`.
 - The ChatGPT/model-farm lanes are paused while structural work (64-bit consolidation, Wine-build fixes) runs: lane
   rewrites collide with them. Don't restart a lane without the user.
+
+## Incidents behind the generic rules
+
+- Disk: about 90 private build trees (1-5 GB each) filled the laptop to 0 bytes; shell calls and the queue daemon
+  died. A cleanup review approved deleting a live agent's script folder that looked like a build copy.
+- Queue: 42 jobs exited 127 from a bare `python` inside `sh -c`; 27 jobs "gave up" on default limits (one slow
+  function at 20,000 inputs needed a 30,000 s time budget); seed-range shards starting at seed 2000 came back
+  inconclusive; a daemon restart while waiting on one job killed another agent's 7-hour proof.
+- Emulator: a `drive-backup` on a `-snapshot` drive unlinked the only local base HDD (restored from another host).
+- Screenshots: a "huge" rendering difference fell from 11 to 3 mean RGB once frames were aligned by one; the rest
+  was the half-pixel convention.
+- Coordination: the coordinator once said three agents "fit" after checking only usage; two conflicted by file.
+  It also stopped a user-resumed agent that turned out to be working.
 
 ## Known traps (from agents' notes)
 
