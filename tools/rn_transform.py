@@ -80,6 +80,35 @@ def tok_edit(text, fn):
     return "".join(out)
 
 
+def pin_data_transform(text, renames):
+    """b11/b12: a source's invented names for global data (`extern int a, b;` whose addresses the strict Wine link
+    binds by relocation position) take their address names (`DAT_004985b8`), so two sources merged into one TU no
+    longer declare one invented name for two addresses. `renames`: {invented name: DAT_ name}. Token-level, like
+    unclash; refused where the name is also a member name or named on an `// equiv-*` line."""
+    eq = equiv_text(text)
+    for old, new in renames.items():
+        if not re.fullmatch(r"DAT_[0-9a-f]{8}", new):
+            raise SwapFail("not an address name: %s" % new)
+        if re.search(r"\b%s\b" % re.escape(old), eq):
+            raise SwapFail("%s named on an equiv-* line" % old)
+        if member_uses(text, old):
+            raise SwapFail("%s is also a member name" % old)
+        if re.search(r"\b%s\b" % re.escape(new), text):
+            raise SwapFail("the source already uses %s" % new)
+
+    def ren(i, toks):
+        t = toks[i]
+        if t.v not in renames:
+            return None
+        if i and toks[i - 1].v in (".", "->", "::"):
+            return None
+        return renames[t.v]
+    out = tok_edit(text, ren)
+    if out == text:
+        raise SwapFail("nothing renamed")
+    return out, "; ".join("%s->%s" % kv for kv in sorted(renames.items()))
+
+
 def member_uses(text, name):
     """True if `name` is used after `.`, `->` or as the second part of `X::name` (a member name)."""
     toks = cxx_items.tokenize(text)

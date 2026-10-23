@@ -1,13 +1,10 @@
+#include "gen/fight.h"
+
 extern "C" void* __cdecl do_cast(void*, long, const void*, const void*, int);
-extern char source_type;
-extern char target_type;
+extern char DAT_0049850c;
+extern char DAT_004b9ff8;
 namespace fight {
-class TrackFactoryCaster {
-  public:
-    virtual bool vfunc_0(void*);
-    virtual void vfunc_1();
-};
-template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster {
+class TrackFactoryCaster_178f60 {
   public:
     virtual bool vfunc_0(void*);
     virtual void vfunc_1();
@@ -15,9 +12,10 @@ template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster 
 } // namespace fight
 namespace hulkfight {
 namespace motion {
-class JointRelativeTrack;
+class JointRelativeTrack_178f60;
 }
 } // namespace hulkfight
-template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::JointRelativeTrack>::vfunc_0(void* p) {
-    return do_cast(p, 0, &source_type, &target_type, 0) != 0;
+template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::JointRelativeTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
+    return do_cast(p, 0, &DAT_0049850c, &DAT_004b9ff8, 0) != 0;
 }

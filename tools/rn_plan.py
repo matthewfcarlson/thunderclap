@@ -414,15 +414,18 @@ def refine(batch_path, state, out_path, rounds=8, bindings=None):
                     involved = {p for ns, (addrs, srcs) in by_ns.items() for p in srcs}
                     drop |= (involved & newly) or (involved & set(keep)) or {
                         p for a, (mode, p, t, _dn) in m.items() if t == tu and p in keep}
+        # by object (`X.cpp`, `X.GS.cpp`, `X.iso_<addr>.cpp` are one): a function isolated by the batch sits in its
+        # own .iso_ TU, away from the batch sources that caused it
+        unit = lambda tu: os.path.join(os.path.dirname(tu), os.path.basename(tu).split(".", 1)[0])  # noqa: E731
         for a, (mode, path, tu, _dn) in m.items():
             bm = base.get(a)
             if bm and RANK[mode] > RANK[bm[0]]:
                 if path in keep:
                     drop.add(path)
                 else:
-                    worse_tu.add(tu)
+                    worse_tu.add(unit(tu))
         for a, (mode, path, tu, _dn) in m.items():
-            if tu in worse_tu and path in keep:
+            if unit(tu) in worse_tu and path in keep:
                 drop.add(path)
         # a newly merged function that shares its definition's name with another merged function of the TU
         # (the batch's sources in the group, newly merged or not; when none is, the batch's sources in that TU)

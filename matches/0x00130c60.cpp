@@ -1,21 +1,19 @@
+#include "gen/fight.h"
+
 namespace fight {
-class ConditionFactoryCaster {
+class ConditionFactoryCaster_130c60 {
   public:
     virtual bool vfunc_0(const char*);
     virtual void vfunc_1();
 };
-template <class T> class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
-  public:
-    virtual bool vfunc_0(const char*);
-};
 } // namespace fight
 namespace hulkfight {
-class MissionProgressCondition {};
+class MissionProgressCondition_130c60 {};
 } // namespace hulkfight
 extern "C" int __cdecl helper(const char*, int, const void*, const void*, int);
-extern void* a;
-extern void* b;
-template <>
-bool fight::ConditionFactoryCasterTemplate<hulkfight::MissionProgressCondition>::vfunc_0(const char* s) {
-    return helper(s, 0, &a, &b, 0) != 0;
+extern char DAT_00491ca8;
+extern char DAT_004aa710;
+template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::MissionProgressCondition>::vfunc_0(void* __p0) { const char * s = (const char *)__p0;
+
+    return helper(s, 0, &DAT_00491ca8, &DAT_004aa710, 0) != 0;
 }

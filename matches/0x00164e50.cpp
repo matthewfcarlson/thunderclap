@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 typedef unsigned int size_t;
 void* operator new(size_t);
 namespace hulkfight {
@@ -11,9 +13,9 @@ class Base {
     int a;
     int b;
 };
-class PhaseCondition : public Base {
+class PhaseCondition_164e50 : public Base {
   public:
-    PhaseCondition() throw() : Base(0), c(0), d(0) {}
+    PhaseCondition_164e50() throw() : Base(0), c(0), d(0) {}
     virtual void f0();
     int c;
     int d;
@@ -21,7 +23,7 @@ class PhaseCondition : public Base {
 } // namespace motion
 } // namespace hulkfight
 namespace fight {
-class ConditionFactory {
+class ConditionFactory_164e50 {
   public:
     virtual void f0();
     virtual void f1();
@@ -30,11 +32,8 @@ class ConditionFactory {
     virtual void f4();
     virtual void* vfunc_5();
 };
-template <class T> class ConditionFactoryTemplate : public ConditionFactory {
-  public:
-    virtual void* vfunc_5();
-};
-template <> void* ConditionFactoryTemplate<hulkfight::motion::PhaseCondition>::vfunc_5() {
-    return new hulkfight::motion::PhaseCondition;
-}
+
 } // namespace fight
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::PhaseCondition>::vfunc_5() {
+    return (void*)(new hulkfight::motion::PhaseCondition_164e50);
+}

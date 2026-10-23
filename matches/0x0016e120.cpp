@@ -1,7 +1,9 @@
+#include "gen/fight.h"
+
 typedef unsigned int size_t;
 void* __cdecl operator new(size_t);
 namespace fight {
-class ConditionFactory {
+class ConditionFactory_16e120 {
   public:
     virtual void f0();
     virtual void f1();
@@ -23,9 +25,9 @@ class BaseCondition {
     int a;
     int b;
 };
-class RageModeStateCondition : public BaseCondition {
+class RageModeStateCondition_16e120 : public BaseCondition {
   public:
-    RageModeStateCondition(int x) throw() : BaseCondition(x) {
+    RageModeStateCondition_16e120(int x) throw() : BaseCondition(x) {
         a = 0;
         b = 0;
     }
@@ -34,11 +36,8 @@ class RageModeStateCondition : public BaseCondition {
 } // namespace motion
 } // namespace hulkfight
 namespace fight {
-template <class T> class ConditionFactoryTemplate : public ConditionFactory {
-  public:
-    virtual void* vfunc_5();
-};
-template <> void* ConditionFactoryTemplate<hulkfight::motion::RageModeStateCondition>::vfunc_5() {
-    return new hulkfight::motion::RageModeStateCondition(0);
-}
+
 } // namespace fight
+template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::RageModeStateCondition>::vfunc_5() {
+    return (void*)(new hulkfight::motion::RageModeStateCondition_16e120(0));
+}

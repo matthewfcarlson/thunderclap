@@ -1623,11 +1623,30 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
     if ast is None:
         raise SwapFail("clang can't parse the original")
     records, fields, methods, outdefs, fwds, nsof = {}, {}, {}, [], [], {}
+    # a stub that is a class template (`template <class T> class XTemplate : public X {...}` + `template <> R
+    # XTemplate<Foo>::vfunc_N(...)`, batch b11): the target's parent is the implicit specialization; it stands
+    # for the template's pattern record, and its members for the pattern's (same names, same order)
+    spec_of, tmpl_node, member_of = {}, {}, {}
 
     def walk(n, ns, rec):
         k = n.get("kind")
         if k == "NamespaceDecl":
             ns = ns + [n.get("name", "")]
+        if k == "ClassTemplateDecl":
+            pats = [c for c in n.get("inner", []) if c.get("kind") == "CXXRecordDecl" and c.get("completeDefinition")]
+            if len(pats) == 1:
+                pat = pats[0]
+                tmpl_node[pat["id"]] = n
+                pm = [c for c in pat.get("inner", []) if c.get("kind") in ("FieldDecl", "CXXMethodDecl")
+                      and not c.get("isImplicit")]
+                for sp in n.get("inner", []):
+                    if sp.get("kind") != "ClassTemplateSpecializationDecl":
+                        continue
+                    spec_of[sp["id"]] = pat["id"]
+                    sm = [c for c in sp.get("inner", []) if c.get("kind") in ("FieldDecl", "CXXMethodDecl")
+                          and not c.get("isImplicit")]
+                    if [(c["kind"], c.get("name")) for c in sm] == [(c["kind"], c.get("name")) for c in pm]:
+                        member_of.update({a["id"]: b["id"] for a, b in zip(sm, pm)})
         if k in ("CXXRecordDecl",) and n.get("name") and not n.get("isImplicit"):
             if n.get("completeDefinition"):
                 records[n["id"]] = n
@@ -1657,6 +1676,10 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
     if len(cand) != 1:
         raise SwapFail("can't tell which definition is the target")
     fn, sid = cand[0]
+    spec_ids = {sid}
+    if sid in spec_of:
+        sid = spec_of[sid]
+        spec_ids.add(sid)
     if sid not in records:
         raise SwapFail("target's class is not a plain stub class")
     S = records[sid]
@@ -1710,6 +1733,7 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
         k = n.get("kind")
         if k == "MemberExpr":
             rid = n.get("referencedMemberDecl")
+            rid = member_of.get(rid, rid)
             base = n.get("inner", [{}])[0]
             ub = _unwrap(base)
             implicit = ub.get("kind") == "CXXThisExpr" and ub.get("implicit")
@@ -1809,7 +1833,7 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
     head = "%s%s __Self::%s(%s)" % ("template <> " if C.targs is not None else "", hret, hname, ", ".join(plist))
     # file-level edits: drop S's definition (-> __Self_nv), forward decls, its out-of-line members
     cuts = []
-    sb, se = _rng(S)
+    sb, se = _rng(tmpl_node.get(sid, S))
     semi = raw.index(";", se) + 1 if raw.find(";", se) >= 0 else se
     nv_decls = []
     for rid in sorted(nv_used):
@@ -1822,7 +1846,7 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
             b, e = _rng(n)
             cuts.append((b, raw.index(";", e) + 1, ""))
     for d in outdefs:
-        if d.get("parentDeclContextId") == sid:
+        if d.get("parentDeclContextId") in spec_ids:
             b, e = _rng(d)
             cuts.append((b, e, ""))
     cuts.sort()

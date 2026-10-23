@@ -1,13 +1,10 @@
+#include "gen/fight.h"
+
 extern "C" int __cdecl check(void*, int, const void*, const void*, int);
-extern int data1;
-extern int data2;
+extern char DAT_0049850c;
+extern char DAT_004baef0;
 namespace fight {
-class TrackFactoryCaster {
-  public:
-    virtual bool vfunc_0(void*);
-    virtual void vfunc_1();
-};
-template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster {
+class TrackFactoryCaster_179b60 {
   public:
     virtual bool vfunc_0(void*);
     virtual void vfunc_1();
@@ -15,9 +12,10 @@ template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster 
 } // namespace fight
 namespace hulkfight {
 namespace motion {
-class FootPivotTrack;
+class FootPivotTrack_179b60;
 }
 } // namespace hulkfight
-template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::FootPivotTrack>::vfunc_0(void* p) {
-    return check(p, 0, &data1, &data2, 0) != 0;
+template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::FootPivotTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
+    return check(p, 0, &DAT_0049850c, &DAT_004baef0, 0) != 0;
 }

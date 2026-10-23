@@ -1,22 +1,21 @@
+#include "gen/fight.h"
+
 extern "C" void* __cdecl cast(void*, int, const void*, const void*, int);
-extern "C" char sourceType, targetType;
+extern "C" char DAT_0049850c, DAT_004bada0;
 namespace hulkfight {
 namespace motion {
-class ChargeClearTrack;
+class ChargeClearTrack_179a60;
 }
 } // namespace hulkfight
 namespace fight {
-class TrackFactoryCaster {
+class TrackFactoryCaster_179a60 {
   public:
     virtual bool vfunc_0(void*);
     virtual void vfunc_1();
 };
-template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster {
-  public:
-    virtual bool vfunc_0(void*);
-    virtual void vfunc_1();
-};
-template <> bool TrackFactoryCasterTemplate<hulkfight::motion::ChargeClearTrack>::vfunc_0(void* object) {
-    return cast(object, 0, &sourceType, &targetType, 0) != 0;
-}
+
 } // namespace fight
+template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::ChargeClearTrack>::vfunc_0(void* __p0) { void * object = (void *)__p0;
+
+    return cast(object, 0, &DAT_0049850c, &DAT_004bada0, 0) != 0;
+}

@@ -1,10 +1,7 @@
+#include "gen/fight.h"
+
 namespace fight {
-class TrackFactoryCaster {
-  public:
-    virtual bool vfunc_0(void*);
-    virtual void vfunc_1();
-};
-template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster {
+class TrackFactoryCaster_1797a0 {
   public:
     virtual bool vfunc_0(void*);
     virtual void vfunc_1();
@@ -12,13 +9,13 @@ template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster 
 } // namespace fight
 namespace hulkfight {
 namespace motion {
-class TargetIconDistanceTrack;
+class TargetIconDistanceTrack_1797a0;
 }
 } // namespace hulkfight
-extern int typeA;
-extern int typeB;
+extern char DAT_0049850c;
+extern char DAT_004ba968;
 extern "C" void* castTrack(void*, void*, void*, void*, void*);
-template <>
-bool fight::TrackFactoryCasterTemplate<hulkfight::motion::TargetIconDistanceTrack>::vfunc_0(void* p) {
-    return castTrack(p, 0, &typeA, &typeB, 0) != 0;
+template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::TargetIconDistanceTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
+    return castTrack(p, 0, &DAT_0049850c, &DAT_004ba968, 0) != 0;
 }

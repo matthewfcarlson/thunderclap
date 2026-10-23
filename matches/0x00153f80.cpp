@@ -1,24 +1,21 @@
+#include "gen/fight.h"
+
 extern "C" int __cdecl Check(void*, int, void*, void*, int);
 namespace fight {
-class ConditionFactoryCaster {
+class ConditionFactoryCaster_153f80 {
   public:
     virtual bool vfunc_0(void*);
     virtual void vfunc_1();
 };
-template <class T> class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
-  public:
-    virtual bool vfunc_0(void*);
-};
 } // namespace fight
 namespace hulkfight {
 namespace motion {
-class InterruptAccumulatorCondition {};
+class InterruptAccumulatorCondition_153f80 {};
 } // namespace motion
 } // namespace hulkfight
-extern void* a;
-extern void* b;
-template <>
-bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::InterruptAccumulatorCondition>::vfunc_0(
-    void* p) {
-    return Check(p, 0, &a, &b, 0) != 0;
+extern char DAT_00491ca8;
+extern char DAT_004b1bf0;
+template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::InterruptAccumulatorCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
+    return Check(p, 0, &DAT_00491ca8, &DAT_004b1bf0, 0) != 0;
 }

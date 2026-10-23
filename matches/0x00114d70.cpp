@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 typedef unsigned int size_t;
 void* __cdecl operator new(size_t) throw();
 namespace hulkfight {
@@ -8,9 +10,9 @@ class BaseTrack {
     virtual void v0();
     char pad[4];
 };
-class TokenTrack : public BaseTrack {
+class TokenTrack_114d70 : public BaseTrack {
   public:
-    TokenTrack() throw() {
+    TokenTrack_114d70() throw() {
         *(int*)((char*)this + 12) = 0;
         *(float*)((char*)this + 16) = -1.0f;
         *((char*)this + 20) = 0;
@@ -22,16 +24,8 @@ class TokenTrack : public BaseTrack {
 } // namespace ai
 } // namespace hulkfight
 namespace fight {
-template <class T> class TrackFactoryTemplate {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual T* vfunc_5();
-};
-template <> hulkfight::ai::TokenTrack* TrackFactoryTemplate<hulkfight::ai::TokenTrack>::vfunc_5() {
-    return new hulkfight::ai::TokenTrack;
-}
+
 } // namespace fight
+template <> void* fight::TrackFactoryTemplate<hulkfight::ai::TokenTrack>::vfunc_5() {
+    return (void*)(new hulkfight::ai::TokenTrack_114d70);
+}
