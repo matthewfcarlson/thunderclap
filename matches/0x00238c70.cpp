@@ -1,23 +1,15 @@
+#include "gen/fight.h"
+
 #include "compat/ptr.h"
-class Action {
+class Action_238c70 {
     char pad[0x1c];
 };
-class NonCopyable {};
-class IRefCount {};
-class PrintAction : public Action, public NonCopyable, public IRefCount {
-  public:
-    char pad[4];
-    int mText;
-    int mFormat;
-    int mArg;
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual bool vfunc_3(int, int);
-};
+class NonCopyable_238c70 {};
+class IRefCount_238c70 {};
 extern int FUN_00238bb0(int, int, const char*, int);
 const char formatString_238c70[] = "%s\n";
-bool PrintAction::vfunc_3(int a, int b) {
+
+bool fight::PrintAction::vfunc_3(int a, int b) {
     hulk_intptr p = *(int*)((char*)this + 0x1c);
     if (*(int*)((char*)p + 0x14))
         FUN_00238bb0(*(int*)((char*)this + 0x20), *(int*)((char*)p + 0x10), formatString_238c70,

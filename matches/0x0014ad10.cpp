@@ -1,4 +1,6 @@
-class Track {
+#include "gen/hulkfight.h"
+
+class Track_14ad10 {
   public:
     virtual void v0();
     virtual void v1();
@@ -12,18 +14,15 @@ class Track {
     virtual void v9();
     virtual int v10(int, int, int);
 };
-class Param {};
-class GrappleHitReactionTrack : public Track, public Param {
-  public:
-    virtual int vfunc10(int, int, int);
-};
+class Param_14ad10 {};
 class GrappleHitReactionAction_14ad10 {
   public:
-    int Init(GrappleHitReactionTrack*, int);
+    int Init(hulkfight::motion::GrappleHitReactionTrack*, int);
 };
 extern int GetParam(int);
 extern GrappleHitReactionAction_14ad10* Allocate(int);
-int GrappleHitReactionTrack::vfunc10(int a, int b, int c) {
+
+int hulkfight::motion::GrappleHitReactionTrack::vfunc_10(int a, int b, int c) {
     int x = GetParam(c);
     if (x) {
         GrappleHitReactionAction_14ad10* p = Allocate(0x58);

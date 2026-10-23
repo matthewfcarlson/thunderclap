@@ -1,4 +1,6 @@
-class Track {
+#include "gen/hulkfight.h"
+
+class Track_1a8f50 {
   public:
     virtual void f0();
     virtual void f1();
@@ -12,17 +14,14 @@ class Track {
     virtual void f9();
     virtual void f10();
 };
-class Param {};
-class EffectTrack : public Track, public Param {
-  public:
-    int vfunc_10(int, int, int);
-};
+class Param_1a8f50 {};
 class EffectAction_1a8f50 {
   public:
-    int Call(EffectTrack*, int);
+    int Call(hulkfight::scenario::EffectTrack*, int);
 };
 extern EffectAction_1a8f50* GetThing(int);
-int EffectTrack::vfunc_10(int x, int, int) {
+
+int hulkfight::scenario::EffectTrack::vfunc_10(int x, int , int ) {
     EffectAction_1a8f50* p = GetThing(0x6c);
     if (p)
         return p->Call(this, x);

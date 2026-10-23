@@ -1,34 +1,21 @@
 // Same code shape as 0x0012b630 (propagated; names are from that function)
+#include "gen/hulkfight.h"
+
 #include "compat/ptr.h"
-struct Param {
+struct Param_12b6f0 {
   public:
     virtual void vfunc1();
     virtual void vfunc2();
     virtual void vfunc4();
 };
 
-struct Track {
+struct Track_12b6f0 {
   public:
     virtual void tfunc3();
     virtual void tfunc8();
     virtual void tfunc9();
 };
 
-struct ThreatDodgeTrack_12b6f0 : Track, Param {
-  public:
-    virtual void vfunc0();
-    virtual void vfunc5();
-    virtual void vfunc6();
-    virtual hulk_freg GetExtent();
-    virtual void vfunc10();
-
-    int mFlags;
-    float mMinX;
-    float mMaxX;
-    float mWidth;
-    float mHeight;
-};
-
-hulk_freg ThreatDodgeTrack_12b6f0::GetExtent() {
-    return mMaxX - mMinX;
+float hulkfight::ai::ThreatDodgeTrack::vfunc_7() {
+    return (float)(this->f_10 - this->f_0c);
 }

@@ -1,5 +1,7 @@
 // Same code shape as 0x000e3e20 (propagated; names are from that function)
-class FEControl {
+#include "gen/global.h"
+
+class FEControl_e3bb0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -21,16 +23,10 @@ class FEControl {
     virtual void f17();
     virtual void f18();
 };
-class FEObject {};
-class IValueChangedReceiver {};
-class IValueChangedSender {};
-class TextWindow : public FEControl,
-                  public FEObject,
-                  public IValueChangedReceiver,
-                  public IValueChangedSender {
-  public:
-    virtual char vfunc_10(int, int);
-};
+class FEObject_e3bb0 {};
+class IValueChangedReceiver_e3bb0 {};
+class IValueChangedSender_e3bb0 {};
+
 char TextWindow::vfunc_10(int x, int y) {
     if (x)
         return x == 4;

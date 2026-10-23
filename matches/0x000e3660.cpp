@@ -1,4 +1,6 @@
-class FEControl {
+#include "gen/global.h"
+
+class FEControl_e3660 {
   public:
     virtual void f0();
     virtual void f1();
@@ -20,7 +22,7 @@ class FEControl {
     virtual void f17();
     virtual void f18();
 };
-class FEObject {
+class FEObject_e3660 {
   public:
     virtual void g0();
     virtual void g1();
@@ -32,31 +34,15 @@ class FEObject {
     virtual void g7();
     virtual void g8();
 };
-class IValueChangedReceiver {
+class IValueChangedReceiver_e3660 {
   public:
     virtual void h0();
 };
-class IValueChangedSender {
+class IValueChangedSender_e3660 {
   public:
     virtual void i0();
 };
-class TextSelector : public FEControl,
-                     public FEObject,
-                     public IValueChangedReceiver,
-                     public IValueChangedSender {
-  public:
-    char pad[0x1d50];
-    float value;
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual float vfunc_9();
-};
+
 float TextSelector::vfunc_9() {
-    return value;
+    return this->f_1d60;
 }

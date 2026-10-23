@@ -1,4 +1,6 @@
-class FEControl {
+#include "gen/global.h"
+
+class FEControl_e3e20 {
   public:
     virtual void f0();
     virtual void f1();
@@ -20,16 +22,10 @@ class FEControl {
     virtual void f17();
     virtual void f18();
 };
-class FEObject {};
-class IValueChangedReceiver {};
-class IValueChangedSender {};
-class TextTable : public FEControl,
-                  public FEObject,
-                  public IValueChangedReceiver,
-                  public IValueChangedSender {
-  public:
-    virtual char vfunc_10(int, int);
-};
+class FEObject_e3e20 {};
+class IValueChangedReceiver_e3e20 {};
+class IValueChangedSender_e3e20 {};
+
 char TextTable::vfunc_10(int x, int y) {
     if (x)
         return x == 4;

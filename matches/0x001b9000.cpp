@@ -1,7 +1,9 @@
+#include "gen/global.h"
+
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
-class CDHGameObjectCreator {
+class CDHGameObjectCreator_1b9000 {
   public:
     virtual void f0();
     virtual void f1();
@@ -15,10 +17,8 @@ class DataHandlerObjectCreator {
     virtual void g2();
     virtual const char* g3(void*);
 };
-class CRenderManager : public CDHGameObjectCreator, public DataHandlerObjectCreator {
-  public:
-    const char* f3(void*);
-};
-const char* CRenderManager::f3(void* p) {
-    return (const char*)((p != 0) - 1 & ((hulk_intptr)((char*)&DAT_00420dd8)));
+
+void* CRenderManager::vfunc_3(void* __p0) { void * p = (void *)__p0;
+
+    return (void*)((const char*)((p != 0) - 1 & ((hulk_intptr)((char*)&DAT_00420dd8))));
 }

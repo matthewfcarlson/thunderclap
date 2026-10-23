@@ -1,5 +1,7 @@
+#include "gen/physics.h"
+
 namespace physics {
-class SimCGSValue {
+class SimCGSValue_2ecd70 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1(float);
@@ -8,13 +10,10 @@ class SimCGSValue {
     float a;
     float b;
 };
-class SimUnits {};
-class SimTime : public SimCGSValue, public SimUnits {
-  public:
-    virtual void vfunc_1(float);
-};
-void SimTime::vfunc_1(float x) {
-    b = x;
-    a = x;
-}
+class SimUnits_2ecd70 {};
+
 } // namespace physics
+void physics::SimTime::vfunc_1(float x) {
+    this->f_08 = x;
+    this->f_04 = x;
+}

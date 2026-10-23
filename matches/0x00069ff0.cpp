@@ -1,6 +1,8 @@
 // Same code shape as 0x0012b630 (propagated; names are from that function)
+#include "gen/global.h"
+
 #include "compat/ptr.h"
-struct Param {
+struct Param_69ff0 {
   public:
     virtual void vfunc1();
     virtual void vfunc2();
@@ -14,21 +16,6 @@ struct CTrack_69ff0 {
     virtual void tfunc9();
 };
 
-struct CComboTimerTrack_69ff0 : CTrack_69ff0, Param {
-  public:
-    virtual void vfunc0();
-    virtual void vfunc5();
-    virtual void vfunc6();
-    virtual hulk_freg GetExtent();
-    virtual void vfunc10();
-
-    int mFlags;
-    float mMinX;
-    float mMaxX;
-    float mWidth;
-    float mHeight;
-};
-
-hulk_freg CComboTimerTrack_69ff0::GetExtent() {
-    return mMaxX - mMinX;
+float CComboTimerTrack::vfunc_7() {
+    return (float)(this->f_10 - this->f_0c);
 }

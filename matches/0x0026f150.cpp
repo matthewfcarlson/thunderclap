@@ -1,4 +1,6 @@
 // Same code shape as 0x0023c920 (propagated; names are from that function)
+#include "gen/core.h"
+
 class IRefCount_26f150 {
   public:
     virtual void v0();
@@ -9,7 +11,7 @@ class IRefCount_26f150 {
     virtual void v5();
     virtual void v6();
 };
-class Param {
+class Param_26f150 {
   public:
     virtual void p0();
     virtual void p1();
@@ -21,11 +23,7 @@ class Helper_26f150 {
   public:
     void f();
 };
-class Drive_26f150 : public IRefCount_26f150, public Param {
-  public:
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-};
-void Drive_26f150::vfunc_6() {
+
+void core::Drive::vfunc_1() {
     ((Helper_26f150*)((char*)this + 0xc))->f();
 }

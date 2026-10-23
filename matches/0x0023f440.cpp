@@ -1,3 +1,5 @@
+#include "gen/fight.h"
+
 typedef unsigned int size_t;
 void* __cdecl operator new(size_t) throw();
 class Ref {
@@ -6,7 +8,7 @@ class Ref {
     virtual void Release() throw();
 };
 namespace fight {
-class Track {
+class Track_23f440 {
   public:
     virtual void v0();
     virtual void v1();
@@ -20,19 +22,19 @@ class Track {
     virtual void v9();
     virtual void* vfunc_10(int, int, Ref*);
 };
-class Param {};
+class Param_23f440 {};
 class BreakPointActionBase {
   public:
     BreakPointActionBase() throw();
     virtual void v0();
     char pad[0x18];
 };
-class BreakPointTrack;
-class BreakPointAction : public BreakPointActionBase {
+
+class BreakPointAction_23f440 : public BreakPointActionBase {
   public:
-    BreakPointTrack* owner;
+    fight::BreakPointTrack* owner;
     Ref* ref;
-    BreakPointAction(BreakPointTrack* o, Ref* r) throw() : owner(o), ref(0) {
+    BreakPointAction_23f440(fight::BreakPointTrack* o, Ref* r) throw() : owner(o), ref(0) {
         if (r)
             r->AddRef();
         if (ref)
@@ -41,11 +43,9 @@ class BreakPointAction : public BreakPointActionBase {
     }
     virtual void v0();
 };
-class BreakPointTrack : public Track, public Param {
-  public:
-    virtual void* vfunc_10(int, int, Ref*);
-};
-void* BreakPointTrack::vfunc_10(int a, int b, Ref* r) {
-    return new BreakPointAction(this, r);
-}
+
 } // namespace fight
+int fight::BreakPointTrack::vfunc_10(int a, int b, int __p2) { Ref * r = (Ref *)__p2;
+
+    return (int)(new BreakPointAction_23f440(this, r));
+}

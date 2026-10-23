@@ -1688,15 +1688,29 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
     by_rname = {}
     for rid, rn in records.items():
         by_rname.setdefault(rn["name"], rid)
+    # Multiple inheritance (batch b13): the primary chain follows each record's first base (it shares the vptr at
+    # offset 0, so its virtuals are the primary vftable's slots); the other bases must be plain stub records too, and
+    # only their fields are mapped (absolute offsets from the layout); calls to their methods are left alone (the
+    # rewrite then fails to compile and is not kept). Virtual bases are refused.
+    def base_names(rid):
+        out = []
+        for b in records[rid].get("bases") or []:
+            if b.get("isVirtual"):
+                raise SwapFail("stub class has a virtual base")
+            bn = _clean_qt(b["type"]["qualType"]).replace("class ", "").replace("struct ", "")
+            if bn not in by_rname:
+                raise SwapFail("stub base %s not a plain class" % bn)
+            out.append(by_rname[bn])
+        return out
     chain = [sid]
     while records[chain[0]].get("bases"):
-        bl = records[chain[0]]["bases"]
-        if len(bl) > 1 or bl[0].get("isVirtual"):
-            raise SwapFail("stub class has multiple/virtual bases")
-        bn = _clean_qt(bl[0]["type"]["qualType"]).replace("class ", "").replace("struct ", "")
-        if bn not in by_rname:
-            raise SwapFail("stub base %s not a plain class" % bn)
-        chain.insert(0, by_rname[bn])
+        chain.insert(0, base_names(chain[0])[0])
+    allrecs, todo = set(), [sid]
+    while todo:
+        r = todo.pop()
+        if r not in allrecs:
+            allrecs.add(r)
+            todo.extend(base_names(r))
     if C.unit.template is False and "<" in sname:
         raise SwapFail("template stub")
     body = [c for c in fn["inner"] if c.get("kind") == "CompoundStmt"][0]
@@ -1709,7 +1723,7 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
                 if nm not in vnames:
                     vnames.append(nm)
                 vindex[c["id"]] = vnames.index(nm)
-    chain_names = {records[r]["name"] for r in chain}
+    chain_names = {records[r]["name"] for r in allrecs}
     # header fields reachable through this
     hf = dict(getattr(C, "emitted", {}))
     for b, md, _, _, _ in C.all_bases:
