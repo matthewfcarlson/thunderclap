@@ -17,7 +17,7 @@
 #include "../crt/host_crt.h"
 #include "../fs/hulk_fs.h"
 
-static const hulk_u32 hulk_invalid_handle = 0xffffffffu;
+static const hulk_uptr hulk_invalid_handle = HULK_INVALID_UPTR;
 
 // native12: HULK_TRACE_IO=1 logs every open / read / seek ("gfx io ..." trace lines: handle, offset, size, result,
 // thread) to line a parser's bytes up with the file they came from
@@ -39,77 +39,86 @@ static int io_trace_on() {
         }                                                      \
     } while (0)
 
-template <class T> static T* P(hulk_u32 a) { return (T*)(__SIZE_TYPE__)a; }
+template <class T> static T* P(hulk_uptr a) { return (T*)a; }
+
+// our file handles are small tagged indices (hulk_fs.h): the game holds them in HANDLE-sized words
+static HulkFsHandle fh(hulk_uptr h) { return (HulkFsHandle)h; }
 
 static hulk_u32 fail(unsigned err, hulk_u32 value) {
     hulk_host_SetLastError(err);
     return value;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_CreateFileA(hulk_u32 path, hulk_u32 access, hulk_u32 share, hulk_u32 sa,
-                                                     hulk_u32 disposition, hulk_u32 flags, hulk_u32 templ) {
+static hulk_uptr fail_h(unsigned err) {   // a HANDLE result: INVALID_HANDLE_VALUE
+    hulk_host_SetLastError(err);
+    return hulk_invalid_handle;
+}
+
+extern "C" hulk_uptr HULK_STDCALL hulk_xdk_CreateFileA(hulk_uptr path, hulk_u32 access, hulk_u32 share, hulk_uptr sa,
+                                                     hulk_u32 disposition, hulk_u32 flags, hulk_uptr templ) {
     HULK_XDK_TRACE("CreateFileA");
     (void)sa;
     (void)templ;
     if (!path)
-        return fail(HULK_ERR_PATH_NOT_FOUND, hulk_invalid_handle);
+        return fail_h(HULK_ERR_PATH_NOT_FOUND);
     HulkFsHandle h;
     unsigned err = hulk_fs_open(P<const char>(path), access, share, disposition, flags, &h);
     IO_TRACE("io open %s -> 0x%x err %u tid %u", P<const char>(path), err ? 0xffffffffu : h, err,
              hulk_host_GetCurrentThreadId());
-    return err ? fail(err, hulk_invalid_handle) : h;
+    return err ? fail_h(err) : (hulk_uptr)h;
 }
 
-// An OVERLAPPED is {Internal, InternalHigh, Offset, OffsetHigh, hEvent}: 20 bytes on the Xbox
-static int io_with_offset(hulk_u32 ov, HulkU64* offset) {
+// An OVERLAPPED is {Internal, InternalHigh, Offset, OffsetHigh, hEvent}: 20 bytes on the Xbox; Internal,
+// InternalHigh (ULONG_PTR) and hEvent are pointer-sized on the native builds (32 bytes)
+static int io_with_offset(hulk_uptr ov, HulkU64* offset) {
     if (!ov)
         return 0;
-    hulk_u32* o = P<hulk_u32>(ov);
-    *offset = (HulkU64)o[2] | ((HulkU64)o[3] << 32);
+    unsigned char* o = P<unsigned char>(ov);
+    *offset = (HulkU64)*(hulk_u32*)(o + HULK_OFS(8, 16)) | ((HulkU64)*(hulk_u32*)(o + HULK_OFS(12, 20)) << 32);
     return 1;
 }
 
-static hulk_u32 io_finish(unsigned err, hulk_u32 done, hulk_u32 ov, unsigned n) {
+static hulk_u32 io_finish(unsigned err, hulk_uptr done, hulk_uptr ov, unsigned n) {
     if (done)
         *P<hulk_u32>(done) = n;
     if (ov) {
-        hulk_u32* o = P<hulk_u32>(ov);
+        hulk_uptr* o = P<hulk_uptr>(ov);
         o[0] = err;     // STATUS_SUCCESS or the failure
         o[1] = n;
     }
     return err ? fail(err, 0) : 1;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_ReadFile(hulk_u32 h, hulk_u32 buf, hulk_u32 n, hulk_u32 done, hulk_u32 ov) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_ReadFile(hulk_uptr h, hulk_uptr buf, hulk_u32 n, hulk_uptr done, hulk_uptr ov) {
     HULK_XDK_TRACE("ReadFile");
     unsigned got = 0;
     HulkU64 off;
     int at = io_with_offset(ov, &off);
     HulkU64 pos = 0;
     if (!at && io_trace_on())
-        hulk_fs_seek(h, 0, 1 /* FILE_CURRENT */, &pos);
-    unsigned err = at ? hulk_fs_read_at(h, off, P<void>(buf), n, &got) : hulk_fs_read(h, P<void>(buf), n, &got);
-    IO_TRACE("io read 0x%x at 0x%x%s n 0x%x got 0x%x err %u buf 0x%08x first %08x tid %u", h,
-             (unsigned)(at ? off : pos), at ? " (ov)" : "", n, got, err, buf, got >= 4 ? *P<hulk_u32>(buf) : 0,
+        hulk_fs_seek(fh(h), 0, 1 /* FILE_CURRENT */, &pos);
+    unsigned err = at ? hulk_fs_read_at(fh(h), off, P<void>(buf), n, &got) : hulk_fs_read(fh(h), P<void>(buf), n, &got);
+    IO_TRACE("io read 0x%x at 0x%x%s n 0x%x got 0x%x err %u buf 0x%08x first %08x tid %u", (unsigned)h,
+             (unsigned)(at ? off : pos), at ? " (ov)" : "", n, got, err, (unsigned)buf, got >= 4 ? *P<hulk_u32>(buf) : 0,
              hulk_host_GetCurrentThreadId());
     return io_finish(err, done, ov, got);
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_WriteFile(hulk_u32 h, hulk_u32 buf, hulk_u32 n, hulk_u32 done, hulk_u32 ov) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_WriteFile(hulk_uptr h, hulk_uptr buf, hulk_u32 n, hulk_uptr done, hulk_uptr ov) {
     HULK_XDK_TRACE("WriteFile");
     unsigned put = 0;
     HulkU64 off;
-    unsigned err = io_with_offset(ov, &off) ? hulk_fs_write_at(h, off, P<const void>(buf), n, &put)
-                                            : hulk_fs_write(h, P<const void>(buf), n, &put);
+    unsigned err = io_with_offset(ov, &off) ? hulk_fs_write_at(fh(h), off, P<const void>(buf), n, &put)
+                                            : hulk_fs_write(fh(h), P<const void>(buf), n, &put);
     return io_finish(err, done, ov, put);
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_SetFilePointer(hulk_u32 h, hulk_u32 lo, hulk_u32 hi, hulk_u32 method) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_SetFilePointer(hulk_uptr h, hulk_u32 lo, hulk_uptr hi, hulk_u32 method) {
     HULK_XDK_TRACE("SetFilePointer");
     long long off = hi ? (((long long)*P<int>(hi)) << 32) | lo : (long long)(int)lo;
     HulkU64 pos = 0;
-    unsigned err = hulk_fs_seek(h, off, method, &pos);
-    IO_TRACE("io seek 0x%x off 0x%x method %u -> 0x%x err %u", h, (unsigned)off, method, (unsigned)pos, err);
+    unsigned err = hulk_fs_seek(fh(h), off, method, &pos);
+    IO_TRACE("io seek 0x%x off 0x%x method %u -> 0x%x err %u", (unsigned)h, (unsigned)off, method, (unsigned)pos, err);
     if (err)
         return fail(err, 0xffffffffu);
     if (hi)
@@ -117,10 +126,10 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_SetFilePointer(hulk_u32 h, hulk_u32 lo
     return (hulk_u32)pos;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_GetFileSize(hulk_u32 h, hulk_u32 hi) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_GetFileSize(hulk_uptr h, hulk_uptr hi) {
     HULK_XDK_TRACE("GetFileSize");
     HulkU64 size = 0;
-    unsigned err = hulk_fs_size(h, &size);
+    unsigned err = hulk_fs_size(fh(h), &size);
     if (err)
         return fail(err, 0xffffffffu);
     if (hi)
@@ -128,31 +137,31 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_GetFileSize(hulk_u32 h, hulk_u32 hi) {
     return (hulk_u32)size;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_SetEndOfFile(hulk_u32 h) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_SetEndOfFile(hulk_uptr h) {
     HULK_XDK_TRACE("SetEndOfFile");
-    unsigned err = hulk_fs_set_end(h);
+    unsigned err = hulk_fs_set_end(fh(h));
     return err ? fail(err, 0) : 1;
 }
 
 // CloseHandle is also what the game calls on its thread, semaphore and event handles: those are the host's.
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_CloseHandle(hulk_u32 h) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_CloseHandle(hulk_uptr h) {
     HULK_XDK_TRACE("CloseHandle");
-    if (hulk_fs_is_handle(h)) {
-        unsigned err = hulk_fs_close(h);
+    if (h == (HulkFsHandle)h && hulk_fs_is_handle(fh(h))) {
+        unsigned err = hulk_fs_close(fh(h));
         return err ? fail(err, 0) : 1;
     }
     return (hulk_u32)hulk_host_CloseHandle((void*)(__SIZE_TYPE__)h);
 }
 
 // ULARGE_INTEGER outputs
-static void put64(hulk_u32 p, HulkU64 v) {
+static void put64(hulk_uptr p, HulkU64 v) {
     if (p) {
         P<hulk_u32>(p)[0] = (hulk_u32)v;
         P<hulk_u32>(p)[1] = (hulk_u32)(v >> 32);
     }
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_GetDiskFreeSpaceExA(hulk_u32 path, hulk_u32 avail, hulk_u32 total, hulk_u32 free_) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_GetDiskFreeSpaceExA(hulk_uptr path, hulk_uptr avail, hulk_uptr total, hulk_uptr free_) {
     HULK_XDK_TRACE("GetDiskFreeSpaceExA");
     HulkU64 a = 0, t = 0, f = 0;
     unsigned err = hulk_fs_disk_free(path ? P<const char>(path) : "D:\\", &a, &t, &f);
@@ -164,14 +173,14 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_GetDiskFreeSpaceExA(hulk_u32 path, hul
     return 1;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XGetDiskSectorSizeA(hulk_u32 path) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XGetDiskSectorSizeA(hulk_uptr path) {
     HULK_XDK_TRACE("XGetDiskSectorSizeA");
     return hulk_fs_sector_size(path ? P<const char>(path) : "D:\\");
 }
 
 // 0x0021257d: the drive's file-destroy call (core::XboxDrive::vfunc_17 -> DriveFileDestroyRequest): path -> BOOL.
 // (the import table's name for it, XapiOpenDirectory, predates reading its call site)
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XapiOpenDirectory(hulk_u32 path) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XapiOpenDirectory(hulk_uptr path) {
     HULK_XDK_TRACE("XapiOpenDirectory");
     if (!path)
         return fail(HULK_ERR_PATH_NOT_FOUND, 0);
@@ -189,7 +198,7 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XapiOpenDirectory(hulk_u32 path) {
 // A find handle is closed with CloseHandle (0x0020bbc2: the game's vfunc_20 and the next FindFirst do).
 // WIN32_FIND_DATA (0x140 bytes): attributes +0, creation / access / write FILETIMEs +4 / +12 / +20, size high / low
 // +28 / +32, name +44 (260 bytes).
-static void fill_find_data(hulk_u32 data, const HulkFindEntry& e) {
+static void fill_find_data(hulk_uptr data, const HulkFindEntry& e) {
     hulk_u32* w = P<hulk_u32>(data);
     for (int i = 0; i < 0x140 / 4; i++)
         w[i] = 0;
@@ -208,22 +217,22 @@ static void fill_find_data(hulk_u32 data, const HulkFindEntry& e) {
     name[i] = 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_fs_xdk_FindFirst(hulk_u32 path, hulk_u32 data) {
+extern "C" hulk_uptr HULK_STDCALL hulk_fs_xdk_FindFirst(hulk_uptr path, hulk_uptr data) {
     HULK_XDK_TRACE("fs:FindFirst");
     HulkFindEntry e;
     HulkFsHandle h;
     unsigned err = path ? hulk_fs_find_first(P<const char>(path), &e, &h) : HULK_ERR_PATH_NOT_FOUND;
     if (err)
-        return fail(err, hulk_invalid_handle);
+        return fail_h(err);
     if (data)
         fill_find_data(data, e);
-    return h;
+    return (hulk_uptr)h;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_fs_xdk_FindNext(hulk_u32 handle, hulk_u32 data) {
+extern "C" hulk_u32 HULK_STDCALL hulk_fs_xdk_FindNext(hulk_uptr handle, hulk_uptr data) {
     HULK_XDK_TRACE("fs:FindNext");
     HulkFindEntry e;
-    unsigned err = hulk_fs_find_next(handle, &e);
+    unsigned err = hulk_fs_find_next(fh(handle), &e);
     if (err)
         return fail(err, 0);
     if (data)
@@ -231,14 +240,14 @@ extern "C" hulk_u32 HULK_STDCALL hulk_fs_xdk_FindNext(hulk_u32 handle, hulk_u32 
     return 1;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_fs_xdk_CreateDirectory(hulk_u32 path, hulk_u32 security) {
+extern "C" hulk_u32 HULK_STDCALL hulk_fs_xdk_CreateDirectory(hulk_uptr path, hulk_uptr security) {
     HULK_XDK_TRACE("fs:CreateDirectory");
     (void)security;
     unsigned err = path ? hulk_fs_create_dir(P<const char>(path)) : HULK_ERR_PATH_NOT_FOUND;
     return err ? fail(err, 0) : 1;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_fs_xdk_RemoveDirectory(hulk_u32 path) {
+extern "C" hulk_u32 HULK_STDCALL hulk_fs_xdk_RemoveDirectory(hulk_uptr path) {
     HULK_XDK_TRACE("fs:RemoveDirectory");
     unsigned err = path ? hulk_fs_remove_dir(P<const char>(path)) : HULK_ERR_PATH_NOT_FOUND;
     return err ? fail(err, 0) : 1;
@@ -249,7 +258,7 @@ extern "C" hulk_u32 HULK_STDCALL hulk_fs_xdk_RemoveDirectory(hulk_u32 path) {
 #include "imports.h"
 #include "../crt/host_crt.h"
 
-static const hulk_u32 hulk_invalid_handle = 0xffffffffu;
+static const hulk_uptr hulk_invalid_handle = HULK_INVALID_UPTR;
 
 // Make every directory of a mapped writable path (T:, U:, Z:), as the Xbox's title storage has them on demand.
 static void hulk_make_dirs(char* host) {
@@ -267,8 +276,8 @@ static int hulk_writable_drive(const char* p) {
     return (d == 't' || d == 'u' || d == 'z') && p[1] == ':';
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_CreateFileA(hulk_u32 path, hulk_u32 access, hulk_u32 share, hulk_u32 sa,
-                                                     hulk_u32 disposition, hulk_u32 flags, hulk_u32 templ) {
+extern "C" hulk_uptr HULK_STDCALL hulk_xdk_CreateFileA(hulk_uptr path, hulk_u32 access, hulk_u32 share, hulk_uptr sa,
+                                                     hulk_u32 disposition, hulk_u32 flags, hulk_uptr templ) {
     HULK_XDK_TRACE("CreateFileA");
     (void)sa;
     (void)templ;
@@ -284,10 +293,10 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_CreateFileA(hulk_u32 path, hulk_u32 ac
     // (FILE_FLAG_NO_BUFFERING 0x20000000 would demand sector-aligned reads on the host: dropped; the Xbox's
     // overlapped flag too, since the game waits for each read)
     flags &= ~(0x20000000u | 0x40000000u);
-    return (hulk_u32)hulk_host_CreateFileA(host, access, share | 1 /* FILE_SHARE_READ */, 0, disposition, flags, 0);
+    return (hulk_uptr)hulk_host_CreateFileA(host, access, share | 1 /* FILE_SHARE_READ */, 0, disposition, flags, 0);
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_ReadFile(hulk_u32 h, hulk_u32 buf, hulk_u32 n, hulk_u32 done, hulk_u32 ov) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_ReadFile(hulk_uptr h, hulk_uptr buf, hulk_u32 n, hulk_uptr done, hulk_uptr ov) {
     HULK_XDK_TRACE("ReadFile");
     (void)ov;
     hulk_u32 got = 0;
@@ -297,7 +306,7 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_ReadFile(hulk_u32 h, hulk_u32 buf, hul
     return (hulk_u32)ok;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_WriteFile(hulk_u32 h, hulk_u32 buf, hulk_u32 n, hulk_u32 done, hulk_u32 ov) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_WriteFile(hulk_uptr h, hulk_uptr buf, hulk_u32 n, hulk_uptr done, hulk_uptr ov) {
     HULK_XDK_TRACE("WriteFile");
     (void)ov;
     hulk_u32 put = 0;
@@ -307,29 +316,29 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_WriteFile(hulk_u32 h, hulk_u32 buf, hu
     return (hulk_u32)ok;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_SetFilePointer(hulk_u32 h, hulk_u32 lo, hulk_u32 hi, hulk_u32 method) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_SetFilePointer(hulk_uptr h, hulk_u32 lo, hulk_uptr hi, hulk_u32 method) {
     HULK_XDK_TRACE("SetFilePointer");
     return hulk_host_SetFilePointer((void*)h, (int)lo, (int*)hi, method);
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_GetFileSize(hulk_u32 h, hulk_u32 hi) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_GetFileSize(hulk_uptr h, hulk_uptr hi) {
     HULK_XDK_TRACE("GetFileSize");
     return hulk_host_GetFileSize((void*)h, (hulk_u32*)hi);
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_SetEndOfFile(hulk_u32 h) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_SetEndOfFile(hulk_uptr h) {
     HULK_XDK_TRACE("SetEndOfFile");
     return (hulk_u32)hulk_host_SetEndOfFile((void*)h);
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_CloseHandle(hulk_u32 h) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_CloseHandle(hulk_uptr h) {
     HULK_XDK_TRACE("CloseHandle");
     return (hulk_u32)hulk_host_CloseHandle((void*)h);
 }
 
 // ULARGE_INTEGER outputs: a fixed 1 GB free / 8 GB total for the writable drives (the Xbox hard disk's partitions
 // are about that size), the disc's real numbers don't matter (nothing is written there).
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_GetDiskFreeSpaceExA(hulk_u32 path, hulk_u32 avail, hulk_u32 total, hulk_u32 free_) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_GetDiskFreeSpaceExA(hulk_uptr path, hulk_uptr avail, hulk_uptr total, hulk_uptr free_) {
     HULK_XDK_TRACE("GetDiskFreeSpaceExA");
     (void)path;
     hulk_u32* outs[3] = {(hulk_u32*)avail, (hulk_u32*)total, (hulk_u32*)free_};
@@ -343,13 +352,13 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_GetDiskFreeSpaceExA(hulk_u32 path, hul
     return 1;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XGetDiskSectorSizeA(hulk_u32 path) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XGetDiskSectorSizeA(hulk_uptr path) {
     HULK_XDK_TRACE("XGetDiskSectorSizeA");
     const char* p = (const char*)path;
     return p && (p[0] | 0x20) == 'd' ? 2048 : 512;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XapiOpenDirectory(hulk_u32 a0) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XapiOpenDirectory(hulk_uptr a0) {
     (void)a0;
     HULK_XDK_TRACE("XapiOpenDirectory");
     return 0;

@@ -89,3 +89,35 @@ reaches the final layout (8.9 MB image) and stops at the first data fixup of a p
 
 The name table is a link-time bridge of the kind listed in [wine-build.md "Bridges to remove"](wine-build.md#bridges-to-remove)
 (callers' names bound by relocation position); on 64-bit it only names definitions, it carries no code or data.
+
+## 5. The platform layer on 64-bit (x64-3, 2026-10-24)
+
+**XDK shim interface.** `src/platform/sdl/xdk/xdk_shim.h` has `hulk_uptr`: `unsigned int` on the 32-bit builds (the
+same word as `hulk_u32`, so the Wine build's objects are byte-identical: all 17 shim files, in the three ways
+wine_link compiles them, checked with the COFF time stamp masked) and `__UINTPTR_TYPE__` on the native builds. Every
+stand-in of imports.h (167; 135 of them carry a pointer-sized argument or result) and library.h (9), and the fs1 directory calls, take `hulk_uptr` for each argument that
+carries a pointer, handle or address and return it for HANDLE / object results; integers (sizes, counts, flags,
+HRESULT/BOOL/DWORD results) stay `hulk_u32`. The kind of each argument comes from the public Win32 / XAPI / D3D8 /
+DirectSound shapes and the stand-ins' own use. Alongside: `HULK_INVALID_UPTR` (INVALID_HANDLE_VALUE at handle width:
+the shims returned `0xffffffff`, which a 64-bit caller would not take for -1), `HULK_OFS(o32, o64)` for fields of
+records the game hands over (DSBUFFERDESC's format and mix-bin pointers at 16/24, DSMIXBINS' pairs at 8,
+OVERLAPPED's offset words at 16/20 with pointer-sized Internal/InternalHigh), pointer-sized object out-parameters
+(`IDirectSoundBuffer**`), and our file/save handles narrowed explicitly (`fh()`: they are small tagged indices). With
+`-Wshorten-64-to-32` and the pointer/int cast warnings, the aarch64 compile of the directory is clean except two
+files that stay 32-bit by design: `startup.cpp` (the Windows entry point, crash report from x86 CONTEXT records) and
+`replay_hooks.cpp` (the replay pins: game objects at 32-bit offsets and the entry hooks' x86 register images, both
+Wine-build bridges).
+
+Left for the game side: records the game builds itself keep its sources' layout (the Bink I/O block's callbacks in
+32-bit words, the XINPUT_FEEDBACK header with its event handle), noted at the sites.
+
+**Win32 host functions on POSIX.** `src/platform/sdl/host/win32_posix.{h,cpp}` implements the kernel32 subset of
+`crt/host_crt.h` that the shims call, for macOS and Linux: threads (pthreads; `CREATE_SUSPENDED` held on a gate until
+ResumeThread; exit codes; SuspendThread / GetThreadContext refused), semaphores, events (auto and manual reset, which
+host_crt.h lacked), `WaitForSingleObject` on all three with timeouts, critical sections (a recursive mutex behind a
+pointer in the caller's storage), fibers (an own context switch in assembly for AArch64 and x86-64 System V, mmap'd
+stacks with a guard page), files (the five dispositions, read/write with OVERLAPPED offsets, SetFilePointer with the
+64-bit high word, size, truncate, attributes, directories, free space), last error, QueryPerformanceCounter
+(nanoseconds), GetLocalTime and VirtualAlloc. Not linked into an image yet. `tests/native_host/host_test.cpp`
+exercises all of it (command line in the file): passes on arm64 macOS at -O1/-O2 and under ASan+UBSan, and as x86-64
+under Rosetta.

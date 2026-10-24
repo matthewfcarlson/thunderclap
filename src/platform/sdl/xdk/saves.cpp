@@ -21,11 +21,19 @@
 #include "../crt/host_crt.h"
 #include "../fs/hulk_saves.h"
 
-template <class T> static T* P(hulk_u32 a) { return (T*)(__SIZE_TYPE__)a; }
+template <class T> static T* P(hulk_uptr a) { return (T*)a; }
+
+// our handles are small tagged indices (hulk_fs.h, hulk_saves.h): the game holds them in HANDLE-sized words
+static HulkFsHandle fh(hulk_uptr h) { return (HulkFsHandle)h; }
 
 static hulk_u32 fail(unsigned err, hulk_u32 value) {
     hulk_host_SetLastError(err);
     return value;
+}
+
+static hulk_uptr fail_h(unsigned err) {   // a HANDLE result: INVALID_HANDLE_VALUE
+    hulk_host_SetLastError(err);
+    return HULK_INVALID_UPTR;
 }
 
 extern "C" hulk_u32 HULK_CDECL hulk_xdk_XFormatUtilityDrive(void) {
@@ -34,7 +42,7 @@ extern "C" hulk_u32 HULK_CDECL hulk_xdk_XFormatUtilityDrive(void) {
     return err ? fail(err, 0) : 1;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XMUNameFromDriveLetter(hulk_u32 letter, hulk_u32 name, hulk_u32 size) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XMUNameFromDriveLetter(hulk_u32 letter, hulk_uptr name, hulk_u32 size) {
     HULK_XDK_TRACE("XMUNameFromDriveLetter");
     (void)letter;
     if (name && size)
@@ -42,22 +50,22 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XMUNameFromDriveLetter(hulk_u32 letter
     return HULK_ERR_DEVICE_NOT_CONNECTED;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XCalculateSignatureBegin(hulk_u32 flags) {
+extern "C" hulk_uptr HULK_STDCALL hulk_xdk_XCalculateSignatureBegin(hulk_u32 flags) {
     HULK_XDK_TRACE("XCalculateSignatureBegin");
     HulkFsHandle h;
     unsigned err = hulk_sig_begin(flags, &h);
-    return err ? fail(err, 0xffffffffu) : h;
+    return err ? fail_h(err) : (hulk_uptr)h;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XCalculateSignatureUpdate(hulk_u32 h, hulk_u32 data, hulk_u32 size) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XCalculateSignatureUpdate(hulk_uptr h, hulk_uptr data, hulk_u32 size) {
     HULK_XDK_TRACE("XCalculateSignatureUpdate");
-    return hulk_sig_update(h, P<const void>(data), size);
+    return hulk_sig_update(fh(h), P<const void>(data), size);
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XCalculateSignatureEnd(hulk_u32 h, hulk_u32 out) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XCalculateSignatureEnd(hulk_uptr h, hulk_uptr out) {
     HULK_XDK_TRACE("XCalculateSignatureEnd");
     unsigned char sig[HULK_SIGNATURE_BYTES];
-    unsigned err = hulk_sig_end(h, sig);
+    unsigned err = hulk_sig_end(fh(h), sig);
     if (err)
         return err;
     if (out)
@@ -66,8 +74,8 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XCalculateSignatureEnd(hulk_u32 h, hul
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XCreateSaveGame(hulk_u32 root, hulk_u32 name, hulk_u32 disposition, hulk_u32 reserved,
-                                                         hulk_u32 path, hulk_u32 path_size) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XCreateSaveGame(hulk_uptr root, hulk_uptr name, hulk_u32 disposition, hulk_u32 reserved,
+                                                         hulk_uptr path, hulk_u32 path_size) {
     HULK_XDK_TRACE("XCreateSaveGame");
     (void)reserved;
     unsigned err = hulk_save_create(P<const char>(root), P<const unsigned short>(name), disposition,
@@ -78,7 +86,7 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XCreateSaveGame(hulk_u32 root, hulk_u3
 }
 
 // 0x003563f0 is XDeleteSaveGame (the import table's name carries a second guess)
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XDeleteSaveGame_XFindFirstSaveGame(hulk_u32 root, hulk_u32 name) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XDeleteSaveGame_XFindFirstSaveGame(hulk_uptr root, hulk_uptr name) {
     HULK_XDK_TRACE("XDeleteSaveGame_XFindFirstSaveGame");
     unsigned err = hulk_save_delete(P<const char>(root), P<const unsigned short>(name));
     if (err)
@@ -87,7 +95,7 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XDeleteSaveGame_XFindFirstSaveGame(hul
 }
 
 // XGAME_FIND_DATA: WIN32_FIND_DATA (0x140), the directory path (260), the save's name (UTF-16 x 128) = 0x344
-static void fill_save_find(hulk_u32 data, const HulkSaveFind& f) {
+static void fill_save_find(hulk_uptr data, const HulkSaveFind& f) {
     hulk_u32* w = P<hulk_u32>(data);
     for (int i = 0; i < 0x344 / 4; i++)
         w[i] = 0;
@@ -108,22 +116,22 @@ static void fill_save_find(hulk_u32 data, const HulkSaveFind& f) {
         wn[i] = f.name[i];
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XFindFirstSaveGame(hulk_u32 root, hulk_u32 data) {
+extern "C" hulk_uptr HULK_STDCALL hulk_xdk_XFindFirstSaveGame(hulk_uptr root, hulk_uptr data) {
     HULK_XDK_TRACE("XFindFirstSaveGame");
     HulkSaveFind f;
     HulkFsHandle h;
     unsigned err = hulk_save_find_first(P<const char>(root), &f, &h);
     if (err)
-        return fail(err, 0xffffffffu);
+        return fail_h(err);
     if (data)
         fill_save_find(data, f);
-    return h;
+    return (hulk_uptr)h;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XFindNextSaveGame(hulk_u32 h, hulk_u32 data) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XFindNextSaveGame(hulk_uptr h, hulk_uptr data) {
     HULK_XDK_TRACE("XFindNextSaveGame");
     HulkSaveFind f;
-    unsigned err = hulk_save_find_next(h, &f);
+    unsigned err = hulk_save_find_next(fh(h), &f);
     if (err)
         return fail(err, 0);
     if (data)
@@ -131,13 +139,13 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XFindNextSaveGame(hulk_u32 h, hulk_u32
     return 1;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XFindClose(hulk_u32 h) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XFindClose(hulk_uptr h) {
     HULK_XDK_TRACE("XFindClose");
-    unsigned err = hulk_fs_close(h);
+    unsigned err = hulk_fs_close(fh(h));
     return err ? fail(err, 0) : 1;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XMountMUA(hulk_u32 port, hulk_u32 unit, hulk_u32 letter) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XMountMUA(hulk_u32 port, hulk_u32 unit, hulk_uptr letter) {
     HULK_XDK_TRACE("XMountMUA");
     (void)port; (void)unit; (void)letter;
     return HULK_ERR_DEVICE_NOT_CONNECTED;       // no memory units
@@ -162,61 +170,61 @@ extern "C" hulk_u32 HULK_CDECL hulk_xdk_XFormatUtilityDrive(void) {
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XMUNameFromDriveLetter(hulk_u32 a0, hulk_u32 a1, hulk_u32 a2) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XMUNameFromDriveLetter(hulk_u32 a0, hulk_uptr a1, hulk_u32 a2) {
     (void)a0; (void)a1; (void)a2;
     HULK_XDK_TRACE("XMUNameFromDriveLetter");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XCalculateSignatureBegin(hulk_u32 a0) {
+extern "C" hulk_uptr HULK_STDCALL hulk_xdk_XCalculateSignatureBegin(hulk_u32 a0) {
     (void)a0;
     HULK_XDK_TRACE("XCalculateSignatureBegin");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XCalculateSignatureUpdate(hulk_u32 a0, hulk_u32 a1, hulk_u32 a2) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XCalculateSignatureUpdate(hulk_uptr a0, hulk_uptr a1, hulk_u32 a2) {
     (void)a0; (void)a1; (void)a2;
     HULK_XDK_TRACE("XCalculateSignatureUpdate");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XCalculateSignatureEnd(hulk_u32 a0, hulk_u32 a1) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XCalculateSignatureEnd(hulk_uptr a0, hulk_uptr a1) {
     (void)a0; (void)a1;
     HULK_XDK_TRACE("XCalculateSignatureEnd");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XCreateSaveGame(hulk_u32 a0, hulk_u32 a1, hulk_u32 a2, hulk_u32 a3, hulk_u32 a4, hulk_u32 a5) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XCreateSaveGame(hulk_uptr a0, hulk_uptr a1, hulk_u32 a2, hulk_u32 a3, hulk_uptr a4, hulk_u32 a5) {
     (void)a0; (void)a1; (void)a2; (void)a3; (void)a4; (void)a5;
     HULK_XDK_TRACE("XCreateSaveGame");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XDeleteSaveGame_XFindFirstSaveGame(hulk_u32 a0, hulk_u32 a1) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XDeleteSaveGame_XFindFirstSaveGame(hulk_uptr a0, hulk_uptr a1) {
     (void)a0; (void)a1;
     HULK_XDK_TRACE("XDeleteSaveGame_XFindFirstSaveGame");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XFindFirstSaveGame(hulk_u32 a0, hulk_u32 a1) {
+extern "C" hulk_uptr HULK_STDCALL hulk_xdk_XFindFirstSaveGame(hulk_uptr a0, hulk_uptr a1) {
     (void)a0; (void)a1;
     HULK_XDK_TRACE("XFindFirstSaveGame");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XFindNextSaveGame(hulk_u32 a0, hulk_u32 a1) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XFindNextSaveGame(hulk_uptr a0, hulk_uptr a1) {
     (void)a0; (void)a1;
     HULK_XDK_TRACE("XFindNextSaveGame");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XFindClose(hulk_u32 a0) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XFindClose(hulk_uptr a0) {
     (void)a0;
     HULK_XDK_TRACE("XFindClose");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XMountMUA(hulk_u32 a0, hulk_u32 a1, hulk_u32 a2) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XMountMUA(hulk_u32 a0, hulk_u32 a1, hulk_uptr a2) {
     (void)a0; (void)a1; (void)a2;
     HULK_XDK_TRACE("XMountMUA");
     return 0;

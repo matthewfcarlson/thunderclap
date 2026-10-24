@@ -19,30 +19,31 @@ hulk_u32 hulk_lib_dsound_words[12] = {0xffffd8f0, 0xffffd8f0, 0, 0x3f800000, 0x3
 hulk_u32 hulk_lib_xpp_gamepad_type[1] = {1};
 hulk_u32 hulk_lib_xpp_mu_type[1] = {2};
 
-#define HULK_LIB_STUB(name, args, body)                                \
-    hulk_u32 HULK_STDCALL hulk_lib_##name args {                         \
+#define HULK_LIB_STUB_R(ret, name, args, body)                         \
+    ret HULK_STDCALL hulk_lib_##name args {                              \
         HULK_XDK_TRACE("lib:" #name);                                     \
         body;                                                             \
     }
+#define HULK_LIB_STUB(name, args, body) HULK_LIB_STUB_R(hulk_u32, name, args, body)
 #if defined(HULK_NATIVE_SDL)
 // fs1 (src/platform/sdl/fs/, build/fs1/for-native9.md): the drive's find-next, create- and remove-directory
-hulk_u32 HULK_STDCALL hulk_fs_xdk_FindNext(hulk_u32, hulk_u32);
-hulk_u32 HULK_STDCALL hulk_fs_xdk_CreateDirectory(hulk_u32, hulk_u32);
-hulk_u32 HULK_STDCALL hulk_fs_xdk_RemoveDirectory(hulk_u32);
-HULK_LIB_STUB(DriveFindNextFile, (hulk_u32 handle, hulk_u32 data), return hulk_fs_xdk_FindNext(handle, data))
-HULK_LIB_STUB(XapiCreatePath, (hulk_u32 path, hulk_u32 flag), return hulk_fs_xdk_CreateDirectory(path, flag))
-HULK_LIB_STUB(XapiCheckPath, (hulk_u32 path), return hulk_fs_xdk_RemoveDirectory(path))
+hulk_u32 HULK_STDCALL hulk_fs_xdk_FindNext(hulk_uptr, hulk_uptr);
+hulk_u32 HULK_STDCALL hulk_fs_xdk_CreateDirectory(hulk_uptr, hulk_uptr);
+hulk_u32 HULK_STDCALL hulk_fs_xdk_RemoveDirectory(hulk_uptr);
+HULK_LIB_STUB(DriveFindNextFile, (hulk_uptr handle, hulk_uptr data), return hulk_fs_xdk_FindNext(handle, data))
+HULK_LIB_STUB(XapiCreatePath, (hulk_uptr path, hulk_u32 flag), return hulk_fs_xdk_CreateDirectory(path, flag))
+HULK_LIB_STUB(XapiCheckPath, (hulk_uptr path), return hulk_fs_xdk_RemoveDirectory(path))
 #else
-HULK_LIB_STUB(DriveFindNextFile, (hulk_u32 handle, hulk_u32 data), (void)handle; (void)data; return 0)  // no more entries
-HULK_LIB_STUB(XapiCreatePath, (hulk_u32 path, hulk_u32 flag), (void)path; (void)flag; return 0)
-HULK_LIB_STUB(XapiCheckPath, (hulk_u32 path), (void)path; return 0)
+HULK_LIB_STUB(DriveFindNextFile, (hulk_uptr handle, hulk_uptr data), (void)handle; (void)data; return 0)  // no more entries
+HULK_LIB_STUB(XapiCreatePath, (hulk_uptr path, hulk_u32 flag), (void)path; (void)flag; return 0)
+HULK_LIB_STUB(XapiCheckPath, (hulk_uptr path), (void)path; return 0)
 #endif
 #if !defined(HULK_NATIVE_SDL)   // (with the backends, movies_bink.cpp defines both: mv1, build/mv1/for-native9.md)
-HULK_LIB_STUB(Bink_367610, (hulk_u32 a, hulk_u32 b, hulk_u32 c), (void)a; (void)b; (void)c; return 0)
-HULK_LIB_STUB(Bink_367660, (hulk_u32 a, hulk_u32 b, hulk_u32 c, hulk_u32 d), (void)a; (void)b; (void)c; (void)d; return 0)
+HULK_LIB_STUB(Bink_367610, (hulk_uptr a, hulk_u32 b, hulk_u32 c), (void)a; (void)b; (void)c; return 0)
+HULK_LIB_STUB(Bink_367660, (hulk_uptr a, hulk_u32 b, hulk_uptr c, hulk_u32 d), (void)a; (void)b; (void)c; (void)d; return 0)
 #endif
-HULK_LIB_STUB(Direct3D_Object, (hulk_u32 a), (void)a; return 0)
-HULK_LIB_STUB(D3DDevice_CreateIndexBuffer2, (hulk_u32 n), (void)n; return 0)
+HULK_LIB_STUB_R(hulk_uptr, Direct3D_Object, (hulk_u32 a), (void)a; return 0)
+HULK_LIB_STUB_R(hulk_uptr, D3DDevice_CreateIndexBuffer2, (hulk_u32 n), (void)n; return 0)
 HULK_LIB_STUB(D3DDevice_SetRenderState_FogColor, (hulk_u32 v), (void)v; return 0)
 HULK_LIB_STUB(D3DDevice_SetRenderState_StencilFail, (hulk_u32 v), (void)v; return 0)
 
@@ -53,7 +54,7 @@ HULK_LIB_STUB(D3DDevice_SetRenderState_StencilFail, (hulk_u32 v), (void)v; retur
 // zero-initialized data the original relied on) still works. Windows / Wine host functions; an SDL3 backend
 // replaces this with SDL_Mutex.
 struct hulk_cs_slot {
-    hulk_u32 key;
+    hulk_uptr key;
     hulk_u32 host[8];  // a host CRITICAL_SECTION (24 bytes on x86)
 };
 static hulk_cs_slot hulk_cs_table_[8192];
@@ -65,8 +66,8 @@ static void* hulk_cs_host(hulk_u32* cs) {
         hulk_host_InitializeCriticalSection(hulk_cs_lock_);
         hulk_cs_ready_ = 1;
     }
-    hulk_u32 key = (hulk_u32)cs;
-    hulk_u32 i = (key >> 2) * 2654435761u >> 19;  // 13 bits
+    hulk_uptr key = (hulk_uptr)cs;
+    hulk_u32 i = ((hulk_u32)key >> 2) * 2654435761u >> 19;  // 13 bits
     hulk_host_EnterCriticalSection(hulk_cs_lock_);
     for (hulk_u32 n = 0; n < 8192; n++, i = (i + 1) & 8191) {
         hulk_cs_slot* s = &hulk_cs_table_[i];

@@ -12,10 +12,10 @@
 #include "imports.h"
 #include "../crt/host_crt.h"
 
-#define HULK_INVALID_HANDLE 0xffffffffu
+#define HULK_INVALID_HANDLE HULK_INVALID_UPTR
 #define HULK_ERROR_FILE_NOT_FOUND 2u
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XFindNextSoundtrack(hulk_u32 a0, hulk_u32 a1, hulk_u32 a2, hulk_u32 a3, hulk_u32 a4, hulk_u32 a5) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XFindNextSoundtrack(hulk_u32 a0, hulk_u32 a1, hulk_uptr a2, hulk_uptr a3, hulk_uptr a4, hulk_u32 a5) {
     (void)a0; (void)a1; (void)a4; (void)a5;
     HULK_XDK_TRACE("XFindNextSoundtrack");
     if (a2)
@@ -25,7 +25,7 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XFindNextSoundtrack(hulk_u32 a0, hulk_
     return 0;   // FALSE: no such song
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XOpenSoundtrackSong(hulk_u32 a0, hulk_u32 a1) {
+extern "C" hulk_uptr HULK_STDCALL hulk_xdk_XOpenSoundtrackSong(hulk_u32 a0, hulk_u32 a1) {
     (void)a0; (void)a1;
     HULK_XDK_TRACE("XOpenSoundtrackSong");
     hulk_host_SetLastError(HULK_ERROR_FILE_NOT_FOUND);
@@ -33,9 +33,9 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XOpenSoundtrackSong(hulk_u32 a0, hulk_
 }
 
 #if defined(HULK_NATIVE_SDL) && !defined(HULK_NATIVE_NO_FS)
-extern "C" hulk_u32 HULK_STDCALL hulk_fs_xdk_FindFirst(hulk_u32, hulk_u32);  // fs1: the drive's find-first-file
+extern "C" hulk_uptr HULK_STDCALL hulk_fs_xdk_FindFirst(hulk_uptr, hulk_uptr);  // fs1: the drive's find-first-file
 #endif
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XFindFirstSoundtrack(hulk_u32 a0, hulk_u32 a1) {
+extern "C" hulk_uptr HULK_STDCALL hulk_xdk_XFindFirstSoundtrack(hulk_uptr a0, hulk_uptr a1) {
     HULK_XDK_TRACE("XFindFirstSoundtrack");
 #if defined(HULK_NATIVE_SDL) && !defined(HULK_NATIVE_NO_FS)
     return hulk_fs_xdk_FindFirst(a0, a1);

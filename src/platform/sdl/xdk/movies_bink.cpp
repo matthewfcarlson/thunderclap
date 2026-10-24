@@ -36,24 +36,24 @@
 #if defined(HULK_NATIVE_SDL)
 #include "../movies/bink_player.h"
 
-typedef __SIZE_TYPE__ hulk_uptr;
-
-template <class T> static T* ptr(hulk_u32 a)
+template <class T> static T* ptr(hulk_uptr a)
 {
-    return (T*)(hulk_uptr)a;
+    return (T*)a;
 }
 
-static hulk_u32 handle(void* p)
+static hulk_uptr handle(void* p)
 {
-    return (hulk_u32)(hulk_uptr)p;
+    return (hulk_uptr)p;
 }
 
 // ---- the game's I/O: a movie file read through the open callback's block
-typedef hulk_u32(HULK_STDCALL* OpenCb)(hulk_u32 state, hulk_u32 name, hulk_u32 flags);
-typedef hulk_u32(HULK_STDCALL* ReadCb)(hulk_u32 state, hulk_u32 offset, hulk_u32 dst, hulk_u32 bytes);
-typedef hulk_u32(HULK_STDCALL* CloseCb)(hulk_u32 state);
+typedef hulk_u32(HULK_STDCALL* OpenCb)(hulk_uptr state, hulk_uptr name, hulk_u32 flags);
+typedef hulk_u32(HULK_STDCALL* ReadCb)(hulk_uptr state, hulk_u32 offset, hulk_uptr dst, hulk_u32 bytes);
+typedef hulk_u32(HULK_STDCALL* CloseCb)(hulk_uptr state);
+// (64-bit: the block is the game's own record, filled by FUN_00334fa0, and keeps its callbacks in 32-bit words
+// until that source's record is typed: docs/native-mac.md, pointer-size inventory)
 
-static hulk_u32 g_open_cb;
+static hulk_uptr g_open_cb;
 enum { IO_BLOCK_BYTES = 512 };      // the game's block is 79 words; room to spare
 
 static int guest_read(void* ctx, unsigned long long pos, void* buf, int n)
@@ -76,21 +76,21 @@ static void guest_close(void* ctx)
 
 extern "C" {
 
-hulk_u32 HULK_STDCALL hulk_xdk_Bink_364da0(hulk_u32 cb)
+hulk_u32 HULK_STDCALL hulk_xdk_Bink_364da0(hulk_uptr cb)
 {
     HULK_XDK_TRACE("Bink_364da0");
     g_open_cb = cb;
     return 1;
 }
 
-hulk_u32 HULK_STDCALL hulk_xdk_Bink_364dc0(hulk_u32 count, hulk_u32 ids)
+hulk_u32 HULK_STDCALL hulk_xdk_Bink_364dc0(hulk_u32 count, hulk_uptr ids)
 {
     HULK_XDK_TRACE("Bink_364dc0");
     hulk_bink_set_tracks(ids ? ptr<const unsigned>(ids) : 0, ids ? count : 0);
     return 1;
 }
 
-hulk_u32 HULK_STDCALL hulk_xdk_Bink_364fe0(hulk_u32 name, hulk_u32 flags)
+hulk_uptr HULK_STDCALL hulk_xdk_Bink_364fe0(hulk_uptr name, hulk_u32 flags)
 {
     HULK_XDK_TRACE("Bink_364fe0");
     if (!g_open_cb)
@@ -109,7 +109,7 @@ hulk_u32 HULK_STDCALL hulk_xdk_Bink_364fe0(hulk_u32 name, hulk_u32 flags)
     return handle(hulk_bink_open(&io, flags));
 }
 
-hulk_u32 HULK_STDCALL hulk_xdk_Bink_365f30(hulk_u32 h, hulk_u32 dst, hulk_u32 pitch, hulk_u32 dest_height, hulk_u32 dx,
+hulk_u32 HULK_STDCALL hulk_xdk_Bink_365f30(hulk_uptr h, hulk_uptr dst, hulk_u32 pitch, hulk_u32 dest_height, hulk_u32 dx,
                                            hulk_u32 dy, hulk_u32 sx, hulk_u32 sy, hulk_u32 sw, hulk_u32 sh,
                                            hulk_u32 flags)
 {
@@ -119,13 +119,13 @@ hulk_u32 HULK_STDCALL hulk_xdk_Bink_365f30(hulk_u32 h, hulk_u32 dst, hulk_u32 pi
              : 0;
 }
 
-hulk_u32 HULK_STDCALL hulk_xdk_Bink_366940(hulk_u32 h)
+hulk_u32 HULK_STDCALL hulk_xdk_Bink_366940(hulk_uptr h)
 {
     HULK_XDK_TRACE("Bink_366940");
     return h ? (hulk_u32)hulk_bink_wait(ptr<HulkBink>(h)) : 1;
 }
 
-hulk_u32 HULK_STDCALL hulk_xdk_Bink_366b40(hulk_u32 h, hulk_u32 paused)
+hulk_u32 HULK_STDCALL hulk_xdk_Bink_366b40(hulk_uptr h, hulk_u32 paused)
 {
     HULK_XDK_TRACE("Bink_366b40");
     if (h)
@@ -133,13 +133,13 @@ hulk_u32 HULK_STDCALL hulk_xdk_Bink_366b40(hulk_u32 h, hulk_u32 paused)
     return 0;
 }
 
-hulk_u32 HULK_STDCALL hulk_xdk_Bink_367bc0(hulk_u32 h)
+hulk_u32 HULK_STDCALL hulk_xdk_Bink_367bc0(hulk_uptr h)
 {
     HULK_XDK_TRACE("Bink_367bc0");
     return h ? (hulk_u32)hulk_bink_do_frame(ptr<HulkBink>(h)) : 1;
 }
 
-hulk_u32 HULK_STDCALL hulk_xdk_Bink_3681d0(hulk_u32 h)
+hulk_u32 HULK_STDCALL hulk_xdk_Bink_3681d0(hulk_uptr h)
 {
     HULK_XDK_TRACE("Bink_3681d0");
     if (h)
@@ -147,7 +147,7 @@ hulk_u32 HULK_STDCALL hulk_xdk_Bink_3681d0(hulk_u32 h)
     return 0;
 }
 
-hulk_u32 HULK_STDCALL hulk_xdk_Bink_368530(hulk_u32 h)
+hulk_u32 HULK_STDCALL hulk_xdk_Bink_368530(hulk_uptr h)
 {
     HULK_XDK_TRACE("Bink_368530");
     hulk_bink_close(h ? ptr<HulkBink>(h) : 0);
@@ -161,7 +161,7 @@ hulk_u32 HULK_CDECL hulk_xdk_Bink_368660(void)
 }
 
 // library.h rows (src/platform/sdl/xdk/library.cpp holds count-only stand-ins until build/mv1/for-native9.md is in)
-hulk_u32 HULK_STDCALL hulk_lib_Bink_367610(hulk_u32 h, hulk_u32 track, hulk_u32 volume)
+hulk_u32 HULK_STDCALL hulk_lib_Bink_367610(hulk_uptr h, hulk_u32 track, hulk_u32 volume)
 {
     HULK_XDK_TRACE("lib:Bink_367610");
     if (h)
@@ -169,7 +169,7 @@ hulk_u32 HULK_STDCALL hulk_lib_Bink_367610(hulk_u32 h, hulk_u32 track, hulk_u32 
     return 0;
 }
 
-hulk_u32 HULK_STDCALL hulk_lib_Bink_367660(hulk_u32 h, hulk_u32 track, hulk_u32 bins, hulk_u32 count)
+hulk_u32 HULK_STDCALL hulk_lib_Bink_367660(hulk_uptr h, hulk_u32 track, hulk_uptr bins, hulk_u32 count)
 {
     HULK_XDK_TRACE("lib:Bink_367660");
     if (h && bins)
@@ -181,55 +181,55 @@ hulk_u32 HULK_STDCALL hulk_lib_Bink_367660(hulk_u32 h, hulk_u32 track, hulk_u32 
 
 #else
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_Bink_364da0(hulk_u32 a0) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_Bink_364da0(hulk_uptr a0) {
     (void)a0;
     HULK_XDK_TRACE("Bink_364da0");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_Bink_364dc0(hulk_u32 a0, hulk_u32 a1) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_Bink_364dc0(hulk_u32 a0, hulk_uptr a1) {
     (void)a0; (void)a1;
     HULK_XDK_TRACE("Bink_364dc0");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_Bink_364fe0(hulk_u32 a0, hulk_u32 a1) {
+extern "C" hulk_uptr HULK_STDCALL hulk_xdk_Bink_364fe0(hulk_uptr a0, hulk_u32 a1) {
     (void)a0; (void)a1;
     HULK_XDK_TRACE("Bink_364fe0");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_Bink_365f30(hulk_u32 a0, hulk_u32 a1, hulk_u32 a2, hulk_u32 a3, hulk_u32 a4, hulk_u32 a5, hulk_u32 a6, hulk_u32 a7, hulk_u32 a8, hulk_u32 a9, hulk_u32 a10) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_Bink_365f30(hulk_uptr a0, hulk_uptr a1, hulk_u32 a2, hulk_u32 a3, hulk_u32 a4, hulk_u32 a5, hulk_u32 a6, hulk_u32 a7, hulk_u32 a8, hulk_u32 a9, hulk_u32 a10) {
     (void)a0; (void)a1; (void)a2; (void)a3; (void)a4; (void)a5; (void)a6; (void)a7; (void)a8; (void)a9; (void)a10;
     HULK_XDK_TRACE("Bink_365f30");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_Bink_366940(hulk_u32 a0) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_Bink_366940(hulk_uptr a0) {
     (void)a0;
     HULK_XDK_TRACE("Bink_366940");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_Bink_366b40(hulk_u32 a0, hulk_u32 a1) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_Bink_366b40(hulk_uptr a0, hulk_u32 a1) {
     (void)a0; (void)a1;
     HULK_XDK_TRACE("Bink_366b40");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_Bink_367bc0(hulk_u32 a0) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_Bink_367bc0(hulk_uptr a0) {
     (void)a0;
     HULK_XDK_TRACE("Bink_367bc0");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_Bink_3681d0(hulk_u32 a0) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_Bink_3681d0(hulk_uptr a0) {
     (void)a0;
     HULK_XDK_TRACE("Bink_3681d0");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_Bink_368530(hulk_u32 a0) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_Bink_368530(hulk_uptr a0) {
     (void)a0;
     HULK_XDK_TRACE("Bink_368530");
     return 0;

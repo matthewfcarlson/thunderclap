@@ -33,13 +33,13 @@
     D(0x003ea820, _hulk_lib_xpp_mu_type, 4)
 
 extern "C" {
-hulk_u32 HULK_STDCALL hulk_lib_DriveFindNextFile(hulk_u32, hulk_u32);                        // 0x00355bc2
-hulk_u32 HULK_STDCALL hulk_lib_XapiCreatePath(hulk_u32, hulk_u32);                         // 0x00355c13
-hulk_u32 HULK_STDCALL hulk_lib_XapiCheckPath(hulk_u32);                                    // 0x00355c7f
-hulk_u32 HULK_STDCALL hulk_lib_Bink_367610(hulk_u32, hulk_u32, hulk_u32);                  // 0x00367610
-hulk_u32 HULK_STDCALL hulk_lib_Bink_367660(hulk_u32, hulk_u32, hulk_u32, hulk_u32);        // 0x00367660
-hulk_u32 HULK_STDCALL hulk_lib_Direct3D_Object(hulk_u32);                                  // 0x0037d240
-hulk_u32 HULK_STDCALL hulk_lib_D3DDevice_CreateIndexBuffer2(hulk_u32);                     // 0x00382ce0
+hulk_u32 HULK_STDCALL hulk_lib_DriveFindNextFile(hulk_uptr, hulk_uptr);                        // 0x00355bc2
+hulk_u32 HULK_STDCALL hulk_lib_XapiCreatePath(hulk_uptr, hulk_u32);                         // 0x00355c13
+hulk_u32 HULK_STDCALL hulk_lib_XapiCheckPath(hulk_uptr);                                    // 0x00355c7f
+hulk_u32 HULK_STDCALL hulk_lib_Bink_367610(hulk_uptr, hulk_u32, hulk_u32);                  // 0x00367610
+hulk_u32 HULK_STDCALL hulk_lib_Bink_367660(hulk_uptr, hulk_u32, hulk_uptr, hulk_u32);        // 0x00367660
+hulk_uptr HULK_STDCALL hulk_lib_Direct3D_Object(hulk_u32);                                  // 0x0037d240
+hulk_uptr HULK_STDCALL hulk_lib_D3DDevice_CreateIndexBuffer2(hulk_u32);                     // 0x00382ce0
 hulk_u32 HULK_STDCALL hulk_lib_D3DDevice_SetRenderState_FogColor(hulk_u32);                // 0x00385850
 hulk_u32 HULK_STDCALL hulk_lib_D3DDevice_SetRenderState_StencilFail(hulk_u32);             // 0x003869a0
 }

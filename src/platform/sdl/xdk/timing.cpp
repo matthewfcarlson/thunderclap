@@ -104,7 +104,7 @@ extern "C" unsigned long long HULK_CDECL hulk_clock_now(void) {
     return hulk_fixed_base + (unsigned long long)hulk_vframe * hulk_dt_us;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_QueryPerformanceCounter(hulk_u32 a0) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_QueryPerformanceCounter(hulk_uptr a0) {
     HULK_XDK_TRACE("QueryPerformanceCounter");
     if (hulk_vclock_flags() & HULK_HF_VCLOCK) {
         hulk_u32 tid = hulk_host_GetCurrentThreadId();
@@ -133,14 +133,14 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_QueryPerformanceCounter(hulk_u32 a0) {
     return 1;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_QueryPerformanceFrequency(hulk_u32 a0) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_QueryPerformanceFrequency(hulk_uptr a0) {
     HULK_XDK_TRACE("QueryPerformanceFrequency");
     if (a0)
         *(unsigned long long*)a0 = hulk_xbox_hz;
     return 1;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_GetLocalTime(hulk_u32 a0) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_GetLocalTime(hulk_uptr a0) {
     HULK_XDK_TRACE("GetLocalTime");
     if (a0 && (hulk_vclock_flags() & HULK_HF_VDATE)) {
         // 2006-01-02 (a Monday) 12:00:00 plus the virtual clock's seconds (the day wraps after four weeks)

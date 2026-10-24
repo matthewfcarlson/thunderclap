@@ -4,7 +4,7 @@
 // "Platform shim"). Native builds only: tools/native_link.py compiles and links this directory.
 #include "imports.h"
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_OutputDebugStringA(hulk_u32 a0) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_OutputDebugStringA(hulk_uptr a0) {
     (void)a0;
     HULK_XDK_TRACE("OutputDebugStringA");
     return 0;

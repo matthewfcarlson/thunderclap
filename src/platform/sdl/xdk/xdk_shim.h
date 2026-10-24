@@ -13,6 +13,19 @@
 
 typedef unsigned int hulk_u32;
 typedef unsigned long long hulk_u64;
+// An argument or result that carries a pointer, a handle (HANDLE, the game's object pointers) or an address: the
+// same 32-bit word as hulk_u32 on the 32-bit builds (the Wine build's objects are unchanged), pointer-sized on the
+// 64-bit native builds (docs/native-mac.md). Integer values (sizes, counts, flags, results) stay hulk_u32.
+#if defined(_WIN64) || defined(__LP64__) || defined(__aarch64__) || defined(__x86_64__)
+typedef __UINTPTR_TYPE__ hulk_uptr;
+#else
+typedef unsigned int hulk_uptr;
+#endif
+// INVALID_HANDLE_VALUE, (HANDLE)-1: all ones at the handle's width
+#define HULK_INVALID_UPTR ((hulk_uptr)~(hulk_uptr)0)
+// The offset of a field in a structure the game hands over (DSBUFFERDESC, OVERLAPPED, ...): its 32-bit offset, and its
+// offset in the same structure with natural 64-bit alignment (pointers and handles 8 bytes) on the native builds.
+#define HULK_OFS(o32, o64) (sizeof(void*) == 8 ? (hulk_u32)(o64) : (hulk_u32)(o32))
 
 #if defined(_M_IX86) || defined(__i386__)
 #define HULK_STDCALL __stdcall

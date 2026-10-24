@@ -3,6 +3,9 @@
 // tick it calls hulk_native_frame with the clock (Update's `this`). The hashed regions are the image's own data
 // items, named by their XBE addresses (bound by address like the tree's names): the gameplay RNG 0x4e5ad0,
 // g_BootSequenceStep 0x49fb40, the camera singleton pointer 0x4e231c. Native builds only.
+// 32-bit only: the hooks read the game's objects at their 32-bit offsets (the drive at +0x6c / +0x8c, the pad at
+// +0x12a0) and the entry hooks' x86 register images; they are Wine-build bridges (docs/wine-build.md "Bridges to
+// remove"), so only the three interfaces threads.cpp calls take pointer-sized handles (hulk_uptr).
 #include "imports.h"
 #include "../crt/host_crt.h"
 
@@ -328,8 +331,8 @@ static int hulk_ls_on(void) {
         hulk_io_settings();
     return hulk_syncio == 5;
 }
-extern "C" void HULK_CDECL hulk_io_thread_created(hulk_u32 start, hulk_u32 param) {
-    if (start != (hulk_u32)(__SIZE_TYPE__)&FUN_0026db70 || !param || !hulk_ls_on())
+extern "C" void HULK_CDECL hulk_io_thread_created(hulk_uptr start, hulk_uptr param) {
+    if (start != (hulk_uptr)&FUN_0026db70 || !param || !hulk_ls_on())
         return;
     if (*(hulk_u32*)(param + 8) != (hulk_u32)(__SIZE_TYPE__)&FUN_002731d0 || hulk_nls == 4)
         return;
@@ -347,7 +350,7 @@ extern "C" void HULK_CDECL hulk_io_thread_created(hulk_u32 start, hulk_u32 param
     hulk_native_log(line);
 }
 // the drive thread at a step boundary (its wait on `ready`): 1 = handled, *result = the wait's result
-extern "C" int HULK_CDECL hulk_io_drive_wait(hulk_u32 handle, hulk_u32 ms, hulk_u32* result) {
+extern "C" int HULK_CDECL hulk_io_drive_wait(hulk_uptr handle, hulk_u32 ms, hulk_u32* result) {
     if (hulk_syncio != 5 || ms != 0xffffffffu || hulk_host_GetCurrentThreadId() == hulk_main_tid)
         return 0;
     for (int i = 0; i < hulk_nls; i++) {
@@ -483,7 +486,7 @@ extern "C" int HULK_CDECL hulk_hook_drive_pump(hulk_u32* regs) {
 }
 // the main thread about to wait on `handle`: drive steps while it is unsignalled and a drive has work. 1 = the
 // handle was signalled meanwhile (the zero-time wait that saw it consumed it, as the real wait would): *result
-extern "C" int HULK_CDECL hulk_io_main_wait(hulk_u32 handle, hulk_u32* result) {
+extern "C" int HULK_CDECL hulk_io_main_wait(hulk_uptr handle, hulk_u32* result) {
     if (!hulk_nls || !hulk_ls_on() || hulk_host_GetCurrentThreadId() != hulk_main_tid)
         return 0;
     for (int n = 0; n < 100000; n++) {
@@ -606,11 +609,11 @@ extern "C" void HULK_CDECL hulk_hook_drive_post(hulk_u32 drive, hulk_u32 before,
     (void)before;
     (void)node;
 }
-extern "C" void HULK_CDECL hulk_io_thread_created(hulk_u32 start, hulk_u32 param) {
+extern "C" void HULK_CDECL hulk_io_thread_created(hulk_uptr start, hulk_uptr param) {
     (void)start;
     (void)param;
 }
-extern "C" int HULK_CDECL hulk_io_drive_wait(hulk_u32 handle, hulk_u32 ms, hulk_u32* result) {
+extern "C" int HULK_CDECL hulk_io_drive_wait(hulk_uptr handle, hulk_u32 ms, hulk_u32* result) {
     (void)handle;
     (void)ms;
     (void)result;
@@ -623,7 +626,7 @@ extern "C" int HULK_CDECL hulk_hook_drive_pump(hulk_u32* regs) {
     (void)regs;
     return 0;
 }
-extern "C" int HULK_CDECL hulk_io_main_wait(hulk_u32 handle, hulk_u32* result) {
+extern "C" int HULK_CDECL hulk_io_main_wait(hulk_uptr handle, hulk_u32* result) {
     (void)handle;
     (void)result;
     return 0;

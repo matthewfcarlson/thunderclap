@@ -5,13 +5,13 @@
 #include "imports.h"
 #include "../crt/host_crt.h"
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XLaunchNewImageA(hulk_u32 a0, hulk_u32 a1) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XLaunchNewImageA(hulk_uptr a0, hulk_uptr a1) {
     (void)a0; (void)a1;
     HULK_XDK_TRACE("XLaunchNewImageA");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XGetLaunchInfo(hulk_u32 a0, hulk_u32 a1) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XGetLaunchInfo(hulk_uptr a0, hulk_uptr a1) {
     (void)a0; (void)a1;
     HULK_XDK_TRACE("XGetLaunchInfo");
     return 0;

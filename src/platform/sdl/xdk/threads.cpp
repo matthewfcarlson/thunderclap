@@ -7,18 +7,18 @@
 #include "imports.h"
 #include "../crt/host_crt.h"
 
-extern "C" void HULK_CDECL hulk_io_thread_created(hulk_u32 start, hulk_u32 param);
-extern "C" int HULK_CDECL hulk_io_drive_wait(hulk_u32 handle, hulk_u32 ms, hulk_u32* result);
-extern "C" int HULK_CDECL hulk_io_main_wait(hulk_u32 handle, hulk_u32* result);
+extern "C" void HULK_CDECL hulk_io_thread_created(hulk_uptr start, hulk_uptr param);
+extern "C" int HULK_CDECL hulk_io_drive_wait(hulk_uptr handle, hulk_u32 ms, hulk_u32* result);
+extern "C" int HULK_CDECL hulk_io_main_wait(hulk_uptr handle, hulk_u32* result);
 extern "C" void HULK_CDECL hulk_io_main_sleep(void);
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_SetThreadPriority(hulk_u32 thread, hulk_u32 priority) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_SetThreadPriority(hulk_uptr thread, hulk_u32 priority) {
     HULK_XDK_TRACE("SetThreadPriority");
     // (Xbox priorities are Win32's: -15..15 with THREAD_PRIORITY_TIME_CRITICAL 15; the host accepts the same values)
     return (hulk_u32)hulk_host_SetThreadPriority((void*)thread, (int)priority);
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_ResumeThread(hulk_u32 thread) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_ResumeThread(hulk_uptr thread) {
     HULK_XDK_TRACE("ResumeThread");
     return hulk_host_ResumeThread((void*)thread);
 }
@@ -34,14 +34,14 @@ hulk_u32 hulk_xdk_game_tids[8];
 hulk_u32 hulk_xdk_game_ntids;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_CreateThread(hulk_u32 sa, hulk_u32 stack, hulk_u32 start, hulk_u32 param,
-                                                      hulk_u32 flags, hulk_u32 tid) {
+extern "C" hulk_uptr HULK_STDCALL hulk_xdk_CreateThread(hulk_uptr sa, hulk_u32 stack, hulk_uptr start, hulk_uptr param,
+                                                      hulk_u32 flags, hulk_uptr tid) {
     HULK_XDK_TRACE("CreateThread");
     (void)sa;
     // (flags: CREATE_SUSPENDED 4 is the one the game uses; the Xbox's own stack sizes are small, the host's default
     // is used when the game asks for less than 64 KB)
     hulk_u32 own = 0;
-    hulk_u32 h = (hulk_u32)hulk_host_CreateThread(0, stack < 0x10000 ? 0 : stack, (void*)start, (void*)param, flags & 4,
+    hulk_uptr h = (hulk_uptr)hulk_host_CreateThread(0, stack < 0x10000 ? 0 : stack, (void*)start, (void*)param, flags & 4,
                                                  &own);
     if (tid)
         *(hulk_u32*)tid = own;
@@ -56,14 +56,14 @@ extern "C" hulk_u32 HULK_CDECL hulk_xdk_GetCurrentThreadId(void) {
     return hulk_host_GetCurrentThreadId();
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_CreateSemaphoreA(hulk_u32 sa, hulk_u32 initial, hulk_u32 maximum, hulk_u32 name) {
+extern "C" hulk_uptr HULK_STDCALL hulk_xdk_CreateSemaphoreA(hulk_uptr sa, hulk_u32 initial, hulk_u32 maximum, hulk_uptr name) {
     HULK_XDK_TRACE("CreateSemaphoreA");
     (void)sa;
     (void)name;  // (named semaphores are process-local on the Xbox: unnamed here)
-    return (hulk_u32)hulk_host_CreateSemaphoreA(0, (int)initial, (int)maximum, 0);
+    return (hulk_uptr)hulk_host_CreateSemaphoreA(0, (int)initial, (int)maximum, 0);
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_ReleaseSemaphore(hulk_u32 sem, hulk_u32 count, hulk_u32 previous) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_ReleaseSemaphore(hulk_uptr sem, hulk_u32 count, hulk_uptr previous) {
     HULK_XDK_TRACE("ReleaseSemaphore");
     return (hulk_u32)hulk_host_ReleaseSemaphore((void*)sem, (int)count, (int*)previous);
 }
@@ -80,7 +80,7 @@ static int hulk_on_main(void) {
     return hulk_main_tid && hulk_host_GetCurrentThreadId() == hulk_main_tid;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_WaitForSingleObject(hulk_u32 handle, hulk_u32 ms) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_WaitForSingleObject(hulk_uptr handle, hulk_u32 ms) {
     HULK_XDK_TRACE("WaitForSingleObject");
     // native17 (replay_hooks.cpp, HULK_SYNCIO=5): a drive thread's step boundary, or the main thread giving the drive
     // its steps before it blocks
@@ -110,28 +110,28 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_Sleep(hulk_u32 ms) {
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_CreateFiber(hulk_u32 stack, hulk_u32 start, hulk_u32 param) {
+extern "C" hulk_uptr HULK_STDCALL hulk_xdk_CreateFiber(hulk_u32 stack, hulk_uptr start, hulk_uptr param) {
     HULK_XDK_TRACE("CreateFiber");
     // (a clang-compiled fiber needs more stack than the Xbox original's frame sizes: at least 256 KB)
-    return (hulk_u32)hulk_host_CreateFiber(stack < 0x40000 ? 0x40000 : stack, (void*)start, (void*)param);
+    return (hulk_uptr)hulk_host_CreateFiber(stack < 0x40000 ? 0x40000 : stack, (void*)start, (void*)param);
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_DeleteFiber(hulk_u32 fiber) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_DeleteFiber(hulk_uptr fiber) {
     HULK_XDK_TRACE("DeleteFiber");
     hulk_host_DeleteFiber((void*)fiber);
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_SwitchToFiber(hulk_u32 fiber) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_SwitchToFiber(hulk_uptr fiber) {
     HULK_XDK_TRACE("SwitchToFiber");
     hulk_io_main_sleep();    // (native17: a loader polling a request switches fibers without sleeping: a drive turn)
     hulk_host_SwitchToFiber((void*)fiber);
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_ConvertThreadToFiber(hulk_u32 param) {
+extern "C" hulk_uptr HULK_STDCALL hulk_xdk_ConvertThreadToFiber(hulk_uptr param) {
     HULK_XDK_TRACE("ConvertThreadToFiber");
     if (!hulk_main_tid)
         hulk_main_tid = hulk_host_GetCurrentThreadId();
-    return (hulk_u32)hulk_host_ConvertThreadToFiber((void*)param);
+    return (hulk_uptr)hulk_host_ConvertThreadToFiber((void*)param);
 }

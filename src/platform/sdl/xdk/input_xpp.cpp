@@ -21,16 +21,14 @@
 #if defined(HULK_NATIVE_SDL)
 #include "../input/hulk_input.h"
 
-typedef __SIZE_TYPE__ hulk_uptr;
-
 #define HULK_ERROR_SUCCESS 0u
 #define HULK_ERROR_DEVICE_NOT_CONNECTED 1167u
 
 extern "C" hulk_u32 hulk_lib_xpp_gamepad_type[1];     // library.cpp
 
-static bool is_gamepad(hulk_u32 type)
+static bool is_gamepad(hulk_uptr type)
 {
-    return type == (hulk_u32)(hulk_uptr)hulk_lib_xpp_gamepad_type || type == 0x003ea774u;
+    return type == (hulk_uptr)hulk_lib_xpp_gamepad_type || type == 0x003ea774u;
 }
 
 // handles: one per XInputOpen (a re-open of the same port gets a new one: the game closes the old handle after it
@@ -44,29 +42,29 @@ struct PadHandle {
 };
 static PadHandle g_handles[16];
 
-static PadHandle* handle(hulk_u32 h)
+static PadHandle* handle(hulk_uptr h)
 {
     for (unsigned i = 0; i < sizeof(g_handles) / sizeof(g_handles[0]); i++)
-        if ((hulk_u32)(hulk_uptr)&g_handles[i] == h)
+        if ((hulk_uptr)&g_handles[i] == h)
             return g_handles[i].open ? &g_handles[i] : 0;
     return 0;
 }
 
 extern "C" void HULK_CDECL hulk_native_log(const char* line);
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInitDevices(hulk_u32 count, hulk_u32 types) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInitDevices(hulk_u32 count, hulk_uptr types) {
     (void)count; (void)types;
     HULK_XDK_TRACE("XInitDevices");
     hulk_input_init();
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XGetDevices(hulk_u32 type) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XGetDevices(hulk_uptr type) {
     HULK_XDK_TRACE("XGetDevices");
     return is_gamepad(type) ? hulk_input_devices() : 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XGetDeviceChanges(hulk_u32 type, hulk_u32 ins_out, hulk_u32 rem_out) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XGetDeviceChanges(hulk_uptr type, hulk_uptr ins_out, hulk_uptr rem_out) {
     HULK_XDK_TRACE("XGetDeviceChanges");
     unsigned ins = 0, rem = 0;
     int any = is_gamepad(type) ? hulk_input_changes(&ins, &rem) : 0;
@@ -77,7 +75,7 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XGetDeviceChanges(hulk_u32 type, hulk_
     return any ? 1 : 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputOpen(hulk_u32 type, hulk_u32 port, hulk_u32 slot, hulk_u32 params) {
+extern "C" hulk_uptr HULK_STDCALL hulk_xdk_XInputOpen(hulk_uptr type, hulk_u32 port, hulk_u32 slot, hulk_uptr params) {
     (void)slot; (void)params;
     HULK_XDK_TRACE("XInputOpen");
     if (!is_gamepad(type) || port >= HULK_INPUT_PORTS || !(hulk_input_devices() & (1u << port)))
@@ -92,12 +90,12 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputOpen(hulk_u32 type, hulk_u32 por
         h->packet = 0;
         for (int k = 0; k < 18; k++)
             h->last[k] = 0;
-        return (hulk_u32)(hulk_uptr)h;
+        return (hulk_uptr)h;
     }
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputClose(hulk_u32 h) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputClose(hulk_uptr h) {
     HULK_XDK_TRACE("XInputClose");
     PadHandle* p = handle(h);
     if (p)
@@ -105,7 +103,7 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputClose(hulk_u32 h) {
     return 0;
 }
 
-static hulk_u32 get_state(hulk_u32 h, hulk_u32 out, int init) {
+static hulk_u32 get_state(hulk_uptr h, hulk_uptr out, int init) {
     PadHandle* p = handle(h);
     HulkPadState s;
     if (!p || !out || hulk_input_generation(p->port) != p->gen ||
@@ -137,7 +135,7 @@ static hulk_u32 get_state(hulk_u32 h, hulk_u32 out, int init) {
     return HULK_ERROR_SUCCESS;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputGetState(hulk_u32 h, hulk_u32 out) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputGetState(hulk_uptr h, hulk_uptr out) {
     HULK_XDK_TRACE("XInputGetState");
     return get_state(h, out, 0);
 }
@@ -145,14 +143,15 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputGetState(hulk_u32 h, hulk_u32 ou
 // native10 (build/rp1/for-native9.md A): the pad object's constructor 0x2692c0 reads the new pad 20 times; those
 // reads are not polls (the replay source must not count them). The native link binds that function's call of
 // XInputGetState here instead (tools/native_link.py SITE_REBIND); every other caller polls.
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputGetStateInit(hulk_u32 h, hulk_u32 out) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputGetStateInit(hulk_uptr h, hulk_uptr out) {
     HULK_XDK_TRACE("XInputGetState");
     return get_state(h, out, 1);
 }
 
 // feedback: +0 status (ERROR_IO_PENDING while the Xbox works on it; we finish at once), +0x42 left motor (the large,
-// low-frequency one), +0x44 right motor, 0..65535
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputSetState(hulk_u32 h, hulk_u32 feedback) {
+// low-frequency one), +0x44 right motor, 0..65535 (32-bit offsets of the game's record, whose header holds an event
+// handle: on the native builds they follow that record's declaration once the caller's source types it)
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputSetState(hulk_uptr h, hulk_uptr feedback) {
     HULK_XDK_TRACE("XInputSetState");
     if (!feedback)
         return HULK_ERROR_SUCCESS;
@@ -166,41 +165,41 @@ extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputSetState(hulk_u32 h, hulk_u32 fe
 
 #else  // !HULK_NATIVE_SDL
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInitDevices(hulk_u32 a0, hulk_u32 a1) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInitDevices(hulk_u32 a0, hulk_uptr a1) {
     (void)a0; (void)a1; HULK_XDK_TRACE("XInitDevices");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputOpen(hulk_u32 a0, hulk_u32 a1, hulk_u32 a2, hulk_u32 a3) {
+extern "C" hulk_uptr HULK_STDCALL hulk_xdk_XInputOpen(hulk_uptr a0, hulk_u32 a1, hulk_u32 a2, hulk_uptr a3) {
     (void)a0; (void)a1; (void)a2; (void)a3; HULK_XDK_TRACE("XInputOpen");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputClose(hulk_u32 a0) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputClose(hulk_uptr a0) {
     (void)a0; HULK_XDK_TRACE("XInputClose");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputGetState(hulk_u32 a0, hulk_u32 a1) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputGetState(hulk_uptr a0, hulk_uptr a1) {
     (void)a0; (void)a1; HULK_XDK_TRACE("XInputGetState");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputGetStateInit(hulk_u32 a0, hulk_u32 a1) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputGetStateInit(hulk_uptr a0, hulk_uptr a1) {
     return hulk_xdk_XInputGetState(a0, a1);
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputSetState(hulk_u32 a0, hulk_u32 a1) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XInputSetState(hulk_uptr a0, hulk_uptr a1) {
     (void)a0; (void)a1; HULK_XDK_TRACE("XInputSetState");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XGetDevices(hulk_u32 a0) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XGetDevices(hulk_uptr a0) {
     (void)a0; HULK_XDK_TRACE("XGetDevices");
     return 0;
 }
 
-extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XGetDeviceChanges(hulk_u32 a0, hulk_u32 a1, hulk_u32 a2) {
+extern "C" hulk_u32 HULK_STDCALL hulk_xdk_XGetDeviceChanges(hulk_uptr a0, hulk_uptr a1, hulk_uptr a2) {
     (void)a0; (void)a1; (void)a2; HULK_XDK_TRACE("XGetDeviceChanges");
     return 0;
 }
