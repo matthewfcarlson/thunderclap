@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 8/8)
 // CCollisionTrack::vfunc_10 @ 0x0005daf0
+#include "gen/global.h"
+
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
@@ -9,32 +11,17 @@ struct Lookup_5daf0 { Index_5daf0* FUN_002226b0(); };
 struct Owner_5daf0 { Lookup_5daf0* FUN_00059a40(); };
 struct Holder_5daf0 { Owner_5daf0* FUN_000592a0(); };
 struct CCollisionAction_5daf0 { CCollisionAction_5daf0* FUN_00019380(void* a, void* self, Holder_5daf0* h, int index); };
-class CCollisionTrack {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    virtual void vfunc_8();
-    virtual void vfunc_9();
-    virtual CCollisionAction_5daf0* vfunc_10(void* a, void* b, void* c);
-    virtual void vfunc_11();
-    char pad[0x14];
-    unsigned idLo, idHi;
-};
-CCollisionAction_5daf0* CCollisionTrack::vfunc_10(void* a, void*, void* c) {
+
+int CCollisionTrack::vfunc_10(int __p0, int __p1, int __p2) { void * a = (void *)__p0; void * c = (void *)__p2;
+
     Holder_5daf0* h = (Holder_5daf0*)FUN_00344e74(c, 0, DAT_00494b44, DAT_00494b60, 0);
     Lookup_5daf0* lk = h ? h->FUN_000592a0()->FUN_00059a40() : 0;
-    if (!lk) return 0;
-    unsigned arg1_ = idHi;
-    unsigned arg2_ = idLo;
+    if (!lk) return (int)(0);
+    unsigned arg1_ = (*(unsigned int *)&this->f_1c);
+    unsigned arg2_ = (*(unsigned int *)&this->f_18);
     int index = lk->FUN_002226b0()->FUN_0027b200(arg2_, arg1_);
-    if (index == 0xffff) return 0;
+    if (index == 0xffff) return (int)(0);
     CCollisionAction_5daf0* item = (CCollisionAction_5daf0*)FUN_0008d690(0x4c);
-    if (!item) return 0;
-    return item->FUN_00019380(a, this, h, index);
+    if (!item) return (int)(0);
+    return (int)(item->FUN_00019380(a, this, h, index));
 }

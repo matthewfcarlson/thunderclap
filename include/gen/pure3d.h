@@ -404,7 +404,8 @@ public:
     int f_10;
     float f_14;
     char f_18;
-    char _pad_19[0x7];
+    char _pad_19[0x3];
+    int f_1c;
     int f_20;
     int f_24;
     int f_28;
@@ -537,20 +538,21 @@ public:
     virtual ~BillboardQuad(); // overrides core::IRefCount slot 2
     virtual void vfunc_5(); // slot 5
     virtual void vfunc_6(int, int, int, int); // slot 6
-    char _pad_10[0x4];
+    int f_10;
     int f_14;
     int f_18;
-    char _pad_1c[0x4];
+    int f_1c;
     int f_20;
     int f_24;
-    char _pad_28[0x4];
+    int f_28;
     int f_2c;
     int f_30;
     char _pad_34[0x4];
     char f_38;
     char _pad_39[0x3];
     int f_3c;
-    char _pad_40[0x44];
+    char _pad_40[0x40];
+    float f_80;
     float f_84;
     int f_88;
     char f_8c;
@@ -613,7 +615,7 @@ class BillboardCutOffQuadGroup : public ::pure3d::BillboardQuadGroup {
 public:
     virtual ~BillboardCutOffQuadGroup(); // overrides core::IRefCount slot 2
     virtual hulk_freg vfunc_11(int, int); // overrides pure3d::BillboardQuadGroup slot 11
-    char _pad_8c[0x4];
+    int f_8c;
     int f_90;
     char _pad_94[0x4];
     int f_98;
@@ -638,13 +640,13 @@ public:
     virtual void vfunc_13(void*); // slot 13
     virtual void vfunc_14(); // slot 14
     void* f_10;
-    char _pad_14[0x4];
+    int f_14;
     int f_18;
     int f_1c;
     int f_20;
     int f_24;
     int f_28;
-    char _pad_2c[0x4];
+    int f_2c;
     int f_30;
     int f_34;
 };
@@ -1194,7 +1196,8 @@ public:
     virtual void* vfunc_4(); // overrides pure3d::Entity slot 4
     void* f_10;
     void* f_14;
-    char _pad_18[0xc];
+    char _pad_18[0x8];
+    void* f_20;
     void* f_24;
     void* f_28;
     void* f_2c;
@@ -1304,7 +1307,8 @@ public:
     char f_14;
     char _pad_15[0x3];
     int f_18;
-    char _pad_1c[0xc];
+    char _pad_1c[0x8];
+    int f_24;
     int f_28;
 };
 
@@ -1607,7 +1611,8 @@ public:
 class Locator : public ::pure3d::Entity {
 public:
     virtual ~Locator(); // overrides core::IRefCount slot 2
-    char _pad_10[0x10];
+    char _pad_10[0xc];
+    int f_1c;
     int f_20;
     int f_24;
     float f_28;
@@ -2079,7 +2084,8 @@ public:
     char f_14;
     char _pad_15[0x3];
     int f_18;
-    char _pad_1c[0xc];
+    char _pad_1c[0x8];
+    int f_24;
     int f_28;
 };
 
@@ -2249,7 +2255,7 @@ public:
     virtual void vfunc_8(void*); // overrides pure3d::Light slot 8
     virtual void vfunc_9(int); // overrides pure3d::Light slot 9
     int f_54;
-    char _pad_58[0x4];
+    int f_58;
     int f_5c;
     float f_60;
 };
@@ -2654,7 +2660,7 @@ public:
     virtual void vfunc_8(void*); // overrides pure3d::Light slot 8
     virtual void vfunc_9(int); // overrides pure3d::Light slot 9
     int f_54;
-    char _pad_58[0x4];
+    float f_58;
     float f_5c;
     float f_60;
     float f_64;
@@ -3071,7 +3077,7 @@ class VectorCamera : public ::pure3d::Camera {
 public:
     virtual ~VectorCamera(); // overrides core::IRefCount slot 2
     virtual void vfunc_26(); // overrides pure3d::Camera slot 26
-    char _pad_d0[0x4];
+    int f_d0;
     int f_d4;
     int f_d8;
     int f_dc;
@@ -3105,17 +3111,23 @@ public:
     int f_18;
     char _pad_1c[0x8];
     int f_24;
-    char _pad_28[0x8];
+    char _pad_28[0x4];
+    int f_2c;
     int f_30;
-    char _pad_34[0x8];
+    char _pad_34[0x4];
+    int f_38;
     int f_3c;
-    char _pad_40[0x8];
+    char _pad_40[0x4];
+    int f_44;
     int f_48;
-    char _pad_4c[0x8];
+    char _pad_4c[0x4];
+    int f_50;
     int f_54;
-    char _pad_58[0x8];
+    char _pad_58[0x4];
+    int f_5c;
     int f_60;
-    char _pad_64[0x8];
+    char _pad_64[0x4];
+    int f_68;
     int f_6c;
 };
 
@@ -3123,10 +3135,10 @@ public:
 class VertexAnimKeyFrameList : public ::pure3d::NonCopyable {
 public:
     virtual ~VertexAnimKeyFrameList(); // overrides core::IRefCount slot 2
-    char _pad_08[0x4];
+    void* f_08;
     void* f_0c;
     void* f_10;
-    char _pad_14[0x4];
+    void* f_14;
     void* f_18;
 };
 
@@ -3161,7 +3173,7 @@ public:
     int f_08;
     int f_0c;
     int f_10;
-    char _pad_14[0x4];
+    void* f_14;
     void* f_18;
     void* f_1c;
     void* f_20;
@@ -4853,9 +4865,10 @@ public:
     void* f_10;
     void* f_14;
     void* f_18;
-    char _pad_1c[0x4];
+    void* f_1c;
     void* f_20;
-    char _pad_24[0x8];
+    char _pad_24[0x4];
+    void* f_28;
     int f_2c;
 };
 

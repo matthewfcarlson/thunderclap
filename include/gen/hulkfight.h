@@ -1179,7 +1179,7 @@ public:
     char _pad_08[0x18];
     void* f_20;
     void* f_24;
-    char _pad_28[0x4];
+    int f_28;
     int f_2c;
     int f_30;
 };
@@ -1441,7 +1441,7 @@ public:
     int f_74;
     int f_78;
     int f_7c;
-    char _pad_80[0x4];
+    int f_80;
     int f_84;
     int f_88;
     char _pad_8c[0x4];
@@ -1468,7 +1468,8 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(int, int); // overrides fight::Action slot 5
     PathFormationAction* FUN_001233a0(int, void*); // non-virtual
-    char _pad_08[0x15];
+    char _pad_08[0x14];
+    char f_1c;
     char f_1d;
     char _pad_1e[0x1a];
     float f_38;
@@ -1479,7 +1480,8 @@ public:
     char _pad_4c[0x4];
     void* f_50;
     void* f_54;
-    char _pad_58[0x10];
+    char _pad_58[0xc];
+    int f_64;
     int f_68;
     int f_6c;
     int f_70;
@@ -1537,7 +1539,8 @@ public:
     char _pad_08[0x4];
     void* f_0c;
     int f_10;
-    char _pad_14[0x5];
+    char _pad_14[0x4];
+    char f_18;
     char f_19;
     char f_1a;
     char f_1b;
@@ -1545,7 +1548,7 @@ public:
     char f_1d;
     char f_1e;
     char f_1f;
-    char _pad_20[0x4];
+    float f_20;
     float f_24;
     float f_28;
 };
@@ -2042,7 +2045,7 @@ public:
     virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~TargetVelocityXZCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
-    char _pad_08[0x4];
+    int f_08;
     int f_0c;
 };
 
@@ -2091,6 +2094,7 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
+    void FUN_0012b640(); // non-virtual
     char _pad_08[0x4];
     float f_0c;
     float f_10;
@@ -2107,6 +2111,7 @@ public:
     virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~ThreatCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
+    void FUN_0012b410(); // non-virtual
     char _pad_08[0x4];
     unsigned char f_0c;
     char _pad_0d[0x3];
@@ -2317,6 +2322,7 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
+    void FUN_0013a280(); // non-virtual
     char _pad_08[0x4];
     float f_0c;
     float f_10;
@@ -2350,6 +2356,7 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
+    void FUN_0013a360(); // non-virtual
     char _pad_08[0x4];
     float f_0c;
     float f_10;
@@ -2384,6 +2391,7 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
+    void FUN_0013a440(); // non-virtual
     int f_08;
     float f_0c;
     float f_10;
@@ -2470,10 +2478,10 @@ public:
     char _pad_08[0x14];
     int f_1c;
     void* f_20;
-    char _pad_24[0x4];
+    int f_24;
     int f_28;
     int f_2c;
-    char _pad_30[0x4];
+    int f_30;
     int f_34;
     float f_38;
     char _pad_3c[0x8];
@@ -2525,7 +2533,8 @@ public:
     int f_1c;
     void* f_20;
     void* f_24;
-    char _pad_28[0x1c];
+    char _pad_28[0x18];
+    float f_40;
     float f_44;
     float f_48;
     char _pad_4c[0x4];
@@ -3101,7 +3110,7 @@ public:
     virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CollisionTargetSizeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
-    char _pad_08[0x4];
+    int f_08;
     int f_0c;
     int f_10;
 };
@@ -3244,7 +3253,7 @@ public:
     char _pad_08[0x18];
     void* f_20;
     void* f_24;
-    char _pad_28[0x4];
+    float f_28;
     float f_2c;
 };
 
@@ -3286,7 +3295,7 @@ public:
     virtual bool vfunc_5(int, int); // overrides fight::Action slot 5
     char _pad_08[0x18];
     void* f_20;
-    char _pad_24[0x4];
+    int f_24;
     int f_28;
     int f_2c;
     char _pad_30[0xc];
@@ -3313,7 +3322,8 @@ public:
     int f_08;
     float f_0c;
     float f_10;
-    char _pad_14[0xc];
+    int f_14;
+    char _pad_18[0x8];
     int f_20;
     int f_24;
     float f_28;
@@ -3600,7 +3610,8 @@ public:
     void* f_1c;
     void* f_20;
     int f_24;
-    char _pad_28[0xc];
+    char _pad_28[0x8];
+    int f_30;
     int f_34;
     int f_38;
 };
@@ -4171,7 +4182,8 @@ public:
     void* f_1c;
     void* f_20;
     int f_24;
-    char _pad_28[0xc];
+    char _pad_28[0x8];
+    int f_30;
     int f_34;
     int f_38;
 };
@@ -4405,7 +4417,7 @@ public:
     virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~HitPushbackVelocityCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
-    char _pad_08[0x4];
+    int f_08;
     int f_0c;
 };
 
@@ -5227,12 +5239,14 @@ public:
     char _pad_08[0x14];
     int f_1c;
     void* f_20;
-    char _pad_24[0xc];
+    char _pad_24[0x8];
+    int f_2c;
     int f_30;
     int f_34;
     int f_38;
     int f_3c;
-    char _pad_40[0x8];
+    char _pad_40[0x4];
+    int f_44;
     int f_48;
     int f_4c;
     char f_50;
@@ -5299,7 +5313,7 @@ public:
     virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~PhaseCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
-    char _pad_08[0x4];
+    int f_08;
     float f_0c;
     float f_10;
 };
@@ -5337,7 +5351,7 @@ public:
     int f_1c;
     char _pad_20[0x4];
     void* f_24;
-    char _pad_28[0x4];
+    int f_28;
     int f_2c;
     float f_30;
     char _pad_34[0x88];
@@ -5377,7 +5391,8 @@ public:
     float f_54;
     float f_58;
     float f_5c;
-    char _pad_60[0x10];
+    char _pad_60[0xc];
+    int f_6c;
     int f_70;
     float f_74;
     char _pad_78[0x4];
@@ -6702,13 +6717,13 @@ public:
     char _pad_08[0x18];
     void* f_20;
     void* f_24;
-    char _pad_28[0x4];
+    int f_28;
     int f_2c;
     int f_30;
-    char _pad_34[0x4];
+    int f_34;
     int f_38;
     float f_3c;
-    char _pad_40[0x4];
+    int f_40;
     int f_44;
     int f_48;
 };
@@ -6745,14 +6760,15 @@ public:
     char _pad_08[0x18];
     void* f_20;
     void* f_24;
-    char _pad_28[0x4];
+    int f_28;
     int f_2c;
     int f_30;
-    char _pad_34[0x4];
+    int f_34;
     int f_38;
     float f_3c;
     char f_40;
-    char _pad_41[0x7];
+    char _pad_41[0x3];
+    int f_44;
     int f_48;
     int f_4c;
 };
@@ -6796,13 +6812,14 @@ public:
     virtual bool vfunc_5(int, int); // overrides fight::Action slot 5
     char _pad_08[0x18];
     void* f_20;
-    char _pad_24[0xc];
+    char _pad_24[0x8];
+    int f_2c;
     int f_30;
     int f_34;
-    char _pad_38[0x4];
+    int f_38;
     int f_3c;
     int f_40;
-    char _pad_44[0x4];
+    int f_44;
     int f_48;
     int f_4c;
     char f_50;
@@ -7194,7 +7211,8 @@ public:
     int f_54;
     char f_58;
     char f_59;
-    char _pad_5a[0x6];
+    char _pad_5a[0x2];
+    void* f_5c;
     void* f_60;
     char _pad_64[0x8];
     void* f_6c;

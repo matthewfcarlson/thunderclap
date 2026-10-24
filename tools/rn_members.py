@@ -109,6 +109,7 @@ def main(argv=None):
     ap.add_argument("--keep", help="with --apply: write only the members of the sources listed in this file")
     ap.add_argument("--plan", help="with --keep: an existing plan file instead of planning again")
     ap.add_argument("--apply", action="store_true", help="write the declarations to include/gen/evidence-rn.json")
+    ap.add_argument("--replace", action="store_true", help="with --apply: drop the members already in evidence-rn.json")
     ap.add_argument("--jobs", type=int, default=2)
     a = ap.parse_args(argv)
     g = mg.Gen.get()
@@ -144,6 +145,12 @@ def main(argv=None):
         ev = json.load(open(EVIDENCE))
         ms = {"_comment": "non-virtual member declarations (tools/rn_members.py, batch b9): class -> {name: [ret, "
                           "params, quals]}, from the defining sources"}
+        # the members already there stay (their sources are on include/gen/ now, so a new plan doesn't list them);
+        # --keep limits only the plan's own members, unless --replace drops the old ones
+        if not a.replace:
+            for cname, old in ev.get("members", {}).items():
+                if not cname.startswith("_"):
+                    ms.setdefault(cname, {}).update(old)
         for m in plan["members"]:
             if keep is None or m["source"] in keep:
                 ms.setdefault(m["class"], {})[m["name"]] = m["sig"]

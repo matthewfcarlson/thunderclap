@@ -762,10 +762,11 @@ public:
     virtual void vfunc_4(int, int, int, int, int, int, int); // slot 4
     void* f_08;
     char f_0c;
-    char _pad_0d[0x7];
+    char _pad_0d[0x3];
+    void* f_10;
     void* f_14;
     void* f_18;
-    char _pad_1c[0x4];
+    void* f_1c;
     void* f_20;
     void* f_24;
     float f_28;
@@ -1053,7 +1054,8 @@ public:
     int f_34;
     int f_38;
     int f_3c;
-    char _pad_40[0x44];
+    char _pad_40[0x40];
+    int f_80;
     int f_84;
     int f_88;
     char _pad_8c[0x8];
@@ -1101,13 +1103,14 @@ public:
     virtual ~CCharacter(); // overrides core::IRefCount slot 2
     void FUN_00040140(int, int, int, int, int); // non-virtual
     int FUN_00040170(); // non-virtual
-    char _pad_10[0x5c];
+    char _pad_10[0x58];
+    int f_68;
     int f_6c;
     int f_70;
-    char _pad_74[0x4];
+    int f_74;
     int f_78;
     int f_7c;
-    char _pad_80[0x4];
+    int f_80;
     int f_84;
     int f_88;
     char _pad_8c[0x4];
@@ -1130,19 +1133,20 @@ public:
     int f_13c;
     int f_140;
     int f_144;
-    char _pad_148[0x4c];
+    char _pad_148[0x48];
+    int f_190;
     int f_194;
     int f_198;
-    char _pad_19c[0x4];
+    int f_19c;
     int f_1a0;
     int f_1a4;
-    char _pad_1a8[0x4];
+    int f_1a8;
     int f_1ac;
     int f_1b0;
-    char _pad_1b4[0x4];
+    int f_1b4;
     int f_1b8;
     int f_1bc;
-    char _pad_1c0[0x4];
+    int f_1c0;
     int f_1c4;
     int f_1c8;
     int f_1cc;
@@ -1151,7 +1155,8 @@ public:
     int f_1d8;
     int f_1dc;
     int f_1e0;
-    char _pad_1e4[0x8];
+    char _pad_1e4[0x4];
+    int f_1e8;
     int f_1ec;
     int f_1f0;
     char _pad_1f4[0x8];
@@ -1266,7 +1271,7 @@ public:
     int f_1b5c;
     char _pad_1b60[0x4];
     int f_1b64;
-    char _pad_1b68[0x4];
+    int f_1b68;
     int f_1b6c;
     int f_1b70;
     char f_1b74;
@@ -1292,7 +1297,7 @@ public:
     char _pad_1c94[0xc];
     void* f_1ca0;
     void* f_1ca4;
-    char _pad_1ca8[0x4];
+    float f_1ca8;
     float f_1cac;
     float f_1cb0;
     float f_1cb4;
@@ -1301,7 +1306,7 @@ public:
     int f_1cc0;
     int f_1cc4;
     int f_1cc8;
-    char _pad_1ccc[0x4];
+    int f_1ccc;
     int f_1cd0;
     int f_1cd4;
     int f_1cd8;
@@ -1368,7 +1373,8 @@ public:
     char f_1f51;
     char _pad_1f52[0x2];
     int f_1f54;
-    char _pad_1f58[0x144];
+    char _pad_1f58[0x140];
+    int f_2098;
     int f_209c;
     char f_20a0;
     char _pad_20a1[0x7];
@@ -1469,7 +1475,8 @@ public:
     char _pad_122[0x2];
     float f_124;
     unsigned char f_128;
-    char _pad_129[0x3];
+    char f_129;
+    char _pad_12a[0x2];
     float f_12c;
 };
 
@@ -1815,7 +1822,7 @@ public:
     char _pad_491[0x7];
     float f_498;
     float f_49c;
-    char _pad_4a0[0x4];
+    int f_4a0;
     int f_4a4;
     int f_4a8;
     char _pad_4ac[0xc];
@@ -2025,7 +2032,8 @@ public:
     int f_4f0;
     int f_4f4;
     int f_4f8;
-    char _pad_4fc[0x9c];
+    char _pad_4fc[0x98];
+    void* f_594;
     void* f_598;
     char _pad_59c[0xc];
     float f_5a8;
@@ -2098,7 +2106,8 @@ public:
     int f_08;
     float f_0c;
     float f_10;
-    char _pad_14[0x8];
+    char _pad_14[0x4];
+    int f_18;
     int f_1c;
     int f_20;
     int f_24;
@@ -2246,9 +2255,11 @@ public:
 class CControllerManager {
 public:
     virtual ~CControllerManager(); // slot 0
+    void FUN_000ae9a0(unsigned char); // non-virtual
+    void FUN_000ae9d0(int, char); // non-virtual
     void* f_04;
     int f_08;
-    char _pad_0c[0x4];
+    int f_0c;
     int f_10;
     int f_14;
     char f_18;
@@ -2550,7 +2561,8 @@ public:
     int f_48;
     int f_4c;
     unsigned char f_50;
-    char _pad_51[0x3];
+    char f_51;
+    char _pad_52[0x2];
     int f_54;
     float f_58;
 };
@@ -2896,7 +2908,8 @@ public:
     virtual void vfunc_0(int); // overrides CDisplayEffect slot 0
     int f_04;
     int f_08;
-    char _pad_0c[0x5];
+    char _pad_0c[0x4];
+    char f_10;
     char f_11;
     char f_12;
     char f_13;
@@ -2932,7 +2945,8 @@ public:
     char _pad_08[0x4];
     float f_0c;
     float f_10;
-    char _pad_14[0x8];
+    char _pad_14[0x4];
+    int f_18;
     int f_1c;
     char _pad_20[0xc];
     float f_2c;
@@ -3257,7 +3271,8 @@ public:
     int f_c0;
     int f_c4;
     unsigned char f_c8;
-    char _pad_c9[0x3];
+    char f_c9;
+    char _pad_ca[0x2];
     int f_cc;
 };
 
@@ -3484,10 +3499,11 @@ public:
     float f_9c;
     char _pad_a0[0x8];
     float f_a8;
-    char _pad_ac[0x8];
+    char _pad_ac[0x4];
+    float f_b0;
     float f_b4;
     float f_b8;
-    char _pad_bc[0x4];
+    float f_bc;
     float f_c0;
     float f_c4;
     char _pad_c8[0x4];
@@ -3502,10 +3518,11 @@ public:
     char _pad_d4[0xc];
     float f_e0;
     int f_e4;
-    char _pad_e8[0x8];
+    char _pad_e8[0x4];
+    int f_ec;
     int f_f0;
     int f_f4;
-    char _pad_f8[0x4];
+    int f_f8;
     int f_fc;
     int f_100;
     char _pad_104[0x20];
@@ -3515,14 +3532,16 @@ public:
     char _pad_12d[0x3];
     float f_130;
     void* f_134;
-    char _pad_138[0x1c];
+    char _pad_138[0x18];
+    float f_150;
     float f_154;
     float f_158;
-    char _pad_15c[0x1c];
+    char _pad_15c[0x18];
+    int f_174;
     int f_178;
     int f_17c;
     float f_180;
-    char _pad_184[0x4];
+    int f_184;
     int f_188;
     int f_18c;
     int f_190;
@@ -3730,7 +3749,8 @@ class CHudIcons : public ::pure3d::Entity {
 public:
     virtual ~CHudIcons(); // overrides core::IRefCount slot 2
     char f_10;
-    char _pad_11[0x7];
+    char _pad_11[0x3];
+    int f_14;
     int f_18;
     void* f_1c;
     void* f_20;
@@ -3993,7 +4013,7 @@ public:
     void* f_1c;
     void* f_20;
     void* f_24;
-    char _pad_28[0x4];
+    void* f_28;
     void* f_2c;
     void* f_30;
 };
@@ -4338,7 +4358,8 @@ public:
     char f_c0;
     char _pad_c1[0x7];
     char f_c8;
-    char _pad_c9[0x1b];
+    char _pad_c9[0x17];
+    int f_e0;
     int f_e4;
     int f_e8;
 };
@@ -4478,10 +4499,10 @@ public:
     int f_9c;
     char _pad_a0[0xc];
     float f_ac;
-    char _pad_b0[0x4];
+    int f_b0;
     int f_b4;
     int f_b8;
-    char _pad_bc[0x4];
+    int f_bc;
     int f_c0;
     int f_c4;
     void* f_c8;
@@ -4489,7 +4510,8 @@ public:
     int f_d8;
     int f_dc;
     int f_e0;
-    char _pad_e4[0x8];
+    char _pad_e4[0x4];
+    int f_e8;
     int f_ec;
     int f_f0;
     char _pad_f4[0x4];
@@ -4506,10 +4528,11 @@ public:
     void* f_58;
     char f_5c;
     char f_5d;
-    char _pad_5e[0x6];
+    char _pad_5e[0x2];
+    int f_60;
     int f_64;
     int f_68;
-    char _pad_6c[0x4];
+    int f_6c;
     int f_70;
     int f_74;
     float f_78;
@@ -4523,7 +4546,7 @@ public:
     int f_98;
     char _pad_9c[0x4];
     int f_a0;
-    char _pad_a4[0x4];
+    int f_a4;
     int f_a8;
     int f_ac;
     int f_b0;
@@ -4773,7 +4796,8 @@ public:
     int f_24;
     int f_28;
     void* f_2c;
-    char _pad_30[0x2];
+    char f_30;
+    char _pad_31[0x1];
     char f_32;
     char _pad_33[0x1];
     int f_34;
@@ -5023,7 +5047,9 @@ public:
     int f_d0;
     char _pad_d4[0x1d];
     char f_f1;
-    char _pad_f2[0x82];
+    char _pad_f2[0x7e];
+    char f_170;
+    char _pad_171[0x3];
     int f_174;
     int f_178;
     float f_17c;
@@ -5034,7 +5060,9 @@ public:
     char _pad_18d[0x3];
     int f_190;
     int f_194;
-    char _pad_198[0x14];
+    char _pad_198[0x10];
+    char f_1a8;
+    char _pad_1a9[0x3];
     int f_1ac;
     int f_1b0;
     float f_1b4;
@@ -5045,7 +5073,9 @@ public:
     char _pad_1c5[0x3];
     int f_1c8;
     int f_1cc;
-    char _pad_1d0[0x14];
+    char _pad_1d0[0x10];
+    char f_1e0;
+    char _pad_1e1[0x3];
     int f_1e4;
     int f_1e8;
     float f_1ec;
@@ -5056,7 +5086,9 @@ public:
     char _pad_1fd[0x3];
     int f_200;
     int f_204;
-    char _pad_208[0x14];
+    char _pad_208[0x10];
+    char f_218;
+    char _pad_219[0x3];
     int f_21c;
     int f_220;
     float f_224;
@@ -5067,7 +5099,9 @@ public:
     char _pad_235[0x3];
     int f_238;
     int f_23c;
-    char _pad_240[0x14];
+    char _pad_240[0x10];
+    char f_250;
+    char _pad_251[0x3];
     int f_254;
     int f_258;
     float f_25c;
@@ -5078,10 +5112,11 @@ public:
     char _pad_26d[0x3];
     int f_270;
     int f_274;
-    char _pad_278[0x14];
+    char _pad_278[0x10];
+    int f_288;
     int f_28c;
     int f_290;
-    char _pad_294[0x4];
+    int f_294;
     int f_298;
     int f_29c;
     char _pad_2a0[0xc];
@@ -5624,7 +5659,7 @@ class CSoundCommand_InstallEffect : public ::CSoundCommand {
 public:
     virtual ~CSoundCommand_InstallEffect(); // overrides CSoundCommand slot 0
     virtual void vfunc_1(int, int); // overrides CSoundCommand slot 1
-    char _pad_10[0x4];
+    int f_10;
     int f_14;
 };
 
@@ -5789,7 +5824,7 @@ public:
 // .?AVCSoundSequenceVoice@@  vftable 0x424ae4 (2)
 class CSoundSequenceVoice : public ::audio::StreamPlayerAllocator {
 public:
-    char _pad_04[0x4];
+    void* f_04;
     void* f_08;
     void* f_0c;
     int f_10;
@@ -5923,7 +5958,8 @@ public:
     virtual void vfunc_3(int); // overrides Overlay slot 3
     virtual void vfunc_4(); // overrides Overlay slot 4
     char f_04;
-    char _pad_05[0x7];
+    char _pad_05[0x3];
+    int f_08;
     char f_0c;
     char _pad_0d[0x7];
     int f_14;
@@ -7663,7 +7699,9 @@ public:
     int f_1d4;
     char f_1d8;
     char f_1d9;
-    char _pad_1da[0x82];
+    char _pad_1da[0x46];
+    int f_220;
+    char _pad_224[0x38];
     int f_25c;
     char _pad_260[0x38];
     int f_298;
@@ -7671,7 +7709,8 @@ public:
     int f_2d4;
     char _pad_2d8[0x38];
     int f_310;
-    char _pad_314[0x3c];
+    char _pad_314[0x38];
+    int f_34c;
     int f_350;
     int f_354;
     char _pad_358[0x28];
@@ -8097,7 +8136,7 @@ public:
     float f_178;
     char _pad_17c[0x4];
     int f_180;
-    char _pad_184[0x4];
+    int f_184;
     int f_188;
     int f_18c;
     char _pad_190[0x54];
@@ -8343,7 +8382,7 @@ public:
 struct MyControllerCallback : public ::core::IControllerConnectionChangeCallback {
 public:
     virtual void vfunc_0(); // overrides core::IControllerConnectionChangeCallback slot 0
-    char _pad_04[0x1];
+    char f_04;
     char f_05;
     char _pad_06[0x1];
     char f_07;

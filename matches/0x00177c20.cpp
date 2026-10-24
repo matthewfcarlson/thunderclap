@@ -6,7 +6,7 @@ struct C_177c20 {
 class Param {
   public:
     char pad[0xc];
-    u32_177c20 fn;
+    hulk_uintptr fn; // holds a function pointer (read as *(Fn*)&fn)
     virtual void a();
     virtual void b();
     virtual void c();

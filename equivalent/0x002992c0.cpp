@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 10/10)
 // pure3d::CompositeDrawable::vfunc_12 @ 0x002992c0
+#include "gen/pure3d.h"
+
 struct Mat_2992c0 { float m[16]; };
 
 struct Box_2992c0 {
@@ -10,7 +12,7 @@ struct Box_2992c0 {
     float *FUN_000a8890(float *tmp);
 };
 
-class Drawable {
+class Drawable_2992c0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -36,7 +38,7 @@ struct Entry_2992c0 {
     char type;
     char pad1[3];
     int matrixIndex;
-    Drawable *drawable;
+    Drawable_2992c0 *drawable;
 };
 
 struct Layout_2992c0 {
@@ -48,69 +50,44 @@ struct Layout_2992c0 {
     Entry_2992c0 *entries;
 };
 
-struct Skeleton {
+struct Skeleton_2992c0 {
     char pad0[0x1c];
     Mat_2992c0 *matrices;
     void FUN_00284820(int n);
 };
 
-class CompositeDrawable {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    virtual void vfunc_8();
-    virtual void vfunc_9();
-    virtual void vfunc_10();
-    virtual void vfunc_11();
-    virtual void vfunc_12();
+void pure3d::CompositeDrawable::vfunc_12() {
+    (*(Skeleton_2992c0 * *)&this->f_40)->FUN_00284820(0);
 
-    char pad04[0x14 - 4];
-    Box_2992c0 bounds;
-    float sphere[4];
-    char pad3c[0x40 - 0x3c];
-    Skeleton *skeleton;
-    Layout_2992c0 *layout;
-};
-
-void CompositeDrawable::vfunc_12()
-{
-    skeleton->FUN_00284820(0);
-
-    bounds.min[0] = 1e12f;
-    bounds.min[1] = 1e12f;
-    bounds.min[2] = 1e12f;
-    bounds.max[0] = -1e12f;
-    bounds.max[1] = -1e12f;
-    bounds.max[2] = -1e12f;
-    sphere[0] = 0.0f;
-    sphere[1] = 0.0f;
-    sphere[2] = 0.0f;
-    sphere[3] = 0.0f;
+    (*(Box_2992c0 *)&this->f_14).min[0] = 1e12f;
+    (*(Box_2992c0 *)&this->f_14).min[1] = 1e12f;
+    (*(Box_2992c0 *)&this->f_14).min[2] = 1e12f;
+    (*(Box_2992c0 *)&this->f_14).max[0] = -1e12f;
+    (*(Box_2992c0 *)&this->f_14).max[1] = -1e12f;
+    (*(Box_2992c0 *)&this->f_14).max[2] = -1e12f;
+    (*(float (*)[4])&this->f_2c)[0] = 0.0f;
+    (*(float (*)[4])&this->f_2c)[1] = 0.0f;
+    (*(float (*)[4])&this->f_2c)[2] = 0.0f;
+    (*(float (*)[4])&this->f_2c)[3] = 0.0f;
 
     Box_2992c0 box;
-    unsigned char n = layout->count;
+    unsigned char n = (*(Layout_2992c0 * *)&this->f_44)->count;
     for (int i = 0; i < n; i++) {
-        Entry_2992c0 *e = &layout->entries[layout->order[i]];
+        Entry_2992c0 *e = &(*(Layout_2992c0 * *)&this->f_44)->entries[(*(Layout_2992c0 * *)&this->f_44)->order[i]];
         if (e->type == 1) {
-            Drawable *d = e->drawable;
+            Drawable_2992c0 *d = e->drawable;
             d->vfunc_12();
             box = d->bounds;
             if (d->vfunc_15() != 2 && d->vfunc_15() != 0x40)
-                box.FUN_00298530(&skeleton->matrices[e->matrixIndex], &box);
-            bounds.FUN_000a87f0(box.min);
-            bounds.FUN_000a87f0(box.max);
+                box.FUN_00298530(&(*(Skeleton_2992c0 * *)&this->f_40)->matrices[e->matrixIndex], &box);
+            (*(Box_2992c0 *)&this->f_14).FUN_000a87f0(box.min);
+            (*(Box_2992c0 *)&this->f_14).FUN_000a87f0(box.max);
         }
     }
 
-    float *s = bounds.FUN_000a8890(box.min);
-    sphere[0] = s[0];
-    sphere[1] = s[1];
-    sphere[2] = s[2];
-    sphere[3] = s[3];
+    float *s = (*(Box_2992c0 *)&this->f_14).FUN_000a8890(box.min);
+    (*(float (*)[4])&this->f_2c)[0] = s[0];
+    (*(float (*)[4])&this->f_2c)[1] = s[1];
+    (*(float (*)[4])&this->f_2c)[2] = s[2];
+    (*(float (*)[4])&this->f_2c)[3] = s[3];
 }

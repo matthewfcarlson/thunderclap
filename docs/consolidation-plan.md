@@ -411,3 +411,9 @@ generated locally from the batch's final state its merged code equals the standa
 `0x2e9880` (wrapped in both trees) still merged, as in an early round, it differs in the batch tree and not in the
 control's. build_tree.py re-checks wrapped -> isolated escalations, not first fallbacks.
 
+
+**Round 2 (x64-4).** build_tree.py now re-checks first fallbacks too (above): HEAD d3c76cfa8 merges 0x2e5410, 0x2e9c60
+and 0x30f490 again (3 better, 0 worse; same final state and image on 8 and 4 slots). Then 118 agreeing header fields
+(`tools/rn_fields.py`; b9 gains only 3 candidates from them, 508 own-stub members still wait on fields), 7 more b9
+members, 10 gen-family rewrites the fields allow and 1 own-stub pointer field (`hulk_intptr`): 18 sources, 8 better,
+0 worse against the fixed HEAD build, strict link and play3 checkpoints identical.

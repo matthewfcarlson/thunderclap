@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 12/12)
 // CJumpAttackAction::vfunc_6 @ 0x00017050
+#include "gen/global.h"
+
 struct V3_17050 {
     float x, y, z;
     float FUN_0022d110();
@@ -77,35 +79,18 @@ void *FUN_00263ea0(unsigned int);
 void __cdecl FUN_00096a90(Target_17050 *t, V3_17050 *v);
 float __cdecl FUN_00224ea0(float a, float b);
 
-class CJumpAttackAction {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual bool vfunc_6(int arg);
-    char pad[0x1c - 4];
-    Holder_17050 *f1c;
-    Cfg_17050 *f20;
-    JointDriver_17050 *f24;
-    V3_17050 dir;
-};
-
-bool CJumpAttackAction::vfunc_6(int arg)
-{
+bool CJumpAttackAction::vfunc_6(int arg) {
     struct Frame {
         float c[3];
         V3_17050 w;
         V3_17050 l;
     } fr;
-    Mgr_17050 *mgr = f1c->FUN_000592a0();
+    Mgr_17050 *mgr = (*(Holder_17050 * *)&this->f_1c)->FUN_000592a0();
     Player_17050 *pl = mgr->FUN_00059a30();
     Tracker_17050 *tr = mgr->FUN_00059a40();
     if (tr == 0)
         return false;
-    Cfg_17050 *c0 = f20;
+    Cfg_17050 *c0 = (*(Cfg_17050 * *)&this->f_20);
     fr.c[2] = c0->f2c;
     fr.c[1] = c0->f30;
     fr.c[0] = c0->f34;
@@ -113,46 +98,46 @@ bool CJumpAttackAction::vfunc_6(int arg)
     JointDriver_17050 *o = 0;
     if (mem)
         o = ((JointDriver_17050 *)mem)->FUN_002248f0(0);
-    f24 = o;
+    (*(JointDriver_17050 * *)&this->f_24) = o;
     o->name.FUN_0027b040("jumpAttack");
-    f24->v0();
+    (*(JointDriver_17050 * *)&this->f_24)->v0();
     TrackerSub_17050 *sub = &tr->sub;
-    f24->s18.FUN_00221be0(sub);
-    tr->FUN_00222890(f24, -1.0f, fr.c[2], 1.0f, fr.c[1], fr.c[0], -1.0f);
+    (*(JointDriver_17050 * *)&this->f_24)->s18.FUN_00221be0(sub);
+    tr->FUN_00222890((*(JointDriver_17050 * *)&this->f_24), -1.0f, fr.c[2], 1.0f, fr.c[1], fr.c[0], -1.0f);
 
-    fr.l = f20->f14;
-    sub->FUN_00221c40()->FUN_0022c3b0(&fr.l, &dir);
-    dir.FUN_0022d110();
+    fr.l = (*(Cfg_17050 * *)&this->f_20)->f14;
+    sub->FUN_00221c40()->FUN_0022c3b0(&fr.l, &(*(V3_17050 *)&this->f_28));
+    (*(V3_17050 *)&this->f_28).FUN_0022d110();
 
     fr.w.x = 0.0f;
     fr.w.y = 0.0f;
     fr.w.z = 0.0f;
     pl->FUN_000350c0(&fr.w);
     if (pl->target != 0)
-        pl->FUN_0003a520(&fr.w, &dir, f20->f20, f20->f24);
+        pl->FUN_0003a520(&fr.w, &(*(V3_17050 *)&this->f_28), (*(Cfg_17050 * *)&this->f_20)->f20, (*(Cfg_17050 * *)&this->f_20)->f24);
     else
-        pl->FUN_000400e0(&fr.w, &dir, f20->f20, f20->f24, 0x80000000);
+        pl->FUN_000400e0(&fr.w, &(*(V3_17050 *)&this->f_28), (*(Cfg_17050 * *)&this->f_20)->f20, (*(Cfg_17050 * *)&this->f_20)->f24, 0x80000000);
 
     Target_17050 *t = pl->target;
     if (t != 0) {
-        FUN_00096a90(t, &dir);
-        dir.x = dir.x - fr.w.x;
-        dir.y = dir.y - fr.w.y;
-        dir.z = dir.z - fr.w.z;
-        dir.FUN_0022d110();
+        FUN_00096a90(t, &(*(V3_17050 *)&this->f_28));
+        (*(V3_17050 *)&this->f_28).x = (*(V3_17050 *)&this->f_28).x - fr.w.x;
+        (*(V3_17050 *)&this->f_28).y = (*(V3_17050 *)&this->f_28).y - fr.w.y;
+        (*(V3_17050 *)&this->f_28).z = (*(V3_17050 *)&this->f_28).z - fr.w.z;
+        (*(V3_17050 *)&this->f_28).FUN_0022d110();
     }
 
-    if (dir.y >= -0.1f) {
-        fr.l = f20->f14;
-        sub->FUN_00221c40()->FUN_0022c3b0(&fr.l, &dir);
-        dir.FUN_0022d110();
-        if (dir.y >= -0.1f) {
-            dir.y = -0.1f;
-            dir.FUN_0022d110();
+    if ((*(V3_17050 *)&this->f_28).y >= -0.1f) {
+        fr.l = (*(Cfg_17050 * *)&this->f_20)->f14;
+        sub->FUN_00221c40()->FUN_0022c3b0(&fr.l, &(*(V3_17050 *)&this->f_28));
+        (*(V3_17050 *)&this->f_28).FUN_0022d110();
+        if ((*(V3_17050 *)&this->f_28).y >= -0.1f) {
+            (*(V3_17050 *)&this->f_28).y = -0.1f;
+            (*(V3_17050 *)&this->f_28).FUN_0022d110();
         }
     }
 
-    float ang = FUN_00224ea0(dir.x, dir.z);
-    f24->s18.FUN_00221d20(ang);
+    float ang = FUN_00224ea0((*(V3_17050 *)&this->f_28).x, (*(V3_17050 *)&this->f_28).z);
+    (*(JointDriver_17050 * *)&this->f_24)->s18.FUN_00221d20(ang);
     return true;
 }

@@ -154,7 +154,8 @@ public:
     char f_12dd;
     char _pad_12de[0xe];
     int f_12ec;
-    char _pad_12f0[0x34];
+    char _pad_12f0[0x30];
+    int f_1320;
     int f_1324;
     int f_1328;
 };

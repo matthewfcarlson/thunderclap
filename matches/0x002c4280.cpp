@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 #include "decls/address.h"
 struct Desc_2c4280 {
     unsigned char flag;
@@ -47,25 +49,11 @@ struct Gfx {
     virtual void v37(int, Desc_2c4280*, int);
 };
 namespace pure3d {
-struct SpotLight {
-    char pad0[16];
-    unsigned char enabled, flag;
-    char pad1[2];
-    int kind;
-    char data[12];
-    int id;
-    char pad2[48];
-    float position[3];
-    float x, y, z;
-    int pad3;
-    float u, v, w;
-    void vfunc_9(int);
-};
 } // namespace pure3d
 void pure3d::SpotLight::vfunc_9(int arg) {
-    if (enabled) {
+    if (this->f_10) {
         Desc_2c4280 desc;
-        desc.flag = flag;
+        desc.flag = (*(unsigned char *)&this->f_11);
         desc.a = 0;
         desc.b = -1;
         desc.c = 0;
@@ -81,7 +69,7 @@ void pure3d::SpotLight::vfunc_9(int arg) {
         desc.m = 0;
         desc.n = 0;
         desc.o = 10000000.0f;
-        desc.FUN_0029c240(kind, data, position, u, v, w, x, y, z);
-        DAT_0052c2a8->v37(id, &desc, arg);
+        desc.FUN_0029c240(this->f_14, (*(char (*)[12])&this->f_18), (*(float (*)[3])&this->f_58), this->f_74, this->f_78, this->f_7c, this->f_64, this->f_68, this->f_6c);
+        DAT_0052c2a8->v37(this->f_24, &desc, arg);
     }
 }

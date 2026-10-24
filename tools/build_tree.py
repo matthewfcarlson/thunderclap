@@ -18,7 +18,11 @@ Steps:
   4. Re-verify. matches/: the function's bytes in the merged object, compared with the XBE by
      compare.py's diff (relocations masked). equivalent/: compile check (the function's symbol exists).
      A match that stops matching is recompiled standalone to tell regressions from functions that do
-     not match on their own either.
+     not match on their own either. A function whose code changed in the tree falls back (merged ->
+     wrapped -> isolated) over --regression-rounds; afterwards the wrapped -> isolated escalations are
+     undone and re-checked, and in an object where several merged functions fell back, each first
+     fallback is tried merged again (one per object per rebuild, the others kept) and stays merged if
+     nothing regresses: a function can differ only while a neighbour is merged beside it (0x2e9c60).
   5. Write build/tree/report.json and print a summary.
 """
 import argparse
@@ -805,6 +809,7 @@ def main(argv=None):
     gen, manifest, results, history, state = run(a.jobs, a.rounds, fresh=not a.resume)
     checks = verify(gen, manifest, results, a.jobs)
     escalated = {}      # addr -> (state key, reason): wrapped -> isolated escalations made by the regression rounds
+    first = {}          # addr -> (object, reason): merged -> wrapped fallbacks made by the regression rounds
     for rnd in range(a.regression_rounds):
         # a function whose code changed in the tree falls back: merged -> wrapped -> isolated
         reg = regressions(checks)
@@ -841,6 +846,7 @@ def main(argv=None):
                         new += 1
             if mode == "merged" and addr not in state["wrap"]:
                 state["wrap"][addr] = why
+                first[addr] = (unit.get(addr), why)
                 new += 1
             elif mode == "wrapped" and addr not in state["isolate"]:
                 state["isolate"][addr] = why
@@ -906,6 +912,45 @@ def main(argv=None):
             checks = verify(gen, manifest, results, a.jobs)
         print("recheck: %d escalations undone, %d fallbacks re-applied; %d regressions left"
               % (len(escalated), back, len(regressions(checks))), flush=True)
+    # Re-check first fallbacks (merged -> wrapped) in objects where several merged functions fell back in the
+    # regression rounds: one of them can differ only because another one was merged beside it (0x2e9c60 differed only
+    # while 0x2e9880 was merged; both were wrapped in the same round, and fallbacks are never undone). One trial per
+    # object and rebuild, in address order, the object's other fallbacks kept: a function merged again whose code is
+    # now its own stays merged; if it or anything else regresses, its fallback is put back.
+    if first and a.regression_rounds and not regressions(checks):
+        by_unit = collections.defaultdict(list)
+        for addr, (u, _why) in sorted(first.items()):
+            by_unit[u].append(addr)
+        todo = {u: list(addrs) for u, addrs in by_unit.items() if len(addrs) > 1}
+        kept, trials = [], 0
+        while todo and trials < 4:
+            trials += 1
+            trial = {u: addrs.pop(0) for u, addrs in sorted(todo.items())}
+            todo = {u: addrs for u, addrs in todo.items() if addrs}
+            for addr in trial.values():
+                state["wrap"].pop(addr, None)
+            gen_tree.save_state(state)
+            gen, manifest, results, h2, state = run(a.jobs, a.rounds, fresh=False)
+            history += h2
+            checks = verify(gen, manifest, results, a.jobs)
+            reg = regressions(checks)
+            unit = {int(c["addr"], 16): os.path.join(os.path.dirname(c["tu"]), os.path.basename(c["tu"]).split(".", 1)[0])
+                    for c in checks}
+            bad_units = {unit.get(addr) for addr in reg}
+            outside = [addr for addr in reg if unit.get(addr) not in trial]
+            back = [addr for u, addr in trial.items() if u in bad_units or outside]
+            for addr in back:
+                state["wrap"][addr] = first[addr][1]
+            kept += [addr for addr in trial.values() if addr not in back]
+            if back:
+                gen_tree.save_state(state)
+                gen, manifest, results, h2, state = run(a.jobs, a.rounds, fresh=False)
+                history += h2
+                checks = verify(gen, manifest, results, a.jobs)
+            if outside or regressions(checks):
+                break
+        print("recheck first fallbacks: %d trials, %d merged again (%s); %d regressions left"
+              % (trials, len(kept), " ".join("0x%08x" % x for x in sorted(kept)), len(regressions(checks))), flush=True)
     rep = summarize(manifest, results, checks, history, gen, state)
     if a.equiv is not None:
         rep["equiv_on_merged_objects"] = run_equiv(checks, results, a.equiv)

@@ -451,7 +451,9 @@ public:
     int f_30;
     char f_34;
     char f_35;
-    char _pad_36[0xa];
+    char _pad_36[0x2];
+    int f_38;
+    char _pad_3c[0x4];
     int f_40;
     char _pad_44[0x8];
     char f_4c;
@@ -563,7 +565,7 @@ public:
     int f_48;
     int f_4c;
     int f_50;
-    char _pad_54[0x4];
+    int f_54;
     int f_58;
     int f_5c;
 };
@@ -1072,7 +1074,7 @@ public:
     virtual char vfunc_0(int, int, int); // overrides physics::Filter3D slot 0
     virtual void vfunc_1(int, int); // overrides physics::Filter3D slot 1
     virtual void vfunc_2(); // overrides physics::Filter3D slot 2
-    char _pad_04[0x4];
+    int f_04;
     int f_08;
     int f_0c;
     char _pad_10[0x18];
