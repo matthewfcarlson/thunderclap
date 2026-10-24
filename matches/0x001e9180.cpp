@@ -1,21 +1,17 @@
 #include "compat/ptr.h"
-class IRefCount {
+#include "gen/core.h"
+
+class CSoundSequence_1e9180 : public core::IRefCount {
   public:
     virtual void f0();
     virtual void f1();
-    virtual ~IRefCount();
-};
-class CSoundSequence : public IRefCount {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual CSoundSequence* f2(unsigned char);
+    virtual CSoundSequence_1e9180* f2(unsigned char);
     char pad[0x18];
     void* member;
 };
 extern int seq_vftable_1e9180, base_vftable;
 extern void thunk(void*);
-CSoundSequence* CSoundSequence::f2(unsigned char flag) {
+CSoundSequence_1e9180* CSoundSequence_1e9180::f2(unsigned char flag) {
     *(hulk_ulongptr*)this = (hulk_ulongptr)&seq_vftable_1e9180;
     if (member) {
         struct X {

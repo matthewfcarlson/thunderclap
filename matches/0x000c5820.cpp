@@ -1,11 +1,9 @@
+#include "gen/global.h"
 extern int g_table_c5820[];
-struct ISoundManager {
-    virtual void f0();
-    virtual void f1(int, int);
-};
-struct CFESoundManager : ISoundManager {
+
+struct CFESoundManager_c5820 : ISoundManager {
     virtual void f2(int, int);
 };
-void CFESoundManager::f2(int a, int index) {
-    f1(a, g_table_c5820[index]);
+void CFESoundManager_c5820::f2(int a, int index) {
+    vfunc_1((void *)(a), (void *)(g_table_c5820[index]));
 }

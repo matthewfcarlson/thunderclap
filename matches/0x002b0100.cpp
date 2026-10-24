@@ -1,3 +1,4 @@
+#include "gen/pure3d.h"
 class Item_2b0100 {
   public:
     virtual void A() throw();
@@ -23,19 +24,15 @@ template <int N> struct Buf_2b0100 {
             FreeMem(p);
     }
 };
-class Entity_2b0100 {
-  public:
-    virtual ~Entity_2b0100() throw();
-    int pad[3];
-};
-class ExpressionGroup : public Entity_2b0100 {
+
+class ExpressionGroup_2b0100 : public pure3d::Entity {
   public:
     Vec_2b0100<Item_2b0100*> items;
     char pad2[0xc];
     Buf_2b0100<4> extra;
-    virtual ~ExpressionGroup() throw();
+    virtual ~ExpressionGroup_2b0100() throw();
 };
-ExpressionGroup::~ExpressionGroup() throw() {
+ExpressionGroup_2b0100::~ExpressionGroup_2b0100() throw() {
     for (unsigned i = 0; i < items.size(); i++) {
         if (items[i]) {
             items[i]->B();

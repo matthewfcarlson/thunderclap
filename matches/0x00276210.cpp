@@ -1,19 +1,16 @@
-class IFile {
-  public:
-    virtual void a();
-    virtual void b();
-};
-class IRefCount {
+#include "gen/core.h"
+
+class IRefCount_276210 {
   public:
     virtual void c();
     virtual void d();
 };
-class IMutable {
+class IMutable_276210 {
   public:
     virtual void e();
     virtual void f();
 };
-class File : public IFile, public IRefCount, public IMutable {
+class File_276210 : public core::IFile, public IRefCount_276210, public IMutable_276210 {
   public:
     virtual void v0();
     virtual void v1();
@@ -48,10 +45,10 @@ class File : public IFile, public IRefCount, public IMutable {
     virtual void v30();
     virtual void v31();
 };
-bool File::vfunc_20() {
-    IFile* p = (IFile*)((char*)this + 4);
-    p->a();
+bool File_276210::vfunc_20() {
+    core::IFile* p = (core::IFile*)((char*)this + 4);
+    p->vfunc_0();
     bool r = (*(int*)((char*)this + 0x18) == 0);
-    p->b();
+    p->vfunc_1();
     return r;
 }

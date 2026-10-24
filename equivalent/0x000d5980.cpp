@@ -2,6 +2,7 @@
 // MessageOverlay::vfunc_3 @ 0x000d5980
 #include "decls/data/game/global.h"
 #include "compat/ptr.h"
+#include "gen/global.h"
 
 extern "C" double sin(double);
 extern "C" double fabs(double);
@@ -17,12 +18,9 @@ struct Slot_d5980 {
     char pad1[0x23c - 0x35];
 };
 
-class Overlay {
-public:
-    virtual void vfunc_0();
-};
 
-class MessageOverlay : public Overlay {
+
+class MessageOverlay_d5980 : public Overlay {
 public:
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -42,7 +40,7 @@ public:
     char *byteAt(int off) { return raw + (off - 4); }
 };
 
-void MessageOverlay::vfunc_3(float dt)
+void MessageOverlay_d5980::vfunc_3(float dt)
 {
     hulk_freg margin = DAT_004a06b8 + DAT_004a06ac + DAT_004a06a8;
     if (*byteAt(0x7bc))

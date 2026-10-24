@@ -1,15 +1,8 @@
 // Same code shape as 0x002523a0 (propagated; names are from that function)
-class SeqEvent {
-  public:
-    virtual int vfunc_0(void*);
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-};
+#include "gen/audio.h"
+
 bool FUN_0025ac10(void*, void*);
-class SeqEventVarPitchRand_2533c0 : public SeqEvent {
+class SeqEventVarPitchRand_2533c0 : public audio::SeqEvent {
   public:
     char pad[8];
     int x;
@@ -17,7 +10,7 @@ class SeqEventVarPitchRand_2533c0 : public SeqEvent {
     int vfunc_0(void* p);
 };
 int SeqEventVarPitchRand_2533c0::vfunc_0(void* p) {
-    char r = (char)SeqEvent::vfunc_0(p);
+    char r = (char)audio::SeqEvent::vfunc_0(p);
     if (r) {
         if (FUN_0025ac10(p, (char*)this + 8)) {
             if (FUN_0025ac10(p, (char*)this + 12))

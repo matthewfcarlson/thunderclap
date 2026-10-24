@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // audio::SeqActionClip::vfunc_1 @ 0x00256370
+#include "gen/audio.h"
 struct Source_256370 {
     char pad0[0x1c];
     float* level;           // 0x1c
@@ -30,13 +31,10 @@ void __cdecl FUN_00258c80(Voice* v, float gain);
 void __cdecl FUN_00258b40(Voice* v, int flag);
 void __cdecl FUN_00259be0(Voice* v);
 
-class SeqAction {
-public:
-    virtual void vfunc_0();
-};
+
 
 namespace audio {
-class SeqActionClip : public SeqAction {
+class SeqActionClip_256370 : public ::audio::SeqAction {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1(Event_256370* e);
@@ -56,7 +54,7 @@ public:
 };
 }
 
-void audio::SeqActionClip::vfunc_1(Event_256370* e)
+void audio::SeqActionClip_256370::vfunc_1(Event_256370* e)
 {
     if (clip == 0 || voice == 0) {
         state = 5;

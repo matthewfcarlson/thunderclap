@@ -1,21 +1,17 @@
 // Same code shape as 0x00045800 (propagated; names are from that function)
-class IMemoryAllocator_267260 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-};
+#include "gen/core.h"
+
 extern void* refcount_vftable[];
 namespace pure3d {
-class NonCopyable : public IMemoryAllocator_267260 {
+class NonCopyable_267260 : public ::core::IMemoryAllocator {
   public:
     virtual void f0();
     virtual void f1();
-    virtual NonCopyable* f2(unsigned char);
+    virtual NonCopyable_267260* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
-pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
+void thunk_FUN_00267090(pure3d::NonCopyable_267260*);
+pure3d::NonCopyable_267260* pure3d::NonCopyable_267260::f2(unsigned char param) {
     *(void**)this = refcount_vftable;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);

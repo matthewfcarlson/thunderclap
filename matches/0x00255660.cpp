@@ -1,23 +1,15 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
+#include "gen/audio.h"
 
 extern "C" char DAT_004298fc[];
-class SeqAction {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void f();
-    virtual void g();
-};
+
 extern void __cdecl FUN_00247550(void*, void*);
-class SeqActionCrossFade : public SeqAction {
+class SeqActionCrossFade_255660 : public audio::SeqAction {
   public:
-    virtual SeqActionCrossFade* vfunc_0(int);
+    virtual SeqActionCrossFade_255660* vfunc_0(int);
 };
-SeqActionCrossFade* SeqActionCrossFade::vfunc_0(int flag) {
+SeqActionCrossFade_255660* SeqActionCrossFade_255660::vfunc_0(int flag) {
     *(void**)this = (void*)((hulk_intptr)DAT_004298fc);
     if (flag & 1)
         FUN_00247550((void*)((hulk_intptr)DAT_004e74c0), this);

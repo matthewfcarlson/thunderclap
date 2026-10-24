@@ -1,21 +1,17 @@
 // Same code shape as 0x00045800 (propagated; names are from that function)
-class IControllerInputPointXBox_268f80 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-};
+#include "gen/core.h"
+
 extern void* refcount_vftable[];
 namespace pure3d {
-class NonCopyable : public IControllerInputPointXBox_268f80 {
+class NonCopyable_268f80 : public ::core::IControllerInputPointXBox {
   public:
     virtual void f0();
     virtual void f1();
-    virtual NonCopyable* f2(unsigned char);
+    virtual NonCopyable_268f80* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable*);
-pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
+void thunk_FUN_00267090(pure3d::NonCopyable_268f80*);
+pure3d::NonCopyable_268f80* pure3d::NonCopyable_268f80::f2(unsigned char param) {
     *(void**)this = refcount_vftable;
     if ((param & 1) != 0)
         thunk_FUN_00267090(this);

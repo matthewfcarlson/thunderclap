@@ -148,6 +148,10 @@ BATCHES = [
     ("b4-relabel-matches", "relabel", "matches",
      "suffixed/invented stubs with a known real class: real short name + placeholder suffix (readability)"),
     ("b4-relabel-equivalent", "relabel", "equivalent", "b4 for equivalent/ (equiv.py --inputs 3000)"),
+    ("b8-genbase", "gen-base", "matches",
+     "stubs used as the base of the source's own class, of their header class's size: onto the header (the derived "
+     "class then derives from it; its members' uses of the stub's fields and virtuals are renamed too)"),
+    ("b8-genbase-equivalent", "gen-base", "equivalent", "b8 for equivalent/ (equiv.py --inputs 3000)"),
 ]
 
 
@@ -188,6 +192,11 @@ def make_batches(out_dir, rmap_path, fit_path):
               "keep": sorted(keep[e["source"]])}
         if f and not e["own"] and f["verdict"] in ("same", "cast", "ptr-int") and st not in is_base[e["source"]]:
             items[("gen-ref", d)].append(dict(it, rule="gen-ref", fit=f["verdict"]))
+        elif (f and not e["own"] and f["verdict"] in ("same", "cast") and st in is_base[e["source"]]
+              and f["fit"].get("size") and f["fit"].get("size") == f["fit"].get("header_size")):
+            # b8: a base of the source's own class; only where the header class has the stub's size, so the
+            # derived class's own fields keep their offsets
+            items[("gen-base", d)].append(dict(it, rule="gen-base", fit=f["verdict"]))
         elif "::" not in st and st in taken and rn_transform.short(e["real"]) != st:
             items[("unclash", d)].append(dict(it, rule="unclash"))
     # b4 relabel: suffixed (`Obj_2d5ec0`) and invented (`Node`) stubs that collide with no include/gen/ name (those
@@ -224,7 +233,7 @@ def make_batches(out_dir, rmap_path, fit_path):
     out = []
     for name, rules, d, what in BATCHES:
         its = [x for r in rules.split(",") for x in items[(r, d)]]
-        its.sort(key=lambda x: (x["source"], x["rule"] != "gen-ref", x["stub"]))
+        its.sort(key=lambda x: (x["source"], x["rule"] not in ("gen-ref", "gen-base"), x["stub"]))
         path = os.path.join(out_dir, name + ".json")
         json.dump({"name": name, "what": what, "rules": rules, "items": its}, open(path, "w"), indent=0)
         out.append((name, len(its), len({x["source"] for x in its})))

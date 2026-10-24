@@ -498,16 +498,17 @@ def rn_apply(rel, addr, text, items, hdb, taken, work):
     p = os.path.join(tmp, os.path.basename(rel))
     rules, whats, fails, hdrs = [], [], [], set()
     keep = set(items[0].get("keep", ())) if items else set()
-    for it in sorted(items, key=lambda x: x["rule"] != "gen-ref"):
+    for it in sorted(items, key=lambda x: x["rule"] not in ("gen-ref", "gen-base")):
         try:
             if it["rule"] == "unclash":
                 new, what = rn_transform.unclash_transform(text, addr, it["stub"], it["real"])
             elif it["rule"] == "relabel":
                 new, what = rn_transform.unclash_transform(text, addr, it["stub"], it["real"], it.get("new"))
-            elif it["rule"] == "gen-ref":
+            elif it["rule"] in ("gen-ref", "gen-base"):
                 with open(p, "w", encoding="latin1", newline="") as f:
                     f.write(text)
-                new, what = rn_transform.genref_transform(p, text, it["stub"], it["real"], hdb, addr, taken, keep)
+                new, what = rn_transform.genref_transform(p, text, it["stub"], it["real"], hdb, addr, taken, keep,
+                                                          base_ok=it["rule"] == "gen-base")
                 hdrs.add("gen/" + hdb[it["real"]]["header"])
             else:
                 raise gh.SwapFail("unknown rule %s" % it["rule"])
@@ -530,7 +531,7 @@ def main(argv=None):
     ap.add_argument("--family", choices=("gen", "pin", "ns", "rn"), default="gen",
                     help="gen: gen-swap + clone-template (default); pin: pin-decl; ns: rtti-ns; rn: a --batch file")
     ap.add_argument("--rule", choices=("gen-swap", "clone-template", "gen-dtor", "pin-decl", "rtti-ns", "clone-ns",
-                                       "unclash", "gen-ref", "relabel"),
+                                       "unclash", "gen-ref", "gen-base", "relabel"),
                     action="append")
     ap.add_argument("--batch", help="rn family: the batch file (tools/rn_plan.py --batches)")
     ap.add_argument("--equivalent", action="store_true", help="also equivalent/ sources (checked with equiv.py)")

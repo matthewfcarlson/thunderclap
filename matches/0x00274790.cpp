@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/core.h"
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b9bc[];
 class V {
@@ -14,18 +15,14 @@ class Inner_274790 {
     int x[3];
     int refs;
 };
-class Request {
-  public:
-    virtual void A();
-    virtual void B();
-};
-class DriveRequest : public Request {
+
+class DriveRequest_274790 : public core::Request {
   public:
     char p[4];
     Inner_274790* sub;
     void Cleanup();
 };
-void DriveRequest::Cleanup() {
+void DriveRequest_274790::Cleanup() {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0042b9bc);
     sub->obj.A();
     --sub->refs;

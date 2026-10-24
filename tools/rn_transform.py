@@ -258,7 +258,7 @@ def _walk(n, f, parent=None, depth=0):
         _walk(c, f, n, depth + 1)
 
 
-def genref_transform(path, raw, stub, real, hdb, addr, taken, keep=()):
+def genref_transform(path, raw, stub, real, hdb, addr, taken, keep=(), base_ok=False):
     """Rewrite source text `raw` (also on disk at `path`, which clang reads) so stub `stub` is the include/gen/
     class `real`. Returns (new text, what) or raises SwapFail."""
     h = hdb.get(real)
@@ -276,6 +276,7 @@ def genref_transform(path, raw, stub, real, hdb, addr, taken, keep=()):
         raise SwapFail("clang can't parse the original")
     S, fwds, nodes_ns = None, [], {}
     fields, methods = {}, {}
+    recs = {}           # short name -> complete record (the stub's bases are looked up here)
 
     def find(n, ns):
         nonlocal S
@@ -284,6 +285,8 @@ def genref_transform(path, raw, stub, real, hdb, addr, taken, keep=()):
         k = n.get("kind")
         if k == "NamespaceDecl":
             ns = ns + [n.get("name", "")]
+        if k == "CXXRecordDecl" and n.get("name") and n.get("completeDefinition") and not n.get("isImplicit"):
+            recs.setdefault(n["name"], n)
         if k == "CXXRecordDecl" and n.get("name") == sshort and not n.get("isImplicit") and ns == sns:
             if n.get("completeDefinition"):
                 if S is not None:
@@ -298,25 +301,53 @@ def genref_transform(path, raw, stub, real, hdb, addr, taken, keep=()):
     find(ast, [])
     if S is None:
         raise SwapFail("no definition of the stub")
-    if S.get("bases"):
-        raise SwapFail("stub has bases")
     sid = S["id"]
+
+    # The stub's bases (b13/b8 base chain): the primary chain (first base of each level, at offset 0) gives the
+    # virtual slot order, root first, and its non-virtual members may be called through the stub; a secondary base
+    # contributes fields only (by absolute offset in the stub's layout). Virtual bases are refused.
+    def bases_of(r):
+        out = []
+        for b in r.get("bases") or []:
+            if b.get("isVirtual"):
+                raise SwapFail("stub has a virtual base")
+            bn = re.sub(r"^(class|struct) ", "", gh._clean_qt(b["type"]["qualType"])).split("::")[-1]
+            if bn not in recs:
+                raise SwapFail("stub base %s is not a class the source defines" % bn)
+            out.append(recs[bn])
+        return out
+    chain = [S]
+    while chain[0].get("bases"):
+        chain.insert(0, bases_of(chain[0])[0])
+    allr, todo = {}, [S]
+    while todo:
+        r = todo.pop()
+        if r["id"] not in allr:
+            allr[r["id"]] = r
+            todo.extend(bases_of(r))
+    primary = {r["id"] for r in chain}
     vnames = []
-    for c in S.get("inner", []):
-        k = c.get("kind")
-        if k == "FieldDecl":
-            fields[c["id"]] = (c.get("name"), c["type"]["qualType"])
-        elif k in ("CXXMethodDecl", "CXXConstructorDecl", "CXXDestructorDecl") and not c.get("isImplicit"):
-            methods[c["id"]] = c
-            if c.get("virtual"):
-                nm = "~" if k == "CXXDestructorDecl" else c.get("name")
-                if nm in vnames:
-                    raise SwapFail("overloaded virtual %s" % nm)
-                vnames.append(nm)
-        elif k == "VarDecl":
-            raise SwapFail("static data member")
-        elif k == "CXXRecordDecl" and not c.get("isImplicit"):
-            raise SwapFail("nested class")
+    for r in chain + [r for r in allr.values() if r["id"] not in primary]:
+        own_v = set()
+        for c in r.get("inner", []):
+            k = c.get("kind")
+            if k == "FieldDecl":
+                fields[c["id"]] = (c.get("name"), c["type"]["qualType"], r["name"])
+            elif k in ("CXXMethodDecl", "CXXConstructorDecl", "CXXDestructorDecl") and not c.get("isImplicit"):
+                if r["id"] not in primary:
+                    continue        # a secondary base's members: calls to them stay unresolved (refused below)
+                methods[c["id"]] = c
+                if c.get("virtual"):
+                    nm = "~" if k == "CXXDestructorDecl" else c.get("name")
+                    if nm in own_v:
+                        raise SwapFail("overloaded virtual %s" % nm)
+                    own_v.add(nm)
+                    if nm not in vnames:    # an override in a later level reuses the base's slot
+                        vnames.append(nm)
+            elif k == "VarDecl":
+                raise SwapFail("static data member")
+            elif k == "CXXRecordDecl" and not c.get("isImplicit"):
+                raise SwapFail("nested class")
     hslots = h["slots"]
     hfields = {o: (t, n) for o, t, n in h["fields"] if not n.startswith("_pad_")}
     layout = None
@@ -349,14 +380,18 @@ def genref_transform(path, raw, stub, real, hdb, addr, taken, keep=()):
                 raise SwapFail("new/delete of the stub")
         if k == "CXXConstructExpr" and re.search(r"\b%s\b" % re.escape(sshort), n.get("type", {}).get("qualType", "")) \
                 and "*" not in n.get("type", {}).get("qualType", ""):
-            raise SwapFail("the stub is constructed (by value)")
+            # (b8: the derived class's constructor initializing its stub base is fine; the header class's own
+            # constructor then builds the base part, which verification checks)
+            if not (base_ok and parent is not None and parent.get("kind") == "CXXCtorInitializer"
+                    and "baseInit" in parent):
+                raise SwapFail("the stub is constructed (by value)")
         if k == "UnaryExprOrTypeTraitExpr" and sshort in json.dumps(n):
             raise SwapFail("sizeof/alignof of the stub")
         if k in ("VarDecl", "FieldDecl", "ParmVarDecl"):
             qt = n.get("type", {}).get("qualType", "")
             if re.search(r"\b%s\b" % re.escape(sshort), qt) and not re.search(r"\b%s\b\s*(const\s*)?[*&]" % re.escape(sshort), qt):
                 raise SwapFail("the stub is used by value (%s)" % qt[:40])
-        if k == "CXXRecordDecl" and n.get("bases"):
+        if k == "CXXRecordDecl" and n.get("bases") and not base_ok:
             for bs in n["bases"]:
                 if re.search(r"\b%s\b" % re.escape(sshort), bs.get("type", {}).get("qualType", "")):
                     raise SwapFail("the stub is a base class")
@@ -368,12 +403,15 @@ def genref_transform(path, raw, stub, real, hdb, addr, taken, keep=()):
                 return
             base = n.get("inner", [{}])[0]
             ub = gh._unwrap(base)
-            if ub.get("kind") == "CXXThisExpr":
+            via_this = ub.get("kind") == "CXXThisExpr"
+            if via_this and not base_ok:
                 raise SwapFail("implicit member access outside the stub")
+            # (base_ok, b8: the stub is the base of a class the source defines, whose members reach the stub's
+            # fields and virtuals through `this`; they are renamed the same way)
             name_pos = n["range"]["end"]["offset"]
             if rid in fields:
-                fnm, fqt = fields[rid]
-                hit = need_layout().get((sshort, fnm))
+                fnm, fqt, frec = fields[rid]
+                hit = need_layout().get((frec, fnm))
                 if hit is None:
                     raise SwapFail("no layout for field %s" % fnm)
                 off = hit[0]
@@ -430,6 +468,8 @@ def genref_transform(path, raw, stub, real, hdb, addr, taken, keep=()):
                 raise SwapFail("calls an inline non-virtual stub helper")
             if m.get("kind") != "CXXMethodDecl" or m.get("storageClass") == "static":
                 raise SwapFail("uses a constructor/destructor/static member")
+            if via_this:
+                raise SwapFail("calls a non-virtual stub member through this")
             nv_used.add(rid)
             bb, be = gh._rng(base)
             if n.get("isArrow"):
@@ -476,8 +516,13 @@ def genref_transform(path, raw, stub, real, hdb, addr, taken, keep=()):
     own_names = {it.key[1].split("::")[-1] for it in items if it.kind in ("class", "fwd", "typedef", "enum") and it.key}
     own_names |= {it.name for it in items if it.kind in ("var", "func") and it.name and not it.name.startswith(("FUN_", "DAT_"))}
     hit = sorted(n for n in own_names if n in taken and n != sshort)
+    derived = {r.get("name") for r in recs.values()
+               if any(re.search(r"\b%s\b" % re.escape(sshort), b.get("type", {}).get("qualType", ""))
+                      for b in r.get("bases") or [])} if base_ok else set()
     for nm in hit:
-        if nm in keep:
+        if nm in keep and nm not in derived:
+            # (b8: the source's own class derived from the stub may take the placeholder suffix: in a TU on
+            # include/gen/ its real name is the header's class)
             raise SwapFail("would rename %s, which is its real class's name" % nm)
         if re.search(r"\b%s\b" % re.escape(nm), eq):
             raise SwapFail("colliding name %s named on an equiv-* line" % nm)

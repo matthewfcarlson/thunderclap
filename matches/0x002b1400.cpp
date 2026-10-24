@@ -1,3 +1,4 @@
+#include "gen/pure3d.h"
 class V {
   public:
     virtual void a() throw();
@@ -31,12 +32,8 @@ struct Range_2b1400 {
         }
     }
 };
-class Entity_2b1400 {
-  public:
-    virtual ~Entity_2b1400() throw();
-    char pad[0xc];
-};
-class VertexOffsetExpressionMixer_2b1400 : public Entity_2b1400 {
+
+class VertexOffsetExpressionMixer_2b1400 : public pure3d::Entity {
   public:
     Ref_2b1400<V> m10;
     Buf_2b1400<0xc> m14;

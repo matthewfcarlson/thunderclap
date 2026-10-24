@@ -1,18 +1,11 @@
-class SeqEvent {
-  public:
-    virtual int vfunc_0(int);
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-};
+#include "gen/audio.h"
+
 int Transform(int, void*);
-class SeqEventVarVolume : public SeqEvent {
+class SeqEventVarVolume_2527d0 : public audio::SeqEvent {
   public:
     virtual int vfunc_0(int);
 };
-int SeqEventVarVolume::vfunc_0(int value) {
-    SeqEvent::vfunc_0(value);
+int SeqEventVarVolume_2527d0::vfunc_0(int value) {
+    audio::SeqEvent::vfunc_0((void *)(value));
     return Transform(value, (char*)this + 8);
 }

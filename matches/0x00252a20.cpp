@@ -1,23 +1,15 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
+#include "gen/audio.h"
 
 extern "C" char DAT_004298fc[];
 extern void FUN_00247550(void*, void*);
-class SeqAction {
+
+class SeqActionVarVolume_252a20 : public audio::SeqAction {
   public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
+    SeqActionVarVolume_252a20* vfunc_0(int);
 };
-class SeqActionVarVolume : public SeqAction {
-  public:
-    SeqActionVarVolume* vfunc_0(int);
-};
-SeqActionVarVolume* SeqActionVarVolume::vfunc_0(int x) {
+SeqActionVarVolume_252a20* SeqActionVarVolume_252a20::vfunc_0(int x) {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_004298fc);
     if (x & 1)
         FUN_00247550((void*)((hulk_intptr)DAT_004e6e90), this);

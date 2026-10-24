@@ -1,11 +1,7 @@
 // cl-flags: /O2 /GR /GX
+#include "gen/core.h"
 
-class IRefCount {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void* vfunc_2(unsigned char flags);
-};
+
 
 class Member_1eee90 {
   public:
@@ -15,7 +11,7 @@ class Member_1eee90 {
     char data[0x10];
 };
 
-class CSoundTriggerExecutionState : public IRefCount {
+class CSoundTriggerExecutionState_1eee90 : public core::IRefCount {
   public:
     virtual void* vfunc_2(unsigned char flags);
 
@@ -28,8 +24,8 @@ extern "C" void* IRefCount_vftable_1eee90[];
 void __cdecl operator delete(void*);
 void __cdecl operator delete[](void*);
 
-void* CSoundTriggerExecutionState::vfunc_2(unsigned char flags) {
-    CSoundTriggerExecutionState* esi = this;
+void* CSoundTriggerExecutionState_1eee90::vfunc_2(unsigned char flags) {
+    CSoundTriggerExecutionState_1eee90* esi = this;
     unsigned char bl = flags;
 
     if (bl & 2) {
@@ -37,12 +33,12 @@ void* CSoundTriggerExecutionState::vfunc_2(unsigned char flags) {
         void* ebp = (char*)esi - 4;
         int ecx = eax + eax * 4;
         --eax;
-        esi = (CSoundTriggerExecutionState*)((char*)esi + ecx * 8);
+        esi = (CSoundTriggerExecutionState_1eee90*)((char*)esi + ecx * 8);
         if (eax < 0)
             goto vector_loop_end;
         int edi = eax + 1;
         do {
-            esi = (CSoundTriggerExecutionState*)((char*)esi - 0x28);
+            esi = (CSoundTriggerExecutionState_1eee90*)((char*)esi - 0x28);
             Member_1eee90* m = (Member_1eee90*)((char*)esi + 0x18);
             m->~Member_1eee90();
             --edi;

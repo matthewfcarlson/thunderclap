@@ -1,13 +1,11 @@
 // Same code shape as 0x0026d270 (propagated; names are from that function)
-class IMemoryPool_270000 {
-  public:
-    virtual void v0();
-};
+#include "gen/core.h"
+
 class IB_270000 {
   public:
     void helper();
 };
-class MemoryPool_270000 : public IMemoryPool_270000, public IB_270000 {
+class MemoryPool_270000 : public core::IMemoryPool, public IB_270000 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
