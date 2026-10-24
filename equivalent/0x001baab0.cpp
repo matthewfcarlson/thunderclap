@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 124 inputs, branch coverage 45/46, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 130 inputs, branch coverage 45/46, incomplete)
 // FUN_001baab0 @ 0x001baab0
 // cl-flags: /GS
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
@@ -253,8 +253,8 @@ void Credits_1baab0::FUN_001baab0(bool flag)
         } else {
             unsigned short *w = 0;
             if (strstr("TBS_CREDIT", s) == 0) {
-                w = thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())
-                        ->FUN_000f7220(thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())->FUN_000f7d30(s));
+                unsigned short *wn = thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())->FUN_000f7d30(s);   // the argument is evaluated before the receiver
+                w = thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())->FUN_000f7220(wn);
             }
             if (w != 0) {
                 unsigned short *d = f.line;

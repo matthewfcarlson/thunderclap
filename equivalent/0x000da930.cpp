@@ -1,9 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3402 inputs, branch coverage 313/320, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3442 inputs, branch coverage 314/320, incomplete)
 // FEMemCardControl::vfunc_4 @ 0x000da930
 // cl-flags: /GS
 // FEMemCardControl::vfunc_4 @ 0x000da930
 // FEMemCardControl::vfunc_4 @ 0x000da930
 #include "decls/address.h"
+#include "compat/ptr.h"
 extern "C" double sin(double);
 extern float (__cdecl *DAT_004de948)();
 extern unsigned char DAT_004dd841;
@@ -217,7 +218,7 @@ void FEMemCardControl::vfunc_4()
     int& outv = fr.outv;
     char* buf = fr.buf;
     {
-        float t = DAT_004de948() * 6.2831855f + f3e4;
+        hulk_freg t = DAT_004de948() * 6.2831855f + f3e4;
         f3c8 = (float)((sin((double)t) + 1.0f) * 0.5f);
         outv = (int)(0.15915494f * t);
         f3e4 = t - outv * 6.2831855f;

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20017 inputs, branch coverage 66/66)
+// STATUS: equivalent (tools/equiv.py level 3: 3124 inputs, branch coverage 66/66)
 // FUN_000c2c20 @ 0x000c2c20
 // cl-flags: /GS
 #include "decls/address.h"
@@ -185,7 +185,8 @@ void MovesMenu::F()
         Widget_c2c20 *t = (Widget_c2c20 *)FUN_00344e74(FUN_000fc260("enabled_moves_name"), 0, DAT_0049dba4, DAT_0049f48c, 0);
         if (t) {
             Label_c2c20 *lbl = &t->label;
-            int r = FUN_000fc1b0()->FUN_000f7240(C.lo, C.hi);
+            unsigned clo = C.lo, chi = C.hi;      // the arguments are read before the receiver is fetched
+            int r = FUN_000fc1b0()->FUN_000f7240(clo, chi);
             if (r == -1)
                 lbl->FUN_000f8500(C.FUN_0027b010(), FUN_000fc1b0(), 1);
             else
@@ -199,7 +200,8 @@ void MovesMenu::F()
             if (f0e) {
                 lbl->FUN_000f8500("", 0, 1);
             } else {
-                int r = FUN_000fc1b0()->FUN_000f7240(combo->lo, combo->hi);
+                unsigned clo = combo->lo, chi = combo->hi;      // the arguments are read before the receiver is fetched
+                int r = FUN_000fc1b0()->FUN_000f7240(clo, chi);
                 if (r == -1)
                     lbl->FUN_000f8500(combo->FUN_0027b010(), FUN_000fc1b0(), 1);
                 else
@@ -212,7 +214,8 @@ void MovesMenu::F()
         Widget_c2c20 *t = (Widget_c2c20 *)FUN_00344e74(FUN_000fc260("enabled_moves_description"), 0, DAT_0049dba4, DAT_0049f470, 0);
         if (t) {
             Label_c2c20 *lbl = &t->label;
-            int r = FUN_000fc1b0()->FUN_000f7240(desc->lo, desc->hi);
+            unsigned dlo = desc->lo, dhi = desc->hi;      // the arguments are read before the receiver is fetched
+            int r = FUN_000fc1b0()->FUN_000f7240(dlo, dhi);
             if (r == -1)
                 lbl->FUN_000f8500(desc->FUN_0027b010(), FUN_000fc1b0(), 1);
             else

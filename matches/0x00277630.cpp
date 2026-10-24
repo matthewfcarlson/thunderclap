@@ -1,5 +1,5 @@
-extern int __cdecl f70ba0(int);
-extern int __cdecl f6fd50(int);
+extern int __cdecl f70ba0();
+extern int __cdecl f6fd50(int, int);
 extern int __cdecl f66eb0(int, int, int);
 class Obj_277630 {
   public:
@@ -13,8 +13,7 @@ class Obj_277630 {
 void Obj_277630::run(int a, int b, int c) {
     if (m1c == 0) {
         m20 = a;
-        int x = f70ba0(c);
-        x = f6fd50(x);
+        int x = f6fd50(f70ba0(), c);
         m18 = x;
         m14 = f66eb0(m20, x, b);
     }

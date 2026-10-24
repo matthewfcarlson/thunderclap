@@ -728,7 +728,7 @@ CASES = {
     # local and reads through it later, where sretret only saw the original's `call; mov ecx, [eax]` (11 chase-camera
     # sources failed --wine on input 0)
     "0x000a0940_native_retarg": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
-    "0x000a0940_native_retarg_off": ("fail", None, 0, {"src": "0x000a0940_native_retarg", "native": True, "n_inputs": 60, "equiv_off": "retarg"}),
+    "0x000a0940_native_retarg_off": ("fail", None, 0, {"src": "0x000a0940_native_retarg", "native": True, "n_inputs": 60, "equiv_off": "retarg,sretcall"}),
     "0x000a0940_native_retarg_wrong": ("fail", "this+0x", 0, {"native": True, "n_inputs": 60}),
     # (not a checker rule) clang's x87 code leaves `(float)(unsigned)x` unrounded in the register: the original stores the
     # numerator as a float, so the source needs a float local (MATCH either way)
@@ -742,6 +742,53 @@ CASES = {
     "0x000e07c0_native_convdef_off": ("equivalent", None, 0, {"src": "0x000e07c0_native_convdef_wrong", "native": True, "n_inputs": 60, "equiv_off": "convdef"}),
     "0x00334c70_native_convdef": ("equivalent", None, 0.9, {"native": True, "n_inputs": 100}),
     "0x00334c70_native_convdef_wrong": ("fail", "L2 conv_note_vs_definition", 0, {"native": True, "n_inputs": 60}),
+    # round 25 (nf5), ddtor: the original is a scalar deleting destructor (`call base dtor; if (flags & 1) delete`), which clang
+    # does not emit; the clang side gets the function wine_link synthesizes (complete destructor + operator delete) appended,
+    # so call #1 is the base destructor on both sides. Before: "call #1 went to 0x0008d330 instead of 0x001d04a0"
+    "0x0002cbf0_native_ddtor": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    "0x0002cbf0_native_ddtor_wrong": ("fail", "write to", 0, {"native": True, "n_inputs": 60}),
+    # ptrfuzz: a call through a fixed function pointer in .data whose fuzzed value is an address inside the image (0x20000, a
+    # `ret 4` function): the pointer's type (no stack words, from its other call sites) decides, not the code it points at. The
+    # `push 0` is the next virtual call's second argument. Before: "call #8 to 0x00020000: argument 1 is ..., expected 0"
+    "0x000ef4f0_native_ptrfuzz": ("equivalent", None, 0.9, {"native": True, "n_inputs": 100}),
+    "0x000ef4f0_native_ptrfuzz_wrong": ("fail", "argument 2", 0, {"native": True, "n_inputs": 100}),
+    "0x000ef4f0_native_ptrfuzz_off": ("fail", "argument 1 is", 0, {"src": "0x000ef4f0_native_ptrfuzz", "native": True, "n_inputs": 100, "equiv_off": "ptrfuzz"}),
+    # sretvt: the call's result is an object whose first word is a vtable it dispatches through (`mov edx,[eax]; mov ecx,eax;
+    # call [edx]`), not a struct returned through a hidden pointer: eax is the callee's result, not the first argument.
+    # Before: "call #4 to 0x00000000: this (ecx) is 0x40000458, expected stack"
+    "0x000f8970_native_sretvt": ("equivalent", None, 0, {"native": True, "n_inputs": 100}),
+    "0x000f8970_native_sretvt_wrong": ("fail", "to 0x", 0, {"native": True, "n_inputs": 100}),
+    "0x000f8970_native_sretvt_off": ("fail", None, 0, {"src": "0x000f8970_native_sretvt", "native": True, "n_inputs": 100, "equiv_off": "sretvt"}),
+    # sretcall: the original's code after a virtual call reads through eax (`call [eax+0x6c]; mov edx,[eax]`), so the harness
+    # returns the call's first argument (a hidden struct pointer); clang's caller stores eax to a local first, which
+    # sret_after cannot see, so ours got a fuzzed pointer. The k-th call of ours gets what the original's k-th call got.
+    # Before: "write to arg1+0x0 before call #2 was 0x0, expected 0xffffffff"
+    "0x00098500_native_sretcall": ("equivalent", None, 0, {"native": True, "n_inputs": 100}),
+    "0x00098500_native_sretcall_wrong": ("fail", "write to", 0, {"native": True, "n_inputs": 100}),
+    "0x00098500_native_sretcall_off": ("fail", "write to arg1", 0, {"src": "0x00098500_native_sretcall", "native": True, "n_inputs": 100, "equiv_off": "sretcall"}),
+    # rdcap: a pointer the real callee only WRITES through (an out parameter) passes the local's earlier contents to nothing that reads
+    # them; only the bytes the callee reads are compared before the call. Before: "the local passed as argument 1 differs at +0x0
+    # (0x5a5a5a5a, expected 0x3f800000 (1f))" (the original's stale stack word against ours unset)
+    "0x001f7320_native_rdcap": ("equivalent", None, 0.9, {"native": True, "n_inputs": 100}),
+    "0x001f7320_native_rdcap_wrong": ("fail", None, 0, {"native": True, "n_inputs": 100}),
+    "0x001f7320_native_rdcap_off": ("fail", "the local passed as argument 1", 0, {"src": "0x001f7320_native_rdcap", "native": True, "n_inputs": 100, "equiv_off": "rdcap"}),
+    # lstatic: a function-local static is `?k1@?HM@??F...` in MSVC's mangling and `?k1@?1??F...` in clang's; the binding the MSVC
+    # object's pairing found carries over (clang's own pairing bound `k1` to a float literal: initializer_differs 0.0 vs 40.0)
+    "0x000418f0_native_lstatic": ("equivalent", None, 0.9, {"native": True, "n_inputs": 60}),
+    "0x000418f0_native_lstatic_wrong": ("fail", None, 0, {"native": True, "n_inputs": 60}),
+    "0x000418f0_native_lstatic_off": ("fail", "initializer_differs", 0, {"src": "0x000418f0_native_lstatic", "native": True, "n_inputs": 60, "equiv_off": "lstatic"}),
+    # initsize: clang's COFF has no symbol sizes, so a static array was compared over the rest of its section (private constants
+    # that follow it); the MSVC object's size for the name is the extent. Before: initializer_differs _kLabel size=256
+    "0x000da930_native_initsize": ("equivalent", None, 0.5, {"native": True, "n_inputs": 100}),
+    "0x000da930_native_initsize_wrong": ("fail", None, 0, {"native": True, "n_inputs": 100}),
+    "0x000da930_native_initsize_off": ("fail", "initializer_differs", 0, {"src": "0x000da930_native_initsize", "native": True, "n_inputs": 100, "equiv_off": "initsize"}),
+    # intrwrite/natintr: clang copies a struct through `memcpy`, the original inline (`rep movsd`, which the write hook records). The
+    # copy into the frame counts as written (a later stub does not fill it as free room), and the call, which is not one of the
+    # original's, runs as the inlined CRT routine. Before: "call #9 to 0x001d6b60: argument 2 is 0x00000003, expected 0x00000000"
+    "0x00036480_native_intrwrite": ("equivalent", None, 0.9, {"native": True, "n_inputs": 100}),
+    "0x00036480_native_intrwrite_wrong": ("fail", "argument 17", 0, {"native": True, "n_inputs": 100}),
+    "0x00036480_native_intrwrite_off": ("fail", "argument 2 is", 0, {"src": "0x00036480_native_intrwrite", "native": True, "n_inputs": 100, "equiv_off": "intrwrite"}),
+    "0x0002cbf0_native_ddtor_off": ("fail", "call #1 went to", 0, {"src": "0x0002cbf0_native_ddtor", "native": True, "n_inputs": 60, "equiv_off": "ddtor"}),
 }
 
 # verify_relocs.py cases: name -> (expected status, issue kind it must report or None)

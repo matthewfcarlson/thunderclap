@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 0/0)
 // FUN_00098500 @ 0x00098500
+#include "compat/ptr.h"
 extern "C" double __cdecl cos(double);
 extern float __cdecl FUN_000189c0(float);
 struct Vector { float x,y,z; };
@@ -26,7 +27,7 @@ void __stdcall target(Object* obj, Output_98500* out) {
  temp.y=data->pos.y-out->pos.y;
  temp.z=data->pos.z-out->pos.z;
  FUN_000a04c0(&temp,&out->a,&out->b,&out->c);
- float angle=FUN_000189c0(data->angle);
+ hulk_freg angle=FUN_000189c0(data->angle);
  float ratio=(float)(data->scale/cos(angle));
  out->d=FUN_000189c0(ratio);
  out->value=obj->value;

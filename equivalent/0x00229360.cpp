@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 8058 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 3196 inputs, branch coverage 22/22)
 // choreo2::LocomotionSteerDriver::vfunc_12 @ 0x00229360
 #include "compat/ptr.h"
 struct Source_229360 {
@@ -64,19 +64,19 @@ bool LocomotionSteerDriver::vfunc_12(Source_229360 *src, float *out)
     int b = src->b;
     *out = 0.0f;
     bool result = false;
-    hulk_freg sum = 0.0f;
+    float sum = 0.0f;
     for (unsigned int i = 0; i < blendCount; i++) {
         Blend_229360 *bl = &blends[i];
         sum = sum + bl->weight;
-        hulk_freg ratio = bl->weight / sum;
+        float ratio = bl->weight / sum;
         Entry_229360 *e = &entries[bl->entry];
         Anim_229360 *anim = e->anim;
         if (anim) {
             float hi;
             float lo;
             if (anim->FUN_00288d10(0, a, b, &hi, &lo)) {
-                hulk_freg lowT = anim->FUN_00288de0(0, 0, a, b);
-                hulk_freg highT = anim->FUN_00288de0(1, 0, a, b);
+                float lowT = anim->FUN_00288de0(0, 0, a, b);
+                float highT = anim->FUN_00288de0(1, 0, a, b);
                 hulk_freg t = anim->weight - 1.0f;
                 hulk_freg c = FUN_0004af40(0.0f, t, t * scale + e->bias);
                 hulk_freg r;

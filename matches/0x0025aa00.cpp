@@ -16,16 +16,15 @@ class Mix {
 };
 void a220(void*);
 void df0(void*);
-int f660(Mix*);
-int f550(int);
+int f660();
+int f550(int, Mix*);
 Mix* Mix::f2(unsigned char x) {
     *(void**)this = &mixVftable;
     a220((char*)this + 0x38);
     df0((char*)this + 0x28);
     setup();
     if (x & 1) {
-        int v = f660(this);
-        f550(v);
+        f550(f660(), this);
     }
     return this;
 }

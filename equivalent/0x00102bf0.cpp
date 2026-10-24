@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 2/2)
 // FUN_00102bf0 @ 0x00102bf0
 // FUN_00102bf0: out = (target - origin), clamped to a maximum length
 #include "compat/ptr.h"
@@ -25,8 +25,9 @@ void __cdecl FUN_00102bf0(Mover_102bf0 *m, V3_102bf0 *target, float speed, V3_10
     m->anchor->FUN_00059a50(&origin);
     out->x = target->x - origin.x;
     out->y = target->y - origin.y;
-    out->z = target->z - origin.z;
-    double root = sqrt(out->x * out->x + out->y * out->y + out->z * out->z);
+    hulk_freg dz = target->z - origin.z;      // the store of out->z leaves st0 unrounded for the length
+    out->z = dz;
+    double root = sqrt(out->x * out->x + out->y * out->y + dz * dz);
     hulk_freg len = (float)root;
     hulk_freg t = (float)(root / speed);
     hulk_freg limit = m->FUN_000356b0();

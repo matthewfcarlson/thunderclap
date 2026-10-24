@@ -130,14 +130,19 @@ def defined_data(obj_bytes):
     return out
 
 
-def initializer_diffs(obj_bytes, mapping, read):
+def initializer_diffs(obj_bytes, mapping, read, sizes=None):
     """[{symbol, target, offset, ours, original}] for each defined data symbol in MAPPING ({name: original address})
-    whose initial bytes differ from the original's (READ(addr, n) -> bytes; None or short reads are zeros)."""
+    whose initial bytes differ from the original's (READ(addr, n) -> bytes; None or short reads are zeros).
+    SIZES ({name: size}, round 25 nf5): clang's COFF has no symbol sizes, so a static array is taken to run to the end of
+    its section, over whatever private constants follow it; the MSVC object's size for the same name is the extent."""
     out = []
     for name, (sname, raw, size, mask) in sorted(defined_data(obj_bytes).items()):
         a = mapping.get(name)
         if a is None:
             continue
+        if sizes and name in sizes and sizes[name] < size:
+            size = sizes[name]
+            mask = {k for k in mask if k < size}
         ours = raw if raw is not None else bytes(size)
         orig = read(a, size) or b""
         orig = orig + bytes(size - len(orig))

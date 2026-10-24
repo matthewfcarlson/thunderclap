@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19976 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00079c80 @ 0x00079c80
 #include "decls/data/game/global.h"
 #include "compat/ptr.h"
@@ -83,9 +83,10 @@ void Mesh_79c80::FUN_00079c80(Item_79c80 *p, int i2, int i3, int i4, int a5, int
     recs[*cnt + k].f10 = 0;
     hulk_freg t = (it2->f4 + it2->f8 + 3.0f) * f5;
     recs[*cnt + k].f00 = a;
-    l24 = -(q - t);
+    hulk_freg l24b = -(q - t);        // `fst [esp+0x24]`: the sum below takes st0, not the stored float
+    l24 = l24b;
     recs[*cnt + k].f04 = 0;
-    recs[*cnt + k].f14 = l24 + l18;
+    recs[*cnt + k].f14 = l24b + l18;
     recs[*cnt + k].f0c = r;
     recs[*cnt + k].f08 = recs[*cnt + k].f14;
     recs[*cnt + k].f18 = v10;

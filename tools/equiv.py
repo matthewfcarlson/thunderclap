@@ -728,6 +728,7 @@ class Program:
         view = CodeView(self.read, target, body, self)
         ext = {}
         wr = {}                         # {location: bytes written through it} (escaped locations: see ext)
+        rd = {}                         # (round 25, rdcap) {location: bytes READ through it}: write-only pointers read nothing
         wother = [False]                # a write to memory that is neither the frame nor through a tracked argument
         rets = []
         fail = [False]
@@ -873,6 +874,8 @@ class Program:
                             note(loc, off + disp + max(op.size, 1))
                             if op.access & capstone.CS_AC_WRITE or m in X87_STORES:
                                 wr[loc] = max(wr.get(loc, 0), off + disp + max(op.size, 1))
+                            if op.access & capstone.CS_AC_READ and m not in X87_STORES:
+                                rd[loc] = max(rd.get(loc, 0), off + disp + max(op.size, 1))
                     elif mb == "esp" or (mb == "ebp" and fb is not None):
                         base = d if mb == "esp" else fb
                         if base is None:
@@ -1040,6 +1043,10 @@ class Program:
                                         note(v[0], v[1] + e2)
                                         if swr.get(loc2):
                                             wr[v[0]] = max(wr.get(v[0], 0), v[1] + swr[loc2])
+                                        srd_ = self.__dict__.get("_creads_rd", {}).get(i.target)
+                                        r2_ = e2 if srd_ is None else srd_.get(loc2, 0)
+                                        if r2_:
+                                            rd[v[0]] = max(rd.get(v[0], 0), v[1] + r2_)
                     if tail:
                         if sub is not None and sub[1] is not None:
                             v = dict(passed).get(sub[1][0])
@@ -1093,7 +1100,15 @@ class Program:
             for r in rets:
                 esc(r)
         cache[target] = (ext, ret, {k_: v_ for k_, v_ in wr.items() if k_ in ext and ext[k_] is not None}, wother[0])
+        self.__dict__.setdefault("_creads_rd", {})[target] = {k_: v_ for k_, v_ in rd.items() if k_ in ext and ext[k_] is not None}
         return cache[target]
+
+    def callee_rd(self, target):
+        """(round 25, rdcap) {location: bytes read through the pointer} of a function callee_reads understands (a location
+        missing from it is never read: written only, or not dereferenced), else None."""
+        if self.callee_reads(target) is None:
+            return None
+        return self.__dict__.get("_creads_rd", {}).get(target)
 
     def callee_pure(self, target, depth=0):
         """(round 21, vptrkeep) Does a function write no memory outside its own frame? Straight scan of its body: every
@@ -2544,6 +2559,20 @@ class CodeView:
             if j is None or j.kind != "other":
                 return False
             if j.mem and j.mnemonic != "lea" and (j.mem[1] in alias or j.mem[2] in alias):
+                if "sretvt" not in EQUIV_OFF and j.mnemonic == "mov" and len(j.ops) == 2 and j.ops[0][0] == "reg" and \
+                        j.mem[1] in alias and not j.mem[2] and j.mem[4] == 0:
+                    # (round 25, nf5, sretvt) `mov edx, [eax]; mov ecx, eax; call [edx]`: the first word of the result is a
+                    # vtable it dispatches through, so eax is an object pointer (`Ref *r = f(); r->AddRef()`), not a struct
+                    # returned through a hidden pointer
+                    vt_ = j.ops[0][1]
+                    b_ = a + j.size
+                    for _ in range(4):
+                        n_ = self.decode(b_)
+                        if n_ is None:
+                            break
+                        if n_.kind == "call" and n_.mem is not None and n_.mem[1] == vt_:
+                            return False
+                        b_ += n_.size
                 return True
             if j.mnemonic == "mov" and len(j.ops) == 2 and j.ops[0][0] == "reg" and j.ops[1] == ("reg", "eax"):
                 alias.add(j.ops[0][1])
@@ -3790,6 +3819,16 @@ class Run:
             out += chunk
         raise Fault("intrinsic_access")
 
+    def _note_stack_write(self, dst, n):
+        """(round 25, nf5, intrwrite) bytes an inlined CRT routine (memcpy, memset) wrote into the frame count as written, as the
+        original's `rep movsd` does through the write hook: a local the function filled that way is not free room a later
+        stub may fill (the vext rule); ours (clang copies structs through memcpy) otherwise looked unwritten"""
+        if "intrwrite" in EQUIV_OFF or n <= 0 or n > 0x1000 or not (STACK_LO <= dst and dst + n <= STACK_HI):
+            return
+        rng = range(dst, dst + n)
+        self.stack_written.update(rng)
+        self.func_stack_written.update(rng)
+
     def _intrinsic(self, insn, name, tail):
         """A CRT routine the original inlined: do what it does, without a call-trace entry."""
         u = self.u
@@ -3801,10 +3840,12 @@ class Run:
         dbl = lambda i: struct.unpack("<d", struct.pack("<II", w[i], w[i + 1]))[0]
         if n in ("memcpy", "memmove"):
             self._mem(w[0], w[2], self._mem(w[1], w[2])) if w[2] else None
+            self._note_stack_write(w[0], w[2])
             eax = w[0]
         elif n == "memset":
             if w[2]:
                 self._mem(w[0], w[2], bytes([w[1] & 0xFF]) * w[2])
+                self._note_stack_write(w[0], w[2])
             eax = w[0]
         elif n == "strlen":
             eax = len(self._cstr(w[0]))
@@ -3821,6 +3862,7 @@ class Run:
             s_ = self._cstr(w[1]) + b"\0"
             dst = w[0] + (len(self._cstr(w[0])) if n == "strcat" else 0)
             self._mem(dst, len(s_), s_)
+            self._note_stack_write(dst, len(s_))
             eax = w[0]
         elif (n in X87_SEQ and "x87math" not in EQUIV_OFF) or (n in X87_SEQ2 and "x87math" not in EQUIV_OFF):
             fext = x87_math(n, [dbl(0)] if n in X87_SEQ else [dbl(0), dbl(2)])
@@ -3956,11 +3998,17 @@ class Run:
             # code (a fuzzed global): the pointer's other call sites tell its stack use. With `push 0; call
             # [g]; push ecx; ...; call [esi+0x18]` the 0 is the virtual call's second argument when g takes none
             ptrkind = None
-            if known and p is None and insn.target is None and insn.mem is not None and \
-                    "ptrpop" not in EQUIV_OFF:
+            if known and insn.target is None and insn.mem is not None and "ptrpop" not in EQUIV_OFF and \
+                    (p is None or ("ptrfuzz" not in EQUIV_OFF and
+                                   self.prog.section_name(insn.mem[4]) in (".data", ".bss"))):
+                # (round 25, nf5, ptrfuzz) a pointer in writable data holds a fuzzed number; when that number happens to be an
+                # address inside the image (0x20000, a `ret 4` function) callee_pop() read the pop of code the original's
+                # pointer never runs. The pointer type, from its call sites, decides, as for any other value
                 ptrkind = self.prog.ptr_call_pop(insn.mem[4])
                 if ptrkind is not None:
                     p = 0
+                    if "ptrfuzz" not in EQUIV_OFF and self.prog.section_name(insn.mem[4]) in (".data", ".bss"):
+                        semantic = None         # nor does it read the stack words of the code its fuzzed value happens to address
             # unknown arity: what the caller does with the pushed words afterwards decides (released by a
             # later `add esp`: caller-cleaned; popped or read by a later call they were pushed for)
             pu = None
@@ -4241,8 +4289,15 @@ class Run:
         if ret_this:
             eax = self.reg("ecx")
         elif not tail and args and in_frame(args[0][0]) and "sretret" not in EQUIV_OFF and \
-                self.view.sret_after(insn.addr):
+                (self.view.sret_after(insn.addr) or
+                 (NATIVE_MODE and self.coverage is None and "sretcall" not in EQUIV_OFF and
+                  k in self.inp.get("sret_calls", ()))):
             eax = args[0][0]            # (round 19) a struct-returning callee returns its hidden pointer in eax
+            if self.coverage is not None:
+                # (round 25, nf5, sretcall) the original's k-th call returned its first argument: clang's caller stores eax to
+                # a local before reading through it (sret_after sees nothing in ours), so the same call of ours gets the same
+                # result (the model assumption was made on the original's code; a callee returns one thing)
+                self.inp.setdefault("sret_calls", set()).add(k)
         elif NATIVE_MODE and not tail and args and insn.target is not None and "retarg" not in EQUIV_OFF and \
                 self.prog.returns_arg0(target):
             # (round 24, retarg) the callee returns its first stack argument (`Vec3 *F(Vec3 *out, ...)`: `mov eax,
@@ -4494,8 +4549,8 @@ class Run:
             uc.mem_write(esp, struct.pack("<I", insn.addr + insn.size))
             uc.reg_write(u.UC_X86_REG_ESP, esp)
         if os.environ.get("EQUIV_STUBDBG"):
-            print("stubret", "ours" if self.view.is_ours else "orig", "k=%d target=%x eax=%x edx=%x clob=%s" % (
-                len(self.calls) - 1, target, eax, edx, sorted(clobbers)), file=sys.stderr)
+            print("stubret", "ours" if self.view.is_ours else "orig", "k=%d target=%x eax=%x edx=%x clob=%s fret=%s fv=%r" % (
+                len(self.calls) - 1, target, eax, edx, sorted(clobbers), fret, fv if fret else None), file=sys.stderr)
         if TRACE_OURS and self.view.is_ours:
             print("stub ours target=%x p=%d nargs=%d esp=%x at=%x" % (target, p, nargs, esp, insn.addr), file=sys.stderr)
         if p % 4 or p > 0x10000:
@@ -6584,7 +6639,7 @@ def literal_bytes(obj, sym):
     return raw[value:end + 1] if end >= 0 else raw[value:]
 
 
-def resolve_symbols(prog, ours, oview, orefs, explicit=None, use_names=True):
+def resolve_symbols(prog, ours, oview, orefs, explicit=None, use_names=True, local_ordered=False, native=False):
     """Map each external/data symbol our function uses to an original address.
 
     Order: explicit map > content (strings, floats, vftables) > names > alignment with the original.
@@ -6702,6 +6757,11 @@ def resolve_symbols(prog, ours, oview, orefs, explicit=None, use_names=True):
             na = name_address(prog, name)
             if na:
                 cand = na
+                if native and name in INTRINSIC_NAMES and na[0] not in oaddrs and "natintr" not in EQUIV_OFF:
+                    # (round 25, nf5, natintr) clang -O0 copies a struct through `memcpy` (and zeroes through `memset`) where the
+                    # original has the copy inline (`rep movsd`) and never calls the CRT routine: the call is not one of the
+                    # original's, so it runs semantically like any other inlined CRT routine, not as the XBE's own code
+                    cand = None
         votes = pair_votes.get(name)
         if cand is None and sym[2] > 0 and sym[3] == 0x20 and not name.startswith(VECTOR_ITERATORS):
             votes = None      # a function defined in our object (e.g. not inlined here): it runs in place
@@ -6733,7 +6793,7 @@ def resolve_symbols(prog, ours, oview, orefs, explicit=None, use_names=True):
     if left:
         claimed = set(resolved.values())
         rel_kind = {}
-        for off, sym, typ, addend in ours.relocs:
+        for off, sym, typ, addend in ours.relocs + (ours.local_relocs() if local_ordered else []):
             if sym is not None:
                 rel_kind.setdefault(sym[0], "call" if typ == REL32 else "data")
         for kind in ("call", "data"):
@@ -7440,7 +7500,15 @@ def _callee_ext(prog, call, loc):
         return None
     if loc not in cr[0]:
         return 0
-    return cr[0][loc]
+    e = cr[0][loc]
+    if e is not None and "rdcap" not in EQUIV_OFF:
+        # (round 25, nf5, rdcap) the bytes the callee can READ through the pointer: a pointer it only writes through (an out
+        # parameter: `FUN_001d69f0(&w)` copies a vector into *w) passes the local's earlier contents (stale stack of the
+        # original's frame, or the fill pattern in ours) to nothing that looks at them. The writes are compared after the call.
+        rdm = prog.callee_rd(call["target"])
+        if rdm is not None:
+            return min(e, rdm.get(loc, 0))
+    return e
 
 
 def _pointee_diff(o, r, path="", cap=None):
@@ -8054,7 +8122,24 @@ def pick_symbol(obj, addr, target_bytes, symbol=None):
 _NATIVE_CLANG_OK = {}
 
 
-def compile_native(src, outdir, extra=()):
+def _obj_callees(obj, sym):
+    """Sorted names of the symbols the relocations inside function SYM of OBJ refer to."""
+    secnum, lo, hi = obj.func_extent(sym)
+    return sorted({obj.syms[si][0] for va, si, typ in obj.sections[secnum - 1]["relocs"] if lo <= va < hi and si in obj.syms})
+
+
+def deleting_wrapper_asm(sym, dtor):
+    """(round 25, nf5, dd) File-scope assembly for the scalar deleting destructor SYM (`??_GX@@UAEPAXI@Z`) clang does not
+    emit: exactly what tools/wine_link.py synthesizes for the Wine build (deleting_destructors): call the complete
+    destructor DTOR, `operator delete(this)` when `flags & 1`, return this."""
+    q, qd = '"%s"' % sym, '"%s"' % dtor
+    lines = ["\t.text", "\t.def\t%s;\t.scl\t2;\t.type\t32;\t.endef" % q, "\t.globl\t%s" % q, "\t.p2align\t4", "%s:" % q, "\tpushl\t%esi", "\tmovl\t%ecx, %esi",
+             "\tcalll\t%s" % qd, "\ttestb\t$1, 8(%esp)", "\tje\t1f", "\tpushl\t%esi", '\tcalll\t"??3@YAXPAX@Z"',
+             "\tpopl\t%ecx", "1:", "\tmovl\t%esi, %eax", "\tpopl\t%esi", "\tretl\t$4"]
+    return "".join(l + "\\n" for l in lines)
+
+
+def compile_native(src, outdir, extra=(), tail_asm=None):
     """(round 18, native) SRC compiled the way the native build compiles it (tools/clang_probe.py's `msvc`
     configuration: i686-pc-windows-msvc, -O0, x87, compat/native.h, the same dialect switches), to a COFF object in
     OUTDIR. Raises CompileError. `hulk_freg` is `double` here (include/compat/ptr.h), `float` under MSVC 7.1."""
@@ -8069,6 +8154,12 @@ def compile_native(src, outdir, extra=()):
         raise CompileError("native mode needs LLVM's clang (Homebrew llvm, ~/llvm or $HULK_LLVM), not " + clang)
     flags = list(cp.CONFIGS["msvc"]["flags"]) + cp.COMMON + ["-Wno-everything"]
     obj = os.path.join(outdir, "native.obj")
+    if tail_asm:
+        # (nf5, dd) SRC followed by module-level assembly: the same translation unit, one more function
+        wrap = os.path.join(outdir, "native_wrap.cpp")
+        with open(wrap, "w") as f_:
+            f_.write('#include "%s"\n__asm__("%s");\n' % (os.path.abspath(src).replace("\\", "/"), tail_asm.replace("\t", "\\t").replace('"', '\\"')))
+        src = wrap
     r = subprocess.run([clang] + flags + list(extra) + ["-I" + os.path.join(ROOT, "include"), src, "-o", obj],
                        capture_output=True, text=True, errors="replace", timeout=300)
     if r.returncode:
@@ -8634,6 +8725,26 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
             msym = pick_symbol(mobj, addr, target, symbol)
         except (CompileError, Exception):    # noqa: BLE001 - the MSVC object is an aid, not a requirement
             mobj = msym = None
+    ddtor_wrapped = False
+    if (native and msym is not None and "ddtor" not in EQUIV_OFF and msym[0].startswith("??_G")
+            and msym[0].endswith("PAXI@Z") and not any(s_[0] == msym[0] for s_ in obj.functions())):
+        # (round 25, nf5, ddtor) The original is a scalar deleting destructor; clang emits none (only the complete
+        # destructor), so the function it was paired with was the wrong one: its first call is the base destructor's
+        # where the original's is `operator delete`. The Wine build gets a synthesized one from the same recipe
+        # (wine_link.deleting_destructors, applied where MSVC's own `??_G` calls exactly the complete destructor and
+        # `operator delete`): the clang side is compiled with that function appended.
+        dtor_ = "??1" + msym[0][4:-len("PAXI@Z")] + "@XZ"
+        called_ = _obj_callees(mobj, msym)
+        if called_ == sorted({dtor_, "??3@YAXPAX@Z"}) and any(s_[0] == dtor_ for s_ in obj.functions()):
+            tmp_w = tempfile.TemporaryDirectory(dir=os.path.join(ROOT, "build") if os.path.isdir(os.path.join(ROOT, "build")) else None)
+            ddtor_wrapped = True
+            try:
+                obj = Obj(compile_native(src, tmp_w.name, flags, tail_asm=deleting_wrapper_asm(msym[0], dtor_)))
+            except CompileError as e:
+                rep.update(status="compile_error", error=str(e), time=round(time.time() - t0, 2))
+                tmp_w.cleanup()
+                return rep
+            tmp_w.cleanup()
     fsym = pick_symbol(obj, addr, target, symbol)
     if msym is not None:
         same = [s_ for s_ in obj.functions() if s_[0] == msym[0]]
@@ -8661,7 +8772,8 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     orefs = original_refs(prog, oview, size)
     # first link with locals only, so that alignment can read our code
     ours.link({})
-    resolved, how, conflicts, exact = resolve_symbols(prog, ours, oview, orefs, explicit, use_names)
+    resolved, how, conflicts, exact = resolve_symbols(prog, ours, oview, orefs, explicit, use_names,
+                                                      local_ordered=ddtor_wrapped, native=bool(native))
     native_notes = []
     if native:
         # (round 18) clang's section symbols (`.rdata` +offset: a jump table, a literal, a switch's case table) are its
@@ -8679,6 +8791,23 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
             mours.link({})
             r_m, how_m, _, _ = resolve_symbols(prog, mours, oview, orefs, explicit, use_names)
             ours_fn = {s_[0] for s_ in obj.syms.values() if s_[2] > 0 and s_[3] == 0x20}   # run in place
+            if "lstatic" not in EQUIV_OFF:
+                # (round 25, nf5, lstatic) a function-local static is `?k1@?HM@??FUN_x@...@4MA` in MSVC's mangling and
+                # `?k1@?1??FUN_x@...@4MA` in clang's (the scope token differs): the same variable, so it takes the
+                # binding the MSVC object's pairing found (clang's own pairing bound `k1` to a float literal)
+                def _lskey(n_):
+                    m_ = re.match(r"^\?(\$?[^@?]+)@\?[^?]*?\?\?(.+)$", n_)
+                    return m_.groups() if m_ else None
+                mkeys = defaultdict(list)
+                for n_ in r_m:
+                    k_ = _lskey(n_)
+                    if k_:
+                        mkeys[k_].append(n_)
+                for s_ in obj.syms.values():
+                    k_ = _lskey(s_[0])
+                    if k_ and s_[0] not in r_m and len(mkeys.get(k_, ())) == 1 and s_[0] not in ours_fn:
+                        r_m[s_[0]] = r_m[mkeys[k_][0]]
+                        how_m[s_[0]] = how_m.get(mkeys[k_][0], "?")
             for n_, a_ in r_m.items():
                 if n_ in ours_fn:
                     continue
@@ -8712,7 +8841,11 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
         # (round 15) a global our source defines that binds to an original address: level 3 reads the original's
         # bytes there, so its initializer is never compared; the native build starts with ours
         from verify_relocs import initializer_diffs
-        issues += initializer_diffs(obj.data, resolved, prog.read)
+        msizes = None
+        if native and mobj is not None and "initsize" not in EQUIV_OFF:
+            from verify_relocs import defined_data
+            msizes = {n_: v_[2] for n_, v_ in defined_data(mobj.data).items()}
+        issues += initializer_diffs(obj.data, resolved, prog.read, sizes=msizes)
     # an immediate that merely looks like an address may legitimately be computed differently: warn only
     warnings = [i for i in issues if i["kind"] in SOFT_L2]
     issues = [i for i in issues if i["kind"] not in SOFT_L2]

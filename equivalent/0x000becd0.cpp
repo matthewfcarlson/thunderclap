@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20053 inputs, branch coverage 32/32)
+// STATUS: equivalent (tools/equiv.py level 3: 3153 inputs, branch coverage 32/32)
 // FUN_000becd0 @ 0x000becd0
 struct Entry_becd0 { char pad[0x10]; int a,b; char tail[0x10]; };
 struct Manager_becd0 { char pad[0x26c]; const char* names[128]; char gap[0x14]; Entry_becd0 entries[1]; bool FUN_000b4dc0(const char*); bool FUN_000b4c10(const char*); void FUN_000bc5c0(const char*,const char*,int,int); int FUN_000b4d70(int,int); void FUN_000bc6a0(); };
@@ -35,7 +35,8 @@ int Target_becd0::run(int argc,const char** argv) {
  if(!match) { manager->FUN_000bc6a0(); result=0; break; }
  Record_becd0* record=item->records+item->index;
  Service_becd0* service=FUN_000fc3d0();
- __int64 key=((Object*)service->get())->FUN_000f72c0(record->value);
+ int recvalue=record->value;   // MSVC pushes the argument before it calls get()
+ __int64 key=((Object*)service->get())->FUN_000f72c0(recvalue);
  m=manager;
  int found=m->FUN_000b4d70((int)key,(int)(key>>32));
  if(found!=-1) {

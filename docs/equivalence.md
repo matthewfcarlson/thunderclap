@@ -869,6 +869,34 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     never stored as a float). Where the original stores it (`fild; fstp dword`), the source needs a `float` local
     (`matches/0x00266790`, still MATCH; cases `0x00266790_native_uitofp[_wrong]`).
 
+- (round 25, nf5) **Wine-mode gaps in the harness model**, each switchable with `EQUIV_OFF=name`; none loosens a comparison, each makes
+  the model of the clang side match the model already made for the original's code (cases `<addr>_native_<name>[_wrong,_off]`):
+  - `ddtor` (218 sources, `matches/` scalar deleting destructors): clang emits no `??_G`; the symbol picked was the complete
+    destructor, whose first call is the base destructor where the original's `??_G` calls it too but `operator delete` second.
+    When MSVC's `??_G` (natmap object) calls exactly the complete destructor and `operator delete` (the condition
+    `tools/wine_link.py deleting_destructors` uses), the clang object is compiled again with that wrapper appended as file-scope
+    assembly (`deleting_wrapper_asm`); the base destructor's address is the original's unclaimed call
+    (`resolve_symbols(local_ordered=True)`). 0x0002cbf0.
+  - `lstatic`: a function-local static is `?k@?HM@??F..` in MSVC's mangling, `?k@?1??F..` in clang's; the MSVC object's binding is
+    carried over by (name, function) when unique. 0x000418f0, 0x001e2940.
+  - `initsize`: clang's COFF has no symbol sizes; `initializer_diffs(sizes=)` clamps a data symbol to the MSVC object's size for the
+    name (a static array was compared over the private constants after it). 0x000da930.
+  - `ptrfuzz`: a call through a fixed function pointer in `.data`/`.bss` whose fuzzed value happens to be an address inside the image
+    took `callee_pop`/`callee_stack_args` of that code; the pointer type (`ptr_call_pop`) decides. 0x000ef4f0, 0x000f0e60, 0x000da930.
+  - `rdcap`: the pointee of an argument is compared before the call over the bytes the callee *reads* through it
+    (`Program.callee_rd`; unknown callees: unchanged), not the bytes it can reach: an out parameter's earlier contents (stale
+    stack in the original) are read by nothing. 0x001f7320.
+  - `sretvt`: `call [eax+..]; mov edx,[eax]; mov ecx,eax; call [edx]` is an object pointer used as `this`, not a hidden struct
+    return (`sret_after`). `sretcall` (native): ours' k-th call gets the original's sret result. 0x000f8970, 0x00098500.
+  - `natintr`, `intrwrite`: clang copies a struct through `memcpy` where the original has `rep movsd`: the call (not one of the
+    original's) runs as the inlined CRT routine, and the bytes an inlined memcpy/memset/strcpy writes into the frame count as
+    written, so a later stub does not fill them as free room (`_note_stack_write`). 0x00036480, 0x0003ba60.
+  - Source classes this round found (not checker rules): MSVC evaluates the arguments of `a()->f(b()->g(x))` and an argument that reads
+    memory (`get()->F(rec->value)`) *before* the receiver call, clang after; hoist the argument into a local (0x001bb0b0, 0x001baab0,
+    0x000becd0, 0x000c2c20; 0x001441a0 and 0x144360 were `elapsed - c->vfunc_6()`, not fsin). `-(a - b)` and `b - a` differ in the sign
+    of a zero (0x00117480). The 19 `decl_lint` matches/ were tail-jump / adjustor-thunk wrappers whose callee takes a stack word and
+    `push esi; call B; push eax; call Finish` shapes (the first push is Finish's second argument).
+
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check
   `__security_check_cookie` is skipped on both sides, because its caller's `add esp` releases the frame

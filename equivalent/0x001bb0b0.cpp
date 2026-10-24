@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1308 inputs, branch coverage 44/44)
+// STATUS: equivalent (tools/equiv.py level 3: 3138 inputs, branch coverage 44/44)
 // FUN_001bb0b0 @ 0x001bb0b0
 // cl-flags: /GS
 // FUN_001bb0b0 @ 0x001bb0b0: draw an error / status message on the screen
@@ -230,8 +230,8 @@ void __cdecl FUN_001bb0b0(const char *code)
     unsigned short *w = 0;
     if (DAT_004dd700 && DAT_004dd700->replay && DAT_004dd700->replay->FUN_00086280()
         && thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())) {
-        w = thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())
-                ->FUN_000f7220(thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())->FUN_000f7d30(code));
+        unsigned short *wn = thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())->FUN_000f7d30(code);   // the argument is evaluated before the receiver
+        w = thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())->FUN_000f7220(wn);
     }
     Loader_1bb0b0 *inv = (*(Loader_1bb0b0**)&DAT_004dd9c8);
     content::LoadInventory::DynamicCaster<pure3d::TextureFont> *caster =
