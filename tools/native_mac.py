@@ -507,6 +507,69 @@ def ld64(objs, aliases, unbound):
             "first": "\n".join(l for l in log.splitlines()[:40] if not l.startswith("    /"))[:3000]}
 
 
+# ---------------------------------------------------------------------------------------------- the C runtime table
+WINE_CRT = os.path.join(ROOT, "src/platform/sdl/crt/host_crt_table.h")
+NATIVE_CRT = os.path.join(ROOT, "src/platform/sdl/crt/native_crt_table.h")
+CRT_GLUE = [os.path.join(ROOT, "src/platform/sdl/host/crt_posix.cpp")]
+SOFTX87 = os.path.join(ROOT, "src/platform/sdl/crt/softx87.cpp")
+
+
+def native_crt_rows():
+    """[(addr, kind, target, [tree names])] of native_crt_table.h"""
+    text = open(NATIVE_CRT).read()
+    return [(int(a, 16), k, t, n.split()) for a, k, t, n in
+            re.findall(r'N\((0x[0-9a-f]+|0), (\w+), (\w+), "([^"]*)"\)', text)]
+
+
+def cmd_crt(a):
+    """Check native_crt_table.h against the Wine build's host_crt_table.h and resolve every target on this host:
+    libc targets by linking a reference to each, glue and math targets in crt_posix.cpp's object."""
+    import tempfile
+    wine = [(int(x, 16), t, n.split()) for x, t, n in
+            re.findall(r'C\((0x[0-9a-f]+|0), (\w+), "([^"]*)"\)', open(WINE_CRT).read())]
+    rows = native_crt_rows()
+    by_addr = {r[0]: r for r in rows if r[0]}
+    names = {n: r for r in rows for n in r[3]}
+    problems = []
+    for addr, t, ns in wine:
+        if addr and addr not in by_addr:
+            problems.append("no native row for 0x%08x (%s)" % (addr, t))
+        for n in ns:
+            if n not in names:
+                problems.append("no native row names %s" % n)
+    kinds = collections.Counter(r[1] for r in rows)
+    tmp = tempfile.mkdtemp(prefix="ncrt")
+    libc = sorted({r[2] for r in rows if r[1] == "libc"})
+    ref = os.path.join(tmp, "ref.c")
+    with open(ref, "w") as f:
+        f.write("".join("extern char %s;\n" % t for t in libc))
+        f.write("void* volatile hulk_refs[] = {%s};\nint main(void) { return 0; }\n" % ", ".join("&" + t for t in libc))
+    r = subprocess.run(["xcrun", "clang", "-w", "-fno-builtin", ref, "-o", os.path.join(tmp, "ref")],
+                       capture_output=True, text=True)
+    if r.returncode:
+        problems += ["libc: " + l for l in r.stderr.splitlines() if '"_' in l]
+    srcs = CRT_GLUE + ([SOFTX87] if os.path.exists(SOFTX87) else [])
+    objs = []
+    for src in srcs:
+        o = os.path.join(tmp, os.path.basename(src) + ".o")
+        r = subprocess.run(["xcrun", "clang++", "-std=c++17", "-O1", "-c", src, "-o", o], capture_output=True, text=True)
+        if r.returncode:
+            problems.append("compile %s: %s" % (src, r.stderr[-500:]))
+        objs.append(o)
+    defined = set()
+    for o, (d, _u) in nm_macho([o for o in objs if os.path.exists(o)]).items():
+        defined |= d
+    for _a, k, t, _n in rows:
+        if k in ("glue", "math") and t not in defined:
+            problems.append("%s target %s not defined by %s" % (k, t, ", ".join(os.path.basename(s) for s in srcs)))
+    print("native CRT table: %d rows (%s); Wine table rows %d, all covered: %s; soft-intrinsics math: %s" % (
+        len(rows), ", ".join("%s %d" % kv for kv in sorted(kinds.items())), len(wine), not any(
+            p.startswith("no native") for p in problems), "yes" if os.path.exists(SOFTX87) else "no (host libm)"))
+    for p in problems:
+        print("  " + p)
+    return 1 if problems else 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -516,6 +579,7 @@ def main(argv=None):
     c.add_argument("--no-data", action="store_true")
     sub.add_parser("report")
     sub.add_parser("sites")
+    sub.add_parser("crt", help="check src/platform/sdl/crt/native_crt_table.h and resolve its targets on this host")
     lk = sub.add_parser("link")
     lk.add_argument("--bindings", default=os.path.join(ROOT, "build/native/bindings.json"))
     lk.add_argument("--ld", action="store_true", help="also try ld64 with every unbound symbol stubbed")
@@ -527,6 +591,8 @@ def main(argv=None):
         return cmd_compile(a)
     if a.cmd == "report":
         return cmd_report(a)
+    if a.cmd == "crt":
+        return cmd_crt(a)
     if a.cmd == "sites":
         return cmd_sites(a)
     if a.cmd == "link":

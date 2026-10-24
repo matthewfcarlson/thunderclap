@@ -121,3 +121,34 @@ stacks with a guard page), files (the five dispositions, read/write with OVERLAP
 (nanoseconds), GetLocalTime and VirtualAlloc. Not linked into an image yet. `tests/native_host/host_test.cpp`
 exercises all of it (command line in the file): passes on arm64 macOS at -O1/-O2 and under ASan+UBSan, and as x86-64
 under Rosetta.
+
+**Entry point.** `src/platform/sdl/host/entry_posix.cpp` is the native builds' `main` (macOS, Linux), in place of
+`startup.cpp`: the start-up trace (`HULK_TRACE_FILE`, the same line formats), the game's dynamic initializers in the
+XBE's order from the table the native link will write (`hulk_game_initializers[]`, as startup.s), the replay start-up
+hook and the atexit list (weak no-op defaults until the image has them), the game's main; a crash report on an
+alternate signal stack (registers, frame-pointer chain, dladdr symbols), `hulk_native_missing` for the link's stubs,
+and `HULK_HANG=N` (every thread's pc and frames from Mach thread states on macOS). The FPU is set to round to
+nearest with denormals kept (the game's x87 word 0x027f has no other effect off x87). Not mapped, on purpose: the XBE
+window (arm64 macOS has no address space below 4 GB for it). Open for the link: the tree objects' own C++ initializers
+go to `__mod_init_func` on Mach-O, which dyld runs before `main`; the Wine build only counts clang's `.CRT$XCU`
+entries, so the native link has to drop them (the XBE's table constructs those globals).
+`tests/native_host/entry_test.sh` runs a stand-in game through the four endings (return, missing symbol, crash,
+hang): passes on arm64, and as x86-64 under Rosetta.
+
+**C runtime.** `src/platform/sdl/crt/native_crt_table.h` says what each row of the Wine build's `HULK_HOST_CRT`
+(every library function the game reaches by XBE address or by name) and the rest of `compat/crt.h` become on the
+native builds: 67 rows go to the host's libc as they are, 31 to glue, 28 math rows to soft-intrinsics' x87 routines
+(`softx87.h`: the 13 functions it provides and their float variants; host libm with `-DHULK_NO_SOFT_X87`), 5 wait for
+the ABI decision (RTTI: `__RTDynamicCast`, `__RTtypeid`, `type_info`; the MS exception tables) and 11 are x86 compiler
+helpers (`_allmul`, `_chkstk`, ...) that 64-bit code never calls. The glue (`src/platform/sdl/host/crt_posix.cpp`):
+`_snprintf` / `_vsnprintf` (no NUL when full, -1 on truncation), `rand` / `srand` (the C runtime's LCG, seed 1 per
+thread: replays hash its sequences), per-thread `strtok`, 16-bit `wcslen`, `strtol` / `strtoul` / `labs` at the game's
+32-bit `long`, `_strlwr`, `_isnan`, `_ftol`, `_errno`, the zero-filling malloc, the stdio proxy for the game's `_iob`
+and the `D:\` / `T:\` / `U:\` / `Z:\` path mapping, atexit, the /GS cookie, `_purecall` / `terminate` /
+`_CxxThrowException` reports, and `_setjmp3` / `longjmp` in assembly (AArch64, x86-64) for the game's 64-byte jmp_buf
+(the callee-saved state lives in a per-thread table keyed by the buffer address). `tools/native_mac.py crt` checks
+the table against the Wine one (every address row and tree name covered) and resolves every target on the host (libc
+by linking a reference to each, glue and math in the glue's object); `tests/native_host/crt_test.cpp` tests the glue
+(arm64 at -O1/-O2 and ASan+UBSan, x86-64 under Rosetta, with and without softx87). Known differences left: `qsort` is
+the host's (the order of equal elements can differ from the Xbox CRT's), and on x86-64 System V the game's `char*`
+va_list (Windows-style IR) does not match the host's `va_list` for the v*printf glue (arm64 macOS: both are `char*`).
