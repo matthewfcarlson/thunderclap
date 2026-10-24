@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20092 inputs, branch coverage 90/90)
+// STATUS: equivalent (tools/equiv.py level 3: 3148 inputs, branch coverage 90/90; Wine build 3115 inputs, 88/90)
 // FUN_0003d350 @ 0x0003d350
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
@@ -160,10 +160,13 @@ void Fighter_3d350::Update(Arg1_3d350 *a1, float a2)
                     hitV.z = hitPos.z - c2.z;
                     double L = hitV.FUN_0022d110();
                     double sc = L - 0.1f;
-                    hitV.x = hitV.x * sc;
-                    hitV.y = hitV.y * sc;
-                    hitV.z = hitV.z * sc;
-                    hitV.x = hitV.x + c2.x;
+                    // x87: the x product stays in st(0) for the add; y and z go through their rounded frame copies
+                    hulk_freg hx = hitV.x * sc;
+                    volatile float hy = hitV.y * sc;
+                    volatile float hz = hitV.z * sc;
+                    hitV.y = hy;
+                    hitV.z = hz;
+                    hitV.x = hx + c2.x;
                     hitV.y = hitV.y + c2.y;
                     hitV.z = hitV.z + c2.z;
                 } else {
