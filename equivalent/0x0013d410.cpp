@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19980 inputs, branch coverage 52/52)
+// STATUS: equivalent (tools/equiv.py level 3: 3254 inputs, branch coverage 52/52; Wine build 700 inputs, 52/52)
 // hulkfight::motion::AnimationAction::vfunc_3 @ 0x0013d410
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "compat/ptr.h"
@@ -40,15 +40,18 @@ struct Animation {
     char flag18;
 };
 
-class choreo2_Driver_13d410 {
+namespace choreo2 {
+class Driver {
 public:
     virtual void AddRef();
     virtual void Release();
     char pad04[4];
     Id64_13d410 id;            // 8
 };
+}
 
-class AnimationDriver_13d410 : public choreo2_Driver_13d410 {
+namespace choreo2 {
+class AnimationDriver : public choreo2::Driver {
 public:
     char pad10[0x10];
     Animation *anim;    // 0x20
@@ -62,12 +65,13 @@ public:
     char b235;
     char pad236[6];
     float f23c;
-    AnimationDriver_13d410 *FUN_00225950(void *rig, Animation *anim);
+    choreo2::AnimationDriver *FUN_00225950(void *rig, Animation *anim);
     void FUN_002224a0(int v);
     void FUN_00225e00(float t, V3_13d410 v);
     void FUN_00225cf0(float v);
     float FUN_00225b30();
 };
+}
 
 struct Rig_13d410 {
     int FUN_0027b670(unsigned int lo, unsigned int hi);
@@ -81,8 +85,8 @@ struct LayerSet_13d410 {
     Rig_13d410 **rigRef;
     unsigned int count;
     Rig_13d410 *FUN_002226b0();
-    choreo2_Driver_13d410 *FUN_00222e20(unsigned int index);
-    void FUN_00222890(AnimationDriver_13d410 *d, float r, float a, float b, float c, float e, float f);
+    choreo2::Driver *FUN_00222e20(unsigned int index);
+    void FUN_00222890(choreo2::AnimationDriver *d, float r, float a, float b, float c, float e, float f);
 };
 LayerSet_13d410 *__fastcall FUN_00059a40(Context *ctx);
 
@@ -141,7 +145,7 @@ public:
     char pad04[0x18];
     AnimData_13d410 *data;                  // 0x1c
     void *owner;                     // 0x20
-    AnimationDriver_13d410 *driver; // 0x24
+    choreo2::AnimationDriver *driver; // 0x24
 };
 
 bool AnimationAction::vfunc_3(int a, int b)
@@ -173,10 +177,10 @@ bool AnimationAction::vfunc_3(int a, int b)
     if (mode == 2 || (mode == 0 && anim->flag18)) {
         reuse = true;
         for (unsigned int i = 0; i < layers->count; i++) {
-            choreo2_Driver_13d410 *d = layers->FUN_00222e20(i);
+            choreo2::Driver *d = layers->FUN_00222e20(i);
             if (d->id.lo != lo || d->id.hi != hi)
                 continue;
-            AnimationDriver_13d410 *ad = dynamic_cast<AnimationDriver_13d410 *>(d);
+            choreo2::AnimationDriver *ad = dynamic_cast<choreo2::AnimationDriver *>(d);
             if (ad != 0 && ad->anim == anim) {
                 u.v = ad->f23c;
                 found = true;
@@ -188,7 +192,7 @@ bool AnimationAction::vfunc_3(int a, int b)
     }
 
     bool created;
-    AnimationDriver_13d410 *nd = (AnimationDriver_13d410 *)thunk_FUN_0008d690(0x240);
+    choreo2::AnimationDriver *nd = (choreo2::AnimationDriver *)thunk_FUN_0008d690(0x240);
     if (nd != 0)
         nd = nd->FUN_00225950(rig, anim);
     if (nd != 0)

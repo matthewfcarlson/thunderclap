@@ -85,6 +85,7 @@ OUT = os.environ.get("HULK_WINE_DIR") or os.path.join(ROOT, "build/native")
 CACHE = os.environ.get("HULK_WINE_CACHE") or os.path.join(ROOT, "build/native/cache")
 TREE = os.environ.get("HULK_TREE_DIR") or os.path.join(ROOT, "build/tree")
 REL32, DIR32 = 0x14, 0x06
+STRICT_CASTS = None     # --strict-casts [target|all] (HULK_WINE_STRICT_CASTS): no link with an unmapped dynamic_cast class
 ADDR_RX = re.compile(r"(?:^|[^0-9A-Za-z])(?:FUN|DAT|thunk_FUN|PTR|LAB|hulk_at|vtbl|rttiTD)_(00[0-9a-fA-F]{6})(?![0-9a-fA-F])")
 
 
@@ -882,6 +883,14 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
             vt_map[s] = (vt["labels"][a], 0)
             n_td += 1
     how["RTTI type descriptors pointed at the game's (by decorated name)"] += n_td
+    # div1: a dynamic_cast whose source or target class maps to no game descriptor fails silently natively (the
+    # objects' vftables are the game's, whose hierarchies name only the game's classes): a stub class glued to its
+    # namespace (`choreo2_AnimationDriver_13ab50` for choreo2::AnimationDriver, 81eb9d86f) made a frame condition
+    # never true and split the play3 replay at 4170. Listed in link/unmapped_casts.json; --strict-casts fails the link
+    n_cast, unmapped_casts = cast_descriptors(objs, vt_map, vt["names"])
+    how["dynamic_cast descriptor references"] += n_cast
+    for u in unmapped_casts:
+        how["dynamic_cast %s descriptors to no game descriptor (link/unmapped_casts.json)" % u["role"]] += 1
     vt_rebind = collections.defaultdict(dict)
     for o, (d_, u) in syms.items():
         for s in (d_ | u) & set(vt_map):
@@ -964,6 +973,19 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
            "interior_retargeted_objects": len(retarget),
            "undefined_after": {"symbols": len(after), "references": sum(refs[s] for s in after),
                                "groups": tally(after_g, after)}}
+    os.makedirs(os.path.join(OUT, "link"), exist_ok=True)
+    with open(os.path.join(OUT, "link", "unmapped_casts.json"), "w") as f:
+        json.dump(unmapped_casts, f, indent=1)
+    inv["unmapped_casts"] = unmapped_casts
+    for u in unmapped_casts:
+        print("wine_link: dynamic_cast %(role)s class maps to no game type descriptor: %(tu)s %(function)s "
+              "%(descriptor)s" % u,
+              file=sys.stderr)
+    bad = [u for u in unmapped_casts if STRICT_CASTS == "all" or (STRICT_CASTS and u["role"] != "source")]
+    if bad:
+        inv["lld_link"] = {"status": "--strict-casts: %d dynamic_cast descriptor(s) map to no game type descriptor "
+                                     "(link/unmapped_casts.json)" % len(bad)}
+        do_link = False
     if do_link:
         link_objs, data_objs = [], []
         # (jobq2: by TU, not by object path: the clang cache names embed the compiler's path, so path order differs per host)
@@ -1098,6 +1120,68 @@ ENTRY_HOOKS = [
      "no-fmv: the FMV render reads the movie's status as 0 (finished) and stops it (the hybrid's `xor eax, eax` "
      "for the call at 0x1b7d38): the hook takes that path itself", 8),
 ]
+
+
+def cast_descriptors(objs, vt_map, game_names):
+    """(references, [unmapped]): the RTTI type descriptors each clang function passes to __RTDynamicCast(ptr, vfdelta,
+    src, target, isref) that the link points at no game descriptor (not in vt_map, not a game name), with the source,
+    the function and the descriptor's role. The target is what the cast looks for in the object's hierarchy (the
+    game's, by decorated name): an unmapped target always fails. The source is unused by the Wine build's runtime
+    (msvcrt's __RTDynamicCast searches the hierarchy for the target only) but MSVC's own uses it for classes with
+    several bases, so the native builds' runtime may: listed too, as role "source"."""
+    n, out, seen = 0, [], set()
+    obj_tu = {o: p for p, o in objs.items()}
+    for o in sorted(obj_tu):
+        try:
+            c = compare.Coff(o)
+        except (OSError, struct.error, ValueError, IndexError):
+            continue
+        if not any("RTDynamicCast" in s[0] for s in c.symbols):
+            continue
+        for f in c.function_symbols():
+            rel = c.function_relocs(f)
+            if not any(r[1] and "RTDynamicCast" in r[1][0] for r in rel):
+                continue
+            code = c.function(f)[1]
+            pending = []        # the descriptors referenced since the previous call: (offset, name)
+            for off, s, _, _ in sorted(rel, key=lambda r: r[0]):
+                if not s:
+                    continue
+                if s[0].startswith("??_R0"):
+                    pending.append((off, s[0]))
+                    continue
+                if code[off - 1:off] != b"\xe8":
+                    continue
+                if "RTDynamicCast" not in s[0]:
+                    pending = []
+                    continue
+                roles = {}
+                for k, (o_, td) in enumerate(pending):
+                    if code[o_ - 4:o_ - 1] == b"\xc7\x44\x24":     # mov dword [esp+d8], imm32
+                        roles[o_] = {8: "source", 12: "target"}.get(code[o_ - 1], "?")
+                    elif code[o_ - 1:o_] == b"\x68":                # push imm32 (target pushed first)
+                        pushes = [x for x, _ in pending if code[x - 1:x] == b"\x68"]
+                        roles[o_] = "source" if o_ == pushes[-1] else "target" if len(pushes) > 1 and o_ == pushes[-2] else "?"
+                    else:
+                        # (-O0) `lea r32, [td]` or `mov r32, td`, then `mov [esp+d8], r32` before the call
+                        r = None
+                        if code[o_ - 2:o_ - 1] == b"\x8d" and code[o_ - 1] & 0xc7 == 0x05:
+                            r = (code[o_ - 1] >> 3) & 7
+                        elif 0xb8 <= code[o_ - 1] <= 0xbf:
+                            r = code[o_ - 1] - 0xb8
+                        m_ = re.search(re.escape(bytes([0x89, 0x44 | r << 3, 0x24])) + b"([\x08\x0c])",
+                                       code[o_ + 4:off], re.S) if r is not None else None
+                        roles[o_] = {8: "source", 12: "target"}[m_.group(1)[0]] if m_ else "?"
+                for o_, td in pending:
+                    n += 1
+                    if td in vt_map or td in game_names:
+                        continue
+                    u = (obj_tu[o], f[0], td, roles[o_])
+                    if u not in seen:
+                        seen.add(u)
+                        out.append({"tu": u[0], "function": u[1], "descriptor": u[2], "role": u[3]})
+                pending = []
+    return n, out
 
 
 def site_rebind(syms, binding, aliases, by_addr_def, defined, rebind):
@@ -1767,9 +1851,15 @@ def main(argv=None):
                          "build/g0/LINK.md, docs/graphics-backend.md G1)")
     ap.add_argument("--tree", help="the verification tree to bind from (default build/tree, or HULK_TREE_DIR): e.g. "
                     "build/clang-probe/snap, the snapshot tools/clang_probe.py compiled")
+    ap.add_argument("--strict-casts", nargs="?", const="target", choices=("target", "all"),
+                    help="fail the link when a dynamic_cast's target class maps to no game type descriptor (the cast "
+                         "returns null), or with `all` its source class too (link/unmapped_casts.json lists both "
+                         "either way); or HULK_WINE_STRICT_CASTS=target|all")
     a = ap.parse_args(argv)
-    global TREE, GFX, SDL_LIBS
+    global TREE, GFX, SDL_LIBS, STRICT_CASTS
     GFX = GFX or a.gfx
+    STRICT_CASTS = a.strict_casts or {"1": "target"}.get(os.environ.get("HULK_WINE_STRICT_CASTS", ""),
+                                                            os.environ.get("HULK_WINE_STRICT_CASTS") or None)
     refresh_platform_libs()          # play2: stale hulk_sdl / hulk_movies / hulk_fs libraries are rebuilt first
     SDL_LIBS = _sdl_libs()
     if a.tree:

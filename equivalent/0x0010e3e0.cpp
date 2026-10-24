@@ -1,12 +1,14 @@
-// STATUS: equivalent (tools/equiv.py level 3: 125 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 3247 inputs, branch coverage 30/30; Wine build 697 inputs, 30/30)
 // hulkfight::ai::InActiveCondition::vfunc_6 @ 0x0010e3e0
 #include "decls/address.h"
-class fight_Params_10e3e0 {
+namespace fight {
+class Params {
 public:
     virtual void vfunc_0();
 };
+}
 
-class CFightParams : public fight_Params_10e3e0 {
+class CFightParams : public fight::Params {
 public:
     virtual void vfunc_0();
 };
@@ -59,12 +61,12 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual char vfunc_6(int a, fight_Params_10e3e0 *params, int c);
+    virtual char vfunc_6(int a, fight::Params *params, int c);
     char pad04[0xc];
     char invert;
 };
 
-char InActiveCondition::vfunc_6(int a, fight_Params_10e3e0 *params, int c)
+char InActiveCondition::vfunc_6(int a, fight::Params *params, int c)
 {
     if (dynamic_cast<CFightParams *>(params) == 0)
         return 0;

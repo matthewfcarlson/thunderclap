@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19966 inputs, branch coverage 40/40)
+// STATUS: equivalent (tools/equiv.py level 3: 3290 inputs, branch coverage 37/40, incomplete; Wine build 745 inputs, 37/40)
 // hulkfight::motion::AnimationLinkedAction::vfunc_3 @ 0x0013e070
 // equiv-map: ?FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
@@ -36,26 +36,30 @@ struct Animation {
     Id64_13e070 id;
 };
 
-class choreo2_Driver_13e070 {
+namespace choreo2 {
+class Driver {
 public:
     virtual void AddRef();
     virtual void Release();
     char pad04[4];
     Id64_13e070 id;            // 8
 };
+}
 
-class AnimationDriver_13e070 : public choreo2_Driver_13e070 {
+namespace choreo2 {
+class AnimationDriver : public choreo2::Driver {
 public:
     char pad10[0x10];
     Animation *anim;    // 0x20
     char pad24[0x218];
     float value;        // 0x23c
-    AnimationDriver_13e070 *FUN_00225950(void *rig, Animation *anim);
+    choreo2::AnimationDriver *FUN_00225950(void *rig, Animation *anim);
     void FUN_002224a0(int v);
     void FUN_00225e00(float t, V3_13e070 v);
     void FUN_00225cf0(float v);
     float FUN_00225b30();
 };
+}
 
 struct Rig_13e070 {
     char pad0[0x34];
@@ -72,9 +76,9 @@ struct LayerSet_13e070 {
     Rig_13e070 **rigRef;
     unsigned int count;
     Rig_13e070 *FUN_002226b0();
-    choreo2_Driver_13e070 *FUN_00222e20(unsigned int index);
-    int FUN_00222bf0(choreo2_Driver_13e070 *d);
-    void FUN_00222890(AnimationDriver_13e070 *d, float r, float a, float b, float c, float e, float f);
+    choreo2::Driver *FUN_00222e20(unsigned int index);
+    int FUN_00222bf0(choreo2::Driver *d);
+    void FUN_00222890(choreo2::AnimationDriver *d, float r, float a, float b, float c, float e, float f);
 };
 LayerSet_13e070 *__fastcall FUN_00059a40(Context *ctx);
 
@@ -124,7 +128,7 @@ public:
     char pad04[0x18];
     AnimData_13e070 *data;                 // 0x1c
     void *owner;                    // 0x20
-    AnimationDriver_13e070 *driver; // 0x24
+    choreo2::AnimationDriver *driver; // 0x24
 };
 
 bool AnimationLinkedAction::vfunc_3(int a, int b)
@@ -153,13 +157,13 @@ bool AnimationLinkedAction::vfunc_3(int a, int b)
     float best = -1.0f;
     int bestKey = 0x7fffffff;
     for (unsigned int i = 0; i < layers->count; i++) {
-        choreo2_Driver_13e070 *d = layers->FUN_00222e20(i);
+        choreo2::Driver *d = layers->FUN_00222e20(i);
         if (d->id.lo != lo || d->id.hi != hi)
             continue;
         int key = layers->FUN_00222bf0(d);
         if (key > bestKey)
             continue;
-        AnimationDriver_13e070 *ad = dynamic_cast<AnimationDriver_13e070 *>(d);
+        choreo2::AnimationDriver *ad = dynamic_cast<choreo2::AnimationDriver *>(d);
         if (ad == 0 || ad->anim != anim)
             continue;
         float v = ad->value;
@@ -168,7 +172,7 @@ bool AnimationLinkedAction::vfunc_3(int a, int b)
             bestKey = key;
         }
     }
-    AnimationDriver_13e070 *nd = (AnimationDriver_13e070 *)FUN_0008d690(0x240);
+    choreo2::AnimationDriver *nd = (choreo2::AnimationDriver *)FUN_0008d690(0x240);
     if (nd != 0)
         nd = nd->FUN_00225950(rig, anim);
     if (nd != 0)

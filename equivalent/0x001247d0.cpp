@@ -1,14 +1,16 @@
-// STATUS: equivalent (tools/equiv.py level 3: 111 inputs, branch coverage 27/28, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3294 inputs, branch coverage 27/28, incomplete; Wine build 689 inputs, 27/28)
 // hulkfight::ai::CanSeeTargetCondition::vfunc_6 @ 0x001247d0
 #include "decls/address.h"
 struct V3_1247d0 { float x, y, z; };
 
-class fight_Params_1247d0 {
+namespace fight {
+class Params {
 public:
     virtual void vfunc_0();
 };
+}
 
-class CFightParams : public fight_Params_1247d0 {
+class CFightParams : public fight::Params {
 public:
     virtual void vfunc_0();
 };
@@ -72,13 +74,13 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual char vfunc_6(int a, fight_Params_1247d0* params, int c);
+    virtual char vfunc_6(int a, fight::Params* params, int c);
     char pad04[8];
     char expected;
     char flag;
 };
 
-char CanSeeTargetCondition::vfunc_6(int a, fight_Params_1247d0* params, int c)
+char CanSeeTargetCondition::vfunc_6(int a, fight::Params* params, int c)
 {
     if (dynamic_cast<CFightParams*>(params) == 0)
         return 0;

@@ -1,15 +1,17 @@
-// STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 3206 inputs, branch coverage 18/18; Wine build 679 inputs, 18/18)
 // hulkfight::ai::TargetVelocityCondition::vfunc_6 @ 0x00125ce0
 extern "C" double __cdecl sqrt(double);
 
 struct Vec3_125ce0 { float x, y, z; };
 
-class fight_Params_125ce0 {
+namespace fight {
+class Params {
 public:
     virtual void vfunc_0();
 };
+}
 
-class CFightParams : public fight_Params_125ce0 {
+class CFightParams : public fight::Params {
 public:
     virtual void vfunc_0();
 };
@@ -37,13 +39,13 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual char vfunc_6(int a, fight_Params_125ce0 *params, int c);
+    virtual char vfunc_6(int a, fight::Params *params, int c);
     char pad04[8];
     int mode;
     float threshold;
 };
 
-char TargetVelocityCondition::vfunc_6(int a, fight_Params_125ce0 *params, int c)
+char TargetVelocityCondition::vfunc_6(int a, fight::Params *params, int c)
 {
     if (dynamic_cast<CFightParams *>(params) == 0)
         return 0;

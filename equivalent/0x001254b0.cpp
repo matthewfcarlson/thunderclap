@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 137 inputs, branch coverage 29/32, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3239 inputs, branch coverage 32/32; Wine build 740 inputs, 32/32)
 // hulkfight::ai::ProjectileDistanceCondition::vfunc_6 @ 0x001254b0
 extern "C" double sqrt(double);
 
@@ -43,13 +43,15 @@ struct Holder_1254b0 {
     Fighter_1254b0 *FUN_00059a30();
 };
 
-class fightParams {
+namespace fight {
+class Params {
 public:
     virtual void v0();
     Holder_1254b0 *FUN_000592a0();
 };
+}
 
-class CFightParams : public fightParams {
+class CFightParams : public fight::Params {
 public:
     virtual void v1();
 };
@@ -64,7 +66,7 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual bool vfunc_6(int a, fightParams *params, int b);
+    virtual bool vfunc_6(int a, fight::Params *params, int b);
     char pad04[0x0c - 4];
     int op;             // 0x0c
     float threshold;    // 0x10
@@ -72,7 +74,7 @@ public:
     char skipNonBody;   // 0x15
 };
 
-bool ProjectileDistanceCondition::vfunc_6(int a, fightParams *params, int b)
+bool ProjectileDistanceCondition::vfunc_6(int a, fight::Params *params, int b)
 {
     if (dynamic_cast<CFightParams *>(params) == 0)
         return false;

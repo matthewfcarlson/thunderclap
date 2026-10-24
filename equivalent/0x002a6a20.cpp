@@ -1,27 +1,33 @@
-// STATUS: equivalent (tools/equiv.py level 3: 60 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 3128 inputs, branch coverage 22/22; Wine build 611 inputs, 22/22)
 // FUN_002a6a20 @ 0x002a6a20
 #include "compat/ptr.h"
-class pure3d_PrimGroup {
+namespace pure3d {
+class PrimGroup {
 public:
     virtual void vfunc_0();
 };
+}
 
-class pure3d_PrimGroupSkinnedStreamed : public pure3d_PrimGroup {
+namespace pure3d {
+class PrimGroupSkinnedStreamed : public pure3d::PrimGroup {
 public:
     virtual void vfunc_0();
     char pad04[0x58];
     int streamHandle;
 };
+}
 
-class pure3d_PrimGroupSkinnedPC : public pure3d_PrimGroup {
+namespace pure3d {
+class PrimGroupSkinnedPC : public pure3d::PrimGroup {
 public:
     virtual void vfunc_0();
     char pad04[0x64];
     int geometryHandle;
 };
+}
 
 struct Entry_2a6a20 {
-    pure3d_PrimGroup *group;
+    pure3d::PrimGroup *group;
     int pad[3];
 };
 
@@ -67,7 +73,7 @@ void ProceduralVertexAnimController_2a6a20::FUN_002a6a20(Source_2a6a20 *src)
     items = (RefCounted_2a6a20 **)FUN_0008d6d0(count * 4);
     for (unsigned int i = 0; i < count; i++) {
         items[i] = 0;
-        pure3d_PrimGroupSkinnedPC *pc = dynamic_cast<pure3d_PrimGroupSkinnedPC *>(source->begin[i].group);
+        pure3d::PrimGroupSkinnedPC *pc = dynamic_cast<pure3d::PrimGroupSkinnedPC *>(source->begin[i].group);
         RefCounted_2a6a20 *res;
         RefCounted_2a6a20 **slot;
         if (pc != 0) {
@@ -77,7 +83,7 @@ void ProceduralVertexAnimController_2a6a20::FUN_002a6a20(Source_2a6a20 *src)
             else
                 res = 0;
         } else {
-            pure3d_PrimGroupSkinnedStreamed *st = dynamic_cast<pure3d_PrimGroupSkinnedStreamed *>(source->begin[i].group);
+            pure3d::PrimGroupSkinnedStreamed *st = dynamic_cast<pure3d::PrimGroupSkinnedStreamed *>(source->begin[i].group);
             if (st == 0)
                 continue;
             VertexList_2a6a20 *mem = (VertexList_2a6a20 *)FUN_0008d690(0x5c);
