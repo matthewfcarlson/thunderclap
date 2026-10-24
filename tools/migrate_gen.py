@@ -154,7 +154,15 @@ def transform(g, path, target):
     addr = int(re.search(r"0x([0-9a-fA-F]{8})\.cpp$", path).group(1), 16)
     suf = "_%x" % addr
     raw = open(path, encoding="latin1", newline="").read()
-    if not m:
+    if not m and target in getattr(g, "ctor_owner", {}):
+        # gen-ctor: a constructor the header declares (gen_headers "ctors", tools/rn_members.py --ctors)
+        C, params = g.ctor_owner[target]
+        rule = "gen-ctor"
+        keep = ({t for k, t in load_pins().values() if k == "var"}
+                if re.search(r'#\s*include\s*"decls/address\.h"', raw) else ())
+        text, _, _sig = gh.swap_transform(g, path, target, rename=tok_rename, stub_suffix=suf,
+                                          nv=(C, target, ("ctor", params, ""), None, True), keep=keep)
+    elif not m:
         # gen-nv (batch b9): a non-virtual member the header declares (gen_headers "members", tools/rn_members.py)
         C, ret, params, quals = g.nv_owner[target]
         rule = "gen-nv"
@@ -241,7 +249,8 @@ def skip_reason(text, target, g, names_on_equiv=True):
     if re.search(r"^\s*#", DECLS_INCLUDE.sub("", text), re.M):
         return "preprocessor lines"
     m = VFUNC.match(target or "")
-    if (not m or m.group(1) not in g.by_csv) and target not in getattr(g, "nv_owner", {}):
+    if (not m or m.group(1) not in g.by_csv) and target not in getattr(g, "nv_owner", {}) \
+            and target not in getattr(g, "ctor_owner", {}):
         return "target is not an RTTI class's vfunc_N"
     return None
 
@@ -541,7 +550,7 @@ def main(argv=None):
     ap.add_argument("--only", nargs="*", help="limit to these source paths")
     ap.add_argument("--family", choices=("gen", "pin", "ns", "rn"), default="gen",
                     help="gen: gen-swap + clone-template (default); pin: pin-decl; ns: rtti-ns; rn: a --batch file")
-    ap.add_argument("--rule", choices=("gen-swap", "clone-template", "gen-dtor", "gen-nv", "pin-decl", "rtti-ns", "clone-ns",
+    ap.add_argument("--rule", choices=("gen-swap", "clone-template", "gen-dtor", "gen-nv", "gen-ctor", "pin-decl", "rtti-ns", "clone-ns",
                                        "unclash", "gen-ref", "gen-base", "relabel"),
                     action="append")
     ap.add_argument("--batch", help="rn family: the batch file (tools/rn_plan.py --batches)")

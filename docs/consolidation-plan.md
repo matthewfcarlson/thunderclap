@@ -417,3 +417,26 @@ and 0x30f490 again (3 better, 0 worse; same final state and image on 8 and 4 slo
 (`tools/rn_fields.py`; b9 gains only 3 candidates from them, 508 own-stub members still wait on fields), 7 more b9
 members, 10 gen-family rewrites the fields allow and 1 own-stub pointer field (`hulk_intptr`): 18 sources, 8 better,
 0 worse against the fixed HEAD build, strict link and play3 checkpoints identical.
+
+**Round 3 (x64-4): constructors.** About 900 own-stub `FUN_` sources define a constructor out of line. Their header
+form is `X::X(P...) { body }` against a declaration in the header class (`include/gen/evidence-rn.json` "ctors",
+`tools/rn_members.py --ctors`, migrate_gen rule `gen-ctor`), with the direct base's default constructor declared
+out of line (evidence "base_ctors": the source's stub base declares it without a body, so the game calls it). A
+class that gets declared constructors also gets a declared default constructor, so classes derived from it keep
+their implicit ones; the layout probe defines the declared constructors in its own TU (else the vftables are not
+emitted there) and reads sizes from `sizeof`.
+- Planned 238 (refused: 1,043 "can't tell" (not one out-of-line constructor), 234 member initializers, 160 base
+  arguments, 198 header fields missing, 43 a stub base whose constructor is inline or implicit). Verified 105/206
+  matches and 19/32 equivalents; refine 118. **Not applied**: the tree build (job 18697 against 17346, mac2) kept
+  22,340/22,340 matches and identical play3 checkpoints, but the strict link's unbound symbols rose 1,330 -> 1,438.
+  A constructor defined on the header class makes its TU emit the header class's vftable, and that vftable names
+  the header's `~X` and `vfunc_N` symbols, which no tree source defines under those names: the hand-written `??_G`
+  slots stay on their stubs (b10). These constructors can move once the vftable slots bind by address (wine_link)
+  or the destructor slots are on the headers. The tooling stays: gen_headers "ctors" / "base_ctors", migrate_gen
+  `gen-ctor`, `rn_members.py --ctors`, and the probe fixes.
+- **The other half is blocked like b10**: every DIFF (101 of 206) is an EH frame (`push -1; push $ehhandler; mov
+  eax, fs:[0]`) the game doesn't have. With the header's base class, which has a virtual destructor, MSVC 7.1 /GX
+  protects the constructor body against a throw from any call that may throw, including virtual calls declared
+  `throw()`; only nothrow free functions (`extern "C"`, `throw()`) avoid it (toys in x64-4's scratch). The stubs
+  match because they give the base no destructor. So a constructor body that calls a member or virtual function
+  cannot move onto the headers as a byte match; call-free bodies can.

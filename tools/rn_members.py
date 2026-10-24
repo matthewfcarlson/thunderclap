@@ -68,13 +68,13 @@ def candidates(g, rmap, exclude):
     return out
 
 
-def plan_one(g, item):
+def plan_one(g, item, ctors=False):
     src, addr, target, stubs = item
     why = None
     for stub, C in stubs:
         try:
             _text, _sym, sig = gh.swap_transform(g, os.path.join(ROOT, src), target, rename=mg.tok_rename,
-                                                 stub_suffix="_%x" % addr, nv=(C, target, None, stub))
+                                                 stub_suffix="_%x" % addr, nv=(C, target, None, stub, ctors))
             return src, target, C, sig, None
         except gh.SwapFail as e:
             why = str(e)
@@ -109,6 +109,8 @@ def main(argv=None):
     ap.add_argument("--keep", help="with --apply: write only the members of the sources listed in this file")
     ap.add_argument("--plan", help="with --keep: an existing plan file instead of planning again")
     ap.add_argument("--apply", action="store_true", help="write the declarations to include/gen/evidence-rn.json")
+    ap.add_argument("--ctors", action="store_true", help="constructors instead of members: evidence-rn.json "
+                    "\"ctors\" (the class's) and \"base_ctors\" (its direct base's out-of-line default constructor)")
     ap.add_argument("--replace", action="store_true", help="with --apply: drop the members already in evidence-rn.json")
     ap.add_argument("--jobs", type=int, default=2)
     a = ap.parse_args(argv)
@@ -122,7 +124,7 @@ def main(argv=None):
         rmap = json.load(open(a.map))["entries"]
         todo = candidates(g, rmap, exclude)
         with ThreadPoolExecutor(a.jobs) as ex:
-            res = list(ex.map(lambda it: plan_one(g, it), todo))
+            res = list(ex.map(lambda it: plan_one(g, it, a.ctors), todo))
         ok = [(s, t, C, sig) for s, t, C, sig, why in res if sig]
         hits = gen_mentions({t for _s, t, _C, _sig in ok})
         plan = {"members": [], "refused": collections.Counter()}
@@ -133,14 +135,39 @@ def main(argv=None):
             if hits.get(t):
                 plan["refused"]["an include/gen/ source names it"] += 1
                 continue
-            plan["members"].append({"source": s, "class": gh.csv_name(C.name), "name": t, "sig": list(sig)})
+            m = {"source": s, "class": gh.csv_name(C.name), "name": t, "sig": list(sig)}
+            if a.ctors:
+                if C.bases:
+                    if C.bases[0][1] != 0 or C.bases[0][0].unit.template:
+                        plan["refused"]["primary base not at offset 0 or a template"] += 1
+                        continue
+                    m["base"] = gh.csv_name(C.bases[0][0].name)
+            plan["members"].append(m)
         plan["looked_at"] = len(todo)
         os.makedirs(os.path.dirname(a.out), exist_ok=True)
         json.dump(plan, open(a.out, "w"), indent=1)
         for why, n in plan["refused"].most_common(30):
             print("  %5d  %s" % (n, why))
         print("%d sources looked at, %d members planned (%s)" % (len(todo), len(plan["members"]), a.out))
-    if a.apply:
+    if a.apply and a.ctors:
+        keep = {l.split()[-1] for l in open(a.keep) if l.strip()} if a.keep else None
+        ev = json.load(open(EVIDENCE))
+        cs = {} if a.replace else {k: v for k, v in ev.get("ctors", {}).items()}
+        bs = {} if a.replace else {k: v for k, v in ev.get("base_ctors", {}).items()}
+        cs.setdefault("_comment", "constructors defined out of line by sources (tools/rn_members.py --ctors): class -> "
+                                  "{FUN name: params}")
+        bs.setdefault("_comment", "classes whose default constructor the game calls out of line from a derived class's "
+                                  "constructor (tools/rn_members.py --ctors)")
+        for m in plan["members"]:
+            if keep is None or m["source"] in keep:
+                cs.setdefault(m["class"], {})[m["name"]] = m["sig"][1]
+                if m.get("base"):
+                    bs[m["base"]] = "called by %s" % m["name"]
+        ev["ctors"], ev["base_ctors"] = cs, bs
+        json.dump(ev, open(EVIDENCE, "w"), indent=1)
+        print("wrote %d constructors, %d base constructors" % (sum(len(v) for k, v in cs.items() if not k.startswith("_")),
+                                                              len([k for k in bs if not k.startswith("_")])))
+    elif a.apply:
         keep = {l.split()[-1] for l in open(a.keep) if l.strip()} if a.keep else None
         ev = json.load(open(EVIDENCE))
         ms = {"_comment": "non-virtual member declarations (tools/rn_members.py, batch b9): class -> {name: [ret, "

@@ -202,6 +202,11 @@ compiled still matched: the generated layouts never changed codegen. The failure
   `include/gen/evidence-rn.json` "members", `tools/rn_members.py`, batch b9; types: scalars kept,
   a pointer to the class itself as `X*`, other pointers `void*`). Callers keep declaring the members
   they call on a local helper struct (`((X_nv_<addr>*)this)->f()`), which compiles to the same code.
+- **Constructors** (none applied yet): the generator can declare the ones a source defines out of line
+  (`X(P...); // constructor`, evidence-rn.json "ctors", plus a default constructor) and a base's default
+  constructor that the game calls out of line ("base_ctors"). Bodies that make calls get an EH frame on the headers
+  (because of the base's virtual destructor) that the game lacks. Call-free ones byte-match, but defining them makes
+  the header vftables appear in the tree with unbound slot symbols (docs/consolidation-plan.md section 9, round 3).
 - **Pointers in integer fields**: a 4-byte field that sources read as a pointer
   (`*(T**)&p->f_20`, `tools/ptr_fields.py`) is `hulk_intptr` / `hulk_uintptr` (`tools/rn_ptrfields.py`,
   evidence-rn.json "ptr_fields"): `int` / `unsigned int` on the 32-bit builds, pointer-sized on the

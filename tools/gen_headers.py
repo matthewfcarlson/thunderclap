@@ -668,6 +668,40 @@ class Gen:
             for nm, (ret, params, quals) in sorted(ms.items()):
                 self.nv_members.setdefault(c.unit.uid, []).append((nm, ret, list(params), quals))
                 self.nv_owner[nm] = (c, ret, list(params), quals)
+        # evidence-rn.json "ctors" (tools/rn_members.py --ctors): constructors defined out of line by the sources
+        # ({"Class": {"FUN_x": [params]}}) and "base_ctors" ({"Class": "out-of-line default constructor"}): a base
+        # whose constructor the game calls (its derived classes' constructors call it rather than inline it)
+        self.nv_ctors = {}          # unit uid -> sorted parameter lists
+        self.ctor_owner = {}        # FUN name -> (Cls, params)
+        rnd = json.load(open(rn)) if os.path.exists(rn) else {}
+        for cname, ms in rnd.get("ctors", {}).items():
+            if cname.startswith("_"):
+                continue
+            c = self.by_csv.get(cname) or self.by_name.get(cname)
+            if c is None or c.unit.template or not c.has_layout:
+                self.report["evidence_dropped"].append("ctors for %s: not a plain class with a layout" % cname)
+                continue
+            for nm, params in sorted(ms.items()):
+                self.ctor_owner[nm] = (c, list(params))
+                sigs = self.nv_ctors.setdefault(c.unit.uid, [])
+                if list(params) not in sigs:
+                    sigs.append(list(params))
+        for cname in rnd.get("base_ctors", {}):
+            if cname.startswith("_"):
+                continue
+            c = self.by_csv.get(cname) or self.by_name.get(cname)
+            if c is None or c.unit.template or not c.has_layout:
+                self.report["evidence_dropped"].append("base_ctors for %s: not a plain class with a layout" % cname)
+                continue
+            sigs = self.nv_ctors.setdefault(c.unit.uid, [])
+            if [] not in sigs:
+                sigs.append([])
+        for sigs in self.nv_ctors.values():
+            # a class with declared constructors has no implicit default one: declare it too (out of line, like the
+            # others), so classes derived from it keep their implicit constructors
+            if [] not in sigs:
+                sigs.append([])
+            sigs.sort()
         # tools/rn_fields.py (batch b7): fields the stubs agree on, already in the header text
         if os.path.exists(rn):
             for uname, fl in json.load(open(rn))["fields"].items():
@@ -808,6 +842,10 @@ class Gen:
             if ret == "float":
                 ret = "hulk_freg"   # the original returns st0 unrounded (include/compat/ptr.h: float under MSVC, double elsewhere)
             lines.append("    virtual %s %s(%s)%s // %s" % (ret, nm, ", ".join(params), tail, where))
+        # constructors (out-of-line, defined by sources or called by derived classes' constructors): plain classes
+        if not unit.template:
+            for params in getattr(self, "nv_ctors", {}).get(unit.uid, ()):
+                lines.append("    %s(%s); // constructor" % (cls_short, ", ".join(params)))
         # non-virtual members (b9): plain classes only
         if not unit.template:
             for nm, ret, params, quals in getattr(self, "nv_members", {}).get(unit.uid, ()):
@@ -1005,6 +1043,8 @@ class Gen:
                                              for k, impl in self.full_vt_info(c, off)] for off in c.vtables},
                         "bases": [[b.name, m, p, v, a] for b, m, p, v, a in c.all_bases],
                     }
+                    if not u.template and getattr(self, "nv_ctors", {}).get(u.uid):
+                        index[c.name]["ctors"] = self.nv_ctors[u.uid]
         with open(os.path.join(out_dir, "_prelude.h"), "w") as f:
             f.write('#include "compat/ptr.h"\n' + BANNER + PRELUDE)   # hulk_freg (float virtual returns)
         with open(os.path.join(out_dir, "all.h"), "w") as f:
@@ -1213,6 +1253,11 @@ def probe(headers=None, keep=None, verbose=False):
             continue
         lines = ['#include <gen/%s.h>' % h, "void* operator new(unsigned int);"]
         for k, (n, e) in enumerate(classes):
+            # declared (out-of-line) constructors: defined here, so the class's vftable lands in this object
+            for params in e.get("ctors", ()):
+                lines.append("%s::%s(%s) {}" % (e["cpp"], re.sub(r"^.*::", "", e["cpp"]), ", ".join(params)))
+            if not e["abstract"]:
+                lines.append("unsigned probe_sz_%d() { return sizeof(%s); }" % (k, e["cpp"]))
             lines.append("void* probe_%d() { return new %s; }" % (k, e["cpp"]) if not e["abstract"] else
                          "struct Probe_%d : %s { Probe_%d(); }; Probe_%d::Probe_%d() {}" % (k, e["cpp"], k, k, k))
         src = "lay_%s.cpp" % h
@@ -1304,11 +1349,13 @@ def check_layout(coff, classes, index):
             bad.append("no RTTI base array emitted")
         # sizeof: `new X` pushes the size before calling operator new
         if not e["abstract"]:
-            fs = syms.get("?probe_%d@@YAPAXXZ" % k)
+            # (`unsigned probe_sz_K() { return sizeof(X); }`: `mov eax, N`; with an out-of-line constructor `new X`
+            # sets up an EH frame first, so its first push is not the size)
+            fs = syms.get("?probe_sz_%d@@YAIXZ" % k)
             if fs is not None:
                 _, raw, _ = coff.sections[fs[2] - 1]
-                push = next((i for i in md.disasm(raw[fs[1]:fs[1] + 64], 0) if i.mnemonic == "push" and i.op_str[:1].isdigit()), None)
-                got = int(push.op_str, 0) if push else None
+                mov = next((i for i in md.disasm(raw[fs[1]:fs[1] + 16], 0) if i.mnemonic == "mov" and i.op_str.startswith("eax, ")), None)
+                got = int(mov.op_str[5:], 0) if mov else None
                 if got != e["size"]:
                     bad.append("sizeof %s, generator expected %s" % (got, e["size"]))
                 else:
@@ -1700,6 +1747,35 @@ def nv_signature(fn, sname, cshort):
     return ret, params, quals
 
 
+def ctor_base_check(fn, records, sid, by_rname=None):
+    """A source's constructor the header form can express: no member initializers, at most a default base
+    initializer (`: Base()`), and the stub's base (if any) declares a default constructor without a body (the game
+    calls it out of line). Raises SwapFail."""
+    for c in fn.get("inner", []):
+        if c.get("kind") == "CXXCtorInitializer":
+            if "baseInit" not in c:
+                raise SwapFail("constructor has member initializers")
+            ce = _unwrap((c.get("inner") or [{}])[0])
+            if ce.get("kind") not in ("CXXConstructExpr",) or ce.get("inner"):
+                raise SwapFail("constructor passes arguments to its base")
+    S = records[sid]
+    bases = S.get("bases") or []
+    if len(bases) > 1:
+        raise SwapFail("stub class has several bases")
+    if not bases:
+        return None
+    bn = _clean_qt(bases[0]["type"]["qualType"]).replace("class ", "").replace("struct ", "")
+    brec = [r for r in records.values() if r["name"] == bn.split("::")[-1]]
+    if len(brec) != 1:
+        raise SwapFail("stub base %s not a plain class" % bn)
+    ctors = [c for c in brec[0].get("inner", []) if c.get("kind") == "CXXConstructorDecl" and not c.get("isImplicit")]
+    if not ctors or any(any(x.get("kind") == "CompoundStmt" for x in c.get("inner", [])) for c in ctors):
+        raise SwapFail("the stub base's constructor is implicit or inline")
+    if not any(not [x for x in c.get("inner", []) if x.get("kind") == "ParmVarDecl"] for c in ctors):
+        raise SwapFail("the stub base has no default constructor")
+    return bn
+
+
 def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub", nv=None, keep=()):
     """Rewrite match file `path` (target `fname` = Owner::vfunc_N) to use include/gen instead of its
     stub for the owner class. Returns (new source, mangled-name substring of the target).
@@ -1713,8 +1789,10 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub", nv=No
     (nv_signature) and returned as a third value (tools/rn_members.py plans the declarations that way).
     keep: stub names never renamed for a collision (the pinned types of include/decls/address.h the source includes:
     its `struct World {...}` completes the pinned `World`)."""
+    nv_ctor = False
     if nv is not None:
-        C, hname, nv_sig, nv_stub = nv
+        C, hname, nv_sig, nv_stub = nv[:4]
+        nv_ctor = len(nv) > 4 and nv[4]
         key = None
         if C.unit.template:
             raise SwapFail("non-virtual member of a template class")
@@ -1767,7 +1845,7 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub", nv=No
                 rec = n["id"]
             else:
                 fwds.append((n, ns))
-        if k == "CXXMethodDecl" and n.get("parentDeclContextId") and not n.get("isImplicit"):
+        if k in ("CXXMethodDecl", "CXXConstructorDecl") and n.get("parentDeclContextId") and not n.get("isImplicit"):
             outdefs.append(n)
         for c in n.get("inner", []):
             if k == "CXXRecordDecl" and c.get("kind") == "CXXRecordDecl" and c.get("isImplicit"):
@@ -1775,13 +1853,14 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub", nv=No
             walk(c, ns, rec)
     walk(ast, [], None)
     # target definition (same rule as mining)
-    defs = [(d, d["parentDeclContextId"]) for d in outdefs if any(c.get("kind") == "CompoundStmt" for c in d.get("inner", []))]
+    defs = [(d, d["parentDeclContextId"]) for d in outdefs if any(c.get("kind") == "CompoundStmt" for c in d.get("inner", []))
+            and (d["kind"] == "CXXMethodDecl" or nv_ctor)]
     inl = [(c, rid) for mid, (rid, c) in methods.items() if c.get("kind") == "CXXMethodDecl"
            and any(x.get("kind") == "CompoundStmt" and x.get("inner") for x in c.get("inner", []))]
     if nv is not None:
         # the target is the only out-of-line member definition (inline members of the stub go with it; a call to one
         # is refused below)
-        cand = defs if len(defs) == 1 else []
+        cand = defs if len(defs) == 1 and (defs[0][0]["kind"] == "CXXConstructorDecl") == nv_ctor else []
         if len(cand) != 1:
             raise SwapFail("can't tell which definition is the target")
         if cand[0][0].get("virtual") or any(m.get("virtual") for _r, m in methods.values()
@@ -1806,6 +1885,9 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub", nv=No
         if nv_stub is not None and sname != nv_stub:
             raise SwapFail("the member's class %s is not the stub %s" % (sname, nv_stub))
         sig = nv_signature(fn, sname, C.short)
+        if nv_ctor:
+            sig = ("ctor", sig[1], "")
+            ctor_base_check(fn, records, sid, by_rname=None)
         if nv_sig is not None and (nv_sig[0], list(nv_sig[1]), nv_sig[2]) != sig:
             raise SwapFail("the member's signature %s differs from the header's %s" % (sig, nv_sig))
         nv_sig = sig
@@ -1858,6 +1940,8 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub", nv=No
     edits = []  # (pos, order, end, text)
     nv_used = set()
     hret, hparams = g.signature(key) if nv is None else (nv_sig[0], nv_sig[1])
+    if nv_ctor:
+        hret = "void"
 
     def need_layout():
         nonlocal layout
@@ -1981,6 +2065,8 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub", nv=No
         # a pointer to the class itself: outside the class scope the return type needs the qualified name
         hret_def = re.sub(r"^(const )?%s\*$" % re.escape(C.short), r"\1__Self*", hret)
     head = "%s%s __Self::%s(%s)" % ("template <> " if C.targs is not None else "", hret_def, hname, ", ".join(plist))
+    if nv_ctor:
+        head = "__Self::%s(%s)" % (C.short, ", ".join(plist))
     if nv is not None and nv_sig[2]:
         head += " " + nv_sig[2]
     # file-level edits: drop S's definition (-> __Self_nv), forward decls, its out-of-line members
