@@ -22,6 +22,6 @@ class Timer {
     unsigned int numerator;
 };
 hulk_freg Timer::vfunc_13() {
-    return (float)numerator / (float)denominator;
+    return (hulk_freg)numerator / (hulk_freg)denominator;     // x87: both fild, unrounded
 }
 } // namespace core

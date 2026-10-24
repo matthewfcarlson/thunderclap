@@ -28,7 +28,7 @@ class PlayerBink {
 };
 hulk_freg PlayerBink::vfunc_14() {
     if (info)
-        return (float)info->width / (float)info->height;
+        return (hulk_freg)info->width / (hulk_freg)info->height;     // x87: both fild, unrounded
     return 0.0f;
 }
 } // namespace movie

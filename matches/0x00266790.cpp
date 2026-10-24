@@ -21,8 +21,12 @@ hulk_freg Obj_266790::run() {
     case 3:
         return 1.0f;
     case 2:
-        if (sub)
-            return (float)(unsigned int)sub->f() / (float)(unsigned int)sub->g();
+        if (sub) {
+            // x87: the original stores f() as a float (rounded) and divides it by g() unrounded. A float local, not a
+            // cast: clang's x87 code leaves `(float)` of an unsigned unrounded in the register
+            float n = (float)(unsigned int)sub->f();
+            return n / (hulk_freg)(unsigned int)sub->g();
+        }
         return 0.0f;
     default:
         return 0.0f;

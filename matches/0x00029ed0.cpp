@@ -15,5 +15,5 @@ hulk_freg Holder::Read(int id) {
     Obj* p = Get(key);
     if (!p)
         return 0.0f;
-    return (float)p->value;
+    return (hulk_freg)p->value;     // x87: fild of the unsigned value, returned unrounded
 }

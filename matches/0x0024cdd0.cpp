@@ -14,7 +14,7 @@ hulk_freg FUN_0024cdd0(float* a, float* b) {
         return gOne_24cdd0;
     if (d >= b[16])
         return gZero_24cdd0;
-    float r = (float)pow(b[17], (d - b[15]) / (b[16] - b[15]));
+    hulk_freg r = pow(b[17], (d - b[15]) / (b[16] - b[15]));     // x87: the original returns __CIpow's st0 unrounded
     _ReadWriteBarrier();
     return r;
 }
