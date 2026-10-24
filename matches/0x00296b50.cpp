@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 #include "compat/ptr.h"
 extern "C" char DAT_0042d1ec[];
 extern "C" char DAT_0042d28c[];
@@ -7,20 +9,17 @@ class Ref_296b50 {
     virtual void f();
     virtual void Release() throw();
 };
-class DrawableNode {
-  public:
-    char pad[0x18];
-    Ref_296b50* member;
-    void Cleanup();
+struct DrawableNode_nv_296b50 {
     void Finish();
 };
-void DrawableNode::Cleanup() {
+
+void pure3d::scenegraph::DrawableNode::FUN_00296b50() {
     *(void**)this = (void*)((hulk_intptr)DAT_0042d28c);
     _ReadWriteBarrier();
-    if (member) {
-        member->Release();
-        member = 0;
+    if ((*(Ref_296b50 * *)&this->f_18)) {
+        (*(Ref_296b50 * *)&this->f_18)->Release();
+        (*(Ref_296b50 * *)&this->f_18) = 0;
     }
     *(void**)this = (void*)((hulk_intptr)DAT_0042d1ec);
-    Finish();
+    ((DrawableNode_nv_296b50*)this)->Finish();
 }

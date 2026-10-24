@@ -1,4 +1,6 @@
 // FUN_001fcab0 @ 0x001fcab0
+#include "gen/global.h"
+
 struct Vec3_1fcab0 {
     float x, y, z;
 };
@@ -8,13 +10,12 @@ struct Actor_1fcab0 {
     Vec3_1fcab0 b;
     void FUN_001fbb80(Vec3_1fcab0 *a, Vec3_1fcab0 *b, float angle);
 };
-struct ThisWrap_001fcab0 {
+struct CTriggerVolumeManager_nv_1fcab0 {
     Actor_1fcab0 * FUN_001fc7f0(int id);
-    bool FUN_001fcab0(int id, float degrees);
 };
 
-bool ThisWrap_001fcab0::FUN_001fcab0(int id, float degrees) {
-    Actor_1fcab0 *actor = this->FUN_001fc7f0(id);
+bool CTriggerVolumeManager::FUN_001fcab0(int id, float degrees) {
+    Actor_1fcab0 *actor = ((CTriggerVolumeManager_nv_1fcab0*)(this))->FUN_001fc7f0(id);
     if (actor == 0)
         return false;
     Vec3_1fcab0 a = actor->a;

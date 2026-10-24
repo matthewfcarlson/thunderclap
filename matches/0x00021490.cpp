@@ -1,4 +1,6 @@
 // Same code shape as 0x0001ecb0 (propagated; names are from that function)
+#include "gen/global.h"
+
 extern char vftableD[];
 extern char vftableA[];
 
@@ -12,27 +14,18 @@ struct Tidier {
     void Tidy();
 };
 
-class CHeliDeathSpiralAction_21490 {
-  public:
-    char pad[0x1c];
-    RefObj_21490* volatile mA; // 0x1c
-    char pad2[4];        // 0x20
-    RefObj_21490* volatile mB; // 0x24
-    void Shutdown();
-};
-
-void CHeliDeathSpiralAction_21490::Shutdown() {
+void CHeliDeathSpiralAction::FUN_00021490() {
     *(void* volatile*)this = (void*)vftableD;
-    RefObj_21490* b = mB;
+    RefObj_21490* b = (*(RefObj_21490 *volatile *)&this->f_24);
     if (b) {
         b->Release();
-        mB = 0;
+        (*(RefObj_21490 *volatile *)&this->f_24) = 0;
     }
     *(void* volatile*)this = (void*)vftableA;
-    RefObj_21490* a = mA;
+    RefObj_21490* a = (*(RefObj_21490 *volatile *)&this->f_1c);
     if (a) {
         a->Release();
-        mA = 0;
+        (*(RefObj_21490 *volatile *)&this->f_1c) = 0;
     }
     ((Tidier*)this)->Tidy();
 }

@@ -1,11 +1,8 @@
-extern "C" int __cdecl FUN_00344e74(void*, void*, void*, void*, void*);
+#include "gen/fight.h"
+
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 namespace fight {
-class TrackFactoryCaster {
-  public:
-    virtual int vfunc_0(void*);
-    virtual void vfunc_1();
-};
-template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster {
+class TrackFactoryCaster_1376e0 {
   public:
     virtual int vfunc_0(void*);
     virtual void vfunc_1();
@@ -13,11 +10,12 @@ template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster 
 } // namespace fight
 namespace hulkfight {
 namespace motion {
-class AirToGroundTargetTrack {};
+class AirToGroundTargetTrack_1376e0 {};
 } // namespace motion
 } // namespace hulkfight
-extern char data1, data2;
-template <>
-int fight::TrackFactoryCasterTemplate<hulkfight::motion::AirToGroundTargetTrack>::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &data1, &data2, 0) != 0;
+extern char DAT_0049850c;
+extern char DAT_004abc58;
+template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::AirToGroundTargetTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004abc58, 0) != 0;
 }

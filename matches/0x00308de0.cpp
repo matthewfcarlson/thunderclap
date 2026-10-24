@@ -1,9 +1,11 @@
 // Same code shape as 0x00034ad0 (propagated; names are from that function)
-struct SymMatrix_308de0 {
+#include "gen/physics.h"
+
+struct SymMatrix_nv_308de0 {
     void Call();
-    SymMatrix_308de0* Target();
 };
-SymMatrix_308de0* SymMatrix_308de0::Target() {
-    Call();
-    return this;
+
+physics::SymMatrix* physics::SymMatrix::FUN_00308de0() {
+    ((SymMatrix_nv_308de0*)this)->Call();
+    return (SymMatrix*)(this);
 }

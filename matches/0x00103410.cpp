@@ -1,21 +1,18 @@
 // Same code shape as 0x000ff240 (propagated; names are from that function)
+#include "gen/global.h"
+
 struct Thing_103410 {
     virtual void f0();
     virtual void f1();
 };
 extern void* handvtable;
-class COccupationAgent_103410 {
-  public:
-    virtual void V0();
-    virtual void V1();
-    char pad[0x58];
-    Thing_103410* mThing;
-    void go();
+struct COccupationAgent_nv_103410 {
     void cleanup();
 };
-void COccupationAgent_103410::go() {
+
+void COccupationAgent::FUN_00103410() {
     *(void**)this = &handvtable;
-    mThing->f1();
-    mThing = 0;
-    cleanup();
+    (*(Thing_103410 * *)&this->f_5c)->f1();
+    (*(Thing_103410 * *)&this->f_5c) = 0;
+    ((COccupationAgent_nv_103410*)this)->cleanup();
 }

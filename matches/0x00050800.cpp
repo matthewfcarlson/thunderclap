@@ -1,17 +1,16 @@
+#include "gen/fight.h"
+
 extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern int DAT_00491ca8, DAT_004924a0;
+extern char DAT_00491ca8;
+extern char DAT_004924a0;
 namespace fight {
-class ConditionFactoryCaster {
-  public:
-    virtual bool vfunc_0(void*);
-    virtual void vfunc_1();
-};
-class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
+class ConditionFactoryCaster_50800 {
   public:
     virtual bool vfunc_0(void*);
     virtual void vfunc_1();
 };
 } // namespace fight
-bool fight::ConditionFactoryCasterTemplate::vfunc_0(void* p) {
+template <> bool fight::ConditionFactoryCasterTemplate<CCharacterSizeCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
     return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004924a0, 0) != 0;
 }

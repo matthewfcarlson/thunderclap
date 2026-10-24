@@ -1,10 +1,5 @@
-class CScenarioManager_1ccc80 {
-  public:
-    char pad[0x11ac];
-    int mValue;
-    int GetValue();
-};
+#include "gen/global.h"
 
-int CScenarioManager_1ccc80::GetValue() {
-    return mValue;
+int CScenarioManager::FUN_001ccc80() {
+    return this->f_11ac;
 }

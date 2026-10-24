@@ -57,6 +57,8 @@ public:
     virtual bool vfunc_11(int, int, int, int); // overrides choreo2::Driver slot 11
     virtual bool vfunc_12(int, int); // overrides choreo2::Driver slot 12
     virtual unsigned char vfunc_13(); // overrides choreo2::Driver slot 13
+    void FUN_00225000(); // non-virtual
+    void FUN_00225030(void*); // non-virtual
     void* f_14;
     int f_18;
     int f_1c;
@@ -163,6 +165,7 @@ public:
     virtual ~Puppet(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(); // overrides pure3d::Entity slot 3
     virtual void* vfunc_5(); // slot 5
+    Puppet* FUN_00222620(void*); // non-virtual
     char _pad_10[0x58];
     int f_68;
 };
@@ -177,6 +180,7 @@ public:
     virtual void vfunc_10(int, int, int, int); // overrides choreo2::Driver slot 10
     virtual bool vfunc_11(int, int, int, int); // overrides choreo2::Driver slot 11
     virtual unsigned char vfunc_13(); // overrides choreo2::Driver slot 13
+    RestPoseDriver* FUN_0022a5d0(void*); // non-virtual
     void* f_14;
     int f_18;
     int f_1c;

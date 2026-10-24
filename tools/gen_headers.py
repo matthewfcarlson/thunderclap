@@ -651,8 +651,24 @@ class Gen:
             u = c.unit if c else self.unit_by_uid.get(uname)
             for off, t in fl.items():
                 u.fields[off] = t
-        # tools/rn_fields.py (batch b7): fields the stubs agree on, already in the header text
+        # include/gen/evidence-rn.json "members" (batch b9, tools/rn_members.py): non-virtual member functions, from
+        # the sources that define them ({"Class": {"FUN_x": [ret, [params], "const" or ""]}}). RTTI lists no
+        # non-virtual members; each one is named after its address and declared with the defining source's
+        # signature (scalars kept, pointers to other classes as void*). Declarations change no layout.
+        self.nv_members = {}        # unit uid -> [(name, ret, params, quals)]
+        self.nv_owner = {}          # member name -> (Cls, ret, params, quals)
         rn = os.path.join(OUT_DIR, "evidence-rn.json")
+        for cname, ms in (json.load(open(rn)).get("members", {}) if os.path.exists(rn) else {}).items():
+            if cname.startswith("_"):
+                continue
+            c = self.by_csv.get(cname) or self.by_name.get(cname)
+            if c is None or c.unit.template or not c.has_layout:
+                self.report["evidence_dropped"].append("members for %s: not a plain class with a layout" % cname)
+                continue
+            for nm, (ret, params, quals) in sorted(ms.items()):
+                self.nv_members.setdefault(c.unit.uid, []).append((nm, ret, list(params), quals))
+                self.nv_owner[nm] = (c, ret, list(params), quals)
+        # tools/rn_fields.py (batch b7): fields the stubs agree on, already in the header text
         if os.path.exists(rn):
             for uname, fl in json.load(open(rn))["fields"].items():
                 c = self.by_csv.get(uname) or self.by_name.get(uname)
@@ -661,6 +677,21 @@ class Gen:
                     continue
                 for off, t in fl.items():
                     c.unit.fields[int(off, 16)] = t
+        # include/gen/evidence-rn.json "ptr_fields" (tools/rn_ptrfields.py, from tools/ptr_fields.py's scan): 4-byte
+        # integer fields that sources read as pointers (`*(T**)&p->f_20`) become hulk_intptr / hulk_uintptr
+        # (include/compat/ptr.h: int / unsigned int on the 32-bit builds, so their code is unchanged; pointer-sized
+        # on the 64-bit ones). {unit uid: {offset: "pointer pun"}}
+        if os.path.exists(rn):
+            for uid, offs in json.load(open(rn)).get("ptr_fields", {}).items():
+                if uid.startswith("_"):
+                    continue
+                u = self.unit_by_uid.get(uid)
+                for off in offs:
+                    t = u.fields.get(int(off, 16)) if u else None
+                    if t in ("int", "unsigned int"):
+                        u.fields[int(off, 16)] = "hulk_intptr" if t == "int" else "hulk_uintptr"
+                    else:
+                        self.report["evidence_dropped"].append("ptr_fields %s +%s: field is %s" % (uid, off, t))
         # overlapping fields: keep the earlier one
         for u in self.units.values():
             end = -1
@@ -777,6 +808,10 @@ class Gen:
             if ret == "float":
                 ret = "hulk_freg"   # the original returns st0 unrounded (include/compat/ptr.h: float under MSVC, double elsewhere)
             lines.append("    virtual %s %s(%s)%s // %s" % (ret, nm, ", ".join(params), tail, where))
+        # non-virtual members (b9): plain classes only
+        if not unit.template:
+            for nm, ret, params, quals in getattr(self, "nv_members", {}).get(unit.uid, ()):
+                lines.append("    %s %s(%s)%s; // non-virtual" % (ret, nm, ", ".join(params), " " + quals if quals else ""))
         # fields
         flines = []
         cur = self.own_start(c)
@@ -1389,6 +1424,8 @@ def map_type(qt):
 
 
 def _slot_detail(key, fn):
+    if key is None:
+        return None
     return (tuple(key), fn["type"]["qualType"],
             [_clean_qt(c["type"]["qualType"]) for c in fn.get("inner", []) if c.get("kind") == "ParmVarDecl"])
 
@@ -1607,19 +1644,88 @@ def _re_rename(text, old, new):
     return re.sub(r"\b%s\b" % re.escape(old), new, text)
 
 
-def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
+def nv_sig_type(qt, sname, cshort, ret=False):
+    """Header type for a non-virtual member's parameter or return type (batch b9), from the defining source's type
+    (clang's desugared spelling): scalars and pointers to scalars kept, enums as int, a pointer to the source's own
+    stub as a pointer to the header class, other pointers and references as void*; None: not expressible (a class
+    by value, an array, a member or function pointer)."""
+    t = re.sub(r"\s+", " ", _clean_qt(qt).replace("volatile ", "")).strip()
+    if "(" in t or "[" in t or "::*" in t:
+        return None
+    if re.match(r"^(?:const )?hulk_(?:freg|intptr|uintptr|longptr|ulongptr)$", t):
+        return re.sub(r"^const ", "", t)        # include/compat/ptr.h (the headers' prelude includes it)
+    v = re.sub(r"^const ", "", t)
+    if v in PRIMS:
+        return v
+    if v.startswith("enum "):
+        return "int"
+    m = re.match(r"^(const )?(?:struct |class |union )?([\w:]+) ?([*&])$", t)
+    if m:
+        base = m.group(2)
+        if base in PRIMS or base in ("signed", "unsigned"):
+            return re.sub(r"\s*\*$", "*", t) if m.group(3) == "*" else None
+        if base == sname and m.group(3) == "*":
+            return "%s%s*" % (m.group(1) or "", cshort)
+        return "void*"
+    if re.match(r"^(?:const )?[\w: ]+\*(?: ?(?:const )?\*)+$", t):
+        return "void*"
+    return None
+
+
+def nv_signature(fn, sname, cshort):
+    """(ret, [params], quals) of a stub's non-virtual member definition `fn` (clang AST) as the header declares it,
+    or raises SwapFail."""
+    qt = fn["type"]["qualType"]
+    if "thiscall" not in qt:
+        raise SwapFail("member is static or not __thiscall")
+    if re.search(r"stdcall|cdecl|fastcall|\.\.\.", qt):
+        raise SwapFail("member has another calling convention or is variadic")
+    rt = split_fn_type(qt)
+    if rt is None:
+        raise SwapFail("can't read the member's type")
+    ret = "void" if rt.strip() == "void" else nv_sig_type(rt, sname, cshort, True)
+    if ret is None:
+        raise SwapFail("member returns %s" % rt)
+    params = []
+    for c in fn.get("inner", []):
+        if c.get("kind") == "ParmVarDecl":
+            t = c["type"]["qualType"]
+            if not re.match(r"^(?:const )?hulk_\w+$", _clean_qt(t)):
+                t = c["type"].get("desugaredQualType", t)
+            h = nv_sig_type(t, sname, cshort)
+            if h is None:
+                raise SwapFail("member parameter %s" % _clean_qt(c["type"]["qualType"]))
+            params.append(h)
+    quals = "const" if re.search(r"\)\s*const\s*(?:__attribute__\(\(thiscall\)\))?\s*$", qt) else ""
+    return ret, params, quals
+
+
+def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub", nv=None, keep=()):
     """Rewrite match file `path` (target `fname` = Owner::vfunc_N) to use include/gen instead of its
     stub for the owner class. Returns (new source, mangled-name substring of the target).
 
     rename(text, old, new) renames identifiers (default: a regex, which also hits comments; tools/migrate_gen.py
-    passes a token-level one); stub_suffix is appended to other stubs whose names collide with generated ones."""
-    m = re.match(r"(.*)::vfunc_(\d+)$", fname)
-    C = g.by_csv[m.group(1)]
-    slot = int(m.group(2))
-    key = g.resolve(C, 0, slot)
-    hname = g.name_of(key)
-    if hname == "~":
-        raise SwapFail("target is a destructor slot")
+    passes a token-level one); stub_suffix is appended to other stubs whose names collide with generated ones.
+
+    nv = (C, member name, header signature or None, stub name or None) (batch b9): the target is a non-virtual member
+    of the plain class C (header declaration `R FUN_x(P...)`, gen_headers' "members" evidence), defined in the source
+    as the only out-of-line member definition of its stub; with signature None it is computed from the source
+    (nv_signature) and returned as a third value (tools/rn_members.py plans the declarations that way).
+    keep: stub names never renamed for a collision (the pinned types of include/decls/address.h the source includes:
+    its `struct World {...}` completes the pinned `World`)."""
+    if nv is not None:
+        C, hname, nv_sig, nv_stub = nv
+        key = None
+        if C.unit.template:
+            raise SwapFail("non-virtual member of a template class")
+    else:
+        m = re.match(r"(.*)::vfunc_(\d+)$", fname)
+        C = g.by_csv[m.group(1)]
+        slot = int(m.group(2))
+        key = g.resolve(C, 0, slot)
+        hname = g.name_of(key)
+        if hname == "~":
+            raise SwapFail("target is a destructor slot")
     raw = open(path, "rb").read().decode("latin1")
     ast = clang_ast(path, includes=True)
     if ast is None:
@@ -1672,9 +1778,19 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
     defs = [(d, d["parentDeclContextId"]) for d in outdefs if any(c.get("kind") == "CompoundStmt" for c in d.get("inner", []))]
     inl = [(c, rid) for mid, (rid, c) in methods.items() if c.get("kind") == "CXXMethodDecl"
            and any(x.get("kind") == "CompoundStmt" and x.get("inner") for x in c.get("inner", []))]
-    cand = defs if len(defs) == 1 else [d for d in defs + inl if d[0].get("name") == "vfunc_%d" % slot]
-    if len(cand) != 1:
-        cand = inl if (not defs and len(inl) == 1) else []
+    if nv is not None:
+        # the target is the only out-of-line member definition (inline members of the stub go with it; a call to one
+        # is refused below)
+        cand = defs if len(defs) == 1 else []
+        if len(cand) != 1:
+            raise SwapFail("can't tell which definition is the target")
+        if cand[0][0].get("virtual") or any(m.get("virtual") for _r, m in methods.values()
+                                             if m.get("name") == cand[0][0].get("name") and _r == cand[0][1]):
+            raise SwapFail("the member is virtual")
+    else:
+        cand = defs if len(defs) == 1 else [d for d in defs + inl if d[0].get("name") == "vfunc_%d" % slot]
+        if len(cand) != 1:
+            cand = inl if (not defs and len(inl) == 1) else []
     if len(cand) != 1:
         raise SwapFail("can't tell which definition is the target")
     fn, sid = cand[0]
@@ -1686,6 +1802,13 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
         raise SwapFail("target's class is not a plain stub class")
     S = records[sid]
     sname = S["name"]
+    if nv is not None:
+        if nv_stub is not None and sname != nv_stub:
+            raise SwapFail("the member's class %s is not the stub %s" % (sname, nv_stub))
+        sig = nv_signature(fn, sname, C.short)
+        if nv_sig is not None and (nv_sig[0], list(nv_sig[1]), nv_sig[2]) != sig:
+            raise SwapFail("the member's signature %s differs from the header's %s" % (sig, nv_sig))
+        nv_sig = sig
     # single-inheritance chain of stub records, root first
     by_rname = {}
     for rid, rn in records.items():
@@ -1734,7 +1857,7 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
     layout = None
     edits = []  # (pos, order, end, text)
     nv_used = set()
-    hret, hparams = g.signature(key)
+    hret, hparams = g.signature(key) if nv is None else (nv_sig[0], nv_sig[1])
 
     def need_layout():
         nonlocal layout
@@ -1764,7 +1887,9 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
                 off = hit[0]
                 if off not in hf:
                     raise SwapFail("field +0x%x not in header" % off)
-                same = fqt.strip() in PRIMS and map_type(fqt) == hf[off]
+                # (a header hulk_intptr / hulk_uintptr field, tools/rn_ptrfields.py, is the stub's int / unsigned int)
+                same = fqt.strip() in PRIMS and {"hulk_intptr": "int", "hulk_uintptr": "unsigned int"}.get(
+                    hf[off], hf[off]) == map_type(fqt)
                 hfn = "f_%02x" % off
                 if same:
                     if implicit:
@@ -1805,7 +1930,12 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
                             edits.append((bb, (1, depth), bb, "((__Self_nv*)&("))
                             edits.append((be, (0, -depth), be, "))"))
                             edits.append((dot, (2, 0), dot + 1, "->"))
-        if k == "ReturnStmt" and n.get("inner") and hret != split_fn_type(fn["type"]["qualType"]):
+        rx = _unwrap(n["inner"][0]) if k == "ReturnStmt" and n.get("inner") else {}
+        if hret == "bool" and ((rx.get("kind") == "BinaryOperator" and rx.get("opcode") in
+                                ("==", "!=", "<", ">", "<=", ">=", "&&", "||"))
+                               or (rx.get("kind") == "UnaryOperator" and rx.get("opcode") == "!")):
+            pass        # already a bool: `(bool)(x != 0)` compiles to other code than `x != 0` (MSVC 7.1)
+        elif k == "ReturnStmt" and n.get("inner") and hret != split_fn_type(fn["type"]["qualType"]):
             if hret == "void":
                 raise SwapFail("header slot returns void, stub returns a value", _slot_detail(key, fn))
             eb, ee = _rng(n["inner"][0])
@@ -1821,7 +1951,7 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
     plist, prologue = [], []
     for i, (pn, ht) in enumerate(zip(params, hparams)):
         qt, nm = _clean_qt(pn["type"]["qualType"]), pn.get("name")
-        if qt.strip() == ht:
+        if qt.strip() == ht or (nv is not None and re.sub(r"\s+", "", qt) == re.sub(r"\s+", "", ht)):
             plist.append("%s %s" % (ht, nm or ""))
             continue
         if (qt in ("float", "double")) != (ht in ("float", "double")):
@@ -1846,7 +1976,13 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
     btxt = "".join(out)
     if prologue:
         btxt = "{ " + " ".join(prologue) + "\n" + btxt[1:]
-    head = "%s%s __Self::%s(%s)" % ("template <> " if C.targs is not None else "", hret, hname, ", ".join(plist))
+    hret_def = hret
+    if nv is not None:
+        # a pointer to the class itself: outside the class scope the return type needs the qualified name
+        hret_def = re.sub(r"^(const )?%s\*$" % re.escape(C.short), r"\1__Self*", hret)
+    head = "%s%s __Self::%s(%s)" % ("template <> " if C.targs is not None else "", hret_def, hname, ", ".join(plist))
+    if nv is not None and nv_sig[2]:
+        head += " " + nv_sig[2]
     # file-level edits: drop S's definition (-> __Self_nv), forward decls, its out-of-line members
     cuts = []
     sb, se = _rng(tmpl_node.get(sid, S))
@@ -1883,13 +2019,15 @@ def swap_transform(g, path, fname, rename=_re_rename, stub_suffix="_stub"):
     taken |= {n for u in g.units.values() for n in u.ns}
     for rid, rn in list(records.items()) + [(n["id"], n) for n, _ in fwds]:
         nm = rn["name"]
-        if rid != sid and nm != sname and nm in taken:
+        if rid != sid and nm != sname and nm in taken and nm not in keep:
             rest = rename(rest, nm, nm + stub_suffix)
             btxt = rename(btxt, nm, nm + stub_suffix)
     sns = nsof.get(sid, [])
     text = ("#include <gen/all.h>\ntypedef %s __Self;\n" % g.cpp_name(C) + rest + "\n"
             + "".join("using namespace %s;\n" % "::".join(sns[:i + 1]) for i in range(len(sns)))
             + head + " " + btxt + "\n")
+    if nv is not None:
+        return text, "?%s@" % hname, nv_sig
     return text, "?%s@" % hname
 
 

@@ -1,19 +1,17 @@
-class CInactivityTimerCondition {};
-extern "C" int __cdecl FUN_00344e74(void*, void*, void*, void*, void*);
+#include "gen/fight.h"
+
+class CInactivityTimerCondition_50f00 {};
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 namespace fight {
-class ConditionFactoryCaster {
-  public:
-    virtual bool vfunc_0(void*);
-    virtual void vfunc_1();
-};
-template <class T> class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
+class ConditionFactoryCaster_50f00 {
   public:
     virtual bool vfunc_0(void*);
     virtual void vfunc_1();
 };
 } // namespace fight
-extern void* DAT_00491ca8;
-extern void* DAT_00493710;
-template <> bool fight::ConditionFactoryCasterTemplate<CInactivityTimerCondition>::vfunc_0(void* p) {
+extern char DAT_00491ca8;
+extern char DAT_00493710;
+template <> bool fight::ConditionFactoryCasterTemplate<CInactivityTimerCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
     return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_00493710, 0) != 0;
 }

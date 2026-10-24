@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 #include "compat/ptr.h"
 class Ref_15d460 {
   public:
@@ -8,21 +10,20 @@ extern int vtable_15d460;
 struct Action_15d460 {
     void InitBase();
 };
-struct LocomotionStrafeAction : Action_15d460 {
-    char pad[0x1c];
-    Ref_15d460* mRef;
-    int mOther;
-    LocomotionStrafeAction* Init(Ref_15d460*);
+struct LocomotionStrafeAction_nv_15d460 {
+    void InitBase();
 };
-LocomotionStrafeAction* LocomotionStrafeAction::Init(Ref_15d460* p) {
-    InitBase();
+
+hulkfight::motion::LocomotionStrafeAction* hulkfight::motion::LocomotionStrafeAction::FUN_0015d460(void* __p0) { Ref_15d460 * p = (Ref_15d460 *)__p0;
+
+    ((LocomotionStrafeAction_nv_15d460*)this)->InitBase();
     *(hulk_intptr*)this = (hulk_intptr)&vtable_15d460;
-    mRef = 0;
-    mOther = 0;
+    (*(Ref_15d460 * *)&this->f_1c) = 0;
+    (*(int *)&this->f_20) = 0;
     if (p)
         p->A();
-    if (mRef)
-        mRef->B();
-    mRef = p;
-    return this;
+    if ((*(Ref_15d460 * *)&this->f_1c))
+        (*(Ref_15d460 * *)&this->f_1c)->B();
+    (*(Ref_15d460 * *)&this->f_1c) = p;
+    return (hulkfight::motion::LocomotionStrafeAction*)(this);
 }

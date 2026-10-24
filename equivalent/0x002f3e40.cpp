@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 27/28, incomplete)
 // FUN_002f3e40 @ 0x002f3e40
+#include "gen/physics.h"
+
 struct Vec3_2f3e40 {
     float x, y, z;
     float FUN_0022d110();
@@ -29,16 +31,9 @@ struct Bounds_2f3e40 {
     Vec3_2f3e40 scale;
 };
 
-class CollisionMesh_2f3e40 {
-public:
-    char pad00[0x44];
-    Bounds_2f3e40 *bounds;
-    void Clip(ClipOut *out, const Segment_2f3e40 *seg);
-};
+void physics::CollisionMesh::FUN_002f3e40(void* __p0, void* __p1) { ClipOut * out = (ClipOut *)__p0; const Segment_2f3e40 * seg = (const Segment_2f3e40 *)__p1;
 
-void CollisionMesh_2f3e40::Clip(ClipOut *out, const Segment_2f3e40 *seg)
-{
-    Bounds_2f3e40 *bd = bounds;
+    Bounds_2f3e40 *bd = (*(Bounds_2f3e40 * *)&this->f_44);
     float tmin;
     double tmax;
     int axis;

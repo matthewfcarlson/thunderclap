@@ -1,4 +1,6 @@
-class Stream {
+#include "gen/fight.h"
+
+class Stream_23c1f0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -6,24 +8,19 @@ class Stream {
     virtual void v3();
     virtual void Read(void*, int);
 };
-class BinReader_23c1f0 {
-    char pad[8];
-    Stream* stream;
-    unsigned char a, b, c;
-
-  public:
-    void Run();
+struct BinReader_nv_23c1f0 {
     void Update();
 };
-void BinReader_23c1f0::Run() {
+
+void fight::BinReader::FUN_0023c1f0() {
     int x;
-    stream->Read(&x, 4);
+    (*(Stream_23c1f0 * *)&this->f_08)->Read(&x, 4);
     char y[4] = {0, 0, 0, 0};
-    stream->Read(y, 4);
+    (*(Stream_23c1f0 * *)&this->f_08)->Read(y, 4);
     signed char k = y[0];
-    a = k & 1;
+    this->f_0c = k & 1;
     int t = k;
-    b = ((unsigned int)t >> 1) & 1;
-    c = ((unsigned int)t >> 2) & 1;
-    Update();
+    (*(unsigned char *)&this->f_0d) = ((unsigned int)t >> 1) & 1;
+    (*(unsigned char *)&this->f_0e) = ((unsigned int)t >> 2) & 1;
+    ((BinReader_nv_23c1f0*)this)->Update();
 }

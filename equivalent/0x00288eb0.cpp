@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 17/18, incomplete)
 // FUN_00288eb0 @ 0x00288eb0
+#include "gen/pure3d.h"
+
 #include "compat/ptr.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" void *__cdecl memset(void *, int, unsigned int);
@@ -23,7 +25,7 @@ struct Alloc_288eb0 {
 };
 
 namespace pure3d {
-class AnimationGroup {
+class AnimationGroup_288eb0 {
 public:
     virtual void v0();
     char pad4[4];
@@ -32,7 +34,7 @@ public:
     unsigned int f14;
     int *f18;
     Alloc_288eb0 *f1c;
-    AnimationGroup() {
+    AnimationGroup_288eb0() {
         f10 = 0;
         f14 = 0;
         f18 = 0;
@@ -41,37 +43,30 @@ public:
 };
 }
 
-struct Stream {
+struct Stream_288eb0 {
     bool FUN_002647e0(void *dst, int a, int b, int c);
 };
 
-struct Reader {
+struct Reader_288eb0 {
     char pad0[0x280];
     int depth;
-    Stream *stream;
+    Stream_288eb0 *stream;
     bool FUN_002669f0();
     void FUN_00266a30();
     void FUN_00266be0();
 };
 
 struct Child_288eb0 {
-    void *FUN_0028b0b0(Reader *r, int ctx, Alloc_288eb0 *a);
+    void *FUN_0028b0b0(Reader_288eb0 *r, int ctx, Alloc_288eb0 *a);
 };
 
-class AnimationLoader_288eb0 {
-public:
-    char pad0[0x14];
-    Child_288eb0 *child;
-    pure3d::AnimationGroup *FUN_00288eb0(Reader *r, int ctx, Alloc_288eb0 *alloc);
-};
+void* pure3d::AnimationLoader::FUN_00288eb0(void* __p0, int ctx, void* __p2) { Reader_288eb0 * r = (Reader_288eb0 *)__p0; Alloc_288eb0 * alloc = (Alloc_288eb0 *)__p2;
 
-pure3d::AnimationGroup *AnimationLoader_288eb0::FUN_00288eb0(Reader *r, int ctx, Alloc_288eb0 *alloc)
-{
     struct Frame {
         char pad[3];
         unsigned char len;
         int v;
-        AnimationLoader_288eb0 *self; // the original spills `this` into the word after the value slot
+        pure3d::AnimationLoader *self; // the original spills `this` into the word after the value slot
         char name[0x100];
     } fr;
 
@@ -90,9 +85,9 @@ pure3d::AnimationGroup *AnimationLoader_288eb0::FUN_00288eb0(Reader *r, int ctx,
         mem = alloc->base18 + off;
         alloc->cur10 = off + 0x20;
     }
-    pure3d::AnimationGroup *obj = 0;
+    pure3d::AnimationGroup_288eb0 *obj = 0;
     if (mem)
-        obj = new (mem) pure3d::AnimationGroup();
+        obj = new (mem) pure3d::AnimationGroup_288eb0();
     obj->name.FUN_0027b040(fr.name);
     r->stream->FUN_002647e0(&fr.v, 1, 4, 1);
     obj->f10 = fr.v;
@@ -119,7 +114,7 @@ pure3d::AnimationGroup *AnimationLoader_288eb0::FUN_00288eb0(Reader *r, int ctx,
         if (r->FUN_002669f0()) {
             while (i < obj->f14) {
                 r->FUN_00266a30();
-                obj->f18[i] = (hulk_intptr)fr.self->child->FUN_0028b0b0(r, ctx, obj->f1c);
+                obj->f18[i] = (hulk_intptr)(*(Child_288eb0 * *)&fr.self->f_14)->FUN_0028b0b0(r, ctx, obj->f1c);
                 r->FUN_00266be0();
                 i++;
                 if (!r->FUN_002669f0())
@@ -127,5 +122,5 @@ pure3d::AnimationGroup *AnimationLoader_288eb0::FUN_00288eb0(Reader *r, int ctx,
             }
         }
     }
-    return obj;
+    return (void*)(obj);
 }

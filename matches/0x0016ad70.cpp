@@ -1,12 +1,10 @@
+#include "gen/fight.h"
+
 extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern int DAT_00491ca8, DAT_004b7b88;
+extern char DAT_00491ca8;
+extern char DAT_004b7b88;
 namespace fight {
-class ConditionFactoryCaster {
-  public:
-    virtual int vfunc_0(void*);
-    virtual void vfunc_1();
-};
-template <class T> class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
+class ConditionFactoryCaster_16ad70 {
   public:
     virtual int vfunc_0(void*);
     virtual void vfunc_1();
@@ -14,9 +12,10 @@ template <class T> class ConditionFactoryCasterTemplate : public ConditionFactor
 } // namespace fight
 namespace hulkfight {
 namespace motion {
-class HealthCondition;
+class HealthCondition_16ad70;
 }
 } // namespace hulkfight
-template <> int fight::ConditionFactoryCasterTemplate<hulkfight::motion::HealthCondition>::vfunc_0(void* p) {
+template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::HealthCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
     return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004b7b88, 0) != 0;
 }

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_001b6fd0 @ 0x001b6fd0
+#include "gen/global.h"
+
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
@@ -102,21 +104,12 @@ struct Stage_1b6fd0 {
     virtual void vfn16(int v);
 };
 
-
 struct Holder_1b6fd0 {
     char pad[0x10];
     Surface *surface;
 };
 
-class CRadMovieRenderLoop_1b6fd0 {
-public:
-    void FUN_001b6fd0(int alpha);
-    char pad0[0xc];
-    Holder_1b6fd0 *holder;
-};
-
-void CRadMovieRenderLoop_1b6fd0::FUN_001b6fd0(int alpha)
-{
+void CRadMovieRenderLoop::FUN_001b6fd0(int alpha) {
     float w = (float)(*(Screen_1b6fd0**)&DAT_0052c2a4)->vfn7();
     float h = (float)(*(Screen_1b6fd0**)&DAT_0052c2a4)->vfn6();
     int saved = DAT_0052c2a8->vfn25();
@@ -127,7 +120,7 @@ void CRadMovieRenderLoop_1b6fd0::FUN_001b6fd0(int alpha)
     (*(*(Stage_1b6fd0***)&DAT_0052c2ac))->vfn13(0);
 
     unsigned int color = (unsigned int)alpha << 24;
-    Vertices *v = DAT_0052c2a8->vfn30(holder->surface, 1, 0x2020, 4, 0);
+    Vertices *v = DAT_0052c2a8->vfn30((*(Holder_1b6fd0 * *)&this->f_0c)->surface, 1, 0x2020, 4, 0);
     v->color[0] = color;
     v->pos[0] = 0;
     v->pos[1] = h;

@@ -1,9 +1,5 @@
-class CScenarioManager_1ccfe0 {
-  public:
-    char pad[0x14a8];
-    unsigned char m;
-    void Set(unsigned char v);
-};
-void CScenarioManager_1ccfe0::Set(unsigned char v) {
-    m = v;
+#include "gen/global.h"
+
+void CScenarioManager::FUN_001ccfe0(unsigned char v) {
+    (*(unsigned char *)&this->f_14a8) = v;
 }

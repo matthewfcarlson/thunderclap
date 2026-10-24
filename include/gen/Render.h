@@ -119,6 +119,9 @@ public:
     virtual ~StoreBase(); // slot 0
     virtual int vfunc_1(int) = 0; // slot 1
     virtual void vfunc_2(void*) = 0; // slot 2
+    void FUN_001c7720(); // non-virtual
+    void FUN_001c7770(unsigned int); // non-virtual
+    void FUN_001c7870(int, int); // non-virtual
     char _pad_04[0x4];
     int f_08;
     int f_0c;

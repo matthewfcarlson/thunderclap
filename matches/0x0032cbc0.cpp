@@ -1,18 +1,17 @@
+#include "gen/pure3d.h"
+
 #include "compat/ptr.h"
 extern "C" char DAT_00433a8c[];
-class d3dProjectedTextureShader_32cbc0 {
-  public:
+struct d3dProjectedTextureShader_nv_32cbc0 {
     void InitBase(void*);
-    char pad[0x80];
-    int a, b;
     void InitMember();
-    d3dProjectedTextureShader_32cbc0* Target(void*);
 };
-d3dProjectedTextureShader_32cbc0* d3dProjectedTextureShader_32cbc0::Target(void* arg) {
-    InitBase(arg);
+
+pure3d::d3dProjectedTextureShader* pure3d::d3dProjectedTextureShader::FUN_0032cbc0(void* arg) {
+    ((d3dProjectedTextureShader_nv_32cbc0*)this)->InitBase(arg);
     *(void**)this = (void*)((hulk_intptr)DAT_00433a8c);
-    a = 0;
-    b = 0;
-    ((d3dProjectedTextureShader_32cbc0*)((char*)this + 0x88))->InitMember();
-    return this;
+    (*(int *)&this->f_80) = 0;
+    (*(int *)&this->f_84) = 0;
+    ((d3dProjectedTextureShader_nv_32cbc0*)(((pure3d::d3dProjectedTextureShader*)((char*)this + 0x88))))->InitMember();
+    return (d3dProjectedTextureShader*)(this);
 }

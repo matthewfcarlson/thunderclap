@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class CTriggerVolumeManager_1fcbe0 {
   public:
     virtual void V0();
@@ -14,13 +16,12 @@ class CTriggerVolumeManager_1fcbe0 {
     virtual char V11();
 };
 
-struct ThisWrap_001fcbe0 {
+struct CTriggerVolumeManager_nv_1fcbe0 {
     CTriggerVolumeManager_1fcbe0* FUN_001fc7f0(int);
-    char FUN_001fcbe0(int a);
 };
 
-char ThisWrap_001fcbe0::FUN_001fcbe0(int a) {
-    CTriggerVolumeManager_1fcbe0* r = this->FUN_001fc7f0(a);
+char CTriggerVolumeManager::FUN_001fcbe0(int a) {
+    CTriggerVolumeManager_1fcbe0* r = ((CTriggerVolumeManager_nv_1fcbe0*)(this))->FUN_001fc7f0(a);
     if (!r)
         return 1;
     return r->V11();

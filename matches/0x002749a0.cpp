@@ -1,3 +1,5 @@
+#include "gen/core.h"
+
 #include "compat/ptr.h"
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b9bc[];
@@ -14,20 +16,15 @@ class Obj_2749a0 {
     char rest[0x10];
     int count;
 };
-class DriveRequest_2749a0 {
-  public:
-    void Fn();
-    char pad[8];
-    Obj_2749a0* mObj;
-};
-void DriveRequest_2749a0::Fn() {
-    Obj_2749a0* p = mObj;
+
+void core::DriveRequest::FUN_002749a0() {
+    Obj_2749a0* p = (*(Obj_2749a0 * *)&this->f_08);
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b9bc);
     p->sub.A();
-    --(*(int*)((char*)mObj + 0x14));
-    p = mObj;
+    --(*(int*)((char*)(*(Obj_2749a0 * *)&this->f_08) + 0x14));
+    p = (*(Obj_2749a0 * *)&this->f_08);
     p->sub.B();
-    p = mObj;
+    p = (*(Obj_2749a0 * *)&this->f_08);
     ((V*)p)->B();
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b914);
 }

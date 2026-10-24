@@ -1,4 +1,6 @@
 // FUN_001e54b0 @ 0x001e54b0
+#include "gen/global.h"
+
 struct Id_1e54b0 {
     unsigned int lo, hi;
     void FUN_0027b0e0(const char *name);
@@ -15,14 +17,11 @@ struct Transform_1e54b0 {
     void FUN_0022be40(const Vec3_1e54b0 *pos);
 };
 
-class CSPManager_1e54b0 {
-public:
+struct CSPManager_nv_1e54b0 {
     void FUN_001e43b0(Id_1e54b0 *a, Id_1e54b0 *b, Transform_1e54b0 *xf, int flag);
-    void FUN_001e54b0(const char *nameA, const char *nameB, float x, float y, float z);
 };
 
-void CSPManager_1e54b0::FUN_001e54b0(const char *nameA, const char *nameB, float x, float y, float z)
-{
+void CSPManager::FUN_001e54b0(const char* nameA, const char* nameB, float x, float y, float z) {
     // Frame slots follow the original's layout; the position block is dead
     // before the second name is built, so they share a slot.
     struct Frame {
@@ -41,7 +40,7 @@ void CSPManager_1e54b0::FUN_001e54b0(const char *nameA, const char *nameB, float
     f.xf.FUN_0022be40(&f.u.pos);
     f.u.b.FUN_0027b0e0(nameB);
     f.a.FUN_0027b0e0(nameA);
-    FUN_001e43b0(&f.a, &f.u.b, &f.xf, 0);
+    ((CSPManager_nv_1e54b0*)this)->FUN_001e43b0(&f.a, &f.u.b, &f.xf, 0);
     f.a.FUN_0027af50();
     f.u.b.FUN_0027af50();
 }

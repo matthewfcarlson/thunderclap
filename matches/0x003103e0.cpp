@@ -1,3 +1,5 @@
+#include "gen/physics.h"
+
 #include "compat/ptr.h"
 extern int vtable_3103e0;
 class Obj_3103e0 {
@@ -6,31 +8,22 @@ class Obj_3103e0 {
     virtual void Release();
 };
 extern void Free(void*);
-class ArticulatedPhysicsObject {
-  public:
-    char pad0[0x1f8];
-    Obj_3103e0** items;
-    void* aux;
-    int count;
-    char pad204[4];
-    Obj_3103e0* at208;
-    char pad20c[0x14];
-    Obj_3103e0* at220;
-    void Destroy();
+struct ArticulatedPhysicsObject_nv_3103e0 {
     void Tail();
 };
-void ArticulatedPhysicsObject::Destroy() {
+
+void physics::ArticulatedPhysicsObject::FUN_003103e0() {
     *(hulk_intptr*)this = (hulk_intptr)&vtable_3103e0;
-    if (at220)
-        at220->Release();
-    if (at208)
-        at208->Release();
-    for (int i = 0; i < count; ++i) {
-        Obj_3103e0* p = items[i];
+    if ((*(Obj_3103e0 * *)&this->f_220))
+        (*(Obj_3103e0 * *)&this->f_220)->Release();
+    if ((*(Obj_3103e0 * *)&this->f_208))
+        (*(Obj_3103e0 * *)&this->f_208)->Release();
+    for (int i = 0; i < this->f_200; ++i) {
+        Obj_3103e0* p = (*(Obj_3103e0 ** *)&this->f_1f8)[i];
         if (p)
             p->Kill(1);
     }
-    Free(items);
-    Free(aux);
-    Tail();
+    Free((*(Obj_3103e0 ** *)&this->f_1f8));
+    Free((*(void * *)&this->f_1fc));
+    ((ArticulatedPhysicsObject_nv_3103e0*)this)->Tail();
 }

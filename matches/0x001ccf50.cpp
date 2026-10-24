@@ -1,11 +1,7 @@
-class CScenarioManager_1ccf50 {
-    char pad[0x1418];
+#include "gen/global.h"
 
-  public:
-    int* f(int);
-};
-int* CScenarioManager_1ccf50::f(int x) {
+int* CScenarioManager::FUN_001ccf50(int x) {
     if (x >= 0 && x < 4)
-        return (int*)((char*)this + x * 0x20 + 0x1418);
-    return 0;
+        return (int*)((int*)((char*)this + x * 0x20 + 0x1418));
+    return (int*)(0);
 }

@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class CTriggerVolumeManager_1fcc00 {
   public:
     virtual void f0();
@@ -14,13 +16,13 @@ class CTriggerVolumeManager_1fcc00 {
     char pad[0xc9];
     char enabled;
 };
-struct ThisWrap_001fcc00 {
+struct CTriggerVolumeManager_nv_1fcc00 {
     CTriggerVolumeManager_1fcc00* lookup(int);
-    char FUN_001fcc00(int a, int b);
 };
 extern "C" __int64 __cdecl convert(int);
-char ThisWrap_001fcc00::FUN_001fcc00(int a, int b) {
-    CTriggerVolumeManager_1fcc00* o = this->lookup(b);
+
+char CTriggerVolumeManager::FUN_001fcc00(int a, int b) {
+    CTriggerVolumeManager_1fcc00* o = ((CTriggerVolumeManager_nv_1fcc00*)(this))->lookup(b);
     if (!o)
         return 0;
     if (!o->enabled)

@@ -1099,6 +1099,8 @@ public:
 class CCharacter : public ::pure3d::Entity {
 public:
     virtual ~CCharacter(); // overrides core::IRefCount slot 2
+    void FUN_00040140(int, int, int, int, int); // non-virtual
+    int FUN_00040170(); // non-virtual
     char _pad_10[0x5c];
     int f_6c;
     int f_70;
@@ -1666,6 +1668,7 @@ public:
     virtual void vfunc_4(int, int, int); // overrides CAgent slot 4
     virtual void vfunc_7(int); // overrides CAgent slot 7
     virtual void vfunc_9(); // overrides CAgent slot 9
+    CChaseAgent* FUN_000fcb10(unsigned int); // non-virtual
     void* f_58;
     char _pad_5c[0xc];
     int f_68;
@@ -1687,6 +1690,7 @@ public:
     virtual void vfunc_34(int, int, int, int, int); // overrides CGameCamera slot 34
     virtual void vfunc_35(int, int, int, int); // overrides CGameCamera slot 35
     virtual void vfunc_38(void*, int, void*); // slot 38
+    void FUN_000a2f30(int); // non-virtual
     int f_d0;
     float f_d4;
     float f_d8;
@@ -2570,6 +2574,8 @@ public:
 class CEventManager {
 public:
     virtual ~CEventManager(); // slot 0
+    void FUN_001cb540(char); // non-virtual
+    void FUN_001cbd10(unsigned int); // non-virtual
     int f_04;
     int f_08;
     void* f_0c;
@@ -3157,6 +3163,7 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
+    void FUN_000695b0(); // non-virtual
     char _pad_08[0x30];
     float f_38;
     char _pad_3c[0x1c];
@@ -3289,6 +3296,7 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual void* vfunc_8(void*, void*); // overrides fight::Track slot 8
     virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
+    void FUN_0005af80(); // non-virtual
     int f_08;
     char _pad_0c[0xc];
     int f_18;
@@ -3370,6 +3378,7 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_12(int); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
+    void FUN_0005abb0(); // non-virtual
     char _pad_08[0x4];
     float f_0c;
     char _pad_10[0x10];
@@ -3630,6 +3639,7 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    void FUN_00021490(); // non-virtual
     char _pad_08[0x14];
     void* f_1c;
     char _pad_20[0x4];
@@ -4069,7 +4079,7 @@ public:
     char _pad_08[0x14];
     void* f_1c;
     char _pad_20[0x4];
-    int f_24;
+    hulk_intptr f_24;
     int f_28;
     float f_2c;
 };
@@ -4312,6 +4322,7 @@ public:
     virtual void vfunc_7(int); // overrides CAgent slot 7
     virtual void vfunc_9(); // overrides CAgent slot 9
     virtual int vfunc_10(); // overrides CAgent slot 10
+    void FUN_00103410(); // non-virtual
     void* f_58;
     void* f_5c;
     char _pad_60[0x44];
@@ -4664,6 +4675,7 @@ public:
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~CRadMovieRenderLoop(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(); // overrides movie::RenderLoop slot 3
+    void FUN_001b6fd0(int); // non-virtual
     int f_04;
     int f_08;
     void* f_0c;
@@ -4712,6 +4724,7 @@ public:
     virtual void vfunc_6(int); // overrides CAgent slot 6
     virtual void vfunc_7(int); // overrides CAgent slot 7
     virtual void vfunc_9(); // overrides CAgent slot 9
+    void FUN_00107000(); // non-virtual
     void* f_58;
     void* f_5c;
     int f_60;
@@ -4747,6 +4760,9 @@ public:
     virtual bool vfunc_1(void*); // overrides DataHandler::ObjectCreator slot 1
     virtual int vfunc_2(); // overrides CDHGameObjectCreator slot 2
     virtual void* vfunc_3(void*); // overrides CDHGameObjectCreator slot 3
+    void FUN_001b87d0(int, int, int); // non-virtual
+    void FUN_001b87f0(int, int, int); // non-virtual
+    void FUN_001b90b0(); // non-virtual
     int f_04;
     int f_08;
     int f_0c;
@@ -4921,6 +4937,14 @@ public:
     virtual bool vfunc_1(void*); // overrides DataHandler::ObjectCreator slot 1
     virtual int vfunc_2(); // overrides CDHGameObjectCreator slot 2
     virtual void* vfunc_3(void*); // overrides CDHGameObjectCreator slot 3
+    char FUN_001dc100(int, bool); // non-virtual
+    int FUN_001dc350(char*); // non-virtual
+    void FUN_001dd450(void*); // non-virtual
+    void* FUN_001df190(void*, int); // non-virtual
+    char FUN_001df1e0(int, int, int, int); // non-virtual
+    int FUN_001e4760(int, int, int, int, int, int, int); // non-virtual
+    void FUN_001e54b0(const char*, const char*, float, float, float); // non-virtual
+    void FUN_001e5bb0(int, int); // non-virtual
     char _pad_04[0x1e604];
     int f_1e608;
     int f_1e60c;
@@ -4950,6 +4974,17 @@ public:
 class CScenarioManager {
 public:
     virtual ~CScenarioManager(); // slot 0
+    void FUN_001cc620(int); // non-virtual
+    unsigned int FUN_001cc840(); // non-virtual
+    void FUN_001cc870(int); // non-virtual
+    void FUN_001cc8e0(char); // non-virtual
+    char FUN_001cc8f0(); // non-virtual
+    void FUN_001cc9b0(int, float); // non-virtual
+    void FUN_001cca80(int); // non-virtual
+    int FUN_001ccc80(); // non-virtual
+    void FUN_001ccc90(int); // non-virtual
+    int* FUN_001ccf50(int); // non-virtual
+    void FUN_001ccfe0(unsigned char); // non-virtual
     char _pad_04[0x8];
     int f_0c;
     char _pad_10[0x1180];
@@ -5139,6 +5174,7 @@ public:
     virtual ~CSmartPropAttachAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
+    void FUN_0001ea90(); // non-virtual
     char _pad_08[0x14];
     void* f_1c;
     void* f_20;
@@ -5992,6 +6028,25 @@ public:
     virtual bool vfunc_1(void*); // overrides DataHandler::ObjectCreator slot 1
     virtual int vfunc_2(); // overrides CDHGameObjectCreator slot 2
     virtual void* vfunc_3(void*); // overrides CDHGameObjectCreator slot 3
+    bool FUN_001fc9d0(int); // non-virtual
+    void FUN_001fc9f0(void*, int); // non-virtual
+    void FUN_001fca40(void*, unsigned int); // non-virtual
+    float FUN_001fca90(int); // non-virtual
+    bool FUN_001fcab0(int, float); // non-virtual
+    char FUN_001fcb70(unsigned int); // non-virtual
+    unsigned char FUN_001fcb90(int); // non-virtual
+    void FUN_001fcbc0(void*, char); // non-virtual
+    char FUN_001fcbe0(int); // non-virtual
+    char FUN_001fcc00(int, int); // non-virtual
+    void FUN_001fcc40(void*); // non-virtual
+    void FUN_001fcc60(int); // non-virtual
+    void FUN_001fcc80(int, int); // non-virtual
+    unsigned char FUN_001fce50(int, int, int, int, unsigned char); // non-virtual
+    hulk_intptr FUN_001fcf40(); // non-virtual
+    hulk_freg FUN_001fd830(unsigned int); // non-virtual
+    bool FUN_001fd8b0(int, float); // non-virtual
+    unsigned char FUN_001fd8f0(void*); // non-virtual
+    int FUN_001fd980(int); // non-virtual
     void* f_04;
     int f_08;
     char _pad_0c[0x200];
@@ -6231,6 +6286,9 @@ class CWorldStreamManager {
 public:
     class CMemoryPool;
     virtual ~CWorldStreamManager(); // slot 0
+    int FUN_002042a0(int, int); // non-virtual
+    void FUN_00207b90(); // non-virtual
+    void FUN_00208820(); // non-virtual
     char f_04;
     char f_05;
     char _pad_06[0x1e];
@@ -6453,6 +6511,7 @@ class ScriptHandler {
 public:
     enum script_state { };
     virtual ~ScriptHandler(); // slot 0
+    void FUN_001d36e0(int); // non-virtual
     int f_04;
     char _pad_08[0x1004];
     int f_100c;
@@ -6944,7 +7003,7 @@ class Closure3 : public ::Method3< T0, T1, T2, T3, T4 > {
 public:
     virtual ~Closure3(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
-    int f_20;
+    hulk_intptr f_20;
 };
 
 // template family Method4: 28 instantiation(s), 0 with their own specialization
@@ -7018,7 +7077,7 @@ class Closure4 : public ::Method4< T0, T1, T2, T3, T4, T5 > {
 public:
     virtual ~Closure4(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
-    int f_20;
+    hulk_intptr f_20;
 };
 
 // template family Method5: 11 instantiation(s), 0 with their own specialization
@@ -7058,7 +7117,7 @@ class Closure5 : public ::Method5< T0, T1, T2, T3, T4, T5, T6 > {
 public:
     virtual ~Closure5(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
-    int f_20;
+    hulk_intptr f_20;
 };
 
 // template family Method6: 15 instantiation(s), 0 with their own specialization
@@ -7106,7 +7165,7 @@ class Closure6 : public ::Method6< T0, T1, T2, T3, T4, T5, T6, T7 > {
 public:
     virtual ~Closure6(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
-    int f_20;
+    hulk_intptr f_20;
 };
 
 // template family Method7: 6 instantiation(s), 0 with their own specialization
@@ -7136,7 +7195,7 @@ class Closure7 : public ::Method7< T0, T1, T2, T3, T4, T5, T6, T7, T8 > {
 public:
     virtual ~Closure7(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
-    int f_20;
+    hulk_intptr f_20;
 };
 
 // .?AVControllerPollerBase@@  vftable 0x40be54 (6)
@@ -7700,6 +7759,7 @@ public:
     virtual ~FEParticleAnimation(); // overrides FEAnimation slot 0
     virtual void vfunc_2(); // overrides FEAnimation slot 2
     virtual void vfunc_3(); // overrides FEAnimation slot 3
+    void FUN_000e89e0(); // non-virtual
 };
 
 // .?AVFEParticleSystem@@  vftable 0x40bfe0 (5)
@@ -7743,6 +7803,7 @@ public:
     virtual bool vfunc_12(int, int); // overrides FEControl slot 12
     virtual void vfunc_13(int); // overrides FEControl slot 13
     virtual void vfunc_14(int); // overrides FEControl slot 14
+    bool FUN_000dca40(); // non-virtual
     char _pad_a4[0x9c];
     char f_140;
     char f_141;
@@ -7874,7 +7935,7 @@ public:
     int f_1830;
     int f_1834;
     int f_1838;
-    int f_183c;
+    hulk_intptr f_183c;
     char _pad_1840[0xc];
     char f_184c;
     char _pad_184d[0x3];
@@ -7888,7 +7949,7 @@ public:
     char f_2205;
     char _pad_2206[0x2];
     int f_2208;
-    int f_220c;
+    hulk_intptr f_220c;
     unsigned int f_2210;
     unsigned int f_2214;
     void* f_2218;
@@ -8139,6 +8200,7 @@ public:
     virtual void vfunc_21(); // slot 21
     virtual void vfunc_22(int); // slot 22
     virtual int vfunc_23(); // slot 23
+    void FUN_000e4020(); // non-virtual
     char _pad_a4[0x4];
     void* f_a8;
     void* f_ac;
@@ -8193,6 +8255,7 @@ public:
     virtual void vfunc_24(int); // slot 24
     virtual void vfunc_25(int); // slot 25
     virtual void vfunc_26(int, int); // slot 26
+    void FUN_000e30a0(); // non-virtual
     int f_a4;
     char _pad_a8[0x4];
     void* f_ac;
@@ -8219,7 +8282,7 @@ public:
     char _pad_1d85[0x3];
     void* f_1d88;
     char _pad_1d8c[0x8];
-    int f_1d94;
+    hulk_intptr f_1d94;
     int f_1d98;
     int f_1d9c;
     int f_1da0;

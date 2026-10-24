@@ -1,11 +1,10 @@
-class CTriggerVolumeManager_1fd980 {
-  public:
-    char pad[0x238];
-    int m;
+#include "gen/global.h"
+
+struct CTriggerVolumeManager_nv_1fd980 {
     void Helper(int a, int b);
-    int Fn(int a);
 };
-int CTriggerVolumeManager_1fd980::Fn(int a) {
-    Helper(a, 1);
-    return m;
+
+int CTriggerVolumeManager::FUN_001fd980(int a) {
+    ((CTriggerVolumeManager_nv_1fd980*)this)->Helper(a, 1);
+    return this->f_238;
 }

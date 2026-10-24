@@ -1,20 +1,20 @@
+#include "gen/fight.h"
+
 namespace hulkfight {
-class XPTrack;
+class XPTrack_131280;
 }
-extern int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern int DAT_0049850c, DAT_004aaea8;
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern char DAT_0049850c;
+extern char DAT_004aaea8;
 namespace fight {
-class TrackFactoryCaster {
+class TrackFactoryCaster_131280 {
   public:
     virtual int vfunc_0(void*);
     virtual void vfunc_1();
 };
-template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster {
-  public:
-    virtual int vfunc_0(void*);
-    virtual void vfunc_1();
-};
-template <> int TrackFactoryCasterTemplate<hulkfight::XPTrack>::vfunc_0(void* p) {
+
+} // namespace fight
+template <> bool fight::TrackFactoryCasterTemplate<hulkfight::XPTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
     return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004aaea8, 0) != 0;
 }
-} // namespace fight

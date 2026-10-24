@@ -180,6 +180,7 @@ public:
 class LoadRequest : public ::content::LoadObject {
 public:
     virtual ~LoadRequest(); // overrides core::IRefCount slot 2
+    void FUN_00266690(); // non-virtual
     int f_08;
     int f_0c;
     int f_10;

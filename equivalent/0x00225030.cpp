@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 6/6)
 // FUN_00225030 @ 0x00225030
 // FUN_00225030: bind to a skeleton and look up the rotation / translation channels of each bone
+#include "gen/choreo2.h"
+
 struct Id_225030 {
     int lo;
     int hi;
@@ -18,42 +20,31 @@ struct Pair_225030 {
     int rot;
 };
 
-struct Channel;
+struct Channel_225030;
 
-struct Skeleton {
+struct Skeleton_225030 {
     virtual void AddRef();
     virtual void Release();
-    Channel *FUN_00288ad0(int lo, int hi);
+    Channel_225030 *FUN_00288ad0(int lo, int hi);
 };
 
-struct Channel {
+struct Channel_225030 {
     int FUN_00288960(int a, int b);
 };
 
-class AnimationDriver_225030 {
-public:
-    char pad00[0x10];
-    Table_225030 *table;
-    char pad14[0xc];
-    Skeleton *skel;
-    Pair_225030 pairs[1];
+void choreo2::AnimationDriver::FUN_00225030(void* __p0) { Skeleton_225030 * s = (Skeleton_225030 *)__p0;
 
-    void FUN_00225030(Skeleton *s);
-};
-
-void AnimationDriver_225030::FUN_00225030(Skeleton *s)
-{
-    skel = s;
+    (*(Skeleton_225030 * *)&this->f_20) = s;
     s->AddRef();
-    unsigned int n = table->count;
+    unsigned int n = (*(Table_225030 * *)&this->f_10)->count;
     for (unsigned int i = 0; i < n; i++) {
-        Channel *ch = s->FUN_00288ad0(table->ids[i].lo, table->ids[i].hi);
+        Channel_225030 *ch = s->FUN_00288ad0((*(Table_225030 * *)&this->f_10)->ids[i].lo, (*(Table_225030 * *)&this->f_10)->ids[i].hi);
         if (ch != 0) {
-            pairs[i].rot = ch->FUN_00288960(0x544f52, 0x544f52);
-            pairs[i].trans = ch->FUN_00288960(0x4e415254, 0x54434556);
+            (*(Pair_225030 (*)[1])&this->f_24)[i].rot = ch->FUN_00288960(0x544f52, 0x544f52);
+            (*(Pair_225030 (*)[1])&this->f_24)[i].trans = ch->FUN_00288960(0x4e415254, 0x54434556);
         } else {
-            pairs[i].rot = 0;
-            pairs[i].trans = 0;
+            (*(Pair_225030 (*)[1])&this->f_24)[i].rot = 0;
+            (*(Pair_225030 (*)[1])&this->f_24)[i].trans = 0;
         }
     }
 }

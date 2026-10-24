@@ -27,6 +27,7 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual void vfunc_3(int); // overrides core::IFileCompletionCallback slot 3
+    BinkCallback* FUN_003352a0(); // non-virtual
     int f_0c;
 };
 

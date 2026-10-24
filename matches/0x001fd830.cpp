@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 #include "compat/ptr.h"
 class Result_1fd830 {
   public:
@@ -12,17 +14,16 @@ class Result_1fd830 {
     virtual void f8();
     virtual float Get();
 };
-class CTriggerVolumeManager_1fd830 {
-  public:
-    hulk_freg Probe(unsigned int arg);
+struct CTriggerVolumeManager_nv_1fd830 {
     Result_1fd830* Find(unsigned long long key);
 };
 extern unsigned long long FUN_0027b020(unsigned int);
 extern const float zero_1fd830;
 extern const float scale_1fd830;
-hulk_freg CTriggerVolumeManager_1fd830::Probe(unsigned int arg) {
+
+hulk_freg CTriggerVolumeManager::FUN_001fd830(unsigned int arg) {
     unsigned long long k = FUN_0027b020(arg);
-    Result_1fd830* r = Find(k);
+    Result_1fd830* r = ((CTriggerVolumeManager_nv_1fd830*)this)->Find(k);
     if (!r)
         return zero_1fd830;
     return r->Get() * scale_1fd830;

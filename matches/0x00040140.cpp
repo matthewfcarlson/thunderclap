@@ -1,8 +1,9 @@
-class CCharacter_40140 {
-  public:
+#include "gen/global.h"
+
+struct CCharacter_nv_40140 {
     void callee(int, int, int, int, int, int);
-    void FUN_00040140(int, int, int, int, int);
 };
-void CCharacter_40140::FUN_00040140(int a, int b, int c, int d, int e) {
-    callee(0, a, b, c, d, e);
+
+void CCharacter::FUN_00040140(int a, int b, int c, int d, int e) {
+    ((CCharacter_nv_40140*)this)->callee(0, a, b, c, d, e);
 }

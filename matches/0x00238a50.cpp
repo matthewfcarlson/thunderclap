@@ -1,21 +1,16 @@
+#include "gen/fight.h"
+
 #include "compat/ptr.h"
 typedef unsigned int u32_238a50;
 extern u32_238a50 PrintTrack_vftable;
 void __cdecl ReleaseThing(int);
-struct PrintTrack {
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    int p0, p1, p2;
-    int m10;
-    int m14;
-    void Finish();
+struct PrintTrack_nv_238a50 {
     void Cleanup();
 };
-void PrintTrack::Finish() {
+
+void fight::PrintTrack::FUN_00238a50() {
     *(hulk_uintptr*)this = (hulk_uintptr)&PrintTrack_vftable;
-    ReleaseThing(m10);
-    ReleaseThing(m14);
-    Cleanup();
+    ReleaseThing(this->f_10);
+    ReleaseThing(this->f_14);
+    ((PrintTrack_nv_238a50*)this)->Cleanup();
 }

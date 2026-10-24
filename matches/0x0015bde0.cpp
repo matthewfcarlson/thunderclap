@@ -1,16 +1,17 @@
+#include "gen/hulkfight.h"
+
 #include "compat/ptr.h"
 extern "C" char DAT_00415a40[];
 struct Sub_15bde0 {
     void init();
 };
-struct HeliLocomotionTrack {
-    char data[0xa0];
+struct HeliLocomotionTrack_nv_15bde0 {
     void parent();
-    void ctor();
 };
-void HeliLocomotionTrack::ctor() {
+
+void hulkfight::motion::HeliLocomotionTrack::FUN_0015bde0() {
     Sub_15bde0* p = (Sub_15bde0*)((char*)this + 0xa0);
     *(volatile hulk_ulongptr*)this = ((hulk_intptr)DAT_00415a40);
     p->init();
-    parent();
+    ((HeliLocomotionTrack_nv_15bde0*)this)->parent();
 }

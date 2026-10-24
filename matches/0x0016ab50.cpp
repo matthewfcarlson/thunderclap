@@ -1,29 +1,25 @@
+#include "gen/fight.h"
+
 namespace fight {
-class ConditionFactory {
+class ConditionFactory_16ab50 {
   public:
-    virtual ~ConditionFactory() throw();
+    virtual ~ConditionFactory_16ab50() throw();
 };
-template <class T> class ConditionFactoryTemplate : public ConditionFactory {};
-class ConditionFactoryCaster {
+template <class T> class ConditionFactoryTemplate_16ab50 : public ConditionFactory_16ab50 {};
+class ConditionFactoryCaster_16ab50 {
   public:
-    virtual bool vfunc_0(ConditionFactory*);
-    virtual void vfunc_1();
-};
-template <class T> class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
-  public:
-    virtual bool vfunc_0(ConditionFactory*);
+    virtual bool vfunc_0(ConditionFactory_16ab50*);
     virtual void vfunc_1();
 };
 } // namespace fight
 namespace hulkfight {
 namespace motion {
-class RageModeStateCondition;
+class RageModeStateCondition_16ab50;
 } // namespace motion
 } // namespace hulkfight
 // the original asks whether a factory is the RageModeStateCondition one: dynamic_cast to
 // fight::ConditionFactoryTemplate<hulkfight::motion::RageModeStateCondition> (RTTI 0x004b77d0) from fight::ConditionFactory
-template <>
-bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::RageModeStateCondition>::vfunc_0(
-    fight::ConditionFactory* p) {
-    return dynamic_cast<fight::ConditionFactoryTemplate<hulkfight::motion::RageModeStateCondition>*>(p) != 0;
+template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::RageModeStateCondition>::vfunc_0(void* __p0) { fight::ConditionFactory_16ab50 * p = (fight::ConditionFactory_16ab50 *)__p0;
+
+    return dynamic_cast<fight::ConditionFactoryTemplate_16ab50<hulkfight::motion::RageModeStateCondition_16ab50>*>(p) != 0;
 }

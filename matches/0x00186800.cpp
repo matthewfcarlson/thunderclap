@@ -1,10 +1,10 @@
-class Caster {
-  public:
-    virtual int Check(void*);
-    virtual void Other();
-};
-extern "C" int __cdecl Find(void*, int, void*, void*, int);
-extern int a, b;
-int Caster::Check(void* p) {
-    return Find(p, 0, &a, &b, 0) != 0;
+#include "gen/fight.h"
+
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern char DAT_00491ca8;
+extern char DAT_004bd4f0;
+
+template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropGrabbableIsThrownCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004bd4f0, 0) != 0;
 }

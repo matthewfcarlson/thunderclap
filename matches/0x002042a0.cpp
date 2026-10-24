@@ -1,16 +1,11 @@
-struct CWorldStreamManager_2042a0 {
-    char pad[0x58c];
-    short* entries;
-    int pad2;
-    int count;
-    int FUN_002042a0(int, int);
-};
-int CWorldStreamManager_2042a0::FUN_002042a0(int param_2, int param_3) {
-    int n = count;
+#include "gen/global.h"
+
+int CWorldStreamManager::FUN_002042a0(int param_2, int param_3) {
+    int n = this->f_594;
     int found = 0;
     int i = 0;
     if (n > 0) {
-        short* base = entries;
+        short* base = (*(short * *)&this->f_58c);
         short* p = base;
         do {
             if (*p == param_3) {

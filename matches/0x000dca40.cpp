@@ -1,26 +1,19 @@
+#include "gen/global.h"
+
 extern const char alphabet[];
-class FETextInput_dca40 {
-  public:
-    char pad0[0x150];
-    int count;
-    char pad154[4];
-    char* out;
-    char pad15c[0x10];
-    int* values;
-    bool Run();
-};
-bool FETextInput_dca40::Run() {
+
+bool FETextInput::FUN_000dca40() {
     int i = 0;
-    if (count > 0) {
+    if (this->f_150 > 0) {
         do {
-            int value = values[i];
+            int value = (*(int * *)&this->f_16c)[i];
             if (value >= 0)
-                out[i] = alphabet[value];
+                (*(char * *)&this->f_158)[i] = alphabet[value];
             else
-                out[i] = 0;
+                (*(char * *)&this->f_158)[i] = 0;
             ++i;
-        } while (i < count);
+        } while (i < this->f_150);
     }
-    out[count] = 0;
+    (*(char * *)&this->f_158)[this->f_150] = 0;
     return true;
 }

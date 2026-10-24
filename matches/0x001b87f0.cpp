@@ -1,12 +1,7 @@
-class CRenderManager_1b87f0 {
-    char pad[0x40];
-    int a, b, c;
+#include "gen/global.h"
 
-  public:
-    void F(int x, int y, int z);
-};
-void CRenderManager_1b87f0::F(int x, int y, int z) {
-    a = x;
-    b = y;
-    c = z;
+void CRenderManager::FUN_001b87f0(int x, int y, int z) {
+    this->f_40 = x;
+    this->f_44 = y;
+    this->f_48 = z;
 }

@@ -147,8 +147,8 @@ proves the image. Ordered by risk (a rename < onto the header < header changes) 
 | b6 | header signatures | include/gen/ + rewrites | 198 used stubs whose called slot has another arity (189 sources), 118 gen-swap "header slot returns void", 16 float/int parameters, 170 owner stubs | medium: a header change reaches every TU that includes it | planned (`gen_headers.CURATED_SIGS`, then b2/gen-swap again) |
 | b7 | header fields | include/gen/ + rewrites | 6,374 agreeing field offsets in 1,102 classes (`header-additions.json`); unblocks 409 used stubs (351 sources) and the 748 gen-swap "field not in header" skips | medium-high | **first part applied** (x64-1, commit 78683b3c: 815 fields inside the classes' own `_pad_` gaps, layout-neutral by construction, + 61 gen-swap rewrites; section 8). Left: offsets in a base's region (4,465), non-scalars (744), non-unique class heads (441) |
 | b8 | base stubs | rewrites | 1,894 used stubs that fit but are a base of the source's own stub, used by value or with `new`: the derived stub derives from the header class (`class CSweepTrack_23d3d0 : public fight::ConditionFactory`) | medium | planned |
-| b9 | owner non-virtual members | include/gen/ + rewrites | 1,752 stubs whose own function is a non-virtual member (`Obj_2d5ec0::target` = `SpriteParticleEmitter::FUN_002d5ec0`): include/gen/ declares no non-virtual members yet | high | planned |
-| b10 | destructor slots, owner vfuncs | migrate_gen gen family | 2,490 owner stubs; 1,692 gen-swap skips "destructor slot (body is not base-dtor + delete)" | medium-high | planned ([source-tree.md](source-tree.md) next step 1) |
+| b9 | owner non-virtual members | include/gen/ + rewrites | 1,752 stubs whose own function is a non-virtual member (`Obj_2d5ec0::target` = `SpriteParticleEmitter::FUN_002d5ec0`) | high | **first part done** (x64-4, section 9): 2,090 sources -> 1,282 are constructors / non-virtual destructors (not b9), 511 wait on header fields; 211 planned -> 188 verified -> refine 132 |
+| b10 | destructor slots, owner vfuncs | migrate_gen gen family | 2,490 owner stubs; 1,692 gen-swap skips "destructor slot (body is not base-dtor + delete)" | medium-high | **blocked for byte matches** (x64-4, section 9): MSVC 7.1 as we run it never inlines a non-empty destructor into `??_G`; the game's `??_G` bodies have it inline |
 | b11 | template families | include/gen/ constructors | 930 stubs of instantiations (`Closure1<CActorManager,...>`, `fight::ParamBool<...>`, `fight::ConditionFactoryTemplate<...>`); the top conflict names (`fight::TrackFactoryCaster` 199, `fight::ConditionFactoryCaster` 164, `...CasterTemplate` 155 + 126, `Closure*`/`Method*` 300+) | high | planned (source-tree.md next step 2) |
 | b12 | pinned types | include/decls/ | `World` 158, `Gfx` 34, `Singleton_4dd6ec` 27 wraps | medium | planned (source-tree.md next step 3) |
 | b13 | multiple inheritance | include/gen/ base order | 357 gen-swap "stub class has multiple/virtual bases", 133 gen-ref "stub has bases" | high | planned; it is what removes the `jump_shapes` bridge |
@@ -368,3 +368,46 @@ it needs one (rn_plan's refine works on rn batches only).
 a derived class's stubs agree on a field that belongs to a base; putting it into the base is layout-neutral the
 same way (inside the base's pad) but every class derived from that base sees it, so it needs agreement over all
 derived classes' stubs; next.
+
+## 9. b9, caster pins, pointer fields (x64-4, 2026-10-24)
+
+On HEAD b76e68ad1, proven against a same-host HEAD control (mac2, `tools/wine_build_job.py --gfx`, play3 to frame 1000).
+
+- **b9** (`tools/rn_members.py`, migrate_gen rule `gen-nv`): a source whose own function (`FUN_<addr>`) is the only
+  out-of-line member of a private stub that the rename map names as a plain include/gen/ class X: X gets
+  `R FUN_<addr>(P...); // non-virtual` (include/gen/evidence-rn.json "members"; the source's signature in header
+  types: scalars kept, `X*` for a pointer to the stub itself, `void*` for other pointers and references) and the
+  source becomes `R X::FUN_<addr>(P...)` through the gen-swap rewrite (`gen_headers.swap_transform(nv=...)`). Of
+  2,090 own-stub `FUN_` sources, 1,282 define a constructor (~900) or a non-virtual destructor (~360) out of line
+  (they need modelled constructors and destructors, not declarations) and 511 use fields the headers lack; 211
+  members planned, 188 sources verified, 132 kept by refine. The header keeps only the kept sources' members.
+- **Casters** (b11/b12 follow-up): 288 `fight::*FactoryCasterTemplate<...>` / `DynamicCaster<...>` sources off
+  include/gen/; 282 gen-family rewrites, then `rn_transform.canon_data_transform` (an `extern T DAT_x;` used only as
+  `&DAT_x`, an RTTI descriptor, becomes `extern char DAT_x;`) and `canon_decl_transform` (one
+  `extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);`, kept only where the call compiles). Without
+  the two canonicalizations 127 of them went isolated on `DAT_0049850c` / `DAT_00491ca8` / `FUN_00344e74`
+  declaration conflicts. swap_transform no longer casts a comparison to `bool` (`(bool)(x != 0)` compiles to
+  `setne` where the game has `neg/sbb/neg`). The casters' invented data and helper names (`extern void* a, b;`,
+  `check`, `Check`, `gB`, ...: 40 sources) take their address names from their verify_relocs maps
+  (`rn_transform.pin_data_transform`): unpinned, the first tree build left `fight::a` / `fight::b` / `gB` bound to two
+  addresses (unbound +3) and broke 7 on-gen sources that use `a` / `b` in the same TU namespaces. 270 verified ->
+  refine 217.
+- **Pointer fields** (`tools/rn_ptrfields.py`, evidence-rn.json "ptr_fields"): the 61 include/gen/ fields (55 units)
+  that x64-3's `tools/ptr_fields.py` found read as pointers through `*(T**)&p->f_XX` are `hulk_intptr` /
+  `hulk_uintptr`: the same types on the 32-bit builds, pointer-sized on the 64-bit ones.
+- **b10**: the game's scalar deleting destructors contain the destructor chain inline although the same classes have
+  out-of-line `??1` functions (0x00019420, 0x0001d1e0); cl 13.10.3077 /O2 never inlines a non-empty destructor into
+  `??_G` (tried out-of-line, in-class, `inline`, `__forceinline`, explicit specializations, nothrow callees, member
+  destructors). Likely link-time code generation in the original build. The hand-written `??_G` bodies stay.
+
+| tree (mac2, same host) | sources | TUs compiled / total (build_tree; the clang probe agrees) | matches still matching | merged / wrapped / isolated (generator, per build state) | per function | strict link rc / unbound | play3 checkpoints |
+|---|---|---|---|---|---|---|---|
+| HEAD b76e68ad1 control (job 17126) | - | 2,627 / 2,627 | 22,340 / 22,340 | 21,771 / 5,027 / 676 | - | 0 / 1,330 | 0-1020 |
+| + x64-4 batch (job 17245) | 333 matches/ + 16 equivalent/ (132 b9, 217 casters) | 2,626 / 2,626 (one `.iso_` TU fewer) | 22,340 / 22,340 | 21,984 / 4,815 / 675 | 214 better, 1 worse | 0 / 1,330 (`_check` 19 -> 17 refs) | identical 0-1020 |
+
+The one worse function, `equivalent/0x002e9c60` (merged -> wrapped, "code differs from its standalone build", TU
+`src/engine/physics/unk_2e6780.cpp`, no batch source in it), is the fallback-order effect of section 8 (0x2ea3c0):
+generated locally from the batch's final state its merged code equals the standalone build byte for byte; with
+`0x2e9880` (wrapped in both trees) still merged, as in an early round, it differs in the batch tree and not in the
+control's. build_tree.py re-checks wrapped -> isolated escalations, not first fallbacks.
+

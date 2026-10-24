@@ -1,17 +1,14 @@
+#include "gen/core.h"
+
 #include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042b14c[];
 extern "C" void __stdcall XInputClose(void*);
-struct ControllerXBox {
-    char p0[8];
-    void* handle;
-    char p[0x41c];
-    void Shutdown();
-};
-void ControllerXBox::Shutdown() {
+
+void core::ControllerXBox::FUN_00268520() {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0042b14c);
-    if (handle)
-        XInputClose(handle);
+    if ((*(void * *)&this->f_08))
+        XInputClose((*(void * *)&this->f_08));
     unsigned long* q = (unsigned long*)((char*)this + 0x448);
     int n = 2;
     do {

@@ -1,26 +1,17 @@
-class StoreBase_1c7720 {
-  public:
-    virtual void A();
-    virtual void B(void*);
-    virtual void Clear(void*);
-    char pad[8];
-    int mC;
-    int mCount;
-    void** mItems;
-    void Reset();
-};
-void StoreBase_1c7720::Reset() {
+#include "gen/Render.h"
+
+void Render::StoreBase::FUN_001c7720() {
     int i = 0;
-    if (mCount >= 0) {
+    if (this->f_10 >= 0) {
         do {
-            void* p = mItems[i];
+            void* p = (*(void ** *)&this->f_14)[i];
             if (p) {
-                Clear(p);
-                mItems[i] = 0;
+                vfunc_2(p);
+                (*(void ** *)&this->f_14)[i] = 0;
             }
             ++i;
-        } while (i <= mCount);
+        } while (i <= this->f_10);
     }
-    mC = 0;
-    mCount = -1;
+    this->f_0c = 0;
+    this->f_10 = -1;
 }

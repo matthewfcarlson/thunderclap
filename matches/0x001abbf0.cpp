@@ -1,15 +1,13 @@
+#include "gen/fight.h"
+
 struct TypeInfo {
     int x;
 };
-extern TypeInfo DAT_00491ca8, DAT_004c30f8;
-extern "C" void* __cdecl FUN_00344e74(void*, int, TypeInfo*, TypeInfo*, int);
+extern char DAT_00491ca8;
+extern char DAT_004c30f8;
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 namespace fight {
-class ConditionFactoryCaster {
-  public:
-    virtual int vfunc_0(void*);
-    virtual void vfunc_1();
-};
-template <class T> class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
+class ConditionFactoryCaster_1abbf0 {
   public:
     virtual int vfunc_0(void*);
     virtual void vfunc_1();
@@ -17,9 +15,10 @@ template <class T> class ConditionFactoryCasterTemplate : public ConditionFactor
 } // namespace fight
 namespace hulkfight {
 namespace scenario {
-class EventCondition {};
+class EventCondition_1abbf0 {};
 } // namespace scenario
 } // namespace hulkfight
-template <> int fight::ConditionFactoryCasterTemplate<hulkfight::scenario::EventCondition>::vfunc_0(void* p) {
+template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::scenario::EventCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
     return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004c30f8, 0) != 0;
 }

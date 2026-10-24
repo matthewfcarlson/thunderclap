@@ -1,23 +1,20 @@
+#include "gen/pure3d.h"
+
 #include "compat/ptr.h"
 extern "C" char DAT_00433f74[];
 struct I_332bb0 {
     virtual void f();
     virtual void Release();
 };
-class d3dBumpMapVertexShader_332bb0 {
-  public:
-    virtual void v0();
-    char pad[0x7c];
-    I_332bb0* m80;
-    I_332bb0* m84;
-    void target();
+struct d3dBumpMapVertexShader_nv_332bb0 {
     void common();
 };
-void d3dBumpMapVertexShader_332bb0::target() {
+
+void pure3d::d3dBumpMapVertexShader::FUN_00332bb0() {
     *(volatile hulk_ulongptr*)this = ((hulk_intptr)DAT_00433f74);
-    if (m84)
-        m84->Release();
-    if (m80)
-        m80->Release();
-    common();
+    if ((*(I_332bb0 * *)&this->f_84))
+        (*(I_332bb0 * *)&this->f_84)->Release();
+    if ((*(I_332bb0 * *)&this->f_80))
+        (*(I_332bb0 * *)&this->f_80)->Release();
+    ((d3dBumpMapVertexShader_nv_332bb0*)this)->common();
 }

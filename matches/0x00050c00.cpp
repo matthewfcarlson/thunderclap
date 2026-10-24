@@ -1,17 +1,18 @@
+#include "gen/fight.h"
+
 struct TypeDesc;
-extern TypeDesc DAT_00491ca8, DAT_00492f30;
-extern "C" void* __cdecl FUN_00344e74(void*, int, TypeDesc*, TypeDesc*, int);
+extern char DAT_00491ca8;
+extern char DAT_00492f30;
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 namespace fight {
-class ConditionFactoryCaster {
+class ConditionFactoryCaster_50c00 {
   public:
     virtual bool vfunc_0(void*);
     virtual void vfunc_1();
 };
-class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
-  public:
-    virtual bool vfunc_0(void*);
-};
-bool ConditionFactoryCasterTemplate::vfunc_0(void* y) {
+
+} // namespace fight
+template <> bool fight::ConditionFactoryCasterTemplate<CFightNodeParentCondition>::vfunc_0(void* __p0) { void * y = (void *)__p0;
+
     return FUN_00344e74(y, 0, &DAT_00491ca8, &DAT_00492f30, 0) != 0;
 }
-} // namespace fight

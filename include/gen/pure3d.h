@@ -472,6 +472,7 @@ class AnimationLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~AnimationLoader(); // overrides core::IRefCount slot 2
     virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
+    void* FUN_00288eb0(void*, int, void*); // non-virtual
     void* f_14;
     int f_18;
     int f_1c;
@@ -484,7 +485,7 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~NonCopyable(); // overrides core::IRefCount slot 2
-    int f_04;
+    hulk_intptr f_04;
 };
 
 // .?AVAnimationMemoryBlock@pure3d@@  vftable 0x42c8b4 (3)
@@ -600,7 +601,7 @@ public:
     char _pad_14[0x24];
     int f_38;
     char _pad_3c[0x48];
-    unsigned int f_84;
+    hulk_uintptr f_84;
     char f_88;
     char f_89;
     char f_8a;
@@ -922,6 +923,8 @@ public:
     virtual void vfunc_7(); // overrides pure3d::FrameController slot 7
     virtual void vfunc_24(int, int, int); // overrides pure3d::AnimationFrameController slot 24
     virtual bool vfunc_26(void*); // overrides pure3d::AnimationFrameController slot 26
+    void FUN_002a81c0(); // non-virtual
+    void FUN_002a8310(int); // non-virtual
     void* f_40;
     void* f_44;
     int f_48;
@@ -949,7 +952,7 @@ public:
     virtual void vfunc_13(void*); // overrides pure3d::DrawableHierarchy slot 13
     virtual void vfunc_14(); // overrides pure3d::DrawableHierarchy slot 14
     char _pad_38[0x8];
-    unsigned int f_40;
+    hulk_uintptr f_40;
     void* f_44;
     void* f_48;
     void* f_4c;
@@ -1116,6 +1119,7 @@ public:
 class DisplayList : public ::pure3d::Entity {
 public:
     virtual ~DisplayList(); // overrides core::IRefCount slot 2
+    void FUN_0029bba0(); // non-virtual
     int f_10;
     int f_14;
     char _pad_18[0x4];
@@ -1177,7 +1181,7 @@ public:
     virtual void vfunc_5(void*); // overrides pure3d::FrameController slot 5
     virtual void vfunc_7(); // overrides pure3d::FrameController slot 7
     virtual bool vfunc_26(void*); // overrides pure3d::AnimationFrameController slot 26
-    int f_40;
+    hulk_intptr f_40;
     void* f_44;
     int f_48;
 };
@@ -1849,11 +1853,11 @@ public:
     float f_30;
     float f_34;
     char _pad_38[0x48];
-    unsigned int f_80;
-    unsigned int f_84;
+    hulk_uintptr f_80;
+    hulk_uintptr f_84;
     void* f_88;
     void* f_8c;
-    unsigned int f_90;
+    hulk_uintptr f_90;
     int f_94;
     int f_98;
     char _pad_9c[0x4];
@@ -1997,7 +2001,7 @@ public:
     char _pad_50[0x8];
     char f_58;
     char _pad_59[0x4b];
-    int f_a4;
+    hulk_intptr f_a4;
 };
 
 // .?AVParticleSystemLoader@pure3d@@  vftable 0x42e08c (6)
@@ -2063,8 +2067,8 @@ public:
     void* f_60;
     void* f_64;
     void* f_68;
-    int f_6c;
-    int f_70;
+    hulk_intptr f_6c;
+    hulk_intptr f_70;
 };
 
 // .?AVPolySkinLoader@pure3d@@  vftable 0x42e6e4 (6)
@@ -2288,8 +2292,9 @@ public:
     virtual bool vfunc_26(void*); // overrides pure3d::AnimationFrameController slot 26
     virtual void vfunc_27(); // overrides pure3d::BlendFrameController slot 27
     virtual void vfunc_28(); // overrides pure3d::BlendFrameController slot 28
+    SceneGraphTransformAnimationController* FUN_002a7730(); // non-virtual
     char _pad_10c[0x4];
-    int f_110;
+    hulk_intptr f_110;
 };
 
 // .?AVSceneGraphVisibilityAnimationController@pure3d@@  vftable 0x42dc24 (27)
@@ -2303,7 +2308,7 @@ public:
     virtual void vfunc_24(int, int, int); // overrides pure3d::AnimationFrameController slot 24
     virtual bool vfunc_26(void*); // overrides pure3d::AnimationFrameController slot 26
     void* f_40;
-    int f_44;
+    hulk_intptr f_44;
 };
 
 // .?AVShader@pure3d@@  vftable 0x42cb44 (5)
@@ -2466,6 +2471,8 @@ public:
     virtual void vfunc_8(void*); // overrides pure3d::DrawablePrimitive slot 8
     virtual unsigned char vfunc_9(); // overrides pure3d::DrawablePrimitive slot 9
     virtual void vfunc_10(); // overrides pure3d::DrawablePrimitive slot 10
+    ShadowMeshBufferImpl* FUN_002b4cf0(); // non-virtual
+    ShadowMeshBufferImpl* FUN_002b4d60(int); // non-virtual
     int f_10;
     char _pad_14[0x2c];
     void* f_40;
@@ -2756,6 +2763,7 @@ public:
     virtual unsigned char vfunc_21(); // overrides pure3d::ParticleEmitter slot 21
     virtual void vfunc_22(int); // overrides pure3d::ParticleEmitter slot 22
     virtual void vfunc_25(void*); // overrides pure3d::ParticleEmitter slot 25
+    void FUN_002d5fe0(float); // non-virtual
     char f_a4;
     char f_a5;
     char f_a6;
@@ -2953,7 +2961,7 @@ public:
     float f_1c;
     float f_20;
     int f_24;
-    unsigned int f_28;
+    hulk_uintptr f_28;
     int f_2c;
     char _pad_30[0x4];
     int f_34;
@@ -3350,6 +3358,7 @@ public:
     virtual bool vfunc_22(); // overrides pure3d::d3dShader slot 22
     virtual void* vfunc_23(); // overrides pure3d::d3dShader slot 23
     virtual void vfunc_24(); // overrides pure3d::d3dShader slot 24
+    void FUN_00332bb0(); // non-virtual
     void* f_10;
     void* f_14;
     char _pad_18[0x38];
@@ -3649,7 +3658,7 @@ public:
     void* f_154;
     void* f_158;
     char _pad_15c[0x4];
-    int f_160;
+    hulk_intptr f_160;
     int f_164;
     int f_168;
     int f_16c;
@@ -3686,7 +3695,7 @@ public:
     virtual void vfunc_11(int, int); // overrides pure3d::pddiDevice slot 11
     virtual void vfunc_12(int, int); // overrides pure3d::pddiDevice slot 12
     int f_08;
-    int f_0c;
+    hulk_intptr f_0c;
 };
 
 // .?AVpddiDisplay@pure3d@@  vftable 0x4323e4 (17)
@@ -4067,6 +4076,7 @@ public:
     virtual void vfunc_14(int); // overrides pure3d::pddiBaseShader slot 14
     virtual void vfunc_15(); // overrides pure3d::pddiBaseShader slot 15
     virtual void* vfunc_23(); // overrides pure3d::d3dShader slot 23
+    d3dLayeredLMapShader* FUN_0032e800(int); // non-virtual
     void* f_9c;
 };
 
@@ -4083,6 +4093,8 @@ public:
     virtual bool vfunc_22(); // overrides pure3d::d3dShader slot 22
     virtual void* vfunc_23(); // overrides pure3d::d3dShader slot 23
     virtual void vfunc_24(); // overrides pure3d::d3dShader slot 24
+    void FUN_0032b5e0(); // non-virtual
+    d3dLightMapShader* FUN_0032ba30(int); // non-virtual
     char _pad_10[0x4];
     void* f_14;
     char _pad_18[0x4];
@@ -4162,6 +4174,7 @@ public:
     virtual void vfunc_12(); // overrides pure3d::pddiPrimBuffer slot 12
     virtual void vfunc_13(int, int); // overrides pure3d::pddiPrimBuffer slot 13
     virtual void vfunc_14(int); // overrides pure3d::pddiPrimBuffer slot 14
+    void FUN_00327050(); // non-virtual
     char _pad_08[0x4];
     int f_0c;
     char _pad_10[0x8];
@@ -4285,6 +4298,7 @@ public:
     virtual void vfunc_17(); // overrides pure3d::pddiBaseShader slot 17
     virtual void vfunc_18(); // overrides pure3d::pddiBaseShader slot 18
     virtual void vfunc_20(); // overrides pure3d::pddiBaseShader slot 20
+    d3dProjectedTextureShader* FUN_0032cbc0(void*); // non-virtual
     void* f_10;
     void* f_14;
     char _pad_18[0x2c];
@@ -4312,6 +4326,7 @@ public:
     virtual void vfunc_16(); // overrides pure3d::pddiBaseShader slot 16
     virtual void vfunc_17(); // overrides pure3d::pddiBaseShader slot 17
     virtual void vfunc_18(); // overrides pure3d::pddiBaseShader slot 18
+    void FUN_0032c270(); // non-virtual
     void* f_10;
     void* f_14;
     char _pad_18[0x20];
@@ -4386,6 +4401,7 @@ public:
     virtual bool vfunc_22(); // overrides pure3d::d3dShader slot 22
     virtual void* vfunc_23(); // overrides pure3d::d3dShader slot 23
     virtual void vfunc_24(); // overrides pure3d::d3dShader slot 24
+    void FUN_0032a3d0(); // non-virtual
     char _pad_10[0x4];
     void* f_14;
     char _pad_18[0x4];
@@ -4953,6 +4969,7 @@ public:
     virtual bool vfunc_7(); // overrides pure3d::scenegraph::Node slot 7
     virtual void vfunc_8(int, int, int); // overrides pure3d::scenegraph::Node slot 8
     virtual void vfunc_9(); // overrides pure3d::scenegraph::Node slot 9
+    void FUN_00296b50(); // non-virtual
     void* f_18;
 };
 

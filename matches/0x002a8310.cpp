@@ -1,12 +1,10 @@
-class CompDrawVisibilityAnimationController_2a8310 {
-    char pad[0x40];
+#include "gen/pure3d.h"
 
-  public:
-    int value;
+struct CompDrawVisibilityAnimationController_nv_2a8310 {
     void Update();
-    void Set(int);
 };
-void CompDrawVisibilityAnimationController_2a8310::Set(int x) {
-    value = x;
-    Update();
+
+void pure3d::CompDrawVisibilityAnimationController::FUN_002a8310(int x) {
+    (*(int *)&this->f_40) = x;
+    ((CompDrawVisibilityAnimationController_nv_2a8310*)this)->Update();
 }

@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 extern "C" void _ReadWriteBarrier();
 class Base {
   public:
@@ -13,11 +15,9 @@ class Obj_1233a0 {
     virtual void Release();
 };
 extern char VT_1233a0[];
-class PathFormationAction_1233a0 {
-  public:
-    PathFormationAction_1233a0* init(int a, Obj_1233a0* b);
-};
-PathFormationAction_1233a0* PathFormationAction_1233a0::init(int a, Obj_1233a0* b) {
+
+hulkfight::ai::PathFormationAction* hulkfight::ai::PathFormationAction::FUN_001233a0(int a, void* __p1) { Obj_1233a0 * b = (Obj_1233a0 *)__p1;
+
     char* p = (char*)this;
     ((Base*)this)->Base::Base();
     *(void**)p = VT_1233a0;
@@ -43,5 +43,5 @@ PathFormationAction_1233a0* PathFormationAction_1233a0::init(int a, Obj_1233a0* 
     if (old)
         old->Release();
     *(Obj_1233a0**)(p + 0x80) = b;
-    return this;
+    return (PathFormationAction*)(this);
 }

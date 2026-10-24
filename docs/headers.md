@@ -189,11 +189,23 @@ compiled still matched: the generated layouts never changed codegen. The failure
 - **Destructor-slot matches** (a third of vfunc matches) are hand-written scalar deleting
   destructors (`void* X::scalar_dtor(unsigned char)`). With real headers they become
   `X::~X() {}` plus member/base destructors, and the compiler generates the deleting wrapper.
-  That's a rewrite, not a swap.
+  That's a rewrite, not a swap. Only the empty case works so far: MSVC 7.1 never inlines a
+  non-empty destructor into its scalar deleting destructor (`??_G` calls `??1` out of line, tried
+  with out-of-line, in-class, `inline`, `__forceinline`, explicit specializations, nothrow callees
+  and member destructors; x64-4, 2026-10-24), while the game's `??_G` bodies contain the vptr store
+  and the level's clean-up inline (e.g. 0x00051fb0, 468 `ConditionFactoryTemplate<T>` /
+  `TrackFactoryTemplate<T>` slots of that shape).
 - **Parameter and return types** are only proven by count. Mined types come from stub guesses.
   Return types default to `void` for slots no match has defined.
-- **Non-virtual member functions** aren't in the headers: RTTI doesn't list them. Matches keep
-  declaring them on a local helper struct (`((Helper*)this)->f()`), which compiles to the same code.
+- **Non-virtual member functions**: RTTI doesn't list them. The ones a source *defines* as its own
+  function are declared in their class from that source (`R FUN_<addr>(P...); // non-virtual`,
+  `include/gen/evidence-rn.json` "members", `tools/rn_members.py`, batch b9; types: scalars kept,
+  a pointer to the class itself as `X*`, other pointers `void*`). Callers keep declaring the members
+  they call on a local helper struct (`((X_nv_<addr>*)this)->f()`), which compiles to the same code.
+- **Pointers in integer fields**: a 4-byte field that sources read as a pointer
+  (`*(T**)&p->f_20`, `tools/ptr_fields.py`) is `hulk_intptr` / `hulk_uintptr` (`tools/rn_ptrfields.py`,
+  evidence-rn.json "ptr_fields"): `int` / `unsigned int` on the 32-bit builds, pointer-sized on the
+  64-bit ones. The `_pad_` arrays after such a field still assume 32-bit offsets.
 - **Fields of embedded objects**, arrays, and fields reached through raw `(char*)this + N`
   arithmetic aren't mined. Fields of non-RTTI classes (anything the game doesn't `dynamic_cast`
   or `typeid`) have no home yet.

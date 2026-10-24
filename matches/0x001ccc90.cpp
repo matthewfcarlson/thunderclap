@@ -1,10 +1,5 @@
-class CScenarioManager_1ccc90 {
-  public:
-    char pad[0x11ac];
-    int value;
-    void Set(int x);
-};
+#include "gen/global.h"
 
-void CScenarioManager_1ccc90::Set(int x) {
-    value = x;
+void CScenarioManager::FUN_001ccc90(int x) {
+    this->f_11ac = x;
 }

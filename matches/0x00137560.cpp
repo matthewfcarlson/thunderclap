@@ -1,18 +1,17 @@
-struct GrappleHoverTrack;
+#include "gen/fight.h"
+
+struct GrappleHoverTrack_137560;
 namespace fight {
-class TrackFactoryCaster {
+class TrackFactoryCaster_137560 {
   public:
     virtual int vfunc_0(void*);
     virtual void vfunc_1();
 };
-template <class T> class TrackFactoryCasterTemplate : public TrackFactoryCaster {
-  public:
-    virtual int vfunc_0(void*);
-};
 } // namespace fight
-extern void* gA;
-extern void* gB;
+extern char DAT_0049850c;
+extern char DAT_004aba50;
 extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-template <> int fight::TrackFactoryCasterTemplate<GrappleHoverTrack>::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &gA, &gB, 0) != 0;
+template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::GrappleHoverTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
+    return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004aba50, 0) != 0;
 }

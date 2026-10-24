@@ -142,6 +142,58 @@ def canon_decl_transform(text, canon):
     return new, ", ".join(sorted(n for _s, _e, _t, n in cuts))
 
 
+def canon_data_transform(text):
+    """Casters pass (consolidation follow-up of b11/b12): a top-level `extern T DAT_x[, DAT_y...];` whose names the
+    source only ever uses as `&DAT_x` (an RTTI descriptor's address handed to the cast helper) takes the one spelling
+    `extern char DAT_x;` per name (b11's data pins), so the sources merged into one TU declare it identically. The
+    code is the same (only the address is used). Refused for names on an `// equiv-*` line."""
+    try:
+        toks = cxx_items.tokenize(text)
+    except ValueError:
+        raise SwapFail("can't tokenize")
+    eq = equiv_text(text)
+    cuts = []
+    i, depth = 0, 0
+    while i < len(toks):
+        t = toks[i]
+        if t.v in ("{", "(", "["):
+            depth += 1
+        elif t.v in ("}", ")", "]"):
+            depth -= 1
+        if depth == 0 and t.v == "extern" and (i == 0 or toks[i - 1].v in (";", "}") or toks[i - 1].t == "pp"):
+            j = i + 1
+            while j < len(toks) and toks[j].v != ";":
+                j += 1
+            stmt = toks[i:j]
+            names = [x.v for x in stmt if x.t == "id" and re.fullmatch(r"DAT_[0-9a-f]{8}", x.v)]
+            vals = [x.v for x in stmt[1:]]
+            if (names and j < len(toks) and not any(v in vals for v in ("(", "[", "{", "=", '"C"', "const"))
+                    and vals[-1] == names[-1]):
+                # the type is every token before the first name; the rest is `NAME (, NAME)*`
+                k = vals.index(names[0])
+                tail = vals[k:]
+                if tail == [x for n in names for x in (n, ",")][:-1]:
+                    typ = " ".join(vals[:k])
+                    ok = all(not re.search(r"\b%s\b" % n, eq) for n in names)
+                    for n in names:
+                        for q, u in enumerate(toks):
+                            if u.v == n and not (i <= q < j) and (q == 0 or toks[q - 1].v != "&"):
+                                ok = False
+                    if ok and (typ != "char" or len(names) > 1):
+                        cuts.append((t.s, toks[j].e, "\n".join("extern char %s;" % n for n in names)))
+            i = j
+        i += 1
+    if not cuts:
+        raise SwapFail("nothing to canonicalize")
+    out, cur = [], 0
+    for s0, e0, new in cuts:
+        out.append(text[cur:s0])
+        out.append(new)
+        cur = e0
+    out.append(text[cur:])
+    return "".join(out), "%d declarations" % len(cuts)
+
+
 def member_uses(text, name):
     """True if `name` is used after `.`, `->` or as the second part of `X::name` (a member name)."""
     toks = cxx_items.tokenize(text)
@@ -219,7 +271,10 @@ def _norm(t):
     t = gh._clean_qt(t)
     t = re.sub(r"\b(struct|class|union|enum)\s+", "", t)
     t = re.sub(r"\s+", " ", t).replace(" *", "*").replace("* ", "*").strip()
-    return {"unsigned": "unsigned int", "signed": "int", "long": "int", "unsigned long": "unsigned int"}.get(t, t)
+    # (hulk_intptr / hulk_uintptr: include/compat/ptr.h, int / unsigned int on the 32-bit builds; header fields typed
+    # by tools/rn_ptrfields.py)
+    return {"unsigned": "unsigned int", "signed": "int", "long": "int", "unsigned long": "unsigned int",
+            "hulk_intptr": "int", "hulk_uintptr": "unsigned int"}.get(t, t)
 
 
 def _is_float(t):

@@ -24,6 +24,8 @@ Rules. The target is the build/functions.csv name of the source's address.
                   math::Vector>`): the same rewrite as an explicit specialization,
                   `template <> R fight::ParamFloatConstRange<CFoo>::vfunc_6(...)`. Clone-propagated sources (the
                   donor's stub class, `ParamIntConstRange::vfunc_6`) get the target's own mangled name this way.
+  gen-nv          target `FUN_x`, a non-virtual member include/gen/ declares in X (batch b9, tools/rn_members.py):
+                  the gen-swap rewrite onto `R ns::X::FUN_x(...)`, the source's only out-of-line member definition.
   gen-dtor        the slot is X's destructor and the stub body is the plain scalar deleting destructor (base
                   destructor call, `operator delete` when bit 0 of the flags is set, `return this`): the source
                   becomes `X::~X() {}` (or `template <> X<...>::~X() {}`); MSVC generates the ??_G function from it.
@@ -149,14 +151,23 @@ class Gen:
 def transform(g, path, target):
     """(rule, new text, header, class) for one source, or raises SwapFail."""
     m = VFUNC.match(target)
-    C = g.by_csv[m.group(1)]
-    rule = "clone-template" if C.targs is not None else "gen-swap"
     addr = int(re.search(r"0x([0-9a-fA-F]{8})\.cpp$", path).group(1), 16)
     suf = "_%x" % addr
     raw = open(path, encoding="latin1", newline="").read()
-    if g.name_of(g.resolve(C, 0, int(m.group(2)))) == "~":
-        return dtor_transform(g, C, raw)
-    text, _ = gh.swap_transform(g, path, target, rename=tok_rename, stub_suffix=suf)
+    if not m:
+        # gen-nv (batch b9): a non-virtual member the header declares (gen_headers "members", tools/rn_members.py)
+        C, ret, params, quals = g.nv_owner[target]
+        rule = "gen-nv"
+        keep = ({t for k, t in load_pins().values() if k == "var"}
+                if re.search(r'#\s*include\s*"decls/address\.h"', raw) else ())
+        text, _, _sig = gh.swap_transform(g, path, target, rename=tok_rename, stub_suffix=suf,
+                                          nv=(C, target, (ret, params, quals), None), keep=keep)
+    else:
+        C = g.by_csv[m.group(1)]
+        rule = "clone-template" if C.targs is not None else "gen-swap"
+        if g.name_of(g.resolve(C, 0, int(m.group(2)))) == "~":
+            return dtor_transform(g, C, raw)
+        text, _ = gh.swap_transform(g, path, target, rename=tok_rename, stub_suffix=suf)
     head, sep, rest = text.partition("\n")                      # '#include <gen/all.h>'
     tdef, sep, rest = rest.partition("\n")                      # 'typedef ... __Self;'
     if not head.startswith("#include <gen/all.h>") or not tdef.startswith("typedef "):
@@ -230,7 +241,7 @@ def skip_reason(text, target, g, names_on_equiv=True):
     if re.search(r"^\s*#", DECLS_INCLUDE.sub("", text), re.M):
         return "preprocessor lines"
     m = VFUNC.match(target or "")
-    if not m or m.group(1) not in g.by_csv:
+    if (not m or m.group(1) not in g.by_csv) and target not in getattr(g, "nv_owner", {}):
         return "target is not an RTTI class's vfunc_N"
     return None
 
@@ -530,7 +541,7 @@ def main(argv=None):
     ap.add_argument("--only", nargs="*", help="limit to these source paths")
     ap.add_argument("--family", choices=("gen", "pin", "ns", "rn"), default="gen",
                     help="gen: gen-swap + clone-template (default); pin: pin-decl; ns: rtti-ns; rn: a --batch file")
-    ap.add_argument("--rule", choices=("gen-swap", "clone-template", "gen-dtor", "pin-decl", "rtti-ns", "clone-ns",
+    ap.add_argument("--rule", choices=("gen-swap", "clone-template", "gen-dtor", "gen-nv", "pin-decl", "rtti-ns", "clone-ns",
                                        "unclash", "gen-ref", "gen-base", "relabel"),
                     action="append")
     ap.add_argument("--batch", help="rn family: the batch file (tools/rn_plan.py --batches)")

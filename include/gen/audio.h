@@ -136,8 +136,9 @@ public:
     virtual bool vfunc_3(void*); // overrides om::Entity slot 3
     virtual bool vfunc_5(int); // overrides om::Entity slot 5
     virtual void vfunc_8(); // overrides om::Entity slot 8
+    void FUN_00245340(); // non-virtual
     char _pad_24[0x4];
-    int f_28;
+    hulk_intptr f_28;
 };
 
 // .?AVClipType@audio@@  vftable 0x4291b4 (3)
@@ -961,6 +962,7 @@ public:
     virtual void vfunc_1(); // overrides om::Type slot 1
     virtual ~SeqEventSilenceType(); // overrides audio::SeqEventType slot 2
     virtual void* vfunc_3(); // overrides audio::SeqEventType slot 3
+    SeqEventSilenceType* FUN_00254760(); // non-virtual
 };
 
 // .?AVSeqEventStopTrack@audio@@  vftable 0x429d1c (6)
@@ -1120,6 +1122,7 @@ public:
     virtual void vfunc_1(); // overrides om::Type slot 1
     virtual ~SeqEventVarVolumeRandType(); // overrides audio::SeqEventType slot 2
     virtual void* vfunc_3(); // overrides audio::SeqEventType slot 3
+    void* FUN_002524e0(); // non-virtual
 };
 
 // .?AVSeqEventVarVolumeType@audio@@  vftable 0x429fc8 (4)

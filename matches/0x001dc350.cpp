@@ -1,13 +1,13 @@
+#include "gen/global.h"
+
 #include "compat/ptr.h"
-class CSPManager_1dc350 {
-  public:
-    char pad[0x608];
+struct CSPManager_nv_1dc350 {
     int Find(char*);
-    int target(char*);
 };
-int CSPManager_1dc350::target(char* s) {
+
+int CSPManager::FUN_001dc350(char* s) {
     int result = -1;
-    int idx = Find(s);
+    int idx = ((CSPManager_nv_1dc350*)this)->Find(s);
     if (idx >= 0 && s != 0 && *s != 0) {
         char* entry = (char*)this + 0x608 + idx * 0x28;
         short v = *(short*)(entry + 0x22);

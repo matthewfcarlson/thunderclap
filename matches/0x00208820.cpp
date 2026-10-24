@@ -1,17 +1,11 @@
+#include "gen/global.h"
+
 class Subject_208820 {
   public:
     int GetState();
     void OnGlobal();
 };
-class CWorldStreamManager_208820 {
-  public:
-    char pad[4];
-    char b4;
-    char pad2[0x24 - 5];
-    char b24;
-    char pad3[0xaec - 0x25];
-    Subject_208820* field;
-    char flag;
+struct CWorldStreamManager_nv_208820 {
     void OnState();
     void OnOther(Subject_208820*);
     void Step1();
@@ -20,26 +14,26 @@ class CWorldStreamManager_208820 {
     void Step4();
     void Step5();
     void Step6();
-    void Run();
 };
 extern "C" unsigned char gFlag_208820;
-void CWorldStreamManager_208820::Run() {
-    if (field) {
-        int r = field->GetState();
-        flag = 1;
+
+void CWorldStreamManager::FUN_00208820() {
+    if ((*(Subject_208820 * *)&this->f_aec)) {
+        int r = (*(Subject_208820 * *)&this->f_aec)->GetState();
+        this->f_af0 = 1;
         if (r == 3)
-            OnState();
+            ((CWorldStreamManager_nv_208820*)this)->OnState();
         else if (gFlag_208820)
-            field->OnGlobal();
+            (*(Subject_208820 * *)&this->f_aec)->OnGlobal();
         else
-            OnOther(field);
+            ((CWorldStreamManager_nv_208820*)this)->OnOther((*(Subject_208820 * *)&this->f_aec));
     }
-    Step1();
-    Step2();
-    Step3();
-    Step4();
-    Step5();
-    Step6();
-    b4 = 0;
-    b24 = 0;
+    ((CWorldStreamManager_nv_208820*)this)->Step1();
+    ((CWorldStreamManager_nv_208820*)this)->Step2();
+    ((CWorldStreamManager_nv_208820*)this)->Step3();
+    ((CWorldStreamManager_nv_208820*)this)->Step4();
+    ((CWorldStreamManager_nv_208820*)this)->Step5();
+    ((CWorldStreamManager_nv_208820*)this)->Step6();
+    this->f_04 = 0;
+    this->f_24 = 0;
 }

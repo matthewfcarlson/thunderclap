@@ -1,17 +1,15 @@
+#include "gen/audio.h"
+
 #include "compat/ptr.h"
 extern "C" char DAT_0042918c[];
-class Clip {
-  public:
-    virtual void f();
-    char pad[0x24];
-    void* m28;
-    void Done();
+struct Clip_nv_245340 {
     void Finish();
 };
 void Release(void*);
-void Clip::Done() {
+
+void audio::Clip::FUN_00245340() {
     *(void**)this = (void*)((hulk_intptr)DAT_0042918c);
-    if (m28)
-        Release(m28);
-    Finish();
+    if ((*(void * *)&this->f_28))
+        Release((*(void * *)&this->f_28));
+    ((Clip_nv_245340*)this)->Finish();
 }

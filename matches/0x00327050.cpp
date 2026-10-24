@@ -1,27 +1,24 @@
+#include "gen/pure3d.h"
+
 #include "compat/ptr.h"
 extern "C" char DAT_00433424[];
 extern "C" char DAT_004334b4[];
 void Cleanup(void*);
 void __stdcall Release(void*);
-class d3dPrimBuffer_327050 {
-  public:
-    virtual void V0();
-    char pad[0x28];
-    void* a;
-    void* b;
+struct d3dPrimBuffer_nv_327050 {
     void BaseDestroy();
-    void Destroy();
 };
-void d3dPrimBuffer_327050::Destroy() {
+
+void pure3d::d3dPrimBuffer::FUN_00327050() {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_004334b4);
-    if (a) {
-        Cleanup(a);
-        Release(a);
+    if ((*(void * *)&this->f_2c)) {
+        Cleanup((*(void * *)&this->f_2c));
+        Release((*(void * *)&this->f_2c));
     }
-    if (b) {
-        Cleanup(b);
-        Release(b);
+    if ((*(void * *)&this->f_30)) {
+        Cleanup((*(void * *)&this->f_30));
+        Release((*(void * *)&this->f_30));
     }
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00433424);
-    BaseDestroy();
+    ((d3dPrimBuffer_nv_327050*)this)->BaseDestroy();
 }

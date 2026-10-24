@@ -1,4 +1,6 @@
 // Same code shape as 0x0001ecb0 (propagated; names are from that function)
+#include "gen/global.h"
+
 extern char vftableD[];
 extern char vftableA[];
 
@@ -12,27 +14,18 @@ struct Tidier {
     void Tidy();
 };
 
-class CSmartPropAttachAction_1ea90 {
-  public:
-    char pad[0x1c];
-    RefObj_1ea90* volatile mA; // 0x1c
-    char pad2[4];        // 0x20
-    RefObj_1ea90* volatile mB; // 0x24
-    void Shutdown();
-};
-
-void CSmartPropAttachAction_1ea90::Shutdown() {
+void CSmartPropAttachAction::FUN_0001ea90() {
     *(void* volatile*)this = (void*)vftableD;
-    RefObj_1ea90* b = mB;
+    RefObj_1ea90* b = (*(RefObj_1ea90 *volatile *)&this->f_24);
     if (b) {
         b->Release();
-        mB = 0;
+        (*(RefObj_1ea90 *volatile *)&this->f_24) = 0;
     }
     *(void* volatile*)this = (void*)vftableA;
-    RefObj_1ea90* a = mA;
+    RefObj_1ea90* a = (*(RefObj_1ea90 *volatile *)&this->f_1c);
     if (a) {
         a->Release();
-        mA = 0;
+        (*(RefObj_1ea90 *volatile *)&this->f_1c) = 0;
     }
     ((Tidier*)this)->Tidy();
 }

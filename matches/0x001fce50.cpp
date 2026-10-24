@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 struct Trip {
     int a, b, c;
 };
@@ -15,12 +17,12 @@ class CTriggerVolumeManager_1fce50 {
     char pad[0xc9];
     unsigned char flag;
 };
-struct ThisWrap_001fce50 {
+struct CTriggerVolumeManager_nv_1fce50 {
     CTriggerVolumeManager_1fce50* Find(int);
-    unsigned char Target(int a, int b, int c, int id, unsigned char enabled);
 };
-unsigned char ThisWrap_001fce50::Target(int a, int b, int c, int id, unsigned char enabled) {
-    CTriggerVolumeManager_1fce50* p = this->Find(id);
+
+unsigned char CTriggerVolumeManager::FUN_001fce50(int a, int b, int c, int id, unsigned char enabled) {
+    CTriggerVolumeManager_1fce50* p = ((CTriggerVolumeManager_nv_1fce50*)(this))->Find(id);
     if (!p)
         return 0;
     if (enabled && !p->flag)

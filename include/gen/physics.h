@@ -96,7 +96,7 @@ public:
     virtual void vfunc_27(int); // slot 27
     virtual void* vfunc_28(unsigned int) = 0; // slot 28
     virtual void vfunc_29(int); // slot 29
-    int f_10;
+    hulk_intptr f_10;
     int f_14;
     int f_18;
     void* f_1c;
@@ -214,6 +214,7 @@ public:
     virtual void vfunc_27(int); // overrides physics::SimulatedObject slot 27
     virtual void* vfunc_28(unsigned int); // overrides physics::SimulatedObject slot 28
     virtual void vfunc_30(); // overrides physics::PhysicsObject slot 30
+    void FUN_003103e0(); // non-virtual
     void* f_1f8;
     void* f_1fc;
     int f_200;
@@ -250,7 +251,7 @@ public:
     virtual void vfunc_14(void*); // slot 14
     int f_08;
     int f_0c;
-    int f_10;
+    hulk_intptr f_10;
     char _pad_14[0x4];
     char f_18;
     unsigned char f_19;
@@ -384,8 +385,9 @@ public:
     virtual bool vfunc_16(int, int, int); // overrides physics::WorldCollisionVolume slot 16
     virtual void vfunc_17(int, int); // overrides physics::WorldCollisionVolume slot 17
     virtual void vfunc_18(int, void*, void*, void*); // overrides physics::WorldCollisionVolume slot 18
+    void FUN_002f3e40(void*, void*); // non-virtual
     char _pad_1c[0x28];
-    int f_44;
+    hulk_intptr f_44;
     char _pad_48[0x84];
     char f_cc;
 };
@@ -649,6 +651,7 @@ public:
     virtual bool vfunc_2(void*, int, int, int, int, int); // slot 2
     virtual void vfunc_3(void*, int, int, int); // slot 3
     virtual void vfunc_4(); // slot 4
+    void FUN_002f7b70(void*, int, int, hulk_intptr, int, int); // non-virtual
     void* f_04;
     int f_08;
     char _pad_0c[0x8];
@@ -692,6 +695,7 @@ public:
     virtual void vfunc_12(void*, float, bool); // slot 12
     virtual void vfunc_13(void*); // slot 13
     virtual void vfunc_14(void*); // slot 14
+    void FUN_002ef5b0(void*, void*); // non-virtual
     int f_08;
     int f_0c;
     char _pad_10[0x30];
@@ -728,6 +732,7 @@ public:
 class PhysicsInstance : public ::pure3d::NonCopyable {
 public:
     virtual ~PhysicsInstance(); // overrides core::IRefCount slot 2
+    void FUN_002fc420(); // non-virtual
     int f_08;
     char f_0c;
     char _pad_0d[0x3];
@@ -1023,6 +1028,7 @@ public:
     virtual void vfunc_10(int); // overrides physics::SimState slot 10
     virtual bool vfunc_11(); // overrides physics::SimState slot 11
     virtual void vfunc_14(void*); // overrides physics::SimState slot 14
+    void FUN_002fd8a0(void*); // non-virtual
     int f_80;
     char f_84;
     char _pad_85[0x3];
@@ -1104,12 +1110,14 @@ public:
 class SymMatrix {
 public:
     virtual ~SymMatrix(); // slot 0
+    SymMatrix* FUN_00308de0(); // non-virtual
 };
 
 // .?AVWorldCollisionObject@physics@@  vftable 0x431968 (5)
 class WorldCollisionObject : public ::pure3d::Entity {
 public:
     virtual ~WorldCollisionObject(); // overrides core::IRefCount slot 2
+    void FUN_002fe1f0(); // non-virtual
     void* f_10;
     char f_14;
 };

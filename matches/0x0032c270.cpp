@@ -1,3 +1,5 @@
+#include "gen/pure3d.h"
+
 #include "compat/ptr.h"
 extern "C" char DAT_00433a04[];
 class Base_32c270 {
@@ -5,22 +7,17 @@ class Base_32c270 {
     virtual void f();
     virtual void Release();
 };
-class d3dReflShader_32c270 {
-  public:
-    virtual void f();
-    char pad[0x7c];
-    Base_32c270* a;
-    Base_32c270* b;
-    void Run();
+struct d3dReflShader_nv_32c270 {
     void Tail();
 };
-void d3dReflShader_32c270::Run() {
-    Base_32c270* p = a;
+
+void pure3d::d3dReflShader::FUN_0032c270() {
+    Base_32c270* p = (*(Base_32c270 * *)&this->f_80);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00433a04);
     if (p)
         p->Release();
-    p = b;
+    p = (*(Base_32c270 * *)&this->f_84);
     if (p)
         p->Release();
-    Tail();
+    ((d3dReflShader_nv_32c270*)this)->Tail();
 }

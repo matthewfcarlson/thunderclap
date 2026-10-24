@@ -1,3 +1,5 @@
+#include "gen/physics.h"
+
 #include "compat/ptr.h"
 extern "C" char DAT_00431968[];
 class Ref_2fe1f0 {
@@ -9,15 +11,13 @@ class Entity_2fe1f0 {
   public:
     void finish();
 };
-class WorldCollisionObject_2fe1f0 : public Entity_2fe1f0 {
-  public:
-    char pad[16];
-    Ref_2fe1f0* member;
-    void run();
+struct WorldCollisionObject_nv_2fe1f0 {
+    void finish();
 };
-void WorldCollisionObject_2fe1f0::run() {
+
+void physics::WorldCollisionObject::FUN_002fe1f0() {
     *(void**)this = (void*)((hulk_intptr)DAT_00431968);
-    if (member)
-        member->f1();
-    finish();
+    if ((*(Ref_2fe1f0 * *)&this->f_10))
+        (*(Ref_2fe1f0 * *)&this->f_10)->f1();
+    ((WorldCollisionObject_nv_2fe1f0*)this)->finish();
 }

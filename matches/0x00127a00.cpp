@@ -1,17 +1,16 @@
-extern "C" int __cdecl Check(void*, int, const void*, const void*, int);
-extern int a, b;
+#include "gen/fight.h"
+
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern char DAT_00491ca8;
+extern char DAT_004a7ea8;
 namespace fight {
-class ConditionFactoryCaster {
-  public:
-    virtual int vfunc_0(void*);
-    virtual void vfunc_1();
-};
-class TargetCaster : public ConditionFactoryCaster {
+class ConditionFactoryCaster_127a00 {
   public:
     virtual int vfunc_0(void*);
     virtual void vfunc_1();
 };
 } // namespace fight
-int fight::TargetCaster::vfunc_0(void* p) {
-    return Check(p, 0, &a, &b, 0) != 0;
+template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetDirectionYCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004a7ea8, 0) != 0;
 }

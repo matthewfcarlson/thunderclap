@@ -1,9 +1,5 @@
-class CScenarioManager_1cc840 {
-  public:
-    char pad[12];
-    unsigned int value;
-    unsigned int get();
-};
-unsigned int CScenarioManager_1cc840::get() {
-    return value;
+#include "gen/global.h"
+
+unsigned int CScenarioManager::FUN_001cc840() {
+    return (*(unsigned int *)&this->f_0c);
 }

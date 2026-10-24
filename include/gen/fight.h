@@ -590,6 +590,7 @@ public:
     virtual void vfunc_7(); // slot 7
     virtual unsigned int vfunc_8(unsigned int, unsigned int) = 0; // slot 8
     virtual bool vfunc_9(int, int, int) = 0; // slot 9
+    void FUN_00233970(); // non-virtual
     char _pad_10[0xc];
     void* f_1c;
 };
@@ -646,6 +647,7 @@ public:
     virtual void vfunc_17(); // overrides fight::Reader slot 17
     virtual void vfunc_18(); // overrides fight::Reader slot 18
     virtual unsigned int vfunc_19(); // overrides fight::Reader slot 19
+    void FUN_0023c1f0(); // non-virtual
     void* f_08;
     unsigned char f_0c;
     char f_0d;
@@ -1347,6 +1349,7 @@ public:
     virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~FightNodeParentCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
+    FightNodeParentCondition* FUN_00235b00(); // non-virtual
     char _pad_08[0x4];
     int f_0c;
     char _pad_10[0xc];
@@ -1478,6 +1481,7 @@ public:
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual bool vfunc_6(int, int) = 0; // slot 6
+    ParamValueBool* FUN_00234860(int); // non-virtual
     int f_04;
     char _pad_08[0x4];
     int f_0c;
@@ -2863,6 +2867,7 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
     virtual void vfunc_11(); // slot 11
+    void FUN_00238a50(); // non-virtual
     int f_08;
     float f_0c;
     int f_10;
@@ -2929,6 +2934,8 @@ public:
     virtual void vfunc_17(); // overrides fight::Reader slot 17
     virtual void vfunc_18(); // overrides fight::Reader slot 18
     virtual unsigned int vfunc_19(); // overrides fight::Reader slot 19
+    bool FUN_0023ad30(int, char*, int); // non-virtual
+    bool FUN_0023ada0(int, void*); // non-virtual
     void* f_08;
     unsigned int f_0c;
     int f_10;
@@ -2990,6 +2997,7 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
+    void FUN_0023eaf0(); // non-virtual
     int f_08;
     float f_0c;
     float f_10;
@@ -3015,6 +3023,7 @@ public:
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
+    void FUN_0023e580(); // non-virtual
     char _pad_08[0x4];
     float f_0c;
     float f_10;

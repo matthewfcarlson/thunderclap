@@ -7574,5 +7574,1180 @@
     "int"
    ]
   ]
+ },
+ "members": {
+  "_comment": "non-virtual member declarations (tools/rn_members.py, batch b9): class -> {name: [ret, params, quals]}, from the defining sources",
+  "hulkfight::scenario::EffectAction": {
+   "FUN_001a5840": [
+    "void",
+    [
+     "void*",
+     "unsigned int",
+     "unsigned int",
+     "void*"
+    ],
+    ""
+   ]
+  },
+  "CRadMovieRenderLoop": {
+   "FUN_001b6fd0": [
+    "void",
+    [
+     "int"
+    ],
+    ""
+   ]
+  },
+  "Render::StoreBase": {
+   "FUN_001c7870": [
+    "void",
+    [
+     "int",
+     "int"
+    ],
+    ""
+   ],
+   "FUN_001c7720": [
+    "void",
+    [],
+    ""
+   ],
+   "FUN_001c7770": [
+    "void",
+    [
+     "unsigned int"
+    ],
+    ""
+   ]
+  },
+  "CScenarioManager": {
+   "FUN_001cc620": [
+    "void",
+    [
+     "int"
+    ],
+    ""
+   ],
+   "FUN_001cc840": [
+    "unsigned int",
+    [],
+    ""
+   ],
+   "FUN_001cc870": [
+    "void",
+    [
+     "int"
+    ],
+    ""
+   ],
+   "FUN_001cc8e0": [
+    "void",
+    [
+     "char"
+    ],
+    ""
+   ],
+   "FUN_001cc8f0": [
+    "char",
+    [],
+    ""
+   ],
+   "FUN_001cc9b0": [
+    "void",
+    [
+     "int",
+     "float"
+    ],
+    ""
+   ],
+   "FUN_001cca80": [
+    "void",
+    [
+     "int"
+    ],
+    ""
+   ],
+   "FUN_001ccc80": [
+    "int",
+    [],
+    ""
+   ],
+   "FUN_001ccc90": [
+    "void",
+    [
+     "int"
+    ],
+    ""
+   ],
+   "FUN_001ccf50": [
+    "int*",
+    [
+     "int"
+    ],
+    ""
+   ],
+   "FUN_001ccfe0": [
+    "void",
+    [
+     "unsigned char"
+    ],
+    ""
+   ]
+  },
+  "CSPManager": {
+   "FUN_001dc100": [
+    "char",
+    [
+     "int",
+     "bool"
+    ],
+    ""
+   ],
+   "FUN_001dc350": [
+    "int",
+    [
+     "char*"
+    ],
+    ""
+   ],
+   "FUN_001dd450": [
+    "void",
+    [
+     "void*"
+    ],
+    ""
+   ],
+   "FUN_001df190": [
+    "void*",
+    [
+     "void*",
+     "int"
+    ],
+    ""
+   ],
+   "FUN_001df1e0": [
+    "char",
+    [
+     "int",
+     "int",
+     "int",
+     "int"
+    ],
+    ""
+   ],
+   "FUN_001e4760": [
+    "int",
+    [
+     "int",
+     "int",
+     "int",
+     "int",
+     "int",
+     "int",
+     "int"
+    ],
+    ""
+   ],
+   "FUN_001e54b0": [
+    "void",
+    [
+     "const char*",
+     "const char*",
+     "float",
+     "float",
+     "float"
+    ],
+    ""
+   ],
+   "FUN_001e5bb0": [
+    "void",
+    [
+     "int",
+     "int"
+    ],
+    ""
+   ]
+  },
+  "CTriggerVolumeManager": {
+   "FUN_001fc9f0": [
+    "void",
+    [
+     "void*",
+     "int"
+    ],
+    ""
+   ],
+   "FUN_001fca40": [
+    "void",
+    [
+     "void*",
+     "unsigned int"
+    ],
+    ""
+   ],
+   "FUN_001fc9d0": [
+    "bool",
+    [
+     "int"
+    ],
+    ""
+   ],
+   "FUN_001fca90": [
+    "float",
+    [
+     "int"
+    ],
+    ""
+   ],
+   "FUN_001fcab0": [
+    "bool",
+    [
+     "int",
+     "float"
+    ],
+    ""
+   ],
+   "FUN_001fcb70": [
+    "char",
+    [
+     "unsigned int"
+    ],
+    ""
+   ],
+   "FUN_001fcb90": [
+    "unsigned char",
+    [
+     "int"
+    ],
+    ""
+   ],
+   "FUN_001fcbc0": [
+    "void",
+    [
+     "void*",
+     "char"
+    ],
+    ""
+   ],
+   "FUN_001fcbe0": [
+    "char",
+    [
+     "int"
+    ],
+    ""
+   ],
+   "FUN_001fcc00": [
+    "char",
+    [
+     "int",
+     "int"
+    ],
+    ""
+   ],
+   "FUN_001fcc40": [
+    "void",
+    [
+     "void*"
+    ],
+    ""
+   ],
+   "FUN_001fcc60": [
+    "void",
+    [
+     "int"
+    ],
+    ""
+   ],
+   "FUN_001fcc80": [
+    "void",
+    [
+     "int",
+     "int"
+    ],
+    ""
+   ],
+   "FUN_001fce50": [
+    "unsigned char",
+    [
+     "int",
+     "int",
+     "int",
+     "int",
+     "unsigned char"
+    ],
+    ""
+   ],
+   "FUN_001fcf40": [
+    "hulk_intptr",
+    [],
+    ""
+   ],
+   "FUN_001fd830": [
+    "hulk_freg",
+    [
+     "unsigned int"
+    ],
+    ""
+   ],
+   "FUN_001fd8b0": [
+    "bool",
+    [
+     "int",
+     "float"
+    ],
+    ""
+   ],
+   "FUN_001fd8f0": [
+    "unsigned char",
+    [
+     "void*"
+    ],
+    ""
+   ],
+   "FUN_001fd980": [
+    "int",
+    [
+     "int"
+    ],
+    ""
+   ]
+  },
+  "choreo2::AnimationDriver": {
+   "FUN_00225030": [
+    "void",
+    [
+     "void*"
+    ],
+    ""
+   ],
+   "FUN_00225000": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "audio::SeqEventVarVolumeRandType": {
+   "FUN_002524e0": [
+    "void*",
+    [],
+    ""
+   ]
+  },
+  "audio::SeqEventSilenceType": {
+   "FUN_00254760": [
+    "SeqEventSilenceType*",
+    [],
+    ""
+   ]
+  },
+  "pure3d::AnimationLoader": {
+   "FUN_00288eb0": [
+    "void*",
+    [
+     "void*",
+     "int",
+     "void*"
+    ],
+    ""
+   ]
+  },
+  "pure3d::CompDrawVisibilityAnimationController": {
+   "FUN_002a81c0": [
+    "void",
+    [],
+    ""
+   ],
+   "FUN_002a8310": [
+    "void",
+    [
+     "int"
+    ],
+    ""
+   ]
+  },
+  "pure3d::SpriteParticleEmitter": {
+   "FUN_002d5fe0": [
+    "void",
+    [
+     "float"
+    ],
+    ""
+   ]
+  },
+  "physics::CollisionMesh": {
+   "FUN_002f3e40": [
+    "void",
+    [
+     "void*",
+     "void*"
+    ],
+    ""
+   ]
+  },
+  "physics::PhysicsInstance": {
+   "FUN_002fc420": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "physics::SimStateArticulated": {
+   "FUN_002fd8a0": [
+    "void",
+    [
+     "void*"
+    ],
+    ""
+   ]
+  },
+  "CSmartPropAttachAction": {
+   "FUN_0001ea90": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "CHeliDeathSpiralAction": {
+   "FUN_00021490": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "CCharacter": {
+   "FUN_00040140": [
+    "void",
+    [
+     "int",
+     "int",
+     "int",
+     "int",
+     "int"
+    ],
+    ""
+   ],
+   "FUN_00040170": [
+    "int",
+    [],
+    ""
+   ]
+  },
+  "CGrappleSwapTrack": {
+   "FUN_0005abb0": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "CGrappleSequenceTrack": {
+   "FUN_0005af80": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "CKeyPoseTrack": {
+   "FUN_000695b0": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "CChaseCamera": {
+   "FUN_000a2f30": [
+    "void",
+    [
+     "int"
+    ],
+    ""
+   ]
+  },
+  "FETextInput": {
+   "FUN_000dca40": [
+    "bool",
+    [],
+    ""
+   ]
+  },
+  "TextSelector": {
+   "FUN_000e30a0": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "ImageSelector": {
+   "FUN_000e4020": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "FEParticleAnimation": {
+   "FUN_000e89e0": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "CChaseAgent": {
+   "FUN_000fcb10": [
+    "CChaseAgent*",
+    [
+     "unsigned int"
+    ],
+    ""
+   ]
+  },
+  "COccupationAgent": {
+   "FUN_00103410": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "CRangedAgent": {
+   "FUN_00107000": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "hulkfight::ai::AIHistorySetAction": {
+   "FUN_0010f900": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "hulkfight::ai::PathFormationAction": {
+   "FUN_001233a0": [
+    "PathFormationAction*",
+    [
+     "int",
+     "void*"
+    ],
+    ""
+   ]
+  },
+  "hulkfight::PostEvent_StringAction": {
+   "FUN_0012dba0": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "hulkfight::motion::HitEffectTrack": {
+   "FUN_00143790": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "hulkfight::motion::GrappleExecuteTrack": {
+   "FUN_00147800": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "hulkfight::motion::HeliLocomotionTrack": {
+   "FUN_0015bde0": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "hulkfight::motion::LocomotionStrafeAction": {
+   "FUN_0015d460": [
+    "LocomotionStrafeAction*",
+    [
+     "void*"
+    ],
+    ""
+   ]
+  },
+  "hulkfight::motion::BallAndChainReturnTrack": {
+   "FUN_001810c0": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "hulkfight::motion::BallAndChainShootTrack": {
+   "FUN_00181280": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "hulkfight::motion::ImpulseVelocityAction": {
+   "FUN_00190a00": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "CRenderManager": {
+   "FUN_001b87d0": [
+    "void",
+    [
+     "int",
+     "int",
+     "int"
+    ],
+    ""
+   ],
+   "FUN_001b87f0": [
+    "void",
+    [
+     "int",
+     "int",
+     "int"
+    ],
+    ""
+   ],
+   "FUN_001b90b0": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "CEventManager": {
+   "FUN_001cb540": [
+    "void",
+    [
+     "char"
+    ],
+    ""
+   ],
+   "FUN_001cbd10": [
+    "void",
+    [
+     "unsigned int"
+    ],
+    ""
+   ]
+  },
+  "ScriptHandler": {
+   "FUN_001d36e0": [
+    "void",
+    [
+     "int"
+    ],
+    ""
+   ]
+  },
+  "CWorldStreamManager": {
+   "FUN_002042a0": [
+    "int",
+    [
+     "int",
+     "int"
+    ],
+    ""
+   ],
+   "FUN_00207b90": [
+    "void",
+    [],
+    ""
+   ],
+   "FUN_00208820": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "choreo2::Puppet": {
+   "FUN_00222620": [
+    "Puppet*",
+    [
+     "void*"
+    ],
+    ""
+   ]
+  },
+  "choreo2::RestPoseDriver": {
+   "FUN_0022a5d0": [
+    "RestPoseDriver*",
+    [
+     "void*"
+    ],
+    ""
+   ]
+  },
+  "fight::Branch": {
+   "FUN_00233970": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "fight::ParamValueBool": {
+   "FUN_00234860": [
+    "ParamValueBool*",
+    [
+     "int"
+    ],
+    ""
+   ]
+  },
+  "fight::FightNodeParentCondition": {
+   "FUN_00235b00": [
+    "FightNodeParentCondition*",
+    [],
+    ""
+   ]
+  },
+  "fight::PrintTrack": {
+   "FUN_00238a50": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "fight::ScriptReader": {
+   "FUN_0023ad30": [
+    "bool",
+    [
+     "int",
+     "char*",
+     "int"
+    ],
+    ""
+   ],
+   "FUN_0023ada0": [
+    "bool",
+    [
+     "int",
+     "void*"
+    ],
+    ""
+   ]
+  },
+  "fight::BinReader": {
+   "FUN_0023c1f0": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "fight::StopTrack": {
+   "FUN_0023e580": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "fight::SpawnTrack": {
+   "FUN_0023eaf0": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "audio::Clip": {
+   "FUN_00245340": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "content::LoadRequest": {
+   "FUN_00266690": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "core::IRefCount": {
+   "FUN_00268330": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "core::ControllerXBox": {
+   "FUN_00268520": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "core::MemoryTwoWayAllocator": {
+   "FUN_0026d480": [
+    "int*",
+    [],
+    ""
+   ]
+  },
+  "core::DriveRequest": {
+   "FUN_00274350": [
+    "void",
+    [],
+    ""
+   ],
+   "FUN_00274440": [
+    "void",
+    [],
+    ""
+   ],
+   "FUN_002744e0": [
+    "void",
+    [],
+    ""
+   ],
+   "FUN_00274590": [
+    "void",
+    [],
+    ""
+   ],
+   "FUN_00274630": [
+    "void",
+    [],
+    ""
+   ],
+   "FUN_002746e0": [
+    "void",
+    [],
+    ""
+   ],
+   "FUN_00274900": [
+    "void",
+    [],
+    ""
+   ],
+   "FUN_002749a0": [
+    "void",
+    [],
+    ""
+   ],
+   "FUN_00274a50": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "pure3d::scenegraph::DrawableNode": {
+   "FUN_00296b50": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "pure3d::DisplayList": {
+   "FUN_0029bba0": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "pure3d::SceneGraphTransformAnimationController": {
+   "FUN_002a7730": [
+    "SceneGraphTransformAnimationController*",
+    [],
+    ""
+   ]
+  },
+  "pure3d::ShadowMeshBufferImpl": {
+   "FUN_002b4cf0": [
+    "ShadowMeshBufferImpl*",
+    [],
+    ""
+   ],
+   "FUN_002b4d60": [
+    "ShadowMeshBufferImpl*",
+    [
+     "int"
+    ],
+    ""
+   ]
+  },
+  "physics::SimState": {
+   "FUN_002ef5b0": [
+    "void",
+    [
+     "void*",
+     "void*"
+    ],
+    ""
+   ]
+  },
+  "physics::ImpulseBasedCollisionSolver": {
+   "FUN_002f7b70": [
+    "void",
+    [
+     "void*",
+     "int",
+     "int",
+     "hulk_intptr",
+     "int",
+     "int"
+    ],
+    ""
+   ]
+  },
+  "physics::WorldCollisionObject": {
+   "FUN_002fe1f0": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "physics::SymMatrix": {
+   "FUN_00308de0": [
+    "SymMatrix*",
+    [],
+    ""
+   ]
+  },
+  "physics::ArticulatedPhysicsObject": {
+   "FUN_003103e0": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "pure3d::d3dPrimBuffer": {
+   "FUN_00327050": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "pure3d::d3dSimpleShader": {
+   "FUN_0032a3d0": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "pure3d::d3dLightMapShader": {
+   "FUN_0032b5e0": [
+    "void",
+    [],
+    ""
+   ],
+   "FUN_0032ba30": [
+    "d3dLightMapShader*",
+    [
+     "int"
+    ],
+    ""
+   ]
+  },
+  "pure3d::d3dReflShader": {
+   "FUN_0032c270": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "pure3d::d3dProjectedTextureShader": {
+   "FUN_0032cbc0": [
+    "d3dProjectedTextureShader*",
+    [
+     "void*"
+    ],
+    ""
+   ]
+  },
+  "pure3d::d3dLayeredLMapShader": {
+   "FUN_0032e800": [
+    "d3dLayeredLMapShader*",
+    [
+     "int"
+    ],
+    ""
+   ]
+  },
+  "pure3d::d3dBumpMapVertexShader": {
+   "FUN_00332bb0": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "movie::BinkCallback": {
+   "FUN_003352a0": [
+    "BinkCallback*",
+    [],
+    ""
+   ]
+  }
+ },
+ "ptr_fields": {
+  "_comment": "4-byte integer fields read as pointers (tools/rn_ptrfields.py from tools/ptr_fields.py's scan): gen_headers.py types them hulk_intptr / hulk_uintptr",
+  "CKeyPoseAction": {
+   "0x24": "pointer pun (pointer 1)"
+  },
+  "Closure3": {
+   "0x20": "pointer pun (pointer 1)"
+  },
+  "Closure4": {
+   "0x20": "pointer pun (pointer 1)"
+  },
+  "Closure5": {
+   "0x20": "pointer pun (pointer 1)"
+  },
+  "Closure6": {
+   "0x20": "pointer pun (pointer 1)"
+  },
+  "Closure7": {
+   "0x20": "pointer pun (pointer 1)"
+  },
+  "FEThingsBase": {
+   "0x183c": "pointer pun (pointer 2)",
+   "0x220c": "pointer pun (pointer 2)"
+  },
+  "TextSelector": {
+   "0x1d94": "pointer pun (pointer 2)"
+  },
+  "audio::Clip": {
+   "0x28": "pointer pun (pointer 2)"
+  },
+  "core::ControllerInputPointXBox": {
+   "0x2c": "pointer pun (pointer 2)"
+  },
+  "hulkfight::DialogueAction": {
+   "0x1c": "pointer pun (pointer 3)"
+  },
+  "hulkfight::XPAction": {
+   "0x1c": "pointer pun (pointer 1)"
+  },
+  "hulkfight::ai::AIHistorySetAction": {
+   "0x1c": "pointer pun (pointer 1)"
+  },
+  "hulkfight::ai::AcquireTargetAction": {
+   "0x1c": "pointer pun (pointer 5)"
+  },
+  "hulkfight::ai::HulkAction": {
+   "0x1c": "pointer pun (pointer 5)"
+  },
+  "hulkfight::ai::MotionFacingAction": {
+   "0x1c": "pointer pun (pointer 3)"
+  },
+  "hulkfight::ai::SemaphoreClearAction": {
+   "0x1c": "pointer pun (pointer 4)"
+  },
+  "hulkfight::ai::ThreatBallAction": {
+   "0x1c": "pointer pun (pointer 7)",
+   "0x20": "pointer pun (pointer 2)"
+  },
+  "hulkfight::ai::ThreatDodgeAction": {
+   "0x1c": "pointer pun (pointer 3)"
+  },
+  "hulkfight::motion::AnimationPhaseMatchedAction": {
+   "0x1c": "pointer pun (pointer 12)"
+  },
+  "hulkfight::motion::CivilianAnimationAction": {
+   "0x1c": "pointer pun (pointer 1)"
+  },
+  "hulkfight::motion::CivilianDetachAction": {
+   "0x1c": "pointer pun (pointer 1)"
+  },
+  "hulkfight::motion::CivilianThrowAction": {
+   "0x1c": "pointer pun (pointer 3)"
+  },
+  "hulkfight::motion::CriticalMassDrainAction": {
+   "0x1c": "pointer pun (pointer 1)"
+  },
+  "hulkfight::motion::FireGroundShockwaveAction": {
+   "0x1c": "pointer pun (pointer 4)"
+  },
+  "hulkfight::motion::GrapplePropDamageAction": {
+   "0x1c": "pointer pun (pointer 4)"
+  },
+  "hulkfight::motion::HealthAction": {
+   "0x1c": "pointer pun (pointer 6)"
+  },
+  "hulkfight::motion::HitPauseAction": {
+   "0x1c": "pointer pun (pointer 2)"
+  },
+  "hulkfight::motion::ImpulseVelocityAction": {
+   "0x1c": "pointer pun (pointer 9)"
+  },
+  "hulkfight::motion::MissileThrowAction": {
+   "0x1c": "pointer pun (pointer 5)"
+  },
+  "hulkfight::motion::PropAddToMissileCountAction": {
+   "0x1c": "pointer pun (pointer 2)"
+  },
+  "hulkfight::motion::PropSpawnAction": {
+   "0x1c": "pointer pun (pointer 7)"
+  },
+  "hulkfight::motion::PropThrowAction": {
+   "0x1c": "pointer pun (pointer 9)"
+  },
+  "hulkfight::motion::PushOutAction": {
+   "0x1c": "pointer pun (pointer 2)"
+  },
+  "hulkfight::motion::SuckAction": {
+   "0x1c": "pointer pun (pointer 1)"
+  },
+  "hulkfight::motion::TargetIconDistanceAction": {
+   "0x1c": "pointer pun (pointer 4)"
+  },
+  "hulkfight::motion::TeleportAction": {
+   "0x1c": "pointer pun (pointer 1)",
+   "0x20": "pointer pun (int4 1, pointer 2)"
+  },
+  "hulkfight::motion::VarAssignAction": {
+   "0x1c": "pointer pun (pointer 3)"
+  },
+  "hulkfight::motion::WorldConeDamageAction": {
+   "0x1c": "pointer pun (pointer 16)"
+  },
+  "hulkfight::motion::WorldDamageAction": {
+   "0x1c": "pointer pun (pointer 6)"
+  },
+  "physics::CollisionMesh": {
+   "0x44": "pointer pun (pointer 8)"
+  },
+  "physics::CollisionVolume": {
+   "0x10": "pointer pun (pointer 2)"
+  },
+  "physics::SimulatedObject": {
+   "0x10": "pointer pun (pointer 2)"
+  },
+  "pure3d::BillboardQuadGroup": {
+   "0x84": "pointer pun (pointer 3)"
+  },
+  "pure3d::CompositeDrawable": {
+   "0x40": "pointer pun (pointer 1)"
+  },
+  "pure3d::ExpressionAnimationController": {
+   "0x40": "pointer pun (pointer 2)"
+  },
+  "pure3d::NonCopyable": {
+   "0x4": "pointer pun (pointer 1)"
+  },
+  "pure3d::ParticleEmitter": {
+   "0x80": "pointer pun (pointer 3)",
+   "0x84": "pointer pun (pointer 9)",
+   "0x90": "pointer pun (pointer 4)"
+  },
+  "pure3d::ParticleSystem": {
+   "0xa4": "pointer pun (pointer 2)"
+  },
+  "pure3d::PolySkin": {
+   "0x6c": "pointer pun (pointer 2)",
+   "0x70": "pointer pun (pointer 2)"
+  },
+  "pure3d::SceneGraphTransformAnimationController": {
+   "0x110": "pointer pun (pointer 1)"
+  },
+  "pure3d::SceneGraphVisibilityAnimationController": {
+   "0x44": "pointer pun (pointer 1)"
+  },
+  "pure3d::TextureFont": {
+   "0x28": "pointer pun (pointer 3)"
+  },
+  "pure3d::d3dContext": {
+   "0x160": "pointer pun (pointer 1)"
+  },
+  "pure3d::d3dDevice": {
+   "0xc": "pointer pun (int4 1, pointer 1)"
+  }
  }
 }

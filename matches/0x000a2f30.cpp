@@ -1,22 +1,22 @@
+#include "gen/global.h"
+
 struct Local_a2f30 {
     char pad[12];
 };
 struct Helper_a2f30 {
     bool Read(Local_a2f30*);
 };
-struct CChaseCamera_a2f30 {
-    char pad[0x350];
-    Helper_a2f30* field;
+struct CChaseCamera_nv_a2f30 {
     void Apply(float, int);
-    void Run(int);
 };
 extern float __cdecl GetVal(Local_a2f30*);
 extern float __cdecl Transform(float);
-void CChaseCamera_a2f30::Run(int arg) {
+
+void CChaseCamera::FUN_000a2f30(int arg) {
     Local_a2f30 local;
-    if (field && field->Read(&local)) {
+    if ((*(Helper_a2f30 * *)&this->f_350) && (*(Helper_a2f30 * *)&this->f_350)->Read(&local)) {
         float x = GetVal(&local);
         x = Transform(x + 180.0f);
-        Apply(x, arg);
+        ((CChaseCamera_nv_a2f30*)this)->Apply(x, arg);
     }
 }

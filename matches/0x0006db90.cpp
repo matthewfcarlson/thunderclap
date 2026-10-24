@@ -1,18 +1,16 @@
-extern int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern void* DAT_0049850c;
-extern void* DAT_004996b8;
+#include "gen/fight.h"
+
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern char DAT_0049850c;
+extern char DAT_004996b8;
 namespace fight {
-class TrackFactoryCaster {
-  public:
-    virtual bool vfunc_0(void*);
-    virtual void vfunc_1();
-};
-class TrackFactoryCasterTemplate : public TrackFactoryCaster {
+class TrackFactoryCaster_6db90 {
   public:
     virtual bool vfunc_0(void*);
     virtual void vfunc_1();
 };
 } // namespace fight
-bool fight::TrackFactoryCasterTemplate::vfunc_0(void* p) {
+template <> bool fight::TrackFactoryCasterTemplate<CGrappleLocoStrafe4Track>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
     return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004996b8, 0) != 0;
 }

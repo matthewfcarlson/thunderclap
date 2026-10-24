@@ -1,3 +1,5 @@
+#include "gen/global.h"
+
 class Item;
 class Helper {
   public:
@@ -9,16 +11,12 @@ class Mid {
   public:
     Helper* helper;
 };
-class CTriggerVolumeManager_1fcc80 {
-    char pad[4];
-
-  public:
-    Mid* mid;
+struct CTriggerVolumeManager_nv_1fcc80 {
     Item* Find(int);
-    void Run(int, int);
 };
-void CTriggerVolumeManager_1fcc80::Run(int a, int b) {
-    Item* p = Find(a);
+
+void CTriggerVolumeManager::FUN_001fcc80(int a, int b) {
+    Item* p = ((CTriggerVolumeManager_nv_1fcc80*)this)->Find(a);
     if (p)
-        mid->helper->Apply(p, b);
+        (*(Mid * *)&this->f_04)->helper->Apply(p, b);
 }

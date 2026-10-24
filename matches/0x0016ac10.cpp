@@ -1,10 +1,7 @@
+#include "gen/fight.h"
+
 namespace fight {
-class ConditionFactoryCaster {
-  public:
-    virtual int vfunc_0(void*);
-    virtual void vfunc_1();
-};
-template <class T> class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
+class ConditionFactoryCaster_16ac10 {
   public:
     virtual int vfunc_0(void*);
     virtual void vfunc_1();
@@ -12,12 +9,13 @@ template <class T> class ConditionFactoryCasterTemplate : public ConditionFactor
 } // namespace fight
 namespace hulkfight {
 namespace motion {
-class HealthPercentCondition {};
+class HealthPercentCondition_16ac10 {};
 } // namespace motion
 } // namespace hulkfight
-extern int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern int DAT_00491ca8, DAT_004b7948;
-template <>
-int fight::ConditionFactoryCasterTemplate<hulkfight::motion::HealthPercentCondition>::vfunc_0(void* p) {
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern char DAT_00491ca8;
+extern char DAT_004b7948;
+template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::HealthPercentCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
     return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004b7948, 0) != 0;
 }

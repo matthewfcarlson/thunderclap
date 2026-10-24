@@ -1,12 +1,7 @@
-class CRenderManager_1b87d0 {
-    char pad[0x34];
-    int a, b, c;
+#include "gen/global.h"
 
-  public:
-    void set(int x, int y, int z);
-};
-void CRenderManager_1b87d0::set(int x, int y, int z) {
-    a = x;
-    b = y;
-    c = z;
+void CRenderManager::FUN_001b87d0(int x, int y, int z) {
+    this->f_34 = x;
+    this->f_38 = y;
+    this->f_3c = z;
 }

@@ -1,3 +1,5 @@
+#include "gen/hulkfight.h"
+
 #include "compat/ptr.h"
 extern "C" char DAT_00411110[];
 extern "C" void _ReadWriteBarrier();
@@ -11,18 +13,16 @@ class Action_12dba0 {
     virtual void Dummy();
     void Finish();
 };
-class PostEvent_StringAction : public Action_12dba0 {
-  public:
-    void Clean();
-    char pad0[0x20 - 4];
-    Ref_12dba0* mRef;
+struct PostEvent_StringAction_nv_12dba0 {
+    void Finish();
 };
-void PostEvent_StringAction::Clean() {
+
+void hulkfight::PostEvent_StringAction::FUN_0012dba0() {
     *(void**)this = (void*)((hulk_intptr)DAT_00411110);
     _ReadWriteBarrier();
-    if (mRef) {
-        mRef->Release();
-        mRef = 0;
+    if ((*(Ref_12dba0 * *)&this->f_20)) {
+        (*(Ref_12dba0 * *)&this->f_20)->Release();
+        (*(Ref_12dba0 * *)&this->f_20) = 0;
     }
-    Finish();
+    ((PostEvent_StringAction_nv_12dba0*)this)->Finish();
 }

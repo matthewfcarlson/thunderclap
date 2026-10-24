@@ -104,6 +104,7 @@ public:
     virtual void vfunc_0() = 0; // slot 0
     virtual void vfunc_1() = 0; // slot 1
     virtual ~IRefCount() = 0; // slot 2
+    void FUN_00268330(); // non-virtual
 };
 
 // .?AUICementLibrary@core@@  vftable 0x42bf44 (9)
@@ -313,7 +314,7 @@ public:
     char _pad_20[0x4];
     int f_24;
     char _pad_28[0x4];
-    int f_2c;
+    hulk_intptr f_2c;
     int f_30;
 };
 
@@ -441,6 +442,7 @@ public:
     virtual void vfunc_19(int); // overrides core::IControllerXBox slot 19
     virtual void vfunc_20(unsigned int, unsigned int); // overrides core::IControllerXBox slot 20
     virtual void vfunc_21(int); // overrides core::IControllerXBox slot 21
+    void FUN_00268520(); // non-virtual
     int f_04;
     int f_08;
     char _pad_0c[0x8];
@@ -548,6 +550,15 @@ public:
     virtual int vfunc_3(); // overrides core::Request slot 3
     virtual int vfunc_4(); // overrides core::Request slot 4
     virtual void* vfunc_5(); // overrides core::Request slot 5
+    void FUN_00274350(); // non-virtual
+    void FUN_00274440(); // non-virtual
+    void FUN_002744e0(); // non-virtual
+    void FUN_00274590(); // non-virtual
+    void FUN_00274630(); // non-virtual
+    void FUN_002746e0(); // non-virtual
+    void FUN_00274900(); // non-virtual
+    void FUN_002749a0(); // non-virtual
+    void FUN_00274a50(); // non-virtual
     int f_04;
     void* f_08;
 };
@@ -1195,6 +1206,7 @@ public:
     virtual void vfunc_13(int); // overrides core::IMemoryTwoWayAllocator slot 13
     virtual unsigned int vfunc_14(); // overrides core::IMemoryTwoWayAllocator slot 14
     virtual void vfunc_15(int); // overrides core::IMemoryTwoWayAllocator slot 15
+    int* FUN_0026d480(); // non-virtual
     int f_0c;
     int f_10;
     int f_14;
