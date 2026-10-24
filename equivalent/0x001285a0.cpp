@@ -6,7 +6,7 @@
 
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* address) { return address; }
-void* __cdecl FUN_0008d690(size_t);
+void* __cdecl FUN_0008d690(unsigned int);
 void FUN_00123600(); void FUN_00123610();
 namespace hulkfight { namespace ai { class TargetTypeCondition; } }
 namespace fight { template<class T> struct ParamEnumConstList {

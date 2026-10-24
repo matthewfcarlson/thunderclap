@@ -92,36 +92,36 @@ public:
 };
 
 struct FEDoSound_eff20 : FEDoAction_eff20 {
-    char padA[0x54 - sizeof(FEDoAction_eff20)];
+    char padA[0x54 - 0x34];
     FEDoSound_eff20 *FUN_000e1970(void *p, const char *s);
 };
 struct FEDoPopDialog_eff20 : FEDoAction_eff20 {
-    char padB[0x34 - sizeof(FEDoAction_eff20)];
+    char padB[0x34 - 0x34];
     FEDoPopDialog_eff20 *FUN_000e1c40(void *p);
 };
 struct FEDoBackMenu_eff20 : FEDoAction_eff20 {
-    char padC[0x34 - sizeof(FEDoAction_eff20)];
+    char padC[0x34 - 0x34];
     FEDoBackMenu_eff20 *FUN_000e1c60(void *p);
 };
 struct FEDoMenu_eff20 : FEDoAction_eff20 {
-    char padE[0x54 - sizeof(FEDoAction_eff20)];
+    char padE[0x54 - 0x34];
     FEDoMenu_eff20 *FUN_000e1b30(void *p, const char *s);
 };
 struct FEDoScreen_eff20 : FEDoAction_eff20 {
-    char padF[0x54 - sizeof(FEDoAction_eff20)];
+    char padF[0x54 - 0x34];
     FEDoScreen_eff20 *FUN_000e1c90(void *p, const char *s);
 };
 struct FEDoPushDialog_eff20 : FEDoAction_eff20 {
-    char padG[0x1b8 - sizeof(FEDoAction_eff20)];
+    char padG[0x1b8 - 0x34];
     FEDoPushDialog_eff20 *FUN_000e1b90(void *p, const char *a, const char *b, const char *c, const char *d, const char *e, int mode);
 };
 struct FEDoFunction_eff20 : FEDoAction_eff20 {
-    char padS[0x3c - sizeof(FEDoAction_eff20)];
+    char padS[0x3c - 0x34];
     int *items;
     FEDoFunction_eff20 *FUN_000e19d0(void *p, const char *name, int count);
 };
 struct FEDoAnimation_eff20 : FEDoAction_eff20 {
-    char padH[0x40 - sizeof(FEDoAction_eff20)];
+    char padH[0x40 - 0x34];
     unsigned int f40;
     char pad44[4];
     unsigned int f48;
@@ -212,7 +212,7 @@ void Builder::FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4)
     }
     if (h == (int)0x9043fffb) {
         a1.f = p->FUN_000fad30();
-        void *mem = FUN_0008d690(0x44);
+        void *mem = FUN_0008d690(sizeof(FEDoWait));
         FEDoWait *w = 0;
         parent = a2;
         if (mem != 0)
@@ -229,21 +229,21 @@ void Builder::FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4)
         const char *s = p->FUN_000fad90();
         if (s == 0)
             p->FUN_000fa0a0();
-        void *mem = FUN_0008d690(0x54);
+        void *mem = FUN_0008d690(sizeof(FEDoSound_eff20));
         if (mem != 0)
             cmd = ((FEDoSound_eff20 *)mem)->FUN_000e1970(parent, s);
         cmd->type = type;
         break;
     }
     case (int)0x8df5383d: {
-        void *mem = FUN_0008d690(0x34);
+        void *mem = FUN_0008d690(sizeof(FEDoPopDialog_eff20));
         if (mem != 0)
             cmd = ((FEDoPopDialog_eff20 *)mem)->FUN_000e1c40(parent);
         cmd->type = type;
         break;
     }
     case (int)0xbe65b9e4: {
-        void *mem = FUN_0008d690(0x34);
+        void *mem = FUN_0008d690(sizeof(FEDoBackMenu_eff20));
         if (mem != 0)
             cmd = ((FEDoBackMenu_eff20 *)mem)->FUN_000e1c60(parent);
         cmd->type = type;
@@ -260,7 +260,7 @@ void Builder::FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4)
                 count++;
             } while (p->FUN_000fb150() != 0);
         }
-        void *mem = FUN_0008d690(0x40);
+        void *mem = FUN_0008d690(sizeof(FEDoFunction_eff20));
         FEDoFunction_eff20 *seq = 0;
         if (mem != 0)
             seq = ((FEDoFunction_eff20 *)mem)->FUN_000e19d0(a2, nm, count);
@@ -293,7 +293,7 @@ void Builder::FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4)
         const char *s = p->FUN_000fad90();
         if (s == 0)
             p->FUN_000fa0a0();
-        void *mem = FUN_0008d690(0x54);
+        void *mem = FUN_0008d690(sizeof(FEDoAnimation_eff20));
         FEDoAnimation_eff20 *ch = 0;
         if (mem != 0)
             ch = ((FEDoAnimation_eff20 *)mem)->FUN_000e8a90(parent, s);
@@ -338,7 +338,7 @@ void Builder::FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4)
         const char *s = p->FUN_000fad90();
         if (s == 0)
             p->FUN_000fa0a0();
-        void *mem = FUN_0008d690(0x54);
+        void *mem = FUN_0008d690(sizeof(FEDoScreen_eff20));
         if (mem != 0)
             cmd = ((FEDoScreen_eff20 *)mem)->FUN_000e1c90(parent, s);
         cmd->type = type;
@@ -348,28 +348,28 @@ void Builder::FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4)
         const char *s = p->FUN_000fad90();
         if (s == 0)
             p->FUN_000fa0a0();
-        void *mem = FUN_0008d690(0x54);
+        void *mem = FUN_0008d690(sizeof(FEDoMenu_eff20));
         if (mem != 0)
             cmd = ((FEDoMenu_eff20 *)mem)->FUN_000e1b30(parent, s);
         cmd->type = type;
         break;
     }
     case (int)0x5e245a31: {
-        void *mem = FUN_0008d690(0x38);
+        void *mem = FUN_0008d690(sizeof(FEDoBackScreen));
         if (mem != 0)
             cmd = ((FEDoBackScreen *)mem)->FUN_000e1cf0(parent, 0, 0);
         cmd->type = type;
         break;
     }
     case (int)0x70fab569: {
-        void *mem = FUN_0008d690(0x38);
+        void *mem = FUN_0008d690(sizeof(FEDoBackScreen));
         if (mem != 0)
             cmd = ((FEDoBackScreen *)mem)->FUN_000e1cf0(parent, 1, 0);
         cmd->type = type;
         break;
     }
     case (int)0x6ea9b311: {
-        void *mem = FUN_0008d690(0x38);
+        void *mem = FUN_0008d690(sizeof(FEDoBackScreen));
         if (mem != 0)
             cmd = new (mem) FEDoBackScreen(parent, 0, 1);
         cmd->type = type;
@@ -400,7 +400,7 @@ void Builder::FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4)
             mode = 1;
         else if (mh == 0x5ebd3822)
             mode = 2;
-        void *mem = FUN_0008d690(0x1b8);
+        void *mem = FUN_0008d690(sizeof(FEDoPushDialog_eff20));
         FEDoPushDialog_eff20 *g = 0;
         if (mem != 0)
             g = ((FEDoPushDialog_eff20 *)mem)->FUN_000e1b90(a2, f.v1, (const char *)f.off, a1.s, v4, v5, mode);

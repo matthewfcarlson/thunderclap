@@ -33,7 +33,7 @@ int FUN_00214bd0(lua_State *L, const char *what, lua_Debug_33a080 *ar);
 int FUN_00339c30(lua_State *L, int narg, const char *msg);
 void FUN_00213680(lua_State *L, int narr, int nrec);
 void FUN_002133d0(lua_State *L, const char *s);
-void FUN_00213360(lua_State *L, hulk_intptr n);
+void FUN_00213360(lua_State *L, int n);
 void FUN_00213790(lua_State *L, int idx, const char *k);
 
 int FUN_0033a080(lua_State *L)

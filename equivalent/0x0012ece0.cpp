@@ -2,7 +2,7 @@
 // FUN_0012ece0 @ 0x0012ece0
 typedef unsigned int size_t;
 void __cdecl FUN_0008d340(void*);
-void* __cdecl FUN_0008d6d0(size_t);
+void* __cdecl FUN_0008d6d0(unsigned int);
 struct Thing {
     char pad[0x20];
     char* text;
@@ -16,7 +16,7 @@ unsigned char Thing::FUN_0012ece0(const char* value) {
     }
     const char* end = value;
     while (*end) ++end;
-    text = (char*)FUN_0008d6d0(end - value + 1);
+    text = (char*)FUN_0008d6d0((unsigned int)(end - value + 1));
     char* dest = text;
     do {
         *dest++ = *value;

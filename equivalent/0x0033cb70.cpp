@@ -20,7 +20,7 @@ struct MatchState_33cb70 {
 void __cdecl FUN_00338fe0(lua_State *L, int space, const char *msg);
 void __cdecl FUN_00338e20(lua_State *L, const char *fmt, ...);
 void __cdecl FUN_00213380(lua_State *L, const char *s, hulk_uintptr len);
-void __cdecl FUN_00213360(lua_State *L, hulk_intptr n);
+void __cdecl FUN_00213360(lua_State *L, int n);
 
 // equiv-conv: FUN_0033cb70 esi ecx eax
 int FUN_0033cb70(MatchState_33cb70 *ms, const char *s, const char *e)
@@ -35,7 +35,7 @@ int FUN_0033cb70(MatchState_33cb70 *ms, const char *s, const char *e)
         if (l == -1)
             FUN_00338e20(ms->L, "unfinished capture");
         if (l == -2)
-            FUN_00213360(ms->L, ms->capture[i].init - ms->src_init + 1);
+            FUN_00213360(ms->L, (int)(ms->capture[i].init - ms->src_init + 1));
         else
             FUN_00213380(ms->L, ms->capture[i].init, l);
     }
