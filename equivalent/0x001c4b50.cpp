@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3041 inputs, branch coverage 38/38)
+// STATUS: equivalent (tools/equiv.py level 3: 3041 inputs, branch coverage 38/38; --wine 668 inputs)
 // FUN_001c4b50 @ 0x001c4b50
 #include "decls/data/game/Render.h"
 
@@ -129,7 +129,8 @@ void Locator::FUN_001c4b50(Out_1c4b50 *out)
         if (!info || !body->FUN_001d72e0()->flag84) {
             Info_1c4b50 *info2 = body->FUN_001d72e0();
             if (info2 && body->FUN_001d72e0()->flag85) {
-                mgr->FUN_00284820(body->v15());
+                Mat_1c4b50 *bm = body->v15();
+                mgr->FUN_00284820(bm);
             } else {
                 body->v15()->FUN_0022c2b0(&vec70, out);
                 return;

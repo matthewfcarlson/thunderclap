@@ -5,6 +5,6 @@ class X_11bb00 {
     bool Convert(float degrees);
 };
 bool X_11bb00::Convert(float degrees) {
-    value = degrees * (1.f / 57.29578f);
+    value = degrees * 0.017453292f;
     return true;
 }

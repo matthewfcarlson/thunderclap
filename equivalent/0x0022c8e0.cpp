@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 0/0; --wine 606 inputs)
 // FUN_0022c8e0 @ 0x0022c8e0
+#include "compat/ptr.h"
 struct Vec3_22c8e0 { float x, y, z; };
 
 struct Vec3N {
@@ -21,15 +22,16 @@ void Mat_22c8e0::LookAt(const Vec3_22c8e0 *center, const Vec3_22c8e0 *eye, const
     z.FUN_0022d180();
 
     Vec3_22c8e0 s;
-    s.x = z.z * up->y - z.y * up->z;
+    hulk_freg sxr = z.z * up->y - z.y * up->z;
+    s.x = sxr;
     s.y = z.x * up->z - z.z * up->x;
     s.z = z.y * up->x - z.x * up->y;
 
     Vec3_22c8e0 sc = s;
     Vec3_22c8e0 t;
     t.x = s.y * z.z - s.z * z.y;
-    t.y = s.z * z.x - s.x * z.z;
-    t.z = z.y * s.x - s.y * z.x;
+    t.y = s.z * z.x - sxr * z.z;
+    t.z = z.y * sxr - s.y * z.x;
 
     Vec3_22c8e0 tc = t;
     Vec3_22c8e0 zc;

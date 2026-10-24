@@ -5,6 +5,6 @@ class Obj_123740 {
 };
 
 char Obj_123740::Fn(float x) {
-    *(float*)((char*)this + 0xc) = x * (3.14159265358979f / 180.0f);
+    *(float*)((char*)this + 0xc) = x * 0.017453292f;
     return 1;
 }

@@ -5,6 +5,6 @@ struct Obj_16f6f0 {
 };
 
 char Obj_16f6f0::Fn(float f) {
-    m = f * (3.14159265358979f / 180.0f);
+    m = f * 0.017453292f;
     return 1;
 }

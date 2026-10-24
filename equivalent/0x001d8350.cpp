@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3084 inputs, branch coverage 60/60)
+// STATUS: equivalent (tools/equiv.py level 3: 3070 inputs, branch coverage 60/60; --wine 714 inputs)
 // FUN_001d8350 @ 0x001d8350
 // equiv-map: ??0Id64@@QAE@ABU0@@Z = 0x0027af30
 #include "decls/address.h"
@@ -19,8 +19,12 @@ struct Event_1d8350 {
     void FUN_001ca540(Id64 self, Id64 other, int id);
 };
 
+struct Id64Raw_1d8350 {
+    unsigned int lo, hi;
+};
+
 struct Voice_1d8350 {
-    void FUN_00092540(int kind, Id64 id, int z);
+    void FUN_00092540(int kind, Id64Raw_1d8350 id, int z);
     char FUN_00092dc0(int v);
     char FUN_00092940(int v);
 };
@@ -158,10 +162,12 @@ void Collector_1d8350::FUN_001d8350(Fighter_1d8350 *a)
         return;
     }
     if (kind == 3) {
-        DAT_004dd6ec->FUN_00086340()->FUN_00092540(5, id8, 0);
+        Id64 c5(id8);
+        DAT_004dd6ec->FUN_00086340()->FUN_00092540(5, *(Id64Raw_1d8350 *)&c5, 0);
         DAT_004dd6ec->FUN_00086370()->FUN_00090720("smashcollect", 1);
     } else if (kind == 2) {
-        DAT_004dd6ec->FUN_00086340()->FUN_00092540(4, id8, 0);
+        Id64 c4(id8);
+        DAT_004dd6ec->FUN_00086340()->FUN_00092540(4, *(Id64Raw_1d8350 *)&c4, 0);
         (*(char*)&DAT_004e2518) = 1;
     }
     FUN_0027d4f0(10);

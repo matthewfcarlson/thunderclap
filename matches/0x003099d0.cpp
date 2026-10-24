@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 // FUN_003099d0 @ 0x003099d0
 struct Sub_3099d0 {
     char data[0x1c];
@@ -35,8 +36,12 @@ void Anim_3099d0::FUN_003099d0()
 {
     if (length > 0.0f) {
         float previous = current;
-        float ratio = (current = holder->source->value * rate) / previous;
-        inverse = 1.0f / (length = ratio * length);
+        hulk_freg product = holder->source->value * rate;
+        current = product;
+        float ratio = product / previous;
+        hulk_freg newLength = ratio * length;
+        length = newLength;
+        inverse = 1.0f / newLength;
         weight = ratio * weight;
         subA.FUN_002fcb80(ratio);
         subB.FUN_002fcb80(ratio);
