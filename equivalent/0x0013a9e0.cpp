@@ -1,19 +1,23 @@
-// STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 28/30, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3035 inputs, branch coverage 30/30; Wine build 3036 inputs, 30/30)
 // hulkfight::motion::FrameCondition::vfunc_6 @ 0x0013a9e0
-class fight_Params_13a9e0 {
+namespace fight {
+class Params {
+public:
+    virtual void vfunc_0();
+};
+}
+
+class CFightParams : public fight::Params {
 public:
     virtual void vfunc_0();
 };
 
-class CFightParams : public fight_Params_13a9e0 {
+namespace choreo2 {
+class Driver {
 public:
     virtual void vfunc_0();
 };
-
-class choreo2_Driver_13a9e0 {
-public:
-    virtual void vfunc_0();
-};
+}
 
 struct DriverInfo_13a9e0 {
     char pad0[8];
@@ -21,7 +25,8 @@ struct DriverInfo_13a9e0 {
     int idHi;
 };
 
-class choreo2_AnimationDriver_13a9e0 : public choreo2_Driver_13a9e0 {
+namespace choreo2 {
+class AnimationDriver : public Driver {
 public:
     virtual void vfunc_0();
     char pad04[0x1c];
@@ -29,6 +34,7 @@ public:
     char pad24[0x23c - 0x24];
     float value;
 };
+}
 
 struct Context { char pad[4]; };
 Context *__fastcall FUN_000592a0(void *obj);
@@ -36,7 +42,7 @@ Context *__fastcall FUN_000592a0(void *obj);
 struct DriverSet_13a9e0 {
     char pad0[0x68];
     unsigned int count;
-    choreo2_Driver_13a9e0 *FUN_00222e20(unsigned int index);
+    choreo2::Driver *FUN_00222e20(unsigned int index);
 };
 DriverSet_13a9e0 *__fastcall FUN_00059a40(Context *ctx);
 
@@ -50,7 +56,7 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual char vfunc_6(int a, fight_Params_13a9e0 *params, int c);
+    virtual char vfunc_6(int a, fight::Params *params, int c);
     char pad04[0xc];
     int idLo;
     int idHi;
@@ -58,7 +64,7 @@ public:
     float threshold;
 };
 
-char FrameCondition::vfunc_6(int a, fight_Params_13a9e0 *params, int c)
+char FrameCondition::vfunc_6(int a, fight::Params *params, int c)
 {
     if (dynamic_cast<CFightParams *>(params) == 0)
         return 0;
@@ -68,7 +74,7 @@ char FrameCondition::vfunc_6(int a, fight_Params_13a9e0 *params, int c)
 
     unsigned int count = drivers->count;
     for (unsigned int i = 0; i < count; i++) {
-        choreo2_AnimationDriver_13a9e0 *drv = dynamic_cast<choreo2_AnimationDriver_13a9e0 *>(drivers->FUN_00222e20(i));
+        choreo2::AnimationDriver *drv = dynamic_cast<choreo2::AnimationDriver *>(drivers->FUN_00222e20(i));
         if (drv == 0 || drv->info == 0)
             continue;
         if (drv->info->idLo != idLo || drv->info->idHi != idHi)
