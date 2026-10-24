@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 113 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 3037 inputs, branch coverage 18/18; Wine build 3036 inputs, 18/18)
 // hulkfight::motion::HitFloatAction::vfunc_5 @ 0x0014fad0
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight.h"
 #include "decls/data/game/hulkfight/motion.h"
 
@@ -118,7 +119,7 @@ bool HitFloatAction::vfunc_5(Arg1_14fad0 a, float dt)
     a.angle = FUN_00224f10(&target->size);
     dir = (*(V3_14fad0*)&DAT_004afa08);
     FUN_00224d70(a.angle, &dir);
-    float k = dt * speed;
+    hulk_freg k = dt * speed;          // x87: k stays in st(0) for both products
     dir.x = dir.x * k;
     dir.z = dir.z * k;
     mgr->FUN_00059a50(&pos);
@@ -153,15 +154,19 @@ bool HitFloatAction::vfunc_5(Arg1_14fad0 a, float dt)
     dir.x = pos.x + dir.x;
     dir.y = pos.y + dir.y;
     dir.z = pos.z + dir.z;
-    time = time + dt;
+    // x87: the new time is stored with fst and the register copy is compared with the limit
+    hulk_freg t = time + dt;
+    time = t;
     vecB = (*(Grav**)&DAT_00554c10)->v;
     a.angle = vecB.y * (*(float*)&DAT_003f3320);
-    if (time > target->limit) {
+    if (t > target->limit) {
         if (f34 < a.angle)
             f34 = a.angle;
     }
-    f30 = f30 - dt * f34;
-    dir.y = f30 * dt + dir.y;
+    // x87: the new f30 is stored with fst and the register copy feeds the position
+    hulk_freg v = f30 - dt * f34;
+    f30 = v;
+    dir.y = v * dt + dir.y;
     floatObj->transform.FUN_0022be40(&dir);
     return true;
 }
