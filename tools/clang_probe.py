@@ -79,7 +79,9 @@ COMMON = ["-fno-color-diagnostics", "-fno-caret-diagnostics", "-fdiagnostics-sho
 # strict aliasing (`*(T*)&x` punning everywhere), wrapping signed overflow and kept null checks (lifted code
 # relies on both), and on 32-bit x87 math (what the `volatile` rounding pins and the replay checkpoints
 # assume; clang refuses -mfpmath=387 while SSE is enabled, hence -mno-sse). Non-MS targets null-check every
-# `new` (-fcheck-new) because tree_prelude.h drops the `throw()` of operator new there.
+# `new` (-fcheck-new) because tree_prelude.h drops the `throw()` of operator new there; the MS targets (msvc, msvc64)
+# take it too (native19): clang -fms-compatibility emits no null check after a `throw()` operator new, MSVC 7.1 always
+# checks before running the constructor. 15 of 262 sampled sources that use `new` pass --wine only with it, none fails.
 # MSVC 7.1's dialect where clang has a switch for it (docs/native-build.md "After fix 4"): wchar_t is not a
 # keyword (/Zc:wchar_t-, MSVC 7.1's default: sources `typedef unsigned short wchar_t;`; clang-cl /Zc:wchar_t-),
 # `and`/`or`/`not` are identifiers (a stub's `virtual void or();`), `case 0xce85a963:` on an int converts as
@@ -102,7 +104,8 @@ SANITIZE = {"": [],
     os.environ.get("HULK_WINE_SANITIZE", "")]
 CONFIGS = {
     "msvc": dict(flags=["--target=i686-pc-windows-msvc", "-fms-extensions", "-fms-compatibility",
-                        "-fms-compatibility-version=13.10", "-std=c++14", "-O0", "-c"] + NATIVE + X87 + SANITIZE, obj=True),
+                        "-fms-compatibility-version=13.10", "-std=c++14", "-O0", "-c"] + NATIVE + X87 + ["-fcheck-new"]
+                       + SANITIZE, obj=True),
     "gnu": dict(flags=["--target=i686-unknown-linux-gnu", "-fms-extensions", "-std=gnu++17", "-fsyntax-only"]
                 + NATIVE + X87 + ["-fcheck-new"], obj=False),
     "gnu64": dict(flags=["--target=x86_64-unknown-linux-gnu", "-fms-extensions", "-std=gnu++17",
@@ -114,7 +117,8 @@ CONFIGS = {
 # silent half of the pointer-width gap.
 W64 = ["-Wshorten-64-to-32", "-Wvoid-pointer-to-int-cast", "-Wint-to-void-pointer-cast"]
 CONFIGS["msvc64"] = dict(flags=["--target=x86_64-pc-windows-msvc", "-fms-extensions", "-fms-compatibility",
-                                "-fms-compatibility-version=13.10", "-std=c++14", "-O0", "-c"] + NATIVE + W64, obj=True)
+                                "-fms-compatibility-version=13.10", "-std=c++14", "-O0", "-c"] + NATIVE + ["-fcheck-new"] + W64,
+                        obj=True)
 # the same truncation warnings on i686 (syntax only): a site in this one is a 64-bit integer (`__int64`) narrowed
 # on purpose on every target, not a pointer-width one (tools/native64.py subtracts them)
 CONFIGS["gnu32w"] = dict(flags=CONFIGS["gnu"]["flags"] + W64, obj=False)
