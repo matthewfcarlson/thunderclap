@@ -135,6 +135,12 @@ def defined_by_key(cp, objs, prefix):
     return out
 
 
+# HULK_SOFT_X87=1: the math rows of host_crt_table.h that go to msvcrt.dll are bound to the glue's soft versions instead
+SOFT_X87_REMAP = {"asin": "hulk_crt_asin", "acos": "hulk_crt_acos", "log": "hulk_crt_log", "log10": "hulk_crt_log10",
+                  "pow": "hulk_crt_pow", "fmod": "hulk_crt_fmod", "_CIpow": "hulk_crt_CIpow", "_CIfmod": "hulk_crt_CIfmod",
+                  "_CIacos": "hulk_crt_CIacos", "_CIasin": "hulk_crt_CIasin"}
+
+
 def host_crt(cp, outdir):
     """The host CRT pieces of the link: {"libs", "objects", "defined", "by_addr", "by_name", "stats"}.
 
@@ -147,7 +153,13 @@ def host_crt(cp, outdir):
         return out
     out["libs"] = build_import_libs(os.path.join(outdir, "host"), imports)
     st["host imports"] = len(imports)
-    out["objects"] = compile_dir(cp, CRT_DIR, os.path.join(outdir, "crt"), st)
+    soft = os.environ.get("HULK_SOFT_X87") in ("1", "2")      # soft-intrinsics: src/platform/sdl/crt/softx87.cpp (docs/soft-x87.md)
+    out["objects"] = compile_dir(cp, CRT_DIR, os.path.join(outdir, "crt"), st,
+                                 defines=(("HULK_SOFT_X87=" + os.environ["HULK_SOFT_X87"],) + (("HULK_SOFT_X87_STATS=1",)
+                                                    if os.environ.get("HULK_SOFT_X87_STATS") == "1" else ())) if soft else ())
+    if soft:
+        crt = [(a, SOFT_X87_REMAP.get(t, t), n) for a, t, n in crt]
+        st["soft x87 math"] = 1
     syms = cp.nm(out["objects"])
     for dset, _u in syms.values():
         out["defined"] |= dset

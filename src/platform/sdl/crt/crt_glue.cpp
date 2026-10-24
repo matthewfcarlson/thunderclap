@@ -137,7 +137,138 @@ int HULK_HOST_CDECL hulk_crt_fprintf(void* f, const char* fmt, ...) {
 // percent of arguments). These run the instruction the original runs, at the game's precision control (53 bits).
 // On x87 hardware that is the original's result; under an x87 emulator it is the emulator's (QEMU and Rosetta 2
 // both compute fpatan with the host's atan2). A 64-bit build needs software versions instead.
+#if defined(HULK_SOFT_X87)
+// soft-intrinsics (docs/soft-x87.md): the same functions computed by softx87.cpp, integer arithmetic only, what real x87
+// hardware returns. Selected with -DHULK_SOFT_X87=1 (tools/wine_host.py adds it when HULK_SOFT_X87=1 is in the
+// environment, and then also binds the rest of the math table below to these).
+#include "softx87.h"
+#if defined(HULK_SOFT_X87_STATS)
+// -DHULK_SOFT_X87_STATS=1 (HULK_SOFT_X87_STATS=1 in the Wine build's environment): the argument ranges the game really uses.
+// One line appended to the file named by the environment variable HULK_SOFTX87_STATS (default softx87-stats.txt) at the 1st,
+// 2nd, 4th ... call of each function and whenever an argument reaches a new exponent extreme: call count, smallest and
+// largest argument as double bit patterns, and the number of non-finite / huge (|x| >= 2^63) arguments.
+struct hulk_sx_stat {
+    unsigned n, bad, diff;          // diff: calls whose double result differs from the x87 instruction the control build runs
+    unsigned lo[2], hi[2];          // biased exponents of |arg|, per argument
+    unsigned long long mn[2], mx[2];       // smallest / largest argument as ordered bit patterns (negative below positive)
+    int neg[2];
+};
+static hulk_sx_stat hulk_sx_stats[16];
+static unsigned long long hulk_sx_bits(double d) {
+    unsigned long long b;
+    hulk_host_memcpy(&b, &d, 8);
+    return b;
+}
+static unsigned long long hulk_sx_order(unsigned long long b) { return (b >> 63) ? ~b : (b | (1ULL << 63)); }
+static void hulk_sx_note(int k, const char* name, double a, double b, int nargs, double soft = 0.0, double ref = 0.0, int cmp = 0) {
+    hulk_sx_stat& t = hulk_sx_stats[k];
+    bool log = false;
+    double args[2] = {a, b};
+    if (t.n == 0)
+        for (int i = 0; i < 2; i++) {
+            t.lo[i] = 0xfff;
+            t.hi[i] = 0;
+            t.mn[i] = ~0ULL;
+            t.mx[i] = 0;
+        }
+    t.n++;
+    if (cmp && hulk_sx_bits(soft) != hulk_sx_bits(ref)) t.diff++;
+    if ((t.n & (t.n - 1)) == 0) log = true;
+    for (int i = 0; i < nargs; i++) {
+        unsigned long long bits = hulk_sx_bits(args[i]);
+        unsigned ex = (unsigned)((bits >> 52) & 0x7ff);
+        if (ex == 0x7ff || ex >= 1023 + 63) t.bad++;
+        if (ex < t.lo[i]) { t.lo[i] = ex; log = true; }
+        if (ex > t.hi[i]) { t.hi[i] = ex; log = true; }
+        unsigned long long o = hulk_sx_order(bits);
+        if (o < t.mn[i]) t.mn[i] = o;
+        if (o > t.mx[i]) t.mx[i] = o;
+    }
+    if (!log) return;
+    const char* path = hulk_host_getenv("HULK_SOFTX87_STATS");
+    hulk_host_file* f = hulk_host_fopen(path ? path : "softx87-stats.txt", "a");
+    if (!f) return;
+    char line[256];
+    unsigned long long m0 = t.mn[0], x0 = t.mx[0], m1 = t.mn[1], x1 = t.mx[1];
+    m0 = (m0 >> 63) ? (m0 & ~(1ULL << 63)) : ~m0; x0 = (x0 >> 63) ? (x0 & ~(1ULL << 63)) : ~x0;
+    m1 = (m1 >> 63) ? (m1 & ~(1ULL << 63)) : ~m1; x1 = (x1 >> 63) ? (x1 & ~(1ULL << 63)) : ~x1;
+    int len = hulk_host__snprintf(line, sizeof line, "%s n=%u bad=%u diff=%u a0=%08x%08x..%08x%08x a1=%08x%08x..%08x%08x\n", name, t.n,
+                                  t.bad, t.diff, (unsigned)(m0 >> 32), (unsigned)m0, (unsigned)(x0 >> 32), (unsigned)x0,
+                                  nargs > 1 ? (unsigned)(m1 >> 32) : 0, nargs > 1 ? (unsigned)m1 : 0,
+                                  nargs > 1 ? (unsigned)(x1 >> 32) : 0, nargs > 1 ? (unsigned)x1 : 0);
+    if (len > 0) hulk_host_fwrite(line, 1, (hulk_u32)len, f);
+    hulk_host_fclose(f);
+}
 #if defined(__i386__) || defined(_M_IX86)
+// the instruction the control build runs (the OFF glue below), for the diff counter; st(0) is stored to a double
+static double hulk_ref_sin(double x) { double r; __asm__("fsin" : "=t"(r) : "0"(x)); return r; }
+static double hulk_ref_cos(double x) { double r; __asm__("fcos" : "=t"(r) : "0"(x)); return r; }
+static double hulk_ref_tan(double x) { double r; __asm__("fptan\n\tfstp %%st(0)" : "=t"(r) : "0"(x)); return r; }
+static double hulk_ref_atan(double x) { double r; __asm__("fld1\n\tfpatan" : "=t"(r) : "0"(x)); return r; }
+static double hulk_ref_atan2(double y, double x) { double r; __asm__("fpatan" : "=t"(r) : "0"(x), "u"(y) : "st(1)"); return r; }
+static double hulk_ref_exp(double x) {
+    double r;
+    __asm__("fldl2e\n\tfmulp\n\tfld %%st(0)\n\tfrndint\n\tfxch %%st(1)\n\tfsub %%st(1), %%st\n\tf2xm1\n\tfld1\n\tfaddp\n\tfscale\n\tfstp %%st(1)"
+            : "=t"(r) : "0"(x));
+    return r;
+}
+// (the value compared is the one stored to a double: a double return is already stored, st(0) one is rounded here)
+static double hulk_sx_dbl(double v) {
+    volatile double d = v;
+    return d;
+}
+#define HULK_SX1(k, name, expr, refexpr) { hulk_sx_note(k, name, x, 0.0, 1, hulk_sx_dbl(expr), (refexpr), 1); return expr; }
+#define HULK_SX2(k, name, expr, refexpr) { hulk_sx_note(k, name, x, y, 2, hulk_sx_dbl(expr), (refexpr), 1); return expr; }
+#else
+#define HULK_SX1(k, name, expr, refexpr) hulk_sx_note(k, name, x, 0.0, 1); return expr
+#define HULK_SX2(k, name, expr, refexpr) hulk_sx_note(k, name, x, y, 2); return expr
+#endif
+#define HULK_SXN1(k, name, expr) hulk_sx_note(k, name, x, 0.0, 1); return expr
+#define HULK_SXN2(k, name, expr) hulk_sx_note(k, name, x, y, 2); return expr
+#else
+#define HULK_SX1(k, name, expr, refexpr) return expr
+#define HULK_SX2(k, name, expr, refexpr) return expr
+#define HULK_SXN1(k, name, expr) return expr
+#define HULK_SXN2(k, name, expr) return expr
+#endif
+// The result as the original's code finds it: on i386 the 80-bit value left in st(0) (fldt does not round; the next arithmetic
+// instruction rounds to the control word's precision, as it does after the real fsin). HULK_SOFT_X87=2 stores it to a double
+// first; other targets return a double.
+#if (defined(__i386__) || defined(_M_IX86)) && HULK_SOFT_X87 != 2
+static inline double hulk_st0(hulk_x87_ext r) {
+    double d;
+    __asm__("fldt %1" : "=t"(d) : "m"(r));
+    return d;
+}
+#else
+static inline double hulk_st0(hulk_x87_ext r) { return hulk_x87_to_double(r); }
+#endif
+double HULK_HOST_CDECL hulk_crt_sin(double x) { HULK_SX1(0, "sin", hulk_st0(hulk_x87_sin_ext(x)), hulk_ref_sin(x)); }
+double HULK_HOST_CDECL hulk_crt_cos(double x) { HULK_SX1(1, "cos", hulk_st0(hulk_x87_cos_ext(x)), hulk_ref_cos(x)); }
+double HULK_HOST_CDECL hulk_crt_tan(double x) { HULK_SX1(2, "tan", hulk_st0(hulk_x87_tan_ext(x)), hulk_ref_tan(x)); }
+double HULK_HOST_CDECL hulk_crt_atan(double x) { HULK_SX1(3, "atan", hulk_st0(hulk_x87_atan_ext(x)), hulk_ref_atan(x)); }
+double HULK_HOST_CDECL hulk_crt_atan2(double y, double x) { HULK_SX2(4, "atan2(y,x)", hulk_st0(hulk_x87_atan2_ext(y, x)), hulk_ref_atan2(y, x)); }
+double HULK_HOST_CDECL hulk_crt_exp(double x) { HULK_SX1(5, "exp", hulk_st0(hulk_x87_exp_ext(x)), hulk_ref_exp(x)); }
+double HULK_HOST_CDECL hulk_crt_asin(double x) { HULK_SXN1(6, "asin", hulk_st0(hulk_x87_asin_ext(x))); }
+double HULK_HOST_CDECL hulk_crt_acos(double x) { HULK_SXN1(7, "acos", hulk_st0(hulk_x87_acos_ext(x))); }
+double HULK_HOST_CDECL hulk_crt_log(double x) { HULK_SXN1(8, "log", hulk_st0(hulk_x87_log_ext(x))); }
+double HULK_HOST_CDECL hulk_crt_log10(double x) { HULK_SXN1(9, "log10", hulk_st0(hulk_x87_log10_ext(x))); }
+double HULK_HOST_CDECL hulk_crt_pow(double x, double y) { HULK_SXN2(10, "pow(x,y)", hulk_st0(hulk_x87_pow_ext(x, y))); }
+double HULK_HOST_CDECL hulk_crt_fmod(double x, double y) { HULK_SXN2(11, "fmod(x,y)", hulk_x87_fmod(x, y)); }
+#if defined(__i386__) || defined(_M_IX86)
+// The CRT's register-argument entry points (_CIpow, _CIfmod: x in st(1), y in st(0); _CIacos, _CIasin: x in st(0)),
+// which both operands popped and the result in st(0): spill the operands, call the soft version, return its st(0).
+__asm__(".text\n"
+        ".globl _hulk_crt_CIpow\n_hulk_crt_CIpow:\n"
+        "\tsubl $20, %esp\n\tfstpl 8(%esp)\n\tfstpl (%esp)\n\tcalll _hulk_crt_pow\n\taddl $20, %esp\n\tretl\n"
+        ".globl _hulk_crt_CIfmod\n_hulk_crt_CIfmod:\n"
+        "\tsubl $20, %esp\n\tfstpl 8(%esp)\n\tfstpl (%esp)\n\tcalll _hulk_crt_fmod\n\taddl $20, %esp\n\tretl\n"
+        ".globl _hulk_crt_CIacos\n_hulk_crt_CIacos:\n"
+        "\tsubl $12, %esp\n\tfstpl (%esp)\n\tcalll _hulk_crt_acos\n\taddl $12, %esp\n\tretl\n"
+        ".globl _hulk_crt_CIasin\n_hulk_crt_CIasin:\n"
+        "\tsubl $12, %esp\n\tfstpl (%esp)\n\tcalll _hulk_crt_asin\n\taddl $12, %esp\n\tretl\n");
+#endif
+#elif defined(__i386__) || defined(_M_IX86)
 double HULK_HOST_CDECL hulk_crt_sin(double x) {
     double r;
     __asm__("fsin" : "=t"(r) : "0"(x));

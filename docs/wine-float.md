@@ -456,6 +456,14 @@ Consequences for the soft intrinsics:
   (xemu A/B tests only), a `sin(double)` through host libm is what matches.
 - Raw results: `build/cap1/x87-probe.json` (local, not tracked); scorer `build/cap1/x87_score.py`.
 
+## 12. Soft intrinsics (soft-intrinsics, 2026-10-24)
+
+Section 6 (2) is implemented: [soft-x87.md](soft-x87.md), `src/platform/sdl/crt/softx87.{h,cpp}` (integer-only 80-bit x87 `fsin fcos fptan fpatan
+f2xm1 fyl2x fyl2xp1 fscale frndint fprem fprem1 fsqrt` with the FPU's 66-bit pi reduction, plus the double-level `sin cos tan atan atan2
+exp log log10 pow asin acos fmod`). Switch: `HULK_SOFT_X87=1` in the environment of a Wine build job (off by default). On play3 the switch changes no
+checkpoint hash in 30,000 frames (1,001 checkpoints, identical to the control, which diverges from the recording at 3900 for other reasons); the game calls
+`sin` more than 1,000,000 times in the first 3,000 frames.
+
 ## Files
 
 - `tools/x87_scan.py`: the scanner (tracked).
