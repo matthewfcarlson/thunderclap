@@ -152,3 +152,80 @@ by linking a reference to each, glue and math in the glue's object); `tests/nati
 (arm64 at -O1/-O2 and ASan+UBSan, x86-64 under Rosetta, with and without softx87). Known differences left: `qsort` is
 the host's (the order of equal elements can differ from the Xbox CRT's), and on x86-64 System V the game's `char*`
 va_list (Windows-style IR) does not match the host's `va_list` for the v*printf glue (arm64 macOS: both are `char*`).
+
+## 6. What the native Itanium ABI would cost (x64-3, 2026-10-24)
+
+The alternative to section 1: compile the tree for `arm64-apple-macosx` directly (Itanium C++ ABI, LP64). Measured over
+the merged tree of HEAD 122f16970 (Wine build job 18670's snapshot), same dialect flags as section 1, only the triple
+differs. Scripts and data: `build/x64-3/itanium/abi_measure.py` (`dump`: per TU and target, `-fsyntax-only -Xclang
+-fdump-record-layouts-complete` and `-emit-llvm -Xclang -fdump-vtable-layouts`; `analyze`: the comparison; ran as two
+queue jobs, 18752/18753, 90 s each), `report.json` / `report.txt` beside it.
+
+**Record layouts.** 121,197 distinct records (every complete class and struct of every TU); 2,620 / 2,627 TUs compile on
+Itanium (6 fail), 2,625 on the MS triple (1: the held-back `_alloca` source). **3,492 records differ (2.9%), 2,933 of
+them in size**; 1,826 of the 3,492 are source stubs (in a wrapped TU's `fn_` namespace), the rest header and merged
+classes. Causes (a record can have several):
+
+| cause | records | what it is |
+|---|---|---|
+| tail-padding reuse | 1,598 | Itanium places a derived class's first member in a non-POD base's tail padding (`CCharacter`: `pure3d::Entity` is 24 bytes with 4 of padding, `_pad_10` moves from 24 to 20 and every field after it with it) |
+| member-pointer size | 1,106 (+124 through typedefs) | MS member function pointers are 8 bytes for single inheritance, Itanium's always 16 (`Closure`/`Method` families) |
+| contains / derives from a differing type | 604 | knock-on |
+| empty-base placement | 336 | MS gives an empty second base its own byte, Itanium overlaps it at offset 0 |
+| `long` width | 22 | 4 -> 8 bytes |
+| alignment / unclassified | 19 / 24 | |
+| bitfields, virtual bases, `wchar_t` fields | 0 | the tree compiles with `-fno-wchar` and typedefs `wchar_t` as `unsigned short` |
+
+How many sources touch them is only roughly measurable (record names to sources by name): sources naming an affected type
+by its short name, an upper bound: tail padding 8,101 (2,723 of them with literal offsets `f_XX` / `(char*)p + 0x..`),
+member pointers 4,746 (2,230), empty bases 798 (81), `long` 549 (71); any cause 10,281 (3,589).
+
+**Vtables.** 11,565 polymorphic classes dumped on both targets: **1,208 (10.4%) have method slots shifted by one** (the
+Itanium complete + deleting destructor pair against MS's single deleting destructor, `CAction::vfunc_3` 3 -> 4), 195 differ
+only in the destructor entries, 10,162 are the same. Every Itanium vtable also starts with offset-to-top + RTTI (two
+words) where MS has the complete object locator (one). Calls by raw slot index or vptr offset are rare in the sources
+(35 sites in 26 sources), but the sources declare their stub classes' virtuals by position (82,814 `virtual`
+declarations in 9,890 sources, 165 with a virtual destructor; include/gen has 1,511 virtual destructors): every stub
+that stands for a destructor slot with an ordinary virtual, or leaves it out, calls the wrong slot under Itanium without
+any diagnostic. 864 sources store vptrs by hand (`*(void**)this = ...`): those are MS vftable layouts.
+
+**`long` and `wchar_t`.** 384 `long` / `unsigned long` sites in 127 sources, 44 record fields; the two pinned on-disk
+records (`config/layout64.json`) have none. `wchar_t`: 35 sites (the type and `L""` / `L''` literals) in 7 sources: the
+type stays 16-bit through the sources' typedef, the literals would become 32-bit.
+
+**Names and tooling.** The native link's name table (the Wine build's 56,523 bindings, 37,416 of them usable on 64-bit:
+section 4) works by demangled MS names; under Itanium it needs an MS-to-Itanium translation of every reference (by
+demangled form; `long` and calling conventions spell differently). The 2,731 RTTI descriptor redirections and div1's
+class-name fixes assume MS descriptor names; the stub-vftable slot aliases (fix 3a) assume MS slot numbering. 40 tools
+parse MS-mangled names (130k lines), but the MSVC verification tools among them (compare, verify_relocs, equiv,
+build_tree) keep working whatever the native ABI is: only the native link's (native_mac.py, the wine_link logic it
+reuses) would have to be redone.
+
+**Exceptions and RTTI.** try/catch: 1 source (1 try, 1 catch, 2 throw). `dynamic_cast` / `typeid`: 216 + 18 in 135
+sources. `__RTDynamicCast` called by name or address with RTTI descriptor arguments: 1,200 sites in 561 sources. Itanium
+would give libc++abi's `dynamic_cast`, `typeid` and exceptions for free for the 135; the 561 that call the MS runtime
+function with MS descriptors need rewriting to `dynamic_cast` (or an emulation) under either ABI choice on macOS:
+under the MS ABI we write `__RTDynamicCast` ourselves (section 4, the 5 `abi` rows).
+
+**Estimate.**
+
+| work for Itanium | size | kind |
+|---|---|---|
+| name table MS -> Itanium, link logic (slot aliases, RTTI, ambiguous renames) | 37k references, 1 tool | mechanical |
+| `long` -> `int` or `hulk_long32` typedef in sources and headers | 384 sites, 127 sources | mechanical, MSVC-neutral (typedef), but every source re-proved |
+| vtable slots: every stub whose virtuals stand for a destructor slot, every hand-written vptr store | 1,208 hierarchies, up to 9,890 sources, 864 vptr stores | per-source proof; silent when wrong (risky) |
+| tail padding, empty bases, member pointers: field offsets that move only on Itanium | 3,492 records, a few thousand sources with literal offsets | needs real types first (the consolidation); then per-source proof |
+| `__RTDynamicCast` callers -> `dynamic_cast` | 561 sources | per-source proof (needs real class names) |
+| exceptions / RTTI runtime | 0 (libc++abi) | free |
+
+Under the MS ABI on macOS the same tree needs: the retarget (done), our `__RTDynamicCast` / `typeid` reading the
+retargeted RTTI (the 5 `abi` rows), and no exceptions runtime (the game throws in one source). Layouts and vtables are
+then the same as on x86-64 Windows, so one layout family is verified for all three native targets.
+
+**Recommendation: keep the MS ABI on macOS now** (section 1), and keep a migration open: the consolidation work that
+64-bit needs anyway (real class types instead of pads and literal offsets, real destructors in include/gen, named data)
+is exactly what makes the Itanium differences harmless, because a source that names its fields and declares its
+destructors gets the right layout and slots from either compiler. Re-run `abi_measure.py` after the consolidation
+batches; the numbers to watch are the 3,492 differing records and the 1,208 shifted vtables, and the per-source counts
+with literal offsets. Switching while sources still address fields by MS offsets and slots by position would add a
+second, silent layout family on top of the 64-bit one.
