@@ -1,6 +1,6 @@
 # Roadmap
 
-**Goal: a native port.** Source we can build for SteamOS (x86-64 Linux), arm64 macOS and Windows, with quality-of-life improvements. Byte-matching is a tool for proving correctness cheaply, not the destination. A SHA-1-identical `default.xbe` is optional and off the critical path.
+**Goal: a native port.** Source we can build for the two supported targets, SteamOS (x86-64 Linux) and arm64 macOS, with quality-of-life improvements. Byte-matching is a tool for proving correctness cheaply, not the destination. A SHA-1-identical `default.xbe` is optional and off the critical path.
 
 Concrete task briefs are in [`docs/tasks/`](tasks/README.md).
 
@@ -73,7 +73,7 @@ Mostly ordinary code changes once step 6 lands; many can ship earlier as hybrid-
 ### 8. Ship
 - Code only, never game data. On first run the app asks for the player's ISO or folder, checks the XBE hash, and extracts the data locally.
 - macOS: an arm64 `.app`, signed and notarized (Developer ID) to avoid Gatekeeper warnings.
-- Linux / Steam Deck: an AppImage or Flatpak; "Add to Steam" for Game Mode, with SDL input so Steam Input works. Windows: a zip or installer.
+- Linux / Steam Deck: an AppImage or Flatpak; "Add to Steam" for Game Mode, with SDL input so Steam Input works. Windows is not a supported target (decided 2026-10-24); the 32-bit Wine build stays as a development and verification vehicle.
 - Details: [shipping.md](shipping.md).
 
 ## Status of the old plan
