@@ -7,68 +7,19 @@ equivalent/).
 
 | Flag | Meaning | Files |
 |---|---|---|
-| lift | machine-generated from the asm (frame array, register variables) | 7 |
-| goto | control flow copied from the asm with goto | 48 |
-| volatile | 20+ volatile declarations pinning x87 rounding | 11 |
+| lift | machine-generated from the asm (frame array, register variables) | 2 |
+| goto | control flow copied from the asm with goto | 3 |
+| volatile | 20+ volatile declarations pinning x87 rounding | 7 |
 
 | Source | Size | Name | Flags | gotos | volatiles |
 |---|---|---|---|---|---|
 | `equivalent/0x00107c90.cpp` | 7501 | CRangedAgent::vfunc_4 | lift, goto | 150 | 0 |
-| `equivalent/0x000fd0f0.cpp` | 1968 | CControllerAgent::vfunc_4 | lift, volatile | 0 | 63 |
-| `equivalent/0x00358b10.cpp` | 1869 |  | lift, volatile | 0 | 81 |
 | `equivalent/0x00314f50.cpp` | 1739 |  | lift, volatile | 0 | 48 |
-| `equivalent/0x00342180.cpp` | 1657 |  | lift, volatile | 0 | 124 |
-| `equivalent/0x000ee340.cpp` | 1644 | ImageSelector::vfunc_5 | lift, volatile | 0 | 153 |
-| `equivalent/0x00195bb0.cpp` | 1639 | hulkfight::motion::ProjectileEffect::vfunc_4 | lift, volatile | 0 | 112 |
-| `equivalent/0x0019e910.cpp` | 9093 | hulkfight::motion::ProjectileMissile::vfunc_4 | goto | 17 | 2 |
-| `equivalent/0x000ea7c0.cpp` | 5060 | TextSelector::vfunc_5 | goto | 1 | 0 |
-| `equivalent/0x00218350.cpp` | 3806 |  | goto | 3 | 1 |
-| `equivalent/0x002b57d0.cpp` | 2418 |  | goto | 1 | 8 |
-| `equivalent/0x002e1960.cpp` | 2315 |  | goto | 1 | 0 |
-| `equivalent/0x00019470.cpp` | 2227 |  | goto | 1 | 0 |
-| `equivalent/0x001b05a0.cpp` | 2190 |  | goto | 8 | 0 |
-| `equivalent/0x003401b0.cpp` | 2138 |  | volatile | 0 | 151 |
-| `equivalent/0x00101270.cpp` | 1977 | CHand2HandAgent::vfunc_22 | goto | 1 | 6 |
-| `equivalent/0x001b1710.cpp` | 1917 |  | goto | 13 | 0 |
-| `equivalent/0x001734b0.cpp` | 1859 | hulkfight::motion::JointTrackerAction::vfunc_5 | goto | 1 | 0 |
-| `equivalent/0x001ad8c0.cpp` | 1507 |  | goto | 15 | 0 |
-| `equivalent/0x00038660.cpp` | 1495 |  | goto | 3 | 0 |
-| `equivalent/0x00341bd0.cpp` | 1447 |  | volatile | 0 | 74 |
-| `equivalent/0x000d4b60.cpp` | 1412 |  | goto | 1 | 0 |
-| `equivalent/0x000835a0.cpp` | 1388 |  | goto | 11 | 0 |
-| `equivalent/0x00341660.cpp` | 1379 |  | volatile | 0 | 39 |
-| `equivalent/0x0026c040.cpp` | 1152 |  | goto | 1 | 0 |
-| `equivalent/0x00301e10.cpp` | 998 |  | goto | 2 | 7 |
-| `equivalent/0x0003ba60.cpp` | 916 |  | goto | 1 | 0 |
-| `equivalent/0x001aedb0.cpp` | 913 |  | goto | 1 | 0 |
-| `equivalent/0x003369c0.cpp` | 896 |  | goto | 2 | 0 |
-| `equivalent/0x00230160.cpp` | 834 |  | volatile | 0 | 25 |
-| `equivalent/0x00218170.cpp` | 448 |  | goto | 4 | 0 |
-| `equivalent/0x000e70d0.cpp` | 391 |  | goto | 6 | 0 |
-| `equivalent/0x00337700.cpp` | 360 |  | goto | 1 | 0 |
-| `equivalent/0x00217830.cpp` | 331 |  | goto | 1 | 0 |
-| `equivalent/0x000dd980.cpp` | 267 | ControllerPoller::vfunc_2 | volatile | 0 | 36 |
-| `matches/0x0033d6e0.cpp` | 184 |  | goto | 3 | 0 |
-| `matches/0x000e7b90.cpp` | 148 |  | goto | 3 | 0 |
-| `matches/0x000e7c30.cpp` | 148 |  | goto | 3 | 0 |
-| `matches/0x003362f0.cpp` | 130 |  | goto | 2 | 0 |
-| `matches/0x002b0060.cpp` | 121 |  | goto | 1 | 0 |
-| `matches/0x00089f00.cpp` | 114 |  | goto | 1 | 0 |
-| `matches/0x001eee90.cpp` | 111 | CSoundTriggerExecutionState::vfunc_2 | goto | 1 | 0 |
-| `matches/0x000df900.cpp` | 110 |  | goto | 4 | 0 |
-| `matches/0x00243410.cpp` | 106 |  | goto | 5 | 0 |
-| `matches/0x002e1750.cpp` | 104 |  | goto | 1 | 0 |
-| `matches/0x001d2cd0.cpp` | 98 |  | goto | 1 | 0 |
-| `matches/0x00036a20.cpp` | 95 |  | goto | 2 | 0 |
-| `matches/0x001dbe60.cpp` | 94 |  | goto | 2 | 1 |
-| `matches/0x002f9190.cpp` | 74 |  | goto | 1 | 0 |
-| `matches/0x0031b190.cpp` | 74 | pure3d::d3dDisplay::vfunc_14 | goto | 1 | 0 |
+| `equivalent/0x003401b0.cpp` | 2138 |  | volatile | 0 | 62 |
+| `equivalent/0x000fd0f0.cpp` | 1968 | CControllerAgent::vfunc_4 | volatile | 0 | 30 |
+| `equivalent/0x00358b10.cpp` | 1869 |  | volatile | 0 | 49 |
+| `equivalent/0x00342180.cpp` | 1657 |  | volatile | 0 | 93 |
+| `equivalent/0x00341bd0.cpp` | 1447 |  | volatile | 0 | 77 |
+| `equivalent/0x00341660.cpp` | 1379 |  | volatile | 0 | 43 |
 | `matches/0x002d6cb0.cpp` | 72 |  | goto | 1 | 0 |
-| `matches/0x001d1930.cpp` | 71 |  | goto | 1 | 0 |
-| `matches/0x002433b0.cpp` | 71 |  | goto | 3 | 0 |
-| `matches/0x00321d40.cpp` | 69 | pure3d::d3dContext::vfunc_92 | goto | 1 | 0 |
-| `matches/0x00124ce0.cpp` | 64 | hulkfight::ai::ClearProjectileDistanceAction::vfunc_5 | goto | 1 | 0 |
-| `matches/0x00339f40.cpp` | 44 |  | goto | 1 | 0 |
-| `matches/0x000e1480.cpp` | 40 | FEAnimation::vfunc_1 | goto | 2 | 0 |
-| `matches/0x000768d0.cpp` | 38 | fight::TrackFactoryTemplate<CGrappleInvincibleTrack>::vfunc_5 | goto | 1 | 0 |
 | `matches/0x0026cb40.cpp` | 28 | core::MemoryDlAllocator::vfunc_8 | goto | 1 | 0 |

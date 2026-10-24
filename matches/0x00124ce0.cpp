@@ -10,13 +10,10 @@ class Helper_124ce0 {
 
 bool hulkfight::ai::ClearProjectileDistanceAction::vfunc_5(int a, int b) {
     if (a != 0)
-        goto done;
-    {
-        Helper_124ce0* x = (*(Helper_124ce0 * *)&this->f_20)->Get();
-        x = x->Next();
-        if ((*(char * *)&this->f_1c)[0x14] && x->Check())
-            x->Act();
-    }
-done:
+        return true;
+    Helper_124ce0* x = (*(Helper_124ce0 * *)&this->f_20)->Get();
+    x = x->Next();
+    if ((*(char * *)&this->f_1c)[0x14] && x->Check())
+        x->Act();
     return true;
 }

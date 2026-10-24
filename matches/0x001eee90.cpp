@@ -29,22 +29,22 @@ void* CSoundTriggerExecutionState_1eee90::vfunc_2(unsigned char flags) {
     unsigned char bl = flags;
 
     if (bl & 2) {
+        // Array delete: the element count sits just before the first object.
         int eax = *(int*)((char*)esi - 4);
         void* ebp = (char*)esi - 4;
         int ecx = eax + eax * 4;
         --eax;
         esi = (CSoundTriggerExecutionState_1eee90*)((char*)esi + ecx * 8);
-        if (eax < 0)
-            goto vector_loop_end;
-        int edi = eax + 1;
-        do {
-            esi = (CSoundTriggerExecutionState_1eee90*)((char*)esi - 0x28);
-            Member_1eee90* m = (Member_1eee90*)((char*)esi + 0x18);
-            m->~Member_1eee90();
-            --edi;
-            *(void***)esi = IRefCount_vftable_1eee90;
-        } while (edi);
-    vector_loop_end:
+        if (eax >= 0) {
+            int edi = eax + 1;
+            do {
+                esi = (CSoundTriggerExecutionState_1eee90*)((char*)esi - 0x28);
+                Member_1eee90* m = (Member_1eee90*)((char*)esi + 0x18);
+                m->~Member_1eee90();
+                --edi;
+                *(void***)esi = IRefCount_vftable_1eee90;
+            } while (edi);
+        }
         if (bl & 1) {
             operator delete[](ebp);
         }

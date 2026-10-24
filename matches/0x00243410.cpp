@@ -8,17 +8,15 @@ bool __fastcall Target(C_243410* self) {
     int a, b, c;
     int x = self->value;
     if (!ReadValue(x, &a))
-        goto fail;
+        return false;
     if (!ReadValue(x, &b))
-        goto fail;
+        return false;
     if (!ReadValue(x, &c))
-        goto fail;
+        return false;
     if (a != 0xff443350)
-        goto fail;
+        return false;
     if (b != 12)
-        goto fail;
+        return false;
     self->out = c - 12;
     return true;
-fail:
-    return false;
 }

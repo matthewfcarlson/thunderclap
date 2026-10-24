@@ -6,28 +6,27 @@ class C_df900 {
     void F(int a, int b);
 };
 void C_df900::F(int a, int b) {
+    // Find the first free slot (key == 0), scanning four entries per pass.
     int i = 0;
     int* p = (int*)((char*)this + 0x608);
     do {
         if (p[-2] == 0)
-            goto L;
+            break;
         if (p[0] == 0) {
             i = i + 1;
-            goto L;
+            break;
         }
         if (p[2] == 0) {
             i = i + 2;
-            goto L;
+            break;
         }
         if (p[4] == 0) {
             i = i + 3;
-            goto L;
+            break;
         }
         i = i + 4;
         p = p + 8;
     } while (i < 0x40);
-    return;
-L:
     if (i < 0x40) {
         e[i * 2] = Conv(a);
         e[i * 2 + 1] = b;

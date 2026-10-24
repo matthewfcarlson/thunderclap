@@ -29,29 +29,20 @@ void __stdcall ProcessManager(Manager_e7b90* mgr, Callback_e7b90* cb) {
     }
 
     if (!mgr->CheckFlag())
-        goto final_cleanup;
+        return;
 
     mgr->Action1();
 
-    if (!mgr->CheckCondition())
-        goto cleanup;
-
-    do {
+    while (mgr->CheckCondition()) {
         int result = mgr->Action2();
         if (flag) {
             if (cb) {
                 cb->Invoke(mgr, result);
             } else {
                 mgr->AltCleanup();
-                goto cleanup;
+                break;
             }
         }
-    } while (mgr->CheckCondition());
-
-cleanup:
+    }
     mgr->Cleanup();
-    return;
-
-final_cleanup:
-    return;
 }

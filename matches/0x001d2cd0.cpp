@@ -17,12 +17,10 @@ bool C_1d2cd0::Fn(int a, int b, int c) {
     F2(field, -2);
     int r = F3(field, -1);
     bool ok = true;
-    if (!r) {
+    if (!r)
         ok = false;
-        goto done;
-    }
-    F4(b, c, ((hulk_intptr)((char*)&DAT_003f3f38)), r);
-done:
+    else
+        F4(b, c, ((hulk_intptr)((char*)&DAT_003f3f38)), r);
     F5(field, -2);
     return ok;
 }

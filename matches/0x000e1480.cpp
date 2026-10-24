@@ -20,15 +20,10 @@ class FEAnimation {
 };
 void FEAnimation::vfunc_1(AnimTarget* p) {
     AnimTarget* t = target;
-    if (!t)
-        goto common;
-    if (t->state == 2) {
-        t->state = 1;
-        goto common;
+    if (t) {
+        if (t->state == 2) {
+            t->state = 1;
+        }
     }
     target = p;
-    return;
-common:
-    target = p;
-    return;
 }

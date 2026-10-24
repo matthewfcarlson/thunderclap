@@ -15,7 +15,5 @@ template <> void* fight::TrackFactoryTemplate<CGrappleInvincibleTrack>::vfunc_5(
         *(hulk_intptr*)p = ((hulk_intptr)DAT_003fe828);
         return (void*)(p);
     }
-    goto fail;
-fail:
     return (void*)(0);
 }

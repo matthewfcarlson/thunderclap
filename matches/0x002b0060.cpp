@@ -15,25 +15,18 @@ class ExpressionGroup_2b0060 : public Entity_2b0060 {
     virtual void f1();
 };
 ExpressionGroup_2b0060::ExpressionGroup_2b0060(unsigned int n) {
-    if (n > 0) {
-        a = (unsigned int*)FUN_0008d6d0(n * 4);
-        if (a) {
-            a2 = a + n;
-            goto L;
-        }
+    if (n > 0 && (a = (unsigned int*)FUN_0008d6d0(n * 4)) != 0) {
+        a2 = a + n;
+    } else {
+        a = 0;
+        a2 = 0;
     }
-    a = 0;
-    a2 = 0;
-L:
     b = 0;
     b2 = 0;
-    if (n > 0) {
-        c = (unsigned int*)FUN_0008d6d0(n * 4);
-        if (c) {
-            c2 = c + n;
-            return;
-        }
+    if (n > 0 && (c = (unsigned int*)FUN_0008d6d0(n * 4)) != 0) {
+        c2 = c + n;
+    } else {
+        c = 0;
+        c2 = 0;
     }
-    c = 0;
-    c2 = 0;
 }

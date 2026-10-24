@@ -12,14 +12,15 @@ void pure3d::d3dDisplay::vfunc_14() {
     D3D8::D3D_KickOffAndWaitForIdle();
     unsigned char c = g5554a0;
     int n = g55549c;
+    bool wait = true;
     if (c == 0) {
         if (n == 0)
             D3D8::D3DDevice_BlockUntilVerticalBlank();
         else if (n != 1)
-            goto done;
+            wait = false;
     }
-    D3D8::D3DDevice_BlockUntilVerticalBlank();
-done:
+    if (wait)
+        D3D8::D3DDevice_BlockUntilVerticalBlank();
     g55549c = 0;
     this->f_434 = 0;
     D3D8::D3DDevice_Swap(0);

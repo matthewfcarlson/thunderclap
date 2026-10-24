@@ -133,6 +133,8 @@ char Mover_38660::F(V3_38660* a1, int a2, V3_38660* a3, V3_38660* a4, V3_38660* 
         tol2 = 0.01f;
     }
     fr.opts.c = tol2;
+    // A cached result for this slot is reused when the query point has barely moved.
+    bool cacheHit = false;
     if (idx >= 0 && idx < 3 && slots[idx].flag) {
         Slot_38660* s = &slots[idx];
         union {
@@ -165,12 +167,12 @@ char Mover_38660::F(V3_38660* a1, int a2, V3_38660* a3, V3_38660* a4, V3_38660* 
                         *a6 = (hulk_intptr)slots[idx].ptr;
                     if (flagOut)
                         *flagOut = 1;
-                    goto epilogue;
+                    cacheHit = true;
                 }
             }
         }
     }
-    {
+    if (!cacheHit) {
         int notOwner = 0;
         void* pl = DAT_004dd700->p20->f124;
         if ((void*)this != pl && f338 != pl && f334 != pl)
@@ -217,40 +219,38 @@ char Mover_38660::F(V3_38660* a1, int a2, V3_38660* a3, V3_38660* a4, V3_38660* 
                     a3->z = a1->z;
                     fr.o38.x = a1->x;
                     fr.o38.z = a1->z;
-                    goto success;
                 }
             }
-            if (idx >= 0 && idx < 3)
+            if (!result && idx >= 0 && idx < 3)
                 slots[idx].flag = 0;
-            goto epilogue;
         }
-    success:
-        if (*(int*)&fr.o48.x == 0 && idx >= 0 && idx < 3) {
-            Slot_38660* s = &slots[idx];
-            s->flag = 1;
-            s->x0 = a1->x;
-            s->y0 = a1->y;
-            s->z0 = a1->z;
-            s->x1 = a3->x;
-            s->y1 = a3->y;
-            s->z1 = a3->z;
-            s->x2 = a4->x;
-            s->y2 = a4->y;
-            s->z2 = a4->z;
-            s->x3 = fr.o38.x;
-            s->y3 = fr.o38.y;
-            s->z3 = fr.o38.z;
-            FUN_00018810(&slots[idx].ptr, 0);
+        if (result) {
+            if (*(int*)&fr.o48.x == 0 && idx >= 0 && idx < 3) {
+                Slot_38660* s = &slots[idx];
+                s->flag = 1;
+                s->x0 = a1->x;
+                s->y0 = a1->y;
+                s->z0 = a1->z;
+                s->x1 = a3->x;
+                s->y1 = a3->y;
+                s->z1 = a3->z;
+                s->x2 = a4->x;
+                s->y2 = a4->y;
+                s->z2 = a4->z;
+                s->x3 = fr.o38.x;
+                s->y3 = fr.o38.y;
+                s->z3 = fr.o38.z;
+                FUN_00018810(&slots[idx].ptr, 0);
+            }
+            if (a5) {
+                a5->x = fr.o38.x;
+                a5->y = fr.o38.y;
+                a5->z = fr.o38.z;
+            }
+            if (a6)
+                *a6 = *(int*)&fr.o48.x;
         }
-        if (a5) {
-            a5->x = fr.o38.x;
-            a5->y = fr.o38.y;
-            a5->z = fr.o38.z;
-        }
-        if (a6)
-            *a6 = *(int*)&fr.o48.x;
     }
-epilogue:
     FUN_00035fa0(1);
     if (p12c) {
         Sub74_38660* x = p12c->p74;

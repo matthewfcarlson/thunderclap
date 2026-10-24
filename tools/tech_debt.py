@@ -21,7 +21,8 @@ OUT = os.path.join(ROOT, "docs/tech-debt.md")
 LIFT_HEADER = re.compile(r"mechanical lift|Generated from the original", re.I)
 FRAME_ARRAY = re.compile(r"\b(?:volatile\s+)?(?:Wd|unsigned)\s+[LS]\s*\[\s*(?:0x)?[0-9a-fA-F]+\s*\]")
 GOTO = re.compile(r"\bgoto\s+\w+\s*;")
-VOLATILE = re.compile(r"\bvolatile\b")
+# hulk_fslot is a volatile float under MSVC 7.1 (a pinned x87 frame slot), so it counts as one
+VOLATILE = re.compile(r"\bvolatile\b|\bhulk_fslot\b")
 VOLATILE_MIN = 20
 
 

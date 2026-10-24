@@ -18,16 +18,12 @@ class BoneMatrixList : public NonCopyable_2e1750 {
     Mat_2e1750* c;
 };
 BoneMatrixList::BoneMatrixList(unsigned n) {
-    if (n > 0) {
-        b = (Mat_2e1750*)Alloc(n * 64);
-        if (b) {
-            c = b + n;
-            goto L;
-        }
+    if (n > 0 && (b = (Mat_2e1750*)Alloc(n * 64)) != 0) {
+        c = b + n;
+    } else {
+        b = 0;
+        c = 0;
     }
-    b = 0;
-    c = 0;
-L:
     for (unsigned i = 0; i < n; i++)
         b[i].Init();
 }

@@ -11,8 +11,10 @@ void CSPManager_1dbe60::run() {
     if (i < 0x800) {
         short* p = &entries[i][0];
         do {
-            if (*p == 0)
-                goto found;
+            if (*p == 0) {
+                index = i;
+                return;
+            }
             ++i;
             p += 20;
         } while (i < 0x800);
@@ -22,12 +24,11 @@ void CSPManager_1dbe60::run() {
         return;
     short* p = &entries[0][0];
     do {
-        if (*p == 0)
-            goto found;
+        if (*p == 0) {
+            index = i;
+            return;
+        }
         ++i;
         p += 20;
     } while (i <= *(volatile int*)&index);
-    return;
-found:
-    index = i;
 }

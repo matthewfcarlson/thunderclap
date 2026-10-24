@@ -1,8 +1,14 @@
-// STATUS: equivalent (tools/equiv.py level 3: 8833 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 3103 inputs, branch coverage 4/4; Wine build 582 inputs)
 // FUN_003401b0 @ 0x003401b0
-// FUN_003401b0: radix-four complex FFT pass over interleaved samples.
+// FUN_003401b0: radix-four complex FFT pass over interleaved samples. Intermediates the original rounds to
+// float through a stack slot are hulk_fslot locals.
+#if defined(_MSC_VER) && !defined(__clang__)
+typedef volatile float hulk_fslot; // forces the store-and-reload MSVC 7.1 would otherwise skip
+#else
+typedef float hulk_fslot;
+#endif
 // equiv-conv: FUN_003401b0 eax ecx stack
-void FUN_003401b0(volatile float* d, int n, volatile float* tw) {
+void FUN_003401b0(float* d, int n, float* tw) {
     const int quarter = n >> 3;
     const int half = 2 * quarter;
     const int full = 4 * quarter;
@@ -14,11 +20,11 @@ void FUN_003401b0(volatile float* d, int n, volatile float* tw) {
     double e = d[threeHalf];
     double ai = d[1];
     double ci = d[full + 1];
-    volatile float sumImag = d[half + 1] + d[threeHalf + 1];
-    volatile float diffReal = d[half] - d[threeHalf];
-    volatile float diffImag = d[half + 1] - d[threeHalf + 1];
-    volatile float deltaReal = d[0] - d[full];
-    volatile float deltaImag = d[1] - d[full + 1];
+    hulk_fslot sumImag = d[half + 1] + d[threeHalf + 1];
+    hulk_fslot diffReal = d[half] - d[threeHalf];
+    hulk_fslot diffImag = d[half + 1] - d[threeHalf + 1];
+    hulk_fslot deltaReal = d[0] - d[full];
+    hulk_fslot deltaImag = d[1] - d[full + 1];
     d[0] = (b + e) + (c + a);
     d[1] = sumImag + (ci + ai);
     d[half] = (c + a) - (b + e);
@@ -37,21 +43,21 @@ void FUN_003401b0(volatile float* d, int n, volatile float* tw) {
     double carry = 1.0f;
 
     if (quarter > 4) {
-        volatile float* front0 = d + 4;
-        volatile float* front1 = d + full + 4;
-        volatile float* front2 = d + half + 4;
-        volatile float* front3 = d + threeHalf + 4;
-        volatile float* back0 = d + half - 4;
-        volatile float* back1 = d + full - 4;
-        volatile float* back2 = d + threeHalf - 4;
-        volatile float* back3 = d + 2 * full - 4;
-        volatile float* factors = tw + 2;
+        float* front0 = d + 4;
+        float* front1 = d + full + 4;
+        float* front2 = d + half + 4;
+        float* front3 = d + threeHalf + 4;
+        float* back0 = d + half - 4;
+        float* back1 = d + full - 4;
+        float* back2 = d + threeHalf - 4;
+        float* back3 = d + 2 * full - 4;
+        float* factors = tw + 2;
 
         for (int iteration = 0; iteration < (quarter - 5) / 4 + 1; ++iteration) {
-            volatile float wA = (carry + factors[2]) * scale;
-            volatile float wB = (prevReal + factors[3]) * scale;
-            volatile float wC = (prevImag + factors[4]) * otherScale;
-            volatile float wD = (prevNegative - factors[5]) * otherScale;
+            hulk_fslot wA = (carry + factors[2]) * scale;
+            hulk_fslot wB = (prevReal + factors[3]) * scale;
+            hulk_fslot wC = (prevImag + factors[4]) * otherScale;
+            hulk_fslot wD = (prevNegative - factors[5]) * otherScale;
             double currentImag = factors[2];
             prevReal = factors[3];
             prevImag = factors[4];
@@ -62,21 +68,21 @@ void FUN_003401b0(volatile float* d, int n, volatile float* tw) {
             double y0 = front1[-2];
             double x1 = front0[-1];
             double y1 = front1[-1];
-            volatile float dx0 = front0[-2] - front1[-2];
-            volatile float dx1 = front0[-1] - front1[-1];
-            volatile float sx2 = front0[0] + front1[0];
-            volatile float sy2 = front0[1] + front1[1];
-            volatile float dx2 = front0[0] - front1[0];
-            volatile float dy2 = front0[1] - front1[1];
+            hulk_fslot dx0 = front0[-2] - front1[-2];
+            hulk_fslot dx1 = front0[-1] - front1[-1];
+            hulk_fslot sx2 = front0[0] + front1[0];
+            hulk_fslot sy2 = front0[1] + front1[1];
+            hulk_fslot dx2 = front0[0] - front1[0];
+            hulk_fslot dy2 = front0[1] - front1[1];
             double u0 = front3[-2];
             double v0 = front2[-2];
-            volatile float su1 = front3[-1] + front2[-1];
-            volatile float du0 = front2[-2] - front3[-2];
-            volatile float du1 = front2[-1] - front3[-1];
-            volatile float su2 = front3[0] + front2[0];
-            volatile float sv2 = front3[1] + front2[1];
-            volatile float du2 = front2[0] - front3[0];
-            volatile float dv2 = front2[1] - front3[1];
+            hulk_fslot su1 = front3[-1] + front2[-1];
+            hulk_fslot du0 = front2[-2] - front3[-2];
+            hulk_fslot du1 = front2[-1] - front3[-1];
+            hulk_fslot su2 = front3[0] + front2[0];
+            hulk_fslot sv2 = front3[1] + front2[1];
+            hulk_fslot du2 = front2[0] - front3[0];
+            hulk_fslot dv2 = front2[1] - front3[1];
             front0[-2] = (u0 + v0) + (x0 + y0);
             front0[-1] = su1 + (y1 + x1);
             front0[0] = su2 + sx2;
@@ -98,21 +104,21 @@ void FUN_003401b0(volatile float* d, int n, volatile float* tw) {
             double q0 = back2[2];
             double p1 = back0[3];
             double q1 = back2[3];
-            volatile float dp0 = back0[2] - back2[2];
-            volatile float dp1 = back0[3] - back2[3];
-            volatile float sp2 = back0[0] + back2[0];
-            volatile float sq2 = back0[1] + back2[1];
-            volatile float dp2 = back0[0] - back2[0];
-            volatile float dq2 = back0[1] - back2[1];
+            hulk_fslot dp0 = back0[2] - back2[2];
+            hulk_fslot dp1 = back0[3] - back2[3];
+            hulk_fslot sp2 = back0[0] + back2[0];
+            hulk_fslot sq2 = back0[1] + back2[1];
+            hulk_fslot dp2 = back0[0] - back2[0];
+            hulk_fslot dq2 = back0[1] - back2[1];
             double t0 = back1[2];
             double v3 = back3[2];
-            volatile float st1 = back3[3] + back1[3];
-            volatile float dt0 = back1[2] - back3[2];
-            volatile float dt1 = back1[3] - back3[3];
-            volatile float st2 = back3[0] + back1[0];
-            volatile float sv3 = back1[1] + back3[1];
-            volatile float dt2 = back1[0] - back3[0];
-            volatile float dv3 = back1[1] - back3[1];
+            hulk_fslot st1 = back3[3] + back1[3];
+            hulk_fslot dt0 = back1[2] - back3[2];
+            hulk_fslot dt1 = back1[3] - back3[3];
+            hulk_fslot st2 = back3[0] + back1[0];
+            hulk_fslot sv3 = back1[1] + back3[1];
+            hulk_fslot dt2 = back1[0] - back3[0];
+            hulk_fslot dv3 = back1[1] - back3[1];
             back0[2] = (t0 + v3) + (p0 + q0);
             back0[3] = st1 + (p1 + q1);
             back0[0] = st2 + sp2;
@@ -146,20 +152,20 @@ void FUN_003401b0(volatile float* d, int n, volatile float* tw) {
     const int q3 = quarter * 3;
     const int q5 = quarter * 5;
     const int q7 = quarter * 7;
-    volatile float finalC = (prevImag - diagonal) * otherScale;
-    volatile float finalD = (prevNegative - diagonal) * otherScale;
+    hulk_fslot finalC = (prevImag - diagonal) * otherScale;
+    hulk_fslot finalD = (prevNegative - diagonal) * otherScale;
 
-    volatile float a0 = d[q1 - 2];
-    volatile float b0 = d[q5 - 2];
-    volatile float ai0 = d[q1 - 1];
-    volatile float bi0 = d[q5 - 1];
-    volatile float dr0 = d[q1 - 2] - d[q5 - 2];
-    volatile float di0 = d[q1 - 1] - d[q5 - 1];
-    volatile float c0 = d[q7 - 2];
-    volatile float e0 = d[q3 - 2];
-    volatile float ci0 = d[q3 - 1] + d[q7 - 1];
-    volatile float er0 = d[q3 - 2] - d[q7 - 2];
-    volatile float ei0 = d[q3 - 1] - d[q7 - 1];
+    hulk_fslot a0 = d[q1 - 2];
+    hulk_fslot b0 = d[q5 - 2];
+    hulk_fslot ai0 = d[q1 - 1];
+    hulk_fslot bi0 = d[q5 - 1];
+    hulk_fslot dr0 = d[q1 - 2] - d[q5 - 2];
+    hulk_fslot di0 = d[q1 - 1] - d[q5 - 1];
+    hulk_fslot c0 = d[q7 - 2];
+    hulk_fslot e0 = d[q3 - 2];
+    hulk_fslot ci0 = d[q3 - 1] + d[q7 - 1];
+    hulk_fslot er0 = d[q3 - 2] - d[q7 - 2];
+    hulk_fslot ei0 = d[q3 - 1] - d[q7 - 1];
     d[q1 - 2] = (c0 + e0) + (a0 + b0);
     d[q1 - 1] = ci0 + (bi0 + ai0);
     d[q3 - 2] = (a0 + b0) - (c0 + e0);
@@ -173,13 +179,13 @@ void FUN_003401b0(volatile float* d, int n, volatile float* tw) {
     double b1 = d[q5];
     double ai1 = d[q1 + 1];
     double bi1 = d[q5 + 1];
-    volatile float dr1 = d[q1] - d[q5];
-    volatile float di1 = d[q1 + 1] - d[q5 + 1];
+    hulk_fslot dr1 = d[q1] - d[q5];
+    hulk_fslot di1 = d[q1 + 1] - d[q5 + 1];
     double c1 = d[q3];
     double e1 = d[q7];
-    volatile float ci1 = d[q3 + 1] + d[q7 + 1];
-    volatile float er1 = d[q3] - d[q7];
-    volatile float ei1 = d[q3 + 1] - d[q7 + 1];
+    hulk_fslot ci1 = d[q3 + 1] + d[q7 + 1];
+    hulk_fslot er1 = d[q3] - d[q7];
+    hulk_fslot ei1 = d[q3 + 1] - d[q7 + 1];
     d[q1] = (c1 + e1) + (a1 + b1);
     d[q1 + 1] = ci1 + (bi1 + ai1);
     d[q3] = (a1 + b1) - (c1 + e1);
@@ -193,13 +199,13 @@ void FUN_003401b0(volatile float* d, int n, volatile float* tw) {
     double b2 = d[q5 + 2];
     double ai2 = d[q1 + 3];
     double bi2 = d[q5 + 3];
-    volatile float dr2 = d[q1 + 2] - d[q5 + 2];
-    volatile float di2 = d[q1 + 3] - d[q5 + 3];
+    hulk_fslot dr2 = d[q1 + 2] - d[q5 + 2];
+    hulk_fslot di2 = d[q1 + 3] - d[q5 + 3];
     double c2 = d[q7 + 2];
     double e2 = d[q3 + 2];
-    volatile float ci2 = d[q7 + 3] + d[q3 + 3];
-    volatile float er2 = d[q3 + 2] - d[q7 + 2];
-    volatile float ei2 = d[q3 + 3] - d[q7 + 3];
+    hulk_fslot ci2 = d[q7 + 3] + d[q3 + 3];
+    hulk_fslot er2 = d[q3 + 2] - d[q7 + 2];
+    hulk_fslot ei2 = d[q3 + 3] - d[q7 + 3];
     d[q1 + 2] = (c2 + e2) + (a2 + b2);
     d[q1 + 3] = ci2 + (ai2 + bi2);
     d[q3 + 2] = (a2 + b2) - (c2 + e2);

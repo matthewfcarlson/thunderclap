@@ -10,12 +10,11 @@ class C_1d1930 {
 bool C_1d1930::Run(int n) {
     if (n >= 1) {
         f13640(m, -10000, n);
-        if (f12f00(m, -1) == 0)
+        if (f12f00(m, -1) == 0) {
             f12d80(m, -2);
-        else
-            goto success;
+            return false;
+        }
+        return true;
     }
     return false;
-success:
-    return true;
 }

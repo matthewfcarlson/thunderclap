@@ -846,8 +846,9 @@ void ProjectileMissile::vfunc_4(float dt)
     prev.z = pos.z;
 
     // what did we hit?
+    // The handling below is a single pass: `break` means "nothing more to do for this hit".
     Coll_19e910 *ho = fr.u0c.hitObj;
-    if (ho != 0) {
+    while (ho != 0) {
         Node_19e910 *node = 0;
         Actor_19e910 *actor = 0;
         int type = ho->type;
@@ -857,7 +858,7 @@ void ProjectileMissile::vfunc_4(float dt)
         } else if (type == 5) {
             node = (Node_19e910 *)ho->f8;
             if (node == 0)
-                goto done;
+                break;
             actor = node->f148;
             fr.u08.actor = actor;
             if (actor == 0) {
@@ -872,10 +873,10 @@ void ProjectileMissile::vfunc_4(float dt)
         } else if (type == 7) {
             Node_19e910 *n = (Node_19e910 *)ho->f8;
             if (n == 0)
-                goto done;
+                break;
             if (n->f10 == 5) {
                 fr.hit = false;
-                goto done;
+                break;
             }
             if (fr.hit) {
                 fr.evt.FUN_00059820();
@@ -896,7 +897,7 @@ void ProjectileMissile::vfunc_4(float dt)
                 n->FUN_00081420(&fr.evt);
                 fr.evt.FUN_00059300();
             }
-            goto done;
+            break;
         }
 
         if (actor != 0) {
@@ -907,26 +908,24 @@ void ProjectileMissile::vfunc_4(float dt)
             Team_19e910 *team = actor->f11c;
             if (actor->f10->id == f44) {
                 fr.hit = false;
-                goto done;
+                break;
             }
-            if (actor->FUN_0003b4f0(&dir) && team != 0 && (team->f14 == 1 || team->f14 == 2 || team->f14 == 3)) {
-                if (fr.u08.actor == DAT_004dd700->f20->f124) {
-                    // the player's deflect needs the unlockable move
-                    UnlockTable_19e910 *tab = DAT_004dd6ec->FUN_00086340();
-                    void *u = tab->FUN_00092ad0(0x2b9);
-                    if (u == 0)
-                        goto actorDone;
+            bool canDeflect = actor->FUN_0003b4f0(&dir) && team != 0 && (team->f14 == 1 || team->f14 == 2 || team->f14 == 3);
+            if (canDeflect && fr.u08.actor == DAT_004dd700->f20->f124) {
+                // the player's deflect needs the unlockable move (or the cheat)
+                canDeflect = false;
+                UnlockTable_19e910 *tab = DAT_004dd6ec->FUN_00086340();
+                void *u = tab->FUN_00092ad0(0x2b9);
+                if (u != 0) {
                     Unlock_19e910 *move = FUN_00344e74(u, 0, &DAT_0049dab8, &DAT_0049db1c, 0);
-                    if (move == 0)
-                        goto actorDone;
-                    Unlock_19e910 *cheat = FUN_00344e74(tab->FUN_00092ad0(0x1d), 0, &DAT_0049dab8, &DAT_0049dafc, 0);
-                    if (!(cheat != 0 && cheat->b8 == 0 && cheat->b20 != 0)) {
-                        if (move->b8 != 0)
-                            goto actorDone;
-                        if (!move->FUN_00091f40())
-                            goto actorDone;
+                    if (move != 0) {
+                        Unlock_19e910 *cheat = FUN_00344e74(tab->FUN_00092ad0(0x1d), 0, &DAT_0049dab8, &DAT_0049dafc, 0);
+                        canDeflect = (cheat != 0 && cheat->b8 == 0 && cheat->b20 != 0) ||
+                                     (move->b8 == 0 && move->FUN_00091f40());
                     }
                 }
+            }
+            if (canDeflect) {
                 // deflected: the missile now belongs to the actor
                 actor = fr.u08.actor;
                 f44 = actor->f10->id;
@@ -992,10 +991,9 @@ void ProjectileMissile::vfunc_4(float dt)
                     fr.u50.snd->FUN_000d4620(1, sfx, -1, *snds->FUN_00025930(&fr.u04.i, 0), -1.0f);
                 }
             }
-        actorDone:
             if (fr.owner != 0) {
                 if (!fr.hit)
-                    goto done;
+                    break;
                 Rider_19e910 *rider = fr.u08.actor->f1b64;
                 if (rider != 0) {
                     float s = speed;
@@ -1007,12 +1005,12 @@ void ProjectileMissile::vfunc_4(float dt)
                         f44 = fr.u08.actor->f10->id;
                         life = cfg->fb0;
                         fr.hit = false;
-                        goto done;
+                        break;
                     }
                 }
             }
             if (!fr.hit)
-                goto done;
+                break;
             fr.evt.FUN_00059820();
             fr.evt.pos = fr.hitPos;
             fr.evt.normal = fr.hitNormal;
@@ -1050,7 +1048,7 @@ void ProjectileMissile::vfunc_4(float dt)
             if (actor->FUN_000360f0()) {
                 actor->FUN_00043350(fr.evt.f78, fr.evt.f4c, fr.evt.f48, 1.0f, 0, 0);
                 fr.evt.FUN_00059300();
-                goto done;
+                break;
             }
             Queue_19e910 *q = cfg->fbc;
             if (q != 0) {
@@ -1062,7 +1060,7 @@ void ProjectileMissile::vfunc_4(float dt)
                     sink->FUN_00231ad0(&actor->fdc, job, -1);
                 job->Release();
                 fr.evt.FUN_00059300();
-                goto done;
+                break;
             }
             Coll_19e910 *by = 0;
             if (fr.owner != 0)
@@ -1070,7 +1068,7 @@ void ProjectileMissile::vfunc_4(float dt)
             Cfg_19e910 *c = cfg;
             actor->FUN_00043ae0(by, &fr.hitPos, c->fd8, c->fb8, c->fd4, 0, 0, 0, 0);
             fr.evt.FUN_00059300();
-            goto done;
+            break;
         }
 
         if (node != 0) {
@@ -1091,10 +1089,10 @@ void ProjectileMissile::vfunc_4(float dt)
             }
             if (node->FUN_001d6980()) {
                 fr.hit = false;
-                goto done;
+                break;
             }
             if (!fr.hit)
-                goto done;
+                break;
             fr.u08.amount = cfg->fd4;
             if (src != 0) {
                 int side = src->f11c->f1b0;
@@ -1117,8 +1115,8 @@ void ProjectileMissile::vfunc_4(float dt)
                 }
             }
         }
+        break;
     }
-done:
     if (fr.owner == 0 || fr.owner->f114 == 0) {
         // orient the model along the flight direction
         fr.v40.x = 0.0f;

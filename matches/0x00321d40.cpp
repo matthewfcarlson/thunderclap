@@ -15,15 +15,12 @@ int pure3d::d3dContext::vfunc_92(void* __p0) { Texture_321d40 * p = (Texture_321
 
     void* d = D3DDevice_GetDepthStencilSurface2();
     void* s;
-    if (p == 0) {
+    if (p == 0)
         s = D3DDevice_GetBackBuffer2(0);
-        goto set;
-    }
-    s = D3DTexture_GetSurfaceLevel2(p->surface, 0);
-    if (s) {
-    set:
+    else
+        s = D3DTexture_GetSurfaceLevel2(p->surface, 0);
+    if (p == 0 || s)
         D3DDevice_SetRenderTarget(s, d);
-    }
     D3DResource_Release(s);
     D3DResource_Release(d);
     return 0;

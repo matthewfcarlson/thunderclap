@@ -19,13 +19,14 @@ Single_36a20* Convert();
 
 void __fastcall Target(Obj_36a20* self) {
     Temp_36a20 temp;
-    if (self->flag == 1)
-        goto clear;
-    if (gGlobal_36a20->x != 0 && CheckGlobal(self))
-        goto clear;
+    if (self->flag == 1) {
+        self->result = 0;
+        return;
+    }
+    if (gGlobal_36a20->x != 0 && CheckGlobal(self)) {
+        self->result = 0;
+        return;
+    }
     self->Make(&temp);
     self->result = Convert()->Test(&temp) ? 0 : 1;
-    return;
-clear:
-    self->result = 0;
 }

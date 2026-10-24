@@ -17,26 +17,18 @@ int __cdecl target(int value) {
     int esi = value;
     int ebp = FUN_00212d70(esi);
     FUN_002135a0(esi, -10001, tostring);
-    int edi = 1;
-    if (ebp < edi)
-        goto finish;
-loop:
-    FUN_00212ed0(esi, -1);
-    FUN_00212ed0(esi, edi);
-    FUN_002139a0(esi, 1, 1);
-    hulk_intptr ebx = FUN_00213190(esi, -1);
-    if (!ebx)
-        goto failure;
-    if (edi > 1)
-        FUN_00347eed((void*)((hulk_intptr)((char*)&DAT_00434f70)), &zero_33d6e0);
-    FUN_00347eed((void*)ebx, &zero_33d6e0);
-    FUN_00212d80(esi, -2);
-    ++edi;
-    if (edi <= ebp)
-        goto loop;
-finish:
+    for (int edi = 1; edi <= ebp; ++edi) {
+        FUN_00212ed0(esi, -1);
+        FUN_00212ed0(esi, edi);
+        FUN_002139a0(esi, 1, 1);
+        hulk_intptr ebx = FUN_00213190(esi, -1);
+        if (!ebx)
+            return FUN_00338e20(esi, error);
+        if (edi > 1)
+            FUN_00347eed((void*)((hulk_intptr)((char*)&DAT_00434f70)), &zero_33d6e0);
+        FUN_00347eed((void*)ebx, &zero_33d6e0);
+        FUN_00212d80(esi, -2);
+    }
     FUN_00347eed((void*)((hulk_intptr)((char*)&DAT_00422518)), &zero_33d6e0);
     return 0;
-failure:
-    return FUN_00338e20(esi, error);
 }
