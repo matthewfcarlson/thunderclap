@@ -835,6 +835,40 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     symbol bindings whose convention differs (`this` in ecx or not), mostly with no stack words at all; round 17's
     `thisdecl` covers the ones whose callee reads ecx.
 
+- (round 24, native19) **Wine-mode gaps div1 found**, each switchable with `EQUIV_OFF=name`, both `--wine` only (MSVC-mode
+  verdicts unchanged):
+  - `fretwide`: a stub's float result was always exact as a float (`fld dword`), so a caller that rounds an x87 result
+    the original keeps gave the same bits: HEAD^ of `equivalent/0x000189c0` (`return (float)asin(x)`; the original is
+    `call __CIasin; ret`) passed `--wine` while it put the Wine build's chase camera 1-31 ULP off from frame 2705. Now
+    the result of a call whose code consumes st0 carries extra bits (`fv * (1 + odd * 2^-40)`, loaded with `fld qword`)
+    on every other call (seeded per call, the same on both sides) when the callee is a CRT `__CI*` routine (`NATIVE_CI`)
+    or one our clang object declares to return double (`hulk_freg`, `NATIVE_F64`, from clang's mangled names) and
+    `Program.fret_wide` says the original's result can be wide: false only when every `ret` follows, on a fall-through
+    path with no join, a `fld dword [m]`, `fldz` or `fld1` (a getter). Directed-input overrides, `stubfloats`,
+    `ftolunit` callees and 0.0 keep the exact value. Not covered: callees our source declares `float` (clang's callee
+    rounds its own return, so the caller's rounding changes nothing in the Wine build; the declaration is the bug) and
+    virtual calls (no declaration per slot). Cases `0x000189c0_native_fretwide_wrong` (fails), `_off` (passes with the
+    switch off), `0x00018a20_native_fretwide[_wrong]` (acos, patch E's bug); `0x000189c0_native_ci` is now the fixed
+    source (it returned `(float)r` and was expected to pass).
+  - `retarg`: a callee that returns its first stack argument in eax on every path (`Vec3 *F(Vec3 *out, ...)`: `mov eax,
+    [esp+4]; ...; ret`; `Program.returns_arg0`: paths followed with esp and an ebp frame tracked, calls with their callee's
+    pop, register copies, a store into the argument's slot ends it) returns that word on both sides. `sretret` (round 19)
+    sees the original's `call; fld [eax]` and gives its run `&out`, but clang's -O0 caller stores eax to a local and reads
+    through it later, so ours got a fuzzed pointer: 11 chase-camera sources failed `--wine` on input 0 (div1's `_isnan`
+    lead in 0x000a0940 was a NaN read through that pointer); 9 pass now, 0x000a1760 and 0x000a6400 are real x87
+    differences. Cases `0x000a0940_native_retarg`, `_off`, `_wrong`.
+  - `convdef`: a callee our source declares as a free cdecl/stdcall function with a register note (`// equiv-conv:
+    FUN_0008ef00 ecx`) whose own verified source defines it as a member (`T::name(`) or `__fastcall`
+    (`_definition_conv`, read from equivalent/ or matches/0xADDR.cpp) is a level-2 issue `conv_note_vs_definition`:
+    the note describes the original's call, but the Wine build compiles both sides from their declarations, so the call
+    pushes the word the definition reads from ecx (wine_conv_check check 9). The two sources it flagged, 0x000e07c0
+    (-> Stream::FUN_0008ef00) and 0x00334c70 (-> Owner_334b00::FUN_00334b00), now call the member under clang and keep
+    the note for MSVC mode. Every other caller with such a note already declares the callee as a member. Cases
+    `0x000e07c0_native_convdef[_wrong,_off]`, `0x00334c70_native_convdef[_wrong]`.
+  - Not a rule: clang's i686 x87 code leaves `(float)(unsigned)x` unrounded in the register (the conversion's result is
+    never stored as a float). Where the original stores it (`fild; fstp dword`), the source needs a `float` local
+    (`matches/0x00266790`, still MATCH; cases `0x00266790_native_uitofp[_wrong]`).
+
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check
   `__security_check_cookie` is skipped on both sides, because its caller's `add esp` releases the frame

@@ -716,6 +716,32 @@ CASES = {
     "0x001fe000_native_uninitarg_wrong": ("fail", "argument 3", 0, {"native": True, "n_inputs": 60}),
     "0x001fe000_native_narrowstruct_wrong": ("fail", "argument 5", 0, {"native": True, "n_inputs": 60}),
     "0x001fe000_native_purecall_wrong": ("fail", "this (ecx)", 0, {"native": True, "n_inputs": 60}),
+    # round 24 (native19): fretwide - a stubbed float result carries bits beyond a float's 24 (a CRT __CI routine, or a
+    # callee declared hulk_freg whose original computes its result): `return (float)asin(x)` rounds what the original
+    # returns unrounded (div1's camera-pitch bug, 0x000189c0; the same for acos 0x00018a20). 0x000189c0_native_ci is
+    # the fixed source (it returned (float)r and passed before)
+    "0x000189c0_native_fretwide_wrong": ("fail", "returned", 0, {"native": True, "n_inputs": 60}),
+    "0x000189c0_native_fretwide_off": ("equivalent", None, 0, {"src": "0x000189c0_native_fretwide_wrong", "native": True, "n_inputs": 60, "equiv_off": "fretwide"}),
+    "0x00018a20_native_fretwide": ("equivalent", None, 0.9, {"native": True, "n_inputs": 100}),
+    "0x00018a20_native_fretwide_wrong": ("fail", "returned", 0, {"native": True, "n_inputs": 60}),
+    # retarg: the callee returns its first stack argument (`Vec3 *F(Vec3 *out, ...)`); clang's -O0 caller keeps eax in a
+    # local and reads through it later, where sretret only saw the original's `call; mov ecx, [eax]` (11 chase-camera
+    # sources failed --wine on input 0)
+    "0x000a0940_native_retarg": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    "0x000a0940_native_retarg_off": ("fail", None, 0, {"src": "0x000a0940_native_retarg", "native": True, "n_inputs": 60, "equiv_off": "retarg"}),
+    "0x000a0940_native_retarg_wrong": ("fail", "this+0x", 0, {"native": True, "n_inputs": 60}),
+    # (not a checker rule) clang's x87 code leaves `(float)(unsigned)x` unrounded in the register: the original stores the
+    # numerator as a float, so the source needs a float local (MATCH either way)
+    "0x00266790_native_uitofp": ("equivalent", None, 0, {"native": True, "n_inputs": 300}),
+    "0x00266790_native_uitofp_wrong": ("fail", "returned", 0, {"native": True, "n_inputs": 300}),
+    # convdef: a register note (`// equiv-conv: FUN_x ecx`) on a callee declared as a free function whose verified
+    # definition is a member: the Wine build pushes the word the definition reads from ecx (wine_conv_check check 9).
+    # The fixed sources call the member under clang and keep the note for MSVC mode
+    "0x000e07c0_native_convdef": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    "0x000e07c0_native_convdef_wrong": ("fail", "L2 conv_note_vs_definition", 0, {"native": True, "n_inputs": 60}),
+    "0x000e07c0_native_convdef_off": ("equivalent", None, 0, {"src": "0x000e07c0_native_convdef_wrong", "native": True, "n_inputs": 60, "equiv_off": "convdef"}),
+    "0x00334c70_native_convdef": ("equivalent", None, 0.9, {"native": True, "n_inputs": 100}),
+    "0x00334c70_native_convdef_wrong": ("fail", "L2 conv_note_vs_definition", 0, {"native": True, "n_inputs": 60}),
 }
 
 # verify_relocs.py cases: name -> (expected status, issue kind it must report or None)

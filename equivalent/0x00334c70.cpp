@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3019 inputs, branch coverage 36/36)
+// STATUS: equivalent (tools/equiv.py level 3: 3019 inputs, branch coverage 36/36; Wine build 644 inputs, 35/36)
 // FUN_00334c70 @ 0x00334c70
 typedef unsigned int U_334c70;
 struct Stream { virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void read(void*,U_334c70,U_334c70); virtual void s10(); virtual void seek(U_334c70); virtual void tell(U_334c70*); };
@@ -6,8 +6,17 @@ struct State_334c70 { char p0[0x1c]; U_334c70 error; U_334c70 idle; U_334c70 byt
 U_334c70 __cdecl FUN_00368660();
 // equiv-conv: FUN_00334c40 esi
 void FUN_00334c40(State_334c70*);
+// FUN_00334b00's definition is a member (`Owner_334b00::FUN_00334b00()`, its own note: esi): the Wine build compiles it
+// as a thiscall, so clang's call passes the state in ecx (a cdecl call would push it: wine_conv_check check 9). MSVC
+// mode keeps the original's register note.
+#if defined(__clang__)
+struct Owner_334c70 { void FUN_00334b00(); };
+#define CALL_334B00(s) (((Owner_334c70*)(s))->FUN_00334b00())
+#else
 // equiv-conv: FUN_00334b00 esi
 void FUN_00334b00(State_334c70*);
+#define CALL_334B00(s) FUN_00334b00(s)
+#endif
 void __cdecl thunk_FUN_00270a50();
 U_334c70 __stdcall target(State_334c70* s,U_334c70 unused,U_334c70 position,unsigned char* out,U_334c70 count) {
  if(s->error) return 0;
@@ -26,7 +35,7 @@ U_334c70 __stdcall target(State_334c70* s,U_334c70 unused,U_334c70 position,unsi
  } else {
   while(count && !s->error) {
    if(s->idle) thunk_FUN_00270a50();
-   FUN_00334b00(s);
+   CALL_334B00(s);
    if(s->available) {
     U_334c70 n=s->available-s->skip; if(n>count)n=count;
     count-=n; s->position+=s->skip+n; total+=n;

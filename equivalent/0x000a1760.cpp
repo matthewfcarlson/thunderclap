@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 2/2; Wine build 601 inputs, 2/2)
 // FUN_000a1760 @ 0x000a1760
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 
 struct Vec3_a1760 { float x, y, z; };
 
@@ -48,8 +49,9 @@ void Mover_a1760::Update(float a1, float a2) {
         f394 = 0.0f;
         f320 = f328;
     } else {
-        float w = (1.0f - f394 / f398);
-        w = (2.0f - w) * w;
+        // x87: the original keeps 1 - t/T unrounded in st(1) for (2 - u) * u; only w is stored
+        hulk_freg u = 1.0f - f394 / f398;
+        float w = (2.0f - u) * u;
         px = FUN_000a02a0(f3a0 - f39c) * w + f39c;
         py = (f3a8 - f3a4) * w + f3a4;
         pz = (f3b0 - f3ac) * w + f3ac;

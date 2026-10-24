@@ -1325,6 +1325,172 @@ class Program:
         cache[target] = min(need, 3)
         return cache[target]
 
+    def fret_wide(self, target, depth=0):
+        """(round 24, fretwide) Can the float a callee leaves in st0 carry bits beyond a float's 24? False only when
+        every `ret` it reaches is preceded (going back over non-x87 instructions, `fstp st(1)` and `fxch`) by a
+        load that is exact as a float: `fld dword [m]`, `fldz`, `fld1` (a getter, `return m_x;`). Arithmetic, a
+        double or extended load, an integer load, a call or anything the scan can't follow counts as wide."""
+        cache = self.__dict__.setdefault("_fwide", {})
+        if target in cache:
+            return cache[target]
+        cache[target] = True
+        if not self.is_code(target) or target not in self.funcs or depth > 3:
+            return True
+        size = self.funcs[target][0]
+        view = CodeView(self.read, target, (target, target + size), self)
+        try:
+            view.build(limit=4000)
+        except Exception:   # noqa: BLE001 - unreadable code: wide (the strict answer)
+            return True
+        addrs = sorted(view.insns)
+        if not addrs:
+            return True
+        pos = {a: j for j, a in enumerate(addrs)}
+        joins = {i.target for i in view.insns.values() if i.kind in ("jcc", "jmp") and i.target is not None}
+        for tg_ in view.tables.values():
+            joins.update(tg_)
+        wide = False
+        rets = 0
+        for a in addrs:
+            i = view.insns[a]
+            if i.kind == "jmp" and i.target is not None and not (target <= i.target < target + size):
+                rets += 1
+                if self.fret_wide(i.target, depth + 1):     # a tail jump: the target's result is ours
+                    wide = True
+                    break
+                continue
+            if i.kind != "ret":
+                continue
+            rets += 1
+            exact = False
+            j = pos[a] - 1
+            while j >= 0:
+                if addrs[j + 1] in joins:
+                    break               # another path joins between the load and the ret: not followed (wide)
+                p = view.insns[addrs[j]]
+                if p.addr + p.size != addrs[j + 1]:
+                    break               # no fall-through into the next instruction
+                if p.kind in ("call", "jmp", "ret", "stop"):
+                    break
+                mn = p.mnemonic
+                if not mn.startswith("f") or mn in ("fxch", "fnstsw", "fstsw", "fnstcw", "fldcw", "fwait",
+                                                    "fcom", "fucom", "fst", "fist", "fnclex", "ftst"):
+                    j -= 1
+                    continue
+                if mn == "fstp" and p.regs == ["st(1)"]:
+                    j -= 1
+                    continue
+                if mn == "fld" and p.mem is not None and p.mem[5] == 4:
+                    exact = True
+                elif mn in ("fldz", "fld1"):
+                    exact = True
+                break
+            if not exact:
+                wide = True
+                break
+        cache[target] = wide or rets == 0
+        return cache[target]
+
+    def returns_arg0(self, target):
+        """(round 24, retarg) Does the function return its first stack argument in eax on every path (`Vec3 *F(Vec3
+        *out, ...) { ...; return out; }`: `mov eax, [esp+4]; ...; ret`)? Paths are followed with esp tracked over
+        push/pop/sub/add esp, an ebp frame (`mov ebp, esp` ... `leave`) and calls (a direct callee pops what its `ret N`
+        says; after an indirect one esp is unknown); a copy of the argument in a register counts, and callee-saved
+        registers keep it across calls. Anything else (an esp change the scan can't follow, an indirect jump, more than
+        3000 states) answers False."""
+        cache = self.__dict__.setdefault("_retarg0", {})
+        if target in cache:
+            return cache[target]
+        cache[target] = False
+        if not self.is_code(target) or target not in self.funcs:
+            return False
+        lo, hi = target, target + self.funcs[target][0]
+        view = CodeView(self.read, target, (lo, hi), self)
+        # state: (addr, esp depth below the return address or None, ebp's depth or None, registers holding argument 0)
+        work, seen, steps, rets = [(target, 0, None, frozenset())], set(), 0, 0
+        while work:
+            a, d, e, held = work.pop()
+            while True:
+                if (a, d, e, held) in seen:
+                    break
+                seen.add((a, d, e, held))
+                steps += 1
+                if steps > 3000 or not (lo <= a < hi):
+                    return False
+                i = view.decode(a)
+                if i is None or i.kind == "stop":
+                    return False
+                if i.kind == "ret":
+                    if "eax" not in held:
+                        return False
+                    rets += 1
+                    break
+                if i.kind == "jmp":
+                    if i.target is None or not (lo <= i.target < hi):
+                        return False
+                    a = i.target
+                    continue
+                if i.kind == "jcc":
+                    if i.target is None:
+                        return False
+                    work.append((i.target, d, e, held))
+                    a += i.size
+                    continue
+                if i.kind == "call":
+                    pop_ = self.callee_pop(i.target) if i.target is not None else None
+                    d = d - pop_ if d is not None and pop_ is not None else None
+                    held = frozenset(held - {"eax", "ecx", "edx"})
+                    a += i.size
+                    continue
+                ci = next(self.md.disasm(self.read(a, 16), a, 1), None)
+                if ci is None:
+                    return False
+                rn, wn = self._regs_rw(ci)
+                mn, ops = i.mnemonic, i.ops
+                new = set(held)
+                if mn == "push":
+                    d = d + 4 if d is not None else None
+                elif mn == "pop":
+                    d = d - 4 if d is not None else None
+                    if ops and ops[0] == ("reg", "ebp"):
+                        e = None
+                elif mn in ("sub", "add") and len(ops) == 2 and ops[0] == ("reg", "esp") and ops[1][0] == "imm":
+                    if d is not None:
+                        d += ops[1][1] if mn == "sub" else -ops[1][1]
+                elif mn == "mov" and ops == [("reg", "ebp"), ("reg", "esp")]:
+                    e = d
+                elif mn == "mov" and ops == [("reg", "esp"), ("reg", "ebp")]:
+                    d = e
+                elif mn == "leave":
+                    d = e - 4 if e is not None else None
+                    e = None
+                elif "esp" in wn or "ebp" in wn:
+                    return False        # an esp or ebp change the scan does not follow
+                dst = ops[0][1] if ops and ops[0][0] == "reg" else None
+                for r_ in wn:
+                    new.discard(r_)
+                if ops and ops[0][0] == "mem" and (mn.startswith(("mov", "f")) or mn in (
+                        "add", "sub", "and", "or", "xor", "inc", "dec", "neg", "not", "shl", "shr", "sar", "xchg")) \
+                        and not mn.startswith(("fld", "fild", "fcom", "fucom", "fadd", "fsub", "fmul", "fdiv")):
+                    m_ = ops[0][1]      # a store into the argument's own slot: it no longer holds the argument
+                    if m_[2] is not None or (m_[1] == "esp" and (d is None or m_[4] <= d + 4 < m_[4] + max(m_[5], 4))) or \
+                            (m_[1] == "ebp" and (e is None or m_[4] <= e + 4 < m_[4] + max(m_[5], 4))):
+                        new.add("slot!")
+                if mn == "mov" and dst in self._REGS and len(ops) == 2:
+                    src_ = ops[1]
+                    if "slot!" in held:
+                        pass
+                    elif src_[0] == "mem" and src_[1][2] is None and (
+                            (src_[1][1] == "esp" and d is not None and src_[1][4] == d + 4) or
+                            (src_[1][1] == "ebp" and e is not None and src_[1][4] == e + 4)):
+                        new.add(dst)
+                    elif src_[0] == "reg" and src_[1] in held:
+                        new.add(dst)
+                held = frozenset(new)
+                a += i.size
+        cache[target] = rets > 0
+        return cache[target]
+
     def containing_func(self, va):
         """(entry, size) of the listed function whose body holds va, or None."""
         starts = self.__dict__.get("_starts")
@@ -2868,6 +3034,7 @@ NATIVE_STEP_MULT = 8
 NATIVE_MODE = False         # (round 18) verify(native=True) is running
 NATIVE_NARROW = {}        # (round 19, natnarrow) original address -> {stack word index: bit width} of declared bool/char/short parameters
 NATIVE_BOOL = set()         # (round 18, native) original addresses of callees our source declares to return bool
+NATIVE_F64 = set()          # (round 24, fretwide) original addresses of callees our clang object declares to return double
 X87_NAN = struct.unpack("<d", bytes.fromhex("000000000000f8ff"))[0]     # the x87 "indefinite" NaN
 # MSVC's `vector constructor iterator` & co: our compile emits its own copy (a COMDAT), the original calls the
 # XBE's one out of line (FUN_00011520), so they pair like any callee instead of running in place
@@ -4076,6 +4243,13 @@ class Run:
         elif not tail and args and in_frame(args[0][0]) and "sretret" not in EQUIV_OFF and \
                 self.view.sret_after(insn.addr):
             eax = args[0][0]            # (round 19) a struct-returning callee returns its hidden pointer in eax
+        elif NATIVE_MODE and not tail and args and insn.target is not None and "retarg" not in EQUIV_OFF and \
+                self.prog.returns_arg0(target):
+            # (round 24, retarg) the callee returns its first stack argument (`Vec3 *F(Vec3 *out, ...)`: `mov eax,
+            # [esp+4]; ...; ret`): both sides get it back. sretret sees the original's `call; fld [eax]`, but clang's
+            # -O0 caller stores eax to a local and reads through it later, so ours got a fuzzed pointer (11
+            # chase-camera sources failed --wine on input 0)
+            eax = args[0][0]
         if self.view.native and self.view.is_ours and not tail and "boolret" not in EQUIV_OFF and \
                 self.view.bool_after(insn.addr):
             eax = 1 if eax & 0xFF else 0        # (round 18) `testb $1, %al` after the call: a bool, 0 or 1; same branch
@@ -4092,8 +4266,21 @@ class Run:
         elif target in self.inp.get("fret_unit", ()):
             h_ = mix(self.inp["seed"], 0xF7A1, k)       # (round 11, ftolunit) a fraction: 0, 1 or in between
             fv = (0.0, 1.0)[h_ & 1] if h_ % 8 == 0 else (h_ >> 8) % 1000 / 1000.0
+        fwide = False
         if k in self.inp.get("fret_override", {}):
             fv = self.inp["fret_override"][k]        # a directed input's float result for this call
+        elif fret and NATIVE_MODE and "fretwide" not in EQUIV_OFF and self.inp.get("stub_floats") is None and \
+                target not in self.inp.get("fret_unit", ()) and fv != 0.0 and \
+                (target in NATIVE_CI.values() or (target in NATIVE_F64 and self.prog.fret_wide(target))):
+            # (round 24, fretwide) the callee's result carries bits beyond a float's 24, as a real CRT math routine's
+            # (`__CIasin`, 53 bits at control word 0x027F) or a callee our source declares to return `hulk_freg`
+            # (double natively) whose original code computes it does. With a float-exact result, a caller that rounds
+            # it where the original keeps st0 (`return (float)asin(x)`, 0x000189c0) gives the same bits; on every
+            # other input of the call, the result has extra low bits, the same on both sides
+            h_ = mix(self.inp["seed"], 0xF7A2, k)
+            if h_ & 1:
+                fv = fv * (1.0 + (2 * ((h_ >> 1) % 251) + 1) * 2.0 ** -40)
+                fwide = True
         self.calls.append({"target": target, "args": args, "regs": {r: self.reg(r) for r in Program._REGS},
                            "float_ret": fret, "at": insn.addr, "tail": tail, "pointees": pointees, "known": known,
                            "ret_to": insn.addr + insn.size,
@@ -4314,12 +4501,12 @@ class Run:
         if p % 4 or p > 0x10000:
             raise Fault("odd_pop_%d" % p)
         if fret:
-            uc.mem_write(FSLOT, struct.pack("<f", fv))
+            uc.mem_write(FSLOT, struct.pack("<d", fv) if fwide else struct.pack("<f", fv))
             if x87n and self.coverage is not None:
                 del self.fstack[:x87n]
             if self.coverage is not None:
                 # the float result lands in st0: a float comparison on it can be steered (directed inputs)
-                self.fstack.insert(0, {"val": struct.unpack("<f", struct.pack("<f", fv))[0],
+                self.fstack.insert(0, {"val": fv if fwide else struct.unpack("<f", struct.pack("<f", fv))[0],
                                        "src": (("fret", k), 4, self.epoch), "float": True})
                 del self.fstack[8:]
         if p > 0xFC:
@@ -4329,11 +4516,12 @@ class Run:
             uc.mem_write(esp + p, struct.pack("<I", ret_addr))
             uc.reg_write(u.UC_X86_REG_ESP, esp + p)
             p = 0
+        ftr = (0x400 if fwide else 0x800) if fret else 0        # fld qword / fld dword [FSLOT]; ret p
         if x87n:
-            uc.mem_write(FSLOT + 0x10, struct.pack("<I", TRAMP + 0x800 + (p // 4) * 16))
+            uc.mem_write(FSLOT + 0x10, struct.pack("<I", TRAMP + ftr + (p // 4) * 16))
             uc.reg_write(u.UC_X86_REG_EIP, TRAMP + 0xC00 + 2 * (3 - x87n))
             return
-        uc.reg_write(u.UC_X86_REG_EIP, TRAMP + (0x800 if fret else 0) + (p // 4) * 16)
+        uc.reg_write(u.UC_X86_REG_EIP, TRAMP + ftr + (p // 4) * 16)
 
     def _frame_only_callee(self, target, argbase, in_frame):
         """(round 22, purecall) Does this call write nothing outside the stack? callee_pure (writes only its frame), or
@@ -8591,6 +8779,7 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
         if sym is not None and typ == REL32 and sym[0] in resolved:
             decls.setdefault(resolved[sym[0]], parse_signature(sym[0]))
     NATIVE_BOOL.clear()
+    NATIVE_F64.clear()
     NATIVE_CI.clear()
     NATIVE_NARROW.clear()
     NATIVE_SRET[:] = [0, 0]
@@ -8640,6 +8829,8 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
                 wi_ += 1
             if nm_:
                 NATIVE_NARROW[t_] = nm_
+    if native and "fretwide" not in EQUIV_OFF:
+        NATIVE_F64.update(t_ for t_, sg_ in decls.items() if sg_ and sg_.get("ret") == "f64")
     if native and "boolret" not in EQUIV_OFF:
         NATIVE_BOOL.update(t_ for t_, sg_ in decls.items() if sg_ and sg_.get("ret") == "b8")
         if NATIVE_BOOL:
@@ -8658,6 +8849,30 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
                 rec_ = thiscall_decl_issue(sym[0], resolved[sym[0]], prog, convs)
                 if rec_:
                     bad.append(rec_)
+    if native and convs and "convdef" not in EQUIV_OFF:
+        # (round 24, convdef) a callee our source declares as a free cdecl/stdcall function with a register note
+        # (`// equiv-conv: FUN_x ecx`) whose own verified definition is a member (thiscall) or __fastcall: the note
+        # describes the original's call, but the Wine build compiles both sides from their declarations, so our call
+        # pushes the word the definition reads from ecx (0x000e07c0 -> Stream::FUN_0008ef00, 0x00334c70 ->
+        # Owner_334b00::FUN_00334b00: wine_conv_check check 9). Level-2 issue: the call must be spelled as the member
+        seen_ = set()
+        for off, sym, typ, _ in ours.relocs + ours.local_relocs():
+            if sym is None or typ != REL32 or sym[0] not in resolved or sym[0] in seen_:
+                continue
+            seen_.add(sym[0])
+            a_ = resolved[sym[0]]
+            if a_ not in convs or a_ == addr:
+                continue
+            sn_ = sym[0]
+            free_ = re.search(r"@@Y[AG]", sn_) or re.match(r"_\w+(@\d+)?$", sn_)
+            if not free_:
+                continue
+            leaf_ = (_qualified(sn_) or sn_.lstrip("_").split("@")[0]).split("::")[-1]
+            dc_ = _definition_conv(a_, [leaf_, "FUN_%08x" % a_])
+            if dc_ in ("thiscall", "fastcall"):
+                bad.append({"kind": "conv_note_vs_definition", "symbol": sn_, "target": "0x%08x" % a_,
+                            "why": "declared a free function with the register note `%s`, but its definition is a %s: the "
+                                   "Wine build passes the argument on the stack" % (" ".join(convs[a_]), dc_)})
     if convs:
         rep["conventions"] = {"0x%08x" % a: " ".join(v) for a, v in convs.items()}
     if bad:
@@ -8749,6 +8964,35 @@ def resolve_conventions(prog, lines, ours, resolved, addr, fsym):
             continue
         out[a] = locs
     return out, bad
+
+
+def _definition_conv(a, names):
+    """(round 24, convdef) How the verified source of the function at `a` defines it: 'thiscall' (a member, `T::name(`),
+    'fastcall' (a free `__fastcall`), 'free' (any other free function) or None (no source, or the definition is not found
+    under any of `names`). Read from the text of equivalent/0xADDR.cpp or matches/0xADDR.cpp: the Wine build compiles that
+    definition with that convention whatever register note a caller carries."""
+    for d in ("equivalent", "matches"):
+        path = os.path.join(ROOT, d, "0x%08x.cpp" % a)
+        if os.path.exists(path):
+            break
+    else:
+        return None
+    try:
+        text = open(path, errors="replace").read()
+    except OSError:
+        return None
+    text = re.sub(r"//[^\n]*", "", text)
+    for nm in names:
+        if not nm:
+            continue
+        for m in re.finditer(r"([\w:<>,\s\*&]*?)\b((?:\w+::)*)%s\s*\(([^;{}]*)\)\s*(?:const\s*)?(?:throw\(\)\s*)?\{" % re.escape(nm), text):
+            head, qual = m.group(1), m.group(2)
+            if re.search(r"\b(if|while|for|switch|return)\s*$", head):
+                continue
+            if qual:
+                return "thiscall"
+            return "fastcall" if "__fastcall" in head.split("\n")[-1] else "free"
+    return None
 
 
 def _conv_input(inp, ours_layout, conv):
