@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 13/13)
+// STATUS: equivalent (tools/equiv.py level 3: 3039 inputs, branch coverage 13/13)
 // CRangedAgent::vfunc_3 @ 0x00107030
 // CRangedAgent::vfunc_3 @ 0x00107030
 #include "gen/global.h"
@@ -41,7 +41,7 @@ struct CRangedAgent_nv_107030 {
     float FUN_000fc4e0(int a, int b);
 };
 
-float CRangedAgent::vfunc_3(int a, int b) {
+hulk_freg CRangedAgent::vfunc_3(int a, int b) {
     ((CRangedAgent_nv_107030*)this)->FUN_000fc4e0(a, b);
     Weapon_107030 *weapon = (*(Brain_107030 * *)&this->f_58)->v6();
     Unit_107030 *unit = &(*(Brain_107030 * *)&this->f_58)->unit;

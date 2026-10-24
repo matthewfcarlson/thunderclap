@@ -6,6 +6,6 @@ namespace ai {
 
 } // namespace ai
 }; // namespace hulkfight
-float CCameraHintTrack::vfunc_6() {
+hulk_freg CCameraHintTrack::vfunc_6() {
     return this->f_0c;
 }

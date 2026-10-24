@@ -17,7 +17,7 @@ class ParticleGenerator_2d2510 {
 };
 extern const float zero_2d2510;
 
-float pure3d::ParticlePointGenerator::vfunc_8(int n) {
+hulk_freg pure3d::ParticlePointGenerator::vfunc_8(int n) {
     --n;
     if (n != 0) {
         --n;

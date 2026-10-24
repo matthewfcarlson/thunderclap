@@ -16,6 +16,6 @@ struct CTrack_6a460 {
     virtual void tfunc9();
 };
 
-float CCameraDramaticTrack::vfunc_7() {
-    return (float)(this->f_10 - this->f_0c);
+hulk_freg CCameraDramaticTrack::vfunc_7() {
+    return (hulk_freg)this->f_10 - this->f_0c;
 }

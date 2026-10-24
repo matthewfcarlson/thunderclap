@@ -20,7 +20,7 @@ struct Pair_dd8d0 {
 };
 extern Pair_dd8d0 table_dd8d0[];
 
-float ControllerState::vfunc_8(int i) {
+hulk_freg ControllerState::vfunc_8(int i) {
     float* p = (*(float * *)&this->f_10);
     return p[table_dd8d0[i].a] - p[table_dd8d0[i].b];
 }

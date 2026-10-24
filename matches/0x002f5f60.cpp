@@ -13,7 +13,7 @@ class Helper_2f5f60 {
     virtual void i(float*, float*, int);
 };
 
-float physics::PhysicsObject::vfunc_31() {
+hulk_freg physics::PhysicsObject::vfunc_31() {
     float t[3];
     if (vfunc_11()) {
         (*(class Helper_2f5f60 * *)&this->f_10)->i((*(float (*)[3])&this->f_98), t, -1);

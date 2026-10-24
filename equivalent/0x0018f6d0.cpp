@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3050 inputs, branch coverage 98/98)
 // hulkfight::motion::TankLocomotionAction::vfunc_5 @ 0x0018f6d0
 #include "decls/address.h"
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 extern "C" double sqrt(double);
 extern "C" double atan(double);
@@ -245,9 +246,10 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
         float mn = am < k24 ? am : k24;
         r = r - (((FUN_00083d90(&a90) * mn) / k24) * k28);
     }
-    a90 = r * dt + a90;
+    hulk_freg a90n = r * dt + a90;
+    a90 = a90n;
     Vec3_18f6d0 vF8 = (*(Vec3_18f6d0*)&DAT_004bfc24);
-    float ang = (a90 * dt) + hC;
+    float ang = (a90n * dt) + hC;
     FUN_00224d70(ang, &vF8);
     float spd = ((vB.z * vF8.z + vB.y * vF8.y) + vB.x * vF8.x) * lenB;
     double P = (double)kb4 * s98;

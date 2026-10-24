@@ -774,6 +774,8 @@ class Gen:
                 lines.append("    virtual ~%s()%s // %s" % (cls_short, tail, where))
                 continue
             ret, params = self.signature(key)
+            if ret == "float":
+                ret = "hulk_freg"   # the original returns st0 unrounded (include/compat/ptr.h: float under MSVC, double elsewhere)
             lines.append("    virtual %s %s(%s)%s // %s" % (ret, nm, ", ".join(params), tail, where))
         # fields
         flines = []
@@ -969,7 +971,7 @@ class Gen:
                         "bases": [[b.name, m, p, v, a] for b, m, p, v, a in c.all_bases],
                     }
         with open(os.path.join(out_dir, "_prelude.h"), "w") as f:
-            f.write(BANNER + PRELUDE)
+            f.write('#include "compat/ptr.h"\n' + BANNER + PRELUDE)   # hulk_freg (float virtual returns)
         with open(os.path.join(out_dir, "all.h"), "w") as f:
             f.write(BANNER + "#ifndef HULK_GEN_ALL_H\n#define HULK_GEN_ALL_H\n")
             for h in headers:

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 14/14)
 // hulkfight::motion::MotionBlurAction::vfunc_5 @ 0x00144360
+#include "compat/ptr.h"
 extern "C" double __cdecl sin(double);
 
 struct Holder_144360 {
@@ -60,7 +61,7 @@ bool hulkfight::motion::MotionBlurAction::vfunc_5(int mode, float dt)
     if (t < s->fadeInEnd) {
         float fin = s->fadeInEnd;
         float den = fin - s->vfunc_6();
-        float r = (elapsed - state->vfunc_6()) / den;
+        hulk_freg r = (elapsed - state->vfunc_6()) / den;
         if (b > targetB)
             b = (sin((r - 0.5f) * 3.14159265f) + 1.0f) * (b - targetB) * 0.5f + targetB;
         else
@@ -70,7 +71,7 @@ bool hulkfight::motion::MotionBlurAction::vfunc_5(int mode, float dt)
         else
             a = (sin((0.5f - r) * 3.14159265f) + 1.0f) * (targetA - a) * 0.5f + a;
     } else if (t > s->fadeOutBegin) {
-        float r = (t - s->fadeOutBegin) / (s->fadeOutEnd - s->fadeOutBegin);
+        hulk_freg r = (t - s->fadeOutBegin) / (s->fadeOutEnd - s->fadeOutBegin);
         if (b > targetB)
             b = (sin((0.5f - r) * 3.14159265f) + 1.0f) * (b - targetB) * 0.5f + targetB;
         else

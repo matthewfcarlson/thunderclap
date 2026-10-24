@@ -3,6 +3,6 @@
 
 #include "decls/data/game/global.h"
 
-float physics::SimulatedObject::vfunc_21() {
+hulk_freg physics::SimulatedObject::vfunc_21() {
     return DAT_003f32dc;
 }

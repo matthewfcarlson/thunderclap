@@ -6,6 +6,6 @@ namespace ai {
 
 } // namespace ai
 }; // namespace hulkfight
-float hulkfight::motion::JointTrackerTrack::vfunc_6() {
+hulk_freg hulkfight::motion::JointTrackerTrack::vfunc_6() {
     return this->f_0c;
 }

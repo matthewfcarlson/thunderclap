@@ -1,6 +1,11 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3075 inputs, branch coverage 84/84)
+// STATUS: equivalent (tools/equiv.py level 3: 3121 inputs, branch coverage 84/84)
 // FUN_000f4960 @ 0x000f4960
 extern "C" int memcmp(const void *a, const void *b, unsigned int n);
+#pragma intrinsic(memcmp)
+#if defined(__clang__)
+static inline int hulk_memcmp(const void *pa, const void *pb, unsigned int n) { const unsigned char *a = (const unsigned char *)pa, *b = (const unsigned char *)pb; for (; n; --n, ++a, ++b) if (*a != *b) return *a < *b ? -1 : 1; return 0; }
+#define memcmp hulk_memcmp
+#endif
 
 class Tok {
 public:

@@ -3,6 +3,6 @@
 
 #include "decls/data/game/global.h"
 
-float physics::DoubleKalmann1D::vfunc_2() {
+hulk_freg physics::DoubleKalmann1D::vfunc_2() {
     return DAT_003f32e0;
 }

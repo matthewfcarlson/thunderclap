@@ -1,5 +1,5 @@
 extern "C" {
-typedef float(__stdcall* TimeFn)(int);
+typedef float(__stdcall* TimeFn)();
 extern TimeFn GetTime;
 }
 class Part {
@@ -10,7 +10,7 @@ class Part {
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual void SetTime(float);
+    virtual void SetTime(float, int);
 };
 class FEParticleAnimation {
   public:
@@ -26,5 +26,5 @@ class FEParticleAnimation {
 };
 void FEParticleAnimation::vfunc_2() {
     if (particle)
-        particle->SetTime(GetTime(0) * 1000.0f);
+        particle->SetTime(GetTime() * 1000.0f, 0);
 }

@@ -16,6 +16,6 @@ struct Track_15b920 {
     virtual void tfunc9();
 };
 
-float hulkfight::motion::LocomotingTrack::vfunc_7() {
-    return (float)(this->f_10 - this->f_0c);
+hulk_freg hulkfight::motion::LocomotingTrack::vfunc_7() {
+    return (hulk_freg)this->f_10 - this->f_0c;
 }

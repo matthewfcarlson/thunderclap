@@ -3,6 +3,6 @@
 
 float gNegOne = -1.0f;
 
-float fight::SequenceTrack::vfunc_7() {
+hulk_freg fight::SequenceTrack::vfunc_7() {
     return gNegOne;
 }

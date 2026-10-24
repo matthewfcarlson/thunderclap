@@ -267,10 +267,10 @@ public:
     virtual int vfunc_3() = 0; // slot 3
     virtual void vfunc_4() = 0; // slot 4
     virtual void vfunc_5(float) = 0; // slot 5
-    virtual float vfunc_6() = 0; // slot 6
+    virtual hulk_freg vfunc_6() = 0; // slot 6
     virtual void vfunc_7(int, int) = 0; // slot 7
     virtual void vfunc_8(int) = 0; // slot 8
-    virtual float vfunc_9(void*) = 0; // slot 9
+    virtual hulk_freg vfunc_9(void*) = 0; // slot 9
     virtual void vfunc_10(void*, void*) = 0; // slot 10
     virtual void vfunc_11(void*, void*) = 0; // slot 11
     virtual ~IControllerInputPoint() = 0; // overrides core::IRefCount slot 2
@@ -294,10 +294,10 @@ public:
     virtual int vfunc_3(); // overrides core::IControllerInputPoint slot 3
     virtual void vfunc_4(); // overrides core::IControllerInputPoint slot 4
     virtual void vfunc_5(float); // overrides core::IControllerInputPoint slot 5
-    virtual float vfunc_6(); // overrides core::IControllerInputPoint slot 6
+    virtual hulk_freg vfunc_6(); // overrides core::IControllerInputPoint slot 6
     virtual void vfunc_7(int, int); // overrides core::IControllerInputPoint slot 7
     virtual void vfunc_8(int); // overrides core::IControllerInputPoint slot 8
-    virtual float vfunc_9(void*); // overrides core::IControllerInputPoint slot 9
+    virtual hulk_freg vfunc_9(void*); // overrides core::IControllerInputPoint slot 9
     virtual void vfunc_10(void*, void*); // overrides core::IControllerInputPoint slot 10
     virtual void vfunc_11(void*, void*); // overrides core::IControllerInputPoint slot 11
     virtual void vfunc_12(int); // overrides core::IControllerInputPointXBox slot 12
@@ -322,7 +322,7 @@ struct IControllerOutputPoint : public ::core::IRefCount {
 public:
     virtual void vfunc_3() = 0; // slot 3
     virtual void* vfunc_4() = 0; // slot 4
-    virtual float vfunc_5() = 0; // slot 5
+    virtual hulk_freg vfunc_5() = 0; // slot 5
     virtual void vfunc_6(float) = 0; // slot 6
     virtual ~IControllerOutputPoint() = 0; // overrides core::IRefCount slot 2
 };
@@ -335,7 +335,7 @@ public:
     virtual ~ControllerOutputPointXBox(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(); // overrides core::IControllerOutputPoint slot 3
     virtual void* vfunc_4(); // overrides core::IControllerOutputPoint slot 4
-    virtual float vfunc_5(); // overrides core::IControllerOutputPoint slot 5
+    virtual hulk_freg vfunc_5(); // overrides core::IControllerOutputPoint slot 5
     virtual void vfunc_6(float); // overrides core::IControllerOutputPoint slot 6
     int f_04;
     char _pad_08[0x4];

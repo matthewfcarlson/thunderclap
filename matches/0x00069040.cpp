@@ -1,6 +1,6 @@
 // Same code shape as 0x0005d1d0 (propagated; names are from that function)
 #include "gen/global.h"
 
-float CJumpTrack::vfunc_14() {
+hulk_freg CJumpTrack::vfunc_14() {
     return this->f_10;
 }

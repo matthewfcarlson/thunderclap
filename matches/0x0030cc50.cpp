@@ -3,6 +3,6 @@
 
 #include "decls/data/game/global.h"
 
-float physics::PhysicsJoint0D::vfunc_6() {
+hulk_freg physics::PhysicsJoint0D::vfunc_6() {
     return DAT_003f32e0;
 }

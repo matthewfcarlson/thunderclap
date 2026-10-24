@@ -1,12 +1,12 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 26/26)
+// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 26/26)
 // FEThingsBase::vfunc_7 @ 0x000f0e60
 struct Timer { void FUN_000dff70(); };
 struct Widget_f0e60 {
- virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void update(float);
+ virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void update(float, int);
  virtual void slot7(); virtual void slot8(); virtual void slot9(); virtual void tick();
  bool FUN_000ef610(); void FUN_000e5440(int);
 };
-extern float (__stdcall *DAT_004de948)(int);
+extern float (__stdcall *DAT_004de948)();
 extern unsigned DAT_004de94c;
 struct FEThingsBase {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual bool vfunc_7();
@@ -20,8 +20,8 @@ struct FEThingsBase {
 bool FEThingsBase::vfunc_7() {
  if(blocked) return false;
  timer.FUN_000dff70(); ++DAT_004de94c;
- if(animation) animation->update(DAT_004de948(0)*1000.0f);
- if(enabled) for(int i=0;i<2;++i) if(extras[i]) extras[i]->update(DAT_004de948(0)*1000.0f);
+ if(animation) animation->update(DAT_004de948()*1000.0f, 0);
+ if(enabled) for(int i=0;i<2;++i) if(extras[i]) extras[i]->update(DAT_004de948()*1000.0f, 0);
  if(other) other->tick();
  if(child) child->tick();
  if(state==2) { if(!child || !child->FUN_000ef610()) vfunc_20(); }

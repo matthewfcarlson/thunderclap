@@ -14,7 +14,7 @@ class CDisplayEffect_e85b0 {
     };
     };
 
-float CDisplayEffect::DrawableCompositeDrawable::vfunc_3() {
+hulk_freg CDisplayEffect::DrawableCompositeDrawable::vfunc_3() {
     V4_e85b0 v = *reinterpret_cast<V4_e85b0*>(*reinterpret_cast<char**>(reinterpret_cast<char*>(this) + 4) + 0x2c);
     return v.w + v.w;
 }

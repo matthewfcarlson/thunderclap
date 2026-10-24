@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20021 inputs, branch coverage 7/8, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 7/8, incomplete)
 // FUN_0015cf40 @ 0x0015cf40
 #include "compat/ptr.h"
 extern "C" double __cdecl floor(double);
@@ -13,7 +13,7 @@ hulk_freg __cdecl FUN_0015cf40(float x)
 {
     if (!(x < 0.0f) && !(x >= 1.0f))
         return x;
-    double frac = -floor(x) + x;
+    hulk_freg frac = -floor(x) + x;
     FloatBits_15cf40 d;
     d.f = (float)(frac - 1.0f);
     d.u &= 0x7fffffff;
@@ -23,5 +23,5 @@ hulk_freg __cdecl FUN_0015cf40(float x)
     d.u &= 0x7fffffff;
     if (d.f <= 1e-5f)
         return 0.0f;
-    return (float)frac;
+    return frac;
 }

@@ -422,19 +422,19 @@ public:
     virtual void vfunc_6(float, char) = 0; // slot 6
     virtual void vfunc_7() = 0; // slot 7
     virtual void vfunc_8(int) = 0; // slot 8
-    virtual float vfunc_9() = 0; // slot 9
-    virtual float vfunc_10() = 0; // slot 10
-    virtual float vfunc_11() = 0; // slot 11
+    virtual hulk_freg vfunc_9() = 0; // slot 9
+    virtual hulk_freg vfunc_10() = 0; // slot 10
+    virtual hulk_freg vfunc_11() = 0; // slot 11
     virtual void vfunc_12(int) = 0; // slot 12
-    virtual float vfunc_13() = 0; // slot 13
+    virtual hulk_freg vfunc_13() = 0; // slot 13
     virtual void vfunc_14(float, float) = 0; // slot 14
     virtual void vfunc_15(void*, void*) = 0; // slot 15
     virtual void vfunc_16(int) = 0; // slot 16
     virtual unsigned int vfunc_17() = 0; // slot 17
     virtual void vfunc_18(int) = 0; // slot 18
     virtual int vfunc_19() = 0; // slot 19
-    virtual float vfunc_20() = 0; // slot 20
-    virtual float vfunc_21() = 0; // slot 21
+    virtual hulk_freg vfunc_20() = 0; // slot 20
+    virtual hulk_freg vfunc_21() = 0; // slot 21
     virtual bool vfunc_22() = 0; // slot 22
     virtual void vfunc_23() = 0; // slot 23
 };
@@ -444,8 +444,8 @@ class AnimationFrameController : public ::pure3d::FrameController {
 public:
     virtual ~AnimationFrameController(); // overrides core::IRefCount slot 2
     virtual void vfunc_8(int); // overrides pure3d::FrameController slot 8
-    virtual float vfunc_9(); // overrides pure3d::FrameController slot 9
-    virtual float vfunc_20(); // overrides pure3d::FrameController slot 20
+    virtual hulk_freg vfunc_9(); // overrides pure3d::FrameController slot 9
+    virtual hulk_freg vfunc_20(); // overrides pure3d::FrameController slot 20
     virtual void vfunc_23(); // overrides pure3d::FrameController slot 23
     virtual void vfunc_24(int, int, int) = 0; // slot 24
     virtual int vfunc_25() = 0; // slot 25
@@ -595,7 +595,7 @@ public:
     virtual void vfunc_8(void*); // overrides pure3d::DrawablePrimitive slot 8
     virtual unsigned char vfunc_9(); // overrides pure3d::DrawablePrimitive slot 9
     virtual void vfunc_10(); // overrides pure3d::DrawablePrimitive slot 10
-    virtual float vfunc_11(int, int); // slot 11
+    virtual hulk_freg vfunc_11(int, int); // slot 11
     int f_10;
     char _pad_14[0x24];
     int f_38;
@@ -611,7 +611,7 @@ public:
 class BillboardCutOffQuadGroup : public ::pure3d::BillboardQuadGroup {
 public:
     virtual ~BillboardCutOffQuadGroup(); // overrides core::IRefCount slot 2
-    virtual float vfunc_11(int, int); // overrides pure3d::BillboardQuadGroup slot 11
+    virtual hulk_freg vfunc_11(int, int); // overrides pure3d::BillboardQuadGroup slot 11
     char _pad_8c[0x4];
     int f_90;
     char _pad_94[0x4];
@@ -692,17 +692,17 @@ class SimpleFrameController : public ::pure3d::AnimationFrameController {
 public:
     virtual ~SimpleFrameController(); // overrides core::IRefCount slot 2
     virtual void vfunc_6(float, char); // overrides pure3d::FrameController slot 6
-    virtual float vfunc_10(); // overrides pure3d::FrameController slot 10
-    virtual float vfunc_11(); // overrides pure3d::FrameController slot 11
+    virtual hulk_freg vfunc_10(); // overrides pure3d::FrameController slot 10
+    virtual hulk_freg vfunc_11(); // overrides pure3d::FrameController slot 11
     virtual void vfunc_12(int); // overrides pure3d::FrameController slot 12
-    virtual float vfunc_13(); // overrides pure3d::FrameController slot 13
+    virtual hulk_freg vfunc_13(); // overrides pure3d::FrameController slot 13
     virtual void vfunc_14(float, float); // overrides pure3d::FrameController slot 14
     virtual void vfunc_15(void*, void*); // overrides pure3d::FrameController slot 15
     virtual void vfunc_16(int); // overrides pure3d::FrameController slot 16
     virtual unsigned int vfunc_17(); // overrides pure3d::FrameController slot 17
     virtual void vfunc_18(int); // overrides pure3d::FrameController slot 18
     virtual int vfunc_19(); // overrides pure3d::FrameController slot 19
-    virtual float vfunc_21(); // overrides pure3d::FrameController slot 21
+    virtual hulk_freg vfunc_21(); // overrides pure3d::FrameController slot 21
     virtual bool vfunc_22(); // overrides pure3d::FrameController slot 22
     virtual void vfunc_23(); // overrides pure3d::FrameController slot 23
     virtual void vfunc_24(int, int, int); // overrides pure3d::AnimationFrameController slot 24
@@ -749,17 +749,17 @@ public:
     virtual ~BlendFrameController(); // overrides core::IRefCount slot 2
     virtual void vfunc_6(float, char); // overrides pure3d::FrameController slot 6
     virtual void vfunc_7(); // overrides pure3d::FrameController slot 7
-    virtual float vfunc_10(); // overrides pure3d::FrameController slot 10
-    virtual float vfunc_11(); // overrides pure3d::FrameController slot 11
+    virtual hulk_freg vfunc_10(); // overrides pure3d::FrameController slot 10
+    virtual hulk_freg vfunc_11(); // overrides pure3d::FrameController slot 11
     virtual void vfunc_12(int); // overrides pure3d::FrameController slot 12
-    virtual float vfunc_13(); // overrides pure3d::FrameController slot 13
+    virtual hulk_freg vfunc_13(); // overrides pure3d::FrameController slot 13
     virtual void vfunc_14(float, float); // overrides pure3d::FrameController slot 14
     virtual void vfunc_15(void*, void*); // overrides pure3d::FrameController slot 15
     virtual void vfunc_16(int); // overrides pure3d::FrameController slot 16
     virtual unsigned int vfunc_17(); // overrides pure3d::FrameController slot 17
     virtual void vfunc_18(int); // overrides pure3d::FrameController slot 18
     virtual int vfunc_19(); // overrides pure3d::FrameController slot 19
-    virtual float vfunc_21(); // overrides pure3d::FrameController slot 21
+    virtual hulk_freg vfunc_21(); // overrides pure3d::FrameController slot 21
     virtual bool vfunc_22(); // overrides pure3d::FrameController slot 22
     virtual void vfunc_23(); // overrides pure3d::FrameController slot 23
     virtual void vfunc_24(int, int, int); // overrides pure3d::AnimationFrameController slot 24
@@ -821,9 +821,9 @@ public:
     virtual void vfunc_5(int, int); // slot 5
     virtual void vfunc_6(void*, void*); // slot 6
     virtual void vfunc_7(int); // slot 7
-    virtual float vfunc_8(); // slot 8
+    virtual hulk_freg vfunc_8(); // slot 8
     virtual void vfunc_9(int); // slot 9
-    virtual float vfunc_10(); // slot 10
+    virtual hulk_freg vfunc_10(); // slot 10
     virtual void vfunc_11(int, int); // slot 11
     virtual void vfunc_12(void*, void*); // slot 12
     virtual void* vfunc_13(); // slot 13
@@ -1242,14 +1242,14 @@ public:
 class Font : public ::pure3d::Entity {
 public:
     virtual ~Font(); // overrides core::IRefCount slot 2
-    virtual float vfunc_5() = 0; // slot 5
-    virtual float vfunc_6() = 0; // slot 6
-    virtual float vfunc_7() = 0; // slot 7
-    virtual float vfunc_8() = 0; // slot 8
+    virtual hulk_freg vfunc_5() = 0; // slot 5
+    virtual hulk_freg vfunc_6() = 0; // slot 6
+    virtual hulk_freg vfunc_7() = 0; // slot 7
+    virtual hulk_freg vfunc_8() = 0; // slot 8
     virtual void vfunc_9(int) = 0; // slot 9
-    virtual float vfunc_10(void*) = 0; // slot 10
+    virtual hulk_freg vfunc_10(void*) = 0; // slot 10
     virtual void vfunc_11(int, int); // slot 11
-    virtual float vfunc_12() = 0; // slot 12
+    virtual hulk_freg vfunc_12() = 0; // slot 12
     virtual void vfunc_13(float) = 0; // slot 13
     virtual void* vfunc_14(int) = 0; // slot 14
     virtual void vfunc_15(int) = 0; // slot 15
@@ -1634,19 +1634,19 @@ public:
     virtual void vfunc_6(float, char); // overrides pure3d::FrameController slot 6
     virtual void vfunc_7(); // overrides pure3d::FrameController slot 7
     virtual void vfunc_8(int); // overrides pure3d::FrameController slot 8
-    virtual float vfunc_9(); // overrides pure3d::FrameController slot 9
-    virtual float vfunc_10(); // overrides pure3d::FrameController slot 10
-    virtual float vfunc_11(); // overrides pure3d::FrameController slot 11
+    virtual hulk_freg vfunc_9(); // overrides pure3d::FrameController slot 9
+    virtual hulk_freg vfunc_10(); // overrides pure3d::FrameController slot 10
+    virtual hulk_freg vfunc_11(); // overrides pure3d::FrameController slot 11
     virtual void vfunc_12(int); // overrides pure3d::FrameController slot 12
-    virtual float vfunc_13(); // overrides pure3d::FrameController slot 13
+    virtual hulk_freg vfunc_13(); // overrides pure3d::FrameController slot 13
     virtual void vfunc_14(float, float); // overrides pure3d::FrameController slot 14
     virtual void vfunc_15(void*, void*); // overrides pure3d::FrameController slot 15
     virtual void vfunc_16(int); // overrides pure3d::FrameController slot 16
     virtual unsigned int vfunc_17(); // overrides pure3d::FrameController slot 17
     virtual void vfunc_18(int); // overrides pure3d::FrameController slot 18
     virtual int vfunc_19(); // overrides pure3d::FrameController slot 19
-    virtual float vfunc_20(); // overrides pure3d::FrameController slot 20
-    virtual float vfunc_21(); // overrides pure3d::FrameController slot 21
+    virtual hulk_freg vfunc_20(); // overrides pure3d::FrameController slot 20
+    virtual hulk_freg vfunc_21(); // overrides pure3d::FrameController slot 21
     virtual bool vfunc_22(); // overrides pure3d::FrameController slot 22
     virtual void vfunc_23(); // overrides pure3d::FrameController slot 23
     char _pad_10[0x8];
@@ -1797,9 +1797,9 @@ public:
     virtual void vfunc_5(void*); // overrides pure3d::FrameController slot 5
     virtual void vfunc_6(float, char); // overrides pure3d::FrameController slot 6
     virtual void vfunc_7(); // overrides pure3d::FrameController slot 7
-    virtual float vfunc_10(); // overrides pure3d::FrameController slot 10
-    virtual float vfunc_11(); // overrides pure3d::FrameController slot 11
-    virtual float vfunc_20(); // overrides pure3d::FrameController slot 20
+    virtual hulk_freg vfunc_10(); // overrides pure3d::FrameController slot 10
+    virtual hulk_freg vfunc_11(); // overrides pure3d::FrameController slot 11
+    virtual hulk_freg vfunc_20(); // overrides pure3d::FrameController slot 20
     virtual bool vfunc_22(); // overrides pure3d::FrameController slot 22
     virtual void vfunc_23(); // overrides pure3d::FrameController slot 23
     virtual bool vfunc_26(void*); // overrides pure3d::AnimationFrameController slot 26
@@ -1823,9 +1823,9 @@ public:
     virtual void vfunc_15() = 0; // slot 15
     virtual void vfunc_16(); // slot 16
     virtual void vfunc_17(int, int); // slot 17
-    virtual float vfunc_18(float); // slot 18
+    virtual hulk_freg vfunc_18(float); // slot 18
     virtual void vfunc_19(int); // slot 19
-    virtual float vfunc_20(); // slot 20
+    virtual hulk_freg vfunc_20(); // slot 20
     virtual unsigned char vfunc_21() = 0; // slot 21
     virtual void vfunc_22(int); // slot 22
     virtual void vfunc_23(void*); // slot 23
@@ -1869,10 +1869,10 @@ public:
     virtual void vfunc_5(int) = 0; // slot 5
     virtual int vfunc_6(int, int, int, float, int) = 0; // slot 6
     virtual void vfunc_7(int, int) = 0; // slot 7
-    virtual float vfunc_8(int) = 0; // slot 8
+    virtual hulk_freg vfunc_8(int) = 0; // slot 8
     virtual void vfunc_9() = 0; // slot 9
     virtual void vfunc_10(int); // slot 10
-    virtual float vfunc_11(); // slot 11
+    virtual hulk_freg vfunc_11(); // slot 11
     char f_10;
     char _pad_11[0x3];
     float f_14;
@@ -1888,7 +1888,7 @@ public:
     virtual void vfunc_5(int); // overrides pure3d::ParticleGenerator slot 5
     virtual int vfunc_6(int, int, int, float, int); // overrides pure3d::ParticleGenerator slot 6
     virtual void vfunc_7(int, int); // overrides pure3d::ParticleGenerator slot 7
-    virtual float vfunc_8(int); // overrides pure3d::ParticleGenerator slot 8
+    virtual hulk_freg vfunc_8(int); // overrides pure3d::ParticleGenerator slot 8
     virtual void vfunc_9(); // overrides pure3d::ParticleGenerator slot 9
     char _pad_18[0x4];
     int f_1c;
@@ -1919,7 +1919,7 @@ public:
     virtual void vfunc_5(int); // overrides pure3d::ParticleGenerator slot 5
     virtual int vfunc_6(int, int, int, float, int); // overrides pure3d::ParticleGenerator slot 6
     virtual void vfunc_7(int, int); // overrides pure3d::ParticleGenerator slot 7
-    virtual float vfunc_8(int); // overrides pure3d::ParticleGenerator slot 8
+    virtual hulk_freg vfunc_8(int); // overrides pure3d::ParticleGenerator slot 8
     virtual void vfunc_9(); // overrides pure3d::ParticleGenerator slot 9
     char _pad_18[0x4];
     int f_1c;
@@ -1962,7 +1962,7 @@ public:
     virtual void vfunc_5(int); // overrides pure3d::ParticleGenerator slot 5
     virtual int vfunc_6(int, int, int, float, int); // overrides pure3d::ParticleGenerator slot 6
     virtual void vfunc_7(int, int); // overrides pure3d::ParticleGenerator slot 7
-    virtual float vfunc_8(int); // overrides pure3d::ParticleGenerator slot 8
+    virtual hulk_freg vfunc_8(int); // overrides pure3d::ParticleGenerator slot 8
     virtual void vfunc_9(); // overrides pure3d::ParticleGenerator slot 9
     char _pad_18[0x14];
     void* f_2c;
@@ -2752,7 +2752,7 @@ public:
     virtual void vfunc_15(); // overrides pure3d::ParticleEmitter slot 15
     virtual void vfunc_16(); // overrides pure3d::ParticleEmitter slot 16
     virtual void vfunc_17(int, int); // overrides pure3d::ParticleEmitter slot 17
-    virtual float vfunc_18(float); // overrides pure3d::ParticleEmitter slot 18
+    virtual hulk_freg vfunc_18(float); // overrides pure3d::ParticleEmitter slot 18
     virtual unsigned char vfunc_21(); // overrides pure3d::ParticleEmitter slot 21
     virtual void vfunc_22(int); // overrides pure3d::ParticleEmitter slot 22
     virtual void vfunc_25(void*); // overrides pure3d::ParticleEmitter slot 25
@@ -2933,13 +2933,13 @@ public:
 class TextureFont : public ::pure3d::Font {
 public:
     virtual ~TextureFont(); // overrides core::IRefCount slot 2
-    virtual float vfunc_5(); // overrides pure3d::Font slot 5
-    virtual float vfunc_6(); // overrides pure3d::Font slot 6
-    virtual float vfunc_7(); // overrides pure3d::Font slot 7
-    virtual float vfunc_8(); // overrides pure3d::Font slot 8
+    virtual hulk_freg vfunc_5(); // overrides pure3d::Font slot 5
+    virtual hulk_freg vfunc_6(); // overrides pure3d::Font slot 6
+    virtual hulk_freg vfunc_7(); // overrides pure3d::Font slot 7
+    virtual hulk_freg vfunc_8(); // overrides pure3d::Font slot 8
     virtual void vfunc_9(int); // overrides pure3d::Font slot 9
-    virtual float vfunc_10(void*); // overrides pure3d::Font slot 10
-    virtual float vfunc_12(); // overrides pure3d::Font slot 12
+    virtual hulk_freg vfunc_10(void*); // overrides pure3d::Font slot 10
+    virtual hulk_freg vfunc_12(); // overrides pure3d::Font slot 12
     virtual void vfunc_13(float); // overrides pure3d::Font slot 13
     virtual void* vfunc_14(int); // overrides pure3d::Font slot 14
     virtual void vfunc_15(int); // overrides pure3d::Font slot 15
@@ -3376,7 +3376,7 @@ public:
     virtual void vfunc_6(unsigned int) = 0; // slot 6
     virtual void* vfunc_7(int) = 0; // slot 7
     virtual void vfunc_8(void*) = 0; // slot 8
-    virtual float vfunc_9() = 0; // slot 9
+    virtual hulk_freg vfunc_9() = 0; // slot 9
     virtual void vfunc_10(void*) = 0; // slot 10
     virtual int vfunc_11() = 0; // slot 11
     virtual void vfunc_12(int) = 0; // slot 12
@@ -3416,7 +3416,7 @@ public:
     virtual void vfunc_46(int, int) = 0; // slot 46
     virtual void vfunc_47(int, void*) = 0; // slot 47
     virtual void vfunc_48(int, float) = 0; // slot 48
-    virtual float vfunc_49(int) = 0; // slot 49
+    virtual hulk_freg vfunc_49(int) = 0; // slot 49
     virtual void vfunc_50(int, float, float, float) = 0; // slot 50
     virtual void vfunc_51(int, void*, void*, void*) = 0; // slot 51
     virtual void vfunc_52(int, float, float, float) = 0; // slot 52
@@ -3450,7 +3450,7 @@ public:
     virtual void vfunc_80(int, int, int) = 0; // slot 80
     virtual void vfunc_81(void*, void*, void*) = 0; // slot 81
     virtual int vfunc_82(int) = 0; // slot 82
-    virtual float vfunc_83(int) = 0; // slot 83
+    virtual hulk_freg vfunc_83(int) = 0; // slot 83
     virtual unsigned int vfunc_84() = 0; // slot 84
     virtual void vfunc_85(unsigned char) = 0; // slot 85
     virtual unsigned char vfunc_86() = 0; // slot 86
@@ -3471,7 +3471,7 @@ public:
     virtual void vfunc_6(unsigned int); // overrides pure3d::pddiRenderContext slot 6
     virtual void* vfunc_7(int); // overrides pure3d::pddiRenderContext slot 7
     virtual void vfunc_8(void*); // overrides pure3d::pddiRenderContext slot 8
-    virtual float vfunc_9(); // overrides pure3d::pddiRenderContext slot 9
+    virtual hulk_freg vfunc_9(); // overrides pure3d::pddiRenderContext slot 9
     virtual void vfunc_10(void*); // overrides pure3d::pddiRenderContext slot 10
     virtual int vfunc_11(); // overrides pure3d::pddiRenderContext slot 11
     virtual void vfunc_12(int); // overrides pure3d::pddiRenderContext slot 12
@@ -3511,7 +3511,7 @@ public:
     virtual void vfunc_46(int, int); // overrides pure3d::pddiRenderContext slot 46
     virtual void vfunc_47(int, void*); // overrides pure3d::pddiRenderContext slot 47
     virtual void vfunc_48(int, float); // overrides pure3d::pddiRenderContext slot 48
-    virtual float vfunc_49(int); // overrides pure3d::pddiRenderContext slot 49
+    virtual hulk_freg vfunc_49(int); // overrides pure3d::pddiRenderContext slot 49
     virtual void vfunc_50(int, float, float, float); // overrides pure3d::pddiRenderContext slot 50
     virtual void vfunc_51(int, void*, void*, void*); // overrides pure3d::pddiRenderContext slot 51
     virtual void vfunc_52(int, float, float, float); // overrides pure3d::pddiRenderContext slot 52
@@ -3545,7 +3545,7 @@ public:
     virtual void vfunc_80(int, int, int); // overrides pure3d::pddiRenderContext slot 80
     virtual void vfunc_81(void*, void*, void*); // overrides pure3d::pddiRenderContext slot 81
     virtual int vfunc_82(int); // overrides pure3d::pddiRenderContext slot 82
-    virtual float vfunc_83(int); // overrides pure3d::pddiRenderContext slot 83
+    virtual hulk_freg vfunc_83(int); // overrides pure3d::pddiRenderContext slot 83
     virtual void vfunc_85(unsigned char); // overrides pure3d::pddiRenderContext slot 85
     virtual unsigned char vfunc_86(); // overrides pure3d::pddiRenderContext slot 86
     virtual void vfunc_87(int); // overrides pure3d::pddiRenderContext slot 87
@@ -3568,7 +3568,7 @@ public:
     virtual void vfunc_104(); // slot 104
     virtual void vfunc_105(); // slot 105
     virtual void vfunc_106() = 0; // slot 106
-    virtual float vfunc_107() = 0; // slot 107
+    virtual hulk_freg vfunc_107() = 0; // slot 107
     virtual void vfunc_108(int) = 0; // slot 108
     virtual void vfunc_109() = 0; // slot 109
     virtual void vfunc_110(int, char) = 0; // slot 110
@@ -3640,7 +3640,7 @@ public:
     virtual int vfunc_92(void*); // overrides pure3d::pddiRenderContext slot 92
     virtual void vfunc_96(unsigned int, unsigned int); // overrides pure3d::pddiBaseContext slot 96
     virtual void vfunc_106(); // overrides pure3d::pddiBaseContext slot 106
-    virtual float vfunc_107(); // overrides pure3d::pddiBaseContext slot 107
+    virtual hulk_freg vfunc_107(); // overrides pure3d::pddiBaseContext slot 107
     virtual void vfunc_108(int); // overrides pure3d::pddiBaseContext slot 108
     virtual void vfunc_109(); // overrides pure3d::pddiBaseContext slot 109
     virtual void vfunc_110(int, char); // overrides pure3d::pddiBaseContext slot 110
@@ -3705,7 +3705,7 @@ public:
     virtual void vfunc_13() = 0; // slot 13
     virtual void vfunc_14() = 0; // slot 14
     virtual void vfunc_15(int, int) = 0; // slot 15
-    virtual float vfunc_16() = 0; // slot 16
+    virtual hulk_freg vfunc_16() = 0; // slot 16
 };
 
 // .?AVd3dDisplay@pure3d@@  vftable 0x43242c (18)
@@ -3724,7 +3724,7 @@ public:
     virtual void vfunc_13(); // overrides pure3d::pddiDisplay slot 13
     virtual void vfunc_14(); // overrides pure3d::pddiDisplay slot 14
     virtual void vfunc_15(int, int); // overrides pure3d::pddiDisplay slot 15
-    virtual float vfunc_16(); // overrides pure3d::pddiDisplay slot 16
+    virtual hulk_freg vfunc_16(); // overrides pure3d::pddiDisplay slot 16
     virtual void vfunc_17(); // slot 17
     int f_08;
     int f_0c;

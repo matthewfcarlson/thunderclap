@@ -3,6 +3,6 @@
 
 #include "decls/data/game/global.h"
 
-float hulkfight::DebugPrintTrack::vfunc_7() {
+hulk_freg hulkfight::DebugPrintTrack::vfunc_7() {
     return DAT_003f32e0;
 }

@@ -10,6 +10,6 @@ class FELayout_e2750 {
     virtual void f4();
 };
 
-float VScroll::vfunc_17(int ) {
+hulk_freg VScroll::vfunc_17(int ) {
     return this->f_38;
 }

@@ -1,6 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 10/10)
 // FUN_00083080 @ 0x00083080
-// FUN_00083080 @ 0x00083080
+#include "compat/ptr.h"
 struct Vec3_83080 {
     float x, y, z;
 };

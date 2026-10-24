@@ -21,7 +21,7 @@ struct Pair_dd920 {
 };
 extern Pair_dd920 table_dd920[];
 
-float ControllerState::vfunc_11(int i) {
+hulk_freg ControllerState::vfunc_11(int i) {
     float* p = (*(float * *)&this->f_10);
     return p[table_dd920[i].a] - p[table_dd920[i].b];
 }

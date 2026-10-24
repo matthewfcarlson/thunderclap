@@ -3,6 +3,6 @@
 namespace physics {
 
 } // namespace physics
-float physics::SimCGSValue::vfunc_2() {
+hulk_freg physics::SimCGSValue::vfunc_2() {
     return *(float*)((char*)this + 8);
 }

@@ -3,6 +3,6 @@
 
 #include "decls/data/game/global.h"
 
-float FEAnimation::vfunc_5() {
+hulk_freg FEAnimation::vfunc_5() {
     return DAT_003f32e0;
 }

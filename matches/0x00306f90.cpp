@@ -3,6 +3,6 @@
 namespace physics {
 
 } // namespace physics
-float physics::CollisionRay::vfunc_17() {
+hulk_freg physics::CollisionRay::vfunc_17() {
     return this->f_80;
 }

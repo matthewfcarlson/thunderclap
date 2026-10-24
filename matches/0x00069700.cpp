@@ -6,6 +6,6 @@ namespace ai {
 
 } // namespace ai
 }; // namespace hulkfight
-float CSoundTrack::vfunc_6() {
+hulk_freg CSoundTrack::vfunc_6() {
     return this->f_0c;
 }

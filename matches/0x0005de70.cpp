@@ -3,6 +3,6 @@
 
 float gNegOne = -1.0f;
 
-float CStunAnimationTrack::vfunc_7() {
+hulk_freg CStunAnimationTrack::vfunc_7() {
     return gNegOne;
 }

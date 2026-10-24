@@ -3,6 +3,6 @@
 
 float gNegOne = -1.0f;
 
-float hulkfight::motion::HitReactionFloatTrack::vfunc_7() {
+hulk_freg hulkfight::motion::HitReactionFloatTrack::vfunc_7() {
     return gNegOne;
 }

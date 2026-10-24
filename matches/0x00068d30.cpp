@@ -16,6 +16,6 @@ struct CTrack_68d30 {
     virtual void tfunc9();
 };
 
-float CJointTrack::vfunc_7() {
-    return (float)(this->f_10 - this->f_0c);
+hulk_freg CJointTrack::vfunc_7() {
+    return (hulk_freg)this->f_10 - this->f_0c;
 }

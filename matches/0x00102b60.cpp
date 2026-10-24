@@ -6,7 +6,7 @@ class Helper_102b60 {
 };
 extern volatile const float gZero_102b60;
 
-float CMoveAgent::vfunc_3(int x, int y) {
+hulk_freg CMoveAgent::vfunc_3(int x, int y) {
     ((Helper_102b60*)this)->f(x, y);
     float z = gZero_102b60;
     *(int*)((char*)this + 8) = 0;

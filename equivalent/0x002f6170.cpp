@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 0/0)
 // physics::SimulatedObject::vfunc_15 @ 0x002f6170
 #include "gen/physics.h"
 
@@ -12,7 +12,7 @@ struct SimCGSValue_2f6170 {
 };
 
 }
-float physics::SimulatedObject::vfunc_15() {
+hulk_freg physics::SimulatedObject::vfunc_15() {
     SimCGSValue_2f6170 value;
     value.FUN_002ecf20(10.0f);
     float result = vfunc_14() / value.value;

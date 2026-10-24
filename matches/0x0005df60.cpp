@@ -6,6 +6,6 @@ namespace ai {
 
 } // namespace ai
 }; // namespace hulkfight
-float CSnapToWallTrack::vfunc_6() {
+hulk_freg CSnapToWallTrack::vfunc_6() {
     return this->f_0c;
 }

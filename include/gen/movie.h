@@ -42,7 +42,7 @@ public:
     virtual void vfunc_8() = 0; // slot 8
     virtual void vfunc_9() = 0; // slot 9
     virtual void vfunc_10(float) = 0; // slot 10
-    virtual float vfunc_11() = 0; // slot 11
+    virtual hulk_freg vfunc_11() = 0; // slot 11
     virtual void vfunc_12() = 0; // slot 12
     virtual bool vfunc_13(void*) = 0; // slot 13
     virtual void vfunc_14() = 0; // slot 14
@@ -63,7 +63,7 @@ public:
     virtual void vfunc_8(); // overrides movie::Player2 slot 8
     virtual void vfunc_9(); // overrides movie::Player2 slot 9
     virtual void vfunc_10(float); // overrides movie::Player2 slot 10
-    virtual float vfunc_11(); // overrides movie::Player2 slot 11
+    virtual hulk_freg vfunc_11(); // overrides movie::Player2 slot 11
     virtual void vfunc_12(); // overrides movie::Player2 slot 12
     virtual bool vfunc_13(void*); // overrides movie::Player2 slot 13
     virtual void vfunc_14(); // overrides movie::Player2 slot 14

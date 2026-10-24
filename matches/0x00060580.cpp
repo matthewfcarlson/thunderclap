@@ -6,6 +6,6 @@ namespace ai {
 
 } // namespace ai
 }; // namespace hulkfight
-float CMotionTrailTrack::vfunc_6() {
+hulk_freg CMotionTrailTrack::vfunc_6() {
     return this->f_0c;
 }

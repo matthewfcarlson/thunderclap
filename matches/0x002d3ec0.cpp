@@ -10,6 +10,6 @@ class IValueChangedReceiver_2d3ec0 {
     virtual void f1();
 };
 
-float pure3d::ParticleEmitter::vfunc_20() {
+hulk_freg pure3d::ParticleEmitter::vfunc_20() {
     return this->f_a0;
 }

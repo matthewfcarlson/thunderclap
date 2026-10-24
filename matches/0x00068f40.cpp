@@ -16,6 +16,6 @@ struct CTrack_68f40 {
     virtual void tfunc9();
 };
 
-float CClimbingTrack::vfunc_7() {
-    return (float)(this->f_10 - this->f_0c);
+hulk_freg CClimbingTrack::vfunc_7() {
+    return (hulk_freg)this->f_10 - this->f_0c;
 }

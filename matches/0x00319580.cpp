@@ -6,6 +6,6 @@ namespace ai {
 
 } // namespace ai
 }; // namespace hulkfight
-float physics::SimpleFilter1D::vfunc_2() {
+hulk_freg physics::SimpleFilter1D::vfunc_2() {
     return this->f_0c;
 }

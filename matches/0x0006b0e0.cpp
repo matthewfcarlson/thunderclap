@@ -6,6 +6,6 @@ namespace ai {
 
 } // namespace ai
 }; // namespace hulkfight
-float CMotionHitGroundHeightTrack::vfunc_6() {
+hulk_freg CMotionHitGroundHeightTrack::vfunc_6() {
     return this->f_0c;
 }

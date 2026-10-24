@@ -6,6 +6,6 @@ namespace ai {
 
 } // namespace ai
 }; // namespace hulkfight
-float hulkfight::StatEndTrialTrack::vfunc_6() {
+hulk_freg hulkfight::StatEndTrialTrack::vfunc_6() {
     return this->f_0c;
 }

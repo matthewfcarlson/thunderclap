@@ -3,6 +3,6 @@
 
 float gNegOne = -1.0f;
 
-float CScrubberTrack::vfunc_7() {
+hulk_freg CScrubberTrack::vfunc_7() {
     return gNegOne;
 }

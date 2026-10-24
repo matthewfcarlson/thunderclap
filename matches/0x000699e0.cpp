@@ -6,6 +6,6 @@ namespace ai {
 
 } // namespace ai
 }; // namespace hulkfight
-float CMoveAddTrack::vfunc_6() {
+hulk_freg CMoveAddTrack::vfunc_6() {
     return this->f_0c;
 }

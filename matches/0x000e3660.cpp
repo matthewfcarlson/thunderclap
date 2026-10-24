@@ -43,6 +43,6 @@ class IValueChangedSender_e3660 {
     virtual void i0();
 };
 
-float TextSelector::vfunc_9() {
+hulk_freg TextSelector::vfunc_9() {
     return this->f_1d60;
 }

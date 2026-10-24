@@ -3,6 +3,6 @@
 
 #include "decls/data/game/global.h"
 
-float CScrubberTrack::vfunc_6() {
+hulk_freg CScrubberTrack::vfunc_6() {
     return DAT_003f32e0;
 }

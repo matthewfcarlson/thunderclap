@@ -7,6 +7,6 @@ class CTrack_69130 {
     float value;
 };
 
-float CJumpTrack::vfunc_29() {
+hulk_freg CJumpTrack::vfunc_29() {
     return this->f_4c;
 }

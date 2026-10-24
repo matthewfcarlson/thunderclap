@@ -10,7 +10,7 @@ class Thing_14920 {
     float value;
 };
 
-float CPushBackAnimationAction::vfunc_9() {
+hulk_freg CPushBackAnimationAction::vfunc_9() {
     int* p = (*(Thing_14920 * *)&this->f_1c)->get();
     if (!p)
         return 0.0f;

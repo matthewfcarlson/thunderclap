@@ -1,10 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // physics::SimulatedObject::vfunc_14 @ 0x002f60f0
 #include "gen/physics.h"
 
 namespace physics {
 struct SimCGSValue_2f60f0 {
-    virtual void vfunc_0();
+    void *vptr;
     float value;
     int extra;
     void FUN_002ecca0();
@@ -13,7 +13,7 @@ struct SimCGSValue_2f60f0 {
 };
 
 }
-float physics::SimulatedObject::vfunc_14() {
+hulk_freg physics::SimulatedObject::vfunc_14() {
     SimCGSValue_2f60f0 numerator;
     numerator.FUN_002ecf20(0.1f);
     SimCGSValue_2f60f0 denominator;

@@ -6,6 +6,6 @@ namespace ai {
 
 } // namespace ai
 }; // namespace hulkfight
-float hulkfight::motion::PropDropTrack::vfunc_6() {
+hulk_freg hulkfight::motion::PropDropTrack::vfunc_6() {
     return this->f_0c;
 }

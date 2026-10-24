@@ -8,7 +8,7 @@ class AnimationFrameController_2a7000 {
 const float gMaxFloat = 3.402823466e+38F;
 
 } // namespace pure3d
-float pure3d::ParticleController::vfunc_20() {
+hulk_freg pure3d::ParticleController::vfunc_20() {
     if (this->f_20 == 0) {
         if (this->f_40 == 1)
             return gMaxFloat;

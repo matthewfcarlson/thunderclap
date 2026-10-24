@@ -6,6 +6,6 @@ namespace ai {
 
 } // namespace ai
 }; // namespace hulkfight
-float CDamageTrack::vfunc_6() {
+hulk_freg CDamageTrack::vfunc_6() {
     return this->f_0c;
 }

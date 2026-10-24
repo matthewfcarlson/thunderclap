@@ -80,14 +80,14 @@ public:
     virtual unsigned char vfunc_11() = 0; // slot 11
     virtual void vfunc_12(int) = 0; // slot 12
     virtual void vfunc_13() = 0; // slot 13
-    virtual float vfunc_14(); // slot 14
-    virtual float vfunc_15(); // slot 15
+    virtual hulk_freg vfunc_14(); // slot 14
+    virtual hulk_freg vfunc_15(); // slot 15
     virtual void vfunc_16(); // slot 16
     virtual void vfunc_17(int, int, int, int, int) = 0; // slot 17
     virtual bool vfunc_18(int, int, int, int, int, int) = 0; // slot 18
     virtual void vfunc_19(int, int, int) = 0; // slot 19
     virtual void vfunc_20(void*, void*, int, int, int) = 0; // slot 20
-    virtual float vfunc_21(); // slot 21
+    virtual hulk_freg vfunc_21(); // slot 21
     virtual void vfunc_22(int, int, int, int, int, int); // slot 22
     virtual void vfunc_23(int, int); // slot 23
     virtual bool vfunc_24(int, int, int); // slot 24
@@ -115,24 +115,24 @@ public:
     virtual unsigned char vfunc_11(); // overrides physics::SimulatedObject slot 11
     virtual void vfunc_12(int); // overrides physics::SimulatedObject slot 12
     virtual void vfunc_13(); // overrides physics::SimulatedObject slot 13
-    virtual float vfunc_14(); // overrides physics::SimulatedObject slot 14
-    virtual float vfunc_15(); // overrides physics::SimulatedObject slot 15
+    virtual hulk_freg vfunc_14(); // overrides physics::SimulatedObject slot 14
+    virtual hulk_freg vfunc_15(); // overrides physics::SimulatedObject slot 15
     virtual void vfunc_17(int, int, int, int, int); // overrides physics::SimulatedObject slot 17
     virtual bool vfunc_18(int, int, int, int, int, int); // overrides physics::SimulatedObject slot 18
     virtual void vfunc_19(int, int, int); // overrides physics::SimulatedObject slot 19
     virtual void vfunc_20(void*, void*, int, int, int); // overrides physics::SimulatedObject slot 20
-    virtual float vfunc_21(); // overrides physics::SimulatedObject slot 21
+    virtual hulk_freg vfunc_21(); // overrides physics::SimulatedObject slot 21
     virtual bool vfunc_25(void*, unsigned long, unsigned long); // overrides physics::SimulatedObject slot 25
     virtual bool vfunc_26(int); // overrides physics::SimulatedObject slot 26
     virtual void vfunc_27(int); // overrides physics::SimulatedObject slot 27
     virtual void* vfunc_28(unsigned int); // overrides physics::SimulatedObject slot 28
     virtual void vfunc_30(); // slot 30
-    virtual float vfunc_31(); // slot 31
+    virtual hulk_freg vfunc_31(); // slot 31
     virtual void vfunc_32(int, int); // slot 32
     virtual void vfunc_33(int); // slot 33
     virtual bool vfunc_34(void*); // slot 34
     virtual void vfunc_35(float); // slot 35
-    virtual float vfunc_36(); // slot 36
+    virtual hulk_freg vfunc_36(); // slot 36
     virtual void vfunc_37(); // slot 37
     virtual void vfunc_38(); // slot 38
     virtual void vfunc_39(); // slot 39
@@ -494,7 +494,7 @@ public:
     virtual void vfunc_11(void*); // overrides physics::CollisionVolume slot 11
     virtual void* vfunc_15(); // slot 15
     virtual void* vfunc_16(); // slot 16
-    virtual float vfunc_17(); // slot 17
+    virtual hulk_freg vfunc_17(); // slot 17
     virtual void vfunc_18(unsigned int); // slot 18
     char _pad_1c[0x64];
     float f_80;
@@ -571,7 +571,7 @@ class Filter1D {
 public:
     virtual bool vfunc_0(float, float, float) = 0; // slot 0
     virtual void vfunc_1(int, int) = 0; // slot 1
-    virtual float vfunc_2() = 0; // slot 2
+    virtual hulk_freg vfunc_2() = 0; // slot 2
 };
 
 // .?AVKalmann1D@physics@@  vftable 0x43236c (3)
@@ -579,7 +579,7 @@ class Kalmann1D : public ::physics::Filter1D {
 public:
     virtual bool vfunc_0(float, float, float); // overrides physics::Filter1D slot 0
     virtual void vfunc_1(int, int); // overrides physics::Filter1D slot 1
-    virtual float vfunc_2(); // overrides physics::Filter1D slot 2
+    virtual hulk_freg vfunc_2(); // overrides physics::Filter1D slot 2
 };
 
 // .?AVDoubleKalmann1D@physics@@  vftable 0x43237c (3)
@@ -587,7 +587,7 @@ class DoubleKalmann1D : public ::physics::Kalmann1D {
 public:
     virtual bool vfunc_0(float, float, float); // overrides physics::Filter1D slot 0
     virtual void vfunc_1(int, int); // overrides physics::Filter1D slot 1
-    virtual float vfunc_2(); // overrides physics::Filter1D slot 2
+    virtual hulk_freg vfunc_2(); // overrides physics::Filter1D slot 2
     int f_04;
     float f_08;
     float f_0c;
@@ -744,9 +744,9 @@ public:
     virtual void vfunc_3() = 0; // slot 3
     virtual bool vfunc_4() = 0; // slot 4
     virtual void vfunc_5(void*) = 0; // slot 5
-    virtual float vfunc_6() = 0; // slot 6
-    virtual float vfunc_7(); // slot 7
-    virtual float vfunc_8(); // slot 8
+    virtual hulk_freg vfunc_6() = 0; // slot 6
+    virtual hulk_freg vfunc_7(); // slot 7
+    virtual hulk_freg vfunc_8(); // slot 8
     virtual void vfunc_9(float, float); // slot 9
     virtual void vfunc_10(int); // slot 10
     virtual void vfunc_11(int, int, int) = 0; // slot 11
@@ -758,7 +758,7 @@ public:
     virtual void vfunc_17(int, int, int) = 0; // slot 17
     virtual void vfunc_18(int, int) = 0; // slot 18
     virtual void vfunc_19(void*) = 0; // slot 19
-    virtual float vfunc_20(float) = 0; // slot 20
+    virtual hulk_freg vfunc_20(float) = 0; // slot 20
     virtual void vfunc_21(void*) = 0; // slot 21
     virtual void vfunc_22(void*) = 0; // slot 22
     virtual void vfunc_23() = 0; // slot 23
@@ -797,7 +797,7 @@ public:
     virtual void vfunc_3(); // overrides physics::PhysicsJoint slot 3
     virtual bool vfunc_4(); // overrides physics::PhysicsJoint slot 4
     virtual void vfunc_5(void*); // overrides physics::PhysicsJoint slot 5
-    virtual float vfunc_6(); // overrides physics::PhysicsJoint slot 6
+    virtual hulk_freg vfunc_6(); // overrides physics::PhysicsJoint slot 6
     virtual void vfunc_11(int, int, int); // overrides physics::PhysicsJoint slot 11
     virtual void vfunc_12(int, int, int, int, int, int, int); // overrides physics::PhysicsJoint slot 12
     virtual void vfunc_15(void*); // overrides physics::PhysicsJoint slot 15
@@ -805,7 +805,7 @@ public:
     virtual void vfunc_17(int, int, int); // overrides physics::PhysicsJoint slot 17
     virtual void vfunc_18(int, int); // overrides physics::PhysicsJoint slot 18
     virtual void vfunc_19(void*); // overrides physics::PhysicsJoint slot 19
-    virtual float vfunc_20(float); // overrides physics::PhysicsJoint slot 20
+    virtual hulk_freg vfunc_20(float); // overrides physics::PhysicsJoint slot 20
     virtual void vfunc_21(void*); // overrides physics::PhysicsJoint slot 21
     virtual void vfunc_22(void*); // overrides physics::PhysicsJoint slot 22
     virtual void vfunc_23(); // overrides physics::PhysicsJoint slot 23
@@ -824,7 +824,7 @@ public:
     virtual void vfunc_3(); // overrides physics::PhysicsJoint slot 3
     virtual bool vfunc_4(); // overrides physics::PhysicsJoint slot 4
     virtual void vfunc_5(void*); // overrides physics::PhysicsJoint slot 5
-    virtual float vfunc_6(); // overrides physics::PhysicsJoint slot 6
+    virtual hulk_freg vfunc_6(); // overrides physics::PhysicsJoint slot 6
     virtual void vfunc_9(float, float); // overrides physics::PhysicsJoint slot 9
     virtual void vfunc_10(int); // overrides physics::PhysicsJoint slot 10
     virtual void vfunc_11(int, int, int); // overrides physics::PhysicsJoint slot 11
@@ -834,7 +834,7 @@ public:
     virtual void vfunc_17(int, int, int); // overrides physics::PhysicsJoint slot 17
     virtual void vfunc_18(int, int); // overrides physics::PhysicsJoint slot 18
     virtual void vfunc_19(void*); // overrides physics::PhysicsJoint slot 19
-    virtual float vfunc_20(float); // overrides physics::PhysicsJoint slot 20
+    virtual hulk_freg vfunc_20(float); // overrides physics::PhysicsJoint slot 20
     virtual void vfunc_21(void*); // overrides physics::PhysicsJoint slot 21
     virtual void vfunc_22(void*); // overrides physics::PhysicsJoint slot 22
     virtual void vfunc_23(); // overrides physics::PhysicsJoint slot 23
@@ -870,7 +870,7 @@ public:
     virtual void vfunc_3(); // overrides physics::PhysicsJoint slot 3
     virtual bool vfunc_4(); // overrides physics::PhysicsJoint slot 4
     virtual void vfunc_5(void*); // overrides physics::PhysicsJoint slot 5
-    virtual float vfunc_6(); // overrides physics::PhysicsJoint slot 6
+    virtual hulk_freg vfunc_6(); // overrides physics::PhysicsJoint slot 6
     virtual void vfunc_9(float, float); // overrides physics::PhysicsJoint slot 9
     virtual void vfunc_10(int); // overrides physics::PhysicsJoint slot 10
     virtual void vfunc_11(int, int, int); // overrides physics::PhysicsJoint slot 11
@@ -880,7 +880,7 @@ public:
     virtual void vfunc_17(int, int, int); // overrides physics::PhysicsJoint slot 17
     virtual void vfunc_18(int, int); // overrides physics::PhysicsJoint slot 18
     virtual void vfunc_19(void*); // overrides physics::PhysicsJoint slot 19
-    virtual float vfunc_20(float); // overrides physics::PhysicsJoint slot 20
+    virtual hulk_freg vfunc_20(float); // overrides physics::PhysicsJoint slot 20
     virtual void vfunc_21(void*); // overrides physics::PhysicsJoint slot 21
     virtual void vfunc_22(void*); // overrides physics::PhysicsJoint slot 22
     virtual void vfunc_23(); // overrides physics::PhysicsJoint slot 23
@@ -997,8 +997,8 @@ class SimCGSValue : public ::physics::SimUnits {
 public:
     virtual ~SimCGSValue(); // overrides physics::SimUnits slot 0
     virtual void vfunc_1(float) = 0; // slot 1
-    virtual float vfunc_2(); // slot 2
-    virtual float vfunc_3(); // slot 3
+    virtual hulk_freg vfunc_2(); // slot 2
+    virtual hulk_freg vfunc_3(); // slot 3
     float f_04;
     float f_08;
 };
@@ -1055,7 +1055,7 @@ class SimpleFilter1D : public ::physics::Filter1D {
 public:
     virtual bool vfunc_0(float, float, float); // overrides physics::Filter1D slot 0
     virtual void vfunc_1(int, int); // overrides physics::Filter1D slot 1
-    virtual float vfunc_2(); // overrides physics::Filter1D slot 2
+    virtual hulk_freg vfunc_2(); // overrides physics::Filter1D slot 2
     char _pad_04[0x8];
     float f_0c;
 };

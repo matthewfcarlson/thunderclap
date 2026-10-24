@@ -4,6 +4,6 @@
 namespace physics {
 
 } // namespace physics
-float physics::PhysicsJoint::vfunc_8() {
+hulk_freg physics::PhysicsJoint::vfunc_8() {
     return this->f_40;
 }

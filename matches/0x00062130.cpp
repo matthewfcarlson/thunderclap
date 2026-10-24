@@ -6,6 +6,6 @@ namespace ai {
 
 } // namespace ai
 }; // namespace hulkfight
-float CWeaponCollisionTrack::vfunc_6() {
+hulk_freg CWeaponCollisionTrack::vfunc_6() {
     return this->f_0c;
 }

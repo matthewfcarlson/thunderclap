@@ -6,6 +6,6 @@ namespace ai {
 
 } // namespace ai
 }; // namespace hulkfight
-float CGrabTrack::vfunc_6() {
+hulk_freg CGrabTrack::vfunc_6() {
     return this->f_0c;
 }

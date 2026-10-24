@@ -3,6 +3,6 @@
 
 #include "decls/data/game/global.h"
 
-float CSmartPropEventTrack::vfunc_7() {
+hulk_freg CSmartPropEventTrack::vfunc_7() {
     return DAT_003f32e0;
 }

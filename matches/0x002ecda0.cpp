@@ -8,6 +8,6 @@ class SimUnits_2ecda0 {
     virtual float vfunc_3();
 };
 
-float physics::SimCGSValue::vfunc_3() {
+hulk_freg physics::SimCGSValue::vfunc_3() {
     return this->f_04;
 }

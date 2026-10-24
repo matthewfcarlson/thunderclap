@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 62 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 2976 inputs, branch coverage 14/14)
 // FEScreenBase::vfunc_10 @ 0x000ef4f0
 struct ScreenItem {
     virtual void vf0();
@@ -7,7 +7,7 @@ struct ScreenItem {
     virtual void vf3();
     virtual void vf4();
     virtual void vf5();
-    virtual void vf6(float value);
+    virtual void vf6(float value, int arg);
     virtual void vf7();
     virtual void vf8();
     virtual void vf9();
@@ -44,7 +44,7 @@ struct Widget_ef4f0 {
     void FUN_000dff70();
 };
 extern Clock_ef4f0* DAT_0052c2a4;
-extern float (__stdcall *DAT_004de948)(int);
+extern float (__stdcall *DAT_004de948)();
 void __cdecl FUN_0009f790(void* obj, float t, float* a, float* b);
 void __cdecl FUN_000f61e0(CameraLike* cam);
 
@@ -89,12 +89,12 @@ void FEScreenBase::vfunc_10() {
     for (int i = 0; i < 4; i++) {
         if (!groupA[i])
             break;
-        groupA[i]->vf6(DAT_004de948(0) * 1000.0f);
+        groupA[i]->vf6(DAT_004de948() * 1000.0f, 0);
     }
     for (int i = 0; i < 6; i++) {
         if (!groupB[i])
             break;
-        groupB[i]->vf6(DAT_004de948(0) * 1000.0f);
+        groupB[i]->vf6(DAT_004de948() * 1000.0f, 0);
     }
     FEContainer::vfunc_10();
     for (int i = 0; i < itemCount; i++)

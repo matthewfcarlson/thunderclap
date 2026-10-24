@@ -3,6 +3,6 @@
 
 #include "decls/data/game/global.h"
 
-float CGrappleDetachTrack::vfunc_7() {
+hulk_freg CGrappleDetachTrack::vfunc_7() {
     return DAT_003f32e0;
 }

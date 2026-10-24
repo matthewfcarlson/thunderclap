@@ -3,6 +3,6 @@
 
 #include "decls/data/game/global.h"
 
-float fight::SequenceTrack::vfunc_6() {
+hulk_freg fight::SequenceTrack::vfunc_6() {
     return DAT_003f32e0;
 }

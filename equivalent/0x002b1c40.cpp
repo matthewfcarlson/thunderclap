@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19994 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 30/30)
 // pure3d::MultiController::vfunc_20 @ 0x002b1c40
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct Controller_2b1c40 {
@@ -25,7 +26,7 @@ struct Controller_2b1c40 {
     virtual int v19();
 };
 
-float pure3d::MultiController::vfunc_20() {
+hulk_freg pure3d::MultiController::vfunc_20() {
     float a = this->f_28 * this->f_1c;
     double endp = this->f_2c * this->f_1c; // unrounded for dur, a rounded frame copy (end) for the later uses
     volatile float end = endp;

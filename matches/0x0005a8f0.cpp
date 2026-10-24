@@ -6,6 +6,6 @@ namespace ai {
 
 } // namespace ai
 }; // namespace hulkfight
-float CGrappleLocoStrafe4Track::vfunc_6() {
+hulk_freg CGrappleLocoStrafe4Track::vfunc_6() {
     return this->f_0c;
 }

@@ -3,6 +3,6 @@
 
 float gNegOne = -1.0f;
 
-float CProceduralDurationAnimationTrack::vfunc_7() {
+hulk_freg CProceduralDurationAnimationTrack::vfunc_7() {
     return gNegOne;
 }

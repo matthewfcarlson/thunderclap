@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 6/6)
 // CPathGraphAgent::vfunc_3 @ 0x00104930
 #include "gen/global.h"
 
@@ -13,7 +13,7 @@ struct PathState {
     float value;
 };
 
-float CPathGraphAgent::vfunc_3(int , int ) {
+hulk_freg CPathGraphAgent::vfunc_3(int , int ) {
     PathState *s = (*(PathState * *)&this->f_58);
     if (!s->active && !(s->value < (*(float*)&DAT_003f5d00)) && !s->blocked)
         return (*(float*)&DAT_0040d510);

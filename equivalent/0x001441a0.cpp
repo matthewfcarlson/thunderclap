@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 12/12)
 // hulkfight::motion::SlowMotionAction::vfunc_5 @ 0x001441a0
 #include "decls/address.h"
+#include "compat/ptr.h"
 extern "C" double __cdecl sin(double);
 
 class Clock_1441a0 {
@@ -59,13 +60,13 @@ char SlowMotionAction::vfunc_5(int mode, float dt)
         float end = c->fadeInEnd;
         float den = end - c->vfunc_6();
         c = curve;
-        float r = (elapsed - c->vfunc_6()) / den;
+        hulk_freg r = (elapsed - c->vfunc_6()) / den;
         if (val > base)
             val = (sin((r - 0.5f) * 3.14159265f) + 1.0f) * (val - base) * 0.5f + base;
         else
             val = (sin((0.5f - r) * 3.14159265f) + 1.0f) * (base - val) * 0.5f + val;
     } else if (t > c->fadeOutBegin) {
-        float r = (t - c->fadeOutBegin) / (c->fadeOutEnd - c->fadeOutBegin);
+        hulk_freg r = (t - c->fadeOutBegin) / (c->fadeOutEnd - c->fadeOutBegin);
         if (val > base)
             val = (sin((0.5f - r) * 3.14159265f) + 1.0f) * (val - base) * 0.5f + base;
         else

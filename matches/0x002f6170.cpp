@@ -11,7 +11,7 @@ struct SimCGSValue_2f6170 {
 };
 
 } // namespace physics
-float physics::SimulatedObject::vfunc_15() {
+hulk_freg physics::SimulatedObject::vfunc_15() {
     SimCGSValue_2f6170 value;
     value.Init(10.0f);
     float denom = value.value;

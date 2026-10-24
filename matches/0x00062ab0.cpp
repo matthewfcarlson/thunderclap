@@ -6,6 +6,6 @@ namespace ai {
 
 } // namespace ai
 }; // namespace hulkfight
-float CSmartPropDropTrack::vfunc_6() {
+hulk_freg CSmartPropDropTrack::vfunc_6() {
     return this->f_0c;
 }

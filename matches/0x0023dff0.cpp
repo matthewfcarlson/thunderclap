@@ -3,6 +3,6 @@
 
 float gNegOne = -1.0f;
 
-float fight::WaitTrack::vfunc_7() {
+hulk_freg fight::WaitTrack::vfunc_7() {
     return gNegOne;
 }

@@ -19,7 +19,7 @@ class IDollyControllerState_dd900 {
 
 extern const int g_table[][2];
 
-float ControllerState::vfunc_10(int arg) {
+hulk_freg ControllerState::vfunc_10(int arg) {
     float* a = (*(float * *)&this->f_0c);
     const int* p = g_table[arg];
     return a[p[0]] - a[p[1]];

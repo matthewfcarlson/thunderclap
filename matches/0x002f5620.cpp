@@ -3,6 +3,6 @@
 namespace physics {
 
 } // namespace physics
-float physics::PhysicsObject::vfunc_36() {
+hulk_freg physics::PhysicsObject::vfunc_36() {
     return this->f_40;
 }

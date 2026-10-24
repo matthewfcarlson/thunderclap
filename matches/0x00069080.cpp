@@ -1,5 +1,5 @@
 #include "gen/global.h"
 
-float CJumpTrack::vfunc_18() {
+hulk_freg CJumpTrack::vfunc_18() {
     return this->f_20;
 }

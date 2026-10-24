@@ -1,9 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19974 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 6/6)
 // FUN_001d5630 @ 0x001d5630
 #include "compat/ptr.h"
 #include "gen/global.h"
 struct Query_1d5630 { void FUN_0008ced0(int,int,unsigned*,int,int,int); };
-extern "C" Query_1d5630* __cdecl FUN_0008ceb0(int,int,unsigned*,int,int,int);
+extern "C" Query_1d5630* __cdecl FUN_0008ceb0();
 extern "C" unsigned __cdecl FUN_00266da0(hulk_uintptr);
 struct Owner_1d5630;
 struct Entry_1d5630;
@@ -19,8 +19,7 @@ extern "C" Manager_1d5630* __cdecl FUN_001c3d90();
 struct Owner_1d5630 { char pad[0xb0]; unsigned char flag; CSPHulkPropInstance* target(unsigned,unsigned); };
 CSPHulkPropInstance* Owner_1d5630::target(unsigned a,unsigned b) {
  unsigned size;
- Query_1d5630* q=FUN_0008ceb0(10,0,&size,0,0,0);
- q->FUN_0008ced0(10,0,&size,0,0,0);
+ FUN_0008ceb0()->FUN_0008ced0(10,0,&size,0,0,0);
  if(size<0xc800) return 0;
  unsigned old=FUN_00266da0(10);
  CSPHulkPropInstance* obj=FUN_00263ea0(0x278);

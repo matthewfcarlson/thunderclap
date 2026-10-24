@@ -9,6 +9,6 @@ class FELayout_e21b0 {
     virtual void f4();
 };
 
-float SingleLayout::vfunc_17(int ) {
+hulk_freg SingleLayout::vfunc_17(int ) {
     return this->f_38;
 }

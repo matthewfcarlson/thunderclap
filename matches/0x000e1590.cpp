@@ -28,7 +28,7 @@ struct FEAnimation_e1590 {
 };
 extern volatile float g_e1590;
 
-float FEPoseAnimation::vfunc_5() {
+hulk_freg FEPoseAnimation::vfunc_5() {
     char* base = (char*)this;
     Obj_e1590* p = *(Obj_e1590**)(base + 0x0c);
     Obj_e1590* m = *(Obj_e1590**)((char*)p + 0x4c);

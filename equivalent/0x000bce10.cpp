@@ -1,7 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 14/14)
 // FUN_000bce10 @ 0x000bce10
 struct Manager_bce10 { int FUN_000f7240(int,int); };
-extern Manager_bce10* __cdecl FUN_000fc1b0(int);
+extern Manager_bce10* __cdecl FUN_000fc1b0();
 extern void* __cdecl FUN_000fc260(const char*);
 extern char DAT_0049dba4, DAT_0049dbbc;
 struct Selector_bce10;
@@ -21,17 +21,15 @@ void Target_bce10::run() {
  Selector_bce10* sel=FUN_00344e74(FUN_000fc260("jump_marker_selector"),0,&DAT_0049dba4,&DAT_0049dbbc,0);
  if (!sel) return;
  Text_bce10 text; text.FUN_000f7930();
- Manager_bce10* tmp1 = FUN_000fc1b0(1);
- text.FUN_000f8500("", tmp1, 1);
+ text.FUN_000f8500("", FUN_000fc1b0(), 1);
  sel->FUN_000e36c0();
  for(int i=0;i<list->FUN_00089950();++i) {
  int tmp1 = list->FUN_00089960(i);
  Item_bce10* item=lookup->FUN_00092bb0(tmp1);
  int second=item->second; int first=item->first;
- Manager_bce10* manager=FUN_000fc1b0(first);
- int index=manager->FUN_000f7240(first,second);
+ int index=FUN_000fc1b0()->FUN_000f7240(first,second);
  if(index!=-1) text.FUN_000f7a10(index,0);
- else { Manager_bce10* m=FUN_000fc1b0(1); const char* s=item->FUN_0027b010(); text.FUN_000f8500(s,m,1); }
+ else text.FUN_000f8500(item->FUN_0027b010(), FUN_000fc1b0(), 1);
  sel->v19(&text,0,0);
  }
  if(sel->count>0) {sel->v25(0); FUN_000b8e70(0);}

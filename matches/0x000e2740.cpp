@@ -11,6 +11,6 @@ class FELayout_e2740 {
     char pad[0x34 - 4];
 };
 
-float VScroll::vfunc_16(int ) {
+hulk_freg VScroll::vfunc_16(int ) {
     return this->f_34;
 }

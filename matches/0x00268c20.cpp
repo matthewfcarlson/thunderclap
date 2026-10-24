@@ -6,6 +6,6 @@ namespace ai {
 
 } // namespace ai
 }; // namespace hulkfight
-float core::ControllerOutputPointXBox::vfunc_5() {
+hulk_freg core::ControllerOutputPointXBox::vfunc_5() {
     return this->f_0c;
 }

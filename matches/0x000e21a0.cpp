@@ -10,6 +10,6 @@ class FELayout_e21a0 {
     char pad[0x34 - 4];
 };
 
-float SingleLayout::vfunc_16(int ) {
+hulk_freg SingleLayout::vfunc_16(int ) {
     return this->f_34;
 }

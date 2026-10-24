@@ -7,7 +7,7 @@ class Helper_1048f0 {
 };
 extern volatile const float gZero_1048f0;
 
-float CPathAgent::vfunc_3(int x, int y) {
+hulk_freg CPathAgent::vfunc_3(int x, int y) {
     ((Helper_1048f0*)this)->f(x, y);
     float z = gZero_1048f0;
     *(int*)((char*)this + 8) = 0;

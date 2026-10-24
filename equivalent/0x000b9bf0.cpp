@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 730 inputs, branch coverage 40/40)
+// STATUS: equivalent (tools/equiv.py level 3: 609 inputs, branch coverage 40/40)
 // FUN_000b9bf0 @ 0x000b9bf0
 // cl-flags: /GS
 #include "decls/address.h"
@@ -9,6 +9,16 @@ extern char DAT_0049f4a4[];          // TextButton type descriptor
 extern char DAT_0049f4f0[];          // FEControl type descriptor
    // zero-terminated list of "cNmM" side mission names
 extern "C" int __cdecl memcmp(const void *, const void *, unsigned int);
+#pragma intrinsic(memcmp)
+#if defined(__clang__)
+static inline int hulk_memcmp(const void *pa, const void *pb, unsigned int n) { const unsigned char *a = (const unsigned char *)pa, *b = (const unsigned char *)pb; for (; n; --n, ++a, ++b) if (*a != *b) return *a < *b ? -1 : 1; return 0; }
+#define memcmp hulk_memcmp
+#endif
+extern "C" int __cdecl strcmp(const char *, const char *);
+#pragma intrinsic(strcmp)
+#if defined(__clang__)
+#define strcmp(s, e) (*(s) != 0)
+#endif
 
 class FEObject {
 public:
@@ -133,7 +143,7 @@ void SideMissionMenu::FUN_000b9bf0()
                     FUN_00345804(*f.entry, "c%dm%d", &f.a, &f.b);
                     FUN_000964a0(f.u.name, 0x20, "%s_score", *f.entry);
                     const char *score = progress->FUN_0008a060(f.u.name);
-                    if (*score != 0) {
+                    if (strcmp(score, "") != 0) {
                         FUN_000964a0(f.u.name, 0x20, "TBS_C%dM%d_NAME", f.a, f.b);
                         unsigned __int64 key = FUN_0027b020(f.u.name);
                         int idx = FUN_000fc1b0()->FUN_000f7240((int)key, (int)(key >> 32));

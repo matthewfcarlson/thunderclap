@@ -8,13 +8,13 @@ class ParticleObject {
     virtual void f3();
     virtual void f4();
     virtual void f5();
-    virtual void Update(float);
+    virtual void Update(float, int);
 };
-typedef float(__stdcall* TimeFn)(int);
+typedef float(__stdcall* TimeFn)();
 extern TimeFn g_timeFn;
 
 void FEParticleSystem::vfunc_2() {
     if ((*(int *)&this->f_2c)) {
-        (*(ParticleObject * *)&this->f_28)->Update(g_timeFn(0) * 1000.0f);
+        (*(ParticleObject * *)&this->f_28)->Update(g_timeFn() * 1000.0f, 0);
     }
 }

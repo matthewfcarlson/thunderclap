@@ -8,7 +8,9 @@ struct Mission_88940 { const char* FUN_000897f0(); const char* FUN_000897e0(); c
 struct Other_88940 { void* FUN_000b4ff0(); };
 struct Context { void* FUN_00086290(); void* FUN_000862b0(); Other_88940* FUN_00086280(); };
 // equiv-conv: _sprintf stack stack stack
+#if !defined(__clang__)
 extern "C" int __cdecl sprintf(char*,const char*,const char*,const char*);
+#endif
 // equiv-conv: FUN_00267760 stack stack stack stack
 int __cdecl FUN_00267760(char*,unsigned,const char*,const char*,const char*);
 struct Obj_88940 { char pad0[8]; Component_88940 *p08,*p0c,*p10,*p14,*p18,*p1c,*p20,*p24,*p28,*p2c,*p30,*p34,*p38,*p3c,*p40,*p44,*p48,*p4c,*p50; char pad54[8]; unsigned char flag5c; char pad5d[63]; unsigned char flag9c; void run(Context*,Mission_88940*); };

@@ -16,6 +16,6 @@ class IDollyControllerState_dd880 {
     virtual void f11();
 };
 
-float ControllerState::vfunc_5(int index) {
+hulk_freg ControllerState::vfunc_5(int index) {
     return (*(float * *)&this->f_10)[index];
 }

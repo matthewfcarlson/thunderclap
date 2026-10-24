@@ -6,6 +6,6 @@ namespace ai {
 
 } // namespace ai
 }; // namespace hulkfight
-float fight::SpawnTrack::vfunc_6() {
+hulk_freg fight::SpawnTrack::vfunc_6() {
     return this->f_0c;
 }

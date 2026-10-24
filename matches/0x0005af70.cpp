@@ -3,6 +3,6 @@
 
 float gNegOne = -1.0f;
 
-float CGrappleSequenceTrack::vfunc_7() {
+hulk_freg CGrappleSequenceTrack::vfunc_7() {
     return gNegOne;
 }

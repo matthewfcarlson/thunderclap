@@ -2,6 +2,6 @@
 
 float gNegOne = -1.0f;
 
-float CKeyPoseTrack::vfunc_7() {
+hulk_freg CKeyPoseTrack::vfunc_7() {
     return gNegOne;
 }

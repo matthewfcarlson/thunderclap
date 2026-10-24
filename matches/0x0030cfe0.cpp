@@ -3,7 +3,7 @@
 namespace physics {
 
 } // namespace physics
-float physics::PhysicsJoint1D::vfunc_6() {
+hulk_freg physics::PhysicsJoint1D::vfunc_6() {
     union U {
         float f;
         unsigned int i;
