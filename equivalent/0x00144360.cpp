@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 14/14; Wine build 625 inputs, 14/14)
 // hulkfight::motion::MotionBlurAction::vfunc_5 @ 0x00144360
 #include "compat/ptr.h"
 extern "C" double __cdecl sin(double);
@@ -61,7 +61,8 @@ bool hulkfight::motion::MotionBlurAction::vfunc_5(int mode, float dt)
     if (t < s->fadeInEnd) {
         float fin = s->fadeInEnd;
         float den = fin - s->vfunc_6();
-        hulk_freg r = (elapsed - state->vfunc_6()) / den;
+        hulk_freg v6 = state->vfunc_6();      // MSVC calls first and reads elapsed after (the callee may change it); clang reads the left operand first
+        hulk_freg r = (elapsed - v6) / den;
         if (b > targetB)
             b = (sin((r - 0.5f) * 3.14159265f) + 1.0f) * (b - targetB) * 0.5f + targetB;
         else

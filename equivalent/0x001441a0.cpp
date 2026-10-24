@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 12/12; Wine build 617 inputs, 12/12)
 // hulkfight::motion::SlowMotionAction::vfunc_5 @ 0x001441a0
 #include "decls/address.h"
 #include "compat/ptr.h"
@@ -60,7 +60,8 @@ char SlowMotionAction::vfunc_5(int mode, float dt)
         float end = c->fadeInEnd;
         float den = end - c->vfunc_6();
         c = curve;
-        hulk_freg r = (elapsed - c->vfunc_6()) / den;
+        hulk_freg v6 = c->vfunc_6();      // MSVC calls first and reads elapsed after (the callee may change it); clang reads the left operand first
+        hulk_freg r = (elapsed - v6) / den;
         if (val > base)
             val = (sin((r - 0.5f) * 3.14159265f) + 1.0f) * (val - base) * 0.5f + base;
         else
