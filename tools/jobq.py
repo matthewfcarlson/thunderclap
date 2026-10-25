@@ -48,6 +48,7 @@ RUNNER_SRC = os.path.join(ROOT, "tools/jobq_run.py")
 IDLE_EXIT = int(os.environ.get("JOBQ_IDLE_EXIT", "900"))
 KEEP_BASES = 4
 BIG_SLOTS = 4       # a queued job this big reserves the hosts it could run on (dispatch), so small jobs cannot starve it
+PER_NAME_HEAD = 400  # dispatch looks at each submitter's first N queued jobs (per name, so nobody is hidden behind a long queue)
 FORBIDDEN = ("drive-backup", "blockdev-backup", "blockdev-create", "drive-mirror", "Application Support/xemu")
 
 SCHEMA = """
@@ -748,18 +749,40 @@ class Daemon:
     # --- main loop ---
     def dispatch(self, c):
         now = time.time()
-        rows = c.execute("SELECT id,name,needs,slots,prio,tried,cmd,pin FROM jobs WHERE state='queued' ORDER BY prio DESC, id LIMIT 4000").fetchall()
+        # Each submitter's own head of the queue, so a submitter with thousands of queued jobs can't hide everyone
+        # who queued after it (a global LIMIT did: later submitters' jobs were never considered).
+        names = [r["name"] for r in c.execute("SELECT DISTINCT name FROM jobs WHERE state='queued'")]
+        rows = []
+        for nm in names:
+            rows += c.execute("SELECT id,name,needs,slots,prio,tried,cmd,pin FROM jobs WHERE state='queued' AND name=? "
+                              "ORDER BY prio DESC, id LIMIT ?", (nm, PER_NAME_HEAD)).fetchall()
         if not rows:
             return 0
-        running = {}
-        for r in c.execute("SELECT name,count(*) n FROM jobs WHERE state='running' GROUP BY name"):
-            running[r["name"]] = r["n"]
-        # fairness: the submitter with the fewest running jobs goes first, then the queue order
-        order = sorted(range(len(rows)), key=lambda i: (-rows[i]["prio"], running.get(rows[i]["name"], 0), rows[i]["id"]))
+        running = {}          # slots held per submitter
+        for r in c.execute("SELECT name,sum(slots) n FROM jobs WHERE state='running' GROUP BY name"):
+            running[r["name"]] = r["n"] or 0
+        # Fair share: while more than one submitter is waiting, none may hold more than its share of the total slots.
+        # A second pass then hands out whatever the share left idle, so capacity is never wasted.
+        share = max(1, sum(h.cap for h in self.hosts) // max(1, len(names)))
         n = 0
         blocked = set()       # hosts held for a queued job of BIG_SLOTS or more that does not fit yet (else 1-slot jobs starve it)
+        for capped in (len(names) > 1, False):
+            # fairness: the submitter holding the fewest slots goes first, then the queue order
+            order = sorted(range(len(rows)), key=lambda i: (-rows[i]["prio"], running.get(rows[i]["name"], 0), rows[i]["id"]))
+            n += self.dispatch_pass(c, rows, order, running, blocked, now, share if capped else None)
+            rows = [r for r in rows if r["id"] not in self.live]
+            if all(x.cap - x.used <= 0 or now < x.down_until for x in self.hosts):
+                break
+        return n
+
+    def dispatch_pass(self, c, rows, order, running, blocked, now, share):
+        n = 0
         for i in order:
             r = rows[i]
+            if share is not None and running.get(r["name"], 0) + r["slots"] > share and running.get(r["name"], 0) > 0:
+                continue
+            if r["id"] in self.live:
+                continue
             h = choose_host(r, self.hosts, now, blocked)
             if h is None:
                 if r["slots"] >= BIG_SLOTS:
@@ -776,7 +799,7 @@ class Daemon:
                 if job["needs"] == "xemu" or "xemu" in job["cmd"].lower():
                     h.xemu_used += 1
                 self.live[job["id"]] = threading.Event()
-            running[r["name"]] = running.get(r["name"], 0) + 1
+            running[r["name"]] = running.get(r["name"], 0) + job["slots"]
             threading.Thread(target=self.run_job, args=(h, job), daemon=True).start()
             n += 1
         return n

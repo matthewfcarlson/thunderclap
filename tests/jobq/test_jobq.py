@@ -119,6 +119,30 @@ class StateMachine(unittest.TestCase):
         self.assertEqual((r[0], r[1], json.loads(r[2])), ("gaveup", "ssh", ["h", "h"]))
 
 
+class Fairness(unittest.TestCase):
+    """A submitter with a long queue can't hide or starve a later submitter."""
+
+    def test_later_submitter_gets_slots(self):
+        old = jobq.PER_NAME_HEAD
+        jobq.PER_NAME_HEAD = 5                     # the long queue is far deeper than the per-name head
+        try:
+            big = jobq.insert_jobs([jobq.make_job("fair-big", ["true"]) for _ in range(30)])
+            small = jobq.insert_jobs([jobq.make_job("fair-small", ["true"]) for _ in range(2)])
+            d = jobq.Daemon([mkhost("h", ["equiv"], cap=4)])
+            d.run_job = lambda h, job: None        # claim only, don't run
+            c = jobq.conn()
+            d.dispatch(c)
+            st = {r["name"]: r["n"] for r in c.execute(
+                "SELECT name,count(*) n FROM jobs WHERE state='running' AND name LIKE 'fair-%' GROUP BY name")}
+            self.assertEqual(st.get("fair-small"), 2)   # both small jobs start despite 30 older big ones
+            self.assertEqual(st.get("fair-big"), 2)     # and the big submitter fills the rest, nothing idle
+        finally:
+            jobq.PER_NAME_HEAD = old
+            c = jobq.conn()
+            with c:
+                c.execute("UPDATE jobs SET state='cancelled' WHERE name LIKE 'fair-%'")
+
+
 class RoundTrip(unittest.TestCase):
     """A real daemon with the local host only: success, failure exit, overlay file, output fetch, timeout retry, cancel."""
 
