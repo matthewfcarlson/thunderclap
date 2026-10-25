@@ -868,13 +868,15 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
             # unclash renames, x64-1 b1-b7) is still the game's class for dynamic_cast / typeid: the stripped
             # name, if the game has that descriptor (equivalent/0x002abfb0: the particle loader's cast to
             # pure3d::AnimationLoader returned null, play3 crashed before frame 30)
-            g2 = re.sub(r"_[0-9a-f]{6}@", "@", g)
+            # (div1: also 5 digits: an address below 0x100000 prints as `_5b1a0`, CGrabTrack::vfunc_10's
+            # CFightParams_5b1a0 target never mapped and every grab track failed, play3 split at 2100)
+            g2 = re.sub(r"_[0-9a-f]{5,6}@", "@", g)
             if g2 in vt["names"]:
                 g = g2
                 how["RTTI type descriptors matched without an address suffix (native12)"] += 1
         if g not in vt["names"]:
             m = re.match(r"\?\?_R0(\?A[UV]\w+@)", s)
-            lf = re.sub(r"_[0-9a-f]{6}@$", "@", m.group(1)) if m else None      # (native12: as above)
+            lf = re.sub(r"_[0-9a-f]{5,6}@$", "@", m.group(1)) if m else None    # (native12: as above)
             cands = {x for k in ("?AU", "?AV") for x in leaf.get(k + m.group(1)[3:], ()) or leaf.get(k + lf[3:], ())} if m else set()
             if len(cands) == 1:
                 g = cands.pop()
