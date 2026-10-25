@@ -3,8 +3,7 @@
 // of the tree). The draw path itself is bgfx_draw.cpp.
 #include "bgfx_pddi.h"
 
-#include <bgfx/bgfx.h>
-#include <bx/math.h>
+#include <bx/math.h>          // bx::tan (the projection as before the split; bx is bgfx's base library, no API)
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
@@ -33,24 +32,14 @@ static_assert(offsetof(bgfxContext, m_display) == 0x14c, "bgfxContext: our field
 bgfxContext::bgfxContext(bgfxDisplay* display, bgfxDevice* device)
     : m_display(display), m_device(device), m_stream(0), m_defaultShader(0), m_drawIndex(0), m_anyLightDirty(false),
       m_hostLights(false), m_viewId(0), m_viewUsed(false), m_clearFlags(0), m_clearRgba(0), m_clearDepth(1.0f),
-      m_clearStencil(0), m_uVc(kNone), m_uFrag(kNone), m_whiteTex(kNone)
+      m_clearStencil(0), m_sink(drawSink())
 {
     memset(m_base, 0, sizeof(m_base));
-    for (int i = 0; i < 4; i++)
-        m_uTex[i] = kNone;
-    memset(m_programCache, 0, sizeof(m_programCache));
     m_forceGeneric = false;
-    m_generatedDraws = m_genericDraws = 0;
     m_fbCopy = 0;
     m_copiesThisFrame = 0;
     m_visQuery = kNone;
     m_streamProgram = 0;
-    for (int i = 0; i < 3; i++)
-        m_fxUniforms[i] = kNone;
-    m_fxUniformK = kNone;
-    for (int i = 0; i < 4; i++)
-        m_fxSamplers[i] = kNone;
-    m_fxPrograms[0] = m_fxPrograms[1] = kNone;
     m_fxTargetW = m_fxTargetH = 0;
     memset(&m_hostView, 0, sizeof(m_hostView));
     m_hostView.colour = 0xff000000u;
@@ -97,8 +86,6 @@ bgfxContext::bgfxContext(bgfxDisplay* display, bgfxDevice* device)
     m_viewport[0] = m_viewport[1] = 0;
     m_viewport[2] = display ? display->m_width : 640;
     m_viewport[3] = display ? display->m_height : 480;
-    for (int i = 0; i < 8; i++)
-        m_programs[i] = kNone;
     resetDeviceState();
     m_stream = new bgfxPrimStream(this);
     m_defaultShader = new bgfxErrorShader(this);
@@ -116,32 +103,8 @@ bgfxContext::bgfxContext(bgfxDisplay* display, bgfxDevice* device)
 
 bgfxContext::~bgfxContext()
 {
-    if (m_display && m_display->m_initialised) {
-        for (int i = 0; i < 8; i++)
-            if (m_programs[i] != kNone && m_programs[i] != 0xfffe)
-                bgfx::destroy(bgfx::ProgramHandle{(uint16_t)m_programs[i]});
-        for (int i = 0; i < kProgramSlots; i++)
-            if (m_programCache[i].hash && !m_programCache[i].generic && m_programCache[i].program != kNone &&
-                m_programCache[i].program != 0xfffe)
-                bgfx::destroy(bgfx::ProgramHandle{m_programCache[i].program});
-        if (m_uVc != kNone) {
-            bgfx::destroy(bgfx::UniformHandle{(uint16_t)m_uVc});
-            bgfx::destroy(bgfx::UniformHandle{(uint16_t)m_uFrag});
-            for (int i = 0; i < 4; i++)
-                bgfx::destroy(bgfx::UniformHandle{(uint16_t)m_uTex[i]});
-            bgfx::destroy(bgfx::TextureHandle{(uint16_t)m_whiteTex});
-        }
-        if (m_fxUniforms[0] != kNone) {
-            for (int i = 0; i < 3; i++)
-                bgfx::destroy(bgfx::UniformHandle{(uint16_t)m_fxUniforms[i]});
-            bgfx::destroy(bgfx::UniformHandle{(uint16_t)m_fxUniformK});
-            for (int i = 0; i < 4; i++)
-                bgfx::destroy(bgfx::UniformHandle{(uint16_t)m_fxSamplers[i]});
-            for (int i = 0; i < 2; i++)
-                if (m_fxPrograms[i] != kNone)
-                    bgfx::destroy(bgfx::ProgramHandle{(uint16_t)m_fxPrograms[i]});
-        }
-    }
+    if (m_display && m_display->m_initialised)
+        m_sink->contextDestroyed();           // its programs, uniforms and fx resources
     delete m_stream;
     if (m_fbCopy) {
         m_fbCopy->m_handle = kNone;           // the display's texture: not the object's to destroy
@@ -250,11 +213,11 @@ void bgfxContext::vfunc_12(int a0)
     ClearInfo* c = clearInfo();
     int f = 0;
     if (a0 & 1)
-        f |= BGFX_CLEAR_COLOR;
+        f |= kSinkClearColour;
     if (a0 & 2)
-        f |= BGFX_CLEAR_DEPTH;
+        f |= kSinkClearDepth;
     if (a0 & 4)
-        f |= BGFX_CLEAR_STENCIL;
+        f |= kSinkClearStencil;
     m_clearRgba = (c->colour << 8) | (c->colour >> 24);       // D3DCOLOR 0xAARRGGBB -> 0xRRGGBBAA
     m_clearDepth = c->depth;
     m_clearStencil = c->stencil;

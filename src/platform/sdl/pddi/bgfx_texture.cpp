@@ -7,7 +7,6 @@
 // the game's memory saving, not something the data depends on). DXT1/3/5 blocks are uploaded as they are.
 #include "bgfx_pddi.h"
 
-#include <bgfx/bgfx.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -17,7 +16,7 @@ namespace pddi {
 static unsigned s_textures;     // first-seen ordinals
 
 bgfxTexture::bgfxTexture(bgfxContext* context)
-    : m_context(context), m_handle(bgfx::kInvalidHandle), m_width(0), m_height(0), m_format(0), m_mips(0),
+    : m_context(context), m_handle(kSinkNone), m_width(0), m_height(0), m_format(0), m_mips(0),
       m_pddiFormat(0), m_bits(32), m_alphaBits(8), m_usage(0), m_type(6), m_lockedLevel(-1), m_priority(0xf),
       m_ordinal(++s_textures), m_linear(false), m_fromTarget(false), m_dirtyLevels(0), m_pendingQueued(false),
       m_pendingNext(0)
@@ -30,8 +29,8 @@ bgfxTexture::bgfxTexture(bgfxContext* context)
 bgfxTexture::~bgfxTexture()
 {
     unqueue();
-    if (m_handle != bgfx::kInvalidHandle)
-        bgfx::destroy(bgfx::TextureHandle{(uint16_t)m_handle});
+    if (m_handle != kSinkNone)
+        drawSink()->destroyTexture(m_handle);
     for (int i = 0; i < 16; i++)
         free(m_levels[i]);
 }
@@ -71,10 +70,10 @@ bool bgfxTexture::init(int width, int height, int bits, int alphaDepth, int mips
     m_pddiFormat = (unsigned)format;
     m_bits = (unsigned)bits;
     switch (format) {
-    case 4: m_type = 11; m_format = bgfx::TextureFormat::BC1; break;
-    case 5: case 6: m_type = 13; m_format = bgfx::TextureFormat::BC2; break;
-    case 7: case 8: m_type = 15; m_format = bgfx::TextureFormat::BC3; break;
-    default: m_type = 6; m_format = bgfx::TextureFormat::BGRA8; break;     // A8R8G8B8 in memory order
+    case 4: m_type = 11; m_format = kSinkBC1; break;
+    case 5: case 6: m_type = 13; m_format = kSinkBC2; break;
+    case 7: case 8: m_type = 15; m_format = kSinkBC3; break;
+    default: m_type = 6; m_format = kSinkBGRA8; break;     // A8R8G8B8 in memory order
     }
     m_alphaBits = m_type == 6 ? 8 : 0;
     return true;
@@ -95,9 +94,9 @@ static void levelSize(int type, unsigned w, unsigned h, unsigned* pitch, unsigne
     }
 }
 
-// Uploads are deferred (G5, the boot movies' crash): an unlock only marks the level; the data goes to bgfx when a
-// draw binds the texture (flush) or at the next present (flushPendingTextures). bgfx keeps every update's copy until
-// the next bgfx::frame, and the game can unlock far more often than it presents: the boot movies upload a 640x480
+// Uploads are deferred (G5, the boot movies' crash): an unlock only marks the level; the data goes to the sink when
+// a draw binds the texture (flush) or at the next present (flushPendingTextures). bgfx keeps every update's copy
+// until the next bgfx::frame, and the game can unlock far more often than it presents: the boot movies upload a 640x480
 // frame each time they decode one while the game is loading and not presenting (about 1.2 MB a frame, until the
 // 32-bit address space ran out at ~600 frames). Deferred, only the latest contents of each level are ever queued,
 // and bgfx applies a frame's texture updates before its draws anyway, so what is drawn is the same.
@@ -130,17 +129,24 @@ void bgfxTexture::unqueue()
 
 void bgfxTexture::flush()
 {
-    if (!m_dirtyLevels || !bgfx::getCaps())
+    if (!m_dirtyLevels)
         return;
-    if (m_handle == bgfx::kInvalidHandle) {
-        // exactly the levels the game supplies (m_mips extra ones): hasMips alone makes the full chain down to 1x1, and
-        // the levels nothing uploads sample as black, so far surfaces went dark (sky1). Direct3D clamps to the last level.
-        bgfx::TextureHandle h = bgfx::createTexture2D((uint16_t)m_width, (uint16_t)m_height, m_mips > 0, 1,
-                                                      (bgfx::TextureFormat::Enum)m_format,
-                                                      m_mips > 0 ? BGFX_TEXTURE_MIP_COUNT(m_mips + 1) : BGFX_TEXTURE_NONE);
-        if (!bgfx::isValid(h))
+    DrawSink* sink = drawSink();
+    if (m_handle == kSinkNone) {
+        // exactly the levels the game supplies (m_mips extra ones): the sink makes those and no more (the bgfx
+        // sink: hasMips alone makes the full chain down to 1x1, and the levels nothing uploads sample as black, so far
+        // surfaces went dark: sky1). Direct3D clamps to the last level.
+        SinkTextureDesc d;
+        d.width = m_width;
+        d.height = m_height;
+        d.mips = m_mips;
+        d.format = m_format;
+        d.ordinal = m_ordinal;
+        d.pddiFormat = m_pddiFormat;
+        unsigned h = sink->createTexture(d);
+        if (h == kSinkNone)
             return;
-        m_handle = h.idx;
+        m_handle = h;
     }
     for (int level = 0; level < 16; level++) {
         if (!(m_dirtyLevels & (1u << level)) || !m_levels[level])
@@ -149,14 +155,11 @@ void bgfxTexture::flush()
         w = w ? w : 1;
         h = h ? h : 1;
         levelSize(m_type, w, h, &pitch, &rows);
-        const bgfx::Memory* mem = bgfx::copy(m_levels[level], pitch * rows);
-        if (!mem) {
+        if (!sink->updateTexture(m_handle, (uint32_t)level, w, h, m_levels[level], pitch, pitch * rows)) {
             logf("pddi: texture %ux%u level %d: bgfx has no memory for the upload (kept for later)\n", m_width,
                  m_height, level);
             return;
         }
-        bgfx::updateTexture2D(bgfx::TextureHandle{(uint16_t)m_handle}, 0, (uint8_t)level, 0, 0, (uint16_t)w,
-                              (uint16_t)h, mem, (uint16_t)pitch);
         m_dirtyLevels &= ~(1u << level);
     }
     unqueue();

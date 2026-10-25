@@ -8,6 +8,7 @@ The window and the event pump moved to SDL3 in [section 11](#11-sdlwin-the-windo
 G4's frame-buffer copy, refraction, framebuffer effects and the other extensions are [section 12](#12-g4-effects-the-frame-buffer-copy-refraction-and-the-extensions-2026-10-19).
 G5's clean-up (shader proofs, window scaling, copies without blits, two-sided lighting) is [section 13](#13-g5-clean-up-shader-proofs-window-scaling-portability-two-sided-lighting-2026-10-19).
 Section 14 is sky1: fog, haze and sky against the original ([section 14](#14-sky1-fog-haze-and-sky-against-the-original-2026-10-21)).
+Section 15 is d3: the backend split into a shared pddi front end and a draw sink, bgfx being the first sink ([section 15](#15-d3-the-front-end-and-the-draw-sink-2026-10-25)).
 The small prototypes and the scripts that produced the planning numbers were under `build/gfx-proto/` (not tracked). Inputs: [platform-boundary.md](platform-boundary.md),
 [seams.md](seams.md), [web-port.md](web-port.md), [wine-build.md](wine-build.md), [subsystems.md](subsystems.md),
 [formats/p3d.md](formats/p3d.md), [texture-packs.md](texture-packs.md), `src/platform/sdl/xdk/`,
@@ -1148,6 +1149,58 @@ Checks: replay checkpoints 0-420 and 480-840 match, identical to the run before 
 native16: rendering does not touch game state); `tools/wine_gfx.py smoke` on Metal 548 of 548 probes; the self-test
 under Wine/Vulkan 19 of 19. Other symbols in `unbound.txt` under "no relocation names it" (24; e.g.
 `g_pool_2579f0`) linked as zero stubs too and deserve the same look.
+
+## 15. d3: the front end and the draw sink (2026-10-25)
+
+Decision D3 of [remaster.md](remaster.md): the backend is now two layers, so a remastered renderer can consume the
+same resolved state instead of duplicating the state model.
+
+- **Front end** (`bgfx_*.cpp` less the sink; none of them includes `<bgfx/bgfx.h>`): the 23 pddi classes, the
+  D3D-state model and its texture-stage combiner keys, the constant files (fixed-function layout, vertex-program
+  constants), matrices and lights, prim buffers and streams with the vertex conversion, view (pass) bookkeeping,
+  the framebuffer effects' logic and the draw log.
+- **Sink** (`draw_sink.h`, the interface; `bgfx_sink.cpp`, `BgfxSink`): everything a graphics API does. Life and
+  caps (`homogeneousDepth`, `originBottomLeft`, `copyTakesPass`, `lastPass`); the frame targets (scene target, its
+  copy, the front buffer); textures (create with the front end's ordinal, update a level, destroy); prim-buffer
+  vertex and index buffers (update returns the id; static then dynamic is the bgfx sink's policy) and transient
+  vertices; copy and render targets; passes (`SinkPass`: id, target, viewport, clear) and frame copies; draws
+  (`preparePipeline` picks the program for the vertex program and combiner key, `submitDraw` draws a
+  `DrawPacket`); full-screen quads (`FxPacket`); occlusion queries; present (`SinkPresent`), frame, screenshot.
+- **Packets** are plain structs of fixed-width types with API-neutral enums (pddi compare and stencil ops, D3D blend
+  factors and operations as `SinkBlendFactor`/`SinkBlendOp`, addressing and point/linear filters), so a capture
+  sink can copy them across the C boundary of remaster.md 1.3. Besides the resolved state a `DrawPacket` carries
+  what the remaster needs (remaster.md 2.6): the frame and the draw's index in it, a phase and an instance from
+  `sinkTag()` (no tag point calls it yet), the shader kind and serial, the prim buffer's serial, the view block's
+  mode, the modelview, projection and (0 until R1 finds it) the view matrix, the eight camera-space lights, the
+  material, ambient, lighting and fog flags, and per stage the texture's ordinal. Vertex-buffer events carry the
+  game's packed vertex bytes and flags too (the `mdl` keys of remaster.md 2.7).
+- **Selection** is compile-time: `drawSink()` returns `bgfxSink()`, or `remasterSink()` when `HULK_REMASTER=1`
+  (`HULK_PDDI_SINK_BGFX` keeps the bgfx sink in that build too, decision D4). Only the bgfx sink exists.
+- Left on bgfx's side of the line: `sdl_platform.cpp` makes the bgfx sink's `bgfx::CallbackI` and maps
+  `HULK_GFX_RENDERER` to a `bgfx::RendererType` (screenshots and frames go through the sink), and the host smoke
+  driver. `bx::tan` stays in the projection (bx is bgfx's base library, not an API). The class names keep their
+  `bgfx` prefix (`wine_gfx.py slots` names them).
+
+**Identity.** The split must not change a pixel. The bgfx sink makes the same bgfx calls with the same arguments in
+the same order, with one harmless reordering: a draw's deferred texture uploads now all run after its program is
+chosen and before its uniforms (they used to interleave with the four `setTexture` calls; uploads go to bgfx's
+pre-command buffer, handle allocators are per type). Checked:
+
+- `tools/wine_gfx.py smoke` (Metal, host): 548 of 548 probes, as before; its 14 screenshots and its draw log
+  (`smoke.pdl`, 8,192 draws) are byte-identical to HEAD's, and so is its whole output. `wine_gfx.py slots`: ok.
+- Wine builds of HEAD and of HEAD + the split on mac2 (`wine_build_job.py --gfx --state fresh --replay play3
+  --frames 1000`, `HULK_NATIVE_REFRESH_LIBS=0`): 2,626 of 2,626 TUs each, `wine_build_job.py compare`: the play3
+  checkpoints agree on all 35 common frames (0..1020). Only `hulk-strict.exe` differs (the pddi objects); the DLLs
+  are identical.
+- In the Wine image under Vulkan (MoltenVK, laptop): play3 screenshots at game frames 300, 600, 900 and 1000 and the
+  in-game self-test pages 0-8 and 10 (`HULK_GFX_SELFTEST`, 508 of 508 probes in both images): all 14 TGAs
+  byte-identical, HEAD against the split (two HEAD runs of one shot are byte-identical too: the runs are
+  deterministic).
+- Draw logs of play3 (`HULK_GFX_DRAWLOG`, 8,192 draws in 33 frames under Vulkan, 34 frames headless): identical in
+  every field but two, `stateA[0]` and `stateS[0]`. Those words are the vftable addresses of the base's render-state
+  and stencil blocks (`_hulk_d_004329a0`, `_hulk_d_004329b8`, the same symbol at the same section offset in both
+  maps); the split's slightly larger `.text` moves `.data` up one page (+0x1000). `drawlog_diff.py --ignore a0,s0`:
+  IDENTICAL.
 
 ## Open questions
 

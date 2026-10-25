@@ -39,7 +39,7 @@
 
 #if HULK_PDDI_GAME && defined(_WIN32)
 
-#include <bgfx/bgfx.h>
+#include <bgfx/bgfx.h>        // the bgfx sink's init callback and renderer choice (the rest goes through draw_sink.h)
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -272,7 +272,7 @@ void platformBeforeFrame(unsigned frame)
             char path[300];
             _snprintf(path, sizeof(path) - 1, "%s\\shot-%u.tga", s_shotDir, frame);
             path[sizeof(path) - 1] = 0;
-            bgfx::requestScreenShot(BGFX_INVALID_HANDLE, path);
+            drawSink()->requestScreenshot(path);
         }
     for (unsigned i = 0; i < s_gameShotCount; i++)
         if (s_gameShots[i] && hulk_native_frame_no >= s_gameShots[i]) {
@@ -280,7 +280,7 @@ void platformBeforeFrame(unsigned frame)
             _snprintf(path, sizeof(path) - 1, "%s\\game-%u.tga", s_shotDir, s_gameShots[i]);
             path[sizeof(path) - 1] = 0;
             logf("pddi: game frame %u (present %u): screenshot requested\n", hulk_native_frame_no, frame);
-            bgfx::requestScreenShot(BGFX_INVALID_HANDLE, path);
+            drawSink()->requestScreenshot(path);
             s_gameShots[i] = 0;
         }
 }
@@ -302,8 +302,8 @@ void platformAfterFrame(unsigned frame)
     if (s_drawlogLast && frame == s_drawlogLast + 1)
         dumpDrawlog();
     if (s_exitAfter && frame + 1 >= s_exitAfter) {
-        bgfx::frame();          // the screenshot of the last frame is delivered on the next one
-        bgfx::frame();
+        drawSink()->frame();    // the screenshot of the last frame is delivered on the next one
+        drawSink()->frame();
         dumpDrawlog();
         stubReport();
         logf("pddi: HULK_GFX_FRAMES=%u reached: exit\n", s_exitAfter);

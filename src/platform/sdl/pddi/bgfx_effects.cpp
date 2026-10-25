@@ -8,8 +8,9 @@
 // the level), pure3d/d3dFBEffectsShader.cpp (FUN_003285d0 the accumulation), pure3d/d3dVertexProgram.cpp
 // (FUN_003287a0 the average) and the game's data the code reads by address (the contrast table 0x432a10, the level
 // thresholds, the threshold program's text 0x432da0: only values). What the game asks of Direct3D (render targets,
-// CopyRects, pre-transformed DrawVerticesUP quads with pixel shaders) becomes bgfx views: each pass is a view after
-// what was drawn so far, drawing into the scene target or one of the extension's own targets (bgfxContext::fx*).
+// CopyRects, pre-transformed DrawVerticesUP quads with pixel shaders) becomes the sink's passes (bgfx views): each
+// pass is a view after what was drawn so far, drawing into the scene target or one of the extension's own targets
+// (bgfxContext::fx*; the quads and programs are the sink's since the front-end/sink split, bgfx_sink.cpp).
 // The pixel programs are translated by hand (shaders/fx/), with the register combiners' clamping and the 8-bit
 // constants they get.
 //
@@ -19,7 +20,6 @@
 // FUN_001c22f0 slot 2 (the motion trail).
 #include "bgfx_pddi.h"
 
-#include <bgfx/bgfx.h>
 #include <math.h>
 #include <string.h>
 
@@ -30,41 +30,11 @@ enum { kNone = 0xffff };
 
 // ---------------------------------------------------------------------------------------------
 // The context's full-screen passes
-static const bgfx::VertexLayout& fxLayout()
-{
-    static bgfx::VertexLayout s_layout;
-    static bool s_made;
-    if (!s_made) {
-        s_layout.begin()
-            .add(bgfx::Attrib::Position, 3, bgfx::AttribType::Float)
-            .add(bgfx::Attrib::TexCoord0, 2, bgfx::AttribType::Float)
-            .add(bgfx::Attrib::TexCoord1, 2, bgfx::AttribType::Float)
-            .add(bgfx::Attrib::TexCoord2, 2, bgfx::AttribType::Float)
-            .add(bgfx::Attrib::TexCoord3, 2, bgfx::AttribType::Float)
-            .end();
-        s_made = true;
-    }
-    return s_layout;
-}
-
 bool bgfxContext::fxEnsure()
 {
-    if (!m_display || !m_display->m_initialised || !m_display->m_offscreen)
+    if (!m_display || !m_display->m_initialised || !m_display->offscreen())
         return false;
-    if (m_fxUniforms[0] == kNone) {
-        m_fxUniforms[0] = bgfx::createUniform("u_fxC", bgfx::UniformType::Vec4, 8).idx;
-        m_fxUniforms[1] = bgfx::createUniform("u_fxProg", bgfx::UniformType::Vec4).idx;
-        m_fxUniforms[2] = bgfx::createUniform("u_fxTarget", bgfx::UniformType::Vec4).idx;
-        static const char* const kS[4] = {"s_fx0", "s_fx1", "s_fx2", "s_fx3"};
-        for (int i = 0; i < 4; i++)
-            m_fxSamplers[i] = bgfx::createUniform(kS[i], bgfx::UniformType::Sampler).idx;
-        m_fxUniformK = bgfx::createUniform("u_fxK", bgfx::UniformType::Vec4).idx;
-        m_fxPrograms[0] = loadProgram("vs_fx", "fs_fx_filter");
-        m_fxPrograms[1] = loadProgram("vs_fx", "fs_fx_blur");
-        if (m_fxPrograms[0] == kNone || m_fxPrograms[1] == kNone)
-            logf("pddi: framebuffer effects: no pass programs for this renderer: the passes are skipped\n");
-    }
-    return m_fxPrograms[0] != kNone && m_fxPrograms[1] != kNone;
+    return m_sink->fxResources();
 }
 
 // A view after everything submitted so far, drawing into `fb` (kNone: the scene target) over the rectangle; no
@@ -82,14 +52,20 @@ uint16_t bgfxContext::fxView(unsigned fb, unsigned x, unsigned y, unsigned w, un
     }
     m_viewUsed = true;
     m_clearFlags = 0;
-    bgfx::ViewId v = (bgfx::ViewId)m_viewId;
-    unsigned target = fb == kNone ? m_display->m_sceneFb : fb;
-    bgfx::setViewFrameBuffer(v, bgfx::FrameBufferHandle{(uint16_t)target});
-    bgfx::setViewMode(v, bgfx::ViewMode::Sequential);
-    bgfx::setViewRect(v, (uint16_t)x, (uint16_t)y, (uint16_t)w, (uint16_t)h);
-    bgfx::setViewClear(v, BGFX_CLEAR_NONE);
-    bgfx::touch(v);
-    return v;
+    SinkPass p;
+    memset(&p, 0, sizeof(p));
+    p.id = (uint16_t)m_viewId;
+    p.target = fb == kNone ? kSinkTargetScene : fb;
+    p.x = (uint16_t)x;
+    p.y = (uint16_t)y;
+    p.w = (uint16_t)w;
+    p.h = (uint16_t)h;
+    p.clearFlags = 0;
+    p.clearRgba = 0x000000ff;                 // what a pass without a clear keeps (bgfx's defaults)
+    p.clearDepth = 1.0f;
+    p.clearStencil = 0;
+    m_sink->setPass(p);
+    return (uint16_t)m_viewId;
 }
 
 void bgfxContext::fxDone()
@@ -103,51 +79,36 @@ void bgfxContext::fxDone()
 // a blit at the start of a new view
 bool bgfxContext::fxCopy(unsigned dstTex, unsigned dstFb)
 {
-    if (dstTex == kNone || !m_display->m_offscreen)
+    if (dstTex == kNone || !m_display->offscreen())
         return false;
     return sceneCopy(dstTex, dstFb);
 }
 
 // One quad of a pass. `prog` = u_fxProg (and u_fxK after it when the filter program draws), `consts` = c0.. (already
-// as the combiners get them). Renderers with the origin at the bottom left sample targets upside down: v flipped.
-void bgfxContext::fxDraw(uint16_t view, uint16_t program, const FxQuad& q, const unsigned* tex, int ntex,
-                         uint64_t state, const float* consts, int nconsts, const float* prog)
+// as the combiners get them). The sink builds the quad (renderers with the origin at the bottom left sample targets
+// upside down: v flipped).
+void bgfxContext::fxDraw(uint16_t view, uint32_t program, const FxQuad& q, const unsigned* tex, int ntex,
+                         uint32_t state, const float* consts, int nconsts, const float* prog)
 {
-    if (bgfx::getAvailTransientVertexBuffer(4, fxLayout()) < 4)
-        return;
-    bgfx::TransientVertexBuffer tvb;
-    bgfx::allocTransientVertexBuffer(&tvb, 4, fxLayout());
-    const bgfx::Caps* caps = bgfx::getCaps();
-    bool flip = caps && caps->originBottomLeft;
-    float* v = (float*)tvb.data;
-    for (int i = 0; i < 4; i++, v += 11) {
-        bool right = (i & 1) != 0, bottom = (i & 2) != 0;
-        v[0] = right ? q.x1 : q.x0;
-        v[1] = bottom ? q.y1 : q.y0;
-        v[2] = 0.0f;
-        for (int s = 0; s < 4; s++) {
-            v[3 + 2 * s] = right ? q.uv[s][2] : q.uv[s][0];
-            float tv = bottom ? q.uv[s][3] : q.uv[s][1];
-            v[4 + 2 * s] = flip ? 1.0f - tv : tv;
-        }
-    }
-    float target[4] = {2.0f / (float)(m_fxTargetW ? m_fxTargetW : 1), 2.0f / (float)(m_fxTargetH ? m_fxTargetH : 1),
-                       0.0f, 0.0f};
-    bgfx::setUniform(bgfx::UniformHandle{(uint16_t)m_fxUniforms[2]}, target);
-    float c[8][4];
-    memset(c, 0, sizeof(c));
-    if (consts)
-        memcpy(c, consts, 16 * (nconsts > 8 ? 8 : nconsts));
-    bgfx::setUniform(bgfx::UniformHandle{(uint16_t)m_fxUniforms[0]}, c, 8);
-    bgfx::setUniform(bgfx::UniformHandle{(uint16_t)m_fxUniforms[1]}, prog);
-    if (program == m_fxPrograms[0])
-        bgfx::setUniform(bgfx::UniformHandle{(uint16_t)m_fxUniformK}, prog + 4);
+    FxPacket p;
+    memset(&p, 0, sizeof(p));
+    p.pass = view;
+    p.program = program;
+    p.x0 = q.x0;
+    p.y0 = q.y0;
+    p.x1 = q.x1;
+    p.y1 = q.y1;
+    memcpy(p.uv, q.uv, sizeof(p.uv));
     for (int i = 0; i < ntex && i < 4; i++)
-        bgfx::setTexture((uint8_t)i, bgfx::UniformHandle{(uint16_t)m_fxSamplers[i]},
-                         bgfx::TextureHandle{(uint16_t)tex[i]}, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
-    bgfx::setVertexBuffer(0, &tvb);
-    bgfx::setState(state | BGFX_STATE_PT_TRISTRIP);
-    bgfx::submit(view, bgfx::ProgramHandle{program});
+        p.texture[i] = tex[i];
+    p.textures = (uint32_t)(ntex < 0 ? 0 : ntex);
+    p.state = state;
+    if (consts)
+        memcpy(p.consts, consts, 16 * (nconsts > 8 ? 8 : nconsts));
+    memcpy(p.prog, prog, sizeof(p.prog));
+    p.targetWidth = m_fxTargetW;
+    p.targetHeight = m_fxTargetH;
+    m_sink->fxDraw(p);
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -211,13 +172,19 @@ bgfxExtFramebufferEffects::~bgfxExtFramebufferEffects()
 
 void bgfxExtFramebufferEffects::releaseResources()
 {
-    if (m_context && m_context->m_display)
-        m_context->m_display->destroyCopyTarget(&m_full, &m_fullFb);
-    if (m_halfFb != kNone)
-        bgfx::destroy(bgfx::FrameBufferHandle{(uint16_t)m_halfFb});
-    for (int i = 0; i < 2; i++)
-        if (m_quarterFb[i] != kNone)
-            bgfx::destroy(bgfx::FrameBufferHandle{(uint16_t)m_quarterFb[i]});
+    DrawSink* sink = drawSink();
+    if (m_context && m_context->m_display) {
+        SinkTarget full = {m_full, m_fullFb};
+        sink->destroyCopyTarget(&full);
+        m_full = full.texture;
+        m_fullFb = full.frameBuffer;
+    }
+    SinkTarget half = {m_half, m_halfFb};
+    sink->destroyRenderTarget(&half);
+    for (int i = 0; i < 2; i++) {
+        SinkTarget q = {m_quarter[i], m_quarterFb[i]};
+        sink->destroyRenderTarget(&q);
+    }
     m_full = m_half = m_halfFb = kNone;
     for (int i = 0; i < 2; i++)
         m_quarter[i] = m_quarterFb[i] = kNone;
@@ -226,12 +193,9 @@ void bgfxExtFramebufferEffects::releaseResources()
 
 static unsigned makeTarget(unsigned w, unsigned h, unsigned* tex)
 {
-    bgfx::TextureHandle t = bgfx::createTexture2D((uint16_t)(w ? w : 1), (uint16_t)(h ? h : 1), false, 1,
-                                                  bgfx::TextureFormat::BGRA8,
-                                                  BGFX_TEXTURE_RT | BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
-    bgfx::FrameBufferHandle fb = bgfx::createFrameBuffer(1, &t, true);
-    *tex = t.idx;
-    return fb.idx;
+    SinkTarget t = drawSink()->createRenderTarget(w, h);
+    *tex = t.texture;
+    return t.frameBuffer;
 }
 
 // FUN_00323910 + FUN_00320330: the full-size copy (the render target's size and format), the half target and the
@@ -242,13 +206,15 @@ bool bgfxExtFramebufferEffects::ensureResources()
     if (!c->fxEnsure())
         return false;
     bgfxDisplay* d = c->m_display;
-    unsigned w = d->m_targetWidth, h = d->m_targetHeight;
+    unsigned w = d->targetWidth(), h = d->targetHeight();
     if (m_full != kNone && w == m_w && h == m_h)
         return true;
     releaseResources();
     m_w = w;
     m_h = h;
-    m_full = d->makeCopyTarget(w, h, &m_fullFb);
+    SinkTarget full = drawSink()->createCopyTarget(w, h);
+    m_full = full.texture;
+    m_fullFb = full.frameBuffer;
     m_halfFb = makeTarget(w / 2, h / 2, &m_half);
     m_quarterFb[0] = makeTarget(w / 4, h / 4, &m_quarter[0]);
     m_quarterFb[1] = makeTarget(w / 4, h / 4, &m_quarter[1]);
@@ -304,8 +270,8 @@ void bgfxExtFramebufferEffects::vfunc_2()
     unsigned prev = d->prevFrame();
     m_overlayTex->m_handle = prev;            // kNone (no scene target): the stage samples white
     m_overlayTex->m_fromTarget = true;
-    m_overlayTex->m_width = d->m_targetWidth;
-    m_overlayTex->m_height = d->m_targetHeight;
+    m_overlayTex->m_width = d->targetWidth();
+    m_overlayTex->m_height = d->targetHeight();
     float zNear = 0.0f, farv = 1.0f, unused;
 #if HULK_PDDI_GAME
     c->vfunc_29(&zNear, &unused, &unused, &farv);          // the view block's near, far, fov, aspect
@@ -528,8 +494,7 @@ void bgfxExtFramebufferEffects::filterPass(const float* a, float f1, float f2, c
     quad.x1 = (float)w;
     quad.y1 = (float)h;
     quad.uv[0][2] = quad.uv[0][3] = 1.0f;
-    c->fxDraw((uint16_t)c->m_viewId, (uint16_t)c->m_fxPrograms[0], quad, &m_full, 1,
-              BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A, k[0], 8, prog);
+    c->fxDraw((uint16_t)c->m_viewId, kFxFilter, quad, &m_full, 1, kFxWriteRgb | kFxWriteAlpha, k[0], 8, prog);
 }
 
 // slot 6 (0x324a00): the colour correction: the render target copied (FUN_00320aa0), then the colour pass over the
@@ -546,9 +511,9 @@ void bgfxExtFramebufferEffects::vfunc_6()
     if (!c->fxCopy(m_full, m_fullFb))
         return;
     static const float kTint[3] = {0.25f, 0.625f, 0.125f};
-    c->m_fxTargetW = d->m_targetWidth;
-    c->m_fxTargetH = d->m_targetHeight;
-    c->fxView(kNone, 0, 0, d->m_targetWidth, d->m_targetHeight);
+    c->m_fxTargetW = d->targetWidth();
+    c->m_fxTargetH = d->targetHeight();
+    c->fxView(kNone, 0, 0, d->targetWidth(), d->targetHeight());
     filterPass(kTint, m_ccAmount, m_ccCurve, m_ccTint, m_ccBias, m_ccResult * 0.5f, (int)d->vfunc_7(),
                (int)d->vfunc_6());
     c->fxDone();
@@ -672,10 +637,10 @@ int bgfxExtFramebufferEffects::blur(int source, int target)
                 ++batch;
                 if (batch == 4 || n == count - 1) {
                     float prog[8] = {(float)batch, 0.0f, 0.0f, 0.0f, 1, 1, 1, 1};
-                    uint64_t st = BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A;
+                    uint32_t st = kFxWriteRgb | kFxWriteAlpha;
                     if (blend)
-                        st |= BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_ONE, BGFX_STATE_BLEND_ONE);
-                    c->fxDraw(view, (uint16_t)c->m_fxPrograms[1], quad, tex, 4, st, k8[0], 4, prog);
+                        st |= kFxBlendAdd;                // one, one
+                    c->fxDraw(view, kFxBlur, quad, tex, 4, st, k8[0], 4, prog);
                     ++draws;
                     batch = 0;
                     quad = base;
@@ -729,15 +694,14 @@ void bgfxExtFramebufferEffects::vfunc_9()
         k[0][2] = (float)(f & 255) / 255.0f;
         k[0][3] = 1.0f;                       // the stage's alpha op is off: the alpha passes
         float prog[8] = {1.0f, 0.0f, 0.0f, 0.0f, 1, 1, 1, 1};
-        c->fxDraw(view, (uint16_t)c->m_fxPrograms[1], quad, &m_half, 1, BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A,
-                  k[0], 1, prog);
+        c->fxDraw(view, kFxBlur, quad, &m_half, 1, kFxWriteRgb | kFxWriteAlpha, k[0], 1, prog);
     }
     int result = blur(0, 1);
     // the composite over the frame
     {
-        c->m_fxTargetW = d->m_targetWidth;
-        c->m_fxTargetH = d->m_targetHeight;
-        uint16_t view = c->fxView(kNone, 0, 0, d->m_targetWidth, d->m_targetHeight);
+        c->m_fxTargetW = d->targetWidth();
+        c->m_fxTargetH = d->targetHeight();
+        uint16_t view = c->fxView(kNone, 0, 0, d->targetWidth(), d->targetHeight());
         bgfxContext::FxQuad quad;
         memset(&quad, 0, sizeof(quad));
         quad.x0 = 0.5f - m_bD0 * 0.5f;
@@ -752,8 +716,7 @@ void bgfxExtFramebufferEffects::vfunc_9()
         q8v(k[1], m_bBlend, m_bBlend, m_bBlend, m_bBlend);
         unsigned tex[2] = {m_quarter[result], m_full};
         float prog[8] = {2.0f, 1.0f, 0.0f, 0.0f, 1, 1, 1, 1};
-        c->fxDraw(view, (uint16_t)c->m_fxPrograms[1], quad, tex, 2, BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A, k[0],
-                  2, prog);
+        c->fxDraw(view, kFxBlur, quad, tex, 2, kFxWriteRgb | kFxWriteAlpha, k[0], 2, prog);
     }
     c->fxDone();
 }

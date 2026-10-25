@@ -1,7 +1,6 @@
 // The pddi extensions (stubs).
 #include "bgfx_pddi.h"
 
-#include <bgfx/bgfx.h>
 #include <string.h>
 
 namespace hulk {
@@ -174,12 +173,12 @@ void bgfxExtVisibilityTest::vfunc_2()
     if (m_next >= kQueries)
         return;
     if (m_query[m_next] == 0xffff) {
-        bgfx::OcclusionQueryHandle h = bgfx::createOcclusionQuery();
-        if (!bgfx::isValid(h)) {
+        unsigned h = c->m_sink->createQuery();
+        if (h == kSinkNone) {
             m_noQueries = true;               // no queries (this bgfx has no capability bit): every test passes all
             return;
         }
-        m_query[m_next] = h.idx;
+        m_query[m_next] = h;
     }
     c->m_visQuery = m_query[m_next];
     m_current = (int)m_next++;
@@ -199,10 +198,10 @@ unsigned int bgfxExtVisibilityTest::vfunc_4(int index)
         return m_noQueries ? 0x7fffffffu : 0u;
     int q = m_byIndex[index];
     int32_t n = 0;
-    bgfx::OcclusionQueryResult::Enum r = bgfx::getResult(bgfx::OcclusionQueryHandle{(uint16_t)m_query[q]}, &n);
-    if (r == bgfx::OcclusionQueryResult::Visible)
+    uint32_t r = m_context->m_sink->queryResult(m_query[q], &n);
+    if (r == kQueryVisible)
         m_last[q] = (unsigned)n;
-    else if (r == bgfx::OcclusionQueryResult::Invisible)
+    else if (r == kQueryInvisible)
         m_last[q] = 0;
     return m_last[q];
 }

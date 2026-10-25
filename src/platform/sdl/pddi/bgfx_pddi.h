@@ -18,6 +18,7 @@
 #pragma once
 
 #include "pddi.h"
+#include "draw_sink.h"
 
 namespace hulk {
 namespace pddi {
@@ -96,7 +97,7 @@ class bgfxDisplay : public bgfxObject {
 
     // ours (not slots)
     bool hostInit(void* nativeWindow, void* nativeDisplay, unsigned width, unsigned height, int renderer,
-                  void* callback = 0);     // callback: a bgfx::CallbackI (screenshots, traces) or 0
+                  void* callback = 0);     // callback: the sink's (the bgfx sink: a bgfx::CallbackI) or 0
     void hostShutdown();
     void hostResize(unsigned width, unsigned height);   // the window's pixel size changed: the back buffer follows
     bgfxDevice* m_device;
@@ -105,29 +106,24 @@ class bgfxDisplay : public bgfxObject {
     unsigned m_frame;
     int m_nativeType;         // set before hostInit: 1 = the handles are a Wayland display/surface
 
-    // G4: the frame is drawn into a frame buffer of ours (the scene target: colour + D24S8), which the present pass
-    // (view kPresentView, before bgfx::frame) draws onto the back buffer. That is what makes the game's reads of the
-    // render target possible: bgfx can neither read nor blit the back buffer. The copy texture is the one the game's
-    // display makes at init (0x31ae70: CreateTexture of the back buffer's size and format, display+0x498) and
-    // FUN_0031b1e0 fills with CopyRects of the render target: the refraction shader samples it (bgfxContext::
-    // copyFrameBuffer blits into it at the point in the frame the copy is asked for). Without a present program for
-    // the renderer (no shader build, e.g. D3D11 under Wine 7.7) the frame goes straight to the back buffer and no
-    // copy exists (the refraction stage samples white).
-    enum { kPresentView = 255 };
+    // G4: the frame is drawn into a frame buffer of the sink's (the scene target: colour + D24S8), which the present
+    // pass (before the sink's frame) draws onto the back buffer. That is what makes the game's reads of the render
+    // target possible: bgfx can neither read nor blit the back buffer. The copy texture is the one the game's display
+    // makes at init (0x31ae70: CreateTexture of the back buffer's size and format, display+0x498) and FUN_0031b1e0
+    // fills with CopyRects of the render target: the refraction shader samples it (bgfxContext::copyFrameBuffer
+    // copies into it at the point in the frame the copy is asked for). Without a present program for the renderer
+    // (no shader build, e.g. D3D11 under Wine 7.7) the frame goes straight to the back buffer and no copy exists (the
+    // refraction stage samples white). The targets are the sink's (draw_sink.h; bgfx_sink.cpp since the split, D3).
     bool ensureTargets();                     // (re)make the scene target and the copy at the current size
-    void destroyTargets();
     void present();                           // the scene target onto the back buffer (display slot 14)
-    bool m_offscreen;                         // the scene target is in use (a present program exists)
-    unsigned m_sceneFb, m_sceneColour, m_sceneDepth, m_copyTex;   // bgfx handles (0xffff: none)
-    unsigned m_targetWidth, m_targetHeight;
-    unsigned m_presentProgram, m_uPresentTex;
-    bool m_presentTried;
+    bool offscreen() const;                   // the scene target is in use (a present program exists)
+    unsigned targetWidth() const;             // the scene target's size
+    unsigned targetHeight() const;
     unsigned char m_wantCopy;                 // DisplayConfig.createTexture (+0x2e) as the game asked (logged)
-    // the front buffer: what the last present showed, kept (a blit at the present) while the framebuffer effects'
+    // the front buffer: what the last present showed, kept (a copy at the present) while the framebuffer effects'
     // overlay asks for it (GetBackBuffer(-1) in 0x3226d0); m_prevAsked: the frame it was last asked in
-    unsigned m_prevFrame;
     unsigned m_prevAsked;
-    unsigned prevFrame();                     // the handle (made on first use), and keep it coming
+    unsigned prevFrame();                     // the sink's texture (made on first use), and keep it coming
 
     // G5: the window. The game's frame (m_width x m_height: the mode slots 6/7/11/12 report, the scene target's size)
     // is presented into the window's back buffer (m_windowWidth x m_windowHeight) scaled with its aspect kept: bars
@@ -139,15 +135,7 @@ class bgfxDisplay : public bgfxObject {
     void presentRect(int* x, int* y, int* w, int* h) const;   // where the frame lands in the window
     // G5: render-target copies where the renderer can't blit (desktop OpenGL: bgfx blits there only through
     // glCopyImageSubData, GL 4.3) are full-screen draws into a frame buffer over the destination
-    // (HULK_GFX_QUAD_COPY=1 forces them, 0 forbids them; default: on for OpenGL)
-    bool m_quadCopy;
-    unsigned m_copyFb, m_prevFb;              // the copy's and the front buffer's frame buffers (quad copies only)
-    unsigned makeCopyTarget(unsigned w, unsigned h, unsigned* fb);   // a copy destination (blit or render target)
-    void destroyCopyTarget(unsigned* tex, unsigned* fb);
-    void copyQuad(uint16_t view, unsigned srcTex, unsigned dstFb, unsigned w, unsigned h);
-    // the full-screen quad (present, quad copies): clip-space rectangle x0..x1, y0 (top)..y1, the source sampled
-    // edge to edge, v flipped on renderers whose targets have the origin at the bottom left
-    void fullQuad(uint16_t view, unsigned srcTex, uint32_t sampler, float x0, float y0, float x1, float y1);
+    // (HULK_GFX_QUAD_COPY=1 forces them, 0 forbids them; default: on for OpenGL): the sink's (SinkCaps::copyTakesPass)
 };
 
 // Stands in for pure3d::d3dContext (vftable 0x433164, 111 slots). 33 slots are the D3D backend's overrides
@@ -302,14 +290,9 @@ class bgfxContext : public bgfxObject {
         unsigned ambient;                     // 35: the ambient light (D3DCOLOR)
     };
     // One light as D3D gets it (FUN_00321310 from the base's light set at +0x50): already in camera space.
-    struct Light {
-        int type;                             // D3D: 1 point, 2 spot, 3 directional (0x4d3a10: pddi 0 dir, 1 point,
-                                              // 2 spot, 3 point)
-        bool on;
-        float diffuse[4];                     // the light colour (also its specular, as the game sets it)
-        float position[3], direction[3];
-        float range, att[3];
-    };
+    // type: D3D 1 point, 2 spot, 3 directional (0x4d3a10: pddi 0 dir, 1 point, 2 spot, 3 point); diffuse: the
+    // light colour (also its specular, as the game sets it). The sink's struct, so packets can point at the set.
+    typedef SinkLight Light;
     enum { kLights = 8 };
     ClearInfo* clearInfo();
     void hostSetClear(unsigned colour, float depth, unsigned stencil);
@@ -321,10 +304,9 @@ class bgfxContext : public bgfxObject {
         int kind;                             // pddi prim kind
         uint32_t count;                       // vertices (no indices) or indices to draw
         uint32_t vertexCount;
-        bool transient;
-        void* tvb;                            // bgfx::TransientVertexBuffer* when transient
-        unsigned vb, ib;                      // bgfx handles (vb: static or dynamic, see dynamic)
-        bool dynamicVb, dynamicIb;
+        uint32_t transient;                   // the sink's transient token (kSinkNone: the buffers below)
+        unsigned vb, ib;                      // sink buffer ids (ib kSinkNone: not indexed)
+        uint32_t owner;                       // the prim buffer's serial (0: a prim stream)
         unsigned flags;                       // the vertex flags (what the program may read)
         const char* program;                  // vertex program name ("" or 0: fixed function)
     };
@@ -363,10 +345,10 @@ class bgfxContext : public bgfxObject {
         float x0, y0, x1, y1;
         float uv[4][4];                       // set i: u0, v0, u1, v1
     };
-    void fxDraw(uint16_t view, uint16_t program, const FxQuad& q, const unsigned* tex, int ntex, uint64_t state,
-                const float* consts, int nconsts, const float* prog);
+    void fxDraw(uint16_t view, uint32_t program, const FxQuad& q, const unsigned* tex, int ntex, uint32_t state,
+                const float* consts, int nconsts, const float* prog);   // program: SinkFxProgram; state: kFx*
     bool fxEnsure();
-    uint64_t stateBits(const bgfxShader* shader, int kind, uint32_t* stencil);
+    void renderState(int kind, SinkRenderState* out);   // the context's (slots 54-80) and D3D's blend, resolved
     void drawlogState(DrawRecord& r);
     int m_base[(0x14c - 8) / 4];              // +8..+0x14c: the portable base's data (see above)
     bgfxDisplay* m_display;
@@ -388,11 +370,7 @@ class bgfxContext : public bgfxObject {
     unsigned m_clearFlags, m_clearRgba;       // what the pending view clears
     float m_clearDepth;
     unsigned m_clearStencil;
-    // bgfx objects (handles as unsigned: bgfx headers stay out of this file)
-    unsigned m_uVc, m_uFrag, m_uTex[4];
-    unsigned m_whiteTex;
-    unsigned m_programs[8];                   // per vertex program with the generic combiner (kPrograms); 0xffff: none
-    bool ensureResources();
+    bool ensureResources();                   // the display is up and the sink's draw resources are made
 
     // ---- the device state the shaders' pass set-up writes (bgfx_combiner.cpp)
     // What the game's shader classes write in their slot 14 (pass set-up) through its d3dContext state cache
@@ -429,7 +407,6 @@ class bgfxContext : public bgfxObject {
         bool cacheLit, cacheTwoSided;         // FUN_00329f70's cache (+0x104, +0x105)
     };
     DeviceState m_d3d;
-    static uint64_t blendState(const DeviceState& d);   // the D3D blend state as bgfx's
     void resetDeviceState();                  // Direct3D's defaults (stage 0 modulate texture, the rest disabled)
     // the game's state-cache helpers the shaders call (d3dSimpleShader.cpp / d3dVertexProgram.cpp of the tree)
     void stageDisable(int stage);                                   // FUN_00329bb0: colour and alpha op disable
@@ -449,17 +426,12 @@ class bgfxContext : public bgfxObject {
     void lightingMaterial(bool lit, bool twoSided, const uint32_t* material, float power);   // FUN_00329f70
     void alphaBlend(bool enable, uint32_t op, int src, int dst);    // FUN_0032a0c0 (pddi factor -> 0x4d4ed0)
     void alphaTest(bool enable, int compare, uint32_t ref);         // FUN_0032a190 (pddi compare -> 0x4d4f04)
-    // The draw's combiner: the canonical key of the active stages ("c4.0.2a4.0.2r1|..."), its hash, the fragment
-    // program for (vertex program, key): one generated per key the shader classes can produce
-    // (shaders/vp/combiners.txt, made by `native_gfx.py combiners`), else the generic combiner with the stages as
-    // uniforms (logged once per key)
+    // The draw's combiner: the canonical key of the active stages ("c4.0.2a4.0.2r1|..."), its hash; the sink picks
+    // the fragment program for (vertex program, key): the bgfx sink one generated per key the shader classes can
+    // produce (shaders/vp/combiners.txt, made by `native_gfx.py combiners`), else the generic combiner with the
+    // stages as uniforms (logged once per key)
     static int combinerKey(const DeviceState& d, char* out, int size);
     static uint32_t combinerHash(const char* key);
-    uint16_t combinerProgram(int vpIndex, const char* key, uint32_t hash, bool* generic);
-    unsigned m_generatedDraws, m_genericDraws;
-    struct ProgramSlot { uint32_t hash; uint16_t vp, program; bool generic; };
-    enum { kProgramSlots = 512 };
-    ProgramSlot m_programCache[kProgramSlots];
     bool m_forceGeneric;                      // the self-test: every draw through the generic combiner
     void combinerStats(int* generated, int* generic, int* draws);   // keys seen with/without a program; draws
     // host builds: the base's matrix stacks 1..3 and its view block, which the game image has in the base's data
@@ -486,9 +458,8 @@ class bgfxContext : public bgfxObject {
     const char* m_streamProgram;              // d3dExtVertexProgram slot 6: the program prim streams draw with (0)
     bgfxTexture* m_fbCopy;                    // a linear texture object over the display's copy (texel coordinates)
     unsigned m_copiesThisFrame;
-    unsigned m_fxUniforms[3], m_fxUniformK, m_fxSamplers[4], m_fxPrograms[2];   // u_fxC, u_fxProg, u_fxTarget;
-                                                                                // u_fxK; s_fx0..3; filter, blur
     unsigned m_fxTargetW, m_fxTargetH;        // the fx view's target size (u_fxTarget)
+    DrawSink* m_sink;                         // the build's sink (draw_sink.h; D3: the front-end/sink split)
 };
 
 // Stands in for pure3d::d3dTexture (vftable 0x4333ac, 21 slots). 4: pixel type, 5/6: width/height, 7: bits per
@@ -543,8 +514,8 @@ class bgfxTexture : public bgfxObject {
     bool init(int width, int height, int bits, int alphaDepth, int mips, int format);
     void upload(int level);
     bgfxContext* m_context;
-    unsigned m_handle;                        // bgfx::TextureHandle (created on first upload: bgfx may not be up yet)
-    unsigned m_width, m_height, m_format, m_mips;
+    unsigned m_handle;                        // the sink's texture (created on first upload: the sink may not be up yet)
+    unsigned m_width, m_height, m_format, m_mips;   // m_format: SinkTextureFormat
     unsigned m_pddiFormat, m_bits, m_alphaBits, m_usage;
     int m_type;                               // LockInfo::type
     int m_lockedLevel;                        // -1: not locked
@@ -566,7 +537,7 @@ class bgfxTexture : public bgfxObject {
     void flush();
     void unqueue();
 };
-void flushPendingTextures(int limit);         // display slot 14, before bgfx::frame
+void flushPendingTextures(int limit);         // display slot 14, before the sink's frame
 
 // Stands in for pure3d::d3dPrimBufferStream (vftable 0x4334f4, 18 slots; no pddiObject base): what a prim buffer's
 // lock (slot 4) hands out to write vertices with. The fields keep the game's record layout (FUN_00326e90 fills
@@ -661,10 +632,10 @@ class bgfxPrimBuffer : public bgfxObject {
     int m_stride;                             // of the packed layout
     bgfxPrimBufferStream m_stream;
     bool m_vertsDirty, m_indicesDirty;
-    int m_uploads;                            // vertex conversions so far (the second makes the buffer dynamic)
-    unsigned m_vb, m_ib;                      // bgfx handles (0xffff: none)
-    bool m_dynamicVb, m_dynamicIb;
-    bool prepare();                           // the bgfx buffers up to date with the CPU copy (draw time)
+    int m_uploads;                            // vertex conversions so far (the bgfx sink: the second makes it dynamic)
+    unsigned m_vb, m_ib;                      // the sink's buffers (0xffff: none)
+    uint32_t m_serial;                        // ours: the buffer's id in draw packets (stable for its life)
+    bool prepare();                           // the sink's buffers up to date with the CPU copy (draw time)
 };
 
 // Stands in for pure3d::d3dPrimStream (vftable 0x432578: d3dBasePrimStream's 2 slots), what bgfxContext::vfunc_30
@@ -1036,10 +1007,6 @@ int packedStride(unsigned flags);
 void packedOffsets(unsigned flags, int* weights, int* indices, int* normal, int* colours, int* colour2, int* uv,
                    int* extra);
 void shaderDestroyed(bgfxShader* shader);
-void releaseBuffers(unsigned vb, bool dynamicVb, unsigned ib, bool dynamicIb);
-// a program from two embedded shaders (0xffff when the renderer has no build of either, or bgfx refuses the pair)
-unsigned loadProgram(const char* vs, const char* fs);
-bool hasEmbeddedShader(const char* name);
 
 // bgfx_combiner.cpp: every combiner key the shader classes can produce (tools/native_gfx.py combiners)
 int enumerateCombinerKeys(bgfxContext* ctx, void (*out)(const char* key, const char* example));

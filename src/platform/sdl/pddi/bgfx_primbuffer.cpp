@@ -11,6 +11,7 @@ namespace hulk {
 namespace pddi {
 
 enum { kNoHandle = 0xffff };
+static uint32_t s_serials;      // prim buffer ids for draw packets (DrawPacket::bufferOwner)
 
 static const unsigned kKindToD3D[5] = {5, 6, 2, 4, 1};      // 0x4d3ea8 (the same as 0x4d3650)
 
@@ -26,8 +27,7 @@ bgfxPrimBuffer::bgfxPrimBuffer(bgfxContext* context, int kind, unsigned flags, i
       m_vertexCount(vertexCount > 0 ? vertexCount : 0), m_indexCapacity(indexCount > 0 ? indexCount : 0),
       m_indexCount(0), m_overrideCount(0), m_indices(0), m_vertices(0), m_locked(0), m_indexLocked(0),
       m_rawLocked(0), pad37(0), m_context(context), m_program(""), m_stride(packedStride(flags)),
-      m_vertsDirty(false), m_indicesDirty(false), m_uploads(0), m_vb(kNoHandle), m_ib(kNoHandle),
-      m_dynamicVb(false), m_dynamicIb(false)
+      m_vertsDirty(false), m_indicesDirty(false), m_uploads(0), m_vb(kNoHandle), m_ib(kNoHandle), m_serial(++s_serials)
 {
     if ((flags & 0x80) && !(program && *program))
         m_program = (flags & 0x100) ? "skin" : "skin_onebone";
@@ -43,7 +43,8 @@ bgfxPrimBuffer::~bgfxPrimBuffer()
 {
     free(m_vertices);
     free(m_indices);
-    releaseBuffers(m_vb, m_dynamicVb, m_ib, m_dynamicIb);
+    if (m_vb != kNoHandle || m_ib != kNoHandle)
+        drawSink()->destroyBuffers(m_vb, m_ib);
 }
 
 // slot 4 (0x327190): lock the vertices -> a stream laid out over them (the game takes one of four records at
