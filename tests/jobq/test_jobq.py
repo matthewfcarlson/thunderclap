@@ -143,6 +143,25 @@ class Fairness(unittest.TestCase):
                 c.execute("UPDATE jobs SET state='cancelled' WHERE name LIKE 'fair-%'")
 
 
+class Lending(unittest.TestCase):
+    """Reserved slots a big job leaves idle (load well below `used`) go to 1-slot jobs, within the core count."""
+
+    def test_idle_reserved_slots_lent(self):
+        h = mkhost("h", ["equiv"], cap=8, used=8)          # an 8-slot build holds the host...
+        h.load, h.ncpu = 1.0, 16                            # ...but is in a one-core phase
+        h.lend_budget = max(0, min(int(h.used - h.load) - 1, h.ncpu - 1 - int(h.load)))
+        self.assertEqual(h.lend_budget, 6)
+        self.assertTrue(h.eligible(job(slots=1), time.time()))
+        self.assertFalse(h.eligible(job(slots=2), time.time()))   # only 1-slot jobs borrow
+        h.lend_budget = 0
+        self.assertFalse(h.eligible(job(slots=1), time.time()))   # nothing idle: no loan
+
+    def test_busy_host_lends_nothing(self):
+        h = mkhost("h", ["equiv"], cap=8, used=8)
+        h.load, h.ncpu = 7.5, 8                             # the reserved slots really are busy
+        self.assertEqual(max(0, min(int(h.used - h.load) - 1, h.ncpu - 1 - int(h.load))), 0)
+
+
 class RoundTrip(unittest.TestCase):
     """A real daemon with the local host only: success, failure exit, overlay file, output fetch, timeout retry, cancel."""
 

@@ -470,6 +470,7 @@ class Host:
         self.used = 0
         self.xemu_used = 0
         self.load, self.ncpu = 0.0, 1
+        self.lend_budget = 0
         self.fails = 0
         self.down_until = 0
         self.ok = self.bad = 0
@@ -523,6 +524,9 @@ class Host:
         self.load, self.ncpu = float(load), int(ncpu)
         foreign = max(0.0, self.load - 0.9 * self.used)
         self.cap = max(self.min_slots, min(self.slots_cfg, int(self.ncpu - foreign) + 2))
+        # Idle reserved slots: a big job (a Wine build reserves 8) spends long phases on one core. While the load shows
+        # reserved slots sitting idle, 1-slot jobs may borrow them, at most until the real load would reach the core count.
+        self.lend_budget = 0 if self.local else max(0, min(int(self.used - self.load) - 1, self.ncpu - 1 - int(self.load)))
         self.next_probe = time.time() + 30
         self.ready = True
         return True
@@ -542,6 +546,8 @@ class Host:
         if not capacity:
             return self.cap >= job["slots"] or (self.cap > 0 and (not self.local or needs == "wine-gfx"))
         if self.cap - self.used >= job["slots"]:
+            return True
+        if job["slots"] == 1 and self.lend_budget >= 1:      # borrow an idle reserved slot (probe)
             return True
         # an idle remote may take a job bigger than its load-sized cap (it would starve otherwise); the laptop never
         # does, except for what only it can run: it also hosts the interactive work and native gfx runs
@@ -795,6 +801,8 @@ class Daemon:
                 continue
             job = dict(job)
             with self.lock:
+                if h.cap - h.used < job["slots"]:        # beyond the cap: it borrowed an idle reserved slot
+                    h.lend_budget -= job["slots"]
                 h.used += job["slots"]
                 if job["needs"] == "xemu" or "xemu" in job["cmd"].lower():
                     h.xemu_used += 1
