@@ -588,14 +588,16 @@ the single-player game, in both builds, keeps its replay equality with the origi
 |---|---|---|
 | **C0 Feasibility** | Map how the game owns "the player": the Hulk singleton and the systems that assume one (camera, HUD, input agent `CControllerAgent`, targeting, mission scripts and Lua bindings, save data, AI aggro and the fight system's player references). Decide which second character fits: a second Hulk instance or a playable variant. List every place that reads the player and how each would generalise. | A written plan in this section with the touch-point list and a size estimate |
 | **C1 Local co-op** | A second input device on the SDL layer. A second player character spawned and driven by its own controller agent. A shared camera that frames both (or a split screen, which the remaster renderer can draw as two views). The HUD for two. Mission logic that tolerates two players (fail, respawn, objectives). | Two players can finish a mission locally. With one player, replays are unchanged. |
-| **C2 Online co-op** | Deterministic lockstep: exchange inputs only, building on what the replay work already proved (fixed dt, virtual clock, the lockstep handoff, RNG determinism, checkpoint hashes as desync detection). Rollback is an option if latency demands it. | Two machines stay in sync over a mission. Checkpoint hashes match, and a desync is detected and reported. |
+| **C2 Online co-op (rollback)** | Rollback netcode (user's choice, 2026-10-26): each machine runs ahead on predicted inputs. When real inputs arrive it restores the last confirmed state and re-simulates. Needs (1) bit-identical simulation on both machines (below); (2) a fast whole-state save and restore every frame, by snapshotting the game heaps with dirty-page tracking or by serialization (the original's ~64 MB budget helps); (3) re-simulating several frames inside one, which native builds afford; (4) no side effects while re-simulating (audio, effects and rendering are kept out). Fallback if snapshots prove too costly: host-authoritative state sync with client-side prediction, which needs no determinism. | Mac (arm64) and SteamOS (x86-64) players stay in sync through a mission with simulated latency and loss. Checkpoint hashes match; a desync is detected and reported. |
 
 Notes:
 - Co-op touches game code (matches/ and equivalent/ sources). Each change sits behind `HULK_COOP` and keeps every
   proof valid with the flag off, the same way `__clang__` twins do.
-- Online play relies on cross-platform float determinism between SteamOS (x86-64) and macOS (arm64). The x87/SSE
-  work (docs/wine-float.md, soft-x87) and the native builds must give identical simulation results on both. That's a
-  prerequisite to verify early, with cross-machine replays of play3.
+- Rollback (like lockstep) relies on cross-platform float determinism between SteamOS (x86-64) and macOS (arm64).
+  This isn't automatic, but it's within reach: no x87 on the native builds (IEEE float with a fixed eval method and
+  `-ffp-contract=off`, so no fused multiply-adds), the soft-x87 routines for sin/atan2/pow instead of each OS's libm
+  (docs/soft-x87.md), and no host-dependent library code in the simulation. The test is to run play3 natively on both
+  platforms and compare every checkpoint hash. Do it as soon as both native builds run.
 - Co-op and the remaster are independent. Either can ship without the other.
 
 ## 7. Decisions for the user
